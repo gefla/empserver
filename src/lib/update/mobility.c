@@ -51,6 +51,10 @@ extern int timestamp_fixing;
 extern int update_pending;
 int do_upd_checking = 0;
 
+static void do_mob_land(register struct lndstr *, register int);
+static void do_mob_plane(register struct plnstr *, register int);
+static void do_mob_sect(register struct sctstr *sp, register int etus);
+static void do_mob_ship(register struct shpstr *, register int);
 
 int
 increase_mob(time_t * counter, float mult)
@@ -239,7 +243,7 @@ mob_sect(register int etus)
     }
 }
 
-void
+static void
 do_mob_sect(register struct sctstr *sp, register int etus)
 {
     extern float sect_mob_scale;
@@ -279,7 +283,7 @@ mob_ship(register int etus)
     }
 }
 
-void
+static void
 do_mob_ship(register struct shpstr *sp, register int etus)
 {
     extern int ship_mob_max;
@@ -392,7 +396,7 @@ mob_land(register int etus)
     }
 }
 
-void
+static void
 do_mob_land(register struct lndstr *lp, register int etus)
 {
     extern int land_mob_max;
@@ -539,7 +543,7 @@ mob_plane(register int etus)
     }
 }
 
-void
+static void
 do_mob_plane(register struct plnstr *pp, register int etus)
 {
     extern int plane_mob_max;

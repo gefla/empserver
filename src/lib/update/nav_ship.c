@@ -54,8 +54,9 @@
 #include <stdlib.h>
 
 extern int check_nav(struct sctstr *sect);
+static void swap(register struct shpstr *);
 
-void
+static void
 scuttle_it(register struct shpstr *sp)
 {
     struct sctstr *sectp;
@@ -116,7 +117,7 @@ nav_check_atdest(register struct shpstr *sp, struct mchrstr *mcp)
 /* flip the 2 fields that deal with autonav movement. */
 /* CZ 6/1/94					      */
 
-void
+static void
 swap(register struct shpstr *sp)
 {
     coord tcord;

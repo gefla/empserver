@@ -53,9 +53,13 @@
  * format:  spy <SECTS>
  *
  */
-static void spyline(struct sctstr *sp);
-static void insert(coord *table, int *len, coord x, coord y);
+
 static int check(coord *table, int *len, coord x, coord y);
+static void insert(coord *table, int *len, coord x, coord y);
+static int num_units(int, int);
+static void prplanes(int, int);
+static void prunits(int, int);
+static void spyline(struct sctstr *sp);
 
 int
 spy(void)
@@ -256,7 +260,7 @@ check(coord *table, int *len, coord x, coord y)
     return 0;
 }
 
-int
+static int
 num_units(int x, int y)
 {
     struct lndstr land;
@@ -275,7 +279,7 @@ num_units(int x, int y)
     return n;
 }
 
-void
+static void
 prunits(int x, int y)
 {
     struct lndstr land;
@@ -311,7 +315,7 @@ prunits(int x, int y)
     }
 }
 
-void
+static void
 prplanes(int x, int y)
 {
     struct plnstr plane;

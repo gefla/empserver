@@ -49,6 +49,14 @@
 #include "gen.h"
 #include "subs.h"
 
+static int grow_people(struct sctstr *, register int,
+		       register struct natstr *, int *, int,
+		       register int *);
+static int growfood(struct sctstr *, register int *, int, int);
+static void starvation(struct sctstr *);
+static void trunc_people(struct sctstr *, register struct natstr *,
+			 register int *);
+
 /*
  * feed the individual sector
  *
@@ -136,7 +144,7 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
     return sctwork;
 }
 
-int
+static int
 growfood(struct sctstr *sp, register int *vec, int work, int etu)
 {
     extern double fgrate;
@@ -244,7 +252,7 @@ feed_people(register int *vec, int etu, int *needed)
 /*
  * Truncate any extra people that may be around
  */
-void
+static void
 trunc_people(struct sctstr *sp, register struct natstr *np,
 	     register int *vec)
 {
@@ -262,7 +270,7 @@ trunc_people(struct sctstr *sp, register struct natstr *np,
  * rate limitation on countries with high tech
  * production?  Maybe with just high education?
  */
-int
+static int
 grow_people(struct sctstr *sp, register int etu,
 	    register struct natstr *np, int *workp, int sctwork,
 	    register int *vec)
@@ -324,7 +332,7 @@ grow_people(struct sctstr *sp, register int etu,
 /*
  * percentage of people who starved
  */
-void
+static void
 starvation(struct sctstr *sp)
 {
     sp->sct_work = 0;

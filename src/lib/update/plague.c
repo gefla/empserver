@@ -47,6 +47,9 @@
 #include "lost.h"
 #include "gen.h"
 
+static int infect_people(struct natstr *, register int *, u_int, int,
+			 struct sctstr *);
+
 void
 do_plague(struct sctstr *sp, struct natstr *np, int etu)
 {
@@ -119,7 +122,7 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 }
 
 /*ARGSUSED*/
-int
+static int
 infect_people(struct natstr *np, register int *vec, u_int eff, int mobil,
 	      struct sctstr *sp)
 {

@@ -45,6 +45,10 @@
 #include "common.h"
 #include "optlist.h"
 
+static void materials_charge(struct pchrstr *, register int *,
+			     register int);
+static int materials_cost(struct pchrstr *, register int *, int *);
+
 s_char *levelnames[] =
     { "Technology", "Research", "Education", "Happiness" };
 
@@ -186,7 +190,7 @@ produce(struct natstr *np, struct sctstr *sp, int *vec, int work,
     return 0;
 }
 
-int
+static int
 materials_cost(struct pchrstr *product, register int *vec, int *costp)
 {
     register u_char *vp;
@@ -212,7 +216,7 @@ materials_cost(struct pchrstr *product, register int *vec, int *costp)
     return count;
 }
 
-void
+static void
 materials_charge(struct pchrstr *product, register int *vec,
 		 register int count)
 {

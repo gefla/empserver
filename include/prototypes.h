@@ -78,7 +78,6 @@ extern emp_sig_t empth_alarm(int sig);
 
 /* src/lib/empthread/pthread.c */
 #ifdef _EMPTH_POSIX
-extern void *empth_start(void *ctx);
 extern int empth_init(char **ctx_ptr, int flags);
 extern empth_t *empth_create(int prio, void (*entry) (),
 			     int size, int flags,
@@ -109,13 +108,8 @@ extern int atta(void);
 extern int bdes(void);
 extern int best(void);
 extern int boar(void);
-extern int pinflak_planedamage(struct plnstr *, struct plchrstr *, natid,
-			       int);
 extern int bomb(void);
 extern int brea(void);
-extern s_char *dotsprintf(s_char *, s_char *, int);
-extern int goodsect(char);
-extern void prexpense(long, int *, s_char, int);
 extern int budg(void);
 extern int buil(void);
 extern int buy(void);
@@ -123,10 +117,6 @@ extern int check_market(void);
 extern int capi(void);
 extern int carg(void);
 extern int lcarg(void);
-extern int cede_sect(struct nstr_sect *, natid);
-extern void grab_sect(register struct sctstr *, natid);
-extern int cede_ship(struct nstr_item *, natid);
-extern void grab_ship(register struct shpstr *, natid);
 extern int cede(void);
 extern int cens(void);
 extern void set_coastal(struct sctstr *);
@@ -135,15 +125,12 @@ extern int coas(void);
 extern int coll(void);
 extern int comm(void);
 extern int cons(void);
-extern long do_conv(struct nstr_sect, int, int);
 extern int conv(void);
 extern int coun(void);
 extern int cuto(void);
 extern int decl(void);
 extern int deli(void);
-extern long do_demo(struct natstr *, struct nstr_sect, int, s_char *, int);
 extern int demo(void);
-extern long do_desi(struct natstr *, s_char *, s_char *, long, int);
 extern int desi(void);
 extern int disa(void);
 extern int diss(void);
@@ -151,14 +138,7 @@ extern int dist(void);
 extern int drop(void);
 extern int dump(void);
 extern int echo(void);
-extern int doland(s_char, int, s_char *, struct sctstr *);
-extern int docountry(s_char, int, s_char *, float, natid, struct natstr *);
-extern int doship(s_char, int, s_char *, struct shpstr *);
-extern int dounit(s_char, int, s_char *, struct lndstr *);
-extern int doplane(s_char, int, s_char *, struct plnstr *);
 extern int edit(void);
-extern int getin(s_char **, s_char **, int *, s_char *);
-extern int errcheck(int, int, int);
 extern int enab(void);
 extern int enli(void);
 extern int explore(void);
@@ -171,7 +151,6 @@ extern int fly(void);
 extern int foll(void);
 extern int force(void);
 extern int fort(void);
-extern int is_engineer(int, int);
 extern int fuel(void);
 extern int give(void);
 extern int grin(void);
@@ -198,12 +177,7 @@ extern int map(void);
 extern int march(void);
 extern int mark(void);
 extern int display_mark(s_char *);
-extern int quiet_bigdef(int, struct emp_qelem *, natid, natid, coord,
-			coord, int *);
 extern int multifire(void);
-extern void use_ammo(struct emp_qelem *);
-extern void do_defdam(struct emp_qelem *, double);
-extern void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
 extern int mine(void);
 extern int landmine(void);
 extern int mission(void);
@@ -220,7 +194,6 @@ extern int navi(void);
 extern int nav_map(int, int, int);
 extern int ndump(void);
 extern int new(void);
-extern int deity_build_land(int, coord, coord, natid, int);
 extern int newe(void);
 extern int news(void);
 extern int nuke(void);
@@ -236,7 +209,6 @@ extern int pdump(void);
 extern int plan(void);
 extern int play(void);
 extern int powe(void);
-extern int set_target(s_char *, int *);
 extern int count_pop(register int);
 extern int prod(void);
 extern int pstat(void);
@@ -261,7 +233,6 @@ extern int scra(void);
 extern int scuttle_tradeship(struct shpstr *, int);
 extern int scut(void);
 extern void scuttle_ship(struct shpstr *);
-extern void scuttle_land(struct lndstr *);
 extern int sdump(void);
 extern int sct(void);
 extern int sell(void);
@@ -280,12 +251,8 @@ extern int sinfra(void);
 extern int skyw(void);
 extern int line_of_sight(s_char **rad, int ax, int ay, int bx, int by);
 extern int sona(void);
-extern int blankrow(s_char *);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplook *);
 extern int spy(void);
-extern int num_units(int, int);
-extern void prunits(int, int);
-extern void prplanes(int, int);
 extern int sstat(void);
 extern int start(void);
 extern int stop(void);
@@ -294,21 +261,14 @@ extern int starve(void);
 extern int supp(void);
 extern int surv(void);
 extern int swaps(void);
-extern void print_res(struct sctstr *);
 extern int tele(void);
 extern int tend(void);
 extern int tend_nxtitem(struct nstr_item *, caddr_t);
 extern int terr(void);
 extern int thre(void);
 extern int togg(void);
-extern void anti_torp(int, int, int);
-extern void fire_dchrg(struct shpstr *, struct shpstr *, int, int);
 extern s_char *prsub(struct shpstr *);
 extern int torp(void);
-extern int canshoot(struct shpstr *, struct shpstr *);
-extern int cantorp(struct shpstr *, struct shpstr *);
-extern int fire_torp(struct shpstr *, struct shpstr *, int, int);
-extern int candchrg(struct shpstr *, struct shpstr *);
 extern int trad(void);
 extern int check_trade(void);
 extern int ontradingblock(int, int *);
@@ -318,15 +278,11 @@ extern int trea(void);
 extern int turn(void);
 extern int upda(void);
 extern int upgr(void);
-extern int supgr(void);
-extern int pupgr(void);
-extern int lupgr(void);
 extern int vers(void);
 extern int wai(void);
 extern int wing(void);
 extern int wipe(void);
 extern int work(void);
-extern int buildeff(struct sctstr *, int, double *);
 extern int zdon(void);
 
 /*
@@ -377,11 +333,8 @@ extern int adj_units(coord, coord, natid);
 /* log.c */
 extern void loginit(void);
 extern void logerror(s_char *, ...);
-extern void filelogerror(s_char *, ...);
 /* maps.c */
 extern int draw_map(int, s_char, int, struct nstr_sect *, int);
-extern int bmnxtsct(register struct nstr_sect *);
-extern void bitinit2(struct nstr_sect *, u_char *, int);
 extern int unit_map(int, int, struct nstr_sect *, s_char *);
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, s_char, s_char *);
@@ -392,8 +345,6 @@ extern s_char *decodep(long, void *);
 extern int decode(natid, long, void *, int);
 extern int nstr_exec(struct nscstr *, register int, void *, int);
 /* path.c */
-extern s_char *bp_init(void);
-extern int best_path(struct sctstr *, struct sctstr *, s_char *, int);
 extern void bp_enable_cachepath();
 extern void bp_disable_cachepath();
 extern void bp_clear_cachepath();
@@ -469,8 +420,6 @@ extern int getfdtablesize(void);
 extern void setfdtablesize(int, int);
 extern s_char *getstarg(s_char *, s_char *, s_char *);
 extern s_char *getstring(s_char *, s_char *);
-extern int ifloor(double);
-extern int iceil(double);
 #if !defined(_WIN32)
 extern s_char *inet_ntoa(struct in_addr);
 #endif
@@ -481,7 +430,6 @@ extern int diffy(int, int);
 extern int deltax(int, int);
 extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
-extern int mapdsq(int, int, int, int);
 extern double dmin(double, double);
 #if !defined(_WIN32)
 extern int max(int, int);
@@ -501,23 +449,15 @@ extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int same(register s_char *, register s_char *);
 extern int scthash(register int, register int, int);
-extern void blocksig(void);
-extern void unblocksig(void);
-extern const s_char *signame(int);
 #ifdef NOSTRDUP
 extern char *strdup(char *x);
 #endif
-extern int strscan(s_char *target, s_char *string);
 
 
 /*
  * src/lib/global/ *.c 
  */
 extern void global_init(void);
-extern void init_pchr(void);
-extern void init_mchr(void);
-extern void init_plchr(void);
-
 
 
 /*
@@ -548,18 +488,8 @@ extern int getminleft(time_t, int *, int *);
 /* empmod.c */
 /* init_nats.c */
 extern int init_nats(void);
-extern int nat_cap(int);
 /* login.c */
 extern void player_login(void *);
-extern int client_cmd(struct player *, int, char **);
-extern int user_cmd(struct player *, int, char **);
-extern int sanc_cmd(struct player *, int, char **);
-extern int coun_cmd(struct player *, int, char **);
-extern int pass_cmd(struct player *, int, char **);
-extern int play_cmd(struct player *, int, char **);
-extern int kill_cmd(struct player *, int, char **);
-extern int list_cmd(struct player *, int, char **);
-extern int quit_cmd(struct player *, int, char **);
 /* nat.c */
 extern int natbyname(s_char *, natid *);
 extern int natpass(int, s_char *);
@@ -610,7 +540,6 @@ extern int shipdef(natid, natid, coord, coord);
 extern int emp_getbit(int, int, u_char *);
 extern void emp_setbit(int, int, u_char *);
 extern void emp_setbitmap(int, int, u_char *, int *);
-extern void emp_bitinit(struct nstr_sect *, u_char *);
 /* getele.c */
 extern int getele(s_char *, s_char *);
 /* land.c */
@@ -636,35 +565,19 @@ extern int islist(s_char *);
 extern s_char *mission_name(short);
 extern s_char *nameofitem(s_char *, struct genitem *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
-extern int dosupport(struct genlist *, coord, coord, natid, natid);
-extern void build_mission_list(struct genlist *, coord, coord, int, natid);
-extern void build_mission_list_type(struct genlist *, coord, coord, int,
-				    int, natid);
-extern int perform_mission(coord, coord, natid, struct emp_qelem *, int,
-			   s_char *, int);
-extern void mission_pln_sel(struct emp_qelem *, int, int, int);
-extern int mission_pln_arm(struct emp_qelem *, coord, coord, int,
-			   int, struct ichrstr *, int, int, int *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int,
 			     s_char);
-extern int find_airport(struct emp_qelem *, coord, coord);
-extern void add_airport(struct emp_qelem *, coord, coord);
-extern void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
-extern int air_damage(struct emp_qelem *, coord, coord, int, natid,
-		      s_char *, int);
 extern int ground_interdict(coord, coord, natid, s_char *);
 extern int unit_interdict(coord, coord, natid, s_char *, int, int);
 extern int off_support(coord, coord, natid, natid);
 extern int def_support(coord, coord, natid, natid);
 extern int oprange(struct genitem *, int, int *);
-extern void find_escorts(coord, coord, natid, struct emp_qelem *);
 extern int cando(int, int);
 extern s_char *mission_short_name(int);
 extern void show_mission(int, struct nstr_item *);
 extern int air_defense(coord, coord, natid, struct emp_qelem *,
 		       struct emp_qelem *);
 /* move.c */
-extern int move_map(s_char *, coord, coord, s_char *);
 extern int check_lmines(coord, coord, double);
 extern int move_ground(s_char *, struct sctstr *, struct sctstr *,
 		       double, double, s_char *,
@@ -689,7 +602,6 @@ extern int natarg(s_char *, s_char *);
 extern int neigh(coord, coord, natid);
 /* nreport.c */
 extern void nreport(natid, int, natid, int);
-extern void filereport(int, int, int, int);
 /* nuke.c */
 extern int nuk_postread(int, s_char *);
 extern int nuk_prewrite(int, s_char *);
@@ -707,7 +619,6 @@ extern int pln_prewrite(int, s_char *);
 extern void pln_init(int, s_char *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
-extern int pln_equip(struct plist *, struct ichrstr *, int, s_char);
 extern int pln_onewaymission(struct sctstr *, int *, int *);
 extern void pln_newlanding(struct emp_qelem *, coord, coord, int);
 extern int can_be_on_ship(int, int);
@@ -739,7 +650,6 @@ extern void pr_inform(struct player *, s_char *, ...);
 extern void pr_wall(s_char *, ...);
 extern void pr_player(struct player *pl, int id, s_char *buf);
 extern void pr_hilite(s_char *buf);
-extern void outid(struct player *pl, int n);
 extern void prredir(s_char *redir);
 extern void prexec(s_char *file);
 extern void prprompt(int min, int btu);
@@ -753,7 +663,6 @@ extern void pr_beep(void);
 extern void mpr(int, s_char *, ...);
 
 /* radmap.c */
-extern void radmap2(int, int, int, int, int, double, int);
 extern int deltx(struct range *, coord);
 		/* Prototype include a typedef name.
 		   It should be moved after the typedef declaration */
@@ -769,16 +678,12 @@ extern int setcont(natid, natid, int);
 extern int setrej(natid, natid, int, int);
 /* retreat.c */
 extern void retreat_ship(struct shpstr *, s_char);
-extern int retreat_ship1(struct shpstr *, s_char, int);
-extern int findcondition(s_char);
 extern void retreat_land(struct lndstr *, s_char);
-extern int retreat_land1(struct lndstr *, s_char, int);
 extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
 extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 /* sarg.c */
 extern int sarg_type(s_char *);
 extern int sarg_xy(s_char *, coord *, coord *);
-extern int sarg_getrange(s_char *, register struct range *);
 extern int sarg_area(s_char *, register struct range *);
 extern int sarg_range(s_char *, coord *, coord *, int *);
 extern int sarg_list(s_char *, register int *, int);
@@ -788,7 +693,6 @@ extern void satmap(int, int, int, int, int, int);
 extern void sathead(void);
 /* sect.c */
 extern int sct_postread(int, s_char *);
-extern int checksect(struct sctstr *);
 extern int sct_prewrite(int, s_char *);
 extern int issector(s_char *);
 extern void sct_init(coord, coord, s_char *);
@@ -798,7 +702,6 @@ extern int shp_postread(int, s_char *);
 extern int shp_prewrite(int, s_char *);
 extern void shp_init(int, s_char *);
 /* show.c */
-extern void sort_lookup_list(void);
 extern void show_bridge(int);
 extern void show_tower(int);
 extern void show_item(int);
@@ -820,15 +723,9 @@ extern void show_sect_capab(int);
 /* shpsub.c */
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
-extern int shp_check_one_mines(struct mlist *);
 extern int shp_sweep(struct emp_qelem *, int, natid);
-extern int shp_interdict(struct emp_qelem *, coord, coord, natid);
-extern void shp_mess(s_char *, struct mlist *);
-extern int shp_check_mines(struct emp_qelem *);
-extern int shp_check_nav(struct sctstr *);
 extern s_char *shp_path(int, struct shpstr *, s_char *);
 extern void shp_put(struct emp_qelem *, natid);
-extern int shp_hit_mine(struct shpstr *, struct mchrstr *);
 extern void shp_list(struct emp_qelem *);
 extern int shp_hardtarget(struct shpstr *);
 extern void shp_view(struct emp_qelem *);
@@ -842,12 +739,8 @@ extern int snxtsct(register struct nstr_sect *, s_char *);
 /* supply.c */
 extern void resupply_all(struct lndstr *);
 extern void resupply_commod(struct lndstr *, int);
-extern int get_minimum(struct lndstr *, int);
 extern int supply_commod(int, int, int, int, int);
-extern int s_commod(int, int, int, int, int, int);
 extern int try_supply_commod(int, int, int, int, int);
-extern s_char *itemname(int);
-extern int at_minimum(struct lndstr *, int);
 extern int has_supply(struct lndstr *);
 extern int use_supply(struct lndstr *);
 /* takeover.c */
@@ -867,8 +760,6 @@ extern struct ichrstr *whichitem(char);
 extern int trechk(register natid, register natid, int);
 /* whatitem.c */
 extern struct ichrstr *whatitem(s_char *, s_char *);
-/* wire.c */
-extern int typed_wire(natid, natid, s_char *, int);
 /* wu.c */
 extern void clear_telegram_is_new(natid);
 extern int typed_wu(natid, natid, s_char *, int);
@@ -896,39 +787,21 @@ extern void finish_sects(int);
 /* human.c */
 extern int do_feed(register struct sctstr *, register struct natstr *,
 		   int *, int *, int *, int);
-extern int growfood(struct sctstr *, register int *, int, int);
 extern int feed_people(register int *, int, int *);
-extern void starvation(struct sctstr *);
-extern int grow_people(struct sctstr *, register int,
-		       register struct natstr *, int *, int,
-		       register int *);
-extern void trunc_people(struct sctstr *, register struct natstr *,
-			 register int *);
 /* land.c */
-extern void upd_land(register struct lndstr *, int, register int,
-		     struct natstr *, int *, int);
 extern int prod_land(int, int, int *, int);
-extern int landrepair(register struct lndstr *, int *, struct natstr *,
-		      int *, int);
 extern int feed_land(struct lndstr *, register int *, int, int *, int);
 extern int plague_land(struct lndstr *, struct natstr *, register int *,
 		       register int *, int);
 /* main.c */
 extern void update_main(void *);
-extern void do_prod(int, int, int, int *, long int (*)[2], int *, int *,
-		    int *, int *, int *, int *);
 /* material.c */
 extern void get_materials(struct sctstr *, int *, int *, int);
 /* mobility.c */
 extern void mob_sect(register int);
-extern void do_mob_sect(register struct sctstr *, register int);
 extern void mob_ship(register int);
-extern void do_mob_ship(register struct shpstr *, register int);
 extern void mob_land(register int);
-extern void do_mob_land(register struct lndstr *, register int);
 extern void mob_plane(register int);
-extern void do_mob_plane(register struct plnstr *, register int);
-extern void do_mob_sect(register struct sctstr *sp, register int etus);
 extern void update_all_mob(void);
 extern void update_timestamps(time_t offset);
 extern void sct_do_upd_mob(register struct sctstr *sp);
@@ -939,12 +812,8 @@ extern void pln_do_upd_mob(register struct plnstr *pp);
 extern void move_sat(register struct plnstr *);
 /* nat.c */
 extern double logx(double, double);
-extern double limit_level(double, int, int);
 extern void prod_nat(int);
-extern void share_incr(register double *, register double *);
 /* nav_ship.c */
-extern void scuttle_it(register struct shpstr *);
-extern void swap(register struct shpstr *);
 extern int nav_ship(register struct shpstr *);
 /* nav_util.c */
 extern int check_nav(struct sctstr *);
@@ -959,8 +828,6 @@ extern s_char *nxtitemp(struct nstr_item *, int);
 extern struct sctstr *nxtsctp(register struct nstr_sect *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
-extern int infect_people(struct natstr *, register int *, u_int, int,
-			 struct sctstr *);
 extern int plague_people(struct natstr *, register int *, register int *,
 			 int);
 /* plane.c */
@@ -979,35 +846,22 @@ extern int bank_income(struct sctstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, int *, int, int, int,
 		   int, int *, int *);
-extern int materials_cost(struct pchrstr *, register int *, int *);
-extern void materials_charge(struct pchrstr *, register int *,
-			     register int);
 /* removewants.c */
 extern int update_removewants(void);
 /* revolt.c */
-extern void take_casualties(struct sctstr *, int);
 extern void revolt(struct sctstr *);
 extern void guerrilla(struct sctstr *);
 /* sail.c */
-extern void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 extern void sail_ship(natid);
 /* sect.c */
 extern int dodeliver(struct sctstr *, int *);
-extern int upd_buildeff(struct natstr *, register struct sctstr *, int *,
-			int *, int, int *, int, int *);
-extern int enlist(register int *, int, int *);
-extern void meltitems(int, int, int, int *, int, int, int, int);
 extern void do_fallout(register struct sctstr *, register int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(int natnum, int etu, int *bp,
 			 long int (*p_sect)[2], int sector_type);
 /* ship.c */
-extern void upd_ship(register struct shpstr *, int, register int,
-		     struct natstr *, int *, int);
 extern int prod_ship(int, int, int *, int);
-extern int shiprepair(register struct shpstr *, int *, struct natstr *,
-		      int *, int);
 extern int feed_ship(struct shpstr *, register int *, int, int *, int);
 
 /*

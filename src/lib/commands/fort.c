@@ -44,6 +44,8 @@
 #include "file.h"
 #include "commands.h"
 
+static int is_engineer(int, int);
+
 int
 fort(void)
 {
@@ -141,7 +143,7 @@ fort(void)
     return RET_OK;
 }
 
-int
+static int
 is_engineer(int x, int y)
 {
     struct nstr_item ni;

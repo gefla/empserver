@@ -67,14 +67,14 @@ extern double obrate, uwbrate;
 extern int etu_per_update;
 extern double money_res;
 
-s_char *dotsprintf(s_char *buf, s_char *format, int data);
-int goodsect(char c);
-void prexpense(long int cash, int *expensesp, s_char priority, int amount);
 static void calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
+static s_char *dotsprintf(s_char *buf, s_char *format, int data);
+static int goodsect(char c);
+static void prexpense(long int cash, int *expensesp, s_char priority, int amount);
 
 int
 budg(void)
@@ -463,7 +463,7 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
     free(bp);
 }
 
-int
+static int
 goodsect(char c)
 {
     register int x;
@@ -475,14 +475,14 @@ goodsect(char c)
     return 0;
 }
 
-s_char *
+static s_char *
 dotsprintf(s_char *buf, s_char *format, int data)
 {
     sprintf(buf, format, data);
     return (s_char *)memset(buf, '.', strspn(buf, " "));
 }
 
-void
+static void
 prexpense(long int cash, int *expensesp, s_char priority, int amount)
 {
     if (cash > *expensesp) {

@@ -90,7 +90,7 @@ sarg_xy(s_char *ptr, coord *xp, coord *yp)
 }
 
 /* returns absolute coords */
-int
+static int
 sarg_getrange(s_char *buf, register struct range *rp)
 {
     register int rlm;

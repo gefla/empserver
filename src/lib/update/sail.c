@@ -50,6 +50,8 @@
 #include "common.h"
 #include <stdlib.h>
 
+static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
+
 static void
 cost_ship(struct shpstr *sp, struct fltelemstr *ep, struct fltheadstr *fp)
 {
@@ -331,7 +333,7 @@ sail_ship(natid cn)
 
 /* The following is a total hack by Ken Stevens to cut down dramatically on repeated code 1995 */
 
-void
+static void
 fltp_to_list(struct fltheadstr *fltp, struct emp_qelem *list)
 {
     struct fltelemstr *fe;

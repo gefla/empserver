@@ -42,7 +42,7 @@ OBJS = aircombat.o askyn.o aswplnsubs.o attsub.o bigmap.o border.o bsanct.o \
 	neigh.o nreport.o nstr.o nuke.o nxtitem.o nxtsct.o paths.o plane.o \
 	plnsub.o pr.o radmap.o rej.o retreat.o sarg.o satmap.o \
 	sect.o ship.o show.o shpsub.o snxtitem.o snxtsct.o supply.o \
-	takeover.o trdsub.o trechk.o whatitem.o wire.o wu.o
+	takeover.o trdsub.o trechk.o whatitem.o wu.o
 
 NTOBJS = aircombat.obj askyn.obj aswplnsubs.obj attsub.obj bigmap.obj \
 	border.obj bsanct.obj caploss.obj chkmoney.obj cnumb.obj comsub.obj \
@@ -53,7 +53,7 @@ NTOBJS = aircombat.obj askyn.obj aswplnsubs.obj attsub.obj bigmap.obj \
 	plnsub.obj pr.obj radmap.obj rej.obj retreat.obj sarg.obj satmap.obj \
 	sect.obj ship.obj show.obj shpsub.obj snxtitem.obj \
 	snxtsct.obj supply.obj takeover.obj trdsub.obj trechk.obj whatitem.obj \
-	wire.obj wu.obj
+	wu.obj
 
 all: $(LIB)
 

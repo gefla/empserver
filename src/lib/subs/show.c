@@ -150,7 +150,7 @@ struct look_list {
 				   or land units. */
 static int lookup_list_cnt = 0;
 
-void
+static void
 sort_lookup_list(void)
 {
     struct natstr *np = getnatp(player->cnum);

@@ -46,6 +46,7 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+static int checksect(struct sctstr *);
 static void give_back_cap(struct sctstr *sp);
 
 /*ARGSUSED*/
@@ -75,7 +76,7 @@ sct_prewrite(int id, s_char *ptr)
     return 1;
 }
 
-int
+static int
 checksect(struct sctstr *sp)
 {
     int mil, civs, loyalcivs;

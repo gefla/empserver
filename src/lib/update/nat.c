@@ -45,8 +45,6 @@
 #include "update.h"
 #include "subs.h"
 
-float levels[MAXNOC][4];
-
 /*
  * hap and edu avg mean that the weight on current happiness is
  *  (cur_hap * hap_avg + hap_prod * etu) / (hap_avg + etu);
@@ -61,6 +59,8 @@ float levels[MAXNOC][4];
 extern float hap_avg;
 extern float edu_avg;
 extern float ally_factor;
+
+static void share_incr(register double *, register double *);
 
 /*
  * for values below the "easy level" values, production is
@@ -78,6 +78,8 @@ extern float ally_factor;
 float level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
 float level_log[4] = { 1.75, 2.00, 4.00, 6.00 };
 
+float levels[MAXNOC][4];
+
 /*
  * technique to limit the sharpers who turn entire countries
  * into tech plants overnight...
@@ -91,7 +93,7 @@ logx(double d, double base)
     return log10(d) / log10(base);
 }
 
-double
+static double
 limit_level(double level, int type, int flag)
 {
     double above_easy;
@@ -241,7 +243,7 @@ prod_nat(int etu)
 /*
  * find out everyones increment
  */
-void
+static void
 share_incr(register double *res, register double *tech)
 {
     register struct natstr *np;

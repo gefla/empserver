@@ -51,6 +51,8 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+static int pln_equip(struct plist *, struct ichrstr *, int, s_char);
+
 int
 pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 {
@@ -510,7 +512,7 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
     return mission_flags;
 }
 
-int
+static int
 pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 {
     register struct plchrstr *pcp;

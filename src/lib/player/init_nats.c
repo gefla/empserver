@@ -44,6 +44,8 @@
 #include "common.h"
 #include "gen.h"
 
+static int nat_cap(int);
+
 int
 init_nats(void)
 {
@@ -69,7 +71,7 @@ init_nats(void)
     return 0;
 }
 
-int
+static int
 nat_cap(int btu)
 {
     extern int s_p_etu;

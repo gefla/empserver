@@ -50,6 +50,9 @@
 #include "subs.h"
 #include "optlist.h"
 
+static void bitinit2(struct nstr_sect *, u_char *, int);
+static int bmnxtsct(register struct nstr_sect *);
+
 int
 draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	 int country)
@@ -274,7 +277,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 /*
  * get the next sector in the range
  */
-int
+static int
 bmnxtsct(register struct nstr_sect *np)
 {
     while (1) {
@@ -305,7 +308,7 @@ bmnxtsct(register struct nstr_sect *np)
     /*NOTREACHED*/
 }
 
-void
+static void
 bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
 {
     extern int *bitmaps[];

@@ -51,6 +51,10 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+static int findcondition(s_char);
+static int retreat_land1(struct lndstr *, s_char, int);
+static int retreat_ship1(struct shpstr *, s_char, int);
+
 struct ccode {
     s_char code;
     s_char *desc[2];
@@ -122,7 +126,7 @@ retreat_ship(struct shpstr *sp, s_char code)
     }
 }
 
-int
+static int
 retreat_ship1(struct shpstr *sp, s_char code, int orig)
 
 
@@ -356,7 +360,8 @@ struct sctstr *sect;
     return CN_NAVIGABLE;
 }
 #endif
-int
+
+static int
 findcondition(s_char code)
 {
     int x;
@@ -417,7 +422,7 @@ retreat_land(struct lndstr *lp, s_char code)
     }
 }
 
-int
+static int
 retreat_land1(struct lndstr *lp, s_char code, int orig)
 
 

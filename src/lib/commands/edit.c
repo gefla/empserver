@@ -56,20 +56,22 @@
 #include "commands.h"
 
 #define END -1
-static void prnat(natid n);
-static void pr_plane(struct plnstr *plane);
-static void pr_land(struct lndstr *land);
-static void pr_ship(struct shpstr *ship);
-static void prsect(struct sctstr *sect);
+
+static void benefit(natid who, int good);
+static int docountry(s_char op, int arg, s_char *p, float farg, natid nat,
+		     struct natstr *np);
+static int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
+static int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
+static int doship(s_char op, int arg, s_char *p, struct shpstr *ship);
+static int dounit(s_char op, int arg, s_char *p, struct lndstr *land);
+static int getin(s_char **, s_char **, int *, s_char *);
 static void noise(struct sctstr *sptr, int public_amt, s_char *name,
 		  int old, int new);
-static void benefit(natid who, int good);
-int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
-int docountry(s_char op, int arg, s_char *p, float farg, natid nat,
-	      struct natstr *np);
-int doship(s_char op, int arg, s_char *p, struct shpstr *ship);
-int dounit(s_char op, int arg, s_char *p, struct lndstr *land);
-int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
+static void pr_land(struct lndstr *land);
+static void pr_plane(struct plnstr *plane);
+static void pr_ship(struct shpstr *ship);
+static void prnat(natid n);
+static void prsect(struct sctstr *sect);
 
 
 int
@@ -449,7 +451,7 @@ pr_ship(struct shpstr *ship)
     pr("\n");
 }
 
-int
+static int
 errcheck(int num, int min, int max)
 {
     if (num < min)
@@ -459,7 +461,7 @@ errcheck(int num, int min, int max)
     return (num);
 }
 
-int
+static int
 getin(s_char **what, s_char **p, int *arg, s_char *buf)
 {
     if (!(*what = getstarg(*p, "%c xxxxx -- thing value : ", buf))) {
@@ -482,7 +484,7 @@ getin(s_char **what, s_char **p, int *arg, s_char *buf)
 }
 
 
-int
+static int
 doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 {
     natid newown, oldown;
@@ -684,8 +686,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 }
 
 
-
-int
+static int
 docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	  struct natstr *np)
 {
@@ -785,7 +786,7 @@ docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 }
 
 
-int
+static int
 doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 {
     coord newx, newy;
@@ -957,7 +958,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
     return RET_OK;
 }
 
-int
+static int
 dounit(s_char op, int arg, s_char *p, struct lndstr *land)
 {
     coord newx, newy;

@@ -47,6 +47,8 @@
 #include "commands.h"
 #include "optlist.h"
 
+static void scuttle_land(struct lndstr *);
+
 union item_u {
     struct shpstr ship;
     struct plnstr plane;
@@ -310,7 +312,7 @@ scuttle_ship(struct shpstr *sp)
     putship(sp->shp_uid, sp);
 }
 
-void
+static void
 scuttle_land(struct lndstr *lp)
 {
     struct nstr_item ni;

@@ -53,8 +53,9 @@ extern float start_education, start_happiness;
 extern float start_technology, start_research;
 extern int morale_base;
 
-static void ok(s_char *map, int x, int y);
+static int deity_build_land(int, coord, coord, natid, int);
 static int isok(int x, int y);
+static void ok(s_char *map, int x, int y);
 
 static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
 
@@ -312,7 +313,7 @@ ok(s_char *map, int x, int y)
 	ok(map, diroff[dir][0] + x, diroff[dir][1] + y);
 }
 
-int
+static int
 deity_build_land(int type, coord x, coord y, natid own, int tlev)
 {
     extern int land_mob_max;

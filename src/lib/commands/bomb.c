@@ -58,12 +58,11 @@ static void pin_bomb(struct emp_qelem *list, struct sctstr *target);
 static void strat_bomb(struct emp_qelem *list, struct sctstr *target);
 static void comm_bomb(struct emp_qelem *list, struct sctstr *target);
 static void eff_bomb(struct emp_qelem *list, struct sctstr *target);
-
+static int pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp,
+			       natid from, int flak);
 static void plane_bomb(struct emp_qelem *list, struct sctstr *target);
 static void land_bomb(struct emp_qelem *list, struct sctstr *target);
 static void ship_bomb(struct emp_qelem *list, struct sctstr *target);
-int pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp,
-			natid from, int flak);
 
 static int bombcomm[] = {
     I_CIVIL,
@@ -925,7 +924,8 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 float lflaktable[16] = { 0.20, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
     0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
 };
-int
+
+static int
 pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 		    int flak)
 {

@@ -46,7 +46,7 @@
 #include "damage.h"
 #include "prototypes.h"
 
-extern int move_map(s_char *what, coord curx, coord cury, s_char *arg);
+static int move_map(s_char *what, coord curx, coord cury, s_char *arg);
 
 int
 move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
@@ -260,7 +260,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 
 
 /*ARGSUSED*/
-int
+static int
 move_map(s_char *what, coord curx, coord cury, s_char *arg)
 {
     struct nstr_sect ns;

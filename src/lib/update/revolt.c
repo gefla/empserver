@@ -50,6 +50,8 @@
 #include "lost.h"
 #include "subs.h"
 
+static void take_casualties(struct sctstr *, int);
+
 #define	get_che_cnum(x)		((x) >> 8)
 #define set_che_cnum(x, cn)	((x) = ((x) & 0xff) | ((cn) << 8))
 #define get_che_value(x)	((x) & 0xff)
@@ -452,7 +454,7 @@ guerrilla(struct sctstr *sp)
     }
 }
 
-void
+static void
 take_casualties(struct sctstr *sp, int mc)
 {
     int orig_mil;

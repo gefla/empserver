@@ -47,8 +47,8 @@
  *
  */
 
-long do_demo(struct natstr *natp, struct nstr_sect nstr, int number,
-	     s_char *p, int for_real);
+static long do_demo(struct natstr *natp, struct nstr_sect nstr, int number,
+		    s_char *p, int for_real);
 
 int
 demo(void)
@@ -82,7 +82,7 @@ demo(void)
     return (int)do_demo(natp, nstr, number, p, 1);
 }
 
-long
+static long
 do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
 	int for_real)
 {

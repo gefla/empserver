@@ -63,8 +63,20 @@ struct airport {
     natid own;
 };
 
-s_char *mission_name(short int mission);
-s_char *nameofitem(s_char *buf, struct genitem *gp, int type);
+static void add_airport(struct emp_qelem *, coord, coord);
+static int air_damage(struct emp_qelem *, coord, coord, int, natid,
+		      s_char *, int);
+static void build_mission_list(struct genlist *, coord, coord, int, natid);
+static void build_mission_list_type(struct genlist *, coord, coord, int,
+				    int, natid);
+static void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
+static int dosupport(struct genlist *, coord, coord, natid, natid);
+static int find_airport(struct emp_qelem *, coord, coord);
+static int mission_pln_arm(struct emp_qelem *, coord, coord, int,
+			   int, struct ichrstr *, int, int, int *);
+static void mission_pln_sel(struct emp_qelem *, int, int, int);
+static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
+			   s_char *, int);
 
 /*
  * Interdict commodities & transported planes
@@ -250,7 +262,7 @@ def_support(coord x, coord y, natid victim, natid actee)
     return dam;
 }
 
-int
+static int
 dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
 {
     register int cn;
@@ -274,7 +286,7 @@ dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
     return dam;
 }
 
-void
+static void
 build_mission_list(struct genlist *mi, coord x, coord y, int mission,
 		   natid victim)
 {
@@ -283,7 +295,7 @@ build_mission_list(struct genlist *mi, coord x, coord y, int mission,
     build_mission_list_type(mi, x, y, mission, EF_PLANE, victim);
 }
 
-void
+static void
 build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 			int type, natid victim)
 {
@@ -394,7 +406,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
     }
 }
 
-void
+static void
 find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 {
     struct nstr_item ni;
@@ -424,7 +436,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
     }
 }
 
-int
+static int
 perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		int mission, s_char *s, int hardtarget)
 {
@@ -1004,7 +1016,7 @@ oprange(struct genitem *gp, int type, int *radius)
  *  Remove all planes who cannot go on
  *  the mission from the plane list.
  */
-void
+static void
 mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		int hardtarget)
 {
@@ -1196,7 +1208,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
  * Arm only the planes at x,y
  *
  */
-int
+static int
 mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 		int mission, struct ichrstr *ip, int flags,
 		int mission_flags, int *tech)
@@ -1364,7 +1376,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 /*
  *  Return 1 if this x,y pair is in the list
  */
-int
+static int
 find_airport(struct emp_qelem *airp, coord x, coord y)
 {
     struct emp_qelem *qp;
@@ -1380,7 +1392,7 @@ find_airport(struct emp_qelem *airp, coord x, coord y)
 }
 
 /* #*# This needs to be changed to include acc's -KHS */
-void
+static void
 add_airport(struct emp_qelem *airp, coord x, coord y)
 {
     struct airport *a;
@@ -1400,7 +1412,7 @@ add_airport(struct emp_qelem *airp, coord x, coord y)
  *  Take all the planes in list 1 that
  *  are at x,y, and put them into list 2.
  */
-void
+static void
 divide(struct emp_qelem *l1, struct emp_qelem *l2, coord x, coord y)
 {
     struct emp_qelem *qp, *next;
@@ -1420,7 +1432,7 @@ divide(struct emp_qelem *l1, struct emp_qelem *l2, coord x, coord y)
     }
 }
 
-int
+static int
 air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	   natid victim, s_char *s, int hardtarget)
 {

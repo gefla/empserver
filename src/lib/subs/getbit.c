@@ -79,29 +79,6 @@ emp_setbitmap(register int x, register int y, register u_char *bitmap,
 
 
 /*
- * if we're not player->god, we have to set up the bitmaps
- * correctly for the owned sectors.  If we are player->god,
- * forego all this (expensive) nonsense!
- */
-void
-emp_bitinit(struct nstr_sect *np, u_char *bitmap)
-{
-    extern int *bitmaps[];
-    struct sctstr sect;
-    int eff;
-
-    while (nxtsct(np, &sect)) {
-	if (!player->owner)
-	    continue;
-	eff = sect.sct_effic / 20;
-	if (eff > 4)
-	    eff = 4;
-	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
-    }
-    snxtsct_rewind(np);
-}
-
-/*
  *
  * the bit offsets for each bit pattern based on the efficiency of
  * the sector.

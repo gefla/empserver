@@ -45,8 +45,8 @@
 #include "optlist.h"
 #include "commands.h"
 
-long do_desi(struct natstr *natp, s_char *sects, s_char *deschar,
-	     long int cash, int for_real);
+static long do_desi(struct natstr *natp, s_char *sects, s_char *deschar,
+		    long int cash, int for_real);
 
 int
 desi(void)
@@ -67,7 +67,7 @@ desi(void)
     return (int)do_desi(natp, player->argp[1], player->argp[2], cash, 1);
 }
 
-long
+static long
 do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	int for_real)
 {

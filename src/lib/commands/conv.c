@@ -46,7 +46,7 @@
 #include "land.h"
 #include "commands.h"
 
-long do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real);
+static long do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real);
 
 int
 conv(void)
@@ -70,7 +70,7 @@ conv(void)
     return (int)do_conv(nstr, uwtoconvert, 1);
 }
 
-long
+static long
 do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 {
     struct sctstr sect;

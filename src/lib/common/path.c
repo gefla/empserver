@@ -107,7 +107,7 @@ struct empfile *ep;
  * at reboot time (maybe) so we never need to free it */
 struct sctstr **neighsects = (struct sctstr **)0;
 
-s_char *
+static s_char *
 bp_init(void)
 {
     struct bestp *bp;
@@ -135,7 +135,7 @@ bp_init(void)
  * Find the best path from sector to to sector, and put the Empire movement
  * string in path.  Return 0 on success, -1 on error.
  */
-int
+static int
 best_path(struct sctstr *from, struct sctstr *to, s_char *path,
 	  int mob_type)
 {

@@ -59,8 +59,10 @@ int mil_dbl_pay;
 #define MIN(x,y)       ((x) > (y) ? (y) : (x))
 #endif
 
-void upd_land(register struct lndstr *lp, int landno, register int etus,
-	      struct natstr *np, int *bp, int build);
+static int landrepair(register struct lndstr *, int *, struct natstr *,
+		      int *, int);
+static void upd_land(register struct lndstr *lp, int landno, register int etus,
+		     struct natstr *np, int *bp, int build);
 
 int
 prod_land(int etus, int natnum, int *bp, int build)
@@ -109,7 +111,7 @@ prod_land(int etus, int natnum, int *bp, int build)
     return k;
 }
 
-void
+static void
 upd_land(register struct lndstr *lp, int landno, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
@@ -239,7 +241,7 @@ upd_land(register struct lndstr *lp, int landno, register int etus,
 }
 
 /*ARGSUSED*/
-int
+static int
 landrepair(register struct lndstr *land, int *vec, struct natstr *np,
 	   int *bp, int etus)
 {

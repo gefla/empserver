@@ -50,6 +50,10 @@
 #include "player.h"
 #include "prototypes.h"
 
+static int get_minimum(struct lndstr *, int);
+static s_char *itemname(int);
+static int s_commod(int, int, int, int, int, int);
+
 /*
  * We want to get enough guns to be maxed out, enough shells to
  * 	fire once, one update's worth of food, enough fuel for
@@ -158,7 +162,7 @@ try_supply_commod(int own, int x, int y, int type, int total_wanted)
 }
 
 /* Get supplies of a certain type */
-int
+static int
 s_commod(int own, int x, int y, int type, int total_wanted,
 	 int actually_doit)
 {
@@ -455,7 +459,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 }
 
 
-s_char *
+static s_char *
 itemname(int type)
 {
     register int t;
@@ -469,25 +473,13 @@ itemname(int type)
     return 0;
 }
 
-int
-at_minimum(struct lndstr *lp, int type)
-{
-    int vec[I_MAX + 1];
-
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-    if (vec[type] <= get_minimum(lp, type))
-	return 1;
-
-    return 0;
-}
-
 /*
  * We want to get enough shells to fire once,
  * one update's worth of food, enough fuel for
  * one update.
  */
 
-int
+static int
 get_minimum(struct lndstr *lp, int type)
 {
     struct lchrstr *lcp;

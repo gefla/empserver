@@ -112,7 +112,7 @@ player_login(void *ud)
     /*NOTREACHED*/
 }
 
-int
+static int
 client_cmd(struct player *player, int ac, char **av)
 {
     int i;
@@ -130,7 +130,7 @@ client_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-int
+static int
 user_cmd(struct player *player, int ac, char **av)
 {
     if (ac < 1 || av[1] == '\0')
@@ -141,7 +141,7 @@ user_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-int
+static int
 sanc_cmd(struct player *player, int ac, char **av)
 {
     struct nstr_item ni;
@@ -171,7 +171,7 @@ sanc_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-int
+static int
 coun_cmd(struct player *player, int ac, char **av)
 {
     natid cnum;
@@ -188,7 +188,7 @@ coun_cmd(struct player *player, int ac, char **av)
     return 0;
 }
 
-int
+static int
 pass_cmd(struct player *player, int ac, char **av)
 {
     if (ac < 1 || av[1] == '\0')
@@ -210,7 +210,7 @@ pass_cmd(struct player *player, int ac, char **av)
 }
 
 /*ARGSUSED*/
-int
+static int
 play_cmd(struct player *player, int ac, char **av)
 {
     extern char *banfil;
@@ -260,7 +260,7 @@ play_cmd(struct player *player, int ac, char **av)
 }
 
 /*ARGSUSED*/
-int
+static int
 kill_cmd(struct player *player, int ac, char **av)
 {
     struct player *other;
@@ -280,7 +280,7 @@ kill_cmd(struct player *player, int ac, char **av)
 }
 
 /*ARGSUSED*/
-int
+static int
 list_cmd(struct player *player, int ac, char **av)
 {
     struct player *lp;
@@ -303,7 +303,7 @@ list_cmd(struct player *player, int ac, char **av)
 }
 
 /*ARGSUSED*/
-int
+static int
 quit_cmd(struct player *player, int ac, char **av)
 {
     pr_id(player, C_EXIT, "so long\n");

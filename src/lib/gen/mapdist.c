@@ -33,7 +33,6 @@
 
 /*
  * mapdist returns (integer) distance between two sectors.
- * mapdsq returns the square of the distance -- more efficient.
  */
 
 #include "misc.h"
@@ -106,13 +105,4 @@ mapdist(int x1, int y1, int x2, int y2)
     if (dx > dy)
 	return (dx - dy) / 2 + dy;
     return dy;
-}
-
-int
-mapdsq(int x1, int y1, int x2, int y2)
-{
-    int sq;
-
-    sq = mapdist(x1, y1, x2, y2);
-    return sq * sq;
 }

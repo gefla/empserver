@@ -41,6 +41,8 @@
 #include <fcntl.h>
 #include "prototypes.h"
 
+static void filereport(int, int, int, int);
+
 void
 nreport(natid actor, int event, natid victim, int times)
 {
@@ -188,7 +190,7 @@ ncache(time_t now, int actor, int event, int victim, int times)
     return np;
 }
 
-void
+static void
 filereport(int actor, int event, int victim, int times)
 {
     struct newscache *np;

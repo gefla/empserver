@@ -45,6 +45,7 @@
 #include "file.h"
 #include "commands.h"
 
+static void print_res(struct sctstr *);
 
 /*
  * Syntax: swap <SECT> <SECT>
@@ -89,7 +90,7 @@ swaps(void)
     return RET_OK;
 }
 
-void
+static void
 print_res(struct sctstr *sp)
 {
     pr("own   sect        eff  min gold fert oil uran\n");

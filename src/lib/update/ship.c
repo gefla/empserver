@@ -56,6 +56,11 @@
 #define MIN(x,y)        ((x) > (y) ? (y) : (x))
 #endif
 
+static int shiprepair(register struct shpstr *, int *, struct natstr *,
+		      int *, int);
+static void upd_ship(register struct shpstr *, int, register int,
+		     struct natstr *, int *, int);
+
 int
 prod_ship(int etus, int natnum, int *bp, int build)
 		/* build = 1, maintain = 0 */
@@ -104,7 +109,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
     return k;
 }
 
-void
+static void
 upd_ship(register struct shpstr *sp, int shipno, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
@@ -258,7 +263,7 @@ upd_ship(register struct shpstr *sp, int shipno, register int etus,
  * battleships +8 % eff each etu.  This will cost around
  * 8 * 8 * $40 = $2560!
  */
-int
+static int
 shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 	   int *bp, int etus)
 {

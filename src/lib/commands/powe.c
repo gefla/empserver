@@ -62,10 +62,11 @@ struct powsort {
     natid cnum;
 };
 
-static int powcmp(struct powsort *p1, struct powsort *p2);
-static void out5(double value, int round_val, int round_flag);
-static void gen_power(void);
 static void addtopow(register int *vec, register struct powstr *pow);
+static void gen_power(void);
+static void out5(double value, int round_val, int round_flag);
+static int powcmp(struct powsort *p1, struct powsort *p2);
+static int set_target(s_char *, int *);
 
 int
 powe(void)
@@ -410,7 +411,7 @@ addtopow(register int *vec, register struct powstr *pow)
     pow->p_power += vec[I_HCM] / 5.0;
 }
 
-int
+static int
 set_target(s_char *p, int *targets)
 {
     int target;

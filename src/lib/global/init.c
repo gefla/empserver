@@ -41,6 +41,10 @@
 #include "optlist.h"
 #include "global.h"
 
+static void init_mchr(void);
+static void init_pchr(void);
+static void init_plchr(void);
+
 void
 global_init(void)
 {
@@ -50,7 +54,7 @@ global_init(void)
     /* the same thing should be done for units... */
 }
 
-void
+static void
 init_mchr(void)
 {
     register struct mchrstr *mp;
@@ -68,7 +72,7 @@ init_mchr(void)
     }
 }
 
-void
+static void
 init_plchr(void)
 {
     register struct plchrstr *pp;
@@ -80,7 +84,7 @@ init_plchr(void)
     }
 }
 
-void
+static void
 init_pchr(void)
 {
     register struct pchrstr *p;

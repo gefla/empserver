@@ -50,6 +50,10 @@
 #include "commands.h"
 
 static void cede_hdr(void);
+static int cede_sect(struct nstr_sect *, natid);
+static int cede_ship(struct nstr_item *, natid);
+static void grab_sect(register struct sctstr *, natid);
+static void grab_ship(register struct shpstr *, natid);
 
 int
 cede(void)
@@ -116,7 +120,7 @@ cede(void)
 	return cede_ship(&ni, to);
 }
 
-int
+static int
 cede_sect(struct nstr_sect *ns, natid to)
 {
     struct sctstr sect, osect;
@@ -191,7 +195,7 @@ cede_hdr(void)
 
 
 
-void
+static void
 grab_sect(register struct sctstr *sp, natid to)
 {
     struct plnstr *pp;
@@ -294,7 +298,7 @@ grab_sect(register struct sctstr *sp, natid to)
     sp->sct_mobil = 0;
 }
 
-int
+static int
 cede_ship(struct nstr_item *ni, natid to)
 {
     struct shpstr ship;
@@ -333,7 +337,7 @@ cede_ship(struct nstr_item *ni, natid to)
     return RET_OK;
 }
 
-void
+static void
 grab_ship(register struct shpstr *sp, natid to)
 {
     register struct plnstr *pp;

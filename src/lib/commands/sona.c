@@ -50,6 +50,8 @@
 #include "commands.h"
 #include "optlist.h"
 
+static int blankrow(s_char *);
+
 int
 sona(void)
 {
@@ -387,7 +389,7 @@ line_of_sight(s_char **rad, int ax, int ay, int bx, int by)
     return 1;
 }
 
-int
+static int
 blankrow(s_char *s)
 {
     while (*s) {

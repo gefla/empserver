@@ -71,6 +71,7 @@ union item_u {
     struct lndstr land;
 };
 
+static void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
 static int defend(struct emp_qelem *al,
 		  struct emp_qelem *dl,
 		  enum targ_type target,
@@ -79,6 +80,10 @@ static int defend(struct emp_qelem *al,
 		  struct sctstr *fsect,
 		  struct shpstr *vship,
 		  struct shpstr *fship, int fx, int fy, int *nd);
+static void do_defdam(struct emp_qelem *, double);
+static int quiet_bigdef(int, struct emp_qelem *, natid, natid, coord,
+			coord, int *);
+static void use_ammo(struct emp_qelem *);
 
 int
 multifire(void)
@@ -709,7 +714,7 @@ defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
     return (dam);
 }
 
-void
+static void
 do_defdam(struct emp_qelem *list, double odds)
 {
 
@@ -760,7 +765,7 @@ do_defdam(struct emp_qelem *list, double odds)
     }
 }
 
-int
+static int
 quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	     coord ax, coord ay, int *nfiring)
 {
@@ -984,7 +989,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     return ((*nfiring) == 0 ? 0 : (dam / (*nfiring)));
 }
 
-void
+static void
 use_ammo(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
@@ -1047,7 +1052,7 @@ use_ammo(struct emp_qelem *list)
 
 }
 
-void
+static void
 add_to_fired_queue(struct emp_qelem *elem, struct emp_qelem *list)
 {
     struct emp_qelem *qp;

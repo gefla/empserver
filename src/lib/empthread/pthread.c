@@ -61,7 +61,7 @@ static void empth_setctx _PROTO((void *));
 #endif
 static void empth_restorectx _PROTO(());
 
-void *
+static void *
 empth_start(void *ctx)
 {
     struct sigaction act;

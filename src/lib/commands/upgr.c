@@ -45,6 +45,10 @@
 #include "file.h"
 #include "commands.h"
 
+static int lupgr(void);
+static int pupgr(void);
+static int supgr(void);
+
 int
 upgr(void)
 {
@@ -70,7 +74,7 @@ upgr(void)
     return RET_OK;
 }
 
-int
+static int
 lupgr(void)
 {
     struct sctstr sect;
@@ -178,7 +182,7 @@ lupgr(void)
     return RET_OK;
 }
 
-int
+static int
 supgr(void)
 {
     struct sctstr sect;
@@ -272,7 +276,7 @@ supgr(void)
     return RET_OK;
 }
 
-int
+static int
 pupgr(void)
 {
     struct sctstr sect;

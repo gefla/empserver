@@ -44,6 +44,8 @@
 #include "optlist.h"
 #include "commands.h"
 
+static int buildeff(struct sctstr *, int, double *);
+
 int
 work(void)
 {
@@ -122,7 +124,7 @@ work(void)
     return RET_OK;
 }
 
-int
+static int
 buildeff(struct sctstr *sp, int work, double *money)
 {
     int vec[I_MAX + 1];

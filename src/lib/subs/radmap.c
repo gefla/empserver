@@ -44,6 +44,8 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+static void radmap2(int, int, int, int, int, double, int);
+
 void
 radmap(int cx, int cy, int eff, int range, double seesub)
 {
@@ -70,7 +72,7 @@ static s_char *radbuf;
 static s_char **vis;
 static s_char *visbuf;
 
-void
+static void
 radmap2(int owner,
 	int cx, int cy, int eff, int range, double seesub, int pr_flag)
 {

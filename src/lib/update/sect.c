@@ -95,7 +95,7 @@ dodeliver(struct sctstr *sp, int *vec)
  * decrease sector efficiency if old type != new type.
  * Return amount of work used.
  */
-int
+static int
 upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
 	     int *vec, int etu, int *desig, int sctwork, int *cost)
 {
@@ -179,7 +179,7 @@ upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
  * Conversion will happen much more slowly without
  * some mil initially.
  */
-int
+static int
 enlist(register int *vec, int etu, int *cost)
 {
     int maxmil;
@@ -203,7 +203,7 @@ enlist(register int *vec, int etu, int *cost)
 
 extern int melt_item_denom[];
 
-void
+static void
 meltitems(int etus, int fallout, int own, int *vec, int type, int x, int y,
 	  int uid)
 {

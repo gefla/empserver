@@ -48,9 +48,13 @@
 #include "damage.h"
 #include "commands.h"
 
-void anti_torp(int f, int ntorping, int vshipown);
-void fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range,
-		int ntargets);
+static void anti_torp(int f, int ntorping, int vshipown);
+static int candchrg(struct shpstr *, struct shpstr *);
+static int canshoot(struct shpstr *, struct shpstr *);
+static int cantorp(struct shpstr *, struct shpstr *);
+static void fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range,
+		       int ntargets);
+static int fire_torp(struct shpstr *, struct shpstr *, int, int);
 
 s_char *prsub(struct shpstr *sp);
 
@@ -235,7 +239,7 @@ torp(void)
     return RET_OK;
 }
 
-void
+static void
 anti_torp(int f, int ntorping, int vshipown)
 {
     int range;
@@ -288,7 +292,7 @@ anti_torp(int f, int ntorping, int vshipown)
 }
 
 /* Can ship A shoot at ship B? */
-int
+static int
 canshoot(struct shpstr *a, struct shpstr *b)
 {
     /* Anyone can shoot a normal ship */
@@ -307,7 +311,7 @@ canshoot(struct shpstr *a, struct shpstr *b)
 }
 
 /* Can ship A torp ship B? */
-int
+static int
 cantorp(struct shpstr *a, struct shpstr *b)
 {
     if ((mchr[(int)a->shp_type].m_flags & M_TORP) == 0)
@@ -325,7 +329,7 @@ cantorp(struct shpstr *a, struct shpstr *b)
 }
 
 /* Can ship A depth-charge (or fire guns at) ship B? */
-int
+static int
 candchrg(struct shpstr *a, struct shpstr *b)
 {
     if ((mchr[(int)b->shp_type].m_flags & M_SUB) == 0) {
@@ -341,7 +345,7 @@ candchrg(struct shpstr *a, struct shpstr *b)
     return 1;
 }
 
-void
+static void
 fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 {
     int dam;
@@ -398,7 +402,7 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     }
 }
 
-int
+static int
 fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 {
     extern int torpedo_damage;

@@ -56,6 +56,11 @@ extern double tfactfire(natid, double);
 
 extern int etu_per_update;
 
+static int shp_check_nav(struct sctstr *);
+static int shp_check_one_mines(struct mlist *);
+static int shp_hit_mine(struct shpstr *, struct mchrstr *);
+static void shp_mess(s_char *, struct mlist *);
+
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 
@@ -278,7 +283,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
     return stopping;
 }
 
-int
+static int
 shp_check_one_mines(struct mlist *mlp)
 {
     struct sctstr sect;
@@ -307,7 +312,7 @@ shp_check_one_mines(struct mlist *mlp)
     return 0;
 }
 
-int
+static int
 shp_check_mines(struct emp_qelem *ship_list)
 {
     struct emp_qelem *qp;
@@ -362,7 +367,7 @@ shp_list(struct emp_qelem *ship_list)
     }
 }
 
-void
+static void
 shp_mess(s_char *str, struct mlist *mlp)
 {
     mpr(mlp->ship.shp_own, "%s %s & stays in %s\n",
@@ -374,7 +379,7 @@ shp_mess(s_char *str, struct mlist *mlp)
     free((s_char *)mlp);
 }
 
-int
+static int
 shp_check_nav(struct sctstr *sect)
 {
     extern struct dchrstr dchr[];
@@ -717,7 +722,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     return 0;
 }
 
-int
+static int
 shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 {
     int stopping = 0;
@@ -767,7 +772,7 @@ shp_hardtarget(struct shpstr *sp)
 		 (20 + (double)sp->shp_speed * onsea / 2.0 - vis));
 }
 
-int
+static int
 shp_hit_mine(struct shpstr *sp, struct mchrstr *mcp)
 {
     double m;

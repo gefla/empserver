@@ -58,7 +58,7 @@
 extern int update_pending;
 #include "prototypes.h"
 
-void outid(struct player *pl, int n);
+static void outid(struct player *pl, int n);
 
 /*VARARGS*/
 void
@@ -199,7 +199,7 @@ pr_hilite(s_char *buf)
 /*
  * output hex code + space
  */
-void
+static void
 outid(struct player *pl, int n)
 {
     s_char c;
