@@ -78,8 +78,7 @@ static int get_dtotal(struct combat *def, struct emp_qelem *list,
 static int take_casualty(int combat_mode, struct combat *off,
 			 struct emp_qelem *olist);
 
-static void send_reacting_units_home(struct combat *def,
-				     struct emp_qelem *list);
+static void send_reacting_units_home(struct emp_qelem *list);
 static int take_def(int combat_mode, struct emp_qelem *list,
 		    struct combat *off, struct combat *def);
 
@@ -2075,7 +2074,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	do_sneak(def, success);
     }
 
-    send_reacting_units_home(def, dlist);
+    send_reacting_units_home(dlist);
 
     /* putland the defending land */
     lnd_put(dlist, 0);
@@ -2214,7 +2213,7 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
 /* Send reacting defense units back to where they came from (at no mob cost) */
 
 static void
-send_reacting_units_home(struct combat *def, struct emp_qelem *list)
+send_reacting_units_home(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
     struct llist *llp;

@@ -59,7 +59,7 @@
 
 static int shiprepair(register struct shpstr *, int *, struct natstr *,
 		      int *, int);
-static void upd_ship(register struct shpstr *, int, register int,
+static void upd_ship(register struct shpstr *, register int,
 		     struct natstr *, int *, int);
 
 int
@@ -90,7 +90,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
 	    bp_clear_cachepath();
 	    bp_enable_cachepath();
 	}
-	upd_ship(sp, n, etus, np, bp, build);
+	upd_ship(sp, etus, np, bp, build);
 	if (build && !player->simulation)	/* make sure to only autonav once */
 	    nav_ship(sp);	/* autonav the ship */
 	sea_money[sp->shp_own] += np->nat_money - start_money;
@@ -110,7 +110,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
 }
 
 static void
-upd_ship(register struct shpstr *sp, int shipno, register int etus,
+upd_ship(register struct shpstr *sp, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {

@@ -55,7 +55,7 @@ s_char *levelnames[] =
 
 int
 produce(struct natstr *np, struct sctstr *sp, int *vec, int work,
-	int sctwork, int desig, int neweff, int *cost, int *amount)
+	int desig, int neweff, int *cost, int *amount)
 {
     register struct pchrstr *product;
     int vtype;

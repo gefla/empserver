@@ -320,7 +320,7 @@ mission(void)
 	    mission == MI_DSUPPORT || mission == MI_INTERDICT ||
 	    mission == MI_AIR_DEFENSE) {
 	    pr("%s on %s mission, centered on %s, radius %d\n",
-	       nameofitem(buf, gp, type), mission_name(mission),
+	       nameofitem(gp, type), mission_name(mission),
 	       xyas(x, y, player->cnum), gp->radius);
 	} else if (mission == MI_RESERVE) {
 	    int plus = 2;
@@ -336,9 +336,9 @@ mission(void)
 	    }
 
 	    pr("%s on %s mission with maximum reaction radius %d\n",
-	       nameofitem(buf, gp, type), mission_name(mission), plus);
+	       nameofitem(gp, type), mission_name(mission), plus);
 	} else if (mission) {
-	    pr("%s on %s mission\n", nameofitem(buf, gp, type),
+	    pr("%s on %s mission\n", nameofitem(gp, type),
 	       mission_name(mission));
 	}
 

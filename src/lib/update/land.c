@@ -61,7 +61,7 @@ int mil_dbl_pay;
 
 static int landrepair(register struct lndstr *, int *, struct natstr *,
 		      int *, int);
-static void upd_land(register struct lndstr *lp, int landno, register int etus,
+static void upd_land(register struct lndstr *lp, register int etus,
 		     struct natstr *np, int *bp, int build);
 
 int
@@ -97,7 +97,7 @@ prod_land(int etus, int natnum, int *bp, int build)
 	}
 	np = getnatp(lp->lnd_own);
 	start_money = np->nat_money;
-	upd_land(lp, n, etus, np, bp, build);
+	upd_land(lp, etus, np, bp, build);
 	lnd_money[lp->lnd_own] += np->nat_money - start_money;
 	if ((build && (np->nat_money != start_money)) || (!build))
 	    k++;
@@ -111,7 +111,7 @@ prod_land(int etus, int natnum, int *bp, int build)
 }
 
 static void
-upd_land(register struct lndstr *lp, int landno, register int etus,
+upd_land(register struct lndstr *lp, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {

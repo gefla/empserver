@@ -844,7 +844,7 @@ cando(int mission, int type)
 }
 
 s_char *
-nameofitem(s_char *buf, struct genitem *gp, int type)
+nameofitem(struct genitem *gp, int type)
 {
     switch (type) {
     case EF_SHIP:
@@ -912,7 +912,6 @@ show_mission(int type, struct nstr_item *np)
     int size, first = 1, radius;
     s_char *block;
     struct genitem *gp;
-    s_char buf[128];
 
     size = max(sizeof(struct lndstr), sizeof(struct plnstr));
     size = max(size, sizeof(struct shpstr));
@@ -927,7 +926,7 @@ show_mission(int type, struct nstr_item *np)
 	    pr("Thing                         x,y   op-sect rad mission\n");
 	    first = 0;
 	}
-	pr("%-25s", nameofitem(buf, gp, type));
+	pr("%-25s", nameofitem(gp, type));
 	pr(" %7s", xyas(gp->x, gp->y, player->cnum));
 	if (gp->mission == MI_INTERDICT || gp->mission == MI_SUPPORT ||
 	    gp->mission == MI_OSUPPORT ||

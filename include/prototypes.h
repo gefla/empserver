@@ -336,7 +336,7 @@ extern int num_shipsatxy(coord, coord, int, int);
 extern int islist(s_char *);
 /* src/lib/subs/mission.c */
 extern s_char *mission_name(short);
-extern s_char *nameofitem(s_char *, struct genitem *, int);
+extern s_char *nameofitem(struct genitem *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int,
 			     s_char);
@@ -604,7 +604,7 @@ extern int upd_slmilcosts(natid, int);
 extern void prepare_sects(int, int *);
 extern int bank_income(struct sctstr *, int);
 /* produce.c */
-extern int produce(struct natstr *, struct sctstr *, int *, int, int, int,
+extern int produce(struct natstr *, struct sctstr *, int *, int, int,
 		   int, int *, int *);
 /* removewants.c */
 extern int update_removewants(void);

@@ -60,7 +60,7 @@ static void repo_header(void);
 static void repo_list(struct stats *stat, natid cn, struct natstr *natp);
 
 static int check(s_char *buf, double theirs, double min, double max,
-		 int shift, int what, int tolerance);
+		 int shift, int tolerance);
 
 int
 repo(void)
@@ -203,23 +203,23 @@ printdiff(int mystat, double ours, struct natstr *natp, int what)
 	}
 	if (tolerance > 2 * ours)
 	    tolerance = (int)(2 * ours);
-	if (check(buf, theirs, 2 * ours, -1.0, shift, what, tolerance)) ;
-	else if (check(buf, theirs, 1.5 * ours, 2.0 * ours, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, 1.2 * ours, 1.5 * ours, shift, what,
-		  tolerance)) ;
-	else if (check(buf, theirs, 1.1 * ours, 1.2 * ours, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, ours / 1.1, 1.1 * ours, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, ours / 1.2, ours / 1.1, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, ours / 1.5, ours / 1.2, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, ours / 2.0, ours / 1.5, shift, what,
-		       tolerance)) ;
-	else if (check(buf, theirs, -1.0, ours / 2.0, shift, what,
-		       tolerance)) ;
+	if (check(buf, theirs, 2 * ours, -1.0, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, 1.5 * ours, 2.0 * ours, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, 1.2 * ours, 1.5 * ours, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, 1.1 * ours, 1.2 * ours, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, ours / 1.1, 1.1 * ours, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, ours / 1.2, ours / 1.1, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, ours / 1.5, ours / 1.2, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, ours / 2.0, ours / 1.5, shift, tolerance))
+	  ;
+	else if (check(buf, theirs, -1.0, ours / 2.0, shift, tolerance)) ;
 	else
 	    sprintf(buf, "    n/a");
     } else
@@ -230,7 +230,7 @@ printdiff(int mystat, double ours, struct natstr *natp, int what)
 
 static int
 check(s_char *buf, double theirs, double min, double max, int shift,
-      int what, int tolerance)
+      int tolerance)
 {
     double shove;
 

@@ -43,8 +43,7 @@
  * 2 = update only bmap with force
  */
 
-static int do_map_set(natid cnum, s_char *map, coord x, coord y,
-		      s_char t, int force, int sync);
+static int do_map_set(s_char *map, coord x, coord y, s_char t, int force);
 
 int
 map_set(natid cnum, coord x, coord y, s_char t, int only_bmap)
@@ -54,17 +53,15 @@ map_set(natid cnum, coord x, coord y, s_char t, int only_bmap)
     if (!t)
 	return 0;
     if (!only_bmap)
-	set |= do_map_set(cnum, ef_ptr(EF_MAP, cnum), x, y, t, 0, 0);
-    set |=
-	do_map_set(cnum, ef_ptr(EF_BMAP, cnum), x, y, t, only_bmap > 1, 1);
+	set |= do_map_set(ef_ptr(EF_MAP, cnum), x, y, t, 0);
+    set |= do_map_set(ef_ptr(EF_BMAP, cnum), x, y, t, only_bmap > 1);
 
     return set;
 }
 
 
 static int
-do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force,
-	   int sync)
+do_map_set(s_char *map, coord x, coord y, s_char t, int force)
 {
     int id;
     s_char ot;

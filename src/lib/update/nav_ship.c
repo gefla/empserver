@@ -86,7 +86,7 @@ scuttle_it(register struct shpstr *sp)
 }
 
 static void
-nav_check_atdest(register struct shpstr *sp, struct mchrstr *mcp)
+nav_check_atdest(register struct shpstr *sp)
 {
     if ((sp->shp_x == sp->shp_destx[0]) && (sp->shp_y == sp->shp_desty[0])) {
 	if ((sp->shp_destx[0] == sp->shp_destx[1]) &&
@@ -319,7 +319,7 @@ nav_ship(register struct shpstr *sp)
  */
 	    /* Ship not sunk */
 	    if (sp->shp_own)
-		nav_check_atdest(sp, mcp);
+		nav_check_atdest(sp);
 	}
 
 	quit = 0;		/* stop loop */

@@ -482,14 +482,13 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	}
 
 	/*
-	   * now do the production (if sector effic >= 60%)
+	 * now do the production (if sector effic >= 60%)
 	 */
 
 	if (neweff >= 60) {
 	    if (np->nat_money > 0 && dchr[desig].d_prd)
 		work -=
-		    produce(np, sp, vec, work, sctwork, desig, neweff,
-			    &pcost, &amount);
+		    produce(np, sp, vec, work, desig, neweff, &pcost, &amount);
 	}
 
 	pt_bg_nmbr(bp, sp, I_MAX + 1, work);

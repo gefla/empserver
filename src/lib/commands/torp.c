@@ -53,8 +53,7 @@ static void anti_torp(int f, int ntorping, int vshipown);
 static int candchrg(struct shpstr *, struct shpstr *);
 static int canshoot(struct shpstr *, struct shpstr *);
 static int cantorp(struct shpstr *, struct shpstr *);
-static void fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range,
-		       int ntargets);
+static void fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets);
 static int fire_torp(struct shpstr *, struct shpstr *, int, int);
 
 int
@@ -282,9 +281,9 @@ anti_torp(int f, int ntorping, int vshipown)
 	    /* Try torping.. if we can, maybe we can fire */
 	    if (!fire_torp(&dd, &sub, range, ntorping))
 		if (candchrg(&dd, &sub))
-		    fire_dchrg(&dd, &sub, range, ntorping);
+		    fire_dchrg(&dd, &sub, ntorping);
 	} else
-	    fire_dchrg(&dd, &sub, range, ntorping);
+	    fire_dchrg(&dd, &sub, ntorping);
     }
 }
 
@@ -343,7 +342,7 @@ candchrg(struct shpstr *a, struct shpstr *b)
 }
 
 static void
-fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
+fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
     int dam;
     int shells;
