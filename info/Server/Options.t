@@ -31,7 +31,6 @@ NEWPOWER:	New power formula.  See "info power".
 NO_PLAGUE:	Plague is disabled.
 NEW_STARVE:	UW's starve, then civs, then mil
 NEW_WORK:	Work is changed in proportion to the # of civs moved
-GRAB_THINGS:	Units will grab things they need to build
 NEUTRON:	Enables neutron bombs
 FALLOUT:	Sectors are damaged by radiation for a few updates after blast
 

@@ -243,12 +243,6 @@ int opt_RES_POP = 1;
 int opt_RES_POP = 0;
 #endif
 
-#ifdef GRAB_THINGS
-int opt_GRAB_THINGS = 1;
-#else
-int opt_GRAB_THINGS = 0;
-#endif
-
 #ifdef SHOWPLANE
 int opt_SHOWPLANE = 1;
 #else
@@ -346,7 +340,6 @@ struct option_list Options[] = {
     {"FUEL", &opt_FUEL},
     {"GODNEWS", &opt_GODNEWS},
     {"GO_RENEW", &opt_GO_RENEW},
-    {"GRAB_THINGS", &opt_GRAB_THINGS},
     {"HIDDEN", &opt_HIDDEN},
     {"INTERDICT_ATT", &opt_INTERDICT_ATT},
     {"LANDSPIES", &opt_LANDSPIES},
