@@ -52,9 +52,10 @@
  * - Sector infrastructure characteristics: intrchr[]
  * - Ship characteristics: mchr[]
  * Less important:
- * - News item characteristics: rpt[]
+ * - News item characteristics: rpt[] (TODO)
+ * - News page headings: page_headings[] (TODO)
  * - Treaty clause characteristics: tchr[]
- * - Commands: coms[]
+ * - Commands: coms[] (TODO)
  * - Options: Options[]
  * - Configuration: configkeys[]
  *
@@ -70,8 +71,8 @@
  * - Power: EF_POWER
  * - Nations: EF_NATION, nat_ca[]
  * - Loans: EF_LOAN, loan_ca[]
- * - Map: EF_MAP
- * - Bmap: EF_BMAP
+ * - Map: EF_MAP (TODO)
+ * - Bmap: EF_BMAP (TODO)
  * - Market: EF_COMM, commodity_ca[]
  */
 
@@ -147,7 +148,7 @@ static struct castr mchr_ca[] = {
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelu), "fuelu"},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_tech), "tech"},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_cost), "cost"},
-    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_flags), "flags"},
+    {NSC_LONG, 0, 0, offsetof(struct mchrstr, m_flags), "flags"},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nplanes), "nplanes"},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nland), "nland"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
@@ -213,7 +214,7 @@ static struct castr lchr_ca[] = {
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelu), "fuelu"},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nxlight), "nxlight"},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_mxland), "mxland"},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_flags), "flags"},
+    {NSC_LONG, 0, 0, offsetof(struct lchrstr, l_flags), "flags"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -301,7 +302,7 @@ xdprval(struct valstr *val, char *sep)
 	pr("%s%ld", sep, val->val_as.lng);
 	break;
     case NSC_DOUBLE:
-	pr("%s%g", sep, val->val_as.dbl);
+	pr("%s%#g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
 	s = (unsigned char *)val->val_as.str;
@@ -403,7 +404,7 @@ xditem(int type, char *arg)
     struct castr *ca;
     struct nstr_item ni;
     int n;
-    s_char buf[2048];		/* FIXME buffer size? */
+    char buf[2048];		/* FIXME buffer size? */
 
     ca = ef_cadef(type);
     if (!ca)
@@ -526,7 +527,7 @@ xdver(void)
 int
 xdump(void)
 {
-    s_char *p;
+    char *p;
     char buf[1024];
     int type;
 
