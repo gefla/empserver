@@ -134,12 +134,14 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 		(opt_NO_HCMS && des == SCT_HEAVY) ||
 		(opt_NO_OIL && des == SCT_OIL) ||
 		(opt_NO_OIL && des == SCT_REFINE)) {
-		pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
+		if (for_real) 
+		    pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
 		continue;
 	    }
 	    if (des == SCT_WASTE) {
-		pr("Only a nuclear device (or %s) can make a %s!\n",
-		   cname(0), dchr[des].d_name);
+		if (for_real)
+		    pr("Only a nuclear device (or %s) can make a %s!\n",
+		       cname(0), dchr[des].d_name);
 		continue;
 	    }
 	}
