@@ -108,6 +108,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
      * Adjust produced amount by commodity production ratio
      */
     output = material_consume * prodeff;
+    actual = roundavg(output);
+    if (actual <= 0)
+	return 0;
     if (item == I_NONE) {
 	if (!player->simulation) {
 	    levels[sp->sct_own][product->p_level] += output;
@@ -115,8 +118,6 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	       product->p_name, output, ownxy(sp));
 	}
     } else {
-	if ((actual = roundavg(output)) <= 0)
-	    return 0;
 	if (product->p_nrdep != 0) {
 	    if (*resource * 100 < product->p_nrdep * actual)
 		actual = *resource * 100 / product->p_nrdep;
