@@ -19,32 +19,12 @@ This document gives a rough order of events during the update.
 2) Then, in order of country #, deal with each country:
 	a) pay for military reserves.
 	b) in order of set priorities, 1-39, 1 going first, then 2, etc.
-		1) produce for owned sectors of that type
-		        a) if the sector is a cap, it costs $$ equal to 
-			   the # of etus: np->nat_money -= etus;
-			b) people in non-sanctuary sectors eat
-				1) If not enough is available, the sector 
-				        uses the supply routines to draw more.
-				2) If still not enough is available, 
-					the excess people will starve off.
-					a) No more than 50% of the people 
-						in a sect can die
-					b) If the NEW_STARVE option is not 
-						enabled, all types of people 
-						(civs, uw, mil) starve evenly.
-					c) If the NEW_STARVE option is enabled,
-						the uw's die first, then 
-						the civs, then the mil.
-			c) if there was starvation, the work percentage is set
-				to 0, otherwise the work rate rises by 
-				8+(1-15), max of 100
-			d) population grows and is truncated
-			e) sectors that are stopped are skipped.(see info stop)
-			f) first increase eff
-			g) then make things
-
+		produce for owned sectors, maintain and build ships,
+		planes and units; see below for details
 	c) If ship maintenance is not yet done, do it now
 	d) If ship building is not yet done, do it now
+		ships execute their orders right after building
+		finally, if option SAIL is enabled, follow sail paths
 	e) If plane maintenance is not yet done, do it now
 	f) If plane building is not yet done, do it now
 	g) If unit maintenance is not yet done, do it now
@@ -68,10 +48,10 @@ This document gives a rough order of events during the update.
                 c) if there was starvation, the work percentage is set
                         to 0, otherwise the work rate rises by
                         8+(1-15), max of 100
-                e) population grows and is truncated
-                f) sectors that are stopped are skipped. (see info stop)
-                g) first increase eff
-                h) then make things
+                d) population grows and is truncated
+                e) sectors that are stopped are skipped (see info stop)
+                f) first increase eff
+                g) then make things
 
 3) Then, do deliveries for all sectors in the world, row by row, going from
 	top to bottom, left to right
