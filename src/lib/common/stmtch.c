@@ -67,16 +67,22 @@ stmtch(register s_char *obj, s_char *base, int off, int size)
 }
 
 /*
- * do partial match comparison.
+ * Compare A with B, up to the first space in B.
+ * Return ME_EXACT if they are the same.
+ * Return ME_PARTIAL if A is a prefix of B.
+ * Else return ME_MISMATCH.
+ * Note: May read B beyond the first space, but not beyond a
+ * terminating 0.
  */
 int
 mineq(register s_char *a, register s_char *b)
 {
-    do {
-	if (*a++ != *b++)
-	    return ME_MISMATCH;
-    } while (*b != ' ' && *a != 0);
-    if (*a == 0 && (*b == ' ' || *b == 0))
-	return ME_EXACT;
+    int i;
+
+    /* find common prefix: */
+    for (i = 0; a[i] != 0 && a[i] == b[i]; ++i) ;
+
+    if (a[i] != 0) return ME_MISMATCH;
+    if (b[i] == 0 || b[i] == ' ') return ME_EXACT;
     return ME_PARTIAL;
 }
