@@ -69,7 +69,6 @@ struct keymatch configkeys[] = {
 #undef	EMP_CONFIG_C_OUTPUT
 };
 
-static void fixup_files(void);
 static struct keymatch *keylookup(s_char *key, struct keymatch tbl[]);
 static int set_option(const char *, int);
 
@@ -90,7 +89,10 @@ emp_config(char *file)
 
     if (!file)
 	file = dflt_econfig;
+    errno = 0;
     if ((fp = fopen(file, "r")) == NULL) {
+	if (file == dflt_econfig && errno == ENOENT)
+	    return 0;
 	fprintf(stderr, "Can't open %s for reading (%s)\n",
 		file, strerror(errno));
 	return -1;
