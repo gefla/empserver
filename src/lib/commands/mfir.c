@@ -775,13 +775,12 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     struct shpstr ship;
     struct lndstr land;
     struct nstr_item ni;
-    int vec[I_MAX + 1];
     int dam, dam2, rel, rel2;
     double tech;
     struct sctstr firing;
     struct nstr_sect ns;
     struct flist *fp;
-    int gun;
+    int gun, shell;
 
     if (own == 0)
 	return 0;
@@ -804,20 +803,20 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    continue;
 	if (ship.shp_effic < 60)
 	    continue;
-	if (getvec(VT_ITEM, vec, (caddr_t)&ship, EF_SHIP) < 0)
-	    continue;
 
-	if (vec[I_MILIT] < 1)
+	gun = ship.shp_item[I_GUN];
+	shell = ship.shp_item[I_SHELL];
+
+	if (ship.shp_item[I_MILIT] < 1)
 	    continue;
 
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
-	    if (vec[I_SHELL] < 3)
-		vec[I_SHELL] += supply_commod(ship.shp_own,
-					      ship.shp_x, ship.shp_y,
-					      I_SHELL, 3 - vec[I_SHELL]);
-	    if (vec[I_SHELL] < 3)
+	    if (shell < 3)
+		shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+				       I_SHELL, 3 - shell);
+	    if (shell < 3)
 		continue;
-	    if (vec[I_GUN] < 1)
+	    if (gun < 1)
 		continue;
 /*
   if (ship.shp_mobil <= 0)
@@ -854,14 +853,13 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    if (range < ni.curdist)
 		continue;
 	    /* must have gun, shell, and milit to fire */
-	    if (vec[I_SHELL] < 1)
-		vec[I_SHELL] += supply_commod(ship.shp_own,
-					      ship.shp_x, ship.shp_y,
-					      I_SHELL, 1);
+	    if (shell < 1)
+		shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+				       I_SHELL, 1);
 	    /* only need 1 shell, so don't check that */
-	    if (vec[I_SHELL] < 1)
+	    if (shell < 1)
 		continue;
-	    nshot = min(vec[I_GUN], vec[I_MILIT]);
+	    nshot = min(gun, ship.shp_item[I_MILIT]);
 	    nshot = min(nshot, ship.shp_glim);
 	    if (nshot == 0)
 		continue;
@@ -909,14 +907,14 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if (!has_supply(&land))
 	    continue;
 
-	if (getvec(VT_ITEM, vec, (caddr_t)&land, EF_LAND) < 0)
+	gun = land.lnd_item[I_GUN];
+	shell = land.lnd_item[I_SHELL];
+
+	if (land.lnd_item[I_MILIT] == 0 || shell == 0 || gun == 0)
 	    continue;
 
-	if (vec[I_MILIT] == 0 || vec[I_SHELL] == 0 || vec[I_GUN] == 0)
-	    continue;
-
-	dam2 = (int)landunitgun(land.lnd_effic, land.lnd_dam, vec[I_GUN],
-				land.lnd_ammo, vec[I_SHELL]);
+	dam2 = (int)landunitgun(land.lnd_effic, land.lnd_dam, gun,
+				land.lnd_ammo, shell);
 
 	(*nfiring)++;
 	fp = (struct flist *)malloc(sizeof(struct flist));
@@ -961,13 +959,15 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    range = (double)roundrange(range);
 	    if (range < ns.curdist)
 		continue;
-	    if (getvec(VT_ITEM, vec, (caddr_t)&firing, EF_SECTOR) < 0)
-		continue;
-	    if (vec[I_SHELL] < 1)
-		vec[I_SHELL] += supply_commod(firing.sct_own,
-					      firing.sct_x, firing.sct_y,
-					      I_SHELL, 1);
-	    if (vec[I_GUN] == 0 || vec[I_MILIT] < 5 || vec[I_SHELL] == 0)
+
+	    gun = firing.sct_item[I_GUN];
+	    shell = firing.sct_item[I_SHELL];
+
+	    if (shell < 1)
+		shell += supply_commod(firing.sct_own,
+				       firing.sct_x, firing.sct_y,
+				       I_SHELL, 1);
+	    if (gun == 0 || firing.sct_item[I_MILIT] < 5 || shell == 0)
 		continue;
 	    (*nfiring)++;
 	    fp = (struct flist *)malloc(sizeof(struct flist));
@@ -977,7 +977,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    fp->type = targ_land;
 	    add_to_fired_queue(&fp->queue, list);
 	    nreport(firing.sct_own, N_FIRE_BACK, player->cnum, 1);
-	    gun = vec[I_GUN];
 	    if (gun > 7)
 		gun = 7;
 	    dam += landgun((int)firing.sct_effic, gun);
