@@ -3,7 +3,7 @@
 .LV Expert
 .s1
 NOTE: This file is dramatically out of date.
-.S1
+.s1
 The classification scheme used by report is dumb.
 .s1
 You can make a sector temporarily useless by filling up all its

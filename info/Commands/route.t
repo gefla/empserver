@@ -30,10 +30,10 @@ using the following codes, (assuming the sector in question is a mine):
 .sp
  m/     up-right        (u in census)
  m>     right           (j in census)
- m\\\\     down-right      (n in census)
+ m\e     down-right      (n in census)
 /m      down-left       (b in census)
 <m      left            (g in census)
-\\\\m      up-left         (y in census)
+\em      up-left         (y in census)
 $m$     distribution    ($ in census)
 <m$     left & distribution (g and $ in census)
 etc.
@@ -43,18 +43,20 @@ An example:
 .sp
 .EX route f #
 .NF
+.eo
      - - - 0 0 0 0 0 0 0 0 0 0 1 1 1
      3 2 1 0 1 2 3 4 5 6 7 8 9 0 1 2
  -5         /a$ /a$             /a$   -5
  -4       /k  <o              /g  <a$ -4
- -3  a>  h> \\\\j  \\\\a$          +        -3
- -2       \\\\a$ \\\\a$ $a\\\\     /a$ /a$     -2
- -1     /a$ $a\\\\ /a$  b  /+   +        -1
-  0    m   c   u   t  \\\\i              0
-  1     \\\\a$ \\\\l      \\\\a  \\\\a            1
-  2        a/ \\\\a   a/     $a$         2
+ -3  a>  h> \j  \a$          +        -3
+ -2       \a$ \a$ $a\     /a$ /a$     -2
+ -1     /a$ $a\ /a$  b  /+   +        -1
+  0    m   c   u   t  \i              0
+  1     \a$ \l      \a  \a            1
+  2        a/ \a   a/     $a$         2
      - - - 0 0 0 0 0 0 0 0 0 0 1 1 1
      3 2 1 0 1 2 3 4 5 6 7 8 9 0 1 2
+.ec
 .FI
 .sp
 .s1

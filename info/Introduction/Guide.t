@@ -2,6 +2,7 @@
 .NA Guide "The Empire Users Guide"
 .LV Basic
 .nf
+.tr \&
 |                                                                              |
 |    ***       ***                                                             |
 |    ***       ***                                   *                         |
@@ -29,29 +30,29 @@
 
 User's Guide to Empire							 1
 
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-  .   .   .   .  ---------------------------------------------.   .   .   .   .
-.   .   .   .   .|                                           |  .   .   .   .  
-  .   .   .   .  |  This work copyright 1991, Geoff Cashman  |.   .   .   .   .
-.   .   .   .   .|  All rights reserved except you may copy  |  .   .   .   .
-  .   .   .   .  |  this work using electronic methods. Non  |.   .   .   .   .
-.   .   .   .   .|  electronic copying, hard copies for the  |  .   .   .   .
-  .   .   .   .  |  purpose of distribution and/or selling,  |.   .   .   .   .
-.   .   .   .   .|  is strictly prohibited without author's  |  .   .   .   .
-  .   .   .   .  |  express written consent. No changes may  |.   .   .   .   .
-.   .   .   .   .|  be made to the content of this edition.  |  .   .   .   .
-  .   .   .   .  |                                           |.   .   .   .   .
-.   .   .   .   .---------------------------------------------  .   .   .   . 
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
+\&  .   .   .   .  ---------------------------------------------.   .   .   .   .
+\&.   .   .   .   .|                                           |  .   .   .   .  
+\&  .   .   .   .  |  This work copyright 1991, Geoff Cashman  |.   .   .   .   .
+\&.   .   .   .   .|  All rights reserved except you may copy  |  .   .   .   .
+\&  .   .   .   .  |  this work using electronic methods. Non  |.   .   .   .   .
+\&.   .   .   .   .|  electronic copying, hard copies for the  |  .   .   .   .
+\&  .   .   .   .  |  purpose of distribution and/or selling,  |.   .   .   .   .
+\&.   .   .   .   .|  is strictly prohibited without author's  |  .   .   .   .
+\&  .   .   .   .  |  express written consent. No changes may  |.   .   .   .   .
+\&.   .   .   .   .|  be made to the content of this edition.  |  .   .   .   .
+\&  .   .   .   .  |                                           |.   .   .   .   .
+\&.   .   .   .   .---------------------------------------------  .   .   .   . 
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
+\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 
 
 User's Guide to Empire							 2
@@ -694,7 +695,7 @@ While you are in a sanctuary state you can not be attacked, overrun, or
 otherwise hurt.  However, while you are in sanctuary you can not do
 very many things.  In order to really begin playing the game you need
 to do what is known as "break sanctuary".  You can do this using the 
-'break' command.  When you do this, your two sanctuary sectors (which
+\&'break' command.  When you do this, your two sanctuary sectors (which
 everyone starts with) will become capital sectors.  You are no longer
 protected from attacks from enemy countries. 
 
@@ -781,6 +782,7 @@ Chapter 4 :-: Geography in Empire.
 
 	Maps in Empire are based on a simple hex design.  For example:
 
+.eo
 ---------------------------------- There are three basic sector types in
 				   Empire (note: "type" is different than
      / \   / \   / \   / \   / \   "designation".  Designation refers to what
@@ -803,6 +805,7 @@ Chapter 4 :-: Geography in Empire.
      Example of an Empire map      Why the maps have coordinates in this way
 				   is one of the great mysteries of Empire.
 ----------------------------------  
+.ec
 				    
 	Figure 4 below is a real map of Empire, in its real size and form.
 	Figure 3 is "zoomed in".  Note that the '?' marks on the right part of 
@@ -1811,6 +1814,7 @@ User's Guide to Empire							 39
 	hit with a 3mt nuclear warhead at your sector -12,-6.  It wastelanded 
 	7 of your sectors and damaged nearly the entire area.
 
+.eo
 --------------------------------------------------------------------------------
 
 			   21111111111----------
@@ -1830,6 +1834,7 @@ User's Guide to Empire							 39
 		  Map of area hit by 3mt nuclear warhead
 
 --------------------------------------------------------------------------------
+.ec
 
 	Here is a basic outline of what you will need to do should you be hit
 	with one or more 3mt or greater warheads:

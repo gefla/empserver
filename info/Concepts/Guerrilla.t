@@ -48,9 +48,9 @@ There are two ways to handle the guerrilla problem;
 one way requires high yield fusion weapons,
 and then they only die when everything else in the sector is destroyed.
 Unfortunately, collateral damage to civilian assets renders this
-strategy negatory ... \* Col. Batguano then launches into
+strategy negatory ... [Col. Batguano then launches into
 a tirade against the \*Qwimpy-assed liberals\*U which interfere with the
-proper guerrilla suppression techniques \* ...
+proper guerrilla suppression techniques] ...
 Almost every fully-populated area we moved into
 had a few dozen of the little monsters,
 and troop levels of 50-100 per sector were found to adequately

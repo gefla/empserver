@@ -17,12 +17,14 @@ UNIT to UNIT
 This range is dependent on both the visibility of the unit
 being observed and the visual range of the observing unit.
 (see \*Qinfo Unit-types\*U)
-.in \\n(in
+.in
 .s1
 UNIT to PLANE
 .s1
-Planes are treated as if they had a visibility of 10.
 .in +0.2i
+Planes are treated as if they had a visibility of 10.
+.in
+.s1
 For example:
 .EX lookout 24
 .NF

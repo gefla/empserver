@@ -16,7 +16,7 @@ the argument '*', or type "sstat *".
 .s1
 The report format contains the following fields:
 .s1
-.in \w'shiptype\0\0'u
+.in \w'ship-type\0\0'u
 .L shp#
 the ship number
 .L ship-type

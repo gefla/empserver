@@ -70,7 +70,7 @@ sb2 submarine 2 (#3) at 24,0 efficiency 76%, max range 2
 Sonar detects TheBorg (#5) bb4 battleship 4 (#1) @ 23,-1
   .
  . B ?
-. . 0 ?
+\&. . 0 ?
  . . .
   . . .
 .FI

@@ -21,12 +21,14 @@ can see using their periscope--they can usually only see ships in the
 same sector.  However, all ships (including subs) which are docked in
 a harbour are visible to all ships (including subs) in adjacent sectors.
 (see also \*Qinfo sonar\*U)
-.in \\n(in
+.in
 .s1
 SHIP to SHIP
 .s1
-This range is effectively 1.0.
 .in +0.2i
+This range is effectively 1.0.
+.in
+.s1
 For example:
 .EX lookout 24
 .NF

@@ -26,9 +26,9 @@ following:
 .NF
 y  for up-left
 u  for up-right               y    u
-g  for left                    \\\\  /
+g  for left                    \e  /
 j  for right               g  --  --  j
-b  for down-left               /  \\\\
+b  for down-left               /  \e
 n  for down-right             b    n
 .FI
 Other commands you may type while navigating are:

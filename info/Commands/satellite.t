@@ -47,9 +47,9 @@ To list all airports owned by country #7:
 To list all ships in 12,14:
 .EX "sat 28 sh ?xloc=12&yloc=14"
 To list all land units:
-.Ex "sat 28 l"
+.EX "sat 28 l"
 To list all cavalry units:
-.EX "sat 28 l ?type=cavalry".
+.EX "sat 28 l ?type=cavalry"
 .s1
 For a complete list of conditionals you can use, see info Syntax.
 Note that the large radar map is only drawn when the output is not filtered:

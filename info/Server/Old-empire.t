@@ -116,7 +116,7 @@ more SECTORS per world.
 Basically means that the MAP display is more condensed -
 and you'll be able to see more sectors on a MAP display
 than ever before.
-.NF +0.2i
+.NF
 A few new SECTOR-DESIGNATIONS have been added:
 
     BASICS                   INDUSTRIES                MILITARY / SCIENTIFIC

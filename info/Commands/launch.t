@@ -40,7 +40,7 @@ are less efficient,
 and missiles below 60% cannot be launched.
 .s1
 The formula for the chance that a missile hits its target is in
-\*Uinfo Hitchance\*U.
+\*Qinfo Hitchance\*U.
 .s1
 Of course, things don't always go as planned!
 .s1

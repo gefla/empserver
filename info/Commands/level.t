@@ -58,7 +58,7 @@ the distribution threshold for heavy construction materials
 in that sector
 .L rad
 the distribution threshold for radioactive materials in that sector
-.in \\n(in
+.in
 .s1
 For example:
 .EX level -2,2

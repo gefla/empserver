@@ -22,7 +22,7 @@ RESOURCE
 .FI
 These columns represent:
 .s1
-.in \w'gmin\0\0'u
+.in \w'uran\0\0'u
 .L sect
 the x and y coordinates of the sector
 .L eff
@@ -45,7 +45,7 @@ the uranium (radioactive materials) content in relative terms,
 (non-renewable)
 .L ter
 the territory number.
-.in \\n(in
+.in
 .s1
 For example:
 .EX reso #0

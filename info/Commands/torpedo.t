@@ -45,7 +45,7 @@ will still see the torpedo being launched and can return a depth charge
 attack (see below.)
 .s1
 A hit will be reported to you as \*QBOOM!\*U,
-See \*Winfo Damage\*U for the damage that a torpedo does.
+See \*Qinfo Damage\*U for the damage that a torpedo does.
 .s1
 In order to simulate the \*Qreal-time\*U situation,
 your mobility will be decremented by mobility equal to 1/2 the cost

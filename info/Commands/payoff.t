@@ -25,6 +25,7 @@ the type of ship; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc,
 the ship's current location (relative to your capital),
 .L $$
 the money you would get if you scuttled this ship
+.in
 .s1
 For example:
 .EX payoff *

@@ -195,7 +195,7 @@ If this sector produces something (mines, research labs, etc.)
    produce it
    pay for it (money, iron, gold mineral, oil, etc.)
 .fi
-.in \\n(in
+.in
 .s1
 Several points are noteworthy:
 .s1

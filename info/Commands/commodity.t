@@ -56,7 +56,7 @@ the number of units of light construction materials
 the number of units of heavy construction materials
 .L rad
 the number of units of radioactive materials
-.in \\n(in
+.in
 .s1
 For example:
 .EX commodity -3:3,-2:2

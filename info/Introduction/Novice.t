@@ -580,6 +580,4 @@ and as long as you stand idly by
 and watch those two countries blow each other to little pieces,
 you'll be left intact and growing richer off their little war.
 .s1
-.ce
-.s1
 .SA "Overview, Hints, Expert, Introduction"

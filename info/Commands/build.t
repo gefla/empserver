@@ -232,7 +232,7 @@ will gradually rust, take on water, and sink.
 		On a civilian ship: work = etus * (civ/2 + mil/5)
 
 	Crew is the current # of mil (for a military ship), or civs for a
-civilian ship.
+	civilian ship.
 
 	Max crew is the max # of mil/civs (depending on ship type)
 

@@ -39,7 +39,7 @@ Note that some sectors although working at 100%
 may show up less as the natural resources influence this figure.
 .L wkfc
 the number of active workers in the sector (in units of civilians).
-.L will make---
+.L "will make---"
 How much of what product will be made at the next update.
 .L p.e.
 Production efficiency \- the efficiency with which the product is made
@@ -56,7 +56,7 @@ was available).
 .L max
 This field gives the maximum output for the workforce if all the raw
 materials were present.
-.in \\n(in
+.in
 .s1
 For example:
 .EX prod #4 ?civ>100

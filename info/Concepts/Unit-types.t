@@ -107,7 +107,7 @@ The headings are as follows. For the building data:
 .s1
 .EX show land build
 .s1
-.in \w'shells\0\0'u
+.in \w'avail\0\0'u
 .L lcm
 The lcm required to build the land unit.
 .L hcm
@@ -120,13 +120,13 @@ The avail (work) required to build the land unit.
 The minimum technology required to build the land unit.
 .L $
 The cost of the land unit.
-.in \\n(in
+.in
 .s1
 The headings for the stats listing are
 .s1
 .EX show land stats
 .s1
-.in \w'fir\0\0'u
+.in \w'fc/fu\0\0'u
 .L att
 the attack multiplier of the land unit
 .L def
@@ -191,7 +191,6 @@ and will report enemy units in battle better.
 the unit has radar capability
 .L assault
 the unit may be used in assaults
-.L
 .in
 .s1
 Some examples of the output:

@@ -91,7 +91,7 @@ next come cargo ships, heavy cruisers and tenders, and so on.
 See \*Qinfo Ship-types\*U for a chart.
 .s1
 Ship A will see ship B if the distance between them is less than:
-.NF + 0.3i
+.NF
              spy factor of ship A * visibility of ship B
 efficiency * ------------------------------------------- * technology factor
                                20
@@ -100,7 +100,7 @@ efficiency * ------------------------------------------- * technology factor
 Note that, although subs can not be found via radar,
 destroyers automatically use sonar so they can see subs.
 Destroyer A will see submarine B if the distance between them is less than:
-.NF + 0.3i
+.NF
              spy factor of ship A * visibility of ship B
 efficiency * ------------------------------------------- * technology factor
                                20

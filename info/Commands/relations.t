@@ -91,7 +91,7 @@ if you were hostile towards them.
 .s1
 .L Sitzkrieg
 Sitzkrieg is the same as \*QMobilizing\*U. You still are unable to attack
-their land. At the next update, you will automatically move to \*QAt War\*.
+their land. At the next update, you will automatically move to \*QAt War\*U.
 .s1
 When you are At War with someone, you may attack them willy-nilly.
 .s1

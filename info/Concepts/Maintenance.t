@@ -4,12 +4,12 @@
 During each update, nations must pay to maintain their units, ships and planes.
 .s1
 The cost to maintain a ship, or land-unit is:
-.NF +8
+.NF
 	.001 * cost of thing * ETUs/update
 .FI
 .s1
 The cost to maintain a plane is:
-.NF +8
+.NF
 	.001 * cost of thing * ETUs/update + 5 * mil_cost * crew
 .FI
 .s1

@@ -38,16 +38,14 @@ timestamp.  The third line is the columns which are output.
 .s1
 These columns represent:
 .s1
-.in \w'gtimestamp\0\0'u
+.in \w'timestamp\0\0'u
 .L type
 The type of lost item.  They are as follows:
-.NF
-           0 - Sector
-           1 - Ship
-           2 - Plane
-           3 - Land unit
-           4 - Nuclear stockpile
-.FI
+    0 - Sector
+    1 - Ship
+    2 - Plane
+    3 - Land unit
+    4 - Nuclear stockpile
 .L id
 The # of the ship, plane, land unit or nuke.  All of these items
 are identified by id.  Sectors are identified by x and y.
@@ -57,6 +55,6 @@ The x coordinate of the lost item when it was lost.
 The y coordinate of the lost item when it was lost.
 .L timestamp
 The timestamp of when the item was lost.
-.in \\n(in
+.in
 .s1
 .SA "dump, ldump, sdump, ndump, pdump, Ships, Planes, LandUnits, Sectors, Clients"

@@ -10,7 +10,7 @@ DEFENSE STRENGTH               land  sect   sector  reacting    total
 .FI
 These columns represent:
 .s1
-.in \w'reacting\0\0'u
+.in \w'reacting units\0\0'u
 .L sect
 the x and y coordinates of the sector
 .L eff
@@ -20,18 +20,18 @@ of a designated sector except mobility units)
 the number of military troops
 .L units
 the total defensive strength of units in the sector
-.L land mines
+.L "land mines"
 the number of land mines in the sector.  If you do not completely own
 the sector, then a '?' will appear here.
-.L sect mult
+.L "sect mult"
 the defensive multiplier of the sector including the land mine bonus
-.L sector defense
+.L "sector defense"
 (mil + units) * mult
-.L reacting units
+.L "reacting units"
 the total strengths of all supplied mobile reacting units in range
-.L total defense
+.L "total defense"
 (sector defense) + (reacting units)
-.in \\n(in
+.in
 .s1
 For example:
 .EX str #1

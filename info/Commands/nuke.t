@@ -9,9 +9,9 @@ build nuclear warheads), then you will be given additional information
 about the sector relevant to the building of nukes.
 .s1
 .EX nuke #1
-.NF +0.3i
+.NF
   sect        eff num nuke-type         lcm   hcm   oil   rad avail
-  21,-3   n  100%  2 5mt fusion              499   499  1498   783   549
+  21,-3   n  100%  2 5mt fusion         499   499  1498   783   549
                   21 100kt fission
                    1 250kt fusion
   19,-3   +  100% 12 5mt fusion

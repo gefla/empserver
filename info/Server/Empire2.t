@@ -30,7 +30,7 @@ syntax.
     puts the X on your bmap
 .fi
 .L -
-All ships (including subs) in harbors are now visible via the \Q*lookout\U*
+All ships (including subs) in harbors are now visible via the \*Qlookout\*U
 command by all ships (including subs) in adjacent sectors
 .L -
 If a NEUTRAL (or worse) ship sails within your coastwatch range,
@@ -511,8 +511,8 @@ with, then you will be notified ("land unit #3 damaged from 80% to 50%",
 from 10 to 250").
 You will also be notified in this way if a bridge collapses, one of your
 attacking sectors was taken, you were shelled, your enemy abandoned
-the sector you were attacking, your land units reacted to fight another battle,
-...)  You will be notified if any of these things change before the
+the sector you were attacking, your land units reacted to fight another
+battle, ...)  You will be notified if any of these things change before the
 battle and given a chance to abort your attack.  If for some reason it
 is no longer possible to attack (e.g. you now own the sector, or a
 bridge collapses) then the attack will be automatically aborted.

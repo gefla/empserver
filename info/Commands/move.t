@@ -40,9 +40,9 @@ You may respond with any combination of:
 .NF
 y  for up-left
 u  for up-right               y    u
-g  for left                    \\\\  /
+g  for left                    \e  /
 j  for right               g  --  --  j
-b  for down-left               /  \\\\
+b  for down-left               /  \e
 n  for down-right             b    n
 v  for view
 m  for map

@@ -12,11 +12,15 @@ or one fleet/army or all ships/units within a given area.
 .s1
 The report format contains the following fields:
 .s1
-.in +1i
-.L shp# or #
-the ship or unit number
-.L shiptype or unit type
-the type of ship/unit; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc,
+.in \w'ship type\0\0'u
+.L shp#
+the ship number, or
+.L lnd#
+the unit number,
+.L "ship type"
+the type of ship; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc, or
+.L "unit type"
+the type of unit; \*Qwar band\*U, \*Qengineer\*U, etc,
 .L x,y
 the ship/unit's current location (relative to your capital),
 .L flt

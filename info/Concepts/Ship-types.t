@@ -185,13 +185,13 @@ The avail (work) required to build the ship.
 The minimum technology required to build the ship.
 .L $
 The cost of the ship.
-.in \\n(in
+.in
 .s1
 The headings for the stats listing are
 .s1
 .EX show ship stats
 .s1
-.in \w'fir\0\0'u
+.in \w'fuel c/u\0\0'u
 .L def
 defensive armament of the ship
 .L spd
@@ -217,7 +217,7 @@ The number of light planes the ship can carry.
 .L lnd
 The number of 'light' land units the ship can carry. If the ship is a supply
 ship, it can carry even non-'light' units.
-.L fuel c/u
+.L "fuel c/u"
 The ship's fuel capacity & usage. (see info fuel) (If the FUEL option is
 enabled)
 .in
@@ -229,7 +229,7 @@ The abilities are as follows.
 .s1
 .EX show ship capabilities
 .s1
-.in \w'sonar\0\0'u
+.in \w'anti-missile\0\0'u
 .L fish
 The vessel will accumulate food by fishing
 .L torp
@@ -264,7 +264,6 @@ The vessel can torpedo submarines
 The vessel is a trade ship. (only if TRADESHIPS are enabled)
 .L anti-missile
 The vessel will intercept enemy marine missiles (see \*Qinfo Hitchance\*U).
-.L
 .in
 .s1
 Some examples of the output:

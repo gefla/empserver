@@ -66,14 +66,14 @@ based on the high percentage of Lumbagan Legionnaires
 among the afflicted had led us down a blind alley
 and that if we were to solve this complex puzzle
 before the end of the series in the spring
-\*[possibly a reference to the series of tests
-leading to the mysterious \*QNeilson Rating\*U\*]
+[possibly a reference to the series of tests
+leading to the mysterious \*QNeilson Rating\*U]
 we would have to turn to other disciplines for help.
 It was only by the merest lucky coincidence
 that as I drove home one evening ...
-\*[here Dr. Welby relates an amusing anecdote
+[here Dr. Welby relates an amusing anecdote
 about a Brownie Scout and the director of a film
-entitled \*QClose Encounters of the Third Grade\*U\*] ...
+entitled \*QClose Encounters of the Third Grade\*U] ...
 leading us to the following amazing formulation
 of the relationship between medical research,
 technology, population, standard of living and the Empire Plague:
@@ -81,7 +81,7 @@ technology, population, standard of living and the Empire Plague:
 .ev
 .in
 .s1
-.NF +0.4i
+.NF
 likelihood   civ + mil + uw   t_level + (iron + oil + rad * 2) / 10 + 100
     of     = -------------- * -------------------------------------------
   plague           999               r_level + effic + mobil + 100

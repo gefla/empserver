@@ -21,7 +21,7 @@ DELIVERY CUTOFF LEVELS
 .FI
 These columns represent:
 .s1
-.in \w'ufsgpidbolh\0\0'u
+.in \w'ufsgpidbolhr\0\0'u
 .L sect
 the x and y coordinates of the sector
 .L ufsgpidbolhr
@@ -54,7 +54,7 @@ the delivery cutoff threshold for heavy construction materials
 in that sector
 .L rad
 the delivery cutoff threshold for radioactive materials in that sector
-.in \\n(in
+.in
 .s1
 For example:
 .EX cutoff -3:3,-2:0

@@ -18,7 +18,7 @@ The report format contains the following fields:
 .in \w'unit-type\0\0'u
 .L lnd#
 the unit number
-.L unit type
+.L unit-type
 the type of unit
 .L x,y
 the unit's current location (relative to your origin),

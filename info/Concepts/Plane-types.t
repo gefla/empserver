@@ -188,7 +188,7 @@ minimum tech level to build this unit,
 .L $
 cost of the unit in dollars,
 .s1
-.in \\n(in
+.in
 For the stats report the fields are:
 .s1
 .in \w'stealth\0\0'u
@@ -206,12 +206,12 @@ base range (in sectors).
 amount of fuel used each trip.
 .L stealth
 the percentage chance this plane has of evading detection
-.in \\n(in
+.in
 .s1
 The abilities are given as a set of attributes for each plane.
 These include:
 .s1
-.in \w'intercept\0\0'u
+.in \w'half-stealth\0\0'u
 .L tactical
 Pinpoint bombing ability.  Can be put on interdiction and support
 missions.  Tactical missiles may be launched at sectors unless they
@@ -261,7 +261,7 @@ Can lay mines (see info mine).
 Can sweep mines (see info sweep).
 .L marine
 Missiles with this ability may only be launched at ships.
-.in \\n(in
+.in
 .s1
 Each plane has a stealth rating. The
 stealth rating of a group of planes is that of the plane with the LOWEST

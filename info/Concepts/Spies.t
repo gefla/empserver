@@ -34,5 +34,5 @@ Submarines may carry up to two spy units.
 .s1
 When unloaded from a ship, spies are not given over to the owner of the
 sector as other units are.
-.sq
+.s1
 .SA "lboard, bomb, fire, spy, llookout, LandUnits"

@@ -39,6 +39,5 @@ which would list data for all nukes in realm #5.
 A ndump lists each of your sectors in the specified area.
 The header line is a list of fields that correspond
 to the order that ndump prints the nuke info.
-.FI
 .s1
 .SA "nuke, Clients, Planes"

@@ -162,6 +162,6 @@ After an update has completed
 your ship will have mobility so it can be moved by hand if needed. 
 .s1
 For information on setting up ships to feed your country see
-'info autofeed' for details.
+\&'info autofeed' for details.
 .s1
 .SA "sorder, qorder, bmap, navigate, ship, Autofeed, Autonav, Ships"

@@ -28,24 +28,23 @@ the x and y coordinates of the sector
 .L eff
 the efficiency of the sector (affects all benefits
 of a designated sector except mobility and defense)
-.L road eff
+.L "road eff"
 the road efficiency of the sector
-.L road mcost
+.L "road mcost"
 the mcost used to determine the mobility cost of moving things and marching
 non-train units through the sector
-.L rail eff
+.L "rail eff"
 the rail efficiency of the sector
-.L rail mcost
+.L "rail mcost"
 the mcost used to determine the mobility cost of moving trains through the
 sector.  If the rail eff is 0, trains cannot move through this sector.
-.L defense eff
+.L "defense eff"
 the defense efficiency of the sector. 
-.L defense fact
+.L "defense fact"
 the defense factor of the sector.  This is how well the sector defends.
 All sectors start at 1, and improve (see "improve") from there to the maximum
 shown in "show sect stats"
-.FI
-.in \w' 'u
+.in
 .s1
 For example:
 .EX sinf #0

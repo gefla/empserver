@@ -57,7 +57,7 @@ civilians + military \(<= 4 * fertility
 military \(<= 15 * civilians
 .\" (ofcrate / eatrate - 1) * 5
 (amount that gets harvested)
-.in \\n(in
+.in
 .s1
 In an agribusiness an \*(iFadditional\*(pF amount of food can be grown.
 That amount is calculated by the following:
@@ -101,9 +101,9 @@ in 10 time units in a 100% agribusiness are:
  ------+-----+------+------+
 .FI
 .s1
-.in \\n(in
 SPECIAL NOTE: Residents of a sanctuary need no food to survive;
 thus no one ever starves in a sanctuary.
+.in 0
 .s1
 On a ship the following applies:
 .in +0.2i
@@ -124,7 +124,7 @@ in one time unit is:
 .s1
 .ti +0.3i
 0
-.in \\n(in
+.in
 .s1
 Note that if a ship doesn't have enough food, it will try to draw it from
 supply sources (see info supply). If it still hasn't enough food, it will

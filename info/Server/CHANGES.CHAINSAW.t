@@ -11,7 +11,7 @@ BBN Empire 1.0 & BSD Empire 1.1.5, KSU, & MERC empire. BBN Empire 1.0
 is a superset of the other versions, including all MERC code, which includes
 all KSU code, which include the BSD 1.1.5 code.
 .s1
-.L Bug-fixes & Changes
+.L "Bug-fixes & Changes"
 .s1
 Scrap and scuttle will now ask for confirmation before scrapping or scuttling
 wing or fleets. The will also ask before scrapping or scuttling ALL planes or
@@ -77,28 +77,29 @@ fixed before, but the fix didn't work all the time)
 Note that the sector building the bridge may be a bridge, providing the sector
 that the bridge is being built in is adjacent to a non-sea, non-bridge sector.
 For example, this is legal:
-
- . . . . . . .	=>	 . . . . . . . 
-. . . . . . .	=>	. . . . . . . 
- . - = . - . .	=>	 . - = = - . . 
-. . . . . . .	=>	. . . . . . . 
- . . . . . . .	=>	 . . . . . . . 
-
+.NF
+   . . . . . . .	=>	 . . . . . . . 
+  . . . . . . . 	=>	. . . . . . . 
+   . - = . - . .	=>	 . - = = - . . 
+  . . . . . . . 	=>	. . . . . . . 
+   . . . . . . .	=>	 . . . . . . . 
+.FI
 .s1
 This is not legal:
- . . . . . . .	=>	 . . . . . . . 
-. . . . . . .	=>	. . . . . . . 
- . - = . . - .	=>	 . - = = . - . 
-. . . . . . .	=>	. . . . . . . 
- . . . . . . .	=>	 . . . . . . . 
-
+.NF
+   . . . . . . .	=>	 . . . . . . . 
+  . . . . . . . 	=>	. . . . . . . 
+   . - = . . - .	=>	 . - = = . - . 
+  . . . . . . . 	=>	. . . . . . . 
+   . . . . . . .	=>	 . . . . . . . 
+.FI
 .s1
 Also, the sector building the bridge must be at least 60% efficient.
 .s1
 .L BETTERARMOR
 .s1
 Ship's armor factors now more greatly affect both shelling and bombing. BB's are
-much harder to kill. Smaller ships are more fragile.\
+much harder to kill. Smaller ships are more fragile.
 .s1
 .L ALL_BLEED
 .s1
@@ -176,7 +177,7 @@ trying to load things on them.
 You can no longer load things onto non-allied ships, even
 if they are in a harbor you own.
 .s1
-'break' now breaks ALL sanctuaries you own, even if some are not adjacent
+\&'break' now breaks ALL sanctuaries you own, even if some are not adjacent
 to 0,0.
 .s1
 When specifying a flight path, the terminating 'h' is no longer counted as
@@ -309,7 +310,7 @@ there is not enough petrol, oil is used, at a rate of 1 oil = 50 fuel.
 Ships of allies can be fueled, if the ALLYHARBOR option is in use, either at a
 harbor, or with an oiler.
 .s1
-.L SEMILAND 
+.L SEMILAND
 .s1
 This option adds a flag, "semi-lander", which allows the ship to use 25% of its
 mil in an assault.
@@ -417,7 +418,7 @@ not detonate. Nukes striking water sectors affect only their impact sector.
 Thanks go to all the people who've helped me with ideas and playtesting:
 Jorge Diaz (Ansalon), Tom Tedrick (Afrika Korps), Keith Graham (DreamLands),
 Dave Nye (Evil_Empire), Sasha Mikheev (Dolgopa), Baldric, Elsinore, Brett Reid
-(Resvon), Kazzadur \ystein Tvedten (Flipper's evil twin), Tharkadia, Yikes, and
+(Resvon), Kazzadur \eystein Tvedten (Flipper's evil twin), Tharkadia, Yikes, and
 many more I'm forgetting. The good things are mostly ideas contributed by these
 people. The bugs, I'm afraid, are my own.
 .nf
@@ -442,7 +443,7 @@ The chance of a plane aborting is changed to
 takes a hit for 30% damage, it has a 30% chance to abort.
 If it then takes another hit for 20% more, a total of 50% damage,
 it has a 50% chance to abort.
-.s2
+.s1
 Also, when bombing ships, rolls are not made for
 aborting until after all ships have fired, rather
 than rolling every time the plane takes a flak
@@ -459,7 +460,7 @@ efficiency growth rate. It is now possible to allow
 Subs may no longer shell.. they may only torpedo.
 .s1
 A WIRE option has been added that activates the
-'wire' command. The wire command reads only
+\&'wire' command. The wire command reads only
 announcements. The normal read command then
 reads only telegrams & bulletins.
 .s1
@@ -469,7 +470,7 @@ You may now build multiples of an item by adding a build count at the
 end of your build command. (see info build)
 .s1
 You may now give comments in the hours file. Comment lines start with a
-'#' character. (Players do not need to care about this.. it's for deities)
+\&'#' character. (Players do not need to care about this.. it's for deities)
 .s1
 The report command has been changed to not include countries
 that are not active. (i.e. visitor or in sanctuary)

@@ -13,10 +13,10 @@ the argument '*', i.e. type "land *".
 .s1
 The report format contains the following fields:
 .s1
-.in \w'unit-type\0\0'u
+.in \w'unit type\0\0'u
 .L #
 the unit number
-.L unit type
+.L "unit type"
 the type of unit; \*Qwar band\*U, \*Qengineer\*U, etc,
 .L x,y
 the unit's current location (relative to your capital),

@@ -1,12 +1,12 @@
 .TH Concept "Sector Types"
 .NA Sector-types "Description of different sector types"
 .LV Basic
-.NF +0.2i
+.NF
  BASICS                   INDUSTRIES                MILITARY / SCIENTIFIC
  .  sea                   d  defense plant          t  technical center
  ^  mountain              i  shell industry         f  fortress
  s  sanctuary             m  mine                   r  research lab
- \\  wasteland             g  gold mine              n  nuclear plant
+ \e  wasteland             g  gold mine              n  nuclear plant
  -  wilderness            h  harbor                 l  library/school
  ~  plains                w  warehouse              e  enlistment center
  c  capital/city          u  uranium mine           !  headquarters
@@ -361,7 +361,7 @@ shown in the "show sect stats" described below.)
 .s1
 .EX des 2,0 f
 That just cost you $500
-.s1.
+.s1
 Cost for 1% efficiency is the $$ cost per point of efficiency built.
 Lcms/Hcms for 1% are similar.
 
@@ -369,10 +369,10 @@ Lcms/Hcms for 1% are similar.
 .NF
                                  max   max   --  packing bonus  --
   sector type           mcost    off   def   mil  uw civ bar other
-. sea                       0   0.00  0.00     1   1   1   1     1
+\&. sea                       0   0.00  0.00     1   1   1   1     1
 ^ mountain                 25   1.00  4.00     1   1   1   1     1
 s sanctuary                 0   0.00 99.00     1   1   1   1     1
-\\ wasteland                 0   0.00 99.00     1   1   1   1     1
+\e wasteland                 0   0.00 99.00     1   1   1   1     1
 - wilderness                2   1.00  2.00     1   1   1   1     1
 c capital                   2   1.00  2.00     1   1   1   1     1
 u uranium mine              2   1.00  2.00     1   1   1   1     1

@@ -9,7 +9,7 @@
 The Empire Shell (command interpreter)
 expects input in the form:
 .EX VERB ARG1 ARG2 ...
-VERB is any one of the Empire commands on the \Q*command list\*U
+VERB is any one of the Empire commands on the \*Qcommand list\*U
 (what you see when you type \*Qlist\*U-- e.g. 
 \*Qmap\*U, \*Qmove\*U, \*Qinfo\*U, etc).
 .s1
@@ -42,14 +42,14 @@ commodities found in \*Qinfo Selector\*U:
 .AB
 .ne 4
 <SECTS> ::= sector(s) in the form:
-.NF +0i
+.NF
 lox:hix,loy:hiy ?cond&cond&...
 .FI
 \*Qlox\*U, \*Qhix\*U, \*Qloy\*U, \*Qhiy\*U are coordinates bounding
 the rectangular area to be considered
 .s1
 \*Qcond\*U is a condition of the form:
-.NF +0i
+.NF
 <VALUE><OPERATOR><VALUE>
 .FI
 <VALUE> is either a <COMM>, as above,
@@ -112,7 +112,7 @@ For instance:
 will list all destroyers that have more than 5 military
 which are not currently in any fleet.
 .s1
-.in \\n(in
+.in 0
 .s1
 The output from commands may also be sent to a file or another
 process by utilizing these alternate syntaxes:

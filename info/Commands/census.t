@@ -22,7 +22,7 @@ CENSUS                   del dst
 .FI
 These columns represent:
 .s1
-.in \w'gmin\0\0'u
+.in \w'coast\0\0'u
 .L sect
 the x and y coordinates of the sector
 .L eff
@@ -64,7 +64,7 @@ the sector only when you use the census command, so if you want to
 query your sectors depending on whether they're coastal, then you may
 need to do a census twice--the first time to set the coastal flags,
 and the second time to query them.
-.in \\n(in
+.in
 .s1
 For example:
 .EX cens #0
