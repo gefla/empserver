@@ -1,4 +1,4 @@
-.TH Introduction "Empire4 Compatable Clients"
+.TH Introduction "Empire4 Compatible Clients"
 .NA Clients "Clients which communicate well with the Empire4 Server"
 .LV Basic
 .NF
