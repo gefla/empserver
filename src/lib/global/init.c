@@ -37,7 +37,7 @@
 #include "plane.h"
 #include "product.h"
 #include "optlist.h"
-#include "global.h"
+#include "prototypes.h"
 
 static void init_mchr(void);
 static void init_pchr(void);

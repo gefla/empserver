@@ -64,7 +64,6 @@
 #include "sect.h"
 #include "product.h"
 #include "optlist.h"
-#include "global.h"
 #include "server.h"
 #include "prototypes.h"
 
