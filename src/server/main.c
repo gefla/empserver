@@ -102,7 +102,7 @@ print_usage(char *program_name)
 	   "  -R NAME         remove service NAME\n"
 #endif
 	   "  -s              enable stack checking\n"
-	   "  -v              display version information and exit\n"
+	   "  -v              display version information and exit\n",
 	   program_name, dflt_econfig
 #ifdef _WIN32
 	   , DEFAULT_SERVICE_NAME, DEFAULT_SERVICE_NAME
