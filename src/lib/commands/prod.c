@@ -278,7 +278,7 @@ prod(void)
 
 	if (nsect++ == 0) {
 	    pr("PRODUCTION SIMULATION\n");
-	    pr("   sect  eff des avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
+	    pr("   sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
 	}
 
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
