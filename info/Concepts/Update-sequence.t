@@ -71,8 +71,6 @@ This document gives a rough order of events during the update.
    b) Add mobility to sectors
    c) Add mobility to planes
    d) Add mobility to land units
-	1) Units with negative mobility have their mob halved (-100 goes to -50)
-	2) Mobility is added
 .fi
 .s1
 .SA "Innards, Update"

@@ -87,12 +87,6 @@ same sector.
 .s1
 See "info Mobility" for the mobility cost to march land units.
 .s1
-At the update, units with negative mobility have their mobility halved
-before new mob is added. For example, in a game where units got 32 mob
-per update, a unit with -100 mobility would have -18 after an update.
-(-100/2 = -50 + 32 = -18) This helps inefficient units be not quite as
-slow.
-.s1
 Moving a unit through a sector that has been mined
 introduces a chance of mines/(mines + 50) that you will be damaged.
 Units with engineering capabilities can remove up to five mines per
