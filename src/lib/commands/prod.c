@@ -69,8 +69,9 @@ prod(void)
     struct sctstr sect;
     struct nstr_sect nstr;
     struct pchrstr *pp;
-    double effic;
+    double p_e;
     double maxr;		/* floating version of max */
+    double level_p_e;
     double prodeff;
     double real;		/* floating pt version of act */
     double work;
@@ -84,7 +85,7 @@ prod(void)
     double take;
     double mtake;
     int there;
-    int totcomp;		/* sum of component amounts */
+    int unit_work;		/* sum of component amounts */
     int used;			/* production w/infinite workforce */
     int wforce;
     int it;
@@ -205,44 +206,44 @@ prod(void)
 	if (eff < 60 || (type != SCT_ENLIST && eff < 61))
 	    continue;
 
-	effic = eff / 100.0;
-	if (effic > 1.0)
-	    effic = 1.0;
+	p_e = eff / 100.0;
+	if (p_e > 1.0)
+	    p_e = 1.0;
 
 	if (dchr[type].d_prd == 0 && type != SCT_ENLIST)
 	    continue;
-	totcomp = 0;
+	unit_work = 0;
 	pp = &pchr[dchr[type].d_prd];
 	vtype = pp->p_type;
 	natp = getnatp(sect.sct_own);
 	/*
-	 * sect effic  (inc improvements)
+	 * sect p_e  (inc improvements)
 	 */
 	if (type == SCT_ENLIST && sect.sct_own != sect.sct_oldown)
 	    continue;
 	if (type == SCT_ENLIST)
 	    goto is_enlist;
 	if (pp->p_nrndx != 0) {
-	    totcomp++;
+	    unit_work++;
 	    resource = ((s_char *)&sect) + pp->p_nrndx;
-	    effic = (*resource * effic) / 100.0;
+	    p_e = (*resource * p_e) / 100.0;
 	    if (pp->p_nrdep > 0) {
 		maxtake = (*resource * 100.0) / pp->p_nrdep;
-		if (effic > maxtake)
-		    effic = maxtake;
+		if (p_e > maxtake)
+		    p_e = maxtake;
 	    }
 	}
 	/*
 	 * production effic.
 	 */
 	if (pp->p_nlndx >= 0) {
-	    prodeff = natp->nat_level[pp->p_nlndx] - pp->p_nlmin;
-	    if (prodeff < 0.0) {
-		prodeff = 0.0;
+	    level_p_e = natp->nat_level[pp->p_nlndx] - pp->p_nlmin;
+	    if (level_p_e < 0.0) {
+		level_p_e = 0.0;
 	    }
-	    prodeff = prodeff / (prodeff + pp->p_nllag);
+	    level_p_e = level_p_e / (level_p_e + pp->p_nllag);
 	} else {
-	    prodeff = 1.0;
+	    level_p_e = 1.0;
 	}
 	used = 999;
 	comp = pp->p_vtype;
@@ -250,21 +251,21 @@ prod(void)
 	amount = pp->p_vamt;
 	while (comp < endcomp) {
 	    if (*amount == 0)
-		totcomp++;
+		unit_work++;
 	    else {
 		used = min(used, sect.sct_item[(int)*comp] / *amount);
-		totcomp += *amount;
+		unit_work += *amount;
 	    }
 	    ++comp;
 	    ++amount;
 	}
-	if (totcomp == 0)
+	if (unit_work == 0)
 	    continue;
 	/*
 	 * is production limited by resources or
 	 * workforce?
 	 */
-	max = (int)((work * effic / (double)totcomp) + 0.5);
+	max = (int)((work * p_e / (double)unit_work) + 0.5);
 	act = min(used, max);
 	/*
 	 * some things are easier to make..  food,
@@ -273,8 +274,8 @@ prod(void)
 	act = (int)(((double)pp->p_effic * 0.01 * (double)act) + 0.5);
 	max = (int)(((double)pp->p_effic * 0.01 * (double)max) + 0.5);
 
-	real = (double)act *(double)prodeff;
-	maxr = (double)max *(double)prodeff;
+	real = (double)act * level_p_e;
+	maxr = (double)max * level_p_e;
 
 	if (vtype != 0) {
 	    if (real < 0.0)
@@ -285,9 +286,9 @@ prod(void)
 	    max = min(max, ITEM_MAX - there);
 	}
 
-	if (prodeff != 0) {
-	    take = real / prodeff;
-	    mtake = maxr / prodeff;
+	if (level_p_e != 0) {
+	    take = real / level_p_e;
+	    mtake = maxr / level_p_e;
 	} else
 	    mtake = take = 0.0;
 
@@ -340,7 +341,7 @@ prod(void)
 
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c", dchr[type].d_mnem);
-	pr(" %3.0f%%", effic * 100.0);
+	pr(" %3.0f%%", p_e * 100.0);
 
 	pr(" %4d", wforce);
 	if (vtype != 0) {
@@ -394,7 +395,7 @@ prod(void)
 	}
 
 	pr(" %-5.5s", pp->p_sname);
-	prodeff = prodeff * (double)pp->p_effic * 0.01;
+	prodeff = level_p_e * (double)pp->p_effic * 0.01;
 	pr(" %.2f", prodeff);
 	pr(" $%-4d", cost);
 	for (i = 0; i < 3; i++) {
