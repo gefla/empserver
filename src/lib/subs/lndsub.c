@@ -1367,7 +1367,7 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
     if ((lp->lnd_harden + hard_amt) > land_mob_max)
 	hard_amt = land_mob_max - lp->lnd_harden;
 
-    eng = is_engineer(lp->lnd_x, lp->lnd_y);
+    eng = has_helpful_engineer(lp->lnd_x, lp->lnd_y, lp->lnd_own);
 
     if (eng)
 	hard_amt = ((float)hard_amt * 1.5);

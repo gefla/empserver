@@ -97,14 +97,19 @@ has_units_with_mob(coord x, coord y, natid cn)
     return 0;
 }
 
+/*
+ * Is there a engineer unit at X,Y that can help nation CN?
+ */
 int
-is_engineer(int x, int y)
+has_helpful_engineer(coord x, coord y, natid cn)
 {
     struct nstr_item ni;
     struct lndstr land;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
+	if (land.lnd_own != cn && getrel(getnatp(land.lnd_own), cn) != ALLIED)
+	    continue;
 	if (lchr[(int)land.lnd_type].l_flags & L_ENGINEER)
 	    return 1;
     }
