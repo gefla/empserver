@@ -99,9 +99,6 @@ sabo(void)
 	    continue;
 	}
 
-	land.lnd_own = 0;
-	putland(land.lnd_uid, &land);
-
 	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	dam = landgun(3 * land.lnd_effic, 7);
 	if (vec[I_SHELL] > 20)
@@ -116,6 +113,11 @@ sabo(void)
 	       "Sabotage in sector %s caused %d damage.\n",
 	       xyas(sect.sct_x, sect.sct_y, sect.sct_own), dam);
 	}
+
+	/* hack: hide the spy so it don't gets blasted by sectdamage() */
+	land.lnd_own = 0;
+	putland(land.lnd_uid, &land);
+
 	sectdamage(&sect, dam, 0);
 	putsect(&sect);
 
