@@ -50,7 +50,6 @@
 #include "prototypes.h"
 
 static int get_minimum(struct lndstr *, int);
-static s_char *itemname(int);
 static int s_commod(int, int, int, int, int, int);
 
 /*
@@ -410,6 +409,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	}
 
 	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	min = get_minimum(&land, type);
 	ip = &ichr[type];
 	weight = ((double)ip->i_lbs);
 	mobcost = move_cost * weight;
@@ -417,7 +417,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	    can_move = ((double)land.lnd_mobil / mobcost);
 	else
 	    can_move = vec[type] - min;
-	min = get_minimum(&land, type);
 	if (can_move > (vec[type] - min))
 	    can_move = (vec[type] - min);
 
@@ -453,20 +452,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
     return gotten;
 }
 
-
-static s_char *
-itemname(int type)
-{
-    register int t;
-    register struct ichrstr *ip;
-
-    t = V_ITEM(type);
-    for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
-	if (t == ip->i_vtype)
-	    return ip->i_name;
-    }
-    return 0;
-}
 
 /*
  * We want to get enough shells to fire once,
