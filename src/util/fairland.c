@@ -257,6 +257,8 @@ main(int argc, char *argv[])
 	exit(-1);
     output();
     write_newcap_script();
+    if (!ORE && !quiet)
+	printf("\t*** Resources have not been added ***\n");
     exit(0);
 }
 
@@ -1226,8 +1228,6 @@ write_newcap_script(void)
     if (quiet == 0)
 	printf("\n\nA script for adding all the countries can be found in \"%s\".\n",
 	     outfile);
-    if (ORE && quiet == 0)
-	printf("\t***IMPORTANT: Resources have already been added***\n\tYou do NOT need to run the ore program.\n");
     return 0;
 }
 
