@@ -927,7 +927,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
     struct nstr_item ni;
     struct shpstr ship;
     int hitchance;
-    int vec[I_MAX + 1];
+    int shell;
     double gun, eff, teff;
 
     snxtitem_dist(&ni, EF_SHIP, dx, dy, 1);
@@ -945,22 +945,20 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	if (ship.shp_effic < 60)
 	    continue;
 
-	if (getvec(VT_ITEM, vec, (caddr_t)&ship, EF_SHIP) < 0)
+	shell = ship.shp_item[I_SHELL];
+	if (ship.shp_item[I_MILIT] < 1)	/* do we have mil? */
 	    continue;
-	if (vec[I_MILIT] < 1)	/* do we have mil? */
-	    continue;
-	if (vec[I_SHELL] < 2) {	/* do we need shells */
-	    vec[I_SHELL] += supply_commod(ship.shp_own,
-					  ship.shp_x, ship.shp_y,
-					  I_SHELL, 2);
-	    if (vec[I_SHELL] < 2)
+	if (shell < 2) {	/* do we need shells */
+	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+				   I_SHELL, 2);
+	    if (shell < 2)
 		continue;
 	}
-	if (vec[I_GUN] < 1)	/* we need at least 1 gun */
+	if (ship.shp_item[I_GUN] < 1)	/* we need at least 1 gun */
 	    continue;
 
 	/* now calculate the odds */
-	gun = ((double)min(vec[I_GUN], ship.shp_glim));
+	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
 	eff = (double)ship.shp_effic / 100.0;
 	teff =
 	    (((double)ship.shp_tech) / (((double)ship.shp_tech) + 200.0));
@@ -977,7 +975,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    ship.shp_uid);
 	mpr(ship.shp_own, "%d%% hitchance...", hitchance);
 	/* use ammo */
-	ship.shp_item[I_SHELL] = vec[I_SHELL] - 2;
+	ship.shp_item[I_SHELL] = shell - 2;
 	putship(ship.shp_uid, &ship);
 
 	if (roll(100) <= hitchance) {

@@ -73,7 +73,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
     double eff;
     struct shpstr ship;
     struct nstr_item ni;
-    int vec[I_MAX + 1];
+    int shell;
     int dam, rel, rel2;
 
     if (own == 0)
@@ -102,17 +102,15 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	if (range < ni.curdist)
 	    continue;
 	/* must have gun, shell, and milit to fire */
-	if (getvec(VT_ITEM, vec, (caddr_t)&ship, EF_SHIP) < 3)
-	    continue;
-	if (vec[I_SHELL] < ship.shp_glim)
-	    vec[I_SHELL] += supply_commod(ship.shp_own, ship.shp_x,
-					  ship.shp_y, I_SHELL,
-					  vec[I_SHELL] - ship.shp_glim);
-	nshot = min(min(vec[I_GUN], vec[I_SHELL]), vec[I_MILIT]);
+	shell = ship.shp_item[I_SHELL];
+	if (shell < ship.shp_glim)
+	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+				   I_SHELL, shell - ship.shp_glim);
+	nshot = min(min(ship.shp_item[I_GUN], shell), ship.shp_item[I_MILIT]);
 	nshot = min(nshot, ship.shp_glim);
 	if (nshot <= 0)
 	    continue;
-	ship.shp_item[I_SHELL] = vec[I_SHELL] - nshot;
+	ship.shp_item[I_SHELL] = shell - nshot;
 	putship(ship.shp_uid, &ship);
 	if (defending)
 	    nreport(ship.shp_own, N_FIRE_BACK, att, 1);
@@ -177,7 +175,6 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
     double range;
     struct sctstr firing;
     struct nstr_sect ns;
-    int vec[I_MAX + 1];
 
     if (opt_NO_FORT_FIRE)	/* Forts can't fire! */
 	return 0;
@@ -199,8 +196,6 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 	rel2 = getrel(getnatp(firing.sct_own), att);
 	if ((firing.sct_own != def_own) &&
 	    ((rel != ALLIED) || (rel2 != AT_WAR)))
-	    continue;
-	if (getvec(VT_ITEM, vec, (caddr_t)&firing, EF_SECTOR) < 0)
 	    continue;
 
 	range = tfactfire(def_own, 7.0);
