@@ -90,8 +90,6 @@ If detection is above 7, then you will be told the ship type, and if
 it is above 9, you will also be told the owner of the sub.  Note that
 type and owner will always be shown for Friendly subs.
 .s1
-.TH Concept plane-sonar
-.s1
 Planes with the ASW ability can use 
 sonar while on recon missions. See info recon for more details.
 .s1
