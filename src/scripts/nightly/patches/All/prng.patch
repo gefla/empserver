@@ -172,7 +172,7 @@ Index: empserver/src/lib/gen/chance.c
 -    extern void srand48();
 -
 -    srand48(n);
-+    SRANDOM(n);
++    SRANDOM(1);
  }
  
  long
