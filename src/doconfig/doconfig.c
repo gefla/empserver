@@ -198,7 +198,7 @@ wrauth(char *filename)
     fprintf(fp, "# username that authorized user uses on a line\n#\n");
     fprintf(fp, "# REMEMBER TO USE PAIRS OF LINES!\n#\n");
     fprintf(fp, "# Example:\n#\n");
-    fprintf(fp, "nowhere.land.edu\nnowhereman\n");
+    fprintf(fp, "#nowhere.land.edu\n#nowhereman\n");
     fprintf(fp, "%s\n%s\n", HN, UN);
     fprintf(fp, "%s\n%s\n", IP, UN);
     fprintf(fp, "127.0.0.1\n%s\n", UN);
