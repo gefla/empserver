@@ -848,7 +848,8 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	break;
     case 'T':
 	shp_set_tech(ship,
-		     errcheck(arg, mchr[ship->shp_type].m_tech, SHRT_MAX));
+		     errcheck(arg,
+			      mchr[(int)ship->shp_type].m_tech, SHRT_MAX));
 	break;
     case 'E':
 	ship->shp_effic = errcheck(arg, SHIP_MINEFF, 100);
@@ -972,7 +973,8 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 	break;
     case 't':
 	lnd_set_tech(land,
-		     errcheck(arg, lchr[land->lnd_type].l_tech, SHRT_MAX));
+		     errcheck(arg,
+			      lchr[(int)land->lnd_type].l_tech, SHRT_MAX));
 	break;
     case 'a':
 	if (p[0] == '~')
@@ -1113,7 +1115,8 @@ doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
 	break;
     case 't':
 	pln_set_tech(plane,
-		     errcheck(arg, plchr[plane->pln_type].pl_tech, SHRT_MAX));
+		     errcheck(arg,
+			      plchr[(int)plane->pln_type].pl_tech, SHRT_MAX));
 	break;
     case 'w':
 	if (p[0] == '~')
