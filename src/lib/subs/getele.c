@@ -76,8 +76,8 @@ getele(s_char *nation, s_char *buf)
 	    pr("%s", buf);
 	    continue;
 	}
-	if (buffer[0] == '.' && ((buffer[1] == 0) ||
-				 (buffer[1] == '\n')
+	if (buffer[0] == '.' && ((buffer[1] == 0)
+				 || (buffer[1] == '\n')
 				 || (buffer[1] == '\r')))
 	    break;
 	len = strlen(buffer);

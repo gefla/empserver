@@ -52,7 +52,7 @@ s_char dirch[] = {
 /* must agree with dirch[] and DIR_ defines */
 int diroff[][2] = {
     {0, 0}, {1, -1}, {2, 0}, {1, 1}, {-1, 1}, {-2, 0}, {-1, -1}, {0, 0},
-	{0, 0}
+    {0, 0}
 };
 
 /* this maps a character from a to z into the diroff mappings.  It

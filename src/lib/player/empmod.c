@@ -148,8 +148,8 @@ extern int grin();
 extern int shar();
 extern int sail();		/* Forsman's hacks */
 extern int foll();
-/**/ extern int mobq();
-/**/ extern int name();
+extern int mobq();
+extern int name();
 extern int range();
 extern int zdon();
 extern int fuel();
@@ -287,7 +287,8 @@ struct cmndstr player_coms[] = {
     {"drop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COMM>", 1, drop, C_MOD, NORM + MONEY + CAP},
     {"dump <SECTS> [<fields>]", 0, dump, 0, NORM},
     {"echo [<string>]", 0, echo, 0, NORM},
-    {"edit <country|land|unit|ship|plane|nuke> [<KEY> <VALUE>]...", 0, edit, C_MOD, GOD},
+    {"edit <country|land|unit|ship|plane|nuke> [<KEY> <VALUE>]...", 0,
+     edit, C_MOD, GOD},
     {"enable", 0, enab, C_MOD, GOD},
     {"enlist <SECTS> <NUM>", 2, enli, C_MOD, NORM + MONEY + CAP},
     {"execute <INPUT FILE>", 0, execute, 0, VIS},

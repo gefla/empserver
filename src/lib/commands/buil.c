@@ -743,9 +743,7 @@ build_bridge(register struct sctstr *sp, register int *vec)
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!
-	(p =
-	 getstarg(player->argp[3], "build span in what direction? ", buf))
+    if (!(p = getstarg(player->argp[3], "build span in what direction? ", buf))
 	|| !*p) {
 	return 0;
     }
@@ -1071,9 +1069,7 @@ build_tower(register struct sctstr *sp, register int *vec)
 	pr("Building from %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!
-	(p =
-	 getstarg(player->argp[3], "build tower in what direction? ", buf))
+    if (!(p = getstarg(player->argp[3], "build tower in what direction? ", buf))
 	|| !*p) {
 	return 0;
     }

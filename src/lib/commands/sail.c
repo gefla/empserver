@@ -171,7 +171,7 @@ sail(void)
     cp = player->argp[2];
     if ((*player->argp[0] == 'q') /*qsail command */ ||(cp && *cp == 'q')) {
 	return (show_sail(&nstr));
-    } else if (*player->argp[0] == 'u' /*unsail command */ 
+    } else if (*player->argp[0] == 'u'	/*unsail command */
 	       || (cp && *cp == '-')) {
 	return (cmd_unsail_ship(&nstr));
     } else

@@ -430,9 +430,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 {
     extern int land_max_interdiction_range;
     extern int ship_max_interdiction_range;
-    s_char *mission_name(short int mission), *nameofitem(s_char *buf,
-							 struct genitem
-							 *gp, int type);
     struct emp_qelem *qp, missiles, bombers, escorts, airp, b, e;
     struct emp_qelem *newqp;
     struct genlist *glp;

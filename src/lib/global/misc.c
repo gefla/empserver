@@ -40,7 +40,7 @@ s_char *effadv_list[] = {
 /* must follow nation relation defines in nat.h */
 s_char *relates[] = {
     "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly",
-	"Allied"
+    "Allied"
 };
 
 /* must follow reject flags defined in nat.h */

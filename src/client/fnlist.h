@@ -41,4 +41,4 @@ struct fn {
     int value;
 };
 
-#endif	/* _FNLIST_H_ */
+#endif /* _FNLIST_H_ */

@@ -41,4 +41,4 @@ struct qelem {
     struct qelem *q_back;
 };
 
-#endif	/* _QUEUE */
+#endif /* _QUEUE */

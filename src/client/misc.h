@@ -62,7 +62,7 @@ typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 #if !defined(aix) && !defined(sgi)
 #ifndef ultrix			/* already defined in ultrix */
 typedef char s_char;		/* change to signed char for aix */
-#endif	/* ultrix */
+#endif /* ultrix */
 #else
 typedef signed char s_char;
 #endif /* !aix && !sgi */
