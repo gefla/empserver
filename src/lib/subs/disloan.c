@@ -94,6 +94,10 @@ disloan(int n, register struct lonstr *loan)
 	doubletime += normaltime;
 	normaltime = 0;
     }
+    if (doubletime < 0) {
+	normaltime += doubletime;
+	doubletime = 0;
+    }
 
     rate = ((double)loan->l_irate / 100.0) / (loan->l_ldur * SECS_PER_DAY);
     owe = ((double)loan->l_amtdue *

@@ -84,6 +84,10 @@ repa(void)
 	doubletime += normaltime;
 	normaltime = 0;
     }
+    if (doubletime < 0) {
+	normaltime += doubletime;
+	doubletime = 0;
+    }
 
     rate_per_sec = loan.l_irate /
 	((double)loan.l_ldur * SECS_PER_DAY * 100.0);

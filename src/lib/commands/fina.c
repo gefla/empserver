@@ -81,6 +81,10 @@ fina(void)
 	    xdur += rdur;
 	    rdur = 0;
 	}
+	if (xdur < 0) {
+	    rdur += xdur;
+	    xdur = 0;
+	}
 
 	if (CANT_HAPPEN(loan.l_ldur == 0))
 	    continue;
