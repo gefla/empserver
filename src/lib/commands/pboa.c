@@ -35,6 +35,7 @@
 #include "file.h"
 #include "sect.h"
 #include "plane.h"
+#include "commands.h"
 
 int
 pboa(void)

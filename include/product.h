@@ -34,6 +34,8 @@
 #ifndef _PRODUCT_H_
 #define _PRODUCT_H_
 
+#include "item.h"
+
 /*
  * Maximum number of product constituents.
  * Beware, some output formats rely on MAXPRCON <= 3!

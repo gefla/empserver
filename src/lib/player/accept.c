@@ -39,7 +39,6 @@
 #include "file.h"
 #include "empio.h"
 #include "power.h"
-#include "common.h"
 #include "gen.h"
 #include "optlist.h"
 

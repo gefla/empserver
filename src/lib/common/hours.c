@@ -37,6 +37,7 @@
 #include <time.h>
 #include "misc.h"
 #include "optlist.h"
+#include "prototypes.h"
 
 static char *weekday(char *str, int *wday);
 static char *daytime(char *str, int *min);

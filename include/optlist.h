@@ -35,6 +35,8 @@
 #ifndef _OPTLIST_H_
 #define _OPTLIST_H_
 
+#include "nsc.h"
+
 struct option_list {
     char *opt_key;
     int *opt_valuep;

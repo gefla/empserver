@@ -56,6 +56,9 @@ struct lonstr {
 #define LS_PROPOSED	1
 #define LS_SIGNED	2
 
+extern long get_outstand(int);
+extern double loan_owed(struct lonstr *loan, time_t paytime);
+
 #define getloan(n, lp) \
 	ef_read(EF_LOAN, n, lp)
 #define putloan(n, lp) \

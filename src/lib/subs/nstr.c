@@ -38,6 +38,7 @@
 #include "file.h"
 #include "match.h"
 #include "nsc.h"
+#include "prototypes.h"
 
 static int nstr_promote(int valtype);
 

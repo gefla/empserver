@@ -32,9 +32,12 @@
  *     
  */
 
+#include <stdlib.h>
 #include "misc.h"
 #include "file.h"
+#include "ship.h"
 #include "plane.h"
+#include "prototypes.h"
 
 int
 on_shiplist(short uid, struct shiplist *head)

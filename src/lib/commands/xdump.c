@@ -38,6 +38,7 @@
 #include "news.h"
 #include "nsc.h"
 #include "optlist.h"
+#include "commands.h"
 
 /*
  * Dump everything under the sun

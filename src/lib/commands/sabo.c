@@ -35,6 +35,7 @@
 #include "land.h"
 #include "nsc.h"
 #include "file.h"
+#include "commands.h"
 
 int
 sabo(void)

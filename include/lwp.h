@@ -100,6 +100,4 @@ void lwpStatus(struct lwpProc *proc, char *format, ...)
 
 extern struct lwpProc *LwpCurrent;
 
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
-
 #endif /* _LWP_H_ */

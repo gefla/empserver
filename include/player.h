@@ -94,6 +94,4 @@ struct player {
 #define PP_ACCEPT	3
 #define PP_KILLIDLE	2
 
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
-
 #endif /* _PLAYER_H_ */

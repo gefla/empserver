@@ -121,6 +121,4 @@ void empth_sem_signal(empth_sem_t *);
 void empth_sem_wait(empth_sem_t *);
 void empth_alarm(int);
 
-
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
 #endif
