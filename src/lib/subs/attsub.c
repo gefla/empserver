@@ -2649,6 +2649,7 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 	    llp->land.lnd_mobil -= 40;
 	break;
     }
+    llp->land.lnd_harden = 0;
 }
 
 static void
