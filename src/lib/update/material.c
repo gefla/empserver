@@ -33,8 +33,6 @@
 
 #include "misc.h"
 #include "sect.h"
-#include "file.h"
-#include "optlist.h"
 #include "budg.h"
 #include "player.h"
 #include "update.h"

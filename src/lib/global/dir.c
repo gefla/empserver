@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "xy.h"
 
 /* must agree with DIR_ defines */
 s_char dirch[] = {

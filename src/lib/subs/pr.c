@@ -51,7 +51,6 @@
 #include "empio.h"
 #include "file.h"
 #include "com.h"
-#include "news.h"
 #include "tel.h"
 #include "server.h"
 #include "prototypes.h"

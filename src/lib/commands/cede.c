@@ -44,7 +44,6 @@
 #include "land.h"
 #include "ship.h"
 #include "nuke.h"
-#include "item.h"
 #include "commands.h"
 
 static void cede_hdr(void);

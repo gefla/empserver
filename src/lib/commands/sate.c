@@ -37,7 +37,6 @@
 #include "player.h"
 #include "xy.h"
 #include "plane.h"
-#include "sect.h"
 #include "nsc.h"
 #include "file.h"
 #include "nat.h"

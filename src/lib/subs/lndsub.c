@@ -39,7 +39,6 @@
 #include "sect.h"
 #include "path.h"
 #include "news.h"
-#include "treaty.h"
 #include "nat.h"
 #include "xy.h"
 #include "land.h"

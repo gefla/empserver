@@ -45,7 +45,6 @@
 #include "nsc.h"
 #include "path.h"
 #include "file.h"
-#include "options.h"
 #include "damage.h"
 #include "prototypes.h"
 #include "optlist.h"

@@ -32,11 +32,9 @@
  */
 
 #include "player.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
 #include "lost.h"
-#include "optlist.h"
 #include "commands.h"
 
 int

@@ -34,11 +34,8 @@
 
 #include "misc.h"
 #include "player.h"
-#include "sect.h"
 #include "nuke.h"
-#include "xy.h"
 #include "nsc.h"
-#include "nat.h"
 #include "file.h"
 #include "commands.h"
 

@@ -40,7 +40,6 @@
 #include "xy.h"
 #include "sect.h"
 #include "nat.h"
-#include "news.h"
 #include "nsc.h"
 #include "item.h"
 #include "file.h"

@@ -40,7 +40,6 @@
 #include "news.h"
 #include "land.h"
 #include "sect.h"
-#include "nuke.h"
 #include "plane.h"
 #include "ship.h"
 #include "nat.h"

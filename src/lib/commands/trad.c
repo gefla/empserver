@@ -38,7 +38,6 @@
 #include "sect.h"
 #include "nat.h"
 #include "news.h"
-#include "item.h"
 #include "ship.h"
 #include "nuke.h"
 #include "land.h"

@@ -34,10 +34,8 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
 #include "nsc.h"
 #include "file.h"
-#include "com.h"
 #include "prototypes.h"
 
 /*

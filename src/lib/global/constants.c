@@ -36,7 +36,6 @@
 
 #include "gamesdef.h"
 #include "misc.h"
-#include "xy.h"
 
 char *privname = PRVNAM;	/* name of priv user */
 char *privlog = PRVLOG;	/* logname of priv user */

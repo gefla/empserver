@@ -36,12 +36,8 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
 #include "nat.h"
-#include "news.h"
 #include "nsc.h"
-#include "item.h"
-#include "file.h"
 #include "common.h"
 
 double

@@ -35,7 +35,6 @@
 #include "sect.h"
 #include "product.h"
 #include "nat.h"
-#include "file.h"
 #include "xy.h"
 #include "player.h"
 #include "update.h"

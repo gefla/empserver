@@ -35,10 +35,8 @@
 #include "misc.h"
 #include "player.h"
 #include "ship.h"
-#include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "nat.h"
 #include "commands.h"
 
 int

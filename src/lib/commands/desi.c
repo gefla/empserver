@@ -34,7 +34,6 @@
 #include "misc.h"
 #include "player.h"
 #include "sect.h"
-#include "item.h"
 #include "xy.h"
 #include "path.h"
 #include "nsc.h"

@@ -33,11 +33,8 @@
 
 #include "misc.h"
 #include "player.h"
-#include "sect.h"
 #include "ship.h"
-#include "xy.h"
 #include "nsc.h"
-#include "nat.h"
 #include "file.h"
 #include "path.h"
 #include "commands.h"

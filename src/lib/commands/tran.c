@@ -46,8 +46,6 @@
 #include "land.h"
 #include "commands.h"
 
-#include <stdio.h>
-
 static int tran_map(s_char *what, coord curx, coord cury, s_char *arg);
 static int tran_nuke(void);
 static int tran_plane(void);

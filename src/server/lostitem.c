@@ -37,7 +37,6 @@
 #include "empthread.h"
 #include "file.h"
 #include "lost.h"
-#include <stdio.h>
 #include "prototypes.h"
 #include "optlist.h"
 #include "server.h"

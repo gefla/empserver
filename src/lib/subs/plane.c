@@ -37,9 +37,7 @@
 #include "plane.h"
 #include "ship.h"
 #include "land.h"
-#include "xy.h"
 #include "file.h"
-#include "nat.h"
 #include "prototypes.h"
 #include "optlist.h"
 

@@ -34,12 +34,8 @@
 
 #include <fcntl.h>
 #include "misc.h"
-#include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "loan.h"
-#include "lost.h"
-#include "commodity.h"
 #include "prototypes.h"
 #include "optlist.h"
 

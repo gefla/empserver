@@ -40,7 +40,6 @@
 #include "player.h"
 #include "empthread.h"
 #include "budg.h"
-#include "product.h"
 #include "player.h"
 #include "update.h"
 #include "common.h"

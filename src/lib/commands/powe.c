@@ -40,7 +40,6 @@
 #include "nat.h"
 #include "ship.h"
 #include "land.h"
-#include "nuke.h"
 #include "power.h"
 #include "item.h"
 #include "plane.h"

@@ -34,12 +34,6 @@
 
 #include "misc.h"
 #include <fcntl.h>
-#if !defined(_WIN32)
-#include <sys/uio.h>
-#endif
-#include "nat.h"
-#include "tel.h"
-#include "file.h"
 #include "prototypes.h"
 
 /*

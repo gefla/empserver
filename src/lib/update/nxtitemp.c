@@ -33,12 +33,9 @@
 
 #include "misc.h"
 #include "xy.h"
-#include "plane.h"
 #include "ship.h"
-#include "nuke.h"
 #include "land.h"
 #include "nsc.h"
-#include "nat.h"
 #include "file.h"
 #include "genitem.h"
 #include "player.h"

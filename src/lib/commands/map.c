@@ -39,7 +39,6 @@
 #include "map.h"
 #include "ship.h"
 #include "land.h"
-#include "plane.h"
 #include "xy.h"
 #include "nsc.h"
 #include "commands.h"

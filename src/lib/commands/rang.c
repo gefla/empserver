@@ -33,12 +33,10 @@
 
 #include "misc.h"
 #include "player.h"
-#include "xy.h"
 #include "plane.h"
 #include "land.h"
 #include "nsc.h"
 #include "file.h"
-#include "nat.h"
 #include "commands.h"
 
 int

@@ -45,7 +45,6 @@
 #include "nat.h"
 #include "land.h"
 #include "plane.h"
-#include "nuke.h"
 #include "genitem.h"
 #include "commands.h"
 

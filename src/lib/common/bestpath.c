@@ -43,7 +43,6 @@
  * information.
  */
 
-#include "gamesdef.h"
 #include "misc.h"
 #include "xy.h"
 #include "sect.h"

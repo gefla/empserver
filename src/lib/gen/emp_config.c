@@ -50,11 +50,8 @@
 #include <string.h>
 
 #include "misc.h"
-#include "com.h"
-#include "match.h"
 #include "file.h"
 #include "optlist.h"
-#include "tel.h"
 #include "gen.h"		/* parse */
 
 /* for systems without strdup  */

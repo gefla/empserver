@@ -39,7 +39,6 @@
 #include "nat.h"
 #include "xy.h"
 #include "nsc.h"
-#include "nuke.h"
 #include "news.h"
 #include "path.h"
 #include "file.h"

@@ -40,12 +40,10 @@
 #include "plane.h"
 #include "nuke.h"
 #include "land.h"
-#include "item.h"
 #include "nsc.h"
 #include "nat.h"
 #include "commodity.h"
 #include "loan.h"
-#include "optlist.h"
 #include "commands.h"
 #include "trade.h"
 

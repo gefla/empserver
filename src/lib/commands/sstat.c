@@ -33,13 +33,9 @@
 
 #include "misc.h"
 #include "player.h"
-#include "xy.h"
-#include "sect.h"
 #include "ship.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
-#include "optlist.h"
 #include "commands.h"
 
 int

@@ -34,13 +34,11 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
 #include "ship.h"
 #include "nsc.h"
 #include "nat.h"
 #include "path.h"
 #include "file.h"
-#include "queue.h"
 #include "plane.h"
 #include <fcntl.h>
 #include <ctype.h>

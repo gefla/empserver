@@ -38,10 +38,8 @@
 #include "land.h"
 #include "plane.h"
 #include "nuke.h"
-#include "xy.h"
 #include "nsc.h"
 #include <fcntl.h>
-#include "file.h"
 #include "optlist.h"
 #include "damage.h"
 #include "common.h"

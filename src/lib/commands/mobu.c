@@ -33,12 +33,8 @@
 
 #include "misc.h"
 #include "player.h"
-#include "xy.h"
-#include "sect.h"
 #include "nsc.h"
-#include "nat.h"
 #include "path.h"
-#include "file.h"
 #include "commands.h"
 #include "optlist.h"
 #include "server.h"

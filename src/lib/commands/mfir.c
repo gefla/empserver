@@ -46,7 +46,6 @@
 #include "file.h"
 #include "queue.h"
 #include <ctype.h>
-#include "options.h"
 #include "optlist.h"
 #include "damage.h"
 #include "commands.h"

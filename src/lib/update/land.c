@@ -41,7 +41,6 @@
 #include "ship.h"
 #include "news.h"
 #include "file.h"
-#include "product.h"
 #include "optlist.h"
 #include "budg.h"
 #include "player.h"

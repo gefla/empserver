@@ -37,7 +37,6 @@
 #include "player.h"
 #include "xy.h"
 #include "sect.h"
-#include "retreat.h"
 #include "ship.h"
 #include "land.h"
 #include "plane.h"

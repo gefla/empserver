@@ -36,7 +36,6 @@
 #include "sect.h"
 #include "item.h"
 #include "plane.h"
-#include "nuke.h"
 #include "ship.h"
 #include "xy.h"
 #include "nsc.h"

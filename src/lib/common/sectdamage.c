@@ -37,7 +37,6 @@
 #include "ship.h"
 #include "land.h"
 #include "plane.h"
-#include "nuke.h"
 #include "xy.h"
 #include "nsc.h"
 #include "file.h"
@@ -47,7 +46,6 @@
 #include "common.h"
 #include "gen.h"
 #include "subs.h"
-#include "lost.h"
 #include "combat.h"
 
 int

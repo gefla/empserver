@@ -37,7 +37,6 @@
 #include "sect.h"
 #include "ship.h"
 #include "land.h"
-#include "nuke.h"
 #include "plane.h"
 #include "xy.h"
 #include "nsc.h"

@@ -40,7 +40,6 @@
 #include "nat.h"
 #include "path.h"
 #include "file.h"
-#include "product.h"
 #include "commands.h"
 
 static void start_hdr(void);

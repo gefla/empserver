@@ -32,8 +32,6 @@
  */
 
 #include "misc.h"
-#include "nat.h"
-#include "file.h"
 #include "xy.h"
 #include "prototypes.h"
 #include "optlist.h"

@@ -38,7 +38,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "nat.h"
 #include "commands.h"
 #include "optlist.h"
 

@@ -41,11 +41,8 @@
 #include "nsc.h"
 #include "nat.h"
 #include "land.h"
-#include "nuke.h"
 #include "plane.h"
 #include "ship.h"
-#include "trade.h"
-#include <math.h>		/* bailey@math-cs.kent.edu */
 #include "commodity.h"
 #include "player.h"
 #include "commands.h"

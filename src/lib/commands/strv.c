@@ -39,7 +39,6 @@
 #include "nat.h"
 #include "path.h"
 #include "file.h"
-#include <math.h>
 #include "item.h"
 #include "ship.h"
 #include "optlist.h"

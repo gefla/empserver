@@ -45,7 +45,6 @@
 #include "news.h"
 #include "nsc.h"
 #include "file.h"
-#include "options.h"
 #include "optlist.h"
 #include "prototypes.h"
 

@@ -36,10 +36,7 @@
 #include "xy.h"
 #include "plane.h"
 #include "nsc.h"
-#include "nuke.h"
 #include "file.h"
-#include "nat.h"
-#include "optlist.h"
 #include "commands.h"
 
 int

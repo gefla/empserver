@@ -35,7 +35,6 @@
 #include "player.h"
 #include "empio.h"
 #include "empthread.h"
-#include "proto.h"
 #include "nat.h"
 #include "file.h"
 #include <time.h>

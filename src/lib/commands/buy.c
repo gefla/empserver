@@ -44,7 +44,6 @@
 #include "land.h"
 #include "commodity.h"
 #include "plane.h"
-#include "nuke.h"
 #include "ship.h"
 #include "trade.h"
 #include "player.h"

@@ -36,7 +36,6 @@
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
-#include "com.h"
 #include "nat.h"
 #include "file.h"
 #include "map.h"

@@ -38,7 +38,6 @@
 #include "nsc.h"
 #include "path.h"
 #include "nat.h"
-#include "file.h"
 #include "commands.h"
 
 static void prthresh(s_char *format, int val);

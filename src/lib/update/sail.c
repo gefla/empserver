@@ -38,7 +38,6 @@
 #include "sect.h"
 #include "path.h"
 #include "ship.h"
-#include "news.h"
 #include "file.h"
 #include "nat.h"
 #include "xy.h"

@@ -37,7 +37,6 @@
 #include "sect.h"
 #include "nsc.h"
 #include "nat.h"
-#include "item.h"
 #include "file.h"
 #include "commands.h"
 

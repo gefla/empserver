@@ -33,12 +33,9 @@
  *     Steve McClure, 1998
  */
 
-#include <math.h>
 #include "misc.h"
 #include "sect.h"
 #include "nat.h"
-#include "item.h"
-#include "news.h"
 #include "file.h"
 #include "xy.h"
 #include "path.h"

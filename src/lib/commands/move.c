@@ -41,7 +41,6 @@
 #include "nat.h"
 #include "nsc.h"
 #include "land.h"
-#include "optlist.h"
 #include "path.h"
 #include "commands.h"
 

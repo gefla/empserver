@@ -35,10 +35,7 @@
 #include <math.h>
 #include "misc.h"
 #include "file.h"
-#include "sect.h"
-#include "item.h"
 #include "loan.h"
-#include "news.h"
 #include "nat.h"
 #include "xy.h"
 #include "player.h"

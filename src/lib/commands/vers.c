@@ -40,7 +40,6 @@
 #include "gamesdef.h"
 #include "misc.h"
 #include "player.h"
-#include "nat.h"
 #include "version.h"
 #include "ship.h"
 #include "optlist.h"

@@ -38,7 +38,6 @@
 #include "nsc.h"
 #include "nat.h"
 #include "path.h"
-#include "file.h"
 #include "commands.h"
 #include "combat.h"
 

@@ -46,7 +46,6 @@
 #include "commands.h"
 
 #include <fcntl.h>
-#include <math.h>
 
 #ifdef START_UNITS
 static int deity_build_land(int, coord, coord, natid, int);

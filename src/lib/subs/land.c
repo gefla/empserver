@@ -36,8 +36,6 @@
 #include "file.h"
 #include "land.h"
 #include "ship.h"
-#include "xy.h"
-#include "nat.h"
 #include "nsc.h"
 #include "plane.h"
 #include "prototypes.h"

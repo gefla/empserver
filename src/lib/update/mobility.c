@@ -40,7 +40,6 @@
 #include "nat.h"
 #include "file.h"
 #include "optlist.h"
-#include "mission.h"
 #include "update.h"
 #include "gen.h"
 #include "subs.h"

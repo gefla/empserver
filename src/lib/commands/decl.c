@@ -34,7 +34,6 @@
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
-#include "news.h"
 #include "file.h"
 #include "xy.h"
 #include "nsc.h"

@@ -34,9 +34,7 @@
 
 #include "misc.h"
 #include "player.h"
-#include "xy.h"
 #include "file.h"
-#include "nat.h"
 #include "ship.h"
 #include "land.h"
 #include "plane.h"

@@ -36,7 +36,6 @@
 #include "ship.h"
 #include "plane.h"
 #include "product.h"
-#include "nat.h"
 #include "optlist.h"
 #include "global.h"
 

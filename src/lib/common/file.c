@@ -40,10 +40,8 @@
 #include <unistd.h>
 #endif
 #include "misc.h"
-#include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "match.h"
 #include "common.h"
 #include "gen.h"
 

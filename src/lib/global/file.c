@@ -48,7 +48,6 @@
 #include "news.h"
 #include "nat.h"
 #include "lost.h"
-#include "optlist.h"
 
 #include "gamesdef.h"
 #include "commodity.h"

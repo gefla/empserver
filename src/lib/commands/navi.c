@@ -36,7 +36,6 @@
 #include "player.h"
 #include "ship.h"
 #include "sect.h"
-#include "news.h"
 #include "xy.h"
 #include "nsc.h"
 #include "nat.h"

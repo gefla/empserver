@@ -39,7 +39,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "nat.h"
-#include "file.h"
 #include "commands.h"
 
 int

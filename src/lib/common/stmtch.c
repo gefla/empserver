@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "match.h"
-#include "common.h"
 
 /*
  * Find NEEDLE in array HAYSTACK[], return its index.

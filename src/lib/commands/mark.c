@@ -34,7 +34,6 @@
  */
 
 #include "misc.h"
-#include "nat.h"
 #include "item.h"
 #include "commodity.h"
 #include "player.h"

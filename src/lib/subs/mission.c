@@ -37,7 +37,6 @@
 #include "player.h"
 #include "xy.h"
 #include "sect.h"
-#include "retreat.h"
 #include "ship.h"
 #include "land.h"
 #include "plane.h"
@@ -47,7 +46,6 @@
 #include "path.h"
 #include "mission.h"
 #include "genitem.h"
-#include "nuke.h"
 #include "news.h"
 #include "item.h"
 #include <fcntl.h>

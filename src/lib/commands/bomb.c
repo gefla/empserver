@@ -42,7 +42,6 @@
 #include "land.h"
 #include "item.h"
 #include "plane.h"
-#include "nuke.h"
 #include "retreat.h"
 #include "xy.h"
 #include "nsc.h"

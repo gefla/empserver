@@ -31,19 +31,15 @@
  *     Ken Stevens, 1995
  */
 
-#include <math.h>
 #include "misc.h"
 #include "player.h"
 #include "file.h"
 #include "sect.h"
 #include "path.h"
-#include "news.h"
-#include "treaty.h"
 #include "nat.h"
 #include "xy.h"
 #include "land.h"
 #include "nsc.h"
-#include "mission.h"
 #include "ship.h"
 #include "combat.h"
 #include "commands.h"

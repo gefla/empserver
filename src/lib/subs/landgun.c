@@ -32,9 +32,6 @@
  */
 
 #include "misc.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
 #include "prototypes.h"
 
 double

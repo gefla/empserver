@@ -38,7 +38,6 @@
 #endif /* aix or linux */
 
 #include <signal.h>
-#include <errno.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
 #endif

@@ -32,7 +32,6 @@
  *     Steve McClure, 1996-2000
  */
 
-#include <math.h>
 #include "misc.h"
 #include "player.h"
 #include "file.h"

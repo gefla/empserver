@@ -32,13 +32,11 @@
  *     Steve McClure, 1996
  */
 
-#include <math.h>
 #include "misc.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
 #include "news.h"
-#include "file.h"
 #include "xy.h"
 #include "optlist.h"
 #include "budg.h"

@@ -31,11 +31,9 @@
  *     
  */
 
-#include "gamesdef.h"
 #include "misc.h"
 #include "xy.h"
 #include "sect.h"
-#include "file.h"
 #include "path.h"
 #include "nat.h"
 #include "common.h"

@@ -31,7 +31,6 @@
  *     Steve McClure, 1998-2000
  */
 
-#include <math.h>
 #include "misc.h"
 #include "plague.h"
 #include "sect.h"

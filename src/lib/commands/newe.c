@@ -36,7 +36,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "sect.h"
-#include "product.h"
 #include "nat.h"
 #include "item.h"
 #include "file.h"

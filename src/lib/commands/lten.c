@@ -38,16 +38,12 @@
 #include "misc.h"
 #include "player.h"
 #include "plague.h"
-#include "xy.h"
 #include "file.h"
 #include "ship.h"
 #include "item.h"
 #include "nsc.h"
-#include "nat.h"
 #include "plane.h"
-#include "nuke.h"
 #include "land.h"
-#include "genitem.h"
 #include "commands.h"
 
 static void expose_land(struct shpstr *s1, struct lndstr *l1);
