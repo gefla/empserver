@@ -60,7 +60,7 @@ retr(void)
     nships = 0;
     if (player->argp[1] != (s_char *)0)
 	if (isalpha(player->argp[1][0]))
-	    isfleet = 1;
+	    isfleet = RET_GROUP;
     if (player->argp[2] != (s_char *)0)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
@@ -210,7 +210,7 @@ lretr(void)
     nunits = 0;
     if (player->argp[1] != (s_char *)0)
 	if (isalpha(player->argp[1][0]))
-	    isarmy = 1;
+	    isarmy = RET_GROUP;
     if (player->argp[2] != (s_char *)0)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
