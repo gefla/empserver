@@ -43,7 +43,7 @@
 
 /*ARGSUSED*/
 static void
-check_all_markets(void *argv)
+check_all_markets(void *unused)
 {
     player->proc = empth_self();
     player->cnum = 0;
@@ -67,7 +67,7 @@ check_all_markets(void *argv)
 
 /*ARGSUSED*/
 void
-market_update(void *argv)
+market_update(void *unused)
 {
     time_t now;
     struct player *dp;

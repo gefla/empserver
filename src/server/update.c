@@ -42,12 +42,12 @@
 
 empth_sem_t *update_sem;
 
-static void update_wait(void *argv);
+static void update_wait(void *unused);
 time_t update_time;
 
 /*ARGSUSED*/
 void
-update_sched(void *argv)
+update_sched(void *unused)
 {
     s_char *kw;
     int hour[2];
@@ -105,7 +105,7 @@ update_sched(void *argv)
 
 /*ARGSUSED*/
 static void
-update_wait(void *argv)
+update_wait(void *unused)
 {
     struct player *p;
     int running;

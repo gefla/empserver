@@ -50,7 +50,7 @@ shutdown_init(void)
 }
 
 void
-shutdown_sequence(void *argv)
+shutdown_sequence(void *unused)
 {
     struct natstr *god;
     struct tm *tm;

@@ -191,7 +191,7 @@ player_wakeup(struct player *pl)
 
 /*ARGSUSED*/
 void
-player_accept(void *argv)
+player_accept(void *unused)
 {
     struct sockaddr_in sin;
     struct servent *sp;

@@ -42,7 +42,7 @@
 
 /*ARGSUSED*/
 void
-player_kill_idle(void *argv)
+player_kill_idle(void *unused)
 {
     struct player *p;
     time_t now;

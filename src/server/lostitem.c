@@ -45,7 +45,7 @@
 
 /*ARGSUSED*/
 void
-delete_lostitems(void *argv)
+delete_lostitems(void *unused)
 {
     time_t now;
     struct loststr lost;

@@ -65,7 +65,7 @@ static void do_prod(int, int, int, int *, long int (*)[2], int *, int *,
 
 /*ARGSUSED*/
 void
-update_main(void *argv)
+update_main(void *unused)
 {
     int etu = etu_per_update;
     int n;

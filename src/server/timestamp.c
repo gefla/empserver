@@ -44,7 +44,7 @@
 
 /*ARGSUSED*/
 void
-mobility_check(void *argv)
+mobility_check(void *unused)
 {
     struct mob_acc_globals timestamps;
     time_t now;
