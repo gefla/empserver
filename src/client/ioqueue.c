@@ -35,24 +35,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#ifndef _WIN32
-#include <sys/uio.h>
-#include <unistd.h>
-#endif
 #include "misc.h"
 #include "queue.h"
 #include "ioqueue.h"
 
-#ifdef _WIN32
-typedef struct iovec {
-    char *iov_base;
-    int iov_len;
-} iovec_t;
-#endif
-
-
 static int ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc);
-static int ioqtoiov(register struct ioqueue *ioq, register struct iovec *iov, register int max);
 static void enqueuecc(struct ioqueue *ioq, s_char *buf, int cc);
 static int dequeuecc(register struct ioqueue *ioq, register int cc);
 
@@ -70,19 +57,6 @@ ioq_init(struct ioqueue *ioq, int bsize)
     ioq->cc = 0;
     ioq->bsize = bsize;
     *num_teles = '\0';
-}
-
-/*
- * copy batch of pointers into the passed
- * iovec, but don't actually dequeue the data.
- * return # of iovec initialized.
- */
-int
-ioq_peekiov(struct ioqueue *ioq, struct iovec *iov, int max)
-{
-    if (ioq->cc <= 0)
-	return 0;
-    return ioqtoiov(ioq, iov, max);
 }
 
 /*
@@ -200,38 +174,6 @@ ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc)
 	}
     }
     return offset - buf;
-}
-
-/*
- * translate "around" max bytes to an iovec
- * array.  The limit max is only advisory,
- * and more may get buffered.  It is an attempt to limit
- * really silly sends -- like sending 40k on a socket
- * with one writev for example.  This makes the processing
- * of a full ioqueue still be quick.
- */
-static int
-ioqtoiov(register struct ioqueue *ioq, register struct iovec *iov, register int max)
-{
-    register struct io *io;
-    register int cc;
-    register int niov;
-    struct qelem *qp;
-
-    cc = 0;
-    niov = 0;
-    qp = ioq->queue.q_forw;
-    for (qp = ioq->queue.q_forw; qp != &ioq->queue; qp = qp->q_forw) {
-	io = (struct io *)qp;
-	if (niov >= MAXIOV || cc >= max)
-	    break;
-	iov->iov_base = io->data + io->offset;
-	iov->iov_len = io->nbytes - io->offset;
-	cc += io->nbytes - io->offset;
-	niov++;
-	iov++;
-    }
-    return niov;
 }
 
 /*
