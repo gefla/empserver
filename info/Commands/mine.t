@@ -24,7 +24,7 @@ removing some mines.
 Ships of tech 310 or higher can detect mines with their sonar.
 See \*Qinfo sonar\*U for more information.
 .s1
-Harbors and sea sectors under bridge spans can be mined.
+Sea sectors under bridge spans can be mined.
 Your ships will automatically avoid these mines when passing through,
 (and your minesweepers will not not pick them up).
 .s1
@@ -33,8 +33,10 @@ only when a ship moves into it;
 thus, a ship may safely drop mines in a sector and then move out.
 On the other hand, the mines know no allegiance,
 so moving back into a mined sector is foolish at best
-unless it is a harbor or under a bridge span.
+unless it is under a bridge span.
 .s1
 Mines in the same sector as a bridge that collapses are cleared.
+.s1
+You cannot drop sea mines into a harbor, only land mines.
 .s1
 .SA "navigate, Hitchance, Damage, Ships"
