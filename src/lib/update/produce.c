@@ -59,9 +59,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     register struct pchrstr *product;
     int vtype;
     double p_e;
-    double level_p_e;
+    double prodeff;
     s_char *resource;
-    int output;
+    double output;
     int actual;
     int unit_work;
     int item;
@@ -101,27 +101,23 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	material_consume = worker_limit;
     if (material_consume == 0)
 	return 0;
-    level_p_e = 1.0;
-    if (product->p_nlndx >= 0) {
-	level_p_e = np->nat_level[product->p_nlndx] - product->p_nlmin;
-	if ((level_p_e < 0.0) && (!player->simulation)) {
-	    wu(0, sp->sct_own,
-	       "%s level too low to produce in %s (need %d)\n",
-	       levelnames[product->p_nlndx], ownxy(sp), product->p_nlmin);
-	    return 0;
-	}
-	level_p_e = level_p_e / (level_p_e + product->p_nllag);
+    prodeff = prod_eff(product, np->nat_level[product->p_nlndx]);
+    if (prodeff <= 0.0 && !player->simulation) {
+	wu(0, sp->sct_own,
+	   "%s level too low to produce in %s (need %d)\n",
+	   levelnames[product->p_nlndx], ownxy(sp), product->p_nlmin);
+	return 0;
     }
     /*
      * Adjust produced amount by commodity production ratio
      */
-    output = roundavg(product->p_effic * 0.01 * material_consume);
+    output = material_consume * prodeff;
     if ((vtype == 0) && (!player->simulation)) {
-	levels[sp->sct_own][product->p_level] += output * level_p_e;
+	levels[sp->sct_own][product->p_level] += output;
 	wu((natid)0, sp->sct_own, "%s (%.2f) produced in %s\n",
-	   product->p_name, output * level_p_e, ownxy(sp));
+	   product->p_name, output, ownxy(sp));
     } else {
-	if ((actual = roundavg(level_p_e * output)) <= 0)
+	if ((actual = roundavg(output)) <= 0)
 	    return 0;
 	if (product->p_nrdep != 0) {
 	    if (*resource * 100 < product->p_nrdep * actual)
@@ -229,4 +225,29 @@ materials_charge(struct pchrstr *product, short *vec, int count)
 	}
 	vec[item] = n;
     }
+}
+
+/*
+ * Return level p.e. for product PP.
+ * Zero means level is too low for production.
+ * LEVEL is the affecting production of PP; it must match PP->p_nlndx.
+ */
+double
+prod_eff(struct pchrstr *pp, float level)
+{
+    double level_p_e;
+
+    if (pp->p_nlndx < 0)
+	level_p_e = 1.0;
+    else {
+	double delta = (double)level - (double)pp->p_nlmin;
+
+	if (delta < 0.0)
+	    return 0.0;
+	if (CANT_HAPPEN(delta + pp->p_nllag <= 0))
+	    return 0.0;
+	level_p_e = delta / (delta + pp->p_nllag);
+    }
+
+    return level_p_e * pp->p_effic * 0.01;
 }

@@ -71,7 +71,6 @@ prod(void)
     struct pchrstr *pp;
     double p_e;
     double maxr;		/* floating version of max */
-    double level_p_e;
     double prodeff;
     double real;		/* floating pt version of act */
     int work;
@@ -228,15 +227,7 @@ prod(void)
 	/*
 	 * production effic.
 	 */
-	if (pp->p_nlndx >= 0) {
-	    level_p_e = natp->nat_level[pp->p_nlndx] - pp->p_nlmin;
-	    if (level_p_e < 0.0) {
-		level_p_e = 0.0;
-	    }
-	    level_p_e = level_p_e / (level_p_e + pp->p_nllag);
-	} else {
-	    level_p_e = 1.0;
-	}
+	prodeff = prod_eff(pp, natp->nat_level[pp->p_nlndx]);
 	/*
 	 * raw material limit
 	 */
@@ -257,15 +248,9 @@ prod(void)
 	 */
 	max = (int)(work * p_e / (double)unit_work + 0.5);
 	act = min(used, max);
-	/*
-	 * some things are easier to make..  food,
-	 * pet, etc.
-	 */
-	act = (int)(((double)pp->p_effic * 0.01 * (double)act) + 0.5);
-	max = (int)(((double)pp->p_effic * 0.01 * (double)max) + 0.5);
 
-	real = dmin(999.0, (double)act * level_p_e);
-	maxr = dmin(999.0, (double)max * level_p_e);
+	real = dmin(999.0, (double)act * prodeff);
+	maxr = dmin(999.0, (double)max * prodeff);
 
 	if (vtype != 0) {
 	    if (real < 0.0)
@@ -275,14 +260,11 @@ prod(void)
 	    real = dmin(real, ITEM_MAX - there);
 	}
 
-	if (level_p_e != 0) {
-	    take = real / level_p_e;
-	    mtake = maxr / level_p_e;
+	if (prodeff != 0) {
+	    take = real / prodeff;
+	    mtake = maxr / prodeff;
 	} else
 	    mtake = take = 0.0;
-
-	take = (double)take / ((double)pp->p_effic * 0.01);
-	mtake = (double)mtake / ((double)pp->p_effic * 0.01);
 
 	cost = (int)(take * (double)pp->p_cost);
 	if (opt_TECH_POP) {
@@ -379,7 +361,6 @@ prod(void)
 	}
 
 	pr(" %-5.5s", pp->p_sname);
-	prodeff = level_p_e * (double)pp->p_effic * 0.01;
 	pr(" %.2f", prodeff);
 	pr(" $%-4d", cost);
 	for (i = 0; i < 3; i++) {

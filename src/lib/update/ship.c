@@ -168,13 +168,18 @@ upd_ship(register struct shpstr *sp, register int etus,
 		/*
 		 * take care of oil production
 		 */
-		oil_gained = roundavg((sp->shp_item[I_CIVIL] * etus / 10000.0)
-				      * sectp->sct_oil);
+		product = &pchr[P_OIL];
+		oil_gained = roundavg(total_work(100, etus,
+						 sp->shp_item[I_CIVIL],
+					         sp->shp_item[I_MILIT],
+						 sp->shp_item[I_UW])
+				      * (double)sp->shp_effic / 100.0
+				      * (double)sectp->sct_oil / 100.0
+				      * prod_eff(product, sp->shp_tech));
 		max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
-		if (sp->shp_item[I_OIL] > max_oil)
+		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
 		    oil_gained = max_oil - sp->shp_item[I_OIL];
 		sp->shp_item[I_OIL] += oil_gained;
-		product = &pchr[P_OIL];
 		if (product->p_nrdep != 0 && oil_gained > 0) {
 		    resource = ((s_char *)sectp) + product->p_nrndx;
 		    *resource -= roundavg(oil_gained *
@@ -182,8 +187,14 @@ upd_ship(register struct shpstr *sp, register int etus,
 		}
 	    }
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
-		sp->shp_item[I_FOOD] += ((sp->shp_item[I_CIVIL] * etus) / 1000.0)
-		    * sectp->sct_fertil;
+		product = &pchr[P_FOOD];
+		sp->shp_item[I_FOOD] += roundavg(total_work(100, etus,
+							    sp->shp_item[I_CIVIL],
+							    sp->shp_item[I_MILIT],
+							    sp->shp_item[I_UW])
+						 * (double)sp->shp_effic / 100.0
+						 * (double)sectp->sct_fertil / 100.0
+						 * prod_eff(product, sp->shp_tech));
 	    }
 	    if ((n = feed_ship(sp, etus, &needed, 1)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
