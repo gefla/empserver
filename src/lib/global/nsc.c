@@ -143,7 +143,7 @@ struct castr ship_ca[] = {
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
     /* FIXME sail stuff missing */
-    {NSC_STRINGY, 0, 0, fldoff(shpstr, shp_name), "name"},
+    {NSC_STRINGY, 0, MAXSHPNAMLEN, fldoff(shpstr, shp_name), "name"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},

@@ -329,7 +329,7 @@ xdprval(struct valstr *val, char *sep)
 static void
 xdflds(struct castr ca[], void *ptr)
 {
-    int i, j;
+    int i, j, n;
     struct valstr val;
     char *sep = "";
 
@@ -338,11 +338,12 @@ xdflds(struct castr ca[], void *ptr)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
+	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
 	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j);
 	    sep = xdprval(&val, sep);
-	} while (++j < ca[i].ca_len);
+	} while (++j < n);
     }
 }
 
@@ -359,7 +360,7 @@ xdfldnam(struct castr ca[])
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	pr("%s%s", sep, ca[i].ca_name);
-	if (ca[i].ca_len)
+	if (ca[i].ca_len && ca[i].ca_type != NSC_STRINGY)
 	    pr(" %d", ca[i].ca_len);
 	sep = " ";
     }
