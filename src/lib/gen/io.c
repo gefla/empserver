@@ -67,6 +67,7 @@
 extern struct player *player;	/* XXX */
 
 static struct iop **io_list;
+static int niop;
 static struct io_mask *iom;
 static int fdmax;		/* largest file descriptor seen */
 static fd_set newoutput;
@@ -85,25 +86,30 @@ void
 io_init(void)
 {
     iom = iom_create(IO_READ | IO_WRITE);
-    io_list = (struct iop **)calloc(getfdtablesize(), sizeof(*io_list));
+    niop = getfdtablesize();
+    io_list = (struct iop **)calloc(niop, sizeof(*io_list));
     fdmax = 0;
     FD_ZERO(&newoutput);
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize, int (*notify) (void),
+io_open(int fd, int flags, int bufsize, int (*notify)(void),
 	s_char *assoc)
 {
     struct iop *iop;
 
+    if (fd < 0 || niop < fd)
+	return NULL;
     if (io_list[fd] != 0) {
 	/* already exists */
-	return 0;
+	return NULL;
     }
     flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK | IO_NEWSOCK);
     if ((flags & (IO_READ | IO_WRITE)) == 0)
-	return 0;
+	return NULL;
     iop = (struct iop *)malloc(sizeof(struct iop));
+    if (!iop)
+	return NULL;
     iop->fd = fd;
     iop->input = 0;
     iop->output = 0;
@@ -522,5 +528,7 @@ io_fileno(struct iop *iop)
 struct iop *
 io_iopfromfd(int fd)
 {
+    if (fd < 0 || niop < fd)
+	return NULL;
     return io_list[fd];
 }

@@ -200,7 +200,6 @@ player_accept(void *argv)
     int s;
     short port;
     int val;
-    int maxfd;
     struct player *np;
     int len;
     int ns;
@@ -248,7 +247,6 @@ player_accept(void *argv)
 	exit(1);
     }
 #endif
-    maxfd = getfdtablesize() - 1;
     while (1) {
 	empth_select(s, EMPTH_FD_READ);
 	len = sizeof(sin);
@@ -259,12 +257,6 @@ player_accept(void *argv)
 	}
 	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE,
 			 (char *)&set, sizeof(set));
-	if (ns >= maxfd) {
-	    logerror("new fd %d, max %d, no fd's left for new user",
-		     ns, maxfd);
-	    close(ns);
-	    continue;
-	}
 	np = player_new(ns, &sin);
 	if (!np) {
 	    logerror("can't create player for fd %d", ns);
