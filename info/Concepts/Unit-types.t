@@ -159,6 +159,8 @@ The land unit's fuel capacity & usage.
 .L xpl
 The number of extra-light planes the land unit can carry.
 (If the XLIGHT option is enabled)
+.L lnd
+The number of land units the unit can carry (no 'heavy' units)
 .in
 .s1
 Each land unit can carry a certain amount of products and has certain
@@ -178,10 +180,7 @@ the unit can supply other units
 .L security
 the unit is good at fighting guerrillas and shooting helpless civilians
 .L light
-the unit can be carried on ships (note that any unit, even
-units that are not 'light', can be 
-carried by a non-submarine supply ship that is otherwise
-able to carry units)
+the unit can be carried on ships that don't have supply capability
 .L marine
 the unit is good at assaulting
 .L recon
@@ -191,6 +190,14 @@ and will report enemy units in battle better.
 the unit has radar capability
 .L assault
 the unit may be used in assaults
+.L flak
+the unit can fire 'general unit flak' (see "info Flak")
+.L spy
+the unit is a spy
+.L train
+the unit is a train
+.L heavy
+the unit cannot be carried on land units or ships, not even supply ships
 .in
 .s1
 Some examples of the output:

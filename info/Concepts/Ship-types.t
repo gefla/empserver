@@ -206,17 +206,19 @@ twice the distance the guns can fire,
 The range formula is (rng/2) * ((tech + 50) / (tech + 200))
 .L fir
 the number of guns the ship can fire at once
+.L lnd
+The number of land units the ship can carry.  No ship can carry 'heavy'
+units.  Only surface supply ships can carry units that are not 'light'.
+If option LANDSPIES is enabled, submarines that can't normally carry
+land units can carry up to two spies.
+.L pln
+The number of 'light' planes the ship can carry.
 .L hel
 The number of helicopters the ship can carry. (If the SHIPCHOPPER option is
 enabled)
 .L xpl
 The number of extra-light planes the ship can carry. (If the XLIGHT option is
 enabled)
-.L pln
-The number of light planes the ship can carry.
-.L lnd
-The number of 'light' land units the ship can carry. If the ship is a supply
-ship, it can carry even non-'light' units.
 .L "fuel c/u"
 The ship's fuel capacity & usage. (see info fuel) (If the FUEL option is
 enabled)
@@ -262,6 +264,9 @@ The vessel can be used as a semi-landing craft. (see info assault)
 The vessel can torpedo submarines
 .L trade
 The vessel is a trade ship. (only if TRADESHIPS are enabled)
+.L supply
+The vessel can supply other units.
+Unless the vessel is a submarine, it can load non-light land units.
 .L anti-missile
 The vessel will intercept enemy marine missiles (see \*Qinfo Hitchance\*U).
 .in
