@@ -111,7 +111,6 @@ sell(void)
 	pr("Sectors need at least 1 mobility to sell goods.\n");
 	return RET_FAIL;
     }
-    number_set = 0;
     number_sub = 0;
     if ((p = getstarg(player->argp[3], "Amount:  ", buf)) == 0 || *p == 0)
 	return RET_SYN;
@@ -155,12 +154,10 @@ sell(void)
 	pr("You don't have any %s to sell there.\n", ip->i_name);
 	return RET_FAIL;
     }
-    if (number_set > 0)
+    if (number_set >= 0)
 	com = min(number_set, amt);
-    else if (number_set < 0)
-	com = amt + number_set;
     else
-	com = 0;
+	com = amt + number_set;
     if (com <= 0)
 	return RET_SYN;
     totalcom += com;
