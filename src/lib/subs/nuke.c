@@ -121,14 +121,15 @@ nuk_add(coord x, coord y, int type, int num)
 	ef_extend(EF_NUKE, 10);
 	memset(&nuke, 0, sizeof(struct nukstr));
 	nuke.nuk_uid = nuk_uid;
+    }
+    if (nuke.nuk_own == 0) {
 	nuke.nuk_ship = -1;
-	nuke.nuk_n = 0;
+	nuke.nuk_x = x;
+	nuke.nuk_y = y;
+	nuke.nuk_own = own;
 	makenotlost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid, nuke.nuk_x,
 		    nuke.nuk_y);
     }
-    nuke.nuk_x = x;
-    nuke.nuk_y = y;
-    nuke.nuk_own = own;
     nuke.nuk_types[type] += num;
     nuke.nuk_n += num;
 
