@@ -32,9 +32,6 @@
  */
 
 #include <windows.h>
-#include <winsock.h>
-#include <process.h>
-#include <stdio.h>
 
 #include "prototypes.h"
 #include "service.h"
@@ -222,7 +219,6 @@ service_main(DWORD argc, LPTSTR *argv)
     s_char tbuf[256];
     DWORD status;
 
-//    DebugBreak();
     optind = 1;
     opterr = 1;
     while ((op = getopt(argc, argv, "D:e:")) != EOF) {
