@@ -88,9 +88,13 @@ emp_config(char *file)
     int errors = 0;
     int i;
 
-    if (file == NULL) {
-	fixup_files();
-	return 0;
+    if (!file) {
+	if (!*dflt_econfig) {
+	    /* No default econfig, use compiled in configuration */
+	    fixup_files();
+	    return 0;
+	}
+	file = dflt_econfig;
     }
     if ((fp = fopen(file, "r")) == NULL) {
 	fprintf(stderr, "Can't open %s for reading (%s)\n",

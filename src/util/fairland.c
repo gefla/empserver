@@ -191,7 +191,6 @@ main(int argc, char *argv[])
 {
     int opt;
     char *config_file = NULL;
-    char tbuf[512];
     int i = 0;
 
     rnd_seed = time(NULL);
@@ -222,11 +221,8 @@ main(int argc, char *argv[])
 	}
     }
     srandom(rnd_seed);
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+    if (emp_config(config_file))
+	exit(1);
 
     parse_args(argc - optind, argv + optind);
     if (allocate_memory() == -1)

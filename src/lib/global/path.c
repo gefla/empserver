@@ -33,7 +33,8 @@
  */
 
 #include "gamesdef.h"
-#include "misc.h"
+
+char dflt_econfig[] = EMPDIR "/data/econfig";
 
 char *infodir	= EMPDIR "/info.nr";
 char *datadir	= EMPDIR "/data";

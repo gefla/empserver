@@ -77,7 +77,6 @@ int
 main(int argc, char *argv[])
 {
     s_char buf[255];
-    s_char tbuf[512];
     s_char *filename;
     int x, y;
     struct natstr nat;
@@ -102,12 +101,9 @@ main(int argc, char *argv[])
 	}
     }
 
-    /* Try to use the existing data directory */
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+    if (emp_config(config_file) < 0)
+	exit(1);
+
     empfile[EF_MAP].size = (WORLD_X * WORLD_Y) / 2;
     empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
 

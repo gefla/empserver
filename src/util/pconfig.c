@@ -31,18 +31,16 @@
  *     Julian Onions
  */
 
-#include <gamesdef.h>
 #include <stdio.h>
+#include "optlist.h"
 #include "prototypes.h"
 
 int
 main(int argc, char **argv)
 {
-    if (argc > 1)
-	emp_config(argv[1]);
-    else
-	emp_config(NULL);
-
+    *dflt_econfig = 0;		/* don't read default econfig */
+    if (emp_config(argc > 1 ? argv[1] : NULL) < 0)
+	exit(1);
     print_config(stdout);
     exit(0);
 }

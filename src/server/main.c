@@ -33,10 +33,6 @@
  *     Doug Hay, 1998
  */
 
-#if defined(aix) || defined(linux)
-#include <unistd.h>
-#endif /* aix or linux */
-
 #include <signal.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
@@ -189,11 +185,8 @@ main(int argc, char **argv)
         return remove_service(service_name);
 #endif	/* _WIN32 */
 
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+    if (emp_config(config_file) < 0)
+	exit(EXIT_FAILURE);
 
 #if defined(_WIN32)
     if (install_service_set)
