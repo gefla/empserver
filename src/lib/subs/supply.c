@@ -83,10 +83,7 @@ void
 resupply_commod(struct lndstr *lp, i_type type)
 {
     int amt;
-    struct lchrstr *lcp;
     struct shpstr ship;
-
-    lcp = &lchr[(int)lp->lnd_type];
 
     /* Ok, do we now have enough? */
     amt = get_minimum(lp, type) - lp->lnd_item[type];
@@ -482,12 +479,9 @@ get_minimum(struct lndstr *lp, i_type type)
 int
 has_supply(struct lndstr *lp)
 {
-    struct lchrstr *lcp;
     int shells_needed, shells, keepshells;
     int food, food_needed, keepfood;
     int fuel_needed, fuel, petrol_needed, petrol, keeppetrol;
-
-    lcp = &lchr[(int)lp->lnd_type];
 
     if (!opt_NOFOOD) {
 	food_needed = get_minimum(lp, I_FOOD);
@@ -549,11 +543,8 @@ has_supply(struct lndstr *lp)
 int
 use_supply(struct lndstr *lp)
 {
-    struct lchrstr *lcp;
     int shells_needed, shells, food, food_needed;
     int fuel_needed, fuel, petrol_needed, petrol;
-
-    lcp = &lchr[(int)lp->lnd_type];
 
     shells_needed = lp->lnd_ammo;
     shells = lp->lnd_item[I_SHELL];
