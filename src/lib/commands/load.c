@@ -94,10 +94,10 @@ load(void)
 	type = EF_PLANE;
     else if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ich = whatitem(p, (s_char *)0)))
+    else if (NULL != (ich = item_by_name(p)))
 	type = EF_SECTOR;
     else {
-	pr("Bad commodity.\n");
+	pr("Can't load '%s'\n", p);
 	return RET_SYN;
     }
 
@@ -234,10 +234,10 @@ lload(void)
 	type = EF_PLANE;
     else if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ich = whatitem(p, (s_char *)0)))
+    else if (NULL != (ich = item_by_name(p)))
 	type = EF_SECTOR;
     else {
-	pr("Bad commodity.\n");
+	pr("Can't load '%s'\n", p);
 	return RET_SYN;
     }
 

@@ -35,20 +35,39 @@
 #include "item.h"
 #include "prototypes.h"
 
+/*
+ * Get item type argument.
+ * If INPUT is not empty, use it, else prompt for more input using PROMPT.
+ * Return item characteristics on success, else NULL.
+ */
 struct ichrstr *
-whatitem(s_char *ptr, s_char *prompt)
+whatitem(char *input, char *prompt)
 {
-    register s_char *p;
-    register struct ichrstr *ip;
-    s_char buf[1024];
+    char *p;
+    struct ichrstr *ip;
+    char buf[1024];
 
-    p = getstarg(ptr, prompt, buf);
+    p = getstarg(input, prompt, buf);
     if (p == 0 || *p == 0)
 	return 0;
+    ip = item_by_name(p);
+    if (!ip)
+	pr("Unrecognized item \"%c\"\n", *p);
+    return ip;
+}
+
+/*
+ * Map item type name STR to item characteristics, NULL if not found.
+ */
+struct ichrstr *
+item_by_name(char *str)
+{
+    struct ichrstr *ip;
+
     for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
-	if (*p == ip->i_mnem)
+	/* FIXME check i_name if str[2]? */
+	if (*str == ip->i_mnem)
 	    return ip;
     }
-    pr("Unrecognized item \"%c\"\n", *p);
     return 0;
 }

@@ -52,6 +52,7 @@ extern struct ichrstr ichr[];
 
 /* procedures using/returning this struct */
 
-extern struct ichrstr *whatitem(s_char *ptr, s_char *prompt);
+extern struct ichrstr *whatitem(char *, char *);
+extern struct ichrstr *item_by_name(char *);
 
 #endif /* _ITEM_H_ */

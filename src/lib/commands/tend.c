@@ -80,10 +80,10 @@ tend(void)
 
     if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ip = whatitem(p, (s_char *)0)))
+    else if (NULL != (ip = item_by_name(p)))
 	type = EF_SECTOR;
     else {
-	pr("Bad commodity.\n");
+	pr("Can't tend '%s'\n", p);
 	return RET_SYN;
     }
 
