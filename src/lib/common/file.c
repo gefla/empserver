@@ -294,9 +294,8 @@ ef_write(int type, int id, caddr_t ptr)
     }
     if (id >= ep->fids) {
 	if (ep->flags & EFF_MEM) {
-	    logerror
-		("file %s went beyond %d items; won't be able toread item w/o restart",
-		 ep->name, ep->fids);
+	    logerror("file %s went beyond %d items; won't be able toread item w/o restart",
+		     ep->name, ep->fids);
 	} else {
 	    /* write expanded file; ep->fids = last id + 1 */
 	    ep->fids = id + 1;

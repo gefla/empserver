@@ -132,7 +132,7 @@ dreal()
 	}
 	pr("Realms for %s (#%d)\n",cname(nat),nat);
 	natp = getnatp(nat);
-	abs.width = 0;		
+	abs.width = 0;
 	abs.height = 0;
 	while (curr <= lastr) {
 		b = &natp->nat_b[curr];

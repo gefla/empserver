@@ -448,8 +448,7 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     if (pri < 1)
 	pri = 1;
     /* *LwpContextPtr = 0; */
-    if (!
-	(LwpCurrent = (struct lwpProc *)calloc(1, sizeof(struct lwpProc))))
+    if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
 	return (0);
     if (!(stack = (int *)malloc(64)))
 	return (0);

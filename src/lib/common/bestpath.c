@@ -204,8 +204,8 @@ bestownedpath(s_char *bpath,
 			    tx = XNORM(tx);
 			    ty = YNORM(ty);
 			    if (mapindex[tx][ty] == 0xFFFF) {
-				if (owned_and_navigable
-				    (bigmap, tx, ty, terrain, own)
+				if (owned_and_navigable(bigmap, tx, ty,
+							terrain, own)
 				    || (tx == ex && ty == ey && !restr2)) {
 				    mapindex[tx][ty] =
 					((i + 1) << 13) + routelen;

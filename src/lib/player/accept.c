@@ -226,8 +226,7 @@ player_accept(void *unused)
 	exit(1);
     }
 #else
-    logerror
-	("Alpha/Linux?  You don't support SO_REUSEADDR yet, do you?\n");
+    logerror("Alpha/Linux?  You don't support SO_REUSEADDR yet, do you?\n");
 #endif
     if (bind(s, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
 	logerror("inet socket bind");

@@ -73,7 +73,7 @@ deli(void)
     while (nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
-	
+
 	del = getvar(i_del, (s_char *)&sect, EF_SECTOR);
 	thresh = del & ~0x7;
 	dir = del & 0x7;
@@ -100,7 +100,7 @@ deli(void)
 		if (dir < 0)
 		    return RET_SYN;
 	    }
-	    
+
 	    if (!check_sect_ok(&sect))
 		continue;
 

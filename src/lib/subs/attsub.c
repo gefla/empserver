@@ -578,9 +578,7 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
 		&& (sect.sct_oldown != player->cnum)
 		&& (issneak != SITZKRIEG) && (issneak != MOBILIZATION)) {
 		pr("You're not at war with them!\n");
-		if (!confirm
-		    ("Do you really want to sneak attack (it will cost you $5000) [yn]? "))
-		{
+		if (!confirm("Do you really want to sneak attack (it will cost you $5000) [yn]? ")) {
 		    pr("Sneak attack cancelled!\n");
 		    return abort_attack();
 		}
@@ -779,36 +777,29 @@ att_ask_support(int offset, int *fortp, int *shipp, int *landp,
 	*fortp = *shipp = 0;
 	*landp = *planep = 0;
 
-	if (!
-	    (p =
-	     getstarg(player->argp[offset], "Use fort support? ", buf)))
+	if (!(p = getstarg(player->argp[offset], "Use fort support? ",
+			   buf)))
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *fortp = 1;
 
-	if (!
-	    (p =
-	     getstarg(player->argp[offset + 1], "Use ship support? ",
-		      buf)))
+	if (!(p = getstarg(player->argp[offset + 1], "Use ship support? ",
+			   buf)))
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *shipp = 1;
 
-	if (!
-	    (p =
-	     getstarg(player->argp[offset + 2], "Use land support? ",
-		      buf)))
+	if (!(p = getstarg(player->argp[offset + 2], "Use land support? ",
+			   buf)))
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *landp = 1;
 
-	if (!
-	    (p =
-	     getstarg(player->argp[offset + 3], "Use plane support? ",
-		      buf)))
+	if (!p = getstarg(player->argp[offset + 3], "Use plane support? ",
+			  buf)))
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
@@ -1597,10 +1588,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	getsect(def->x, def->y, &dsect);
-	if (!
-	    (p =
-	     (s_char *)BestLandPath(buf, &sect, &dsect, &move_cost,
-				    MOB_ROAD)))
+	if (!(p = BestLandPath(buf, &sect, &dsect, &move_cost, MOB_ROAD)))
 	    continue;
 
 	mobcost = land.lnd_effic * 0.01 * lchr[(int)land.lnd_type].l_spd;

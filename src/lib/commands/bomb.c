@@ -110,8 +110,8 @@ bomb(void)
     wantflags = 0;
     if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    if (!snxtitem
-	(&ni_esc, EF_PLANE, getstarg(player->argp[2], "escort(s)? ", buf)))
+    if (!snxtitem(&ni_esc, EF_PLANE,
+		  getstarg(player->argp[2], "escort(s)? ", buf)))
 	pr("No escorts...\n");
     if ((p =
 	 getstarg(player->argp[3], "pinpoint, or strategic? ", buf)) == 0)
@@ -255,9 +255,8 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
     getvec(VT_ITEM, vec, (s_char *)target, EF_SECTOR);
   retry:
-    p = getstring
-	("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
-	 buf);
+    p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
+		  buf);
     if (p == 0 || *p == 0) {
 	if (player->aborted)
 	    return;
@@ -598,8 +597,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    sprintf(msg, "Flak! Firing %d guns from ship %s\n",
 		    flak, prship(&ship));
 	    PR(ship.shp_own, msg);
-	    if (pinflak_planedamage
-		(&plp->plane, plp->pcp, ship.shp_own, flak))
+	    if (pinflak_planedamage(&plp->plane, plp->pcp, ship.shp_own, flak))
 		continue;
 	}
 
@@ -838,8 +836,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		    "Flak! Firing flak guns from unit %s (aa rating %d)\n",
 		    prland(&land), land.lnd_aaf);
 	    PR(land.lnd_own, msg);
-	    if (pinflak_planedamage
-		(&plp->plane, plp->pcp, land.lnd_own, flak))
+	    if (pinflak_planedamage(&plp->plane, plp->pcp, land.lnd_own, flak))
 		continue;
 	}
 

@@ -393,8 +393,8 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
-    if (!snxtitem
-	(&ni, EF_PLANE, p = getstarg(player->argp[3], prompt, buf)))
+    if (!snxtitem(&ni, EF_PLANE,
+		  p = getstarg(player->argp[3], prompt, buf)))
 	return RET_SYN;
 
     if (!still_ok_ship(sectp, sp))
@@ -538,8 +538,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
-    if (!snxtitem
-	(&ni, EF_LAND, p = getstarg(player->argp[3], prompt, buf)))
+    if (!snxtitem(&ni, EF_LAND,
+		  p = getstarg(player->argp[3], prompt, buf)))
 	return RET_SYN;
 
     if (!still_ok_ship(sectp, sp))
@@ -858,8 +858,8 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
-    if (!snxtitem
-	(&ni, EF_PLANE, p = getstarg(player->argp[3], prompt, buf)))
+    if (!snxtitem(&ni, EF_PLANE,
+		  p = getstarg(player->argp[3], prompt, buf)))
 	return RET_SYN;
 
     if (!still_ok_land(sectp, lp))
@@ -1085,8 +1085,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
-    if (!snxtitem
-	(&ni, EF_LAND, p = getstarg(player->argp[3], prompt, buf)))
+    if (!snxtitem(&ni, EF_LAND,
+		  p = getstarg(player->argp[3], prompt, buf)))
 	return RET_SYN;
 
     if (!still_ok_land(sectp, lp))

@@ -87,8 +87,8 @@ tend(void)
 	return RET_SYN;
     }
 
-    if (!snxtitem
-	(&tenders, EF_SHIP, getstarg(player->argp[2], "Tender(s)? ", buf)))
+    if (!snxtitem(&tenders, EF_SHIP,
+		  getstarg(player->argp[2], "Tender(s)? ", buf)))
 	return RET_SYN;
 
     while (nxtitem(&tenders, (s_char *)&tender)) {

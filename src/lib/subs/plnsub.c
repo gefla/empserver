@@ -109,11 +109,10 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
 		break;
 	    n = atoi(p);
-	    if (n < 0 || !getship(n, &ship) || (!player->owner &&
-						(getrel
-						 (getnatp(ship.shp_own),
-						  player->cnum) !=
-						 ALLIED))) {
+	    if (n < 0 || !getship(n, &ship)
+		|| (!player->owner
+		    && (getrel(getnatp(ship.shp_own), player->cnum)
+			!= ALLIED))) {
 		pr("Not yours\n");
 		continue;
 	    }

@@ -68,8 +68,7 @@ swaps(void)
 	!getsect(sectb.sct_x, sectb.sct_y, &sectb))
 	return RET_SYN;
     print_res(&sectb);
-    if (!confirm
-	("Are you sure these are the two sectors you wish to swap? "))
+    if (!confirm ("Are you sure these are the two sectors you wish to swap? "))
 	return RET_FAIL;
     /* save x and y from secta */
     x = secta.sct_x;

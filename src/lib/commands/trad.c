@@ -330,8 +330,7 @@ check_trade(void)
 	    continue;
 	}
 	if (tg.gen.trg_own != trade.trd_owner) {
-	    logerror
-		("SOmething weird, tg.gen.trg_own != trade.trd_owner!\n");
+	    logerror("Something weird, tg.gen.trg_own != trade.trd_owner!\n");
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;

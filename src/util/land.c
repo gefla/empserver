@@ -112,9 +112,8 @@ s_char **argv;
     int big;
 
     if (argc > 1 && argc != 6) {
-	printf
-	    ("usage: %s sectrange mincontdist chunksize numchunks numisle\n",
-	     *argv);
+	printf("usage: %s sectrange mincontdist chunksize numchunks numisle\n",
+	       *argv);
 	return -1;
     }
     if (argc == 6) {

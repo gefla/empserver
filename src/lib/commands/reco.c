@@ -71,8 +71,8 @@ reco(void)
     wantflags = 0;
     if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    if (!snxtitem
-	(&ni_esc, EF_PLANE, getstarg(player->argp[2], "escort(s)? ", buf)))
+    if (!snxtitem(&ni_esc, EF_PLANE,
+		  getstarg(player->argp[2], "escort(s)? ", buf)))
 	pr("No escorts...\n");
     if ((p = getstarg(player->argp[3], "assembly point? ", buf)) == 0
 	|| *p == 0)

@@ -108,10 +108,8 @@ coll(void)
 	owed *= loan.l_amtdue;
 /* End overflow fix */
     pr("You are owed $%.2f on that loan.\n", owed);
-    if (!
-	(p =
-	 getstarg(player->argp[2],
-		  "What sector do you wish to confiscate? ", buf)))
+    if (!(p = getstarg(player->argp[2],
+		       "What sector do you wish to confiscate? ", buf)))
 	return RET_SYN;
     if (!check_loan_ok(&loan))
 	return RET_FAIL;

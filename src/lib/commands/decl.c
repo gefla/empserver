@@ -51,11 +51,9 @@ decl(void)
     s_char *p;
     s_char buf[1024];
 
-    if (!
-	(p =
-	 getstarg(player->argp[1],
-		  "alliance, friendly, neutrality, hostility, or war? ",
-		  buf)))
+    if (!(p = getstarg(player->argp[1],
+		       "alliance, friendly, neutrality, hostility, or war? ",
+		       buf)))
 	return RET_SYN;
     switch (*p) {
     case 'a':

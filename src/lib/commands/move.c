@@ -413,10 +413,9 @@ would_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
 	loyalcivs = 0;
 
     /* If they have a military unit there, they still own it */
-    if (sp->sct_own != 0 && ((loyalcivs == 0) && (mil == 0) &&
-			     (has_units
-			      (sp->sct_x, sp->sct_y, sp->sct_own,
-			       lp) == 0)))
+    if (sp->sct_own != 0
+	&& ((loyalcivs == 0) && (mil == 0)
+	    && (has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp) == 0)))
 	return 1;
 
     return 0;

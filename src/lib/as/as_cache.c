@@ -107,9 +107,7 @@ as_add_cachepath(struct as_data *adp)
 	/* And set some stuff */
 	from->x = adp->from.x;
 	/* Here we malloc a whole bunch of tolist pointers. */
-	from->tolist = (struct as_topath **)calloc(1,
-						   sizeof(struct as_topath
-							  *) * WORLD_Y);
+	from->tolist = calloc(1, sizeof(struct as_topath *) * WORLD_Y);
 	/* Now, add from to the global list */
 	from->next = fromhead[adp->from.y];
 	fromhead[adp->from.y] = from;

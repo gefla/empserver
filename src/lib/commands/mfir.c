@@ -829,8 +829,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    range = mapdist(ship.shp_x, ship.shp_y, ax, ay);
 	    if (range > erange)
 		continue;
-	    if (!line_of_sight
-		((s_char **)0, ship.shp_x, ship.shp_y, ax, ay))
+	    if (!line_of_sight((s_char **)0, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
 
 	    (*nfiring)++;
