@@ -628,6 +628,8 @@ show_sect_build(int foo)
     for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
+	if (dchr[x].d_cost < 0)
+	    continue;
 	if ((dchr[x].d_cost > 0) || (dchr[x].d_build != 1) ||
 	    (dchr[x].d_lcms > 0) || (dchr[x].d_hcms > 0)) {
 	    if (first) {

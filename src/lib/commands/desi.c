@@ -96,18 +96,8 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
     while (!player->aborted && nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	if (!player->god) {
-	    if (sect.sct_type == SCT_MOUNT ||
-		sect.sct_type == SCT_BTOWER ||
-		sect.sct_type == SCT_BSPAN ||
-		sect.sct_type == SCT_WASTE ||
-		sect.sct_type == SCT_PLAINS ||
-		(opt_NO_LCMS && sect.sct_type == SCT_LIGHT) ||
-		(opt_NO_HCMS && sect.sct_type == SCT_HEAVY) ||
-		(opt_NO_OIL && sect.sct_type == SCT_OIL) ||
-		(opt_NO_OIL && sect.sct_type == SCT_REFINE))
-		continue;
-	}
+	if (!player->god && dchr[sect.sct_type].d_cost < 0)
+	    continue;
 	sprintf(prompt, "%s %d%% %s  desig? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
@@ -127,20 +117,15 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 		return (long)-RET_FAIL;
 	}
 	if (!player->god) {
-	    if (des == SCT_WATER || des == SCT_MOUNT ||
-		des == SCT_SANCT || des == SCT_PLAINS ||
-		(opt_NO_LCMS && des == SCT_LIGHT) ||
-		(opt_NO_HCMS && des == SCT_HEAVY) ||
-		(opt_NO_OIL && des == SCT_OIL) ||
-		(opt_NO_OIL && des == SCT_REFINE)) {
-		if (for_real) 
-		    pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
-		continue;
-	    }
 	    if (des == SCT_WASTE) {
 		if (for_real)
 		    pr("Only a nuclear device (or %s) can make a %s!\n",
 		       cname(0), dchr[des].d_name);
+		continue;
+	    }
+	    if (dchr[des].d_cost < 0) {
+		if (for_real)
+		    pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
 		continue;
 	    }
 	}
@@ -148,7 +133,7 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	    continue;
 	if (sect.sct_type == SCT_SANCT)
 	    breaksanct++;
-	if (des == SCT_HARBR) {
+	if ((des == SCT_HARBR) || (des == SCT_BHEAD)) {
 	    for (n = 1; n <= 6; n++) {
 		getsect(nstr.x + diroff[n][0],
 			nstr.y + diroff[n][1], &check);
@@ -170,33 +155,11 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 		    continue;
 	    }
 	}
-	if (des == SCT_BHEAD) {
-	    for (n = 1; n <= 6; n++) {
-		getsect(nstr.x + diroff[n][0],
-			nstr.y + diroff[n][1], &check);
-		if (check.sct_type == SCT_WATER)
-		    break;
-		if (check.sct_type == SCT_BSPAN)
-		    break;
-		if (check.sct_type == SCT_BTOWER)
-		    break;
-	    }
-	    if (n > 6) {
-		if (for_real)
-		    pr("%s does not border on water.\n",
-		       xyas(nstr.x, nstr.y, player->cnum));
-		if (player->god) {
-		    if (for_real)
-			pr("But if it's what you want...\n");
-		} else
-		    continue;
-	    }
-	}
 	if (sect.sct_type == SCT_SANCT && !player->god)
 	    continue;
 	n = sect.sct_type;
 	if ((sect.sct_newtype != des) && (sect.sct_type != des)
-	    && dchr[des].d_cost) {
+	    && dchr[des].d_cost > 0) {
 	    if (for_real) {
 		if (check_cost(!deschar, dchr[des].d_cost, cash, &warned,
 			       player->argp[3]))

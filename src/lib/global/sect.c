@@ -48,10 +48,10 @@ struct dchrstr bigcity_dchr = {
 struct dchrstr dchr[SCT_MAXDEF + 2] = {
 /*
   mnem prd     mcst  flg    pkg ostr dstr value $ bld lcm hcm   name    */
-    {'.', 0, 0, NAVOK, NPKG, 0.0, 0.0, 0, 0, 0, 0, 0, "sea"},
-    {'^', P_MDUST, 25, 0, NPKG, 1.0, 4.0, 5, 0, 1, 0, 0, "mountain"},
-    {'s', 0, 0, 0, NPKG, 0.0, 99.0, 127, 0, 0, 0, 0, "sanctuary"},
-    {'\\', 0, 0, 0, NPKG, 0.0, 99.0, 0, 0, 0, 0, 0, "wasteland"},
+    {'.', 0, 0, NAVOK, NPKG, 0.0, 0.0, 0, -1, 0, 0, 0, "sea"},
+    {'^', P_MDUST, 25, 0, NPKG, 1.0, 4.0, 5, -1, 1, 0, 0, "mountain"},
+    {'s', 0, 0, 0, NPKG, 0.0, 99.0, 127, -1, 0, 0, 0, "sanctuary"},
+    {'\\', 0, 0, 0, NPKG, 0.0, 99.0, 0, -1, 0, 0, 0, "wasteland"},
     {'-', 0, 3, 0, NPKG, 1.0, 2.0, 1, 0, 0, 0, 0, "wilderness"},
     {'c', 0, 2, 0, NPKG, 1.0, 2.0, 30, 0, 1, 0, 0, "capital"},
     {'u', P_URAN, 2, 0, NPKG, 1.0, 2.0, 15, 0, 1, 0, 0, "uranium mine"},
@@ -76,12 +76,12 @@ struct dchrstr dchr[SCT_MAXDEF + 2] = {
     {')', 0, 2, 0, NPKG, 1.0, 1.5, 4, 0, 1, 0, 0, "radar installation"},
     {'!', 0, 2, 0, NPKG, 1.0, 1.5, 12, 0, 1, 0, 0, "headquarters"},
     {'#', 0, 1, 0, NPKG, 1.0, 1.5, 4, 0, 1, 0, 0, "bridge head"},
-    {'=', 0, 1, NAV_60, NPKG, 1.0, 1.0, 5, 0, 1, 0, 0, "bridge span"},
+    {'=', 0, 1, NAV_60, NPKG, 1.0, 1.0, 5, -1, 1, 0, 0, "bridge span"},
     {'b', P_BAR, 2, 0, BPKG, 1.0, 2.25, 10, 0, 1, 0, 0, "bank"},
     {'%', P_PETROL, 2, 0, NPKG, 1.0, 1.5, 2, 0, 1, 0, 0, "refinery"},
     {'e', 0, 2, 0, NPKG, 1.0, 2.0, 7, 0, 1, 0, 0, "enlistment center"},
-    {'~', 0, 2, 0, NPKG, 1.0, 1.5, 1, 0, 1, 0, 0, "plains"},
-    {'@', 0, 1, 0, NPKG, 1.0, 1.5, 4, 0, 1, 0, 0, "bridge tower"},
+    {'~', 0, 2, 0, NPKG, 1.0, 1.5, 1, -1, 1, 0, 0, "plains"},
+    {'@', 0, 1, 0, NPKG, 1.0, 1.5, 4, -1, 1, 0, 0, "bridge tower"},
     {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0}
 };

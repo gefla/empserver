@@ -397,6 +397,14 @@ nullify_objects(void)
 	dchr[SCT_CAPIT].d_hcms = bigcity_dchr.d_hcms;
 	dchr[SCT_CAPIT].d_name = bigcity_dchr.d_name;
     }
+    if (opt_NO_LCMS)
+	dchr[SCT_LIGHT].d_cost = -1;
+    if (opt_NO_HCMS)
+	dchr[SCT_HEAVY].d_cost = -1;
+    if (opt_NO_OIL) {
+	dchr[SCT_OIL].d_cost = -1;
+	dchr[SCT_REFINE].d_cost = -1;
+    }
     for (i = 0; i < pln_maxno; i++) {
 	if (opt_NO_HCMS)
 	    plchr[i].pl_hcm = 0;
