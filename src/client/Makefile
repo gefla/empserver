@@ -39,7 +39,7 @@ OFILES = bit.o dtable.o expect.o globals.o handle.o host.o \
 	ioqueue.o ipglob.o login.o main.o queue.o saveargv.o \
 	servcmd.o serverio.o tags.o termio.o termlib.o
 OBJFILES = bit.obj dtable.obj expect.obj globals.obj handle.obj host.obj \
-	hpux.obj ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
+	ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
 	servcmd.obj serverio.obj tags.obj termio.obj termlib.obj
 
 CLIENTLIBS= -ltermlib
