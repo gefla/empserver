@@ -74,7 +74,9 @@ struct player *
 player_new(int s, struct sockaddr_in *sin)
 {
     struct player *lp;
+#ifdef RESOLVE_IPADDRESS
     struct hostent *hostp;
+#endif
 
     lp = (struct player *)malloc(sizeof(struct player));
     if (!lp)
