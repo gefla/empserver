@@ -1,6 +1,6 @@
-        --- How to build the info pages 0---
+        --- How to build the info pages ---
 
-It is very easy to build the info pages.  Note that you need prel5 installed to
+It is very easy to build the info pages.  Note that you need perl5 installed to
 build the Subject info pages.  The default ones are supplied, but if you want
 to build new ones yourself, you need perl5.
 
@@ -95,7 +95,7 @@ Begin paragraph:
 .s1
 
 4. Run "info.pl"
-  Type "info.pl" at the unix prompt.
+  Type "info.pl" at the Unix prompt.
   If there are any problems with your info page, info.pl will abort
   with a clear error message explaining what went wrong.  
 
@@ -118,7 +118,7 @@ Communication
 subject.
 
 The output of this script is a bunch of files in the "Subjects"
-subdirectory.  The file Subjects/TOP.t is the toplevel table of
+subdirectory.  The file Subjects/TOP.t is the top-level table of
 contents and lists all of the subjects.  Then for each subject, a
 Subjects/Subject.t file is created, listing all of the info pages that
 belong to it.
