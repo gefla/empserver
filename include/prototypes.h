@@ -116,9 +116,6 @@ extern int fsize(int);
 extern int blksize(int);
 extern time_t fdate(int);
 extern void filetruncate(s_char *);
-/* getvar.c */
-extern int getvec(int, int *, s_char *, int);
-extern int putvec(int, int *, s_char *, int);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
 /* hours.c */
