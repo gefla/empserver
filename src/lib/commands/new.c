@@ -49,7 +49,9 @@
 #include <fcntl.h>
 #include <math.h>
 
+#ifdef START_UNITS
 static int deity_build_land(int, coord, coord, natid, int);
+#endif
 static int isok(int x, int y);
 static void ok(s_char *map, int x, int y);
 
@@ -302,6 +304,7 @@ ok(s_char *map, int x, int y)
 	ok(map, diroff[dir][0] + x, diroff[dir][1] + y);
 }
 
+#ifdef START_UNITS
 static int
 deity_build_land(int type, coord x, coord y, natid own, int tlev)
 {
@@ -382,3 +385,4 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     pr(" built in sector %s\n", xyas(x, y, player->cnum));
     return 1;
 }
+#endif /* START_UNITS */
