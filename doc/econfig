@@ -12,18 +12,17 @@ make life easier on deities wanting to change things.
 -- Steve McClure, 10/21/1998
 --
 
-
-Deity Notes.
+Deity Notes
 -----------
 
 To find out the current configuration, the simplest method is to
 compile up util/pconfig and the run it. It can be run either with no
 arguments, in which case it will printout in config format the current
 compiled in options. Otherwise with a file containing a configuration
-it will first read in this file, and overright any copmiled in
+it will first read in this file, and override any compiled in
 variables and then printout the merged options. 
 
-So the first method shows you whats compield in, the 2nd how a config
+So the first method shows you what's compiled in, the 2nd how a config
 file would modify this.
 
 Blank lines are ignored, as are lines starting with a # character.
@@ -75,22 +74,23 @@ Thus, to start two games on the same host, you might have
 Game1:
 files -e econfig1
 fairland -e econfig1
-emp_sever -e econfig1
+emp_server -e econfig1
 
-Game2
+Game2:
 files -e econfig2
 fairland -e econfig2
 emp_server -e econfig2
 
 econfig1 might have the lines
+
 data "/empire/data1"
-info "/empre/info"
+info "/empire/info.nr"
 port "7777"
 
 and econfig2 might have the lines
 
 data "/empire/data2"
-info "/empre/info"
+info "/empire/info.nr"
 port "7778"
 
 You only need the lines in that file that you require to override the
@@ -104,15 +104,16 @@ which will fill in all the missing options and values with their defaults.
 
 
 
-Coders information
-------------------
+Coder information
+-----------------
 
 The simplest way to describe this is to step through how a new option
 would be added.
 
 1. Think of the option name, say, "DUMB".
-2. In lib/global/options.c define an integer and set it to 1 or 0 as
-appropriate. This is usually done as 
+2. In src/lib/global/options.c define an integer and set it to 1 or 0
+as appropriate. This is usually done as 
+
 #ifdef DUMB
 int opt_DUMB = 1;
 #else
@@ -121,10 +122,12 @@ int opt_DUMB = 0;
 
 3. At the end of that file, add an entry into the table so it is
 configurable. This is done with a line like
-{ "DUMB",     &opt_DUMB },
+
+    { "DUMB", &opt_DUMB },
+
 Make sure the table is still terminated by two NULL values!
 
-4. In h/optlist.h add an external definition of this variable
+4. In include/optlist.h add an external definition of this variable
 
 extern int opt_DUMB;
 
@@ -137,5 +140,5 @@ elsewhere in the code. This normally looks like
 	  } else {
 	     pr ("You're being really dumb\n");
 	  }
-but it may call subroutines, return early from functions or whatever.
 
+but it may call subroutines, return early from functions or whatever.
