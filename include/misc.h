@@ -60,8 +60,6 @@ typedef unsigned int u_int;
 #define random rand
 #define srandom srand
 
-#define index strchr
-#define rindex strrchr
 /*#define _POSIX_ */
 #endif
 
@@ -178,10 +176,6 @@ extern char *calloc();
 extern char *ctime();
 extern char *strncpy();
 extern char *strcpy();
-#ifndef NeXT
-extern char *index();
-extern char *rindex();
-#endif /* NeXT */
 #endif /* !aix && !sgi */
 
 extern time_t time();
