@@ -54,11 +54,10 @@ show(void)
     extern float drnuke_const;
     int rlev;
 
-    if (!
-	(p =
-	 getstarg(player->argp[1],
-		  "Describe what (plane, nuke, bridge, ship, sect, land unit, tower)? ",
-		  buf)) || !*p)
+    if (!(p = getstarg(player->argp[1],
+		       "Describe what (plane, nuke, bridge, ship, sect, land unit, tower, item)? ",
+		       buf))
+	|| !*p)
 	return RET_SYN;
 
     natp = getnatp(player->cnum);
@@ -82,6 +81,9 @@ show(void)
 	return RET_OK;
     case 't':
 	show_tower(99999);
+	return RET_OK;
+    case 'i':
+	show_item(99999);
 	return RET_OK;
     case 'n':
 	if (opt_DRNUKE)
@@ -115,10 +117,8 @@ show(void)
     default:
 	return RET_SYN;
     }
-    if (!
-	(p =
-	 getstarg(player->argp[2],
-		  "Build, stats, or capability data (b,s,c)? ", buf))
+    if (!(p = getstarg(player->argp[2],
+		       "Build, stats, or capability data (b,s,c)? ", buf))
 	|| !*p)
 	return RET_SYN;
     if (*p == 'B' || *p == 'b')

@@ -1,22 +1,26 @@
 .TH Command SHOW
-.NA show "Stats for building ships, planes, units, or bridges"
+.NA show "Characteristics of bridges, items, ships, planes, land units or sectors"
 .LV Basic
-.SY "show <sector|bridge|land|plane|ship|nuke> [build|stats|capabilities] [tech]"
-The show command either gives information on the indicated unit types.
-This information is gleaned directly from the current Empire
-data structures so is always up to date.
-The format of each output is more fully described
-in the relevant info pages
-(Ship-types, Nuke-types etc.).
+.SY "show <bridge|item|land|nuke|plane|sector|ship|tower> [b|s|c] [tech]"
+The show command describes the characteristics of bridge spans, bridge
+towers, items, planes, ships, land units, nukes, and sectors for a
+given technology level.
 .s1
-Describe currently knows about bridges, planes, ships, land units, nukes,
-and sectors at a given tech (up to 1.25 times your current tech.)
+The format of each output is more fully described in separate info
+pages (Ship-types, Nuke-types, etc.).
 .s1
-To get information on a particular topic type:
-.EX show unit-type
-Unless the unit is a bridge, a further parameter is needed to indicate
-whether you wish information about construction of units, the statistics
-of units or the capabilities & abilities of units.
+Except for bridge (bridge span), tower (bridge tower) and item, a
+further parameter is required to indicate whether you wish information
+about building (b), statistics (s) or capabilities (c) of the selected
+type.
+.s1
+The tech parameter defaults to 1.25 times your current technology
+level.
+.s1
+You can only get information on ships, planes, land units and
+nukes that you are `almost' capable of building (within 1.25 times of
+your current technology level).
+.s1
 So, for example
 .EX show nuke capabilities
 will give something like
@@ -29,13 +33,6 @@ will give something like
 500kt fusion     5 170   6  295 $9000
 1mt fusion       6 190   8  310 $12000
 3mt fusion       7 210  10  325 $19000
-.s1
-Note that you can only get information on items that you are actually
-technologically capable of building (within 1.25 times of your current
-tech.)
 .FI
 .s1
-To learn about the various build costs, stats, capabilities, and their 
-meanings, see the info files below.
-.s1
-.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits"
+.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Item-types, Ships, Planes, LandUnits, Products"
