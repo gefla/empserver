@@ -24,6 +24,8 @@ esac
 PROGNAME="$0"
 CVS_RSH=ssh
 export CVS_RSH
+TERM="${TERM:-vt100}"
+export TERM
 
 usage() {
 	echo "Usage: ${PROGNAME} <configfile>" >&2;
