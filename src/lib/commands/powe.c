@@ -258,16 +258,9 @@ gen_power(void)
 	    continue;
 	pow = &powbuf[land.lnd_own];
 	addtopow(land.lnd_item, pow);
-	if (opt_NEWPOWER == 0) {
-	    pow->p_power += lchr[(int)land.lnd_type].l_lcm / 10.0;
-	    pow->p_power += lchr[(int)land.lnd_type].l_hcm / 5.0;
-	} else {		/* old power */
-	    f = ((float)(lchr[(int)land.lnd_type].l_lcm / 10.0)) *
-		((float)land.lnd_effic) / 100.0;
-	    f += ((float)(lchr[(int)land.lnd_type].l_hcm / 10.0)) *
-		((float)land.lnd_effic / 100.0);
-	    pow->p_power += f * 2;
-	}			/* end NEWPOWER */
+	f = (lchr[(int)land.lnd_type].l_lcm / 10.0) * (land.lnd_effic / 100.0);
+	f += (lchr[(int)land.lnd_type].l_hcm / 10.0) * (land.lnd_effic / 100.0);
+	pow->p_power += f * 2;
 	pow->p_units += 1.0;
     }
     snxtitem_all(&ni, EF_SHIP);
@@ -276,16 +269,9 @@ gen_power(void)
 	    continue;
 	pow = &powbuf[ship.shp_own];
 	addtopow(ship.shp_item, pow);
-	if (opt_NEWPOWER == 0) {
-	    pow->p_power += mchr[(int)ship.shp_type].m_lcm / 10.0;
-	    pow->p_power += mchr[(int)ship.shp_type].m_hcm / 5.0;
-	} else {		/* old power formula */
-	    f = ((float)(mchr[(int)ship.shp_type].m_lcm / 10.0)) *
-		((float)ship.shp_effic) / 100.0;
-	    f += ((float)(mchr[(int)ship.shp_type].m_hcm / 10.0)) *
-		((float)ship.shp_effic / 100.0);
-	    pow->p_power += f * 2;
-	}			/* end NEWPOWER */
+	f = (mchr[(int)ship.shp_type].m_lcm / 10.0) * (ship.shp_effic / 100.0);
+	f += (mchr[(int)ship.shp_type].m_hcm / 10.0) * (ship.shp_effic / 100.0);
+	pow->p_power += f * 2;
 	pow->p_ships += 1.0;
     }
     snxtitem_all(&ni, EF_PLANE);
@@ -294,13 +280,9 @@ gen_power(void)
 	    continue;
 	pow = &powbuf[plane.pln_own];
 	pow->p_planes += 1.0;
-	if (opt_NEWPOWER == 0)
-	    pow->p_power += plane.pln_effic / 100.0;
-	else {			/* old POWER */
-	    natp = getnatp(plane.pln_own);
-	    pow->p_power += 20 * (plane.pln_effic / 100.0) *
-		(natp->nat_level[NAT_TLEV] / 500.0);
-	}			/* end old POWER */
+	natp = getnatp(plane.pln_own);
+	pow->p_power += 20 * (plane.pln_effic / 100.0) *
+	    (natp->nat_level[NAT_TLEV] / 500.0);
     }
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];
@@ -310,41 +292,29 @@ gen_power(void)
 	    pow->p_power = 0.;
 	    continue;
 	}
-	if (opt_NEWPOWER && (natp->nat_stat & STAT_GOD)) {
+	if (natp->nat_stat & STAT_GOD) {
 	    pow->p_power = 0.;
 	    continue;
 	}
 	pow->p_money = natp->nat_money;
 	pow->p_power += pow->p_money / 100.;
 
-	pow->p_power += pow->p_petrol / (opt_NEWPOWER ? 500.0 : 50.0);
+	pow->p_power += pow->p_petrol / 500.0;
 
-	if (opt_NEWPOWER == 0) {
-	    pow->p_power += (pow->p_civil + pow->p_milit +
-			     pow->p_shell) / 10.;
-	    pow->p_power += (pow->p_iron + pow->p_dust +
-			     pow->p_effic + pow->p_oil) / 10.;
-	    pow->p_power += (pow->p_guns + pow->p_effic) / 3.;
-	    pow->p_power += pow->p_ships;
-	    pow->p_power += pow->p_sects * 3.0;
-	    pow->p_power += pow->p_planes * 5.0;
-	} else {		/* new POWER format */
-	    pow->p_power += (pow->p_civil + pow->p_milit) / 10.0;
-	    pow->p_power += (pow->p_shell) / 12.5;
-	    pow->p_power += (pow->p_iron) / 100.0;
-	    pow->p_power += (pow->p_dust / 5 +
-			     pow->p_oil / 10 + pow->p_bars);
-	    pow->p_power += (pow->p_guns) / 2.5;
-	    if (pow->p_sects > 0)
-		pow->p_power += (pow->p_sects *
-				 ((pow->p_effic / pow->p_sects) /
-				  100.0)) * 10.0;
-	    if (natp->nat_level[NAT_TLEV] > 0.0)
-		pow->p_power = pow->p_power *
-		    (((float)natp->nat_level[NAT_TLEV]) / 500.0);
-	    else
-		pow->p_power = pow->p_power * (1.0 / 500.0);
-	}			/* end new POWER */
+	pow->p_power += (pow->p_civil + pow->p_milit) / 10.0;
+	pow->p_power += pow->p_shell / 12.5;
+	pow->p_power += pow->p_iron / 100.0;
+	pow->p_power += pow->p_dust / 5 + pow->p_oil / 10 + pow->p_bars;
+	pow->p_power += pow->p_guns / 2.5;
+	if (pow->p_sects > 0)
+	    pow->p_power += (pow->p_sects
+			     * ((pow->p_effic / pow->p_sects) / 100.0))
+		* 10.0;
+	if (natp->nat_level[NAT_TLEV] > 0.0)
+	    pow->p_power = pow->p_power *
+		(((float)natp->nat_level[NAT_TLEV]) / 500.0);
+	else
+	    pow->p_power = pow->p_power * (1.0 / 500.0);
 	/* ack.  add this vec to the "world power" element */
 	f_pt2 = &(powbuf[0].p_sects);
 	f_ptr = &(pow->p_sects);

@@ -93,7 +93,6 @@
 #define	SAIL			/* A update routine to move ships */
 #define	SHIPNAMES		/* Name your ships, removing this option saves space */
 #define	NEUTRON			/* Enables Neurton Warheads */
-#define NEWPOWER		/* Better power formula */
 #define NOMOBCOST		/* No mob cost for firing from ships */
 /*#define SUPER_BARS *//* Bars can't be destroyed by fire */
 #define EASY_BRIDGES		/* Bridges can be built anywhere */
@@ -101,10 +100,7 @@
 /*#define DRNUKE*//* Need research to make nukes */
 #define NO_PLAGUE		/* Plague is disabled */
 /*#define ROLLOVER_AVAIL*/ 	/* Avail builds up across updates like mob */
-#define NEW_STARVE		/* UW's starve, then civs, then mil */
-#define NEW_WORK		/* Work is changed in proportion to the # of civs mvd */
 /*#define RES_POP*//* population is limited by research */
-/*#define GRAB_THINGS*//* units will grab things they need to build */
 /*#define BIG_CITY *//* allow 10x civs in 'c' sectors */
 #define INTERDICT_ATT		/* interdict post-attack move in */
 #define	SHOWPLANE /**/

@@ -177,12 +177,6 @@ int opt_TRADESHIPS = 1;
 int opt_TRADESHIPS = 0;
 #endif
 
-#ifdef NEWPOWER
-int opt_NEWPOWER = 1;
-#else
-int opt_NEWPOWER = 0;
-#endif
-
 #ifdef NOMOBCOST
 int opt_NOMOBCOST = 1;
 #else
@@ -223,18 +217,6 @@ int opt_SLOW_WAR = 0;
 int opt_NO_PLAGUE = 1;
 #else
 int opt_NO_PLAGUE = 0;
-#endif
-
-#ifdef NEW_STARVE
-int opt_NEW_STARVE = 1;
-#else
-int opt_NEW_STARVE = 0;
-#endif
-
-#ifdef NEW_WORK
-int opt_NEW_WORK = 1;
-#else
-int opt_NEW_WORK = 0;
 #endif
 
 #ifdef RES_POP
@@ -348,9 +330,6 @@ struct option_list Options[] = {
     {"MARKET", &opt_MARKET},
     {"MOB_ACCESS", &opt_MOB_ACCESS},
     {"NEUTRON", &opt_NEUTRON},
-    {"NEW_STARVE", &opt_NEW_STARVE},
-    {"NEW_WORK", &opt_NEW_WORK},
-    {"NEWPOWER", &opt_NEWPOWER},
     {"NO_FORT_FIRE", &opt_NO_FORT_FIRE},
     {"NO_HCMS", &opt_NO_HCMS},
     {"NO_LCMS", &opt_NO_LCMS},

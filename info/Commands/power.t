@@ -65,18 +65,6 @@ bb	gold bars
 The \*Qpower factor\*U is determined by the following equation:
 .s1
 .NF
-power factor = n / 100
-               + (c + d + e + h + i + k + l + mm + oo) / 10
-               + pp / 5
-               + (f + a * b) / 3
-               + g + m + j + r
-               + a * 3
-               + qq * 100
-.FI
-.s1
-However, if the NEWPOWER option is in effect, the formula becomes:
-
-.NF
 power factor = for each land unit calculate and add the following
                 ((((land unit lcm cost / 10) * (land unit effic / 100)) +
                   ((land unit hcm cost / 10) * (land unit effic / 100))) * 2)

@@ -99,15 +99,11 @@ some damage to the sector you were moving into.
 .L "Unhappy civilians"
 .s1
 Also, when moving unhappy civilians (work percentage less than 100%), 
-unhappiness is contagious. If you move even 1 unhappy civilian into a
-sector, the new sector's work percentage is set to the level of the
-civilian being moved, if that is less than the existing level.
-.s1
-However, if the NEW_WORK option is enabled, the work percentage of the
+unhappiness is contagious. The work percentage of the
 destination sector is computed by averaging the incoming civ's happiness
 with the happiness of the civs already there. For example, say you move
 100 civs with work percentage of 0% into a sector with 100 fully happy
-civilians (100% work). If NEW_WORK is enabled, the work would be:
+civilians (100% work). The work would be:
 .ti 3
 ((migrants * their work) + (people at dest * their work) / (total civs)
 ((100 * 0%) + (100 * 100%)) / (100+100) =  100/200 = 50%

@@ -40,11 +40,7 @@ This document gives a rough order of events during the update.
                         2) If still not enough is available,
                                 the excess people will starve off.
                                 a) No more than 50% of the people
-                                        in a sect can die
-                                b) If the NEW_STARVE option is not
-                                        enabled, all types of people
-                                        (civs, uw, mil) starve evenly.
-                                c) If the NEW_STARVE option is enabled,
+                                        in a sect can die;
                                         the uw's die first, then
                                         the civs, then the mil.
                 c) if there was starvation, the work percentage is set

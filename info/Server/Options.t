@@ -27,10 +27,7 @@ RES_POP:	Research affects max sector population.
 NOFOOD		No food is required.
 BLITZ:		Turns NOFOOD option on and players get infinite BTU's.
 NONUKES:	No nuclear weapons
-NEWPOWER:	New power formula.  See "info power".
 NO_PLAGUE:	Plague is disabled.
-NEW_STARVE:	UW's starve, then civs, then mil
-NEW_WORK:	Work is changed in proportion to the # of civs moved
 NEUTRON:	Enables neutron bombs
 FALLOUT:	Sectors are damaged by radiation for a few updates after blast
 

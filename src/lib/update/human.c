@@ -187,7 +187,6 @@ int
 feed_people(register int *vec, int etu, int *needed)
 {
     double food_eaten;
-    double people_left;
     int can_eat;
     int total_people;
     int to_starve;
@@ -206,45 +205,31 @@ feed_people(register int *vec, int etu, int *needed)
 	*needed = food_eaten - vec[I_FOOD];
 	if ((double)(*needed) < (double)(food_eaten - (double)vec[I_FOOD]))
 	    (*needed)++;
-	if (opt_NEW_STARVE) {
-	    can_eat = (vec[I_FOOD] / (etu * eatrate));
-	    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+	can_eat = (vec[I_FOOD] / (etu * eatrate));
+	total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
 
-	    /* only want to starve off at most 1/2 the populace. */
-	    if (can_eat < (total_people / 2))
-		can_eat = total_people / 2;
+	/* only want to starve off at most 1/2 the populace. */
+	if (can_eat < (total_people / 2))
+	    can_eat = total_people / 2;
 
-	    to_starve = total_people - can_eat;
-	    while (to_starve && vec[I_UW]) {
-		to_starve--;
-		starved++;
-		vec[I_UW]--;
-	    }
-	    while (to_starve && vec[I_CIVIL]) {
-		to_starve--;
-		starved++;
-		vec[I_CIVIL]--;
-	    }
-	    while (to_starve && vec[I_MILIT]) {
-		to_starve--;
-		starved++;
-		vec[I_MILIT]--;
-	    }
+	to_starve = total_people - can_eat;
+	while (to_starve && vec[I_UW]) {
+	    to_starve--;
+	    starved++;
+	    vec[I_UW]--;
+	}
+	while (to_starve && vec[I_CIVIL]) {
+	    to_starve--;
+	    starved++;
+	    vec[I_CIVIL]--;
+	}
+	while (to_starve && vec[I_MILIT]) {
+	    to_starve--;
+	    starved++;
+	    vec[I_MILIT]--;
+	}
 
-	    vec[I_FOOD] = 0;
-	} else {		/* ! opt_NEW_STARVE */
-
-	    people_left = (vec[I_FOOD] + 0.01) / (food_eaten + 0.01);
-	    starved = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-	    /* only want to starve off at most 1/2 the populace. */
-	    if (people_left < 0.5)
-		people_left = 0.5;
-	    vec[I_CIVIL] = (int)(vec[I_CIVIL] * people_left);
-	    vec[I_MILIT] = (int)(vec[I_MILIT] * people_left);
-	    vec[I_UW] = (int)(vec[I_UW] * people_left);
-	    starved -= vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-	    vec[I_FOOD] = 0;
-	}			/* end opt_NEW_STARVE */
+	vec[I_FOOD] = 0;
     } else {
 	vec[I_FOOD] -= roundavg(food_eaten);
     }

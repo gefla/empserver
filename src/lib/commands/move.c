@@ -323,19 +323,10 @@ move(void)
     if (infected && sect.sct_pstage == PLG_HEALTHY)
 	sect.sct_pstage = PLG_EXPOSED;
     if (vtype == V_CIVIL) {
-	if (opt_NEW_WORK) {
-	    sect.sct_loyal = ((amt_dst * sect.sct_loyal) +
-			      (amount * loyal)) / (amt_dst + amount);
-	    sect.sct_work = ((amt_dst * sect.sct_work) +
-			     (amount * work)) / (amt_dst + amount);
-	} else {		/* ! NEW_WORK */
-
-	    /* It only takes one bad apple... */
-	    if (sect.sct_loyal < loyal)
-		sect.sct_loyal = loyal;
-	    if (sect.sct_work > work)
-		sect.sct_work = work;
-	}			/* end NEW_WORK */
+	sect.sct_loyal
+	    = (amt_dst * sect.sct_loyal + amount * loyal) / (amt_dst + amount);
+	sect.sct_work
+	    = (amt_dst * sect.sct_work + amount * work) / (amt_dst + amount);
     }
     putsect(&sect);
     getsect(x, y, &start);
