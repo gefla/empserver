@@ -146,7 +146,7 @@ powe(void)
 	    continue;
 	if (use_targets && !targets[pow.p_nation])
 	    continue;
-	if (pow.p_nation != player->cnum && player->cnum != 0)
+	if (pow.p_nation != player->cnum && !player->god)
 	    round_flag = 1;
 	else
 	    round_flag = 0;
