@@ -47,9 +47,12 @@
 #include "subs.h"
 #include "optlist.h"
 
-extern int timestamp_fixing;
 extern int update_pending;
-int do_upd_checking = 0;
+
+int updating_mob = 1;
+
+static int timestamp_fixing;
+static int do_upd_checking = 0;
 
 static void do_mob_land(register struct lndstr *, register int);
 static void do_mob_plane(register struct plnstr *, register int);

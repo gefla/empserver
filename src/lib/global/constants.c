@@ -80,8 +80,6 @@ int morale_base = 42;		/* base for morale */
 /* opt_MOB_ACCESS */
 int sect_mob_neg_factor = 2;	/* ETU/neg_factor = negative amount of mobility
 				   a sector has after being taken */
-int updating_mob = 1;		/* If we are currently updating mob */
-int timestamp_fixing = 0;	/* If we are currently fixing timestamps */
 
 int lost_items_timeout = 172800;	/* How long before removing from database */
 
