@@ -307,12 +307,12 @@ int
 execute(void)
 {
     s_char buf[512];
-    int abort;
+    int failed;
     s_char *p;
     s_char *redir;
     s_char scanspace[1024];
 
-    abort = 0;
+    failed = 0;
     redir = 0;
 
     p = getstarg(player->argp[1], "File? ", buf);
@@ -321,24 +321,24 @@ execute(void)
 	return RET_SYN;
 
     prexec(player->argp[1]);
-    while (!abort && status()) {
+    while (!failed && status()) {
 	if (recvclient(buf, sizeof(buf)) < 0)
 	    break;
 	if (parse(buf, player->argp, &player->condarg,
 		  scanspace, &redir) < 0) {
-	    abort = 1;
+	    failed = 1;
 	    continue;
 	}
 	if (redir == 0)
 	    pr("\nExecute : %s\n", buf);
 	if (dispatch(buf, redir) < 0)
-	    abort = 1;
+	    failed = 1;
     }
-    if (abort) {
+    if (failed) {
 	while (recvclient(buf, sizeof(buf)) >= 0) ;
     }
     if (redir == 0)
-	pr("Execute : %s\n", abort ? "aborted" : "terminated");
+	pr("Execute : %s\n", failed ? "aborted" : "terminated");
     return RET_OK;
 }
 
@@ -374,7 +374,7 @@ show_motd(void)
 }
 
 int
-match_user(char *file, struct player *player)
+match_user(char *file, struct player *p)
 {
     FILE *fp;
     int match = 0;
@@ -395,9 +395,9 @@ match_user(char *file, struct player *player)
 	    break;
 	host[strlen(host) - 1] = '\0';
 	user[strlen(user) - 1] = '\0';
-	if (strstr(player->userid, user) &&
-	    (strstr(player->hostaddr, host) ||
-	     strstr(player->hostname, host)))
+	if (strstr(p->userid, user) &&
+	    (strstr(p->hostaddr, host) ||
+	     strstr(p->hostname, host)))
 	    ++match;
     }
     fclose(fp);
@@ -412,8 +412,8 @@ quit(void)
 }
 
 s_char *
-praddr(struct player *player)
+praddr(struct player *p)
 {
-    return prbuf("%s@%s", player->userid,
-		 *player->hostname ? player->hostname : player->hostaddr);
+    return prbuf("%s@%s", p->userid,
+		 *p->hostname ? p->hostname : p->hostaddr);
 }
