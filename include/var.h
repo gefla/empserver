@@ -40,21 +40,4 @@
 #define	PLG_INCUBATE	3
 #define	PLG_EXPOSED	4
 
-#define I_NONE		0
-#define I_CIVIL		1
-#define I_MILIT		2
-#define I_SHELL		3
-#define	I_GUN		4
-#define	I_PETROL	5
-#define I_IRON		6
-#define I_DUST		7
-#define I_BAR		8
-#define I_FOOD		9
-#define I_OIL		10
-#define	I_LCM		11
-#define	I_HCM		12
-#define I_UW		13
-#define I_RAD		14
-#define I_MAX		14
-
 #endif /* _VAR_H_ */

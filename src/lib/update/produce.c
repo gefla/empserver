@@ -63,7 +63,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     double output;
     int actual;
     int unit_work;
-    int item;
+    i_type item;
     int worker_limit;
     int material_limit;
     int material_consume;
@@ -199,7 +199,8 @@ materials_cost(struct pchrstr *pp, short *vec, int *costp)
 static void
 materials_charge(struct pchrstr *pp, short *vec, int count)
 {
-    int i, item, n;
+    int i, n;
+    i_type item;
 
     for (i = 0; i < MAXPRCON; ++i) {
 	item = pp->p_ctype[i];

@@ -49,8 +49,8 @@
 #include "player.h"
 #include "prototypes.h"
 
-static int get_minimum(struct lndstr *, int);
-static int s_commod(int, int, int, int, int, int);
+static int get_minimum(struct lndstr *, i_type);
+static int s_commod(int, int, int, i_type, int, int);
 
 /*
  * We want to get enough guns to be maxed out, enough shells to
@@ -84,7 +84,7 @@ resupply_all(struct lndstr *lp)
  */
 
 void
-resupply_commod(struct lndstr *lp, int type)
+resupply_commod(struct lndstr *lp, i_type type)
 {
     int amt;
     struct lchrstr *lcp;
@@ -131,7 +131,7 @@ resupply_commod(struct lndstr *lp, int type)
  * Actually get the commod
  */
 int
-supply_commod(int own, int x, int y, int type, int total_wanted)
+supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
     if (total_wanted < 0)
 	return 0;
@@ -142,7 +142,7 @@ supply_commod(int own, int x, int y, int type, int total_wanted)
  * Just return the number you COULD get, without doing it
  */
 int
-try_supply_commod(int own, int x, int y, int type, int total_wanted)
+try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
     if (total_wanted < 0)
 	return 0;
@@ -152,7 +152,7 @@ try_supply_commod(int own, int x, int y, int type, int total_wanted)
 
 /* Get supplies of a certain type */
 static int
-s_commod(int own, int x, int y, int type, int total_wanted,
+s_commod(int own, int x, int y, i_type type, int total_wanted,
 	 int actually_doit)
 {
     int wanted = total_wanted;
@@ -433,7 +433,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
  */
 
 static int
-get_minimum(struct lndstr *lp, int type)
+get_minimum(struct lndstr *lp, i_type type)
 {
     struct lchrstr *lcp;
     int max, want = 0;

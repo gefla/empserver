@@ -65,6 +65,14 @@ typedef enum {
 } nsc_type;
 typedef char packed_nsc_type;
 
+/* Return nsc_type for a signed integer with the same size as TYPE.  */
+#define NSC_SITYPE(type)				\
+    (sizeof(type) == 1 ? NSC_CHAR			\
+     : sizeof(type) == sizeof(short) ? NSC_SHORT	\
+     : sizeof(type) == sizeof(int) ? NSC_INT		\
+     : sizeof(type) == sizeof(long) ? NSC_LONG		\
+     : 1/0)
+
 /* Value category */
 typedef enum {
     NSC_NOCAT,

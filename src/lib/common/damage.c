@@ -52,9 +52,10 @@
 void
 item_damage(int pct, short *item)
 {
-    int i, lose;
+    int lose;
+    i_type i;
 
-    for (i = 1; i <= I_MAX; ++i) {
+    for (i = I_NONE + 1; i <= I_MAX; ++i) {
 	if (opt_SUPER_BARS && i == I_BAR)
 	    continue;
 	lose = roundavg((double)item[i] * pct * 0.01);
@@ -192,7 +193,7 @@ effdamage(register int amt, int dam)
 }
 
 int
-commdamage(register int amt, int dam, int vtype)
+commdamage(int amt, int dam, i_type vtype)
 {
     int lost;
 

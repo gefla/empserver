@@ -92,14 +92,14 @@ pr_mark(struct comstr *comm)
 }
 
 int
-display_mark(int only_itype, int only_cheapest)
+display_mark(i_type only_itype, int only_cheapest)
 {
     struct comstr comm;
     struct comstr comm2;
     int sellers = 0;
     int cnt = 0;
     int cheapest_items[I_MAX + 1];
-    int i;
+    i_type i;
 
     /* Execute trades so report lists only lots that are still available.  */
     check_market();
@@ -111,12 +111,13 @@ display_mark(int only_itype, int only_cheapest)
     pr(" ---  -------------  --  ---------  -----  ----  ------  ------\n");
 
     if (only_cheapest) {
-	for (i = 0; i < I_MAX + 1; i++)
+	for (i = I_NONE + 1; i <= I_MAX; i++)
 	    cheapest_items[i] = -1;
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
 		continue;
-	    if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX))
+	    if (CANT_HAPPEN(comm.com_type <= I_NONE
+				|| comm.com_type > I_MAX))
 		continue;
 	    if (cheapest_items[comm.com_type] != -1) {
 		getcomm(cheapest_items[comm.com_type], &comm2);
@@ -128,7 +129,7 @@ display_mark(int only_itype, int only_cheapest)
 	    }
 	}
 	CANT_HAPPEN(only_itype != I_NONE); /* not implemented */
-	for (i = 0; i < I_MAX + 1; i++) {
+	for (i = I_NONE + 1; i <= I_MAX; i++) {
 	    if (cheapest_items[i] == -1)
 		continue;
 	    getcomm(cheapest_items[i], &comm);

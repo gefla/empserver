@@ -46,9 +46,28 @@ enum {
     NUMPKG = BPKG + 1
 };
 
+typedef enum {
+	I_NONE,
+	I_CIVIL,
+	I_MILIT,
+	I_SHELL,
+	I_GUN,
+	I_PETROL,
+	I_IRON,
+	I_DUST,
+	I_BAR,
+	I_FOOD,
+	I_OIL,
+	I_LCM,
+	I_HCM,
+	I_UW,
+	I_RAD,
+	I_MAX = I_RAD
+} ATTRIBUTE((packed)) i_type;
+
 struct ichrstr {
     int i_mnem;			/* usually the initial letter */
-    int i_vtype;		/* var type */
+    i_type i_vtype;		/* var type */
     int i_value;		/* mortgage value */
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */

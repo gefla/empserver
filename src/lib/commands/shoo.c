@@ -54,7 +54,7 @@ shoo(void)
     int nshot;
     int mob_cost;
     double m;
-    int item;
+    i_type item;
     struct ichrstr *ip;
     struct lndstr land;
     int targets;

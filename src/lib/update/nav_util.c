@@ -82,16 +82,17 @@ check_nav(struct sctstr *sect)
  * Chad Zabel 6/1/94 
  */
 int
-load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
+load_it(struct shpstr *sp, struct sctstr *psect, int i)
 {
-    int comm, shipown, amount, ship_amt, sect_amt;
+    int shipown, amount, ship_amt, sect_amt;
     int abs_max, max_amt, transfer;
+    i_type comm;
     struct mchrstr *vship;
 
     amount = sp->shp_lend[i];
     shipown = sp->shp_own;
     comm = sp->shp_tend[i];
-    if (CANT_HAPPEN((unsigned)comm > I_MAX))
+    if (CANT_HAPPEN(comm <= I_NONE || comm > I_MAX))
 	return 0;
 
     ship_amt = sp->shp_item[comm];
@@ -157,13 +158,13 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
  * Chad Zabel 6/1/94  
  */
 void
-unload_it(register struct shpstr *sp)
+unload_it(struct shpstr *sp)
 {
     struct sctstr *sectp;
     int i;
     int landowner;
     int shipown;
-    int comm;
+    i_type comm;
     int sect_amt;
     int ship_amt;
     int max_amt;
@@ -182,7 +183,7 @@ unload_it(register struct shpstr *sp)
 	    continue;
 
 	comm = sp->shp_tend[i];
-	if (CANT_HAPPEN((unsigned)comm > I_MAX))
+	if (CANT_HAPPEN(comm <= I_NONE || comm > I_MAX))
 	    continue;
 	ship_amt = sp->shp_item[comm];
 	sect_amt = sectp->sct_item[comm];
@@ -221,7 +222,7 @@ unload_it(register struct shpstr *sp)
  */
 
 void
-auto_fuel_ship(register struct shpstr *sp)
+auto_fuel_ship(struct shpstr *sp)
 {
     double d;
     int totalfuel = 0;

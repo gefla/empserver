@@ -56,7 +56,7 @@ explore(void)
     double weight;
     int mcost, dam;
     int infected;
-    int vtype;
+    i_type vtype;
     int amt_src;
     int amt_dst;
     struct ichrstr *ip;

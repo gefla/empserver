@@ -69,7 +69,7 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     int pack;
     double mcost;
     int diff;
-    int item;
+    i_type item;
     int changed;
     int rplague;
     int lplague;
@@ -91,7 +91,7 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     sect_packing = sp->sct_effic   >= 60 ? dchr[sp->sct_type].d_pkg : IPKG;
 
     lplague = rplague = changed = 0;
-    for (item = 1; item < I_MAX + 1; item++) {
+    for (item = I_NONE + 1; item <= I_MAX; item++) {
 	if (sp->sct_dist[item] == 0)
 	    continue;
 	ip = &ichr[item];

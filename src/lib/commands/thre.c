@@ -55,7 +55,7 @@ thre(void)
     struct ichrstr *ip;
     s_char *p;
     int thresh;
-    int type;
+    i_type type;
     s_char prompt[128];
     s_char buf[128];
 

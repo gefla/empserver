@@ -419,8 +419,9 @@ show_ship_stats(int tlev)
 void
 show_ship_capab(int tlev)
 {
-    register struct mchrstr *mp;
-    register int i;
+    struct mchrstr *mp;
+    i_type i;
+    int j;
     int scount;
     int n;
     s_char *p;
@@ -436,14 +437,14 @@ show_ship_capab(int tlev)
 
 	pr("%-25.25s ", mp->m_name);
 
-	for (i = 0; i <= I_MAX; ++i)
+	for (i = I_NONE + 1; i <= I_MAX; ++i)
 	    if (mp->m_item[i])
 		pr(" %d%c", mp->m_item[i], ichr[i].i_mnem);
 	pr(" ");
-	for (i = n = 0; i < 32; i++) {
-	    if (!(mp->m_flags & bit(i)))
+	for (j = n = 0; j < 32; j++) {
+	    if (!(mp->m_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), ship_flags))) {
+	    if (NULL != (p = lookup(bit(j), ship_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
@@ -546,8 +547,9 @@ show_land_capab(int tlev)
 {
     struct lchrstr *lcp;
     int lcount;
-    register int i, n;
-    register s_char *p;
+    i_type i;
+    int j, n;
+    s_char *p;
 
     pr("%25s capabilities\n", "");
 
@@ -559,14 +561,14 @@ show_land_capab(int tlev)
 
 	pr("%-25s ", lcp->l_name);
 
-	for (i = 0; i <= I_MAX; ++i)
+	for (i = I_NONE + 1; i <= I_MAX; ++i)
 	    if (lcp->l_item[i])
 		pr(" %d%c", lcp->l_item[i], ichr[i].i_mnem);
 	pr(" ");
-	for (i = n = 0; i < 32; i++) {
-	    if (!(lcp->l_flags & bit(i)))
+	for (j = n = 0; j < 32; j++) {
+	    if (!(lcp->l_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), land_flags))) {
+	    if (NULL != (p = lookup(bit(j), land_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);

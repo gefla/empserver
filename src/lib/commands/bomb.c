@@ -65,7 +65,7 @@ static void plane_bomb(struct emp_qelem *list, struct sctstr *target);
 static void land_bomb(struct emp_qelem *list, struct sctstr *target);
 static void ship_bomb(struct emp_qelem *list, struct sctstr *target);
 
-static int bombcomm[] = {
+static i_type bombcomm[] = {
     I_CIVIL,
     I_MILIT,
     I_SHELL,

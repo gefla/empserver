@@ -116,7 +116,7 @@ rese(void)
 	    pr("The destination sector must be at least 60%% efficient.\n");
 	    return RET_OK;
 	}
-	if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX)) {
+	if (CANT_HAPPEN(comm.com_type <= I_NONE || comm.com_type > I_MAX)) {
 	    pr("The goods have been eaten by a grue.");
 	    return RET_OK;
 	}

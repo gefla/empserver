@@ -52,7 +52,7 @@
 #include "common.h"
 #include <stdlib.h>
 
-static void swap(register struct shpstr *);
+static void swap(struct shpstr *);
 
 static void
 scuttle_it(register struct shpstr *sp)
@@ -116,10 +116,10 @@ nav_check_atdest(register struct shpstr *sp)
 /* CZ 6/1/94					      */
 
 static void
-swap(register struct shpstr *sp)
+swap(struct shpstr *sp)
 {
     coord tcord;
-    s_char tcomm[TMAX];
+    i_type tcomm[TMAX];
     short lev[TMAX];
     int i;
 

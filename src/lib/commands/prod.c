@@ -86,8 +86,8 @@ prod(void)
     int unit_work;		/* sum of component amounts */
     int used;			/* production w/infinite workforce */
     int wforce;
-    int it;
-    u_char vtype;
+    i_type it;
+    i_type vtype;
     s_char *resource;
     s_char maxc[MAXPRCON][10];
     s_char use[MAXPRCON][10];
@@ -249,7 +249,7 @@ prod(void)
 	real = dmin(999.0, (double)act * prodeff);
 	maxr = dmin(999.0, (double)max * prodeff);
 
-	if (vtype != 0) {
+	if (vtype != I_NONE) {
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
@@ -305,7 +305,7 @@ prod(void)
 	pr(" %3.0f%%", p_e * 100.0);
 
 	pr(" %4d", wforce);
-	if (vtype != 0) {
+	if (vtype != I_NONE) {
 	    pr(" %4d", (int)(real + 0.5));
 	} else if (type != SCT_ENLIST) {
 	    switch (pp->p_level) {
@@ -369,7 +369,7 @@ prod(void)
 	    max = 0;
 	    maxr = 0;
 	}
-	if (vtype != 0 || pp->p_level == NAT_ELEV
+	if (vtype != I_NONE || pp->p_level == NAT_ELEV
 	    || pp->p_level == NAT_HLEV)
 	    pr(" %4d\n", min(999, (int)(max * prodeff + 0.05)));
 	else

@@ -61,7 +61,7 @@ move(void)
     int left;
     int mcost, dam;
     int infected;
-    int vtype;
+    i_type vtype;
     int amt_src;
     int amt_dst;
     struct ichrstr *ip;
@@ -347,7 +347,7 @@ cmd_move_map(s_char *what, coord curx, coord cury, s_char *arg)
 }
 
 int
-want_to_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
+want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 {
     char prompt[80];
 
@@ -368,7 +368,7 @@ want_to_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
 }
 
 int
-would_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
+would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 {
     int mil, civs, loyalcivs;
 

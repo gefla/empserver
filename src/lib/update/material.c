@@ -53,7 +53,7 @@ get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
     int i;
     int still_left;
 
-    for (i = 1; i <= I_MAX; i++) {
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
 

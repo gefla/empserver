@@ -237,7 +237,7 @@ check_market(void)
 	    tleft = 0;
 	if (tleft > 0.0)
 	    continue;
-	if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX))
+	if (CANT_HAPPEN(comm.com_type <= I_NONE || comm.com_type > I_MAX))
 	    continue;
 	sect = getsectp(comm.com_x, comm.com_y);
 	m = sect->sct_item[comm.com_type];

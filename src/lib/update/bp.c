@@ -52,7 +52,7 @@ get_wp(int *bp, struct sctstr *sp, int cm)
 }
 
 int
-gt_bg_nmbr(int *bp, struct sctstr *sp, int comm)
+gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm)
 {
     int *wp;
     int cm;
@@ -66,7 +66,7 @@ gt_bg_nmbr(int *bp, struct sctstr *sp, int comm)
 }
 
 void
-pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount)
+pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount)
 {
     int *wp;
     int cm;
@@ -80,10 +80,11 @@ pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount)
 void
 fill_update_array(int *bp, struct sctstr *sp)
 {
-    int i, k;
+    int k;
     int *wp;
+    i_type i;
 
-    for (i = 1; i <= I_MAX; i++)
+    for (i = I_NONE + 1; i <= I_MAX; i++)
 	if ((k = bud_key[i]) != 0) {
 	    wp = get_wp(bp, sp, k);
 	    *wp = sp->sct_item[i];

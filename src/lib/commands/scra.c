@@ -63,7 +63,7 @@ scra(void)
     struct plchrstr *pp;
     struct lchrstr *lp;
     s_char *p;
-    int i;
+    i_type i;
     struct nstr_item ni2;
     struct plnstr plane;
     struct lndstr land;
@@ -187,7 +187,7 @@ scra(void)
 	    }
 	    pr("%s", prship(&item.ship));
 	    /* FIXME obey ITEM_MAX */
-	    for (i = 1; i <= I_MAX; i++) {
+	    for (i = I_NONE + 1; i <= I_MAX; i++) {
 		sect.sct_item[i] += item.ship.shp_item[i];
 	    }
 	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
@@ -254,7 +254,7 @@ scra(void)
 	    lp = &lchr[(int)item.land.lnd_type];
 	    pr("%s", prland(&item.land));
 	    /* FIXME obey ITEM_MAX */
-	    for (i = 1; i <= I_MAX; i++) {
+	    for (i = I_NONE + 1; i <= I_MAX; i++) {
 		sect.sct_item[i] += item.land.lnd_item[i];
 	    }
 	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;

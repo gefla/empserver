@@ -45,11 +45,11 @@
 #define DELIVER_BONUS 4.0
 
 static int
-deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
+deliver(struct sctstr *from, struct ichrstr *ip, int dir,
 	int thresh, int amt_src, int plague, i_packing packing)
 {
-    register struct sctstr *to;
-    int vtype;			/* item vartype */
+    struct sctstr *to;
+    i_type vtype;			/* item vartype */
     int amt_moved;
     int amt_dst;
     int mobility;
@@ -119,7 +119,7 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
 void
 dodeliver(struct sctstr *sp)
 {
-    register int i;
+    i_type i;
     int thresh;
     int dir;
     int plague;
@@ -130,7 +130,7 @@ dodeliver(struct sctstr *sp)
 	return;
     plague = sp->sct_pstage;
     packing = sp->sct_effic >= 60 ? dchr[sp->sct_type].d_pkg : IPKG;
-    for (i = 1; i <= I_MAX; i++) {
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (sp->sct_del[i] == 0)
 	    continue;
 	thresh = sp->sct_del[i] & ~0x7;

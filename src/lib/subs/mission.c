@@ -1264,7 +1264,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
-    int itype;
+    i_type itype;
     int rval;
     short *item;
 

@@ -101,7 +101,7 @@ coll(void)
     }
     pay = dchr[sect.sct_type].d_value * ((float)sect.sct_effic + 100.0);
     for (i = 0; ichr[i].i_name; i++) {
-	if (ichr[i].i_value == 0 || ichr[i].i_vtype == 0)
+	if (ichr[i].i_value == 0 || ichr[i].i_vtype == I_NONE)
 	    continue;
 	val = sect.sct_item[ichr[i].i_vtype];
 	pay += val * ichr[i].i_value;

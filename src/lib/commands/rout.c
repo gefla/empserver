@@ -58,7 +58,7 @@ rout(void)
     int row;
     int y;
     int ry;
-    int i_del;
+    i_type i_del;
     int dir;
     s_char *p;
     s_char what[64];

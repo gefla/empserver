@@ -82,14 +82,6 @@
 /* Selector descriptors for characteristics tables */
 /* FIXME belongs into src/lib/global/ */
 
-/* Return nsc_type for a signed integer with the same size as TYPE.  */
-#define NSC_SITYPE(type)				\
-    (sizeof(type) == 1 ? NSC_CHAR			\
-     : sizeof(type) == sizeof(short) ? NSC_SHORT	\
-     : sizeof(type) == sizeof(int) ? NSC_INT		\
-     : sizeof(type) == sizeof(long) ? NSC_LONG		\
-     : 1/0)
-
 static struct castr dchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mnem), "mnem"},
@@ -110,7 +102,7 @@ static struct castr dchr_ca[] = {
 static struct castr ichr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_mnem), "mnem"},
-    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_vtype), "vtype"},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs"},
@@ -166,9 +158,9 @@ static struct castr mchr_ca[] = {
 static struct castr pchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name"},
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_sname), "sname"},
-    {NSC_UCHAR, 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype"},
+    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype"},
     {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt"},
-    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_type), "type"},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type"},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level"},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost"},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx"},

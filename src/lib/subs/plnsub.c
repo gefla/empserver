@@ -567,7 +567,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
-    int itype;
+    i_type itype;
     int rval;
     short *item;
     int own;

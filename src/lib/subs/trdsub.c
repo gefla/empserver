@@ -133,7 +133,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
 
-	for (i = 1; i <= I_MAX; ++i) {
+	for (i = I_NONE + 1; i <= I_MAX; ++i) {
 	    if (sp->shp_item[i])
 		pr("%c:%d ", ichr[i].i_mnem, sp->shp_item[i]);
 	}
@@ -191,7 +191,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner,
 	   lp->lnd_tech, lp->lnd_effic, lchr[(int)lp->lnd_type].l_name);
-	for (i = 1; i <= I_MAX; ++i) {
+	for (i = I_NONE + 1; i <= I_MAX; ++i) {
 	    if (lp->lnd_item[i])
 		pr("%c:%d ", ichr[i].i_mnem, lp->lnd_item[i]);
 	}
@@ -252,7 +252,7 @@ get_couval(int cnum)
 	secttot += (long)(dchr[sp->sct_type].d_value *
 			  ((float)sp->sct_effic + 100.0));
 	for (k = 0; ichr[k].i_name; k++) {
-	    if (ichr[k].i_value == 0 || ichr[k].i_vtype == 0)
+	    if (ichr[k].i_value == 0 || ichr[k].i_vtype == I_NONE)
 		continue;
 	    val = sp->sct_item[ichr[k].i_vtype];
 	    secttot += val * ichr[k].i_value;

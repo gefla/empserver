@@ -238,7 +238,7 @@ orde(void)
 			    level = 0;	/* prevent negatives. */
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tstart[sub] = (s_char)i1->i_vtype;
+			ship.shp_tstart[sub] = i1->i_vtype;
 			ship.shp_lstart[sub] = level;
 			pr("Order Set \n");
 			break;
@@ -258,7 +258,7 @@ orde(void)
 			    level = 0;
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tend[sub] = (s_char)i1->i_vtype;
+			ship.shp_tend[sub] = i1->i_vtype;
 			ship.shp_lend[sub] = level;
 			pr("Order Set \n");
 			break;
@@ -286,7 +286,7 @@ orde(void)
 		&& (ship.shp_lstart[1] != ' '))) {
 
 	    coord tcord;
-	    s_char tcomm;
+	    i_type tcomm;
 	    short lev[TMAX];
 	    int i;
 
@@ -354,10 +354,10 @@ eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
 }
 
 static void
-prhold(int hold, int itype, int amt)
+prhold(int hold, i_type itype, int amt)
 {
     if (itype != I_NONE && amt != 0) {
-	if (CANT_HAPPEN((unsigned)itype > I_MAX))
+	if (CANT_HAPPEN(itype <= I_NONE || itype > I_MAX))
 	    return;
 	pr("%d-", hold + 1);
 	pr("%c", ichr[itype].i_mnem);

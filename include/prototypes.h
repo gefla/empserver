@@ -65,9 +65,9 @@ extern int check_market(void);
 extern void set_coastal(struct sctstr *);
 extern int sendmessage(struct natstr *, struct natstr *, char *, int);
 extern void gift(int, int, s_char *, int, s_char *);
-extern int display_mark(int, int);
-extern int want_to_abandon(struct sctstr *, int, int, struct lndstr *);
-extern int would_abandon(struct sctstr *, int, int, struct lndstr *);
+extern int display_mark(i_type, int);
+extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
+extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
 extern int count_pop(register int);
 extern int scuttle_tradeship(struct shpstr *, int);
@@ -102,7 +102,7 @@ extern void planedamage(struct plnstr *, int);
 extern int nukedamage(struct nchrstr *, int, int);
 extern int effdamage(register int, int);
 extern void item_damage(int, short *);
-extern int commdamage(register int, int, int);
+extern int commdamage(int, int, i_type);
 /* check.c */
 extern int check_sect_ok(struct sctstr *);
 extern int check_ship_ok(struct shpstr *);
@@ -511,9 +511,9 @@ extern int snxtitem(register struct nstr_item *, int, s_char *);
 extern int snxtsct(register struct nstr_sect *, s_char *);
 /* supply.c */
 extern void resupply_all(struct lndstr *);
-extern void resupply_commod(struct lndstr *, int);
-extern int supply_commod(int, int, int, int, int);
-extern int try_supply_commod(int, int, int, int, int);
+extern void resupply_commod(struct lndstr *, i_type);
+extern int supply_commod(int, int, int, i_type, int);
+extern int try_supply_commod(int, int, int, i_type, int);
 extern int has_supply(struct lndstr *);
 extern int use_supply(struct lndstr *);
 /* takeover.c */
@@ -578,10 +578,10 @@ extern void prod_nat(int);
 extern int nav_ship(register struct shpstr *);
 /* nav_util.c */
 extern int check_nav(struct sctstr *);
-extern int load_it(register struct shpstr *, register struct sctstr *,
+extern int load_it(struct shpstr *, struct sctstr *,
 		   int);
-extern void unload_it(register struct shpstr *);
-extern void auto_fuel_ship(register struct shpstr *);
+extern void unload_it(struct shpstr *);
+extern void auto_fuel_ship(struct shpstr *);
 /* nxtitemp.c */
 extern s_char *nxtitemp(struct nstr_item *, int);
 /* nxtsctp.c */

@@ -167,13 +167,13 @@ enlist(short *vec, int etu, int *cost)
 /* Fallout is calculated here. */
 
 static void
-meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
+meltitems(int etus, int fallout, int own, short *vec, i_type type, int x, int y,
 	  int uid)
 {
-    int n;
+    i_type n;
     int melt;
 
-    for (n = 1; n <= I_MAX; n++) {
+    for (n = I_NONE + 1; n <= I_MAX; n++) {
 	melt = roundavg(vec[n] * etus * (long)fallout
 			/ (1000.0 * melt_item_denom[n]));
 	if (melt > vec[n])

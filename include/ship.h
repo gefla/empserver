@@ -82,8 +82,8 @@ struct shpstr {
     short shp_glim;
     coord shp_destx[2];		/* location for ship destination */
     coord shp_desty[2];
-    s_char shp_tstart[TMAX];	/* what goods to pick up at start point */
-    s_char shp_tend[TMAX];	/* what goods to pick up at end point   */
+    i_type shp_tstart[TMAX];	/* what goods to pick up at start point */
+    i_type shp_tend[TMAX];	/* what goods to pick up at end point   */
     short shp_lstart[TMAX];	/* How much do we pick up at the start  */
     short shp_lend[TMAX];	/* How much do we pick up at the end    */
     u_char shp_autonav;		/* autonavigation flags */
