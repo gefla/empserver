@@ -133,7 +133,7 @@ infect_people(struct natstr *np, struct sctstr *sp)
      * make plague where there was none before...
      */
     pop = sp->sct_item[I_CIVIL] + sp->sct_item[I_MILIT] + sp->sct_item[I_UW];
-    pop_space = opt_BIG_CITY && (sp->sct_type == SCT_CAPIT) ? 9999.0 : 999.0;
+    pop_space = max_pop(np->nat_level[NAT_RLEV], sp);
     bad_stuff
 	= sp->sct_item[I_IRON] + sp->sct_item[I_OIL] + sp->sct_item[I_RAD] * 2;
     pollution = bad_stuff / 10.0 + np->nat_level[NAT_TLEV] + 100.0;

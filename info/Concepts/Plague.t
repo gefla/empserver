@@ -83,7 +83,7 @@ technology, population, standard of living and the Empire Plague:
 Likelihood of plague outbreak (in percent) is
         civ + mil + uw   t_level + (iron + oil + rad * 2) / 10 + 100
 max (0, -------------- * ------------------------------------------- - 1)
-              999               r_level + effic + mobil + 100
+            max_pop             r_level + effic + mobil + 100
 .FI
 .s1
 Later formulations of this relationship show great similarity
