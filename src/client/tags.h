@@ -35,13 +35,13 @@
 #define _TAGS_H_
 
 struct tagstruct {
-    s_char *item;
+    char *item;
     struct tagstruct *next;
 };
 
 extern struct tagstruct *taglist;
 
 void io_init(void);
-s_char *gettag(s_char *p);
+char *gettag(char *p);
 
 #endif

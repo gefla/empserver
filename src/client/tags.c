@@ -50,8 +50,8 @@ io_init(void)
     taglist = NULL;
 }
 
-s_char *
-gettag(s_char *p)
+char *
+gettag(char *p)
 {
     struct tagstruct *tag1, *tag2;
 

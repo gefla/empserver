@@ -49,10 +49,10 @@ termio(int fd, int sock, FILE *auxfi)
 {
     static char exec[] = "execute";
     static char buf[4096];
-    s_char out[4096];
+    char out[4096];
     int i, n;
-    s_char *ptr;
-    s_char *p, *q, *r, *s, *t;
+    char *ptr;
+    char *p, *q, *r, *s, *t;
     int nbytes;
     int prespace, exec_com, inarg, quoted, tagging;
     struct tagstruct *tag;
@@ -88,7 +88,7 @@ termio(int fd, int sock, FILE *auxfi)
 	p[0] = c;
 	p[1] = '\0';
 	if (c != 10)
-	    ReadConsole(hStdIn, &p[0], sizeof(buf) - i, &n, NULL);
+	    ReadConsole(hStdIn, p, sizeof(buf) - i, &n, NULL);
 	else
 	    putchar(c);
 /* Strip off the CRLF to just LF */
@@ -134,7 +134,7 @@ termio(int fd, int sock, FILE *auxfi)
 	if (*p == '\n') {
 	    if (tagging) {
 		tag = (struct tagstruct *)malloc(sizeof(struct tagstruct));
-		tag->item = (s_char *)malloc((1 + p - s) * sizeof(s_char));
+		tag->item = (char *)malloc((1 + p - s) * sizeof(char));
 		tag->next = taglist;
 		taglist = tag;
 		t = tag->item;

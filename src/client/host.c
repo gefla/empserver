@@ -50,11 +50,11 @@
 #include "misc.h"
 
 int
-hostaddr(s_char *name, struct sockaddr_in *addr)
+hostaddr(char *name, struct sockaddr_in *addr)
 {
     struct hostent *hp;
 
-    if (name == 0 || *name == 0)
+    if (name == NULL || *name == 0)
 	return 0;
     if (isdigit(*name)) {
 	addr->sin_addr.s_addr = inet_addr(name);
@@ -74,11 +74,11 @@ hostaddr(s_char *name, struct sockaddr_in *addr)
 }
 
 int
-hostport(s_char *name, struct sockaddr_in *addr)
+hostport(char *name, struct sockaddr_in *addr)
 {
     struct servent *sp;
 
-    if (name == 0 || *name == 0)
+    if (name == NULL || *name == 0)
 	return 0;
     if (isdigit(*name)) {
 #ifndef _WIN32

@@ -36,10 +36,10 @@
 #include "misc.h"
 
 void
-saveargv(int ac, s_char **src, s_char **dst)
+saveargv(int ac, char **src, char **dst)
 {
-    register s_char *ptr;
-    register int i;
+    char *ptr;
+    int i;
 
     for (i = 0; i < ac; i++) {
 	dst[i] = strcpy(malloc(strlen(src[i]) + 1), src[i]);

@@ -37,7 +37,7 @@
 
 struct fn {
     int (*func)(void);
-    s_char *name;
+    char *name;
     int value;
 };
 

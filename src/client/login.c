@@ -44,12 +44,12 @@
 #endif
 
 int
-login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
+login(int s, char *uname, char *cname, char *cpass, int kill_proc)
 {
-    s_char tmp[128];
-    s_char buf[1024];
-    s_char *ptr;
-    s_char *p;
+    char tmp[128];
+    char buf[1024];
+    char *ptr;
+    char *p;
     int len;
 
     if (!expect(s, C_INIT, buf))
@@ -57,10 +57,10 @@ login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
     (void)sendcmd(s, USER, uname);
     if (!expect(s, C_CMDOK, buf))
 	return 0;
-    if (cname == 0) {
+    if (cname == NULL) {
 	(void)printf("Country name? ");
 	cname = fgets(tmp, sizeof(tmp), stdin);
-	if (cname == 0 || *cname == 0)
+	if (cname == NULL || *cname == 0)
 	    return 0;
     }
     len = strlen(cname);
@@ -71,16 +71,16 @@ login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
 	(void)fprintf(stderr, "empire: no such country\n");
 	return 0;
     }
-    if (cpass == 0) {
+    if (cpass == NULL) {
 #ifndef _WIN32
-	cpass = (s_char *)getpass("Your name? ");
-	if (cpass == 0 || *cpass == 0)
+	cpass = (char *)getpass("Your name? ");
+	if (cpass == NULL || *cpass == 0)
 	    return 0;
 #else
 	printf("Note: This is echoed to the screen\n");
 	printf("Your name? ");
 	cpass = fgets(tmp, sizeof(tmp), stdin);
-	if (cpass == 0 || *cpass == 0)
+	if (cpass == NULL || *cpass == 0)
 	    return 0;
 	len = strlen(cpass);
 	if (cname[len-1] == '\n')
@@ -95,13 +95,13 @@ login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
 	return 0;
     }
     if (kill_proc) {
-	(void)sendcmd(s, KILL, (s_char *)0);
+	(void)sendcmd(s, KILL, NULL);
 	(void)printf("\n\t-=O=-\n");
 	(void)expect(s, C_EXIT, buf);
 	fprintf(stderr, "%s\n", buf);
 	return 0;
     }
-    (void)sendcmd(s, PLAY, (s_char *)0);
+    (void)sendcmd(s, PLAY, NULL);
     (void)printf("\n\t-=O=-\n");
     if (!expect(s, C_INIT, buf)) {
 	fprintf(stderr, "%s\n", buf);
@@ -110,7 +110,7 @@ login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
     for (ptr = buf; !isspace(*ptr); ptr++) ;
     ptr++;
     p = strchr(ptr, '\n');
-    if (p != 0)
+    if (p != NULL)
 	*p = 0;
     if (atoi(ptr) != CLIENTPROTO) {
 	printf("Empire client out of date; get new version!\n");

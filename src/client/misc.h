@@ -44,38 +44,31 @@
 #include <netinet/in.h>
 #endif
 
-#if !defined(aix) && !defined(sgi)
-#ifndef ultrix			/* already defined in ultrix */
-typedef char s_char;		/* change to signed char for aix */
-#endif /* ultrix */
-#else
-typedef signed char s_char;
-#endif /* !aix && !sgi */
 typedef short coord;		/* also change NSC_COORD in nsc.h */
 
 struct ioqueue;
 
-extern s_char empirehost[];
-extern s_char empireport[];
+extern char empirehost[];
+extern char empireport[];
 extern int interrupt;
-extern s_char num_teles[];
+extern char num_teles[];
 extern int sock;
-extern s_char *SO;
-extern s_char *SE;
+extern char *SO;
+extern char *SE;
 
 #ifdef _WIN32
 HANDLE hStdIn;
 #endif
 
 void getsose(void);
-int expect(int s, int match, s_char *buf);
+int expect(int s, int match, char *buf);
 int handleintr(int);
-int hostaddr(s_char *name, struct sockaddr_in *addr);
+int hostaddr(char *name, struct sockaddr_in *addr);
 int hostconnect(struct sockaddr_in *addr);
-int hostport(s_char *name, struct sockaddr_in *addr);
-int login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc);
-void saveargv(int ac, s_char **src, s_char **dst);
-void sendcmd(int s, int cmd, s_char *arg);
+int hostport(char *name, struct sockaddr_in *addr);
+int login(int s, char *uname, char *cname, char *cpass, int kill_proc);
+void saveargv(int ac, char **src, char **dst);
+void sendcmd(int s, int cmd, char *arg);
 int sendeof(int sock);
 void servercmd(struct ioqueue *ioq, FILE *auxfi);
 int serverio(int s, struct ioqueue *ioq);

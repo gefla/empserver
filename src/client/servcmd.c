@@ -49,8 +49,8 @@
 #include <io.h>
 #endif
 
-s_char num_teles[64];
-static s_char the_prompt[1024];
+char num_teles[64];
+static char the_prompt[1024];
 static int mode;
 static int nbtu;
 static int nmin;
@@ -59,17 +59,17 @@ FILE *pipe_fp;
 int exec_fd;
 
 static void prompt(FILE *auxfi);
-static void doredir(s_char *p);
-static void dopipe(s_char *p);
-static void doexecute(s_char *p, FILE *auxfi);
-static void output(int code, s_char *buf, FILE *auxfi);
-static void screen(register s_char *buf);
+static void doredir(char *p);
+static void dopipe(char *p);
+static void doexecute(char *p, FILE *auxfi);
+static void output(int code, char *buf, FILE *auxfi);
+static void screen(char *buf);
 
 void
 servercmd(struct ioqueue *ioq, FILE *auxfi)
 {
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
     int code;
 
     while (ioq_gets(ioq, buf, sizeof(buf))) {
@@ -110,7 +110,7 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 		sprintf(num_teles, "(%s) ", p + 1);
 		if (!redir_fp && !pipe_fp && !exec_fd) {
 		    putchar('\07');
-		    prompt(0);
+		    prompt(NULL);
 		}
 	    } else
 		*num_teles = '\0';
@@ -128,12 +128,12 @@ prompt(FILE *auxfi)
     if (mode == C_PROMPT) {
 	if (redir_fp) {
 	    (void)fclose(redir_fp);
-	    redir_fp = 0;
+	    redir_fp = NULL;
 	} else if (pipe_fp) {
 #ifndef _WIN32
 	    (void)pclose(pipe_fp);
 #endif
-	    pipe_fp = 0;
+	    pipe_fp = NULL;
 	} else if (exec_fd > 0) {
 	    close(exec_fd);
 	    close(0);
@@ -155,17 +155,17 @@ prompt(FILE *auxfi)
  * opens redir_fp if successful
  */
 static void
-doredir(s_char *p)
+doredir(char *p)
 {
-    s_char *how;
-    s_char *name;
-    s_char *tag;
+    char *how;
+    char *name;
+    char *tag;
     int mode;
     int fd;
 
     if (redir_fp) {
 	(void)fclose(redir_fp);
-	redir_fp = 0;
+	redir_fp = NULL;
     }
     how = p++;
     if (*p && ((*p == '>') || (*p == '!')))
@@ -207,9 +207,9 @@ doredir(s_char *p)
  * opens "pipe_fp" if successful
  */
 static void
-dopipe(s_char *p)
+dopipe(char *p)
 {
-    s_char *tag;
+    char *tag;
 
     if (*p == '|')
 	p++;
@@ -226,7 +226,7 @@ dopipe(s_char *p)
 	return;
     }
 #ifndef _WIN32
-    if ((pipe_fp = popen(p, "w")) == 0) {
+    if ((pipe_fp = popen(p, "w")) == NULL) {
 #else
     if (1) {
 #endif
@@ -237,10 +237,10 @@ dopipe(s_char *p)
 }
 
 static void
-doexecute(s_char *p, FILE *auxfi)
+doexecute(char *p, FILE *auxfi)
 {
     int fd;
-    s_char *tag;
+    char *tag;
 
     tag = gettag(p);
     while (*p && isspace(*p))
@@ -251,7 +251,7 @@ doexecute(s_char *p, FILE *auxfi)
 		p);
 	return;
     }
-    if (p == 0) {
+    if (p == NULL) {
 	fprintf(stderr, "Null file to execute\n");
 	free(tag);
 	return;
@@ -280,7 +280,7 @@ doexecute(s_char *p, FILE *auxfi)
 }
 
 static void
-output(int code, s_char *buf, FILE *auxfi)
+output(int code, char *buf, FILE *auxfi)
 {
     switch (code) {
     case C_NOECHO:
@@ -338,10 +338,10 @@ output(int code, s_char *buf, FILE *auxfi)
 }
 
 static void
-screen(register s_char *buf)
+screen(char *buf)
 {
-    register s_char *sop;
-    register s_char c;
+    char *sop;
+    char c;
 
     while ((c = *buf++)) {
 	if (c & 0x80) {

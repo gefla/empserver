@@ -46,14 +46,14 @@
 #endif
 
 int
-expect(int s, int match, s_char *buf)
+expect(int s, int match, char *buf)
 {
     int size;
-    s_char *p;
+    char *p;
     int n;
     int code;
     int newline;
-    s_char *ptr;
+    char *ptr;
     int cc;
 
     size = 1024;
@@ -72,7 +72,7 @@ expect(int s, int match, s_char *buf)
     }
     size -= n;
     buf[n] = '\0';
-    if ((p = strchr(ptr, '\n')) == 0) {
+    if ((p = strchr(ptr, '\n')) == NULL) {
 	do {
 #ifndef _WIN32
 	    cc = read(s, ptr, n);
@@ -140,13 +140,13 @@ expect(int s, int match, s_char *buf)
 }
 
 void
-sendcmd(int s, int cmd, s_char *arg)
+sendcmd(int s, int cmd, char *arg)
 {
-    s_char buf[128];
+    char buf[128];
     int cc;
     int len;
 
-    (void)sprintf(buf, "%s %s\n", fnlist[cmd].name, arg != 0 ? arg : "");
+    (void)sprintf(buf, "%s %s\n", fnlist[cmd].name, arg != NULL ? arg : "");
     len = strlen(buf);
 #ifndef _WIN32
     cc = write(s, buf, len);

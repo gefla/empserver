@@ -77,7 +77,7 @@ static void intr(int sig);
 
 
 int
-main(int ac, s_char **av)
+main(int ac, char **av)
 {
 #ifdef _WIN32
     WSADATA WsaData;
@@ -94,16 +94,16 @@ main(int ac, s_char **av)
     int retry = 0;
 #endif
     struct ioqueue server;
-    s_char *argv[128];
+    char *argv[128];
     int i, j;
-    s_char *ptr;
-    s_char *auxout_fname;
+    char *ptr;
+    char *auxout_fname;
     FILE *auxout_fp;
     struct sockaddr_in sin;
     int n;
-    s_char *cname;
-    s_char *pname;
-    s_char *uname;
+    char *cname;
+    char *pname;
+    char *uname;
     int send_kill = 0;
 
 #ifdef _WIN32
@@ -118,11 +118,11 @@ main(int ac, s_char **av)
 #endif
     memset(argv, 0, sizeof(argv));
     saveargv(ac, av, argv);
-    auxout_fname = 0;
-    auxout_fp = 0;
+    auxout_fname = NULL;
+    auxout_fp = NULL;
     for (i = j = 1; i < ac; ++i) {
 	ptr = argv[i];
-	if (strcmp(ptr, "-2") == 0) {
+	if (strcmp(ptr, "-2") == NULL) {
 	    if (i + 1 >= ac) {
 		fprintf(stderr, "-2: Missing filename!\n");
 		exit(1);
@@ -130,7 +130,7 @@ main(int ac, s_char **av)
 	    auxout_fname = argv[i + 1];
 	    ++i;
 	    continue;
-	} else if (strcmp(ptr, "-k") == 0) {
+	} else if (strcmp(ptr, "-k") == NULL) {
 	    send_kill = 1;
 	    continue;
 	}
@@ -200,8 +200,7 @@ main(int ac, s_char **av)
     (void)signal(SIGPIPE, SIG_IGN);
     while (FD_ISSET(sock, &savemask)) {
 	mask = savemask;
-	n = select(sock + 1, &mask, (fd_set *)0, (fd_set *)0,
-		   (struct timeval *)0);
+	n = select(sock + 1, &mask, NULL, NULL, NULL);
 	if (interrupt) {
 	    if (!handleintr(sock))
 		break;
@@ -271,8 +270,7 @@ main(int ac, s_char **av)
     while (1) {
 	FD_ZERO(&readfds);
 	FD_SET(sock, &readfds);
-	n = select(sock + 1, &readfds, (fd_set *) 0, (fd_set *) 0,
-		   (struct timeval *)&tm);
+	n = select(sock + 1, &readfds, NULL, NULL, (struct timeval *)&tm);
 	if (interrupt) {
 	    if (!handleintr(sock))
 		break;

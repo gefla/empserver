@@ -39,9 +39,9 @@
 #include "queue.h"
 #include "ioqueue.h"
 
-static int ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc);
-static void enqueuecc(struct ioqueue *ioq, s_char *buf, int cc);
-static int dequeuecc(register struct ioqueue *ioq, register int cc);
+static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);
+static void enqueuecc(struct ioqueue *ioq, char *buf, int cc);
+static int dequeuecc(struct ioqueue *ioq, int cc);
 
 
 void
@@ -59,7 +59,7 @@ ioq_init(struct ioqueue *ioq, int bsize)
  * number of bytes actually found.
  */
 int
-ioq_peek(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_peek(struct ioqueue *ioq, char *buf, int cc)
 {
     return ioqtobuf(ioq, buf, cc);
 }
@@ -73,7 +73,7 @@ ioq_dequeue(struct ioqueue *ioq, int cc)
 }
 
 int
-ioq_read(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_read(struct ioqueue *ioq, char *buf, int cc)
 {
     int n;
 
@@ -84,7 +84,7 @@ ioq_read(struct ioqueue *ioq, s_char *buf, int cc)
 }
 
 void
-ioq_write(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_write(struct ioqueue *ioq, char *buf, int cc)
 {
     enqueuecc(ioq, buf, cc);
 }
@@ -110,11 +110,11 @@ ioq_drain(struct ioqueue *ioq)
     ioq->cc = 0;
 }
 
-s_char *
-ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
+char *
+ioq_gets(struct ioqueue *ioq, char *buf, int cc)
 {
-    register s_char *p;
-    register s_char *end;
+    char *p;
+    char *end;
     int nbytes;
 
     nbytes = ioqtobuf(ioq, buf, cc);
@@ -128,7 +128,7 @@ ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 	    return buf;
 	}
     }
-    return 0;
+    return NULL;
 }
 
 /*
@@ -142,11 +142,11 @@ ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
  * left for a higher level.
  */
 static int
-ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc)
+ioqtobuf(struct ioqueue *ioq, char *buf, int cc)
 {
-    register struct io *io;
+    struct io *io;
     struct qelem *qp;
-    s_char *offset;
+    char *offset;
     int nbytes;
     int nleft;
 
@@ -174,7 +174,7 @@ ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc)
  * append a buffer to the end of the ioq.
  */
 static void
-enqueuecc(struct ioqueue *ioq, s_char *buf, int cc)
+enqueuecc(struct ioqueue *ioq, char *buf, int cc)
 {
     struct io *io;
 
@@ -192,12 +192,12 @@ enqueuecc(struct ioqueue *ioq, s_char *buf, int cc)
  * which are no longer used.
  */
 static int
-dequeuecc(register struct ioqueue *ioq, register int cc)
+dequeuecc(struct ioqueue *ioq, int cc)
 {
-    register struct io *io;
-    register struct qelem *qp;
-    register int nbytes;
-    register int there;
+    struct io *io;
+    struct qelem *qp;
+    int nbytes;
+    int there;
 
     nbytes = 0;
     while ((qp = ioq->queue.q_forw) != &ioq->queue) {

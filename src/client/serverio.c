@@ -49,10 +49,10 @@
 int
 serverio(int s, struct ioqueue *ioq)
 {
-    s_char *buf;
+    char *buf;
     int n;
 
-    if ((buf = malloc(ioq->bsize)) == 0) {
+    if ((buf = malloc(ioq->bsize)) == NULL) {
 	fprintf(stderr, "malloc server i/o failed\n");
 	return 0;
     }
@@ -75,7 +75,7 @@ serverio(int s, struct ioqueue *ioq)
 	return 0;
     }
     if (n != ioq->bsize)
-	buf = (s_char *)realloc(buf, n);
+	buf = (char *)realloc(buf, n);
     ioq_write(ioq, buf, n);
     return 1;
 }
