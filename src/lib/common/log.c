@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include <errno.h>
 #include <stdlib.h>
 #if !defined(_WIN32)
 #include <unistd.h>
@@ -49,7 +48,7 @@
 static char logfile[32];
 
 /*
- * Points logfile at PROGRAM.log
+ * Points log file at PROGRAM.log
  */
 void
 loginit(char *program)
@@ -57,38 +56,40 @@ loginit(char *program)
     sprintf(logfile, "%.*s.log", (int)sizeof(logfile) - 5, program);
 }
 
-/*VARARGS*/
+/*
+ * Write a line to the log file and to stderr.
+ * Messages are silently truncated after 512 characters or a newline.
+ */
 void
 logerror(char *format, ...)
 {
+    enum {
+	ctime_len = 24,		/* output of ctime() less the newline */
+	msg_space = 512		/* space for formatted message */
+    };
     va_list list;
     time_t now;
-    char buf[512];
-    char cbuf[512];
-    char buf1[512];
+    char buf[ctime_len + 1 + msg_space + 2];
     int logf;
-    s_char *p;
+    char *msg, *p;
 
     va_start(list, format);
-    vsprintf(buf, format, list);
-    if ((p = strchr(buf, '\n')) != 0)
-	*p = 0;
-    (void)time(&now);
-    strcpy(cbuf, ctime(&now));
-    if ((p = strchr(cbuf, '\n')) != 0)
-	*p = 0;
-    (void)sprintf(buf1, "%s %s\n", cbuf, buf);
+    msg = buf + ctime_len + 1;
+    vsnprintf(msg, msg_space, format, list);
+    buf[sizeof(buf)-2] = 0;
+    p = msg + strlen(msg);
+    p[0] = '\n';
+    p[1] = 0;
+    p = strchr(msg, '\n');
+    p[1] = 0;
+    fputs(msg, stderr);
+    time(&now);
+    memcpy(buf, ctime(&now), ctime_len);
+    buf[ctime_len] = ' ';
     if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
 	return;
-    (void)write(logf, buf1, strlen(buf1));
-    (void)close(logf);
-    errno = 0;
-#ifdef notdef
-    if (player) {
-	pr("A system error has occured; please notify the deity.\n");
-	pr(buf1);
-    }
-#endif
+    write(logf, buf, strlen(buf));
+    close(logf);
     va_end(list);
 }
 
@@ -99,7 +100,7 @@ logerror(char *format, ...)
 int
 oops(char *msg, char *file, int line)
 {
-  logerror("Oops: %s in %s:%d\n", msg, file, line);
+  logerror("Oops: %s in %s:%d", msg, file, line);
   if (debug) abort();
   return 1;
 }
