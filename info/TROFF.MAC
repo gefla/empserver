@@ -4,9 +4,9 @@
 .\" Normal font name: must match value of nF!
 .ds N R
 .\" example Font - Times Roman
-.ds eF \\fC
+.ds eF \\fR
 .\" Example Font name (used with .cs requests): must match value of eF!
-.ds EF C
+.ds EF R
 .\" bold Font - Times Bold
 .ds bF \\fB
 .\" italic Font - Times Italic
