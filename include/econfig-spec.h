@@ -292,6 +292,8 @@ EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, floatset, 0,
     "Bonus your ally gets for you cashing in with them")
 
 EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Misc.")
+EMPCFBOTH("anno_keep_days", anno_keep_days, int, intset, 7,
+	  "How long until announcements expire (<0 means never)")
 EMPCFBOTH("fuel_mult", fuel_mult, int, intset, 0,
     "Multiplier for fuel to mobility calculation")
 EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, intset, 0,

@@ -58,8 +58,11 @@ delete_old_announcements(void)
     char tmp_filename[1024];
     int copy_file;
 
+    if (anno_keep_days < 0)
+	return;
+
     time(&now);
-    old = now - days(ANNO_KEEP_DAYS);
+    old = now - days(anno_keep_days);
     logerror("Deleting annos older than %s", ctime(&old));
 
     if ((annfp = fopen(annfil, "rb")) == NULL) {

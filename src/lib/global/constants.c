@@ -81,6 +81,7 @@ int morale_base = 42;		/* base for morale */
 int sect_mob_neg_factor = 2;	/* ETU/neg_factor = negative amount of mobility
 				   a sector has after being taken */
 
+int anno_keep_days = 7;		/* How long until annos expire (<0 never) */
 int lost_items_timeout = 172800;	/* How long before removing from database */
 
 double combat_mob = 5.0;	/* how much mob do units spend for combat? */
