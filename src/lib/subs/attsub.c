@@ -1743,7 +1743,7 @@ get_dsupport(s_char *outs, struct emp_qelem *list, struct combat *def,
 
 /*
  * Land mines add to the defense multiplier.  If the attacker has engineers
- * then this multipluer is cut in half.
+ * then this multiplier is cut in half.
  */
 
 static double
