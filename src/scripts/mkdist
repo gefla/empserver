@@ -15,7 +15,7 @@ mkdir dist dist/srv dist/cli
 for i in `find . -name CVS -print`
 do
   d=`echo $i | sed 's#/CVS$##'`
-  [ "$d" = "." ] || mkdir dist/srv/$d
+  mkdir -p "dist/srv/$d"
   f=`awk -F/ '$1 == "" { print "'$d/'" $2 }' $i/Entries`
   [ "$f" ] || continue
   ln $f "dist/srv/$d"
