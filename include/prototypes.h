@@ -546,8 +546,8 @@ extern int natarg(s_char *, s_char *);
 /* neigh.c */
 extern int neigh(coord, coord, natid);
 /* nreport.c */
-extern void delete_old_news();
-extern void init_nreport();
+extern void delete_old_news(void);
+extern void init_nreport(void);
 extern void nreport(natid, int, natid, int);
 /* nuke.c */
 extern int nuk_postread(int, s_char *);
