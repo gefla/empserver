@@ -57,7 +57,6 @@ rese(void)
 {
     struct comstr comm;
     struct sctstr sect;
-    struct ichrstr *ix;
     int number_set;
     int m;
     char *p;
@@ -117,18 +116,19 @@ rese(void)
 	    pr("The destination sector must be at least 60%% efficient.\n");
 	    return RET_OK;
 	}
-	ix = whichitem(comm.com_type);
-	sect.sct_x = comm.sell_x;
-	sect.sct_y = comm.sell_y;
-	m = sect.sct_item[ix->i_vtype];
+	if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX)) {
+	    pr("The goods have been eaten by a grue.");
+	    return RET_OK;
+	}
+	m = sect.sct_item[comm.com_type];
 	m = m + comm.com_amount;
 	if (m > ITEM_MAX)
 	    m = ITEM_MAX;
-	sect.sct_item[ix->i_vtype] = m;
+	sect.sct_item[comm.com_type] = m;
 	putsect(&sect);
 	comm.com_owner = 0;
 	putcomm(number_set, &comm);
-	pr("The goods have been returned to your trading post\n");
+	pr("The goods have been returned to your trading post.\n");
 	return RET_OK;
     }
     if (price >= comm.com_price) {

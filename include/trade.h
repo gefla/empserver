@@ -79,7 +79,6 @@ extern int trade_desc(struct trdstr *, union trdgenstr *);
 extern int trade_getitem(struct trdstr *, union trdgenstr *);
 extern long get_couval(int);
 extern long get_outstand(int);
-extern struct ichrstr *whichitem(char);
 
 #define gettrade(n, p) \
 	ef_read(EF_TRADE, n, (caddr_t)p)

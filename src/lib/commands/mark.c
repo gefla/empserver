@@ -60,15 +60,15 @@ mark(void)
 	if (!p)
 	    return RET_SYN;
 	if (!strcmp(p, "all"))
-	    return display_mark(0);
+	    return display_mark(I_NONE, 0);
 	else {
 	    ip = item_by_name(p);
 	    if (!ip)
 		return RET_SYN;
-	    return display_mark(ip->i_mnem);
+	    return display_mark(ip->i_vtype, 0);
 	}
     }
-    return display_mark(-1);
+    return display_mark(I_NONE, 1);
 }
 
 static void
@@ -85,20 +85,19 @@ pr_mark(struct comstr *comm)
        comm->com_uid,
        comm->com_price,
        comm->com_maxbidder,
-       tleft, comm->com_owner, comm->com_type, comm->com_amount);
+       tleft, comm->com_owner, ichr[comm->com_type].i_mnem, comm->com_amount);
     if (comm->com_owner == player->cnum || player->god)
 	pr("%s", xyas(comm->sell_x, comm->sell_y, player->cnum));
     pr("\n");
 }
 
 int
-display_mark(int what)
+display_mark(int only_itype, int only_cheapest)
 {
     struct comstr comm;
     struct comstr comm2;
     int sellers = 0;
     int cnt = 0;
-    struct ichrstr *ip;
     int cheapest_items[I_MAX + 1];
     int i;
 
@@ -111,27 +110,24 @@ display_mark(int what)
     pr(" lot  high bid/unit  by  time left  owner  item  amount  sector\n");
     pr(" ---  -------------  --  ---------  -----  ----  ------  ------\n");
 
-    if (what == -1) {
-	/* Ok, just printing the lowest of all of them */
+    if (only_cheapest) {
 	for (i = 0; i < I_MAX + 1; i++)
 	    cheapest_items[i] = -1;
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
 		continue;
-	    for (i = 0, ip = &ichr[0]; ip && ip->i_mnem; ip++, i++)
-		if (ip->i_mnem == comm.com_type)
-		    break;
-	    if (!ip->i_mnem)
+	    if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX))
 		continue;
-	    if (cheapest_items[i] != -1) {
-		getcomm(cheapest_items[i], &comm2);
+	    if (cheapest_items[comm.com_type] != -1) {
+		getcomm(cheapest_items[comm.com_type], &comm2);
 		if (comm.com_price < comm2.com_price) {
-		    cheapest_items[i] = sellers;
+		    cheapest_items[comm.com_type] = sellers;
 		}
 	    } else {
-		cheapest_items[i] = sellers;
+		cheapest_items[comm.com_type] = sellers;
 	    }
 	}
+	CANT_HAPPEN(only_itype != I_NONE); /* not implemented */
 	for (i = 0; i < I_MAX + 1; i++) {
 	    if (cheapest_items[i] == -1)
 		continue;
@@ -140,11 +136,10 @@ display_mark(int what)
 	    pr_mark(&comm);
 	}
     } else {
-	/* Ok, print them all, or all of this type */
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
 		continue;
-	    if (what && comm.com_type != what)
+	    if (only_itype != I_NONE && comm.com_type != only_itype)
 		continue;
 	    cnt = 1;
 	    pr_mark(&comm);

@@ -282,17 +282,3 @@ get_outstand(int cnum)
     }
     return loantot;
 }
-
-struct ichrstr *
-whichitem(char p)
-{
-    register int i;
-
-    if (p == 0)
-	return 0;
-    for (i = 1; ichr[i].i_mnem != 0; i++)
-	if (p == ichr[i].i_mnem)
-	    return (struct ichrstr *)(&ichr[i]);
-    pr("Unrecognized item \"%c\"\n", p);
-    return 0;
-}

@@ -73,7 +73,6 @@ sell(void)
     int com;
     char *p;
     float price;
-    char cc;
     time_t now;
     int ii = 0;
     coord x, y;
@@ -85,8 +84,7 @@ sell(void)
     }
     check_market();
     check_trade();
-    if ((ip =
-	 whatitem(player->argp[1], "Commodity you want to sell: ")) == 0)
+    if (!(ip = whatitem(player->argp[1], "Commodity you want to sell: ")))
 	return RET_SYN;
     if (ip->i_sell == 0) {
 	pr("You can't sell %s\n", ip->i_name);
@@ -165,7 +163,6 @@ sell(void)
     pr("Sold %d %s at %s (%d left)\n", com, ip->i_name,
        xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
     sect.sct_item[ip->i_vtype] = amt;
-    cc = ip->i_mnem;
     putsect(&sect);
     if (totalcom > 0) {
 	for (ii = 0; getcomm(ii, &comm); ii++) {
@@ -175,7 +172,7 @@ sell(void)
 	if (getcomm(ii, &comm) == 0)
 	    ef_extend(EF_COMM, 1);
 	(void)time(&now);
-	comm.com_type = ip->i_mnem;
+	comm.com_type = ip->i_vtype;
 	comm.com_owner = player->cnum;
 	comm.com_price = price;
 	comm.com_maxbidder = player->cnum;

@@ -85,7 +85,7 @@ buy(void)
     ip = whatitem(player->argp[1], "Commodity you want to buy: ");
     if (!ip)
 	return RET_SYN;
-    display_mark(ip->i_mnem);
+    display_mark(ip->i_vtype, 0);
     pr("\n");
     p = getstarg(player->argp[2], "Which lot are you bidding on: ", buf);
     if (p == 0)
@@ -99,7 +99,7 @@ buy(void)
 	pr("Invalid lot number.\n");
 	return RET_OK;
     }
-    if (comm.com_type != ip->i_mnem) {
+    if (comm.com_type != ip->i_vtype) {
 	pr("That lot is not of the type you specified.\n");
 	return RET_OK;
     }
@@ -162,7 +162,6 @@ buy(void)
 	pr("That sector is under construction.\n");
 	return RET_FAIL;
     }
-    ip = whichitem(comm.com_type);
     n = sect.sct_item[ip->i_vtype];
     qty = comm.com_amount;
     if (qty + n > ITEM_MAX) {
@@ -212,7 +211,6 @@ check_market(void)
 {
     struct comstr comm;
     struct sctstr *sect;
-    struct ichrstr *ip;
     struct natstr *natp;
     int m;
     int n;
@@ -239,9 +237,10 @@ check_market(void)
 	    tleft = 0;
 	if (tleft > 0.0)
 	    continue;
-	ip = whichitem(comm.com_type);
+	if (CANT_HAPPEN((unsigned)comm.com_type > I_MAX))
+	    continue;
 	sect = getsectp(comm.com_x, comm.com_y);
-	m = sect->sct_item[ip->i_vtype];
+	m = sect->sct_item[comm.com_type];
 
 	monleft = 0;
 
@@ -342,16 +341,16 @@ check_market(void)
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
 	} else {
-	    sect->sct_item[ip->i_vtype] = m + comm.com_amount;
+	    sect->sct_item[comm.com_type] = m + comm.com_amount;
 	    putsect(sect);
 	    nreport(comm.com_owner, N_MAKE_SALE, comm.com_maxbidder, 1);
-	    wu(0, comm.com_owner, "%s bought %d %c's from you for $%.2f\n",
+	    wu(0, comm.com_owner, "%s bought %d %s from you for $%.2f\n",
 	       cname(comm.com_maxbidder), comm.com_amount,
-	       comm.com_type, gain);
+	       ichr[comm.com_type].i_name, gain);
 	    wu(0, comm.com_maxbidder,
-	       "You just bought %d %c's from %s for $%.2f\n",
-	       comm.com_amount, comm.com_type, cname(comm.com_owner),
-	       gain * buytax);
+	       "You just bought %d %s from %s for $%.2f\n",
+	       comm.com_amount, ichr[comm.com_type].i_name,
+	       cname(comm.com_owner), gain * buytax);
 	    natp = getnatp(comm.com_owner);
 	    /* Make sure we subtract the amount that came out in a loan */
 	    natp->nat_money += (gain - subleft);

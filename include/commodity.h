@@ -40,7 +40,7 @@ struct comstr {
     short ef_type;
     natid com_owner;
     short com_uid;
-    char com_type;
+    int com_type;
     int com_amount;
     float com_price;
     int com_maxbidder;
