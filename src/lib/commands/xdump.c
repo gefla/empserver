@@ -37,6 +37,7 @@
 #include "match.h"
 #include "news.h"
 #include "nsc.h"
+#include "optlist.h"
 
 /*
  * Dump everything under the sun
@@ -366,12 +367,18 @@ xdfldnam(struct castr ca[])
     }
 }
 
+/* Dump first line of header for dump NAME.  */
+static void
+xdhdr1(char *name)
+{
+    pr("XDUMP %s %ld\n", name, (long)time(NULL));
+}
+
 /* Dump header for dump NAME with fields described by CA[].  */
 static void
 xdhdr(char *name, struct castr ca[])
 {
-    pr("XDUMP %s %ld\n", name, (long)time(NULL));
-
+    xdhdr1(name);
     xdfldnam(ca);
     pr("\n");
 }
@@ -456,6 +463,32 @@ xdchr(int chridx)
     return RET_OK;
 }
 
+/* Dump Options[], return RET_OK.  */
+static int
+xdopt(void)
+{
+    int i;
+    char *sep;
+
+    xdhdr1("options");
+
+    sep = "";
+    for (i = 0; Options[i].opt_key; ++i) {
+	pr("%s%s", sep, Options[i].opt_key);
+	sep = " ";
+    }
+    pr("\n");
+    
+    sep = "";
+    for (i = 0; Options[i].opt_key; ++i) {
+	pr("%s%d", sep, *Options[i].opt_valuep);
+	sep = " ";
+    }
+    pr("\n");
+
+    return RET_OK;
+}
+
 /* Experimental extended dump command */
 int
 xdump(void)
@@ -473,6 +506,8 @@ xdump(void)
 	return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "chr", strlen(p)) && player->argp[2]) {
 	return xdchr(chridx_by_name(player->argp[2]));
+    } else if (!strncmp(p, "opt", strlen(p))) {
+	return xdopt();
     }
 
     return RET_SYN;
