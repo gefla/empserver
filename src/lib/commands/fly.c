@@ -121,10 +121,18 @@ fly(void)
      */
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
 	    1, wantflags, P_M | P_O);
+    if (QEMPTY(&bomb_list)) {
+	pr("No planes could be equipped for the mission.\n");
+	return RET_FAIL;
+    }
     wantflags |= P_F;
     wantflags |= P_ESC;
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
 	    1, wantflags, P_M | P_O);
+    if (cno >= 0 && !pln_oneway_to_carrier_ok(&bomb_list, &esc_list, cno)) {
+	pr("Not enough room on ship #%d!\n", cno);
+	return RET_FAIL;
+    }
     /*
      * now arm and equip the bombers, transports, whatever.
      * tech is stored in high 16 bits of mission_flags.

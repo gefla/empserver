@@ -159,6 +159,57 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
     return 0;
 }
 
+int
+pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
+			 struct emp_qelem *esc_list, int cno)
+{
+    struct emp_qelem *list, *qp;
+    struct plist *plp;
+    struct plchrstr *pcp;
+    struct shpstr ship;
+    struct mchrstr *mcp;
+    int nchoppers, nxlight, nplane;
+
+    if (cno < 0 || !getship(cno, &ship))
+	return 0;
+
+    count_planes(&ship);
+    nchoppers = ship.shp_nchoppers;
+    nxlight = ship.shp_nxlight;
+    nplane = ship.shp_nplane;
+    mcp = &mchr[(int)ship.shp_type];
+
+    /* for both lists */
+    for (list = bomb_list;
+	 list;
+	 list = list == bomb_list ? esc_list : NULL) {
+	for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	    /* FIXME duplicates put_plane_on_ship() logic; refactor */
+	    plp = (struct plist *)qp;
+	    pcp = &plchr[(int)plp->plane.pln_type];
+	    if (plp->plane.pln_ship == ship.shp_uid)
+		continue;
+	    /* try chopper space */
+	    if ((pcp->pl_flags & P_K) && (mcp->m_flags & M_CHOPPER)
+		&& nchoppers < mcp->m_nchoppers)
+		++nchoppers;
+	    /* try xlight space */
+	    else if ((pcp->pl_flags & P_E) && (mcp->m_flags & M_XLIGHT)
+		     && nxlight < mcp->m_nxlight)
+		++nxlight;
+	    /* try plane space */
+	    else if ((((pcp->pl_flags & P_L) && (mcp->m_flags & M_FLY))
+		      || ((pcp->pl_flags & P_M) && (pcp->pl_flags & P_L)
+			  && (mcp->m_flags & M_MSL)))
+		     && nplane < mcp->m_nplanes)
+		++nplane;
+	    else
+		return 0;		/* won't be able to land */
+	}
+    }
+    return 1;
+}
+
 void
 pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 {
@@ -171,7 +222,6 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 	getship(cno, &ship);
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	/* XXX - need to restrict # of planes per ship */
 	if (cno >= 0) {
 	    count_planes(&ship);
 	    if (!can_be_on_ship(plp->plane.pln_uid, ship.shp_uid))
@@ -681,7 +731,7 @@ pln_put(struct emp_qelem *list)
 	    getsect(pp->pln_x, pp->pln_y, &sect);
 	    if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_WASTE) {
 		mpr(pp->pln_own,
-		    "Nowwhere to land at %s, plane #%d crashes and burns...\n",
+		    "Nowhere to land at %s, plane #%d crashes and burns...\n",
 		    xyas(pp->pln_x, pp->pln_y, pp->pln_own), pp->pln_uid);
 		pp->pln_effic = 0;
 	    }
