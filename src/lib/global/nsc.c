@@ -273,14 +273,16 @@ struct castr commodity_ca[] = {
     {NSC_SHORT | NSC_OFF | fldoff(comstr, com_uid), "uid", 0},
     {NSC_UCHAR | NSC_OFF | fldoff(comstr, com_type), "type", 0},
     {NSC_INT | NSC_OFF | fldoff(comstr, com_amount), "amount", 0},
-    {NSC_FLOAT | NSC_OFF | fldoff(comstr, com_price), "price", 0},
     {NSC_INT | NSC_OFF | fldoff(comstr, com_maxbidder), "maxbidder", 0},
     {NSC_FLOAT | NSC_OFF | fldoff(comstr, com_maxprice), "maxprice", 0},
     {NSC_TIME | NSC_OFF | fldoff(comstr, com_markettime), "markettime", 0},
-    {NSC_INT | NSC_OFF | fldoff(comstr, com_x), "xloc", 0},
-    {NSC_INT | NSC_OFF | fldoff(comstr, com_y), "yloc", 0},
-    {NSC_XCOORD | NSC_OFF | fldoff(comstr, sell_x), "xsell", 0},
-    {NSC_YCOORD | NSC_OFF | fldoff(comstr, sell_y), "ysell", 0},
+    /* could let maxbidder access these, but we can't express that yet: */
+    {NSC_DEITY | NSC_INT | NSC_OFF | fldoff(comstr, com_x), "xbuy", 0},
+    {NSC_DEITY | NSC_INT | NSC_OFF | fldoff(comstr, com_y), "ybuy", 0},
+    /* could let the owner access these, but we can't express that yet: */
+    {NSC_DEITY | NSC_XCOORD | NSC_OFF | fldoff(comstr, sell_x), "xsell", 0},
+    {NSC_DEITY | NSC_YCOORD | NSC_OFF | fldoff(comstr, sell_y), "ysell", 0},
+    {NSC_DEITY | NSC_FLOAT | NSC_OFF | fldoff(comstr, com_price), "price", 0},
     {0, 0, 0}
 };
 
