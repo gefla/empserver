@@ -1,14 +1,68 @@
-It is recommended that you take a backup of the "data" directory once
-in a while in case of system crashes, data corruption, or whatever.
+Why backups
+-----------
 
-It is VERY important to note that you should only take complete snapshots
-of the data directory and only restore complete snapshots of the data
-directory.  Restoring individual files from backups can cause problems.
-Some of the known problems with partial restores are:
+Running a game without regular backups is irresponsible.  A bug, a
+system crash or a deity error can destroy the game, leaving you no way
+to recover except restoring from backup.  If you foolishly neglected
+to make regular, working backups, players, who likely invested
+substantial time in your game, will have every reason to be very angry
+with you.
+
+
+Manual backups
+--------------
+
+The recommended way to make a backup is to shut down the server, copy
+the complete data directory, then restart the server.
+
+Having to shut down the server for backups is inconvenient, and we're
+working on better solutions.
+
+Copying the data directory while the server runs is *unsafe*: the copy
+may be inconsistent, because files may change during copying.
+However, it works more often than not, and is much better than making
+no backups.
+
+
+Automatic backups
+-----------------
+
+The server lets you run an arbitrary command right before the update,
+with players locked out.  You can use this feature to make a back up
+on each update automatically.
+
+The command runs in the data directory.  stdin, stdout, stderr are
+redirected to /dev/null.  Beware: if it exits unsuccessfully, the
+update is cancelled!  An example backup script can be found in
+scripts/backup.
+
+You define the command in econfig, like this:
+
+  pre_update_hook "../scripts/backup"
+
+
+Restoring from backup
+---------------------
+
+The server must not run when you restore a backup.
+
+Always restore the complete data directory.  Restoring individual
+files from backups can lead to inconsistencies.  Some of the known
+problems with partial restores are:
 
  * In games with MOB_ACCESS enabled, mobility will be extremely out of
-   sync if you do not do a complete data directory restore.
+   sync.
 
  * Land units, ships and planes may think they are loaded onto ships
    or land units that do not exist, or have changed owner (been sunk
    or destroyed and then rebuilt) since the last backup.
+
+Testing backups
+---------------
+
+Backups are worthless unless you verify restoring works.  Using the
+real game to verify causes down time.  It's smarter to have a second
+game, inaccessible to the public, running the same server program.  If
+it runs on the same machine, it has to use a different port, and that
+means a different econfig file.  Make sure not to clobber it when you
+restore a backup from the real game.
