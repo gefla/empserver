@@ -109,7 +109,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	 * one of its values.  Likewise for rgt_val.
 	 */
 	if (lft_val >= 0 && rgt_val >= 0) {
-	    pr("%.*s -- condition ambiguous\n", tail-cond, cond);
+	    pr("%.*s -- condition ambiguous\n", (int)(tail-cond), cond);
 	    return -1;
 	} else if (rgt_val >= 0) {
 	    /* selector x value */
@@ -364,7 +364,7 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
 
     if (idx == M_NOTUNIQUE) {
 	pr("%.*s -- ambiguous name\n",
-	   val->val_as.str.maxsz, val->val_as.str.base);
+	   (int)val->val_as.str.maxsz, val->val_as.str.base);
 	val->val_cat = NSC_NOCAT;
 	return NULL;
     }
@@ -395,7 +395,7 @@ nstr_resolve_sel(struct valstr *val, struct castr *ca)
 
     if ((ca->ca_flags & NSC_DEITY) && !player->god) {
 	pr("%.*s -- not accessible to mortals\n",
-	   val->val_as.str.maxsz, val->val_as.str.base);
+	   (int)val->val_as.str.maxsz, val->val_as.str.base);
 	val->val_cat = NSC_NOCAT;
 	return NULL;
     }
