@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_extend.c	1.2	11/13/90";
-#endif /* not lint */
-
 /*
  * Extend the queue by neighbors.  This entails getting the
  * coordinates of all the neighbors, figuring out their lower bound

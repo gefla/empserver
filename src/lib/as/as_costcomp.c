@@ -19,10 +19,6 @@
  */
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_costcomp.c	1.4	11/13/90";
-#endif /* not lint */
-
 /*
  * Compare the lower bound costs of two nodes.  If the two nodes have
  * equal lower bound costs, sort on the secondary field.

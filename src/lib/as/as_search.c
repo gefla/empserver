@@ -25,10 +25,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_search.c	1.2	11/13/90";
-#endif /* not lint */
-
 /*
  * Basic A* search function.  "adp" should have been initialized by
  * as_init (any previously allocated data will be freed by as_reset here),

@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_merge.c	1.2	11/13/90";
-#endif /* not lint */
-
 /*
  * Merge neighbors into queue, keeping it sorted.  "neighbors" is sorted,
  * both by lower bound cost and then by secondary cost.

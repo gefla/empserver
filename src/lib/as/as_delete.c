@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_delete.c	1.5	11/13/90";
-#endif /* not lint */
-
 static void as_free_queue(struct as_queue *queue);
 
 /*

@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_init.c	1.4	11/13/90";
-#endif /* not lint */
-
 /*
  * Return an as_data structure with the necessary fields filled in
  * and space malloced.  Return NULL if malloc fails.

@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_hash.c	1.2	11/13/90";
-#endif /* not lint */
-
 /*
  * Return a pointer to the as_queue structure associated with
  * this coordinate if the coordinate is in the queue.

@@ -21,10 +21,6 @@
 #include <stdlib.h>
 #include "as.h"
 
-#if !defined(lint) && !defined(SABER)
-static char sccsid[] = "@(#)as_winnow.c	1.8	11/13/90";
-#endif /* not lint */
-
 static struct as_node *as_newnode(struct as_node *backp, struct as_coord c,
 				  double inclbcost, double lbcost,
 				  double knowncost, double seccost);
