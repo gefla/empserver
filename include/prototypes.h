@@ -101,7 +101,7 @@ extern void land_damage(struct lndstr *, int);
 extern void planedamage(struct plnstr *, int);
 extern int nukedamage(struct nchrstr *, int, int);
 extern int effdamage(register int, int);
-extern void item_damage(int, u_short *);
+extern void item_damage(int, short *);
 extern int commdamage(register int, int, int);
 /* check.c */
 extern int check_sect_ok(struct sctstr *);

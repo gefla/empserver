@@ -996,7 +996,7 @@ use_ammo(struct emp_qelem *list)
     struct lndstr land;
     struct sctstr sect;
     int shell;
-    u_short *item;
+    short *item;
     double mobcost;
     struct mchrstr *mcp;
 

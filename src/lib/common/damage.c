@@ -50,7 +50,7 @@
 #include "subs.h"
 
 void
-item_damage(int pct, u_short *item)
+item_damage(int pct, short *item)
 {
     int i, lose;
 
