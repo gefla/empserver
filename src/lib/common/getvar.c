@@ -31,6 +31,7 @@
  *     Dave Pare, 1989
  */
 
+#include <limits.h>
 #include "misc.h"
 #include "var.h"
 #include "file.h"
@@ -64,8 +65,16 @@ putvec(int class, int *vec, s_char *sp, int ptype)
 	return 0;
     }
 
-    for (i = 0; i <= I_MAX; ++i)
-	dst[i] = vec[i];
+    for (i = 0; i <= I_MAX; ++i) {
+	if (vec[i] < 0) {
+	    logerror("putvec: item %d underflow", i);
+	    dst[i] = 0;
+	} else if (vec[i] > SHRT_MAX) {
+	    logerror("putvec: item %d overflow", i);
+	    dst[i] = SHRT_MAX;
+	} else
+	    dst[i] = vec[i];
+    }
 
     return I_MAX;
 }
