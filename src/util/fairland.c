@@ -150,7 +150,7 @@ int **sectc;			/* which sectors are on the coast? */
 int *vector;			/* used for measuring distances */
 int *weight;			/* used for placing mountains */
 int *dsea, *dmoun;		/* the dist to the ocean and mountain */
-int the_file;			/* the file we write everything to */
+FILE *sect_fptr;			/* the file we write everything to */
 struct sctstr **sects;
 struct sctstr *sectsbuf;
 int fl_status;			/* is anything wrong? */
@@ -411,9 +411,8 @@ allocate_memory(void)
 {
     int i;
 
-    the_file = open(empfile[EF_SECTOR].file, O_RDWR | O_CREAT | O_TRUNC,
-		    0660);
-    if (the_file < 0) {
+    sect_fptr = fopen(empfile[EF_SECTOR].file, "w");
+    if (sect_fptr == NULL) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;
     }
@@ -1094,16 +1093,16 @@ write_file(void)
 {
     int n;
 
-    /*  if ((n = write(the_file, sects, sizeof(sects))) < 0) { */
-    if ((n = write(the_file, sectsbuf, YSIZE * XSIZE * sizeof(struct sctstr))) < 0) {
+    if ((n = fwrite((void *)sectsbuf, sizeof(struct sctstr),
+                    YSIZE * XSIZE, sect_fptr)) <= 0) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;
     }
-    if (n != (int)(YSIZE * XSIZE * sizeof(struct sctstr))) {
+    if (n != YSIZE * XSIZE) {
 	printf("%s:partial write\n", empfile[EF_SECTOR].file);
 	return -1;
     }
-    close(the_file);
+    fclose(sect_fptr);
     return 0;
 }
 
