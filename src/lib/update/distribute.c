@@ -47,6 +47,13 @@
 #include "common.h"
 #include "prototypes.h"
 
+#define EXPORT_BONUS 10.0
+#define IMPORT_BONUS 10.0
+
+#ifndef MAX
+#define MAX(x,y) ((x) < (y) ? (y) : (x))
+#endif
+
 int
 dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 	     double dist_e_cost)
@@ -58,10 +65,9 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     int thresh;
     int amt_dist;
     int amt_sect;
-    i_packing packing;
-    float imcost;
-    float excost;
-    i_packing dist_packing;
+    i_packing sect_packing, dist_packing;
+    int pack;
+    double mcost;
     int diff;
     int item;
     int changed;
@@ -81,18 +87,8 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     }
 
     dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
-    if (dist->sct_effic >= 60)
-	dist_packing = dchr[dist->sct_type].d_pkg;
-    else
-	dist_packing = NPKG;	/* No packing */
-
-    if (sp->sct_effic >= 60)
-	packing = dchr[sp->sct_type].d_pkg;
-    else
-	packing = NPKG;		/* No packing */
-
-    if ((dist->sct_effic >= 60) && dchr[dist->sct_type].d_pkg == WPKG)
-	packing = dchr[dist->sct_type].d_pkg;
+    dist_packing = dist->sct_effic >= 60 ? dchr[dist->sct_type].d_pkg : IPKG;
+    sect_packing = sp->sct_effic   >= 60 ? dchr[sp->sct_type].d_pkg : IPKG;
 
     lplague = rplague = changed = 0;
     for (item = 1; item < I_MAX + 1; item++) {
@@ -102,12 +98,10 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 	thresh = sp->sct_dist[item];
 	/*
 	 * calculate costs for importing and exporting.
-	 * the div 10.0 is because delivering straight through
+	 * the mob bonus is because delivering straight through
 	 * to the dist sect is cheaper than stopping at each
 	 * sector along the way (processor-timewise)
 	 */
-	excost = (dist_e_cost / ip->i_pkg[packing] * ip->i_lbs) / 10.0;
-	imcost = (dist_i_cost / ip->i_pkg[dist_packing] * ip->i_lbs) / 10.0;
 	amt_sect = sp->sct_item[item];
 	amt_dist = dist->sct_item[item];
 	diff = amt_sect - thresh;
@@ -144,14 +138,15 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 		if (amt_dist == 0)
 		    continue;
 	    }
-	    if (dist->sct_mobil < imcost * amt)
-		amt = dist->sct_mobil / imcost;
+	    pack = ip->i_pkg[dist_packing];
+	    mcost = dist_i_cost / pack * ip->i_lbs / IMPORT_BONUS;
+	    if (dist->sct_mobil < mcost * amt)
+		amt = dist->sct_mobil / mcost;
 
 	    lplague++;
-	    /* XXX replace with vector assign and putvec() */
 	    dist->sct_item[item] -= amt;
 	    changed++;
-	    dist->sct_mobil -= (int)(imcost * amt);
+	    dist->sct_mobil -= (int)(mcost * amt);
 	    sp->sct_item[item] += amt;
 	} else {
 	    if (imex != EXPORT)
@@ -176,18 +171,19 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 	    amt = diff;
 	    if (amt > amt_sect)
 		amt = amt_sect;
-	    if (sp->sct_mobil < excost * amt)
-		amt = sp->sct_mobil / excost;
+	    pack = MAX(ip->i_pkg[sect_packing], ip->i_pkg[dist_packing]);
+	    mcost = dist_e_cost / pack * ip->i_lbs / EXPORT_BONUS;
+	    if (sp->sct_mobil < mcost * amt)
+		amt = sp->sct_mobil / mcost;
 	    if (amt > ITEM_MAX - amt_dist)
 		amt = ITEM_MAX - amt_dist;
 	    if (amt == 0)
 		continue;
-	    /* XXX replace with vector assign and putvec() */
 
 	    rplague++;
 	    sp->sct_item[item] -= amt;
 	    changed++;
-	    sp->sct_mobil -= (int)(excost * amt);
+	    sp->sct_mobil -= (int)(mcost * amt);
 	    dist->sct_item[item] += amt;
 	}
     }

@@ -61,11 +61,9 @@ move(void)
     int left;
     int mcost, dam;
     int infected;
-    int stype;
     int vtype;
     int amt_src;
     int amt_dst;
-    struct dchrstr *dp;
     struct ichrstr *ip;
     int work;
     int loyal;
@@ -100,8 +98,6 @@ move(void)
 	    return RET_FAIL;
 	}
     }
-    stype = sect.sct_type;
-    dp = &dchr[stype];
     infected = sect.sct_pstage == PLG_INFECT;
     amt_src = sect.sct_item[vtype];
     if (!istest && amt_src <= 0) {
@@ -155,10 +151,8 @@ move(void)
 
     if (amount <= 0)
 	return RET_SYN;
-    packing = ip->i_pkg[dp->d_pkg];
-    if (packing > 1 && sect.sct_effic < 60)
-	packing = 1;
-    weight = (double)amount *ip->i_lbs / packing;
+    packing = sect.sct_effic >= 60 ? dchr[sect.sct_type].d_pkg : IPKG;
+    weight = (double)amount * ip->i_lbs / ip->i_pkg[packing];
     /*
      * First remove commodities from source sector
      */

@@ -35,6 +35,7 @@
 #define _ITEM_H_
 
 typedef enum {
+    IPKG,			/* "inefficient" packaging (eff<60) */
     NPKG,			/* no special packaging */
     WPKG,			/* "warehouse" packaging */
     UPKG,			/* "urban" packaging */
