@@ -59,7 +59,7 @@ struct powsort {
     natid cnum;
 };
 
-static void addtopow(register int *vec, register struct powstr *pow);
+static void addtopow(register short *vec, register struct powstr *pow);
 static void gen_power(void);
 static void out5(double value, int round_val, int round_flag);
 static int powcmp(struct powsort *p1, struct powsort *p2);
@@ -237,7 +237,6 @@ gen_power(void)
     struct powstr powbuf[MAXNOC];
     struct nstr_item ni;
     struct nstr_sect ns;
-    int vec[I_MAX + 1];
     struct powsort order[MAXNOC];
     struct natstr *natp;
     float f;
@@ -251,16 +250,14 @@ gen_power(void)
 	pow = &powbuf[sect.sct_own];
 	pow->p_sects += 1.0;
 	pow->p_effic += sect.sct_effic;
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
-	addtopow(vec, pow);
+	addtopow(sect.sct_item, pow);
     }
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, (s_char *)&land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	pow = &powbuf[land.lnd_own];
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	addtopow(vec, pow);
+	addtopow(land.lnd_item, pow);
 	if (opt_NEWPOWER == 0) {
 	    pow->p_power += lchr[(int)land.lnd_type].l_lcm / 10.0;
 	    pow->p_power += lchr[(int)land.lnd_type].l_hcm / 5.0;
@@ -278,8 +275,7 @@ gen_power(void)
 	if (ship.shp_own == 0)
 	    continue;
 	pow = &powbuf[ship.shp_own];
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-	addtopow(vec, pow);
+	addtopow(ship.shp_item, pow);
 	if (opt_NEWPOWER == 0) {
 	    pow->p_power += mchr[(int)ship.shp_type].m_lcm / 10.0;
 	    pow->p_power += mchr[(int)ship.shp_type].m_hcm / 5.0;
@@ -391,7 +387,7 @@ powcmp(struct powsort *p1, struct powsort *p2)
 }
 
 static void
-addtopow(register int *vec, register struct powstr *pow)
+addtopow(short *vec, struct powstr *pow)
 {
     pow->p_civil += vec[I_CIVIL];
     pow->p_milit += vec[I_MILIT];
