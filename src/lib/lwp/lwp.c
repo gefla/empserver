@@ -249,9 +249,9 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     newp->argv = argv;
     newp->ud = ud;
     if ((newp->flags & LWP_STACKCHECK) == 0) {
-	stackp = growsdown((void *)&x) ?
-	    (((long)s) + size - sizeof(stkalign_t) - LWP_EXTRASTACK) :
-	    (long)s + LWP_EXTRASTACK;
+	stackp = growsdown((void *)&x)
+	    ? (unsigned long)s + size - sizeof(stkalign_t) - LWP_EXTRASTACK
+	    : (unsigned long)s + LWP_EXTRASTACK;
 #ifdef UCONTEXT
 	sp.ss_sp = (void *)(stackp & -sizeof(stkalign_t));
 	sp.ss_size = size;
