@@ -50,7 +50,6 @@
 int
 drop(void)
 {
-    int rel;
     s_char *p;
     int mission_flags;
     int tech;
@@ -87,28 +86,37 @@ drop(void)
     }
     ax = x;
     ay = y;
-    if (getpath(flightpath, player->argp[4], ax, ay, 0, 0,
-		0, P_FLYING) == 0 || *flightpath == 0)
+    if (getpath(flightpath, player->argp[4], ax, ay, 0, 0, 0, P_FLYING) == 0
+	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;
     ty = ay;
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target is %s\n", xyas(tx, ty, player->cnum));
-    getsect(tx, ty, &target);
-
-    rel = getrel(getnatp(target.sct_own), player->cnum);
-    if (rel != ALLIED && target.sct_own != player->cnum
-	&& target.sct_type != SCT_WATER) {
-	pr("You don't own %s!\n", xyas(tx, ty, player->cnum));
-	return RET_FAIL;
-    }
-
     if ((ip = whatitem(player->argp[5], "Drop off what? ")) == 0)
 	return RET_SYN;
-    if (ip->i_vtype == V_CIVIL && target.sct_own != target.sct_oldown) {
-	pr("Can't drop civilians into occupied sectors.\n");
-	return RET_FAIL;
+    getsect(tx, ty, &target);
+
+    if (target.sct_own == player->cnum
+	|| getrel(getnatp(target.sct_own), player->cnum) == ALLIED) {
+	if (ip->i_vtype == V_CIVIL) {
+	    if (target.sct_own != player->cnum) {
+		pr("Your civilians refuse to emigrate!\n");
+		return RET_FAIL;
+	    } else if (target.sct_own != target.sct_oldown) {
+		pr("Can't drop civilians into occupied sectors.\n");
+		return RET_FAIL;
+	    }
+	}
+    } else {
+	/* into the unknown... */
+	if (ip->i_vtype != V_SHELL) {
+	    pr("You don't own %s!\n", xyas(tx, ty, player->cnum));
+	    return RET_FAIL;
+	}
+	wantflags = P_MINE;
     }
+
     ap_to_target = strlen(flightpath);
     if (*(flightpath + strlen(flightpath) - 1) == 'h')
 	ap_to_target--;
@@ -119,6 +127,10 @@ drop(void)
     mission_flags = 0;
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
 	    2, wantflags, P_M | P_O);
+    if (QEMPTY(&bomb_list)) {
+	pr("No planes could be equipped for the mission.\n");
+	return RET_FAIL;
+    }
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
 	    2, P_ESC | P_F, P_M | P_O);
     /*
@@ -130,28 +142,25 @@ drop(void)
     mission_flags |= P_X;	/* stealth (shhh) */
     mission_flags |= P_H;	/* gets turned off if not all choppers */
     mission_flags |= P_MINE;
-    mission_flags =
-	pln_arm(&bomb_list, 2 * ap_to_target, 'd', ip, 0, mission_flags,
-		&tech);
-    if (rel != ALLIED && target.sct_own != player->cnum
-	&& target.sct_type == SCT_WATER && !(mission_flags & P_MINE)) {
-	pr("You don't own %s!\n", xyas(tx, ty, player->cnum));
-	return RET_FAIL;
-    }
+    mission_flags = pln_arm(&bomb_list, 2 * ap_to_target, 'd',
+			    ip, 0, mission_flags, &tech);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags =
-	pln_arm(&esc_list, 2 * ap_to_target, 'd', ip, P_ESC | P_F,
-		mission_flags, &tech);
+    mission_flags = pln_arm(&esc_list, 2 * ap_to_target, 'd',
+			    ip, P_ESC | P_F, mission_flags, &tech);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
 		 0, 0, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
 	getsect(tx, ty, &target);
-	pln_dropoff(&bomb_list, ip, tx, ty, (s_char *)&target, EF_SECTOR);
+	if (target.sct_type == SCT_WATER && (mission_flags & P_MINE)
+	    && ip->i_vtype == V_SHELL)
+	    pln_mine(&bomb_list, &target);
+	else
+	    pln_dropoff(&bomb_list, ip, tx, ty, (s_char *)&target, EF_SECTOR);
     }
     pln_put(&bomb_list);
     pln_put(&esc_list);

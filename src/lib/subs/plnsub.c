@@ -279,15 +279,22 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     }
     if (type == EF_SECTOR) {
 	sectp = ptr;
-	if (sectp->sct_type == SCT_WATER && ip->i_vtype == V_SHELL) {
-	    /* aerial mining */
-	    sectp->sct_mines = min(sectp->sct_mines + amt, MINES_MAX);
-	    pr("%d mines laid in %s.\n", amt,
-	       xyas(sectp->sct_x, sectp->sct_y, player->cnum));
-	    if (amt > 0
-		&& map_set(player->cnum, sectp->sct_x, sectp->sct_y, 'X', 0))
-		writemap(player->cnum);
-	    putsect(sectp);
+	if (!sectp->sct_own) {
+	    if (sectp->sct_type == SCT_WATER)
+		pr("Your %s sink like a rock!\n", ip->i_name);
+	    else
+		pr("Your %s vanish without a trace.\n", ip->i_name);
+	    return;
+	}
+	if (sectp->sct_own != player->cnum
+	    && getrel(getnatp(sectp->sct_own), player->cnum) != ALLIED) {
+	    pr("You don't own %s!  Cargo jettisoned...\n",
+	       xyas(tx, ty, player->cnum));
+	    return;
+	}
+	if (ip->i_vtype == V_CIVIL && sectp->sct_own != sectp->sct_oldown) {
+	    pr("%s is occupied.  Your civilians suffer from identity crisis and die.\n",
+	       xyas(tx, ty, player->cnum));
 	    return;
 	}
 	there = sectp->sct_item[ip->i_vtype];
@@ -323,6 +330,29 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	       cname(player->cnum), amt, ip->i_name, sp->shp_uid);
 	pr(" on carrier #%d\n", sp->shp_uid);
 	putship(sp->shp_uid, sp);
+    }
+}
+
+void
+pln_mine(struct emp_qelem *list, struct sctstr *sectp)
+{
+    struct emp_qelem *qp;
+    struct plist *plp;
+    int amt;
+
+    amt = 0;
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	amt += plp->misc;
+
+    }
+    if (amt > 0) {
+	sectp->sct_mines = min(sectp->sct_mines + amt, MINES_MAX);
+	pr("%d mines laid in %s.\n", amt,
+	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
+	if (map_set(player->cnum, sectp->sct_x, sectp->sct_y, 'X', 0))
+	    writemap(player->cnum);
+	putsect(sectp);
     }
 }
 
