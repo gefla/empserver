@@ -30,7 +30,7 @@ the efficiency of the sector (affects all benefits
 of a designated sector except mobility units)
 .L prd
 Will this sector be updated? If not, you will see an 'n'.
-This can be controlled with the \*Qstart\*U and \*Qstop\* commands.
+This can be controlled with the \*Qstart\*U and \*Qstop\*U commands.
 .L mob
 the number of mobility units, (see \*Qmove\*U)
 .L uf
