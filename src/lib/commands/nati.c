@@ -95,9 +95,7 @@ nati(void)
     pr("     Plague factor : %6.2f%%\n", pfac);
     pr("\n");
 
-    poplimit = 999;
-    if (opt_RES_POP)
-	poplimit = max_pop(natp->nat_level[NAT_RLEV], 0);
+    poplimit = max_pop(natp->nat_level[NAT_RLEV], 0);
     pr("Max population : %d\n", poplimit);
 
     safepop =

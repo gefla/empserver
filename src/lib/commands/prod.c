@@ -109,10 +109,8 @@ prod(void)
 	if (!player->owner)
 	    continue;
 
-	civs = min(9999, (int)((obrate * etu_per_update + 1.0)
-			       * sect.sct_item[I_CIVIL]));
-	uws = min(9999, (int)((uwbrate * etu_per_update + 1.0)
-			      * sect.sct_item[I_UW]));
+	civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
+	uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	natp = getnatp(sect.sct_own);
 	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civs = min(civs, maxpop);
@@ -145,16 +143,9 @@ prod(void)
 	    if (opt_BIG_CITY) {
 		if (!eff && dchr[otype].d_pkg == UPKG &&
 		    dchr[type].d_pkg != UPKG) {
-		    if (opt_RES_POP) {
-			natp = getnatp(sect.sct_own);
-			civs = min(civs,
-				   max_pop(natp->nat_level[NAT_RLEV], 0));
-			uws = min(uws,
-				  max_pop(natp->nat_level[NAT_RLEV], 0));
-		    } else {
-			civs = min(9999, civs);
-			uws = min(9999, uws);
-		    }
+		    natp = getnatp(sect.sct_own);
+		    civs = min(civs, max_pop(natp->nat_level[NAT_RLEV], 0));
+		    uws = min(uws, max_pop(natp->nat_level[NAT_RLEV], 0));
 		    wforce = (int)(((double)civs * sect.sct_work) / 100.0
 				   + uws
 				   + sect.sct_item[I_MILIT] * 2 / 5.0);
@@ -320,10 +311,9 @@ prod(void)
 	    int enlisted;
 	    int civs;
 
-	    civs = min(999, (int)((obrate * etu_per_update + 1.0)
-				  * sect.sct_item[I_CIVIL]));
+	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
 	    natp = getnatp(sect.sct_own);
-	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
+	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	    civs = min(civs, maxpop);
 	    /* This isn't quite right, since research might
 	       rise/fall during the update, but it's the best
