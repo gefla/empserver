@@ -641,7 +641,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	sect->sct_dist_y = newy;
 	break;
     case 's':
-	des = typematch(p, EF_SECTOR);
+	des = sct_typematch(p);
 	if (des < 0)
 	    return RET_SYN;
 	pr("Designation for sector %s changed from %c to %c\n",
@@ -650,7 +650,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	sect->sct_type = des;
 	break;
     case 'S':
-	des = typematch(p, EF_SECTOR);
+	des = sct_typematch(p);
 	if (des < 0)
 	    return RET_SYN;
 	pr("New Designation for sector %s changed from %c to %c\n",

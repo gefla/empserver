@@ -32,6 +32,7 @@
  *     Steve McClure, 2000
  */
 
+#include <stddef.h>
 #include <string.h>
 #include "misc.h"
 #include "ship.h"
@@ -41,59 +42,56 @@
 #include "nuke.h"
 #include "file.h"
 #include "common.h"
+#include "match.h"
 
+/*
+ * Return index of sector called NAME in dchr[], or M_NOTFOUND.
+ */
 int
-typematch(s_char *buf, int type)
+sct_typematch(char *name)
 {
-    register int n;
-    int len;
+    int i;
 
-    len = strlen(buf);
+    if (name[0] && !name[1])
+	for (i = 0; dchr[i].d_name; ++i)
+	    if (dchr[i].d_mnem == *name)
+		return i;
+    return M_NOTFOUND;
+}
+
+/*
+ * Search for NAME in the characteristics table for TYPE, return index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ * If TYPE is EF_SHIP, search mchr[].
+ * If TYPE is EF_PLANE, search plchr[].
+ * If TYPE is EF_LAND, search lchr[].
+ * If TYPE is EF_NUKE, search nchr[].
+ */
+int
+typematch(char *name, int type)
+{
     switch (type) {
-    case EF_SECTOR:{
-	    register struct dchrstr *dcp;
-
-	    if (!buf[0] || buf[1])
-		return -1;
-	    for (dcp = dchr, n = 0; dcp->d_name; n++, dcp++)
-		if (dcp->d_mnem == *buf)
-		    return n;
-	}
-	break;
-    case EF_SHIP:{
-	    register struct mchrstr *mcp;
-
-	    for (mcp = mchr, n = 0; *mcp->m_name; n++, mcp++)
-		if (strncmp(mcp->m_name, buf, len) == 0)
-		    return n;
-	}
-	break;
-    case EF_LAND:{
-	    register struct lchrstr *lcp;
-
-	    for (lcp = lchr, n = 0; *lcp->l_name; n++, lcp++)
-		if (strncmp(lcp->l_name, buf, len) == 0)
-		    return n;
-	}
-	break;
-    case EF_PLANE:{
-	    register struct plchrstr *pcp;
-
-	    for (pcp = plchr, n = 0; *pcp->pl_name; n++, pcp++)
-		if (strncmp(pcp->pl_name, buf, len) == 0)
-		    return n;
-	}
-	break;
-    case EF_NUKE:{
-	    register struct nchrstr *ncp;
-
-	    for (ncp = nchr, n = 0; *ncp->n_name; n++, ncp++)
-		if (strncmp(ncp->n_name, buf, len) == 0)
-		    return n;
-	}
-	break;
+    case EF_SECTOR:
+	return sct_typematch(name);
+    case EF_SHIP:
+	return stmtch(name, mchr,
+		      offsetof(struct mchrstr, m_name),
+		      sizeof(mchr[0]));
+    case EF_LAND:
+	return stmtch(name, lchr,
+		      offsetof(struct lchrstr, l_name),
+		      sizeof(lchr[0]));
+    case EF_PLANE:
+	return stmtch(name, plchr,
+		      offsetof(struct plchrstr, pl_name),
+		      sizeof(plchr[0]));
+    case EF_NUKE:
+	return stmtch(name, nchr,
+		      offsetof(struct nchrstr, n_name),
+		      sizeof(nchr[0]));
     default:
 	break;
     }
-    return -1;
+    return M_NOTFOUND;
 }

@@ -176,7 +176,8 @@ extern void snxtsct_dist(register struct nstr_sect *, coord, coord, int);
 /* stmtch.c */
 /* in match.h */
 /* type.c */
-extern int typematch(s_char *, int);
+extern int sct_typematch(char *);
+extern int typematch(char *, int);
 /* vlist.c */
 extern int vl_find(register int, u_char *, u_short *, int);
 extern int vl_set(register int, u_int, u_char *, u_short *, u_char *, int);

@@ -118,7 +118,7 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	if (!check_sect_ok(&sect))
 	    continue;
 
-	des = typematch(p, EF_SECTOR);
+	des = sct_typematch(p);
 	if (des < 0 || (((des == SCT_BSPAN) || (des == SCT_BTOWER)) &&
 			!player->god)) {
 	    pr("See \"info Sector-types\"\n");

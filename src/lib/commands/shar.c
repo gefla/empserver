@@ -61,7 +61,7 @@ shar(void)
 	return RET_SYN;
 
     if (player->argp[3] && *player->argp[3]) {
-	if (typematch(player->argp[3], EF_SECTOR) < 0)
+	if (sct_typematch(player->argp[3]) < 0)
 	    return RET_SYN;
 	else
 	    des = *player->argp[3];
