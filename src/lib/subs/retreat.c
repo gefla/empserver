@@ -73,7 +73,7 @@ struct ccode {
 	'd', {
     "retreated with a depth-charged ship", "was depth-charged",},}, {
 	'u', {
-    "retreated with a boared ship", "was boarded",},}, {
+    "retreated with a boarded ship", "was boarded",},}, {
 	0, {
 "", ""}},};
 
