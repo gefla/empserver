@@ -1,0 +1,17 @@
+Index: empserver/src/lib/subs/pr.c
+--- empserver/src/lib/subs/pr.c	Thu Feb 19 19:30:18 2004
++++ empserver/src/lib/subs/pr.c	Wed Jun 16 17:37:35 2004
+@@ -58,6 +58,13 @@
+ 
+ static void outid(struct player *pl, int n);
+ 
++/* Hack for nightlybuild */
++char *
++ctime(const time_t *clock)
++{
++	return "";
++}
++
+ /*VARARGS*/
+ void
+ pr(s_char *format, ...)
