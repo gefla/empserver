@@ -69,6 +69,12 @@ int opt_GO_RENEW = 1;
 int opt_GO_RENEW = 0;
 #endif
 
+#ifdef GUINEA_PIGS
+int opt_GUINEA_PIGS = 1;
+#else
+int opt_GUINEA_PIGS = 0;
+#endif
+
 #ifdef DEFENSE_INFRA
 int opt_DEFENSE_INFRA = 1;
 #else
@@ -304,6 +310,7 @@ struct option_list Options[] = {
     {"FUEL", &opt_FUEL},
     {"GODNEWS", &opt_GODNEWS},
     {"GO_RENEW", &opt_GO_RENEW},
+    {"GUINEA_PIGS", &opt_GUINEA_PIGS},
     {"HIDDEN", &opt_HIDDEN},
     {"INTERDICT_ATT", &opt_INTERDICT_ATT},
     {"LANDSPIES", &opt_LANDSPIES},

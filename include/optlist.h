@@ -55,6 +55,7 @@ extern int opt_FALLOUT;
 extern int opt_FUEL;
 extern int opt_GODNEWS;
 extern int opt_GO_RENEW;
+extern int opt_GUINEA_PIGS;
 extern int opt_HIDDEN;
 extern int opt_INTERDICT_ATT;
 extern int opt_LANDSPIES;

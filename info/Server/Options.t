@@ -46,6 +46,8 @@ DEFENSE_INFRA:  Use the new defensive infrastructure.  Otherwise, use
                  sector efficiency for defensive values.
 GODNEWS:        The world is told via news when deities are giving or taking
                  things from players.
+GUINEA_PIGS:	Experimental stuff not ready for prime time.  Enable at your
+		 own risk!
 GO_RENEW:       Gold and Oil are renewable resources.
 MOB_ACCESS:     Allows real-time updating of mobility.
 MARKET:         Time-delay market and trade.
