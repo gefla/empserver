@@ -9,8 +9,8 @@ These levels are maintained by either importing or exporting
 commodities.
 This importation and exportation is done automatically during
 an update.
-Both imports and exports from distribution sectors cost only
-one-half normal mobility.
+It uses much less mobility than manual moves.  See "info Mobility" for
+details.
 .s1
 In the syntax,
 <SECTS> is the sector or sectors from which the deliveries are made,
