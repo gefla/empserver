@@ -265,10 +265,10 @@ prod(void)
 	    if (it > I_NONE && it <= I_MAX && ichr[it].i_name != 0) {
 		if (CANT_HAPPEN(i >= 3))
 		    break;
-		sprintf(use[i], " %3d%c",
+		sprintf(use[i], "%4d%c",
 			(int)((take * (double)pp->p_camt[j]) + 0.5),
 			ichr[it].i_name[0]);
-		sprintf(maxc[i], " %3d%c",
+		sprintf(maxc[i], "%4d%c",
 			(int)((mtake * (double)pp->p_camt[j]) + 0.5),
 			ichr[it].i_name[0]);
 		++i;
@@ -284,28 +284,28 @@ prod(void)
 
 	if (nsect++ == 0) {
 	    pr("PRODUCTION SIMULATION\n");
-	    pr("   sect  des eff wkfc will make- p.e. cost  use1 use2 use3  max1 max2 max3  max\n");
+	    pr("   sect  des eff  will make  p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
 	}
 
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c", dchr[type].d_mnem);
 	pr(" %3.0f%%", p_e * 100.0);
 
-	pr(" %4d", wforce);
 	if (vtype != I_NONE) {
-	    pr(" %4d", (int)(real + 0.5));
+	    pr(" %5d", (int)(real + 0.5));
 	} else if (type != SCT_ENLIST) {
 	    switch (pp->p_level) {
 	    case NAT_TLEV:
 	    case NAT_RLEV:
-		pr(" %1.2f", real);
+		pr(" %5.2f", real);
 		break;
 	    case NAT_ELEV:
 	    case NAT_HLEV:
-		pr(" %4.0f", real);
+		pr(" %5.0f", real);
 		break;
 	    default:
-		pr("ERROR");
+		CANT_HAPPEN("bad TYPE");
+		pr("  ??? ");
 		break;
 	    }
 	} else {
@@ -334,16 +334,16 @@ prod(void)
 	    if (natp->nat_priorities[type] == 0) {
 		maxmil = 0;
 	    }
-	    pr(" %4d mil   1.00 $%-5d%3dc",
+	    pr(" %5d mil   1.00 $%-5d%4dc",
 	       enlisted, enlisted * 3, enlisted);
-	    pr("            %3dc           %4d\n",
+	    pr("           %4dc           %5d\n",
 	       enlisted, maxmil);
 	    continue;
 	}
 
 	pr(" %-5.5s", pp->p_sname);
 	pr(" %.2f", prodeff);
-	pr(" $%-4d", cost);
+	pr(" $%-5d", cost);
 	for (i = 0; i < 3; i++) {
 	    pr(use[i]);
 	}
@@ -357,9 +357,9 @@ prod(void)
 	}
 	if (vtype != I_NONE || pp->p_level == NAT_ELEV
 	    || pp->p_level == NAT_HLEV)
-	    pr(" %4d\n", min(999, (int)(max * prodeff + 0.5)));
+	    pr(" %5d\n", min(999, (int)(max * prodeff + 0.5)));
 	else
-	    pr(" %1.2f\n", maxr);
+	    pr(" %5.2f\n", maxr);
     }
     player->simulation = 0;
     if (nsect == 0) {
