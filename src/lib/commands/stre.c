@@ -94,7 +94,7 @@ stre(void)
 	r_total = att_reacting_units(def, 0, 0, &dummy, 9999999);
 	def->own = 0;
 	eff = att_combat_eff(def);
-	if (sect.sct_own == sect.sct_oldown) {
+	if (sect.sct_own == sect.sct_oldown || player->god) {
 	    if (sect.sct_mines > 0)
 		pr("%7d", sect.sct_mines);
 	    else
