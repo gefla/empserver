@@ -40,8 +40,6 @@ struct tagstruct {
 };
 
 extern struct tagstruct *taglist;
-extern s_char buf[4096];
-extern s_char exec[8];
 
 void io_init(void);
 s_char *gettag(s_char *p);

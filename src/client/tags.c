@@ -43,17 +43,11 @@
 #endif
 
 struct tagstruct *taglist;
-s_char buf[4096];
-s_char exec[8];
-static unsigned short tagnum;
 
 void
 io_init(void)
 {
     taglist = NULL;
-    buf[0] = 0;
-    tagnum = 0;
-    sprintf(exec, "execute");
 }
 
 s_char *

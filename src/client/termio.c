@@ -47,12 +47,14 @@
 int
 termio(int fd, int sock, FILE *auxfi)
 {
+    static char exec[] = "execute";
+    static char buf[4096];
     s_char out[4096];
     int i, n;
     s_char *ptr;
     s_char *p, *q, *r, *s, *t;
     int nbytes;
-    int numarg, prespace, exec_com, inarg, quoted, tagging;
+    int prespace, exec_com, inarg, quoted, tagging;
     struct tagstruct *tag;
 #ifdef _WIN32
     char c;
@@ -123,11 +125,11 @@ termio(int fd, int sock, FILE *auxfi)
     p = buf;
     q = out;
     r = out;
-    numarg = 0;
     tagging = 0;
     inarg = 0;
     prespace = 1;
     quoted = 0;
+    exec_com = 0;
     while (p < buf + n && q < out + 4000) {
 	if (*p == '\n') {
 	    if (tagging) {
@@ -141,11 +143,11 @@ termio(int fd, int sock, FILE *auxfi)
 		*t = 0;
 	    }
 	    *q++ = *p++;
-	    numarg = 0;
 	    tagging = 0;
 	    inarg = 0;
 	    prespace = 1;
 	    quoted = 0;
+	    exec_com = 0;
 	    ptr = p;
 	    r = q;
 	} else if (tagging) {
@@ -153,7 +155,7 @@ termio(int fd, int sock, FILE *auxfi)
 	} else if (!quoted && isspace(*p)) {
 	    *q++ = *p++;
 	    prespace = 1;
-	    if (numarg == 1 && exec_com && s > exec + 2) {
+	    if (exec_com && s > exec + 2) {
 		tagging = 1;
 		s = p;
 	    }
@@ -175,10 +177,9 @@ termio(int fd, int sock, FILE *auxfi)
 		if (!inarg && *p != '?') {
 		    s = exec;
 		    exec_com = 1;
-		    numarg++;
+		    inarg = 1;
 		}
-		inarg = 1;
-		if (*s && *s++ != *p)
+		if (exec_com && *s && *s++ != *p)
 		    exec_com = 0;
 	    }
 	    *q++ = *p++;
