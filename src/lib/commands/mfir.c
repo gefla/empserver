@@ -305,7 +305,6 @@ multifire(void)
 	    y = vsect.sct_y;
 	}
 	if (attacker == targ_ship) {
-	    shots = -1;		/* convert to max later */
 	    if (fship.shp_own != player->cnum) {
 		pr("Not your ship!\n");
 		continue;
@@ -368,12 +367,7 @@ multifire(void)
 	    gun = min(gun, shell * 2);
 	    gun = min(gun, mil / 2);
 	    gun = max(gun, 1);
-	    if (shots > gun || shots < 0)
-		shots = gun;
-	    else if (shots == 0) {
-		pr("No shots fired.\n");
-		continue;
-	    }
+	    shots = gun;
 	    guneff = seagun(fship.shp_effic, shots);
 	    dam = (int)guneff;
 	    shell -= ldround(((double)shots) / 2.0, 1);
