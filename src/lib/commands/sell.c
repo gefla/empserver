@@ -128,25 +128,9 @@ sell(void)
     if (price > 1000.0)		/* Inf can cause overflow */
 	price = 1000.0;		/* bailey@math-cs.kent.edu */
     totalcom = 0;
-    /*
-     * military control necessary to sell
-     * goodies in occupied territory.
-     */
-    if (sect.sct_oldown != player->cnum) {
-	int tot_mil = 0;
-	struct nstr_item ni;
-	struct lndstr land;
-
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
-	    if (land.lnd_own == player->cnum)
-		tot_mil += total_mil(&land);
-	}
-	if (((tot_mil + sect.sct_item[I_MILIT]) * 10)
-	    < sect.sct_item[I_CIVIL]) {
-	    pr("Military control required to sell goods.\n");
-	    return RET_FAIL;
-	}
+    if (!military_control(&sect)) {
+	pr("Military control required to sell goods.\n");
+	return RET_FAIL;
     }
     if ((amt = sect.sct_item[ip->i_vtype]) == 0) {
 	pr("You don't have any %s to sell there.\n", ip->i_name);

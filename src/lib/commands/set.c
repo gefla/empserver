@@ -96,24 +96,9 @@ set(void)
 	if (!player->owner && !player->god)
 	    continue;
 	getsect(item.gen.trg_x, item.gen.trg_y, &sect);
-	/*
-	 * military control necessary to sell
-	 * goodies in occupied territory.
-	 */
-	if (sect.sct_oldown != player->cnum && !player->god) {
-	    int tot_mil = 0;
-	    struct nstr_item ni;
-	    struct lndstr land;
-	    snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	    while (nxtitem(&ni, (s_char *)&land)) {
-		if (land.lnd_own == player->cnum)
-		    tot_mil += total_mil(&land);
-	    }
-	    if (tot_mil + sect.sct_item[I_MILIT] * 10
-		< sect.sct_item[I_CIVIL]) {
-		pr("Military control required to sell goods.\n");
-		return RET_FAIL;
-	    }
+	if (!military_control(&sect)) {
+	    pr("Military control required to sell goods.\n");
+	    return RET_FAIL;
 	}
 	trade.trd_type = type;
 	sprintf(prompt, "%s #%d; Price? ",

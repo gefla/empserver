@@ -153,23 +153,9 @@ tran_nuke(void)
 	else
 	    return RET_FAIL;
     }
-    /*
-     * military control necessary to move
-     * goodies in occupied territory.
-     */
-    if (sect.sct_oldown != player->cnum) {
-	int tot_mil = 0;
-	struct nstr_item ni;
-	struct lndstr land;
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
-	    if (land.lnd_own == player->cnum)
-		tot_mil += total_mil(&land);
-	}
-	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
-	    pr("Military control required to move goods.\n");
-	    return RET_FAIL;
-	}
+    if (!military_control(&sect)) {
+	pr("Military control required to move nukes.\n");
+	return RET_FAIL;
     }
     dam = 0;
     mcost = move_ground((s_char *)&nuke, &sect, &endsect,
@@ -269,22 +255,13 @@ tran_plane(void)
 	/* no planes */
 	return RET_FAIL;
     }
-    getsect(srcx, srcy, &sect);
-    /*
-     * military control necessary to move
-     * goodies in occupied territory.
-     */
-    if (sect.sct_oldown != player->cnum) {
-	int tot_mil = 0;
-	struct nstr_item ni;
-	struct lndstr land;
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land))
-	    tot_mil += total_mil(&land);
-	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
-	    pr("Military control required to move goods.\n");
-	    return RET_FAIL;
-	}
+    if (!getsect(srcx, srcy, &sect) || !player->owner) {
+	pr("You don't own %s\n", xyas(srcx, srcy, player->cnum));
+	return RET_FAIL;
+    }
+    if (!military_control(&sect)) {
+	pr("Military control required to move planes.\n");
+	return RET_FAIL;
     }
     dam = 1;
     mcost = move_ground((s_char *)&plane, &sect, &endsect,

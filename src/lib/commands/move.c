@@ -95,15 +95,7 @@ move(void)
      * goodies in occupied territory.
      */
     if (!istest && sect.sct_oldown != player->cnum && vtype != I_MILIT) {
-	int tot_mil = 0;
-	struct nstr_item ni;
-	struct lndstr land;
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
-	    if (land.lnd_own == player->cnum)
-		tot_mil += total_mil(&land);
-	}
-	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
+	if (!military_control(&sect)) {
 	    pr("Military control required to move goods.\n");
 	    return RET_FAIL;
 	}
