@@ -78,7 +78,7 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
     }
     dp = &dchr[from->sct_type];
     vtype = ip->i_vtype;
-    pack_src = ip->i_pkg[dp->d_pkg];
+    pack_src = ip->i_pkg[from->sct_effic >= 60 ? dp->d_pkg : NPKG];
     mobility = from->sct_mobil / 2;
     if (vtype == I_CIVIL && from->sct_own != from->sct_oldown) {
 	wu(0, from->sct_own,
