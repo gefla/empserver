@@ -86,23 +86,24 @@ main(int ac, s_char **av)
     struct timeval tm;
     DWORD stdinmode;
     SECURITY_ATTRIBUTES security;
-#endif
+    int bRedirected = 0;
+    char unamebuf[128];
+#else
     fd_set mask;
+    fd_set savemask;
+    int retry = 0;
+#endif
     struct ioqueue server;
     s_char *argv[128];
     int i, j;
     s_char *ptr;
     s_char *auxout_fname;
     FILE *auxout_fp;
-#ifndef _WIN32
-    fd_set savemask;
-    struct passwd *pwd;
-#endif
     struct sockaddr_in sin;
     int n;
     s_char *cname;
     s_char *pname;
-    int retry = 0;
+    s_char *uname;
     int send_kill = 0;
 
 #ifdef _WIN32
@@ -141,13 +142,6 @@ main(int ac, s_char **av)
 	fprintf(stderr, "Unable to open %s for append\n", auxout_fname);
 	exit(1);
     }
-#ifndef _WIN32
-    pwd = getpwuid(getuid());
-    if (pwd == NULL) {
-	fprintf(stderr, "You don't exist.  Go away\n");
-	exit(1);
-    }
-#endif
     getsose();
     if (!hostport(getenv("EMPIREPORT"), &sin) &&
 	!hostport("empire", &sin) && !hostport(empireport, &sin)) {
@@ -162,23 +156,42 @@ main(int ac, s_char **av)
     if ((sock = hostconnect(&sin)) < 0)
 	exit(1);
     cname = getenv("COUNTRY");
-    pname = getenv("PLAYER");
     if (ac > 1)
 	cname = argv[1];
+    pname = getenv("PLAYER");
     if (ac > 2)
 	pname = argv[2];
+    uname = getenv("LOGNAME");
+    if (uname == NULL) {
 #ifndef _WIN32
-    if (!login(sock, pwd->pw_name, cname, pname, send_kill)) {
+	struct passwd *pwd;
+
+	pwd = getpwuid(getuid());
+	if (pwd == NULL) {
+	    fprintf(stderr, "You don't exist.  Go away\n");
+	    exit(1);
+	}
+	uname = pwd->pw_name;
 #else
-    if (!login(sock, "nobody", cname, pname, send_kill)) {
+	DWORD unamesize;
+
+	unamesize = sizeof(unamebuf);
+	if (GetUserName(unamebuf, &unamesize)) {
+	    uname = unamebuf;
+	    if ((unamesize <= 0 ) || (strlen(uname) <= 0))
+		uname = "nobody";
+	} else
+	    uname = "nobody";
 #endif
+    }
+    if (!login(sock, uname, cname, pname, send_kill)) {
 	close(sock);
 	exit(1);
     }
     ioq_init(&server, 2048);
     io_init();
-    FD_ZERO(&mask);
 #ifndef _WIN32
+    FD_ZERO(&mask);
     FD_SET(0, &savemask);
     FD_SET(sock, &savemask);
 #endif
@@ -219,31 +232,41 @@ main(int ac, s_char **av)
 	}
     }
 #else
+    bRedirected = 0;
     tm.tv_sec = 0;
     tm.tv_usec = 1000;
 
-    security.nLength = sizeof(SECURITY_ATTRIBUTES);
-    security.lpSecurityDescriptor = NULL;
-    security.bInheritHandle = TRUE;
-    hStdIn = CreateFile("CONIN$",
-			GENERIC_READ | GENERIC_WRITE,
-			FILE_SHARE_READ | FILE_SHARE_WRITE,
-			&security, OPEN_EXISTING, (DWORD) NULL, NULL);
-
-    if (hStdIn == INVALID_HANDLE_VALUE) {
-	printf("Error getting hStdIn.\n");
-	fflush(stdout);
-    }
-    err = GetConsoleMode(hStdIn, &stdinmode);
-    if (!err) {
-	printf("Error getting console mode.\n");
-	fflush(stdout);
-    }
-    stdinmode |= ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT;
-    err = SetConsoleMode(hStdIn, stdinmode);
-    if (!err) {
-	printf("Error setting console mode.\n");
-	fflush(stdout);
+    if (!_isatty(_fileno(stdin)))
+	bRedirected = 1;
+    else {
+	security.nLength = sizeof(SECURITY_ATTRIBUTES);
+	security.lpSecurityDescriptor = NULL;
+	security.bInheritHandle = TRUE;
+	hStdIn = CreateFile("CONIN$",
+			    GENERIC_READ | GENERIC_WRITE,
+			    FILE_SHARE_READ | FILE_SHARE_WRITE,
+			    &security, OPEN_EXISTING, (DWORD) NULL, NULL);
+	
+	if (hStdIn == INVALID_HANDLE_VALUE) {
+	    printf("Error getting hStdIn.\n");
+	    fflush(stdout);
+	    exit(-3);
+	}
+	
+	err = GetConsoleMode(hStdIn, &stdinmode);
+	if (!err) {
+	    printf("Error getting console mode.\n");
+	    fflush(stdout);
+	    exit(-4);
+	} else {
+	    stdinmode |= ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT;
+	    err = SetConsoleMode(hStdIn, stdinmode);
+	    if (!err) {
+		printf("Error setting console mode.\n");
+		fflush(stdout);
+		exit(-5);
+	    }
+	}
     }
     while (1) {
 	FD_ZERO(&readfds);
@@ -263,15 +286,14 @@ main(int ac, s_char **av)
 		break;
 	    }
 	} else {
-	    if (WaitForSingleObject(hStdIn, 10) != WAIT_TIMEOUT) {
-		if (!termio(-1, sock, auxout_fp)) {
-		    if (retry++ >= RETRY) {
-			;
-		    }
-		} else {
-		    retry = 0;
+	    if (bRedirected == 1) {
+		if (!termio(0, sock, auxout_fp))
+		    bRedirected = -1;
+	    } else if (bRedirected == 0) {
+		if (WaitForSingleObject(hStdIn, 10) != WAIT_TIMEOUT) {
+		    termio(-1, sock, auxout_fp);
+		    FlushConsoleInputBuffer(hStdIn);
 		}
-		FlushConsoleInputBuffer(hStdIn);
 	    }
 	    if (FD_ISSET(sock, &readfds)) {
 		if (!serverio(sock, &server))
@@ -281,11 +303,11 @@ main(int ac, s_char **av)
 	    }
 	}
     }
-    CloseHandle(hStdIn);
+    if (bRedirected == 0)
+	CloseHandle(hStdIn);
 #endif
     ioq_drain(&server);
     (void)close(sock);
-    exit(0);
     return 0;			/* Shut the compiler up */
 }
 

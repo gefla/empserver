@@ -99,6 +99,13 @@ termio(int fd, int sock, FILE *auxfi)
 	}
 	FlushConsoleInputBuffer(hStdIn);
 	if (n == 0) return 1;
+    } else if (fd == 0) {
+	if (feof(stdin)) {
+	    sendeof(sock);
+	    return 0;
+	}
+	fgets(p, sizeof(buf) - i, stdin);
+	n = strlen(p);
     } else {
 	n = read(fd, p, sizeof(buf) - i);
     }
