@@ -34,6 +34,8 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
+#include "misc.h"
+
 typedef enum {
     IPKG,			/* "inefficient" packaging (eff<60) */
     NPKG,			/* no special packaging */
