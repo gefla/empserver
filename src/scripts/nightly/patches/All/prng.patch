@@ -6,4 +6,32 @@ Index: empserver/Make.sysdefs
  VAXULTLFLAGS =
  VAXULTMASTER = GLOBALCFLAGS="$(VAXULTCFLAGS)" GLOBALLFLAGS="$(VAXULTLFLAGS)"
 +
-+GLOBALLFLAGS += -DRANDOM=rand48 -DSRANDOM=srand48
++GLOBALCFLAGS += -DRANDOM=lrand48 -DSRANDOM=srand48 -DNIGHTLY
+Index: empserver/src/lib/gen/chance.c
+--- empserver/src/lib/gen/chance.c	Tue Sep  2 22:48:48 2003
++++ empserver/src/lib/gen/chance.c	Sun Jun 20 15:51:09 2004
+@@ -33,21 +33,17 @@
+ 
+ #include "gen.h"
+ 
+-#ifdef hpux
++#ifdef NIGHTLY
+ void
+ srandom(unsigned int n)
+ {
+-    extern void srand48();
+-
+-    srand48(n);
++    SRANDOM(0);
+ }
+ 
+ long
+ random(void)
+ {
+-    extern long lrand48();
+-
+-    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
++    return (RANDOM());		/* 5/28/91 by bailey@mcs.kent.edu */
+ }
+ #endif
+ 
