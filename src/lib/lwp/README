@@ -1,0 +1,9 @@
+This little user space thread library was derived from Stephen Crane's
+REX, described in:
+
+  S. Crane, The REX Lightweight Process Library, Department of
+  Computing, Imperial College of Science, Technology and Medicine,
+  London, 1993.
+
+The original code may still float around on the web.  Try to search
+for lwp-0.1.tar.gz.
