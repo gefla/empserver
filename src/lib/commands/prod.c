@@ -87,7 +87,7 @@ prod(void)
     int wforce;
     i_type it;
     i_type vtype;
-    s_char *resource;
+    u_char *resource;
     s_char maxc[MAXPRCON][10];
     s_char use[MAXPRCON][10];
     int lcms, hcms;
@@ -204,7 +204,7 @@ prod(void)
 	    goto is_enlist;
 	if (pp->p_nrndx != 0) {
 	    unit_work++;
-	    resource = ((s_char *)&sect) + pp->p_nrndx;
+	    resource = (u_char *)&sect + pp->p_nrndx;
 	    p_e = (*resource * p_e) / 100.0;
 	}
 	/*
