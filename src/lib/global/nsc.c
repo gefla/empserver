@@ -103,7 +103,6 @@ struct castr var_ca[] = {
 };
 
 struct castr sect_ca[] = {
-#ifndef apollo
     {NSC_UCHAR | fldoff(sctstr, sct_own), "owner", 0, 0},
     {NSC_XCOORD | fldoff(sctstr, sct_x), "xloc", 0, 0},
     {NSC_YCOORD | fldoff(sctstr, sct_y), "yloc", 0, 0},
@@ -132,7 +131,6 @@ struct castr sect_ca[] = {
     {NSC_UCHAR | fldoff(sctstr, sct_rail), "rail", 0, 0},
     {NSC_UCHAR | fldoff(sctstr, sct_defense), "dfense", 0, 0},
     {NSC_TIME | fldoff(sctstr, sct_timestamp), "timestamp", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
@@ -152,14 +150,11 @@ struct castr sect_ca[] = {
 { NSC_SHORT | fldoff(genitem, mission), "mission",0,0 }
 
 struct castr genitem_ca[] = {
-#ifndef apollo
     NSC_GENITEM,
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr ship_ca[] = {
-#ifndef apollo
     NSC_GENITEM,
     {NSC_CHAR | fldoff(shpstr, shp_fleet), "fleet", 0, 0},
     {NSC_CHAR | fldoff(shpstr, shp_nplane), "nplane", 0, 0},
@@ -168,12 +163,10 @@ struct castr ship_ca[] = {
     {NSC_UCHAR | fldoff(shpstr, shp_nxlight), "nxlight", 0, 0},
     {NSC_UCHAR | fldoff(shpstr, shp_nchoppers), "nchoppers", 0, 0},
     {NSC_UCHAR | fldoff(shpstr, shp_autonav), "autonav", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr plane_ca[] = {
-#ifndef apollo
     NSC_GENITEM,
     {NSC_UCHAR | fldoff(plnstr, pln_wing), "wing", 0, 0},
     {NSC_UCHAR | fldoff(plnstr, pln_range), "range", 0, 0},
@@ -185,12 +178,10 @@ struct castr plane_ca[] = {
     {NSC_UCHAR | fldoff(plnstr, pln_flags), "flags", 0, 0},
     {NSC_SHORT | fldoff(plnstr, pln_land), "land", 0, 0},
     {NSC_TIME | fldoff(plnstr, pln_timestamp), "timestamp", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr land_ca[] = {
-#ifndef apollo
     NSC_GENITEM,
     {NSC_CHAR | fldoff(lndstr, lnd_army), "army", 0, 0},
     {NSC_SHORT | fldoff(lndstr, lnd_ship), "ship", 0, 0},
@@ -215,12 +206,10 @@ struct castr land_ca[] = {
     {NSC_UCHAR | fldoff(lndstr, lnd_fuelu), "fuelu", 0, 0},
     {NSC_UCHAR | fldoff(lndstr, lnd_maxlight), "maxlight", 0, 0},
     {NSC_TIME | fldoff(lndstr, lnd_timestamp), "timestamp", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr nuke_ca[] = {
-#ifndef apollo
     {NSC_UCHAR | fldoff(nukstr, nuk_own), "owner", 0, 0},
     {NSC_SHORT | fldoff(nukstr, nuk_uid), "uid", 0, 0},
     {NSC_XCOORD | fldoff(nukstr, nuk_x), "xloc", 0, 0},
@@ -232,24 +221,20 @@ struct castr nuke_ca[] = {
     {NSC_CHAR | fldoff(nukstr, nuk_types), "types", N_MAXNUKE, 0},
 #endif
     {NSC_TIME | fldoff(nukstr, nuk_timestamp), "timestamp", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr treaty_ca[] = {
-#ifndef apollo
     {NSC_UCHAR | fldoff(trtstr, trt_cna), "cna", 0, 0},
     {NSC_UCHAR | fldoff(trtstr, trt_cnb), "cnb", 0, 0},
     {NSC_UCHAR | fldoff(trtstr, trt_status), "status", 0, 0},
     {NSC_SHORT | fldoff(trtstr, trt_acond), "acond", 0, 0},
     {NSC_SHORT | fldoff(trtstr, trt_bcond), "bcond", 0, 0},
     {NSC_LONG | fldoff(trtstr, trt_exp), "exp", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr loan_ca[] = {
-#ifndef apollo
     {NSC_UCHAR | fldoff(lonstr, l_loner), "loaner", 0, 0},
     {NSC_SHORT | fldoff(lonstr, l_uid), "uid", 0, 0},
     {NSC_UCHAR | fldoff(lonstr, l_lonee), "loanee", 0, 0},
@@ -261,18 +246,15 @@ struct castr loan_ca[] = {
     {NSC_LONG | fldoff(lonstr, l_amtdue), "amtdue", 0, 0},
     {NSC_TIME | fldoff(lonstr, l_lastpay), "lastpay", 0, 0},
     {NSC_TIME | fldoff(lonstr, l_duedate), "duedate", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
 struct castr news_ca[] = {
-#ifndef apollo
     {NSC_CHAR | fldoff(nwsstr, nws_ano), "actor", 0, 0},
     {NSC_CHAR | fldoff(nwsstr, nws_vrb), "action", 0, 0},
     {NSC_CHAR | fldoff(nwsstr, nws_vno), "victim", 0, 0},
     {NSC_CHAR | fldoff(nwsstr, nws_ntm), "times", 0, 0},
     {NSC_LONG | fldoff(nwsstr, nws_when), "time", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
@@ -303,7 +285,6 @@ struct castr commodity_ca[] = {
 };
 
 struct castr trade_ca[] = {
-#ifndef apollo
     {NSC_UCHAR | fldoff(trdstr, trd_owner), "owner", 0, 0},
     {NSC_SHORT | fldoff(trdstr, trd_uid), "uid", 0, 0},
     {NSC_UCHAR | fldoff(trdstr, trd_type), "type", 0, 0},
@@ -314,7 +295,6 @@ struct castr trade_ca[] = {
     {NSC_TIME | fldoff(trdstr, trd_markettime), "markettime", 0, 0},
     {NSC_XCOORD | fldoff(trdstr, trd_x), "xloc", 0, 0},
     {NSC_YCOORD | fldoff(trdstr, trd_y), "yloc", 0, 0},
-#endif
     {0, 0, 0, 0}
 };
 
