@@ -289,6 +289,8 @@ loc_SleepThisThread(unsigned long ulMillisecs)
 void
 empth_threadMain(void *pvData)
 {
+    time_t now;
+
     loc_Thread_t *pThread = (loc_Thread_t *)pvData;
 
     /* Out of here... */
@@ -303,6 +305,10 @@ empth_threadMain(void *pvData)
 
     /* Signal that the thread has started. */
     SetEvent(loc_GVAR.hThreadStartEvent);
+
+    /* seed the rand() function */
+    time(&now);
+    srand(now ^ (unsigned int)pThread);
 
     /* Switch to this thread context */
     loc_RunThisThread();
