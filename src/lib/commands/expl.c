@@ -71,8 +71,7 @@ explore(void)
     s_char buf[1024];
     s_char prompt[128];
 
-    if ((ip =
-	 whatitem(player->argp[1], "explore with what? (civ/mil) ")) == 0)
+    if (!(ip = whatitem(player->argp[1], "explore with what? (civ/mil) ")))
 	return RET_SYN;
     vtype = ip->i_vtype;
     if ((vtype != V_CIVIL) && (vtype != V_MILIT)) {
@@ -232,9 +231,6 @@ explore(void)
 	    return RET_FAIL;
 	}
     }
-    getsect(start.sct_x, start.sct_y, &start);
-    start.sct_flags &= ~MOVE_IN_PROGRESS;
-    putsect(&start);
     amt_dst = sect.sct_item[vtype];
     if (amount > ITEM_MAX - amt_dst) {
 	amount = ITEM_MAX - amt_dst;
@@ -267,6 +263,9 @@ explore(void)
 	    = (amt_dst * sect.sct_work + amount * work) / (amt_dst + amount);
     }
     putsect(&sect);
+    getsect(start.sct_x, start.sct_y, &start);
+    start.sct_flags &= ~MOVE_IN_PROGRESS;
+    putsect(&start);
     return RET_OK;
 }
 
