@@ -244,7 +244,7 @@ struct castr loan_ca[] = {
 
 struct castr news_ca[] = {
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor"},
-    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
+    {NSC_TYPEID, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim"},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times"},
     {NSC_TIME, 0, 0, fldoff(nwsstr, nws_when), "time"},
@@ -320,7 +320,10 @@ struct castr nat_ca[] = {
     {NSC_TIME, 0, 0, fldoff(natstr, nat_last_logout), "last_logout"},
     {NSC_TIME, 0, 0, fldoff(natstr, nat_newstim), "newstim"},
 #endif /* MAYBE_LATER */
-    {NSC_FLOAT, 0, 4, fldoff(natstr, nat_level[0]), "level"},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_TLEV]), "tech"},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_RLEV]), "research"},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_ELEV]), "education"},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness"},
 #if 0
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate[0]),"relate"},
     {NSC_CHAR, 0, PRI_MAX+1, fldoff(natstr, nat_priorities[0]),"priorities"},
