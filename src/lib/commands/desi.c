@@ -150,10 +150,6 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	    continue;
 	if (sect.sct_type == SCT_SANCT)
 	    breaksanct++;
-	if (sect.sct_x == cap_x && sect.sct_y == cap_y &&
-	    des != SCT_CAPIT && des != SCT_SANCT &&
-	    des != SCT_MOUNT && for_real)
-	    pr("You have redesignated your capital!\n");
 	if (des == SCT_HARBR) {
 	    for (n = 1; n <= 6; n++) {
 		getsect(nstr.x + diroff[n][0],
@@ -204,9 +200,8 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	if ((sect.sct_newtype != des) && (sect.sct_type != des)
 	    && dchr[des].d_cost) {
 	    if (for_real) {
-		if (check_cost
-		    (!deschar, dchr[des].d_cost, cash, &warned,
-		     player->argp[3]))
+		if (check_cost(!deschar, dchr[des].d_cost, cash, &warned,
+			       player->argp[3]))
 		    break;
 	    } else {
 		cost += dchr[des].d_cost;
@@ -216,15 +211,15 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	if (sect.sct_effic < 5 || player->god) {
 	    sect.sct_type = des;
 	    sect.sct_effic = 0;
-	    /* No longer tear down infrasturcture
-	       sect.sct_road = 0;
-	       sect.sct_defense = 0;
-	     */
 	    changed += map_set(player->cnum, sect.sct_x, sect.sct_y,
 			       dchr[des].d_mnem, 0);
 	}
 	sect.sct_newtype = des;
 	putsect(&sect);
+	if (sect.sct_x == cap_x && sect.sct_y == cap_y
+	    && des != SCT_CAPIT && des != SCT_SANCT && des != SCT_MOUNT
+	    && for_real)
+	    pr("You have redesignated your capital!\n");
 	if (opt_EASY_BRIDGES == 0) {	/* may cause a bridge fall */
 	    if (n != SCT_BHEAD)
 		continue;
