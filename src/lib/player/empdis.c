@@ -112,7 +112,6 @@ log_last_commands(void)
 int
 explain(void)
 {
-    extern struct cmndstr player_coms[];
     register s_char *format;
     register int i;
 

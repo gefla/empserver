@@ -46,6 +46,6 @@ struct cmndstr {
 
 /* variables associated with this stuff */
 
-extern struct cmndstr coms[];
+extern struct cmndstr player_coms[];
 
 #endif /* _COM_H_ */

@@ -49,7 +49,6 @@
 int
 dispatch(s_char *buf, s_char *redir)
 {
-    extern struct cmndstr player_coms[];
     struct natstr *np;
     struct cmndstr *command;
     int cmd;
