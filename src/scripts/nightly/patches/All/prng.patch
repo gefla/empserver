@@ -1,0 +1,9 @@
+Index: empserver/Make.sysdefs
+--- empserver/Make.sysdefs	Sun Mar 21 16:44:42 2004
++++ empserver/Make.sysdefs	Sat Jun 19 15:45:43 2004
+@@ -158,3 +158,5 @@
+ VAXULTCFLAGS = -O -DNOSTRDUP -DPOSIXSIGNALS
+ VAXULTLFLAGS =
+ VAXULTMASTER = GLOBALCFLAGS="$(VAXULTCFLAGS)" GLOBALLFLAGS="$(VAXULTLFLAGS)"
++
++GLOBALLFLAGS += -DRANDOM=rand48 -DSRANDOM=srand48
