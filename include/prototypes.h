@@ -604,6 +604,7 @@ extern int prod_plane(int, int, int *, int);
 extern void populace(struct natstr *, register struct sctstr *, int);
 extern int total_work(register int, register int, register int,
 		      register int, register int);
+extern double prod_eff(struct pchrstr *, float);
 /* prepare.c */
 extern void tax(struct sctstr *, struct natstr *, int, long *, int *,
 		int *, int *);
