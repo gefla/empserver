@@ -90,8 +90,8 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 	cash *= (((float)sp->shp_effic) / 100.0);
 
 	if (sect.sct_own != sp->shp_own) {
-	    cash *= (1.0 + trade_ally_bonus);
 	    ally_cash = cash * trade_ally_cut;
+	    cash *= (1.0 + trade_ally_bonus);
 	}
     }
 
