@@ -61,14 +61,12 @@ parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
     if (condp != 0)
 	*condp = 0;
     for (argnum = 0; *buf && argnum < 100;) {
-	arg[argnum] = bp1;
-	argnum++;
 	while (isspace(*buf))
 	    buf++;
+	if (!*buf)
+	    break;
 	if (redir && (*buf == '>' || *buf == '|')) {
 	    *redir = buf;
-	    argnum--;
-	    arg[argnum] = 0;
 	    break;
 	}
 	quoted = 0;
@@ -87,7 +85,9 @@ parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
 	*bp1++ = 0;
 	if (*bp2 == '?' && condp != 0) {
 	    *condp = bp2 + 1;
-	    argnum--;
+	} else {
+	    arg[argnum] = bp2;
+	    argnum++;
 	}
     }
     arg[argnum] = 0;
