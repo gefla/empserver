@@ -141,7 +141,7 @@ prod(void)
 	    }
 	    if (work > 999) work = 999;
  	}
-	bwork = (int)((double)work / 2.0);
+	bwork = work / 2;
 
 	if (sect.sct_off)
 	    continue;
@@ -207,7 +207,7 @@ prod(void)
 	    bwork -= twork;
 	    eff += twork;
 	}
-	work = work / 2 + bwork;
+	work = (work + 1) / 2 + bwork;
 	if (eff < 60 || (type != SCT_ENLIST && eff < 61))
 	    continue;
 

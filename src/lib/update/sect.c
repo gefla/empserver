@@ -91,7 +91,7 @@ upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
 	     short *vec, int etu, int *desig, int sctwork, int *cost)
 {
     register int work_cost = 0;
-    int buildeff_work = (int)(*workp / 2);
+    int buildeff_work = *workp / 2;
     int n, hcms, lcms, neweff;
     u_char old_type = *desig;
 
@@ -159,7 +159,7 @@ upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
 	    }
 	}
     }
-    *workp = *workp / 2 + buildeff_work;
+    *workp = (*workp + 1) / 2 - buildeff_work;
 
     return neweff;
 }
