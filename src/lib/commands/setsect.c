@@ -63,7 +63,7 @@ setsector(void)
     s_char char0, char1;
 
     if ((what = getstarg(player->argp[1],
-			 "Give What (iron, gold, oil, uranium, fertility, owner, eff., Mob., Work, Avail., oldown, mines)? ",
+			 "Give What (iron, gold, oil, uranium, fertility, owner, eff., mob., work, avail., oldown, mines)? ",
 			 buf)) == 0)
 	return RET_SYN;
     char0 = what[0];
