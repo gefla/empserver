@@ -200,7 +200,6 @@ grab_sect(register struct sctstr *sp, natid to)
     struct plnstr *pp;
     struct lndstr *lp;
     struct nukstr *np;
-    int oldche;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr l;

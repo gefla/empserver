@@ -125,7 +125,6 @@ work(void)
 static int
 buildeff(struct sctstr *sp, int work, double *money)
 {
-    int vec[I_MAX + 1];
     register int work_cost;
     int n, hcms, lcms;
     int effdone = 0;

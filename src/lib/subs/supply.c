@@ -554,7 +554,7 @@ int
 use_supply(struct lndstr *lp)
 {
     struct lchrstr *lcp;
-    int vec[I_MAX + 1], shells_needed, shells, food, food_needed;
+    int shells_needed, shells, food, food_needed;
     int fuel_needed, fuel, petrol_needed, petrol;
 
     lcp = &lchr[(int)lp->lnd_type];

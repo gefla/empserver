@@ -74,7 +74,6 @@ spy(void)
     int i;
     coord *table;		/* sectors already seen */
     int t_len = 0;
-    int vec[I_MAX + 1];
     int nrecon;
     int nunits;
     struct nstr_sect nstr;

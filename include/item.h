@@ -49,7 +49,6 @@ struct ichrstr {
 /* variables using this structure */
 
 extern struct ichrstr ichr[];
-extern int maxitem;
 
 /* procedures using/returning this struct */
 
