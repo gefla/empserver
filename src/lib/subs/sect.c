@@ -75,10 +75,25 @@ sct_prewrite(int id, s_char *ptr)
     return 1;
 }
 
+void
+item_prewrite(short *item)
+{
+    int i;
+
+    for (i = 0; i <= I_MAX; ++i) {
+	if (CANT_HAPPEN(item[i] < 0))
+	    item[i] = 0;
+	else if (CANT_HAPPEN(item[i] > ITEM_MAX))
+	    item[i] = ITEM_MAX;
+    }
+}
+
 static int
 checksect(struct sctstr *sp)
 {
     int mil, civs, loyalcivs;
+
+    item_prewrite(sp->sct_item);
 
     /* shouldn't happen, but... */
     if (sp->sct_mobil > 127)

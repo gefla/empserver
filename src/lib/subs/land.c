@@ -155,8 +155,10 @@ lnd_prewrite(int n, s_char *ptr)
 		putplane(pp->pln_uid, pp);
 	    }
 	}
-    } else
+    } else {
+	item_prewrite(llp->lnd_item);
 	getland(n, &land);
+    }
 
     return 1;
 }

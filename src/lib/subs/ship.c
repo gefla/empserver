@@ -108,8 +108,10 @@ shp_prewrite(int n, s_char *ptr)
 		putplane(pp->pln_uid, pp);
 	    }
 	}
-    } else
+    } else {
+	item_prewrite(sp->shp_item);
 	getship(n, &ship);
+    }
 
     return 1;
 }

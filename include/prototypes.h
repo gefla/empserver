@@ -467,6 +467,7 @@ extern void sathead(void);
 /* sect.c */
 extern int sct_postread(int, s_char *);
 extern int sct_prewrite(int, s_char *);
+extern void item_prewrite(short *);
 extern int issector(s_char *);
 extern void sct_init(coord, coord, s_char *);
 /* ship.c */
