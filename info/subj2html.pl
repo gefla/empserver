@@ -7,12 +7,16 @@ my $dome = 0;
 my $esc="\\";
 my @a;
 
+print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n";
+print "   \"http://www.w3.org/TR/html4/strict.dtd\">\n";
+print "<html>\n";
+print "<head>\n";
+
 line: while (<>) {
     chomp;			# strip record separator
     s/([^\\](\\\\)*)\\\".*/$1/g; # strip comments
 
     @a = req($_);
-
     if (!@a) {
 	if ($dome) {
 	    while ($_ =~ /[A-Za-z0-9\-\.]+/g) {
@@ -30,7 +34,11 @@ line: while (<>) {
     if ($a[1] eq "TH") {
 	@a = checkarg(2, @a);
 	$a[3] = htmlify($a[3]);
-	print "<title>$a[2] : $a[3]</title><h1>$a[2] : $a[3]</h1>\n";
+	print "<title>$a[2] : $a[3]</title>\n";
+	print "</head>\n";
+	print "<body>\n";
+	print "<h1>$a[2] : $a[3]</h1>\n";
+	print "<p>\n";
 	next line;
     }
 
@@ -58,7 +66,7 @@ line: while (<>) {
 
     if ($a[1] =~ /NF|nf/i) { $dome = 1; printf (("<p><pre>\n")); next line; }
     if ($a[1] =~ /FI|fi/i) { $dome = 0; printf (("</pre><p>\n")); next line; }
-    if ($a[1] eq "s1") { printf (("<hr> \n")); next line; }
+    if ($a[1] eq "s1") { printf (("<hr><p>\n")); next line; }
     if ($a[1] eq "br") { printf "<br>\n"; next line; }
 
     if ($a[1] eq "SA") {
@@ -73,12 +81,15 @@ line: while (<>) {
     # ignore unknown request
 }
 
+print "</body>\n";
+print "</html>\n";
+
 sub req {
     local ($_) = @_;
-    if (/^([\.\'])[ \t]*([^ ]+) *(.*)/) {
+    if (/^([\.\'])[ \t]*([^ ]*) *(.*)/) {
 	my @a = ($1, $2);
 	$_ = $3;
-	while (/(\"((\\.|[^\\\"])*)(\"|\Z))|(([^ ]|\\.)+) */g) {
+	while (/\G(\"((\\.|[^\\\"])*)(\"|\Z))|\G(([^ ]|\\.)+) */g) {
 	    push(@a, $2 || $5);
 	}
 	return @a;
