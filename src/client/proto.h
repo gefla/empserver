@@ -46,9 +46,7 @@
 #define	LIST		5
 #define	CMD		6
 #define	CTLD		7
-#define WAT		8
-#define KILL		9
-#define GKILL		10	/* kill even if process stuck --ts */
+#define KILL		8
 
 #define	C_CMDOK		0x0
 #define	C_DATA		0x1
