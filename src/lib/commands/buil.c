@@ -52,17 +52,17 @@
 #include "commands.h"
 
 static int build_nuke(register struct sctstr *sp,
-		      register struct nchrstr *np, register int *vec);
+		      register struct nchrstr *np, short *vec);
 static int build_ship(register struct sctstr *sp,
-		      register struct mchrstr *mp, register int *vec,
+		      register struct mchrstr *mp, short *vec,
 		      int tlev);
 static int build_land(register struct sctstr *sp,
-		      register struct lchrstr *lp, register int *vec,
+		      register struct lchrstr *lp, short *vec,
 		      int tlev);
-static int build_bridge(register struct sctstr *sp, register int *vec);
-static int build_tower(register struct sctstr *sp, register int *vec);
+static int build_bridge(register struct sctstr *sp, short *vec);
+static int build_tower(register struct sctstr *sp, short *vec);
 static int build_plane(register struct sctstr *sp,
-		       register struct plchrstr *pp, register int *vec,
+		       register struct plchrstr *pp, short *vec,
 		       int tlev);
 
 static int cash;		/* static ok */
@@ -87,7 +87,6 @@ buil(void)
     struct plchrstr *pp;
     struct nchrstr *np;
     s_char *p;
-    int vec[I_MAX + 1];
     int gotsect = 0;
     int built;
     int hold, found, number = 1, x;
@@ -307,32 +306,30 @@ buil(void)
 	    gotsect++;
 	    if (!player->owner)
 		continue;
-	    getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	    switch (what) {
 	    case 'l':
-		built = build_land(&sect, lp, vec, tlev);
+		built = build_land(&sect, lp, sect.sct_item, tlev);
 		break;
 	    case 's':
-		built = build_ship(&sect, mp, vec, tlev);
+		built = build_ship(&sect, mp, sect.sct_item, tlev);
 		break;
 	    case 'b':
-		built = build_bridge(&sect, vec);
+		built = build_bridge(&sect, sect.sct_item);
 		break;
 	    case 't':
-		built = build_tower(&sect, vec);
+		built = build_tower(&sect, sect.sct_item);
 		break;
 	    case 'n':
-		built = build_nuke(&sect, np, vec);
+		built = build_nuke(&sect, np, sect.sct_item);
 		break;
 	    case 'p':
-		built = build_plane(&sect, pp, vec, tlev);
+		built = build_plane(&sect, pp, sect.sct_item, tlev);
 		break;
 	    default:
 		pr("internal error in build (%d)\n", what);
 		return RET_FAIL;
 	    }
 	    if (built) {
-		putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 		putsect(&sect);
 	    }
 	}
@@ -345,7 +342,7 @@ buil(void)
 
 static int
 build_ship(register struct sctstr *sp, register struct mchrstr *mp,
-	   register int *vec, int tlev)
+	   short *vec, int tlev)
 {
     struct shpstr ship;
     struct nstr_item nstr;
@@ -474,7 +471,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
 
 static int
 build_land(register struct sctstr *sp, register struct lchrstr *lp,
-	   register int *vec, int tlev)
+	   short *vec, int tlev)
 {
     struct lndstr land;
     struct nstr_item nstr;
@@ -613,24 +610,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     vec[I_GUN] -= gun;
     vec[I_SHELL] -= shell;
 
-/* Disabled autoloading of food onto units
-    max_amt = vl_find(V_FOOD, lp->l_vtype, lp->l_vamt, (int) lp->l_nv);
-    food_needed = (etu_per_update * eatrate) *
-	(vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW])+1;
-    if ((vec[I_FOOD]-max_amt) < food_needed)
-	max_amt = (vec[I_FOOD]-food_needed);
-
-    if (max_amt < 0)
-	max_amt = 0;
-
-    vec[I_FOOD] -= max_amt;
-
-    memset(lvec, 0, sizeof(lvec));
-    getvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
-    lvec[I_FOOD] += max_amt;
-    putvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
-*/
-
     if (sp->sct_pstage == PLG_INFECT)
 	land.lnd_pstage = PLG_EXPOSED;
     putland(nstr.cur, &land);
@@ -642,7 +621,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 }
 
 static int
-build_bridge(register struct sctstr *sp, register int *vec)
+build_bridge(register struct sctstr *sp, short *vec)
 {
     struct sctstr sect;
     int val;
@@ -795,7 +774,7 @@ build_bridge(register struct sctstr *sp, register int *vec)
 
 static int
 build_nuke(register struct sctstr *sp, register struct nchrstr *np,
-	   register int *vec)
+	   short *vec)
 {
     int w_p_eff;
     int points;
@@ -853,7 +832,7 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np,
 
 static int
 build_plane(register struct sctstr *sp, register struct plchrstr *pp,
-	    register int *vec, int tlev)
+	    short *vec, int tlev)
 {
     struct plnstr plane;
     int cost;
@@ -990,7 +969,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 }
 
 static int
-build_tower(register struct sctstr *sp, register int *vec)
+build_tower(register struct sctstr *sp, short *vec)
 {
     struct sctstr sect;
     int val;
