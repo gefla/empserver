@@ -168,7 +168,7 @@ You are encouraged to format multi-line comments like this:
 
         /*
 	 * Please use complete sentences, with proper grammer,
-	 * capitalization and puntuation.  Use two spaces between
+	 * capitalization and punctuation.  Use two spaces between
 	 * sentences.
 	 */
 
@@ -178,6 +178,13 @@ But please avoid elaborate boxes like this:
 	 * Such decorations are a waste of time, hard to edit, and *
 	 * ugly, too.                                              *
 	 ***********************************************************/
+
+Do not use
+
+	// C++/C99 comments
+
+because they are not portable C89.
+
 
 Conditional compilation
 
