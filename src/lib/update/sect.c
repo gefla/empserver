@@ -167,7 +167,7 @@ enlist(short *vec, int etu, int *cost)
 /* Fallout is calculated here. */
 
 static void
-meltitems(int etus, int fallout, int own, short *vec, i_type type, int x, int y,
+meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
 	  int uid)
 {
     i_type n;
