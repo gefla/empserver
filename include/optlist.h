@@ -177,6 +177,7 @@ extern double eatrate;
 extern double fcrate;
 extern double fgrate;
 extern double obrate;
+extern int rollover_avail_max;
 extern double decay_per_etu;
 extern double fallout_spread;
 extern float drnuke_const;

@@ -285,6 +285,8 @@ struct keymatch configkeys[] = {
      "Food growth rate (* fertility of sector)"},
     {"obrate", doubleset, (caddr_t)&obrate, 0,
      "Civilian birth rate"},
+    {"rollover_avail_max", intset, (caddr_t)&rollover_avail_max, 0,
+     "Maximum avail that can roll over an update"},
 
     {"", intset, (caddr_t)&emp_config_dummy, 0, "\n\n### Nukes"},
     {"decay_per_etu", doubleset, (caddr_t)&decay_per_etu, 0,

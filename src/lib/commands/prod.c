@@ -134,13 +134,7 @@ prod(void)
 	wforce = (int)(((double)civs * sect.sct_work) / 100.0
 		       + uws
 		       + sect.sct_item[I_MILIT] * 2.0 / 5.0);
-	work = (double)etu_per_update *(double)wforce / 100.0;
- 	if (opt_ROLLOVER_AVAIL) {
-	    if (sect.sct_type == sect.sct_newtype) {
-		work += sect.sct_avail;
-	    }
-	    if (work > 999) work = 999;
- 	}
+	work = new_work(&sect, wforce * etu_per_update / 100);
 	bwork = work / 2;
 
 	if (sect.sct_off)

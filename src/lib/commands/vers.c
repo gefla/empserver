@@ -95,6 +95,8 @@ vers(void)
     pr("1000 civilians generate $%.2f, uncompensated workers $%.2f each time unit.\n", 1000.0 * money_civ, 1000.0 * money_uw);
     pr("1000 active military cost $%.2f, reserves cost $%.2f.\n",
        -money_mil * 1000.0, -money_res * 1000.0);
+    if (rollover_avail_max)
+	pr("Up to %d avail can roll over an update.\n", rollover_avail_max);
     if (opt_SLOW_WAR)
 	pr("Declaring war will cost you $%i\n\n", War_Cost);
     pr("Happiness p.e. requires 1 happy stroller per %d civ.\n",

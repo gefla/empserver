@@ -80,12 +80,7 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     civvies = (vec[I_CIVIL] > maxpop) ? maxpop : vec[I_CIVIL];
     uws = (vec[I_UW] > maxpop) ? maxpop : vec[I_UW];
     mil = (vec[I_MILIT] > maxpop) ? maxpop : vec[I_MILIT];
-    work_avail = total_work(sctwork, etu, civvies, mil, uws);
-    if (opt_ROLLOVER_AVAIL) {
-	if (sp->sct_type == sp->sct_newtype) {
-	    work_avail += sp->sct_avail;
-	}
-    }
+    work_avail = new_work(sp, total_work(sctwork, etu, civvies, mil, uws));
 
     people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
     if (sp->sct_type != SCT_SANCT) {
@@ -147,6 +142,15 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     if (work_avail > 999) work_avail = 999;
     *workp = work_avail;
     return sctwork;
+}
+
+int
+new_work(struct sctstr *sp, int delta)
+{
+    if (sp->sct_type == sp->sct_newtype)
+	return min(rollover_avail_max, sp->sct_avail) + delta;
+
+    return delta;
 }
 
 static int

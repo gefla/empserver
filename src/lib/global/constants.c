@@ -119,6 +119,7 @@ double babyeat = 0.0060;	/* food to mature 1 baby into a civilian */
 double obrate = 0.005;		/* other sectors birth rate */
 double uwbrate = 0.0025;	/* uncompensated worker birth rate */
 				/* values > 0.25 for either will overflow */
+int rollover_avail_max = 0;	/* max. avail that can roll over an update */
 
 /* opt_FALLOUT */
 /* these are the radioactive decay constants */

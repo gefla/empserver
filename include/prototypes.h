@@ -551,6 +551,7 @@ extern int dodistribute(struct sctstr *, int, s_char *, double, double);
 /* finish.c */
 extern void finish_sects(int);
 /* human.c */
+extern int new_work(struct sctstr *, int);
 extern int do_feed(register struct sctstr *, register struct natstr *,
 		   short *, int *, int *, int);
 extern int feed_people(short *, int, int *);
