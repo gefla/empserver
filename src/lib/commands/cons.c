@@ -111,7 +111,6 @@ static int
 cons_choose(struct ltcomstr *ltcp)
 {
     s_char *p;
-    int (*dis)();
     struct lonstr *lp;
     struct trtstr *tp;
     s_char prompt[128];
@@ -148,7 +147,9 @@ cons_choose(struct ltcomstr *ltcp)
     if ((ltcp->num = onearg(player->argp[2], prompt)) < 0)
 	return RET_SYN;
     if (!ef_read(ltcp->type, ltcp->num, (caddr_t)&ltcp->u) ||
-	!(*dis) (ltcp->num, &ltcp->u)) {
+	!(ltcp->type == EF_TREATY
+	  ? distrea(ltcp->num, ltcp->u.t)
+	  : disloan(ltcp->num, ltcp->u.l))) {
 	pr("%s #%d is not being offered to you!\n", ltcp->Name, ltcp->num);
 	return RET_SYN;
     }
