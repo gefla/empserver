@@ -103,7 +103,6 @@ new(void)
 	    return RET_SYN;
 	}
     } else {
-	srandom(time(NULL));
 	for (i = 0; i < 300 && !player->aborted; i++) {
 	    /* Both x and y should be either odd or even */
 	    x = (random() % WORLD_X) - (WORLD_X / 2);

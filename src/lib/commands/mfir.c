@@ -553,7 +553,6 @@ multifire(void)
 	    pr("Kaboom!!!\n");
 	    prb = (double)(range2 ? (trange / range2) : 1.0);
 	    prb *= prb;
-	    srandom(time(NULL));
 	    if (chance(prb)) {
 		pr("Wind deflects shell%s.\n", splur(shots));
 /*			dam = (int)((double)dam / 2.0);*/
