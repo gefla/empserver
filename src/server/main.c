@@ -254,7 +254,7 @@ main(int argc, char **argv)
 void
 init_server(void)
 {
-    srand(time(NULL));
+    srandom(time(NULL));
 #if defined(_WIN32)
     loc_NTInit();
 #endif
