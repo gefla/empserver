@@ -44,16 +44,13 @@
 #include "file.h"
 #include "commands.h"
 
-static int is_engineer(int, int);
-
 int
 fort(void)
 {
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    int fort_amt, hard_amt, mob_used;
-    int eng;
+    int fort_amt, hard_amt;
     s_char *p;
     extern int land_mob_max;
     s_char buf[1024];
@@ -95,38 +92,7 @@ fort(void)
 
 	nunits++;
 
-	hard_amt = min(land.lnd_mobil, hard_amt);
-
-	if ((land.lnd_harden + hard_amt) > land_mob_max)
-	    hard_amt = land_mob_max - land.lnd_harden;
-
-	eng = is_engineer(land.lnd_x, land.lnd_y);
-
-	if (eng)
-	    hard_amt = ((float)hard_amt * 1.5);
-
-	if ((land.lnd_harden + hard_amt) > land_mob_max)
-	    hard_amt = land_mob_max - land.lnd_harden;
-
-	/* Ok, set the mobility used */
-	mob_used = hard_amt;
-
-	/* Now, if an engineer helped, it's really only 2/3rds of
-	   that */
-	if (eng)
-	    mob_used = (int)((float)mob_used / 1.5);
-
-	/* If we increased it, but not much, we gotta take at least 1
-	   mob point. */
-	if (mob_used <= 0 && hard_amt > 0)
-	    mob_used = 1;
-
-	land.lnd_mobil -= mob_used;
-	if (land.lnd_mobil < 0)
-	    land.lnd_mobil = 0;
-
-	land.lnd_harden += hard_amt;
-	land.lnd_harden = min(land.lnd_harden, land_mob_max);
+	lnd_fortify (&land, hard_amt);
 
 	pr("%s hardened to %d\n", prland(&land), land.lnd_harden);
 
@@ -141,19 +107,4 @@ fort(void)
     } else
 	pr("%d unit%s\n", nunits, splur(nunits));
     return RET_OK;
-}
-
-static int
-is_engineer(int x, int y)
-{
-    struct nstr_item ni;
-    struct lndstr land;
-
-    snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
-	if (lchr[(int)land.lnd_type].l_flags & L_ENGINEER)
-	    return 1;
-    }
-
-    return 0;
 }

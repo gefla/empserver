@@ -1349,3 +1349,51 @@ lnd_can_attack(struct lndstr *lp)
 
     return 1;
 }
+
+/*
+ * Increase fortification value of LP.
+ * Fortification costs mobility.  Use up to HARD_AMT mobility.
+ * Return actual fortification increase.
+ */
+int
+lnd_fortify (struct lndstr *lp, int hard_amt)
+{
+    extern int land_mob_max;
+    int mob_used;
+    int eng;
+
+    hard_amt = min(lp->lnd_mobil, hard_amt);
+
+    if ((lp->lnd_harden + hard_amt) > land_mob_max)
+	hard_amt = land_mob_max - lp->lnd_harden;
+
+    eng = is_engineer(lp->lnd_x, lp->lnd_y);
+
+    if (eng)
+	hard_amt = ((float)hard_amt * 1.5);
+
+    if ((lp->lnd_harden + hard_amt) > land_mob_max)
+	hard_amt = land_mob_max - lp->lnd_harden;
+
+    /* Ok, set the mobility used */
+    mob_used = hard_amt;
+
+    /* Now, if an engineer helped, it's really only 2/3rds of
+       that */
+    if (eng)
+	mob_used = (int)((float)mob_used / 1.5);
+
+    /* If we increased it, but not much, we gotta take at least 1
+       mob point. */
+    if (mob_used <= 0 && hard_amt > 0)
+	mob_used = 1;
+
+    lp->lnd_mobil -= mob_used;
+    if (lp->lnd_mobil < 0)
+	lp->lnd_mobil = 0;
+
+    lp->lnd_harden += hard_amt;
+    lp->lnd_harden = min(lp->lnd_harden, land_mob_max);
+
+    return hard_amt;
+}

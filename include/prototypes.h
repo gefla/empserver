@@ -330,6 +330,7 @@ extern int gamehours(time_t, int *);
 extern int has_units(coord, coord, natid, struct lndstr *);
 extern int has_units_with_mob(coord, coord, natid);
 extern int adj_units(coord, coord, natid);
+extern int is_engineer(int x, int y);
 /* log.c */
 extern void loginit(void);
 extern void logerror(s_char *, ...);

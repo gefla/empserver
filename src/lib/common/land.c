@@ -96,3 +96,18 @@ has_units_with_mob(coord x, coord y, natid cn)
 
     return 0;
 }
+
+int
+is_engineer(int x, int y)
+{
+    struct nstr_item ni;
+    struct lndstr land;
+
+    snxtitem_xy(&ni, EF_LAND, x, y);
+    while (nxtitem(&ni, (s_char *)&land)) {
+	if (lchr[(int)land.lnd_type].l_flags & L_ENGINEER)
+	    return 1;
+    }
+
+    return 0;
+}
