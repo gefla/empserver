@@ -102,6 +102,8 @@ payo(void)
 	prxy("%4d,%-4d ", ship.shp_orig_x, ship.shp_orig_y, player->cnum);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 
+	getsect(ship.shp_x, ship.shp_y, &sect);
+
 	dist = mapdist(ship.shp_x, ship.shp_y,
 		       ship.shp_orig_x, ship.shp_orig_y);
 	pr("%4d ", dist);
