@@ -46,11 +46,7 @@
 #include "common.h"
 #include "optlist.h"
 
-#if defined(Rel4) || defined(_WIN32)
 #include <time.h>
-#else
-#include <sys/time.h>
-#endif /* Rel4 */
 
 /*
  * returns true if game can be played now.
@@ -60,7 +56,6 @@
 int
 gamehours(time_t now, int *hour)
 {
-    extern struct tm *localtime(const time_t *);
     register s_char *bp;
     register struct tm *tm;
     int day;
