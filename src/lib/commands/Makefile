@@ -51,7 +51,7 @@ OBJS =  acce.o add.o anti.o arm.o army.o assa.o atta.o bdes.o best.o boar.o \
 	shi.o shoo.o show.o shut.o sinf.o skyw.o sona.o spy.o sstat.o star.o \
 	stop.o stre.o strv.o supp.o surv.o swap.o tele.o tend.o terr.o thre.o \
 	togg.o torp.o trad.o tran.o trea.o turn.o upda.o upgr.o vers.o wai.o \
-	wing.o wipe.o work.o zdon.o
+	wing.o wipe.o work.o xdump.o zdon.o
 
 NTOBJS = acce.obj add.obj anti.obj arm.obj army.obj assa.obj atta.obj \
 	bdes.obj best.obj boar.obj bomb.obj brea.obj budg.obj buil.obj \
@@ -75,7 +75,7 @@ NTOBJS = acce.obj add.obj anti.obj arm.obj army.obj assa.obj atta.obj \
 	sstat.obj star.obj stop.obj stre.obj strv.obj supp.obj surv.obj \
 	swap.obj tele.obj tend.obj terr.obj thre.obj togg.obj torp.obj \
 	trad.obj tran.obj trea.obj turn.obj upda.obj upgr.obj vers.obj \
-	wai.obj wing.obj wipe.obj work.obj zdon.obj
+	wai.obj wing.obj wipe.obj work.obj xdump.obj zdon.obj
 
 all: $(LIB)
 

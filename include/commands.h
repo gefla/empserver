@@ -228,6 +228,7 @@ int wall(void);
 int wing(void);
 int wipe(void);
 int work(void);
+int xdump(void);
 int zdon(void);
 
 #endif /* _COMMANDS_H_ */

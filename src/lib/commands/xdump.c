@@ -1,0 +1,355 @@
+#include <stddef.h>
+#include "misc.h"
+#include "file.h"
+#include "match.h"
+#include "nsc.h"
+
+/*
+ * Dump everything under the sun
+ *
+ * Static game data (configuration):
+ * - Item characteristics: ichr[]
+ * - Land unit characteristics: lchr[]
+ * - Nuke characteristics: nchr[]
+ * - Plane characteristics: plchr[]
+ * - Product characteristics: pchr[]
+ * - Sector designation characteristics: dchr[]
+ * - Sector infrastructure characteristics: intrchr[]
+ * - Ship characteristics: mchr[]
+ * Less important:
+ * - News item characteristics: rpt[]
+ * - Treaty clause characteristics: tchr[]
+ * - Commands: coms[]
+ * - Options: Options[]
+ * - Configuration: configkeys[]
+ *
+ * Dynamic game data:
+ * - Sectors: EF_SECTOR, sect_ca[] (already have dump)
+ * - Land units: EF_LAND, land_ca[] (already have ldump)
+ * - Lost: EF_LOST, lost_ca[] (already have lost)
+ * - Nukes: EF_NUKE, nuke_ca[] (already have ndump)
+ * - Planes: EF_PLANE, plane_ca[] (already have pdump)
+ * - Ships: EF_SHIP, ship_ca[] (already have sdump)
+ * - News: EF_NEWS, news_ca[]
+ * - Treaties: EF_TREATY, treaty_ca[]
+ * - Power: EF_POWER
+ * - Nations: EF_NATION, nat_ca[]
+ * - Loans: EF_LOAN, loan_ca[]
+ * - Map: EF_MAP
+ * - Bmap: EF_BMAP
+ * - Market: EF_COMM, commodity_ca[]
+ */
+
+static struct castr ichr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_mnem), "mnem"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_vtype), "vtype"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs"},
+    {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_pkg), "pkg"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr mchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name"},
+    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_armor), "armor"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_speed), "speed"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_visib), "visib"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_vrnge), "vrnge"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_glim), "glim"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nxlight), "nxlight"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nchoppers), "nchoppers"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelc), "fuelc"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelu), "fuelu"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_flags), "flags"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nplanes), "nplanes"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nland), "nland"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr pchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name"},
+    {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_sname), "sname"},
+    {NSC_UCHAR, 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype"},
+    {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_type), "type"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrdep), "nrdep"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlmin), "nlmin"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nllag), "nllag"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_effic), "effic"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr plchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name"},
+    {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_planename), "planename"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_acc), "acc"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_load), "load"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_att), "att"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_def), "def"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_range), "range"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_crew), "crew"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_fuel), "fuel"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_stealth), "stealth"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_flags), "flags"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr lchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name"},
+    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "gun"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_shell), "shell"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_cost), "cost"},
+    {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_att), "att"},
+    {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_def), "def"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_vul), "vul"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spd), "spd"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_vis), "vis"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spy), "spy"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_rad), "rad"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_frg), "frg"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_acc), "acc"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_dam), "dam"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_ammo), "ammo"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_aaf), "aaf"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelc), "fuelc"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelu), "fuelu"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nxlight), "nxlight"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_mxland), "mxland"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_flags), "flags"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr nchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct nchrstr, n_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_oil), "oil"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_rad), "rad"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_blast), "blast"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_dam), "dam"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_weight), "weight"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_flags), "flags"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct camap {
+    char *name;
+    struct castr *ca;
+    void *chr;
+    size_t size;
+};
+
+static struct camap chr_camap[] = {
+    {"item", ichr_ca, ichr, sizeof(ichr[0])},
+    {"product", pchr_ca, pchr, sizeof(pchr[0])},
+    {"ship chr", mchr_ca, mchr, sizeof(mchr[0])},
+    {"plane chr", plchr_ca, plchr, sizeof(plchr[0])},
+    {"land chr", lchr_ca, lchr, sizeof(lchr[0])},
+    {"nuke chr", nchr_ca, nchr, sizeof(nchr[0])},
+    {NULL, NULL, NULL, 0}
+};
+
+static int
+chridx_by_name(char *name)
+{
+    return stmtch(name, chr_camap, offsetof(struct camap, name),
+		  sizeof(chr_camap[0]));
+}
+
+static struct valstr *
+xdeval(struct valstr *val, nsc_type type, ptrdiff_t off, void *item, int idx)
+{
+    val->val_type = type;
+    val->val_cat = NSC_OFF;
+    val->val_as_type = -1;
+    val->val_as.sym.off = off;
+    val->val_as.sym.idx = idx;
+    nstr_exec_val(val, player->cnum, item, 0);
+    return val;			/* FIXME nstr_exec_val() should return VAL */
+}
+
+static char *
+xdprval(struct valstr *val, char *sep)
+{
+    char *s, *e;
+
+    switch (val->val_type) {
+    case NSC_LONG:
+	pr("%s%ld", sep, val->val_as.lng);
+	break;
+    case NSC_DOUBLE:
+	pr("%s%g", sep, val->val_as.dbl);
+	break;
+    case NSC_STRING:
+	pr("%s\"", sep);
+	s = val->val_as.str;
+	while (s && *s) {
+	    for (e = s; *e != '"' && isprint(*e); ++e) ;
+	    pr("%*s", e-s, s);
+	    for (; *e && !isprint(*e); ++e) {
+		pr("\\%3o", *e);
+	    }
+	    s = e;
+	}
+	prnf("\"");
+	break;
+    }
+    return " ";
+}
+
+static void
+xdflds(struct castr ca[], void *item)
+{
+    int i, j;
+    struct valstr val;
+    char *sep = "";
+
+    for (i = 0; ca[i].ca_name; ++i) {
+	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	    continue;
+	j = 0;
+	do {
+	    xdeval(&val, ca[i].ca_type, ca[i].ca_off, item, j);
+	    sep = xdprval(&val, sep);
+	} while (++j < ca[i].ca_len);
+    }
+}
+
+static void
+xdhdrs(struct castr ca[])
+{
+    int i;
+    char *sep = "";
+
+    for (i = 0; ca[i].ca_name; ++i) {
+	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	    continue;
+	pr("%s%s", sep, ca[i].ca_name);
+	if (ca[i].ca_len)
+	    pr(" %d", ca[i].ca_len);
+	sep = " ";
+    }
+}
+
+static void
+xdhdr(char *name, struct castr ca[])
+{
+    prdate();
+    pr("DUMP %s %ld\n", name, (long)time(NULL));
+
+    xdhdrs(ca);
+    pr("\n");
+}
+
+static void
+xdftr(int n)
+{
+    pr("dumped %d\n", n);
+}
+
+static int
+xditem(int type, char *arg)
+{
+    struct castr *ca;
+    struct nstr_item ni;
+    int n;
+    s_char buf[2048];		/* FIXME buffer size? */
+
+    ca = ef_cadef(type);
+    if (!ca)
+	return RET_SYN;
+
+    if (!snxtitem(&ni, type, arg))
+	return RET_SYN;
+
+    xdhdr(ef_nameof(type), ca);
+
+    n = 0;
+    while (nxtitem(&ni, buf)) {
+	if (!player->owner)
+	    continue;
+	++n;
+	xdflds(ca, buf);
+	pr("\n");
+    }
+
+    xdftr(n);
+
+    return RET_OK;
+}
+
+static int
+xdchr(int chridx)
+{
+    struct camap *cm;
+    char *p;
+    struct valstr val;
+    int n;
+
+    if (chridx < 0)
+	return RET_SYN;
+    cm = &chr_camap[chridx];
+
+    xdhdr(cm->name, cm->ca);
+
+    n = 0;
+    for (p = cm->chr; ; p += cm->size) {
+	val.val_type = cm->ca[0].ca_type;
+	val.val_cat = NSC_OFF;
+	val.val_as_type = -1;
+	val.val_as.sym.off = cm->ca[0].ca_off;
+	val.val_as.sym.idx = 0;
+	nstr_exec_val(&val, player->cnum, p, NSC_STRING);
+	if (!val.val_as.str || !*val.val_as.str)
+	    break;
+	++n;
+	xdflds(cm->ca, p);
+	pr("\n");
+    }
+
+    xdftr(n);
+
+    return RET_OK;
+}
+
+int
+xdump(void)
+{
+    s_char *p;
+    char buf[1024];
+    int type;
+
+    p = getstarg(player->argp[1], "What? ", buf);
+    if (!p)
+	return RET_SYN;
+
+    type = ef_byname(p);
+    if (type >= 0) {
+	return xditem(type, player->argp[2]);
+    } else if (!strncmp(p, "chr", strlen(p)) && player->argp[2]) {
+	return xdchr(chridx_by_name(player->argp[2]));
+    }
+
+    return RET_SYN;
+}
