@@ -1,4 +1,16 @@
-Changes to Empire 4.2.20 - Thu Mar 17 21:34:13 UTC 2005
+Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
+ * When units in different sectors marched, only units in the sector
+   with the highest-numbered unit were interdicted.  A marching
+   non-spy made all marching spies visible to interdiction regardless
+   of location.
+ * Fix crash when interdiction sinks second ship in a sector.  Broken
+   in 4.0.10.
+ * Fix an ancient bug in simulation of level production that clobbered
+   stack and could lead to low predictions, typically zero, which
+   screwed up budget.  The bug had no effect until 4.2.19.
+ * When a sector revolts, and there wasn't enough space to liberate
+   all uw, the number of remaining uw got the wrong sign.  Broken in
+   4.2.14.
  * Log and abort when LWP stack check detects stack smash.  Server
    option -s no longer implies -p.
  * The native Windows build now supports -p and -s.
