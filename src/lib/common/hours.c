@@ -128,7 +128,7 @@ min_to_next_daytime(int dtime, char *times)
 
     if (times) {
 	while (NULL != (times = daytime(times, &dt))) {
-	    if (dt < dtime)
+	    if (dt <= dtime)
 		dt += 24 * 60;	/* tomorrow */
 	    if (dt < mindt)
 		mindt = dt;
