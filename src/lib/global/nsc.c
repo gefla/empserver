@@ -247,7 +247,6 @@ struct castr loan_ca[] = {
     {NSC_SHORT | NSC_OFF | fldoff(lonstr, l_uid), "uid", 0},
     {NSC_UCHAR | NSC_OFF | fldoff(lonstr, l_lonee), "loanee", 0},
     {NSC_CHAR | NSC_OFF | fldoff(lonstr, l_status), "status", 0},
-    {NSC_SHORT | NSC_OFF | fldoff(lonstr, l_sell), "sell", 0},
     {NSC_INT | NSC_OFF | fldoff(lonstr, l_irate), "irate", 0},
     {NSC_INT | NSC_OFF | fldoff(lonstr, l_ldur), "ldur", 0},
     {NSC_LONG | NSC_OFF | fldoff(lonstr, l_amtpaid), "amtpaid", 0},
