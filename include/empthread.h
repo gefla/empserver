@@ -103,7 +103,7 @@ typedef struct {
 #define EMPTH_STACKCHECK  0x2
 
 typedef struct loc_Thread_t empth_t;
-typedef struct loc_Sem_t void empth_sem_t;
+typedef struct loc_Sem_t empth_sem_t;
 
 #endif
 
