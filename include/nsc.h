@@ -73,7 +73,8 @@ typedef enum {
 typedef char packed_nsc_cat;
 
 enum {
-    NSC_DEITY = 1		/* access restricted to deity */
+    NSC_DEITY = bit(0),		/* access restricted to deity */
+    NSC_EXTRA = bit(1)		/* computable from other selectors */
 };
 typedef unsigned char nsc_flags;
 

@@ -289,6 +289,8 @@ xdflds(struct castr ca[], void *ptr)
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_DEITY && !player->god)
 	    continue;
+	if (ca[i].ca_flags & NSC_EXTRA)
+	    continue;
 	j = 0;
 	do {
 	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j);
@@ -306,6 +308,8 @@ xdfldnam(struct castr ca[])
 
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	    continue;
+	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	pr("%s%s", sep, ca[i].ca_name);
 	if (ca[i].ca_len)

@@ -80,7 +80,7 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_effic), "effic"},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_mobil), "mobil"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr), "terr"},
-    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr), "terr0"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_terr), "terr0"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr1), "terr1"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr2), "terr2"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr3), "terr3"},
@@ -113,18 +113,18 @@ struct castr sect_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
-#define NSC_GENITEM \
-{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner"},	\
-{ NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid"},	\
-{ NSC_XCOORD, 0, 0, fldoff(genitem, x), "xloc"},	\
-{ NSC_YCOORD, 0, 0, fldoff(genitem, y), "yloc"},	\
-{ NSC_TYPEID, 0, 0, fldoff(genitem, type), "type"},	\
-{ NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic"},	\
-{ NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil"},	\
-{ NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech"},	\
-{ NSC_CHAR, 0, 0, fldoff(genitem, group), "group"},	\
-{ NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx"},	\
-{ NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy"},	\
+#define NSC_GENITEM						\
+{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner"},		\
+{ NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid"},		\
+{ NSC_XCOORD, 0, 0, fldoff(genitem, x), "xloc"},		\
+{ NSC_YCOORD, 0, 0, fldoff(genitem, y), "yloc"},		\
+{ NSC_TYPEID, 0, 0, fldoff(genitem, type), "type"},		\
+{ NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic"},		\
+{ NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil"},		\
+{ NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech"},		\
+{ NSC_CHAR, NSC_EXTRA, 0, fldoff(genitem, group), "group"},	\
+{ NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx"},		\
+{ NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy"},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission"}
 
 struct castr ship_ca[] = {
@@ -147,8 +147,8 @@ struct castr plane_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing"},
     {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_range), "range"},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_ship), "ship"},
-    {NSC_INT, 0, 0, fldoff(plnstr, pln_att), "att"},
-    {NSC_INT, 0, 0, fldoff(plnstr, pln_def), "def"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_att), "att"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_def), "def"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
@@ -169,21 +169,21 @@ struct castr land_ca[] = {
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_ptime), "ptime"},
-    {NSC_FLOAT, 0, 0, fldoff(lndstr, lnd_att), "att"},
-    {NSC_FLOAT, 0, 0, fldoff(lndstr, lnd_def), "def"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_vul), "vul"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_spd), "spd"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_vis), "vis"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_spy), "spy"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_rad), "rad"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_frg), "frg"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_acc), "acc"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_dam), "dam"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_ammo), "ammo"},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_aaf), "aaf"},
-    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuelc), "fuelc"},
-    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuelu), "fuelu"},
-    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_maxlight), "maxlight"},
+    {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_att), "att"},
+    {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_def), "def"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_vul), "vul"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_spd), "spd"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_vis), "vis"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_spy), "spy"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_rad), "rad"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_frg), "frg"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_acc), "acc"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_dam), "dam"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_ammo), "ammo"},
+    {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_aaf), "aaf"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelc), "fuelc"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelu), "fuelu"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_maxlight), "maxlight"},
     {NSC_TIME, 0, 0, fldoff(lndstr, lnd_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
