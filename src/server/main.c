@@ -68,9 +68,11 @@
 
 static void nullify_objects(void);
 static void init_files(void);
+static void close_files(void);
 
 #if defined(_WIN32)
 static void loc_NTInit(void);
+static void loc_NTTerm(void);
 #endif
 
 static int mainpid = 0;
@@ -218,7 +220,7 @@ main(int argc, char **argv)
 	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
 		logerror("Failed to dispatch service (%d)", GetLastError());
-		loc_NTTerm();
+		finish_server();
 		exit(EXIT_FAILURE);
 	    }
 	}
@@ -241,12 +243,8 @@ main(int argc, char **argv)
 
     empth_exit();
 
-/* We should never get here.  But, just in case... */
-    close_files();
-
-#if defined(_WIN32)
-    loc_NTTerm();
-#endif
+    CANT_HAPPEN("main thread terminated");
+    finish_server();
     return EXIT_SUCCESS;
 }
 
@@ -330,6 +328,18 @@ start_server(int flags)
     }
 }
 
+/*
+ * Finish serving, release resources.
+ */
+void
+finish_server(void)
+{
+    close_files();
+#if defined(_WIN32)
+    loc_NTTerm();
+#endif
+}
+
 static void
 init_files(void)
 {
@@ -355,7 +365,7 @@ init_files(void)
     }
 }
 
-void
+static void
 close_files(void)
 {
     ef_close(EF_NATION);
@@ -462,15 +472,13 @@ shutdwn(int sig)
 	logerror("Server shutting down on signal %d", sig);
     else
 	logerror("Server shutting down at Deity's request");
-    close_files();
+    finish_server();
 
 #if defined(_WIN32)
-    loc_NTTerm();
-    if (!daemonize)
-	_exit(0);
-#else
-    _exit(0);
+    if (daemonize)
+	return;
 #endif
+    _exit(0);
 }
 
 
@@ -541,7 +549,7 @@ nullify_objects(void)
 
 #if defined(_WIN32)
 static void
-loc_NTInit()
+loc_NTInit(void)
 {
     int rc;
     WORD wVersionRequested;
@@ -555,8 +563,8 @@ loc_NTInit()
     }
 }
 
-void
-loc_NTTerm()
+static void
+loc_NTTerm(void)
 {
     WSACleanup();
 }

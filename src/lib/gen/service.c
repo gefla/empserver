@@ -202,13 +202,13 @@ service_main(DWORD argc, LPTSTR *argv)
  
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
         logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError());
-	loc_NTTerm();
+	finish_server()
         return;
     }
  
     if ((hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) == NULL) {
         logerror("CreateEvent for Shutdown failed %d\n", GetLastError());
-	loc_NTTerm();
+	finish_server()
 	return;
     }
 
@@ -225,11 +225,8 @@ service_main(DWORD argc, LPTSTR *argv)
 
     empth_exit();
 
-    /* We should never get here.  But, just in case... */
-    close_files();
-
-    loc_NTTerm();
-    return;
+    CANT_HAPPEN("main thread terminated");
+    finish_server();
 }
 
 void
