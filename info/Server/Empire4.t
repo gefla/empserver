@@ -7,13 +7,15 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.14 - Wed Mar 17 07:31:30 UTC 2004
+Changes to Empire 4.2.14 - Mon Mar 22 09:04:12 UTC 2004
  * Options NEWPOWER, NEW_STARVE and NEW_WORK are no longer optional.
  * Gripe about unknown options in econfig.
  * Remove option GRAB_THINGS.
  * Utility program files takes new option -f.
  * Remove utility programs land, ore and perfect, which don't compile
    since 4.2.0 (Oct '98).
+ * fairland no longer warns when it added resources, but when it
+   didn't.
  * Fallout code could claim destruction of more items than actually
    existed.
  * Fix recursive resupply (resupply from supply land unit triggering a
@@ -58,7 +60,7 @@ Changes to Empire 4.2.14 - Wed Mar 17 07:31:30 UTC 2004
    outbreaks silently deleting deliveries.
  * Remove disabled commands dissolve and mult.  Remove configuration
    parameters minmult and maxmult.
- * Trade command indexed an array out of bounds when attempting to
+ * trade command indexed an array out of bounds when attempting to
    display the plague as commodity.  Fix.
  * New make goal interix.  Contributed by Ron Koenderink.
  * The type selector now prefers an exact match to a partial match.
@@ -73,8 +75,8 @@ Changes to Empire 4.2.14 - Wed Mar 17 07:31:30 UTC 2004
    players as '?'.  Radar commands now display all wilderness and
    plains as '?'.
  * Fix power timestamp for Windows.  Contributed by Ron Koenderink.
- * Do the right thing for Windows so ^C aborts to the current command,
-   as it should.  Contributed by Ron Koenderink.
+ * Make client abort the current command on ^C under Windows, as
+   everywhere else.  Contributed by Ron Koenderink.
  * Command line parser interpreted trailing whitespace as an another
    (empty) argument.  Ignore it instead.
  * Properly declare stuff in headers, include proper system headers.
@@ -99,7 +101,12 @@ Changes to Empire 4.2.14 - Wed Mar 17 07:31:30 UTC 2004
  * Fix payoff (was broken in 4.2.13).
  * Capability fish didn't work together with capability oil.
  * Fix and clarify plague outbreak chance in info Plague.
+ * Fix RES_POP maximum population in info Research.
  * Fix info telegram and info announce on ~ escapes.
+ * Update info Selector to match code.
+ * Document all undocumented unit capabilities and stats.
+ * Document submarines' ability to carry landspies.
+ * Fix info shoot on security units.
  * Various small info file fixes.
  * Many fixes in the troff macro package for info files.
  * Many fixes for translating info files to HTML.
