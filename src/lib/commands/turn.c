@@ -113,7 +113,13 @@ turn(void)
 	    msgfilepath);
 	return RET_SYS;
     }
-    fclose(fptr);
+    if (fclose(fptr)) {
+    	pr("Something went wrong closing the message.\n");
+	logerror("Could not properly close message file (%s).\n",
+	    msgfilepath);
+	return RET_SYS;
+    }
+
     pr("\n");
 
     return RET_OK;
