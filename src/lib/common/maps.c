@@ -50,6 +50,7 @@
 #include "optlist.h"
 
 static int bmnxtsct(register struct nstr_sect *);
+static s_char map_char(u_char type, natid own, int owner_or_god);
 
 int
 draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
@@ -130,8 +131,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	    ef_write(EF_BMAP, player->cnum, player->bmap);
 	    break;
 	case EF_NMAP:
-	    do {
-		register s_char *ptr;
+	    {
 		struct sctstr sect;
 
 		if ((!player->god || country)) {
@@ -144,34 +144,16 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 			if (!player->god)
 			    continue;
 		    }
-		    ptr = &wmap[nsp->dy][nsp->dx];
-		    if (sect.sct_newtype > SCT_MAXDEF) {
-			*ptr = '?';
-		    } else {
-			*ptr = dchr[sect.sct_newtype].d_mnem;
-			switch (sect.sct_newtype) {
-			case SCT_WATER:
-			case SCT_RURAL:
-			case SCT_MOUNT:
-			case SCT_WASTE:
-			case SCT_PLAINS:
-			    break;
-			default:
-			    if (sect.sct_own != country &&
-				(!player->god || country)) {
-				if (!player->god)
-				    *ptr = '?';
-			    }
-			    break;
-			}
-		    }
+		    wmap[nsp->dy][nsp->dx]
+			= map_char(sect.sct_newtype, sect.sct_own,
+				   sect.sct_own == country || player->god);
 		}
-	    } while (0);
-	    break;
+		break;
+	    }
 	}
     } else {
-	register s_char *ptr;
 	struct sctstr sect;
+	s_char mapch;
 	int changed = 0;
 
 	if ((!player->god || country)) {
@@ -184,28 +166,10 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 		if (!player->god)
 		    continue;
 	    }
-	    ptr = &wmap[nsp->dy][nsp->dx];
-	    if (sect.sct_type > SCT_MAXDEF) {
-		*ptr = '?';
-	    } else {
-		*ptr = dchr[sect.sct_type].d_mnem;
-		switch (sect.sct_type) {
-		case SCT_WATER:
-		case SCT_RURAL:
-		case SCT_MOUNT:
-		case SCT_WASTE:
-		case SCT_PLAINS:
-		    break;
-		default:
-		    if (sect.sct_own != country &&
-			(!player->god || country)) {
-			if (!player->god)
-			    *ptr = '?';
-		    }
-		    break;
-		}
-		changed += map_set(player->cnum, nsp->x, nsp->y, *ptr, 0);
-	    }
+	    mapch = map_char(sect.sct_type, sect.sct_own,
+			     sect.sct_own == country || player->god);
+	    wmap[nsp->dy][nsp->dx] = mapch;
+	    changed |= map_set(player->cnum, nsp->x, nsp->y, mapch, 0);
 	}
 	if (changed)
 	    writemap(player->cnum);
@@ -324,6 +288,24 @@ bmnxtsct(register struct nstr_sect *np)
 	return 1;
     }
     /*NOTREACHED*/
+}
+
+/*
+ * Return character to use in maps for sector type TYPE owned by OWN.
+ * If OWNER_OR_GOD, the map is for the sector's owner or a deity.
+ */
+static s_char
+map_char(u_char type, natid own, int owner_or_god)
+{
+    if (type > SCT_MAXDEF) {
+	logerror("bad sector type %d\n", type);
+	return '?';
+    }
+    if (owner_or_god
+	|| type == SCT_WATER || type == SCT_MOUNT || type == SCT_WASTE
+	|| (!own && (type == SCT_RURAL || type == SCT_PLAINS)))
+	return dchr[type].d_mnem;
+    return '?';
 }
 
 int

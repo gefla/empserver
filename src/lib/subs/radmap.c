@@ -64,7 +64,7 @@ radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
 }
 
 /* More dynamic world sized buffers.  We create 'em once, and then
- * never again.  No need to keep creating/tearint apart.  We may
+ * never again.  No need to keep creating/tearing apart.  We may
  * want to do this in other places too where it doesn't matter. */
 static s_char **rad;
 static s_char *radbuf;
@@ -121,8 +121,10 @@ radmap2(int owner,
     snxtsct_dist(&ns, cx, cy, range);
     blankfill((s_char *)radbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
-	if (sect.sct_own == owner ||
-	    (sect.sct_type <= SCT_RURAL && sect.sct_type != SCT_SANCT)
+	if (sect.sct_own == owner
+	    || sect.sct_type == SCT_WATER
+	    || sect.sct_type == SCT_MOUNT
+	    || sect.sct_type == SCT_WASTE
 	    || ns.curdist <= range / 3)
 	    rad[ns.dy][ns.dx] = dchr[sect.sct_type].d_mnem;
 	else
