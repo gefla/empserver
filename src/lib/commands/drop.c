@@ -99,14 +99,9 @@ drop(void)
 
     if (target.sct_own == player->cnum
 	|| getrel(getnatp(target.sct_own), player->cnum) == ALLIED) {
-	if (ip->i_vtype == V_CIVIL) {
-	    if (target.sct_own != player->cnum) {
-		pr("Your civilians refuse to emigrate!\n");
-		return RET_FAIL;
-	    } else if (target.sct_own != target.sct_oldown) {
-		pr("Can't drop civilians into occupied sectors.\n");
-		return RET_FAIL;
-	    }
+	if (ip->i_vtype == V_CIVIL && target.sct_own != target.sct_oldown) {
+	    pr("Can't drop civilians into occupied sectors.\n");
+	    return RET_FAIL;
 	}
     } else {
 	/* into the unknown... */

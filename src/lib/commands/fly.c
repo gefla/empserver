@@ -113,14 +113,9 @@ fly(void)
 	dst_type = EF_SHIP;
     }
 
-    if (ip && ip->i_vtype == V_CIVIL) {
-	if (target.sct_own != player->cnum) {
-	    pr("Your civilians refuse to emigrate!\n");
-	    return RET_FAIL;
-	} else if (target.sct_own != target.sct_oldown) {
-	    pr("Can't drop civilians into occupied sectors.\n");
-	    return RET_FAIL;
-	}
+    if (ip && ip->i_vtype == V_CIVIL && target.sct_own != target.sct_oldown) {
+	pr("Can't fly civilians into occupied sectors.\n");
+	return RET_FAIL;
     }
 
     ap_to_target = strlen(flightpath);
