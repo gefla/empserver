@@ -79,6 +79,8 @@ info(void)
     s_char last[256];
     DIR *info_dp;
     int nmatch = 0;
+    int width = 0;
+    char sep;
  
     name = player->argp[1];
     if (name) {
@@ -110,9 +112,18 @@ info(void)
 	    if (nmatch == 1) {
 		snprintf(last, sizeof(last), "%s", dp->d_name);
 	    } else {
-		if (nmatch == 2)
-		    pr("The following info topics were found %s", last);
-		pr(", %s", dp->d_name);
+		if (nmatch == 2) {
+		    pr("`%s' is ambiguous.  The following topics match:\n%s",
+			name, last);
+		    width = strlen(last);
+		}
+		width += 2 + strlen(dp->d_name);
+		sep = ' ';
+		if (width > 75) {
+		    sep = '\n';
+		    width = strlen(dp->d_name);
+		}
+		pr(",%c%s", sep, dp->d_name);
 	    }
 	}
 	closedir(info_dp);
@@ -120,7 +131,7 @@ info(void)
 	    pr("Sorry, there is no info on %s\n", name);
 	    return RET_FAIL;
 	} else if (nmatch > 1) {
-	    pr("\n");
+	    pr(".\n");
 	    return RET_FAIL;
 	}
 	snprintf(filename, sizeof(filename), "%s/%s", infodir,
@@ -275,6 +286,8 @@ info(void)
     s_char filename[1024];
     s_char last[256];
     int nmatch = 0;
+    int width = 0;
+    char sep;
 
     name = player->argp[1];
     if (name) {
@@ -327,10 +340,18 @@ info(void)
 		if (nmatch == 1) {
 		    _snprintf(last, sizeof(last), "%s", fData.cFileName);
 		} else {
-		    if (nmatch == 2)
-			pr("The following info topics were found %s",
-			   last);
-		    pr(", %s", fData.cFileName);
+		    if (nmatch == 2) {
+			pr("`%s' is ambiguous.  The following topics match:\n%s",
+			    name, last);
+			width = strlen(last);
+		    }
+		    width += 2 + strlen(fData.cFileName);
+		    sep = ' ';
+		    if (width > 75) {
+			sep = '\n';
+			width = strlen(fData.cFileName);
+		    }
+		    pr(",%c%s", sep, fData.cFileName);
 		}
 	    }
 	} while (FindNextFile(hDir, &fData));
@@ -339,7 +360,7 @@ info(void)
 	    pr("Sorry, there is no info on %s\n", name);
 	    return RET_FAIL;
 	} else if (nmatch > 1) {
-	    pr("\n");
+	    pr(".\n");
 	    return RET_FAIL;
 	}
 	_snprintf(filename, sizeof(filename), "%s/%s",
