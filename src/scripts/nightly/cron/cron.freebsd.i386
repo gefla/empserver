@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /home/marcolz/src/empire/nightlybuild/
+./nightlybuild.sh conf/freebsd.i386.config
+./report.sh conf/freebsd.i386.config | mutt -s 'empserver freebsd.i386' empserver-devel@lists.sourceforge.net

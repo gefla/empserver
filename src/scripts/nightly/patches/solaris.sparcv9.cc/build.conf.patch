@@ -1,0 +1,12 @@
+Index: empserver/build.conf
+--- empserver/build.conf	Thu Feb 12 17:50:48 2004
++++ empserver/build.conf	Sat Mar  6 14:45:21 2004
+@@ -40,7 +40,7 @@
+ 
+ # Please enter the C-compiler you are using (full path is allowed):
+ # (For NT builds using MSVC, use "CC = CL")
+-CC = gcc
++CC = cc
+ 
+ # Please enter the linker you are using (full path is allowed):
+ # (For NT builds using MSVC, using "LD = ld" works fine.)

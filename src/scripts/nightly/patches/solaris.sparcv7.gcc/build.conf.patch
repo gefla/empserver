@@ -1,0 +1,12 @@
+Index: empserver/build.conf
+--- empserver/build.conf	Thu Feb 12 17:50:48 2004
++++ empserver/build.conf	Sat Mar  6 15:36:39 2004
+@@ -44,7 +44,7 @@
+ 
+ # Please enter the linker you are using (full path is allowed):
+ # (For NT builds using MSVC, using "LD = ld" works fine.)
+-LD = ld
++LD = gcc
+ 
+ # Please enter the maximum number of countries you want:
+ MAXNOC = 99
