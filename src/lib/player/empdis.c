@@ -84,7 +84,7 @@ getcommand(s_char *combufp)
 	player_commands_index = 0;
     sprintf(player_commands[player_commands_index], "%3d %3d %s",
 	    player_commands_index, player->cnum, buf);
-    copy(buf, combufp);
+    strcpy(combufp, buf);
     return (strlen(combufp));
 }
 

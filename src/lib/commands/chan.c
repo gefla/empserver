@@ -90,7 +90,7 @@ chan(void)
 	    return RET_SYN;
 	p[sizeof(us->nat_cnam) - 1] = 0;
 	for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
-	    if (same(p, natp->nat_cnam)) {
+	    if (!strcmp(p, natp->nat_cnam)) {
 		pr("Country #%d is already called `%s'!\n", cn, p);
 		return RET_FAIL;
 	    }

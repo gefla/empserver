@@ -37,13 +37,6 @@
 #include "gen.h"
 #include "optlist.h"
 
-s_char *
-copy(register s_char *s1, register s_char *s2)
-{
-    while ((*s2++ = *s1++) != 0) ;
-    return s2 - 1;
-}
-
 #ifdef hpux
 #include <memory.h>
 

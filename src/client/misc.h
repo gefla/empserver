@@ -102,7 +102,6 @@ extern double dmax();
 extern double dmin();
 
 extern s_char *fmt();
-extern s_char *copy();
 extern s_char *numstr();
 extern s_char *esplur();
 extern s_char *splur();

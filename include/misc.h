@@ -149,7 +149,6 @@ extern long random();
 double dmax _PROTO((double n1, double n2));
 double dmin _PROTO((double n1, double n2));
 
-extern s_char *copy _PROTO((s_char *s1, s_char *s2));
 extern s_char *numstr _PROTO((s_char buf[], int n));
 extern s_char *esplur _PROTO((int n));
 extern s_char *splur _PROTO((int n));

@@ -410,11 +410,9 @@ extern int emp_config(char *file);
 extern void print_config(FILE * fp);
 
 extern int atoip(s_char **);
-extern int atopi(s_char *);
 extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
-extern s_char *copy(register s_char *, register s_char *);
 extern void disassoc(void);
 extern int getfdtablesize(void);
 extern void setfdtablesize(int, int);
@@ -447,7 +445,6 @@ extern s_char *iesplur(int);
 extern s_char *plur(int, s_char *, s_char *);
 extern int ldround(double, int);
 extern int roundintby(int, int);
-extern int same(register s_char *, register s_char *);
 extern int scthash(register int, register int, int);
 #ifdef NOSTRDUP
 extern char *strdup(char *x);

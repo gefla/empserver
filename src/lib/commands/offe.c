@@ -128,8 +128,8 @@ do_treaty(void)
     cp = getstring("Proposed treaty duration? (days) ", buf);
     if (cp == 0)
 	return RET_FAIL;
-    j = atopi(cp);
-    if (j == 0) {
+    j = atoi(cp);
+    if (j <= 0) {
 	pr("Bad treaty duration.\n");
 	return RET_SYN;
     }
