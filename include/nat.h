@@ -148,14 +148,6 @@ extern double tfactfire(natid cn, double mult);
 extern double techfact(int level, double mult);
 extern double techfactfire(int level, double mult);
 extern double reltech(int level1, int level2, double mult);
-/* src/lib/subs/comsub.c */
-extern double multread(natid, natid);
-extern int commread(void);
-extern int commwrite(void);
-extern int commamt(natid, int, float *);
-extern void commset(natid, int, int);
-extern void multset(natid, float);
-extern void commprice(int, float *);
 
 extern s_char *cname(natid n);
 extern s_char *relatename(struct natstr *np, natid other);

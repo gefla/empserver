@@ -42,7 +42,7 @@ OBJS =  acce.o add.o anti.o arm.o army.o assa.o atta.o bdes.o best.o boar.o \
 	expl.o fina.o flash.o flee.o fly.o foll.o forc.o fort.o fuel.o give.o \
 	grin.o hard.o head.o hidd.o improve.o info.o land.o laun.o lboard.o \
 	ldump.o ledg.o leve.o load.o look.o lost.o lstat.o lten.o map.o \
-	marc.o mark.o mfir.o mine.o miss.o mobq.o mobu.o mora.o move.o mult.o \
+	marc.o mark.o mfir.o mine.o miss.o mobq.o mobu.o mora.o move.o \
 	name.o nati.o navi.o ndump.o new.o newe.o news.o nuke.o offe.o offs.o \
 	orde.o orig.o para.o path.o payo.o pboa.o pdump.o plan.o play.o \
 	powe.o prod.o pstat.o rada.o rang.o rea.o real.o reco.o reje.o rela.o \
@@ -64,7 +64,7 @@ NTOBJS = acce.obj add.obj anti.obj arm.obj army.obj assa.obj atta.obj \
 	land.obj laun.obj lboard.obj ldump.obj ledg.obj leve.obj load.obj \
 	look.obj lost.obj lstat.obj lten.obj map.obj marc.obj mark.obj \
 	mfir.obj mine.obj miss.obj mobq.obj mobu.obj mora.obj move.obj \
-	mult.obj name.obj nati.obj navi.obj ndump.obj new.obj newe.obj \
+	name.obj nati.obj navi.obj ndump.obj new.obj newe.obj \
 	news.obj nuke.obj offe.obj offs.obj orde.obj orig.obj para.obj \
 	path.obj payo.obj pboa.obj pdump.obj plan.obj play.obj powe.obj \
 	prod.obj pstat.obj rada.obj rang.obj rea.obj real.obj reco.obj \

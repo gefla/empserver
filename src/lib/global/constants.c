@@ -156,8 +156,6 @@ double bankint = 0.25;		/* bank interest rate (dt * bars) */
               charged (price paid * buytax).
    Not perfect, but it works. :) */
 
-double minmult = 0.5;		/* minimum trade mulitple */
-double maxmult = 10.0;		/* maximum trade multiple */
 double tradetax = 0.99;		/* Tax charged on trade */
 double buytax = 1.0;		/* Tax charged on market purchases */
 int startmob = 127;		/* Sanctuary starting mobility */

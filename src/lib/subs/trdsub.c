@@ -104,7 +104,6 @@ int
 trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 {
     int i;
-    float price;
     struct sctstr sect;
     struct nukstr *np;
     struct shpstr *sp;
@@ -116,7 +115,6 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
     struct plnstr plane;
     struct lndstr land;
 
-    price = multread(tp->trd_owner, player->cnum) * tp->trd_price;
     switch (tp->trd_type) {
     case EF_NUKE:
 	np = &tgp->nuk;

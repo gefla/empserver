@@ -142,7 +142,6 @@ int mobq(void);
 int mobupdate(void);
 int morale(void);
 int move(void);
-int mult(void);
 int multifire(void);
 int name(void);
 int nati(void);

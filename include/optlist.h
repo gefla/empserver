@@ -187,8 +187,6 @@ extern double fallout_spread;
 extern float drnuke_const;
 extern int MARK_DELAY;
 extern int TRADE_DELAY;
-extern double maxmult;
-extern double minmult;
 extern double buytax;
 extern double tradetax;
 extern int trade_1_dist;

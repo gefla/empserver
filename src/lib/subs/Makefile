@@ -36,7 +36,7 @@ LIB = $(SRCDIR)/lib/libsubs.a
 NTLIB = $(SRCDIR)\lib\libsubs.lib
 
 OBJS = aircombat.o askyn.o aswplnsubs.o attsub.o bigmap.o border.o bsanct.o \
-	caploss.o chkmoney.o cnumb.o comsub.o control.o detonate.o disloan.o \
+	caploss.o chkmoney.o cnumb.o control.o detonate.o disloan.o \
 	distrea.o fileinit.o fortdef.o getbit.o getele.o land.o landgun.o \
 	list.o lndsub.o lostsub.o mission.o move.o mslsub.o mtch.o natarg.o \
 	neigh.o nreport.o nstr.o nuke.o nxtitem.o nxtsct.o paths.o plane.o \
@@ -45,7 +45,7 @@ OBJS = aircombat.o askyn.o aswplnsubs.o attsub.o bigmap.o border.o bsanct.o \
 	takeover.o trdsub.o trechk.o whatitem.o wu.o
 
 NTOBJS = aircombat.obj askyn.obj aswplnsubs.obj attsub.obj bigmap.obj \
-	border.obj bsanct.obj caploss.obj chkmoney.obj cnumb.obj comsub.obj \
+	border.obj bsanct.obj caploss.obj chkmoney.obj cnumb.obj \
 	control.obj detonate.obj disloan.obj distrea.obj fileinit.obj fortdef.obj \
 	getbit.obj getele.obj land.obj landgun.obj list.obj lndsub.obj \
 	lostsub.obj mission.obj move.obj mslsub.obj mtch.obj natarg.obj neigh.obj \
