@@ -34,7 +34,6 @@
 #include "prototypes.h"
 #include <stdio.h>
 #include "misc.h"
-#include "bit.h"
 #include "empio.h"
 #include "player.h"
 #include "empthread.h"

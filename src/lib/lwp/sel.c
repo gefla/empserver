@@ -42,7 +42,6 @@
 #include <stdio.h>
 #endif
 
-#include "bit.h"
 #include "lwp.h"
 #include "lwpint.h"
 #include "prototypes.h"
