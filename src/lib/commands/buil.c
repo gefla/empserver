@@ -31,7 +31,6 @@
  *      Steve McClure, 1998-2000
  */
 
-#include <math.h>
 #include <string.h>
 #include "misc.h"
 #include "player.h"
@@ -350,7 +349,6 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     float eff = SHIP_MINEFF / 100.0;
     int lcm, hcm;
     int freeship = 0;
-    int techdiff;
 
     hcm = roundavg((double)mp->m_hcm * eff);
     lcm = roundavg((double)mp->m_lcm * eff);
@@ -432,15 +430,6 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     memset(ship.shp_item, 0, sizeof(ship.shp_item));
     ship.shp_pstage = PLG_HEALTHY;
     ship.shp_ptime = 0;
-    ship.shp_tech = tlev;
-
-    techdiff = (int)(tlev - mp->m_tech);
-    ship.shp_armor = (short)SHP_DEF(mp->m_armor, techdiff);
-    ship.shp_speed = (short)SHP_SPD(mp->m_speed, techdiff);
-    ship.shp_visib = (short)SHP_VIS(mp->m_visib, techdiff);
-    ship.shp_frnge = (short)SHP_RNG(mp->m_frnge, techdiff);
-    ship.shp_glim = (short)SHP_FIR(mp->m_glim, techdiff);
-
     ship.shp_mobquota = 0;
     *ship.shp_path = 0;
     ship.shp_follow = nstr.cur;
@@ -451,6 +440,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     ship.shp_fuel = mchr[(int)ship.shp_type].m_fuelc;
     ship.shp_rflags = 0;
     memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
+    shp_set_tech(&ship, tlev);
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
@@ -562,7 +552,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     } else {
 	land.lnd_mobil = 0;
     }
-    land.lnd_tech = tlev;
     land.lnd_uid = nstr.cur;
     land.lnd_army = ' ';
     land.lnd_flags = 0;
@@ -579,22 +568,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     memset(land.lnd_item, 0, sizeof(land.lnd_item));
     land.lnd_pstage = PLG_HEALTHY;
     land.lnd_ptime = 0;
-    land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
-    land.lnd_def = (float)LND_ATTDEF(lp->l_def, tlev - lp->l_tech);
-    land.lnd_vul = (int)LND_VUL(lp->l_vul, tlev - lp->l_tech);
-    land.lnd_spd = (int)LND_SPD(lp->l_spd, tlev - lp->l_tech);
-    land.lnd_vis = (int)LND_VIS(lp->l_vis, tlev - lp->l_tech);
-    land.lnd_spy = (int)LND_SPY(lp->l_spy, tlev - lp->l_tech);
-    land.lnd_rad = (int)LND_RAD(lp->l_rad, tlev - lp->l_tech);
-    land.lnd_frg = (int)LND_FRG(lp->l_frg, tlev - lp->l_tech);
-    land.lnd_acc = (int)LND_ACC(lp->l_acc, tlev - lp->l_tech);
-    land.lnd_dam = (int)LND_DAM(lp->l_dam, tlev - lp->l_tech);
-    land.lnd_ammo = (int)LND_AMM(lp->l_ammo, lp->l_dam, tlev - lp->l_tech);
-    land.lnd_aaf = (int)LND_AAF(lp->l_aaf, tlev - lp->l_tech);
-    land.lnd_fuelc = (int)LND_FC(lp->l_fuelc, tlev - lp->l_tech);
-    land.lnd_fuelu = (int)LND_FU(lp->l_fuelu, tlev - lp->l_tech);
-    land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
-    land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
+    lnd_set_tech(&land, tlev);
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
@@ -900,35 +874,27 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
     plane.pln_opx = 0;
     plane.pln_opy = 0;
     plane.pln_radius = 0;
-
-    /* Note that this next block of variables can be changed so that individual
-     * planes may have their own stats (like based on tech maybe? :) )  Thus,
-     * the code now checks the pln_acc, pln_load and pln_fuel instead of using
-     * the static definitions of them. */
-    plane.pln_att = PLN_ATTDEF(pp->pl_att, (int)(tlev - pp->pl_tech));
-    plane.pln_def = PLN_ATTDEF(pp->pl_def, (int)(tlev - pp->pl_tech));
-    plane.pln_acc = PLN_ACC(pp->pl_acc, (int)(tlev - pp->pl_tech));
-    plane.pln_range = PLN_RAN(pp->pl_range, (int)(tlev - pp->pl_tech));
+    plane.pln_range = UCHAR_MAX; /* will be adjusted by pln_set_tech() */
     plane.pln_range_max = plane.pln_range;
-    plane.pln_load = PLN_LOAD(pp->pl_load, (int)(tlev - pp->pl_tech));
     plane.pln_fuel = pp->pl_fuel;
-
     plane.pln_wing = ' ';
-    plane.pln_tech = tlev;
     plane.pln_ship = -1;
     plane.pln_land = -1;
     plane.pln_uid = nstr.cur;
     plane.pln_nuketype = -1;
     plane.pln_harden = 0;
     plane.pln_flags = 0;
+    pln_set_tech(&plane, tlev);
+
+    vec[I_LCM] -= lcm;
+    vec[I_HCM] -= hcm;
+    vec[I_MILIT] -= mil;
+
     makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
 		plane.pln_y);
     putplane(plane.pln_uid, &plane);
     pr("%s built in sector %s\n", prplane(&plane),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
-    vec[I_LCM] -= lcm;
-    vec[I_HCM] -= hcm;
-    vec[I_MILIT] -= mil;
     return 1;
 }
 

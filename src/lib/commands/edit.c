@@ -371,8 +371,6 @@ pr_land(struct lndstr *land)
     pr("Mobility <M>: %d\n", (int)land->lnd_mobil);
     pr("Tech <t>: %d\t\t", land->lnd_tech);
     pr("Army <a>: %c\n", land->lnd_army);
-    pr("Attack <A>: %1.2f\t", land->lnd_att);
-    pr("Defense <D>: %1.2f\n", land->lnd_def);
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Fuel <B>: %d\n", land->lnd_fuel);
     count_land_planes(land);
@@ -425,7 +423,6 @@ pr_ship(struct shpstr *ship)
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
     pr("Fuel <B>: %d\t\t\t", (int)ship->shp_fuel);
-    pr("Defense <D>: %d\n", (int)ship->shp_armor);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, (int)ship->shp_rflags);
     pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
@@ -480,6 +477,11 @@ getin(s_char **what, s_char **p, int *arg, s_char *buf)
     return RET_OK;
 }
 
+static void
+warn_deprecated(char key)
+{
+    pr("Key <%c> is deprecated and will go away in a future release\n", key);
+}
 
 static int
 doland(s_char op, int arg, s_char *p, struct sctstr *sect)
@@ -845,7 +847,8 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	ship->shp_y = newy;
 	break;
     case 'T':
-	ship->shp_tech = arg;
+	shp_set_tech(ship,
+		     errcheck(arg, mchr[ship->shp_type].m_tech, SHRT_MAX));
 	break;
     case 'E':
 	ship->shp_effic = errcheck(arg, SHIP_MINEFF, 100);
@@ -912,7 +915,8 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	ship->shp_item[I_RAD] = arg;
 	break;
     case 'D':
-	ship->shp_armor = errcheck(arg, 0, 127);
+	warn_deprecated(op);
+	ship->shp_armor = errcheck(arg, 0, SHRT_MAX);
 	break;
     default:
 	pr("huh? (%c)\n", op);
@@ -967,7 +971,8 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 	land->lnd_mobil = arg;
 	break;
     case 't':
-	land->lnd_tech = arg;
+	lnd_set_tech(land,
+		     errcheck(arg, lchr[land->lnd_type].l_tech, SHRT_MAX));
 	break;
     case 'a':
 	if (p[0] == '~')
@@ -1043,11 +1048,13 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 	land->lnd_item[I_RAD] = arg;
 	break;
     case 'A':
+	warn_deprecated(op);
 	pr("Attack changed from %1.2f to %1.2f.\n",
 	   land->lnd_att, farg);
 	land->lnd_att = farg;
 	break;
     case 'D':
+	warn_deprecated(op);
 	pr("Defense changed from %1.2f to %1.2f.\n",
 	   land->lnd_def, farg);
 	land->lnd_def = farg;
@@ -1105,7 +1112,8 @@ doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
 	plane->pln_mobil = errcheck(arg, -127, 255);
 	break;
     case 't':
-	plane->pln_tech = arg;
+	pln_set_tech(plane,
+		     errcheck(arg, plchr[plane->pln_type].pl_tech, SHRT_MAX));
 	break;
     case 'w':
 	if (p[0] == '~')

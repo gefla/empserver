@@ -32,8 +32,6 @@
  *     Steve McClure, 1996-2000
  */
 
-#include <math.h>
-
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
@@ -93,7 +91,6 @@ lupgr(void)
     int tlev;
     int avail, cost;
     int rel;
-    int techdiff;
     long cash;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[2]))
@@ -143,30 +140,9 @@ lupgr(void)
 
 	sect.sct_avail -= avail;
 	land.lnd_effic -= UPGR_EFF;
-
-	land.lnd_tech = tlev;
-	techdiff = (int)(tlev - lp->l_tech);
-
+	lnd_set_tech(&land, tlev);
 	land.lnd_harden = 0;
 	land.lnd_mission = 0;
-
-	land.lnd_att = (float)LND_ATTDEF(lp->l_att, techdiff);
-	land.lnd_def = (float)LND_ATTDEF(lp->l_def, techdiff);
-	land.lnd_vul = (int)LND_VUL(lp->l_vul, techdiff);
-	land.lnd_spd = (int)LND_SPD(lp->l_spd, techdiff);
-	land.lnd_vis = (int)LND_VIS(lp->l_vis, techdiff);
-	land.lnd_spy = (int)LND_SPY(lp->l_spy, techdiff);
-	land.lnd_rad = (int)LND_RAD(lp->l_rad, techdiff);
-	land.lnd_frg = (int)LND_FRG(lp->l_frg, techdiff);
-	land.lnd_acc = (int)LND_ACC(lp->l_acc, techdiff);
-	land.lnd_dam = (int)LND_DAM(lp->l_dam, techdiff);
-	land.lnd_ammo = (int)LND_AMM(lp->l_ammo, lp->l_dam, techdiff);
-	land.lnd_aaf = (int)LND_AAF(lp->l_aaf, techdiff);
-	land.lnd_fuelc = (int)LND_FC(lp->l_fuelc, techdiff);
-	land.lnd_fuelu = (int)LND_FU(lp->l_fuelu, techdiff);
-	land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, techdiff);
-	land.lnd_maxland = (int)LND_MXL(lp->l_mxland, techdiff);
-
 	time(&land.lnd_access);
 
 	putland(land.lnd_uid, &land);
@@ -199,7 +175,6 @@ supgr(void)
     int tlev;
     int avail, cost;
     int rel;
-    int techdiff;
     long cash;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[2]))
@@ -249,15 +224,7 @@ supgr(void)
 
 	sect.sct_avail -= avail;
 	ship.shp_effic -= UPGR_EFF;
-	ship.shp_tech = tlev;
-
-	techdiff = (int)(tlev - mp->m_tech);
-	ship.shp_armor = (short)SHP_DEF(mp->m_armor, techdiff);
-	ship.shp_speed = (short)SHP_SPD(mp->m_speed, techdiff);
-	ship.shp_visib = (short)SHP_VIS(mp->m_visib, techdiff);
-	ship.shp_frnge = (short)SHP_RNG(mp->m_frnge, techdiff);
-	ship.shp_glim = (short)SHP_FIR(mp->m_glim, techdiff);
-
+	shp_set_tech(&ship, tlev);
 	ship.shp_mission = 0;
 	time(&ship.shp_access);
 
@@ -291,7 +258,6 @@ pupgr(void)
     int tlev;
     int avail, cost;
     int rel;
-    int techdiff;
     long cash;
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[2]))
@@ -345,24 +311,9 @@ pupgr(void)
 
 	sect.sct_avail -= avail;
 	plane.pln_effic -= UPGR_EFF;
-
-	plane.pln_tech = tlev;
-	techdiff = (int)(tlev - pp->pl_tech);
-
-	plane.pln_mission = 0;
-	plane.pln_opx = 0;
-	plane.pln_opy = 0;
-	plane.pln_radius = 0;
+	pln_set_tech(&plane, tlev);
 	plane.pln_harden = 0;
 	plane.pln_mission = 0;
-
-	plane.pln_att = PLN_ATTDEF(pp->pl_att, techdiff);
-	plane.pln_def = PLN_ATTDEF(pp->pl_def, techdiff);
-	plane.pln_acc = PLN_ACC(pp->pl_acc, techdiff);
-	plane.pln_range = PLN_RAN(pp->pl_range, techdiff);
-	plane.pln_range_max = plane.pln_range;
-	plane.pln_load = PLN_LOAD(pp->pl_load, techdiff);
-
 	time(&plane.pln_access);
 
 	putplane(plane.pln_uid, &plane);

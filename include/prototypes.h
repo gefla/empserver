@@ -414,6 +414,7 @@ extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
 extern int pln_damage(struct plnstr *, coord, coord, s_char, int *, int);
 extern int pln_identchance(struct plnstr *, int, int);
+extern void pln_set_tech(struct plnstr *, int);
 /* pr.c */
 extern void pr(s_char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 extern void prnf(s_char *buf);
@@ -508,6 +509,7 @@ extern void shp_view(struct emp_qelem *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);
 extern int shp_missile_defense(coord, coord, natid, int);
 extern void shp_missdef(struct shpstr *, natid);
+extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
 extern int snxtitem(register struct nstr_item *, int, s_char *);
 /* snxtsct.c */

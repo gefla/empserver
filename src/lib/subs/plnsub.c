@@ -33,6 +33,7 @@
  *     Steve McClure, 1998-2000
  */
 
+#include <math.h>
 #include "misc.h"
 #include "player.h"
 #include "var.h"
@@ -1164,4 +1165,30 @@ pln_mobcost(int dist, struct plnstr *pp, int flags)
     cost = ldround((double)cost * dist / pp->pln_range_max, 1);
 
     return min(32 + pp->pln_mobil, cost + 5);
+}
+
+/*
+ * Set PP's tech to TLEV along with everything else that depends on it.
+ */
+void
+pln_set_tech(struct plnstr *pp, int tlev)
+{
+    struct plchrstr *pcp = plchr + pp->pln_type;
+    int tech_diff = tlev - pcp->pl_tech;
+    int limited_range = pp->pln_range < pp->pln_range_max;
+
+    if (CANT_HAPPEN(tech_diff < 0)) {
+      tlev -= tech_diff;
+      tech_diff = 0;
+    }
+
+    pp->pln_tech = tlev;
+    pp->pln_att = PLN_ATTDEF(pcp->pl_att, tech_diff);
+    pp->pln_def = PLN_ATTDEF(pcp->pl_def, tech_diff);
+    pp->pln_acc = PLN_ACC(pcp->pl_acc, tech_diff);
+    pp->pln_range_max = PLN_RAN(pcp->pl_range, tech_diff);
+    pp->pln_load = PLN_LOAD(pcp->pl_load, tech_diff);
+
+    if (!limited_range || pp->pln_range > pp->pln_range_max)
+	pp->pln_range = pp->pln_range_max;
 }
