@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+# indent needs to know type names do to a proper job.
+# Type names located with grep typedef, then extracted by hand:
+types="bit_fdmask bit_mask caddr_t coord ef_fileinit emp_sig_t empth_sem_t empth_t intp iop_t iovec_t loc_Sem_t loc_Thread_t natid plate_e pointer qsort_func_t s_char stkalign_t u_char u_int u_short vf_ptr voidfunc"
+opts="-kr -cdw -cp8 -ncs -psl -nsob -ss"
+for t in $types
+do opts="$opts -T $t"
+done
+
+# Quote The indent Manual, Edition 2.2.8, section Bugs:
+#
+#   Comments of the form /*UPPERCASE*/ are not treated as comment but
+#   as an identifier, causing them to be joined with the next
+#   line. This renders comments of this type useless, unless they are
+#   embedded in the code to begin with.
+#
+# Therefore, we have to pre- and postprocess with sed.  Without this
+# bug, a simple find | xargs indent would do.
+
+for i in `find -name \*.[ch]`
+do
+  if sed 's#/\*\([A-Z][A-Z]*\)\*/#/* @@@\1@@@ */#g' <$i | indent $opts | sed 's#/\* @@@\([A-Z][A-Z]*\)@@@ \*/#/*\1*/#g' >$$
+  then mv $$ $i
+  else rm -f $i; exit 1;
+  fi
+done
