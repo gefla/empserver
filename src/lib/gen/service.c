@@ -36,7 +36,6 @@
 
 #include "prototypes.h"
 #include "service.h"
-#include "../gen/getopt.h"
 #include "optlist.h"
 
 int
@@ -203,30 +202,8 @@ service_ctrl_handler(DWORD Opcode)
 
 void WINAPI
 service_main(DWORD argc, LPTSTR *argv)
-{ 
-    int op;
-    s_char tbuf[256];
-    DWORD status;
-    char *config_file = NULL;
-
-    optind = 1;
-    opterr = 1;
-    while ((op = getopt(argc, argv, "D:e:")) != EOF) {
-	switch (op) {
-	case 'D':
-		datadir = optarg;
-		break;
-	case 'e':
-		config_file = optarg;
-		break;
-	}
-    }  
-
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+{
+    init_server(0);
 
     service_status.dwServiceType        = SERVICE_WIN32; 
     service_status.dwCurrentState       = SERVICE_START_PENDING; 
@@ -244,8 +221,6 @@ service_main(DWORD argc, LPTSTR *argv)
         return; 
     }
  
-    /* Initialization code goes here. */
-    init_server(0);
     start_server(0);
  
     /* Initialization complete - report running status. */
@@ -254,18 +229,17 @@ service_main(DWORD argc, LPTSTR *argv)
     service_status.dwWaitHint           = 0; 
  
     if (!SetServiceStatus (service_status_handle, &service_status)) { 
-        status = GetLastError();
-        logerror("SetServiceStatus error %ld\n",status);
+        logerror("SetServiceStatus error %ld\n", GetLastError());
     }
 
     empth_exit();
 
-/* We should never get here.  But, just in case... */
+    /* We should never get here.  But, just in case... */
     close_files();
 
     loc_NTTerm();
 
-    // This is where the service does its work.
+    /* This is where the service does its work. */
     logerror("Returning the Main Thread \n",0);
     return;
 }
