@@ -113,15 +113,10 @@ prod(void)
 			       * sect.sct_item[I_CIVIL]));
 	uws = min(9999, (int)((uwbrate * etu_per_update + 1.0)
 			      * sect.sct_item[I_UW]));
-	if (opt_RES_POP) {
-	    natp = getnatp(sect.sct_own);
-	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
-	    civs = min(civs, maxpop);
-	    uws = min(uws, maxpop);
-	} else {		/* now RES_POP */
-	    civs = min(999, civs);
-	    uws = min(999, uws);
-	}			/* end RES_POP */
+	natp = getnatp(sect.sct_own);
+	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
+	civs = min(civs, maxpop);
+	uws = min(uws, maxpop);
 
 	/* This isn't quite right, since research might rise/fall */
 	/* during the update, but it's the best we can really do  */
