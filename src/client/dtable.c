@@ -25,49 +25,24 @@
  *
  *  ---
  *
- *  dtable.c: machine-dependent descriptor table management
+ *  dtable.c: Machine-dependant descriptor table management
  * 
  *  Known contributors to this file:
  *     Steve McClure, 1998
  */
 
-#ifdef hpux
-#include <stdio.h>
+#if !defined(_WIN32)
+#include <unistd.h>
 #endif
-#ifdef _WIN32
-#include <stdio.h>
-#endif
-
-/*ARGSUSED*/
-void
-setfdtablesize(min, start)
-int min;
-int start;
-{
-#ifdef sequent
-    extern int errno;
-
-    while (start >= min) {
-	if (setdtablesize(start) < 0)
-	    break;
-	start -= 16;
-    }
-    errno = 0;
-#endif
-}
 
 int
-getfdtablesize()
+getfdtablesize(void)
 {
-#ifdef hpux
-    return _NFILE;
+#if defined(_WIN32)
+    return (_NFILE);
+#elif defined(hpux)
+    return (int)sysconf(_SC_OPEN_MAX);
 #else
-#ifdef _WIN32
-    return _NFILE;
-#else
-    int getdtablesize();
-
     return getdtablesize();
-#endif
 #endif
 }

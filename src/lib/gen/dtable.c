@@ -32,25 +32,9 @@
  */
 
 #if !defined(_WIN32)
-#include <unistd.h>		/* getdtablesize */
+#include <unistd.h>
 #endif
 #include "gen.h"
-
-/*ARGSUSED*/
-void
-setfdtablesize(int min, int start)
-{
-#ifdef sequent
-    extern int errno;
-
-    while (start >= min) {
-	if (setdtablesize(start) > 0)
-	    break;
-	start -= 16;
-    }
-    errno = 0;
-#endif
-}
 
 int
 getfdtablesize(void)

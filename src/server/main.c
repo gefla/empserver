@@ -204,7 +204,6 @@ char *argv[];
 #else
     srand(now);
 #endif /* _WIN32 */
-    setfdtablesize(32, 256);
     global_init();
     shutdown_init();
     player_init();
