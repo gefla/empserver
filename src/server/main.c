@@ -118,8 +118,6 @@ main(int argc, char **argv)
     _fmode = _O_BINARY;
 #endif
 
-    loginit("server");
-
     mainpid = getpid();
 
 #if defined(_WIN32)
@@ -172,6 +170,8 @@ main(int argc, char **argv)
 	    return EXIT_FAILURE;
 	}
     }
+
+    loginit("server");
 
 #if defined(_WIN32)
     if ((debug || datadir_set || config_file != NULL) &&
