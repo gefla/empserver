@@ -471,7 +471,7 @@ empth_exit(void)
     if (pThread->bMainThread) {
 	/* The main line.  Wait forever. */
 	while (1) {
-	    if (daemon) {
+	    if (daemonize) {
 		if (service_stopped())
 		    shutdwn(0);
 		Sleep(3);

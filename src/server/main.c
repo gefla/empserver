@@ -76,13 +76,10 @@ static void loc_NTInit(void);
 
 static int mainpid = 0;
 
-/*
- * Debugging?
- * If yes, don't fork into background, don't catch certain signals,
- * call abort() on internal error.
- */
+/* Debugging?  If yes call abort() on internal error.  */
 int debug = 0;
-int daemon = 1;
+/* Run as daemon?  If yes, detach from controlling terminal etc. */
+int daemonize = 1;
 
 static void
 print_usage(char *program_name)
@@ -129,7 +126,7 @@ main(int argc, char **argv)
 	    break;
 	case 'd':
 	    debug++;
-	    daemon = 0;
+	    daemonize = 0;
 	    break;
 	case 'e':
 	    config_file = optarg;
@@ -204,7 +201,7 @@ main(int argc, char **argv)
 #endif	/* _WIN32 */
 
 #if defined(_WIN32)
-    if (daemon != 0) {
+    if (daemonize != 0) {
 	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
 	if (StartServiceCtrlDispatcher(DispatchTable))
 	    return 0;
@@ -220,12 +217,12 @@ main(int argc, char **argv)
 	    }
 	}
     }
-    daemon = 0;
+    daemonize = 0;
 #endif	/* _WIN32 */
 
     init_server(flags);
 #ifndef _WIN32
-    if (daemon != 0 && flags == 0)
+    if (daemonize != 0 && flags == 0)
 	disassoc();
 #endif
     start_server(flags);
