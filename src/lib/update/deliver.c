@@ -42,7 +42,7 @@
 #include "subs.h"
 #include "common.h"
 
-int
+static int
 deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
 	int thresh, int amt_src, int plague)
 {
@@ -114,4 +114,30 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
 	n = 0;
     from->sct_mobil = n;
     return amt_moved;
+}
+
+void
+dodeliver(struct sctstr *sp)
+{
+    register int i;
+    int thresh;
+    int dir;
+    int plague;
+    int n;
+
+    if (sp->sct_mobil <= 0)
+	return;
+    plague = sp->sct_pstage;
+    for (i = 1; i <= I_MAX; i++) {
+	if (sp->sct_del[i] == 0)
+	    continue;
+	thresh = sp->sct_del[i] & ~0x7;
+	dir = sp->sct_del[i] & 0x7;
+	n = deliver(sp, &ichr[i], dir, thresh, sp->sct_item[i], plague);
+	if (n > 0) {
+	    sp->sct_item[i] -= n;
+	    if (sp->sct_mobil <= 0)
+		break;
+	}
+    }
 }

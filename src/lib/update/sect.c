@@ -55,32 +55,6 @@
 #include "lost.h"
 #include "gen.h"
 
-void
-dodeliver(struct sctstr *sp)
-{
-    register int i;
-    int thresh;
-    int dir;
-    int plague;
-    int n;
-
-    if (sp->sct_mobil <= 0)
-	return;
-    plague = sp->sct_pstage;
-    for (i = 1; i <= I_MAX; i++) {
-	if (sp->sct_del[i] == 0)
-	    continue;
-	thresh = sp->sct_del[i] & ~0x7;
-	dir = sp->sct_del[i] & 0x7;
-	n = deliver(sp, &ichr[i], dir, thresh, sp->sct_item[i], plague);
-	if (n > 0) {
-	    sp->sct_item[i] -= n;
-	    if (sp->sct_mobil <= 0)
-		break;
-	}
-    }
-}
-
 /*
  * Increase sector efficiency if old type == new type.
  * decrease sector efficiency if old type != new type.

@@ -540,8 +540,7 @@ extern void delete_old_announcements(void);
 /* bp.c */
 /* in budg.h */
 /* deliver.c */
-extern int deliver(register struct sctstr *, struct ichrstr *, int, int,
-		   int, int);
+extern void dodeliver(struct sctstr *);
 /* distribute.c */
 extern int dodistribute(struct sctstr *, int, s_char *, double, double);
 /* finish.c */
@@ -613,7 +612,6 @@ extern void guerrilla(struct sctstr *);
 /* sail.c */
 extern void sail_ship(natid);
 /* sect.c */
-extern void dodeliver(struct sctstr *);
 extern void do_fallout(register struct sctstr *, register int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
