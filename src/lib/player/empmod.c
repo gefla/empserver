@@ -92,7 +92,6 @@ struct cmndstr player_coms[] = {
     {"designate <SECTS> <type> [sure?]", 1, desi, C_MOD, NORM},
     {"disable", 0, disa, C_MOD, GOD},
     {"disarm <PLANE>", 2, arm, C_MOD, NORM + MONEY + CAP},
-    {"dissolve <really dissove?>", 0, diss, C_MOD, GOD},
     {"distribute <SECTS> <DISTSECT|.|h>", 1, dist, C_MOD, NORM},
     {"drop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COMM>", 1, drop, C_MOD, NORM + MONEY + CAP},
     {"dump <SECTS> [<fields>]", 0, dump, 0, NORM},

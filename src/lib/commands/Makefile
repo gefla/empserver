@@ -38,7 +38,7 @@ NTLIB = $(SRCDIR)\lib\libcommands.lib
 OBJS =  acce.o add.o anti.o arm.o army.o assa.o atta.o bdes.o best.o boar.o \
 	bomb.o brea.o budg.o buil.o buy.o capi.o carg.o cede.o cens.o chan.o \
 	coas.o coll.o comm.o cons.o conv.o coun.o cuto.o decl.o deli.o demo.o \
-	desi.o disa.o diss.o dist.o drop.o dump.o echo.o edit.o enab.o enli.o \
+	desi.o disa.o dist.o drop.o dump.o echo.o edit.o enab.o enli.o \
 	expl.o fina.o flash.o flee.o fly.o foll.o forc.o fort.o fuel.o give.o \
 	grin.o hard.o head.o hidd.o improve.o info.o land.o laun.o lboard.o \
 	ldump.o ledg.o leve.o load.o look.o lost.o lstat.o lten.o map.o \
@@ -57,7 +57,7 @@ NTOBJS = acce.obj add.obj anti.obj arm.obj army.obj assa.obj atta.obj \
 	bdes.obj best.obj boar.obj bomb.obj brea.obj budg.obj buil.obj \
 	buy.obj capi.obj carg.obj cede.obj cens.obj chan.obj coas.obj \
 	coll.obj comm.obj cons.obj conv.obj coun.obj cuto.obj decl.obj \
-	deli.obj demo.obj desi.obj disa.obj diss.obj dist.obj drop.obj \
+	deli.obj demo.obj desi.obj disa.obj dist.obj drop.obj \
 	dump.obj echo.obj edit.obj enab.obj enli.obj expl.obj fina.obj \
 	flash.obj flee.obj fly.obj foll.obj forc.obj fort.obj fuel.obj \
 	give.obj grin.obj hard.obj head.obj hidd.obj improve.obj info.obj \

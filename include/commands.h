@@ -90,7 +90,6 @@ int deli(void);
 int demo(void);
 int desi(void);
 int disa(void);
-int diss(void);
 int dist(void);
 int drop(void);
 int dump(void);
