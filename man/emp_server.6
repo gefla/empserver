@@ -39,10 +39,12 @@ Help.  Print a usage line showing the command line options.
 .TP
 .B \-p
 Lwp Print mode.  This is used for debugging lwp-threads.
+This option automatically sets -d option.
 .TP
 .B \-s
 Lwp stack check mode.  This will report if any of the lwp thread stack
 spaces overflow.  It forces lwp print mode on.
+This option automatically sets -d option.
 .TP
 .BI \-D\ datadir
 causes the server to use the data files in 
