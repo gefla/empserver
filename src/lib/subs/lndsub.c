@@ -713,6 +713,7 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 			       techfact(llp->land.lnd_tech, mobcost));
 	    llp->mobil -= mobcost;
 	    llp->land.lnd_mobil = (int)llp->mobil;
+	    llp->land.lnd_harden = 0;
 	}
 	putland(llp->land.lnd_uid, &llp->land);
 	if (!(mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR)))
@@ -1183,6 +1184,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_ROAD);
 	}
 	llp->land.lnd_mobil = (int)llp->mobil;
+	llp->land.lnd_harden = 0;
 	putland(llp->land.lnd_uid, &llp->land);
 	putsect(&osect);
 	getsect(osect.sct_x, osect.sct_y, &osect);
