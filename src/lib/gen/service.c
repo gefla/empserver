@@ -39,11 +39,8 @@
 #include "../gen/getopt.h"
 #include "optlist.h"
 
-
-char *config_file = NULL;
-
 int
-install_service(char *program_name, char *service_name, int datadir_set)
+install_service(char *program_name, char *service_name, int datadir_set, char *config_file)
 {
     char strDir[1024];
     HANDLE schSCManager,schService;
@@ -219,6 +216,7 @@ service_main(DWORD argc, LPTSTR *argv)
     int op;
     s_char tbuf[256];
     DWORD status;
+    char *config_file = NULL;
 
     optind = 1;
     opterr = 1;

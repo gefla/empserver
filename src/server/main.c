@@ -82,6 +82,7 @@ static int mainpid = 0;
  * call abort() on internal error.
  */
 int debug = 0;
+int daemon = 1;
 
 static void
 print_usage(char *program_name)
@@ -107,9 +108,8 @@ main(int argc, char **argv)
     char *service_name = NULL;
     int remove_service_set = 0;
     int datadir_set = 0;
-#else
-    char *config_file = NULL;
 #endif
+    char *config_file = NULL;
     int op;
     s_char tbuf[256];
 
@@ -129,6 +129,7 @@ main(int argc, char **argv)
 	    break;
 	case 'd':
 	    debug++;
+	    daemon = 0;
 	    break;
 	case 'e':
 	    config_file = optarg;
@@ -190,15 +191,10 @@ main(int argc, char **argv)
     }
 #endif	/* _WIN32 */
 
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
 
 #if defined(_WIN32)
     if (install_service_set)
-        return install_service(argv[0], service_name, datadir_set);
+        return install_service(argv[0], service_name, datadir_set, config_file);
     if (remove_service_set)
         return remove_service(service_name);
 #endif	/* _WIN32 */
@@ -207,25 +203,31 @@ main(int argc, char **argv)
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
     }
+    emp_config(config_file);
 
 #if defined(_WIN32)
-    if (debug == 0) {
+    if (daemon != 0) {
 	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
 	if (StartServiceCtrlDispatcher(DispatchTable))
 	    return 0;
-	else
+	else {
+	    /*
+	     * If it is service startup error then exit otherwise
+	     * start server in the foreground
+	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
 		logerror("Failed to dispatch service (%d)", GetLastError());
 		printf("Failed to dispatch service (%d)\n", GetLastError());
 		exit(EXIT_FAILURE);
-	    } else  /* start in the foreground */
-		debug = 1;
+	    }
+	}
     }
+    daemon = 0;
 #endif	/* _WIN32 */
 
     init_server(flags);
 #ifndef _WIN32
-    if (debug == 0 && flags == 0)
+    if (daemon != 0 && flags == 0)
 	disassoc();
 #endif
     start_server(flags);
