@@ -70,18 +70,15 @@ chan(void)
 	charge = 0;
 	btucost = 0;
 	if (!player->god && (us->nat_stat & STAT_NORM)) {
-	    if (us->nat_btu < 254) {
-		pr("You need 254 btus to change your country name!\n");
-		return RET_FAIL;
-	    }
 	    if (opt_BLITZ == 0) {
+		if (us->nat_btu < 254) {
+		    pr("You need 254 btus to change your country name!\n");
+		    return RET_FAIL;
+		}
 		pr("This command costs 254 BTU's and 10%% of your money.\n");
 		if (!confirm("Are you sure you want to do this? "))
 		    return RET_FAIL;
 		btucost = 254;
-		/* charge = 2000; */
-		/*if (us->nat_money < charge*10) */
-		/*      charge = us->nat_money / 10; */
 		if (us->nat_money <= 0)
 		    charge = 0;
 		else
@@ -110,10 +107,8 @@ chan(void)
 	    pr("Must have a non-blank name!\n");
 	    return RET_FAIL;
 	}
-	if (opt_BLITZ == 0) {
-	    player->dolcost += charge;
-	    player->btused += btucost;
-	}
+	player->dolcost += charge;
+	player->btused += btucost;
 	strcpy(us->nat_cnam, p);
 	putnat(us);
 	nreport(player->cnum, N_NAME_CHNG, 0, 1);
