@@ -52,13 +52,6 @@
 
 static void take_casualties(struct sctstr *, int);
 
-#define	get_che_cnum(x)		((x) >> 8)
-#define set_che_cnum(x, cn)	((x) = ((x) & 0xff) | ((cn) << 8))
-#define get_che_value(x)	((x) & 0xff)
-#define set_che_value(x, n)	((x) = ((x) & 0xff00) | (n))
-
-#define	CHE_MAX			255
-
 void
 revolt(struct sctstr *sp)
 {

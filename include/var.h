@@ -95,6 +95,7 @@
 #define V_FALLOUT	V_COND(C_FALLOUT)
 
 /* should this be here?? */
+#define CHE_MAX                 255
 #define	get_che_cnum(x)		((x) >> 8)
 #define set_che_cnum(x, cn)	((x) = ((x) & 0xff) | ((cn) << 8))
 #define get_che_value(x)	((x) & 0xff)

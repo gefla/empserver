@@ -45,8 +45,6 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-#define CHE_MAX                 255
-
 void
 takeover(register struct sctstr *sp, natid newown)
 {
