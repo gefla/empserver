@@ -39,7 +39,7 @@ char *infodir	= EMPDIR "/info.nr";
 char *datadir	= EMPDIR "/data";
 char *teldir	= EMPDIR "/data/tel";
 
-char *upfil	= EMPDIR "/data/up";
+char *motdfil	= EMPDIR "/data/motd";
 char *downfil	= EMPDIR "/data/down";
 char *disablefil = EMPDIR "/data/disable";
 char *telfil	= EMPDIR "/data/tel/tel";

@@ -173,7 +173,7 @@ struct otherfiles {
 /* list of other well known files... -maybe tailor these oneday
  * anyway - meantime they are all relative to datadir */
 static struct otherfiles ofiles[] = {
-    {&upfil, "up"},
+    {&motdfil, "motd"},
     {&downfil, "down"},
     {&disablefil, "disable"},
     {&banfil, "ban"},

@@ -56,6 +56,7 @@
 #include <sys/time.h>
 #endif
 #include <stdio.h>
+#include <errno.h>
 #include <fcntl.h>
 
 struct player *player;
@@ -65,12 +66,12 @@ player_main(struct player *p)
 {
     struct natstr *natp;
     int secs;
-    s_char buf[128];
+    char buf[128];
 
     p->state = PS_PLAYING;
     player = p;
     time(&player->lasttime);
-    (void)time(&player->curup);
+    time(&player->curup);
     showvers(CLIENTPROTO);
     show_motd();
     if (init_nats() < 0)
@@ -102,9 +103,9 @@ player_main(struct player *p)
 	       natp->nat_last_logout ? ctime(&natp->
 					     nat_last_logout) : "?");
 	    pr("                  by: %s@%s\n",
-	       *natp->nat_userid ? natp->nat_userid : (s_char *)"nobody",
+	       *natp->nat_userid ? natp->nat_userid : "nobody",
 	       *natp->nat_hostname ? natp->nat_hostname : *natp->
-	       nat_hostaddr ? natp->nat_hostaddr : (s_char *)"nowhere");
+	       nat_hostaddr ? natp->nat_hostaddr : "nowhere");
 	}
     }
     if (*player->userid)
@@ -158,8 +159,8 @@ int
 command(void)
 {
     unsigned int x;
-    s_char *redir;
-    s_char scanspace[1024];
+    char *redir;
+    char scanspace[1024];
 
     if (getcommand(player->combuf) < 0)
 	return 0;
@@ -171,7 +172,7 @@ command(void)
 	/* DONT USE IT!!!! alarm and sleep may and dont work
 	   together -- Sasha */
 	/* alarm((unsigned int)60*60); 1 hour */
-	if (player->condarg != (s_char *)0)
+	if (player->condarg != NULL)
 	    for (x = 0; x < strlen(player->condarg); x++)
 		if (isupper(*(player->condarg + x)))
 		    *(player->condarg + x) =
@@ -188,7 +189,7 @@ status(void)
     struct natstr *natp;
     int minute;
     struct sctstr sect;
-    s_char buf[128];
+    char buf[128];
 
     if (player->state == PS_SHUTDOWN)
 	return 0;
@@ -236,7 +237,7 @@ status(void)
     if (natp->nat_flags & NF_SACKED)
 	player->nstat &= ~CAP;	/* No capital yet */
     player->ncomstat = player->nstat;
-    (void)time(&player->curup);
+    time(&player->curup);
     minute = (player->curup - player->lasttime) / 60;
     if (minute > 0) {
 	player->minleft -= minute;
@@ -303,18 +304,18 @@ status(void)
 int
 execute(void)
 {
-    s_char buf[512];
+    char buf[512];
     int failed;
-    s_char *p;
-    s_char *redir;
-    s_char scanspace[1024];
+    char *p;
+    char *redir;
+    char scanspace[1024];
 
     failed = 0;
     redir = 0;
 
     p = getstarg(player->argp[1], "File? ", buf);
 
-    if (p == (s_char *)0 || *p == '\0')
+    if (p == NULL || *p == '\0')
 	return RET_SYN;
 
     prexec(player->argp[1]);
@@ -342,31 +343,40 @@ execute(void)
 int
 show_motd(void)
 {
-    int upf;
+    int motdf;
     struct telstr tgm;
-    s_char buf[MAXTELSIZE];
+    char buf[MAXTELSIZE];
 
 #if !defined(_WIN32)
-    if ((upf = open(upfil, O_RDONLY, 0)) < 0)
+    if ((motdf = open(motdfil, O_RDONLY, 0)) < 0)
 #else
-    if ((upf = open(upfil, O_RDONLY | O_BINARY, 0)) < 0)
+    if ((motdf = open(motdfil, O_RDONLY | O_BINARY, 0)) < 0)
 #endif
-	return RET_FAIL;
-    if (read(upf, (s_char *)&tgm, sizeof(tgm)) != sizeof(tgm)) {
-	logerror("bad header on login message (upfil)");
-	close(upf);
+    {
+    	if (errno == ENOENT)
+	    return RET_OK;
+	else
+	{
+	    pr ("Could not open motd.\n");
+	    logerror("Could not open motd (%s).\n", motdfil);
+	    return RET_SYS;
+	}
+    }
+    if (read(motdf, &tgm, sizeof(tgm)) != sizeof(tgm)) {
+	logerror("bad header on login message (motdfil)");
+	close(motdf);
 	return RET_FAIL;
     }
-    if (read(upf, buf, tgm.tel_length) != tgm.tel_length) {
+    if (read(motdf, buf, tgm.tel_length) != tgm.tel_length) {
 	logerror("bad length %ld on login message", tgm.tel_length);
-	close(upf);
+	close(motdf);
 	return RET_FAIL;
     }
     if (tgm.tel_length >= (long)sizeof(buf))
 	tgm.tel_length = sizeof(buf) - 1;
     buf[tgm.tel_length] = 0;
     prnf(buf);
-    (void)close(upf);
+    (void)close(motdf);
     return RET_OK;
 }
 
@@ -375,8 +385,8 @@ match_user(char *file, struct player *p)
 {
     FILE *fp;
     int match = 0;
-    s_char host[256];
-    s_char user[256];
+    char host[256];
+    char user[256];
 
     if ((fp = fopen(file, "r")) == NULL) {
 	/*logerror("Cannot find file %s", file); */
@@ -408,7 +418,7 @@ quit(void)
     return RET_OK;
 }
 
-s_char *
+char *
 praddr(struct player *p)
 {
     return prbuf("%s@%s", p->userid,

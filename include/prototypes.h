@@ -261,7 +261,7 @@ extern int natbyname(s_char *, natid *);
 extern int natpass(int, s_char *);
 /* player.c */
 extern struct player *player;	/* current player's context */
-extern s_char *praddr(struct player *);
+extern char *praddr(struct player *);
 extern void player_main(struct player *);
 extern int match_user(char *, struct player *);
 extern int status(void);

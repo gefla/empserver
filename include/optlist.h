@@ -99,7 +99,7 @@ int start_unit_type[];
 #endif
 
 /* Variables that get values derived from econfig */
-extern char *upfil;
+extern char *motdfil;
 extern char *downfil;
 extern char *disablefil;
 extern char *banfil;
