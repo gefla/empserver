@@ -2464,12 +2464,8 @@ att_move_in_off(int combat_mode, struct combat *off,
 {
     struct sctstr sect;
     struct shpstr ship;
-    struct lndstr land;
-    int defvec[I_MAX + 1];
-    int shipvec[I_MAX + 1];
     int troops;
     int n, lunchbox = 0;
-    s_char *thing;
 
     move_in_land(combat_mode, off, olist, def);
 
@@ -2482,42 +2478,29 @@ att_move_in_off(int combat_mode, struct combat *off,
 	def->mil += troops;
 	put_combat(off + n);
 	if (combat_mode == A_ASSAULT) {
+	    if (off[n].type != EF_SHIP || def->type != EF_SECTOR) {
+		logerror("att_move_in_off: strange assault");
+		continue;
+	    }
 	    getship(off[n].shp_uid, &ship);
-	    getvec(VT_ITEM, shipvec, (s_char *)&ship, EF_SHIP);
-	    lunchbox += (int)((troops + 1) * shipvec[I_FOOD] /
-			      (shipvec[I_MILIT] + troops +
-			       shipvec[I_CIVIL] + 0.5));
-	    shipvec[I_FOOD] -= lunchbox;
-	    putvec(VT_ITEM, shipvec, (s_char *)&ship, EF_SHIP);
+	    lunchbox += (int)((troops + 1) * ship.shp_item[I_FOOD]
+			      / (ship.shp_item[I_MILIT] + troops
+				 + ship.shp_item[I_CIVIL] + 0.5));
+	    ship.shp_item[I_FOOD] -= lunchbox;
 	    putship(ship.shp_uid, &ship);
 	}
     }
     put_combat(def);
     if (!lunchbox)
 	return;
-
-    if (def->type == EF_SECTOR) {
-	getsect(def->x, def->y, &sect);
-	thing = (s_char *)&sect;
-    } else if (def->type == EF_SHIP) {
-	getship(def->shp_uid, &ship);
-	thing = (s_char *)&ship;
-    } else if (def->type == EF_LAND) {
-	getship(def->lnd_uid, &land);
-	thing = (s_char *)&land;
-    } else {
+    if (def->type != EF_SECTOR) {
 	pr("Please tell the deity that you got the 'hungry mole' error\n");
+	logerror("att_move_in_off: hungry mole");
 	return;
     }
-    getvec(VT_ITEM, defvec, thing, def->type);
-    defvec[I_FOOD] += lunchbox;
-    putvec(VT_ITEM, defvec, thing, def->type);
-    if (def->type == EF_SECTOR)
-	putsect(&sect);
-    else if (def->type == EF_SHIP)
-	putship(ship.shp_uid, &ship);
-    else
-	putland(land.lnd_uid, &land);
+    getsect(def->x, def->y, &sect);
+    sect.sct_item[I_FOOD] += lunchbox;
+    putsect(&sect);
 }
 
 
