@@ -487,7 +487,6 @@ static void
 ship_bomb(struct emp_qelem *list, struct sctstr *target)
 {
     struct plist *plp;
-    int onsea;
     struct mchrstr *mcp;
     int dam;
     s_char *q;
@@ -509,7 +508,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 
     memset(&head, 0, sizeof(struct shiplook));
     head.uid = -1;
-    onsea = (target->sct_type == SCT_WATER) ? 1 : 0;
     for (qp = list->q_forw; qp != list && !player->aborted;
 	 qp = qp->q_forw) {
 	if (head.uid != -1) {
@@ -767,7 +765,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     s_char buf[1024];
     s_char msg[128];
     struct lndstr land;
-    struct lchrstr *lcp;
     struct emp_qelem *qp;
     int unitno;
     int ignore, flak, hitchance;
@@ -812,8 +809,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (unitno < 0)
 	    continue;
-
-	lcp = &lchr[(int)land.lnd_type];
 
 	flak = (int)(techfact(land.lnd_tech, (double)land.lnd_aaf) * 3.0);
 	if (flak) {
