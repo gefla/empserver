@@ -271,9 +271,7 @@ struct cmndstr player_coms[] = {
     {"wipe <SECTS>", 1, wipe, C_MOD, NORM},
     {"wire [yes|no|<days>]", 0, rea, C_MOD, VIS},
     {"work <LAND UNITS> <AMOUNT>", 1, work, C_MOD, NORM + MONEY + CAP},
-#if 0 /* experimental, disabled for now */
-    {"xdump FIXME", 0, xdump, 0, NORM},
-#endif
+    {"xdump [<TABLE-KIND>] <TABLE> [<ROWS>]", 0, xdump, 0, NORM},
     {"zdone <y|n|c>", 0, zdon, C_MOD, NORM},
     {0, 0, 0, 0, 0}
 };
