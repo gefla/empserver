@@ -290,7 +290,7 @@ This is what happens to the sector when you take it:
   is less than 10%, the unit is blown up.
 - The avail is set to 0.
 - New che are created (see info Guerrilla).
-- Set the loyalty of the sector to 50 (see info Loyalty).
+- Set the loyalty of the sector to 50 (see info Citizens).
 - Reduce the mobility to 0.
 - The civs in the sector become "conquered populace" (see info Occupation).
 

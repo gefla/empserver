@@ -8,16 +8,28 @@ uws being the only other sources of income in the game).
 Also, only friendly civilians can be enlisted into the army, navy and
 air force.
 .s1
-The loyalty of a given sector,
-also known as the willingness of the civilian population to work,
-is initially 100% -- that is, all of the people are working.
-In the event that the sector is captured, starves,
-or falls victim to revolutionary subversion,
-the work of the sector will decrease.
-This will be shown by the work % decreasing.
+The willingness of the civilian population to work is initially 100%
+-- that is, all of the people are working. In the event that the
+sector starves or falls victim to revolutionary subversion, the work
+of the sector will decrease. This will be shown by the work %
+decreasing. During the update, the work % is influenced by the loyalty
+of the sector.
 .s1
 If people starve in a sector, the amount of work they do drops to 0
 (because they are too weak to work).
+.s1
+The loyalty of a sector is a hidden value, which represents how loyal
+the citizens in the sector are to your country. Initially the
+disloyalty is set to 0. When a sector is captured the disloyalty is
+set to 50. Besides from influencing the work % of a sector, the
+loyalty influences the chances on revolts, che in general and whether
+civilians will report to your army when enlisting reserves. Loyalty
+changes during the update by happiness or lack thereof. When retaking
+a sector you are the old owner of, the disloyalty in the sector will
+be 0 again. If the people in the sector had to fight for it themselves
+in a revolt, some disloyalty will remain. If the occupation force of a
+sector is too small, or if the sector starves, disloyalty will
+increase.
 .s1
 If a sector is a conquered sector,
 a star \*Q*\*U will be shown in the appropriate column
