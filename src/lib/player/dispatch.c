@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "player.h"
 #include "com.h"
-#include "user.h"
 #include "match.h"
 #include "nat.h"
 #include "file.h"
