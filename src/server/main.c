@@ -285,7 +285,9 @@ init_server(void)
 void
 start_server(int flags)
 {
+#if !defined(_WIN32)
     struct sigaction act;
+#endif
 
     logerror("------------------------------------------------------");
     logerror("Empire server (pid %d) started", (int)getpid());
