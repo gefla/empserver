@@ -79,16 +79,12 @@ loginit(void)
 void
 logerror(s_char *format, ...)
 {
-#if !defined(Rel4) && !defined(__linux__) && !defined(__ppc__)
-    extern s_char *sys_errlist[];
-#endif
     va_list list;
     time_t now;
     s_char buf[512];
     s_char cbuf[512];
     s_char buf1[512];
     int logf;
-/*	s_char	*error; */
     s_char *p;
 
     if (logfile == 0)
@@ -98,11 +94,6 @@ logerror(s_char *format, ...)
     if ((p = index(buf, '\n')) != 0)
 	*p = 0;
     (void)time(&now);
-/*	error = "log";
-	if (errno != 0)
-		error = sys_errlist[errno];
-	(void) sprintf(buf1, "%s; (%s) %s", buf, error, ctime(&now));
-*/
     strcpy(cbuf, ctime(&now));
     if ((p = index(cbuf, '\n')) != 0)
 	*p = 0;
