@@ -339,6 +339,9 @@ gift(int givee, int giver, s_char *ptr, int type, s_char *mesg)
     case EF_LAND:
 	p = prland((struct lndstr *)ptr);
 	break;
+    default:
+	CANT_HAPPEN("bad TYPE");
+	p = "a red herring";
     }
 
     sprintf(line, "%s %s %s\n", cname(giver), p, mesg);
