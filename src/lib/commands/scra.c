@@ -57,7 +57,6 @@ scra(void)
 {
     struct nstr_item ni;
     union item_u item;
-    int vec[I_MAX + 1];
     int type;
     struct sctstr sect;
     struct mchrstr *mp;
@@ -171,7 +170,6 @@ scra(void)
 		 getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY))
 		continue;
 	}
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	if (type == EF_SHIP) {
 	    eff = ((float)item.ship.shp_effic / 100.0);
 	    mp = &mchr[(int)item.ship.shp_type];
@@ -188,11 +186,12 @@ scra(void)
 		}
 	    }
 	    pr("%s", prship(&item.ship));
+	    /* FIXME obey ITEM_MAX */
 	    for (i = 1; i <= I_MAX; i++) {
-		vec[i] += item.ship.shp_item[i];
+		sect.sct_item[i] += item.ship.shp_item[i];
 	    }
-	    vec[I_LCM] += mp->m_lcm * 2 / 3 * eff;
-	    vec[I_HCM] += mp->m_hcm * 2 / 3 * eff;
+	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
+	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
 	    getsect(item.ship.shp_x, item.ship.shp_y, &sect2);
 	    snxtitem_all(&ni2, EF_PLANE);
 	    while (nxtitem(&ni2, (s_char *)&plane)) {
@@ -254,15 +253,12 @@ scra(void)
 	    eff = ((float)item.land.lnd_effic / 100.0);
 	    lp = &lchr[(int)item.land.lnd_type];
 	    pr("%s", prland(&item.land));
+	    /* FIXME obey ITEM_MAX */
 	    for (i = 1; i <= I_MAX; i++) {
-		vec[i] += item.land.lnd_item[i];
+		sect.sct_item[i] += item.land.lnd_item[i];
 	    }
-/* Military, guns and shells are not required to build land units */
-/*			vec[I_MILIT] += total_mil(&item.land);*/
-/*			vec[I_GUN] += lp->l_gun * 2 / 3 * eff;*/
-/*			vec[I_SHELL] += lp->l_shell * 2 / 3 * eff;*/
-	    vec[I_LCM] += lp->l_lcm * 2 / 3 * eff;
-	    vec[I_HCM] += lp->l_hcm * 2 / 3 * eff;
+	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;
+	    sect.sct_item[I_HCM] += lp->l_hcm * 2 / 3 * eff;
 	    getsect(item.land.lnd_x, item.land.lnd_y, &sect2);
 
 	    snxtitem_all(&ni2, EF_LAND);
@@ -326,9 +322,10 @@ scra(void)
 	    eff = ((float)item.land.lnd_effic / 100.0);
 	    pp = &plchr[(int)item.plane.pln_type];
 	    pr("%s", prplane(&item.plane));
-	    vec[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
-	    vec[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
-	    vec[I_MILIT] += pp->pl_crew;
+	    /* FIXME obey ITEM_MAX */
+	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
+	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
+	    sect.sct_item[I_MILIT] += pp->pl_crew;
 	    makelost(EF_PLANE, item.plane.pln_own, item.plane.pln_uid,
 		     item.plane.pln_x, item.plane.pln_y);
 	    item.plane.pln_own = 0;
@@ -336,7 +333,6 @@ scra(void)
 	}
 	pr(" scrapped in %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	putsect(&sect);
     }
     return RET_OK;
