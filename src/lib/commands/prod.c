@@ -74,7 +74,7 @@ prod(void)
     double level_p_e;
     double prodeff;
     double real;		/* floating pt version of act */
-    double work;
+    int work;
     int totpop;
     int act;			/* actual production */
     int cost;
@@ -158,12 +158,10 @@ prod(void)
 		    dchr[type].d_pkg != UPKG) {
 		    if (opt_RES_POP) {
 			natp = getnatp(sect.sct_own);
-			civs =
-			    min(civs,
-				max_pop(natp->nat_level[NAT_RLEV], 0));
-			uws =
-			    min(uws,
-				max_pop(natp->nat_level[NAT_RLEV], 0));
+			civs = min(civs,
+				   max_pop(natp->nat_level[NAT_RLEV], 0));
+			uws = min(uws,
+				  max_pop(natp->nat_level[NAT_RLEV], 0));
 		    } else {
 			civs = min(9999, civs);
 			uws = min(9999, uws);
@@ -171,7 +169,7 @@ prod(void)
 		    wforce = (int)(((double)civs * sect.sct_work) / 100.0
 				   + uws
 				   + sect.sct_item[I_MILIT] * 2 / 5.0);
-		    work = etu_per_update * wforce / 100.0;
+		    work = etu_per_update * wforce / 100;
 		    bwork = min((int)(work / 2), bwork);
 		}
 	    }
@@ -242,7 +240,7 @@ prod(void)
 	/*
 	 * raw material limit
 	 */
-	used = 999;
+	used = 9999;
 	amount = pp->p_vamt;
 	endcomp = pp->p_vtype + pp->p_nv;
 	for (comp = pp->p_vtype; comp < endcomp; comp++, amount++) {
@@ -257,7 +255,7 @@ prod(void)
 	 * is production limited by resources or
 	 * workforce?
 	 */
-	max = (int)((work * p_e / (double)unit_work) + 0.5);
+	max = (int)(work * p_e / (double)unit_work + 0.5);
 	act = min(used, max);
 	/*
 	 * some things are easier to make..  food,
@@ -266,16 +264,15 @@ prod(void)
 	act = (int)(((double)pp->p_effic * 0.01 * (double)act) + 0.5);
 	max = (int)(((double)pp->p_effic * 0.01 * (double)max) + 0.5);
 
-	real = (double)act * level_p_e;
-	maxr = (double)max * level_p_e;
+	real = dmin(999.0, (double)act * level_p_e);
+	maxr = dmin(999.0, (double)max * level_p_e);
 
 	if (vtype != 0) {
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
 	    there = min(ITEM_MAX, sect.sct_item[vtype]);
-	    act = min(act, ITEM_MAX - there);
-	    max = min(max, ITEM_MAX - there);
+	    real = dmin(real, ITEM_MAX - there);
 	}
 
 	if (level_p_e != 0) {
@@ -283,11 +280,6 @@ prod(void)
 	    mtake = maxr / level_p_e;
 	} else
 	    mtake = take = 0.0;
-
-	if (take > 999.0)
-	    take = 999.0;
-	if (mtake > 999.0)
-	    mtake = 999.0;
 
 	take = (double)take / ((double)pp->p_effic * 0.01);
 	mtake = (double)mtake / ((double)pp->p_effic * 0.01);
