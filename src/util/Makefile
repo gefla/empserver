@@ -124,4 +124,4 @@ ntinstall:
 	-(copy pconfig.exe $(NTINSTDIR)\bin)
 
 include ../make.rules
--include Makedepend
+include Makedepend

@@ -61,4 +61,4 @@ clean:
 	-(rm -f $(OBJS) $(AIXOBJS) $(MIPSOBJS))
 
 include ../../make.rules
--include Makedepend
+include Makedepend
