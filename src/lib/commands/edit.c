@@ -284,13 +284,14 @@ prsect(struct sctstr *sect)
        xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum));
     pr("Designation <s>: %c\t New designation <S>: %c\n",
        dchr[sect->sct_type].d_mnem, dchr[sect->sct_newtype].d_mnem);
-    pr("own  oo eff mob min gld frt oil urn wrk lty  che plg ptime fall avail\n");
-    pr("  o   O   e   m   i   g   f   c   u   w   l    x   p     t    F     a\n");
-    pr("%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %4d %3d %5d %4d %5d\n",
+    pr("own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail\n");
+    pr("  o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a\n");
+    pr("%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %5d %4d %5d\n",
        sect->sct_own, sect->sct_oldown, sect->sct_effic, sect->sct_mobil,
        sect->sct_min, sect->sct_gmin, sect->sct_fertil, sect->sct_oil,
        sect->sct_uran, sect->sct_work, sect->sct_loyal,
-       sect->sct_che, sect->sct_pstage, sect->sct_ptime,
+       sect->sct_che, sect->sct_che_target,
+       sect->sct_pstage, sect->sct_ptime,
        sect->sct_fallout, sect->sct_avail);
 
     pr("Mines <M>: %d\t", sect->sct_mines);
@@ -586,10 +587,18 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	break;
     case 'x':
 	old = sect->sct_che;
-	new = errcheck(arg, 0, 65536);
-	pr("Guerillas in %s changed from %d to %d%\n",
+	new = errcheck(arg, 0, CHE_MAX);
+	pr("Guerillas in %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_che = new;
+	break;
+    case 'X':
+	old = sect->sct_che_target;
+	new = errcheck(arg, 0, MAXNOC - 1);
+	pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   cname(old), old, cname(new), new);
+	sect->sct_che_target = new;
 	break;
     case 'p':
 	old = sect->sct_pstage;

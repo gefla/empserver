@@ -187,6 +187,7 @@ add(void)
 		sect.sct_pstage = PLG_HEALTHY;
 		sect.sct_ptime = 0;
 		sect.sct_che = 0;
+		sect.sct_che_target = 0;
 		sect.sct_fallout = 0;
 		putsect(&sect);
 		pr("wiped\n");

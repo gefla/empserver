@@ -59,15 +59,11 @@ revolt(struct sctstr *sp)
     int che_uw;
     int civ;
     int uw;
-    u_short che_combo;
     int che;
     int n;
-    int target;
 
-    che_combo = sp->sct_che;
-    che = get_che_value(che_combo);
-    target = get_che_cnum(che_combo);
-    if (che_combo != 0 && (target != sp->sct_own || che >= CHE_MAX))
+    che = sp->sct_che;
+    if (che != 0 && (sp->sct_che_target != sp->sct_own || che >= CHE_MAX))
 	return;
     civ = sp->sct_item[I_CIVIL];
     uw = sp->sct_item[I_UW];
@@ -98,9 +94,8 @@ revolt(struct sctstr *sp)
     if (che_civ + che_uw > 0) {
 	civ -= che_civ;
 	uw -= che_uw;
-	set_che_cnum(che_combo, sp->sct_own);
-	set_che_value(che_combo, che);
-	sp->sct_che = che_combo;
+	sp->sct_che_target = sp->sct_own;
+	sp->sct_che = che;
 	if (che_civ > 0)
 	    sp->sct_item[I_CIVIL] = civ;
 	if (che_uw > 0)
@@ -153,7 +148,6 @@ guerrilla(struct sctstr *sp)
     int convert;
     natid actor;
     natid victim;
-    u_short che_combo;
     int vec[I_MAX + 1];
     int tmp;
     int min_mil;
@@ -166,9 +160,8 @@ guerrilla(struct sctstr *sp)
     recruit = 0;
     convert = 0;
     move = 0;
-    if ((n = sp->sct_che) <= 0)
+    if (!sp->sct_che)
 	return;
-    che_combo = n;
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
 	return;
     civ = vec[I_CIVIL];
@@ -176,7 +169,7 @@ guerrilla(struct sctstr *sp)
     uw = vec[I_UW];
     victim = sp->sct_own;
     actor = sp->sct_oldown;
-    che = get_che_value(che_combo);
+    che = sp->sct_che;
 
     mil = vec[I_MILIT];
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
@@ -214,10 +207,11 @@ guerrilla(struct sctstr *sp)
     /* Security forces killed all the che */
     if (che <= 0) {
 	sp->sct_che = 0;
+	sp->sct_che_target = 0;
 	return;
     }
 
-    target = get_che_cnum(che_combo);
+    target = sp->sct_che_target;
     if (target == 0) {
 	/* the deity can't be a target! */
 	return;
@@ -228,6 +222,7 @@ guerrilla(struct sctstr *sp)
 	logerror("%d Che targeted at country %d retiring", che, target);
 	civ += che;
 	sp->sct_che = 0;
+	sp->sct_che_target = 0;
 	sp->sct_item[I_CIVIL] = civ;
 	return;
     }
@@ -402,11 +397,10 @@ guerrilla(struct sctstr *sp)
 		continue;
 	    if (nsp->sct_own != target)
 		continue;
-	    if ((val = nsp->sct_che) > 0) {
-		che_combo = val;
-		if (get_che_cnum(che_combo) != target)
+	    if (nsp->sct_che > 0) {
+		if (nsp->sct_che_target != target)
 		    continue;
-		if (get_che_value(che_combo) + che > CHE_MAX)
+		if (nsp->sct_che + che > CHE_MAX)
 		    continue;
 	    }
 	    val = nsp->sct_item[I_MILIT];
@@ -422,20 +416,18 @@ guerrilla(struct sctstr *sp)
 	}
 	/* if we found a nice sector, go there */
 	if (nicest_sp != 0) {
-	    che_combo = nicest_sp->sct_che;
-	    che += get_che_value(che_combo);
-	    set_che_value(che_combo, che);
-	    set_che_cnum(che_combo, target);
-	    nicest_sp->sct_che = che_combo;
+	    nicest_sp->sct_che += che;
+	    nicest_sp->sct_che_target = target;
 	    che = 0;
 	}
     }
     if (che > 0) {
-	set_che_value(che_combo, che);
-	set_che_cnum(che_combo, target);
-	sp->sct_che = che_combo;
-    } else
+	sp->sct_che = che;
+	sp->sct_che_target = target;
+    } else {
 	sp->sct_che = 0;
+	sp->sct_che_target = 0;
+    }
     if (mc > 0 || cc > 0) {
 	/* don't tell who won just to be mean */
 	wu(0, target,

@@ -77,8 +77,8 @@ anti(void)
 	    pr("  ----    --------------------------\n");
 	}
 	mil = sect.sct_item[I_MILIT];
-	che = get_che_value(sect.sct_che);
-	target = get_che_cnum(sect.sct_che);
+	che = sect.sct_che;
+	target = sect.sct_che_target;
 	avail_mil = sect.sct_mobil / 2;
 	if (mil <= avail_mil)
 	    avail_mil = mil;
@@ -114,8 +114,8 @@ anti(void)
 		sect.sct_mobil = sect.sct_mobil - chekilled - milkilled;
 		sect.sct_item[I_MILIT] = mil - milkilled;
 		if (ache == 0)
-		    sect.sct_che = 0;
-		set_che_value(sect.sct_che, ache);
+		    sect.sct_che_target = 0;
+		sect.sct_che = ache;
 		putsect(&sect);
 		pr("          Body count:  Military %d - Guerillas %d.\n",
 		   milkilled, chekilled);
@@ -138,9 +138,11 @@ anti(void)
 		    /* Ok, now leave anywhere from 16% to 25% of the che */
 		    n_cheleft = (ache / (n_cheleft + 3));
 		    ache -= n_cheleft;
-		    set_che_value(sect.sct_che, n_cheleft);
-		} else
+		    sect.sct_che = n_cheleft;
+		} else {
 		    sect.sct_che = 0;
+		    sect.sct_che_target = 0;
+		}
 		sect.sct_item[I_MILIT] = ache;
 		if (sect.sct_own == sect.sct_oldown)
 		    sect.sct_oldown = 0;

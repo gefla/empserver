@@ -273,10 +273,8 @@ grab_sect(register struct sctstr *sp, natid to)
     sp->sct_avail = 0;
 
     if (sp->sct_oldown == to) {
-	oldche = get_che_value(sp->sct_che);
-	set_che_value(oldche, 0);
-	set_che_cnum(oldche, 0);
-	sp->sct_che = oldche;
+	sp->sct_che = 0;	/* FIXME where do these guys go? */
+	sp->sct_che_target = 0;
 	sp->sct_loyal = 0;
     }
 

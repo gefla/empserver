@@ -130,6 +130,7 @@ struct castr sect_ca[] = {
     {NSC_DEITY | NSC_USHORT | NSC_OFF | fldoff(sctstr, sct_pstage), "pstage", 0},
     {NSC_DEITY | NSC_USHORT | NSC_OFF | fldoff(sctstr, sct_ptime), "ptime", 0},
     {NSC_DEITY | NSC_USHORT | NSC_OFF | fldoff(sctstr, sct_che), "che", 0},
+    {NSC_DEITY | NSC_USHORT | NSC_OFF | fldoff(sctstr, sct_che_target), "che_target", 0},
     {NSC_USHORT | NSC_OFF | fldoff(sctstr, sct_fallout), "fallout", 0},
     {NSC_UCHAR | NSC_OFF | fldoff(sctstr, sct_road), "road", 0},
     {NSC_UCHAR | NSC_OFF | fldoff(sctstr, sct_rail), "rail", 0},

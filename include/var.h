@@ -66,13 +66,6 @@
 #define I_RAD		14
 #define I_MAX		14
 
-/* should this be here?? */
-#define CHE_MAX                 255
-#define	get_che_cnum(x)		((x) >> 8)
-#define set_che_cnum(x, cn)	((x) = ((x) & 0xff) | ((cn) << 8))
-#define get_che_value(x)	((x) & 0xff)
-#define set_che_value(x, n)	((x) = ((x) & 0xff00) | (n))
-
 #define	V_CIVIL		V_ITEM(I_CIVIL)
 #define	V_MILIT		V_ITEM(I_MILIT)
 #define	V_SHELL		V_ITEM(I_SHELL)

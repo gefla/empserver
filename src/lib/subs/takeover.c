@@ -51,7 +51,6 @@ takeover(register struct sctstr *sp, natid newown)
     struct plnstr *pp;
     struct lndstr *lp;
     int civ;
-    int che;
     int che_count;
     int oldche;
     int n;
@@ -116,7 +115,7 @@ takeover(register struct sctstr *sp, natid newown)
 
     sp->sct_avail = 0;
     civ = sp->sct_item[I_CIVIL];
-    oldche = get_che_value(sp->sct_che);
+    oldche = sp->sct_che;
     /*
      * create guerrillas from civilians
      * how spunky are these guys?
@@ -124,7 +123,6 @@ takeover(register struct sctstr *sp, natid newown)
      */
     n = (50 - sp->sct_loyal) + ((random() % 100) - 25);
     che_count = 0;
-    che = 0;
     if (n > 0 && sp->sct_own == sp->sct_oldown) {
 	che_count = (civ * n / 3000) + 5;
 	if (che_count * 2 > civ)
@@ -139,10 +137,9 @@ takeover(register struct sctstr *sp, natid newown)
 	    che_count = oldche;
     } else
 	che_count = oldche;
-    set_che_value(che, che_count);
+    sp->sct_che = che_count;
     if (newown != sp->sct_oldown)
-	set_che_cnum(che, newown);
-    sp->sct_che = che;
+	sp->sct_che_target = newown;
     sp->sct_item[I_CIVIL] = civ;
     if (sp->sct_oldown == newown || civ == 0) {
 	/*

@@ -71,8 +71,7 @@ hidd(void)
 	pr(" %c  %3d%% %3d   %3d  %3d  %3d    %3d   %3d  %3d",
 	   dchr[sect.sct_type].d_mnem, sect.sct_effic,
 	   sect.sct_oldown, sect.sct_loyal,
-	   get_che_cnum(sect.sct_che),
-	   get_che_value(sect.sct_che),
+	   sect.sct_che_target, sect.sct_che,
 	   sect.sct_pstage, sect.sct_ptime, sect.sct_mines);
 	pr("\n");
     }

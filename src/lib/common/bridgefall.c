@@ -166,4 +166,5 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     sp->sct_pstage = PLG_HEALTHY;
     sp->sct_ptime = 0;
     sp->sct_che = 0;
+    sp->sct_che_target = 0;
 }

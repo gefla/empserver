@@ -77,7 +77,8 @@ struct sctstr {
     u_short sct_mines;		/* number of mines */
     u_short sct_pstage;		/* plague stage */
     u_short sct_ptime;		/* how many etus remain in this stage */
-    u_short sct_che;		/* che combo */
+    u_char sct_che;		/* number of guerrillas */
+    natid sct_che_target;	/* nation targeted by che */
     u_short sct_fallout;
     time_t sct_access;		/* Last time mob was updated (MOB_ACCESS) */
     u_char sct_road;		/* Road value of a sector */
@@ -182,6 +183,9 @@ extern struct dchrstr bigcity_dchr;
 
 /* Sector flags */
 #define MOVE_IN_PROGRESS	bit(0)	/* move in progress */
+
+/* maximal number of che, must fit into struct sctstr member sct_che */
+#define CHE_MAX                 255
 
 /* Each cost is per point of efficency */
 struct sctintrins {
