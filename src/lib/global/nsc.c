@@ -137,14 +137,23 @@ struct castr ship_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nland), "nland"},
-    /* FIXME most autonav stuff missing */
+    {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[0]), "xstart"},
+    {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[1]), "xend"},
+    {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[0]), "ystart"},
+    {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[1]), "yend"},
+    {NSC_CHAR, 0, TMAX, fldoff(shpstr, shp_tstart), "cargostart"},
+    {NSC_CHAR, 0, TMAX, fldoff(shpstr, shp_tend), "cargoend"},
+    {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lstart), "amtstart"},
+    {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lend), "amtend"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav"},
     NSC_IVEC(fldoff(shpstr, shp_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
-    /* FIXME sail stuff missing */
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_mobquota), "mobquota"},
+    {NSC_STRINGY, 0, MAXSHPPATH, fldoff(shpstr, shp_path), "path"},
+    {NSC_SHORT, 0, 0, fldoff(shpstr, shp_follow), "follow"},
     {NSC_STRINGY, 0, MAXSHPNAMLEN, fldoff(shpstr, shp_name), "name"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
@@ -248,6 +257,7 @@ struct castr loan_ca[] = {
 
 struct castr news_ca[] = {
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor"},
+    {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid"},
     {NSC_TYPEID, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim"},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times"},
