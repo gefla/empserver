@@ -276,7 +276,7 @@ sdump(void)
 	count_units(&ship);
 	nships++;
 	if (player->god)
-	    pr("%3d ", ship.shp_own);
+	    pr("%d ", ship.shp_own);
 	pr("%d", ni.cur);
 	n = 0;
 	while (field[n]) {

@@ -304,7 +304,7 @@ ldump(void)
 
 	nunits++;
 	if (player->god)
-	    pr("%3d ", land.lnd_own);
+	    pr("%d ", land.lnd_own);
 	pr("%d", ni.cur);
 	n = 0;
 	while (field[n]) {

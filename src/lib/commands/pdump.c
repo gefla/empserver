@@ -206,7 +206,7 @@ pdump(void)
 	    continue;
 	nplanes++;
 	if (player->god)
-	    pr("%3d ", plane.pln_own);
+	    pr("%d ", plane.pln_own);
 	pr("%d", np.cur);
 	n = 0;
 	while (field[n]) {
