@@ -1,21 +1,25 @@
 .\" EMPIRE MACRO FILE FOR 24-LINE CRT
 .\" Normal Font
-.rm nF
+.ds nF \\fR
 .\" Normal font name: must match value of nF!
 .ds N R
 .\" Example Font
-.rm eF
+.ds eF \\fR
 .\" Example Font name (used with .cs requests): must match value of eF!
 .ds EF R
 .\" Bold Font
-.rm bF
+.ds bF \\fR
 .\" Italic Font
-.rm iF
+.ds iF \\fR
 .\" Large Font
-.rm lF
+.ds lF \\fR
 .\" Previous Font
-.rm pF
-.\" Nothing special here
+.ds pF \\fP
+.\" Character spacing string
+.ds cS 26
+.\" Start out correctly
+.nr CS 0
+.\" Special strings for special characters, including smart quotes.
 .ds <= <=
 .ds >= >=
 .ds Q "
