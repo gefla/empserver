@@ -9,7 +9,7 @@ Index: empserver/src/lib/subs/pr.c
 +char *
 +ctime(const time_t *clock)
 +{
-+	return "";
++	return "Thu Jan  1 00:00:00 GMT 1970\n";
 +}
 +
  /*VARARGS*/
