@@ -59,8 +59,6 @@ extern int io_input(struct iop *, int);
 extern int io_inputwaiting(struct iop *);
 extern int io_outputwaiting(struct iop *);
 extern int io_output(struct iop *, int);
-extern int io_select(struct timeval *);
-extern void io_flush(int);
 extern int io_peek(struct iop *, s_char *, int);
 extern int io_read(struct iop *, s_char *, int);
 extern int io_write(struct iop *, s_char *, int, int);
@@ -72,6 +70,5 @@ extern int io_conn(struct iop *);
 extern int io_error(struct iop *);
 extern int io_eof(struct iop *);
 extern int io_fileno(struct iop *);
-extern struct iop *io_iopfromfd(int);
 
 #endif /* _EMPIO_H_ */

@@ -412,7 +412,6 @@ extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
 extern void disassoc(void);
-extern int getfdtablesize(void);
 extern s_char *getstarg(s_char *, s_char *, s_char *);
 extern s_char *getstring(s_char *, s_char *);
 #if !defined(_WIN32)

@@ -66,8 +66,6 @@
 
 extern struct player *player;	/* XXX */
 
-static struct iop **io_list;
-static int niop;
 static struct io_mask *iom;
 static int fdmax;		/* largest file descriptor seen */
 static fd_set newoutput;
@@ -86,24 +84,16 @@ void
 io_init(void)
 {
     iom = iom_create(IO_READ | IO_WRITE);
-    niop = getfdtablesize();
-    io_list = (struct iop **)calloc(niop, sizeof(*io_list));
     fdmax = 0;
     FD_ZERO(&newoutput);
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize, int (*notify)(void),
+io_open(int fd, int flags, int bufsize, int (*notify) (void),
 	s_char *assoc)
 {
     struct iop *iop;
 
-    if (fd < 0 || niop < fd)
-	return NULL;
-    if (io_list[fd] != 0) {
-	/* already exists */
-	return NULL;
-    }
     flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK | IO_NEWSOCK);
     if ((flags & (IO_READ | IO_WRITE)) == 0)
 	return NULL;
@@ -124,7 +114,6 @@ io_open(int fd, int flags, int bufsize, int (*notify)(void),
     iop->flags = flags;
     iop->assoc = assoc;
     iop->notify = notify;
-    io_list[fd] = iop;
     iom_set(iom, flags, fd);
     if (fd > fdmax) fdmax = fd;
     return iop;
@@ -140,7 +129,6 @@ io_close(struct iop *iop)
 	ioq_destroy(iop->output);
     iom_clear(iom, iop->flags, iop->fd);
     FD_CLR(iop->fd, &newoutput);
-    io_list[iop->fd] = 0;
 #if !defined(_WIN32)
     (void)close(iop->fd);
 #else
@@ -338,56 +326,6 @@ io_output(struct iop *iop, int waitforoutput)
 }
 
 int
-io_select(struct timeval *tv)
-{
-    fd_set *readmask;
-    fd_set *writemask;
-    int n;
-    int maxfd;
-    int fd;
-    struct iop *iop;
-
-    iom_getmask(iom, &maxfd, &readmask, &writemask);
-    n = select(maxfd + 1, readmask, writemask, NULL, tv);
-    if (n <= 0) {
-	if (errno == EINTR)
-	    return 0;
-	return -1;
-    }
-    for (fd = 0; fd <= maxfd; ++fd) {
-	if (!FD_ISSET(fd, readmask)) continue;
-	iop = io_list[fd];
-	if ((iop->flags & IO_NEWSOCK) == 0)
-	    (void)io_input(iop, IO_NOWAIT);
-	if (iop->notify != 0)
-	    iop->notify(iop, IO_READ, iop->assoc);
-	FD_CLR(fd, readmask);
-    }
-    for (fd = 0; fd <= maxfd; ++fd) {
-	if (!FD_ISSET(fd, writemask)) continue;
-	iop = io_list[fd];
-	if (io_output(iop, IO_NOWAIT) < 0 && iop->notify != 0)
-	    iop->notify(iop, IO_WRITE, iop->assoc);
-	FD_CLR(fd, writemask);
-    }
-    return n;
-}
-
-void
-io_flush(int doWait)
-{
-    int fd;
-    struct iop *iop;
-
-    for (fd = 0; fd <= fdmax; ++fd) {
-	if (!FD_ISSET(fd, &newoutput)) continue;
-	iop = io_list[fd];
-	if (io_output(iop, doWait) < 0 && iop->notify != 0)
-	    iop->notify(iop, IO_WRITE, iop->assoc);
-    }
-}
-
-int
 io_peek(struct iop *iop, s_char *buf, int nbytes)
 {
     if ((iop->flags & IO_READ) == 0)
@@ -523,12 +461,4 @@ int
 io_fileno(struct iop *iop)
 {
     return iop->fd;
-}
-
-struct iop *
-io_iopfromfd(int fd)
-{
-    if (fd < 0 || niop < fd)
-	return NULL;
-    return io_list[fd];
 }
