@@ -42,6 +42,6 @@
 
 #define	KSU_DIST	1.04
 #define	CHAINSAW_DIST	4.00
-#define WOLFPACK_DIST   2.12
+#define WOLFPACK_DIST   2.13
 
 #endif /* _VERSION_H_ */
