@@ -591,7 +591,7 @@ lwpStackCheckUsed(struct lwpProc *newp)
 	}
     }
     lwpStatus(newp, "stack use: %u bytes (of %u total)",
-	      (i * sizeof(long)) - LWP_REDZONE,
+	      i * (int)sizeof(long) - LWP_REDZONE,
 	      newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
 }
 
