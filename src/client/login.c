@@ -57,6 +57,7 @@ int kill_proc;
     s_char buf[1024];
     s_char *ptr;
     s_char *p;
+    int len;
 
     if (!expect(s, C_INIT, buf))
 	return 0;
@@ -65,14 +66,13 @@ int kill_proc;
 	return 0;
     if (cname == 0) {
 	(void)printf("Country name? ");
-	cname = fgets(tmp, 128, stdin);
+	cname = fgets(tmp, sizeof(tmp), stdin);
 	if (cname == 0 || *cname == 0)
 	    return 0;
     }
-    if (cname[strlen(cname) - 1] == '\n')
-	cname[strlen(cname) - 1] = 0;
-    if (cname[strlen(cname) - 1] == '\r')
-	cname[strlen(cname) - 1] = 0;
+    len = strlen(cname);
+    if (cname[len-1] == '\n')
+	cname[len-1] = 0;
     (void)sendcmd(s, COUN, cname);
     if (!expect(s, C_CMDOK, buf)) {
 	(void)fprintf(stderr, "empire: no such country\n");
@@ -81,15 +81,18 @@ int kill_proc;
     if (cpass == 0) {
 #ifndef _WIN32
 	cpass = (s_char *)getpass("Your name? ");
+	if (cpass == 0 || *cpass == 0)
+	    return 0;
 #else
 	printf("Note: This is echoed to the screen\n");
 	printf("Your name? ");
-	cpass = tmp;
-	*cpass = 0;
-	fgets(cpass, 128, stdin);
-#endif
+	cpass = fgets(tmp, sizeof(tmp), stdin);
 	if (cpass == 0 || *cpass == 0)
 	    return 0;
+	len = strlen(cpass);
+	if (cname[len-1] == '\n')
+	    cname[len-1] = 0;
+#endif
     }
     (void)printf("\n");
     (void)sendcmd(s, PASS, cpass);
