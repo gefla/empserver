@@ -129,7 +129,6 @@ populace(struct natstr *np, register struct sctstr *sp, int etu)
 		   "Sector %s is now fully yours\n", ownxy(sp));
 		sp->sct_oldown = sp->sct_own;
 	    }
-	    sp->sct_loyal = 0;
 	}
     }
     return;

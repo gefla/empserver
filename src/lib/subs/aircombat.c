@@ -1071,14 +1071,9 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	} else {
 	    getsect(plane.pln_x, plane.pln_y, &sect);
 	    petrol = sect.sct_item[I_PETROL];
-#if 0
-	    if (sect.sct_effic < 60 && (pcp->pl_flags & P_V) == 0)
-		continue;
-#else
 	    if ((sect.sct_effic < 60 || sect.sct_type != SCT_AIRPT)
 		&& (pcp->pl_flags & P_V) == 0)
 		continue;
-#endif
 	}
 	if ((float)petrol < (float)pcp->pl_fuel / 2.0)
 	    continue;
