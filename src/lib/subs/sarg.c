@@ -54,61 +54,63 @@
  * or 0 for none of the above.
  */
 ns_seltype
-sarg_type(s_char *ptr)
+sarg_type(char *str)
 {
     int c;
 
-    c = *ptr;
+    c = *str;
     if (c == '@')
 	return NS_DIST;
     if (c == '*')
 	return NS_ALL;
-    if (c == '#' || strchr(ptr, ',') != 0)
+    if (c == '#' || strchr(str, ',') != 0)
 	return NS_AREA;
     if (isdigit(c))
 	return NS_LIST;
     if (c == '~' || isupper(c) || islower(c))
 	return NS_GROUP;
-    return 0;
+    return NS_UNDEF;
 }
 
 int
-sarg_xy(s_char *ptr, coord *xp, coord *yp)
+sarg_xy(char *str, coord *xp, coord *yp)
 {
-    if (sarg_type(ptr) != NS_AREA)
+    coord x, y;
+    struct natstr *np;
+
+    x = strtox(str, &str);
+    if (x < 0 || *str++ != ',')
 	return 0;
-    *xp = atoip(&ptr);
-    if (*ptr++ != ',')
+    y = strtoy(str, &str);
+    if (y < 0 || *str != 0)
 	return 0;
-    if (!isdigit(*ptr) && *ptr != '-')
+    if ((x ^ y) & 1)
 	return 0;
-    *yp = atoi(ptr);
-    inputxy(xp, yp, player->cnum);
-    if ((*xp ^ *yp) & 01)
-	return 0;
+    np = getnatp(player->cnum);
+    *xp = xabs(np, x);
+    *yp = yabs(np, y);
     return 1;
 }
 
 /* returns absolute coords */
 static int
-sarg_getrange(s_char *buf, register struct range *rp)
+sarg_getrange(char *str, struct range *rp)
 {
-    register int rlm;
-    register int c;
+    long rlm;
     struct natstr *np;
-    s_char *bp;
+    char *end;
 
-    bp = buf;
-    c = *bp;
-    if (c == '#') {
+    if (*str == '#') {
 	/*
 	 * realm #X where (X > 0 && X < MAXNOR)
 	 * Assumes realms are in abs coordinates
 	 */
-	bp++;
-	rlm = atoi(bp);
-	if (rlm < 0 || rlm >= MAXNOR)
-	    return 0;
+	if (*++str) {
+	    rlm = strtol(str, &end, 10);
+	    if (end == str || *end != 0 || rlm < 0 || MAXNOR <= rlm)
+		return 0;
+	} else 
+	    rlm = 0;
 	np = getnatp(player->cnum);
 	rp->lx = np->nat_b[rlm].b_xl;
 	rp->hx = np->nat_b[rlm].b_xh;
@@ -120,24 +122,31 @@ sarg_getrange(s_char *buf, register struct range *rp)
 	 * LX:LY,HX:HY where
 	 * ly, hy are optional.
 	 */
-	if (!isdigit(c) && c != '-')
+	rp->lx = rp->hx = strtox(str, &str);
+	if (rp->lx < 0)
 	    return 0;
-	rp->lx = rp->hx = atoip(&bp);
-	if (*bp == ':') {
-	    bp++;
-	    rp->hx = atoip(&bp);
+	if (*str == ':') {
+	    rp->hx = strtox(str + 1, &str);
+	    if (rp->hx < 0)
+		return 0;
 	}
-	if (*bp++ != ',')
+	if (*str++ != ',')
 	    return 0;
-	if (!isdigit(c) && c != '-')
+	rp->ly = rp->hy = strtoy(str, &str);
+	if (rp->ly < 0)
 	    return 0;
-	rp->ly = rp->hy = atoip(&bp);
-	if (*bp == ':') {
-	    bp++;
-	    rp->hy = atoip(&bp);
+	if (*str == ':') {
+	    rp->hy = strtoy(str + 1, &str);
+	    if (rp->hy < 0)
+		return 0;
 	}
-	inputxy(&rp->lx, &rp->ly, player->cnum);
-	inputxy(&rp->hx, &rp->hy, player->cnum);
+	if (*str != 0)
+	    return 0;
+	np = getnatp(player->cnum);
+	rp->lx = xabs(np, rp->lx);
+	rp->hx = xabs(np, rp->hx);
+	rp->ly = yabs(np, rp->ly);
+	rp->hy = yabs(np, rp->hy);
     }
     xysize_range(rp);
     return 1;
@@ -148,9 +157,9 @@ sarg_getrange(s_char *buf, register struct range *rp)
  * a result range struct
  */
 int
-sarg_area(s_char *buf, register struct range *rp)
+sarg_area(char *str, struct range *rp)
 {
-    if (!sarg_getrange(buf, rp))
+    if (!sarg_getrange(str, rp))
 	return 0;
     rp->hx += 1;
     if (rp->hx >= WORLD_X)
@@ -167,23 +176,28 @@ sarg_area(s_char *buf, register struct range *rp)
  * result params
  */
 int
-sarg_range(s_char *buf, coord *xp, coord *yp, int *dist)
+sarg_range(char *str, coord *xp, coord *yp, int *dist)
 {
-    s_char *bp;
+    coord x, y;
+    long d;
+    char *end;
+    struct natstr *np;
 
-    bp = buf;
-    if (bp == 0 || *bp == 0)
+    if (*str++ != '@')
 	return 0;
-    if (*bp++ != '@')
+    x = strtox(str, &str);
+    if (x < 0 || *str++ != ',')
 	return 0;
-    *xp = atoip(&bp);
-    if (*bp++ != ',')
+    y = strtoy(str, &str);
+    if (y < 0 || *str++ != ':')
 	return 0;
-    *yp = atoip(&bp);
-    if (*bp++ != ':')
+    d = strtol(str, &end, 10);
+    if (end == str || d < 0 || *end != 0)
 	return 0;
-    inputxy(xp, yp, player->cnum);
-    *dist = atoi(bp);
+    *dist = d;
+    np = getnatp(player->cnum);
+    *xp = xabs(np, x);
+    *yp = yabs(np, y);
     return 1;
 }
 
@@ -191,38 +205,36 @@ sarg_range(s_char *buf, coord *xp, coord *yp, int *dist)
  * list of idents; id/id/id/id/id
  */
 int
-sarg_list(s_char *str, register int *list, int max)
+sarg_list(char *str, int *list, int max)
 {
-    register int i;
-    register int j;
-    register int n;
-    s_char *arg;
+    int i, j;
+    long n;
+    char *end;
 
-    arg = str;
-    for (i = 0; i < max; i++) {
-	if (!isdigit(*arg)) {
-	    pr("Illegal character '%c'\n", *arg);
+    i = 0;
+    do {
+	n = strtol(str, &end, 10);
+	if (end == str || n < 0) {
+	    pr("Illegal character '%c'\n", *str);
 	    return 0;
 	}
-	n = atoip(&arg);
 	for (j = 0; j < i; j++) {
 	    if (list[j] == n)
 		break;
 	}
-	if (j != i) {
-	    /* duplicate; ignore */
-	    i--;
-	} else
-	    list[i] = n;
-	if (*arg == 0)
-	    break;
-	if (*arg != '/') {
-	    pr("Expecting '/', got '%c'\n", *arg);
-	    return 0;
+	if (j == i) {
+	    if (i >= max) {
+		pr("List too long (limit is %d)\n", max);
+		return 0;
+	    }
+	    list[i++] = n;
 	}
-	arg++;
-	if (*arg == 0)
-	    break;
+	str = end;
+    } while (*str++ == '/');
+
+    if (str[-1] != 0) {
+	pr("Expecting '/', got '%c'\n", str[-1]);
+	return 0;
     }
-    return i + 1;
+    return i;
 }

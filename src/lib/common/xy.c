@@ -32,13 +32,14 @@
  */
 
 #include <ctype.h>
+#include <errno.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include "misc.h"
 #include "xy.h"
 #include "nat.h"
 #include "sect.h"
 #include "file.h"
-#include <stdio.h>
 #include "common.h"
 #include "optlist.h"
 
@@ -117,14 +118,42 @@ xyabsrange(struct natstr *np, struct range *src, struct range *dst)
     dst->height = src->height;
 }
 
-void
-inputxy(coord *xp, coord *yp, natid cn)
+/*
+ * Convert initial part of STR to normalized x-coordinate.
+ * Return -1 on error.  This works, as normalized coordinates are
+ * non-negative.
+ * Assign pointer to first character after the coordinate to *END,
+ * unless END is a null pointer.
+ */
+coord
+strtox(char *str, char **end)
 {
-    struct natstr *np;
+    long l;
 
-    np = getnatp(cn);
-    *xp = xabs(np, *xp);
-    *yp = yabs(np, *yp);
+    errno = 0;
+    l = strtol(str, end, 10);
+    if (*end == str || errno != 0)
+	return -1;
+    return XNORM(l);
+}
+
+/*
+ * Convert initial part of STR to normalized y-coordinate.
+ * Return -1 on error.  This works, as normalized coordinates are
+ * non-negative.
+ * Assign pointer to first character after the coordinate to *END,
+ * unless END is a null pointer.
+ */
+coord
+strtoy(char *str, char **end)
+{
+    long l;
+
+    errno = 0;
+    l = strtol(str, end, 10);
+    if (*end == str || errno != 0)
+	return -1;
+    return YNORM(l);
 }
 
 coord

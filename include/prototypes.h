@@ -204,7 +204,6 @@ extern int updates_disabled(void);
 extern int emp_config(char *file);
 extern void print_config(FILE * fp);
 
-extern int atoip(s_char **);
 extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
@@ -460,11 +459,11 @@ extern void retreat_land(struct lndstr *, s_char);
 extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
 extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 /* sarg.c */
-extern ns_seltype sarg_type(s_char *);
-extern int sarg_xy(s_char *, coord *, coord *);
-extern int sarg_area(s_char *, register struct range *);
-extern int sarg_range(s_char *, coord *, coord *, int *);
-extern int sarg_list(s_char *, register int *, int);
+extern ns_seltype sarg_type(char *);
+extern int sarg_xy(char *, coord *, coord *);
+extern int sarg_area(char *, register struct range *);
+extern int sarg_range(char *, coord *, coord *, int *);
+extern int sarg_list(char *, register int *, int);
 /* satmap.c */
 extern void satdisp(struct sctstr *, int, int);
 extern void satmap(int, int, int, int, int, int);

@@ -35,13 +35,13 @@ include ../../make.defs
 LIB = $(SRCDIR)/lib/libgen.a
 NTLIB = $(SRCDIR)\lib\libgen.lib
 
-OBJS =  atoip.o chance.o copy.o disassoc.o \
+OBJS =  chance.o copy.o disassoc.o \
 	emp_config.o getstarg.o getstring.o io.o \
 	ioqueue.o mapdist.o minmax.o numstr.o onearg.o \
 	parse.o plur.o queue.o round.o scthash.o \
 	strdup.o
 
-NTOBJS = atoip.obj chance.obj copy.obj disassoc.obj \
+NTOBJS = chance.obj copy.obj disassoc.obj \
 	emp_config.obj getstarg.obj getstring.obj \
 	io.obj ioqueue.obj mapdist.obj minmax.obj \
 	numstr.obj onearg.obj parse.obj plur.obj queue.obj round.obj \

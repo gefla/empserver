@@ -61,7 +61,8 @@ extern void xyrelrange(struct natstr *np, struct range *src,
 		       struct range *dst);
 extern void xyabsrange(struct natstr *np, struct range *src,
 		       struct range *dst);
-extern void inputxy(coord *xp, coord *yp, natid cn);
+extern coord strtox(char *str, char **end);
+extern coord strtoy(char *str, char **end);
 extern coord xabs(struct natstr *np, coord relx);
 extern coord yabs(struct natstr *np, coord rely);
 extern coord xnorm(register coord x);
