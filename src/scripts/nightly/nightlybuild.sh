@@ -310,20 +310,15 @@ do
 	echo "Done (newcap_script / emp_client)."
 	echo ""
 	
-	# After a platform independent PRNG is used, we can really do some
-	# useful testing here...
-	echo "TODO: Replace this with a real test script as soon as"
-	echo "a platform independent PRNG is used in fairland."
-	echo ""
+	echo "TODO: Replace this with a real test script."
 	echo "Just do some rudimentary testing for now."
 	echo ""
 
-	echo "Preparing to ensure repeatable results"
+	echo "Prevent updates from happening without our consent."
 	runfeed POGO peter << EOF
 disable
-give uw * ?uw>0 5
 EOF
-	echo "Done (preparing)."
+	echo "Done (update stop)."
 	echo ""
 	
 			;;
@@ -345,9 +340,10 @@ EOF
 		echo "explore for player ${PLAYER}"
 		runfeed $PLAYER << EOF >/dev/null 2>&1
 break
-expl c 0,0 10 uh
-mov f 0,0 5 uh
+expl c 0,0 1 uh
 desi 1,-1 +
+mov c 0,0 205 uh
+desi 1,-1 g
 cen *
 EOF
 		echo "Done (explore)."
@@ -378,7 +374,9 @@ EOF
 
 	echo "Check whether the update did anything"
 	runfeed POGO peter << EOF
+power new
 cen * ?own#0
+reso * ?own#0
 read
 n
 EOF
