@@ -38,39 +38,39 @@
 .\"
 .\"
 .\"
-.de EX		\" Start of macro EX
+.de EX          \" Start of macro EX
 .nf
-.ti +0.3i	\" Temporary indent of 3/10 inch
+.ti +0.3i       \" Temporary indent of 3/10 inch
 .\" Constant spacing for EF font = 26/36 ems 
 .cs \*(EF 26
-.nr CS 1	\" Indicate constant spacing on
-.lg 0		\" Turn off ligature mode
-.ps 8		\" 8-point
+.nr CS 1        \" Indicate constant spacing on
+.lg 0           \" Turn off ligature mode
+.ps 8           \" 8-point
 \*(eF[##:##] Command : \\$1 \\$2 \\$3 \\$4 \\$5 \\$6 \\$7 \\$8 \\$9\*(nF
-.ps 10		\" 10-point
-.lg		\" Turn ligaturing back on
+.ps 10          \" 10-point
+.lg             \" Turn ligaturing back on
 .\" Turn off constant spacing
 .cs \*(EF
-.nr CS 0	\" Indicate constant spacing off
-.br		\" Break
+.nr CS 0        \" Indicate constant spacing off
+.br             \" Break
 .fi
 ..
-.de SY			\" Start of macro SY
+.de SY                  \" Start of macro SY
 .s1
 .\" Print out "SYNTAX" in bold font
 \*(bFSYNTAX\*(pF
-.ti +0.3i		\" Temporarily indent 3/10 inch
+.ti +0.3i               \" Temporarily indent 3/10 inch
 .\" Constant spacing for EF font, 26/36 ens
 .cs \*(EF 26
-.nr CS 1	\" Indicate constant spacing on
-.lg 0		\" No ligatures
-.ps 10		\" 10 point
+.nr CS 1        \" Indicate constant spacing on
+.lg 0           \" No ligatures
+.ps 10          \" 10 point
 .\" Print out in EF font
 \*(eF[##:##] Command : \\$1\*(pF
-.ps 10		\" 10 point
-.lg			\" Turn ligatures back on
-.cs \*(EF		\" Turn off constant spacing
-.nr CS 0		\" Indicate constant spacing off
+.ps 10          \" 10 point
+.lg                     \" Turn ligatures back on
+.cs \*(EF               \" Turn off constant spacing
+.nr CS 0                \" Indicate constant spacing off
 .s1
 ..
 .de LV
@@ -78,56 +78,56 @@
 Level: \\$1
 .s1
 ..
-.de NA			\" Start of macro NA -- name of command/concept
+.de NA                  \" Start of macro NA -- name of command/concept
 .s1
 .\" Print out "NAME" in bold font
 \*(bFNAME\*(pF
-.ti +0.3i		\" Temporarily indent 3/10 inch
+.ti +0.3i               \" Temporarily indent 3/10 inch
 \\*(nF\\$1 \- \\$2\*(pF
 .s1
 ..
-.de SA			\" Start of macro SA -- SEE ALSO
+.de SA                  \" Start of macro SA -- SEE ALSO
 .s1
 .\" Print out "SEE ALSO" in bold font
 \*(bFSEE ALSO\*(pF
-.ti +0.3i		\" Temporarily indent 3/10 inch
+.ti +0.3i               \" Temporarily indent 3/10 inch
 \\*(nF\\$1\*(pF
 .s1
 ..
-.de L			\" Start of macro L
-.br			\" Break
-.ti -\w'\\$1\\0\\0'u	\" Indent backwards with of 1st arg + 2 spaces
+.de L                   \" Start of macro L
+.br                     \" Break
+.ti -\w'\\$1\\0\\0'u    \" Indent backwards with of 1st arg + 2 spaces
 .\" Print 1st arg + 2 spaces
 \\$1\0\0\c
 ..
-.de NF		\" Start of macro NF
-.nf		\" No-fill
+.de NF          \" Start of macro NF
+.nf             \" No-fill
 .\" Constant width 26/36 ens
 .cs \*(EF 26
-.nr CS 1	\" Indicate constant spacing on
-.lg 0		\" No ligatures
-.ps 8		\" 8-point
-.di Nf		\" Send output to macro Nf
-\*(eF		\" Switch to EF font
-.nr nF \\n(.i	\" Store current indent in nF number register
-.in +0.3i	\" Add indentation 3/10 inch
+.nr CS 1        \" Indicate constant spacing on
+.lg 0           \" No ligatures
+.ps 8           \" 8-point
+.di Nf          \" Send output to macro Nf
+\*(eF           \" Switch to EF font
+.nr nF \\n(.i   \" Store current indent in nF number register
+.in +0.3i       \" Add indentation 3/10 inch
 ..
-.de FI		\" Start of FI macro
-.in \\n(nFu	\" Restore previous indentation
-\*(nF		\" Interpolate nF register
-.di		\" Terminate output to macro Nf
-.ne \\n(dnu	\" Give me at least as much space as in dn number reg
-.Nf		\" Call macro Nf
-.ps 10		\" 10-point
-.lg		\" Restore ligatures
+.de FI          \" Start of FI macro
+.in \\n(nFu     \" Restore previous indentation
+\*(nF           \" Interpolate nF register
+.di             \" Terminate output to macro Nf
+.ne \\n(dnu     \" Give me at least as much space as in dn number reg
+.Nf             \" Call macro Nf
+.ps 10          \" 10-point
+.lg             \" Restore ligatures
 .\" Turn off constant width
 .cs \*(EF
-.nr CS 0	\" Indicate constant spacing off
-.fi		\" Back into fill mode
+.nr CS 0        \" Indicate constant spacing off
+.fi             \" Back into fill mode
 ..
-.hy 15		\" Auto hyphenation with restrictions -- see troff man
-.de s1		\" Start of macro s1
-.sp 1		\" Blank line
-.ne 4		\" Give me 4 vertical lines
+.hy 15          \" Auto hyphenation with restrictions -- see troff man
+.de s1          \" Start of macro s1
+.sp 1           \" Blank line
+.ne 4           \" Give me 4 vertical lines
 ..
-.ds HT \t	\" Define HT macro as a horizontal tab
+.ds HT \t       \" Define HT macro as a horizontal tab

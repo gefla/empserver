@@ -24,18 +24,18 @@
 .ds >= \(>=
 .ds Q ``
 .ds U ''
-.pl 11i			\" Page length - environment 0
-.ll 6i			\" Line legnth
-.lt 5i			\" Title length
-.po 0.9i		\" Page offset
+.pl 11i                 \" Page length - environment 0
+.ll 6i                  \" Line legnth
+.lt 5i                  \" Title length
+.po 0.9i                \" Page offset
 .ev 1
-.ll 6i			\" Line legnth - environment 1
-.lt 5i			\" Title length
-.po 0.9i		\" Page offset
+.ll 6i                  \" Line legnth - environment 1
+.lt 5i                  \" Title length
+.po 0.9i                \" Page offset
 .ev
 .ev 2
-.ll 6i			\" Line legnth - environment 2
-.lt 5i			\" Title length
-.po 0.9i		\" Page offset
+.ll 6i                  \" Line legnth - environment 2
+.lt 5i                  \" Title length
+.po 0.9i                \" Page offset
 .ev
-.so INFO.MAC		\" Read in INFO.MAC macros
+.so INFO.MAC            \" Read in INFO.MAC macros

@@ -20,12 +20,12 @@
 .ds >= >=
 .ds Q "
 .ds U "
-.pl 23v		\" Page length: 23 lines
-.ll 7.8i	\" Line length: 7.8 inches
+.pl 23v         \" Page length: 23 lines
+.ll 7.8i        \" Line length: 7.8 inches
 .ev 1
-.ll 7.8i	\" Line length: 7.8 inches
+.ll 7.8i        \" Line length: 7.8 inches
 .ev
 .ev 2
-.ll 7.8i	\" Line length: 7.8 inches
+.ll 7.8i        \" Line length: 7.8 inches
 .ev
-.so ../INFO.MAC	\" Read in INFO.MAC macros
+.so ../INFO.MAC \" Read in INFO.MAC macros
