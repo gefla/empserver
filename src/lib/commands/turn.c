@@ -46,7 +46,7 @@
 int
 turn(void)
 {
-    int fd;
+    FILE *fptr;
     struct telstr tgm;
     char *p;
     char buf[MAXTELSIZE];
@@ -95,8 +95,8 @@ turn(void)
 	    pr("Writing empty no-login message.\n");
     }
 
-    fd = open(msgfilepath, O_RDWR | O_CREAT | O_TRUNC, 0660);
-    if (fd == -1) {
+    fptr = fopen(msgfilepath, "w");
+    if (fptr == NULL) {
 	pr("Something went wrong opening the message file.\n");
 	logerror("Could not open message file (%s).\n", msgfilepath);
 	return RET_SYS;
@@ -105,14 +105,15 @@ turn(void)
     if (msgfilepath == downfil)
 	pr("Logins disabled.\n");
 
-    if ((write(fd, &tgm, sizeof(tgm)) < (ssize_t)sizeof(tgm)) ||
-	(write(fd, buf, tgm.tel_length) < tgm.tel_length) ||
-	(close(fd) == -1)) {
+    if ((fwrite((void *)&tgm, sizeof(tgm), 1, fptr) != 1) ||
+	(fwrite((void *)buf, tgm.tel_length, 1, fptr) != 1)) {
+	fclose(fptr);
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",
 	    msgfilepath);
 	return RET_SYS;
     }
+    fclose(fptr);
     pr("\n");
 
     return RET_OK;
