@@ -38,8 +38,6 @@
 #include "player.h"
 #include "empthread.h"
 
-#include <errno.h>
-
 int
 recvclient(s_char *cmd, int size)
 {
