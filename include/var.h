@@ -50,6 +50,7 @@
 
 #define	V_ITEM(x)	((x)|VT_ITEM)	/* a moveable, sellable(?) commodity */
 
+#define I_NONE		0
 #define I_CIVIL		1
 #define I_MILIT		2
 #define I_SHELL		3
