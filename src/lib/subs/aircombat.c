@@ -800,6 +800,8 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
 
     gun = from->sct_item[I_GUN];
     shell = from->sct_item[I_SHELL];
+    if (gun > 14)
+	gun = 14;
     if (gun > shell * 2) {
 	shell += supply_commod(from->sct_own, from->sct_x, from->sct_y,
 			       I_SHELL, (gun + 1) / 2 - shell);
@@ -808,8 +810,6 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
     }
     if (gun > shell * 2)
 	gun = shell * 2;
-    if (gun > 14)
-	gun = 14;
 
     gun = 2.0 * tfact(from->sct_own, gun);
     if (gun > 0) {
