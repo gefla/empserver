@@ -136,9 +136,10 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 static int
 strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
 {
+    int res;
     if (sz1 == sz2) return strncmp(s1, s2, sz2);
     if (sz1 < sz2) return -strnncmp(s2, sz2, s1, sz1);
-    int res = strncmp(s1, s2, sz2);
+    res = strncmp(s1, s2, sz2);
     return res ? res : s1[sz2];
 }
 
