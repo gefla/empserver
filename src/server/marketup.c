@@ -77,8 +77,12 @@ void *argv;
 	time(&now);
 /*	logerror("Checking the world markets at %s", ctime(&now));*/
 	dp = player_new(0, 0);
-	empth_create(PP_UPDATE, check_all_markets, (50 * 1024), 0,
-		     "MarketCheck", "Checks the world markets", dp);
+	if (dp) {
+	    empth_create(PP_UPDATE, check_all_markets, (50 * 1024), 0,
+			 "MarketCheck", "Checks the world markets", dp);
+	} else {
+	    logerror("can't create dummy player for market update");
+	}
 	now = now + 300;	/* Every 5 minutes */
 	empth_sleep(now);
     }

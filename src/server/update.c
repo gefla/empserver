@@ -142,6 +142,10 @@ void *argv;
 	 * in the land so it can finish before it yields.
 	 */
 	dp = player_new(0, 0);
+	if (!dp) {
+	    logerror("can't create dummy player for update");
+	    continue;
+	}
 	stacksize = 100000 +
 /* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
 					sizeof(s_char *));

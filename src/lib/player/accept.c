@@ -77,10 +77,18 @@ player_new(int s, struct sockaddr_in *sin)
     struct hostent *hostp;
 
     lp = (struct player *)malloc(sizeof(struct player));
+    if (!lp)
+      return NULL;
     memset(lp, 0, sizeof(struct player));
     if (sin) {
-	/* update uses dummy player */
-	/* so does the market updater */
+	/* real player, not dummy created by update and market update */
+	lp->iop = io_open(s,
+			  IO_READ | IO_WRITE | IO_NBLOCK,
+			  IO_BUFSIZE, 0, 0);
+	if (!lp->iop) {
+	    free(lp);
+	    return NULL;
+	}
 	emp_insque(&lp->queue, &Players);
 	strcpy(lp->hostaddr, inet_ntoa(sin->sin_addr));
 #ifdef RESOLVE_IPADDRESS
@@ -93,8 +101,6 @@ player_new(int s, struct sockaddr_in *sin)
 	lp->cnum = 255;
 	lp->curid = -1;
 	time(&lp->curup);
-	lp->iop = io_open(s, IO_READ | IO_WRITE | IO_NBLOCK,
-			  IO_BUFSIZE, 0, 0);
     }
     return lp;
 }
@@ -260,6 +266,11 @@ player_accept(void *argv)
 	    continue;
 	}
 	np = player_new(ns, &sin);
+	if (!np) {
+	    logerror("can't create player for fd %d", ns);
+ 	    close(ns);
+ 	    continue;
+ 	}
 	/* XXX may not be big enough */
 	stacksize = 100000
 /* budget */  + max(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,
