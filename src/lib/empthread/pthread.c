@@ -56,11 +56,6 @@ static char **udata;		/* pointer to out global context */
 static pthread_mutex_t mtx_ctxsw;	/* thread in critical section */
 
 
-#if 0
-static void empth_setctx(void *);
-#endif
-static void empth_restorectx();
-
 static void *
 empth_start(void *ctx)
 {
