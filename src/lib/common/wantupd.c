@@ -45,11 +45,7 @@
 
 #include <sys/types.h>
 #include <fcntl.h>
-#if defined(Rel4) || defined(_WIN32)
 #include <time.h>
-#else  /* Rel4 */
-#include <sys/time.h>
-#endif /* Rel4 */
 
 void
 update_policy_check(void)

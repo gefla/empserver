@@ -48,11 +48,8 @@
 #include "common.h"
 
 #include <fcntl.h>
-#ifdef Rel4
 #include <time.h>
-#endif /* Rel4 */
 #if !defined(_WIN32)
-#include <sys/time.h>
 #include <unistd.h>
 #endif
 #include <signal.h>

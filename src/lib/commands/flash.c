@@ -32,11 +32,7 @@
  *     Steve McClure, 1998
  */
 
-#if defined(Rel4) || defined(_WIN32)
 #include <time.h>
-#else
-#include <sys/time.h>
-#endif /* Rel4 */
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
