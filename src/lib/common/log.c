@@ -49,19 +49,12 @@
 
 static s_char *logfile = 0;
 
-s_char *
-getlogfile(void)
-{
-    return (s_char *)logfile;
-}
-
 /*
  * Points logfile at datadir/"program".log
  */
 void
-loginit(void)
+loginit(s_char *program)
 {
-    extern s_char program[];
     s_char buf[1024];
 
 #if !defined(_WIN32)
@@ -85,8 +78,6 @@ logerror(s_char *format, ...)
     int logf;
     s_char *p;
 
-    if (logfile == 0)
-	loginit();
     va_start(list, format);
     vsprintf(buf, format, list);
     if ((p = strchr(buf, '\n')) != 0)

@@ -454,8 +454,6 @@ empth_self(void)
 void
 empth_exit(void)
 {
-    s_char *getlogfile();
-
     loc_Thread_t *pThread =
 	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
 
@@ -466,9 +464,6 @@ empth_exit(void)
     if (pThread->bMainThread) {
 	char buf[20];
 	/* The main line.  Wait forever. */
-	if (getlogfile() == (s_char *)0)
-	    loginit();
-	printf("log file: %s\n", getlogfile());
 	while (1) {
 	    printf("\nEmpire Server>");
 	    fgets(buf, sizeof(buf), stdin);

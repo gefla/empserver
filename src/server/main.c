@@ -67,8 +67,6 @@
 #include "server.h"
 #include "prototypes.h"
 
-s_char program[] = "server";
-
 void nullify_objects(void);
 void init_files(void);
 void close_files(void);
@@ -100,6 +98,8 @@ main(int argc, char **argv)
 #ifdef POSIXSIGNALS
     struct sigaction act;
 #endif /* POSIXSIGNALS */
+
+    loginit("server");
 
 #if !defined(_WIN32)
     mainpid = getpid();

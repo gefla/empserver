@@ -332,7 +332,7 @@ extern int has_units_with_mob(coord, coord, natid);
 extern int adj_units(coord, coord, natid);
 extern int has_helpful_engineer(coord x, coord y, natid cn);
 /* log.c */
-extern void loginit(void);
+extern void loginit(s_char *);
 extern void logerror(s_char *, ...);
 /* maps.c */
 extern int draw_map(int, s_char, int, struct nstr_sect *, int);
