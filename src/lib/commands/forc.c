@@ -36,13 +36,11 @@
 #include "player.h"
 #include "empthread.h"
 #include "commands.h"
+#include "server.h"
 
 int
 force(void)
 {
-    extern empth_sem_t *update_sem;
-    extern int update_pending;
-    extern int shutdown_pending;
     int seconds;
     time_t now;
 

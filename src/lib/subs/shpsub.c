@@ -50,6 +50,7 @@
 #include "mission.h"
 #include "optlist.h"
 #include "damage.h"
+#include "server.h"
 #include "prototypes.h"
 
 extern double tfactfire(natid, double);
@@ -119,7 +120,6 @@ void
 shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	int *togetherp, natid actor)
 {
-    extern int update_pending;
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct mlist *mlp;

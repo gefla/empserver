@@ -41,6 +41,7 @@
 #include <stdio.h>
 #include "prototypes.h"
 #include "optlist.h"
+#include "server.h"
 
 /*ARGSUSED*/
 void

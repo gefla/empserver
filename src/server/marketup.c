@@ -37,6 +37,7 @@
 #include "keyword.h"
 #include "empthread.h"
 #include "file.h"
+#include "server.h"
 #include <stdio.h>
 #include "prototypes.h"
 

@@ -25,57 +25,31 @@
  *
  *  ---
  *
- *  idle.c: Stamps out idle players.  Runs at low priority
+ *  server.h: Server startup, control and shutdown
  * 
  *  Known contributors to this file:
- *     Dave Pare, 1994
+ *     Markus Armbruster, 2004
  */
 
-#include "misc.h"
-#include "player.h"
-#include "empio.h"
-#include "empthread.h"
-#include "proto.h"
-#include "prototypes.h"
-#include "optlist.h"
-#include "server.h"
+#ifndef SERVER_H
+#define SERVER_H
 
-/*ARGSUSED*/
-void
-player_kill_idle(void *argv)
-{
-    struct player *p;
-    time_t now;
+extern int shutdown_pending;
+extern int update_pending;
+extern empth_sem_t *update_sem;
+extern time_t update_time;
+extern int updating_mob;
 
-    time(&now);
-    while (1) {
-	empth_sleep(now + 60);
-	time(&now);
-	/*if (update_pending) */
-	/*continue; */
-	for (p = player_next(0); p != 0; p = player_next(p)) {
-	    if (p->state == PS_SHUTDOWN) {
-		/* no more mr. nice guy */
-		p->state = PS_KILL;
-		p->aborted++;
-		empth_terminate(p->proc);
-		p = player_delete(p);
-		continue;
-	    }
-	    if (p->curup + max_idle * 60 < now) {
-		p->state = PS_SHUTDOWN;
-		/* giving control to another thread while
-		 * in the middle of walking player list is
-		 * not a good idea at all. Sasha */
-		p->aborted++;
-		pr_flash(p, "idle connection terminated\n");
-		empth_wakeup(p->proc);
-		/* go to sleep because player thread
-		   could vandalize a player list */
+void mobility_init(void);
 
-		break;
-	    }
-	}
-    }
-    /*NOTREACHED*/
-}
+/* thread entry points */
+void player_accept(void *);
+void delete_lostitems(void *);
+void market_update(void *);
+void mobility_check(void *);
+void player_kill_idle(void *);
+void update_main(void *);
+void update_sched(void *);
+void shutdown_sequence(void *);
+
+#endif SERVER_H

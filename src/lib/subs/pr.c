@@ -53,7 +53,7 @@
 #include "com.h"
 #include "news.h"
 #include "tel.h"
-extern int update_pending;
+#include "server.h"
 #include "prototypes.h"
 
 static void outid(struct player *pl, int n);

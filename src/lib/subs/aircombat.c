@@ -51,8 +51,8 @@
 #include "path.h"
 #include "prototypes.h"
 #include "optlist.h"
+#include "server.h"
 
-extern int update_pending;
 
 #ifndef MIN
 #define MIN(x,y) ((x) < (y) ? (x) : (y))

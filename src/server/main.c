@@ -64,14 +64,11 @@
 #include "product.h"
 #include "optlist.h"
 #include "global.h"
+#include "server.h"
 #include "prototypes.h"
 
 s_char program[] = "server";
 
-extern void player_accept(void *);
-extern void player_kill_idle(void *);
-extern void update_sched(void *);
-extern void delete_lostitems(void *);
 void nullify_objects(void);
 void init_files(void);
 void close_files(void);

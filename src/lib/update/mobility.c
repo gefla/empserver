@@ -46,8 +46,8 @@
 #include "gen.h"
 #include "subs.h"
 #include "optlist.h"
+#include "server.h"
 
-extern int update_pending;
 
 int updating_mob = 1;
 
@@ -65,7 +65,6 @@ increase_mob(time_t * counter, float mult)
     time_t secs;
     time_t now;
     time_t left;
-    extern int updating_mob;
     int newetus;
     float newmob;
     int inewmob;

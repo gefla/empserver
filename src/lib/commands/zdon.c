@@ -58,11 +58,11 @@
 #include "empthread.h"
 #include "commands.h"
 #include "optlist.h"
+#include "server.h"
 
 int
 zdon(void)
 {
-    extern empth_sem_t *update_sem;
     natid whichcnum;
     struct natstr *natp;
     register s_char *p;

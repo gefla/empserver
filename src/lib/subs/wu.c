@@ -42,6 +42,7 @@
 #include "tel.h"
 #include "file.h"
 #include "player.h"
+#include "server.h"
 #include "prototypes.h"
 
 static struct telstr last_tel[MAXNOC];
@@ -62,7 +63,6 @@ clear_telegram_is_new(natid to)
 static int
 telegram_is_new(natid to, struct telstr *tel)
 {
-    extern int update_pending;
     int is_new = 0;
 
     is_new |= tel->tel_type != last_tel[to].tel_type;
@@ -84,7 +84,6 @@ wu(natid from, natid to, s_char *format, ...)
     struct natstr *np;
     va_list ap;
     s_char buf[4096];
-    extern int update_pending;
 
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);

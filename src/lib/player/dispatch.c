@@ -44,12 +44,12 @@
 #include "optlist.h"
 #include "subs.h"
 #include "common.h"
+#include "server.h"
 
 int
 dispatch(s_char *buf, s_char *redir)
 {
     extern struct cmndstr player_coms[];
-    extern int update_pending;
     struct natstr *np;
     struct cmndstr *command;
     int cmd;

@@ -38,13 +38,12 @@
 #include "nat.h"
 #include "file.h"
 #include "commands.h"
+#include "server.h"
 #include "prototypes.h"
 
 int
 shut(void)
 {
-    extern int update_pending;
-    extern int shutdown_pending;
     int shutdown_minutes;
     int shutdown_was_pending;
     s_char buf[100];

@@ -39,6 +39,7 @@
 #include "optlist.h"
 #include "keyword.h"
 #include "wantupd.h"
+#include "server.h"
 
 /*
  * Tell what the update policy is, and when the next update
@@ -49,7 +50,6 @@ upda(void)
 {
     FILE *fp;
     struct mob_acc_globals timestamps;
-    extern int updating_mob;
 
     if (opt_MOB_ACCESS) {
 #if !defined(_WIN32)
@@ -73,7 +73,6 @@ upda(void)
     }
     if (opt_UPDATESCHED) {
 	time_t now, next, delta;
-	extern int update_time;
 
 	if (updates_disabled())
 	    pr("UPDATES ARE DISABLED!\n");

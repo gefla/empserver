@@ -38,9 +38,9 @@
 #include "player.h"
 #include "prototypes.h"
 #include "optlist.h"
+#include "server.h"
 
 extern s_char *relates[];
-extern int update_pending;
 
 int
 setrel(natid us, natid them, int rel)

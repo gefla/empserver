@@ -40,12 +40,12 @@
 #include <stdio.h>
 #include "prototypes.h"
 #include "optlist.h"
+#include "server.h"
 
 /*ARGSUSED*/
 void
 mobility_check(void *argv)
 {
-    extern int updating_mob;
     struct mob_acc_globals timestamps;
     time_t now;
     FILE *fp;
@@ -93,7 +93,6 @@ mobility_check(void *argv)
 void
 mobility_init(void)
 {
-    extern int updating_mob;
     struct mob_acc_globals timestamps;
     time_t now;
     time_t lastsavedtime;

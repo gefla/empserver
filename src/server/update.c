@@ -38,6 +38,7 @@
 #include "empthread.h"
 #include "prototypes.h"
 #include "optlist.h"
+#include "server.h"
 
 empth_sem_t *update_sem;
 

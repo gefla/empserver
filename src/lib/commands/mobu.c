@@ -43,6 +43,7 @@
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"
+#include "server.h"
 #include "prototypes.h"
 
 #include <stdio.h>
@@ -52,7 +53,6 @@ mobupdate(void)
 {
     FILE *fp;
     long minites;
-    extern int updating_mob;
     struct mob_acc_globals timestamps;
     long now;
 
