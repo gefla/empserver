@@ -798,8 +798,8 @@ att_ask_support(int offset, int *fortp, int *shipp, int *landp,
 	if ((*p == 'y') || (*p == 'Y'))
 	    *landp = 1;
 
-	if (!p = getstarg(player->argp[offset + 3], "Use plane support? ",
-			  buf)))
+	if (!(p = getstarg(player->argp[offset + 3], "Use plane support? ",
+			   buf)))
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
