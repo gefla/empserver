@@ -273,8 +273,7 @@ vl_setvec(register u_char *type, register u_short *amt, u_char *nvp,
  * make a free slot; deliveries and distributions
  * are fair game for us.
  */
-static
-    int
+static int
 freeslot(u_char *vec, register u_char *end)
 {
     register u_char *vp;

@@ -55,8 +55,7 @@ static int fileselect(struct dirent *dp);
 static int printdir(void);
 #endif
 
-static
-s_char *
+static s_char *
 lowerit(s_char *buf, int n, s_char *orig)
 {				/* converts a string to lower case */
     /* lower case output buffer */
@@ -72,8 +71,7 @@ lowerit(s_char *buf, int n, s_char *orig)
     return buf;
 }
 
-static
-    int
+static int
 strnccmp(s_char *s1, s_char *s2, int n)
 {
     int i;
@@ -163,8 +161,7 @@ info(void)
 #if 0
 static int biggest;
 
-static
-    int
+static int
 fileselect(struct dirent *dp)
 {
     int l;
@@ -177,8 +174,7 @@ fileselect(struct dirent *dp)
 }
 
 #ifdef solaris
-static
-    int
+static int
 alphasort(struct dirent *d1, struct dirent *d2)
 {
     return strcmp(d1->d_name, d2->d_name);

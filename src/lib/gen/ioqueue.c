@@ -189,8 +189,7 @@ ioq_puts(struct ioqueue *ioq, s_char *buf)
  * this routine doesn't free memory; this is
  * left for a higher level.
  */
-static
-    int
+static int
 ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
 {
     struct io *io;
@@ -224,8 +223,7 @@ ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
  * copy at most cc bytes from ioq to buf,
  * terminating on the stop character.
  */
-static
-    int
+static int
 ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc)
 {
     register int nbytes;
@@ -263,8 +261,7 @@ ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc)
  * of data from the ioqueue.
  */
 #if !defined(_WIN32)
-static
-    int
+static int
 ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
 {
     struct io *io;
@@ -297,8 +294,7 @@ ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
 /*
  * append a buffer to the end of the ioq.
  */
-static
-    int
+static int
 appendcc(struct ioqueue *ioq, s_char *buf, int cc)
 {
     struct io *io;
@@ -338,8 +334,7 @@ appendcc(struct ioqueue *ioq, s_char *buf, int cc)
  * free memory, dequeue io elements
  * which are no longer used.
  */
-static
-    int
+static int
 removecc(struct ioqueue *ioq, register int cc)
 {
     struct io *io;

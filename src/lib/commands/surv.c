@@ -142,8 +142,7 @@ surv(void)
     return RET_OK;
 }
 
-static
-    s_char
+static s_char
 code_char(long int coding, struct sctstr *sp)
 {
     int amt;

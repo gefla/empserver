@@ -652,8 +652,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     return 1;
 }
 
-static
-    int
+static int
 build_bridge(register struct sctstr *sp, register int *vec)
 {
     extern int buil_bh;
@@ -807,8 +806,7 @@ build_bridge(register struct sctstr *sp, register int *vec)
     return 1;
 }
 
-static
-    int
+static int
 build_nuke(register struct sctstr *sp, register struct nchrstr *np,
 	   register int *vec)
 {
@@ -866,8 +864,7 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np,
     return 1;
 }
 
-static
-    int
+static int
 build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 	    register int *vec, int tlev)
 {
@@ -1006,8 +1003,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
     return 1;
 }
 
-static
-    int
+static int
 build_tower(register struct sctstr *sp, register int *vec)
 {
     extern int buil_tower_bh;

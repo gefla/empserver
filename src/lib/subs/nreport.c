@@ -124,8 +124,7 @@ findfree(void)
     }
 }
 
-static
-    int
+static int
 nextfree(void)
 {
     struct free *fp;
@@ -148,8 +147,7 @@ struct newscache {
     int id;
 };
 
-static
-struct newscache *
+static struct newscache *
 ncache(time_t now, int actor, int event, int victim, int times)
 {
     static struct newscache cache[MAXNOC][SLOTS];

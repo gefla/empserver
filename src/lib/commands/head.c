@@ -126,8 +126,7 @@ head(void)
     return RET_OK;
 }
 
-static
-    int
+static int
 head_printscoop(struct histstr (*hist)[MAXNOC], natid ano, natid vno)
 {
     register struct histstr *hp;
@@ -144,8 +143,7 @@ head_printscoop(struct histstr (*hist)[MAXNOC], natid ano, natid vno)
     return severity;
 }
 
-static
-s_char *
+static s_char *
 head_meanwhile(int val)
 {
     switch (val & 03) {
@@ -162,8 +160,7 @@ head_meanwhile(int val)
     return "";
 }
 
-static
-s_char *
+static s_char *
 head_describe(struct histstr *hp, int what)
 {
     s_char *cp;
@@ -222,8 +219,7 @@ head_describe(struct histstr *hp, int what)
  * returns 9 if no scoops were found
  * Pretty strange.
  */
-static
-    int
+static int
 head_findscoop(struct histstr (*hist)[MAXNOC], register natid maxcnum,
 	       natid *ano, natid *vno)
 {

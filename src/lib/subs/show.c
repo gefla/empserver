@@ -171,8 +171,7 @@ sort_lookup_list(void)
     }
 }
 
-static
-    void
+static void
 make_new_list(int tlev, int type)
 {
     struct plchrstr *pp;
@@ -217,8 +216,7 @@ make_new_list(int tlev, int type)
     sort_lookup_list();
 }
 
-static
-s_char *
+static s_char *
 lookup(int key, struct lookup *table)
 {
     int match;
