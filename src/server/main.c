@@ -166,8 +166,6 @@ main(int argc, char **argv)
 	}
     }
 
-    loginit("server");
-
 #if defined(_WIN32)
     if ((debug || datadir_set || config_file != NULL) &&
 	remove_service_set) {
@@ -190,6 +188,15 @@ main(int argc, char **argv)
 	printf("Can't use both -r or -R and -i or -I options\n");
 	exit(EXIT_FAILURE);
     }
+#endif	/* _WIN32 */
+
+    if (config_file == NULL) {
+	sprintf(tbuf, "%s/econfig", datadir);
+	config_file = tbuf;
+    }
+    emp_config(config_file);
+
+#if defined(_WIN32)
     if (install_service_set)
         return install_service(argv[0], service_name, datadir_set);
     if (remove_service_set)
@@ -200,9 +207,6 @@ main(int argc, char **argv)
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
     }
-
-    logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", (int)getpid());
 
 #if defined(_WIN32)
     if (debug == 0) {
@@ -217,13 +221,14 @@ main(int argc, char **argv)
 	    } else  /* start in the foreground */
 		debug = 1;
     }
-#else
-    if (debug == 0 && flags == 0) {
-	disassoc();
-    }
-#endif
+#endif	/* _WIN32 */
 
-    start_server(flags, config_file);
+    init_server(flags);
+#ifndef _WIN32
+    if (debug == 0 && flags == 0)
+	disassoc();
+#endif
+    start_server(flags);
 
 #if defined(__linux__) && defined(_EMPTH_POSIX)
     strcpy(tbuf, argv[0]);
@@ -247,7 +252,7 @@ main(int argc, char **argv)
 
 
 void
-start_server(int flags, char *config_file)
+init_server(int flags)
 {
 #ifdef POSIXSIGNALS
     struct sigaction act;
@@ -256,7 +261,6 @@ start_server(int flags, char *config_file)
 #if defined(_WIN32)
     loc_NTInit();
 #endif
-    emp_config(config_file);
     update_policy_check();
 
     nullify_objects();
@@ -316,6 +320,14 @@ start_server(int flags, char *config_file)
 	mobility_init();
     }
 
+    loginit("server");
+    logerror("------------------------------------------------------");
+    logerror("Empire server (pid %d) started", (int)getpid());
+}
+
+void
+start_server(int flags)
+{
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
 		 "AcceptPlayers", "Accept network connections", 0);
     empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,

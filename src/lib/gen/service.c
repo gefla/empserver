@@ -237,6 +237,7 @@ service_main(DWORD argc, LPTSTR *argv)
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
     }
+    emp_config(config_file);
 
     service_status.dwServiceType        = SERVICE_WIN32; 
     service_status.dwCurrentState       = SERVICE_START_PENDING; 
@@ -255,7 +256,8 @@ service_main(DWORD argc, LPTSTR *argv)
     }
  
     /* Initialization code goes here. */
-    start_server(0, config_file); 
+    init_server(0);
+    start_server(0);
  
     /* Initialization complete - report running status. */
     service_status.dwCurrentState       = SERVICE_RUNNING; 
