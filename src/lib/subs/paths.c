@@ -207,24 +207,6 @@ getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown,
     goto more;
 }
 
-/* ARGSUSED */
-double
-mcost(struct sctstr *sp, int own)
-{
-    return sector_mcost(sp, MOB_ROAD);
-
-/*
-	int	m_cost;
-
-	if (!(m_cost = dchr[sp->sct_type].d_mcst))
-		return -1.0;
-	if (m_cost < 25)
-		return (200.0 + (m_cost - 3.0) * sp->sct_effic) / 500.0;
-	else
-		return (m_cost * 5.0 - (double)sp->sct_effic) / 25.0;
- */
-}
-
 /*
  * fly move cost
  */

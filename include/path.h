@@ -67,7 +67,6 @@ extern double pathtoxy(s_char *, coord *, coord *,
 extern int chkdir(s_char, int, int);
 extern int getdir(s_char *, s_char *, s_char *, s_char *);
 extern void direrr(s_char *, s_char *, s_char *);
-extern double mcost(struct sctstr *, int);
 extern int chkpath(natid, s_char *, coord, coord);
 extern void pathrange(register coord, register coord, register s_char *,
 		      int, struct range *);
