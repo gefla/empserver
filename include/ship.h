@@ -191,7 +191,6 @@ struct mlist {
     struct mchrstr *mcp;	/* pointer to desc of ship */
     struct shpstr ship;		/* struct ship */
     double mobil;		/* how much mobility the ship has left */
-    int done;			/* has this ship been interdicted yet? */
 };
 
 #define SHP_DEF(b, t) (t ? (b * (logx((double)t, (double)40.0) < 1.0 ? 1.0 : \

@@ -718,10 +718,9 @@ shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 	    stopping |=
 		shp_damage(list,
 			   unit_interdict(newx, newy, victim, "ships",
-					  shp_easiest_target(list, 0,
-							     M_SUB),
-					  MI_INTERDICT), 0, M_SUB, newx,
-			   newy);
+					  shp_easiest_target(list, 0, M_SUB),
+					  MI_INTERDICT),
+			   0, M_SUB, newx, newy);
 	    if (most_valuable_ship(list)) {
 		stopping |=
 		    shp_missile_interdiction(list, newx, newy, victim);
@@ -805,9 +804,8 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     struct sctstr sect;
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct emp_qelem *nqp;
-    struct emp_qelem *nnext;
     struct mlist *mlp;
+    struct emp_qelem done;
     coord dx;
     coord dy;
     coord newx;
@@ -867,7 +865,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	}
 	mlp->ship.shp_mobil = (int)mlp->mobil;
 	putship(mlp->ship.shp_uid, &mlp->ship);
-	mlp->done = 0;		/* We haven't interdicted this ship yet */
 
 	/* Now update the map for this ship */
 	tech = techfact(mlp->ship.shp_tech, (double)mlp->mcp->m_vrnge);
@@ -887,26 +884,26 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     if (QEMPTY(list))
 	return stopping;
 
-/* Ok, run through each ship and interdict each coordinate */
-    for (qp = list->q_back; qp != list; qp = next) {
-	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-/* Has this ship been interdicted yet? */
-	if (mlp->done)
-	    continue;
+    /* interdict ships sector by sector */
+    emp_initque(&done);
+    while (!QEMPTY(list)) {
+	mlp = (struct mlist *)list->q_back;
 	newx = mlp->ship.shp_x;
 	newy = mlp->ship.shp_y;
 	stopping |= shp_interdict(list, newx, newy, actor);
-	if (QEMPTY(list))
-	    return stopping;
-/* Now, set all ships in this coordinate to done */
-	for (nqp = list->q_back; nqp != list; nqp = nnext) {
-	    nnext = nqp->q_back;
-	    mlp = (struct mlist *)nqp;
-	    if (mlp->ship.shp_x == newx && mlp->ship.shp_y == newy)
-		mlp->done = 1;
+	/* move survivors in this sector to done */
+	for (qp = list->q_back; qp != list; qp = next) {
+	    next = qp->q_back;
+	    mlp = (struct mlist *)qp;
+	    if (mlp->ship.shp_x == newx && mlp->ship.shp_y == newy) {
+		emp_remque(qp);
+		emp_insque(qp, &done);
+	    }
 	}
     }
+    /* assign surviving ships back to list */
+    emp_insque(list, &done);
+    emp_remque(&done);
 
     return stopping;
 }
