@@ -48,6 +48,7 @@
 #include "update.h"
 #include "subs.h"
 #include "common.h"
+#include <math.h>
 #include <stdlib.h>
 
 static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
@@ -55,7 +56,7 @@ static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 static void
 cost_ship(struct shpstr *sp, struct fltelemstr *ep, struct fltheadstr *fp)
 {
-    double mobcost, ceil(double);
+    double mobcost;
     int howfar;
 
     mobcost = 0.0;
