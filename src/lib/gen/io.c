@@ -81,8 +81,6 @@ struct iop {
     int (*notify) ();
 };
 
-extern int errno;
-
 void
 io_init(void)
 {

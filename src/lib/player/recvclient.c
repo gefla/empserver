@@ -44,7 +44,6 @@
 int
 recvclient(s_char *cmd, int size)
 {
-    extern int errno;
     int count;
 
     if (player->aborted)

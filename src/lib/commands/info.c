@@ -36,6 +36,7 @@
 
 #include "misc.h"
 #include "player.h"
+#include <errno.h>
 #ifdef Rel4
 #include <string.h>
 #endif /* Rel4 */
@@ -59,8 +60,6 @@ static int printdir(void);
 static
 s_char *
 lowerit(s_char *buf, int n, s_char *orig)
-
-
 {				/* converts a string to lower case */
     /* lower case output buffer */
     /* size of output buffer */
@@ -97,7 +96,6 @@ strnccmp(s_char *s1, s_char *s2, int n)
 int
 info(void)
 {
-    extern int errno;
     extern s_char *infodir;
 #if (!defined linux) && (!defined FBSD) && (!defined __linux__) && (!defined __ppc__)
     extern s_char *sys_errlist[];
@@ -381,7 +379,6 @@ apro(void)
 int
 info(void)
 {
-    extern int errno;
     extern s_char *infodir;
     s_char buf[255];
     FILE *fp;

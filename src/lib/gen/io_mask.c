@@ -38,8 +38,6 @@
 #include "empio.h"
 #include "io_mask.h"
 
-extern int errno;
-
 struct io_mask *
 iom_create(int what)
 {

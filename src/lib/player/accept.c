@@ -190,7 +190,6 @@ void
 player_accept(void *argv)
 {
     extern s_char *loginport;
-    extern int errno;
     struct sockaddr_in sin;
     struct servent *sp;
     int s;

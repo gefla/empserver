@@ -63,8 +63,6 @@
 HANDLE hStdIn;
 #endif
 
-extern int errno;
-
 #define	RETRY	3
 
 int interrupt;

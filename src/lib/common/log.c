@@ -82,9 +82,6 @@ logerror(s_char *format, ...)
 #if !defined(Rel4) && !defined(__linux__) && !defined(__ppc__)
     extern s_char *sys_errlist[];
 #endif
-#ifndef sgi
-    extern int errno;
-#endif /* sgi */
     va_list list;
     time_t now;
     s_char buf[512];
@@ -131,9 +128,6 @@ filelogerror(s_char *format, ...)
 #if !defined(Rel4) && !defined(__linux__) && !defined(__ppc__)
     extern s_char *sys_errlist[];
 #endif /* Rel4 */
-#ifndef sgi
-    extern int errno;
-#endif /* sgi */
     va_list list;
     time_t now;
     s_char buf[512];

@@ -33,6 +33,7 @@
  *     Steve McClure, 1998
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include "misc.h"
 #include "nat.h"
@@ -59,7 +60,6 @@ int
 gamehours(time_t now, int *hour)
 {
     extern s_char *game_days, *game_hours;
-    extern int errno;
     extern struct tm *localtime(const time_t *);
     register s_char *bp;
     register struct tm *tm;
