@@ -46,6 +46,7 @@
 #include "update.h"
 #include "common.h"
 #include "optlist.h"
+#include "server.h"
 #include <stdlib.h>
 #if !defined(_WIN32)
 #include <sys/time.h>

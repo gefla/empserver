@@ -116,8 +116,8 @@ struct nstr_item {
 #define NSC_USHORT	(4<<18)	/* pointer to unsigned short */
 #define NSC_INT		(5<<18)	/* pointer to int */
 #define	NSC_LONG	(6<<18)	/* pointer to long */
-#define NSC_XCOORD	(7<<18)	/* pointer to short that needs x conversion */
-#define NSC_YCOORD	(8<<18)	/* pointer to short that needs y conversion */
+#define NSC_XCOORD	(7<<18)	/* pointer to coord that needs x conversion */
+#define NSC_YCOORD	(8<<18)	/* pointer to coord that needs y conversion */
 #define NSC_FLOAT	(9<<18)	/* pointer to float */
 #define NSC_CHARP	(10<<18)	/* pointer to string pointer */
 #define NSC_TIME        (11<<18)	/* pointer to time_t */
@@ -161,6 +161,8 @@ extern s_char *nstr_comp(struct nscstr *, int *, int, s_char *);
 extern int encode(register s_char *, long *, int);
 
 
-extern s_char *decodep(register long code, register void *addr);
+extern s_char *decodep(long, void *);
+extern int decode(natid, long, void *, int);
+extern int nstr_exec(struct nscstr *, register int, void *, int);
 
 #endif /* _NSC_H_ */

@@ -85,7 +85,6 @@ typedef struct {
 /* internal routines */
 void lwpAddTail(struct lwpQueue *, struct lwpProc *);
 struct lwpProc *lwpGetFirst(struct lwpQueue *);
-void lwpReschedule(void);
 void lwpReady(struct lwpProc *);
 void lwpOnalarm(void);
 

@@ -53,9 +53,4 @@ struct telstr {
 
 extern s_char *mailbox(s_char *buf, natid cn);
 
-extern s_char *teldir, *telfil;
-
-extern s_char *annfil;
-
-
 #endif /* _TEL_H_ */

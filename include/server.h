@@ -41,9 +41,9 @@ extern time_t update_time;
 extern int updating_mob;
 
 void mobility_init(void);
+void shutdown_init(void);
 
 /* thread entry points */
-void player_accept(void *);
 void delete_lostitems(void *);
 void market_update(void *);
 void mobility_check(void *);

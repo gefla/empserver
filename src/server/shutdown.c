@@ -39,6 +39,7 @@
 #include "nat.h"
 #include "file.h"
 #include <time.h>
+#include "server.h"
 #include "prototypes.h"
 
 int shutdown_pending;

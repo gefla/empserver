@@ -228,7 +228,4 @@ extern int lnd_support(natid, natid, coord, coord);
 extern int lnd_can_attack(struct lndstr *);
 extern int lnd_fortify (struct lndstr *lp, int hard_amt);
 
-void landdamage(struct lndstr *lp, int dam);
-s_char *prland(struct lndstr *lp);
-
 #endif /* _LAND_H_ */

@@ -44,6 +44,7 @@
 #include "file.h"
 #include "tel.h"
 #include "commands.h"
+#include "optlist.h"
 
 #include <stdio.h>
 #include <fcntl.h>

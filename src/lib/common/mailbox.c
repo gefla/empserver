@@ -33,6 +33,7 @@
 
 #include "misc.h"
 #include "tel.h"
+#include "optlist.h"
 #include <stdio.h>
 
 s_char *

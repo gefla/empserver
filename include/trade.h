@@ -74,7 +74,13 @@ union trdgenstr {
     struct shpstr shp;
 };
 
-s_char *trade_nameof(struct trdstr * tp, union trdgenstr * tgp);
+extern int trade_check_ok(int, struct trdstr *, union trdgenstr *);
+extern s_char *trade_nameof(struct trdstr *, union trdgenstr *);
+extern int trade_desc(struct trdstr *, union trdgenstr *);
+extern int trade_getitem(struct trdstr *, union trdgenstr *);
+extern long get_couval(int);
+extern long get_outstand(int);
+extern struct ichrstr *whichitem(char);
 
 #define gettrade(n, p) \
 	ef_read(EF_TRADE, n, (caddr_t)p)

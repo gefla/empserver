@@ -42,6 +42,7 @@
 #include <unistd.h>
 #endif
 #include "update.h"
+#include "optlist.h"
 #include "common.h"
 
 void
