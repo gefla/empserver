@@ -30,10 +30,6 @@
  *  Known contributors to this file:
  *     
  */
-/*
- * XXX These routines gamble that structures are all longword-aligned.
- * If this is not true, they will BREAK!
- */
 
 #include "misc.h"
 #include "match.h"
@@ -73,12 +69,11 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
 }
 
 /*
- * Compare A with B, up to the first space in B.
- * Return ME_EXACT if they are the same.
- * Return ME_PARTIAL if A is a prefix of B.
- * Else return ME_MISMATCH.
- * Note: May read B beyond the first space, but not beyond a
- * terminating 0.
+ * Compare A with B.
+ * Return ME_EXACT if they are the same, or A is a prefix of B
+ * followed by a space.
+ * Return ME_PARTIAL if A is a prefix of B not followed by a space.
+ * Else return ME_NOMATCH.
  */
 int
 mineq(char *a, char *b)
