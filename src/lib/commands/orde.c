@@ -67,7 +67,6 @@
 int
 orde(void)
 {
-    int nships = 0;
     int diffeachship = 0;
     int orders, sub, level;
     int scuttling = 0;
@@ -320,7 +319,6 @@ orde(void)
 	    return RET_SYN;
 
 	putship(ship.shp_uid, &ship);
-	nships++;
     }
     return RET_OK;
 }
@@ -328,7 +326,6 @@ orde(void)
 static void
 eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
 {
-    struct mchrstr *mcp;
     double mobcost, mobil;
     int i;
 
@@ -336,7 +333,6 @@ eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
     *len = i;
     *nupdates = 1;
 
-    mcp = &mchr[(int)sp->shp_type];
     mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
     mobcost = 480.0 / (mobcost + techfact(sp->shp_tech, mobcost));
     mobil = sp->shp_mobil;
