@@ -93,7 +93,7 @@ struct shpstr {
     short shp_lstart[TMAX];	/* How much do we pick up at the start  */
     short shp_lend[TMAX];	/* How much do we pick up at the end    */
     u_char shp_autonav;		/* autonavigation flags */
-    u_short shp_item[I_MAX+1];	/* amount of items on board */
+    short shp_item[I_MAX+1];	/* amount of items on board */
     u_short shp_pstage;		/* plague stage */
     u_short shp_ptime;		/* how many etus remain in this stage */
     time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */

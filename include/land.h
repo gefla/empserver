@@ -71,7 +71,7 @@ struct lndstr {
     s_char lnd_rpath[RET_LEN];	/* retreat path */
     u_char lnd_rad_max;		/* max radius for this unit */
     u_char lnd_scar;		/* how experienced the unit is (not used) */
-    u_short lnd_item[I_MAX+1];	/* amount of items on board */
+    short lnd_item[I_MAX+1];	/* amount of items on board */
     u_short lnd_pstage;		/* plague stage */
     u_short lnd_ptime;		/* how many etus remain in this stage */
     short lnd_land;		/* pointer to transporting unit */
