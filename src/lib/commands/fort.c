@@ -79,6 +79,10 @@ fort(void)
 	    pr("%s is on a ship and can't be fortified\n", prland(&land));
 	    continue;
 	}
+	if (land.lnd_land >= 0) {
+	    pr("%s is on a land unit and can't be fortified\n", prland(&land));
+	    continue;
+	}
 
 	hard_amt = fort_amt;
 
@@ -90,10 +94,13 @@ fort(void)
 		continue;
 	}
 
+	if (lnd_fortify (&land, hard_amt) <= 0) {
+	    pr("%s can't be fortified%s\n", prland(&land),
+	       land.lnd_harden >= land_mob_max ? " any further" : "");
+	    continue;
+	}
+
 	nunits++;
-
-	lnd_fortify (&land, hard_amt);
-
 	pr("%s hardened to %d\n", prland(&land), land.lnd_harden);
 
 	putland(land.lnd_uid, &land);
