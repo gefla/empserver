@@ -149,9 +149,11 @@ main(int argc, char **argv)
 #else
 	case 'p':
 	    flags |= EMPTH_PRINT;
+	    daemonize = 0;
 	    break;
 	case 's':
 	    flags |= EMPTH_PRINT | EMPTH_STACKCHECK;
+	    daemonize = 0;
 	    break;
 #endif
 	case 'h':
@@ -220,7 +222,7 @@ main(int argc, char **argv)
 
     init_server(flags);
 #ifndef _WIN32
-    if (daemonize != 0 && flags == 0)
+    if (daemonize)
 	disassoc();
 #endif
     start_server(flags);
