@@ -309,6 +309,7 @@ start_server(int flags, char *config_file)
     ef_init();
     init_files();
     io_init();
+    init_nreport();
 
     if (opt_MOB_ACCESS) {
 	/* This fixes up mobility upon restart */

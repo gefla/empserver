@@ -201,6 +201,7 @@ update_main(void *unused)
     ef_flush(EF_PLANE);
     ef_flush(EF_LAND);
     delete_old_announcements();
+    delete_old_news();
     /* Clear all the telegram flags */
     for (cn = 0; cn < MAXNOC; cn++)
 	clear_telegram_is_new(cn);

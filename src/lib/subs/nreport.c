@@ -32,25 +32,35 @@
  *     Steve McClure, 1997
  */
 
-#include "misc.h"
-#include "news.h"
-#include "nat.h"
-#include "file.h"
-#include "empio.h"
-#include <fcntl.h>
-#include "optlist.h"
 #include "prototypes.h"
+#include "news.h"
+#include "file.h"
+#include "optlist.h"
 
-static void filereport(int, int, int, int);
+#define SLOTS	5
+
+struct newscache {
+    struct nwsstr news;
+    int id;
+};
+
+static struct newscache cache[MAXNOC][SLOTS];
+static int news_tail;
+
+static struct newscache *
+ncache(int actor, int event, int victim, int times);
 
 void
 nreport(natid actor, int event, natid victim, int times)
 {
     int nice;
     int rel;
-    struct natstr *np;
+    struct natstr *natp;
+    struct newscache *ncp;
 
-    filereport(actor, event, victim, times);
+    ncp = ncache(actor, event, victim, times);
+    putnews(ncp->id, &ncp->news);
+
     /*
      * this is probably pretty expensive, but hopefully we
      * don't fire zillions of these things off every second.
@@ -65,9 +75,9 @@ nreport(natid actor, int event, natid victim, int times)
 	return;
     if (!chance((double)-nice * times / 20.0))
 	return;
-    if ((np = getnatp(victim)) == 0)
+    if ((natp = getnatp(victim)) == 0)
 	return;
-    if ((rel = getrel(np, actor)) < HOSTILE)
+    if ((rel = getrel(natp, actor)) < HOSTILE)
 	return;
 
     rel = HOSTILE;
@@ -80,79 +90,76 @@ nreport(natid actor, int event, natid victim, int times)
     setrel(victim, actor, rel);
 }
 
-struct free {
-    struct free *next;
-    int id;
-};
-
-struct free *freelist;
-
-static void
-addfree(int n)
+/*
+ * Delete news articles that have expired.
+ */
+void
+delete_old_news(void)
 {
-    struct free *fp;
+    time_t expiry_time;
+    int i, j, k;
+    struct nwsstr news;
 
-    fp = (struct free *)malloc(sizeof(*fp));
-    fp->next = freelist;
-    fp->id = n;
-    freelist = fp;
+    /* skip over expired news */
+    expiry_time = time(NULL) - days(news_keep_days);
+    for (i = 0; getnews(i, &news); i++) {
+	if (news.nws_when == 0 || news.nws_when >= expiry_time)
+	    break;
+    }
+    /* news id 0..I-1 have expired */
+    CANT_HAPPEN(i > news_tail);
+    /* no items to delete if I is equal zero */
+    if (i == 0)
+	return;
+
+    /* move unexpired news I.. to 0.., overwriting expired news */
+    for (j = 0; getnews(i + j, &news); j++) {
+	if (news.nws_when == 0)
+	    break;
+	putnews(j, &news);
+    }
+    CANT_HAPPEN(i + j != news_tail);
+    news_tail = j;
+
+    /* mark slots no longer in use */
+    memset(&news, 0, sizeof(news));
+    for (k = 0; k < i; k++)
+	putnews(j + k, &news);
+
+    /* clear cache because moving news invalidated it */
+    memset(&cache, 0, sizeof(cache));
 }
 
 /*
- * snoop through the news articles looking
- * for articles which have timed out.  Only
- * called when no free items left.
+ * Initialize news reporting.
+ * Must run between open of file EF_NEWS and first nreport().
  */
-static void
-findfree(void)
+void
+init_nreport(void)
 {
-    time_t oldnewstime;
-    int n;
+    int newest_item;
     struct nwsstr news;
 
-    oldnewstime = time(NULL) - days(news_keep_days);
-    for (n = 0; getnews(n, &news); n++) {
-	if (news.nws_when < oldnewstime)
-	    addfree(n);
+    for (newest_item = 0; getnews(newest_item, &news); newest_item++) {
+	if (news.nws_when == 0)
+	    break;
     }
-    if (freelist == 0) {
-	if (!ef_extend(EF_NEWS, 100))
-	    return;
-	findfree();
-    }
+    news_tail = newest_item;
 }
 
-static int
-nextfree(void)
-{
-    struct free *fp;
-    int id;
-
-    if (freelist == 0)
-	findfree();
-    if ((fp = freelist) == 0)
-	return 0;
-    freelist = fp->next;
-    id = fp->id;
-    free(fp);
-    return id;
-}
-
-#define SLOTS	5
-
-struct newscache {
-    struct nwsstr news;
-    int id;
-};
-
+/*
+ * Look to see if the same message has been generated
+ * in the last 5 minutes, if so just increment the times
+ * field instead of creating a new message.
+ */
 static struct newscache *
-ncache(time_t now, int actor, int event, int victim, int times)
+ncache(int actor, int event, int victim, int times)
 {
-    static struct newscache cache[MAXNOC][SLOTS];
     register struct newscache *np;
     int i;
     int oldslot;
     time_t oldtime;
+    time_t now = time(NULL);
 
     oldslot = -1;
     oldtime = 0x7fffffff;
@@ -182,17 +189,7 @@ ncache(time_t now, int actor, int event, int victim, int times)
     np->news.nws_when = now;
     np->news.nws_vrb = event;
     np->news.nws_ntm = times;
-    np->id = nextfree();
+    ef_ensure_space(EF_NEWS, news_tail, 100);
+    np->id = news_tail++;
     return np;
-}
-
-static void
-filereport(int actor, int event, int victim, int times)
-{
-    struct newscache *np;
-    time_t now;
-
-    time(&now);
-    np = ncache(now, actor, event, victim, times);
-    ef_write(EF_NEWS, np->id, (s_char *)&np->news);
 }
