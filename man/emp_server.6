@@ -19,18 +19,16 @@ emp_server \- Empire server
 .br
 .SH DESCRIPTION
 .I emp_server
-is a demon which listens to the Empire port for players connecting to
-the game.  When a player connects, a thread is created for that player
-within the server.  For more information on the game of Empire, see
-the
+is a daemon which listens to the Empire port for players connecting to
+the game.  For more information on the game of Empire, see the
 .I info
 pages within the game.
 .SH OPTIONS
 .TP
 .B \-d 
 Debug mode.  This will prevent the server from forking itself into the
-background.  It will also cause the server to dump core if it crashes.
-You must run with this flag if you are running
+background.  It will also make the server abort when it detects an
+internal error.  You normally want to use this flag if you are running
 .I emp_server
 from within a debugger.
 .TP
