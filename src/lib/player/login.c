@@ -66,8 +66,7 @@ void
 player_login(void *ud)
 {
     s_char buf[128];
-    s_char space[512];
-    s_char *av[64];
+    s_char space[128];
     int ac;
     int cmd;
 
@@ -81,13 +80,13 @@ player_login(void *ud)
 	    io_input(player->iop, IO_WAIT);
 	    continue;
 	}
-	ac = parse(buf, av, 0, space, 0);
-	cmd = comtch(av[0], login_coms, 0, 0);
+	ac = parse(buf, player->argp, NULL, space, NULL);
+	cmd = comtch(player->argp[0], login_coms, 0, 0);
 	if (cmd < 0) {
-	    pr_id(player, C_BADCMD, "Command %s not found\n", av[0]);
+	    pr_id(player, C_BADCMD, "Command %s not found\n", player->argp[0]);
 	    continue;
 	}
-	switch (login_coms[cmd].c_addr(player, ac, av)) {
+	switch (login_coms[cmd].c_addr()) {
 	case RET_OK:
 	    break;
 	case RET_FAIL:
@@ -113,17 +112,17 @@ player_login(void *ud)
 }
 
 static int
-client_cmd(struct player *player, int ac, char **av)
+client_cmd(void)
 {
     int i;
 
-    if (ac < 1 || av[1] == '\0')
+    if (!player->argp[1])
 	return RET_SYN;
 
-    for (i = 1; i < ac; ++i) {
+    for (i = 1; player->argp[i]; ++i) {
 	if (i > 1)
-	    (void)strncat(player->client, " ", sizeof(player->client) - 1);
-	(void)strncat(player->client, av[i], sizeof(player->client) - 1);
+	    strncat(player->client, " ", sizeof(player->client) - 1);
+	strncat(player->client, player->argp[i], sizeof(player->client) - 1);
     }
     player->client[sizeof(player->client) - 1] = '\0';
     pr_id(player, C_CMDOK, "talking to %s\n", player->client);
@@ -131,25 +130,25 @@ client_cmd(struct player *player, int ac, char **av)
 }
 
 static int
-user_cmd(struct player *player, int ac, char **av)
+user_cmd(void)
 {
-    if (ac < 1 || av[1] == '\0')
+    if (!player->argp[1])
 	return RET_SYN;
-    (void)strncpy(player->userid, av[1], sizeof(player->userid) - 1);
+    strncpy(player->userid, player->argp[1], sizeof(player->userid) - 1);
     player->userid[sizeof(player->userid) - 1] = '\0';
     pr_id(player, C_CMDOK, "hello %s\n", player->userid);
     return RET_OK;
 }
 
 static int
-sanc_cmd(struct player *player, int ac, char **av)
+sanc_cmd(void)
 {
     struct nstr_item ni;
     struct natstr nat;
     int first = 1;
 
     if (!opt_BLITZ) {
-	pr_id(player, C_BADCMD, "Command %s not found\n", av[0]);
+	pr_id(player, C_BADCMD, "Command %s not found\n", player->argp[0]);
 	return RET_FAIL;
     }
 
@@ -172,35 +171,35 @@ sanc_cmd(struct player *player, int ac, char **av)
 }
 
 static int
-coun_cmd(struct player *player, int ac, char **av)
+coun_cmd(void)
 {
     natid cnum;
 
-    if (ac < 1 || av[1] == '\0')
+    if (!player->argp[1])
 	return RET_SYN;
-    if (natbyname(av[1], &cnum) < 0) {
-	pr_id(player, C_CMDERR, "country %s does not exist\n", av[1]);
+    if (natbyname(player->argp[1], &cnum) < 0) {
+	pr_id(player, C_CMDERR, "country %s does not exist\n", player->argp[1]);
 	return 0;
     }
     player->cnum = cnum;
     player->validated = 0;
-    pr_id(player, C_CMDOK, "country name %s\n", av[1]);
+    pr_id(player, C_CMDOK, "country name %s\n", player->argp[1]);
     return 0;
 }
 
 static int
-pass_cmd(struct player *player, int ac, char **av)
+pass_cmd(void)
 {
-    if (ac < 1 || av[1] == '\0')
+    if (!player->argp[1])
 	return RET_SYN;
     if (player->cnum == 255) {
 	pr_id(player, C_CMDERR, "need country first\n");
 	return RET_FAIL;
     }
-    if (!natpass(player->cnum, av[1])) {
+    if (!natpass(player->cnum, player->argp[1])) {
 	pr_id(player, C_CMDERR, "password bad, logging entry\n");
 	logerror("%s tried country #%d with %s",
-		 praddr(player), player->cnum, av[1]);
+		 praddr(player), player->cnum, player->argp[1]);
 	return RET_FAIL;
     }
     player->validated++;
@@ -209,27 +208,32 @@ pass_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-/*ARGSUSED*/
 static int
-play_cmd(struct player *player, int ac, char **av)
+play_cmd(void)
 {
     extern char *banfil;
     struct player *other;
     natid cnum;
     struct natstr *natp;
+    char **ap;
 
-    if (ac == 4) {
-	(void)strncpy(player->userid, av[1], sizeof(player->userid) - 1);
+    ap = player->argp;
+    if (*++ap) {
+	strncpy(player->userid, *ap, sizeof(player->userid) - 1);
 	player->userid[sizeof(player->userid) - 1] = '\0';
 	player->validated = 0;
-	if (natbyname(av[2], &cnum) < 0) {
-	    pr_id(player, C_CMDERR, "country %s does not exist\n", av[2]);
+    }
+    if (*++ap) {
+	if (natbyname(*ap, &cnum) < 0) {
+	    pr_id(player, C_CMDERR, "country %s does not exist\n", *ap);
 	    return 0;
 	}
-	if (!natpass(cnum, av[3])) {
+    }
+    if (*++ap) {
+	if (!natpass(cnum, *ap)) {
 	    pr_id(player, C_CMDERR, "password bad, logging entry\n");
 	    logerror("%s tried country #%d with %s",
-		     praddr(player), cnum, av[3]);
+		     praddr(player), cnum, *ap);
 	    return RET_FAIL;
 	}
 	player->cnum = cnum;
@@ -259,9 +263,8 @@ play_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-/*ARGSUSED*/
 static int
-kill_cmd(struct player *player, int ac, char **av)
+kill_cmd(void)
 {
     struct player *other;
 
@@ -279,9 +282,8 @@ kill_cmd(struct player *player, int ac, char **av)
     return RET_OK;
 }
 
-/*ARGSUSED*/
 static int
-list_cmd(struct player *player, int ac, char **av)
+list_cmd(void)
 {
     struct player *lp;
     int first = 1;
@@ -302,9 +304,8 @@ list_cmd(struct player *player, int ac, char **av)
     return 0;
 }
 
-/*ARGSUSED*/
 static int
-quit_cmd(struct player *player, int ac, char **av)
+quit_cmd(void)
 {
     pr_id(player, C_EXIT, "so long\n");
     io_shutdown(player->iop, IO_READ);

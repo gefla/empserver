@@ -37,7 +37,7 @@
 struct cmndstr {
     s_char *c_form;		/* prototype of command */
     int c_cost;			/* btu cost of command */
-    int (*c_addr) ();		/* core addr of appropriate routine */
+    int (*c_addr)(void);	/* core addr of appropriate routine */
     int c_flags;
     int c_permit;		/* who is allowed to "do" this command */
 };
