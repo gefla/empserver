@@ -39,7 +39,7 @@
 #include "optlist.h"
 
 int
-install_service(char *program_name, char *service_name, int datadir_set, char *config_file)
+install_service(char *program_name, char *service_name, char *config_file)
 {
     char strDir[1024];
     HANDLE schSCManager,schService;
@@ -53,10 +53,6 @@ install_service(char *program_name, char *service_name, int datadir_set, char *c
     } else
 	strcpy(strDir, program_name);
 
-    if (datadir_set) {
-	strcat(strDir, " -D ");
-	strcat(strDir, datadir);
-    }
     if (config_file != NULL) {
 	strcat(strDir, " -e ");
 	strcat(strDir, config_file);

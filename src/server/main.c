@@ -64,6 +64,7 @@
 #include "product.h"
 #include "optlist.h"
 #include "server.h"
+#include "version.h"
 #include "prototypes.h"
 
 static void nullify_objects(void);
@@ -86,18 +87,27 @@ int daemonize = 1;
 static void
 print_usage(char *program_name)
 {
-#if defined(_WIN32)
-    printf("Usage: %s -i -I service_name -r -R service_name -D datadir -e config_file -d -p\n",
-	program_name);
-    printf("-i install service with the default name %s\n", DEFAULT_SERVICE_NAME);
-    printf("-r remove service with the default name %s\n", DEFAULT_SERVICE_NAME);
-
-#else
-    printf("Usage: %s -D datadir -e config_file -d -p -s\n", program_name);
-    printf("-s stack check flag (include print flag)\n");
+    printf("Usage: %s [OPTION]...\n"
+	   "  -d              debug mode\n"
+	   "  -e CONFIG-FILE  configuration file\n"
+	   "                  (default %s)\n"
+	   "  -h              display this help and exit\n"
+#ifdef _WIN32
+	   "  -i              install service `%s'\n"
+	   "  -I NAME         install service NAME\n"
 #endif
-    printf("-p print flag\n");
-    printf("-d debug mode\n");
+	   "  -p              threading debug mode, implies -d\n"
+#ifdef _WIN32
+	   "  -r              remove service `%s'\n"
+	   "  -R NAME         remove service NAME\n"
+#endif
+	   "  -s              enable stack checking\n"
+	   "  -v              display version information and exit\n"
+	   program_name, dflt_econfig
+#ifdef _WIN32
+	   , DEFAULT_SERVICE_NAME, DEFAULT_SERVICE_NAME
+#endif
+	);
 }
 
 int
@@ -108,7 +118,6 @@ main(int argc, char **argv)
     int install_service_set = 0;
     char *service_name = NULL;
     int remove_service_set = 0;
-    int datadir_set = 0;
 #endif
     char *config_file = NULL;
     int op;
@@ -118,14 +127,8 @@ main(int argc, char **argv)
 #else
 # define XOPTS
 #endif
-    while ((op = getopt(argc, argv, "D:de:psh" XOPTS)) != EOF) {
+    while ((op = getopt(argc, argv, "de:hpsv" XOPTS)) != EOF) {
 	switch (op) {
-	case 'D':
-	    datadir = optarg;
-#if defined(_WIN32)
-	    datadir_set++;
-#endif
-	    break;
 	case 'p':
 	    flags |= EMPTH_PRINT;
 	    /* fall through */
@@ -157,17 +160,23 @@ main(int argc, char **argv)
 	case 's':
 	    flags |= EMPTH_STACKCHECK;
 	    break;
+	case 'v':
+	    printf("Wolfpack Empire %d.%d.%d\n",
+		   EMP_VERS_MAJOR, EMP_VERS_MINOR, EMP_VERS_PATCH);
+	    return EXIT_SUCCESS;
 	case 'h':
-	default:
 	    print_usage(argv[0]);
+	    return EXIT_SUCCESS;
+	default:
+	    fprintf(stderr, "Try -h for help.\n");
 	    return EXIT_FAILURE;
 	}
     }
 
 #if defined(_WIN32)
-    if ((debug || flags || datadir_set || config_file != NULL) &&
+    if ((debug || flags || config_file != NULL) &&
 	remove_service_set) {
-	fprintf(stderr, "Can't use -p, -s, -d, -D or -e with either "
+	fprintf(stderr, "Can't use -p, -s, -d or -e with either "
 	    "-r or -R options\n");
 	exit(EXIT_FAILURE);
     }
@@ -198,7 +207,7 @@ main(int argc, char **argv)
 
 #if defined(_WIN32)
     if (install_service_set)
-	return install_service(argv[0], service_name, datadir_set, config_file);
+	return install_service(argv[0], service_name, config_file);
 #endif	/* _WIN32 */
 
     init_server();

@@ -5,23 +5,16 @@ emp_server \- Empire server
 .SH SYNOPSIS
 .B emp_server
 [
-.BI \-dhps
-]
-[
-.BI \-D " datadir"
+.BI \-dhpsv
 ]
 [
 .BI \-e " configfile"
-]
-[
-.IR name
 ]
 .br
 .SH DESCRIPTION
 .I emp_server
 is a daemon which listens to the Empire port for players connecting to
-the game.  For more information on the game of Empire, see the
-.I info
+the game.  For more information on the game of Empire, see the info
 pages within the game.
 .SH OPTIONS
 .TP
@@ -32,8 +25,13 @@ error.  You normally want to use this flag if you are running
 .I emp_server
 from within a debugger.
 .TP
+.BI \-e " configfile"
+Use game configuration specification in 
+.I configfile
+\&.  By default, the file "econfig" in the data directory is used.
+.TP
 .B \-h 
-Help.  Print a usage line showing the command line options.
+Help.  Print brief usage information and exit.
 .TP
 .B \-p
 Threading debug mode.  Implies -d.
@@ -41,18 +39,11 @@ Threading debug mode.  Implies -d.
 .B \-s
 Enable thread stack checking.
 .TP
-.BI \-D " datadir"
-causes the server to use the data files in 
-.I datadir
-.TP
-.BI \-e " configfile"
-causes the server to use the game configuration specification in 
-.I configfile
-(by default, the file "econfig" in the data directory is used)
-.TP
-.IR name
-This argument does nothing.  It is used by scripts to locate the
-server to kill it.
+.B \-v
+Print version information and exit.
+.SH OPERANDS
+Operands are ignored for backward compatibility.  Their use is
+deprecated.
 .SH BUGS
 Please report all bugs to the Wolfpack <wolfpack@wolfpackempire.com>
 .SH AUTHORS
