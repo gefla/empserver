@@ -35,10 +35,13 @@ likely suffice for "ship".
 .AB
 <COMM> ::= any one, (or unambiguous abbreviation), of the list of
 commodities found in \*Qinfo Selector\*U:
+.s1
 .AB
 <LOAN> ::= loan number
+.s1
 .AB
 <SECT> ::= sector coordinates in the form: x,y
+.s1
 .AB
 .ne 4
 <SECTS> ::= sector(s) in the form:
@@ -94,14 +97,17 @@ or \*Q#3\*U, ... which refer to
 (See \*Qinfo realm\*U.)
 Note that \*Q#\*U and \*Q#0\*U are equivalent.  Also \*Q*\*U refers to
 all sectors, and \*Q@x,y:dist\*U refers to all sectors within dist of x,y.
+.s1
 .AB
 <SHIP> ::= one ship number
+.s1
 .AB
 <FLEET> ::= fleet designation,
 which may be a list of ships separated by slashes (`/'),
 a fleet letter,
 the character tilde (`~') which means all ships not in a specific fleet,
 or a rectangular sector area.
+.s1
 .AB
 <SHIP/FLEET> ::= either a single ship number or a fleet designation.
 .sp
@@ -111,8 +117,6 @@ For instance:
 .EX ship ~ ?des=d&mil>5
 will list all destroyers that have more than 5 military
 which are not currently in any fleet.
-.s1
-.in 0
 .s1
 The output from commands may also be sent to a file or another
 process by utilizing these alternate syntaxes:
@@ -140,8 +144,8 @@ pager like \*(iFmore\*(pF(1) or \*(iFless\*(pF(1).
 The Empire shell also recognizes a few control characters:
 .s1
 .in +\w'interrupt\0\0'u
-.L \f2name\fP
-\f2meaning\fP
+.L \fIname\fP
+\fImeaning\fP
 .L interrupt
 Abort command and return to Empire command level
 .L quit
