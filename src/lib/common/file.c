@@ -48,10 +48,15 @@
 
 static void fillcache(struct empfile *ep, int start);
 
+/*
+ * Open the file containing objects of the type 'type' with mode 'mode'.
+ * 'how' sets whether the file should be cached (EFF_MEM), or type specific
+ * flags (EFF_XY,EFF_OWNER,EFF,EFF_GROUP).
+ */
 int
 ef_open(int type, int mode, int how)
 {
-    register struct empfile *ep;
+    struct empfile *ep;
     static int block;
     int size;
 
@@ -77,8 +82,8 @@ ef_open(int type, int mode, int how)
     else
 	ep->csize = block / ep->size;
     size = ep->csize * ep->size;
-    ep->cache = (s_char *)malloc(size);
-    if ((ep->cache == 0) && (size != 0)) {
+    ep->cache = malloc(size);
+    if ((ep->cache == NULL) && (size != 0)) {
 	logerror("ef_open: %s malloc(%d) failed\n", ep->file, size);
 	return 0;
     }
@@ -92,53 +97,60 @@ ef_open(int type, int mode, int how)
     return 1;
 }
 
+/*
+ * Close the file containing objects of the type 'type', flushing the cache
+ * if applicable.
+ */
 int
 ef_close(int type)
 {
-    register struct empfile *ep;
+    struct empfile *ep;
     int r;
 
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (ep->cache == 0) {
+    if (ep->cache == NULL) {
 	/* no cache implies never opened */
 	return 0;
     }
     ef_flush(type);
     ep->flags &= ~EFF_MEM;
     free(ep->cache);
-    ep->cache = 0;
+    ep->cache = NULL;
     if ((r = close(ep->fd)) < 0) {
 	logerror("ef_close: %s close(%d) -> %d", ep->name, ep->fd, r);
     }
     return 1;
 }
 
+/*
+ * Flush the cache of the file containing objects of type 'type' to disk.
+ */
 int
 ef_flush(int type)
 {
-    register struct empfile *ep;
+    struct empfile *ep;
     int size;
     int r;
 
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (ep->cache == 0) {
+    if (ep->cache == NULL) {
 	/* no cache implies never opened */
 	return 0;
     }
     size = ep->csize * ep->size;
     if (ep->mode > 0 && (ep->flags & EFF_MEM)) {
-	if ((r = lseek(ep->fd, 0L, 0)) < 0) {
-	    logerror("ef_flush: %s cache lseek(%d, 0L, 0) -> %d",
+	if ((r = lseek(ep->fd, 0L, SEEK_SET)) < 0) {
+	    logerror("ef_flush: %s cache lseek(%d, 0L, SEEK_SET) -> %d",
 		     ep->name, ep->fd, r);
 	    return 0;
 	}
 	if (write(ep->fd, ep->cache, size) != size) {
 	    logerror("ef_flush: %s cache write(%d, %p, %d) -> %d",
-		     ep->name, ep->fd, (void *)ep->cache, ep->size, r);
+		     ep->name, ep->fd, ep->cache, ep->size, r);
 	    return 0;
 	}
     }
@@ -146,21 +158,24 @@ ef_flush(int type)
     return 1;
 }
 
-s_char *
+/*
+ * Return a pointer the id 'id' of object of type 'type' in the cache.
+ */
+char *
 ef_ptr(int type, int id)
 {
-    register struct empfile *ep;
+    struct empfile *ep;
 
     if (ef_check(type) < 0)
-	return 0;
+	return NULL;
     ep = &empfile[type];
     if (id < 0 || id >= ep->fids)
-	return 0;
+	return NULL;
     if ((ep->flags & EFF_MEM) == 0) {
 	logerror("ef_ptr: (%s) only valid for EFF_MEM entries", ep->file);
-	return 0;
+	return NULL;
     }
-    return (s_char *)(ep->cache + ep->size * id);
+    return (ep->cache + ep->size * id);
 }
 
 /*
@@ -168,9 +183,9 @@ ef_ptr(int type, int id)
  * This system won't work if item size is > sizeof buffer area.
  */
 int
-ef_read(int type, int id, void *ptr)
+ef_read(int type, int id, void *into)
 {
-    register struct empfile *ep;
+    struct empfile *ep;
     void *from;
 
     if (ef_check(type) < 0)
@@ -192,10 +207,10 @@ ef_read(int type, int id, void *ptr)
 	    fillcache(ep, id);
 	from = ep->cache + (id - ep->baseid) * ep->size;
     }
-    memcpy(ptr, from, ep->size);
+    memcpy(into, from, ep->size);
 
     if (ep->postread)
-	ep->postread(id, ptr);
+	ep->postread(id, into);
     return 1;
 }
 
@@ -205,59 +220,21 @@ fillcache(struct empfile *ep, int start)
     int n;
 
     ep->baseid = start;
-    lseek(ep->fd, start * ep->size, 0);
+    lseek(ep->fd, start * ep->size, SEEK_SET);
     n = read(ep->fd, ep->cache, ep->csize * ep->size);
     ep->cids = n / ep->size;
 }
-
-#ifdef notdef
-/*
- * no-buffered read
- * zaps read cache
- */
-int
-ef_nbread(int type, int id, void *ptr)
-{
-    register struct empfile *ep;
-    int r;
-
-    if (ef_check(type) < 0)
-	return 0;
-    ep = &empfile[type];
-    if (id < 0)
-	return 0;
-    if (id >= ep->fids) {
-	ep->fids = fsize(ep->fd) / ep->size;
-	if (id >= ep->fids)
-	    return 0;
-    }
-    if ((r = lseek(ep->fd, id * ep->size, 0)) < 0) {
-	logerror("ef_nbread: %s #%d lseek(%d, %d, 0) -> %d",
-		 ep->name, id, ep->fd, id * ep->size, r);
-	return 0;
-    }
-    if ((r = read(ep->fd, ptr, ep->size)) != ep->size) {
-	logerror("ef_nbread: %s #%d read(%d, %x, %d) -> %d",
-		 ep->name, id, ep->fd, ptr, ep->size, r);
-	return 0;
-    }
-    ef_zapcache(type);
-    if (ep->postread)
-	ep->postread(id, ptr);
-    return 1;
-}
-#endif
 
 /*
  * buffered write.  Modifies read cache (if applicable)
  * and writes through to disk.
  */
 int
-ef_write(int type, int id, void *ptr)
+ef_write(int type, int id, void *from)
 {
-    register int r;
-    register struct empfile *ep;
-    s_char *to;
+    int r;
+    struct empfile *ep;
+    char *to;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -267,22 +244,22 @@ ef_write(int type, int id, void *ptr)
 	logerror("ef_write: type %d id %d is too large!\n", type, id);
 	return 0;
     }
-    if ((r = lseek(ep->fd, id * ep->size, 0)) < 0) {
-	logerror("ef_write: %s #%d lseek(%d, %d, 0) -> %d",
+    if ((r = lseek(ep->fd, id * ep->size, SEEK_SET)) < 0) {
+	logerror("ef_write: %s #%d lseek(%d, %d, SEEK_SET) -> %d",
 		 ep->name, id, ep->fd, id * ep->size, r);
 	return 0;
     }
     if (ep->prewrite)
-	ep->prewrite(id, ptr);
-    if ((r = write(ep->fd, ptr, ep->size)) != ep->size) {
+	ep->prewrite(id, from);
+    if ((r = write(ep->fd, from, ep->size)) != ep->size) {
 	logerror("ef_write: %s #%d write(%d, %p, %d) -> %d",
-		 ep->name, id, ep->fd, (void *)ptr, ep->size, r);
+		 ep->name, id, ep->fd, from, ep->size, r);
 	return 0;
     }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	/* update the cache if necessary */
 	to = ep->cache + (id - ep->baseid) * ep->size;
-	memcpy(to, ptr, ep->size);
+	memcpy(to, from, ep->size);
     }
     if (id > ep->fids) {
 	logerror("WARNING ef_write: expanded %s by more than one id",
@@ -301,51 +278,14 @@ ef_write(int type, int id, void *ptr)
     return 1;
 }
 
-#ifdef notdef
 /*
- * no-buffered write
- * zaps read cache
+ * Grow the file containing objects of the type 'type' by 'count' objects.
  */
-int
-ef_nbwrite(int type, int id, void *ptr)
-{
-    register struct empfile *ep;
-    register int r;
-
-    if (ef_check(type) < 0)
-	return 0;
-    ep = &empfile[type];
-    if (id > 65536) {
-	/* largest unit id; this may bite us in large games */
-	logerror("ef_nbwrite: %s id %d is too large!\n", ep->name, id);
-	return 0;
-    }
-    if ((r = lseek(ep->fd, id * ep->size, 0)) < 0) {
-	logerror("ef_nbwrite: %s #%d lseek(%d, %d, 0) -> %d",
-		 ep->name, id, ep->fd, id * ep->size, r);
-	return 0;
-    }
-    if (ep->prewrite)
-	ep->prewrite(id, ptr);
-    if ((r = write(ep->fd, ptr, ep->size)) != ep->size) {
-	logerror("ef_nbwrite: %s #%d write(%d, %x, %d) -> %d",
-		 ep->name, id, ep->fd, ptr, ep->size, r);
-	return 0;
-    }
-    ef_zapcache(type);
-    if (id >= ep->fids) {
-	/* write expanded file; ep->fids = last id + 1 */
-	ep->fids = id + 1;
-    }
-    return 1;
-}
-#endif
-
 int
 ef_extend(int type, int count)
 {
-    register struct empfile *ep;
-    char *ptr;
+    struct empfile *ep;
+    char *tmpobj;
     int cur, max;
     int mode, how;
     int r;
@@ -355,22 +295,22 @@ ef_extend(int type, int count)
     ep = &empfile[type];
     max = ep->fids + count;
     cur = ep->fids;
-    ptr = (s_char *)calloc(1, ep->size);
-    if ((r = lseek(ep->fd, ep->fids * ep->size, 0)) < 0) {
-	logerror("ef_extend: %s +#%d lseek(%d, %d, 0) -> %d",
+    tmpobj = calloc(1, ep->size);
+    if ((r = lseek(ep->fd, ep->fids * ep->size, SEEK_SET)) < 0) {
+	logerror("ef_extend: %s +#%d lseek(%d, %d, SEEK_SET) -> %d",
 		 ep->name, count, ep->fd, ep->fids * ep->size, r);
 	return 0;
     }
     for (cur = ep->fids; cur < max; cur++) {
 	if (ep->init)
-	    ep->init(cur, ptr);
-	if ((r = write(ep->fd, ptr, ep->size)) != ep->size) {
+	    ep->init(cur, tmpobj);
+	if ((r = write(ep->fd, tmpobj, ep->size)) != ep->size) {
 	    logerror("ef_extend: %s +#%d write(%d, %p, %d) -> %d",
-		     ep->name, count, ep->fd, (void *)ptr, ep->size, r);
+		     ep->name, count, ep->fd, tmpobj, ep->size, r);
 	    return 0;
 	}
     }
-    free(ptr);
+    free(tmpobj);
     if (ep->flags & EFF_MEM) {
 	/* XXX this will cause problems if there are ef_ptrs (to the
 	 * old allocated structure) active when we do the re-open */
@@ -384,10 +324,13 @@ ef_extend(int type, int count)
     return 1;
 }
 
+/*
+ * Mark the cache for the file containing objects of type 'type' as unused.
+ */
 void
 ef_zapcache(int type)
 {
-    register struct empfile *ep = &empfile[type];
+    struct empfile *ep = &empfile[type];
     if ((ep->flags & EFF_MEM) == 0) {
 	ep->cids = 0;
 	ep->baseid = -1;
@@ -420,24 +363,15 @@ ef_mtime(int type)
     return fdate(empfile[type].fd);
 }
 
-u_short *
-ef_items(int type, void *sp)
-{
-    register struct empfile *ef;
-
-    if (ef_check(type) < 0)
-	return 0;
-    ef = &empfile[type];
-    if ((ef->flags & EFF_COM) == 0)
-	return 0;
-    return (u_short *)((char *)sp + ef->itemoffs);
-}
-
+/*
+ * Return the filedescriptor used for the file containing objects of type
+ * 'type'.
+ */
 int
-ef_byname(s_char *name)
+ef_byname(char *name)
 {
-    register struct empfile *ef;
-    register int i;
+    struct empfile *ef;
+    int i;
     int len;
 
     len = strlen(name);
@@ -449,7 +383,7 @@ ef_byname(s_char *name)
     return -1;
 }
 
-s_char *
+char *
 ef_nameof(int type)
 {
     if (type < 0 || type >= EF_MAX)
