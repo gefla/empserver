@@ -4,9 +4,6 @@
 If disk space is a concern, then there are a number of files which you can
 safely delete without affecting your game.
 
-You can type this immediately:
-  rm -fr xland old
-
 Once you have compiled your info pages, you can type:
   rm -fr info
 
