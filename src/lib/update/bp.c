@@ -35,14 +35,13 @@
 #include "nat.h"
 #include "file.h"
 #include "sect.h"
-#include "var.h"
 #include "budg.h"
 #include "update.h"
 #include "common.h"
 #include "optlist.h"
 
 static int bud_key[I_MAX + 2] =
-    { 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
+    { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
 
 int *
 get_wp(int *bp, struct sctstr *sp, int cm)

@@ -47,7 +47,7 @@ enum {
 };
 
 typedef enum {
-	I_NONE,
+	I_NONE = -1,
 	I_CIVIL,
 	I_MILIT,
 	I_SHELL,

@@ -31,17 +31,11 @@
  *     
  */
 
-/*
- * must be in same order as defines in var.h
- */
-
 #include "misc.h"
-#include "var.h"
 #include "item.h"
 
 struct ichrstr ichr[I_MAX + 2] = {
 /*  mnem  vtype   val sell lbs {in rg wh  ur bnk}  name */
-    {'?', I_NONE,   0, 0,  0, {0,  0,  0,  0,  0}, "unused"},
     {'c', I_CIVIL,  1, 0,  1, {1, 10, 10, 10, 10}, "civilians"},
     {'m', I_MILIT,  0, 0,  1, {1,  1,  1,  1,  1}, "military"},
     {'s', I_SHELL,  5, 1,  1, {1,  1, 10,  1,  1}, "shells"},

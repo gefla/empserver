@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "xy.h"
 #include "nat.h"
@@ -78,9 +77,9 @@ sct_prewrite(int id, s_char *ptr)
 void
 item_prewrite(short *item)
 {
-    int i;
+    i_type i;
 
-    for (i = 0; i <= I_MAX; ++i) {
+    for (i = I_NONE + 1; i <= I_MAX; ++i) {
 	if (CANT_HAPPEN(item[i] < 0))
 	    item[i] = 0;
 	else if (CANT_HAPPEN(item[i] > ITEM_MAX))

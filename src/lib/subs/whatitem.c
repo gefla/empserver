@@ -64,7 +64,7 @@ item_by_name(char *str)
 {
     struct ichrstr *ip;
 
-    for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
+    for (ip = ichr; ip->i_mnem != 0; ip++) {
 	/* FIXME check i_name if str[2]? */
 	if (*str == ip->i_mnem)
 	    return ip;
