@@ -120,15 +120,13 @@ move(void)
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_SYN;
     }
-    if (vtype == I_CIVIL) {
-	work = sect.sct_work;
-	if (work != 100)
-	    pr("Warning: civil unrest\n");
-	loyal = sect.sct_loyal;
-    } else if (vtype == I_MILIT) {
-	work = 100;
-	loyal = 0;
-    }
+
+    /* only used when moving civs; but prevent spurious compiler warnings */
+    work = sect.sct_work;
+    loyal = sect.sct_loyal;
+    if (vtype == I_CIVIL && work != 100)
+	pr("Warning: civil unrest\n");
+
     if (istest)
 	sprintf(prompt, "Number of %s to test move? ", ip->i_name);
     else

@@ -103,15 +103,13 @@ explore(void)
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_SYN;
     }
-    if (vtype == I_CIVIL) {
-	work = sect.sct_work;
-	if (work != 100)
-	    pr("Warning: civil unrest\n");
-	loyal = sect.sct_loyal;
-    } else if (vtype == I_MILIT) {
-	work = 100;
-	loyal = 0;
-    }
+
+    /* only used when moving civs; but prevent spurious compiler warnings */
+    work = sect.sct_work;
+    loyal = sect.sct_loyal;
+    if (vtype == I_CIVIL && work != 100)
+	pr("Warning: civil unrest\n");
+
     sprintf(prompt, "Number of %s to explore with? (max %d) ",
 	    ip->i_name, amt_src);
     amount = onearg(player->argp[3], prompt);
@@ -223,8 +221,8 @@ explore(void)
 	takeover(&sect, player->cnum);
 	justtook = 1;
 	sect.sct_oldown = own;
-	sect.sct_work = work;
-	sect.sct_loyal = loyal;
+	sect.sct_work = 100;
+	sect.sct_loyal = 0;
     }
     if (vtype == I_CIVIL && sect.sct_oldown != player->cnum) {
 	pr("Your civilians don't want to stay!\n");
