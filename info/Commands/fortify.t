@@ -18,7 +18,7 @@ A fully fortified unit is twice as hard to hurt as it normally
 would be, and is twice as strong on the defense.
 .s1
 Units fortifying in a sector containing an engineering unit
-are better at it. Experiment and find out.
+are better at it: they get 50% more fortification per mobility.
 .s1
 If a unit moves or retreats, it loses all fortification value.
 A unit that reacts to defend a sector, on the other hand, does NOT
@@ -29,5 +29,13 @@ returns to its original sector after the battle.
 Note that fortification will not help a unit fight Guerrillas in
 an occupied sector (see info Guerrilla).  Also note that fortifying
 a unit does not affect it's mission status.
+.s1
+Units with maximum mobility automatically use further mobility gains
+to fortify.  For example, when a unit with 120 of 127 mobility gains
+60 mobility, its mobility increases to the maximum 127, and it uses 53
+mobility to fortify.
+.s1
+Units requiring fuel (if option FUEL is enabled), do not fortify
+automatically, as this would burn fuel.
 .s1
 .SA "bomb, Unit-types, LandUnits"

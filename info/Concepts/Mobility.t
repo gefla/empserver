@@ -36,8 +36,9 @@ For each 2 points of efficiency a land unit looses fighting rebels at
 the update, it looses one point of mobility.
 
 3. Fortification
-To fortify ("dig in") a land unit costs one point of mobility per
-point of fortification.
+Fortifying a land unit ("dig in") costs one point of mobility per
+point of fortification.  An engineer cuts the mobility cost by one
+third.  See "info fortify".
 
 4. Converting civs
 Security units are charged 10 mobility every time civs are converted
