@@ -102,7 +102,6 @@ print_usage(char *program_name)
 int
 main(int argc, char **argv)
 {
-    time_t now;
     int flags = 0;
     int op;
     char *config_file = NULL;
@@ -207,12 +206,7 @@ main(int argc, char **argv)
 #endif /* POSIXSIGNALS */
 #endif /* _WIN32 */
     empth_init((char **)&player, flags);
-    time(&now);
-#if !defined(_WIN32)
-    srandom(now);
-#else
-    srand(now);
-#endif /* _WIN32 */
+    srand(time(NULL));
     global_init();
     shutdown_init();
     player_init();
