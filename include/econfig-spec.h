@@ -43,9 +43,11 @@
 
 #endif	/* EMP_CONFIG_C_OUTPUT || EMP_CONFIG_H_OUTPUT */
 
+#define EMPCF_COMMENT(comment) \
+EMPCFONLYC("", emp_config_dummy, , intset, 0, (comment))
+
 /* things that can be changed */
-EMPCFONLYC("", emp_config_dummy, int, intset, 0,
-    "\n### Server configuration and information")
+EMPCF_COMMENT("\n### Server configuration and information")
 EMPCFBOTH("data", datadir, s_char *, optstrset, 0,
     "Directory the data is stored in")
 EMPCFBOTH("info", infodir, s_char *, optstrset, 0,
@@ -61,7 +63,7 @@ EMPCFBOTH("WORLD_X", WORLD_X, int, worldxset, 0,
 EMPCFBOTH("WORLD_Y", WORLD_Y, int, intset, 0,
     "World size Y dimension")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Update policy")
+EMPCF_COMMENT("\n\n### Update policy")
 EMPCFBOTH("update_policy", update_policy, int, intset, 0,
     "0 - normal, 1 - update_times, 2 - blitz, 3 - demand only")
 EMPCFBOTH("etu_per_update", etu_per_update, int, intset, 0,
@@ -79,8 +81,7 @@ EMPCFBOTH("hourslop", hourslop, int, intset, 0,
 EMPCFBOTH("blitz_time", blitz_time, int, intset, 0,
     "Number of minutes between updates under policy #2.")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0,
-    "\n\n### Demand update policy")
+EMPCF_COMMENT("\n\n### Demand update policy")
 EMPCFBOTH("update_demandpolicy", update_demandpolicy, int, intset, 0,
     "0 - emp_tm checks, 1 - after setting, 2 - demand updates disabled")
 EMPCFBOTH("update_wantmin", update_wantmin, int, intset, 0,
@@ -90,19 +91,18 @@ EMPCFBOTH("update_missed", update_missed, int, intset, 0,
 EMPCFBOTH("update_demandtimes", update_demandtimes, s_char *, optstrset, 0,
     "Times when demand updates can occur.  Ranges CANNOT cross midnight.")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0,
-    "\n\n### Game hours restrictions")
+EMPCF_COMMENT("\n\n### Game hours restrictions")
 EMPCFBOTH("game_days", game_days, s_char *, optstrset, 0,
     "Days game is up and running (Su Mo Tu We Th Fr Sa)")
 EMPCFBOTH("game_hours", game_hours, s_char *, optstrset, 0,
     "Hours game is up and running (6:00-18:00)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Options\n")
-EMPCFONLYC("option", emp_config_dummy, option, optionset, 0, NULL)
-EMPCFONLYC("nooption", emp_config_dummy, nooption, optiondel, 0, NULL)
+EMPCF_COMMENT("\n\n### Options\n")
+EMPCFONLYC("option", emp_config_dummy, , optionset, 0, NULL)
+EMPCFONLYC("nooption", emp_config_dummy, , optiondel, 0, NULL)
 
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Countries")
+EMPCF_COMMENT("\n\n### Countries")
 EMPCFBOTH("btu_build_rate", btu_build_rate, float, floatset, 0,
     "Rate at which BTUs accumulate (etu * civ * eff * btu_build_rate)")
 EMPCFBOTH("m_m_p_d", m_m_p_d, int, intset, 0,
@@ -120,8 +120,7 @@ EMPCFBOTH("powe_cost", powe_cost, double, doubleset, 0,
 EMPCFBOTH("war_cost", War_Cost, int, intset, 0,
     "Cost to declare war (if SLOW_WAR is on)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0,
-    "\n\n### Technology/Research/Education/Happiness")
+EMPCF_COMMENT("\n\n### Technology/Research/Education/Happiness")
 EMPCFBOTH("easy_tech", easy_tech, float, floatset, 0,
     "Amount of tech built with no penalty")
 EMPCFBOTH("hard_tech", hard_tech, float, floatset, 0,
@@ -149,7 +148,7 @@ EMPCFBOTH("edu_cons", edu_cons, double, doubleset, 0,
 EMPCFBOTH("hap_cons", hap_cons, double, doubleset, 0,
     "Happiness consumption (1 breakthrough per hap_cons)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Sectors")
+EMPCF_COMMENT("\n\n### Sectors")
 EMPCFBOTH("startmob", startmob, int, intset, 0,
     "Starting mobility for sanctuaries")
 EMPCFBOTH("sect_mob_scale", sect_mob_scale, float, floatset, 0,
@@ -169,7 +168,7 @@ EMPCFBOTH("buil_tower_bc", buil_tower_bc, double, doubleset, 0,
 EMPCFBOTH("buil_tower_bt", buil_tower_bt, double, doubleset, 0,
     "Technology required to build a bridge tower")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Land Units")
+EMPCF_COMMENT("\n\n### Land Units")
 EMPCFBOTH("land_mob_scale", land_mob_scale, float, floatset, 0,
     "Land unit mobility accumulation (land_mob_scale * ETUs per update)")
 EMPCFBOTH("land_grow_scale", land_grow_scale, int, intset, 0,
@@ -181,7 +180,7 @@ EMPCFBOTH("money_land", money_land, double, doubleset, 0,
 EMPCFBOTH("morale_base", morale_base, int, intset, 0,
     "Base level for setting morale of land units")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Planes")
+EMPCF_COMMENT("\n\n### Planes")
 EMPCFBOTH("plane_mob_scale", plane_mob_scale, float, floatset, 0,
     "Plane mobility accumulation (plane_mob_scale * ETUs per update)")
 EMPCFBOTH("plane_grow_scale", plane_grow_scale, int, intset, 0,
@@ -191,7 +190,7 @@ EMPCFBOTH("plane_mob_max", plane_mob_max, int, intset, 0,
 EMPCFBOTH("money_plane", money_plane, double, doubleset, 0,
     "Cost per ETU to maintain planes (percentage of plane price)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Ships")
+EMPCF_COMMENT("\n\n### Ships")
 EMPCFBOTH("ship_mob_scale", ship_mob_scale, float, floatset, 0,
     "Ship mobility accumulation (ship_mob_scale * ETUs per update)")
 EMPCFBOTH("ship_grow_scale", ship_grow_scale, int, intset, 0,
@@ -203,7 +202,7 @@ EMPCFBOTH("money_ship", money_ship, double, doubleset, 0,
 EMPCFBOTH("torpedo_damage", torpedo_damage, int, intset, 0,
     "Torpedo damage (damage is X + 1dX + 1dX)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Combat/Damage")
+EMPCF_COMMENT("\n\n### Combat/Damage")
 EMPCFBOTH("fort_max_interdiction_range", fort_max_interdiction_range, int, intset, 0,
     "Maximum range (in sectors) a fort will try to interdict another country")
 EMPCFBOTH("land_max_interdiction_range", land_max_interdiction_range, int, intset, 0,
@@ -229,7 +228,7 @@ EMPCFBOTH("sect_mob_neg_factor", sect_mob_neg_factor, int, intset, 0,
 EMPCFBOTH("mission_mob_cost", mission_mob_cost, double, doubleset, 0,
     "Cost to put something on a mission (percentage of max mob)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Populace")
+EMPCF_COMMENT("\n\n### Populace")
 EMPCFBOTH("uwbrate", uwbrate, double, doubleset, 0,
     "Birth rate for uw's")
 EMPCFBOTH("money_civ", money_civ, double, doubleset, 0,
@@ -255,7 +254,7 @@ EMPCFBOTH("obrate", obrate, double, doubleset, 0,
 EMPCFBOTH("rollover_avail_max", rollover_avail_max, int, intset, 0,
     "Maximum avail that can roll over an update")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Nukes")
+EMPCF_COMMENT("\n\n### Nukes")
 EMPCFBOTH("decay_per_etu", decay_per_etu, double, doubleset, 0,
     "Decay of fallout per ETU")
 EMPCFBOTH("fallout_spread", fallout_spread, double, doubleset, 0,
@@ -263,7 +262,7 @@ EMPCFBOTH("fallout_spread", fallout_spread, double, doubleset, 0,
 EMPCFBOTH("drnuke_const", drnuke_const, float, floatset, 0,
     "Amount of research to tech needed to build a nuke (if DR_NUKE is on)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Market/Trade")
+EMPCF_COMMENT("\n\n### Market/Trade")
 EMPCFBOTH("MARK_DELAY", MARK_DELAY, int, intset, 0,
     "Number of seconds commodities stay on the market for bidding")
 EMPCFBOTH("TRADE_DELAY", TRADE_DELAY, int, intset, 0,
@@ -273,7 +272,7 @@ EMPCFBOTH("buytax", buytax, double, doubleset, 0,
 EMPCFBOTH("tradetax", tradetax, double, doubleset, 0,
     "Amount of a trade transaction the seller makes (the rest is tax)")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Trade ships")
+EMPCF_COMMENT("\n\n### Trade ships")
 EMPCFBOTH("trade_1_dist", trade_1_dist, int, intset, 0,
     "Less than this distance no money for cashing in")
 EMPCFBOTH("trade_2_dist", trade_2_dist, int, intset, 0,
@@ -291,7 +290,7 @@ EMPCFBOTH("trade_ally_bonus", trade_ally_bonus, float, floatset, 0,
 EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, floatset, 0,
     "Bonus your ally gets for you cashing in with them")
 
-EMPCFONLYC("", emp_config_dummy, int, intset, 0, "\n\n### Misc.")
+EMPCF_COMMENT("\n\n### Misc.")
 EMPCFBOTH("anno_keep_days", anno_keep_days, int, intset, 7,
 	  "How long until announcements expire (<0 means never)")
 EMPCFBOTH("fuel_mult", fuel_mult, int, intset, 0,
@@ -303,3 +302,4 @@ EMPCFONLYC(NULL, emp_config_dummy, NULL, NULL, 0, NULL)
 
 #undef	EMPCFONLYC
 #undef	EMPCFBOTH
+#undef EMPCF_COMMENT
