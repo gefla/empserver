@@ -113,11 +113,12 @@ main(int argc, char **argv)
     char *config_file = NULL;
     int op;
 
-#if defined(_WIN32)
-    while ((op = getopt(argc, argv, "D:de:iI:rR:hp")) != EOF) {
+#ifdef _WIN32
+# define XOPTS "iI:rR:"
 #else
-    while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
+# define XOPTS
 #endif
+    while ((op = getopt(argc, argv, "D:de:psh" XOPTS)) != EOF) {
 	switch (op) {
 	case 'D':
 	    datadir = optarg;
@@ -125,16 +126,15 @@ main(int argc, char **argv)
 	    datadir_set++;
 #endif
 	    break;
+	case 'p':
+	    flags |= EMPTH_PRINT;
+	    /* fall through */
 	case 'd':
-	    debug++;
+	    debug = 1;
 	    daemonize = 0;
 	    break;
 	case 'e':
 	    config_file = optarg;
-	    break;
-	case 'p':
-	    flags |= EMPTH_PRINT;
-	    daemonize = 0;
 	    break;
 #if defined(_WIN32)
 	case 'I':
@@ -153,12 +153,10 @@ main(int argc, char **argv)
 	case 'r':
 	    remove_service_set++;
 	    break;
-#else
-	case 's':
-	    flags |= EMPTH_PRINT | EMPTH_STACKCHECK;
-	    daemonize = 0;
-	    break;
 #endif
+	case 's':
+	    flags |= EMPTH_STACKCHECK;
+	    break;
 	case 'h':
 	default:
 	    print_usage(argv[0]);
@@ -169,12 +167,12 @@ main(int argc, char **argv)
 #if defined(_WIN32)
     if ((debug || flags || datadir_set || config_file != NULL) &&
 	remove_service_set) {
-	fprintf(stderr, "Can't use -p, -d, -D or -e with either "
+	fprintf(stderr, "Can't use -p, -s, -d, -D or -e with either "
 	    "-r or -R options\n");
 	exit(EXIT_FAILURE);
     }
     if ((debug || flags) && install_service_set) {
-	fprintf(stderr, "Can't use -d or -p with either "
+	fprintf(stderr, "Can't use -d, -p or -s with either "
 	    "-i or -I options\n");
 	exit(EXIT_FAILURE);
     }

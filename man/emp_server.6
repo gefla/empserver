@@ -27,8 +27,8 @@ pages within the game.
 .TP
 .B \-d 
 Debug mode.  This will prevent the server from forking itself into the
-background.  It will also make the server abort when it detects an
-internal error.  You normally want to use this flag if you are running
+background.  It will also make it abort when it detects an internal
+error.  You normally want to use this flag if you are running
 .I emp_server
 from within a debugger.
 .TP
@@ -36,13 +36,10 @@ from within a debugger.
 Help.  Print a usage line showing the command line options.
 .TP
 .B \-p
-Lwp Print mode.  This is used for debugging lwp-threads.
-This option automatically sets -d option.
+Threading debug mode.  Implies -d.
 .TP
 .B \-s
-Lwp stack check mode.  This will report if any of the lwp thread stack
-spaces overflow.  It forces lwp print mode on.
-This option automatically sets -d option.
+Enable thread stack checking.
 .TP
 .BI \-D " datadir"
 causes the server to use the data files in 
