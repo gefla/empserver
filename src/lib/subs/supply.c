@@ -390,22 +390,28 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 
 	if ((vec[type] - wanted) < get_minimum(&land, type)) {
 	    int hold;
-	    struct lndstr l2;
+	    struct lndstr save;
 
-	    l2 = land;
+	    /*
+	     * Temporarily zap this unit's store, so the recursion
+	     * avoids it.
+	     */
+	    save = land;
 	    hold = vec[type];
 	    vec[type] = 0;
 	    putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
 	    land.lnd_fuel = 0;
 	    putland(land.lnd_uid, &land);
-	    hold +=
-		s_commod(own, land.lnd_x, land.lnd_y, type, wanted,
-			 actually_doit);
+
+	    hold += s_commod(own, land.lnd_x, land.lnd_y, type, wanted,
+			     actually_doit);
+
 	    vec[type] = hold;
-	    putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	    putland(land.lnd_uid, &land);
-	    if (!actually_doit)
-		putland(l2.lnd_uid, &l2);
+	    if (actually_doit) {
+		putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+		putland(land.lnd_uid, &land);
+	    } else
+		putland(save.lnd_uid, &save);
 	}
 
 	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
