@@ -49,6 +49,7 @@
 #if defined(_WIN32)
 #include <winsock.h>
 #include <process.h>
+#include "getopt.h"
 #endif
 
 #include "misc.h"
@@ -85,6 +86,19 @@ static int mainpid = 0;
  */
 int debug = 0;
 
+static void
+print_usage(char *program_name)
+{
+#if defined(_WIN32)
+    printf("Usage: %s -D datadir -e config_file -d\n", program_name);
+#else
+    printf("Usage: %s -D datadir -e config_file -d -p -s\n", program_name);
+    printf("-p print flag\n");
+    printf("-s stack check flag (include print flag)\n");
+#endif
+    printf("-d debug mode\n");
+}
+
 int
 main(int argc, char **argv)
 {
@@ -101,9 +115,12 @@ main(int argc, char **argv)
     loginit("server");
 
     mainpid = getpid();
-#if !defined(_WIN32)
 
+#if defined(_WIN32)
+    while ((op = getopt(argc, argv, "D:de:h")) != EOF) {
+#else
     while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
+#endif
 	switch (op) {
 	case 'D':
 	    datadir = optarg;
@@ -114,19 +131,21 @@ main(int argc, char **argv)
 	case 'e':
 	    config_file = optarg;
 	    break;
+#if !defined(_WIN32)
 	case 'p':
 	    flags |= EMPTH_PRINT;
 	    break;
 	case 's':
 	    flags |= EMPTH_PRINT | EMPTH_STACKCHECK;
 	    break;
+#endif
 	case 'h':
 	default:
-	    printf("Usage: %s -d -p -s\n", argv[0]);
+	    print_usage(argv[0]);
 	    return 0;
 	}
     }
-#endif
+
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
