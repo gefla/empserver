@@ -1,4 +1,4 @@
-.TH Concept "Beurocratic Time Units"
+.TH Concept "Buerocratic Time Units"
 .NA BTU "How BTUs are generated"
 .LV Expert
 .s1

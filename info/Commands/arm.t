@@ -12,10 +12,10 @@ are considered invulnerable to attack (buried inside of mountains),
 and cannot be used by any potential conqueror (they don't know the
 fail-safe codes).
 .s1
-You decide whether the warhead will airburst or groundburst at the
-time you arm it.  If you'd like to change airburst/groundburst later
+You decide whether the warhead will air-burst or ground-burst at the
+time you arm it.  If you'd like to change air-burst/ground-burst later
 on, just arm the plane/missile again (in this case, the second
-argument will be ignored).  You can see whether a nuke will air or
-ground burst using the "plane" command.
+argument will be ignored).  You can see whether a nuke will air- or
+ground-burst using the "plane" command.
 .s1
 .SA "disarm, plane, build, transport, launch, Damage, Planes"

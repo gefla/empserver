@@ -9,7 +9,7 @@ The command take the following form:
 .s1
 Once issued, the strength of the che is
 compared to the number of mil in the sector.  The maximum number of mil
-allowed to fight is equal to the mobility in the sector.  Che recieve a
+allowed to fight is equal to the mobility in the sector.  Che receive a
 combat multiplier which may or may not make
 them tougher to kill.  There are only
 three outcomes for this command.

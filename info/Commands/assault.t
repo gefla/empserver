@@ -56,7 +56,7 @@ not included on the command line,
 number of brave troops to disembark, land units to use).
 .s1
 The offensive value of assaulting units is cut in half to represent
-the difficulty of getting to shore, except for "marine" units whihc
+the difficulty of getting to shore, except for "marine" units which
 assault at full strength.
 .s1
 Units may not retreat from an assault, and will take extra casualties

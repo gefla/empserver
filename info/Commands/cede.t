@@ -5,8 +5,8 @@
 This command gives a sector or sectors to the country of your choice, or 
 a ship or ships.
 A sector to be ceded must have mobility, and must be adjacent to a
-sector with mobility owned by the country you are cedeing it to, \*QOR\*U
-contain a ship owned by the country you are cedeing it to, \*QOR\*U a
+sector with mobility owned by the country you are ceding it to, \*QOR\*U
+contain a ship owned by the country you are ceding it to, \*QOR\*U a
 sector owned by the recipient that contains a land unit with mobility.
 .s1
 A ship to be ceded must either be in a sector owned by the recipient, or

@@ -67,7 +67,7 @@ Costs for each sector type include costs for building efficiency in sectors
 of that type. (This is true even if the sector will change to a different
 type as a result of that work. For example, costs for libraries will include
 all costs for work done in library sectors, even if one of the sectors is
-being turned into an aggie)
+being turned into an agribusiness)
 .s1
 Estimated Delta
 .s1
@@ -80,8 +80,8 @@ only show you how much you'll pay for work that will actually get done
 in cases where your headquarters/airports/harbors will not have enough avail
 to work on all units/planes/ships.
 .s1
-If a cost is in [ brackets ], then that means that you will not pay it
-because you will not have enough money.  If a cost is in ( brakets ),
+If a cost is in [brackets], then that means that you will not pay it
+because you will not have enough money.  If a cost is in (parenthesises),
 then that means that you will not pay it because you have chosen not
 to pay that cost (i.e. you have set the priority of that item to 0).
 .s1

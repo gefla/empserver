@@ -1,5 +1,5 @@
 .TH Command BOMB
-.NA bomb "Dispose of inconvenient enemy assets with airpower."
+.NA bomb "Dispose of inconvenient enemy assets with air power."
 .LV Basic
 .SY "bomb <BOMBERS> <ESCORTS> mission-type <SECT> route|destination"
 The \*Qbomb\*U command is used to rain destruction upon helpless
@@ -108,7 +108,7 @@ When you pin-bomb a land unit, it will fire flak at the plane bombing it,
 unless it is an 'flak' unit (in which case it fired earlier), or 
 it has an AA fire rating of 0. 
 .s1
-In the case of pinbombing, see \*Qinfo Hitchance\*U for the formula
+In the case of pinpoint bombing, see \*Qinfo Hitchance\*U for the formula
 determining whether a plane hits its target.
 .s1
 Note that a plane must be at least 40% efficient before it can leave
