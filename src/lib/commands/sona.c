@@ -332,10 +332,12 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 #define DIST(ax,ay,bx,by) LEN(bx - ax, by -ay)
 
 int
-line_of_sight(s_char **rad, int ax, int ay, int bx, int by)
+line_of_sight(char **rad, int ax, int ay, int bx, int by)
 {
-    int dx = bx - ax;
-    int dy = by - ay;
+    int dxn = XNORM(bx - ax);
+    int dyn = YNORM(by - ay);
+    int dx = dxn > WORLD_X / 2 ? dxn - WORLD_X : dxn;
+    int dy = dyn > WORLD_Y / 2 ? dyn - WORLD_Y : dyn;
     int dlen = LEN(dx, dy);
     int n;
     int cx = 0;
@@ -366,12 +368,13 @@ line_of_sight(s_char **rad, int ax, int ay, int bx, int by)
 		closest = n;
 	    }
 	}
-	if (closest < 0)	/* not possible */
+	if (CANT_HAPPEN(closest < 0))
 	    return 0;
 	cx = cx + diroff[closest][0];
 	cy = cy + diroff[closest][1];
 	if (rad) {
-	    blocked = (rad[ay + cy][ax + cx] != dchr[SCT_WATER].d_mnem);
+	    blocked = (rad[YNORM(ay + cy)][XNORM(ax + cx)]
+		       != dchr[SCT_WATER].d_mnem);
 	} else {
 	    sectp = getsectp((ax + cx), (ay + cy));
 	    if (sectp) {
