@@ -38,7 +38,6 @@
 #include "var.h"
 #include "sect.h"
 #include "nat.h"
-#include "retreat.h"
 #include "ship.h"
 #include "land.h"
 #include "nuke.h"
