@@ -48,7 +48,7 @@ newe(void)
     struct natstr *natp;
     struct sctstr sect;
     struct nstr_sect nstr;
-    double work, wforce, lcms, hcms;
+    double work, lcms, hcms;
     int nsect;
     int civs = 0;
     int uws = 0;
