@@ -54,7 +54,6 @@ struct plnstr {
     s_char pln_type;		/* index in plchr[] */
     s_char pln_effic;		/* actually "training" */
     s_char pln_mobil;		/* plane mobility */
-    short pln_sell;		/* index into trade file */
     short pln_tech;		/* plane's tech level */
     s_char pln_wing;		/* like fleet */
     coord pln_opx;		/* Op sector coords */

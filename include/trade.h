@@ -51,7 +51,6 @@ struct trdstr {
     short trd_unitid;
     long trd_price;
     int trd_maxbidder;
-    int trd_maxprice;
     time_t trd_markettime;
     coord trd_x;
     coord trd_y;

@@ -115,7 +115,7 @@ trad(void)
 	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
 	if (tleft < 0.0)
 	    tleft = 0.0;
-	pr("$%7d  %2d %5.2f hrs ", trade.trd_maxprice,
+	pr("$%7d  %2d %5.2f hrs ", trade.trd_price,
 	   trade.trd_maxbidder, tleft);
 	(void)trade_desc(&trade, &tg);	/* XXX */
 	pr("\n");
@@ -174,7 +174,7 @@ trad(void)
 	pr("You can't buy from yourself!\n");
 	return RET_OK;
     }
-    price = trade.trd_maxprice;
+    price = trade.trd_price;
     natp = getnatp(player->cnum);
     if (natp->nat_money < price) {
 	pr("You don't have %.2f to spend!\n", price);
@@ -184,13 +184,13 @@ trad(void)
     for (q = 0; gettrade(q, &tmpt); q++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
 	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
-	    tally += tmpt.trd_maxprice * tradetax;
+	    tally += tmpt.trd_price * tradetax;
 	}
     }
     for (q = 0; getcomm(q, &comt); q++) {
 	if (comt.com_maxbidder == player->cnum &&
 	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
-	    tally += (comt.com_maxprice * comt.com_amount) * buytax;
+	    tally += (comt.com_price * comt.com_amount) * buytax;
 	}
     }
     canspend = natp->nat_money - tally;
@@ -275,13 +275,13 @@ trad(void)
 	pr("You don't have %.2f to spend!\n", price);
 	return RET_OK;
     }
-    if (bid > trade.trd_maxprice) {
+    if (bid > trade.trd_price) {
 	/* Add five minutes to the time if less than 5 minutes left. */
 	time(&now);
 	if (((TRADE_DELAY - (now - trade.trd_markettime)) < 300) &&
 	    trade.trd_maxbidder != player->cnum)
 	    trade.trd_markettime += 300;
-	trade.trd_maxprice = bid;
+	trade.trd_price = bid;
 	trade.trd_maxbidder = player->cnum;
 	trade.trd_x = sx;
 	trade.trd_y = sy;
@@ -355,7 +355,7 @@ check_trade(void)
 	}
 
 	monleft = 0;
-	price = trade.trd_maxprice;
+	price = trade.trd_price;
 	natp = getnatp(trade.trd_maxbidder);
 	if (natp->nat_money <= 0)
 	    monleft = price;

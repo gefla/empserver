@@ -50,7 +50,6 @@ struct genitem {
     s_char type;
     s_char effic;
     s_char mobil;
-    short sell;
     short tech;
     s_char group;
     coord opx, opy;

@@ -148,7 +148,6 @@ set(void)
 	    (void)time(&now);
 	    trade.trd_markettime = now;
 	    trade.trd_maxbidder = player->cnum;
-	    trade.trd_maxprice = 0;
 	    puttrade(ni_trade.cur, &trade);
 	} else if (price > 0) {
 	    trade.trd_x = item.gen.trg_x;
@@ -160,7 +159,6 @@ set(void)
 	    (void)time(&now);
 	    trade.trd_markettime = now;
 	    trade.trd_maxbidder = player->cnum;
-	    trade.trd_maxprice = price;
 	    if (foundslot >= 0)
 		id = foundslot;
 	    else if (freeslot >= 0)

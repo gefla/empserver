@@ -75,7 +75,6 @@ struct shpstr {
     s_char shp_type;		/* index in mchr[] */
     s_char shp_effic;		/* 0% to 100% */
     s_char shp_mobil;		/* mobility units */
-    short shp_sell;		/* pointer to trade file */
     short shp_tech;		/* tech level ship was built at */
     s_char shp_fleet;		/* group membership */
     coord shp_opx, shp_opy;	/* Op sector coords */

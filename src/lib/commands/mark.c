@@ -68,7 +68,7 @@ pr_mark(struct comstr *comm)
 	tleft = 0.0;
     pr(" %3d  $%12.2f  %2d  %5.2f hrs  (%3d)   %c    %6d  ",
        comm->com_uid,
-       comm->com_maxprice,
+       comm->com_price,
        comm->com_maxbidder,
        tleft, comm->com_owner, comm->com_type, comm->com_amount);
     if (comm->com_owner == player->cnum || player->god)
@@ -127,7 +127,7 @@ display_mark(s_char *arg)
 		continue;
 	    if (cheapest_items[i] != -1) {
 		getcomm(cheapest_items[i], &comm2);
-		if (comm.com_maxprice < comm2.com_maxprice) {
+		if (comm.com_price < comm2.com_price) {
 		    cheapest_items[i] = sellers;
 		}
 	    } else {

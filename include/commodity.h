@@ -44,7 +44,6 @@ struct comstr {
     int com_amount;
     float com_price;
     int com_maxbidder;
-    float com_maxprice;
     time_t com_markettime;
     coord com_x;
     coord com_y;

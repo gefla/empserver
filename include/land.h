@@ -56,7 +56,6 @@ struct lndstr {
     s_char lnd_type;		/* index in lchr[] */
     s_char lnd_effic;		/* 0% to 100% */
     s_char lnd_mobil;		/* mobility units made int for RS/6000 */
-    short lnd_sell;		/* pointer to trade file */
     short lnd_tech;		/* tech level ship was built at */
     s_char lnd_army;		/* group membership */
     coord lnd_opx, lnd_opy;	/* Op sector coords */

@@ -182,7 +182,6 @@ sell(void)
 	comm.com_owner = player->cnum;
 	comm.com_price = price;
 	comm.com_maxbidder = player->cnum;
-	comm.com_maxprice = price;
 	comm.com_markettime = now;
 	comm.com_amount = totalcom;
 	comm.com_x = 0;

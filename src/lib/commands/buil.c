@@ -436,7 +436,6 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     ship.shp_nchoppers = 0;
     ship.shp_fleet = ' ';
     ship.shp_nv = 0;
-    ship.shp_sell = 0;
     ship.shp_tech = tlev;
 
     techdiff = (int)(tlev - mp->m_tech);
@@ -572,7 +571,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     } else {
 	land.lnd_mobil = 0;
     }
-    land.lnd_sell = 0;
     land.lnd_tech = tlev;
     land.lnd_uid = nstr.cur;
     land.lnd_army = ' ';
@@ -617,12 +615,12 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 	(vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW])+1;
     if ((vec[I_FOOD]-max_amt) < food_needed)
 	max_amt = (vec[I_FOOD]-food_needed);
-    
+
     if (max_amt < 0)
 	max_amt = 0;
-    
+
     vec[I_FOOD] -= max_amt;
-    
+
     memset(lvec, 0, sizeof(lvec));
     getvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
     lvec[I_FOOD] += max_amt;
@@ -975,7 +973,6 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
     plane.pln_uid = nstr.cur;
     plane.pln_nuketype = -1;
     plane.pln_harden = 0;
-    plane.pln_sell = 0;
     plane.pln_flags = 0;
     makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
 		plane.pln_y);

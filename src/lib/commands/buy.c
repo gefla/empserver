@@ -127,13 +127,13 @@ buy(void)
     for (q = 0; gettrade(q, &tmpt); q++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
 	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
-	    tally += tmpt.trd_maxprice * tradetax;
+	    tally += tmpt.trd_price * tradetax;
 	}
     }
     for (q = 0; getcomm(q, &comt); q++) {
 	if (comt.com_maxbidder == player->cnum &&
 	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
-	    tally += (comt.com_maxprice * comt.com_amount) * buytax;
+	    tally += (comt.com_price * comt.com_amount) * buytax;
 	}
     }
     canspend = natp->nat_money - tally;
@@ -188,8 +188,8 @@ buy(void)
 	pr("That lot has been taken off the market.\n");
 	return RET_FAIL;
     }
-    if (bid > 0.04 + comm.com_maxprice) {
-	comm.com_maxprice = bid;
+    if (bid > 0.04 + comm.com_price) {
+	comm.com_price = bid;
 	/* Add five minutes to the time if less than 5 minutes */
 	time(&now);
 	if (((MARK_DELAY - (now - comm.com_markettime)) < 300) &&
@@ -254,8 +254,8 @@ check_market(void)
 
 	monleft = 0;
 
-	price = comm.com_maxprice * comm.com_amount * buytax;
-	gain = comm.com_maxprice * comm.com_amount;
+	price = comm.com_price * comm.com_amount * buytax;
+	gain = comm.com_price * comm.com_amount;
 
 	natp = getnatp(comm.com_maxbidder);
 	tmoney = natp->nat_money;

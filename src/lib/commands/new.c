@@ -333,7 +333,6 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_type = type;
     land.lnd_effic = 100;
     land.lnd_mobil = land_mob_max;
-    land.lnd_sell = 0;
     land.lnd_tech = tlev;
     land.lnd_uid = nstr.cur;
     land.lnd_army = ' ';

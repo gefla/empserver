@@ -142,8 +142,6 @@ rese(void)
     comm.com_price = price;
     (void)time(&now);
     comm.com_markettime = now;
-    if ((int)price < comm.com_maxprice)
-	comm.com_maxprice = (int)price;
     if (!putcomm(number_set, &comm)) {
 	pr("Problems with the commodities file, Call the Deity\n");
 	return RET_OK;

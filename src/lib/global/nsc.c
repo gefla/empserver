@@ -142,7 +142,6 @@ struct castr sect_ca[] = {
 { NSC_UCHAR | NSC_OFF | fldoff(genitem, type), "type", 0},\
 { NSC_UCHAR | NSC_OFF | fldoff(genitem, effic), "effic", 0},\
 { NSC_CHAR  | NSC_OFF | fldoff(genitem, mobil), "mobil", 0},\
-{ NSC_SHORT | NSC_OFF | fldoff(genitem, sell), "sell", 0},\
 { NSC_SHORT | NSC_OFF | fldoff(genitem, tech), "tech", 0},\
 { NSC_CHAR | NSC_OFF | fldoff(genitem, group), "group", 0},\
 { NSC_XCOORD | NSC_OFF | fldoff(genitem, opx), "opx", 0},\
@@ -274,7 +273,6 @@ struct castr commodity_ca[] = {
     {NSC_UCHAR | NSC_OFF | fldoff(comstr, com_type), "type", 0},
     {NSC_INT | NSC_OFF | fldoff(comstr, com_amount), "amount", 0},
     {NSC_INT | NSC_OFF | fldoff(comstr, com_maxbidder), "maxbidder", 0},
-    {NSC_FLOAT | NSC_OFF | fldoff(comstr, com_maxprice), "maxprice", 0},
     {NSC_TIME | NSC_OFF | fldoff(comstr, com_markettime), "markettime", 0},
     /* could let maxbidder access these, but we can't express that yet: */
     {NSC_DEITY | NSC_INT | NSC_OFF | fldoff(comstr, com_x), "xbuy", 0},
@@ -293,8 +291,8 @@ struct castr trade_ca[] = {
     {NSC_SHORT | NSC_OFF | fldoff(trdstr, trd_unitid), "unitid", 0},
     {NSC_LONG | NSC_OFF | fldoff(trdstr, trd_price), "price", 0},
     {NSC_INT | NSC_OFF | fldoff(trdstr, trd_maxbidder), "maxbidder", 0},
-    {NSC_INT | NSC_OFF | fldoff(trdstr, trd_maxprice), "maxprice", 0},
     {NSC_TIME | NSC_OFF | fldoff(trdstr, trd_markettime), "markettime", 0},
+    /* could let the owner access these, but we can't express that yet: */
     {NSC_DEITY | NSC_XCOORD | NSC_OFF | fldoff(trdstr, trd_x), "xloc", 0},
     {NSC_DEITY | NSC_YCOORD | NSC_OFF | fldoff(trdstr, trd_y), "yloc", 0},
     {0, 0, 0}
