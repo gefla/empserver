@@ -53,7 +53,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #else
-#include <winsock.h>
+#include <winsock2.h>
 #endif
 #include <signal.h>
 #include <errno.h>

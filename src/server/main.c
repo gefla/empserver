@@ -46,7 +46,7 @@
 #include <string.h>
 
 #if defined(_WIN32)
-#include <winsock.h>
+#include <winsock2.h>
 #include <process.h>
 #include "../lib/gen/getopt.h"
 #include "service.h"

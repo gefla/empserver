@@ -82,7 +82,7 @@ emp_server.exe: $(NTOBJS) $(NTLIBS)
         /NOD /DEBUG:full /DEBUGTYPE:cv /MACHINE:IX86 /NOLOGO \
         $(NTOBJS) $(NTLIBS) \
         kernel32.lib \
-        wsock32.lib \
+        ws2_32.lib \
         libcmt.lib \
         oldnames.lib \
         advapi32.lib

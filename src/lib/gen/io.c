@@ -52,7 +52,7 @@
 #include <stdlib.h>		/* malloc calloc free */
 
 #if defined(_WIN32)
-#include <winsock.h>
+#include <winsock2.h>
 #endif
 
 #include "misc.h"
