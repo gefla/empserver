@@ -33,24 +33,6 @@
 
 #include "gen.h"
 
-#ifdef hpux
-void
-srandom(unsigned int n)
-{
-    extern void srand48();
-
-    srand48(n);
-}
-
-long
-random(void)
-{
-    extern long lrand48();
-
-    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
-}
-#endif
-
 int
 chance(double d)
 {
