@@ -303,17 +303,19 @@ xdprval(struct valstr *val, char *sep)
 	pr("%s%g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
-	pr("%s\"", sep);
 	s = val->val_as.str;
-	while (s && *s) {
-	    for (e = s; *e != '"' && isprint(*e); ++e) ;
-	    pr("%*s", (int)(e-s), s);
-	    for (; *e && !isprint(*e); ++e) {
-		pr("\\%3o", *e);
+	if (s) {
+	    pr("%s\"", sep);
+	    while (*s) {
+		for (e = s; *e != '"' && isprint(*e); ++e) ;
+		pr("%.*s", (int)(e-s), s);
+		if (*e)
+		    pr("\\%03o", *e++);
+		s = e;
 	    }
-	    s = e;
-	}
-	prnf("\"");
+	    prnf("\"");
+	} else
+	    pr("%snil", sep);
 	break;
     default:
 	CANT_HAPPEN("Bad VAL type");
