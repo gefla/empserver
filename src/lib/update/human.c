@@ -152,9 +152,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 static int
 growfood(struct sctstr *sp, short *vec, int work, int etu)
 {
-    double food_fertil;
-    double food_workers;
-    double food;
+    int food_fertil;
+    int food_workers;
+    int food;
     int work_used;
 
     /* I'm being very nice and commenting out this so players
@@ -164,19 +164,17 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
      */
     food_workers = work * fcrate;
     food_fertil = etu * sp->sct_fertil * fgrate;
-    food = food_fertil;
-    if (food > food_workers)
-	food = food_workers;
+    food = min(food_workers, food_fertil);
     /*
      * be nice; grow minimum one food unit.
      * This makes life simpler for the player.
      */
-    vec[I_FOOD] += (int)food;
+    if (food > ITEM_MAX - vec[I_FOOD])
+	food = ITEM_MAX - vec[I_FOOD];
+    vec[I_FOOD] += food;
     if (vec[I_FOOD] == 0)
 	vec[I_FOOD] = 1;
-    if (vec[I_FOOD] > ITEM_MAX)
-	vec[I_FOOD] = ITEM_MAX;
-    work_used = (int)food / fcrate;
+    work_used = food / fcrate;
     return work_used;
 }
 
