@@ -66,14 +66,18 @@
 #define	BP_ASHASHSIZE	128	/* A* queue hash table size */
 #define	BP_NEIGHBORS	6	/* max number of neighbors */
 
+#ifdef DO_EFF_MEM_CHECKING
 struct sctcache {
     coord x, y;
     struct sctstr *sp;
     struct sctcache *next;
 };
+#endif /* DO_EFF_MEM_CHECKING */
 
 struct bestp {
+#ifdef DO_EFF_MEM_CHECKING
     struct sctcache *sctcachetab[BP_SCTHASHSIZE];
+#endif
     int sctcache_hits;
     int sctcache_misses;
     int bp_mobtype;
