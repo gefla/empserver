@@ -5,16 +5,16 @@ empire \- Empire client
 .SH SYNOPSIS
 .B empire
 [
-.IR country
-[
-.IR password
-]
-]
-[
 .BI \-k
 ]
 [
 .BI \-2\ outfile
+]
+[
+.IR country
+[
+.IR password
+]
 ]
 .br
 .SH DESCRIPTION
@@ -38,21 +38,28 @@ the password for your country in the game
 .BI \-k
 if someone else is connected to your country, kill their connection
 .TP
-.BI \-2\ outfile
+.BI \-2 " outfile"
 redirect output to 
 .I outfile
 .SH ENVIRONMENT VARIABLES
-setenv EMPIREHOST server-machine to access the game on server-machine.
-.PP
-setenv EMPIREPORT port-number to access the game on port-number.
-(the person running the game should tell you what this is... if not, 
-you should have the right default already.)
-.PP
-setenv COUNTRY country-name (optional)
-.PP
-setenv PLAYER representative-name (optional)
-.PP
-setenv LOGNAME username (optional)
+The following environment variables affect the execution of the
+client:
+.TP
+.I EMPIREHOST
+Specifies the host to connect to, i.e. where the server runs.
+.TP
+.I EMPIREPORT
+Specifies the port number or service name to connect to.
+.TP
+.I COUNTRY
+The name of your country in the game.
+.TP
+.I PLAYER
+The password for your country in the game, also known as your
+representative.
+.TP
+.I LOGNAME
+Your user name.
 .SH AUTHORS
 .nf
 Primary Author is Dave Pare (mr-frog@scam.berkeley.edu)
