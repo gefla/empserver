@@ -31,13 +31,16 @@
 # the examples there on what to do.
 #
 
-OSXCFLAGS = -g -Wall -W -ansi -D_EMPTH_POSIX=1
+# Warning flags appropriate for gcc, unless system headers are severly broken
+GCCWARNFLAGS = -Wall -W -Wno-unused -Wpointer-arith -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs -Wredundant-decls
+
+OSXCFLAGS = -g -fno-common -ansi -D_EMPTH_POSIX=1 $(GCCWARNFLAGS)
 # -O fails on Darwin 5.5, works on 6.6
 OSXLFLAGS = -flat_namespace -lcurses
 OSXMASTER = GLOBALCFLAGS="$(OSXCFLAGS)" GLOBALLFLAGS="$(OSXLFLAGS)"
 
 FREEBSDRANLIB = /usr/bin/ranlib
-FREEBSDCFLAGS = -g -DRel4 -DFBSD -ansi -pedantic #-Wall
+FREEBSDCFLAGS = -g -fno-common -DRel4 -DFBSD -ansi -pedantic $(GCCWARNFLAGS)
 FREEBSDLFLAGS = 
 FREEBSDMASTER = GLOBALCFLAGS="$(FREEBSDCFLAGS)" GLOBALLFLAGS="$(FREEBSDLFLAGS)" RANLIB="$(FREEBSDRANLIB)"
 
@@ -53,11 +56,11 @@ NEXTCFLAGS = -bsd -fwritable-strings -traditional -Dconst="" -Dinline=""
 NEXTLFLAGS = -lsys_s
 NEXTMASTER = GLOBALCFLAGS="$(NEXTCFLAGS)" GLOBALLFLAGS="$(NEXTLFLAGS)"
 
-LINUXCFLAGS = -g -Wall -W -Wno-unused -D__USE_BSD -DLISTENMAXCONN=5 -DRel4
+LINUXCFLAGS = -g -fno-common -D__USE_BSD -DLISTENMAXCONN=5 -DRel4 $(GCCWARNFLAGS) 
 LINUXLFLAGS = 
 LINUXMASTER = GLOBALCFLAGS="$(LINUXCFLAGS)" GLOBALLFLAGS="$(LINUXLFLAGS)" CLIENTLIBS=-lncurses
 
-LINUXPTHCFLAGS = -g -Wall -W -Wno-unused -D_EMPTH_POSIX=1 -U_EMPTH_LWP -DLISTENMAXCONN=5 -DRel4
+LINUXPTHCFLAGS = -g -fno-common -D_EMPTH_POSIX=1 -U_EMPTH_LWP -DLISTENMAXCONN=5 -DRel4 $(GCCWARNFLAGS)
 LINUXPTHLFLAGS = -lpthread
 LINUXPTHMASTER = GLOBALCFLAGS="$(LINUXPTHCFLAGS)" GLOBALLFLAGS="$(LINUXPTHLFLAGS)" CLIENTLIBS=-lncurses
 
