@@ -502,7 +502,7 @@ ntinstall:
 	$(MAKE) ntinstall
 	cd ..\..
 	-mkdir $(NTINSTDIR)\data
-	cd data
+	cd $(NTINSTDIR)\data
 	($(NTINSTDIR)\bin\pconfig.exe > $(NTINSTDIR)\data\econfig.new)
 	-(move econfig.new econfig)
 	cd ..
