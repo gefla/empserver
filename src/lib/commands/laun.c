@@ -364,7 +364,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		pr("\t%s sunk!\n", prship(&target_ship));
 	    putship(target_ship.shp_uid, &target_ship);
 	}
-	getship(n, &target_ship);
+	getship(target_ship.shp_uid, &target_ship);
 	if (!target_ship.shp_own)
 	    pr("%s sunk!\n", prship(&target_ship));
     }
