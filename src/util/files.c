@@ -143,8 +143,6 @@ main(int argc, char *argv[])
     putnat((&nat));
     printf("All praise to %s!\n", nat.nat_cnam);
     memset(&nat, 0, sizeof(nat));
-    for (x = 0; x < SCT_MAXDEF + 8; x++)
-	nat.nat_priorities[x] = -1;
     for (i = 1; i < MAXNOC; i++) {
 	nat.ef_type = EF_NATION;
 	nat.nat_cnum = i;
