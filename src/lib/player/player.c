@@ -317,7 +317,7 @@ execute(void)
 
     p = getstarg(player->argp[1], "File? ", buf);
 
-    if (p == (s_char *)0 || p == '\0')
+    if (p == (s_char *)0 || *p == '\0')
 	return RET_SYN;
 
     prexec(player->argp[1]);
