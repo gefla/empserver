@@ -57,7 +57,6 @@ extern float levels[MAXNOC][4];
 void
 prepare_sects(int etu, int *bp)
 {
-    extern long pops[];
     register struct sctstr *sp;
     struct natstr *np;
     int n, civ_tax, uw_tax, mil_pay;

@@ -72,7 +72,6 @@ prod_land(int etus, int natnum, int *bp, int build)
     struct sctstr *sp;
     struct natstr *np;
     int n, k = 0;
-    extern long lnd_money[MAXNOC];
     int start_money;
     int lastx = 9999, lasty = 9999;
 

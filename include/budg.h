@@ -37,4 +37,12 @@ int gt_bg_nmbr(int *bp, struct sctstr *sp, int comm);
 void pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount);
 void get_materials(struct sctstr *sp, int *bp, int *mvec, int check);
 
+extern long money[MAXNOC];
+extern long pops[MAXNOC];
+extern long sea_money[MAXNOC];
+extern long lnd_money[MAXNOC];
+extern long air_money[MAXNOC];
+extern long tpops[MAXNOC];
+extern float levels[MAXNOC][4];
+
 extern int mil_dbl_pay;

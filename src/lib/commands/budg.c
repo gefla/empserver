@@ -342,10 +342,6 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
     int etu = etu_per_update;
     int vec[I_MAX + 1];
     long tmp_money;
-    extern long sea_money[MAXNOC];
-    extern long lnd_money[MAXNOC];
-    extern long air_money[MAXNOC];
-    extern long tpops[MAXNOC];
 
     lnd_money[player->cnum] = sea_money[player->cnum] = 0;
     air_money[player->cnum] = 0;

@@ -59,7 +59,6 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 		 /* Build = 1, maintain =0 */
 {
-    extern long air_money[MAXNOC];
     register struct plnstr *pp;
     register struct plchrstr *plp;
     struct natstr *np;

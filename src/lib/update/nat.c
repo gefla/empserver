@@ -44,6 +44,7 @@
 #include "optlist.h"
 #include "update.h"
 #include "subs.h"
+#include "budg.h"
 
 /*
  * hap and edu avg mean that the weight on current happiness is
@@ -128,11 +129,6 @@ limit_level(double level, int type, int flag)
 void
 prod_nat(int etu)
 {
-    extern long money[MAXNOC];
-    extern long pops[MAXNOC];
-    extern long sea_money[MAXNOC];
-    extern long lnd_money[MAXNOC];
-    extern long air_money[MAXNOC];
     struct natstr *np;
     float hap;
     float edu;

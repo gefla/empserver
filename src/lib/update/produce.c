@@ -44,6 +44,7 @@
 #include "subs.h"
 #include "common.h"
 #include "optlist.h"
+#include "budg.h"
 
 static void materials_charge(struct pchrstr *, register int *,
 			     register int);
@@ -56,8 +57,6 @@ int
 produce(struct natstr *np, struct sctstr *sp, int *vec, int work,
 	int sctwork, int desig, int neweff, int *cost, int *amount)
 {
-    extern float levels[MAXNOC][4];
-    extern long tpops[];
     register struct pchrstr *product;
     int vtype;
     double p_e;

@@ -51,6 +51,7 @@
 #include "subs.h"
 #include "gen.h"
 #include "lost.h"
+#include "budg.h"
 
 #ifndef MIN
 #define MIN(x,y)        ((x) > (y) ? (y) : (x))
@@ -68,7 +69,6 @@ prod_ship(int etus, int natnum, int *bp, int build)
     register struct shpstr *sp;
     struct natstr *np;
     int n, k = 0;
-    extern long sea_money[MAXNOC];
     int start_money;
     int lastx = 9999, lasty = 9999;
 
@@ -114,7 +114,6 @@ upd_ship(register struct shpstr *sp, int shipno, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
-    extern long pops[];
     struct sctstr *sectp;
     struct mchrstr *mp;
     int vec[I_MAX + 1];
