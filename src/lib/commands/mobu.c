@@ -55,7 +55,6 @@ mobupdate(void)
     extern int updating_mob;
     struct mob_acc_globals timestamps;
     long now;
-    extern s_char *timestampfil;
 
     if (!opt_MOB_ACCESS) {
 	pr("Command invalid - MOB_ACCESS is not enabled.\n");

@@ -209,7 +209,6 @@ pass_cmd(void)
 static int
 play_cmd(void)
 {
-    extern char *banfil;
     struct player *other;
     natid cnum;
     struct natstr *natp;

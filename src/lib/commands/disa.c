@@ -34,11 +34,11 @@
 #include <fcntl.h>
 #include "misc.h"
 #include "commands.h"
+#include "optlist.h"
 
 int
 disa(void)
 {
-    extern s_char *disablefil;
     int fd;
 
     if ((fd = open(disablefil, O_RDWR | O_CREAT | O_TRUNC, 0660)) < 0)

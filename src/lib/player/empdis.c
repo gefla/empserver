@@ -46,6 +46,7 @@
 #include "empio.h"
 #include "subs.h"
 #include "common.h"
+#include "optlist.h"
 
 #include <fcntl.h>
 #include <time.h>
@@ -154,7 +155,6 @@ explain(void)
 int
 gamedown(void)
 {
-    extern s_char *downfil;
     int downf;
     struct telstr tgm;
     s_char buf[1024];

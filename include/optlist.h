@@ -42,57 +42,58 @@ struct option_list {
 
 extern struct option_list Options[];
 
-extern int opt_NO_FORT_FIRE;
-extern int opt_TREATIES;
+/* Options, can be switched in econfig */
+extern int opt_ALL_BLEED;
+extern int opt_BIG_CITY;
+extern int opt_BLITZ;
 extern int opt_BRIDGETOWERS;
+extern int opt_DEFENSE_INFRA;
+extern int opt_DEMANDUPDATE;
+extern int opt_DRNUKE;
+extern int opt_EASY_BRIDGES;
+extern int opt_FALLOUT;
+extern int opt_FUEL;
 extern int opt_GODNEWS;
 extern int opt_GO_RENEW;
-extern int opt_DEFENSE_INFRA;
-extern int opt_SHIP_DECAY;
-extern int opt_MOB_ACCESS;
-extern int opt_MARKET;
-extern int opt_LOANS;
-extern int opt_LANDSPIES;
-extern int opt_PLANENAMES;
-extern int opt_NO_LCMS;
-extern int opt_NO_HCMS;
-extern int opt_NO_OIL;
-extern int opt_NOFOOD;
-extern int opt_SNEAK_ATTACK;
-extern int opt_BLITZ;
+extern int opt_GRAB_THINGS;
 extern int opt_HIDDEN;
+extern int opt_INTERDICT_ATT;
+extern int opt_LANDSPIES;
+extern int opt_LOANS;
 extern int opt_LOSE_CONTACT;
-extern int opt_NONUKES;
-extern int opt_FUEL;
-extern int opt_TRADESHIPS;
+extern int opt_MARKET;
+extern int opt_MOB_ACCESS;
+extern int opt_NEUTRON;
 extern int opt_NEWPOWER;
-extern int opt_NOMOBCOST;
-extern int opt_SUPER_BARS;
-extern int opt_EASY_BRIDGES;
-extern int opt_ALL_BLEED;
-extern int opt_DRNUKE;
-extern int opt_SLOW_WAR;
-extern int opt_NO_PLAGUE;
 extern int opt_NEW_STARVE;
 extern int opt_NEW_WORK;
-extern int opt_RES_POP;
-extern int opt_GRAB_THINGS;
-extern int opt_SHOWPLANE;
+extern int opt_NOFOOD;
+extern int opt_NOMOBCOST;
+extern int opt_NONUKES;
+extern int opt_NO_FORT_FIRE;
+extern int opt_NO_HCMS;
+extern int opt_NO_LCMS;
+extern int opt_NO_OIL;
+extern int opt_NO_PLAGUE;
+extern int opt_NUKEFAILDETONATE;
 extern int opt_ORBIT;
 extern int opt_PINPOINTMISSILE;
-extern int opt_FALLOUT;
-extern int opt_SAIL;
-extern int opt_NUKEFAILDETONATE;
-extern int opt_MISSINGMISSILES;
-extern int opt_SHIPNAMES;	/* not used currently */
-extern int opt_NEUTRON;
-extern int opt_UPDATESCHED;
-extern int opt_DEMANDUPDATE;
-extern int opt_BIG_CITY;
-extern int opt_INTERDICT_ATT;
-extern int opt_TECH_POP;
+extern int opt_PLANENAMES;
+extern int opt_RES_POP;
 extern int opt_ROLLOVER_AVAIL;
+extern int opt_SAIL;
+extern int opt_SHIPNAMES;
+extern int opt_SHIP_DECAY;
+extern int opt_SHOWPLANE;
+extern int opt_SLOW_WAR;
+extern int opt_SNEAK_ATTACK;
+extern int opt_SUPER_BARS;
+extern int opt_TECH_POP;
+extern int opt_TRADESHIPS;
+extern int opt_TREATIES;
+extern int opt_UPDATESCHED;
 
+/* Game parameters, can be set in econfig */
 extern s_char *datadir;
 extern s_char *infodir;
 extern s_char *loginport;
@@ -201,6 +202,23 @@ extern float trade_ally_cut;
 extern int fuel_mult;
 extern int lost_items_timeout;
 extern long last_demand_update;
+
+/* Game parameters that cannot be set in econfig (yet) */
+extern int melt_item_denom[];
+#ifdef START_UNITS
+int start_unit_type[];
+#endif
+
+/* Variables that get values derived from econfig */
+extern s_char *upfil;
+extern s_char *downfil;
+extern s_char *disablefil;
+extern s_char *telfil;
+extern s_char *annfil;
+extern s_char *commfil;
+extern s_char *banfil;
+extern s_char *authfil;
+extern s_char *timestampfil;
 
 struct keymatch {
     s_char *km_key;		/* the key */

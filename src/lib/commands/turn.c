@@ -35,14 +35,13 @@
 #include "player.h"
 #include "tel.h"
 #include "commands.h"
+#include "optlist.h"
 
 #include <fcntl.h>
 
 int
 turn(void)
 {
-    extern s_char *upfil;
-    extern s_char *downfil;
     int fd;
     struct telstr tgm;
     register s_char *p;

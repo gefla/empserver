@@ -35,12 +35,11 @@
 #include <fcntl.h>
 #include "misc.h"
 #include "commands.h"
+#include "optlist.h"
 
 int
 enab(void)
 {
-    extern s_char *disablefil;
-
     (void)unlink(disablefil);
     pr("Updates are enabled\n");
     return RET_OK;

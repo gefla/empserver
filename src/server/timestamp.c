@@ -39,12 +39,12 @@
 #include "empthread.h"
 #include <stdio.h>
 #include "prototypes.h"
+#include "optlist.h"
 
 /*ARGSUSED*/
 void
 mobility_check(void *argv)
 {
-    extern s_char *timestampfil;
     extern int updating_mob;
     struct mob_acc_globals timestamps;
     time_t now;
@@ -93,7 +93,6 @@ mobility_check(void *argv)
 void
 mobility_init(void)
 {
-    extern s_char *timestampfil;
     extern int updating_mob;
     struct mob_acc_globals timestamps;
     time_t now;

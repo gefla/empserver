@@ -374,7 +374,6 @@ next_update_check_time(time_t * now, time_t * tim, time_t * delta)
 int
 updates_disabled(void)
 {
-    extern s_char *disablefil;
     int fd;
 
     if ((fd = open(disablefil, O_RDONLY, 0)) < 0)

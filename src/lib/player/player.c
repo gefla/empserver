@@ -51,6 +51,7 @@
 #include "gen.h"
 #include "subs.h"
 #include "common.h"
+#include "optlist.h"
 
 #if !defined(_WIN32)
 #include <unistd.h>
@@ -65,7 +66,6 @@ extern int m_m_p_d;
 void
 player_main(struct player *p)
 {
-    extern s_char *authfil;
     struct natstr *natp;
     int hour[2];
     int secs;
@@ -347,7 +347,6 @@ execute(void)
 int
 show_motd(void)
 {
-    extern s_char *upfil;
     int upf;
     struct telstr tgm;
     s_char buf[MAXTELSIZE];

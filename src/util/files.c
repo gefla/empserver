@@ -71,8 +71,6 @@ static void file_sct_init(coord x, coord y, s_char *ptr);
 int
 main(int argc, char *argv[])
 {
-    extern s_char *timestampfil;
-    extern s_char *commfil;
     s_char buf[255];
     s_char tbuf[512];
     s_char *filename;

@@ -37,7 +37,6 @@
 #include "player.h"
 #include "commands.h"
 #include "optlist.h"
-
 #include "keyword.h"
 #include "wantupd.h"
 
@@ -51,7 +50,6 @@ upda(void)
     FILE *fp;
     struct mob_acc_globals timestamps;
     extern int updating_mob;
-    extern s_char *timestampfil;
 
     if (opt_MOB_ACCESS) {
 #if !defined(_WIN32)

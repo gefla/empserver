@@ -286,9 +286,9 @@ int opt_NUKEFAILDETONATE = 0;
 #endif
 
 #ifdef SHIPNAMES
-int opt_SHIPNAMES = 1;		/* not used currently */
+int opt_SHIPNAMES = 1;
 #else
-int opt_SHIPNAMES = 0;		/* not used currently */
+int opt_SHIPNAMES = 0;
 #endif
 
 #ifdef NEUTRON
