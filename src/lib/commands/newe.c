@@ -51,7 +51,6 @@ newe(void)
     struct sctstr sect;
     struct nstr_sect nstr;
     double work, wforce, lcms, hcms;
-    int items[I_MAX + 1];
     int nsect;
     int civs = 0;
     int uws = 0;
@@ -70,12 +69,10 @@ newe(void)
 	if (!player->owner)
 	    continue;
 	if (!sect.sct_off) {
-	    getvec(VT_ITEM, items, (s_char *)&sect, EF_SECTOR);
-
-	    civs = min(999, (int)((obrate * (double)etu_per_update + 1.0)
-				  * (double)items[I_CIVIL]));
-	    uws = min(999, (int)((uwbrate * (double)etu_per_update + 1.0)
-				 * (double)items[I_UW]));
+	    civs = min(999, (int)((obrate * etu_per_update + 1.0)
+				  * sect.sct_item[I_CIVIL]));
+	    uws = min(999, (int)((uwbrate * etu_per_update + 1.0)
+				 * sect.sct_item[I_UW]));
 	    natp = getnatp(sect.sct_own);
 	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
 	    civs = min(civs, maxpop);
@@ -83,7 +80,7 @@ newe(void)
 	    /* This isn't quite right, since research might rise/fall */
 	    /* during the update, but it's the best we can really do  */
 	    wforce = (int)((civs * sect.sct_work) / 100.0
-			   + uws + items[I_MILIT] * 2 / 5.0);
+			   + uws + sect.sct_item[I_MILIT] * 2 / 5.0);
 
 	    work = etu_per_update * wforce / 100.0;
 	    if (opt_ROLLOVER_AVAIL) {
@@ -115,13 +112,13 @@ newe(void)
 		    twork = bwork;
 		}
 		if (dchr[type].d_lcms > 0) {
-		    lcms = items[I_LCM];
+		    lcms = sect.sct_item[I_LCM];
 		    lcms = (int)(lcms / dchr[type].d_lcms);
 		    if (twork > lcms)
 			twork = lcms;
 		}
 		if (dchr[type].d_hcms > 0) {
-		    hcms = items[I_HCM];
+		    hcms = sect.sct_item[I_HCM];
 		    hcms = (int)(hcms / dchr[type].d_hcms);
 		    if (twork > hcms)
 			twork = hcms;
@@ -134,13 +131,13 @@ newe(void)
 		    twork = bwork;
 		}
 		if (dchr[type].d_lcms > 0) {
-		    lcms = items[I_LCM];
+		    lcms = sect.sct_item[I_LCM];
 		    lcms = (int)(lcms / dchr[type].d_lcms);
 		    if (twork > lcms)
 			twork = lcms;
 		}
 		if (dchr[type].d_hcms > 0) {
-		    hcms = items[I_HCM];
+		    hcms = sect.sct_item[I_HCM];
 		    hcms = (int)(hcms / dchr[type].d_hcms);
 		    if (twork > hcms)
 			twork = hcms;

@@ -277,7 +277,6 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
     int avail;
     int w_p_eff;
     int mult;
-    int svec[I_MAX + 1];
     int mvec[I_MAX + 1];
     int rel;
 
@@ -347,8 +346,6 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 
     if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
 	return 1;
-
-    getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
 
     mult = 1;
     if (np->nat_level[NAT_TLEV] < ship->shp_tech * 0.85)

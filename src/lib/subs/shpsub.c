@@ -121,7 +121,6 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct mlist *mlp;
     struct sctstr sect;
     struct shpstr ship;
-    int vec[I_MAX + 1];
     coord allx;
     coord ally;
     int first = 1;
@@ -148,8 +147,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    }
 	}
 	/* check crew - uws don't count */
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-	if (vec[I_MILIT] == 0 && vec[I_CIVIL] == 0) {
+	if (ship.shp_item[I_MILIT] == 0 && ship.shp_item[I_CIVIL] == 0) {
 	    shp_mess("is crewless", mlp);
 	    continue;
 	}
@@ -331,7 +329,6 @@ shp_list(struct emp_qelem *ship_list)
     struct emp_qelem *next;
     struct mlist *mlp;
     struct shpstr *shp;
-    int vec[I_MAX + 1];
 
     pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
 
@@ -344,10 +341,9 @@ shp_list(struct emp_qelem *ship_list)
 	prxy("%4d,%-4d ", shp->shp_x, shp->shp_y, mlp->ship.shp_own);
 	pr("%1c", shp->shp_fleet);
 	pr("%4d%%", shp->shp_effic);
-	getvec(VT_ITEM, vec, (s_char *)shp, EF_SHIP);
-	pr("%4d", vec[I_MILIT]);
-	pr("%4d", vec[I_SHELL]);
-	pr("%4d", vec[I_GUN]);
+	pr("%4d", shp->shp_item[I_MILIT]);
+	pr("%4d", shp->shp_item[I_SHELL]);
+	pr("%4d", shp->shp_item[I_GUN]);
 	count_planes(shp);
 	pr("%3d", shp->shp_nplane);
 	pr("%3d", shp->shp_nchoppers);

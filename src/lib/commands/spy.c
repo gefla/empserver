@@ -75,7 +75,6 @@ spy(void)
     coord *table;		/* sectors already seen */
     int t_len = 0;
     int vec[I_MAX + 1];
-    int dvec[I_MAX + 1];
     int nrecon;
     int nunits;
     struct nstr_sect nstr;
@@ -146,16 +145,16 @@ spy(void)
 		continue;
 	    }
 	    getsect(nx, ny, &dsect);
-	    getvec(VT_ITEM, dvec, (s_char *)&dsect, EF_SECTOR);
-	    if (player->owner || (dsect.sct_type == SCT_WATER) ||
-		(!dvec[I_MILIT] && !dvec[I_CIVIL] &&
-		 (num_units(nx, ny) == 0))) {
+	    if (player->owner
+		|| (dsect.sct_type == SCT_WATER)
+		|| (!dsect.sct_item[I_MILIT] && !dsect.sct_item[I_CIVIL]
+		    && num_units(nx, ny) == 0)) {
 		/* mark sector as seen */
 		insert(table, &t_len, nx, ny);
 		continue;
 	    }
 	    /* catch spy N/200 chance, N = # military */
-	    caught = chance((double)dvec[I_MILIT] / 200.0);
+	    caught = chance((double)dsect.sct_item[I_MILIT] / 200.0);
 	    own = dsect.sct_own;
 	    /* determine spyee relations with spyer */
 	    relat = getrel(getnatp(own), player->cnum);
@@ -225,9 +224,6 @@ spy(void)
 static void
 spyline(struct sctstr *sp)
 {
-    int vec[I_MAX + 1];
-
-    getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
     pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n",
        dchr[sp->sct_type].d_mnem,
@@ -238,13 +234,13 @@ spyline(struct sctstr *sp)
        roundintby((int)sp->sct_road, 10),
        roundintby((int)sp->sct_rail, 10),
        roundintby((int)sp->sct_defense, 10),
-       roundintby(vec[I_CIVIL], 10),
-       roundintby(vec[I_MILIT], 10),
-       roundintby(vec[I_SHELL], 10),
-       roundintby(vec[I_GUN], 10),
-       roundintby(vec[I_PETROL], 10),
-       roundintby(vec[I_FOOD], 10),
-       roundintby(vec[I_BAR], 10),
+       roundintby(sp->sct_item[I_CIVIL], 10),
+       roundintby(sp->sct_item[I_MILIT], 10),
+       roundintby(sp->sct_item[I_SHELL], 10),
+       roundintby(sp->sct_item[I_GUN], 10),
+       roundintby(sp->sct_item[I_PETROL], 10),
+       roundintby(sp->sct_item[I_FOOD], 10),
+       roundintby(sp->sct_item[I_BAR], 10),
        count_sect_units(sp),
        count_sect_planes(sp));
 }

@@ -58,7 +58,6 @@ scra(void)
     struct nstr_item ni;
     union item_u item;
     int vec[I_MAX + 1];
-    int itemvec[I_MAX + 1];
     int type;
     struct sctstr sect;
     struct mchrstr *mp;
@@ -189,9 +188,8 @@ scra(void)
 		}
 	    }
 	    pr("%s", prship(&item.ship));
-	    getvec(VT_ITEM, itemvec, (s_char *)&item.ship, EF_SHIP);
 	    for (i = 1; i <= I_MAX; i++) {
-		vec[i] += itemvec[i];
+		vec[i] += item.ship.shp_item[i];
 	    }
 	    vec[I_LCM] += mp->m_lcm * 2 / 3 * eff;
 	    vec[I_HCM] += mp->m_hcm * 2 / 3 * eff;
@@ -256,9 +254,8 @@ scra(void)
 	    eff = ((float)item.land.lnd_effic / 100.0);
 	    lp = &lchr[(int)item.land.lnd_type];
 	    pr("%s", prland(&item.land));
-	    getvec(VT_ITEM, itemvec, (s_char *)&item.land, EF_LAND);
 	    for (i = 1; i <= I_MAX; i++) {
-		vec[i] += itemvec[i];
+		vec[i] += item.land.lnd_item[i];
 	    }
 /* Military, guns and shells are not required to build land units */
 /*			vec[I_MILIT] += total_mil(&item.land);*/
