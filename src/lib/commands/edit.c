@@ -31,7 +31,7 @@
  *     David Muir Sharnoff
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
- *     Ron Koenderink, 2003
+ *     Ron Koenderink, 2003-2004
  */
 
 #include <stdio.h>
@@ -61,7 +61,7 @@ static int docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 static int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
 static int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
 static int doship(s_char op, int arg, s_char *p, struct shpstr *ship);
-static int dounit(s_char op, int arg, s_char *p, struct lndstr *land);
+static int dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land);
 static int getin(s_char **, s_char **, int *, s_char *);
 static void noise(struct sctstr *sptr, int public_amt, s_char *name,
 		  int old, int new);
@@ -196,7 +196,7 @@ edit(void)
 	    break;
 	switch (ewhat) {
 	case 'c':
-	    farg = atof(ptr);
+	    farg = (float)atof(ptr);
 	    if ((err = docountry(thing[0], arg, ptr, farg, nat, np))
 		!= RET_OK)
 		return err;
@@ -216,7 +216,8 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'u':
-	    if ((err = dounit(thing[0], arg, ptr, &land))
+	    farg = (float)atof(ptr);
+	    if ((err = dounit(thing[0], arg, ptr, farg, &land))
 		!= RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
@@ -363,9 +364,6 @@ pr_plane(struct plnstr *plane)
 static void
 pr_land(struct lndstr *land)
 {
-    struct lchrstr *lcp;
-
-    lcp = &lchr[(int)land->lnd_type];
     pr("UID <U>: %d\n", (int)land->lnd_uid);
     pr("Owner <O>: %d\n", (int)land->lnd_own);
     pr("Location <L>: %s\n", xyas(land->lnd_x, land->lnd_y, player->cnum));
@@ -373,8 +371,8 @@ pr_land(struct lndstr *land)
     pr("Mobility <M>: %d\n", (int)land->lnd_mobil);
     pr("Tech <t>: %d\t\t", land->lnd_tech);
     pr("Army <a>: %c\n", land->lnd_army);
-    pr("Attack: %f\t", lcp->l_att);
-    pr("Defense: %f\n", lcp->l_def);
+    pr("Attack <A>: %1.2f\t", land->lnd_att);
+    pr("Defense <D>: %1.2f\n", land->lnd_def);
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Fuel <B>: %d\n", land->lnd_fuel);
     count_land_planes(land);
@@ -416,20 +414,21 @@ pr_ship(struct shpstr *ship)
     pr("Location <L>: %s\n", xyas(ship->shp_x, ship->shp_y, player->cnum));
     pr("Tech <T>: %d\t\t\t", ship->shp_tech);
     pr("Efficiency <E>: %d\n", (int)ship->shp_effic);
-    pr("Mobility <M>: %d\t\t\t", (int)ship->shp_mobil);
+    pr("Mobility <M>: %d\t\t", (int)ship->shp_mobil);
     pr("Fleet <F>: %c\n", ship->shp_fleet);
     count_planes(ship);
-    pr("Helos <H>: %d\n", (int)ship->shp_nchoppers);
-    pr("Xlight planes <X>: %d\n", (int)ship->shp_nxlight);
+    pr("Xlight planes <X>: %d\t\t", (int)ship->shp_nxlight);
     pr("Planes <P>: %d\n", (int)ship->shp_nplane);
+    pr("Helos <H>: %d\t\t\t", (int)ship->shp_nchoppers);
     count_units(ship);
     pr("Units <Y>: %d\n", (int)ship->shp_nland);
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
-    pr("Fuel <B>: %d\n", (int)ship->shp_fuel);
+    pr("Fuel <B>: %d\t\t\t", (int)ship->shp_fuel);
+    pr("Defense <D>: %d\n", (int)ship->shp_armor);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, (int)ship->shp_rflags);
-    pr("Plague Stage <a>: %d\n", ship->shp_pstage);
+    pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
     pr("Plague Time <b>: %d\n", ship->shp_ptime);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
@@ -918,6 +917,9 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
     case 'r':
 	ship->shp_item[I_RAD] = arg;
 	break;
+    case 'D':
+	ship->shp_armor = errcheck(arg, 0, 127);
+	break;
     default:
 	pr("huh? (%c)\n", op);
 	return RET_FAIL;
@@ -926,7 +928,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 }
 
 static int
-dounit(s_char op, int arg, s_char *p, struct lndstr *land)
+dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 {
     coord newx, newy;
 
@@ -1051,6 +1053,16 @@ dounit(s_char op, int arg, s_char *p, struct lndstr *land)
 	break;
     case 'r':
 	land->lnd_item[I_RAD] = arg;
+	break;
+    case 'A':
+	pr("Attack changed from %1.2f to %1.2f.\n",
+	   land->lnd_att, farg);
+	land->lnd_att = farg;
+	break;
+    case 'D':
+	pr("Defense changed from %1.2f to %1.2f.\n",
+	   land->lnd_def, farg);
+	land->lnd_def = farg;
 	break;
     default:
 	pr("huh? (%c)\n", op);
