@@ -50,7 +50,7 @@ extern char *strdup();
 #endif /* NOSTRDUP */
 
 static void lwpStackCheckInit(struct lwpProc *newp);
-static int lwpStackCheck(struct lwpProc *newp);
+static void lwpStackCheck(struct lwpProc *newp);
 static void lwpStackCheckUsed(struct lwpProc *newp);
 
 /* check stack direction */
@@ -444,7 +444,7 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     LwpCurrent->sbtm = stack;	/* dummy stack for "main" */
     LwpCurrent->pri = pri;
     LwpCurrent->dead = 0;
-    LwpCurrent->flags = flags;
+    LwpCurrent->flags = flags & ~LWP_STACKCHECK;
     LwpCurrent->name = "Main";
     for (i = LWP_MAX_PRIO, q = LwpSchedQ; i--; q++)
 	q->head = q->tail = 0;
@@ -479,14 +479,9 @@ lwpStackCheckInit(struct lwpProc *newp)
 /* lwpStackCheck
  *
  * Check if the thread has overflowed/underflowed its stack.
- * NOTE:
- *   If an problem occurs, it is not corrected.
- *   The buffer is not cleaned up, nor is the thread terminated.
- *   Cleaning up the buffer would be a mistake, and terminating
- *   the thread, well, could be done.   Should more like take
- *   down the entire process.
+ * Should that happen, abort the process, as we cannot recover.
  */
-static int
+static void
 lwpStackCheck(struct lwpProc *newp)
 {
     register int end, amt;
@@ -495,8 +490,8 @@ lwpStackCheck(struct lwpProc *newp)
     register int growsDown;
     int marker;
 
-    if (!newp || !newp->himark || !newp->lowmark)
-	return (1);
+    if (CANT_HAPPEN(!newp || !newp->himark || !newp->lowmark))
+	return;
     growsDown = growsdown(&marker);
     for (lp = newp->himark, i = 0; i < LWP_REDZONE / sizeof(long);
 	 i++, lp++) {
@@ -514,9 +509,10 @@ lwpStackCheck(struct lwpProc *newp)
 	} else {
 	    amt = (i + 1) * sizeof(long);
 	}
-	lwpStatus(newp, "Thread stack overflowed %d bytes (of %u)",
-		  amt, newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
-	return (0);
+	logerror("Thread %s stack overflow %d bytes (of %u)",
+		 newp->name, amt,
+		 newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
+	abort();
     }
     for (lp = newp->lowmark, i = 0; i < LWP_REDZONE / sizeof(long);
 	 i++, lp++) {
@@ -534,11 +530,11 @@ lwpStackCheck(struct lwpProc *newp)
 	} else {
 	    amt = (LWP_REDZONE - i + 1) * sizeof(long);
 	}
-	lwpStatus(newp, "Thread stack underflow %d bytes (of %u)",
-		  amt, newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
-	return (0);
+	logerror("Thread %s stack underflow %d bytes (of %u)",
+		  newp->name, amt,
+		 newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
+	abort();
     }
-    return (1);
 }
 
 /* lwpStackCheckUsed
