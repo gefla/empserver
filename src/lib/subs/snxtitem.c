@@ -60,7 +60,7 @@ snxtitem(register struct nstr_item *np, int type, s_char *str)
     s_char prompt[128];
     s_char buf[1024];
 
-    np->type = NS_UNDEF;
+    np->type = EF_BAD;
     np->sel = NS_UNDEF;
     if (str == 0) {
 	sprintf(prompt, "%s(s)? ", ef_nameof(type));
