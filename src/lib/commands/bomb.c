@@ -220,7 +220,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     int type;
     int bad;
     s_char *p;
-    int vec[I_MAX + 1];
     struct plist *plp;
     struct emp_qelem *qp;
     int bestacc;
@@ -253,7 +252,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     }
     nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0, list);
     nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
-    getvec(VT_ITEM, vec, (s_char *)target, EF_SECTOR);
   retry:
     p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
 		  buf);
@@ -333,7 +331,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 
 	for (i = 0; i < nbomb; i++) {
-	    if (!vec[bombcomm[i]])
+	    if (!target->sct_item[bombcomm[i]])
 		continue;
 	    break;
 	}
@@ -425,15 +423,13 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
     int i;
     int amt, before;
     struct ichrstr *ip;
-    int vec[I_MAX + 1];
     struct emp_qelem *qp;
     struct sctstr sect;
     int dam = 0;
     int nukedam;
 
-    getvec(VT_ITEM, vec, (s_char *)target, EF_SECTOR);
     for (i = 0; i < nbomb; i++) {
-	if (vec[bombcomm[i]] == 0)
+	if (target->sct_item[bombcomm[i]] == 0)
 	    continue;
 	if (opt_SUPER_BARS && bombcomm[i] == I_BAR)
 	    continue;

@@ -148,7 +148,6 @@ guerrilla(struct sctstr *sp)
     int convert;
     natid actor;
     natid victim;
-    int vec[I_MAX + 1];
     int tmp;
     int min_mil;
     int val;
@@ -162,16 +161,13 @@ guerrilla(struct sctstr *sp)
     move = 0;
     if (!sp->sct_che)
 	return;
-    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	return;
-    civ = vec[I_CIVIL];
-
-    uw = vec[I_UW];
+    civ = sp->sct_item[I_CIVIL];
+    uw = sp->sct_item[I_UW];
     victim = sp->sct_own;
     actor = sp->sct_oldown;
     che = sp->sct_che;
+    mil = sp->sct_item[I_MILIT];
 
-    mil = vec[I_MILIT];
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
 
     while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {

@@ -51,16 +51,13 @@ count_pop(register int n)
     register int i;
     register int pop = 0;
     struct sctstr *sp;
-    int vec[I_MAX + 1];
 
     for (i = 0; NULL != (sp = getsectid(i)); i++) {
 	if (sp->sct_own != n)
 	    continue;
 	if (sp->sct_oldown != n)
 	    continue;
-	if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	    continue;
-	pop += vec[I_CIVIL];
+	pop += sp->sct_item[I_CIVIL];
     }
     return pop;
 }
@@ -99,8 +96,7 @@ prod(void)
     int c;
     s_char maxc[3][10];
     s_char use[3][10];
-    int items[I_MAX + 1];
-    int vec[I_MAX + 1], lcms, hcms;
+    int lcms, hcms;
     int civs = 0;
     int uws = 0;
     int bwork;
@@ -118,12 +114,11 @@ prod(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	getvec(VT_ITEM, items, (s_char *)&sect, EF_SECTOR);
 
-	civs = min(9999, (int)((obrate * (double)etu_per_update + 1.0)
-			       * (double)items[I_CIVIL]));
-	uws = min(9999, (int)((uwbrate * (double)etu_per_update + 1.0)
-			      * (double)items[I_UW]));
+	civs = min(9999, (int)((obrate * etu_per_update + 1.0)
+			       * sect.sct_item[I_CIVIL]));
+	uws = min(9999, (int)((uwbrate * etu_per_update + 1.0)
+			      * sect.sct_item[I_UW]));
 	if (opt_RES_POP) {
 	    natp = getnatp(sect.sct_own);
 	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
@@ -136,9 +131,9 @@ prod(void)
 
 	/* This isn't quite right, since research might rise/fall */
 	/* during the update, but it's the best we can really do  */
-	wforce = (int)(((double)civs * (double)sect.sct_work)
-		       / 100.0 + (double)uws +
-		       (double)items[I_MILIT] * 2.0 / 5.0);
+	wforce = (int)(((double)civs * sect.sct_work) / 100.0
+		       + uws
+		       + sect.sct_item[I_MILIT] * 2.0 / 5.0);
 	work = (double)etu_per_update *(double)wforce / 100.0;
  	if (opt_ROLLOVER_AVAIL) {
 	    if (sect.sct_type == sect.sct_newtype) {
@@ -179,9 +174,9 @@ prod(void)
 			civs = min(9999, civs);
 			uws = min(9999, uws);
 		    }
-		    wforce =
-			(int)((civs * sect.sct_work) / 100.0 + uws +
-			      items[I_MILIT] * 2 / 5.0);
+		    wforce = (int)(((double)civs * sect.sct_work) / 100.0
+				   + uws
+				   + sect.sct_item[I_MILIT] * 2 / 5.0);
 		    work = etu_per_update * wforce / 100.0;
 		    bwork = min((int)(work / 2), bwork);
 		}
@@ -190,15 +185,14 @@ prod(void)
 	    if (twork > bwork) {
 		twork = bwork;
 	    }
-	    getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	    if (dchr[type].d_lcms > 0) {
-		lcms = vec[I_LCM];
+		lcms = sect.sct_item[I_LCM];
 		lcms /= dchr[type].d_lcms;
 		if (twork > lcms)
 		    twork = lcms;
 	    }
 	    if (dchr[type].d_hcms > 0) {
-		hcms = vec[I_HCM];
+		hcms = sect.sct_item[I_HCM];
 		hcms /= dchr[type].d_hcms;
 		if (twork > hcms)
 		    twork = hcms;
@@ -378,8 +372,8 @@ prod(void)
 	    int enlisted;
 	    int civs;
 
-	    civs = min(999, (int)((obrate * (double)etu_per_update + 1.0)
-				  * (double)items[I_CIVIL]));
+	    civs = min(999, (int)((obrate * etu_per_update + 1.0)
+				  * sect.sct_item[I_CIVIL]));
 	    natp = getnatp(sect.sct_own);
 	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
 	    civs = min(civs, maxpop);
@@ -387,9 +381,11 @@ prod(void)
 	       rise/fall during the update, but it's the best
 	       we can really do  */
 	    enlisted = 0;
-	    maxmil = (civs / 2) - items[I_MILIT];
+	    maxmil = (civs / 2) - sect.sct_item[I_MILIT];
 	    if (maxmil > 0) {
-		enlisted = (etu_per_update * (10 + items[I_MILIT]) * 0.05);
+		enlisted = (etu_per_update
+			    * (10 + sect.sct_item[I_MILIT])
+			    * 0.05);
 		if (enlisted > maxmil)
 		    enlisted = maxmil;
 	    }

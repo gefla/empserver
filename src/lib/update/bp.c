@@ -56,11 +56,9 @@ gt_bg_nmbr(int *bp, struct sctstr *sp, int comm)
 {
     int *wp;
     int cm;
-    int svec[I_MAX + 1];
 
     if ((cm = bud_key[comm]) == 0) {
-	getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
-	return svec[comm];
+	return sp->sct_item[comm];
     } else {
 	wp = get_wp(bp, sp, cm);
 	return *wp;
@@ -82,16 +80,13 @@ pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount)
 void
 fill_update_array(int *bp, struct sctstr *sp)
 {
-    int vec[I_MAX + 1];
     int i, k;
     int *wp;
 
-    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	return;
     for (i = 1; i <= I_MAX; i++)
 	if ((k = bud_key[i]) != 0) {
 	    wp = get_wp(bp, sp, k);
-	    *wp = vec[i];
+	    *wp = sp->sct_item[i];
 	}
     wp = get_wp(bp, sp, bud_key[I_MAX + 1]);
     *wp = sp->sct_avail;

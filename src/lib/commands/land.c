@@ -49,7 +49,6 @@ land(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    int vec[I_MAX + 1];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
@@ -88,8 +87,7 @@ land(void)
 	pr("%4d", lnd_getmil(&land));
 	pr("%4d", land.lnd_harden);
 	pr("%4d", land.lnd_mobil);
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	pr("%4d", vec[I_FOOD]);
+	pr("%4d", land.lnd_item[I_FOOD]);
 	if (opt_FUEL)
 	    pr("%3d", land.lnd_fuel);
 	pr("%4d ", land.lnd_tech);

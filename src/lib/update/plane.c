@@ -66,7 +66,6 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
     int left, build;
     int lcm_needed, hcm_needed;
     int mil_needed;
-    int svec[I_MAX + 1];
     int mvec[I_MAX + 1];
     int n, k = 0;
     struct shpstr *shp;
@@ -126,7 +125,6 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	np = getnatp(pp->pln_own);
 	desc = &plchr[(int)pp->pln_type];
 	sp = getsectp(pp->pln_x, pp->pln_y);
-	getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	    mult = 2;
@@ -178,10 +176,8 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
 
 	    if (pp->pln_ship >= 0) {
-		int vec[I_MAX + 1];
 		shp = getshipp(pp->pln_ship);
-		getvec(VT_ITEM, vec, (s_char *)shp, EF_SHIP);
-		avail += (etus * vec[I_MILIT] / 2);
+		avail += (etus * shp->shp_item[I_MILIT] / 2);
 	    }
 	    w_p_eff = 20 + (desc->pl_lcm + 2 * desc->pl_hcm);
 	    delta = roundavg((double)avail / w_p_eff);

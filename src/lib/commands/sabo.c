@@ -44,7 +44,6 @@ sabo(void)
     struct lndstr land;
     struct sctstr sect;
     double odds;
-    int vec[I_MAX + 1];
     int dam;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
@@ -85,12 +84,13 @@ sabo(void)
 	    continue;
 	}
 
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	dam = landgun(3 * land.lnd_effic, 7);
-	if (vec[I_SHELL] > 20)
-	    dam += seagun(land.lnd_effic, random() % (vec[I_SHELL] / 10));
-	if (vec[I_PETROL] > 100)
-	    dam += seagun(land.lnd_effic, random() % (vec[I_PETROL] / 50));
+	if (sect.sct_item[I_SHELL] > 20)
+	    dam += seagun(land.lnd_effic,
+			  random() % (sect.sct_item[I_SHELL] / 10));
+	if (sect.sct_item[I_PETROL] > 100)
+	    dam += seagun(land.lnd_effic,
+			  random() % (sect.sct_item[I_PETROL] / 50));
 
 	pr("Explosion in %s causes %d damage.\n",
 	   xyas(land.lnd_x, land.lnd_y, land.lnd_own), dam);

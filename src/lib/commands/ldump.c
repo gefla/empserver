@@ -51,7 +51,6 @@ ldump(void)
     int field[128];
     struct nstr_item ni;
     struct lndstr land;
-    int vec[I_MAX + 1];
     int n, i;
     struct natstr *np;
     time_t now;
@@ -308,7 +307,6 @@ ldump(void)
 	    pr("%3d ", land.lnd_own);
 	pr("%d", ni.cur);
 	n = 0;
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
 	while (field[n]) {
 	    switch (field[n++]) {
 	    case 1:
@@ -339,7 +337,7 @@ ldump(void)
 		pr(" %d", land.lnd_mobil);
 		break;
 	    case 9:
-		pr(" %d", vec[I_FOOD]);
+		pr(" %d", land.lnd_item[I_FOOD]);
 		break;
 	    case 10:
 		if (opt_FUEL)
@@ -369,34 +367,34 @@ ldump(void)
 		pr(" %d", land.lnd_ship);
 		break;
 	    case 18:
-		pr(" %d", vec[I_SHELL]);
+		pr(" %d", land.lnd_item[I_SHELL]);
 		break;
 	    case 19:
-		pr(" %d", vec[I_GUN]);
+		pr(" %d", land.lnd_item[I_GUN]);
 		break;
 	    case 20:
-		pr(" %d", vec[I_PETROL]);
+		pr(" %d", land.lnd_item[I_PETROL]);
 		break;
 	    case 21:
-		pr(" %d", vec[I_IRON]);
+		pr(" %d", land.lnd_item[I_IRON]);
 		break;
 	    case 22:
-		pr(" %d", vec[I_DUST]);
+		pr(" %d", land.lnd_item[I_DUST]);
 		break;
 	    case 23:
-		pr(" %d", vec[I_BAR]);
+		pr(" %d", land.lnd_item[I_BAR]);
 		break;
 	    case 24:
-		pr(" %d", vec[I_OIL]);
+		pr(" %d", land.lnd_item[I_OIL]);
 		break;
 	    case 25:
-		pr(" %d", vec[I_LCM]);
+		pr(" %d", land.lnd_item[I_LCM]);
 		break;
 	    case 26:
-		pr(" %d", vec[I_HCM]);
+		pr(" %d", land.lnd_item[I_HCM]);
 		break;
 	    case 27:
-		pr(" %d", vec[I_RAD]);
+		pr(" %d", land.lnd_item[I_RAD]);
 		break;
 	    case 28:
 		pr(" %1.2f", (float)land.lnd_att);

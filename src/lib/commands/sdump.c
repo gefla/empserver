@@ -50,7 +50,6 @@ sdump(void)
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
-    int vec[I_MAX + 1];
     int field[128];
     struct natstr *np;
     int n, i;
@@ -280,7 +279,6 @@ sdump(void)
 	    pr("%3d ", ship.shp_own);
 	pr("%d", ni.cur);
 	n = 0;
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
 	while (field[n]) {
 	    switch (field[n++]) {
 	    case 1:
@@ -302,16 +300,16 @@ sdump(void)
 		pr(" %d", ship.shp_effic);
 		break;
 	    case 6:
-		pr(" %d", vec[I_CIVIL]);
+		pr(" %d", ship.shp_item[I_CIVIL]);
 		break;
 	    case 7:
-		pr(" %d", vec[I_MILIT]);
+		pr(" %d", ship.shp_item[I_MILIT]);
 		break;
 	    case 8:
-		pr(" %d", vec[I_UW]);
+		pr(" %d", ship.shp_item[I_UW]);
 		break;
 	    case 9:
-		pr(" %d", vec[I_FOOD]);
+		pr(" %d", ship.shp_item[I_FOOD]);
 		break;
 	    case 10:
 		pr(" %d", ship.shp_nplane);
@@ -338,34 +336,34 @@ sdump(void)
 		pr(" %d", ship.shp_tech);
 		break;
 	    case 17:
-		pr(" %d", vec[I_SHELL]);
+		pr(" %d", ship.shp_item[I_SHELL]);
 		break;
 	    case 18:
-		pr(" %d", vec[I_GUN]);
+		pr(" %d", ship.shp_item[I_GUN]);
 		break;
 	    case 19:
-		pr(" %d", vec[I_PETROL]);
+		pr(" %d", ship.shp_item[I_PETROL]);
 		break;
 	    case 20:
-		pr(" %d", vec[I_IRON]);
+		pr(" %d", ship.shp_item[I_IRON]);
 		break;
 	    case 21:
-		pr(" %d", vec[I_DUST]);
+		pr(" %d", ship.shp_item[I_DUST]);
 		break;
 	    case 22:
-		pr(" %d", vec[I_BAR]);
+		pr(" %d", ship.shp_item[I_BAR]);
 		break;
 	    case 23:
-		pr(" %d", vec[I_OIL]);
+		pr(" %d", ship.shp_item[I_OIL]);
 		break;
 	    case 24:
-		pr(" %d", vec[I_LCM]);
+		pr(" %d", ship.shp_item[I_LCM]);
 		break;
 	    case 25:
-		pr(" %d", vec[I_HCM]);
+		pr(" %d", ship.shp_item[I_HCM]);
 		break;
 	    case 26:
-		pr(" %d", vec[I_RAD]);
+		pr(" %d", ship.shp_item[I_RAD]);
 		break;
 	    case 27:
 		pr(" %d", ship.shp_armor);

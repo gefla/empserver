@@ -170,10 +170,5 @@ upd_slmilcosts(natid n, int etu)
 int
 bank_income(struct sctstr *sp, int etu)
 {
-    int vec[I_MAX + 1];
-
-    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	return 0;
-    else
-	return (int)(vec[I_BAR] * etu * bankint * sp->sct_effic / 100);
+    return (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
 }

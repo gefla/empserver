@@ -52,7 +52,6 @@ dump(void)
     int nsect;
     int n, i;
     struct nstr_sect nstr;
-    int item[I_MAX + 1];
     int field[128];
     struct natstr *np;
     time_t now;
@@ -510,7 +509,6 @@ dump(void)
 /* census */
 	if (player->god)
 	    pr("%d ", sect.sct_own);
-	getvec(VT_ITEM, item, (s_char *)&sect, EF_SECTOR);
 	pr("%d %d", xrel(np, nstr.x), yrel(np, nstr.y));
 
 	set_coastal(&sect);
@@ -564,47 +562,47 @@ dump(void)
 		pr("%d", sect.sct_terr);
 		break;
 	    case 15:
-		pr("%d", item[I_CIVIL]);
+		pr("%d", sect.sct_item[I_CIVIL]);
 		break;
 	    case 16:
-		pr("%d", item[I_MILIT]);
+		pr("%d", sect.sct_item[I_MILIT]);
 		break;
 	    case 17:
-		pr("%d", item[I_UW]);
+		pr("%d", sect.sct_item[I_UW]);
 		break;
 	    case 18:
-		pr("%d", item[I_FOOD]);
+		pr("%d", sect.sct_item[I_FOOD]);
 		break;
 /* commodity */
 	    case 19:
-		pr("%d", item[I_SHELL]);
+		pr("%d", sect.sct_item[I_SHELL]);
 		break;
 	    case 20:
-		pr("%d", item[I_GUN]);
+		pr("%d", sect.sct_item[I_GUN]);
 		break;
 	    case 21:
-		pr("%d", item[I_PETROL]);
+		pr("%d", sect.sct_item[I_PETROL]);
 		break;
 	    case 22:
-		pr("%d", item[I_IRON]);
+		pr("%d", sect.sct_item[I_IRON]);
 		break;
 	    case 23:
-		pr("%d", item[I_DUST]);
+		pr("%d", sect.sct_item[I_DUST]);
 		break;
 	    case 24:
-		pr("%d", item[I_BAR]);
+		pr("%d", sect.sct_item[I_BAR]);
 		break;
 	    case 25:
-		pr("%d", item[I_OIL]);
+		pr("%d", sect.sct_item[I_OIL]);
 		break;
 	    case 26:
-		pr("%d", item[I_LCM]);
+		pr("%d", sect.sct_item[I_LCM]);
 		break;
 	    case 27:
-		pr("%d", item[I_HCM]);
+		pr("%d", sect.sct_item[I_HCM]);
 		break;
 	    case 28:
-		pr("%d", item[I_RAD]);
+		pr("%d", sect.sct_item[I_RAD]);
 		break;
 /* cutoff */
 	    case 29:

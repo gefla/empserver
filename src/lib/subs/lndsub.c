@@ -785,7 +785,6 @@ lnd_list(struct emp_qelem *land_list)
     struct emp_qelem *next;
     struct llist *llp;
     struct lndstr *lnd;
-    int vec[I_MAX + 1];
 
     pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr fuel\n");
 
@@ -798,9 +797,8 @@ lnd_list(struct emp_qelem *land_list)
 	prxy("%4d,%-4d ", lnd->lnd_x, lnd->lnd_y, llp->land.lnd_own);
 	pr("%1c", lnd->lnd_army);
 	pr("%4d%%", lnd->lnd_effic);
-	getvec(VT_ITEM, vec, (s_char *)lnd, EF_LAND);
-	pr("%4d", vec[I_SHELL]);
-	pr("%4d", vec[I_GUN]);
+	pr("%4d", lnd->lnd_item[I_SHELL]);
+	pr("%4d", lnd->lnd_item[I_GUN]);
 	count_land_planes(lnd);
 	pr("%3d", lnd->lnd_nxlight);
 	pr("%4d", lnd->lnd_mobil);

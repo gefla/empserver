@@ -50,7 +50,6 @@ shi(void)
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
-    int vec[I_MAX + 1];
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -85,11 +84,10 @@ shi(void)
 	pr("%1c", ship.shp_fleet);
 	pr("%4d%%", ship.shp_effic);
 
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-	pr("%4d", vec[I_CIVIL]);
-	pr("%4d", vec[I_MILIT]);
-	pr("%4d", vec[I_UW]);
-	pr("%4d", vec[I_FOOD]);
+	pr("%4d", ship.shp_item[I_CIVIL]);
+	pr("%4d", ship.shp_item[I_MILIT]);
+	pr("%4d", ship.shp_item[I_UW]);
+	pr("%4d", ship.shp_item[I_FOOD]);
 
 	pr("%3d", ship.shp_nplane);
 	pr("%3d", ship.shp_nchoppers);

@@ -52,7 +52,6 @@ nuke(void)
     struct nstr_item nstr;
     struct nukstr nuk;
     struct sctstr sect;
-    int item[I_MAX + 1];
 
     if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
 	return RET_SYN;
@@ -68,7 +67,6 @@ nuke(void)
 	    pr("  sect        eff num nuke-type         lcm   hcm   oil   rad avail\n");
 	}
 	getsect(nuk.nuk_x, nuk.nuk_y, &sect);
-	getvec(VT_ITEM, item, (s_char *)&sect, EF_SECTOR);
 	first_nuke = 1;
 	show_comm = 0;
 	if (sect.sct_type == SCT_NUKE && sect.sct_effic >= 60)
@@ -94,10 +92,10 @@ nuke(void)
 		pr("%-16.16s ", nchr[i].n_name);
 
 		if (show_comm) {
-		    pr("%5d ", item[I_LCM]);
-		    pr("%5d ", item[I_HCM]);
-		    pr("%5d ", item[I_OIL]);
-		    pr("%5d ", item[I_RAD]);
+		    pr("%5d ", sect.sct_item[I_LCM]);
+		    pr("%5d ", sect.sct_item[I_HCM]);
+		    pr("%5d ", sect.sct_item[I_OIL]);
+		    pr("%5d ", sect.sct_item[I_RAD]);
 		    pr("%5d", sect.sct_avail);
 		    show_comm = 0;
 		}

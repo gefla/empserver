@@ -54,7 +54,6 @@ cens(void)
     int n;
     struct nstr_sect nstr;
     s_char dirstr[20];
-    int vec[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -94,11 +93,10 @@ cens(void)
 	pr("%c ", n == 0 ? '.' : '0' + (n / 100));
 	pr("%c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
 
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
-	pr("%5d", vec[I_CIVIL]);
-	pr("%5d", vec[I_MILIT]);
-	pr("%5d", vec[I_UW]);
-	pr("%5d", vec[I_FOOD]);
+	pr("%5d", sect.sct_item[I_CIVIL]);
+	pr("%5d", sect.sct_item[I_MILIT]);
+	pr("%5d", sect.sct_item[I_UW]);
+	pr("%5d", sect.sct_item[I_FOOD]);
 	pr("%4d%%", sect.sct_work);
 	pr("%5d", sect.sct_avail);
 	if (!player->god) {

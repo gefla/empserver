@@ -50,7 +50,6 @@ carg(void)
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
-    int vec[I_MAX + 1];
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -71,17 +70,16 @@ carg(void)
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 	pr(" %1c", ship.shp_fleet);
 	pr("%4d%%", ship.shp_effic);
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-	pr("%4d", vec[I_SHELL]);
-	pr("%4d", vec[I_GUN]);
-	pr("%4d", vec[I_PETROL]);
-	pr("%4d", vec[I_IRON]);
-	pr("%4d", vec[I_DUST]);
-	pr("%4d", vec[I_BAR]);
-	pr("%4d", vec[I_OIL]);
-	pr("%4d", vec[I_LCM]);
-	pr("%4d", vec[I_HCM]);
-	pr("%4d\n", vec[I_RAD]);
+	pr("%4d", ship.shp_item[I_SHELL]);
+	pr("%4d", ship.shp_item[I_GUN]);
+	pr("%4d", ship.shp_item[I_PETROL]);
+	pr("%4d", ship.shp_item[I_IRON]);
+	pr("%4d", ship.shp_item[I_DUST]);
+	pr("%4d", ship.shp_item[I_BAR]);
+	pr("%4d", ship.shp_item[I_OIL]);
+	pr("%4d", ship.shp_item[I_LCM]);
+	pr("%4d", ship.shp_item[I_HCM]);
+	pr("%4d\n", ship.shp_item[I_RAD]);
 	if (opt_SHIPNAMES) {
 	    if (ship.shp_name[0] != 0) {
 		pr("       %s\n", ship.shp_name);
@@ -105,7 +103,6 @@ lcarg(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    int vec[I_MAX + 1];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
@@ -126,17 +123,16 @@ lcarg(void)
 	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
 	pr(" %1c", land.lnd_army);
 	pr("%4d%%", land.lnd_effic);
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	pr("%4d", vec[I_SHELL]);
-	pr("%4d", vec[I_GUN]);
-	pr("%4d", vec[I_PETROL]);
-	pr("%4d", vec[I_IRON]);
-	pr("%4d", vec[I_DUST]);
-	pr("%4d", vec[I_BAR]);
-	pr("%4d", vec[I_OIL]);
-	pr("%4d", vec[I_LCM]);
-	pr("%4d", vec[I_HCM]);
-	pr("%4d\n", vec[I_RAD]);
+	pr("%4d", land.lnd_item[I_SHELL]);
+	pr("%4d", land.lnd_item[I_GUN]);
+	pr("%4d", land.lnd_item[I_PETROL]);
+	pr("%4d", land.lnd_item[I_IRON]);
+	pr("%4d", land.lnd_item[I_DUST]);
+	pr("%4d", land.lnd_item[I_BAR]);
+	pr("%4d", land.lnd_item[I_OIL]);
+	pr("%4d", land.lnd_item[I_LCM]);
+	pr("%4d", land.lnd_item[I_HCM]);
+	pr("%4d\n", land.lnd_item[I_RAD]);
     }
     if (nunits == 0) {
 	if (player->argp[1])

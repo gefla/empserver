@@ -146,7 +146,6 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     int shells;
     double mobcost;
     struct mchrstr *mcp;
-    int vec[I_MAX + 1];
     int time_to_stop;
 
     sp->shp_mission = 0;
@@ -178,8 +177,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	}
     }
     /* check crew - uws don't count */
-    getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
-    if (vec[I_MILIT] == 0 && vec[I_CIVIL] == 0) {
+    if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut had no crew, and couldn't retreat!\n", prship(sp),
 	   conditions[findcondition(code)].desc[orig]);

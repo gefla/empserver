@@ -363,7 +363,6 @@ pr_plane(struct plnstr *plane)
 static void
 pr_land(struct lndstr *land)
 {
-    int vec[I_MAX + 1];
     struct lchrstr *lcp;
 
     lcp = &lchr[(int)land->lnd_type];
@@ -386,29 +385,27 @@ pr_land(struct lndstr *land)
     pr("Retreat percentage <Z>: %d\n", (int)land->lnd_retreat);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        land->lnd_rpath, (int)land->lnd_rflags);
-    getvec(VT_ITEM, vec, (s_char *)land, EF_LAND);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
-    pr("%3d", vec[I_CIVIL]);
-    pr("%4d", vec[I_MILIT]);
-    pr("%4d", vec[I_UW]);
-    pr("%5d", vec[I_FOOD]);
-    pr("%4d", vec[I_SHELL]);
-    pr("%4d", vec[I_GUN]);
-    pr("%5d", vec[I_PETROL]);
-    pr("%5d", vec[I_IRON]);
-    pr("%5d", vec[I_DUST]);
-    pr("%5d", vec[I_OIL]);
-    pr("%5d", vec[I_LCM]);
-    pr("%5d", vec[I_HCM]);
-    pr("%4d", vec[I_RAD]);
+    pr("%3d", land->lnd_item[I_CIVIL]);
+    pr("%4d", land->lnd_item[I_MILIT]);
+    pr("%4d", land->lnd_item[I_UW]);
+    pr("%5d", land->lnd_item[I_FOOD]);
+    pr("%4d", land->lnd_item[I_SHELL]);
+    pr("%4d", land->lnd_item[I_GUN]);
+    pr("%5d", land->lnd_item[I_PETROL]);
+    pr("%5d", land->lnd_item[I_IRON]);
+    pr("%5d", land->lnd_item[I_DUST]);
+    pr("%5d", land->lnd_item[I_OIL]);
+    pr("%5d", land->lnd_item[I_LCM]);
+    pr("%5d", land->lnd_item[I_HCM]);
+    pr("%4d", land->lnd_item[I_RAD]);
     pr("\n");
 }
 
 static void
 pr_ship(struct shpstr *ship)
 {
-    int vec[I_MAX + 1];
     struct natstr *natp;
 
     if ((natp = getnatp(ship->shp_own)) == 0)
@@ -432,24 +429,23 @@ pr_ship(struct shpstr *ship)
     pr("Fuel <B>: %d\n", (int)ship->shp_fuel);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, (int)ship->shp_rflags);
-    getvec(VT_ITEM, vec, (s_char *)ship, EF_SHIP);
     pr("Plague Stage <a>: %d\n", ship->shp_pstage);
     pr("Plague Time <b>: %d\n", ship->shp_ptime);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
-    pr("%3d", vec[I_CIVIL]);
-    pr("%4d", vec[I_MILIT]);
-    pr("%4d", vec[I_UW]);
-    pr("%5d", vec[I_FOOD]);
-    pr("%4d", vec[I_SHELL]);
-    pr("%4d", vec[I_GUN]);
-    pr("%5d", vec[I_PETROL]);
-    pr("%5d", vec[I_IRON]);
-    pr("%5d", vec[I_DUST]);
-    pr("%5d", vec[I_OIL]);
-    pr("%5d", vec[I_LCM]);
-    pr("%5d", vec[I_HCM]);
-    pr("%4d", vec[I_RAD]);
+    pr("%3d", ship->shp_item[I_CIVIL]);
+    pr("%4d", ship->shp_item[I_MILIT]);
+    pr("%4d", ship->shp_item[I_UW]);
+    pr("%5d", ship->shp_item[I_FOOD]);
+    pr("%4d", ship->shp_item[I_SHELL]);
+    pr("%4d", ship->shp_item[I_GUN]);
+    pr("%5d", ship->shp_item[I_PETROL]);
+    pr("%5d", ship->shp_item[I_IRON]);
+    pr("%5d", ship->shp_item[I_DUST]);
+    pr("%5d", ship->shp_item[I_OIL]);
+    pr("%5d", ship->shp_item[I_LCM]);
+    pr("%5d", ship->shp_item[I_HCM]);
+    pr("%4d", ship->shp_item[I_RAD]);
     pr("\n");
 }
 

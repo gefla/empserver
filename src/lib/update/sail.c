@@ -211,7 +211,6 @@ sail_nav_fleet(struct fltheadstr *fltp)
 {
     struct fltelemstr *fe;
     struct shpstr *sp, ship;
-    int vec[I_MAX + 1];
     struct sctstr *sectp;
     int error = 0;
     s_char *s, *p;
@@ -253,8 +252,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     }
     for (fe = fltp->head; fe; fe = fe->next) {
 	sp = getshipp(fe->num);
-	getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
-	if (vec[I_MILIT] == 0 && vec[I_CIVIL] == 0) {
+	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	    wu(0, fltp->own,
 	       "   ship #%d (%s) is crewless and can't go on\n",
 	       fe->num, cname(fe->own));

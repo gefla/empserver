@@ -55,7 +55,6 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 {
     struct sctstr sect, ending_sect;
     struct sctstr next, dsect;
-    int vec[I_MAX + 1];
     coord curx, cury, oldx, oldy;
     coord tmpx, tmpy;
     coord dx, dy;
@@ -191,9 +190,10 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 		*movstr = 0;
 		continue;
 	    }
-	    getvec(VT_ITEM, vec, (s_char *)&next, EF_SECTOR);
 	    sect_mcost = sector_mcost(&next, MOB_ROAD);
-	    if ((!player->owner && (!exploring || vec[I_MILIT] || vec[I_CIVIL]))
+	    if ((!player->owner && (!exploring
+				    || next.sct_item[I_MILIT]
+				    || next.sct_item[I_CIVIL]))
 		|| sect_mcost == -1.0) {
 		/* already-owned, or prohibited terrain */
 		pr("You can't go there...\n");
@@ -258,7 +258,6 @@ move_map(s_char *what, coord curx, coord cury, s_char *arg)
     s_char range[128];
     s_char view[7];
     int i;
-    int vec[I_MAX + 1];
     int changed = 0;
 
     np = getnatp(player->cnum);
@@ -295,13 +294,13 @@ move_map(s_char *what, coord curx, coord cury, s_char *arg)
 	writemap(player->cnum);
     if (!getsect(curx, cury, &sect))
 	return RET_FAIL;
-    getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
     pr("    %c %c      eff   mob   civ  mil   uw food  work  avail\n",
        view[0], view[1]);
     pr("   %c %c %c     %3d   %3d  %4d %4d %4d %4d   %3d   %3d\n",
        view[2], view[3], view[4],
-       sect.sct_effic, sect.sct_mobil, vec[I_CIVIL], vec[I_MILIT],
-       vec[I_UW], vec[I_FOOD], sect.sct_work, sect.sct_avail);
+       sect.sct_effic, sect.sct_mobil,
+       sect.sct_item[I_CIVIL], sect.sct_item[I_MILIT], sect.sct_item[I_UW],
+       sect.sct_item[I_FOOD], sect.sct_work, sect.sct_avail);
     pr("    %c %c\n", view[5], view[6]);
     return RET_OK;
 }

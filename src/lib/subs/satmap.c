@@ -283,13 +283,11 @@ sathead(void)
 void
 satdisp(struct sctstr *sp, int acc, int showstuff)
 {
-    int vec[I_MAX + 1], first;
+    int first;
     struct nstr_item ni;
     struct shpstr ship;
     struct lndstr land;
 
-    if (getvec(VT_ITEM, vec, (caddr_t)sp, EF_SECTOR) < 0)
-	return;
     prxy("%4d,%-4d   ", sp->sct_x, sp->sct_y, player->cnum);
     pr("%c  %3d  %3d %3d %3d %3d %4d %4d %4d %4d %4d %4d %5d\n",
        dchr[sp->sct_type].d_mnem,
@@ -297,10 +295,13 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
        roundintby((int)sp->sct_road, acc / 2),
        roundintby((int)sp->sct_rail, acc / 2),
        roundintby((int)sp->sct_defense, acc / 2),
-       roundintby(vec[I_CIVIL], acc), roundintby(vec[I_MILIT], acc),
-       roundintby(vec[I_SHELL], acc), roundintby(vec[I_GUN], acc),
-       roundintby(vec[I_IRON], acc), roundintby(vec[I_PETROL], acc),
-       roundintby(vec[I_FOOD], acc));
+       roundintby(sp->sct_item[I_CIVIL], acc),
+       roundintby(sp->sct_item[I_MILIT], acc),
+       roundintby(sp->sct_item[I_SHELL], acc),
+       roundintby(sp->sct_item[I_GUN], acc),
+       roundintby(sp->sct_item[I_IRON], acc),
+       roundintby(sp->sct_item[I_PETROL], acc),
+       roundintby(sp->sct_item[I_FOOD], acc));
     map_set(player->cnum, sp->sct_x, sp->sct_y, dchr[sp->sct_type].d_mnem,
 	    0);
     if (!showstuff)

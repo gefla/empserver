@@ -326,7 +326,6 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
     int n, civ_tax, uw_tax, mil_pay;
     struct sctstr *sp;
     int etu = etu_per_update;
-    int vec[I_MAX + 1];
     long tmp_money;
 
     lnd_money[player->cnum] = sea_money[player->cnum] = 0;
@@ -341,14 +340,13 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
 	    tax(sp, np, etu, &pop, &civ_tax, &uw_tax, &mil_pay);
-	    getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-	    *Ncivs += vec[I_CIVIL];
-	    *Nuws += vec[I_UW];
+	    *Ncivs += sp->sct_item[I_CIVIL];
+	    *Nuws += sp->sct_item[I_UW];
 	    *taxes += civ_tax + uw_tax;
 	    *mil += mil_pay;
 	    if (sp->sct_type == SCT_BANK) {
 		*bars += bank_income(sp, etu);
-		*Nbars += vec[I_BAR];
+		*Nbars += sp->sct_item[I_BAR];
 	    }
 	}
     }
