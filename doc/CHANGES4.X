@@ -1,3 +1,8 @@
+Changes to Empire 4.2.16 - Wed Jun 16 18:56:16 UTC 2004
+ * Previous version broke sector production when part of the work is
+   used for sector construction.
+ * Add rudimentary tests to nightly build.  From Marc Olzheim.
+
 Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
  * test command no longer asks whether to abandon the sector.
  * explore command could generate a bogus `lost' record when it
@@ -6,7 +11,7 @@ Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
    ships, planes or land units.  A few of these stats can be edited
    separately, which doesn't make much sense, and is now deprecated.
  * edit command no longer accepts efficiency values that would destroy
-   the edited unit.  Deities can still delete a units by setting the
+   the edited unit.  Deities can still delete units by setting the
    owner to zero.
  * upgrade command used to charge an amount of avail that didn't match
    info upgrade.  Neither the implemented nor the documented amount
@@ -37,14 +42,15 @@ Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
  * Fix buffer overflow in flash and wall.
  * Fix wall not to strip out first word of message.
  * Change market and order to use item types instead of mnemo
-   characters.
+   characters internally.
  * Market now reports sales with full item names instead of single
    letter codes.
  * buy now requires first argument to be an item name, as documented.
  * production command handled production backlog incorrectly, failed
    to limit production for production efficiency greater than one,
    e.g. agribusiness, and incorrectly limited raw material
-   consumption.  Also fix a rounding error.
+   consumption.  Also fix a rounding error.  With help from Ron
+   Koenderink.
  * Sector work was accidentally truncated to even.
  * Fix coordinate parsing for large numbers when WORLD_X or WORLD_Y
    don't divide SHRT_MAX+1.
@@ -59,7 +65,7 @@ Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
  * Rewrite info survey.  Document ability to survey properties other
    than items and resources.
  * Rewrite info build, since it was inaccurate and poorly structured.
- * Fix info fire on required military.
+ * Fix info fire on required military.  From Marc Olzheim.
  * New fairland argument -R to set the PRNG seed.  Print the seed.
    This allows you to recreate the same world again.
  * New facilities to deal with internal errors.  These crash when the
