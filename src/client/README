@@ -1,5 +1,4 @@
-
-This is the basic Empire Client version 2.8.
+This is the basic Empire Client.
 
 See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
 related information and legal notices. It is expected that any future
@@ -44,4 +43,3 @@ port of the server you wish to connect to, and the client will
 automatically use them instead of the built in ones.
 
 Also note that pipes do not work on the Windows versions.
-
