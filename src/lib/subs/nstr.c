@@ -187,6 +187,8 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
  * Return a pointer to the first character after the value on success,
  * NULL on error.
  * TYPE is the context type, a file type.
+ * If STR names an array, VAL simply refers to the element with index
+ * zero.
  */
 char *
 nstr_comp_val(char *str, struct valstr*val, int type)
@@ -232,7 +234,8 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 		    else {
 			val->val_type = cap[j].ca_type;
 			val->val_cat = NSC_OFF;
-			val->val_as.off = cap[j].ca_off;
+			val->val_as.sym.off = cap[j].ca_off;
+			val->val_as.sym.idx = 0;
 		    }
 		}
 	    } else
@@ -391,8 +394,8 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
  * Use coordinate system of country CNUM.
  * PTR points to a context object of the type that was used to compile
  * the value.
- * If WANT is not zero, coerce the value to promoted value type WANT.
- * VAL must be coercible.  That's the case if a previous
+ * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
+ * WANT.  VAL must be coercible.  That's the case if a previous
  * nstr_coerce_val(VAL, WANT, STR) succeeded.
  */
 void
@@ -400,6 +403,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 {
     char *memb_ptr;
     nsc_type valtype = NSC_LONG;
+    int idx;
 
     switch (val->val_cat) {
     default:
@@ -410,38 +414,39 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	break;
     case NSC_OFF:
 	memb_ptr = ptr;
-	memb_ptr += val->val_as.off;
+	memb_ptr += val->val_as.sym.off;
+	idx = val->val_as.sym.idx;
 	switch (val->val_type) {
 	case NSC_CHAR:
-	    val->val_as.lng = *(signed char *)memb_ptr;
+	    val->val_as.lng = ((signed char *)memb_ptr)[idx];
 	    break;
 	case NSC_UCHAR:
-	    val->val_as.lng = *(unsigned char *)memb_ptr;
+	    val->val_as.lng = ((unsigned char *)memb_ptr)[idx];
 	    break;
 	case NSC_SHORT:
-	    val->val_as.lng = *(short *)memb_ptr;
+	    val->val_as.lng = ((short *)memb_ptr)[idx];
 	    break;
 	case NSC_USHORT:
-	    val->val_as.lng = *(unsigned short *)memb_ptr;
+	    val->val_as.lng = ((unsigned short *)memb_ptr)[idx];
 	    break;
 	case NSC_INT:
-	    val->val_as.lng = *(int *)memb_ptr;
+	    val->val_as.lng = ((int *)memb_ptr)[idx];
 	    break;
 	case NSC_LONG:
-	    val->val_as.lng = *(long *)memb_ptr;
+	    val->val_as.lng = ((long *)memb_ptr)[idx];
 	    break;
 	case NSC_XCOORD:
-	    val->val_as.lng = xrel(getnatp(cnum), *(short *)memb_ptr);
+	    val->val_as.lng = xrel(getnatp(cnum), ((short *)memb_ptr)[idx]);
 	    break;
 	case NSC_YCOORD:
-	    val->val_as.lng = yrel(getnatp(cnum), *(short *)memb_ptr);
+	    val->val_as.lng = yrel(getnatp(cnum), ((short *)memb_ptr)[idx]);
 	    break;
 	case NSC_FLOAT:
-	    val->val_as.dbl = *(float *)memb_ptr;
+	    val->val_as.dbl = ((float *)memb_ptr)[idx];
 	    valtype = NSC_DOUBLE;
 	    break;
 	case NSC_DOUBLE:
-	    val->val_as.dbl = *(double *)memb_ptr;
+	    val->val_as.dbl = ((double *)memb_ptr)[idx];
 	    valtype = NSC_DOUBLE;
 	    break;
 	case NSC_STRING:
@@ -449,10 +454,10 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    valtype = NSC_STRING;
 	    break;
 	case NSC_TIME:
-	    val->val_as.lng = *(time_t *)memb_ptr;
+	    val->val_as.lng = ((time_t *)memb_ptr)[idx];
 	    break;
 	case NSC_TYPEID:
-	    val->val_as.lng = *(signed char *)memb_ptr;
+	    val->val_as.lng = ((signed char *)memb_ptr)[idx];
 	    valtype = NSC_TYPEID;
 	    break;
 	default:
@@ -461,26 +466,24 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	}
     }
 
-    if (want) {
-	if (valtype == want)
-	    ;
-	else if (want == NSC_DOUBLE) {
-	    if (valtype == NSC_LONG) {
-		valtype = want;
-		val->val_as.dbl = val->val_as.lng;
-	    }
-	} else if (want == NSC_STRING)
-	    CANT_HAPPEN("unimplemented WANT"); /* FIXME */
-	if (CANT_HAPPEN(valtype != want)) {
+    if (valtype == want)
+	;
+    else if (want == NSC_DOUBLE) {
+	if (valtype == NSC_LONG) {
 	    valtype = want;
-	    switch (want) {
-	    case NSC_TYPEID:
-	    case NSC_LONG: val->val_as.lng = 0; break;
-	    case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
-	    case NSC_STRING: val->val_as.str = ""; break;
-	    default:
-		CANT_HAPPEN("bad WANT argument");
-	    }
+	    val->val_as.dbl = val->val_as.lng;
+	}
+    } else if (want == NSC_STRING)
+	CANT_HAPPEN("unimplemented WANT"); /* FIXME */
+    if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
+	valtype = want;
+	switch (want) {
+	case NSC_TYPEID:
+	case NSC_LONG: val->val_as.lng = 0; break;
+	case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
+	case NSC_STRING: val->val_as.str = ""; break;
+	default:
+	    CANT_HAPPEN("bad WANT argument");
 	}
     }
 

@@ -78,11 +78,12 @@ typedef unsigned char nsc_flags;
 /*
  * Value, possibly symbolic.
  * If type is NSC_NOTYPE, it's an error value.
- * If category is NSC_OFF, the value is at offset val_as.off in the
- * context object.
+ * If category is NSC_OFF, the value is in a context object at offset
+ * val_as.sym.off + val_as.sym.idx * S, where S is the size of the
+ * value.
  * If category is NSC_VAL, the value is in val_as, and the type is a
  * promoted type.
- * Some values can also be interpreted as an object type.  The values
+ * Some values can also be interpreted as an object type.  The value's
  * consumer chooses how to interpret it, depending on context.
  */
 struct valstr {
@@ -90,8 +91,11 @@ struct valstr {
     packed_nsc_cat val_cat;	/* category of value */
     signed char val_as_type;	/* value interpreted as object type */
     union {
-	ptrdiff_t off;		/* cat NSC_OFF */
-	double dbl;		/* cat NSC_VAL, types NSC_DOUBLE */
+	struct {		/* cat NSC_OFF */
+	    ptrdiff_t off;
+	    int idx;
+	} sym;
+	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
 	char *str;		/* cat NSC_VAL, type NSC_STRING */
 	long lng;		/* cat NSC_VAL, type NSC_LONG */
     } val_as;
