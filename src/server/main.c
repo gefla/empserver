@@ -47,6 +47,7 @@
 #include <process.h>
 #include "../lib/gen/getopt.h"
 #include "service.h"
+#include "direct.h"
 #endif
 
 #include "misc.h"
@@ -105,7 +106,9 @@ main(int argc, char **argv)
 #endif
     char *config_file = NULL;
     int op;
+#if defined(__linux__) && defined(_EMPTH_POSIX)
     s_char tbuf[256];
+#endif
 
     mainpid = getpid();
 
