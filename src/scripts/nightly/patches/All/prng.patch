@@ -19,7 +19,7 @@ Index: empserver/include/damage.h
 Index: empserver/include/prototypes.h
 --- empserver/include/prototypes.h	16 May 2004 14:19:38 -0000	1.45
 +++ empserver/include/prototypes.h	20 Jun 2004 15:14:59 -0000
-@@ -224,6 +224,9 @@
+@@ -395,6 +395,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
  #endif
@@ -56,7 +56,7 @@ Index: empserver/src/lib/commands/laun.c
 Index: empserver/src/lib/commands/mfir.c
 --- empserver/src/lib/commands/mfir.c	Thu Dec 30 14:53:46 2004
 +++ empserver/src/lib/commands/mfir.c	Mon Jan  3 18:25:16 2005
-@@ -556,13 +556,13 @@
+@@ -553,13 +553,13 @@
  	    pr("Kaboom!!!\n");
  	    prb = (double)(range2 ? (trange / range2) : 1.0);
  	    prb *= prb;
@@ -114,7 +114,7 @@ Index: empserver/src/lib/commands/news.c
 Index: empserver/src/lib/commands/sabo.c
 --- empserver/src/lib/commands/sabo.c	5 Mar 2004 10:38:58 -0000	1.7
 +++ empserver/src/lib/commands/sabo.c	20 Jun 2004 15:15:03 -0000
-@@ -86,10 +86,10 @@
+@@ -87,10 +87,10 @@
  	dam = landgun(3 * land.lnd_effic, 7);
  	if (sect.sct_item[I_SHELL] > 20)
  	    dam += seagun(land.lnd_effic,
@@ -244,7 +244,7 @@ Index: empserver/src/lib/subs/takeover.c
 Index: empserver/src/lib/update/human.c
 --- empserver/src/lib/update/human.c	14 May 2004 20:21:46 -0000	1.11
 +++ empserver/src/lib/update/human.c	20 Jun 2004 15:15:09 -0000
-@@ -121,7 +121,7 @@
+@@ -119,7 +119,7 @@
  	    sctwork = 0;
  	} else {
  	    if (sp->sct_work < 100)
@@ -253,7 +253,7 @@ Index: empserver/src/lib/update/human.c
  	    if (sctwork > 100)
  		sctwork = 100;
  	    if (!player->simulation)
-@@ -318,5 +318,5 @@
+@@ -316,5 +316,5 @@
  starvation(struct sctstr *sp)
  {
      sp->sct_work = 0;
