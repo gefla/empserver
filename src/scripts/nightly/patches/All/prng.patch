@@ -376,7 +376,7 @@ Index: empserver/src/util/fairland.c
  #define max(a,b) (a>b?a:b)
  #endif
 -#define rnd(x) (random() % (x))
-+#define rnd(x) (rand48() % (x))
++#define rnd(x) (lrand48() % (x))
  
  int secs;			/* number of sectors grown */
  int ctot;			/* total number of continents and islands grown */
