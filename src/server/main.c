@@ -49,6 +49,7 @@
 #include <winsock.h>
 #include <process.h>
 #include "../lib/gen/getopt.h"
+#include "service.h"
 #endif
 
 #include "misc.h"
@@ -69,11 +70,9 @@
 
 static void nullify_objects(void);
 static void init_files(void);
-static void close_files(void);
 
 #if defined(_WIN32)
 static void loc_NTInit(void);
-static void loc_NTTerm(void);
 #endif
 
 static int mainpid = 0;
@@ -89,7 +88,9 @@ static void
 print_usage(char *program_name)
 {
 #if defined(_WIN32)
-    printf("Usage: %s -D datadir -e config_file -d\n", program_name);
+    printf("Usage: %s -i -r -D datadir -e config_file -d\n", program_name);
+    printf("-i install service\n");
+    printf("-r remove service\n");
 #else
     printf("Usage: %s -D datadir -e config_file -d -p -s\n", program_name);
     printf("-p print flag\n");
@@ -102,25 +103,30 @@ int
 main(int argc, char **argv)
 {
     int flags = 0;
+#if defined(_WIN32)
+    int install_service_set = 0;
+    int remove_service_set = 0;
+    int datadir_set = 0;
+#endif
     int op;
     char *config_file = NULL;
     s_char tbuf[256];
-#ifdef POSIXSIGNALS
-    struct sigaction act;
-#endif /* POSIXSIGNALS */
 
     loginit("server");
 
     mainpid = getpid();
 
 #if defined(_WIN32)
-    while ((op = getopt(argc, argv, "D:de:h")) != EOF) {
+    while ((op = getopt(argc, argv, "D:de:irh")) != EOF) {
 #else
     while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
 #endif
 	switch (op) {
 	case 'D':
 	    datadir = optarg;
+#if defined(_WIN32)
+	    datadir_set++;
+#endif
 	    break;
 	case 'd':
 	    debug++;
@@ -128,7 +134,14 @@ main(int argc, char **argv)
 	case 'e':
 	    config_file = optarg;
 	    break;
-#if !defined(_WIN32)
+#if defined(_WIN32)
+	case 'i':
+	    install_service_set++;
+	    break;
+	case 'r':
+	    remove_service_set++;
+	    break;
+#else
 	case 'p':
 	    flags |= EMPTH_PRINT;
 	    break;
@@ -139,9 +152,30 @@ main(int argc, char **argv)
 	case 'h':
 	default:
 	    print_usage(argv[0]);
-	    return 0;
+	    return EXIT_FAILURE;
 	}
     }
+
+#if defined(_WIN32)
+    if ((debug || datadir_set || config_file != NULL) &&
+	(install_service_set || remove_service_set)) {
+	logerror("Can't use -d or -D or -e with either "
+	    "-r or -i options when starting the server");
+	printf("Can't use -d or -D or -e with either -r "
+	    "or -i options\n");
+	exit(EXIT_FAILURE);
+    }
+    if (install_service_set && remove_service_set) {
+	logerror("Can't use both -r and -i options when starting "
+	    "the server");
+	printf("Can't use both -r and -i options\n");
+	exit(EXIT_FAILURE);
+    }
+    if (install_service_set)
+        return install_service(argv[0]);
+    if (remove_service_set)
+        return remove_service();
+#endif	/* _WIN32 */
 
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
@@ -150,6 +184,46 @@ main(int argc, char **argv)
 
     logerror("------------------------------------------------------");
     logerror("Empire server (pid %d) started", (int)getpid());
+
+#if defined(_WIN32)
+    if (debug == 0) {
+	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
+	if (StartServiceCtrlDispatcher(DispatchTable))
+	    return 0;
+	else
+	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
+		    logerror("Failed to dispatch service (%d)", GetLastError());
+		    printf("Failed to dispatch service (%d)\n", GetLastError());
+		    exit(EXIT_FAILURE);
+	    } else  /* start in the foreground */
+		debug = 1;
+    }
+#else
+    if (debug == 0 && flags == 0) {
+	disassoc();
+    }
+#endif
+
+    start_server(flags, config_file);
+
+    empth_exit();
+
+/* We should never get here.  But, just in case... */
+    close_files();
+
+#if defined(_WIN32)
+    loc_NTTerm();
+#endif
+    return EXIT_SUCCESS;
+}
+
+
+void
+start_server(int flags, char *config_file)
+{
+#ifdef POSIXSIGNALS
+    struct sigaction act;
+#endif /* POSIXSIGNALS */
 
 #if defined(_WIN32)
     loc_NTInit();
@@ -167,9 +241,6 @@ main(int argc, char **argv)
     act.sa_flags = SA_SIGINFO;
 #endif
     sigemptyset(&act.sa_mask);
-    if (debug == 0 && flags == 0) {
-	disassoc();
-    }
     act.sa_handler = shutdwn;
     /* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on
        a Linux box running POSIX threads -- STM */
@@ -187,7 +258,6 @@ main(int argc, char **argv)
     sigaction(SIGPIPE, &act, NULL);
 #else
     if (debug == 0 && flags == 0) {
-	disassoc();
 	/* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on
 	   a Linux box running POSIX threads -- STM */
 #if !(defined(__linux__) && defined(_EMPTH_POSIX))
@@ -243,16 +313,6 @@ main(int argc, char **argv)
     }
     sprintf(argv[0], "%s (main pid: %d)", tbuf, getpid());
 #endif
-
-    empth_exit();
-
-/* We should never get here.  But, just in case... */
-    close_files();
-
-#if defined(_WIN32)
-    loc_NTTerm();
-#endif
-    return 0;
 }
 
 static void
@@ -275,7 +335,7 @@ init_files(void)
     ef_open(EF_LOST, O_RDWR, 0);
 }
 
-static void
+void
 close_files(void)
 {
     ef_close(EF_NATION);
@@ -483,7 +543,7 @@ loc_NTInit()
 #endif
 
 #if defined(_WIN32)
-static void
+void
 loc_NTTerm()
 {
     WSACleanup();

@@ -48,8 +48,13 @@
 #include "commodity.h"
 
 /* src/server/main.c */
+extern void close_files(void);
 extern void panic(int sig);
 extern void shutdwn(int sig);
+extern void start_server(int, char *);
+#if defined(_WIN32)
+extern void loc_NTTerm(void);
+#endif
 
 /*****************************************************************************
  * src/lib/ * / *.c 
@@ -269,6 +274,10 @@ extern int command(void);
 /* more in commands.h */
 /* recvclient.c */
 extern int recvclient(s_char *, int);
+
+/* service.c */
+extern int service_stopped(void);
+/* more in service.h */
 
 /*
  * src/lib/subs/ *.c 

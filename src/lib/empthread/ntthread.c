@@ -468,13 +468,19 @@ empth_exit(void)
     loc_debug("empth_exit");
 
     if (pThread->bMainThread) {
-	char buf[20];
 	/* The main line.  Wait forever. */
 	while (1) {
-	    printf("\nEmpire Server>");
-	    fgets(buf, sizeof(buf), stdin);
-	    if (!strnicmp(buf, "quit", 4))
-		shutdwn(0);
+	    if (!debug) {
+		if (service_stopped())
+		    shutdwn(0);
+		Sleep(3);
+	    } else {
+		char buf[20];
+		printf("\nEmpire Server>");
+		fgets(buf, sizeof(buf), stdin);
+		if (!strnicmp(buf, "quit", 4))
+		    shutdwn(0);
+	    }
 	}
     } else {
 	TlsSetValue(loc_GVAR.dwTLSIndex, NULL);
