@@ -52,7 +52,7 @@ static int infect_people(struct natstr *, struct sctstr *);
 void
 do_plague(struct sctstr *sp, struct natstr *np, int etu)
 {
-    u_short pstage, ptime;
+    int pstage, ptime;
     int n;
 
     if (opt_NO_PLAGUE)		/* no plague nothing to do */
@@ -152,7 +152,7 @@ infect_people(struct natstr *np, struct sctstr *sp)
  */
 int
 plague_people(struct natstr *np, short *vec,
-	      u_short *pstage, u_short *ptime,
+	      int *pstage, int *ptime,
 	      int etus)
 {
     int stage;

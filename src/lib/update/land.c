@@ -115,7 +115,7 @@ upd_land(struct lndstr *lp, int etus,
 	       /* build = 1, maintain = 0 */
 {
     struct lchrstr *lcp;
-    u_short pstage, ptime;
+    int pstage, ptime;
     int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;

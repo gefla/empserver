@@ -75,8 +75,8 @@ struct sctstr {
     short sct_del[I_MAX+1];	/* delivieries */
     short sct_dist[I_MAX+1];	/* distribution thresholds */
     short sct_mines;		/* number of mines */
-    u_short sct_pstage;		/* plague stage */
-    u_short sct_ptime;		/* how many etus remain in this stage */
+    short sct_pstage;		/* plague stage */
+    short sct_ptime;		/* how many etus remain in this stage */
     u_char sct_che;		/* number of guerrillas */
     natid sct_che_target;	/* nation targeted by che */
     u_short sct_fallout;

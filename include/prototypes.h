@@ -589,7 +589,7 @@ extern s_char *nxtitemp(struct nstr_item *, int);
 extern struct sctstr *nxtsctp(register struct nstr_sect *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
-extern int plague_people(struct natstr *, short *, u_short *, u_short *, int);
+extern int plague_people(struct natstr *, short *, int *, int *, int);
 /* plane.c */
 extern int prod_plane(int, int, int *, int);
 /* populace.c */

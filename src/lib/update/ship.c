@@ -115,7 +115,7 @@ upd_ship(struct shpstr *sp, int etus,
 {
     struct sctstr *sectp;
     struct mchrstr *mp;
-    u_short pstage, ptime;
+    int pstage, ptime;
     int oil_gained;
     int max_oil;
     int max_food;

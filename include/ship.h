@@ -87,8 +87,8 @@ struct shpstr {
     short shp_lend[TMAX];	/* How much do we pick up at the end    */
     u_char shp_autonav;		/* autonavigation flags */
     short shp_item[I_MAX+1];	/* amount of items on board */
-    u_short shp_pstage;		/* plague stage */
-    u_short shp_ptime;		/* how many etus remain in this stage */
+    short shp_pstage;		/* plague stage */
+    short shp_ptime;		/* how many etus remain in this stage */
     time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
     u_char shp_mobquota;	/* mobility quota */
