@@ -467,7 +467,7 @@ sorde(void)
 		if (player->god)
 		    pr("own ");
 		pr("shp#     ship type      x,y    ");
-		pr("start   end   ");
+		pr("start    end   ");
 		pr("len  eta\n");
 	    }
 	    nships++;
@@ -485,15 +485,15 @@ sorde(void)
 	    /* Destination 2 */
 	    if ((ship.shp_destx[1] != ship.shp_destx[0])
 		|| (ship.shp_desty[1] != ship.shp_desty[0])) {
-		prxy(" %2d,%-2d", ship.shp_destx[0],
+		prxy(" %3d,%-3d", ship.shp_destx[0],
 		     ship.shp_desty[0], player->cnum);
 	    } else
-		pr("      ");
+		pr("        ");
 
 	    if (ship.shp_autonav & AN_STANDBY)
-		pr("  suspended");
+		pr(" suspended");
 	    else if (ship.shp_autonav & AN_LOADING)
-		pr("  loading");
+		pr(" loading");
 	    else {
 		/* ETA calculation */
 
@@ -501,11 +501,11 @@ sorde(void)
 				 ship.shp_y, ship.shp_destx[0],
 				 ship.shp_desty[0], ship.shp_own);
 		if (!c || !*c)
-		    pr("no route possible");
+		    pr(" no route possible");
 		else if (*c == 'h')
-		    pr("has arrived");
+		    pr(" has arrived");
 		else if (*c == '?')
-		    pr("route too long");
+		    pr(" route too long");
 		else {
 		    /* distance to destination */
 		    eta_calc(&ship, c, &len, &updates);
