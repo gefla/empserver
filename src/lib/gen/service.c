@@ -31,6 +31,7 @@
  *     Ron Koenderink, 2004
  */
 
+#ifdef _WIN32
 #include <windows.h>
 
 #include "prototypes.h"
@@ -286,3 +287,5 @@ service_stopped(void)
     else
 	return 0;
 }
+
+#endif /* _WIN32 */
