@@ -1,3 +1,50 @@
+Changes to Empire 4.2.13 - Sat Feb  7 01:14:22 UTC 2004
+ * Source code reindented and cleaned up somewhat.
+ * Various info file fixes.
+ * Fixed change requiring 254 BTUs even when not charging any
+   (BLITZ).
+ * Fixed tactical non-marine missile crash.
+ * Fixed spy unit detection chance for eff<100.
+ * Fixed output of sorder.
+ * edit can now work non-interactively.
+ * Fixed and extended edit for sectors.
+ * Fixed use of errno.
+ * Minor security fix: doconfig now writes example auth entry as
+   comment.
+ * Fixed reading of country name and password in client for Windows.
+ * Replace use of some obsolete non-portable library functions by
+   portable equivalents.
+ * designate now warns about redesignated capital only when it
+   succeeds in redesignating the capital.
+ * attack could be off by one when reporting required unit mobility.
+ * Fixed command matching.  Unique prefixes were not always
+   recognized, and junk suffixes were ignored.
+ * Removed bestdistpath.  bestpath yields the same results.
+ * Renamed lstats to lstat for consistency and to match info page.
+ * Fixed non-portable fd_set * arguments of select().
+ * New `map' flag `h' to highlight own sectors.
+ * Fixed `sabo' reporting damage to player in deity coordinates.
+ * New option ROLLOVER_AVAIL.
+ * Fix Windows server shutdown on reading "quit" from stdin.
+ * Land units now fortify automatically at the update using excess
+   mobility. 
+ * Wandering che are less predictable.
+ * Land units no longer regenerate mobility faster while it is
+   negative.
+ * Fixed emp_client -k.
+ * No longer allow pirates to ferret out where a ship was built.
+ * Fixed map commands to reject bmap flags `t' and `r' instead of
+   turning into bmap.
+ * Fixed lmine shell resupply.
+ * News no longer call all sub-launched missiles nuclear.
+ * Incoming missiles are now reported with coordinates.
+ * Removed some code that served no purpose except crashing on
+   Windows. 
+ * Fixed Mac OSX port.
+ * Don't resolve player IP addresses for now, because it can crash
+   with certain versions of GNU libc.
+ * Fixed recording of lost nukes.
+
 Changes to Empire 4.2.12 - Mon Aug 18 16:54:21 MDT 2003
  * Corrected contact information for Wolfpack.
  * Sector isn't abandoned until move or explore is complete.

@@ -38,7 +38,7 @@
 
 #define EMP_VERS_MAJOR	4
 #define EMP_VERS_MINOR	2
-#define EMP_VERS_PATCH	12
+#define EMP_VERS_PATCH	13
 
 #define	KSU_DIST	1.04
 #define	CHAINSAW_DIST	4.00
