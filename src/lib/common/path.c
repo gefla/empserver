@@ -441,19 +441,19 @@ bp_coord_hash(struct as_coord c)
 }
 
 void
-bp_enable_cachepath()
+bp_enable_cachepath(void)
 {
     as_enable_cachepath();
 }
 
 void
-bp_disable_cachepath()
+bp_disable_cachepath(void)
 {
     as_disable_cachepath();
 }
 
 void
-bp_clear_cachepath()
+bp_clear_cachepath(void)
 {
     as_clear_cachepath();
 }

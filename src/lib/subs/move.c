@@ -60,8 +60,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     coord curx, cury, oldx, oldy;
     coord tmpx, tmpy;
     coord dx, dy;
-    s_char *movstr, *BestLandPath(s_char *, struct sctstr *,
-				  struct sctstr *, double *, int);
+    s_char *movstr;
     double sect_mcost;
     double total_mcost;
     double mv_cost;

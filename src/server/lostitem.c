@@ -43,8 +43,7 @@
 
 /*ARGSUSED*/
 void
-delete_lostitems(argv)
-void *argv;
+delete_lostitems(void *argv)
 {
     extern int lost_items_timeout;
     time_t now;

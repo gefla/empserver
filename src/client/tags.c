@@ -48,7 +48,7 @@ s_char exec[8];
 static unsigned short tagnum;
 
 void
-io_init()
+io_init(void)
 {
     taglist = NULL;
     buf[0] = 0;
@@ -57,8 +57,7 @@ io_init()
 }
 
 s_char *
-gettag(p)
-s_char *p;
+gettag(s_char *p)
 {
     struct tagstruct *tag1, *tag2;
 

@@ -60,13 +60,10 @@ extern s_char exec[];
 extern HANDLE hStdIn;
 #endif
 
-int sendeof();
+int sendeof(int sock);
 
 int
-termio(fd, sock, auxfi)
-int fd;
-int sock;
-FILE *auxfi;
+termio(int fd, int sock, FILE *auxfi)
 {
     s_char out[4096];
     int i, n;
@@ -226,8 +223,7 @@ FILE *auxfi;
 }
 
 int
-sendeof(sock)
-int sock;
+sendeof(int sock)
 {
 #ifndef _WIN32
     if (write(sock, "ctld\n", 5) < 5) {
@@ -245,8 +241,7 @@ int echomode = 1;
 
 #if defined(hpux) || defined(aix) || defined (sgi) || defined(linux)
 void
-_noecho(fd)
-int fd;
+_noecho(int fd)
 {
     struct termio io;
 
@@ -257,8 +252,7 @@ int fd;
 }
 
 void
-_echo(fd)
-int fd;
+_echo(int fd)
 {
     struct termio io;
 

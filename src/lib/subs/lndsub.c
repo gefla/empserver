@@ -315,7 +315,6 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 void
 lnd_takemob(struct emp_qelem *list, double loss)
 {
-    extern double combat_mob;
     struct emp_qelem *qp, *next;
     struct llist *llp;
     int new;

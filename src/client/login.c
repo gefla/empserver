@@ -43,16 +43,11 @@
 #include <unistd.h>
 #endif
 
-int expect();
-void sendcmd();
+int expect(int s, int match, s_char *buf);
+void sendcmd(int s, int cmd, s_char *arg);
 
 int
-login(s, uname, cname, cpass, kill_proc)
-int s;
-s_char *uname;
-s_char *cname;
-s_char *cpass;
-int kill_proc;
+login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc)
 {
     s_char tmp[128];
     s_char buf[1024];

@@ -71,7 +71,6 @@ mission(void)
     extern int land_mob_max;
     extern int plane_mob_max;
     extern double mission_mob_cost;
-    s_char *nameofitem();
     s_char prompt[128];
     s_char buf[1024];
 

@@ -55,13 +55,13 @@ static struct as_frompath **fromhead = (struct as_frompath **)0;
 static int as_cachepath_on = 0;	/* Default to off */
 
 void
-as_enable_cachepath()
+as_enable_cachepath(void)
 {
     as_cachepath_on = 1;
 }
 
 void
-as_disable_cachepath()
+as_disable_cachepath(void)
 {
     as_cachepath_on = 0;
 }
@@ -135,7 +135,7 @@ as_add_cachepath(struct as_data *adp)
 }
 
 void
-as_clear_cachepath()
+as_clear_cachepath(void)
 {
     struct as_frompath *from, *from2;
     struct as_topath *to, *to2;

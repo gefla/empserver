@@ -56,7 +56,7 @@ static void do_mob_plane(register struct plnstr *, register int);
 static void do_mob_sect(register struct sctstr *sp, register int etus);
 static void do_mob_ship(register struct shpstr *, register int);
 
-int
+static int
 increase_mob(time_t * counter, float mult)
 {
     time_t secs;

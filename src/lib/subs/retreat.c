@@ -133,7 +133,6 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 
 			/* Is this the originally scared ship, or a follower */
 {
-    extern double techfact(int, double);
     struct sctstr sect;
     register int n;
     register int m;
@@ -425,7 +424,6 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 
 			/* Is this the originally scared unit, or a follower */
 {
-    extern double techfact(int, double);
     struct sctstr sect;
     register int n;
     register int m;

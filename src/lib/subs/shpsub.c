@@ -380,8 +380,6 @@ shp_mess(s_char *str, struct mlist *mlp)
 static int
 shp_check_nav(struct sctstr *sect)
 {
-    extern struct dchrstr dchr[];
-
     switch (dchr[sect->sct_type].d_flg & 03) {
     case NAVOK:
 	break;

@@ -47,7 +47,6 @@ as_search(struct as_data *adp)
     struct as_queue *qp;
     struct as_path *pp;
 #endif /* DEBUG */
-    struct as_queue *as_extend(struct as_data *adp);
 
     as_reset(adp);
 

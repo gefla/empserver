@@ -47,12 +47,10 @@
 #include <io.h>
 #endif
 
-void ioq_write();
+void ioq_write(struct ioqueue *ioq, s_char *buf, int cc);
 
 int
-serverio(s, ioq)
-int s;
-struct ioqueue *ioq;
+serverio(int s, struct ioqueue *ioq)
 {
     s_char *buf;
     int n;

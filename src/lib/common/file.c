@@ -424,8 +424,6 @@ ef_flags(int type)
 time_t
 ef_mtime(int type)
 {
-    extern time_t fdate(int fd);
-
     if (empfile[type].fd <= 0)
 	return 0;
     return fdate(empfile[type].fd);

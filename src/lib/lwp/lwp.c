@@ -58,14 +58,13 @@ static int oldmask;
 extern char *strdup();
 #endif /* NOSTRDUP */
 
-static void lwpStackCheckInit();
-static int lwpStackCheck();
-static void lwpStackCheckUsed();
+static void lwpStackCheckInit(struct lwpProc *newp);
+static int lwpStackCheck(struct lwpProc *newp);
+static void lwpStackCheckUsed(struct lwpProc *newp);
 
 /* check stack direction */
 static int
-growsdown(x)
-void *x;
+growsdown(void *x)
 {
     int y;
 
@@ -86,7 +85,7 @@ void *x;
  * processes here and free them.
  */
 void
-lwpReschedule()
+lwpReschedule(void)
 {
     extern struct lwpQueue LwpSchedQ[];
     static int lcount = LCOUNT;
@@ -195,9 +194,8 @@ lwpReschedule()
  * lwpEntryPoint -- process entry point.
  */
 void
-lwpEntryPoint()
+lwpEntryPoint(void)
 {
-    extern struct lwpProc *LwpCurrent;
 #ifdef POSIXSIGNALS
     sigset_t set;
 #endif /* POSIXSIGNALS */
@@ -215,8 +213,7 @@ lwpEntryPoint()
     *LwpContextPtr = LwpCurrent->ud;
 
     lwpStatus(LwpCurrent, "starting at entry point");
-    (*LwpCurrent->entry) (LwpCurrent->argc, LwpCurrent->argv,
-			  LwpCurrent->ud);
+    (*LwpCurrent->entry)(LwpCurrent->ud);
     lwpExit();
 #ifdef BOUNDS_CHECK
     BOUNDS_CHECKING_ON;
@@ -229,18 +226,8 @@ lwpEntryPoint()
  * lwpCreate -- create a process.
  */
 struct lwpProc *
-lwpCreate(priority, entry, size, flags, name, desc, argc, argv, ud)
-int priority;
-void (*entry) ();
-int size;
-int flags;
-char *name;
-char *desc;
-int argc;
-char *argv[];
-void *ud;
+lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, char *desc, int argc, char **argv, void *ud)
 {
-    extern struct lwpProc *LwpCurrent;
     struct lwpProc *newp;
     int *s, x;
 #ifdef UCONTEXT
@@ -329,8 +316,7 @@ void *ud;
 }
 
 void
-lwpDestroy(proc)
-struct lwpProc *proc;
+lwpDestroy(struct lwpProc *proc)
 {
     if (proc->flags & LWP_STACKCHECK) {
 	lwpStackCheckUsed(proc);
@@ -355,12 +341,8 @@ struct lwpProc *proc;
  * lwpReady -- put process on ready queue.  if null, assume current.
  */
 void
-lwpReady(p)
-struct lwpProc *p;
+lwpReady(struct lwpProc *p)
 {
-    extern struct lwpProc *LwpCurrent;
-    extern struct lwpQueue LwpSchedQ[];
-
     if (!p)
 	p = LwpCurrent;
     lwpStatus(p, "added to run queue");
@@ -371,8 +353,7 @@ struct lwpProc *p;
  * return user's data
  */
 void *
-lwpGetUD(p)
-struct lwpProc *p;
+lwpGetUD(struct lwpProc *p)
 {
     if (!p)
 	p = LwpCurrent;
@@ -383,9 +364,7 @@ struct lwpProc *p;
  * set user's data
  */
 void
-lwpSetUD(p, ud)
-struct lwpProc *p;
-char *ud;
+lwpSetUD(struct lwpProc *p, char *ud)
 {
     if (!p)
 	p = LwpCurrent;
@@ -396,10 +375,7 @@ char *ud;
  * set name & desc
  */
 void
-lwpSetDesc(p, name, desc)
-struct lwpProc *p;
-char *name;
-char *desc;
+lwpSetDesc(struct lwpProc *p, char *name, char *desc)
 {
     if (!p)
 	p = LwpCurrent;
@@ -413,7 +389,7 @@ char *desc;
  * lwpYield -- yield the processor to another thread.
  */
 void
-lwpYield()
+lwpYield(void)
 {
     lwpStatus(LwpCurrent, "yielding control");
     lwpReady(LwpCurrent);
@@ -424,7 +400,7 @@ lwpYield()
  * cause the current process to be scheduled for deletion.
  */
 void
-lwpExit()
+lwpExit(void)
 {
     lwpStatus(LwpCurrent, "marking self as dead");
     LwpCurrent->dead = 1;
@@ -436,8 +412,7 @@ lwpExit()
  * remove any lingering FD action
  */
 void
-lwpTerminate(p)
-struct lwpProc *p;
+lwpTerminate(struct lwpProc *p)
 {
     lwpStatus(p, "terminating process");
     p->dead = 1;
@@ -450,8 +425,7 @@ struct lwpProc *p;
  * if the new priority is lower than the old, we reschedule.
  */
 int
-lwpSetPriority(new)
-int new;
+lwpSetPriority(int new)
 {
     int old = LwpCurrent->pri;
 
@@ -470,13 +444,8 @@ int new;
  * initialise the coroutine structures
  */
 struct lwpProc *
-lwpInitSystem(pri, ctxptr, flags)
-int pri;
-char **ctxptr;
-int flags;
+lwpInitSystem(int pri, char **ctxptr, int flags)
 {
-    extern struct lwpQueue LwpSchedQ[];
-    extern struct lwpProc *LwpCurrent;
     struct lwpQueue *q;
     int i, *stack;
     struct lwpProc *sel;
@@ -517,8 +486,7 @@ int flags;
  * used.
  */
 static void
-lwpStackCheckInit(newp)
-struct lwpProc *newp;
+lwpStackCheckInit(struct lwpProc *newp)
 {
     register int i;
     register long *lp;
@@ -542,8 +510,7 @@ struct lwpProc *newp;
  *   down the entire process.
  */
 static int
-lwpStackCheck(newp)
-struct lwpProc *newp;
+lwpStackCheck(struct lwpProc *newp)
 {
     register int end, amt;
     register unsigned int i;
@@ -602,8 +569,7 @@ struct lwpProc *newp;
  * Figure out how much stack was used by this thread.
  */
 static void
-lwpStackCheckUsed(newp)
-struct lwpProc *newp;
+lwpStackCheckUsed(struct lwpProc *newp)
 {
     register int i;
     register long *lp;

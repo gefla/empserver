@@ -392,9 +392,8 @@ struct keymatch configkeys[] = {
     {NULL, NULL, (caddr_t)0, 0, NULL}
 };
 
-static void fixup_files _PROTO((void));
-static struct keymatch *keylookup
-_PROTO((s_char *key, struct keymatch tbl[]));
+static void fixup_files(void);
+static struct keymatch *keylookup(s_char *key, struct keymatch tbl[]);
 
 
 /*

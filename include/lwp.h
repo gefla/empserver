@@ -22,7 +22,6 @@
  */
 #ifndef _LWP_H_
 #define _LWP_H_
-#include "prototype.h"
 #ifdef UCONTEXT
 #include <ucontext.h>
 #else  /* UCONTEXT */
@@ -42,7 +41,7 @@ struct lwpProc {
 #endif				/* UCONTEXT */
     void *sbtm;			/* bottom of stack attached to it */
     int size;			/* size of stack */
-    void (*entry) ();		/* entry point */
+    void (*entry)(void *);	/* entry point */
     int dead;			/* whether the process can be rescheduled */
     int pri;			/* which scheduling queue we're on */
     long runtime;		/* time at which process is restarted */
@@ -76,27 +75,27 @@ struct lwpSem {
 
 #define LWP_MAX_PRIO	8
 
-struct lwpProc *lwpInitSystem _PROTO((int prio, char **ctxp, int flags));
-struct lwpProc *lwpCreate _PROTO((int prio, void (*)(), int size,
-				  int flags, char *name, char *desc,
-				  int argc, char **argv, void *ud));
-void lwpExit _PROTO((void));
-void lwpTerminate _PROTO((struct lwpProc * p));
-void lwpYield _PROTO((void));
-void lwpSleepFd _PROTO((int fd, int flags));
-void lwpSleepUntil _PROTO((long until));
-void lwpWakeupFd _PROTO((struct lwpProc * p));
-void *lwpGetUD _PROTO((struct lwpProc * p));
-void lwpSetUD _PROTO((struct lwpProc * p, char *ud));
-void lwpSetDesc _PROTO((struct lwpProc * p, char *name, char *desc));
-int lwpSetPriority _PROTO((int prio));
-void lwpReschedule _PROTO((void));
+struct lwpProc *lwpInitSystem(int prio, char **ctxp, int flags);
+struct lwpProc *lwpCreate(int prio, void (*)(void *), int size,
+			  int flags, char *name, char *desc,
+			  int argc, char **argv, void *ud);
+void lwpExit(void);
+void lwpTerminate(struct lwpProc * p);
+void lwpYield(void);
+void lwpSleepFd(int fd, int flags);
+void lwpSleepUntil(long until);
+void lwpWakeupFd(struct lwpProc * p);
+void *lwpGetUD(struct lwpProc * p);
+void lwpSetUD(struct lwpProc * p, char *ud);
+void lwpSetDesc(struct lwpProc * p, char *name, char *desc);
+int lwpSetPriority(int prio);
+void lwpReschedule(void);
 
-struct lwpSem *lwpCreateSem _PROTO((char *name, int count));
-void lwpSignal _PROTO((struct lwpSem *));
-void lwpWait _PROTO((struct lwpSem *));
-void lwpSelect _PROTO((int argc, char **argv));
-void lwpStatus _PROTO((struct lwpProc * proc, char *format, ...));
+struct lwpSem *lwpCreateSem(char *name, int count);
+void lwpSignal(struct lwpSem *);
+void lwpWait(struct lwpSem *);
+void lwpSelect(void *);
+void lwpStatus(struct lwpProc * proc, char *format, ...);
 
 extern struct lwpProc *LwpCurrent;
 

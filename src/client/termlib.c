@@ -45,11 +45,10 @@
 s_char *SO = 0;
 s_char *SE = 0;
 
-int tgetent();
+int tgetent(char *, char *);
 
 void
-parsedelay(r)
-s_char *r;
+parsedelay(s_char *r)
 {
     s_char *s, *t;
 
@@ -64,10 +63,10 @@ s_char *r;
 }
 
 void
-getsose()
+getsose(void)
 {
 #ifndef _WIN32
-    extern s_char *tgetstr();
+    extern s_char *tgetstr(char *, char **);
     s_char *cp;
     s_char *term;
     static s_char tbuf[1024];

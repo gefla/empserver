@@ -163,7 +163,6 @@ command(void)
 {
     register unsigned int x;
     s_char *redir;
-    int kill_player();
     s_char scanspace[1024];
 
     if (getcommand(player->combuf) < 0)

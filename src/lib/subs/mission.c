@@ -140,7 +140,7 @@ collateral_damage(coord x, coord y, int dam, struct emp_qelem *list)
     return 0;
 }
 
-int
+static int
 only_subs(struct emp_qelem *list)
 {
     struct emp_qelem *qp;
@@ -977,7 +977,6 @@ show_mission(int type, struct nstr_item *np)
 int
 oprange(struct genitem *gp, int type, int *radius)
 {
-    double techfact(int, double);
     int range;
     struct shpstr ship;
     struct lndstr land;

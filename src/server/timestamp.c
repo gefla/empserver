@@ -42,9 +42,7 @@
 
 /*ARGSUSED*/
 void
-mobility_check(argv)
-void *argv;
-
+mobility_check(void *argv)
 {
     extern s_char *timestampfil;
     extern int updating_mob;
@@ -93,7 +91,7 @@ void *argv;
 }
 
 void
-mobility_init()
+mobility_init(void)
 {
     extern s_char *timestampfil;
     extern int updating_mob;

@@ -51,7 +51,6 @@ land(void)
     struct nstr_item ni;
     struct lndstr land;
     int vec[I_MAX + 1];
-    s_char *mission_short_name();
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;

@@ -36,7 +36,6 @@
 #ifndef _EMTHREAD_H_
 #define _EMTHREAD_H_
 
-#include "prototype.h"
 #include "misc.h"
 
 #if defined(_WIN32)
@@ -66,14 +65,13 @@ typedef struct lwpSem empth_sem_t;
 #define EMPTH_PRINT       0x1
 #define EMPTH_STACKCHECK  0x2
 
-typedef void (*vf_ptr) ();
 #define EMPTH_KILLED  1
 typedef struct empth_ctx_t {
     char *name;			/* thread name */
     char *desc;			/* description */
     void *ud;			/* user data */
     int state;			/* my state */
-    vf_ptr ep;			/* entry point */
+    void (*ep)(void *);		/* entry point */
     pthread_t id;		/* thread id */
 } empth_t;
 
@@ -110,20 +108,19 @@ typedef void empth_sem_t;
 
 #endif
 
-int empth_init _PROTO((char **ctx, int flags));
-empth_t *empth_create _PROTO((int, void (*)(), int,
-			      int, char *, char *, void *));
-empth_t *empth_self();
-void empth_exit _PROTO((void));
-void empth_yield _PROTO((void));
-void empth_terminate _PROTO((empth_t *));
-void empth_select _PROTO((int fd, int flags));
-void empth_wakeup _PROTO((empth_t *));
-void empth_sleep _PROTO((long until));
-empth_sem_t *empth_sem_create _PROTO((char *name, int count));
-void empth_sem_signal _PROTO((empth_sem_t *));
-void empth_sem_wait _PROTO((empth_sem_t *));
-void empth_alarm _PROTO((int));
+int empth_init(char **ctx, int flags);
+empth_t *empth_create(int, void (*)(void *), int, int, char *, char *, void *);
+empth_t *empth_self(void);
+void empth_exit(void);
+void empth_yield(void);
+void empth_terminate(empth_t *);
+void empth_select(int fd, int flags);
+void empth_wakeup(empth_t *);
+void empth_sleep(long until);
+empth_sem_t *empth_sem_create(char *name, int count);
+void empth_sem_signal(empth_sem_t *);
+void empth_sem_wait(empth_sem_t *);
+void empth_alarm(int);
 
 
 #include "prototypes.h"		/* must come at end, after defines and typedefs */

@@ -37,7 +37,6 @@
 int
 onearg(s_char *arg, s_char *prompt)
 {
-    extern s_char *getstring(s_char *prompt, s_char *buf);
     int n;
     s_char buf[1024];
 

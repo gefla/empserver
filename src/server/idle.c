@@ -40,8 +40,7 @@
 
 /*ARGSUSED*/
 void
-player_kill_idle(argv)
-void *argv;
+player_kill_idle(void *argv)
 {
     extern int max_idle;
     struct player *p;

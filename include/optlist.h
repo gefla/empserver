@@ -35,8 +35,6 @@
 #ifndef _OPTLIST_H_
 #define _OPTLIST_H_
 
-#include "prototype.h"
-
 struct option_list {
     char *opt_key;
     int *opt_valuep;
@@ -44,8 +42,8 @@ struct option_list {
 
 extern struct option_list Options[];
 
-extern void set_option _PROTO((const char *key));
-extern void delete_option _PROTO((const char *key));
+extern void set_option(const char *key);
+extern void delete_option(const char *key);
 
 extern int WORLD_X;
 extern int WORLD_Y;
@@ -104,7 +102,7 @@ extern int opt_ROLLOVER_AVAIL;
 struct keymatch;		/* forward decl */
 
 /* function prototype for variable setting routines */
-typedef void KmFunc _PROTO((struct keymatch * kp, s_char **av));
+typedef void KmFunc(struct keymatch * kp, s_char **av);
 
 /* current known routines */
 #if defined(__cplusplus) || (defined(__STDC__) &&__STDC__)

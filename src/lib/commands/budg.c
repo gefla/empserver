@@ -348,7 +348,6 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
     extern long lnd_money[MAXNOC];
     extern long air_money[MAXNOC];
     extern long tpops[MAXNOC];
-    extern int mil_dbl_pay;
 
     lnd_money[player->cnum] = sea_money[player->cnum] = 0;
     air_money[player->cnum] = 0;

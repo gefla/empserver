@@ -109,7 +109,7 @@ extern int ef_vars(int, register s_char *, u_char **,
 		   u_char **, u_short **);
 extern int ef_byname(s_char *);
 
-extern int ef_nbread();
+extern int ef_nbread(int type, int id, caddr_t ptr);
 extern struct empfile empfile[];
 
 #endif /* _FILE_H_ */

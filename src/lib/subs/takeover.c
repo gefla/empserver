@@ -64,7 +64,6 @@ takeover(register struct sctstr *sp, natid newown)
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr land;
-    extern double hap_fact(struct natstr *, struct natstr *);
     extern int etu_per_update;
     extern int sect_mob_neg_factor;
 

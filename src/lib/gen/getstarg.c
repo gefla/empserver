@@ -37,8 +37,6 @@
 s_char *
 getstarg(s_char *input, s_char *prompt, s_char *buf)
 {
-    extern s_char *getstring(s_char *prompt, s_char *buf);
-
     *buf = '\0';
     if (input == 0 || *input == 0) {
 	if (getstring(prompt, buf) == 0)

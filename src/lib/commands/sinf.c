@@ -42,6 +42,7 @@
 #include "path.h"
 #include "file.h"
 #include "commands.h"
+#include "combat.h"
 
 int
 sinfra(void)
@@ -49,8 +50,6 @@ sinfra(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-    double sector_mcost();
-    double sector_strength(struct sctstr *);
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

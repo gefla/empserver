@@ -38,8 +38,7 @@
 #include "nat.h"
 #include "file.h"
 #include "commands.h"
-
-extern void shutdown_sequence();
+#include "prototypes.h"
 
 int
 shut(void)

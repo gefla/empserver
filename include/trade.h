@@ -43,8 +43,6 @@
 #include "land.h"
 #include "ship.h"
 
-#include "prototype.h"
-
 struct trdstr {
     short ef_type;
     natid trd_owner;
@@ -76,7 +74,7 @@ union trdgenstr {
     struct shpstr shp;
 };
 
-s_char *trade_nameof _PROTO((struct trdstr * tp, union trdgenstr * tgp));
+s_char *trade_nameof(struct trdstr * tp, union trdgenstr * tgp);
 
 #define gettrade(n, p) \
 	ef_read(EF_TRADE, n, (caddr_t)p)

@@ -58,7 +58,7 @@ path(void)
     coord cx, cy;
     int i;
     int y;
-    s_char *pp, *p, *BestDistPath();
+    s_char *pp, *p;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static s_char *mapbuf = (s_char *)0;

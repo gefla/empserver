@@ -53,7 +53,7 @@ extern int maxitem;
 
 /* procedures using/returning this struct */
 
-extern struct ichrstr *whatitem();
+extern struct ichrstr *whatitem(s_char *ptr, s_char *prompt);
 
 extern int itm_maxno;
 

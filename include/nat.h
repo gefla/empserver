@@ -191,7 +191,6 @@ extern void putrel(struct natstr *np, natid them, int relate);
 extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
-extern struct fixnat *natfield();
 
 #define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */
 #define NF_FLASH     	bit(1)	/* Allow other players to flash me (sicko :) */

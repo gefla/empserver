@@ -51,7 +51,7 @@
 static s_char *logfile = 0;
 
 s_char *
-getlogfile()
+getlogfile(void)
 {
     return (s_char *)logfile;
 }

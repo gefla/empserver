@@ -54,7 +54,7 @@ char *_ipglob_copyright_header =
 
 
 int
-main()
+main(void)
 {
     char buf[256];
     char *cp;

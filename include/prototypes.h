@@ -58,7 +58,7 @@ extern void shutdwn(int sig);
 /* src/lib/empthread/lwp.c */
 #ifdef _EMPTH_LWP
 extern int empth_init(char **ctx, int flags);
-extern empth_t *empth_create(int prio, void (*entry) (), int size,
+extern empth_t *empth_create(int prio, void (*entry)(void *), int size,
 			     int flags, char *name, char *desc, void *ud);
 #if 0
 extern void empth_setctx(void *ctx);
@@ -79,7 +79,7 @@ extern void empth_alarm(int sig);
 /* src/lib/empthread/pthread.c */
 #ifdef _EMPTH_POSIX
 extern int empth_init(char **ctx_ptr, int flags);
-extern empth_t *empth_create(int prio, void (*entry) (),
+extern empth_t *empth_create(int prio, void (*entry)(void *),
 			     int size, int flags,
 			     char *name, char *desc, void *ud);
 extern empth_t *empth_self(void);
@@ -346,9 +346,9 @@ extern s_char *decodep(long, void *);
 extern int decode(natid, long, void *, int);
 extern int nstr_exec(struct nscstr *, register int, void *, int);
 /* path.c */
-extern void bp_enable_cachepath();
-extern void bp_disable_cachepath();
-extern void bp_clear_cachepath();
+extern void bp_enable_cachepath(void);
+extern void bp_disable_cachepath(void);
+extern void bp_clear_cachepath(void);
 extern s_char *BestDistPath(s_char *, struct sctstr *, struct sctstr *,
 			    double *, int);
 extern s_char *BestLandPath(s_char *, struct sctstr *, struct sctstr *,
@@ -856,6 +856,6 @@ extern int feed_ship(struct shpstr *, register int *, int, int *, int);
  */
 /* shutdown.c */
 extern void shutdown_init(void);
-extern void shutdown_sequence(int argc, s_char **argv);
+extern void shutdown_sequence(void *);
 
 #endif /* _PROTOTYPES_H_ */

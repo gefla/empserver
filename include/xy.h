@@ -53,7 +53,6 @@ struct range {
     int height;
 };
 
-extern s_char *xyfmt();
 extern s_char *xyas(coord x, coord y, natid country);
 extern s_char *ownxy(struct sctstr *sp);
 extern coord xrel(struct natstr *np, coord absx);

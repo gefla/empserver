@@ -144,7 +144,6 @@ revolt(struct sctstr *sp)
 void
 guerrilla(struct sctstr *sp)
 {
-    extern s_char *effadv();
     struct sctstr *nsp;
     int recruit;
     int move;
@@ -168,9 +167,7 @@ guerrilla(struct sctstr *sp)
     int val;
     int oldmob;
     struct lndstr *lp;
-    s_char *nxtitemp(struct nstr_item *np, int owner);
     struct nstr_item ni;
-    extern double hap_fact();
 
     mc = cc = 0;
     recruit = 0;
@@ -463,7 +460,6 @@ take_casualties(struct sctstr *sp, int mc)
     int cantake;
     int nunits = 0, each, deq;
     struct lndstr *lp;
-    s_char *nxtitemp(struct nstr_item *np, int owner);
     struct nstr_item ni;
 
     /* casualties come out of mil first */

@@ -41,14 +41,13 @@
 
 empth_sem_t *update_sem;
 
-extern void update_main();
-extern void update_wait();
+extern void update_main(void *);
+extern void update_wait(void *argv);
 time_t update_time;
 
 /*ARGSUSED*/
 void
-update_sched(argv)
-void *argv;
+update_sched(void *argv)
 {
     extern int s_p_etu;
     extern int etu_per_update;
@@ -110,8 +109,7 @@ void *argv;
 
 /*ARGSUSED*/
 void
-update_wait(argv)
-void *argv;
+update_wait(void *argv)
 {
     struct player *p;
     int running;

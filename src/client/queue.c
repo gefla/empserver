@@ -39,9 +39,7 @@
 #include "queue.h"
 
 void
-insque(p, q)
-struct qelem *p;
-struct qelem *q;
+insque(struct qelem *p, struct qelem *q)
 {
     p->q_forw = q->q_forw;
     p->q_back = q;
@@ -50,24 +48,21 @@ struct qelem *q;
 }
 
 void
-remque(p)
-struct qelem *p;
+remque(struct qelem *p)
 {
     p->q_back->q_forw = p->q_forw;
     p->q_forw->q_back = p->q_back;
 }
 
 void
-initque(p)
-struct qelem *p;
+initque(struct qelem *p)
 {
     p->q_forw = p;
     p->q_back = p;
 }
 
 struct qelem *
-makeqt(nelem)
-int nelem;
+makeqt(int nelem)
 {
     struct qelem *table;
     struct qelem *qp;

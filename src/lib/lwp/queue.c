@@ -27,8 +27,7 @@
 #if defined(_EMPTH_LWP)
 
 struct lwpProc *
-lwpGetFirst(q)
-struct lwpQueue *q;
+lwpGetFirst(struct lwpQueue *q)
 {
     struct lwpProc *head;
 
@@ -38,9 +37,7 @@ struct lwpQueue *q;
 }
 
 void
-lwpAddTail(q, p)
-register struct lwpQueue *q;
-register struct lwpProc *p;
+lwpAddTail(register struct lwpQueue *q, register struct lwpProc *p)
 {
     if (!q->tail)
 	q->head = p;

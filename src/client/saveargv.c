@@ -36,10 +36,7 @@
 #include "misc.h"
 
 void
-saveargv(ac, src, dst)
-int ac;
-s_char **src;
-s_char **dst;
+saveargv(int ac, s_char **src, s_char **dst)
 {
     register s_char *ptr;
     register int i;

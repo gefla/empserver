@@ -72,10 +72,7 @@ extern int chkpath(natid, s_char *, coord, coord);
 extern void pathrange(register coord, register coord, register s_char *,
 		      int, struct range *);
 
-extern s_char *masktopath();
-extern long pathtomask();
-
-extern double sector_mcost();
+extern double sector_mcost(struct sctstr *sp, int do_bonus);
 
 #define	P_NONE		0	/* NO destinations allowed */
 #define	P_WALKING	1	/* use BestLandPath, only owned */

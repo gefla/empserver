@@ -57,7 +57,7 @@ mark(void)
 	return display_mark("   ");
 }
 
-void
+static void
 pr_mark(struct comstr *comm)
 {
     time_t now;

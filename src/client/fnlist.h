@@ -36,7 +36,7 @@
 #define _FNLIST_H_
 
 struct fn {
-    int (*func) ();
+    int (*func)(void);
     s_char *name;
     int value;
 };

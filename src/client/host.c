@@ -50,9 +50,7 @@
 #include "misc.h"
 
 int
-hostaddr(name, addr)
-s_char *name;
-struct sockaddr_in *addr;
+hostaddr(s_char *name, struct sockaddr_in *addr)
 {
     struct hostent *hp;
 
@@ -76,9 +74,7 @@ struct sockaddr_in *addr;
 }
 
 int
-hostport(name, addr)
-s_char *name;
-struct sockaddr_in *addr;
+hostport(s_char *name, struct sockaddr_in *addr)
 {
     struct servent *sp;
 
@@ -101,8 +97,7 @@ struct sockaddr_in *addr;
 }
 
 int
-hostconnect(addr)
-struct sockaddr_in *addr;
+hostconnect(struct sockaddr_in *addr)
 {
     int s;
 

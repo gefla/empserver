@@ -168,7 +168,7 @@ struct dchrstr {
 
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
-extern double landgun();
+extern double landgun(int effic, int guns);
 
 extern int sct_maxno;
 extern struct dchrstr dchr[];

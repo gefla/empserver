@@ -30,13 +30,13 @@
 #define LCOUNT	-1
 
 #ifdef hpux
-int lwpSave _PROTO((jmp_buf));
-void lwpRestore _PROTO((jmp_buf));
+int lwpSave(jmp_buf);
+void lwpRestore(jmp_buf);
 #endif
 
 #if defined(MIPS) || defined(AIX32) || defined(ALPHA) || defined(__vax)
-int lwpSave _PROTO((jmp_buf));
-void lwpRestore _PROTO((jmp_buf));
+int lwpSave(jmp_buf);
+void lwpRestore(jmp_buf);
 #elif defined(SUN4)
 #define	lwpSave(x)	_setjmp(x)
 #define lwpRestore(x)	_longjmp(x, 1)
@@ -78,27 +78,27 @@ typedef struct {
 #endif
 
 /* internal routines */
-void lwpAddTail _PROTO((struct lwpQueue *, struct lwpProc *));
-struct lwpProc *lwpGetFirst _PROTO((struct lwpQueue *));
-void lwpReschedule _PROTO((void));
-void lwpReady _PROTO((struct lwpProc *));
-void lwpOnalarm _PROTO((void));
+void lwpAddTail(struct lwpQueue *, struct lwpProc *);
+struct lwpProc *lwpGetFirst(struct lwpQueue *);
+void lwpReschedule(void);
+void lwpReady(struct lwpProc *);
+void lwpOnalarm(void);
 
 #ifdef UCONTEXT
-void lwpInitContext _PROTO((struct lwpProc *, stack_t *));
+void lwpInitContext(struct lwpProc *, stack_t *);
 #else  /* GETCONTEXT */
 #ifdef hpc
-void lwpInitContext _PROTO((struct lwpProc *, void *));
+void lwpInitContext(struct lwpProc *, void *);
 #else
 #ifdef hpux
-void lwpInitContext _PROTO((volatile struct lwpProc * volatile, void *));
+void lwpInitContext(volatile struct lwpProc * volatile, void *);
 #else
-void lwpInitContext _PROTO((struct lwpProc *, void *));
+void lwpInitContext(struct lwpProc *, void *);
 #endif /* hpux */
 #endif /* hpc */
 #endif /* GETCONTEXT */
-void lwpEntryPoint _PROTO((void));
-void lwpInitSelect _PROTO((struct lwpProc * self));
-void lwpDestroy _PROTO((struct lwpProc * proc));
+void lwpEntryPoint(void);
+void lwpInitSelect(struct lwpProc * self);
+void lwpDestroy(struct lwpProc * proc);
 
 #endif /* _LWP_H */

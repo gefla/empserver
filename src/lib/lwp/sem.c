@@ -38,9 +38,7 @@ extern char *strdup();
  * create a lwpSemaphore.
  */
 struct lwpSem *
-lwpCreateSem(name, count)
-char *name;
-int count;
+lwpCreateSem(char *name, int count)
 {
     struct lwpSem *new;
 
@@ -57,8 +55,7 @@ int count;
  * the blocked process has a higher priority than ours'.
  */
 void
-lwpSignal(s)
-struct lwpSem *s;
+lwpSignal(struct lwpSem *s)
 {
     extern struct lwpProc *LwpCurrent;
 
@@ -78,8 +75,7 @@ struct lwpSem *s;
  * wait on a lwpSemaphore
  */
 void
-lwpWait(s)
-struct lwpSem *s;
+lwpWait(struct lwpSem *s)
 {
     extern struct lwpProc *LwpCurrent;
 

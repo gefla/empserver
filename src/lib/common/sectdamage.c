@@ -49,6 +49,7 @@
 #include "gen.h"
 #include "subs.h"
 #include "lost.h"
+#include "combat.h"
 
 int
 sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
@@ -93,7 +94,6 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
     struct plnstr plane;
     double real_dam;
     int eff;
-    double sector_strength();
 
     /* Some sectors are harder/easier to kill..   */
     /* Average sector has a dstr of 1, so adjust  */

@@ -46,8 +46,8 @@ empth_init(char **ctx, int flags)
 
 
 empth_t *
-empth_create(int prio, void (*entry) (), int size, int flags, char *name,
-	     char *desc, void *ud)
+empth_create(int prio, void (*entry)(void *), int size, int flags,
+	     char *name, char *desc, void *ud)
 {
     /* inherit flags */
     if (!flags)

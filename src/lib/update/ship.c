@@ -445,7 +445,6 @@ feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
     int starved, lvec[I_MAX + 1];
     struct nstr_item ni;
     struct lndstr *lp;
-    s_char *nxtitemp(struct nstr_item *np, int owner);
 
     if (opt_NOFOOD)
 	return 0;		/* no food no work to do */

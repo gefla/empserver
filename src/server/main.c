@@ -68,10 +68,10 @@
 
 s_char program[] = "server";
 
-extern void player_accept();
-extern void player_kill_idle();
-extern void update_sched();
-extern void delete_lostitems();
+extern void player_accept(void *);
+extern void player_kill_idle(void *);
+extern void update_sched(void *);
+extern void delete_lostitems(void *);
 void nullify_objects(void);
 void init_files(void);
 void close_files(void);
@@ -81,18 +81,16 @@ static void loc_NTInit(void);
 static void loc_NTTerm(void);
 #endif
 
-extern void mobility_init();
-extern void mobility_check();
-extern void market_update();
+extern void mobility_init(void);
+extern void mobility_check(void *);
+extern void market_update(void *);
 
 #if !defined(_WIN32)
 static int mainpid = 0;
 #endif
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char **argv)
 {
     time_t now;
     int hour[2];

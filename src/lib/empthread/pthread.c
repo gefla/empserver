@@ -57,9 +57,9 @@ static pthread_mutex_t mtx_ctxsw;	/* thread in critical section */
 
 
 #if 0
-static void empth_setctx _PROTO((void *));
+static void empth_setctx(void *);
 #endif
-static void empth_restorectx _PROTO(());
+static void empth_restorectx();
 
 static void *
 empth_start(void *ctx)
@@ -176,7 +176,7 @@ empth_init(char **ctx_ptr, int flags)
  * More then that priority is not needed even in lwp threads.
  */
 empth_t *
-empth_create(int prio, void (*entry) (), int size, int flags,
+empth_create(int prio, void (*entry)(void *), int size, int flags,
 	     char *name, char *desc, void *ud)
 {
     pthread_t t;

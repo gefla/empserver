@@ -51,20 +51,18 @@ typedef struct iovec {
 #endif
 
 
-static int ioqtobuf();
-static int ioqtoiov();
-static void enqueuecc();
-static int dequeuecc();
+static int ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc);
+static int ioqtoiov(register struct ioqueue *ioq, register struct iovec *iov, register int max);
+static void enqueuecc(struct ioqueue *ioq, s_char *buf, int cc);
+static int dequeuecc(register struct ioqueue *ioq, register int cc);
 
-void insque();
-void remque();
-void initque();
-struct qelem *makeqt();
+void insque(struct qelem *, struct qelem *);
+void remque(struct qelem *);
+void initque(struct qelem *p);
+struct qelem *makeqt(int nelem);
 
 void
-ioq_init(ioq, bsize)
-struct ioqueue *ioq;
-int bsize;
+ioq_init(struct ioqueue *ioq, int bsize)
 {
     extern s_char num_teles[];
 
@@ -80,10 +78,7 @@ int bsize;
  * return # of iovec initialized.
  */
 int
-ioq_peekiov(ioq, iov, max)
-struct ioqueue *ioq;
-struct iovec *iov;
-int max;
+ioq_peekiov(struct ioqueue *ioq, struct iovec *iov, int max)
 {
     if (ioq->cc <= 0)
 	return 0;
@@ -96,18 +91,13 @@ int max;
  * number of bytes actually found.
  */
 int
-ioq_peek(ioq, buf, cc)
-struct ioqueue *ioq;
-s_char *buf;
-int cc;
+ioq_peek(struct ioqueue *ioq, s_char *buf, int cc)
 {
     return ioqtobuf(ioq, buf, cc);
 }
 
 int
-ioq_dequeue(ioq, cc)
-struct ioqueue *ioq;
-int cc;
+ioq_dequeue(struct ioqueue *ioq, int cc)
 {
     if (dequeuecc(ioq, cc) != cc)
 	return 0;
@@ -115,10 +105,7 @@ int cc;
 }
 
 int
-ioq_read(ioq, buf, cc)
-struct ioqueue *ioq;
-s_char *buf;
-int cc;
+ioq_read(struct ioqueue *ioq, s_char *buf, int cc)
 {
     int n;
 
@@ -129,24 +116,19 @@ int cc;
 }
 
 void
-ioq_write(ioq, buf, cc)
-struct ioqueue *ioq;
-s_char *buf;
-int cc;
+ioq_write(struct ioqueue *ioq, s_char *buf, int cc)
 {
     enqueuecc(ioq, buf, cc);
 }
 
 int
-ioq_qsize(ioq)
-struct ioqueue *ioq;
+ioq_qsize(struct ioqueue *ioq)
 {
     return ioq->cc;
 }
 
 void
-ioq_drain(ioq)
-struct ioqueue *ioq;
+ioq_drain(struct ioqueue *ioq)
 {
     struct io *io;
     struct qelem *qp;
@@ -161,10 +143,7 @@ struct ioqueue *ioq;
 }
 
 s_char *
-ioq_gets(ioq, buf, cc)
-struct ioqueue *ioq;
-s_char *buf;
-int cc;
+ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 {
     register s_char *p;
     register s_char *end;
@@ -195,10 +174,7 @@ int cc;
  * left for a higher level.
  */
 static int
-ioqtobuf(ioq, buf, cc)
-register struct ioqueue *ioq;
-s_char *buf;
-int cc;
+ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc)
 {
     register struct io *io;
     struct qelem *qp;
@@ -235,10 +211,7 @@ int cc;
  * of a full ioqueue still be quick.
  */
 static int
-ioqtoiov(ioq, iov, max)
-register struct ioqueue *ioq;
-register struct iovec *iov;
-register int max;
+ioqtoiov(register struct ioqueue *ioq, register struct iovec *iov, register int max)
 {
     register struct io *io;
     register int cc;
@@ -265,10 +238,7 @@ register int max;
  * append a buffer to the end of the ioq.
  */
 static void
-enqueuecc(ioq, buf, cc)
-struct ioqueue *ioq;
-s_char *buf;
-int cc;
+enqueuecc(struct ioqueue *ioq, s_char *buf, int cc)
 {
     struct io *io;
 
@@ -286,9 +256,7 @@ int cc;
  * which are no longer used.
  */
 static int
-dequeuecc(ioq, cc)
-register struct ioqueue *ioq;
-register int cc;
+dequeuecc(register struct ioqueue *ioq, register int cc)
 {
     register struct io *io;
     register struct qelem *qp;

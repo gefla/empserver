@@ -39,7 +39,6 @@
 #if !defined(_WIN32)
 #include <netinet/in.h>
 #endif
-#include "prototype.h"
 #include "queue.h"
 #include "misc.h"
 #include "com.h"

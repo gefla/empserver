@@ -390,7 +390,7 @@ empth_init(char **ctx_ptr, int flags)
  *         It is also passed to the entry function...
  */
 empth_t *
-empth_create(int prio, void (*entry) (), int size, int flags,
+empth_create(int prio, void (*entry)(void *), int size, int flags,
 	     char *name, char *desc, void *ud)
 {
     loc_Thread_t *pThread = NULL;

@@ -121,7 +121,6 @@ upd_land(register struct lndstr *lp, int landno, register int etus,
     int vec[I_MAX + 1];
     int cvec[I_MAX + 1];
     int n;
-    double techfact(int, double);
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;
     extern double money_land;
@@ -245,7 +244,6 @@ static int
 landrepair(register struct lndstr *land, int *vec, struct natstr *np,
 	   int *bp, int etus)
 {
-    extern int mil_dbl_pay;
     extern int land_grow_scale;
     register int delta;
     struct sctstr *sp;

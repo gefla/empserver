@@ -72,7 +72,6 @@ static void file_sct_init(coord x, coord y, s_char *ptr);
 int
 main(int argc, char *argv[])
 {
-    extern s_char *annfil;
     extern s_char *timestampfil;
     extern s_char *infodir;
     extern s_char *commfil;

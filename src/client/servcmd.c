@@ -48,7 +48,7 @@
 #include <io.h>
 #endif
 
-extern s_char *gettag();
+extern s_char *gettag(s_char *p);
 
 s_char num_teles[64];
 static s_char the_prompt[1024];
@@ -59,23 +59,21 @@ FILE *redir_fp;
 FILE *pipe_fp;
 int exec_fd;
 
-void prompt();
-void doredir();
-void dopipe();
-void doexecute();
-void output();
-void screen();
-int sendeof();
-int termio();
-void _noecho();
+void prompt(FILE *auxfi);
+void doredir(s_char *p);
+void dopipe(s_char *p);
+void doexecute(s_char *p, FILE *auxfi);
+void output(int code, s_char *buf, FILE *auxfi);
+void screen(register s_char *buf);
+int sendeof(int);
+int termio(int fd, int sock, FILE *auxfi);
+void _noecho(int);
 
 extern s_char *SO;
 extern s_char *SE;
 
 void
-servercmd(ioq, auxfi)
-struct ioqueue *ioq;
-FILE *auxfi;
+servercmd(struct ioqueue *ioq, FILE *auxfi)
 {
     s_char *ioq_gets(struct ioqueue *, s_char *, int);
     s_char buf[1024];
@@ -133,8 +131,7 @@ FILE *auxfi;
 }
 
 void
-prompt(auxfi)
-FILE *auxfi;
+prompt(FILE *auxfi)
 {
     if (mode == C_PROMPT) {
 	if (redir_fp) {
@@ -166,8 +163,7 @@ FILE *auxfi;
  * opens redir_fp if successful
  */
 void
-doredir(p)
-s_char *p;
+doredir(s_char *p)
 {
     s_char *how;
     s_char *name;
@@ -219,8 +215,7 @@ s_char *p;
  * opens "pipe_fp" if successful
  */
 void
-dopipe(p)
-s_char *p;
+dopipe(s_char *p)
 {
     s_char *tag;
 
@@ -250,9 +245,7 @@ s_char *p;
 }
 
 void
-doexecute(p, auxfi)
-s_char *p;
-FILE *auxfi;
+doexecute(s_char *p, FILE *auxfi)
 {
     extern int sock;
     int fd;
@@ -296,10 +289,7 @@ FILE *auxfi;
 }
 
 void
-output(code, buf, auxfi)
-int code;
-s_char *buf;
-FILE *auxfi;
+output(int code, s_char *buf, FILE *auxfi)
 {
     switch (code) {
     case C_NOECHO:
@@ -357,8 +347,7 @@ FILE *auxfi;
 }
 
 void
-screen(buf)
-register s_char *buf;
+screen(register s_char *buf)
 {
     register s_char *sop;
     register s_char c;

@@ -46,8 +46,8 @@
 #include "optlist.h"
 #include "commands.h"
 
-
 #include <fcntl.h>
+#include <math.h>
 
 extern float start_education, start_happiness;
 extern float start_technology, start_research;
@@ -321,7 +321,6 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     struct lchrstr *lp;
     struct nstr_item nstr;
     struct natstr *natp;
-    double techfact(int, double);
     int lvec[I_MAX + 1];
     int extend = 1;
 

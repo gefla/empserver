@@ -193,7 +193,7 @@ struct mchrstr {
 #define getshipp(n) \
 	(struct shpstr *) ef_ptr(EF_SHIP, n)
 
-extern double seagun();
+extern double seagun(int effic, int guns);
 
 extern struct mchrstr mchr[];
 extern int shp_maxno;
@@ -216,8 +216,7 @@ struct mlist {
 #define SHP_FIR(b, t) (t ? (b * (logx((double)t, (double)60.0) < 1.0 ? 1.0 : \
 			     logx((double)t, (double)60.0))) : b)
 
-double sqrt();
-double logx();
+double logx(double d, double base);
 
  /* return codes from shp_check_nav */
 #define CN_NAVIGABLE	(0)

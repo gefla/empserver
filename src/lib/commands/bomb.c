@@ -214,7 +214,6 @@ bomb(void)
 static void
 pin_bomb(struct emp_qelem *list, struct sctstr *target)
 {
-    extern s_char *effadv();
     struct dchrstr *dcp;
     int nplanes;
     int nships;

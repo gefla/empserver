@@ -72,7 +72,7 @@ struct iop {
     int flags;
     s_char *assoc;
     int bufsize;
-    int (*notify) ();
+    int (*notify)(void);
 };
 
 void
@@ -81,7 +81,7 @@ io_init(void)
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize, int (*notify) (void),
+io_open(int fd, int flags, int bufsize, int (*notify)(void),
 	s_char *assoc)
 {
     struct iop *iop;

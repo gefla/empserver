@@ -57,7 +57,6 @@ typedef unsigned int u_int;
 /*#define _POSIX_ */
 #endif
 
-#include "prototype.h"
 #include "options.h"
 
 /* This is the structure we use to keep track of the global mobility
@@ -115,7 +114,6 @@ typedef short coord;		/* also change NSC_COORD in nsc.h */
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
-typedef void (*voidfunc) ();
 typedef int (*qsort_func_t) (const void *, const void *);
 
 	/* return codes from command routines */
@@ -124,69 +122,17 @@ typedef int (*qsort_func_t) (const void *, const void *);
 #define	RET_SYN		2	/* syntax error in command */
 #define	RET_SYS		3	/* system error (missing file, etc) */
 
-#define MAX_DISTPATH_LEN	10	/* Has to go somewhere */
+double dmax(double n1, double n2);
+double dmin(double n1, double n2);
 
-/*
- * references to library functions which aren't related to any
- * particular object, and are of general interest
- */
-#if !defined(ALPHA) && !defined(__osf__) && !defined(__linux__) && !defined(_WIN32)
-extern long random();
-#endif
-
-double dmax _PROTO((double n1, double n2));
-double dmin _PROTO((double n1, double n2));
-
-extern s_char *numstr _PROTO((s_char buf[], int n));
-extern s_char *esplur _PROTO((int n));
-extern s_char *splur _PROTO((int n));
-extern s_char *iesplur _PROTO((int n));
-extern s_char *plur _PROTO((int n, s_char *no, s_char *yes));
-extern s_char *getstarg
-_PROTO((s_char *input, s_char *prompt, s_char buf[]));
-extern s_char *getstring _PROTO((s_char *prompt, s_char buf[]));
+extern s_char *numstr(s_char buf[], int n);
+extern s_char *esplur(int n);
+extern s_char *splur(int n);
+extern s_char *iesplur(int n);
+extern s_char *plur(int n, s_char *no, s_char *yes);
+extern s_char *getstarg(s_char *input, s_char *prompt, s_char buf[]);
+extern s_char *getstring(s_char *prompt, s_char buf[]);
 extern s_char *prbuf(s_char *format, ...);
-
-/*
- * frequently used libc functions
- */
-
-#if !defined(_WIN32)
-#if defined(linux)
-#ifndef __STDC__
-extern char *malloc();
-extern char *calloc();
-#endif
-#else
-#if !defined(ALPHA) && !defined(__osf__) && !defined(ultrix) && !defined(hpux) && !defined(FBSD)
-extern char *malloc();
-extern char *calloc();
-#endif
-#endif
-#endif
-
-#if (!defined (aix) && !defined (sgi))
-extern char *ctime();
-extern char *strncpy();
-extern char *strcpy();
-#endif /* !aix && !sgi */
-
-extern time_t time();
-#if !defined(_WIN32)
-#ifdef linux
-#ifndef atof
-extern double atof();
-#endif
-#else
-extern double atof();
-#endif
-#endif
-
-#if !defined(_WIN32)
-#if !defined (__ppc__) && !defined (hpux) && !defined (aix) && !defined (linux) && !defined(ALPHA) && !defined(__osf__) && !defined(SUN4) && !defined (Rel4) && !(defined (ultrix) && (defined (__STDC__) || defined (__SYSTEMFIVE) || defined (__POSIX)))
-extern char *sprintf();
-#endif /* aix */
-#endif
 
 #define MAXCHRNV 12
 

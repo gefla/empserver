@@ -37,8 +37,7 @@
 #endif
 
 int
-handleintr(s)
-int s;
+handleintr(int s)
 {
     extern int interrupt;
 

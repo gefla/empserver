@@ -97,9 +97,6 @@ extern int att_fight(int, struct combat *, struct emp_qelem *, double,
 extern int att_free_lists(struct emp_qelem *, struct emp_qelem *);
 
 
-extern double att_asupport();
-extern double att_dsupport();
-extern double att_mine_dsupport();
 extern double combat_mob;
 extern s_char *att_mode[];
 

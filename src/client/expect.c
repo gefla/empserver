@@ -46,10 +46,7 @@
 #endif
 
 int
-expect(s, match, buf)
-int s;
-int match;
-s_char *buf;
+expect(int s, int match, s_char *buf)
 {
     int size;
     s_char *p;
@@ -143,10 +140,7 @@ s_char *buf;
 }
 
 void
-sendcmd(s, cmd, arg)
-int s;
-int cmd;
-s_char *arg;
+sendcmd(int s, int cmd, s_char *arg)
 {
     extern struct fn fnlist[];
     s_char buf[128];

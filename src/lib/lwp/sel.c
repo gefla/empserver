@@ -62,8 +62,7 @@ struct lwpSelect {
 struct lwpSelect LwpSelect;
 
 void
-lwpInitSelect(proc)
-struct lwpProc *proc;
+lwpInitSelect(struct lwpProc *proc)
 {
     LwpSelect.maxfd = 0;
     LwpSelect.nfds = 0;
@@ -82,9 +81,7 @@ struct lwpProc *proc;
 }
 
 void
-lwpSleepFd(fd, mask)
-int fd;
-int mask;
+lwpSleepFd(int fd, int mask)
 {
     extern struct lwpProc *LwpCurrent;
 
@@ -116,8 +113,7 @@ int mask;
 }
 
 void
-lwpWakeupFd(proc)
-struct lwpProc *proc;
+lwpWakeupFd(struct lwpProc *proc)
 {
     if (proc->fd < 0)
 	return;
@@ -132,8 +128,7 @@ struct lwpProc *proc;
 }
 
 void
-lwpSleepUntil(until)
-long until;
+lwpSleepUntil(long int until)
 {
     extern struct lwpProc *LwpCurrent;
 
@@ -149,9 +144,7 @@ long until;
 
 /*ARGSUSED*/
 void
-lwpSelect(argc, argv)
-int argc;
-char **argv;
+lwpSelect(void *arg)
 {
     extern struct lwpProc *LwpCurrent;
     struct lwpProc *us = LwpCurrent;

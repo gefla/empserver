@@ -50,7 +50,7 @@ lsta(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    s_char *mission_short_name();
+    s_char *mission_short_name(int);
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;

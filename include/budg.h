@@ -31,10 +31,10 @@
  *     Ville Virrankoski, 1995
  */
 
-void fill_update_array();
-int *get_wp();
-int gt_bg_nmbr();
-void pt_bg_nmbr();
-void get_materials();
+void fill_update_array(int *bp, struct sctstr *sp);
+int *get_wp(int *bp, struct sctstr *sp, int cm);
+int gt_bg_nmbr(int *bp, struct sctstr *sp, int comm);
+void pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount);
+void get_materials(struct sctstr *sp, int *bp, int *mvec, int check);
 
 extern int mil_dbl_pay;

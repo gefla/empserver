@@ -53,7 +53,6 @@
 int
 diss(void)
 {
-    int quit(void);
     struct sctstr sect;
     struct lndstr land;
     struct shpstr ship;

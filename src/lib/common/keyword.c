@@ -110,8 +110,6 @@ kw_find(s_char *name)
 s_char *
 kw_parse(int type, s_char *text, int *data)
 {
-    s_char *get_time(s_char *ptr, int *data);
-    s_char *weekday(s_char *ptr, int *data);
     s_char *next;
 
     while (isspace(*text))

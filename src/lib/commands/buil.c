@@ -31,6 +31,7 @@
  *      Steve McClure, 1998-2000
  */
 
+#include <math.h>
 #ifdef Rel4
 #include <string.h>
 #endif /* Rel4 */
@@ -68,9 +69,6 @@ static int build_plane(register struct sctstr *sp,
 		       int tlev);
 
 static int cash;		/* static ok */
-
-double sqrt(double);
-double logx();
 
 extern int morale_base;
 extern int sect_mob_neg_factor;
@@ -494,7 +492,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     int points;
     struct natstr *natp;
     float eff = ((float)LAND_MINEFF / 100.0);
-    double techfact(int, double);
     int mil, lcm, hcm, gun, shell;
     int freeland = 0;
 

@@ -87,7 +87,7 @@ static int quiet = 0;
 #define PLATMIN		36	/* plate altitude for plateau */
 #define HIGHMIN		98	/* plate altitude for mountains */
 
-static void qprint _PROTO((const char *str));
+static void qprint(const char *str);
 
 static const char *outfile = "newcap_script";
 /* mark the continents with a * so you can tell them
@@ -170,10 +170,10 @@ void translate_continents(void);
 int map_symbol(int x, int y);
 static void fl_sct_init(coord x, coord y, s_char *ptr);
 
-void print_vars();
+void print_vars(void);
 void fl_move(int);
-void next_coast();
-void grow_islands();
+void next_coast(int c, int x, int y, int *xp, int *yp);
+void grow_islands(void);
 
 /****************************************************************************
   MAIN
@@ -262,7 +262,7 @@ main(int argc, char *argv[])
 }
 
 void
-print_vars()
+print_vars(void)
 {
     if (quiet)
 	return;
@@ -279,9 +279,8 @@ print_vars()
     printf("World dimensions: %dx%d\n", WORLD_X, WORLD_Y);
 }
 
-int
-my_sqrt(n)
-int n;
+static int
+my_sqrt(int n)
 {
     int i;
 
@@ -492,9 +491,8 @@ init(void)
 
 /* How isolated is capital j?
 */
-int
-iso(j, newx, newy)
-int j, newx, newy;
+static int
+iso(int j, int newx, int newy)
 {
     int i, md, d = WORLD_X + WORLD_Y;
 
@@ -550,8 +548,7 @@ stable(void)
 */
 
 void
-fl_move(j)
-int j;
+fl_move(int j)
 {
     int i, n, newx, newy;
 
@@ -573,9 +570,8 @@ int j;
 /* Look for a coastal sector of continent c
 */
 
-void
-find_coast(c)
-int c;
+static void
+find_coast(int c)
 {
     int i, j;
 
@@ -589,9 +585,8 @@ int c;
 
 /* Used for measuring distances
 */
-int
-next_vector(n)
-int n;
+static int
+next_vector(int n)
 {
     int i;
 
@@ -608,9 +603,8 @@ int n;
 
 /* Test to see if we're allowed to grow there: the arguments di and id
 */
-int
-try_to_grow(c, newx, newy, d)
-int c, newx, newy, d;
+static int
+try_to_grow(int c, int newx, int newy, int d)
 {
     int i, j, px, py;
 
@@ -640,8 +634,7 @@ int c, newx, newy, d;
 */
 
 void
-next_coast(c, x, y, xp, yp)
-int c, x, y, *xp, *yp;
+next_coast(int c, int x, int y, int *xp, int *yp)
 {
     int i, nx, ny, wat = 0;
 
@@ -667,7 +660,7 @@ int c, x, y, *xp, *yp;
 /* Choose a sector to grow from
 */
 
-int
+static int
 new_try(int c)
 {
     int i, starti;
@@ -695,9 +688,8 @@ new_try(int c)
 /* Grow continent c by 1 sector
 */
 
-int
-grow_one_sector(c)
-int c;
+static int
+grow_one_sector(int c)
 {
     int done, coast_search, try1, x, y, newx, newy, i, n, sx, sy;
 
@@ -774,9 +766,8 @@ grow_continents(void)
 
 /* Choose a place to start growing an island from
 */
-int
-place_island(c, xp, yp)
-int c, *xp, *yp;
+static int
+place_island(int c, int *xp, int *yp)
 {
     int d, sx, sy;
     int ssy = rnd(WORLD_Y);
@@ -806,7 +797,7 @@ int c, *xp, *yp;
 */
 
 void
-grow_islands()
+grow_islands(void)
 {
     int c, x, y, isiz;
 
@@ -839,9 +830,8 @@ create_elevations(void)
 /* Generic function for finding the distance to the closest sea, land, or
    mountain
 */
-int
-distance_to_what(x, y, flag)
-int x, y, flag;
+static int
+distance_to_what(int x, int y, int flag)
 {
     int j, d, px, py;
 
@@ -987,9 +977,8 @@ elevate_sea(void)
   ADD THE RESOURCES
 ****************************************************************************/
 
-int
-set_fert(e)
-int e;
+static int
+set_fert(int e)
 {
     int fert = 0;
     if (e < LANDMIN)
@@ -1001,9 +990,8 @@ int e;
     return fert;
 }
 
-int
-set_oil(e)
-int e;
+static int
+set_oil(int e)
 {
     int oil = 0;
     if (e < LANDMIN)
@@ -1015,9 +1003,8 @@ int e;
     return oil;
 }
 
-int
-set_iron(e)
-int e;
+static int
+set_iron(int e)
 {
     int iron = 0;
     if (e >= IRON_MIN && e < HIGHMIN)
@@ -1027,9 +1014,8 @@ int e;
     return iron;
 }
 
-int
-set_gold(e)
-int e;
+static int
+set_gold(int e)
 {
     int gold = 0;
     if (e >= GOLD_MIN) {
@@ -1043,9 +1029,8 @@ int e;
     return gold;
 }
 
-int
-set_uran(e)
-int e;
+static int
+set_uran(int e)
 {
     int uran = 0;
     if (e >= URAN_MIN && e < HIGHMIN)
@@ -1055,9 +1040,8 @@ int e;
     return uran;
 }
 
-void
-add_resources(sct)
-struct sctstr *sct;
+static void
+add_resources(struct sctstr *sct)
 {
     sct->sct_fertil = set_fert(sct->sct_elev);
     sct->sct_oil = set_oil(sct->sct_elev);
@@ -1249,8 +1233,7 @@ write_newcap_script(void)
 }
 
 static void
-qprint(str)
-const char *str;
+qprint(const char *str)
 {
     if (quiet == 0)
 	fputs(str, stdout);

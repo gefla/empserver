@@ -48,7 +48,8 @@ static struct lwpProc *tempcontext;
 struct lwpProc *initcontext = NULL;
 int startpoint;
 
-startcontext()
+static void
+startcontext(void)
 {
     int space[10000];
     int x;
@@ -64,9 +65,7 @@ startcontext()
 }
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     struct lwpProc holder;
     int endpoint;
@@ -96,9 +95,7 @@ void *sp;
 #elif defined(hpux)
 
 void
-lwpInitContext(newp, sp)
-volatile struct lwpProc *volatile newp;
-void *sp;
+lwpInitContext(volatile struct lwpProc *volatile newp, void *sp)
 {
     static jmp_buf *cpp;
     extern struct lwpProc *LwpCurrent;
@@ -113,8 +110,7 @@ void *sp;
 }
 
 int
-lwpSave(jb)
-jmp_buf jb;
+lwpSave(jmp_buf jb)
 {
     /* save stack pointer and return program counter */
     asm("stw	%sp, 4(%arg0)");
@@ -149,8 +145,7 @@ jmp_buf jb;
 }
 
 void
-lwpRestore(jb)
-jmp_buf jb;
+lwpRestore(jmp_buf jb)
 {
     /* restore stack pointer and program counter */
     asm volatile ("ldw	4(%arg0), %sp");
@@ -185,9 +180,7 @@ jmp_buf jb;
 
 #elif defined(BSD386)
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     newp->context[2] = (int)sp;
     newp->context[0] = (int)lwpEntryPoint;
@@ -196,9 +189,7 @@ void *sp;
 #elif defined(FBSD)
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     setjmp(newp->context);
     newp->context->_jb[2] = (int)sp;
@@ -209,9 +200,7 @@ void *sp;
 #elif defined(__linux__)
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
 #if defined(__GLIBC__) && (__GLIBC__ >= 2)
 #if defined(__PPC__)
@@ -232,9 +221,7 @@ void *sp;
 #elif defined(SUN3)
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     newp->context[2] = (int)sp;
     newp->context[3] = (int)lwpEntryPoint;
@@ -245,9 +232,7 @@ void *sp;
 #include <stdio.h>
 
 void
-lwpInitContext(newp, stack)
-struct lwpProc *newp;
-void *stack;
+lwpInitContext(struct lwpProc *newp, void *stack)
 {
     int *sp = (int *)stack;
     int *fp = 0;
@@ -282,8 +267,7 @@ void *stack;
 }
 
 int
-lwpSave(jb)
-jmp_buf jb;
+lwpSave(jmp_buf jb)
 {
     asm("movl 4(ap), r0");	/* r0 = &jb */
     asm("movl r6, (r0)");	/* jb[0] = r6 */
@@ -298,8 +282,7 @@ jmp_buf jb;
 }
 
 void
-lwpRestore(jb)
-jmp_buf jb;
+lwpRestore(jmp_buf jb)
 {
     asm("movl 4(ap), r0");	/* r0 = &jb */
     asm("movl (r0), r6");	/* r6 = jb[0] */
@@ -319,9 +302,7 @@ jmp_buf jb;
 #elif defined(SUN4)
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     static jmp_buf *cpp;
     extern struct lwpProc *LwpCurrent;
@@ -377,9 +358,7 @@ void *sp;
  */
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     newp->context[4] = (int)sp;
     newp->context[5] = (int)lwpEntryPoint;
@@ -395,9 +374,7 @@ void *sp;
  */
 
 void
-lwpInitContext(newp, spp)
-struct lwpProc *newp;
-stack_t *spp;
+lwpInitContext(struct lwpProc *newp, stack_t *spp)
 {
     getcontext(&(newp->context));
     newp->context.uc_stack.ss_sp = spp->ss_sp;
@@ -410,9 +387,7 @@ stack_t *spp;
 #include <c_asm.h>
 
 void
-lwpInitContext(newp, sp)
-struct lwpProc *newp;
-void *sp;
+lwpInitContext(struct lwpProc *newp, void *sp)
 {
     extern long *_gp;
 
@@ -425,15 +400,13 @@ void *sp;
 }
 
 int
-lwpSave(jb)
-jmp_buf jb;
+lwpSave(jmp_buf jb)
 {
     return _setjmp(jb);
 }
 
 void
-lwpRestore(jb)
-jmp_buf jb;
+lwpRestore(jmp_buf jb)
 {
     /* resume, but get the pv from the jmp_buf */
     asm("ldq	%pv, 248(%a0)");

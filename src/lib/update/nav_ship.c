@@ -241,7 +241,6 @@ nav_loadship(register struct shpstr *sp, natid cnum)
 int
 nav_ship(register struct shpstr *sp)
 {
-    extern double techfact(int, double);
     struct sctstr *sectp;
     s_char *cp, item;
     int stopping;

@@ -67,7 +67,6 @@ anti(void)
     double odds, damil, dache;
     int mob;
     int n_cheleft;
-    extern double hap_fact();
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

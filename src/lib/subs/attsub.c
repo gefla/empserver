@@ -157,9 +157,7 @@ prcom(int inon, struct combat *com)
 
 /* Doing a sneak attack */
 static void
-do_sneak(def, success)
-struct combat *def;
-int success;
+do_sneak(struct combat *def, int success)
 {
     struct sctstr sect;
     struct natstr *natp = getnatp(player->cnum);
@@ -1147,7 +1145,6 @@ att_combat_eff(struct combat *com)
 {
     double eff = 1.0;
     double str;
-    double sector_strength(struct sctstr *sp);
     struct shpstr ship;
 
     if (com->type == EF_SECTOR) {

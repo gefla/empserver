@@ -48,7 +48,7 @@ int
 best(void)
 {
     double cost;
-    s_char *BestDistPath(), *BestLandPath(), *s;
+    s_char *s;
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
     s_char buf[1024];

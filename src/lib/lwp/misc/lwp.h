@@ -23,14 +23,6 @@
 #ifndef _LWP_H
 #define _LWP_H
 
-#ifndef _PROTO
-#ifdef __cplusplus
-#define _PROTO(x)	x
-#else
-#define _PROTO(x)	()
-#endif
-#endif
-
 #include <setjmp.h>
 #include <sys/time.h>
 
@@ -67,24 +59,23 @@ struct lwpSem {
 
 #define LWP_MAX_PRIO	8
 
-struct lwpProc *lwpInitSystem _PROTO((int));
-struct lwpProc *lwpCreate
-_PROTO((int, void (*)(), int, int, char **, void *));
-void lwpExit _PROTO((void));
-void lwpTerminate _PROTO((struct lwpProc *));
-void lwpYield _PROTO((void));
-void lwpSleepFd _PROTO((int fd, int flags));
-void lwpSleepUntil _PROTO((long until));
-void lwpWakeupFd _PROTO((struct lwpProc *));
-void *lwpGetUD _PROTO((struct lwpProc *));
-void lwpSetUD _PROTO((struct lwpProc *, char *));
-int lwpSetPriority _PROTO((int));
-void lwpReschedule _PROTO(());
+struct lwpProc *lwpInitSystem(int);
+struct lwpProc *lwpCreate(int, void (*)(void *), int, int, char **, void *);
+void lwpExit(void);
+void lwpTerminate(struct lwpProc *);
+void lwpYield(void);
+void lwpSleepFd(int fd, int flags);
+void lwpSleepUntil(long until);
+void lwpWakeupFd(struct lwpProc *);
+void *lwpGetUD(struct lwpProc *);
+void lwpSetUD(struct lwpProc *, char *);
+int lwpSetPriority(int);
+void lwpReschedule();
 
-struct lwpSem *lwpCreateSem _PROTO((int));
-void lwpSignal _PROTO((struct lwpSem *));
-void lwpWait _PROTO((struct lwpSem *));
-void lwpSelect _PROTO((int argc, char **argv));
+struct lwpSem *lwpCreateSem(int);
+void lwpSignal(struct lwpSem *);
+void lwpWait(struct lwpSem *);
+void lwpSelect(int argc, char **argv);
 
 extern struct lwpProc *LwpCurrent;
 

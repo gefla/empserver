@@ -148,7 +148,6 @@ int
 print_found(struct shiplook *head)
 {
     struct shiplook *s;
-    extern s_char *effadv(int);
     int first;
     struct mchrstr *mp;
     struct shpstr ship;

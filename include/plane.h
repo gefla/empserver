@@ -165,14 +165,10 @@ struct shiplook {
 #define PLN_LOAD(b, t) (t ? (b * (logx((double)t, (double)50.0) < 1.0 ? 1.0 : \
 				  logx((double)t, (double)50.0))) : b)
 
-double sqrt();
-double logx();
-
-float pln_damage_sect();
+double logx(double d, double base);
 
 void count_planes();
-double sqrt();
-s_char *prplane();
+s_char *prplane(struct plnstr *pp);
 
 
 /* src/lib/subs/aircombat.c */

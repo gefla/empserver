@@ -71,8 +71,6 @@ static long
 do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	int for_real)
 {
-    extern int opt_NO_LCMS;
-    extern int opt_NO_HCMS;
     register int n;
     s_char *p;
     int breaksanct;

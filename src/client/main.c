@@ -72,27 +72,25 @@ HANDLE hStdIn;
 int interrupt;
 int sock;
 
-void saveargv();
-void getsose();
-int hostport();
-int hostaddr();
-int hostconnect();
-int login();
-void ioq_init();
-void io_init();
-int handleintr();
-int termio();
-int serverio();
-void servercmd();
-void ioq_drain();
+void saveargv(int ac, s_char **src, s_char **dst);
+void getsose(void);
+int hostport(s_char *name, struct sockaddr_in *addr);
+int hostaddr(s_char *name, struct sockaddr_in *addr);
+int hostconnect(struct sockaddr_in *addr);
+int login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc);
+void ioq_init(struct ioqueue *ioq, int bsize);
+void io_init(void);
+int handleintr(int);
+int termio(int fd, int sock, FILE *auxfi);
+int serverio(int s, struct ioqueue *ioq);
+void servercmd(struct ioqueue *ioq, FILE *auxfi);
+void ioq_drain(struct ioqueue *ioq);
 
 static void intr(int sig);
 
 
 int
-main(ac, av)
-int ac;
-s_char *av[];
+main(int ac, s_char **av)
 {
 #ifdef _WIN32
     WSADATA WsaData;

@@ -111,9 +111,7 @@ static int
 cons_choose(struct ltcomstr *ltcp)
 {
     s_char *p;
-    extern int disloan();
-    extern int distrea();
-    int (*dis) ();
+    int (*dis)();
     struct lonstr *lp;
     struct trtstr *tp;
     s_char prompt[128];

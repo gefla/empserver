@@ -165,9 +165,9 @@ extern struct as_path *as_find_cachepath(coord fx,
 /* Functions that are "private" to algorithm */
 
 extern void as_add_cachepath(struct as_data *adp);
-extern void as_clear_cachepath();
-extern void as_enable_cachepath();
-extern void as_disable_cachepath();
+extern void as_clear_cachepath(void);
+extern void as_enable_cachepath(void);
+extern void as_disable_cachepath(void);
 
 extern void as_makepath(struct as_data *adp);
 extern void as_free_path(struct as_path *pp);

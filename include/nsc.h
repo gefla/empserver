@@ -34,7 +34,6 @@
 #ifndef _NSC_H_
 #define _NSC_H_
 
-#include "prototype.h"
 #include "xy.h"
 
 #define NS_LSIZE	128
@@ -55,7 +54,7 @@ struct nstr_sect {
     struct range range;		/* area of coverage */
     int dist;			/* dist query: range */
     coord cx, cy;		/* dist query: center x-y */
-    int (*read) ();		/* read function */
+    int (*read)(int type, int id, caddr_t ptr);	/* read function */
     int ncond;			/* # of selection conditions */
     struct nscstr cond[NS_NCOND];	/* selection conditions */
 };
@@ -72,7 +71,7 @@ struct nstr_item {
     int size;			/* NS_LIST: size of list */
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */
-    int (*read) ();		/* read function */
+    int (*read)(int type, int id, caddr_t ptr);	/* read function */
     int flags;			/* EFF_ flags */
     int ncond;			/* # of selection conditions */
     struct nscstr cond[NS_NCOND];	/* selection conditions */
@@ -161,6 +160,6 @@ extern s_char *nstr_comp(struct nscstr *, int *, int, s_char *);
 extern int encode(register s_char *, long *, int);
 
 
-extern s_char *decodep _PROTO((register long code, register void *addr));
+extern s_char *decodep(register long code, register void *addr);
 
 #endif /* _NSC_H_ */

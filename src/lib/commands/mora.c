@@ -53,7 +53,6 @@ morale(void)
     int i, min;
     s_char *p;
     s_char mess[128];
-    double techfact(int, double);
     s_char buf[1024];
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))

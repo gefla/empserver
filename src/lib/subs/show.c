@@ -41,6 +41,7 @@
  *                                    (bailey@mcs.kent.edu)
  */
 
+#include <math.h>
 #include "misc.h"
 #include "player.h"
 #include "nuke.h"
@@ -55,8 +56,6 @@
 #include "nat.h"
 #include "prototypes.h"
 
-double sqrt(double);
-double logx(double, double);
 
 /*
  * This cruft really belongs in the empglb.c file.
