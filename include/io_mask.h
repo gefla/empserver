@@ -37,15 +37,14 @@
 struct io_mask {
     int what;
     int maxfd;
-    bit_fdmask readmask;
-    bit_fdmask user_readmask;
-    bit_fdmask writemask;
-    bit_fdmask user_writemask;
+    fd_set *readmask;
+    fd_set *user_readmask;
+    fd_set *writemask;
+    fd_set *user_writemask;
 };
 
 extern struct io_mask *iom_create(int);
-extern void iom_getmask(struct io_mask *, int *, bit_fdmask *,
-			bit_fdmask *);
+extern void iom_getmask(struct io_mask *, int *, fd_set **, fd_set **);
 extern void iom_set(struct io_mask *, int, int);
 extern void iom_clear(struct io_mask *, int, int);
 extern void iom_zero(struct io_mask *, int);

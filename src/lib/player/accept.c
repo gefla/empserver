@@ -33,7 +33,6 @@
 
 #include "prototypes.h"
 #include "misc.h"
-#include "bit.h"
 #include "proto.h"
 #include "empthread.h"
 #include "player.h"

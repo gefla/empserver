@@ -31,10 +31,8 @@
  *     
  */
 
-#include <stdlib.h>		/* malloc */
-#include <errno.h>
+#include <stdlib.h>
 #include "misc.h"
-#include "bit.h"
 #include "empio.h"
 #include "io_mask.h"
 
@@ -45,15 +43,19 @@ iom_create(int what)
 
     imp = (struct io_mask *)malloc(sizeof(*imp));
     if (what & IO_READ) {
-	imp->readmask = bit_newfdmask();
-	imp->user_readmask = bit_newfdmask();
+	imp->readmask = malloc(sizeof(*imp->readmask));
+	FD_ZERO(imp->readmask);
+	imp->user_readmask = malloc(sizeof(*imp->user_readmask));
+	FD_ZERO(imp->user_readmask);
     } else {
 	imp->readmask = 0;
 	imp->user_readmask = 0;
     }
     if (what & IO_WRITE) {
-	imp->writemask = bit_newfdmask();
-	imp->user_writemask = bit_newfdmask();
+	imp->writemask = malloc(sizeof(*imp->writemask));
+	FD_ZERO(imp->writemask);
+	imp->user_writemask = malloc(sizeof(*imp->user_writemask));
+	FD_ZERO(imp->user_writemask);
     } else {
 	imp->writemask = 0;
 	imp->user_writemask = 0;
@@ -64,16 +66,16 @@ iom_create(int what)
 }
 
 void
-iom_getmask(struct io_mask *mask, int *nfdp, bit_fdmask *readp,
-	    bit_fdmask *writep)
+iom_getmask(struct io_mask *mask,
+	    int *maxfdp, fd_set **readp, fd_set **writep)
 {
     if (mask->what & IO_READ)
-	bit_copy(mask->readmask, mask->user_readmask);
+	*mask->user_readmask = *mask->readmask;
     if (mask->what & IO_WRITE)
-	bit_copy(mask->writemask, mask->user_writemask);
+	*mask->user_writemask = *mask->writemask;
     *readp = mask->user_readmask;
     *writep = mask->user_writemask;
-    *nfdp = mask->maxfd;
+    *maxfdp = mask->maxfd;
 }
 
 void
@@ -82,9 +84,9 @@ iom_set(struct io_mask *mask, int what, int fd)
     if ((mask->what & what) == 0)
 	return;
     if (what & IO_READ)
-	BIT_SETB(fd, mask->readmask);
+	FD_SET(fd, mask->readmask);
     if (what & IO_WRITE)
-	BIT_SETB(fd, mask->writemask);
+	FD_SET(fd, mask->writemask);
     if (fd > mask->maxfd)
 	mask->maxfd = fd;
 }
@@ -95,9 +97,9 @@ iom_clear(struct io_mask *mask, int what, int fd)
     if ((mask->what & what) == 0)
 	return;
     if (what & IO_READ)
-	BIT_CLRB(fd, mask->readmask);
+	FD_CLR(fd, mask->readmask);
     if (what & IO_WRITE)
-	BIT_CLRB(fd, mask->writemask);
+	FD_CLR(fd, mask->writemask);
 }
 
 void
@@ -106,7 +108,7 @@ iom_zero(struct io_mask *mask, int what)
     if ((mask->what & what) == 0)
 	return;
     if (what & IO_READ)
-	bit_zero(mask->readmask);
+	FD_ZERO(mask->readmask);
     if (what & IO_WRITE)
-	bit_zero(mask->writemask);
+	FD_ZERO(mask->writemask);
 }

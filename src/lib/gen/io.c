@@ -56,7 +56,6 @@
 #endif
 
 #include "misc.h"
-#include "bit.h"
 #include "queue.h"
 #include "ioqueue.h"
 #include "io_mask.h"
@@ -69,7 +68,8 @@ extern struct player *player;	/* XXX */
 
 static struct iop **io_list;
 static struct io_mask *iom;
-static bit_fdmask newoutput;
+static int fdmax;		/* largest file descriptor seen */
+static fd_set newoutput;
 
 struct iop {
     int fd;
@@ -86,7 +86,8 @@ io_init(void)
 {
     iom = iom_create(IO_READ | IO_WRITE);
     io_list = (struct iop **)calloc(getfdtablesize(), sizeof(*io_list));
-    newoutput = bit_newfdmask();
+    fdmax = 0;
+    FD_ZERO(&newoutput);
 }
 
 struct iop *
@@ -119,6 +120,7 @@ io_open(int fd, int flags, int bufsize, int (*notify) (void),
     iop->notify = notify;
     io_list[fd] = iop;
     iom_set(iom, flags, fd);
+    if (fd > fdmax) fdmax = fd;
     return iop;
 }
 
@@ -131,7 +133,7 @@ io_close(struct iop *iop)
     if (iop->output != 0)
 	ioq_destroy(iop->output);
     iom_clear(iom, iop->flags, iop->fd);
-    BIT_CLRB(iop->fd, newoutput);
+    FD_CLR(iop->fd, &newoutput);
     io_list[iop->fd] = 0;
 #if !defined(_WIN32)
     (void)close(iop->fd);
@@ -225,7 +227,7 @@ io_output(struct iop *iop, int waitforoutput)
 	return 0;
 
     /* bit clear */
-    BIT_CLRB(iop->fd, newoutput);
+    FD_CLR(iop->fd, &newoutput);
 
     /* If the iop is not write enabled. */
     if ((iop->flags & IO_WRITE) == 0)
@@ -332,33 +334,35 @@ io_output(struct iop *iop, int waitforoutput)
 int
 io_select(struct timeval *tv)
 {
-    bit_fdmask readmask;
-    bit_fdmask writemask;
+    fd_set *readmask;
+    fd_set *writemask;
     int n;
-    int nfds;
+    int maxfd;
     int fd;
     struct iop *iop;
 
-    iom_getmask(iom, &nfds, &readmask, &writemask);
-    n = select(nfds + 1, (fd_set *) readmask, (fd_set *) writemask, 0, tv);
+    iom_getmask(iom, &maxfd, &readmask, &writemask);
+    n = select(maxfd + 1, readmask, writemask, NULL, tv);
     if (n <= 0) {
 	if (errno == EINTR)
 	    return 0;
 	return -1;
     }
-    while ((fd = bit_fd(readmask)) >= 0) {
+    for (fd = 0; fd <= maxfd; ++fd) {
+	if (!FD_ISSET(fd, readmask)) continue;
 	iop = io_list[fd];
 	if ((iop->flags & IO_NEWSOCK) == 0)
 	    (void)io_input(iop, IO_NOWAIT);
 	if (iop->notify != 0)
 	    iop->notify(iop, IO_READ, iop->assoc);
-	BIT_CLRB(fd, readmask);
+	FD_CLR(fd, readmask);
     }
-    while ((fd = bit_fd(writemask)) >= 0) {
+    for (fd = 0; fd <= maxfd; ++fd) {
+	if (!FD_ISSET(fd, writemask)) continue;
 	iop = io_list[fd];
 	if (io_output(iop, IO_NOWAIT) < 0 && iop->notify != 0)
 	    iop->notify(iop, IO_WRITE, iop->assoc);
-	BIT_CLRB(fd, writemask);
+	FD_CLR(fd, writemask);
     }
     return n;
 }
@@ -369,7 +373,8 @@ io_flush(int doWait)
     int fd;
     struct iop *iop;
 
-    while ((fd = bit_fd(newoutput)) >= 0) {
+    for (fd = 0; fd <= fdmax; ++fd) {
+	if (!FD_ISSET(fd, &newoutput)) continue;
 	iop = io_list[fd];
 	if (io_output(iop, doWait) < 0 && iop->notify != 0)
 	    iop->notify(iop, IO_WRITE, iop->assoc);
@@ -405,7 +410,7 @@ io_write(struct iop *iop, s_char *buf, int nbytes, int doWait)
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
     ioq_append(iop->output, buf, nbytes);
-    BIT_SETB(iop->fd, newoutput);
+    FD_SET(iop->fd, &newoutput);
     len = ioq_qsize(iop->output);
     if (len > iop->bufsize) {
 	if (doWait) {
@@ -443,7 +448,7 @@ io_puts(struct iop *iop, s_char *buf)
 {
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
-    BIT_SETB(iop->fd, newoutput);
+    FD_SET(iop->fd, &newoutput);
     return ioq_puts(iop->output, buf);
 }
 
