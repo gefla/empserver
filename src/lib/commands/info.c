@@ -109,7 +109,8 @@ info(void)
 	/* may be a "partial" request.  */
 	info_dp = opendir(infodir);
 	if (info_dp == 0) {
-	    pr("Can't open info dir \"%s\"\n", infodir);
+	    pr("Can't open info dir\n");
+	    logerror("Can't open info dir \"%s\"\n", infodir);
 	    return RET_SYS;
 	}
 	rewinddir(info_dp);
@@ -126,15 +127,17 @@ info(void)
 	}
     }
     if (fstat(fileno(fp), &statb) < 0) {
-	pr("Cannot read info page for \"%s\" (%s)\n",
-	   dp->d_name, strerror(errno));
+	pr("Error reading info file for %s\n", bp);
+	logerror("Cannot fstat for \"%s\" info file (%s)",
+	    filename, strerror(errno));
 	fclose(fp);
 	return RET_SYS;
     }
     if ((statb.st_mode & S_IFREG) == 0) {
-	pr("There is no available information on \"%s\"\n", dp->d_name);
+	pr("Error reading info file for %s\n", bp);
+	logerror("The info file \"%s\" is not regular file\n", filename);
 	fclose(fp);
-	return RET_FAIL;
+	return RET_SYS;
     }
     pr("Information on:  %s    Last modification date: %s",
        bp, ctime(&statb.st_mtime));
@@ -268,7 +271,7 @@ info(void)
     }
 
     strncpy(filename, infodir, sizeof(filename) - 2);
-    strcat(filename, "//");
+    strcat(filename, "\\");
     strncat(filename, bp, sizeof(filename) - 1 - strlen(filename));
     fp = fopen(filename, "r");
     if (fp == NULL) {
@@ -282,12 +285,16 @@ info(void)
 	    switch (GetLastError()) {
 	    case ERROR_FILE_NOT_FOUND:
 		pr("Sorry, there is no info on %s\n", bp);
+		return RET_FAIL;
 		break;
 	    case ERROR_PATH_NOT_FOUND:
-		pr("Can't open info dir \"%s\"\n", infodir);
+		pr("Can't open info dir\n");
+		logerror("Can't open info dir \"%s\"", infodir);
 		break;
 	    default:
-		pr("Error getting info file \"%s\"\n", filename);
+		pr("Error reading info dir\n");
+		logerror("Error (%d) reading info dir(%s)/file(%s)",
+		    infodir, filename, GetLastError());
 	    }
 	    return RET_SYS;
 	}
@@ -297,7 +304,7 @@ info(void)
 		 (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY)) &&
 		(strnccmp(bp, fData.cFileName, len) == 0)) {
 		strncpy(filename, infodir, sizeof(filename) - 2);
-		strcat(filename, "//");
+		strcat(filename, "\\");
 		strncat(filename, fData.cFileName,
 			sizeof(filename) - 1 - strlen(filename));
 		fp = fopen(filename, "r");
@@ -309,6 +316,19 @@ info(void)
 	    return RET_FAIL;
 	}
     }
+    else {
+	DWORD fAttrib = GetFileAttributes(filename);
+	if ((fAttrib == (DWORD)-1) && //INVALID_FILE_ATTRIBUTES
+	    (fAttrib != FILE_ATTRIBUTE_NORMAL) &&
+	    (fAttrib != FILE_ATTRIBUTE_ARCHIVE) &&
+	    (fAttrib != FILE_ATTRIBUTE_READONLY)) {
+	    pr("Error reading info file for %s\n", bp);
+	    logerror("The info file \"%s\" is not regular file\n", filename);
+	    fclose(fp);
+	    return RET_SYS;
+	}
+    }
+
     pr("Information on:  %s", bp);
     while (fgets(buf, sizeof(buf), fp) != 0)
 	pr("%s", buf);
