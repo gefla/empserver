@@ -256,15 +256,15 @@ prod(void)
 	i = 0;
 	for (j = 0; j < MAXPRCON; ++j) {
 	    it = pp->p_ctype[j];
-	    if (it > I_NONE && it <= I_MAX && ichr[it].i_name != 0) {
+	    if (it > I_NONE && it <= I_MAX && ichr[it].i_mnem != 0) {
 		if (CANT_HAPPEN(i >= 3))
 		    break;
 		sprintf(use[i], "%4d%c",
 			(int)((take * (double)pp->p_camt[j]) + 0.5),
-			ichr[it].i_name[0]);
+			ichr[it].i_mnem);
 		sprintf(maxc[i], "%4d%c",
 			(int)((mtake * (double)pp->p_camt[j]) + 0.5),
-			ichr[it].i_name[0]);
+			ichr[it].i_mnem);
 		++i;
 	    }
 	}
@@ -278,15 +278,16 @@ prod(void)
 
 	if (nsect++ == 0) {
 	    pr("PRODUCTION SIMULATION\n");
-	    pr("   sect  des eff  will make    p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
+	    pr("   sect  eff des avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
 	}
 
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c", dchr[type].d_mnem);
 	pr(" %3.0f%%", p_e * 100.0);
+	pr(" %5d", work);
 
 	if (vtype != I_NONE) {
-	    pr(" %5d", (int)(real + 0.5));
+	    pr(" %4d%c", (int)(real + 0.5), ichr[vtype].i_mnem);
 	} else if (type != SCT_ENLIST) {
 	    switch (pp->p_level) {
 	    case NAT_TLEV:
@@ -295,7 +296,7 @@ prod(void)
 		break;
 	    case NAT_ELEV:
 	    case NAT_HLEV:
-		pr(" %5.0f", real);
+		pr(" %4.0f ", real);
 		break;
 	    default:
 		CANT_HAPPEN("bad TYPE");
@@ -328,12 +329,12 @@ prod(void)
 	    if (natp->nat_priorities[type] == 0) {
 		maxmil = 0;
 	    }
-	    pr(" %5d mil     1.00 $%-5d%4dc           %4dc           %5d\n",
-	       enlisted, enlisted * 3, enlisted, enlisted, maxmil);
+	    pr(" %4d%c 1.00 $%-5d%4dc           %4dc           %5d\n",
+	       enlisted, ichr[I_MILIT].i_mnem, enlisted * 3,
+	       enlisted, enlisted, maxmil);
 	    continue;
 	}
 
-	pr(" %-7.7s", pp->p_sname);
 	pr(" %.2f", prodeff);
 	pr(" $%-5d", cost);
 	for (i = 0; i < 3; i++) {
