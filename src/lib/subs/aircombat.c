@@ -300,6 +300,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     memset(lnats, 0, sizeof(lnats));
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    continue;
 	lnats[land.lnd_own]++;
     }
 
