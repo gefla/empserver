@@ -139,10 +139,6 @@ bomb(void)
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target sector is %s\n", xyas(tx, ty, player->cnum));
     getsect(tx, ty, &target);
-    if (target.sct_type == SCT_SANCT) {
-	pr("You can't bomb that sector!\n");
-	return RET_SYN;
-    }
     ip = 0;
     ap_to_target = strlen(flightpath);
     if (*(flightpath + strlen(flightpath) - 1) == 'h')
@@ -178,6 +174,8 @@ bomb(void)
 		 0, 0, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
+    } else if (target.sct_type == SCT_SANCT) {
+	pr("You can't bomb that sector!\n");
     } else {
 	switch (mission) {
 	case 'p':
