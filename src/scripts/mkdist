@@ -1,7 +1,11 @@
 #!/bin/sh -e
 tar='tar --owner=0 --group=0 --mode=ug+w,a+rX'
-srvdir=emp4
-clidir=client
+name=empire
+version=4.2.13			# FIXME automate
+srvdir=$name-$version
+clidir=$name-client-$version
+txtdir=$name-info-text-$version
+htmdir=$name-info-html-$version
 
 # arrange cleanup
 trap 'rm -rf dist' 0
@@ -32,6 +36,9 @@ done
 mkdir dist/srv/info.nr
 ln info.nr/* dist/srv/info.nr
 ln info/Subjects/*.t dist/srv/info/Subjects
+mkdir dist/txt dist/htm
+ln info.nr/* dist/txt
+ln info.html/* dist/htm
 
 # modifications for standalone client
 mv dist/cli/Makefile.standalone dist/cli/Makefile
@@ -39,8 +46,10 @@ ln src/client/ipglob.c dist/cli
 
 # bake tarballs
 mv dist/srv dist/$srvdir
-$tar -czf empire.tar.gz -C dist $srvdir
+$tar -czf $srvdir.tar.gz -C dist $srvdir
 mv dist/cli dist/$clidir
-$tar -czf client.tar.gz -C dist $clidir
-$tar -czf info.text.tar.gz info.nr
-$tar -czf info.html.tar.gz info.html
+$tar -czf $clidir.tar.gz -C dist $clidir
+mv dist/txt dist/$txtdir
+$tar -czf $txtdir.tar.gz -C dist $txtdir
+mv dist/htm dist/$htmdir
+$tar -czf $htmdir.tar.gz -C dist $htmdir
