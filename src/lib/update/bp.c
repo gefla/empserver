@@ -44,8 +44,7 @@
 static int bud_key[I_MAX + 2] =
     { 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
 
-int
-*
+int *
 get_wp(int *bp, struct sctstr *sp, int cm)
 {
     return (bp + (sp->sct_x + (sp->sct_y * WORLD_X)) +
