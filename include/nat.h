@@ -142,7 +142,7 @@ extern s_char *relates[];
 /* procedures relating to nation stuff */
 
 #define putnat(n) \
-	ef_write(EF_NATION, n->nat_cnum, (caddr_t)n)
+	ef_write(EF_NATION, n->nat_cnum, n)
 #define getnatp(n) \
 	(struct natstr *) ef_ptr(EF_NATION, (int)n)
 

@@ -207,7 +207,7 @@ expose_ship(struct shpstr *s1, struct shpstr *s2)
  */
 
 int
-tend_nxtitem(struct nstr_item *np, caddr_t ptr)
+tend_nxtitem(struct nstr_item *np, void *ptr)
 {
     struct genitem *gp;
     int selected;

@@ -144,7 +144,7 @@ cons_choose(struct ltcomstr *ltcp)
     sprintf(prompt, "%s number? ", ltcp->Name);
     if ((ltcp->num = onearg(player->argp[2], prompt)) < 0)
 	return RET_SYN;
-    if (!ef_read(ltcp->type, ltcp->num, (caddr_t)&ltcp->u) ||
+    if (!ef_read(ltcp->type, ltcp->num, &ltcp->u) ||
 	!(ltcp->type == EF_TREATY
 	  ? distrea(ltcp->num, &ltcp->u.t)
 	  : disloan(ltcp->num, &ltcp->u.l))) {
@@ -204,7 +204,7 @@ loan_accept(struct ltcomstr *ltcp)
 	pr("%s %d is still pending.\n", ltcp->Name, ltcp->num);
 	return RET_OK;
     }
-    if (!getloan(ltcp->num, (caddr_t)lp)) {
+    if (!getloan(ltcp->num, lp)) {
 	pr("loan_accept: can't read loan; get help!\n");
 	return RET_SYS;
     }

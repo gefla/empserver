@@ -141,9 +141,9 @@ struct plist {
 #define P_DEL		2
 
 #define getplane(n, p) \
-	ef_read(EF_PLANE, n, (caddr_t)p)
+	ef_read(EF_PLANE, n, p)
 #define putplane(n, p) \
-	ef_write(EF_PLANE, n, (caddr_t)p)
+	ef_write(EF_PLANE, n, p)
 #define getplanep(n) \
 	(struct plnstr *) ef_ptr(EF_PLANE, n)
 

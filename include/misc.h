@@ -42,7 +42,6 @@
 #if defined(_WIN32)
 typedef unsigned char u_char;
 typedef unsigned short u_short;
-typedef char *caddr_t;
 typedef unsigned int u_int;
 
 /* integral mismatch, due to misuse of sector short */

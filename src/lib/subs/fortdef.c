@@ -82,7 +82,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	return 0;
     eff = 1.0;
     snxtitem_dist(&ni, EF_SHIP, x, y, 8);
-    while (nxtitem(&ni, (caddr_t)&ship) && eff > 0.30) {
+    while (nxtitem(&ni, &ship) && eff > 0.30) {
 	if (ship.shp_own == att)
 	    continue;
 	if (ship.shp_own == 0)

@@ -31,9 +31,9 @@
 #if	defined(EMP_CONFIG_C_OUTPUT)
 
 #define	EMPCFONLYC(fvname, vname, vtype, ctype, num, descr)	\
-	{ (fvname), (ctype), ((caddr_t)&(vname)), (num), (descr) },
+	{ (fvname), (ctype), &(vname), (num), (descr) },
 #define	EMPCFBOTH(fvname, vname, vtype, ctype, num, descr)	\
-	{ (fvname), (ctype), ((caddr_t)&(vname)), (num), (descr) },
+	{ (fvname), (ctype), &(vname), (num), (descr) },
 
 #elif	defined(EMP_CONFIG_H_OUTPUT)
 

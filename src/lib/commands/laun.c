@@ -205,7 +205,7 @@ launch_as(struct plnstr *pp)
     }
     goodtarget = 0;
     snxtitem_dist(&ni, EF_PLANE, sx, sy, 0);
-    while (!goodtarget && nxtitem(&ni, (caddr_t)&plane)) {
+    while (!goodtarget && nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;
 	if (!(plane.pln_flags & PLN_LAUNCHED))

@@ -46,7 +46,7 @@
 #include "prototypes.h"
 
 int
-nxtitem(struct nstr_item *np, caddr_t ptr)
+nxtitem(struct nstr_item *np, void *ptr)
 {
     struct genitem *gp;
     int selected;

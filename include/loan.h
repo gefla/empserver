@@ -57,9 +57,9 @@ struct lonstr {
 #define LS_SIGNED	2
 
 #define getloan(n, lp) \
-	ef_read(EF_LOAN, n, (caddr_t)lp)
+	ef_read(EF_LOAN, n, lp)
 #define putloan(n, lp) \
-	ef_write(EF_LOAN, n, (caddr_t)lp)
+	ef_write(EF_LOAN, n, lp)
 #define getloanp(n) \
 	(struct lonstr *) ef_ptr(EF_LOAN, n)
 

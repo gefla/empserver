@@ -786,7 +786,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	return 0;
     dam = 0;
     snxtitem_dist(&ni, EF_SHIP, ax, ay, 8);
-    while (nxtitem(&ni, (caddr_t)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 
@@ -874,7 +874,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	}
     }
     snxtitem_dist(&ni, EF_LAND, ax, ay, 8);
-    while (nxtitem(&ni, (caddr_t)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_effic < LAND_MINFIREEFF)

@@ -35,7 +35,6 @@
 #define _COMMON_H_
 
 #include <stdio.h>		/* FILE */
-#include <sys/types.h>		/* caddr_t */
 #include "misc.h"		/* s_char coord natid */
 #include "sect.h"		/* struct sctstr */
 #include "ship.h"		/* struct shpstr */

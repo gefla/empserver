@@ -932,7 +932,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 
     snxtitem_dist(&ni, EF_SHIP, dx, dy, 1);
 
-    while (nxtitem(&ni, (caddr_t)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!ship.shp_own)
 	    continue;
 

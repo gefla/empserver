@@ -144,7 +144,7 @@ typed_wu(natid from, natid to, s_char *message, int type)
     tel.tel_length = len;
     tel.tel_type = type;
 #if !defined(_WIN32)
-    iov[0].iov_base = (caddr_t)&tel;
+    iov[0].iov_base = &tel;
     iov[0].iov_len = sizeof(tel);
     iov[1].iov_base = message;
     iov[1].iov_len = len;

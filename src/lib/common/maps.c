@@ -178,7 +178,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	return RET_OK;
     if (map_flags & MAP_PLANE) {
 	snxtitem_all(&ni, EF_PLANE);
-	while (nxtitem(&ni, (caddr_t)&plane)) {
+	while (nxtitem(&ni, &plane)) {
 	    if (plane.pln_own == 0)
 		continue;
 	    if (plane.pln_own != player->cnum && !player->god)
@@ -193,7 +193,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
     }
     if (map_flags & MAP_SHIP) {
 	snxtitem_all(&ni, EF_SHIP);
-	while (nxtitem(&ni, (caddr_t)&ship)) {
+	while (nxtitem(&ni, &ship)) {
 	    if (ship.shp_own == 0)
 		continue;
 	    if (ship.shp_own != player->cnum && !player->god)
@@ -208,7 +208,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
     }
     if (map_flags & MAP_LAND) {
 	snxtitem_all(&ni, EF_LAND);
-	while (nxtitem(&ni, (caddr_t)&land)) {
+	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == 0)
 		continue;
 	    if (land.lnd_own != player->cnum && !player->god)

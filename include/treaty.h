@@ -71,9 +71,9 @@ struct tchrstr {
 /* global treaty variables */
 
 #define gettre(n, p) \
-	ef_read(EF_TREATY, n, (caddr_t)p)
+	ef_read(EF_TREATY, n, p)
 #define puttre(n, p) \
-	ef_write(EF_TREATY, n, (caddr_t)p)
+	ef_write(EF_TREATY, n, p)
 #define gettrep(n) \
 	(struct trtstr *) ef_ptr(EF_TREATY, n)
 

@@ -177,9 +177,9 @@ struct mchrstr {
 #define M_ANTIMISSILE   bit(20)	/* Shoot down missile */
 
 #define getship(n, p) \
-	ef_read(EF_SHIP, n, (caddr_t)p)
+	ef_read(EF_SHIP, n, p)
 #define putship(n, p) \
-	ef_write(EF_SHIP, n, (caddr_t)p)
+	ef_write(EF_SHIP, n, p)
 #define getshipp(n) \
 	(struct shpstr *) ef_ptr(EF_SHIP, n)
 

@@ -76,7 +76,7 @@ extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
 		     int old, int new);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplook *);
-extern int tend_nxtitem(struct nstr_item *, caddr_t);
+extern int tend_nxtitem(struct nstr_item *, void *);
 extern s_char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, int *);
@@ -373,7 +373,7 @@ extern void nuk_init(int, s_char *);
 extern void nuk_add(coord, coord, int, int);
 extern void nuk_delete(struct nukstr *, int, int);
 /* nxtitem.c */
-extern int nxtitem(struct nstr_item *, caddr_t);
+extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */
 extern int nxtsct(register struct nstr_sect *, struct sctstr *);
 /* plane.c */

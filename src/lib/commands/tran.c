@@ -111,7 +111,7 @@ tran_nuke(void)
     snxtitem_xy(&nstr, EF_NUKE, sect.sct_x, sect.sct_y);
 #endif
     found = 0;
-    while (nxtitem(&nstr, (caddr_t)&nuke)) {
+    while (nxtitem(&nstr, &nuke)) {
 	if (player->owner) {
 	    found = 1;
 	    break;

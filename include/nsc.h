@@ -134,7 +134,7 @@ struct nstr_sect {
     struct range range;		/* area of coverage */
     int dist;			/* dist query: range */
     coord cx, cy;		/* dist query: center x-y */
-    int (*read)(int type, int id, caddr_t ptr);	/* read function */
+    int (*read)(int type, int id, void *ptr);	/* read function */
     int ncond;			/* # of selection conditions */
     struct nscstr cond[NS_NCOND];	/* selection conditions */
 };
@@ -152,7 +152,7 @@ struct nstr_item {
     int size;			/* NS_LIST: size of list */
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */
-    int (*read)(int type, int id, caddr_t ptr);	/* read function */
+    int (*read)(int type, int id, void *ptr);	/* read function */
     int flags;			/* ef_flags(TYPE) */
     int ncond;			/* # of selection conditions */
     struct nscstr cond[NS_NCOND]; /* selection conditions */

@@ -159,7 +159,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		pr(" own  shp# ship type         sector   eff\n");
 	    }
 	}
-	while (nxtitem(&ni, (caddr_t)&ship)) {
+	while (nxtitem(&ni, &ship)) {
 	    if (ship.shp_own == 0)
 		continue;
 	    if ((mchr[(int)ship.shp_type].m_flags & M_SUB) &&
@@ -214,7 +214,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    prdate();
 	    pr(" own  lnd# unit type         sector   eff\n");
 	}
-	while (nxtitem(&ni, (caddr_t)&land)) {
+	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == 0)
 		continue;
 	    if (!chance((double)land.lnd_effic / 20.0))
@@ -308,7 +308,7 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
 	return;
     snxtitem_xy(&ni, EF_SHIP, sp->sct_x, sp->sct_y);
     first = 1;
-    while (nxtitem(&ni, (caddr_t)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
@@ -335,7 +335,7 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     first = 1;
 
-    while (nxtitem(&ni, (caddr_t)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (!chance((double)land.lnd_effic / 20.0))

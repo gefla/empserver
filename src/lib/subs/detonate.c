@@ -146,7 +146,7 @@ detonate(struct plnstr *pp, int x, int y)
 	}
     }
     snxtitem_dist(&ni, EF_PLANE, x, y, rad);
-    while (nxtitem(&ni, (caddr_t)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	/* Nukes falling on water affect only 1 sector */
 	if ((plane.pln_x != x) && issea)
 	    continue;
@@ -197,7 +197,7 @@ detonate(struct plnstr *pp, int x, int y)
 	putplane(ni.cur, &plane);
     }
     snxtitem_dist(&ni, EF_LAND, x, y, rad);
-    while (nxtitem(&ni, (caddr_t)&land)) {
+    while (nxtitem(&ni, &land)) {
 	/* Nukes falling on water affect only 1 sector */
 	if ((land.lnd_x != x) && issea)
 	    continue;
@@ -244,7 +244,7 @@ detonate(struct plnstr *pp, int x, int y)
 	putland(land.lnd_uid, &land);
     }
     snxtitem_dist(&ni, EF_SHIP, x, y, rad);
-    while (nxtitem(&ni, (caddr_t)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	/* Nukes falling on water affect only 1 sector */
 	if ((ship.shp_x != x) && issea)
 	    continue;
@@ -285,7 +285,7 @@ detonate(struct plnstr *pp, int x, int y)
 	putship(ship.shp_uid, &ship);
     }
     snxtitem_dist(&ni, EF_NUKE, x, y, rad);
-    while (nxtitem(&ni, (caddr_t)&nuke)) {
+    while (nxtitem(&ni, &nuke)) {
 	/* Nukes falling on water affect only 1 sector */
 	if ((nuke.nuk_x != x) && issea)
 	    continue;

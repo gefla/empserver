@@ -71,7 +71,7 @@ takeover(register struct sctstr *sp, natid newown)
     pp = &p;
     /* Take over planes */
     snxtitem_dist(&ni, EF_PLANE, sp->sct_x, sp->sct_y, 0);
-    while (nxtitem(&ni, (caddr_t)pp)) {
+    while (nxtitem(&ni, pp)) {
 	if (pp->pln_own != sp->sct_own)
 	    continue;
 	takeover_plane(pp, newown);
@@ -80,7 +80,7 @@ takeover(register struct sctstr *sp, natid newown)
     /* Take over land units */
     lp = &land;
     snxtitem_dist(&ni, EF_LAND, sp->sct_x, sp->sct_y, 0);
-    while (nxtitem(&ni, (caddr_t)lp)) {
+    while (nxtitem(&ni, lp)) {
 	if ((lp->lnd_own == newown) || (lp->lnd_own == 0))
 	    continue;
 	if (lp->lnd_own != sp->sct_own)
@@ -232,7 +232,7 @@ takeover_ship(register struct shpstr *sp, natid newown, int hostile)
     lp = &llp;
     /* Take over planes */
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (caddr_t)pp)) {
+    while (nxtitem(&ni, pp)) {
 	if (pp->pln_ship != sp->shp_uid)
 	    continue;
 	if (pp->pln_own == 0)
@@ -255,7 +255,7 @@ takeover_ship(register struct shpstr *sp, natid newown, int hostile)
     }
     /* Take over land units */
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (caddr_t)lp)) {
+    while (nxtitem(&ni, lp)) {
 	if (lp->lnd_ship != sp->shp_uid)
 	    continue;
 	if (lp->lnd_own == 0)
@@ -295,7 +295,7 @@ takeover_land(register struct lndstr *landp, natid newown, int hostile)
     lp = &llp;
     /* Take over planes */
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (caddr_t)pp)) {
+    while (nxtitem(&ni, pp)) {
 	if (pp->pln_land != landp->lnd_uid)
 	    continue;
 	if (pp->pln_own == 0)
@@ -318,7 +318,7 @@ takeover_land(register struct lndstr *landp, natid newown, int hostile)
     }
     /* Take over land units */
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (caddr_t)lp)) {
+    while (nxtitem(&ni, lp)) {
 	if (lp->lnd_land != landp->lnd_uid)
 	    continue;
 	if (lp->lnd_own == 0)

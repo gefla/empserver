@@ -160,9 +160,9 @@ struct rptstr {
 #define	NEWS_PERIOD	days(10)
 
 #define getnews(n, p) \
-	ef_read(EF_NEWS, n, (caddr_t)p)
+	ef_read(EF_NEWS, n, p)
 #define putnews(n, p) \
-	ef_write(EF_NEWS, n, (caddr_t)p)
+	ef_write(EF_NEWS, n, p)
 #define getnewsp(n) \
 	(struct nwsstr *) ef_ptr(EF_NEWS, n)
 

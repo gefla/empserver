@@ -213,7 +213,7 @@ grab_sect(register struct sctstr *sp, natid to)
 
     pp = &p;
     snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (caddr_t)pp)) {
+    while (nxtitem(&ni, pp)) {
 	if (pp->pln_own == 0)
 	    continue;
 	if (pp->pln_ship >= 0)
@@ -236,7 +236,7 @@ grab_sect(register struct sctstr *sp, natid to)
 
     np = &nuk;
     snxtitem_xy(&ni, EF_NUKE, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (caddr_t)np)) {
+    while (nxtitem(&ni, np)) {
 	if (np->nuk_own == 0)
 	    continue;
 
@@ -251,7 +251,7 @@ grab_sect(register struct sctstr *sp, natid to)
 
     lp = &l;
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (caddr_t)lp)) {
+    while (nxtitem(&ni, lp)) {
 	if (lp->lnd_own == 0)
 	    continue;
 	if (lp->lnd_ship == 0)
@@ -342,7 +342,7 @@ grab_ship(register struct shpstr *sp, natid to)
 
     pp = &p;
     snxtitem_xy(&ni, EF_PLANE, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, (caddr_t)pp)) {
+    while (nxtitem(&ni, pp)) {
 	if (pp->pln_own == 0)
 	    continue;
 	if (pp->pln_flags & PLN_LAUNCHED)
@@ -365,7 +365,7 @@ grab_ship(register struct shpstr *sp, natid to)
 
     lp = &l;
     snxtitem_xy(&ni, EF_LAND, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, (caddr_t)lp)) {
+    while (nxtitem(&ni, lp)) {
 	if (lp->lnd_own == 0)
 	    continue;
 	if (lp->lnd_ship != sp->shp_uid)

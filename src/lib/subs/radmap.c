@@ -136,7 +136,7 @@ radmap2(int owner,
     if (!pr_flag)
 	return;
     snxtitem_dist(&ni, EF_PLANE, cx, cy, range);
-    while (nxtitem(&ni, (caddr_t)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	/* Used to have 'ghosts' when scanning whole world --ts */
@@ -149,7 +149,7 @@ radmap2(int owner,
 	}
     }
     snxtitem_dist(&ni, EF_SHIP, cx, cy, range);
-    while (nxtitem(&ni, (caddr_t)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 	/* Used to have 'ghosts' when scanning whole world --ts */

@@ -82,9 +82,9 @@ extern long get_outstand(int);
 extern double loan_owed(struct lonstr *loan, time_t paytime);
 
 #define gettrade(n, p) \
-	ef_read(EF_TRADE, n, (caddr_t)p)
+	ef_read(EF_TRADE, n, p)
 #define puttrade(n, p) \
-	ef_write(EF_TRADE, n, (caddr_t)p)
+	ef_write(EF_TRADE, n, p)
 #define gettradep(n) \
 	(struct trdstr *) ef_ptr(EF_TRADE, n)
 

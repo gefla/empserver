@@ -113,7 +113,7 @@ struct keymatch {
     s_char *km_key;		/* the key */
     void (*km_func)(struct keymatch * kp, s_char **av);
 				/* the function to call if matches */
-    caddr_t km_data;		/* associated data */
+    void *km_data;		/* associated data */
     int km_flags;		/* useful flags */
 #define KM_ALLOC	0x01	/* memory allocated */
     s_char *km_comment;		/* Comment (hopefully useful) */

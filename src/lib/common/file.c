@@ -171,10 +171,10 @@ ef_ptr(int type, int id)
  * This system won't work if item size is > sizeof buffer area.
  */
 int
-ef_read(int type, int id, caddr_t ptr)
+ef_read(int type, int id, void *ptr)
 {
     register struct empfile *ep;
-    caddr_t from;
+    void *from;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -219,7 +219,7 @@ fillcache(struct empfile *ep, int start)
  * zaps read cache
  */
 int
-ef_nbread(int type, int id, caddr_t ptr)
+ef_nbread(int type, int id, void *ptr)
 {
     register struct empfile *ep;
     int r;
@@ -256,7 +256,7 @@ ef_nbread(int type, int id, caddr_t ptr)
  * and writes through to disk.
  */
 int
-ef_write(int type, int id, caddr_t ptr)
+ef_write(int type, int id, void *ptr)
 {
     register int r;
     register struct empfile *ep;
@@ -310,7 +310,7 @@ ef_write(int type, int id, caddr_t ptr)
  * zaps read cache
  */
 int
-ef_nbwrite(int type, int id, caddr_t ptr)
+ef_nbwrite(int type, int id, void *ptr)
 {
     register struct empfile *ep;
     register int r;
