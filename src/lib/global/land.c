@@ -45,11 +45,9 @@ struct lchrstr lchr[] = {
    flags, nv
    cargo
 */
-/* ((int)((ETUS*4)/(mil/1000)) is enough food for 3 updates */
-
     {2,
      {V_FOOD, V_MILIT},
-     {((int)((ETUS * 4) / 20)), 20},
+     {12, 20},
      "cav  cavalry",
      10, 5, 0, 0, 0, 30, 500,
      1.2, 0.5, 80, 32, 18, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -58,7 +56,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS) / 4)), 1, 25},
+     {15, 1, 25},
      "linf light infantry",
      8, 4, 0, 0, 0, 40, 300,
      1.0, 1.5, 60, 28, 15, 2, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -67,7 +65,7 @@ struct lchrstr lchr[] = {
 
     {2,
      {V_FOOD, V_MILIT},
-     {((int)((ETUS * 4) / 10)), 100},
+     {24, 100},
      "inf  infantry",
      10, 5, 0, 0, 0, 50, 500,
      1.0, 1.5, 60, 25, 15, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -76,7 +74,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 5)), 8, 100},
+     {60, 8, 100},
      "mtif motor inf",
      15, 10, 0, 0, 0, 190, 400,
      1.2, 2.2, 60, 33, 17, 1, 3, 0, 0, 0, 2, 3, 13, 1, 0, 0,
@@ -85,7 +83,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 5)), 8, 100},
+     {60, 8, 100},
      "mif  mech inf",
      15, 10, 0, 0, 0, 190, 800,
      1.5, 2.5, 50, 33, 17, 1, 3, 0, 0, 0, 2, 3, 13, 1, 0, 0,
@@ -94,7 +92,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 5)), 4, 100},
+     {60, 4, 100},
      "mar  marines",
      10, 5, 0, 0, 0, 140, 1000,
      1.4, 2.4, 60, 25, 14, 2, 1, 0, 0, 0, 1, 2, 0, 0, 0, 0,
@@ -141,7 +139,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS) / 5)), 5, 20},
+     {12, 5, 20},
      "aau  aa unit",
      20, 10, 0, 0, 0, 70, 500,
      0.5, 1.0, 60, 18, 20, 1, 1, 0, 0, 0, 1, 2, 0, 0, 0, 0,
@@ -150,7 +148,7 @@ struct lchrstr lchr[] = {
 
     {4,
      {V_FOOD, V_SHELL, V_MILIT, V_GUN},
-     {((int)((ETUS * 4) / 10)), 40, 25, 10},
+     {24, 40, 25, 10},
      "art  artillery",
      20, 10, 0, 0, 0, 35, 800,
      0.1, 0.4, 70, 18, 20, 1, 0, 8, 50, 5, 2, 1, 0, 0, 0, 0,
@@ -159,7 +157,7 @@ struct lchrstr lchr[] = {
 
     {4,
      {V_FOOD, V_SHELL, V_MILIT, V_GUN},
-     {((int)((ETUS * 4) / 20)), 20, 25, 6},
+     {12, 20, 25, 6},
      "lat  lt artillery",
      20, 10, 0, 0, 0, 70, 500,
      0.2, 0.6, 60, 30, 18, 1, 1, 5, 10, 3, 1, 1, 0, 0, 0, 0,
@@ -168,7 +166,7 @@ struct lchrstr lchr[] = {
 
     {4,
      {V_FOOD, V_SHELL, V_MILIT, V_GUN},
-     {((int)((ETUS * 4) / 10)), 80, 25, 12},
+     {24, 80, 25, 12},
      "hat  hvy artillery",
      40, 20, 0, 0, 0, 100, 800,
      0.0, 0.2, 60, 12, 20, 1, 0, 11, 99, 8, 4, 1, 0, 0, 0, 0,
@@ -177,7 +175,7 @@ struct lchrstr lchr[] = {
 
     {4,
      {V_FOOD, V_SHELL, V_MILIT, V_GUN},
-     {((int)((ETUS * 5) / 20)), 40, 25, 10},
+     {15, 40, 25, 10},
      "mat  mech artillery",
      20, 10, 0, 0, 0, 200, 1000,
      0.2, 0.6, 50, 35, 17, 1, 1, 8, 35, 6, 3, 3, 13, 1, 0, 0,
@@ -186,7 +184,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 4) / 20)), 3, 20},
+     {12, 3, 20},
      "eng  engineer",
      10, 5, 0, 0, 0, 130, 3000,
      1.2, 2.4, 50, 25, 14, 2, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -195,7 +193,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 20)), 4, 20},
+     {15, 4, 20},
      "meng mech engineer",
      10, 5, 0, 0, 0, 260, 4500,
      1.8, 3.5, 45, 33, 15, 3, 3, 0, 0, 0, 1, 5, 25, 2, 0, 0,
@@ -204,7 +202,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 10)), 4, 50},
+     {30, 4, 50},
      "lar  lt armor",
      10, 5, 0, 0, 0, 150, 600,
      2.0, 1.0, 50, 42, 15, 4, 4, 0, 0, 0, 1, 2, 25, 1, 0, 0,
@@ -213,7 +211,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 4) / 5)), 3, 100},
+     {48, 3, 100},
      "har  hvy armor",
      20, 10, 0, 0, 0, 120, 500,
      2.0, 0.8, 50, 18, 17, 1, 1, 0, 0, 0, 2, 1, 10, 2, 0, 0,
@@ -222,7 +220,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 10)), 4, 50},
+     {30, 4, 50},
      "arm  armor",
      20, 10, 0, 0, 0, 170, 1000,
      3.0, 1.5, 40, 33, 16, 2, 2, 0, 0, 0, 1, 2, 13, 1, 0, 0,
@@ -231,7 +229,7 @@ struct lchrstr lchr[] = {
 
     {3,
      {V_FOOD, V_SHELL, V_MILIT},
-     {((int)((ETUS * 5) / 10)), 4, 50},
+     {30, 4, 50},
      "sec  security",
      10, 5, 0, 0, 0, 170, 600,
      1.0, 2.0, 60, 25, 15, 2, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -240,7 +238,7 @@ struct lchrstr lchr[] = {
 
     {2,
      {V_FOOD, V_MILIT},
-     {((int)((ETUS * 5) / 40)), 10},
+     {7, 10},
      "rad  radar unit",
      10, 5, 0, 0, 0, 270, 1000,
      0.0, 0.0, 50, 33, 15, 3, 0, 0, 0, 0, 0, 2, 25, 2, 1, 0,

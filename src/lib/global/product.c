@@ -75,7 +75,7 @@ struct pchrstr pchr[] = {
      V_HCM, -1, 0, 0, 0, NAT_TLEV, -10, 10, 100,
      "heavy construction materials", "hcm",},
     {3, {V_DUST, V_OIL, V_LCM}, {1, 5, 10},
-     0, NAT_TLEV, 5 * ETUS, 0, 0, NAT_ELEV, 5, 10, 100,
+     0, NAT_TLEV, 300, 0, 0, NAT_ELEV, 5, 10, 100,
      "technological breakthroughs", "tech",},
     {3, {V_DUST, V_OIL, V_LCM}, {1, 5, 10},
      0, NAT_RLEV, 90, 0, 0, NAT_ELEV, 5, 10, 100,
