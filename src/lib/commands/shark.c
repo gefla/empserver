@@ -86,7 +86,7 @@ shark(void)
     }
     pr("That loan is worth $%.2f.\n", owed);
     natp = getnatp(player->cnum);
-    payment = owed * (1.0 + loan.l_irate / 100.0);
+    payment = (long)ceil(owed * (1.0 + loan.l_irate / 100.0));
     if (payment > natp->nat_money - 100.0) {
 	pr("You do not have enough to cover that loan\n");
 	return RET_FAIL;

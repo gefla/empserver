@@ -48,9 +48,10 @@ repa(void)
     struct natstr *natp;
     struct natstr *loaner;
     int loan_num;
-    long payment;
-    long owe;
+    int payment;
+    long newdue;
     s_char *cp;
+    time_t now;
     s_char buf[1024];
 
     if (!opt_LOANS) {
@@ -69,7 +70,6 @@ repa(void)
 	pr("You don't owe anything on that loan.\n");
 	return RET_FAIL;
     }
-    owe = (long)loan_owed(&loan, time(NULL));
     if ((cp = getstarg(player->argp[2], "amount? ", buf)) == 0)
 	return RET_SYN;
     if (!check_loan_ok(&loan))
@@ -77,7 +77,9 @@ repa(void)
     payment = atoi(cp);
     if (payment <= 0)
 	return RET_SYN;
-    if (payment > owe) {
+
+    newdue = (long)ceil(loan_owed(&loan, time(&now)) - payment);
+    if (newdue < 0) {
 	pr("You don't owe that much.\n");
 	return RET_FAIL;
     }
@@ -89,9 +91,9 @@ repa(void)
     loaner = getnatp(loan.l_loner);
     loaner->nat_money += payment;
     putnat(loaner);
-    (void)time(&loan.l_lastpay);
-    if (owe <= payment) {
-	wu(0, loan.l_loner, "Country #%d paid off loan #%d with $%ld\n",
+    loan.l_lastpay = now;
+    if (newdue == 0) {
+	wu(0, loan.l_loner, "Country #%d paid off loan #%d with $%d\n",
 	   player->cnum, loan_num, payment);
 	nreport(player->cnum, N_REPAY_LOAN, loan.l_loner, 1);
 	loan.l_status = LS_FREE;
@@ -99,9 +101,9 @@ repa(void)
 	pr("Congratulations, you've paid off the loan!\n");
     } else {
 	wu(0, loan.l_loner,
-	   "Country #%d paid $%.2f on loan %d\n", player->cnum,
-	   (double)payment, loan_num);
-	loan.l_amtdue = owe - payment;
+	   "Country #%d paid $%d on loan %d\n",
+	   player->cnum, payment, loan_num);
+	loan.l_amtdue = newdue;
 	loan.l_amtpaid += payment;
     }
     if (!putloan(loan_num, &loan)) {

@@ -130,6 +130,7 @@ coll(void)
 
     putsect(&sect);
     nreport(player->cnum, N_SEIZE_SECT, loan.l_lonee, 1);
+    owed = loan_owed(&loan, time(&now));
     if (pay >= owed) {
 	loan.l_ldur = 0;
 	nreport(loan.l_lonee, N_REPAY_LOAN, player->cnum, 1);
