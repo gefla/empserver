@@ -453,7 +453,7 @@ Index: empserver/src/lib/gen/chance.c
 Index: empserver/src/server/main.c
 --- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
 +++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
-@@ -195,7 +195,7 @@
+@@ -190,7 +190,7 @@
      empth_init((char **)&player, flags);
      time(&now);
  #if !defined(_WIN32)
