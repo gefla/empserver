@@ -6,7 +6,7 @@
  .  sea                   d  defense plant          t  technical center
  ^  mountain              i  shell industry         f  fortress
  s  sanctuary             m  mine                   r  research lab
- \  wasteland             g  gold mine              n  nuclear plant
+ \\  wasteland             g  gold mine              n  nuclear plant
  -  wilderness            h  harbor                 l  library/school
  ~  plains                w  warehouse              e  enlistment center
  c  capital/city          u  uranium mine           !  headquarters
@@ -372,7 +372,7 @@ Lcms/Hcms for 1% are similar.
 . sea                       0   0.00  0.00     1   1   1   1     1
 ^ mountain                 25   1.00  4.00     1   1   1   1     1
 s sanctuary                 0   0.00 99.00     1   1   1   1     1
-\ wasteland                 0   0.00 99.00     1   1   1   1     1
+\\ wasteland                 0   0.00 99.00     1   1   1   1     1
 - wilderness                2   1.00  2.00     1   1   1   1     1
 c capital                   2   1.00  2.00     1   1   1   1     1
 u uranium mine              2   1.00  2.00     1   1   1   1     1
@@ -389,9 +389,28 @@ column.
 
 .EX show sect capabilities
 .NF
-There is no information on sector capabilities.
+                                                 --- level ---          reso 
+  sector type             product use1 use2 use3 level min lag eff% $$$ dep c
+^ mountain                dust                           0   0   75   0  20 d
+u uranium mine            rad                    tech   40  10  100   2  35 r
+p park                    happy    1 l                   0   0  100   9   0  
+d defense plant           guns     1 o  5 l 10 h tech   20  10  100  30   0 g
+i shell industry          shells   2 l  1 h      tech   20  10  100   3   0 s
+m mine                    iron                           0   0  100   0   0 i
+g gold mine               dust                           0   0  100   0  20 d
+a agribusiness            food                   tech  -10  10  900   0   0 f
+o oil field               oil                    tech  -10  10  100   0  10 o
+j light manufacturing     lcm      1 i           tech  -10  10  100   0   0 l
+k heavy manufacturing     hcm      2 i           tech  -10  10  100   0   0 h
+t technical center        tech     1 d  5 o 10 l edu     5  10  100 300   0  
+r research lab            medical  1 d  5 o 10 l edu     5  10  100  90   0  
+l library/school          edu      1 l                   0   0  100   9   0  
+b bank                    bars     5 d                   0   0  100  10   0 b
+% refinery                petrol   1 o           tech   20  10 1000   1   0 p
 .FI
-
-There may someday be a sector capabilities list.
+This shows what the sector produces, raw materials required to make
+one product, tech and edu requirements, production efficiency
+multiplier, monetary cost and resource depletion.  See info
+\*QProducts\*U for details.
 .s1
 .SA "improve, designate, show, BTU, Sectors"
