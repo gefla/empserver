@@ -42,15 +42,15 @@
 #include <unistd.h>
 #endif
 
-s_char *SO = 0;
-s_char *SE = 0;
+char *SO = 0;
+char *SE = 0;
 
 int tgetent(char *, char *);
 
 static void
-parsedelay(s_char *r)
+parsedelay(char *r)
 {
-    s_char *s, *t;
+    char *s, *t;
 
     s = r;
     while (isdigit(*s) || (*s == '*') || (*s == '.')) {
@@ -66,13 +66,13 @@ void
 getsose(void)
 {
 #ifndef _WIN32
-    extern s_char *tgetstr(char *, char **);
-    s_char *cp;
-    s_char *term;
-    static s_char tbuf[1024];
-    static s_char cbuf[20];
+    extern char *tgetstr(char *, char **);
+    char *cp;
+    char *term;
+    static char tbuf[1024];
+    static char cbuf[20];
 
-    memset((s_char *)&cbuf[0], 0, 20);
+    memset(cbuf, 0, 20);
     term = getenv("TERM");
     if (term == 0) {
 	fprintf(stderr, "warning: no TERM environment variable\n");
