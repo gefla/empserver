@@ -3,8 +3,8 @@ This directory contains the following files:
 files
 	What's where.
 
-backup
-    Recommendations for how to do backups when running a game.
+backups
+	Recommendations for how to do backups when running a game.
 
 troubleshooting
 	Some common problems and solutions.
@@ -13,10 +13,13 @@ disk_space
 	Stuff you can delete to make more disk space.
 
 compiling
-	How to compile the Empire2 server.
+	How to compile the Empire server.
 
 configuration    
 	How to turn options on and off, change game parameters, etc...
+
+debugging
+	Hints on debugging.
 
 econfig
 	Details about the syntax of data/econfig.
@@ -26,6 +29,10 @@ bug-reports
 
 threads
 	Dave Pare explains how lwp threads work.
+
+pthreads
+	Sasha Mikheev's notes on Empire's threading abstraction, and
+	its LWP and POSIX threads implementation.
 
 coding           
 	Guidelines for coding style
@@ -41,11 +48,8 @@ CHANGES2.3
 CHANGES3.0
 	All changes since revision 3.0
 
-CHANGES4.0
+CHANGES4.X
 	All changes since revision 4.0
-
-PRIORITY
-	things which need to be coded soon.
 
 WISH_LIST
 	things which maybe should be coded sometime.
