@@ -82,8 +82,8 @@ sarg_xy(char *str, coord *xp, coord *yp)
     if (x < 0 || *str++ != ',')
 	return 0;
     y = strtoy(str, &str);
-    if (y < 0 || *str != 0)
-	return 0;
+    if (y < 0 || (*str != 0 && !isspace(*str)))
+      return 0;
     if ((x ^ y) & 1)
 	return 0;
     np = getnatp(player->cnum);
@@ -107,7 +107,8 @@ sarg_getrange(char *str, struct range *rp)
 	 */
 	if (*++str) {
 	    rlm = strtol(str, &end, 10);
-	    if (end == str || *end != 0 || rlm < 0 || MAXNOR <= rlm)
+	    if (end == str || (*end != 0 && !isspace(*end))
+		|| rlm < 0 || MAXNOR <= rlm)
 		return 0;
 	} else 
 	    rlm = 0;
@@ -140,7 +141,7 @@ sarg_getrange(char *str, struct range *rp)
 	    if (rp->hy < 0)
 		return 0;
 	}
-	if (*str != 0)
+	if (*str != 0 && !isspace(*str))
 	    return 0;
 	np = getnatp(player->cnum);
 	rp->lx = xabs(np, rp->lx);
@@ -192,7 +193,7 @@ sarg_range(char *str, coord *xp, coord *yp, int *dist)
     if (y < 0 || *str++ != ':')
 	return 0;
     d = strtol(str, &end, 10);
-    if (end == str || d < 0 || *end != 0)
+    if (end == str || (*end != 0 && !isspace(*end)) || d < 0)
 	return 0;
     *dist = d;
     np = getnatp(player->cnum);
@@ -232,7 +233,7 @@ sarg_list(char *str, int *list, int max)
 	str = end;
     } while (*str++ == '/');
 
-    if (str[-1] != 0) {
+    if (str[-1] != 0 && !isspace(str[-1])) {
 	pr("Expecting '/', got '%c'\n", str[-1]);
 	return 0;
     }
