@@ -1,4 +1,7 @@
 .TH EMP_SERVER 6
+.\" Note: Options specific to the native Windows port are suppressed
+.\" unless you format with non-zero number register w, e.g. by
+.\" supplying -rw1 to nroff.
 .SH NAME
 emp_server \- Empire server
 .SH SYNOPSIS
@@ -9,7 +12,24 @@ emp_server \- Empire server
 [
 .BI \-e " configfile"
 ]
+.if \nw \{\
 .br
+.B emp_server
+[
+.BI \-i
+|
+.BI \-I " service-name"
+]
+[
+.BI \-e " configfile"
+]
+.br
+.B emp_server
+[
+.BI \-r
+|
+.BI \-R " service-name"
+]\}
 .SH DESCRIPTION
 .I emp_server
 is a daemon which listens to the Empire port for players connecting to
@@ -27,13 +47,28 @@ from within a debugger.
 .BI \-e " configfile"
 Use game configuration specification in 
 .I configfile
-\&.  By default, the file "econfig" in the data directory is used.
+\&.  By default, the file "econfig" in the compiled-in data directory
+is used.
 .TP
 .B \-h 
 Help.  Print brief usage information and exit.
+.if \nw \{\
+.TP
+.B \-i
+Install as a Windows Service called "Empire Server".
+.TP
+.BI \-I " service-name"
+Install as a Windows Service with the specified name.\}
 .TP
 .B \-p
 Threading debug mode.  Implies -d.
+.if \nw \{\
+.TP
+.B \-r
+Remove the Windows Service called "Empire Server".
+.TP
+.BI \-R " service-name"
+Remove the Windows Service with the specified name.\}
 .TP
 .B \-s
 Enable thread stack checking.
@@ -43,6 +78,12 @@ Print version information and exit.
 .SH OPERANDS
 Operands are ignored for backward compatibility.  Their use is
 deprecated.
+.if \nw \{
+.SH RESTRICTIONS
+When using the service control manager (Services Window), the start
+parameters are not processed.  The only parameters processed are the
+ones supplied during service installation.  To modify the startup
+parameters, you must remove the service and reinstall the service.\}
 .SH BUGS
 Please report all bugs to the Wolfpack <wolfpack@wolfpackempire.com>
 .SH AUTHORS
