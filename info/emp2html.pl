@@ -24,20 +24,20 @@ procline:
     if (/^\.SY../) {
 #	$i = $_ =~ "\"" && ($RLENGTH = length($&), $RSTART = length($`)+1);
 #	$str = substr($_, $i + 1, length($_) - $i - 1);
-	$str = substr($_,5);
+	$str = substr($_,4);
 	$str = &htmlify($str);
 	printf "<samp>[##:##] </samp><KBD>%s</KBD><p>\n", $str;
 	next line;
     }
 
     if (/^\.EX../) {
-	$str = substr($_, 5);
+	$str = substr($_, 4);
 	printf "<br><samp>[##:##] </samp><kbd>%s</kbd><p>\n", &htmlify($str);
 	next line;
     }
 
     if (/^\.L../) {
-	$str = substr($_, 4);
+	$str = substr($_, 3);
 	printf "<h2>%s</h2>\n", &htmlify($str);
 	next line;
     }
