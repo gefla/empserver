@@ -375,7 +375,7 @@ info(void)
     }
     else {
 	DWORD fAttrib = GetFileAttributes(filename);
-	if ((fAttrib == (DWORD)-1) || //INVALID_FILE_ATTRIBUTES
+	if ((fAttrib == (DWORD)-1) || /* INVALID_FILE_ATTRIBUTES */
 	    (fAttrib != FILE_ATTRIBUTE_NORMAL) &&
 	    (fAttrib != FILE_ATTRIBUTE_ARCHIVE) &&
 	    (fAttrib != FILE_ATTRIBUTE_READONLY)) {
