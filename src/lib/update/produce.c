@@ -108,10 +108,12 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
      * Adjust produced amount by commodity production ratio
      */
     output = material_consume * prodeff;
-    if (item == I_NONE && !player->simulation) {
-	levels[sp->sct_own][product->p_level] += output;
-	wu((natid)0, sp->sct_own, "%s (%.2f) produced in %s\n",
-	   product->p_name, output, ownxy(sp));
+    if (item == I_NONE) {
+	if (!player->simulation) {
+	    levels[sp->sct_own][product->p_level] += output;
+	    wu((natid)0, sp->sct_own, "%s (%.2f) produced in %s\n",
+	       product->p_name, output, ownxy(sp));
+	}
     } else {
 	if ((actual = roundavg(output)) <= 0)
 	    return 0;
