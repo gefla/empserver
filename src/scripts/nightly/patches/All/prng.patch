@@ -32,7 +32,7 @@ Index: empserver/include/prototypes.h
 Index: empserver/src/lib/commands/anti.c
 --- empserver/src/lib/commands/anti.c	4 Mar 2004 13:49:25 -0000	1.6
 +++ empserver/src/lib/commands/anti.c	20 Jun 2004 15:15:00 -0000
-@@ -131,7 +131,7 @@
+@@ -130,7 +130,7 @@
  		    sect.sct_mobil = 0;
  		}
  		sect.sct_loyal = sect.sct_loyal * 0.5;
@@ -44,7 +44,7 @@ Index: empserver/src/lib/commands/anti.c
 Index: empserver/src/lib/commands/laun.c
 --- empserver/src/lib/commands/laun.c	28 Feb 2004 17:44:02 -0000	1.3
 +++ empserver/src/lib/commands/laun.c	20 Jun 2004 15:15:01 -0000
-@@ -426,7 +426,7 @@
+@@ -423,7 +423,7 @@
      }
      i = pp->pln_tech + pp->pln_effic;
      if (chance(1.0 - (i / (i + 50.0)))) {
@@ -56,7 +56,7 @@ Index: empserver/src/lib/commands/laun.c
 Index: empserver/src/lib/commands/mfir.c
 --- empserver/src/lib/commands/mfir.c	10 May 2004 19:48:42 -0000	1.13
 +++ empserver/src/lib/commands/mfir.c	20 Jun 2004 15:15:02 -0000
-@@ -560,18 +560,12 @@
+@@ -559,18 +559,12 @@
  	    pr("Kaboom!!!\n");
  	    prb = (double)(range2 ? (trange / range2) : 1.0);
  	    prb *= prb;
@@ -79,7 +79,7 @@ Index: empserver/src/lib/commands/mfir.c
 Index: empserver/src/lib/commands/new.c
 --- empserver/src/lib/commands/new.c	5 Mar 2004 12:05:33 -0000	1.13
 +++ empserver/src/lib/commands/new.c	20 Jun 2004 15:15:02 -0000
-@@ -105,16 +105,10 @@
+@@ -104,16 +104,10 @@
  	    return RET_SYN;
  	}
      } else {
@@ -138,7 +138,7 @@ Index: empserver/src/lib/commands/sabo.c
 Index: empserver/src/lib/common/damage.c
 --- empserver/src/lib/common/damage.c	6 Mar 2004 07:16:45 -0000	1.5
 +++ empserver/src/lib/common/damage.c	20 Jun 2004 15:15:04 -0000
-@@ -179,7 +179,7 @@
+@@ -177,7 +177,7 @@
  	return 0;
      tmp = amt * pct;
      lost = tmp / 100;
@@ -180,7 +180,7 @@ Index: empserver/src/lib/subs/attsub.c
 Index: empserver/src/lib/subs/landgun.c
 --- empserver/src/lib/subs/landgun.c	2 Sep 2003 20:48:48 -0000	1.2
 +++ empserver/src/lib/subs/landgun.c	20 Jun 2004 15:15:07 -0000
-@@ -43,7 +43,7 @@
+@@ -40,7 +40,7 @@
      double d;
      double g = (double)min(guns, 7);
  
@@ -189,7 +189,7 @@ Index: empserver/src/lib/subs/landgun.c
      d *= ((double)effic);
      d /= 100.0;
      return d;
-@@ -56,7 +56,7 @@
+@@ -53,7 +53,7 @@
  
      d = 0.0;
      while (guns--)
@@ -198,7 +198,7 @@ Index: empserver/src/lib/subs/landgun.c
      d *= ((double)effic) * 0.01;
      return d;
  }
-@@ -68,7 +68,7 @@
+@@ -65,7 +65,7 @@
  
      shots = min(shots, guns);
      while (shots-- > 0)
@@ -252,7 +252,7 @@ Index: empserver/src/lib/subs/takeover.c
 Index: empserver/src/lib/update/human.c
 --- empserver/src/lib/update/human.c	14 May 2004 20:21:46 -0000	1.11
 +++ empserver/src/lib/update/human.c	20 Jun 2004 15:15:09 -0000
-@@ -123,7 +123,7 @@
+@@ -121,7 +121,7 @@
  	    sctwork = 0;
  	} else {
  	    if (sp->sct_work < 100)
@@ -261,7 +261,7 @@ Index: empserver/src/lib/update/human.c
  	    if (sctwork > 100)
  		sctwork = 100;
  	    if (!player->simulation)
-@@ -320,5 +320,5 @@
+@@ -318,5 +318,5 @@
  starvation(struct sctstr *sp)
  {
      sp->sct_work = 0;
@@ -271,7 +271,7 @@ Index: empserver/src/lib/update/human.c
 Index: empserver/src/lib/update/plague.c
 --- empserver/src/lib/update/plague.c	11 Mar 2004 18:10:25 -0000	1.8
 +++ empserver/src/lib/update/plague.c	20 Jun 2004 15:15:09 -0000
-@@ -191,7 +191,7 @@
+@@ -190,7 +190,7 @@
      }
      if (*ptime <= 0) {
  	*pstage -= 1;
@@ -283,7 +283,7 @@ Index: empserver/src/lib/update/plague.c
 Index: empserver/src/lib/update/populace.c
 --- empserver/src/lib/update/populace.c	10 Mar 2004 17:59:37 -0000	1.3
 +++ empserver/src/lib/update/populace.c	20 Jun 2004 15:15:09 -0000
-@@ -87,7 +87,7 @@
+@@ -85,7 +85,7 @@
  	n = roundavg(etu * 0.125);
  	if (n == 0)
  	    n = 1;
@@ -292,7 +292,7 @@ Index: empserver/src/lib/update/populace.c
  	if (n > 127)
  	    n = 127;
  	sp->sct_loyal = n;
-@@ -95,7 +95,7 @@
+@@ -93,7 +93,7 @@
      if (sp->sct_loyal > 65 && mil < civ / 20) {
  	int work_red;
  
@@ -453,7 +453,7 @@ Index: empserver/src/lib/gen/chance.c
 Index: empserver/src/server/main.c
 --- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
 +++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
-@@ -205,7 +205,7 @@
+@@ -204,7 +204,7 @@
  #endif /* POSIXSIGNALS */
  #endif /* _WIN32 */
      empth_init((char **)&player, flags);
