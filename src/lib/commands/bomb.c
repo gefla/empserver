@@ -390,6 +390,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
     target = &sect;
     oldeff = target->sct_effic;
     target->sct_effic = effdamage(target->sct_effic, dam);
+    target->sct_avail = effdamage(target->sct_avail, dam);
     target->sct_road = effdamage(target->sct_road, dam);
     target->sct_rail = effdamage(target->sct_rail, dam);
     target->sct_defense = effdamage(target->sct_defense, dam);

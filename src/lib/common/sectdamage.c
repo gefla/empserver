@@ -61,17 +61,18 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
     if (dam > 100)
 	dam = 100;
 
-    sp->sct_effic = damage((int)sp->sct_effic, dam);
-    sp->sct_road = damage((int)sp->sct_road, dam);
-    sp->sct_rail = damage((int)sp->sct_rail, dam);
-    sp->sct_defense = damage((int)sp->sct_defense, dam);
+    sp->sct_effic = damage(sp->sct_effic, dam);
+    sp->sct_avail = damage(sp->sct_avail, dam);
+    sp->sct_road = damage(sp->sct_road, dam);
+    sp->sct_rail = damage(sp->sct_rail, dam);
+    sp->sct_defense = damage(sp->sct_defense, dam);
     if (!opt_DEFENSE_INFRA)
 	sp->sct_defense = sp->sct_effic;
 
     eff = dam;
 
     if (sp->sct_mobil > 0)
-	sp->sct_mobil = damage((int)sp->sct_mobil, dam);
+	sp->sct_mobil = damage(sp->sct_mobil, dam);
     item_damage(dam, sp->sct_item);
     if (opt_EASY_BRIDGES == 0) {
 	if (sp->sct_effic < 20 && sp->sct_type == SCT_BHEAD)
