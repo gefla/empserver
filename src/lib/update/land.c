@@ -117,7 +117,6 @@ upd_land(register struct lndstr *lp, register int etus,
 {
     struct lchrstr *lcp;
     u_short pstage, ptime;
-    int vec[I_MAX + 1];
     int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;
@@ -170,8 +169,7 @@ upd_land(register struct lndstr *lp, register int etus,
 	    resupply_commod(lp, I_FOOD);
 
 	if (!player->simulation) {
-	    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-	    if ((n = feed_land(lp, vec, etus, &needed, 1)) > 0) {
+	    if ((n = feed_land(lp, etus, &needed, 1)) > 0) {
 		wu(0, lp->lnd_own, "%d starved in %s%s\n",
 		   n, prland(lp),
 		   (lp->lnd_effic < LAND_MINEFF ? ", killing it" : ""));
@@ -185,7 +183,7 @@ upd_land(register struct lndstr *lp, register int etus,
 	    pstage = lp->lnd_pstage;
 	    ptime = lp->lnd_ptime;
 	    if (pstage != PLG_HEALTHY) {
-		n = plague_people(np, vec, &pstage, &ptime, etus);
+		n = plague_people(np, lp->lnd_item, &pstage, &ptime, etus);
 		switch (n) {
 		case PLG_DYING:
 		    wu(0, lp->lnd_own,
@@ -229,7 +227,6 @@ upd_land(register struct lndstr *lp, register int etus,
 		lp->lnd_pstage = pstage;
 		lp->lnd_ptime = ptime;
 	    }
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 	}			/* end !player->simulation */
     }
 }
@@ -248,14 +245,12 @@ landrepair(register struct lndstr *land, struct natstr *np,
     int avail;
     int w_p_eff;
     int mult;
-    int svec[I_MAX + 1];
     int mvec[I_MAX + 1];
 
     lp = &lchr[(int)land->lnd_type];
     sp = getsectp(land->lnd_x, land->lnd_y);
     if (sp->sct_off)
 	return 1;
-    getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
     mult = 1;
     if (np->nat_level[NAT_TLEV] < land->lnd_tech * 0.85)
 	mult = 2;
@@ -360,8 +355,7 @@ landrepair(register struct lndstr *land, struct natstr *np,
  * returns the number who starved, if any.
  */
 int
-feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
-	  int doit)
+feed_land(struct lndstr *lp, int etus, int *needed, int doit)
 {
     double food_eaten, ship_eaten;
     int ifood_eaten;
@@ -388,32 +382,32 @@ feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
      * the ship, tho...
      */
 /* doit - Only try to take food off the ship during the update */
-    if (ifood_eaten > vec[I_FOOD] && lp->lnd_ship >= 0 && doit) {
-	need = ifood_eaten - vec[I_FOOD];
+    if (ifood_eaten > lp->lnd_item[I_FOOD] && lp->lnd_ship >= 0 && doit) {
+	need = ifood_eaten - lp->lnd_item[I_FOOD];
 	sp = getshipp(lp->lnd_ship);
 	ship_eaten = etus * eatrate * (sp->shp_item[I_CIVIL]
 				       + sp->shp_item[I_MILIT]
 				       + sp->shp_item[I_UW]);
 	if (sp->shp_item[I_FOOD] - need > ship_eaten) {
-	    vec[I_FOOD] += need;
+	    lp->lnd_item[I_FOOD] += need;
 	    sp->shp_item[I_FOOD] -= need;
 	} else if (sp->shp_item[I_FOOD] - ship_eaten > 0) {
-	    vec[I_FOOD] += sp->shp_item[I_FOOD] - ship_eaten;
+	    lp->lnd_item[I_FOOD] += sp->shp_item[I_FOOD] - ship_eaten;
 	    sp->shp_item[I_FOOD] -= sp->shp_item[I_FOOD] - ship_eaten;
 	}
     }
 
-    if (ifood_eaten > vec[I_FOOD]) {
-	*needed = ifood_eaten - vec[I_FOOD];
-	people_left = (vec[I_FOOD] + 0.01) / (food_eaten + 0.01);
+    if (ifood_eaten > lp->lnd_item[I_FOOD]) {
+	*needed = ifood_eaten - lp->lnd_item[I_FOOD];
+	people_left = (lp->lnd_item[I_FOOD] + 0.01) / (food_eaten + 0.01);
 	/* only want to starve off at most 1/2 the populace. */
 	if (people_left < 0.5)
 	    people_left = 0.5;
 	starved = total_people * (1 - people_left);
-	vec[I_MILIT] -= starved;
-	vec[I_FOOD] = 0;
+	lp->lnd_item[I_MILIT] -= starved;
+	lp->lnd_item[I_FOOD] = 0;
     } else {
-	vec[I_FOOD] -= (int)food_eaten;
+	lp->lnd_item[I_FOOD] -= (int)food_eaten;
     }
     return starved;
 }

@@ -116,7 +116,6 @@ upd_ship(register struct shpstr *sp, register int etus,
 {
     struct sctstr *sectp;
     struct mchrstr *mp;
-    int vec[I_MAX + 1];
     u_short pstage, ptime;
     int oil_gained;
     int max_oil;
@@ -163,19 +162,18 @@ upd_ship(register struct shpstr *sp, register int etus,
 	}
 
 	if (!player->simulation) {
-	    getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
 	    if ((mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
 		/*
 		 * take care of oil production
 		 */
-		oil_gained = roundavg((vec[I_CIVIL] * etus / 10000.0)
+		oil_gained = roundavg((sp->shp_item[I_CIVIL] * etus / 10000.0)
 				      * sectp->sct_oil);
-		vec[I_OIL] += oil_gained;
+		sp->shp_item[I_OIL] += oil_gained;
 		max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
-		if (vec[I_OIL] > max_oil)
-		    vec[I_OIL] = max_oil;
+		if (sp->shp_item[I_OIL] > max_oil)
+		    sp->shp_item[I_OIL] = max_oil;
 		product = &pchr[P_OIL];
 		if (product->p_nrdep != 0 && oil_gained > 0) {
 		    resource = ((s_char *)sectp) + product->p_nrndx;
@@ -184,17 +182,17 @@ upd_ship(register struct shpstr *sp, register int etus,
 		}
 	    }
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
-		vec[I_FOOD] += ((vec[I_CIVIL] * etus) / 1000.0)
+		sp->shp_item[I_FOOD] += ((sp->shp_item[I_CIVIL] * etus) / 1000.0)
 		    * sectp->sct_fertil;
 	    }
-	    if ((n = feed_ship(sp, vec, etus, &needed, 1)) > 0) {
+	    if ((n = feed_ship(sp, etus, &needed, 1)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
 		if (n > 10)
 		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
 	    }
 	    max_food = vl_find(V_FOOD, mp->m_vtype, mp->m_vamt, mp->m_nv);
-	    if (vec[I_FOOD] > max_food)
-		vec[I_FOOD] = max_food;
+	    if (sp->shp_item[I_FOOD] > max_food)
+		sp->shp_item[I_FOOD] = max_food;
 	    /*
 	     * do plague stuff.  plague can't break out on ships,
 	     * but it can still kill people.
@@ -202,7 +200,7 @@ upd_ship(register struct shpstr *sp, register int etus,
 	    pstage = sp->shp_pstage;
 	    ptime = sp->shp_ptime;
 	    if (pstage != PLG_HEALTHY) {
-		n = plague_people(np, vec, &pstage, &ptime, etus);
+		n = plague_people(np, sp->shp_item, &pstage, &ptime, etus);
 		switch (n) {
 		case PLG_DYING:
 		    wu(0, sp->shp_own,
@@ -247,8 +245,7 @@ upd_ship(register struct shpstr *sp, register int etus,
 		sp->shp_pstage = pstage;
 		sp->shp_ptime = ptime;
 	    }
-	    putvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
-	    pops[sp->shp_own] += vec[I_CIVIL];
+	    pops[sp->shp_own] += sp->shp_item[I_CIVIL];
 	}
     }
 }
@@ -423,8 +420,7 @@ shiprepair(register struct shpstr *ship, struct natstr *np,
  * returns the number who starved, if any.
  */
 int
-feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
-	  int doit)
+feed_ship(struct shpstr *sp, int etus, int *needed, int doit)
 {
     double food_eaten, land_eaten;
     int ifood_eaten;
@@ -438,63 +434,65 @@ feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
     if (opt_NOFOOD)
 	return 0;		/* no food no work to do */
 
-    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+    total_people
+	= sp->shp_item[I_CIVIL] + sp->shp_item[I_MILIT] + sp->shp_item[I_UW];
     food_eaten = etus * eatrate * total_people;
     ifood_eaten = (int)food_eaten;
     if (food_eaten - ifood_eaten > 0)
 	ifood_eaten++;
     starved = 0;
     *needed = 0;
-    if (!player->simulation && ifood_eaten > vec[I_FOOD])
-	vec[I_FOOD] += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				     I_FOOD, ifood_eaten - vec[I_FOOD]);
+    if (!player->simulation && ifood_eaten > sp->shp_item[I_FOOD])
+	sp->shp_item[I_FOOD]
+	    += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+			     I_FOOD, ifood_eaten - sp->shp_item[I_FOOD]);
 
 /* doit - only steal food from land units during the update */
-    if (ifood_eaten > vec[I_FOOD] && sp->shp_nland > 0 && doit) {
+    if (ifood_eaten > sp->shp_item[I_FOOD] && sp->shp_nland > 0 && doit) {
 	snxtitem_all(&ni, EF_LAND);
 	while ((lp = (struct lndstr *)nxtitemp(&ni, 0)) &&
-	       ifood_eaten > vec[I_FOOD]) {
+	       ifood_eaten > sp->shp_item[I_FOOD]) {
 	    if (lp->lnd_ship != sp->shp_uid)
 		continue;
-	    need = ifood_eaten - vec[I_FOOD];
+	    need = ifood_eaten - sp->shp_item[I_FOOD];
 	    land_eaten = etus * eatrate * lnd_getmil(lp);
 	    if (lp->lnd_item[I_FOOD] - need > land_eaten) {
-		vec[I_FOOD] += need;
+		sp->shp_item[I_FOOD] += need;
 		lp->lnd_item[I_FOOD] -= need;
 	    } else if (lp->lnd_item[I_FOOD] - land_eaten > 0) {
-		vec[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
+		sp->shp_item[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
 		lp->lnd_item[I_FOOD] -= lp->lnd_item[I_FOOD] - land_eaten;
 	    }
 	}
     }
 
-    if (ifood_eaten > vec[I_FOOD]) {
-	*needed = ifood_eaten - vec[I_FOOD];
-	can_eat = vec[I_FOOD] / (etus * eatrate);
+    if (ifood_eaten > sp->shp_item[I_FOOD]) {
+	*needed = ifood_eaten - sp->shp_item[I_FOOD];
+	can_eat = sp->shp_item[I_FOOD] / (etus * eatrate);
 	/* only want to starve off at most 1/2 the populace. */
 	if (can_eat < total_people / 2)
 	    can_eat = total_people / 2;
 
 	to_starve = total_people - can_eat;
-	while (to_starve && vec[I_UW]) {
+	while (to_starve && sp->shp_item[I_UW]) {
 	    to_starve--;
 	    starved++;
-	    vec[I_UW]--;
+	    sp->shp_item[I_UW]--;
 	}
-	while (to_starve && vec[I_CIVIL]) {
+	while (to_starve && sp->shp_item[I_CIVIL]) {
 	    to_starve--;
 	    starved++;
-	    vec[I_CIVIL]--;
+	    sp->shp_item[I_CIVIL]--;
 	}
-	while (to_starve && vec[I_MILIT]) {
+	while (to_starve && sp->shp_item[I_MILIT]) {
 	    to_starve--;
 	    starved++;
-	    vec[I_MILIT]--;
+	    sp->shp_item[I_MILIT]--;
 	}
 
-	vec[I_FOOD] = 0;
+	sp->shp_item[I_FOOD] = 0;
     } else {
-	vec[I_FOOD] -= (int)food_eaten;
+	sp->shp_item[I_FOOD] -= (int)food_eaten;
     }
     return starved;
 }

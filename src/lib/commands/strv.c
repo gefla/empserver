@@ -164,7 +164,7 @@ starv_ships(s_char *range)
     struct nstr_item ni;
     struct shpstr ship;
     int nship = 0;
-    int vec[I_MAX + 1], s, needed;
+    int s, needed;
 
     if (!snxtitem(&ni, EF_SHIP, range))
 	return;
@@ -173,9 +173,7 @@ starv_ships(s_char *range)
 	if (!player->owner || !ship.shp_own)
 	    continue;
 
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-	s = feed_ship(&ship, vec, etu_per_update, &needed, 0);
-
+	s = feed_ship(&ship, etu_per_update, &needed, 0);
 	if (s == 0)
 	    continue;
 	if (nship++ == 0)
@@ -214,7 +212,7 @@ starv_units(s_char *range)
     struct nstr_item ni;
     struct lndstr land;
     int nunit = 0;
-    int vec[I_MAX + 1], s, needed;
+    int s, needed;
 
     if (!snxtitem(&ni, EF_LAND, range))
 	return;
@@ -223,9 +221,7 @@ starv_units(s_char *range)
 	if (!player->owner || !land.lnd_own)
 	    continue;
 
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	s = feed_land(&land, vec, etu_per_update, &needed, 0);
-
+	s = feed_land(&land, etu_per_update, &needed, 0);
 	if (s == 0)
 	    continue;
 	if (nunit++ == 0)

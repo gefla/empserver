@@ -555,7 +555,7 @@ extern int do_feed(register struct sctstr *, register struct natstr *,
 extern int feed_people(register int *, int, int *);
 /* land.c */
 extern int prod_land(int, int, int *, int);
-extern int feed_land(struct lndstr *, register int *, int, int *, int);
+extern int feed_land(struct lndstr *, int, int *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
@@ -591,7 +591,7 @@ extern s_char *nxtitemp(struct nstr_item *, int);
 extern struct sctstr *nxtsctp(register struct nstr_sect *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
-extern int plague_people(struct natstr *, int *, u_short *, u_short *, int);
+extern int plague_people(struct natstr *, short *, u_short *, u_short *, int);
 /* plane.c */
 extern int prod_plane(int, int, int *, int);
 /* populace.c */
@@ -623,7 +623,7 @@ extern void produce_sect(int natnum, int etu, int *bp,
 			 long int (*p_sect)[2], int sector_type);
 /* ship.c */
 extern int prod_ship(int, int, int *, int);
-extern int feed_ship(struct shpstr *, register int *, int, int *, int);
+extern int feed_ship(struct shpstr *, int, int *, int);
 
 /*
  * src/server

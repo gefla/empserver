@@ -52,7 +52,6 @@ static int infect_people(struct natstr *, struct sctstr *);
 void
 do_plague(struct sctstr *sp, struct natstr *np, int etu)
 {
-    int vec[I_MAX + 1];
     u_short pstage, ptime;
     int n;
 
@@ -66,8 +65,7 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	pstage = infect_people(np, sp);
 	ptime = 0;
     } else {
-	getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-	n = plague_people(np, vec, &pstage, &ptime, etu);
+	n = plague_people(np, sp->sct_item, &pstage, &ptime, etu);
 	switch (n) {
 	case PLG_DYING:
 	    wu(0, sp->sct_own, "PLAGUE deaths reported in %s.\n",
@@ -107,7 +105,6 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	default:
 	    break;
 	}
-	putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     }
     if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0
 	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
@@ -154,7 +151,7 @@ infect_people(struct natstr *np, struct sctstr *sp)
  * stage.  No reports generated here anymore.
  */
 int
-plague_people(struct natstr *np, register int *vec,
+plague_people(struct natstr *np, short *vec,
 	      u_short *pstage, u_short *ptime,
 	      int etus)
 {
