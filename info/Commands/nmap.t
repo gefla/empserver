@@ -1,0 +1,65 @@
+.TH Command NMAP
+.NA nmap "Generate a map showing new sector types, seas, etc"
+.LV Basic
+.SY "map <SECTS | SHIP> <s|p|l>"
+.SY "nmap <SECTS | SHIP> <s|p|l>"
+.SY "smap <SECTS | SHIP> <s|p|l>"
+.SY "lmap <SECTS | SHIP> <s|p|l>"
+.SY "pmap <SECTS | SHIP> <s|p|l>"
+A map gives you a graphic representation of all or part of your country.
+.s1
+Your own sectors show up as a designation mnemonic
+(see \*QSector-types\*U) while sectors held by other countries
+appear as question marks (\*Q?\*U).
+Mountains, wilderness areas, and seas appear
+as '^', '-' and '.' respectively.
+.s1
+Examples:
+.EX map -9:18,-8:5
+generates a 28 x 14 map based on data supplied by the sectors
+in the area specified.
+.NF
+    ---------0000000000111111111
+    9876543210123456789012345678
+ -8        . . . - -             -8
+ -7       . . . . - ^            -7
+ -6    . . . . - - - -           -6
+ -5   . . - . a a - ^ ? ? -      -5
+ -4  . . . . k o ! - ^ ? ? ?     -4
+ -3 . - . a h j a ^ ^ ^ ^ ^ -    -3
+ -2  . . - . a a a ^ a a - - -   -2
+ -1   . . . a a a b + + ^ ^ -    -1
+  0  . . . m c u a a - ^ - ^     0
+  1   . - . a a . a a - - ^      1
+  2    - ^ ^ a a a ^ a - - ^     2
+  3     - - - - - - - . . -      3
+  4      ^ - - - - - ^ - -       4
+  5       - ^ - - ^ - - -        5
+    ---------0000000000111111111
+    9876543210123456789012345678
+.FI
+.s1
+.EX map # >mapfil
+where your \*Qrealm\*U (or '#',
+see \*Qinfo realm\*U or \*Qinfo update\*U)
+is -5:5,-6:6 will type out a 11 by 13 sector map
+and also put the map in the file called \*Qmapfil\*U.
+.s1
+Also, if you give a ship # instead of coordinates or a realm, map
+will show you a small realm around the given ship (assuming you
+own it).
+.s1
+If you use nmap, you can get a map that shows new sector designations
+instead of old sector designations of your own country.
+.s1
+If you use lmap, you can get a map around a land unit, 
+instead. Pmap does the same for a plane. Smap does
+the same for a ship.
+.s1
+.L "MAP FLAGS"
+.s1
+If you give an 's' flag, all your ships will be shown on the map.
+An 'l' flag does the same for land units, and a 'p' for planes.
+'*' gives all of the above.
+.s1
+.SA "census, commodity, radar, realm, route, update, Maps"

@@ -1,0 +1,77 @@
+.TH EMP_CLIENT 6 "19 Oct 1998" "empire client version 2.8"
+.UC
+.SH NAME
+empire \- Empire client
+.SH SYNOPSIS
+.B empire
+[
+.IR country
+[
+.IR password
+]
+]
+[
+.BI \-k
+]
+[
+.BI \-2 outfile
+]
+.br
+.SH DESCRIPTION
+.I empire
+is a bare bones client to connect to the Empire server.  Empire is a
+global economic/political/military simulation game wherein players,
+representing national governments, make "real-time" decisions
+concerning resource allocation, national goals, international
+diplomatic efforts, etc.  Extensive records are kept for all players.
+.PP
+WARNING -- This game is not only addictive but often peels back
+the thin veneer of civilization that hides the maniac within.
+.SH OPTIONS
+.TP
+.IR country
+the name of your country in the game
+.TP
+.IR password
+the password for your country in the game
+.TP
+.BI \-k
+if someone else is connected to your country, kill their connection
+.TP
+.BI \-2 outfile
+redirect output to 
+.I outfile
+.SH ENVIRONMENT VARIABLES
+setenv EMPIREHOST server-machine to access the game on server-machine.
+.PP
+setenv EMPIREPORT port-number to access the game on port-number.
+(the person running the game should tell you what this is... if not, 
+you should have the right default already.)
+.PP
+setenv COUNTRY country-name (optional)
+.PP
+setenv PLAYER representative-name (optional)
+.SH AUTHORS
+.nf
+Primary Author is Dave Pare (mr-frog@scam.berkeley.edu)
+Secondary authors/contributors may include:
+James Anderson (jwa@k.cs.cmu.edu)
+Jeff Anton (anton@postgres.berkeley.edu)
+Phill Everson (everson@compsci.bristol.ac.uk)
+Steven Grimm (koreth@ucscb.UCSC.EDU)
+Lewis R. Jansen (lrj@helios.tn.cornell.edu)
+Mike St. Johns (stjohns@edn-vax.arpa)
+Nick Lai (lai@cs.ucla.edu)
+Shelley Louie (slouie@cory.berekely.edu)
+Steve McClure (ionica@empire.cx)
+Chris Metcalf (metcalf-christopher@yale.arpa)
+Dave Muir Sharnoff (muir@cogsci.berkeley.edu)
+Keith Muller (muller@sdcc7.ucsd.edu)
+Chuck Musciano (chuck@trantor.harris-atd.com)
+Jeff Okamoto (okamoto%hpccc@hplabs.hp.com)
+Julian Onions (jpo@computer-science.nottingham.ac.uk)
+Kurt Pires (kjpires@ic.berkeley.edu)
+Jim Reuter (reuter@decwrl.dec.com)
+Peter Vukovich (peterv@monet.berkeley.edu)
+Jeff Wallace (jeffw@scam.berkeley.edu)
+John Yockey (johny@verinet.com)

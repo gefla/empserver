@@ -1,0 +1,82 @@
+Welcome to Empire 4, codenamed Wolfpack.  Congratulations on your choice!
+
+See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+related information and legal notices. It is expected that any future
+projects/authors will amend these files as needed.
+
+For questions and comments, please contact "wolfpack@wolfpackempire.com".
+
+If you want to build the server, follow the few simple steps below.  If
+you are looking for more information on the files here, options for
+the server, etc. take a look in the "doc" directory, then follow the steps
+below to build and start the server.
+
+(1) Unpacking the server
+  To unpack the server, simply gunzip and untar the source.
+
+(2) Building a server
+  Note that you may not have to build a server.  If you received the
+  server in binary format, go to the next step, "Creating the world."
+
+  To build the server, you need to do the following steps:
+
+  1) Get a copy of the source.  Since you're reading this, we assume
+     you have done that. 
+  2) Gunzip the source.  Again, since you're reading this . . . ;-)
+  3) edit the build.conf file in this directory, and answer the questions
+     it asks you.
+  4) type "make" to see what architectures are currently supported.
+  5) choose the architecture that best suits you, and type "make <arch>"
+     where <arch> is the architecture you want to build.
+  6) type "make depend" to build the dependencies (not required, but
+      helps a lot when you want to recompile something again.)
+     Note: "make depend" doesn't work under NT yet.
+
+(3) Creating the world
+  (NOTE: If you received a binary, you must edit the included data/econfig
+   file to represent the paths where your data and info directories are.)
+  1) First, pick the world size you want to use.  Once you have chosen
+     a world size, edit the "data/econfig" file (it was either created
+     at build time, or shipped with the binary) and change the WORLD_X
+     and WORLD_Y to be the sizes you want. The default world size is 64x32.
+     IMPORTANT: WORLD_X *MUST* be divisible by 2.  In addition, if you
+     change the world size later, you *MUST* re-create the world by
+     running "bin/files" again.
+  2) Go into the "bin" directory, and run "./files".
+  3) If you want to create a new world, run "./fairland 10 30" to create
+     a sample world (read the documentation for fairland for more info on
+     it's arguments.)
+  Note that "files" and "fairland" use the world size in the econfig file
+  if it exists in the data directory.  If this file doesn't exist, and you
+  don't specify one, it will use the default world size the server was
+  compiled with (Wolfpack binaries ship with a 64x32 world size)  You can
+  create an econfig file with default values using the "bin/pconfig"
+  executable.
+
+(4) Running the server
+  1) Run the bin/emp_server executable to start the server.
+
+That's it.  Once running, you can log on to the server using the emp_client
+program found in the "bin" directory.  The initial deity country name/password
+is POGO/peter.
+
+If you get a "You're not a deity!" message and logged off, check the
+"data/server.log" file and look at the end for a "NON-AUTH" entry.
+There should be a "user@host" message in there that failed to log in.
+The user and host that your system is using may be different than the
+one you put in your build.conf file.  So, enter this new user and host
+in the auth file, and you should be able to log into the server as a
+deity now.  Note that if you rebuild the server again, the auth file
+will be overwritten.
+
+For more information on options, programs, files and other general hints
+look in the "doc" directory.  The README there describes the files there and
+what they talk about.
+
+For more information or help, send e-mail to "wolfpack@wolfpackempire.com" and
+we'll try to answer if we can.  Also check out our web site at
+"http://www.wolfpackempire.com"
+
+Have fun!
+
+ -- The Wolfpack development team...

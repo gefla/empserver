@@ -1,0 +1,12 @@
+emp_server will only dump core if you run with the -d flag.
+
+If you decide not to dump core, then the most recent player commands
+should be listed in data/server.log.  Each command will be preceeded
+by the country number of the player which issued it.   When the player
+is prompted, then [prompt] is printed.
+
+If you decide to dump core, then the most recent player commands will
+be in the global array called player_commands which is indexed by
+player_commands_index.  The array will contain strings of the form:
+  "%3d %3d %s", index, player->cnum, command
+

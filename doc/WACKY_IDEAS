@@ -1,0 +1,171 @@
+-=O EMPIRE WACKY IDEAS LIST O=-
+
+This file contains the more bizarre and outlandish proposals for
+changing the game of Empire.  See the EMPIRE WISH LIST for an
+explanation of the indexing system.
+
+  _________________________________________________________________
+
+--- TABLE OF CONTENTS ---
+
+Attack, Assault and Board.................a 
+Missions..................................m 
+Ships.....................................s 
+Planes....................................p 
+Land Units................................l 
+Commodities and Sectors...................c 
+Information Commands......................i 
+Telegrams, Announcements, News............t 
+Updates...................................u 
+Deity.....................................d 
+Miscellanious and Documentation...........x 
+Error Messages............................e 
+
+  --- ATTACK, ASSAULT AND BOARD --- 
+
+a4
+frontline <UNITS>
+When a unit is created, it is automatically put on the frontline
+(except for artillery and supply units). This means that when you
+attack an adjacent sector, you will be asked if you want to include
+this unit in the attack.
+backline <UNITS>
+When a unit is put on a mission, it is automatically put on the
+backline. This means that when you attack, you won't be asked about
+attacking with this unit. Also, supply units and artillery are born on
+the backline. When attacking with units, allow the user to type Y,
+rather than typing y for all the units you want to attack with. Y
+would mean "attack with all units on the frontline". At the attack
+prompt, you will be asked: Attack with infantry #3 (y/n/Y/N/b)? and
+the "b" will mean "backline". This would be particularly handy when
+attacking with a bunch of units and you want to leave some of them
+behind to hold the beach-head. And you want to stop being prompted for
+them.
+
+  --- SHIPS --- 
+  
+s9
+swap [s|p|l] <UNIT1> <UNIT2>
+Swap the id numbers of units so you can control the order in which
+they are built. In order to swap the numbers, the units must be in the
+same sector, and the sector must be either a h/*/! as appropriate.
+WARNING: this could be seriously abused!
+
+s11
+nuclear subs consume rads as fuel? need rads to build nuc sub?
+
+s17
+in fuel command, one petrol should be worth 20 oil. right now it is
+more efficient to fuel ships and units with oil rather than with
+petrol.
+( in this one, it would probably be better IMHO to get rid of fueling
+with oil altogether - Ken H.)
+
+s20
+Make assaulting cost ship mobility. This would help stop the ability
+to assault with a small amount of mil over and over until
+reacting units run out of mobility.
+
+  --- PLANES --- 
+  
+p3
+Allow transport planes to paradrop land units. (This would be
+realistic.) Would use the following analogy:
+
+Units on Planes         Units on Ships
+x-light                 assault
+para                    marine
+cargo                   light
+
+So, "cargo" units could be transported, "x-light" units could paradrop
+but at a serious disadvantage and would lose all mob, and "para" units
+could paradrop like marines could assault (with full attack and
+reduced mob loss).
+
+p8
+planes should mobility when loaded and unloaded from a ship.
+
+p12
+Have an aquatic plane type. This would be a medium to small cargo
+plane, that must be built in an airport but can only take off froma
+harbor, or sea sector. While on the water, it could tend, however, not
+be able to nav. It might, or might not be able to lay/sweep mines. And
+fuel is another issue that would need to be looked into.
+
+p14
+perhaps the range a plane can fly should be limited by its efficiency.
+
+  --- LAND UNITS --- 
+  
+l2
+trans l <FROMSECT> <TOSECT>
+to use sector mobility to transport a land unit from one sector to
+another.
+
+l3
+Make a new kind of land unit (transport trucks) which can carry land
+units in a similar way that ships can carry units. This would allow
+you to transport heavy artillery and unmechanized infantry around
+faster. (This would be a realistic change).
+
+l5
+Have very expensive land units called a spies:
+
+                       lcm hcm mil guns shells avail tech  $
+spy 1                      10   0   1    0      0     2    0  $2000
+spy 2                      10   0   1    0      0     2    0  $5000
+spy 3                      10   0   1    0      0     2    0  $8000
+
+
+
+Spies can march through enemy territory and llook in there. Every
+update, there will be a chance the spy is caught. Also there is a
+chance it will be caught every time it moves in enemy territory and
+every time it does an "lloo". It will be completely unaffected by
+combat. The chance of detection should be something like: spy 1 10%,
+spy 2 5%, spy 3 2%.
+
+l6
+land units should lose mob when loaded/unloaded from a ship.
+
+l10
+mobile headquarters unit type - capable of repairing land units by
+using mobility, supplies, and mil. How about just letting engineers
+work on units also?
+
+  --- COMMODITIES AND SECTORS --- 
+  
+c9
+Limit the amount of commodities (by weight) allowed to be kept on a
+bridge, and have a stacking limit for units on a bridge. (Bridges can
+only support so much weight eh?)
+
+c10
+build tu
+At a price, build a tunnel through a mountain sector. This would turn
+a ^ into a + at some great cost.
+
+c12
+autodemob 11,11 35 y
+"autodemob" is to "demob" what "autonav" is to "nav". The principle is
+simple: "autodemob 11,11 35 y" means every update, demob all the mil
+in 11,11 except for 35. ( note - makes budget more complex - Oliver
+Ricou )
+
+c14
+We need some Empire command which lets you do a lot of moving at once
+with minimal BTU cost. Here would be one possible syntax: multimove
+<ITEM> <SECTS> <THRESHOLD> <DISTSECT> <MINMOB> This is just like
+distribute at the update. It would distribute commodities between
+<SECTS> and <DISTSECT> depending on <THRESHOLD> (which applies to the
+<SECTS>), and only doing moves provided that the mobility doesn't fall
+below <MINMOB> in any of the sectors involved: empire [124,512]%
+multimove f * ?civ>20 40 1,1 40 An alternate symtax could be:
+multimove <ITEM>
+where existing distribution thresholds are used.
+
+  --- MISCELLANIOUS AND DOCUMENTATION --- 
+  
+x25
+national happiness should be affected by your victories/losses, and if
+you drown your mil (by scuttle/scrap) or starv your populace.

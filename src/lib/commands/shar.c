@@ -1,0 +1,80 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  shar.c: share a bmap with a friend
+ * 
+ *  Known contributors to this file:
+ *     Ken Stevens, 1995
+ */
+
+#include "misc.h"
+#include "nsc.h"
+#include "nat.h"
+#include "player.h"
+#include "file.h"
+#include "commands.h"
+
+int
+shar(void)
+{
+	int	to;
+	struct	nstr_sect ns;
+	s_char	des = 0;
+	int	n;
+
+	if (!player->argp[1] ||
+	    !*player->argp[1] ||
+	    (to = natarg(player->argp[1], "Share bmap with which country? ")) < 0)
+		return RET_SYN;
+
+	if (getrel(getnatp(to), player->cnum) < FRIENDLY) {
+		pr("%s does not have friendly relations towards you\n",
+		   cname(to));
+		return RET_FAIL;
+	}
+
+	if (!snxtsct(&ns, player->argp[2]))
+		return RET_SYN;
+
+	if (player->argp[3] && *player->argp[3]) {
+		if (typematch(player->argp[3], EF_SECTOR) < 0)
+			return RET_SYN;
+		else
+			des = *player->argp[3];
+	}
+
+	if (!bmaps_intersect(player->cnum, to)) {
+		pr("Your bmap does not intersect %s's bmap.\n", cname(to));
+		return RET_FAIL;
+	}
+
+	n = share_bmap(player->cnum, to, &ns, des, cname(player->cnum));
+	pr("%d designations transmitted\n", n);
+
+	return RET_OK;
+}
+

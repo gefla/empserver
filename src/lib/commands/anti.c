@@ -1,0 +1,172 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  anti.c: Take action against che
+ * 
+ *  Known contributors to this file:
+ *     Pat Loney, 1992
+ *     Steve McClure, 1997
+ */
+
+
+#include <stdio.h>
+#include <ctype.h>
+#include "misc.h"
+#include "player.h"
+#include "var.h"
+#include "xy.h"
+#include "sect.h"
+#include "nat.h"
+#include "news.h"
+#include "nsc.h"
+#include "item.h"
+#include "file.h"
+#include "commands.h"
+#include "optlist.h"
+
+extern int etu_per_update;
+extern int sect_mob_neg_factor;
+/*
+ * format: anti <SECT>
+ */
+int
+anti(void)
+{
+    struct	sctstr sect;
+    int	nsect;
+    struct	nstr_sect nstr;
+    int	cond[I_MAX+1];
+    int	mil, che, target;
+    int	avail_mil;
+    int	amil, ache;
+    int	milkilled, chekilled;
+    double	odds, damil, dache;
+    int	mob;
+    int n_cheleft;
+    extern  double  hap_fact();
+    
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0) {
+	    pr("  sect    subversion activity report\n");
+	    pr("  ----    --------------------------\n");
+	}
+	getvec(VT_COND, cond, (char *)&sect, EF_SECTOR);
+	mil = getvar(V_MILIT, (char *)&sect, EF_SECTOR);
+	che = get_che_value(cond[C_CHE]);
+	target = get_che_cnum(cond[C_CHE]);
+	avail_mil = sect.sct_mobil/2;
+	if (mil <= avail_mil) 
+	    avail_mil = mil;
+	prxy("%4d,%-4d ", sect.sct_x, sect.sct_y, player->cnum);
+	if (avail_mil <= 0) {
+	    pr("No available mil or mob in sector.\n");
+	    continue;
+	}
+	pr("Sector mobility/troop strength will allow %d troops to engage.\n",
+	   avail_mil);
+	
+	if (target == player->cnum) {
+	    amil = mil;
+	    ache = che;
+	    milkilled = 0;
+	    chekilled = 0;
+	    mob = sect.sct_mobil;
+	    while (amil != 0 && ache != 0 && mob > 1) {
+		damil = amil;
+		dache = ache;
+		odds = (dache * 2.0 / (damil + dache));
+		odds /= hap_fact(getnatp(sect.sct_own),getnatp(sect.sct_oldown));
+		mob = mob - 2;
+		if (chance(odds)) {
+		    amil = amil - 1;
+		    milkilled = milkilled + 1;
+		} else {
+		    ache = ache - 1;
+		    chekilled = chekilled + 1;
+		}
+	    }
+	    if (mil - milkilled > 0) {
+		sect.sct_mobil = sect.sct_mobil - chekilled - milkilled;
+		putvar(V_MILIT, mil - milkilled, (char *)&sect,
+		       EF_SECTOR);
+		if ( ache == 0 )
+		    cond[C_CHE] = 0;
+		set_che_value(cond[C_CHE], ache);
+		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
+		putsect(&sect);
+		pr("          Body count:  Military %d - Guerillas %d.\n",
+		   milkilled, chekilled);
+		if (ache == 0) {
+		    pr("          Partisans cleared out of this sector for now.\n");
+		} else {
+		    pr("          Partisans still active in this sector.\n");
+		}
+	    } else {
+	        if (opt_MOB_ACCESS) {
+		  sect.sct_mobil =
+		    -(etu_per_update/sect_mob_neg_factor);
+		} else {
+		  sect.sct_mobil = 0;
+		}
+		sect.sct_loyal = sect.sct_loyal * 0.5;
+		n_cheleft = (random() % 4);
+		/* 75% chance some che will get left */
+		if (n_cheleft) {
+		    /* Ok, now leave anywhere from 16% to 25% of the che */
+		    n_cheleft = (ache / (n_cheleft + 3));
+		    ache -= n_cheleft;
+		    set_che_value(cond[C_CHE], n_cheleft);
+		} else 
+		    cond[C_CHE] = 0;
+		putvar(V_MILIT, ache, (char *)&sect, EF_SECTOR);
+		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
+		if (sect.sct_own == sect.sct_oldown)
+		    sect.sct_oldown = 0;
+		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
+		makenotlost(EF_SECTOR, sect.sct_oldown, 0, sect.sct_x, sect.sct_y);
+		sect.sct_own = sect.sct_oldown;
+		sect.sct_off = 1; /* Turn the sector off */
+		putsect(&sect);
+		pr("          Partisans take over the sector.  You blew it.\n");
+		wu(0, sect.sct_oldown, 
+		   "Sector %s regained from Partisan activity.\n",
+		   xyas(nstr.x,nstr.y,sect.sct_oldown));
+	    }
+	} else {
+	    pr("          Body count:  Military 0 - Guerillas 0.\n");
+	    pr("          Partisans cleared out of this sector for now.\n");
+	}
+    }
+    pr("%d sector%s\n", nsect, splur(nsect));
+    return RET_OK;
+}

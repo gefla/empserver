@@ -1,0 +1,141 @@
+This is a short note on the empire configuration stuff. Some of this
+is for deities to enable them to configure things, some of it is for
+coders to see how this stuff works.
+
+Julian Onions <j.onions@nexor.co.uk>  15/7/95
+
+-- 
+Also, the Empire config files are now self-documenting (to a point.)
+Each option/variable now has a comment associated with it to hopefully
+make life easier on deities wanting to change things.
+
+-- Steve McClure, 10/21/1998
+--
+
+
+Deity Notes.
+-----------
+
+To find out the current configuration, the simplest method is to
+compile up util/pconfig and the run it. It can be run either with no
+arguments, in which case it will printout in config format the current
+compiled in options. Otherwise with a file containing a configuration
+it will first read in this file, and overright any copmiled in
+variables and then printout the merged options. 
+
+So the first method shows you whats compield in, the 2nd how a config
+file would modify this.
+
+Blank lines are ignored, as are lines starting with a # character.
+
+Most of the options are straight forward, they take either a string
+(quote using " to get spaces in it) or a number - integer or floating
+point depending on the option. 
+
+For instance
+  privname "The Deity"
+sets the internal privname variable to that string, and 
+  port "7777" 
+sets the empire port to 7777.
+  btu_build_rate 0.0004 
+sets the internal floating point number for btu building rate,
+and so on.
+
+The only other type of variable currently defined are the
+options. These may be specified as one or more lines starting
+"option" and turned off with the keyword "nooption".
+
+So, for instance
+
+    option FUEL ORBIT
+and 
+    option FUEL
+    option ORBIT
+
+are equivalent
+
+To turn off an option that is compiled in, you can similarly have
+
+    nooption FUEL
+    nooption ORBIT
+or
+    nooption FUEL ORBIT
+
+
+As a check, pconfig will printout some of the internal file names as
+comments at the end just to check they are in the right place.
+
+The server can take a -e config file as a command line option so that
+it will read a specific config file. If not, it will default to
+looking for a file econfig in the built in data directory, but it
+won't mind if one is absent. Similarly, util/files and util/fairland
+et al all take a -e config file to run from a different config.
+Thus, to start two games on the same host, you might have
+
+Game1:
+files -e econfig1
+fairland -e econfig1
+emp_sever -e econfig1
+
+Game2
+files -e econfig2
+fairland -e econfig2
+emp_server -e econfig2
+
+econfig1 might have the lines
+data "/empire/data1"
+info "/empre/info"
+port "7777"
+
+and econfig2 might have the lines
+
+data "/empire/data2"
+info "/empre/info"
+port "7778"
+
+You only need the lines in that file that you require to override the
+compiled in definitions, however having all the definitions may help
+you to understand what is on and off. You could do this with
+
+pconfig econfig1 > e1 && mv e1 econfig1
+pconfig econfig2 > e2 && mv e2 econfig2
+
+which will fill in all the missing options and values with their defaults.
+
+
+
+Coders information
+------------------
+
+The simplest way to describe this is to step through how a new option
+would be added.
+
+1. Think of the option name, say, "DUMB".
+2. In lib/global/options.c define an integer and set it to 1 or 0 as
+appropriate. This is usually done as 
+#ifdef DUMB
+int opt_DUMB = 1;
+#else
+int opt_DUMB = 0;
+#endif
+
+3. At the end of that file, add an entry into the table so it is
+configurable. This is done with a line like
+{ "DUMB",     &opt_DUMB },
+Make sure the table is still terminated by two NULL values!
+
+4. In h/optlist.h add an external definition of this variable
+
+extern int opt_DUMB;
+
+5. Now the variable is defined, and configurable through the option
+keyword in the config file. So you can go ahead and make changes
+elsewhere in the code. This normally looks like
+
+	  if (opt_DUMB) {
+	     pr("You're being dumb\n");
+	  } else {
+	     pr ("You're being really dumb\n");
+	  }
+but it may call subroutines, return early from functions or whatever.
+

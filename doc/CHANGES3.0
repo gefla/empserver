@@ -1,0 +1,449 @@
+Empire 3.0.0
+- Implemented the C_SYNC RFC
+  - New commands:
+    sync
+    toggle sync
+    toggle async
+  - New files:  
+    h/edb.h
+    h/toolkit.h
+    lib/commands/sync.c
+    lib/global/edb.c
+    lib/subs/prsync.c
+    info/Commands/sync.t
+    doc/CHANGES3.0
+- New struct members (currently not used)
+  - player.comhistory command history (for debugging) last 10 commands
+  - nat.nat_mission_trigger set which relation you want to trigger
+    various missions and autodefenses at.
+  - Added land.lnd_scar -- how experienced the land unit is.
+  - sect.sct_mobil was changed from unsigned char to short (to permit
+    the removal of updates--note I don't plan to remove updates, but
+    someday someone might try and they will need this so that sectors can
+    go to negative mob).
+- New struct members (currently used):
+  - Added type field to all objects so they can identify themselves
+  - Moved var structs to the top of all class structs for easy location
+    (see struct genchrstr defined in h/genitem.h)
+  - nat.nat_hostaddr, nat.nat_hostname, nat.nat_userid, userid and hostname
+    of last person to connect to that country.  If when you login,
+    your userid or hostname is different from the last person to conenct
+    to that country, then you will get a message like:
+Last connection from: Mon Nov 13 01:48:04 1995
+                  to: Mon Nov 13 01:48:12 1995
+                  by: children@RedDragon.Empire.Net
+    this will improve security and be helpful for co-rulers.  Also
+    added were nat.nat_last_login and nat.nat_last_logout.
+  - Nation now has 50 realms.
+- New global constants:
+  - Extended nsc ("next selection conditionals" e.g. cen * ?mil=5) to
+    support C_SYNC messages and include the objects "map" (bmap), and "nation".
+    These will transmit to the client the equivalent of "dump", "ship",
+    "car", "land", "lcar", "bmap", and "nation" output and more.
+  - Added nsc entries for the following classes: sect, ship, plane,
+    land, nuke, map, item, product, and version.  These will transmit to
+    the client the equivalent of the "show" and "version" command output
+    and more.
+
+Empire 3.0.1  C_SYNC 0.0.1
+- changed the order of the struct members of sect, ship, plane, land unit,
+  nuke to put own and uid out front (note this results in a new version
+  of the C_SYNC protocol)
+- fixed a bug in "sync object" which was sending erronious data
+- for now all C_SYNC messages will automatically send uid (or x,y for sects).
+  this should be changed to implement "surfacing noises" and interdiction.
+- whenever any of your sect, ship, plane, land unit, or nuke changes,
+  you will get a C_SYNC message describing the entire new struct.
+  - Note this occurs everytime the data changes EXCEPT for changes
+    which happen durring an update.  For now, I will require clients
+    to call "sync object all" after an update if they want to sync their
+    database after the update.
+  - If you loose a sect, ship, plane, land unit, or nuke, then you will
+    get a very partial C_SYNC message only telling you the id and new owner.
+- look, spy, coastwatch (async & sync), now all send you partial
+  C_SYNC messages telling you information about your enemy's stuff.
+  - Note: For now, you get precise information about the number of mil in
+    the sector etc...  This will be fixed in 3.0.2
+
+Empire 3.0.2  C_SYNC 0.0.2
+- there is now only one announcement file which all countries post to
+  and read from.  the wire syntax has changed to "wire [y|n|<days>]" to
+  allow you to read announcements from <days> days ago if you want.
+- at each update, all announcements older than 7 days (deity
+  configureable as #define ANNO_KEEP_DAYS in misc.h) are automatically
+  deleted.
+- a player's bmap can now be changed (e.g. by planes flying missions)
+  even when they're not logged on.
+- added a new command "sharebmap <COUN> <SECTS>".  If <COUN>
+  is friendly towards you and your bmaps already share enough information
+  in common, then your bmap will be added to their bmap.  For more details
+  (there are alot more details) connect to empire.net 7773 1-10 and type
+  "info sharebmap".
+- now whenever a designation gets added to your bmap, the client will
+  receive a very small C_SYNC MAP_CLASS message
+- when your country's money, reserves, cap location, name or origin
+  changes, you will get a C_SYNC NAT_OBJECT message with your new nation
+  data.  Client writers take note: there is a new field in the nat
+  struct called "xstart,ystart" which is the start location of the
+  origin.  So if the client needs to make some transformation of the
+  co-ordinates, it can refer to this variable.
+- when you type "nation", that will also send a C_SYNC NAT_OBJECT
+  message to the client.
+- removed a bunch of fields from the C_SYNC nat struct (to cut down bandwidth)
+  (this results in a new version of C_SYNC).
+- information about enemy commodities, tech, or efficiency are now
+  rounded to the nearest 10.
+
+Empire 3.0.3  C_SYNC 0.0.3
+- added three new land units: "cavalry 2", "light infantry", and
+  "aau1".  Here's the basic scheme.  The old cavalry are an average
+  between the somewhat weaker cav1 and somewhat stronger cav2.
+  light infantry are half the size of and slightly fastar than inf1's.
+  "aau1" come at the same tech as Zepplins and let low tech countries
+  try to throw rocks at low tech planes...
+- reduced the size of "ts1 trade ship 1" to 100 lcm, 50 hcm, $1500
+  (from 200 lcm, 100 hcm, $2500).  Most players were waiting for ts2
+  so this is a nice way to deal with that.
+- after each update, all countries receive the message "C_SYNC EDB_UPDATE".
+  (this results in a new version of C_SYNC).
+- all telegram files have been moved into a subdirectory called "tel".
+- new subdirectory of the data directory "sync" holds spooled C_SYNC messages.
+- if the player is not logged on when they receive a C_SYNC message,
+  then it will be spooled to their sync file.  If the sync file
+  contains spooled messages older than 3 days (deity
+  configurable as SYNC_KEEP_DAYS in misc.h), then the C_SYNC message will
+  not be spooled.
+- New command "sync read [yes|no]" reads all spooled C_SYNC messages.
+  If the [yes|no] argument is not specified, the player will be asked:
+  "Can I throw this information away now?".
+- Removed the "bdes" command.  It is no longer necessary (since the
+  server now automatically adds 'X' sectors to your bmap, and it also
+  automatically adds sectors that your planes fly over when they're
+  flying missions).  The "bdes" command in conjunction with the new
+  "sharebmap" could lead to abuses, and since it is no longer really
+  necessary, I removed it.  Given the choice between sharebmap and bdes,
+  I think most players would choose sharebmap.
+- The delivery and distribution stuff was removed from the output of
+  "commodity" and each column was widened to 5 characters (to accomodate
+  the new system where sectors are now allowed to hold up to 9999 of stuff)
+- IP addresses will now only be resolved into hostnames if RESOLVE_IPADDRESS
+  (in misc.h) is defined.
+- Mountains will now mine gold at 1/5th the rate that gold mines do (thar's
+  gold 'n them thar hills!)
+
+Empire 3.0.4 beta  C_SYNC 0.0.4
+- If the game is a blitz, then the "players" command will list other
+  countries which are logged on.  This will cut down on the "is anybody
+  else logged on?" announcements.  Note that for players, "last command"
+  and "user@hostname" are not printed (only deities get to see this stuff).
+- fixed a server crashing bug in "sync class all".
+- each country now has two bmaps, their 'working' bmap and their
+  'true' bmap.  The true bmap contains only information put there by the
+  server.  The working bmap also contains information put there by the
+  bdes and sharebmap commands.  The "bmap" command usually displays the
+  working bmap unless the player specifies "bmap <SECTS> true".  Also,
+  if the players working bmap somehow becomes corrupted, then they can
+  type "bmap <SECTS> revert" to revert their working bmap back to their
+  true bmap.  This change was necessary to prevent abuse of the new
+  "sharebmap" command (which now compares the players true bmaps when
+  determining whether they overlap).
+- There is a new info page 'info Empire3' which contains game changes
+  of particular interest to players.
+- Put the bdes command back in.
+- Added a new question in the "configure" script: "Do you require your
+  server to be unusually small?".  If the deity answers "yes" to this
+  question, then many bells and whistles will be turned off to generate
+  a lightweight "bare bones" Empire server.
+- I have padded each object struct out by a spare char, int, and long.
+  This is to give me room in the coming months in case I need to make
+  a change which needs data in the object structs, and I don't want to
+  invalidate currently running long term games.
+- Tested the HIDDEN and SLOW_WAR mods (these hadn't been tested for
+  the Empire2+ server yet).
+
+Empire 3.0.5 beta
+
+Note: the primary focus of this upgrade is to address the f1
+SAM-soaking problem.  The solution I adapted is a mixture of ideas
+from various people--mostly not myself.  I appologize for forgetting
+whose ideas these were, and I hope that in consolation for not
+acknowledging you, you will at least be happy that I implemented
+your ideas.  This was a pretty big job.
+
+- In the old system, planes would be charged either 10 mobility
+  (interceptors), 12 mobility (escorts) or 20 mobility (the rest) per
+  flight.  This cost was then multiplied by (100/eff) with the
+  restriction that plane mobility could not go below -32.  Planes flying
+  missions were charged only 1/4 of this.  In the new system, planes are
+  charged a base rate of 5 mobility to prepare for takeoff.  On top of
+  this, they are charged a "flight cost" which is either 10 (interceptors
+  and escorts) or 20 (the rest), however this flight cost is scaled down
+  according to the length of the flight--it is multiplied by (flight
+  length) / (max plane range).  The flight cost is then scaled by
+  (100/eff) with the restriction that a plane can't go below -32
+  mobility.  Planes flying missions are charged 1/2 of this.
+- The mobility of a plane will now go down by one point for every two
+  points of damage it took from air-to-air combat, to a limit of -32
+  mob.  This is to simulate the high mobility cost of air-to-air combat,
+  and the fact that air-to-air combat is more effort for low tech planes.
+- SAM interception is now separate from plane interception; for each
+  attacking plane, if the plane cost at least $1000 to build, then one
+  SAM will be launched at it.  After SAMs have been fired, fighter
+  planes will intercept what's left over.
+- The restriction that high tech nations can not build low tech planes
+  has been removed (the above changes address the f1 SAM-soaking problem).
+- marine missiles on interdiction now fire at a single ship rather
+  than the whole fleet.  They pick the ship which is the most valuable
+  according to (cost to build) * efficiency.  Furthermore, marine
+  missiles will only launch at a ship if the ship cost at least $1000
+  to build  or if it can carry land units or planes.
+- the NEWPAF option has been made standard.
+- fixed a bug which wasn't giving a +1 radius bonus to units in 60% HQ's.
+- "toggle sync on" now sends back a "sync version" as per the RFC.
+- fairland now prints an error to stderr if it can't grow the
+  continents (it used to just print the last partially built map).
+- when you break sanctuary, your 100% sanctuaries turn into cities and
+  all your other sanctuaries turn into roads (this is helpful for
+  games which use "bigstart").
+
+Empire 3.0.6  C_SYNC 0.0.5
+- Fixed a bug in the attack code which was underestimating defense
+  strength (it was only giving the sector defense bonus to land
+  units--not mil).  Note--the bug was only in the estimation part, so
+  countries were not being given a chance to abort attacks where the
+  odds were clearly against them.
+- Mountains can now only hold 1/10th as many civs as normal sectors.
+- Raised the gold production efficiency of mountains from 20% to 75%.
+- Changed fairland to put gold in mountains.
+- flash and wall messages are no longer truncated.  Instead the message
+  is split into 60 character pieces which are transmitted one at a time.
+- If the game is HIDDEN then non-contacted countries no longer show up
+  on your "relations" output.
+- If the game is HIDDEN and you try to declare relations with a
+  country you haven't contacted yet, then you will now get an error
+  message (before you got nothing at all).
+- Update production reports are now Production Reports again (they
+  were BULLETINS since Empire2.0.0).  This will fix a bug which was
+  preventing players from being "informed" when they get an update telegram.
+- The new info page "info Mobility" gives the formulas for all
+  mobility costs in the game.
+- Before you type a telegram, you will now see:
+    Enter telegram for Fodderland
+    undo last line with ~u, print with ~p, abort with ~q, end with ^D or .
+    1024 left:
+  The new tilde escapes work very nicely.
+- The prompt for escorts has been changed from "plane(s)? " to "escort(s)? ".
+- Changed the mobility cost to move into a sector from
+    cost = (mcost - eff) / 5
+  to:
+    if (mcost < 25)
+      cost = (2 + (3 - mcost) * eff) / 5
+    else
+      cost = (mcost - 20 * eff) / 5
+
+OLD SYSTEM: eff   0%  100%     NEW SYSTEM: eff   0%  100%
+              +  0.2   0.0                   +  0.4   0.0
+              m  0.4   0.2                   m  0.4   0.2
+              ^  5.0   4.8                   ^  5.0   1.0
+
+  Note that this means land units can attack 100% mountains now, so
+  there will be a tradeoff for the defender--either they can have a low
+  efficiency mountain that costs more mobility to attack but gets a
+  lower defense bonus, or they can have a high efficiency mountain that
+  costs less mobility to attack but gets a higher defense bonus.
+- New conditional query "coastal" which gets set when you take a
+  "census" of the sector.  Type "cens * ?coast=1" to get a list of all
+  of your sectors which are adjacent to water (and thus vulnerable to
+  assault).
+- Added a new C_SYNC field to SCT_OBJECT called "coastal".  This results
+  in a new version of the C_SYNC protocol.
+
+Empire 3.0.7
+- Fixed a server crashing bug in the sneak attack code
+- Sectors with 0 mobility can no longer enlist mil
+- In a HIDDEN game, you can now only see relations for countries you
+  haven't met yet
+- Fixed a bug in the "Last login from" part of the login sequence.
+- added new global array player_commands which keeps a list of the
+  last 100 commands typed by players.  Added a file doc/debugging which
+  explains to deities how they can access this list.
+- Fixed a bug that would prevent you from being able to assault your
+  own sector if SLOW_WAR was enabled.
+- In a HIDDEN game, llook will now contact.
+- Fixed a bug in the SLOW_WAR mods which was charging people WarCost to
+  declare war when their enemy was Sitzkrieg towards them.
+- Fixed a bug in HIDDEN--sending a telegram or auto-coastwatch
+  sighting ships will now both contact.
+- Fixed a bug in SNEAK_ATTACK--you are no longer charged for boarding
+  a non-at-war ship.
+
+Empire 3.0.8
+- Removed an infinite from the autonav code.
+- Fixed the "client" login command.
+
+Empire 3.0.9
+- Consolidated budget code for ships, land units, & planes (Ville Virrankoski)
+
+Empire 3.0.10
+- Fixed a bug in radar (anonymous)
+- Ported the server to Ultrix (Yannick Tremblay)
+
+Empire 3.0.11
+- Port to FreeBSD (submitted by Janjaap van Velthooven)
+- Fixed a server crashing bug in range command
+- Fixed a bug which gave players free info when they shelled deity bridges
+  (reported by Jim Gillogly)
+- Small ships can now fuel in cities (reported by Walter Smith)
+- Fixed compile bug in wu.c (reported by Curtis Larsen)
+- Documented toggle sync and toggle async (reported by Bernhard Reiter)
+- Fixed a bug in shoot which was leading to abuses (reported by
+  Nathaniel Thurston)
+- route now prints % sectors (reported by Nathaniel Thurston)
+
+Empire 3.0.12
+- mkmf is no longer needed to compile the server (Michael Straub)
+  NOTE: This change depends on "cpp -M" working on your system.
+- A number of bug fixes to the "budget" command (Ville Virrankoski)
+
+Empire 3.0.13
+- Fixed a bug in "budget" command
+- If cpp doesn't exist on the system, then "cc -MM" is used in place
+  of "cpp -M"
+
+Empire 3.0.14
+- Extensive consolidation of "budget" command with update routines
+  (Ville Virrankoski)
+- Fixed some of the portability problems arising from the switch to "mkdep"
+Empire 3.0.14a
+- Fixed a server crashing bug in the update routines (introduced at 3.0.14)
+
+Empire 3.0.15
+- Fix of a MAJOR bug in the budget/update routines which was
+  overcharging countries for military reserves (Ville Virrankoski)
+- Simplification & fix of mkdep/configure (Yannick Tremblay)
+- Port to Solaris 5.5 (Ron Kuris <rk@unify.com>).  Here are the notes
+that came with the Solaris port:
+----------------
+These are the patches to make the new server work on Solaris.
+Some notes:
+
+    My environment is that we have cc from Sun, but no license.
+    We have gcc installed as /opt/gnu/bin/gcc.  Although it was
+    built with Solaris 5.4, it works fine on 5.5.  If you need
+    gcc, use archie to exact search for FSFgcc.gz (I found it
+    on qiclab.scn.rain.com in /pub/solaris).  You also need
+    FSFtools.gz for gnumake.  These packages install very easily.
+
+    While running configure, your 'gnumake' is /opt/gnu/bin/make,
+    and the compiler you should use is /opt/gnu/bin/gcc.
+
+    My build path is something like:
+    PATH=/opt/gnu/bin:/usr/ucb:/usr/bin:/usr/sbin:.
+
+    Once you apply the patches, everything seems to work.
+
+Whoever integrates this into the mainstream:
+    The change to client/GNUmakefile is the only one I think
+    that might need tweaking.  It sets the default build flags
+    to Solaris (somehow I don't think you want that).  I tried
+    pretty hard not to break anything else.
+
+    The change in lwp.c I think is just an outright bug, but
+    most versions of the lwp system dependent stuff just happen
+    to get lucky by not saving the registers.  This should NOT
+    be relied upon!
+----------------
+
+Empire 3.0.16
+- Optimization of mkdep (Yannick Tremblay)
+- Moved solaris from emp3 to emp3/make/Systems (Ron Kuris)
+- Minor enhancement to "lcargo" code (Ron Kuris)
+- Fixed a bug which had setting budget priorities on land units
+  result in being charged twice for them (Ville Virrankoski)
+
+Empire 3.0.17
+- "read" command now sends a C_SYNC nation message.  (Curtis Larsen)
+- Fixed a bug which was deleting the announcement file when there were
+  no announcements (reported by Ed Down).
+- Fixed "~u" tilde-escape for "telegram" and "announce" commands (it was
+  possible to undo back past the beginning of the buffer and crash the
+  server (reported by Nathaniel Thurston).
+- mkdep optimization (Yannick Tremblay).
+- Changed syntax for "cede" command so that you can specify "se" or
+  "sh" on the command line (reported by Tero Paananen).
+
+Empire 3.0.18
+- fixed a serious bug in configure and mkdep which prevented the
+  server from compiling
+
+Empire 3.0.19  Ken Stevens  17 Apr 96
+- Fixed a serious bug in the Empire3 server which allowed players to
+  create an infinite number of shells and food out of nothing.
+  I added a new field "simulation" to the player struct and set this
+  field to 1 in all update simulation commands (budg, prod, neweff).
+  Then in the update code, instead of checking the variable update_pending
+  to determine whether the update is "for real", I check the player->simulation
+  variable.  Note that when the commands sneweff, pneweff, and lneweff
+  get added to the server, they should also set player->simulation to 1.
+- subs/takeover.c added a check to make sure the number of che doesn't
+  overflow (Paul Byrne)
+- update/revolt.c.  It fixes two problems.  First, after security
+  forces kill che, if there are no che left, the function returns
+  without saving the zero-che value.  Worse, it never checks for
+  negative che values, which looks like it could happen.  The second one
+  is in che moving.  It loops through the neighbors looking for the best
+  place to move.  Problem is, if it finds a place to move it doesn't
+  move to that place, but simply to whichever place it last looked.
+  (Paul Byrne)
+
+Empire 3.0.20  Ken Stevens  21 May 96
+[from 3.1.2]
+- fixed a serious bug in the "production" command which could cause
+  a server crash (Steve McClure).
+- fixed a bug in the "starve" command which could suck all the food
+  off of a ship or land unit on the ship (Steve McClure).
+- fixed a bug in the "deliver" command mis-interpreting the return
+  value of the putvar function (Steve McClure).
+
+[from 3.1.3]
+- Fixed a bug in road mobcost calculation (Steve McClure)
+- Fixed a bug in the toggle command (reported by Keir Novik)
+
+[from 3.1.6]
+- Fixed a bug in the attacking code where moving mil into a sector was
+  going on.  It would probmpt for the max amount of mil to move in
+  by mobility, but when you moved in it never checked, so you could still
+  move all the attacking mil in (Steve McClure)
+- Fixed a bug in fairland (Ken Stevens - reported by Janjaap van Velthooven)
+- Fixed a bug in map C_SYNC (Ken Stevens - reported by Markus Armbruster)
+
+[from 3.1.7]
+- fairland.c.  Better representation of the map for >30 continents.
+  The markings for continents start wrapping for more than 62 continents,
+  the map won't get any control characters anymore (Janjaap van Velthooven).
+- C_SYNC. forces a newline whenever data with a different id is appended to a
+  partial line.  Caveat: this sacrifices the line structure to correct
+  the line tagging (Markus Armbruster).
+- Fixed a bug which wasn't printing the last row of `sync object bmap'
+  in god's coordinate system (Markus Armbruster).
+
+[from 3.1.16]
+- port to Ultrix (Markus Armbruster)
+
+Empire 3.0.21  Ken Stevens  1 July 96
+- fixed a bug in reco & sat which wasn't putting a carriage return
+  after land units.
+- fixed a bug in starvation command which sent the user a telegram
+  telling them how much each of their land units lost due to starvation.
+- fixed a bug which would send you a message "RUMBLE...your sub hears
+  a depth-charge explode nearby" when you weren't navigating subs
+  (reported by Keir E. Novik)
+- increased buffer size in emp_client from 1024 to 4096 for sync
+  class version (reported by Markus Armbruster)
+- fixed a bug in revolt code which could damage a sector below 20%
+  without checking if it was a bridge (reported by Pat Loney)
+- fixed a bug in SLOW_WAR which prevented you from re-inforcing your
+  own sector by assaulting (Aaron Dewell).
+- fixed a bug in sack capping news item (reported by Ed Down)
+- fixed a server crashing bug in "offer" command (reported by Jon Wright)
+- fixed a bunch of info files (reported by Keir E. Novik)

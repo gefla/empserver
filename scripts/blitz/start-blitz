@@ -1,0 +1,14 @@
+#!/bin/csh
+echo '================Start begin================='
+date
+
+/empire/wolfpack/cheetah/bin/keepitup -check cheetah /empire/wolfpack/cheetah 6667 Lurker password
+cd /empire/wolfpack/cheetah/bin
+/empire/wolfpack/cheetah/bin/emp_client Wolf password << EOF
+enable
+ann
+Updates are enabled.  Have a blast!
+.
+bye
+EOF
+echo '================Start end================='

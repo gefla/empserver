@@ -1,0 +1,31 @@
+.TH ORE 1 "7 Aug 1995" "ore"
+.UC
+.SH NAME
+ore \- Empire resource generator
+.SH SYNOPSIS
+.B ore
+[
+.BI \-e configfile
+]
+[
+.BI \-s sectfile
+]
+.br
+.SH DESCRIPTION
+While most deities prefer to use
+.I fairland
+to generate their ore, this program is included as an alternative for
+creating the resources for a game.
+.SH OPTIONS
+.TP
+.BI \-e configfile
+causes
+.I ore
+to use the game configuration specified in 
+.I configfile
+(by default, the file "econfig" in the data directory is used)
+.TP
+.BI \-s sectfile
+give resources to the sectors in 
+.I sectfile
+(default is the "sector" file in the data directory)

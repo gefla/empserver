@@ -1,0 +1,6 @@
+These are the scripts that we use to run the Cheetah and Vampire
+blitzes.  If you want to use them, then you should copy them to the
+bin directory, change the pathnames where appropriate and install the
+crontab.config using the crontab command.
+
+Wolfpack! 1996

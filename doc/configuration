@@ -1,0 +1,23 @@
+			Configuring your Empire server
+
+Every option within the server has been made Run-time configurable.
+
+But, certain things may break if you begin a game and start changing
+options.  One specific thing you cannot change once you have created
+a world is the WORLD_X and WORLD_Y.  If you change these values, you
+will need to rebuild your world.
+
+Most of the other options you should be able to change on the fly.  Of
+course, you probably won't want to be changing options in the middle of
+a game.  But, you should be able to turn them on/off safely.  Certain
+things might get funny (like if you turn on/off HIDDEN in the middle
+of a game for example) but the server should remain stable.
+
+See the "doc/econfig" for a better description of how the Empire config
+works, and see the "data/econfig" file for a better description of each
+of the configurable settings in the server.  (You may also want to
+check out the "info.nr/Options" file for more information on individual
+options.)
+
+Steve McClure, 1998
+

@@ -1,0 +1,41 @@
+.\" EMPIRE MACRO FILE FOR TROFF
+.\" normal Font - Times Roman
+.ds nF \\fR
+.\" Normal font name: must match value of nF!
+.ds N R
+.\" example Font - Times Roman
+.ds eF \\fC
+.\" Example Font name (used with .cs requests): must match value of eF!
+.ds EF C
+.\" bold Font - Times Bold
+.ds bF \\fB
+.\" italic Font - Times Italic
+.ds iF \\fI
+.\" large Font - Times Roman
+.ds lF \\fR
+.\" previous Font - A special way to switch
+.ds pF \\fP
+.\" Character spacing string
+.ds cS 26
+.\" Start out correctly
+.nr CS 0
+.\" Special strings for special characters, including smart quotes.
+.ds <= \(<=
+.ds >= \(>=
+.ds Q ``
+.ds U ''
+.pl 11i			\" Page length - environment 0
+.ll 6i			\" Line legnth
+.lt 5i			\" Title length
+.po 0.9i		\" Page offset
+.ev 1
+.ll 6i			\" Line legnth - environment 1
+.lt 5i			\" Title length
+.po 0.9i		\" Page offset
+.ev
+.ev 2
+.ll 6i			\" Line legnth - environment 2
+.lt 5i			\" Title length
+.po 0.9i		\" Page offset
+.ev
+.so INFO.MAC		\" Read in INFO.MAC macros

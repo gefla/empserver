@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# This script may be run from cron before each update make
+# a map of the world.  It increments the number in the file "frames"
+# each time it is run, and uses this number to determine the map
+# file names.  Creates a country map and an overlay with country names. 
+#		-harmless
+
+
+# edit these to the location of the map files and the utilities
+cd /home/children/howitzer/map
+PATH=/home/children/bin/netpbm:${PATH}:/usr/local/bin:${HOME}/bin:.
+export PATH
+
+if test ! -s frames
+then
+	echo 0 >frames.new
+else
+	awk '{ print $1 + 1; }' frames > frames.new
+fi
+
+
+FILE=map-`cat frames.new`.gif
+OVERMAP=overmap-`cat frames.new`.gif
+touch census report version
+eif mapper  <<EOF
+dump * | ./pgmmap.awk | /home/children/bin/netpbm/ppmtogif >${FILE}
+report * | egrep -v '(Frey|Lurker|pea|Mapmaker|Visitor|visitor|report)' >report
+census * >! census
+version >!version
+exit
+EOF
+
+./over.awk scale=4 version report census
+/home/children/bin/netpbm/ppmtogif over.pbm >${OVERMAP}
+
+if test -s "$FILE"
+then
+	cp frames.new frames
+	rm frames.new
+fi

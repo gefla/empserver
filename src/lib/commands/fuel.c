@@ -1,0 +1,498 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  fuel.c: fuel ships/land units
+ * 
+ *  Known contributors to this file:
+ *     
+ */
+
+#include "misc.h"
+#include "player.h"
+#include "var.h"
+#include "xy.h"
+#include "ship.h"
+#include "plane.h"
+#include "land.h"
+#include "nat.h"
+#include "nsc.h"
+#include "deity.h"
+#include "file.h"
+#include "sect.h"
+#include "optlist.h"
+#include "commands.h"
+
+
+union item_u {
+	struct shpstr ship;
+	struct lndstr land;
+};
+
+int
+fuel(void)
+{
+	struct	nstr_item ni;
+	union	item_u item, item2;
+	int	type;
+	struct	mchrstr *mp;
+	struct	lchrstr *lcp;
+	s_char	*p;
+	int	fueled;
+	int	land_fuel, ship_fuel;
+	int	oil_amt, pet_amt, fuel_amt, tot_fuel, max_amt;
+	int	move_amt;
+	float	extra;
+	struct	sctstr sect;
+	struct  natstr *natp;
+	int	harbor,sector;
+	int	fuelled_ship = -1;
+        struct  nstr_item tender, ltender;
+	s_char	prompt[128];
+	s_char	buf[1024];
+
+	if (opt_FUEL == 0) {
+		pr ("Option 'FUEL' not enabled\n");
+		return RET_SYN;
+	}
+	if ((p = getstarg(player->argp[1], "Ship or land unit (s,l)? ", buf)) == 0)
+		return RET_SYN;
+	type = ef_byname(p);
+	if (type == EF_SECTOR)
+		type = EF_SHIP;
+	if (type != EF_SHIP && type != EF_LAND){
+		pr("Ships or land units only! (s, l)\n" );
+		return RET_SYN;
+	}
+	sprintf(prompt, "%s(s)? ", ef_nameof(type));
+	p = getstarg(player->argp[2], prompt, buf);
+	if (!snxtitem(&ni, type, p))
+		return RET_SYN;
+	if (isdigit(*p))
+		fuelled_ship = atoi(p);
+	p = getstarg(player->argp[3], "Amount: ", buf);
+	if (p == 0 || *p == 0)
+       		return RET_SYN;
+	fuel_amt = atoi(p);
+	if (fuel_amt <= 0){
+		pr("Fuel amount must be positive!\n");
+		return RET_FAIL;
+	}
+
+        ni.flags &= ~(EFF_OWNER);
+
+	while (nxtitem(&ni, (s_char *)&item)) {
+		fueled = 0;
+		if (type == EF_SHIP) {
+			if (item.ship.shp_own != player->cnum){
+				int	rel;
+
+				if (item.ship.shp_uid != fuelled_ship)
+					continue;
+				natp=getnatp(player->cnum);
+				rel=getrel(natp,item.ship.shp_own);
+				if (rel < FRIENDLY)
+					continue;
+			}
+			if (!getsect(item.ship.shp_x, item.ship.shp_y, &sect))
+				continue;
+			if (!item.ship.shp_own)
+				continue;
+
+			if ((sect.sct_type != SCT_HARBR)  && (sect.sct_type != SCT_WATER) && (sect.sct_type != SCT_BSPAN) && (!opt_BIG_CITY || sect.sct_type != SCT_CAPIT)){
+				pr("Sector %s is not a harbor, bridge span, or sea.\n",
+					xyas(item.ship.shp_x, item.ship.shp_y,
+					item.ship.shp_own));
+				continue;
+			}
+
+			mp = &mchr[(int)item.ship.shp_type];
+
+			harbor=0;
+			if (sect.sct_type == SCT_HARBR || (opt_BIG_CITY && sect.sct_type == SCT_CAPIT)){
+				harbor=1;
+				oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
+				pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+				if ((oil_amt+pet_amt) == 0)
+					harbor=0;
+
+				if (sect.sct_effic < 2) {
+					pr("The harbor at %s is not 2%% efficient yet.\n",
+						xyas(item.ship.shp_x,
+							item.ship.shp_y,
+							player->cnum));
+					harbor=0;
+				}
+				if ((sect.sct_own != player->cnum) && sect.sct_own)
+					harbor=0;
+			}
+
+			if ((mp->m_fuelu == 0) && (item.ship.shp_own == player->cnum)){
+				pr("%s does not use fuel!\n", prship(&item.ship));				continue;
+			}
+
+			if (harbor){
+				ship_fuel = item.ship.shp_fuel;
+				oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
+				pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+				max_amt = mp->m_fuelc-ship_fuel;
+
+				if (max_amt == 0){
+					pr("%s already has a full fuel load.\n",prship(&item.ship));
+					continue;
+				}
+				tot_fuel = (oil_amt*50 + pet_amt*5);
+				if (tot_fuel == 0){
+					pr("No fuel in the harbor at %s!\n",
+						xyas(sect.sct_x,sect.sct_y,
+							player->cnum));
+					continue;
+				}
+				move_amt = min(tot_fuel, fuel_amt);
+				move_amt = min(move_amt, max_amt);
+
+				if (move_amt == 0)
+					continue;
+
+				item.ship.shp_fuel += move_amt;
+
+				fueled=1;
+				if ((pet_amt*5) >= move_amt){
+					extra = ((float)move_amt/5.0)-(move_amt/5);
+					if (extra > 0.0)
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5))-1,0),
+							(s_char *)&sect, EF_SECTOR);
+					else
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5)),0),
+							(s_char *)&sect, EF_SECTOR);
+				}else{
+					putvar(V_PETROL, 0, (s_char *)&sect, EF_SECTOR);
+					move_amt -= pet_amt*5;
+					extra = ((float)move_amt/50.0)-(move_amt/50);
+					putvar(V_OIL, max(oil_amt-(move_amt/50), 0),
+						(s_char *)&sect, EF_SECTOR);
+					if (extra > 0.0)
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50))-1,0),
+							(s_char *)&sect, EF_SECTOR);
+					else
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50)),0),
+							(s_char *)&sect, EF_SECTOR);
+				}
+
+				/* load plague */
+				if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) ==
+					PLG_INFECT && getvar(V_PSTAGE,
+					(s_char *)&item.ship, EF_SHIP) == PLG_HEALTHY)
+					putvar(V_PSTAGE, PLG_EXPOSED,
+						(s_char *)&item.ship, EF_SHIP);
+
+				putsect(&sect);
+				putship(item.ship.shp_uid, &item.ship);
+			}
+			else{	/* not in a harbor */
+				if (!player->argp[4])
+					pr("%s is not in a supplied, efficient harbor\n", prship(&item.ship));
+        			if (!snxtitem(&tender, EF_SHIP, getstarg(player->argp[4], "Oiler? ", buf)))
+                			continue;
+
+				if (!check_ship_ok(&item.ship))
+				    continue;
+
+				if (!nxtitem(&tender, (s_char *)&item2))
+                			continue;
+
+				if (!(mchr[(int)item2.ship.shp_type].m_flags & M_OILER)){
+					pr("%s is not an oiler!\n",
+					   prship(&item2.ship));
+					continue;
+				}
+				if (item2.ship.shp_own != player->cnum){
+					pr("You don't own that oiler!\n");
+					continue;
+				}
+
+				if ((item2.ship.shp_x != item.ship.shp_x) ||
+					(item2.ship.shp_y != item.ship.shp_y)){
+					pr("Not in the same sector!\n");
+					continue;
+				}
+				ship_fuel = item.ship.shp_fuel;
+				oil_amt = getvar(V_OIL, (s_char *)&item2.ship, EF_SHIP);
+				pet_amt = getvar(V_PETROL, (s_char *)&item2.ship, EF_SHIP);
+				max_amt = mp->m_fuelc-ship_fuel;
+
+				if (max_amt == 0){
+					pr("%s already has a full fuel load.\n", prship(&item.ship));
+					continue;
+				}
+				tot_fuel = oil_amt*50 + pet_amt*5;
+				move_amt = min(tot_fuel, fuel_amt);
+				move_amt = min(move_amt, max_amt);
+
+				if (move_amt == 0)
+					continue;
+
+				item.ship.shp_fuel += move_amt;
+
+				fueled=1;
+				if ((pet_amt*5) >= move_amt){
+					extra = ((float)move_amt/5.0)-(move_amt/5);
+					if (extra > 0.0)
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5))-1,0),
+							(s_char *)&item2.ship, EF_SHIP);
+					else
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5)),0),
+							(s_char *)&item2.ship, EF_SHIP);
+				}else{
+					putvar(V_PETROL, 0, (s_char *)&item2.ship, EF_SHIP);
+					move_amt -= pet_amt*5;
+					extra = ((float)move_amt/50.0)-(move_amt/50);
+					putvar(V_OIL, max(oil_amt-(move_amt/50), 0),
+						(s_char *)&item2.ship, EF_SHIP);
+					if (extra > 0.0)
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50))-1,0),
+							(s_char *)&item2.ship, EF_SHIP);
+					else
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50)),0),
+							(s_char *)&item2.ship, EF_SHIP);
+				}
+
+				/* load plague */
+				if (getvar(V_PSTAGE, (s_char *)&item2.ship, EF_SHIP) ==
+					PLG_INFECT && getvar(V_PSTAGE,
+					(s_char *)&item.ship, EF_SHIP) == PLG_HEALTHY)
+					putvar(V_PSTAGE, PLG_EXPOSED,
+						(s_char *)&item.ship, EF_SHIP);
+
+				putship(item.ship.shp_uid, &item.ship);
+				/* quick hack -KHS */
+				if (item.ship.shp_uid == item2.ship.shp_uid)
+					item2.ship.shp_fuel = item.ship.shp_fuel;
+				putship(item2.ship.shp_uid, &item2.ship);
+			}
+			pr("%s",prship(&item.ship));
+		}
+		else {
+			if (item.land.lnd_own != player->cnum)
+				continue;
+
+			if (!getsect(item.land.lnd_x, item.land.lnd_y, &sect))
+				continue;
+
+			if (!player->owner)
+				continue;
+
+			lcp = &lchr[(int)item.land.lnd_type];
+
+			sector=1;
+			oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
+			pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+
+			if ((oil_amt+pet_amt) == 0)
+				sector=0;
+
+			if ((item.land.lnd_fuelu == 0) && (item.land.lnd_own == player->cnum)){
+				pr("%s does not use fuel!\n", prland(&item.land));
+				continue;
+			}
+
+			if (sector){
+				land_fuel = item.land.lnd_fuel;
+				oil_amt = getvar(V_OIL, (s_char *)&sect,
+						EF_SECTOR);
+				pet_amt = getvar(V_PETROL, (s_char *)&sect,
+						EF_SECTOR);
+				max_amt = item.land.lnd_fuelc-land_fuel;
+
+				if (max_amt == 0){
+					pr("%s already has a full fuel load.\n", prland(&item.land));
+					continue;
+				}
+				tot_fuel = (oil_amt*50 + pet_amt*5);
+				if (tot_fuel == 0){
+					pr("No fuel in the sector at %s!\n",
+						xyas(sect.sct_x,sect.sct_y,
+							player->cnum));
+					continue;
+				}
+				move_amt = min(tot_fuel, fuel_amt);
+				move_amt = min(move_amt, max_amt);
+
+				if (move_amt == 0)
+					continue;
+
+				item.land.lnd_fuel += move_amt;
+
+				fueled=1;
+				if ((pet_amt*5) >= move_amt){
+					extra = ((float)move_amt/5.0)-(move_amt/5);
+					if (extra > 0.0)
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5))-1,0),
+							(s_char *)&sect, EF_SECTOR);
+					else
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5)),0),
+							(s_char *)&sect, EF_SECTOR);
+				}else{
+					putvar(V_PETROL, 0, (s_char *)&sect, EF_SECTOR);
+					move_amt -= pet_amt*5;
+					extra = ((float)move_amt/50.0)-(move_amt/50);
+					putvar(V_OIL, max(oil_amt-(move_amt/50), 0),
+						(s_char *)&sect, EF_SECTOR);
+					if (extra > 0.0)
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50))-1,0),
+							(s_char *)&sect, EF_SECTOR);
+					else
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50)),0),
+							(s_char *)&sect, EF_SECTOR);
+				}
+
+				/* load plague */
+				if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) ==
+					PLG_INFECT && getvar(V_PSTAGE,
+					(s_char *)&item.land, EF_LAND) == PLG_HEALTHY)
+					putvar(V_PSTAGE, PLG_EXPOSED,
+						(s_char *)&item.land, EF_LAND);
+
+				putsect(&sect);
+				putland(item.land.lnd_uid, &item.land);
+			}
+			else{	/* not in a sector */
+				if (!player->argp[4])
+					pr("%s is not in a supplied sector\n",
+					   prland(&item.land));
+        			if (!snxtitem(&ltender, EF_LAND,
+					getstarg(player->argp[4], "Supply unit? ", buf)))
+                			continue;
+
+				if (!check_land_ok(&item.land))
+				    continue;
+
+				if (!nxtitem(&ltender, (s_char *)&item2))
+                			continue;
+
+				if (!(lchr[(int)item2.land.lnd_type].l_flags & L_SUPPLY)){
+					pr("%s is not a supply unit!\n",
+					   prland(&item2.land));
+					continue;
+				}
+				if (item2.land.lnd_own != player->cnum){
+					pr("You don't own that unit!\n");
+					continue;
+				}
+
+				if ((item2.land.lnd_x != item.land.lnd_x) ||
+					(item2.land.lnd_y != item.land.lnd_y)){
+					pr("Not in the same sector!\n");
+					continue;
+				}
+				land_fuel = item.land.lnd_fuel;
+				oil_amt = getvar(V_OIL, (s_char *)&item2.land, EF_LAND);
+				pet_amt = getvar(V_PETROL, (s_char *)&item2.land, EF_LAND);
+				max_amt = item.land.lnd_fuelc-land_fuel;
+
+				if (max_amt == 0){
+					pr("%s already has a full fuel load.\n", prland(&item.land));
+					continue;
+				}
+				tot_fuel = oil_amt*50 + pet_amt*5;
+				move_amt = min(tot_fuel, fuel_amt);
+				move_amt = min(move_amt, max_amt);
+
+				if (move_amt == 0)
+					continue;
+
+				item.land.lnd_fuel += move_amt;
+
+				fueled=1;
+				if ((pet_amt*5) >= move_amt){
+					extra = ((float)move_amt/5.0)-(move_amt/5);
+					if (extra > 0.0)
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5))-1,0),
+							(s_char *)&item2.land, EF_LAND);
+					else
+						putvar(V_PETROL,
+							max((pet_amt-(move_amt/5)),0),
+							(s_char *)&item2.land, EF_LAND);
+				}else{
+					putvar(V_PETROL, 0, (s_char *)&item2.land, EF_LAND);
+					move_amt -= pet_amt*5;
+					extra = ((float)move_amt/50.0)-(move_amt/50);
+					putvar(V_OIL, max(oil_amt-(move_amt/50), 0),
+						(s_char *)&item2.land, EF_LAND);
+					if (extra > 0.0)
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50))-1,0),
+							(s_char *)&item2.land, EF_LAND);
+					else
+						putvar(V_OIL,
+							max((oil_amt-(move_amt/50)),0),
+							(s_char *)&item2.land, EF_LAND);
+				}
+
+				/* load plague */
+				if (getvar(V_PSTAGE, (s_char *)&item2.land, EF_LAND) ==
+					PLG_INFECT && getvar(V_PSTAGE,
+					(s_char *)&item.land, EF_LAND) == PLG_HEALTHY)
+					putvar(V_PSTAGE, PLG_EXPOSED,
+						(s_char *)&item.land, EF_LAND);
+
+				putland(item.land.lnd_uid, &item.land);
+				/* quick hack -KHS */
+				if (item2.land.lnd_uid == item.land.lnd_uid)
+					item2.land.lnd_fuel = item.land.lnd_fuel;
+				putland(item2.land.lnd_uid, &item2.land);
+			}
+			pr("%s",prland(&item.land));
+		}
+		if (fueled){
+			pr(" takes on %d fuel in %s\n",
+			move_amt,
+			xyas(item.ship.shp_x, item.ship.shp_y , player->cnum));
+			if (player->cnum != item.ship.shp_own)
+				wu(0, item.ship.shp_own,
+				   "%s takes on %d fuel in %s courtesy of %s\n",
+				   prship(&item.ship),
+				   move_amt,
+				   xyas(item.ship.shp_x, item.ship.shp_y , 
+					item.ship.shp_own), 
+				cname(player->cnum));
+		}
+	}
+	return RET_OK;
+}

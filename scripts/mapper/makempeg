@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# add any paths necessary for eif, netpbm, and mpeg_encode.
+PATH=/home/children/bin/netpbm:${PATH}:/usr/local/bin:${HOME}/bin:.
+export PATH
+
+cd /home/children/howitzer/map
+touch version power wire census
+eif mapper <<EOF
+version >!version
+census * >!census
+report * | egrep -v '(Frey|pea|Lurker|Mapmaker|Visitor|visitor)' >report
+power new >!power
+wire Mapmaker y >!wire
+exit
+EOF
+
+cat power report >>/home/children/html/howitzer/Blitz.txt
+cat wire >>/home/children/html/howitzer/BlitzAnn.txt
+echo >>/home/children/html/howitzer/Blitz.txt
+echo >>/home/children/html/howitzer/Blitz.txt
+
+make final.gif map.mpg 
+
+cp map.mpg /home/children/html/howitzer/Blitz.mpg
+cp final.gif /home/children/html/howitzer/Blitz.gif
+

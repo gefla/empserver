@@ -1,0 +1,27 @@
+.\" EMPIRE MACRO FILE FOR 24-LINE CRT
+.\" Normal Font
+.rm nF
+.\" Example Font
+.rm eF
+.\" Bold Font
+.rm bF
+.\" Italic Font
+.rm iF
+.\" Large Font
+.rm lF
+.\" Previous Font
+.rm pF
+.\" Nothing special here
+.ds <= <=
+.ds >= >=
+.ds Q "
+.ds U "
+.pl 23v		\" Page length: 23 lines
+.ll 7.8i	\" Line length: 7.8 inches
+.ev 1
+.ll 7.8i	\" Line length: 7.8 inches
+.ev
+.ev 2
+.ll 7.8i	\" Line length: 7.8 inches
+.ev
+.so ../INFO.MAC	\" Read in INFO.MAC macros

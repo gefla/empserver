@@ -1,0 +1,98 @@
+Below is Sasha Mikheev's documentation on the pthreads support (POSIX threads)
+which is valid on June 7th, 1996 (date of message.)  I have changed the
+path names only since the tree has changed.  Otherwise, the docs are correct.
+
+-- Wolfpack
+
+---  Begin message
+
+Hi,
+
+I have finished documenting pthreads implementation. Pls look at the
+results and tell me what can be improved.
+
+Implementation:
+ Empire now uses its own thread layer. It makes using another
+threading library much easier. The interfase is modeled after
+the LWP library which is what empire server uses by default.
+ The interface is specified in the include/empthread.h file. Implementations
+should go into src/lib/empthread/xxx.c.
+ Empire assumes that thread can not be preempted while it is
+running. The _only_ places where context switch between threads can
+occur are:
+ empth_sleep(), empth_yield(), empth_select(), empth_sem_wait().
+That is in sleep, in waiting for I/O on filedescriptor, semaphore or
+voluntary yielding control or exiting. In empire empth_select is
+called only on sockets so the context switch can occur only on the
+network I/O.
+ Also each empire thread can have it is own context which is restored
+automatically after the context switch. Currently it is used for each
+thread to have player specic data. (struct player)
+ 
+LWP implementation:
+ Almost nothing has changed there. src/lib/empthread/lwp.c is a very
+simple wrapper around the LWP library. The only change is that thread
+inherits its flags if they are not explicitly set.
+ For more details on LWP internals read Dave Pare's description in
+doc/threads.
+
+POSIX threaads: (pthreads)
+ Unlike LWP pthreads are preemtive. The steps must be taken to insure
+that thread is preempted only as described above. It is done by
+creating a global mutex mtx_ctxsw. At the any given moment only one
+thread can be running and have a lock on mtx_ctxsw. Every other thread
+is waiting for the mtx_ctxsw to become avaiable. It is done by calling
+pthread_mtx_lock(). When thread enters into empth_sleep(),
+empth_yield(), empth_exit(), empth_sem_wait() empth_select() it
+releases the mutex by calling pthread_mtx_unlock() and thus allowing
+other thread to get a lock.
+ Thread context is implemented by using pthread_getspecific and
+pthread_setspecific functions.
+ Killing other thread is done by setting victim thread state into
+EMPTH_KILLED and sending alarm signal to the victim thread. The later
+has to be done to wake up a thread waiting on I/O in
+empth_select. Then the victim will examine its state and if it is set
+to KILLED it will terminate its execution. Unfortunately pthread_kill
+seems not to be working/exists in some pthread implementations. But
+fortunately empire always does some I/O before doing
+empth_terminate().
+ Semaphores are not available in pthreads thus mutexes and conditional
+variables are used to implement them. See the code and or OS design
+book for details.
+
+Problems:
+ On linux with libc 2.1.18 mit pthread library does not wake up a thread upon
+the delivery of a signal. Which means that server can not be stopped
+short by kill -9 and empth_wakeup() is not working. Fortunately in
+current server data are always written to player before the call to
+empth_wakeup so players threads will never wait in select forever.
+
+Probably it will be solved when linux libc gets upgraded to latest
+pthread library.
+
+In addition installing pthreads on Linux is difficult. By default
+linux libc has pthread stubs in but pthread code is disabled. So you
+have either recompile libc or grab mit pthreads and install them
+manually. 
+ Meanwhile I do not recommend to use pthreads on linux unless you 
+know what you are doing.
+
+On solaris 2.5 select does not set errno to EINTR when select is broken
+by soignal sent by pthread_kill. It doesnt affect anything.
+
+On OSF/1 the older version of pthread is used. It has slightly changed
+function semantics. Also it lacks pthread_kill funcion which means
+that empth_wakeup() is not working. 
+ Calling pthread_exit() from the main thread crashes the
+program. According to the manual program should not exit until all
+threads exited.
+ The workaround is to send main into while(1) { sleep(60); } loop;
+
+
+-- 
+ Sasha Mikheev                      There is a saying in Cairhienin,
+                                    though i have heard it as far away
+ NetVision Israel, Ltd              as Tarabon and Saldaea:
+ sasha@netvision.net.il               
+ Tel  +972-4-8550330                   Take what you want and pay for it.
+ http://aldan.netvision.net.il/~sasha

@@ -1,0 +1,4 @@
+As of today (October 20, 1998) land, ore and perfect don't work.  They
+need to be fixed to deal with run-time configurable world sizes, and
+have been commented out in the Makefile.
+

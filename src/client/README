@@ -1,0 +1,47 @@
+
+This is the basic Empire Client version 2.8.
+
+See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+related information and legal notices. It is expected that any future
+projects/authors will amend these files as needed.
+
+For questions and comments, please contact "wolfpack@wolfpackempire.com".
+
+Note that this client is the same client that is shipped with the
+server.  The only difference is the Makefile is copied from the
+"Makefile.standalone" for the standalone distributions, and
+from the "Makefile.server" for the server distributions.
+
+If you are building this with the server, it is built automatically.
+
+If you are building this standalone, continue reading to see how
+to build the client.
+
+To make the program, edit ipglob.c and change empirehost[] to
+point at the machine where the game is running (although this is
+not necessary.)
+
+Also, if you are going to use "gcc", you need to change the Makefile
+line "CC=cc" to "CC=gcc".
+
+To build for a Linux macihne, type "make linux".
+
+To build for a HP/UX machine, type "make hpux".
+
+To build for a DG/UX machine, type "make dgux".
+
+To build for a Solaris machine, type "make solaris".
+
+To build for a Windows machine, type "nmake win32".
+  (Note that the Windows port was built with MSVC 5.0)
+
+For other machines, type "make".
+
+You can change hosts on-the-fly by using environment variables -- see
+the man page for details.  But, for a short version, you can set the
+EMPIREHOST and EMPIREPORT environment variables to the host and
+port of the server you wish to connect to, and the client will
+automatically use them instead of the built in ones.
+
+Also note that pipes do not work on the Windows versions.
+

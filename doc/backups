@@ -1,0 +1,14 @@
+It is recommended that you take a backup of the "data" directory once
+in a while in case of system crashes, data corruption, or whatever.
+
+It is VERY important to note that you should only take complete snapshots
+of the data directory and only restore complete snapshots of the data
+directory.  Restoring individual files from backups can cause problems.
+Some of the known problems with partial restores are:
+
+ * In games with MOB_ACCESS enabled, mobility will be extremely out of
+   sync if you do not do a complete data directory restore.
+
+ * Land units, ships and planes may think they are loaded onto ships
+   or land units that do not exist, or have changed owner (been sunk
+   or destroyed and then rebuilt) since the last backup.

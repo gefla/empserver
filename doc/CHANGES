@@ -1,0 +1,691 @@
+This file contains a list of patches/upgrades made to the server for a specific
+version.  It also contains the name of the author of that particular code.  It
+may not be complete.
+
+*version 2.0 beta 1 release 1*
+Fixed age.c so reserves degrade normally instead of growing! - Chad Zabel
+Fixed arch.c - replaced wrapp with what was supposed to be there - Ken Huisman
+Patched bug in atta.c - a temporary patch that could be done better
+( and will be later ) - Ken H.
+patched bug in lib/commands/mail.c - Dave Pare
+added patches to make code compile under linux - Ken H. based on linux chain 3
+patches by someone else whose name I forget.  Note at this time the code
+*compiles* under linux, but there are still bugs - the server seems to
+stop taking socket connections or something after someone logs out of the
+game.
+fixed a null pointer bug in lib/subs/bigmap.c - Chad Zabel
+
+*version 2.0 beta 1 release 2*
+Patch for exec bug - Chad Zabel
+
+*version 2.0 beta 1 release 3*
+Patch for zepplin bug - Jim Ortlieb
+Added unixware(svr4.2) specific stuff to arch.c - Doug Hay
+Changes to h/lwp.h and lib/lwp/lwp.c for thread stack checker - Doug Hay
+
+*version 2.0 beta 1 release 4*
+Modified fairland.c to 1.6.2 and made it so translate_continents is only
+called when BLITZ is defined  - Ken Huisman, Ken Stevens
+Modifications to lwp.h and arch.c to fix linux threads - Scott Ferguson
+
+*version 2.0 beta 1 release 5*
+Changed version number to 2.0.0 - Ken Huisman
+fixed unterminated path bug in lib/common/path.c - Scott Ferguson
+fixed first part of bug described in wish list item c6 ( false resupply ) -
+Scott Ferguson
+fixed part of bug described in wish list item t3 ( you have 666 new telegrams
+bug ) - the bug that tells you you have 1 new telex after just reading it is
+not fixed - Scott Ferguson
+
+*version 2.0 beta 1 release 6*
+Three letter abbreviations for all ships in ship.c - Chad Zabel
+the following by Kevin Klemmick:
+/lib/commands/rea.c                     // fixed telegram's problem reading '%'
+/lib/commands/mail.c                    // ditto for mail and wmail
+/lib/subs/aircombat.c                   // New air code and bug fixes
+/lib/subs/mission.c                     // New air code and bug fixes
+/lib/subs/pr.c                          // new prnf function an bug fixes
+/lib/subs/paths.c                       // fixes the getpath() bug.
+added NEWPAF and HIDDEN to options.h ( commented out for now until
+testing is complete ) - Ken H.
+
+*version 2.0 beta 1 release 7*
+Fix for fix for exec bug ( lib/player/player.c ) - Chad Zabel
+fixed minor bug in aircombat.c ( missing quote on line 613 ) - Ken H.
+
+*version 2.0 beta 1 release 8*
+lib/commands/mfir.c Bugfix... in quiet_bigdef, added in a check
+for forts >60%.  They were getting cheated out of their bonus in the return
+fire process. - Chad Zabel
+AIX Port: files
+lib/lwp/{GNUmakefile,arch.c,lwp.c,lwpint.h} and                             
+make/Systems/aix modified
+ - All changes are surrounded by #ifdef AIX32. 
+ - one change to lwp.c that will apply to everyone one error
+   message changed so it says underflow instead of overflow in the stack
+   checking code.
+- Bill Canning
+
+*version 2.0 beta 1 release 9*
+You can now specify how many mil to board a ship with (wishlist item a1) so
+you don't strand your ship.  This is implemented as another parameter
+in the board command.  Documentation for board updated too!  - Chad Zabel
+
+- Addition of the HIDDEN and NEWPAF Mods (Major addition). - Kevin Klemmick
+
+*version 2.0 beta 1 release 10*
+lib/player/player.c compilation under linux was broken by previous patches
+this is fixed now - Ken H.
+
+*version 2.0 beta 1 release 11*
+fixed compilation under sunos (lib/lwp/lwp.c had a couple odd '\' characters
+in it that caused the sun compiler to complain) - Ken H.
+
+*version 2.0 beta 1 release 12*
+added 3 character abbreviations for land unit names - Chad Zabel
+fixed bug in "show sect build" command - Ken Huisman
+added check in neweff command to see if sector is stopped - Chad Zabel
+added test for war declaration before abm launch - Chad Zabel
+
+*version 2.0 beta 1 release 13*
+added thread debugging stuff - Dave Pare
+changes to autonav code - Chad Zabel
+fixes for minor bug in land unit names - Chad Zabel
+fix for build.t in docs - Chad Zabel
+simple fix for spy command - Chad Zabel
+fix for telegrams - Julian Onions
+fixup of makefile in util - Julian Onions
+
+*version 2.0 beta 1 release 14*
+fix bugs in lwp - Julian Onions
+fix bug in edit that caused server crash - Julian Onions
+fix bugs in attack command that allowed free resource creation - Chad Zabel
+fix bug that made countries in sanctuary lose money - Chad Zabel
+
+*version 2.0 beta 1 release 15*
+io bug fixes and misc code changes - Dave Pare
+removal of sanctuary print statements to reduce logfile sizes - Ken Huisman
+DEC Alpha port - Dave Pare and Ken Stevens
+
+*version 2.0 beta 1 release 16*
+made compiling/configuring easier (see READ_THIS_FIRST) - Ken Stevens
+fix bug in info.c that caused crash - Janjaap van Velthooven
+fix for land units - Chad Zabel
+
+*version 2.0 beta 1 release 17*
+major improvements/cleanup of info pages and related files - Ken Stevens
+changes to compile scripts - Ken Stevens
+
+*version 2.0 beta 1 release 18*
+fixed missile sub abbreviation in ship file - Ken Stevens
+added "are you sure" in build command to prevent accidents - Ken Stevens
+fixed production simulation report showing "e" sectors producing - Ken Stevens
+fixed LandUnits subject not being listed in "info". - Ken Stevens
+fixed so unload only works in your sector or ally's sector - Ken Stevens
+fixed error in sweep when sector efficiency is printed - Ken Stevens
+fixed telegrams reporting bombing damage - Ken Stevens
+fixed cede so you can only cede to allies - Ken Stevens
+fixed coastwatch to show ship names - Ken Stevens
+build command gives informative error message if you are building
+in the wrong type of sector or the sector is < 60% eff. - Ken Stevens
+build command does not prompt for tech level if not given on command
+line - assumes current tech level - Ken Stevens
+tech for aegis cruisers was increased - Ken Stevens
+payoff command lists how many sectors ship has travelled - Ken Stevens
+fixed bug that allowed planes to bomb from an airport <60% efficient - Ken Stevens
+fairland now adds two visitor countries in its newcap script - Ken Stevens
+fixed bug that crashes the server when 'power' is first done in game
+without doing a 'power new' first - Ken Stevens
+test command no longer aborts if you don't have enough of an item in a sector,
+it still performs the test but gives a warning - Ken Stevens
+you now get a telegram when someone loads something onto your ship - Ken Stevens
+fixed documentation on happiness - Ken Stevens
+you now get the country name when a country becomes hostile, not just the
+country number - Ken Stevens
+fixed so start land unit is if1 instead of if2 - Ken Stevens
+
+*version 2.0 beta 2 release 1*
+Build command has last two arguments switched ( tech and number - documentation
+updated as well ) - Ken Stevens
+Added new info page summarizing whats new in Empire2 - Ken Stevens
+/info/Subjects/TOP.t now includes LandUnits subject - Ken Stevens
+info/Subjects/Server.t refers to the Empire2 info page now - Ken Stevens
+Bug in happiness and education calculation on zero population fixed
+- Ken Stevens
+Aircombat aborted wasn't being printed properly - fixed - Ken Stevens
+Plane types sorted to be consistant with ships and units - Ken Stevens
+Wish list item m2! fixed - missiles on interdiction missions on subs
+won't fire - missiles are now allowed to be on ships with "miss" capability
+- the missile code and the load code now agree as to what kinds of planes
+can be on what kinds of units - Ken Stevens
+Comments added to ship.c explaining why M_XLIGHT, M_UNIT and M_MSL no
+longer need to be set there ( they are automatically set in global_init()
+- Ken Stevens
+fixed wishlist item s16! - subs on interdiction missions no longer fire
+on other subs, when they don't have sub-torp ability.  - Ken Stevens
+fixed division by zero error in lib/subs/supply.c ( occurs when a cargo
+ship supplies itself to increase its efficiency in a harbour) - Ken Stevens
+cosmetic change to lib/commands/load.c - Ken Stevens
+Fixed wishlist item p9!  ( non-VTOL missiles won't fly missions unless they
+are in a 60% airport) - fixed by making all missiles VTOL by definition.
+- Ken Stevens
+lmine command now allows you to specify more shells than the unit has,
+and the unit will automatically resupply until all the mines specified are
+laid ( wishlist item l1?) - Ken Stevens
+The problem with land mines becoming sea mines is now fixed entirely
+(wishlist item c2!) - Ken Stevens
+0% banks, etc. no longer resist shell fire better than a 0% other sector type.
+( wishlist item c3!) - Ken Stevens
+fixed printing problem in sweep command - Ken Stevens
+fixed telegrams using the word "Oamage" instead of damage when reporting
+bombing damage. - Ken Stevens
+lib/global/init.c - cosmetic change - Ken Stevens
+added wall and shutdown commands and corrected syntax on some deity
+commands - Ken Stevens
+added pr_wall() which is like pr_flash() except that it prints to
+all connected players. - Ken Stevens
+added shutdown comand to shutdown server with warnings to connected
+players - Ken Stevens
+fixed reference to "info syntax" - Ken Stevens
+added toggle command, which allows players to set their "inform" flag, which,
+when set, causes the server to send a line to the client the
+instant the player receives a telegram - Ken Stevens
+flash command now checks for valid country number - Ken Stevens
+Added support for an empire configuration file so that the server can
+be reconfigured without recompiling (documentation on this included in
+README directory) - Julian Onions
+fix for standard empire client so it doesn't drop characters on long
+scripts - Dave Pare
+Changed flash command so that you only get flashes from your alllies if
+you have toggled your flash flag on - using 'toggle flash' to
+toggle your flash command on and off and documentation changed - Ken Stevens
+designate command now warns you if you are spending >50% of your money
+designating forts, and will ask you "are you sure?" if you are going
+to go broke from it - Ken Stevens
+A temporary input buffer needed a size increase in buil.c - Ken Stevens
+Wish list item c5! - fixes it so you are told how much it will cost when
+you are designating sectors, or converting civs to slaves, and it warns
+you if you are going to go broke from it.  The server will also not let you
+build, harden, or upgrade anything you cannot afford - Ken Stevens
+fixed -h parameter on server ( caused crash ) - Ken Huisman
+new commands added for use during navigation and unit marching - 'M' for
+ drawing a map and 'B' for drawing a bmap - Ken Stevens
+
+*version 2.0 beta 2 release 2*
+Deleted some files no longer necessary.
+ - deity "map" fixed - wasn't showing sector designations.
+ - deity "shutdown" fixed - didn't work.
+ - player "board" fixed - was loosing all mil on ships.
+ - Now when you "kill" emp_server (from your unix shell), it will send
+   the flash message "Server shutting down..." to all players logged on,
+   it will "abort" any command they were in the middle of with the message
+   "Shutdown aborted command" (like the way update aborts commands),
+   it will terminate the players connection (like the way idle
+   connections are terminated) and it will close all the database files.
+   In other words, "kill" fromoutside the server now does the same thing
+   as the deity "shutdown" command does from inside the server.
+ - New player command "strength" calculates sector defense strength
+   (including bonuses from reacting units but excluding air/fort/arty support).
+   I think this command will help newbies set up a defense better.
+ - If you've already compiled once, and you're just working on stuff in
+   the server, then you can now type "compile quick" which will skip
+   dependall, util, and client (and compile in about a quarter the time).
+
+The above were all done by Ken Stevens ( I think ) on b2r1b
+
+ - added "toggle beep" so that you can now play Empire without beeping
+   every time you fire if you so choose (handy for those emergency
+   updates in the department computer room).
+ - "configure" now asks you where you keep your "gnumake".
+ - Fixed a couple of bugs in the configure script
+ - "toggle" flags moved from player to natstr so they're saved
+ - fixed malloc() pointer mismatches to make cc happy
+ - ported "shutdown" to Sun4
+ - Julian Onions ported his econfig code to Sun4
+
+The above are from b2r1c
+
+The following are fixed ( as of b2r1d ):
+  - The infamous "scuttle" bug.  Now the owner of units is always set
+    to zero as soon as the unit is created.  (By "created" I am referring
+    to when you build 1 plane and ef_extend() creates 49 more -- the owner
+    of all 50 is now initialized to zero.)
+  - A C_INFORM packet was being sent to the client when an announcement was
+    made.  Oopsie on my part.  Now fixed.
+  - "fortifying" a unit no longer clears the unit's mission.
+  - New script "keepitup" is a modified isempireup except that you don't
+    have to put any info about the game in the file itself, so if
+    you're like me and you have more than one game running, you now only
+    need to keep one script around.
+
+b2r1e patch moved files from util into old/util
+
+b2r1f contained the following:
+This patch was submitted by Julian Onions.
+ - General option handling, + BLITZ option changes
+   throughout.  There is one new file lib/global/options.c which has the 
+   option definitions in.
+ - The following options are now dynamically switchable
+   NOFOOD, BLITZ, EASY_BRIDGES, RES_POP, NEW_WORK, 
+   NEW_STARVE, NO_PLAGUE, NEWPOWER ALL_BLEED, DRNUKE
+   SUPER_BARS, NUKEFAILDETONATE, PINPOINTMISSILE
+ - also fix up a stupid test in laun.c, and some reworking of the
+   SHIPNAME (plus a bug fix for Sub launched SHIPNAMES).
+
+b2r1g fixed a bug in b2r1f.
+b2r1h moved a file from old/util back to util
+b2r1i contained the following:
+This patch was submitted by Julian Onions.
+ - The following options are now dynamically switchable
+   FUEL, ORBIT, NEUTRON
+ - The new file README/README.config describes how to use the new "econfig"
+   runtime configuration stuff..
+ - Now when you type "version", you will also get the patchlevel of
+   the code.
+
+b2r1j contained the following:
+This patch was submitted by Kevin Morgan.
+ - xdist and ydist are now in player coordinates (wish list item i2)
+ - emp_client now calls termio until all bytes have been copied into
+   the socket (wish list item x19).
+
+b2r1k contained the following:
+This patch was submitted by Sasha Mikheev.
+ - This patch ports lwp threads to Linux.
+
+b2r1l contained the following:
+This patch was submitted by Julian Onions.
+ - Options NOMOBCOST and GRAB_THINGS are now runtime configurable.
+
+b2r1m contained the following from Ken Stevens:
+
+WARNING: Although I have heavily tested the code, I'm sure that it still has
+a significant number of bugs.
+
+This patch contains the following changes:
+ - fixed a bug in configure which was not making compile a csh script which
+   resulted in grep not working.
+ - shipdamage() now always multiplied by 63/m_armor.  I made the
+   appropriate changes to all places that call shipdamage().  Also,
+   shipdamage() will now tell the player exactly how much their ship
+   was damaged.
+ - a new function mpr(cnum, format, args) will pr() to cnum if they
+   are player and send them a telegram otherwise.
+ - sail, autonav, and nav now all call the same functions.  Thus mine
+   damage and interdiction damage are now calculated using exactly the
+   same formulas.  This makes heavy use of mpr().
+ - navigation now has two more lcommands.  "i" will list the ships you're
+   navigating, and "f" will change the flagship.
+ - Now you can type commands like this:
+   nav 72 jlsruMluBursh
+   That is, you can mix directions with other navigation commands.
+ - Interdiction of navigating ships now works as follows:
+   1. Forts interdict.
+   2. If there are any ships left, land arty interdiction fires.
+   3. If there are any ships left, ships on interdiction fire.
+   4. If there are any ships left, interdiction missiles fire one at a time.
+   5. If there are any ships left, interdicting planes pinbomb.
+ - I'm sure that I've made some changes which have slipped my mind
+
+b2r1n contained the following from Ken Stevens:
+
+WARNING: Although I have tested most of the new code, I'm sure that it
+still has a significant number of bugs.
+
+This patch contains the following changes:
+ - I went through all of the Empire info pages and updated them to
+   match the current code.  I completely rewrote large portions of the
+   following info pages: "move", "bomb", "launch", "navigate", and
+   "Plane-types".
+ - Fixed a bug in the "configure" script which was resulting in a pile
+   of "kw_read" erros in the logfile.
+ - Changed the logfile output to make it much easier to read.  Note:
+   this will break current logfile parsers.  I'll rewrite any that people need.
+ - It is now possible to specify start-tech/happ/research/edu in
+   econfig (Thanks Julian!).  I'm using this in my blitz to start
+   countries at tech 100.
+ - When things are damaged by interdiction, the sector they were
+   moving into will suffer collateral damage.
+ - Surface missiles can now be put on interdiction mission.  To
+   distinguish them from anti-ship missiles, the latter have been given
+   "marine" capability.
+ - Planes and missiles can now hold at most one nuclear warhead.
+ - Nuclear warheads on planes and missiles will now detonate when that
+   plane or missile flies an interdiction mission.
+ - I have removed the "n" option from the "bomb" command.  If you want
+   to nuke something, just arm the plane with a nuke and bomb "s".  This
+   simplification makes the above change consistant with "bomb".
+ - When you launch a satellite, then any country AT_WAR with you will
+   try to intercept it with a-sats.  This uses exactly the same code as
+   abm defense - two missiles are fired.  Also, if a satellite is
+   positioned over a sector which is not owned by your ally, then they
+   will get a telegram informing of the positioning.
+ - missiles on missions will stop launching once 100 damage has been
+   done (in the case of surface interdiction) or all the ship s have been
+   sunk (in the case of ship interdiction).
+ - deliver now costs the same as distribute (4x cheaper).
+ - there is now only one function called to determine whether a plane/missile
+   hits its target and how much damage is done (this includes abms and
+   asats).  Thus the chance of a plane hitting its target is now the same
+   whether the plane was flying a mission or flown by hand.  The only
+   exception to this is pinbombing land units where interdicting planes
+   have a 100% chance of hitting unlike pinbombers flown by hand which
+   have a chance of missing.  I plan to fix this later.
+ - many functions were rewritten to use mpr() instead of pr().  mpr()
+   checks to see if the person is interactive, and if they are calls
+   pr(), and otherwise calls wu().  All PR() functions should really
+   be changed to mpr() but I'm too lazy to do it.  Also, I'm sure that I
+   missed a few pr()'s and so the server may still occassionally try to
+   pr() to a player not logged on.
+ - I used lint to remove alot of unused variables, declare some
+   functions void, and fix unsigned char comparisons with zero.
+
+b2r1o contained the following from Ken Stevens:
+
+WARNING: Although I have tested most of the new code, I'm sure that it
+still has a significant number of bugs.
+
+This patch contains the following changes:
+ - Added "Friendly" relations--you can nav/load/unload in friendly harbours.
+   See info Empire2 or info relations.
+ - Changed the order of relations so now you can write code like
+   if (rel < FRIENDLY) ... or ... if (rel >= HOSTILE)
+ - Cap sacking now makes the news.
+ - Fixed a bug in sub interdiction (bug introduced by me in r1n).
+ - Fixed a bug in supply code (introduced by Julian in r1f).
+ - Moved relation-change stuff out of decl.c and into subs/rej.c setrel().
+   So now, no matter how a country becomes hostile, both parties will
+   get a tele and it will make the news.  Also, much of this code was
+   simplified using the new heuristic that bad rel is always < good rel.
+ - Changed spy output.  New headers are:
+   sect   type own oldown eff  civ  mil  shl gun  pet food bars units planes
+ - Changed all relevant info pages.
+ - Completely rewrote info relations.
+
+*version 2.0 beta 2 release 3*
+CC is now configurable - Ken Stevens
+"scuttle", "scrap", "mission", and "fuel" commands now let you put "l"
+instead of having to type "la" like before - Ken Stevens
+BIG_CITY option added - Ken Stevens
+fixed bugs in "demob", "navi", and setrel() - Ken Stevens
+fixed bug in flash command - Ken Stevens
+removed spurious \B from pr statement in torp.c - Julian Onions
+fixed missing issneak variable for SLOW_WAR case in atta.c and
+ assa.c - Julian Onions
+rej.c not using correct variable for SLOW_WAR option, fixed - Julian Onions
+parameters added to fairland.c as follows:
+-o		-- don't allocate ore (default is to allocate as before)
+-q		-- non chatty mode - little if any output
+-a		-- use the '*' mark to mark contents (AIRPORT_MARKER)
+-i		-- allow islands to crash and merge
+-s <file>	-- alternate script file (default newcap_script)
+- Julian Onions
+maketgame script added - used to make a temporary test game
+use as
+  maketgame -d /tmp/data 5 100
+to make a temporary game in /tmp/data with 5 countries and 100 sectors each.
+- Julian Onions
+fix to make compile script call bin/pconfig instead of util/pconfig
+- Craig Leres
+
+*version 2.0 beta 2 release 4*
+forts must be 5% efficient to fire or provide support( effic. level settable in
+ options.h - default is 5%) - Ken Huisman
+fixes for the BIG_CITY option - Ken Stevens
+another fix for compile.in - Ken Stevens
+added skywatch command - Ken Stevens
+fixed bug in "conv" command - Ken Stevens
+fixed error message in "launch" - Ken Stevens
+now you get a telegram if an enemy sat moves over your sector at the update
+- Ken Stevens
+attack command partially rewritten to clean up several problems - Chad Zabel
+launch command now checks to see if a ship was sunk by a ship-ship
+missile and tells the attacker - Chad Zabel
+new missile/anti-missile code - Chad Zabel
+configure script chokes if you are logged in more than once - Craig Leres
+fix for compiling with gcc 2.6.0 under sunos 4.1.4 regarding the
+sprintf() prototype in misc.h.in - Craig Leres
+got rid of two lines of code that didnt do anything in sail.c - Craig Leres
+fixed several other compiler warnings - Craig Leres
+server checks for invalid values of s_p_etu - Craig Leres
+some variables did not get initialized in lwp.c (fixed)
+ - Janjaap van Velthooven
+fixed and heavily modified deliver command - Ken Stevens
+
+*version 2.0 beta 2 release 5*
+fixed spelling error in desi.c - Ken Huisman
+new command "players" which lists all players currently logged on with idle
+time and last command - Ken Stevens
+several plane damage bugs fixed - Ken Stevens
+Interdiction damage now same as it would be interactively (ie. through
+shelling or bombing or whatever ) - Ken Stevens
+march command rewritten with a smoother interface - Ken Stevens
+fixed bug in attack command that crashed the server - Ken Stevens
+code changed so if your action caused a bridge to fall you see a message
+on the screen instead of getting a telegram - Ken Stevens
+man pages for the empire executables now available in the man
+directory - Ken Stevens
+fixed a server crashing bug in fuel command - Ken Stevens
+'c' sector is now called a "city" when BIG_CITY option used - Ken Stevens
+nuke subs now come at the same tech as nuke warheads - Ken Stevens
+deities no longer ever run out of BTUs - Ken Stevens
+
+*version 2.0 beta 2 release 6*
+Max range of anti-ship missiles reduced - Ken Stevens
+fixed it so you dont have to logout and log back in to re-enable commands
+when you come out of bankruptcy - Ken Stevens
+new skywatch command added for finding sats - Ken Stevens
+you can no longer fortify land units that are on ships - Ken Stevens
+missile range in launch vs. interdiction has been reconciled - Ken Stevens
+'tend' syntax now same as 'load', and you can now tend land units which
+have 'assault' capability - Ken Stevens
+fix for bug in realm command - Ken Stevens
+fixed a sector damage bug introduced in 2b2r4 - Ken Stevens
+fixed bug in show n b - Ken Stevens
+fixed typo in Interdiction.t - Ken Stevens
+fixed bug in telegram that caused server crash in certain instances - Ken Stevens
+commodity damage routines reconciled to ensure that people damage is always
+factored by the global variable people_damage. - Ken Stevens
+fixed news items that were mis-reporting - Ken Stevens
+fixed bug in missile-ship interdiction - Ken Stevens
+added support in emp_client for C_FLASH and C_INFORM messages - Ken Stevens
+fixed major bug in takeover() - Ken Stevens
+fixed an incorrect message which would get printed when nukes were
+dropped from bombers. - Ken Stevens
+pinbombing output changed slightly - Ken Stevens
+fixed bug in "land" - Ken Stevens
+fixed bug in "power" - Ken Stevens
+news cleaned up a bit - Ken Stevens
+new info page on clients added - Ken Stevens
+fixed several typos - Ken Stevens
+new map code - Chad Zabel
+fixes bug in BIG_CITY code when redesignated - Ken Stevens
+fixes bug in redesignating of warehouses when sector has large amount of an
+item - Ken Stevens
+fixed bug in new empire client - Ken Stevens
+improved 'play' command - Ken Stevens
+
+*version 2.0 beta 2 release 7*
+people with toggle inform on are now told at login if they have telegrams
+- Ken Stevens
+fixed bug in client - Ken Stevens
+fixed scheduled update scheme (updates were not firing) - Ken Stevens
+fixed negative avail bug - Ken Stevens
+mail and wmail commands removed from server due to bugs - Ken Stevens
+configure by default does not overwrite the hours file now - Ken Stevens
+"build b 2,2 j" now permitted - Ken Stevens
+fixed rounding error resulting in negative avail - Ken Stevens
+fixed several typos in the docs - Ken Stevens
+fixed sub-detect chance for asw planes - Ken Stevens
+prevent players from rejecting stuff from the deity - Ken Stevens
+removed missingmissiles option ( not used ) - Ken Stevens
+removed reference to now standard SHIPSAM option - Ken Stevens
+added "Balance of Power" page at the bottom of the news - Ken Stevens
+re-introduced "pray" command - Ken Stevens
+added collateral damage from missiles hitting units - Ken Stevens
+fixed bug in attack - Ken Stevens
+fixed bug in budget command - Ken Stevens
+fixed command cutoff command - Ken Stevens
+fixed bug in retr command - Ken Stevens
+"realm x" now gives error - Ken Stevens
+mfir and torp were not telling the attacker if the ship got sunk - Ken Stevens
+planes on carriers which were >80% eff were being reduced to 80% eff, fixed.
+- Ken Stevens
+
+*version 2.0 beta 2 release 8*
+fixed bug in pinbombing and interdiction - Ken Stevens
+server crashed when trying to get friendly nations to interdict - Ken Stevens
+bombers were being launched as interdiction missiles ( oops!) - Ken Stevens
+server crashing bug in flash - Ken Stevens
+
+*version 2.0 beta 2 release 9*
+got rid of annoying "destroying done" message - Ken Stevens
+compile.in changed - by default dont overwrite econfig - Ken Stevens
+new global configurable variable assault_penalty = 0.50 - Ken Stevens
+fixed commodity damage - Ken Stevens
+added global string var used by attsub.c - Ken Stevens
+added new option INTERDICT_ATT - Ken Stevens
+cities are now navigatable if BIG_CITY is on - Ken Stevens
+fixed server crash on friendly overfly - Ken Stevens
+changed march and lndsub to use attsub routines - Ken Stevens
+no longer get kicked out of navi prompt of you bump into something - Ken Stevens
+doubled ship pinbomb damage - Ken Stevens
+get warned if your message is truncated in flash - Ken Stevens
+fixed bug in strength command - Ken Stevens
+
+*version 2.0 beta 2 release 10*
+new starvation command checks for starving ships and units as well - Ken Stevens
+fixed a bug causing land units to starve - Ken Stevens
+added new [ynYNq?] syntax to attack - Ken Stevens
+fixed a bug that resulted in stranded units - Ken Stevens
+caps are called cities if BIG_CITY is on - Ken Stevens
+new power command allows syntax "power c 3/6/14" - Ken Stevens
+fixed bug in news report - Ken Stevens
+fixed spelling errors in info pages - Ken Stevens
+can now type sector number at marc and navi prompt to move unit there - Ken
+Stevens
+changed output format of budget - Ken Stevens
+can load and unload in 2% cities - Ken Stevens
+fixed bug that caused blitzes to starve if food was on - Ken Stevens
+fixed bug in plane maps - Ken Stevens
+changed YN to mean units in same army - Ken Stevens
+added "Attack aborted" message - Ken Stevens
+fixed bugs in plnsub.c, bomb.c budg.c - Ken Stevens
+fixed ship sunk bug in mfir.c - Ken Stevens
+added "Assault aborted" message - Ken Stevens
+fixed ship sunk bug in torp.c - Ken Stevens
+you can now unload to up to 9999 in a sector - Ken Stevens
+fixed bug in news - Ken Stevens
+removed BETTERABM option - Ken Stevens
+shutdown now asks you before automatically disabling updates - Ken Stevens
+fixed lots of nuclear detonation related bugs - Ken Stevens
+fixed supply bug - Chad Zabel
+fixed bug so nukes now dissapear when you use them - Ken Stevens
+harbour police bug fix - Chad Zabel
+land units no longer see planes on ships with look command - Ken Stevens
+fixes for autonav - Chad Zabel
+fixed bug that crashed server - Ken Stevens
+fixed paradrop bug - Ken Stevens
+ship damage improved - Ken Stevens
+made land unit abbreviations 4 chars long - Chad Zabel
+shortened the tele time tolerance from 60 sec. to 5 sec. - Ken Stevens
+rewrote atta/assa/para/boar - see Attack.t for details - Ken Stevens
+fixed bug in strength command - Ken Stevens
+
+*version 2.0 beta 2 release 11*
+fixed bug in strength command - Ken Stevens
+documented all the new attack stuff - Ken Stevens
+new arm command lets you specify groundburst or airburst at arming time - Ken
+Stevens
+fixed bug in cede command - Ken Stevens
+lowered damage land mines do to units - Ken Stevens
+consolidated commodity landmine damage code - Ken Stevens
+fixed minor bug in flash - Ken Stevens
+new documentation - Ken Stevens
+fixed bug in ship damage - Ken Stevens
+mi1's were interdicting commodities - fixed - Ken Stevens
+added to pre_write a check for 0 civ => oldown = own - Ken Stevens
+fixed minor bug in attack sub file - Ken Stevens
+fixed major bug in lmine - Ken Stevens
+changed repo output format to give more information - Ken Stevens
+fixed bug in setsect (deity command ) - Ken Stevens
+fixed ship and land unit starve routines - Ken Stevens
+new code replaces the old missdef code - Ken Stevens
+fixed bug in land unit starve code - Ken Stevens
+new deity command "swap" swaps two sectors - Ken Stevens
+fixed board estimate bug - Ken Stevens
+fixed bug in repo command - Ken Stevens
+updated more documentation - Ken Stevens
+updated keepitup script - Ken Stevens
+3 letter abbreviations for asats - Ken Stevens
+harbors now get warehouse packing bonus - Ken Stevens
+you can now type "decl h *" to declare hostile with everyone - Ken Stevens
+deities no longer start out at war with everyone - Ken Stevens
+coun command disabled (doesnt work right anyways) - Ken Stevens
+re-fixed news bug in torp - Ken Stevens
+made non-deity version of players command with limited info - so players
+can see if deity is on - Ken Stevens
+changed name of swap command to swapsector - Ken Stevens
+more documentation - Ken Stevens
+increased stack space and got rid of "idle connection terminated" message
+that would appear sometimes when you logged in - Ken Stevens
+fixed server crashing bug in decl command - Ken Stevens
+fixed a bug in repo command - Ken Stevens
+fixed bug in that you were becoming the oldown of conquered sectors
+immediately - Ken Stevens
+implemented prship() prland() and prplane() functions to simplify
+the SHIPNAMES stuff - Ken Stevens
+moved prbuf() to xy.c - Ken Stevens
+players now being told where missile is being launched from - Ken Stevens
+chance of missile exploding on launch pad reduced to
+5% * (1 - tech factor). - Ken Stevens
+fixed crash in missiles - Ken Stevens
+changed "geosynchronous" to "geostationary" - Ken Stevens
+fixed crash in torp command - Ken Stevens
+fixed a bug in nuke damage - Ken Stevens
+fixed a bug in getpath() - Ken Stevens
+fixed up the newbie intro info pages - Ken Stevens
+fixed bug in strength command using offense rather than defense strength - Ken
+Stevens
+improved launch output - Ken Stevens
+improved the way players interact with nukes - Ken Stevens
+gave update priority over shutdown - Ken Stevens
+fixed thread stacksize causing crash - Ken Stevens
+Planes will no only abort once they are less than 80% - Ken Stevens
+fixed bug causing scuttled object not to be printed - Ken Stevens
+fixed memory leak in atta/boar/assa commands - Ken Stevens
+removed the "warning: this isn't a warehouse" message in dist - Ken Stevens
+engineers with 0 mob can no longer hit a mine when trying to sweep - Ken Stevens
+changed "115% damage" to "115 damage" and added info on how to
+convert in "info Damage" - Ken Stevens
+changed shoot syntax to make it like move - Ken Stevens
+fixed bug in interdicting nukes - Ken Stevens
+added safety check for negative nukes - Ken Stevens
+75% sat now only sees 75% of sectors ( rest are blank ) - always the same
+25% are blank - Ken Stevens
+if you are over tech 290, you cannot build planes that are < tech 150
+- Ken Stevens
+fixed a bug preventing you from assaulting your own sectors - Ken Stevens
+no more multiple telegram updates - Ken Stevens
+cede 2,0 "sector" now works ( before only "sect" would) - Ken Stevens
+removed a couple noisy output lines in dist - Ken Stevens
+fixed bug in "test" command - Ken Stevens
+changed load and tend syntax to be same as move ( see info Move ) and
+rewrote lload, load, unload, and lunload, improving prompts, etc
+- Ken Stevens
+planes wich are less than 40% cannot fly - Ken Stevens
+improved the output of "report" - Ken Stevens
+fixed bug in budget - Ken Stevens
+fixed bug in "players" command - Ken Stevens
+if an attacker aborts an attack, the victim now gets a telegram - Ken Stevens
+extended toggle syntax so you can now type "toggle inform on" - Ken Stevens
+show output changed - Ken Stevens
+engineers stop working once a sector reaches 100% - Ken Stevens
+you are no longer asked if you'd like to "nuclear" bomb ( see info arm )
+- Ken Stevens
+cleaned up scripts and deity docs - Ken Stevens
+
+
+2b2r11 became empire 2.3.0
+further changes documented in CHANGES2.3
+

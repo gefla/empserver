@@ -1,0 +1,69 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  status.c: Process and perhaps display status messages
+ * 
+ *  Known contributors to this file:
+ *     Dave Pare, 1994
+ */
+
+#include <stdarg.h>
+#ifdef BOUNDS_CHECK
+#include <bounds/fix-args.h>
+#endif
+#include "lwp.h"
+#include "prototypes.h"
+
+#if defined(_EMPTH_LWP)
+
+void lwpStatus(struct lwpProc *proc, char *format, ...)
+{
+	va_list	ap;
+	static	struct timeval startTime;
+	struct	timeval tv;
+	char	buf[1024];
+	int	sec, msec;
+
+	va_start(ap,format);
+	if (proc->flags & LWP_PRINT) {
+		if (startTime.tv_sec == 0)
+			gettimeofday(&startTime, 0);
+		gettimeofday(&tv, 0);
+		sec = tv.tv_sec - startTime.tv_sec;
+		msec = (tv.tv_usec - startTime.tv_usec) / 1000;
+		if (msec < 0) {
+			sec++;
+			msec += 1000;
+		}
+		vsprintf(buf, format, ap);
+		printf("%d:%02d.%03d %17s[%d]: %s\n", sec/60, sec%60, msec/10,
+			proc->name, proc->pri, buf);
+	}
+	va_end(ap);
+}
+
+#endif

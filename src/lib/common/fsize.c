@@ -1,0 +1,92 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  fsize.c: BSD dependant file and block sizing routines
+ * 
+ *  Known contributors to this file:
+ *     Dave Pare, 1986
+ *     Doug Hay, 1998
+ *     Steve McClure, 1998
+ */
+
+#include "misc.h"
+#include "common.h"
+
+#include <fcntl.h>
+#include <sys/stat.h>
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+
+/*
+ * return the size of the file in bytes.
+ */
+int
+fsize(int fd)
+{
+	struct	stat statb;
+
+	if (fstat(fd, &statb) < 0)
+		return -1;
+	return statb.st_size;
+}
+
+/*
+ * return the block size of the filesystem
+ * If it's not a filesystem, return 1024.
+ */
+int
+blksize(int fd)
+{
+#if defined(_WIN32)
+	return 2048;
+#elif (!defined (aix) && !defined (sgi))
+	struct	stat statb;
+
+	if (fstat(fd, &statb) < 0)
+		return 1024;
+	return statb.st_blksize;
+#else
+	return 1024;
+#endif
+}
+
+time_t
+fdate(int fd)
+{
+	struct	stat statb;
+
+	if (fstat(fd, &statb) < 0)
+		return 0;
+	return statb.st_mtime;
+}
+
+void
+filetruncate(s_char *name)
+{
+	close(open(name, O_RDWR|O_TRUNC, 0660));
+}

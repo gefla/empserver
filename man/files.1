@@ -1,0 +1,24 @@
+.TH FILES 1 "7 Aug 1995" "files"
+.UC
+.SH NAME
+files \- Empire file initialization
+.SH SYNOPSIS
+.B files
+[
+.BI \-e configfile
+]
+.br
+.SH DESCRIPTION
+.I files
+creates all of the files which are required by 
+.I emp_server
+to run a game.  It will destroy all previous game data, so excercise
+caution when running this program.
+.SH OPTIONS
+.TP
+.BI \-e configfile
+causes
+.I files
+to use the game configuration specified in 
+.I configfile
+(by default, the file "econfig" in the data directory is used)

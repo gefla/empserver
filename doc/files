@@ -1,0 +1,33 @@
+doc/
+	Deity Documentation.
+
+man/
+	Man pages.
+
+scripts/
+	Scripts to help you run a game.
+
+bin/
+data/
+info.nr/
+	Game binaries, data, and compiled info pages.
+
+info/
+	Nroff source for the Empire info pages.
+
+include/
+	Empire include files (headers, .h files)
+
+src/doconfig/
+	Self-compiling and configuring program for building the server.
+
+src/client/
+	Source code for the Empire client program.
+
+src/server/
+src/lib/
+	Source code for the Empire server.
+
+src/util/
+	Programs used to generate Empire data files.
+

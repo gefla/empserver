@@ -1,0 +1,66 @@
+#!/bin/csh
+#
+# postresults - Steve McClure (ionica@empire.cx), 1998
+#    Do an automated post to rec.games.empire of a game's power chart
+#    and the last day's annoucements.
+#
+# To use, you need to create a visitor country in your game.  For example,
+# use "News" and "reporter" for the country name/rep of a special country
+# used to get the power chart and annos.
+#
+# Also, this file references a "visitor" account.  If you don't have one,
+# you may want to take that line out.
+#
+# Note that this uses 'inews' to post.  It's also very crude.  But, it
+# works great when used from a cronjob.
+#
+# You will also want to change the messages below to more accurately 
+# reflect your game.
+#
+# Note this is the same script I used to post results for the Winterfest
+# '98 Tourney.  I'm submitting it to wolfpack for inclusion with the
+# server.
+
+# Change the following variables depending on where your binaries/game
+# is located
+setenv INEWS      /usr/local/news/inews
+setenv TMPDIR     /empire/ionica/Tourney
+setenv TMPFILE    rd3game1.txt
+setenv CLIENT     /usr/local/bin/empire
+setenv EMPIREHOST 149.84.128.9
+setenv EMPIREPORT 6641
+setenv EMPCOUNTRY News
+setenv EMPREP     reporter
+setenv EMPTITLE   "Winterfest '98 Tourney Round 3, Game #1"
+setenv DEITYMAIL  ionica@empire.net
+#
+
+cd $TMPDIR
+
+echo '' > $TMPFILE
+echo "This is the daily power chart and announcements for the" >> $TMPFILE
+echo $EMPTITLE >> $TMPFILE
+echo '' >> $TMPFILE
+echo "This is the Final Round of the Winterfest '98 Tourney\!" >> $TMPFILE
+echo '' >> $TMPFILE
+echo "This game has a visitor account (Country 'visitor' Representative 'visitor')" >> $TMPFILE
+echo "and can be found at host '$EMPIREHOST' and port '$EMPIREPORT'." >> $TMPFILE
+echo '' >> $TMPFILE
+echo "For more questions about this game, send e-mail to '$DEITYMAIL'" >> $TMPFILE
+echo '' >> $TMPFILE
+echo '------' >> $TMPFILE
+echo '' >> $TMPFILE
+$CLIENT $EMPCOUNTRY $EMPREP << EOF
+pow new >> $TMPFILE
+EOF
+echo '' >> $TMPFILE
+echo '------' >> $TMPFILE
+echo '' >> $TMPFILE
+$CLIENT $EMPCOUNTRY $EMPREP << EOF
+wire 1 >> $TMPFILE
+EOF
+echo '' >> $TMPFILE
+echo '------' >> $TMPFILE
+echo '' >> $TMPFILE
+
+$INEWS -t "$EMPTITLE" -n "rec.games.empire" -r "$DEITYMAIL" "$TMPFILE"

@@ -1,0 +1,335 @@
+Unless otherwise specified, the changes in this file were made by Ken Stevens
+
+emp2.3.0.a.tar
+- port to IRIX - Janjaap van Velthooven
+- added "info Hidden"
+- added "doc/econfig"
+emp2.3.0.b.tar
+- fixed abm news message
+- reduced sam ranges to 2/3/4
+- fixed MAJOR bug in unload
+- arty now have to be 20% to fire
+- widened range in "player" command
+- fixed bug in "fuel"
+- fixed "starv l"
+- updated info pages
+emp2.3.1.a.tar      
+- harbours weren't getting packing bonus when importing on dist.
+emp2.3.2.a.sh       
+- removed a bunch of *.orig files
+emp2.3.2.b.tar      
+- added #include <unistd.h> to util/*.c for Linux compatability
+emp2.3.2.c.tar      
+- removed -g flag for linux because it made fairland crash on getopt()
+emp2.3.3.a.tar
+- fixed MAJOR bug in load
+- cleaned up some old global variables that weren't used any more
+- config.status no longer creates econfig (compile does it now)
+- gave _exit() an argument for Linux
+emp2.3.4.a.tar
+- fixed server crashing bug in pinbomb
+emp2.3.4.b.sh
+- cleaned out GNUdepend files for Linux
+emp2.3.4.c.tar
+- changed configure script to ask for IP address
+- made authorization check strict.  NOTE: this will make it harder to install.
+- added this file
+emp2.3.4.d.tar
+- fixed a MAJOR bug in attack that was taking too much mobility.
+emp2.3.4.e.tar
+- fixed a but that was dividing by # of civs rather than multiplying
+  by them for mountain caps.  OOPS.  This bug has been in the code for years!
+- changed the output of the "player" command.
+- fixed a minor bug in "load"
+- changed "return fire does 190% damage" to "return fire does 190 damage"
+- changed "power" so now you can specify country names in "power -c"
+- added "info BTU"
+emp2.3.4.f.tar
+- info pages are now separated into "Basic" and "Expert" level pages.
+  "Basic" level pages have a * beside them on the Subjects info pages.
+- reduced "flapping" of "players" random output.
+- now include self in repo * output.
+emp2.3.4.g.tar
+- a couple more IRIX patches - Janjaap van Velthooven
+- bugfix for upgrade command - Janjaap van Velthooven
+- extended syntax for one way orders - Julian Onions
+- fixed a bug that would crash the server if an abm blew up on the launch pad
+- fixed "was sunk at" message.
+- you are now told if you abandon a sector by marching out of it.
+- if you give someone back their cap by marching/moving/exploring out
+  of it, it gets changed into an agribusiness.
+emp2.3.4.h.tar
+- fixed a server crashing bug in mfir
+- telegrams to yourself no longer show up in the news
+- fixed a server crashing bug in show
+emp2.3.4.i.tar
+WARNING: I am not sure how portable this code is...
+- added hostname to struct player
+- all hostaddr validation now also checks against hostname
+- changed "player" command output to show time used and user@hostname
+emp2.3.4.j.tar
+- fixed a bug introduced in emp2.3.4.i.tar
+emp2.3.4.k.tar
+- players can now see which of their allies are logged on using the
+  "players" command.
+- fixed a server crashing bug in "players".
+- you are now allowed to scrap in friendly harbours
+- ask for double confirmation for scrapping trade ships (and tell
+  people to use "scuttle" instead).
+- fixed documentation for scuttle/scrap
+- you are no longer allowed to attack with supply, aa, arty, or
+  security units.
+- the procedure for determining tech, research, edu, and happiness are
+  now explained in precice detail in the info pages.
+emp2.3.5.a.tar
+- applied 3 patches from someone (sorry I forget who) they had to do
+  with POSIX compatability
+- fixed a MAJOR bug in ltend
+- fixed a bug in "starva" which was stealing food from harbours
+- fixed a server crashing bug which occurred when you hit return at an
+  attack prompt.
+- added a new command "echo" at Kevin Morgan's request
+- fixed a few minor formatting errors
+- fixed an output warning which you got when you aborted assaulting
+  your own sector
+emp2.3.5.b.tar
+- fixed a bug which gave land units positive mobility if they went
+  below -127 (e.g. marching into a mountain)
+- fixed a bug which required nuc missiles to have shells to launch
+- fixed a bug which was preventing choppers from landing on ships
+- fixed an error which prevented the server from compiling with
+  the ORBIT option off.
+- fixed a bug which would throw the server into an infinite loop if
+  two ships followed each other.
+- fixed a typo in scra.c that someone else's smart compiler caught.
+emp2.3.5.c.tar
+- cut sector damage in half (except for nukes)
+- fixed "WARNING: sector ownership changed" integrity check message
+- fixed "not in supplied harbour" message in "fuel" command
+- fixed "lost x% to starvation" message in production report
+- boarding mil no longer pack a lunch
+- The following changes were made to the sonar command:
+  - will only work from ships at sea
+  - will only detect ships at sea
+  - will now detect the shoreline
+  - will only detect things if there is a straight line of water
+    between the detector and the detected (no longer works around corners)
+  - now displays a map and changes your bmap
+  - for ships with tech > 310, shows mines on the map with an X and
+    puts the X on your bmap
+- fixed minor bug in input routine of "fire" command
+emp2.3.5.d.tar
+  - Never again will you see in the news:
+    TheBorg execution squads gun down helpless TheBorg civilians
+  - If you lay, sweep, or hit a sea mine, then an 'X' will automatically
+    be put on your bmap
+  - All ships (including subs) in harbors are now visible via the "lookout"
+    command by all ships (including subs) in adjacent sectors
+  - Fixed a bug in sonar which was hiding subs beneath 'X's
+emp2.3.5.e.tar
+  - Fixed a server crashing bug in supply routines (supply units were
+    drawing petrol from themselves in infinite recursion)
+  - Fixed a server crashing bug in attack code (bad return value)
+  - Fixed a server crashing bug in "declare" command (null pointer)
+  - Fixed a server crashing bug in "fire" command (use of freed
+    memory) - Yannick Tremblay
+  - Fixed bug in "edit ship" which wasn't displaying ship properly
+  - Engineers assaulting from landing ships were being charged too
+    much mob (bug fixed)
+  - User defined plane ranges were not being used by the mission code
+    (bug fixed)
+emp2.3.5.f.tar
+  - Fixed a number fo bugs related to shelling - Yannick Tremblay
+  - Fixed a MAJOR ship damage bug
+  - The budget command has been changed so that now you may choose not to
+    pay maintenance costs.  Also, "mil" on ships/planes/units has been
+    moved from the maintenance costs for those items to the "Military" section
+    of the budget.
+  - If you can not afford to maintain your ships/planes/units or you
+    choose not to maintain them using the "budget" command, then they will
+    loose ETU/5 % efficiency at the update.
+  - If you are broke at the point of the update when it comes time to
+    build something, then that thing will not be built.
+  - Broke countries are now allowed to use all commands except for:
+      arm assault attack board bomb build convert disarm drop enlist explore
+      fire fly grind harden launch lmine mine paradrop recon satellite scrap
+      shoot sweep torpedo treaty upgrade work
+  - Broke countries are now allowed to use these commands:
+      demobilize lload llookout load lookout lradar lrange lretreat ltend
+      lunload march mission morale mquota navigate order qorder radar range
+      retreat sail sonar sorder spy supply tend transport unload unsail
+emp2.3.5.g.tar
+  - Fixed a server crashing bug in budget command
+  - increased sea mine hitchance from mines/(mines+50) to mines/(mines+40)
+  - increased sector damage from 50 * dam / (dam + 50) to
+    100 * dam / (dam + 100).
+  - fixed a bug which was preventing engineers from tearing down 100% sectors
+  - added new <brief?> argument to sonar output which suppresses map
+  - reduced land mine damage from 10 + random(20) to 6 + random(10)
+emp2.3.5.h.tar
+  - Fixed server crashing bug in "morale" command.
+  - Engineers no longer "raise" eff from 100 to 92, they "lower" it.
+  - Engineers working are now only charged mobility for work they do
+  - Ships fueling themselves now loose petrol/oil
+  - Now, when a sector is abandoned or revolts, the takeover() function
+    is called to stop production, wipe distribution levels, etc...
+  - Engineers are now charged 1 mobility point per land mine laid
+  - Added number of land mines in the sector to the "strength" output
+  - Fixed lots of typos
+emp2.3.5.i.tar
+  - Fixed a bug in "bomb" which was preventing light bombers on acc's
+    from being able to take off.
+  - Artillery no longer consume petrol or food when they fire (they
+    only consume shells).
+  - increased land mine damage from 6 + random(10) to 10 + random(10)
+  - if land units are accompanied by engineers, then their chance of
+    hitting a land mine is divided by 3.  E.g. if there 
+    are 25 mines in the sector, then a land unit has a 33%
+    chance of hitting a land mine.  If it is accompanied by an 
+    engineer, then that chance drops to 11%.
+  - If an engineer sweeps a land mine that it cannot carry, it drops
+    it as a shell into the sector.
+  - Engineers now sweep a number of times equal to 2 times the number
+    of shells they can carry.
+  - The chance of an engineer finding a land mine in a sector is now
+    50% time the "att" value of the unit:
+          # of sweeps   chance of finding a mine
+old system   5            66%
+eng1  130    6            60%
+eng2  165    8            75%
+meng  260    8            90%
+  - The "visibility" of a sub to an ASW plane has been increased from
+    vis to 10 + vis * 5.  This should dramatically improve the chances
+    of ASW planes locating and hitting subs.
+emp2.3.5.j.tar
+  - changed visibility of subs from 10 + vis * 5 to vis * 4 in the
+    asw hitchance calculation.
+  - when subs on interdiction miss, both parties are now informed
+    (in the old system, neither party was informed)
+  - you are no longer allowed to hit subs with missiles (oops!)
+emp2.3.6a.tar
+  - Forts will now only automatically interdict ships that the country
+    would be able to see using the "coastwatch" command.  Ships out of
+    visual range will not be interdicted by forts.  Note that
+    ship/ship, unit/ship, plane/ship interdiction was not changed,
+    and also the "fire" command was not changed.  _only_ fort/ship
+    interdiction was changed.
+  - If a NEUTRAL (or worse) ship sails within your coastwatch range,
+    then you will receive a telegram like this:
+TheBorg lc2 light cruiser 2 (#666) sighted at -9,-1
+    This telegram is sent before any interdiction is done.
+  - When an ASW plane flies an interdiction mission to hit subs, it will
+    now also report on any subs it happens to see along the way (in
+    the same way it would if it were flown using the "sonar" command).
+emp2.3.6b.tar
+- now when you march or navi, any new sector designations
+  automatically appear on your nav map and get added to your bmap (you
+  no longer need to do a "look" to find out their designation.  Note
+  that subs will only see sea, harbors, and bridges and will have to
+  "look" (and risk detection) to see anything more.
+- you can now filter your satellite output to list, for example, only
+  banks owned by country #7 which are over 60% efficient.  The selectors
+  available are exactly the same as those used by the "census", "ship",
+  and "land" commands.  See "info satellite" for more details.
+- added two new toggle flags (default on):
+  - if "toggle coastwatch" is on, then you will receive a telegram every
+    time a neutral ship moves within your coastwatch range.
+  - if "toggle sonar" is on, then you will receive a telegram every
+    time one of your sonar cabale ships detects a sonar ping.
+- now a 20% engineer only does 20% of the "work" that a 100% eng does.
+- fixed a bug which was counting ghost units in "spy" output.
+- fixed a bug which was including sats as planes in "spy" output.
+- fixed a bug which was giving rebels ownershiip of sats over the sector
+emp2.3.6c.tar
+I have made asw interdiction more extensive and subs more sneaky.
+Here is the new system:
+- ASW planes will now fly out to track any non-FRIENDLY (including
+  NEUTRAL) sub movement.
+- However there is a chance that the plane won't even leave the ground
+  and notice any sub movement at all.  The chance of detection is
+  identchance = (1 - (1 - hitchance)^2).
+- ASW planes will no longer detect subs they fly over while flying an
+  interdiction mission.
+- Once the planes have arrived at the sector where the sub movement
+  was detected, then identchance is checked again.  If success, then
+  the plane is able to identify the owner of the sub.  If the owner
+  is neutral, then the player gets the message:
+        np1 naval plane 1 #2 tracks TheBorg subs at 2,-6
+  If the plane is unable to identify the owner of the sub, then the
+  player gets the message:
+        np1 naval plane 1 #2 detects sub movement in -3,-3
+  If the ship was identified as HOSTILE or AT_WAR, then the plane will
+  drop depth charges.
+- If depth-charges miss, then the ship owner will get
+  the message:
+RUMBLE... your sub in 24,0 hears a depth-charge explode nearby
+- torp and fire will now only tell the victim that a "sub" torped
+  them, or that return fire damaged a "sub" (rather than giving out
+  detailed information about the sub number, type, and owner...)
+- max sonar range has been reduced to 7 and sonar output no longer
+  prints blank lines.
+- sonar has been changed in the following way:
+  detection = (source "spy" value) + (target "vis" value)
+  If the detection value is less than 8, then sonar will just print
+    Sonar detects sub #12
+  If the detection value is above 7, then sonar will report the type of sub.
+  Only if the detection value is above 9 will the owner of
+  the sub be revealed.
+- For ASW planes flying "sonar" or "recon" missions, a similar change
+  has been made.  The plane needs to pass one identchance check to see
+  the type of sub, and needs to pass two identchance checks to see the
+  owner of the sub.
+- Note in both of the above cases, owner and type of FRIENDLY and
+  ALLIED subs will always be revealed.
+emp2.3.6d.tar
+- made scrap and scuttle more flexible
+- supply units, security units, aa-units and artillery can no longer
+  be put on reserve mission, and they will no longer react to a battle.
+- asw planes were tracking their own subs (oops!)
+- interest from banks no longer turns off at 60% efficiency.  Now the amount
+  of money you get from your bank is simply scaled by the banks efficiency.
+emp2.3.6e.tar
+- fixed MAJOR bugs in budget, scrap, and scuttle (oops!)
+emp2.3.6f.sh
+emp2.3.6g.tar
+- Fixed a bug in "work" which wasn't charging them enough mobility
+- Changed "capitol" to "capital" in a hundred million places
+- Updated a number of info pages
+- Fixed output formatting error in "sorder" command
+- Applied a patch from Jan van Beethoven (AIX port)
+emp2.3.6h.tar
+- fixed a bug which was causing dd's to interdict neutral subs.
+- wrote "info Hitchance" which outlines in detail the chance of
+  anything hitting anything else.  This page compliments "info Damage"
+  which gives all the damage formulas.
+- the defense strength of mountains was reduced to 16 to 8 (the
+  defense strength of a fort).  There was a problem of land units
+  in mountains being invulnerable to everything but nukes.
+emp2.3.7a.tar
+- missile interception (both abm and a-sat) has been changed so that
+  interceptors are chosen from the owner of the target sector first (so
+  that your ally's abm1's won't launch instead of your abm3's)
+- if a tradeship won't give the player any cash if it is scuttled
+  where it is, then the player will be asked for a second confirmation
+  before they are allowed to scuttle it.
+- applied a patch from Ville Virrankoski which fixes a bug in budget
+  (the cost to repair planes on aircraft carriers was not being included
+  in the budget)
+- fixed a bug which was preventing bombers from being able to drop nukes.
+- fixed a bug which let asw planes bomb subs they couldn't see
+- fixed a bug that was sending a telegram to the deity when planes on
+  an acc flew air defense missions.  An obscure but annoying bug.
+- changed isblank() to blankrow() in lib/commands/sona.c for portability
+- fixed a server crashing bug in lradar (some coder put a global
+  variable in lib/commands/rada.c BAD BAD BAD)
+emp2.3.7b.tar
+- fixed a bug in bomb which put the server into an infinite loop when
+  the player aborted at the "commodity to bomb?" prompt.
+- when your cap is sacked, you now get a telegram telling you how much
+  money you lost and they gained.
+- when your cap is sacked, then your cap will be moved to a random
+  adjacent (possibly unowned) sector (the treasurers fleeing the
+  palace).  This was mainly done because players were retaking mountain
+  capitals every update (you can't redes a mountain to be an aggie!)
+- added three new files in the doc directory: "PRIORITY", "WISH_LIST"
+  and "WACKY_IDEAS".

@@ -1,0 +1,86 @@
+#!/bin/awk -f
+#
+#  IMPORTANT: You must change "height" and "width" by hand below.
+#
+#	A deity tool to parse a dump file and generate edit commands
+#	to build larger start sanctuaries.
+#		dump * | bigstart >bigstart.out
+#		exec bigstart.out
+#	-Drake (dld@chem.psu.edu)
+
+
+function sanctuary(x,y,o,nsect)
+{
+  if (x>=width/2) x -= width;
+  if (y>=height/2) y -= height;
+  if (x<-width/2) x += width;
+  if (y<-height/2) y+= height;
+
+  nsect = x "," y;
+  if ((nsect in newown) && !(nsect in own)) {
+    printf("des %s s\n",nsect);
+    printf("give civ %s 550\n",nsect);
+    printf("setsector oldowner %s %d\n",nsect,o);
+    printf("setsector owner %s %d\n",nsect,o);
+    printf("setsector work %s 100\n",nsect);
+    own[nsect]=o;
+    delete newown[nsect];
+    added++;
+  }
+}
+
+
+BEGIN {
+  SUBSEP=",";
+  sects=0;
+  begin=0;
+  width=64;
+  height=32;
+}
+
+
+{
+
+  if (begin==1) {
+    for (i=1;i<=NF;i++) header[i]=$i;
+    nheader=NF;
+    begin=2;
+    break;
+  }
+
+  if (NF != nheader) {
+    begin=0;
+  }
+
+  if (begin==2) {
+    for (i=1;i<=nheader;i++) {
+      val[header[i]] = $i;
+    }
+    if (val["own"]==0 && val["des"]=="-") {
+      newown[val["x"],val["y"]]=0;
+    }
+    if (val["own"]>0) {
+      own[val["x"],val["y"]]=val["own"];
+    }
+  }
+}
+
+/ *DUMP SECTOR/ { begin=1; }
+
+END {
+  do {
+    added=0;
+    for (sect in own) {
+      split(sect,a,",");
+      x=a[1];
+      y=a[2];
+      
+      sanctuary(x+2,y,own[sect]);
+      sanctuary(x-2,y,own[sect]);
+      sanctuary(x+1,y+1,own[sect]);
+      sanctuary(x+1,y-1,own[sect]);
+      sanctuary(x-1,y+1,own[sect]);
+      sanctuary(x-1,y-1,own[sect]);
+    }
+  } while (added);
+}

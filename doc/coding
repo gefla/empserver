@@ -1,0 +1,143 @@
+		Guidelines for writing Empire code
+
+
+Remarks from Dave Pare:
+
+And now, a few editorial remarks on my views on Good Techniques for
+Modifying Existing Software:
+
+My safari through the hot and bug-ridden jungle that Empire has become
+has given me some new insights on the modification of large software
+packages.  My adventure has prompted me to propose some simple coding
+guidelines for those dreaming of hacking on the code:
+
+1) Be invisible.  When you make a change, think not about marking your
+place in history, or about showing off how much nicer your two-space
+tabs are than those old, icky eight-space tabs that the stupid empire
+hackers of old used, but think instead about the asethetics of the whole.
+The resulting lines of code should flow smoothly from the beginning of the
+procedure to the end.  Empire is 60,000 lines of code.  If you're the
+general case, you're only changing fifty lines, so be aware of that.
+
+2) Procedurize.  If you find yourself in a triple-nested loop, or a five
+hundred line procedure, perhaps it's because you need to split some of
+that code off into a procedure.  In general, if you've got more than two
+levels of tabs (or indentations), or more than one or two major loops in
+a procedure, something may well be amiss.
+
+
+Sasha Mikheev on indentation:
+
+The empire indentation style can be achived by using 
+indent -orig -i8 foo.c
+
+or in old c-mode emacs (versions before 19.29):
+;add this to .emacs
+(setq c-indent-level 8)
+(setq c-continued-statement-offset 8)
+(setq c-argdecl-indent 8)
+(setq c-brace-offset -8)
+(setq c-label-offset -8)
+
+
+Further comments by Ken Stevens:
+
+1) Global variables
+The only variables which should be global are constants.  If you write
+a routine which changes a global variable, then you will corrupt the
+data when two different players run that routine at the same time.
+
+2) Portability.
+The following code:
+		char	a;
+	#ifdef FOO
+		unsigned char b;
+	#endif FOO
+Should be rewritten as:
+		s_char	a;
+	#ifdef FOO
+		u_char	b;
+	#endif /* FOO */
+
+AIX has different conventions for signed chars, and IRIX requires the
+/* comments */ after #endif.
+
+3) Cut-and-Paste
+Cut-and-Paste coding is by far the biggest problem that the current
+Empire suffers from.  This is how cut-and-paste coding happens.  Joe
+Shmuck decides that he wants to add a new function to the server.  So
+he goes hunting through the server to find some already existing code
+which does something similar to what he wants to do.  This is good.
+You should always write new code to imitate old code.  What is bad is
+when Joe Shmuck decides to simply "copy" 200 lines of code from the old
+function into his new function, and then just change a couple of
+little things here and there to suit his needs.  This method, known as
+Cut-and-Paste coding is the fastest and easiest way to code.  However,
+it results in a server that is impossible to maintain.  What Joe
+_should_ have done, is "move" the 200 lines of code into a new _third_
+function which the first two both call.  This is called writing a
+"general solution" to handle both cases.  Most of my work in the
+Empire2 project consisted in cleaning up after a bonch of Joe Shmucks.
+I took repeated code and "consolidated" it into general function
+libraries.
+
+4) Good style.
+Just to add to Dave's "Be Invisible" motto, I'd like to give a little
+example to illustrate some basic do's and don'ts for coding style:
+
+The following function has bad style:
+
+double att_combat_eff(com,own)
+struct combat *com;
+natid own;{
+  double str;
+  double eff=1.0;
+  if(com->type==EF_SECTOR)
+  {
+    eff=com->eff/100.0;
+    if(com->own==own){
+      str=com->sct_dcp->d_ostr;
+    }else{
+str=com->sct_dcp->d_dstr;eff=2.0+(str-2.0)*eff;
+    }else if(com->type==EF_SHIP&&com->own!=own)
+      eff=(1.0+com->shp_mcp->m_armor/100.0);
+  return eff;}
+
+Here is the same function written with "good" style:
+
+double
+att_combat_eff(com, own)
+	struct	combat *com;
+	natid	own;
+{
+	double	eff = 1.0;
+	double	str;
+
+	if (com->type == EF_SECTOR) {
+		eff = com->eff / 100.0;
+		if (com->own == own)
+			str = com->sct_dcp->d_ostr;
+		else
+			str = com->sct_dcp->d_dstr;
+		eff = 2.0 + (str - 2.0) * eff;
+	} else if (com->type == EF_SHIP && com->own != own)
+		eff = (1.0 + com->shp_mcp->m_armor / 100.0);
+
+	return eff;
+}
+
+These are all the things I fixed when changing the bad to the good:
+- Function names should always start a new line (so you can search for them)
+- There should always be a space after a ","
+- Function arguments should be indented 8 spaces
+- There should always be a tab after a type declaration
+- Opening function bracket should be on a line by itself
+- Indentation should be 8 spaces
+- There should always be a space on both sides of every operator
+- There should always be a space after if, for, while, switch
+- The opening bracket should be on the same line as the if
+- There should always be a space on either side of a {
+- There should always be a new line after a ;
+- The closing function bracket should be on a line by itself
+
+

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# giftopnm fall$* | pnmgamma 2 | pnmscale 2 | pnmsmooth | pnmscale 2 | pnmsmooth | pnmdepth 255 >fall.ppm
+giftopnm over$* >over.pbm
+pbmmask -expand over.pbm >over.mask
+giftopnm $* | pgmtoppm -map color.ppm | pnmscale 4 | pnmcomp -invert -alpha over.mask over.pbm
+

@@ -1,0 +1,54 @@
+This directory contains the following files:
+
+files
+	What's where.
+
+backup
+    Recommendations for how to do backups when running a game.
+
+troubleshooting
+	Some common problems and solutions.
+
+disk_space
+	Stuff you can delete to make more disk space.
+
+compiling
+	How to compile the Empire2 server.
+
+configuration    
+	How to turn options on and off, change game parameters, etc...
+
+econfig
+	Details about the syntax of data/econfig.
+
+bug-reports
+	What to do if you find a bug.
+
+threads
+	Dave Pare explains how lwp threads work.
+
+coding           
+	Guidelines for coding style
+
+CHANGES
+	Revision history for all the changes that were coded in the Empire2
+	project.  A much more readable version of this may be found in
+	"info History" (brief) or "info Empire2" (detailed).
+
+CHANGES2.3
+	All changes since revision 2.3
+
+CHANGES3.0
+	All changes since revision 3.0
+
+CHANGES4.0
+	All changes since revision 4.0
+
+PRIORITY
+	things which need to be coded soon.
+
+WISH_LIST
+	things which maybe should be coded sometime.
+
+WACKY_IDEAS
+	things which shouldn't be coded except possibly as an option.

@@ -1,0 +1,37 @@
+#!/bin/csh
+
+echo '================Setup begin================='
+date
+
+cd /empire/wolfpack/cheetah/bin
+/empire/wolfpack/cheetah/bin/keepitup -kill cheetah
+\rm -f /empire/wolfpack/cheetah/data/server.log
+./files <<EOF
+y
+EOF
+./fairland 10 30
+/empire/wolfpack/cheetah/bin/keepitup -start cheetah /empire/wolfpack/cheetah
+sleep 10
+/empire/wolfpack/cheetah/bin/emp_client POGO peter < newcap_script
+
+/empire/wolfpack/cheetah/bin/emp_client POGO peter << EOF
+power new
+disable
+dump * | /empire/wolfpack/cheetah/scripts/bigstart > bigstart.out
+bye
+EOF
+
+/empire/wolfpack/cheetah/bin/emp_client POGO peter < bigstart.out >> /dev/null
+
+/empire/wolfpack/cheetah/bin/emp_client POGO peter < motd
+
+/empire/wolfpack/cheetah/bin/emp_client POGO peter << EOF
+change coun Wolf
+change rep password
+realm 0 0:-1,0:-1
+add 13 Lurker password v i
+add 14 Mapmaker password g i
+bye
+EOF
+
+echo '================Setup end================='

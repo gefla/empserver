@@ -1,0 +1,29 @@
+.TH PCONFIG 1 "7 Aug 1995" "pconfig"
+.UC
+.SH NAME
+pconfig \- Print configuration
+.SH SYNOPSIS
+.B pconfig
+[
+.IR configfile
+]
+.br
+.SH DESCRIPTION
+.I pconfig
+creates an "econfig" file which may be used with the \-e argument with
+most Empire programs.  By default, Empire programs look for a file
+called "econfig" in the data directory, but the 
+.I pconfig
+program may be used to create an alternate Empire configuration file.
+After you have created an "econfig" file, you can edit the game
+configuration data in the file which the server uses to control
+various parameters for the game.
+.SH OPTIONS
+.TP
+.BI configfile
+causes
+.I pconfig
+to use the game configuration specified in 
+.I configfile
+.SH AUTHOR
+Julian Onions <j.onions@nexor.co.uk>

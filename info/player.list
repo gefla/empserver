@@ -1,0 +1,148 @@
+list
+		Current EMPIRE Command List
+		------- ------ ------- ----
+Initial number is cost in B.T.U. units.
+Next 2 chars (if present) are:
+$ - must be non-broke	c -- must have capitol
+Args in [brackets] are optional.
+All-caps args in <angle brackets> have the following meanings:
+  <NUM> :: a number in unspecified units
+  <COMM> :: a commodity such as `food', `guns', etc
+  <VAR> :: a commodity such as `food', `guns', etc
+  <TYPE> :: an item type such as `ship', `plane', etc
+0    accept  [as-COUNTRY]
+0    announce {message}
+3 $c arm <PLANE> <NUKETYPE> <NUMBER>
+0    army <ARMY> <UNITS>
+3 $c assault <to-SECT> <from-SHIP> <NUMBER> [<forts?> <ships?> <arty?> <planes?>]
+3 $c attack <SECT> [<forts?> <ships?> <arty?> <planes?>]
+0    bdes <SECTS> <type>
+0    bestpath <SECTS> <SECTS>
+0    bestdistpath <SECTS> <SECTS>
+0    bmap <SECTS>
+3 $c board <to-SHIP> <from-SHIP>
+2 $c bomb <bomber-PLANES> <fighter-PLANES> <pin|strat|nuke> <ap-SECT> <PATH|DESTINATION>
+1    budget [<sector type|P|S|L|A|M|N|C> <PRIORITY|~>]
+1 $c build <s|n|b|p> <SECTS> <type|dir> <tech>
+0    bye {log-off}
+0    capitol <SECT>
+0    cargo <SHIPS>
+0    census <SECTS>
+0    change <country|representative> <NAME>
+1  c coastwatch <SECTS>
+0    commodity <SECTS>
+2 $c convert <SECTS> <NUM>
+0    country <NATS>
+0    cutoff <SECTS>
+2  c declare <all|neut|hos|war> <NAT>
+1    deliver <COMM> <SECTS> <DIR> <[+|-]thresh>
+1 $c demobilize <SECTS> <NUM> <active-reserve?>
+1    designate <SECTS> <type>
+1    distribute <SECTS> <DISTSECT|.|h>
+1 $c drop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COMM>
+0    dump <SECTS>
+2 $c enlist <SECTS> <NUM>
+0    execute <INPUT FILE>
+1 $c explore <c|m> <SECT> <NUM> <PATH|DESTINATION>
+1 $c fire <land, ship or sect> <from-SECTS | SHIPS | UNITS> [TO-SECT | SHIP]
+0    flash <COUNTRY> <message>
+0    fleetadd <FLEET> <SHIPS>
+2 $c fly <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COM>
+1 $c follow <leader> <SHIPS>
+1    fortify <UNITS> <MOB>
+1    fuel <SHIPS|UNITS> <AMOUNT> [TENDER]
+1 $c grind <SECT> <NUM>
+2 $c harden <PLANES> <NUM>
+0    headlines [days]
+0    info <topic>
+0    land <UNITS>
+3 $c launch <PLANES>
+0    lcargo <UNITS>
+0    level <SECTS>
+0    list of commands
+1 $c lload <UNIT> <NUM|PLANE> <COMM|"plane">
+1 $c llookout <UNITS>
+0    lmap <SECTS|UNIT>
+2 $c lmine <UNITS>
+1 $c load <SHIPS> <NUM|UNIT|PLANE> <COMM|"unit"|"plane">
+1 $c lookout <SHIPS>
+1 $c lradar <UNITS | SECTS>
+1 $c lrange <UNITS> <range>
+1 $c lretreat <UNITS|ARMY> <PATH> [i|h|b|c]
+1 $c ltend <tender-SHIPS> <COMM> <NUM> <UNITS>
+1 $c lunload <UNITS> <NUM|PLANE> <COMM|"plane">
+0    mail
+0    map <SECTS|SHIP>
+1 $c march <UNITS> <PATH|DESTINATION>
+2 $c mine <SHIPS>
+2 $c mission <type> <PLANES|SHIPS|UNITS> <mission type> <op sect> [<radius>]
+1 $c morale <UNITS> <retreat%>
+1  c move <c|m|s|g|p|i|o|b|f|r|u> <SECT> <NUM> <PATH|DESTINATION>
+2 $c mquota <SHIPS> <value>
+1    mult [COUNTRY]
+0    name <SHIPS> <NAME>
+0    nation
+1 $c navigate <SHIPS> <PATH|DESTINATION>
+0    neweff <SECTS>
+0    newspaper [days]
+0    nuke <NUKES>
+1 $c order <SHIPS> <c|s|r|d|l> 
+1    origin <SECT>
+3 $c paradrop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>
+0    path <SECT>
+0    payoff <SHIPS>
+0    plane <SECTS>
+0    pmap <SECTS|UNIT>
+0    power ["new"]
+0    production <SECTS>
+0 $c qorder <SHIPS>
+0    quit
+1 $c radar <SHIPS | SECTS>
+1 $c range <PLANES> <range>
+0    read
+0    realm <number> [<SECTS>]
+3 $c recon <spy-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>
+1 $c retreat <SHIPS|FLEET> <PATH> [i|t|s|h|b|d|c]
+0    relations  [as-COUNTRY]
+2    reject <reject|accept> <announcements|mail|treaties|loans> <NAT>
+0    report <NATS>
+0    resource <SECTS>
+1    route <COMM> <SECTS>
+1 $c sail <SHIPS> <PATH>
+1 $c satellite <SECTS>
+2 $c scrap <TYPE> <SHIPS|PLANES>
+5  c scuttle <TYPE> <SHIPS|PLANES>
+0    sect <SECTS>
+0    ship <SHIPS>
+3 $c shoot <SECTS> <CIVS|UWS> <NUMBER>
+0    show <TYPE> <"build"|"stats"|"cap">
+0    smap <SECTS|UNIT>
+1 $c sonar <SHIPS>
+0 $c sorder <SHIPS>
+1 $c spy <SECTS>
+1  c start <SECTS>
+0    starvation <SECTS>
+1  c stop <SECTS>
+1 $c supply <LAND UNITS>
+0  c survey <COMM|VAR> <SECTS>
+3 $c sweep <sweep-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>
+0    telegram <NAT>
+1 $c tend <tender-SHIPS> <COMM> <NUM> <dest-SHIPS>
+0    territory <SECTS> <NUMBER>
+1  c test <c|m|s|g|p|i|o|b|f|r|u> <SECT> <NUM> <PATH|DESTINATION>
+1    threshold <COMM> <SECTS> <THRESH>
+3 $c torpedo <submarine-SHIP> <target-SHIP>
+1 $c transport <"nuke"|"plane"> <NUKES|PLANES> [nuketype] <PATH|DESTINATION>
+0 $c treaty <TREATIES>
+1 $c unload <SHIPS> <NUM|UNIT|PLANE> <COMM|"unit"|"plane">
+1 $c unsail <SHIPS>
+0    update
+1 $c upgrade <SHIPS>
+0    version
+1    wingadd <WING> <PLANES>
+1    wipe <SECTS>
+0    wire <yes|no>
+0    wmail
+1 $c work <LAND UNITS> <AMOUNT>
+0    zdone <y|n|c>
+For further info on command syntax see "info syntax".

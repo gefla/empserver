@@ -1,0 +1,42 @@
+			Reporting Bugs
+
+Code Correctness
+
+	What's a bug?  Well, if a game program core-dumps under normal
+	conditions, that's definitely a bug.  If a player can manufacture
+	game items (circumventing the intended game semantics) then
+	that's a bug too.
+
+	If you don't agree about an existing semantic, or you don't like
+	the format of a particular command output, that's NOT a bug!
+
+	If you do have a bug to report, I will only pay attention if
+	I have a chance of fixing it.  Bug reports which vaguely
+	describe behavior, e.g., "Sometimes when I run the ship
+	command, it gives me funny output" will be ignored!  Bug
+	reports should include game output, stack traces if possible
+	(assuming a core dump is produced), and the major, minor, and
+	patch level of the version you're running.
+
+	Once you find a bug, try and reproduce it.  If you can't,
+	then say so.  If you can, say that too.  If you can't reproduce
+	it, chances are pretty good that I can't either.
+
+	If you have a debugger, try running the offending game
+	section under your debugger -- preferably gdb -- and try
+	and locate the area of code responsible.
+
+	If you can fix the bug and verify the fix, then you can bet
+	that I'll be much more interested in your bug report.  Response
+	time is likely to be greater too!
+
+Semantics
+
+	If you want to get into a discussion of game semantics, the
+	best place to do that is rec.games.empire, or your favorite
+	empire-hackers mailing list.  Don't send me a bug report
+	about it!
+
+	Naturally, I hope you don't find any bugs.  If you do,
+	go through the above steps, and mail the resulting output
+	to us -- wolfpack@wolfpackempire.com

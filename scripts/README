@@ -1,0 +1,41 @@
+The files in this directory are various utility scripts/programs
+submitted by various people for doing routine maintainence on the
+server, such as keeping it alive, making maps, posting to newsgroups,
+starting blitzes, etc.
+
+While we provide these files for your convenience, they are not an
+"official" part of the server.  Therefore, you can e-mail us with
+problems with them, but we may or may not know the answers and/or how
+to fix any problems.  Some of the files have the author's e-mail in
+them, and others are anonymous submissions, so you may want to try
+to contact the authors if all else fails (but try us first, as we might
+know.)
+
+Wolfpack!
+
+------
+
+keepitup
+	Automatically reboots your Empire server if it crashes.
+	No configuration necessary.  See the comments at the top of
+	the file for syntax.  See crontab.config for an example of
+	what to add to your crontab.
+
+saveass
+	Makes automatic backups of your game data.  See crontab.config.
+	To configure, change two paths at the top of the file.
+
+bigstart
+	Handy for blitzes.  Fill start islands with sanctuaries and
+	fill the sanctuaries with civs.  To configure, change the
+	value of "height" and "width" in teh BEGIN routine.
+
+postresults
+	Useful for posting canned results to a newsgroup.
+
+blitz/
+	Scripts for running an auto-resetting blitz.
+
+mapper/
+	Scripts for making mpeg videos of your game.  See mapper/README
+	for configuration details.

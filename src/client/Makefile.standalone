@@ -1,0 +1,81 @@
+# 
+#   Empire - A multi-player, client/server Internet based war game.
+#   Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+#                            Ken Stevens, Steve McClure
+# 
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+# 
+#   ---
+# 
+#   See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+#   related information and legal notices. It is expected that any future
+#   projects/authors will amend these files as needed.
+# 
+#
+# Empire front end Makefile
+# (standalone mode)
+#
+
+CFILES = bit.c dtable.c expect.c globals.c handle.c host.c \
+	hpux.c ioqueue.c ipglob.c login.c main.c queue.c saveargv.c \
+	servcmd.c serverio.c tags.c termio.c termlib.c
+OFILES = bit.o dtable.o expect.o globals.o handle.o host.o \
+	hpux.o ioqueue.o ipglob.o login.o main.o queue.o saveargv.o \
+	servcmd.o serverio.o tags.o termio.o termlib.o
+OBJFILES = bit.obj dtable.obj expect.obj globals.obj handle.obj host.obj \
+	hpux.obj ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
+	servcmd.obj serverio.obj tags.obj termio.obj termlib.obj
+
+CFLAGS= -g
+LIBS= -ltermlib
+
+#
+# Change this line to the compiler you are going to use.
+#
+CC=cc
+
+empire: $(OFILES) 
+	$(CC) -o empire $(OFILES) $(LIBS)
+
+linux: $(OFILES) 
+	$(CC) -o empire $(OFILES) -lcurses
+
+nt:
+	cl /DWIN32 /Feempire.exe $(CFILES) wsock32.lib
+
+dgux: $(OFILES) 
+	$(CC) $(CFLAGS) -dn -o empire $(OFILES) -lsocket -lnsl -ltermcap -lc
+
+solaris:
+	make empire LIBS="-lsocket -lnsl -ltermcap -lc"
+
+hpux:
+	make empire LIBS=-ltermcap
+
+clean:
+	rm -f $(OFILES) empire
+
+# created using mkmf
+bit.o: bit.h
+expect.o: fnlist.h
+globals.o: fnlist.h proto.h
+ioqueue.o: queue.h ioqueue.h
+login.o: misc.h proto.h
+main.o: misc.h proto.h queue.h ioqueue.h bit.h
+queue.o: queue.h
+servcmd.o: misc.h proto.h queue.h ioqueue.h
+serverio.o: misc.h queue.h ioqueue.h
+tags.o: tags.h
+termio.o: tags.h

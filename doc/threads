@@ -1,0 +1,161 @@
+
+The game has been threaded.  Major changes have occurred.
+Emp_update, emp_login, emp_tm, and emp_player have been merged.
+Basically, there isn't anything else besides server.  It's big.
+60,000-lines of code big.
+
+The lib directory now contains nine subdirectories:
+	common 
+	gen
+	global
+	as
+	player
+	commands
+	subs
+	update
+	lwp
+
+The main directory contains five (code) directories:
+	client
+	lib
+	server
+	util
+	h
+
+The server has seven basic threads:
+
+	main:
+		creates accept, killidle, and update scheduler.
+		sets signals, opens files.
+	accept:
+		opens a socket, binds, listens, and accepts new players.
+		creates a player thread for each new socket.
+	player:
+		negotaties the player's login, and then interprets
+		the player's game commands.
+	killidle:
+		eyeballs the logged-in players every sixty seconds and
+		closes the connections of those who have been idle for
+		longer than 15 minutes.
+	update scheduler:
+		Sleeps until update is due to go off, then instructs all
+		player threads currently running commands to abort them.
+		It waits for a few seconds so that this can occur, and
+		then creates the update thread, and schedules the next
+		update.  (This scheduler should produce single, accurate
+		updates instead of double-updates and delayed updates)
+	update:
+		The standard update procedure.  It runs at high priority
+		and performs no network i/o, so the game effectively hangs
+		while the update is in progress.
+	select:
+		This thread and its interface provides a mechanism for
+		other threads to deschedule until either a a file descriptor
+		is read/write ready, or a particular amount of time has passed.
+		When the select thread actually runs, the whole process
+		blocks until the select system call returns.  However,
+		select runs at the lowest possible priority so other
+		threads get to run to completion before the select gets
+		executed.
+
+Overall Notes:
+
+	Unit and sector files are kept in-core for Your Viewing Pleasure.
+	(It was actually required in order to merge in emp_update)
+	This means the server will use significant memory for the larger
+	games.
+
+	Per-player bigmap files have been merged into one EF_MAP file, with
+	each player getting one record.  This is also kept in-core.
+
+	Estimated memory cost of a 64-player 256x256 world game with
+	each player having 100 land units, 100 planes, 100 ships, and
+	a bigmap comes to a little over eleven megabytes of space,
+	including the 700k text segment.
+
+	the "wai()" command doesn't work yet.
+
+Implementation Notes: My Opportunity to Spout Empire Technical Jargon
+
+	Empire is now a miniature operating system, with all that entails.
+	Threads are not simple to use.  I know the threads package
+	intimately, and I was confused several times -- probably because
+	the threads interface I provide isn't all that straightforward,
+	even though it seems like it.  Hopefully a second iteration by
+	someone who knows what they're doing will be better.
+
+	I expect this will be much worse for everyone else who hasn't gone
+	through my experience.  Bottom line for all you part-time hackers
+	out there: don't mess with the current process model, or you'll get
+	yourself into all kinds of trouble.
+
+	Thread scheduling and descheduling happens in the io_input and
+	io_output calls.  The higher level interfaces in the player thread
+	to these are the getstarg/getstring and pr procedures.  If your
+	process ever has to wait for input or output, it will block, allowing
+	other threads to run.  Those other threads may well modify data
+	out from under you, so be prepared to have your shared in-memory
+	constructs (ships, planes, sectors, land units, etc) modified out
+	from under you whenever you do i/o.
+
+	There's a new player global context structure that is shared
+	amongst all the player threads.  When a given thread starts
+	or restarts, it sets the global player variable to the appropriate
+	value.  Thus, part of the logic of a "context switch" is the setting
+	of player.  If you go and add calls to the lightweight process
+	system, you *must* be sure to set the player variable as the
+	io_output and io_input routines do.  Otherwise, things will be
+	extremely confused.  (I'm not very happy with this global
+	variable, but I didn't have the gumption to do anything more)
+
+	Most routines that used to return pointers to static space no
+	longer do so.  Instead, you're expected to pass in a buffer which
+	will be filled up by the routine.  This hit a *lot* of routines,
+	so check the new syntax before using an old and trusted routine
+	blindly.
+
+	Any files that are loaded into core (like the sector, map, nation,
+	ship, plane, and land unit files) are shared between all the threads.
+	That's good news.  If your thread modifies another player's nat_tgms
+	field, he'll see it next time through the command loop, without
+	anyone having to read anything from disk!  Furthermore, he'll have
+	no delay in zeroing out that field, so there won't be the annoying
+	double telegram reports which were caused by the delay induced by
+	emp_tm.
+
+	Unfortunately, modifications to entries to these mapped files must
+	be followed by the appropriate "write record" command (like putship,
+	putnat, etc) or else the changes won't be stored to disk permanently.
+	Update is the exception to this rule, because it writes all records
+	to disk using ef_flush when it's done.  This is important, since
+	if and when the players learn how to coredump the server *and* they've
+	managed to build some object w/o their nation record having been
+	updated, they essentially get the item without paying for it.
+
+	There are two interfaces to the empire file code: the pointer
+	interface exemplified by np = getnatp(cnum), and the copy interface
+	shown by getsect(x, y, &sect)/putsect(&sect).  Both still work fine.
+	However, you have to be careful when using the pointer interface
+	not to change things prematurely, because any changes to the pointer
+	actually change the data itself -- including putvar, etc.  Some
+	commands use the copy interface now, change some variables, and
+	then decide to bail out of the command when something goes wrong.
+	Be careful if you decide to use pointers and then bail out early.
+	Even if *you* don't write the pointer to disk, other subsequent
+	activity probably *will*, resulting in a surprise for the players.
+
+	Each player thread gets 64k of stack space + more depending on the
+	size of WORLD_X*WORLD_Y.  I hope that's enough.  If not, we'll have
+	to remove the larger stack variables and move them into static space.
+
+	Adding new records to core-loaded (EFF_MEM) files is annoying now.
+	Instead of simply writing out a new record, you have to call
+	ef_extend(type, count) to enlarge the file by count records.
+	Additionally, any outstanding pointers you obtained from that
+	file are now invalid.  This command results in a "close/open"
+	for the file, requiring the entire contents to be read in from
+	disk again.  Luckily, the only instance I saw of this was the
+	"build" command, and my call to ef_extend does it in groups of
+	fifty.
+
+Dave

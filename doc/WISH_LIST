@@ -1,0 +1,208 @@
+-=O EMPIRE WISH LIST O=-
+
+This is the complete Empire Wish List. Each item on the wish list has
+been given a unique reference number. The reference number does not
+indicate priority; it is only there so that we may easily refer to
+various items on the list. The reference numbers are permanent, and
+any new item added to the wish list in the future will be given a new
+unique reference number.
+
+The blank index number at the bottom of each section refers to the
+next available index number for that section.
+
+Note that the most radical have been moved out of the EMPIRE WISH LIST
+and onto the EMPIRE WACKY IDEAS LIST which shares the same indexing system
+as this file.
+
+  _________________________________________________________________
+
+--- TABLE OF CONTENTS ---
+
+Attack, Assault and Board.................a 
+Missions..................................m 
+Ships.....................................s 
+Planes....................................p 
+Land Units................................l 
+Commodities and Sectors...................c 
+Information Commands......................i 
+Telegrams, Announcements, News............t 
+Updates...................................u 
+Deity.....................................d 
+Miscellanious and Documentation...........x 
+Error Messages............................e 
+
+  --- ATTACK, ASSAULT AND BOARD --- 
+  
+a12
+aborting an attack should cost you btus or possibly mobility
+(otherwise you get info for free).
+
+a13
+
+  --- MISSIONS --- 
+  
+m7
+Allow people to specify relation level to trigger different missions
+(note there is already space for this in the nation struct).
+
+m8
+
+  --- SHIPS --- 
+  
+s4
+For ship/plane/unit specification, allow a/13/b/15/16/c type
+specification where fleets, wings, and armies may be included along
+with numbers.  (WARNING: This would require massive restructuring.)
+
+s13
+once ships on sail have arrived at their destination, the "Your fleet
+lead by ship #x has reached x,y." in production report every time.
+
+s22
+Another suggestion related to s21. The gain in efficiency of planes on
+carriers or sufficiently crewed ships on sea should use construction
+materials etc. This is to make it consistent with land units gaining
+efficiency in a sector where the necessary materials are present.
+Otherwise it leads to abuse: Say in the beginning of the game I build
+a ship but don't want to spend the hcms to build it completely - so I
+just crew it it will gain efficiency by itself. I think it could
+easily be implemented by giving every ship some capacity for lcms and
+hcm's.
+
+s24
+
+  --- PLANES --- 
+  
+p10
+chh [38:382]% scrap p 28,0 ?eff<50
+Really scrap all planes in 28,0 [n]? n
+The prompt is misleading.  (Same goes for scuttle).  Scuttle and scrap
+should probably be consolidated.
+
+p17
+
+  --- LAND UNITS --- 
+  
+l14
+perhaps since land units in mountains are so hard to attack, we shuold
+just not let land units into mountains to begin with.
+
+l16
+
+  --- COMMODITIES AND SECTORS --- 
+  
+c8
+Change bridges (and towers) so that they only crumble when shelled
+below 15%. Allows attackers an extra chance for a bridge attack.
+
+c13
+feed <SECTS> <SECT>
+If a sector in <SECTS> needs more food, send it food from <SECT>.
+
+c16 - WARNING - may be difficult to code
+forts should return fire even if shot missed
+
+c19
+
+  --- INFORMATION COMMANDS --- 
+  
+i5
+neweff [s <SHIPS>|p <PLANES>|l <UNITS>] to show the efficiency these
+things will have after the update. At present you can only get this
+info by doing some heavy calculations.
+
+i10
+gstarve <SECTS>
+lists sectors that need more food if they want to attain maximum civ
+growth.
+
+i12
+prod
+should list the commodities consumed in f h * ! sectors for building
+stuff. (This would help you calculate your production deltas.)
+
+i16
+bmap <SECTS> sh
+to show enemy ships (that you would see with radar or coastwatch).
+
+i17
+bmap <SECTS> sa
+to show enemy satellites (that you would see on radar).
+
+i18
+dump
+should give you the oldown number, rather than just a *. (Does dump
+only give you a * if you're not the oldown? I don't know. You can find
+the oldown using ?oldown= so dump should give it to you).
+
+i20
+radar [<SHIPS> | <SECTS>] S
+shows enemy ships but not your own.
+
+i22
+cen * ?connect=<SECT>
+lists all sectors connected by land to <SECT>. Handy for setting up
+territories.
+
+i24
+Allow | as well as & in selection syntax. e.g. res * ?des=o|des=g
+(WARNING: cannot use single bar as the or character because "|" is
+used as a pipe in the standard client and possibly in other clients.
+Another character should be used instead ( or maybe "||"?)
+
+i27
+
+  --- TELEGRAMS, ANNOUNCEMENTS, NEWS --- 
+  
+t2
+Separate BULLETIN's from Telegrams (so that when we're in the middle
+of a fight we will know if we were just attacked or we simply have
+just received a letter from a friend).
+
+t9
+When you are writing a telegram or an announcement and an update hits,
+then your telegram or announcement gets lost. ( is it even POSSIBLE to
+fix this?)
+
+t10
+
+  --- UPDATES --- 
+  
+u5
+Planes should not be built by conquered populace. (The problem here is
+that building planes uses mil, and you can lose the sector because all
+your mil that was being used to hold the sector disappeared into the
+planes so you loose the sector at the update.)  ALREADY FIXED?
+
+u9
+
+  --- DEITY --- 
+  
+d3
+Add che (target and number) to deity dump format.
+
+d8
+
+  --- MISCELLANIOUS AND DOCUMENTATION --- 
+  
+x1
+Often BTU's aren't updated immediately, and the prompt is out of sync
+with the actual amount of BTU's they have.
+
+x6
+info takeover, avail, loyalty
+There should be man pages on these.
+
+x26
+
+  --- ERROR MESSAGES --- 
+  
+e3
+  _________________________________________________________________
+
+If you have any comments/additions regarding this list, mail them to
+me at wolfpack@wolfpackempire.com with the word "wish" in the subject line.
+
+Wolfpack!
+
+Last updated: January, 1999

@@ -1,0 +1,156 @@
+#!/bin/sh
+#
+# keepitup
+# This is a hacked version of "isempireup" by Dave Nye
+# Modified for use with the Empire2 server by Ken Stevens 1995
+#
+# Usage:
+# keepitup -kill <game>
+# keepitup -start <game> <dir>
+# keepitup -check <game> <dir> <port> <coun> <rep>
+#
+# Portability:
+# You may need to put a '-' in front of the ps flags below
+
+_verbose=true
+tbase=/tmp/empcheck.$$
+
+trap 'rm -f $FNAMES ; exit' 0 1 2 3 15
+
+putmsg() {
+    if [ "$_verbose" = "true" ]; then
+	echo "`date` $*"
+    fi
+}
+
+ERR0="Server EOF"
+ERR1="connect: Connection refused"
+ERR2="Expecting 2, got unix socket connect: No such file or directory"
+MDOWN="The game is down"
+FLAGS="-d"
+
+killit() {
+    FK=${tbase}.kill
+    FNAMES="$FNAMES ${FK}.L ${FK}.P"
+    rm -f ${FK}.L ${FK}.P
+
+    ps auxw >${FK}.L
+    egrep "emp_server $FLAGS $1" ${FK}.L | egrep "$USER" >${FK}.P
+
+    SZ="`wc -l ${FK}.P | awk '{print $1}' -`"
+    if [ $SZ -gt 0 ]; then
+	PIDS=`awk '{rec = rec " " $2} END {print rec}' ${FK}.P`
+	putmsg "Found pids $PIDS to kill for emp_server $FLAGS"
+	kill $PIDS
+    fi
+    rm -f ${FK}.L ${FK}.P
+}
+
+kill9it() {
+    PROC=$1
+
+    FK=${tbase}.kill
+    FNAMES="$FNAMES ${FK}.L ${FK}.P"
+    rm -f ${FK}.L ${FK}.P
+
+    ps auxw >${FK}.L
+    egrep "$PROC" ${FK}.L | egrep "$USER" >${FK}.P
+
+    SZ="`wc -l ${FK}.P | awk '{print $1}' -`"
+    if [ $SZ -gt 0 ]; then
+	PIDS=`awk '{rec = rec " " $2} END {print rec}' ${FK}.P`
+	putmsg "Found pids " $PIDS " to kill for" $PROC
+	kill -9 $PIDS
+    fi
+    rm -f ${FK}.L ${FK}.P
+}
+
+restartgame() {
+    DIR=$1
+    UNIQ=$2
+
+    killit $UNIQ
+    sleep 1
+    cd $DIR/bin
+    ./emp_server $FLAGS $UNIQ &
+    echo "restarted $UNIQ"
+    cd $HOME
+}
+
+checkgame() {
+    DIR=$1
+    PORT=$2
+    COUN=$3
+    PASS=$4
+
+    EMPIREHOST=`/bin/hostname`
+    EMPIREPORT=$PORT
+    COUNTRY=$COUN
+    PLAYER=$PASS
+    export EMPIREHOST EMPIREPORT COUNTRY PLAYER
+
+    FN=${tbase}.client
+    rm -f ${FN}.I  ${FN}.1 ${FN}.2
+    FNAMES="$FNAMES ${FN}.I ${FN}.1 ${FN}.2"
+    echo "quit" >${FN}.I
+    echo "quit" >${FN}.I
+
+    kill9it emp_client
+    $DIR/bin/emp_client >${FN}.1 2>${FN}.2  <${FN}.I
+    STAT=$?
+    ER=`head -1 ${FN}.2`
+    NORM=`head -1 ${FN}.1`
+
+    if [ "$STAT" = "0" ]; then
+	ALLOK=true
+#	putmsg "All Ok"
+    elif [ "$ER" = "$ERR0" ]; then
+	ALLOK=true
+#	putmsg "All Ok, but bad return status"
+    elif [ "$ER" = "$ERR1" ]; then
+	ALLOK=false
+	putmsg "emp_server is down"
+    elif [ "$ER" = "$ERR2" ]; then
+	ALLOK=false
+	putmsg "emp_server is down"
+    else
+	ALLOK=false
+	putmsg "Something is wrong"
+    fi
+    rm -f ${FN}.I  ${FN}.1 ${FN}.2
+}
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+	# -kill game
+	"-kill") shift
+	    if [ $# -lt 1 ]; then
+		echo "Expecting -kill <game>"
+		exit 1
+	    fi
+	    killit $1
+	    shift ;;
+	# -start game dir
+	"-start") shift
+	    if [ $# -lt 2 ]; then
+		echo "Expecting -start <game> <dir>"
+		exit 1
+	    fi
+	    restartgame $2 $1
+	    shift ;shift;;
+	# -check game dir port country user
+	"-check") shift
+	    if [ $# -lt 5 ]; then
+		echo "Expecting -check <game> <dir> <port> <tcoun> <tuser>"
+		exit 1
+	    fi
+	    checkgame $2 $3 $4 $5
+	    if [ "$ALLOK" != "true" ]; then
+		restartgame $2 $1
+	    fi
+	    shift ; shift ; shift ; shift ; shift ;;
+	*) echo "Unknown parameter found in: $*."
+	    echo "Aborting."
+	    exit 1 ;;
+    esac
+done

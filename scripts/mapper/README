@@ -1,0 +1,66 @@
+To install mapper, edit makempeg and mapper and
+(1) fix paths
+(2) change names of countries to exclude
+(3) add a crontab similar to the one in the file crontab.config
+
+When starting, type:
+make clean
+make color.ppm
+
+-children
+
+   This directory contains a number of scripts which output PPM format
+files suitable for conversion to gif with the PBM utilities or MPEG
+with mpeg_encode.  mpeg_encode is available from
+	http://s2k-ftp.cs.berkeley.edu:8000/multimedia/mpeg/
+PBMPLUS is available from 
+	ftp://ftp.ee.lbl.gov/
+Some of the scripts (mapper in particular) depend on a country
+"mapper" being defined that can be logged into automatically using the
+Empire client eif.  Modify to use the client and country name of your
+choice.
+
+-harmless
+
+
+
+pgmmap.awk
+   A simple map making program.  Reads a deity dump file and produces
+a grayscale .pgm file as output, with each color corresponding to a
+country number.  To make a color coded map, scramble the colors.
+
+pgmfallout.awk
+   Convert a deity census file into a PGM file with fallout levels.
+
+randppm.awk
+   Generates random colors in a ppm file.  Useful for remmapping colors
+from pgmmap.awk
+
+over.awk
+   Reads in a report file and generates a text overlay of country names.
+Requires pbmtext (part of netpbm) to work.
+
+param.pl
+   Modify an mpeg parameter file to use map-*.gif files as input.
+Reads the highest level file from the file 'frames' and skips over any
+file not 300-500 bytes long (in a 64x32 blitz, the .gif files should
+be ~400 bytes).  Larger worlds may require different size limits.
+Disabling the size limits is not advised, as this is the only way
+corrupt frames are eliminated.
+
+makempeg
+   Log into the mapper country, capture new report files, and generate
+a new .mpg file.  Also copies map.mpg and final.gif into the web space
+directories so others can view them.  The web copy may be commented
+out or modified to meet your local needs.
+
+mapper
+   Log into mapper country and capture a map of the current owners of
+the world (.gif format).  Games without fallout should comment out the
+fallmap producing line.
+
+archive.pl
+   Pushes the archived blitz records down the stack (in web space) and
+prints out a new .html index.
+
+-Drake (dld@chem.psu.edu)

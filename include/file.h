@@ -1,0 +1,117 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  file.h: Describes Empire files and their contents
+ * 
+ *  Known contributors to this file:
+ *    
+ */
+
+#ifndef _FILE_H_
+#define _FILE_H_
+
+struct empfile {
+	s_char *name;		/* file name (e.g., "treaty") */
+	s_char *file;		/* file path */
+	int flags;		/* misc stuff */
+	int mode;		/* O_flags */
+	int size;		/* size of object */
+	void (*init)(int , s_char *);/* call this when object is created */
+	int (*postread)(int, s_char *);   /* specific massage routines for items */
+	int (*prewrite)(int , s_char *);
+	int varoffs[3];		/* struct offs for nv, vtype, vamt */
+	int maxvars;		/* max # vars for type */
+	int fd;			/* file descriptor */
+	int baseid;		/* starting item in cache */
+	int cids;		/* # ids in cache */
+	int csize;		/* size of cache in bytes */
+	caddr_t cache;		/* pointer to cache */
+	int fids;		/* # of ids in file */
+	struct castr *cadef;	/* ca defs selection list */
+};
+
+#define EFF_COM		bit(0)	/* item has commodities attached */
+#define EFF_XY		bit(1)	/* has location */
+#define EFF_MEM		bit(2)	/* stored entirely in-memory */
+#define EFF_OWNER	bit(3)	/* has concept of owner */
+#define EFF_GROUP	bit(4)	/* has concept of group */
+
+#define EF_BAD		-1	/* illegal file type */
+#define EF_SECTOR	0
+#define EF_SHIP		1
+#define EF_PLANE	2
+#define	EF_LAND		3
+#define EF_NUKE		4
+#define EF_NEWS		5
+#define EF_TREATY	6
+#define EF_TRADE	7
+#define EF_POWER	8
+#define EF_NATION	9
+#define EF_LOAN		10
+#define	EF_MAP		11
+#define EF_BMAP		12
+#define EF_COMM         13
+#define EF_LOST         14
+#define EF_MAX		15
+
+#define EF_NMAP         222 /* Kinda bogus, but used to describe a newdesmap
+                               instead of bmap or map. */
+
+typedef void (*ef_fileinit)(int, s_char *);
+
+struct fileinit {
+	void (*init)(int , s_char *);
+	int (*postread)(int, s_char *);
+	int (*prewrite)(int, s_char *);
+	struct castr *cadef;
+};
+
+
+extern struct castr * ef_cadef(int );
+extern int ef_read(int  , int  , caddr_t );
+extern s_char * ef_ptr(int  , int );
+extern s_char * ef_nameof(int );
+extern time_t ef_mtime(int );
+extern int ef_open(int  , int  , int );
+extern int ef_check(int );
+extern int ef_close(int );
+extern int ef_flush(int );
+extern int ef_write(int  , int  , caddr_t );
+extern int ef_extend(int  , int );
+extern void ef_zapcache(int );
+extern int ef_nelem(int );
+extern int ef_flags(int );
+extern int ef_lock(int );
+extern int ef_unlock(int );
+extern int ef_vars(int  , register s_char *  , u_char * *  ,
+		   u_char * *  , u_short * * );
+extern int ef_byname(s_char * );
+
+extern	int ef_nbread();
+extern	struct empfile empfile[];
+
+#endif /* _FILE_H_ */

@@ -1,0 +1,202 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  improve.c: Improve the infrastructure of a sector
+ * 
+ *  Known contributors to this file:
+ *     Steve McClure, 1996-2000
+ */
+
+#ifdef Rel4
+#include <string.h>
+#endif /* Rel4 */
+#include "misc.h"
+#include "player.h"
+#include "var.h"
+#include "xy.h"
+#include "sect.h"
+#include "nsc.h"
+#include "nat.h"
+#include "deity.h"
+#include "path.h"
+#include "file.h"
+#include "optlist.h"
+#include "commands.h"
+
+char *prompt[] = {
+      "Improve what ('road' or 'rail')? ",
+      "Improve what ('road', 'rail' or 'defense')? " };
+
+int
+improve(void)
+{
+    struct	sctstr sect;
+    int	nsect;
+    struct	nstr_sect nstr;
+    s_char *p;
+    s_char buf[1024];
+    s_char inbuf[128];
+    int type;
+    int vec[I_MAX+1];
+    int value;
+    int ovalue;
+    int maxup;
+    struct natstr *natp;
+    int lneeded;
+    int hneeded;
+    int mneeded;
+    int dneeded;
+    int wanted;
+    
+    if (!(p = getstarg(player->argp[1],
+		        prompt[opt_DEFENSE_INFRA], buf)) ||
+	!*p)
+	return RET_SYN;
+    if (!strncmp(p, "ro", 2))
+	type = INT_ROAD;
+    else if (!strncmp(p, "ra", 2))
+	type = INT_RAIL;
+    else if (!strncmp(p, "de", 2) && opt_DEFENSE_INFRA)
+	type = INT_DEF;
+    else
+	return RET_SYN;
+    if (!snxtsct(&nstr, player->argp[2]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (type == INT_ROAD)
+	    value = sect.sct_road;
+	else if (type == INT_RAIL)
+	    value = sect.sct_rail;
+	else if (type == INT_DEF)
+	    value = sect.sct_defense;
+	sprintf(inbuf, "Sector %s has a %s of %d%%.  Improve how much? ",
+		xyas(sect.sct_x, sect.sct_y, player->cnum),
+		intrchr[type].in_name, value);
+	if (!(p = getstarg(player->argp[3], inbuf, buf)) || !*p)
+	    continue;
+	if (!check_sect_ok(&sect))
+	    continue;
+	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	maxup = 100 - value;
+	wanted = atoi(p);
+	if (wanted < 0)
+	    continue;
+	if (wanted < maxup)
+	    maxup = wanted;
+	if (!maxup)
+	    continue;
+	lneeded = intrchr[type].in_lcms * maxup;
+	if (opt_NO_LCMS) lneeded = 0;
+	if (vec[I_LCM] < lneeded) {
+	    lneeded = vec[I_LCM];
+	    maxup = lneeded / intrchr[type].in_lcms;
+	    if (maxup <= 0) {
+		pr("Not enough lcms in %s\n",
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
+	}
+	hneeded = intrchr[type].in_hcms * maxup;
+	if (opt_NO_HCMS) hneeded = 0;
+	if (vec[I_HCM] < hneeded) {
+	    hneeded = vec[I_HCM];
+	    maxup = hneeded / intrchr[type].in_hcms;
+	    if (maxup <= 0) {
+		pr("Not enough hcms in %s\n",
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
+	}
+	mneeded = intrchr[type].in_mcost * maxup;
+	if ((sect.sct_mobil - 1) < mneeded) {
+	    mneeded = sect.sct_mobil - 1;
+	    if (mneeded < 0)
+		mneeded = 0;
+	    maxup = mneeded / intrchr[type].in_mcost;
+	    if (maxup <= 0) {
+		pr("Not enough mobility in %s\n",
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
+	}
+	dneeded = intrchr[type].in_dcost * maxup;
+	natp = getnatp(player->cnum);
+	if ((natp->nat_money - 1) < dneeded) {
+/* Nasty - leave 'em with a buck. :) */
+	    dneeded = natp->nat_money - 1;
+	    if (dneeded < 0)
+		dneeded = 0;
+	    maxup = dneeded / intrchr[type].in_dcost;
+	    if (maxup <= 0) {
+		pr("Not enough money left to improve %s\n",
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
+	}
+	if (maxup <= 0)
+	    continue;
+	lneeded = intrchr[type].in_lcms * maxup;
+	hneeded = intrchr[type].in_hcms * maxup;
+	mneeded = intrchr[type].in_mcost * maxup;
+	dneeded = intrchr[type].in_dcost * maxup;
+	player->dolcost += dneeded;
+	if (!opt_NO_LCMS) vec[I_LCM] -= lneeded;
+	if (!opt_NO_HCMS) vec[I_HCM] -= hneeded;
+	sect.sct_mobil -= mneeded;
+	putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	ovalue = value;
+	value += maxup;
+	if (value > 100)
+	    value = 100;
+	pr("Sector %s %s increased from %d%% to %d%%\n",
+	   xyas(sect.sct_x, sect.sct_y, player->cnum),
+	   intrchr[type].in_name, ovalue, value);
+	if (type == INT_ROAD)
+	    sect.sct_road = value;
+	else if (type == INT_RAIL)
+	    sect.sct_rail = value;
+	else if (type == INT_DEF)
+	    sect.sct_defense = value;
+	putsect(&sect);
+	nsect++;
+    }
+    if (nsect == 0) {
+	if (player->argp[2])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    }else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
+}
+
+

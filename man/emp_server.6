@@ -1,0 +1,64 @@
+.TH EMP_SERVER 6 "19 Oct 1998" "emp_server Version 4.20"
+.UC
+.SH NAME
+emp_server \- Empire server
+.SH SYNOPSIS
+.B emp_server
+[
+.BI \-dhps
+]
+[
+.BI \-D datadir
+]
+[
+.BI \-e configfile
+]
+[
+.IR name
+]
+.br
+.SH DESCRIPTION
+.I emp_server
+is a demon which listens to the Empire port for players connecting to
+the game.  When a player connects, a thread is created for that player
+within the server.  For more information on the game of Empire, see
+the
+.I info
+pages within the game.
+.SH OPTIONS
+.TP
+.B \-d 
+Debug mode.  This will prevent the server from forking itself into the
+background.  It will also cause the server to dump core if it crashes.
+You must run with this flag if you are running
+.I emp_server
+from within a debugger.
+.TP
+.B \-h 
+Help.  Print a usage line showing the command line options.
+.TP
+.B \-p
+Lwp Print mode.  This is used for debugging lwp-threads.
+.TP
+.B \-s
+Lwp stack check mode.  This will report if any of the lwp thread stack
+spaces overflow.  It forces lwp print mode on.
+.TP
+.BI \-D datadir
+causes the server to use the data files in 
+.I datadir
+.TP
+.BI \-e configfile
+causes the server to use the game configuration specification in 
+.I configfile
+(by default, the file "econfig" in the data directory is used)
+.TP
+.IR name
+This argument does nothing.  It is used by scripts to locate the
+server to kill it.
+.SH BUGS
+Please report all bugs to the Wolfpack <wolfpack@wolfpackempire.com>
+.SH AUTHORS
+Dave Pare, Jeff Bailey, Thomas Ruschak, Ken Stevens and Steve McClure
+ are principle authors.
+The list of secondary authors is too long to mention.

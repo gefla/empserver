@@ -1,0 +1,35 @@
+.TH LAND 1 "7 Aug 1995" "land"
+.UC
+.SH NAME
+land \- Empire land generator
+.SH SYNOPSIS
+.B land
+[
+.IR sectrange
+.IR mincontdist
+.IR chunksize
+.IR numchunks
+.IR numisle
+]
+.br
+.SH DESCRIPTION
+While most deities prefer to use
+.I fairland
+to generate their land, this program is included as an alternative for
+creating the geography for a game.
+.SH OPTIONS
+.TP
+.IR sectrange
+smoothing area (default = 3)
+.TP
+.IR mincontdist
+minimum distance between continents (default = 2)
+.TP
+.IR chunksize
+basic land block size (default = 2)
+.TP
+.IR numchunks
+number of chunks per continent (default = 70)
+.TP
+.IR numisle
+number of islands (default is based on world size)

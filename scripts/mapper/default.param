@@ -1,0 +1,41 @@
+#    default parameter file for encoding empire games.  P frames are
+# very cheap since most pixels remain exactly the same color.
+# I frames (complete pictures) are expensive, so they are infrequent.
+#    Inidividual maps are stored as gifs (a very compact storage format for
+# this sort of data) and enlarged and converted on the fly to ppm format
+# using various netpbm tools.
+#     This file is modified by param.pl to generate the real .param file
+# with the correct input filenames.
+#   -Drake (dld@chem.psu.edu)
+
+PATTERN		IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+OUTPUT		map.mpg
+
+BASE_FILE_FORMAT	PPM
+GOP_SIZE	60
+SLICES_PER_FRAME	1
+
+PIXEL		HALF
+RANGE		8
+PSEARCH_ALG	LOGARITHMIC
+BSEARCH_ALG	SIMPLE
+IQSCALE		8
+PQSCALE		10
+BQSCALE		25
+
+REFERENCE_FRAME	DECODED
+
+#
+# This takes two files, fallmap*.gif and map*.gif.  Both are converted to ppm
+# and enlarged by a factor of 4.  fallmap*.gif is also smoothed.  The two are
+# then added together (causing sectors with high fallout to be brighter).
+# Finally, the country names in over.mask and over.pbm are overlaid.
+#
+
+INPUT_CONVERT	makeframe `basename *`
+
+INPUT_DIR	.
+
+# This files actual are substituted here by param.pl
+INPUT
+END_INPUT

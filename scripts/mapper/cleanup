@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# add any paths necessary for eif, netpbm, and mpeg_encode.
+
+cd /home/children/howitzer/map
+make clean

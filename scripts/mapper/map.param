@@ -1,0 +1,180 @@
+#    default parameter file for encoding empire games.  P frames are
+# very cheap since most pixels remain exactly the same color.
+# I frames (complete pictures) are expensive, so they are infrequent.
+#    Inidividual maps are stored as gifs (a very compact storage format for
+# this sort of data) and enlarged and converted on the fly to ppm format
+# using various netpbm tools.
+#     This file is modified by param.pl to generate the real .param file
+# with the correct input filenames.
+#   -Drake (dld@chem.psu.edu)
+
+PATTERN		IPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+OUTPUT		map.mpg
+
+BASE_FILE_FORMAT	PPM
+GOP_SIZE	60
+SLICES_PER_FRAME	1
+
+PIXEL		HALF
+RANGE		8
+PSEARCH_ALG	LOGARITHMIC
+BSEARCH_ALG	SIMPLE
+IQSCALE		8
+PQSCALE		10
+BQSCALE		25
+
+REFERENCE_FRAME	DECODED
+
+#
+# This takes two files, fallmap*.gif and map*.gif.  Both are converted to ppm
+# and enlarged by a factor of 4.  fallmap*.gif is also smoothed.  The two are
+# then added together (causing sectors with high fallout to be brighter).
+# Finally, the country names in over.mask and over.pbm are overlaid.
+#
+
+INPUT_CONVERT	makeframe `basename *`
+
+INPUT_DIR	.
+
+# This files actual are substituted here by param.pl
+INPUT
+map-0.gif
+map-1.gif
+map-2.gif
+map-3.gif
+map-4.gif
+map-5.gif
+map-6.gif
+map-7.gif
+map-8.gif
+map-9.gif
+map-10.gif
+map-11.gif
+map-12.gif
+map-13.gif
+map-14.gif
+map-15.gif
+map-16.gif
+map-17.gif
+map-18.gif
+map-19.gif
+map-20.gif
+map-21.gif
+map-22.gif
+map-23.gif
+map-24.gif
+map-25.gif
+map-26.gif
+map-27.gif
+map-28.gif
+map-29.gif
+map-30.gif
+map-31.gif
+map-32.gif
+map-33.gif
+map-34.gif
+map-35.gif
+map-36.gif
+map-37.gif
+map-38.gif
+map-39.gif
+map-40.gif
+map-41.gif
+map-42.gif
+map-43.gif
+map-44.gif
+map-45.gif
+map-46.gif
+map-47.gif
+map-48.gif
+map-49.gif
+map-50.gif
+map-51.gif
+map-52.gif
+map-53.gif
+map-54.gif
+map-55.gif
+map-56.gif
+map-57.gif
+map-58.gif
+map-59.gif
+map-60.gif
+map-61.gif
+map-62.gif
+map-63.gif
+map-64.gif
+map-65.gif
+map-66.gif
+map-67.gif
+map-68.gif
+map-69.gif
+map-70.gif
+map-71.gif
+map-72.gif
+map-73.gif
+map-74.gif
+map-75.gif
+map-76.gif
+map-77.gif
+map-78.gif
+map-79.gif
+map-80.gif
+map-81.gif
+map-82.gif
+map-83.gif
+map-84.gif
+map-85.gif
+map-86.gif
+map-87.gif
+map-88.gif
+map-89.gif
+map-90.gif
+map-91.gif
+map-92.gif
+map-93.gif
+map-94.gif
+map-95.gif
+map-96.gif
+map-97.gif
+map-98.gif
+map-99.gif
+map-100.gif
+map-101.gif
+map-102.gif
+map-103.gif
+map-104.gif
+map-105.gif
+map-106.gif
+map-107.gif
+map-108.gif
+map-109.gif
+map-110.gif
+map-111.gif
+map-112.gif
+map-113.gif
+map-114.gif
+map-115.gif
+map-116.gif
+map-117.gif
+map-118.gif
+map-119.gif
+map-120.gif
+map-121.gif
+map-122.gif
+map-123.gif
+map-124.gif
+map-125.gif
+map-126.gif
+map-127.gif
+map-128.gif
+map-129.gif
+map-130.gif
+map-131.gif
+map-132.gif
+map-133.gif
+map-134.gif
+map-135.gif
+map-136.gif
+map-137.gif
+map-138.gif
+END_INPUT

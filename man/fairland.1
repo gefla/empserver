@@ -1,0 +1,106 @@
+.TH FAIRLAND 1 "7 Aug 1995" "fairland 1.6"
+.UC
+.SH NAME
+fairland \- Empire land generator
+.SH SYNOPSIS
+.B fairland
+[
+.BI \-aieoq
+]
+[
+.BI \-s scriptout
+]
+[
+.BI \-e configfile
+]
+.IR nc
+.IR sc
+[
+.IR ni
+]
+[
+.IR is
+]
+[
+.IR sp
+]
+[
+.IR pm
+]
+[
+.IR di
+]
+[
+.IR id
+]
+.br
+.SH DESCRIPTION
+.I fairland
+is a program which creates land and ore for Empire.  It
+should be run after 
+.I files 
+has been run and before 
+.I emp_server
+has been started.  This is a land generator for empire that creates a
+specified number of continents, and spaces them evenly accross the
+map.  It tries to make all of them the same size, and makes sure that
+they don't meet.  It gives each start island exactly the same
+distribution of resources and the same number of mountains.  You can
+get nearly any kind of map you want by choosing the right arguments.
+.SH OPTIONS
+.TP
+.B \-a 
+mark the continents with a * so that you can tell them from the islands
+.TP
+.B \-i
+islands will crash into each other and merge
+.TP
+.B \-o
+do not set the resources.  If you use this flag, then you will need to
+run some other program (for example the 
+.I ore 
+program) to set the resources.
+.TP
+.B \-q
+run quietly without printing anything to the terminal
+.TP
+.BI \-s scriptout
+writes a script for placing capitol to the file
+.I scriptout
+(If you don't specify this argument, then the script will be written
+to "newcap_script".)
+.TP
+.BI \-e configfile
+causes
+.I fairland
+to use the game configuration specified in 
+.I configfile
+(by default, the file "econfig" in the data directory is used)
+.TP
+.IR nc 
+number of continents
+.TP
+.IR sc 
+continent size
+.TP
+.IR ni 
+number of islands (optional, default = nc)
+.TP
+.IR is 
+average size of islands (optional, default = sc/2)
+.TP
+.IR sp 
+spike percentage: 0 = round, 100 = snake (default = 10)
+.TP
+.IR pm 
+the percentage of land that is mountain (default = 0)
+.TP
+.IR di 
+the minimum distance between continents (default = 2)
+.TP
+.IR id 
+minimum distance from islands to continents (default = 1)
+
+.SH AUTHOR
+Ken Stevens <chidren@empire.net>
+

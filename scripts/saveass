@@ -1,0 +1,42 @@
+#! /bin/sh
+#! This is a script that will probably end up saving your ass more times
+#! then you'll probably want to admit.  I wrote this back when I was co-deity
+#! of the first empire tourney in December of 1990.  This is a basic script
+#! run from cron usually 15 miniutes before the update and keeps three copies
+#! of the binaries and empire data on hand in tared and compressed format.
+#! If you run faster games increase the frequency of the calls from cron.
+#! 45 7,15,23 * * * /home/evil/EMP/bin/saveass 
+#! Above is a sample cron entry that does the backup three times a day.
+#! This script should run on most all UNIX computers with all you'll have
+#! to do is change the $BACKUPSDIR variable at the top.
+#! 
+#! Dave 'TheEvilOne' Nye, evil@bbn.com
+#!
+#! Change these to your site specific directories.
+
+EMPIREDIR=/home/bughunt/navy
+BACKUPSDIR=/home/bughunt/navy/backups
+
+cd $BACKUPSDIR
+rm -rf data.old.old
+rm -rf bin.old.old
+mv data.old data.old.old
+mv bin.old bin.old.old
+mv data.new data.old
+mv bin.new bin.old
+mkdir data.new
+mkdir bin.new
+
+#! Enough set up..let's do some work...
+
+cd $EMPIREDIR
+tar -cf data.tar data
+tar -cf bin.tar bin
+mv $EMPIREDIR/data.tar $BACKUPSDIR/data.new
+mv $EMPIREDIR/bin.tar $BACKUPSDIR/bin.new
+
+#! This will send you mail telling you that the backup went okay.
+
+/usr/local/bin/gzip $BACKUPSDIR/data.new/data*
+ls -l $BACKUPSDIR/data.new 
+/usr/local/bin/gzip $BACKUPSDIR/bin.new/bin*
