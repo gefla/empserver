@@ -848,13 +848,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	ship->shp_tech = arg;
 	break;
     case 'E':
-	ship->shp_effic = errcheck(arg, 0, 100);
-	if (arg < 10) {
-	    ship->shp_effic = 0;
-	    makelost(EF_SHIP, ship->shp_own, ship->shp_uid, ship->shp_x,
-		     ship->shp_y);
-	    ship->shp_own = (natid)0;
-	}
+	ship->shp_effic = errcheck(arg, SHIP_MINEFF, 100);
 	break;
     case 'M':
 	ship->shp_mobil = arg;
@@ -967,13 +961,7 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 	land->lnd_y = newy;
 	break;
     case 'e':
-	land->lnd_effic = errcheck(arg, 0, 100);
-	if (arg < 10) {
-	    makelost(EF_LAND, land->lnd_own, land->lnd_uid, land->lnd_x,
-		     land->lnd_y);
-	    land->lnd_effic = 0;
-	    land->lnd_own = (natid)0;
-	}
+	land->lnd_effic = errcheck(arg, LAND_MINEFF, 100);
 	break;
     case 'M':
 	land->lnd_mobil = arg;
@@ -1111,13 +1099,7 @@ doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
 	}
 	break;
     case 'e':
-	plane->pln_effic = errcheck(arg, 0, 100);
-	if (arg < 10) {
-	    plane->pln_effic = 0;
-	    makelost(EF_PLANE, plane->pln_own, plane->pln_uid,
-		     plane->pln_x, plane->pln_y);
-	    plane->pln_own = (natid)0;
-	}
+	plane->pln_effic = errcheck(arg, PLANE_MINEFF, 100);
 	break;
     case 'm':
 	plane->pln_mobil = errcheck(arg, -127, 255);
