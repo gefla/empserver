@@ -510,11 +510,11 @@ show_plane_build(int tlev)
     register struct plchrstr *pp;
     register int pcount;
 
-    pr("%25s lcm hcm crew avail tech  $\n", "");
+    pr("%25s lcm hcm crew avail tech $\n", "");
     make_new_list(tlev, EF_PLANE);
     for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
 	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
-	pr("%-25.25s %3d %3d %3d %5d %4d $%d\n",
+	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
 	   pp->pl_name, pp->pl_lcm,
 	   pp->pl_hcm, pp->pl_crew,
 	   PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm), pp->pl_tech, pp->pl_cost);
@@ -527,13 +527,13 @@ show_land_build(int tlev)
     register struct lchrstr *lp;
     register int n;
 
-    pr("%25s lcm hcm guns avail tech  $\n", "");
+    pr("%25s lcm hcm guns avail tech $\n", "");
     make_new_list(tlev, EF_LAND);
     for (n = 0; n < lookup_list_cnt; n++) {
 	lp = (struct lchrstr *)lookup_list[n].l_u.lp;
 	if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
 	    continue;
-	pr("%-25.25s %3d %3d %4d %5d %4d  $%d\n",
+	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
 	   lp->l_name, lp->l_lcm,
 	   lp->l_hcm,
 	   lp->l_gun,
