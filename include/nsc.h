@@ -77,7 +77,8 @@ typedef char packed_nsc_type;
 typedef enum {
     NSC_NOCAT,
     NSC_VAL,			/* evaluated value */
-    NSC_OFF			/* symbolic value: at offset in object */
+    NSC_OFF,			/* symbolic value: at offset in object */
+    NSC_ID			/* unresolved identifier (internal use) */
 } nsc_cat;
 typedef char packed_nsc_cat;
 
@@ -95,13 +96,10 @@ typedef unsigned char nsc_flags;
  * value.
  * If category is NSC_VAL, the value is in val_as, and the type is a
  * promoted type.
- * Some values can also be interpreted as an object type.  The value's
- * consumer chooses how to interpret it, depending on context.
  */
 struct valstr {
     packed_nsc_type val_type;	/* type of value */
     packed_nsc_cat val_cat;	/* category of value */
-    signed char val_as_type;	/* value interpreted as object type */
     union {
 	struct {		/* cat NSC_OFF */
 	    ptrdiff_t off;
@@ -109,7 +107,7 @@ struct valstr {
 	    int idx;
 	} sym;
 	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
-	struct {		/* cat NSC_VAL, type NSC_STRING */
+	struct {		/* cat NSC_VAL, type NSC_STRING, cat NSC_ID */
 	    char *base;
 	    size_t maxsz;
 	} str;

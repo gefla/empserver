@@ -286,7 +286,6 @@ xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
 {
     val->val_type = type;
     val->val_cat = NSC_OFF;
-    val->val_as_type = -1;
     val->val_as.sym.off = off;
     val->val_as.sym.idx = idx;
     nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
@@ -457,7 +456,6 @@ xdchr(int chridx)
     for (p = cm->chr; ; p += cm->size) {
 	val.val_type = cm->ca[0].ca_type;
 	val.val_cat = NSC_OFF;
-	val.val_as_type = -1;
 	val.val_as.sym.off = cm->ca[0].ca_off;
 	val.val_as.sym.idx = 0;
 	nstr_exec_val(&val, player->cnum, p, NSC_STRING);

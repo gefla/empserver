@@ -40,7 +40,14 @@
 #include "nsc.h"
 #include "prototypes.h"
 
-static int nstr_promote(int valtype);
+static char *nstr_parse_val(char *, struct valstr *);
+static int nstr_match_ca(struct valstr *, struct castr *);
+static int nstr_match_val(struct valstr *, int, struct castr *, int);
+static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
+static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
+static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int);
+static int nstr_promote(int);
+
 
 /*
  * Compile conditions into array NP[LEN].
@@ -53,10 +60,13 @@ static int nstr_promote(int valtype);
 int
 nstr_comp(struct nscstr *np, int len, int type, char *str)
 {
+    struct castr *ca = ef_cadef(type);
     char *cond;
     char *tail;
     int i;
     struct nscstr dummy;
+    int lft_caidx, rgt_caidx;
+    int lft_val, rgt_val;
     int lft_type, rgt_type;
 
     cond = str;
@@ -65,9 +75,8 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	    np = &dummy;
 
 	/* left operand */
-	tail = nstr_comp_val(cond, &np->lft, type);
-	if (!tail)
-	    return -1;
+	tail = nstr_parse_val(cond, &np->lft);
+	lft_caidx = nstr_match_ca(&np->lft, ca);
 
 	/* operator */
 	if (*tail != '<' && *tail != '=' && *tail != '>' && *tail != '#') {
@@ -81,9 +90,47 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	++tail;
 
 	/* right operand */
-	tail = nstr_comp_val(tail, &np->rgt, type);
-	if (!tail)
+	tail = nstr_parse_val(tail, &np->rgt);
+	rgt_caidx = nstr_match_ca(&np->rgt, ca);
+
+	/*
+	 * Resolve identifiers
+	 *
+	 * An identifier can name a selector or, if the other operand
+	 * is a selector, a value for that.  The condition is
+	 * ambiguous if both selector x value and value x selector are
+	 * possible.  Example: n<n for sectors could mean newdes<n or
+	 * n<newdes.
+	 */
+	lft_val = nstr_match_val(&np->lft, type, ca, rgt_caidx);
+	rgt_val = nstr_match_val(&np->rgt, type, ca, lft_caidx);
+	/*
+	 * if lft_val >= 0, then rhs names a selector and lhs names
+	 * one of its values.  Likewise for rgt_val.
+	 */
+	if (lft_val >= 0 && rgt_val >= 0) {
+	    pr("%.*s -- condition ambiguous\n", tail-cond, cond);
 	    return -1;
+	} else if (rgt_val >= 0) {
+	    /* selector x value */
+	    if (!nstr_resolve_sel(&np->lft, &ca[lft_caidx]))
+		return -1;
+	    nstr_mkselval(&np->rgt, rgt_val, &ca[lft_caidx]);
+	} else if (lft_val >= 0) {
+	    /* value x selector */
+	    nstr_mkselval(&np->lft, lft_val, &ca[rgt_caidx]);
+	    if (!nstr_resolve_sel(&np->rgt, &ca[rgt_caidx]))
+		return -1;
+	} else {
+	    /*
+	     * Neither side works as selector value; any identifiers
+	     * must name selectors.
+	     */
+	    if (!nstr_resolve_id(&np->lft, ca, lft_caidx))
+		return -1;
+	    if (!nstr_resolve_id(&np->rgt, ca, rgt_caidx))
+		return -1;
+	}
 
 	/* find operator type, coerce operands */
 	lft_type = nstr_promote(np->lft.val_type);
@@ -134,6 +181,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
     return i + 1;
 }
 
+/* Like strcmp(S1, S2), but limit length of S1 to SZ1 and of S2 to SZ2.  */
 static int
 strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
 {
@@ -198,89 +246,30 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 }
 
 /*
- * Compile a value in STR into VAL.
- * Return a pointer to the first character after the value on success,
- * NULL on error.
- * TYPE is the context type, a file type.
- * If STR names an array, VAL simply refers to the element with index
- * zero.
+ * Parse a value in STR into VAL.
+ * Return a pointer to the first character after the value.
+ * Value is either evaluated (but not NSC_TYPEID) or an identifier.
  */
-char *
-nstr_comp_val(char *str, struct valstr*val, int type)
+static char *
+nstr_parse_val(char *str, struct valstr *val)
 {
-    char id[32];
     long l;
     double d;
     char *tail, *tail2;
-    struct castr *cap;
-    unsigned i;
-    int j;
 
-    val->val_type = NSC_NOTYPE;
-    val->val_cat = NSC_NOCAT;
-    val->val_as_type = -1;
-
-    if (isalpha(str[0])) {
-	/* identifier */
-	for (i = 0; isalnum(str[i]) || str[i] == '_'; ++i) {
-	    if (i < sizeof(id) - 1)
-		id[i] = str[i];
-	}
-	tail = str + i;
-	if (i < sizeof(id)) {
-	    id[i] = 0;
-
-	    val->val_as_type = typematch(id, type);
-
-	    cap = ef_cadef(type);
-	    if (cap) {
-		j = stmtch(id, cap, offsetof(struct castr, ca_name),
-			   sizeof(struct castr));
-		if (j >= 0
-		    && (!(cap[j].ca_flags & NSC_DEITY) || player->god)) {
-		    if (cap[j].ca_type == NSC_TYPEID && val->val_as_type >= 0)
-			/*
-			 * Got two matches of type NSC_TYPEID, need to
-			 * choose.  Prefer typematch(), because ?des=n
-			 * would be interpreted as ?des=newdes
-			 * otherwise
-			 */
-			;
-		    else {
-			val->val_type = cap[j].ca_type;
-			val->val_cat = NSC_OFF;
-			val->val_as.sym.off = cap[j].ca_off;
-			val->val_as.sym.len = cap[j].ca_len;
-			val->val_as.sym.idx = 0;
-		    }
-		}
-	    } else
-		j = M_NOTFOUND;
-	} else
-	    j = M_NOTFOUND;
-
-	if (val->val_type == NSC_NOTYPE) {
-	    if (val->val_as_type >= 0) {
-		val->val_type = NSC_TYPEID;
-		val->val_cat = NSC_VAL;
-		val->val_as.lng = val->val_as_type;
-	    } else if (j >= 0)
-		pr("%s -- selector access denied\n", id);
-	    else if (j == M_NOTUNIQUE)
-		pr("%s -- ambiguous selector name\n", id);
-	    else
-		pr("%s -- unknown selector name\n", id);
-	}
-
-	return val->val_type == NSC_NOTYPE ? NULL : tail;
+    /* string */
+    if (str[0] == '\'') {
+	for (tail = str + 1; *tail && *tail != '\''; ++tail) ;
+	/* FIXME implement \ quoting */
+	val->val_type = NSC_STRING;
+	val->val_cat = NSC_VAL;
+	val->val_as.str.base = str + 1;
+	val->val_as.str.maxsz = tail - (str + 1);
+	if (*tail) ++tail;
+	return tail;
     }
 
-    /* single character type */
-    id[0] = str[0];
-    id[1] = 0;
-    val->val_as_type = typematch(id, type);
-
-    /* literals */
+    /* number */
     l = strtol(str, &tail, 0);
     d = strtod(str, &tail2);
     if (tail2 > tail) {
@@ -295,19 +284,164 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 	val->val_as.lng = l;
 	return tail;
     }
-    /* FIXME implement NSC_STRING literals */
 
-    CANT_HAPPEN(val->val_type != NSC_NOTYPE);
-    if (val->val_as_type >= 0) {
-	val->val_type = NSC_TYPEID;
-	val->val_cat = NSC_VAL;
-	val->val_as.lng = val->val_as_type;
-	return str + 1;
+    /* identifier */
+    for (tail = str; isalnum(*tail) || *tail == '_'; ++tail) ;
+    if (tail == str) ++tail;
+    val->val_type = NSC_NOTYPE;
+    val->val_cat = NSC_ID;
+    val->val_as.str.base = str;
+    val->val_as.str.maxsz = tail - str;
+    return tail;
+}
+
+/*
+ * Match VAL in table of selector descriptors CA, return index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ * A VAL that is not an identifier doesn't match anything.  A null CA
+ * is considered empty.
+ */
+static int
+nstr_match_ca(struct valstr *val, struct castr *ca)
+{
+    char id[32];
+
+    if (val->val_cat != NSC_ID || val->val_as.str.maxsz >= sizeof(id))
+	return M_NOTFOUND;
+
+    if (!ca)
+	return M_NOTFOUND;
+
+    memcpy(id, val->val_as.str.base, val->val_as.str.maxsz);
+    id[val->val_as.str.maxsz] = 0;
+
+    return stmtch(id, ca, offsetof(struct castr, ca_name),
+		  sizeof(struct castr));
+}
+
+/*
+ * Match VAL in a selector's values, return its (non-negative) value.
+ * TYPE is the context type, a file type.
+ * CA is ef_cadef(TYPE).
+ * Match values of selector descriptor CA[IDX], provided CA is not
+ * null and IDX is not negative.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ * TODO: This is just a stub and works only for NSC_TYPEID.
+ * Generalize: give struct castr enough info to find values, remove
+ * parameter `type'.
+ */
+static int
+nstr_match_val(struct valstr *val, int type, struct castr *ca, int idx)
+{
+    char id[32];
+
+    if (val->val_cat != NSC_ID || val->val_as.str.maxsz >= sizeof(id))
+	return M_NOTFOUND;
+
+    if (idx < 0 || ca[idx].ca_type != NSC_TYPEID)
+	return M_NOTFOUND;
+
+    memcpy(id, val->val_as.str.base, val->val_as.str.maxsz);
+    id[val->val_as.str.maxsz] = 0;
+
+    return typematch(id, type);
+}
+
+/*
+ * Change VAL to resolve identifier to selector or string.
+ * Return VAL on success, NULL on error.
+ * No change if VAL is not an identifier.
+ * Else error if IDX == M_NOTUNIQUE, string if IDX == M_NOTFOUND, and
+ * selector CA[IDX] otherwise.
+ */
+static struct valstr *
+nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
+{
+    if (val->val_cat != NSC_ID)
+	return val;
+
+    if (idx == M_NOTUNIQUE) {
+	pr("%.*s -- ambiguous name\n",
+	   val->val_as.str.maxsz, val->val_as.str.base);
+	val->val_cat = NSC_NOCAT;
+	return NULL;
     }
 
-    pr("%s -- invalid value for condition\n", str);
-    return NULL;
+    if (idx == M_NOTFOUND) {
+	/* interpret unbound identifier as string */
+	val->val_type = NSC_STRING;
+	val->val_cat = NSC_VAL;
+	return val;
+    }
+
+    return nstr_resolve_sel(val, &ca[idx]);
 }
+
+/*
+ * Change VAL to resolve identifier to selector CA.
+ * Return VAL on success, NULL if the player is denied access to the
+ * selector.
+ * VAL must be an identifier.
+ */
+static struct valstr *
+nstr_resolve_sel(struct valstr *val, struct castr *ca)
+{
+    if (CANT_HAPPEN(val->val_cat != NSC_ID)) {
+	val->val_cat = NSC_NOCAT;
+	return val;
+    }
+
+    if ((ca->ca_flags & NSC_DEITY) && !player->god) {
+	pr("%.*s -- not accessible to mortals\n",
+	   val->val_as.str.maxsz, val->val_as.str.base);
+	val->val_cat = NSC_NOCAT;
+	return NULL;
+    }
+
+    val->val_type = ca->ca_type;
+    val->val_cat = NSC_OFF;
+    val->val_as.sym.off = ca->ca_off;
+    val->val_as.sym.len = ca->ca_len;
+    val->val_as.sym.idx = 0;
+    return val;
+}
+
+/*
+ * Initialize VAL to value SELVAL for selector CA, return VAL.
+ */
+static struct valstr *
+nstr_mkselval(struct valstr *val, int selval, struct castr *ca)
+{
+    if (CANT_HAPPEN(ca->ca_type != NSC_TYPEID)) {
+	val->val_type = NSC_NOTYPE;
+	val->val_cat = NSC_NOCAT;
+	return val;
+    }
+
+    val->val_type = ca->ca_type;
+    val->val_cat = NSC_VAL;
+    val->val_as.lng = selval;
+    return val;
+}
+
+/*
+ * Compile a value in STR into VAL.
+ * Return a pointer to the first character after the value on success,
+ * NULL on error.
+ * TYPE is the context type, a file type.
+ * If STR names an array, VAL simply refers to the element with index
+ * zero.
+ */
+char *
+nstr_comp_val(char *str, struct valstr *val, int type)
+{
+    struct castr *ca = ef_cadef(type);
+    char *tail = nstr_parse_val(str, val);
+    return nstr_resolve_id(val, ca, nstr_match_ca(val, ca)) ? tail : NULL;
+}
+
 
 /*
  * Promote VALTYPE.
@@ -376,12 +510,7 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
     if (from != to) {
 	switch (to) {
 	case NSC_TYPEID:
-	    if (val->val_as_type >= 0) {
-		val->val_cat = NSC_VAL;
-		val->val_as.lng = val->val_as_type;
-	    } else
-		return cond_type_mismatch(str);
-	    break;
+	    return cond_type_mismatch(str);
 	case NSC_STRING:
 	    return cond_type_mismatch(str); /* FIXME implement */
 	case NSC_DOUBLE:
