@@ -138,20 +138,19 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	    actual = 999;
 	    material_consume = (int)(actual / (product->p_effic * 0.01));
 	}
-	vec[item] += actual;
-	if (vec[item] > 9999) {
+	if (vec[item] + actual > ITEM_MAX) {
 	    material_consume =
-		roundavg((9999.0 - vec[item] + actual) *
-			 material_consume / actual);
+		roundavg((ITEM_MAX - vec[item]) * material_consume / actual);
 	    if (material_consume < 0)
 		material_consume = 0;
-	    vec[item] = 9999;
+	    vec[item] = ITEM_MAX;
 	    if (( /* vtype != V_FOOD && */ sp->sct_own) &&
 		(!player->simulation))
 		wu(0, sp->sct_own,
 		   "%s production backlog in %s\n",
 		   product->p_name, ownxy(sp));
-	}
+	} else
+	    vec[item] += actual;
     }
     /*
      * Reset produced amount by commodity production ratio

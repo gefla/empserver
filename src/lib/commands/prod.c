@@ -286,11 +286,9 @@ prod(void)
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
-	    if ((there = sect.sct_item[vtype]) >= 9999) {
-		there = 9999;
-	    }
-	    act = min(act, (9999 - there));
-	    max = min(max, (9999 - there));
+	    there = min(ITEM_MAX, sect.sct_item[vtype]);
+	    act = min(act, ITEM_MAX - there);
+	    max = min(max, ITEM_MAX - there);
 	}
 
 	if (prodeff != 0) {

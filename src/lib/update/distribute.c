@@ -178,8 +178,8 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 		amt = amt_sect;
 	    if (sp->sct_mobil < excost * amt)
 		amt = sp->sct_mobil / excost;
-	    if (amt + amt_dist > 9999)
-		amt = 9999 - amt_dist;
+	    if (amt > ITEM_MAX - amt_dist)
+		amt = ITEM_MAX - amt_dist;
 	    if (amt == 0)
 		continue;
 	    /* XXX replace with vector assign and putvec() */

@@ -228,7 +228,7 @@ move(void)
 	left = mob;
     } else if (!istest) {
 	/*
-	   * decrement mobility appropriately.
+	 * decrement mobility appropriately.
 	 */
 	getsect(x, y, &start);
 	mob = start.sct_mobil;
@@ -258,9 +258,10 @@ move(void)
     }
 
     amt_dst = sect.sct_item[vtype];
-    if (32767 - amt_dst < amount) {
+    if (amount > ITEM_MAX - amt_dst) {
 	pr("Only enough room for %d in %s.  The goods will be returned.\n",
-	   32767 - amt_dst, xyas(sect.sct_x, sect.sct_y, player->cnum));
+	   ITEM_MAX - amt_dst, xyas(sect.sct_x, sect.sct_y, player->cnum));
+	/* FIXME Not nice.  Move what we can and return the rest.  */
 	getsect(x, y, &sect);
     }
 
@@ -281,7 +282,7 @@ move(void)
 	    if (tsct.sct_own != player->cnum)
 		continue;
 	    amt_dst = tsct.sct_item[vtype];
-	    if (32767 - amt_dst < amount)
+	    if (amount > ITEM_MAX - amt_dst)
 		continue;
 	    n = -1;
 	    break;

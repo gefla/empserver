@@ -163,7 +163,7 @@ buy(void)
     ip = whichitem(comm.com_type);
     n = sect.sct_item[ip->i_vtype];
     qty = comm.com_amount;
-    if (qty + n > 9990) {
+    if (qty + n > ITEM_MAX) {
 	pr("That sector cannot hold %d more %s. It currently holds %d.\n",
 	   qty, ip->i_name, n);
 	return RET_FAIL;
