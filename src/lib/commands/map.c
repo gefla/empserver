@@ -118,6 +118,10 @@ map(void)
 	case 'P':
 	    map_flags |= MAP_PLANE;
 	    break;
+	case 'h':
+	case 'H':
+	    map_flags |= MAP_HIGH;
+	    break;
 	case '*':
 	    map_flags |= MAP_ALL;
 	    break;

@@ -60,6 +60,8 @@ the same for a ship.
 .s1
 If you give an 's' flag, all your ships will be shown on the map.
 An 'l' flag does the same for land units, and a 'p' for planes.
-'*' gives all of the above.
+'*' shows all in this order: land units, ships, planes.
+
+To highlight sectors owned by yourself, use the 'h' flag.
 .s1
 .SA "census, commodity, radar, realm, route, update, Maps"

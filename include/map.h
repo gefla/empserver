@@ -52,6 +52,7 @@ extern void border(struct range *, s_char *, s_char *);
 #define MAP_SHIP	bit(0)
 #define MAP_LAND	bit(1)
 #define MAP_PLANE	bit(2)
+#define MAP_HIGH	bit(3)
 #define MAP_ALL		MAP_SHIP | MAP_LAND | MAP_PLANE
 
 struct mapstr {

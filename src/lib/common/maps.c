@@ -259,6 +259,26 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	    wmap[y][x] = (*lchr[(int)land.lnd_type].l_name) & ~0x20;
 	}
     }
+    if (map_flags & MAP_HIGH) {
+	register s_char *ptr;
+	struct sctstr sect;
+
+	snxtsct_rewind(nsp);
+	if ((!player->god || country)) {
+	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
+	    bitinit2(nsp, bitmap, country);
+	}
+	while (nxtsct(nsp, &sect) && !player->aborted) {
+	    if ((!player->god || country) &&
+		!emp_getbit(nsp->x, nsp->y, bitmap)) {
+		if (!player->god)
+		    continue;
+	    }
+	    ptr = &wmap[nsp->dy][nsp->dx];
+	    if (sect.sct_own == player->cnum)
+		 *ptr |= 0x80;
+	}
+    }
     if (origin)
 	wmap[5][10] = origin & ~0x20;
     for (y = nsp->range.ly, i = 0; i < nsp->range.height; y++, i++) {
