@@ -350,11 +350,9 @@ multifire(void)
 	    pr("range is %.2f (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
 		if ((mchr[(int)fship.shp_type].m_flags & M_DCH) == 0) {
-		    pr("A %s can't drop depth charges!\n",
-		       mchr[(int)fship.shp_type].m_name);
-		    continue;
-		}
-		if (shell < 2) {
+		    /* Don't tell it's a sub */
+		    range2 = -1;
+		} else if (shell < 2) {
 		    pr("Not enough shells for depth charge!\n");
 		    continue;
 		}
@@ -403,9 +401,8 @@ multifire(void)
 	    range2 = (double)roundrange(range);
 	    pr("range is %.2f (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
-		pr("A %s can't drop depth charges!\n",
-		   lchr[(int)fland.lnd_type].l_name);
-		continue;
+		/* Don't tell it's a sub */
+		range2 = -1;
 	    }
 
 	    gun = fland.lnd_item[I_GUN];
@@ -456,10 +453,6 @@ multifire(void)
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }
-	    if (target == targ_sub) {
-		pr("Target ship not sighted!\n");
-		continue;
-	    }
 	    if (gun > 7)
 		gun = 7;
 	    range = tfactfire(player->cnum, 7.0);
@@ -467,6 +460,10 @@ multifire(void)
 		range++;
 	    range2 = (double)roundrange(range);
 	    pr("range is %.2f (%.2f)\n", range2, range);
+	    if (target == targ_sub) {
+		/* Don't tell it's a sub */
+		range2 = -1;
+	    }
 	    guneff = landgun((int)fsect.sct_effic, gun);
 	    dam = (int)guneff;
 	    shell--;
