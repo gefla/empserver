@@ -111,7 +111,6 @@ spy(void)
     while (nxtsct(&nstr, &from)) {
 	if (!player->owner && !player->god)
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&from, EF_SECTOR);
 	nrecon = 0;
 	nunits = 0;
 	snxtitem_xy(&ni, EF_LAND, from.sct_x, from.sct_y);
@@ -120,7 +119,7 @@ spy(void)
 	    if (lchr[(int)land.lnd_type].l_flags & L_RECON)
 		nrecon++;
 	}
-	if ((military = vec[I_MILIT]) == 0 && (nunits == 0))
+	if ((military = from.sct_item[I_MILIT]) == 0 && (nunits == 0))
 	    continue;
 	x = from.sct_x;
 	y = from.sct_y;
@@ -205,8 +204,7 @@ spy(void)
 	if ((savemil != military) && (savemil > 0)) {
 	    if ((military < 0) || (military > savemil))
 		military = 0;
-	    vec[I_MILIT] = military;
-	    putvec(VT_ITEM, vec, (s_char *)&from, EF_SECTOR);
+	    from.sct_item[I_MILIT] = military;
 	    putsect(&from);
 	}
     }

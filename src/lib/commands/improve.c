@@ -59,7 +59,6 @@ improve(void)
     s_char buf[1024];
     s_char inbuf[128];
     int type;
-    int vec[I_MAX + 1];
     int value;
     int ovalue;
     int maxup;
@@ -101,7 +100,6 @@ improve(void)
 	    continue;
 	if (!check_sect_ok(&sect))
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	maxup = 100 - value;
 	wanted = atoi(p);
 	if (wanted < 0)
@@ -113,8 +111,8 @@ improve(void)
 	lneeded = intrchr[type].in_lcms * maxup;
 	if (opt_NO_LCMS)
 	    lneeded = 0;
-	if (vec[I_LCM] < lneeded) {
-	    lneeded = vec[I_LCM];
+	if (sect.sct_item[I_LCM] < lneeded) {
+	    lneeded = sect.sct_item[I_LCM];
 	    maxup = lneeded / intrchr[type].in_lcms;
 	    if (maxup <= 0) {
 		pr("Not enough lcms in %s\n",
@@ -125,8 +123,8 @@ improve(void)
 	hneeded = intrchr[type].in_hcms * maxup;
 	if (opt_NO_HCMS)
 	    hneeded = 0;
-	if (vec[I_HCM] < hneeded) {
-	    hneeded = vec[I_HCM];
+	if (sect.sct_item[I_HCM] < hneeded) {
+	    hneeded = sect.sct_item[I_HCM];
 	    maxup = hneeded / intrchr[type].in_hcms;
 	    if (maxup <= 0) {
 		pr("Not enough hcms in %s\n",
@@ -168,11 +166,10 @@ improve(void)
 	dneeded = intrchr[type].in_dcost * maxup;
 	player->dolcost += dneeded;
 	if (!opt_NO_LCMS)
-	    vec[I_LCM] -= lneeded;
+	    sect.sct_item[I_LCM] -= lneeded;
 	if (!opt_NO_HCMS)
-	    vec[I_HCM] -= hneeded;
+	    sect.sct_item[I_HCM] -= hneeded;
 	sect.sct_mobil -= mneeded;
-	putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	ovalue = value;
 	value += maxup;
 	if (value > 100)

@@ -59,7 +59,7 @@ shoo(void)
     struct lndstr land;
     int targets;
     s_char *p;
-    int vec[I_MAX + 1], mil, nsec;
+    int mil, nsec;
     s_char prompt[128];
     s_char buf[128];
 
@@ -78,9 +78,7 @@ shoo(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	if (getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR) <= 0)
-	    continue;
-	mil = vec[I_MILIT];
+	mil = sect.sct_item[I_MILIT];
 	nsec = 0;
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
 	while (nxtitem(&ni, (s_char *)&land)) {
@@ -92,9 +90,9 @@ shoo(void)
 	    }
 	}
 
-	if (vec[item] == 0 || vec[I_CIVIL] > mil * 10)
+	if (sect.sct_item[item] == 0 || sect.sct_item[I_CIVIL] > mil * 10)
 	    continue;
-	nshot = vec[item] > targets ? targets : vec[item];
+	nshot = sect.sct_item[item] > targets ? targets : sect.sct_item[item];
 	m = ((double)nshot + 4.0) / 5.0;
 
 	if (m > sect.sct_mobil) {
@@ -117,18 +115,17 @@ shoo(void)
 	    m = sect.sct_mobil;
 	mob_cost = roundavg(m);
 	sect.sct_mobil -= (u_char)mob_cost;
-	vec[item] -= nshot;
+	sect.sct_item[item] -= nshot;
 	pr("BANG!! (thump) %d %s shot in %s!\n",
 	   nshot, ip->i_name, xyas(sect.sct_x, sect.sct_y, player->cnum));
 	if (chance(nshot / 100.0))
 	    nreport(player->cnum, N_SHOOT_CIV, sect.sct_oldown, 1);
-	if (vec[item] <= 0 && item == V_CIVIL
+	if (sect.sct_item[item] <= 0 && item == I_CIVIL
 	    && (sect.sct_own != sect.sct_oldown)) {
 	    sect.sct_oldown = sect.sct_own;
 	    pr("  %s is now completely yours\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	}
-	sect.sct_item[item] = vec[item];
 	putsect(&sect);
     }
     return RET_OK;

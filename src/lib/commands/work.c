@@ -130,8 +130,6 @@ buildeff(struct sctstr *sp, int work, double *money)
     int n, hcms, lcms;
     int effdone = 0;
 
-    getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-
     work_cost = 0;
     if (sp->sct_type != sp->sct_newtype) {
 	/*
@@ -159,13 +157,13 @@ buildeff(struct sctstr *sp, int work, double *money)
 	    work_cost = work;
 
 	if (dchr[sp->sct_type].d_lcms > 0) {
-	    lcms = vec[I_LCM];
+	    lcms = sp->sct_item[I_LCM];
 	    lcms /= dchr[sp->sct_type].d_lcms;
 	    if (work_cost > lcms)
 		work_cost = lcms;
 	}
 	if (dchr[sp->sct_type].d_hcms > 0) {
-	    hcms = vec[I_HCM];
+	    hcms = sp->sct_item[I_HCM];
 	    hcms /= dchr[sp->sct_type].d_hcms;
 	    if (work_cost > hcms)
 		work_cost = hcms;
@@ -176,11 +174,10 @@ buildeff(struct sctstr *sp, int work, double *money)
 
 	if ((dchr[sp->sct_type].d_lcms > 0) ||
 	    (dchr[sp->sct_type].d_hcms > 0)) {
-	    vec[I_LCM] -= work_cost * dchr[sp->sct_type].d_lcms;
-	    vec[I_HCM] -= work_cost * dchr[sp->sct_type].d_hcms;
+	    sp->sct_item[I_LCM] -= work_cost * dchr[sp->sct_type].d_lcms;
+	    sp->sct_item[I_HCM] -= work_cost * dchr[sp->sct_type].d_hcms;
 	}
 	effdone += work_cost;
     }
-    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     return effdone;
 }
