@@ -400,7 +400,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	    hold = vec[type];
 	    vec[type] = 0;
 	    putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	    land.lnd_fuel = 0;
 	    putland(land.lnd_uid, &land);
 
 	    hold += s_commod(own, land.lnd_x, land.lnd_y, type, wanted,
