@@ -213,11 +213,7 @@ struct castr nuke_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc"},
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc"},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number"},
-#if !defined(_WIN32)
     {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types[0]), "types"},
-#else
-    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types"},
-#endif
     {NSC_TIME, 0, 0, fldoff(nukstr, nuk_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
@@ -298,13 +294,8 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
-#if !defined(_WIN32)
     {NSC_CHAR, 0, 20, fldoff(natstr, nat_cnam[0]), "cnam"},
     {NSC_CHAR, NSC_DEITY, 20, fldoff(natstr, nat_pnam[0]), "pnam"},
-#else
-    {NSC_CHAR, 0, 20, fldoff(natstr, nat_cnam), "cnam"},
-    {NSC_CHAR, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "pnam"},
-#endif
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xstart), "xstart"},
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ystart), "ystart"},
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xcap), "xcap"},
@@ -329,11 +320,7 @@ struct castr nat_ca[] = {
     {NSC_TIME, 0, 0, fldoff(natstr, nat_last_logout), "last_logout"},
     {NSC_TIME, 0, 0, fldoff(natstr, nat_newstim), "newstim"},
 #endif /* MAYBE_LATER */
-#if !defined(_WIN32)
     {NSC_FLOAT, 0, 4, fldoff(natstr, nat_level[0]), "level"},
-#else
-    {NSC_FLOAT, 0, 4, fldoff(natstr, nat_level), "level"},
-#endif
 #if 0
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate[0]),"relate"},
     {NSC_CHAR, 0, PRI_MAX+1, fldoff(natstr, nat_priorities[0]),"priorities"},
