@@ -53,6 +53,7 @@ all:
 	@echo '   freebsd'
 	@echo '   hp'
 	@echo '   hpux'
+	@echo '   interix'
 	@echo '   irix'
 	@echo '   irix5'
 	@echo '   isi'
@@ -223,6 +224,14 @@ nt:
 	cd ../../..
 	$(MAKE) ntbinaries TOBUILD=nt $(NTMASTER)
 	$(MAKE) ntinstall
+
+interix:
+	@echo 'building a $(WORLDX) by $(WORLDY) server...'
+	(cd src/doconfig; $(MAKE) $(INTERIXMASTER))
+	($(MAKE) genlibs $(INTERIXMASTER))
+	(cd src/lib/lwp; $(MAKE) $(INTERIXMASTER))
+	($(MAKE) binaries $(INTERIXMASTER))
+	($(MAKE) install)
 
 vaxultrix:
 	@echo 'building a $(WORLDX) by $(WORLDY) server...'
