@@ -94,7 +94,6 @@ carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
     struct nstr_item ni;
     struct mchrstr *mp;
     struct shpstr ship;
-    int allied;
 
     first = 1;
     ships = 0;
@@ -102,8 +101,10 @@ carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
     while (nxtitem(&ni, (s_char *)&ship)) {
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
-	allied = (getrel(getnatp(ship.shp_own), own) == ALLIED);
-	if ((ship.shp_own != own) && !allied)
+	if (ship.shp_own != own
+	    && getrel(getnatp(ship.shp_own), own) != ALLIED)
+	    continue;
+	if (ship.shp_effic < SHP_AIROPS_EFF)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];
 	if (wantflags) {

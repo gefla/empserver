@@ -60,16 +60,58 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
     int nships;
     int cno;
     int flags;
-    int n;
     struct shpstr ship;
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
 
     flags = *flagp;
-    if ((target->sct_own && target->sct_own != player->cnum &&
-	 (getrel(getnatp(target->sct_own), player->cnum) != ALLIED)) &&
-	(target->sct_type != SCT_HARBR) &&
-	(target->sct_type != SCT_BSPAN)) {
+
+    /* offer carriers */
+    nships = carriersatxy(target->sct_x, target->sct_y,
+			  M_FLY | M_CHOPPER, 0, player->cnum);
+    if (nships) {
+	for (;;) {
+	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
+		break;
+	    cno = atoi(p);
+	    if (cno < 0
+		|| !getship(cno, &ship)
+		|| (!player->owner
+		    && (getrel(getnatp(ship.shp_own), player->cnum)
+			!= ALLIED))) {
+		pr("Not yours\n");
+		continue;
+	    }
+	    if (ship.shp_x != target->sct_x || ship.shp_y != target->sct_y) {
+		pr("Ship #%d not in %s\n", cno,
+		   xyas(target->sct_x, target->sct_y, player->cnum));
+		continue;
+	    }
+	    if ((!(mchr[(int)ship.shp_type].m_flags & M_FLY)
+		 && !(mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
+		 && !(mchr[(int)ship.shp_type].m_flags & M_CHOPPER))
+		|| ship.shp_effic < SHP_AIROPS_EFF) {
+		pr("Can't land on %s.\n", prship(&ship));
+		continue;
+	    }
+
+	    /* clear to land on ship#CNO */
+	    pr("landing on carrier %d\n", cno);
+	    if (mchr[(int)ship.shp_type].m_flags & M_FLY)
+		flags |= P_L;
+	    if (mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
+		flags |= P_K;
+	    if (mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
+		flags |= P_E;
+	    *shipno = cno;
+	    *flagp = flags;
+	    return 0;
+	}
+    }
+
+    /* try to land at sector */
+    if (target->sct_own != player->cnum
+	&& getrel(getnatp(target->sct_own), player->cnum) != ALLIED) {
 	pr("Nowhere to land at sector %s!\n",
 	   xyas(target->sct_x, target->sct_y, player->cnum));
 	return -1;
@@ -79,82 +121,11 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 	   xyas(target->sct_x, target->sct_y, player->cnum));
 	return -1;
     }
-    cno = -1;
     if (target->sct_type != SCT_AIRPT || target->sct_effic < 60)
 	flags |= P_V;
-    if (target->sct_type == SCT_WATER || target->sct_type == SCT_HARBR
-	|| target->sct_type == SCT_BSPAN) {
-	nships = carriersatxy(target->sct_x, target->sct_y,
-			      M_FLY | M_CHOPPER, 0, player->cnum);
-	if (nships <= 0) {
-	    if (target->sct_type == SCT_WATER) {
-		pr("Nowhere to land at sector %s!\n",
-		   xyas(target->sct_x, target->sct_y, player->cnum));
-		return -1;
-	    } else {
-		if ((target->sct_own && target->sct_own != player->cnum)
-		    && (getrel(getnatp(target->sct_own), player->cnum) !=
-			ALLIED)) {
-		    pr("Nowhere to land at sector %s!\n",
-		       xyas(target->sct_x, target->sct_y, player->cnum));
-		    return -1;
-		}
-		*shipno = cno;
-		*flagp = flags;
-		return 0;
-	    }
-	}
-	cno = (-1);
-	n = (-1);
-	while (cno < 0) {
-	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
-		break;
-	    n = atoi(p);
-	    if (n < 0 || !getship(n, &ship)
-		|| (!player->owner
-		    && (getrel(getnatp(ship.shp_own), player->cnum)
-			!= ALLIED))) {
-		pr("Not yours\n");
-		continue;
-	    }
-	    if (ship.shp_x != target->sct_x || ship.shp_y != target->sct_y) {
-		pr("Ship #%d not in %s\n", n,
-		   xyas(target->sct_x, target->sct_y, player->cnum));
-		continue;
-	    }
-	    if (!(mchr[(int)ship.shp_type].m_flags & M_FLY)
-		&& !(mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-		&& !(mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
-		) {
-		pr("Can't land on %s.\n", prship(&ship));
-		continue;
-	    }
-	    pr("landing on carrier %d\n", n);
-	    cno = n;
-	    flags &= ~P_V;
-	    if (mchr[(int)ship.shp_type].m_flags & M_FLY)
-		flags |= P_L;
-	    if (mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
-		flags |= P_K;
-	    if (mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-		flags |= P_E;
-	}
-	if ((target->sct_own && target->sct_own != player->cnum) &&
-	    (getrel(getnatp(target->sct_own), player->cnum) != ALLIED) &&
-	    (cno == -1)) {
-	    pr("Nowhere to land at sector %s!\n",
-	       xyas(target->sct_x, target->sct_y, player->cnum));
-	    return -1;
-	}
-    }
 
-    if ((target->sct_own == 0) && (cno < 0)) {
-	pr("Nowhere to land at sector %s!\n",
-	   xyas(target->sct_x, target->sct_y, player->cnum));
-	return -1;
-    }
-
-    *shipno = cno;
+    /* clear to land at sector */
+    *shipno = -1;
     *flagp = flags;
     return 0;
 }
