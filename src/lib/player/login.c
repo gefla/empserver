@@ -56,7 +56,7 @@
 #endif
 #include <errno.h>
 
-struct cmndstr login_coms[];
+extern struct cmndstr login_coms[];
 
 
 /*ARGSUSED*/
