@@ -139,7 +139,6 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     pt_bg_nmbr(bp, sp, I_CIVIL, vec[I_CIVIL]);
     pt_bg_nmbr(bp, sp, I_UW, vec[I_UW]);
     pt_bg_nmbr(bp, sp, I_MILIT, vec[I_MILIT]);
-    if (work_avail > 999) work_avail = 999;
     *workp = work_avail;
     return sctwork;
 }
