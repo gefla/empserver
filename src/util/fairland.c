@@ -194,6 +194,10 @@ main(int argc, char *argv[])
     char tbuf[512];
     int i = 0;
 
+#if defined(_WIN32)
+    _fmode = _O_BINARY;
+#endif
+    
     rnd_seed = time(NULL);
 
     while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
@@ -407,14 +411,8 @@ allocate_memory(void)
 {
     int i;
 
-#if !defined(_WIN32)
-    the_file =
-	open(empfile[EF_SECTOR].file, O_RDWR | O_CREAT | O_TRUNC, 0660);
-#else
-    the_file =
-	open(empfile[EF_SECTOR].file,
-	     O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
-#endif
+    the_file = open(empfile[EF_SECTOR].file, O_RDWR | O_CREAT | O_TRUNC,
+		    0660);
     if (the_file < 0) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;
