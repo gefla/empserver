@@ -24,8 +24,8 @@ Constructing Binaries
 	to do this once before the first build.  You may run this again if
 	you make significant changes to the code (including new files, etc.)
 
-	Second, Run "make <arch> &" at the top level.
-	
+	Second, Run "make <arch>" at the top level.
+
 Installing Info Pages
 
 	The INFO pages aren't run as a part of the normal make session.
