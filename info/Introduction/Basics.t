@@ -7,7 +7,7 @@ is what you do.  There are some general guidelines here, and some
 deities may be more forgiving than others.
 .s1
 One player, one country.
-You man NEVER use any country other than your own.
+You may NEVER use any country other than your own.
 It is ok for two people to play one country
 but it is NEVER ok for one person to play two countries.
 If you are caught doing this, your countries will be removed
