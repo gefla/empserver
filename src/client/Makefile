@@ -58,16 +58,7 @@ emp_client: $(OFILES)
 nt: emp_client.exe
 
 emp_client.exe: $(OBJFILES) $(CFILES)
-	link /OUT:emp_client.exe \
-        /PDB:emp_client.pdb  /NOLOGO \
-        /NOD /DEBUG:full /DEBUGTYPE:cv /MACHINE:IX86 /NOLOGO \
-        $(OBJFILES) \
-        kernel32.lib \
-        wsock32.lib \
-        libcmt.lib \
-        oldnames.lib
-
-#	cl /D_WIN32 /Feemp_client.exe $(CFILES) wsock32.lib
+	cl $(CFLAGS) /Feemp_client.exe $(OBJFILES) wsock32.lib advapi32.lib
 
 dgux: $(OFILES) 
 	$(CC) $(CFLAGS) -dn -o emp_client $(OFILES) -lsocket -lnsl -ltermcap -lc

@@ -53,7 +53,7 @@ linux: $(OFILES)
 	$(CC) -o empire $(OFILES) -lcurses
 
 nt:
-	cl /DWIN32 /Feempire.exe $(CFILES) wsock32.lib
+	cl /DWIN32 /Feempire.exe $(CFILES) wsock32.lib advapi32.lib
 
 dgux: $(OFILES) 
 	$(CC) $(CFLAGS) -dn -o empire $(OFILES) -lsocket -lnsl -ltermcap -lc
