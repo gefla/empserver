@@ -80,7 +80,7 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
     vtype = ip->i_vtype;
     pack_src = ip->i_pkg[dp->d_pkg];
     mobility = from->sct_mobil / 2;
-    if (vtype == V_CIVIL && from->sct_own != from->sct_oldown) {
+    if (vtype == I_CIVIL && from->sct_own != from->sct_oldown) {
 	wu(0, from->sct_own,
 	   "The conquered populace in %s refuses to relocate!\n",
 	   ownxy(from));

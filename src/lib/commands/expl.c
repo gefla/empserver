@@ -74,7 +74,7 @@ explore(void)
     if (!(ip = whatitem(player->argp[1], "explore with what? (civ/mil) ")))
 	return RET_SYN;
     vtype = ip->i_vtype;
-    if ((vtype != V_CIVIL) && (vtype != V_MILIT)) {
+    if ((vtype != I_CIVIL) && (vtype != I_MILIT)) {
 	pr("You can only explore with civs and mil.\n");
 	return RET_FAIL;
     }
@@ -94,7 +94,7 @@ explore(void)
     }
     own = sect.sct_own;
     mob = (int)sect.sct_mobil;
-    if (vtype == V_CIVIL && sect.sct_oldown != own) {
+    if (vtype == I_CIVIL && sect.sct_oldown != own) {
 	pr("You can't explore with conquered populace!\n");
 	return RET_SYN;
     }
@@ -103,12 +103,12 @@ explore(void)
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_SYN;
     }
-    if (vtype == V_CIVIL) {
+    if (vtype == I_CIVIL) {
 	work = sect.sct_work;
 	if (work != 100)
 	    pr("Warning: civil unrest\n");
 	loyal = sect.sct_loyal;
-    } else if (vtype == V_MILIT) {
+    } else if (vtype == I_MILIT) {
 	work = 100;
 	loyal = 0;
     }
@@ -226,7 +226,7 @@ explore(void)
 	sect.sct_work = work;
 	sect.sct_loyal = loyal;
     }
-    if (vtype == V_CIVIL && sect.sct_oldown != player->cnum) {
+    if (vtype == I_CIVIL && sect.sct_oldown != player->cnum) {
 	pr("Your civilians don't want to stay!\n");
 	getsect(start.sct_x, start.sct_y, &sect);
 	if (sect.sct_own != own) {
@@ -262,7 +262,7 @@ explore(void)
     }
     if (infected && sect.sct_pstage == PLG_HEALTHY)
 	sect.sct_pstage = PLG_EXPOSED;
-    if (vtype == V_CIVIL) {
+    if (vtype == I_CIVIL) {
 	sect.sct_loyal
 	    = (amt_dst * sect.sct_loyal + amount * loyal) / (amt_dst + amount);
 	sect.sct_work

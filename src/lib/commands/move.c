@@ -94,7 +94,7 @@ move(void)
      * military control necessary to move
      * goodies in occupied territory.
      */
-    if (!istest && sect.sct_oldown != player->cnum && vtype != V_MILIT) {
+    if (!istest && sect.sct_oldown != player->cnum && vtype != I_MILIT) {
 	int tot_mil = 0;
 	struct nstr_item ni;
 	struct lndstr land;
@@ -119,7 +119,7 @@ move(void)
     }
     own = sect.sct_own;
     mob = (int)sect.sct_mobil;
-    if (!istest && vtype == V_CIVIL && sect.sct_oldown != own) {
+    if (!istest && vtype == I_CIVIL && sect.sct_oldown != own) {
 	pr("You can't move conquered populace!\n");
 	return RET_FAIL;
     }
@@ -128,12 +128,12 @@ move(void)
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_SYN;
     }
-    if (vtype == V_CIVIL) {
+    if (vtype == I_CIVIL) {
 	work = sect.sct_work;
 	if (work != 100)
 	    pr("Warning: civil unrest\n");
 	loyal = sect.sct_loyal;
-    } else if (vtype == V_MILIT) {
+    } else if (vtype == I_MILIT) {
 	work = 100;
 	loyal = 0;
     }
@@ -251,7 +251,7 @@ move(void)
 	    pr("Somebody has captured that sector!\n");
 	getsect(x, y, &sect);
     }
-    if (vtype == V_CIVIL && sect.sct_item[I_CIVIL]
+    if (vtype == I_CIVIL && sect.sct_item[I_CIVIL]
 	&& sect.sct_oldown != player->cnum) {
 	pr("Your civilians don't want to stay!\n");
 	getsect(x, y, &sect);
@@ -330,7 +330,7 @@ move(void)
      */
     if (infected && sect.sct_pstage == PLG_HEALTHY)
 	sect.sct_pstage = PLG_EXPOSED;
-    if (vtype == V_CIVIL) {
+    if (vtype == I_CIVIL) {
 	sect.sct_loyal
 	    = (amt_dst * sect.sct_loyal + amount * loyal) / (amt_dst + amount);
 	sect.sct_work
@@ -388,16 +388,16 @@ would_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
 {
     int mil, civs, loyalcivs;
 
-    if ((vtype != V_CIVIL) && (vtype != V_MILIT))
+    if ((vtype != I_CIVIL) && (vtype != I_MILIT))
 	return 0;
 
     mil = sp->sct_item[I_MILIT];
     civs = sp->sct_item[I_CIVIL];
 
-    if (vtype == V_MILIT)
+    if (vtype == I_MILIT)
 	mil -= amnt;
 
-    if (vtype == V_CIVIL)
+    if (vtype == I_CIVIL)
 	civs -= amnt;
 
     if (sp->sct_own == sp->sct_oldown)

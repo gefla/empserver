@@ -59,7 +59,7 @@ deli(void)
     if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
 	return RET_SYN;
     /*
-       if (ich->i_vtype == V_CIVIL || ich->i_vtype == V_MILIT) {
+       if (ich->i_vtype == I_CIVIL || ich->i_vtype == I_MILIT) {
        pr("You cannot deliver people!\n");
        return RET_FAIL;
        }

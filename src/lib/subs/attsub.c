@@ -2554,7 +2554,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
     }
 
     if (dam) {
-	left = commdamage(num_mil, dam, V_MILIT);
+	left = commdamage(num_mil, dam, I_MILIT);
 	if (left < num_mil) {
 	    if (left) {
 		pr("%d of the mil you were moving were destroyed!\nOnly %d mil made it to %s\n", num_mil - left, left, xyas(def->x, def->y, player->cnum));

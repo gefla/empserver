@@ -292,7 +292,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	       xyas(tx, ty, player->cnum));
 	    return;
 	}
-	if (ip->i_vtype == V_CIVIL && sectp->sct_own != sectp->sct_oldown) {
+	if (ip->i_vtype == I_CIVIL && sectp->sct_own != sectp->sct_oldown) {
 	    pr("%s is occupied.  Your civilians suffer from identity crisis and die.\n",
 	       xyas(tx, ty, player->cnum));
 	    return;
@@ -621,7 +621,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	own = sect.sct_oldown;
     }
     if (ip) {
-	if (ip->i_vtype == V_CIVIL) {
+	if (ip->i_vtype == I_CIVIL) {
 	    if (pp->pln_own != own) {
 		pr("You don't control those civilians!\n");
 		return -1;

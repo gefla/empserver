@@ -40,8 +40,6 @@
 #define	PLG_INCUBATE	3
 #define	PLG_EXPOSED	4
 
-#define	V_ITEM(x)	(x)
-
 #define I_NONE		0
 #define I_CIVIL		1
 #define I_MILIT		2
@@ -58,20 +56,5 @@
 #define I_UW		13
 #define I_RAD		14
 #define I_MAX		14
-
-#define	V_CIVIL		V_ITEM(I_CIVIL)
-#define	V_MILIT		V_ITEM(I_MILIT)
-#define	V_SHELL		V_ITEM(I_SHELL)
-#define	V_GUN		V_ITEM(I_GUN)
-#define	V_PETROL	V_ITEM(I_PETROL)
-#define	V_IRON		V_ITEM(I_IRON)
-#define	V_DUST		V_ITEM(I_DUST)
-#define	V_BAR		V_ITEM(I_BAR)
-#define	V_FOOD		V_ITEM(I_FOOD)
-#define	V_OIL		V_ITEM(I_OIL)
-#define	V_LCM		V_ITEM(I_LCM)
-#define	V_HCM		V_ITEM(I_HCM)
-#define V_UW		V_ITEM(I_UW)
-#define V_RAD		V_ITEM(I_RAD)
 
 #endif /* _VAR_H_ */

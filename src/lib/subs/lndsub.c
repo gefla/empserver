@@ -1134,9 +1134,9 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	}
 	/* Note we check would_abandon first because we don't want
 	   to always have to do these checks */
-	if (would_abandon(&osect, V_CIVIL, 0, &(llp->land))) {
+	if (would_abandon(&osect, I_CIVIL, 0, &(llp->land))) {
 	    stop = 0;
-	    if (!want_to_abandon(&osect, V_CIVIL, 0, &(llp->land))) {
+	    if (!want_to_abandon(&osect, I_CIVIL, 0, &(llp->land))) {
 		stop = 1;
 	    }
 	    /* now check stuff */

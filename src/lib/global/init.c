@@ -92,7 +92,7 @@ init_pchr(void)
 
     for (p = pchr, pcount = 0; pcount < prd_maxno; pcount++, p++) {
 	if (opt_GO_RENEW) {
-	    if (p->p_type == V_DUST || p->p_type == V_OIL)
+	    if (p->p_type == I_DUST || p->p_type == I_OIL)
 		p->p_nrdep = 0;
 	}
     }

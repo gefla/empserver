@@ -64,7 +64,7 @@ shoo(void)
     s_char buf[128];
 
     ip = whatitem(player->argp[1], "Shoot what <civ or uw> ");
-    if (ip == 0 || (ip->i_vtype != V_CIVIL && ip->i_vtype != V_UW))
+    if (ip == 0 || (ip->i_vtype != I_CIVIL && ip->i_vtype != I_UW))
 	return RET_SYN;
     item = ip->i_vtype;
     if (!snxtsct(&nstr, player->argp[2]))

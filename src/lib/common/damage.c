@@ -196,12 +196,12 @@ commdamage(register int amt, int dam, int vtype)
 {
     int lost;
 
-    if (vtype == V_BAR && opt_SUPER_BARS)
+    if (vtype == I_BAR && opt_SUPER_BARS)
 	return amt;
 
     lost = amt - effdamage(amt, dam);
 
-    if (vtype == V_MILIT || vtype == V_CIVIL || vtype == V_UW)
+    if (vtype == I_MILIT || vtype == I_CIVIL || vtype == I_UW)
 	lost = ldround(people_damage * lost, 1);
     return amt - lost;
 }

@@ -98,13 +98,13 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
     sect_amt = psect->sct_item[comm];
 
     /* check for disloyal civilians */
-    if (psect->sct_oldown != shipown && comm == V_CIVIL) {
+    if (psect->sct_oldown != shipown && comm == I_CIVIL) {
 	wu(0, shipown,
 	   "Ship #%d - unable to load disloyal civilians at %s.",
 	   sp->shp_uid, xyas(psect->sct_x, psect->sct_y, psect->sct_own));
 	return 0;
     }
-    if (comm == V_CIVIL || comm == V_MILIT)
+    if (comm == I_CIVIL || comm == I_MILIT)
 	sect_amt--;		/* leave 1 civ or mil to hold the sector. */
     vship = &mchr[(int)sp->shp_type];
     abs_max = max_amt = vship->m_item[comm];
@@ -133,7 +133,7 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
 
 
     sp->shp_item[comm] = ship_amt + transfer;
-    if (comm == V_CIVIL || comm == V_MILIT)
+    if (comm == I_CIVIL || comm == I_MILIT)
 	sect_amt++;		/*adjustment */
     psect->sct_item[comm] = sect_amt - transfer;
 
@@ -188,14 +188,14 @@ unload_it(register struct shpstr *sp)
 	sect_amt = sectp->sct_item[comm];
 
 	/* check for disloyal civilians */
-	if (sectp->sct_oldown != shipown && comm == V_CIVIL) {
+	if (sectp->sct_oldown != shipown && comm == I_CIVIL) {
 	    wu(0, sp->shp_own,
 	       "Ship #%d - unable to unload civilians into a disloyal sector at %s.",
 	       sp->shp_uid, xyas(sectp->sct_x, sectp->sct_y,
 				 sectp->sct_own));
 	    continue;
 	}
-	if (comm == V_CIVIL)
+	if (comm == I_CIVIL)
 	    ship_amt--;		/* This leaves 1 civs on board the ship */
 
 	max_amt = min(ship_amt, ITEM_MAX - sect_amt);

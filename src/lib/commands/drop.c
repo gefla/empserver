@@ -99,13 +99,13 @@ drop(void)
 
     if (target.sct_own == player->cnum
 	|| getrel(getnatp(target.sct_own), player->cnum) == ALLIED) {
-	if (ip->i_vtype == V_CIVIL && target.sct_own != target.sct_oldown) {
+	if (ip->i_vtype == I_CIVIL && target.sct_own != target.sct_oldown) {
 	    pr("Can't drop civilians into occupied sectors.\n");
 	    return RET_FAIL;
 	}
     } else {
 	/* into the unknown... */
-	if (ip->i_vtype != V_SHELL) {
+	if (ip->i_vtype != I_SHELL) {
 	    pr("You don't own %s!\n", xyas(tx, ty, player->cnum));
 	    return RET_FAIL;
 	}
@@ -152,7 +152,7 @@ drop(void)
     } else {
 	getsect(tx, ty, &target);
 	if (target.sct_type == SCT_WATER && (mission_flags & P_MINE)
-	    && ip->i_vtype == V_SHELL)
+	    && ip->i_vtype == I_SHELL)
 	    pln_mine(&bomb_list, &target);
 	else
 	    pln_dropoff(&bomb_list, ip, tx, ty, (s_char *)&target, EF_SECTOR);
