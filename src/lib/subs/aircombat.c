@@ -790,7 +790,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 void
 ac_doflak(struct emp_qelem *list, struct sctstr *from)
 {
-    int shell, add;
+    int shell;
     int gun;
     natid plane_owner;
     struct plist *plp;
@@ -800,22 +800,18 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
 
     gun = from->sct_item[I_GUN];
     shell = from->sct_item[I_SHELL];
-    add = 0;
-    if (shell < (gun / 2))
-	add = supply_commod(from->sct_own, from->sct_x, from->sct_y,
-			    I_SHELL, ldround(((double)gun / 2.0),
-					     1) - shell);
-    shell += add;
-    if (gun == 0 || shell == 0)
-	return;
+    if (gun > shell * 2) {
+	shell += supply_commod(from->sct_own, from->sct_x, from->sct_y,
+			       I_SHELL, (gun + 1) / 2 - shell);
+	from->sct_item[I_SHELL] = shell;
+	putsect(from);
+    }
     if (gun > shell * 2)
 	gun = shell * 2;
     if (gun > 14)
 	gun = 14;
 
-    from->sct_item[I_SHELL] = shell;
-    putsect(from);
-    gun = 2.0 * tfact(from->sct_own, (double)gun);
+    gun = 2.0 * tfact(from->sct_own, gun);
     if (gun > 0) {
 	PR(plane_owner, "firing %d flak guns in %s...\n",
 	   gun, xyas(from->sct_x, from->sct_y, plane_owner));
@@ -863,9 +859,12 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
 	if (gun) {
 	    shell = ship.shp_item[I_SHELL];
-	    if (shell <= 0)
+	    if (shell <= 0) {
 		shell = supply_commod(ship.shp_own, ship.shp_x,
 				      ship.shp_y, I_SHELL, 1);
+		ship.shp_item[I_SHELL] = shell;
+		putship(ship.shp_uid, &ship);
+	    }
 	}
 	if (gun == 0 || shell == 0)
 	    continue;
@@ -882,8 +881,6 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	}
 	PR(ship.shp_own, "firing %d flak guns from %s...\n",
 	   firing, prship(&ship));
-	ship.shp_item[I_SHELL] = shell;
-	putship(ship.shp_uid, &ship);
 	from = ship.shp_own;
     }
     if (guns > 0) {
