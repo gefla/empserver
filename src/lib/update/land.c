@@ -364,29 +364,32 @@ feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
 	  int doit)
 {
     double food_eaten, ship_eaten;
+    int ifood_eaten;
     double people_left;
-    int can_eat, need;
+    int need;
     int total_people;
     int starved;
-    struct lchrstr *lcp;
     struct shpstr *sp;
 
     if (opt_NOFOOD)
 	return 0;		/* no food no work to be done */
 
-    lcp = &lchr[(int)lp->lnd_type];
-
-    food_eaten = (etus * eatrate) * total_mil(lp);
+    total_people = total_mil(lp);
+    food_eaten = etus * eatrate * total_people;
+    ifood_eaten = (int)food_eaten;
+    if (food_eaten - ifood_eaten > 0)
+	ifood_eaten++;
     starved = 0;
     *needed = 0;
+
     /*
      * If we're on a ship, and we don't have enough food,
      * get some food off the carrying ship. (Don't starve
      * the ship, tho...
      */
 /* doit - Only try to take food off the ship during the update */
-    if ((food_eaten > vec[I_FOOD]) && (lp->lnd_ship >= 0) && doit) {
-	need = (int)food_eaten - vec[I_FOOD];
+    if (ifood_eaten > vec[I_FOOD] && lp->lnd_ship >= 0 && doit) {
+	need = ifood_eaten - vec[I_FOOD];
 	sp = getshipp(lp->lnd_ship);
 	ship_eaten = etus * eatrate * (sp->shp_item[I_CIVIL]
 				       + sp->shp_item[I_MILIT]
@@ -400,26 +403,13 @@ feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
 	}
     }
 
-    if (food_eaten > vec[I_FOOD]) {
-	*needed = food_eaten - vec[I_FOOD];
-	if (*needed < (food_eaten - vec[I_FOOD]))
-	    (*needed)++;
-	can_eat = (vec[I_FOOD] / (etus * eatrate));
-	total_people = total_mil(lp);
-	/* only want to starve off at most 1/2 the populace. */
-	if (can_eat < (total_people / 2))
-	    can_eat = total_people / 2;
-
+    if (ifood_eaten > vec[I_FOOD]) {
+	*needed = ifood_eaten - vec[I_FOOD];
 	people_left = (vec[I_FOOD] + 0.01) / (food_eaten + 0.01);
 	/* only want to starve off at most 1/2 the populace. */
 	if (people_left < 0.5)
 	    people_left = 0.5;
-/*		lp->lnd_effic *= people_left;*/
-	starved = vec[I_MILIT] - (vec[I_MILIT] * people_left);
-/*		if (!player->simulation)
-		        wu(0, lp->lnd_own, "%d mil starved on unit %s.\n",
-			   starved,
-			   prland(lp));*/
+	starved = total_people * (1 - people_left);
 	vec[I_MILIT] -= starved;
 	vec[I_FOOD] = 0;
     } else {

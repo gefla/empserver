@@ -438,47 +438,41 @@ feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
     if (opt_NOFOOD)
 	return 0;		/* no food no work to do */
 
-    food_eaten =
-	(etus * eatrate) * (vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW]);
+    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+    food_eaten = etus * eatrate * total_people;
     ifood_eaten = (int)food_eaten;
-    if ((food_eaten - ifood_eaten) > 0)
+    if (food_eaten - ifood_eaten > 0)
 	ifood_eaten++;
     starved = 0;
     *needed = 0;
-    if (!player->simulation && food_eaten > vec[I_FOOD])
+    if (!player->simulation && ifood_eaten > vec[I_FOOD])
 	vec[I_FOOD] += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				     I_FOOD, (ifood_eaten - vec[I_FOOD]));
+				     I_FOOD, ifood_eaten - vec[I_FOOD]);
 
-    if (food_eaten > vec[I_FOOD]) {
 /* doit - only steal food from land units during the update */
-	if (sp->shp_nland > 0 && doit) {
-	    snxtitem_all(&ni, EF_LAND);
-	    while ((lp = (struct lndstr *)nxtitemp(&ni, 0)) &&
-		   (food_eaten > vec[I_FOOD])) {
-		if (lp->lnd_ship != sp->shp_uid)
-		    continue;
-		need = ifood_eaten - vec[I_FOOD];
-		land_eaten = (etus * eatrate) * (double)lnd_getmil(lp);
-		if (lp->lnd_item[I_FOOD] - need > land_eaten) {
-		    vec[I_FOOD] += need;
-		    lp->lnd_item[I_FOOD] -= need;
-		} else if (lp->lnd_item[I_FOOD] - land_eaten > 0) {
-		    vec[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
-		    lp->lnd_item[I_FOOD] -= lp->lnd_item[I_FOOD] - land_eaten;
-		}
+    if (ifood_eaten > vec[I_FOOD] && sp->shp_nland > 0 && doit) {
+	snxtitem_all(&ni, EF_LAND);
+	while ((lp = (struct lndstr *)nxtitemp(&ni, 0)) &&
+	       ifood_eaten > vec[I_FOOD]) {
+	    if (lp->lnd_ship != sp->shp_uid)
+		continue;
+	    need = ifood_eaten - vec[I_FOOD];
+	    land_eaten = etus * eatrate * lnd_getmil(lp);
+	    if (lp->lnd_item[I_FOOD] - need > land_eaten) {
+		vec[I_FOOD] += need;
+		lp->lnd_item[I_FOOD] -= need;
+	    } else if (lp->lnd_item[I_FOOD] - land_eaten > 0) {
+		vec[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
+		lp->lnd_item[I_FOOD] -= lp->lnd_item[I_FOOD] - land_eaten;
 	    }
 	}
     }
 
-    if (food_eaten > vec[I_FOOD]) {
-	*needed = food_eaten - vec[I_FOOD];
-	if (*needed < (food_eaten - vec[I_FOOD]))
-	    (*needed)++;
-	can_eat = (vec[I_FOOD] / (etus * eatrate));
-	total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-
+    if (ifood_eaten > vec[I_FOOD]) {
+	*needed = ifood_eaten - vec[I_FOOD];
+	can_eat = vec[I_FOOD] / (etus * eatrate);
 	/* only want to starve off at most 1/2 the populace. */
-	if (can_eat < (total_people / 2))
+	if (can_eat < total_people / 2)
 	    can_eat = total_people / 2;
 
 	to_starve = total_people - can_eat;
