@@ -90,16 +90,8 @@ struct mob_acc_globals {
 
 typedef u_char natid;		/* NSC_NATID must match this */
 
-#if defined(__linux__ ) || defined(__osf__)
-#define POSIXSIGNALS 1
-#endif
-
 #if !defined (_EMPTH_LWP) && !defined (_EMPTH_POSIX)
 #define _EMPTH_LWP     1
-#endif
-
-#if defined(_EMPTH_POSIX) && !defined(POSIXSIGNALS)
-#define POSIXSIGNALS
 #endif
 
 

@@ -72,8 +72,6 @@ void lwpRestore(jmp_buf);
 /* XXX Note that this assumes sizeof(long) == 4 */
 #define LWP_CHECKMARK	0x5a5a5a5aL
 
-#define SIGNALS	sigmask(SIGALRM)
-
 #ifndef hpux
 typedef double stkalign_t;
 #else

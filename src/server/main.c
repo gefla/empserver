@@ -251,6 +251,9 @@ main(int argc, char **argv)
 }
 
 
+/*
+ * Initialize for serving, acquire resources.
+ */
 void
 init_server(void)
 {
@@ -278,20 +281,17 @@ init_server(void)
     logerror("Empire server (pid %d) started", (int)getpid());
 }
 
+/*
+ * Start serving.
+ */
 void
 start_server(int flags)
 {
-#ifdef POSIXSIGNALS
     struct sigaction act;
-#endif /* POSIXSIGNALS */
 
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
        have a posix threads u definitly have posix signals -- Sasha */
-#if defined (POSIXSIGNALS) || defined (_EMPTH_POSIX)
-#ifdef SA_SIGINFO
-    act.sa_flags = SA_SIGINFO;
-#endif
     sigemptyset(&act.sa_mask);
     act.sa_handler = shutdwn;
     /* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on
@@ -308,23 +308,7 @@ start_server(int flags)
     sigaction(SIGFPE, &act, NULL);
     act.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &act, NULL);
-#else
-    if (debug == 0 && flags == 0) {
-	/* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on
-	   a Linux box running POSIX threads -- STM */
-#if !(defined(__linux__) && defined(_EMPTH_POSIX))
-	signal(SIGUSR1, shutdwn);
-#endif
-	signal(SIGTERM, shutdwn);
-	signal(SIGBUS, panic);
-	signal(SIGSEGV, panic);
-	signal(SIGILL, panic);
-	signal(SIGFPE, panic);
-	signal(SIGINT, shutdwn);
-    }
-    signal(SIGPIPE, SIG_IGN);
-#endif /* POSIXSIGNALS */
-#endif /* _WIN32 */
+#endif /* !_WIN32 */
 
     empth_init((char **)&player, flags);
 
@@ -398,7 +382,6 @@ close_files(void)
 void
 panic(int sig)
 {
-#ifdef POSIXSIGNALS
     struct sigaction act;
 
     act.sa_flags = 0;
@@ -408,12 +391,6 @@ panic(int sig)
     sigaction(SIGSEGV, &act, NULL);
     sigaction(SIGILL, &act, NULL);
     sigaction(SIGFPE, &act, NULL);
-#else
-    signal(SIGBUS, SIG_DFL);
-    signal(SIGSEGV, SIG_DFL);
-    signal(SIGILL, SIG_DFL);
-    signal(SIGFPE, SIG_DFL);
-#endif /* POSIXSIGNALS */
     logerror("server received fatal signal %d", sig);
     log_last_commands();
     close_files();
@@ -579,9 +556,7 @@ loc_NTInit()
 	_exit(1);
     }
 }
-#endif
 
-#if defined(_WIN32)
 void
 loc_NTTerm()
 {

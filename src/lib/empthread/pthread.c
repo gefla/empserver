@@ -65,9 +65,6 @@ empth_start(void *ctx)
     struct sigaction act;
 
     /* actually it should inherit all this from main but... */
-#ifdef SA_SIGINFO
-    act.sa_flags = SA_SIGINFO;
-#endif
     sigemptyset(&act.sa_mask);
     act.sa_handler = shutdwn;
     /* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on

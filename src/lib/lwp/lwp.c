@@ -42,11 +42,7 @@ struct lwpProc *LwpCurrent = NULL;
 char **LwpContextPtr;
 int LwpMaxpri = 0;		/* maximum priority so far */
 
-#ifdef POSIXSIGNALS
 static sigset_t oldmask;
-#else  /* POSIXSIGNALS */
-static int oldmask;
-#endif /* POSIXSIGNALS */
 
 /* for systems without strdup  */
 #ifdef NOSTRDUP
@@ -85,9 +81,7 @@ lwpReschedule(void)
     static int lcount = LCOUNT;
     static struct lwpProc *nextp;
     static int i;
-#ifdef POSIXSIGNALS
     static sigset_t tmask;
-#endif /* POSIXSIGNALS */
 
     if (LwpCurrent && (LwpCurrent->flags & LWP_STACKCHECK)) {
 	lwpStackCheck(LwpCurrent);
@@ -95,12 +89,8 @@ lwpReschedule(void)
     if (!--lcount) {
 	int p = lwpSetPriority(LWP_MAX_PRIO - 1);
 	lcount = LCOUNT;
-#ifdef POSIXSIGNALS
 	sigprocmask(SIG_SETMASK, &oldmask, &tmask);
 	sigprocmask(SIG_SETMASK, &tmask, &oldmask);
-#else  /* POSIXSIGNALS */
-	sigsetmask(sigsetmask(oldmask));
-#endif /* POSIXSIGNALS */
 	LwpCurrent->pri = p;
     }
 
@@ -190,20 +180,14 @@ lwpReschedule(void)
 void
 lwpEntryPoint(void)
 {
-#ifdef POSIXSIGNALS
     sigset_t set;
-#endif /* POSIXSIGNALS */
 
 #ifdef BOUNDS_CHECK
     BOUNDS_CHECKING_OFF;
 #endif
-#ifdef POSIXSIGNALS
     sigemptyset(&set);
     sigaddset(&set, SIGALRM);
     sigprocmask(SIG_SETMASK, &set, &oldmask);
-#else  /*  POSIXSIGNALS */
-    sigsetmask(SIGNALS);
-#endif /* POSIXSIGNALS */
     *LwpContextPtr = LwpCurrent->ud;
 
     lwpStatus(LwpCurrent, "starting at entry point");
