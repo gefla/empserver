@@ -421,29 +421,6 @@ shutdwn(int sig)
     struct player *p;
     time_t now;
 
-#if defined(__linux__) && defined(_EMPTH_POSIX)
-/* This is a hack to get around the way pthreads work on Linux.  This
-   may be useful on other platforms too where threads are turned into
-   processes. */
-    if (getpid() != mainpid) {
-	empth_t *me;
-
-	me = empth_self();
-	if (me && me->name) {
-	    if (strlen(me->name) > 5) {
-		/* Player threads are cleaned up below, so just have
-		   them return.  This should work. */
-		if (!strncmp("Player", me->name, 6)) {
-		    return;
-		}
-	    }
-	}
-	/* Not a player thread - must be server thread, so exit */
-	empth_exit();
-	return;
-    }
-#endif
-
     logerror("Shutdown commencing (cleaning up threads.)");
 
     for (p = player_next(0); p != 0; p = player_next(p)) {
