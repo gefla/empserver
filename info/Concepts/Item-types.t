@@ -7,7 +7,6 @@ Commodities.
 .s1
 The show command displays the detailed characteristics of items.
 .s1
-For example
 .EX show item
 .NF
 Printing for tech level '344'
@@ -31,7 +30,7 @@ mnemo                 rg wh ur bk name
 .s1
 The meaning of the headings are:
 .in \w'packing wh\0\0'u
-.L item mnemo
+.L "item mnemo"
 A one-letter mnemonic abbreviation of the item name.  Commands let you
 use this to select the item.
 .L value
@@ -41,15 +40,15 @@ Whether you can sell the item on the market.
 .L lbs
 The weight of the item, which determines how much mobility it takes to
 move it.
-.L packing rg
+.L "packing rg"
 The packing bonus the item receives in regular sectors.
-.L packing wh
+.L "packing wh"
 The packing bonus the item receives in warehouse sectors.
-.L packing ur
+.L "packing ur"
 The packing bonus the item receives in urban sectors.
-.L packing bk
+.L "packing bk"
 The packing bonus the item receives in bank sectors.
-.L item name
+.L "item name"
 The full name of the item.
 .in
 .s1
