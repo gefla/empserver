@@ -39,4 +39,7 @@ struct tagstruct {
     struct tagstruct *next;
 };
 
+void io_init(void);
+s_char *gettag(s_char *p);
+
 #endif

@@ -40,14 +40,11 @@
 
 #if !defined(_WIN32)
 #include <unistd.h>
-#endif
-
-#ifdef _WIN32
+#else
 #include <winsock.h>
 #include <io.h>
 #endif
 
-void ioq_write(struct ioqueue *ioq, s_char *buf, int cc);
 
 int
 serverio(int s, struct ioqueue *ioq)

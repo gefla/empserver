@@ -40,6 +40,7 @@
 #include "proto.h"
 #include "queue.h"
 #include "ioqueue.h"
+#include "tags.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,13 +79,10 @@ int hostport(s_char *name, struct sockaddr_in *addr);
 int hostaddr(s_char *name, struct sockaddr_in *addr);
 int hostconnect(struct sockaddr_in *addr);
 int login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc);
-void ioq_init(struct ioqueue *ioq, int bsize);
-void io_init(void);
 int handleintr(int);
 int termio(int fd, int sock, FILE *auxfi);
 int serverio(int s, struct ioqueue *ioq);
 void servercmd(struct ioqueue *ioq, FILE *auxfi);
-void ioq_drain(struct ioqueue *ioq);
 
 static void intr(int sig);
 

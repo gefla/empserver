@@ -46,3 +46,12 @@ struct io {
     int offset;			/* offset into current entry */
     s_char *data;		/* pointer to start */
 };
+
+void ioq_init(struct ioqueue *ioq, int bsize);
+int ioq_peek(struct ioqueue *ioq, s_char *buf, int cc);
+int ioq_dequeue(struct ioqueue *ioq, int cc);
+int ioq_read(struct ioqueue *ioq, s_char *buf, int cc);
+void ioq_write(struct ioqueue *ioq, s_char *buf, int cc);
+int ioq_qsize(struct ioqueue *ioq);
+void ioq_drain(struct ioqueue *ioq);
+s_char *ioq_gets(struct ioqueue *ioq, s_char *buf, int cc);

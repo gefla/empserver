@@ -43,10 +43,6 @@ static int ioqtobuf(register struct ioqueue *ioq, s_char *buf, int cc);
 static void enqueuecc(struct ioqueue *ioq, s_char *buf, int cc);
 static int dequeuecc(register struct ioqueue *ioq, register int cc);
 
-void insque(struct qelem *, struct qelem *);
-void remque(struct qelem *);
-void initque(struct qelem *p);
-struct qelem *makeqt(int nelem);
 
 void
 ioq_init(struct ioqueue *ioq, int bsize)

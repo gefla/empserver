@@ -41,4 +41,9 @@ struct qelem {
     struct qelem *q_back;
 };
 
+void insque(struct qelem *p, struct qelem *q);
+void remque(struct qelem *p);
+void initque(struct qelem *p);
+struct qelem *makeqt(int nelem);
+
 #endif /* _QUEUE */

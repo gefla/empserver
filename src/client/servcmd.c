@@ -36,6 +36,7 @@
 #include "proto.h"
 #include "queue.h"
 #include "ioqueue.h"
+#include "tags.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,8 +48,6 @@
 #else
 #include <io.h>
 #endif
-
-extern s_char *gettag(s_char *p);
 
 s_char num_teles[64];
 static s_char the_prompt[1024];
@@ -75,7 +74,6 @@ extern s_char *SE;
 void
 servercmd(struct ioqueue *ioq, FILE *auxfi)
 {
-    s_char *ioq_gets(struct ioqueue *, s_char *, int);
     s_char buf[1024];
     s_char *p;
     int code;

@@ -69,17 +69,16 @@ clean:
 	-(del /q $(OBJFILES))
 	-(del /q empire.exe)
 
-# created using mkmf
 expect.o: misc.h fnlist.h
 globals.o: misc.h fnlist.h proto.h
-host.o: misc.h 
+host.o: misc.h
 ioqueue.o: misc.h queue.h ioqueue.h
-ipglob.o: misc.h fnlist.h proto.h
+ipglob.o: misc.h
 login.o: misc.h proto.h
-main.o: misc.h proto.h queue.h ioqueue.h
+main.o: misc.h proto.h queue.h ioqueue.h tags.h
 queue.o: misc.h queue.h
 saveargv.o: misc.h
-servcmd.o: misc.h proto.h queue.h ioqueue.h
+servcmd.o: misc.h proto.h queue.h ioqueue.h tags.h
 serverio.o: misc.h queue.h ioqueue.h
 tags.o: misc.h tags.h
 termio.o: misc.h tags.h
