@@ -52,4 +52,4 @@ void update_main(void *);
 void update_sched(void *);
 void shutdown_sequence(void *);
 
-#endif SERVER_H
+#endif
