@@ -200,11 +200,15 @@ static char *posixly_correct;
 # define my_index	strchr
 #else
 
-//# if HAVE_STRING_H
+/*
+# if HAVE_STRING_H
+ */
 #  include <string.h>
-//# else
-//#  include <strings.h>
-//# endif
+/*
+# else
+#  include <strings.h>
+# endif
+ */
 
 /* Avoid depending on library functions or files
    whose names are inconsistent.  */
@@ -982,4 +986,4 @@ getopt (argc, argv, optstring)
 }
 
 #endif	/* Not ELIDE_CODE.  */
-#endif // _WIN32
+#endif	/* _WIN32 */
