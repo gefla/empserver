@@ -41,7 +41,7 @@
 struct pchrstr pchr[] = {
 /*       level      cost    nrndx nrdep nlndx   nlmin nllag effic  sname name */
     {{I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     0, 0, 0, 0, 0, 0, 0, 0, 0,
+     I_NONE, 0, 0, 0, 0, 0, 0, 0, 0,
      "unused", "",},
     {{I_LCM, I_HCM, I_NONE}, {2, 1, 0},
      I_SHELL, -1, 3, 0, 0, NAT_TLEV, 20, 10, 100,
@@ -74,16 +74,16 @@ struct pchrstr pchr[] = {
      I_HCM, -1, 0, 0, 0, NAT_TLEV, -10, 10, 100,
      "heavy construction materials", "hcm",},
     {{I_DUST, I_OIL, I_LCM}, {1, 5, 10},
-     0, NAT_TLEV, 300, 0, 0, NAT_ELEV, 5, 10, 100,
+     I_NONE, NAT_TLEV, 300, 0, 0, NAT_ELEV, 5, 10, 100,
      "technological breakthroughs", "tech",},
     {{I_DUST, I_OIL, I_LCM}, {1, 5, 10},
-     0, NAT_RLEV, 90, 0, 0, NAT_ELEV, 5, 10, 100,
+     I_NONE, NAT_RLEV, 90, 0, 0, NAT_ELEV, 5, 10, 100,
      "medical discoveries", "medical",},
     {{I_LCM, I_NONE, I_NONE}, {1, 0, 0},
-     0, NAT_ELEV, 9, 0, 0, -1, 0, 0, 100,
+     I_NONE, NAT_ELEV, 9, 0, 0, -1, 0, 0, 100,
      "a class of graduates", "edu",},
     {{I_LCM, I_NONE, I_NONE}, {1, 0, 0},
-     0, NAT_HLEV, 9, 0, 0, -1, 0, 0, 100,
+     I_NONE, NAT_HLEV, 9, 0, 0, -1, 0, 0, 100,
      "happy strollers", "happy",},
     {{I_NONE, I_NONE, I_NONE}, {0, 0, 0},
      I_RAD, -1, 2, offsetof(struct sctstr, sct_uran), 35, NAT_TLEV, 40, 10, 100,
@@ -92,7 +92,7 @@ struct pchrstr pchr[] = {
      I_DUST, -1, 0, offsetof(struct sctstr, sct_gmin), 20, -1, 0, 0, 75,
      "gold dust", "dust",},
     {{I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     0, 0, 0, 0, 0, 0, 0, 0, 0, "", "",}
+     I_NONE, 0, 0, 0, 0, 0, 0, 0, 0, "", "",}
 };
 
 int prd_maxno = (sizeof(pchr) / sizeof(struct pchrstr)) - 1;
