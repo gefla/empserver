@@ -969,7 +969,7 @@ ac_flak_dam(int flak)
 {
     int dam;
     float mult;
-		/*          <-7      -7     -6     -5     -4 */
+    /*				   <-7      -7     -6     -5     -4 */
     static float flaktable[18] = { 0.132f, 0.20f, 0.20f, 0.25f, 0.30f,
     /*    -3     -2     -1      0     +1     +2     +3     +4 */
 	 0.35f, 0.40f, 0.45f, 0.50f, 0.50f, 0.55f, 0.60f, 0.65f,
