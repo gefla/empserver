@@ -59,7 +59,7 @@ int mil_dbl_pay;
 #define MIN(x,y)       ((x) > (y) ? (y) : (x))
 #endif
 
-static int landrepair(register struct lndstr *, int *, struct natstr *,
+static int landrepair(register struct lndstr *, struct natstr *,
 		      int *, int);
 static void upd_land(register struct lndstr *lp, register int etus,
 		     struct natstr *np, int *bp, int build);
@@ -130,12 +130,10 @@ upd_land(register struct lndstr *lp, register int etus,
 	    lp->lnd_retreat = min;
 
     lcp = &lchr[(int)lp->lnd_type];
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
     if (build == 1) {
 	if (np->nat_priorities[PRI_LBUILD] == 0 || np->nat_money < 0)
 	    return;
-	if (lp->lnd_effic < LAND_MINEFF ||
-	    !(landrepair(lp, vec, np, bp, etus))) {
+	if (lp->lnd_effic < LAND_MINEFF || !landrepair(lp, np, bp, etus)) {
 	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x,
 		     lp->lnd_y);
 	    lp->lnd_own = 0;
@@ -240,7 +238,7 @@ upd_land(register struct lndstr *lp, register int etus,
 
 /*ARGSUSED*/
 static int
-landrepair(register struct lndstr *land, int *vec, struct natstr *np,
+landrepair(register struct lndstr *land, struct natstr *np,
 	   int *bp, int etus)
 {
     register int delta;
