@@ -128,9 +128,7 @@ struct fltheadstr {
 };
 
 struct mchrstr {
-    u_char m_nv;		/* number of variables it can hold */
-    u_char m_vtype[MAXCHRNV];
-    u_short m_vamt[MAXCHRNV];
+    u_short m_item[I_MAX+1];	/* load limit */
     int m_lcm;			/* units of lcm to build */
     int m_hcm;			/* units of hcm to build */
     int m_armor;		/* how well armored it is */

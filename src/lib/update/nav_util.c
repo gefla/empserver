@@ -107,8 +107,7 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
     if (comm == V_CIVIL || comm == V_MILIT)
 	sect_amt--;		/* leave 1 civ or mil to hold the sector. */
     vship = &mchr[(int)sp->shp_type];
-    abs_max = max_amt = vl_find(comm, vship->m_vtype,
-				vship->m_vamt, (int)vship->m_nv);
+    abs_max = max_amt = vship->m_item[comm];
 
     if (!abs_max)
 	return 0;		/* can't load the ship, skip to the end. */

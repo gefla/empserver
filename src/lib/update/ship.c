@@ -176,7 +176,7 @@ upd_ship(register struct shpstr *sp, register int etus,
 				      * (double)sp->shp_effic / 100.0
 				      * (double)sectp->sct_oil / 100.0
 				      * prod_eff(product, sp->shp_tech));
-		max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
+		max_oil = mp->m_item[I_OIL];
 		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
 		    oil_gained = max_oil - sp->shp_item[I_OIL];
 		sp->shp_item[I_OIL] += oil_gained;
@@ -201,7 +201,7 @@ upd_ship(register struct shpstr *sp, register int etus,
 		if (n > 10)
 		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
 	    }
-	    max_food = vl_find(V_FOOD, mp->m_vtype, mp->m_vamt, mp->m_nv);
+	    max_food = mp->m_item[I_FOOD];
 	    if (sp->shp_item[I_FOOD] > max_food)
 		sp->shp_item[I_FOOD] = max_food;
 	    /*

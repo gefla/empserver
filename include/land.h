@@ -99,9 +99,7 @@ struct lndstr {
 #define LND_NOTANY bit(0)	/* Just a placeholder, not used */
 
 struct lchrstr {
-    u_char l_nv;		/* number of variables it can hold */
-    u_char l_vtype[MAXCHRNV];
-    u_short l_vamt[MAXCHRNV];
+    u_short l_item[I_MAX+1];	/* load limit */
     s_char *l_name;		/* full name of type of land unit */
     int l_lcm;			/* units of lcm to build */
     int l_hcm;			/* units of hcm to build */

@@ -705,8 +705,7 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	putland(llp->land.lnd_uid, &llp->land);
 	if (!(mines = sect.sct_mines))
 	    continue;
-	max = vl_find(V_SHELL, llp->lcp->l_vtype,
-		      llp->lcp->l_vamt, (int)llp->lcp->l_nv);
+	max = llp->lcp->l_item[I_SHELL];
 	lshells = llp->land.lnd_item[I_SHELL];
 	sshells = sect.sct_item[I_SHELL];
 	for (m = 0; mines > 0 && m < max * 2; m++) {

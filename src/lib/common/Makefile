@@ -38,13 +38,13 @@ NTLIB = $(SRCDIR)\lib\libcommon.lib
 OBJS =  bestpath.o bridgefall.o check.o damage.o file.o fsize.o \
 	hap_fact.o hours.o land.o log.o mailbox.o maps.o move.o \
 	nat.o path.o res_pop.o sectdamage.o \
-	stmtch.o tfact.o type.o vlist.o wantupd.o xy.o
+	stmtch.o tfact.o type.o wantupd.o xy.o
 
 NTOBJS = bestpath.obj bridgefall.obj check.obj damage.obj file.obj fsize.obj \
 	hap_fact.obj hours.obj land.obj log.obj \
 	mailbox.obj maps.obj move.obj nat.obj path.obj res_pop.obj \
 	sectdamage.obj stmtch.obj tfact.obj \
-	type.obj vlist.obj wantupd.obj xy.obj
+	type.obj wantupd.obj xy.obj
 
 all: $(LIB)
 

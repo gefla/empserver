@@ -362,7 +362,7 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_fuelu = (int)LND_FU(lp->l_fuelu, tlev - lp->l_tech);
     land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
     land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
-    land.lnd_item[I_FOOD] = vl_find(V_FOOD, lp->l_vtype, lp->l_vamt, lp->l_nv);
+    land.lnd_item[I_FOOD] = lp->l_item[I_FOOD];
 
     putland(land.lnd_uid, &land);
     makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,

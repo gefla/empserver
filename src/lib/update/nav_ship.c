@@ -329,8 +329,7 @@ nav_ship(register struct shpstr *sp)
 	/* special case for fishing boats */
 	if ((mchr[(int)sp->shp_type].m_flags & M_FOOD) == 1) {
 	    food_amt = sp->shp_item[I_FOOD];
-	    max_amt = vl_find(V_FOOD, vship->m_vtype,
-			      vship->m_vamt, vship->m_nv);
+	    max_amt = vship->m_item[I_FOOD];
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
 	    if (food_amt < max_amt && (sectp->sct_own == 0))

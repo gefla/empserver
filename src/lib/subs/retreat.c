@@ -279,8 +279,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 
 	mines = sect.sct_mines;
 	if ((mcp->m_flags & M_SWEEP) && mines > 0 && !player->owner) {
-	    max = vl_find(V_SHELL, mcp->m_vtype,
-			  mcp->m_vamt, (int)mcp->m_nv);
+	    max = mcp->m_item[I_SHELL];
 	    shells = sp->shp_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {
@@ -520,8 +519,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	mines = sect.sct_mines;
 	if ((lcp->l_flags & L_ENGINEER) && mines > 0 &&
 	    (sect.sct_oldown != lp->lnd_own)) {
-	    max = vl_find(V_SHELL, lcp->l_vtype,
-			  lcp->l_vamt, (int)lcp->l_nv);
+	    max = lcp->l_item[I_SHELL];
 	    shells = lp->lnd_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {

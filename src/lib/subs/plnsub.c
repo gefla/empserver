@@ -303,8 +303,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	sp = ptr;
 	there = sp->shp_item[ip->i_vtype];
 	mp = &mchr[(int)sp->shp_type];
-	max = vl_find(ip->i_vtype, mp->m_vtype,
-		      mp->m_vamt, (int)mp->m_nv);
+	max = mp->m_item[ip->i_vtype];
     }
     there += amt;
     if (there > max) {

@@ -414,10 +414,7 @@ nullify_objects(void)
 	if (opt_NO_LCMS)
 	    lchr[i].l_lcm = 0;
 	/* Fix up the military values */
-	for (j = 0; j < lchr[i].l_nv; j++) {
-	    if (lchr[i].l_vtype[j] == V_MILIT)
-		lchr[i].l_mil = lchr[i].l_vamt[j];
-	}
+	lchr[i].l_mil = lchr[i].l_item[I_MILIT];
     }
     for (i = 0; i < shp_maxno; i++) {
 	if (opt_NO_HCMS)

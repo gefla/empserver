@@ -420,13 +420,9 @@ void
 show_ship_capab(int tlev)
 {
     register struct mchrstr *mp;
-    register u_short *ap;
-    register u_char *type;
     register int i;
-    register int it;
     int scount;
     int n;
-    s_char c;
     s_char *p;
 
     pr("%25s cargos & capabilities\n", "");
@@ -440,18 +436,9 @@ show_ship_capab(int tlev)
 
 	pr("%-25.25s ", mp->m_name);
 
-	/*
-	 * should use vector stuff
-	 */
-	for (ap = mp->m_vamt, type = mp->m_vtype, i = 0;
-	     i < mp->m_nv; i++, ap++, type++) {
-	    it = unitem((int)*type);
-	    if (it > 0 && it <= I_MAX && ichr[it].i_name != 0)
-		c = ichr[it].i_name[0];
-	    else
-		c = '?';
-	    pr(" %d%c", *ap, c);
-	}
+	for (i = 0; i <= I_MAX; ++i)
+	    if (mp->m_item[i])
+		pr(" %d%c", mp->m_item[i], ichr[i].i_mnem);
 	pr(" ");
 	for (i = n = 0; i < 32; i++) {
 	    if (!(mp->m_flags & bit(i)))
@@ -559,11 +546,8 @@ show_land_capab(int tlev)
 {
     struct lchrstr *lcp;
     int lcount;
-    register u_short *ap;
-    register u_char *type;
     register int i, n;
-    register int it;
-    register s_char *p, c;
+    register s_char *p;
 
     pr("%25s capabilities\n", "");
 
@@ -575,18 +559,9 @@ show_land_capab(int tlev)
 
 	pr("%-25s ", lcp->l_name);
 
-	/*
-	 * should use vector stuff
-	 */
-	for (ap = lcp->l_vamt, type = lcp->l_vtype, i = 0;
-	     i < lcp->l_nv; i++, ap++, type++) {
-	    it = unitem((int)*type);
-	    if (it > 0 && it <= I_MAX && ichr[it].i_name != 0)
-		c = ichr[it].i_name[0];
-	    else
-		c = '?';
-	    pr(" %d%c", *ap, c);
-	}
+	for (i = 0; i <= I_MAX; ++i)
+	    if (lcp->l_item[i])
+		pr(" %d%c", lcp->l_item[i], ichr[i].i_mnem);
 	pr(" ");
 	for (i = n = 0; i < 32; i++) {
 	    if (!(lcp->l_flags & bit(i)))

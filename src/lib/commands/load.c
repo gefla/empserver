@@ -754,7 +754,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	return RET_SYN;
 
     ship_amt = sp->shp_item[item];
-    ship_max = vl_find(item, mcp->m_vtype, mcp->m_vamt, mcp->m_nv);
+    ship_max = mcp->m_item[item];
     sect_amt = sectp->sct_item[item];
     amount = atoi(p);
     if (amount < 0)
@@ -957,7 +957,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	return RET_SYN;
 
     land_amt = lp->lnd_item[item];
-    land_max = vl_find(item, lcp->l_vtype, lcp->l_vamt, lcp->l_nv);
+    land_max = lcp->l_item[item];
     sect_amt = sectp->sct_item[item];
     amount = atoi(p);
     if (amount < 0)

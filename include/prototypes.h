@@ -179,15 +179,6 @@ extern void snxtsct_dist(register struct nstr_sect *, coord, coord, int);
 /* type.c */
 extern int sct_typematch(char *);
 extern int typematch(char *, int);
-/* vlist.c */
-extern int vl_find(register int, u_char *, u_short *, int);
-extern int vl_set(register int, u_int, u_char *, u_short *, u_char *, int);
-extern int vl_damage(register int, register u_char *, register u_short *,
-		     register int);
-extern int vl_getvec(register u_char *, register u_short *, register int,
-		     register int, register int *);
-extern int vl_setvec(register u_char *, register u_short *, u_char *,
-		     int, register int, register int *);
 /* wantupd.c */
 extern void update_policy_check(void);
 extern int demand_update_want(int *, int *, int);
@@ -604,7 +595,6 @@ extern int prod_plane(int, int, int *, int);
 extern void populace(struct natstr *, register struct sctstr *, int);
 extern int total_work(register int, register int, register int,
 		      register int, register int);
-extern double prod_eff(struct pchrstr *, float);
 /* prepare.c */
 extern void tax(struct sctstr *, struct natstr *, int, long *, int *,
 		int *, int *);
@@ -614,6 +604,7 @@ extern int bank_income(struct sctstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, short *, int, int,
 		   int, int *, int *);
+extern double prod_eff(struct pchrstr *, float);
 /* removewants.c */
 extern int update_removewants(void);
 /* revolt.c */

@@ -868,8 +868,7 @@ get_mob_support(int combat_mode, struct combat *off, struct combat *def)
     case A_BOARD:
 	if (off->type == EF_SECTOR && off->mob <= 0)
 	    return 0;
-	mob_support = vl_find(V_MILIT, def->shp_mcp->m_vtype,
-			      def->shp_mcp->m_vamt, def->shp_mcp->m_nv);
+	mob_support = def->shp_mcp->m_item[I_MILIT];
 	if (mob_support < off->troops)
 	    pr("The size of the ship you are trying to board limits your party to %d mil,\n", mob_support);
 	else
@@ -880,8 +879,7 @@ get_mob_support(int combat_mode, struct combat *off, struct combat *def)
 	    return 0;
 	if (def->lnd_lcp->l_flags & L_SPY)
 	    return 1;
-	mob_support = vl_find(V_MILIT, def->lnd_lcp->l_vtype,
-			      def->lnd_lcp->l_vamt, def->lnd_lcp->l_nv);
+	mob_support = def->lnd_lcp->l_item[I_MILIT];
 	if (mob_support < off->troops)
 	    pr("The size of the unit you are trying to board limits your party to %d mil,\n", mob_support);
 	else

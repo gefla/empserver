@@ -439,7 +439,7 @@ get_minimum(struct lndstr *lp, int type)
     int max, want = 0;
 
     lcp = &lchr[(int)lp->lnd_type];
-    max = vl_find(V_ITEM(type), lcp->l_vtype, lcp->l_vamt, (int)lcp->l_nv);
+    max = lcp->l_item[type];
 
     switch (type) {
     case I_FOOD:

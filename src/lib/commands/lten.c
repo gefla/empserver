@@ -94,8 +94,7 @@ ltend(void)
 	    return RET_FAIL;
 	}
 	vbase = &mchr[(int)tender.shp_type];
-	maxtender = vl_find(ip->i_vtype, vbase->m_vtype,
-			    vbase->m_vamt, (int)vbase->m_nv);
+	maxtender = vbase->m_item[ip->i_vtype];
 	if (maxtender == 0) {
 	    pr("A %s cannot hold any %s\n",
 	       mchr[(int)tender.shp_type].m_name, ip->i_name);
@@ -121,8 +120,7 @@ ltend(void)
 		continue;
 	    }
 	    lbase = &lchr[(int)target.lnd_type];
-	    maxtarget = vl_find(ip->i_vtype, lbase->l_vtype,
-				lbase->l_vamt, (int)lbase->l_nv);
+	    maxtarget = lbase->l_item[ip->i_vtype];
 	    if (amt < 0) {
 		if (!player->owner)
 		    amt = 0;

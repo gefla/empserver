@@ -250,8 +250,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 	putship(mlp->ship.shp_uid, &mlp->ship);
 	if (!(mines = sect.sct_mines))
 	    continue;
-	max = vl_find(V_SHELL, mlp->mcp->m_vtype,
-		      mlp->mcp->m_vamt, (int)mlp->mcp->m_nv);
+	max = mlp->mcp->m_item[I_SHELL];
 	shells = mlp->ship.shp_item[I_SHELL];
 	for (m = 0; mines > 0 && m < 5; m++) {
 	    if (chance(0.66)) {
