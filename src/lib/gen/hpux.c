@@ -73,18 +73,4 @@ register int c;
     return NULL;
 }
 
-int
-ffs(marg)
-register unsigned marg;
-{
-    register unsigned bval;
-    register int i;
-
-    if (marg == 0)
-	return 0;
-    for (bval = 1, i = 1; i <= 32; i++, bval <<= 1)
-	if (marg & bval)
-	    return i;
-    return 0;
-}
 #endif
