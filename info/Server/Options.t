@@ -24,7 +24,7 @@ NOMOBCOST:	ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost
 TRADESHIPS:	you can build/nav/scuttle trade ships to make money
 FUEL:		ships need fuel to gain mobility
 RES_POP:	Research affects max sector population.
-NOFOOD		No food is required.
+NOFOOD:		No food is required.
 BLITZ:		Turns NOFOOD option on and players get infinite BTU's.
 NONUKES:	No nuclear weapons
 NO_PLAGUE:	Plague is disabled.
@@ -37,10 +37,9 @@ HIDDEN:		Hides information about countries you haven't contacted
 LOSE_CONTACT:	In HIDDEN, lose contact after a few updates
 ORBIT:		Satellites can orbit the planet
 BIG_CITY:	'c' sectors cost $, lcm, hcm to build and hold 10x civs
-INTERDICT_ATT	Interdict units & mil as they move in after an attack
+INTERDICT_ATT:	Interdict units & mil as they move in after an attack
 
 The following options were introduced in the Empire4 Server:
-ROLLOVER_AVAIL: Unused production avail is rolled over across updates.
 BRIDGETOWERS:   You can build bridge towers, which allow you to build
                  bridges from them.
 DEFENSE_INFRA:  Use the new defensive infrastructure.  Otherwise, use
@@ -52,7 +51,6 @@ MOB_ACCESS:     Allows real-time updating of mobility.
 MARKET:         Time-delay market and trade.
 LOANS:          Allows S&L type interaction between countries.
 LANDSPIES:      Creates land unit style spies.
-PLANENAMES:     Shows real names for planes.
 NO_FORT_FIRE:   Forts cannot fire.
 NO_LCMS:        The game doesn't need lcms to be played.
 NO_HCMS:        The game doesn't need hcms to be played.
