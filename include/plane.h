@@ -150,11 +150,9 @@ struct plist {
 extern struct plchrstr plchr[];
 extern int pln_maxno;
 
-struct shiplook {
+struct shiplist {
     short uid;
-    u_char looked;
-    u_char found;
-    struct shiplook *next;
+    struct shiplist *next;
 };
 
 #define PLN_ATTDEF(b, t) (b + ((b?1:0) * ((t/20)>10?10:(t/20))))
@@ -188,10 +186,9 @@ extern int all_missiles(struct emp_qelem *);
 extern int can_fly(int);
 
 /* src/lib/subs/aswplnsubs.c */
-extern int have_looked(u_char, struct shiplook *);
-extern int have_found(u_char, struct shiplook *);
-extern void set_have_looked(u_char, struct shiplook *);
-extern void set_have_found(u_char, struct shiplook *);
-extern int print_found(struct shiplook *);
+extern int on_shiplist(short, struct shiplist *);
+extern void add_shiplist(short, struct shiplist **);
+extern void free_shiplist(struct shiplist **);
+extern void print_shiplist(struct shiplist *);
 
 #endif /* _PLANE_H_ */

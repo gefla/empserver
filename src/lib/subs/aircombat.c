@@ -95,16 +95,12 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     struct natstr *over, *mynatp;
     struct plist *plp;
     int evaded;
-    struct shiplook head;
-    struct shiplook *s, *s2;
+    struct shiplist *head = NULL;
     int changed = 0;
     int intown = 0;		/* Last owner to intercept */
 /* We want to only intercept once per sector per owner.  So, if we overfly
    a sector, and then overfly some land units or ships, we don't want to
    potentially intercept 3 times. */
-
-    memset(&head, 0, sizeof(struct shiplook));
-    head.uid = -1;
 
     plp = (struct plist *)bomb_list->q_forw;
     plane_owner = plp->plane.pln_own;
@@ -271,14 +267,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    writemap(player->cnum);
     /* Now, if the bomber and escort lists are empty, we are done */
     if (QEMPTY(bomb_list) && QEMPTY(esc_list)) {
-	if (mission_flags & P_A) {
-	    s = head.next;
-	    while (s != (struct shiplook *)0) {
-		s2 = s;
-		s = s->next;
-		free(s2);
-	    }
-	}
+	if (mission_flags & P_A)
+	    free_shiplist(&head);
 	return;
     }
 
@@ -356,15 +346,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    }
 	}
     }
-
-    if ((mission_flags & P_A) && (head.uid != -1)) {
-	s = head.next;
-	while (s != (struct shiplook *)0) {
-	    s2 = s;
-	    s = s->next;
-	    free(s2);
-	}
-    }
+    if (mission_flags & P_A)
+	free_shiplist(&head);
 }
 
 static int

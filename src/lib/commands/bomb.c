@@ -496,7 +496,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int ignore;
     struct shpstr ship;
     int nships = 0;
-    struct shiplook head, *s, *s2;
+    struct shiplist *head = NULL;
     s_char buf[1024];
     s_char prompt[128];
     s_char msg[128];
@@ -506,20 +506,9 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int gun;
     int shell;
 
-    memset(&head, 0, sizeof(struct shiplook));
-    head.uid = -1;
     for (qp = list->q_forw; qp != list && !player->aborted;
 	 qp = qp->q_forw) {
-	if (head.uid != -1) {
-	    s = head.next;
-	    while (s != (struct shiplook *)0) {
-		s2 = s;
-		s = s->next;
-		free(s2);
-	    }
-	}
-	memset(&head, 0, sizeof(struct shiplook));
-	head.uid = -1;
+	free_shiplist(&head);
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
@@ -545,7 +534,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    }
 	    if (*q == '?') {
 		if (plp->pcp->pl_flags & P_A)
-		    print_found(&head);
+		    print_shiplist(head);
 		else
 		    shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
 		continue;
@@ -634,12 +623,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
       next:
 	;
     }
-    s = head.next;
-    while (s != (struct shiplook *)0) {
-	s2 = s;
-	s = s->next;
-	free(s2);
-    }
+    free_shiplist(&head);
 }
 
 static void

@@ -28,133 +28,80 @@
  *  aswplnsubs.c: Various subroutines used for ASW planes
  * 
  *  Known contributors to this file:
+ *  Ron Koenderink, 2004
  *     
  */
 
 #include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "ship.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
 #include "file.h"
 #include "plane.h"
-#include <fcntl.h>
-#include <ctype.h>
-#include "prototypes.h"
 
 int
-have_looked(u_char uid, struct shiplook *head)
+on_shiplist(short uid, struct shiplist *head)
 {
-    struct shiplook *s;
+    struct shiplist *s;
 
     s = head;
-    if (s->uid == -1)
-	return 0;
-
-    while (s != ((struct shiplook *)0)) {
+    while (s != NULL) {
 	if (s->uid == uid)
-	    return s->looked;
+	    return 1;
 	s = s->next;
     }
-
-    return 0;
-}
-
-int
-have_found(u_char uid, struct shiplook *head)
-{
-    struct shiplook *s;
-
-    s = head;
-    if (s->uid == -1)
-	return 0;
-
-    while (s != ((struct shiplook *)0)) {
-	if (s->uid == uid)
-	    return s->found;
-	s = s->next;
-    }
-
     return 0;
 }
 
 void
-set_have_looked(u_char uid, struct shiplook *head)
+add_shiplist(short uid, struct shiplist **head)
 {
-    struct shiplook *s, *s2;
+    struct shiplist *s, *s2;
 
-    s = head;
-    if (s->uid == -1) {
-	s->uid = uid;
-	s->looked = 1;
-	s->found = 0;
-	s->next = (struct shiplook *)0;
-    }
+    s = *head;
+    s2 = NULL;
 
-    while (s != ((struct shiplook *)0)) {
+    while (s != NULL) {
 	if (s->uid == uid) {
-	    s->looked = 1;
 	    return;
 	}
 	s2 = s;
 	s = s->next;
     }
 
-    s = (struct shiplook *)malloc(sizeof(struct shiplook));
-    memset(s, 0, sizeof(struct shiplook));
-    s2->next = s;
+    s = malloc(sizeof(struct shiplist));
+    if (s2 != NULL) 
+	s2->next = s;
+    else
+	*head = s;
     s->uid = uid;
-    s->looked = 1;
-    s->next = (struct shiplook *)0;
+    s->next = NULL;
 }
 
 void
-set_have_found(u_char uid, struct shiplook *head)
+free_shiplist(struct shiplist **head)
 {
-    struct shiplook *s, *s2;
+    struct shiplist *s, *s2;
 
-    s = head;
-    if (s->uid == -1) {
-	s->uid = uid;
-	s->looked = 0;
-	s->found = 1;
-	s->next = (struct shiplook *)0;
-    }
+    s = *head;
 
-
-    while (s != ((struct shiplook *)0)) {
-	if (s->uid == uid) {
-	    s->found = 1;
-	    return;
-	}
+    while (s != NULL) {
 	s2 = s;
 	s = s->next;
+	free(s2);
     }
-
-    s = (struct shiplook *)malloc(sizeof(struct shiplook));
-    memset(s, 0, sizeof(struct shiplook));
-    s2->next = s;
-    s->uid = uid;
-    s->found = 1;
-    s->next = (struct shiplook *)0;
+    *head = NULL;
 }
 
-int
-print_found(struct shiplook *head)
+void
+print_shiplist(struct shiplist *head)
 {
-    struct shiplook *s;
+    struct shiplist *s;
     int first;
     struct mchrstr *mp;
     struct shpstr ship;
 
     s = head;
     first = 1;
-    if (s->uid == -1)
-	return 0;
 
-    while (s != ((struct shiplook *)0)) {
+    while (s != NULL) {
 	getship(s->uid, &ship);
 	mp = &mchr[(int)ship.shp_type];
 	if (first) {
@@ -165,6 +112,4 @@ print_found(struct shiplook *head)
 	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	s = s->next;
     }
-
-    return 1;
 }

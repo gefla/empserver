@@ -209,7 +209,7 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags,
 
 int
 asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
-	      struct plnstr *pp, struct shiplook *head)
+	      struct plnstr *pp, struct shiplist **head)
 {
     int first;
     int ships;
@@ -239,7 +239,7 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 					  shp_hardtarget(&ship), EF_SHIP))
 		continue;
 	}
-	set_have_found(ship.shp_uid, head);
+	add_shiplist(ship.shp_uid, head);
 	if (first) {
 	    pr(" #          owner           eff       type\n");
 	    first = 0;

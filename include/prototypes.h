@@ -75,7 +75,7 @@ extern void scuttle_ship(struct shpstr *);
 extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
 		     int old, int new);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
-extern void plane_sona(struct emp_qelem *, int, int, struct shiplook *);
+extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern int tend_nxtitem(struct nstr_item *, void *);
 extern s_char *prsub(struct shpstr *);
 extern int check_trade(void);
@@ -323,7 +323,7 @@ extern int carriersatxy(coord, coord, int, int, natid);
 extern int unitsatxy(coord, coord, int, int);
 extern int planesatxy(coord, coord, int, int, struct emp_qelem *);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
-			 struct shiplook *);
+			 struct shiplist **);
 extern int num_shipsatxy(coord, coord, int, int);
 extern int islist(s_char *);
 /* src/lib/subs/mission.c */

@@ -228,7 +228,7 @@ sona(void)
 
 void
 plane_sona(struct emp_qelem *plane_list, int x, int y,
-	   struct shiplook *head)
+	   struct shiplist **head)
 {
     struct plnstr *pp;
     struct plchrstr *pcp;
@@ -265,13 +265,8 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	    targ = &s;
 	    if (targ->shp_own == pp->pln_own || targ->shp_own == 0)
 		continue;
-/*
-			if (have_looked(targ->shp_uid,head))
-				continue;
-*/
-	    if (have_found(targ->shp_uid, head))
+	    if (on_shiplist(targ->shp_uid, *head))
 		continue;
-	    set_have_looked(targ->shp_uid, head);
 	    tmcp = &mchr[(int)targ->shp_type];
 	    if (!(tmcp->m_flags & M_SUB))
 		continue;
@@ -294,7 +289,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	    }
 	    if ((dist > vrange))
 		continue;
-	    set_have_found(targ->shp_uid, head);
+	    add_shiplist(targ->shp_uid, head);
 	    if (!found) {
 		mpr(pp->pln_own,
 		    "\nSonar contact in %s\n", xyas(x, y, pp->pln_own));
