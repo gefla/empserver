@@ -74,7 +74,7 @@ nxtsct(register struct nstr_sect *np, struct sctstr *sp)
 	    continue;
 	if (np->ncond == 0)
 	    return 1;
-	if (nstr_exec(np->cond, np->ncond, (caddr_t)sp, EF_SECTOR))
+	if (nstr_exec(np->cond, np->ncond, sp))
 	    return 1;
     }
     /*NOTREACHED*/

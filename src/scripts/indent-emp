@@ -2,7 +2,7 @@
 
 # indent needs to know type names do to a proper job.
 # Type names located with grep typedef, then extracted by hand:
-types="bit_fdmask bit_mask caddr_t coord ef_fileinit emp_sig_t empth_sem_t empth_t intp iop_t iovec_t loc_Sem_t loc_Thread_t natid plate_e pointer qsort_func_t s_char stkalign_t u_char u_int u_short vf_ptr voidfunc"
+types="bit_fdmask bit_mask caddr_t coord ef_fileinit emp_sig_t empth_sem_t empth_t intp iop_t iovec_t loc_Sem_t loc_Thread_t natid nsc_cat nsc_flags nsc_type packed_nsc_cat packed_nsc_type plate_e pointer qsort_func_t s_char stkalign_t u_char u_int u_short vf_ptr voidfunc"
 
 opts="-kr -cdw -cp8 -ncs -psl -ss"
 for t in $types

@@ -111,7 +111,7 @@ sct(void)
 	    continue;
 	ptr = &map[ns.dy][ns.dx];
 	*ptr = dchr[sect.sct_type].d_mnem;
-	if (nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR)) {
+	if (nstr_exec(cond, ncond, &sect)) {
 	    ++nsect;
 	    *ptr |= 0x80;
 	}

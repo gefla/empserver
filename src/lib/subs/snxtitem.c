@@ -50,7 +50,6 @@
 int
 snxtitem(register struct nstr_item *np, int type, s_char *str)
 {
-    register s_char *cp;
     struct range range;
     int list[NS_LSIZE];
     int n;
@@ -120,11 +119,10 @@ snxtitem(register struct nstr_item *np, int type, s_char *str)
     np->flags = flags;
     if (player->condarg == 0)
 	return 1;
-    cp = player->condarg;
-    while ((cp = nstr_comp(np->cond, &np->ncond, type, cp)) && *cp) ;
-    if (cp == 0)
-	return 0;
-    return 1;
+    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond), type,
+		  player->condarg);
+    np->ncond = n >= 0 ? n : 0;
+    return n >= 0;
 }
 
 void

@@ -111,7 +111,7 @@ nxtitemp(struct nstr_item *np, int owner)
 	}
 	if (selected && np->ncond) {
 	    /* nstr_exec is expensive, so we do it last */
-	    if (!nstr_exec(np->cond, np->ncond, (s_char *)gp, np->type))
+	    if (!nstr_exec(np->cond, np->ncond, gp))
 		selected = 0;
 	}
     } while (!selected);

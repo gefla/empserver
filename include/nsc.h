@@ -29,26 +29,82 @@
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1989
+ *     Markus Armbruster, 2004
  */
 
 #ifndef _NSC_H_
 #define _NSC_H_
 
+#include <stddef.h>
 #include "xy.h"
 
 #define NS_LSIZE	128
 #define NS_NCOND	16
 
-enum {				/* masks for struct nscstr member oper */
-    NSC_OPMASK = 0x0ff,		/* operator */
-    NSC_ISNUM1 = 0x100,		/* is left operand a number? */
-    NSC_ISNUM2 = 0x200		/* is right operand a number? */
+/* Value type */
+enum nsc_type {
+    NSC_NOTYPE,
+    /* promoted types */
+    NSC_LONG,			/* long */
+    NSC_DOUBLE,			/* double */
+    NSC_STRING,			/* char *, zero-terminated string */
+    NSC_TYPEID,			/* signed char, index into chr table */
+    /* unpromoted types */
+    NSC_CHAR,			/* signed char */
+    NSC_UCHAR,			/* unsigned char */
+    NSC_SHORT,			/* short */
+    NSC_USHORT,			/* unsigned short */
+    NSC_INT,			/* int */
+    NSC_XCOORD,			/* coord that needs x conversion */
+    NSC_YCOORD,			/* coord that needs y conversion */
+    NSC_TIME,			/* time_t */
+    NSC_FLOAT			/* float */
+};
+typedef enum nsc_type nsc_type;
+typedef char packed_nsc_type;
+
+/* Value category */
+enum nsc_cat {
+    NSC_NOCAT,
+    NSC_VAL,			/* evaluated value */
+    NSC_OFF			/* symbolic value: at offset in object */
+};
+typedef enum nsc_cat nsc_cat;
+typedef char packed_nsc_cat;
+
+enum {
+    NSC_DEITY = 1		/* access restricted to deity */
+};
+typedef unsigned char nsc_flags;
+
+/*
+ * Value, possibly symbolic.
+ * If type is NSC_NOTYPE, it's an error value.
+ * If category is NSC_OFF, the value is at offset val_as.off in the
+ * context object.
+ * If category is NSC_VAL, the value is in val_as, and the type is a
+ * promoted type.
+ * Some values can also be interpreted as an object type.  The values
+ * consumer chooses how to interpret it, depending on context.
+ */
+struct valstr {
+    packed_nsc_type val_type;	/* type of value */
+    packed_nsc_cat val_cat;	/* category of value */
+    signed char val_as_type;	/* value interpreted as object type */
+    union {
+	ptrdiff_t off;		/* cat NSC_OFF */
+	double dbl;		/* cat NSC_VAL, types NSC_DOUBLE */
+	char *str;		/* cat NSC_VAL, type NSC_STRING */
+	long lng;		/* cat NSC_VAL, type NSC_LONG */
+    } val_as;
 };
 
+/* Compiled condition */
 struct nscstr {
-    long fld1;			/* first commodity or number */
-    long fld2;			/* second commodity or number */
-    int oper;			/* required relationship operator */
+    char operator;		/* '<', '=', '>', '#' */
+    packed_nsc_type optype;	/* operator type */
+    struct valstr lft;		/* left operand */
+    struct valstr rgt;		/* right operand */
 };
 
 struct nstr_sect {
@@ -92,57 +148,19 @@ struct nstr_item {
 #define NS_GROUP	6
 
 /*
- * codes looks like this:
- * D: is access restricted to deity?
- * T: type of member addressed by offset, if category NSC_OFF
- * C: category of value
- * V: value
- *
- * 2 2  1 1    1
- * 2 0  8 6    2    8    4    0
- * xxx xxxx xxxx xxxx xxxx xxxx
- * DTT TTCC VVVV VVVV VVVV VVVV
+ * Selector descriptor.
+ * Value is at offset CA_OFF in the context object.
  */
-
-/*
- * categories
- */
-#define NSC_VAL		(0)	/* value is plain number */
-#define NSC_VAR		(1<<16)	/* value is a vtype */
-#define NSC_OFF		(2<<16)	/* value is an offset */
-#define NSC_CMASK	(3<<16)
-
-/*
- * how to interpret "offset" fields
- */
-#define NSC_CHAR	(1<<18)	/* offset of s_char member */
-#define NSC_UCHAR	(2<<18)	/* offset of unsigned char member */
-#define NSC_SHORT	(3<<18)	/* offset of short */
-#define NSC_USHORT	(4<<18)	/* offset of unsigned short member */
-#define NSC_INT		(5<<18)	/* offset of int member */
-#define NSC_LONG	(6<<18)	/* offset of long member */
-#define NSC_XCOORD	(7<<18)	/* offset of coord that needs x conversion */
-#define NSC_YCOORD	(8<<18)	/* offset of coord that needs y conversion */
-#define NSC_FLOAT	(9<<18)	/* offset of float member */
-#define NSC_CHARP	(10<<18) /* offset of char *member */
-#define NSC_TIME	(11<<18) /* offset of time_t member */
-#define NSC_TMASK	(15<<18)
-
-#define NSC_NATID	NSC_UCHAR /* must match natid */
-
-#define NSC_MASK	(0xffff0000)
-
-#define NSC_DEITY	(1<<22)
-
 struct castr {
-    long ca_code;		/* encoded form */
-    s_char *ca_name;		/* name used for matches */
-    u_short ca_len;		/* Used for arrays */
+    packed_nsc_type ca_type;	/* type of value */
+    nsc_flags ca_flags;
+    unsigned short ca_len;	/* non-zero: is an array; #array elements */
+    ptrdiff_t ca_off;
+    char *ca_name;
 };
 
 /* variables using the above */
 
-extern struct castr var_ca[];
 extern struct castr sect_ca[];
 extern struct castr ship_ca[];
 extern struct castr plane_ca[];
@@ -158,12 +176,10 @@ extern struct castr lost_ca[];
 extern struct castr commodity_ca[];
 
 /* src/lib/subs/nstr.c */
-extern s_char *nstr_comp(struct nscstr *, int *, int, s_char *);
-extern int encode(register s_char *, long *, int);
-
-
-extern s_char *decodep(long, void *);
-extern int decode(natid, long, void *, int);
-extern int nstr_exec(struct nscstr *, register int, void *, int);
+extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
+extern char *nstr_comp_val(char *, struct valstr*, int);
+extern int nstr_coerce_val(struct valstr *, nsc_type, char *);
+extern int nstr_exec(struct nscstr *, int, void *);
+extern void nstr_exec_val(struct valstr *, natid, void *, nsc_type);
 
 #endif /* _NSC_H_ */

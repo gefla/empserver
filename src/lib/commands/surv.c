@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  */
 
+#include <ctype.h>
 #include "misc.h"
 #include "player.h"
 #include "var.h"
@@ -43,7 +44,7 @@
 #include "commands.h"
 #include "optlist.h"
 
-static s_char code_char(long int coding, struct sctstr *sp);
+static char code_char(struct valstr, struct sctstr *sp);
 
 /*
  * survey type <sarg> ?cond
@@ -55,7 +56,7 @@ surv(void)
     int nsect;
     struct nstr_sect nstr;
     int y;
-    long coding;
+    struct valstr val;
     struct natstr *np;
     struct sctstr sect;
     struct range range;
@@ -72,10 +73,17 @@ surv(void)
     static s_char **map = (s_char **)0;
 
     nsect = 0;
-    if ((ptr =
-	 getstarg(player->argp[1], "commodity or variable? ", buf)) == 0)
+    if ((ptr = getstarg(player->argp[1], "commodity or variable? ", buf)) == 0)
 	return RET_SYN;
-    if (encode(ptr, &coding, EF_SECTOR) < 0)
+    ptr = nstr_comp_val(ptr, &val, EF_SECTOR);
+    if (!ptr)
+	return RET_SYN;
+    if (val.val_cat != NSC_OFF || nstr_coerce_val(&val, NSC_LONG, NULL) < 0) {
+	pr("Can't survey this\n");
+	return RET_SYN;
+    }
+    for (; isspace(*ptr); ++ptr) ;
+    if (*ptr)
 	return RET_SYN;
     if (player->argp[2] == (s_char *)0) {
 	if ((str = getstring("(sects)? ", buf)) == 0)
@@ -92,10 +100,9 @@ surv(void)
     } else if (!snxtsct(&nstr, str))
 	return RET_SYN;
     if (!mapbuf)
-	mapbuf =
-	    (s_char *)malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+	mapbuf = malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
     if (!map) {
-	map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	map = malloc(WORLD_Y * sizeof(s_char *));
 	if (map && mapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		map[i] = &mapbuf[MAPWIDTH(1) * i];
@@ -120,9 +127,9 @@ surv(void)
 	if (!player->owner)
 	    continue;
 	ptr = &map[nstr.dy][nstr.dx];
-	if (nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR)) {
+	if (nstr_exec(cond, ncond, &sect)) {
 	    ++nsect;
-	    *ptr = 0x80 | code_char(coding, &sect);
+	    *ptr = 0x80 | code_char(val, &sect);
 	} else {
 	    *ptr = dchr[sect.sct_type].d_mnem;
 	}
@@ -141,22 +148,19 @@ surv(void)
     return RET_OK;
 }
 
-static s_char
-code_char(long int coding, struct sctstr *sp)
+static char
+code_char(struct valstr val, struct sctstr *sp)
 {
     int amt;
     int n;
+    int large = val.val_type != NSC_CHAR && val.val_type != NSC_UCHAR;
 
-    amt = decode(player->cnum, coding, (s_char *)sp, EF_SECTOR);
-    n = 0;
-    if ((coding & NSC_CMASK) == NSC_VAR) {
-	if (amt != 0)
-	    n = (amt / 100) + 1;
-    } else if (amt != 0)
-	n = (amt / 10) + 1;
-    if (n > 11)
-	n = 11;
-    if (n < 0)
-	n = 0;
-    return " 0123456789$"[n];
+    nstr_exec_val(&val, player->cnum, sp, NSC_LONG);
+    amt = val.val_as.lng;
+    if (amt <= 0)
+	return ' ';
+    n = amt / (large ? 100 : 10);
+    if (n >= 10)
+	return '$';
+    return "0123456789"[n];
 }

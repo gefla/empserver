@@ -51,10 +51,9 @@
 int
 snxtsct(register struct nstr_sect *np, s_char *str)
 {
-    register s_char *cp;
     struct range range;
     coord cx, cy;
-    int dist;
+    int dist, n;
     s_char buf[1024];
     struct range wr;
 
@@ -87,11 +86,10 @@ snxtsct(register struct nstr_sect *np, s_char *str)
     }
     if (player->condarg == 0)
 	return 1;
-    cp = player->condarg;
-    while ((cp = nstr_comp(np->cond, &np->ncond, EF_SECTOR, cp)) && *cp) ;
-    if (cp == 0)
-	return 0;
-    return 1;
+    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
+		  EF_SECTOR, player->condarg);
+    np->ncond = n >= 0 ? n : 0;
+    return n >= 0;
 }
 
 void

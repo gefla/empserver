@@ -123,7 +123,7 @@ rout(void)
 	    continue;
 	p = &map[ns.dy][ns.dx * 2];
 	if ((dir = sect.sct_del[i_del] & 0x7) &&
-	    nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR))
+	    nstr_exec(cond, ncond, &sect))
 	    memcpy(p, routech[dir][0], 3);
 	p[1] = dchr[sect.sct_type].d_mnem;
     }

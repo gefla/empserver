@@ -268,7 +268,7 @@ tend_nxtitem(struct nstr_item *np, caddr_t ptr)
 	}
 	if (selected && np->ncond) {
 	    /* nstr_exec is expensive, so we do it last */
-	    if (!nstr_exec(np->cond, np->ncond, ptr, np->type))
+	    if (!nstr_exec(np->cond, np->ncond, ptr))
 		selected = 0;
 	}
     } while (!selected);
