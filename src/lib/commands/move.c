@@ -269,6 +269,13 @@ move(void)
 	pr("%d mob left in %s\n", left,
 	   xyas(start.sct_x, start.sct_y, player->cnum));
 
+    if (amount <= 0) {
+	getsect(x, y, &start);
+	start.sct_flags &= ~MOVE_IN_PROGRESS;
+	putsect(&start);
+	return RET_OK;
+    }
+
 /* If the sector that things are going to is no longer
    owned by the player, and was the starting sector,
    try to find somewhere to dump the stuff.  If nowhere

@@ -192,6 +192,12 @@ explore(void)
      *      Check for a multitude of problems
      */
     getsect(endsect.sct_x, endsect.sct_y, &chksect);
+    if (amount <= 0) {
+	getsect(start.sct_x, start.sct_y, &start);
+	sect.sct_flags &= ~MOVE_IN_PROGRESS;
+	putsect(&sect);
+	return RET_FAIL;
+    }
     if (chksect.sct_type == '.') {
 	pr("Bridge disappeared!\n");
 	getsect(start.sct_x, start.sct_y, &start);
