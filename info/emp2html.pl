@@ -46,14 +46,13 @@ line: while (<>) {
 	next line;
     }
 
-    if ($a[1] =~ "eo") { $esc = 0; next line; }
-    if ($a[1] =~ "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
+    if ($a[1] eq "eo") { $esc = 0; next line; }
+    if ($a[1] eq "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
 
-    if (/^\.(NF|nf)/) { printf (("<p><pre>\n")); next line; }
-    if (/^\.(FI|fi)/) { printf (("</pre><p>\n")); next line; }
-    if (/^\.s3/) { printf (("<p>\n"));	next line; }
-    if (/^\.s1/) { printf (("<hr> \n")); next line; }
-    if (/^\.br/) { printf "<br>\n"; next line; }
+    if ($a[1] =~ /NF|nf/i) { printf (("<p><pre>\n")); next line; }
+    if ($a[1] =~ /FI|fi/i) { printf (("</pre><p>\n")); next line; }
+    if ($a[1] eq "s1") { printf (("<hr> \n")); next line; }
+    if ($a[1] eq "br") { printf "<br>\n"; next line; }
 
     if ($a[1] eq "SA") {
 	@a = checkarg(1, @a);

@@ -53,14 +53,13 @@ line: while (<>) {
 	next line;
     }
 
-    if ($a[1] =~ "eo") { $esc = 0; next line; }
-    if ($a[1] =~ "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
+    if ($a[1] eq "eo") { $esc = 0; next line; }
+    if ($a[1] eq "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
 
-    if (/^\.(NF|nf)/) { $dome = 1; printf (("<p><pre>\n")); next line; }
-    if (/^\.(FI|fi)/) { $dome = 0; printf (("</pre><p>\n")); next line; }
-    if (/^\.s3/) { printf (("<p>\n"));	next line; }
-    if (/^\.s1/) { printf (("<hr> \n")); next line; }
-    if (/^\.br/) { printf "<br>\n"; next line; }
+    if ($a[1] =~ /NF|nf/i) { $dome = 1; printf (("<p><pre>\n")); next line; }
+    if ($a[1] =~ /FI|fi/i) { $dome = 0; printf (("</pre><p>\n")); next line; }
+    if ($a[1] eq "s1") { printf (("<hr> \n")); next line; }
+    if ($a[1] eq "br") { printf "<br>\n"; next line; }
 
     if ($a[1] eq "SA") {
 	@a = checkarg(1, @a);
@@ -114,6 +113,8 @@ sub htmlify {
     s/\&/&amp;/g;
     s/\</&lt;/g;
     s/\>/&gt;/g;
+    # delete form feed
+    s/\f//g;
     return $_ unless $esc;
     # translate more troff escapes
     s/\\e/&\#92;/g;		# escape character
