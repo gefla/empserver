@@ -270,7 +270,7 @@ chridx_by_name(char *name)
 }
 
 /*
- * Evaluate a attribute of an object into VAL.
+ * Evaluate a attribute of an object into VAL, return VAL.
  * TYPE is the attribute's type.
  * PTR points to the context object.
  * The attribute is stored there at offset OFF + IDX * S, where S is
@@ -292,7 +292,7 @@ xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
 static char *
 xdprval(struct valstr *val, char *sep)
 {
-    char *s, *e;
+    unsigned char *s, *e;
 
     switch (val->val_type) {
     case NSC_TYPEID:
