@@ -299,6 +299,7 @@ ef_extend(int type, int count)
     if ((r = lseek(ep->fd, ep->fids * ep->size, SEEK_SET)) < 0) {
 	logerror("ef_extend: %s +#%d lseek(%d, %d, SEEK_SET) -> %d",
 		 ep->name, count, ep->fd, ep->fids * ep->size, r);
+	free(tmpobj);
 	return 0;
     }
     for (cur = ep->fids; cur < max; cur++) {
@@ -307,6 +308,7 @@ ef_extend(int type, int count)
 	if ((r = write(ep->fd, tmpobj, ep->size)) != ep->size) {
 	    logerror("ef_extend: %s +#%d write(%d, %p, %d) -> %d",
 		     ep->name, count, ep->fd, tmpobj, ep->size, r);
+	    free(tmpobj);
 	    return 0;
 	}
     }
