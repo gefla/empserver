@@ -1,5 +1,5 @@
-.TH Introduction "The Empire Users Guide"
-.NA Guide "The Empire Users Guide"
+.TH Introduction "User's Guide to Empire"
+.NA Guide "User's Guide to Empire"
 .LV Basic
 .nf
 .tr \&

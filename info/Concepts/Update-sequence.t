@@ -1,4 +1,4 @@
-.TH Concept Innards
+.TH Concept Update-sequence
 .NA Update-sequence "The order of events at the update"
 .LV Expert
 .s1
