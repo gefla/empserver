@@ -34,21 +34,13 @@
 #ifndef _VAR_H_
 #define _VAR_H_
 
-#define	V_MAX		255
-
 #define	PLG_HEALTHY	0
 #define	PLG_DYING	1
 #define	PLG_INFECT	2
 #define	PLG_INCUBATE	3
 #define	PLG_EXPOSED	4
 
-#define VT_ITEM		0
-#define VT_TYPE		(7<<5)
-
-#define isitem(x)	(((x) & VT_TYPE) == VT_ITEM)
-#define	unitem(x)	((x) & (VT_ITEM -1))
-
-#define	V_ITEM(x)	((x)|VT_ITEM)	/* a moveable, sellable(?) commodity */
+#define	V_ITEM(x)	(x)
 
 #define I_NONE		0
 #define I_CIVIL		1

@@ -685,8 +685,6 @@ show_sect_capab(int foo)
 {
     register int x, first = 1, i, j;
     char *tmpstr;
-    char c;
-    char *outputs = " cmsgpidbfolhur";
 
     for (x = 0; x < SCT_MAXDEF + 2; x++) {
 	if ((dchr[x].d_mnem == 0) || (dchr[x].d_prd == 0))
@@ -708,7 +706,7 @@ show_sect_capab(int foo)
 		&& pchr[j].p_ctype[i] > I_NONE
 		&& pchr[j].p_ctype[i] <= I_MAX) {
 		pr("%2d %c ", pchr[j].p_camt[i],
-		   ichr[pchr[j].p_ctype[i] & (~VT_ITEM)].i_name[0]);
+		   ichr[pchr[j].p_ctype[i]].i_name[0]);
 	    } else {
 		pr("     ");
 	    }
@@ -730,15 +728,12 @@ show_sect_capab(int foo)
 	    tmpstr = " ";
 	    break;
 	}
-	if (pchr[j].p_type)
-	    c = outputs[pchr[j].p_type - VT_ITEM];
-	else
-	    c = ' ';
 	pr("%-5s %3d %3d %4d %3d %3d %c",
 	   tmpstr,
 	   pchr[j].p_nlmin,
 	   pchr[j].p_nllag,
-	   pchr[j].p_effic, pchr[j].p_cost, pchr[j].p_nrdep, c);
+	   pchr[j].p_effic, pchr[j].p_cost, pchr[j].p_nrdep,
+	   pchr[j].p_type ? ichr[pchr[j].p_type].i_mnem : ' ');
 
 	pr("\n");
     }

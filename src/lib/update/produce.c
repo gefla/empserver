@@ -73,8 +73,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     product = &pchr[dchr[desig].d_prd];
     if (product == &pchr[0])
 	return 0;
-    vtype = product->p_type;
-    item = vtype & ~VT_ITEM;
+    item = product->p_type;
     *amount = 0;
     *cost = 0;
 
@@ -112,7 +111,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
      * Adjust produced amount by commodity production ratio
      */
     output = material_consume * prodeff;
-    if ((vtype == 0) && (!player->simulation)) {
+    if (item == I_NONE && !player->simulation) {
 	levels[sp->sct_own][product->p_level] += output;
 	wu((natid)0, sp->sct_own, "%s (%.2f) produced in %s\n",
 	   product->p_name, output, ownxy(sp));
