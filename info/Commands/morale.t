@@ -8,7 +8,7 @@ units.
 Normally, a land unit must start making morale checks during combat
 when its efficiency is less than or equal to its retreat percentage.
 (The chance of failing a morale check is: sqrt(100-effic)%/(men in unit).
-Example: a 25 man unit is at 75% efficiency. It's chance of failing is
+Example: a 25 man unit is at 75% efficiency. Its chance of failing is
 sqrt(100-75)%/25 = sqrt(25)%/25 = 20%)
 .s1
 The morale command
@@ -20,11 +20,11 @@ and make the unit stick around and fight more, but at the cost of more
 casualties.
 .s1
 The maximum allowed value is 100% (i.e. start making morale checks after
-any casualties) The minimum values is based on happiness:
+any casualties). The minimum value is based on happiness:
 .ti 3
 (morale_base) - happiness
 .s1
 "morale_base" is a deity settable variable, which defaults to 42.  When
-a unit is first built, it's retreat percentage is set to "morale_base".
+a unit is first built, its retreat percentage is set to "morale_base".
 .s1
 .SA "attack, assault, LandUnits"
