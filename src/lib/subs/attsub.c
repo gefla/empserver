@@ -2465,9 +2465,11 @@ att_move_in_off(int combat_mode, struct combat *off,
     struct sctstr sect;
     struct shpstr ship;
     int troops;
-    int n, lunchbox = 0;
+    int n, lunchbox;
 
     move_in_land(combat_mode, off, olist, def);
+
+    getsect(def->x, def->y, &sect);
 
     for (n = 0; n <= off->last; ++n) {
 	if (off[n].type == EF_BAD || !off[n].troops)
@@ -2483,24 +2485,20 @@ att_move_in_off(int combat_mode, struct combat *off,
 		continue;
 	    }
 	    getship(off[n].shp_uid, &ship);
-	    lunchbox += (int)((troops + 1) * ship.shp_item[I_FOOD]
-			      / (ship.shp_item[I_MILIT] + troops
-				 + ship.shp_item[I_CIVIL] + 0.5));
+	    lunchbox = (int)((troops + 1) * ship.shp_item[I_FOOD]
+			     / (ship.shp_item[I_MILIT] + troops
+				+ ship.shp_item[I_CIVIL] + 0.5));
+	    if (lunchbox > ITEM_MAX - sect.sct_item[I_FOOD])
+		lunchbox = ITEM_MAX - sect.sct_item[I_FOOD];
+
 	    ship.shp_item[I_FOOD] -= lunchbox;
+	    sect.sct_item[I_FOOD] += lunchbox;
 	    putship(ship.shp_uid, &ship);
 	}
     }
-    put_combat(def);
-    if (!lunchbox)
-	return;
-    if (def->type != EF_SECTOR) {
-	pr("Please tell the deity that you got the 'hungry mole' error\n");
-	logerror("att_move_in_off: hungry mole");
-	return;
-    }
-    getsect(def->x, def->y, &sect);
-    sect.sct_item[I_FOOD] += lunchbox;
+
     putsect(&sect);
+    put_combat(def);
 }
 
 
