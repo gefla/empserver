@@ -59,7 +59,7 @@ In each case, mobility is used to move the supplies.
 The first source of supply checked is the sector the unit is in.
 This is foraging, and uses some mobility from the unit itself.
 .s1
-If the unit's needs can't be satisfied by forging, it look for an owned
+If the unit's needs can't be satisfied by foraging, it look for an owned
 warehouse or headquarters that is at least 60% efficient. Drawing
 from these sources uses mobility from
 the warehouse or headquarters. (A headquarters will NOT supply a unit if it
