@@ -49,5 +49,3 @@ struct tchrstr tchr[] = {
     {TRTENL, "no enlistment"},
     {0, 0}
 };
-
-int trt_maxno = (sizeof(tchr) / sizeof(struct tchrstr)) - 1;

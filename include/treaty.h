@@ -79,6 +79,4 @@ struct tchrstr {
 
 extern struct tchrstr tchr[];
 
-extern int trt_maxno;
-
 #endif /* _TREATY_H_ */

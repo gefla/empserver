@@ -55,11 +55,4 @@ extern void border(struct range *, s_char *, s_char *);
 #define MAP_HIGH	bit(3)
 #define MAP_ALL		MAP_SHIP | MAP_LAND | MAP_PLANE
 
-struct mapstr {
-    short ef_type;
-    coord map_x;
-    coord map_y;
-    s_char map_des;
-};
-
 #endif /* _MAP_H_ */

@@ -241,5 +241,3 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
     {-2, N_FRONT, {"mercenaries board one of %s's land units",
 /* 82*/ "elite forces board %s land unit"}}
 };
-
-int nws_maxno = (sizeof(rpt) / sizeof(struct rptstr)) - 1;

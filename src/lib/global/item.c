@@ -59,5 +59,3 @@ struct ichrstr ichr[I_MAX + 2] = {
     {'r', V_RAD, 150, 1, 8, {1, 10, 1, 1}, "radioactive materials"},
     {0, 0, 0, 0, 0, {0, 0, 0, 0}, 0}
 };
-
-int itm_maxno = (sizeof(ichr) / sizeof(struct ichrstr)) - 1;

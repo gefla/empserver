@@ -36,7 +36,6 @@
 #ifndef _NAT_H_
 #define _NAT_H_
 
-#include "mission.h"
 #include "sect.h"
 
 #define	MAXNOR		50	/* max # realms */
@@ -75,11 +74,11 @@ struct natstr {
     float nat_level[4];		/* technology, etc */
     struct boundstr nat_b[MAXNOR];	/* realm bounds */
     short nat_relate[MAXNOC];
-    short nat_contact[MAXNOC];	/* short for everyone */
+    short nat_contact[MAXNOC];
     short nat_rejects[(MAXNOC + 3) / 4];	/* four bits for each country */
     s_char nat_priorities[SCT_MAXDEF + 8];	/* priority for each SCT_MAXDEF+8 */
     long nat_flags;		/* nation flags */
-    s_char nat_mission_trigger[MI_MAX];	/* not used -- relation to trig */
+    char nat_spare[15];
 };
 
 	/* Priorities */
@@ -129,35 +128,11 @@ struct natstr {
 #define	NAT_ELEV	2
 #define	NAT_HLEV	3
 
-#define	NF_CHAR		1
-#define	NF_UCHAR	2
-#define	NF_SHORT	3
-#define	NF_LONG		4
-#define	NF_STRING	5
-#define	NF_FLOAT	6
-#define	NF_DOUBLE	7
-#define	NF_BOUND	8
-
-#define NF_NOTIFY	1
-#define NF_PRIVATE	2
-
-#define NF_NATID	NF_UCHAR
-#define NF_COORD	NF_SHORT
-
 #define FOUND_FLY	3	/* Number of updates contact lasts */
 #define FOUND_LOOK	5	/* These are only useful with the */
 #define FOUND_SPY	6	/* LOSE_CONTACT option (and HIDDEN) */
-#define FOUND_MAP	6
 #define FOUND_TELE	3
 #define FOUND_COAST	3
-
-struct fixnat {
-    s_char *name;
-    int type;
-    int index;
-    int notify;
-    int offset;
-};
 
 extern s_char *relates[];
 
@@ -194,6 +169,7 @@ extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
 
+/* nation flags */
 #define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */
 #define NF_FLASH     	bit(1)	/* Allow other players to flash me (sicko :) */
 #define NF_BEEP      	bit(2)	/* Make beeping sounds when appropriate */

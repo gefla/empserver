@@ -168,6 +168,5 @@ struct rptstr {
 
 extern struct rptstr rpt[];
 extern s_char *page_headings[];
-extern int nws_maxno;
 
 #endif /* _NEWS_H_ */

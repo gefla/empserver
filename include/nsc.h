@@ -154,7 +154,6 @@ extern struct castr treaty_ca[];
 extern struct castr trade_ca[];
 extern struct castr loan_ca[];
 extern struct castr genitem_ca[];
-extern struct castr map_ca[];
 extern struct castr lost_ca[];
 extern struct castr commodity_ca[];
 

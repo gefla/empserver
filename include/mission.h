@@ -45,16 +45,6 @@
 #define MI_DSUPPORT	7
 #define MI_OSUPPORT	8
 
-/* The following "missions" do not need to be set--they are automatic */
-#define MI_FINTERDICT   9	/* forts interdicting ships */
-#define MI_MINTERDICT	10	/* missiles interdicting ships or land units */
-#define MI_MINTERCEPT	11	/* missile interception */
-#define MI_SINTERCEPT	12	/* sattelite interception */
-#define MI_PINTERCEPT	13	/* intercept planes */
-#define MI_SAM		14	/* SAM interception */
-#define MI_LREACT	15	/* land units react */
-#define MI_MAX		15
-
 struct genlist {
     struct emp_qelem queue;	/* list of units */
     int type;			/* type of unit */

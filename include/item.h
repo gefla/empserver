@@ -55,6 +55,4 @@ extern int maxitem;
 
 extern struct ichrstr *whatitem(s_char *ptr, s_char *prompt);
 
-extern int itm_maxno;
-
 #endif /* _ITEM_H_ */

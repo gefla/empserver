@@ -340,10 +340,3 @@ struct castr nat_ca[] = {
 /* {NSC_LONG | NSC_OFF | fldoff(natstr, nat_flags),"flags",0}, */
     {0, 0, 0}
 };
-
-struct castr map_ca[] = {
-    {NSC_XCOORD | NSC_OFF | fldoff(mapstr, map_x), "x", 0},
-    {NSC_YCOORD | NSC_OFF | fldoff(mapstr, map_y), "y", 0},
-    {NSC_CHAR | NSC_OFF | fldoff(mapstr, map_des), "des", 0},
-    {0, 0, 0}
-};
