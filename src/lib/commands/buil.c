@@ -80,8 +80,6 @@ extern int etu_per_update;
 int
 buil(void)
 {
-    extern double buil_bt;
-    extern double buil_tower_bt;
     struct sctstr sect;
     struct nstr_sect nstr;
     struct natstr *natp;
@@ -100,7 +98,6 @@ buil(void)
     int gotsect = 0;
     int built;
     int hold, found, number = 1, x;
-    extern float drnuke_const;
     int asked = 0;
     s_char buf[1024];
 
@@ -652,8 +649,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 static int
 build_bridge(register struct sctstr *sp, register int *vec)
 {
-    extern int buil_bh;
-    extern double buil_bc;
     struct sctstr sect;
     int val;
     int newx, newy;
@@ -1003,8 +998,6 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 static int
 build_tower(register struct sctstr *sp, register int *vec)
 {
-    extern int buil_tower_bh;
-    extern double buil_tower_bc;
     struct sctstr sect;
     int val;
     int newx, newy;

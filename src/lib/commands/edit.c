@@ -690,7 +690,6 @@ static int
 docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	  struct natstr *np)
 {
-    extern int m_m_p_d;
     coord newx, newy;
     switch (op) {
     case 'n':

@@ -37,12 +37,12 @@
 #include "empthread.h"
 #include "proto.h"
 #include "prototypes.h"
+#include "optlist.h"
 
 /*ARGSUSED*/
 void
 player_kill_idle(void *argv)
 {
-    extern int max_idle;
     struct player *p;
     time_t now;
 

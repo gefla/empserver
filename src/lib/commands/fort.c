@@ -43,6 +43,7 @@
 #include "deity.h"
 #include "file.h"
 #include "commands.h"
+#include "optlist.h"
 
 int
 fort(void)
@@ -52,7 +53,6 @@ fort(void)
     struct lndstr land;
     int fort_amt, hard_amt;
     s_char *p;
-    extern int land_mob_max;
     s_char buf[1024];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))

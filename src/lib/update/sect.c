@@ -295,7 +295,6 @@ do_fallout(register struct sctstr *sp, register int etus)
 void
 spread_fallout(struct sctstr *sp, int etus)
 {
-    extern double fallout_spread;
     struct sctstr *ap;
     int tvec[I_MAX + 1];
     int cvec[I_MAX + 1];
@@ -329,8 +328,6 @@ spread_fallout(struct sctstr *sp, int etus)
 void
 decay_fallout(struct sctstr *sp, int etus)
 {
-    extern double decay_per_etu;
-    extern double fallout_spread;
     int cvec[I_MAX + 1];
     int decay;
 

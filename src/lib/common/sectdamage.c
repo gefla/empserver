@@ -88,7 +88,6 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
 int
 sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
 {
-    extern double unit_damage;
     struct nstr_item ni;
     struct lndstr land;
     struct plnstr plane;

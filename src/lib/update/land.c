@@ -116,14 +116,12 @@ upd_land(register struct lndstr *lp, int landno, register int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
-    extern int morale_base;
     struct lchrstr *lcp;
     int vec[I_MAX + 1];
     int cvec[I_MAX + 1];
     int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;
-    extern double money_land;
     int needed;
     int cost;
     int eff;
@@ -244,7 +242,6 @@ static int
 landrepair(register struct lndstr *land, int *vec, struct natstr *np,
 	   int *bp, int etus)
 {
-    extern int land_grow_scale;
     register int delta;
     struct sctstr *sp;
     struct lchrstr *lp;
@@ -369,7 +366,6 @@ int
 feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
 	  int doit)
 {
-    extern double eatrate;
     double food_eaten, ship_eaten;
     double people_left;
     int can_eat, need, svec[I_MAX + 1];

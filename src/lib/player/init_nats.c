@@ -74,9 +74,6 @@ init_nats(void)
 static int
 nat_cap(int btu)
 {
-    extern int s_p_etu;
-    extern int max_btus;
-    extern float btu_build_rate;
     struct sctstr sect;
     struct natstr *np;
     double d;

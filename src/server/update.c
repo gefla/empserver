@@ -49,10 +49,6 @@ time_t update_time;
 void
 update_sched(void *argv)
 {
-    extern int s_p_etu;
-    extern int etu_per_update;
-    extern int adj_update;
-    extern int update_window;
     s_char *kw;
     int hour[2];
     int wind;

@@ -49,6 +49,7 @@
 #include <unistd.h>
 #endif
 #include "commands.h"
+#include "optlist.h"
 
 #if 0
 static int fileselect(struct dirent *dp);
@@ -92,7 +93,6 @@ strnccmp(s_char *s1, s_char *s2, int n)
 int
 info(void)
 {
-    extern s_char *infodir;
     s_char buf[255];
     FILE *fp;
     s_char *bp;
@@ -272,7 +272,6 @@ printdir(void)
 int
 apro(void)
 {
-    extern s_char *infodir;
     FILE *fp;
     s_char *bp, *lbp;
     s_char *fbuf;

@@ -193,7 +193,6 @@ player_wakeup(struct player *pl)
 void
 player_accept(void *argv)
 {
-    extern s_char *loginport;
     struct sockaddr_in sin;
     struct servent *sp;
     int s;

@@ -123,8 +123,6 @@ resupply_commod(struct lndstr *lp, int type)
     }
 
     if (opt_FUEL && type == I_PETROL) {
-	extern float land_mob_scale;
-	extern int etu_per_update;
 	int fuel_needed = (lp->lnd_fuelu * (((float)etu_per_update
 					     * land_mob_scale)) / 10.0);
 
@@ -180,8 +178,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
     int can_move;
     double move_cost, weight, mobcost;
     int packing;
-    extern double eatrate;
-    extern int etu_per_update;
     struct dchrstr *dp;
     struct ichrstr *ip;
     s_char buf[1024];
@@ -484,9 +480,6 @@ get_minimum(struct lndstr *lp, int type)
 {
     struct lchrstr *lcp;
     int max, want = 0;
-    extern double eatrate;
-    extern int etu_per_update;
-    extern float land_mob_scale;
 
     lcp = &lchr[(int)lp->lnd_type];
     max = vl_find(V_ITEM(type), lcp->l_vtype, lcp->l_vamt, (int)lcp->l_nv);

@@ -51,7 +51,6 @@ show(void)
     struct natstr *natp;
     int tlev;
     s_char buf[1024];
-    extern float drnuke_const;
     int rlev;
 
     if (!(p = getstarg(player->argp[1],

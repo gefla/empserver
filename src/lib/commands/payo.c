@@ -54,14 +54,6 @@ payo(void)
     struct mchrstr *mp;
     int dist;
     float cash = 0.0;
-    extern int trade_1_dist;	/* less than this gets no money */
-    extern int trade_2_dist;	/* less than this gets trade_1 money */
-    extern int trade_3_dist;	/* less than this gets trade_2 money */
-    extern float trade_1;	/* return on trade_1 distance */
-    extern float trade_2;	/* return on trade_2 distance */
-    extern float trade_3;	/* return on trade_3 distance */
-    extern float trade_ally_bonus;	/* 20% bonus for trading with allies */
-
 
     if (!opt_TRADESHIPS) {
 	pr("Tradeships are not enabled.\n");

@@ -98,7 +98,6 @@ main(int argc, char **argv)
     int debug = 0;
     int op;
     char *config_file = NULL;
-    extern s_char *datadir;
     extern char *optarg;
     s_char tbuf[256];
 #ifdef POSIXSIGNALS

@@ -44,6 +44,7 @@
 #include "keyword.h"
 #include "file.h"
 #include "common.h"
+#include "optlist.h"
 
 #if defined(Rel4) || defined(_WIN32)
 #include <time.h>
@@ -59,7 +60,6 @@
 int
 gamehours(time_t now, int *hour)
 {
-    extern s_char *game_days, *game_hours;
     extern struct tm *localtime(const time_t *);
     register s_char *bp;
     register struct tm *tm;

@@ -119,7 +119,6 @@ ground_interdict(coord x, coord y, natid victim, s_char *s)
 int
 collateral_damage(coord x, coord y, int dam, struct emp_qelem *list)
 {
-    extern double collateral_dam;
     int coll;
     struct sctstr sect;
 
@@ -439,8 +438,6 @@ static int
 perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		int mission, s_char *s, int hardtarget)
 {
-    extern int land_max_interdiction_range;
-    extern int ship_max_interdiction_range;
     struct emp_qelem *qp, missiles, bombers, escorts, airp, b, e;
     struct emp_qelem *newqp;
     struct genlist *glp;
@@ -456,7 +453,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     natid plane_owner = 0;
     int gun, shell, md, air_dam = 0;
     double range2, prb, range, mobcost, hitchance;
-    extern int torpedo_damage;
 
     getsect(x, y, &sect);
 

@@ -55,7 +55,6 @@ work(void)
     struct lndstr land;
     int work_amt, eff_amt, w;
     s_char *p;
-    extern int land_mob_max;
     coord donex = 0, doney = 1;
     s_char buf[1024];
 

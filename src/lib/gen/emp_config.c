@@ -61,6 +61,7 @@
 extern char *strdup();
 #endif /* NOSTRDUP */
 
+#if 0
 /* All the configurable variables ... */
 extern s_char *infodir, *datadir, *loginport, *privname,
     *privlog;
@@ -123,9 +124,19 @@ extern float start_technology, start_research;
 
 extern int trade_1_dist, trade_2_dist, trade_3_dist;
 extern float trade_1, trade_2, trade_3, trade_ally_bonus, trade_ally_cut;
+#endif
 
 /* Dummy one */
 static int emp_config_dummy;
+
+static void optstrset(struct keymatch *kp, s_char **av);
+static void intset(struct keymatch *kp, s_char **av);
+static void floatset(struct keymatch *kp, s_char **av);
+static void doubleset(struct keymatch *kp, s_char **av);
+static void longset(struct keymatch *kp, s_char **av);
+static void optionset(struct keymatch *kp, s_char **av);
+static void optiondel(struct keymatch *kp, s_char **av);
+static void worldxset(struct keymatch *kp, s_char **av);
 
 /* things that can be changed */
 struct keymatch configkeys[] = {
@@ -502,7 +513,7 @@ keylookup(register s_char *command, struct keymatch *tbl)
 }
 
 /* worldx int setting function */
-void
+static void
 worldxset(struct keymatch *kp, s_char **av)
 {
     int *intptr = (int *)kp->km_data;
@@ -517,7 +528,7 @@ worldxset(struct keymatch *kp, s_char **av)
 }
 
 /* generic int setting function */
-void
+static void
 intset(struct keymatch *kp, s_char **av)
 {
     int *intptr = (int *)kp->km_data;
@@ -528,7 +539,7 @@ intset(struct keymatch *kp, s_char **av)
 }
 
 /* generic float set function */
-void
+static void
 floatset(struct keymatch *kp, s_char **av)
 {
     float *floatptr = (float *)kp->km_data;
@@ -541,7 +552,7 @@ floatset(struct keymatch *kp, s_char **av)
 
 
 /* generic string set function */
-void
+static void
 optstrset(struct keymatch *kp, s_char **av)
 {
     s_char **confstrp = (s_char **)kp->km_data;
@@ -555,7 +566,7 @@ optstrset(struct keymatch *kp, s_char **av)
 }
 
 /* generic double set function */
-void
+static void
 doubleset(struct keymatch *kp, s_char **av)
 {
     double *doublep = (double *)kp->km_data;
@@ -566,7 +577,7 @@ doubleset(struct keymatch *kp, s_char **av)
 }
 
 /* generic long set function */
-void
+static void
 longset(struct keymatch *kp, s_char **av)
 {
     long int *longp = (long int *)kp->km_data;
@@ -636,7 +647,7 @@ print_config(FILE * fp)
 
 
 /* add an option to the list */
-void
+static void
 set_option(const char *s)
 {
     struct option_list *op;
@@ -648,7 +659,7 @@ set_option(const char *s)
 }
 
 /* delete an option from the list */
-void
+static void
 delete_option(const char *s)
 {
     struct option_list *op;
@@ -660,7 +671,7 @@ delete_option(const char *s)
 }
 
 /* config interface */
-void
+static void
 optionset(struct keymatch *kp, s_char **av)
 				/* unused - we have a well known global */
 {
@@ -671,7 +682,7 @@ optionset(struct keymatch *kp, s_char **av)
 }
 
 /* config interface */
-void
+static void
 optiondel(struct keymatch *kp, s_char **av)
 				/* unused - we have a well known global */
 {

@@ -68,8 +68,6 @@ count_pop(register int n)
 int
 prod(void)
 {
-    extern double obrate, uwbrate;
-    extern int etu_per_update;
     struct natstr *natp;
     struct sctstr sect;
     struct nstr_sect nstr;

@@ -2608,8 +2608,6 @@ static void
 take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 		 struct combat *def)
 {
-    extern int etu_per_update;
-    extern float land_mob_scale;
     int mobcost;
     int new;
 

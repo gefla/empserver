@@ -62,7 +62,6 @@ increase_mob(time_t * counter, float mult)
     time_t secs;
     time_t now;
     time_t left;
-    extern long s_p_etu;
     extern int updating_mob;
     int newetus;
     float newmob;
@@ -156,7 +155,6 @@ update_all_mob(void)
 void
 sct_do_upd_mob(register struct sctstr *sp)
 {
-    extern float sect_mob_scale;
     int etus;
 
     if (do_upd_checking || timestamp_fixing || update_pending)
@@ -176,7 +174,6 @@ sct_do_upd_mob(register struct sctstr *sp)
 void
 shp_do_upd_mob(register struct shpstr *sp)
 {
-    extern float ship_mob_scale;
     int etus;
 
     if (do_upd_checking || timestamp_fixing || update_pending)
@@ -193,7 +190,6 @@ shp_do_upd_mob(register struct shpstr *sp)
 void
 lnd_do_upd_mob(register struct lndstr *lp)
 {
-    extern float land_mob_scale;
     int etus;
 
     if (do_upd_checking || timestamp_fixing || update_pending)
@@ -211,7 +207,6 @@ lnd_do_upd_mob(register struct lndstr *lp)
 void
 pln_do_upd_mob(register struct plnstr *pp)
 {
-    extern float plane_mob_scale;
     int etus;
 
     if (do_upd_checking || timestamp_fixing || update_pending)
@@ -246,8 +241,6 @@ mob_sect(register int etus)
 static void
 do_mob_sect(register struct sctstr *sp, register int etus)
 {
-    extern float sect_mob_scale;
-    extern int sect_mob_max;
     register int value;
 
     if (sp->sct_own == 0)
@@ -286,13 +279,10 @@ mob_ship(register int etus)
 static void
 do_mob_ship(register struct shpstr *sp, register int etus)
 {
-    extern int ship_mob_max;
-    extern float ship_mob_scale;
     int newfuel = 0;
     register int value;
     int can_add, have_fuel_for, total_add;
     double d;
-    extern int fuel_mult;
 
     if (sp->shp_own == 0)
 	return;
@@ -399,13 +389,10 @@ mob_land(register int etus)
 static void
 do_mob_land(register struct lndstr *lp, register int etus)
 {
-    extern int land_mob_max;
-    extern float land_mob_scale;
     int newfuel = 0;
     register int value;
     int can_add, have_fuel_for, total_add;
     double d;
-    extern int fuel_mult;
 
     if (lp->lnd_own == 0)
 	return;
@@ -519,8 +506,6 @@ mob_plane(register int etus)
 static void
 do_mob_plane(register struct plnstr *pp, register int etus)
 {
-    extern int plane_mob_max;
-    extern float plane_mob_scale;
     register int value;
 
     if (pp->pln_own == 0)

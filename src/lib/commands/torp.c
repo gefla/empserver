@@ -47,6 +47,7 @@
 #include "retreat.h"
 #include "damage.h"
 #include "commands.h"
+#include "optlist.h"
 
 static void anti_torp(int f, int ntorping, int vshipown);
 static int candchrg(struct shpstr *, struct shpstr *);
@@ -61,7 +62,6 @@ s_char *prsub(struct shpstr *sp);
 int
 torp(void)
 {
-    extern int torpedo_damage;
     natid vshipown;
     int range;
     int dam;
@@ -404,7 +404,6 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 static int
 fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 {
-    extern int torpedo_damage;
     int dam;
     int shells;
     double hitchance;

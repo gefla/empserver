@@ -118,7 +118,6 @@ look_ship(register struct shpstr *lookship)
     register struct shpstr *sp;
     register struct mchrstr *smcp;
     register struct mchrstr *tmcp;
-    extern int ship_max_interdiction_range;
     struct sctstr sect;
     int range;
     int vrange;

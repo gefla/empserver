@@ -229,7 +229,6 @@ out5(double value, int round_val, int round_flag)
 static void
 gen_power(void)
 {
-    extern double powe_cost;
     float *f_ptr;
     float *f_pt2;
     register struct powstr *pow;

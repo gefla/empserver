@@ -228,9 +228,6 @@ lookup(int key, struct lookup *table)
 void
 show_bridge(int tlev)
 {
-    extern double buil_bt, buil_bc;
-    extern int buil_bh;
-
     if (tlev < buil_bt)
 	return;
     pr("Bridges require %g tech,", buil_bt);
@@ -246,9 +243,6 @@ show_bridge(int tlev)
 void
 show_tower(int tlev)
 {
-    extern double buil_tower_bt, buil_tower_bc;
-    extern int buil_tower_bh;
-
     if (tlev < buil_tower_bt)
 	return;
     pr("Bridge Towers require %g tech,", buil_tower_bt);
@@ -273,7 +267,6 @@ show_nuke_build(int tlev)
     register struct nchrstr *np;
     register int n;
     register int avail;
-    extern float drnuke_const;
 
     if (opt_DRNUKE)
 	pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
@@ -309,7 +302,6 @@ show_nuke_capab(int tlev)
     register struct nchrstr *np;
     register int i, j, n;
     s_char *p;
-    extern float drnuke_const;
 
     if (opt_DRNUKE)
 	pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");

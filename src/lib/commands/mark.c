@@ -62,7 +62,6 @@ pr_mark(struct comstr *comm)
 {
     time_t now;
     double tleft;
-    extern int MARK_DELAY;
 
     (void)time(&now);
     tleft = MARK_DELAY / 3600.0 - (now - comm->com_markettime) / 3600.0;

@@ -52,44 +52,6 @@ extern float drnuke_const;
 int
 vers(void)
 {
-    extern int s_p_etu;
-    extern int etu_per_update;
-    extern int m_m_p_d;
-    extern int players_at_00;
-    extern float btu_build_rate;
-    extern double fgrate, fcrate;
-    extern double eatrate, babyeat;
-    extern double obrate, uwbrate;
-    extern double bankint;
-    extern double hap_cons, edu_cons;
-    extern double money_civ, money_uw, money_mil, money_res;
-    extern float hap_avg, edu_avg, ally_factor;
-    extern float level_age_rate;
-/*	extern	float easy_tech, hard_tech, tech_log_base; */
-    extern float easy_tech, tech_log_base;
-    extern int land_mob_max;
-    extern int land_grow_scale;
-    extern float land_mob_scale;
-    extern int sect_mob_max;
-    extern float sect_mob_scale;
-    extern int ship_mob_max;
-    extern float ship_mob_scale;
-    extern int ship_grow_scale;
-    extern int plane_mob_max;
-    extern float plane_mob_scale;
-    extern int plane_grow_scale;
-    extern int War_Cost;
-    extern float fire_range_factor;
-    extern int trade_1_dist;	/* less than this gets no money */
-    extern int trade_2_dist;	/* less than this gets trade_1 money */
-    extern int trade_3_dist;	/* less than this gets trade_2 money */
-    extern float trade_1;	/* return on trade_1 distance */
-    extern float trade_2;	/* return on trade_2 distance */
-    extern float trade_3;	/* return on trade_3 distance */
-    extern float trade_ally_bonus;	/* 20% bonus for trading with allies */
-    extern float trade_ally_cut;	/* 10% bonus for ally you trade with */
-    extern double tradetax;
-    extern double buytax;
     struct option_list *op;
 
     time_t now;

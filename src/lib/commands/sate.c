@@ -43,11 +43,11 @@
 #include "file.h"
 #include "nat.h"
 #include "commands.h"
+#include "optlist.h"
 
 int
 sate(void)
 {
-    extern int plane_mob_max;
     double tech;
     int pln_uid;
     struct plnstr plane;

@@ -780,7 +780,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     struct sctstr firing;
     struct nstr_sect ns;
     struct flist *fp;
-    extern int torpedo_damage;
     int gun;
 
     if (own == 0)

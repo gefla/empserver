@@ -126,7 +126,6 @@ upd_ship(register struct shpstr *sp, int shipno, register int etus,
     s_char *resource;
     int n;
     int mult;
-    extern double money_ship;
     int needed;
     int cost;
     int eff;
@@ -267,7 +266,6 @@ static int
 shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 	   int *bp, int etus)
 {
-    extern int ship_grow_scale;
     register int delta;
     struct sctstr *sp;
     struct mchrstr *mp;
@@ -435,7 +433,6 @@ int
 feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
 	  int doit)
 {
-    extern double eatrate;
     double food_eaten, land_eaten;
     double people_left;
     int ifood_eaten;

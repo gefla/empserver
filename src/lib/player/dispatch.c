@@ -51,7 +51,6 @@ dispatch(s_char *buf, s_char *redir)
 {
     extern struct cmndstr player_coms[];
     extern int update_pending;
-    extern int max_btus;
     struct natstr *np;
     struct cmndstr *command;
     int cmd;

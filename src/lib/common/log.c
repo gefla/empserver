@@ -47,6 +47,7 @@
 #include "deity.h"
 #include "player.h"
 #include "common.h"
+#include "optlist.h"
 
 static s_char *logfile = 0;
 
@@ -63,7 +64,6 @@ void
 loginit(void)
 {
     extern s_char program[];
-    extern s_char *datadir;
     s_char buf[1024];
 
 #if !defined(_WIN32)

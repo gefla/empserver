@@ -185,7 +185,6 @@ main(int argc, char *argv[])
     int opt;
     extern int optind;
     extern char *optarg;
-    extern s_char *datadir;
     char *config_file = NULL;
     char tbuf[512];
     int i = 0;

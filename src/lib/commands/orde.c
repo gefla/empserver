@@ -333,8 +333,6 @@ orde(void)
 static void
 eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
 {
-    extern int etu_per_update;
-    extern float ship_mob_scale;
     struct mchrstr *mcp;
     double mobcost, mobil;
     int i;

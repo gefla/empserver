@@ -50,6 +50,7 @@
 #include "mission.h"
 #include "genitem.h"
 #include "commands.h"
+#include "optlist.h"
 
 /*
  *  mission <type> <planes/ships/units> <mission type> <op sector> [<radius>]
@@ -67,10 +68,6 @@ mission(void)
     struct genitem *gp;
     int num = 0, mobmax, mobused, dist;
     struct nstr_item ni;
-    extern int ship_mob_max;
-    extern int land_mob_max;
-    extern int plane_mob_max;
-    extern double mission_mob_cost;
     s_char prompt[128];
     s_char buf[1024];
 

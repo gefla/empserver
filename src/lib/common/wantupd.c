@@ -54,9 +54,6 @@
 void
 update_policy_check(void)
 {
-    extern int update_policy, update_demandpolicy;
-    extern int update_wantmin, blitz_time;
-
     if (update_policy < 0)
 	update_policy = UDP_DEFAULT;
     if (update_policy > UDP_MAX)
@@ -80,7 +77,6 @@ demand_update_time(time_t * now)
     s_char *p;
     int curtime;
     int hour[2];
-    extern s_char *update_demandtimes;
 
     tm = localtime(now);
     curtime = tm->tm_min + tm->tm_hour * 60;
@@ -98,9 +94,6 @@ demand_update_time(time_t * now)
 static void
 regular_update_time(time_t * now, time_t * tim, time_t * delta)
 {
-    extern int s_p_etu;
-    extern int etu_per_update;
-    extern int adj_update;
     s_char *p;
     time_t tw;
     int secs_per_update;
@@ -119,8 +112,6 @@ scheduled_update_time(time_t * now, int *which)
     s_char *p, *p1;
     int curtime;
     int hour;
-    extern int hourslop;
-    extern s_char *update_times;
 
     *which = -1;
     p = update_times;
@@ -146,7 +137,6 @@ next_scheduled_time(time_t * now, time_t * tim, time_t * delta)
     int curtime;
     int hour;
     int mintime;
-    extern s_char *update_times;
 
     p = update_times;
     if (*p == 0)
@@ -197,12 +187,10 @@ demand_update_want(int *want, int *pop, int which)
 static int
 demand_check(void)
 {
-    extern int update_wantmin, update_missed;
     struct natstr *natp;
     int want, pop, cn, veto;
     time_t now;
     time_t cur;
-    extern long last_demand_update;
 
     time(&cur);
 
@@ -278,8 +266,6 @@ demand_check(void)
 int
 demandupdatecheck(void)
 {
-    extern int update_demandpolicy;
-
     if (UDDEM_COMSET != update_demandpolicy) {
 	logerror("no demand update, not policy.");
 	return (0);
@@ -295,7 +281,6 @@ demandupdatecheck(void)
 int
 updatetime(time_t * now)
 {
-    extern int update_policy;
     int which;
 
     if (opt_BLITZ && update_policy == UDP_BLITZ) {
@@ -333,9 +318,7 @@ next_update_time(time_t * now, time_t * tim, time_t * delta)
 			/* Time of next update */
 			/* Seconds till next update */
 {
-    extern int update_policy;
     time_t stim, sdelta;
-    extern int blitz_time;
 
     switch (update_policy) {
     case UDP_NORMAL:
@@ -369,9 +352,7 @@ next_update_check_time(time_t * now, time_t * tim, time_t * delta)
 			/* Time of next update */
 			/* Seconds till next update check */
 {
-    extern int update_policy;
     time_t stim, sdelta;
-    extern int blitz_time;
 
     switch (update_policy) {
     case UDP_NORMAL:

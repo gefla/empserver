@@ -78,8 +78,6 @@ buy(void)
     time_t now;
     double tally;
     double canspend;
-    extern double buytax;
-    extern double tradetax;
     s_char buf[1024];
 
     if (!opt_MARKET) {
@@ -224,7 +222,6 @@ buy(void)
 int
 check_market(void)
 {
-    extern double buytax;
     struct comstr comm;
     struct sctstr *sect;
     struct ichrstr *ip;

@@ -126,7 +126,6 @@ vl_damage(register int pct, register u_char *typevec,
 {
     register int i;
     register int lose;
-    extern double people_damage;
 
     if (pct >= 100)
 	return 0;

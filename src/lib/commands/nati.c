@@ -44,8 +44,6 @@
 int
 nati(void)
 {
-    extern int etu_per_update;
-    extern double obrate, uwbrate;
     struct natstr *natp;
     struct sctstr sect;
     float hap;

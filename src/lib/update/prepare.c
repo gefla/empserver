@@ -121,7 +121,6 @@ tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax,
     int *uw_tax, int *mil_pay)
 {
     int vec[I_MAX + 1];
-    extern double money_civ, money_mil, money_uw;
 
     *civ_tax = 0;
     *uw_tax = 0;
@@ -152,7 +151,6 @@ tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax,
 int
 upd_slmilcosts(natid n, int etu)
 {
-    extern double money_mil;
     struct shpstr *sp;
     struct lndstr *lp;
     int mil = 0;
@@ -179,7 +177,6 @@ upd_slmilcosts(natid n, int etu)
 int
 bank_income(struct sctstr *sp, int etu)
 {
-    extern double bankint;
     int vec[I_MAX + 1];
 
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)

@@ -51,7 +51,6 @@ upda(void)
     FILE *fp;
     struct mob_acc_globals timestamps;
     extern int updating_mob;
-    extern int update_window;
     extern s_char *timestampfil;
 
     if (opt_MOB_ACCESS) {
@@ -77,14 +76,6 @@ upda(void)
     if (opt_UPDATESCHED) {
 	time_t now, next, delta;
 	extern int update_time;
-	extern int update_policy;
-	extern int update_demandpolicy;
-	extern int update_wantmin;
-	extern int blitz_time;
-	extern s_char *update_times;
-	extern s_char *update_demandtimes;
-	extern s_char *game_days;
-	extern s_char *game_hours;
 
 	if (updates_disabled())
 	    pr("UPDATES ARE DISABLED!\n");
@@ -164,9 +155,6 @@ upda(void)
 
 	return (0);
     } else {
-	extern int s_p_etu;
-	extern int etu_per_update;
-	extern int adj_update;
 	time_t now;
 	time_t upd_time;
 	time_t next_update;

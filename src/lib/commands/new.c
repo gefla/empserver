@@ -64,9 +64,6 @@ static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
 int
 new(void)
 {
-    extern int max_btus;
-    extern int players_at_00;
-    extern int at_least_one_100;
 #ifdef START_UNITS
     extern int start_unit_type[START_UNITS];
 #endif /* START_UNITS */
@@ -80,7 +77,6 @@ new(void)
     int i;
     s_char *p;
     int n;
-    extern int startmob;
     s_char buf[1024];
 
     natp = getnatp(player->cnum);
@@ -316,7 +312,6 @@ ok(s_char *map, int x, int y)
 static int
 deity_build_land(int type, coord x, coord y, natid own, int tlev)
 {
-    extern int land_mob_max;
     struct lndstr land;
     struct lchrstr *lp;
     struct nstr_item nstr;

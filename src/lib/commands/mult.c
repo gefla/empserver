@@ -79,8 +79,6 @@ mult(void)
 static void
 multsingle(natid us, natid them, struct natstr *natp)
 {
-    extern double minmult;
-    extern double maxmult;
     double price;
     s_char *p;
     s_char prompt[128];

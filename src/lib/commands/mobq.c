@@ -47,9 +47,6 @@
 int
 mobq(void)
 {
-    extern int ship_mob_max;
-    extern float ship_mob_scale;
-    extern int etu_per_update;
     struct shpstr ship;
     s_char *cp, *oldmq;
     int good, mobquota, count = 0;

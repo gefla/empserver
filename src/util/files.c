@@ -75,7 +75,6 @@ main(int argc, char *argv[])
     extern s_char *timestampfil;
     extern s_char *infodir;
     extern s_char *commfil;
-    extern s_char *datadir;
     s_char buf[255];
     s_char tbuf[512];
     s_char *filename;

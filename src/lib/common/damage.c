@@ -102,7 +102,6 @@ void
 landdamage(struct lndstr *lp, int dam)
 {
     double damage_factor, m;
-    extern int land_mob_max;
 
     m = (double)land_mob_max;
 
@@ -183,7 +182,6 @@ effdamage(register int amt, int dam)
 int
 commdamage(register int amt, int dam, int vtype)
 {
-    extern double people_damage;
     int lost;
 
     if (vtype == V_BAR && opt_SUPER_BARS)

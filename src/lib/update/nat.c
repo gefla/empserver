@@ -104,8 +104,6 @@ limit_level(double level, int type, int flag)
 /*
  * Begin ugly hack.
  */
-    extern float easy_tech, tech_log_base;
-
     level_easy[0] = easy_tech;
     level_log[0] = tech_log_base;
 /*
@@ -132,7 +130,6 @@ prod_nat(int etu)
 {
     extern long money[MAXNOC];
     extern long pops[MAXNOC];
-    extern double hap_cons, edu_cons;
     extern long sea_money[MAXNOC];
     extern long lnd_money[MAXNOC];
     extern long air_money[MAXNOC];

@@ -58,7 +58,6 @@ extern int etu_per_update;
 int
 attack_val(int combat_mode, struct lndstr *lp)
 {
-    extern double assault_penalty;
     int men;
     int value;
     struct lchrstr *lcp;
@@ -102,7 +101,6 @@ attack_val(int combat_mode, struct lndstr *lp)
 int
 defense_val(struct lndstr *lp)
 {
-    extern int land_mob_max;
     int men;
     double value;
     struct lchrstr *lcp;
@@ -1359,7 +1357,6 @@ lnd_can_attack(struct lndstr *lp)
 int
 lnd_fortify (struct lndstr *lp, int hard_amt)
 {
-    extern int land_mob_max;
     int mob_used;
     int eng;
 

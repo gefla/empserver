@@ -630,7 +630,6 @@ static int
 shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 		      natid victim)
 {
-    extern int fort_max_interdiction_range;
     struct nstr_sect ns;
     struct sctstr fsect;
     int trange;

@@ -78,8 +78,6 @@ trad(void)
     struct trdstr tmpt;
     union trdgenstr tg;
     int plflags;
-    extern double tradetax;
-    extern double buytax;
     double canspend;
     time_t now;
     int bid;
@@ -308,7 +306,6 @@ check_trade(void)
 {
     int n;
     int j;
-    extern double tradetax;
     struct nstr_item ni;
     struct plnstr plane;
     struct lndstr land;

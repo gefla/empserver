@@ -40,12 +40,12 @@
 #include "lost.h"
 #include <stdio.h>
 #include "prototypes.h"
+#include "optlist.h"
 
 /*ARGSUSED*/
 void
 delete_lostitems(void *argv)
 {
-    extern int lost_items_timeout;
     time_t now;
     struct loststr lost;
     int n;

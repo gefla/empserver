@@ -55,7 +55,6 @@ setrel(natid us, natid them, int rel)
     int n_down = 0;
     s_char *addendum = 0;
     int theirrel;
-    extern int War_Cost;
 
     if (rel < AT_WAR)
 	rel = AT_WAR;

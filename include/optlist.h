@@ -42,12 +42,6 @@ struct option_list {
 
 extern struct option_list Options[];
 
-extern void set_option(const char *key);
-extern void delete_option(const char *key);
-
-extern int WORLD_X;
-extern int WORLD_Y;
-
 extern int opt_NO_FORT_FIRE;
 extern int opt_TREATIES;
 extern int opt_BRIDGETOWERS;
@@ -99,23 +93,119 @@ extern int opt_INTERDICT_ATT;
 extern int opt_TECH_POP;
 extern int opt_ROLLOVER_AVAIL;
 
-struct keymatch;		/* forward decl */
-
-/* function prototype for variable setting routines */
-typedef void KmFunc(struct keymatch * kp, s_char **av);
-
-/* current known routines */
-#if defined(__cplusplus) || (defined(__STDC__) &&__STDC__)
-KmFunc optstrset, intset, floatset, doubleset, longset,
-    optionset, optiondel, worldxset;
-#else
-void optstrset(), intset(), floatset(), doubleset(), longset(),
-optionset(), optiondel(), worldxset();
-#endif
+extern s_char *datadir;
+extern s_char *infodir;
+extern s_char *loginport;
+extern s_char *privname;
+extern s_char *privlog;
+extern int WORLD_X;
+extern int WORLD_Y;
+extern int update_policy;
+extern int etu_per_update;
+extern int s_p_etu;
+extern int adj_update;
+extern int update_window;
+extern s_char *update_times;
+extern int hourslop;
+extern int blitz_time;
+extern int update_demandpolicy;
+extern int update_wantmin;
+extern int update_missed;
+extern s_char *update_demandtimes;
+extern s_char *game_days;
+extern s_char *game_hours;
+extern float btu_build_rate;
+extern int m_m_p_d;
+extern int max_btus;
+extern int max_idle;
+extern int players_at_00;
+extern int at_least_one_100;
+extern double powe_cost;
+extern int War_Cost;
+extern float easy_tech;
+extern float hard_tech;
+extern float start_technology;
+extern float start_happiness;
+extern float start_research;
+extern float start_education;
+extern float level_age_rate;
+extern float tech_log_base;
+extern float ally_factor;
+extern float edu_avg;
+extern float hap_avg;
+extern double edu_cons;
+extern double hap_cons;
+extern int startmob;
+extern float sect_mob_scale;
+extern int sect_mob_max;
+extern int buil_bh;
+extern double buil_bc;
+extern double buil_bt;
+extern int buil_tower_bh;
+extern double buil_tower_bc;
+extern double buil_tower_bt;
+extern float land_mob_scale;
+extern int land_grow_scale;
+extern int land_mob_max;
+extern double money_land;
+extern int morale_base;
+extern float plane_mob_scale;
+extern int plane_grow_scale;
+extern int plane_mob_max;
+extern double money_plane;
+extern float ship_mob_scale;
+extern int ship_grow_scale;
+extern int ship_mob_max;
+extern double money_ship;
+extern int torpedo_damage;
+extern int fort_max_interdiction_range;
+extern int land_max_interdiction_range;
+extern int ship_max_interdiction_range;
+extern double flakscale;
+extern double combat_mob;
+extern double people_damage;
+extern double unit_damage;
+extern double collateral_dam;
+extern double assault_penalty;
+extern float fire_range_factor;
+extern int sect_mob_neg_factor;
+extern double mission_mob_cost;
+extern double uwbrate;
+extern double money_civ;
+extern double money_mil;
+extern double money_res;
+extern double money_uw;
+extern double babyeat;
+extern double bankint;
+extern double eatrate;
+extern double fcrate;
+extern double fgrate;
+extern double obrate;
+extern double decay_per_etu;
+extern double fallout_spread;
+extern float drnuke_const;
+extern int MARK_DELAY;
+extern int TRADE_DELAY;
+extern double maxmult;
+extern double minmult;
+extern double buytax;
+extern double tradetax;
+extern int trade_1_dist;
+extern int trade_2_dist;
+extern int trade_3_dist;
+extern float trade_1;
+extern float trade_2;
+extern float trade_3;
+extern float trade_ally_bonus;
+extern float trade_ally_cut;
+extern int fuel_mult;
+extern int lost_items_timeout;
+extern long last_demand_update;
 
 struct keymatch {
     s_char *km_key;		/* the key */
-    KmFunc *km_func;		/* the function to call if matches */
+    void (*km_func)(struct keymatch * kp, s_char **av);
+				/* the function to call if matches */
     caddr_t km_data;		/* associated data */
     int km_flags;		/* useful flags */
 #define KM_ALLOC	0x01	/* memory allocated */

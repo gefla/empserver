@@ -68,8 +68,6 @@ static void do_prod(int, int, int, int *, long int (*)[2], int *, int *,
 void
 update_main(void *argv)
 {
-    extern int etu_per_update;
-    extern double money_res;
     int etu = etu_per_update;
     int n;
     int x;
@@ -220,7 +218,6 @@ do_prod(int sector_type, int etu, int n, int *bp, long int (*p_sect)[2],
 	int *ship_build, int *ship_maint, int *plane_build,
 	int *plane_maint, int *land_build, int *land_maint)
 {
-    extern double money_mil;
     struct natstr *np;
 
     np = getnatp(n);

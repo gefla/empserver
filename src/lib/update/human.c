@@ -65,7 +65,6 @@ int
 do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
 	int *workp, int *bp, int etu)
 {
-    extern double eatrate;
     int people;
     int work_avail;
     int starved, sctwork;
@@ -153,8 +152,6 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
 static int
 growfood(struct sctstr *sp, register int *vec, int work, int etu)
 {
-    extern double fgrate;
-    extern double fcrate;
     double food_fertil;
     double food_workers;
     double food;
@@ -189,7 +186,6 @@ growfood(struct sctstr *sp, register int *vec, int work, int etu)
 int
 feed_people(register int *vec, int etu, int *needed)
 {
-    extern double eatrate;
     double food_eaten;
     double people_left;
     int can_eat;
@@ -281,9 +277,6 @@ grow_people(struct sctstr *sp, register int etu,
 	    register struct natstr *np, int *workp, int sctwork,
 	    register int *vec)
 {
-    extern double obrate;
-    extern double uwbrate;
-    extern double babyeat;
     int newciv;
     int newuw;
     int new_birth;
