@@ -61,14 +61,14 @@ Index: empserver/src/lib/commands/mfir.c
  	    prb = (double)(range2 ? (trange / range2) : 1.0);
  	    prb *= prb;
 -	    srandom(time(NULL));
-+	    srand48(time(NULL));
++	    emp_srandom(time(NULL));
  	    if (chance(prb)) {
  		pr("Wind deflects shell%s.\n", splur(shots));
  /*			dam = (int)((double)dam / 2.0);*/
  		dam =
  		    (int)((double)dam *
 -			  (double)((double)(90 - (random() % 11)) /
-+			  (double)((double)(90 - (rand48() % 11)) /
++			  (double)((double)(90 - (emp_random() % 11)) /
  				   100.0));
  		if (dam < 0)
  		    dam = 0;
@@ -80,13 +80,13 @@ Index: empserver/src/lib/commands/new.c
  	}
      } else {
 -	srandom(time(NULL));
-+	srand48(time(NULL));
++	emp_srandom(time(NULL));
  	for (i = 0; i < 300 && !player->aborted; i++) {
  	    /* Both x and y should be either odd or even */
 -	    x = (random() % WORLD_X) - (WORLD_X / 2);
 -	    y = (((random() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
-+	    x = (rand48() % WORLD_X) - (WORLD_X / 2);
-+	    y = (((rand48() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
++	    x = (emp_random() % WORLD_X) - (WORLD_X / 2);
++	    y = (((emp_random() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
  	    /*
  	     * If either of the two potential
  	     * sanctuary sectors are already
