@@ -1364,6 +1364,9 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
     int mob_used;
     int eng;
 
+    if ((lp->lnd_ship >= 0) || lp->lnd_land >= 0)
+	return 0;
+
     hard_amt = min(lp->lnd_mobil, hard_amt);
 
     if ((lp->lnd_harden + hard_amt) > land_mob_max)
