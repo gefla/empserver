@@ -129,7 +129,7 @@ load_it(struct shpstr *sp, struct sctstr *psect, int i)
 	transfer = abs_max - ship_amt;	/* then the max alowed */
     /* on the ship.        */
 
-    if (transfer == 0)
+    if (transfer <= 0)
 	return 0;		/* nothing to move */
 
 
