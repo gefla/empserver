@@ -320,7 +320,7 @@ xdprval(struct valstr *val, char *sep)
 		    break;
 		s = e;
 	    }
-	    prnf("\"");
+	    pr("\"");
 	} else
 	    pr("%snil", sep);
 	break;
