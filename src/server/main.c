@@ -88,9 +88,9 @@ static void
 print_usage(char *program_name)
 {
 #if defined(_WIN32)
-    printf("Usage: %s -i -r -D datadir -e config_file -d\n", program_name);
-    printf("-i install service\n");
-    printf("-r remove service\n");
+    printf("Usage: %s -i -I service_name -r -R service_name -D datadir -e config_file -d\n", program_name);
+    printf("-i install service with the default name %s\n", DEFAULT_SERVICE_NAME);
+    printf("-r remove service with the default name %s\n", DEFAULT_SERVICE_NAME);
 #else
     printf("Usage: %s -D datadir -e config_file -d -p -s\n", program_name);
     printf("-p print flag\n");
@@ -105,11 +105,13 @@ main(int argc, char **argv)
     int flags = 0;
 #if defined(_WIN32)
     int install_service_set = 0;
+    char *service_name = NULL;
     int remove_service_set = 0;
     int datadir_set = 0;
+#else
+    char *config_file = NULL;
 #endif
     int op;
-    char *config_file = NULL;
     s_char tbuf[256];
 
 #if defined(_WIN32)
@@ -121,7 +123,7 @@ main(int argc, char **argv)
     mainpid = getpid();
 
 #if defined(_WIN32)
-    while ((op = getopt(argc, argv, "D:de:irh")) != EOF) {
+    while ((op = getopt(argc, argv, "D:de:iI:rR:h")) != EOF) {
 #else
     while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
 #endif
@@ -139,9 +141,20 @@ main(int argc, char **argv)
 	    config_file = optarg;
 	    break;
 #if defined(_WIN32)
+	case 'I':
+	    service_name = optarg;
+	    /*
+	     * fall out
+	     */
 	case 'i':
 	    install_service_set++;
 	    break;
+	    break;
+	case 'R':
+	    service_name = optarg;
+	    /*
+	     * fall out
+	     */
 	case 'r':
 	    remove_service_set++;
 	    break;
@@ -162,23 +175,30 @@ main(int argc, char **argv)
 
 #if defined(_WIN32)
     if ((debug || datadir_set || config_file != NULL) &&
-	(install_service_set || remove_service_set)) {
-	logerror("Can't use -d or -D or -e with either "
-	    "-r or -i options when starting the server");
-	printf("Can't use -d or -D or -e with either -r "
-	    "or -i options\n");
+	remove_service_set) {
+	logerror("Can't use -d, -D or -e with either "
+	    "-r or -R options when starting the server");
+	printf("Can't use -d, -D or -e with either -r "
+	    "or -R options\n");
+	exit(EXIT_FAILURE);
+    }
+    if (debug && install_service_set) {
+	logerror("Can't use -d with either "
+	    "-i or -I options when starting the server");
+	printf("Can't use -d with either -i "
+	    "or -I options\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
-	logerror("Can't use both -r and -i options when starting "
+	logerror("Can't use both -r or -R and -i or -I options when starting "
 	    "the server");
-	printf("Can't use both -r and -i options\n");
+	printf("Can't use both -r or -R and -i or -I options\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set)
-        return install_service(argv[0]);
+        return install_service(argv[0], service_name, datadir_set);
     if (remove_service_set)
-        return remove_service();
+        return remove_service(service_name);
 #endif	/* _WIN32 */
 
     if (config_file == NULL) {
@@ -395,7 +415,7 @@ panic(int sig)
 void
 shutdwn(int sig)
 {
-    struct player *p;
+    struct player *p,*phold;
     time_t now;
 
 #if defined(__linux__) && defined(_EMPTH_POSIX)
@@ -423,7 +443,8 @@ shutdwn(int sig)
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
-    for (p = player_next(0); p != 0; p = player_next(p)) {
+    p = player_next(0);
+    while (p != 0) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");
@@ -432,7 +453,9 @@ shutdwn(int sig)
 	if (p->command) {
 	    pr_flash(p, "Shutdown aborting command\n");
 	}
-	empth_wakeup(p->proc);
+	phold = p;
+	p = player_next(p);
+	empth_wakeup(phold->proc);
     }
 
     if (!sig) {

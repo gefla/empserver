@@ -41,10 +41,11 @@
 #include "../gen/getopt.h"
 #include "optlist.h"
 
-#define SERVICE_NAME "Empire Server"
+
+char *config_file = NULL;
 
 int
-install_service(char *program_name)
+install_service(char *program_name, char *service_name, int datadir_set)
 {
     char strDir[1024];
     HANDLE schSCManager,schService;
@@ -52,11 +53,25 @@ install_service(char *program_name)
     SERVICE_DESCRIPTION sdBuf;
 
     if (strrchr(program_name,'\\') == NULL) {
-	GetCurrentDirectory(1024,strDir);
+	GetCurrentDirectory(sizeof(strDir), strDir);
 	strcat(strDir, "\\");
 	strcat(strDir, program_name);
     } else
 	strcpy(strDir, program_name);
+
+    if (datadir_set) {
+	strcat(strDir, " -D ");
+	strcat(strDir, datadir);
+    }
+    if (config_file != NULL) {
+	strcat(strDir, " -e ");
+	strcat(strDir, config_file);
+    }
+
+    if (service_name == NULL)
+	service_name = DEFAULT_SERVICE_NAME;
+    else if (service_name[0] == '\0')
+	service_name = DEFAULT_SERVICE_NAME;
 
     schSCManager = OpenSCManager(NULL,NULL,SC_MANAGER_ALL_ACCESS);
 
@@ -69,8 +84,8 @@ install_service(char *program_name)
     lpszBinaryPathName = strDir;
 
     schService = CreateService(schSCManager,
-    	SERVICE_NAME,
-    	SERVICE_NAME,			/* service name to display */
+    	service_name,
+    	service_name,			/* service name to display */
         SERVICE_ALL_ACCESS,		/* desired access */
         SERVICE_WIN32_OWN_PROCESS,	/* service type */
         SERVICE_AUTO_START,		/* start type */
@@ -83,8 +98,8 @@ install_service(char *program_name)
         NULL);				/* no password */
  
     if (schService == NULL) {
-	logerror("install_service failed to create service");
-	printf("Install service: failed to create service.\n");
+	logerror("install_service failed to create service %s", service_name);
+	printf("Install service: failed to create service %s.\n", service_name);
         return EXIT_FAILURE;
     }
     sdBuf.lpDescription = "Server for Empire game";
@@ -97,19 +112,24 @@ install_service(char *program_name)
         printf("Install service: failed to set the description.\n");
     }
 
-    logerror("install_service successfully created the service");
-    printf("Service installed.\n");
+    logerror("install_service successfully created the service %s", service_name);
+    printf("Service %s installed.\n", service_name);
     CloseServiceHandle(schService);
     return EXIT_SUCCESS;
 }
 
 int
-remove_service(void)
+remove_service(char *service_name)
 {
     HANDLE schSCManager;
     SC_HANDLE hService;
 
-    schSCManager = OpenSCManager(NULL,NULL,SC_MANAGER_ALL_ACCESS);
+    if (service_name == NULL)
+	service_name = DEFAULT_SERVICE_NAME;
+    else if (service_name[0] == '\0')
+	service_name = DEFAULT_SERVICE_NAME;
+
+    schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
         logerror("remove_service failed to open Service Control Manager"); 
@@ -117,27 +137,27 @@ remove_service(void)
 	return EXIT_FAILURE;
     }
 
-    hService = OpenService(schSCManager,SERVICE_NAME,SERVICE_ALL_ACCESS);
+    hService = OpenService(schSCManager, service_name, SERVICE_ALL_ACCESS);
 
     if (hService == NULL) {
-        logerror("remove_service failed to open service");
-        printf("Remove service: failed to open service.\n");
+        logerror("remove_service failed to open service %s", service_name);
+        printf("Remove service: failed to open service %s.\n", service_name);
 	return EXIT_FAILURE;
     }
 
     if (DeleteService(hService) == 0) {
-        logerror("remove_service failed to remove service");
-        printf("Remove service: failed to remove service.\n"); 
+        logerror("remove_service failed to remove service %s", service_name);
+        printf("Remove service: failed to remove service %s.\n", service_name); 
 	return EXIT_FAILURE;
     }
 
     if (CloseServiceHandle(hService) == 0) {
-        logerror("remove_service failed to close service"); 
-        printf("Remove service: failed to close service.\n"); 
+        logerror("remove_service failed to close service %s", service_name); 
+        printf("Remove service: failed to close service %s.\n", service_name); 
         return EXIT_FAILURE;
     } else {
-        logerror("remove_service successfully removed service");
-        printf("Service removed.\n"); 
+        logerror("remove_service successfully removed service %s", service_name);
+        printf("Service %s removed.\n", service_name); 
         return EXIT_SUCCESS;
     }
 }
@@ -198,21 +218,23 @@ service_ctrl_handler(DWORD Opcode)
 void WINAPI
 service_main(DWORD argc, LPTSTR *argv)
 { 
-    char *config_file = NULL;
     int op;
     s_char tbuf[256];
     DWORD status;
 
+//    DebugBreak();
+    optind = 1;
+    opterr = 1;
     while ((op = getopt(argc, argv, "D:e:")) != EOF) {
 	switch (op) {
 	case 'D':
-	    datadir = optarg;
-	    break;
+		datadir = optarg;
+		break;
 	case 'e':
-	    config_file = optarg;
-	    break;
+		config_file = optarg;
+		break;
 	}
-    }
+    }  
 
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
@@ -228,7 +250,7 @@ service_main(DWORD argc, LPTSTR *argv)
     service_status.dwWaitHint           = 0; 
  
     service_status_handle = RegisterServiceCtrlHandler(
-        SERVICE_NAME, service_ctrl_handler);
+        DEFAULT_SERVICE_NAME, service_ctrl_handler);
  
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
         logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError()); 
