@@ -1,4 +1,4 @@
-.TH Concept "Items"
+.TH Concept "Item types"
 .NA Item-types "Characteristics of Items"
 .LV Basic
 .s1
