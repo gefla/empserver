@@ -68,7 +68,7 @@
  * The external world only gets
  * a void pointer to this.
  */
-typedef struct {
+typedef struct loc_Thread_t {
 
     /* The thread name, passed in at create time. */
     char szName[17];
@@ -102,7 +102,7 @@ typedef struct {
  * The external world only gets
  * a void pointer to this.
  */
-typedef struct {
+typedef struct empth_sem_t {
 
     char szName[17];
 
