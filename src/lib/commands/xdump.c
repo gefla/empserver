@@ -77,9 +77,18 @@
  */
 
 /* FIXME document dump format */
+/* FIXME don't dump stuff that's useless due to options */
 
 /* Selector descriptors for characteristics tables */
 /* FIXME belongs into src/lib/global/ */
+
+/* Return nsc_type for a signed integer with the same size as TYPE.  */
+#define NSC_SITYPE(type)				\
+    (sizeof(type) == 1 ? NSC_CHAR			\
+     : sizeof(type) == sizeof(short) ? NSC_SHORT	\
+     : sizeof(type) == sizeof(int) ? NSC_INT		\
+     : sizeof(type) == sizeof(long) ? NSC_LONG		\
+     : 1/0)
 
 static struct castr dchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name"},
@@ -87,7 +96,7 @@ static struct castr dchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg"},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_pkg), "pkg"},
+    {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg"},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr"},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_dstr), "dstr"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_value), "value"},
