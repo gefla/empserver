@@ -241,8 +241,11 @@ print_config(FILE *fp)
 
     fprintf(fp, "# Empire Configuration File:\n");
     for (kp = configkeys; kp->km_key; kp++) {
-	if (kp->km_comment)
-	    fprintf(fp, "\n# %s\n", kp->km_comment);
+	if (kp->km_comment) {
+	    if (kp->km_comment[0] != '\n')
+		fprintf(fp, "\n# ");
+	    fprintf(fp, "%s\n", kp->km_comment);
+	}
 	if (!kp->km_key[0])
 	    continue;
 	switch (kp->km_type) {
