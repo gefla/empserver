@@ -128,7 +128,7 @@ lwpWakeupFd(struct lwpProc *proc)
 void
 lwpSleepUntil(long int until)
 {
-    lwpStatus(LwpCurrent, "sleeping for %d sec", until - time(0));
+    lwpStatus(LwpCurrent, "sleeping for %ld sec", until - time(0));
     LwpCurrent->runtime = until;
     if (LwpSelect.maxfd == 0 && LwpSelect.delayq.head == 0) {
 	/* select process is sleeping until first waiter arrives */

@@ -248,7 +248,7 @@ dump(void)
     if (player->god)
 	pr("   ");
     time(&now);
-    pr("DUMP SECTOR %d\n", now);
+    pr("DUMP SECTOR %ld\n", (long)now);
     if (player->god)
 	pr("own ");
     pr("x y");

@@ -361,7 +361,7 @@ show_motd(void)
 	return RET_FAIL;
     }
     if (read(upf, buf, tgm.tel_length) != tgm.tel_length) {
-	logerror("bad length %d on login message", tgm.tel_length);
+	logerror("bad length %ld on login message", tgm.tel_length);
 	close(upf);
 	return RET_FAIL;
     }

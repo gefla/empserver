@@ -94,10 +94,9 @@ finish_sects(int etu)
 	    return;
 	}
 
-	logerror("Allocated '%d' bytes '%d' indices\n",
-		 ((WORLD_X * WORLD_Y) * sizeof(struct distinfo)),
-		 (WORLD_X * WORLD_Y));
-
+	logerror("Allocated '%lu' bytes '%d' indices\n",
+		 (unsigned long)(WORLD_X * WORLD_Y * sizeof(struct distinfo)),
+		 WORLD_X * WORLD_Y);
     }
 
     /* Wipe it clean */

@@ -108,7 +108,7 @@ fina(void)
 	pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,
 	   loan.l_loner, cname(loan.l_loner),
 	   loan.l_lonee, cname(loan.l_lonee));
-	pr("%3d%%   %3d    %5d    %7d",
+	pr("%3d%%   %3d    %5ld    %7d",
 	   loan.l_irate, loan.l_ldur, loan.l_amtpaid, (int)amt);
 	if (now > loan.l_duedate)
 	    pr(" (in arrears)\n");

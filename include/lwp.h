@@ -95,7 +95,8 @@ struct lwpSem *lwpCreateSem(char *name, int count);
 void lwpSignal(struct lwpSem *);
 void lwpWait(struct lwpSem *);
 void lwpSelect(void *);
-void lwpStatus(struct lwpProc * proc, char *format, ...);
+void lwpStatus(struct lwpProc *proc, char *format, ...)
+    ATTRIBUTE((format (printf, 2, 3)));
 
 extern struct lwpProc *LwpCurrent;
 

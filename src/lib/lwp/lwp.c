@@ -170,7 +170,7 @@ lwpReschedule(void)
 
     if (LwpCurrent != nextp && !(LwpCurrent && i)) {
 	/* restore previous context */
-	lwpStatus(nextp, "switch in", nextp->pri);
+	lwpStatus(nextp, "switch in %d", nextp->pri);
 	LwpCurrent = nextp;
 	*LwpContextPtr = LwpCurrent->ud;
 #ifdef BOUNDS_CHECK
@@ -296,8 +296,8 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     newp->dead = 0;
     if (flags & LWP_STACKCHECK)
 	lwpStackCheckInit(newp);
-    lwpStatus(newp, "creating process structure sbtm: %d",
-	      (int)newp->sbtm);
+    lwpStatus(newp, "creating process structure sbtm: %p",
+	      newp->sbtm);
     lwpReady(newp);
     lwpReady(LwpCurrent);
 #ifdef UCONTEXT
@@ -316,7 +316,7 @@ lwpDestroy(struct lwpProc *proc)
 	lwpStackCheckUsed(proc);
 	lwpStackCheck(proc);
     }
-    lwpStatus(proc, "destroying sbtm: %d", (int)proc->sbtm);
+    lwpStatus(proc, "destroying sbtm: %p", proc->sbtm);
     proc->entry = 0;
     proc->ud = 0;
     proc->argv = 0;
@@ -531,7 +531,7 @@ lwpStackCheck(struct lwpProc *newp)
 	    amt = (i + 1) * sizeof(long);
 	}
 	lwpStatus(newp, "Thread stack overflowed %d bytes (of %u)",
-		  amt, newp->size - 2 * LWP_REDZONE - sizeof(stkalign_t));
+		  amt, newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
 	return (0);
     }
     for (lp = newp->lowmark, i = 0; i < LWP_REDZONE / sizeof(long);
@@ -551,7 +551,7 @@ lwpStackCheck(struct lwpProc *newp)
 	    amt = (LWP_REDZONE - i + 1) * sizeof(long);
 	}
 	lwpStatus(newp, "Thread stack underflow %d bytes (of %u)",
-		  amt, newp->size - 2 * LWP_REDZONE - sizeof(stkalign_t));
+		  amt, newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
 	return (0);
     }
     return (1);
@@ -592,7 +592,7 @@ lwpStackCheckUsed(struct lwpProc *newp)
     }
     lwpStatus(newp, "stack use: %u bytes (of %u total)",
 	      (i * sizeof(long)) - LWP_REDZONE,
-	      newp->size - 2 * LWP_REDZONE - sizeof(stkalign_t));
+	      newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
 }
 
 #endif

@@ -109,7 +109,7 @@ play_list(struct player *joe)
 	com = "";
 
 
-    pr("%-9.9s %3d %32.32s %2d:%02d %4ds %-20.20s\n",
+    pr("%-9.9s %3d %32.32s %2d:%02d %4lds %-20.20s\n",
        cname(joe->cnum),
        joe->cnum,
        (player->god

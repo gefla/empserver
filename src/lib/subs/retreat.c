@@ -536,10 +536,10 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	if (mines > 0 && (sect.sct_oldown != lp->lnd_own) &&
 	    chance(DMINE_HITCHANCE(mines))) {
 	    wu(0, lp->lnd_own,
-	       "%s %s,\nand hit a mine while retreating!\n", prland(lp),
-	       conditions[findcondition(code)].desc[orig], xyas(newx, newy,
-								lp->
-								lnd_own));
+	       "%s %s,\nand hit a mine in %s while retreating!\n",
+	       prland(lp),
+	       conditions[findcondition(code)].desc[orig],
+	       xyas(newx, newy, lp->lnd_own));
 	    nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
 	    m = MINE_LDAMAGE();
 	    landdamage(lp, m);

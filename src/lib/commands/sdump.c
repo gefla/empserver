@@ -149,7 +149,7 @@ sdump(void)
     if (player->god)
 	pr("   ");
     time(&now);
-    pr("DUMP SHIPS %d\n", now);
+    pr("DUMP SHIPS %ld\n", (long)now);
     if (player->god)
 	pr("own ");
     pr("id");
@@ -282,7 +282,7 @@ sdump(void)
 	while (field[n]) {
 	    switch (field[n++]) {
 	    case 1:
-		pr(" %0.4s", mchr[(int)ship.shp_type].m_name);
+		pr(" %.4s", mchr[(int)ship.shp_type].m_name);
 		break;
 	    case 2:
 		pr(" %d", xrel(np, ship.shp_x));

@@ -68,6 +68,12 @@ struct mob_acc_globals {
     time_t starttime;		/* When we should start updating mobility again. */
 };
 
+#ifdef __GNUC__
+#define ATTRIBUTE(attrs) __attribute__ (attrs)
+#else
+#define ATTRIBUTE(attrs)
+#endif
+
 #define ANNO_KEEP_DAYS 7	/* Keep announcements around for this many days */
 /* This uses a lot of thread stack with some versions of GNU libc,
    which can lead to nasty heap smashes (observed with 2.2.93).
@@ -132,7 +138,8 @@ extern s_char *iesplur(int n);
 extern s_char *plur(int n, s_char *no, s_char *yes);
 extern s_char *getstarg(s_char *input, s_char *prompt, s_char buf[]);
 extern s_char *getstring(s_char *prompt, s_char buf[]);
-extern s_char *prbuf(s_char *format, ...);
+extern s_char *prbuf(s_char *format, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
 
 #define MAXCHRNV 12
 

@@ -56,6 +56,8 @@ static char **udata;		/* pointer to out global context */
 
 static pthread_mutex_t mtx_ctxsw;	/* thread in critical section */
 
+static void empth_status(char *format, ...) ATTRIBUTE((format (printf, 1, 2)));
+
 
 static void *
 empth_start(void *ctx)
@@ -230,7 +232,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 		 strerror(eno));
 	goto bad;
     }
-    empth_status("new thread id is %d", t);
+    empth_status("new thread id is %ld", (long)t);
     return ctx;
     pthread_attr_destroy(&attr);
   bad:

@@ -130,7 +130,7 @@ extern int adj_units(coord, coord, natid);
 extern int has_helpful_engineer(coord x, coord y, natid cn);
 /* log.c */
 extern void loginit(s_char *);
-extern void logerror(s_char *, ...);
+extern void logerror(s_char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* maps.c */
 extern int draw_map(int, s_char, int, struct nstr_sect *, int);
 extern int unit_map(int, int, struct nstr_sect *, s_char *);
@@ -414,12 +414,16 @@ extern int pln_hitchance(struct plnstr *, int, int);
 extern int pln_damage(struct plnstr *, coord, coord, s_char, int *, int);
 extern int pln_identchance(struct plnstr *, int, int);
 /* pr.c */
-extern void pr(s_char *, ...);
+extern void pr(s_char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 extern void prnf(s_char *buf);
-extern void pr_id(struct player *, int, s_char *, ...);
-extern void pr_flash(struct player *, s_char *, ...);
-extern void pr_inform(struct player *, s_char *, ...);
-extern void pr_wall(s_char *, ...);
+extern void pr_id(struct player *, int, s_char *, ...)
+		ATTRIBUTE((format (printf, 3, 4)));
+extern void pr_flash(struct player *, s_char *, ...)
+		ATTRIBUTE((format (printf, 2, 3)));
+extern void pr_inform(struct player *, s_char *, ...)
+		ATTRIBUTE((format (printf, 2, 3)));
+extern void pr_wall(s_char *, ...)
+		ATTRIBUTE((format (printf, 1, 2)));
 extern void pr_player(struct player *pl, int id, s_char *buf);
 extern void pr_hilite(s_char *buf);
 extern void prredir(s_char *redir);
@@ -429,10 +433,10 @@ extern void showvers(int vers);
 extern int prmptrd(s_char *prompt, s_char *str, int size);
 extern void prdate(void);
 extern void prxy(s_char *format, coord x, coord y, natid country);
-extern void PR(int, s_char *, ...);
+extern void PR(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern void PRdate(natid cn);
 extern void pr_beep(void);
-extern void mpr(int, s_char *, ...);
+extern void mpr(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 
 /* radmap.c */
 extern int deltx(struct range *, coord);
@@ -527,7 +531,7 @@ extern int trechk(register natid, register natid, int);
 /* wu.c */
 extern void clear_telegram_is_new(natid);
 extern int typed_wu(natid, natid, s_char *, int);
-extern int wu(natid, natid, s_char *, ...);
+extern int wu(natid, natid, s_char *, ...) ATTRIBUTE((format (printf, 3, 4)));
 
 /*
  * src/lib/update/ *.c 

@@ -81,7 +81,7 @@ update_sched(void *unused)
 	    delta += wind;
 	}
 	logerror("Next update at %s", ctime(&update_time));
-	logerror("Next update in %d seconds", delta);
+	logerror("Next update in %ld seconds", (long)delta);
 	/* sleep until update is scheduled to go off */
 	empth_sleep(update_time);
 	time(&now);

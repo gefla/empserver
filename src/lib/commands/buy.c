@@ -301,7 +301,7 @@ check_market(void)
 			nreport(comm.com_maxbidder, N_FIN_TROUBLE,
 				comm.com_owner, 1);
 			wu(0, comm.com_maxbidder,
-			   "You just took loan #%d for $%.2f to cover the cost of your purchase.\n",
+			   "You just took loan #%d for $%ld to cover the cost of your purchase.\n",
 			   j, loan.l_amtdue);
 			wu(0, comm.com_owner,
 			   "You just extended loan #%d to %s to help with the purchase cose.\n",

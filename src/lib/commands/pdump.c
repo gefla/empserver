@@ -124,7 +124,7 @@ pdump(void)
     if (player->god)
 	pr("   ");
     time(&now);
-    pr("DUMP PLANES %d\n", now);
+    pr("DUMP PLANES %ld\n", (long)now);
     if (player->god)
 	pr("own ");
     pr("id");
@@ -212,7 +212,7 @@ pdump(void)
 	while (field[n]) {
 	    switch (field[n++]) {
 	    case 1:
-		pr(" %0.4s", plchr[(int)plane.pln_type].pl_name);
+		pr(" %.4s", plchr[(int)plane.pln_type].pl_name);
 		break;
 	    case 2:
 		pr(" %d", xrel(natp, plane.pln_x));
@@ -285,7 +285,7 @@ pdump(void)
 		break;
 	    case 20:
 		if (plane.pln_nuketype != -1) {
-		    pr(" %0.5s", nchr[(int)plane.pln_nuketype].n_name);
+		    pr(" %.5s", nchr[(int)plane.pln_nuketype].n_name);
 		    break;
 		} else
 		    pr(" N/A");

@@ -42,10 +42,10 @@ chkmoney(long int cost, long int cash, s_char *argp)
     s_char *p;
 
     if (cash > 0 && cost > cash / 2) {
-	pr("This operation will cost you $%d, and you only have $%d.\n",
+	pr("This operation will cost you $%ld, and you only have $%ld.\n",
 	   cost, cash);
 	if (cost > cash) {
-	    pr("You will be broke with $%d if you proceed with this command.\n", cash - cost);
+	    pr("You will be broke with $%ld if you proceed with this command.\n", cash - cost);
 	}
 	p = getstarg(argp, "Are you sure that you want to do this? ", buf);
 	if (p == 0 || *p != 'y')
@@ -64,7 +64,7 @@ check_cost(int looping, int cost, long int cash, int *warnedp,
     if (looping && cash > 0 && player->dolcost + cost > cash
 	&& *warnedp < 2) {
 	*warnedp = 2;
-	pr("You will go broke!  (it will cost $%d and you only have $%d)\n", cost, cash - (long)player->dolcost);
+	pr("You will go broke!  (it will cost $%d and you only have $%ld)\n", cost, cash - (long)player->dolcost);
 	p = getstarg(argp, "Are you sure you wish to continue? ", buf);
 	if (p == 0 || *p != 'y')
 	    return 1;
@@ -73,7 +73,7 @@ check_cost(int looping, int cost, long int cash, int *warnedp,
     if (looping && cash > 0 && player->dolcost > cash / 2 && *warnedp < 1) {
 	*warnedp = 1;
 	pr("WARNING.  You have just spent over half of your money.\n");
-	pr("You started with $%d and now you only have $%d left\n", cash,
+	pr("You started with $%ld and now you only have $%ld left\n", cash,
 	   cash - (long)player->dolcost);
     }
     return 0;

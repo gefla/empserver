@@ -91,7 +91,7 @@ caploss(struct sctstr *sp, natid coun, s_char *msg)
 	player->dolcost -= gain;
     } else
 	gain = 0;
-    wu(0, coun, "You lost $%d and they gained $%d\n", lose, gain);
+    wu(0, coun, "You lost $%ld and they gained $%ld\n", lose, gain);
     wu(0, coun,
        "Your capital has been moved to %s. You must use 'capital' to reset it.\n",
        xyas(natp->nat_xcap, natp->nat_ycap, coun));

@@ -116,7 +116,7 @@ repa(void)
 	return RET_FAIL;
     }
     if (natp->nat_money < payment) {
-	pr("You only have $%d.\n", natp->nat_money);
+	pr("You only have $%ld.\n", natp->nat_money);
 	return RET_FAIL;
     }
     player->dolcost += payment;
@@ -125,7 +125,7 @@ repa(void)
     putnat(loaner);
     (void)time(&loan.l_lastpay);
     if (owe <= payment) {
-	wu(0, loan.l_loner, "Country #%d paid off loan #%d with $%d\n",
+	wu(0, loan.l_loner, "Country #%d paid off loan #%d with $%ld\n",
 	   player->cnum, loan_num, payment);
 	nreport(player->cnum, N_REPAY_LOAN, loan.l_loner, 1);
 	loan.l_status = LS_FREE;

@@ -258,7 +258,7 @@ decode(natid cnum, long int code, void *addr, int type)
 	    val = yrel(np, val);
 	    break;
 	default:
-	    logerror("bad type in decode: %x!\n", code & NSC_TMASK);
+	    logerror("bad type in decode: %lx!\n", code & NSC_TMASK);
 	    val = 0;
 	    break;
 	}

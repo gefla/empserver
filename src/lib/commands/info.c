@@ -356,7 +356,7 @@ apro(void)
     free(lbp);
 
     if ((nhl) > lhitlim) {
-	pr("Limit of %ld lines exceeded\n", lhitlim);
+	pr("Limit of %d lines exceeded\n", lhitlim);
     }
     pr("Found %s in %ld of %ld files and in %ld of %ld lines\n",
        bp, nhf, nf, nhl, nl);

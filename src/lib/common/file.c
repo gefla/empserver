@@ -140,8 +140,8 @@ ef_flush(int type)
 	    return 0;
 	}
 	if (write(ep->fd, ep->cache, size) != size) {
-	    logerror("ef_flush: %s cache write(%d, %x, %d) -> %d",
-		     ep->name, ep->fd, ep->cache, ep->size, r);
+	    logerror("ef_flush: %s cache write(%d, %p, %d) -> %d",
+		     ep->name, ep->fd, (void *)ep->cache, ep->size, r);
 	    return 0;
 	}
     }
@@ -278,8 +278,8 @@ ef_write(int type, int id, caddr_t ptr)
     if (ep->prewrite)
 	ep->prewrite(id, ptr);
     if ((r = write(ep->fd, ptr, ep->size)) != ep->size) {
-	logerror("ef_write: %s #%d write(%d, %x, %d) -> %d",
-		 ep->name, id, ep->fd, ptr, ep->size, r);
+	logerror("ef_write: %s #%d write(%d, %p, %d) -> %d",
+		 ep->name, id, ep->fd, (void *)ptr, ep->size, r);
 	return 0;
     }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
@@ -368,8 +368,8 @@ ef_extend(int type, int count)
 	if (ep->init)
 	    ep->init(cur, ptr);
 	if ((r = write(ep->fd, ptr, ep->size)) != ep->size) {
-	    logerror("ef_extend: %s +#%d write(%d, %x, %d) -> %d",
-		     ep->name, count, ep->fd, ptr, ep->size, r);
+	    logerror("ef_extend: %s +#%d write(%d, %p, %d) -> %d",
+		     ep->name, count, ep->fd, (void *)ptr, ep->size, r);
 	    return 0;
 	}
     }

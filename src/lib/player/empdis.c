@@ -171,7 +171,7 @@ gamedown(void)
 	return 1;
     }
     if (read(downf, buf, tgm.tel_length) != tgm.tel_length) {
-	logerror("bad length %d on login message", tgm.tel_length);
+	logerror("bad length %ld on login message", tgm.tel_length);
 	close(downf);
 	return 1;
     }

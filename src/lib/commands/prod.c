@@ -397,7 +397,7 @@ prod(void)
 	    pr(" %4d mil   1.00 $%-5d%3dc",
 	       enlisted, enlisted * 3, enlisted);
 	    pr("            %3dc           %4d\n",
-	       enlisted, maxmil, maxmil);
+	       enlisted, maxmil);
 	    continue;
 	}
 

@@ -185,9 +185,9 @@ budg(void)
 
 	pr("%-17s\t%c\t", dchr[x].d_name, dchr[x].d_mnem);
 	if (x == SCT_ENLIST)
-	    pr("%d mil    \t", p_sect[x][0]);
+	    pr("%ld mil    \t", p_sect[x][0]);
 	else if (pchr[dchr[x].d_prd].p_cost != 0)
-	    pr("%d %-7s\t", p_sect[x][0], pchr[dchr[x].d_prd].p_sname);
+	    pr("%ld %-7s\t", p_sect[x][0], pchr[dchr[x].d_prd].p_sname);
 	else
 	    pr("\t\t");
 
@@ -198,15 +198,15 @@ budg(void)
 	pr("\t");
 	if (np->nat_priorities[x] != 0) {
 	    if ((np->nat_money + income - expenses) > 0) {
-		pr("%8d", p_sect[x][1]);
+		pr("%8ld", p_sect[x][1]);
 		expenses += p_sect[x][1];
 	    } else
-		pr("[%7d]", p_sect[x][1]);
+		pr("[%7ld]", p_sect[x][1]);
 	} else {
 	    if ((np->nat_money + income - expenses) > 0)
-		pr("(%7d)", p_sect[x][1]);
+		pr("(%7ld)", p_sect[x][1]);
 	    else
-		pr("[(%7d)]", p_sect[x][1]);
+		pr("[(%7ld)]", p_sect[x][1]);
 	}
 
 	pr("\n");
@@ -266,7 +266,7 @@ budg(void)
 		  np->nat_priorities[PRI_PMAINT], -1 * pmaint);
     }
     if (p_sect[SCT_EFFIC][1]) {
-	pr("Sector building\t\t\t\t%8d sct(s)\t\t%8d\n",
+	pr("Sector building\t\t\t\t%8ld sct(s)\t\t%8ld\n",
 	   p_sect[SCT_EFFIC][0], p_sect[SCT_EFFIC][1]);
 	expenses += p_sect[SCT_EFFIC][1];
     }
@@ -284,7 +284,7 @@ budg(void)
 		n ==
 		1 ? opt_BIG_CITY ? "city" : "capital" : opt_BIG_CITY ?
 		"cities" : "capitals");
-	pr("%s maintenance\t\t%-32s%8d\n",
+	pr("%s maintenance\t\t%-32s%8ld\n",
 	   opt_BIG_CITY ? "City" : "Capital", in, p_sect[SCT_CAPIT][1]);
 	expenses += p_sect[SCT_CAPIT][1];
     }
@@ -299,7 +299,7 @@ budg(void)
 	pr("Income from bars\t\t%-32s%+8d\n", in, bars);
     }
     pr("Total income%s\n", dotsprintf(buf, "%+60d", income));
-    pr("Balance forward\t\t\t\t\t\t      %10d\n", np->nat_money);
+    pr("Balance forward\t\t\t\t\t\t      %10ld\n", np->nat_money);
     pr("Estimated delta\t\t\t\t\t\t      %+10d\n", income - expenses);
     pr("Estimated new treasury%s\n",
        dotsprintf(buf, "%50d", np->nat_money + income - expenses));

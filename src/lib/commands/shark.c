@@ -116,7 +116,7 @@ shark(void)
 	   "%s bought loan #%d.  You now owe him!\n",
 	   cname(player->cnum), arg);
 	wu(0, loan.l_loner,
-	   "%s bought loan #%d out from under you for %d\n",
+	   "%s bought loan #%d out from under you for %ld\n",
 	   cname(player->cnum), arg, payment);
 	pr("You now own loan #%d.  Go break some legs.\n", arg);
     }

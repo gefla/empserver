@@ -58,7 +58,7 @@ lost(void)
     prdate();
     nlost = 0;
     time(&now);
-    pr("DUMP LOST ITEMS %d\n", now);
+    pr("DUMP LOST ITEMS %ld\n", (long)now);
     if (player->god)
 	pr("owner ");
     pr("type id x y timestamp\n");
@@ -71,7 +71,7 @@ lost(void)
 	    pr("%d ", lost.lost_owner);
 	pr("%d %d ", lost.lost_type, lost.lost_id);
 	prxy("%d %d ", lost.lost_x, lost.lost_y, player->cnum);
-	pr("%d\n", lost.lost_timestamp);
+	pr("%ld\n", (long)lost.lost_timestamp);
 	nlost++;
     }
     if (nlost == 0) {

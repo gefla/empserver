@@ -131,7 +131,7 @@ enli(void)
 	}
     }
     pr("Total new enlistment : %d\n", totalmil);
-    pr("Military reserves stand at %d\n", reserve);
+    pr("Military reserves stand at %ld\n", reserve);
     if (totalmil) {
 	natp->nat_reserve -= totalmil;
 	putnat(natp);

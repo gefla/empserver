@@ -179,7 +179,7 @@ prod_nat(int etu)
 	levels[n][NAT_RLEV] =
 	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
 	wu((natid)0, n,
-	   "total pop is %d, yielding %4.2f hap, %4.2f edu\n",
+	   "total pop is %ld, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
     if (ally_factor > 0.0)
@@ -212,9 +212,9 @@ prod_nat(int etu)
 	if ((sea_money[n] != 0) || (air_money[n] != 0) ||
 	    (lnd_money[n] != 0))
 	    wu((natid)0, n,
-	       "Army delta $%d, Navy delta $%d, Air force delta $%d\n",
+	       "Army delta $%ld, Navy delta $%ld, Air force delta $%ld\n",
 	       lnd_money[n], sea_money[n], air_money[n]);
-	wu((natid)0, n, "money delta was $%d for this update\n",
+	wu((natid)0, n, "money delta was $%ld for this update\n",
 	   np->nat_money - money[n]);
 	if (opt_LOSE_CONTACT) {
 	    for (cn = 0; cn <= MAXNOC; cn++) {

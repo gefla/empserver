@@ -160,7 +160,7 @@ ldump(void)
     if (player->god)
 	pr("   ");
     time(&now);
-    pr("DUMP LAND UNITS %d\n", now);
+    pr("DUMP LAND UNITS %ld\n", (long)now);
     if (player->god)
 	pr("own ");
     pr("id");
@@ -310,7 +310,7 @@ ldump(void)
 	while (field[n]) {
 	    switch (field[n++]) {
 	    case 1:
-		pr(" %0.4s", lchr[(int)land.lnd_type].l_name);
+		pr(" %.4s", lchr[(int)land.lnd_type].l_name);
 		break;
 	    case 2:
 		pr(" %d", xrel(np, land.lnd_x));

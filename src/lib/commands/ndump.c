@@ -58,7 +58,7 @@ ndump(void)
     if (player->god)
 	pr("   ");
     time(&now);
-    pr("DUMP NUKES %d\n", now);
+    pr("DUMP NUKES %ld\n", (long)now);
     if (player->god)
 	pr("own ");
     pr("id x y num type\n");
@@ -76,7 +76,7 @@ ndump(void)
 		pr("%d ", nuk.nuk_uid);
 		prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
 		pr(" %d", nuk.nuk_types[i]);
-		pr(" %0.5s", nchr[i].n_name);
+		pr(" %.5s", nchr[i].n_name);
 		pr("\n");
 	    }
 	}

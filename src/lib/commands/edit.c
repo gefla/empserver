@@ -316,7 +316,7 @@ prnat(natid n)
     pr("Connected: %d\n", np->nat_connected);
     pr("Representative <r>: %-20s\n", np->nat_pnam);
     pr("BTUs <b>: %3d\t\t\t", np->nat_btu);
-    pr("Reserves <m>: %5d\n", np->nat_reserve);
+    pr("Reserves <m>: %5ld\n", np->nat_reserve);
     pr("Capital <c>: %s\t\t",
        xyas(np->nat_xcap, np->nat_ycap, player->cnum));
     pr("Origin <o>: %3s\n",
@@ -327,7 +327,7 @@ prnat(natid n)
     pr("Research <R>: %.2f\n", np->nat_level[NAT_RLEV]);
     pr("Education <E>: %.2f\t\t", np->nat_level[NAT_ELEV]);
     pr("Happiness <H>: %.2f\n", np->nat_level[NAT_HLEV]);
-    pr("Money <M>: $%6d\n", np->nat_money);
+    pr("Money <M>: $%6ld\n", np->nat_money);
     pr("Telegrams <t>: %6d\n", np->nat_tgms);
     if (opt_DEMANDUPDATE)
 	pr("Updates missed <U>: %d\n", np->nat_missed);
@@ -598,14 +598,14 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
     case 'p':
 	old = sect->sct_pstage;
 	new = errcheck(arg, 0, PLG_EXPOSED);
-	pr("Plague stage of %s changed from %d to %d%\n",
+	pr("Plague stage of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_pstage = new;
 	break;
     case 't':
 	old = sect->sct_ptime;
 	new = errcheck(arg, 0, 255);
-	pr("Plague time of %s changed from %d to %d%\n",
+	pr("Plague time of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_ptime = new;
 	break;
@@ -717,11 +717,11 @@ docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	break;
     case 'm':
 	benefit(nat, np->nat_reserve < arg);
-	pr("Military Reserves changed from %d to %d\n",
+	pr("Military Reserves changed from %ld to %d\n",
 	   np->nat_reserve, arg);
 	if (np->nat_stat == STAT_NORM)
 	    wu(player->cnum, nat,
-	       "Military Reserves changed from %d to %d by divine intervention.\n",
+	       "Military Reserves changed from %ld to %d by divine intervention.\n",
 	       np->nat_reserve, arg);
 	np->nat_reserve = arg;
 	break;
@@ -753,9 +753,9 @@ docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	np->nat_minused = arg;
 	break;
     case 'M':
-	pr("Money changed from %d to %d\n", np->nat_money, arg);
+	pr("Money changed from %ld to %d\n", np->nat_money, arg);
 	wu(player->cnum, nat,
-	   "Money changed from %d to %d by divine intervention.\n",
+	   "Money changed from %ld to %d by divine intervention.\n",
 	   np->nat_money, arg);
 	np->nat_money = arg;
 	break;

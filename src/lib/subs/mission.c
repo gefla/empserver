@@ -649,7 +649,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		   "%s fires at %s %s at %s\n",
 		   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
 
-		mpr(victim, "%s fires at you at %s\n",
+		mpr(victim, "%s %s fires at you at %s\n",
 		    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
 
 		sp->shp_item[I_SHELL] = shell - gun;
@@ -1473,7 +1473,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	    if (nukedam) {
 		if (mission == MI_INTERDICT) {
 		    wu(0, pp->pln_own,
-		       "\t\tnuclear warhead does %d damage to %s %s\n",
+		       "\t\tnuclear warhead on plane %s does %d damage to %s %s\n",
 		       prplane(pp), nukedam, cname(victim), s);
 		    dam += nukedam;
 		}
