@@ -44,7 +44,6 @@
 #include "nsc.h"
 #include "file.h"
 #include "match.h"
-#include "struct.h"
 #include "common.h"
 #include "gen.h"
 

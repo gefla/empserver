@@ -32,7 +32,7 @@
  *  
  */
 
-#include <struct.h>
+#include <stddef.h>
 #include "misc.h"
 #include "var.h"
 #include "xy.h"
@@ -51,6 +51,8 @@
 #include "map.h"
 #include "commodity.h"
 #include "lost.h"
+
+#define fldoff(str, fld) offsetof(struct str, fld)
 
 #define NSC_IELT(name, pfx, sfx, base, itype)		\
 {NSC_SHORT, 0, 0, ((base) + (itype)*sizeof(u_short)),	\
@@ -84,9 +86,9 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_terr), "terr0"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr1), "terr1"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr2), "terr2"},
+    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr3), "terr3"},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist"},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist"},
-    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr3), "terr3"},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_coastal), "coastal"},
