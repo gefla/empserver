@@ -15,6 +15,9 @@ Wolfpack!
 
 ------
 
+backup
+	Backup script to be run from pre_update_hook.
+
 keepitup
 	Automatically reboots your Empire server if it crashes.
 	No configuration necessary.  See the comments at the top of

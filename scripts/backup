@@ -1,0 +1,74 @@
+#!/bin/sh -e
+# Backup script to be run from pre_update_hook
+# Written by Markus Armbruster, 2005
+# This script is in the public domain.
+
+# Use: edit configuration variables below to taste, then set
+#   pre_update_hook = /wherever/backup
+# in econfig.
+
+# Rules when running as pre_update_hook:
+# Data directory is working directory.
+# stdin, stdout, stderr are redirected to /dev/null
+# Exit code other than zero cancels update!
+#
+# This script is as simple as possible, since failure cancels the
+# update.
+
+# Configuration
+
+# How to name backups
+#
+# If you back up multiple games to the same directories, better change
+# this ot include a unique game name.
+#
+# Single name, keep just the last backup:
+name=data
+# Name with timestamp, keep all backups:
+#name=data-`date +%Y-%m-%d-%H:%M`
+
+# Where to store the backups on the local machine
+#
+# Storing backups on the same machine is stupid, and on the same file
+# system is criminally stupid, so you better change this, unless you
+# copy them to another machine.
+local_dir=../backup
+
+# Copy backups to remote machine using SSH
+#
+# Don't copy (are you *sure* you want to be stupid?):
+remote_host=
+remote_dir=
+remote_email=
+#
+# Do copy:
+#remote_host=user@host
+#remote_dir=empire/backup
+#email=user@host
+
+# End of configuration
+
+# Create local backup directory if necessary
+mkdir -p $local_dir
+
+# Tar up the data directory
+tgz=$local_dir/$name.tar.gz
+tar czf $tgz .
+
+# Copy the backup to another machine with SSH, in the background
+#
+# The obvious method requires a key that is not protected by a
+# passphrase.  Trusting such keys remotely is usually a bad idea, but
+# it might be tolerable if a special user runs the server, and that
+# user's privileges are carefully limited.
+if [ "$remote_host" ]
+then
+    nohup sh -c "scp -qBp '$tgz' '$remote_host:$remote_dir' 2>&1 | mail -e -s 'Empire backup save failed' '$email'" </dev/null >/dev/null 2>&1 &
+fi
+#
+# A more secure alternative is to replace the scp command by something like
+#    ssh -q -T -o BatchMode=yes -o IdentitiesOnly=yes -i "$HOME/.ssh/empire_id_rsa" $remote_host <"$tgz"
+# where $HOME/.ssh/empire_id_rsa contains a private key specifically
+# created for Empire backup, without a passphrase, and authorized_keys
+# on $remote_host contains the matching public key prepended by
+#   command="cat >empire/backup/data-`/bin/date +%Y-%m-%d-%H:%M`.tar.gz",no-pty,no-port-forwarding
