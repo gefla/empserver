@@ -48,6 +48,7 @@
 
 #if defined(_WIN32)
 #include <winsock.h>
+#include <process.h>
 #endif
 
 #include "misc.h"
@@ -75,9 +76,7 @@ static void loc_NTInit(void);
 static void loc_NTTerm(void);
 #endif
 
-#if !defined(_WIN32)
 static int mainpid = 0;
-#endif
 
 /*
  * Debugging?
@@ -101,8 +100,8 @@ main(int argc, char **argv)
 
     loginit("server");
 
-#if !defined(_WIN32)
     mainpid = getpid();
+#if !defined(_WIN32)
 
     while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
 	switch (op) {
@@ -134,11 +133,7 @@ main(int argc, char **argv)
     }
 
     logerror("------------------------------------------------------");
-#if !defined(_WIN32)
     logerror("Empire server (pid %d) started", getpid());
-#else
-    logerror("Empire server started");
-#endif /* _WIN32 */
 
 #if defined(_WIN32)
     loc_NTInit();
