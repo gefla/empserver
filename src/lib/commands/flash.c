@@ -44,7 +44,7 @@ flash(void)
 {
     struct natstr *us;
     struct natstr *to;
-    s_char buf[600];
+    s_char buf[1024];
     int tocn;
     s_char *sp;
 
@@ -94,13 +94,12 @@ int
 wall(void)
 {
     struct natstr *us;
-    s_char buf[600];
+    s_char buf[1024];
     s_char *sp;
 
     us = getnatp(player->cnum);
     if (player->argp[1]) {
 	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
-	for (++sp; *sp && *sp != ' '; ++sp) ;
 	sprintf(buf, ":%s", sp);
 	sendmessage(us, 0, buf, 1);
     } else {
