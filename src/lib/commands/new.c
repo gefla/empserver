@@ -345,7 +345,7 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_rflags = 0;
     memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
     land.lnd_rad_max = lp->l_rad;
-    land.lnd_nv = 0;
+    memset(land.lnd_item, 0, sizeof(land.lnd_item));
 
     land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
     land.lnd_def = (float)LND_ATTDEF(lp->l_def, tlev - lp->l_tech);
