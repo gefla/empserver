@@ -432,7 +432,7 @@ nullify_objects(void)
 	if (opt_NO_LCMS)
 	    nchr[i].n_lcm = 0;
     }
-    for (i = 0; i < sct_maxno; i++) {
+    for (i = 0; i <= SCT_MAXDEF; i++) {
 	if (opt_NO_HCMS)
 	    dchr[i].d_hcms = 0;
 	if (opt_NO_LCMS)

@@ -86,8 +86,6 @@ struct dchrstr dchr[SCT_MAXDEF + 2] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-int sct_maxno = (sizeof(dchr) / sizeof(struct dchrstr)) - 1;
-
 struct sctintrins intrchr[] = {
 /* name              lcm hcm dollars mobility */
     {"road network", 2, 2, 2, 1},

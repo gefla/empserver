@@ -90,7 +90,7 @@ struct sctstr {
 
 struct dchrstr {
     int d_mnem;			/* map symbol */
-    int d_prd;			/* product vtype */
+    int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
     int d_flg;			/* movement cost */
     i_packing d_pkg;		/* type of packaging in these sects */
@@ -162,7 +162,6 @@ struct dchrstr {
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
 
-extern int sct_maxno;
 extern struct dchrstr dchr[];
 extern struct dchrstr bigcity_dchr;
 
