@@ -97,11 +97,15 @@ struct valstr {
     union {
 	struct {		/* cat NSC_OFF */
 	    ptrdiff_t off;
+	    int len;
 	    int idx;
 	} sym;
 	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
-	char *str;		/* cat NSC_VAL, type NSC_STRING */
-	long lng;		/* cat NSC_VAL, type NSC_LONG */
+	struct {		/* cat NSC_VAL, type NSC_STRING */
+	    char *base;
+	    size_t maxsz;
+	} str;
+	long lng;		/* cat NSC_VAL, type NSC_LONG, NSC_TYPEID */
     } val_as;
 };
 

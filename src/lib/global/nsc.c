@@ -153,7 +153,8 @@ struct castr ship_ca[] = {
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt"},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt"},
     {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder"},
-    /* FIXME retreat stuff missing */
+    {NSC_INT, 0, 0, fldoff(shpstr, shp_rflags), "rflags"},
+    {NSC_STRINGY, 0, RET_LEN, fldoff(shpstr, shp_rpath), "rpath"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -182,7 +183,8 @@ struct castr land_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_nxlight), "nxlight"},
-    /* FIXME retreat stuff missing */
+    {NSC_INT, 0, 0, fldoff(lndstr, lnd_rflags), "rflags"},
+    {NSC_STRINGY, 0, RET_LEN, fldoff(lndstr, lnd_rpath), "rpath"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react"},
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage"},

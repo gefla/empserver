@@ -294,7 +294,7 @@ xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
 static char *
 xdprval(struct valstr *val, char *sep)
 {
-    unsigned char *s, *e;
+    unsigned char *s, *e, *l;
 
     switch (val->val_type) {
     case NSC_TYPEID:
@@ -305,14 +305,17 @@ xdprval(struct valstr *val, char *sep)
 	pr("%s%#g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
-	s = (unsigned char *)val->val_as.str;
+	s = (unsigned char *)val->val_as.str.base;
 	if (s) {
 	    pr("%s\"", sep);
-	    while (*s) {
-		for (e = s; *e != '"' && *e != '\\' && isgraph(*e); ++e) ;
+	    l = s + val->val_as.str.maxsz;
+	    for (;;) {
+		for (e=s; e<l && *e != '"' && *e != '\\' && isgraph(*e); ++e) ;
 		pr("%.*s", (int)(e-s), s);
-		if (*e)
+		if (e < l && *e)
 		    pr("\\%03o", *e++);
+		else
+		    break;
 		s = e;
 	    }
 	    prnf("\"");
@@ -455,7 +458,7 @@ xdchr(int chridx)
 	val.val_as.sym.off = cm->ca[0].ca_off;
 	val.val_as.sym.idx = 0;
 	nstr_exec_val(&val, player->cnum, p, NSC_STRING);
-	if (!val.val_as.str || !*val.val_as.str)
+	if (!val.val_as.str.base || !*val.val_as.str.base)
 	    break;
 	++n;
 	xdflds(cm->ca, p);

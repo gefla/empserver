@@ -33,6 +33,7 @@
  *     Markus Armbruster, 2004
  */
 
+#include <limits.h>
 #include "misc.h"
 #include "file.h"
 #include "match.h"
@@ -132,6 +133,15 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
     return i + 1;
 }
 
+static int
+strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
+{
+    if (sz1 == sz2) return strncmp(s1, s2, sz2);
+    if (sz1 < sz2) return -strnncmp(s2, sz2, s1, sz1);
+    int res = strncmp(s1, s2, sz2);
+    return res ? res : s1[sz2];
+}
+
 #define EVAL(op, lft, rgt)			\
     ((op) == '<' ? (lft) < (rgt)		\
      : (op) == '=' ? (lft) == (rgt)		\
@@ -171,7 +181,8 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 		return 0;
 	    break;
 	case NSC_STRING:
-	    cmp = strcmp(lft.val_as.str, rgt.val_as.str);
+	    cmp = strnncmp(lft.val_as.str.base, lft.val_as.str.maxsz,
+			   rgt.val_as.str.base, rgt.val_as.str.maxsz);
 	    if (!EVAL(op, cmp, 0))
 		return 0;
 	    break;
@@ -237,6 +248,7 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 			val->val_type = cap[j].ca_type;
 			val->val_cat = NSC_OFF;
 			val->val_as.sym.off = cap[j].ca_off;
+			val->val_as.sym.len = cap[j].ca_len;
 			val->val_as.sym.idx = 0;
 		    }
 		}
@@ -409,7 +421,7 @@ void
 nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 {
     char *memb_ptr;
-    nsc_type valtype = NSC_LONG;
+    nsc_type valtype;
     int idx;
 
     switch (val->val_cat) {
@@ -420,6 +432,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	valtype = val->val_type;
 	break;
     case NSC_OFF:
+	valtype = NSC_LONG;
 	memb_ptr = ptr;
 	memb_ptr += val->val_as.sym.off;
 	idx = val->val_as.sym.idx;
@@ -458,11 +471,13 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    break;
 	case NSC_STRINGY:
 	    CANT_HAPPEN(idx);
-	    val->val_as.str = (char *)memb_ptr;
+	    val->val_as.str.maxsz = val->val_as.sym.len;
+	    val->val_as.str.base = (char *)memb_ptr;
 	    valtype = NSC_STRING;
 	    break;
 	case NSC_STRING:
-	    val->val_as.str = ((char **)memb_ptr)[idx];
+	    val->val_as.str.base = ((char **)memb_ptr)[idx];
+	    val->val_as.str.maxsz = INT_MAX;
 	    valtype = NSC_STRING;
 	    break;
 	case NSC_TIME:
@@ -488,13 +503,14 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	}
     } else if (want == NSC_STRING)
 	CANT_HAPPEN("unimplemented WANT"); /* FIXME */
+
     if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
 	valtype = want;
 	switch (want) {
 	case NSC_TYPEID:
 	case NSC_LONG: val->val_as.lng = 0; break;
 	case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
-	case NSC_STRING: val->val_as.str = ""; break;
+	case NSC_STRING: val->val_as.str.base = NULL; break;
 	default:
 	    CANT_HAPPEN("bad WANT argument");
 	}
