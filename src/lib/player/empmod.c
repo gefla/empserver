@@ -105,7 +105,7 @@ struct cmndstr player_coms[] = {
     {"explore <c|m> <SECT> <NUM> <PATH|DESTINATION>", 1, explore, C_MOD,
      NORM + MONEY + CAP},
     {"financial", 0, fina, 0, NORM},
-    {"fire <land, ship or sect> <from-SECTS | SHIPS | UNITS> [TO-SECT | SHIP]", 1, multifire, C_MOD, NORM + MONEY + CAP},
+    {"fire <TYPE> <from-SECTS | SHIPS | UNITS> [TO-SECT | SHIP]", 1, multifire, C_MOD, NORM + MONEY + CAP},
     {"flash <COUNTRY> [<message>]", 0, flash, 0, VIS},
     {"fleetadd <FLEET> <SHIPS>", 0, flee, C_MOD, NORM},
     {"fly <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COM>", 2, fly, C_MOD, NORM + MONEY + CAP},
