@@ -1,3 +1,68 @@
+Changes to Empire 4.2.15 - Sun May 16 14:56:03 UTC 2004
+ * test command no longer asks whether to abandon the sector.
+ * explore command could generate a bogus `lost' record when it
+   regains an abandoned start sector.
+ * edit command now properly updates stats when editing tech level of
+   ships, planes or land units.  A few of these stats can be edited
+   separately, which doesn't make much sense, and is now deprecated.
+ * edit command no longer accepts efficiency values that would destroy
+   the edited unit.  Deities can still delete a units by setting the
+   owner to zero.
+ * Commands upgrade and build could be off by one when reporting
+   required avail.
+ * upgrade command reported rounded cost but charged unrounded
+   cost.  Round cost of upgrade down to match behavior of build.
+ * Upgrading planes now preserves range when it is less than the
+   maximum range.  It used to set it to the new maximum range.
+ * show bridge and show tower no longer claim bridge building requires
+   `workers' (whatever that is), since it doesn't.
+ * Replace option ROLLOVER_AVAIL by econfig parameter
+   rollover_avail_max, which is the maximum amount of avail that rolls
+   over.  Previously, avail was limited after rollover, and even when
+   ROLLOVER_AVAIL was off.  Fix that.
+ * Ships weren't always charged mobility for firing with option
+   NOMOBCOST off.
+ * Fix shell use of return torpedoes.
+ * designate no longer complains twice about deity only designations.
+ * Ensure designate zaps efficiency only when sector type really
+   changes.
+ * Fix strength to always report mines to deities.
+ * Remove option SHIP_DECAY.
+ * Fix bug in sonar that could crash or yield unpredictable results
+   near the true origin.
+ * Fix buffer overflow in flash and wall.
+ * Fix wall not to strip out first word of message.
+ * Change market and order to use item types instead of mnemo
+   characters.
+ * Market now reports sales with full item names instead of single
+   letter codes.
+ * buy now requires first argument to be an item name, as documented.
+ * production command handled production backlog incorrectly, failed
+   to limit production for production efficiency greater than one,
+   e.g. agribusiness, and incorrectly limited raw material
+   consumption.  Also fix a rounding error.
+ * Sector work was accidentally truncated to even.
+ * Fix coordinate parsing for large numbers when WORLD_X or WORLD_Y
+   don't divide SHRT_MAX+1.
+ * Properly diagnose over-long unit lists.
+ * Rewrite selector code.  Old code let players smash the stack by
+   supplying too many conditions.  New code properly rejects ambiguous
+   abbreviations and prefers exact matches.  Selectors with names that
+   collide with types, like land units' rad and spy, now work.  Selectors with
+   non-integral values, like land units' att, now work.
+ * survey used to display hundreds for everything but variables.  Now
+   it displays hundreds only for values that can be large.
+ * Rewrite info survey.  Document ability to survey properties other
+   than items and resources.
+ * Fix info fire on required military.
+ * New fairland argument -R to set the PRNG seed.  Print the seed.
+   This allows you to recreate the same world again.
+ * New facilities to deal with internal errors.  These crash when the
+   server is started with -d, which is appropriate for debugging, and
+   potentially disastrous for running a real game.
+ * Automated nightly builds.
+ * Code cleanups.
+
 Changes to Empire 4.2.14 - Mon Mar 22 09:04:12 UTC 2004
  * Options NEWPOWER, NEW_STARVE and NEW_WORK are no longer optional.
  * Gripe about unknown options in econfig.

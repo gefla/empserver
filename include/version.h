@@ -38,10 +38,10 @@
 
 #define EMP_VERS_MAJOR	4
 #define EMP_VERS_MINOR	2
-#define EMP_VERS_PATCH	14
+#define EMP_VERS_PATCH	15
 
 #define	KSU_DIST	1.04
 #define	CHAINSAW_DIST	4.00
-#define WOLFPACK_DIST   2.14
+#define WOLFPACK_DIST   2.15
 
 #endif /* _VERSION_H_ */
