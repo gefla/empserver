@@ -56,160 +56,65 @@ static void calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
-static s_char *dotsprintf(s_char *buf, s_char *format, int data);
-static int goodsect(char c);
-static void prexpense(long int cash, int *expensesp, s_char priority, int amount);
+static int change_prio(struct natstr *np, char code, char *newval);
+static char *dotsprintf(char *buf, char *format, int data);
+static void prexpense(long int cash, int *expensesp, int priority, int amount);
 
 int
 budg(void)
 {
-    s_char stype = 0, *pq;
-    int priority, x;
+    int i, res;
     long p_sect[SCT_MAXDEF+1][2];
-    int taxes = 0, bars = 0, mil = 0;
-    int Ncivs = 0, Nuws = 0, Nbars = 0;
+    int taxes, Ncivs, Nuws, bars, Nbars, mil;
+    int ships, sbuild, nsbuild, smaint;
+    int units, lbuild, nlbuild, lmaint;
+    int planes, pbuild, npbuild, pmaint;
     int n, etu;
-    int income = 0, expenses = 0;
-    int sbuild = 0, smaint = 0, pbuild = 0, pmaint = 0, ships = 0, planes =
-	0;
-    int nsbuild = 0, npbuild = 0, which = 0;
-    int lbuild = 0, lmaint = 0, units = 0, nlbuild = 0;
+    int income, expenses;
     struct natstr *np;
-    s_char buf[1024];
-    s_char in[80];
+    char buf[1024];
+    char in[80];
 
-    memset(p_sect, 0, sizeof(p_sect));
     etu = etu_per_update;
 
     np = getnatp(player->cnum);
-    if (player->argp[1] != (s_char *)0) {
-	if (goodsect(player->argp[1][0]))
-	    stype = player->argp[1][0];
-	else
-	    switch (player->argp[1][0]) {
-	    case 'P':
-	    case 'S':
-	    case 'L':
-	    case 'A':
-	    case 'M':
-	    case 'N':
-	    case 'C':
-		stype = player->argp[1][0];
-		break;
-	    default:
-		return RET_SYN;
-	    }
-    }
-    if ((stype != 0) && (stype != 'C')) {
-	pq = getstarg(player->argp[2], "Priority? ", buf);
-    } else {
-	pq = (s_char *)0;
-    }
-    if (pq != (s_char *)0) {
-	if (isdigit(*pq)) {
-	    priority = (atoi(pq) < 0 ? -1 * atoi(pq) : atoi(pq));
-	    if (priority > PRI_MAX) {
-		pr("Priorities must be less than %d!\n", PRI_MAX + 1);
-		return RET_FAIL;
-	    }
-	    for (x = 0; x <= PRI_MAX; x++)
-		if (priority && (np->nat_priorities[x] == priority)) {
-		    pr("Priorities must be unique!\n");
-		    return RET_FAIL;
-		}
-	} else if (*pq == '~')
-	    priority = -1;
-	else
-	    return RET_SYN;
-    }
-    if ((stype) && !player->god) {
-	if (!isupper(stype)) {
-	    which = 0;
-	    while ((which < SCT_MAXDEF + 2) &&
-		   (stype != dchr[which].d_mnem))
-		which++;
-	    if (which == SCT_MAXDEF + 2)
-		return RET_SYN;
-	} else {
-	    switch (stype) {
-	    case 'P':
-		which = PRI_PBUILD;
-		break;
-	    case 'S':
-		which = PRI_SBUILD;
-		break;
-	    case 'L':
-		which = PRI_LBUILD;
-		break;
-	    case 'A':
-		which = PRI_LMAINT;
-		break;
-	    case 'M':
-		which = PRI_SMAINT;
-		break;
-	    case 'N':
-		which = PRI_PMAINT;
-		break;
-	    case 'C':
-		which = (-1);
-		break;
-	    default:
-		return RET_SYN;
-	    }
+    if (player->argp[1]) {
+	res = change_prio(np, player->argp[1][0], player->argp[2]);
+	if (res != RET_OK) {
+	    putnat(np);
+	    return res;
 	}
-	if (which == -1) {
-	    for (x = 0; x <= PRI_MAX; x++) {
-		np->nat_priorities[x] = -1;
-	    }
-	} else {
-	    np->nat_priorities[which] = priority;
-	}
-
     }
-    putnat(np);
 
     player->simulation = 1;
-    calc_all(p_sect, &taxes, &Ncivs, &Nuws, &bars, &Nbars, &mil, &ships,
-	     &sbuild, &nsbuild, &smaint, &units, &lbuild, &nlbuild,
-	     &lmaint, &planes, &pbuild, &npbuild, &pmaint);
+    calc_all(p_sect,
+	     &taxes, &Ncivs, &Nuws, &bars, &Nbars, &mil,
+	     &ships, &sbuild, &nsbuild, &smaint,
+	     &units, &lbuild, &nlbuild, &lmaint,
+	     &planes, &pbuild, &npbuild, &pmaint);
 
     income = taxes + bars;
+    expenses = 0;
     pr("Sector Type\t\tAbbr\tProduction\tPriority\t    Cost\n");
-    for (x = 0; x <= SCT_MAXDEF; x++) {
-	if (!p_sect[x][1] && np->nat_priorities[x] == -1)
+    for (i = 0; i <= SCT_MAXDEF; i++) {
+	if (!p_sect[i][1] && np->nat_priorities[i] == -1)
 	    continue;
-	if (!pchr[dchr[x].d_prd].p_cost &&
-	    np->nat_priorities[x] == -1 && x != SCT_ENLIST) {
+	if (!pchr[dchr[i].d_prd].p_cost &&
+	    np->nat_priorities[i] == -1 && i != SCT_ENLIST)
 	    continue;
-	}
 
-	pr("%-17s\t%c\t", dchr[x].d_name, dchr[x].d_mnem);
-	if (x == SCT_ENLIST)
-	    pr("%ld mil    \t", p_sect[x][0]);
-	else if (pchr[dchr[x].d_prd].p_cost != 0)
-	    pr("%ld %-7s\t", p_sect[x][0], pchr[dchr[x].d_prd].p_sname);
+	pr("%-17s\t%c\t", dchr[i].d_name, dchr[i].d_mnem);
+	if (i == SCT_ENLIST)
+	    pr("%ld mil    \t", p_sect[i][0]);
+	else if (pchr[dchr[i].d_prd].p_cost != 0)
+	    pr("%ld %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
 
-	if (np->nat_priorities[x] != -1) {
-	    pr("%d", np->nat_priorities[x]);
-	}
-	pr("\t");
-	pr("\t");
-	if (np->nat_priorities[x] != 0) {
-	    if ((np->nat_money + income - expenses) > 0) {
-		pr("%8ld", p_sect[x][1]);
-		expenses += p_sect[x][1];
-	    } else
-		pr("[%7ld]", p_sect[x][1]);
-	} else {
-	    if ((np->nat_money + income - expenses) > 0)
-		pr("(%7ld)", p_sect[x][1]);
-	    else
-		pr("[(%7ld)]", p_sect[x][1]);
-	}
-
-	pr("\n");
+	if (np->nat_priorities[i] != -1)
+	    pr("%d", np->nat_priorities[i]);
+	prexpense(np->nat_money + income, &expenses,
+		  np->nat_priorities[i], p_sect[i][1]);
     }
 
     if (lbuild) {
@@ -271,7 +176,6 @@ budg(void)
 	expenses += p_sect[SCT_EFFIC][1];
     }
     if (mil) {
-
 	n = (mil - np->nat_reserve * money_res * etu) / (etu * money_mil);
 	sprintf(in, "%d mil, %d res", n, (int)np->nat_reserve);
 	pr("Military payroll\t\t%-32s%8d\n", in, -mil);
@@ -279,11 +183,10 @@ budg(void)
     }
     if (p_sect[SCT_CAPIT][0]) {
 	n = p_sect[SCT_CAPIT][0];
-	sprintf(in, "%d %s",
+	sprintf(in, "%d %s%s",
 		n,
-		n ==
-		1 ? opt_BIG_CITY ? "city" : "capital" : opt_BIG_CITY ?
-		"cities" : "capitals");
+		opt_BIG_CITY ? "cit" : "capital",
+		opt_BIG_CITY ? iesplur(n) : splur(n));
 	pr("%s maintenance\t\t%-32s%8ld\n",
 	   opt_BIG_CITY ? "City" : "Capital", in, p_sect[SCT_CAPIT][1]);
 	expenses += p_sect[SCT_CAPIT][1];
@@ -313,10 +216,11 @@ budg(void)
 }
 
 static void
-calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
-	 int *bars, int *Nbars, int *mil, int *ships, int *sbuild,
-	 int *nsbuild, int *smaint, int *units, int *lbuild, int *nlbuild,
-	 int *lmaint, int *planes, int *pbuild, int *npbuild, int *pmaint)
+calc_all(long p_sect[][2],
+	 int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars, int *mil,
+	 int *ships, int *sbuild, int *nsbuild, int *smaint,
+	 int *units, int *lbuild, int *nlbuild, int *lmaint,
+	 int *planes, int *pbuild, int *npbuild, int *pmaint)
 {
     register int y, z;
     struct natstr *np;
@@ -331,8 +235,12 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
     lnd_money[player->cnum] = sea_money[player->cnum] = 0;
     air_money[player->cnum] = 0;
     mil_dbl_pay = 0;
-    *taxes = 0;
-    *Ncivs = 0;
+    memset(p_sect, 0, sizeof(**p_sect) * (SCT_MAXDEF+1) * 2);
+    *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
+    *ships = *sbuild = *nsbuild = *smaint = 0;
+    *units = *lbuild = *nlbuild = *lmaint = 0;
+    *planes = *pbuild = *npbuild = *pmaint = 0;
+    
     np = getnatp(player->cnum);
     bp = (int *)calloc(WORLD_X * WORLD_Y * 8, sizeof(int));
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
@@ -441,26 +349,75 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
 }
 
 static int
-goodsect(char c)
+change_prio(struct natstr *np, char code, char *newval)
 {
-    register int x;
+    int idx, i, prio;
+    char *p;
+    char buf[1024];
 
-    for (x = 4; x < SCT_MAXDEF + 2; x++)
-	if (dchr[x].d_mnem == c)
-	    return 1;
+    switch (code) {
+    case 'P':
+	idx = PRI_PBUILD;
+	break;
+    case 'S':
+	idx = PRI_SBUILD;
+	break;
+    case 'L':
+	idx = PRI_LBUILD;
+	break;
+    case 'A':
+	idx = PRI_LMAINT;
+	break;
+    case 'M':
+	idx = PRI_SMAINT;
+	break;
+    case 'N':
+	idx = PRI_PMAINT;
+	break;
+    case 'C':
+	for (i = 0; i <= PRI_MAX; ++i)
+	    np->nat_priorities[i] = -1;
+	return RET_OK;
+    default:
+	idx = sct_typematch(player->argp[1]);
+	if (idx < 0 || idx == SCT_CAPIT)
+	    return RET_SYN;
+    }
 
-    return 0;
+    if (!(p = getstarg(newval, "Priority? ", buf)))
+	return RET_SYN;
+    if (isdigit(p[0])) {
+	prio = atoi(p);
+	if (prio < 0 || PRI_MAX < prio) {
+	    pr("Priorities must be between 0 and %d!\n", PRI_MAX);
+	    return RET_FAIL;
+	}
+	for (i = 0; i <= PRI_MAX; i++) {
+	    if (i != idx && prio && np->nat_priorities[i] == prio) {
+		pr("Priorities must be unique!\n");
+		return RET_FAIL;
+	    }
+	}
+    } else if (p[0] == '~')
+	prio = -1;
+    else
+	return RET_SYN;
+
+    np->nat_priorities[idx] = prio;
+
+    return RET_OK;
 }
 
-static s_char *
-dotsprintf(s_char *buf, s_char *format, int data)
+
+static char *
+dotsprintf(char *buf, char *format, int data)
 {
     sprintf(buf, format, data);
-    return (s_char *)memset(buf, '.', strspn(buf, " "));
+    return memset(buf, '.', strspn(buf, " "));
 }
 
 static void
-prexpense(long int cash, int *expensesp, s_char priority, int amount)
+prexpense(long int cash, int *expensesp, int priority, int amount)
 {
     if (cash > *expensesp) {
 	if (priority) {
