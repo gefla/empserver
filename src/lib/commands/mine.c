@@ -123,6 +123,7 @@ landmine(void)
 	    continue;
 	}
 	resupply_commod(&land, I_SHELL);
+	putland(land.lnd_uid, &land);
 	if (!(shells = getvar(V_SHELL, (s_char *)&land, EF_LAND)))
 	    continue;
 	shells = min(shells, land.lnd_mobil);
@@ -148,7 +149,7 @@ landmine(void)
 	    putvar(V_SHELL, shells - mines_laid, (s_char *)&land, EF_LAND);
 	    land.lnd_mobil -= mines_laid;
 	    putland(land.lnd_uid, &land);
-	    resupply_commod(&land, I_SHELL);
+	    resupply_commod(&land, I_SHELL);	/* Get more shells */
 	    putland(land.lnd_uid, &land);
 	    total_mines_laid += mines_laid;
 	    shells = getvar(V_SHELL, (s_char *)&land, EF_LAND);
@@ -158,11 +159,15 @@ landmine(void)
 	putvar(V_MINE, total_mines_laid + mines_there, (s_char *)&sect,
 	       EF_SECTOR);
 	putsect(&sect);
-	if (shells)
-	    pr("%s laid a total of %d mines in %s\n",
+	if (total_mines_laid == mines_wanted) {
+	    pr("%s laid a total of %d mines in %s",
 	       prland(&land), total_mines_laid,
 	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
-	else
+	    if (!shells)
+	    	pr(" but is now out of supply\n");
+	    else
+		pr("\n");
+	} else
 	    pr("%s ran out of %s before it could finish the job\nOnly %d mines were laid in %s\n", prland(&land), land.lnd_mobil > 0 ? "supply" : "mobility", total_mines_laid, xyas(sect.sct_x, sect.sct_y, land.lnd_own));
     }
     return RET_OK;
