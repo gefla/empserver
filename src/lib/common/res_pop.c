@@ -44,22 +44,24 @@ int
 max_population(float research, int desig, int eff)
 {
     int maxpop = dchr[desig].d_maxpop;
-
-    if (opt_RES_POP) {
-	/* research limits maximum population */
-	maxpop = maxpop * 0.4
-	    + maxpop * 0.6 * (50.0 + 4.0*research) / (200.0 + 3.0*research);
-	if (maxpop > 999)
-	    maxpop = 999;
-    }
+    int rmax;
 
     if (opt_BIG_CITY) {
 	/* city efficiency limits maximum population */
 	if (dchr[desig].d_pkg == UPKG)
 	    maxpop *= 1 + 9.0 * eff / 100;
-	if (CANT_HAPPEN(maxpop > 9999))
-	    maxpop = 9999;
     }
+
+    if (opt_RES_POP) {
+	/* research limits maximum population */
+	rmax = maxpop * 0.4
+	    + maxpop * 0.6 * (50.0 + 4.0*research) / (200.0 + 3.0*research);
+	if (maxpop > rmax)
+	    maxpop = rmax;
+    }
+
+    if (CANT_HAPPEN(maxpop > ITEM_MAX))
+	maxpop = ITEM_MAX;
 
     return maxpop;
 }
