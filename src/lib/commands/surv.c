@@ -147,8 +147,6 @@ code_char(long int coding, struct sctstr *sp)
     int amt;
     int n;
 
-    if (!(coding & NSC_VAR))
-	coding |= NSC_OFF;
     amt = decode(player->cnum, coding, (s_char *)sp, EF_SECTOR);
     n = 0;
     if ((coding & NSC_CMASK) == NSC_VAR) {

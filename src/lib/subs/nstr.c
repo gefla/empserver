@@ -167,7 +167,7 @@ encode(register s_char *str, long int *val, int type)
 	i = stmtch(str, (caddr_t)cap, fldoff(castr, ca_name),
 		   sizeof(struct castr));
 	if (i >= 0) {
-	    *val = cap[i].ca_code | NSC_OFF;
+	    *val = cap[i].ca_code;
 	    *val &= ~NSC_ROUND;
 	    return legal_val(str, *val);
 	}
