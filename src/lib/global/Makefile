@@ -35,12 +35,12 @@ include ../../make.defs
 LIB = $(SRCDIR)/lib/libglobal.a
 NTLIB = $(SRCDIR)\lib\libglobal.lib
 
-OBJS =  constants.o dir.o file.o init.o item.o land.o misc.o news.o nsc.o \
-	nuke.o numnames.o options.o path.o plane.o product.o sect.o ship.o\
+OBJS =  constants.o dir.o file.o init.o item.o land.o news.o nsc.o \
+	nuke.o options.o path.o plane.o product.o sect.o ship.o\
 	treaty.o
 
-NTOBJS = constants.obj dir.obj file.obj init.obj item.obj land.obj misc.obj \
-	news.obj nsc.obj nuke.obj numnames.obj options.obj path.obj plane.obj \
+NTOBJS = constants.obj dir.obj file.obj init.obj item.obj land.obj \
+	news.obj nsc.obj nuke.obj options.obj path.obj plane.obj \
 	product.obj sect.obj ship.obj treaty.obj
 
 all: $(LIB)

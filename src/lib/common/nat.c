@@ -36,6 +36,12 @@
 #include "file.h"
 #include "optlist.h"
 
+s_char *relates[] = {
+    /* must follow nation relation defines in nat.h */
+    "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly",
+    "Allied"
+};
+
 s_char *
 cname(natid n)
 {
@@ -49,15 +55,31 @@ cname(natid n)
 s_char *
 relatename(struct natstr *np, natid other)
 {
-    extern s_char *relates[];
-
     return relates[getrel(np, other)];
 }
 
 s_char *
 rejectname(struct natstr *np, natid other)
 {
-    extern s_char *rejects[];
+    s_char *rejects[] = {
+	/* must follow reject flags defined in nat.h */
+	"  YES  YES  YES  YES",
+	"  NO   YES  YES  YES",
+	"  YES  NO   YES  YES",
+	"  NO   NO   YES  YES",
+	"  YES  YES  NO   YES",
+	"  NO   YES  NO   YES",
+	"  YES  NO   NO   YES",
+	"  NO   NO   NO   YES",
+	"  YES  YES  YES  NO ",
+	"  NO   YES  YES  NO ",
+	"  YES  NO   YES  NO ",
+	"  NO   NO   YES  NO ",
+	"  YES  YES  NO   NO ",
+	"  NO   YES  NO   NO ",
+	"  YES  NO   NO   NO ",
+	"  NO   NO   NO   NO "
+    };
 
     return rejects[getrejects(other, np)];
 }

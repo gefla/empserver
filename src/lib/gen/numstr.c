@@ -38,8 +38,18 @@
 s_char *
 numstr(s_char *buf, int n)
 {
-    extern s_char *numnames[];
-    extern s_char *tennames[];
+    static s_char *numnames[] = {
+	"zero", "one", "two", "three", "four", "five", "six",
+	"seven", "eight", "nine", "ten", "eleven", "twelve",
+	"thirteen", "fourteen", "fifteen", "sixteen",
+	"seventeen", "eighteen", "nineteen",
+    };
+    static s_char *tennames[] = {
+	"", "", "twenty", "thirty", "forty", "fifty",
+	"sixty", "seventy", "eighty", "ninety",
+	"hundred", "hundred ten", "hundred twenty",
+	"hundred thirty", 0,
+    };
 
     if (n > 100) {
 	(void)strcpy(buf, "several");
@@ -62,7 +72,9 @@ numstr(s_char *buf, int n)
 s_char *
 effadv(int n)
 {
-    extern s_char *effadv_list[];
+    static s_char *effadv_list[] = {
+	"minimally", "partially", "moderately", "completely",
+    };
 
     if (n < 0)
 	n = 0;

@@ -159,6 +159,8 @@ struct fixnat {
     int offset;
 };
 
+extern s_char *relates[];
+
 /* procedures relating to nation stuff */
 
 #define putnat(n) \

@@ -83,10 +83,14 @@ static void send_reacting_units_home(struct combat *def,
 static int take_def(int combat_mode, struct emp_qelem *list,
 		    struct combat *off, struct combat *def);
 
-void att_move_in_off(int combat_mode, struct combat *off,
-		     struct emp_qelem *olist, struct combat *def);
 static int get_land(int combat_mode, struct combat *def, int uid,
 		    struct llist *llp, int victim_land);
+
+s_char *att_mode[] = {
+    /* must match combat types in combat.h */
+    "defend", "attack", "assault", "paradrop", "board", "lboard"
+};
+
 
 /*
  * The principal object in this code is the "combat" object.  A combat object

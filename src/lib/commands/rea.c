@@ -55,7 +55,10 @@
 int
 rea(void)
 {
-    extern s_char *telnames[];
+    static s_char *telnames[] = {
+	/* must follow TEL_ defines in tel.h */
+	"Telegram", "Announcement", "BULLETIN", "Production Report"
+    };
     register s_char *p;
     register s_char *mbox;
     s_char mbox_buf[256];	/* Maximum path length */
