@@ -2,6 +2,19 @@
 #
 # Blame it on marcolz
 #
+# Skip certain parts of this script by exporting the variable
+# "NIGHTLY_SKIP_STEP" containing the following possible substrings,
+# preventing the named behaviour:
+#
+# REDIRECT	-	Redirect all output to a logfile
+# CHECKOUT	-	Fill the sandbox with a fresh cvs checkout
+# BUILD		-	Build everything
+# GENERATE	-	Generate a new world
+# SERVERSTART	-	Start the server
+# TESTSCRIPT	-	Run the testscript
+# SERVERSTOP	-	Stop the server if it was started by this script
+# CLEANUP	-	Remove the contents of the sandbox
+#
 
 # For some reason, solaris sh exits as soon as both stderr and stdout
 # are redirected to file at the exec, so if we run on solaris, use ksh
@@ -56,9 +69,23 @@ WORKDIR="${EMPTARGET}.${ARCH}"
 [ -n "${EXTRASUFFIX}" ] && WORKDIR="${WORKDIR}.${EXTRASUFFIX}"
 LOGFILE="${LOGDIR}/${WORKDIR}.${STAMP}"
 
+#
+# START REDIRECT
+#
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*REDIRECT*) ;;
+	*)
+
 # Log everything
 exec > "${LOGFILE}"
 exec 2>&1
+
+		;;
+esac
+#
+# END REDIRECT
+#
 
 case "${BOXDIR}"
 in
@@ -74,8 +101,15 @@ cd "${BOXDIR}" || err "Could not chdir to ${BOXDIR}"
 echo "Nightly build starting at `date`"
 
 
-# Make sandbox
+#
+# START CHECKOUT
+#
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*CHECKOUT*) ;;
+	*)
 
+# Make sandbox
 mkdir "${WORKDIR}" || warn "Could not create ${BOXDIR}/${WORKDIR}"
 cd "${WORKDIR}" || err "Could not cd to ${BOXDIR}/${WORKDIR}"
 
@@ -90,6 +124,20 @@ do
 done
 echo "Done (CVS)."
 echo ""
+
+		;;
+esac
+#
+# END CHECKOUT
+#
+
+#
+# START PATCH
+#
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*PATCH*) ;;
+	*)
 
 echo "Applying global patches from patches/All:"
 for i in "${SCRIPTDIR}/patches/All"/*.patch
@@ -147,6 +195,20 @@ sed	-e "s,^USERNAME = .*$,USERNAME = ${EMPLOGIN}," \
 echo "Done (build.conf)."
 echo ""
 
+		;;
+esac
+#
+# END PATCH
+#
+
+#
+# START BUILD
+#
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*BUILD*) ;;
+	*)
+
 # TODO: this should be fixed another way...
 echo "Generating empty Makedepends."
 touch src/client/Makedepend src/doconfig/Makedepend src/lib/as/Makedepend src/lib/commands/Makedepend src/lib/common/Makedepend src/lib/empthread/Makedepend src/lib/gen/Makedepend src/lib/global/Makedepend src/lib/lwp/Makedepend src/lib/player/Makedepend src/lib/subs/Makedepend src/lib/update/Makedepend src/server/Makedepend src/util/Makedepend || err "Could tot touch Makedepends"
@@ -162,9 +224,23 @@ fi
 echo "Done (make)."
 echo ""
 
+		;;
+esac
+#
+# END BUILD
+#
+
 # Try to run startup utilities
 for onetime in 1
 do
+	#
+	# START GENERATE
+	#
+	case "${NIGHTLY_SKIP_STEP}"
+	in
+		*GENERATE*) ;;
+		*)
+
 	if [ -d ../emp4 -a -d ../emp4/bin -a -d ../emp4/data ]
 	then
 		echo "Directory structure is ok"
@@ -187,6 +263,20 @@ do
 	echo "Done (files & fairland)."
 	echo ""
 
+			;;
+	esac
+	#
+	# END GENERATE
+	#
+
+	#
+	# START SERVERSTART
+	#
+	case "${NIGHTLY_SKIP_STEP}"
+	in
+		*SERVERSTART*) ;;
+		*)
+
 	echo "Starting server with -d in the background"
 	./emp_server -d &
 	PID="$!"
@@ -194,6 +284,20 @@ do
 	kill -0 "${PID}" || { warn "emp_server not running ?" ; break ; }
 	echo "Done (emp_server)."
 	echo ""
+
+			;;
+	esac
+	#
+	# END SERVERSTART
+	#
+
+	#
+	# START GENERATE (2nd part)
+	#
+	case "${NIGHTLY_SKIP_STEP}"
+	in
+		*GENERATE*) ;;
+		*)
 
 	echo "Running newcap_script through emp_client"
 	runfeed POGO peter < newcap_script >/dev/null 2>&1 ||
@@ -221,6 +325,20 @@ give uw * ?uw>0 5
 EOF
 	echo "Done (preparing)."
 	echo ""
+	
+			;;
+	esac
+	#
+	# END GENERATE (2nd part)
+	#
+
+	#
+	# START TESTSCRIPT
+	#
+	case "${NIGHTLY_SKIP_STEP}"
+	in
+		*TESTSCRIPT*) ;;
+		*)
 
 	for PLAYER in 1 2 3 4 5 6 7 8 9 10
 	do
@@ -240,6 +358,7 @@ EOF
 	runfeed POGO peter << EOF
 power new
 cen * ?own#0
+reso * ?own#0
 enable
 force 1
 disable
@@ -251,6 +370,7 @@ EOF
 	echo "Check player 1"
 	runfeed 1 << EOF
 cen *
+map #
 read n
 EOF
 	echo "Done (check)."
@@ -268,11 +388,44 @@ EOF
 	echo "Done (Rudimentary tests)."
 	echo ""
 
+			;;
+	esac
+	#
+	# END TESTSCRIPT
+	#
+
+	#
+	# START SERVERSTOP
+	#
+	case "${NIGHTLY_SKIP_STEP}"
+	in
+		*SERVERSTOP*) ;;
+		*)
+			case "${NIGHTLY_SKIP_STEP}"
+			in
+				*SERVERSTART*) ;;
+				*)
+
 	echo "Stopping server"
 	trykill "${PID}"
 	echo "Done (kill)."
 	echo ""
+					;;
+			esac
+			;;
+	esac
+	#
+	# END SERVERSTOP
+	#
 done
+
+#
+# START CLEANUP
+#
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*CLEANUP*) ;;
+	*)
 
 echo "Cleaning sandbox"
 cd "${BOXDIR}" || err "Could not cd back to sanbox root !"
@@ -280,6 +433,12 @@ rm -r "${WORKDIR}" || warn "Directory ${WORKDIR} could not be cleanly removed !"
 rm -rf "${WORKDIR}" || warn "Directory ${WORKDIR} could not be forcibly removed !"
 [ -d "${WORKDIR}/." ] && warn "Directory ${WORKDIR} still present"
 echo "Done (cleaning)."
+
+		;;
+esac
+#
+# END CLEANUP
+#
 
 echo "Nightly build finished at `date`"
 
