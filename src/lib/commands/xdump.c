@@ -35,6 +35,7 @@
 #include "misc.h"
 #include "file.h"
 #include "match.h"
+#include "news.h"
 #include "nsc.h"
 
 /*
@@ -78,6 +79,23 @@
 /* Selector descriptors for characteristics tables */
 /* FIXME belongs into src/lib/global/ */
 
+static struct castr dchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mnem), "mnem"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_pkg), "pkg"},
+    {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr"},
+    {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_dstr), "dstr"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_value), "value"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_build), "build"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_lcms), "lcms"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_hcms), "hcms"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
 static struct castr ichr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_mnem), "mnem"},
@@ -86,6 +104,28 @@ static struct castr ichr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell"},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs"},
     {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_pkg), "pkg"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr intrchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct sctintrins, in_name), "name"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_lcms), "lcms"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_hcms), "hcms"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_dcost), "dcost"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_mcost), "mcost"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr rpt_ca[] = {
+    {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory"},
+    {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will"},
+    {NSC_INT, 0, 0, offsetof(struct rptstr, r_newspage), "newspage"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+static struct castr tchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct tchrstr, t_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct tchrstr, t_cond), "cond"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -200,8 +240,15 @@ struct camap {
 
 /* Table of characteristics tables */
 static struct camap chr_camap[] = {
+    {"sector chr", dchr_ca, dchr, sizeof(dchr[0])},
     {"item", ichr_ca, ichr, sizeof(ichr[0])},
+    {"infrastructure", intrchr_ca, intrchr, sizeof(intrchr[0])},
     {"product", pchr_ca, pchr, sizeof(pchr[0])},
+#if 0
+    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
+    {"news", rpt_ca, rpt, sizeof(rpt[0])},
+#endif
+    {"treaty", tchr_ca, tchr, sizeof(tchr[0])},
     {"ship chr", mchr_ca, mchr, sizeof(mchr[0])},
     {"plane chr", plchr_ca, plchr, sizeof(plchr[0])},
     {"land chr", lchr_ca, lchr, sizeof(lchr[0])},
@@ -322,8 +369,7 @@ xdfldnam(struct castr ca[])
 static void
 xdhdr(char *name, struct castr ca[])
 {
-    prdate();
-    pr("DUMP %s %ld\n", name, (long)time(NULL));
+    pr("XDUMP %s %ld\n", name, (long)time(NULL));
 
     xdfldnam(ca);
     pr("\n");
