@@ -286,28 +286,27 @@ loc_SleepThisThread(unsigned long ulMillisecs)
 
 
 /************************
- * loc_Ctrl_C_Handler
+ * loc_Exit_Handler
  *
- * Ctrl-C will initiate a shutdown. This is done by calling
- * empth_request_shutdown()
+ * Ctrl-C, Ctrl-Break, Window-Closure, User-Logging-Off or
+ * System-Shutdown will initiate a shutdown.
+ * This is done by calling empth_request_shutdown()
  */
 static BOOL
-loc_Ctrl_C_Handler(DWORD fdwCtrlType)
+loc_Exit_Handler(DWORD fdwCtrlType)
 {
     switch (fdwCtrlType) 
     { 
-        // Handle the CTRL+C signal. 
         case CTRL_C_EVENT:
-	    empth_request_shutdown();
-            return TRUE; 
- 
         case CTRL_CLOSE_EVENT:
         case CTRL_BREAK_EVENT: 
         case CTRL_LOGOFF_EVENT: 
         case CTRL_SHUTDOWN_EVENT: 
-        default: 
-            return FALSE; 
-    } 
+	    empth_request_shutdown();
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 /************************
@@ -419,7 +418,7 @@ empth_init(char **ctx_ptr, int flags)
         logerror("Failed to create shutdown event %d", GetLastError());
 	return 0;
     }
-    SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Ctrl_C_Handler, TRUE);
+    SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Exit_Handler, TRUE);
 
     /* Create the global Thread context. */
     pThread = (loc_Thread_t *)malloc(sizeof(*pThread));
