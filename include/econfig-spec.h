@@ -213,7 +213,7 @@ EMPCFBOTH("land_max_interdiction_range", land_max_interdiction_range, int, NSC_I
     "Maximum range (in sectors) a land unit will try to interdict another country")
 EMPCFBOTH("ship_max_interdiction_range", ship_max_interdiction_range, int, NSC_INT, 0,
     "Maximum range (in sectors) a ship will try to interdict another country")
-EMPCFBOTH("flakscale", flakscale, double, NSC_DOUBLE, 0,
+EMPCFBOTH("flakscale", flakscale, float, NSC_FLOAT, 0,
     "Scale factor for flak damage")
 EMPCFBOTH("combat_mob", combat_mob, double, NSC_DOUBLE, 0,
     "How much mobility do units spend for combat (* casualties/bodies)")
