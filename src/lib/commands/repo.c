@@ -132,8 +132,7 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap, player->cnum);
 	return;
     }
-    switch (natp->
-	    nat_stat & (STAT_NORM | STAT_GOD | STAT_NEW | STAT_SANCT)) {
+    switch (natp->nat_stat & (STAT_NORM | STAT_GOD | STAT_NEW | STAT_SANCT)) {
     case STAT_NORM:
     case (STAT_NORM | STAT_SANCT):
 	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);

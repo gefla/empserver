@@ -95,7 +95,7 @@ struct empfile empfile[] = {
     {"commodity", "commodity", 0,
      0, sizeof(struct comstr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0},
-    {"lost", "lostitems", 0, 0,
-     sizeof(struct loststr), 0, 0, 0, 0,
+    {"lost", "lostitems", 0,
+     0, sizeof(struct loststr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0}
 };
