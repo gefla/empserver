@@ -42,7 +42,7 @@
 #include "product.h"
 
 struct dchrstr bigcity_dchr = {
-    'c', 0, 2, NAV_02, UPKG, 1.0, 2.0, 30, 0, 10, 1, 2, 9999, "city"
+    'c', 0, 2, NAV_02, UPKG, 1.0, 2.0, 30, 0, 10, 1, 2, 999, "city"
 };
 
 struct dchrstr dchr[SCT_MAXDEF + 2] = {
@@ -50,7 +50,7 @@ struct dchrstr dchr[SCT_MAXDEF + 2] = {
   mnem prd     mcst  flg    pkg ostr dstr value $ bld lcm hcm maxpop  name    */
     {'.', 0, 0, NAVOK, NPKG, 0.0, 0.0, 0, -1, 0, 0, 0, 0, "sea"},
     {'^', P_MDUST, 25, 0, NPKG, 1.0, 4.0, 5, -1, 1, 0, 0, 99, "mountain"},
-    {'s', 0, 0, 0, NPKG, 0.0, 99.0, 127, -1, 0, 0, 0, 9999, "sanctuary"},
+    {'s', 0, 0, 0, NPKG, 0.0, 99.0, 127, -1, 0, 0, 0, 999, "sanctuary"},
     {'\\', 0, 0, 0, NPKG, 0.0, 99.0, 0, -1, 0, 0, 0, 0, "wasteland"},
     {'-', 0, 3, 0, NPKG, 1.0, 2.0, 1, 0, 0, 0, 0, 999, "wilderness"},
     {'c', 0, 2, 0, NPKG, 1.0, 2.0, 30, 0, 1, 0, 0, 999, "capital"},
@@ -80,7 +80,7 @@ struct dchrstr dchr[SCT_MAXDEF + 2] = {
     {'b', P_BAR, 2, 0, BPKG, 1.0, 2.25, 10, 0, 1, 0, 0, 999, "bank"},
     {'%', P_PETROL, 2, 0, NPKG, 1.0, 1.5, 2, 0, 1, 0, 0, 999, "refinery"},
     {'e', 0, 2, 0, NPKG, 1.0, 2.0, 7, 0, 1, 0, 0, 999, "enlistment center"},
-    {'~', 0, 2, 0, NPKG, 1.0, 1.5, 1, -1, 1, 0, 0, 50, "plains"},
+    {'~', 0, 2, 0, NPKG, 1.0, 1.5, 1, -1, 1, 0, 0, 49, "plains"},
     {'@', 0, 1, 0, NPKG, 1.0, 1.5, 4, -1, 1, 0, 0, 999, "bridge tower"},
     {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0, NULL},
     {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0, NULL}

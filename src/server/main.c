@@ -484,14 +484,8 @@ nullify_objects(void)
 {
     int i, j;
 
-    if (opt_BIG_CITY) {
-	dchr[SCT_CAPIT].d_flg = bigcity_dchr.d_flg;
-	dchr[SCT_CAPIT].d_pkg = bigcity_dchr.d_pkg;
-	dchr[SCT_CAPIT].d_build = bigcity_dchr.d_build;
-	dchr[SCT_CAPIT].d_lcms = bigcity_dchr.d_lcms;
-	dchr[SCT_CAPIT].d_hcms = bigcity_dchr.d_hcms;
-	dchr[SCT_CAPIT].d_name = bigcity_dchr.d_name;
-    }
+    if (opt_BIG_CITY)
+	dchr[SCT_CAPIT] = bigcity_dchr;
     if (opt_NO_LCMS)
 	dchr[SCT_LIGHT].d_cost = -1;
     if (opt_NO_HCMS)
