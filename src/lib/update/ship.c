@@ -120,7 +120,7 @@ upd_ship(struct shpstr *sp, int etus,
     int max_oil;
     int max_food;
     struct pchrstr *product;
-    s_char *resource;
+    u_char *resource;
     int dep;
     int n;
     int mult;
