@@ -60,6 +60,16 @@
 extern char *strdup();
 #endif /* NOSTRDUP */
 
+struct keymatch {
+    s_char *km_key;		/* the key */
+    void (*km_func)(struct keymatch * kp, s_char **av);
+				/* the function to call if matches */
+    void *km_data;		/* associated data */
+    int km_flags;		/* useful flags */
+#define KM_ALLOC	0x01	/* memory allocated */
+    s_char *km_comment;		/* Comment (hopefully useful) */
+};
+
 /* Dummy one */
 static int emp_config_dummy;
 
@@ -73,7 +83,7 @@ static void optiondel(struct keymatch *kp, s_char **av);
 static void worldxset(struct keymatch *kp, s_char **av);
 
 /* things that can be changed */
-struct keymatch configkeys[] = {
+static struct keymatch configkeys[] = {
 #define	EMP_CONFIG_C_OUTPUT
 #include "econfig-spec.h"
 #undef	EMP_CONFIG_C_OUTPUT

@@ -109,16 +109,4 @@ extern s_char *timestampfil;
 extern s_char *teldir;
 extern s_char *telfil;
 
-struct keymatch {
-    s_char *km_key;		/* the key */
-    void (*km_func)(struct keymatch * kp, s_char **av);
-				/* the function to call if matches */
-    void *km_data;		/* associated data */
-    int km_flags;		/* useful flags */
-#define KM_ALLOC	0x01	/* memory allocated */
-    s_char *km_comment;		/* Comment (hopefully useful) */
-};
-
-extern struct keymatch configkeys[];
-
 #endif /* _OPTLIST_H_ */
