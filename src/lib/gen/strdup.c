@@ -33,7 +33,7 @@
 
 /* for systems without strdup() define NOSTRDUP */
 
-#include "gen.h"
+#include "prototypes.h"
 #ifdef NOSTRDUP
 
 char *
