@@ -320,7 +320,11 @@ panic(int sig)
     logerror("server received fatal signal %d", sig);
     log_last_commands();
     close_files();
-    _exit(0);
+    if (CANT_HAPPEN(sig != SIGBUS && sig != SIGSEGV
+		    && sig != SIGILL && sig != SIGFPE))
+	_exit(1);
+    if (raise(sig))
+	_exit(1);
 }
 
 void
