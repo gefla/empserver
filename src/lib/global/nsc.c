@@ -83,7 +83,10 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_terr), "terr0"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr1), "terr1"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr2), "terr2"},
+    {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist"},
+    {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr3), "terr3"},
+    {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_coastal), "coastal"},
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_newtype), "newdes"},
@@ -94,9 +97,6 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_uran), "uran"},
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_oldown), "oldown"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_off), "off"},
-    {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist"},
-    {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist"},
-    {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail"},
     NSC_IVEC(fldoff(sctstr, sct_item), ""),
     NSC_IVEC(fldoff(sctstr, sct_dist), "_dist"),
     NSC_IVEC(fldoff(sctstr, sct_del), "_del"),
@@ -131,14 +131,14 @@ struct castr ship_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
-    {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav"},
+    NSC_IVEC(fldoff(shpstr, shp_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime"},
-    NSC_IVEC(fldoff(shpstr, shp_item), ""),
+    {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -147,12 +147,12 @@ struct castr plane_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing"},
     {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_range), "range"},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_ship), "ship"},
+    {NSC_SHORT, 0, 0, fldoff(plnstr, pln_land), "land"},
     {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_att), "att"},
     {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_def), "def"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
-    {NSC_SHORT, 0, 0, fldoff(plnstr, pln_land), "land"},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
@@ -161,7 +161,6 @@ struct castr land_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_army), "army"},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_ship), "ship"},
-    {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_land), "land"},
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_harden), "harden"},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel"},
@@ -169,6 +168,7 @@ struct castr land_ca[] = {
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_ptime), "ptime"},
+    {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_land), "land"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_att), "att"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_def), "def"},
     {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_vul), "vul"},
@@ -278,7 +278,6 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
 #if !defined(_WIN32)
     {NSC_CHAR, 0, 20, fldoff(natstr, nat_cnam[0]), "cnam"},
     {NSC_CHAR, NSC_DEITY, 20, fldoff(natstr, nat_pnam[0]), "pnam"},
@@ -292,6 +291,7 @@ struct castr nat_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ycap), "ycap"},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(natstr, nat_xorg), "xorg"},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(natstr, nat_yorg), "yorg"},
+    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
 #ifdef MAYBE_LATER
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat"},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_dayno), "dayno"},
