@@ -159,7 +159,7 @@ upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
 	    }
 	}
     }
-    *workp = (*workp + 1) / 2 - buildeff_work;
+    *workp = (*workp + 1) / 2 + buildeff_work;
 
     return neweff;
 }
