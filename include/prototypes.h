@@ -65,7 +65,7 @@ extern int check_market(void);
 extern void set_coastal(struct sctstr *);
 extern int sendmessage(struct natstr *, struct natstr *, char *, int);
 extern void gift(int, int, s_char *, int, s_char *);
-extern int display_mark(s_char *);
+extern int display_mark(int what);
 extern int want_to_abandon(struct sctstr *, int, int, struct lndstr *);
 extern int would_abandon(struct sctstr *, int, int, struct lndstr *);
 extern int nav_map(int, int, int);

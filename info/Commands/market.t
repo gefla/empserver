@@ -1,7 +1,7 @@
 .TH Command MARKET
 .NA market "Report current selling prices in the world market"
 .LV Expert
-.SY "market <ITEM>"
+.SY "market <ITEM|all>"
 The market report displays the lowest price commodity of each type
 currently on the market.
 .s1

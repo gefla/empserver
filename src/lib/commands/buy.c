@@ -82,7 +82,10 @@ buy(void)
 	return RET_FAIL;
     }
     natp = getnatp(player->cnum);
-    display_mark(player->argp[1]);
+    ip = whatitem(player->argp[1], "Commodity you want to buy: ");
+    if (!ip)
+	return RET_SYN;
+    display_mark(ip->i_mnem);
     pr("\n");
     p = getstarg(player->argp[2], "Which lot are you bidding on: ", buf);
     if (p == 0)
@@ -96,8 +99,7 @@ buy(void)
 	pr("Invalid lot number.\n");
 	return RET_OK;
     }
-    if (player->argp[1] && *(player->argp[1]) &&
-	comm.com_type != player->argp[1][0]) {
+    if (comm.com_type != ip->i_mnem) {
 	pr("That lot is not of the type you specified.\n");
 	return RET_OK;
     }

@@ -150,7 +150,7 @@ struct cmndstr player_coms[] = {
      NORM + CAP},
     {"lunload <COMM|\"land\"|\"plane\"> <UNITS> <NUM|UNITS|PLANES>", 1,
      lload, C_MOD, NORM + CAP},
-    {"market [COMM]", 0, mark, 0, VIS},
+    {"market <COMM|\"all\">", 0, mark, 0, VIS},
     {"map <SECTS|SHIP> [s|l|p|*|h]", 0, map, C_MOD, VIS},
     {"march <UNITS> <PATH|DESTINATION>", 1, march, C_MOD, NORM + CAP},
     {"mine <SHIPS>", 2, mine, C_MOD, NORM + MONEY + CAP},

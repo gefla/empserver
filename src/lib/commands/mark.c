@@ -46,14 +46,29 @@
 int
 mark(void)
 {
+    char buf[1024];
+    char *p;
+    struct ichrstr *ip;
+
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");
 	return RET_FAIL;
     }
-    if (player->argp[1] && *(player->argp[1]))
-	return display_mark(player->argp[1]);
-    else
-	return display_mark("   ");
+
+    if (player->argp[1] && player->argp[1]) {
+	p = getstarg(player->argp[1], "What commodity (or 'all')? ", buf);
+	if (!p)
+	    return RET_SYN;
+	if (!strcmp(p, "all"))
+	    return display_mark(0);
+	else {
+	    ip = item_by_name(p);
+	    if (!ip)
+		return RET_SYN;
+	    return display_mark(ip->i_mnem);
+	}
+    }
+    return display_mark(-1);
 }
 
 static void
@@ -77,45 +92,28 @@ pr_mark(struct comstr *comm)
 }
 
 int
-display_mark(s_char *arg)
+display_mark(int what)
 {
     struct comstr comm;
     struct comstr comm2;
     int sellers = 0;
     int cnt = 0;
-    char c;
-    s_char *p;
     struct ichrstr *ip;
-    s_char buf[1024];
-    int cheapest_items[I_MAX + 2];
+    int cheapest_items[I_MAX + 1];
     int i;
-    int all = 0;
 
-/* First, we execute all trades, so that we can only buy what is available. */
+    /* Execute trades so report lists only lots that are still available.  */
     check_market();
     check_trade();
-
-    p = getstarg(arg, "What commodity (or 'all')? ", buf);
-    c = (char)0;
-    if (p && *p)
-	c = *p;
-    for (ip = &ichr[0]; ip && ip->i_mnem; ip++)
-	if (ip->i_mnem == c)
-	    break;
-    c = ip->i_mnem;
 
     pr("\n     Empire Market Report\n   ");
     prdate();
     pr(" lot  high bid/unit  by  time left  owner  item  amount  sector\n");
     pr(" ---  -------------  --  ---------  -----  ----  ------  ------\n");
 
-    if (arg) {
-	if (strcmp(arg, "all"))
-	    all = 1;
-    }
-    if (all && !c) {
+    if (what == -1) {
 	/* Ok, just printing the lowest of all of them */
-	for (i = 0; i < I_MAX + 2; i++)
+	for (i = 0; i < I_MAX + 1; i++)
 	    cheapest_items[i] = -1;
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
@@ -134,7 +132,7 @@ display_mark(s_char *arg)
 		cheapest_items[i] = sellers;
 	    }
 	}
-	for (i = 0; i < I_MAX + 2; i++) {
+	for (i = 0; i < I_MAX + 1; i++) {
 	    if (cheapest_items[i] == -1)
 		continue;
 	    getcomm(cheapest_items[i], &comm);
@@ -146,7 +144,7 @@ display_mark(s_char *arg)
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
 		continue;
-	    if (c && comm.com_type != c)
+	    if (what && comm.com_type != what)
 		continue;
 	    cnt = 1;
 	    pr_mark(&comm);
