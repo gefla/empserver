@@ -1077,7 +1077,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		lnd_mobcost(&land, getsectp(def->x, def->y), MOB_NONE);
 	    if (land.lnd_mobil < mobcost) {
 		pr("%s does not have enough mobility (%d needed)\n",
-		   prland(&land), (int)mobcost + 1);
+		   prland(&land), (int)ceil(mobcost));
 		continue;
 	    }
 	    break;
