@@ -122,9 +122,6 @@ multifire(void)
     struct emp_qelem fired, defended;
     double odds;
     s_char buf[1024];
-#if defined(_WIN32)
-    time_t now;
-#endif
 
     emp_initque(&fired);
     emp_initque(&defended);
@@ -559,12 +556,7 @@ multifire(void)
 	    pr("Kaboom!!!\n");
 	    prb = (double)(range2 ? (trange / range2) : 1.0);
 	    prb *= prb;
-#if !defined(_WIN32)
-	    srandom(random());
-#else
-	    (void)time(&now);
-	    (void)srand(now);
-#endif
+	    srandom(time(NULL));
 	    if (chance(prb)) {
 		pr("Wind deflects shell%s.\n", splur(shots));
 /*			dam = (int)((double)dam / 2.0);*/
