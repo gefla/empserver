@@ -418,31 +418,8 @@ do_mob_land(register struct lndstr *lp, register int etus)
 	}
     }
 
-    /*
-     * Give damaged units a break. When at low
-     * efficiency, units can go to -100 mob when
-     * marching 1 step, making them slower than
-     * normal mil. This helps take the curse off.
-     * If MOB_ACCESS is on, we don't do this, as it would
-     * be too much of an advantage.  So, we just add double
-     * the small amount of mob if we are < 0 instead.
-     */
-
-    if (!opt_MOB_ACCESS) {
-	if (lp->lnd_mobil < 0)
-	    lp->lnd_mobil /= 2;
-    }
-
     if (opt_FUEL == 0) {	/* just some bits and pieces */
-	if (opt_MOB_ACCESS) {
-	    if (lp->lnd_mobil < 0)
-		value =
-		    lp->lnd_mobil + (2 * ((float)etus * land_mob_scale));
-	    else
-		value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	} else {
-	    value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	}
+	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
 	    lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
@@ -454,15 +431,7 @@ do_mob_land(register struct lndstr *lp, register int etus)
 
     /* opt_FUEL in force ... */
     if (lp->lnd_fuelu == 0) {
-	if (opt_MOB_ACCESS) {
-	    if (lp->lnd_mobil < 0)
-		value =
-		    lp->lnd_mobil + (2 * ((float)etus * land_mob_scale));
-	    else
-		value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	} else {
-	    value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	}
+	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
 	    lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
@@ -526,10 +495,6 @@ do_mob_land(register struct lndstr *lp, register int etus)
 	}
 	/* no automatic fortification here, as it would cost fuel */
 
-	if (opt_MOB_ACCESS) {
-	    if (lp->lnd_mobil < 0)
-		lp->lnd_mobil += (s_char)total_add;
-	}
 	lp->lnd_mobil += (s_char)total_add;
     }
 }
