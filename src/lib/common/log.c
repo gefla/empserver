@@ -42,7 +42,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "deity.h"
 #include "player.h"
 #include "common.h"
 #include "optlist.h"

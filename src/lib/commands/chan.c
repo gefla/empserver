@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "news.h"
 #include "optlist.h"

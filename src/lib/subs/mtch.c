@@ -38,7 +38,6 @@
 #include "misc.h"
 #include "player.h"
 #include "com.h"
-#include "deity.h"
 #include "match.h"
 #include "prototypes.h"
 

@@ -42,7 +42,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "path.h"
-#include "deity.h"
 #include "item.h"
 #include "file.h"
 #include "options.h"

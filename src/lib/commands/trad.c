@@ -45,7 +45,6 @@
 #include "land.h"
 #include "plane.h"
 #include "trade.h"
-#include "deity.h"
 #include "xy.h"
 #include "nsc.h"
 #include "file.h"

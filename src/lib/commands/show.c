@@ -36,7 +36,6 @@
 #include "player.h"
 #include "nat.h"
 #include "file.h"
-#include "deity.h"
 #include "optlist.h"
 #include "subs.h"
 #include "commands.h"

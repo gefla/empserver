@@ -46,7 +46,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "treaty.h"
-#include "deity.h"
 #include "file.h"
 #include "path.h"
 #include "optlist.h"

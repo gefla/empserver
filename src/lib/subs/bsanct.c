@@ -41,7 +41,6 @@
 #include "news.h"
 #include "path.h"
 #include "file.h"
-#include "deity.h"
 #include "prototypes.h"
 
 void

@@ -37,7 +37,6 @@
 #include "nat.h"
 #include "var.h"
 #include "item.h"
-#include "deity.h"
 #include "commodity.h"
 #include "player.h"
 #include "file.h"

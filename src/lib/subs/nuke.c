@@ -41,7 +41,6 @@
 #include "nsc.h"
 #include "file.h"
 #include "nat.h"
-#include "deity.h"
 #include "prototypes.h"
 
 /*ARGSUSED*/

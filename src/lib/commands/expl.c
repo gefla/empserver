@@ -39,7 +39,6 @@
 #include "nsc.h"
 #include "item.h"
 #include "file.h"
-#include "deity.h"
 #include "nat.h"
 #include "optlist.h"
 #include "commands.h"

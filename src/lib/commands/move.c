@@ -37,7 +37,6 @@
 #include "sect.h"
 #include "item.h"
 #include "file.h"
-#include "deity.h"
 #include "xy.h"
 #include "nat.h"
 #include "nsc.h"

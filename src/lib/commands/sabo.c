@@ -39,7 +39,6 @@
 #include "xy.h"
 #include "nat.h"
 #include "path.h"
-#include "deity.h"
 #include "map.h"
 #include "commands.h"
 */

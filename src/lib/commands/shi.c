@@ -40,7 +40,6 @@
 #include "ship.h"
 #include "nat.h"
 #include "nsc.h"
-#include "deity.h"
 #include "file.h"
 #include "optlist.h"
 #include "commands.h"

@@ -39,7 +39,6 @@
 #include "file.h"
 #include "nat.h"
 #include "ship.h"
-#include "deity.h"
 #include "land.h"
 #include "plane.h"
 #include "nsc.h"

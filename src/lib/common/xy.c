@@ -37,7 +37,6 @@
 #include "xy.h"
 #include "nat.h"
 #include "sect.h"
-#include "deity.h"
 #include "file.h"
 #include <stdio.h>
 #include "common.h"

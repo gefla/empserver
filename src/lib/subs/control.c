@@ -43,7 +43,6 @@
 #include "land.h"
 #include "nsc.h"
 #include "item.h"
-#include "deity.h"
 #include "prototypes.h"
 
 /*

@@ -54,7 +54,6 @@
 #include "player.h"
 #include "nat.h"
 #include "file.h"
-#include "deity.h"
 #include "empthread.h"
 #include "commands.h"
 #include "optlist.h"

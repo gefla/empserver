@@ -44,7 +44,6 @@
 #include "nuke.h"
 #include "power.h"
 #include "item.h"
-#include "deity.h"
 #include "plane.h"
 #include "xy.h"
 #include "nsc.h"

@@ -40,7 +40,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "commands.h"
 

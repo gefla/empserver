@@ -43,7 +43,6 @@
 #include "nsc.h"
 #include "nat.h"
 #include "path.h"
-#include "deity.h"
 #include "file.h"
 #include "item.h"
 #include "optlist.h"

@@ -41,7 +41,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "item.h"
-#include "deity.h"
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"

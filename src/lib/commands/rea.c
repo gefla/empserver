@@ -43,7 +43,6 @@
 #include "nat.h"
 #include "file.h"
 #include "tel.h"
-#include "deity.h"
 #include "commands.h"
 
 #include <stdio.h>

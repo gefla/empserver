@@ -39,7 +39,6 @@
 #include "nsc.h"
 #include "sect.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "prototypes.h"
 #include "optlist.h"

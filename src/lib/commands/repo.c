@@ -38,7 +38,6 @@
 #include "var.h"
 #include "sect.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "xy.h"
 #include "nsc.h"

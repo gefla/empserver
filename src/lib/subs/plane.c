@@ -41,7 +41,6 @@
 #include "xy.h"
 #include "file.h"
 #include "nat.h"
-#include "deity.h"
 #include "prototypes.h"
 #include "optlist.h"
 

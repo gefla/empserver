@@ -40,7 +40,6 @@
 #include "nuke.h"
 #include "file.h"
 #include "nat.h"
-#include "deity.h"
 #include "optlist.h"
 #include "commands.h"
 

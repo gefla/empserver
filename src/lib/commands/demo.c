@@ -34,7 +34,6 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "deity.h"
 #include "var.h"
 #include "sect.h"
 #include "nat.h"

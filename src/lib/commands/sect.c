@@ -41,7 +41,6 @@
 #include "nat.h"
 #include "file.h"
 #include "map.h"
-#include "deity.h"
 #include "commands.h"
 #include "optlist.h"
 

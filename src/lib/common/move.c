@@ -37,7 +37,6 @@
 #include "var.h"
 #include "sect.h"
 #include "file.h"
-#include "deity.h"
 #include "path.h"
 #include "nat.h"
 #include "common.h"

@@ -40,7 +40,6 @@
 #include "land.h"
 #include "nat.h"
 #include "nsc.h"
-#include "deity.h"
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"

@@ -42,7 +42,6 @@
 #include "nsc.h"
 #include "nat.h"
 #include "path.h"
-#include "deity.h"
 #include "file.h"
 #include "map.h"
 #include "commands.h"

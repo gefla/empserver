@@ -37,7 +37,6 @@
 #include "nat.h"
 #include "tel.h"
 #include "news.h"
-#include "deity.h"
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"

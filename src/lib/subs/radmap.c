@@ -40,7 +40,6 @@
 #include "plane.h"
 #include "file.h"
 #include "nsc.h"
-#include "deity.h"
 #include "prototypes.h"
 #include "optlist.h"
 

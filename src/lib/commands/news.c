@@ -38,7 +38,6 @@
 #include "file.h"
 #include "xy.h"
 #include "nsc.h"
-#include "deity.h"
 #include "commands.h"
 #include "optlist.h"
 

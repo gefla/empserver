@@ -39,7 +39,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "deity.h"
 #include <fcntl.h>
 #include <ctype.h>
 #include "commands.h"

@@ -39,7 +39,6 @@
 #include "xy.h"
 #include "path.h"
 #include "nsc.h"
-#include "deity.h"
 #include "file.h"
 #include "nat.h"
 #include "commands.h"

@@ -42,7 +42,6 @@
 #include "sect.h"
 #include "path.h"
 #include "map.h"
-#include "deity.h"
 #include "commands.h"
 #include "optlist.h"
 

@@ -38,7 +38,6 @@
 #include "sect.h"
 #include "nat.h"
 #include "nsc.h"
-#include "deity.h"
 #include "file.h"
 #include "product.h"
 #include "commands.h"

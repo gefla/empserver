@@ -35,7 +35,6 @@
 #include "player.h"
 #include "treaty.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "prototypes.h"
 

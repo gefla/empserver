@@ -35,7 +35,6 @@
 #include "misc.h"
 #include "news.h"
 #include "nat.h"
-#include "deity.h"
 #include "file.h"
 #include "empio.h"
 #include <fcntl.h>

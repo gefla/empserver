@@ -39,7 +39,6 @@
 #include "sect.h"
 #include "nat.h"
 #include "file.h"
-#include "deity.h"
 #include "optlist.h"
 #include "common.h"
 #include "gen.h"

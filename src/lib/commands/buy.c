@@ -42,7 +42,6 @@
 #include "news.h"
 #include "nsc.h"
 #include "item.h"
-#include "deity.h"
 #include "land.h"
 #include "commodity.h"
 #include "plane.h"

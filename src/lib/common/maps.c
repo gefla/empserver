@@ -39,7 +39,6 @@
 #include "xy.h"
 #include "nsc.h"
 #include "file.h"
-#include "deity.h"
 #include "nat.h"
 #include "map.h"
 #include "ship.h"

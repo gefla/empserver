@@ -36,7 +36,6 @@
 #include "nat.h"
 #include "news.h"
 #include "file.h"
-#include "deity.h"
 #include "xy.h"
 #include "nsc.h"
 #include "commands.h"

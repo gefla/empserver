@@ -44,7 +44,6 @@
 #include "plane.h"
 #include "nat.h"
 #include "nsc.h"
-#include "deity.h"
 #include "file.h"
 #include "path.h"
 #include "mission.h"

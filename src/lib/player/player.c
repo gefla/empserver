@@ -42,7 +42,6 @@
 #include "com.h"
 #include "nat.h"
 #include "sect.h"
-#include "deity.h"
 #include "file.h"
 #include "proto.h"
 #include "empio.h"

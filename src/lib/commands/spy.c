@@ -42,7 +42,6 @@
 #include "nsc.h"
 #include "nuke.h"
 #include "news.h"
-#include "deity.h"
 #include "path.h"
 #include "file.h"
 #include "land.h"
