@@ -72,8 +72,8 @@ nxtitem(struct nstr_item *np, void *ptr)
 	    if ((np->flags & EFF_OWNER) && !player->owner)
 		selected = 0;
 	    break;
-	case NS_ALL:
-	    /* XXX maybe combine NS_LIST and NS_ALL later */
+	case NS_EVERYTHING:
+	    /* XXX maybe combine NS_LIST and NS_EVERYTHING later */
 	    break;
 	case NS_DIST:
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {

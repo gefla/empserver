@@ -41,7 +41,7 @@
 
 /*
  * setup the nstr_sect structure for sector selection.
- * can select on either NS_ALL, NS_AREA, or NS_RANGE
+ * can select on either NS_EVERYTHING, NS_AREA, or NS_RANGE
  * iterate thru the "condarg" string looking
  * for arguments to compile into the nstr.
  */
@@ -74,7 +74,7 @@ snxtsct(struct nstr_sect *np, s_char *str)
 	    return 0;
 	snxtsct_dist(np, cx, cy, dist);
 	break;
-    case NS_ALL:
+    case NS_EVERYTHING:
 	/* fake "all" by doing a world-sized area query */
 	snxtsct_area(np, &wr);
 	break;
