@@ -36,14 +36,8 @@
 #define _MISC_H_
 
 #include <ctype.h>
-#include <sys/types.h>
-#include <ctype.h>
-
-#if defined(hpux) || defined(SUN4) || defined(solaris) || defined(_WIN32)
 #include <string.h>
-#else
-#include <strings.h>
-#endif
+#include <sys/types.h>
 
 #if defined(_WIN32)
 typedef unsigned char u_char;
