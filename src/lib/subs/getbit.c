@@ -40,61 +40,6 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static int *bitmaps[];
-
-#define GCFx(x) ((x + WORLD_X) % WORLD_X)
-#define GCFy(y) ((y + WORLD_Y) % WORLD_Y)
-
-int
-emp_getbit(int x, int y, u_char *bitmap)
-{
-    int id;
-
-    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
-    return bitmap[id / 8] & bit(id & 07);
-}
-
-void
-emp_setbit(int x, int y, u_char *bitmap)
-{
-    register int id;
-
-    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
-    bitmap[id / 8] |= bit(id & 07);
-}
-
-void
-emp_setbitmap(register int x, register int y, register u_char *bitmap,
-	      int *bitmaps)
-{
-    register int *mp;
-    register int id;
-    register int dx, dy;
-
-    for (mp = bitmaps; *mp != 9999;) {
-	dx = x + *mp++;
-	dy = y + *mp++;
-	id = (GCFy(dy)) * WORLD_X / 2 + GCFx(dx) / 2;
-	bitmap[id / 8] |= bit(id & 07);
-    }
-}
-
-void
-bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
-{
-    struct sctstr sect;
-    int eff;
-
-    while (nxtsct(np, &sect)) {
-	if (sect.sct_own != country)
-	    continue;
-	eff = sect.sct_effic / 20;
-	if (eff > 4)
-	    eff = 4;
-	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
-    }
-    snxtsct_rewind(np);
-}
 
 
 /*
@@ -173,3 +118,57 @@ static int *bitmaps[5] = {
     bitmap3,
     bitmap4,
 };
+
+#define GCFx(x) ((x + WORLD_X) % WORLD_X)
+#define GCFy(y) ((y + WORLD_Y) % WORLD_Y)
+
+int
+emp_getbit(int x, int y, u_char *bitmap)
+{
+    int id;
+
+    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
+    return bitmap[id / 8] & bit(id & 07);
+}
+
+void
+emp_setbit(int x, int y, u_char *bitmap)
+{
+    register int id;
+
+    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
+    bitmap[id / 8] |= bit(id & 07);
+}
+
+void
+emp_setbitmap(register int x, register int y, register u_char *bitmap,
+	      int *bitmaps)
+{
+    register int *mp;
+    register int id;
+    register int dx, dy;
+
+    for (mp = bitmaps; *mp != 9999;) {
+	dx = x + *mp++;
+	dy = y + *mp++;
+	id = (GCFy(dy)) * WORLD_X / 2 + GCFx(dx) / 2;
+	bitmap[id / 8] |= bit(id & 07);
+    }
+}
+
+void
+bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
+{
+    struct sctstr sect;
+    int eff;
+
+    while (nxtsct(np, &sect)) {
+	if (sect.sct_own != country)
+	    continue;
+	eff = sect.sct_effic / 20;
+	if (eff > 4)
+	    eff = 4;
+	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
+    }
+    snxtsct_rewind(np);
+}
