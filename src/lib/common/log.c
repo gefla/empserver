@@ -46,30 +46,26 @@
 #include "common.h"
 #include "optlist.h"
 
-static s_char *logfile = 0;
+static char logfile[32];
 
 /*
- * Points logfile at datadir/"program".log
+ * Points logfile at PROGRAM.log
  */
 void
-loginit(s_char *program)
+loginit(char *program)
 {
-    s_char buf[1024];
-
-    sprintf(buf, "%s/%s.log", datadir, program);
-    logfile = malloc(strlen(buf) + 1);
-    strcpy(logfile, buf);
+    sprintf(logfile, "%.*s.log", (int)sizeof(logfile) - 5, program);
 }
 
 /*VARARGS*/
 void
-logerror(s_char *format, ...)
+logerror(char *format, ...)
 {
     va_list list;
     time_t now;
-    s_char buf[512];
-    s_char cbuf[512];
-    s_char buf1[512];
+    char buf[512];
+    char cbuf[512];
+    char buf1[512];
     int logf;
     s_char *p;
 
