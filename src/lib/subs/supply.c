@@ -413,7 +413,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 		putland(save.lnd_uid, &save);
 	}
 
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
 	min = get_minimum(&land, type);
 	ip = &ichr[type];
 	weight = ((double)ip->i_lbs);
