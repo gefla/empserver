@@ -301,41 +301,6 @@ shiprepair(register struct shpstr *ship, struct natstr *np,
 
     w_p_eff = 20 + (mp->m_lcm + 2 * mp->m_hcm);
 
-    if (sp->sct_type != SCT_HARBR) {
-	int abs_max, amt;
-
-	if (ship->shp_glim > 0) {
-	    abs_max = vl_find(V_MILIT, mp->m_vtype,
-			      mp->m_vamt, (int)mp->m_nv);
-	    amt = ship->shp_item[I_MILIT];
-	} else {
-	    abs_max = vl_find(V_CIVIL, mp->m_vtype,
-			      mp->m_vamt, (int)mp->m_nv);
-	    amt = ship->shp_item[I_CIVIL];
-	    if (abs_max == 0) {
-		abs_max = vl_find(V_MILIT, mp->m_vtype, mp->m_vamt,
-				  (int)mp->m_nv);
-		amt = ship->shp_item[I_MILIT];
-	    }
-	}
-
-	if (abs_max == 0) {
-	    logerror("Abs max of 0 for ship %d\n", ship->shp_uid);
-	    abs_max = 1;
-	}
-	avail -= (etus * (100 - ((amt * 100) / abs_max))) / 7;
-	/* think of it as entropy in action */
-    }
-
-    if (avail <= 0) {
-	if (!player->simulation) {
-	    if (opt_SHIP_DECAY) {
-		ship->shp_effic += avail / w_p_eff;
-	    }
-	    return 1;
-	}
-    }
-
     if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
 	return 1;
 

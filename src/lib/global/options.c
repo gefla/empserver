@@ -75,12 +75,6 @@ int opt_DEFENSE_INFRA = 1;
 int opt_DEFENSE_INFRA = 0;
 #endif
 
-#ifdef SHIP_DECAY
-int opt_SHIP_DECAY = 1;
-#else
-int opt_SHIP_DECAY = 0;
-#endif
-
 #ifdef NO_HCMS
 int opt_NO_HCMS = 1;
 #else
@@ -345,7 +339,6 @@ struct option_list Options[] = {
     {"RES_POP", &opt_RES_POP},
     {"ROLLOVER_AVAIL", &opt_ROLLOVER_AVAIL},
     {"SAIL", &opt_SAIL},
-    {"SHIP_DECAY", &opt_SHIP_DECAY},
     {"SHIPNAMES", &opt_SHIPNAMES},
     {"SHOWPLANE", &opt_SHOWPLANE},
     {"SLOW_WAR", &opt_SLOW_WAR},

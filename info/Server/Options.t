@@ -57,7 +57,6 @@ NO_FORT_FIRE:   Forts cannot fire.
 NO_LCMS:        The game doesn't need lcms to be played.
 NO_HCMS:        The game doesn't need hcms to be played.
 NO_OIL:         The game doesn't need oil to be played.
-SHIP_DECAY:     Allows ships to decay when at sea with not enough crew.
 TECH_POP:       Technology costs more to make as your civilian population
                  grows past 50,000 civilians.
 TREATIES:       Sign treaties with your friends and enemies, and breaking of
