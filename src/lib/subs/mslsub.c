@@ -96,7 +96,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     } else {
 	if (pp->pln_harden > 0) {
 	    mpr(pp->pln_own, "missile silo at ");
-	    from = "in cilo";
+	    from = "in silo";
 	} else
 	    from = "on launch pad";
 	mpr(pp->pln_own, "%s\n", xyas(pp->pln_x, pp->pln_y, pp->pln_own));
@@ -135,8 +135,9 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
 
     if (pcp->pl_flags & P_T)
-	mpr(victim, "Incoming %s missile...\n",
-	    sublaunch ? (s_char *)"" : cname(pp->pln_own));
+	mpr(victim, "Incoming %s missile sighted at %s...\n",
+	    sublaunch ? "sub-launched" : cname(pp->pln_own),
+	    xyas(x, y, victim));
 
     if (opt_PINPOINTMISSILE == 0 ||
 	(pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
