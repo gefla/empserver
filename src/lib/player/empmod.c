@@ -453,7 +453,7 @@ struct cmndstr player_coms[] = {
      C_MOD, NORM + CAP},
     {"unsail <SHIPS>", 1, sail, C_MOD, NORM + CAP},
     {"update", 0, upda, 0, VIS},
-    {"upgrade <SHIPS|LAND UNITS|PLANES>", 1, upgr, C_MOD,
+    {"upgrade <s|p|l> <SHIPS|PLANES|UNITS>", 1, upgr, C_MOD,
      NORM + MONEY + CAP},
     {"version", 0, vers, 0, VIS},
     {"wait", 0, wai, C_MOD, GOD},
