@@ -393,11 +393,8 @@ extern int vl_setvec(register u_char *, register u_short *, u_char *,
 /* wantupd.c */
 extern void update_policy_check(void);
 extern int demand_update_want(int *, int *, int);
-extern int update_maxmissed(void);
 extern int demandupdatecheck(void);
-extern int update_between(void);
 extern int updatetime(time_t *);
-extern void demand_update_info(int *, int *, int *, int *);
 extern void next_update_time(time_t *, time_t *, time_t *);
 extern void next_update_check_time(time_t *, time_t *, time_t *);
 extern int updates_disabled(void);
@@ -415,7 +412,6 @@ extern int roundavg(double);
 extern int chance(double);
 extern void disassoc(void);
 extern int getfdtablesize(void);
-extern void setfdtablesize(int, int);
 extern s_char *getstarg(s_char *, s_char *, s_char *);
 extern s_char *getstring(s_char *, s_char *);
 #if !defined(_WIN32)
@@ -480,7 +476,6 @@ extern void log_last_commands(void);
 extern int explain(void);
 extern int gamedown(void);
 extern void daychange(time_t);
-extern void getconstants(void);
 extern int getminleft(time_t, int *, int *);
 /* empmod.c */
 /* init_nats.c */
@@ -788,8 +783,6 @@ extern int feed_people(register int *, int, int *);
 /* land.c */
 extern int prod_land(int, int, int *, int);
 extern int feed_land(struct lndstr *, register int *, int, int *, int);
-extern int plague_land(struct lndstr *, struct natstr *, register int *,
-		       register int *, int);
 /* main.c */
 extern void update_main(void *);
 /* material.c */
