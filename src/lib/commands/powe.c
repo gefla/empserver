@@ -344,6 +344,14 @@ gen_power(void)
     for (i = 1; i < MAXNOC; i++) {
 	putpower(i, &powbuf[order[i].cnum]);
     }
+#ifdef _WIN32
+    /*
+     * At least some versions of Windows fail to update mtime on
+     * write().  Bad, because `power' displays that time.  Attempt to
+     * force an update.
+     */
+    _commit(empfile[EF_POWER].fd);
+#endif
 }
 
 static int
