@@ -68,6 +68,7 @@ static int quiet = 0;
 #include <unistd.h>
 #endif /* aix or linux */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -88,7 +89,8 @@ static int quiet = 0;
 #define PLATMIN		36	/* plate altitude for plateau */
 #define HIGHMIN		98	/* plate altitude for mountains */
 
-static void qprint(const char *str);
+static void qprint(const char * const fmt, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
 
 static const char *outfile = "newcap_script";
 /* mark the continents with a * so you can tell them
@@ -245,11 +247,10 @@ main(int argc, char *argv[])
 
     do {
 	init();
-	if (!quiet && i)
-	    printf("\ntry #%d (out of %d)...", i + 1, NUMTRIES);
+	if (i)
+	    qprint("\ntry #%d (out of %d)...", i + 1, NUMTRIES);
 	qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
-	if (!quiet)
-	    printf("seed is %lu\n", rnd_seed);
+	qprint("seed is %lu\n", rnd_seed);
 	qprint("placing capitals...\n");
 	if (!drift())
 	    qprint("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
@@ -274,8 +275,8 @@ main(int argc, char *argv[])
 	exit(-1);
     output();
     write_newcap_script();
-    if (!ORE && !quiet)
-	printf("\t*** Resources have not been added ***\n");
+    if (!ORE)
+	qprint("\t*** Resources have not been added ***\n");
     exit(0);
 }
 
@@ -737,9 +738,8 @@ grow_one_sector(int c)
     } while (!done && coast_search < COAST_SEARCH_MAX &&
 	     (secs == 1 || x != sx || y != sy));
     if (!done && c < nc) {
-	if (!quiet)
-	    printf("fairland: error -- continent %c had no room to grow!\n",
-		   numletter[c % 62]);
+	qprint("fairland: error -- continent %c had no room to grow!\n",
+	       numletter[c % 62]);
 	fl_status |= STATUS_NO_ROOM;
     }
     return done;
@@ -767,8 +767,8 @@ grow_continents(void)
 	    grow_one_sector(c);
 	}
     }
-    if (fl_status && !quiet)
-	printf("Only managed to grow %d out of %d sectors.\n", secs, sc);
+    if (fl_status)
+	qprint("Only managed to grow %d out of %d sectors.\n", secs, sc);
     ctot = nc;
 }
 
@@ -822,8 +822,7 @@ grow_islands(void)
 	    ++secs;
 	    find_coast(c);
 	} while (secs < isiz && grow_one_sector(c));
-	if (quiet == 0)
-	    printf(" %d(%d)", c - nc + 1, secs);
+	qprint(" %d(%d)", c - nc + 1, secs);
 	isecs[c] = secs;
 	ctot = c;
     }
@@ -1236,17 +1235,21 @@ write_newcap_script(void)
     fprintf(script, "add %d visitor visitor v i\n", c + 1);
     ++c;
     fclose(script);
-    if (quiet == 0)
-	printf("\n\nA script for adding all the countries can be found in \"%s\".\n",
-	     outfile);
+    qprint("\n\nA script for adding all the countries can be found in \"%s\".\n",
+	   outfile);
     return 0;
 }
 
 static void
-qprint(const char *str)
+qprint(const char * const fmt, ...)
 {
-    if (quiet == 0)
-	fputs(str, stdout);
+    va_list ap;
+
+    if (!quiet) {
+	va_start(ap, fmt);
+	vfprintf(stdout, fmt, ap);
+	va_end(ap);
+    }
 }
 
 static void
