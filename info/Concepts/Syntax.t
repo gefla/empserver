@@ -117,6 +117,7 @@ For instance:
 .EX ship ~ ?des=d&mil>5
 will list all destroyers that have more than 5 military
 which are not currently in any fleet.
+.in 0
 .s1
 The output from commands may also be sent to a file or another
 process by utilizing these alternate syntaxes:
