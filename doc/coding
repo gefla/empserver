@@ -1,4 +1,424 @@
-		Guidelines for writing Empire code
+		Guidelines for Writing Empire Code
+
+	     compiled and edited by Markus Armbruster
+
+Preface
+-------
+
+Empire is an old program, and the age shows in places.  It took a lot
+of people a lot of effort to write it.  Chances are that some of them
+were smarter than you and me.  Treat the code with the respect it
+deserves.
+
+These guidelines are just that: guidelines.  Not law.  There's no
+Empire Coding Police.  People hacked on Empire code long before I knew
+it existed, and I hope they still will when I fade into Empire
+history.  But there's substantial experience behind these guidelines,
+so don't dismiss them cavalierly.
+
+Here's our goal: algorithmic clarity.  All the rules and guidelines
+are subservient to it.  If you'd have to obfuscate your code to
+satisfy the letter of some guideline, don't!
+
+Mind, I said `clarity', not `self-realization' or `expression of your
+individuality'.  Dave Pare wrote:
+
+  Be invisible.  When you make a change, think not about marking your
+  place in history, or about showing off how much nicer your two-space
+  tabs are than those old, icky eight-space tabs that the stupid
+  empire hackers of old used, but think instead about the aesthetics
+  of the whole.  The resulting lines of code should flow smoothly from
+  the beginning of the procedure to the end.  Empire is 60,000 lines
+  of code.  If you're the general case, you're only changing fifty
+  lines, so be aware of that.
+
+Some guidelines are more serious than others.  When I use words like
+`is', `shall' or `must', I mean it.  When I write `should', it's a
+recommendation.
+
+Many guidelines concern style, i.e. they involve matters of taste.
+That's how it has to be.  Uniformity of style is important for
+clarity.
+
+These guidelines don't attempt to be exhaustive.  More complete
+guidelines that are mostly compatible with Empire can be found at
+http://www.jetcafe.org/~jim/c-style.html
+
+
+Source tree organization
+------------------------
+
+FIXME
+
+
+Code formatting
+---------------
+
+    In My Egotistical Opinion, most people's C programs should be
+    indented six feet downward and covered with dirt."
+	-- Blair P. Houghton
+
+Over the years, enough Empire coders lacked the good taste to preserve
+the style of the original Empire code in their changes, and thus
+turned the source code into an unreadable mess.  In 2003, we fed it to
+GNU indent.
+
+We tried to restore things to the original style, mostly.  There is
+one noteable change: basic indentation is now four spaces.  Restoring
+the original eight spaces would have resulted in many more long lines,
+which would have to be broken by indent.  Since indent isn't good at
+breaking lines tastefully, we reluctantly chose four instead.
+
+FIXME mention src/scripts/intend-emp, even better: convert it into an
+indent profile and mention that.
+
+If you use Emacs, `stroustrup' indentation style produces satisfactory
+results.  The command `c-set-style', normally bound to `C-c .', lets
+you set the style for the current buffer.  Set variable
+`c-default-style' to "stroustrup" to switch to this style for all
+buffers.
+
+Tab character use
+
+Whether you use tab characters or not doesn't really matter that much,
+but tab stops are every eight characters, period.
+
+Indentation, placement of braces, function name
+
+Basic indentation is four spaces.  The opening brace goes on the same
+line as `if', `struct', etc.  Put `else' and do loops' `while' one the
+same line as the closing brace.  You are encouraged to leave out
+syntactically optional braces.  Don't indent case labels.
+
+Example:
+
+	if (is_fubar())
+	    despair();
+	else {
+	    do {
+	        char ch = getchar();
+	        switch (ch) {
+		case EOF:
+		    return;
+		case '\n':
+		    break;
+		default:
+		    grind_along(ch);
+		}
+	    } while (happy());
+	}
+
+In a function definition, the return type, function name and the
+braces must all start on a new line, unindented, like this:
+
+	type
+	name(arguments)
+	{
+	    body
+	}
+
+This does not apply to function declarations.
+
+Breaking long lines
+
+Line length should not exceed 75 characters.  Break such lines at a
+logical place, preferably before an operator with low precedence.
+Line up the continuation line with the innermost unclosed parenthesis,
+if there is one, else indent it four spaces.
+
+Example:
+
+	FIXME
+
+Bad example:
+
+	FIXME
+
+Blank lines
+
+Use blank lines to separate different things.  Functions must be
+separated by a blank line.  You are encouraged to insert a blank line
+between a block's declarations and statements.
+
+Spaces
+
+There is a space after `for', `if', and `while'.  If `for' and `while'
+are followed by `;' (empty loop body) on the same line, there is a
+space before the `;'.  There is no space between the function name and
+the `(', but there is a space after each `,'.  There should be no
+space between type cast operator and operand.  There is no extra space
+after '(' and before ')'.
+
+Example:
+
+	for (p = s; *p; ++p) ;
+	printf("%ld\n", (long)(p-s));
+
+Comments
+
+The function comment describing what a function does goes directly
+above the definition.
+
+Comments to the right of code should start in column 32 if possible
+(counting from zero).
+
+Comment lines should be indented exactly like the code the belong to.
+
+You are encouraged to format multi-line comments like this:
+
+        /*
+	 * Please use complete sentences, with proper grammer,
+	 * capitalization and puntuation.  Use two spaces between
+	 * sentences.
+	 */
+
+But please avoid elaborate boxes like this:
+
+	/***********************************************************
+	 * Such decorations are a waste of time, hard to edit, and *
+	 * ugly, too.                                              *
+	 ***********************************************************/
+
+Conditional compilation
+
+Unless the conditional code is very short, please comment it like
+this:
+
+	#ifdef FOO
+	...
+	#endif /* FOO */
+
+	#ifdef BAR
+	...
+	#else  /* !BAR */
+	...
+	#endif /* !BAR */
+
+
+Style
+-----
+
+Names
+
+DoNotUseStudlyCaps!  Stick to lower_case and use underscores.  Upper
+case is for macros and enumeration constants.
+
+File names should not differ in case only, since not all file systems
+distinguish case.  Best stick to lower case.  Avoid funny characters
+in file names.  This includes space.
+
+Preprocessor
+
+Like many good things, the preprocessor is best used sparingly.
+Especially conditional compilation.
+
+Do not use the preprocessor to `improve' the syntax of C!
+
+Macro names should be ALL_CAPS to make them stand out.  Otherwise,
+they can be mistaken for objects or functions.  This is bad, because
+`interesting' behavior can hide inside macros, like not evaluating
+arguments, or changing them.  Exception: if a function-like macro
+behaves exactly like a function, then you may use a lower case name.
+
+Parameters that can take expression arguments must be parenthesized in
+the expansion.  If the expansion is an expression, it should be
+parenthesized as well.
+
+You are encouraged to use enumeration constants instead of macros when
+possible.  The existing code doesn't, but it makes sense all the same.
+
+Comments
+
+Every file should have a file comment FIXME
+
+Every function should have a function comment that describes what it
+does.  FIXME elaborate.  Writing such comments helps both future
+maintainers and yourself: if it's too hard to write a concise function
+comment, then your function is likely too complicated and could use a
+redesign.
+
+The existing code has very little useful comments, and it'll likely
+take us years to fix it.  Please don't make it harder than it already
+is.
+
+Declarations
+
+Do not declare system functions yourself; include the appropriate
+system header.
+
+Use prototypes, not old-style function declarations.
+
+To get the best use of C's type checking, each function or variable
+with external linkage should have exactly one declaration, in some
+header file, and that declaration must be in scope at the definition.
+No other declarations should exist.  In particular, please include the
+appropriate header instead of just declaring stuff again.  The code
+used to be full of this kind of junk, and it was quite some work to
+clean it up.
+
+Forward declarations of static functions should all go in one place
+near the beginning of the file.
+
+If you want a typedef name in addition to a structure or union tag,
+give it the same name, like this:
+
+	typedef struct foo foo;
+
+Yes, this is incompatble with C++.  Reducing the number of names for
+the same thing is more useful than compatibility to a programming
+language we don't use.
+
+Please don't hide away pointers with typedefs, like this:
+
+       typedef struct foo *foop;
+
+When I see `foo *', I *know* what it is.  When I see `foop', I have to
+look it up.
+
+Type casts
+
+Casting pointers to and from `void *' clutters the code and serves no
+purpose (repeat after me: C is not C++).  It is also unsafe, because
+the cast suppresses type warnings.
+
+Casting function values to void clutters the code and serves little
+purpose (repeat after me: C is not Pascal).
+
+Casting an argument to the type of the parameter clutters the code and
+serves no purpose (repeat after me: ISO C is not K&R C).
+
+Factor out common code
+
+Do not gratuitiously duplicate code!  Ken Stevens said it well, and
+it's as relevant as ever:
+
+  Cut-and-Paste coding is by far the biggest problem that the current
+  Empire suffers from.  This is how cut-and-paste coding happens.  Joe
+  Shmuck decides that he wants to add a new function to the server.
+  So he goes hunting through the server to find some already existing
+  code which does something similar to what he wants to do.  This is
+  good.  You should always write new code to imitate old code.  What
+  is bad is when Joe Shmuck decides to simply "copy" 200 lines of code
+  from the old function into his new function, and then just change a
+  couple of little things here and there to suit his needs.  This
+  method, known as Cut-and-Paste coding is the fastest and easiest way
+  to code.  However, it results in a server that is impossible to
+  maintain.  What Joe _should_ have done, is "move" the 200 lines of
+  code into a new _third_ function which the first two both call.
+  This is called writing a "general solution" to handle both cases.
+  Most of my work in the Empire2 project consisted in cleaning up
+  after a bunch of Joe Shmucks.
+
+
+Portability
+-----------
+
+FIXME C89, POSIX
+
+FIXME sizes, printf formats
+
+FIXME reserved names
+
+FIXME conditional compilation is a last resort
+
+FIXME s_char
+
+
+Robustness
+----------
+
+Error checking
+
+Check error conditions meticulously.  The existing code is bad enough
+at this, please don't make it worse.
+
+FIXME what to do on error
+
+Buffer overruns
+
+FIXME
+
+Thread safety
+
+Empire uses non-preemptive threads: a thread runs until it yields the
+processor.  This simplifies programming, but there are still traps to
+avoid.  Empire threads may yield the processor whenever they do I/O or
+FIXME elaborate
+
+Be careful with static storage.  Read-only data is fine.  More than
+one thread writing static data is problematic, but there are safe
+uses.  For instance, a static scratch buffer that is never used across
+`yields' is safe.
+
+Thread stacks cannot grow.  If you use too much automatic storage, you
+can overrun the stack with disastrous consequences.  FIXME elaborate
+
+Yielding the processor invalidates *all* the game state you copied
+into variables.  You have to reread and possibly recheck.  See below.
+
+Accessing game state
+
+Game state consists of several sets of objects, e.g. sectors, ships,
+bmaps, ...  Each set is fully held in memory and backed by a file in
+the data directory.
+
+There are several ways to access an object in set FOO:
+
+* You can get a pointer to the object (not a copy!) with getFOOp().
+
+  This is inherently dangerous, because it allows you to update the
+  object in memory without updating the disk file.  It's used mostly
+  in update code, where it pays major performance dividends, but there
+  are uses in other places.  Whether they are wise is debatable.
+
+  Obviously, the object can change when you let another thread run.
+  This is not an issue in update code, because it never yields.
+
+* You can get a copy with getFOO() and write it back with putFOO().
+
+  Yielding the processor invalidates the copy.  In particular, if you
+  yield the processor between get and put, and another thread changes
+  the game data, then put will clobber that change, possibly resulting
+  in a corrupted game.
+
+  Therefore, you have to re-get after a yield, and repeat any checks
+  you already made.  If you can afford to bail out when something
+  changed at all, use check_FOO_ok().
+
+  Putting updates both the object in memory and the disk file.
+
+  If you write a function that takes a pointer to an object, think
+  twice before you put it, and if you do, mention it in the function
+  comment.
+
+* Bmaps have special access functions.
+
+  Each country has to bmaps: the working bmap and the true bmap.
+  Unfortunately, the bmap code called the former `bmap' and the latter
+  `map'.
+
+  You update bmaps with map_set().  This doesn't write through to the
+  file; instead, it returns non-zero when the update changed anything.
+  In that case, you must write bmaps to disk with writemap() before
+  you yield.  If you only updated the working bmap, then you can call
+  writebmap() instead.
+
+
+CVS
+---
+
+Commit related changes together, unrelated changes separately.
+
+See chapter Change Logs in the GNU coding standards for guidelines on
+log messages.  Try http://www.gnu.org/prep/standards_40.html#SEC40 or
+search the web for `gnu coding standards change logs'.
+
+Don't change whitespace gratuitiously, say just because your editor
+screws up tabs.  Such changes make it much harder to figure out who
+changed what and when.
+
+
+Historical guidelines, superseded by the above
 
 
 Remarks from Dave Pare:
