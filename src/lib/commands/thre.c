@@ -49,7 +49,6 @@
 int
 thre(void)
 {
-    extern struct ichrstr *whatitem(s_char *, s_char *);
     struct sctstr sect;
     struct nstr_sect nstr;
     int val;

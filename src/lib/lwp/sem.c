@@ -57,8 +57,6 @@ lwpCreateSem(char *name, int count)
 void
 lwpSignal(struct lwpSem *s)
 {
-    extern struct lwpProc *LwpCurrent;
-
     lwpStatus(LwpCurrent, "done with semaphore %s", s->name);
     if (s->count++ < 0) {
 	struct lwpProc *p = lwpGetFirst(&s->q);
@@ -77,8 +75,6 @@ lwpSignal(struct lwpSem *s)
 void
 lwpWait(struct lwpSem *s)
 {
-    extern struct lwpProc *LwpCurrent;
-
     lwpStatus(LwpCurrent, "checking semaphore %s", s->name);
     if (--s->count < 0) {
 	lwpStatus(LwpCurrent, "blocking");

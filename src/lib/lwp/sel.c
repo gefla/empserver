@@ -83,8 +83,6 @@ lwpInitSelect(struct lwpProc *proc)
 void
 lwpSleepFd(int fd, int mask)
 {
-    extern struct lwpProc *LwpCurrent;
-
     lwpStatus(LwpCurrent, "sleeping on fd %d", fd);
 
     if (LwpSelect.wait[fd] != 0) {
@@ -130,8 +128,6 @@ lwpWakeupFd(struct lwpProc *proc)
 void
 lwpSleepUntil(long int until)
 {
-    extern struct lwpProc *LwpCurrent;
-
     lwpStatus(LwpCurrent, "sleeping for %d sec", until - time(0));
     LwpCurrent->runtime = until;
     if (LwpSelect.maxfd == 0 && LwpSelect.delayq.head == 0) {
@@ -146,7 +142,6 @@ lwpSleepUntil(long int until)
 void
 lwpSelect(void *arg)
 {
-    extern struct lwpProc *LwpCurrent;
     struct lwpProc *us = LwpCurrent;
     fd_set readmask;
     fd_set writemask;

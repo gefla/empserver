@@ -53,7 +53,6 @@ ldump(void)
     struct nstr_item ni;
     struct lndstr land;
     int vec[I_MAX + 1];
-    s_char *mission_short_name(int);
     int n, i;
     struct natstr *np;
     time_t now;

@@ -87,7 +87,6 @@ growsdown(void *x)
 void
 lwpReschedule(void)
 {
-    extern struct lwpQueue LwpSchedQ[];
     static int lcount = LCOUNT;
     static struct lwpProc *nextp;
     static int i;
