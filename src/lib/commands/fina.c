@@ -64,7 +64,7 @@ fina(void)
     prdate();
     pr("Loan       From            To        Rate   Dur     Paid      Total\n");
     snxtitem(&ni, EF_LOAN, "*");
-    while (nxtitem(&ni, (s_char *)&loan)) {
+    while (nxtitem(&ni, (caddr_t)&loan)) {
 	if (loan.l_status != LS_SIGNED)
 	    continue;
 	pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,

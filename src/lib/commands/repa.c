@@ -50,9 +50,9 @@ repa(void)
     int loan_num;
     int payment;
     long newdue;
-    s_char *cp;
+    char *cp;
     time_t now;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_LOANS) {
 	pr("Loans are not enabled.\n");

@@ -53,13 +53,13 @@ coll(void)
     register int i;
     register int val;
     time_t now;
-    s_char *p;
+    char *p;
     struct lonstr loan;
     struct sctstr sect;
     coord x, y;
     double owed;
     double pay;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_LOANS) {
 	pr("Loans are not enabled.\n");
