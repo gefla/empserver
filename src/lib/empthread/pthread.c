@@ -67,11 +67,6 @@ empth_start(void *ctx)
     /* actually it should inherit all this from main but... */
     sigemptyset(&act.sa_mask);
     act.sa_handler = shutdwn;
-    /* pthreads on Linux use SIGUSR1 (*shrug*) so only catch it if not on
-       a Linux box running POSIX threads -- STM */
-#if !(defined(__linux__) && defined(_EMPTH_POSIX))
-    sigaction(SIGUSR1, &act, NULL);
-#endif
     sigaction(SIGTERM, &act, NULL);
     sigaction(SIGINT, &act, NULL);
     act.sa_handler = panic;
