@@ -47,6 +47,7 @@
 
 #if defined(_WIN32)
 #include <winsock2.h>
+#undef NS_ALL
 #include <process.h>
 #include "../lib/gen/getopt.h"
 #include "service.h"

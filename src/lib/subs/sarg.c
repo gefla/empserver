@@ -48,7 +48,7 @@
  *  #1, lx:ly,hx:hy --> NS_AREA
  *  @x,y:dist  --> NS_DIST
  *  %d or %d/%d/%d --> NS_LIST
- *  * --> NS_EVERYTHING
+ *  * --> NS_ALL
  *
  * or 0 for none of the above.
  */
@@ -61,7 +61,7 @@ sarg_type(char *str)
     if (c == '@')
 	return NS_DIST;
     if (c == '*')
-	return NS_EVERYTHING;
+	return NS_ALL;
     if (c == '#' || strchr(str, ',') != 0)
 	return NS_AREA;
     if (isdigit(c))

@@ -74,8 +74,8 @@ nxtitemp(struct nstr_item *np, int owner)
 	    if ((np->flags & EFF_OWNER) && !owner)
 		selected = 0;
 	    break;
-	case NS_EVERYTHING:
-	    /* XXX maybe combine NS_LIST and NS_EVERYTHING later */
+	case NS_ALL:
+	    /* XXX maybe combine NS_LIST and NS_ALL later */
 	    break;
 	case NS_DIST:
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {

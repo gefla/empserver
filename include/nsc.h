@@ -129,7 +129,7 @@ typedef enum {
     NS_LIST,			/* list of IDs */
     NS_DIST,			/* circular area */
     NS_AREA,			/* rectangular area */
-    NS_EVERYTHING,		/* everything */
+    NS_ALL,		/* everything */
     NS_XY,			/* one sector area */
     NS_GROUP			/* group, i.e. fleet, wing, army */
 } ns_seltype;

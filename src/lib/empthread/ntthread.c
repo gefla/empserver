@@ -56,6 +56,7 @@
 
 #if defined(_WIN32) && defined(_EMPTH_WIN32)
 #include <winsock2.h>
+#undef NS_ALL
 #include <windows.h>
 #include <process.h>
 

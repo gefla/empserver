@@ -31,6 +31,11 @@
  *     Dave Pare, 1994
  */
 
+#if defined(_WIN32)
+#include <winsock2.h>
+#undef NS_ALL
+#endif
+
 #include "prototypes.h"
 #include "misc.h"
 #include "proto.h"
@@ -51,8 +56,6 @@
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#else
-#include <winsock2.h>
 #endif
 #include <signal.h>
 #include <errno.h>

@@ -53,6 +53,7 @@
 
 #if defined(_WIN32)
 #include <winsock2.h>
+#undef NS_ALL
 #endif
 
 #include "misc.h"

@@ -40,7 +40,7 @@
 
 /*
  * setup the nstr structure for sector selection.
- * can select on NS_EVERYTHING, NS_AREA, NS_DIST, and NS_LIST.
+ * can select on NS_ALL, NS_AREA, NS_DIST, and NS_LIST.
  * iterate thru the "condarg" string looking
  * for arguments to compile into the nstr.
  */
@@ -89,7 +89,7 @@ snxtitem(struct nstr_item *np, int type, s_char *str)
 	    return 0;
 	snxtitem_dist(np, type, cx, cy, dist);
 	break;
-    case NS_EVERYTHING:
+    case NS_ALL:
 	snxtitem_all(np, type);
 	break;
     case NS_LIST:
@@ -184,7 +184,7 @@ snxtitem_all(struct nstr_item *np, int type)
 {
     memset(np, 0, sizeof(*np));
     np->cur = -1;
-    np->sel = NS_EVERYTHING;
+    np->sel = NS_ALL;
     np->type = type;
     np->index = -1;
     np->read = ef_read;

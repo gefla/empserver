@@ -232,8 +232,8 @@ tend_nxtitem(struct nstr_item *np, void *ptr)
 	case NS_LIST:
 	    /* The change is to take the player->owner check out here */
 	    break;
-	case NS_EVERYTHING:
-	    /* XXX maybe combine NS_LIST and NS_EVERYTHING later */
+	case NS_ALL:
+	    /* XXX maybe combine NS_LIST and NS_ALL later */
 	    break;
 	case NS_DIST:
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {
