@@ -192,7 +192,7 @@ struct cmndstr player_coms[] = {
     {"quit", 0, quit, 0, VIS},
     {"radar <SHIPS | SECTS>", 1, rada, 0, NORM + CAP},
     {"range <PLANES> <range>", 1, range, C_MOD, NORM + CAP},
-    {"read", 0, rea, C_MOD, VIS},
+    {"read [yes|no|<CNUM/CNAME>]", 0, rea, C_MOD, VIS},
     {"realm <number> [<SECTS>]", 0, real, C_MOD, NORM},
     {"recon <spy-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>", 3,
      reco, C_MOD, NORM + MONEY + CAP},

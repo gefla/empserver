@@ -40,6 +40,7 @@
 #include "tel.h"
 #include "commands.h"
 #include "optlist.h"
+#include "match.h"
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -77,24 +78,29 @@ rea(void)
     time_t delta;
     int first = 1;
     int readit;
+    int may_delete = 1; /* may messages be deleted? */
 
     memset(kind, 0, sizeof(kind));
     now = time(NULL);
 
     if (*player->argp[0] == 'w') {
-	sprintf(kind, "announcement");
+	strcpy(kind, "announcement");
 	if (player->argp[1] && isdigit(*player->argp[1])) {
 	    delta = days(atoi(player->argp[1]));
 	    then = now - delta;
+	    may_delete = 0;
 	} else
 	    then = np->nat_annotim;
 	mbox = annfil;
     } else {
-	sprintf(kind, "telegram");
-	if (player->god && player->argp[1] != 0) {
+	strcpy(kind, "telegram");
+	if (player->god && player->argp[1] &&
+	    (mineq(player->argp[1], "yes") == ME_MISMATCH) &&
+	    (mineq(player->argp[1], "no") == ME_MISMATCH)) {
 	    if ((n = natarg(player->argp[1], "")) < 0)
 		return RET_SYN;
 	    num = n;
+	    may_delete = 0;
 	}
 	mbox = mailbox(mbox_buf, num);
 	clear_telegram_is_new(player->cnum);
@@ -167,7 +173,7 @@ rea(void)
 	}
     }
     p = NULL;
-    if (teles > 0 && player->cnum == num) {	/* } */
+    if (teles > 0 && player->cnum == num && may_delete) {
 	pr("\n");
 	if (teles == 1) {
 	    if (chance(0.25))
@@ -180,10 +186,7 @@ rea(void)
 	    else
 		p = "Can I throw away these old love letters? ";
 	}
-	if (player->god && *kind == 't')
-	    p = getstarg(player->argp[2], p, buf);
-	else
-	    p = getstarg(player->argp[1], p, buf);
+	p = getstarg(player->argp[1], p, buf);
 	if (p && *p == 'y') {
 	    if ((filelen = fsize(fileno(telfp))) > size) {
 		pr("Wait a sec!  A new %s has arrived...\n", kind);
