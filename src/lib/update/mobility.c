@@ -58,7 +58,7 @@ static void do_mob_sect(struct sctstr *sp, int etus);
 static void do_mob_ship(struct shpstr *, int);
 
 static int
-increase_mob(time_t * counter, float mult)
+increase_mob(time_t *counter, float mult)
 {
     time_t secs;
     time_t now;

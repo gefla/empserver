@@ -632,9 +632,8 @@ board_abort(struct combat *off, struct combat *def)
 	}
 	getship(off->shp_uid, &aship);
 	getship(def->shp_uid, &dship);
-	if (techfact(aship.shp_tech, 1.0) *
-	    aship.shp_speed * off->eff <=
-	    techfact(dship.shp_tech, 1.0) * dship.shp_speed * def->eff) {
+	if (techfact(aship.shp_tech, 1.0) * aship.shp_speed * off->eff
+	    <= techfact(dship.shp_tech, 1.0) * dship.shp_speed * def->eff) {
 	    pr("Victim ship moves faster than you do!\n");
 	    if (def->own)
 		wu(0, def->own,

@@ -733,8 +733,8 @@ shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 	    shp_damage(list,
 		       unit_interdict(newx, newy, victim, "subs",
 				      shp_easiest_target(list, M_SUB, 0),
-				      MI_SINTERDICT), M_SUB, 0, newx,
-		       newy);
+				      MI_SINTERDICT),
+		       M_SUB, 0, newx, newy);
     }
     return stopping;
 }
