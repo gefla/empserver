@@ -103,23 +103,18 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
 	if (chance(0.33)) {
-	    if (pp->pln_nuketype != (s_char)-1 && opt_NUKEFAILDETONATE) {
-		pp->pln_flags &= ~PLN_AIRBURST;
-		detonate(pp, pp->pln_x, pp->pln_y);
-	    } else {
-		dam = pln_damage(pp, pp->pln_x, pp->pln_y,
-				 'p', &dummyi, 1) / 2;
-		if (dam) {
-		    if (pp->pln_ship >= 0) {
-			shipdamage(&ship, dam);
-			putship(ship.shp_uid, &ship);
-		    } else {
-			pr("Explosion damages %s %d%%",
-			   xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
-			getsect(pp->pln_x, pp->pln_y, &sect);
-			sectdamage(&sect, dam, 0);
-			putsect(&sect);
-		    }
+	    dam = pln_damage(pp, pp->pln_x, pp->pln_y,
+			     'p', &dummyi, 1) / 2;
+	    if (dam) {
+		if (pp->pln_ship >= 0) {
+		    shipdamage(&ship, dam);
+		    putship(ship.shp_uid, &ship);
+		} else {
+		    pr("Explosion damages %s %d%%",
+		       xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
+		    getsect(pp->pln_x, pp->pln_y, &sect);
+		    sectdamage(&sect, dam, 0);
+		    putsect(&sect);
 		}
 	    }
 	}

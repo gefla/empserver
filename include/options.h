@@ -99,8 +99,6 @@
 /*#define BIG_CITY *//* allow 10x civs in 'c' sectors */
 #define INTERDICT_ATT		/* interdict post-attack move in */
 #define	SHOWPLANE /**/
-#define	NUKEFAILDETONATE /**/
-#define	MISSINGMISSILES		/* Missiles have a change to miss the target */
 #define	UPDATESCHED		/* Used to controle update times and should always */
 #ifdef UPDATESCHED		/* be used */
 #define	DEMANDUPDATE		/* NOTE! Depends on UPDATESCHED! Don't use without it! */

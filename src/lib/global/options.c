@@ -243,12 +243,6 @@ int opt_SAIL = 1;
 int opt_SAIL = 0;
 #endif
 
-#ifdef NUKEFAILDETONATE
-int opt_NUKEFAILDETONATE = 1;
-#else
-int opt_NUKEFAILDETONATE = 0;
-#endif
-
 #ifdef SHIPNAMES
 int opt_SHIPNAMES = 1;
 #else
@@ -321,7 +315,6 @@ struct option_list Options[] = {
     {"NOFOOD", &opt_NOFOOD},
     {"NOMOBCOST", &opt_NOMOBCOST},
     {"NONUKES", &opt_NONUKES},
-    {"NUKEFAILDETONATE", &opt_NUKEFAILDETONATE},
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
     {"RES_POP", &opt_RES_POP},
     {"SAIL", &opt_SAIL},
