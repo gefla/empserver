@@ -530,7 +530,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	if (arg < 0)
 	    return RET_SYN;
 	oldown = (natid)errcheck(arg, 0, MAXNOC - 1);
-	pr("Old player->owner of %s changed from %s (#%d) to %s (#%d).\n",
+	pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(sect->sct_oldown),
 	   sect->sct_oldown, cname(oldown), oldown);
