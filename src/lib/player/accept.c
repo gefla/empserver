@@ -44,6 +44,7 @@
 #include "optlist.h"
 
 #if !defined(_WIN32)
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/time.h>

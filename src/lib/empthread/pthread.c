@@ -41,6 +41,7 @@
 #include <signal.h>
 #include <errno.h>
 #include <string.h>
+#include <limits.h>
 
 #include "misc.h"
 #include "empthread.h"
