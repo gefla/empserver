@@ -6,10 +6,10 @@
 If the RES_POP option is in use, 
 the research level of a country determines the maximum number of civilians,
 mil, and uw's
-that can live in a sector. The maximum then is:
+that can live in a sector. For ordinary sectors, the maximum is:
 .s1
 .ti 3
-400 + 600 * ((research*4 + 50)/(research*3 + 200))
+min(999, 400 + 600 * ((research*4 + 50)/(research*3 + 200)))
 .s1
 So, for example, at 0 research, after an update, the max you
 could have in a sector would be 550 civs, 550 uws, and 550 mil.
