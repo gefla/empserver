@@ -226,7 +226,7 @@ extern int mobupdate();
 
 extern int sinfra();
 extern int improve();
-extern int lstats();
+extern int lsta();
 extern int pstat();
 extern int sstat();
 
@@ -335,7 +335,7 @@ struct cmndstr player_coms[] = {
     {"lrange <UNITS> <range>", 1, lrange, C_MOD, NORM + CAP},
     {"lretreat <UNITS|ARMY> <PATH> [i|h|b|c]", 1, lretr, C_MOD,
      NORM + CAP},
-    {"lstats <UNITS>", 0, lstats, C_MOD, NORM},
+    {"lstat <UNITS>", 0, lsta, C_MOD, NORM},
     {"ltend <COMM> <tender-SHIPS> <NUM> <UNITS>", 1, ltend, C_MOD,
      NORM + CAP},
     {"lunload <COMM|\"land\"|\"plane\"> <UNITS> <NUM|UNITS|PLANES>", 1,

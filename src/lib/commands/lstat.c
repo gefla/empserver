@@ -45,7 +45,7 @@
 #include "commands.h"
 
 int
-lstats(void)
+lsta(void)
 {
     int nunits;
     struct nstr_item ni;

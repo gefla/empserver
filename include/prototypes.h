@@ -171,7 +171,7 @@ extern int lload(void);
 extern int look(void);
 extern int llook(void);
 extern int lost(void);
-extern int lstats(void);
+extern int lsta(void);
 extern int ltend(void);
 extern int map(void);
 extern int march(void);
