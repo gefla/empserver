@@ -172,7 +172,7 @@ extern void ac_planedamage(struct plist *, natid, int, natid, int,
 extern void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 			 struct emp_qelem *, natid, coord, coord);
 extern void ac_combat_headers(natid, natid);
-extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *, natid);
+extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 extern void ac_doflak(struct emp_qelem *, struct sctstr *);
 extern void ac_shipflak(struct emp_qelem *, coord, coord);
 extern void ac_landflak(struct emp_qelem *, coord, coord);

@@ -140,12 +140,10 @@ only_subs(struct emp_qelem *list)
 {
     struct emp_qelem *qp;
     struct genlist *glp;
-    struct genitem *gp;
     struct mchrstr *mcp;
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
-	gp = (struct genitem *)glp->thing;
 
 	if (glp->type != EF_SHIP)
 	    return 0;
@@ -442,7 +440,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct lndstr *lp;
     struct shpstr *sp;
     struct sctstr sect;
-    struct lchrstr *lcp;
     struct mchrstr *mcp;
     struct plchrstr *pcp;
     int dam = 0, dam2, mission_flags, tech;
@@ -465,7 +462,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 	if (glp->type == EF_LAND) {
 	    lp = (struct lndstr *)glp->thing;
-	    lcp = (struct lchrstr *)glp->cp;
 
 	    if (lp->lnd_effic < LAND_MINFIREEFF)
 		continue;
@@ -1681,7 +1677,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 		mpr(victim, "%s air defense planes intercept!\n",
 		    cname(cn));
 		ac_combat_headers(victim, cn);
-		ac_airtoair(esc_list, &i, air->own);
+		ac_airtoair(esc_list, &i);
 		combat = 1;
 	    }
 	    /* Now intercept the bombers */
@@ -1691,7 +1687,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 			cname(cn));
 		    ac_combat_headers(victim, cn);
 		}
-		ac_airtoair(bomb_list, &i, air->own);
+		ac_airtoair(bomb_list, &i);
 		PR(cn, "\n");
 		PR(victim, "\n");
 	    }

@@ -98,7 +98,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     struct shiplook head;
     struct shiplook *s, *s2;
     int changed = 0;
-    int intx, inty;		/* Last sector planes intercepted over */
     int intown = 0;		/* Last owner to intercept */
 /* We want to only intercept once per sector per owner.  So, if we overfly
    a sector, and then overfly some land units or ships, we don't want to
@@ -256,8 +255,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    continue;
 	ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
 		     sect.sct_own, x, y);
-	intx = x;
-	inty = y;
 	intown = sect.sct_own;
     }
 
@@ -511,8 +508,8 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     PR(def_own, "%d fighter%s intercepting %s planes!\n", icount,
        icount == 1 ? " is" : "s are", cname(plane_owner));
     ac_combat_headers(plane_owner, def_own);
-    ac_airtoair(esc_list, &int_list, def_own);
-    ac_airtoair(bomb_list, &int_list, def_own);
+    ac_airtoair(esc_list, &int_list);
+    ac_airtoair(bomb_list, &int_list);
     PR(plane_owner, "\n");
     PR(def_own, "\n");
 }
@@ -532,8 +529,7 @@ ac_combat_headers(natid plane_owner, natid def_own)
  * air-to-air combat.
  */
 void
-ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list,
-	    natid def_own)
+ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 {
     struct plist *attacker;
     struct plist *interceptor;
@@ -544,7 +540,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list,
     int more_int;
     struct emp_qelem *att_next;
     struct emp_qelem *in_next;
-    natid att_own;
 
     att = att_list->q_forw;
     in = int_list->q_forw;
@@ -574,8 +569,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list,
 	    continue;
 	}
 	interceptor = (struct plist *)in;
-	att_own = attacker->plane.pln_own;
-	def_own = interceptor->plane.pln_own;
 	nplanes = attacker->plane.pln_effic;
 	if (nplanes > interceptor->plane.pln_effic)
 	    nplanes = interceptor->plane.pln_effic;
