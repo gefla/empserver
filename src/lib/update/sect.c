@@ -193,33 +193,32 @@ enlist(register int *vec, int etu, int *cost)
 /* Fallout is calculated here. */
 
 static void
-meltitems(int etus, int fallout, int own, int *vec, int type, int x, int y,
+meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
 	  int uid)
 {
     int n;
     int melt;
 
     for (n = 1; n <= I_MAX; n++) {
-	melt = roundavg(vec[n] * etus * (long)fallout /
-			(1000.0 * melt_item_denom[n]));
+	melt = roundavg(vec[n] * etus * (long)fallout
+			/ (1000.0 * melt_item_denom[n]));
+	if (melt > vec[n])
+	    melt = vec[n];
 	if (melt > 5 && own) {
 	    if (type == EF_SECTOR)
 		wu(0, own, "Lost %d %s to radiation in %s.\n",
-		   (melt < vec[n] ? melt : vec[n]), ichr[n].i_name,
+		   melt < vec[n] ? melt : vec[n], ichr[n].i_name,
 		   xyas(x, y, own));
 	    else if (type == EF_LAND)
 		wu(0, own, "Unit #%d lost %d %s to radiation in %s.\n",
-		   uid, (melt < vec[n] ? melt : vec[n]), ichr[n].i_name,
+		   uid, melt < vec[n] ? melt : vec[n], ichr[n].i_name,
 		   xyas(x, y, own));
 	    else if (type == EF_SHIP)
 		wu(0, own, "Ship #%d lost %d %s to radiation in %s.\n",
-		   uid, (melt < vec[n] ? melt : vec[n]), ichr[n].i_name,
+		   uid, melt < vec[n] ? melt : vec[n], ichr[n].i_name,
 		   xyas(x, y, own));
 	}
-	if (melt < vec[n])
-	    vec[n] -= melt;
-	else
-	    vec[n] = 0;
+	vec[n] -= melt;
     }
 }
 
@@ -233,33 +232,24 @@ meltitems(int etus, int fallout, int own, int *vec, int type, int x, int y,
 void
 do_fallout(register struct sctstr *sp, register int etus)
 {
-    int vec[I_MAX + 1];
-    int tvec[I_MAX + 1];
     struct shpstr *spp;
     struct lndstr *lp;
     int i;
 
-    getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
 /* This check shouldn't be needed, but just in case. :) */
     if (!sp->sct_fallout || !sp->sct_updated)
 	return;
     if (etus > 24)
 	etus = 24;
-#if 0
-    wu(0, 0, "Running fallout in %d,%d\n", sp->sct_x, sp->sct_y);
-#endif
-    meltitems(etus, sp->sct_fallout, sp->sct_own, vec, EF_SECTOR,
+    meltitems(etus, sp->sct_fallout, sp->sct_own, sp->sct_item, EF_SECTOR,
 	      sp->sct_x, sp->sct_y, 0);
-    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	if (!lp->lnd_own)
 	    continue;
 	if (lp->lnd_x != sp->sct_x || lp->lnd_y != sp->sct_y)
 	    continue;
-	getvec(VT_ITEM, tvec, (s_char *)lp, EF_LAND);
-	meltitems(etus, sp->sct_fallout, lp->lnd_own, tvec, EF_LAND,
+	meltitems(etus, sp->sct_fallout, lp->lnd_own, lp->lnd_item, EF_LAND,
 		  lp->lnd_x, lp->lnd_y, lp->lnd_uid);
-	putvec(VT_ITEM, tvec, (s_char *)lp, EF_LAND);
     }
     for (i = 0; NULL != (spp = getshipp(i)); i++) {
 	if (!spp->shp_own)
@@ -268,10 +258,8 @@ do_fallout(register struct sctstr *sp, register int etus)
 	    continue;
 	if (mchr[(int)spp->shp_type].m_flags & M_SUB)
 	    continue;
-	getvec(VT_ITEM, tvec, (s_char *)spp, EF_SHIP);
-	meltitems(etus, sp->sct_fallout, spp->shp_own, tvec, EF_SHIP,
+	meltitems(etus, sp->sct_fallout, spp->shp_own, spp->shp_item, EF_SHIP,
 		  spp->shp_x, spp->shp_y, spp->shp_uid);
-	putvec(VT_ITEM, tvec, (s_char *)spp, EF_SHIP);
     }
 #ifdef	GODZILLA
     if ((sp->sct_fallout > 20) && chance(100))
