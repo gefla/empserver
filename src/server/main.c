@@ -48,7 +48,7 @@
 #if defined(_WIN32)
 #include <winsock.h>
 #include <process.h>
-#include "getopt.h"
+#include "../lib/gen/getopt.h"
 #endif
 
 #include "misc.h"

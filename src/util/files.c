@@ -44,7 +44,7 @@
 #include <sys/file.h>
 #else
 #include <direct.h>
-#include "getopt.h"
+#include "../lib/gen/getopt.h"
 #endif
 #include <stdarg.h>
 #include <stdio.h>
