@@ -715,7 +715,7 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 		mines--;
 		if (lshells < max)
 		    ++lshells;
-		else
+		else if (sshells < ITEM_MAX)
 		    ++sshells;
 	    }
 	}

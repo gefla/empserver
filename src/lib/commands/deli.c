@@ -101,7 +101,8 @@ deli(void)
 	    if (!check_sect_ok(&sect))
 		continue;
 
-	    del = thresh + dir;
+	    thresh = min(thresh, ITEM_MAX) & ~7;
+	    del = thresh | dir;
 	    sect.sct_del[ich->i_vtype] = del;
 	    putsect(&sect);
 	}

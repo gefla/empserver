@@ -105,6 +105,8 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
 		continue;
 	} else if ((deltamil = min(mil, number)) <= 0)
 	    continue;
+	if (deltamil > ITEM_MAX - civ)
+	    deltamil = ITEM_MAX - civ;
 	civ += deltamil;
 	mil -= deltamil;
 	mil_demob += deltamil;

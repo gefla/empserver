@@ -220,10 +220,9 @@ guerrilla(struct sctstr *sp)
     if ((tnat->nat_stat & STAT_INUSE) == 0) {
 	/* target nation has dissolved: che's retire.  */
 	logerror("%d Che targeted at country %d retiring", che, target);
-	civ += che;
 	sp->sct_che = 0;
 	sp->sct_che_target = 0;
-	sp->sct_item[I_CIVIL] = civ;
+	sp->sct_item[I_CIVIL] = min(civ + che, ITEM_MAX);
 	return;
     }
 
@@ -347,6 +346,10 @@ guerrilla(struct sctstr *sp)
 	    sp->sct_newtype = SCT_AGRI;
 	n = civ / 20;
 	civ -= n;
+	if (civ > ITEM_MAX) {
+	    uw = ITEM_MAX - civ;
+	    civ = ITEM_MAX;
+	}
 	sp->sct_item[I_CIVIL] = civ;
 	sp->sct_item[I_UW] = uw;
 	sp->sct_item[I_MILIT] = n;
