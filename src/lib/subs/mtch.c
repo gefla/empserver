@@ -83,6 +83,7 @@ comtch(register s_char *command, struct cmndstr *coms, int comstat,
 	    if (status >= 0)
 		return M_NOTUNIQUE;
 	    status = com - coms;
+	    break;
 	case ME_EXACT:
 	    return com - coms;
 	}
