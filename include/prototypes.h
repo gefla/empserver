@@ -119,7 +119,11 @@ extern void filetruncate(s_char *);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
 /* hours.c */
+extern int is_wday_allowed(int, char *);
+extern int is_daytime_allowed(int, char *);
 extern int gamehours(time_t);
+extern int is_daytime_near(int, char *, int);
+extern int min_to_next_daytime(int, char *);
 /* land.c */
 extern int has_units(coord, coord, natid, struct lndstr *);
 extern int has_units_with_mob(coord, coord, natid);

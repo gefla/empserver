@@ -40,7 +40,6 @@
 #include "tel.h"
 #include "proto.h"
 #include "com.h"
-#include "keyword.h"
 #include "file.h"
 #include "empio.h"
 #include "subs.h"

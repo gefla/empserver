@@ -35,7 +35,6 @@
 #include "options.h"
 #include "misc.h"
 #include "player.h"
-#include "keyword.h"
 #include "empthread.h"
 #include <stdio.h>
 #include "prototypes.h"
@@ -96,7 +95,6 @@ mobility_init(void)
     time_t now;
     time_t lastsavedtime;
     FILE *fp;
-    int hour[2];
 
     /* During downtime, we don't want mobility to accrue.  So, we look
        at the timestamp file, and determine how far forward to push
@@ -109,6 +107,7 @@ mobility_init(void)
     if ((fp = fopen(timestampfil, "r+b")) == NULL) {
 #endif
 	logerror("Unable to edit timestamp file.");
+	/* FIXME safe to continue? */
     } else {
 	rewind(fp);
 	fread(&timestamps, sizeof(timestamps), 1, fp);

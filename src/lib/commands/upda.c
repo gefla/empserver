@@ -37,7 +37,6 @@
 #include "player.h"
 #include "commands.h"
 #include "optlist.h"
-#include "keyword.h"
 #include "wantupd.h"
 #include "server.h"
 

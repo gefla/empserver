@@ -34,7 +34,6 @@
 #include "options.h"
 #include "misc.h"
 #include "player.h"
-#include "keyword.h"
 #include "empthread.h"
 #include "file.h"
 #include "server.h"

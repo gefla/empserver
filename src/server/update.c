@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "keyword.h"
 #include "empthread.h"
 #include "prototypes.h"
 #include "optlist.h"
@@ -49,7 +48,6 @@ time_t update_time;
 void
 update_sched(void *unused)
 {
-    s_char *kw;
     int wind;
     time_t now, delta;
 

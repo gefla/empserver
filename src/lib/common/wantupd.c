@@ -38,7 +38,6 @@
 #include "misc.h"
 #include "nat.h"
 #include "file.h"
-#include "keyword.h"
 #include "wantupd.h"
 #include "optlist.h"
 #include "common.h"
@@ -67,28 +66,18 @@ update_policy_check(void)
 }
 
 static int
-demand_update_time(time_t * now)
+demand_update_time(time_t *now)
 {
     struct tm *tm;
-    s_char *p;
-    int curtime;
-    int hour[2];
 
     tm = localtime(now);
-    curtime = tm->tm_min + tm->tm_hour * 60;
-    p = update_demandtimes;
-    if (*p == 0)
-	return (1);
-    while (NULL != (p = kw_parse(CF_TIMERANGE, p, &hour[0]))) {
-	if (curtime >= hour[0] && curtime < hour[1])
-	    return (1);
-    }
-    return (0);
+    return is_daytime_allowed(60 * tm->tm_hour + tm->tm_min,
+			      update_demandtimes);
 }
 
 /* When is the next regularly scheduled update from now. */
 static void
-regular_update_time(time_t * now, time_t * tim, time_t * delta)
+regular_update_time(time_t *now, time_t *tim, time_t *delta)
 {
     time_t tw;
     int secs_per_update;
@@ -101,54 +90,28 @@ regular_update_time(time_t * now, time_t * tim, time_t * delta)
 
 /* Is this a valid time for a scheduled update. */
 static int
-scheduled_update_time(time_t * now, int *which)
+scheduled_update_time(time_t *now)
 {
     struct tm *tm;
-    s_char *p;
-    int curtime;
-    int hour;
-
-    *which = -1;
-    p = update_times;
-    if (*p == 0)
-	return (0);
 
     tm = localtime(now);
-    curtime = tm->tm_min + tm->tm_hour * 60;
-    while (NULL != (p = kw_parse(CF_TIME, p, &hour))) {
-	(*which)++;
-	if (curtime >= hour && curtime < hour + hourslop)
-	    return (1);
-    }
-
-    return 0;
+    return is_daytime_near(60 * tm->tm_hour + tm->tm_min,
+			   update_times, hourslop);
 }
 
 static int
-next_scheduled_time(time_t * now, time_t * tim, time_t * delta)
+next_scheduled_time(time_t *now, time_t *tim, time_t *delta)
 {
     struct tm *tm;
-    s_char *p;
-    int curtime;
-    int hour;
-    int mintime;
-
-    p = update_times;
-    if (*p == 0)
-	return (0);
+    int d;
 
     tm = localtime(now);
-    curtime = tm->tm_min + tm->tm_hour * 60;	/* now - in minutes */
-    mintime = curtime + 24 * 60 + 1;	/* start with now + 1 day */
-    while (NULL != (p = kw_parse(CF_TIME, p, &hour))) {
-	if (hour <= curtime)
-	    hour += 24 * 60;	/* this must be tomorrow */
-	if (hour < mintime)
-	    mintime = hour;	/* this is best bet so far */
-    }
-    *delta = 60 * (mintime - curtime);
+    d = min_to_next_daytime(60 * tm->tm_hour + tm->tm_min, update_times);
+    if (d < 0)
+	return 0;
+    *delta = 60 * d;
     *tim = *now + *delta - tm->tm_sec;
-    return (1);
+    return 1;
 }
 
 int
@@ -274,10 +237,8 @@ demandupdatecheck(void)
  * a demand update can occur.
  */
 int
-updatetime(time_t * now)
+updatetime(time_t *now)
 {
-    int which;
-
     if (opt_BLITZ && update_policy == UDP_BLITZ) {
 	logerror("BLITZ Update.");
 	return (1);
@@ -289,8 +250,8 @@ updatetime(time_t * now)
     }
 
     if (UDP_TIMES == update_policy) {
-	if (scheduled_update_time(now, &which)) {
-	    logerror("Scheduled update, %d.", which);
+	if (scheduled_update_time(now)) {
+	    logerror("Scheduled update.");
 	    return (1);
 	}
     }
@@ -308,7 +269,7 @@ updatetime(time_t * now)
  * the next possible check.
  */
 void
-next_update_time(time_t * now, time_t * tim, time_t * delta)
+next_update_time(time_t *now, time_t *tim, time_t *delta)
 			/* From when */
 			/* Time of next update */
 			/* Seconds till next update */
@@ -342,7 +303,7 @@ next_update_time(time_t * now, time_t * tim, time_t * delta)
 }
 
 void
-next_update_check_time(time_t * now, time_t * tim, time_t * delta)
+next_update_check_time(time_t *now, time_t *tim, time_t *delta)
 			/* From when */
 			/* Time of next update */
 			/* Seconds till next update check */

@@ -33,54 +33,198 @@
  *     Steve McClure, 1998
  */
 
-#include <errno.h>
-#include <stdio.h>
+#include <limits.h>
+#include <time.h>
 #include "misc.h"
-#include "nat.h"
-#include "tel.h"
-#include "proto.h"
-#include "com.h"
-#include "keyword.h"
-#include "file.h"
-#include "common.h"
 #include "optlist.h"
 
-#include <time.h>
+static char *weekday(char *str, int *wday);
+static char *daytime(char *str, int *min);
+static char *daytime_range(char *str, int *from_min, int *to_min);
 
 /*
- * returns true if game can be played now.
+ * Is week day WDAY (Sunday is 0) allowed by restriction DAYS?
+ * If DAYS is not empty, it lists the allowed week day names.  See
+ * weekday() for syntax.
  */
 int
-gamehours(time_t now)
+is_wday_allowed(int wday, char *days)
 {
-    register s_char *bp;
-    register struct tm *tm;
-    int day;
-    int curtime;
-    int okday[7];
-    int hour[2];
+    int wd;
 
-    tm = localtime(&now);
-    curtime = tm->tm_min + tm->tm_hour * 60;
-    bp = game_days;
-    if (*bp != 0) {
-	for (day = 0; day < 7; day++)
-	    okday[day] = 0;
-	while (NULL != (bp = kw_parse(CF_WEEKDAY, bp, &day)))
-	    okday[day] = 1;
-    } else {
-	for (day = 0; day < 7; day++)
-	    okday[day] = 1;
-    }
-    if (!okday[tm->tm_wday])
+    if (!days || !*days)
+	return 1;
+
+    while (NULL != (days = weekday(days, &wd)))
+	if (wd == wday)
+	    return 1;
+
+    return 0;
+}
+
+/*
+ * Is day time DTIME (minutes since midnight) allowed by restriction TIMES?
+ * If TIMES is not empty, it lists the allowed day time ranges.  See
+ * daytime_range() for syntax.
+ */
+int
+is_daytime_allowed(int dtime, char *times)
+{
+    int from, to;
+
+    if (!times || !*times)
+	return 1;
+
+    while (NULL != (times = daytime_range(times, &from, &to)))
+	if (from <= dtime && dtime < to)
+	    return 1;
+
+    return 0;
+}
+
+/*
+ * Can the game played at time T?
+ */
+int
+gamehours(time_t t)
+{
+    struct tm *tm;
+
+    tm = localtime(&t);
+    if (!is_wday_allowed(tm->tm_wday, game_days))
 	return 0;
-    bp = game_hours;
-    if (*bp != 0) {
-	while (NULL != (bp = kw_parse(CF_TIMERANGE, bp, hour)))
-	    if (curtime >= hour[0] && curtime < hour[1])
-		break;
-	if (bp == 0)
-	    return 0;
+    return is_daytime_allowed(60 * tm->tm_hour + tm->tm_min, game_hours);
+}
+
+/*
+ * Is day time DTIME (minutes since midnight) near a time in TIMES?
+ * TIMES is a list of day times.  See daytime() for syntax.
+ * DTIME is near a listed time T if its within T and T + SLOP minutes.
+ */
+int
+is_daytime_near(int dtime, char *times, int slop)
+{
+    int dt;
+
+    if (times)
+	while (NULL != (times = daytime(times, &dt)))
+	    if (dt <= dtime && dtime < dt + slop)
+		return 1;
+
+    return 0;
+}
+
+/*
+ * Return time in minutes between DTIME and next time in TIMES.
+ * If TIMES doesn't give a time, return -1.
+ * DTIME is day time in minutes since midnight.
+ * TIMES is a list of day times.  See daytime() for syntax.
+ */
+int
+min_to_next_daytime(int dtime, char *times)
+{
+    int mindt = INT_MAX;
+    int dt;
+
+    if (times) {
+	while (NULL != (times = daytime(times, &dt))) {
+	    if (dt < dtime)
+		dt += 24 * 60;	/* tomorrow */
+	    if (dt < mindt)
+		mindt = dt;
+	}
     }
-    return 1;
+
+    if (mindt == INT_MAX)
+	return -1;
+    return mindt - dtime;
+}
+
+/*
+ * Parse weekday name in STR.
+ * On success assign day number (Sunday is 0) to *WDAY and return
+ * pointer to first character not parsed.
+ * Else return NULL.
+ * Abbreviated names are recognized, but not single characters.
+ * Initial whitespace is ignored.
+ */
+static char *
+weekday(char *str, int *wday)
+{
+    /*
+     * strptime() format " %a" would do fine, but it's XPG and Windows
+     * doesn't have it.  Besides, Empire accepts more abbreviations.
+     */
+    static char *day_name[7] = {
+	"sunday", "monday", "tuesday", "wednesday",
+	"thursday", "friday", "saturday" };
+    int i, j;
+
+    for (; isspace(*str); ++str) ;
+
+    for (i = 0; i < 7; ++i) {
+	j = 0;
+	while (str[j] && tolower(str[j]) == day_name[i][j])
+	    ++j;
+	if (j > 1) {
+	    *wday = i;
+	    return str + j;
+	}
+    }
+
+    return NULL;
+}
+
+/*
+ * Parse day time in STR.
+ * On success store minutes since midnight in *MIN and return pointer
+ * to first character not parsed.
+ * Else return NULL.
+ * Time format is HOUR:MINUTE.  Initial whitespace is ignored.
+ */
+char *
+daytime(char *str, int *min)
+{
+    /*
+     * strptime() format " %H:%M" would do fine, but it's XPG and
+     * Windows doesn't have it.
+     */
+    char *end;
+    unsigned long h, m;
+
+    h = strtoul(str, &end, 10);
+    if (end == str || h > 23)
+	return NULL;
+
+    if (*end++ != ':')
+	return NULL;
+
+    str = end;
+    m = strtoul(str, &end, 10);
+    if (end == str || m > 59)
+	return NULL;
+
+    *min = 60 * h + m;
+    return end;
+}
+
+/*
+ * Parse a day time range in STR.
+ * On success store minutes since midnight in *FROM and *TO, return
+ * pointer to first character not parsed.
+ * Else return NULL.
+ * Format is HOUR:MINUTE-HOUR:MINUTE.  Initial whitespace is ignored.
+ */
+char *
+daytime_range(char *str, int *from_min, int *to_min)
+{
+    char *end;
+
+    end = daytime(str, from_min);
+    if (!end)
+	return NULL;
+    while (isspace(*end)) ++end;
+    if (*end++ != '-')
+	return NULL;
+    return daytime(end, to_min);
 }
