@@ -79,6 +79,7 @@ struct castr sect_ca[] = {
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_type), "des"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_effic), "effic"},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_mobil), "mobil"},
+    {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_loyal), "loyal"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr), "terr"},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_terr), "terr0"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr1), "terr1"},
@@ -106,6 +107,7 @@ struct castr sect_ca[] = {
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che"},
     {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target"},
     {NSC_USHORT, 0, 0, fldoff(sctstr, sct_fallout), "fallout"},
+    {NSC_TIME, 0, 0, fldoff(sctstr, sct_access), "access"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_road), "road"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_rail), "rail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_defense), "dfense"},
@@ -125,20 +127,31 @@ struct castr sect_ca[] = {
 { NSC_CHAR, NSC_EXTRA, 0, fldoff(genitem, group), "group"},	\
 { NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx"},		\
 { NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy"},		\
-{ NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission"}
+{ NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission"},	\
+{ NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius"}
 
 struct castr ship_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nland), "nland"},
+    /* FIXME most autonav stuff missing */
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav"},
     NSC_IVEC(fldoff(shpstr, shp_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime"},
+    {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
+    /* FIXME sail stuff missing */
+    /* FIXME name missing */
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
+    /* could let builder access these, but we can't express that yet: */
+    {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt"},
+    {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt"},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder"},
+    /* FIXME retreat stuff missing */
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -153,7 +166,9 @@ struct castr plane_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
+    {NSC_TIME, 0, 0, fldoff(plnstr, pln_access), "access"},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
+    {NSC_FLOAT, 0, 0, fldoff(plnstr, pln_theta), "theta"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -165,10 +180,14 @@ struct castr land_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_nxlight), "nxlight"},
+    /* FIXME retreat stuff missing */
+    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react"},
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_ptime), "ptime"},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_land), "land"},
+    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_nland), "nland"},
+    {NSC_TIME, 0, 0, fldoff(lndstr, lnd_access), "access"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_att), "att"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_def), "def"},
     {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_vul), "vul"},
@@ -240,6 +259,7 @@ struct castr lost_ca[] = {
     {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner"},
     {NSC_INT, 0, 0, fldoff(loststr, lost_uid), "uid"},
     {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type"},
+    {NSC_SHORT, 0, 0, fldoff(loststr, lost_id), "id"},
     {NSC_XCOORD, 0, 0, fldoff(loststr, lost_x), "x"},
     {NSC_YCOORD, 0, 0, fldoff(loststr, lost_y), "y"},
     {NSC_TIME, 0, 0, fldoff(loststr, lost_timestamp), "timestamp"},
