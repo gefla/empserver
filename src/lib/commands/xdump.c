@@ -96,6 +96,7 @@ static struct castr dchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_build), "build"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_lcms), "lcms"},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_hcms), "hcms"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_maxpop), "maxpop"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
