@@ -64,13 +64,10 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     int dist_packing;
     int diff;
     int item;
-    int remote[I_MAX + 1];
-    int local[I_MAX + 1];
     int changed;
     int rplague;
     int lplague;
 
-    getvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	return 0;
 
@@ -97,7 +94,6 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     if ((dist->sct_effic >= 60) && dchr[dist->sct_type].d_pkg == WPKG)
 	packing = dchr[dist->sct_type].d_pkg;
 
-    getvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
     lplague = rplague = changed = 0;
     for (item = 1; item < I_MAX + 1; item++) {
 	if (sp->sct_dist[item] == 0)
@@ -111,10 +107,9 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 	 * sector along the way (processor-timewise)
 	 */
 	excost = (dist_e_cost / ip->i_pkg[packing] * ip->i_lbs) / 10.0;
-	imcost =
-	    (dist_i_cost / ip->i_pkg[dist_packing] * ip->i_lbs) / 10.0;
-	amt_sect = local[item];
-	amt_dist = remote[item];
+	imcost = (dist_i_cost / ip->i_pkg[dist_packing] * ip->i_lbs) / 10.0;
+	amt_sect = sp->sct_item[item];
+	amt_dist = dist->sct_item[item];
 	diff = amt_sect - thresh;
 	if (item == I_CIVIL)
 	    if (sp->sct_own != sp->sct_oldown)
@@ -154,10 +149,10 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 
 	    lplague++;
 	    /* XXX replace with vector assign and putvec() */
-	    remote[item] -= amt;
+	    dist->sct_item[item] -= amt;
 	    changed++;
 	    dist->sct_mobil -= (int)(imcost * amt);
-	    local[item] += amt;
+	    sp->sct_item[item] += amt;
 	} else {
 	    if (imex != EXPORT)
 		continue;
@@ -190,14 +185,12 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 	    /* XXX replace with vector assign and putvec() */
 
 	    rplague++;
-	    local[item] -= amt;
+	    sp->sct_item[item] -= amt;
 	    changed++;
 	    sp->sct_mobil -= (int)(excost * amt);
-	    remote[item] += amt;
+	    dist->sct_item[item] += amt;
 	}
     }
-    putvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
-    putvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
 
     if (lplague) {
 	lplague = dist->sct_pstage;
