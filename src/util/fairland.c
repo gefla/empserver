@@ -67,6 +67,9 @@ static int quiet = 0;
 #if defined(aix) || defined(linux) || defined(solaris)
 #include <unistd.h>
 #endif /* aix or linux */
+#if defined(_WIN32)
+#include "../lib/gen/getopt.h"
+#endif
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -199,6 +202,7 @@ main(int argc, char *argv[])
     rnd_seed = time(NULL);
 #if !defined(_WIN32)
     rnd_seed += getpid();
+#endif
 
     while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
 	switch (opt) {
@@ -225,7 +229,6 @@ main(int argc, char *argv[])
 	    break;
 	}
     }
-#endif
     SRANDOM(rnd_seed);
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
@@ -233,11 +236,7 @@ main(int argc, char *argv[])
     }
     emp_config(config_file);
 
-#if !defined(_WIN32)
     parse_args(argc - optind, argv + optind);
-#else
-    parse_args(argc - 1, argv + 1);
-#endif
     if (allocate_memory() == -1)
 	exit(-1);
     print_vars();
