@@ -1,4 +1,4 @@
-Changes to Empire 4.2.15 - Sun May 16 14:56:03 UTC 2004
+Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
  * test command no longer asks whether to abandon the sector.
  * explore command could generate a bogus `lost' record when it
    regains an abandoned start sector.
@@ -8,6 +8,10 @@ Changes to Empire 4.2.15 - Sun May 16 14:56:03 UTC 2004
  * edit command no longer accepts efficiency values that would destroy
    the edited unit.  Deities can still delete a units by setting the
    owner to zero.
+ * upgrade command used to charge an amount of avail that didn't match
+   info upgrade.  Neither the implemented nor the documented amount
+   made much sense.  Change it to 15% of the full build cost.  Rewrite
+   info upgrade.
  * Commands upgrade and build could be off by one when reporting
    required avail.
  * upgrade command reported rounded cost but charged unrounded
@@ -54,6 +58,7 @@ Changes to Empire 4.2.15 - Sun May 16 14:56:03 UTC 2004
    it displays hundreds only for values that can be large.
  * Rewrite info survey.  Document ability to survey properties other
    than items and resources.
+ * Rewrite info build, since it was inaccurate and poorly structured.
  * Fix info fire on required military.
  * New fairland argument -R to set the PRNG seed.  Print the seed.
    This allows you to recreate the same world again.
