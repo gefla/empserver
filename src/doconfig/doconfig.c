@@ -145,7 +145,7 @@ wrmakesrc(char *pathname)
 	printf("Cannot open %s for writing, exiting.\n", buf);
 	exit(-1);
     }
-    fprintf(fp, "# make.src - Wolfpack, 1996-2000\n");
+    fprintf(fp, "# make.src - Wolfpack, 1996-2004\n");
     fprintf(fp,
 	    "#            Source tree absolute pathname - auto generated.\n\n");
     fprintf(fp, "SRCDIR = %s\n", pathname);
@@ -180,7 +180,7 @@ wrauth(char *filename)
 	exit(-1);
     }
 
-    fprintf(fp, "# Wolfpack, 1996-2000\n#\n");
+    fprintf(fp, "# Wolfpack, 1996-2004\n#\n");
     fprintf(fp,
 	    "# Empire Authorization File - Users listed will be allowed to log in as deities.\n#\n");
     fprintf(fp, "# Format is:\n");
@@ -237,7 +237,7 @@ wrgamesdef(char *filename)
 	exit(-1);
     }
     fprintf(fp, _c_copyright_header);
-    fprintf(fp, "/*\n * Wolfpack, 1996-2000\n *\n");
+    fprintf(fp, "/*\n * Wolfpack, 1996-2004\n *\n");
     fprintf(fp,
 	    " * gamesdef.h - generated automatically by doconfig.  Feel\n");
     fprintf(fp,
