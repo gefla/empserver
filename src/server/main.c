@@ -37,6 +37,7 @@
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
 #endif
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
@@ -187,6 +188,10 @@ main(int argc, char **argv)
 
     if (emp_config(config_file) < 0)
 	exit(EXIT_FAILURE);
+    if (chdir(datadir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+	exit(EXIT_FAILURE);
+    }
 
 #if defined(_WIN32)
     if (install_service_set)

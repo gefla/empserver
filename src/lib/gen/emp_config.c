@@ -88,14 +88,8 @@ emp_config(char *file)
     int errors = 0;
     int i;
 
-    if (!file) {
-	if (!*dflt_econfig) {
-	    /* No default econfig, use compiled in configuration */
-	    fixup_files();
-	    return 0;
-	}
+    if (!file)
 	file = dflt_econfig;
-    }
     if ((fp = fopen(file, "r")) == NULL) {
 	fprintf(stderr, "Can't open %s for reading (%s)\n",
 		file, strerror(errno));
@@ -163,49 +157,9 @@ emp_config(char *file)
 	}
     }
     fclose(fp);
-    fixup_files();
     WORLD_X &= ~1;		/* make even */
 
     return -errors;
-}
-
-struct otherfiles {
-    char **files;
-    char *name;
-};
-
-/* list of other well known files... -maybe tailor these oneday
- * anyway - meantime they are all relative to datadir */
-static struct otherfiles ofiles[] = {
-    {&motdfil, "motd"},
-    {&downfil, "down"},
-    {&disablefil, "disable"},
-    {&banfil, "ban"},
-    {&authfil, "auth"},
-    {&annfil, "ann"},
-    {&timestampfil, "timestamp"},
-    {&teldir, "tel"},
-    {&telfil, "tel/tel"},
-    {NULL, NULL}
-};
-
-/* fix up the empfile struct to reference full path names */
-static void
-fixup_files(void)
-{
-    struct empfile *ep;
-    struct otherfiles *op;
-    s_char buf[1024];
-
-    for (ep = empfile; ep < &empfile[EF_MAX]; ep++) {
-	sprintf(buf, "%s/%s", datadir, ep->name);
-	ep->file = strdup(buf);
-    }
-
-    for (op = ofiles; op->files; op++) {
-	sprintf(buf, "%s/%s", datadir, op->name);
-	*op->files = strdup(buf);
-    }
 }
 
 /* find the key in the table */
@@ -226,9 +180,7 @@ keylookup(register s_char *command, struct keymatch *tbl)
 void
 print_config(FILE *fp)
 {
-    struct empfile *ep;
     struct option_list *op;
-    struct otherfiles *ofp;
     struct keymatch *kp;
 
     fprintf(fp, "# Empire Configuration File:\n");
@@ -267,11 +219,6 @@ print_config(FILE *fp)
     }
 
     fprintf(fp, "\n");
-    for (ep = empfile; ep < &empfile[EF_MAX]; ep++)
-	fprintf(fp, "# File %s -> %s\n", ep->name, ep->file);
-    for (ofp = ofiles; ofp->files; ofp++)
-	fprintf(fp, "# File %s -> %s\n", ofp->name, *(ofp->files));
-
 }
 
 

@@ -64,13 +64,11 @@ static int quiet = 0;
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
-#if defined(aix) || defined(linux) || defined(solaris)
-#include <unistd.h>
-#endif /* aix or linux */
 #if defined(_WIN32)
 #include "../lib/gen/getopt.h"
 #endif
 
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -402,12 +400,16 @@ static int
 allocate_memory(void)
 {
     int i;
+    char *fname;
 
-    sect_fptr = fopen(empfile[EF_SECTOR].file, "wb");
+    fname = malloc(strlen(datadir) + 1 + strlen(empfile[EF_SECTOR].file) + 1);
+    sprintf(fname, "%s/%s", datadir, empfile[EF_SECTOR].file);
+    sect_fptr = fopen(fname, "wb");
     if (sect_fptr == NULL) {
-	perror(empfile[EF_SECTOR].file);
+	perror(fname);
 	return -1;
     }
+    free(fname);
     sectsbuf =
 	(struct sctstr *)calloc((YSIZE * XSIZE), sizeof(struct sctstr));
     sects = (struct sctstr **)calloc(YSIZE, sizeof(struct sctstr *));

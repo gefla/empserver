@@ -38,9 +38,9 @@
 int
 main(int argc, char **argv)
 {
-    *dflt_econfig = 0;		/* don't read default econfig */
-    if (emp_config(argc > 1 ? argv[1] : NULL) < 0)
-	exit(1);
+    if (argc > 1)
+	if (emp_config(argv[1]) < 0)
+	    exit(1);
     print_config(stdout);
     exit(0);
 }

@@ -38,15 +38,16 @@ char dflt_econfig[] = EMPDIR "/data/econfig";
 
 char *infodir	= EMPDIR "/info.nr";
 char *datadir	= EMPDIR "/data";
-char *teldir	= EMPDIR "/data/tel";
 
-char *motdfil	= EMPDIR "/data/motd";
-char *downfil	= EMPDIR "/data/down";
-char *disablefil = EMPDIR "/data/disable";
-char *telfil	= EMPDIR "/data/tel/tel";
-char *annfil	= EMPDIR "/data/ann";
-char *banfil	= EMPDIR "/data/ban";
-char *authfil	= EMPDIR "/data/auth";
-char *timestampfil = EMPDIR "/data/timestamp";
+/* relative to DATADIR */
+char *teldir	= "tel";
+char *motdfil	= "motd";
+char *downfil	= "down";
+char *disablefil = "disable";
+char *telfil	= "tel/tel";
+char *annfil	= "ann";
+char *banfil	= "ban";
+char *authfil	= "auth";
+char *timestampfil = "timestamp";
 
 char *loginport = EMP_PORT;

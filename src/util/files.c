@@ -33,10 +33,6 @@
  *     Steve McClure, 1998
  */
 
-#if defined(aix) || defined(linux) || defined(solaris)
-#include <unistd.h>
-#endif /* aix or linux */
-
 #include <sys/types.h>
 #include <fcntl.h>
 #if !defined(_WIN32)
@@ -46,6 +42,7 @@
 #include <direct.h>
 #include "../lib/gen/getopt.h"
 #endif
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -112,6 +109,11 @@ main(int argc, char *argv[])
 	printf("Can't make game directory\n");
 	exit(1);
     }
+    if (chdir(datadir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+	exit(EXIT_FAILURE);
+    }
+
     if (!force) {
     	printf("WARNING: this blasts the existing game in %s (if any)\n",
 	   datadir);
