@@ -22,12 +22,14 @@ This document gives a rough order of events during the update.
 		produce for owned sectors, maintain and build ships,
 		planes and units; see below for details
 	c) If ship maintenance is not yet done, do it now
+		pay maintenance, produce, then feed and plague people on board
 	d) If ship building is not yet done, do it now
 		ships execute their orders right after building
 		finally, if option SAIL is enabled, follow sail paths
 	e) If plane maintenance is not yet done, do it now
 	f) If plane building is not yet done, do it now
 	g) If unit maintenance is not yet done, do it now
+		pay maintenance, then feed and plague people on board
 	h) If unit building is not yet done, do it now
 	i) produce for all sectors that have not yet produced
                 a) if the sector is a cap, it costs $$ equal to
