@@ -52,9 +52,7 @@ get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
 {
     int i;
     int still_left;
-    int svec[I_MAX + 1];
 
-    getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
     for (i = 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
@@ -66,9 +64,8 @@ get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
 	    else
 		still_left -= mvec[i];
 	    pt_bg_nmbr(bp, sp, i, still_left);
-	    svec[i] = still_left;
 	    if (!player->simulation)
-		putvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
+		sp->sct_item[i] = still_left;
 
 	} else {
 	    still_left = gt_bg_nmbr(bp, sp, i);
