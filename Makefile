@@ -506,3 +506,5 @@ ntinstall:
 	-(move econfig.new econfig)
 	cd ..
 
+dist:
+	src/scripts/mkdist

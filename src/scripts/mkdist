@@ -1,0 +1,43 @@
+#!/bin/sh -e
+srvdir=emp4
+clidir=client
+
+# arrange cleanup
+trap 'rm -rf dist' 0
+
+# all files in CVS...
+mkdir dist dist/srv dist/cli
+for i in `find . -name CVS -print`
+do
+  d=`echo $i | sed 's#/CVS$##'`
+  [ "$d" = "." ] || mkdir dist/srv/$d
+  f=`awk -F/ '$1 == "" { print "'$d/'" $2 }' $i/Entries`
+  [ "$f" ] || continue
+  ln $f "dist/srv/$d"
+  [ "$d" = "./src/client" ] && ln $f dist/cli
+done
+# except for these
+find dist -name .cvsignore | xargs -r rm -f
+
+# generated make include files (hard to create with stupid makes)
+for i in `find info -name MakeSrcs`
+do ln $i dist/srv/$i
+done
+for i in `find src -name Makedepend`
+do echo '# Empty' >dist/srv/$i
+done
+
+# formatted info files and generated info souces
+mkdir dist/srv/info.nr
+ln info.nr/* dist/srv/info.nr
+ln info/Subjects/*.t dist/srv/info/Subjects
+
+# modifications for standalone client
+mv dist/cli/Makefile.standalone dist/cli/Makefile
+ln src/client/ipglob.c dist/cli
+
+# bake tarballs
+mv dist/srv dist/$srvdir
+tar -czf empire.tar.gz -C dist $srvdir
+mv dist/cli dist/$clidir
+tar -czf client.tar.gz -C dist $clidir
