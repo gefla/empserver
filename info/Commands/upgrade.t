@@ -5,15 +5,12 @@
 The upgrade command allows a country to set the tech level
 of its ships/land units/planes to the country's current tech level.
 .s1
-Each ship/land unit/plane to be upgraded must be in one
-of the country's harbors/headquarteres/airports
-that is at least 60% efficient and has an available workforce
-of at least half the size it would take to build the ship/land unit/plane
-from scratch.
-To be upgraded, a ship/land unit/plane must be at least 60% efficient.
+Each ship/land unit/plane to be upgraded must be at least 60%
+efficient and be in one of the country's
+harbors/headquarters/airports that is at least 60% efficient.
 .s1
-Refitting a ship/land unit/plane costs 50% of the initial cost of a
-building new one, and reduces the efficiency of the ship/land
-unit/plane by 35%.
+Upgrading costs 15% of the full build cost in money and avail, and
+reduces the efficiency of the ship/land unit/plane by 35%.  Repairing
+these 35% will then consume work and resources as usual.
 .s1
 .SA "build, ship, plane, land, Technology, LandUnits, Planes, Ships"
