@@ -86,6 +86,7 @@ rada(void)
 	    radmap(sect.sct_x, sect.sct_y, (int)sect.sct_effic,
 		   (int)(tech * 2.0), 0.0);
 	}
+	break;
     case NS_LIST:
     case NS_GROUP:
 	if (!from_unit) {
@@ -139,6 +140,7 @@ rada(void)
 		       (int)tech, tf);
 	    }
 	}
+	break;
     default:
 	if (!from_unit)
 	    pr("Must use a ship or sector specifier\n");
