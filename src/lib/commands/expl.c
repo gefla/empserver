@@ -155,7 +155,7 @@ explore(void)
      */
     dam = 1;
     mcost = move_ground((s_char *)ip, &sect, &endsect,
-			(double)sect.sct_mobil, weight, player->argp[4],
+			weight, player->argp[4],
 			explore_map, 1, &dam);
 
     if (dam) {
@@ -207,7 +207,7 @@ explore(void)
     if (!player->god && chksect.sct_own && chksect.sct_own != player->cnum
 	&& chksect.sct_type != SCT_SANCT) {
 	pr("Somebody beat you there!\n");
-	/* Send them xback home */
+	/* Send them back home */
 	getsect(start.sct_x, start.sct_y, &sect);
 	if (sect.sct_own != own) {
 	    pr("Someone captured the sector you started from!\n");

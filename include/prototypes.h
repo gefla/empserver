@@ -570,7 +570,7 @@ extern int air_defense(coord, coord, natid, struct emp_qelem *,
 /* move.c */
 extern int check_lmines(coord, coord, double);
 extern int move_ground(s_char *, struct sctstr *, struct sctstr *,
-		       double, double, s_char *,
+		       double, s_char *,
 		       int (*)(s_char *, coord, coord, s_char *),
 		       int, int *);
 extern int fly_map(coord, coord);

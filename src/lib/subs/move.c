@@ -50,12 +50,9 @@ static int move_map(s_char *what, coord curx, coord cury, s_char *arg);
 
 int
 move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
-	    double mobility, double weight, s_char *path,
-	    int (*map) (s_char *, coord, coord, s_char *), int exploring,
+	    double weight, s_char *path,
+	    int (*map)(s_char *, coord, coord, s_char *), int exploring,
 	    int *dam)
-
-
-				/* RESULT */
 {
     struct sctstr sect, ending_sect;
     struct sctstr next, dsect;
@@ -68,6 +65,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     double sect_mcost;
     double total_mcost;
     double mv_cost;
+    double mobility = (double)start->sct_mobil;
     int dir;
     int intcost;
     int takedam = (*dam), out = 0;
@@ -87,9 +85,8 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	    return -1;
 	}
 	pr("Looking for best path to %s\n", path);
-	path =
-	    BestLandPath(buf2, start, &ending_sect, &total_mcost,
-			 MOB_ROAD);
+	path = BestLandPath(buf2, start, &ending_sect, &total_mcost,
+			    MOB_ROAD);
 	if (exploring && (path != (s_char *)0))	/* take off the 'h' */
 	    *(path + strlen(path) - 1) = '\0';
 	if (path == (s_char *)0)
@@ -106,18 +103,14 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	}
     }
     movstr = path;
-    tmpx = start->sct_x;
-    curx = tmpx;
-    tmpy = start->sct_y;
-    cury = tmpy;
+    curx = start->sct_x;
+    cury = start->sct_y;
     total_mcost = 0.0;
     if (getsect(curx, cury, &sect) < 0) {
 	logerror("move_path: getsect %d,%d", curx, cury);
 	return -1;
     }
     for (;;) {
-	tmpx = curx;
-	tmpy = cury;
 	oldx = curx;
 	oldy = cury;
 	if (movstr == 0 || *movstr == 0) {
@@ -133,8 +126,8 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	}
 	if (movstr && sarg_xy(movstr, &dx, &dy)) {
 	    if (getsect(dx, dy, &dsect)) {
-		movstr =
-		    BestLandPath(buf2, &sect, &dsect, &mv_cost, MOB_ROAD);
+		movstr = BestLandPath(buf2, &sect, &dsect, &mv_cost,
+				      MOB_ROAD);
 	    } else {
 		pr("Invalid destination sector!\n");
 		movstr = (s_char *)0;
@@ -156,8 +149,11 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 		}
 	    }
 	}
-	if (movstr == 0 || *movstr == 0)
-	    movstr = dirch;
+	if (movstr == 0 || *movstr == 0) {
+	    buf2[0] = dirch[DIR_STOP];
+	    buf2[1] = 0;
+	    movstr = buf2;
+	}
 	if ((dir = chkdir(*movstr, DIR_STOP, DIR_MAP)) < 0) {
 	    pr("\"%c\" is not legal...", *movstr);
 	    direrr("'%c' to stop ", "'%c' to view ", "& '%c' to map\n");
@@ -183,8 +179,8 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	 * next sector.  Mobility, terrain,
 	 * or ownership may prevent us.
 	 */
-	tmpx += diroff[dir][0];
-	tmpy += diroff[dir][1];
+	tmpx = curx + diroff[dir][0];
+	tmpy = cury + diroff[dir][1];
 	if (getsect(tmpx, tmpy, &next) < 0) {
 	    pr("You can't go there...\n");
 	    *movstr = 0;
@@ -194,17 +190,13 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	    if ((next.sct_type == SCT_SANCT) &&
 		(next.sct_own != player->cnum)) {
 		pr("Converts, huh?\n");
-		*end = next;
-		intcost = (int)total_mcost;
-		if (chance(total_mcost - intcost))
-		    intcost++;
-		return intcost;
+		*movstr = 0;
+		continue;
 	    }
 	    getvec(VT_ITEM, vec, (s_char *)&next, EF_SECTOR);
 	    sect_mcost = sector_mcost(&next, MOB_ROAD);
-	    if ((!player->owner && (!exploring ||
-				    (vec[I_MILIT] || vec[I_CIVIL]))) ||
-		sect_mcost == -1.0) {
+	    if ((!player->owner && (!exploring || vec[I_MILIT] || vec[I_CIVIL]))
+		|| sect_mcost == -1.0) {
 		/* already-owned, or prohibited terrain */
 		pr("You can't go there...\n");
 		*movstr = 0;
@@ -238,8 +230,8 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	 */
 	if (takedam && chance(weight / 100.0) &&
 	    ((curx != oldx) || (cury != oldy)))
-	    (*dam) +=
-		ground_interdict(curx, cury, player->cnum, "commodities");
+	    (*dam) += ground_interdict(curx, cury, player->cnum,
+				       "commodities");
 	if (*dam >= 100)
 	    break;
     }

@@ -201,7 +201,7 @@ move(void)
     if (dam && !chance(weight / 200.0))
 	dam = 0;
     mcost = move_ground((s_char *)ip, &sect, &endsect,
-			(double)sect.sct_mobil, weight, player->argp[4],
+			weight, player->argp[4],
 			cmd_move_map, 0, &dam);
 
     if (dam) {

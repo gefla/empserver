@@ -176,7 +176,6 @@ tran_nuke(void)
     }
     dam = 0;
     mcost = move_ground((s_char *)&nuke, &sect, &endsect,
-			(double)sect.sct_mobil,
 			(double)ncp->n_weight * moving,
 			player->argp[5], tran_map, 0, &dam);
 
@@ -293,7 +292,7 @@ tran_plane(void)
     }
     dam = 1;
     mcost = move_ground((s_char *)&plane, &sect, &endsect,
-			(double)sect.sct_mobil, (double)weight,
+			(double)weight,
 			player->argp[3], tran_map, 0, &dam);
     dam /= count;
     if (mcost < 0)
