@@ -70,7 +70,7 @@ install_service(char *program_name, char *service_name, int datadir_set, char *c
     schSCManager = OpenSCManager(NULL,NULL,SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        logerror("install_service failed to open Service Control Manager"); 
+        fprintf(stderr, "install_service failed to open Service Control Manager\n"); 
 	return EXIT_FAILURE;
     }
 
@@ -91,7 +91,7 @@ install_service(char *program_name, char *service_name, int datadir_set, char *c
         NULL);				/* no password */
  
     if (schService == NULL) {
-	logerror("install_service failed to create service %s", service_name);
+	fprintf(stderr, "install_service failed to create service %s\n", service_name);
         return EXIT_FAILURE;
     }
     sdBuf.lpDescription = "Server for Empire game";
@@ -100,7 +100,7 @@ install_service(char *program_name, char *service_name, int datadir_set, char *c
           schService,                 /* handle to service */
           SERVICE_CONFIG_DESCRIPTION, /* change: description */
           &sdBuf)) {                  /* value: new description */
-        logerror("install_service failed to set the description");
+        fprintf(stderr, "install_service failed to set the description\n");
     }
 
     printf("Service %s installed.\n", service_name);
@@ -122,24 +122,24 @@ remove_service(char *service_name)
     schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        logerror("remove_service failed to open Service Control Manager"); 
+        fprintf(stderr, "remove_service failed to open Service Control Manager\n"); 
 	return EXIT_FAILURE;
     }
 
     hService = OpenService(schSCManager, service_name, SERVICE_ALL_ACCESS);
 
     if (hService == NULL) {
-        logerror("remove_service failed to open service %s", service_name);
+        fprintf(stderr, "remove_service failed to open service %s\n", service_name);
 	return EXIT_FAILURE;
     }
 
     if (DeleteService(hService) == 0) {
-        logerror("remove_service failed to remove service %s", service_name);
+        fprintf(stderr, "remove_service failed to remove service %s\n", service_name);
 	return EXIT_FAILURE;
     }
 
     if (CloseServiceHandle(hService) == 0) {
-        logerror("remove_service failed to close service %s", service_name); 
+        fprintf(stderr, "remove_service failed to close service %s\n", service_name); 
         return EXIT_FAILURE;
     } else {
         printf("Service %s removed.\n", service_name); 

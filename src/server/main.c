@@ -169,18 +169,18 @@ main(int argc, char **argv)
 #if defined(_WIN32)
     if ((debug || datadir_set || config_file != NULL) &&
 	remove_service_set) {
-	logerror("Can't use -d, -D or -e with either "
-	    "-r or -R options when starting the server");
+	fprintf(stderr, "Can't use -d, -D or -e with either "
+	    "-r or -R options when starting the server\n");
 	exit(EXIT_FAILURE);
     }
     if (debug && install_service_set) {
-	logerror("Can't use -d with either "
-	    "-i or -I options when starting the server");
+	fprintf(stderr, "Can't use -d with either "
+	    "-i or -I options when starting the server\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
-	logerror("Can't use both -r or -R and -i or -I options when starting "
-	    "the server");
+	fprintf(stderr, "Can't use both -r or -R and -i or -I options when starting "
+	    "the server\n");
 	exit(EXIT_FAILURE);
     }
 #endif	/* _WIN32 */
