@@ -254,6 +254,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	    amt = max - there;
 	    there = max;
 	}
+	pr("%d %s landed safely", amt, ip->i_name);
 	if (type == EF_SECTOR) {
 	    struct sctstr *sectp = (struct sctstr *)ptr;
 	    sectp->sct_item[ip->i_vtype] = there;
@@ -272,7 +273,6 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	    pr(" on carrier #%d\n", ship->shp_uid);
 	    putship(ship->shp_uid, ship);
 	}
-	pr("%d %s landed safely", amt, ip->i_name);
     }
 }
 
