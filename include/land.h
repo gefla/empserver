@@ -61,7 +61,7 @@ struct lndstr {
     coord lnd_opx, lnd_opy;	/* Op sector coords */
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
-    s_char lnd_flags;		/* unit flags */
+    s_char lnd_flags;		/* unit flags (unused) */
     short lnd_ship;		/* pointer to transporting ship */
     s_char lnd_harden;		/* for missiles */
     short lnd_retreat;		/* retreat percentage */

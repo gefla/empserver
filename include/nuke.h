@@ -43,8 +43,8 @@ struct nukstr {
     coord nuk_x;		/* current loc of device */
     coord nuk_y;
     s_char nuk_n;		/* number of nukes in list */
-    short nuk_ship;		/* currently aboard ship */
-    short nuk_trade;		/* index into trade file */
+    short nuk_ship;		/* currently aboard ship (unused) */
+    short nuk_trade;		/* index into trade file (unused) */
     short nuk_types[N_MAXNUKE];	/* # of nukes in sector of given type */
     time_t nuk_timestamp;	/* Last time this nuke was touched */
 };

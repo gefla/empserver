@@ -36,9 +36,9 @@
 struct loststr {
     short ef_type;
     natid lost_owner;		/* Who lost it */
-    int lost_uid;		/* This lost # */
+    int lost_uid;		/* lost ID */
     char lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
-    short lost_id;		/* ID of thing */
+    short lost_id;		/* ID of lost thing */
     coord lost_x;
     coord lost_y;
     time_t lost_timestamp;	/* When it was lost */
