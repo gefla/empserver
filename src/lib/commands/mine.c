@@ -59,8 +59,8 @@ mine(void)
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    mines =
-	onearg(player->argp[2], "Drop how many mines from each ship?  ");
+    mines = onearg(player->argp[2],
+		   "Drop how many mines from each ship?  ");
     if (mines <= 0)
 	return RET_SYN;
     while (nxtitem(&ni, (s_char *)&ship)) {
@@ -77,7 +77,7 @@ mine(void)
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
-	sect.sct_mines += mines_avail;
+	sect.sct_mines = min(sect.sct_mines + mines_avail, MINES_MAX);
 	ship.shp_item[I_SHELL] = shells - mines_avail;
 	putsect(&sect);
 	ship.shp_mission = 0;
@@ -151,7 +151,7 @@ landmine(void)
 	    shells = min(shells, land.lnd_mobil);
 	}
 	getsect(sect.sct_x, sect.sct_y, &sect);
-	sect.sct_mines += total_mines_laid;
+	sect.sct_mines = min(sect.sct_mines + total_mines_laid, MINES_MAX);
 	putsect(&sect);
 	if (total_mines_laid == mines_wanted) {
 	    pr("%s laid a total of %d mines in %s",

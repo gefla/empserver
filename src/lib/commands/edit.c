@@ -627,8 +627,9 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	sect->sct_avail = new;
 	break;
     case 'M':
-	sect->sct_mines = arg;
-	pr("Mines changed to %d\n", arg);
+	new = errcheck(arg, 0, MINES_MAX);
+	sect->sct_mines = new;
+	pr("Mines changed to %d\n", new);
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))

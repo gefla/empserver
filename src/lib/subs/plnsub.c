@@ -230,7 +230,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	sectp = ptr;
 	if (sectp->sct_type == SCT_WATER && ip->i_vtype == V_SHELL) {
 	    /* aerial mining */
-	    sectp->sct_mines += amt;
+	    sectp->sct_mines = min(sectp->sct_mines + amt, MINES_MAX);
 	    pr("%d mines laid in %s.\n", amt,
 	       xyas(sectp->sct_x, sectp->sct_y, player->cnum));
 	    if (amt > 0

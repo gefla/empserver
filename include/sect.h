@@ -184,8 +184,10 @@ extern struct dchrstr bigcity_dchr;
 /* Sector flags */
 #define MOVE_IN_PROGRESS	bit(0)	/* move in progress */
 
-/* maximal number of che, must fit into struct sctstr member sct_che */
-#define CHE_MAX                 255
+/* maximum number of che, must fit into struct sctstr member sct_che */
+#define CHE_MAX 255
+/* maximum number of mines, must fit into struct sctstr member sct_mines */
+#define MINES_MAX 65535
 
 /* Each cost is per point of efficency */
 struct sctintrins {

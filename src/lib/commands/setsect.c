@@ -222,6 +222,8 @@ setsector(void)
 		current += amt;
 		if (current < 0)
 		    current = 0;
+		if (current > MINES_MAX)
+		    current = MINES_MAX;
 		if (sect.sct_own != 0)
 		    resnoise(&sect, 1, "Mines", sect.sct_mines, current);
 		sect.sct_mines = current;
