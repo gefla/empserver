@@ -37,9 +37,7 @@
 #include "misc.h"
 #include "player.h"
 #include <errno.h>
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include <stdio.h>
 #include <sys/stat.h>
 #if !defined(_WIN32)
@@ -97,9 +95,6 @@ int
 info(void)
 {
     extern s_char *infodir;
-#if (!defined linux) && (!defined FBSD) && (!defined __linux__) && (!defined __ppc__)
-    extern s_char *sys_errlist[];
-#endif
     s_char buf[255];
     FILE *fp;
     s_char *bp;
@@ -148,7 +143,7 @@ info(void)
     }
     if (fstat(fileno(fp), &statb) < 0) {
 	pr("Cannot read info page for \"%s\" (%s)\n",
-	   dp->d_name, sys_errlist[errno]);
+	   dp->d_name, strerror(errno));
 	fclose(fp);
 	return RET_SYS;
     }
