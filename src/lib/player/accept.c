@@ -200,7 +200,7 @@ player_accept(void *argv)
     short port;
     int val;
     struct player *np;
-    int len;
+    socklen_t len;
     int ns;
     int set = 1;
     int stacksize;
