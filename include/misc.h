@@ -142,8 +142,8 @@ extern s_char *esplur(int n);
 extern s_char *splur(int n);
 extern s_char *iesplur(int n);
 extern s_char *plur(int n, s_char *no, s_char *yes);
-extern s_char *getstarg(s_char *input, s_char *prompt, s_char buf[]);
-extern s_char *getstring(s_char *prompt, s_char buf[]);
+extern char *getstarg(char *input, char *prompt, char buf[]);
+extern char *getstring(char *prompt, char buf[]);
 extern s_char *prbuf(s_char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 

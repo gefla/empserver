@@ -35,8 +35,12 @@
 #include "gen.h"
 #include "subs.h"
 
-s_char *
-getstring(s_char *prompt, s_char *buf)
+/*
+ * Print sub-prompt PROMPT, receive a line of input into BUF[1024].
+ * Return BUF on success, else NULL.
+ */
+char *
+getstring(char *prompt, char *buf)
 {
     *buf = '\0';
     if (prmptrd(prompt, buf, 1024) < 0)

@@ -34,8 +34,14 @@
 #include "misc.h"
 #include "gen.h"
 
-s_char *
-getstarg(s_char *input, s_char *prompt, s_char *buf)
+/*
+ * Get string argument.
+ * If INPUT is not empty, use it, else prompt for more input using PROMPT.
+ * Copy input to BUF[1024].
+ * Return BUF on success, else NULL.
+ */
+char *
+getstarg(char *input, char *prompt, char *buf)
 {
     *buf = '\0';
     if (input == 0 || *input == 0) {
