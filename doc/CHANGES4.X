@@ -1,11 +1,10 @@
-Changes to Empire 4.2.17 - Sat Aug 14 19:53:12 UTC 2004
+Changes to Empire 4.2.17 - Mon Aug 16 16:21:53 UTC 2004
  * Fix seeding of PRNG under Windows.  The bug made updates occur at
    a predictable time in the update window.  From Ron Koenderink.
  * Close major loophole in drop that allowed players to determine
    whether an arbitrary sector is sea, allied land, or other land.
- * fly could fly civilians into occupied or allied sectors.  drop
-   could drop them into allied sectors.  For consistency with other
-   means to move around stuff, both is no longer possible.
+ * fly could fly civilians into occupied sectors.  For consistency
+   with other means to move around stuff, this is no longer possible.
  * Don't allow flying to a carrier that doesn't have space for the
    planes.  Previously, planes that did this were teleported home,
    which could be abused.
