@@ -240,19 +240,19 @@ struct camap {
 
 /* Table of characteristics tables */
 static struct camap chr_camap[] = {
-    {"sector chr", dchr_ca, dchr, sizeof(dchr[0])},
-    {"item", ichr_ca, ichr, sizeof(ichr[0])},
-    {"infrastructure", intrchr_ca, intrchr, sizeof(intrchr[0])},
-    {"product", pchr_ca, pchr, sizeof(pchr[0])},
-#if 0
-    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
-    {"news", rpt_ca, rpt, sizeof(rpt[0])},
-#endif
-    {"treaty", tchr_ca, tchr, sizeof(tchr[0])},
+    {"sect chr", dchr_ca, dchr, sizeof(dchr[0])},
     {"ship chr", mchr_ca, mchr, sizeof(mchr[0])},
     {"plane chr", plchr_ca, plchr, sizeof(plchr[0])},
     {"land chr", lchr_ca, lchr, sizeof(lchr[0])},
     {"nuke chr", nchr_ca, nchr, sizeof(nchr[0])},
+#if 0
+    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
+    {"news chr", rpt_ca, rpt, sizeof(rpt[0])},
+#endif
+    {"treaty chr", tchr_ca, tchr, sizeof(tchr[0])},
+    {"item", ichr_ca, ichr, sizeof(ichr[0])},
+    {"infrastructure", intrchr_ca, intrchr, sizeof(intrchr[0])},
+    {"product", pchr_ca, pchr, sizeof(pchr[0])},
     {NULL, NULL, NULL, 0}
 };
 
