@@ -102,7 +102,7 @@ new(void)
 	getsect(x + 2, y, &sect);
 	if (sect.sct_type != SCT_RURAL) {
 	    pr("%s is a %s; try again...\n",
-	       xyas(x, y, player->cnum), dchr[sect.sct_type].d_name);
+	       xyas(x + 2, y, player->cnum), dchr[sect.sct_type].d_name);
 	    return RET_SYN;
 	}
     } else {
