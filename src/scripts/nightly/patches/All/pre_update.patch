@@ -1,0 +1,12 @@
+Index: empserver/src/lib/global/constants.c
+--- empserver/src/lib/global/constants.c	12 Mar 2005 17:24:57 -0000	1.16
++++ empserver/src/lib/global/constants.c	15 Mar 2005 19:20:25 -0000
+@@ -61,7 +61,7 @@
+ char *update_demandtimes = "";	/* times demand update is allowed */
+ char *game_days = "";		/* days game is running */
+ char *game_hours = "";		/* hours game is running */
+-char *pre_update_hook = "";
++char *pre_update_hook = "echo '-=< pre_update_hook executed here >=-'";
+ int max_idle = 15;		/* session dies after max_idle minutes idle */
+ 
+ int sect_mob_max = 127;		/* sector mobility limits */
