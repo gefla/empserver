@@ -133,13 +133,10 @@ sub parse_files {
     &error("Illegal filename (it is a type name).");
   }
 
-  open (LS, "ls $dir|");
+  open (LS, "cd $dir && ls *.t|");
 
   while (<LS>) {    
     chop;
-    next if /^GNUmakefile$/;
-    next if /^Makefile$/;
-    next if /^MakeSrcs$/;
     $filename = $_;
     &parse_file;
   }
