@@ -336,8 +336,6 @@ static int
 check_nav(sect)
 struct sctstr *sect;
 {
-    extern struct dchrstr dchr[];
-
     switch (dchr[sect->sct_type].d_flg & 03) {
     case NAVOK:
 	break;

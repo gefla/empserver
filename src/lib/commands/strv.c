@@ -48,7 +48,6 @@
 #include "land.h"
 #include "commands.h"
 
-extern int etu_per_update;
 static void starv_sects(s_char *range);
 static void starv_ships(s_char *range);
 static void starv_units(s_char *range);

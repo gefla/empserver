@@ -153,27 +153,27 @@ int fl_status;			/* is anything wrong? */
 const char *numletter =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-void parse_args(int argc, char *argv[]);
-int allocate_memory(void);
-void init(void);
-int drift(void);
-void grow_continents(void);
-void create_elevations(void);
-void write_sects(void);
-int write_file(void);
-void output(void);
-int write_newcap_script(void);
-int stable(void);
-void elevate_land(void);
-void elevate_sea(void);
-void translate_continents(void);
-int map_symbol(int x, int y);
+static void parse_args(int argc, char *argv[]);
+static int allocate_memory(void);
+static void init(void);
+static int drift(void);
+static void grow_continents(void);
+static void create_elevations(void);
+static void write_sects(void);
+static int write_file(void);
+static void output(void);
+static int write_newcap_script(void);
+static int stable(void);
+static void elevate_land(void);
+static void elevate_sea(void);
+static void translate_continents(void);
+static int map_symbol(int x, int y);
 static void fl_sct_init(coord x, coord y, s_char *ptr);
 
-void print_vars(void);
-void fl_move(int);
-void next_coast(int c, int x, int y, int *xp, int *yp);
-void grow_islands(void);
+static void print_vars(void);
+static void fl_move(int);
+static void next_coast(int c, int x, int y, int *xp, int *yp);
+static void grow_islands(void);
 
 /****************************************************************************
   MAIN
@@ -260,7 +260,7 @@ main(int argc, char *argv[])
     exit(0);
 }
 
-void
+static void
 print_vars(void)
 {
     if (quiet)
@@ -291,7 +291,7 @@ my_sqrt(int n)
   PARSE COMMAND LINE ARGUMENTS
 ****************************************************************************/
 
-void
+static void
 parse_args(int argc, char *argv[])
 {
     if (argc < 2 || argc > 8) {
@@ -393,7 +393,7 @@ parse_args(int argc, char *argv[])
   VARIABLE INITIALIZATION
 ****************************************************************************/
 
-int
+static int
 allocate_memory(void)
 {
     int i;
@@ -453,7 +453,7 @@ allocate_memory(void)
     return 0;
 }
 
-void
+static void
 init(void)
 {
     int i, j, xx = 0, yy = 0;
@@ -508,7 +508,7 @@ iso(int j, int newx, int newy)
 
 /* Drift all the capitals
 */
-int
+static int
 drift(void)
 {
     int i, turns;
@@ -525,7 +525,7 @@ drift(void)
 /* Check to see if we have stabilized--can we stop drifting the capitals?
 */
 
-int
+static int
 stable(void)
 {
     int i, isod, d = 0, stab = 1;
@@ -546,7 +546,7 @@ stable(void)
 /* This routine does the actual drifting
 */
 
-void
+static void
 fl_move(int j)
 {
     int i, n, newx, newy;
@@ -632,7 +632,7 @@ try_to_grow(int c, int newx, int newy, int d)
 /* Move along the coast in a clockwise direction.
 */
 
-void
+static void
 next_coast(int c, int x, int y, int *xp, int *yp)
 {
     int i, nx, ny, wat = 0;
@@ -734,7 +734,7 @@ grow_one_sector(int c)
 
 /* Grow all the continents
 */
-void
+static void
 grow_continents(void)
 {
     int c;
@@ -795,7 +795,7 @@ place_island(int c, int *xp, int *yp)
 /* Grow all the islands
 */
 
-void
+static void
 grow_islands(void)
 {
     int c, x, y, isiz;
@@ -819,7 +819,7 @@ grow_islands(void)
 /****************************************************************************
   CREATE ELEVATIONS
 ****************************************************************************/
-void
+static void
 create_elevations(void)
 {
     elevate_land();
@@ -869,7 +869,7 @@ distance_to_what(int x, int y, int flag)
 
 /* Decide where the mountains go
 */
-void
+static void
 elevate_land(void)
 {
     int i, mountain_search, k, c, total, ns, nm, highest, where, h, newk,
@@ -959,7 +959,7 @@ elevate_land(void)
 
 #define distance_to_land() distance_to_what(x, y, 1)
 
-void
+static void
 elevate_sea(void)
 {
     int x, y;
@@ -1053,7 +1053,7 @@ add_resources(struct sctstr *sct)
   DESIGNATE THE SECTORS
 ****************************************************************************/
 
-void
+static void
 write_sects(void)
 {
     register struct sctstr *sct;
@@ -1091,7 +1091,7 @@ write_sects(void)
 /****************************************************************************
   WRITE ALL THIS STUFF TO THE FILE
 ****************************************************************************/
-int
+static int
 write_file(void)
 {
     int n;
@@ -1112,7 +1112,7 @@ write_file(void)
 /****************************************************************************
   PRINT A PICTURE OF THE MAP TO YOUR SCREEN
 ****************************************************************************/
-void
+static void
 output(void)
 {
     int i, j;
@@ -1137,7 +1137,7 @@ output(void)
 }
 
 /* Reorder the continents from top left to bottom right */
-void
+static void
 translate_continents(void)
 {
     int i, j, n = 0, k, gotit, c;
@@ -1185,7 +1185,7 @@ translate_continents(void)
     }
 }
 
-int
+static int
 map_symbol(int x, int y)
 {
     int c, iscap = 0;
@@ -1203,7 +1203,7 @@ map_symbol(int x, int y)
 /***************************************************************************
   WRITE A SCRIPT FOR PLACING CAPITALS
 ****************************************************************************/
-int
+static int
 write_newcap_script(void)
 {
     int c;
@@ -1238,7 +1238,7 @@ qprint(const char *str)
 	fputs(str, stdout);
 }
 
-void
+static void
 fl_sct_init(coord x, coord y, s_char *ptr)
 {
     struct sctstr *sp = (struct sctstr *)ptr;

@@ -47,8 +47,6 @@
 #include "file.h"
 #include "prototypes.h"
 
-extern s_char *effadv(int);
-
 int
 shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 {

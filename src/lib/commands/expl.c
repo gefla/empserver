@@ -46,9 +46,6 @@
 
 static int explore_map(s_char *what, coord curx, coord cury, s_char *arg);
 
-extern int etu_per_update;
-extern int sect_mob_neg_factor;
-
 int
 explore(void)
 {

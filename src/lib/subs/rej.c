@@ -40,8 +40,6 @@
 #include "optlist.h"
 #include "server.h"
 
-extern s_char *relates[];
-
 int
 setrel(natid us, natid them, int rel)
 {

@@ -36,11 +36,6 @@
 #include <bounds/unchecked.h>
 #endif
 
-#ifdef hpc
-extern struct lwpProc *initcontext;
-extern int startpoint;
-#endif
-
 struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 
 struct lwpProc *LwpCurrent = NULL;

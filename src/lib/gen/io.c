@@ -63,8 +63,6 @@
 
 #include "empthread.h"
 
-extern struct player *player;	/* XXX */
-
 struct iop {
     int fd;
     struct ioqueue *input;

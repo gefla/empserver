@@ -67,18 +67,14 @@
 #include "server.h"
 #include "prototypes.h"
 
-void nullify_objects(void);
-void init_files(void);
-void close_files(void);
+static void nullify_objects(void);
+static void init_files(void);
+static void close_files(void);
 
 #if defined(_WIN32)
 static void loc_NTInit(void);
 static void loc_NTTerm(void);
 #endif
-
-extern void mobility_init(void);
-extern void mobility_check(void *);
-extern void market_update(void *);
 
 #if !defined(_WIN32)
 static int mainpid = 0;
@@ -250,7 +246,7 @@ main(int argc, char **argv)
     return 0;
 }
 
-void
+static void
 init_files(void)
 {
     ef_open(EF_NATION, O_RDWR, EFF_MEM);
@@ -270,7 +266,7 @@ init_files(void)
     ef_open(EF_LOST, O_RDWR, 0);
 }
 
-void
+static void
 close_files(void)
 {
     ef_close(EF_NATION);
@@ -385,7 +381,7 @@ shutdwn(int sig)
 }
 
 
-void
+static void
 nullify_objects(void)
 {
     int i, j;

@@ -52,8 +52,6 @@
 #include "gen.h"
 #include "common.h"
 
-extern float levels[MAXNOC][4];
-
 void
 prepare_sects(int etu, int *bp)
 {

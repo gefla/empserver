@@ -61,7 +61,6 @@
 #include <fcntl.h>
 
 struct player *player;
-extern int m_m_p_d;
 
 void
 player_main(struct player *p)

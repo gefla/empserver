@@ -47,8 +47,6 @@
 #include "optlist.h"
 #include "commands.h"
 
-extern float drnuke_const;
-
 int
 vers(void)
 {

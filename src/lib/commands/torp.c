@@ -57,8 +57,6 @@ static void fire_dchrg(struct shpstr *sp, struct shpstr *targ, int range,
 		       int ntargets);
 static int fire_torp(struct shpstr *, struct shpstr *, int, int);
 
-s_char *prsub(struct shpstr *sp);
-
 int
 torp(void)
 {

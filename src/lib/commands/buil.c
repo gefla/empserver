@@ -68,10 +68,6 @@ static int build_plane(register struct sctstr *sp,
 
 static int cash;		/* static ok */
 
-extern int morale_base;
-extern int sect_mob_neg_factor;
-extern int etu_per_update;
-
 /*
  * build <WHAT> <SECTS> <TYPE|DIR|MEG> [NUMBER]
  */

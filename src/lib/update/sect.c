@@ -55,8 +55,6 @@
 #include "lost.h"
 #include "gen.h"
 
-extern float levels[MAXNOC][4];
-
 int
 dodeliver(struct sctstr *sp, int *vec)
 {
@@ -200,8 +198,6 @@ enlist(register int *vec, int etu, int *cost)
 }
 
 /* Fallout is calculated here. */
-
-extern int melt_item_denom[];
 
 static void
 meltitems(int etus, int fallout, int own, int *vec, int type, int x, int y,

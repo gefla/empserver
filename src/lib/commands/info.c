@@ -235,7 +235,6 @@ printdir(void)
     extern int alphasort(const struct dirent *const *,
 			 const struct dirent *const *);
 #endif
-    extern s_char *infodir;
     static time_t lastmodtime;
     static int number;
     static struct dirent **dp;
@@ -369,7 +368,6 @@ apro(void)
 int
 info(void)
 {
-    extern s_char *infodir;
     s_char buf[255];
     FILE *fp;
     s_char *bp;
@@ -441,7 +439,6 @@ info(void)
 static int
 printdir(void)
 {
-    extern s_char *infodir;
     HANDLE hDir;
     WIN32_FIND_DATA fData;
     int count;
@@ -473,7 +470,6 @@ printdir(void)
 int
 apro(void)
 {
-    extern s_char *infodir;
     HANDLE hDir;
     WIN32_FIND_DATA fData;
     FILE *fp;

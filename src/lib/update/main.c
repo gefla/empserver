@@ -58,7 +58,6 @@ long lnd_money[MAXNOC];
 long air_money[MAXNOC];
 long tpops[MAXNOC];
 
-extern int mil_dbl_pay;
 int update_pending = 0;
 
 static void do_prod(int, int, int, int *, long int (*)[2], int *, int *,

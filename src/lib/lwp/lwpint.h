@@ -29,6 +29,11 @@
 /* more inefficient the context switch time */
 #define LCOUNT	-1
 
+#ifdef hpc
+extern struct lwpProc *initcontext;
+extern int startpoint;
+#endif
+
 #ifdef hpux
 int lwpSave(jmp_buf);
 void lwpRestore(jmp_buf);

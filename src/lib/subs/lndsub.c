@@ -53,8 +53,6 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-extern int etu_per_update;
-
 int
 attack_val(int combat_mode, struct lndstr *lp)
 {
@@ -934,7 +932,6 @@ static int
 lnd_fort_interdiction(struct emp_qelem *list,
 		      coord newx, coord newy, natid victim)
 {
-    extern int fort_max_interdiction_range;
     struct nstr_sect ns;
     struct sctstr fsect;
     int trange;

@@ -49,10 +49,6 @@
 #include <fcntl.h>
 #include <math.h>
 
-extern float start_education, start_happiness;
-extern float start_technology, start_research;
-extern int morale_base;
-
 static int deity_build_land(int, coord, coord, natid, int);
 static int isok(int x, int y);
 static void ok(s_char *map, int x, int y);
@@ -64,9 +60,6 @@ static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
 int
 new(void)
 {
-#ifdef START_UNITS
-    extern int start_unit_type[START_UNITS];
-#endif /* START_UNITS */
     struct sctstr sect;
     struct natstr *natp;
     struct boundstr newrealms;

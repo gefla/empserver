@@ -53,7 +53,6 @@
 #include "common.h"
 #include <stdlib.h>
 
-extern int check_nav(struct sctstr *sect);
 static void swap(register struct shpstr *);
 
 static void

@@ -47,10 +47,6 @@
 
 #define CHE_MAX                 255
 
-void takeover_land(register struct lndstr *landp, natid newown,
-		   int hostile);
-void takeover_plane(register struct plnstr *pp, natid newown);
-
 void
 takeover(register struct sctstr *sp, natid newown)
 {

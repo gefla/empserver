@@ -56,15 +56,6 @@
 #define MIN(x,y)	((x) > (y) ? (y) : (x))
 #endif
 
-extern int etu_per_update;
-extern double bankint;
-extern double money_civ;
-extern double money_uw;
-extern double money_mil;
-extern double obrate, uwbrate;
-extern int etu_per_update;
-extern double money_res;
-
 static void calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,

@@ -54,8 +54,6 @@
 #include "commands.h"
 #include "optlist.h"
 
-extern int MARK_DELAY;
-
 /*
  * format: buy <COMMODITY>
  *

@@ -52,6 +52,7 @@
 #include "match.h"
 #include "file.h"
 #include "optlist.h"
+#include "tel.h"
 #include "gen.h"		/* parse */
 
 /* for systems without strdup  */
@@ -379,9 +380,6 @@ struct otherfiles {
     s_char **files;
     char *name;
 };
-
-extern s_char *upfil, *downfil, *disablefil, *banfil, *authfil;
-extern s_char *commfil, *annfil, *telfil, *teldir, *timestampfil;
 
 /* list of other well known files... -maybe tailor these oneday
  * anyway - meantime they are all relative to datadir */

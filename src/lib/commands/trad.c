@@ -55,10 +55,6 @@
 #include "commands.h"
 #include "optlist.h"
 
-extern int sect_mob_neg_factor;
-extern int etu_per_update;
-extern int TRADE_DELAY;
-
 /*
  * format: trade
  */

@@ -55,7 +55,6 @@
 #define	LOAD	1
 #define	UNLOAD	-1
 
-void gift(int givee, int giver, s_char *ptr, int type, s_char *mesg);
 static int load_plane_ship(struct sctstr *sectp, struct shpstr *sp,
 			   int noisy, int load_unload, int *nshipsp);
 static int load_land_ship(struct sctstr *sectp, struct shpstr *sp,

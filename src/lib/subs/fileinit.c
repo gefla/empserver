@@ -43,17 +43,6 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-extern struct castr sect_ca[];
-extern struct castr news_ca[];
-extern struct castr loan_ca[];
-extern struct castr ship_ca[];
-extern struct castr plane_ca[];
-extern struct castr treaty_ca[];
-extern struct castr nuke_ca[];
-extern struct castr trade_ca[];
-extern struct castr commodity_ca[];
-extern struct castr lost_ca[];
-
 struct fileinit fileinit[EF_MAX] = {
     {(ef_fileinit)sct_init, sct_postread, sct_prewrite, sect_ca},
     {shp_init, shp_postread, shp_prewrite, ship_ca},

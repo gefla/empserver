@@ -72,9 +72,7 @@ static s_char *finish_path = "h";	/* Placeholder indicating path exists */
 #endif /* SAVE_FINISH_PATHS */
 
 static void assemble_dist_paths(struct distinfo *distptrs);
-s_char *BestDistPath(s_char *, struct sctstr *, struct sctstr *, double *, int);
-s_char *ReversePath(s_char *path);
-double pathcost(struct sctstr *, s_char *, int);
+static s_char *ReversePath(s_char *path);
 
 void
 finish_sects(int etu)
@@ -240,7 +238,7 @@ assemble_dist_paths(struct distinfo *distptrs)
     }
 }
 
-s_char *
+static s_char *
 ReversePath(s_char *path)
 {
     s_char *patharray = "aucdefjhigklmyopqrstbvwxnz";

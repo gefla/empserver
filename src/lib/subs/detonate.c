@@ -47,7 +47,7 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-void kaboom(int x, int y, int rad, natid cn);
+static void kaboom(int x, int y, int rad, natid cn);
 
 int
 detonate(struct plnstr *pp, int x, int y)
@@ -317,7 +317,7 @@ detonate(struct plnstr *pp, int x, int y)
 /*
  * silly to be sure.
  */
-void
+static void
 kaboom(int x, int y, int rad, natid cn)
 {
     mpr(cn, "\n\nK A B ");

@@ -53,10 +53,6 @@
 #include "server.h"
 #include "prototypes.h"
 
-extern double tfactfire(natid, double);
-
-extern int etu_per_update;
-
 static int shp_check_nav(struct sctstr *);
 static int shp_check_one_mines(struct mlist *);
 static int shp_hit_mine(struct shpstr *, struct mchrstr *);

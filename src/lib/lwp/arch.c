@@ -98,7 +98,6 @@ void
 lwpInitContext(volatile struct lwpProc *volatile newp, void *sp)
 {
     static jmp_buf *cpp;
-    extern struct lwpProc *LwpCurrent;
 
     if (!lwpSave(LwpCurrent->context)) {
 	cpp = (jmp_buf *) & newp->context;
@@ -305,7 +304,6 @@ void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     static jmp_buf *cpp;
-    extern struct lwpProc *LwpCurrent;
 
     memset(newp->context, 0, sizeof(newp->context));
     newp->context[0] = (int)sp;

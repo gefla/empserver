@@ -48,8 +48,6 @@
 #include "commands.h"
 #include "optlist.h"
 
-extern int etu_per_update;
-extern int sect_mob_neg_factor;
 /*
  * format: anti <SECT>
  */

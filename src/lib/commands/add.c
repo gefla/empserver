@@ -44,9 +44,7 @@
 #include "tel.h"
 #include "land.h"
 #include "commands.h"
-
-extern float start_education, start_happiness;
-extern float start_technology, start_research;
+#include "optlist.h"
 
 int
 add(void)

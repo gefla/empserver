@@ -34,8 +34,7 @@
 #include "misc.h"
 #include "nat.h"
 #include "file.h"
-
-extern float fire_range_factor;
+#include "optlist.h"
 
 double
 tfact(natid cn, double mult)

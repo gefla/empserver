@@ -205,6 +205,10 @@ extern long last_demand_update;
 
 /* Game parameters that cannot be set in econfig (yet) */
 extern int melt_item_denom[];
+extern float start_education;
+extern float start_happiness;
+extern float start_technology;
+extern float start_research;
 #ifdef START_UNITS
 int start_unit_type[];
 #endif
@@ -219,6 +223,7 @@ extern s_char *commfil;
 extern s_char *banfil;
 extern s_char *authfil;
 extern s_char *timestampfil;
+/* teldir, telfil, annfil are in tel.h */
 
 struct keymatch {
     s_char *km_key;		/* the key */

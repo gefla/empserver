@@ -57,10 +57,6 @@
  * level of 0 yields (1) 0.4, (6) 2.2, (12) 3.9, (18) 5.2.
  */
 
-extern float hap_avg;
-extern float edu_avg;
-extern float ally_factor;
-
 static void share_incr(register double *, register double *);
 
 /*

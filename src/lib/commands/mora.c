@@ -41,8 +41,7 @@
 #include "nat.h"
 #include "deity.h"
 #include "commands.h"
-
-extern int morale_base;
+#include "optlist.h"
 
 int
 morale(void)

@@ -42,7 +42,6 @@
 
 empth_sem_t *update_sem;
 
-extern void update_main(void *);
 static void update_wait(void *argv);
 time_t update_time;
 

@@ -46,8 +46,6 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-void satdisp(struct sctstr *sp, int acc, int showstuff);
-
 static s_char **rad;
 static s_char *radbuf;
 

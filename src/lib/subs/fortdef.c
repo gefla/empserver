@@ -53,8 +53,6 @@
 #define	QUIET	0
 #define	NOISY	1
 
-extern double tfactfire(natid, double);
-
 /*
  * See if any nearby ships will open up on the attacker
  * Return damage done to attacker, if any.
