@@ -192,8 +192,6 @@ int
 main(int argc, char *argv[])
 {
     int opt;
-    extern int optind;
-    extern char *optarg;
     char *config_file = NULL;
     char tbuf[512];
     int i = 0;

@@ -84,7 +84,6 @@ main(int argc, char *argv[])
     struct sctstr sct;
     int i;
     s_char *map;
-    extern char *optarg;
     int opt;
     char *config_file = NULL;
     int force = 0;
