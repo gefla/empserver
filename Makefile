@@ -486,12 +486,12 @@ install:
 	(cd src/client; $(MAKE) install)
 	(cd src/server; $(MAKE) install)
 	(cd src/util; $(MAKE) install)
+	-mkdir $(EMPDIR)/data
 	-(mv $(EMPDIR)/data/econfig $(EMPDIR)/data/econfig.bak)
 	($(EMPDIR)/bin/pconfig > $(EMPDIR)/data/econfig)
 	-(mv $(EMPDIR)/data/econfig.bak $(EMPDIR)/data/econfig)
 
 ntinstall:
-	-(mkdir bin)
 	cd src\client
 	$(MAKE) ntinstall
 	cd ..\..
@@ -501,6 +501,7 @@ ntinstall:
 	cd src\util
 	$(MAKE) ntinstall
 	cd ..\..
+	-mkdir $(NTINSTDIR)\data
 	cd data
 	($(NTINSTDIR)\bin\pconfig.exe > $(NTINSTDIR)\data\econfig.new)
 	-(move econfig.new econfig)
