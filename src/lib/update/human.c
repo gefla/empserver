@@ -65,19 +65,17 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     int people;
     int work_avail;
     int starved, sctwork;
-    int needed, dummy;
-    int civvies, uws;
-    int mil;
+    int needed;
     int maxpop;
 
     /* grow people & stuff */
     sctwork = sp->sct_work;
 
     maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
-    civvies = (vec[I_CIVIL] > maxpop) ? maxpop : vec[I_CIVIL];
-    uws = (vec[I_UW] > maxpop) ? maxpop : vec[I_UW];
-    mil = (vec[I_MILIT] > maxpop) ? maxpop : vec[I_MILIT];
-    work_avail = new_work(sp, total_work(sctwork, etu, civvies, mil, uws));
+    work_avail = new_work(sp,
+			  total_work(sctwork, etu,
+				     vec[I_CIVIL], vec[I_MILIT], vec[I_UW],
+				     maxpop));
 
     people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
     if (sp->sct_type != SCT_SANCT) {
@@ -126,7 +124,7 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		sctwork = 100;
 	    if (!player->simulation)
 		sp->sct_work = sctwork;
-	    dummy = grow_people(sp, etu, np, &work_avail, sctwork, vec);
+	    grow_people(sp, etu, np, &work_avail, sctwork, vec);
 	}
     } else
 	sctwork = sp->sct_work = 100;
@@ -307,7 +305,7 @@ grow_people(struct sctstr *sp, int etu,
      */
     if (opt_NOFOOD == 0 && (newciv || newuw))
 	vec[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
-    *workp += total_work(sctwork, etu, newciv, 0, newuw);
+    *workp += total_work(sctwork, etu, newciv, 0, newuw, ITEM_MAX);
     return newciv + newuw;
 }
 

@@ -172,7 +172,8 @@ upd_ship(struct shpstr *sp, int etus,
 		oil_gained = roundavg(total_work(100, etus,
 						 sp->shp_item[I_CIVIL],
 					         sp->shp_item[I_MILIT],
-						 sp->shp_item[I_UW])
+						 sp->shp_item[I_UW],
+						 ITEM_MAX)
 				      * (double)sp->shp_effic / 100.0
 				      * (double)sectp->sct_oil / 100.0
 				      * prod_eff(product, sp->shp_tech));
@@ -190,13 +191,15 @@ upd_ship(struct shpstr *sp, int etus,
 	    }
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
 		product = &pchr[P_FOOD];
-		sp->shp_item[I_FOOD] += roundavg(total_work(100, etus,
-							    sp->shp_item[I_CIVIL],
-							    sp->shp_item[I_MILIT],
-							    sp->shp_item[I_UW])
-						 * (double)sp->shp_effic / 100.0
-						 * (double)sectp->sct_fertil / 100.0
-						 * prod_eff(product, sp->shp_tech));
+		sp->shp_item[I_FOOD]
+		    += roundavg(total_work(100, etus,
+					   sp->shp_item[I_CIVIL],
+					   sp->shp_item[I_MILIT],
+					   sp->shp_item[I_UW],
+					   ITEM_MAX)
+				* sp->shp_effic / 100.0
+				* sectp->sct_fertil / 100.0
+				* prod_eff(product, sp->shp_tech));
 	    }
 	    if ((n = feed_ship(sp, etus, &needed, 1)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));

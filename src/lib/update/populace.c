@@ -131,9 +131,14 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
 }
 
 int
-total_work(int sctwork, int etu, int civil,
-	   int milit, int uw)
+total_work(int sctwork, int etu, int civil, int milit, int uw, int maxpop)
 {
-    return ((int)((((civil * sctwork) / 100.0 +
-		    (milit * 2 / 5.0) + uw)) * etu) / 100);
+    if (civil > maxpop)
+	civil = maxpop;
+    if (milit > maxpop)
+	milit = maxpop;
+    if (uw > maxpop)
+	uw = maxpop;
+
+    return (civil * sctwork / 100.0 + milit * 0.4 + uw) * etu / 100.0;
 }
