@@ -94,7 +94,8 @@ static int quiet = 0;
 static void qprint(const char * const fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
-static const char *outfile = "newcap_script";
+#define DEFAULT_OUTFILE_NAME "newcap_script"
+static const char *outfile = DEFAULT_OUTFILE_NAME;
 /* mark the continents with a * so you can tell them
    from the islands 1 = mark, 0 = don't mark. */
 static int AIRPORT_MARKER = 0;
@@ -316,8 +317,8 @@ parse_args(int argc, char *argv[])
 	puts("-q = quiet, -o = no ore produced");
 	puts("-a = Airport marker for continents, -i = islands not distinct");
 	puts("-R = seed to use for random, -e = read config file");
-	printf("-s = name of script (default %s)\n",
-	       outfile);
+	printf("-s = name of script (default = %s)\n",
+	       DEFAULT_OUTFILE_NAME);
 	puts("nc = number of continents [MANDATORY]");
 	puts("sc = continent size [MANDATORY]");
 	puts("ni = number of islands (default = nc)");
