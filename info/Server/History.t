@@ -222,8 +222,7 @@ WORLD_X and WORLD_Y) so that you didn't have to re-build an entire server
 each time you changed an option (you just have to rebuild the world 
 sometimes. ;-) )
 
-The source is still managed by the Wolfpack team, and still headed
-up by Steve McClure.
+The source is still managed by the Wolfpack team.
 
 .FI
 .SA "Server"
