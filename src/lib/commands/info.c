@@ -305,7 +305,7 @@ info(void)
 	name = "TOP";
 
     _snprintf(filename, sizeof(filename) - 1, "%s\\%s", infodir, name);
-    fp = fopen(filename, "r");
+    fp = fopen(filename, "rb");
     if (fp == NULL) {
 	/* may be a "partial" request.  */
 	HANDLE hDir;
@@ -365,7 +365,7 @@ info(void)
 	}
 	_snprintf(filename, sizeof(filename), "%s/%s",
 		  infodir, last);
-	fp = fopen(filename, "r");
+	fp = fopen(filename, "rb");
 	if (fp == NULL) {
 	    pr("Error reading info file for %s\n", name);
 	    logerror("Cannot open for \"%s\" info file (%s)",
@@ -455,7 +455,7 @@ apro(void)
 	     (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY))) {
 	    _snprintf(filename, sizeof(filename), "%s\\%s", infodir,
 		      fData.cFileName);
-	    fp = fopen(filename, "r");
+	    fp = fopen(filename, "rb");
 	    alreadyhit = 0;
 	    nll = nlhl = 0;
 	    if (fp != NULL) {

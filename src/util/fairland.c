@@ -194,10 +194,6 @@ main(int argc, char *argv[])
     char tbuf[512];
     int i = 0;
 
-#if defined(_WIN32)
-    _fmode = _O_BINARY;
-#endif
-    
     rnd_seed = time(NULL);
 
     while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
@@ -411,7 +407,7 @@ allocate_memory(void)
 {
     int i;
 
-    sect_fptr = fopen(empfile[EF_SECTOR].file, "w");
+    sect_fptr = fopen(empfile[EF_SECTOR].file, "wb");
     if (sect_fptr == NULL) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;

@@ -51,7 +51,7 @@ upda(void)
     struct mob_acc_globals timestamps;
 
     if (opt_MOB_ACCESS) {
-	if ((fp = fopen(timestampfil, "r")) == NULL)
+	if ((fp = fopen(timestampfil, "rb")) == NULL)
 	    logerror("Unable to open timestamp file.");
 	else {
 	    rewind(fp);

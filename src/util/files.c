@@ -88,10 +88,6 @@ main(int argc, char *argv[])
     char *config_file = NULL;
     int force = 0;
 
-#if defined(_WIN32)
-    _fmode = _O_BINARY;
-#endif
-
     while ((opt = getopt(argc, argv, "e:f")) != EOF) {
 	switch (opt) {
 	case 'e':

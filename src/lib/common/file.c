@@ -60,6 +60,9 @@ ef_open(int type, int mode, int how)
     static int block;
     int size;
 
+#if defined(_WIN32)
+    mode |= O_BINARY;
+#endif
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];

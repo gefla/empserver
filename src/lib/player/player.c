@@ -347,7 +347,7 @@ show_motd(void)
     struct telstr tgm;
     char buf[MAXTELSIZE];
 
-    if ((motd_fp = fopen(motdfil, "r")) == NULL)
+    if ((motd_fp = fopen(motdfil, "rb")) == NULL)
     {
     	if (errno == ENOENT)
 	    return RET_OK;
@@ -387,7 +387,7 @@ match_user(char *file, struct player *p)
     char host[256];
     char user[256];
 
-    if ((fp = fopen(file, "rt")) == NULL) {
+    if ((fp = fopen(file, "r")) == NULL) {
 	/*logerror("Cannot find file %s", file); */
 	return 0;
     }

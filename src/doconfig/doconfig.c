@@ -88,10 +88,6 @@ main(void)
     char *cp;
     char *pathname;
 
-#if defined(_WIN32)
-    _fmode = _O_BINARY;
-#endif
-
     if ((pathname = safe_getcwd()) == NULL) {
 	printf("Can't get current path!\n");
 	exit(-1);
@@ -141,7 +137,7 @@ wrmakesrc(char *pathname)
     char buf[256];
 
     sprintf(buf, "%s/src/make.src", pathname);
-    if ((fp = fopen(buf, "w")) == NULL) {
+    if ((fp = fopen(buf, "wb")) == NULL) {
 	printf("Cannot open %s for writing, exiting.\n", buf);
 	exit(-1);
     }
@@ -158,7 +154,7 @@ wripglob(char *filename)
     FILE *fp;
 
     printf("Writing %s\n", filename);
-    if ((fp = fopen(filename, "w")) == NULL) {
+    if ((fp = fopen(filename, "wb")) == NULL) {
 	printf("Cannot open %s for writing, exiting.\n", filename);
 	exit(-1);
     }
@@ -175,7 +171,7 @@ wrauth(char *filename)
     FILE *fp;
 
     printf("Writing %s\n", filename);
-    if ((fp = fopen(filename, "wt")) == NULL) {
+    if ((fp = fopen(filename, "w")) == NULL) {
 	printf("Cannot open %s for writing, exiting.\n", filename);
 	exit(-1);
     }
@@ -232,7 +228,7 @@ wrgamesdef(char *filename)
     }
 
     printf("Writing %s\n", filename);
-    if ((fp = fopen(filename, "w")) == NULL) {
+    if ((fp = fopen(filename, "wb")) == NULL) {
 	printf("Cannot open %s for writing, exiting.\n", filename);
 	exit(-1);
     }

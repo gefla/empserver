@@ -125,7 +125,11 @@ typed_wu(natid from, natid to, s_char *message, int type)
 	     (np->nat_stat & STAT_SANCT) == 0)) {
 	    return -1;
 	}
+#if !defined(_WIN32)
     if ((fd = open(box, O_WRONLY | O_APPEND, 0)) < 0) {
+#else
+    if ((fd = open(box, O_WRONLY | O_APPEND | O_BINARY, 0)) < 0) {
+#endif
 	logerror("telegram 'open' of %s (#%d) failed", box, to);
 	return -1;
     }

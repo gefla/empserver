@@ -113,10 +113,6 @@ main(int argc, char **argv)
     int op;
     s_char tbuf[256];
 
-#if defined(_WIN32)
-    _fmode = _O_BINARY;
-#endif
-
     mainpid = getpid();
 
 #if defined(_WIN32)

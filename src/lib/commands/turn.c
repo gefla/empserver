@@ -95,7 +95,7 @@ turn(void)
 	    pr("Writing empty no-login message.\n");
     }
 
-    fptr = fopen(msgfilepath, "w");
+    fptr = fopen(msgfilepath, "wb");
     if (fptr == NULL) {
 	pr("Something went wrong opening the message file.\n");
 	logerror("Could not open message file (%s).\n", msgfilepath);

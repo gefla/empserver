@@ -158,7 +158,7 @@ gamedown(void)
 
     if (player->god)
 	return 0;
-    if ((down_fp = fopen(downfil, "r")) == NULL)
+    if ((down_fp = fopen(downfil, "rb")) == NULL)
 	return 0;
     if (fread((void *)&tgm, sizeof(tgm), 1, down_fp) != 1) {
 	logerror("bad header on login message (downfil)");

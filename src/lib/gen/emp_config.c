@@ -92,7 +92,7 @@ emp_config(char *file)
 	fixup_files();
 	return 0;
     }
-    if ((fp = fopen(file, "rt")) == NULL) {
+    if ((fp = fopen(file, "r")) == NULL) {
 	fprintf(stderr, "Can't open %s for reading (%s)\n",
 		file, strerror(errno));
 	return -1;
