@@ -236,7 +236,7 @@ xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
     val->val_as_type = -1;
     val->val_as.sym.off = off;
     val->val_as.sym.idx = idx;
-    nstr_exec_val(val, player->cnum, ptr, 0);
+    nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
     return val;			/* FIXME nstr_exec_val() should return VAL */
 }
 
@@ -247,6 +247,7 @@ xdprval(struct valstr *val, char *sep)
     char *s, *e;
 
     switch (val->val_type) {
+    case NSC_TYPEID:
     case NSC_LONG:
 	pr("%s%ld", sep, val->val_as.lng);
 	break;
@@ -266,6 +267,9 @@ xdprval(struct valstr *val, char *sep)
 	}
 	prnf("\"");
 	break;
+    default:
+	CANT_HAPPEN("Bad VAL type");
+	pr("0");
     }
     return " ";
 }
