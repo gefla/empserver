@@ -27,7 +27,7 @@ appear as question marks (\*Q?\*U).
 Mountains, wilderness areas, and seas appear
 as '^', '-' and '.' respectively.
 .s1
-You can also get an lbmap by typing 'B' at the navigation prompt.
+You can also get an sbmap by typing 'B' at the navigation prompt.
 .s1
 Note that any sector
 marked as 'X' on your bmap will automatically be avoided by
