@@ -40,6 +40,7 @@
 #if !defined(_WIN32)
 #include <unistd.h>
 #else
+#include <fcntl.h>
 #include <direct.h>
 #include <io.h>
 #define mkdir(dir,perm) _mkdir(dir)
@@ -86,6 +87,10 @@ main(void)
     char buf[256];
     char *cp;
     char *pathname;
+
+#if defined(_WIN32)
+    _fmode = _O_BINARY;
+#endif
 
     if ((pathname = safe_getcwd()) == NULL) {
 	printf("Can't get current path!\n");
@@ -170,7 +175,7 @@ wrauth(char *filename)
     FILE *fp;
 
     printf("Writing %s\n", filename);
-    if ((fp = fopen(filename, "w")) == NULL) {
+    if ((fp = fopen(filename, "wt")) == NULL) {
 	printf("Cannot open %s for writing, exiting.\n", filename);
 	exit(-1);
     }
