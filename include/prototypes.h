@@ -174,8 +174,7 @@ extern void snxtsct_all(struct nstr_sect *);
 extern void snxtsct_rewind(struct nstr_sect *);
 extern void snxtsct_dist(register struct nstr_sect *, coord, coord, int);
 /* stmtch.c */
-extern int stmtch(register s_char *, s_char *, int, int);
-extern int mineq(register s_char *, register s_char *);
+/* in match.h */
 /* type.c */
 extern int typematch(s_char *, int);
 /* vlist.c */

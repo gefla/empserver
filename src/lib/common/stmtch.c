@@ -40,30 +40,36 @@
 #include "common.h"
 
 /*
- * find a matching string from a member string pointer
- * in a structure "str".  Pointer is incremented by
- * the (passed) size of the structure.
+ * Find NEEDLE in array HAYSTACK[], return its index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ * Each array element has a pointer to its name stored at offset OFFS.
+ * Search stops when this name is a null pointer or empty.  NEEDLE is
+ * compared to element names with mineq().
+ * ELT_SIZE gives the size of an array element.
  */
 int
-stmtch(register s_char *obj, s_char *base, int off, int size)
+stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
 {
-    register s_char *str;
-    register int stat2;
-    register int i;
-    register int n;
+#define ELT_NAME(i) (*(char **)((char *)haystack + (i)*elt_size + offs))
+    int i, res;
 
-    stat2 = M_NOTFOUND;
-    str = base + off;
-    for (i = 0; *(s_char **)str; i++, str += size) {
-	if ((n = mineq(obj, *(s_char **)str)) == ME_MISMATCH)
-	    continue;
-	if (n == ME_EXACT)
+    res = M_NOTFOUND;
+    for (i = 0; ELT_NAME(i) && ELT_NAME(i)[0] != 0; ++i) {
+	switch (mineq(needle, ELT_NAME(i))) {
+	case ME_MISMATCH:
+	    break;
+	case ME_PARTIAL:
+	    if (res != M_NOTFOUND)
+		return M_NOTUNIQUE;
+	    res = i;
+	    break;
+	case ME_EXACT:
 	    return i;
-	if (stat2 != M_NOTFOUND)
-	    return M_NOTUNIQUE;
-	stat2 = i;
+	}
     }
-    return stat2;
+    return res;
+#undef ELT_NAME
 }
 
 /*
@@ -75,7 +81,7 @@ stmtch(register s_char *obj, s_char *base, int off, int size)
  * terminating 0.
  */
 int
-mineq(register s_char *a, register s_char *b)
+mineq(char *a, char *b)
 {
     int i;
 

@@ -34,6 +34,8 @@
 #ifndef _MATCH_H_
 #define _MATCH_H_
 
+#include <stddef.h>
+
 /* returned by stmtch() */
 #define M_IGNORE        -3
 #define M_NOTUNIQUE	-2
@@ -44,5 +46,8 @@
 #define ME_MISMATCH	0
 #define ME_PARTIAL	1
 #define ME_EXACT	2
+
+extern int stmtch(char *, void *, ptrdiff_t, size_t);
+extern int mineq(char *, char *);
 
 #endif /* _MATCH_H_ */
