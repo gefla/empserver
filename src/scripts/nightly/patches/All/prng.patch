@@ -1,6 +1,6 @@
 Index: empserver/include/damage.h
---- empserver/include/damage.h	23 Aug 2003 12:19:27 -0000	1.1.1.1
-+++ empserver/include/damage.h	20 Jun 2004 15:14:58 -0000
+--- empserver/include/damage.h	16 Mar 2005 21:51:57 -0000	1.3
++++ empserver/include/damage.h	17 Mar 2005 10:01:13 -0000
 @@ -39,10 +39,10 @@
  #define DPERCENT_DAMAGE(x) ((double)(100.0 * (x) / ((x) + 100.0)))
  #define DMINE_HITCHANCE(x) ((double) ( (x) / ((x)+20.0) ) )
@@ -17,8 +17,8 @@ Index: empserver/include/damage.h
  
  #endif /* _DAMAGE_H_ */
 Index: empserver/include/prototypes.h
---- empserver/include/prototypes.h	16 May 2004 14:19:38 -0000	1.45
-+++ empserver/include/prototypes.h	20 Jun 2004 15:14:59 -0000
+--- empserver/include/prototypes.h	16 Mar 2005 21:51:59 -0000	1.73
++++ empserver/include/prototypes.h	17 Mar 2005 10:01:13 -0000
 @@ -393,6 +393,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
@@ -30,8 +30,8 @@ Index: empserver/include/prototypes.h
  
  /*
 Index: empserver/src/lib/commands/anti.c
---- empserver/src/lib/commands/anti.c	4 Mar 2004 13:49:25 -0000	1.6
-+++ empserver/src/lib/commands/anti.c	20 Jun 2004 15:15:00 -0000
+--- empserver/src/lib/commands/anti.c	16 Mar 2005 21:56:00 -0000	1.10
++++ empserver/src/lib/commands/anti.c	17 Mar 2005 10:01:14 -0000
 @@ -130,7 +130,7 @@
  		    sect.sct_mobil = 0;
  		}
@@ -42,8 +42,8 @@ Index: empserver/src/lib/commands/anti.c
  		if (n_cheleft) {
  		    /* Ok, now leave anywhere from 16% to 25% of the che */
 Index: empserver/src/lib/commands/laun.c
---- empserver/src/lib/commands/laun.c	28 Feb 2004 17:44:02 -0000	1.3
-+++ empserver/src/lib/commands/laun.c	20 Jun 2004 15:15:01 -0000
+--- empserver/src/lib/commands/laun.c	16 Mar 2005 21:56:01 -0000	1.10
++++ empserver/src/lib/commands/laun.c	17 Mar 2005 10:01:14 -0000
 @@ -420,7 +420,7 @@
      }
      i = pp->pln_tech + pp->pln_effic;
@@ -54,8 +54,8 @@ Index: empserver/src/lib/commands/laun.c
  	sy += diroff[dir][1];
  	pr("Your trajectory was a little off.\n");
 Index: empserver/src/lib/commands/mfir.c
---- empserver/src/lib/commands/mfir.c	Fri Mar 11 18:01:38 2005
-+++ empserver/src/lib/commands/mfir.c	Tue Mar 15 18:22:43 2005
+--- empserver/src/lib/commands/mfir.c	16 Mar 2005 21:56:02 -0000	1.23
++++ empserver/src/lib/commands/mfir.c	17 Mar 2005 10:01:14 -0000
 @@ -558,7 +558,7 @@
  /*			dam = (int)((double)dam / 2.0);*/
  		dam =
@@ -66,8 +66,8 @@ Index: empserver/src/lib/commands/mfir.c
  		if (dam < 0)
  		    dam = 0;
 Index: empserver/src/lib/commands/new.c
---- empserver/src/lib/commands/new.c	Fri Mar 11 18:01:35 2005
-+++ empserver/src/lib/commands/new.c	Tue Mar 15 18:24:42 2005
+--- empserver/src/lib/commands/new.c	16 Mar 2005 21:56:02 -0000	1.21
++++ empserver/src/lib/commands/new.c	17 Mar 2005 10:01:14 -0000
 @@ -105,8 +105,8 @@
      } else {
  	for (i = 0; i < 300 && !player->aborted; i++) {
@@ -80,8 +80,8 @@ Index: empserver/src/lib/commands/new.c
  	     * If either of the two potential
  	     * sanctuary sectors are already
 Index: empserver/src/lib/commands/news.c
---- empserver/src/lib/commands/news.c	20 Feb 2004 20:34:42 -0000	1.5
-+++ empserver/src/lib/commands/news.c	20 Jun 2004 15:15:02 -0000
+--- empserver/src/lib/commands/news.c	16 Mar 2005 21:56:02 -0000	1.9
++++ empserver/src/lib/commands/news.c	17 Mar 2005 10:01:14 -0000
 @@ -188,7 +188,7 @@
      /*
       * vary the order of the printing of "%d times "
@@ -101,8 +101,8 @@ Index: empserver/src/lib/commands/news.c
      cp += strlen(cp);
      if (np->nws_ntm != 1) {
 Index: empserver/src/lib/commands/sabo.c
---- empserver/src/lib/commands/sabo.c	5 Mar 2004 10:38:58 -0000	1.7
-+++ empserver/src/lib/commands/sabo.c	20 Jun 2004 15:15:03 -0000
+--- empserver/src/lib/commands/sabo.c	16 Mar 2005 21:56:03 -0000	1.11
++++ empserver/src/lib/commands/sabo.c	17 Mar 2005 10:01:14 -0000
 @@ -87,10 +87,10 @@
  	dam = landgun(3 * land.lnd_effic, 7);
  	if (sect.sct_item[I_SHELL] > 20)
@@ -117,8 +117,8 @@ Index: empserver/src/lib/commands/sabo.c
  	pr("Explosion in %s causes %d damage.\n",
  	   xyas(land.lnd_x, land.lnd_y, land.lnd_own), dam);
 Index: empserver/src/lib/common/damage.c
---- empserver/src/lib/common/damage.c	6 Mar 2004 07:16:45 -0000	1.5
-+++ empserver/src/lib/common/damage.c	20 Jun 2004 15:15:04 -0000
+--- empserver/src/lib/common/damage.c	16 Mar 2005 21:56:04 -0000	1.11
++++ empserver/src/lib/common/damage.c	17 Mar 2005 10:01:14 -0000
 @@ -177,7 +177,7 @@
  	return 0;
      tmp = amt * pct;
@@ -128,9 +128,60 @@ Index: empserver/src/lib/common/damage.c
  	lost++;
      return amt - lost;
  }
+Index: empserver/src/lib/gen/chance.c
+--- empserver/src/lib/gen/chance.c	16 Mar 2005 21:56:05 -0000	1.5
++++ empserver/src/lib/gen/chance.c	17 Mar 2005 10:01:14 -0000
+@@ -31,14 +31,37 @@
+  *     
+  */
+ 
++#include <stdlib.h>
+ #include "gen.h"
+ 
++#ifndef	RANDOM
++#ifdef	NOSVIDPRNG
++#define	RANDOM	random
++#define	SRANDOM	srandom
++#else	/* ! NOSVIDPRNG */
++#define	RANDOM	lrand48
++#define	SRANDOM	srand48
++#endif	/* ! NOSVIDPRNG */
++#endif	/* ! RANDOM */
++
++void
++emp_srandom(unsigned int n)
++{
++	SRANDOM(1);
++}
++
++long
++emp_random(void)
++{
++	return (RANDOM());	/* 5/28/91 by bailey@mcs.kent.edu */
++}
++
+ int
+ chance(double d)
+ {
+     double roll;
+ 
+-    roll = (random() & 0x7fff);
++    roll = (emp_random() & 0x7fff);
+ 
+     if (d > roll / 32768.0)
+ 	return 1;
+@@ -48,7 +71,7 @@
+ int
+ roll(int n)
+ {
+-    return (random() % n) + 1;
++    return (emp_random() % n) + 1;
+ }
+ 
+ /*
 Index: empserver/src/lib/subs/attsub.c
---- empserver/src/lib/subs/attsub.c	5 Mar 2004 13:14:28 -0000	1.17
-+++ empserver/src/lib/subs/attsub.c	20 Jun 2004 15:15:06 -0000
+--- empserver/src/lib/subs/attsub.c	16 Mar 2005 21:57:53 -0000	1.23
++++ empserver/src/lib/subs/attsub.c	17 Mar 2005 10:01:14 -0000
 @@ -1924,12 +1924,12 @@
       * recalculate the odds every 8-50 casualties, not every cacsualty,
       * since a single dead guy normally wouldn't cause a commander to
@@ -159,8 +210,8 @@ Index: empserver/src/lib/subs/attsub.c
  		odds = 0.1;
  	    if (odds > 1.0)
 Index: empserver/src/lib/subs/landgun.c
---- empserver/src/lib/subs/landgun.c	2 Sep 2003 20:48:48 -0000	1.2
-+++ empserver/src/lib/subs/landgun.c	20 Jun 2004 15:15:07 -0000
+--- empserver/src/lib/subs/landgun.c	16 Mar 2005 21:57:53 -0000	1.5
++++ empserver/src/lib/subs/landgun.c	17 Mar 2005 10:01:14 -0000
 @@ -40,7 +40,7 @@
      double d;
      double g = (double)min(guns, 7);
@@ -189,8 +240,8 @@ Index: empserver/src/lib/subs/landgun.c
      if (shells < ammo && ammo != 0)
  	d *= (double)((double)shells / (double)ammo);
 Index: empserver/src/lib/subs/shpsub.c
---- empserver/src/lib/subs/shpsub.c	16 May 2004 14:19:36 -0000	1.13
-+++ empserver/src/lib/subs/shpsub.c	20 Jun 2004 15:15:08 -0000
+--- empserver/src/lib/subs/shpsub.c	16 Mar 2005 21:57:55 -0000	1.18
++++ empserver/src/lib/subs/shpsub.c	17 Mar 2005 10:01:14 -0000
 @@ -766,7 +766,7 @@
  
      nreport(sp->shp_own, N_HIT_MINE, 0, 1);
@@ -201,8 +252,8 @@ Index: empserver/src/lib/subs/shpsub.c
  	m /= 2.0;
  
 Index: empserver/src/lib/subs/takeover.c
---- empserver/src/lib/subs/takeover.c	4 Mar 2004 13:49:25 -0000	1.10
-+++ empserver/src/lib/subs/takeover.c	20 Jun 2004 15:15:08 -0000
+--- empserver/src/lib/subs/takeover.c	16 Mar 2005 21:57:55 -0000	1.14
++++ empserver/src/lib/subs/takeover.c	17 Mar 2005 10:01:14 -0000
 @@ -91,7 +91,7 @@
  	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
  		continue;
@@ -231,8 +282,8 @@ Index: empserver/src/lib/subs/takeover.c
  	n = 0;
      pp->pln_effic = n;
 Index: empserver/src/lib/update/human.c
---- empserver/src/lib/update/human.c	14 May 2004 20:21:46 -0000	1.11
-+++ empserver/src/lib/update/human.c	20 Jun 2004 15:15:09 -0000
+--- empserver/src/lib/update/human.c	16 Mar 2005 21:57:56 -0000	1.16
++++ empserver/src/lib/update/human.c	17 Mar 2005 10:01:15 -0000
 @@ -119,7 +119,7 @@
  	    sctwork = 0;
  	} else {
@@ -250,8 +301,8 @@ Index: empserver/src/lib/update/human.c
 +    sp->sct_loyal += (emp_random() % 8) + 2;
  }
 Index: empserver/src/lib/update/plague.c
---- empserver/src/lib/update/plague.c	11 Mar 2004 18:10:25 -0000	1.8
-+++ empserver/src/lib/update/plague.c	20 Jun 2004 15:15:09 -0000
+--- empserver/src/lib/update/plague.c	16 Mar 2005 21:57:57 -0000	1.15
++++ empserver/src/lib/update/plague.c	17 Mar 2005 10:01:15 -0000
 @@ -190,7 +190,7 @@
      }
      if (*ptime <= 0) {
@@ -262,8 +313,8 @@ Index: empserver/src/lib/update/plague.c
      return stage;
  }
 Index: empserver/src/lib/update/populace.c
---- empserver/src/lib/update/populace.c	10 Mar 2004 17:59:37 -0000	1.3
-+++ empserver/src/lib/update/populace.c	20 Jun 2004 15:15:09 -0000
+--- empserver/src/lib/update/populace.c	16 Mar 2005 21:57:57 -0000	1.9
++++ empserver/src/lib/update/populace.c	17 Mar 2005 10:01:15 -0000
 @@ -85,7 +85,7 @@
  	n = roundavg(etu * 0.125);
  	if (n == 0)
@@ -283,8 +334,8 @@ Index: empserver/src/lib/update/populace.c
  	if (n < 0)
  	    n = 0;
 Index: empserver/src/lib/update/revolt.c
---- empserver/src/lib/update/revolt.c	5 Mar 2004 10:38:57 -0000	1.10
-+++ empserver/src/lib/update/revolt.c	20 Jun 2004 15:15:09 -0000
+--- empserver/src/lib/update/revolt.c	16 Mar 2005 21:57:57 -0000	1.13
++++ empserver/src/lib/update/revolt.c	17 Mar 2005 10:01:15 -0000
 @@ -70,7 +70,7 @@
      che_uw = 0;
      che_civ = 0;
@@ -357,9 +408,33 @@ Index: empserver/src/lib/update/revolt.c
  	    if (val >= min_mil)
  		continue;
  	    nicest_sp = nsp;
+Index: empserver/src/server/main.c
+--- empserver/src/server/main.c	16 Mar 2005 21:57:58 -0000	1.59
++++ empserver/src/server/main.c	17 Mar 2005 10:01:15 -0000
+@@ -250,7 +250,7 @@
+ void
+ init_server(void)
+ {
+-    srandom(time(NULL));
++    emp_srandom(time(NULL));
+ #if defined(_WIN32)
+     loc_NTInit();
+ #endif
+Index: empserver/src/server/update.c
+--- empserver/src/server/update.c	16 Mar 2005 21:57:58 -0000	1.18
++++ empserver/src/server/update.c	17 Mar 2005 10:01:15 -0000
+@@ -70,7 +70,7 @@
+ 	time(&now);
+ 	next_update_time(&now, &update_time, &delta);
+ 	if (update_window > 0) {
+-	    wind = (random() % update_window);
++	    wind = (emp_random() % update_window);
+ 	    update_time += wind;
+ 	    delta += wind;
+ 	}
 Index: empserver/src/util/fairland.c
---- empserver/src/util/fairland.c	Thu Mar 10 19:35:27 2005
-+++ empserver/src/util/fairland.c	Tue Mar 15 18:18:33 2005
+--- empserver/src/util/fairland.c	16 Mar 2005 22:03:16 -0000	1.22
++++ empserver/src/util/fairland.c	17 Mar 2005 10:01:15 -0000
 @@ -124,7 +124,7 @@
  #if !defined(_WIN32)
  #define max(a,b) (a>b?a:b)
@@ -378,76 +453,3 @@ Index: empserver/src/util/fairland.c
      if (emp_config(config_file))
  	exit(1);
  
-Index: empserver/src/lib/gen/chance.c
---- empserver/src/lib/gen/chance.c	Fri Mar 11 18:05:19 2005
-+++ empserver/src/lib/gen/chance.c	Tue Mar 15 18:34:37 2005
-@@ -33,12 +33,35 @@
- 
-+#include <stdlib.h>
- #include "gen.h"
- 
-+#ifndef	RANDOM
-+#ifdef	NOSVIDPRNG
-+#define	RANDOM	random
-+#define	SRANDOM	srandom
-+#else	/* ! NOSVIDPRNG */
-+#define	RANDOM	lrand48
-+#define	SRANDOM	srand48
-+#endif	/* ! NOSVIDPRNG */
-+#endif	/* ! RANDOM */
-+
-+void
-+emp_srandom(unsigned int n)
-+{
-+	SRANDOM(1);
-+}
-+
-+long
-+emp_random(void)
-+{
-+	return (RANDOM());	/* 5/28/91 by bailey@mcs.kent.edu */
-+}
-+
- int
- chance(double d)
- {
-     double roll;
- 
--    roll = (random() & 0x7fff);
-+    roll = (emp_random() & 0x7fff);
- 
-     if (d > roll / 32768.0)
- 	return 1;
-@@ -48,7 +71,7 @@
- int
- roll(int n)
- {
--    return (random() % n) + 1;
-+    return (emp_random() % n) + 1;
- }
- 
- /*
-Index: empserver/src/server/main.c
---- empserver/src/server/main.c	Sun Mar 13 22:51:34 2005
-+++ empserver/src/server/main.c	Tue Mar 15 18:36:11 2005
-@@ -244,7 +244,7 @@
- void
- init_server(void)
- {
--    srandom(time(NULL));
-+    emp_srandom(time(NULL));
- #if defined(_WIN32)
-     loc_NTInit();
- #endif
-Index: empserver/src/server/update.c
---- empserver/src/server/update.c	4 Apr 2004 15:52:24 -0000	1.14
-+++ empserver/src/server/update.c	20 Jun 2004 17:38:12 -0000
-@@ -64,7 +64,7 @@
- 	time(&now);
- 	next_update_time(&now, &update_time, &delta);
- 	if (update_window > 0) {
--	    wind = (random() % update_window);
-+	    wind = (emp_random() % update_window);
- 	    update_time += wind;
- 	    delta += wind;
- 	}
