@@ -188,7 +188,7 @@ s_char *av[];
 #ifndef _WIN32
     if (!login(sock, pwd->pw_name, cname, pname, send_kill)) {
 #else
-    if (!login(sock, "win-empcl2.8", cname, pname, send_kill)) {
+    if (!login(sock, "nobody", cname, pname, send_kill)) {
 #endif
 	close(sock);
 	exit(1);
