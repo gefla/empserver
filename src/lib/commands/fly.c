@@ -101,6 +101,7 @@ fly(void)
     getsect(tx, ty, &target);
     cno = -1;
     ip = whatitem(player->argp[5], "transport what? ");
+    getsect(tx, ty, &target);
     mission_flags = 0;
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
@@ -141,16 +142,14 @@ fly(void)
     tech = 0;
     mission_flags |= P_X;	/* stealth (shhh) */
     mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags =
-	pln_arm(&bomb_list, ap_to_target, 't', ip, 0, mission_flags,
-		&tech);
+    mission_flags = pln_arm(&bomb_list, ap_to_target, 't',
+			    ip, 0, mission_flags, &tech);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags =
-	pln_arm(&esc_list, ap_to_target, 't', ip, P_ESC | P_F,
-		mission_flags, &tech);
+    mission_flags = pln_arm(&esc_list, ap_to_target, 't',
+			    ip, P_ESC | P_F, mission_flags, &tech);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
 		 0, 0, 0);
     if (QEMPTY(&bomb_list)) {
