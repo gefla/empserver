@@ -32,9 +32,7 @@
  *     Steve McClure, 2000
  */
 
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include "prototypes.h"
 #include "misc.h"
 #include "proto.h"

@@ -32,9 +32,7 @@
  *     Steve McClure, 2000
  */
 
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include <fcntl.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -50,9 +48,6 @@
 #include "common.h"
 #include "gen.h"
 
-#ifdef Rel4
-#include <unistd.h>
-#endif
 
 static void fillcache(struct empfile *ep, int start);
 

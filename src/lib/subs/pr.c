@@ -40,9 +40,7 @@
  * more input data, etc.
  */
 
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include <fcntl.h>
 #include <ctype.h>
 #include <stdarg.h>

@@ -31,9 +31,7 @@
  *     Steve McClure, 2000
  */
 
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include "misc.h"
 #include "gen.h"
 

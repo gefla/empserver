@@ -45,9 +45,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>		/* atoi free atol */
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 
 #include "misc.h"
 #include "com.h"

@@ -40,9 +40,7 @@
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include <time.h>
 #include "deity.h"
 #include "player.h"

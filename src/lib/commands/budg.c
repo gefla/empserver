@@ -33,9 +33,7 @@
  *     Steve McClure, 1997-2000
  */
 
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
 #include "misc.h"
 #include "player.h"
 #include "var.h"
