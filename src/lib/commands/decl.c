@@ -101,8 +101,6 @@ decl(void)
 	if (who < 0)
 	    return RET_SYN;
     }
-    if (who == 255)
-	return RET_SYN;
 
     natp = getnatp(who);
     while (nxtitem(&ni, (s_char *)&nat)) {
