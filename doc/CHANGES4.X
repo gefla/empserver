@@ -1,12 +1,111 @@
+Changes to Empire 4.2.14 - Wed Mar 17 07:31:30 UTC 2004
+ * Options NEWPOWER, NEW_STARVE and NEW_WORK are no longer optional.
+ * Gripe about unknown options in econfig.
+ * Remove option GRAB_THINGS.
+ * Utility program files takes new option -f.
+ * Remove utility programs land, ore and perfect, which don't compile
+   since 4.2.0 (Oct '98).
+ * Fallout code could claim destruction of more items than actually
+   existed.
+ * Fix recursive resupply (resupply from supply land unit triggering a
+   resupply of the land unit) when just testing for how much can be
+   resupplied.  The bug could have led to insufficient resupply.
+ * Fix recursive resupply not to consume all fuel in supply units.  No
+   supply units consuming fuel exist in the stock game.
+ * Limit delivery and distribution thresholds to ITEM_MAX (9999).
+   Distribution threshold were previously limited to 10000, and
+   delivery thresholds to 65528.
+ * Limit items in sectors to ITEM_MAX (9999).  Commands give and buy
+   used to limit to 9990.  Market transactions and commands explore,
+   move, drop and fly to 32767.  Limiting in autonav code (order
+   command) didn't work.  Item delivery used to stop at 9990,
+   distribution at 9999.  Food growing and sector production used to
+   stop at 9999.  Grind, assault lunchboxes, demobilization, mine
+   sweeping and che liberating uw could theoretically attempt to
+   increase items beyond 65535, which would have been ignored
+   (destroying the increase).
+ * Properly saturate fallout at FALLOUT_MAX (9999).  Previously,
+   fallout increases behaved inconsistently.  Increases beyond 65535
+   could get ignored, or fallout could saturate at 9999, or it could
+   overflow at 65536 (that would take quite some nuking, though).
+ * Properly saturate mines at MINES_MAX (65535).  Previously, a mining
+   operation that would have gone beyond 65535 was ignored.
+ * Fix `are we loading or unloading' tests for load, unload, lload and
+   lunload.
+ * Fix editing of land unit attack and defense values.  Implement
+   editing of ship defense values.  Contributed by Ron Koenderink.
+ * edit now edits che number and target separately.
+ * Fix edit to properly extend unit files.  Contributed by Ron
+   Koenderink.
+ * Major internal reorganisation: Sectors need space for items,
+   deliveries and distribution thresholds.  To save space, the
+   ancients invented `variables': a collection of key-value pairs,
+   missing means zero value, space for `enough' keys.  This
+   complicates the code, as assigning to a `variable' can fail for
+   lack of space.  Over time, `enough' increased, and for quite some
+   time now `variables' have been *wasting* space.  Replace them,
+   except in unit characteristics, where they are read-only, and will
+   be replaced later.  This also removes misfeatures like plague
+   outbreaks silently deleting deliveries.
+ * Remove disabled commands dissolve and mult.  Remove configuration
+   parameters minmult and maxmult.
+ * Trade command indexed an array out of bounds when attempting to
+   display the plague as commodity.  Fix.
+ * New make goal interix.  Contributed by Ron Koenderink.
+ * The type selector now prefers an exact match to a partial match.
+   ?type=sb now selects sb, not sbc, even when sbc happens to be found
+   first.
+ * Value of selector sell was always zero, remove it.
+ * Clean up selector code.
+ * satellite now displays all sectors owned by other players, and none
+   else.  It used to display all but sea, mountains, sanctuaries,
+   wasteland and wilderness.
+ * map commands now display wilderness and plains owned by other
+   players as '?'.  Radar commands now display all wilderness and
+   plains as '?'.
+ * Fix power timestamp for Windows.  Contributed by Ron Koenderink.
+ * Do the right thing for Windows so ^C aborts to the current command,
+   as it should.  Contributed by Ron Koenderink.
+ * Command line parser interpreted trailing whitespace as an another
+   (empty) argument.  Ignore it instead.
+ * Properly declare stuff in headers, include proper system headers.
+   Remove all nested external declarations.  Source code is now fully
+   prototyped.  Enable appropriate gcc warnings.
+ * Fix several type errors.  Some may have been show-stoppers on big
+   endian machines where sizeof(long) != sizeof(int).
+ * Remove pre-ISO C compatibility cruft (hey, it's been only fifteen
+   years).
+ * Various portability fixes.  Some bugs may have been show-stoppers
+   when sizeof(long) != sizeof(int).  With help from Marc Olzheim and
+   Ron Koenderink.
+ * Move some code to more logical places.  Remove some unused code,
+   some of which was hard to port.
+ * The files program could print error messages to a log file in some
+   circumstances.  Make it print to stderr.
+ * deliver can now change direction without changing the threshold.
+ * deliver now provides appropriate context when prompting for
+   thresholds.
+ * Login command play no longer ignores up to two arguments if there
+   isn't a third one.
+ * Fix payoff (was broken in 4.2.13).
+ * Capability fish didn't work together with capability oil.
+ * Fix and clarify plague outbreak chance in info Plague.
+ * Fix info telegram and info announce on ~ escapes.
+ * Various small info file fixes.
+ * Many fixes in the troff macro package for info files.
+ * Many fixes for translating info files to HTML.
+ * Many info file markup fixes.
+
 Changes to Empire 4.2.13 - Fri Feb 13 22:12:36 UTC 2004
  * Source code reindented and cleaned up somewhat.
- * Various info file fixes.
+ * Various small info file fixes.
  * Fixed change requiring 254 BTUs even when not charging any
    (BLITZ).
  * Fixed tactical non-marine missile crash.
  * Fixed spy unit detection chance for eff<100.
  * Fixed output of sorder.
- * edit can now work non-interactively.
+ * `edit' can now work non-interactively.  Contributed by Ron
+   Koenderink.
  * Fixed and extended edit for sectors.
  * Fixed use of errno.
  * Minor security fix: doconfig now writes example auth entry as
@@ -22,12 +121,13 @@ Changes to Empire 4.2.13 - Fri Feb 13 22:12:36 UTC 2004
  * Removed bestdistpath.  bestpath yields the same results.
  * Renamed lstats to lstat for consistency and to match info page.
  * Fixed non-portable fd_set * arguments of select().
- * New `map' flag `h' to highlight own sectors.
+ * New `map' flag `h' to highlight own sectors.  Contributed by Marc
+   Olzheim.
  * Fixed `sabo' reporting damage to player in deity coordinates.
- * New option ROLLOVER_AVAIL.
+ * New option ROLLOVER_AVAIL.  Contributed by Drake Diedrich.
  * Fix Windows server shutdown on reading "quit" from stdin.
  * Land units now fortify automatically at the update using excess
-   mobility. 
+   mobility.  With code from Marc Olzheim.
  * Wandering che are less predictable.
  * Land units no longer regenerate mobility faster while it is
    negative.
