@@ -531,10 +531,12 @@ has_supply(struct lndstr *lp)
 	if (food < food_needed) {
 	    vec[I_FOOD] = 0;
 	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    putland(lp->lnd_uid, lp);
 	    food += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
 				      I_FOOD, (food_needed - food));
 	    vec[I_FOOD] = keepfood;
 	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    putland(lp->lnd_uid, lp);
 	}
 	if (food < food_needed)
 	    return 0;
@@ -546,10 +548,12 @@ has_supply(struct lndstr *lp)
     if (shells < shells_needed) {
 	vec[I_SHELL] = 0;
 	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	putland(lp->lnd_uid, lp);
 	shells += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
 				    I_SHELL, (shells_needed - shells));
 	vec[I_SHELL] = keepshells;
 	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	putland(lp->lnd_uid, lp);
     }
 
     if (shells < shells_needed)
@@ -557,26 +561,23 @@ has_supply(struct lndstr *lp)
 
     if (opt_FUEL) {
 	fuel_needed = lp->lnd_fuelu;
-
 	fuel = lp->lnd_fuel;
-
-	petrol = petrol_needed = 0;
-
 	if (fuel < fuel_needed) {
 	    petrol_needed =
 		ldround(((double)(fuel_needed - fuel) / 10.0), 1);
 	    petrol = keeppetrol = vec[I_PETROL];
-	}
-
-	if (petrol < petrol_needed) {
-	    vec[I_PETROL] = 0;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-	    petrol += try_supply_commod(lp->lnd_own,
-					lp->lnd_x, lp->lnd_y,
-					I_PETROL,
-					(petrol_needed - petrol));
-	    vec[I_PETROL] = keeppetrol;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    if (petrol < petrol_needed) {
+		vec[I_PETROL] = 0;
+		putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+		putland(lp->lnd_uid, lp);
+		petrol += try_supply_commod(lp->lnd_own,
+					    lp->lnd_x, lp->lnd_y,
+					    I_PETROL,
+					    (petrol_needed - petrol));
+		vec[I_PETROL] = keeppetrol;
+		putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+		putland(lp->lnd_uid, lp);
+	    }
 	    fuel += petrol * 10;
 	}
 
