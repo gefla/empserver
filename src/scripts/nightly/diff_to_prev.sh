@@ -1,7 +1,5 @@
 #!/bin/sh
 #
-# $Id$$Source$
-#
 # Check differences between the last two logs
 #
 # Blame it on marcolz

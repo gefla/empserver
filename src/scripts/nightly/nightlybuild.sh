@@ -1,8 +1,5 @@
 #!/bin/sh
 #
-# $Id$$Source$
-#
-#
 # Blame it on marcolz
 #
 

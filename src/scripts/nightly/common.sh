@@ -1,8 +1,6 @@
 #
 # Common functions
 #
-# $Id$$Source$
-#
 # Blame it on marcolz
 #
 err() {

@@ -1,7 +1,5 @@
 #!/bin/sh
 #
-# $Id$$Source$
-#
 # Generate report from the last two build logs
 #
 # Blame it on marcolz
