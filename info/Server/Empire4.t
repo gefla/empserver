@@ -106,7 +106,7 @@ Changes to Empire 4.2.11 - Sun Sep  1 09:54:59 MDT 2002
  * Allied units marching through 0 mobility conquered sectors
    are charged at least LND_MINMOBCOST.
 
-Changes to Empire 4.2.10 - Fri Aug 10 17:25:05 MDT 2001
+Changes to Empire 4.2.10 - Mon Aug 13 14:34:39 MDT 2001
  * Assault can reinforce own sector when SLOW_WAR is enabled.
  * emp_client no longer converts lines into tags but still verifies executes,
    pipes, and file redirect match players input.
