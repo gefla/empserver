@@ -96,7 +96,6 @@
 #define ALL_BLEED		/* Tech bleeds to everyone */
 /*#define DRNUKE*//* Need research to make nukes */
 #define NO_PLAGUE		/* Plague is disabled */
-/*#define ROLLOVER_AVAIL*/ 	/* Avail builds up across updates like mob */
 /*#define RES_POP*//* population is limited by research */
 /*#define BIG_CITY *//* allow 10x civs in 'c' sectors */
 #define INTERDICT_ATT		/* interdict post-attack move in */
