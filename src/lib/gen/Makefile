@@ -45,7 +45,7 @@ NTOBJS = chance.obj copy.obj disassoc.obj \
 	emp_config.obj getstarg.obj getstring.obj \
 	io.obj ioqueue.obj mapdist.obj minmax.obj \
 	numstr.obj onearg.obj parse.obj plur.obj queue.obj round.obj \
-	scthash.obj strdup.obj
+	scthash.obj strdup.obj getopt.obj
 
 all: $(LIB)
 
