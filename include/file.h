@@ -42,9 +42,9 @@ struct empfile {
     int flags;			/* misc stuff */
     int mode;			/* O_flags */
     int size;			/* size of object */
-    void (*init) (int, s_char *);	/* call this when object is created */
-    int (*postread) (int, s_char *);	/* specific massage routines for items */
-    int (*prewrite) (int, s_char *);
+    void (*init) (int, char *);	/* call this when object is created */
+    int (*postread) (int, char *);	/* specific massage routines for items */
+    int (*prewrite) (int, char *);
     ptrdiff_t itemoffs;		/* offset of item[] in struct */
     int fd;			/* file descriptor */
     int baseid;			/* starting item in cache */
@@ -55,11 +55,10 @@ struct empfile {
     struct castr *cadef;	/* ca defs selection list */
 };
 
-#define EFF_COM		bit(0)	/* item has commodities attached */
-#define EFF_XY		bit(1)	/* has location */
-#define EFF_MEM		bit(2)	/* stored entirely in-memory */
-#define EFF_OWNER	bit(3)	/* has concept of owner */
-#define EFF_GROUP	bit(4)	/* has concept of group */
+#define EFF_XY		bit(0)	/* has location */
+#define EFF_MEM		bit(1)	/* stored entirely in-memory */
+#define EFF_OWNER	bit(2)	/* has concept of owner */
+#define EFF_GROUP	bit(3)	/* has concept of group */
 
 #define EF_BAD		-1	/* illegal file type */
 #define EF_SECTOR	0
@@ -83,16 +82,16 @@ struct empfile {
 				   instead of bmap or map. */
 
 struct fileinit {
-    void (*init) (int, s_char *);
-    int (*postread) (int, s_char *);
-    int (*prewrite) (int, s_char *);
+    void (*init) (int, char *);
+    int (*postread) (int, char *);
+    int (*prewrite) (int, char *);
     struct castr *cadef;
 };
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
-extern s_char *ef_ptr(int, int);
-extern s_char *ef_nameof(int);
+extern char *ef_ptr(int, int);
+extern char *ef_nameof(int);
 extern time_t ef_mtime(int);
 extern int ef_open(int, int, int);
 extern int ef_check(int);
@@ -104,8 +103,7 @@ extern int ef_ensure_space(int, int, int);
 extern void ef_zapcache(int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
-extern u_short *ef_items(int, void *);
-extern int ef_byname(s_char *);
+extern int ef_byname(char *);
 
 extern int ef_nbread(int type, int id, void *ptr);
 extern struct empfile empfile[];
