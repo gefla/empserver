@@ -399,11 +399,12 @@ guerrilla(struct sctstr *sp)
     }
   domove:
     if (move && che > 0) {
-	struct sctstr *maybe_sp = 0;
+	struct sctstr *nicest_sp = 0;
 	if (convert)
 	    min_mil = 999;
 	else
 	    min_mil = mil;
+	/* search adjacent sectors for a nice one */
 	for (n = 1; n <= 6; n++) {
 	    nsp = getsectp(sp->sct_x + diroff[n][0],
 			   sp->sct_y + diroff[n][1]);
@@ -419,22 +420,23 @@ guerrilla(struct sctstr *sp)
 		    continue;
 	    }
 	    val = getvar(V_MILIT, (s_char *)nsp, EF_SECTOR);
+	    /* don't give che more precise info than spy */
+	    val = roundintby(val, 10);
+	    /* inject a modicum of indeterminism; also
+	     * avoids che preferring certain directions */
+	    val += random() % 10 - 5;
 	    if (val >= min_mil)
 		continue;
-	    maybe_sp = nsp;
+	    nicest_sp = nsp;
 	    min_mil = val;
 	}
-	/*
-	 * if n <= 6, we found a sector owned by TARGET which
-	 * is a nice sector.  Otherwise, we move to the first
-	 * one we find ("maybe_sp").
-	 */
-	if (maybe_sp != 0) {
-	    che_combo = getvar(V_CHE, (s_char *)maybe_sp, EF_SECTOR);
+	/* if we found a nice sector, go there */
+	if (nicest_sp != 0) {
+	    che_combo = getvar(V_CHE, (s_char *)nicest_sp, EF_SECTOR);
 	    che += get_che_value(che_combo);
 	    set_che_value(che_combo, che);
 	    set_che_cnum(che_combo, target);
-	    putvar(V_CHE, (int)che_combo, (s_char *)maybe_sp, EF_SECTOR);
+	    putvar(V_CHE, (int)che_combo, (s_char *)nicest_sp, EF_SECTOR);
 	    che = 0;
 	}
     }
