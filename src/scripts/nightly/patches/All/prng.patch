@@ -19,7 +19,7 @@ Index: empserver/include/damage.h
 Index: empserver/include/prototypes.h
 --- empserver/include/prototypes.h	16 May 2004 14:19:38 -0000	1.45
 +++ empserver/include/prototypes.h	20 Jun 2004 15:14:59 -0000
-@@ -227,6 +227,9 @@
+@@ -219,6 +219,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
  #endif
@@ -32,7 +32,7 @@ Index: empserver/include/prototypes.h
 Index: empserver/src/lib/commands/anti.c
 --- empserver/src/lib/commands/anti.c	4 Mar 2004 13:49:25 -0000	1.6
 +++ empserver/src/lib/commands/anti.c	20 Jun 2004 15:15:00 -0000
-@@ -132,7 +132,7 @@
+@@ -131,7 +131,7 @@
  		    sect.sct_mobil = 0;
  		}
  		sect.sct_loyal = sect.sct_loyal * 0.5;
@@ -44,7 +44,7 @@ Index: empserver/src/lib/commands/anti.c
 Index: empserver/src/lib/commands/laun.c
 --- empserver/src/lib/commands/laun.c	28 Feb 2004 17:44:02 -0000	1.3
 +++ empserver/src/lib/commands/laun.c	20 Jun 2004 15:15:01 -0000
-@@ -427,7 +427,7 @@
+@@ -426,7 +426,7 @@
      }
      i = pp->pln_tech + pp->pln_effic;
      if (chance(1.0 - (i / (i + 50.0)))) {
@@ -56,7 +56,7 @@ Index: empserver/src/lib/commands/laun.c
 Index: empserver/src/lib/commands/mfir.c
 --- empserver/src/lib/commands/mfir.c	10 May 2004 19:48:42 -0000	1.13
 +++ empserver/src/lib/commands/mfir.c	20 Jun 2004 15:15:02 -0000
-@@ -567,18 +567,12 @@
+@@ -560,18 +560,12 @@
  	    pr("Kaboom!!!\n");
  	    prb = (double)(range2 ? (trange / range2) : 1.0);
  	    prb *= prb;
@@ -79,7 +79,7 @@ Index: empserver/src/lib/commands/mfir.c
 Index: empserver/src/lib/commands/new.c
 --- empserver/src/lib/commands/new.c	5 Mar 2004 12:05:33 -0000	1.13
 +++ empserver/src/lib/commands/new.c	20 Jun 2004 15:15:02 -0000
-@@ -106,16 +106,10 @@
+@@ -105,16 +105,10 @@
  	    return RET_SYN;
  	}
      } else {
@@ -101,7 +101,7 @@ Index: empserver/src/lib/commands/new.c
 Index: empserver/src/lib/commands/news.c
 --- empserver/src/lib/commands/news.c	20 Feb 2004 20:34:42 -0000	1.5
 +++ empserver/src/lib/commands/news.c	20 Jun 2004 15:15:02 -0000
-@@ -182,7 +182,7 @@
+@@ -187,7 +187,7 @@
      /*
       * vary the order of the printing of "%d times "
       */
@@ -110,7 +110,7 @@ Index: empserver/src/lib/commands/news.c
  	sprintf(cp, "%s times ", ptr);
  	cp += strlen(cp);
  	np->nws_ntm = 1;
-@@ -192,7 +192,7 @@
+@@ -197,7 +197,7 @@
      *cp++ = ' ';
      if (np->nws_vrb < 1 || np->nws_vrb > N_MAX_VERB)
  	np->nws_vrb = 0;
@@ -122,7 +122,7 @@ Index: empserver/src/lib/commands/news.c
 Index: empserver/src/lib/commands/sabo.c
 --- empserver/src/lib/commands/sabo.c	5 Mar 2004 10:38:58 -0000	1.7
 +++ empserver/src/lib/commands/sabo.c	20 Jun 2004 15:15:03 -0000
-@@ -87,10 +87,10 @@
+@@ -86,10 +86,10 @@
  	dam = landgun(3 * land.lnd_effic, 7);
  	if (sect.sct_item[I_SHELL] > 20)
  	    dam += seagun(land.lnd_effic,
@@ -150,7 +150,7 @@ Index: empserver/src/lib/common/damage.c
 Index: empserver/src/lib/subs/attsub.c
 --- empserver/src/lib/subs/attsub.c	5 Mar 2004 13:14:28 -0000	1.17
 +++ empserver/src/lib/subs/attsub.c	20 Jun 2004 15:15:06 -0000
-@@ -1927,12 +1927,12 @@
+@@ -1925,12 +1925,12 @@
       * recalculate the odds every 8-50 casualties, not every cacsualty,
       * since a single dead guy normally wouldn't cause a commander to
       * rethink his strategies, but 50 dead guys might. */
@@ -165,7 +165,7 @@ Index: empserver/src/lib/subs/attsub.c
      while (!success && ototal) {
  	if (chance(odds)) {
  	    pr("!");
-@@ -1948,9 +1948,9 @@
+@@ -1946,9 +1946,9 @@
  	if (((a_cas + d_cas) % 70) == 69)
  	    pr("\n");
  	if (recalctime-- <= 0) {
@@ -210,7 +210,7 @@ Index: empserver/src/lib/subs/landgun.c
 Index: empserver/src/lib/subs/shpsub.c
 --- empserver/src/lib/subs/shpsub.c	16 May 2004 14:19:36 -0000	1.13
 +++ empserver/src/lib/subs/shpsub.c	20 Jun 2004 15:15:08 -0000
-@@ -768,7 +768,7 @@
+@@ -766,7 +766,7 @@
  
      nreport(sp->shp_own, N_HIT_MINE, 0, 1);
  
@@ -222,7 +222,7 @@ Index: empserver/src/lib/subs/shpsub.c
 Index: empserver/src/lib/subs/takeover.c
 --- empserver/src/lib/subs/takeover.c	4 Mar 2004 13:49:25 -0000	1.10
 +++ empserver/src/lib/subs/takeover.c	20 Jun 2004 15:15:08 -0000
-@@ -92,7 +92,7 @@
+@@ -91,7 +91,7 @@
  	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
  		continue;
  	}
@@ -231,7 +231,7 @@ Index: empserver/src/lib/subs/takeover.c
  	if (n < 0)
  	    n = 0;
  	lp->lnd_effic = n;
-@@ -121,7 +121,7 @@
+@@ -120,7 +120,7 @@
       * how spunky are these guys?
       * n: random number from -25:75 + (50 - loyalty)
       */
@@ -240,7 +240,7 @@ Index: empserver/src/lib/subs/takeover.c
      che_count = 0;
      if (n > 0 && sp->sct_own == sp->sct_oldown) {
  	che_count = (civ * n / 3000) + 5;
-@@ -179,7 +179,7 @@
+@@ -178,7 +178,7 @@
       * XXX If this was done right, planes could escape,
       * flying to a nearby friendly airport.
       */
@@ -252,7 +252,7 @@ Index: empserver/src/lib/subs/takeover.c
 Index: empserver/src/lib/update/human.c
 --- empserver/src/lib/update/human.c	14 May 2004 20:21:46 -0000	1.11
 +++ empserver/src/lib/update/human.c	20 Jun 2004 15:15:09 -0000
-@@ -124,7 +124,7 @@
+@@ -123,7 +123,7 @@
  	    sctwork = 0;
  	} else {
  	    if (sp->sct_work < 100)
@@ -261,7 +261,7 @@ Index: empserver/src/lib/update/human.c
  	    if (sctwork > 100)
  		sctwork = 100;
  	    if (!player->simulation)
-@@ -321,5 +321,5 @@
+@@ -320,5 +320,5 @@
  starvation(struct sctstr *sp)
  {
      sp->sct_work = 0;
@@ -283,7 +283,7 @@ Index: empserver/src/lib/update/plague.c
 Index: empserver/src/lib/update/populace.c
 --- empserver/src/lib/update/populace.c	10 Mar 2004 17:59:37 -0000	1.3
 +++ empserver/src/lib/update/populace.c	20 Jun 2004 15:15:09 -0000
-@@ -89,7 +89,7 @@
+@@ -87,7 +87,7 @@
  	n = roundavg(etu * 0.125);
  	if (n == 0)
  	    n = 1;
@@ -292,7 +292,7 @@ Index: empserver/src/lib/update/populace.c
  	if (n > 127)
  	    n = 127;
  	sp->sct_loyal = n;
-@@ -97,7 +97,7 @@
+@@ -95,7 +95,7 @@
      if (sp->sct_loyal > 65 && mil < civ / 20) {
  	int work_red;
  
@@ -304,7 +304,7 @@ Index: empserver/src/lib/update/populace.c
 Index: empserver/src/lib/update/revolt.c
 --- empserver/src/lib/update/revolt.c	5 Mar 2004 10:38:57 -0000	1.10
 +++ empserver/src/lib/update/revolt.c	20 Jun 2004 15:15:09 -0000
-@@ -72,7 +72,7 @@
+@@ -70,7 +70,7 @@
      che_uw = 0;
      che_civ = 0;
      /* che due to civilian unrest */
@@ -313,7 +313,7 @@ Index: empserver/src/lib/update/revolt.c
      che_civ = 3 + (civ * n / 500);
      if (che_civ < 0)
  	che_civ = 0;
-@@ -83,7 +83,7 @@
+@@ -81,7 +81,7 @@
      che += che_civ;
      if (che < CHE_MAX) {
  	/* che due to uw unrest */
@@ -322,7 +322,7 @@ Index: empserver/src/lib/update/revolt.c
  	che_uw = 5 + (uw * n / 500);
  	if (che_uw > uw)
  	    che_uw = uw;
-@@ -254,7 +254,7 @@
+@@ -252,7 +252,7 @@
  	}
  	if (mil > 0) {
  	    /* military won.  */
@@ -331,7 +331,7 @@ Index: empserver/src/lib/update/revolt.c
  	    if (n < 0)
  		n = 0;
  	    sp->sct_loyal = n;
-@@ -273,7 +273,7 @@
+@@ -271,7 +271,7 @@
  	 * Note this disrupts work in the sector.
  	 */
  	n = 0;
@@ -340,7 +340,7 @@ Index: empserver/src/lib/update/revolt.c
  	if (n > 100)
  	    n = 100;
  	tmp = sp->sct_work - n;
-@@ -359,14 +359,14 @@
+@@ -357,14 +357,14 @@
  	/* loyalty drops during recruitment efforts */
  	n = sp->sct_loyal;
  	if (n < 30)
@@ -358,7 +358,7 @@ Index: empserver/src/lib/update/revolt.c
  	    n /= hap_fact(tnat, getnatp(sp->sct_oldown));
  	    if (n + che > CHE_MAX)
  		n = CHE_MAX - che;
-@@ -374,7 +374,7 @@
+@@ -372,7 +372,7 @@
  	    civ -= n;
  	    sp->sct_item[I_CIVIL] = civ;
  	}
@@ -367,7 +367,7 @@ Index: empserver/src/lib/update/revolt.c
  	if (n + che > CHE_MAX)
  	    n = CHE_MAX - che;
  	che += n;
-@@ -407,7 +407,7 @@
+@@ -405,7 +405,7 @@
  	    val = roundintby(val, 10);
  	    /* inject a modicum of indeterminism; also
  	     * avoids che preferring certain directions */
@@ -379,7 +379,7 @@ Index: empserver/src/lib/update/revolt.c
 Index: empserver/src/util/fairland.c
 --- empserver/src/util/fairland.c	23 Mar 2004 15:20:17 -0000	1.10
 +++ empserver/src/util/fairland.c	20 Jun 2004 15:15:10 -0000
-@@ -124,10 +124,10 @@
+@@ -123,10 +123,10 @@
  #define max(a,b) (a>b?a:b)
  #endif
  #ifndef SRANDOM
@@ -453,7 +453,7 @@ Index: empserver/src/lib/gen/chance.c
 Index: empserver/src/server/main.c
 --- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
 +++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
-@@ -196,7 +196,7 @@
+@@ -195,7 +195,7 @@
      empth_init((char **)&player, flags);
      time(&now);
  #if !defined(_WIN32)
