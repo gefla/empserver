@@ -105,7 +105,6 @@ main(int argc, char **argv)
     int flags = 0;
     int op;
     char *config_file = NULL;
-    extern char *optarg;
     s_char tbuf[256];
 #ifdef POSIXSIGNALS
     struct sigaction act;
@@ -151,7 +150,7 @@ main(int argc, char **argv)
     }
 
     logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", getpid());
+    logerror("Empire server (pid %d) started", (int)getpid());
 
 #if defined(_WIN32)
     loc_NTInit();
