@@ -272,7 +272,6 @@ EOF
 	echo ""
 done
 
- Clean sandbox
 echo "Cleaning sandbox"
 cd "${BOXDIR}" || err "Could not cd back to sanbox root !"
 rm -r "${WORKDIR}" || warn "Directory ${WORKDIR} could not be cleanly removed !"
