@@ -106,7 +106,7 @@ nxtitemp(struct nstr_item *np, int owner)
 		selected = 0;
 	    break;
 	default:
-	    logerror("nxtitemp: bad selector %d\n", np->sel);
+	    CANT_HAPPEN("bad np->sel");
 	    return 0;
 	}
 	if (selected && np->ncond) {

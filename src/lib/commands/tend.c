@@ -263,7 +263,7 @@ tend_nxtitem(struct nstr_item *np, caddr_t ptr)
 		selected = 0;
 	    break;
 	default:
-	    logerror("nxtitem: bad selector %d\n", np->sel);
+	    CANT_HAPPEN("bad np->sel");
 	    return 0;
 	}
 	if (selected && np->ncond) {

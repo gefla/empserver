@@ -71,7 +71,6 @@ nxtitem(struct nstr_item *np, caddr_t ptr)
 	switch (np->sel) {
 	    /*
 	     * This one won't work unless you're running in emp_player
-	     *
 	     */
 	case NS_LIST:
 	    if ((np->flags & EFF_OWNER) && !player->owner)
@@ -105,7 +104,7 @@ nxtitem(struct nstr_item *np, caddr_t ptr)
 		selected = 0;
 	    break;
 	default:
-	    logerror("nxtitem: bad selector %d\n", np->sel);
+	    CANT_HAPPEN("bad np->sel");
 	    return 0;
 	}
 	if (selected && np->ncond) {
