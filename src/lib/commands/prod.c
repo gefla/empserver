@@ -284,7 +284,7 @@ prod(void)
 
 	if (nsect++ == 0) {
 	    pr("PRODUCTION SIMULATION\n");
-	    pr("   sect  des eff  will make  p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
+	    pr("   sect  des eff  will make    p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
 	}
 
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
@@ -334,14 +334,12 @@ prod(void)
 	    if (natp->nat_priorities[type] == 0) {
 		maxmil = 0;
 	    }
-	    pr(" %5d mil   1.00 $%-5d%4dc",
-	       enlisted, enlisted * 3, enlisted);
-	    pr("           %4dc           %5d\n",
-	       enlisted, maxmil);
+	    pr(" %5d mil     1.00 $%-5d%4dc           %4dc           %5d\n",
+	       enlisted, enlisted * 3, enlisted, enlisted, maxmil);
 	    continue;
 	}
 
-	pr(" %-5.5s", pp->p_sname);
+	pr(" %-7.7s", pp->p_sname);
 	pr(" %.2f", prodeff);
 	pr(" $%-5d", cost);
 	for (i = 0; i < 3; i++) {
