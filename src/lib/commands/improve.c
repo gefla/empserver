@@ -76,9 +76,13 @@ improve(void)
 	type = INT_ROAD;
     else if (!strncmp(p, "ra", 2))
 	type = INT_RAIL;
-    else if (!strncmp(p, "de", 2) && opt_DEFENSE_INFRA)
+    else if (!strncmp(p, "de", 2)) {
+	if (!opt_DEFENSE_INFRA) {
+	    pr("Defense infrastructure is disabled.\n");
+	    return RET_FAIL;
+	}
 	type = INT_DEF;
-    else
+    } else
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
@@ -91,7 +95,7 @@ improve(void)
 	    value = sect.sct_road;
 	else if (type == INT_RAIL)
 	    value = sect.sct_rail;
-	else if (type == INT_DEF)
+	else /* type == INT_DEF */
 	    value = sect.sct_defense;
 	sprintf(inbuf, "Sector %s has a %s of %d%%.  Improve how much? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
@@ -172,7 +176,7 @@ improve(void)
 	sect.sct_mobil -= mneeded;
 	ovalue = value;
 	value += maxup;
-	if (value > 100)
+	if (CANT_HAPPEN(value > 100))
 	    value = 100;
 	pr("Sector %s %s increased from %d%% to %d%%\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),
