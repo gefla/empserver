@@ -3,7 +3,8 @@
 use strict;
 use warnings;
 
-my $esc="\\";
+my $esc = "\\";
+my $ignore = 0;
 my @a;
 
 print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n";
@@ -16,12 +17,19 @@ line: while (<>) {
     s/((^|[^\\])(\\\\)*)\\\".*/$1/g; # strip comments
 
     @a = req($_);
+
     if (!@a) {
-	print htmlify($_), "\n";
+	print htmlify($_), "\n" unless $ignore;
 	next line;
     }
 
     # requests
+
+    if ($a[1] eq "ig") { $ignore = 1; next line; }
+    if ($ignore) {
+	$ignore = 0 if $a[1] eq "..";
+	next line;
+    }
 
     if ($a[1] eq "TH") {
 	@a = checkarg(2, @a);
