@@ -84,7 +84,8 @@ emp_server.exe: $(NTOBJS) $(NTLIBS)
         kernel32.lib \
         wsock32.lib \
         libcmt.lib \
-        oldnames.lib
+        oldnames.lib \
+        advapi32.lib
 
 emp_server: $(OBJS) $(LIBS)
 	$(CC) -o emp_server $(OBJS) $(LIBS) $(LFLAGS) $(GLOBALPFLAGS) -lm -lc
