@@ -46,7 +46,6 @@ lwpStatus(struct lwpProc *proc, char *format, ...)
     va_list ap;
     static struct timeval startTime;
     struct timeval tv;
-    char buf[1024];
     int sec, msec;
 
     va_start(ap, format);
@@ -60,9 +59,10 @@ lwpStatus(struct lwpProc *proc, char *format, ...)
 	    sec++;
 	    msec += 1000;
 	}
-	vsprintf(buf, format, ap);
-	printf("%d:%02d.%03d %17s[%d]: %s\n", sec / 60, sec % 60,
-	       msec / 10, proc->name, proc->pri, buf);
+	printf("%d:%02d.%03d %17s[%d]: ",
+	       sec / 60, sec % 60, msec / 10, proc->name, proc->pri);
+	vprintf(format, ap);
+	putchar('\n');
     }
     va_end(ap);
 }
