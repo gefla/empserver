@@ -62,7 +62,7 @@ extern char *strdup();
 #endif /* NOSTRDUP */
 
 /* All the configurable variables ... */
-extern s_char *infodir, *datadir, *gamedir, *loginport, *privname,
+extern s_char *infodir, *datadir, *loginport, *privname,
     *privlog;
 
 extern double buil_tower_bt, buil_tower_bc;

@@ -84,7 +84,7 @@ main()
 
     if (access(EP, 0)) {
 	printf("making directory %s\n", EP);
-	if (mkdir(EP, 493)) {
+	if (mkdir(EP, 0755)) {
 	    printf("mkdir failed on %s, exiting.\n", EP);
 	    exit(-1);
 	}
@@ -92,7 +92,7 @@ main()
     sprintf(buf, "%s/data", EP);
     if (access(buf, 0)) {
 	printf("making directory %s\n", buf);
-	if (mkdir(buf, 493)) {
+	if (mkdir(buf, 0755)) {
 	    printf("mkdir failed on %s, exiting.\n", buf);
 	    exit(-1);
 	}
@@ -218,20 +218,10 @@ wrgamesdef(char *filename)
     fprintf(fp, " */\n\n");
     fprintf(fp, "#ifndef _GAMESDEF_H_\n");
     fprintf(fp, "#define _GAMESDEF_H_\n\n");
-    fprintf(fp, "#if !defined(_WIN32)\n");
-    fprintf(fp, "#ifdef __STDC__\n");
-    fprintf(fp, "#define EMPPATH(xyz) \"%s/\" #xyz /* ANSI C */\n", EP);
-    fprintf(fp, "#else\n");
-    fprintf(fp, "#define EMPPATH(xyz) \"%s/xyz\" /* traditional */\n", EP);
-    fprintf(fp, "#endif /* __STDC__ */\n");
-    fprintf(fp, "#else\n");
-    fprintf(fp, "#define EMPPATH(xyz) \"%s\\\\\" #xyz /* ANSI C */\n",
-	    path);
-    fprintf(fp, "#endif /* _WIN32 */\n\n");
+    fprintf(fp, "#define EMPDIR \"%s\"\n", EP);
     fprintf(fp, "#define PRVNAM \"%s\"\n", PV);
     fprintf(fp, "#define PRVLOG \"%s\"\n", EM);
-    fprintf(fp,
-	    "#define GET_SOURCE \"using:\\n    ftp://ftp.wolfpackempire.com/pub/empire/server or \\n    http://www.wolfpackempire.com/\"\n");
+    fprintf(fp, "#define GET_SOURCE \"using:\\n    ftp://ftp.wolfpackempire.com/pub/empire/server or \\n    http://www.wolfpackempire.com/\"\n");
     fprintf(fp, "#define EMP_HOST \"%s\"\n", IP);
     fprintf(fp, "#define EMP_PORT \"%d\"\n\n", PN);
     fprintf(fp, "#define MAXNOC %d\n\n", MC);

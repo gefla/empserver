@@ -35,37 +35,18 @@
 #include "gamesdef.h"
 #include "misc.h"
 
-#if !defined(_WIN32)
-#define FILEPATH(p) EMPPATH(data/p)
-#else
-#define FILEPATH(p) EMPPATH(data\\p)
-#endif
+s_char *infodir = EMPDIR "/info.nr";
+s_char *datadir = EMPDIR "/data";
+s_char *teldir	= EMPDIR "/data/tel";
 
-s_char *gamedir = EMPPATH(.);
-s_char *infodir = EMPPATH(info.nr);
-s_char *datadir = EMPPATH(data);
-s_char *teldir = FILEPATH(tel);
+s_char *upfil	= EMPDIR "/data/up";
+s_char *downfil = EMPDIR "/data/down";
+s_char *disablefil = EMPDIR "/data/disable";
+s_char *telfil	= EMPDIR "/data/tel/tel";
+s_char *annfil	= EMPDIR "/data/ann";
+s_char *commfil = EMPDIR "/data/comm";
+s_char *banfil	= EMPDIR "/data/ban";
+s_char *authfil = EMPDIR "/data/auth";
+s_char *timestampfil = EMPDIR "/data/timestamp";
 
-s_char *upfil = FILEPATH(up);
-s_char *downfil = FILEPATH(down);
-s_char *disablefil = FILEPATH(disable);
-#if !defined(_WIN32)
-s_char *telfil = FILEPATH(tel / tel);
-#else
-s_char *telfil = FILEPATH(tel \\ tel);
-#endif
-s_char *annfil = FILEPATH(ann);
-s_char *commfil = FILEPATH(comm);
-s_char *banfil = FILEPATH(ban);
-s_char *authfil = FILEPATH(auth);
-s_char *timestampfil = FILEPATH(timestamp);
-s_char *lostfil = FILEPATH(lostitems);
-
-#if !defined(_WIN32)
-s_char *playerbin = EMPPATH(bin / emp_player);
-s_char *updatebin = EMPPATH(bin / emp_update);
-#else
-s_char *playerbin = EMPPATH(bin \\ emp_player);
-s_char *updatebin = EMPPATH(bin \\ emp_update);
-#endif
 s_char *loginport = EMP_PORT;
