@@ -66,7 +66,7 @@ typedef struct lwpSem empth_sem_t;
 #define EMPTH_STACKCHECK  0x2
 
 #define EMPTH_KILLED  1
-typedef struct empth_ctx_t {
+typedef struct {
     char *name;			/* thread name */
     char *desc;			/* description */
     void *ud;			/* user data */
