@@ -49,7 +49,6 @@ mobility_check(void *unused)
     struct mob_acc_globals timestamps;
     time_t now;
     FILE *fp;
-    int hour[2];
 
     while (1) {
 	time(&now);
@@ -68,7 +67,7 @@ mobility_check(void *unused)
 	rewind(fp);
 	fwrite(&timestamps, sizeof(timestamps), 1, fp);
 	fclose(fp);
-	if (!gamehours(now, hour)) {
+	if (!gamehours(now)) {
 	    if (updating_mob == 1) {
 		update_all_mob();
 		logerror("Turning off mobility updating (gamehours).");
@@ -127,7 +126,7 @@ mobility_init(void)
     time(&now);
     logerror("Done at %s", ctime(&now));
 
-    if (now >= timestamps.starttime && gamehours(now, hour)) {
+    if (now >= timestamps.starttime && gamehours(now)) {
 	logerror("Turning on mobility updating.");
 	updating_mob = 1;
     } else {

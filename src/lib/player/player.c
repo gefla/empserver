@@ -65,7 +65,6 @@ void
 player_main(struct player *p)
 {
     struct natstr *natp;
-    int hour[2];
     int secs;
     s_char buf[128];
 
@@ -83,7 +82,7 @@ player_main(struct player *p)
 	pr("You're not a deity!\n");
 	return;
     }
-    if (!gamehours(player->curup, hour)) {
+    if (!gamehours(player->curup)) {
 	pr("Empire hours restriction in force\n");
 	if ((natp->nat_stat & STAT_GOD) == 0)
 	    return;
@@ -190,7 +189,6 @@ status(void)
     struct natstr *natp;
     int minute;
     struct sctstr sect;
-    int hour[2];
     s_char buf[128];
 
     if (player->state == PS_SHUTDOWN)
@@ -249,7 +247,7 @@ status(void)
 	     * either day change, or hours restriction
 	     */
 	    daychange(player->curup);
-	    if (!gamehours(player->curup, hour)) {
+	    if (!gamehours(player->curup)) {
 		pr("Empire hours restriction in force\n");
 		if ((natp->nat_stat & STAT_GOD) == 0) {
 		    putnat(natp);

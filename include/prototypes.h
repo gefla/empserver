@@ -119,7 +119,7 @@ extern void filetruncate(s_char *);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
 /* hours.c */
-extern int gamehours(time_t, int *);
+extern int gamehours(time_t);
 /* land.c */
 extern int has_units(coord, coord, natid, struct lndstr *);
 extern int has_units_with_mob(coord, coord, natid);

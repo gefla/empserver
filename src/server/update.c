@@ -50,7 +50,6 @@ void
 update_sched(void *unused)
 {
     s_char *kw;
-    int hour[2];
     int wind;
     time_t now, delta;
 
@@ -58,7 +57,6 @@ update_sched(void *unused)
     empth_create(PP_SCHED, update_wait, (50 * 1024), 0, "UpdateWait",
 		 "Waits until players idle", 0);
     time(&now);
-    (void)gamehours(now, hour);
     if (s_p_etu <= 0) {
 	logerror("bad value for s_p_etu (%d)", s_p_etu);
 	s_p_etu = 2 * 60;
@@ -78,7 +76,7 @@ update_sched(void *unused)
 	empth_sleep(update_time);
 	time(&now);
 	now += adj_update;
-	if (!gamehours(now, hour)) {
+	if (!gamehours(now)) {
 	    logerror("No update permitted (hours restriction)");
 	    continue;
 	}

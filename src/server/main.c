@@ -91,7 +91,6 @@ int
 main(int argc, char **argv)
 {
     time_t now;
-    int hour[2];
     int flags = 0;
     int op;
     char *config_file = NULL;
@@ -207,7 +206,6 @@ main(int argc, char **argv)
     ef_init();
     init_files();
     io_init();
-    gamehours(now, hour);
 
     if (opt_MOB_ACCESS) {
 	/* This fixes up mobility upon restart */

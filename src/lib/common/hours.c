@@ -49,18 +49,16 @@
 
 /*
  * returns true if game can be played now.
- * Sets the number of minutes until the hours
- * function must be re-called.
  */
 int
-gamehours(time_t now, int *hour)
+gamehours(time_t now)
 {
     register s_char *bp;
     register struct tm *tm;
     int day;
     int curtime;
     int okday[7];
-    int tomorrow;
+    int hour[2];
 
     tm = localtime(&now);
     curtime = tm->tm_min + tm->tm_hour * 60;
@@ -83,12 +81,6 @@ gamehours(time_t now, int *hour)
 		break;
 	if (bp == 0)
 	    return 0;
-    } else {
-	hour[0] = 0;
-	hour[1] = 24 * 60;
     }
-    tomorrow = tm->tm_wday + 1;
-    if (tomorrow >= 7)
-	tomorrow = 0;
     return 1;
 }
