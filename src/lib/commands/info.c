@@ -76,7 +76,9 @@ info(void)
     struct stat statb;
     struct dirent *dp;
     s_char filename[1024];
+    s_char last[256];
     DIR *info_dp;
+    int nmatch = 0;
  
     name = player->argp[1];
     if (name) {
@@ -101,15 +103,33 @@ info(void)
 	    return RET_SYS;
 	}
 
-	while ((dp = readdir(info_dp)) != 0 && fp == 0) {
+	while ((dp = readdir(info_dp)) != 0) {
 	    if (strncasecmp(name, dp->d_name, strlen(name)) != 0)
 		continue;
-	    sprintf(filename, "%s/%s", infodir, dp->d_name);
-	    fp = fopen(filename, "r");
+	    nmatch++;
+	    if (nmatch == 1) {
+		snprintf(last, sizeof(last), "%s", dp->d_name);
+	    } else {
+		if (nmatch == 2)
+		    pr("The following info topics were found %s", last);
+		pr(", %s", dp->d_name);
+	    }
 	}
 	closedir(info_dp);
-	if (fp == NULL) {
+	if (nmatch == 0) {
 	    pr("Sorry, there is no info on %s\n", name);
+	    return RET_FAIL;
+	} else if (nmatch > 1) {
+	    pr("\n");
+	    return RET_FAIL;
+	}
+	snprintf(filename, sizeof(filename), "%s/%s", infodir,
+		 last);
+	fp = fopen(filename, "r");
+	if (fp == NULL) {
+	    pr("Error reading info file for %s\n", name);
+	    logerror("Cannot open for \"%s\" info file (%s)",
+		filename, strerror(errno));
 	    return RET_FAIL;
 	}
     }
@@ -253,6 +273,7 @@ info(void)
     s_char *name;
     s_char *tmp_name;
     s_char filename[1024];
+    s_char last[256];
     int nmatch = 0;
 
     name = player->argp[1];
@@ -302,13 +323,32 @@ info(void)
 		 (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
 		 (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY)) &&
 		(strncasecmp(name, fData.cFileName, strlen(name)) == 0)) {
-		_snprintf(filename, sizeof(filename), "%s\\%s", infodir, fData.cFileName);
-		fp = fopen(filename, "r");
+		nmatch++;
+		if (nmatch == 1) {
+		    _snprintf(last, sizeof(last), "%s", fData.cFileName);
+		} else {
+		    if (nmatch == 2)
+			pr("The following info topics were found %s",
+			   last);
+		    pr(", %s", fData.cFileName);
+		}
 	    }
-	} while (!fp && FindNextFile(hDir, &fData));
+	} while (FindNextFile(hDir, &fData));
 	FindClose(hDir);
-	if (fp == NULL) {
+	if (nmatch == 0) {
 	    pr("Sorry, there is no info on %s\n", name);
+	    return RET_FAIL;
+	} else if (nmatch > 1) {
+	    pr("\n");
+	    return RET_FAIL;
+	}
+	_snprintf(filename, sizeof(filename), "%s/%s",
+		  infodir, last);
+	fp = fopen(filename, "r");
+	if (fp == NULL) {
+	    pr("Error reading info file for %s\n", name);
+	    logerror("Cannot open for \"%s\" info file (%s)",
+		filename, strerror(errno));
 	    return RET_FAIL;
 	}
     }
