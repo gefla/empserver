@@ -279,18 +279,20 @@ Lost:
 .L timestamp
 .in
 \" Commented out, because there's currently no way to use these:
-\" .s1
-\" Commodity:
-\" .in +\w'nchoppers\0\0'u
-\" \" FIXME incomplete
-\" .s1
-\" .in
-\" Trade:
-\" .in +\w'nchoppers\0\0'u
-\" .L type
-\" .L owner
-\" .L unitid
-\" \" FIXME incomplete
-\" .in
+.ig
+.s1
+Commodity:
+.in +\w'nchoppers\0\0'u
+\" FIXME incomplete
+.s1
+.in
+Trade:
+.in +\w'nchoppers\0\0'u
+.L type
+.L owner
+.L unitid
+\" FIXME incomplete
+.in
+..
 .s1
 .SA "Syntax, Playing"
