@@ -41,7 +41,7 @@
 #include "misc.h"
 #include "news.h"
 
-s_char *page_headings[N_MAX_PAGE + 1] = {
+char *page_headings[N_MAX_PAGE + 1] = {
 /* not used */ "Comics",
 /* N_FOR    */ "Foreign Affairs",
 /* N_FRONT  */ "The Front Line",

@@ -100,7 +100,7 @@ struct lndstr {
 
 struct lchrstr {
     u_short l_item[I_MAX+1];	/* load limit */
-    s_char *l_name;		/* full name of type of land unit */
+    char *l_name;		/* full name of type of land unit */
     int l_lcm;			/* units of lcm to build */
     int l_hcm;			/* units of hcm to build */
     int l_mil;			/* how many mil it takes to build */

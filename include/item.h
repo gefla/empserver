@@ -53,7 +53,7 @@ struct ichrstr {
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */
     int i_pkg[NUMPKG];		/* units for reg, ware, urb, bank */
-    s_char *i_name;		/* full name of item */
+    char *i_name;		/* full name of item */
 };
 
 /* variables using this structure */

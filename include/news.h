@@ -56,7 +56,7 @@ struct nwsstr {
 struct rptstr {
     int r_good_will;		/* how "nice" the action is */
     int r_newspage;		/* which page this item belongs on */
-    s_char *r_newstory[NUM_RPTS];	/* texts for fmt( */
+    char *r_newstory[NUM_RPTS];	/* texts for fmt( */
 };
 
 	/* news verbs */
@@ -165,6 +165,6 @@ struct rptstr {
 	(struct nwsstr *) ef_ptr(EF_NEWS, n)
 
 extern struct rptstr rpt[];
-extern s_char *page_headings[];
+extern char *page_headings[];
 
 #endif /* _NEWS_H_ */

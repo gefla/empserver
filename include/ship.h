@@ -141,7 +141,7 @@ struct mchrstr {
     u_char m_nchoppers;		/* maximum number of choppers */
     u_char m_fuelc;		/* fuel capacity */
     u_char m_fuelu;		/* fuel used per 10 mob */
-    s_char *m_name;		/* full name of type of ship */
+    char *m_name;		/* full name of type of ship */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */
     long m_flags;		/* what special things can this ship do */

@@ -48,7 +48,7 @@ struct trtstr {
 
 struct tchrstr {
     int t_cond;			/* bit to indicate this clause */
-    s_char *t_name;		/* description of clause */
+    char *t_name;		/* description of clause */
 };
 
 #define TS_FREE		0

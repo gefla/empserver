@@ -35,7 +35,7 @@
 #define _COM_H_
 
 struct cmndstr {
-    s_char *c_form;		/* prototype of command */
+    char *c_form;		/* prototype of command */
     int c_cost;			/* btu cost of command */
     int (*c_addr)(void);	/* core addr of appropriate routine */
     int c_flags;

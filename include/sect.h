@@ -92,7 +92,7 @@ struct dchrstr {
     int d_mnem;			/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
-    int d_flg;			/* movement cost */
+    int d_flg;			/* movement flags */
     i_packing d_pkg;		/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
@@ -101,7 +101,7 @@ struct dchrstr {
     int d_build;		/* cost multiplier for eff */
     int d_lcms;			/* lcm's needed per point of eff */
     int d_hcms;			/* hcm's needed per point of eff */
-    s_char *d_name;		/* full name of sector type */
+    char *d_name;		/* full name of sector type */
 };
 
 /* for d_flg */

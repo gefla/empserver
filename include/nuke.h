@@ -50,7 +50,7 @@ struct nukstr {
 };
 
 struct nchrstr {
-    s_char *n_name;		/* warhead unit name */
+    char *n_name;		/* warhead unit name */
     int n_lcm;			/* costs to build */
     int n_hcm;
     int n_oil;
