@@ -269,6 +269,16 @@ nstr_parse_val(char *str, struct valstr *val)
 	return tail;
     }
 
+    /* identifier */
+    if (isalpha(str[0])) {
+	for (tail = str+1; isalnum(*tail) || *tail == '_'; ++tail) ;
+	val->val_type = NSC_NOTYPE;
+	val->val_cat = NSC_ID;
+	val->val_as.str.base = str;
+	val->val_as.str.maxsz = tail - str;
+	return tail;
+    }
+
     /* number */
     l = strtol(str, &tail, 0);
     d = strtod(str, &tail2);
@@ -285,9 +295,8 @@ nstr_parse_val(char *str, struct valstr *val)
 	return tail;
     }
 
-    /* identifier */
-    for (tail = str; isalnum(*tail) || *tail == '_'; ++tail) ;
-    if (tail == str) ++tail;
+    /* funny character, interpret as identifier */
+    tail = str+1;
     val->val_type = NSC_NOTYPE;
     val->val_cat = NSC_ID;
     val->val_as.str.base = str;
