@@ -57,15 +57,4 @@ struct genitem {
     short radius;
 };
 
-struct genobject {
-    short ef_type;
-    natid own;
-};
-
-struct genchrstr {
-    u_char nv;			/* current number of variables */
-    u_char vtype[MAXCHRNV];
-    u_short vamt[MAXCHRNV];
-};
-
 #endif /* _GENITEM_H_ */
