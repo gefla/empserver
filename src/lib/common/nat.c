@@ -90,7 +90,6 @@ getrejects(natid them, struct natstr *np)
 
     ind = them / 4;
     shift = 12 - ((them - ((them / 4) << 2)) * 4);
-    /* the 07 should *really* be 017 */
     reject = (np->nat_rejects[ind] >> shift) & 0x0f;
     return reject;
 }
@@ -138,7 +137,6 @@ putreject(struct natstr *np, natid them, int how, int what)
     int newrej;
     int ind;
 
-    /* This 07 should be changed to 017 after the current game is over */
     what &= 0x0f;
     ind = them / 4;
     shift = 12 - ((them - ((them / 4) << 2)) * 4);
