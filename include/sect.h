@@ -150,14 +150,13 @@ struct dchrstr {
 #define	SCT_MAXDEF	34	/* highest sector type in header files */
 
 #define getsect(x, y, p) \
-	ef_read(EF_SECTOR, sctoff((int) x, (int) y), p)
+	ef_read(EF_SECTOR, sctoff((x), (y)), (p))
 #define putsect(p) \
-	ef_write(EF_SECTOR, sctoff((int) (p)->sct_x, \
-		(int) (p)->sct_y), p)
+	ef_write(EF_SECTOR, sctoff((p)->sct_x, (p)->sct_y), (p))
 #define getsectp(x, y) \
-	(struct sctstr *) ef_ptr(EF_SECTOR, sctoff((int)x, (int)y))
+	(struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y)))
 #define getsectid(id) \
-	(struct sctstr *) ef_ptr(EF_SECTOR, id)
+	(struct sctstr *)ef_ptr(EF_SECTOR, id)
 
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
