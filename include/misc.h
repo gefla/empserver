@@ -153,6 +153,4 @@ extern char *getstring(char *prompt, char buf[]);
 extern s_char *prbuf(s_char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
-
 #endif /* _MISC_H_ */
