@@ -93,12 +93,9 @@ shoo(void)
 	if (sect.sct_item[item] == 0 || sect.sct_item[I_CIVIL] > mil * 10)
 	    continue;
 	nshot = sect.sct_item[item] > targets ? targets : sect.sct_item[item];
-	m = ((double)nshot + 4.0) / 5.0;
-
-	if (m > sect.sct_mobil) {
+	if (nshot > sect.sct_mobil * 5)
 	    nshot = sect.sct_mobil * 5;
-	    m = sect.sct_mobil;
-	}
+	m = nshot / 5.0;
 	/*
 	 * Each security unit lowers the cost of
 	 * shooting a person by 10%. However, you
@@ -106,7 +103,7 @@ shoo(void)
 	 */
 	if (nsec > 5)
 	    nsec = 5;
-	m = ((float)m * (1.0 - ((float)nsec * 0.1)));
+	m *= 1.0 - nsec * 0.1;
 	if (nshot <= 0)
 	    continue;
 	if (m < 0)
