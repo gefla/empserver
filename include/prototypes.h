@@ -74,7 +74,7 @@ extern int scuttle_tradeship(struct shpstr *, int);
 extern void scuttle_ship(struct shpstr *);
 extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
 		     int old, int new);
-extern int line_of_sight(s_char **rad, int ax, int ay, int bx, int by);
+extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplook *);
 extern int tend_nxtitem(struct nstr_item *, caddr_t);
 extern s_char *prsub(struct shpstr *);
