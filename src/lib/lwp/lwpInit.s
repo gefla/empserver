@@ -16,7 +16,7 @@
 
 
 	.csect	LwpInitContext{PR}      
-	.function	.lwpInitContext{PR},.lwpInitContext,2,0
+	.function	LwpInitContext{PR},.lwpInitContext,2,0
 .lwpInitContext:                        # 0x00000000 (LwpInitContext)
 	stu	SP,-0x40(SP)
 	st	r3,0x58(SP)		# r3 = newp pointer
