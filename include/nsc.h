@@ -59,6 +59,7 @@ typedef enum {
     NSC_YCOORD,			/* coord that needs y conversion */
     NSC_TIME,			/* time_t */
     NSC_FLOAT,			/* float */
+    NSC_STRINGY,		/* char[], zero-terminated string */
     /* aliases, must match typedefs */
     NSC_NATID = NSC_UCHAR	/* nation id */
 } nsc_type;

@@ -148,7 +148,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 int
 nstr_exec(struct nscstr *np, int ncond, void *ptr)
 {
-    int i, op, optype;
+    int i, op, optype, cmp;
     struct valstr lft, rgt;
 
     for (i = 0; i < ncond; ++i) {
@@ -171,7 +171,9 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 		return 0;
 	    break;
 	case NSC_STRING:
-	    CANT_HAPPEN("unimplemented OPTYPE"); /* FIXME */
+	    cmp = strcmp(lft.val_as.str, rgt.val_as.str);
+	    if (!EVAL(op, cmp, 0))
+		return 0;
 	    return 0;
 	default:
 	    CANT_HAPPEN("bad OPTYPE");
@@ -297,6 +299,7 @@ nstr_comp_val(char *str, struct valstr*val, int type)
  * Promote VALTYPE.
  * If VALTYPE is an integer type, return NSC_LONG.
  * If VALTYPE is a floating-point type, return NSC_DOUBLE.
+ * If VALTYPE is NSC_STRINGY, return NSC_STRING.
  * If VALTYPE is NSC_NOTYPE, NSC_STRING or NSC_TYPEID, return VALTYPE.
  */
 static int
@@ -321,6 +324,9 @@ nstr_promote(int valtype)
 	break;
     case NSC_FLOAT:
 	valtype = NSC_DOUBLE;
+	break;
+    case NSC_STRINGY:
+	valtype = NSC_STRING;
 	break;
     default:
 	CANT_HAPPEN("bad VALTYPE");
@@ -450,8 +456,13 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    val->val_as.dbl = ((double *)memb_ptr)[idx];
 	    valtype = NSC_DOUBLE;
 	    break;
+	case NSC_STRINGY:
+	    CANT_HAPPEN(idx);
+	    val->val_as.str = (char *)memb_ptr;
+	    valtype = NSC_STRING;
+	    break;
 	case NSC_STRING:
-	    val->val_as.str = *(char **)memb_ptr;
+	    val->val_as.str = ((char **)memb_ptr)[idx];
 	    valtype = NSC_STRING;
 	    break;
 	case NSC_TIME:
