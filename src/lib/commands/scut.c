@@ -136,8 +136,6 @@ scut(void)
     union item_u item;
     int type;
     struct mchrstr *mp;
-    struct plchrstr *pp;
-    struct lchrstr *lp;
     s_char *p;
     s_char prompt[128];
     s_char buf[1024];
@@ -230,11 +228,9 @@ scut(void)
 		   prland(&item.land));
 		continue;
 	    }
-	    lp = &lchr[(int)item.land.lnd_type];
 	    pr("%s", prland(&item.land));
 	    scuttle_land(&item.land);
 	} else {
-	    pp = &plchr[(int)item.plane.pln_type];
 	    pr("%s", prplane(&item.plane));
 	    if (item.plane.pln_ship >= 0) {
 		struct shpstr ship;
