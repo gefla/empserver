@@ -200,6 +200,8 @@ main(int argc, char **argv)
 	return install_service(argv[0], service_name, datadir_set, config_file);
 #endif	/* _WIN32 */
 
+    init_server();
+
 #if defined(_WIN32)
     if (daemonize != 0) {
 	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
@@ -218,13 +220,10 @@ main(int argc, char **argv)
 	}
     }
     daemonize = 0;
-#endif	/* _WIN32 */
-
-    init_server(flags);
-#ifndef _WIN32
+#else  /* !_WIN32 */
     if (daemonize)
 	disassoc();
-#endif
+#endif /* !_WIN32 */
     start_server(flags);
 
 #if defined(__linux__) && defined(_EMPTH_POSIX)
@@ -249,18 +248,38 @@ main(int argc, char **argv)
 
 
 void
-init_server(int flags)
+init_server(void)
 {
-#ifdef POSIXSIGNALS
-    struct sigaction act;
-#endif /* POSIXSIGNALS */
-
+    srand(time(NULL));
 #if defined(_WIN32)
     loc_NTInit();
 #endif
     update_policy_check();
-
     nullify_objects();
+    global_init();
+    shutdown_init();
+    player_init();
+    ef_init();
+    init_files();
+    io_init();
+    init_nreport();
+
+    if (opt_MOB_ACCESS) {
+	/* This fixes up mobility upon restart */
+	mobility_init();
+    }
+
+    loginit("server");
+    logerror("------------------------------------------------------");
+    logerror("Empire server (pid %d) started", (int)getpid());
+}
+
+void
+start_server(int flags)
+{
+#ifdef POSIXSIGNALS
+    struct sigaction act;
+#endif /* POSIXSIGNALS */
 
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
@@ -302,29 +321,9 @@ init_server(int flags)
     signal(SIGPIPE, SIG_IGN);
 #endif /* POSIXSIGNALS */
 #endif /* _WIN32 */
+
     empth_init((char **)&player, flags);
-    srand(time(NULL));
-    global_init();
-    shutdown_init();
-    player_init();
-    ef_init();
-    init_files();
-    io_init();
-    init_nreport();
 
-    if (opt_MOB_ACCESS) {
-	/* This fixes up mobility upon restart */
-	mobility_init();
-    }
-
-    loginit("server");
-    logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", (int)getpid());
-}
-
-void
-start_server(int flags)
-{
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
 		 "AcceptPlayers", "Accept network connections", 0);
     empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,

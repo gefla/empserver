@@ -203,7 +203,7 @@ service_ctrl_handler(DWORD Opcode)
 void WINAPI
 service_main(DWORD argc, LPTSTR *argv)
 {
-    init_server(0);
+    init_server();
 
     service_status.dwServiceType        = SERVICE_WIN32; 
     service_status.dwCurrentState       = SERVICE_START_PENDING; 

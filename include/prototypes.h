@@ -48,7 +48,7 @@
 extern void close_files(void);
 extern void panic(int sig);
 extern void shutdwn(int sig);
-extern void init_server(int);
+extern void init_server(void);
 extern void start_server(int);
 #if defined(_WIN32)
 extern void loc_NTTerm(void);
