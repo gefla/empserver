@@ -103,7 +103,7 @@ carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
 	allied = (getrel(getnatp(ship.shp_own), own) == ALLIED);
-	if ((ship.shp_own != own) & !allied)
+	if ((ship.shp_own != own) && !allied)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];
 	if (wantflags) {
