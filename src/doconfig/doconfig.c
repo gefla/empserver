@@ -42,6 +42,7 @@
 #else
 #include <direct.h>
 #include <io.h>
+#define mkdir(dir,perm) _mkdir(dir)
 #endif
 #include <string.h>
 
