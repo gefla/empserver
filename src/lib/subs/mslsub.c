@@ -235,7 +235,6 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     s_char *att_name;
     s_char *def_name;
     int news_item;
-    s_char what[512];
     s_char *who = sublaunch ? (s_char *)"" : cname(bombown);
 
     getsect(x, y, &sect);
@@ -259,7 +258,6 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	def_name = "tomato";	/* heh -KHS */
 	news_item = N_NUKE_STOP;
     }
-    sprintf(what, "%s %s", who, att_name);
     irvlist = &foo;
 
     /* get all hostile abms in range */
@@ -343,8 +341,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	}
 
 	if (!destroyed &&
-	    msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item, what,
-		    x, y, bombown)) {
+	    msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item,
+		    att_name, x, y, bombown)) {
 	    mpr(bombown, "%s destroyed by %s %s!\n", att_name,
 		cname(pp->pln_own), def_name);
 	    if (sect.sct_own)
