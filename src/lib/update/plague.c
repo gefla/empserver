@@ -192,8 +192,10 @@ plague_people(struct natstr *np, register int *vec, register int *cvec,
 	break;
     default:
 	/* bad */
+	logerror("plague_people: bad pstage %d", stage);
+	cvec[C_PSTAGE] = PLG_HEALTHY;
 	cvec[C_PTIME] = 0;
-	break;
+	return PLG_HEALTHY;
     }
     if (cvec[C_PTIME] <= 0) {
 	cvec[C_PSTAGE]--;
