@@ -168,7 +168,8 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 		return 0;
 	    break;
 	case NSC_STRING:
-	    return 0;		/* FIXME */
+	    CANT_HAPPEN("unimplemented OPTYPE"); /* FIXME */
+	    return 0;
 	default:
 	    CANT_HAPPEN("bad OPTYPE");
 	    return 0;
@@ -242,6 +243,11 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 	return val->val_type == NSC_NOTYPE ? NULL : tail;
     }
 
+    /* single character type */
+    id[0] = str[0];
+    id[1] = 0;
+    val->val_as_type = typematch(id, type);
+
     /* literals */
     l = strtol(str, &tail, 0);
     d = strtod(str, &tail2);
@@ -257,12 +263,9 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 	val->val_as.lng = l;
 	return tail;
     }
-    /* FIXME NSC_STRING */
+    /* FIXME implement NSC_STRING literals */
 
-    /* single character type */
-    id[0] = str[0];
-    id[1] = 0;
-    val->val_as_type = typematch(id, type);
+    CANT_HAPPEN(val->val_type != NSC_NOTYPE);
     if (val->val_as_type >= 0) {
 	val->val_type = NSC_TYPEID;
 	val->val_cat = NSC_VAL;
@@ -344,7 +347,7 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
 		return cond_type_mismatch(str);
 	    break;
 	case NSC_STRING:
-	    return cond_type_mismatch(str); /* FIXME */
+	    return cond_type_mismatch(str); /* FIXME implement */
 	case NSC_DOUBLE:
 	    if (from == NSC_LONG) {
 		if (val->val_cat == NSC_VAL)
@@ -454,7 +457,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 		val->val_as.dbl = val->val_as.lng;
 	    }
 	} else if (want == NSC_STRING)
-	    ;			/* FIXME */
+	    CANT_HAPPEN("unimplemented WANT"); /* FIXME */
 	if (CANT_HAPPEN(valtype != want)) {
 	    valtype = want;
 	    switch (want) {
