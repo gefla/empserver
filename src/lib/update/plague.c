@@ -47,8 +47,7 @@
 #include "lost.h"
 #include "gen.h"
 
-static int infect_people(struct natstr *, register int *, u_int, int,
-			 struct sctstr *);
+static int infect_people(struct natstr *, struct sctstr *);
 
 void
 do_plague(struct sctstr *sp, struct natstr *np, int etu)
@@ -60,15 +59,14 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
     if (opt_NO_PLAGUE)		/* no plague nothing to do */
 	return;
 
-    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	return;
     pstage = sp->sct_pstage;
     ptime = sp->sct_ptime;
 
     if (pstage == PLG_HEALTHY) {
-	pstage = infect_people(np, vec, sp->sct_effic, (int)sp->sct_mobil, sp);
+	pstage = infect_people(np, sp);
 	ptime = 0;
     } else {
+	getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
 	n = plague_people(np, vec, &pstage, &ptime, etu);
 	switch (n) {
 	case PLG_DYING:
@@ -109,27 +107,24 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	default:
 	    break;
 	}
+	putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     }
-    if (vec[I_CIVIL] == 0 && vec[I_MILIT] == 0 &&
-	!has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
+    if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;
     }
-    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     sp->sct_pstage = pstage;
     sp->sct_ptime = ptime;
 }
 
 /*ARGSUSED*/
 static int
-infect_people(struct natstr *np, register int *vec, u_int eff, int mobil,
-	      struct sctstr *sp)
+infect_people(struct natstr *np, struct sctstr *sp)
 {
-    double plg_num;
-    double plg_denom;
+    double pop, pop_space, bad_stuff, pollution, cleanup;
     double plg_chance;
-    double civvies = 999.0;
 
     if (opt_NO_PLAGUE)		/* no plague nothing to do */
 	return PLG_HEALTHY;
@@ -137,17 +132,16 @@ infect_people(struct natstr *np, register int *vec, u_int eff, int mobil,
     if (np->nat_level[NAT_TLEV] <= 10.0)
 	return PLG_HEALTHY;
 
-    if (opt_BIG_CITY && (sp->sct_type == SCT_CAPIT))
-	civvies = 9999.0;
-
     /*
      * make plague where there was none before...
      */
-    plg_num = ((vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW]) / civvies) *
-	((vec[I_IRON] + vec[I_OIL] + (vec[I_RAD] * 2)) / 10.0 +
-	 np->nat_level[NAT_TLEV] + 100.0);
-    plg_denom = eff + mobil + 100 + np->nat_level[NAT_RLEV];
-    plg_chance = ((plg_num / plg_denom) - 1.0) * 0.01;
+    pop = sp->sct_item[I_CIVIL] + sp->sct_item[I_MILIT] + sp->sct_item[I_UW];
+    pop_space = opt_BIG_CITY && (sp->sct_type == SCT_CAPIT) ? 9999.0 : 999.0;
+    bad_stuff
+	= sp->sct_item[I_IRON] + sp->sct_item[I_OIL] + sp->sct_item[I_RAD] * 2;
+    pollution = bad_stuff / 10.0 + np->nat_level[NAT_TLEV] + 100.0;
+    cleanup = sp->sct_effic + sp->sct_mobil + 100 + np->nat_level[NAT_RLEV];
+    plg_chance = ((pop / pop_space) * (pollution / cleanup) - 1.0) * 0.01;
     if (chance(plg_chance))
 	return PLG_EXPOSED;
     return PLG_HEALTHY;
