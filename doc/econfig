@@ -17,10 +17,10 @@ Deity Notes
 
 To find out the current configuration, the simplest method is to
 compile up util/pconfig and the run it. It can be run either with no
-arguments, in which case it will printout in config format the current
+arguments, in which case it will print in config format the current
 compiled in options. Otherwise with a file containing a configuration
 it will first read in this file, and override any compiled in
-variables and then printout the merged options. 
+variables and then print the merged options. 
 
 So the first method shows you what's compiled in, the 2nd how a config
 file would modify this.
@@ -59,10 +59,6 @@ To turn off an option that is compiled in, you can similarly have
     nooption ORBIT
 or
     nooption FUEL ORBIT
-
-
-As a check, pconfig will printout some of the internal file names as
-comments at the end just to check they are in the right place.
 
 The server can take a -e config file as a command line option so that
 it will read a specific config file. If not, it will default to
