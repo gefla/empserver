@@ -535,6 +535,11 @@ xdump(void)
     char buf[1024];
     int type;
 
+    if (!opt_GUINEA_PIGS) {
+	pr("You are not a guinea pig!\n");
+	return RET_FAIL;
+    }
+
     p = getstarg(player->argp[1], "What? ", buf);
     if (!p)
 	return RET_SYN;
