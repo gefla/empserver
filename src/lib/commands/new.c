@@ -106,9 +106,9 @@ new(void)
     } else {
 	(void)time(&now);
 #if !defined(_WIN32)
-	(void)srandom(now);
+	srandom(now);
 #else
-	(void)srand(now);
+	srand(now);
 #endif
 	for (i = 0; i < 300 && !player->aborted; i++) {
 	    /* Both x and y should be either odd or even */

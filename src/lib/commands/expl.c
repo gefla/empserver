@@ -215,7 +215,7 @@ explore(void)
     }
 
     if (!player->god && !player->owner && sect.sct_type != SCT_SANCT) {
-	(void)takeover(&sect, player->cnum);
+	takeover(&sect, player->cnum);
 	justtook = 1;
 	sect.sct_oldown = own;
 	sect.sct_work = work;

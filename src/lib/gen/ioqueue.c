@@ -95,9 +95,9 @@ ioq_drain(struct ioqueue *ioq)
 
     while ((qp = ioq->list.queue.q_forw) != &ioq->list.queue) {
 	io = (struct io *)qp;
-	(void)emp_remque(&io->queue);
-	(void)free((s_char *)io->data);
-	(void)free((s_char *)io);
+	emp_remque(&io->queue);
+	free(io->data);
+	free(io);
     }
 
     ioq->cc = 0;
@@ -350,17 +350,17 @@ removecc(struct ioqueue *ioq, register int cc)
 	there = io->nbytes - io->offset;
 	if (there < 0) {
 	    /* error */
-	    (void)emp_remque(&io->queue);
-	    (void)free((s_char *)io);
+	    emp_remque(&io->queue);
+	    free(io);
 	    continue;
 	}
 	if (remain >= there) {
 	    /* not enough or exact; free entry */
 	    nbytes += there;
 	    remain -= there;
-	    (void)emp_remque(&io->queue);
-	    (void)free(io->data);
-	    (void)free((s_char *)io);
+	    emp_remque(&io->queue);
+	    free(io->data);
+	    free(io);
 	} else {
 	    /* too much; increment offset */
 	    io->offset += remain;
