@@ -296,10 +296,10 @@ close_files(void)
 }
 
 /* we're going down.  try to close the files at least */
+#if !defined(_WIN32)
 void
 panic(int sig)
 {
-#if !defined(_WIN32)
 #ifdef POSIXSIGNALS
     struct sigaction act;
 
@@ -316,7 +316,6 @@ panic(int sig)
     signal(SIGILL, SIG_DFL);
     signal(SIGFPE, SIG_DFL);
 #endif /* POSIXSIGNALS */
-#endif /* _WIN32 */
     logerror("server received fatal signal %d", sig);
     log_last_commands();
     close_files();
@@ -326,6 +325,7 @@ panic(int sig)
     if (raise(sig))
 	_exit(1);
 }
+#endif /* _WIN32 */
 
 void
 shutdwn(int sig)
