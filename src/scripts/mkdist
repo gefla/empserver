@@ -1,7 +1,7 @@
 #!/bin/sh -e
 tar='tar --owner=0 --group=0 --mode=ug+w,a+rX'
 name=empire
-version=4.2.16			# FIXME automate
+version=4.2.17			# FIXME automate
 srvdir=$name-$version
 clidir=$name-client-$version
 txtdir=$name-info-text-$version

@@ -1,6 +1,40 @@
+Changes to Empire 4.2.17 - Sat Aug 14 19:53:12 UTC 2004
+ * Fix seeding of PRNG under Windows.  The bug made updates occur at
+   a predictable time in the update window.  From Ron Koenderink.
+ * Close major loophole in drop that allowed players to determine
+   whether an arbitrary sector is sea, allied land, or other land.
+ * fly could fly civilians into occupied or allied sectors.  drop
+   could drop them into allied sectors.  For consistency with other
+   means to move around stuff, both is no longer possible.
+ * Don't allow flying to a carrier that doesn't have space for the
+   planes.  Previously, planes that did this were teleported home,
+   which could be abused.
+ * Close loophole in bomb that allowed players to find all
+   sanctuaries.
+ * Fix move and explore not to crash when moving civilians to a sector
+   without civilians, and interdiction destroys them all.  Found and
+   debugged by Jeff Cotter.
+ * Fix printing of messages entered with turn command.  '%' characters
+   could cause havoc, even crashes.
+ * Use sector's actual maximum population to compute chance of plague
+   outbreak.  Previously, code used 9999 for big cities and 999 for
+   other sectors, and info Plague said 999.  This makes all crowded
+   sectors equally vulnerable, even mountains, plains, and inefficient
+   big cities.
+ * Oil derricks no longer drill and deplete more oil than they can
+   hold.
+ * Version 4.2.15's coordinate and list parsing fixes reject trailing
+   junk.  That's too strict.  Silently ignore trailing junk as long as
+   it starts with whitespace.
+ * Version 4.2.15's selector rewrite broke some type literals,
+   e.g. `?des=n' was interpreted as `?des=newdes'.  Change to prefer
+   type literals to selectors.
+ * Nightly build patches game to get repeatable PRNG results.  From
+   Marc Olzheim.
+
 Changes to Empire 4.2.16 - Wed Jun 16 18:56:16 UTC 2004
  * Previous version broke sector production when part of the work is
-   used for sector construction.
+   used for sector construction.  Fix courtesy Jeff Cotter.
  * Add rudimentary tests to nightly build.  From Marc Olzheim.
 
 Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
