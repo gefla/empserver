@@ -239,22 +239,20 @@ prod(void)
 	} else {
 	    level_p_e = 1.0;
 	}
+	/*
+	 * raw material limit
+	 */
 	used = 999;
-	comp = pp->p_vtype;
-	endcomp = pp->p_vtype + pp->p_nv;
 	amount = pp->p_vamt;
-	while (comp < endcomp) {
+	endcomp = pp->p_vtype + pp->p_nv;
+	for (comp = pp->p_vtype; comp < endcomp; comp++, amount++) {
 	    if (*amount == 0)
-		unit_work++;
-	    else {
-		used = min(used, sect.sct_item[(int)*comp] / *amount);
-		unit_work += *amount;
-	    }
-	    ++comp;
-	    ++amount;
+		continue;
+	    used = min(used, sect.sct_item[(int)*comp] / *amount);
+	    unit_work += *amount;
 	}
 	if (unit_work == 0)
-	    continue;
+	    unit_work = 1;
 	/*
 	 * is production limited by resources or
 	 * workforce?
