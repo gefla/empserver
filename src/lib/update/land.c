@@ -369,7 +369,7 @@ feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
 {
     double food_eaten, ship_eaten;
     double people_left;
-    int can_eat, need, svec[I_MAX + 1];
+    int can_eat, need;
     int total_people;
     int starved;
     struct lchrstr *lcp;
@@ -392,17 +392,16 @@ feed_land(struct lndstr *lp, register int *vec, int etus, int *needed,
     if ((food_eaten > vec[I_FOOD]) && (lp->lnd_ship >= 0) && doit) {
 	need = (int)food_eaten - vec[I_FOOD];
 	sp = getshipp(lp->lnd_ship);
-	getvec(VT_ITEM, svec, (s_char *)sp, EF_SHIP);
-	ship_eaten = (etus * eatrate) *
-	    (svec[I_CIVIL] + svec[I_MILIT] + svec[I_UW]);
-	if ((svec[I_FOOD] - need) > ship_eaten) {
+	ship_eaten = etus * eatrate * (sp->shp_item[I_CIVIL]
+				       + sp->shp_item[I_MILIT]
+				       + sp->shp_item[I_UW]);
+	if (sp->shp_item[I_FOOD] - need > ship_eaten) {
 	    vec[I_FOOD] += need;
-	    svec[I_FOOD] -= need;
-	} else if ((svec[I_FOOD] - ship_eaten) > 0) {
-	    vec[I_FOOD] += (svec[I_FOOD] - ship_eaten);
-	    svec[I_FOOD] -= (svec[I_FOOD] - ship_eaten);
+	    sp->shp_item[I_FOOD] -= need;
+	} else if (sp->shp_item[I_FOOD] - ship_eaten > 0) {
+	    vec[I_FOOD] += sp->shp_item[I_FOOD] - ship_eaten;
+	    sp->shp_item[I_FOOD] -= sp->shp_item[I_FOOD] - ship_eaten;
 	}
-	putvec(VT_ITEM, svec, (s_char *)sp, EF_SHIP);
     }
 
     if (food_eaten > vec[I_FOOD]) {
