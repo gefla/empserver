@@ -1,3 +1,71 @@
+Changes to Empire 4.2.20 - Thu Mar 17 21:34:13 UTC 2005
+ * Log and abort when LWP stack check detects stack smash.  Server
+   option -s no longer implies -p.
+ * The native Windows build now supports -p and -s.
+ * The native Windows build now properly deals with ^C when running in
+   the foreground.  It no longer prompts for a quit command on the
+   terminal.
+ * The meaning of server option -D in presence of -e is unclear.
+   Other programs only support -e.  Remove option -D.  Use -e
+   DIR/econfig instead of -D DIR.
+ * New server option -v shows version information.
+ * Fix the server's exit status with -h broken in 4.2.19.
+ * The linux-pthreads build failed to shut down on signals.
+ * Fix threading bugs in the native Windows build that made shutdown
+   unsafe and screwed up update aborting commands.
+ * New econfig key pre_update_hook to allow automatic, safe backup
+   right before the update.  See scripts/backup for an example.
+ * The server now prints log messages to stderr as well when running
+   in the foreground.
+ * Fix potential buffer overflows in logerror() and lwpStatus().
+ * Server now requires POSIX signals.  It no longer catches SIGUSR1.
+ * Remove support for ancient versions of HP-UX.
+ * Fix seeding of PRNG broken in 4.2.19.
+ * Don't reseed the PRNG in commands, it hurts randomness and could be
+   abused by crafty players.
+ * The server now makes the data directory its working directory.
+   This also gets rid of a bug that changed the file name of the
+   sector, power, nation and lostitems file unless econfig could not
+   be read.
+ * The server now writes a pid file.  Thanks to Daniel O'Connor.
+ * More user friendly server startup: more errors are detected while
+   the server still runs in the foreground, which makes it possible to
+   complain to stderr and to exit unsuccessfully.
+ * Early log messages went to the log file in the default data
+   directory, even though econfig specifies another data directory.
+ * Specifying an econfig file on the command line that can't be read
+   is now fatal.
+ * Errors in econfig are now fatal.
+ * The server now refuses to start when it can't open data files.
+ * News are now sorted and expire sanely.
+ * Conditionals can now compare strings as well.
+ * Corrupted down and motd files could cause buffer overflows.
+ * Fix recon to let player abort at the flight path prompt.
+ * power no longer rounds worldwide numbers for deities.
+ * power command failed to recognize deities with non-zero country
+   number.
+ * Change output of production command so that columns are aligned
+   even for large values.  Replace column wkfc by more useful column
+   avail.
+ * neweff and production miscalculated work when mil exceeded
+   population limit.
+ * neweff miscalculated work when the population limit exceeded 999.
+ * Fix capping of avail when a big city is torn down.
+ * Fix a bug in fire that allowed players to find all submarine uids.
+ * Maximum sector population is no longer hardcoded, and now covered
+   by xdump.  Option RES_POP now affects mountains and plains as
+   well.  From Ray Hyatt.
+ * Fix fina and news not to ignore errors in conditions.
+ * The native Windows build now requires Windows Sockets 2.
+ * The native Windows build now supports multiple instances of the
+   service.  The ability to supply additional startup parameters to
+   the service has been removed.
+ * Implement fairland command line parsing under Windows.
+ * Improved fairland and emp_server usage message.
+ * Code cleanups.
+ * Minor info file and documentation fixes.
+ * Much of the above was contributed by Ron Koenderink.  Many thanks!
+
 Changes to Empire 4.2.19 - Thu Dec 23 20:24:24 UTC 2004
  * Fix order not to unload into full sectors.
  * Fix scrap not to dump stuff into full sectors.  Excess stuff is now
