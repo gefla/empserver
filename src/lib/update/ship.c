@@ -57,7 +57,7 @@
 #define MIN(x,y)        ((x) > (y) ? (y) : (x))
 #endif
 
-static int shiprepair(register struct shpstr *, int *, struct natstr *,
+static int shiprepair(register struct shpstr *, struct natstr *,
 		      int *, int);
 static void upd_ship(register struct shpstr *, register int,
 		     struct natstr *, int *, int);
@@ -130,12 +130,10 @@ upd_ship(register struct shpstr *sp, register int etus,
     int eff;
 
     mp = &mchr[(int)sp->shp_type];
-    getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
     if (build == 1) {
 	if (np->nat_priorities[PRI_SBUILD] == 0 || np->nat_money < 0)
 	    return;
-	if (sp->shp_effic < SHIP_MINEFF ||
-	    !shiprepair(sp, vec, np, bp, etus)) {
+	if (sp->shp_effic < SHIP_MINEFF || !shiprepair(sp, np, bp, etus)) {
 	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x,
 		     sp->shp_y);
 	    sp->shp_own = 0;
@@ -163,6 +161,8 @@ upd_ship(register struct shpstr *sp, register int etus,
 	} else {
 	    np->nat_money -= cost;
 	}
+
+	getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
 
 	sectp = getsectp(sp->shp_x, sp->shp_y);
 	if (((mp->m_flags & M_OIL) && (sectp->sct_type == SCT_WATER))
@@ -264,7 +264,7 @@ upd_ship(register struct shpstr *sp, register int etus,
  * 8 * 8 * $40 = $2560!
  */
 static int
-shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
+shiprepair(register struct shpstr *ship, struct natstr *np,
 	   int *bp, int etus)
 {
     register int delta;
@@ -293,9 +293,9 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
     wf = 0;
     /* only military can work on a military boat */
     if (ship->shp_glim > 0)
-	wf = etus * vec[I_MILIT] / 2;
+	wf = etus * ship->shp_item[I_MILIT] / 2;
     else
-	wf = etus * (vec[I_CIVIL] / 2 + vec[I_MILIT] / 5);
+	wf = etus * (ship->shp_item[I_CIVIL] / 2 + ship->shp_item[I_MILIT] / 5);
 
     if (sp->sct_type != SCT_HARBR) {
 	wf /= 3;
@@ -315,15 +315,15 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 	if (ship->shp_glim > 0) {
 	    abs_max = vl_find(V_MILIT, mp->m_vtype,
 			      mp->m_vamt, (int)mp->m_nv);
-	    amt = vec[I_MILIT];
+	    amt = ship->shp_item[I_MILIT];
 	} else {
 	    abs_max = vl_find(V_CIVIL, mp->m_vtype,
 			      mp->m_vamt, (int)mp->m_nv);
-	    amt = vec[I_CIVIL];
+	    amt = ship->shp_item[I_CIVIL];
 	    if (abs_max == 0) {
 		abs_max = vl_find(V_MILIT, mp->m_vtype, mp->m_vamt,
 				  (int)mp->m_nv);
-		amt = vec[I_MILIT];
+		amt = ship->shp_item[I_MILIT];
 	    }
 	}
 
