@@ -1075,12 +1075,13 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     struct emp_qelem *qp2;
     struct emp_qelem *next;
     struct llist *llp;
+    struct emp_qelem cur, done;
     coord dx;
     coord dy;
     coord newx;
     coord newy;
     int stopping = 0;
-    int visible = 0;
+    int visible;
     int stop;
     s_char dp[80];
     int rel;
@@ -1115,9 +1116,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		continue;
 	    }
 	}
-
-	if (!(lchr[(int)llp->land.lnd_type].l_flags & L_SPY))
-	    visible = 1;
 	if (sect.sct_rail == 0 &&
 	    lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) {
 	    if (together) {
@@ -1199,8 +1197,41 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     stopping |= lnd_check_mines(list);
     if (QEMPTY(list))
 	return stopping;
-    if (visible)
-	stopping |= lnd_interdict(list, newx, newy, actor);
+
+    /* interdict land units sector by sector */
+    emp_initque(&cur);
+    emp_initque(&done);
+    while (!QEMPTY(list)) {
+	llp = (struct llist *)list->q_back;
+	newx = llp->land.lnd_x;
+	newy = llp->land.lnd_y;
+	/* move units in NEWX,NEWY to cur */
+	visible = 0;
+	for (qp = list->q_back; qp != list; qp = next) {
+	    next = qp->q_back;
+	    llp = (struct llist *)qp;
+	    if (llp->land.lnd_x == newx && llp->land.lnd_y == newy) {
+		emp_remque(qp);
+		emp_insque(qp, &cur);
+		if (!(lchr[(int)llp->land.lnd_type].l_flags & L_SPY))
+		    visible = 1;
+	    }
+	}
+	/* interdict them */
+	if (visible)
+	    stopping |= lnd_interdict(&cur, newx, newy, actor);
+	/* move survivors to done */
+	for (qp = cur.q_back; qp != &cur; qp = next) {
+	    next = qp->q_back;
+	    llp = (struct llist *)qp;
+	    emp_remque(qp);
+	    emp_insque(qp, &done);
+	}
+    }
+    /* assign surviving land units back to list */
+    emp_insque(list, &done);
+    emp_remque(&done);
+
     return stopping;
 }
 
