@@ -463,7 +463,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     struct lndstr land;
     struct nstr_item nstr;
     int avail, cost;
-    struct natstr *natp;
     float eff = LAND_MINEFF / 100.0;
     int mil, lcm, hcm, gun, shell;
     int freeland = 0;
@@ -477,8 +476,6 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 #endif
     hcm = roundavg(((double)lp->l_hcm * eff));
     lcm = roundavg(((double)lp->l_lcm * eff));
-
-    natp = getnatp(player->cnum);
 
     if (sp->sct_type != SCT_HEADQ) {
 	pr("Land Units must be built in headquarters.\n");
