@@ -128,8 +128,8 @@ bomb(void)
     }
     ax = x;
     ay = y;
-    if (getpath(flightpath, player->argp[5], ax, ay, 0, 0,
-		0, P_FLYING) == 0 || *flightpath == 0)
+    if (getpath(flightpath, player->argp[5], ax, ay, 0, 0, 0, P_FLYING) == 0
+	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;
     ty = ay;
