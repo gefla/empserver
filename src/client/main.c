@@ -40,7 +40,6 @@
 #include "proto.h"
 #include "queue.h"
 #include "ioqueue.h"
-#include "bit.h"
 
 #include <stdio.h>
 #ifndef _WIN32
@@ -76,7 +75,6 @@ int hostconnect();
 int login();
 void ioq_init();
 void io_init();
-void bit_copy();
 int handleintr();
 int termio();
 int serverio();
@@ -103,8 +101,8 @@ s_char *av[];
     extern s_char *getenv();
     extern s_char empireport[];
     extern s_char empirehost[];
-    bit_fdmask mask;
-    bit_fdmask savemask;
+    fd_set mask;
+    fd_set savemask;
     struct ioqueue server;
     s_char *argv[128];
     int i, j;
@@ -129,8 +127,8 @@ s_char *av[];
 	return FALSE;
     }
 #else
-    mask = bit_newfdmask();
-    savemask = bit_newfdmask();
+    FD_ZERO(&mask);
+    FD_ZERO(&savemask);
 #endif
     memset(argv, 0, sizeof(argv));
     saveargv(ac, av, argv);
@@ -194,17 +192,17 @@ s_char *av[];
     }
     ioq_init(&server, 2048);
     io_init();
-    mask = bit_newfdmask();
+    FD_ZERO(&mask);
 #ifndef _WIN32
-    BIT_SETB(0, savemask);
-    BIT_SETB(sock, savemask);
+    FD_SET(0, &savemask);
+    FD_SET(sock, &savemask);
 #endif
     (void)signal(SIGINT, intr);
 #ifndef _WIN32
     (void)signal(SIGPIPE, SIG_IGN);
-    while (BIT_ISSETB(sock, savemask)) {
-	bit_copy(savemask, mask);
-	n = select(sock + 1, (fd_set *) mask, (fd_set *) 0, (fd_set *) 0,
+    while (FD_ISSET(sock, &savemask)) {
+	mask = savemask;
+	n = select(sock + 1, &mask, (fd_set *)0, (fd_set *)0,
 		   (struct timeval *)0);
 	if (interrupt) {
 	    if (!handleintr(sock))
@@ -215,21 +213,21 @@ s_char *av[];
 	    if (errno == EINTR) {
 		perror("select");
 		(void)close(sock);
-		BIT_CLRB(sock, savemask);
+		FD_CLR(sock, &savemask);
 	    }
 	} else {
-	    if (BIT_ISSETB(0, mask)) {
+	    if (FD_ISSET(0, &mask)) {
 		if (!termio(0, sock, auxout_fp)) {
 		    if (retry++ >= RETRY) {
-			BIT_CLRB(0, savemask);
+			FD_CLR(0, &savemask);
 		    }
 		} else {
 		    retry = 0;
 		}
 	    }
-	    if (BIT_ISSETB(sock, mask)) {
+	    if (FD_ISSET(sock, &mask)) {
 		if (!serverio(sock, &server))
-		    BIT_CLRB(sock, savemask);
+		    FD_CLR(sock, &savemask);
 		else
 		    servercmd(&server, auxout_fp);
 	    }

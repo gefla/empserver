@@ -32,13 +32,13 @@ include ../../build.conf
 include ../make.src
 include ../make.defs
 
-CFILES = bit.c dtable.c expect.c globals.c handle.c host.c \
+CFILES = expect.c globals.c handle.c host.c \
 	ioqueue.c ipglob.c login.c main.c queue.c saveargv.c \
 	servcmd.c serverio.c tags.c termio.c termlib.c
-OFILES = bit.o dtable.o expect.o globals.o handle.o host.o \
+OFILES = expect.o globals.o handle.o host.o \
 	ioqueue.o ipglob.o login.o main.o queue.o saveargv.o \
 	servcmd.o serverio.o tags.o termio.o termlib.o
-OBJFILES = bit.obj dtable.obj expect.obj globals.obj handle.obj host.obj \
+OBJFILES = expect.obj globals.obj handle.obj host.obj \
 	ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
 	servcmd.obj serverio.obj tags.obj termio.obj termlib.obj
 
