@@ -63,7 +63,7 @@
    specified in src/lib/global/constants.c */
 
 /* #define GO_RENEW *//* Gold and Oil are renewable resources */
-
+/* #define GUINEA_PIGS *//* Experimental stuff not ready for prime time */
 /* #define DEFENSE_INFRA *//* Allow the improvement of defensive infrastructure */
 
 /*#define MOB_ACCESS *//* Mobility updates real-time */
