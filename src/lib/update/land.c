@@ -267,7 +267,7 @@ landrepair(register struct lndstr *land, struct natstr *np,
     else
 	avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
 
-    w_p_eff = 20 + (lp->l_lcm + 2 * lp->l_hcm);
+    w_p_eff = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
 	return 1;

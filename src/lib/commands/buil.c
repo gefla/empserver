@@ -326,7 +326,7 @@ buil(void)
 		built = build_plane(&sect, pp, sect.sct_item, tlev);
 		break;
 	    default:
-		pr("internal error in build (%d)\n", what);
+		CANT_HAPPEN("Bad WHAT");
 		return RET_FAIL;
 	    }
 	    if (built) {
@@ -346,15 +346,14 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
 {
     struct shpstr ship;
     struct nstr_item nstr;
-    int cost, i;
-    int w_p_eff, x;
-    float eff = ((float)SHIP_MINEFF / 100.0);
-    int points, lcm, hcm;
+    int avail, cost, i;
+    float eff = SHIP_MINEFF / 100.0;
+    int lcm, hcm;
     int freeship = 0;
     int techdiff;
 
-    hcm = roundavg(((double)mp->m_hcm * (double)eff));
-    lcm = roundavg(((double)mp->m_lcm * (double)eff));
+    hcm = roundavg((double)mp->m_hcm * eff);
+    lcm = roundavg((double)mp->m_lcm * eff);
 
     if (sp->sct_type != SCT_HARBR) {
 	pr("Ships must be built in harbours.\n");
@@ -370,16 +369,14 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-    w_p_eff = (20 + mp->m_lcm + (mp->m_hcm * 2));
-    points = sp->sct_avail * 100 / w_p_eff;
-    if (points < SHIP_MINEFF) {
+    avail = (SHP_BLD_WORK(mp->m_lcm, mp->m_hcm) * SHIP_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), mp->m_name);
-	pr(" (%d available work required)\n",
-	   1 + (w_p_eff * SHIP_MINEFF) / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = mp->m_cost * eff;
+    cost = mp->m_cost * SHIP_MINEFF / 100;
     if (cash < cost) {
 	pr("Not enough money left to build a %s\n", mp->m_name);
 	return 0;
@@ -388,7 +385,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
 	return 0;
     if (!check_sect_ok(sp))
 	return 0;
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * SHIP_MINEFF) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_SHIP);
@@ -453,8 +450,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     ship.shp_orig_y = sp->sct_y;
     ship.shp_fuel = mchr[(int)ship.shp_type].m_fuelc;
     ship.shp_rflags = 0;
-    for (x = 0; x < 10; x++)
-	ship.shp_rpath[x] = 0;
+    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
@@ -475,22 +471,21 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 {
     struct lndstr land;
     struct nstr_item nstr;
-    int cost;
-    int w_p_eff;
-    int points;
+    int avail, cost;
     struct natstr *natp;
-    float eff = ((float)LAND_MINEFF / 100.0);
+    float eff = LAND_MINEFF / 100.0;
     int mil, lcm, hcm, gun, shell;
     int freeland = 0;
 
-    /*
-       mil = roundavg(((double)lp->l_mil * (double)eff));
-       shell = roundavg(((double)lp->l_shell * (double)eff));
-       gun = roundavg(((double)lp->l_gun * (double)eff));
-     */
+#if 0
+    mil = roundavg(((double)lp->l_mil * eff));
+    shell = roundavg(((double)lp->l_shell * eff));
+    gun = roundavg(((double)lp->l_gun * eff));
+#else
     mil = shell = gun = 0;
-    hcm = roundavg(((double)lp->l_hcm * (double)eff));
-    lcm = roundavg(((double)lp->l_lcm * (double)eff));
+#endif
+    hcm = roundavg(((double)lp->l_hcm * eff));
+    lcm = roundavg(((double)lp->l_lcm * eff));
 
     natp = getnatp(player->cnum);
 
@@ -529,22 +524,19 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 	return 0;
     if (!check_sect_ok(sp))
 	return 0;
-    w_p_eff = (20 + lp->l_lcm + (lp->l_hcm * 2));
-    points = sp->sct_avail * 100 / w_p_eff;
-    if (points < LAND_MINEFF) {
+    avail = (LND_BLD_WORK(lp->l_lcm, lp->l_hcm) * LAND_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), lp->l_name);
-	pr(" (%d available work required)\n",
-	   1 + (w_p_eff * LAND_MINEFF) / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = ((float)lp->l_cost * eff);
-    /*  cost = (int)LND_COST(cost, tlev - lp->l_tech); */
+    cost = lp->l_cost * LAND_MINEFF / 100;
     if (cash < cost) {
 	pr("Not enough money left to build a %s\n", lp->l_name);
 	return 0;
     }
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * LAND_MINEFF) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_LAND);
@@ -626,8 +618,7 @@ build_bridge(register struct sctstr *sp, short *vec)
     struct sctstr sect;
     int val;
     int newx, newy;
-    int w_p_eff;
-    int points;
+    int avail;
     int nx, ny, i, good = 0;
     s_char *p;
     s_char buf[1024];
@@ -695,12 +686,11 @@ build_bridge(register struct sctstr *sp, short *vec)
 	pr("you only have %d.\n", cash);
 	return 0;
     }
-    w_p_eff = buil_bh * 2;
-    points = sp->sct_avail * 100 / w_p_eff;
-    if (points < 20) {
+    avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a bridge\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n", 1 + (w_p_eff * 20) / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
     if (!player->argp[3]) {
@@ -744,12 +734,12 @@ build_bridge(register struct sctstr *sp, short *vec)
 	    return 0;
 	}
     }				/* end EASY_BRIDGES */
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * 20) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += buil_bc;
     cash -= buil_bc;
     sect.sct_type = SCT_BSPAN;
     sect.sct_newtype = SCT_BSPAN;
-    sect.sct_effic = 20;
+    sect.sct_effic = SCT_MINEFF;
     sect.sct_road = 0;
     sect.sct_rail = 0;
     sect.sct_defense = 0;
@@ -776,8 +766,7 @@ static int
 build_nuke(register struct sctstr *sp, register struct nchrstr *np,
 	   short *vec)
 {
-    int w_p_eff;
-    int points;
+    int avail;
 
     if (sp->sct_type != SCT_NUKE && !player->god) {
 	pr("Nuclear weapons must be built in nuclear plants.\n");
@@ -800,24 +789,23 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np,
 	pr("You need $%d, you only have %d.\n", np->n_cost, cash);
 	return 0;
     }
-    w_p_eff = np->n_rad + np->n_oil + np->n_lcm + np->n_hcm * 2;
-    points = sp->sct_avail * 100 / w_p_eff;
+    avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
     /*
      * XXX when nukes turn into units (or whatever), then
      * make them start at 20%.  Since they don't have efficiency
-     * now, we choose 20% as a "big" number.
+     * now, we charge all the work right away.
      */
-    if (points < 20) {
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a %s;\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), np->n_name);
-	pr(" (%d available work required)\n", 1 + w_p_eff * 20 / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
     if (!trechk(player->cnum, 0, NEWNUK))
 	return 0;
     if (!check_sect_ok(sp))
 	return 0;
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * 20) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
     cash -= np->n_cost;
     nuk_add(sp->sct_x, sp->sct_y, np - nchr, 1);
@@ -835,20 +823,18 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 	    short *vec, int tlev)
 {
     struct plnstr plane;
-    int cost;
+    int avail, cost;
     struct nstr_item nstr;
-    float eff = ((float)PLANE_MINEFF / 100.0);
-    int points;
-    int w_p_eff;
+    float eff = PLANE_MINEFF / 100.0;
     int hcm, lcm, mil;
     int freeplane = 0;
 
-    mil = roundavg(((double)pp->pl_crew * (double)eff));
+    mil = roundavg(((double)pp->pl_crew * eff));
     /* Always use at least 1 mil to build a plane */
     if (mil == 0 && pp->pl_crew > 0)
 	mil = 1;
-    hcm = roundavg(((double)pp->pl_hcm * (double)eff));
-    lcm = roundavg(((double)pp->pl_lcm * (double)eff));
+    hcm = roundavg(((double)pp->pl_hcm * eff));
+    lcm = roundavg(((double)pp->pl_lcm * eff));
     if (sp->sct_type != SCT_AIRPT && !player->god) {
 	pr("Planes must be built in airports.\n");
 	return 0;
@@ -863,16 +849,14 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-    w_p_eff = (20 + pp->pl_lcm + (pp->pl_hcm * 2));
-    points = sp->sct_avail * 100 / w_p_eff;
-    if (points < PLANE_MINEFF) {
+    avail = (PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm) * PLANE_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), pp->pl_name);
-	pr(" (%d available work required)\n",
-	   1 + PLANE_MINEFF * w_p_eff / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = pp->pl_cost * eff;
+    cost = pp->pl_cost * PLANE_MINEFF / 100;
     if (cash < cost) {
 	pr("Not enough money left to build a %s\n", pp->pl_name);
 	return 0;
@@ -886,7 +870,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 	return 0;
     if (!check_sect_ok(sp))
 	return 0;
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * PLANE_MINEFF) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_PLANE);
@@ -921,26 +905,6 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
      * planes may have their own stats (like based on tech maybe? :) )  Thus,
      * the code now checks the pln_acc, pln_load and pln_fuel instead of using
      * the static definitions of them. */
-/*
-  n = (int) (pp->pl_range * (0.75 + techfact(tlev - pp->pl_tech, 2.0)));
-  if (n > 127)
-  n = 127;
-  plane.pln_range = n;
-  plane.pln_range_max = n;
-  n = (int) (pp->pl_att * (0.75 + techfact(tlev - pp->pl_tech, 2.0)));
-  if (n > 127)
-  n = 127;
-  plane.pln_att = n;
-  n = (int) (pp->pl_def * (0.75 + techfact(tlev - pp->pl_tech, 2.0)));
-  if (n > 127)
-  n = 127;
-  if (n < pp->pl_def)
-  n = pp->pl_def;
-  plane.pln_def = n;
-  plane.pln_acc = pp->pl_acc;
-  plane.pln_load = pp->pl_load;
-  plane.pln_fuel = pp->pl_fuel;
-*/
     plane.pln_att = PLN_ATTDEF(pp->pl_att, (int)(tlev - pp->pl_tech));
     plane.pln_def = PLN_ATTDEF(pp->pl_def, (int)(tlev - pp->pl_tech));
     plane.pln_acc = PLN_ACC(pp->pl_acc, (int)(tlev - pp->pl_tech));
@@ -974,8 +938,7 @@ build_tower(register struct sctstr *sp, short *vec)
     struct sctstr sect;
     int val;
     int newx, newy;
-    int w_p_eff;
-    int points;
+    int avail;
     s_char *p;
     s_char buf[1024];
     int good;
@@ -1016,12 +979,11 @@ build_tower(register struct sctstr *sp, short *vec)
 	pr("you only have %d.\n", cash);
 	return 0;
     }
-    w_p_eff = buil_tower_bh * 2;
-    points = sp->sct_avail * 100 / w_p_eff;
-    if (points < 20) {
+    avail = (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a bridge tower\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n", 1 + (w_p_eff * 20) / 100);
+	pr(" (%d available work required)\n", avail);
 	return 0;
     }
     if (!player->argp[3]) {
@@ -1068,12 +1030,12 @@ build_tower(register struct sctstr *sp, short *vec)
 	return 0;
     }
 
-    sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * 20) / 100;
+    sp->sct_avail -= avail;
     player->dolcost += buil_tower_bc;
     cash -= buil_tower_bc;
     sect.sct_type = SCT_BTOWER;
     sect.sct_newtype = SCT_BTOWER;
-    sect.sct_effic = 20;
+    sect.sct_effic = SCT_MINEFF;
     sect.sct_road = 0;
     sect.sct_rail = 0;
     sect.sct_defense = 0;

@@ -46,12 +46,6 @@
 
 /* bit masks for the autonav mode flags */
 
-/*
-#define AN_SAILDIR  1
-#define AN_AUTONAV  2
-#define AN_STANDBY  4
-#define AN_LOADING  8
- */
 #define AN_SAILDIR bit(1)
 #define AN_AUTONAV bit(2)
 #define AN_STANDBY bit(3)
@@ -211,6 +205,9 @@ struct mlist {
 			     logx((double)t, (double)35.0))) : b)
 #define SHP_FIR(b, t) (t ? (b * (logx((double)t, (double)60.0) < 1.0 ? 1.0 : \
 			     logx((double)t, (double)60.0))) : b)
+
+/* Work required for building 100% */
+#define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
  /* return codes from shp_check_nav */
 #define CN_NAVIGABLE	(0)

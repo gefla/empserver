@@ -234,9 +234,10 @@ show_bridge(int tlev)
 	pr(" %d hcm,", buil_bh);
     else if (!opt_NO_LCMS)
 	pr(" %d lcm,", buil_bh);
-    pr(" %d workers,\n", buil_bh * 2);
+    pr(" %d workers,\n", 0);
     pr("%d available workforce, and cost $%g\n",
-       1 + (buil_bh * 40 / 100), buil_bc);
+       (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100,
+       buil_bc);
 }
 
 void
@@ -249,9 +250,10 @@ show_tower(int tlev)
 	pr(" %d hcm,", buil_tower_bh);
     else if (!opt_NO_LCMS)
 	pr(" %d lcm,", buil_tower_bh);
-    pr(" %d workers,\n", buil_tower_bh * 2);
+    pr(" %d workers,\n", 0);
     pr("%d available workforce, and cost $%g\n",
-       1 + (buil_tower_bh * 40 / 100), buil_tower_bc);
+       (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100,
+       buil_tower_bc);
 }
 
 void
@@ -275,8 +277,7 @@ show_nuke_build(int tlev)
     if (opt_NONUKES)
 	return;
     for (np = nchr, n = 0; n < N_MAXNUKE; np++, n++) {
-	avail =
-	    (4 + np->n_rad + np->n_oil + np->n_lcm + np->n_hcm * 2) / 5;
+	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
 	    continue;
 	if (np->n_name == 0 || np->n_name[0] == '\0')
@@ -355,7 +356,7 @@ show_ship_build(int tlev)
 
 	pr("%-25.25s %3d %3d %5d %4d $%d\n",
 	   mp->m_name, mp->m_lcm, mp->m_hcm,
-	   20 + mp->m_lcm + mp->m_hcm * 2, mp->m_tech, mp->m_cost);
+	   SHP_BLD_WORK(mp->m_lcm, mp->m_hcm), mp->m_tech, mp->m_cost);
     }
 }
 
@@ -529,7 +530,7 @@ show_plane_build(int tlev)
 	pr("%-25.25s %3d %3d %3d %5d %4d $%d\n",
 	   pp->pl_name, pp->pl_lcm,
 	   pp->pl_hcm, pp->pl_crew,
-	   20 + 2 * pp->pl_hcm + pp->pl_lcm, pp->pl_tech, pp->pl_cost);
+	   PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm), pp->pl_tech, pp->pl_cost);
     }
 }
 
@@ -549,7 +550,7 @@ show_land_build(int tlev)
 	   lp->l_name, lp->l_lcm,
 	   lp->l_hcm,
 	   lp->l_gun,
-	   20 + lp->l_lcm + (lp->l_hcm * 2), lp->l_tech, lp->l_cost);
+	   LND_BLD_WORK(lp->l_lcm, lp->l_hcm), lp->l_tech, lp->l_cost);
     }
 }
 

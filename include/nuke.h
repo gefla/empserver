@@ -72,6 +72,10 @@ struct nchrstr {
 #define getnukep(n) \
 	(struct nukstr *) ef_ptr(EF_NUKE, n)
 
+/* Work required for building */
+#define NUK_BLD_WORK(lcm, hcm, oil, rad) \
+  (((lcm) + 2 * (hcm) + (oil) + (rad) + 4) / 5)
+
 extern struct nchrstr nchr[];
 
 extern int nuk_maxno;

@@ -179,7 +179,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		shp = getshipp(pp->pln_ship);
 		avail += (etus * shp->shp_item[I_MILIT] / 2);
 	    }
-	    w_p_eff = 20 + (desc->pl_lcm + 2 * desc->pl_hcm);
+	    w_p_eff = PLN_BLD_WORK(desc->pl_lcm, desc->pl_hcm);
 	    delta = roundavg((double)avail / w_p_eff);
 	    if (delta <= 0)
 		continue;

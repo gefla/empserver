@@ -164,6 +164,8 @@ struct shiplook {
 #define PLN_LOAD(b, t) (t ? (b * (logx((double)t, (double)50.0) < 1.0 ? 1.0 : \
 				  logx((double)t, (double)50.0))) : b)
 
+/* Work required for building 100% */
+#define PLN_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 /* src/lib/subs/aircombat.c */
 extern void ac_planedamage(struct plist *, natid, int, natid, int,

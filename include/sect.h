@@ -166,6 +166,12 @@ extern int sct_maxno;
 extern struct dchrstr dchr[];
 extern struct dchrstr bigcity_dchr;
 
+/* Minimal efficiency of sectors that can be knocked down (bridges) */
+#define SCT_MINEFF 20
+
+/* Work required for building */
+#define SCT_BLD_WORK(lcm, hcm) ((lcm) + 2 * (hcm))
+
 #define MIN_MOBCOST  0.001	/* lowest cost a sector can have to move into */
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 

@@ -169,7 +169,9 @@ struct lchrstr {
 #define LND_FU(b, t)  (b)
 #define LND_XPL(b, t) (b)
 #define LND_MXL(b, t) (b)
-#define LND_COST(b, t) ((b) * (1.0 + (sqrt((double)(t)) / 100.0)))
+
+/* Work required for building 100% */
+#define LND_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 /* Chance to detect L_SPY unit (percent) */
 #define LND_SPY_DETECT_CHANCE(eff) ((110-(eff))/100.0)

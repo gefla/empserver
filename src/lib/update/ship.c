@@ -299,7 +299,7 @@ shiprepair(register struct shpstr *ship, struct natstr *np,
 	    avail = wf + gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
     }
 
-    w_p_eff = 20 + (mp->m_lcm + 2 * mp->m_hcm);
+    w_p_eff = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
     if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
 	return 1;

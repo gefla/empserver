@@ -91,7 +91,7 @@ checksect(struct sctstr *sp)
     else
 	loyalcivs = 0;
 
-    if (sp->sct_effic < 20) {
+    if (sp->sct_effic < SCT_MINEFF) {
 	if (sp->sct_type == SCT_BSPAN)
 	    knockdown(sp, 0);
 	else if (sp->sct_type == SCT_BTOWER) {

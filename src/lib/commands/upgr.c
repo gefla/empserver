@@ -47,6 +47,11 @@
 #include "file.h"
 #include "commands.h"
 
+enum {
+  UPGR_COST = 15,		/* how much avail and money to charge */
+  UPGR_EFF = 35			/* efficiency reduction */
+};
+
 static int lupgr(void);
 static int pupgr(void);
 static int supgr(void);
@@ -86,8 +91,7 @@ lupgr(void)
     struct lchrstr *lp;
     int n;
     int tlev;
-    int w_p_eff;
-    int points;
+    int avail, cost;
     int rel;
     int techdiff;
     long cash;
@@ -114,13 +118,11 @@ lupgr(void)
 	}
 	n++;
 	lp = &lchr[(int)land.lnd_type];
-	w_p_eff = ((lp->l_lcm / 2) + lp->l_hcm);
-	points = sect.sct_avail * 100 / w_p_eff;
-	if (points < 20) {
+	avail = (LND_BLD_WORK(lp->l_lcm, lp->l_hcm) * UPGR_COST + 99) / 100;
+	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), lp->l_name);
-	    pr(" (%d available work required)\n",
-	       1 + (w_p_eff * 20) / 100);
+	    pr(" (%d available work required)\n", avail);
 	    continue;
 	}
 	if (land.lnd_effic < 60) {
@@ -132,14 +134,15 @@ lupgr(void)
 	       land.lnd_tech, tlev);
 	    continue;
 	}
-	if (lp->l_cost * .15 + player->dolcost > cash) {
+	cost = lp->l_cost * UPGR_COST / 100;
+	if (cost + player->dolcost > cash) {
 	    pr("You don't have enough money to upgrade %s!\n",
 	       prland(&land));
 	    continue;
 	}
 
-	sect.sct_avail = (sect.sct_avail * 100 - w_p_eff * 20) / 100;
-	land.lnd_effic -= 35;
+	sect.sct_avail -= avail;
+	land.lnd_effic -= UPGR_EFF;
 
 	land.lnd_tech = tlev;
 	techdiff = (int)(tlev - lp->l_tech);
@@ -168,14 +171,14 @@ lupgr(void)
 
 	putland(land.lnd_uid, &land);
 	putsect(&sect);
-	player->dolcost += (double)lp->l_cost * .15;
+	player->dolcost += cost;
 	pr("%s upgraded to tech %d, at a cost of %d\n", prland(&land),
-	   land.lnd_tech, (int)(lp->l_cost * .15));
+	   land.lnd_tech, cost);
 	if (land.lnd_own != player->cnum)
 	    wu(0, land.lnd_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
 	       prland(&land), cname(player->cnum), land.lnd_tech,
-	       (int)(lp->l_cost * .15));
+	       cost);
     }
     if (n == 0) {
 	pr("No land units\n");
@@ -194,8 +197,7 @@ supgr(void)
     struct mchrstr *mp;
     int n;
     int tlev;
-    int w_p_eff;
-    int points;
+    int avail, cost;
     int rel;
     int techdiff;
     long cash;
@@ -222,13 +224,11 @@ supgr(void)
 	}
 	n++;
 	mp = &mchr[(int)ship.shp_type];
-	w_p_eff = ((mp->m_lcm / 2) + mp->m_hcm);
-	points = sect.sct_avail * 100 / w_p_eff;
-	if (points < 20) {
+	avail = (SHP_BLD_WORK(mp->m_lcm, mp->m_hcm) * UPGR_COST + 99) / 100;
+	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), mp->m_name);
-	    pr(" (%d available work required)\n",
-	       1 + (w_p_eff * 20) / 100);
+	    pr(" (%d available work required)\n", avail);
 	    continue;
 	}
 	if (ship.shp_effic < 60) {
@@ -240,14 +240,15 @@ supgr(void)
 	       ship.shp_tech, tlev);
 	    continue;
 	}
-	if (mp->m_cost * .15 + player->dolcost > cash) {
+	cost = mp->m_cost * UPGR_COST / 100;
+	if (cost + player->dolcost > cash) {
 	    pr("You don't have enough money to upgrade %s!\n",
 	       prship(&ship));
 	    continue;
 	}
 
-	sect.sct_avail = (sect.sct_avail * 100 - w_p_eff * 20) / 100;
-	ship.shp_effic -= 35;
+	sect.sct_avail -= avail;
+	ship.shp_effic -= UPGR_EFF;
 	ship.shp_tech = tlev;
 
 	techdiff = (int)(tlev - mp->m_tech);
@@ -262,14 +263,14 @@ supgr(void)
 
 	putship(ship.shp_uid, &ship);
 	putsect(&sect);
-	player->dolcost += (double)mp->m_cost * .15;
+	player->dolcost += cost;
 	pr("%s upgraded to tech %d, at a cost of %d\n", prship(&ship),
-	   ship.shp_tech, (int)(mp->m_cost * .15));
+	   ship.shp_tech, cost);
 	if (ship.shp_own != player->cnum)
 	    wu(0, ship.shp_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
 	       prship(&ship), cname(player->cnum), ship.shp_tech,
-	       (int)(mp->m_cost * .15));
+	       cost);
     }
     if (n == 0) {
 	pr("No ships\n");
@@ -288,8 +289,7 @@ pupgr(void)
     struct plchrstr *pp;
     int n;
     int tlev;
-    int w_p_eff;
-    int points;
+    int avail, cost;
     int rel;
     int techdiff;
     long cash;
@@ -316,13 +316,11 @@ pupgr(void)
 	}
 	n++;
 	pp = &plchr[(int)plane.pln_type];
-	w_p_eff = ((pp->pl_lcm / 2) + pp->pl_hcm);
-	points = sect.sct_avail * 100 / w_p_eff;
-	if (points < 20) {
+	avail = (PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm) * UPGR_COST + 99) / 100;
+	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), pp->pl_name);
-	    pr(" (%d available work required)\n",
-	       1 + (w_p_eff * 20) / 100);
+	    pr(" (%d available work required)\n", avail);
 	    continue;
 	}
 	if (plane.pln_effic < 60) {
@@ -334,7 +332,8 @@ pupgr(void)
 	       plane.pln_tech, tlev);
 	    continue;
 	}
-	if (pp->pl_cost * .15 + player->dolcost > cash) {
+	cost = pp->pl_cost * UPGR_COST / 100;
+	if (cost + player->dolcost > cash) {
 	    pr("You don't have enough money to upgrade %s!\n",
 	       prplane(&plane));
 	    continue;
@@ -344,8 +343,8 @@ pupgr(void)
 	    continue;
 	}
 
-	sect.sct_avail = (sect.sct_avail * 100 - w_p_eff * 20) / 100;
-	plane.pln_effic -= 35;
+	sect.sct_avail -= avail;
+	plane.pln_effic -= UPGR_EFF;
 
 	plane.pln_tech = tlev;
 	techdiff = (int)(tlev - pp->pl_tech);
@@ -368,14 +367,14 @@ pupgr(void)
 
 	putplane(plane.pln_uid, &plane);
 	putsect(&sect);
-	player->dolcost += (double)pp->pl_cost * .15;
+	player->dolcost += cost;
 	pr("%s upgraded to tech %d, at a cost of %d\n", prplane(&plane),
-	   plane.pln_tech, (int)(pp->pl_cost * .15));
+	   plane.pln_tech, cost);
 	if (plane.pln_own != player->cnum)
 	    wu(0, plane.pln_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
 	       prplane(&plane), cname(player->cnum), plane.pln_tech,
-	       (int)(pp->pl_cost * .15));
+	       cost);
     }
     if (n == 0) {
 	pr("No planes.\n");

@@ -404,7 +404,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	   "%s bombing raid did %d%% damage in %s\n",
 	   cname(player->cnum), oldeff - target->sct_effic,
 	   xyas(target->sct_x, target->sct_y, target->sct_own));
-    if (target->sct_effic < 20) {
+    if (target->sct_effic < SCT_MINEFF) {
 	if (target->sct_type == SCT_BSPAN)
 	    knockdown(target, list);
 	else if (target->sct_type == SCT_BTOWER) {
