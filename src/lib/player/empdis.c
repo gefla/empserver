@@ -177,7 +177,7 @@ gamedown(void)
     if (tgm.tel_length >= (long)sizeof(buf))
 	tgm.tel_length = sizeof(buf) - 1;
     buf[tgm.tel_length] = 0;
-    pr(buf);
+    prnf(buf);
     pr("\nThe game is down\n");
     (void)close(downf);
     return 1;
