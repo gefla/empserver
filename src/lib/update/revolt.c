@@ -341,7 +341,7 @@ guerrilla(struct sctstr *sp)
 	n = civ / 20;
 	civ -= n;
 	if (civ > ITEM_MAX) {
-	    uw = ITEM_MAX - civ;
+	    uw = civ - ITEM_MAX;
 	    civ = ITEM_MAX;
 	}
 	sp->sct_item[I_CIVIL] = civ;
