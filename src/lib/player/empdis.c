@@ -152,33 +152,33 @@ explain(void)
 int
 gamedown(void)
 {
-    int downf;
+    FILE *down_fp;
     struct telstr tgm;
-    s_char buf[1024];
+    s_char buf[MAXTELSIZE];
 
     if (player->god)
 	return 0;
-    if ((downf = open(downfil, O_RDONLY, 0)) < 0)
+    if ((down_fp = fopen(downfil, "r")) == NULL)
 	return 0;
-    if (read(downf, (s_char *)&tgm, sizeof(tgm)) != sizeof(tgm)) {
+    if (fread((void *)&tgm, sizeof(tgm), 1, down_fp) != 1) {
 	logerror("bad header on login message (downfil)");
-	close(downf);
+	fclose(down_fp);
 	return 1;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
 	logerror("text length (%ld) is too long for login message (downfil)", tgm.tel_length);
-	close(downf);
+	fclose(down_fp);
 	return 1;
     }
-    if (read(downf, buf, tgm.tel_length) != tgm.tel_length) {
+    if (fread(buf, tgm.tel_length, 1, down_fp) != 1) {
 	logerror("bad length %ld on login message", tgm.tel_length);
-	close(downf);
+	fclose(down_fp);
 	return 1;
     }
     buf[tgm.tel_length] = 0;
     prnf(buf);
     pr("\nThe game is down\n");
-    (void)close(downf);
+    fclose(down_fp);
     return 1;
 }
 

@@ -343,11 +343,11 @@ execute(void)
 int
 show_motd(void)
 {
-    int motdf;
+    FILE *motd_fp;
     struct telstr tgm;
     char buf[MAXTELSIZE];
 
-    if ((motdf = open(motdfil, O_RDONLY, 0)) < 0)
+    if ((motd_fp = fopen(motdfil, "r")) == NULL)
     {
     	if (errno == ENOENT)
 	    return RET_OK;
@@ -358,24 +358,24 @@ show_motd(void)
 	    return RET_SYS;
 	}
     }
-    if (read(motdf, &tgm, sizeof(tgm)) != sizeof(tgm)) {
+    if (fread((void *)&tgm, sizeof(tgm), 1, motd_fp) != 1) {
 	logerror("bad header on login message (motdfil)");
-	close(motdf);
+	fclose(motd_fp);
 	return RET_FAIL;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
 	logerror("text length (%ld) is too long for login message (motdfil)", tgm.tel_length);
-	close(motdf);
+	fclose(motd_fp);
 	return RET_FAIL;
     }
-    if (read(motdf, buf, tgm.tel_length) != tgm.tel_length) {
+    if (fread(buf, tgm.tel_length, 1, motd_fp) != 1) {
 	logerror("bad length %ld on login message", tgm.tel_length);
-	close(motdf);
+	fclose(motd_fp);
 	return RET_FAIL;
     }
     buf[tgm.tel_length] = 0;
     prnf(buf);
-    (void)close(motdf);
+    fclose(motd_fp);
     return RET_OK;
 }
 
