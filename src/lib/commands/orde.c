@@ -121,8 +121,8 @@ orde(void)
 	    ship.shp_mission = 0;
 	    ship.shp_autonav &= ~(AN_AUTONAV + AN_STANDBY + AN_LOADING);
 	    for (i = 0; i < TMAX; i++) {
-		ship.shp_tstart[i] = ' ';
-		ship.shp_tend[i] = ' ';
+		ship.shp_tstart[i] = I_NONE;
+		ship.shp_tend[i] = I_NONE;
 		ship.shp_lstart[i] = 0;
 		ship.shp_lend[i] = 0;
 	    }
@@ -238,7 +238,7 @@ orde(void)
 			    level = 0;	/* prevent negatives. */
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tstart[sub] = (s_char)i1->i_mnem;
+			ship.shp_tstart[sub] = (s_char)i1->i_vtype;
 			ship.shp_lstart[sub] = level;
 			pr("Order Set \n");
 			break;
@@ -258,7 +258,7 @@ orde(void)
 			    level = 0;
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tend[sub] = (s_char)i1->i_mnem;
+			ship.shp_tend[sub] = (s_char)i1->i_vtype;
 			ship.shp_lend[sub] = level;
 			pr("Order Set \n");
 			break;
@@ -286,7 +286,7 @@ orde(void)
 		&& (ship.shp_lstart[1] != ' '))) {
 
 	    coord tcord;
-	    s_char tcomm[TMAX];
+	    s_char tcomm;
 	    short lev[TMAX];
 	    int i;
 
@@ -306,9 +306,9 @@ orde(void)
 		lev[i] = ship.shp_lstart[i];
 		ship.shp_lstart[i] = ship.shp_lend[i];
 		ship.shp_lend[i] = lev[i];
-		tcomm[i] = ship.shp_tstart[i];
+		tcomm = ship.shp_tstart[i];
 		ship.shp_tstart[i] = ship.shp_tend[i];
-		ship.shp_tend[i] = tcomm[i];
+		ship.shp_tend[i] = tcomm;
 	    }
 	}
 	/*
@@ -353,6 +353,19 @@ eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
     }
 }
 
+static void
+prhold(int hold, int itype, int amt)
+{
+    if (itype != I_NONE && amt != 0) {
+	if (CANT_HAPPEN((unsigned)itype > I_MAX))
+	    return;
+	pr("%d-", hold + 1);
+	pr("%c", ichr[itype].i_mnem);
+	pr(":");
+	pr("%d ", amt);
+    }
+}
+
 int
 qorde(void)
 {
@@ -388,23 +401,11 @@ qorde(void)
 	if (ship.shp_autonav & AN_AUTONAV) {
 
 	    pr(" [");
-	    for (i = 0; i < TMAX; i++) {
-		if (ship.shp_tend[i] != ' ' && ship.shp_lend[i] != 0) {
-		    pr("%d-", i + 1);
-		    pr("%c", ship.shp_tend[i]);
-		    pr(":");
-		    pr("%d ", ship.shp_lend[i]);
-		}
-	    }
+	    for (i = 0; i < TMAX; i++)
+		prhold(i, ship.shp_tend[i], ship.shp_lend[i]);
 	    pr("] , (");
-	    for (i = 0; i < TMAX; i++) {
-		if (ship.shp_tstart[i] != ' ' && ship.shp_lstart[i] != 0) {
-		    pr("%d-", i + 1);
-		    pr("%c", ship.shp_tstart[i]);
-		    pr(":");
-		    pr("%d ", ship.shp_lstart[i]);
-		}
-	    }
+	    for (i = 0; i < TMAX; i++)
+		prhold(i, ship.shp_tstart[i], ship.shp_lstart[i]);
 	    pr(")");
 	    if (ship.shp_autonav & AN_SCUTTLE)
 		pr(" scuttling");

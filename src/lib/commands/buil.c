@@ -411,8 +411,8 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     ship.shp_autonav = 0;
     /* new code for autonav, Chad Zabel 1-15-94 */
     for (i = 0; i < TMAX; ++i) {
-	ship.shp_tstart[i] = ' ';
-	ship.shp_tend[i] = ' ';
+	ship.shp_tstart[i] = I_NONE;
+	ship.shp_tend[i] = I_NONE;
 	ship.shp_lstart[i] = 0;
 	ship.shp_lend[i] = 0;
     }

@@ -86,13 +86,13 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
 {
     int comm, shipown, amount, ship_amt, sect_amt;
     int abs_max, max_amt, transfer;
-    s_char item;
     struct mchrstr *vship;
 
     amount = sp->shp_lend[i];
     shipown = sp->shp_own;
-    item = sp->shp_tend[i];	/* commodity */
-    comm = com_num(&item);
+    comm = sp->shp_tend[i];
+    if (CANT_HAPPEN((unsigned)comm > I_MAX))
+	return 0;
 
     ship_amt = sp->shp_item[comm];
     sect_amt = psect->sct_item[comm];
@@ -161,7 +161,6 @@ void
 unload_it(register struct shpstr *sp)
 {
     struct sctstr *sectp;
-    s_char item;
     int i;
     int landowner;
     int shipown;
@@ -169,8 +168,6 @@ unload_it(register struct shpstr *sp)
     int sect_amt;
     int ship_amt;
     int max_amt;
-    int level;
-
 
     sectp = getsectp(sp->shp_x, sp->shp_y);
 
@@ -178,17 +175,16 @@ unload_it(register struct shpstr *sp)
     shipown = sp->shp_own;
 
     for (i = 0; i < TMAX; ++i) {
-	item = sp->shp_tend[i];
-	level = sp->shp_lend[i];
-
-	if (item == ' ' || level == 0)
+	if (sp->shp_tend[i] == I_NONE || sp->shp_lend[i] == 0)
 	    continue;
 	if (landowner == 0)
 	    continue;
 	if (sectp->sct_type != SCT_HARBR)
 	    continue;
 
-	comm = com_num(&item);
+	comm = sp->shp_tend[i];
+	if (CANT_HAPPEN((unsigned)comm > I_MAX))
+	    continue;
 	ship_amt = sp->shp_item[comm];
 	sect_amt = sectp->sct_item[comm];
 
@@ -216,30 +212,6 @@ unload_it(register struct shpstr *sp)
 	    sectp->sct_pstage = PLG_EXPOSED;
     }
 }
-
-/* com_num
- * This small but useful bit of code runs through the list
- * of commodities and return the integer value of the 
- * commodity it finds if possible.
- * Basicly its a hacked version of whatitem.c found in the
- * /player directory.
- * new autonav code.
- * Chad Zabel 6/1/94
- */
-
-int
-com_num(s_char *ptr)
-{
-    struct ichrstr *ip;
-
-    for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
-	if (*ptr == ip->i_mnem)
-	    return ip->i_vtype;
-    }
-    return 0;			/*NOTREACHED*/
-}
-
-
 
 /* auto_fuel_ship 
  * Assume a check for fuel=0 has already been made and passed.  

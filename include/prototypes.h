@@ -583,7 +583,6 @@ extern int nav_ship(register struct shpstr *);
 extern int check_nav(struct sctstr *);
 extern int load_it(register struct shpstr *, register struct sctstr *,
 		   int);
-extern int com_num(s_char *);
 extern void unload_it(register struct shpstr *);
 extern void auto_fuel_ship(register struct shpstr *);
 /* nxtitemp.c */

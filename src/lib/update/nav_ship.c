@@ -158,8 +158,7 @@ static int
 nav_loadship(register struct shpstr *sp, natid cnum)
 {
     struct sctstr *sectp;
-    s_char item;
-    int i, landown, shipown, level, didsomething[TMAX], rel;
+    int i, landown, shipown, didsomething[TMAX], rel;
 
     for (i = 0; i < TMAX; i++)
 	didsomething[i] = 0;
@@ -182,12 +181,9 @@ nav_loadship(register struct shpstr *sp, natid cnum)
 
     /* loop through each field for that ship */
     for (i = 0; i < TMAX; ++i) {
-	item = sp->shp_tend[i];	/* commodity */
-	level = sp->shp_lend[i];	/* amount    */
-
 	/* check and see if the data fields have been set. */
 
-	if (item == ' ' || level == 0) {
+	if (sp->shp_tend[i] == I_NONE || sp->shp_lend[i] == 0) {
 	    /* nothing to do move on. */
 	    didsomething[i] = 1;
 	    continue;
