@@ -551,8 +551,8 @@ extern int dodistribute(struct sctstr *, int, s_char *, double, double);
 extern void finish_sects(int);
 /* human.c */
 extern int do_feed(register struct sctstr *, register struct natstr *,
-		   int *, int *, int *, int);
-extern int feed_people(register int *, int, int *);
+		   short *, int *, int *, int);
+extern int feed_people(short *, int, int *);
 /* land.c */
 extern int prod_land(int, int, int *, int);
 extern int feed_land(struct lndstr *, int, int *, int);
@@ -605,7 +605,7 @@ extern int upd_slmilcosts(natid, int);
 extern void prepare_sects(int, int *);
 extern int bank_income(struct sctstr *, int);
 /* produce.c */
-extern int produce(struct natstr *, struct sctstr *, int *, int, int,
+extern int produce(struct natstr *, struct sctstr *, short *, int, int,
 		   int, int *, int *);
 /* removewants.c */
 extern int update_removewants(void);

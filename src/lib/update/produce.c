@@ -46,15 +46,14 @@
 #include "optlist.h"
 #include "budg.h"
 
-static void materials_charge(struct pchrstr *, register int *,
-			     register int);
-static int materials_cost(struct pchrstr *, register int *, int *);
+static void materials_charge(struct pchrstr *, short *, int);
+static int materials_cost(struct pchrstr *, short *, int *);
 
 s_char *levelnames[] =
     { "Technology", "Research", "Education", "Happiness" };
 
 int
-produce(struct natstr *np, struct sctstr *sp, int *vec, int work,
+produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	int desig, int neweff, int *cost, int *amount)
 {
     register struct pchrstr *product;
@@ -190,7 +189,7 @@ produce(struct natstr *np, struct sctstr *sp, int *vec, int work,
 }
 
 static int
-materials_cost(struct pchrstr *product, register int *vec, int *costp)
+materials_cost(struct pchrstr *product, short *vec, int *costp)
 {
     register u_char *vp;
     register u_short *ap;
@@ -216,8 +215,7 @@ materials_cost(struct pchrstr *product, register int *vec, int *costp)
 }
 
 static void
-materials_charge(struct pchrstr *product, register int *vec,
-		 register int count)
+materials_charge(struct pchrstr *product, short *vec, int count)
 {
     register u_char *vp;
     register u_short *ap;

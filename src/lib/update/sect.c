@@ -88,7 +88,7 @@ dodeliver(struct sctstr *sp)
  */
 static int
 upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
-	     int *vec, int etu, int *desig, int sctwork, int *cost)
+	     short *vec, int etu, int *desig, int sctwork, int *cost)
 {
     register int work_cost = 0;
     int buildeff_work = (int)(*workp / 2);
@@ -171,7 +171,7 @@ upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
  * some mil initially.
  */
 static int
-enlist(register int *vec, int etu, int *cost)
+enlist(short *vec, int etu, int *cost)
 {
     int maxmil;
     int enlisted;
@@ -327,7 +327,8 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 {
     register struct sctstr *sp;
     register struct natstr *np;
-    int vec[I_MAX + 1];
+    short buf[I_MAX + 1];
+    short *vec;
     int work, cost, ecost, pcost, sctwork;
     int n, desig, maxpop, neweff, amount;
 
@@ -346,8 +347,13 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	    p_sect[SCT_CAPIT][1] += etu;
 	}
 
-	if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	    continue;
+	if (player->simulation) {
+	    /* work on a copy, which will be discarded */
+	    memcpy(buf, sp->sct_item, sizeof(buf));
+	    vec = buf;
+	} else
+	    vec = sp->sct_item;
+
 	/* If everybody is dead, the sector reverts to unowned. 
 	   * This is also checked at the end of the production in
 	   * they all starved or were plagued off.
@@ -375,10 +381,8 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	bp_clear_cachepath();
 
 	if (sp->sct_off || np->nat_money < 0) {
-	    if (!player->simulation) {
-		putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
+	    if (!player->simulation)
 		sp->sct_off = 0;
-	    }
 	    continue;
 	}
 	if ((np->nat_priorities[sp->sct_type] == 0) &&
@@ -386,7 +390,6 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	    ((pchr[dchr[sp->sct_type].d_prd].p_cost != 0) ||
 	     (sp->sct_type == SCT_ENLIST))) {
 	    if (!player->simulation) {
-		putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
 		logerror("Skipping %s production for country %s\n",
 			 dchr[sp->sct_type].d_name, np->nat_cnam);
 	    }
@@ -401,28 +404,14 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money > 0) {
-	    neweff =
-		upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
-			     &cost);
+	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
+				  &cost);
 	    pt_bg_nmbr(bp, sp, I_LCM, vec[I_LCM]);
 	    pt_bg_nmbr(bp, sp, I_HCM, vec[I_HCM]);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
 		np->nat_money -= cost;
-		/* No longer tear down infrastructure
-		   if (sp->sct_type != desig) {
-		   sp->sct_road = 0;
-		   sp->sct_defense = 0;
-		   } else if (neweff < sp->sct_effic) {
-		   sp->sct_road -= (sp->sct_road * (sp->sct_effic - neweff) / 100.0);
-		   sp->sct_defense -= (sp->sct_defense * (sp->sct_effic - neweff) / 100.0);
-		   if (sp->sct_road < 0)
-		   sp->sct_road = 0;
-		   if (sp->sct_defense < 0)
-		   sp->sct_defense = 0;
-		   }
-		 */
 		sp->sct_type = desig;
 		sp->sct_effic = neweff;
 		if (!opt_DEFENSE_INFRA)
@@ -434,7 +423,6 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	    ((pchr[dchr[desig].d_prd].p_cost != 0) ||
 	     (desig == SCT_ENLIST))) {
 	    if (!player->simulation) {
-		putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
 		logerror("Skipping %s production for country %s\n",
 			 dchr[sp->sct_type].d_name, np->nat_cnam);
 	    }
@@ -468,7 +456,6 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 		vec[I_CIVIL] = maxpop;
 	    if (vec[I_UW] > maxpop)
 		vec[I_UW] = maxpop;
-	    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
 	    sp->sct_avail = work;
 	    np->nat_money -= pcost;
 	}

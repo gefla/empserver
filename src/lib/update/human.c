@@ -51,18 +51,18 @@
 
 static int grow_people(struct sctstr *, register int,
 		       register struct natstr *, int *, int,
-		       register int *);
-static int growfood(struct sctstr *, register int *, int, int);
+		       short *);
+static int growfood(struct sctstr *, short *, int, int);
 static void starvation(struct sctstr *);
 static void trunc_people(struct sctstr *, register struct natstr *,
-			 register int *);
+			 short *);
 
 /*
  * feed the individual sector
  *
  */
 int
-do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
+do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	int *workp, int *bp, int etu)
 {
     int people;
@@ -150,7 +150,7 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
 }
 
 static int
-growfood(struct sctstr *sp, register int *vec, int work, int etu)
+growfood(struct sctstr *sp, short *vec, int work, int etu)
 {
     double food_fertil;
     double food_workers;
@@ -174,8 +174,8 @@ growfood(struct sctstr *sp, register int *vec, int work, int etu)
     vec[I_FOOD] += (int)food;
     if (vec[I_FOOD] == 0)
 	vec[I_FOOD] = 1;
-    if (vec[I_FOOD] > 9999)
-	vec[I_FOOD] = 9999;
+    if (vec[I_FOOD] > ITEM_MAX)
+	vec[I_FOOD] = ITEM_MAX;
     work_used = (int)food / fcrate;
     return work_used;
 }
@@ -184,7 +184,7 @@ growfood(struct sctstr *sp, register int *vec, int work, int etu)
  * returns the number who starved, if any.
  */
 int
-feed_people(register int *vec, int etu, int *needed)
+feed_people(short *vec, int etu, int *needed)
 {
     double food_eaten;
     int ifood_eaten;
@@ -241,7 +241,7 @@ feed_people(register int *vec, int etu, int *needed)
  */
 static void
 trunc_people(struct sctstr *sp, register struct natstr *np,
-	     register int *vec)
+	     short *vec)
 {
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
 
@@ -260,7 +260,7 @@ trunc_people(struct sctstr *sp, register struct natstr *np,
 static int
 grow_people(struct sctstr *sp, register int etu,
 	    register struct natstr *np, int *workp, int sctwork,
-	    register int *vec)
+	    short *vec)
 {
     int newciv;
     int newuw;

@@ -103,7 +103,7 @@ starv_sects(s_char *range)
     struct nstr_sect nstr;
     struct sctstr sect;
     int nsect = 0;
-    int vec[I_MAX + 1], s, needed;
+    int s, needed;
 
     if (!snxtsct(&nstr, range))
 	return;
@@ -113,11 +113,10 @@ starv_sects(s_char *range)
 	if (sect.sct_type == SCT_SANCT)
 	    continue;
 
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 /* This next 2 lines were added to overcompensate for the needy */
-	if (vec[I_FOOD])
-	    vec[I_FOOD]--;
-	s = feed_people(vec, etu_per_update, &needed);
+	if (sect.sct_item[I_FOOD])
+	    sect.sct_item[I_FOOD]--;
+	s = feed_people(sect.sct_item, etu_per_update, &needed);
 
 	if (s == 0)
 	    continue;
