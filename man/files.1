@@ -7,6 +7,9 @@ files \- Empire file initialization
 [
 .BI \-e\ configfile
 ]
+[
+.BI \-f
+]
 .br
 .SH DESCRIPTION
 .I files
@@ -22,3 +25,6 @@ causes
 to use the game configuration specified in 
 .I configfile
 (by default, the file "econfig" in the data directory is used)
+.TP
+.BI \-f
+Clobber existing game data without asking for confirmation.

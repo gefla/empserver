@@ -82,12 +82,16 @@ main(int argc, char *argv[])
     extern char *optarg;
     int opt;
     char *config_file = NULL;
-
+    int force = 0;
+    
 #if !defined(_WIN32)
-    while ((opt = getopt(argc, argv, "e:")) != EOF) {
+    while ((opt = getopt(argc, argv, "e:f")) != EOF) {
 	switch (opt) {
 	case 'e':
 	    config_file = optarg;
+	    break;
+	case 'f':
+	    force = 1;
 	    break;
 	}
     }
@@ -111,12 +115,14 @@ main(int argc, char *argv[])
 	printf("Can't make game directory\n");
 	exit(1);
     }
-    printf("WARNING: this blasts the existing game in %s (if any)\n",
+    if (!force) {
+    	printf("WARNING: this blasts the existing game in %s (if any)\n",
 	   datadir);
-    printf("continue? ");
-    fgets(buf, sizeof(buf) - 1, stdin);
-    if (*buf != 'y' && *buf != 'Y')
-	exit(1);
+    	printf("continue? ");
+    	fgets(buf, sizeof(buf) - 1, stdin);
+    	if (*buf != 'y' && *buf != 'Y')
+  	    exit(1);
+    }
     for (i = 0; i < EF_MAX; i++) {
 	if (ef_open(i, O_RDWR | O_CREAT | O_TRUNC, 0) < 0) {
 	    perror("ef_open");
