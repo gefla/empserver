@@ -1264,32 +1264,26 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
-    int type;
-    s_char *ptr;
     int itype;
     int rval;
-    int vec[I_MAX + 1];
+    short *item;
 
     pp = &plp->plane;
     pcp = plp->pcp;
     if (pp->pln_ship >= 0) {
 	getship(pp->pln_ship, &ship);
-	type = EF_SHIP;
-	ptr = (s_char *)&ship;
+	item = ship.shp_item;
     } else if (pp->pln_land >= 0) {
 	getland(pp->pln_land, &land);
-	type = EF_LAND;
-	ptr = (s_char *)&land;
+	item = land.lnd_item;
     } else {
 	getsect(pp->pln_x, pp->pln_y, &sect);
-	type = EF_SECTOR;
-	ptr = (s_char *)&sect;
+	item = sect.sct_item;
     }
-    getvec(VT_ITEM, vec, ptr, type);
-    if (pcp->pl_fuel > vec[I_PETROL]) {
+    if (pcp->pl_fuel > item[I_PETROL]) {
 	return -1;
     }
-    vec[I_PETROL] -= pcp->pl_fuel;
+    item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if (!(flags & P_F)) {
 	itype = 0;
@@ -1336,24 +1330,23 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	if (rval < 0 || (itype && needed <= 0)) {
 	    return -1;
 	}
-	if (vec[itype] < needed && (itype == I_SHELL))
-	    vec[itype] += supply_commod(plp->plane.pln_own,
-					plp->plane.pln_x, plp->plane.pln_y,
-					I_SHELL, needed);
-	if (vec[itype] < needed) {
+	if (item[itype] < needed && (itype == I_SHELL))
+	    item[itype] += supply_commod(plp->plane.pln_own,
+					 plp->plane.pln_x, plp->plane.pln_y,
+					 I_SHELL, needed);
+	if (item[itype] < needed) {
 	    return -1;
 	} else {
-	    vec[itype] -= needed;
+	    item[itype] -= needed;
 	}
 	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
 	    plp->bombs = needed;
 	else
 	    plp->misc = needed;
     }
-    putvec(VT_ITEM, vec, ptr, type);
-    if (type == EF_SHIP)
+    if (pp->pln_ship >= 0)
 	putship(ship.shp_uid, &ship);
-    else if (type == EF_LAND)
+    else if (pp->pln_land >= 0)
 	putland(land.lnd_uid, &land);
     else
 	putsect(&sect);

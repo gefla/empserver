@@ -520,29 +520,24 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
-    int type;
-    s_char *ptr;
     int itype;
     int rval;
-    int vec[I_MAX + 1];
+    short *item;
     int own;
 
     pp = &plp->plane;
     pcp = plp->pcp;
     if (pp->pln_ship >= 0) {
 	getship(pp->pln_ship, &ship);
-	type = EF_SHIP;
-	ptr = (s_char *)&ship;
+	item = ship.shp_item;
 	own = ship.shp_own;
     } else if (pp->pln_land >= 0) {
 	getland(pp->pln_land, &land);
-	type = EF_LAND;
-	ptr = (s_char *)&land;
+	item = land.lnd_item;
 	own = land.lnd_own;
     } else {
 	getsect(pp->pln_x, pp->pln_y, &sect);
-	type = EF_SECTOR;
-	ptr = (s_char *)&sect;
+	item = sect.sct_item;
 	own = sect.sct_oldown;
     }
     if (ip) {
@@ -553,12 +548,11 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	    }
 	}
     }
-    getvec(VT_ITEM, vec, ptr, type);
-    if (pcp->pl_fuel > vec[I_PETROL]) {
+    if (pcp->pl_fuel > item[I_PETROL]) {
 	pr("%s not enough petrol there!\n", prplane(pp));
 	return -1;
     }
-    vec[I_PETROL] -= pcp->pl_fuel;
+    item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if ((flags & P_F) == 0) {
 	itype = 0;
@@ -609,31 +603,30 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	}
 #if 0
 	/* Supply is broken somewhere, so don't use it for now */
-	if (vec[itype] < needed && itype == I_SHELL)
-	    vec[itype] += supply_commod(plp->plane.pln_own,
-					plp->plane.pln_x, plp->plane.pln_y,
-					I_SHELL, needed);
+	if (item[itype] < needed && itype == I_SHELL)
+	    item[itype] += supply_commod(plp->plane.pln_own,
+					 plp->plane.pln_x, plp->plane.pln_y,
+					 I_SHELL, needed);
 #endif
-	if (vec[itype] < needed) {
+	if (item[itype] < needed) {
 	    pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
 	    return -1;
 	} else {
-	    vec[itype] -= needed;
+	    item[itype] -= needed;
 	}
 	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
 	    plp->bombs = needed;
 	else
 	    plp->misc = needed;
     }
-    putvec(VT_ITEM, vec, ptr, type);
-    if (type == EF_SHIP) {
+    if (pp->pln_ship >= 0) {
 	if (pp->pln_own != ship.shp_own) {
 	    wu(0, ship.shp_own,
 	       "%s %s prepares for takeoff from ship %s\n",
 	       cname(pp->pln_own), prplane(pp), prship(&ship));
 	}
 	putship(ship.shp_uid, &ship);
-    } else if (type == EF_LAND) {
+    } else if (pp->pln_land >= 0) {
 	if (pp->pln_own != land.lnd_own) {
 	    wu(0, land.lnd_own,
 	       "%s %s prepares for takeoff from unit %s\n",
