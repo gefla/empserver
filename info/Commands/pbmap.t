@@ -21,12 +21,6 @@ Commands contributing to bmap include (but are not limited to):
 map, nav, fly, bomb, recon, para, drop, lookout, coastwatch, radar.
 (probably others)
 .s1
-Your own sectors show up as a designation mnemonic
-(see \*QSector-types\*U) while sectors held by other countries
-appear as question marks (\*Q?\*U).
-Mountains, wilderness areas, and seas appear
-as '^', '-' and '.' respectively.
-.s1
 Note that any sector
 marked as 'X' on your bmap will automatically be avoided by
 ships when they are trying to calculate the best path between two

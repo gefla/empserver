@@ -15,10 +15,9 @@ The program will respond with the station's efficiency and range
 and then display the area.
 .s1
 What is displayed is dependent upon the range.
-Sectors and ships within 1/3 of the range
-are displayed with their sector or ship designations.
-Sectors at greater distances are indicated by a '?'
-if they are inhabited by another country.
+Sectors within 1/3 of the range as well as mountains, sea and
+wasteland are displayed with their sector designations.  Other sectors
+are displayed as '?'.
 .s1
 A 100% radar station in a country with infinite technology
 on a clear day has a range of 16.
@@ -34,13 +33,6 @@ Satellites will appear on the map as a '$'.
 .s1
 WARNING!
 Land radar cannot spot submarines.
-.s1
-FURTHER WARNING!
-Even worse, should your cunning enemy move troops right to your
-doorstep and leave the sector designated a wilderness it would
-show up on your very efficient radar as '-'.
-Thus you would never know he was there....
-Well, almost never. 
 .s1
 An example of land radar:
 .EX radar 5,1

@@ -8,11 +8,10 @@
 .SY "pmap <SECTS | SHIP> <s|p|l|*|h>"
 A map gives you a graphic representation of all or part of your country.
 .s1
-Your own sectors show up as a designation mnemonic
-(see \*QSector-types\*U) while sectors held by other countries
-appear as question marks (\*Q?\*U).
-Mountains, wilderness areas, and seas appear
-as '^', '-' and '.' respectively.
+Your own sectors as well as sea, mountains, wasteland and unowned
+wilderness and plains show up as a designation mnemonic (see
+\*QSector-types\*U).  Other sectors appear as question marks
+(\*Q?\*U).
 .s1
 You can also get this by typing 'M' at the navigation prompt.
 .s1
