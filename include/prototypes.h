@@ -530,6 +530,7 @@ extern int shipdef(natid, natid, coord, coord);
 extern int emp_getbit(int, int, u_char *);
 extern void emp_setbit(int, int, u_char *);
 extern void emp_setbitmap(int, int, u_char *, int *);
+extern void bitinit2(struct nstr_sect *, u_char *, int);
 /* getele.c */
 extern int getele(s_char *, s_char *);
 /* land.c */

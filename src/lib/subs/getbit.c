@@ -40,6 +40,8 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+static int *bitmaps[];
+
 #define GCFx(x) ((x + WORLD_X) % WORLD_X)
 #define GCFy(y) ((y + WORLD_Y) % WORLD_Y)
 
@@ -77,6 +79,23 @@ emp_setbitmap(register int x, register int y, register u_char *bitmap,
     }
 }
 
+void
+bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
+{
+    struct sctstr sect;
+    int eff;
+
+    while (nxtsct(np, &sect)) {
+	if (sect.sct_own != country)
+	    continue;
+	eff = sect.sct_effic / 20;
+	if (eff > 4)
+	    eff = 4;
+	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
+    }
+    snxtsct_rewind(np);
+}
+
 
 /*
  *
@@ -92,14 +111,14 @@ emp_setbitmap(register int x, register int y, register u_char *bitmap,
 
 #define bitoff(x, y) x, y
 
-int bitmap0[] = {
+static int bitmap0[] = {
     bitoff(-1, -1), bitoff(1, -1),
     bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0),
     bitoff(-1, 1), bitoff(1, 1),
     bitoff(9999, 9999),
 };
 
-int bitmap1[] = {
+static int bitmap1[] = {
     bitoff(0, -2),
     bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1), bitoff(3, -1),
     bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0),
@@ -108,7 +127,7 @@ int bitmap1[] = {
     bitoff(9999, 9999),
 };
 
-int bitmap2[] = {
+static int bitmap2[] = {
     bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2),
     bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1), bitoff(3, -1),
     bitoff(-4, 0), bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0), bitoff(4, 0),
@@ -117,7 +136,7 @@ int bitmap2[] = {
     bitoff(9999, 9999),
 };
 
-int bitmap3[] = {
+static int bitmap3[] = {
     bitoff(-1, -3), bitoff(1, -3),
     bitoff(-4, -2), bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2), bitoff(4,
 									 -2),
@@ -131,7 +150,7 @@ int bitmap3[] = {
     bitoff(9999, 9999),
 };
 
-int bitmap4[] = {
+static int bitmap4[] = {
     bitoff(-3, -3), bitoff(-1, -3), bitoff(1, -3), bitoff(3, -3),
     bitoff(-4, -2), bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2), bitoff(4,
 									 -2),
@@ -147,7 +166,7 @@ int bitmap4[] = {
     bitoff(9999, 9999),
 };
 
-int *bitmaps[5] = {
+static int *bitmaps[5] = {
     bitmap0,
     bitmap1,
     bitmap2,

@@ -50,7 +50,6 @@
 #include "subs.h"
 #include "optlist.h"
 
-static void bitinit2(struct nstr_sect *, u_char *, int);
 static int bmnxtsct(register struct nstr_sect *);
 
 int
@@ -326,24 +325,6 @@ bmnxtsct(register struct nstr_sect *np)
 	return 1;
     }
     /*NOTREACHED*/
-}
-
-static void
-bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
-{
-    extern int *bitmaps[];
-    struct sctstr sect;
-    int eff;
-
-    while (nxtsct(np, &sect)) {
-	if (sect.sct_own != country)
-	    continue;
-	eff = sect.sct_effic / 20;
-	if (eff > 4)
-	    eff = 4;
-	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
-    }
-    snxtsct_rewind(np);
 }
 
 int
