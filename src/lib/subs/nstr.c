@@ -221,9 +221,19 @@ nstr_comp_val(char *str, struct valstr*val, int type)
 			   sizeof(struct castr));
 		if (j >= 0
 		    && (!(cap[j].ca_flags & NSC_DEITY) || player->god)) {
-		    val->val_type = cap[j].ca_type;
-		    val->val_cat = NSC_OFF;
-		    val->val_as.off = cap[j].ca_off;
+		    if (cap[j].ca_type == NSC_TYPEID && val->val_as_type >= 0)
+			/*
+			 * Got two matches of type NSC_TYPEID, need to
+			 * choose.  Prefer typematch(), because ?des=n
+			 * would be interpreted as ?des=newdes
+			 * otherwise
+			 */
+			;
+		    else {
+			val->val_type = cap[j].ca_type;
+			val->val_cat = NSC_OFF;
+			val->val_as.off = cap[j].ca_off;
+		    }
 		}
 	    } else
 		j = M_NOTFOUND;
