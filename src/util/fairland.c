@@ -233,12 +233,10 @@ main(int argc, char *argv[])
 	init();
 	if (!quiet && i)
 	    printf("\ntry #%d (out of %d)...", i + 1, NUMTRIES);
-	qprint
-	    ("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
+	qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
 	qprint("placing capitals...\n");
 	if (!drift())
-	    qprint
-		("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
+	    qprint("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
 	qprint("growing continents...\n");
 	grow_continents();
     } while (fl_status && ++i < NUMTRIES);
@@ -274,9 +272,8 @@ print_vars()
     printf("number of islands: %d\n", ni);
     printf("average size of islands: %d\n", is);
     printf("spike: %d%%\n", sp);
-    printf
-	("%d%% of land is mountain (each continent will have %d mountains)\n",
-	 pm, (pm * sc) / 100);
+    printf("%d%% of land is mountain (each continent will have %d mountains)\n",
+	   pm, (pm * sc) / 100);
     printf("minimum distance between continents: %d\n", di);
     printf("minimum distance from islands to continents: %d\n", id);
     printf("World dimensions: %dx%d\n", WORLD_X, WORLD_Y);
@@ -310,18 +307,14 @@ parse_args(int argc, char *argv[])
 	puts("sc = continent size [MANDATORY]");
 	puts("ni = number of islands (default = nc)");
 	puts("is = average size of islands (default = sc/2)");
-	printf
-	    ("sp = spike percentage: 0 = round, 100 = snake (default = %d)\n",
-	     DEFAULT_SPIKE);
-	printf
-	    ("pm = the percentage of land that is mountain (default = %d)\n",
-	     DEFAULT_MOUNTAIN);
-	printf
-	    ("di = the minimum distance between continents (default = %d)\n",
-	     DEFAULT_CONTDIST);
-	printf
-	    ("id = minimum distance from islands to continents (default = %d)\n",
-	     DEFAULT_ISLDIST);
+	printf("sp = spike percentage: 0 = round, 100 = snake (default = %d)\n",
+	       DEFAULT_SPIKE);
+	printf("pm = the percentage of land that is mountain (default = %d)\n",
+	       DEFAULT_MOUNTAIN);
+	printf("di = the minimum distance between continents (default = %d)\n",
+	       DEFAULT_CONTDIST);
+	printf("id = minimum distance from islands to continents (default = %d)\n",
+	       DEFAULT_ISLDIST);
 	exit(1);
     }
     nc = atoi(argv[0]);
@@ -589,8 +582,7 @@ int c;
     for (i = 0; i < secs; ++i) {
 	sectc[c][i] = 0;
 	for (j = 0; j < 6; ++j)
-	    if (own[new_x(sectx[c][i] + dirx[j])]
-		[new_y(secty[c][i] + diry[j])] == -1)
+	    if (own[new_x(sectx[c][i] + dirx[j])][new_y(secty[c][i] + diry[j])] == -1)
 		sectc[c][i] = 1;
     }
 }
@@ -633,7 +625,8 @@ int c, newx, newy, d;
 		py = new_y(py + diry[vector[j]]);
 	    }
 	    if (own[px][py] != -1 &&
-		own[px][py] != c && (DISTINCT_ISLANDS || own[px][py] < nc))
+		own[px][py] != c &&
+		(DISTINCT_ISLANDS || own[px][py] < nc))
 		return 0;
 	} while (next_vector(i));
     }
@@ -690,9 +683,8 @@ new_try(int c)
 	    i = (i + 1) % secs;
 	} while (i != starti);
 	if (c < nc) {
-	    printf
-		("fairland: BUG -- couldn't find coast for continent %c, sector %d.\nPlease mail stevens@math.utoronto.ca.\n",
-		 c + 'a', secs);
+	    printf("fairland: BUG -- couldn't find coast for continent %c, sector %d.\nPlease mail stevens@math.utoronto.ca.\n",
+		   c + 'a', secs);
 	    exit(1);
 	} else
 	    return -1;
@@ -723,14 +715,8 @@ int c;
 		newy = new_y(y + diry[i]);
 		if (own[newx][newy] == -1 &&
 		    (n > 5 ||
-		     (own[new_x(x + dirx[(i + 5) % 6])]
-		      [new_y(y + diry[(i + 5) % 6])] == -1
-		      &&
-		      own[new_x(x + dirx[(i + 1) % 6])][new_y
-							(y +
-							 diry[(i +
-							       1) % 6])] ==
-		      -1)))
+		     (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
+		      own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1)))
 		    if (try_to_grow(c, newx, newy, c < nc ? di : id))
 			done = 1;
 	    }
@@ -748,9 +734,8 @@ int c;
 	     (secs == 1 || x != sx || y != sy));
     if (!done && c < nc) {
 	if (!quiet)
-	    printf
-		("fairland: error -- continent %c had no room to grow!\n",
-		 numletter[c % 62]);
+	    printf("fairland: error -- continent %c had no room to grow!\n",
+		   numletter[c % 62]);
 	fl_status |= STATUS_NO_ROOM;
     }
     return done;
@@ -918,22 +903,12 @@ elevate_land(void)
 	     ++mountain_search) {
 	    r = rnd(total);
 	    for (i = 0; i < ns; ++i)
-		if (r < weight[i] && ELEV == -INFINITY && (c >= nc ||
-							   ((!(capx[c] ==
-							       sectx[c][i]
-							       && capy[c]
-							       ==
-							       secty[c]
-							       [i]))
-							    &&
-							    (!(new_x
-							       (capx[c] +
-								2) ==
-							       sectx[c][i]
-							       && capy[c]
-							       ==
-							       secty[c]
-							       [i]))))) {
+		if (r < weight[i] && ELEV == -INFINITY &&
+		    (c >= nc ||
+		     ((!(capx[c] == sectx[c][i] &&
+			 capy[c] == secty[c][i])) &&
+		      (!(new_x(capx[c] + 2) == sectx[c][i] &&
+			 capy[c] == secty[c][i]))))) {
 		    ELEV = INFINITY;
 		    break;
 		}
@@ -944,23 +919,18 @@ elevate_land(void)
 
 	for (i = 0; i < ns; ++i)
 	    dmoun[i] = distance_to_mountain();
-	dk = (ns - nm - ((c < nc) ? 3 : 1) >
-	      0) ? (100 * (HIGHMIN - LANDMIN)) / (ns - nm -
-						  ((c <
-						    nc) ? 3 : 1)) : 100 *
-	    INFINITY;
+	dk = (ns - nm - ((c < nc) ? 3 : 1) > 0) ?
+	  (100 * (HIGHMIN - LANDMIN)) / (ns - nm - ((c < nc) ? 3 : 1)) :
+	  100 * INFINITY;
 	for (k = 100 * (HIGHMIN - 1);; k -= dk) {
 	    highest = -INFINITY;
 	    where = -1;
 	    for (i = 0; i < ns; ++i) {
-		if (ELEV != INFINITY && (c >= nc ||
-					 ((!(capx[c] == sectx[c][i]
-					     && capy[c] == secty[c][i]))
-					  &&
-					  (!(new_x(capx[c] + 2) ==
-					     sectx[c][i]
-					     && capy[c] ==
-					     secty[c][i]))))) {
+		if (ELEV != INFINITY &&
+		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
+				    capy[c] == secty[c][i])) &&
+				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
+				    capy[c] == secty[c][i]))))) {
 		    h = 3 * (5 - dmoun[i]) + dsea[i];
 		    if (h > highest) {
 			highest = h;
@@ -987,16 +957,12 @@ elevate_land(void)
 		if (dsea[i] == 1)
 		    ELEV = HILLMIN + rnd(PLATMIN - HILLMIN);
 		else
-		    ELEV =
-			HIGHMIN + rnd((256 - HIGHMIN) / 2) +
-			rnd((256 - HIGHMIN) / 2);
-	    } else
-		if ((c < nc
-		     &&
-		     ((capx[c] == sectx[c][i] && capy[c] == secty[c][i])))
-		    ||
-		    ((new_x(capx[c] + 2) == sectx[c][i]
-		      && capy[c] == secty[c][i])))
+		    ELEV = HIGHMIN + rnd((256 - HIGHMIN) / 2) +
+		      rnd((256 - HIGHMIN) / 2);
+	    } else if ((c < nc &&
+			((capx[c] == sectx[c][i] && capy[c] == secty[c][i]))) ||
+		       ((new_x(capx[c] + 2) == sectx[c][i] &&
+			 capy[c] == secty[c][i])))
 		ELEV = PLATMIN;
 	}
     }
@@ -1135,8 +1101,7 @@ write_sects(void)
     if (AIRPORT_MARKER)
 	for (c = 0; c < nc; ++c) {
 	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_type = SCT_AIRPT;
-	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_newtype =
-		SCT_AIRPT;
+	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_newtype = SCT_AIRPT;
 	}
 }
 
@@ -1149,9 +1114,7 @@ write_file(void)
     int n;
 
     /*  if ((n = write(the_file, sects, sizeof(sects))) < 0) { */
-    if ((n =
-	 write(the_file, sectsbuf,
-	       YSIZE * XSIZE * sizeof(struct sctstr))) < 0) {
+    if ((n = write(the_file, sectsbuf, YSIZE * XSIZE * sizeof(struct sctstr))) < 0) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;
     }
@@ -1187,8 +1150,7 @@ output(void)
 	}
     }
     if (AIRPORT_MARKER)
-	printf
-	    ("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\nthe islands).  You can redesignate these airfields to wilderness sectors\none at a time, each time you add a new country to the game.\n");
+	printf("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\nthe islands).  You can redesignate these airfields to wilderness sectors\none at a time, each time you add a new country to the game.\n");
 }
 
 /* Reorder the continents from top left to bottom right */
@@ -1213,8 +1175,7 @@ translate_continents(void)
 		}
 		if (!gotit) {
 		    if (n > nc) {
-			printf
-			    ("fairland: BUG in translate continents!  mail stevens@math.utoronto.ca\n");
+			printf("fairland: BUG in translate continents!  mail stevens@math.utoronto.ca\n");
 			exit(2);
 		    }
 		    trans[n] = own[j][i];
@@ -1280,12 +1241,10 @@ write_newcap_script(void)
     ++c;
     fclose(script);
     if (quiet == 0)
-	printf
-	    ("\n\nA script for adding all the countries can be found in \"%s\".\n",
+	printf("\n\nA script for adding all the countries can be found in \"%s\".\n",
 	     outfile);
     if (ORE && quiet == 0)
-	printf
-	    ("\t***IMPORTANT: Resources have already been added***\n\tYou do NOT need to run the ore program.\n");
+	printf("\t***IMPORTANT: Resources have already been added***\n\tYou do NOT need to run the ore program.\n");
     return 0;
 }
 
