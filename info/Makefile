@@ -50,5 +50,5 @@ html:
 	(cd Server ; make html)
 	(cd Subjects ; make html)
 	(cp ls2html.pl ../info.html)
-	-(cd ../info.html ; ls -CF *.html | perl ls2html.pl > all.html)
+	-(cd ../info.html ; ls -CF *.html | expand | perl ls2html.pl > all.html)
 	@echo Done making HTML info files.
