@@ -314,8 +314,6 @@ decay_fallout(struct sctstr *sp, int etus)
     sp->sct_fallout = decay < sp->sct_fallout ? sp->sct_fallout - decay : 0;
 }
 
-#define SHOULD_PRODUCE(sp,t)	(((sp->sct_type == t) || (t == -1)) ? 1 : 0)
-
 /*
  * Produce only a set sector type for a specific nation
  * (or all, if sector_type == -1)
@@ -339,7 +337,7 @@ produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	    continue;
 	if (sp->sct_updated != 0)
 	    continue;
-	if (!SHOULD_PRODUCE(sp, sector_type))
+	if (sp->sct_type != sector_type && sector_type != -1)
 	    continue;
 
 	if ((sp->sct_type == SCT_CAPIT) && (sp->sct_effic > 60)) {
