@@ -43,6 +43,7 @@
 typedef unsigned char u_char;
 typedef unsigned short u_short;
 typedef unsigned int u_int;
+typedef long ssize_t;
 
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
