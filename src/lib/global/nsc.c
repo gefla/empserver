@@ -53,7 +53,7 @@
 #include "lost.h"
 
 #define NSC_IELT(name, pfx, sfx, base, itype)		\
-{NSC_USHORT, 0, 0, ((base) + (itype)*sizeof(u_short)),	\
+{NSC_SHORT, 0, 0, ((base) + (itype)*sizeof(u_short)),	\
 sizeof(sfx) == 1 ? name : pfx sfx}
 
 #define NSC_IVEC(base, sfx)		\
@@ -73,7 +73,7 @@ NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
 
 struct castr sect_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_own), "owner"},
+    {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner"},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_x), "xloc"},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_y), "yloc"},
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_type), "des"},
@@ -92,7 +92,7 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_fertil), "fert"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_oil), "ocontent"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_uran), "uran"},
-    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_oldown), "oldown"},
+    {NSC_NATID, 0, 0, fldoff(sctstr, sct_oldown), "oldown"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_off), "off"},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist"},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist"},
@@ -104,7 +104,7 @@ struct castr sect_ca[] = {
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che"},
-    {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target"},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target"},
     {NSC_USHORT, 0, 0, fldoff(sctstr, sct_fallout), "fallout"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_road), "road"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_rail), "rail"},
@@ -114,12 +114,12 @@ struct castr sect_ca[] = {
 };
 
 #define NSC_GENITEM \
-{ NSC_UCHAR, 0, 0, fldoff(genitem, own), "owner"},	\
+{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner"},	\
 { NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid"},	\
 { NSC_XCOORD, 0, 0, fldoff(genitem, x), "xloc"},	\
 { NSC_YCOORD, 0, 0, fldoff(genitem, y), "yloc"},	\
 { NSC_TYPEID, 0, 0, fldoff(genitem, type), "type"},	\
-{ NSC_UCHAR, 0, 0, fldoff(genitem, effic), "effic"},	\
+{ NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic"},	\
 { NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil"},	\
 { NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech"},	\
 { NSC_CHAR, 0, 0, fldoff(genitem, group), "group"},	\
@@ -130,7 +130,7 @@ struct castr sect_ca[] = {
 struct castr ship_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet"},
-    {NSC_CHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
+    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
@@ -144,14 +144,14 @@ struct castr ship_ca[] = {
 
 struct castr plane_ca[] = {
     NSC_GENITEM,
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_wing), "wing"},
+    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing"},
     {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_range), "range"},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_ship), "ship"},
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_att), "att"},
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_def), "def"},
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_harden), "harden"},
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
-    {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
+    {NSC_INT, 0, 0, fldoff(plnstr, pln_att), "att"},
+    {NSC_INT, 0, 0, fldoff(plnstr, pln_def), "def"},
+    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden"},
+    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
+    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_land), "land"},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
@@ -189,34 +189,34 @@ struct castr land_ca[] = {
 };
 
 struct castr nuke_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(nukstr, nuk_own), "owner"},
+    {NSC_NATID, 0, 0, fldoff(nukstr, nuk_own), "owner"},
     {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_uid), "uid"},
     {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc"},
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc"},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number"},
 #if !defined(_WIN32)
-    {NSC_CHAR, 0, N_MAXNUKE, fldoff(nukstr, nuk_types[0]), "types"},
+    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types[0]), "types"},
 #else
-    {NSC_CHAR, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types"},
+    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types"},
 #endif
     {NSC_TIME, 0, 0, fldoff(nukstr, nuk_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
 struct castr treaty_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(trtstr, trt_cna), "cna"},
-    {NSC_UCHAR, 0, 0, fldoff(trtstr, trt_cnb), "cnb"},
-    {NSC_UCHAR, 0, 0, fldoff(trtstr, trt_status), "status"},
+    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna"},
+    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb"},
+    {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status"},
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond"},
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond"},
-    {NSC_LONG, 0, 0, fldoff(trtstr, trt_exp), "exp"},
+    {NSC_TIME, 0, 0, fldoff(trtstr, trt_exp), "exp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
 struct castr loan_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(lonstr, l_loner), "loaner"},
+    {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner"},
     {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid"},
-    {NSC_UCHAR, 0, 0, fldoff(lonstr, l_lonee), "loanee"},
+    {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee"},
     {NSC_CHAR, 0, 0, fldoff(lonstr, l_status), "status"},
     {NSC_INT, 0, 0, fldoff(lonstr, l_irate), "irate"},
     {NSC_INT, 0, 0, fldoff(lonstr, l_ldur), "ldur"},
@@ -228,18 +228,18 @@ struct castr loan_ca[] = {
 };
 
 struct castr news_ca[] = {
-    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ano), "actor"},
+    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor"},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
-    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vno), "victim"},
+    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim"},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times"},
-    {NSC_LONG, 0, 0, fldoff(nwsstr, nws_when), "time"},
+    {NSC_TIME, 0, 0, fldoff(nwsstr, nws_when), "time"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
 struct castr lost_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(loststr, lost_owner), "owner"},
+    {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner"},
     {NSC_INT, 0, 0, fldoff(loststr, lost_uid), "uid"},
-    {NSC_UCHAR, 0, 0, fldoff(loststr, lost_type), "type"},
+    {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type"},
     {NSC_XCOORD, 0, 0, fldoff(loststr, lost_x), "x"},
     {NSC_YCOORD, 0, 0, fldoff(loststr, lost_y), "y"},
     {NSC_TIME, 0, 0, fldoff(loststr, lost_timestamp), "timestamp"},
@@ -247,26 +247,26 @@ struct castr lost_ca[] = {
 };
 
 struct castr commodity_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(comstr, com_owner), "owner"},
+    {NSC_NATID, 0, 0, fldoff(comstr, com_owner), "owner"},
     {NSC_SHORT, 0, 0, fldoff(comstr, com_uid), "uid"},
-    {NSC_UCHAR, 0, 0, fldoff(comstr, com_type), "type"},
+    {NSC_INT, 0, 0, fldoff(comstr, com_type), "type"},
     {NSC_INT, 0, 0, fldoff(comstr, com_amount), "amount"},
     {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder"},
     {NSC_TIME, 0, 0, fldoff(comstr, com_markettime), "markettime"},
     /* could let maxbidder access these, but we can't express that yet: */
-    {NSC_INT, NSC_DEITY, 0, fldoff(comstr, com_x), "xbuy"},
-    {NSC_INT, NSC_DEITY, 0, fldoff(comstr, com_y), "ybuy"},
+    {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_x), "xbuy"},
+    {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_y), "ybuy"},
     /* could let the owner access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, sell_x), "xsell"},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(comstr, sell_y), "ysell"},
-    {NSC_FLOAT, NSC_DEITY, 0, fldoff(comstr, com_price), "price"},
+    {NSC_FLOAT, 0, 0, fldoff(comstr, com_price), "price"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
 struct castr trade_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(trdstr, trd_owner), "owner"},
+    {NSC_NATID, 0, 0, fldoff(trdstr, trd_owner), "owner"},
     {NSC_SHORT, 0, 0, fldoff(trdstr, trd_uid), "uid"},
-    {NSC_UCHAR, 0, 0, fldoff(trdstr, trd_type), "type"},
+    {NSC_CHAR, 0, 0, fldoff(trdstr, trd_type), "type"},
     {NSC_SHORT, 0, 0, fldoff(trdstr, trd_unitid), "unitid"},
     {NSC_LONG, 0, 0, fldoff(trdstr, trd_price), "price"},
     {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder"},
@@ -278,7 +278,7 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
-    {NSC_UCHAR, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
+    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
 #if !defined(_WIN32)
     {NSC_CHAR, 0, 20, fldoff(natstr, nat_cnam[0]), "cnam"},
     {NSC_CHAR, NSC_DEITY, 20, fldoff(natstr, nat_pnam[0]), "pnam"},
@@ -305,17 +305,19 @@ struct castr nat_ca[] = {
     {NSC_LONG, 0, 0, fldoff(natstr, nat_reserve), "reserve"},
     {NSC_LONG, 0, 0, fldoff(natstr, nat_money), "money"},
 #ifdef MAYBE_LATER
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_last_login), "last_login"},
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_last_logout), "last_logout"},
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_newstim), "newstim"},
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_login), "last_login"},
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_logout), "last_logout"},
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_newstim), "newstim"},
 #endif /* MAYBE_LATER */
 #if !defined(_WIN32)
     {NSC_FLOAT, 0, 4, fldoff(natstr, nat_level[0]), "level"},
 #else
     {NSC_FLOAT, 0, 4, fldoff(natstr, nat_level), "level"},
 #endif
-/* {NSC_SHORT, 0, 0, fldoff(natstr, nat_relate[0]),"relate",MAXNOC}, */
-/* {NSC_CHAR, 0, 0, fldoff(natstr, nat_priorities[0]),"priorities",39}, */
-/* {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags",0}, */
+#if 0
+    {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate[0]),"relate"},
+    {NSC_CHAR, 0, PRI_MAX+1, fldoff(natstr, nat_priorities[0]),"priorities"},
+    {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags",0},
+#endif
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
