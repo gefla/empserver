@@ -370,7 +370,7 @@ prod(void)
 	}
 	if (vtype != I_NONE || pp->p_level == NAT_ELEV
 	    || pp->p_level == NAT_HLEV)
-	    pr(" %4d\n", min(999, (int)(max * prodeff + 0.05)));
+	    pr(" %4d\n", min(999, (int)(max * prodeff + 0.5)));
 	else
 	    pr(" %1.2f\n", maxr);
     }
