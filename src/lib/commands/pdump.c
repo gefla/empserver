@@ -254,7 +254,7 @@ pdump(void)
 		pr(" %d", plane.pln_load);
 		break;
 	    case 14:
-		pr(" %d", plane.pln_fuel);
+		pr(" %d", plchr[(int)plane.pln_type].pl_fuel);
 		break;
 	    case 15:
 		pr(" %d", plane.pln_harden);

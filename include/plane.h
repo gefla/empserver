@@ -68,7 +68,7 @@ struct plnstr {
     int pln_def;
     int pln_acc;
     int pln_load;
-    int pln_fuel;
+    int pln_fuel;		/* (unused) */
     s_char pln_harden;		/* for missiles */
     s_char pln_nuketype;	/* type of nuclear armament (if any) */
     s_char pln_flags;		/* State of the plane */

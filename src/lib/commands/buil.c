@@ -873,7 +873,6 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
     plane.pln_radius = 0;
     plane.pln_range = UCHAR_MAX; /* will be adjusted by pln_set_tech() */
     plane.pln_range_max = plane.pln_range;
-    plane.pln_fuel = pp->pl_fuel;
     plane.pln_wing = ' ';
     plane.pln_ship = -1;
     plane.pln_land = -1;

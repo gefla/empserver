@@ -72,7 +72,8 @@ pstat(void)
 	   plane.pln_att,
 	   plane.pln_def,
 	   plane.pln_acc,
-	   plane.pln_range_max, plane.pln_load, plane.pln_fuel);
+	   plane.pln_range_max, plane.pln_load,
+	   plchr[(int)plane.pln_type].pl_fuel);
 	pr("\n");
     }
 
