@@ -554,7 +554,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (shipno < 0)
 	    continue;
-	if ((plp->pcp->pl_flags & P_A) && !on_shiplist(n, head))
+	if ((plp->pcp->pl_flags & P_A) && !on_shiplist(shipno, head))
 	    continue;
 
 	shell = gun = 0;
