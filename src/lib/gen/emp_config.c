@@ -580,9 +580,12 @@ set_option(const char *s)
     struct option_list *op;
 
     for (op = Options; op->opt_key; op++) {
-	if (strcmp(op->opt_key, s) == 0)
+	if (strcmp(op->opt_key, s) == 0) {
 	    *op->opt_valuep = 1;
+	    return;
+	}
     }
+    fprintf(stderr, "Unknown option %s\n", s);
 }
 
 /* delete an option from the list */
@@ -592,9 +595,12 @@ delete_option(const char *s)
     struct option_list *op;
 
     for (op = Options; op->opt_key; op++) {
-	if (strcmp(op->opt_key, s) == 0)
+	if (strcmp(op->opt_key, s) == 0) {
 	    *op->opt_valuep = 0;
+	    return;
+	}
     }
+    fprintf(stderr, "Unknown option %s\n", s);
 }
 
 /* config interface */
