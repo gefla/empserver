@@ -31,6 +31,7 @@
  *     
  */
 
+#include <stddef.h>
 #include "misc.h"
 #include "product.h"
 #include "sect.h"
@@ -53,19 +54,19 @@ struct pchrstr pchr[] = {
      V_PETROL, -1, 1, 0, 0, NAT_TLEV, 20, 10, 1000,
      "petrol", "petrol",},
     {0, {0}, {0},
-     V_IRON, -1, 0, OFFSET(sctstr, sct_min), 0, -1, 0, 0, 100,
+     V_IRON, -1, 0, offsetof(struct sctstr, sct_min), 0, -1, 0, 0, 100,
      "iron ore", "iron",},
     {0, {0}, {0},
-     V_DUST, -1, 0, OFFSET(sctstr, sct_gmin), 20, -1, 0, 0, 100,
+     V_DUST, -1, 0, offsetof(struct sctstr, sct_gmin), 20, -1, 0, 0, 100,
      "gold dust", "dust",},
     {1, {V_DUST}, {5},
      V_BAR, -1, 10, 0, 0, -1, 0, 0, 100,
      "gold bars", "bars",},
     {0, {0}, {0},
-     V_FOOD, -1, 0, OFFSET(sctstr, sct_fertil), 0, NAT_TLEV, -10, 10, 900,
+     V_FOOD, -1, 0, offsetof(struct sctstr, sct_fertil), 0, NAT_TLEV, -10, 10, 900,
      "food", "food",},
     {0, {0}, {0},
-     V_OIL, -1, 0, OFFSET(sctstr, sct_oil), 10, NAT_TLEV, -10, 10, 100,
+     V_OIL, -1, 0, offsetof(struct sctstr, sct_oil), 10, NAT_TLEV, -10, 10, 100,
      "oil", "oil",},
     {1, {V_IRON}, {1},
      V_LCM, -1, 0, 0, 0, NAT_TLEV, -10, 10, 100,
@@ -86,10 +87,10 @@ struct pchrstr pchr[] = {
      0, NAT_HLEV, 9, 0, 0, -1, 0, 0, 100,
      "happy strollers", "happy",},
     {0, {0}, {0},
-     V_RAD, -1, 2, OFFSET(sctstr, sct_uran), 35, NAT_TLEV, 40, 10, 100,
+     V_RAD, -1, 2, offsetof(struct sctstr, sct_uran), 35, NAT_TLEV, 40, 10, 100,
      "radioactive materials", "rad",},
     {0, {0}, {0},
-     V_DUST, -1, 0, OFFSET(sctstr, sct_gmin), 20, -1, 0, 0, 75,
+     V_DUST, -1, 0, offsetof(struct sctstr, sct_gmin), 20, -1, 0, 0, 75,
      "gold dust", "dust",},
     {0, {0}, {0},
      0, 0, 0, 0, 0, 0, 0, 0, 0, "", "",}

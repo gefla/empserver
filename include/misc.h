@@ -108,12 +108,6 @@ typedef signed char s_char;
 #define ATTRIBUTE(attr)
 #endif /* !aix && !sgi */
 typedef short coord;
-/*
- * watch it; your compiler might not like this.
- * If you think this is bogus, look at /usr/include/struct.h
- */
-#define	OFFSET(stype, oset) ((int)(&(((struct stype *)0)->oset)))
-#define	SETOFF(sinst, oset) ((s_char *) (sinst) + (oset))
 
 #ifndef bit
 #define	bit(x)		(1<<(x))
