@@ -47,7 +47,6 @@ static void preport(register struct nwsstr *np);
 int
 news(void)
 {
-    extern s_char *page_headings[];
     struct natstr *natp;
     time_t now;
     int page;
