@@ -67,12 +67,10 @@ newe(void)
 	if (!player->owner)
 	    continue;
 	if (!sect.sct_off) {
-	    civs = min(999, (int)((obrate * etu_per_update + 1.0)
-				  * sect.sct_item[I_CIVIL]));
-	    uws = min(999, (int)((uwbrate * etu_per_update + 1.0)
-				 * sect.sct_item[I_UW]));
+	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
+	    uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	    natp = getnatp(sect.sct_own);
-	    maxpop = max_pop((float)natp->nat_level[NAT_RLEV], &sect);
+	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	    civs = min(civs, maxpop);
 	    uws = min(uws, maxpop);
 	    /* This isn't quite right, since research might rise/fall */
