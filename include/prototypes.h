@@ -615,7 +615,7 @@ extern void guerrilla(struct sctstr *);
 /* sail.c */
 extern void sail_ship(natid);
 /* sect.c */
-extern int dodeliver(struct sctstr *, int *);
+extern void dodeliver(struct sctstr *);
 extern void do_fallout(register struct sctstr *, register int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);

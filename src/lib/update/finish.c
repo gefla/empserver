@@ -80,8 +80,6 @@ finish_sects(int etu)
     register struct sctstr *sp;
     struct natstr *np;
     int n;
-    int vec[I_MAX + 1];
-    int changed;
     struct distinfo *infptr;
 
     if (g_distptrs == (struct distinfo *)0) {
@@ -112,11 +110,7 @@ finish_sects(int etu)
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
-	changed = 0;
-	if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) > 0)
-	    changed += dodeliver(sp, vec);
-	if (changed)
-	    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
+	dodeliver(sp);
     }
     logerror("done delivering\n");
 

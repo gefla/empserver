@@ -55,34 +55,30 @@
 #include "lost.h"
 #include "gen.h"
 
-int
-dodeliver(struct sctstr *sp, int *vec)
+void
+dodeliver(struct sctstr *sp)
 {
     register int i;
     int thresh;
     int dir;
     int plague;
     int n;
-    int changed;
 
     if (sp->sct_mobil <= 0)
-	return 0;
-    changed = 0;
+	return;
     plague = sp->sct_pstage;
     for (i = 1; i <= I_MAX; i++) {
 	if (sp->sct_del[i] == 0)
 	    continue;
 	thresh = sp->sct_del[i] & ~0x7;
 	dir = sp->sct_del[i] & 0x7;
-	n = deliver(sp, &ichr[i], dir, thresh, vec[i], plague);
+	n = deliver(sp, &ichr[i], dir, thresh, sp->sct_item[i], plague);
 	if (n > 0) {
-	    vec[i] -= n;
-	    changed++;
+	    sp->sct_item[i] -= n;
 	    if (sp->sct_mobil <= 0)
 		break;
 	}
     }
-    return changed;
 }
 
 /*
