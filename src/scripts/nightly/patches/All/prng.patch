@@ -93,7 +93,7 @@ Index: empserver/src/lib/commands/new.c
 Index: empserver/src/lib/commands/news.c
 --- empserver/src/lib/commands/news.c	20 Feb 2004 20:34:42 -0000	1.5
 +++ empserver/src/lib/commands/news.c	20 Jun 2004 15:15:02 -0000
-@@ -187,7 +187,7 @@
+@@ -188,7 +188,7 @@
      /*
       * vary the order of the printing of "%d times "
       */
@@ -102,7 +102,7 @@ Index: empserver/src/lib/commands/news.c
  	sprintf(cp, "%s times ", ptr);
  	cp += strlen(cp);
  	np->nws_ntm = 1;
-@@ -197,7 +197,7 @@
+@@ -198,7 +198,7 @@
      *cp++ = ' ';
      if (np->nws_vrb < 1 || np->nws_vrb > N_MAX_VERB)
  	np->nws_vrb = 0;
