@@ -167,7 +167,6 @@ struct shiplook {
 
 double logx(double d, double base);
 
-void count_planes();
 s_char *prplane(struct plnstr *pp);
 
 
