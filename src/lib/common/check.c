@@ -161,3 +161,16 @@ check_comm_ok(struct comstr *commp)
     }
     return 1;
 }
+
+int
+check_trade_ok(struct trdstr *tp)
+{
+    struct trdstr chktrade;
+
+    gettrade(tp->trd_uid, &chktrade);
+    if (memcmp(tp, &chktrade, sizeof(struct trdstr))) {
+	pr("Trade lot #%d has changed!\n", tp->trd_uid);
+	return 0;
+    }
+    return 1;
+}

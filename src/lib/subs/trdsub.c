@@ -52,31 +52,25 @@
 #include "optlist.h"
 
 int
-trade_check_ok(int lot, struct trdstr *tp, union trdgenstr *tgp)
+trade_check_ok(struct trdstr *tp, union trdgenstr *tgp)
 {
     union trdgenstr check;
-    struct trdstr trade;
-    int result = 0;
+
+    if (!check_trade_ok(tp))
+	return 0;
 
     trade_getitem(tp, &check);
     if (tp->trd_type == EF_LAND)
-	result = memcmp(&(check.lnd), &(tgp->lnd), sizeof(struct lndstr));
-    else if (tp->trd_type == EF_PLANE)
-	result = memcmp(&(check.pln), &(tgp->pln), sizeof(struct plnstr));
-    else if (tp->trd_type == EF_SHIP)
-	result = memcmp(&(check.shp), &(tgp->shp), sizeof(struct shpstr));
-    else
-	result = memcmp(&(check.nuk), &(tgp->nuk), sizeof(struct nukstr));
-    if (result) {
-	pr("That item has changed!\n");
-	return 0;
-    }
-    gettrade(lot, &trade);
-    if (memcmp((s_char *)&trade, (s_char *)tp, sizeof(struct trdstr))) {
-	pr("That item has changed!\n");
-	return 0;
-    }
-    return 1;
+	return check_land_ok(&tgp->lnd);
+    if (tp->trd_type == EF_PLANE)
+	return check_plane_ok(&tgp->pln);
+    if (tp->trd_type == EF_SHIP)
+	return check_ship_ok(&tgp->shp);
+    if (tp->trd_type == EF_NUKE)
+	return check_nuke_ok(&tgp->nuk);
+    CANT_HAPPEN("Bad TRD_TYPE");
+    pr("Trade lot #%d went bad!\n", tp->trd_uid);
+    return 0;
 }
 
 s_char *

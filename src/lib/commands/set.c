@@ -116,34 +116,21 @@ set(void)
 	freeslot = -1;
 	snxtitem_all(&ni_trade, EF_TRADE);
 	while (nxtitem(&ni_trade, (char *)&trade)) {
-	    if (trade.trd_unitid < 0)
+	    if (trade.trd_owner == 0)
 		freeslot = ni_trade.cur;
 	    if (trade.trd_unitid == ni.cur && trade.trd_type == type) {
 		foundslot = ni_trade.cur;
 		break;
 	    }
 	}
-	if (price == 0 && foundslot >= 0) {
-	    pr("%s #%d (lot #%d) removed from trading\n",
-	       trade_nameof(&trade, &item), ni.cur, foundslot);
-	    trade.trd_type = 0;
-	    trade.trd_owner = 0;
-	    trade.trd_unitid = -1;
-	    trade.trd_price = 0;
-	    (void)time(&now);
-	    trade.trd_markettime = now;
-	    trade.trd_maxbidder = player->cnum;
-	    puttrade(ni_trade.cur, &trade);
-	} else if (price > 0) {
-	    trade.trd_x = item.gen.trg_x;
-	    trade.trd_y = item.gen.trg_x;
-	    trade.trd_type = type;
-	    trade.trd_owner = player->cnum;
-	    trade.trd_unitid = ni.cur;
-	    trade.trd_price = price;
-	    (void)time(&now);
-	    trade.trd_markettime = now;
-	    trade.trd_maxbidder = player->cnum;
+	if (price <= 0) {
+	    if (foundslot >= 0) {
+		pr("%s #%d (lot #%d) removed from trading\n",
+		   trade_nameof(&trade, &item), ni.cur, foundslot);
+		memset(&trade, 0, sizeof(trade));
+		puttrade(ni_trade.cur, &trade);
+	    }
+	} else {
 	    if (foundslot >= 0)
 		id = foundslot;
 	    else if (freeslot >= 0)
@@ -152,6 +139,16 @@ set(void)
 		ef_extend(EF_TRADE, 1);
 		id = ni_trade.cur;
 	    }
+	    trade.trd_x = item.gen.trg_x;
+	    trade.trd_y = item.gen.trg_x;
+	    trade.trd_type = type;
+	    trade.trd_owner = player->cnum;
+	    trade.trd_uid = id;
+	    trade.trd_unitid = ni.cur;
+	    trade.trd_price = price;
+	    (void)time(&now);
+	    trade.trd_markettime = now;
+	    trade.trd_maxbidder = player->cnum;
 	    puttrade(id, &trade);
 	    pr("%s #%d (lot #%d) price %s to $%d\n",
 	       trade_nameof(&trade, &item), ni.cur,

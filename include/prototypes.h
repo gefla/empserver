@@ -111,6 +111,7 @@ extern int check_nuke_ok(struct nukstr *);
 extern int check_plane_ok(struct plnstr *);
 extern int check_comm_ok(struct comstr *);
 extern int check_loan_ok(struct lonstr *);
+extern int check_trade_ok(struct trdstr *);
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);

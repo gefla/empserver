@@ -98,7 +98,7 @@ trad(void)
 
     snxtitem_all(&ni, EF_TRADE);
     while (nxtitem(&ni, (char *)&trade)) {
-	if (trade.trd_unitid < 0)
+	if (trade.trd_owner == 0)
 	    continue;
 	if (!trade_getitem(&trade, &tg)) {
 	    continue;
@@ -205,7 +205,7 @@ trad(void)
 	plflags = plchr[(int)tg.pln.pln_type].pl_flags;
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
-	    if (!trade_check_ok(lotno, &trade, &tg))
+	    if (!trade_check_ok(&trade, &tg))
 		return RET_FAIL;
 	    if (p == 0) {
 		return RET_FAIL;
@@ -234,7 +234,7 @@ trad(void)
     if (trade.trd_type == EF_LAND) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
-	    if (!trade_check_ok(lotno, &trade, &tg))
+	    if (!trade_check_ok(&trade, &tg))
 		return RET_FAIL;
 	    if (p == 0) {
 		return RET_FAIL;
@@ -266,7 +266,7 @@ trad(void)
 
     if ((p = getstring("How much do you bid: ", buf)) == 0 || *p == 0)
 	return RET_OK;
-    if (!trade_check_ok(lotno, &trade, &tg))
+    if (!trade_check_ok(&trade, &tg))
 	return RET_FAIL;
     bid = atoi(p);
     if (bid < price)
