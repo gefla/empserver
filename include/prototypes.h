@@ -208,9 +208,6 @@ extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
 extern void disassoc(void);
-#if !defined(_WIN32)
-extern s_char *inet_ntoa(struct in_addr);
-#endif
 extern int diffx(int, int);
 extern int diffy(int, int);
 extern int deltax(int, int);
