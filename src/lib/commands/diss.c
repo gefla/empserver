@@ -238,14 +238,12 @@ diss(void)
 	putloan(ni.cur, &loan);
     }
     /* clean up commodity and trade for this nation. */
-    commlock();
     commread();
     for (n = 1; n < I_MAX + 1; n++) {
 	val = commamt(player->cnum, n, &dummy);
 	commset(player->cnum, n, -val);
     }
     commwrite();
-    communlock();
     snxtitem_all(&ni, EF_TRADE);
     while (nxtitem(&ni, (s_char *)&trade)) {
 	if (trade.trd_unitid >= 0 && trade.trd_owner == player->cnum) {

@@ -175,8 +175,6 @@ extern double reltech(int level1, int level2, double mult);
 extern double multread(natid, natid);
 extern int commread(void);
 extern int commwrite(void);
-extern int commlock(void);
-extern int communlock(void);
 extern int commamt(natid, int, float *);
 extern void commset(natid, int, int);
 extern void multset(natid, float);

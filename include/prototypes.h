@@ -418,8 +418,6 @@ extern s_char *getstring(s_char *, s_char *);
 #if !defined(_WIN32)
 extern s_char *inet_ntoa(struct in_addr);
 #endif
-extern int file_lock(int);
-extern int file_unlock(int);
 extern int diffx(int, int);
 extern int diffy(int, int);
 extern int deltax(int, int);

@@ -55,17 +55,11 @@ distrea(int n, register struct trtstr *tp)
 	return 0;
     (void)time(&now);
     if (now > tp->trt_exp) {
-	if (!ef_lock(EF_TREATY)) {
-	    pr("Can't lock treaty file; get help!\n");
-	    return 0;
-	}
 	tp->trt_status = TS_FREE;
 	if (!puttre(n, tp)) {
 	    pr("Couldn't save treaty; get help!\n");
-	    (void)ef_unlock(EF_TREATY);
 	    return 0;
 	}
-	(void)ef_unlock(EF_TREATY);
 	pr("Treaty #%d expired %s", n, ctime(&tp->trt_exp));
 	return 0;
     }

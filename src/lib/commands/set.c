@@ -127,10 +127,6 @@ set(void)
 	}
 	if ((price = atoi(p)) < 0)
 	    continue;
-	if (!ef_lock(EF_TRADE)) {
-	    logerror("can't lock trade file");
-	    return RET_SYS;
-	}
 	foundslot = -1;
 	freeslot = -1;
 	snxtitem_all(&ni_trade, EF_TRADE);
@@ -178,7 +174,6 @@ set(void)
 	       trade_nameof(&trade, &item), ni.cur,
 	       id, foundslot >= 0 ? "reset" : "set", price);
 	}
-	ef_unlock(EF_TRADE);
     }
     return RET_OK;
 }

@@ -421,18 +421,6 @@ ef_flags(int type)
     return empfile[type].flags;
 }
 
-int
-ef_lock(int type)
-{
-    return file_lock(empfile[type].fd);
-}
-
-int
-ef_unlock(int type)
-{
-    return file_unlock(empfile[type].fd);
-}
-
 time_t
 ef_mtime(int type)
 {

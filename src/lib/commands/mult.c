@@ -105,12 +105,7 @@ multsingle(natid us, natid them, struct natstr *natp)
 	price = minmult;
     if (price >= maxmult)
 	price = maxmult;
-    if (!commlock()) {
-	pr("Unable to lock commodity file; get help!\n");
-	return;
-    }
     if (commread() < 0) {
-	(void)communlock();
 	pr("Unable to re-read commodity file; get help!\n");
 	return;
     }
@@ -118,5 +113,4 @@ multsingle(natid us, natid them, struct natstr *natp)
     if (commwrite() < 0) {
 	pr("Unable to write out commodity file; get help!\n");
     }
-    (void)communlock();
 }

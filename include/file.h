@@ -105,8 +105,6 @@ extern int ef_extend(int, int);
 extern void ef_zapcache(int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
-extern int ef_lock(int);
-extern int ef_unlock(int);
 extern int ef_vars(int, register s_char *, u_char **,
 		   u_char **, u_short **);
 extern int ef_byname(s_char *);

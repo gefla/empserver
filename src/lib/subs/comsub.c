@@ -129,18 +129,6 @@ commwrite(void)
     return 0;
 }
 
-int
-commlock(void)
-{
-    return file_lock(commf);
-}
-
-int
-communlock(void)
-{
-    return file_unlock(commf);
-}
-
 /*
  * returns amount of commodity, and price to the user
  */
