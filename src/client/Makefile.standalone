@@ -65,7 +65,9 @@ hpux:
 	make empire LIBS=-ltermcap
 
 clean:
-	rm -f $(OFILES) empire
+	-(rm -f $(OFILES) empire)
+	-(del /q $(OBJFILES))
+	-(del /q empire.exe)
 
 # created using mkmf
 expect.o: misc.h fnlist.h
