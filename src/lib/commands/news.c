@@ -71,6 +71,11 @@ news(void)
     (void)time(&now);
     natp = getnatp(player->cnum);
     then = natp->nat_newstim;
+    /*
+     * Don't disclose events before contact.  Proper solution would be
+     * to timestamp the contact.  Cheesy approximatation: disable old
+     * news.
+     */
     if (!opt_HIDDEN) {
 	if (player->argp[1] != 0 && isdigit(*player->argp[1])) {
 	    delta = days(atoi(player->argp[1]));
