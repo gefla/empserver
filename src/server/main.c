@@ -145,7 +145,6 @@ main(int argc, char **argv)
 	case 'i':
 	    install_service_set++;
 	    break;
-	    break;
 	case 'R':
 	    service_name = optarg;
 	    /*
