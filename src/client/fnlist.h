@@ -41,4 +41,6 @@ struct fn {
     int value;
 };
 
+extern struct fn fnlist[];
+
 #endif /* _FNLIST_H_ */

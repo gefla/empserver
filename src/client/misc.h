@@ -55,7 +55,6 @@ typedef short coord;		/* also change NSC_COORD in nsc.h */
 
 struct ioqueue;
 
-extern struct fn fnlist[];
 extern s_char empirehost[];
 extern s_char empireport[];
 extern int interrupt;
