@@ -175,6 +175,7 @@ extern void ac_doflak(struct emp_qelem *, struct sctstr *);
 extern void ac_shipflak(struct emp_qelem *, coord, coord);
 extern void ac_landflak(struct emp_qelem *, coord, coord);
 extern void ac_fireflak(struct emp_qelem *, natid, natid, int);
+extern int ac_flak_dam(int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
 			 coord, s_char *, int, int,
 			 struct emp_qelem *, struct emp_qelem *);

@@ -161,7 +161,7 @@ double bankint = 0.25;		/* bank interest rate (dt * bars) */
 double tradetax = 0.99;		/* Tax charged on trade */
 double buytax = 1.0;		/* Tax charged on market purchases */
 int startmob = 127;		/* Sanctuary starting mobility */
-double flakscale = 1.75;	/* Scale factor for flak damage */
+float flakscale = 1.75f;	/* Scale factor for flak damage */
 
 /* money gained from taxes, paid to military, and reservists */
 double money_civ = 0.0083333;

@@ -61,13 +61,6 @@ static void getilist(struct emp_qelem *list, natid own,
 		     struct emp_qelem *c, struct emp_qelem *d);
 static void ac_dog(struct plist *ap, struct plist *dp);
 
-#define FLAK_MAX        15
-
-		/*       -7    -6    -5    -4    -3    -2    -1    0 */
-float flaktable[16] = { 0.20, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
-    0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
-};
-
 void
 ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     coord x, coord y, s_char *path, int mission_flags,
@@ -940,7 +933,6 @@ ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
     struct plnstr *pp;
     struct plist *plp;
     int n;
-    float mult;
     int diff;
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -964,20 +956,40 @@ ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
 	    diff -= 2;
 	if (plp->pcp->pl_flags & P_H)
 	    diff -= 1;
-	if (diff > 8)
-	    mult = flaktable[FLAK_MAX] * 1.33;
-	else if (diff < -7)
-	    mult = flaktable[0] * 0.66;
-	else {
-	    diff += 7;
-	    mult = flaktable[diff];
-	}
-	mult *= flakscale;
-	n = (int)((roll(8) + 2) * mult);
-	if (n > 100)
-	    n = 100;
+	n = ac_flak_dam(diff);
 	ac_planedamage(plp, from, n, other, 2, 1, msg);
     }
+}
+
+/*
+ * Calculate flak damage
+ */
+int
+ac_flak_dam(int flak)
+{
+    int dam;
+    float mult;
+		/*          <-7      -7     -6     -5     -4 */
+    static float flaktable[18] = { 0.132f, 0.20f, 0.20f, 0.25f, 0.30f,
+    /*    -3     -2     -1      0     +1     +2     +3     +4 */
+	 0.35f, 0.40f, 0.45f, 0.50f, 0.50f, 0.55f, 0.60f, 0.65f,
+    /*    +5    +6     +7     +8    >+8 */
+	 0.70f,0.75f, 0.80f, 0.85f, 1.1305f };
+    enum { FLAK_MAX = sizeof(flaktable)/sizeof(flaktable[0]) };
+
+    if (flak > 8)
+	mult = flaktable[FLAK_MAX];
+    else if (flak < -7)
+	mult = flaktable[0];
+    else {
+	flak += 8;
+	mult = flaktable[flak];
+    }
+    mult *= flakscale;
+    dam = (int)((roll(8) + 2) * mult);
+    if (dam > 100)
+	dam = 100;
+    return(dam);
 }
 
 /*

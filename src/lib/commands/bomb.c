@@ -885,11 +885,6 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
     putsect(&sect);
 }
 
-#define FLAK_MAX 15
-float lflaktable[16] = { 0.20, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
-    0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85,
-};
-
 static int
 pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 		    int flak)
@@ -902,26 +897,13 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     struct lndstr land;
     natid plane_owner;
     int dam;
-    float mult;
 
     flak -= (pp->pln_def + 1);
     if (pcp->pl_flags & P_X)
 	flak -= 2;
     if (pcp->pl_flags & P_H)
 	flak -= 1;
-    if (flak > 8)
-	mult = lflaktable[FLAK_MAX] * 1.33;
-    else if (flak < -7)
-	mult = lflaktable[0] * 0.66;
-    else {
-	flak += 7;
-	mult = lflaktable[flak];
-    }
-    mult *= flakscale;
-    dam = (int)((roll(8) + 2) * mult);
-    if (dam > 100)
-	dam = 100;
-
+    dam = ac_flak_dam(flak);
     disp = 0;
     plane_owner = pp->pln_own;
     eff = pp->pln_effic;
