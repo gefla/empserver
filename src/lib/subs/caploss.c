@@ -35,7 +35,6 @@
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
-#include "var.h"
 #include "sect.h"
 #include "file.h"
 #include "xy.h"

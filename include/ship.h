@@ -40,7 +40,6 @@
 #include "queue.h"
 #include "misc.h"
 #include "retreat.h"
-#include "var.h"
 
 #define	SHIP_MINEFF	20
 

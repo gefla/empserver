@@ -34,7 +34,6 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "var.h"
 #include "sect.h"
 #include "news.h"
 #include "item.h"

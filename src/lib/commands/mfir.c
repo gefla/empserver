@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "treaty.h"
 #include "nat.h"

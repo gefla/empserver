@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "xy.h"
 #include "nsc.h"
@@ -49,7 +48,7 @@
 #include "subs.h"
 #include "optlist.h"
 
-static int bmnxtsct(register struct nstr_sect *);
+static int bmnxtsct(struct nstr_sect *);
 static s_char map_char(u_char type, natid own, int owner_or_god);
 
 int
@@ -107,7 +106,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
     border(&range, "     ", "");
     blankfill((s_char *)wmapbuf, &nsp->range, 1);
     if (bmap) {
-	register int c;
+	int c;
 	switch (bmap) {
 	case EF_BMAP:
 	    while (bmnxtsct(nsp) && !player->aborted) {
@@ -222,7 +221,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	}
     }
     if (map_flags & MAP_HIGH) {
-	register s_char *ptr;
+	s_char *ptr;
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
@@ -260,7 +259,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
  * get the next sector in the range
  */
 static int
-bmnxtsct(register struct nstr_sect *np)
+bmnxtsct(struct nstr_sect *np)
 {
     while (1) {
 	np->dx++;

@@ -36,7 +36,6 @@
 #include <math.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "land.h"
@@ -337,8 +336,8 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
     int range;
     struct plchrstr *pcp;
     struct plist *plp;
-    register int y;
-    register int bad, bad1;
+    int y;
+    int bad, bad1;
     unsigned int x;
 
     emp_initque(list);
@@ -561,7 +560,7 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
 static int
 pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 {
-    register struct plchrstr *pcp;
+    struct plchrstr *pcp;
     struct plnstr *pp;
     int needed;
     struct lndstr land;
@@ -695,8 +694,8 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 void
 pln_put(struct emp_qelem *list)
 {
-    register struct emp_qelem *qp;
-    register struct emp_qelem *newqp;
+    struct emp_qelem *qp;
+    struct emp_qelem *newqp;
     struct plist *plp;
     struct plnstr *pp;
     struct shpstr ship;

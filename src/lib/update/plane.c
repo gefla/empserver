@@ -33,7 +33,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "plane.h"
 #include "ship.h"
@@ -59,8 +58,8 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 		 /* Build = 1, maintain =0 */
 {
-    register struct plnstr *pp;
-    register struct plchrstr *plp;
+    struct plnstr *pp;
+    struct plchrstr *plp;
     struct natstr *np;
     float leftp, buildp;
     int left, build;

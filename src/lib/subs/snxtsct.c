@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
@@ -49,7 +48,7 @@
  * for arguments to compile into the nstr.
  */
 int
-snxtsct(register struct nstr_sect *np, s_char *str)
+snxtsct(struct nstr_sect *np, s_char *str)
 {
     struct range range;
     coord cx, cy;
@@ -106,7 +105,7 @@ snxtsct_all(struct nstr_sect *np)
 }
 
 void
-snxtsct_area(register struct nstr_sect *np, struct range *range)
+snxtsct_area(struct nstr_sect *np, struct range *range)
 {
     memset(np, 0, sizeof(*np));
     np->range = *range;
@@ -133,7 +132,7 @@ snxtsct_rewind(struct nstr_sect *np)
 }
 
 void
-snxtsct_dist(register struct nstr_sect *np, coord cx, coord cy, int dist)
+snxtsct_dist(struct nstr_sect *np, coord cx, coord cy, int dist)
 {
     memset(np, 0, sizeof(*np));
     xydist_range(cx, cy, dist, &np->range);
@@ -156,7 +155,7 @@ snxtsct_dist(register struct nstr_sect *np, coord cx, coord cy, int dist)
 }
 
 void
-xysize_range(register struct range *rp)
+xysize_range(struct range *rp)
 {
     if (rp->lx >= rp->hx)
 	rp->width = WORLD_X + rp->hx - rp->lx;
@@ -180,7 +179,7 @@ xysize_range(register struct range *rp)
 
 /* This is called also called in snxtitem.c */
 void
-xydist_range(coord x, coord y, register int dist, struct range *rp)
+xydist_range(coord x, coord y, int dist, struct range *rp)
 {
     if (dist < WORLD_X / 4) {
 	rp->lx = xnorm((coord)(x - 2 * dist));

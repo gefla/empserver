@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -57,7 +56,7 @@
  * level of 0 yields (1) 0.4, (6) 2.2, (12) 3.9, (18) 5.2.
  */
 
-static void share_incr(register double *, register double *);
+static void share_incr(double *, double *);
 
 /*
  * for values below the "easy level" values, production is
@@ -233,12 +232,12 @@ prod_nat(int etu)
  * find out everyones increment
  */
 static void
-share_incr(register double *res, register double *tech)
+share_incr(double *res, double *tech)
 {
-    register struct natstr *np;
-    register struct natstr *other;
-    register natid i;
-    register natid j;
+    struct natstr *np;
+    struct natstr *other;
+    natid i;
+    natid j;
     int rnc;
     int tnc;
 

@@ -34,7 +34,6 @@
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "ship.h"
 #include "sect.h"
 #include "news.h"
@@ -219,7 +218,7 @@ navi(void)
 int
 nav_map(int x, int y, int show_designations)
 {
-    register s_char *ptr;
+    s_char *ptr;
     struct nstr_sect ns;
     struct natstr *np;
     struct sctstr sect;

@@ -40,7 +40,6 @@
 #include "nat.h"
 #include "tel.h"
 #include "file.h"
-#include "var.h"
 #include "prototypes.h"
 
 /*

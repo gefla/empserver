@@ -72,7 +72,6 @@ static int quiet = 0;
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "var.h"
 #include "misc.h"
 #include "power.h"
 #include "nat.h"
@@ -1068,7 +1067,7 @@ add_resources(struct sctstr *sct)
 static void
 write_sects(void)
 {
-    register struct sctstr *sct;
+    struct sctstr *sct;
     int c, x, y, total;
 
     /*  sct = &sects[0][0]; */

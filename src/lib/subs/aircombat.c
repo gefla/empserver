@@ -37,7 +37,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "news.h"
 #include "land.h"
 #include "sect.h"
@@ -61,7 +60,7 @@
 static void getilist(struct emp_qelem *list, natid own,
 		     struct emp_qelem *a, struct emp_qelem *b,
 		     struct emp_qelem *c, struct emp_qelem *d);
-static void ac_dog(register struct plist *ap, register struct plist *dp);
+static void ac_dog(struct plist *ap, struct plist *dp);
 
 #define FLAK_MAX        15
 
@@ -460,7 +459,7 @@ void
 ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     struct emp_qelem *def_list, natid def_own, coord x, coord y)
 {
-    register struct plnstr *pp;
+    struct plnstr *pp;
     struct plist *plp;
     int icount;
     struct emp_qelem *next;
@@ -537,8 +536,8 @@ void
 ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list,
 	    natid def_own)
 {
-    register struct plist *attacker;
-    register struct plist *interceptor;
+    struct plist *attacker;
+    struct plist *interceptor;
     struct emp_qelem *att;
     struct emp_qelem *in;
     int nplanes;
@@ -619,7 +618,7 @@ all_missiles(struct emp_qelem *att_list)
 }
 
 static void
-ac_dog(register struct plist *ap, register struct plist *dp)
+ac_dog(struct plist *ap, struct plist *dp)
 {
     int att, def;
     double odds;
@@ -715,7 +714,7 @@ void
 ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 	       int checkabort, int show, s_char *mesg)
 {
-    register struct plnstr *pp;
+    struct plnstr *pp;
     int disp;
     s_char dmess[255];
     int eff;
@@ -963,7 +962,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 void
 ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
 {
-    register struct plnstr *pp;
+    struct plnstr *pp;
     struct plist *plp;
     int n;
     float mult;
@@ -1037,7 +1036,7 @@ static void
 getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	 struct emp_qelem *b, struct emp_qelem *c, struct emp_qelem *d)
 {
-    register struct plchrstr *pcp;
+    struct plchrstr *pcp;
     struct plnstr plane;
     struct shpstr ship;
     struct lndstr land;

@@ -33,7 +33,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "ship.h"
 #include "plane.h"
 #include "product.h"
@@ -57,8 +56,8 @@ global_init(void)
 static void
 init_mchr(void)
 {
-    register struct mchrstr *mp;
-    register int n;
+    struct mchrstr *mp;
+    int n;
 
     for (mp = mchr, n = 0; n < shp_maxno; n++, mp++) {
 	if (mp->m_nxlight)
@@ -75,7 +74,7 @@ init_mchr(void)
 static void
 init_plchr(void)
 {
-    register struct plchrstr *pp;
+    struct plchrstr *pp;
     int pcount;
 
     for (pp = plchr, pcount = 0; pcount < pln_maxno; pcount++, pp++) {
@@ -87,7 +86,7 @@ init_plchr(void)
 static void
 init_pchr(void)
 {
-    register struct pchrstr *p;
+    struct pchrstr *p;
     int pcount;
 
     for (p = pchr, pcount = 0; pcount < prd_maxno; pcount++, p++) {

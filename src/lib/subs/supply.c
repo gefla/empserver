@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "nat.h"
-#include "var.h"
 #include "retreat.h"
 #include "ship.h"
 #include "land.h"

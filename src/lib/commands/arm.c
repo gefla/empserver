@@ -36,7 +36,6 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nuke.h"
 #include "plane.h"

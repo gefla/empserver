@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "land.h"
@@ -125,7 +124,7 @@ work(void)
 static int
 buildeff(struct sctstr *sp, int work, double *money)
 {
-    register int work_cost;
+    int work_cost;
     int n, hcms, lcms;
     int effdone = 0;
 

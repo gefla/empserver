@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -49,12 +48,12 @@
 #include "gen.h"
 #include "subs.h"
 
-static int grow_people(struct sctstr *, register int,
-		       register struct natstr *, int *, int,
+static int grow_people(struct sctstr *, int,
+		       struct natstr *, int *, int,
 		       short *);
 static int growfood(struct sctstr *, short *, int, int);
 static void starvation(struct sctstr *);
-static void trunc_people(struct sctstr *, register struct natstr *,
+static void trunc_people(struct sctstr *, struct natstr *,
 			 short *);
 
 /*
@@ -241,7 +240,7 @@ feed_people(short *vec, int etu, int *needed)
  * Truncate any extra people that may be around
  */
 static void
-trunc_people(struct sctstr *sp, register struct natstr *np,
+trunc_people(struct sctstr *sp, struct natstr *np,
 	     short *vec)
 {
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
@@ -259,8 +258,8 @@ trunc_people(struct sctstr *sp, register struct natstr *np,
  * production?  Maybe with just high education?
  */
 static int
-grow_people(struct sctstr *sp, register int etu,
-	    register struct natstr *np, int *workp, int sctwork,
+grow_people(struct sctstr *sp, int etu,
+	    struct natstr *np, int *workp, int sctwork,
 	    short *vec)
 {
     int newciv;

@@ -35,7 +35,6 @@
 #include "options.h"
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "retreat.h"
@@ -83,7 +82,7 @@ static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
 int
 ground_interdict(coord x, coord y, natid victim, s_char *s)
 {
-    register int cn;
+    int cn;
     int dam = 0, newdam, rel;
     struct genlist mi[MAXNOC];
     int z;
@@ -170,7 +169,7 @@ int
 unit_interdict(coord x, coord y, natid victim, s_char *s, int hardtarget,
 	       int mission)
 {
-    register int cn;
+    int cn;
     int dam = 0, newdam;
     struct genlist mi[MAXNOC];
     int z;
@@ -263,7 +262,7 @@ def_support(coord x, coord y, natid victim, natid actee)
 static int
 dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
 {
-    register int cn;
+    int cn;
     int rel;
     int dam = 0;
 
@@ -1014,7 +1013,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
     struct sctstr sect;
     struct plchrstr *pcp;
     struct plist *plp;
-    register int y, bad, bad1;
+    int y, bad, bad1;
     unsigned int x;
 
     for (qp = list->q_forw; qp != list; qp = next) {
@@ -1258,7 +1257,7 @@ int
 mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 		  s_char mission)
 {
-    register struct plchrstr *pcp;
+    struct plchrstr *pcp;
     struct plnstr *pp;
     int needed;
     struct lndstr land;

@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "queue.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "plane.h"
@@ -191,8 +190,8 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 void
 shp_put(struct emp_qelem *list, natid actor)
 {
-    register struct emp_qelem *qp;
-    register struct emp_qelem *newqp;
+    struct emp_qelem *qp;
+    struct emp_qelem *newqp;
     struct mlist *mlp;
 
     qp = list->q_back;

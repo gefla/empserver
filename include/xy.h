@@ -65,8 +65,8 @@ extern coord strtox(char *str, char **end);
 extern coord strtoy(char *str, char **end);
 extern coord xabs(struct natstr *np, coord relx);
 extern coord yabs(struct natstr *np, coord rely);
-extern coord xnorm(register coord x);
-extern coord ynorm(register coord y);
+extern coord xnorm(coord x);
+extern coord ynorm(coord y);
 extern int xyinrange(coord x, coord y, struct range *rp);
 
 #endif /* _XY_H_ */

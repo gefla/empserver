@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "land.h"
 #include "nsc.h"
 #include "file.h"

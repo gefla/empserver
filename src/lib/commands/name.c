@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "xy.h"

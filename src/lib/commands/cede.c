@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
@@ -51,8 +50,8 @@
 static void cede_hdr(void);
 static int cede_sect(struct nstr_sect *, natid);
 static int cede_ship(struct nstr_item *, natid);
-static void grab_sect(register struct sctstr *, natid);
-static void grab_ship(register struct shpstr *, natid);
+static void grab_sect(struct sctstr *, natid);
+static void grab_ship(struct shpstr *, natid);
 
 int
 cede(void)
@@ -195,7 +194,7 @@ cede_hdr(void)
 
 
 static void
-grab_sect(register struct sctstr *sp, natid to)
+grab_sect(struct sctstr *sp, natid to)
 {
     struct plnstr *pp;
     struct lndstr *lp;
@@ -332,10 +331,10 @@ cede_ship(struct nstr_item *ni, natid to)
 }
 
 static void
-grab_ship(register struct shpstr *sp, natid to)
+grab_ship(struct shpstr *sp, natid to)
 {
-    register struct plnstr *pp;
-    register struct lndstr *lp;
+    struct plnstr *pp;
+    struct lndstr *lp;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr l;

@@ -45,7 +45,6 @@
 #include "misc.h"
 #include "player.h"
 #include "nuke.h"
-#include "var.h"
 #include "ship.h"
 #include "land.h"
 #include "item.h"
@@ -265,9 +264,9 @@ show_nuke_stats(int tlev)
 void
 show_nuke_build(int tlev)
 {
-    register struct nchrstr *np;
-    register int n;
-    register int avail;
+    struct nchrstr *np;
+    int n;
+    int avail;
 
     if (opt_DRNUKE)
 	pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
@@ -299,8 +298,8 @@ show_nuke_build(int tlev)
 void
 show_nuke_capab(int tlev)
 {
-    register struct nchrstr *np;
-    register int i, j, n;
+    struct nchrstr *np;
+    int i, j, n;
     s_char *p;
 
     if (opt_DRNUKE)
@@ -343,8 +342,8 @@ show_nuke_capab(int tlev)
 void
 show_ship_build(int tlev)
 {
-    register struct mchrstr *mp;
-    register int n;
+    struct mchrstr *mp;
+    int n;
 
     pr("%25s lcm hcm avail tech $\n", "");
     make_new_list(tlev, EF_SHIP);
@@ -363,7 +362,7 @@ show_ship_build(int tlev)
 void
 show_ship_stats(int tlev)
 {
-    register struct mchrstr *mp;
+    struct mchrstr *mp;
     int scount;
     int techdiff;
 
@@ -457,7 +456,7 @@ show_ship_capab(int tlev)
 void
 show_plane_stats(int tlev)
 {
-    register struct plchrstr *pp;
+    struct plchrstr *pp;
     int pcount;
 
     pr("%25s acc load att def ran fuel stlth\n", "");
@@ -480,8 +479,8 @@ show_plane_stats(int tlev)
 void
 show_plane_capab(int tlev)
 {
-    register struct plchrstr *pp;
-    register int i;
+    struct plchrstr *pp;
+    int i;
     int pcount;
     int n;
     s_char *p;
@@ -508,8 +507,8 @@ show_plane_capab(int tlev)
 void
 show_plane_build(int tlev)
 {
-    register struct plchrstr *pp;
-    register int pcount;
+    struct plchrstr *pp;
+    int pcount;
 
     pr("%25s lcm hcm crew avail tech $\n", "");
     make_new_list(tlev, EF_PLANE);
@@ -525,8 +524,8 @@ show_plane_build(int tlev)
 void
 show_land_build(int tlev)
 {
-    register struct lchrstr *lp;
-    register int n;
+    struct lchrstr *lp;
+    int n;
 
     pr("%25s lcm hcm guns avail tech $\n", "");
     make_new_list(tlev, EF_LAND);
@@ -624,7 +623,7 @@ show_land_stats(int tlev)
 void
 show_sect_build(int foo)
 {
-    register int x, first = 1;
+    int x, first = 1;
 
     for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
@@ -653,7 +652,7 @@ show_sect_build(int foo)
 void
 show_sect_stats(int foo)
 {
-    register int x, first = 1;
+    int x, first = 1;
     struct sctstr sect;
     struct natstr *natp;
 
@@ -685,7 +684,7 @@ show_sect_stats(int foo)
 void
 show_sect_capab(int foo)
 {
-    register int x, first = 1, i, j;
+    int x, first = 1, i, j;
     char *tmpstr;
 
     for (x = 0; x <= SCT_MAXDEF; x++) {

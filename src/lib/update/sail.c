@@ -35,11 +35,9 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "path.h"
 #include "ship.h"
-#include "var.h"
 #include "news.h"
 #include "file.h"
 #include "nat.h"

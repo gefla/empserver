@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nuke.h"
 #include "xy.h"
@@ -46,7 +45,7 @@
 int
 ndump(void)
 {
-    register int i;
+    int i;
     struct nstr_item nstr;
     struct nukstr nuk;
     time_t now;

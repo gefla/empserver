@@ -34,7 +34,6 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "var.h"
 #include "sect.h"
 #include "item.h"
 #include "file.h"
@@ -47,9 +46,9 @@ int
 deli(void)
 {
     struct sctstr sect;
-    register int dir, del;
-    register struct ichrstr *ich;
-    register int thresh;
+    int dir, del;
+    struct ichrstr *ich;
+    int thresh;
     int sx, sy;
     struct nstr_sect nstr;
     s_char buf[1024];

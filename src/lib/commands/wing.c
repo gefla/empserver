@@ -34,7 +34,6 @@
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "plane.h"
 #include "xy.h"
 #include "nsc.h"
@@ -47,7 +46,7 @@ wing(void)
 {
 
     struct plnstr plane;
-    register int count;
+    int count;
     s_char *cp;
     s_char c;
     struct nstr_item nstr;

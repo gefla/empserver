@@ -36,7 +36,6 @@
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "ship.h"
 #include "sect.h"
 #include "news.h"

@@ -39,7 +39,6 @@
 #include "sect.h"
 #include "player.h"
 #include "empthread.h"
-#include "var.h"
 #include "budg.h"
 #include "product.h"
 #include "player.h"

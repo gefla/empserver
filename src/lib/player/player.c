@@ -38,7 +38,6 @@
 #include "misc.h"
 #include "player.h"
 #include "proto.h"
-#include "var.h"
 #include "com.h"
 #include "nat.h"
 #include "sect.h"
@@ -158,7 +157,7 @@ player_main(struct player *p)
 int
 command(void)
 {
-    register unsigned int x;
+    unsigned int x;
     s_char *redir;
     s_char scanspace[1024];
 

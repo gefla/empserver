@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"

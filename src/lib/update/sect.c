@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -61,10 +60,10 @@
  * Return amount of work used.
  */
 static int
-upd_buildeff(struct natstr *np, register struct sctstr *sp, int *workp,
+upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	     short *vec, int etu, int *desig, int sctwork, int *cost)
 {
-    register int work_cost = 0;
+    int work_cost = 0;
     int buildeff_work = *workp / 2;
     int n, hcms, lcms, neweff;
     u_char old_type = *desig;
@@ -204,7 +203,7 @@ meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
  */
 
 void
-do_fallout(register struct sctstr *sp, register int etus)
+do_fallout(struct sctstr *sp, int etus)
 {
     struct shpstr *spp;
     struct lndstr *lp;
@@ -246,7 +245,7 @@ spread_fallout(struct sctstr *sp, int etus)
 {
     struct sctstr *ap;
     int n;
-    register int inc;
+    int inc;
 
     if (etus > 24)
 	etus = 24;
@@ -297,8 +296,8 @@ void
 produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
 	     int sector_type)
 {
-    register struct sctstr *sp;
-    register struct natstr *np;
+    struct sctstr *sp;
+    struct natstr *np;
     short buf[I_MAX + 1];
     short *vec;
     int work, cost, ecost, pcost, sctwork;

@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "product.h"
 #include "nat.h"
@@ -56,7 +55,7 @@ int
 produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	int desig, int neweff, int *cost, int *amount)
 {
-    register struct pchrstr *product;
+    struct pchrstr *product;
     double p_e;
     double prodeff;
     s_char *resource;

@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
-#include "var.h"
 #include "retreat.h"
 #include "ship.h"
 #include "land.h"
@@ -133,8 +132,8 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 			/* Is this the originally scared ship, or a follower */
 {
     struct sctstr sect;
-    register int n;
-    register int m;
+    int n;
+    int m;
     int max;
     int dir;
     coord newx;
@@ -419,8 +418,8 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 			/* Is this the originally scared unit, or a follower */
 {
     struct sctstr sect;
-    register int n;
-    register int m;
+    int n;
+    int m;
     int max;
     int dir;
     coord newx;

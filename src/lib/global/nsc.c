@@ -34,7 +34,6 @@
 
 #include <stddef.h>
 #include "misc.h"
-#include "var.h"
 #include "xy.h"
 #include "loan.h"
 #include "nsc.h"

@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nuke.h"
 #include "xy.h"
@@ -45,10 +44,10 @@
 int
 nuke(void)
 {
-    register int first_line = 0;
-    register int first_nuke;
-    register int show_comm;
-    register int i;
+    int first_line = 0;
+    int first_nuke;
+    int show_comm;
+    int i;
     struct nstr_item nstr;
     struct nukstr nuk;
     struct sctstr sect;

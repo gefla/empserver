@@ -69,7 +69,7 @@ extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
-extern int count_pop(register int);
+extern int count_pop(int);
 extern int scuttle_tradeship(struct shpstr *, int);
 extern void scuttle_ship(struct shpstr *);
 extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
@@ -95,12 +95,12 @@ extern void knockdown(struct sctstr *, struct emp_qelem *);
 /* damage.c */
 extern void landdamage(struct lndstr *, int);
 extern void ship_damage(struct shpstr *, int);
-extern int damage(register int, int);
+extern int damage(int, int);
 extern void shipdamage(struct shpstr *, int);
 extern void land_damage(struct lndstr *, int);
 extern void planedamage(struct plnstr *, int);
 extern int nukedamage(struct nchrstr *, int, int);
-extern int effdamage(register int, int);
+extern int effdamage(int, int);
 extern void item_damage(int, short *);
 extern int commdamage(int, int, i_type);
 /* check.c */
@@ -160,21 +160,21 @@ extern int max_pop(float, struct sctstr *);
 extern int sect_damage(struct sctstr *, int, struct emp_qelem *);
 extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 /* snxtit_subs.c */
-extern void snxtitem_area(register struct nstr_item *, int,
+extern void snxtitem_area(struct nstr_item *, int,
 			  struct range *);
-extern void snxtitem_dist(register struct nstr_item *, int, int, int, int);
-extern void snxtitem_xy(register struct nstr_item *, int, coord, coord);
-extern void snxtitem_all(register struct nstr_item *, int);
-extern void snxtitem_group(register struct nstr_item *, int, s_char);
+extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
+extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
+extern void snxtitem_all(struct nstr_item *, int);
+extern void snxtitem_group(struct nstr_item *, int, s_char);
 extern void snxtitem_rewind(struct nstr_item *);
-extern int snxtitem_list(register struct nstr_item *, int, int *, int);
+extern int snxtitem_list(struct nstr_item *, int, int *, int);
 /* snxtsect_subs.c */
-extern void snxtsct_area(register struct nstr_sect *, struct range *);
-extern void xydist_range(coord, coord, register int, struct range *);
-extern void xysize_range(register struct range *);
+extern void snxtsct_area(struct nstr_sect *, struct range *);
+extern void xydist_range(coord, coord, int, struct range *);
+extern void xysize_range(struct range *);
 extern void snxtsct_all(struct nstr_sect *);
 extern void snxtsct_rewind(struct nstr_sect *);
-extern void snxtsct_dist(register struct nstr_sect *, coord, coord, int);
+extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
 /* stmtch.c */
 /* in match.h */
 /* type.c */
@@ -376,7 +376,7 @@ extern void nuk_delete(struct nukstr *, int, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */
-extern int nxtsct(register struct nstr_sect *, struct sctstr *);
+extern int nxtsct(struct nstr_sect *, struct sctstr *);
 /* plane.c */
 extern s_char *prplane(struct plnstr *);
 extern int pln_postread(int, s_char *);
@@ -507,7 +507,7 @@ extern int shp_missile_defense(coord, coord, natid, int);
 extern void shp_missdef(struct shpstr *, natid);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
-extern int snxtitem(register struct nstr_item *, int, s_char *);
+extern int snxtitem(struct nstr_item *, int, s_char *);
 /* snxtsct.c */
 extern int snxtsct(register struct nstr_sect *, s_char *);
 /* supply.c */
@@ -518,10 +518,10 @@ extern int try_supply_commod(int, int, int, i_type, int);
 extern int has_supply(struct lndstr *);
 extern int use_supply(struct lndstr *);
 /* takeover.c */
-extern void takeover_land(register struct lndstr *, natid, int);
-extern void takeover(register struct sctstr *, natid);
-extern void takeover_ship(register struct shpstr *, natid, int);
-extern void takeover_plane(register struct plnstr *, natid);
+extern void takeover_land(struct lndstr *, natid, int);
+extern void takeover(struct sctstr *, natid);
+extern void takeover_ship(struct shpstr *, natid, int);
+extern void takeover_plane(struct plnstr *, natid);
 /* trdsub.c */
 /* trechk.c */
 extern int trechk(register natid, register natid, int);
@@ -560,18 +560,18 @@ extern int feed_land(struct lndstr *, int, int *, int);
 /* material.c */
 /* in budg.h */
 /* mobility.c */
-extern void mob_sect(register int);
-extern void mob_ship(register int);
-extern void mob_land(register int);
-extern void mob_plane(register int);
+extern void mob_sect(int);
+extern void mob_ship(int);
+extern void mob_land(int);
+extern void mob_plane(int);
 extern void update_all_mob(void);
 extern void update_timestamps(time_t offset);
-extern void sct_do_upd_mob(register struct sctstr *sp);
-extern void shp_do_upd_mob(register struct shpstr *sp);
-extern void lnd_do_upd_mob(register struct lndstr *lp);
-extern void pln_do_upd_mob(register struct plnstr *pp);
+extern void sct_do_upd_mob(struct sctstr *sp);
+extern void shp_do_upd_mob(struct shpstr *sp);
+extern void lnd_do_upd_mob(struct lndstr *lp);
+extern void pln_do_upd_mob(struct plnstr *pp);
 /* move_sat.c */
-extern void move_sat(register struct plnstr *);
+extern void move_sat(struct plnstr *);
 /* nat.c */
 extern double logx(double, double);
 extern void prod_nat(int);

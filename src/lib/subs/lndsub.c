@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "player.h"
 #include "file.h"
-#include "var.h"
 #include "sect.h"
 #include "path.h"
 #include "news.h"
@@ -633,8 +632,8 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 void
 lnd_put(struct emp_qelem *list, natid actor)
 {
-    register struct emp_qelem *qp;
-    register struct emp_qelem *newqp;
+    struct emp_qelem *qp;
+    struct emp_qelem *newqp;
     struct llist *llp;
 
     qp = list->q_back;

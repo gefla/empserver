@@ -32,10 +32,8 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
-#include "var.h"
 #include "file.h"
 #include "path.h"
 #include "xy.h"
@@ -47,7 +45,7 @@
 int
 adj_units(coord x, coord y, natid own)
 {
-    register int i;
+    int i;
     struct sctstr sect;
 
     for (i = DIR_FIRST; i <= DIR_LAST; i++) {
@@ -61,7 +59,7 @@ adj_units(coord x, coord y, natid own)
 int
 has_units(coord x, coord y, natid cn, struct lndstr *lp)
 {
-    register int n;
+    int n;
     struct lndstr land;
 
     for (n = 0; ef_read(EF_LAND, n, (s_char *)&land); n++) {

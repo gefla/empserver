@@ -33,7 +33,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "land.h"
@@ -54,10 +53,10 @@ int updating_mob = 1;
 static int timestamp_fixing;
 static int do_upd_checking = 0;
 
-static void do_mob_land(register struct lndstr *, register int);
-static void do_mob_plane(register struct plnstr *, register int);
-static void do_mob_sect(register struct sctstr *sp, register int etus);
-static void do_mob_ship(register struct shpstr *, register int);
+static void do_mob_land(struct lndstr *, int);
+static void do_mob_plane(struct plnstr *, int);
+static void do_mob_sect(struct sctstr *sp, int etus);
+static void do_mob_ship(struct shpstr *, int);
 
 static int
 increase_mob(time_t * counter, float mult)
@@ -155,7 +154,7 @@ update_all_mob(void)
 }
 
 void
-sct_do_upd_mob(register struct sctstr *sp)
+sct_do_upd_mob(struct sctstr *sp)
 {
     int etus;
 
@@ -174,7 +173,7 @@ sct_do_upd_mob(register struct sctstr *sp)
 }
 
 void
-shp_do_upd_mob(register struct shpstr *sp)
+shp_do_upd_mob(struct shpstr *sp)
 {
     int etus;
 
@@ -190,7 +189,7 @@ shp_do_upd_mob(register struct shpstr *sp)
 }
 
 void
-lnd_do_upd_mob(register struct lndstr *lp)
+lnd_do_upd_mob(struct lndstr *lp)
 {
     int etus;
 
@@ -207,7 +206,7 @@ lnd_do_upd_mob(register struct lndstr *lp)
 }
 
 void
-pln_do_upd_mob(register struct plnstr *pp)
+pln_do_upd_mob(struct plnstr *pp)
 {
     int etus;
 
@@ -224,10 +223,10 @@ pln_do_upd_mob(register struct plnstr *pp)
 }
 
 void
-mob_sect(register int etus)
+mob_sect(int etus)
 {
-    register struct sctstr *sp;
-    register int n;
+    struct sctstr *sp;
+    int n;
     time_t now;
 
     time(&now);
@@ -241,9 +240,9 @@ mob_sect(register int etus)
 }
 
 static void
-do_mob_sect(register struct sctstr *sp, register int etus)
+do_mob_sect(struct sctstr *sp, int etus)
 {
-    register int value;
+    int value;
 
     if (sp->sct_own == 0)
 	return;
@@ -262,10 +261,10 @@ do_mob_sect(register struct sctstr *sp, register int etus)
 }
 
 void
-mob_ship(register int etus)
+mob_ship(int etus)
 {
-    register struct shpstr *sp;
-    register int n;
+    struct shpstr *sp;
+    int n;
     time_t now;
 
     time(&now);
@@ -279,10 +278,10 @@ mob_ship(register int etus)
 }
 
 static void
-do_mob_ship(register struct shpstr *sp, register int etus)
+do_mob_ship(struct shpstr *sp, int etus)
 {
     int newfuel = 0;
-    register int value;
+    int value;
     int can_add, have_fuel_for, total_add;
     double d;
 
@@ -372,10 +371,10 @@ do_mob_ship(register struct shpstr *sp, register int etus)
 }
 
 void
-mob_land(register int etus)
+mob_land(int etus)
 {
-    register struct lndstr *lp;
-    register int n;
+    struct lndstr *lp;
+    int n;
     time_t now;
 
     time(&now);
@@ -389,10 +388,10 @@ mob_land(register int etus)
 }
 
 static void
-do_mob_land(register struct lndstr *lp, register int etus)
+do_mob_land(struct lndstr *lp, int etus)
 {
     int newfuel = 0;
-    register int value;
+    int value;
     int can_add, have_fuel_for, total_add;
     double d;
 
@@ -489,10 +488,10 @@ do_mob_land(register struct lndstr *lp, register int etus)
 }
 
 void
-mob_plane(register int etus)
+mob_plane(int etus)
 {
-    register struct plnstr *pp;
-    register int n;
+    struct plnstr *pp;
+    int n;
     time_t now;
 
     time(&now);
@@ -506,9 +505,9 @@ mob_plane(register int etus)
 }
 
 static void
-do_mob_plane(register struct plnstr *pp, register int etus)
+do_mob_plane(struct plnstr *pp, int etus)
 {
-    register int value;
+    int value;
 
     if (pp->pln_own == 0)
 	return;

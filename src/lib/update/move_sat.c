@@ -33,7 +33,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "plane.h"
 #include "sect.h"
 #include "xy.h"
@@ -50,7 +49,7 @@
 #endif
 
 void
-move_sat(register struct plnstr *pp)
+move_sat(struct plnstr *pp)
 {
     coord x1, y1, x2, y2;
     coord dx, dy;

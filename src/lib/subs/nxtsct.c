@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
@@ -45,7 +44,7 @@
  * that matches the conditions.
  */
 int
-nxtsct(register struct nstr_sect *np, struct sctstr *sp)
+nxtsct(struct nstr_sect *np, struct sctstr *sp)
 {
     while (1) {
 	np->dx++;

@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "nuke.h"
 #include "sect.h"
 #include "xy.h"

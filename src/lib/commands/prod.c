@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "nsc.h"
 #include "sect.h"
@@ -46,10 +45,10 @@
 #include "commands.h"
 
 int
-count_pop(register int n)
+count_pop(int n)
 {
-    register int i;
-    register int pop = 0;
+    int i;
+    int pop = 0;
     struct sctstr *sp;
 
     for (i = 0; NULL != (sp = getsectid(i)); i++) {

@@ -33,7 +33,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "land.h"
@@ -171,10 +170,10 @@ nukedamage(struct nchrstr *ncp, int range, int airburst)
 }
 
 int
-damage(register int amt, int pct)
+damage(int amt, int pct)
 {
-    register int tmp;
-    register int lost;
+    int tmp;
+    int lost;
 
     if (amt <= 0)
 	return 0;
@@ -187,7 +186,7 @@ damage(register int amt, int pct)
 
 /* asymptotic damage to commodities, efficiency, and sectors */
 int
-effdamage(register int amt, int dam)
+effdamage(int amt, int dam)
 {
     return damage(amt, PERCENT_DAMAGE(dam));
 }

@@ -46,7 +46,6 @@
 #include "gamesdef.h"
 #include "misc.h"
 #include "xy.h"
-#include "var.h"
 #include "sect.h"
 #include "file.h"
 #include "nat.h"

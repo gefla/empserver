@@ -35,7 +35,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -243,7 +242,7 @@ long
 get_couval(int cnum)
 {
     struct sctstr *sp;
-    register int j, k, val;
+    int j, k, val;
     long secttot = 0;
 
     for (j = 0; NULL != (sp = getsectid(j)); j++) {

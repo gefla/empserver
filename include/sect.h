@@ -38,7 +38,6 @@
 #define _SECT_H_
 
 #include "item.h"
-#include "var.h"
 
 /* The order of the following elements is there to match up with genitem */
 

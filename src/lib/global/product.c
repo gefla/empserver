@@ -36,7 +36,6 @@
 #include "product.h"
 #include "sect.h"
 #include "nat.h"
-#include "var.h"
 
 
 struct pchrstr pchr[] = {

@@ -41,7 +41,6 @@
 #include "nsc.h"
 #include "file.h"
 #include "optlist.h"
-#include "var.h"
 #include "commands.h"
 
 int

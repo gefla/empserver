@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "item.h"
 #include "xy.h"
@@ -70,7 +69,7 @@ static long
 do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	int for_real)
 {
-    register int n;
+    int n;
     s_char *p;
     int breaksanct;
     int cap_x;

@@ -35,7 +35,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -55,7 +54,7 @@
 void
 prepare_sects(int etu, int *bp)
 {
-    register struct sctstr *sp;
+    struct sctstr *sp;
     struct natstr *np;
     int n, civ_tax, uw_tax, mil_pay;
 

@@ -37,7 +37,6 @@
 #include "sect.h"
 #include "nat.h"
 #include "ship.h"
-#include "var.h"
 #include "news.h"
 #include "file.h"
 #include "product.h"
@@ -57,16 +56,16 @@
 #define MIN(x,y)        ((x) > (y) ? (y) : (x))
 #endif
 
-static int shiprepair(register struct shpstr *, struct natstr *,
+static int shiprepair(struct shpstr *, struct natstr *,
 		      int *, int);
-static void upd_ship(register struct shpstr *, register int,
+static void upd_ship(struct shpstr *, int,
 		     struct natstr *, int *, int);
 
 int
 prod_ship(int etus, int natnum, int *bp, int build)
 		/* build = 1, maintain = 0 */
 {
-    register struct shpstr *sp;
+    struct shpstr *sp;
     struct natstr *np;
     int n, k = 0;
     int start_money;
@@ -110,7 +109,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
 }
 
 static void
-upd_ship(register struct shpstr *sp, register int etus,
+upd_ship(struct shpstr *sp, int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
@@ -267,10 +266,10 @@ upd_ship(register struct shpstr *sp, register int etus,
  * 8 * 8 * $40 = $2560!
  */
 static int
-shiprepair(register struct shpstr *ship, struct natstr *np,
+shiprepair(struct shpstr *ship, struct natstr *np,
 	   int *bp, int etus)
 {
-    register int delta;
+    int delta;
     struct sctstr *sp;
     struct mchrstr *mp;
     float leftp, buildp;

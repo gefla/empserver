@@ -33,7 +33,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "xy.h"
 #include "nsc.h"
@@ -46,7 +45,7 @@
 #include "optlist.h"
 
 void
-takeover(register struct sctstr *sp, natid newown)
+takeover(struct sctstr *sp, natid newown)
 {
     struct plnstr *pp;
     struct lndstr *lp;
@@ -165,7 +164,7 @@ takeover(register struct sctstr *sp, natid newown)
 }
 
 void
-takeover_plane(register struct plnstr *pp, natid newown)
+takeover_plane(struct plnstr *pp, natid newown)
 {
     int n;
 
@@ -209,10 +208,10 @@ takeover_plane(register struct plnstr *pp, natid newown)
 }
 
 void
-takeover_ship(register struct shpstr *sp, natid newown, int hostile)
+takeover_ship(struct shpstr *sp, natid newown, int hostile)
 {
-    register struct plnstr *pp;
-    register struct lndstr *lp;
+    struct plnstr *pp;
+    struct lndstr *lp;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr llp;
@@ -266,10 +265,10 @@ takeover_ship(register struct shpstr *sp, natid newown, int hostile)
 }
 
 void
-takeover_land(register struct lndstr *landp, natid newown, int hostile)
+takeover_land(struct lndstr *landp, natid newown, int hostile)
 {
-    register struct plnstr *pp;
-    register struct lndstr *lp;
+    struct plnstr *pp;
+    struct lndstr *lp;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr llp;

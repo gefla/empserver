@@ -35,7 +35,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "item.h"
@@ -77,7 +76,7 @@ static s_char *ReversePath(s_char *path);
 void
 finish_sects(int etu)
 {
-    register struct sctstr *sp;
+    struct sctstr *sp;
     struct natstr *np;
     int n;
     struct distinfo *infptr;

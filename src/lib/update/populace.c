@@ -32,11 +32,9 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "news.h"
-#include "var.h"
 #include "file.h"
 #include "path.h"
 #include "xy.h"
@@ -49,7 +47,7 @@
 #include "lost.h"
 
 void
-populace(struct natstr *np, register struct sctstr *sp, int etu)
+populace(struct natstr *np, struct sctstr *sp, int etu)
 {
     float hap;
     float tech;
@@ -135,8 +133,8 @@ populace(struct natstr *np, register struct sctstr *sp, int etu)
 }
 
 int
-total_work(register int sctwork, register int etu, register int civil,
-	   register int milit, register int uw)
+total_work(int sctwork, int etu, int civil,
+	   int milit, int uw)
 {
     return ((int)((((civil * sctwork) / 100.0 +
 		    (milit * 2 / 5.0) + uw)) * etu) / 100);

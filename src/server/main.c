@@ -60,7 +60,6 @@
 #include "land.h"
 #include "ship.h"
 #include "sect.h"
-#include "var.h"
 #include "product.h"
 #include "optlist.h"
 #include "global.h"

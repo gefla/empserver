@@ -41,7 +41,6 @@
 #include "queue.h"
 #include "nsc.h"
 #include "retreat.h"
-#include "var.h"
 
 #define LAND_MINEFF	10
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */

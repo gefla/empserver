@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "ship.h"
@@ -47,12 +46,12 @@
 #include "commands.h"
 #include "optlist.h"
 
-static void look_ship(register struct shpstr *lookship);
+static void look_ship(struct shpstr *lookship);
 
 int
 look(void)
 {
-    register int i;
+    int i;
     struct nstr_item ni;
     struct shpstr myship;
     struct sctstr sect;
@@ -113,11 +112,11 @@ look(void)
 }
 
 static void
-look_ship(register struct shpstr *lookship)
+look_ship(struct shpstr *lookship)
 {
-    register struct shpstr *sp;
-    register struct mchrstr *smcp;
-    register struct mchrstr *tmcp;
+    struct shpstr *sp;
+    struct mchrstr *smcp;
+    struct mchrstr *tmcp;
     struct sctstr sect;
     int range;
     int vrange;
@@ -172,12 +171,12 @@ look_ship(register struct shpstr *lookship)
     }
 }
 
-static void look_land(register struct lndstr *lookland);
+static void look_land(struct lndstr *lookland);
 
 int
 llook(void)
 {
-    register int i;
+    int i;
     struct nstr_item ni;
     struct lndstr myland;
     struct sctstr sect;
@@ -247,10 +246,10 @@ llook(void)
 }
 
 static void
-look_land(register struct lndstr *lookland)
+look_land(struct lndstr *lookland)
 {
-    register struct plnstr *pp;
-    register struct lndstr *lp;
+    struct plnstr *pp;
+    struct lndstr *lp;
     double drange;
     int range;
     int vrange;

@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "xy.h"
 #include "plane.h"
 #include "ship.h"

@@ -43,7 +43,6 @@
 #include "news.h"
 #include "plane.h"
 #include "nsc.h"
-#include "var.h"
 #include "optlist.h"
 #include "prototypes.h"
 

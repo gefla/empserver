@@ -34,7 +34,6 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"

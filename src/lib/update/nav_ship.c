@@ -35,7 +35,6 @@
 #include "misc.h"
 
 #include <ctype.h>
-#include "var.h"
 #include "ship.h"
 #include "sect.h"
 #include "news.h"
@@ -55,7 +54,7 @@
 static void swap(struct shpstr *);
 
 static void
-scuttle_it(register struct shpstr *sp)
+scuttle_it(struct shpstr *sp)
 {
     struct sctstr *sectp;
 
@@ -86,7 +85,7 @@ scuttle_it(register struct shpstr *sp)
 }
 
 static void
-nav_check_atdest(register struct shpstr *sp)
+nav_check_atdest(struct shpstr *sp)
 {
     if ((sp->shp_x == sp->shp_destx[0]) && (sp->shp_y == sp->shp_desty[0])) {
 	if ((sp->shp_destx[0] == sp->shp_destx[1]) &&
@@ -155,7 +154,7 @@ swap(struct shpstr *sp)
  */
 
 static int
-nav_loadship(register struct shpstr *sp, natid cnum)
+nav_loadship(struct shpstr *sp, natid cnum)
 {
     struct sctstr *sectp;
     int i, landown, shipown, didsomething[TMAX], rel;
@@ -233,7 +232,7 @@ nav_loadship(register struct shpstr *sp, natid cnum)
  * Modified to use shp_nav by Ken Stevens 1995
  */
 int
-nav_ship(register struct shpstr *sp)
+nav_ship(struct shpstr *sp)
 {
     struct sctstr *sectp;
     s_char *cp;

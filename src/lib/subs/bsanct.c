@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
@@ -46,7 +45,7 @@
 void
 bsanct(void)
 {
-    register int count;
+    int count;
     struct sctstr s;
     struct nstr_sect nstr;
 

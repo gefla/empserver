@@ -35,7 +35,6 @@
 #include "misc.h"
 #include "queue.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "optlist.h"
@@ -176,7 +175,7 @@ void
 msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	int wantflags, int nowantflags, int mission)
 {
-    register struct plchrstr *pcp;
+    struct plchrstr *pcp;
     struct plnstr plane;
     struct plist *irv;
     struct nstr_item ni;
@@ -220,8 +219,8 @@ int
 msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	      int sublaunch, int wantflags, int nowantflags)
 {
-    register struct plnstr *pp;
-    register struct plchrstr *pcp;
+    struct plnstr *pp;
+    struct plchrstr *pcp;
     struct sctstr sect;
     struct emp_qelem *irvlist;
     struct emp_qelem foo;

@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "sect.h"
 #include "nsc.h"
@@ -48,7 +47,7 @@
  * for arguments to compile into the nstr.
  */
 int
-snxtitem(register struct nstr_item *np, int type, s_char *str)
+snxtitem(struct nstr_item *np, int type, s_char *str)
 {
     struct range range;
     int list[NS_LSIZE];
@@ -126,7 +125,7 @@ snxtitem(register struct nstr_item *np, int type, s_char *str)
 }
 
 void
-snxtitem_area(register struct nstr_item *np, int type, struct range *range)
+snxtitem_area(struct nstr_item *np, int type, struct range *range)
 {
     memset(np, 0, sizeof(*np));
     np->cur = -1;
@@ -141,7 +140,7 @@ snxtitem_area(register struct nstr_item *np, int type, struct range *range)
 }
 
 void
-snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy,
+snxtitem_dist(struct nstr_item *np, int type, int cx, int cy,
 	      int dist)
 {
     struct range range;
@@ -167,7 +166,7 @@ snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy,
 }
 
 void
-snxtitem_xy(register struct nstr_item *np, int type, coord x, coord y)
+snxtitem_xy(struct nstr_item *np, int type, coord x, coord y)
 {
     memset(np, 0, sizeof(*np));
     np->cur = -1;
@@ -183,7 +182,7 @@ snxtitem_xy(register struct nstr_item *np, int type, coord x, coord y)
 }
 
 void
-snxtitem_all(register struct nstr_item *np, int type)
+snxtitem_all(struct nstr_item *np, int type)
 {
     memset(np, 0, sizeof(*np));
     np->cur = -1;
@@ -197,7 +196,7 @@ snxtitem_all(register struct nstr_item *np, int type)
 }
 
 void
-snxtitem_group(register struct nstr_item *np, int type, s_char group)
+snxtitem_group(struct nstr_item *np, int type, s_char group)
 {
     if (group == '~')
 	group = ' ';
@@ -222,7 +221,7 @@ snxtitem_rewind(struct nstr_item *np)
 }
 
 int
-snxtitem_list(register struct nstr_item *np, int type, int *list, int len)
+snxtitem_list(struct nstr_item *np, int type, int *list, int len)
 {
     int i;
 

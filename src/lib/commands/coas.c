@@ -34,7 +34,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "nat.h"
@@ -144,9 +143,9 @@ coas(void)
 static int
 showship(struct coast **cpp, int x, int y)
 {
-    register struct coast *cp;
-    register struct coast *todelete = 0;
-    register struct coast **prev;
+    struct coast *cp;
+    struct coast *todelete = 0;
+    struct coast **prev;
     int nship = 0;
 
     prev = 0;

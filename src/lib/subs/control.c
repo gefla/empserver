@@ -33,10 +33,8 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
-#include "var.h"
 #include "file.h"
 #include "path.h"
 #include "xy.h"

@@ -37,7 +37,6 @@
 #include "misc.h"
 #include "xy.h"
 #include "file.h"
-#include "var.h"
 #include "sect.h"
 #include "item.h"
 #include "nsc.h"

@@ -33,11 +33,9 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "news.h"
-#include "var.h"
 #include "file.h"
 #include "path.h"
 #include "xy.h"
@@ -323,7 +321,7 @@ guerrilla(struct sctstr *sp)
 	}
     }
     if (convert && sp->sct_loyal >= 50) {
-	register int n;
+	int n;
 	/* new owner gets to keep the mobility there */
 	oldmob = sp->sct_mobil;
 	/* che won, and sector converts. */

@@ -34,7 +34,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "land.h"

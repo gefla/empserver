@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "misc.h"
-#include "var.h"
 #include "file.h"
 #include "sect.h"
 #include "item.h"
@@ -49,7 +48,7 @@
 int
 shark(void)
 {
-    register int arg;
+    int arg;
     time_t now;
     char *p;
     struct lonstr loan;

@@ -34,7 +34,6 @@
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "ship.h"
 #include "xy.h"
 #include "nsc.h"
@@ -46,7 +45,7 @@ int
 flee(void)
 {
     struct shpstr ship;
-    register int count;
+    int count;
     s_char *cp;
     s_char c;
     struct nstr_item nstr;

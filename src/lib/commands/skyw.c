@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "plane.h"
 #include "nat.h"
@@ -136,10 +135,10 @@ skyw(void)
 static int
 showsat(struct sky **skypp, int x, int y)
 {
-    register struct sky *skyp;
-    register struct sky *todelete = 0;
-    register struct sky **prev;
-    register struct plchrstr *pcp;
+    struct sky *skyp;
+    struct sky *todelete = 0;
+    struct sky **prev;
+    struct plchrstr *pcp;
     s_char *name;
     int nsat = 0;
 

@@ -183,7 +183,7 @@ sctoff(coord x, coord y)
 }
 
 coord
-xnorm(register coord x)
+xnorm(coord x)
 {
     if (x < 0)
 	x = WORLD_X - (-x % WORLD_X);
@@ -191,7 +191,7 @@ xnorm(register coord x)
 }
 
 coord
-ynorm(register coord y)
+ynorm(coord y)
 {
     if (y < 0)
 	y = WORLD_Y - (-y % WORLD_Y);

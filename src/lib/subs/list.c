@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "news.h"
 #include "ship.h"
 #include "land.h"
@@ -291,7 +290,7 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 int
 islist(s_char *p)
 {
-    register int x;
+    int x;
 
     x = 0;
 

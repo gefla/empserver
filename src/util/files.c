@@ -50,7 +50,6 @@
 
 #include "options.h"
 #include "misc.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "ship.h"

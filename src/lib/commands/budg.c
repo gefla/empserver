@@ -36,7 +36,6 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "xy.h"
 #include "nsc.h"
 #include "sect.h"
@@ -222,7 +221,7 @@ calc_all(long p_sect[][2],
 	 int *units, int *lbuild, int *nlbuild, int *lmaint,
 	 int *planes, int *pbuild, int *npbuild, int *pmaint)
 {
-    register int y, z;
+    int y, z;
     struct natstr *np;
     int sm = 0, sb = 0, pm = 0, pb = 0, lm = 0, lb = 0;
     int *bp;

@@ -34,7 +34,6 @@
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "ship.h"
 #include "path.h"
 #include "xy.h"
@@ -47,7 +46,7 @@
 static int
 show_sail(struct nstr_item *nstr)
 {
-    register int count = 0;
+    int count = 0;
     struct shpstr ship;
 
     while (nxtitem(nstr, (s_char *)&ship)) {

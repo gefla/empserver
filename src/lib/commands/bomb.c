@@ -37,7 +37,6 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "ship.h"
 #include "land.h"
@@ -361,7 +360,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 static void
 eff_bomb(struct emp_qelem *list, struct sctstr *target)
 {
-    register struct plist *plp;
+    struct plist *plp;
     struct emp_qelem *qp;
     struct sctstr sect;
     int oldeff, dam = 0;
@@ -411,7 +410,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 static void
 comm_bomb(struct emp_qelem *list, struct sctstr *target)
 {
-    register struct plist *plp;
+    struct plist *plp;
     float b;
     int i;
     int amt, before;
@@ -873,7 +872,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 static void
 strat_bomb(struct emp_qelem *list, struct sctstr *target)
 {
-    register struct plist *plp;
+    struct plist *plp;
     int dam = 0;
     struct emp_qelem *qp;
     struct sctstr sect;

@@ -35,7 +35,6 @@
 #include "player.h"
 #include "sect.h"
 #include "news.h"
-#include "var.h"
 #include "xy.h"
 #include "ship.h"
 #include "land.h"

@@ -39,7 +39,6 @@
 #include "nat.h"
 #include "land.h"
 #include "ship.h"
-#include "var.h"
 #include "news.h"
 #include "file.h"
 #include "product.h"
@@ -59,16 +58,16 @@ int mil_dbl_pay;
 #define MIN(x,y)       ((x) > (y) ? (y) : (x))
 #endif
 
-static int landrepair(register struct lndstr *, struct natstr *,
+static int landrepair(struct lndstr *, struct natstr *,
 		      int *, int);
-static void upd_land(register struct lndstr *lp, register int etus,
+static void upd_land(struct lndstr *lp, int etus,
 		     struct natstr *np, int *bp, int build);
 
 int
 prod_land(int etus, int natnum, int *bp, int build)
 		/* build = 1, maintain = 0 */
 {
-    register struct lndstr *lp;
+    struct lndstr *lp;
     struct sctstr *sp;
     struct natstr *np;
     int n, k = 0;
@@ -111,7 +110,7 @@ prod_land(int etus, int natnum, int *bp, int build)
 }
 
 static void
-upd_land(register struct lndstr *lp, register int etus,
+upd_land(struct lndstr *lp, int etus,
 	 struct natstr *np, int *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
@@ -233,10 +232,10 @@ upd_land(register struct lndstr *lp, register int etus,
 
 /*ARGSUSED*/
 static int
-landrepair(register struct lndstr *land, struct natstr *np,
+landrepair(struct lndstr *land, struct natstr *np,
 	   int *bp, int etus)
 {
-    register int delta;
+    int delta;
     struct sctstr *sp;
     struct lchrstr *lp;
     float leftp, buildp;

@@ -33,7 +33,6 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "file.h"
 #include "land.h"
 #include "ship.h"

@@ -37,7 +37,6 @@
  */
 
 #include "misc.h"
-#include "var.h"
 #include "xy.h"
 #include "nat.h"
 #include "sect.h"
@@ -222,7 +221,7 @@ int
 sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
    int defending)
 {
-    register int damage;
+    int damage;
     natid own;
     int shell;
     double range;

@@ -36,7 +36,6 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
 #include "sect.h"
 #include "nat.h"
 #include "ship.h"
@@ -59,7 +58,7 @@ struct powsort {
     natid cnum;
 };
 
-static void addtopow(register short *vec, register struct powstr *pow);
+static void addtopow(short *vec, struct powstr *pow);
 static void gen_power(void);
 static void out5(double value, int round_val, int round_flag);
 static int powcmp(struct powsort *p1, struct powsort *p2);
@@ -228,8 +227,8 @@ gen_power(void)
 {
     float *f_ptr;
     float *f_pt2;
-    register struct powstr *pow;
-    register int i;
+    struct powstr *pow;
+    int i;
     struct sctstr sect;
     struct plnstr plane;
     struct shpstr ship;
