@@ -174,7 +174,7 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 	    cmp = strcmp(lft.val_as.str, rgt.val_as.str);
 	    if (!EVAL(op, cmp, 0))
 		return 0;
-	    return 0;
+	    break;
 	default:
 	    CANT_HAPPEN("bad OPTYPE");
 	    return 0;
