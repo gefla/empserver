@@ -176,7 +176,7 @@ prod(void)
 	    eff += twork;
 	}
 	work = (work + 1) / 2 + bwork;
-	if (eff < 60 || (type != SCT_ENLIST && eff < 61))
+	if (eff < 60)
 	    continue;
 
 	p_e = eff / 100.0;
