@@ -634,7 +634,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (((ship.shp_rflags & RET_INJURED) == 0) || !dam)
 		retreat_ship(&ship, 'b');
 	putship(ship.shp_uid, &ship);
-	getship(n, &ship);
+	getship(ship.shp_uid, &ship);
 	if (!ship.shp_own) {
 	    pr("%s at %s sunk!\n",
 	       prship(&ship),
