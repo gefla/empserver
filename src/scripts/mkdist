@@ -41,3 +41,5 @@ mv dist/srv dist/$srvdir
 tar -czf empire.tar.gz -C dist $srvdir
 mv dist/cli dist/$clidir
 tar -czf client.tar.gz -C dist $clidir
+tar -czf info.text.tar.gz info.nr
+tar -czf info.html.tar.gz info.html
