@@ -63,6 +63,7 @@ sct_typematch(char *name)
  * Search for NAME in the characteristics table for TYPE, return index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
+ * If TYPE is EF_SECTOR, search dchr[]
  * If TYPE is EF_SHIP, search mchr[].
  * If TYPE is EF_PLANE, search plchr[].
  * If TYPE is EF_LAND, search lchr[].
