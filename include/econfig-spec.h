@@ -28,6 +28,12 @@
  *  econfig-spec.h: Combined include for optlist.h and emp_config.c
  */
 
+/*
+ * Preprocessor of MSC C++ 6.0 (VC98) is broken and chokes on empty
+ * macro arguments.  Fixed in MSC C++ 7.0.  Work around: pass
+ * useless token `unused'.
+ */
+
 #if	defined(EMP_CONFIG_C_OUTPUT)
 
 #define	EMPCFONLYC(fvname, vname, vtype, ctype, num, descr)	\
@@ -44,7 +50,7 @@
 #endif	/* EMP_CONFIG_C_OUTPUT || EMP_CONFIG_H_OUTPUT */
 
 #define EMPCF_COMMENT(comment) \
-EMPCFONLYC("", emp_config_dummy, , NSC_NOTYPE, 0, (comment))
+EMPCFONLYC("", emp_config_dummy, unused , NSC_NOTYPE, 0, (comment))
 
 /* things that can be changed */
 EMPCF_COMMENT("\n### Server configuration and information")
@@ -98,8 +104,8 @@ EMPCFBOTH("game_hours", game_hours, char *, NSC_STRING, 0,
     "Hours game is up and running (6:00-18:00)")
 
 EMPCF_COMMENT("\n\n### Options\n")
-EMPCFONLYC("option", emp_config_dummy, , NSC_NOTYPE, 0, NULL)
-EMPCFONLYC("nooption", emp_config_dummy, , NSC_NOTYPE, 0, NULL)
+EMPCFONLYC("option", emp_config_dummy, unused , NSC_NOTYPE, 0, NULL)
+EMPCFONLYC("nooption", emp_config_dummy, unused , NSC_NOTYPE, 0, NULL)
 
 
 EMPCF_COMMENT("\n\n### Countries")
