@@ -100,6 +100,7 @@ struct dchrstr {
     int d_build;		/* cost multiplier for eff */
     int d_lcms;			/* lcm's needed per point of eff */
     int d_hcms;			/* hcm's needed per point of eff */
+    int d_maxpop;		/* maximum population */
     char *d_name;		/* full name of sector type */
 };
 

@@ -43,26 +43,22 @@
 int
 max_pop(float research, struct sctstr *sp)
 {
-    int maxpop = 999;
+    int maxpop = dchr[sp ? sp->sct_type : SCT_MINE].d_maxpop;
 
     if (opt_RES_POP) {
-	maxpop = 400 + 600 * ((50.0 + 4.0 * research)
-			      / (200.0 + 3.0 * research));
+	/* research limits maximum population */
+	maxpop = maxpop * 0.4
+	    + maxpop * 0.6 * (50.0 + 4.0*research) / (200.0 + 3.0*research);
 	if (maxpop > 999)
 	    maxpop = 999;
     }
 
     if (opt_BIG_CITY) {
+	/* city efficiency limits maximum population */
 	if (sp && dchr[sp->sct_type].d_pkg == UPKG)
 	    maxpop = (int)(maxpop * ((9.0 * sp->sct_effic) / 100 + 1));
+	if (CANT_HAPPEN(maxpop > 9999))
+	    maxpop = 9999;
     }
-
-    if (sp) {
-	if (sp->sct_type == SCT_MOUNT)
-	    maxpop /= 10;
-	else if (sp->sct_type == SCT_PLAINS)
-	    maxpop /= 20;
-    }
-
     return maxpop;
 }
