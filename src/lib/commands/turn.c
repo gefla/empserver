@@ -115,7 +115,7 @@ turn(void)
     if (msgfilepath == downfil)
 	pr("Logins disabled.\n");
 
-    if ((write(fd, &tgm, sizeof(tgm)) < sizeof(tgm)) ||
+    if ((write(fd, &tgm, sizeof(tgm)) < (ssize_t)sizeof(tgm)) ||
 	(write(fd, buf, tgm.tel_length) < tgm.tel_length) ||
 	(close(fd) == -1))
     {
