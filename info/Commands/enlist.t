@@ -45,7 +45,7 @@ Number to enlist (max 397) : 22
 Total new enlistment : 180
 Paperwork at recruiting stations ... 3.6
 .FI
-Note that there is a cost of 0.2 BTU's per draftee in addition to the
+Note that there is a cost of 0.02 BTU's per draftee in addition to the
 basic cost of the command and enlistees use up some mobility in the
 enlistment process (see \*Qinfo Mobility\*U for the exact formula).
 .s1
