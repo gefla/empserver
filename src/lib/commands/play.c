@@ -112,9 +112,10 @@ play_list(struct player *joe)
     pr("%-9.9s %3d %32.32s %2d:%02d %4lds %-20.20s\n",
        cname(joe->cnum),
        joe->cnum,
-       (player->god
-	|| joe->cnum == player->cnum) ? praddr(joe) : (s_char *)"",
-       natp->nat_minused / 60, natp->nat_minused % 60, now - joe->curup,
+       player->god || joe->cnum == player->cnum ? praddr(joe) : "",
+       natp->nat_minused / 60,
+       natp->nat_minused % 60,
+       (long)(now - joe->curup),
        com);
     return 1;
 }
