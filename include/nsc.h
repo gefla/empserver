@@ -154,7 +154,6 @@ extern struct castr loan_ca[];
 extern struct castr genitem_ca[];
 extern struct castr map_ca[];
 extern struct castr bmp_ca[];
-extern struct castr ca[];
 extern struct castr commodity_ca[];
 
 /* src/lib/subs/nstr.c */
