@@ -55,9 +55,6 @@ shark(void)
     struct lonstr loan;
     struct natstr *natp;
     struct natstr *oldie;
-    long rdur;
-    long xdur;
-    double rate;
     double owed;
     long payment;
     s_char buf[1024];
@@ -82,29 +79,11 @@ shark(void)
 	return RET_FAIL;
     }
     /* If we got here, we check to see if it's been defaulted on. */
-    (void)time(&now);
-    /*
-     * split duration now - l_lastpay into regular (up to l_duedate)
-     * and extended (beyond l_duedate)
-     */
-    rdur = loan.l_duedate - loan.l_lastpay;
-    xdur = now - loan.l_duedate;
-    if (rdur < 0) {
-	xdur += rdur;
-	rdur = 0;
-    }
-    if (xdur <= 0) {
+    owed = loan_owed(&loan, time(&now));
+    if (now <= loan.l_duedate) {
 	pr("There has been no default on loan %d\n", arg);
 	return RET_FAIL;
     }
-
-    rate = loan.l_irate / (loan.l_ldur * 8.64e6);
-
-    owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0);
-    if (((1 << 30) / owed) < loan.l_amtdue)
-	owed = (1 << 30);
-    else
-	owed *= loan.l_amtdue;
     pr("That loan is worth $%.2f.\n", owed);
     natp = getnatp(player->cnum);
     payment = owed * (1.0 + loan.l_irate / 100.0);
@@ -120,7 +99,6 @@ shark(void)
 	   cname(player->cnum), arg, payment);
 	pr("You now own loan #%d.  Go break some legs.\n", arg);
     }
-/*	NAT_DELTA(natp->nat_money, loan.l_loner, payment);*/
     oldie = getnatp(loan.l_loner);
     oldie->nat_money += payment;
     player->dolcost += payment;

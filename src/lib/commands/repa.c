@@ -50,11 +50,7 @@ repa(void)
     int loan_num;
     long payment;
     long owe;
-    long normaltime;
-    long doubletime;
-    double rate_per_sec, amt;
     s_char *cp;
-    time_t now;
     s_char buf[1024];
 
     if (!opt_LOANS) {
@@ -73,36 +69,7 @@ repa(void)
 	pr("You don't owe anything on that loan.\n");
 	return RET_FAIL;
     }
-    (void)time(&now);
-    /*
-     * split duration now - l_lastpay into regular (up to l_duedate)
-     * and extended (beyond l_duedate)
-     */
-    normaltime = loan.l_duedate - loan.l_lastpay;
-    doubletime = now - loan.l_duedate;
-    if (normaltime < 0) {
-	doubletime += normaltime;
-	normaltime = 0;
-    }
-    if (doubletime < 0) {
-	normaltime += doubletime;
-	doubletime = 0;
-    }
-
-    rate_per_sec = loan.l_irate /
-	((double)loan.l_ldur * SECS_PER_DAY * 100.0);
-
-    owe = (long)(loan.l_amtdue *
-		 ((double)normaltime * rate_per_sec + 1.0 +
-		  (double)doubletime * rate_per_sec * 2.0) + 0.5);
-    amt = ((double)normaltime * rate_per_sec + 1.0 +
-	   (double)doubletime * rate_per_sec * 2.0);
-    if (((1 << 30) / amt) < loan.l_amtdue)
-	owe = (1 << 30);
-    else
-	owe = (long)(loan.l_amtdue *
-		     ((double)normaltime * rate_per_sec + 1.0 +
-		      (double)doubletime * rate_per_sec * 2.0) + 0.5);
+    owe = (long)loan_owed(&loan, time(NULL));
     if ((cp = getstarg(player->argp[2], "amount? ", buf)) == 0)
 	return RET_SYN;
     if (!check_loan_ok(&loan))

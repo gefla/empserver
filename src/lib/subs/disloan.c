@@ -51,14 +51,10 @@
 #include "prototypes.h"
 
 int
-disloan(int n, register struct lonstr *loan)
+disloan(int n, struct lonstr *loan)
 {
     time_t now;
-    time_t normaltime;
-    time_t doubletime;
     time_t accept;
-    double rate;
-    double owe;
 
     if (loan->l_status == LS_FREE)
 	return 0;
@@ -84,30 +80,11 @@ disloan(int n, register struct lonstr *loan)
 	return 1;
     }
 
-    /*
-     * split duration now - l_lastpay into regular (up to l_duedate)
-     * and extended (beyond l_duedate)
-     */
-    normaltime = loan->l_duedate - loan->l_lastpay;
-    doubletime = now - loan->l_duedate;
-    if (normaltime < 0) {
-	doubletime += normaltime;
-	normaltime = 0;
-    }
-    if (doubletime < 0) {
-	normaltime += doubletime;
-	doubletime = 0;
-    }
-
-    rate = ((double)loan->l_irate / 100.0) / (loan->l_ldur * SECS_PER_DAY);
-    owe = ((double)loan->l_amtdue *
-	   (((double)normaltime * rate + 1.0) +
-	    ((double)doubletime * rate * 2.0))) + 0.5;
     pr("Amount paid to date $%ld\n", loan->l_amtpaid);
-    pr("Amount due (if paid now) $%.2f", owe);
-    if (doubletime == 0) {
+    pr("Amount due (if paid now) $%.2f", loan_owed(loan, now));
+    if (now <= loan->l_duedate) {
 	pr(" (if paid on due date) $%.2f\n",
-	   loan->l_amtdue * ((loan->l_duedate - loan->l_lastpay) * rate + 1.0));
+	   loan_owed(loan, loan->l_duedate));
 	pr("Due date is %s", ctime(&loan->l_duedate));
     } else
 	pr(" ** In Arrears **\n");

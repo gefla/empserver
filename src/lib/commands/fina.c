@@ -52,10 +52,6 @@ fina(void)
     struct lonstr loan;
     struct nstr_item ni;
     time_t now;
-    int rdur;
-    int xdur;
-    double rate;
-    double amt;
 
     if (!opt_LOANS) {
 	pr("Loans are not enabled.\n");
@@ -71,40 +67,12 @@ fina(void)
     while (nxtitem(&ni, (s_char *)&loan)) {
 	if (loan.l_status != LS_SIGNED)
 	    continue;
-	/*
-	 * split duration now - l_lastpay into regular (up to l_duedate)
-	 * and extended (beyond l_duedate)
-	 */
-	rdur = loan.l_duedate - loan.l_lastpay;
-	xdur = now - loan.l_duedate;
-	if (rdur < 0) {
-	    xdur += rdur;
-	    rdur = 0;
-	}
-	if (xdur < 0) {
-	    rdur += xdur;
-	    xdur = 0;
-	}
-
-	if (CANT_HAPPEN(loan.l_ldur == 0))
-	    continue;
-	rate = loan.l_irate / (loan.l_ldur * 8640000.0);
-
-/* changed following to avoid overflow 3/27/89 bailey@math-cs.kent.edu
-		amt = (rdur * rate + xdur * rate * 2.0 + 1.0) * loan.l_amtdue;
-   Begin overflow fix */
-	amt = (rdur * rate + xdur * rate * 2.0 + 1.0);
-	if (((1 << 30) / amt) < loan.l_amtdue)
-	    amt = (1 << 30);
-	else
-	    amt *= loan.l_amtdue;
-/* End overflow fix */
-
 	pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,
 	   loan.l_loner, cname(loan.l_loner),
 	   loan.l_lonee, cname(loan.l_lonee));
-	pr("%3d%%   %3d    %5ld    %7d",
-	   loan.l_irate, loan.l_ldur, loan.l_amtpaid, (int)amt);
+	pr("%3d%%   %3d    %5ld    %7ld",
+	   loan.l_irate, loan.l_ldur, loan.l_amtpaid,
+	   (long)loan_owed(&loan, now));
 	if (now > loan.l_duedate)
 	    pr(" (in arrears)\n");
 	else

@@ -57,9 +57,6 @@ coll(void)
     struct lonstr loan;
     struct sctstr sect;
     coord x, y;
-    long rdur;
-    long xdur;
-    double rate;
     double owed;
     double pay;
     s_char buf[1024];
@@ -79,33 +76,12 @@ coll(void)
     }
     /* If we got here, we check to see if it's been defaulted on.  We
        already know it's owed to this player. */
-    (void)time(&now);
-    /*
-     * split duration now - l_lastpay into regular (up to l_duedate)
-     * and extended (beyond l_duedate)
-     */
-    rdur = loan.l_duedate - loan.l_lastpay;
-    xdur = now - loan.l_duedate;
-    if (rdur < 0) {
-	xdur += rdur;
-	rdur = 0;
-    }
-    if (xdur <= 0) {
+    owed = loan_owed(&loan, time(&now));
+    if (now <= loan.l_duedate) {
 	pr("There has been no default on loan %d\n", arg);
 	return RET_FAIL;
     }
 
-    rate = loan.l_irate / (loan.l_ldur * 8.64e6);
-
-/* changed following to avoid overflow 3/27/89 bailey@math-cs.kent.edu
-	owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0) * loan.l_amtdue;
-   Begin overflow fix */
-    owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0);
-    if (((1 << 30) / owed) < loan.l_amtdue)
-	owed = (1 << 30);
-    else
-	owed *= loan.l_amtdue;
-/* End overflow fix */
     pr("You are owed $%.2f on that loan.\n", owed);
     if (!(p = getstarg(player->argp[2],
 		       "What sector do you wish to confiscate? ", buf)))
@@ -137,7 +113,7 @@ coll(void)
     }
     if (sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT)
 	caploss(&sect, sect.sct_own, "that was %s's capital!\n");
-    sect.sct_item[I_MILIT] = 1;	/* FIXME no where did this guy come from? */
+    sect.sct_item[I_MILIT] = 1;	/* FIXME now where did this guy come from? */
 
 /* Consider modifying takeover to take a "no che" argument and
    putting using it here again. */

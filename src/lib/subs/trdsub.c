@@ -282,3 +282,39 @@ get_outstand(int cnum)
     }
     return loantot;
 }
+
+/*
+ * Return amount due for LOAN at time PAYTIME.
+ */
+double
+loan_owed(struct lonstr *loan, time_t paytime)
+{
+    time_t rtime;		/* regular interest time */
+    time_t xtime;		/* double interest time */
+    double rate;
+    int dur;
+
+    /*
+     * Split interval paytime - l_lastpay into regular (up to
+     * l_duedate) and extended (beyond l_duedate) time.
+     */
+    rtime = loan->l_duedate - loan->l_lastpay;
+    xtime = paytime - loan->l_duedate;
+    if (rtime < 0) {
+	xtime += rtime;
+	rtime = 0;
+    }
+    if (xtime < 0) {
+	rtime += xtime;
+	xtime = 0;
+    }
+    if (CANT_HAPPEN(rtime < 0))
+	rtime = 0;
+
+    dur = loan->l_ldur;
+    if (CANT_HAPPEN(dur <= 0))
+	dur = 1;
+    rate = loan->l_irate / 100.0 / (dur * SECS_PER_DAY);
+
+    return loan->l_amtdue * (1.0 + (rtime + xtime * 2) * rate);
+}
