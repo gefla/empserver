@@ -37,6 +37,7 @@
 #ifndef _SECT_H_
 #define _SECT_H_
 
+#include "item.h"
 #include "var.h"
 
 /* The order of the following elements is there to match up with genitem */
@@ -92,7 +93,7 @@ struct dchrstr {
     int d_prd;			/* product vtype */
     int d_mcst;			/* movement cost */
     int d_flg;			/* movement cost */
-    int d_pkg;			/* type of packaging in these sects */
+    i_packing d_pkg;		/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
     int d_value;		/* resale ("collect") value */
@@ -102,11 +103,6 @@ struct dchrstr {
     int d_hcms;			/* hcm's needed per point of eff */
     s_char *d_name;		/* full name of sector type */
 };
-
-#define	NPKG	0		/* no special packaging */
-#define	WPKG	1		/* "warehouse" packaging */
-#define	UPKG	2		/* "urban" packaging */
-#define	BPKG	3		/* "bank" packaging */
 
 /* for d_flg */
 #define	NAVOK	1		/* ships can always navigate */

@@ -34,7 +34,16 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
-#define	NUMPKG	4		/* number of different kinds of packaging */
+typedef enum {
+    NPKG,			/* no special packaging */
+    WPKG,			/* "warehouse" packaging */
+    UPKG,			/* "urban" packaging */
+    BPKG			/* "bank" packaging */
+} i_packing;
+
+enum {
+    NUMPKG = BPKG + 1
+};
 
 struct ichrstr {
     int i_mnem;			/* usually the initial letter */

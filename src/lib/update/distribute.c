@@ -58,10 +58,10 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     int thresh;
     int amt_dist;
     int amt_sect;
-    int packing;
+    i_packing packing;
     float imcost;
     float excost;
-    int dist_packing;
+    i_packing dist_packing;
     int diff;
     int item;
     int changed;
