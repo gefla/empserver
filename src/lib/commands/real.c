@@ -66,7 +66,7 @@ real(void)
     int curr;
     int lastr;
     struct range abs;
-    s_char *realmp = player->argp[1];
+    char *realmp = player->argp[1];
 
     natp = getnatp(player->cnum);
     if (!realmp) {
@@ -75,7 +75,7 @@ real(void)
     } else {
 	if (*realmp == '#')
 	    ++realmp;
-	if (!isdigit(*realmp))
+	if (*realmp && !isdigit(*realmp))
 	    return RET_SYN;
 	curr = lastr = atoi(realmp);
 	if (curr < 0 || curr >= MAXNOR) {
@@ -83,8 +83,6 @@ real(void)
 	    return RET_SYN;
 	}
     }
-    abs.width = 0;
-    abs.height = 0;
     if (player->argp[2] == 0) {
 	while (curr <= lastr) {
 	    list_realm(curr, natp);
@@ -93,6 +91,8 @@ real(void)
     } else {
 	if (sarg_type(player->argp[2]) != NS_AREA)
 	    return RET_SYN;
+	abs.width = 0;
+	abs.height = 0;
 	if (!sarg_area(player->argp[2], &abs))
 	    return RET_SYN;
 	rp = &natp->nat_b[curr];
@@ -106,45 +106,3 @@ real(void)
     }
     return RET_OK;
 }
-
-/*
-dreal()
-{
-	struct	natstr *natp;
-	int     curr;
-	int     lastr;
-	struct	range abs;
-	struct	range rel;
-	struct	boundstr *b;
-	int	nat;
-	s_char	*rp = player->argp[1];
-
-	lastr = MAXNOR - 1;
-	curr  = 0;
-	if (rp == 0) {
-		nat = player->cnum;
-	} else {
-		nat = atoi(rp);
-		if (nat < 0)
-			return RET_SYN;
-		if (nat >= MAXNOC)
-			return RET_SYN;
-	}
-	pr("Realms for %s (#%d)\n",cname(nat),nat);
-	natp = getnatp(nat);
-	abs.width = 0;
-	abs.height = 0;
-	while (curr <= lastr) {
-		b = &natp->nat_b[curr];
-		abs.lx = b->b_xl;
-		abs.hx = b->b_xh;
-		abs.ly = b->b_yl;
-		abs.hy = b->b_yh;
-		xyrelrange(natp, &abs, &rel);
-		pr("Realm #%d is %d:%d,%d:%d\n", curr,
-			rel.lx, rel.hx, rel.ly, rel.hy);
-		curr++;
-	}
-	return RET_OK;
-}
-*/
