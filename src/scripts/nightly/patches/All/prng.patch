@@ -54,47 +54,39 @@ Index: empserver/src/lib/commands/laun.c
  	sy += diroff[dir][1];
  	pr("Your trajectory was a little off.\n");
 Index: empserver/src/lib/commands/mfir.c
---- empserver/src/lib/commands/mfir.c	10 May 2004 19:48:42 -0000	1.13
-+++ empserver/src/lib/commands/mfir.c	20 Jun 2004 15:15:02 -0000
-@@ -559,18 +559,12 @@
+--- empserver/src/lib/commands/mfir.c	Thu Dec 30 14:53:46 2004
++++ empserver/src/lib/commands/mfir.c	Mon Jan  3 18:25:16 2005
+@@ -556,13 +556,13 @@
  	    pr("Kaboom!!!\n");
  	    prb = (double)(range2 ? (trange / range2) : 1.0);
  	    prb *= prb;
--#if !defined(_WIN32)
--	    srandom(random());
--#else
--	    (void)time(&now);
--	    (void)srand(now);
--#endif
+-	    srandom(time(NULL));
++	    srand48(time(NULL));
  	    if (chance(prb)) {
  		pr("Wind deflects shell%s.\n", splur(shots));
  /*			dam = (int)((double)dam / 2.0);*/
  		dam =
  		    (int)((double)dam *
 -			  (double)((double)(90 - (random() % 11)) /
-+			  (double)((double)(90 - (emp_random() % 11)) /
++			  (double)((double)(90 - (rand48() % 11)) /
  				   100.0));
  		if (dam < 0)
  		    dam = 0;
 Index: empserver/src/lib/commands/new.c
---- empserver/src/lib/commands/new.c	5 Mar 2004 12:05:33 -0000	1.13
-+++ empserver/src/lib/commands/new.c	20 Jun 2004 15:15:02 -0000
-@@ -104,16 +104,10 @@
+--- empserver/src/lib/commands/new.c	Thu Dec 30 14:57:04 2004
++++ empserver/src/lib/commands/new.c	Mon Jan  3 18:23:10 2005
+@@ -103,11 +103,11 @@
  	    return RET_SYN;
  	}
      } else {
--	(void)time(&now);
--#if !defined(_WIN32)
--	srandom(now);
--#else
--	srand(now);
--#endif
+-	srandom(time(NULL));
++	srand48(time(NULL));
  	for (i = 0; i < 300 && !player->aborted; i++) {
  	    /* Both x and y should be either odd or even */
 -	    x = (random() % WORLD_X) - (WORLD_X / 2);
 -	    y = (((random() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
-+	    x = (emp_random() % WORLD_X) - (WORLD_X / 2);
-+	    y = (((emp_random() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
++	    x = (rand48() % WORLD_X) - (WORLD_X / 2);
++	    y = (((rand48() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
  	    /*
  	     * If either of the two potential
  	     * sanctuary sectors are already
@@ -377,21 +369,26 @@ Index: empserver/src/lib/update/revolt.c
  		continue;
  	    nicest_sp = nsp;
 Index: empserver/src/util/fairland.c
---- empserver/src/util/fairland.c	23 Mar 2004 15:20:17 -0000	1.10
-+++ empserver/src/util/fairland.c	20 Jun 2004 15:15:10 -0000
-@@ -123,10 +123,10 @@
+--- empserver/src/util/fairland.c	Thu Dec 30 00:34:08 2004
++++ empserver/src/util/fairland.c	Mon Jan  3 18:20:33 2005
+@@ -126,7 +126,7 @@
+ #if !defined(_WIN32)
  #define max(a,b) (a>b?a:b)
  #endif
- #ifndef SRANDOM
--#define SRANDOM srandom
-+#define SRANDOM srand48
- #endif
- #ifndef RANDOM
--#define RANDOM random
-+#define RANDOM lrand48
- #endif
- #define rnd(x) (RANDOM() % (x))
+-#define rnd(x) (random() % (x))
++#define rnd(x) (rand48() % (x))
  
+ int secs;			/* number of sectors grown */
+ int ctot;			/* total number of continents and islands grown */
+@@ -225,7 +225,7 @@
+ 	    break;
+ 	}
+     }
+-    srandom(rnd_seed);
++    srand48(rnd_seed);
+     if (config_file == NULL) {
+ 	sprintf(tbuf, "%s/econfig", datadir);
+ 	config_file = tbuf;
 Index: empserver/src/lib/gen/chance.c
 --- empserver/src/lib/gen/chance.c	2 Sep 2003 20:48:48 -0000	1.2
 +++ empserver/src/lib/gen/chance.c	20 Jun 2004 15:15:05 -0000
@@ -453,7 +450,7 @@ Index: empserver/src/lib/gen/chance.c
 Index: empserver/src/server/main.c
 --- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
 +++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
-@@ -283,7 +283,7 @@
+@@ -307,7 +307,7 @@
  #endif /* POSIXSIGNALS */
  #endif /* _WIN32 */
      empth_init((char **)&player, flags);
