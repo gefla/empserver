@@ -366,7 +366,7 @@ show_motd(void)
     if (tgm.tel_length >= (long)sizeof(buf))
 	tgm.tel_length = sizeof(buf) - 1;
     buf[tgm.tel_length] = 0;
-    pr(buf);
+    prnf(buf);
     (void)close(upf);
     return RET_OK;
 }
