@@ -50,9 +50,8 @@ max_pop(float research, struct sctstr *sp)
     int maxpop = 999;
 
     if (opt_RES_POP) {
-	maxpop =
-	    (((50.0 + 4.0 * research) / (200.0 +
-					 3.0 * research)) * 600.0) + 400;
+	maxpop = 400 + 600 * ((50.0 + 4.0 * research)
+			      / (200.0 + 3.0 * research));
 	if (maxpop > 999)
 	    maxpop = 999;
     }
