@@ -87,6 +87,7 @@ edit(void)
     int num;
     int arg;
     int err;
+    int arg_index = 3;
     coord x, y;
     float farg;
     natid nat;
@@ -158,34 +159,44 @@ edit(void)
 	    pr_land(&land);
 	    break;
 	}
-    } else if (player->argp[4] != 0)
-	(void)strcat(player->argp[3], player->argp[4]);
+    }
     ptr = &buf[0];
     *ptr = 0;
     for (;;) {
-	if ((err = getin(&thing, &ptr, &arg, buf)) != RET_OK) {
-	    if (err == END) {
-		switch (ewhat) {
-		case 'c':
-		    prnat(nat);
-		    break;
-		case 'l':
-		    prsect(&sect);
-		    break;
-		case 's':
-		    pr_ship(&ship);
-		    break;
-		case 'u':
-		    pr_land(&land);
-		    break;
-		case 'p':
-		    pr_plane(&plane);
-		    break;
-		}
-		break;
+    	if (player->argp[arg_index] != 0) {
+    	    if (player->argp[arg_index+1] != 0) {
+		thing = player->argp[arg_index++];
+		ptr = player->argp[arg_index++];
+		arg = atoi(ptr);
 	    } else
-		return err;
+		return RET_SYN;
 	}
+	else if (arg_index == 3) {
+	    if ((err = getin(&thing, &ptr, &arg, buf)) != RET_OK) {
+		if (err == END) {
+		    switch (ewhat) {
+		    case 'c':
+			prnat(nat);
+			break;
+		    case 'l':
+			prsect(&sect);
+			break;
+		    case 's':
+			pr_ship(&ship);
+			break;
+		    case 'u':
+			pr_land(&land);
+			break;
+		    case 'p':
+			pr_plane(&plane);
+			break;
+		    }
+		    break;
+		} else
+		    return err;
+	    }
+	} else
+	    break;
 	switch (ewhat) {
 	case 'c':
 	    farg = atof(ptr);
@@ -206,7 +217,6 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'u':
-	    farg = atof(ptr);
 	    if ((err = dounit(thing[0], arg, ptr, &land))
 		!= RET_OK)
 		return err;
