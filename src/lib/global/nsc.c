@@ -293,8 +293,8 @@ struct castr trade_ca[] = {
     {NSC_INT | NSC_OFF | fldoff(trdstr, trd_maxbidder), "maxbidder", 0},
     {NSC_INT | NSC_OFF | fldoff(trdstr, trd_maxprice), "maxprice", 0},
     {NSC_TIME | NSC_OFF | fldoff(trdstr, trd_markettime), "markettime", 0},
-    {NSC_XCOORD | NSC_OFF | fldoff(trdstr, trd_x), "xloc", 0},
-    {NSC_YCOORD | NSC_OFF | fldoff(trdstr, trd_y), "yloc", 0},
+    {NSC_DEITY | NSC_XCOORD | NSC_OFF | fldoff(trdstr, trd_x), "xloc", 0},
+    {NSC_DEITY | NSC_YCOORD | NSC_OFF | fldoff(trdstr, trd_y), "yloc", 0},
     {0, 0, 0}
 };
 
