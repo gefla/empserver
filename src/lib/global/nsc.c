@@ -101,7 +101,7 @@ struct castr sect_ca[] = {
     NSC_IVEC(fldoff(sctstr, sct_item), ""),
     NSC_IVEC(fldoff(sctstr, sct_dist), "_dist"),
     NSC_IVEC(fldoff(sctstr, sct_del), "_del"),
-    {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_mines), "mines"},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_mines), "mines"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che"},
