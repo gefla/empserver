@@ -46,12 +46,12 @@ int
 grin(void)
 {
     struct nstr_sect nstr;
-    int vec[I_MAX + 1];
     struct sctstr sect;
     s_char *p;
     int i, n, qty;
     int avail;
     s_char buf[1024];
+    double grind_eff = 0.8;
 
     if ((p = getstarg(player->argp[1], "Sectors? ", buf)) == 0)
 	return RET_SYN;
@@ -65,29 +65,27 @@ grin(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-/*		getsect(item.sct_x, item.sct_y, &sect); */
 	if (sect.sct_effic < 60 || sect.sct_own != player->cnum)
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
-	n = (vec[I_BAR] >= qty) ? qty : vec[I_BAR];
+	n = sect.sct_item[I_BAR] >= qty ? qty : sect.sct_item[I_BAR];
 	avail = n * 5.0;
 	if (avail > sect.sct_avail) {
 	    n = sect.sct_avail / 5;
 	    avail = sect.sct_avail;
-	    if (n == 0)
-		continue;
 	}
-	if (n) {
-	    vec[I_BAR] -= n;
+	for (i = 0; i < pchr[P_BAR].p_nv; i++) {
+	    n = min(n,
+		    (double)(ITEM_MAX - sect.sct_item[pchr[P_BAR].p_vtype[i]])
+		    / (pchr[P_BAR].p_vamt[i] * grind_eff));
+	}
+	if (n > 0) {
 	    pr("%d bars ground up in %s\n", n,
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    sect.sct_item[I_BAR] -= n;
 	    for (i = 0; i < pchr[P_BAR].p_nv; i++) {
-		vec[unitem(pchr[P_BAR].p_vtype[i])] += (int)((n *
-							      pchr[P_BAR].
-							      p_vamt[i]) *
-							     0.8);
+		sect.sct_item[pchr[P_BAR].p_vtype[i]]
+		    += n * pchr[P_BAR].p_vamt[i] * grind_eff;
 	    }
-	    putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	    sect.sct_avail -= avail;
 	    putsect(&sect);
 	}
