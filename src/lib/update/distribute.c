@@ -135,7 +135,7 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 
 	    if (amt_dist < amt) {
 		amt = amt_dist;
-		if (amt_dist == 0)
+		if (amt_dist <= 0)
 		    continue;
 	    }
 	    pack = ip->i_pkg[dist_packing];
