@@ -476,6 +476,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    CANT_HAPPEN("Bad VAL type");
 	    val->val_as.lng = 0;
 	}
+	val->val_cat = NSC_VAL;
     }
 
     if (valtype == want)
