@@ -128,7 +128,6 @@ cons_choose(struct ltcomstr *ltcp)
 	}
 	ltcp->name = "treaty";
 	ltcp->Name = "Treaty";
-	dis = distrea;
 	break;
     case EF_LOAN:
 	if (!opt_LOANS) {
@@ -137,7 +136,6 @@ cons_choose(struct ltcomstr *ltcp)
 	}
 	ltcp->name = "loan";
 	ltcp->Name = "Loan";
-	dis = disloan;
 	break;
     default:
 	pr("You must specify \"loan\" or \"treaty\".\n");
@@ -148,8 +146,8 @@ cons_choose(struct ltcomstr *ltcp)
 	return RET_SYN;
     if (!ef_read(ltcp->type, ltcp->num, (caddr_t)&ltcp->u) ||
 	!(ltcp->type == EF_TREATY
-	  ? distrea(ltcp->num, ltcp->u.t)
-	  : disloan(ltcp->num, ltcp->u.l))) {
+	  ? distrea(ltcp->num, &ltcp->u.t)
+	  : disloan(ltcp->num, &ltcp->u.l))) {
 	pr("%s #%d is not being offered to you!\n", ltcp->Name, ltcp->num);
 	return RET_SYN;
     }
