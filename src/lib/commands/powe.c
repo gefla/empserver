@@ -60,7 +60,7 @@ struct powsort {
 static void addtopow(short *vec, struct powstr *pow);
 static void gen_power(void);
 static void out5(double value, int round_val, int round_flag);
-static int powcmp(struct powsort *p1, struct powsort *p2);
+static int powcmp(const void *, const void *);
 static int set_target(s_char *, int *);
 
 int
@@ -325,19 +325,16 @@ gen_power(void)
     for (i = 1; i < MAXNOC; i++) {
 	struct natstr *np;
 	int maxpop;
-	float f = 1.0;
 
 	if (opt_RES_POP) {
 	    np = getnatp(i);
 	    maxpop = max_population(np->nat_level[NAT_RLEV], SCT_MINE, 0);
-	    f = 1.0 + (((float)maxpop) / 10000.0);
+	    powbuf[i].p_power *= 1.0 + maxpop / 10000.0;
 	}
-	powbuf[i].p_power *= f;
 	order[i].powval = powbuf[i].p_power;
 	order[i].cnum = i;
     }
-    qsort((s_char *)&order[1], MAXNOC - 1, sizeof(*order),
-	  (qsort_func_t)powcmp);
+    qsort(&order[1], MAXNOC - 1, sizeof(*order), powcmp);
     putpower(0, &powbuf[0]);
     for (i = 1; i < MAXNOC; i++) {
 	putpower(i, &powbuf[order[i].cnum]);
@@ -353,8 +350,11 @@ gen_power(void)
 }
 
 static int
-powcmp(struct powsort *p1, struct powsort *p2)
+powcmp(const void *a, const void *b)
 {
+    const struct powsort *p1 = a;
+    const struct powsort *p2 = b;
+
     if (p1->powval > p2->powval)
 	return -1;
     if (p1->powval < p2->powval)

@@ -132,8 +132,6 @@ extern int debug;
  */
 #define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__) : 0)
 
-typedef int (*qsort_func_t) (const void *, const void *);
-
 	/* return codes from command routines */
 #define	RET_OK		0	/* command completed sucessfully */
 #define	RET_FAIL	1	/* command completed unsucessfully [?] */

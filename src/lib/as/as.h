@@ -172,7 +172,7 @@ extern void as_disable_cachepath(void);
 extern void as_makepath(struct as_data *adp);
 extern void as_free_path(struct as_path *pp);
 
-extern int as_costcomp(struct as_node **n1, struct as_node **n2);
+extern int as_costcomp(const void *, const void *);
 extern struct as_queue *as_extend(struct as_data *adp);
 extern struct as_queue *as_merge(struct as_data *adp,
 				 struct as_queue *head,

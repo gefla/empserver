@@ -50,7 +50,7 @@ as_extend(struct as_data *adp)
 	return (NULL);
     if (i > 1)
 	qsort(adp->neighbor_nodes, i,
-	      sizeof(*adp->neighbor_nodes), (qsort_func_t)as_costcomp);
+	      sizeof(*adp->neighbor_nodes), as_costcomp);
 
     /* remove old coord from head of queue and add to list of tried */
     qp = head;

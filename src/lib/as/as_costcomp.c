@@ -25,8 +25,10 @@
  * Used as comparision function for qsort.
  */
 int
-as_costcomp(struct as_node **n1, struct as_node **n2)
+as_costcomp(const void *p1, const void *p2)
 {
+    struct as_node *const *n1 = p1;
+    struct as_node *const *n2 = p2;
     double diff;
 
     diff = (*n1)->lbcost - (*n2)->lbcost;
