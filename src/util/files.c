@@ -44,6 +44,7 @@
 #include <sys/file.h>
 #else
 #include <direct.h>
+#include "getopt.h"
 #endif
 #include <stdarg.h>
 #include <stdio.h>
@@ -65,6 +66,13 @@
 
 static void file_sct_init(coord x, coord y, s_char *ptr);
 
+static void
+print_usage(char *program_name)
+{
+    printf("Usage: %s -f -e econfig_file\n", program_name);
+    printf("-f force mode\n");
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -80,8 +88,7 @@ main(int argc, char *argv[])
     int opt;
     char *config_file = NULL;
     int force = 0;
-    
-#if !defined(_WIN32)
+
     while ((opt = getopt(argc, argv, "e:f")) != EOF) {
 	switch (opt) {
 	case 'e':
@@ -90,9 +97,11 @@ main(int argc, char *argv[])
 	case 'f':
 	    force = 1;
 	    break;
+	default:
+	    print_usage(argv[0]);
+	    exit(-1);
 	}
     }
-#endif
 
     /* Try to use the existing data directory */
     if (config_file == NULL) {
@@ -103,11 +112,7 @@ main(int argc, char *argv[])
     empfile[EF_MAP].size = (WORLD_X * WORLD_Y) / 2;
     empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
 
-#if !defined(_WIN32)
     if (access(datadir, F_OK) < 0 && mkdir(datadir, 0750) < 0) {
-#else
-    if (_access(datadir, 06) < 0 && _mkdir(datadir) < 0) {
-#endif
 	perror(datadir);
 	printf("Can't make game directory\n");
 	exit(1);
@@ -148,11 +153,7 @@ main(int argc, char *argv[])
 	putnat((&nat));
     }
     ef_close(EF_NATION);
-#if !defined(_WIN32)
     if (access(teldir, F_OK) < 0 && mkdir(teldir, 0750) < 0) {
-#else
-    if (access(teldir, 06) < 0 && _mkdir(teldir) < 0) {
-#endif
 	perror(teldir);
 	printf("Can't make telegram directory\n");
 	exit(1);
