@@ -347,11 +347,7 @@ show_motd(void)
     struct telstr tgm;
     char buf[MAXTELSIZE];
 
-#if !defined(_WIN32)
     if ((motdf = open(motdfil, O_RDONLY, 0)) < 0)
-#else
-    if ((motdf = open(motdfil, O_RDONLY | O_BINARY, 0)) < 0)
-#endif
     {
     	if (errno == ENOENT)
 	    return RET_OK;
@@ -388,7 +384,7 @@ match_user(char *file, struct player *p)
     char host[256];
     char user[256];
 
-    if ((fp = fopen(file, "r")) == NULL) {
+    if ((fp = fopen(file, "rt")) == NULL) {
 	/*logerror("Cannot find file %s", file); */
 	return 0;
     }

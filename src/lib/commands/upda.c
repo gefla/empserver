@@ -51,13 +51,9 @@ upda(void)
     struct mob_acc_globals timestamps;
 
     if (opt_MOB_ACCESS) {
-#if !defined(_WIN32)
-	if ((fp = fopen(timestampfil, "r")) == NULL) {
-#else
-	if ((fp = fopen(timestampfil, "rb")) == NULL) {
-#endif
+	if ((fp = fopen(timestampfil, "r")) == NULL)
 	    logerror("Unable to open timestamp file.");
-	} else {
+	else {
 	    rewind(fp);
 	    fread(&timestamps, sizeof(timestamps), 1, fp);
 	    fclose(fp);

@@ -100,11 +100,7 @@ rea(void)
 	clear_telegram_is_new(player->cnum);
     }
 
-#if !defined(_WIN32)
     if ((telfp = fopen(mbox, "r+")) == 0) {
-#else
-    if ((telfp = fopen(mbox, "r+b")) == 0) {
-#endif
 	logerror("telegram file %s", mbox);
 	return RET_FAIL;
     }
@@ -208,11 +204,7 @@ rea(void)
 		/* Here, we just re-open the file for "w" only,
 		   and that will wipe the file clean automatically */
 		(void)fclose(telfp);
-#if !defined(_WIN32)
 		telfp = fopen((char *)mbox, "w");
-#else
-		telfp = fopen((char *)mbox, "wb");
-#endif
 	    }
 	}
     }

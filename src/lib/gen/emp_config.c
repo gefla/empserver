@@ -92,7 +92,7 @@ emp_config(char *file)
 	fixup_files();
 	return 0;
     }
-    if ((fp = fopen(file, "r")) == NULL) {
+    if ((fp = fopen(file, "rt")) == NULL) {
 	fprintf(stderr, "Can't open %s for reading (%s)\n",
 		file, strerror(errno));
 	return -1;
@@ -181,11 +181,7 @@ static struct otherfiles ofiles[] = {
     {&annfil, "ann"},
     {&timestampfil, "timestamp"},
     {&teldir, "tel"},
-#if !defined(_WIN32)
     {&telfil, "tel/tel"},
-#else
-    {&telfil, "tel\\tel"},
-#endif
     {NULL, NULL}
 };
 
@@ -198,20 +194,12 @@ fixup_files(void)
     s_char buf[1024];
 
     for (ep = empfile; ep < &empfile[EF_MAX]; ep++) {
-#if !defined(_WIN32)
 	sprintf(buf, "%s/%s", datadir, ep->name);
-#else
-	sprintf(buf, "%s\\%s", datadir, ep->name);
-#endif
 	ep->file = strdup(buf);
     }
 
     for (op = ofiles; op->files; op++) {
-#if !defined(_WIN32)
 	sprintf(buf, "%s/%s", datadir, op->name);
-#else
-	sprintf(buf, "%s\\%s", datadir, op->name);
-#endif
 	*op->files = strdup(buf);
     }
 }

@@ -65,12 +65,12 @@ delete_old_announcements(void)
     old = now - days(anno_keep_days);
     logerror("Deleting annos older than %s", ctime(&old));
 
-    if ((annfp = fopen(annfil, "rb")) == NULL) {
+    if ((annfp = fopen(annfil, "r")) == NULL) {
 	logerror("can't open telegram file %s for reading", annfil);
 	return;
     }
     sprintf(tmp_filename, "%s.tmp", annfil);
-    if ((tmpfp = fopen(tmp_filename, "wb")) == NULL) {
+    if ((tmpfp = fopen(tmp_filename, "w")) == NULL) {
 	logerror("can't open telegram file %s for writing",
 		 tmp_filename);
 	if (fclose(annfp) != 0)

@@ -52,11 +52,7 @@ mobility_check(void *unused)
     while (1) {
 	time(&now);
 /*		logerror("Updating timestamp file at %s", ctime(&now));*/
-#if !defined(_WIN32)
 	if ((fp = fopen(timestampfil, "r+")) == NULL) {
-#else
-	if ((fp = fopen(timestampfil, "r+b")) == NULL) {
-#endif
 	    logerror("Unable to edit timestamp file.");
 	    continue;
 	}
@@ -101,11 +97,7 @@ mobility_init(void)
        mobility */
 
     time(&now);
-#if !defined(_WIN32)
     if ((fp = fopen(timestampfil, "r+")) == NULL) {
-#else
-    if ((fp = fopen(timestampfil, "r+b")) == NULL) {
-#endif
 	logerror("Unable to edit timestamp file.");
 	/* FIXME safe to continue? */
     } else {

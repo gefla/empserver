@@ -112,6 +112,10 @@ main(int argc, char **argv)
     char *config_file = NULL;
     s_char tbuf[256];
 
+#if defined(_WIN32)
+    _fmode = _O_BINARY;
+#endif
+
     loginit("server");
 
     mainpid = getpid();

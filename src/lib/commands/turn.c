@@ -95,11 +95,7 @@ turn(void)
 	    pr("Writing empty no-login message.\n");
     }
 
-#if !defined(_WIN32)
     fd = open(msgfilepath, O_RDWR | O_CREAT | O_TRUNC, 0660);
-#else
-    fd = open(msgfilepath, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
-#endif
     if (fd == -1) {
 	pr("Something went wrong opening the message file.\n");
 	logerror("Could not open message file (%s).\n", msgfilepath);

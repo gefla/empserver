@@ -158,11 +158,7 @@ gamedown(void)
 
     if (player->god)
 	return 0;
-#if !defined(_WIN32)
     if ((downf = open(downfil, O_RDONLY, 0)) < 0)
-#else
-    if ((downf = open(downfil, O_RDONLY | O_BINARY, 0)) < 0)
-#endif
 	return 0;
     if (read(downf, (s_char *)&tgm, sizeof(tgm)) != sizeof(tgm)) {
 	logerror("bad header on login message (downfil)");

@@ -61,11 +61,7 @@ mobupdate(void)
     else
 	minites = atol(player->argp[1]) * 60;
     time(&now);
-#if !defined(_WIN32)
     if ((fp = fopen(timestampfil, "r+")) == NULL) {
-#else
-    if ((fp = fopen(timestampfil, "r+b")) == NULL) {
-#endif
 	logerror("Unable to edit timestamp file.");
     } else {
 	rewind(fp);

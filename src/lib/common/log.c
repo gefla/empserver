@@ -56,11 +56,7 @@ loginit(s_char *program)
 {
     s_char buf[1024];
 
-#if !defined(_WIN32)
     sprintf(buf, "%s/%s.log", datadir, program);
-#else
-    sprintf(buf, "%s\\%s.log", datadir, program);
-#endif
     logfile = malloc(strlen(buf) + 1);
     strcpy(logfile, buf);
 }
@@ -86,7 +82,11 @@ logerror(s_char *format, ...)
     if ((p = strchr(cbuf, '\n')) != 0)
 	*p = 0;
     (void)sprintf(buf1, "%s %s\n", cbuf, buf);
+#if defined(_WIN32)
+    if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND | O_TEXT, 0666)) < 0)
+#else
     if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
+#endif
 	return;
     (void)write(logf, buf1, strlen(buf1));
     (void)close(logf);
