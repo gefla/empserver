@@ -19,9 +19,7 @@ the number of seconds since the player has typed their last command
 .L "last command"
 the last command that the player typed
 .s1
-If you are not a deity, then the "players" command will only list
-your allies (and omit userid@host.name).  Also,
-non-deity players will only be given an estimate (based on a secret
-random formula) of the total number of players currently logged on.
+If you are not a deity and the BLITZ option is off, then the "players"
+command will only list your allies (and omit userid@host.name).
 .s1
 .SA "country, Nation, Communication, Deity, Playing"
