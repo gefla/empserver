@@ -236,8 +236,8 @@ explore(void)
     start.sct_flags &= ~MOVE_IN_PROGRESS;
     putsect(&start);
     amt_dst = sect.sct_item[vtype];
-    if (32767 - amt_dst < amount) {
-	amount = 32767 - amt_dst;
+    if (amount > ITEM_MAX - amt_dst) {
+	amount = ITEM_MAX - amt_dst;
 	pr("Only %d can be left there.\n", amount);
 	if (amount <= 0)
 	    getsect(start.sct_x, start.sct_y, &sect);

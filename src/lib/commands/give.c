@@ -72,8 +72,8 @@ give(void)
 	n = sect.sct_item[ip->i_vtype];
 	if (amt < 0 && -amt > n) {
 	    m = 0;
-	} else if (amt > 0 && amt + n > 9990) {
-	    m = 9990;
+	} else if (amt > 0 && amt + n > ITEM_MAX) {
+	    m = ITEM_MAX;
 	} else
 	    m = n + amt;
 	sect.sct_item[ip->i_vtype] = m;

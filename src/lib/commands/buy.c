@@ -333,7 +333,7 @@ check_market(void)
 	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
-	} else if (m + comm.com_amount > 32767) {
+	} else if (m + comm.com_amount > ITEM_MAX) {
 	    wu(0, comm.com_maxbidder,
 	       "Warehouse full,  sale #%d fell though.\n", n);
 	    wu(0, comm.com_owner,

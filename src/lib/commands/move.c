@@ -308,8 +308,8 @@ move(void)
     }
 
     amt_dst = sect.sct_item[vtype];
-    if (32767 - amt_dst < amount) {
-	amount = 32767 - amt_dst;
+    if (amount > ITEM_MAX - amt_dst) {
+	amount = ITEM_MAX - amt_dst;
 	pr("Only room for %d, the rest were lost.\n", amount);
     }
     if (istest)

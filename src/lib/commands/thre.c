@@ -88,8 +88,8 @@ thre(void)
 	if (*p == '\0' || *p == '-')
 	    continue;
 	thresh = atoi(p);
-	if (thresh > 10000)
-	    thresh = 10000;
+	if (thresh > ITEM_MAX)
+	    thresh = ITEM_MAX;
 	if ((val > 0) && (val == thresh)) {
 	    pr("%s threshold unchanged (left at %d)\n",
 	       xyas(nstr.x, nstr.y, player->cnum), val);

@@ -122,8 +122,8 @@ rese(void)
 	sect.sct_y = comm.sell_y;
 	m = sect.sct_item[ix->i_vtype];
 	m = m + comm.com_amount;
-	if (m > 9999)
-	    m = 9999;
+	if (m > ITEM_MAX)
+	    m = ITEM_MAX;
 	sect.sct_item[ix->i_vtype] = m;
 	putsect(&sect);
 	comm.com_owner = 0;

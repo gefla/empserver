@@ -84,8 +84,8 @@ check_nav(struct sctstr *sect)
 int
 load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
 {
-    int comm, shipown, amount, ship_amt, sect_amt,
-	abs_max, max_amt, transfer;
+    int comm, shipown, amount, ship_amt, sect_amt;
+    int abs_max, max_amt, transfer;
     s_char item;
     struct mchrstr *vship;
 
@@ -107,8 +107,8 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
     if (comm == V_CIVIL || comm == V_MILIT)
 	sect_amt--;		/* leave 1 civ or mil to hold the sector. */
     vship = &mchr[(int)sp->shp_type];
-    abs_max = max_amt = (vl_find(comm, vship->m_vtype,
-				 vship->m_vamt, (int)vship->m_nv));
+    abs_max = max_amt = vl_find(comm, vship->m_vtype,
+				vship->m_vamt, (int)vship->m_nv);
 
     if (!abs_max)
 	return 0;		/* can't load the ship, skip to the end. */
@@ -168,7 +168,6 @@ unload_it(register struct shpstr *sp)
     int comm;
     int sect_amt;
     int ship_amt;
-    int abs_max = 99999;	/* max amount a sector can hold. */
     int max_amt;
     int level;
 
@@ -204,11 +203,7 @@ unload_it(register struct shpstr *sp)
 	if (comm == V_CIVIL)
 	    ship_amt--;		/* This leaves 1 civs on board the ship */
 
-	if (sect_amt >= abs_max)
-	    continue;		/* The sector is full. */
-
-	max_amt = min(ship_amt, abs_max - sect_amt);
-
+	max_amt = min(ship_amt, ITEM_MAX - sect_amt);
 	if (max_amt <= 0)
 	    continue;
 

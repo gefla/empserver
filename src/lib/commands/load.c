@@ -767,8 +767,8 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	move_amt = -ship_amt;
     if (move_amt > sect_amt)
 	move_amt = sect_amt;
-    if (move_amt < sect_amt - 9999)
-	move_amt = sect_amt - 9999;
+    if (move_amt < sect_amt - ITEM_MAX)
+	move_amt = sect_amt - ITEM_MAX;
     if (!move_amt)
 	return RET_OK;
     if (sectp->sct_oldown != player->cnum && item == V_CIVIL) {
@@ -970,8 +970,8 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	move_amt = -land_amt;
     if (move_amt > sect_amt)
 	move_amt = sect_amt;
-    if (move_amt < sect_amt - 9999)
-	move_amt = sect_amt - 9999;
+    if (move_amt < sect_amt - ITEM_MAX)
+	move_amt = sect_amt - ITEM_MAX;
     if (!move_amt)
 	return RET_OK;
     if (sectp->sct_own != player->cnum && move_amt > 0) {

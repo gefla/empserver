@@ -101,10 +101,9 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
 	    return 0;
     }
     amt_dst = to->sct_item[vtype];
-    if (amt_moved + amt_dst > 9990) {
+    if (amt_moved > ITEM_MAX - amt_dst) {
 	/* delivery backlog */
-	if ((amt_moved = 9990 - amt_dst) <= 0)
-	    return 0;
+	amt_moved = ITEM_MAX - amt_dst;
     }
     to->sct_item[vtype] = amt_moved + amt_dst;
     /* deliver the plague too! */

@@ -184,10 +184,12 @@ extern struct dchrstr bigcity_dchr;
 /* Sector flags */
 #define MOVE_IN_PROGRESS	bit(0)	/* move in progress */
 
-/* maximum number of che, must fit into struct sctstr member sct_che */
-#define CHE_MAX 255
+/* maximum amount of an item, must fit into sct_item[], sct_del[], sct_dist */
+#define ITEM_MAX 9999
 /* maximum number of mines, must fit into struct sctstr member sct_mines */
 #define MINES_MAX 65535
+/* maximum number of che, must fit into struct sctstr member sct_che */
+#define CHE_MAX 255
 /* maximum fallout, must fit into struct sctstr member sct_fallout */
 #define FALLOUT_MAX 9999
 

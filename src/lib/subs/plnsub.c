@@ -240,7 +240,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	    return;
 	}
 	there = sectp->sct_item[ip->i_vtype];
-	max = 32767;
+	max = ITEM_MAX;
     } else {
 	sp = ptr;
 	there = sp->shp_item[ip->i_vtype];
