@@ -4,179 +4,128 @@ use strict;
 use warnings;
 
 my $dome = 0;
-my (@Fld, $str, @a);
+my $esc="\\";
+my @a;
 
 line: while (<>) {
-    chop;	# strip record separator
-    @Fld = split(' ', $_, 9999);
+    chomp;			# strip record separator
+    s/([^\\](\\\\)*)\\\".*/$1/g;# strip comments
 
-procline:
-    if (/^\.TH/) {
-	$str=$Fld[2];
-	for (my $i=3; $i <= $#Fld; $i++) {
-	    $str .= " " . $Fld[$i];
+    @a = req($_);
+
+    if (!@a) {
+	if ($dome) {
+	    while ($_ =~ /[A-Za-z0-9\-\.]+/g) {
+		print htmlify("$`");
+		print anchor("$&");
+		$_="$'";
+	    }
 	}
-	$str = &htmlify($str);
-	printf("<title>%s : %s</title><h1>%s : %s</h1>\n",
-	       $Fld[1], $str, $Fld[1], $str);
+	print htmlify($_), "\n";
 	next line;
     }
 
-    if (/^\.SY../) {
-#	$i = $_ =~ "\"" && ($RLENGTH = length($&), $RSTART = length($`)+1);
-#	$str = substr($_, $i + 1, length($_) - $i - 1);
-	$str = substr($_,4);
-	$str = &htmlify($str);
-	printf "<samp>[##:##] </samp><KBD>%s</KBD><p>\n", $str;
+    # requests
+
+    if ($a[1] eq "TH") {
+	@a = checkarg(2, @a);
+	$a[3] = htmlify($a[3]);
+	print "<title>$a[2] : $a[3]</title><h1>$a[2] : $a[3]</h1>\n";
 	next line;
     }
 
-    if (/^\.EX../) {
-	$str = substr($_, 4);
-	printf "<br><samp>[##:##] </samp><kbd>%s</kbd><p>\n", &htmlify($str);
+    if ($a[1] eq "SY") {
+	@a = checkarg(1, @a);
+	$a[2] = htmlify($a[2]);
+	print "<samp>[##:##] Command : </samp><KBD>$a[2]</KBD><p>\n";
 	next line;
     }
 
-    if (/^\.L/) {
-	@a = split('[: ",.]+');
-	$str = &anchor($a[2]);
-	$str = ("$str $a[3]") if defined $a[3];
-	printf("<br>%s\n", $str);
+    if ($a[1] eq "EX") {
+	my $str = htmlify(join(' ',@a[2..$#a]));
+	print "<br><samp>[##:##] Command : </samp><kbd>$str</kbd><p>\n";
 	next line;
     }
 
+    if ($a[1] eq "L") {
+	$a[2] =~ / /;
+	print "<br>" . anchor("$`") . " $'\n";
+	next line;
+    }
+
+    if ($a[1] =~ "eo") { $esc = 0; next line; }
+    if ($a[1] =~ "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
+
+    if (/^\.(NF|nf)/) { $dome = 1; printf (("<p><pre>\n")); next line; }
+    if (/^\.(FI|fi)/) { $dome = 0; printf (("</pre><p>\n")); next line; }
     if (/^\.s3/) { printf (("<p>\n"));	next line; }
-    if (/^\.s1/) {printf (("<hr> \n")); next line; }
+    if (/^\.s1/) { printf (("<hr> \n")); next line; }
     if (/^\.br/) { printf "<br>\n"; next line; }
 
-    if (/^\.(FI|fi)/) {	printf (("</pre><p>\n")); $dome = 0; next line;   }
-    if (/^\.(NF|nf)/) {	printf (("<p><pre>\n")); $dome = 1; next line;    }
-
-    if ($dome == 1) {
-	@a = split('[: ",.]+');
-
-	for (my $i = 1; $i <= $#a ; ($i)++) {       
-	    printf("%s",&anchor($a[$i]));
-	    for (my $j = 0; $j < 20 - length($a[$i]); $j++) {
-		printf(" ");
-	    }
+    if ($a[1] eq "SA") {
+	@a = checkarg(1, @a);
+	@a = split(/[\: \"\,\.]+/, $a[2]);
+	for my $a (@a) {
+	    $a = anchor($a);
 	}
-        printf("\n");
-	while (<>) {
-	    chop;	# strip record separator
-	    @a = split('[: ,.]+');
-	    @Fld = split(' ', $_, 9999);
-	    if (/^\./) { goto procline; }
-	    for (my $i = 1; $i <= $#a ; ($i)++) {       
-		printf("%s",&anchor($a[$i]));
-		for (my $j = 0; $j < 20 - length($a[$i]); $j++) {
-		    printf(" ");
-		}
-	    }
-	    printf("\n");
-	}
-	next line;
+	print "<p>See also : ", join("\n, ", @a), "\n";
     }
 
-    if (/^\.SA/) {
-	@a = split('[: ",.]+');
-
-	printf("<p>See also : %s\n",&anchor($a[2]) );
-	for (my $i = 3; $i <= $#a ; ($i)++) {       
-	    printf(", %s\n",&anchor($a[$i]));
-	}
-
-	while (<>) {
-	    chop;	# strip record separator
-	    @a = split('[: ,.]+');
-	    @Fld = split(' ', $_, 9999);
-	    if (/^\./) { goto procline; }
-	    for (my $i = 0; $i <= $#a ; ($i)++) {       
-		printf(", %s\n",&anchor($a[$i]));
-	    }
-	}
-	    
-	exit(0);
-    }
-	    
-    if (/^\./) {	next line; }
-
-    if (/^(See also|See Also|see also)/) {
-	@a = split('[: ,.]+');
-
-	printf("See also : %s\n",&anchor($a[2]) );
-	for (my $i = 3; $i <= $#a ; ($i)++) {       
-	    printf(", %s\n",&anchor($a[$i]));
-	}
-
-	while (<>) {
-	    chop;	# strip record separator
-	    @a = split('[: ,.]+');
-	    @Fld = split(' ', $_, 9999);
-	    if (/^\./) { goto procline; }
-	    for (my $i = 0; $i <= $#a ; ($i)++) {       
-		printf(", %s\n",&anchor($a[$i]));
-	    }
-	}
-	    
-	exit(0);
-    }
-	    
-    printf "%s\n", &htmlify($_);
+    # ignore unknown request
 }
 
-#sub anchor {
-#    local($_) = @_;
-#    $file = $_ . ".t";
-#    if (-r $file) {
-#	return ("<a href=" . $_ . ".html" . ">" . $_ . "</a>");
-#    } else {
-#	return ( " " . $_ . " ");
-#    }
-#}
+sub req {
+    local ($_) = @_;
+    if (/^([\.\'])[ \t]*([^ ]+) *(.*)/) {
+	my @a = ($1, $2);
+	$_ = $3;
+	while (/(\"((\\.|[^\\\"])*)(\"|$))|(([^ ]|\\.)+) */g) {
+	    push(@a, $2 || $5);
+	}
+	return @a;
+    }
+    return ();
+}
+
+sub checkarg {
+    my ($n, @a) = @_;
+    warn "extra arguments for $a[1] ignored" if $#a > $n+1;
+    warn "missing arguments for $a[1] supplied" if $#a < $n+1;
+    while ($#a < $n+1) {
+	push @a, "";
+    }
+    return @a;
+}
 
 sub anchor {
     local ($_) = @_;
-    my (@file, $file);
-    $file = $_ . ".t";
-#    if (-r $file) {
-    if (1) {
-      $file =~ s/.t$/.html/;
-      return ("<a href=\"$file\">$_</a>");
-    } else {
-	@file = <$_*t>;
-	if (@file) {
-	  warn "Expanding $_ to $file[0]\n";
-	  $file[0] =~ s/.t$/.html/;
-	  return ("<a href=\"$file[0]\">$_</a>");
-	} else {
-	  warn "Unable to link $_\n";
-	  return ( "<em>$_</em>");
-	}
-    }
+    # FIXME don't create dangling links here
+    return "<a href=\"$_.html\">$_</a>";
 }
 
-    
 # Translate HTML special characters into escape sequences
 sub htmlify {
-        local($_) = @_;
-	s/^\"(.*)\"$/$1/;
-	s/\\&//g;		# a nothing character
+        local ($_) = @_;
+	die "funny escape character `$esc' not supported"
+	    if $esc && $esc ne "\\";
+	# translate some troff escapes
+	s/\\&//g if $esc;	# zero width space character
+	# escape HTML special characters
         s/\&/&amp;/g;
         s/\</&lt;/g;
         s/\>/&gt;/g;
-	while (@a = /(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
-	    /(\\\*Q)([A-Za-z\-]+)(\\\*U)/;
-	    $_ = $` . &anchor($a[1]) . $';
+	return $_ unless $esc;
+	# translate more troff escapes
+	s/\\e/&\#92;/g;		# escape character
+	# turn quoted strings that look like info names into links
+	# tacky...
+	while (/(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
+	    $_ = $` . anchor($2) . "$'";
 	}
-	while (@a = /(\\\*Q)(\"info )([A-Za-z0-9\-\.]+)(\\\*U)/) {
-	    /(\\\*Q)(\"info )([\w\-\.]+)(\\\*U)/;
-	    $_ = $` . "\"info " . &anchor($a[2]) . $';
+	while (/(\"info )([A-Za-z0-9\-\.]+)/) {
+	    $_ = "$`\"info " . anchor($2) . "$'";
 	}
-	while (@a = /(\"info )([A-Za-z0-9\-\.]+)/) {
-	    /(\"info )([\w\-\.]+)/;
-	    $_ = $` . "\"info " . &anchor($a[1]) . $';
-	}
+	# tranlate more troff escapes and strings
         s/\\\*Q/<em>/g;
         s/\\\*U/<\/em>/g;
         s/\\fI/<em>/g;
@@ -188,13 +137,6 @@ sub htmlify {
 	s/\\\*\(nF/<\/strong><\/em>/g; # normal font
 	s/\\\*\(iF/<em>/g;	# italic font
 	s/\\\(mu/x/g;		# multiply symbol
-	s/\\ / /g;		# should be non breaking space
+	s/\\ /&nbsp;/g;		# non breaking space
         return $_;
 }
-
-#sub htmlify {
-#    local($str) = @_;
-#    $str;
-#}
-
-
