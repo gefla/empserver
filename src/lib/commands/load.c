@@ -735,12 +735,9 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	       struct ichrstr *ich, int load_unload, int *nshipsp)
 {
     register int item = ich->i_vtype;
-    register int max_amt;
-    register int move_amt;
-    register int ship_amt;
-    register int sect_amt;
+    struct mchrstr *mcp = &mchr[(int)sp->shp_type];
+    int ship_amt, ship_max, sect_amt, move_amt;
     int amount;
-    int upto = 0, abs_max;
     s_char prompt[512];
     s_char *p;
     s_char buf[1024];
@@ -756,44 +753,31 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    amount = atoi(p);
-    if (amount < 0) {
-	/* We want to load up to this amount */
-	upto = -(amount);
-	load_unload = LOAD;
-    } else if (!amount)
-	return 0;
     ship_amt = sp->shp_item[item];
+    ship_max = vl_find(item, mcp->m_vtype, mcp->m_vamt, mcp->m_nv);
     sect_amt = sectp->sct_item[item];
+    amount = atoi(p);
+    if (amount < 0)
+	move_amt = -amount - ship_amt;
+    else
+	move_amt = load_unload == LOAD ? amount : -amount;
+    if (move_amt > ship_max - ship_amt)
+	move_amt = ship_max - ship_amt;
+    if (move_amt < -ship_amt)
+	move_amt = -ship_amt;
+    if (move_amt > sect_amt)
+	move_amt = sect_amt;
+    if (move_amt < sect_amt - 9999)
+	move_amt = sect_amt - 9999;
+    if (!move_amt)
+	return RET_OK;
     if (sectp->sct_oldown != player->cnum && item == V_CIVIL) {
 	pr("%s civilians refuse to %s at %s!\n",
-	   load_unload == UNLOAD ? "Your" : "Foreign",
-	   load_unload == UNLOAD ?
-	   "disembark" : "board",
+	   move_amt < 0 ? "Your" : "Foreign",
+	   move_amt < 0 ? "disembark" : "board",
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
-	return 0;
+	return RET_FAIL;
     }
-    if (load_unload == UNLOAD) {
-	abs_max = max_amt = min(9999 - sect_amt, ship_amt);
-    } else {
-	struct mchrstr *vbase;
-	vbase = &mchr[(int)sp->shp_type];
-	abs_max = max_amt = vl_find(item, vbase->m_vtype,
-				    vbase->m_vamt, (int)vbase->m_nv);
-	max_amt = min(sect_amt, max_amt - ship_amt);
-    }
-    if (max_amt <= 0 && !upto)
-	return 0;
-    if (upto) {
-	move_amt = upto - ship_amt;
-	if (move_amt > sect_amt)
-	    move_amt = sect_amt;
-	if (ship_amt + move_amt > abs_max)
-	    move_amt = abs_max - ship_amt;
-    } else
-	move_amt = load_unload * min(amount, max_amt);
-    if (!move_amt)
-	return 0;
 
     if (!want_to_abandon(sectp, item, move_amt, 0))
 	return RET_FAIL;
@@ -801,7 +785,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	return RET_SYN;
     sectp->sct_item[item] = sect_amt - move_amt;
     sp->shp_item[item] = ship_amt + move_amt;
-    if (load_unload == LOAD) {
+    if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
 	   move_amt,
 	   ich->i_name,
@@ -954,12 +938,9 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	       struct ichrstr *ich, int load_unload, int *nunitsp)
 {
     register int item = ich->i_vtype;
-    register int max_amt;
-    register int move_amt;
-    register int land_amt;
-    register int sect_amt;
+    struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
+    int land_amt, land_max, sect_amt, move_amt;
     int amount;
-    int upto = 0, abs_max;
     s_char prompt[512];
     s_char *p;
     s_char buf[1024];
@@ -975,58 +956,43 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
+    land_amt = lp->lnd_item[item];
+    land_max = vl_find(item, lcp->l_vtype, lcp->l_vamt, lcp->l_nv);
+    sect_amt = sectp->sct_item[item];
     amount = atoi(p);
-    if (amount < 0) {
-	/* We want to load up to this amount */
-	upto = -(amount);
-	load_unload = LOAD;
-    } else if (!amount)
-	return 0;
-
-    if (sectp->sct_own != player->cnum && load_unload == LOAD) {
+    if (amount < 0)
+	move_amt = -amount - land_amt;
+    else
+	move_amt = load_unload == LOAD ? amount : -amount;
+    if (move_amt > land_max - land_amt)
+	move_amt = land_max - land_amt;
+    if (move_amt < -land_amt)
+	move_amt = -land_amt;
+    if (move_amt > sect_amt)
+	move_amt = sect_amt;
+    if (move_amt < sect_amt - 9999)
+	move_amt = sect_amt - 9999;
+    if (!move_amt)
+	return RET_OK;
+    if (sectp->sct_own != player->cnum && move_amt > 0) {
 	pr("Sector %s is not yours.\n",
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
-	return 0;
+	return RET_FAIL;
     }
-
-    land_amt = lp->lnd_item[item];
-    sect_amt = sectp->sct_item[item];
     if (sectp->sct_oldown != player->cnum && item == V_CIVIL) {
 	pr("%s civilians refuse to %s at %s!\n",
-	   load_unload == UNLOAD ? "Your" : "Foreign",
-	   load_unload == UNLOAD ?
-	   "disembark" : "board",
+	   move_amt < 0 ? "Your" : "Foreign",
+	   move_amt < 0 ? "disembark" : "board",
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
-	return 0;
+	return RET_FAIL;
     }
-    if (load_unload == UNLOAD) {
-	abs_max = max_amt = min(9999 - sect_amt, land_amt);
-    } else {
-	struct lchrstr *vbase;
-	vbase = &lchr[(int)lp->lnd_type];
-	abs_max = max_amt = vl_find(item, vbase->l_vtype,
-				    vbase->l_vamt, (int)vbase->l_nv);
-	max_amt = min(sect_amt, max_amt - land_amt);
-    }
-    if ((max_amt <= 0) && (upto == 0))
-	return 0;
-    if (upto) {
-	move_amt = upto - land_amt;
-	if (land_amt + move_amt > abs_max)
-	    move_amt = abs_max - land_amt;
-	if (move_amt > sect_amt)
-	    move_amt = sect_amt;
-    } else
-	move_amt = load_unload * min(amount, max_amt);
-    if (move_amt == 0)
-	return 0;
     sectp->sct_item[item] = sect_amt - move_amt;
     lp->lnd_item[item] = land_amt + move_amt;
 
     /* Did we put mils onto this unit? If so, reset the fortification */
     if (item == V_MILIT && move_amt > 0)
 	lp->lnd_harden = 0;
-    if (load_unload == LOAD) {
+    if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
 	   move_amt,
 	   ich->i_name,
@@ -1054,7 +1020,6 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	    wu(0, sectp->sct_own, buf);
 	}
     }
-
     ++(*nunitsp);
     return 0;
 }
