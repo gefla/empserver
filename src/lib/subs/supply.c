@@ -603,6 +603,7 @@ use_supply(struct lndstr *lp)
     if (shells < shells_needed) {
 	vec[I_SHELL] = 0;
 	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	putland(lp->lnd_uid, lp);
 	shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_SHELL,
 				(shells_needed - shells));
 	vec[I_SHELL] = shells;
@@ -611,7 +612,7 @@ use_supply(struct lndstr *lp)
     vec[I_SHELL] = max(vec[I_SHELL] - shells_needed, 0);
 
     if (lp->lnd_frg)		/* artillery */
-	goto artillery;
+	goto done;
 
     food_needed = get_minimum(lp, I_FOOD);
     food = vec[I_SHELL];
@@ -619,6 +620,7 @@ use_supply(struct lndstr *lp)
     if (food < food_needed) {
 	vec[I_FOOD] = 0;
 	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	putland(lp->lnd_uid, lp);
 	food += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_FOOD,
 			      (food_needed - food));
 	vec[I_FOOD] = food;
@@ -641,6 +643,7 @@ use_supply(struct lndstr *lp)
 	if (petrol < petrol_needed) {
 	    vec[I_PETROL] = 0;
 	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    putland(lp->lnd_uid, lp);
 	    petrol += supply_commod(lp->lnd_own,
 				    lp->lnd_x, lp->lnd_y,
 				    I_PETROL, (petrol_needed - petrol));
@@ -660,7 +663,7 @@ use_supply(struct lndstr *lp)
 	lp->lnd_fuel = max(lp->lnd_fuel - fuel_needed, 0);
     }
     /* end opt_FUEL */
-  artillery:
+  done:
     putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
     putland(lp->lnd_uid, lp);
     return 1;
