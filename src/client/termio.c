@@ -33,6 +33,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #if defined(aix) || defined(hpux) || defined(sgi)
 #include <sys/termio.h>
