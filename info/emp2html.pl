@@ -13,7 +13,7 @@ print "<head>\n";
 
 line: while (<>) {
     chomp;			# strip record separator
-    s/([^\\](\\\\)*)\\\".*/$1/g; # strip comments
+    s/((^|[^\\])(\\\\)*)\\\".*/$1/g; # strip comments
 
     @a = req($_);
     if (!@a) {
