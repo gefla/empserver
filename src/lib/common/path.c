@@ -25,9 +25,8 @@
  *
  *  ---
  *
- *  path.c: Empire/A* Interface code.  Provides callbacks for A* code and
- *          a sector cache to speed things up.  Define BP_STATS for sector
- *          cache statistics, AS_STATS for A* statistics.
+ *  path.c: Empire/A* Interface code.
+ *          Define AS_STATS for A* statistics.
  * 
  *  Known contributors to this file:
  *     Phil Lapsley, 1991
@@ -48,51 +47,15 @@
 #include "gen.h"
 #include "optlist.h"
 
-/* STM - The server is now reliant on the sector file being
- * memory mapped for other things.  So, this code has been
- * setup to have the sector hashing #ifdef'd instead so that
- * we don't have to do runtime checking.  If someone moves
- * the sector file to me non-memory mapped, they have larger
- * problems than this, and can just turn this back on.  Then
- * again, their performance will be so bad going to a file
- * all the time, it won't matter. */
-
-/*#define DO_EFF_MEM_CHECKING*/
-
-
-/* XXX won't need sector hash when sect file is memory mapped */
-
-#define	BP_SCTHASHSIZE	128	/* sector cache hash table size */
 #define	BP_ASHASHSIZE	128	/* A* queue hash table size */
 #define	BP_NEIGHBORS	6	/* max number of neighbors */
 
-#ifdef DO_EFF_MEM_CHECKING
-struct sctcache {
-    coord x, y;
-    struct sctstr *sp;
-    struct sctcache *next;
-};
-#endif /* DO_EFF_MEM_CHECKING */
-
 struct bestp {
-#ifdef DO_EFF_MEM_CHECKING
-    struct sctcache *sctcachetab[BP_SCTHASHSIZE];
-#endif
     int sctcache_hits;
     int sctcache_misses;
     int bp_mobtype;
     struct as_data *adp;
 };
-
-#ifdef DO_EFF_MEM_CHECKING
-
-static struct sctstr *bp_getsect(struct bestp *bp, coord x, coord y);
-static struct sctstr *bp_sctcache_get(struct bestp *bp, coord x, coord y);
-static void bp_sctcache_set(struct bestp *bp, coord x, coord y,
-			    struct sctstr *sp);
-static void bp_sctcache_zap(struct bestp *bp);
-
-#endif /* DO_EFF_MEM_CHECKING */
 
 static int bp_path(struct as_path *pp, s_char *buf);
 static int bp_neighbors(struct as_coord c, struct as_coord *cp,
@@ -150,9 +113,6 @@ best_path(struct sctstr *from, struct sctstr *to, s_char *path,
     if (mybestpath == 0)
 	mybestpath = (struct bestp *)bp_init();
     adp = mybestpath->adp;
-#ifdef DO_EFF_MEM_CHECKING
-    bp_sctcache_zap(mybestpath);
-#endif
     ap = as_find_cachepath(from->sct_x, from->sct_y, to->sct_x, to->sct_y);
     if (ap == NULL) {
 	adp->from.x = from->sct_x;
@@ -228,9 +188,6 @@ bp_path(struct as_path *pp, s_char *buf)
 static int
 bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 {
-#ifdef DO_EFF_MEM_CHECKING
-    struct bestp *bp = (struct bestp *)pp;
-#endif /* DO_EFF_MEM_CHECKING */
     coord x, y;
     coord nx, ny;
     int n = 0, q;
@@ -241,18 +198,10 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 
     x = c.x;
     y = c.y;
-#ifdef DO_EFF_MEM_CHECKING
-    if ((ep->flags & EFF_MEM) == 0) {
-	from = bp_getsect(bp, x, y);
-    } else {
-#endif /* DO_EFF_MEM_CHECKING */
-	sx = XNORM(x);
-	sy = YNORM(y);
-	offset = (sy * WORLD_X + sx) / 2;
-	from = (struct sctstr *)(ep->cache + ep->size * offset);
-#ifdef DO_EFF_MEM_CHECKING
-    }
-#endif /* DO_EFF_MEM_CHECKING */
+    sx = XNORM(x);
+    sy = YNORM(y);
+    offset = (sy * WORLD_X + sx) / 2;
+    from = (struct sctstr *)(ep->cache + ep->size * offset);
 
     if (neighsects == (struct sctstr **)0)
 	ssp = (struct sctstr **)&tsp[0];
@@ -265,19 +214,9 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 	    ny = y + diroff[q][1];
 	    sx = XNORM(nx);
 	    sy = YNORM(ny);
-#ifdef DO_EFF_MEM_CHECKING
-	    if ((ep->flags & EFF_MEM) == 0) {
-		sp = bp_getsect(bp, nx, ny);
-	    } else {
-#endif /* DO_EFF_MEM_CHECKING */
-		offset = (sy * WORLD_X + sx) / 2;
-		sp = (struct sctstr *)(ep->cache + ep->size * offset);
-		/* We can only save in our neighbor cache if the
-		   sector file is in memory */
-		*ssp = sp;
-#ifdef DO_EFF_MEM_CHECKING
-	    }
-#endif /* DO_EFF_MEM_CHECKING */
+	    offset = (sy * WORLD_X + sx) / 2;
+	    sp = (struct sctstr *)(ep->cache + ep->size * offset);
+	    *ssp = sp;
 	} else {
 	    sp = *ssp;
 	    sx = XNORM(sp->sct_x);
@@ -308,20 +247,12 @@ bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
     float cost;
     int x, y, sx, sy, offset;
 
-#ifdef DO_EFF_MEM_CHECKING
-    if ((ep->flags & EFF_MEM) == 0) {
-	ts = bp_getsect(bp, (coord)to.x, (coord)to.y);
-    } else {
-#endif /* DO_EFF_MEM_CHECKING */
-	x = to.x;
-	y = to.y;
-	sx = XNORM(x);
-	sy = YNORM(y);
-	offset = (sy * WORLD_X + sx) / 2;
-	ts = (struct sctstr *)(ep->cache + ep->size * offset);
-#ifdef DO_EFF_MEM_CHECKING
-    }
-#endif /* DO_EFF_MEM_CHECKING */
+    x = to.x;
+    y = to.y;
+    sx = XNORM(x);
+    sy = YNORM(y);
+    offset = (sy * WORLD_X + sx) / 2;
+    ts = (struct sctstr *)(ep->cache + ep->size * offset);
     cost = sector_mcost(ts, bp->bp_mobtype);
     return (cost);
 }
@@ -346,94 +277,6 @@ bp_seccost(struct as_coord from, struct as_coord to, s_char *pp)
     return ((double)mapdist((coord)from.x, (coord)from.y,
 			    (coord)to.x, (coord)to.y));
 }
-
-#ifdef DO_EFF_MEM_CHECKING
-
-/*
- * Get a sector from the cache.  If it's not in the cache,
- * get it from disk and add it to the cache.
- */
-static struct sctstr *
-bp_getsect(struct bestp *bp, coord x, coord y)
-{
-    struct sctstr *sp;
-
-    sp = bp_sctcache_get(bp, x, y);
-    if (sp == NULL) {
-	sp = (struct sctstr *)malloc(sizeof(*sp));
-	getsect(x, y, sp);
-	bp_sctcache_set(bp, x, y, sp);
-	bp->sctcache_misses++;
-    } else {
-	bp->sctcache_hits++;
-    }
-    return (sp);
-}
-
-/*
- * Get a sector from the cache; return NULL if it's not there.
- */
-static struct sctstr *
-bp_sctcache_get(struct bestp *bp, coord x, coord y)
-{
-    int hashval;
-    struct as_coord c;
-    struct sctcache *hp;
-
-    c.x = x;
-    c.y = y;
-    hashval = bp_coord_hash(c) % BP_SCTHASHSIZE;
-    for (hp = bp->sctcachetab[hashval]; hp; hp = hp->next) {
-	if (hp->x == x && hp->y == y)
-	    return (hp->sp);
-    }
-    return (NULL);
-}
-
-/*
- * Put a sector in the cache.
- */
-static void
-bp_sctcache_set(struct bestp *bp, coord x, coord y, struct sctstr *sp)
-{
-    int hashval;
-    struct as_coord c;
-    struct sctcache *hp;
-
-    hp = (struct sctcache *)calloc(1, sizeof(*hp));
-    hp->x = x;
-    hp->y = y;
-    hp->sp = sp;
-    c.x = x;
-    c.y = y;
-    hashval = bp_coord_hash(c) % BP_SCTHASHSIZE;
-    hp->next = bp->sctcachetab[hashval];
-    bp->sctcachetab[hashval] = hp;
-}
-
-/*
- * Zap the cache and reset statistics.
- */
-static void
-bp_sctcache_zap(struct bestp *bp)
-{
-    register struct sctcache *hp;
-    register struct sctcache *np;
-    register int i;
-
-    for (i = 0; i < BP_SCTHASHSIZE; i++) {
-	for (hp = bp->sctcachetab[i]; hp; hp = np) {
-	    np = hp->next;
-	    free(hp->sp);
-	    free(hp);
-	}
-	bp->sctcachetab[i] = NULL;
-    }
-    bp->sctcache_hits = 0;
-    bp->sctcache_misses = 0;
-}
-
-#endif /* DO_EFF_MEM_CHECKING */
 
 /*
  * Hash a coordinate into an integer.
