@@ -699,7 +699,7 @@ show_sect_capab(int foo)
 
 	pr("%c %-23s %-7s ", dchr[x].d_mnem, dchr[x].d_name,
 	   pchr[j].p_sname);
-	CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
+	(void)CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
 	for (i = 0; i < 3; i++) {
 	    if (i < MAXPRCON
 		&& pchr[j].p_camt[i]
