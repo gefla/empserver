@@ -39,8 +39,7 @@ Armed Forces Technical Manual.
 In it he states,
 .s1
 .in +0.8i
-.ev 2
-.ll 5.5i
+.ll -0.8i
 The first thing you learn is that the che are hardier than cockroaches,
 eat like birds, and are simply invulnerable to gunfire and napalm.
 They hide in the sewers.
@@ -57,8 +56,7 @@ and troop levels of 50-100 per sector were found to adequately
 pacify the region.
 Of course, depopulating the area prior to takeover often had a salutary
 effect on the number of che we later found...
-.ll 6.5i
-.ev
+.ll
 .in
 .s1
 You will be notified of the varying civil disturbances

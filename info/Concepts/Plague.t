@@ -76,6 +76,7 @@ entitled \*QClose Encounters of the Third Grade\*U] ...
 leading us to the following amazing formulation
 of the relationship between medical research,
 technology, population, standard of living and the Empire Plague:
+.ll
 .in
 .s1
 .NF
