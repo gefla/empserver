@@ -147,47 +147,6 @@ Index: empserver/src/lib/common/damage.c
  	lost++;
      return amt - lost;
  }
-Index: empserver/src/lib/gen/chance.c
---- empserver/src/lib/gen/chance.c	2 Sep 2003 20:48:48 -0000	1.2
-+++ empserver/src/lib/gen/chance.c	20 Jun 2004 15:15:05 -0000
-@@ -33,23 +33,27 @@
- 
- #include "gen.h"
- 
--#ifdef hpux
-+#ifndef	RANDOM
-+#ifdef	NOSVIDPRNG
-+#define	RANDOM	random
-+#define	SRANDOM	srandom
-+#else	/* ! NOSVIDPRNG */
-+#define	RANDOM	lrand48
-+#define	SRANDOM	srand48
-+#endif	/* ! NOSVIDPRNG */
-+#endif	/* RANDOM */
-+
- void
--srandom(unsigned int n)
-+emp_srandom(unsigned int n)
- {
--    extern void srand48();
--
--    srand48(n);
-+    SRANDOM(1);
- }
- 
- long
--random(void)
-+emp_random(void)
- {
--    extern long lrand48();
--
--    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
-+    return (RANDOM());		/* 5/28/91 by bailey@mcs.kent.edu */
- }
--#endif
- 
- int
- chance(double d)
 Index: empserver/src/lib/subs/attsub.c
 --- empserver/src/lib/subs/attsub.c	5 Mar 2004 13:14:28 -0000	1.17
 +++ empserver/src/lib/subs/attsub.c	20 Jun 2004 15:15:06 -0000
@@ -433,3 +392,85 @@ Index: empserver/src/util/fairland.c
  #endif
  #define rnd(x) (RANDOM() % (x))
  
+Index: empserver/src/lib/gen/chance.c
+--- empserver/src/lib/gen/chance.c	2 Sep 2003 20:48:48 -0000	1.2
++++ empserver/src/lib/gen/chance.c	20 Jun 2004 15:15:05 -0000
+@@ -33,30 +33,34 @@
+ 
+ #include "gen.h"
+ 
+-#ifdef hpux
++#ifndef	RANDOM
++#ifdef	NOSVIDPRNG
++#define	RANDOM	random
++#define	SRANDOM	srandom
++#else	/* ! NOSVIDPRNG */
++#define	RANDOM	lrand48
++#define	SRANDOM	srand48
++#endif	/* ! NOSVIDPRNG */
++#endif	/* RANDOM */
++
+ void
+-srandom(unsigned int n)
++emp_srandom(unsigned int n)
+ {
+-    extern void srand48();
+-
+-    srand48(n);
++    SRANDOM(1);
+ }
+ 
+ long
+-random(void)
++emp_random(void)
+ {
+-    extern long lrand48();
+-
+-    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
++    return (RANDOM());		/* 5/28/91 by bailey@mcs.kent.edu */
+ }
+-#endif
+ 
+ int
+ chance(double d)
+ {
+     double roll;
+ 
+-    roll = (random() & 0x7fff);
++    roll = (emp_random() & 0x7fff);
+ 
+     if (d > roll / 32768.0)
+ 	return 1;
+@@ -66,7 +70,7 @@
+ int
+ roll(int n)
+ {
+-    return (random() % n) + 1;
++    return (emp_random() % n) + 1;
+ }
+ 
+ /*
+Index: empserver/src/server/main.c
+--- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
++++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
+@@ -196,7 +196,7 @@
+     empth_init((char **)&player, flags);
+     time(&now);
+ #if !defined(_WIN32)
+-    srandom(now);
++    emp_srandom(now);
+ #else
+     srand(now);
+ #endif /* _WIN32 */
+Index: empserver/src/server/update.c
+--- empserver/src/server/update.c	4 Apr 2004 15:52:24 -0000	1.14
++++ empserver/src/server/update.c	20 Jun 2004 17:38:12 -0000
+@@ -64,7 +64,7 @@
+ 	time(&now);
+ 	next_update_time(&now, &update_time, &delta);
+ 	if (update_window > 0) {
+-	    wind = (random() % update_window);
++	    wind = (emp_random() % update_window);
+ 	    update_time += wind;
+ 	    delta += wind;
+ 	}
