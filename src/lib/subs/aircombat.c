@@ -1044,7 +1044,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
     struct lndstr land;
     struct sctstr sect;
     struct nstr_item ni;
-    u_short *item;
+    int petrol;
     struct plist *ip;
 
     emp_initque(list);
@@ -1065,15 +1065,15 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	    if (!can_fly(plane.pln_uid))
 		continue;
 	    getship(plane.pln_ship, &ship);
-	    item = ship.shp_item;
+	    petrol = ship.shp_item[I_PETROL];
 	} else if (plane.pln_land >= 0) {
 	    if (!can_fly(plane.pln_uid))
 		continue;
 	    getland(plane.pln_land, &land);
-	    item = land.lnd_item;
+	    petrol = land.lnd_item[I_PETROL];
 	} else {
 	    getsect(plane.pln_x, plane.pln_y, &sect);
-	    item = sect.sct_item;
+	    petrol = sect.sct_item[I_PETROL];
 #if 0
 	    if (sect.sct_effic < 60 && (pcp->pl_flags & P_V) == 0)
 		continue;
@@ -1083,7 +1083,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 		continue;
 #endif
 	}
-	if ((float)item[I_PETROL] < (float)pcp->pl_fuel / 2.0)
+	if ((float)petrol < (float)pcp->pl_fuel / 2.0)
 	    continue;
 	/* Finally, is it in the list of planes already in
 	   flight? */

@@ -203,7 +203,6 @@ att_get_combat(struct combat *com, int isdef)
     struct sctstr sect;
     struct shpstr ship;
     struct lndstr land;
-    u_short *item;
     int pstage;
     natid owner;
     int mil;
@@ -219,7 +218,7 @@ att_get_combat(struct combat *com, int isdef)
 	}
 	com->sct_type = sect.sct_type;
 	com->sct_dcp = &dchr[sect.sct_type];
-	item = sect.sct_item;
+	mil = sect.sct_item[I_MILIT];
 	pstage = sect.sct_pstage;
 	owner = sect.sct_own;
 	eff = sect.sct_effic;
@@ -239,7 +238,7 @@ att_get_combat(struct combat *com, int isdef)
 	    return att_combat_init(com, EF_BAD);
 	}
 	com->lnd_lcp = &lchr[(int)land.lnd_type];
-	item = land.lnd_item;
+	mil = land.lnd_item[I_MILIT];
 	pstage = land.lnd_pstage;
 	owner = land.lnd_own;
 	eff = land.lnd_effic;
@@ -276,7 +275,7 @@ att_get_combat(struct combat *com, int isdef)
 		pr("Ship #%d is not your ship!\n", com->shp_uid);
 	    return att_combat_init(com, EF_BAD);
 	}
-	item = ship.shp_item;
+	mil = ship.shp_item[I_MILIT];
 	pstage = ship.shp_pstage;
 	owner = ship.shp_own;
 	eff = ship.shp_effic;
@@ -292,7 +291,6 @@ att_get_combat(struct combat *com, int isdef)
 	return att_combat_init(com, EF_BAD);
     }
 
-    mil = item[I_MILIT];
     if (!com->set) {		/* first time */
 	if (isdef) {		/* defender */
 	    com->troops = mil;
