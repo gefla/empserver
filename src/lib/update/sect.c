@@ -231,10 +231,6 @@ do_fallout(struct sctstr *sp, int etus)
 	meltitems(etus, sp->sct_fallout, spp->shp_own, spp->shp_item, EF_SHIP,
 		  spp->shp_x, spp->shp_y, spp->shp_uid);
     }
-#ifdef	GODZILLA
-    if ((sp->sct_fallout > 20) && chance(100))
-	do_godzilla(sp);
-#endif /* GODZILLA */
 }
 
 void
