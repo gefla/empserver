@@ -402,18 +402,15 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	}
 	break;
     }
-    if (opt_ORBIT) {
-	p = getstring("Geostationary orbit? ", buf);
-	if (p == 0)
-	    return -1;
-	if (!check_plane_ok(pp))
-	    return -1;
-	pp->pln_theta = 0;
-	pp->pln_flags |= PLN_SYNCHRONOUS;
-	if (*p == 0 || *p == 'n')
-	    pp->pln_flags &= ~(PLN_SYNCHRONOUS);
-    }
-    /* end opt_ORBIT */
+    p = getstring("Geostationary orbit? ", buf);
+    if (p == 0)
+	return -1;
+    if (!check_plane_ok(pp))
+	return -1;
+    pp->pln_theta = 0;
+    pp->pln_flags |= PLN_SYNCHRONOUS;
+    if (*p == 0 || *p == 'n')
+	pp->pln_flags &= ~(PLN_SYNCHRONOUS);
     pr("3... 2... 1... Blastoff!!!\n");
     if (chance(0.07 + (100 - pp->pln_effic) / 100.0)) {
 	pr("KABOOOOM!  Range safety officer detonates booster!\n");

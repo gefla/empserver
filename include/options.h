@@ -84,7 +84,6 @@
 /*#define TRADESHIPS*//* Use Tradeships */
 /*#define SLOW_WAR*//* Declaring war takes time */
 /*#define SNEAK_ATTACK*//* Allows sneak attacks */
-#define	ORBIT			/* Satalites will orbit each update */
 #define	PINPOINTMISSILE /**/
 #define	FALLOUT			/* Enables secondary effects caused by radiation */
 #define	SAIL			/* A update routine to move ships */

@@ -57,10 +57,7 @@ plan(void)
 	if (nplanes++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("   #    type                x,y    w  eff  mu def tech ran hard   s/l L");
-	    if (opt_ORBIT)
-		pr("S");
-	    pr("B nuke\n");
+	    pr("   #    type                x,y    w  eff  mu def tech ran hard   s/l LSB nuke\n");
 	}
 	if (player->god)
 	    pr("%3d ", plane.pln_own);
@@ -79,14 +76,11 @@ plan(void)
 	    pr("      ");
 	if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) == P_O) {
 	    pr(" %c", (plane.pln_flags & PLN_LAUNCHED) ? 'Y' : 'N');
-	    pr("%c",
-	       opt_ORBIT ? (plane.
-			    pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N' :
-	       ' ');
+	    pr("%c", (plane.pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N');
 	} else
-	    pr("   ");
+	    pr("  ");
 	if (plane.pln_nuketype != -1)
-	    pr("%c %-5.5s",
+	    pr(" %c %-5.5s",
 	       plane.pln_flags & PLN_AIRBURST ? 'A' : 'G',
 	       nchr[(int)plane.pln_nuketype].n_name);
 	pr("\n");

@@ -73,7 +73,6 @@ extern int opt_NO_LCMS;
 extern int opt_NO_OIL;
 extern int opt_NO_PLAGUE;
 extern int opt_NUKEFAILDETONATE;
-extern int opt_ORBIT;
 extern int opt_PINPOINTMISSILE;
 extern int opt_RES_POP;
 extern int opt_ROLLOVER_AVAIL;

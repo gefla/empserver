@@ -275,10 +275,7 @@ pdump(void)
 	    case 19:
 		if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) ==
 		    P_O) {
-		    pr(" %c",
-		       opt_ORBIT ? (plane.
-				    pln_flags & PLN_SYNCHRONOUS) ? 'Y' :
-		       'N' : 'N');
+		    pr(" %c", (plane.pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N');
 		} else
 		    pr(" N");
 		break;

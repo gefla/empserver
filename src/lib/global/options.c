@@ -225,12 +225,6 @@ int opt_SHOWPLANE = 1;
 int opt_SHOWPLANE = 0;
 #endif
 
-#ifdef ORBIT
-int opt_ORBIT = 1;
-#else
-int opt_ORBIT = 0;
-#endif
-
 #ifdef PINPOINTMISSILE
 int opt_PINPOINTMISSILE = 1;
 #else
@@ -328,7 +322,6 @@ struct option_list Options[] = {
     {"NOMOBCOST", &opt_NOMOBCOST},
     {"NONUKES", &opt_NONUKES},
     {"NUKEFAILDETONATE", &opt_NUKEFAILDETONATE},
-    {"ORBIT", &opt_ORBIT},
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
     {"RES_POP", &opt_RES_POP},
     {"SAIL", &opt_SAIL},

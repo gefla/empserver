@@ -93,7 +93,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 	plp = &plchr[(int)pp->pln_type];
 	if (pp->pln_flags & PLN_LAUNCHED) {
-	    if (opt_ORBIT && (buildem == 0)) {
+	    if (buildem == 0) {
 		if ((!player->simulation) &&
 		    (plp->pl_flags & P_O) &&
 		    (pp->pln_flags & PLN_LAUNCHED) &&
