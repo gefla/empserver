@@ -203,7 +203,8 @@ att_get_combat(struct combat *com, int isdef)
     struct sctstr sect;
     struct shpstr ship;
     struct lndstr land;
-    s_char *thing;
+    u_short *item;
+    int pstage;
     natid owner;
     int mil;
     int eff;
@@ -218,7 +219,8 @@ att_get_combat(struct combat *com, int isdef)
 	}
 	com->sct_type = sect.sct_type;
 	com->sct_dcp = &dchr[sect.sct_type];
-	thing = (s_char *)&sect;
+	item = sect.sct_item;
+	pstage = sect.sct_pstage;
 	owner = sect.sct_own;
 	eff = sect.sct_effic;
 	mob = sect.sct_mobil;
@@ -237,7 +239,8 @@ att_get_combat(struct combat *com, int isdef)
 	    return att_combat_init(com, EF_BAD);
 	}
 	com->lnd_lcp = &lchr[(int)land.lnd_type];
-	thing = (s_char *)&land;
+	item = land.lnd_item;
+	pstage = land.lnd_pstage;
 	owner = land.lnd_own;
 	eff = land.lnd_effic;
 	mob = land.lnd_mobil;
@@ -273,7 +276,8 @@ att_get_combat(struct combat *com, int isdef)
 		pr("Ship #%d is not your ship!\n", com->shp_uid);
 	    return att_combat_init(com, EF_BAD);
 	}
-	thing = (s_char *)&ship;
+	item = ship.shp_item;
+	pstage = ship.shp_pstage;
 	owner = ship.shp_own;
 	eff = ship.shp_effic;
 	mob = ship.shp_mobil;
@@ -288,7 +292,7 @@ att_get_combat(struct combat *com, int isdef)
 	return att_combat_init(com, EF_BAD);
     }
 
-    mil = getvar(V_MILIT, thing, com->type);
+    mil = item[I_MILIT];
     if (!com->set) {		/* first time */
 	if (isdef) {		/* defender */
 	    com->troops = mil;
@@ -300,7 +304,7 @@ att_get_combat(struct combat *com, int isdef)
 	    /* don't abandon attacking sectors or ships */
 	    com->troops = max(0, mil - 1);
 	}
-	com->plague = (getvar(V_PSTAGE, thing, com->type)) == PLG_INFECT;
+	com->plague = pstage == PLG_INFECT;
     } else {			/* not first time */
 	if (isdef) {		/* defender */
 	    if (com->x != x || com->y != y) {
@@ -398,11 +402,10 @@ put_combat(struct combat *com)
 	makenotlost(EF_SECTOR, com->own, 0, sect.sct_x, sect.sct_y);
 	sect.sct_own = com->own;
 	if (com->plague) {
-	    if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) ==
-		PLG_HEALTHY)
-		putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&sect, EF_SECTOR);
+	    if (sect.sct_pstage == PLG_HEALTHY)
+		sect.sct_pstage = PLG_EXPOSED;
 	}
-	putvar(V_MILIT, com->mil, (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[I_MILIT] = com->mil;
 	putsect(&sect);
 	com->own = sect.sct_own;	/* avoid WARNING if sector reverts */
 	break;
@@ -421,11 +424,11 @@ put_combat(struct combat *com)
 	makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		    land.lnd_y);
 	if (com->plague) {
-	    if (getvar(V_PSTAGE, (s_char *)&land, EF_LAND) == PLG_HEALTHY)
-		putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&land, EF_LAND);
+	    if (land.lnd_pstage == PLG_HEALTHY)
+		land.lnd_pstage = PLG_EXPOSED;
 	}
 	if (!(com->lnd_lcp->l_flags & L_SPY))
-	    putvar(V_MILIT, com->mil, (s_char *)&land, EF_LAND);
+	    land.lnd_item[I_MILIT] = com->mil;
 	lnd_count_units(&land);
 	if (com->own == player->cnum) {
 	    land.lnd_mission = 0;
@@ -449,10 +452,10 @@ put_combat(struct combat *com)
 	makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid, ship.shp_x,
 		    ship.shp_y);
 	if (com->plague) {
-	    if (getvar(V_PSTAGE, (s_char *)&ship, EF_SHIP) == PLG_HEALTHY)
-		putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&ship, EF_SHIP);
+	    if (ship.shp_pstage == PLG_HEALTHY)
+		ship.shp_pstage = PLG_EXPOSED;
 	}
-	putvar(V_MILIT, com->mil, (s_char *)&ship, EF_SHIP);
+	ship.shp_item[I_MILIT] = com->mil;
 	count_units(&ship);
 	if (com->own == player->cnum) {
 	    ship.shp_mission = 0;
@@ -1479,9 +1482,8 @@ att_infect_units(struct emp_qelem *list, int plague)
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	llp = (struct llist *)qp;
-	if (getvar(V_PSTAGE, (s_char *)&(llp->land), EF_LAND) ==
-	    PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&(llp->land), EF_LAND);
+	if (llp->land.lnd_pstage == PLG_HEALTHY)
+	    llp->land.lnd_pstage = PLG_EXPOSED;
     }
 }
 
@@ -1742,8 +1744,7 @@ get_mine_dsupport(struct combat *def, int a_engineer)
     getsect(def->x, def->y, &sect);
 
     if (sect.sct_oldown != player->cnum) {
-	mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-	mines = min(mines, 20);
+	mines = min(sect.sct_mines, 20);
 	if (a_engineer)
 	    mines = ldround(((double)mines / 2.0), 1);
 	if (mines > 0) {

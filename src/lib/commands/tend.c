@@ -115,7 +115,7 @@ tend(void)
 	    pr("Amount must be non-zero!\n");
 	    return RET_SYN;
 	}
-	ontender = getvar(ip->i_vtype, (s_char *)&tender, EF_SHIP);
+	ontender = tender.shp_item[ip->i_vtype];
 	if (ontender == 0 && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));
 	    return RET_FAIL;
@@ -144,7 +144,7 @@ tend(void)
 	    if (tender.shp_x != target.shp_x ||
 		tender.shp_y != target.shp_y)
 		continue;
-	    ontarget = getvar(ip->i_vtype, (s_char *)&target, EF_SHIP);
+	    ontarget = target.shp_item[ip->i_vtype];
 	    if (ontarget == 0 && amt < 0) {
 		pr("No %s on %s\n", ip->i_name, prship(&target));
 		continue;
@@ -161,8 +161,7 @@ tend(void)
 		transfer = min(maxtender - ontender, transfer);
 		if (transfer == 0)
 		    continue;
-		putvar(ip->i_vtype, ontarget - transfer,
-		       (s_char *)&target, EF_SHIP);
+		target.shp_item[ip->i_vtype] = ontarget - transfer;
 		ontender += transfer;
 		total += transfer;
 	    } else {
@@ -171,8 +170,7 @@ tend(void)
 		transfer = min(transfer, maxtarget - ontarget);
 		if (transfer == 0)
 		    continue;
-		putvar(ip->i_vtype, ontarget + transfer,
-		       (s_char *)&target, EF_SHIP);
+		target.shp_item[ip->i_vtype] = ontarget + transfer;
 		ontender -= transfer;
 		total += transfer;
 	    }
@@ -186,7 +184,7 @@ tend(void)
 	pr("%d total %s transferred %s %s\n",
 	   total, ip->i_name, (amt > 0) ? "off of" : "to",
 	   prship(&tender));
-	putvar(ip->i_vtype, ontender, (s_char *)&tender, EF_SHIP);
+	tender.shp_item[ip->i_vtype] = ontender;
 	tender.shp_mission = 0;
 	putship(tender.shp_uid, &tender);
     }
@@ -196,12 +194,10 @@ tend(void)
 static void
 expose_ship(struct shpstr *s1, struct shpstr *s2)
 {
-    if (getvar(V_PSTAGE, (s_char *)s1, EF_SHIP) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)s2, EF_SHIP) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)s2, EF_SHIP);
-    if (getvar(V_PSTAGE, (s_char *)s2, EF_SHIP) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)s1, EF_SHIP) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)s1, EF_SHIP);
+    if (s1->shp_pstage == PLG_INFECT && s2->shp_pstage == PLG_HEALTHY)
+	s2->shp_pstage = PLG_EXPOSED;
+    if (s2->shp_pstage == PLG_INFECT && s1->shp_pstage == PLG_HEALTHY)
+	s1->shp_pstage = PLG_EXPOSED;
 }
 
 /*

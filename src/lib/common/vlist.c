@@ -41,7 +41,9 @@
 #include "common.h"
 #include "gen.h"
 
+#if 0
 static int freeslot(u_char *vec, register u_char *end);
+#endif
 
 int
 vl_find(register int vtype, u_char *typevec, u_short *amtvec, int nelem)
@@ -62,6 +64,7 @@ vl_find(register int vtype, u_char *typevec, u_short *amtvec, int nelem)
     return 0;
 }
 
+#if 0
 int
 vl_set(register int vtype, u_int amt, u_char *typevec, u_short *amtvec,
        u_char *nvp, int max)
@@ -283,3 +286,4 @@ freeslot(u_char *vec, register u_char *end)
     }
     return -1;
 }
+#endif

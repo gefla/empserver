@@ -120,11 +120,11 @@ rese(void)
 	ix = whichitem(comm.com_type);
 	sect.sct_x = comm.sell_x;
 	sect.sct_y = comm.sell_y;
-	m = getvar(ix->i_vtype, (char *)&sect, EF_SECTOR);
+	m = sect.sct_item[ix->i_vtype];
 	m = m + comm.com_amount;
 	if (m > 9999)
 	    m = 9999;
-	putvar(ix->i_vtype, m, (char *)&sect, EF_SECTOR);
+	sect.sct_item[ix->i_vtype] = m;
 	putsect(&sect);
 	comm.com_owner = 0;
 	putcomm(number_set, &comm);

@@ -103,16 +103,15 @@ move(void)
 	    if (land.lnd_own == player->cnum)
 		tot_mil += total_mil(&land);
 	}
-	if ((getvar(V_MILIT, (s_char *)&sect, EF_SECTOR) + tot_mil) * 10
-	    < getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR)) {
+	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
 	    pr("Military control required to move goods.\n");
 	    return RET_FAIL;
 	}
     }
     stype = sect.sct_type;
     dp = &dchr[stype];
-    infected = getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_INFECT;
-    amt_src = getvar(vtype, (s_char *)&sect, EF_SECTOR);
+    infected = sect.sct_pstage == PLG_INFECT;
+    amt_src = sect.sct_item[vtype];
     if (!istest && amt_src <= 0) {
 	pr("No %s in %s\n", ip->i_name,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -179,7 +178,7 @@ move(void)
 	    pr("Somebody has captured that sector!\n");
 	    return RET_FAIL;
 	}
-	amt_src = getvar(vtype, (s_char *)&start, EF_SECTOR);
+	amt_src = start.sct_item[vtype];
 	if (amt_src < amount) {
 	    pr("Only %d %s left in %s!\n", amt_src,
 	       ip->i_name, xyas(start.sct_x, start.sct_y, player->cnum));
@@ -188,7 +187,7 @@ move(void)
 	} else
 	    amt_src -= amount;
 
-	putvar(vtype, amt_src, (s_char *)&start, EF_SECTOR);
+	start.sct_item[vtype] = amt_src;
 	start.sct_flags |= MOVE_IN_PROGRESS;
 	putsect(&start);
     }
@@ -252,13 +251,13 @@ move(void)
 	    pr("Somebody has captured that sector!\n");
 	getsect(x, y, &sect);
     }
-    if (vtype == V_CIVIL && getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR) &&
-	sect.sct_oldown != player->cnum) {
+    if (vtype == V_CIVIL && sect.sct_item[I_CIVIL]
+	&& sect.sct_oldown != player->cnum) {
 	pr("Your civilians don't want to stay!\n");
 	getsect(x, y, &sect);
     }
 
-    amt_dst = getvar(vtype, (s_char *)&sect, EF_SECTOR);
+    amt_dst = sect.sct_item[vtype];
     if (32767 - amt_dst < amount) {
 	pr("Only enough room for %d in %s.  The goods will be returned.\n",
 	   32767 - amt_dst, xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -281,7 +280,7 @@ move(void)
 	    getsect(x + diroff[n][0], y + diroff[n][1], &tsct);
 	    if (tsct.sct_own != player->cnum)
 		continue;
-	    amt_dst = getvar(vtype, (s_char *)&tsct, EF_SECTOR);
+	    amt_dst = tsct.sct_item[vtype];
 	    if (32767 - amt_dst < amount)
 		continue;
 	    n = -1;
@@ -308,26 +307,21 @@ move(void)
 	getsect(tsct.sct_x, tsct.sct_y, &sect);
     }
 
-    amt_dst = getvar(vtype, (s_char *)&sect, EF_SECTOR);
+    amt_dst = sect.sct_item[vtype];
     if (32767 - amt_dst < amount) {
 	amount = 32767 - amt_dst;
 	pr("Only room for %d, the rest were lost.\n", amount);
     }
     if (istest)
 	return RET_OK;
-    if (putvar(vtype, amount + amt_dst, (s_char *)&sect, EF_SECTOR) < 0) {
-	pr("No more room in %s.  The goods were lost.\n",
-	   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	/* charge the player mobility anyway */
-	amount = 0;
-    }
+    sect.sct_item[vtype] = amount + amt_dst;
     /*
      * Now add commodities to destination sector,
      * along with plague that came along for the ride.
      * Takeover unowned sectors if not deity.
      */
-    if (infected && getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == 0)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&sect, EF_SECTOR);
+    if (infected && sect.sct_pstage == PLG_HEALTHY)
+	sect.sct_pstage = PLG_EXPOSED;
     if (vtype == V_CIVIL) {
 	if (opt_NEW_WORK) {
 	    sect.sct_loyal = ((amt_dst * sect.sct_loyal) +
@@ -398,8 +392,8 @@ would_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
     if ((vtype != V_CIVIL) && (vtype != V_MILIT))
 	return 0;
 
-    mil = getvar(V_MILIT, (s_char *)sp, EF_SECTOR);
-    civs = getvar(V_CIVIL, (s_char *)sp, EF_SECTOR);
+    mil = sp->sct_item[I_MILIT];
+    civs = sp->sct_item[I_CIVIL];
 
     if (vtype == V_MILIT)
 	mil -= amnt;

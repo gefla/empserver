@@ -83,7 +83,7 @@ enli(void)
 	    continue;
 	if (sect.sct_oldown != player->cnum)
 	    continue;
-	civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
+	civ = sect.sct_item[I_CIVIL];
 	if (civ == 0)
 	    continue;
 	if (sect.sct_loyal > 70) {
@@ -95,7 +95,7 @@ enli(void)
 	    pr("%s is out of mobility!\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	}
-	mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	mil = sect.sct_item[I_MILIT];
 	newmil = civ * 0.5;
 	if (quota) {
 	    if (newmil > milwant - mil)
@@ -110,14 +110,10 @@ enli(void)
 	    continue;
 	if (newmil > reserve)
 	    newmil = reserve;
-	if (!putvar(V_MILIT, newmil + mil, (s_char *)&sect, EF_SECTOR)) {
-	    pr("No room for military in %s\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum));
-	    continue;
-	}
+	sect.sct_item[I_MILIT] = newmil + mil;
 	reserve -= newmil;
 	totalmil += newmil;
-	putvar(V_CIVIL, civ - newmil, (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[I_CIVIL] = civ - newmil;
 	pr("%3d enlisted in %s (%d)\n", newmil,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum), mil + newmil);
 	if (sect.sct_mobil > 0) {

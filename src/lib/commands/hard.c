@@ -97,7 +97,7 @@ hard(void)
 	       prplane(&pln), xyas(pln.pln_x, pln.pln_y, player->cnum));
 	    continue;
 	}
-	hcm = getvar(V_HCM, (s_char *)&sect, EF_SECTOR);
+	hcm = sect.sct_item[I_HCM];
 	if (hcm == 0) {
 	    pr("No hcm in %s\n", xyas(pln.pln_x, pln.pln_y, player->cnum));
 	    continue;
@@ -112,7 +112,7 @@ hard(void)
 	pln.pln_harden += n;
 	player->dolcost += (5.0 * n);
 	putplane(pln.pln_uid, &pln);
-	putvar(V_HCM, hcm - n, (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[I_HCM] = hcm - n;
 	putsect(&sect);
 	pr("%s hardened to %d\n", prplane(&pln), pln.pln_harden);
     }

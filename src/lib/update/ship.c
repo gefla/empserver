@@ -117,7 +117,7 @@ upd_ship(register struct shpstr *sp, register int etus,
     struct sctstr *sectp;
     struct mchrstr *mp;
     int vec[I_MAX + 1];
-    int cvec[I_MAX + 1];
+    u_short pstage, ptime;
     int oil_gained;
     int max_oil;
     int max_food;
@@ -204,9 +204,10 @@ upd_ship(register struct shpstr *sp, register int etus,
 	     * do plague stuff.  plague can't break out on ships,
 	     * but it can still kill people.
 	     */
-	    getvec(VT_COND, cvec, (s_char *)sp, EF_SHIP);
-	    if (cvec[C_PSTAGE] > 0) {
-		n = plague_people(np, vec, cvec, etus);
+	    pstage = sp->shp_pstage;
+	    ptime = sp->shp_ptime;
+	    if (pstage != PLG_HEALTHY) {
+		n = plague_people(np, vec, &pstage, &ptime, etus);
 		switch (n) {
 		case PLG_DYING:
 		    wu(0, sp->shp_own,
@@ -218,9 +219,9 @@ upd_ship(register struct shpstr *sp, register int etus,
 		    break;
 		case PLG_INCUBATE:
 		    /* Are we still incubating? */
-		    if (n == cvec[C_PSTAGE]) {
+		    if (n == pstage) {
 			/* Yes. Will it turn "infectious" next time? */
-			if (cvec[C_PTIME] <= etus) {
+			if (ptime <= etus) {
 			    /* Yes.  Report an outbreak. */
 			    wu(0, sp->shp_own,
 			       "Outbreak of PLAGUE on %s!\n", prship(sp));
@@ -234,9 +235,9 @@ upd_ship(register struct shpstr *sp, register int etus,
 		    break;
 		case PLG_EXPOSED:
 		    /* Has the plague moved to "incubation" yet? */
-		    if (n != cvec[C_PSTAGE]) {
+		    if (n != pstage) {
 			/* Yes. Will it turn "infectious" next time? */
-			if (cvec[C_PTIME] <= etus) {
+			if (ptime <= etus) {
 			    /* Yes.  Report an outbreak. */
 			    wu(0, sp->shp_own,
 			       "Outbreak of PLAGUE on %s!\n", prship(sp));
@@ -248,7 +249,8 @@ upd_ship(register struct shpstr *sp, register int etus,
 		    break;
 		}
 
-		putvec(VT_COND, cvec, (s_char *)sp, EF_SHIP);
+		sp->shp_pstage = pstage;
+		sp->shp_ptime = ptime;
 	    }
 	    putvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
 	    pops[sp->shp_own] += vec[I_CIVIL];

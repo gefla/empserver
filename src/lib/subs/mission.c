@@ -492,8 +492,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if (md > range2)
 		continue;
 
-	    shell = getvar(V_SHELL, (s_char *)lp, EF_LAND);
-	    gun = getvar(V_GUN, (s_char *)lp, EF_LAND);
+	    shell = lp->lnd_item[I_SHELL];
+	    gun = lp->lnd_item[I_GUN];
 	    if (shell == 0 || gun == 0)
 		continue;
 
@@ -531,7 +531,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		 (mission == MI_SINTERDICT)) &&
 		(md > ship_max_interdiction_range))
 		continue;
-	    if (getvar(V_MILIT, (s_char *)sp, EF_SHIP) < 1)
+	    if (sp->shp_item[I_MILIT] < 1)
 		continue;
 /*
   if ((mcp->m_flags & M_SUB) &&
@@ -558,10 +558,10 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 		if (sp->shp_mobil < (s_char)0)
 		    continue;
-		gun = getvar(V_GUN, (s_char *)sp, EF_SHIP);
+		gun = sp->shp_item[I_GUN];
 		if (gun < 1)
 		    continue;
-		shell = getvar(V_SHELL, (s_char *)sp, EF_SHIP);
+		shell = sp->shp_item[I_SHELL];
 		if (shell < 3)
 		    shell += supply_commod(sp->shp_own,
 					   sp->shp_x, sp->shp_y, I_SHELL,
@@ -579,7 +579,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 		if (!line_of_sight((s_char **)0, x, y, gp->x, gp->y))
 		    continue;
-		putvar(V_SHELL, shell - 3, (s_char *)sp, EF_SHIP);
+		sp->shp_item[I_SHELL] = shell - 3;
 		mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
 		mobcost = (480.0 / (mobcost +
 				    techfact(sp->shp_tech, mobcost)));
@@ -620,17 +620,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		range2 = (double)roundrange(range);
 		if (md > range2)
 		    continue;
-		gun = getvar(V_GUN, (s_char *)sp, EF_SHIP);
+		gun = sp->shp_item[I_GUN];
 		gun = min(gun, sp->shp_glim);
-		shell = getvar(V_SHELL, (s_char *)sp, EF_SHIP);
+		shell = sp->shp_item[I_SHELL];
 		if (shell < gun)
 		    shell += supply_commod(sp->shp_own,
 					   sp->shp_x, sp->shp_y, I_SHELL,
 					   gun - shell);
 		gun = min(gun, shell);
-		gun = min(gun, (int)((float)getvar(V_MILIT,
-						   (s_char *)sp,
-						   EF_SHIP) / 2.0));
+		gun = min(gun, sp->shp_item[I_MILIT] / 2.0);
 		if (gun == 0)
 		    continue;
 		gun = max(gun, 1);
@@ -654,7 +652,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		mpr(victim, "%s fires at you at %s\n",
 		    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
 
-		putvar(V_SHELL, shell - gun, (s_char *)sp, EF_SHIP);
+		sp->shp_item[I_SHELL] = shell - gun;
 		putship(sp->shp_uid, sp);
 	    }
 	} else if (glp->type == EF_PLANE) {

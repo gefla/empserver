@@ -95,11 +95,11 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner || sect.sct_effic < 60)
 	    continue;
-	if ((mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR)) == 0)
+	if ((mil = sect.sct_item[I_MILIT]) == 0)
 	    continue;
 	if (sect.sct_own != sect.sct_oldown)
 	    continue;
-	civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
+	civ = sect.sct_item[I_CIVIL];
 	if (number < 0) {
 	    if ((deltamil = mil + number) <= 0)
 		continue;
@@ -117,8 +117,8 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
 	   deltamil, xyas(sect.sct_x, sect.sct_y, player->cnum), mil);
 	if (*p == 'y')
 	    reserves += deltamil;
-	putvar(V_MILIT, mil, (s_char *)&sect, EF_SECTOR);
-	putvar(V_CIVIL, civ, (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[I_MILIT] = mil;
+	sect.sct_item[I_CIVIL] = civ;
 	putsect(&sect);
     }
     if (!for_real)

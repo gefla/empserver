@@ -182,8 +182,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		PR(plane_owner, " %d%% efficient ",
 		   (sect.sct_own == plane_owner) ?
 		   sect.sct_effic : roundintby((int)sect.sct_effic, 25));
-		civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
-		mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+		civ = sect.sct_item[I_CIVIL];
+		mil = sect.sct_item[I_MILIT];
 		if (civ)
 		    PR(plane_owner, "with %s%d civ ",
 		       (sect.sct_own == plane_owner) ?
@@ -798,8 +798,8 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    gun = getvar(V_GUN, (s_char *)from, EF_SECTOR);
-    shell = getvar(V_SHELL, (s_char *)from, EF_SECTOR);
+    gun = from->sct_item[I_GUN];
+    shell = from->sct_item[I_SHELL];
     add = 0;
     if (shell < (gun / 2))
 	add = supply_commod(from->sct_own, from->sct_x, from->sct_y,
@@ -813,7 +813,7 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
     if (gun > 14)
 	gun = 14;
 
-    putvar(V_SHELL, shell, (s_char *)from, EF_SECTOR);
+    from->sct_item[I_SHELL] = shell;
     putsect(from);
     gun = 2.0 * tfact(from->sct_own, (double)gun);
     if (gun > 0) {
@@ -860,9 +860,9 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	if (rel > HOSTILE)
 	    continue;
 	shell = gun = 0;
-	gun = min(getvar(V_GUN, (s_char *)&ship, EF_SHIP), ship.shp_glim);
+	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
 	if (gun) {
-	    shell = getvar(V_SHELL, (s_char *)&ship, EF_SHIP);
+	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0)
 		shell = supply_commod(ship.shp_own, ship.shp_x,
 				      ship.shp_y, I_SHELL, 1);
@@ -882,7 +882,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	}
 	PR(ship.shp_own, "firing %d flak guns from %s...\n",
 	   firing, prship(&ship));
-	putvar(V_SHELL, shell, (s_char *)&ship, EF_SHIP);
+	ship.shp_item[I_SHELL] = shell;
 	putship(ship.shp_uid, &ship);
 	from = ship.shp_own;
     }
@@ -1044,8 +1044,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
     struct lndstr land;
     struct sctstr sect;
     struct nstr_item ni;
-    int type;
-    s_char *ptr;
+    u_short *item;
     struct plist *ip;
 
     emp_initque(list);
@@ -1066,18 +1065,15 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	    if (!can_fly(plane.pln_uid))
 		continue;
 	    getship(plane.pln_ship, &ship);
-	    ptr = (s_char *)&ship;
-	    type = EF_SHIP;
+	    item = ship.shp_item;
 	} else if (plane.pln_land >= 0) {
 	    if (!can_fly(plane.pln_uid))
 		continue;
 	    getland(plane.pln_land, &land);
-	    ptr = (s_char *)&land;
-	    type = EF_LAND;
+	    item = land.lnd_item;
 	} else {
 	    getsect(plane.pln_x, plane.pln_y, &sect);
-	    ptr = (s_char *)&sect;
-	    type = EF_SECTOR;
+	    item = sect.sct_item;
 #if 0
 	    if (sect.sct_effic < 60 && (pcp->pl_flags & P_V) == 0)
 		continue;
@@ -1087,8 +1083,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 		continue;
 #endif
 	}
-	if (((float)getvar(V_PETROL, ptr, type)) <
-	    (((float)pcp->pl_fuel) / 2.0))
+	if ((float)item[I_PETROL] < (float)pcp->pl_fuel / 2.0)
 	    continue;
 	/* Finally, is it in the list of planes already in
 	   flight? */

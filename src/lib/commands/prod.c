@@ -264,8 +264,7 @@ prod(void)
 	    if (*amount == 0)
 		totcomp++;
 	    else {
-		used = min(used, (int)(getvar((int)*comp, (s_char *)&sect,
-					      EF_SECTOR) / *amount));
+		used = min(used, sect.sct_item[(int)*comp] / *amount);
 		totcomp += *amount;
 	    }
 	    ++comp;
@@ -293,8 +292,7 @@ prod(void)
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
-	    if ((there =
-		 getvar((int)vtype, (s_char *)&sect, EF_SECTOR)) >= 9999) {
+	    if ((there = sect.sct_item[vtype]) >= 9999) {
 		there = 9999;
 	    }
 	    act = min(act, (9999 - there));

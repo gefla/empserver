@@ -64,13 +64,13 @@ revolt(struct sctstr *sp)
     int n;
     int target;
 
-    che_combo = getvar(V_CHE, (s_char *)sp, EF_SECTOR);
+    che_combo = sp->sct_che;
     che = get_che_value(che_combo);
     target = get_che_cnum(che_combo);
     if (che_combo != 0 && (target != sp->sct_own || che >= CHE_MAX))
 	return;
-    civ = getvar(V_CIVIL, (s_char *)sp, EF_SECTOR);
-    uw = getvar(V_UW, (s_char *)sp, EF_SECTOR);
+    civ = sp->sct_item[I_CIVIL];
+    uw = sp->sct_item[I_UW];
     if (che > (civ + uw) * 3)
 	return;
     che_uw = 0;
@@ -100,11 +100,11 @@ revolt(struct sctstr *sp)
 	uw -= che_uw;
 	set_che_cnum(che_combo, sp->sct_own);
 	set_che_value(che_combo, che);
-	putvar(V_CHE, (int)che_combo, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = che_combo;
 	if (che_civ > 0)
-	    putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	    sp->sct_item[I_CIVIL] = civ;
 	if (che_uw > 0)
-	    putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
+	    sp->sct_item[I_UW] = uw;
 #ifdef DEBUG
 	logerror("(#%d) %d che fired up in %s",
 		 sp->sct_own, che, ownxy(sp));
@@ -166,7 +166,7 @@ guerrilla(struct sctstr *sp)
     recruit = 0;
     convert = 0;
     move = 0;
-    if ((n = getvar(V_CHE, (s_char *)sp, EF_SECTOR)) <= 0)
+    if ((n = sp->sct_che) <= 0)
 	return;
     che_combo = n;
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
@@ -213,7 +213,7 @@ guerrilla(struct sctstr *sp)
 
     /* Security forces killed all the che */
     if (che <= 0) {
-	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = 0;
 	return;
     }
 
@@ -227,8 +227,8 @@ guerrilla(struct sctstr *sp)
 	/* target nation has dissolved: che's retire.  */
 	logerror("%d Che targeted at country %d retiring", che, target);
 	civ += che;
-	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
-	putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = 0;
+	sp->sct_item[I_CIVIL] = civ;
 	return;
     }
 
@@ -352,9 +352,9 @@ guerrilla(struct sctstr *sp)
 	    sp->sct_newtype = SCT_AGRI;
 	n = civ / 20;
 	civ -= n;
-	putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
-	putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
-	putvar(V_MILIT, n, (s_char *)sp, EF_SECTOR);
+	sp->sct_item[I_CIVIL] = civ;
+	sp->sct_item[I_UW] = uw;
+	sp->sct_item[I_MILIT] = n;
 	move++;
 	recruit = 0;
 	if (sp->sct_own)
@@ -378,14 +378,14 @@ guerrilla(struct sctstr *sp)
 		n = CHE_MAX - che;
 	    che += n;
 	    civ -= n;
-	    putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	    sp->sct_item[I_CIVIL] = civ;
 	}
 	n = uw * (random() % 3) / 200;
 	if (n + che > CHE_MAX)
 	    n = CHE_MAX - che;
 	che += n;
 	uw -= n;
-	putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
+	sp->sct_item[I_UW] = uw;
     }
   domove:
     if (move && che > 0) {
@@ -402,14 +402,14 @@ guerrilla(struct sctstr *sp)
 		continue;
 	    if (nsp->sct_own != target)
 		continue;
-	    if ((val = getvar(V_CHE, (s_char *)nsp, EF_SECTOR)) > 0) {
+	    if ((val = nsp->sct_che) > 0) {
 		che_combo = val;
 		if (get_che_cnum(che_combo) != target)
 		    continue;
 		if (get_che_value(che_combo) + che > CHE_MAX)
 		    continue;
 	    }
-	    val = getvar(V_MILIT, (s_char *)nsp, EF_SECTOR);
+	    val = nsp->sct_item[I_MILIT];
 	    /* don't give che more precise info than spy */
 	    val = roundintby(val, 10);
 	    /* inject a modicum of indeterminism; also
@@ -422,20 +422,20 @@ guerrilla(struct sctstr *sp)
 	}
 	/* if we found a nice sector, go there */
 	if (nicest_sp != 0) {
-	    che_combo = getvar(V_CHE, (s_char *)nicest_sp, EF_SECTOR);
+	    che_combo = nicest_sp->sct_che;
 	    che += get_che_value(che_combo);
 	    set_che_value(che_combo, che);
 	    set_che_cnum(che_combo, target);
-	    putvar(V_CHE, (int)che_combo, (s_char *)nicest_sp, EF_SECTOR);
+	    nicest_sp->sct_che = che_combo;
 	    che = 0;
 	}
     }
     if (che > 0) {
 	set_che_value(che_combo, che);
 	set_che_cnum(che_combo, target);
-	putvar(V_CHE, (int)che_combo, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = che_combo;
     } else
-	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = 0;
     if (mc > 0 || cc > 0) {
 	/* don't tell who won just to be mean */
 	wu(0, target,
@@ -456,13 +456,13 @@ take_casualties(struct sctstr *sp, int mc)
     struct nstr_item ni;
 
     /* casualties come out of mil first */
-    orig_mil = getvar(V_MILIT, (s_char *)sp, EF_SECTOR);
+    orig_mil = sp->sct_item[I_MILIT];
 
     if (mc <= orig_mil) {
-	putvar(V_MILIT, (orig_mil - mc), (s_char *)sp, EF_SECTOR);
+	sp->sct_item[I_MILIT] = orig_mil - mc;
 	return;
     }
-    putvar(V_MILIT, 0, (s_char *)sp, EF_SECTOR);
+    sp->sct_item[I_MILIT] = 0;
 
     /* remaining casualites */
     mc -= orig_mil;

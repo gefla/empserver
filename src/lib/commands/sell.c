@@ -145,13 +145,13 @@ sell(void)
 	    if (land.lnd_own == player->cnum)
 		tot_mil += total_mil(&land);
 	}
-	if (((tot_mil + (getvar(V_MILIT, (char *)&sect, EF_SECTOR))) * 10)
-	    < getvar(V_CIVIL, (char *)&sect, EF_SECTOR)) {
+	if (((tot_mil + sect.sct_item[I_MILIT]) * 10)
+	    < sect.sct_item[I_CIVIL]) {
 	    pr("Military control required to sell goods.\n");
 	    return RET_FAIL;
 	}
     }
-    if (((amt = getvar(ip->i_vtype, (char *)&sect, EF_SECTOR))) == 0) {
+    if ((amt = sect.sct_item[ip->i_vtype]) == 0) {
 	pr("You don't have any %s to sell there.\n", ip->i_name);
 	return RET_FAIL;
     }
@@ -167,7 +167,7 @@ sell(void)
     amt -= com;
     pr("Sold %d %s at %s (%d left)\n", com, ip->i_name,
        xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
-    putvar(ip->i_vtype, amt, (char *)&sect, EF_SECTOR);
+    sect.sct_item[ip->i_vtype] = amt;
     cc = ip->i_mnem;
     putsect(&sect);
     if (totalcom > 0) {

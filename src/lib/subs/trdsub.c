@@ -139,10 +139,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
 
-	for (i = 0; i < sp->shp_nv; i++) {
-	    if (isitem(sp->shp_vtype[i]))
-		pr("%c:%d ",
-		   ichr[unitem(sp->shp_vtype[i])].i_mnem, sp->shp_vamt[i]);
+	for (i = 1; i <= I_MAX; ++i) {
+	    if (sp->shp_item[i])
+		pr("%c:%d ", ichr[i].i_mnem, sp->shp_item[i]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
@@ -198,10 +197,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner,
 	   lp->lnd_tech, lp->lnd_effic, lchr[(int)lp->lnd_type].l_name);
-	for (i = 0; i < lp->lnd_nv; i++) {
-	    if (isitem(lp->lnd_vtype[i]))
-		pr("%c:%d ",
-		   ichr[unitem(lp->lnd_vtype[i])].i_mnem, lp->lnd_vamt[i]);
+	for (i = 1; i <= I_MAX; ++i) {
+	    if (lp->lnd_item[i])
+		pr("%c:%d ", ichr[i].i_mnem, lp->lnd_item[i]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
@@ -262,7 +260,7 @@ get_couval(int cnum)
 	for (k = 0; ichr[k].i_name; k++) {
 	    if (ichr[k].i_value == 0 || ichr[k].i_vtype == 0)
 		continue;
-	    val = getvar(ichr[k].i_vtype, (s_char *)sp, EF_SECTOR);
+	    val = sp->sct_item[ichr[k].i_vtype];
 	    secttot += val * ichr[k].i_value;
 	}
     }

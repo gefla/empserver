@@ -218,7 +218,8 @@ decode(natid cnum, long int code, void *addr, int type)
 
     nsc_code = code & NSC_CMASK;
     if (nsc_code == NSC_VAR) {
-	val = getvar(val, addr, type);
+	u_short *item = ef_items(type, addr);
+	val = item ? item[val] : 0;
     } else if (nsc_code == NSC_OFF) {
 	/*
 	 * add offset to value

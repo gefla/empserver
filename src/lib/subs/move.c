@@ -169,7 +169,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	else if (dir == DIR_VIEW) {
 	    pr("%d%% %s with %d civilians.\n", sect.sct_effic,
 	       dchr[sect.sct_type].d_name,
-	       getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR));
+	       sect.sct_item[I_CIVIL]);
 	    continue;
 	}
 	/*
@@ -347,20 +347,17 @@ int
 check_lmines(coord x, coord y, double weight)
 {
     struct sctstr sect;
-    int mines;
     int dam = 0;
 
     getsect(x, y, &sect);
-    mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-    if (mines > 0 &&
+    if (sect.sct_mines > 0 &&
 	sect.sct_oldown != player->cnum &&
-	chance(DMINE_LHITCHANCE(mines)) && chance(weight / 100.0)) {
+	chance(DMINE_LHITCHANCE(sect.sct_mines)) && chance(weight / 100.0)) {
 	pr_beep();
 	pr("Blammo! Landmines detected! in %s  ",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	dam = roll(20);
-	--mines;
-	putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
+	--sect.sct_mines;
 	putsect(&sect);
 	pr("%d damage sustained.\n", dam);
     }

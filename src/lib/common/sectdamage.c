@@ -72,8 +72,7 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
 
     if (sp->sct_mobil > 0)
 	sp->sct_mobil = damage((int)sp->sct_mobil, dam);
-    sp->sct_nv = vl_damage(dam,
-			   sp->sct_vtype, sp->sct_vamt, (int)sp->sct_nv);
+    item_damage(dam, sp->sct_item);
     if (opt_EASY_BRIDGES == 0) {
 	if (sp->sct_effic < 20 && sp->sct_type == SCT_BHEAD)
 	    bridgefall(sp, list);

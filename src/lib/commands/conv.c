@@ -87,10 +87,10 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	    continue;
 	if (sect.sct_oldown == player->cnum)
 	    continue;
-	civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
+	civ = sect.sct_item[I_CIVIL];
 	if (civ == 0)
 	    continue;
-	mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	mil = sect.sct_item[I_MILIT];
 
 	/*
 	 * Military units count according to the number of
@@ -128,7 +128,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	newuw = civ;
 	if (newuw > uwtoconvert)
 	    newuw = uwtoconvert;
-	uw = getvar(V_UW, (s_char *)&sect, EF_SECTOR);
+	uw = sect.sct_item[I_UW];
 	if (uw > 999)
 	    continue;
 	if (newuw > 999 - uw)
@@ -157,13 +157,9 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	player->dolcost += newuw * 1.5;
 	if (newuw < mob)
 	    mob = newuw;
-	if (putvar(V_UW, newuw + uw, (s_char *)&sect, EF_SECTOR) == 0) {
-	    pr("No room for new uw in %s\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum));
-	    continue;
-	}
+	sect.sct_item[I_UW] = newuw + uw;
 	civ -= newuw;
-	putvar(V_CIVIL, civ, (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[I_CIVIL] = civ;
 	mob = roundavg(mob * 0.2);
 	if (mob > sect.sct_mobil)
 	    mob = sect.sct_mobil;

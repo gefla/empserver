@@ -40,6 +40,7 @@
 #include "queue.h"
 #include "misc.h"
 #include "retreat.h"
+#include "var.h"
 
 #define	SHIP_MINEFF	20
 
@@ -60,8 +61,6 @@
 /* TMAX is the number of cargo holds a ship use in the autonav code. */
 #define TMAX 6
 
-
-#define MAXSHPV	12
 
 #define MAXSHPPATH	28
 #define	MAXSHPNAMLEN	24
@@ -94,9 +93,9 @@ struct shpstr {
     short shp_lstart[TMAX];	/* How much do we pick up at the start  */
     short shp_lend[TMAX];	/* How much do we pick up at the end    */
     u_char shp_autonav;		/* autonavigation flags */
-    s_char shp_nv;		/* current number of variables */
-    u_char shp_vtype[MAXSHPV];
-    u_short shp_vamt[MAXSHPV];
+    u_short shp_item[I_MAX+1];	/* amount of items on board */
+    u_short shp_pstage;		/* plague stage */
+    u_short shp_ptime;		/* how many etus remain in this stage */
     time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
     u_char shp_mobquota;	/* mobility quota */

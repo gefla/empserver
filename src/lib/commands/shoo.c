@@ -66,7 +66,7 @@ shoo(void)
     ip = whatitem(player->argp[1], "Shoot what <civ or uw> ");
     if (ip == 0 || (ip->i_vtype != V_CIVIL && ip->i_vtype != V_UW))
 	return RET_SYN;
-    item = ip - ichr;
+    item = ip->i_vtype;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
     sprintf(prompt, "number of %s to shoot (max 999)? ", ip->i_name);
@@ -122,13 +122,13 @@ shoo(void)
 	   nshot, ip->i_name, xyas(sect.sct_x, sect.sct_y, player->cnum));
 	if (chance(nshot / 100.0))
 	    nreport(player->cnum, N_SHOOT_CIV, sect.sct_oldown, 1);
-	if (vec[item] <= 0 && ip->i_vtype == V_CIVIL &&
-	    (sect.sct_own != sect.sct_oldown)) {
+	if (vec[item] <= 0 && item == V_CIVIL
+	    && (sect.sct_own != sect.sct_oldown)) {
 	    sect.sct_oldown = sect.sct_own;
 	    pr("  %s is now completely yours\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	}
-	putvar(ip->i_vtype, vec[item], (s_char *)&sect, EF_SECTOR);
+	sect.sct_item[item] = vec[item];
 	putsect(&sect);
     }
     return RET_OK;

@@ -57,7 +57,6 @@ anti(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-    int cond[I_MAX + 1];
     int mil, che, target;
     int avail_mil;
     int amil, ache;
@@ -77,10 +76,9 @@ anti(void)
 	    pr("  sect    subversion activity report\n");
 	    pr("  ----    --------------------------\n");
 	}
-	getvec(VT_COND, cond, (char *)&sect, EF_SECTOR);
-	mil = getvar(V_MILIT, (char *)&sect, EF_SECTOR);
-	che = get_che_value(cond[C_CHE]);
-	target = get_che_cnum(cond[C_CHE]);
+	mil = sect.sct_item[I_MILIT];
+	che = get_che_value(sect.sct_che);
+	target = get_che_cnum(sect.sct_che);
 	avail_mil = sect.sct_mobil / 2;
 	if (mil <= avail_mil)
 	    avail_mil = mil;
@@ -114,11 +112,10 @@ anti(void)
 	    }
 	    if (mil - milkilled > 0) {
 		sect.sct_mobil = sect.sct_mobil - chekilled - milkilled;
-		putvar(V_MILIT, mil - milkilled, (char *)&sect, EF_SECTOR);
+		sect.sct_item[I_MILIT] = mil - milkilled;
 		if (ache == 0)
-		    cond[C_CHE] = 0;
-		set_che_value(cond[C_CHE], ache);
-		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
+		    sect.sct_che = 0;
+		set_che_value(sect.sct_che, ache);
 		putsect(&sect);
 		pr("          Body count:  Military %d - Guerillas %d.\n",
 		   milkilled, chekilled);
@@ -141,11 +138,10 @@ anti(void)
 		    /* Ok, now leave anywhere from 16% to 25% of the che */
 		    n_cheleft = (ache / (n_cheleft + 3));
 		    ache -= n_cheleft;
-		    set_che_value(cond[C_CHE], n_cheleft);
+		    set_che_value(sect.sct_che, n_cheleft);
 		} else
-		    cond[C_CHE] = 0;
-		putvar(V_MILIT, ache, (char *)&sect, EF_SECTOR);
-		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
+		    sect.sct_che = 0;
+		sect.sct_item[I_MILIT] = ache;
 		if (sect.sct_own == sect.sct_oldown)
 		    sect.sct_oldown = 0;
 		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x,

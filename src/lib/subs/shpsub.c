@@ -249,11 +249,11 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 	mlp->mobil -= mobcost;
 	mlp->ship.shp_mobil = (int)mlp->mobil;
 	putship(mlp->ship.shp_uid, &mlp->ship);
-	if (!(mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR)))
+	if (!(mines = sect.sct_mines))
 	    continue;
 	max = vl_find(V_SHELL, mlp->mcp->m_vtype,
 		      mlp->mcp->m_vamt, (int)mlp->mcp->m_nv);
-	shells = getvar(V_SHELL, (s_char *)&mlp->ship, EF_SHIP);
+	shells = mlp->ship.shp_item[I_SHELL];
 	for (m = 0; mines > 0 && m < 5; m++) {
 	    if (chance(0.66)) {
 		mpr(actor, "Sweep...\n");
@@ -262,8 +262,8 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 		changed |= map_set(actor, sect.sct_x, sect.sct_y, 'X', 0);
 	    }
 	}
-	putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
-	putvar(V_SHELL, shells, (s_char *)&mlp->ship, EF_SHIP);
+	sect.sct_mines = mines;
+	mlp->ship.shp_item[I_SHELL] = shells;
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
@@ -281,23 +281,21 @@ static int
 shp_check_one_mines(struct mlist *mlp)
 {
     struct sctstr sect;
-    int mines;
     int changed = 0;
     int actor;
 
     getsect(mlp->ship.shp_x, mlp->ship.shp_y, &sect);
     if (sect.sct_type != SCT_WATER)
 	return 0;
-    if (!(mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR)))
+    if (!sect.sct_mines)
 	return 0;
-    if (chance(DMINE_HITCHANCE(mines))) {
+    if (chance(DMINE_HITCHANCE(sect.sct_mines))) {
 	actor = mlp->ship.shp_own;
 	shp_hit_mine(&mlp->ship, mlp->mcp);
-	mines--;
+	sect.sct_mines--;
 	changed |= map_set(actor, sect.sct_x, sect.sct_y, 'X', 0);
 	if (changed)
 	    writemap(actor);
-	putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
 	putsect(&sect);
 	putship(mlp->ship.shp_uid, (s_char *)&mlp->ship);
 	if (!mlp->ship.shp_own)
@@ -669,7 +667,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    continue;
 	if (fsect.sct_type != SCT_FORTR)
 	    continue;
-	gun = getvar(V_GUN, (s_char *)&fsect, EF_SECTOR);
+	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
 	range = tfactfire(fsect.sct_own, (double)min(gun, 7));
@@ -679,16 +677,16 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
 	if (trange > range2)
 	    continue;
-	if (getvar(V_MILIT, (s_char *)&fsect, EF_SECTOR) < 5)
+	if (fsect.sct_item[I_MILIT] < 5)
 	    continue;
-	shell = getvar(V_SHELL, (s_char *)&fsect, EF_SECTOR);
+	shell = fsect.sct_item[I_SHELL];
 	if (shell < 1)
 	    shell += supply_commod(fsect.sct_own,
 				   fsect.sct_x, fsect.sct_y, I_SHELL, 1);
 	if (shell < 1)
 	    continue;
 	shell--;
-	putvar(V_SHELL, shell, (s_char *)&fsect, EF_SECTOR);
+	fsect.sct_item[I_SHELL] = shell;
 	putsect(&fsect);
 	if (gun > 7)
 	    gun = 7;
@@ -983,7 +981,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    ship.shp_uid);
 	mpr(ship.shp_own, "%d%% hitchance...", hitchance);
 	/* use ammo */
-	putvar(V_SHELL, vec[I_SHELL] - 2, (caddr_t)&ship, EF_SHIP);
+	ship.shp_item[I_SHELL] = vec[I_SHELL] - 2;
 	putship(ship.shp_uid, &ship);
 
 	if (roll(100) <= hitchance) {

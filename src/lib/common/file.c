@@ -423,9 +423,8 @@ ef_mtime(int type)
     return fdate(empfile[type].fd);
 }
 
-int
-ef_vars(int type, register s_char *sp, u_char **nvp, u_char **vp,
-	u_short **ap)
+u_short *
+ef_items(int type, void *sp)
 {
     register struct empfile *ef;
 
@@ -433,11 +432,8 @@ ef_vars(int type, register s_char *sp, u_char **nvp, u_char **vp,
 	return 0;
     ef = &empfile[type];
     if ((ef->flags & EFF_COM) == 0)
-	return -1;
-    *nvp = (u_char *)(sp + ef->varoffs[0]);
-    *vp = (u_char *)(sp + ef->varoffs[1]);
-    *ap = (u_short *)(sp + ef->varoffs[2]);
-    return ef->maxvars;
+	return 0;
+    return (u_short *)((char *)sp + ef->itemoffs);
 }
 
 int

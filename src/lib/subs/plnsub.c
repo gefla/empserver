@@ -217,7 +217,6 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     int there;
     int max;
     struct mchrstr *mp;
-    int mines_there;
 
     if (ip == 0)
 	return;
@@ -229,8 +228,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     if (type == EF_SECTOR &&
 	(((struct sctstr *)ptr)->sct_type == SCT_WATER) &&
 	ip->i_vtype == V_SHELL) {
-	mines_there = getvar(V_MINE, ptr, EF_SECTOR);
-	putvar(V_MINE, amt + mines_there, ptr, EF_SECTOR);
+	((struct sctstr *)ptr)->sct_mines += amt;
 	pr("%d mines laid in %s.\n", amt,
 	   xyas(((struct sctstr *)ptr)->sct_x,
 		((struct sctstr *)ptr)->sct_y, player->cnum));
@@ -240,23 +238,25 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	    writemap(player->cnum);
 	putsect((struct sctstr *)ptr);
     } else {
-	there = getvar(ip->i_vtype, ptr, type) + amt;
-	max = 32767;
 	if (type == EF_SHIP) {
 	    ship = (struct shpstr *)ptr;
+	    there = ship->shp_item[ip->i_vtype];
 	    mp = &mchr[(int)ship->shp_type];
 	    max = vl_find(ip->i_vtype, mp->m_vtype,
 			  mp->m_vamt, (int)mp->m_nv);
+	} else {
+	    there = ((struct sctstr *)ptr)->sct_item[ip->i_vtype];
+	    max = 32767;
 	}
+	there += amt;
 	if (there > max) {
 	    pr("%d excess %s discarded\n", max - there, ip->i_name);
 	    amt = max - there;
 	    there = max;
 	}
-	putvar(ip->i_vtype, there, ptr, type);
-	pr("%d %s landed safely", amt, ip->i_name);
 	if (type == EF_SECTOR) {
 	    struct sctstr *sectp = (struct sctstr *)ptr;
+	    sectp->sct_item[ip->i_vtype] = there;
 	    if (sectp->sct_own != player->cnum)
 		wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
 		   cname(player->cnum), amt, ip->i_name,
@@ -265,12 +265,14 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	    putsect((struct sctstr *)ptr);
 	} else {
 	    struct shpstr *sp = (struct shpstr *)ptr;
+	    sp->shp_item[ip->i_vtype] = there;
 	    if (sp->shp_own != player->cnum)
 		wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
 		   cname(player->cnum), amt, ip->i_name, sp->shp_uid);
 	    pr(" on carrier #%d\n", ship->shp_uid);
 	    putship(ship->shp_uid, ship);
 	}
+	pr("%d %s landed safely", amt, ip->i_name);
     }
 }
 
@@ -906,7 +908,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
     int found = 0;
 
     getsect(x, y, &sect);
-    mines_there = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
+    mines_there = sect.sct_mines;
 
     if (mines_there == 0)
 	return;
@@ -933,7 +935,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 
     if (found && map_set(player->cnum, sect.sct_x, sect.sct_y, 'X', 0))
 	writemap(player->cnum);
-    putvar(V_MINE, mines_there, (s_char *)&sect, EF_SECTOR);
+    sect.sct_mines = mines_there;
     putsect(&sect);
 }
 

@@ -70,7 +70,6 @@ sona(void)
     int dist;
     int x, y;
     int cx, cy;
-    int mines;
     int changed = 0;
     int row;
     /* Where these are used are non-re-entrant, so we keep 'em around */
@@ -147,10 +146,10 @@ sona(void)
 		continue;
 	    }
 	    if (ship.shp_tech >= 310 && sect.sct_type == SCT_WATER) {
-		mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-		if (mines) {
+		if (sect.sct_mines) {
 		    pr("Sonar detects %d mines in %s!\n",
-		       mines, xyas(sect.sct_x, sect.sct_y, player->cnum));
+		       sect.sct_mines,
+		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		    rad[ns.dy][ns.dx] = 'X';
 		}
 	    }

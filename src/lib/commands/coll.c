@@ -65,7 +65,6 @@ coll(void)
     double owed;
     double pay;
     s_char buf[1024];
-    int vec[I_MAX + 1];
 
     if (!opt_LOANS) {
 	pr("Loans are not enabled.\n");
@@ -128,7 +127,7 @@ coll(void)
     for (i = 0; ichr[i].i_name; i++) {
 	if (ichr[i].i_value == 0 || ichr[i].i_vtype == 0)
 	    continue;
-	val = getvar(ichr[i].i_vtype, (s_char *)&sect, EF_SECTOR);
+	val = sect.sct_item[ichr[i].i_vtype];
 	pay += val * ichr[i].i_value;
     }
     pr("That sector (and its contents) is valued at $%.2f\n", pay);
@@ -138,7 +137,7 @@ coll(void)
     }
     if (sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT)
 	caploss(&sect, sect.sct_own, "that was %s's capital!\n");
-    putvar(V_MILIT, 1, (s_char *)&sect, EF_SECTOR);
+    sect.sct_item[I_MILIT] = 1;	/* FIXME no where did this guy come from? */
 
 /* Consider modifying takeover to take a "no che" argument and
    putting using it here again. */
@@ -147,9 +146,8 @@ coll(void)
     makenotlost(EF_SECTOR, player->cnum, 0, sect.sct_x, sect.sct_y);
     sect.sct_own = player->cnum;
 
-    memset(vec, 0, sizeof(vec));
-    putvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
-    putvec(VT_DEL, vec, (s_char *)&sect, EF_SECTOR);
+    memset(sect.sct_dist, 0, sizeof(sect.sct_dist));
+    memset(sect.sct_del, 0, sizeof(sect.sct_del));
     sect.sct_off = 1;
     sect.sct_dist_x = sect.sct_x;
     sect.sct_dist_y = sect.sct_y;

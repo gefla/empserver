@@ -112,8 +112,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	nshot = min(nshot, ship.shp_glim);
 	if (nshot <= 0)
 	    continue;
-	(void)putvar(V_SHELL, vec[I_SHELL] - nshot, (caddr_t)&ship,
-		     EF_SHIP);
+	ship.shp_item[I_SHELL] = vec[I_SHELL] - nshot;
 	putship(ship.shp_uid, &ship);
 	if (defending)
 	    nreport(ship.shp_own, N_FIRE_BACK, att, 1);
@@ -254,16 +253,16 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
     range2 = mapdist((int)sp->sct_x, (int)sp->sct_y, tx, ty);
     if (range < range2)
 	return 0;
-    gun = getvar(V_GUN, (caddr_t)sp, EF_SECTOR);
+    gun = sp->sct_item[I_GUN];
     if (gun == 0)
 	return 0;
-    shell = getvar(V_SHELL, (caddr_t)sp, EF_SECTOR);
+    shell = sp->sct_item[I_SHELL];
     if (shell <= 0)
 	shell += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y, I_SHELL,
 			       1);
     if (shell <= 0)
 	return 0;
-    putvar(V_SHELL, shell - 1, (caddr_t)sp, EF_SECTOR);
+    sp->sct_item[I_SHELL] = shell - 1;
     putsect(sp);
     damage = landgun((int)sp->sct_effic, gun);
     if (sp->sct_own != def)

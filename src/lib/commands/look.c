@@ -92,8 +92,8 @@ look(void)
 			       dchr[sect.sct_type].d_mnem, 0);
 	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :
 	       roundintby((int)sect.sct_effic, 10));
-	    civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
-	    mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	    civ = sect.sct_item[I_CIVIL];
+	    mil = sect.sct_item[I_MILIT];
 	    if (civ)
 		pr("with %s%d civ ", player->owner ? "" : "approx ",
 		   player->owner ? civ : roundintby(civ, 10));
@@ -226,8 +226,8 @@ llook(void)
 			       dchr[sect.sct_type].d_mnem, 0);
 	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :
 	       roundintby((int)sect.sct_effic, 10));
-	    civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
-	    mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	    civ = sect.sct_item[I_CIVIL];
+	    mil = sect.sct_item[I_MILIT];
 	    if (civ)
 		pr("with %s%d civ ", player->owner ? "" :
 		   "approx ", player->owner ? civ : roundintby(civ, 10));

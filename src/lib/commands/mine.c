@@ -56,7 +56,6 @@ mine(void)
     int mines;
     int shells;
     int mines_avail;
-    int mines_there;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -70,7 +69,7 @@ mine(void)
 	mp = &mchr[(int)ship.shp_type];
 	if ((mp->m_flags & M_MINE) == 0)
 	    continue;
-	if ((shells = getvar(V_SHELL, (s_char *)&ship, EF_SHIP)) == 0)
+	if ((shells = ship.shp_item[I_SHELL]) == 0)
 	    continue;
 	mines_avail = min(shells, mines);
 	if (getsect(ship.shp_x, ship.shp_y, &sect) == 0 ||
@@ -78,10 +77,8 @@ mine(void)
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
-	mines_there = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-	putvar(V_SHELL, shells - mines_avail, (s_char *)&ship, EF_SHIP);
-	putvar(V_MINE, mines_avail + mines_there, (s_char *)&sect,
-	       EF_SECTOR);
+	sect.sct_mines += mines_avail;
+	ship.shp_item[I_SHELL] = shells - mines_avail;
 	putsect(&sect);
 	ship.shp_mission = 0;
 	putship(ship.shp_uid, &ship);
@@ -104,7 +101,6 @@ landmine(void)
     struct lchrstr *lp;
     struct nstr_item ni;
     int shells;
-    int mines_there;
     int mines_wanted;
     int mines_laid;
     int total_mines_laid;
@@ -124,7 +120,7 @@ landmine(void)
 	}
 	resupply_commod(&land, I_SHELL);
 	putland(land.lnd_uid, &land);
-	if (!(shells = getvar(V_SHELL, (s_char *)&land, EF_LAND)))
+	if (!(shells = land.lnd_item[I_SHELL]))
 	    continue;
 	shells = min(shells, land.lnd_mobil);
 	if (!getsect(land.lnd_x, land.lnd_y, &sect) ||
@@ -132,10 +128,9 @@ landmine(void)
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
-	mines_there = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
 	if (sect.sct_own == sect.sct_oldown)
 	    pr("There are currently %d mines in %s\n",
-	       mines_there, xyas(sect.sct_x, sect.sct_y, player->cnum));
+	       sect.sct_mines, xyas(sect.sct_x, sect.sct_y, player->cnum));
 	sprintf(prompt, "Drop how many mines from %s?  ", prland(&land));
 	mines_wanted = onearg(player->argp[2], prompt);
 	if (!check_land_ok(&land))
@@ -146,18 +141,17 @@ landmine(void)
 	total_mines_laid = 0;
 	while (shells > 0 && total_mines_laid < mines_wanted) {
 	    mines_laid = min(shells, mines_wanted - total_mines_laid);
-	    putvar(V_SHELL, shells - mines_laid, (s_char *)&land, EF_LAND);
+	    land.lnd_item[I_SHELL] = shells - mines_laid;
 	    land.lnd_mobil -= mines_laid;
 	    putland(land.lnd_uid, &land);
 	    resupply_commod(&land, I_SHELL);	/* Get more shells */
 	    putland(land.lnd_uid, &land);
 	    total_mines_laid += mines_laid;
-	    shells = getvar(V_SHELL, (s_char *)&land, EF_LAND);
+	    shells = land.lnd_item[I_SHELL];
 	    shells = min(shells, land.lnd_mobil);
 	}
 	getsect(sect.sct_x, sect.sct_y, &sect);
-	putvar(V_MINE, total_mines_laid + mines_there, (s_char *)&sect,
-	       EF_SECTOR);
+	sect.sct_mines += total_mines_laid;
 	putsect(&sect);
 	if (total_mines_laid == mines_wanted) {
 	    pr("%s laid a total of %d mines in %s",

@@ -166,8 +166,7 @@ tran_nuke(void)
 	    if (land.lnd_own == player->cnum)
 		tot_mil += total_mil(&land);
 	}
-	if ((getvar(V_MILIT, (s_char *)&sect, EF_SECTOR) + tot_mil) * 10
-	    < getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR)) {
+	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
 	    pr("Military control required to move goods.\n");
 	    return RET_FAIL;
 	}
@@ -282,8 +281,7 @@ tran_plane(void)
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
 	while (nxtitem(&ni, (s_char *)&land))
 	    tot_mil += total_mil(&land);
-	if ((getvar(V_MILIT, (s_char *)&sect, EF_SECTOR) + tot_mil) * 10
-	    < getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR)) {
+	if ((sect.sct_item[I_MILIT] + tot_mil) * 10 < sect.sct_item[I_CIVIL]) {
 	    pr("Military control required to move goods.\n");
 	    return RET_FAIL;
 	}

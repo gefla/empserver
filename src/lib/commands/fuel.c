@@ -139,8 +139,8 @@ fuel(void)
 	    if (sect.sct_type == SCT_HARBR
 		|| (opt_BIG_CITY && sect.sct_type == SCT_CAPIT)) {
 		harbor = 1;
-		oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
-		pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+		oil_amt = sect.sct_item[I_OIL];
+		pet_amt = sect.sct_item[I_PETROL];
 		if ((oil_amt + pet_amt) == 0)
 		    harbor = 0;
 
@@ -161,8 +161,8 @@ fuel(void)
 
 	    if (harbor) {
 		ship_fuel = item.ship.shp_fuel;
-		oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
-		pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+		oil_amt = sect.sct_item[I_OIL];
+		pet_amt = sect.sct_item[I_PETROL];
 		max_amt = mp->m_fuelc - ship_fuel;
 
 		if (max_amt == 0) {
@@ -188,36 +188,28 @@ fuel(void)
 		if ((pet_amt * 5) >= move_amt) {
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)) - 1, 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5) - 1, 0);
 		    else
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)), 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5), 0);
 		} else {
-		    putvar(V_PETROL, 0, (s_char *)&sect, EF_SECTOR);
+		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    putvar(V_OIL, max(oil_amt - (move_amt / 50), 0),
-			   (s_char *)&sect, EF_SECTOR);
+		    sect.sct_item[I_OIL] = max(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)) - 1, 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_OIL]
+			    = max((oil_amt - move_amt / 50) - 1, 0);
 		    else
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)), 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_OIL]
+			    = max((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
-		if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) ==
-		    PLG_INFECT && getvar(V_PSTAGE,
-					 (s_char *)&item.ship,
-					 EF_SHIP) == PLG_HEALTHY)
-		    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&item.ship,
-			   EF_SHIP);
+		if (sect.sct_pstage == PLG_INFECT
+		    && item.ship.shp_pstage == PLG_HEALTHY)
+		    item.ship.shp_pstage = PLG_EXPOSED;
 
 		putsect(&sect);
 		putship(item.ship.shp_uid, &item.ship);
@@ -250,8 +242,8 @@ fuel(void)
 		    continue;
 		}
 		ship_fuel = item.ship.shp_fuel;
-		oil_amt = getvar(V_OIL, (s_char *)&item2.ship, EF_SHIP);
-		pet_amt = getvar(V_PETROL, (s_char *)&item2.ship, EF_SHIP);
+		oil_amt = item2.ship.shp_item[I_OIL];
+		pet_amt = item2.ship.shp_item[I_PETROL];
 		max_amt = mp->m_fuelc - ship_fuel;
 
 		if (max_amt == 0) {
@@ -272,36 +264,29 @@ fuel(void)
 		if ((pet_amt * 5) >= move_amt) {
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)) - 1, 0),
-			       (s_char *)&item2.ship, EF_SHIP);
+			item2.ship.shp_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5) - 1, 0);
 		    else
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)), 0),
-			       (s_char *)&item2.ship, EF_SHIP);
+			item2.ship.shp_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5), 0);
 		} else {
-		    putvar(V_PETROL, 0, (s_char *)&item2.ship, EF_SHIP);
+		    item2.ship.shp_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    putvar(V_OIL, max(oil_amt - (move_amt / 50), 0),
-			   (s_char *)&item2.ship, EF_SHIP);
+		    item2.ship.shp_item[I_OIL]
+			= max(oil_amt - (move_amt / 50), 0);
 		    if (extra > 0.0)
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)) - 1, 0),
-			       (s_char *)&item2.ship, EF_SHIP);
+			item2.ship.shp_item[I_OIL]
+			    = max((oil_amt - move_amt / 50) - 1, 0);
 		    else
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)), 0),
-			       (s_char *)&item2.ship, EF_SHIP);
+			item2.ship.shp_item[I_OIL]
+			    = max((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
-		if (getvar(V_PSTAGE, (s_char *)&item2.ship, EF_SHIP) ==
-		    PLG_INFECT && getvar(V_PSTAGE,
-					 (s_char *)&item.ship,
-					 EF_SHIP) == PLG_HEALTHY)
-		    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&item.ship,
-			   EF_SHIP);
+		if (item2.ship.shp_pstage == PLG_INFECT
+		    && item.ship.shp_pstage == PLG_HEALTHY)
+		    item.ship.shp_pstage = PLG_EXPOSED;
 
 		putship(item.ship.shp_uid, &item.ship);
 		/* quick hack -KHS */
@@ -323,8 +308,8 @@ fuel(void)
 	    lcp = &lchr[(int)item.land.lnd_type];
 
 	    sector = 1;
-	    oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
-	    pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+	    oil_amt = sect.sct_item[I_OIL];
+	    pet_amt = sect.sct_item[I_PETROL];
 
 	    if ((oil_amt + pet_amt) == 0)
 		sector = 0;
@@ -337,8 +322,8 @@ fuel(void)
 
 	    if (sector) {
 		land_fuel = item.land.lnd_fuel;
-		oil_amt = getvar(V_OIL, (s_char *)&sect, EF_SECTOR);
-		pet_amt = getvar(V_PETROL, (s_char *)&sect, EF_SECTOR);
+		oil_amt = sect.sct_item[I_OIL];
+		pet_amt = sect.sct_item[I_PETROL];
 		max_amt = item.land.lnd_fuelc - land_fuel;
 
 		if (max_amt == 0) {
@@ -364,36 +349,28 @@ fuel(void)
 		if ((pet_amt * 5) >= move_amt) {
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)) - 1, 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5) - 1, 0);
 		    else
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)), 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5), 0);
 		} else {
-		    putvar(V_PETROL, 0, (s_char *)&sect, EF_SECTOR);
+		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    putvar(V_OIL, max(oil_amt - (move_amt / 50), 0),
-			   (s_char *)&sect, EF_SECTOR);
+		    sect.sct_item[I_OIL] = max(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)) - 1, 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_OIL]
+			    = max((oil_amt - move_amt / 50) - 1, 0);
 		    else
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)), 0),
-			       (s_char *)&sect, EF_SECTOR);
+			sect.sct_item[I_OIL]
+			    = max((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
-		if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) ==
-		    PLG_INFECT && getvar(V_PSTAGE,
-					 (s_char *)&item.land,
-					 EF_LAND) == PLG_HEALTHY)
-		    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&item.land,
-			   EF_LAND);
+		if (sect.sct_pstage == PLG_INFECT
+		    && item.land.lnd_pstage == PLG_HEALTHY)
+		    item.land.lnd_pstage = PLG_EXPOSED;
 
 		putsect(&sect);
 		putland(item.land.lnd_uid, &item.land);
@@ -427,8 +404,8 @@ fuel(void)
 		    continue;
 		}
 		land_fuel = item.land.lnd_fuel;
-		oil_amt = getvar(V_OIL, (s_char *)&item2.land, EF_LAND);
-		pet_amt = getvar(V_PETROL, (s_char *)&item2.land, EF_LAND);
+		oil_amt = item2.land.lnd_item[I_OIL];
+		pet_amt = item2.land.lnd_item[I_PETROL];
 		max_amt = item.land.lnd_fuelc - land_fuel;
 
 		if (max_amt == 0) {
@@ -449,36 +426,29 @@ fuel(void)
 		if ((pet_amt * 5) >= move_amt) {
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)) - 1, 0),
-			       (s_char *)&item2.land, EF_LAND);
+			item2.land.lnd_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5) - 1, 0);
 		    else
-			putvar(V_PETROL,
-			       max((pet_amt - (move_amt / 5)), 0),
-			       (s_char *)&item2.land, EF_LAND);
+			item2.land.lnd_item[I_PETROL]
+			    = max((pet_amt - move_amt / 5), 0);
 		} else {
-		    putvar(V_PETROL, 0, (s_char *)&item2.land, EF_LAND);
+		    item2.land.lnd_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    putvar(V_OIL, max(oil_amt - (move_amt / 50), 0),
-			   (s_char *)&item2.land, EF_LAND);
+		    item2.land.lnd_item[I_OIL]
+			= max(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)) - 1, 0),
-			       (s_char *)&item2.land, EF_LAND);
+			item2.land.lnd_item[I_OIL]
+			    = max((oil_amt - move_amt / 50) - 1, 0);
 		    else
-			putvar(V_OIL,
-			       max((oil_amt - (move_amt / 50)), 0),
-			       (s_char *)&item2.land, EF_LAND);
+			item2.land.lnd_item[I_OIL]
+			    = max((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
-		if (getvar(V_PSTAGE, (s_char *)&item2.land, EF_LAND) ==
-		    PLG_INFECT && getvar(V_PSTAGE,
-					 (s_char *)&item.land,
-					 EF_LAND) == PLG_HEALTHY)
-		    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&item.land,
-			   EF_LAND);
+		if (item2.land.lnd_pstage == PLG_INFECT
+		    && item.land.lnd_pstage == PLG_HEALTHY)
+		    item.land.lnd_pstage = PLG_EXPOSED;
 
 		putland(item.land.lnd_uid, &item.land);
 		/* quick hack -KHS */

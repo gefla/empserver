@@ -214,20 +214,17 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		int mines;
-
 		if (!(p = getstarg(player->argp[3], "What value : ", buf))
 		    || (*p == '\0'))
 		    return RET_SYN;
 		amt = atoi(p);
-		mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-		current = mines;
+		current = sect.sct_mines;
 		current += amt;
 		if (current < 0)
 		    current = 0;
 		if (sect.sct_own != 0)
-		    resnoise(&sect, 1, "Mines", (int)mines, current);
-		putvar(V_MINE, current, (s_char *)&sect, EF_SECTOR);
+		    resnoise(&sect, 1, "Mines", sect.sct_mines, current);
+		sect.sct_mines = current;
 		putsect(&sect);
 	    }
 	    break;

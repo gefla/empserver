@@ -101,6 +101,7 @@ extern void land_damage(struct lndstr *, int);
 extern void planedamage(struct plnstr *, int);
 extern int nukedamage(struct nchrstr *, int, int);
 extern int effdamage(register int, int);
+extern void item_damage(int, u_short *);
 extern int commdamage(register int, int, int);
 /* check.c */
 extern int check_sect_ok(struct sctstr *);
@@ -116,9 +117,7 @@ extern int blksize(int);
 extern time_t fdate(int);
 extern void filetruncate(s_char *);
 /* getvar.c */
-extern int getvar(int, s_char *, int);
 extern int getvec(int, int *, s_char *, int);
-extern int putvar(int, int, s_char *, int);
 extern int putvec(int, int *, s_char *, int);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
@@ -588,8 +587,7 @@ extern s_char *nxtitemp(struct nstr_item *, int);
 extern struct sctstr *nxtsctp(register struct nstr_sect *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
-extern int plague_people(struct natstr *, register int *, register int *,
-			 int);
+extern int plague_people(struct natstr *, int *, u_short *, u_short *, int);
 /* plane.c */
 extern int prod_plane(int, int, int *, int);
 /* populace.c */

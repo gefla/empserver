@@ -160,13 +160,10 @@ new(void)
 	sect.sct_min = 100;
 	sect.sct_gmin = 100;
     }
-    if (opt_RES_POP)
-	putvar(V_CIVIL, 550, (s_char *)&sect, EF_SECTOR);
-    else
-	putvar(V_CIVIL, 999, (s_char *)&sect, EF_SECTOR);
-    putvar(V_MILIT, 55, (s_char *)&sect, EF_SECTOR);
-    putvar(V_FOOD, 1000, (s_char *)&sect, EF_SECTOR);
-    putvar(V_UW, 75, (s_char *)&sect, EF_SECTOR);
+    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
+    sect.sct_item[I_MILIT] = 55;
+    sect.sct_item[I_FOOD] = 1000;
+    sect.sct_item[I_UW] = 75;
     putsect(&sect);
     getsect(x + 2, y, &sect);
     sect.sct_own = num;
@@ -188,13 +185,10 @@ new(void)
 	sect.sct_min = 100;
 	sect.sct_gmin = 100;
     }
-    if (opt_RES_POP)
-	putvar(V_CIVIL, 550, (s_char *)&sect, EF_SECTOR);
-    else
-	putvar(V_CIVIL, 999, (s_char *)&sect, EF_SECTOR);
-    putvar(V_FOOD, 100, (s_char *)&sect, EF_SECTOR);
-    putvar(V_MILIT, 55, (s_char *)&sect, EF_SECTOR);
-    putvar(V_UW, 75, (s_char *)&sect, EF_SECTOR);
+    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
+    sect.sct_item[I_MILIT] = 55;
+    sect.sct_item[I_FOOD] = 100;
+    sect.sct_item[I_UW] = 75;
     putsect(&sect);
     natp->nat_btu = max_btus;
     natp->nat_stat &= ~STAT_NEW;
@@ -370,7 +364,6 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
     land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
 
-    memset(lvec, 0, sizeof(lvec));
     getvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
     lvec[I_FOOD] +=
 	vl_find(V_FOOD, lp->l_vtype, lp->l_vamt, (int)lp->l_nv);

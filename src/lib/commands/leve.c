@@ -48,7 +48,6 @@ leve(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-    int dist[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -65,24 +64,23 @@ leve(void)
 	}
 	if (player->god)
 	    pr("%2d ", sect.sct_own);
-	getvec(VT_DIST, dist, (s_char *)&sect, EF_SECTOR);
 	prxy("%3d,%-3d", nstr.x, nstr.y, player->cnum);
 	pr(" %c ", dchr[sect.sct_type].d_mnem);
 	prxy("%3d,%-3d", sect.sct_dist_x, sect.sct_dist_y, player->cnum);
-	pr(" %4d", dist[I_CIVIL]);
-	pr("%4d", dist[I_MILIT]);
-	pr("%4d", dist[I_UW]);
-	pr("%5d", dist[I_FOOD]);
-	pr("%4d", dist[I_SHELL]);
-	pr("%4d", dist[I_GUN]);
-	pr("%4d", dist[I_PETROL]);
-	pr("%5d", dist[I_IRON]);
-	pr("%5d", dist[I_DUST]);
-	pr("%4d", dist[I_BAR]);
-	pr("%4d", dist[I_OIL]);
-	pr("%4d", dist[I_LCM]);
-	pr("%4d", dist[I_HCM]);
-	pr("%4d", dist[I_RAD]);
+	pr(" %4d", sect.sct_dist[I_CIVIL]);
+	pr("%4d", sect.sct_dist[I_MILIT]);
+	pr("%4d", sect.sct_dist[I_UW]);
+	pr("%5d", sect.sct_dist[I_FOOD]);
+	pr("%4d", sect.sct_dist[I_SHELL]);
+	pr("%4d", sect.sct_dist[I_GUN]);
+	pr("%4d", sect.sct_dist[I_PETROL]);
+	pr("%5d", sect.sct_dist[I_IRON]);
+	pr("%5d", sect.sct_dist[I_DUST]);
+	pr("%4d", sect.sct_dist[I_BAR]);
+	pr("%4d", sect.sct_dist[I_OIL]);
+	pr("%4d", sect.sct_dist[I_LCM]);
+	pr("%4d", sect.sct_dist[I_HCM]);
+	pr("%4d", sect.sct_dist[I_RAD]);
 	pr("\n");
     }
     if (nsect == 0) {

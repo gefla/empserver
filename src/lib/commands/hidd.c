@@ -49,7 +49,6 @@ hidd(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-    int cond[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -68,14 +67,13 @@ hidd(void)
 	}
 	if (player->god)
 	    pr("%3d ", sect.sct_own);
-	getvec(VT_COND, cond, (s_char *)&sect, EF_SECTOR);
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c  %3d%% %3d   %3d  %3d  %3d    %3d   %3d  %3d",
 	   dchr[sect.sct_type].d_mnem, sect.sct_effic,
 	   sect.sct_oldown, sect.sct_loyal,
-	   get_che_cnum(cond[C_CHE]),
-	   get_che_value(cond[C_CHE]),
-	   cond[C_PSTAGE], cond[C_PTIME], cond[C_MINE]);
+	   get_che_cnum(sect.sct_che),
+	   get_che_value(sect.sct_che),
+	   sect.sct_pstage, sect.sct_ptime, sect.sct_mines);
 	pr("\n");
     }
     if (nsect == 0) {

@@ -69,18 +69,14 @@ give(void)
 	    return RET_SYN;
 	if ((amt = atoi(p)) == 0)
 	    return RET_SYN;
-	n = getvar(ip->i_vtype, (s_char *)&sect, EF_SECTOR);
+	n = sect.sct_item[ip->i_vtype];
 	if (amt < 0 && -amt > n) {
 	    m = 0;
 	} else if (amt > 0 && amt + n > 9990) {
 	    m = 9990;
 	} else
 	    m = n + amt;
-	if (putvar(ip->i_vtype, m, (s_char *)&sect, EF_SECTOR) < 0) {
-	    pr("No room to store %s in %s\n", ip->i_name,
-	       xyas(sect.sct_x, sect.sct_y, player->cnum));
-	    return RET_FAIL;
-	}
+	sect.sct_item[ip->i_vtype] = m;
 	putsect(&sect);
 	if (sect.sct_own != 0 && m != n) {
 	    if (m > n) {

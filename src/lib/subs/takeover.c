@@ -54,15 +54,14 @@ takeover(register struct sctstr *sp, natid newown)
     int che;
     int che_count;
     int oldche;
-    int n, vec[I_MAX + 1];
+    int n;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr land;
 
     /* Wipe all the distribution info */
-    memset(vec, 0, sizeof(vec));
-    putvec(VT_DIST, vec, (s_char *)sp, EF_SECTOR);
-    putvec(VT_DEL, vec, (s_char *)sp, EF_SECTOR);
+    memset(sp->sct_dist, 0, sizeof(sp->sct_dist));
+    memset(sp->sct_del, 0, sizeof(sp->sct_del));
     if (sp->sct_own == 0)
 	sp->sct_off = 0;
     else
@@ -116,8 +115,8 @@ takeover(register struct sctstr *sp, natid newown)
     }
 
     sp->sct_avail = 0;
-    civ = getvar(V_CIVIL, (s_char *)sp, EF_SECTOR);
-    oldche = get_che_value(getvar(V_CHE, (s_char *)sp, EF_SECTOR));
+    civ = sp->sct_item[I_CIVIL];
+    oldche = get_che_value(sp->sct_che);
     /*
      * create guerrillas from civilians
      * how spunky are these guys?
@@ -143,8 +142,8 @@ takeover(register struct sctstr *sp, natid newown)
     set_che_value(che, che_count);
     if (newown != sp->sct_oldown)
 	set_che_cnum(che, newown);
-    (void)putvar(V_CHE, che, (s_char *)sp, EF_SECTOR);
-    (void)putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+    sp->sct_che = che;
+    sp->sct_item[I_CIVIL] = civ;
     if (sp->sct_oldown == newown || civ == 0) {
 	/*
 	 * taking over one of your old sectors

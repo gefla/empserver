@@ -256,7 +256,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		if (sect.sct_type == SCT_MOUNT)
 		    continue;
 		++nowned;
-		civs = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
+		civs = sect.sct_item[I_CIVIL];
 		if (civs > biggest) {
 		    biggest = civs;
 		    bx = sect.sct_x;
@@ -335,22 +335,14 @@ lnd_takemob(struct emp_qelem *list, double loss)
 int
 lnd_getmil(struct lndstr *lp)
 {
-    int vec[I_MAX + 1];
-
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-    return vec[I_MILIT];
+    return lp->lnd_item[I_MILIT];
 }
 
 void
 lnd_submil(struct lndstr *lp, int num)
 {
-    int vec[I_MAX + 1];
-
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-    vec[I_MILIT] -= num;
-    if (vec[I_MILIT] < 0)
-	vec[I_MILIT] = 0;
-    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+    int new = lp->lnd_item[I_MILIT] - num;
+    lp->lnd_item[I_MILIT] = new < 0 ? 0 : new;
 }
 
 int
@@ -711,12 +703,12 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	    llp->land.lnd_harden = 0;
 	}
 	putland(llp->land.lnd_uid, &llp->land);
-	if (!(mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR)))
+	if (!(mines = sect.sct_mines))
 	    continue;
 	max = vl_find(V_SHELL, llp->lcp->l_vtype,
 		      llp->lcp->l_vamt, (int)llp->lcp->l_nv);
-	lshells = getvar(V_SHELL, (s_char *)&llp->land, EF_LAND);
-	sshells = getvar(V_SHELL, (s_char *)&sect, EF_SECTOR);
+	lshells = llp->land.lnd_item[I_SHELL];
+	sshells = sect.sct_item[I_SHELL];
 	for (m = 0; mines > 0 && m < max * 2; m++) {
 	    if (chance(0.5 * llp->lcp->l_att)) {
 		mpr(actor, "Sweep...\n");
@@ -727,9 +719,9 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 		    ++sshells;
 	    }
 	}
-	putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
-	putvar(V_SHELL, lshells, (s_char *)&llp->land, EF_LAND);
-	putvar(V_SHELL, sshells, (s_char *)&sect, EF_SECTOR);
+	sect.sct_mines = mines;
+	llp->land.lnd_item[I_SHELL] = lshells;
+	sect.sct_item[I_SHELL] = sshells;
 	putland(llp->land.lnd_uid, &llp->land);
 	putsect(&sect);
     }
@@ -758,9 +750,8 @@ lnd_check_mines(struct emp_qelem *land_list)
     struct emp_qelem *next;
     struct llist *llp;
     struct sctstr sect;
-    int mines;
     int stopping = 0;
-    int has_engineers = contains_engineer(land_list);
+    int with_eng = contains_engineer(land_list);
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
@@ -770,12 +761,11 @@ lnd_check_mines(struct emp_qelem *land_list)
 	    continue;
 	if (sect.sct_type == SCT_BSPAN)
 	    continue;
-	if (!(mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR)))
+	if (!sect.sct_mines)
 	    continue;
-	if (chance(DMINE_LHITCHANCE(mines) / (1 + 2 * has_engineers))) {
+	if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
 	    lnd_hit_mine(&llp->land, llp->lcp);
-	    mines--;
-	    putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
+	    sect.sct_mines--;
 	    putsect(&sect);
 	    putland(llp->land.lnd_uid, (s_char *)&llp->land);
 	    if (!llp->land.lnd_own) {
@@ -951,7 +941,7 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	    continue;
 	if (getrel(getnatp(fsect.sct_own), victim) >= NEUTRAL)
 	    continue;
-	gun = getvar(V_GUN, (s_char *)&fsect, EF_SECTOR);
+	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
 	range = tfactfire(fsect.sct_own, (double)min(gun, 7));
@@ -961,16 +951,16 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
 	if (trange > range2)
 	    continue;
-	if (getvar(V_MILIT, (s_char *)&fsect, EF_SECTOR) < 5)
+	if (fsect.sct_item[I_MILIT] < 5)
 	    continue;
-	shell = getvar(V_SHELL, (s_char *)&fsect, EF_SECTOR);
+	shell = fsect.sct_item[I_SHELL];
 	if (shell < 1)
 	    shell += supply_commod(fsect.sct_own,
 				   fsect.sct_x, fsect.sct_y, I_SHELL, 1);
 	if (shell < 1)
 	    continue;
 	shell--;
-	putvar(V_SHELL, shell, (s_char *)&fsect, EF_SECTOR);
+	fsect.sct_item[I_SHELL] = shell;
 	putsect(&fsect);
 	if (gun > 7)
 	    gun = 7;
@@ -1252,7 +1242,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y)
 	if (land.lnd_effic < LAND_MINFIREEFF)
 	    continue;
 	/* Do we have mil? */
-	if (getvar(V_MILIT, (s_char *)&land, EF_LAND) <= 0)
+	if (land.lnd_item[I_MILIT] <= 0)
 	    continue;
 	rel = getrel(getnatp(land.lnd_own), attacker);
 	rel2 = getrel(getnatp(land.lnd_own), victim);
@@ -1273,8 +1263,8 @@ lnd_support(natid victim, natid attacker, coord x, coord y)
 	if (dist > range2)
 	    continue;
 
-	shell = getvar(V_SHELL, (s_char *)&land, EF_LAND);
-	gun = getvar(V_GUN, (s_char *)&land, EF_LAND);
+	shell = land.lnd_item[I_SHELL];
+	gun = land.lnd_item[I_GUN];
 
 	if (shell == 0 || gun == 0)
 	    continue;

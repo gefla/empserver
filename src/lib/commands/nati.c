@@ -68,8 +68,8 @@ nati(void)
 	    pr("No capital. (was at %s)\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	else {
-	    civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
-	    mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	    civ = sect.sct_item[I_CIVIL];
+	    mil = sect.sct_item[I_MILIT];
 	    pr("%d%% eff %s at %s has %d civilian%s & %d military\n",
 	       sect.sct_effic,
 	       (sect.sct_type ==

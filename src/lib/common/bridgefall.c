@@ -97,7 +97,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     struct lndstr land;
     struct plnstr plane;
     struct nstr_item ni;
-    int mines;
     struct natstr *np;
 
     if (sp->sct_type == SCT_BTOWER)
@@ -161,12 +160,10 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	plane.pln_effic = 0;
 	putplane(plane.pln_uid, &plane);
     }
-    /*
-     * save only the mines; zero the rest of the
-     * commodities.
-     */
-    mines = getvar(V_MINE, (caddr_t)sp, EF_SECTOR);
-    sp->sct_nv = 0;
-    if (mines > 0)
-	(void)putvar(V_MINE, mines, (caddr_t)sp, EF_SECTOR);
+    memset(sp->sct_item, 0, sizeof(sp->sct_item));
+    memset(sp->sct_del, 0, sizeof(sp->sct_del));
+    memset(sp->sct_dist, 0, sizeof(sp->sct_dist));
+    sp->sct_pstage = PLG_HEALTHY;
+    sp->sct_ptime = 0;
+    sp->sct_che = 0;
 }

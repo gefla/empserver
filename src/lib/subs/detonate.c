@@ -103,7 +103,7 @@ detonate(struct plnstr *pp, int x, int y)
 	    continue;
 	}
 	if (opt_FALLOUT)
-	    fallout = getvar(V_FALLOUT, (s_char *)&sect, EF_SECTOR);
+	    fallout = sect.sct_fallout;
 	sect_damage(&sect, damage, 0);
 	if (sect.sct_x == x && sect.sct_y == y)
 	    retval = damage;
@@ -112,7 +112,7 @@ detonate(struct plnstr *pp, int x, int y)
 		fallout += damage * 30;
 	    else
 		fallout += damage * 3;
-	    putvar(V_FALLOUT, fallout, (s_char *)&sect, EF_SECTOR);
+	    sect.sct_fallout = fallout;
 	}
 	if (damage > 100) {
 	    makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);

@@ -34,19 +34,10 @@
  */
 
 
-/*
- * each "point" of MAXSCTV costs 32k for 128x128.
- * MAXSCTV = 20 ==> 655k for the commodities alone!
- *
- * If you set this to I_MAX*3, you'll never run ou
- * of slots, which is nice. (You'll eat a lot of
- * space, tho)
- */
-
 #ifndef _SECT_H_
 #define _SECT_H_
 
-#define	MAXSCTV 42
+#include "var.h"
 
 /* The order of the following elements is there to match up with genitem */
 
@@ -80,9 +71,14 @@ struct sctstr {
     natid sct_oldown;		/* old owner of sector (for liberation) */
     u_char sct_updated;		/* Has this sect been updated? */
     u_char sct_off;		/* Should this sector produce? */
-    u_char sct_nv;		/* current number of variables */
-    u_char sct_vtype[MAXSCTV];
-    u_short sct_vamt[MAXSCTV];
+    u_short sct_item[I_MAX+1];	/* amount of items stored here */
+    u_short sct_del[I_MAX+1];	/* delivieries */
+    u_short sct_dist[I_MAX+1];	/* distribution thresholds */
+    u_short sct_mines;		/* number of mines */
+    u_short sct_pstage;		/* plague stage */
+    u_short sct_ptime;		/* how many etus remain in this stage */
+    u_short sct_che;		/* che combo */
+    u_short sct_fallout;
     time_t sct_access;		/* Last time mob was updated (MOB_ACCESS) */
     u_char sct_road;		/* Road value of a sector */
     u_char sct_rail;		/* Rail value of a sector */

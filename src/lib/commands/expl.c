@@ -87,8 +87,8 @@ explore(void)
 	pr("Not yours\n");
 	return RET_FAIL;
     }
-    infected = getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_INFECT;
-    if ((amt_src = getvar(vtype, (s_char *)&sect, EF_SECTOR)) <= 0) {
+    infected = sect.sct_pstage == PLG_INFECT;
+    if ((amt_src = sect.sct_item[vtype]) <= 0) {
 	pr("No %s in %s\n", ip->i_name,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_SYN;
@@ -136,14 +136,14 @@ explore(void)
     weight = amount * ip->i_lbs;
     /* remove commodities from source sector */
     getsect(x, y, &start);
-    amt_src = getvar(vtype, (s_char *)&start, EF_SECTOR);
+    amt_src = start.sct_item[vtype];
     amt_src -= amount;
     if (amt_src < 0) {
 	pr("%s in %s are gone!\n", ip->i_name,
 	   xyas(start.sct_x, start.sct_y, player->cnum));
 	return RET_OK;
     }
-    putvar(vtype, amt_src, (s_char *)&start, EF_SECTOR);
+    start.sct_item[vtype] = amt_src;
     start.sct_flags |= MOVE_IN_PROGRESS;
     putsect(&start);
     /*
@@ -235,18 +235,14 @@ explore(void)
     getsect(start.sct_x, start.sct_y, &start);
     start.sct_flags &= ~MOVE_IN_PROGRESS;
     putsect(&start);
-    amt_dst = getvar(vtype, (s_char *)&sect, EF_SECTOR);
+    amt_dst = sect.sct_item[vtype];
     if (32767 - amt_dst < amount) {
 	amount = 32767 - amt_dst;
 	pr("Only %d can be left there.\n", amount);
 	if (amount <= 0)
 	    getsect(start.sct_x, start.sct_y, &sect);
     }
-    if (putvar(vtype, amount + amt_dst, (s_char *)&sect, EF_SECTOR) < 0) {
-	pr("No more room in %s.\n",
-	   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return RET_OK;
-    }
+    sect.sct_item[vtype] = amount + amt_dst;
     /*
      * Now add commodities to destination sector,
      * along with plague that came along for the ride.
@@ -262,8 +258,8 @@ explore(void)
 	    sect.sct_mobil = 0;
 	}
     }
-    if (infected && getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == 0)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&sect, EF_SECTOR);
+    if (infected && sect.sct_pstage == PLG_HEALTHY)
+	sect.sct_pstage = PLG_EXPOSED;
     if (vtype == V_CIVIL) {
 	if (opt_NEW_WORK) {
 	    sect.sct_loyal = ((amt_dst * sect.sct_loyal) +

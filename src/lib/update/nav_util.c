@@ -94,8 +94,8 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
     item = sp->shp_tend[i];	/* commodity */
     comm = com_num(&item);
 
-    ship_amt = getvar(comm, (s_char *)sp, EF_SHIP);
-    sect_amt = getvar(comm, (s_char *)psect, EF_SECTOR);
+    ship_amt = sp->shp_item[comm];
+    sect_amt = psect->sct_item[comm];
 
     /* check for disloyal civilians */
     if (psect->sct_oldown != shipown && comm == V_CIVIL) {
@@ -133,18 +133,16 @@ load_it(register struct shpstr *sp, register struct sctstr *psect, int i)
 	return 0;		/* nothing to move */
 
 
-    putvar(comm, ship_amt + transfer, (s_char *)sp, EF_SHIP);
+    sp->shp_item[comm] = ship_amt + transfer;
     if (comm == V_CIVIL || comm == V_MILIT)
 	sect_amt++;		/*adjustment */
-    putvar(comm, sect_amt - transfer, (s_char *)psect, EF_SECTOR);
+    psect->sct_item[comm] = sect_amt - transfer;
 
     /* deal with the plague */
-    if (getvar(V_PSTAGE, (s_char *)psect, EF_SECTOR) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)sp, EF_SHIP) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)sp, EF_SHIP);
-    if (getvar(V_PSTAGE, (s_char *)sp, EF_SHIP) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)psect, EF_SECTOR) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)psect, EF_SECTOR);
+    if (psect->sct_pstage == PLG_INFECT && sp->shp_pstage == PLG_HEALTHY)
+	sp->shp_pstage = PLG_EXPOSED;
+    if (sp->shp_pstage == PLG_INFECT && psect->sct_pstage == PLG_HEALTHY)
+	psect->sct_pstage = PLG_EXPOSED;
 
     return 1;			/* we did someloading return 1 to keep */
     /* our loop happy in nav_ship()        */
@@ -192,8 +190,8 @@ unload_it(register struct shpstr *sp)
 	    continue;
 
 	comm = com_num(&item);
-	ship_amt = getvar(comm, (s_char *)sp, EF_SHIP);
-	sect_amt = getvar(comm, (s_char *)sectp, EF_SECTOR);
+	ship_amt = sp->shp_item[comm];
+	sect_amt = sectp->sct_item[comm];
 
 	/* check for disloyal civilians */
 	if (sectp->sct_oldown != shipown && comm == V_CIVIL) {
@@ -214,25 +212,20 @@ unload_it(register struct shpstr *sp)
 	if (max_amt <= 0)
 	    continue;
 
-	putvar(comm, ship_amt - max_amt, (s_char *)sp, EF_SHIP);
-	putvar(comm, sect_amt + max_amt, (s_char *)sectp, EF_SECTOR);
+	sp->shp_item[comm] = ship_amt - max_amt;
+	sectp->sct_item[comm] = sect_amt + max_amt;
 
-	if (getvar(V_PSTAGE, (s_char *)sectp, EF_SECTOR) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)sp, EF_SHIP) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)sp, EF_SHIP);
-
-	if (getvar(V_PSTAGE, (s_char *)sp, EF_SHIP) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)sectp, EF_SECTOR) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)sectp, EF_SECTOR);
-
+	if (sectp->sct_pstage == PLG_INFECT && sp->shp_pstage == PLG_HEALTHY)
+	    sp->shp_pstage = PLG_EXPOSED;
+	if (sp->shp_pstage == PLG_INFECT && sectp->sct_pstage == PLG_HEALTHY)
+	    sectp->sct_pstage = PLG_EXPOSED;
     }
-
 }
 
 /* com_num
  * This small but useful bit of code runs through the list
  * of commodities and return the integer value of the 
- * commodity it finds if possible.  Very handy when using getvar().  
+ * commodity it finds if possible.
  * Basicly its a hacked version of whatitem.c found in the
  * /player directory.
  * new autonav code.

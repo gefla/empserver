@@ -62,8 +62,7 @@ military_control(struct sctstr *sp)
 	    if (land.lnd_own == sp->sct_own)
 		tot_mil += total_mil(&land);
 	}
-	if ((getvar(V_MILIT, (s_char *)sp, EF_SECTOR) + tot_mil) * 10
-	    < getvar(V_CIVIL, (s_char *)sp, EF_SECTOR))
+	if ((sp->sct_item[I_MILIT] + tot_mil) * 10 < sp->sct_item[I_CIVIL])
 	    return 0;
     }
 

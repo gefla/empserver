@@ -65,12 +65,8 @@ prepare_sects(int etu, int *bp)
     if (opt_FALLOUT) {
 	if (!player->simulation) {
 	    /* First, we determine which sectors to process fallout in */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-		if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
-		    sp->sct_updated = 1;
-		else
-		    sp->sct_updated = 0;
-	    }
+	    for (n = 0; NULL != (sp = getsectid(n)); n++)
+		sp->sct_updated = sp->sct_fallout != 0;
 	    /* Next, we process the fallout there */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
 		if (sp->sct_updated)
@@ -81,7 +77,7 @@ prepare_sects(int etu, int *bp)
 		    spread_fallout(sp, etu);
 	    /* Next, we decay the fallout */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-		if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
+		if (sp->sct_fallout)
 		    decay_fallout(sp, etu);
 	}
     }
@@ -158,13 +154,13 @@ upd_slmilcosts(natid n, int etu)
     for (i = 0; NULL != (sp = getshipp(i)); i++) {
 	if (!sp->shp_own || sp->shp_own != n)
 	    continue;
-	if ((mil = getvar(V_MILIT, (s_char *)sp, EF_SHIP)) > 0)
+	if ((mil = sp->shp_item[I_MILIT]) > 0)
 	    totalmil += mil;
     }
     for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	if (!lp->lnd_own || lp->lnd_own != n)
 	    continue;
-	if ((mil = getvar(V_MILIT, (s_char *)lp, EF_LAND)) > 0)
+	if ((mil = lp->lnd_item[I_MILIT]) > 0)
 	    totalmil += mil;
     }
     mil_pay = totalmil * etu * money_mil;

@@ -161,22 +161,11 @@ buy(void)
 	return RET_FAIL;
     }
     ip = whichitem(comm.com_type);
-    n = getvar(ip->i_vtype, (char *)&sect, EF_SECTOR);
+    n = sect.sct_item[ip->i_vtype];
     qty = comm.com_amount;
     if (qty + n > 9990) {
 	pr("That sector cannot hold %d more %s. It currently holds %d.\n",
 	   qty, ip->i_name, n);
-	return RET_FAIL;
-    }
-    /* First we check for room, then we yank back.  Probably not necessary. */
-    if (putvar(ip->i_vtype, n + qty, (char *)&sect, EF_SECTOR) <= 0) {
-	pr("No room to store %s in %s\n",
-	   ip->i_name, xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return RET_FAIL;
-    }
-    if (putvar(ip->i_vtype, n, (char *)&sect, EF_SECTOR) <= 0) {
-	pr("Something weird just happened, tell the deity.\n");
-	logerror("buy.c: putvar failed.\n");
 	return RET_FAIL;
     }
     if ((bid * comm.com_amount) > natp->nat_money) {
@@ -250,7 +239,7 @@ check_market(void)
 	    continue;
 	ip = whichitem(comm.com_type);
 	sect = getsectp(comm.com_x, comm.com_y);
-	m = getvar(ip->i_vtype, (char *)sect, EF_SECTOR);
+	m = sect->sct_item[ip->i_vtype];
 
 	monleft = 0;
 
@@ -344,14 +333,14 @@ check_market(void)
 	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
-	} else if (putvar(ip->i_vtype, m + comm.com_amount,
-			  (char *)sect, EF_SECTOR) <= 0) {
+	} else if (m + comm.com_amount > 32767) {
 	    wu(0, comm.com_maxbidder,
 	       "Warehouse full,  sale #%d fell though.\n", n);
 	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
 	} else {
+	    sect->sct_item[ip->i_vtype] = m + comm.com_amount;
 	    putsect(sect);
 	    nreport(comm.com_owner, N_MAKE_SALE, comm.com_maxbidder, 1);
 	    wu(0, comm.com_owner, "%s bought %d %c's from you for $%.2f\n",

@@ -101,7 +101,7 @@ nat_cap(int btu)
 	d = (double)(player->curup - np->nat_last_login) / s_p_etu;
 	if (d > 336.0)
 	    d = 336.0;
-	civ = getvar(V_CIVIL, (caddr_t)&sect, EF_SECTOR);
+	civ = sect.sct_item[I_CIVIL];
 	if (civ > 999)
 	    civ = 999;
 	if ((sect.sct_effic) && (sect.sct_type != SCT_MOUNT))

@@ -50,9 +50,7 @@ deli(void)
     register int dir, del;
     register struct ichrstr *ich;
     register int thresh;
-    int i_del;
     int sx, sy;
-    int status;
     struct nstr_sect nstr;
     s_char buf[1024];
     s_char prompt[128];
@@ -68,13 +66,12 @@ deli(void)
      */
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    i_del = V_DEL(ich - ichr);
 
     while (nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
 
-	del = getvar(i_del, (s_char *)&sect, EF_SECTOR);
+	del = sect.sct_del[ich->i_vtype];
 	thresh = del & ~0x7;
 	dir = del & 0x7;
 
@@ -105,16 +102,8 @@ deli(void)
 		continue;
 
 	    del = thresh + dir;
-	    status = putvar(i_del, del, (s_char *)&sect, EF_SECTOR);
-	    if (status < 0) {
-		pr("No room for delivery path in %s\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		continue;
-	    } else if (!status) {
-		/* Either nothing to set, or bogus amount. */
-		continue;
-	    } else
-		putsect(&sect);
+	    sect.sct_del[ich->i_vtype] = del;
+	    putsect(&sect);
 	}
 
 	if (!del)

@@ -61,7 +61,6 @@ stre(void)
     double dtotal, r_total, eff;
     struct combat def[1];
     int dummy;
-    int mines;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -96,12 +95,11 @@ stre(void)
 	def->own = 0;
 	eff = att_combat_eff(def);
 	if (sect.sct_own == sect.sct_oldown) {
-	    mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
-	    if (mines > 0)
-		pr("%7d", mines);
+	    if (sect.sct_mines > 0)
+		pr("%7d", sect.sct_mines);
 	    else
 		pr("%7s", "");
-	    eff *= (1.0 + min(mines, 20) * 0.02);
+	    eff *= (1.0 + min(sect.sct_mines, 20) * 0.02);
 	} else {
 	    pr("%7s", "?");
 	}

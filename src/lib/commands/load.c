@@ -194,12 +194,12 @@ load(void)
 		return retval;
 	}
 	/* load/unload plague */
-	if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)&ship, EF_SHIP) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&ship, EF_SHIP);
-	if (getvar(V_PSTAGE, (s_char *)&ship, EF_SHIP) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&sect, EF_SECTOR);
+	if (sect.sct_pstage == PLG_INFECT
+	    && ship.shp_pstage == PLG_HEALTHY)
+	    ship.shp_pstage = PLG_EXPOSED;
+	if (ship.shp_pstage == PLG_INFECT
+	    && sect.sct_pstage == PLG_HEALTHY)
+	    sect.sct_pstage = PLG_EXPOSED;
 	putsect(&sect);
 	putship(ship.shp_uid, &ship);
     }
@@ -302,12 +302,12 @@ lload(void)
 		return retval;
 	}
 	/* load/unload plague */
-	if (getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)&land, EF_LAND) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&land, EF_LAND);
-	if (getvar(V_PSTAGE, (s_char *)&land, EF_LAND) == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_HEALTHY)
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&sect, EF_SECTOR);
+	if (sect.sct_pstage == PLG_INFECT
+	    && land.lnd_pstage == PLG_HEALTHY)
+	    land.lnd_pstage = PLG_EXPOSED;
+	if (land.lnd_pstage == PLG_INFECT
+	    && sect.sct_pstage == PLG_HEALTHY)
+	    sect.sct_pstage = PLG_EXPOSED;
 
 	putsect(&sect);
 	putland(land.lnd_uid, &land);
@@ -763,8 +763,8 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	load_unload = LOAD;
     } else if (!amount)
 	return 0;
-    ship_amt = getvar(item, (s_char *)sp, EF_SHIP);
-    sect_amt = getvar(item, (s_char *)sectp, EF_SECTOR);
+    ship_amt = sp->shp_item[item];
+    sect_amt = sectp->sct_item[item];
     if (sectp->sct_oldown != player->cnum && item == V_CIVIL) {
 	pr("%s civilians refuse to %s at %s!\n",
 	   load_unload == UNLOAD ? "Your" : "Foreign",
@@ -799,8 +799,8 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	return RET_FAIL;
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
-    putvar(item, sect_amt - move_amt, (s_char *)sectp, EF_SECTOR);
-    putvar(item, ship_amt + move_amt, (s_char *)sp, EF_SHIP);
+    sectp->sct_item[item] = sect_amt - move_amt;
+    sp->shp_item[item] = ship_amt + move_amt;
     if (load_unload == LOAD) {
 	pr("%d %s loaded onto %s at %s\n",
 	   move_amt,
@@ -989,8 +989,8 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	return 0;
     }
 
-    land_amt = getvar(item, (s_char *)lp, EF_LAND);
-    sect_amt = getvar(item, (s_char *)sectp, EF_SECTOR);
+    land_amt = lp->lnd_item[item];
+    sect_amt = sectp->sct_item[item];
     if (sectp->sct_oldown != player->cnum && item == V_CIVIL) {
 	pr("%s civilians refuse to %s at %s!\n",
 	   load_unload == UNLOAD ? "Your" : "Foreign",
@@ -1020,8 +1020,8 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	move_amt = load_unload * min(amount, max_amt);
     if (move_amt == 0)
 	return 0;
-    putvar(item, sect_amt - move_amt, (s_char *)sectp, EF_SECTOR);
-    putvar(item, land_amt + move_amt, (s_char *)lp, EF_LAND);
+    sectp->sct_item[item] = sect_amt - move_amt;
+    lp->lnd_item[item] = land_amt + move_amt;
 
     /* Did we put mils onto this unit? If so, reset the fortification */
     if (item == V_MILIT && move_amt > 0)

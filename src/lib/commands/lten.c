@@ -88,7 +88,7 @@ ltend(void)
 	    return RET_FAIL;
 	if ((amt = atoi(p)) == 0)
 	    break;
-	ontender = getvar(ip->i_vtype, (s_char *)&tender, EF_SHIP);
+	ontender = tender.shp_item[ip->i_vtype];
 	if (ontender == 0 && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));
 	    return RET_FAIL;
@@ -114,7 +114,7 @@ ltend(void)
 
 	    if (target.lnd_ship != tender.shp_uid)
 		continue;
-	    ontarget = getvar(ip->i_vtype, (s_char *)&target, EF_LAND);
+	    ontarget = target.lnd_item[ip->i_vtype];
 	    if (ontarget == 0 && amt < 0) {
 		pr("No %s on %s\n",
 		   ip->i_name, prship((struct shpstr *)&target));
@@ -132,8 +132,7 @@ ltend(void)
 		transfer = min(maxtender - ontender, transfer);
 		if (transfer == 0)
 		    continue;
-		putvar(ip->i_vtype, ontarget - transfer,
-		       (s_char *)&target, EF_LAND);
+		target.lnd_item[ip->i_vtype] = ontarget - transfer;
 		ontender += transfer;
 		total += transfer;
 	    } else {
@@ -142,8 +141,7 @@ ltend(void)
 		transfer = min(transfer, maxtarget - ontarget);
 		if (transfer == 0)
 		    continue;
-		putvar(ip->i_vtype, ontarget + transfer,
-		       (s_char *)&target, EF_LAND);
+		target.lnd_item[ip->i_vtype] = ontarget + transfer;
 		ontender -= transfer;
 		total += transfer;
 	    }
@@ -157,7 +155,7 @@ ltend(void)
 	pr("%d total %s transferred %s %s\n",
 	   total, ip->i_name, (amt > 0) ? "off of" : "to",
 	   prship(&tender));
-	putvar(ip->i_vtype, ontender, (s_char *)&tender, EF_SHIP);
+	tender.shp_item[ip->i_vtype] = ontender;
 	tender.shp_mission = 0;
 	putship(tender.shp_uid, &tender);
     }
@@ -167,10 +165,8 @@ ltend(void)
 static void
 expose_land(struct shpstr *s1, struct lndstr *l1)
 {
-    if (getvar(V_PSTAGE, (s_char *)s1, EF_SHIP) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)l1, EF_LAND) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)l1, EF_LAND);
-    if (getvar(V_PSTAGE, (s_char *)l1, EF_LAND) == PLG_INFECT &&
-	getvar(V_PSTAGE, (s_char *)s1, EF_SHIP) == PLG_HEALTHY)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)s1, EF_SHIP);
+    if (s1->shp_pstage == PLG_INFECT && l1->lnd_pstage == PLG_HEALTHY)
+	l1->lnd_pstage = PLG_EXPOSED;
+    if (l1->lnd_pstage == PLG_INFECT && s1->shp_pstage == PLG_HEALTHY)
+	s1->shp_pstage = PLG_EXPOSED;
 }

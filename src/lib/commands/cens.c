@@ -85,14 +85,12 @@ cens(void)
 	    pr("    ");
 	pr("%4d", sect.sct_mobil);
 
-	getvec(VT_DEL, vec, (s_char *)&sect, EF_SECTOR);
-	pr(" %c", dirstr[vec[I_UW] & 0x7]);
-	pr("%c", dirstr[vec[I_FOOD] & 0x7]);
+	pr(" %c", dirstr[sect.sct_del[I_UW] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_FOOD] & 0x7]);
 
-	getvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
-	n = vec[I_UW] % 1000;
+	n = sect.sct_dist[I_UW] % 1000;
 	pr(" %c", n == 0 ? '.' : '0' + (n / 100));
-	n = vec[I_FOOD] % 1000;
+	n = sect.sct_dist[I_FOOD] % 1000;
 	pr("%c ", n == 0 ? '.' : '0' + (n / 100));
 	pr("%c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
 
@@ -110,8 +108,7 @@ cens(void)
 		pr("    ");
 	}
 	if (opt_FALLOUT) {
-	    getvec(VT_COND, vec, (void *)&sect, EF_SECTOR);
-	    pr("%5d", vec[C_FALLOUT]);
+	    pr("%5d", sect.sct_fallout);
 	}
 	set_coastal(&sect);
 	if (sect.sct_coastal)

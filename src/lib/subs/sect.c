@@ -84,8 +84,8 @@ checksect(struct sctstr *sp)
     if (sp->sct_mobil > 127)
 	sp->sct_mobil = 0;
 
-    mil = getvar(V_MILIT, (s_char *)sp, EF_SECTOR);
-    civs = getvar(V_CIVIL, (s_char *)sp, EF_SECTOR);
+    mil = sp->sct_item[I_MILIT];
+    civs = sp->sct_item[I_CIVIL];
     if (sp->sct_own == sp->sct_oldown)
 	loyalcivs = civs;
     else

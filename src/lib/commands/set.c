@@ -109,8 +109,8 @@ set(void)
 		if (land.lnd_own == player->cnum)
 		    tot_mil += total_mil(&land);
 	    }
-	    if (tot_mil + (getvar(V_MILIT, (char *)&sect, EF_SECTOR)) * 10
-		< getvar(V_CIVIL, (char *)&sect, EF_SECTOR)) {
+	    if (tot_mil + sect.sct_item[I_MILIT] * 10
+		< sect.sct_item[I_CIVIL]) {
 		pr("Military control required to sell goods.\n");
 		return RET_FAIL;
 	    }

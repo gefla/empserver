@@ -435,7 +435,9 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     ship.shp_nxlight = 0;
     ship.shp_nchoppers = 0;
     ship.shp_fleet = ' ';
-    ship.shp_nv = 0;
+    memset(ship.shp_item, 0, sizeof(ship.shp_item));
+    ship.shp_pstage = PLG_HEALTHY;
+    ship.shp_ptime = 0;
     ship.shp_tech = tlev;
 
     techdiff = (int)(tlev - mp->m_tech);
@@ -460,8 +462,8 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
 
-    if (getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_INFECT)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&ship, EF_SHIP);
+    if (sp->sct_pstage == PLG_INFECT)
+	ship.shp_pstage = PLG_EXPOSED;
     makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid, ship.shp_x,
 		ship.shp_y);
     putship(ship.shp_uid, &ship);
@@ -585,7 +587,9 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     land.lnd_rflags = 0;
     memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
     land.lnd_rad_max = 0;
-    land.lnd_nv = 0;
+    memset(land.lnd_item, 0, sizeof(land.lnd_item));
+    land.lnd_pstage = PLG_HEALTHY;
+    land.lnd_ptime = 0;
     land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
     land.lnd_def = (float)LND_ATTDEF(lp->l_def, tlev - lp->l_tech);
     land.lnd_vul = (int)LND_VUL(lp->l_vul, tlev - lp->l_tech);
@@ -627,8 +631,8 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     putvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
 */
 
-    if (getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_INFECT)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&land, EF_LAND);
+    if (sp->sct_pstage == PLG_INFECT)
+	land.lnd_pstage = PLG_EXPOSED;
     putland(nstr.cur, &land);
     makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		land.lnd_y);
@@ -778,7 +782,7 @@ build_bridge(register struct sctstr *sp, register int *vec)
     } else {
 	sect.sct_mobil = 0;
     }
-    putvar(V_MINE, 0, (s_char *)&sect, EF_SECTOR);
+    sect.sct_mines = 0;
     putsect(&sect);
     pr("Bridge span built over %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -1102,7 +1106,7 @@ build_tower(register struct sctstr *sp, register int *vec)
     }
     if (!opt_DEFENSE_INFRA)
 	sect.sct_defense = sect.sct_effic;
-    putvar(V_MINE, 0, (s_char *)&sect, EF_SECTOR);
+    sect.sct_mines = 0;
     putsect(&sect);
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));

@@ -52,8 +52,6 @@ comm(void)
     int nsect;
     int n;
     struct nstr_sect nstr;
-    int del[I_MAX + 1];
-    int dist[I_MAX + 1];
     int item[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
@@ -77,31 +75,29 @@ comm(void)
 	}
 	if (player->god)
 	    pr("%3d", sect.sct_own);
-	getvec(VT_DEL, del, (s_char *)&sect, EF_SECTOR);
-	getvec(VT_DIST, dist, (s_char *)&sect, EF_SECTOR);
 	getvec(VT_ITEM, item, (s_char *)&sect, EF_SECTOR);
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c", dchr[sect.sct_type].d_mnem);
-	pr(" %c", dirstr[del[I_SHELL] & 0x7]);
-	pr("%c", dirstr[del[I_GUN] & 0x7]);
-	pr("%c", dirstr[del[I_PETROL] & 0x7]);
-	pr("%c", dirstr[del[I_IRON] & 0x7]);
-	pr("%c", dirstr[del[I_DUST] & 0x7]);
-	pr("%c", dirstr[del[I_BAR] & 0x7]);
-	pr("%c", dirstr[del[I_OIL] & 0x7]);
-	pr("%c", dirstr[del[I_LCM] & 0x7]);
-	pr("%c", dirstr[del[I_HCM] & 0x7]);
-	pr("%c", dirstr[del[I_RAD] & 0x7]);
-	prthresh(" %c", dist[I_SHELL]);
-	prthresh("%c", dist[I_GUN]);
-	prthresh("%c", dist[I_PETROL]);
-	prthresh("%c", dist[I_IRON]);
-	prthresh("%c", dist[I_DUST]);
-	prthresh("%c", dist[I_BAR]);
-	prthresh("%c", dist[I_OIL]);
-	prthresh("%c", dist[I_LCM]);
-	prthresh("%c", dist[I_HCM]);
-	prthresh("%c", dist[I_RAD]);
+	pr(" %c", dirstr[sect.sct_del[I_SHELL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_GUN] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_PETROL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_IRON] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_DUST] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_BAR] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_OIL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_LCM] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_HCM] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_RAD] & 0x7]);
+	prthresh(" %c", sect.sct_dist[I_SHELL]);
+	prthresh("%c", sect.sct_dist[I_GUN]);
+	prthresh("%c", sect.sct_dist[I_PETROL]);
+	prthresh("%c", sect.sct_dist[I_IRON]);
+	prthresh("%c", sect.sct_dist[I_DUST]);
+	prthresh("%c", sect.sct_dist[I_BAR]);
+	prthresh("%c", sect.sct_dist[I_OIL]);
+	prthresh("%c", sect.sct_dist[I_LCM]);
+	prthresh("%c", sect.sct_dist[I_HCM]);
+	prthresh("%c", sect.sct_dist[I_RAD]);
 	pr("%4d", item[I_SHELL]);
 	pr("%4d", item[I_GUN]);
 	pr("%5d", item[I_PETROL]);

@@ -87,14 +87,14 @@ torp(void)
 	    continue;
 	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0)
 	    continue;
-	shells = getvar(V_SHELL, (s_char *)&sub, EF_SHIP);
+	shells = sub.shp_item[I_SHELL];
 	if (shells < 3)
 	    shells +=
 		supply_commod(sub.shp_own, sub.shp_x, sub.shp_y, I_SHELL,
 			      3 - shells);
-	if (getvar(V_GUN, (s_char *)&sub, EF_SHIP) == 0 || shells < 3)
+	if (sub.shp_item[I_GUN] == 0 || shells < 3)
 	    continue;
-	if (getvar(V_MILIT, (s_char *)&sub, EF_SHIP) < 1)
+	if (sub.shp_item[I_MILIT] < 1)
 	    continue;
 	if (sub.shp_effic < 60)
 	    continue;
@@ -115,16 +115,16 @@ torp(void)
 	       mchr[(int)sub.shp_type].m_name);
 	    continue;
 	}
-	shells = getvar(V_SHELL, (s_char *)&sub, EF_SHIP);
+	shells = sub.shp_item[I_SHELL];
 	if (shells < 3)
 	    shells +=
 		supply_commod(sub.shp_own, sub.shp_x, sub.shp_y, I_SHELL,
 			      3 - shells);
-	if (getvar(V_GUN, (s_char *)&sub, EF_SHIP) == 0 || shells < 3) {
+	if (sub.shp_item[I_GUN] == 0 || shells < 3) {
 	    pr("Ship #%d has insufficient armament\n", sub.shp_uid);
 	    continue;
 	}
-	if (getvar(V_MILIT, (s_char *)&sub, EF_SHIP) < 1) {
+	if (sub.shp_item[I_MILIT] < 1) {
 	    pr("Ship #%d has insufficient crew\n", sub.shp_uid);
 	    continue;
 	}
@@ -170,7 +170,7 @@ torp(void)
 	erange = (double)roundrange(erange);
 	pr("Effective torpedo range is %.1f\n", erange);
 	shells -= 3;
-	putvar(V_SHELL, shells, (s_char *)&sub, EF_SHIP);
+	sub.shp_item[I_SHELL] = shells;
 	putship(sub.shp_uid, &sub);
 	mcp = &mchr[(int)sub.shp_type];
 	mobcost = sub.shp_effic * 0.01 * sub.shp_speed;
@@ -349,10 +349,10 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
     int gun;
     double guneff;
 
-    shells = getvar(V_SHELL, (s_char *)sp, EF_SHIP);
-    gun = getvar(V_GUN, (s_char *)sp, EF_SHIP);
+    shells = sp->shp_item[I_SHELL];
+    gun = sp->shp_item[I_GUN];
     gun = min(gun, sp->shp_glim);
-    gun = min(gun, getvar(V_MILIT, (s_char *)sp, EF_SHIP) / 2);
+    gun = min(gun, sp->shp_item[I_MILIT] / 2);
 
     shells +=
 	supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
@@ -364,7 +364,7 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 
     /* ok, all set.. now, we shoot */
     shells -= ldround(((double)gun) / 2.0, 1);
-    putvar(V_SHELL, shells, (s_char *)sp, EF_SHIP);
+    sp->shp_item[I_SHELL] = shells;
     putship(sp->shp_uid, sp);
 
     guneff = seagun(sp->shp_effic, gun);
@@ -407,16 +407,16 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     double mobcost;
     struct mchrstr *mcp;
 
-    shells = getvar(V_SHELL, (s_char *)sp, EF_SHIP);
+    shells = sp->shp_item[I_SHELL];
 
     if (shells < 3)
 	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
 				3 - shells);
 
-    if (getvar(V_GUN, (s_char *)sp, EF_SHIP) == 0 || shells < 3)
+    if (sp->shp_item[I_GUN] == 0 || shells < 3)
 	return 0;
 
-    if (getvar(V_MILIT, (s_char *)sp, EF_SHIP) < 1)
+    if (sp->shp_item[I_MILIT] < 1)
 	return 0;
 
     if (sp->shp_effic < 60)
@@ -427,7 +427,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 
     /* All set.. fire! */
     shells -= 3;
-    putvar(V_SHELL, shells, (s_char *)sp, EF_SHIP);
+    sp->shp_item[I_SHELL] = shells;
     putship(sp->shp_uid, sp);
 
     mcp = &mchr[(int)sp->shp_type];

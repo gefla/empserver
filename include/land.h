@@ -41,10 +41,10 @@
 #include "queue.h"
 #include "nsc.h"
 #include "retreat.h"
+#include "var.h"
 
 #define LAND_MINEFF	10
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */
-#define MAXLNDV		14
 #define LND_MINMOBCOST  0.200
 
 struct lndstr {
@@ -71,9 +71,9 @@ struct lndstr {
     s_char lnd_rpath[RET_LEN];	/* retreat path */
     u_char lnd_rad_max;		/* max radius for this unit */
     u_char lnd_scar;		/* how experienced the unit is (not used) */
-    s_char lnd_nv;		/* current number of variables */
-    u_char lnd_vtype[MAXLNDV];
-    u_short lnd_vamt[MAXLNDV];
+    u_short lnd_item[I_MAX+1];	/* amount of items on board */
+    u_short lnd_pstage;		/* plague stage */
+    u_short lnd_ptime;		/* how many etus remain in this stage */
     short lnd_land;		/* pointer to transporting unit */
     u_char lnd_nland;
     time_t lnd_access;		/* Last time mob was updated (MOB_ACCESS) */

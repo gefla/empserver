@@ -205,12 +205,10 @@ grab_sect(register struct sctstr *sp, natid to)
     struct plnstr p;
     struct lndstr l;
     struct nukstr nuk;
-    int vec[I_MAX + 1];
 
     /* Wipe all the distribution info */
-    memset(vec, 0, sizeof(vec));
-    putvec(VT_DIST, vec, (s_char *)sp, EF_SECTOR);
-    putvec(VT_DEL, vec, (s_char *)sp, EF_SECTOR);
+    memset(sp->sct_dist, 0, sizeof(sp->sct_dist));
+    memset(sp->sct_del, 0, sizeof(sp->sct_del));
     sp->sct_dist_x = sp->sct_x;
     sp->sct_dist_y = sp->sct_y;
 
@@ -275,10 +273,10 @@ grab_sect(register struct sctstr *sp, natid to)
     sp->sct_avail = 0;
 
     if (sp->sct_oldown == to) {
-	oldche = get_che_value(getvar(V_CHE, (s_char *)sp, EF_SECTOR));
+	oldche = get_che_value(sp->sct_che);
 	set_che_value(oldche, 0);
 	set_che_cnum(oldche, 0);
-	(void)putvar(V_CHE, oldche, (s_char *)sp, EF_SECTOR);
+	sp->sct_che = oldche;
 	sp->sct_loyal = 0;
     }
 

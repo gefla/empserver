@@ -73,7 +73,7 @@ rout(void)
 
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
 	return RET_SYN;
-    i_del = V_DEL(ip - ichr);
+    i_del = ip->i_vtype;;
     if (player->argp[2] == (s_char *)0) {
 	if ((str = getstring("(sects)? ", buf1)) == 0)
 	    return RET_SYN;
@@ -122,7 +122,7 @@ rout(void)
 	if (!player->owner)
 	    continue;
 	p = &map[ns.dy][ns.dx * 2];
-	if ((dir = getvar(i_del, (s_char *)&sect, EF_SECTOR) & 0x7) &&
+	if ((dir = sect.sct_del[i_del] & 0x7) &&
 	    nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR))
 	    memcpy(p, routech[dir][0], 3);
 	p[1] = dchr[sect.sct_type].d_mnem;

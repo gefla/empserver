@@ -240,11 +240,11 @@ int
 nav_ship(register struct shpstr *sp)
 {
     struct sctstr *sectp;
-    s_char *cp, item;
+    s_char *cp;
     int stopping;
     int quit;
     int didsomething = 0;
-    int max_amt, food_amt, comm;
+    int max_amt, food_amt;
     s_char buf[1024];
     struct emp_qelem ship_list;
     struct emp_qelem *qp, *newqp;
@@ -332,11 +332,9 @@ nav_ship(register struct shpstr *sp)
 	}
 	/* special case for fishing boats */
 	if ((mchr[(int)sp->shp_type].m_flags & M_FOOD) == 1) {
-	    item = (s_char)'f';
-	    comm = com_num(&item);
-	    food_amt = getvar(comm, (s_char *)sp, EF_SHIP);
-	    max_amt = (vl_find(comm, vship->m_vtype,
-			       vship->m_vamt, (int)vship->m_nv));
+	    food_amt = sp->shp_item[I_FOOD];
+	    max_amt = vl_find(V_FOOD, vship->m_vtype,
+			      vship->m_vamt, vship->m_nv);
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
 	    if (food_amt < max_amt && (sectp->sct_own == 0))

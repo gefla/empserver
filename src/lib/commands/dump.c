@@ -52,10 +52,7 @@ dump(void)
     int nsect;
     int n, i;
     struct nstr_sect nstr;
-    int del[I_MAX + 1];
-    int dist[I_MAX + 1];
     int item[I_MAX + 1];
-    int cond[I_MAX + 1];
     int field[128];
     struct natstr *np;
     time_t now;
@@ -513,10 +510,7 @@ dump(void)
 /* census */
 	if (player->god)
 	    pr("%d ", sect.sct_own);
-	getvec(VT_DEL, del, (s_char *)&sect, EF_SECTOR);
-	getvec(VT_DIST, dist, (s_char *)&sect, EF_SECTOR);
 	getvec(VT_ITEM, item, (s_char *)&sect, EF_SECTOR);
-	getvec(VT_COND, cond, (s_char *)&sect, EF_SECTOR);
 	pr("%d %d", xrel(np, nstr.x), yrel(np, nstr.y));
 
 	set_coastal(&sect);
@@ -614,76 +608,76 @@ dump(void)
 		break;
 /* cutoff */
 	    case 29:
-		pr("%c", dirstr[del[I_UW] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_UW] & 0x7]);
 		break;
 	    case 30:
-		pr("%c", dirstr[del[I_FOOD] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_FOOD] & 0x7]);
 		break;
 	    case 31:
-		pr("%c", dirstr[del[I_SHELL] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_SHELL] & 0x7]);
 		break;
 	    case 32:
-		pr("%c", dirstr[del[I_GUN] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_GUN] & 0x7]);
 		break;
 	    case 33:
-		pr("%c", dirstr[del[I_PETROL] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_PETROL] & 0x7]);
 		break;
 	    case 34:
-		pr("%c", dirstr[del[I_IRON] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_IRON] & 0x7]);
 		break;
 	    case 35:
-		pr("%c", dirstr[del[I_DUST] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_DUST] & 0x7]);
 		break;
 	    case 36:
-		pr("%c", dirstr[del[I_BAR] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_BAR] & 0x7]);
 		break;
 	    case 37:
-		pr("%c", dirstr[del[I_OIL] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_OIL] & 0x7]);
 		break;
 	    case 38:
-		pr("%c", dirstr[del[I_LCM] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_LCM] & 0x7]);
 		break;
 	    case 39:
-		pr("%c", dirstr[del[I_HCM] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_HCM] & 0x7]);
 		break;
 	    case 40:
-		pr("%c", dirstr[del[I_RAD] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_RAD] & 0x7]);
 		break;
 	    case 41:
-		pr("%d", del[I_UW] & ~0x7);
+		pr("%d", sect.sct_del[I_UW] & ~0x7);
 		break;
 	    case 42:
-		pr("%d", del[I_FOOD] & ~0x7);
+		pr("%d", sect.sct_del[I_FOOD] & ~0x7);
 		break;
 	    case 43:
-		pr("%d", del[I_SHELL] & ~0x7);
+		pr("%d", sect.sct_del[I_SHELL] & ~0x7);
 		break;
 	    case 44:
-		pr("%d", del[I_GUN] & ~0x7);
+		pr("%d", sect.sct_del[I_GUN] & ~0x7);
 		break;
 	    case 45:
-		pr("%d", del[I_PETROL] & ~0x7);
+		pr("%d", sect.sct_del[I_PETROL] & ~0x7);
 		break;
 	    case 46:
-		pr("%d", del[I_IRON] & ~0x7);
+		pr("%d", sect.sct_del[I_IRON] & ~0x7);
 		break;
 	    case 47:
-		pr("%d", del[I_DUST] & ~0x7);
+		pr("%d", sect.sct_del[I_DUST] & ~0x7);
 		break;
 	    case 48:
-		pr("%d", del[I_BAR] & ~0x7);
+		pr("%d", sect.sct_del[I_BAR] & ~0x7);
 		break;
 	    case 49:
-		pr("%d", del[I_OIL] & ~0x7);
+		pr("%d", sect.sct_del[I_OIL] & ~0x7);
 		break;
 	    case 50:
-		pr("%d", del[I_LCM] & ~0x7);
+		pr("%d", sect.sct_del[I_LCM] & ~0x7);
 		break;
 	    case 51:
-		pr("%d", del[I_HCM] & ~0x7);
+		pr("%d", sect.sct_del[I_HCM] & ~0x7);
 		break;
 	    case 52:
-		pr("%d", del[I_RAD] & ~0x7);
+		pr("%d", sect.sct_del[I_RAD] & ~0x7);
 		break;
 /* level */
 	    case 53:
@@ -693,46 +687,46 @@ dump(void)
 		pr("%d", yrel(getnatp(player->cnum), sect.sct_dist_y));
 		break;
 	    case 55:
-		pr("%d", dist[I_CIVIL]);
+		pr("%d", sect.sct_dist[I_CIVIL]);
 		break;
 	    case 56:
-		pr("%d", dist[I_MILIT]);
+		pr("%d", sect.sct_dist[I_MILIT]);
 		break;
 	    case 57:
-		pr("%d", dist[I_UW]);
+		pr("%d", sect.sct_dist[I_UW]);
 		break;
 	    case 58:
-		pr("%d", dist[I_FOOD]);
+		pr("%d", sect.sct_dist[I_FOOD]);
 		break;
 	    case 59:
-		pr("%d", dist[I_SHELL]);
+		pr("%d", sect.sct_dist[I_SHELL]);
 		break;
 	    case 60:
-		pr("%d", dist[I_GUN]);
+		pr("%d", sect.sct_dist[I_GUN]);
 		break;
 	    case 61:
-		pr("%d", dist[I_PETROL]);
+		pr("%d", sect.sct_dist[I_PETROL]);
 		break;
 	    case 62:
-		pr("%d", dist[I_IRON]);
+		pr("%d", sect.sct_dist[I_IRON]);
 		break;
 	    case 63:
-		pr("%d", dist[I_DUST]);
+		pr("%d", sect.sct_dist[I_DUST]);
 		break;
 	    case 64:
-		pr("%d", dist[I_BAR]);
+		pr("%d", sect.sct_dist[I_BAR]);
 		break;
 	    case 65:
-		pr("%d", dist[I_OIL]);
+		pr("%d", sect.sct_dist[I_OIL]);
 		break;
 	    case 66:
-		pr("%d", dist[I_LCM]);
+		pr("%d", sect.sct_dist[I_LCM]);
 		break;
 	    case 67:
-		pr("%d", dist[I_HCM]);
+		pr("%d", sect.sct_dist[I_HCM]);
 		break;
 	    case 68:
-		pr("%d", dist[I_RAD]);
+		pr("%d", sect.sct_dist[I_RAD]);
 		break;
 	    case 69:
 		pr("%d", sect.sct_road);
@@ -745,7 +739,7 @@ dump(void)
 		break;
 	    case 72:
 		if (opt_FALLOUT)
-		    pr("%d", cond[C_FALLOUT]);
+		    pr("%d", sect.sct_fallout);
 		else
 		    pr("0");
 		break;
@@ -753,16 +747,16 @@ dump(void)
 		pr("%d", sect.sct_coastal);
 		break;
 	    case 74:
-		pr("%c", dirstr[del[I_CIVIL] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_CIVIL] & 0x7]);
 		break;
 	    case 75:
-		pr("%c", dirstr[del[I_MILIT] & 0x7]);
+		pr("%c", dirstr[sect.sct_del[I_MILIT] & 0x7]);
 		break;
 	    case 76:
-		pr("%d", del[I_CIVIL] & ~0x7);
+		pr("%d", sect.sct_del[I_CIVIL] & ~0x7);
 		break;
 	    case 77:
-		pr("%d", del[I_MILIT] & ~0x7);
+		pr("%d", sect.sct_del[I_MILIT] & ~0x7);
 		break;
 	    case 78:
 		pr("%d", sect.sct_terr1);

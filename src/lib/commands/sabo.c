@@ -31,18 +31,6 @@
  *     John Yockey, 2001
  */
 
-/*
-#include <ctype.h>
-#include "player.h"
-#include "sect.h"
-#include "news.h"
-#include "xy.h"
-#include "nat.h"
-#include "path.h"
-#include "map.h"
-#include "commands.h"
-*/
-
 #include "misc.h"
 #include "var.h"
 #include "land.h"
@@ -79,12 +67,11 @@ sabo(void)
 	}
 	if (!getsect(land.lnd_x, land.lnd_y, &sect))
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	if (vec[I_SHELL] == 0) {
+	if (land.lnd_item[I_SHELL] == 0) {
 	    pr("%s has no shells.\n", prland(&land));
 	    continue;
 	}
-	putvar(V_SHELL, vec[I_SHELL] - 1, (s_char *)&land, EF_LAND);
+	--land.lnd_item[I_SHELL];
 
 	odds = LND_SPY_DETECT_CHANCE(land.lnd_effic);
 	if (chance(odds)) {

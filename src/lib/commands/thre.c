@@ -63,7 +63,7 @@ thre(void)
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    type = V_DIST(ip->i_vtype & (~VT_TYPE));
+    type = ip->i_vtype;
     if (player->argp[3] && *player->argp[3] &&
 	(*player->argp[3] < '0' || *player->argp[3] > '9')) {
 	pr("Threshold must be a number\n");
@@ -72,7 +72,7 @@ thre(void)
     while (!player->aborted && nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	val = getvar(type, (s_char *)&sect, EF_SECTOR);
+	val = sect.sct_dist[type];
 	if (val > 0)
 	    sprintf(prompt, "%s %s  old threshold %d new? ",
 		    xyas(nstr.x, nstr.y, player->cnum),
@@ -98,9 +98,7 @@ thre(void)
 	if (val > 0 && (player->argp[3] != 0 && *player->argp[3] != 0))
 	    pr("%s old threshold %d\n",
 	       xyas(nstr.x, nstr.y, player->cnum), val);
-	if (putvar(type, thresh, (s_char *)&sect, EF_SECTOR) < 0)
-	    pr("No room for threshold in %s\n",
-	       xyas(nstr.x, nstr.y, player->cnum));
+	sect.sct_dist[type] = thresh;
 	putsect(&sect);
     }
     return RET_OK;

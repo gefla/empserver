@@ -290,12 +290,10 @@ prsect(struct sctstr *sect)
        sect->sct_own, sect->sct_oldown, sect->sct_effic, sect->sct_mobil,
        sect->sct_min, sect->sct_gmin, sect->sct_fertil, sect->sct_oil,
        sect->sct_uran, sect->sct_work, sect->sct_loyal,
-       getvar(V_CHE, (s_char *)sect, EF_SECTOR),
-       getvar(V_PSTAGE, (s_char *)sect, EF_SECTOR),
-       getvar(V_PTIME, (s_char *)sect, EF_SECTOR),
-       getvar(V_FALLOUT, (s_char *)sect, EF_SECTOR), sect->sct_avail);
+       sect->sct_che, sect->sct_pstage, sect->sct_ptime,
+       sect->sct_fallout, sect->sct_avail);
 
-    pr("Mines <M>: %d\t", getvar(V_MINE, (s_char *)sect, EF_SECTOR));
+    pr("Mines <M>: %d\t", sect->sct_mines);
     pr("Coastal <C>: %d\n", sect->sct_coastal);
     pr("Road %% <R>: %d\t", sect->sct_road);
     pr("Rail %% <r>: %d\t", sect->sct_rail);
@@ -434,9 +432,8 @@ pr_ship(struct shpstr *ship)
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, (int)ship->shp_rflags);
     getvec(VT_ITEM, vec, (s_char *)ship, EF_SHIP);
-    pr("Plague Stage <a>: %d\n",
-       getvar(V_PSTAGE, (s_char *)ship, EF_SHIP));
-    pr("Plague Time <b>: %d\n", getvar(V_PTIME, (s_char *)ship, EF_SHIP));
+    pr("Plague Stage <a>: %d\n", ship->shp_pstage);
+    pr("Plague Time <b>: %d\n", ship->shp_ptime);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
     pr("%3d", vec[I_CIVIL]);
@@ -588,32 +585,32 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	sect->sct_loyal = (u_char)new;
 	break;
     case 'x':
-	old = getvar(V_CHE, (s_char *)sect, EF_SECTOR);
+	old = sect->sct_che;
 	new = errcheck(arg, 0, 65536);
 	pr("Guerillas in %s changed from %d to %d%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
-	putvar(V_CHE, new, (s_char *)sect, EF_SECTOR);
+	sect->sct_che = new;
 	break;
     case 'p':
-	old = getvar(V_PSTAGE, (s_char *)sect, EF_SECTOR);
+	old = sect->sct_pstage;
 	new = errcheck(arg, 0, PLG_EXPOSED);
 	pr("Plague stage of %s changed from %d to %d%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
-	putvar(V_PSTAGE, new, (s_char *)sect, EF_SECTOR);
+	sect->sct_pstage = new;
 	break;
     case 't':
-	old = getvar(V_PTIME, (s_char *)sect, EF_SECTOR);
+	old = sect->sct_ptime;
 	new = errcheck(arg, 0, 255);
 	pr("Plague time of %s changed from %d to %d%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
-	putvar(V_PTIME, new, (s_char *)sect, EF_SECTOR);
+	sect->sct_ptime = new;
 	break;
     case 'F':
-	old = getvar(V_FALLOUT, (s_char *)sect, EF_SECTOR);
+	old = sect->sct_fallout;
 	new = errcheck(arg, 0, 9999);
 	pr("Fallout for sector %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
-	putvar(V_FALLOUT, new, (s_char *)sect, EF_SECTOR);
+	sect->sct_fallout = new;
 	break;
     case 'a':
 	new = errcheck(arg, 0, 9999);
@@ -621,7 +618,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	sect->sct_avail = new;
 	break;
     case 'M':
-	putvar(V_MINE, arg, (s_char *)sect, EF_SECTOR);
+	sect->sct_mines = arg;
 	pr("Mines changed to %d\n", arg);
 	break;
     case 'L':
@@ -797,10 +794,10 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
     newx = newy = 0;
     switch (op) {
     case 'a':
-	putvar(V_PSTAGE, arg, (s_char *)ship, EF_SHIP);
+	ship->shp_pstage = arg;
 	break;
     case 'b':
-	putvar(V_PTIME, arg, (s_char *)ship, EF_SHIP);
+	ship->shp_ptime = arg;
 	break;
     case 'R':
 	memcpy(ship->shp_rpath, p, sizeof(ship->shp_rpath));
@@ -877,82 +874,43 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	ship->shp_nplane = errcheck(arg, 0, 100);
 	break;
     case 'c':
-	if (!putvar(V_CIVIL, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_CIVIL] = arg;
 	break;
     case 'm':
-	if (!putvar(V_MILIT, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_MILIT] = arg;
 	break;
     case 'u':
-	if (!putvar(V_UW, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_UW] = arg;
 	break;
     case 'f':
-	if (!putvar(V_FOOD, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_FOOD] = arg;
 	break;
     case 's':
-	if (!putvar(V_SHELL, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_SHELL] = arg;
 	break;
     case 'g':
-	if (!putvar(V_GUN, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_GUN] = arg;
 	break;
     case 'p':
-	if (!putvar(V_PETROL, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_PETROL] = arg;
 	break;
     case 'i':
-	if (!putvar(V_IRON, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_IRON] = arg;
 	break;
     case 'd':
-	if (!putvar(V_DUST, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_DUST] = arg;
 	break;
     case 'o':
-	if (!putvar(V_OIL, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_OIL] = arg;
 	break;
     case 'l':
-	if (!putvar(V_LCM, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_LCM] = arg;
 	break;
     case 'h':
-	if (!putvar(V_HCM, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_HCM] = arg;
 	break;
     case 'r':
-	if (!putvar(V_RAD, arg, (s_char *)ship, EF_SHIP)) {
-	    pr("No room on ship!\n");
-	    return RET_FAIL;
-	}
+	ship->shp_item[I_RAD] = arg;
 	break;
     default:
 	pr("huh? (%c)\n", op);
@@ -1050,82 +1008,43 @@ dounit(s_char op, int arg, s_char *p, struct lndstr *land)
 	land->lnd_rflags = arg;
 	break;
     case 'c':
-	if (!putvar(V_CIVIL, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land unit!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_CIVIL] = arg;
 	break;
     case 'm':
-	if (!putvar(V_MILIT, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_MILIT] = arg;
 	break;
     case 'u':
-	if (!putvar(V_UW, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_UW] = arg;
 	break;
     case 'f':
-	if (!putvar(V_FOOD, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_FOOD] = arg;
 	break;
     case 's':
-	if (!putvar(V_SHELL, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_SHELL] = arg;
 	break;
     case 'g':
-	if (!putvar(V_GUN, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_GUN] = arg;
 	break;
     case 'p':
-	if (!putvar(V_PETROL, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_PETROL] = arg;
 	break;
     case 'i':
-	if (!putvar(V_IRON, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_IRON] = arg;
 	break;
     case 'd':
-	if (!putvar(V_DUST, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_DUST] = arg;
 	break;
     case 'o':
-	if (!putvar(V_OIL, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_OIL] = arg;
 	break;
     case 'l':
-	if (!putvar(V_LCM, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_LCM] = arg;
 	break;
     case 'h':
-	if (!putvar(V_HCM, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_HCM] = arg;
 	break;
     case 'r':
-	if (!putvar(V_RAD, arg, (s_char *)land, EF_LAND)) {
-	    pr("No room on land!\n");
-	    return RET_FAIL;
-	}
+	land->lnd_item[I_RAD] = arg;
 	break;
     default:
 	pr("huh? (%c)\n", op);

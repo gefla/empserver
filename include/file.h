@@ -34,6 +34,8 @@
 #ifndef _FILE_H_
 #define _FILE_H_
 
+#include <stddef.h>
+
 struct empfile {
     s_char *name;		/* file name (e.g., "treaty") */
     s_char *file;		/* file path */
@@ -43,8 +45,7 @@ struct empfile {
     void (*init) (int, s_char *);	/* call this when object is created */
     int (*postread) (int, s_char *);	/* specific massage routines for items */
     int (*prewrite) (int, s_char *);
-    int varoffs[3];		/* struct offs for nv, vtype, vamt */
-    int maxvars;		/* max # vars for type */
+    ptrdiff_t itemoffs;		/* offset of item[] in struct */
     int fd;			/* file descriptor */
     int baseid;			/* starting item in cache */
     int cids;			/* # ids in cache */
@@ -88,7 +89,6 @@ struct fileinit {
     struct castr *cadef;
 };
 
-
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, caddr_t);
 extern s_char *ef_ptr(int, int);
@@ -104,8 +104,7 @@ extern int ef_ensure_space(int, int, int);
 extern void ef_zapcache(int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
-extern int ef_vars(int, register s_char *, u_char **,
-		   u_char **, u_short **);
+extern u_short *ef_items(int, void *);
 extern int ef_byname(s_char *);
 
 extern int ef_nbread(int type, int id, caddr_t ptr);

@@ -59,7 +59,6 @@ int
 dodeliver(struct sctstr *sp, int *vec)
 {
     register int i;
-    int del[I_MAX + 1];
     int thresh;
     int dir;
     int plague;
@@ -68,15 +67,13 @@ dodeliver(struct sctstr *sp, int *vec)
 
     if (sp->sct_mobil <= 0)
 	return 0;
-    if (getvec(VT_DEL, del, (s_char *)sp, EF_SECTOR) <= 0)
-	return 0;
     changed = 0;
-    plague = getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR);
+    plague = sp->sct_pstage;
     for (i = 1; i <= I_MAX; i++) {
-	if (del[i] == 0)
+	if (sp->sct_del[i] == 0)
 	    continue;
-	thresh = del[i] & ~0x7;
-	dir = del[i] & 0x7;
+	thresh = sp->sct_del[i] & ~0x7;
+	dir = sp->sct_del[i] & 0x7;
 	n = deliver(sp, &ichr[i], dir, thresh, vec[i], plague);
 	if (n > 0) {
 	    vec[i] -= n;
@@ -241,23 +238,21 @@ void
 do_fallout(register struct sctstr *sp, register int etus)
 {
     int vec[I_MAX + 1];
-    int cvec[I_MAX + 1];
     int tvec[I_MAX + 1];
     struct shpstr *spp;
     struct lndstr *lp;
     int i;
 
     getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-    getvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR);
 /* This check shouldn't be needed, but just in case. :) */
-    if (!cvec[C_FALLOUT] || !sp->sct_updated)
+    if (!sp->sct_fallout || !sp->sct_updated)
 	return;
     if (etus > 24)
 	etus = 24;
 #if 0
     wu(0, 0, "Running fallout in %d,%d\n", sp->sct_x, sp->sct_y);
 #endif
-    meltitems(etus, cvec[C_FALLOUT], sp->sct_own, vec, EF_SECTOR,
+    meltitems(etus, sp->sct_fallout, sp->sct_own, vec, EF_SECTOR,
 	      sp->sct_x, sp->sct_y, 0);
     putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
     for (i = 0; NULL != (lp = getlandp(i)); i++) {
@@ -266,7 +261,7 @@ do_fallout(register struct sctstr *sp, register int etus)
 	if (lp->lnd_x != sp->sct_x || lp->lnd_y != sp->sct_y)
 	    continue;
 	getvec(VT_ITEM, tvec, (s_char *)lp, EF_LAND);
-	meltitems(etus, cvec[C_FALLOUT], lp->lnd_own, tvec, EF_LAND,
+	meltitems(etus, sp->sct_fallout, lp->lnd_own, tvec, EF_LAND,
 		  lp->lnd_x, lp->lnd_y, lp->lnd_uid);
 	putvec(VT_ITEM, tvec, (s_char *)lp, EF_LAND);
     }
@@ -278,12 +273,12 @@ do_fallout(register struct sctstr *sp, register int etus)
 	if (mchr[(int)spp->shp_type].m_flags & M_SUB)
 	    continue;
 	getvec(VT_ITEM, tvec, (s_char *)spp, EF_SHIP);
-	meltitems(etus, cvec[C_FALLOUT], spp->shp_own, tvec, EF_SHIP,
+	meltitems(etus, sp->sct_fallout, spp->shp_own, tvec, EF_SHIP,
 		  spp->shp_x, spp->shp_y, spp->shp_uid);
 	putvec(VT_ITEM, tvec, (s_char *)spp, EF_SHIP);
     }
 #ifdef	GODZILLA
-    if ((cvec[C_FALLOUT] > 20) && chance(100))
+    if ((sp->sct_fallout > 20) && chance(100))
 	do_godzilla(sp);
 #endif /* GODZILLA */
 }
@@ -292,58 +287,48 @@ void
 spread_fallout(struct sctstr *sp, int etus)
 {
     struct sctstr *ap;
-    int tvec[I_MAX + 1];
-    int cvec[I_MAX + 1];
     int n;
     register int inc;
 
     if (etus > 24)
 	etus = 24;
-    getvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR);
     for (n = DIR_FIRST; n <= DIR_LAST; n++) {
 	ap = getsectp(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1]);
-	getvec(VT_COND, tvec, (char *)ap, EF_SECTOR);
 	if (ap->sct_type == SCT_SANCT)
 	    continue;
-	inc = roundavg(etus * fallout_spread * (cvec[C_FALLOUT])) - 1;
+	inc = roundavg(etus * fallout_spread * (sp->sct_fallout)) - 1;
 #if 0
-	if (cvec[C_FALLOUT]) {
+	if (sp->sct_fallout) {
 	    wu(0, 0, "Fallout from sector %d,%d to %d,%d is %d=%d*%e*%d\n",
 	       sp->sct_x, sp->sct_y, sp->sct_x + diroff[n][0],
 	       sp->sct_y + diroff[n][1], inc, etus,
-	       fallout_spread, cvec[C_FALLOUT]);
+	       fallout_spread, sp->sct_fallout);
 	}
 #endif
 	if (inc < 0)
 	    inc = 0;
-	tvec[C_FALLOUT] += inc;
-	putvec(VT_COND, tvec, (char *)ap, EF_SECTOR);
+	ap->sct_fallout += inc;
     }
 }
 
 void
 decay_fallout(struct sctstr *sp, int etus)
 {
-    int cvec[I_MAX + 1];
     int decay;
 
     if (etus > 24)
 	etus = 24;
-    getvec(VT_COND, cvec, (char *)sp, EF_SECTOR);
     decay = roundavg(((decay_per_etu + 6.0) * fallout_spread) *
-		     (double)etus * (double)cvec[C_FALLOUT]);
+		     (double)etus * (double)sp->sct_fallout);
 
 #if 0
-    if (decay || cvec[C_FALLOUT])
+    if (decay || sp->sct_fallout)
 	wu(0, 0, "Fallout decay in %d,%d is %d from %d\n", sp->sct_x,
-	   sp->sct_y, decay, cvec[C_FALLOUT]);
+	   sp->sct_y, decay, sp->sct_fallout);
 #endif
 
-    cvec[C_FALLOUT] =
-	(decay < cvec[C_FALLOUT]) ? (cvec[C_FALLOUT] - decay) : 0;
-    if (cvec[C_FALLOUT] < 0)
-	cvec[C_FALLOUT] = 0;
-    putvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR);
+    sp->sct_fallout =
+	(decay < sp->sct_fallout) ? (sp->sct_fallout - decay) : 0;
 }
 
 #define SHOULD_PRODUCE(sp,t)	(((sp->sct_type == t) || (t == -1)) ? 1 : 0)

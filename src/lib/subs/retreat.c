@@ -279,19 +279,19 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	if (stopping)
 	    continue;
 
-	mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
+	mines = sect.sct_mines;
 	if ((mcp->m_flags & M_SWEEP) && mines > 0 && !player->owner) {
 	    max = vl_find(V_SHELL, mcp->m_vtype,
 			  mcp->m_vamt, (int)mcp->m_nv);
-	    shells = getvar(V_SHELL, (s_char *)sp, EF_SHIP);
+	    shells = sp->shp_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {
 		    mines--;
 		    shells = min(max, shells + 1);
 		}
 	    }
-	    putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
-	    putvar(V_SHELL, shells, (s_char *)sp, EF_SHIP);
+	    sect.sct_mines = mines;
+	    sect.sct_item[I_SHELL] = shells;
 	    putsect(&sect);
 	}
 	if (mines > 0 && !player->owner && chance(DMINE_HITCHANCE(mines))) {
@@ -303,7 +303,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	    m = MINE_DAMAGE();
 	    shipdamage(sp, m);
 	    mines--;
-	    putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
+	    sect.sct_mines = mines;
 	    putsect(&sect);
 	    if (sp->shp_effic < SHIP_MINEFF)
 		time_to_stop = 1;
@@ -519,20 +519,20 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	if (stopping)
 	    continue;
 
-	mines = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
+	mines = sect.sct_mines;
 	if ((lcp->l_flags & L_ENGINEER) && mines > 0 &&
 	    (sect.sct_oldown != lp->lnd_own)) {
 	    max = vl_find(V_SHELL, lcp->l_vtype,
 			  lcp->l_vamt, (int)lcp->l_nv);
-	    shells = getvar(V_SHELL, (s_char *)lp, EF_LAND);
+	    shells = lp->lnd_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {
 		    mines--;
 		    shells = min(max, shells + 1);
 		}
 	    }
-	    putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
-	    putvar(V_SHELL, shells, (s_char *)lp, EF_LAND);
+	    sect.sct_mines = mines;
+	    lp->lnd_item[I_SHELL] = shells;
 	    putsect(&sect);
 	}
 	if (mines > 0 && (sect.sct_oldown != lp->lnd_own) &&
@@ -546,7 +546,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	    m = MINE_LDAMAGE();
 	    landdamage(lp, m);
 	    mines--;
-	    putvar(V_MINE, mines, (s_char *)&sect, EF_SECTOR);
+	    sect.sct_mines = mines;
 	    putsect(&sect);
 	    if (lp->lnd_effic < LAND_MINEFF)
 		time_to_stop = 1;

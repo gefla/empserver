@@ -47,15 +47,13 @@ wipe(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;
-    int vec[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    memset(vec, 0, sizeof(vec));
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	putvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
+	memset(sect.sct_dist, 0, sizeof(sect.sct_dist));
 	pr("Distribution thresholds wiped from %s\n",
 	   xyas(nstr.x, nstr.y, player->cnum));
 	putsect(&sect);

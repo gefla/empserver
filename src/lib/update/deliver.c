@@ -100,22 +100,16 @@ deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
 	if (amt_moved <= 0)
 	    return 0;
     }
-    amt_dst = getvar(vtype, (caddr_t)to, EF_SECTOR);
+    amt_dst = to->sct_item[vtype];
     if (amt_moved + amt_dst > 9990) {
 	/* delivery backlog */
 	if ((amt_moved = 9990 - amt_dst) <= 0)
 	    return 0;
     }
-    if (putvar(vtype, amt_moved + amt_dst, (s_char *)to, EF_SECTOR) < 0) {
-	/* "No room to deliver commodities */
-	wu(0, from->sct_own, "no room for %s in %s\n",
-	   ip->i_name, ownxy(to));
-	return 0;
-    }
+    to->sct_item[vtype] = amt_moved + amt_dst;
     /* deliver the plague too! */
-    if (plague == PLG_INFECT
-	&& getvar(V_PSTAGE, (s_char *)to, EF_SECTOR) == 0)
-	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)to, EF_SECTOR);
+    if (plague == PLG_INFECT && to->sct_pstage == PLG_HEALTHY)
+	to->sct_pstage = PLG_EXPOSED;
     n = from->sct_mobil - (int)(mcost * amt_moved);
     if (n < 0)
 	n = 0;

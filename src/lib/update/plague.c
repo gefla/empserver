@@ -54,7 +54,7 @@ void
 do_plague(struct sctstr *sp, struct natstr *np, int etu)
 {
     int vec[I_MAX + 1];
-    int cvec[I_MAX + 1];
+    u_short pstage, ptime;
     int n;
 
     if (opt_NO_PLAGUE)		/* no plague nothing to do */
@@ -62,15 +62,14 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
 	return;
-    if (getvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR) <= 0)
-	memset(cvec, 0, sizeof(cvec));
+    pstage = sp->sct_pstage;
+    ptime = sp->sct_ptime;
 
-    if (cvec[C_PSTAGE] == 0) {
-	cvec[C_PSTAGE] = infect_people(np, vec, sp->sct_effic,
-				       (int)sp->sct_mobil, sp);
-	cvec[C_PTIME] = 0;
+    if (pstage == PLG_HEALTHY) {
+	pstage = infect_people(np, vec, sp->sct_effic, (int)sp->sct_mobil, sp);
+	ptime = 0;
     } else {
-	n = plague_people(np, vec, cvec, etu);
+	n = plague_people(np, vec, &pstage, &ptime, etu);
 	switch (n) {
 	case PLG_DYING:
 	    wu(0, sp->sct_own, "PLAGUE deaths reported in %s.\n",
@@ -82,9 +81,9 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	    break;
 	case PLG_INCUBATE:
 	    /* Are we still incubating? */
-	    if (n == cvec[C_PSTAGE]) {
+	    if (n == pstage) {
 		/* Yes. Will it turn "infectious" next time? */
-		if (cvec[C_PTIME] <= etu) {
+		if (ptime <= etu) {
 		    /* Yes.  Report an outbreak. */
 		    wu(0, sp->sct_own,
 		       "Outbreak of PLAGUE in %s!\n", ownxy(sp));
@@ -97,9 +96,9 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	    break;
 	case PLG_EXPOSED:
 	    /* Has the plague moved to "incubation" yet? */
-	    if (n != cvec[C_PSTAGE]) {
+	    if (n != pstage) {
 		/* Yes. Will it turn "infectious" next time? */
-		if (cvec[C_PTIME] <= etu) {
+		if (ptime <= etu) {
 		    /* Yes.  Report an outbreak. */
 		    wu(0, sp->sct_own,
 		       "Outbreak of PLAGUE in %s!\n", ownxy(sp));
@@ -118,7 +117,8 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	sp->sct_oldown = 0;
     }
     putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-    putvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR);
+    sp->sct_pstage = pstage;
+    sp->sct_ptime = ptime;
 }
 
 /*ARGSUSED*/
@@ -160,7 +160,8 @@ infect_people(struct natstr *np, register int *vec, u_int eff, int mobil,
  * stage.  No reports generated here anymore.
  */
 int
-plague_people(struct natstr *np, register int *vec, register int *cvec,
+plague_people(struct natstr *np, register int *vec,
+	      u_short *pstage, u_short *ptime,
 	      int etus)
 {
     int stage;
@@ -170,13 +171,13 @@ plague_people(struct natstr *np, register int *vec, register int *cvec,
 
     if (opt_NO_PLAGUE)		/* no plague nothing to do */
 	return PLG_HEALTHY;
-    cvec[C_PTIME] -= etus;
-    stage = cvec[C_PSTAGE];
+    *ptime -= etus;
+    stage = *pstage;
     switch (stage) {
     case PLG_DYING:
 	plg_num = 100.0 * etus;
 	plg_denom = (np->nat_level[NAT_RLEV] + 100.0) *
-	    (vec[C_PTIME] + etus + 1.0);
+	    (*ptime + etus + 1.0);
 	pct_left = 1.0 - (double)(plg_num / plg_denom);
 	if (pct_left < 0.2)
 	    pct_left = 0.2;
@@ -188,18 +189,18 @@ plague_people(struct natstr *np, register int *vec, register int *cvec,
     case PLG_INCUBATE:
 	break;
     case PLG_EXPOSED:
-	cvec[C_PTIME] = 0;
+	*ptime = 0;
 	break;
     default:
 	/* bad */
 	logerror("plague_people: bad pstage %d", stage);
-	cvec[C_PSTAGE] = PLG_HEALTHY;
-	cvec[C_PTIME] = 0;
+	*pstage = PLG_HEALTHY;
+	*ptime = 0;
 	return PLG_HEALTHY;
     }
-    if (cvec[C_PTIME] <= 0) {
-	cvec[C_PSTAGE]--;
-	cvec[C_PTIME] = (etus / 2) + (random() % etus);
+    if (*ptime <= 0) {
+	*pstage -= 1;
+	*ptime = (etus / 2) + (random() % etus);
     }
     return stage;
 }

@@ -50,9 +50,23 @@
 #include "subs.h"
 
 void
+item_damage(int pct, u_short *item)
+{
+    int i, lose;
+
+    for (i = 1; i <= I_MAX; ++i) {
+	if (opt_SUPER_BARS && i == I_BAR)
+	    continue;
+	lose = roundavg((double)item[i] * pct * 0.01);
+	if (i == I_CIVIL || i == I_MILIT || i == I_UW)
+	    lose = ldround(people_damage * lose, 1);
+	item[i] = item[i] >= lose ? item[i] - lose : 0;
+    }
+}
+
+void
 ship_damage(struct shpstr *sp, int dam)
 {
-
     if (dam <= 0)
 	return;
     if (dam > 100)
@@ -65,8 +79,7 @@ ship_damage(struct shpstr *sp, int dam)
 	sp->shp_mobil = damage((int)sp->shp_mobil, dam);
     if (opt_FUEL && sp->shp_fuel)
 	sp->shp_fuel = damage((int)sp->shp_fuel, dam);
-    sp->shp_nv = vl_damage(dam, sp->shp_vtype, sp->shp_vamt,
-			   (int)sp->shp_nv);
+    item_damage(dam, sp->shp_item);
 }
 
 void
@@ -93,8 +106,7 @@ land_damage(struct lndstr *lp, int dam)
 	    lp->lnd_mobil = damage((int)lp->lnd_mobil, dam);
 	if (opt_FUEL && lp->lnd_fuel)
 	    lp->lnd_fuel = damage((int)lp->lnd_fuel, dam);
-	lp->lnd_nv = vl_damage(dam, lp->lnd_vtype, lp->lnd_vamt,
-			       (int)lp->lnd_nv);
+	item_damage(dam, lp->lnd_item);
     }
 }
 

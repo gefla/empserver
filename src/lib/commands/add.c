@@ -33,6 +33,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include "misc.h"
 #include "player.h"
 #include "var.h"
@@ -179,7 +180,14 @@ add(void)
 		/* No dist path */
 		sect.sct_dist_x = sect.sct_x;
 		sect.sct_dist_y = sect.sct_y;
-		sect.sct_nv = 0;
+		memset(sect.sct_item, 0, sizeof(sect.sct_item));
+		memset(sect.sct_del, 0, sizeof(sect.sct_del));
+		memset(sect.sct_dist, 0, sizeof(sect.sct_dist));
+		sect.sct_mines = 0;
+		sect.sct_pstage = PLG_HEALTHY;
+		sect.sct_ptime = 0;
+		sect.sct_che = 0;
+		sect.sct_fallout = 0;
 		putsect(&sect);
 		pr("wiped\n");
 	    } else {

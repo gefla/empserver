@@ -478,10 +478,8 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
-    before = amt = getvar(ip->i_vtype, (s_char *)target, EF_SECTOR);
-    putvar(ip->i_vtype, commdamage(amt, dam, ip->i_vtype),
-	   (s_char *)target, EF_SECTOR);
-    amt = getvar(ip->i_vtype, (s_char *)target, EF_SECTOR);
+    before = amt = target->sct_item[ip->i_vtype];
+    target->sct_item[ip->i_vtype] = amt = commdamage(amt, dam, ip->i_vtype);
     if (before > 0.0)
 	b = 100.0 * (1.0 - ((float)amt / (float)before));
     else
@@ -582,9 +580,9 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 
 	shell = gun = 0;
-	gun = min(getvar(V_GUN, (s_char *)&ship, EF_SHIP), ship.shp_glim);
+	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
 	if (gun > 0) {
-	    shell = getvar(V_SHELL, (s_char *)&ship, EF_SHIP);
+	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0)
 		shell = supply_commod(ship.shp_own, ship.shp_x,
 				      ship.shp_y, I_SHELL, 1);
@@ -592,7 +590,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	mcp = &mchr[(int)ship.shp_type];
 	if (gun > 0 && shell > 0 && !(mcp->m_flags & M_SUB)) {
 	    flak = (int)(techfact(ship.shp_tech, (double)gun) * 2.0);
-	    putvar(V_SHELL, shell, (s_char *)&ship, EF_SHIP);
+	    ship.shp_item[I_SHELL] = shell;
 	    putship(ship.shp_uid, &ship);
 	    sprintf(msg, "Flak! Firing %d guns from ship %s\n",
 		    flak, prship(&ship));

@@ -50,7 +50,6 @@ cuto(void)
     int n;
     struct nstr_sect nstr;
     s_char dirstr[12];
-    int del[I_MAX + 1];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -71,37 +70,36 @@ cuto(void)
 	}
 	if (player->god)
 	    pr("%3d", sect.sct_own);
-	getvec(VT_DEL, del, (s_char *)&sect, EF_SECTOR);
 	pr("%7s", xyas(nstr.x, nstr.y, player->cnum));
 	pr(" %c ", dchr[sect.sct_type].d_mnem);
-	pr("%c", dirstr[del[I_CIVIL] & 0x7]);
-	pr("%c", dirstr[del[I_MILIT] & 0x7]);
-	pr("%c", dirstr[del[I_UW] & 0x7]);
-	pr("%c", dirstr[del[I_FOOD] & 0x7]);
-	pr("%c", dirstr[del[I_SHELL] & 0x7]);
-	pr("%c", dirstr[del[I_GUN] & 0x7]);
-	pr("%c", dirstr[del[I_PETROL] & 0x7]);
-	pr("%c", dirstr[del[I_IRON] & 0x7]);
-	pr("%c", dirstr[del[I_DUST] & 0x7]);
-	pr("%c", dirstr[del[I_BAR] & 0x7]);
-	pr("%c", dirstr[del[I_OIL] & 0x7]);
-	pr("%c", dirstr[del[I_LCM] & 0x7]);
-	pr("%c", dirstr[del[I_HCM] & 0x7]);
-	pr("%c", dirstr[del[I_RAD] & 0x7]);
-	pr("%4d", del[I_CIVIL] & ~0x7);
-	pr("%4d", del[I_MILIT] & ~0x7);
-	pr("%4d", del[I_UW] & ~0x7);
-	pr("%4d", del[I_FOOD] & ~0x7);
-	pr("%4d", del[I_SHELL] & ~0x7);
-	pr("%4d", del[I_GUN] & ~0x7);
-	pr("%4d", del[I_PETROL] & ~0x7);
-	pr("%4d", del[I_IRON] & ~0x7);
-	pr("%4d", del[I_DUST] & ~0x7);
-	pr("%4d", del[I_BAR] & ~0x7);
-	pr("%4d", del[I_OIL] & ~0x7);
-	pr("%4d", del[I_LCM] & ~0x7);
-	pr("%4d", del[I_HCM] & ~0x7);
-	pr("%4d", del[I_RAD] & ~0x7);
+	pr("%c", dirstr[sect.sct_del[I_CIVIL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_MILIT] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_UW] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_FOOD] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_SHELL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_GUN] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_PETROL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_IRON] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_DUST] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_BAR] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_OIL] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_LCM] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_HCM] & 0x7]);
+	pr("%c", dirstr[sect.sct_del[I_RAD] & 0x7]);
+	pr("%4d", sect.sct_del[I_CIVIL] & ~0x7);
+	pr("%4d", sect.sct_del[I_MILIT] & ~0x7);
+	pr("%4d", sect.sct_del[I_UW] & ~0x7);
+	pr("%4d", sect.sct_del[I_FOOD] & ~0x7);
+	pr("%4d", sect.sct_del[I_SHELL] & ~0x7);
+	pr("%4d", sect.sct_del[I_GUN] & ~0x7);
+	pr("%4d", sect.sct_del[I_PETROL] & ~0x7);
+	pr("%4d", sect.sct_del[I_IRON] & ~0x7);
+	pr("%4d", sect.sct_del[I_DUST] & ~0x7);
+	pr("%4d", sect.sct_del[I_BAR] & ~0x7);
+	pr("%4d", sect.sct_del[I_OIL] & ~0x7);
+	pr("%4d", sect.sct_del[I_LCM] & ~0x7);
+	pr("%4d", sect.sct_del[I_HCM] & ~0x7);
+	pr("%4d", sect.sct_del[I_RAD] & ~0x7);
 	pr("\n");
     }
     if (nsect == 0) {

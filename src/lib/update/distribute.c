@@ -64,7 +64,6 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     int dist_packing;
     int diff;
     int item;
-    int dists[I_MAX + 1];
     int remote[I_MAX + 1];
     int local[I_MAX + 1];
     int changed;
@@ -73,9 +72,6 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
 
     getvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
-	return 0;
-
-    if (getvec(VT_DIST, dists, (s_char *)sp, EF_SECTOR) <= 0)
 	return 0;
 
     if (path == (s_char *)0) {
@@ -104,10 +100,10 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     getvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
     lplague = rplague = changed = 0;
     for (item = 1; item < I_MAX + 1; item++) {
-	if (dists[item] == 0)
+	if (sp->sct_dist[item] == 0)
 	    continue;
 	ip = &ichr[item];
-	thresh = dists[item];
+	thresh = sp->sct_dist[item];
 	/*
 	 * calculate costs for importing and exporting.
 	 * the div 10.0 is because delivering straight through
@@ -204,19 +200,15 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     putvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
 
     if (lplague) {
-	lplague = getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR);
-	if (lplague == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_HEALTHY) {
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)sp, EF_SECTOR);
-	}
+	lplague = dist->sct_pstage;
+	if (lplague == PLG_INFECT && sp->sct_pstage == PLG_HEALTHY)
+	    sp->sct_pstage = PLG_EXPOSED;
     }
 
     if (rplague) {
-	rplague = getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR);
-	if (rplague == PLG_INFECT &&
-	    getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR) == PLG_HEALTHY) {
-	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)dist, EF_SECTOR);
-	}
+	rplague = sp->sct_pstage;
+	if (rplague == PLG_INFECT && dist->sct_pstage == PLG_HEALTHY)
+	    dist->sct_pstage = PLG_EXPOSED;
     }
 
     return changed;

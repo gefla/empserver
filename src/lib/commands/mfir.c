@@ -198,7 +198,7 @@ multifire(void)
 	    }
 	    resupply_commod(&fland, I_SHELL);	/* Get more shells */
 	    putland(fland.lnd_uid, &fland);
-	    if (getvar(V_SHELL, (s_char *)&fland, EF_LAND) == 0) {
+	    if (fland.lnd_item[I_SHELL] == 0) {
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
 	    }
@@ -207,11 +207,11 @@ multifire(void)
 		continue;
 	    if (item.ship.shp_own != player->cnum)
 		continue;
-	    if (getvar(V_MILIT, (s_char *)&item.ship, EF_SHIP) < 1) {
+	    if (item.ship.shp_item[I_MILIT] < 1) {
 		pr("Not enough mil on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
-	    gun = getvar(V_GUN, (s_char *)&item.ship, EF_SHIP);
+	    gun = item.ship.shp_item[I_GUN];
 	    gun = min(gun, item.ship.shp_glim);
 	    if (item.ship.shp_frnge == 0) {
 		pr("Ships %d cannot fire guns!\n", item.ship.shp_uid);
@@ -221,7 +221,7 @@ multifire(void)
 		pr("Not enough guns on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
-	    if (getvar(V_SHELL, (s_char *)&item.ship, EF_SHIP) == 0) {
+	    if (item.ship.shp_item[I_SHELL] == 0) {
 		pr("Not enough shells on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
@@ -241,17 +241,17 @@ multifire(void)
 		pr("Fort not efficient enough to fire!\n");
 		continue;
 	    }
-	    if (getvar(V_GUN, (s_char *)&item.sect, EF_SECTOR) == 0) {
+	    if (item.sect.sct_item[I_GUN] == 0) {
 		pr("Not enough guns in sector %s!\n",
 		   xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
 		continue;
 	    }
-	    if (getvar(V_SHELL, (s_char *)&item.sect, EF_SECTOR) == 0) {
+	    if (item.sect.sct_item[I_SHELL] == 0) {
 		pr("Not enough shells in sector %s!\n",
 		   xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
 		continue;
 	    }
-	    if (getvar(V_MILIT, (s_char *)&item.sect, EF_SECTOR) < 5) {
+	    if (item.sect.sct_item[I_MILIT] < 5) {
 		pr("Not enough military in sector %s!\n",
 		   xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
 		continue;
@@ -327,17 +327,17 @@ multifire(void)
   }
 */
 	    attacker = targ_ship;
-	    if ((mil = getvar(V_MILIT, (s_char *)&fship, EF_SHIP)) < 1) {
+	    if ((mil = fship.shp_item[I_MILIT]) < 1) {
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }
-	    gun = getvar(V_GUN, (s_char *)&fship, EF_SHIP);
+	    gun = fship.shp_item[I_GUN];
 	    gun = min(gun, fship.shp_glim);
 	    if (fship.shp_frnge == 0 || gun == 0) {
 		pr("Insufficient arms.\n");
 		continue;
 	    }
-	    shell = getvar(V_SHELL, (s_char *)&fship, EF_SHIP);
+	    shell = fship.shp_item[I_SHELL];
 	    if (shell < 2)
 		shell += supply_commod(fship.shp_own, fship.shp_x,
 				       fship.shp_y, I_SHELL, 2 - shell);
@@ -377,7 +377,7 @@ multifire(void)
 	    guneff = seagun(fship.shp_effic, shots);
 	    dam = (int)guneff;
 	    shell -= ldround(((double)shots) / 2.0, 1);
-	    putvar(V_SHELL, shell, (s_char *)&fship, EF_SHIP);
+	    fship.shp_item[I_SHELL] = shell;
 	    putship(fship.shp_uid, &fship);
 	    if (opt_NOMOBCOST == 0)
 		fship.shp_mobil = max(fship.shp_mobil - 15, -100);
@@ -402,12 +402,12 @@ multifire(void)
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
-	    if (getvar(V_SHELL, (s_char *)&fland, EF_LAND) == 0) {
+	    if (fland.lnd_item[I_SHELL] == 0) {
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
 	    }
 
-	    shell = getvar(V_SHELL, (s_char *)&fland, EF_LAND);
+	    shell = fland.lnd_item[I_SHELL];
 
 	    range = techfact((int)fland.lnd_tech,
 			     (double)fland.lnd_frg / 2.0);
@@ -419,7 +419,7 @@ multifire(void)
 		continue;
 	    }
 
-	    gun = getvar(V_GUN, (s_char *)&fland, EF_LAND);
+	    gun = fland.lnd_item[I_GUN];
 	    if (gun <= 0) {
 		pr("%s -- not enough guns\n", prland(&fland));
 		continue;
@@ -451,11 +451,11 @@ multifire(void)
 		}
 	    }
 	    attacker = targ_land;
-	    if ((gun = getvar(V_GUN, (s_char *)&fsect, EF_SECTOR)) == 0) {
+	    if ((gun = fsect.sct_item[I_GUN]) == 0) {
 		pr("Insufficient arms.\n");
 		continue;
 	    }
-	    shell = getvar(V_SHELL, (s_char *)&fsect, EF_SECTOR);
+	    shell = fsect.sct_item[I_SHELL];
 	    if (shell <= 0)
 		shell += supply_commod(fsect.sct_own, fsect.sct_x,
 				       fsect.sct_y, I_SHELL, 1);
@@ -463,7 +463,7 @@ multifire(void)
 		pr("Klick!     ...\n");
 		continue;
 	    }
-	    if (getvar(V_MILIT, (s_char *)&fsect, EF_SECTOR) < 5) {
+	    if (fsect.sct_item[I_MILIT] < 5) {
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }
@@ -481,7 +481,7 @@ multifire(void)
 	    guneff = landgun((int)fsect.sct_effic, gun);
 	    dam = (int)guneff;
 	    shell--;
-	    putvar(V_SHELL, shell, (s_char *)&fsect, EF_SECTOR);
+	    fsect.sct_item[I_SHELL] = shell;
 	    putsect(&fsect);
 	}
 	trange = mapdist(x, y, fx, fy);
@@ -995,8 +995,8 @@ use_ammo(struct emp_qelem *list)
     struct shpstr ship;
     struct lndstr land;
     struct sctstr sect;
-    int shell, type;
-    s_char *ptr;
+    int shell;
+    u_short *item;
     double mobcost;
     struct mchrstr *mcp;
 
@@ -1006,14 +1006,13 @@ use_ammo(struct emp_qelem *list)
 	fp = (struct flist *)qp;
 	if (fp->type == targ_ship) {
 	    getship(fp->uid, &ship);
-	    ptr = (s_char *)&ship;
-	    type = EF_SHIP;
+	    item = ship.shp_item;
 	    if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
-		shell = getvar(V_SHELL, ptr, type);
+		shell = item[I_SHELL];
 		shell--;
 		if (shell < 0)
 		    shell = 0;
-		putvar(V_SHELL, shell, ptr, type);
+		item[I_SHELL] = shell;
 		putship(ship.shp_uid, &ship);
 		mcp = &mchr[(int)ship.shp_type];
 		mobcost = ship.shp_effic * 0.01 * ship.shp_speed;
@@ -1025,18 +1024,16 @@ use_ammo(struct emp_qelem *list)
 	    }
 	} else if (fp->type == targ_land) {
 	    getsect(fp->x, fp->y, &sect);
-	    ptr = (s_char *)&sect;
-	    type = EF_SECTOR;
+	    item = sect.sct_item;
 	} else {
 	    getland(fp->uid, &land);
-	    ptr = (s_char *)&land;
-	    type = EF_LAND;
+	    item = land.lnd_item;
 	}
-	shell = getvar(V_SHELL, ptr, type);
+	shell = item[I_SHELL];
 	shell--;
 	if (shell < 0)
 	    shell = 0;
-	putvar(V_SHELL, shell, ptr, type);
+	item[I_SHELL] = shell;
 	if (fp->type == targ_ship)
 	    putship(ship.shp_uid, &ship);
 	else if (fp->type == targ_land)

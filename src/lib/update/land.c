@@ -116,8 +116,8 @@ upd_land(register struct lndstr *lp, register int etus,
 	       /* build = 1, maintain = 0 */
 {
     struct lchrstr *lcp;
+    u_short pstage, ptime;
     int vec[I_MAX + 1];
-    int cvec[I_MAX + 1];
     int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;
@@ -186,9 +186,10 @@ upd_land(register struct lndstr *lp, register int etus,
 	     * do plague stuff.  plague can't break out on land units,
 	     * but it can still kill people on them.
 	     */
-	    getvec(VT_COND, cvec, (s_char *)lp, EF_LAND);
-	    if (cvec[C_PSTAGE] > 0) {
-		n = plague_people(np, vec, cvec, etus);
+	    pstage = lp->lnd_pstage;
+	    ptime = lp->lnd_ptime;
+	    if (pstage != PLG_HEALTHY) {
+		n = plague_people(np, vec, &pstage, &ptime, etus);
 		switch (n) {
 		case PLG_DYING:
 		    wu(0, lp->lnd_own,
@@ -200,9 +201,9 @@ upd_land(register struct lndstr *lp, register int etus,
 		    break;
 		case PLG_INCUBATE:
 		    /* Are we still incubating? */
-		    if (n == cvec[C_PSTAGE]) {
+		    if (n == pstage) {
 			/* Yes. Will it turn "infectious" next time? */
-			if (cvec[C_PTIME] <= etus) {
+			if (ptime <= etus) {
 			    /* Yes.  Report an outbreak. */
 			    wu(0, lp->lnd_own,
 			       "Outbreak of PLAGUE on %s!\n", prland(lp));
@@ -216,9 +217,9 @@ upd_land(register struct lndstr *lp, register int etus,
 		    break;
 		case PLG_EXPOSED:
 		    /* Has the plague moved to "incubation" yet? */
-		    if (n != cvec[C_PSTAGE]) {
+		    if (n != pstage) {
 			/* Yes. Will it turn "infectious" next time? */
-			if (cvec[C_PTIME] <= etus) {
+			if (ptime <= etus) {
 			    /* Yes.  Report an outbreak. */
 			    wu(0, lp->lnd_own,
 			       "Outbreak of PLAGUE on %s!\n", prland(lp));
@@ -229,7 +230,8 @@ upd_land(register struct lndstr *lp, register int etus,
 		default:
 		    break;
 		}
-		putvec(VT_COND, cvec, (s_char *)lp, EF_LAND);
+		lp->lnd_pstage = pstage;
+		lp->lnd_ptime = ptime;
 	    }
 	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 	}			/* end !player->simulation */
