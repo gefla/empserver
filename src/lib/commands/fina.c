@@ -56,8 +56,6 @@ fina(void)
     int xdur;
     double rate;
     double amt;
-    time_t due;
-    time_t last;
 
     if (!opt_LOANS) {
 	pr("Loans are not enabled.\n");
@@ -73,26 +71,19 @@ fina(void)
     while (nxtitem(&ni, (s_char *)&loan)) {
 	if (loan.l_status != LS_SIGNED)
 	    continue;
-	due = loan.l_duedate;
-	last = loan.l_lastpay;
-	rdur = 0;
-	xdur = 0;
-	if (now < due) {
-	    rdur = now - last;
-	    xdur = 0;
-	}
-	if (last < due && due < now) {
-	    rdur = due - last;
-	    xdur = now - due;
-	}
-	if (due < last) {
+	/*
+	 * split duration now - l_lastpay into regular (up to l_duedate)
+	 * and extended (beyond l_duedate)
+	 */
+	rdur = loan.l_duedate - loan.l_lastpay;
+	xdur = now - loan.l_duedate;
+	if (rdur < 0) {
+	    xdur += rdur;
 	    rdur = 0;
-	    xdur = now - last;
 	}
-	if (loan.l_ldur == 0) {
-	    logerror("loan #%d has zero duration", ni.cur);
+
+	if (CANT_HAPPEN(loan.l_ldur == 0))
 	    continue;
-	}
 	rate = loan.l_irate / (loan.l_ldur * 8640000.0);
 
 /* changed following to avoid overflow 3/27/89 bailey@math-cs.kent.edu

@@ -54,8 +54,6 @@ int
 disloan(int n, register struct lonstr *loan)
 {
     time_t now;
-    time_t due;
-    time_t lastpaydate;
     time_t normaltime;
     time_t doubletime;
     time_t accept;
@@ -85,20 +83,18 @@ disloan(int n, register struct lonstr *loan)
 	pr("Loan must be accepted by %s", ctime(&accept));
 	return 1;
     }
-    due = loan->l_duedate;
-    lastpaydate = loan->l_lastpay;
-    if (now < due) {
-	normaltime = now - lastpaydate;
-	doubletime = 0;
-    }
-    if (lastpaydate < due && due < now) {
-	normaltime = due - lastpaydate;
-	doubletime = now - due;
-    }
-    if (due < lastpaydate) {
+
+    /*
+     * split duration now - l_lastpay into regular (up to l_duedate)
+     * and extended (beyond l_duedate)
+     */
+    normaltime = loan->l_duedate - loan->l_lastpay;
+    doubletime = now - loan->l_duedate;
+    if (normaltime < 0) {
+	doubletime += normaltime;
 	normaltime = 0;
-	doubletime = now - lastpaydate;
     }
+
     rate = ((double)loan->l_irate / 100.0) / (loan->l_ldur * SECS_PER_DAY);
     owe = ((double)loan->l_amtdue *
 	   (((double)normaltime * rate + 1.0) +
@@ -107,7 +103,7 @@ disloan(int n, register struct lonstr *loan)
     pr("Amount due (if paid now) $%.2f", owe);
     if (doubletime == 0) {
 	pr(" (if paid on due date) $%.2f\n",
-	   loan->l_amtdue * ((due - lastpaydate) * rate + 1.0));
+	   loan->l_amtdue * ((loan->l_duedate - loan->l_lastpay) * rate + 1.0));
 	pr("Due date is %s", ctime(&loan->l_duedate));
     } else
 	pr(" ** In Arrears **\n");

@@ -50,8 +50,6 @@ repa(void)
     int loan_num;
     long payment;
     long owe;
-    long due;
-    long last_payment;
     long normaltime;
     long doubletime;
     double rate_per_sec, amt;
@@ -76,20 +74,17 @@ repa(void)
 	return RET_FAIL;
     }
     (void)time(&now);
-    due = loan.l_duedate;
-    last_payment = loan.l_lastpay;
-    if (now < due) {
-	normaltime = now - last_payment;
-	doubletime = 0;
-    }
-    if (last_payment < due && due < now) {
-	normaltime = due - last_payment;
-	doubletime = now - due;
-    }
-    if (due < last_payment) {
+    /*
+     * split duration now - l_lastpay into regular (up to l_duedate)
+     * and extended (beyond l_duedate)
+     */
+    normaltime = loan.l_duedate - loan.l_lastpay;
+    doubletime = now - loan.l_duedate;
+    if (normaltime < 0) {
+	doubletime += normaltime;
 	normaltime = 0;
-	doubletime = now - last_payment;
     }
+
     rate_per_sec = loan.l_irate /
 	((double)loan.l_ldur * SECS_PER_DAY * 100.0);
 

@@ -55,8 +55,6 @@ shark(void)
     struct lonstr loan;
     struct natstr *natp;
     struct natstr *oldie;
-    long due;
-    long last;
     long rdur;
     long xdur;
     double rate;
@@ -85,19 +83,21 @@ shark(void)
     }
     /* If we got here, we check to see if it's been defaulted on. */
     (void)time(&now);
-    due = loan.l_duedate;
-    if (now <= due) {
+    /*
+     * split duration now - l_lastpay into regular (up to l_duedate)
+     * and extended (beyond l_duedate)
+     */
+    rdur = loan.l_duedate - loan.l_lastpay;
+    xdur = now - loan.l_duedate;
+    if (rdur < 0) {
+	xdur += rdur;
+	rdur = 0;
+    }
+    if (xdur <= 0) {
 	pr("There has been no default on loan %d\n", arg);
 	return RET_FAIL;
     }
-    last = loan.l_lastpay;
-    if (last < due && due < now) {
-	rdur = due - last;
-	xdur = now - due;
-    } else if (due < last) {
-	rdur = 0;
-	xdur = now - last;
-    }
+
     rate = loan.l_irate / (loan.l_ldur * 8.64e6);
 
     owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0);
