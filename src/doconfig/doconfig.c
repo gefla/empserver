@@ -160,8 +160,8 @@ wripglob(char *filename)
     }
     fprintf(fp, _ipglob_copyright_header);
     fprintf(fp, "#include \"misc.h\"\n");
-    fprintf(fp, "s_char empirehost[] = \"%s\";\n", HN);
-    fprintf(fp, "s_char empireport[] = \"%d\";\n", PN);
+    fprintf(fp, "char empirehost[] = \"%s\";\n", HN);
+    fprintf(fp, "char empireport[] = \"%d\";\n", PN);
     fclose(fp);
 }
 
