@@ -202,13 +202,13 @@ service_main(DWORD argc, LPTSTR *argv)
  
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
         logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError());
-	finish_server()
+	finish_server();
         return;
     }
  
     if ((hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) == NULL) {
         logerror("CreateEvent for Shutdown failed %d\n", GetLastError());
-	finish_server()
+	finish_server();
 	return;
     }
 
