@@ -93,12 +93,6 @@ int opt_NO_OIL = 1;
 int opt_NO_OIL = 0;
 #endif
 
-#ifdef PLANENAMES
-int opt_PLANENAMES = 1;
-#else
-int opt_PLANENAMES = 0;
-#endif
-
 #ifdef LANDSPIES
 int opt_LANDSPIES = 1;
 #else
@@ -329,7 +323,6 @@ struct option_list Options[] = {
     {"NUKEFAILDETONATE", &opt_NUKEFAILDETONATE},
     {"ORBIT", &opt_ORBIT},
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
-    {"PLANENAMES", &opt_PLANENAMES},
     {"RES_POP", &opt_RES_POP},
     {"SAIL", &opt_SAIL},
     {"SHIPNAMES", &opt_SHIPNAMES},

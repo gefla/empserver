@@ -130,7 +130,6 @@ static struct castr pchr_ca[] = {
 
 static struct castr plchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name"},
-    {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_planename), "planename"},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "lcm"},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "hcm"},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_cost), "cost"},

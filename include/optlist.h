@@ -74,7 +74,6 @@ extern int opt_NO_PLAGUE;
 extern int opt_NUKEFAILDETONATE;
 extern int opt_ORBIT;
 extern int opt_PINPOINTMISSILE;
-extern int opt_PLANENAMES;
 extern int opt_RES_POP;
 extern int opt_ROLLOVER_AVAIL;
 extern int opt_SAIL;

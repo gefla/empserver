@@ -82,8 +82,7 @@ struct plnstr {
 #define	PLN_AIRBURST	bit(2)	/* Airburst the nuke we're armed with */
 
 struct plchrstr {
-    s_char *pl_name;		/* plane vanilla unit name */
-    s_char *pl_planename;	/* plane real name */
+    s_char *pl_name;		/* full name of type of plane */
     int pl_lcm;			/* costs to build */
     int pl_hcm;
     int pl_cost;

@@ -405,8 +405,6 @@ nullify_objects(void)
 	    plchr[i].pl_lcm = 0;
 	if (opt_NO_OIL)
 	    plchr[i].pl_fuel = 0;
-	if (opt_PLANENAMES)
-	    plchr[i].pl_name = plchr[i].pl_planename;
     }
     for (i = 0; i < lnd_maxno; i++) {
 	if (opt_NO_HCMS)

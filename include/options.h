@@ -62,8 +62,6 @@
 /*#define START_UNITS	2 *//* How many free start units you get. Types are
    specified in src/lib/global/constants.c */
 
-#define PLANENAMES		/* Use real names for planes, not the boring ones :) */
-
 /* #define GO_RENEW *//* Gold and Oil are renewable resources */
 
 /* #define DEFENSE_INFRA *//* Allow the improvement of defensive infrastructure */
