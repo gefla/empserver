@@ -15,3 +15,12 @@ Index: empserver/src/lib/subs/pr.c
  /*VARARGS*/
  void
  pr(s_char *format, ...)
+@@ -233,7 +240,7 @@
+ void
+ prprompt(int min, int btu)
+ {
+-    pr_id(player, C_PROMPT, "%d %d\n", min, btu);
++    pr_id(player, C_PROMPT, "0 640\n"); /* Hack for nightlybuild */
+ }
+ 
+ void
