@@ -69,13 +69,14 @@
 static void nullify_objects(void);
 static void init_files(void);
 static void close_files(void);
+static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
 static void loc_NTInit(void);
 static void loc_NTTerm(void);
 #endif
 
-static int mainpid = 0;
+static char pidfname[] = "server.pid";
 
 /* Debugging?  If yes call abort() on internal error.  */
 int debug = 0;
@@ -109,11 +110,6 @@ main(int argc, char **argv)
 #endif
     char *config_file = NULL;
     int op;
-#if defined(__linux__) && defined(_EMPTH_POSIX)
-    s_char tbuf[256];
-#endif
-
-    mainpid = getpid();
 
 #if defined(_WIN32)
     while ((op = getopt(argc, argv, "D:de:iI:rR:h")) != EOF) {
@@ -232,15 +228,6 @@ main(int argc, char **argv)
 #endif /* !_WIN32 */
     start_server(flags);
 
-#if defined(__linux__) && defined(_EMPTH_POSIX)
-    strcpy(tbuf, argv[0]);
-    for (op = 1; op < argc; op++) {
-	strcat(tbuf, " ");
-	strcat(tbuf, argv[op]);
-    }
-    sprintf(argv[0], "%s (main pid: %d)", tbuf, getpid());
-#endif
-
     empth_exit();
 
     CANT_HAPPEN("main thread terminated");
@@ -283,12 +270,15 @@ init_server(void)
 void
 start_server(int flags)
 {
+    pid_t pid;
 #if !defined(_WIN32)
     struct sigaction act;
 #endif
 
+    pid = getpid();
+    create_pidfile(pidfname, pid);
     logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", (int)getpid());
+    logerror("Empire server (pid %d) started", (int)pid);
 
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
@@ -338,6 +328,19 @@ finish_server(void)
 #if defined(_WIN32)
     loc_NTTerm();
 #endif
+    remove(pidfname);
+}
+
+static void
+create_pidfile(char *fname, pid_t pid)
+{
+    FILE *pidf = fopen(fname, "w");
+    if (!pidf
+	|| fprintf(pidf, "%d\n", pid) < 0
+	|| fclose(pidf)) {
+	logerror("Can't write PID file (%s)", strerror(errno));
+	exit(1);
+    }
 }
 
 static void
@@ -471,7 +474,7 @@ shutdwn(int sig)
     if (sig)
 	logerror("Server shutting down on signal %d", sig);
     else
-	logerror("Server shutting down at Deity's request");
+	logerror("Server shutting down at deity's request");
     finish_server();
 
 #if defined(_WIN32)
