@@ -143,7 +143,11 @@ lboa(void)
 
     if (!(att_fight(A_LBOARD, off, &olist, 1.0, def, &dlist, 1.0))) {
 	getland(def->lnd_uid, &land);
-	/* Now what? Don't bother retreating? No flag for it (yet) */
+	/*
+	 * What about retreat on RET_BOARDED?  Well, land units can't
+	 * move when the boarder is hostile, and retreating when he
+	 * isn't is not useful.
+	 */
     }
 
     return RET_OK;
