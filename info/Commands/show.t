@@ -1,15 +1,15 @@
 .TH Command SHOW
-.NA show "Characteristics of bridges, items, ships, planes, land units or sectors"
+.NA show "Characteristics of bridges, ships, planes, land units or sectors"
 .LV Basic
-.SY "show <bridge|item|land|nuke|plane|sector|ship|tower> [b|s|c] [tech]"
+.SY "show <bridge|land|nuke|plane|sector|ship|tower> [b|s|c] [tech]"
 The show command describes the characteristics of bridge spans, bridge
-towers, items, planes, ships, land units, nukes, and sectors for a
+towers, planes, ships, land units, nukes, and sectors for a
 given technology level.
 .s1
 The format of each output is more fully described in separate info
 pages (Ship-types, Nuke-types, etc.).
 .s1
-Except for bridge (bridge span), tower (bridge tower) and item, a
+Except for bridge (bridge span) and tower (bridge tower), a
 further parameter is required to indicate whether you wish information
 about building (b), statistics (s) or capabilities (c) of the selected
 type.
@@ -35,4 +35,4 @@ will give something like
 3mt fusion       7 210  10  325 $19000
 .FI
 .s1
-.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Item-types, Ships, Planes, LandUnits, Products"
+.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Products"

@@ -263,23 +263,6 @@ show_tower(int tlev)
 }
 
 void
-show_item(int tlev)
-{
-    register struct ichrstr *ip;
-    register int n;
-
-    pr("item   value sell lbs   packing   item\n");
-    pr("mnemo                 rg wh ur bk name\n");
-
-    for (n = 1; n <= itm_maxno; n++) {
-	ip = &ichr[n];
-	pr("     %c %5d %4s %3d %2d %2d %2d %2d %s\n",
-	   ip->i_mnem, ip->i_value, (ip->i_sell == 1) ? "yes" : "no",
-	   ip->i_lbs, ip->i_pkg[NPKG], ip->i_pkg[WPKG], ip->i_pkg[UPKG],
-	   ip->i_pkg[BPKG], ip->i_name);
-    }
-}
-void
 show_nuke_stats(int tlev)
 {
     show_nuke_capab(tlev);

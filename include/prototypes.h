@@ -694,7 +694,6 @@ extern void shp_init(int, s_char *);
 /* show.c */
 extern void show_bridge(int);
 extern void show_tower(int);
-extern void show_item(int);
 extern void show_nuke_stats(int);
 extern void show_nuke_capab(int);
 extern void show_nuke_build(int);
