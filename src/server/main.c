@@ -192,9 +192,9 @@ main(int argc, char **argv)
 	    return 0;
 	else
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
-		    logerror("Failed to dispatch service (%d)", GetLastError());
-		    printf("Failed to dispatch service (%d)\n", GetLastError());
-		    exit(EXIT_FAILURE);
+		logerror("Failed to dispatch service (%d)", GetLastError());
+		printf("Failed to dispatch service (%d)\n", GetLastError());
+		exit(EXIT_FAILURE);
 	    } else  /* start in the foreground */
 		debug = 1;
     }
