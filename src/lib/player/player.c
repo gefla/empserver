@@ -89,7 +89,7 @@ player_main(struct player *p)
 	    return;
     }
     daychange(player->curup);
-    if ((player->minleft = getminleft(player->curup, hour, &m_m_p_d)) <= 0) {
+    if ((player->minleft = getminleft(player->curup, m_m_p_d)) <= 0) {
 	pr("Time exceeded today\n");
 	return;
     }
@@ -256,7 +256,7 @@ status(void)
 		    return 0;
 		}
 	    }
-	    player->minleft = getminleft(player->curup, hour, &m_m_p_d);
+	    player->minleft = getminleft(player->curup, m_m_p_d);
 	}
 	player->lasttime += minute * 60;
 	natp->nat_minused += minute;

@@ -199,19 +199,16 @@ daychange(time_t now)
 }
 
 int
-getminleft(time_t now, int *hour, int *mpd)
+getminleft(time_t now, int mpd)
 {
-    s_char *bp;
     struct tm *tm;
     int nminleft;
-    int curtime;
     struct natstr *natp;
     int n;
 
     tm = localtime(&now);
-    curtime = tm->tm_min + tm->tm_hour * 60;
     natp = getnatp(player->cnum);
-    nminleft = *mpd - natp->nat_minused;
+    nminleft = mpd - natp->nat_minused;
     n = 60 * 24 - (tm->tm_min + tm->tm_hour * 60);
     if (n < nminleft)
 	nminleft = n;
