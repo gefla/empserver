@@ -473,10 +473,8 @@ empth_exit(void)
 	    printf("\nEmpire Server>");
 	    fgets(buf, sizeof(buf), stdin);
 	    if (!strnicmp(buf, "quit", 4))
-		break;
+		shutdwn(0);
 	}
-	TlsSetValue(loc_GVAR.dwTLSIndex, NULL);
-	loc_FreeThreadInfo(pThread);
     } else {
 	TlsSetValue(loc_GVAR.dwTLSIndex, NULL);
 	loc_FreeThreadInfo(pThread);
