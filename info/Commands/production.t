@@ -24,11 +24,11 @@ in an area to the south-east of the capital.
 The production report is headed by the lines:
 .NF
 PRODUCTION SIMULATION
- sect  des eff wkfc will make--- p.e. cost use1 use2 use3  max1 max2 max3   max
+   sect  eff des avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
 .FI
 These columns represent:
 .s1
-.in \w'will make---\0\0'u
+.in \w'max[123]\0\0'u
 .L sect
 the x and y coordinates of the sector
 .L des
@@ -37,9 +37,9 @@ The sectors designation
 the efficiency of the sector in doing its task.
 Note that some sectors although working at 100%
 may show up less as the natural resources influence this figure.
-.L wkfc
-the number of active workers in the sector (in units of civilians).
-.L "will make---"
+.L avail
+the amount of work done in the sector.
+.L "make"
 How much of what product will be made at the next update.
 .L p.e.
 Production efficiency \- the efficiency with which the product is made
@@ -59,32 +59,38 @@ materials were present.
 .in
 .s1
 For example:
-.EX prod #4 ?civ>100
+.EX prod #
 .NF
-prod #
-Wed Aug 17 08:28:21 1988
+Fri Mar 18 20:58:55 2005
 PRODUCTION SIMULATION
- sect  des eff wkfc will make--- p.e. cost use1 use2 use3  max1 max2 max3   max
-  1,-3  m  56% 1003   22 iron    1.00 $0                                    22
-  5,-3  a  46% 1006  171 food    0.87 $0                                   171
-  9,-3  l 100% 1003    0 edu     1.00 $0     0l             40l             40
--14,-2  r 100%  999 0.00 medical 0.06 $0     0d   0o   0l    2d  10o  20l 0.12
- -8,-2  j 100%  798   32 lcm     0.87 $0    32i             32i             32
- -6,-2  o   1%  182    0 oil     0.87 $0                                     0
- -4,-2  a 100% 1003  360 food    0.87 $0                                   360
-  0,-2  m  60% 1003   24 iron    1.00 $0                                    24
-  4,-2  m  54%  999   22 iron    1.00 $0                                    22
-  8,-2  % 100%  999    0 petrol  0.78 $0     0o             40o            400
--15,-1  l 100% 1003   26 edu     1.00 $234  26l             40l             40
--13,-1  o  28%  968   11 oil     0.87 $0                                    11
- -3,-1  m  51% 1003   20 iron    1.00 $0                                    20
-  5,-1  k 100% 1998   40 hcm     0.87 $0    78i             78i             40
--28,0   a  53% 1003   19 food    0.87 $0                                    19
--16,0   m  62% 1003   25 iron    1.00 $0                                    25
--12,0   j 100%  999   40 lcm     0.87 $0    39i             39i             40
- -6,0   m  50%  964   19 iron    1.00 $0                                    19
- -4,0   m  59%  935   22 iron    1.00 $0                                    22
-    19 sectors
+   sect  eff des avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
+   4,-4   a 120%   600  999f 6.97 $0                                      999
+   2,-4   t 100%   445 16.01 0.80 $6000   20d 100o 200l   28d 140o 280l 22.41
+   1,-3   j 100%   600  465l 0.77 $0     600i            600i             465
+   3,-3   g   0%   603    0d 1.00 $0                                        0
+   4,-2   g   0%   602    0d 1.00 $0                                        0
+   6,-2   j 100%   600  133l 0.77 $0     172i            600i             465
+   0,-2   e 100%   395  153m 1.00 $459   153c            153c             280
+   2,-2   b 100%   599  120b 1.00 $1200  600d            600d             120
+   5,-1   g   0%     2    0d 1.00 $0                                        0
+   7,-1   i 100%   600   60s 0.30 $600   400l 200h       400l 200h         60
+   3,-1   g   0%     0    0d 1.00 $0                                        0
+   4,0    g   0%     4    0d 1.00 $0                                        0
+   6,0    g  69%   501  346d 1.00 $0                                      346
+   8,0    k 100%   600    0h 0.77 $0       0i            600i             232
+   0,0    m 100%   810  810i 1.00 $0                                      810
+   2,0    m 100%   743  743i 1.00 $0                                      743
+   5,1    g   0%     2    0d 1.00 $0                                        0
+  -1,1    l 100%   600  200  1.00 $1800  200l            600l             600
+   1,1    g   0%     0    0d 1.00 $0                                        0
+   3,1    m 100%   600  600i 1.00 $0                                      600
+   4,2    g  65%   501  326d 1.00 $0                                      326
+  -2,2    j 100%   600  465l 0.77 $0     600i            600i             465
+   0,2    k 100%   600  232h 0.77 $0     600i            600i             232
+   2,2    d 100%   600   11g 0.30 $1110   37o 185l 370h   38o 190l 380h    11
+   3,3    k 100%   600  232h 0.77 $0     600i            600i             232
+  10,4    o  22%   600  102o 0.77 $0                                      102
+26 sectors
 .FI
 .s1
 .SA "Products, Update, Production"
