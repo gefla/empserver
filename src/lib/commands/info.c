@@ -64,22 +64,6 @@ lowerit(s_char *buf, int n, s_char *orig)
     return buf;
 }
 
-static int
-strnccmp(s_char *s1, s_char *s2, int n)
-{
-    int i;
-    char c1, c2;
-    for (i = 0; i < n && *s1 && s2; i++) {
-	c1 = tolower(*s1++);
-	c2 = tolower(*s2++);
-	if (c1 > c2)
-	    return 1;
-	else if (c1 < c2)
-	    return -1;
-    }
-    return 0;
-}
-
 #if !defined(_WIN32)
 
 int
@@ -87,25 +71,28 @@ info(void)
 {
     s_char buf[255];
     FILE *fp;
-    s_char *bp;
+    s_char *name;
+    s_char *tmp_name;
     struct stat statb;
     struct dirent *dp;
     s_char filename[1024];
     DIR *info_dp;
-
-    if (player->argp[1] == 0 || !*player->argp[1])
-	bp = "TOP";
-    /*
-     * don't let sneaky people go outside the info directory
-     */
-    else if (NULL != (bp = strrchr(player->argp[1], '/')))
-	bp++;
-    else
-	bp = player->argp[1];
-    sprintf(filename, "%s/%s", infodir, bp);
+ 
+    name = player->argp[1];
+    if (name) {
+	/*
+	 * don't let sneaky people go outside the info directory
+	 */
+	if (NULL != (tmp_name = strrchr(name, '/')))
+	    name = tmp_name + 1;
+    }
+    if (!name || !*name)
+	name = "TOP";
+ 
+    snprintf(filename, sizeof(filename), "%s/%s", infodir, name);
     fp = fopen(filename, "r");
     if (fp == NULL) {
-	int len = strlen(bp);
+	int len = strlen(name);
 	/* may be a "partial" request.  */
 	info_dp = opendir(infodir);
 	if (info_dp == 0) {
@@ -113,34 +100,34 @@ info(void)
 	    logerror("Can't open info dir \"%s\"\n", infodir);
 	    return RET_SYS;
 	}
-	rewinddir(info_dp);
+
 	while ((dp = readdir(info_dp)) != 0 && fp == 0) {
-	    if (strnccmp(bp, dp->d_name, len) != 0)
+	    if (strncasecmp(name, dp->d_name, strlen(name)) != 0)
 		continue;
 	    sprintf(filename, "%s/%s", infodir, dp->d_name);
 	    fp = fopen(filename, "r");
 	}
 	closedir(info_dp);
 	if (fp == NULL) {
-	    pr("Sorry, there is no info on %s\n", bp);
+	    pr("Sorry, there is no info on %s\n", name);
 	    return RET_FAIL;
 	}
     }
     if (fstat(fileno(fp), &statb) < 0) {
-	pr("Error reading info file for %s\n", bp);
+	pr("Error reading info file for %s\n", name);
 	logerror("Cannot fstat for \"%s\" info file (%s)",
 	    filename, strerror(errno));
 	fclose(fp);
 	return RET_SYS;
     }
     if ((statb.st_mode & S_IFREG) == 0) {
-	pr("Error reading info file for %s\n", bp);
+	pr("Error reading info file for %s\n", name);
 	logerror("The info file \"%s\" is not regular file\n", filename);
 	fclose(fp);
 	return RET_SYS;
     }
     pr("Information on:  %s    Last modification date: %s",
-       bp, ctime(&statb.st_mtime));
+       name, ctime(&statb.st_mtime));
     while (fgets(buf, sizeof(buf), fp) != 0)
 	pr("%s", buf);
     (void)fclose(fp);
@@ -151,7 +138,7 @@ int
 apro(void)
 {
     FILE *fp;
-    s_char *bp, *lbp;
+    s_char *name, *lbp;
     s_char *fbuf;
     s_char *lbuf;
     struct dirent *dp;
@@ -160,6 +147,7 @@ apro(void)
     long nf, nhf, nl, nlhl, nhl, nll;
     int alreadyhit;
     int lhitlim;
+    struct stat statb;
 
     if (player->argp[1] == 0 || !*player->argp[1]) {
 	pr("Apropos what?\n");
@@ -174,8 +162,9 @@ apro(void)
     }
 
     info_dp = opendir(infodir);
-    if (info_dp == 0) {
-	pr("Can't open info dir \"%s\"\n", infodir);
+    if (info_dp == NULL) {
+	pr("Can't open info dir \n");
+	logerror("Can't open info dir \"%s\"", infodir);
 	return RET_SYS;
     }
 
@@ -186,20 +175,32 @@ apro(void)
     /*
      *  lower case search string into lbp
      */
-    bp = player->argp[1];
-    lowerit(lbp, 256, bp);
+    name = player->argp[1];
+    lowerit(lbp, 256, name);
 
     /*
      *  search
      */
     nf = nhf = nl = nhl = 0;
-    rewinddir(info_dp);
     while ((dp = readdir(info_dp)) != 0) {
-	sprintf(filename, "%s/%s", infodir, dp->d_name);
+	snprintf(filename, sizeof(filename), "%s/%s", infodir,
+	    dp->d_name);
 	fp = fopen(filename, "r");
 	alreadyhit = 0;
 	nll = nlhl = 0;
 	if (fp != NULL) {
+	    if (fstat(fileno(fp), &statb) < 0) {
+		logerror("Cannot stat for \"%s\" info file (%s)",
+			 filename, strerror(errno));
+		fclose(fp);
+		continue;
+	    }
+	    if ((statb.st_mode & S_IFREG) == 0) {
+		logerror("The info file \"%s\" is not regular file\n",
+			 filename);
+		fclose(fp);
+		continue;
+	    }
 	    while (fgets(fbuf, 256, fp)) {
 		lowerit(lbuf, 256, fbuf);
 		if (strstr(lbuf, lbp)) {
@@ -238,7 +239,7 @@ apro(void)
 	pr("Limit of %d lines exceeded\n", lhitlim);
     }
     pr("Found %s in %ld of %ld files and in %ld of %ld lines\n",
-       bp, nhf, nf, nhl, nl);
+       name, nhf, nf, nhl, nl);
     return RET_OK;
 }
 
@@ -249,42 +250,39 @@ info(void)
 {
     s_char buf[255];
     FILE *fp;
-    s_char *bp;
-    s_char *bp2;
+    s_char *name;
+    s_char *tmp_name;
     s_char filename[1024];
+    int nmatch = 0;
 
-    if (player->argp[1] == 0 || !*player->argp[1])
-	bp = "TOP";
-    else {
+    name = player->argp[1];
+    if (name) {
 	/*
 	 * don't let sneaky people go outside the info directory
 	 */
-	bp = player->argp[1];
-	if (NULL != (bp2 = strrchr(bp, '/')))
-	    bp = ++bp2;
-	if (NULL != (bp2 = strrchr(bp, '\\')))
-	    bp = ++bp2;
-	if (NULL != (bp2 = strrchr(bp, ':')))
-	    bp = ++bp2;
-	if (!*bp)
-	    bp = "TOP";
+	if (NULL != (tmp_name = strrchr(name, '/')))
+	    name = tmp_name + 1;
+	if (NULL != (tmp_name = strrchr(name, '\\')))
+	    name = tmp_name + 1;
+	if (NULL != (tmp_name = strrchr(name, ':')))
+	    name = tmp_name + 1;
     }
+    if (!name || !*name)
+	name = "TOP";
 
-    strncpy(filename, infodir, sizeof(filename) - 2);
-    strcat(filename, "\\");
-    strncat(filename, bp, sizeof(filename) - 1 - strlen(filename));
+    _snprintf(filename, sizeof(filename) - 1, "%s\\%s", infodir, name);
     fp = fopen(filename, "r");
     if (fp == NULL) {
 	/* may be a "partial" request.  */
 	HANDLE hDir;
 	WIN32_FIND_DATA fData;
-	int len = strlen(bp);
-	strncat(filename, "*", sizeof(filename) - 1 - strlen(filename));
+	int len = strlen(name);
+	strcat(filename, "*");
 	hDir = FindFirstFile(filename, &fData);
 	if (hDir == INVALID_HANDLE_VALUE) {
 	    switch (GetLastError()) {
 	    case ERROR_FILE_NOT_FOUND:
-		pr("Sorry, there is no info on %s\n", bp);
+		pr("Sorry, there is no info on %s\n", name);
 		return RET_FAIL;
 		break;
 	    case ERROR_PATH_NOT_FOUND:
@@ -293,43 +291,42 @@ info(void)
 		break;
 	    default:
 		pr("Error reading info dir\n");
-		logerror("Error (%d) reading info dir(%s)/file(%s)",
+		logerror("Error (%d) reading info dir(%s)\\file(%s)",
 		    infodir, filename, GetLastError());
 	    }
 	    return RET_SYS;
 	}
 	do {
-	    if (((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) ||
+	    if ((fData.dwFileAttributes != (DWORD)-1) &&
+		((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) ||
 		 (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
 		 (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY)) &&
-		(strnccmp(bp, fData.cFileName, len) == 0)) {
-		strncpy(filename, infodir, sizeof(filename) - 2);
-		strcat(filename, "\\");
-		strncat(filename, fData.cFileName,
-			sizeof(filename) - 1 - strlen(filename));
+		(strncasecmp(name, fData.cFileName, strlen(name)) == 0)) {
+		_snprintf(filename, sizeof(filename), "%s\\%s", infodir, fData.cFileName);
 		fp = fopen(filename, "r");
 	    }
 	} while (!fp && FindNextFile(hDir, &fData));
 	FindClose(hDir);
 	if (fp == NULL) {
-	    pr("Sorry, there is no info on %s\n", bp);
+	    pr("Sorry, there is no info on %s\n", name);
 	    return RET_FAIL;
 	}
     }
     else {
 	DWORD fAttrib = GetFileAttributes(filename);
-	if ((fAttrib == (DWORD)-1) && //INVALID_FILE_ATTRIBUTES
+	if ((fAttrib == (DWORD)-1) || //INVALID_FILE_ATTRIBUTES
 	    (fAttrib != FILE_ATTRIBUTE_NORMAL) &&
 	    (fAttrib != FILE_ATTRIBUTE_ARCHIVE) &&
 	    (fAttrib != FILE_ATTRIBUTE_READONLY)) {
-	    pr("Error reading info file for %s\n", bp);
-	    logerror("The info file \"%s\" is not regular file\n", filename);
+	    pr("Error reading info file for %s\n", name);
+	    logerror("The info file \"%s\" is not regular file\n",
+		     filename);
 	    fclose(fp);
 	    return RET_SYS;
 	}
     }
 
-    pr("Information on:  %s", bp);
+    pr("Information on:  %s", name);
     while (fgets(buf, sizeof(buf), fp) != 0)
 	pr("%s", buf);
     (void)fclose(fp);
@@ -342,7 +339,7 @@ apro(void)
     HANDLE hDir;
     WIN32_FIND_DATA fData;
     FILE *fp;
-    s_char *bp, *lbp;
+    s_char *name, *lbp;
     s_char *fbuf;
     s_char *lbuf;
     s_char filename[1024];
@@ -362,11 +359,18 @@ apro(void)
 	    lhitlim = 100;
     }
 
-    strncpy(filename, infodir, sizeof(filename) - 3);
-    strcat(filename, "//*");
+    _snprintf(filename, sizeof(filename), "%s\\*",infodir);
     hDir = FindFirstFile(filename, &fData);
     if (hDir == INVALID_HANDLE_VALUE) {
-	return RET_FAIL;
+	if (GetLastError() == ERROR_PATH_NOT_FOUND) {
+	    pr("Can't open info dir\n");
+	    logerror("Can't open info dir \"%s\"", infodir);
+	} else {
+	    pr("Error reading info dir\n");
+	    logerror("Error (%d) reading info dir(%s)\\file(%s)",
+		infodir, filename, GetLastError());
+	}
+	return RET_SYS;
     }
 
     fbuf = (s_char *)malloc(256);
@@ -376,49 +380,52 @@ apro(void)
     /*
      *  lower case search string into lbp
      */
-    bp = player->argp[1];
-    lowerit(lbp, 256, bp);
+    name = player->argp[1];
+    lowerit(lbp, 256, name);
 
     /*
      *  search
      */
     nf = nhf = nl = nhl = 0;
     do {
-	strncpy(filename, infodir, sizeof(filename) - 3);
-	strcat(filename, "//");
-	strncat(filename, fData.cFileName,
-		sizeof(filename) - 1 - strlen(filename));
-	fp = fopen(filename, "r");
-	alreadyhit = 0;
-	nll = nlhl = 0;
-	if (fp != NULL) {
-	    while (fgets(fbuf, 256, fp)) {
-		lowerit(lbuf, 256, fbuf);
-		if (strstr(lbuf, lbp)) {
-		    if (!alreadyhit) {
-			pr("*** %s ***\n", fData.cFileName);
-			alreadyhit = 1;
-			nhf++;
+	if ((fData.dwFileAttributes != (DWORD)-1) &&
+	    ((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) ||
+	     (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
+	     (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY))) {
+	    _snprintf(filename, sizeof(filename), "%s\\%s", infodir,
+		      fData.cFileName);
+	    fp = fopen(filename, "r");
+	    alreadyhit = 0;
+	    nll = nlhl = 0;
+	    if (fp != NULL) {
+		while (fgets(fbuf, 256, fp)) {
+		    lowerit(lbuf, 256, fbuf);
+		    if (strstr(lbuf, lbp)) {
+			if (!alreadyhit) {
+			    pr("*** %s ***\n", fData.cFileName);
+			    alreadyhit = 1;
+			    nhf++;
+			}
+			fbuf[74] = '\n';
+			fbuf[75] = 0;
+			pr("   %s", fbuf);
+			nlhl++;
+			/*
+			 * break if too many lines
+			 */
+			if ((nhl + nlhl) > lhitlim)
+			    break;
 		    }
-		    fbuf[74] = '\n';
-		    fbuf[75] = 0;
-		    pr("   %s", fbuf);
-		    nlhl++;
-		    /*
-		     * break if too many lines
-		     */
-		    if ((nhl + nlhl) > lhitlim)
-			break;
+		    nll++;
 		}
-		nll++;
+		fclose(fp);
 	    }
-	    fclose(fp);
+	    nhl += nlhl;
+	    nl += nll;
+	    nf++;
+	    if (nhl > lhitlim)
+		break;
 	}
-	nhl += nlhl;
-	nl += nll;
-	nf++;
-	if (nhl > lhitlim)
-	    break;
     } while (FindNextFile(hDir, &fData));
     FindClose(hDir);
 
@@ -430,7 +437,7 @@ apro(void)
 	pr("Limit of %ld lines exceeded\n", lhitlim);
     }
     pr("Found %s in %ld of %ld files and in %ld of %ld lines\n",
-       bp, nhf, nf, nhl, nl);
+       name, nhf, nf, nhl, nl);
     return RET_OK;
 }
 
