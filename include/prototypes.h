@@ -801,6 +801,7 @@ extern void shp_init(int, s_char *);
 extern void sort_lookup_list(void);
 extern void show_bridge(int);
 extern void show_tower(int);
+extern void show_item(int);
 extern void show_nuke_stats(int);
 extern void show_nuke_capab(int);
 extern void show_nuke_build(int);
