@@ -113,6 +113,7 @@ retr(void)
 		break;
 	    default:
 		pr("bad condition\n");
+		/* fall through */
 	    case '?':
 		pr("i\tretreat when injured\n");
 		pr("t\tretreat when torped\n");
@@ -245,6 +246,7 @@ lretr(void)
 		break;
 	    default:
 		pr("bad condition\n");
+		/* fall through */
 	    case '?':
 		pr("i\tretreat when injured\n");
 		pr("h\tretreat when helpless\n");

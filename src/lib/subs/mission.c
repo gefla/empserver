@@ -849,10 +849,8 @@ nameofitem(s_char *buf, struct genitem *gp, int type)
     switch (type) {
     case EF_SHIP:
 	return prship((struct shpstr *)gp);
-	break;
     case EF_PLANE:
 	return prplane((struct plnstr *)gp);
-	break;
     case EF_LAND:
 	return prland((struct lndstr *)gp);
     }

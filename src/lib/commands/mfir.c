@@ -601,6 +601,7 @@ multifire(void)
 	    break;
 	case targ_ship:
 	    nreport(player->cnum, N_SHP_SHELL, vict, 1);
+	    /* fall through */
 	default:
 	    if ((target != targ_sub) ||
 		((vship.shp_rflags & RET_DCHRGED) == 0))
