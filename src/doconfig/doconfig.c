@@ -131,11 +131,7 @@ wripglob(char *filename)
 	exit(-1);
     }
     fprintf(fp, _ipglob_copyright_header);
-    fprintf(fp, "#include <stdio.h>\n");
-    fprintf(fp, "#include <setjmp.h>\n");
     fprintf(fp, "#include \"misc.h\"\n");
-    fprintf(fp, "#include \"fnlist.h\"\n");
-    fprintf(fp, "#include \"proto.h\"\n\n");
     fprintf(fp, "s_char empirehost[] = \"%s\";\n", HN);
     fprintf(fp, "s_char empireport[] = \"%d\";\n", PN);
     fclose(fp);
