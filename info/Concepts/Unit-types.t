@@ -186,7 +186,7 @@ able to carry units)
 the unit is good at assaulting
 .L recon
 the unit is good at gathering intelligence. It will do better using llookout,
-and will report enemy units in batter better.
+and will report enemy units in battle better.
 .L radar
 the unit has radar capability
 .L assault
