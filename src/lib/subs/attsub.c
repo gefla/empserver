@@ -36,7 +36,7 @@
 #include "misc.h"
 #include "player.h"
 #include "file.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "ship.h"
 #include "path.h"
@@ -2619,7 +2619,7 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 static void
 free_list(struct emp_qelem *list)
 {
-    register struct emp_qelem *qp, *next;
+    struct emp_qelem *qp, *next;
 
     if (!list || QEMPTY(list))
 	return;

@@ -38,7 +38,7 @@
 #include "player.h"
 #include "xy.h"
 #include "file.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "ship.h"
 #include "plane.h"

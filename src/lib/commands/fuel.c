@@ -33,7 +33,7 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
+#include "plague.h"
 #include "xy.h"
 #include "ship.h"
 #include "plane.h"

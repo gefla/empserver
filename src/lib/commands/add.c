@@ -36,7 +36,7 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "nat.h"
 #include "xy.h"
@@ -53,7 +53,7 @@ add(void)
     struct natstr *natp;
     struct sctstr sect;
     struct nstr_sect nstr;
-    register int i;
+    int i;
     s_char cntryname[21];
     s_char pname[21];
     natid coun;

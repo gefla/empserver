@@ -36,7 +36,7 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
+#include "plague.h"
 #include "xy.h"
 #include "file.h"
 #include "ship.h"

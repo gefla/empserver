@@ -34,7 +34,7 @@
 
 #include <stdlib.h>
 #include "misc.h"
-#include "var.h"
+#include "plague.h"
 #include "nat.h"
 #include "sect.h"
 #include "item.h"

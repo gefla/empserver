@@ -33,7 +33,7 @@
 
 #include "misc.h"
 #include "player.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "xy.h"
 #include "nsc.h"
@@ -48,7 +48,7 @@ static int explore_map(s_char *what, coord curx, coord cury, s_char *arg);
 int
 explore(void)
 {
-    register int amount;
+    int amount;
     struct sctstr sect;
     struct sctstr endsect;
     struct sctstr start;

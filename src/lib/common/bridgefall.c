@@ -32,7 +32,7 @@
  */
 
 #include "misc.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "path.h"
 #include "file.h"
@@ -48,8 +48,8 @@
 void
 bridgefall(struct sctstr *sp, struct emp_qelem *list)
 {
-    register int i;
-    register int j;
+    int i;
+    int j;
     struct sctstr sect;
     struct sctstr bh_sect;
     int nx;

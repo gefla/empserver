@@ -34,7 +34,7 @@
 #include "misc.h"
 
 #include <ctype.h>
-#include "var.h"
+#include "plague.h"
 #include "ship.h"
 #include "plane.h"
 #include "land.h"

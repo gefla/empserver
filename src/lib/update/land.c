@@ -34,7 +34,7 @@
  */
 
 #include "misc.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "nat.h"
 #include "land.h"

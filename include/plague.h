@@ -25,14 +25,12 @@
  *
  *  ---
  *
- *  var.h: various variable definitions
+ *  plague.h: plague defines.
  * 
- *  Known contributors to this file:
- *     
  */
 
-#ifndef _VAR_H_
-#define _VAR_H_
+#ifndef _PLAGUE_H_
+#define _PLAGUE_H_
 
 #define	PLG_HEALTHY	0
 #define	PLG_DYING	1
@@ -40,4 +38,4 @@
 #define	PLG_INCUBATE	3
 #define	PLG_EXPOSED	4
 
-#endif /* _VAR_H_ */
+#endif /* _PLAGUE_H_ */

@@ -32,7 +32,7 @@
  */
 
 #include "misc.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "item.h"
 #include "path.h"

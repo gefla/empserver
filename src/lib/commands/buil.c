@@ -35,7 +35,7 @@
 #include <string.h>
 #include "misc.h"
 #include "player.h"
-#include "var.h"
+#include "plague.h"
 #include "sect.h"
 #include "nat.h"
 #include "ship.h"
@@ -50,18 +50,18 @@
 #include "optlist.h"
 #include "commands.h"
 
-static int build_nuke(register struct sctstr *sp,
-		      register struct nchrstr *np, short *vec);
-static int build_ship(register struct sctstr *sp,
-		      register struct mchrstr *mp, short *vec,
+static int build_nuke(struct sctstr *sp,
+		      struct nchrstr *np, short *vec);
+static int build_ship(struct sctstr *sp,
+		      struct mchrstr *mp, short *vec,
 		      int tlev);
-static int build_land(register struct sctstr *sp,
-		      register struct lchrstr *lp, short *vec,
+static int build_land(struct sctstr *sp,
+		      struct lchrstr *lp, short *vec,
 		      int tlev);
-static int build_bridge(register struct sctstr *sp, short *vec);
-static int build_tower(register struct sctstr *sp, short *vec);
-static int build_plane(register struct sctstr *sp,
-		       register struct plchrstr *pp, short *vec,
+static int build_bridge(struct sctstr *sp, short *vec);
+static int build_tower(struct sctstr *sp, short *vec);
+static int build_plane(struct sctstr *sp,
+		       struct plchrstr *pp, short *vec,
 		       int tlev);
 
 static int cash;		/* static ok */
@@ -340,7 +340,7 @@ buil(void)
 }
 
 static int
-build_ship(register struct sctstr *sp, register struct mchrstr *mp,
+build_ship(struct sctstr *sp, struct mchrstr *mp,
 	   short *vec, int tlev)
 {
     struct shpstr ship;
@@ -456,7 +456,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
 }
 
 static int
-build_land(register struct sctstr *sp, register struct lchrstr *lp,
+build_land(struct sctstr *sp, struct lchrstr *lp,
 	   short *vec, int tlev)
 {
     struct lndstr land;
@@ -584,7 +584,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
 }
 
 static int
-build_bridge(register struct sctstr *sp, short *vec)
+build_bridge(struct sctstr *sp, short *vec)
 {
     struct sctstr sect;
     int val;
@@ -734,7 +734,7 @@ build_bridge(register struct sctstr *sp, short *vec)
 }
 
 static int
-build_nuke(register struct sctstr *sp, register struct nchrstr *np,
+build_nuke(struct sctstr *sp, struct nchrstr *np,
 	   short *vec)
 {
     int avail;
@@ -790,7 +790,7 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np,
 }
 
 static int
-build_plane(register struct sctstr *sp, register struct plchrstr *pp,
+build_plane(struct sctstr *sp, struct plchrstr *pp,
 	    short *vec, int tlev)
 {
     struct plnstr plane;
@@ -895,7 +895,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
 }
 
 static int
-build_tower(register struct sctstr *sp, short *vec)
+build_tower(struct sctstr *sp, short *vec)
 {
     struct sctstr sect;
     int val;
