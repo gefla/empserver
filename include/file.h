@@ -81,8 +81,6 @@ struct empfile {
 #define EF_NMAP         222	/* Kinda bogus, but used to describe a newdesmap
 				   instead of bmap or map. */
 
-typedef void (*ef_fileinit) (int, s_char *);
-
 struct fileinit {
     void (*init) (int, s_char *);
     int (*postread) (int, s_char *);

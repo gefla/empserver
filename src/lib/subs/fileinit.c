@@ -44,7 +44,7 @@
 #include "optlist.h"
 
 struct fileinit fileinit[EF_MAX] = {
-    {(ef_fileinit)sct_init, sct_postread, sct_prewrite, sect_ca},
+    {0, sct_postread, sct_prewrite, sect_ca},
     {shp_init, shp_postread, shp_prewrite, ship_ca},
     {pln_init, pln_postread, pln_prewrite, plane_ca},
     {lnd_init, lnd_postread, lnd_prewrite, land_ca},
