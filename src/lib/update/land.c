@@ -147,8 +147,8 @@ upd_land(register struct lndstr *lp, register int etus,
 	    mult *= 3;
 /*		cost = -(mult * etus * dmin(0.0, money_land * LND_COST(lcp->l_cost, lp->lnd_tech - lcp->l_tech)));*/
 	cost = -(mult * etus * dmin(0.0, money_land * lcp->l_cost));
-	if ((np->nat_priorities[PRI_LMAINT] == 0 ||
-	     np->nat_money < cost) && !player->simulation) {
+	if ((np->nat_priorities[PRI_LMAINT] == 0 || np->nat_money < cost)
+	    && !player->simulation) {
 	    if ((eff = lp->lnd_effic - etus / 5) < LAND_MINEFF) {
 		wu(0, lp->lnd_own,
 		   "%s lost to lack of maintenance\n", prland(lp));
@@ -164,15 +164,13 @@ upd_land(register struct lndstr *lp, register int etus,
 	} else {
 	    np->nat_money -= cost;
 	}
-/* Mil costs are now part of regular mil costs, not maint costs */
-/*		np->nat_money += (int) (money_mil * etus * lnd_getmil(lp));*/
 
 	/* Grab more stuff */
 	if ((opt_NOFOOD == 0) && !player->simulation)
 	    resupply_commod(lp, I_FOOD);
 
-	getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 	if (!player->simulation) {
+	    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 	    if ((n = feed_land(lp, vec, etus, &needed, 1)) > 0) {
 		wu(0, lp->lnd_own, "%d starved in %s%s\n",
 		   n, prland(lp),

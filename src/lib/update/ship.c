@@ -144,8 +144,8 @@ upd_ship(register struct shpstr *sp, register int etus,
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
 	cost = -(mult * etus * dmin(0.0, money_ship * mp->m_cost));
-	if ((np->nat_priorities[PRI_SMAINT] == 0 ||
-	     np->nat_money < cost) && !player->simulation) {
+	if ((np->nat_priorities[PRI_SMAINT] == 0 || np->nat_money < cost)
+	    && !player->simulation) {
 	    if ((eff = sp->shp_effic - etus / 5) < SHIP_MINEFF) {
 		wu(0, sp->shp_own,
 		   "%s lost to lack of maintenance\n", prship(sp));
@@ -162,36 +162,31 @@ upd_ship(register struct shpstr *sp, register int etus,
 	    np->nat_money -= cost;
 	}
 
-	getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
-
-	sectp = getsectp(sp->shp_x, sp->shp_y);
-	if (((mp->m_flags & M_OIL) && (sectp->sct_type == SCT_WATER))
-	    && !player->simulation) {
-	    /*
-	     * take care of oil production
-	     */
-	    oil_gained = roundavg((vec[I_CIVIL] * etus / 10000.0)
-				  * sectp->sct_oil);
-	    vec[I_OIL] += oil_gained;
-	    max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
-	    if (vec[I_OIL] > max_oil)
-		vec[I_OIL] = max_oil;
-	    product = &pchr[P_OIL];
-	    if (product->p_nrdep != 0 && oil_gained > 0) {
-		resource = ((s_char *)sectp) + product->p_nrndx;
-		*resource -= roundavg(oil_gained *
-				      product->p_nrdep / 100.0);
-	    }
-	}
-	if (((mp->m_flags & M_FOOD) && (sectp->sct_type == SCT_WATER))
-	    && !player->simulation) {
-	    sectp = getsectp(sp->shp_x, sp->shp_y);
-	    vec[I_FOOD] += ((vec[I_CIVIL] * etus) / 1000.0)
-		* sectp->sct_fertil;
-	}
-/* Military costs are now part of regular military costs, not ship costs */
-/*		np->nat_money += (int) (etus * vec[I_MILIT] * money_mil);*/
 	if (!player->simulation) {
+	    getvec(VT_ITEM, vec, (s_char *)sp, EF_SHIP);
+	    sectp = getsectp(sp->shp_x, sp->shp_y);
+
+	    if ((mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
+		/*
+		 * take care of oil production
+		 */
+		oil_gained = roundavg((vec[I_CIVIL] * etus / 10000.0)
+				      * sectp->sct_oil);
+		vec[I_OIL] += oil_gained;
+		max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
+		if (vec[I_OIL] > max_oil)
+		    vec[I_OIL] = max_oil;
+		product = &pchr[P_OIL];
+		if (product->p_nrdep != 0 && oil_gained > 0) {
+		    resource = ((s_char *)sectp) + product->p_nrndx;
+		    *resource -= roundavg(oil_gained *
+					  product->p_nrdep / 100.0);
+		}
+	    }
+	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
+		vec[I_FOOD] += ((vec[I_CIVIL] * etus) / 1000.0)
+		    * sectp->sct_fertil;
+	    }
 	    if ((n = feed_ship(sp, vec, etus, &needed, 1)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
 		if (n > 10)
