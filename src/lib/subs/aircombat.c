@@ -968,7 +968,6 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 void
 ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
 {
-    extern double flakscale;
     register struct plnstr *pp;
     struct plist *plp;
     int n;

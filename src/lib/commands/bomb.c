@@ -929,7 +929,6 @@ static int
 pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 		    int flak)
 {
-    extern double flakscale;
     int disp;
     s_char dmess[255];
     int eff;
