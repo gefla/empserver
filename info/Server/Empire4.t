@@ -7,7 +7,7 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.13 - Sat Feb  7 01:14:22 UTC 2004
+Changes to Empire 4.2.13 - Fri Feb 13 22:12:36 UTC 2004
  * Source code reindented and cleaned up somewhat.
  * Various info file fixes.
  * Fixed change requiring 254 BTUs even when not charging any
@@ -49,7 +49,7 @@ Changes to Empire 4.2.13 - Sat Feb  7 01:14:22 UTC 2004
  * Incoming missiles are now reported with coordinates.
  * Removed some code that served no purpose except crashing on
    Windows. 
- * Fixed Mac OSX port.
+ * Fixed Mac OSX and AIX build problems.
  * Don't resolve player IP addresses for now, because it can crash
    with certain versions of GNU libc.
  * Fixed recording of lost nukes.
