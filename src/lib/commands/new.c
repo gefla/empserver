@@ -65,7 +65,6 @@ new(void)
     struct boundstr newrealms;
     struct range absrealm;
     natid num;
-    time_t now;
     coord x, y;
     int i;
     s_char *p;
@@ -104,12 +103,7 @@ new(void)
 	    return RET_SYN;
 	}
     } else {
-	(void)time(&now);
-#if !defined(_WIN32)
-	srandom(now);
-#else
-	srand(now);
-#endif
+	srandom(time(NULL));
 	for (i = 0; i < 300 && !player->aborted; i++) {
 	    /* Both x and y should be either odd or even */
 	    x = (random() % WORLD_X) - (WORLD_X / 2);
