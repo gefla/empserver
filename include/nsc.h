@@ -42,7 +42,7 @@
 #define NS_NCOND	16
 
 /* Value type */
-enum nsc_type {
+typedef enum {
     NSC_NOTYPE,
     /* promoted types */
     NSC_LONG,			/* long */
@@ -59,17 +59,15 @@ enum nsc_type {
     NSC_YCOORD,			/* coord that needs y conversion */
     NSC_TIME,			/* time_t */
     NSC_FLOAT			/* float */
-};
-typedef enum nsc_type nsc_type;
+} nsc_type;
 typedef char packed_nsc_type;
 
 /* Value category */
-enum nsc_cat {
+typedef enum {
     NSC_NOCAT,
     NSC_VAL,			/* evaluated value */
     NSC_OFF			/* symbolic value: at offset in object */
-};
-typedef enum nsc_cat nsc_cat;
+} nsc_cat;
 typedef char packed_nsc_cat;
 
 enum {
@@ -107,11 +105,23 @@ struct nscstr {
     struct valstr rgt;		/* right operand */
 };
 
+/* Selection type */
+typedef enum {
+    NS_UNDEF,			/* error value */
+    NS_LIST,			/* list of IDs */
+    NS_DIST,			/* circular area */
+    NS_AREA,			/* rectangular area */
+    NS_ALL,			/* everything */
+    NS_XY,			/* one sector area */
+    NS_GROUP			/* group, i.e. fleet, wing, army */
+} ns_seltype;
+
+/* Sector iterator */
 struct nstr_sect {
     coord x, y;			/* current x-y */
     coord dx, dy;		/* accumlated x,y travel */
     int id;			/* return value of sctoff */
-    int type;			/* type of query */
+    ns_seltype type;		/* type of query */
     int curdist;		/* dist query: current range */
     struct range range;		/* area of coverage */
     int dist;			/* dist query: range */
@@ -121,9 +131,10 @@ struct nstr_sect {
     struct nscstr cond[NS_NCOND];	/* selection conditions */
 };
 
+/* Item iterator */
 struct nstr_item {
     int cur;			/* current item */
-    int sel;			/* selection type */
+    ns_seltype sel;		/* selection type */
     int type;			/* item type being selected */
     int curdist;		/* if NS_DIST, current item's dist */
     struct range range;		/* NS_AREA/NS_DIST: range selector */
@@ -134,18 +145,10 @@ struct nstr_item {
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */
     int (*read)(int type, int id, caddr_t ptr);	/* read function */
-    int flags;			/* EFF_ flags */
+    int flags;			/* ef_flags(TYPE) */
     int ncond;			/* # of selection conditions */
-    struct nscstr cond[NS_NCOND];	/* selection conditions */
+    struct nscstr cond[NS_NCOND]; /* selection conditions */
 };
-
-#define NS_UNDEF	0
-#define NS_LIST		1
-#define NS_DIST		2
-#define NS_AREA		3
-#define NS_ALL		4
-#define NS_XY		5
-#define NS_GROUP	6
 
 /*
  * Selector descriptor.

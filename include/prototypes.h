@@ -460,7 +460,7 @@ extern void retreat_land(struct lndstr *, s_char);
 extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
 extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 /* sarg.c */
-extern int sarg_type(s_char *);
+extern ns_seltype sarg_type(s_char *);
 extern int sarg_xy(s_char *, coord *, coord *);
 extern int sarg_area(s_char *, register struct range *);
 extern int sarg_range(s_char *, coord *, coord *, int *);

@@ -53,7 +53,7 @@
  *
  * or 0 for none of the above.
  */
-int
+ns_seltype
 sarg_type(s_char *ptr)
 {
     int c;

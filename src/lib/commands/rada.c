@@ -49,7 +49,6 @@ int
 rada(void)
 {
     s_char *cp;
-    int type;
     double tf;
     double tech;
     struct nstr_item ni;
@@ -70,8 +69,8 @@ rada(void)
 		      "Radar from (unit # or sector(s)) : ", buf);
     if (cp == 0)
 	return RET_SYN;
-    type = sarg_type(cp);
-    if (type == NS_AREA) {
+    switch (sarg_type(cp)) {
+    case NS_AREA:
 	if (!snxtsct(&ns, cp))
 	    return RET_SYN;
 	tech = tfact(player->cnum, 8.0);
@@ -87,7 +86,8 @@ rada(void)
 	    radmap(sect.sct_x, sect.sct_y, (int)sect.sct_effic,
 		   (int)(tech * 2.0), 0.0);
 	}
-    } else if (type == NS_LIST || type == NS_GROUP) {
+    case NS_LIST:
+    case NS_GROUP:
 	if (!from_unit) {
 	    /* assumes a NS_LIST return is a shipno */
 	    if (!snxtitem(&ni, EF_SHIP, cp)) {
@@ -139,7 +139,7 @@ rada(void)
 		       (int)tech, tf);
 	    }
 	}
-    } else {
+    default:
 	if (!from_unit)
 	    pr("Must use a ship or sector specifier\n");
 	else
