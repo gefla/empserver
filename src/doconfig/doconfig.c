@@ -38,6 +38,9 @@
 #include <stdlib.h>
 #if !defined(_WIN32)
 #include <unistd.h>
+#else
+#include <direct.h>
+#include <io.h>
 #endif
 #include <string.h>
 
