@@ -59,8 +59,7 @@ turn(void)
 	msgfilepath = downfil;
     } else if (strcmp(p, "on") == 0) {
 	pr("Removing no-login message and re-enabling logins.\n");
-	if ((unlink(downfil) == -1) && (errno != ENOENT))
-	{
+	if ((unlink(downfil) == -1) && (errno != ENOENT)) {
 	    pr("Could not remove no-login file, logins still disabled.\n");
 	    logerror("Could not remove no-login file (%s).\n", downfil);
 	    return RET_SYS;
@@ -78,19 +77,15 @@ turn(void)
     time(&tgm.tel_date);
     tgm.tel_length = getele("The World", buf);
 
-    if (tgm.tel_length < 0)
-    {
+    if (tgm.tel_length < 0) {
 	pr("Ignored\n");
 	if (msgfilepath == downfil)
 	    pr("NOT disabling logins.\n");
 	return RET_SYN;
-    } else if (tgm.tel_length == 0)
-    {
-	if (msgfilepath == motdfil)
-	{
+    } else if (tgm.tel_length == 0) {
+	if (msgfilepath == motdfil) {
 	    pr("Removing exsting motd.\n");
-	    if ((unlink(msgfilepath) == -1) && (errno != ENOENT))
-	    {
+	    if ((unlink(msgfilepath) == -1) && (errno != ENOENT)) {
 		pr("Could not remove motd.\n");
 		logerror("Could not remove motd file (%s).\n", msgfilepath);
 		return RET_SYS;
@@ -105,8 +100,7 @@ turn(void)
 #else
     fd = open(msgfilepath, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
 #endif
-    if (fd == -1)
-    {
+    if (fd == -1) {
 	pr("Something went wrong opening the message file.\n");
 	logerror("Could not open message file (%s).\n", msgfilepath);
 	return RET_SYS;
@@ -117,8 +111,7 @@ turn(void)
 
     if ((write(fd, &tgm, sizeof(tgm)) < (ssize_t)sizeof(tgm)) ||
 	(write(fd, buf, tgm.tel_length) < tgm.tel_length) ||
-	(close(fd) == -1))
-    {
+	(close(fd) == -1)) {
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",
 	    msgfilepath);
