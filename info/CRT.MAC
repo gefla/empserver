@@ -1,8 +1,12 @@
 .\" EMPIRE MACRO FILE FOR 24-LINE CRT
 .\" Normal Font
 .rm nF
+.\" Normal font name: must match value of nF!
+.ds N R
 .\" Example Font
 .rm eF
+.\" Example Font name (used with .cs requests): must match value of eF!
+.ds EF R
 .\" Bold Font
 .rm bF
 .\" Italic Font
