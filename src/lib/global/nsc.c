@@ -104,7 +104,7 @@ struct castr sect_ca[] = {
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_mines), "mines"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime"},
-    {NSC_USHORT, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che"},
+    {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che"},
     {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target"},
     {NSC_USHORT, 0, 0, fldoff(sctstr, sct_fallout), "fallout"},
     {NSC_TIME, 0, 0, fldoff(sctstr, sct_access), "access"},
