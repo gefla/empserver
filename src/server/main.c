@@ -339,21 +339,26 @@ start_server(int flags, char *config_file)
 static void
 init_files(void)
 {
-    ef_open(EF_NATION, O_RDWR, EFF_MEM);
-    ef_open(EF_SECTOR, O_RDWR, EFF_MEM);
-    ef_open(EF_SHIP, O_RDWR, EFF_MEM);
-    ef_open(EF_PLANE, O_RDWR, EFF_MEM);
-    ef_open(EF_LAND, O_RDWR, EFF_MEM);
-    ef_open(EF_NEWS, O_RDWR, 0);
-    ef_open(EF_LOAN, O_RDWR, 0);
-    ef_open(EF_TREATY, O_RDWR, 0);
-    ef_open(EF_NUKE, O_RDWR, EFF_MEM);
-    ef_open(EF_POWER, O_RDWR, 0);
-    ef_open(EF_TRADE, O_RDWR, 0);
-    ef_open(EF_MAP, O_RDWR, EFF_MEM);
-    ef_open(EF_BMAP, O_RDWR, EFF_MEM);
-    ef_open(EF_COMM, O_RDWR, 0);
-    ef_open(EF_LOST, O_RDWR, 0);
+    int failed = 0;
+    failed |= !ef_open(EF_NATION, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_SECTOR, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_SHIP, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_PLANE, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_LAND, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_NEWS, O_RDWR, 0);
+    failed |= !ef_open(EF_LOAN, O_RDWR, 0);
+    failed |= !ef_open(EF_TREATY, O_RDWR, 0);
+    failed |= !ef_open(EF_NUKE, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_POWER, O_RDWR, 0);
+    failed |= !ef_open(EF_TRADE, O_RDWR, 0);
+    failed |= !ef_open(EF_MAP, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_BMAP, O_RDWR, EFF_MEM);
+    failed |= !ef_open(EF_COMM, O_RDWR, 0);
+    failed |= !ef_open(EF_LOST, O_RDWR, 0);
+    if (failed) {
+	logerror("Missing files, giving up");
+	exit(EXIT_FAILURE);
+    }
 }
 
 void
