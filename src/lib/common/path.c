@@ -115,7 +115,7 @@ bp_init(void)
     ep = &empfile[EF_SECTOR];
 
     bp = (struct bestp *)malloc(sizeof(*bp));
-    bzero((s_char *)bp, sizeof(*bp));
+    memset(bp, 0, sizeof(*bp));
     bp->adp = as_init(BP_NEIGHBORS, BP_ASHASHSIZE, bp_coord_hash,
 		      bp_neighbors, bp_lbcost, bp_realcost,
 		      bp_seccost, (s_char *)bp);

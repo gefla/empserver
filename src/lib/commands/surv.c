@@ -111,8 +111,7 @@ surv(void)
 	return RET_FAIL;
     }
     ncond = nstr.ncond;
-    bcopy((s_char *)nstr.cond, (s_char *)cond,
-	  sizeof(struct nscstr) * ncond);
+    memcpy(cond, nstr.cond, sizeof(struct nscstr) * ncond);
     nstr.ncond = 0;
     np = getnatp(player->cnum);
     xyrelrange(np, &nstr.range, &range);

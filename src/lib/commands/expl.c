@@ -53,7 +53,7 @@ int
 explore(void)
 {
     register int amount;
-    struct sctstr orig, sect;
+    struct sctstr sect;
     struct sctstr endsect;
     struct sctstr start;
     struct sctstr chksect;
@@ -91,7 +91,6 @@ explore(void)
 	pr("Not yours\n");
 	return RET_FAIL;
     }
-    bcopy((s_char *)&sect, (s_char *)&orig, sizeof(struct sctstr));
     infected = getvar(V_PSTAGE, (s_char *)&sect, EF_SECTOR) == PLG_INFECT;
     if ((amt_src = getvar(vtype, (s_char *)&sect, EF_SECTOR)) <= 0) {
 	pr("No %s in %s\n", ip->i_name,

@@ -119,7 +119,7 @@ cons_choose(struct ltcomstr *ltcp)
     s_char prompt[128];
     s_char buf[1024];
 
-    bzero((s_char *)ltcp, sizeof(*ltcp));
+    memset(ltcp, 0, sizeof(*ltcp));
     if (getstarg(player->argp[1], "loan or treaty? ", buf) == 0)
 	return RET_SYN;
     ltcp->type = ef_byname(buf);

@@ -166,7 +166,7 @@ as_clear_cachepath()
     }
     /* Note we don't free the fromhead here, we just zero it.  That way,
        we can use it next time without mallocing int */
-    bzero((s_char *)fromhead, (sizeof(struct as_frompath *) * WORLD_Y));
+    memset(fromhead, 0, (sizeof(struct as_frompath *) * WORLD_Y));
 }
 
 struct as_path *

@@ -67,8 +67,8 @@ news(void)
     s_char num[128];
     s_char *verb;
 
-    bzero((s_char *)page_has_news, sizeof(page_has_news));
-    bzero((s_char *)sectors_taken, sizeof(sectors_taken));
+    memset(page_has_news, 0, sizeof(page_has_news));
+    memset(sectors_taken, 0, sizeof(sectors_taken));
     (void)head();
     (void)time(&now);
     natp = getnatp(player->cnum);

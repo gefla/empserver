@@ -63,18 +63,4 @@ register int c;
     return NULL;
 }
 
-bzero(ptr, len)
-s_char *ptr;
-int len;
-{
-    memset(ptr, 0, len);
-}
-
-bcopy(src, dst, len)
-s_char *src;
-s_char *dst;
-int len;
-{
-    memcpy(dst, src, len);
-}
 #endif

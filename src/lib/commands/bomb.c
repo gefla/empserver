@@ -523,7 +523,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int gun;
     int shell;
 
-    bzero((s_char *)&head, sizeof(struct shiplook));
+    memset(&head, 0, sizeof(struct shiplook));
     head.uid = -1;
     onsea = (target->sct_type == SCT_WATER) ? 1 : 0;
     for (qp = list->q_forw; qp != list && !player->aborted;
@@ -536,7 +536,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		free(s2);
 	    }
 	}
-	bzero((s_char *)&head, sizeof(struct shiplook));
+	memset(&head, 0, sizeof(struct shiplook));
 	head.uid = -1;
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
@@ -963,7 +963,7 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     eff = pp->pln_effic;
     if (dam <= 0)
 	return 0;
-    bzero(dmess, 255);
+    memset(dmess, 0, sizeof(dmess));
     eff -= dam;
     if (eff < 0)
 	eff = 0;

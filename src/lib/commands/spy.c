@@ -105,7 +105,7 @@ spy(void)
      * 6 = neighbors, 2 = x,y
      */
     table = (coord *)malloc((nsects + 1) * 6 * 2 * sizeof(coord));
-    bzero((s_char *)table, (nsects + 1) * 6 * 2 * sizeof(coord));
+    memset(table, 0, (nsects + 1) * 6 * 2 * sizeof(coord));
     pr("SPY report\n");
     prdate();
     pr("                 old sct rd  rl  def\n");

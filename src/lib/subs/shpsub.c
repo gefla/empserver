@@ -104,12 +104,11 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 */
 	ship.shp_mission = 0;
 	ship.shp_rflags = 0;
-	bzero(ship.shp_rpath, RET_LEN);
+	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	putship(ship.shp_uid, &ship);
 	mlp = (struct mlist *)malloc(sizeof(struct mlist));
 	mlp->mcp = mcp;
-	bcopy((s_char *)&ship, (s_char *)&mlp->ship,
-	      sizeof(struct shpstr));
+	mlp->ship = ship;
 	mlp->mobil = (double)ship.shp_mobil;
 	emp_insque(&mlp->queue, list);
     }
@@ -190,8 +189,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    *minmobp = mlp->mobil;
 	if (mlp->mobil > *maxmobp)
 	    *maxmobp = mlp->mobil;
-	bcopy((s_char *)&ship, (s_char *)&mlp->ship,
-	      sizeof(struct shpstr));
+	mlp->ship = ship;
     }
 }
 
@@ -1051,7 +1049,7 @@ shp_missdef(struct shpstr *sp, natid victim)
 
     mlp = (struct mlist *)malloc(sizeof(struct mlist));
     mlp->mcp = &mchr[(int)sp->shp_type];
-    bcopy((s_char *)sp, (s_char *)&mlp->ship, sizeof(struct shpstr));
+    mlp->ship = *sp;
     mlp->mobil = (double)sp->shp_mobil;
     emp_insque(&mlp->queue, &list);
     sprintf(buf, "%s", prship(&mlp->ship));

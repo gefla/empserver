@@ -101,26 +101,6 @@ char c;
     return (s_char *)0;
 }
 
-bzero(ptr, size)
-s_char *ptr;
-int size;
-{
-    int i;
-
-    for (i = 0; i < size; i++)
-	ptr[i] = 0;
-}
-
-bcopy(src, dest, size)
-unsigned char *src, *dest;
-int size;
-{
-    int i;
-    unsigned char *d = dest, *s = src;
-
-    for (i = 0; i < size; i++)
-	*d++ = *s++;
-}
 #endif
 
 int
@@ -171,7 +151,7 @@ s_char *av[];
     mask = bit_newfdmask();
     savemask = bit_newfdmask();
 #endif
-    bzero((s_char *)argv, sizeof(argv));
+    memset(argv, 0, sizeof(argv));
     saveargv(ac, av, argv);
     auxout_fname = 0;
     auxout_fp = 0;

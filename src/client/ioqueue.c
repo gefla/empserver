@@ -218,7 +218,7 @@ int cc;
 	if (nbytes > 0) {
 	    if (nleft < nbytes)
 		nbytes = nleft;
-	    bcopy(io->data + io->offset, offset, nbytes);
+	    memcpy(offset, io->data + io->offset, nbytes);
 	    offset += nbytes;
 	    nleft -= nbytes;
 	}

@@ -137,7 +137,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 		struct sctstr sect;
 
 		if ((!player->god || country)) {
-		    bzero((s_char *)bitmap, (WORLD_X * WORLD_Y) / 8);
+		    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
 		    bitinit2(nsp, bitmap, country);
 		}
 		while (nxtsct(nsp, &sect) && !player->aborted) {
@@ -177,7 +177,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	int changed = 0;
 
 	if ((!player->god || country)) {
-	    bzero((s_char *)bitmap, (WORLD_X * WORLD_Y) / 8);
+	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
 	    bitinit2(nsp, bitmap, country);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {

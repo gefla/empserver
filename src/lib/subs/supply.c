@@ -398,7 +398,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	    int hold;
 	    struct lndstr l2;
 
-	    bcopy((s_char *)&land, (s_char *)&l2, sizeof(struct lndstr));
+	    l2 = land;
 	    hold = vec[type];
 	    vec[type] = 0;
 	    putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);

@@ -37,22 +37,6 @@
 #include "gen.h"
 #include "optlist.h"
 
-#ifdef hpux
-#include <memory.h>
-
-void
-bzero(s_char *ptr, int len)
-{
-    memset(ptr, 0, len);
-}
-
-void
-bcopy(s_char *src, s_char *dst, int len)
-{
-    memcpy(dst, src, len);
-}
-#endif
-
 /*
  * space-fill a map or radar scan;
  * null terminate

@@ -42,7 +42,7 @@
 void
 snxtitem_area(register struct nstr_item *np, int type, struct range *range)
 {
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->type = type;
     np->sel = NS_AREA;
@@ -60,7 +60,7 @@ snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy,
 {
     struct range range;
 
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     xydist_range(cx, cy, dist, &range);
     np->cur = -1;
     np->type = type;
@@ -83,7 +83,7 @@ snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy,
 void
 snxtitem_xy(register struct nstr_item *np, int type, coord x, coord y)
 {
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->type = type;
     np->sel = NS_XY;
@@ -99,7 +99,7 @@ snxtitem_xy(register struct nstr_item *np, int type, coord x, coord y)
 void
 snxtitem_all(register struct nstr_item *np, int type)
 {
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->sel = NS_ALL;
     np->type = type;
@@ -115,7 +115,7 @@ snxtitem_group(register struct nstr_item *np, int type, s_char group)
 {
     if (group == '~')
 	group = ' ';
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->sel = NS_GROUP;
     np->group = group;
@@ -140,7 +140,7 @@ snxtitem_list(register struct nstr_item *np, int type, int *list, int len)
 {
     int i;
 
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->type = type;
     np->sel = NS_LIST;

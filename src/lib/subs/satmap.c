@@ -91,7 +91,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     range = range * (eff / 100.0);
     pr("%s efficiency %d%%, max range %d\n", xyas(x, y, player->cnum),
        eff, range);
-    bzero(noise, sizeof(noise));
+    memset(noise, 0, sizeof(noise));
     if (eff < 100) {
 	pr("Some noise on the transmission...\n");
 	for (n = 0; n < (100 - eff); ++n)

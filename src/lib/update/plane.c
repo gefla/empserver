@@ -203,7 +203,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		left = delta;
 
 	    leftp = ((float)left / 100.0);
-	    bzero((s_char *)mvec, sizeof(mvec));
+	    memset(mvec, 0, sizeof(mvec));
 	    mvec[I_MILIT] = mil_needed =
 		ldround((double)(plp->pl_crew * leftp), 1);
 	    mvec[I_LCM] = lcm_needed =
@@ -227,7 +227,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 				      (float)plp->pl_hcm));
 
 	    build = ldround((double)(buildp * 100.0), 1);
-	    bzero((s_char *)mvec, sizeof(mvec));
+	    memset(mvec, 0, sizeof(mvec));
 	    mvec[I_MILIT] = mil_needed =
 		roundavg((double)(plp->pl_crew * buildp));
 	    mvec[I_LCM] = lcm_needed =

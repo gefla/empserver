@@ -80,7 +80,7 @@ rea(void)
     int first = 1;
     int readit;
 
-    bzero(kind, 80);
+    memset(kind, 0, sizeof(kind));
     (void)time(&now);
 
     if (*player->argp[0] == 'w') {

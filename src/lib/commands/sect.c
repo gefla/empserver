@@ -102,7 +102,7 @@ sct(void)
     }
     np = getnatp(player->cnum);
     ncond = ns.ncond;
-    bcopy((s_char *)ns.cond, (s_char *)cond, sizeof(*cond) * ncond);
+    memcpy(cond, ns.cond, sizeof(*cond) * ncond);
     ns.ncond = 0;
     xyrelrange(getnatp(player->cnum), &ns.range, &range);
     border(&range, "    ", "");

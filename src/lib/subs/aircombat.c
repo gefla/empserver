@@ -110,19 +110,18 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
    a sector, and then overfly some land units or ships, we don't want to
    potentially intercept 3 times. */
 
-    bzero((s_char *)&head, sizeof(struct shiplook));
+    memset(&head, 0, sizeof(struct shiplook));
     head.uid = -1;
 
     plp = (struct plist *)bomb_list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    bzero((s_char *)mypath, 1024);
-    bcopy(path, mypath, strlen(path));
+    strncpy(mypath, path, sizeof(mypath));
     myp = 0;
 
-    bzero((s_char *)overfly, sizeof(overfly));
-    bzero((s_char *)gotilist, sizeof(gotilist));
-    bzero((s_char *)unfriendly, sizeof(unfriendly));
+    memset(overfly, 0, sizeof(overfly));
+    memset(gotilist, 0, sizeof(gotilist));
+    memset(unfriendly, 0, sizeof(unfriendly));
     for (cn = 1; cn < MAXNOC; cn++) {
 	if ((mynatp = getnatp(cn)) == 0)
 	    continue;
@@ -294,7 +293,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
     /* Something made it through */
     /* Go figure out if there are ships in this sector, and who's they are */
-    bzero((s_char *)nats, sizeof(nats));
+    memset(nats, 0, sizeof(nats));
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, (s_char *)&ship)) {
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
@@ -302,7 +301,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	nats[ship.shp_own]++;
     }
     /* Go figure out if there are units in this sector, and who's they are */
-    bzero((s_char *)lnats, sizeof(lnats));
+    memset(lnats, 0, sizeof(lnats));
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
 	lnats[land.lnd_own]++;
@@ -736,7 +735,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 	strcpy(mesg, dmess);
 	return;
     }
-    bzero(dmess, 255);
+    memset(dmess, 0, sizeof(dmess));
     eff -= dam;
     if (eff < 0)
 	eff = 0;
@@ -850,7 +849,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    bzero((s_char *)nats, sizeof(nats));
+    memset(nats, 0, sizeof(nats));
     guns = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, (s_char *)&ship)) {
@@ -917,7 +916,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    bzero((s_char *)nats, sizeof(nats));
+    memset(nats, 0, sizeof(nats));
     guns = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, (s_char *)&land)) {
@@ -1112,7 +1111,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	ip->bombs = 0;
 	ip->misc = 0;
 	ip->pcp = &plchr[(int)plane.pln_type];
-	bcopy((s_char *)&plane, (s_char *)&ip->plane, sizeof(plane));
+	ip->plane = plane;
 	emp_insque(&ip->queue, list);
     }
 }

@@ -460,8 +460,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	plp->misc = 0;
 	plp->bombs = 0;
 	plp->pcp = pcp;
-	bcopy((s_char *)&plane, (s_char *)&plp->plane,
-	      sizeof(struct plnstr));
+	plp->plane = plane;
 	emp_insque(&plp->queue, list);
     }
 }

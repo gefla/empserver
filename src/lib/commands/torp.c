@@ -139,7 +139,6 @@ torp(void)
 	    pr("Ship #%d has insufficient mobility\n", sub.shp_uid);
 	    continue;
 	}
-	bzero(buf, 80);
 	subno = sub.shp_uid;
 	sprintf(prompt, "Ship %d, target? ", sub.shp_uid);
 	if ((ptr = getstarg(player->argp[2], prompt, buf)) == 0)

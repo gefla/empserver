@@ -54,9 +54,6 @@ typedef unsigned int u_int;
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
-#define bzero(d, s) memset(d, 0, s)
-#define bcopy(s, d, z) memcpy(d, s, z)
-
 #include <minmax.h>
 #include <io.h>
 

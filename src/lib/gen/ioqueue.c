@@ -212,7 +212,7 @@ ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
 	if (nbytes > 0) {
 	    if (nleft < nbytes)
 		nbytes = nleft;
-	    bcopy(io->data + io->offset, offset, nbytes);
+	    memcpy(offset, io->data + io->offset, nbytes);
 	    offset += nbytes;
 	    nleft -= nbytes;
 	}
@@ -312,7 +312,7 @@ appendcc(struct ioqueue *ioq, s_char *buf, int cc)
     if (avail > 0) {
 	/* append to existing buffer */
 	len = cc > avail ? avail : cc;
-	bcopy(buf, io->data + io->nbytes, len);
+	memcpy(io->data + io->nbytes, buf, len);
 	io->nbytes += len;
 	ioq->cc += len;
 	if (avail < cc)
@@ -321,7 +321,7 @@ appendcc(struct ioqueue *ioq, s_char *buf, int cc)
 	/* create a new buffer, minimum bufsize bytes */
 	len = cc > ioq->bufsize ? cc : ioq->bufsize;
 	ptr = malloc(len);
-	bcopy(buf, ptr, cc);
+	memcpy(ptr, buf, cc);
 	io = (struct io *)malloc(sizeof(struct io));
 	io->nbytes = cc;
 	io->size = len;
@@ -414,7 +414,7 @@ ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen)
 	if (nbytes > nleft)
 	    break;
 
-	bcopy(io->data + io->offset, offset, nbytes);
+	memcpy(offset, io->data + io->offset, nbytes);
 	offset += nbytes;
 	nleft -= nbytes;
 	ncopied += nbytes;

@@ -394,13 +394,10 @@ want_to_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
 int
 would_abandon(struct sctstr *sp, int vtype, int amnt, struct lndstr *lp)
 {
-    struct sctstr sect;
     int mil, civs, loyalcivs;
 
     if ((vtype != V_CIVIL) && (vtype != V_MILIT))
 	return 0;
-
-    bcopy((s_char *)sp, (s_char *)&sect, sizeof(struct sctstr));
 
     mil = getvar(V_MILIT, (s_char *)sp, EF_SECTOR);
     civs = getvar(V_CIVIL, (s_char *)sp, EF_SECTOR);

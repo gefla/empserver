@@ -326,7 +326,7 @@ void *sp;
     static jmp_buf *cpp;
     extern struct lwpProc *LwpCurrent;
 
-    bzero(newp->context, sizeof(newp->context));
+    memset(newp->context, 0, sizeof(newp->context));
     newp->context[0] = (int)sp;
     /* preserve cpp for new context */
     cpp = (jmp_buf *) & newp->context;

@@ -366,7 +366,7 @@ s_char *restype;
 
 	x2 = x1;
 	y2 = y1;
-	bzero((s_char *)tried, sizeof(tried));
+	memset(tried, 0, sizeof(tried));
 	numtried = 0;
 	while ((sects[y2 * XPLATES + x2 / 2].sct_type == SCT_WATER) ||
 	       (*

@@ -196,8 +196,8 @@ prod_nat(int etu)
     if (ally_factor > 0.0)
 	share_incr(res, tech);
     else {
-	bzero((s_char *)res, sizeof(res));
-	bzero((s_char *)tech, sizeof(tech));
+	memset(res, 0, sizeof(res));
+	memset(tech, 0, sizeof(tech));
     }
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	if ((np->nat_stat & STAT_NORM) == 0)

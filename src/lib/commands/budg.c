@@ -94,7 +94,7 @@ budg(void)
     s_char buf[1024];
     s_char in[80];
 
-    bzero((s_char *)p_sect, sizeof(p_sect));
+    memset(p_sect, 0, sizeof(p_sect));
     etu = etu_per_update;
 
     np = getnatp(player->cnum);

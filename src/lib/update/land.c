@@ -295,7 +295,7 @@ landrepair(register struct lndstr *land, int *vec, struct natstr *np,
 
     leftp = ((float)left / 100.0);
 
-    bzero((s_char *)mvec, sizeof(mvec));
+    memset(mvec, 0, sizeof(mvec));
     mvec[I_LCM] = lcm_needed = ldround((double)(lp->l_lcm * leftp), 1);
     mvec[I_HCM] = hcm_needed = ldround((double)(lp->l_hcm * leftp), 1);
 /*
@@ -324,7 +324,7 @@ landrepair(register struct lndstr *land, int *vec, struct natstr *np,
 
     build = ldround((double)(buildp * 100.0), 1);
 
-    bzero((s_char *)mvec, sizeof(mvec));
+    memset(mvec, 0, sizeof(mvec));
     mvec[I_LCM] = lcm_needed = roundavg((double)(lp->l_lcm * buildp));
     mvec[I_HCM] = hcm_needed = roundavg((double)(lp->l_hcm * buildp));
 /*

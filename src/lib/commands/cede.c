@@ -209,7 +209,7 @@ grab_sect(register struct sctstr *sp, natid to)
     int vec[I_MAX + 1];
 
     /* Wipe all the distribution info */
-    bzero((s_char *)vec, sizeof(vec));
+    memset(vec, 0, sizeof(vec));
     putvec(VT_DIST, vec, (s_char *)sp, EF_SECTOR);
     putvec(VT_DEL, vec, (s_char *)sp, EF_SECTOR);
     sp->sct_dist_x = sp->sct_x;

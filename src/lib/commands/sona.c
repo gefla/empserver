@@ -158,7 +158,7 @@ sona(void)
 			       rad[ns.dy][ns.dx], 0);
 
 	}
-	bzero((s_char *)visbuf, (WORLD_Y * (WORLD_X + 1)));
+	memset(visbuf, 0, (WORLD_Y * (WORLD_X + 1)));
 	snxtitem_dist(&nit, EF_SHIP, ship.shp_x, ship.shp_y, range);
 	while (nxtitem(&nit, (caddr_t)&targ)) {
 

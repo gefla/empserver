@@ -63,7 +63,7 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
 	return;
     if (getvec(VT_COND, cvec, (s_char *)sp, EF_SECTOR) <= 0)
-	bzero((s_char *)cvec, sizeof(cvec));
+	memset(cvec, 0, sizeof(cvec));
 
     if (cvec[C_PSTAGE] == 0) {
 	cvec[C_PSTAGE] = infect_people(np, vec, sp->sct_effic,

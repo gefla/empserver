@@ -62,7 +62,7 @@ prepare_sects(int etu, int *bp)
     struct natstr *np;
     int n, civ_tax, uw_tax, mil_pay;
 
-    bzero((s_char *)levels, sizeof(levels));
+    memset(levels, 0, sizeof(levels));
 
 /* Process all the fallout. */
     if (opt_FALLOUT) {

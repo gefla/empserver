@@ -269,7 +269,7 @@ nav_ship(register struct shpstr *sp)
     emp_initque(&ship_list);
     mlp = (struct mlist *)malloc(sizeof(struct mlist));
     mlp->mcp = mchr + sp->shp_type;
-    bcopy((s_char *)sp, (s_char *)&mlp->ship, sizeof(struct shpstr));
+    mlp->ship = *sp;
     mlp->mobil = (double)sp->shp_mobil;
     emp_insque(&mlp->queue, &ship_list);
 

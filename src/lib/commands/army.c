@@ -76,7 +76,7 @@ army(void)
 	while ((r = nxtitem(&ni, (s_char *)&land2)) &&
 	       (land2.lnd_army != c)) ;
 	if (r) {
-	    bcopy(land2.lnd_rpath, land.lnd_rpath, 10);
+	    memcpy(land.lnd_rpath, land2.lnd_rpath, sizeof(land.lnd_rpath));
 	    land.lnd_rflags = land2.lnd_rflags;
 	}
 	putland(land.lnd_uid, &land);

@@ -96,7 +96,7 @@ int kill_proc;
     }
     (void)printf("\n");
     (void)sendcmd(s, PASS, cpass);
-    bzero(cpass, strlen(cpass));	/* for core dumps */
+    memset(cpass, 0, strlen(cpass));	/* for core dumps */
     if (!expect(s, C_CMDOK, buf)) {
 	(void)fprintf(stderr, "Bad password\n");
 	return 0;

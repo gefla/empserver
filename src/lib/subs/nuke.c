@@ -53,7 +53,7 @@ nuk_postread(int n, s_char *ptr)
     if (np->nuk_uid != n) {
 	logerror("nuk_postread: Error - %d != %d, zeroing.\n", np->nuk_uid,
 		 n);
-	bzero(ptr, sizeof(struct nukstr));
+	memset(np, 0, sizeof(struct nukstr));
     }
     player->owner = (player->god || np->nuk_own == player->cnum);
     return 1;
@@ -119,7 +119,7 @@ nuk_add(coord x, coord y, int type, int num)
 	nuk_uid = n;
     if (getnuke(nuk_uid, &nuke) == 0) {
 	ef_extend(EF_NUKE, 10);
-	bzero((s_char *)&nuke, sizeof(struct nukstr));
+	memset(&nuke, 0, sizeof(struct nukstr));
 	nuke.nuk_uid = nuk_uid;
 	nuke.nuk_ship = -1;
 	nuke.nuk_n = 0;

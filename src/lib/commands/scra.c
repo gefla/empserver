@@ -100,7 +100,7 @@ scra(void)
 	      || islist(p))) {
 	s_char y_or_n[80], bbuf[80];
 
-	bzero(y_or_n, 80);
+	memset(y_or_n, 0, sizeof(y_or_n));
 	if (type == EF_SHIP) {
 	    if (*p == '*')
 		sprintf(bbuf, "all ships");

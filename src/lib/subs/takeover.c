@@ -69,7 +69,7 @@ takeover(register struct sctstr *sp, natid newown)
     extern int sect_mob_neg_factor;
 
     /* Wipe all the distribution info */
-    bzero((s_char *)vec, sizeof(vec));
+    memset(vec, 0, sizeof(vec));
     putvec(VT_DIST, vec, (s_char *)sp, EF_SECTOR);
     putvec(VT_DEL, vec, (s_char *)sp, EF_SECTOR);
     if (sp->sct_own == 0)
@@ -240,7 +240,7 @@ takeover_ship(register struct shpstr *sp, natid newown, int hostile)
     sp->shp_rflags = 0;
     /* Keep track of when this was taken over */
     time(&sp->shp_access);
-    bzero(sp->shp_rpath, RET_LEN);
+    memset(sp->shp_rpath, 0, sizeof(sp->shp_rpath));
     pp = &p;
     lp = &llp;
     /* Take over planes */

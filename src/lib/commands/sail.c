@@ -147,7 +147,6 @@ cmd_sail_ship(struct nstr_item *nstr)
 	if (!check_ship_ok(&ship))
 	    continue;
 	if (!player->aborted) {
-	    bzero(ship.shp_path, sizeof(ship.shp_path));
 	    strncpy(ship.shp_path, cp, sizeof(ship.shp_path) - 2);
 	    ship.shp_mission = 0;
 	    putship(ship.shp_uid, &ship);

@@ -383,9 +383,9 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 
     lcp = &lchr[(int)lp->lnd_type];
 
-    bzero(buf1, 80);
-    bzero(buf2, 80);
-    bzero(buf3, 80);
+    memset(buf1, 0, sizeof(buf1));
+    memset(buf2, 0, sizeof(buf2));
+    memset(buf3, 0, sizeof(buf3));
     if (chance((double)(spy + lp->lnd_vis) / 10.0)) {
 	if (destination == player->cnum)
 	    pr("%s %s", mess, prland(lp));
@@ -559,12 +559,11 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	land.lnd_mission = 0;
 	land.lnd_rflags = 0;
 	land.lnd_harden = 0;
-	bzero(land.lnd_rpath, RET_LEN);
+	memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	putland(land.lnd_uid, &land);
 	llp = (struct llist *)malloc(sizeof(struct llist));
 	llp->lcp = lcp;
-	bcopy((s_char *)&land, (s_char *)&llp->land,
-	      sizeof(struct lndstr));
+	llp->land = land;
 	llp->mobil = (double)land.lnd_mobil;
 	emp_insque(&llp->queue, list);
     }
@@ -640,8 +639,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    *minmobp = llp->mobil;
 	if (llp->mobil > *maxmobp)
 	    *maxmobp = llp->mobil;
-	bcopy((s_char *)&land, (s_char *)&llp->land,
-	      sizeof(struct lndstr));
+	llp->land = land;
     }
 }
 

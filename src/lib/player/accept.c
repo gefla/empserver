@@ -77,8 +77,8 @@ player_new(int s, struct sockaddr_in *sin)
     struct player *lp;
     struct hostent *hostp;
 
-    lp = (struct player *)calloc(1, sizeof(struct player));
-    bzero((s_char *)lp, sizeof(struct player));
+    lp = (struct player *)malloc(sizeof(struct player));
+    memset(lp, 0, sizeof(struct player));
     if (sin) {
 	/* update uses dummy player */
 	/* so does the market updater */

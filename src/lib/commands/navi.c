@@ -259,7 +259,7 @@ nav_map(int x, int y, int show_designations)
 	logerror("malloc failed in navi\n");
 	return RET_FAIL;
     }
-    bzero((s_char *)bitmap, (WORLD_X * WORLD_Y) / 8);
+    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
     /* zap any conditionals */
     ns.ncond = 0;
     xyrelrange(np, &ns.range, &range);

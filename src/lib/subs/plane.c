@@ -55,7 +55,7 @@ pln_postread(int n, s_char *ptr)
     if (pp->pln_uid != n) {
 	logerror("pln_postread: Error - %d != %d, zeroing.\n", pp->pln_uid,
 		 n);
-	bzero(ptr, sizeof(struct plnstr));
+	memset(pp, 0, sizeof(struct plnstr));
     }
 
     if (pp->pln_ship >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {

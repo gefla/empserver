@@ -200,7 +200,7 @@ ef_read(int type, int id, caddr_t ptr)
 	    fillcache(ep, id);
 	from = ep->cache + (id - ep->baseid) * ep->size;
     }
-    bcopy(from, ptr, ep->size);
+    memcpy(ptr, from, ep->size);
 
     if (ep->postread)
 	ep->postread(id, ptr);
@@ -290,7 +290,7 @@ ef_write(int type, int id, caddr_t ptr)
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	/* update the cache if necessary */
 	to = ep->cache + (id - ep->baseid) * ep->size;
-	bcopy(ptr, to, ep->size);
+	memcpy(to, ptr, ep->size);
     }
     if (id > ep->fids) {
 	logerror("WARNING ef_write: expanded %s by more than one id",

@@ -800,7 +800,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	putvar(V_PTIME, arg, (s_char *)ship, EF_SHIP);
 	break;
     case 'R':
-	bcopy(p, ship->shp_rpath, 10);
+	memcpy(ship->shp_rpath, p, sizeof(ship->shp_rpath));
 	break;
     case 'W':
 	ship->shp_rflags = arg;
@@ -1041,7 +1041,7 @@ dounit(s_char op, int arg, s_char *p, struct lndstr *land)
 	land->lnd_retreat = arg;
 	break;
     case 'R':
-	bcopy(p, land->lnd_rpath, 10);
+	memcpy(land->lnd_rpath, p, sizeof(land->lnd_rpath));
 	break;
     case 'W':
 	land->lnd_rflags = arg;

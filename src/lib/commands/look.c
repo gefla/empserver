@@ -69,7 +69,7 @@ look(void)
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
-    bzero((s_char *)bitmap, (WORLD_X * WORLD_Y) / 8);
+    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
     while (nxtitem(&ni, (s_char *)&myship)) {
 	if (!player->owner)
 	    continue;
@@ -195,7 +195,7 @@ llook(void)
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
-    bzero((s_char *)bitmap, (WORLD_X * WORLD_Y) / 8);
+    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
     while (nxtitem(&ni, (s_char *)&myland)) {
 	if (!player->owner)
 	    continue;

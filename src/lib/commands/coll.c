@@ -149,7 +149,7 @@ coll(void)
     makenotlost(EF_SECTOR, player->cnum, 0, sect.sct_x, sect.sct_y);
     sect.sct_own = player->cnum;
 
-    bzero((s_char *)vec, sizeof(vec));
+    memset(vec, 0, sizeof(vec));
     putvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
     putvec(VT_DEL, vec, (s_char *)&sect, EF_SECTOR);
     sect.sct_off = 1;

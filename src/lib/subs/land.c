@@ -55,7 +55,7 @@ lnd_postread(int n, s_char *ptr)
     if (llp->lnd_uid != n) {
 	logerror("lnd_postread: Error - %d != %d, zeroing.\n",
 		 llp->lnd_uid, n);
-	bzero(ptr, sizeof(struct lndstr));
+	memset(llp, 0, sizeof(struct lndstr));
     }
     if (llp->lnd_ship >= 0 && llp->lnd_own
 	&& llp->lnd_effic >= LAND_MINEFF) {

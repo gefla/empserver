@@ -416,7 +416,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp,
     if (freeship == 0) {
 	ef_extend(EF_SHIP, 50);
     }
-    bzero(&ship, sizeof(struct shpstr));
+    memset(&ship, 0, sizeof(struct shpstr));
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
     ship.shp_destx[0] = sp->sct_x;
@@ -572,7 +572,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     if (freeland == 0) {
 	ef_extend(EF_LAND, 50);
     }
-    bzero(&land, sizeof(struct lndstr));
+    memset(&land, 0, sizeof(struct lndstr));
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
     land.lnd_own = player->cnum;
@@ -598,7 +598,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     land.lnd_fuel = lp->l_fuelc;
     land.lnd_nxlight = 0;
     land.lnd_rflags = 0;
-    bzero(land.lnd_rpath, 10);
+    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
     land.lnd_rad_max = 0;
     land.lnd_nv = 0;
     land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
@@ -636,7 +636,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp,
     
     vec[I_FOOD] -= max_amt;
     
-    bzero(lvec, sizeof(lvec));
+    memset(lvec, 0, sizeof(lvec));
     getvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
     lvec[I_FOOD] += max_amt;
     putvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
@@ -937,7 +937,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp,
     if (freeplane == 0) {
 	ef_extend(EF_PLANE, 50);
     }
-    bzero(&plane, sizeof(struct plnstr));
+    memset(&plane, 0, sizeof(struct plnstr));
     plane.pln_x = sp->sct_x;
     plane.pln_y = sp->sct_y;
     plane.pln_own = sp->sct_own;

@@ -51,7 +51,7 @@ wipe(void)
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    bzero((s_char *)vec, sizeof(vec));
+    memset(vec, 0, sizeof(vec));
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;

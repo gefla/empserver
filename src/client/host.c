@@ -65,8 +65,7 @@ struct sockaddr_in *addr;
 	    fprintf(stderr, "%s: No such host\n", name);
 	    return 0;
 	}
-	bcopy(hp->h_addr, (s_char *)&addr->sin_addr,
-	      sizeof(addr->sin_addr));
+	memcpy(&addr->sin_addr, hp->h_addr, sizeof(addr->sin_addr));
 #ifdef _WIN32
 	printf("Trying to connect to '%s'\n", inet_ntoa(addr->sin_addr));
 	fflush(stdout);

@@ -207,7 +207,7 @@ add(void)
 	natp->nat_xorg = 0;
 	natp->nat_dayno = 0;
 	natp->nat_minused = 0;
-	bzero((s_char *)natp->nat_b, sizeof(natp->nat_b));
+	memset(natp->nat_b, 0, sizeof(natp->nat_b));
 	(void)time(&natp->nat_last_login);
 	(void)time(&natp->nat_last_logout);
 	natp->nat_money = 0;

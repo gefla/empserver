@@ -85,7 +85,7 @@ powe(void)
     int no_numbers = 0;
     s_char *p;
 
-    bzero((s_char *)targets, sizeof(targets));
+    memset(targets, 0, sizeof(targets));
     natp = getnatp(player->cnum);
     num = MAXNOC;
     if (player->argp[1] && player->argp[1][0] == 'n') {
@@ -247,7 +247,7 @@ gen_power(void)
     float f;
 
     player->btused += powe_cost;
-    bzero((s_char *)powbuf, sizeof(powbuf));
+    memset(powbuf, 0, sizeof(powbuf));
     snxtsct_all(&ns);
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == 0)

@@ -95,10 +95,10 @@ update_main(void *argv)
      * happiness, and printing out the state of the nation)
      */
     logerror("production update (%d etus)", etu);
-    bzero((s_char *)pops, sizeof(pops));
-    bzero((s_char *)air_money, sizeof(air_money));
-    bzero((s_char *)sea_money, sizeof(sea_money));
-    bzero((s_char *)lnd_money, sizeof(lnd_money));
+    memset(pops, 0, sizeof(pops));
+    memset(air_money, 0, sizeof(air_money));
+    memset(sea_money, 0, sizeof(sea_money));
+    memset(lnd_money, 0, sizeof(lnd_money));
     bp = (int *)calloc(WORLD_X * WORLD_Y * 7, sizeof(int));
     for (n = 0; n < MAXNOC; n++) {
 	money[n] = 0;
@@ -116,7 +116,7 @@ update_main(void *argv)
 	int y, z, sb = 0, sm = 0, pb = 0, pm = 0, lm = 0, lb = 0;
 	long p_sect[SCT_MAXDEF + 1][2];
 
-	bzero((s_char *)p_sect, sizeof(p_sect));
+	memset(p_sect, 0, sizeof(p_sect));
 	mil_dbl_pay = 0;
 	if ((np = getnatp(x)) == (struct natstr *)0)
 	    continue;

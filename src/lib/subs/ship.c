@@ -55,7 +55,7 @@ shp_postread(int n, s_char *ptr)
     if (sp->shp_uid != n) {
 	logerror("shp_postread: Error - %d != %d, zeroing.\n", sp->shp_uid,
 		 n);
-	bzero(ptr, sizeof(struct shpstr));
+	memset(sp, 0, sizeof(struct shpstr));
     }
 
     if (opt_MOB_ACCESS)

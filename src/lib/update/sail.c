@@ -170,7 +170,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 
     if (!fltp) {
 	fltp = (struct fltheadstr *)malloc(sizeof(*fltp));
-	bzero((s_char *)fltp, sizeof(*fltp));
+	memset(fltp, 0, sizeof(*fltp));
 
 	/* Fix the links. */
 	fltp->next = (*head);
@@ -195,7 +195,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
     }
 
     this = (struct fltelemstr *)malloc(sizeof(*this));
-    bzero((s_char *)this, sizeof(*this));
+    memset(this, 0, sizeof(*this));
     this->num = sp->shp_uid;
     this->own = sp->shp_own;
     this->next = fltp->head;
@@ -345,7 +345,7 @@ fltp_to_list(struct fltheadstr *fltp, struct emp_qelem *list)
 	mlp = (struct mlist *)malloc(sizeof(struct mlist));
 	sp = getshipp(fe->num);
 	mlp->mcp = mchr + sp->shp_type;
-	bcopy((s_char *)sp, (s_char *)&mlp->ship, sizeof(struct shpstr));
+	mlp->ship = *sp;
 	mlp->mobil = fe->mobil;
 	emp_insque(&mlp->queue, list);
     }

@@ -76,7 +76,7 @@ flee(void)
 	while ((r = nxtitem(&ni, (s_char *)&ship2))
 	       && (ship2.shp_fleet != c)) ;
 	if (r) {
-	    bcopy(ship2.shp_rpath, ship.shp_rpath, 10);
+	    memcpy(ship.shp_rpath, ship2.shp_rpath, sizeof(ship.shp_rpath));
 	    ship.shp_rflags = ship2.shp_rflags;
 	}
 	putship(ship.shp_uid, &ship);

@@ -76,7 +76,7 @@ repo(void)
 	return RET_SYN;
     prdate();
     natp = getnatp(player->cnum);
-    bzero((s_char *)&mystat, sizeof(struct stats));
+    memset(&mystat, 0, sizeof(struct stats));
     mystat.stat = natp->nat_stat;
     if (mystat.stat & STAT_NORM) {
 	mystat.res = natp->nat_level[NAT_RLEV];

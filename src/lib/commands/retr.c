@@ -144,11 +144,10 @@ retr(void)
 	    continue;
 	}
 	if (zero)
-	    bzero(ship.shp_rpath, RET_LEN);
+	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 
 	if (pq != (s_char *)0) {
-	    bzero(ship.shp_rpath, RET_LEN);
-	    bcopy(pq, ship.shp_rpath, strlen(pq));
+	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath));
 	    putship(ship.shp_uid, &ship);
 	}
 	if (rflags >= 0) {
@@ -273,11 +272,10 @@ lretr(void)
 	    continue;
 	}
 	if (zero)
-	    bzero(land.lnd_rpath, RET_LEN);
+	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 
 	if (pq != (s_char *)0) {
-	    bzero(land.lnd_rpath, RET_LEN);
-	    bcopy(pq, land.lnd_rpath, strlen(pq));
+	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath));
 	    putland(land.lnd_uid, &land);
 	}
 	if (rflags >= 0) {

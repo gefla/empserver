@@ -112,7 +112,7 @@ radmap2(int owner,
 	return;
     }
 
-    bzero((s_char *)visbuf, (WORLD_Y * (WORLD_X + 1)));
+    memset(visbuf, 0, (WORLD_Y * (WORLD_X + 1)));
     range = (int)(range * (eff / 100.0));
     if (range < 1)
 	range = 1;

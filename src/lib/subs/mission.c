@@ -89,7 +89,7 @@ ground_interdict(coord x, coord y, natid victim, s_char *s)
     struct genlist mi[MAXNOC];
     int z;
 
-    bzero((s_char *)mi, sizeof(mi));
+    memset(mi, 0, sizeof(mi));
     for (z = 1; z < MAXNOC; z++)
 	emp_initque((struct emp_qelem *)&mi[z]);
 
@@ -178,7 +178,7 @@ unit_interdict(coord x, coord y, natid victim, s_char *s, int hardtarget,
     int z;
     int osubs;
 
-    bzero((s_char *)mi, sizeof(mi));
+    memset(mi, 0, sizeof(mi));
     for (z = 1; z < MAXNOC; z++)
 	emp_initque((struct emp_qelem *)&mi[z]);
 
@@ -230,7 +230,7 @@ off_support(coord x, coord y, natid victim, natid actee)
     struct genlist mi[MAXNOC];
     int z;
 
-    bzero((s_char *)mi, sizeof(mi));
+    memset(mi, 0, sizeof(mi));
     for (z = 1; z < MAXNOC; z++)
 	emp_initque((struct emp_qelem *)&mi[z]);
 
@@ -251,7 +251,7 @@ def_support(coord x, coord y, natid victim, natid actee)
     struct genlist mi[MAXNOC];
     int z;
 
-    bzero((s_char *)mi, sizeof(mi));
+    memset(mi, 0, sizeof(mi));
     for (z = 1; z < MAXNOC; z++)
 	emp_initque((struct emp_qelem *)&mi[z]);
 
@@ -385,7 +385,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	}
 
 	glp = (struct genlist *)malloc(sizeof(struct genlist));
-	bzero((s_char *)glp, sizeof(struct genlist));
+	memset(glp, 0, sizeof(struct genlist));
 	glp->x = gp->x;
 	glp->y = gp->y;
 	glp->type = type;
@@ -401,7 +401,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	    break;
 	}
 	glp->thing = (s_char *)malloc(size);
-	bcopy(block, glp->thing, size);
+	memcpy(glp->thing, block, size);
 	emp_insque(&glp->queue, &mi[gp->own].queue);
     }
 }
@@ -428,10 +428,9 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 	    continue;
 
 	plp = (struct plist *)malloc(sizeof(struct plist));
-	bzero((s_char *)plp, sizeof(struct plist));
+	memset(plp, 0, sizeof(struct plist));
 	plp->pcp = &plchr[(int)plane.pln_type];
-	bcopy((s_char *)&plane, (s_char *)&plp->plane,
-	      sizeof(struct plnstr));
+	plp->plane = plane;
 	emp_insque(&plp->queue, escorts);
     }
 }
@@ -673,10 +672,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    /* save planes for later */
 	    plp = (struct plist *)malloc(sizeof(struct plist));
 
-	    bzero((s_char *)plp, sizeof(struct plist));
+	    memset(plp, 0, sizeof(struct plist));
 	    plp->pcp = pcp;
-	    bcopy(glp->thing, (s_char *)&plp->plane,
-		  sizeof(struct plnstr));
+	    memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
 	    if (plp->pcp->pl_flags & P_M)
 		emp_insque(&plp->queue, &missiles);
 	    else
@@ -1553,7 +1551,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
     for (qp = esc_list->q_forw; qp != esc_list; qp = qp->q_forw)
 	count++;
 
-    bzero((s_char *)mi, sizeof(mi));
+    memset(mi, 0, sizeof(mi));
     for (z = 1; z < MAXNOC; z++)
 	emp_initque((struct emp_qelem *)&mi[z]);
 
@@ -1582,10 +1580,9 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    dist = mapdist(x, y, gp->x, gp->y);
 
 	    plp = (struct plist *)malloc(sizeof(struct plist));
-	    bzero((s_char *)plp, sizeof(struct plist));
+	    memset(plp, 0, sizeof(struct plist));
 	    plp->pcp = (struct plchrstr *)glp->cp;
-	    bcopy(glp->thing, (s_char *)&plp->plane,
-		  sizeof(struct plnstr));
+	    memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
 
 	    /* missiles go one way, so we can use all the range */
 	    if (!(plp->pcp->pl_flags & P_M))

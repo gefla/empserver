@@ -90,7 +90,7 @@ head(void)
     pr("::::::::::::::::::::::::::::::::::::::::::::::::::\n");
     pr("       %s", ctime(&now));
     pr("\n");
-    bzero((s_char *)hist, sizeof(hist));
+    memset(hist, 0, sizeof(hist));
     snxtitem_all(&nstr, EF_NEWS);
     maxcnum = 0;
     while (nxtitem(&nstr, (s_char *)&news)) {

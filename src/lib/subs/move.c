@@ -96,8 +96,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	else {
 	    pr("Using best path '%s', movement cost %1.3f\n",
 	       path, total_mcost);
-	    bzero(bpath, 512);
-	    bcopy(path, bpath, strlen(path));
+	    strncpy(bpath, path, sizeof(bpath));
 	    path = bpath;
 	}
 	if ((total_mcost * weight) > mobility) {
@@ -152,8 +151,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 		} else {
 		    pr("Using best path '%s', movement cost %1.3f\n",
 		       movstr, mv_cost);
-		    bzero(bpath, 512);
-		    bcopy(movstr, bpath, strlen(movstr));
+		    strncpy(bpath, movstr, sizeof(bpath));
 		    movstr = bpath;
 		}
 	    }

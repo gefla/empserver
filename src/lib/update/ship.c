@@ -376,7 +376,7 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 	left = delta;
 
     leftp = ((float)left / 100.0);
-    bzero((s_char *)mvec, sizeof(mvec));
+    memset(mvec, 0, sizeof(mvec));
     mvec[I_LCM] = lcm_needed = ldround((double)(mp->m_lcm * leftp), 1);
     mvec[I_HCM] = hcm_needed = ldround((double)(mp->m_hcm * leftp), 1);
 
@@ -390,7 +390,7 @@ shiprepair(register struct shpstr *ship, int *vec, struct natstr *np,
 	buildp = MIN(buildp, ((float)mvec[I_HCM] / (float)mp->m_hcm));
 
     build = ldround((double)(buildp * 100.0), 1);
-    bzero((s_char *)mvec, sizeof(mvec));
+    memset(mvec, 0, sizeof(mvec));
     mvec[I_LCM] = lcm_needed = roundavg((double)(mp->m_lcm * buildp));
     mvec[I_HCM] = hcm_needed = roundavg((double)(mp->m_hcm * buildp));
 

@@ -194,10 +194,8 @@ char **argv;
 	}
 	lwpStatus(us, "selecting; sleep %ld secs", (long)delta);
 
-	bcopy((s_char *)&LwpSelect.readmask, (s_char *)&readmask,
-	      sizeof(fd_set));
-	bcopy((s_char *)&LwpSelect.writemask, (s_char *)&writemask,
-	      sizeof(fd_set));
+	memcpy(&readmask, &LwpSelect.readmask, sizeof(fd_set));
+	memcpy(&writemask, &LwpSelect.writemask, sizeof(fd_set));
 	n = select(LwpSelect.maxfd + 1, &readmask, &writemask,
 		   (fd_set *) 0, &tv);
 

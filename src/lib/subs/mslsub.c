@@ -57,9 +57,9 @@ msl_equip(struct plnstr *pp)
 {
     struct plist pl;
 
-    bzero((s_char *)&pl, sizeof(struct plist));
+    memset(&pl, 0, sizeof(struct plist));
     pl.pcp = plchr + pp->pln_type;
-    bcopy((s_char *)pp, (s_char *)&pl.plane, sizeof(struct plnstr));
+    pl.plane = *pp;
     return mission_pln_equip(&pl, 0, 0, 'p');
 }
 
@@ -210,7 +210,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	irv->bombs = 0;
 	irv->misc = 0;
 	irv->pcp = &plchr[(int)plane.pln_type];
-	bcopy((s_char *)&plane, (s_char *)&irv->plane, sizeof(plane));
+	irv->plane = plane;
 	emp_insque(&irv->queue, list);
     }
 }

@@ -105,8 +105,9 @@ path(void)
     xyrelrange(natp, &absrange, &relrange);
     blankfill((s_char *)mapbuf, &ns.range, 3);
     while (*pp && (i = chkdir(*pp, DIR_STOP, DIR_LAST)) >= 0) {
-	bcopy(routech[i][0], &map[deltay(cy, ns.range.ly)]
-	      [deltax(cx, ns.range.lx) * 2], 3);
+	memcpy(&map[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx) * 2],
+	       routech[i][0],
+	       3);
 	cx += diroff[i][0];
 	cy += diroff[i][1];
 	++pp;

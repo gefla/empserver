@@ -115,7 +115,7 @@ static int get_land(int combat_mode, struct combat *def, int uid,
 int
 att_combat_init(struct combat *com, int type)
 {
-    bzero((s_char *)com, sizeof(*com));
+    memset(com, 0, sizeof(*com));
     com->type = type;
     return type;
 }
@@ -429,7 +429,7 @@ put_combat(struct combat *com)
 	if (com->own == player->cnum) {
 	    land.lnd_mission = 0;
 	    land.lnd_rflags = 0;
-	    bzero(land.lnd_rpath, RET_LEN);
+	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	}
 	putland(com->lnd_uid, &land);
 	break;
@@ -456,7 +456,7 @@ put_combat(struct combat *com)
 	if (com->own == player->cnum) {
 	    ship.shp_mission = 0;
 	    ship.shp_rflags = 0;
-	    bzero(ship.shp_rpath, RET_LEN);
+	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	}
 	putship(com->shp_uid, &ship);
     }
@@ -832,7 +832,7 @@ att_ask_offense(int combat_mode, struct combat *off, struct combat *def,
     emp_initque(olist);
     if (att_abort(combat_mode, off, def))
 	return 0;
-    bzero(land_answer, sizeof(land_answer));
+    memset(land_answer, 0, sizeof(land_answer));
     for (n = 0; n <= off->last; ++n) {
 	off[n].troops = ask_off(combat_mode, off + n, def);
 	if (att_abort(combat_mode, off, def))
@@ -1126,7 +1126,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    abort_attack();
 	    return;
 	}
-	bzero((s_char *)llp, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct llist));
 	emp_insque(&llp->queue, olist);
 	llp->mobil = mobcost;
 	if (!get_land(combat_mode, def, land.lnd_uid, llp, 0))
@@ -1292,7 +1292,7 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	    abort_attack();
 	    return 0;
 	}
-	bzero((s_char *)llp, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct llist));
 	emp_insque(&llp->queue, list);
 	llp->supplied = has_supply(&land);
 	if (!get_land(A_DEFEND, def, land.lnd_uid, llp, 1))
@@ -1629,13 +1629,12 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	llp = (struct llist *)
 	    malloc(sizeof(struct llist));
 
-	bzero((s_char *)llp, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct llist));
 	llp->supplied = supply_state;
 	llp->x = origx;
 	llp->y = origy;
 	llp->lcp = &lchr[(int)land.lnd_type];
-	bcopy((s_char *)&land, (s_char *)&llp->land,
-	      sizeof(struct lndstr));
+	llp->land = land;
 	emp_insque(&llp->queue, list);
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
@@ -2372,7 +2371,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 
     if (QEMPTY(olist))
 	return;
-    bzero(land_answer, sizeof(land_answer));
+    memset(land_answer, 0, sizeof(land_answer));
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
 	llp = (struct llist *)qp;

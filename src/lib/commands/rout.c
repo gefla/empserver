@@ -109,13 +109,12 @@ rout(void)
 	return RET_FAIL;
     }
     ncond = ns.ncond;
-    bcopy((s_char *)ns.cond, (s_char *)cond,
-	  sizeof(struct nscstr) * ncond);
+    memcpy(cond, ns.cond, sizeof(struct nscstr) * ncond);
     ns.ncond = 0;
 
     natp = getnatp(player->cnum);
     xyrelrange(natp, &ns.range, &relrange);
-    bzero((s_char *)mapbuf, ((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char)));
+    memset(mapbuf, 0, ((WORLD_Y * MAPWIDTH(3))));
     blankfill((s_char *)mapbuf, &ns.range, 3);
     border(&relrange, "     ", " ");
 
@@ -125,14 +124,14 @@ rout(void)
 	p = &map[ns.dy][ns.dx * 2];
 	if ((dir = getvar(i_del, (s_char *)&sect, EF_SECTOR) & 0x7) &&
 	    nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR))
-	    bcopy(routech[dir][0], p, 3);
+	    memcpy(p, routech[dir][0], 3);
 	p[1] = dchr[sect.sct_type].d_mnem;
     }
     for (row = 0, y = ns.range.ly; row < ns.range.height; y++, row++) {
 	ry = yrel(natp, y);
-	bzero(buf, (MAPWIDTH(3) + 10) * sizeof(s_char));
+	memset(buf, 0, (MAPWIDTH(3) + 10));
 	sprintf(buf, "%4d ", ry);
-	bcopy(map[row], buf + 5, ns.range.width * 2 + 1);
+	memcpy(buf + 5, map[row], ns.range.width * 2 + 1);
 	sprintf(buf + 5 + ns.range.width * 2 + 1, " %-4d\n", ry);
 	pr("%s", buf);
 	if (y >= WORLD_Y)

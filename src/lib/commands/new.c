@@ -258,7 +258,7 @@ isok(int x, int y)
 	pr("Memory error.  Tell the deity.\n");
 	return 0;
     }
-    bzero((s_char *)map, (WORLD_X * WORLD_Y) / 2);
+    memset(map, 0, (WORLD_X * WORLD_Y) / 2);
     ok(map, x, y);
     free((s_char *)map);
     if (nfree < 5)
@@ -360,7 +360,7 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_fuel = lp->l_fuelc;
     land.lnd_nxlight = 0;
     land.lnd_rflags = 0;
-    bzero((s_char *)land.lnd_rpath, 10);
+    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
     land.lnd_rad_max = lp->l_rad;
     land.lnd_nv = 0;
 
@@ -381,7 +381,7 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
     land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
 
-    bzero((s_char *)lvec, sizeof(lvec));
+    memset(lvec, 0, sizeof(lvec));
     getvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
     lvec[I_FOOD] +=
 	vl_find(V_FOOD, lp->l_vtype, lp->l_vamt, (int)lp->l_nv);

@@ -694,7 +694,7 @@ defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
 	if (nfiring > *nd)
 	    *nd = nfiring;
 	fp = (struct flist *)malloc(sizeof(struct flist));
-	bzero((s_char *)fp, sizeof(struct flist));
+	memset(fp, 0, sizeof(struct flist));
 	fp->defdam = dam;
 	fp->victim = vict;
 	switch (attacker) {
@@ -837,7 +837,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 
 	    (*nfiring)++;
 	    fp = (struct flist *)malloc(sizeof(struct flist));
-	    bzero((s_char *)fp, sizeof(struct flist));
+	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
 	    add_to_fired_queue(&fp->queue, list);
@@ -869,7 +869,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 		continue;
 	    (*nfiring)++;
 	    fp = (struct flist *)malloc(sizeof(struct flist));
-	    bzero((s_char *)fp, sizeof(struct flist));
+	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
 	    add_to_fired_queue(&fp->queue, list);
@@ -922,7 +922,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 
 	(*nfiring)++;
 	fp = (struct flist *)malloc(sizeof(struct flist));
-	bzero((s_char *)fp, sizeof(struct flist));
+	memset(fp, 0, sizeof(struct flist));
 	fp->type = targ_unit;
 	fp->uid = land.lnd_uid;
 	add_to_fired_queue(&fp->queue, list);
@@ -973,7 +973,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 		continue;
 	    (*nfiring)++;
 	    fp = (struct flist *)malloc(sizeof(struct flist));
-	    bzero((s_char *)fp, sizeof(struct flist));
+	    memset(fp, 0, sizeof(struct flist));
 	    fp->x = firing.sct_x;
 	    fp->y = firing.sct_y;
 	    fp->type = targ_land;

@@ -103,8 +103,7 @@ finish_sects(int etu)
     }
 
     /* Wipe it clean */
-    bzero((s_char *)g_distptrs, ((WORLD_X * WORLD_Y) *
-				 sizeof(struct distinfo)));
+    memset(g_distptrs, 0, ((WORLD_X * WORLD_Y) * sizeof(struct distinfo)));
 
     logerror("delivering...\n");
     /* Do deliveries */
@@ -233,7 +232,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	       cost */
 	    infptr->excost = pathcost(sp, p, MOB_ROAD);
 #ifdef SAVE_FINISH_PATHS
-	    bcopy(p, infptr->path, len);
+	    memcpy(infptr->path, p, len);
 #else
 	    infptr->path = finish_path;
 #endif /* SAVE_FINISH_PATHS */

@@ -60,7 +60,7 @@ snxtsct_all(struct nstr_sect *np)
 void
 snxtsct_area(register struct nstr_sect *np, struct range *range)
 {
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     np->range = *range;
     np->ncond = 0;
     np->type = NS_AREA;
@@ -87,7 +87,7 @@ snxtsct_rewind(struct nstr_sect *np)
 void
 snxtsct_dist(register struct nstr_sect *np, coord cx, coord cy, int dist)
 {
-    bzero((s_char *)np, sizeof(*np));
+    memset(np, 0, sizeof(*np));
     xydist_range(cx, cy, dist, &np->range);
     np->cx = cx;
     np->cy = cy;

@@ -32,6 +32,7 @@
  *     
  */
 
+#include <string.h>
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
@@ -100,8 +101,8 @@ retreat_ship(struct shpstr *sp, s_char code)
     s_char buf[2];
 
     if (sp->shp_rflags & RET_GROUP) {
-	bzero(buf, 2);
 	buf[0] = sp->shp_fleet;
+	buf[1] = 0;
 	snxtitem(&ni, EF_SHIP, buf);
 	while (nxtitem(&ni, (s_char *)&ship))
 	    if ((ship.shp_fleet == buf[0]) &&
@@ -149,7 +150,6 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     struct mchrstr *mcp;
     int vec[I_MAX + 1];
     int time_to_stop;
-    s_char buf[RET_LEN - 1];
 
     sp->shp_mission = 0;
     if (sp->shp_own == 0)
@@ -247,10 +247,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	    return 0;
 	}
 	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_VIEW);
-	bzero(buf, RET_LEN - 1);
-	bcopy(&sp->shp_rpath[1], buf, RET_LEN - 1);
-	bzero(sp->shp_rpath, RET_LEN);
-	bcopy(buf, sp->shp_rpath, RET_LEN - 1);
+	memmove(sp->shp_rpath, sp->shp_rpath+1, sizeof(sp->shp_rpath) - 1);
 	if (dir == -1)
 	    continue;
 	if (dir == DIR_STOP)
@@ -397,8 +394,8 @@ retreat_land(struct lndstr *lp, s_char code)
     s_char buf[2];
 
     if (lp->lnd_rflags & RET_GROUP) {
-	bzero(buf, 2);
 	buf[0] = lp->lnd_army;
+	buf[1] = 0;
 	snxtitem(&ni, EF_SHIP, buf);
 	while (nxtitem(&ni, (s_char *)&land))
 	    if ((land.lnd_army == buf[0]) && (land.lnd_own == lp->lnd_own)) {
@@ -492,10 +489,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	    return 0;
 	}
 	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_VIEW);
-	bzero(buf, RET_LEN - 1);
-	bcopy(&lp->lnd_rpath[1], buf, RET_LEN - 1);
-	bzero(lp->lnd_rpath, RET_LEN);
-	bcopy(buf, lp->lnd_rpath, RET_LEN - 1);
+	memmove(lp->lnd_rpath, lp->lnd_rpath+1, sizeof(lp->lnd_rpath) - 1);
 	if (dir == -1)
 	    continue;
 	if (dir == DIR_STOP)

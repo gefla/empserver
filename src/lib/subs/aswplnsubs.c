@@ -106,7 +106,7 @@ set_have_looked(u_char uid, struct shiplook *head)
     }
 
     s = (struct shiplook *)malloc(sizeof(struct shiplook));
-    bzero((s_char *)s, sizeof(struct shiplook));
+    memset(s, 0, sizeof(struct shiplook));
     s2->next = s;
     s->uid = uid;
     s->looked = 1;
@@ -137,7 +137,7 @@ set_have_found(u_char uid, struct shiplook *head)
     }
 
     s = (struct shiplook *)malloc(sizeof(struct shiplook));
-    bzero((s_char *)s, sizeof(struct shiplook));
+    memset(s, 0, sizeof(struct shiplook));
     s2->next = s;
     s->uid = uid;
     s->found = 1;
