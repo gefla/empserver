@@ -41,7 +41,7 @@
 #include "prototypes.h"
 
 /*ARGSUSED*/
-void
+static void
 check_all_markets(void *argv)
 {
     player->proc = empth_self();
