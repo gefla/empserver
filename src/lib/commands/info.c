@@ -409,11 +409,22 @@ info(void)
 	strncat(filename, "*", sizeof(filename) - 1 - strlen(filename));
 	hDir = FindFirstFile(filename, &fData);
 	if (hDir == INVALID_HANDLE_VALUE) {
-	    pr("Can't open info dir \"%s\"\n", infodir);
+	    switch (GetLastError()) {
+	    case ERROR_FILE_NOT_FOUND:
+		pr("Sorry, there is no info on %s\n", bp);
+		break;
+	    case ERROR_PATH_NOT_FOUND:
+		pr("Can't open info dir \"%s\"\n", infodir);
+		break;
+	    default:
+		pr("Error getting info file \"%s\"\n", filename);
+	    }
 	    return RET_SYS;
 	}
 	do {
-	    if ((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) &&
+	    if (((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) ||
+		 (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
+		 (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY)) &&
 		(strnccmp(bp, fData.cFileName, len) == 0)) {
 		strncpy(filename, infodir, sizeof(filename) - 2);
 		strcat(filename, "//");
