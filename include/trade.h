@@ -79,6 +79,7 @@ extern int trade_desc(struct trdstr *, union trdgenstr *);
 extern int trade_getitem(struct trdstr *, union trdgenstr *);
 extern long get_couval(int);
 extern long get_outstand(int);
+extern double loan_owed(struct lonstr *loan, time_t paytime);
 
 #define gettrade(n, p) \
 	ef_read(EF_TRADE, n, (caddr_t)p)
