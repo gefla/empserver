@@ -522,7 +522,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
     struct sctstr sect;
     int type;
     s_char *ptr;
-    int item;
+    int itype;
     int rval;
     int vec[I_MAX + 1];
     int own;
@@ -561,31 +561,31 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
     vec[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if ((flags & P_F) == 0) {
-	item = 0;
+	itype = 0;
 	needed = 0;
 	switch (mission) {
 	case 's':
 	case 'p':
 	    if (pp->pln_nuketype == -1) {
-		item = I_SHELL;
+		itype = I_SHELL;
 		needed = pp->pln_load;
 	    }
 	    break;
 	case 't':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
-	    item = ip - ichr;
+	    itype = ip->i_vtype;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    break;
 	case 'd':
-	    item = ip - ichr;
+	    itype = ip->i_vtype;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    /* Is this mine dropping excursion? */
-	    if ((item == I_SHELL) && (pcp->pl_flags & P_MINE))
+	    if (itype == I_SHELL && (pcp->pl_flags & P_MINE))
 		break;
 	    /* Is this a cargo drop? */
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0) {
-		item = 0;
+		itype = 0;
 		needed = 0;
 		break;
 	    }
@@ -593,7 +593,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	case 'a':
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
 		break;
-	    item = I_MILIT;
+	    itype = I_MILIT;
 	    needed = pp->pln_load / ip->i_lbs;
 	    break;
 	case 'n':
@@ -603,24 +603,24 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	default:
 	    break;
 	}
-	if (rval < 0 || (item && needed <= 0)) {
+	if (rval < 0 || (itype && needed <= 0)) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
 	}
 #if 0
 	/* Supply is broken somewhere, so don't use it for now */
-	if ((vec[item] < needed) && (item == I_SHELL))
-	    vec[item] += supply_commod(plp->plane.pln_own,
-				       plp->plane.pln_x, plp->plane.pln_y,
-				       I_SHELL, needed);
+	if (vec[itype] < needed && itype == I_SHELL)
+	    vec[itype] += supply_commod(plp->plane.pln_own,
+					plp->plane.pln_x, plp->plane.pln_y,
+					I_SHELL, needed);
 #endif
-	if (vec[item] < needed) {
-	    pr("Not enough %s for %s\n", ichr[item].i_name, prplane(pp));
+	if (vec[itype] < needed) {
+	    pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
 	    return -1;
 	} else {
-	    vec[item] -= needed;
+	    vec[itype] -= needed;
 	}
-	if (item == I_SHELL && (mission == 's' || mission == 'p'))
+	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
 	    plp->bombs = needed;
 	else
 	    plp->misc = needed;

@@ -1266,7 +1266,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     struct sctstr sect;
     int type;
     s_char *ptr;
-    int item;
+    int itype;
     int rval;
     int vec[I_MAX + 1];
 
@@ -1292,32 +1292,32 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     vec[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if (!(flags & P_F)) {
-	item = 0;
+	itype = 0;
 	needed = 0;
 	switch (mission) {
 	case 's':
 	case 'p':
 	    if (pp->pln_nuketype == -1) {
-		item = I_SHELL;
+		itype = I_SHELL;
 		needed = pp->pln_load;
 	    }
 	    break;
 	case 't':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
-	    item = ip - ichr;
+	    itype = ip->i_vtype;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    break;
 	case 'd':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
-	    item = ip - ichr;
+	    itype = ip->i_vtype;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    break;
 	case 'a':
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
 		break;
-	    item = I_MILIT;
+	    itype = I_MILIT;
 	    needed = pp->pln_load / ip->i_lbs;
 	    break;
 	case 'n':
@@ -1326,26 +1326,26 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	    break;
 	case 'i':		/* missile interception */
 	    if (pp->pln_load) {
-		item = I_SHELL;
+		itype = I_SHELL;
 		needed = pp->pln_load;
 	    }
 	    break;
 	default:
 	    break;
 	}
-	if (rval < 0 || (item && needed <= 0)) {
+	if (rval < 0 || (itype && needed <= 0)) {
 	    return -1;
 	}
-	if ((vec[item] < needed) && (item == I_SHELL))
-	    vec[item] += supply_commod(plp->plane.pln_own,
-				       plp->plane.pln_x, plp->plane.pln_y,
-				       I_SHELL, needed);
-	if (vec[item] < needed) {
+	if (vec[itype] < needed && (itype == I_SHELL))
+	    vec[itype] += supply_commod(plp->plane.pln_own,
+					plp->plane.pln_x, plp->plane.pln_y,
+					I_SHELL, needed);
+	if (vec[itype] < needed) {
 	    return -1;
 	} else {
-	    vec[item] -= needed;
+	    vec[itype] -= needed;
 	}
-	if (item == I_SHELL && (mission == 's' || mission == 'p'))
+	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
 	    plp->bombs = needed;
 	else
 	    plp->misc = needed;
