@@ -546,11 +546,15 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    n = atoi(q);
 	    if (n < 0)
 		continue;
+	    if ((plp->pcp->pl_flags & P_A) && !on_shiplist(n, head))
+		continue;
 	    if (getship(n, &ship) && ship.shp_x == target->sct_x &&
 		ship.shp_y == target->sct_y)
 		shipno = n;
 	}
 	if (shipno < 0)
+	    continue;
+	if ((plp->pcp->pl_flags & P_A) && !on_shiplist(n, head))
 	    continue;
 
 	shell = gun = 0;
