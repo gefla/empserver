@@ -14,4 +14,5 @@ property.  Hit return to finish the command.
 You can also specify one or more <KEY> <VALUE> pairs as command
 arguments.  In this case, \*Qedit\*U just sets the properties, and
 does not enter interactive mode.
+.s1
 .SA "setsector, setresource, give, Deity"
