@@ -210,19 +210,8 @@ getminleft(time_t now, int *hour, int *mpd)
 
     tm = localtime(&now);
     curtime = tm->tm_min + tm->tm_hour * 60;
-    if (NULL != (bp = kw_find("minutes")))
-	kw_parse(CF_VALUE, bp, mpd);
     natp = getnatp(player->cnum);
     nminleft = *mpd - natp->nat_minused;
-    if (NULL != (bp = kw_find("hours"))) {
-	/*
-	 * assume hours has already been set; just verify
-	 * that it is present
-	 */
-	n = hour[1] - curtime;
-	if (n < nminleft)
-	    nminleft = n;
-    }
     n = 60 * 24 - (tm->tm_min + tm->tm_hour * 60);
     if (n < nminleft)
 	nminleft = n;

@@ -40,65 +40,6 @@
 #include <ctype.h>
 #include "common.h"
 
-struct kwtab {
-    struct kwtab *next;
-    s_char *name;
-    s_char *text;
-};
-
-struct kwtab *kw_list;
-
-int
-kw_read(FILE * fp)
-{
-    register struct kwtab *kw;
-    register struct kwtab *next;
-    s_char buf[255];
-    s_char *p;
-    int n;
-
-    for (kw = kw_list; kw != 0; kw = next) {
-	next = kw->next;
-	free(kw->name);
-	free(kw->text);
-	free(kw);
-    }
-    kw_list = 0;
-    for (n = 0; fgets(buf, sizeof(buf), fp) != 0; n++) {
-	/* Allow for comments.. any line starting with # */
-	if (buf[0] == '#')
-	    continue;
-	p = strrchr(buf, '\n');
-	if (p != 0)
-	    *p = 0;
-	if ((p = strchr(buf, ':')) == 0) {
-	    logerror("kw_read: Bad keyword line #%d\n", n);
-	    return 0;
-	}
-	*p++ = 0;
-	while (*p && isspace(*p))
-	    p++;
-	kw = (struct kwtab *)malloc(sizeof(*kw));
-	kw->name = strcpy(malloc(strlen(buf) + 1), buf);
-	kw->text = strcpy(malloc(strlen(p) + 1), p);
-	kw->next = kw_list;
-	kw_list = kw;
-    }
-    return n;
-}
-
-s_char *
-kw_find(s_char *name)
-{
-    register struct kwtab *kw;
-
-    for (kw = kw_list; kw != 0; kw = kw->next) {
-	if (strcmp(kw->name, name) == 0)
-	    return kw->text;
-    }
-    return 0;
-}
-
 /*
  * destructive parse
  */

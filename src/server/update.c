@@ -59,14 +59,6 @@ update_sched(void *unused)
 		 "Waits until players idle", 0);
     time(&now);
     (void)gamehours(now, hour);
-    if (NULL != (kw = kw_find("s_p_etu")))
-	kw_parse(CF_VALUE, kw, &s_p_etu);
-    if (NULL != (kw = kw_find("etu_per_update")))
-	kw_parse(CF_VALUE, kw, &etu_per_update);
-    if (NULL != (kw = kw_find("adj_update")))
-	kw_parse(CF_VALUE, kw, &adj_update);
-    if (NULL != (kw = kw_find("update_window")))
-	kw_parse(CF_VALUE, kw, &update_window);
     if (s_p_etu <= 0) {
 	logerror("bad value for s_p_etu (%d)", s_p_etu);
 	s_p_etu = 2 * 60;

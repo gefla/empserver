@@ -42,9 +42,7 @@
 #define CF_TIMERANGE	3
 #define CF_WEEKDAY	4
 
-extern s_char *kw_find(s_char *);
 extern s_char *kw_parse(int, s_char *, int *);
-extern int kw_read(FILE *);
 extern s_char *get_time(s_char *, int *);
 extern s_char *weekday(s_char *, int *);
 
