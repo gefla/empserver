@@ -2,8 +2,10 @@
 .NA payoff "Find out the current payoff of a trade ship"
 .LV Expert
 .SY "payoff [<SHIP/FLEET> | <SECTS>]"
-The payoff command gives a census of your trade ships, and lists
-the payoff they would give if scuttled at the current sector.
+The payoff command gives a census of your trade ships, and lists the
+payoff they would give if scuttled at the current sector.  Payoff can
+only be calculated for trade ships you built yourself, not for ships
+you `acquired' from somebody else.
 .s1
 The <SHIP/FLEET> and <SECTS> arguments are provided in case you only
 wish to look at one ship

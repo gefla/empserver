@@ -384,10 +384,23 @@ sdump(void)
 		pr(" %d", ship.shp_glim);
 		break;
 	    case 32:
-		pr(" %d", xrel(np, ship.shp_orig_x));
+		/*
+		 * Disclosing construction site allows pirates to find
+		 * harbors.  Disclose it only to the original owner
+		 * and to deities.  Else dump illegal coordinates
+		 * 1,0
+		 */
+		if (ship.shp_own == ship.shp_orig_own || player->god)
+		    pr(" %d", xrel(np, ship.shp_orig_x));
+		else
+		    pr(" 1");
 		break;
 	    case 33:
-		pr(" %d", yrel(np, ship.shp_orig_y));
+		/* see case 32 */
+		if (ship.shp_own == ship.shp_orig_own || player->god)
+		    pr(" %d", yrel(np, ship.shp_orig_y));
+		else
+		    pr(" 0");
 		break;
 	    case 34:
 		pr(" %c%s%c", '"', ship.shp_name, '"');

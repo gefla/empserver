@@ -80,10 +80,14 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
     if (sect.sct_own && sect.sct_type == SCT_HARBR) {
 	dist = mapdist(sp->shp_x, sp->shp_y,
 		       sp->shp_orig_x, sp->shp_orig_y);
-	if (interactive)
-	    pr("%s has gone %d sects\n", prship(sp), dist);
-	else
-	    wu(0, sp->shp_own, "%s has gone %d sects\n", prship(sp), dist);
+	/* Don't disclose distance to to pirates */
+	if (sp->shp_own == sp->shp_orig_own) {
+	    if (interactive)
+		pr("%s has gone %d sects\n", prship(sp), dist);
+	    else
+		wu(0, sp->shp_own, "%s has gone %d sects\n",
+		   prship(sp), dist);
+	}
 	if (dist < trade_1_dist)
 	    cash = 0;
 	else if (dist < trade_2_dist)
@@ -110,7 +114,7 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 	wu(0, sp->shp_own, "Unfortunately, you make $0 on this trade.\n");
     } else if (cash && interactive) {
 	player->dolcost -= cash;
-    } else if (interactive) {
+    } else if (interactive && sp->shp_own == sp->shp_orig_own) {
 	pr("You won't get any money if you scuttle in %s!",
 	   xyas(sp->shp_x, sp->shp_y, player->cnum));
 	sprintf(buf, "Are you sure you want to scuttle %s? ", prship(sp));
