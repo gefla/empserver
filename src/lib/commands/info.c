@@ -140,14 +140,14 @@ info(void)
 	if (fp == NULL) {
 	    pr("Error reading info file for %s\n", name);
 	    logerror("Cannot open for \"%s\" info file (%s)",
-		filename, strerror(errno));
+		     filename, strerror(errno));
 	    return RET_FAIL;
 	}
     }
     if (fstat(fileno(fp), &statb) < 0) {
 	pr("Error reading info file for %s\n", name);
 	logerror("Cannot fstat for \"%s\" info file (%s)",
-	    filename, strerror(errno));
+		 filename, strerror(errno));
 	fclose(fp);
 	return RET_SYS;
     }
@@ -369,7 +369,7 @@ info(void)
 	if (fp == NULL) {
 	    pr("Error reading info file for %s\n", name);
 	    logerror("Cannot open for \"%s\" info file (%s)",
-		filename, strerror(errno));
+		     filename, strerror(errno));
 	    return RET_FAIL;
 	}
     }
