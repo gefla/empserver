@@ -45,16 +45,8 @@
 #else
 #include <windows.h>
 #endif
-#ifdef solaris
-#include <unistd.h>
-#endif
 #include "commands.h"
 #include "optlist.h"
-
-#if 0
-static int fileselect(struct dirent *dp);
-static int printdir(void);
-#endif
 
 static s_char *
 lowerit(s_char *buf, int n, s_char *orig)
@@ -103,12 +95,6 @@ info(void)
 
     if (player->argp[1] == 0 || !*player->argp[1])
 	bp = "TOP";
-#if 0
-    /* Note that we generate an "all" file now, which contains
-     * this list, so we don't do printdir. */
-    else if (!strcmp(player->argp[1], "all"))
-	return printdir();
-#endif
     /*
      * don't let sneaky people go outside the info directory
      */
@@ -157,116 +143,6 @@ info(void)
     (void)fclose(fp);
     return RET_OK;
 }
-
-#if 0
-static int biggest;
-
-static int
-fileselect(struct dirent *dp)
-{
-    int l;
-    if (*dp->d_name == '.')
-	return 0;
-
-    if ((l = strlen(dp->d_name)) > biggest)
-	biggest = l;
-    return 1;
-}
-
-#ifdef solaris
-static int
-alphasort(struct dirent *d1, struct dirent *d2)
-{
-    return strcmp(d1->d_name, d2->d_name);
-}
-
-static int
-scandir(char *dir, struct dirent ***dpp, int (*select) (), int (*sort) ())
-     /* directory to read */
-     /* directory entry pointer pointer */
-{
-    DIR *dirp;
-    int nsize;
-    int nents;
-    struct dirent *d, *tmp;
-
-    d = (struct dirent *)malloc(sizeof(struct dirent) +
-				pathconf(".", _PC_NAME_MAX) + 1);
-    if ((dirp = opendir(dir)) == NULL)
-	return -1;
-    nsize = 100;
-    *dpp = (struct dirent **)malloc(nsize * sizeof(struct dirent *));
-    if ((*dpp) == NULL) {
-	closedir(dirp);
-	return -1;
-    }
-    nents = 0;
-    while ((d = readdir_r(dirp, d)) != NULL) {
-	if (select != NULL && !(*select) (d))
-	    continue;
-	tmp =
-	    (struct dirent *)malloc(sizeof(struct dirent) +
-				    strlen(d->d_name) + 1);
-	if (tmp == NULL)
-	    return -1;
-	tmp->d_ino = d->d_ino;
-	tmp->d_reclen = d->d_reclen;
-	strcpy(tmp->d_name, d->d_name);
-	if (nents > nsize) {
-	    *dpp =
-		(struct dirent **)realloc((char *)*dpp,
-					  nsize * sizeof(struct dirent *));
-	    if (*dpp == NULL)
-		return -1;
-	}
-	(*dpp)[nents++] = tmp;
-    }
-    closedir(dirp);
-    if (nents > 0 && sort != NULL)
-	qsort(*dpp, nents, sizeof(struct dirent *), sort);
-    return nents;
-}
-#endif
-
-static int
-printdir(void)
-{
-#if !defined(solaris) && !defined(ALPHA) && !defined(__linux__)
-    extern int alphasort(const struct dirent *const *,
-			 const struct dirent *const *);
-#endif
-    static time_t lastmodtime;
-    static int number;
-    static struct dirent **dp;
-    struct stat st;
-    int count;
-    int i;
-    int npl;
-
-    if (stat(infodir, &st) == -1)
-	return RET_FAIL;
-    pr("Available topics are:\n");
-    if (lastmodtime < st.st_mtime) {
-	if (dp)
-	    free((s_char *)dp);
-	biggest = 0;
-	number = scandir(infodir, &dp, fileselect, alphasort);
-	lastmodtime = st.st_mtime;
-    }
-    count = 79 / (biggest + 1) - 1;
-    for (i = 0, npl = 0; i < number; i++) {
-	pr("%-*.*s%c", biggest, strlen(dp[i]->d_name),
-	   dp[i]->d_name, npl == count ? '\n' : ' ');
-	if (npl == count)
-	    npl = 0;
-	else
-	    npl++;
-    }
-    if (npl != 0)
-	pr("\n");
-    return 0;
-}
-#endif
 
 int
 apro(void)
@@ -376,12 +252,6 @@ info(void)
 
     if (player->argp[1] == 0 || !*player->argp[1])
 	bp = "TOP";
-#if 0
-    /* Note that we generate an "all" file now, which contains
-     * this list, so we don't do printdir. */
-    else if (!strcmp(player->argp[1], "all"))
-	return printdir();
-#endif
     else {
 	/*
 	 * don't let sneaky people go outside the info directory
@@ -445,38 +315,6 @@ info(void)
     (void)fclose(fp);
     return RET_OK;
 }
-
-#if 0
-static int
-printdir(void)
-{
-    HANDLE hDir;
-    WIN32_FIND_DATA fData;
-    int count;
-    int i;
-    int npl;
-    s_char filename[1024];
-
-    strncpy(filename, infodir, sizeof(filename) - 3);
-    strcat(filename, "//*");
-
-    hDir = FindFirstFile(filename, &fData);
-    if (hDir == INVALID_HANDLE_VALUE) {
-	return RET_FAIL;
-    }
-
-    pr("Available topics are:\n");
-    do {
-	if (fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) {
-	    /* Yes, we could do multi-column work here. */
-	    pr("%s\n", fData.cFileName);
-	}
-    } while (FindNextFile(hDir, &fData));
-    FindClose(hDir);
-
-    return 0;
-}
-#endif
 
 int
 apro(void)
