@@ -50,7 +50,6 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-#define	QUIET	0
 #define	NOISY	1
 
 /*

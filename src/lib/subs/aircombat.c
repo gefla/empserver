@@ -54,9 +54,6 @@
 #include "server.h"
 
 
-#ifndef MIN
-#define MIN(x,y) ((x) < (y) ? (x) : (y))
-#endif
 #ifndef MAX
 #define MAX(x,y) ((x) < (y) ? (y) : (x))
 #endif
@@ -66,7 +63,6 @@ static void getilist(struct emp_qelem *list, natid own,
 		     struct emp_qelem *c, struct emp_qelem *d);
 static void ac_dog(register struct plist *ap, register struct plist *dp);
 
-#define DOG_MAX         15
 #define FLAK_MAX        15
 
 		/*       -7    -6    -5    -4    -3    -2    -1    0 */

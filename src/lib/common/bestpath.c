@@ -109,7 +109,6 @@ static int owned_and_navigable(s_char *, int, int, s_char *, int);
 s_char *dirchar = "juygbn";
 int dx[6] = { 2, 1, -1, -2, -1, 1 };
 int dy[6] = { 0, -1, -1, 0, 1, 1 };
-int tmp;
 
 /*
  * Ok, note that here we malloc some buffers.  BUT, we never

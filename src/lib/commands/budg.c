@@ -51,10 +51,6 @@
 #include "budg.h"
 #include "commands.h"
 
-#ifndef MIN
-#define MIN(x,y)	((x) > (y) ? (y) : (x))
-#endif
-
 static void calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,

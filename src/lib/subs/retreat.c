@@ -436,7 +436,6 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
     double mobcost;
     struct lchrstr *lcp;
     int time_to_stop;
-    s_char buf[RET_LEN - 1];
 
     lp->lnd_mission = 0;
     if (lp->lnd_own == 0)

@@ -90,7 +90,6 @@ demand_update_time(time_t * now)
 static void
 regular_update_time(time_t * now, time_t * tim, time_t * delta)
 {
-    s_char *p;
     time_t tw;
     int secs_per_update;
 
@@ -105,7 +104,7 @@ static int
 scheduled_update_time(time_t * now, int *which)
 {
     struct tm *tm;
-    s_char *p, *p1;
+    s_char *p;
     int curtime;
     int hour;
 

@@ -142,7 +142,6 @@ struct look_list {
 	struct lchrstr *lp;
 	struct plchrstr *pp;
 	struct mchrstr *mp;
-	int value;
     } l_u;
     int tech;
 } lookup_list[200];		/* Change this if there are ever more than 200 planes, ships
