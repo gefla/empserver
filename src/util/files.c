@@ -129,7 +129,7 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
-    memset (&nat, 0, sizeof(nat));
+    memset(&nat, 0, sizeof(nat));
     nat.ef_type = EF_NATION;
     if (nat.nat_cnam[0] == 0)
 	strcpy(nat.nat_cnam, "POGO");
@@ -144,7 +144,7 @@ main(int argc, char *argv[])
 	nat.nat_priorities[x] = -1;
     putnat((&nat));
     printf("All praise to %s!\n", nat.nat_cnam);
-    memset (&nat, 0, sizeof(nat));
+    memset(&nat, 0, sizeof(nat));
     for (x = 0; x < SCT_MAXDEF + 8; x++)
 	nat.nat_priorities[x] = -1;
     for (i = 1; i < MAXNOC; i++) {
