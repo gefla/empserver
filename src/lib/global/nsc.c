@@ -91,7 +91,7 @@ struct castr sect_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist"},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work"},
-    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_coastal), "coastal"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_coastal), "coastal"},
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_newtype), "newdes"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_min), "min"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_gmin), "gold"},
@@ -113,7 +113,7 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_road), "road"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_rail), "rail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_defense), "dfense"},
-    {NSC_TIME, 0, 0, fldoff(sctstr, sct_timestamp), "timestamp"},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(sctstr, sct_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -135,8 +135,8 @@ struct castr sect_ca[] = {
 struct castr ship_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nplane), "nplane"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nland), "nland"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nplane), "nplane"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nland), "nland"},
     {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[0]), "xstart"},
     {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[1]), "xend"},
     {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[0]), "ystart"},
@@ -150,14 +150,14 @@ struct castr ship_ca[] = {
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime"},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access"},
-    {NSC_TIME, 0, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(shpstr, shp_timestamp), "timestamp"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_mobquota), "mobquota"},
     {NSC_STRINGY, 0, MAXSHPPATH, fldoff(shpstr, shp_path), "path"},
     {NSC_SHORT, 0, 0, fldoff(shpstr, shp_follow), "follow"},
     {NSC_STRINGY, 0, MAXSHPNAMLEN, fldoff(shpstr, shp_name), "name"},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
-    {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nchoppers), "nchoppers"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nxlight), "nxlight"},
     /* could let builder access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt"},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt"},
@@ -179,7 +179,7 @@ struct castr plane_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype"},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags"},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_access), "access"},
-    {NSC_TIME, 0, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
     {NSC_FLOAT, 0, 0, fldoff(plnstr, pln_theta), "theta"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
@@ -191,7 +191,7 @@ struct castr land_ca[] = {
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_harden), "harden"},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel"},
-    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_nxlight), "nxlight"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_nxlight), "nxlight"},
     {NSC_INT, 0, 0, fldoff(lndstr, lnd_rflags), "rflags"},
     {NSC_STRINGY, 0, RET_LEN, fldoff(lndstr, lnd_rpath), "rpath"},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react"},
@@ -199,7 +199,7 @@ struct castr land_ca[] = {
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage"},
     {NSC_USHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_ptime), "ptime"},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_land), "land"},
-    {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_nland), "nland"},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_nland), "nland"},
     {NSC_TIME, 0, 0, fldoff(lndstr, lnd_access), "access"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_att), "att"},
     {NSC_FLOAT, NSC_EXTRA, 0, fldoff(lndstr, lnd_def), "def"},
@@ -216,7 +216,7 @@ struct castr land_ca[] = {
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelc), "fuelc"},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelu), "fuelu"},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_maxlight), "maxlight"},
-    {NSC_TIME, 0, 0, fldoff(lndstr, lnd_timestamp), "timestamp"},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(lndstr, lnd_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -227,7 +227,7 @@ struct castr nuke_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc"},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number"},
     {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types[0]), "types"},
-    {NSC_TIME, 0, 0, fldoff(nukstr, nuk_timestamp), "timestamp"},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
