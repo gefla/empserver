@@ -3,13 +3,12 @@
 .LV Basic
 .SY "shoot c <SECTS> <NUMBER>"
 .SY "shoot u <SECTS> <NUMBER>"
-The shoot command allows you to shoot \*Qenemy\*U civilians
-or recalcitrant uncompensated workers.
+The shoot command allows you to shoot recalcitrant civilans or
+uncompensated workers.
 In order to be able to keep the populace under control
 (i.e., not have them rebel),
 you must have one military for every ten civilians.
 Any land units in the sector count towards the mil necessary for control.
-Also, security units in the sector will make shooting more efficient, 
 .s1
 Each civ or uw shot uses mobility (see \*Qinfo Mobility\*U for the
 exact formula).
@@ -29,8 +28,7 @@ and it was a conquered sector,
 it will become completely controlled by you,
 and you will be notified of this fact.
 .s1
-Having security troops in the sector will increase the efficiency
-of the firing squads,
-resulting in more dead than you asked for. (They're enthusiastic)
+Having security troops in the sector will make the firing squads use
+less mobility (they're enthusiastic).
 .s1
 .SA "convert, Mobility, Citizens, Populace, Occupation"
