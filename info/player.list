@@ -20,7 +20,7 @@ All-caps args in <angle brackets> have the following meanings:
  3 $c attack <SECT> [<forts?> <ships?> <arty?> <planes?>]
  0    bdes <SECTS> <type>
  0    bestpath <SECTS> <SECTS>
- 0    bmap <SECTS|UNIT> [s|l|p|r|t*]
+ 0    bmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  3 $c board <to-SHIP> [<from-SHIP>|<from-sector>]
  2 $c bomb <bomber-PLANES> <fighter-PLANES> <pin|strat> <ap-SECT> <PATH|DESTINATION>
  1    budget [<sector type|P|S|L|A|M|N|C> <PRIORITY|~>]
@@ -51,7 +51,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    execute <INPUT FILE>
  1 $c explore <c|m> <SECT> <NUM> <PATH|DESTINATION>
  0    financial
- 1 $c fire <land, ship or sect> <from-SECTS | SHIPS | UNITS> [TO-SECT | SHIP]
+ 1 $c fire <TYPE> <from-SECTS | SHIPS | UNITS> [TO-SECT | SHIP]
  0    flash <COUNTRY> [<message>]
  0    fleetadd <FLEET> <SHIPS>
  2 $c fly <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COM>
@@ -71,11 +71,11 @@ All-caps args in <angle brackets> have the following meanings:
  0    ledger <LOANS>
  0    level <SECTS>
  0    list of commands
- 0    lbmap <SECTS|UNIT> [s|l|p|*]
+ 0    lbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  0    ldump <UNITS> [<fields>]
  1  c lload <COMM|"land"|"plane"> <UNITS> <NUM|UNITS|PLANES>
  1  c llookout <UNITS>
- 0    lmap <SECTS|UNIT> [s|l|p|*]
+ 0    lmap <SECTS|UNIT> [s|l|p|*|h]
  2 $c lmine <UNITS>
  1  c load <COMM|"land"|"plane"> <SHIPS> <NUM|UNITS|PLANES>
  1  c lookout <SHIPS>
@@ -87,7 +87,7 @@ All-caps args in <angle brackets> have the following meanings:
  1  c ltend <COMM> <tender-SHIPS> <NUM> <UNITS>
  1  c lunload <COMM|"land"|"plane"> <UNITS> <NUM|UNITS|PLANES>
  0    market [COMM]
- 0    map <SECTS|SHIP>
+ 0    map <SECTS|SHIP> [s|l|p|*|h]
  1  c march <UNITS> <PATH|DESTINATION>
  2 $c mine <SHIPS>
  2  c mission <type> <PLANES|SHIPS|UNITS> <mission type> <op sect> [<radius>]
@@ -101,7 +101,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    ndump <SECTS>
  0    neweff <SECTS>
  0    newspaper [days]
- 0    nmap <SECTS|SHIP>
+ 0    nmap <SECTS|SHIP> [s|l|p|*|h]
  0    nuke <SECTS>
  1 $c offer <loan|treaty> <NAT> [<NUM> <DAYS> <IRATE>]
  1  c order <SHIPS> <c|s|r|d|l> 
@@ -109,12 +109,12 @@ All-caps args in <angle brackets> have the following meanings:
  3 $c paradrop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>
  0    path <SECT>
  0    payoff <SHIPS>
- 0    pbmap <SECTS|UNIT> [s|l|p|*]
+ 0    pbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  3 $c pboard <PLANES>
  0    pdump <PLANES> [<fields>]
  0    plane <SECTS>
  0    players
- 0    pmap <SECTS|UNIT> [s|l|p|*]
+ 0    pmap <SECTS|UNIT> [s|l|p|*|h]
  0    power [["new" [<NUMBER OF COUNTRIES>]] | ["country" <COUNTRY NUMBER>]]
  0    pray
  0    production <SECTS>
@@ -137,7 +137,7 @@ All-caps args in <angle brackets> have the following meanings:
  1 $c sabotage <UNITS>
  1  c sail <SHIPS> <PATH>
  1 $c satellite <PLANE> [<se|sh|l> [?cond&cond&...]]
- 0    sbmap <SECTS|UNIT> [s|l|p|*]
+ 0    sbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  2 $c scrap <s|p|l> <SHIPS|PLANES|UNITS>
  5  c scuttle <s|p|l> <SHIPS|PLANES|UNITS>
  0    sdump <SHIPS> [<fields>]
@@ -151,7 +151,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    show <TYPE> <"build"|"stats"|"cap"> [<tech>]
  0    sinfrastructure <SECTS>
  1  c skywatch <SECTS>
- 0    smap <SECTS|UNIT> [s|l|p|*]
+ 0    smap <SECTS|UNIT> [s|l|p|*|h]
  1  c sonar <SHIPS> <brief?>
  0  c sorder <SHIPS>
  1  c spy <SECTS>
@@ -176,7 +176,7 @@ All-caps args in <angle brackets> have the following meanings:
  1  c unload <COMM|"land"|"plane"> <SHIPS> <NUM|UNIT|PLANE>
  1  c unsail <SHIPS>
  0    update
- 1 $c upgrade <SHIPS|LAND UNITS|PLANES>
+ 1 $c upgrade <s|p|l> <SHIPS|PLANES|UNITS>
  0    version
  0    wall [<message>]
  1    wingadd <WING> <PLANES>

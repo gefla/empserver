@@ -17,7 +17,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    army <ARMY> <UNITS>
  0    bdes <SECTS> <type>
  0    bestpath <SECTS> <SECTS>
- 0    bmap <SECTS|UNIT> [s|l|p|r|t*]
+ 0    bmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  1    budget [<sector type|P|S|L|A|M|N|C> <PRIORITY|~>]
  0    bye {log-off}
  0    capital <SECT>
@@ -30,7 +30,6 @@ All-caps args in <angle brackets> have the following meanings:
  1    deliver <COMM> <SECTS> [q|<THRESH>] [<DIR>]
  1    designate <SECTS> <type> [sure?]
  0    disable
- 0    dissolve <really dissove?>
  1    distribute <SECTS> <DISTSECT|.|h>
  0    dump <SECTS> [<fields>]
  0    echo [<string>]
@@ -53,33 +52,32 @@ All-caps args in <angle brackets> have the following meanings:
  0    ledger <LOANS>
  0    level <SECTS>
  0    list of commands
- 0    lbmap <SECTS|UNIT> [s|l|p|*]
+ 0    lbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  0    ldump <UNITS> [<fields>]
- 0    lmap <SECTS|UNIT> [s|l|p|*]
+ 0    lmap <SECTS|UNIT> [s|l|p|*|h]
  0    lost
  0    lstat <UNITS>
  0    market [COMM]
- 0    map <SECTS|SHIP>
+ 0    map <SECTS|SHIP> [s|l|p|*|h]
  0    mobupdate <MINUTES|check>
  0    motd
- 1    mult [COUNTRY]
  0    name <SHIPS> <NAME>
  0    nation
  0    ndump <SECTS>
  0    newcap <NAT> [<SECTOR>]
  0    neweff <SECTS>
  0    newspaper [days]
- 0    nmap <SECTS|SHIP>
+ 0    nmap <SECTS|SHIP> [s|l|p|*|h]
  0    nuke <SECTS>
  0    offset <SECT|NAT>
  1    origin <SECT>
  0    path <SECT>
  0    payoff <SHIPS>
- 0    pbmap <SECTS|UNIT> [s|l|p|*]
+ 0    pbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  0    pdump <PLANES> [<fields>]
  0    plane <SECTS>
  0    players
- 0    pmap <SECTS|UNIT> [s|l|p|*]
+ 0    pmap <SECTS|UNIT> [s|l|p|*|h]
  0    power [["new" [<NUMBER OF COUNTRIES>]] | ["country" <COUNTRY NUMBER>]]
  0    pray
  0    production <SECTS>
@@ -92,7 +90,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    report <NATS>
  0    resource <SECTS>
  1    route <COMM> <SECTS>
- 0    sbmap <SECTS|UNIT> [s|l|p|*]
+ 0    sbmap <SECTS|UNIT> [s|l|p|r|t|*|h]
  0    sdump <SHIPS> [<fields>]
  0    sect <SECTS>
  0    setsector <TYPE> <SECTS> <NUM>
@@ -102,7 +100,7 @@ All-caps args in <angle brackets> have the following meanings:
  0    show <TYPE> <"build"|"stats"|"cap"> [<tech>]
  0    shutdown [<minutes>] <disable update?>
  0    sinfrastructure <SECTS>
- 0    smap <SECTS|UNIT> [s|l|p|*]
+ 0    smap <SECTS|UNIT> [s|l|p|*|h]
  0    sstat <SHIPS>
  0    starvation [<SECTS>|l <UNITS>|s <SHIPS>]
  1    strength <SECTS>
