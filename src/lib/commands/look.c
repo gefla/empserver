@@ -258,7 +258,6 @@ look_land(register struct lndstr *lookland)
     int i;
     int dist;
     double techfact(int, double);
-    double odds;
 
     drange = techfact(lookland->lnd_tech, (double)lookland->lnd_spy);
     drange = (drange * ((double)lookland->lnd_effic / 100.0));
@@ -278,8 +277,7 @@ look_land(register struct lndstr *lookland)
 	       enough not to be seen */
 	    if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
 		continue;
-	    odds = (double)(100 - lp->lnd_effic) + 0.10;
-	    if (!(chance(odds)))
+	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
 	vrange = ldround((double)((lp->lnd_vis * range) / 20.0), 1);

@@ -172,6 +172,9 @@ struct lchrstr {
 #define LND_MXL(b, t) (b)
 #define LND_COST(b, t) ((b) * (1.0 + (sqrt((double)(t)) / 100.0)))
 
+/* Chance to detect L_SPY unit (percent) */
+#define LND_SPY_DETECT_CHANCE(eff) ((110-(eff))/100.0)
+
 #define getland(n, p) \
 	ef_read(EF_LAND, n, (caddr_t)p)
 #define putland(n, p) \

@@ -61,7 +61,6 @@ takeover(register struct sctstr *sp, natid newown)
     int che_count;
     int oldche;
     int n, vec[I_MAX + 1];
-    double odds;
     struct nstr_item ni;
     struct plnstr p;
     struct lndstr land;
@@ -101,8 +100,7 @@ takeover(register struct sctstr *sp, natid newown)
 	    continue;
 	/* Spies get a chance to hide */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SPY) {
-	    odds = (double)(100 - lp->lnd_effic) + 0.10;
-	    if (!(chance(odds)))
+	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
 	n = lp->lnd_effic - (30 + (random() % 100));

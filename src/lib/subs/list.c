@@ -135,7 +135,6 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
     struct nstr_item ni;
     struct lchrstr *lp;
     struct lndstr land;
-    double odds;
 
     first = 1;
     units = 0;
@@ -158,8 +157,7 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
 	}
 
 	if (lp->l_flags & L_SPY) {
-	    odds = (double)(100 - land.lnd_effic) + 0.10;
-	    if (!(chance(odds)))
+	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
 		continue;
 	}
 

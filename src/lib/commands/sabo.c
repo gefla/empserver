@@ -87,7 +87,7 @@ sabo(void)
 	}
 	putvar(V_SHELL, vec[I_SHELL] - 1, (s_char *)&land, EF_LAND);
 
-	odds = (100 - land.lnd_effic) / 100.0 + .10;
+	odds = LND_SPY_DETECT_CHANCE(land.lnd_effic);
 	if (chance(odds)) {
 	    wu(0, sect.sct_own,
 	       "%s spy shot in %s during sabotage attempt.\n",

@@ -444,7 +444,6 @@ int
 count_sect_units(struct sctstr *sp)
 {
     int count = 0;
-    double odds;
     struct nstr_item ni;
     struct lndstr land;
 
@@ -456,8 +455,7 @@ count_sect_units(struct sctstr *sp)
 	    continue;
 	/* Don't always see spies */
 	if (lchr[(int)land.lnd_type].l_flags & L_SPY) {
-	    odds = (double)(100 - land.lnd_effic) + 0.10;
-	    if (!(chance(odds)))
+	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
 		continue;
 	}
 	/* Got here, report it */
@@ -1108,7 +1106,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     int stop;
     s_char dp[80];
     int rel;
-    double odds;
     int oldown;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
@@ -1198,8 +1195,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	}
 	if (rel != ALLIED && sect.sct_own != actor && sect.sct_own) {	/* must be a spy */
 	    /* Always a 10% chance of getting caught. */
-	    odds = (100 - llp->land.lnd_effic) + .10;
-	    if (chance(odds)) {
+	    if (chance(LND_SPY_DETECT_CHANCE(llp->land.lnd_effic))) {
 		if (rel == NEUTRAL || rel == FRIENDLY) {
 		    wu(0, sect.sct_own,
 		       "%s unit spotted in %s\n", cname(player->cnum),

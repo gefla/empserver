@@ -281,7 +281,6 @@ prunits(int x, int y)
     struct lndstr land;
     struct nstr_item ni;
     s_char report[128];
-    double odds;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
@@ -291,8 +290,7 @@ prunits(int x, int y)
 	    continue;
 	/* Don't always see spies */
 	if (lchr[(int)land.lnd_type].l_flags & L_SPY) {
-	    odds = (double)(100 - land.lnd_effic) + 0.10;
-	    if (!(chance(odds)))
+	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
 		continue;
 	}
 	if ((land.lnd_own != player->cnum) && land.lnd_own) {
