@@ -43,6 +43,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #else
+#include <io.h>
 #include <winsock.h>
 #endif
 #include <ctype.h>

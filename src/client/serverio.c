@@ -44,6 +44,7 @@
 
 #ifdef _WIN32
 #include <winsock.h>
+#include <io.h>
 #endif
 
 void ioq_write();

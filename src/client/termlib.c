@@ -68,13 +68,11 @@ getsose()
 {
 #ifndef _WIN32
     extern s_char *tgetstr();
-#endif
-    static s_char tbuf[1024];
-    static s_char cbuf[20];
     s_char *cp;
     s_char *term;
+    static s_char tbuf[1024];
+    static s_char cbuf[20];
 
-#ifndef _WIN32
     memset((s_char *)&cbuf[0], 0, 20);
     term = getenv("TERM");
     if (term == 0) {

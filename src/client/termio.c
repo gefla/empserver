@@ -46,6 +46,7 @@
 #include <sgtty.h>
 #else
 #include <winsock.h>
+#include <io.h>
 #endif /* _WIN32 */
 #endif
 #include "misc.h"

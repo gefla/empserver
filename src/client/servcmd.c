@@ -44,6 +44,8 @@
 #include <fcntl.h>
 #if !defined(_WIN32)
 #include <unistd.h>
+#else
+#include <io.h>
 #endif
 
 extern s_char *gettag();

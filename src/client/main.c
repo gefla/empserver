@@ -60,6 +60,7 @@
 #include <windows.h>
 #include <winsock.h>
 #include <conio.h>
+#include <io.h>
 #endif
 
 #ifdef _WIN32
@@ -85,6 +86,8 @@ int serverio();
 void servercmd();
 void ioq_drain();
 
+static void intr(int sig);
+
 
 int
 main(ac, av)
@@ -96,16 +99,12 @@ s_char *av[];
     int err;
     fd_set readfds;
     struct timeval tm;
-    INPUT_RECORD InpBuffer[10];
-    DWORD numevents;
     DWORD stdinmode;
     SECURITY_ATTRIBUTES security;
-    void intr(void);
 #endif
     extern s_char empireport[];
     extern s_char empirehost[];
     fd_set mask;
-    fd_set savemask;
     struct ioqueue server;
     s_char *argv[128];
     int i, j;
@@ -113,8 +112,8 @@ s_char *av[];
     s_char *auxout_fname;
     FILE *auxout_fp;
 #ifndef _WIN32
+    fd_set savemask;
     struct passwd *pwd;
-    void intr();
 #endif
     struct sockaddr_in sin;
     int n;
@@ -302,12 +301,8 @@ s_char *av[];
     return 0;			/* Shut the compiler up */
 }
 
-void
-#ifdef _WIN32
-intr(void)
-#else
-intr()
-#endif
+static void
+intr(int sig)
 {
     interrupt++;
 #ifdef hpux
