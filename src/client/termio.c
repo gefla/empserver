@@ -35,20 +35,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#if defined(aix) || defined(hpux) || defined(sgi)
-#include <sys/termio.h>
-#elif defined(linux)
-#include <unistd.h>
-#include <termio.h>
-#else
 #ifndef _WIN32
 #include <unistd.h>
-#include <sgtty.h>
 #else
 #include <winsock.h>
 #include <io.h>
 #endif /* _WIN32 */
-#endif
 #include "misc.h"
 #include "tags.h"
 
@@ -236,76 +228,3 @@ sendeof(int sock)
     }
     return 1;
 }
-
-int echomode = 1;
-
-#if defined(hpux) || defined(aix) || defined (sgi) || defined(linux)
-void
-_noecho(int fd)
-{
-    struct termio io;
-
-    echomode = 0;
-    (void)ioctl(fd, TCGETA, &io);
-    io.c_line |= ECHO;
-    (void)ioctl(fd, TCSETA, &io);
-}
-
-void
-_echo(int fd)
-{
-    struct termio io;
-
-    if (echomode)
-	return;
-    (void)ioctl(fd, TCGETA, &io);
-    io.c_line &= ~ECHO;
-    (void)ioctl(fd, TCSETA, &io);
-    echomode++;
-}
-
-#else
-#ifndef _WIN32
-
-void
-_noecho(fd)
-int fd;
-{
-    struct sgttyb sgbuf;
-
-    echomode = 0;
-    (void)ioctl(fd, TIOCGETP, &sgbuf);
-    sgbuf.sg_flags &= ~ECHO;
-    (void)ioctl(fd, TIOCSETP, &sgbuf);
-}
-
-void
-_echo(fd)
-int fd;
-{
-    struct sgttyb sgbuf;
-
-    if (echomode)
-	return;
-    (void)ioctl(fd, TIOCGETP, &sgbuf);
-    sgbuf.sg_flags |= ECHO;
-    (void)ioctl(0, TIOCSETP, &sgbuf);
-    echomode++;
-}
-#else
-void
-_noecho(fd)
-int fd;
-{
-    echomode = 0;
-}
-
-void
-_echo(fd)
-int fd;
-{
-    echomode++;
-}
-
-#endif /* _WIN32 */
-#endif

@@ -293,7 +293,7 @@ output(int code, s_char *buf, FILE *auxfi)
 {
     switch (code) {
     case C_NOECHO:
-	_noecho(0);
+	/* not implemented; serve doesn't send it */
 	break;
     case C_FLUSH:
 	(void)fflush(stdout);
