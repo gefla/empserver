@@ -205,11 +205,12 @@ rea(void)
 	    }
 	}
     }
-    if (teles <= 0)
+    if (teles <= 0) {
 	if (player->cnum == num)
 	    pr("No %ss for you at the moment...\n", kind);
 	else
 	    pr("No %ss for %s at the moment...\n", kind, cname(num));
+    }
     (void)fclose(telfp);
     if (np->nat_flags & NF_INFORM) {
 	pr_inform(player, "\n");
