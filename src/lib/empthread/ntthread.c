@@ -35,14 +35,12 @@
 /*
  * EMPTHREADs for Windows NT.
  *
- * Actually, threads for any Win32 platform,
- * like Win95, Win98, WinCE, and whatever other
- * toy OSs are in our future from Microsoft.
+ * Actually, threads for any Win32 platform, like Win95, Win98, WinCE,
+ * and whatever other toy OSs are in our future from Microsoft.
  *
- * WIN32 has a full pre-emptive threading environment.
- * But, Empire can not handle pre-emptive threading.
- * Thus, we will use the threads, but limit the preemption
- * using a Mutex semaphore.
+ * WIN32 has a full pre-emptive threading environment.  But Empire can
+ * not handle pre-emptive threading.  Thus, we will use the threads,
+ * but limit the preemption using a Mutex semaphore.
  *
  */
 
@@ -66,8 +64,7 @@
  * loc_Thread_t
  *
  * The REAL empth_t thread structure.
- * The external world only gets
- * a void pointer to this.
+ * The external world only gets a void pointer to this.
  */
 typedef struct loc_Thread_t {
 
@@ -100,8 +97,7 @@ typedef struct loc_Thread_t {
  * loc_Sem_t
  *
  * The REAL empth_sem_t structure.
- * The external world only gets
- * a void pointer to this.
+ * The external world only gets a void pointer to this.
  */
 typedef struct empth_sem_t {
 
@@ -210,9 +206,8 @@ loc_FreeThreadInfo(loc_Thread_t *pThread)
  * loc_RunThisThread
  *
  * This thread wants to run.
- * When this function returns, the
- * globals are set to this thread info,
- * and the thread owns the MUTEX sem.
+ * When this function returns, the globals are set to this thread
+ * info, and the thread owns the MUTEX sem.
  */
 static void
 loc_RunThisThread()
@@ -324,10 +319,8 @@ empth_request_shutdown(void)
 /************************
  * loc_BlockMainThread
  *
- * This blocks up the main thread.
- * loc_WakeupMainThread() is used
- * wakeup the main so shutdown can
- * proceed.
+ * This blocks up the main thread.  loc_WakeupMainThread() is used
+ * wakeup the main so shutdown can proceed.
  */
 static void
 loc_BlockMainThread(void)
@@ -382,8 +375,7 @@ empth_threadMain(void *pvData)
  *
  * Initialize the thread environment.
  *
- * This is called from the program
- * main line.
+ * This is called from the program main line.
  */
 int
 empth_init(char **ctx_ptr, int flags)
@@ -577,8 +569,7 @@ empth_terminate(empth_t *a)
  * Do a select on the given file.
  * Wait for IO on it.
  *
- * This would be one of the main functions used within
- * gen\io.c
+ * This would be one of the main functions used within gen\io.c
  */
 void
 empth_select(int fd, int flags)
@@ -720,8 +711,7 @@ empth_sem_signal(empth_sem_t *sm)
 /************************
  * empth_sem_wait
  *
- * Wait for the specified signal semaphore
- * to be signaled.
+ * Wait for the specified signal semaphore to be signaled.
  */
 void
 empth_sem_wait(empth_sem_t *sm)
