@@ -188,8 +188,6 @@ main(int argc, char **argv)
 
 
 #if defined(_WIN32)
-    if (install_service_set)
-        return install_service(argv[0], service_name, datadir_set, config_file);
     if (remove_service_set)
         return remove_service(service_name);
 #endif	/* _WIN32 */
@@ -199,6 +197,11 @@ main(int argc, char **argv)
 	config_file = tbuf;
     }
     emp_config(config_file);
+
+#if defined(_WIN32)
+    if (install_service_set)
+	return install_service(argv[0], service_name, datadir_set, config_file);
+#endif	/* _WIN32 */
 
 #if defined(_WIN32)
     if (daemon != 0) {
