@@ -40,7 +40,7 @@ It will also prompt you for targets for each sector/unit/ship firing, if you
 did not specify the target on the command line.
 .s1
 The only sector that may fire is a fortress,
-which must be at least 5% efficient, have at least two military for a
+which must be at least 5% efficient, have at least five military for a
 firing crew,
 at least one shell to fire,
 and a gun big enough to reach the victim location;
