@@ -151,7 +151,11 @@ update_wait(void *unused)
 static int
 run_hook(char *cmd, char *name)
 {
-    int status = system(cmd);
+    int status;
+    
+    fflush(NULL);
+    
+    status = system(cmd);
     if (status == 0)
 	;			/* successful exit */
     else if (status == -1)
