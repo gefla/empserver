@@ -277,8 +277,6 @@ init_server(void)
     }
 
     loginit("server");
-    logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", (int)getpid());
 }
 
 /*
@@ -288,6 +286,9 @@ void
 start_server(int flags)
 {
     struct sigaction act;
+
+    logerror("------------------------------------------------------");
+    logerror("Empire server (pid %d) started", (int)getpid());
 
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
