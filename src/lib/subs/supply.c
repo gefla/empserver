@@ -86,36 +86,30 @@ resupply_all(struct lndstr *lp)
 void
 resupply_commod(struct lndstr *lp, int type)
 {
-    int vec[I_MAX + 1];
-    int svec[I_MAX + 1];
     int amt;
     struct lchrstr *lcp;
     struct shpstr ship;
 
     lcp = &lchr[(int)lp->lnd_type];
 
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
     /* Ok, do we now have enough? */
-    if (vec[type] < get_minimum(lp, type)) {
-	vec[type] += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, type,
-				   get_minimum(lp, type) - vec[type]);
-	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+    amt = get_minimum(lp, type) - lp->lnd_item[type];
+    if (amt > 0) {
+	lp->lnd_item[type] += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+					    type, amt);
+	amt = get_minimum(lp, type) - lp->lnd_item[type];
     }
     /* Now, check again to see if we have enough. */
-    if (vec[type] < get_minimum(lp, type)) {
-	/* Nope.  How much do we need? */
-	amt = (get_minimum(lp, type) - vec[type]);
+    if (amt > 0) {
 	/* Are we on a ship?  if so, try to get it from the ship first. */
 	if (lp->lnd_ship >= 0) {
 	    getship(lp->lnd_ship, &ship);
-	    getvec(VT_ITEM, svec, (s_char *)&ship, EF_SHIP);
 	    /* Now, determine how much we can get */
-	    amt = (amt < svec[type]) ? amt : svec[type];
+	    if (amt > ship.shp_item[type])
+		amt = ship.shp_item[type];
 	    /* Now, add and subtract */
-	    vec[type] += amt;
-	    svec[type] -= amt;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
-	    putvec(VT_ITEM, svec, (s_char *)&ship, EF_SHIP);
+	    lp->lnd_item[type] += amt;
+	    ship.shp_item[type] -= amt;
 	    putship(lp->lnd_ship, &ship);
 	}
     }
@@ -124,12 +118,11 @@ resupply_commod(struct lndstr *lp, int type)
 	int fuel_needed = (lp->lnd_fuelu * (((float)etu_per_update
 					     * land_mob_scale)) / 10.0);
 
-	while ((lp->lnd_fuel < fuel_needed) && vec[I_PETROL]) {
+	while ((lp->lnd_fuel < fuel_needed) && lp->lnd_item[I_PETROL]) {
 	    lp->lnd_fuel += 10;
 	    if (lp->lnd_fuel > lp->lnd_fuelc)
 		lp->lnd_fuel = lp->lnd_fuelc;
-	    vec[I_PETROL]--;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    lp->lnd_item[I_PETROL]--;
 	}
     }
 }
@@ -165,7 +158,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
     int wanted = total_wanted;
     int gotten = 0, lookrange;
     struct sctstr sect, dest;
-    int vec[I_MAX + 1];
     struct nstr_sect ns;
     struct nstr_item ni;
     struct lchrstr *lcp;
@@ -184,26 +176,21 @@ s_commod(int own, int x, int y, int type, int total_wanted,
     getsect(x, y, &dest);
     getsect(x, y, &sect);
     if (sect.sct_own == own) {
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
-	if ((vec[type] - minimum) >= wanted) {
-	    vec[type] -= wanted;
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	if (sect.sct_item[type] - wanted >= minimum) {
+	    sect.sct_item[type] -= wanted;
+	    if (actually_doit)
 		putsect(&sect);
-	    }
 	    return total_wanted;
-	} else if ((vec[type] - minimum) > 0) {
-	    gotten += (vec[type] - minimum);
-	    wanted -= (vec[type] - minimum);
-	    vec[type] = minimum;
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	} else if (sect.sct_item[type] - minimum > 0) {
+	    gotten += sect.sct_item[type] - minimum;
+	    wanted -= sect.sct_item[type] - minimum;
+	    sect.sct_item[type] = minimum;
+	    if (actually_doit)
 		putsect(&sect);
-	    }
 	}
     }
     /* look for a headquarters or warehouse */
-    lookrange = tfact(own, (double)10.0);
+    lookrange = tfact(own, 10.0);
     snxtsct_dist(&ns, x, y, lookrange);
     while (nxtsct(&ns, &sect) && wanted) {
 	if (sect.sct_own != own)
@@ -220,13 +207,12 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD) ==
 	    (s_char *)0)
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	if (!opt_NOFOOD && type == I_FOOD) {
-	    minimum = (((double)etu_per_update * eatrate) *
-		       (double)(vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW]))
-		+ 2;
+	    minimum = 2 + ((etu_per_update * eatrate)
+			   * (sect.sct_item[I_CIVIL] + sect.sct_item[I_MILIT]
+			      + sect.sct_item[I_UW]));
 	}
-	if (vec[type] <= minimum) {
+	if (sect.sct_item[type] <= minimum) {
 	    /* Don't bother... */
 	    continue;
 	}
@@ -240,14 +226,14 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (mobcost > 0)
 	    can_move = ((double)sect.sct_mobil / mobcost);
 	else
-	    can_move = vec[type] - minimum;
-	if (can_move > (vec[type] - minimum))
-	    can_move = (vec[type] - minimum);
+	    can_move = sect.sct_item[type] - minimum;
+	if (can_move > sect.sct_item[type] - minimum)
+	    can_move = sect.sct_item[type] - minimum;
 
 	if (can_move >= wanted) {
 	    int n;
 
-	    vec[type] -= wanted;
+	    sect.sct_item[type] -= wanted;
 
 	    /* take off mobility for delivering sect */
 	    n = roundavg(total_wanted * weight * move_cost);
@@ -257,17 +243,15 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= (u_char)n;
 
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	    if (actually_doit)
 		putsect(&sect);
-	    }
 
 	    return total_wanted;
 	} else if (can_move > 0) {
 	    int n;
 	    gotten += can_move;
 	    wanted -= can_move;
-	    vec[type] -= can_move;
+	    sect.sct_item[type] -= can_move;
 
 	    /* take off mobility for delivering sect */
 	    n = roundavg(can_move * weight * move_cost);
@@ -277,10 +261,8 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= (u_char)n;
 
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	    if (actually_doit)
 		putsect(&sect);
-	    }
 	}
     }
 
@@ -301,12 +283,11 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD) ==
 	    (s_char *)0)
 	    continue;
-	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
 	if (!opt_NOFOOD && type == I_FOOD)
-	    minimum = (((double)etu_per_update * eatrate) *
-		       (double)(vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW]))
-		+ 2;
-	if (vec[type] <= minimum) {
+	    minimum = 2 + ((etu_per_update * eatrate)
+			   * (ship.shp_item[I_CIVIL] + ship.shp_item[I_MILIT]
+			      + ship.shp_item[I_UW]));
+	if (ship.shp_item[type] <= minimum) {
 	    /* Don't bother... */
 	    continue;
 	}
@@ -320,12 +301,12 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (mobcost > 0)
 	    can_move = ((double)sect.sct_mobil / mobcost);
 	else
-	    can_move = vec[type] - minimum;
-	if (can_move > (vec[type] - minimum))
-	    can_move = (vec[type] - minimum);
+	    can_move = ship.shp_item[type] - minimum;
+	if (can_move > ship.shp_item[type] - minimum)
+	    can_move = ship.shp_item[type] - minimum;
 	if (can_move >= wanted) {
 	    int n;
-	    vec[type] -= wanted;
+	    ship.shp_item[type] -= wanted;
 
 	    n = roundavg(wanted * weight * move_cost);
 	    if (n < 0)
@@ -334,7 +315,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= (u_char)n;
 	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
 		putship(ship.shp_uid, &ship);
 		putsect(&sect);
 	    }
@@ -343,7 +323,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	    int n;
 	    gotten += can_move;
 	    wanted -= can_move;
-	    vec[type] -= can_move;
+	    ship.shp_item[type] -= can_move;
 
 	    n = roundavg(can_move * weight * move_cost);
 	    if (n < 0)
@@ -353,7 +333,6 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	    sect.sct_mobil -= (u_char)n;
 
 	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
 		putship(ship.shp_uid, &ship);
 		putsect(&sect);
 	    }
@@ -373,8 +352,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (!(lcp->l_flags & L_SUPPLY))
 	    continue;
 
-	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-	if (vec[type] <= get_minimum(&land, type))
+	if (land.lnd_item[type] <= get_minimum(&land, type))
 	    continue;
 
 	getsect(land.lnd_x, land.lnd_y, &sect);
@@ -388,8 +366,7 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if ((land.lnd_ship >= 0) && (sect.sct_effic < 2))
 	    continue;
 
-	if ((vec[type] - wanted) < get_minimum(&land, type)) {
-	    int hold;
+	if (land.lnd_item[type] - wanted < get_minimum(&land, type)) {
 	    struct lndstr save;
 
 	    /*
@@ -397,19 +374,15 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	     * avoids it.
 	     */
 	    save = land;
-	    hold = vec[type];
-	    vec[type] = 0;
-	    putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	    land.lnd_item[type] = 0;
 	    putland(land.lnd_uid, &land);
 
-	    hold += s_commod(own, land.lnd_x, land.lnd_y, type, wanted,
-			     actually_doit);
-
-	    vec[type] = hold;
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	    land.lnd_item[type] =
+		save.lnd_item[type] + s_commod(own, land.lnd_x, land.lnd_y,
+					       type, wanted, actually_doit);
+	    if (actually_doit)
 		putland(land.lnd_uid, &land);
-	    } else
+	    else
 		putland(save.lnd_uid, &save);
 	}
 
@@ -420,34 +393,30 @@ s_commod(int own, int x, int y, int type, int total_wanted,
 	if (mobcost > 0)
 	    can_move = ((double)land.lnd_mobil / mobcost);
 	else
-	    can_move = vec[type] - min;
-	if (can_move > (vec[type] - min))
-	    can_move = (vec[type] - min);
+	    can_move = land.lnd_item[type] - min;
+	if (can_move > land.lnd_item[type] - min)
+	    can_move = land.lnd_item[type] - min;
 
 	if (can_move >= wanted) {
-	    vec[type] -= wanted;
+	    land.lnd_item[type] -= wanted;
 
 	    /* resupply the supply unit */
 	    resupply_commod(&land, type);
 
 	    land.lnd_mobil -= roundavg(wanted * weight * move_cost);
 
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	    if (actually_doit)
 		putland(land.lnd_uid, &land);
-	    }
 	    return total_wanted;
 	} else if (can_move > 0) {
 	    gotten += can_move;
 	    wanted -= can_move;
-	    vec[type] -= can_move;
+	    land.lnd_item[type] -= can_move;
 
 	    land.lnd_mobil -= roundavg(can_move * weight * move_cost);
 
-	    if (actually_doit) {
-		putvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	    if (actually_doit)
 		putland(land.lnd_uid, &land);
-	    }
 	}
     }
 
@@ -518,24 +487,21 @@ int
 has_supply(struct lndstr *lp)
 {
     struct lchrstr *lcp;
-    int vec[I_MAX + 1], shells_needed, shells, keepshells;
+    int shells_needed, shells, keepshells;
     int food, food_needed, keepfood;
     int fuel_needed, fuel, petrol_needed, petrol, keeppetrol;
 
     lcp = &lchr[(int)lp->lnd_type];
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 
     if (!opt_NOFOOD) {
 	food_needed = get_minimum(lp, I_FOOD);
-	food = keepfood = vec[I_FOOD];
+	food = keepfood = lp->lnd_item[I_FOOD];
 	if (food < food_needed) {
-	    vec[I_FOOD] = 0;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    lp->lnd_item[I_FOOD] = 0;
 	    putland(lp->lnd_uid, lp);
 	    food += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
 				      I_FOOD, (food_needed - food));
-	    vec[I_FOOD] = keepfood;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    lp->lnd_item[I_FOOD] = keepfood;
 	    putland(lp->lnd_uid, lp);
 	}
 	if (food < food_needed)
@@ -544,15 +510,13 @@ has_supply(struct lndstr *lp)
     }
 
     shells_needed = lp->lnd_ammo;
-    shells = keepshells = vec[I_SHELL];
+    shells = keepshells = lp->lnd_item[I_SHELL];
     if (shells < shells_needed) {
-	vec[I_SHELL] = 0;
-	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	lp->lnd_item[I_SHELL] = 0;
 	putland(lp->lnd_uid, lp);
 	shells += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
 				    I_SHELL, (shells_needed - shells));
-	vec[I_SHELL] = keepshells;
-	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	lp->lnd_item[I_SHELL] = keepshells;
 	putland(lp->lnd_uid, lp);
     }
 
@@ -565,17 +529,15 @@ has_supply(struct lndstr *lp)
 	if (fuel < fuel_needed) {
 	    petrol_needed =
 		ldround(((double)(fuel_needed - fuel) / 10.0), 1);
-	    petrol = keeppetrol = vec[I_PETROL];
+	    petrol = keeppetrol = lp->lnd_item[I_PETROL];
 	    if (petrol < petrol_needed) {
-		vec[I_PETROL] = 0;
-		putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+		lp->lnd_item[I_PETROL] = 0;
 		putland(lp->lnd_uid, lp);
 		petrol += try_supply_commod(lp->lnd_own,
 					    lp->lnd_x, lp->lnd_y,
 					    I_PETROL,
 					    (petrol_needed - petrol));
-		vec[I_PETROL] = keeppetrol;
-		putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+		lp->lnd_item[I_PETROL] = keeppetrol;
 		putland(lp->lnd_uid, lp);
 	    }
 	    fuel += petrol * 10;
@@ -596,37 +558,34 @@ use_supply(struct lndstr *lp)
     int fuel_needed, fuel, petrol_needed, petrol;
 
     lcp = &lchr[(int)lp->lnd_type];
-    getvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
 
     shells_needed = lp->lnd_ammo;
-    shells = vec[I_SHELL];
+    shells = lp->lnd_item[I_SHELL];
     if (shells < shells_needed) {
-	vec[I_SHELL] = 0;
-	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	lp->lnd_item[I_SHELL] = 0;
 	putland(lp->lnd_uid, lp);
 	shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_SHELL,
 				(shells_needed - shells));
-	vec[I_SHELL] = shells;
+	lp->lnd_item[I_SHELL] = shells;
     }
 
-    vec[I_SHELL] = max(vec[I_SHELL] - shells_needed, 0);
+    lp->lnd_item[I_SHELL] = max(lp->lnd_item[I_SHELL] - shells_needed, 0);
 
     if (lp->lnd_frg)		/* artillery */
 	goto done;
 
     food_needed = get_minimum(lp, I_FOOD);
-    food = vec[I_SHELL];
+    food = lp->lnd_item[I_SHELL];
 
     if (food < food_needed) {
-	vec[I_FOOD] = 0;
-	putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	lp->lnd_item[I_FOOD] = 0;
 	putland(lp->lnd_uid, lp);
 	food += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_FOOD,
 			      (food_needed - food));
-	vec[I_FOOD] = food;
+	lp->lnd_item[I_FOOD] = food;
     }
 
-    vec[I_FOOD] = max(vec[I_FOOD] - food_needed, 0);
+    lp->lnd_item[I_FOOD] = max(lp->lnd_item[I_FOOD] - food_needed, 0);
 
     if (opt_FUEL) {
 	fuel_needed = lp->lnd_fuelu;
@@ -637,26 +596,26 @@ use_supply(struct lndstr *lp)
 	if (fuel < fuel_needed) {
 	    petrol_needed =
 		ldround(((double)(fuel_needed - fuel) / 10.0), 1);
-	    petrol = vec[I_PETROL];
+	    petrol = lp->lnd_item[I_PETROL];
 	}
 
 	if (petrol < petrol_needed) {
-	    vec[I_PETROL] = 0;
-	    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
+	    lp->lnd_item[I_PETROL] = 0;
 	    putland(lp->lnd_uid, lp);
 	    petrol += supply_commod(lp->lnd_own,
 				    lp->lnd_x, lp->lnd_y,
 				    I_PETROL, (petrol_needed - petrol));
-	    vec[I_PETROL] = petrol;
+	    lp->lnd_item[I_PETROL] = petrol;
 	}
 
 	if (petrol_needed) {
 	    if (petrol >= petrol_needed) {
-		vec[I_PETROL] = max(vec[I_PETROL] - petrol_needed, 0);
+		lp->lnd_item[I_PETROL]
+		    = max(lp->lnd_item[I_PETROL] - petrol_needed, 0);
 		lp->lnd_fuel += petrol_needed * 10;
 	    } else {
-		lp->lnd_fuel += vec[I_PETROL] * 10;
-		vec[I_PETROL] = 0;
+		lp->lnd_fuel += lp->lnd_item[I_PETROL] * 10;
+		lp->lnd_item[I_PETROL] = 0;
 	    }
 	}
 
@@ -664,7 +623,6 @@ use_supply(struct lndstr *lp)
     }
     /* end opt_FUEL */
   done:
-    putvec(VT_ITEM, vec, (s_char *)lp, EF_LAND);
     putland(lp->lnd_uid, lp);
     return 1;
 }
