@@ -491,6 +491,36 @@ xdopt(void)
     return RET_OK;
 }
 
+static int
+xdver(void)
+{
+    struct keymatch *kp;
+    char *sep;
+    struct valstr val;
+
+    xdhdr1("version");
+
+    sep = "";
+    for (kp = configkeys; kp->km_key; ++kp) {
+	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
+	    pr("%s%s", sep, kp->km_key);
+	    sep = " ";
+	}
+    }
+    pr("\n");
+    
+    sep = "";
+    for (kp = configkeys; kp->km_key; ++kp) {
+	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
+	    xdeval(&val, kp->km_type, kp->km_data, 0, 0);
+	    sep = xdprval(&val, sep);
+	}
+    }
+    pr("\n");
+
+    return RET_OK;
+}
+
 /* Experimental extended dump command */
 int
 xdump(void)
@@ -510,6 +540,8 @@ xdump(void)
 	return xdchr(chridx_by_name(player->argp[2]));
     } else if (!strncmp(p, "opt", strlen(p))) {
 	return xdopt();
+    } else if (!strncmp(p, "ver", strlen(p))) {
+	return xdver();
     }
 
     return RET_SYN;

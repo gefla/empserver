@@ -35,17 +35,17 @@
 #include "gamesdef.h"
 #include "misc.h"
 
-s_char *infodir = EMPDIR "/info.nr";
-s_char *datadir = EMPDIR "/data";
-s_char *teldir	= EMPDIR "/data/tel";
+char *infodir	= EMPDIR "/info.nr";
+char *datadir	= EMPDIR "/data";
+char *teldir	= EMPDIR "/data/tel";
 
-s_char *upfil	= EMPDIR "/data/up";
-s_char *downfil = EMPDIR "/data/down";
-s_char *disablefil = EMPDIR "/data/disable";
-s_char *telfil	= EMPDIR "/data/tel/tel";
-s_char *annfil	= EMPDIR "/data/ann";
-s_char *banfil	= EMPDIR "/data/ban";
-s_char *authfil = EMPDIR "/data/auth";
-s_char *timestampfil = EMPDIR "/data/timestamp";
+char *upfil	= EMPDIR "/data/up";
+char *downfil	= EMPDIR "/data/down";
+char *disablefil = EMPDIR "/data/disable";
+char *telfil	= EMPDIR "/data/tel/tel";
+char *annfil	= EMPDIR "/data/ann";
+char *banfil	= EMPDIR "/data/ban";
+char *authfil	= EMPDIR "/data/auth";
+char *timestampfil = EMPDIR "/data/timestamp";
 
-s_char *loginport = EMP_PORT;
+char *loginport = EMP_PORT;

@@ -99,24 +99,27 @@ int start_unit_type[];
 #endif
 
 /* Variables that get values derived from econfig */
-extern s_char *upfil;
-extern s_char *downfil;
-extern s_char *disablefil;
-extern s_char *banfil;
-extern s_char *authfil;
-extern s_char *annfil;
-extern s_char *timestampfil;
-extern s_char *teldir;
-extern s_char *telfil;
+extern char *upfil;
+extern char *downfil;
+extern char *disablefil;
+extern char *banfil;
+extern char *authfil;
+extern char *annfil;
+extern char *timestampfil;
+extern char *teldir;
+extern char *telfil;
+
+enum {
+    KM_ALLOC = 0x01,		/* memory allocated */
+    KM_INTERNAL = 0x02		/* not to be disclosed to players */
+};
 
 struct keymatch {
-    s_char *km_key;		/* the key */
-    void (*km_func)(struct keymatch * kp, s_char **av);
-				/* the function to call if matches */
-    void *km_data;		/* associated data */
+    char *km_key;		/* the key */
+    nsc_type km_type;		/* type of associated data */
+    void *km_data;		/* pointer to associated data */
     int km_flags;		/* useful flags */
-#define KM_ALLOC	0x01	/* memory allocated */
-    s_char *km_comment;		/* Comment (hopefully useful) */
+    char *km_comment;		/* Comment (hopefully useful) */
 };
 
 extern struct keymatch configkeys[];

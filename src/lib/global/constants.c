@@ -38,8 +38,8 @@
 #include "misc.h"
 #include "xy.h"
 
-s_char *privname = PRVNAM;	/* name of priv user */
-s_char *privlog = PRVLOG;	/* logname of priv user */
+char *privname = PRVNAM;	/* name of priv user */
+char *privlog = PRVLOG;	/* logname of priv user */
 
 int WORLD_X = DEF_WORLD_X;	/* World size - x */
 int WORLD_Y = DEF_WORLD_Y;	/* World size - y */
@@ -53,15 +53,15 @@ int etu_per_update = ETUS;	/* # of etu's per update, from misc.h */
 int adj_update = 0;		/* update time adjustment */
 int update_window = 0;		/* update window adjustment */
 int hourslop = 5;		/* amount of slop to match update times */
-s_char *update_times = "";	/* times regular update is allowed */
+char *update_times = "";	/* times regular update is allowed */
 int update_policy = 0;		/* update policy for regular updates */
 int update_demandpolicy = 2;	/* update policy for demand updates */
 int update_missed = 999;	/* demand updates missed before veto */
 int update_wantmin = 0;		/* number of votes required for demand update */
 int blitz_time = 10;		/* number of minutes between blitz updates */
-s_char *update_demandtimes = "";	/* times demand update is allowed */
-s_char *game_days = "";		/* days game is running */
-s_char *game_hours = "";	/* hours game is running */
+char *update_demandtimes = "";	/* times demand update is allowed */
+char *game_days = "";		/* days game is running */
+char *game_hours = "";	/* hours game is running */
 int max_idle = 15;		/* session dies after max_idle minutes idle */
 
 int sect_mob_max = 127;		/* sector mobility limits */
