@@ -33,10 +33,6 @@
  *     Steve McClure, 1998
  */
 
-#if defined(aix) || defined(linux) || defined(solaris)
-#include <unistd.h>
-#endif /* aix or linux */
-
 #include <sys/types.h>
 #include <fcntl.h>
 #if !defined(_WIN32)
@@ -46,6 +42,7 @@
 #include <direct.h>
 #include "../lib/gen/getopt.h"
 #endif
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -77,7 +74,6 @@ int
 main(int argc, char *argv[])
 {
     s_char buf[255];
-    s_char tbuf[512];
     s_char *filename;
     int x, y;
     struct natstr nat;
@@ -102,12 +98,9 @@ main(int argc, char *argv[])
 	}
     }
 
-    /* Try to use the existing data directory */
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+    if (emp_config(config_file) < 0)
+	exit(1);
+
     empfile[EF_MAP].size = (WORLD_X * WORLD_Y) / 2;
     empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
 
@@ -116,6 +109,11 @@ main(int argc, char *argv[])
 	printf("Can't make game directory\n");
 	exit(1);
     }
+    if (chdir(datadir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+	exit(EXIT_FAILURE);
+    }
+
     if (!force) {
     	printf("WARNING: this blasts the existing game in %s (if any)\n",
 	   datadir);

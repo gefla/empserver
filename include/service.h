@@ -35,9 +35,9 @@
 #define SERVICE_H
 
 #define DEFAULT_SERVICE_NAME "Empire Server"
-extern char *config_file;
 
-extern int install_service(char *program_name, char *service_name, int datadir_set);
+extern int install_service(char *program_name, char *service_name,
+			   int datadir_set, char *config_file);
 extern int remove_service(char *service_name);
 extern void WINAPI service_main(DWORD argc, LPTSTR *argv);
 #endif

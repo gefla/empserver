@@ -37,8 +37,8 @@
 #include <stddef.h>
 
 struct empfile {
-    char *name;			/* file name (e.g., "treaty") */
-    char *file;			/* file path */
+    char *name;			/* Empire name (e.g., "treaty") */
+    char *file;			/* file name (relative to data directory) */
     int flags;			/* misc stuff */
     int mode;			/* O_flags */
     int size;			/* size of object */

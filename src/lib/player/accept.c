@@ -63,13 +63,61 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct emp_qelem Players;
+static struct emp_qelem Players;
+static int player_socket;
 
 void
 player_init(void)
 {
+    struct sockaddr_in sin;
+    struct servent *sp;
+    int s;
+    short port;
+    int val;
+
     emp_initque(&Players);
     init_player_commands();
+
+
+    sp = getservbyname("empire", "tcp");
+    if (sp == 0)
+	port = htons(atoi(loginport));
+    else
+	port = sp->s_port;
+    sin.sin_addr.s_addr = INADDR_ANY;
+    sin.sin_port = port;
+    sin.sin_family = AF_INET;
+    if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+	logerror("inet socket create");
+	exit(1);
+    }
+    val = 1;
+#if !(defined(__linux__) && defined(__alpha__))
+    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *)&val, sizeof(val))
+	< 0) {
+	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
+	exit(1);
+    }
+#else
+    logerror("Alpha/Linux?  You don't support SO_REUSEADDR yet, do you?\n");
+#endif
+    if (bind(s, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
+	logerror("inet socket bind");
+	exit(1);
+    }
+#ifdef LISTENMAXCONN		/* because someone in linux world didn't want to use
+				 * SOMAXCONN as defined in the header files... */
+    if (listen(s, LISTENMAXCONN) < 0) {
+	logerror("inet socket listen");
+	exit(1);
+    }
+#else
+    if (listen(s, SOMAXCONN) < 0) {
+	logerror("inet socket listen");
+	exit(1);
+    }
+#endif
+    player_socket = s;
 }
 
 struct player *
@@ -199,10 +247,7 @@ void
 player_accept(void *unused)
 {
     struct sockaddr_in sin;
-    struct servent *sp;
-    int s;
-    short port;
-    int val;
+    int s = player_socket;
     struct player *np;
     int len;
     int ns;
@@ -210,45 +255,6 @@ player_accept(void *unused)
     int stacksize;
     char buf[128];
 
-    player_init();
-    sp = getservbyname("empire", "tcp");
-    if (sp == 0)
-	port = htons(atoi(loginport));
-    else
-	port = sp->s_port;
-    sin.sin_addr.s_addr = INADDR_ANY;
-    sin.sin_port = port;
-    sin.sin_family = AF_INET;
-    if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-	logerror("inet socket create");
-	exit(1);
-    }
-    val = 1;
-#if !(defined(__linux__) && defined(__alpha__))
-    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *)&val, sizeof(val))
-	< 0) {
-	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
-	exit(1);
-    }
-#else
-    logerror("Alpha/Linux?  You don't support SO_REUSEADDR yet, do you?\n");
-#endif
-    if (bind(s, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
-	logerror("inet socket bind");
-	exit(1);
-    }
-#ifdef LISTENMAXCONN		/* because someone in linux world didn't want to use
-				 * SOMAXCONN as defined in the header files... */
-    if (listen(s, LISTENMAXCONN) < 0) {
-	logerror("inet socket listen");
-	exit(1);
-    }
-#else
-    if (listen(s, SOMAXCONN) < 0) {
-	logerror("inet socket listen");
-	exit(1);
-    }
-#endif
     while (1) {
 	empth_select(s, EMPTH_FD_READ);
 	len = sizeof(sin);

@@ -124,6 +124,7 @@ typedef short coord;
 #define days(x)		(60*60*24*(x))
 
 extern int debug;
+extern int daemonize;
 
 /*
  * If EXPR is true, an internal error occured.

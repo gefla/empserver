@@ -64,13 +64,11 @@ static int quiet = 0;
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
-#if defined(aix) || defined(linux) || defined(solaris)
-#include <unistd.h>
-#endif /* aix or linux */
 #if defined(_WIN32)
 #include "../lib/gen/getopt.h"
 #endif
 
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -191,7 +189,6 @@ main(int argc, char *argv[])
 {
     int opt;
     char *config_file = NULL;
-    char tbuf[512];
     int i = 0;
 
     rnd_seed = time(NULL);
@@ -222,11 +219,8 @@ main(int argc, char *argv[])
 	}
     }
     srandom(rnd_seed);
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
-    }
-    emp_config(config_file);
+    if (emp_config(config_file))
+	exit(1);
 
     parse_args(argc - optind, argv + optind);
     if (allocate_memory() == -1)
@@ -406,12 +400,16 @@ static int
 allocate_memory(void)
 {
     int i;
+    char *fname;
 
-    sect_fptr = fopen(empfile[EF_SECTOR].file, "wb");
+    fname = malloc(strlen(datadir) + 1 + strlen(empfile[EF_SECTOR].file) + 1);
+    sprintf(fname, "%s/%s", datadir, empfile[EF_SECTOR].file);
+    sect_fptr = fopen(fname, "wb");
     if (sect_fptr == NULL) {
-	perror(empfile[EF_SECTOR].file);
+	perror(fname);
 	return -1;
     }
+    free(fname);
     sectsbuf =
 	(struct sctstr *)calloc((YSIZE * XSIZE), sizeof(struct sctstr));
     sects = (struct sctstr **)calloc(YSIZE, sizeof(struct sctstr *));

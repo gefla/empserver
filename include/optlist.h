@@ -37,6 +37,9 @@
 
 #include "nsc.h"
 
+/* Default econfig file */
+extern char dflt_econfig[];
+
 struct option_list {
     char *opt_key;
     int *opt_valuep;

@@ -54,7 +54,7 @@ disassoc(void)
 
     if (fork() != 0)
 	exit(0);
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 2; i++)
 	(void)close(i);
     (void)open("/", O_RDONLY, 0);
     (void)dup2(0, 1);

@@ -33,14 +33,11 @@
  *     Doug Hay, 1998
  */
 
-#if defined(aix) || defined(linux)
-#include <unistd.h>
-#endif /* aix or linux */
-
 #include <signal.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
 #endif
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
@@ -51,6 +48,7 @@
 #include <process.h>
 #include "../lib/gen/getopt.h"
 #include "service.h"
+#include "direct.h"
 #endif
 
 #include "misc.h"
@@ -77,12 +75,10 @@ static void loc_NTInit(void);
 
 static int mainpid = 0;
 
-/*
- * Debugging?
- * If yes, don't fork into background, don't catch certain signals,
- * call abort() on internal error.
- */
+/* Debugging?  If yes call abort() on internal error.  */
 int debug = 0;
+/* Run as daemon?  If yes, detach from controlling terminal etc. */
+int daemonize = 1;
 
 static void
 print_usage(char *program_name)
@@ -108,11 +104,12 @@ main(int argc, char **argv)
     char *service_name = NULL;
     int remove_service_set = 0;
     int datadir_set = 0;
-#else
-    char *config_file = NULL;
 #endif
+    char *config_file = NULL;
     int op;
+#if defined(__linux__) && defined(_EMPTH_POSIX)
     s_char tbuf[256];
+#endif
 
     mainpid = getpid();
 
@@ -130,6 +127,7 @@ main(int argc, char **argv)
 	    break;
 	case 'd':
 	    debug++;
+	    daemonize = 0;
 	    break;
 	case 'e':
 	    config_file = optarg;
@@ -155,9 +153,11 @@ main(int argc, char **argv)
 #else
 	case 'p':
 	    flags |= EMPTH_PRINT;
+	    daemonize = 0;
 	    break;
 	case 's':
 	    flags |= EMPTH_PRINT | EMPTH_STACKCHECK;
+	    daemonize = 0;
 	    break;
 #endif
 	case 'h':
@@ -167,64 +167,68 @@ main(int argc, char **argv)
 	}
     }
 
-    loginit("server");
-
 #if defined(_WIN32)
     if ((debug || datadir_set || config_file != NULL) &&
 	remove_service_set) {
-	logerror("Can't use -d, -D or -e with either "
-	    "-r or -R options when starting the server");
-	printf("Can't use -d, -D or -e with either -r "
-	    "or -R options\n");
+	fprintf(stderr, "Can't use -d, -D or -e with either "
+	    "-r or -R options when starting the server\n");
 	exit(EXIT_FAILURE);
     }
     if (debug && install_service_set) {
-	logerror("Can't use -d with either "
-	    "-i or -I options when starting the server");
-	printf("Can't use -d with either -i "
-	    "or -I options\n");
+	fprintf(stderr, "Can't use -d with either "
+	    "-i or -I options when starting the server\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
-	logerror("Can't use both -r or -R and -i or -I options when starting "
-	    "the server");
-	printf("Can't use both -r or -R and -i or -I options\n");
+	fprintf(stderr, "Can't use both -r or -R and -i or -I options when starting "
+	    "the server\n");
 	exit(EXIT_FAILURE);
     }
-    if (install_service_set)
-        return install_service(argv[0], service_name, datadir_set);
+#endif	/* _WIN32 */
+
+
+#if defined(_WIN32)
     if (remove_service_set)
         return remove_service(service_name);
 #endif	/* _WIN32 */
 
-    if (config_file == NULL) {
-	sprintf(tbuf, "%s/econfig", datadir);
-	config_file = tbuf;
+    if (emp_config(config_file) < 0)
+	exit(EXIT_FAILURE);
+    if (chdir(datadir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+	exit(EXIT_FAILURE);
     }
 
-    logerror("------------------------------------------------------");
-    logerror("Empire server (pid %d) started", (int)getpid());
+#if defined(_WIN32)
+    if (install_service_set)
+	return install_service(argv[0], service_name, datadir_set, config_file);
+#endif	/* _WIN32 */
+
+    init_server();
 
 #if defined(_WIN32)
-    if (debug == 0) {
+    if (daemonize != 0) {
 	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
 	if (StartServiceCtrlDispatcher(DispatchTable))
 	    return 0;
-	else
+	else {
+	    /*
+	     * If it is service startup error then exit otherwise
+	     * start server in the foreground
+	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
 		logerror("Failed to dispatch service (%d)", GetLastError());
 		printf("Failed to dispatch service (%d)\n", GetLastError());
 		exit(EXIT_FAILURE);
-	    } else  /* start in the foreground */
-		debug = 1;
+	    }
+	}
     }
-#else
-    if (debug == 0 && flags == 0) {
+    daemonize = 0;
+#else  /* !_WIN32 */
+    if (daemonize)
 	disassoc();
-    }
-#endif
-
-    start_server(flags, config_file);
+#endif /* !_WIN32 */
+    start_server(flags);
 
 #if defined(__linux__) && defined(_EMPTH_POSIX)
     strcpy(tbuf, argv[0]);
@@ -248,19 +252,38 @@ main(int argc, char **argv)
 
 
 void
-start_server(int flags, char *config_file)
+init_server(void)
+{
+    srand(time(NULL));
+#if defined(_WIN32)
+    loc_NTInit();
+#endif
+    update_policy_check();
+    nullify_objects();
+    global_init();
+    shutdown_init();
+    player_init();
+    ef_init();
+    init_files();
+    io_init();
+    init_nreport();
+
+    if (opt_MOB_ACCESS) {
+	/* This fixes up mobility upon restart */
+	mobility_init();
+    }
+
+    loginit("server");
+    logerror("------------------------------------------------------");
+    logerror("Empire server (pid %d) started", (int)getpid());
+}
+
+void
+start_server(int flags)
 {
 #ifdef POSIXSIGNALS
     struct sigaction act;
 #endif /* POSIXSIGNALS */
-
-#if defined(_WIN32)
-    loc_NTInit();
-#endif
-    emp_config(config_file);
-    update_policy_check();
-
-    nullify_objects();
 
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
@@ -302,20 +325,8 @@ start_server(int flags, char *config_file)
     signal(SIGPIPE, SIG_IGN);
 #endif /* POSIXSIGNALS */
 #endif /* _WIN32 */
-    empth_init((char **)&player, flags);
-    srand(time(NULL));
-    global_init();
-    shutdown_init();
-    player_init();
-    ef_init();
-    init_files();
-    io_init();
-    init_nreport();
 
-    if (opt_MOB_ACCESS) {
-	/* This fixes up mobility upon restart */
-	mobility_init();
-    }
+    empth_init((char **)&player, flags);
 
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
 		 "AcceptPlayers", "Accept network connections", 0);
