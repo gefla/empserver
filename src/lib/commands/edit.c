@@ -34,8 +34,9 @@
  *     Ron Koenderink, 2003-2004
  */
 
-#include <stdio.h>
 #include <ctype.h>
+#include <limits.h>
+#include <stdio.h>
 #include <string.h>
 #include "misc.h"
 #include "player.h"

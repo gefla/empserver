@@ -31,6 +31,7 @@
  *      Steve McClure, 1998-2000
  */
 
+#include <limits.h>
 #include <string.h>
 #include "misc.h"
 #include "player.h"
