@@ -307,7 +307,7 @@ xdprval(struct valstr *val, char *sep)
 	if (s) {
 	    pr("%s\"", sep);
 	    while (*s) {
-		for (e = s; *e != '"' && *e != '\\' && isprint(*e); ++e) ;
+		for (e = s; *e != '"' && *e != '\\' && isgraph(*e); ++e) ;
 		pr("%.*s", (int)(e-s), s);
 		if (*e)
 		    pr("\\%03o", *e++);
