@@ -1,11 +1,11 @@
 .TH Command MAP
 .NA map "Generate a map showing sector types, seas, etc"
 .LV Basic
-.SY "map <SECTS | SHIP> <s|p|l>"
-.SY "nmap <SECTS | SHIP> <s|p|l>"
-.SY "smap <SECTS | SHIP> <s|p|l>"
-.SY "lmap <SECTS | SHIP> <s|p|l>"
-.SY "pmap <SECTS | SHIP> <s|p|l>"
+.SY "map <SECTS | SHIP> <s|p|l|*|h>"
+.SY "nmap <SECTS | SHIP> <s|p|l|*|h>"
+.SY "smap <SECTS | SHIP> <s|p|l|*|h>"
+.SY "lmap <SECTS | SHIP> <s|p|l|*|h>"
+.SY "pmap <SECTS | SHIP> <s|p|l|*|h>"
 A map gives you a graphic representation of all or part of your country.
 .s1
 Your own sectors show up as a designation mnemonic
@@ -61,7 +61,6 @@ the same for a ship.
 If you give an 's' flag, all your ships will be shown on the map.
 An 'l' flag does the same for land units, and a 'p' for planes.
 '*' shows all in this order: land units, ships, planes.
-
-To highlight sectors owned by yourself, use the 'h' flag.
+To highlight sectors you own, specifiy the 'h' flag.
 .s1
 .SA "census, commodity, radar, realm, route, update, Maps"

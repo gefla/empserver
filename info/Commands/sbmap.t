@@ -1,5 +1,5 @@
-.TH Command BMAP
-.NA bmap "Big map of all your worldly knowledge"
+.TH Command SBMAP
+.NA bmap "Big map of all your worldly knowledge around a ship"
 .LV Basic
 .SY "bmap [<SECTS> | <SHIP>] <s|p|l|r|t|*|h>"
 .SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|*|h>"
@@ -26,6 +26,8 @@ Your own sectors show up as a designation mnemonic
 appear as question marks (\*Q?\*U).
 Mountains, wilderness areas, and seas appear
 as '^', '-' and '.' respectively.
+.s1
+You can also get an lbmap by typing 'B' at the navigation prompt.
 .s1
 Note that any sector
 marked as 'X' on your bmap will automatically be avoided by
@@ -93,4 +95,4 @@ corrupted, you can revert your working bmap back to your true bmap
 using the command:
 .SY "bmap <SECTS> revert"
 .s1
-.SA "bdes, map, navigate, fly, bomb, recon, paradrop, drop, lookout, coastwatch, radar, sharebmap, Maps"
+.SA "bdes, map, navigate, fly, bomb, recon, paradrop, drop, lookout, coastwatch, radar, sharebmap, Ships, Maps"

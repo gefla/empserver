@@ -1,6 +1,6 @@
-.TH Command BMAP
-.NA bmap "Big map of all your worldly knowledge"
-.LV Basic
+.TH Command PBMAP
+.NA bmap "Big map of all your worldly knowledge around a plane"
+.LV Expert
 .SY "bmap [<SECTS> | <SHIP>] <s|p|l|r|t|*|h>"
 .SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|*|h>"
 .SY "pbmap [<SECTS> | <PLANE>] <s|p|l|*|h>"
@@ -93,4 +93,4 @@ corrupted, you can revert your working bmap back to your true bmap
 using the command:
 .SY "bmap <SECTS> revert"
 .s1
-.SA "bdes, map, navigate, fly, bomb, recon, paradrop, drop, lookout, coastwatch, radar, sharebmap, Maps"
+.SA "bdes, map, navigate, fly, bomb, recon, paradrop, drop, lookout, coastwatch, radar, sharebmap, Planes, Maps"
