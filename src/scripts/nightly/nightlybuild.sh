@@ -335,7 +335,7 @@ EOF
 		*TESTSCRIPT*) ;;
 		*)
 
-	for PLAYER in 1 2 3 4 5 6 7 8 9 10
+	for PLAYER in 2 3 4 5 6 7 8 9 10
 	do
 		echo "explore for player ${PLAYER}"
 		runfeed $PLAYER << EOF >/dev/null 2>&1
@@ -349,6 +349,55 @@ EOF
 		echo "Done (explore)."
 		echo ""
 	done
+
+	# Something more elaborate for player 1
+	echo "explore and more for player 1"
+	runfeed 1 << EOF >/dev/null 2>&1
+break
+expl c 0,0 1 uh
+expl c 2,0 1 jh
+expl c 2,0 1 uh
+expl c 2,0 1 nh
+expl c 2,0 1 bh
+expl c 0,0 1 yh
+expl c 0,0 1 gh
+expl c 0,0 1 bh
+desi * ?ne=- +
+expl c 2,0 1 bnh
+expl c 2,0 1 bbh
+expl c 0,0 1 bgh
+expl c 0,0 1 ggh
+expl c 0,0 1 gyh
+expl c 0,0 1 yyh
+expl c 2,0 1 yyh
+expl c 2,0 1 uyh
+expl c 2,0 1 uuh
+desi * ?ne=- +
+expl c 2,0 1 bbnh
+expl c 2,0 1 uuuh
+expl c 2,0 1 yyyh
+expl c 0,0 1 yyyh
+expl c 0,0 1 yygh
+expl c 0,0 1 yggh
+expl c 0,0 1 gggh
+expl c 0,0 1 ggbh
+desi * ?ne=- +
+expl c 0,0 1 ggggh
+expl c 0,0 1 gggbh
+expl c 0,0 1 ggbbh
+desi * ?ne=- +
+mov u 0,0 75 jh
+demob 0:2,0 55 y
+desi 2,0 m
+mov c 0,0 767 -3,-1
+desi -3,-1 g
+mov c 0,0 270 1,-1
+mov c 2,0 274 1,-1
+desi 1,-1 m
+deliver i 2,0 120 u
+dist 2,-2 2,0
+thre i 2,-2 1000
+EOF
 
 	echo "Run an update"
 	runfeed POGO peter << EOF
@@ -365,9 +414,10 @@ EOF
 	sleep 10
 	echo "Check player 1"
 	runfeed 1 << EOF
+real 0 -12:10,-5:5
 cen *
 map #
-read n
+read y
 EOF
 	echo "Done (check)."
 	echo ""
@@ -378,10 +428,94 @@ power new
 cen * ?own#0
 reso * ?own#0
 read
-n
+y
 EOF
 	echo "Done (check update)."
 	echo ""
+
+	echo "Continue some updates for player 1"
+	echo ""
+
+	echo "Turn 2 for player 1"
+
+	runfeed 1 1 << EOF
+desi -3,-1 b
+mov i 1,-1 120 2,-2
+mov i 1,-1 4 jh
+mov c -3,-1 435 2,-2
+deli i 2,0 0 u
+deli i 1,-1 0 u
+mov c -3,-1 80 3,-1
+mov c 1,-1 256 4,-2
+mov c 2,0 230 3,-1
+mov c 1,-1 409 3,-1
+desi 2,-2 k
+desi 3,-1 j
+dist # 4,-2
+thre h 2,-2 1
+thre l 3,-1 1
+desi 4,-2 h
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+cen * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 3 for player 1"
+	runfeed 1 << EOF
+cen *
+map #
+read y
+build sh 4,-2 frg
+mov l 3,-1 1 -8,0
+mov l 4,-2 193 -8,0
+mov i 1,-1 1 2,-2
+mov c 2,-2 377 -8,0
+desi -8,0 l
+thre l -8,0 150
+mov c -3,-1 627 -2,0
+mov c 3,-1 139 -2,0
+mov c 4,-2 292 uh
+mov c 2,-2 36 -7,1
+mov c 3,-1 29 -7,1
+mov c 2,0 191 -7,1
+mov c 2,0 125 5,-3
+mov u 2,0 99 yh
+deliver o 5,-3 0 b
+deliver d -2,0 0 y
+desi -7,1 h
+desi 5,-3 o
+desi -2,0 g
+budg h 1
+prod *
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+cen * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+power new
+repo *
+EOF
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Done (player 1)."
+	echo ""
+	echo "TODO: turn 4/5 (tech/assault)..."
 
 	echo "Done (Rudimentary tests)."
 	echo ""
