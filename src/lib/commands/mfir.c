@@ -378,9 +378,9 @@ multifire(void)
 	    dam = (int)guneff;
 	    shell -= ldround(((double)shots) / 2.0, 1);
 	    fship.shp_item[I_SHELL] = shell;
-	    putship(fship.shp_uid, &fship);
 	    if (opt_NOMOBCOST == 0)
 		fship.shp_mobil = max(fship.shp_mobil - 15, -100);
+	    putship(fship.shp_uid, &fship);
 	} else if (attacker == targ_unit) {
 	    if (fland.lnd_own != player->cnum) {
 		pr("Not your unit!\n");
