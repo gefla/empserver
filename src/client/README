@@ -31,8 +31,8 @@ To build for a DG/UX machine, type "make dgux".
 
 To build for a Solaris machine, type "make solaris".
 
-To build for a Windows machine, type "nmake win32".
-  (Note that the Windows port was built with MSVC 5.0)
+To build for a Windows machine, type "nmake nt".
+  (Note that the Windows port was built with MSVC 6.0)
 
 For other machines, type "make".
 
