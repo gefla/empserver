@@ -149,7 +149,6 @@ remove_service(char *service_name)
 
 static SERVICE_STATUS		service_status; 
 static SERVICE_STATUS_HANDLE	service_status_handle;
-static HANDLE			hShutdownEvent = NULL;
 
 void WINAPI
 service_ctrl_handler(DWORD Opcode) 
@@ -168,7 +167,7 @@ service_ctrl_handler(DWORD Opcode)
  
         case SERVICE_CONTROL_STOP:
 	    logerror("Service stopping");
-	    SetEvent(hShutdownEvent);
+	    empth_request_shutdown();
             return; 
  
         case SERVICE_CONTROL_INTERROGATE: 
@@ -206,12 +205,6 @@ service_main(DWORD argc, LPTSTR *argv)
         return;
     }
  
-    if ((hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) == NULL) {
-        logerror("CreateEvent for Shutdown failed %d\n", GetLastError());
-	finish_server();
-	return;
-    }
-
     start_server(0);
  
     /* Initialization complete - report running status. */
@@ -227,14 +220,6 @@ service_main(DWORD argc, LPTSTR *argv)
 
     CANT_HAPPEN("main thread terminated");
     finish_server();
-}
-
-void
-service_stopped(void)
-{
-    if (hShutdownEvent != NULL) {
-	WaitForSingleObject(hShutdownEvent,INFINITE);
-    }
 }
 
 void

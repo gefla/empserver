@@ -126,6 +126,10 @@ static struct {
     /* We use this to lockstep when we are starting up threads. */
     HANDLE hThreadStartEvent;
 
+    /* This is an event used to wakeup the main thread */
+    /* to start the shutdown sequence. */
+    HANDLE hShutdownEvent;
+
     /* The Thread Local Storage index.  We store the pThread pointer */
     /* for each thread at this index. */
     DWORD dwTLSIndex;
@@ -282,6 +286,58 @@ loc_SleepThisThread(unsigned long ulMillisecs)
 
 
 /************************
+ * loc_Ctrl_C_Handler
+ *
+ * Ctrl-C will initiate a shutdown. This is done by calling
+ * empth_request_shutdown()
+ */
+static BOOL
+loc_Ctrl_C_Handler(DWORD fdwCtrlType)
+{
+    switch (fdwCtrlType) 
+    { 
+        // Handle the CTRL+C signal. 
+        case CTRL_C_EVENT:
+	    empth_request_shutdown();
+            return TRUE; 
+ 
+        case CTRL_CLOSE_EVENT:
+        case CTRL_BREAK_EVENT: 
+        case CTRL_LOGOFF_EVENT: 
+        case CTRL_SHUTDOWN_EVENT: 
+        default: 
+            return FALSE; 
+    } 
+}
+
+/************************
+ * empth_request_shutdown
+ *
+ * This wakes up the main thread so shutdown can proceed.
+ * This is done by signalling hShutdownEvent.
+ */
+void
+empth_request_shutdown(void)
+{
+    SetEvent(loc_GVAR.hShutdownEvent);
+}
+
+/************************
+ * loc_BlockMainThread
+ *
+ * This blocks up the main thread.
+ * loc_WakeupMainThread() is used
+ * wakeup the main so shutdown can
+ * proceed.
+ */
+static void
+loc_BlockMainThread(void)
+{
+    /* Get the MUTEX semaphore, wait the number of MS */
+    WaitForSingleObject(loc_GVAR.hShutdownEvent, INFINITE);
+}
+
+/************************
  * empth_threadMain
  *
  * This is the main line of each thread.
@@ -344,7 +400,7 @@ empth_init(char **ctx_ptr, int flags)
     /* Initally unowned. */
     loc_GVAR.hThreadMutex = CreateMutex(NULL, FALSE, NULL);
     if (!loc_GVAR.hThreadMutex) {
-	logerror("Failed to create mutex");
+	logerror("Failed to create mutex %d", GetLastError());
 	return 0;
     }
 
@@ -352,9 +408,18 @@ empth_init(char **ctx_ptr, int flags)
     /* Automatic state reset. */
     loc_GVAR.hThreadStartEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (!loc_GVAR.hThreadStartEvent) {
-	logerror("Failed to create mutex");
+	logerror("Failed to create start event %d", GetLastError());
 	return 0;
     }
+
+    /* Create the shutdown event for the main thread. */
+    /* Manual reset */
+    loc_GVAR.hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+    if (!loc_GVAR.hShutdownEvent) {
+        logerror("Failed to create shutdown event %d", GetLastError());
+	return 0;
+    }
+    SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Ctrl_C_Handler, TRUE);
 
     /* Create the global Thread context. */
     pThread = (loc_Thread_t *)malloc(sizeof(*pThread));
@@ -469,17 +534,7 @@ empth_exit(void)
     loc_debug("empth_exit");
 
     if (pThread->bMainThread) {
-	if (daemonize)
-	    service_stopped(); /* Wait until the service is stopped */
-	else {
-	    while (1) { /* server UI - Wait forever. */
-		char buf[20];
-		printf("\nEmpire Server>");
-		fgets(buf, sizeof(buf), stdin);
-		if (!strnicmp(buf, "quit", 4))
-		    break;
-	    }
-	}
+	loc_BlockMainThread();
 	loc_RunThisThread();
 	shutdwn(0);
     } else {

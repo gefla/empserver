@@ -445,7 +445,7 @@ extern int command(void);
 extern int recvclient(s_char *, int);
 
 /* service.c */
-extern int service_stopped(void);
+extern void stop_service(void);
 /* more in service.h */
 
 /*

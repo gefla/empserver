@@ -105,6 +105,7 @@ typedef struct {
 typedef struct loc_Thread_t empth_t;
 typedef struct loc_Sem_t empth_sem_t;
 
+void empth_request_shutdown(void);
 #endif
 
 int empth_init(char **ctx, int flags);
