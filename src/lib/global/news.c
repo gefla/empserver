@@ -208,9 +208,9 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
 /* 68*/ "ship damaged by marine missile"}},
     {0, N_COLONY, {"pilgrims settle on a new island",
 /* 69*/ "discovers new land and starts a colony"}},
-    {0, N_MISS, {"abms intercept an incoming nuclear device",
+    {0, N_MISS, {"abms intercept an incoming sub-launched missile",
 /* 70*/
-		 "strategic defense systems destroy an incoming nuclear warhead"}},
+		 "strategic defense systems destroy an incoming sub-launched warhead"}},
     {-2, N_MISS, {"missile fired at %s ground troops",
 /* 71*/ "missile hits %s troops"}},
     {0, N_MISS, {"regiment struck by sub-launched missile",
