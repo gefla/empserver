@@ -165,13 +165,16 @@ gamedown(void)
 	close(downf);
 	return 1;
     }
+    if (tgm.tel_length >= (long)sizeof(buf)) {
+	logerror("text length (%d) is too long for login message (downfil)", tgm.tel_length);
+	close(downf);
+	return 1;
+    }
     if (read(downf, buf, tgm.tel_length) != tgm.tel_length) {
 	logerror("bad length %ld on login message", tgm.tel_length);
 	close(downf);
 	return 1;
     }
-    if (tgm.tel_length >= (long)sizeof(buf))
-	tgm.tel_length = sizeof(buf) - 1;
     buf[tgm.tel_length] = 0;
     prnf(buf);
     pr("\nThe game is down\n");

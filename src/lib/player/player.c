@@ -363,13 +363,16 @@ show_motd(void)
 	close(motdf);
 	return RET_FAIL;
     }
+    if (tgm.tel_length >= (long)sizeof(buf)) {
+	logerror("text length (%d) is too long for login message (motdfil)", tgm.tel_length);
+	close(motdf);
+	return RET_FAIL;
+    }
     if (read(motdf, buf, tgm.tel_length) != tgm.tel_length) {
 	logerror("bad length %ld on login message", tgm.tel_length);
 	close(motdf);
 	return RET_FAIL;
     }
-    if (tgm.tel_length >= (long)sizeof(buf))
-	tgm.tel_length = sizeof(buf) - 1;
     buf[tgm.tel_length] = 0;
     prnf(buf);
     (void)close(motdf);
