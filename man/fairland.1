@@ -13,6 +13,9 @@ fairland \- Empire land generator
 [
 .BI \-e\ configfile
 ]
+[
+.BI \-R\ seed
+]
 .IR nc
 .IR sc
 [
@@ -76,6 +79,14 @@ causes
 to use the game configuration specified in 
 .I configfile
 (by default, the file "econfig" in the data directory is used)
+.TP
+.BI \-R\ seed
+Use
+.I seed
+as seed for the pseudo-random number generator. This can be used to reproduce
+a previously created world. (by default the current time and process id of
+the server are used as seed.) The seed used to generate a world is printed
+along with the map.
 .TP
 .IR nc 
 number of continents

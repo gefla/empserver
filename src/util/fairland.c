@@ -69,6 +69,7 @@ static int quiet = 0;
 #endif /* aix or linux */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include "var.h"
 #include "misc.h"
@@ -127,6 +128,7 @@ int ctot;			/* total number of continents and islands grown */
 int *isecs;			/* array of how large each island is */
 
 int nc, sc, di, sp, pm, ni, is, id;	/* the 8 arguments to this program */
+unsigned long rnd_seed;		/* optional seed can be passed as an argument */
 int *capx, *capy;		/* location of the nc capitals */
 int *mc, mcc;			/* array and counter used for stability
 				   check when perturbing */
@@ -189,8 +191,11 @@ main(int argc, char *argv[])
     char tbuf[512];
     int i = 0;
 
+    rnd_seed = time(NULL);
 #if !defined(_WIN32)
-    while ((opt = getopt(argc, argv, "ae:ioqs:")) != EOF) {
+    rnd_seed += getpid();
+
+    while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
 	switch (opt) {
 	case 'a':
 	    AIRPORT_MARKER = 1;
@@ -210,9 +215,13 @@ main(int argc, char *argv[])
 	case 's':
 	    outfile = optarg;
 	    break;
+	case 'R':
+	    rnd_seed = strtoul(optarg, NULL, 10);
+	    break;
 	}
     }
 #endif
+    srandom(rnd_seed);
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
@@ -233,6 +242,8 @@ main(int argc, char *argv[])
 	if (!quiet && i)
 	    printf("\ntry #%d (out of %d)...", i + 1, NUMTRIES);
 	qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
+	if (!quiet)
+	    printf("seed is %lu\n", rnd_seed);
 	qprint("placing capitals...\n");
 	if (!drift())
 	    qprint("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
@@ -298,10 +309,11 @@ parse_args(int argc, char *argv[])
 {
     if (argc < 2 || argc > 8) {
 	puts("fairland syntax:\n");
-	puts("fairland [-e config] [-aiqo] [-s script] <nc> <sc> [<ni>] [<is>] [<sp>] [<pm>] [<di>] [<id>]");
+	puts("fairland [-e config] [-aiqo] [-s script] [-R seed] <nc> <sc> [<ni>] [<is>] [<sp>] [<pm>] [<di>] [<id>]");
 	puts("-q = quiet, -o = no ore produced");
 	puts("-a = Airport marker for continents, -i = islands not distinct");
-	printf("-e = read config file, -s = name of script (default %s)\n",
+	puts("-R = seed to use for random, -e = read config file");
+	printf("-s = name of script (default %s)\n",
 	       outfile);
 	puts("nc = number of continents [MANDATORY]");
 	puts("sc = continent size [MANDATORY]");
@@ -399,7 +411,6 @@ static int
 allocate_memory(void)
 {
     int i;
-    time_t now;
 
 #if !defined(_WIN32)
     the_file =
@@ -418,12 +429,6 @@ allocate_memory(void)
     sects = (struct sctstr **)calloc(YSIZE, sizeof(struct sctstr *));
     for (i = 0; i < YSIZE; i++)
 	sects[i] = &sectsbuf[XSIZE * i];
-    time(&now);
-#if !defined(_WIN32)
-    srandom(now + getpid());
-#else
-    srandom(now);
-#endif
     capx = (int *)calloc(nc, sizeof(int));
     capy = (int *)calloc(nc, sizeof(int));
     vector = (int *)calloc(WORLD_X + WORLD_Y, sizeof(int));
