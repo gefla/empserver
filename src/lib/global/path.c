@@ -44,7 +44,6 @@ s_char *downfil = EMPDIR "/data/down";
 s_char *disablefil = EMPDIR "/data/disable";
 s_char *telfil	= EMPDIR "/data/tel/tel";
 s_char *annfil	= EMPDIR "/data/ann";
-s_char *commfil = EMPDIR "/data/comm";
 s_char *banfil	= EMPDIR "/data/ban";
 s_char *authfil = EMPDIR "/data/auth";
 s_char *timestampfil = EMPDIR "/data/timestamp";

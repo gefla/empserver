@@ -385,7 +385,6 @@ static struct otherfiles ofiles[] = {
     {&disablefil, "disable"},
     {&banfil, "ban"},
     {&authfil, "auth"},
-    {&commfil, "comm"},
     {&annfil, "ann"},
     {&timestampfil, "timestamp"},
     {&teldir, "tel"},

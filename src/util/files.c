@@ -64,8 +64,6 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static void comminit(int fd);
-static int make(char *filename);
 static void file_sct_init(coord x, coord y, s_char *ptr);
 
 int
@@ -153,7 +151,6 @@ main(int argc, char *argv[])
 	putnat((&nat));
     }
     ef_close(EF_NATION);
-    comminit(make(commfil));
 #if !defined(_WIN32)
     if (access(teldir, F_OK) < 0 && mkdir(teldir, 0750) < 0) {
 #else
@@ -195,58 +192,6 @@ main(int argc, char *argv[])
     }
 
     exit(0);
-}
-
-static int
-make(char *filename)
-{
-    register int fd;
-
-#if !defined(_WIN32)
-    fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
-#else
-    fd = open(filename, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0600);
-#endif
-    if (fd < 0)
-	printf("Creation of %s failed.\n", filename);
-    return fd;
-}
-
-
-/*
- * commodity trading file special initialization
- */
-float file_comm[MAXNOC][I_MAX + 1];
-float file_price[MAXNOC][I_MAX + 1];
-float file_mult[MAXNOC][MAXNOC];
-
-#if !defined(_WIN32)
-static struct iovec tradevec[3] = {
-    {(caddr_t)file_comm, sizeof(file_comm)}
-    ,
-    {(caddr_t)file_price, sizeof(file_price)}
-    ,
-    {(caddr_t)file_mult, sizeof(file_mult)}
-};
-#endif
-
-static void
-comminit(int fd)
-{
-    int i;
-    int j;
-
-    for (i = 0; i < MAXNOC; i++)
-	for (j = 0; j < MAXNOC; j++)
-	    file_mult[i][j] = 1.0;
-#if !defined(_WIN32)
-    writev(fd, tradevec, 3);
-#else
-    write(fd, file_comm, sizeof(file_comm));
-    write(fd, file_price, sizeof(file_price));
-    write(fd, file_mult, sizeof(file_mult));
-#endif
-    close(fd);
 }
 
 static void

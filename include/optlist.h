@@ -209,7 +209,6 @@ extern s_char *downfil;
 extern s_char *disablefil;
 extern s_char *banfil;
 extern s_char *authfil;
-extern s_char *commfil;
 extern s_char *annfil;
 extern s_char *timestampfil;
 extern s_char *teldir;
