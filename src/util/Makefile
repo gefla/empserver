@@ -44,17 +44,15 @@ NTLIBS = $(LIBDIR)\libsubs.lib \
        $(LIBDIR)\libgen.lib \
        $(LIBDIR)\libglobal.lib
 
-OBJS = fairland.o files.o land.o ore.o pconfig.o perfect.o
+OBJS = fairland.o files.o pconfig.o
 
-NTOBJS = fairland.obj files.obj land.obj ore.obj pconfig.obj perfect.obj
+NTOBJS = fairland.obj files.obj pconfig.obj
 
 nt: ntfairland ntfiles ntpconfig
 
 all: fairland files pconfig
 
 osx: fairland files pconfig
-
-# all: $(OBJS) fairland files land ore pconfig perfect
 
 ntfiles: files.obj
 	link /OUT:files.exe \
@@ -68,12 +66,6 @@ ntfiles: files.obj
 files: files.o
 	$(CC) -o files $(IFLAGS) $(CFLAGS) files.o $(LIBS) $(LFLAGS) -lc
 
-land: land.o
-	$(CC) -o land $(IFLAGS) $(CFLAGS) land.o $(LIBS) $(LFLAGS) -lc
-
-ore: ore.o
-	$(CC) -o ore $(IFLAGS) $(CFLAGS) ore.o $(LIBS) $(LFLAGS) -lc
-
 fairland: fairland.o
 	$(CC) -o fairland $(IFLAGS) $(CFLAGS) fairland.o $(LIBS) $(LFLAGS) -lc
 
@@ -85,9 +77,6 @@ ntfairland: fairland.obj
         wsock32.lib \
         libcmt.lib \
         oldnames.lib
-
-perfect: perfect.o
-	$(CC) -o perfect $(IFLAGS) $(CFLAGS) perfect.o $(LIBS) $(LFLAGS) -lc
 
 pconfig: pconfig.o
 	$(CC) -o pconfig $(IFLAGS) $(CFLAGS) pconfig.o $(LIBS) $(LFLAGS) -lc
@@ -102,25 +91,19 @@ ntpconfig: pconfig.o
         oldnames.lib
 
 clean:
-	-(rm -f files land ore fairland perfect pconfig $(OBJS))
+	-(rm -f files fairland pconfig $(OBJS))
 	-(del /q *.exe *.pdb *.ilk $(NTOBJS))
 
 install:
 	-(mkdir $(EMPDIR)/bin)
 	-(cp files $(EMPDIR)/bin)
-#	-(cp land $(EMPDIR)/bin)
-#	-(cp ore $(EMPDIR)/bin)
 	-(cp fairland $(EMPDIR)/bin)
-#	-(cp perfect $(EMPDIR)/bin)
 	-(cp pconfig $(EMPDIR)/bin)
 
 ntinstall:
 	-(mkdir $(NTINSTDIR)\bin)
 	-(copy files.exe $(NTINSTDIR)\bin)
-#	-(copy land.exe $(NTINSTDIR)\bin)
-#	-(copy ore.exe $(NTINSTDIR)\bin)
 	-(copy fairland.exe $(NTINSTDIR)\bin)
-#	-(copy perfect.exe $(NTINSTDIR)\bin)
 	-(copy pconfig.exe $(NTINSTDIR)\bin)
 
 include ../make.rules
