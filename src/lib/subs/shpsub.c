@@ -956,9 +956,10 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	if (vec[I_MILIT] < 1)	/* do we have mil? */
 	    continue;
 	if (vec[I_SHELL] < 2) {	/* do we need shells */
-	    if (vec[I_SHELL] += supply_commod(ship.shp_own,
-					      ship.shp_x,
-					      ship.shp_y, I_SHELL, 2) < 2)
+	    vec[I_SHELL] += supply_commod(ship.shp_own,
+					  ship.shp_x, ship.shp_y,
+					  I_SHELL, 2);
+	    if (vec[I_SHELL] < 2)
 		continue;
 	}
 	if (vec[I_GUN] < 1)	/* we need at least 1 gun */
