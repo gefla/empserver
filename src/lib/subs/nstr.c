@@ -168,7 +168,6 @@ encode(register s_char *str, long int *val, int type)
 		   sizeof(struct castr));
 	if (i >= 0) {
 	    *val = cap[i].ca_code;
-	    *val &= ~NSC_ROUND;
 	    return legal_val(str, *val);
 	}
 	if (i == M_NOTUNIQUE) {
@@ -184,7 +183,7 @@ encode(register s_char *str, long int *val, int type)
 	i = stmtch(str, (caddr_t)var_ca, fldoff(castr, ca_name),
 		   sizeof(struct castr));
 	if (i >= 0) {
-	    *val = var_ca[i].ca_code & ~NSC_ROUND;
+	    *val = var_ca[i].ca_code;
 	    return legal_val(str, *val);
 	}
 	if (i == M_NOTUNIQUE) {
@@ -267,8 +266,6 @@ decode(natid cnum, long int code, void *addr, int type)
 	    break;
 	}
     }
-    if (code & NSC_ROUND)
-	val = roundintby(val, 10);
     return val;
 }
 

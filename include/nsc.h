@@ -86,49 +86,47 @@ struct nstr_item {
 #define NS_GROUP	6
 
 /*
- * looks something like this:
- * D: only deity can query on this field
- * R: round this value to the nearest 10 if not owner
- * T: type of pointer.
- * C: catagory of value.
- * V: value.
+ * codes looks like this:
+ * D: is access restricted to deity?
+ * T: type of member addressed by offset, if category NSC_OFF
+ * C: category of value
+ * V: value
  *
- * 22 2  1 1    1
- * 32 0  8 6    2    8    4    0
- * xxxx xxxx xxxx xxxx xxxx xxxx
- * DRTT TTCC VVVV VVVV VVVV VVVV
+ * 2 2  1 1    1
+ * 2 0  8 6    2    8    4    0
+ * xxx xxxx xxxx xxxx xxxx xxxx
+ * DTT TTCC VVVV VVVV VVVV VVVV
  */
 
 /*
- * catagories
+ * categories
  */
-#define NSC_VAL		(0)	/* normal number */
-#define	NSC_VAR		(1<<16)	/* is a vtype */
-#define NSC_OFF		(2<<16)	/* is an offset */
-#define	NSC_CMASK	(3<<16)
+#define NSC_VAL		(0)	/* value is plain number */
+#define NSC_VAR		(1<<16)	/* value is a vtype */
+#define NSC_OFF		(2<<16)	/* value is an offset */
+#define NSC_CMASK	(3<<16)
 
 /*
  * how to interpret "offset" fields
  */
-#define NSC_CHAR	(1<<18)	/* pointer to s_char */
-#define NSC_UCHAR	(2<<18)	/* pointer to uchar */
-#define NSC_SHORT	(3<<18)	/* pointer to short */
-#define NSC_USHORT	(4<<18)	/* pointer to unsigned short */
-#define NSC_INT		(5<<18)	/* pointer to int */
-#define NSC_LONG	(6<<18)	/* pointer to long */
-#define NSC_XCOORD	(7<<18)	/* pointer to coord that needs x conversion */
-#define NSC_YCOORD	(8<<18)	/* pointer to coord that needs y conversion */
-#define NSC_FLOAT	(9<<18)	/* pointer to float */
-#define NSC_CHARP	(10<<18)	/* pointer to string pointer */
-#define NSC_TIME        (11<<18)	/* pointer to time_t */
+#define NSC_CHAR	(1<<18)	/* offset of s_char member */
+#define NSC_UCHAR	(2<<18)	/* offset of unsigned char member */
+#define NSC_SHORT	(3<<18)	/* offset of short */
+#define NSC_USHORT	(4<<18)	/* offset of unsigned short member */
+#define NSC_INT		(5<<18)	/* offset of int member */
+#define NSC_LONG	(6<<18)	/* offset of long member */
+#define NSC_XCOORD	(7<<18)	/* offset of coord that needs x conversion */
+#define NSC_YCOORD	(8<<18)	/* offset of coord that needs y conversion */
+#define NSC_FLOAT	(9<<18)	/* offset of float member */
+#define NSC_CHARP	(10<<18) /* offset of char *member */
+#define NSC_TIME	(11<<18) /* offset of time_t member */
 #define NSC_TMASK	(15<<18)
 
-#define NSC_NATID	NSC_UCHAR	/* change if natid typedef changes */
+#define NSC_NATID	NSC_UCHAR /* must match natid */
 
 #define NSC_MASK	(0xffff0000)
 
-#define NSC_ROUND	(1<<22)
-#define NSC_DEITY	(1<<23)
+#define NSC_DEITY	(1<<22)
 
 struct castr {
     long ca_code;		/* encoded form */
