@@ -123,8 +123,6 @@ EMPCFBOTH("war_cost", War_Cost, int, intset, 0,
 EMPCF_COMMENT("\n\n### Technology/Research/Education/Happiness")
 EMPCFBOTH("easy_tech", easy_tech, float, floatset, 0,
     "Amount of tech built with no penalty")
-EMPCFBOTH("hard_tech", hard_tech, float, floatset, 0,
-    "Amount of in-efficiently built tech")
 EMPCFBOTH("start_tech", start_technology, float, floatset, 0,
     "Starting technology for new countries")
 EMPCFBOTH("start_happy", start_happiness, float, floatset, 0,
@@ -291,7 +289,7 @@ EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, floatset, 0,
     "Bonus your ally gets for you cashing in with them")
 
 EMPCF_COMMENT("\n\n### Misc.")
-EMPCFBOTH("anno_keep_days", anno_keep_days, int, intset, 7,
+EMPCFBOTH("anno_keep_days", anno_keep_days, int, intset, 0,
 	  "How long until announcements expire (<0 means never)")
 EMPCFBOTH("fuel_mult", fuel_mult, int, intset, 0,
     "Multiplier for fuel to mobility calculation")

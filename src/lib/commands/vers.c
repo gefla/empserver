@@ -114,7 +114,6 @@ vers(void)
        (int)(level_age_rate));
 
     pr("Tech Buildup is ");
-/*	if (tech_log_base <= 1.0 && hard_tech == 0.0) { */
     if (tech_log_base <= 1.0) {
 	pr("not limited\n");
     }
@@ -125,14 +124,6 @@ vers(void)
 	else
 	    pr(" after %0.2f.\n", easy_tech);
     }
-    /*else {
-       pr("limited to asymptotic growth towards %.2f",
-       hard_tech + easy_tech);
-       if (easy_tech == 0.00) 
-       pr(".\n");
-       else
-       pr("after %.2f\n",easy_tech);
-       } */
     pr("\n");
     pr("\t\t\t\tSectors\tShips\tPlanes\tUnits\n");
     pr("Maximum mobility\t\t%d\t%d\t%d\t%d\n", sect_mob_max,
