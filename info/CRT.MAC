@@ -11,8 +11,6 @@
 .ds bF \\fR
 .\" Italic Font
 .ds iF \\fR
-.\" Large Font
-.ds lF \\fR
 .\" Previous Font
 .ds pF \\fP
 .\" Character spacing string

@@ -100,6 +100,16 @@ Level: \\$1
 .\" Print 1st arg + 2 spaces
 \\$1\0\0\c
 ..
+.de SH                  \" Start of macro SH -- section heading
+.s1
+\s+2\*(bF\\$1\*(pF\s0
+.sp 0.6
+..
+.de SS                  \" Start of macro SS -- subsection heading
+.s1
+\*(bF\\$1\*(pF
+.sp 0.6
+..
 .de NF          \" Start of macro NF
 .nf             \" No-fill
 .\" Constant width 26/36 ens

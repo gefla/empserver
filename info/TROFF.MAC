@@ -11,8 +11,6 @@
 .ds bF \\fB
 .\" italic Font - Times Italic
 .ds iF \\fI
-.\" large Font - Times Roman
-.ds lF \\fR
 .\" previous Font - A special way to switch
 .ds pF \\fP
 .\" Character spacing string
