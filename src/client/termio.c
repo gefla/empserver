@@ -98,6 +98,7 @@ termio(int fd, int sock, FILE *auxfi)
 	    }
 	}
 	FlushConsoleInputBuffer(hStdIn);
+	if (n == 0) return 1;
     } else {
 	n = read(fd, p, sizeof(buf) - i);
     }

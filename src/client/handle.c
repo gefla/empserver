@@ -34,6 +34,8 @@
 
 #if !defined(_WIN32)
 #include <unistd.h>
+#else
+#include <winsock.h>
 #endif
 #include "misc.h"
 
@@ -42,7 +44,11 @@ handleintr(int s)
 {
     if (interrupt) {
 	/* tacky, but it works */
+#if !defined(_WIN32)
 	if (write(s, "\naborted\n", 1 + 7 + 1) <= 0)
+#else
+	if (send(s, "\naborted\n", 1 + 7 + 1, 0) <= 0)
+#endif
 	    return 0;
 	interrupt = 0;
     }

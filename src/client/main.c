@@ -250,6 +250,11 @@ main(int ac, s_char **av)
 	FD_SET(sock, &readfds);
 	n = select(sock + 1, &readfds, (fd_set *) 0, (fd_set *) 0,
 		   (struct timeval *)&tm);
+	if (interrupt) {
+	    if (!handleintr(sock))
+		break;
+	    errno = 0;
+	}
 	if (n < 0) {
 	    if (errno == EINTR) {
 		errno = WSAGetLastError();
@@ -288,6 +293,9 @@ static void
 intr(int sig)
 {
     interrupt++;
+#ifdef _WIN32
+    signal(SIGINT, intr);
+#endif
 #ifdef hpux
     signal(SIGINT, intr);
 #endif
