@@ -76,7 +76,12 @@ struct mob_acc_globals {
 };
 
 #define ANNO_KEEP_DAYS 7	/* Keep announcements around for this many days */
+/* This uses a lot of thread stack with some versions of GNU libc,
+   which can lead to nasty heap smashes (observed with 2.2.93).
+   Disabled for now, until we readjust thread stack sizes.  */
+#if 0
 #define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
+#endif
 
 typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 
