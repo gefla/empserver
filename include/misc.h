@@ -51,17 +51,6 @@ typedef unsigned short u_short;
 typedef char *caddr_t;
 typedef unsigned int u_int;
 
-/* Promote warning to error - undefined function. assuming eternal int */
-#pragma warning (error : 4013 )
-/* Promote warning to error - Too many actual parameters */
-#pragma warning (error : 4020 )
-/* Promote warning to error - different types for formal and actual parameter */
-#pragma warning (error : 4024 )
-/* Promote warning to error - Formal parameter different from declaration */
-#pragma warning (error : 4028 )
-/* Promote warning to error - Parameters to void function. */
-#pragma warning (error : 4087 )
-
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
