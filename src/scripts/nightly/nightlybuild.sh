@@ -104,6 +104,7 @@ then
 	echo "Applying local patches from ${LOCALPATCHDIR}:"
 	for i in "${LOCALPATCHDIR}"/*.patch
 	do
+		[ -r "${i}" ] || continue
 		if patch -Np0 < "${i}" >/dev/null
 		then
 			echo "${i}: OK"
