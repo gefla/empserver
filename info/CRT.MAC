@@ -20,8 +20,8 @@
 .\" Special strings for special characters, including smart quotes.
 .ds <= <=
 .ds >= >=
-.ds Q "
-.ds U "
+.ds Q \&"
+.ds U \&"
 .pl 23v         \" Page length: 23 lines
 .ll 7.8i        \" Line length: 7.8 inches
 .ev 1
