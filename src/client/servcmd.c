@@ -38,6 +38,7 @@
 #include "ioqueue.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <fcntl.h>
 #if !defined(_WIN32)
@@ -61,7 +62,6 @@ void dopipe();
 void doexecute();
 void output();
 void screen();
-void free();
 int sendeof();
 int termio();
 void _noecho();
@@ -219,7 +219,6 @@ void
 dopipe(p)
 s_char *p;
 {
-    extern FILE *popen();
     s_char *tag;
 
     if (*p == '|')

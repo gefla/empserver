@@ -35,22 +35,17 @@
 #include "misc.h"
 #include "tags.h"
 
+#include <stdlib.h>
 #include <stdio.h>
-
-#ifdef Rel4
 #include <string.h>
-#endif /* Rel4 */
-
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
 
 struct tagstruct *taglist;
 s_char buf[4096];
-u_short tagnum;
 s_char exec[8];
-
-void free();
+static unsigned short tagnum;
 
 void
 io_init()

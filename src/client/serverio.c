@@ -36,17 +36,16 @@
 #include "ioqueue.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
 
 #ifdef _WIN32
-#include <malloc.h>
 #include <winsock.h>
 #endif
 
-void free();
 void ioq_write();
 
 int
@@ -54,11 +53,6 @@ serverio(s, ioq)
 int s;
 struct ioqueue *ioq;
 {
-#ifndef _WIN32
-    extern s_char *realloc();
-#else
-    extern void *realloc();
-#endif
     s_char *buf;
     int n;
 

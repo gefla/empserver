@@ -33,8 +33,10 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #ifndef _WIN32
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
@@ -50,9 +52,6 @@ hostaddr(name, addr)
 s_char *name;
 struct sockaddr_in *addr;
 {
-#ifndef _WIN32
-    extern u_long inet_addr();
-#endif
     struct hostent *hp;
 
     if (name == 0 || *name == 0)
@@ -80,9 +79,6 @@ s_char *name;
 struct sockaddr_in *addr;
 {
     struct servent *sp;
-#ifndef _WIN32
-    int atoi();
-#endif
 
     if (name == 0 || *name == 0)
 	return 0;

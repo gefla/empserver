@@ -32,6 +32,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #ifndef _WIN32
 #include <sys/uio.h>
@@ -58,7 +59,6 @@ void insque();
 void remque();
 void initque();
 struct qelem *makeqt();
-void free();
 
 void
 ioq_init(ioq, bsize)
@@ -193,8 +193,7 @@ int cc;
  * this routine doesn't free memory; this is
  * left for a higher level.
  */
-static
-    int
+static int
 ioqtobuf(ioq, buf, cc)
 register struct ioqueue *ioq;
 s_char *buf;
@@ -234,8 +233,7 @@ int cc;
  * with one writev for example.  This makes the processing
  * of a full ioqueue still be quick.
  */
-static
-    int
+static int
 ioqtoiov(ioq, iov, max)
 register struct ioqueue *ioq;
 register struct iovec *iov;
@@ -286,8 +284,7 @@ int cc;
  * free memory, dequeue io elements
  * which are no longer used.
  */
-static
-    int
+static int
 dequeuecc(ioq, cc)
 register struct ioqueue *ioq;
 register int cc;

@@ -33,6 +33,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include "misc.h"
 
@@ -65,7 +66,6 @@ void
 getsose()
 {
 #ifndef _WIN32
-    extern s_char *getenv();
     extern s_char *tgetstr();
 #endif
     static s_char tbuf[1024];

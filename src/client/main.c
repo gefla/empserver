@@ -42,6 +42,9 @@
 #include "ioqueue.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/time.h>
 #ifndef _WIN32
 #include <pwd.h>
 #endif
@@ -98,7 +101,6 @@ s_char *av[];
     SECURITY_ATTRIBUTES security;
     void intr(void);
 #endif
-    extern s_char *getenv();
     extern s_char empireport[];
     extern s_char empirehost[];
     fd_set mask;

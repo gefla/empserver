@@ -31,6 +31,7 @@
  *     Steve McClure, 1998
  */
 
+#include <stdlib.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -68,7 +69,6 @@ struct qelem *
 makeqt(nelem)
 int nelem;
 {
-    extern s_char *malloc();
     struct qelem *table;
     struct qelem *qp;
     int i;

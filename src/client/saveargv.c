@@ -31,6 +31,8 @@
  *  
  */
 
+#include <stdlib.h>
+#include <string.h>
 #include "misc.h"
 
 void
@@ -39,8 +41,6 @@ int ac;
 s_char **src;
 s_char **dst;
 {
-    extern s_char *strcpy();
-    extern s_char *malloc();
     register s_char *ptr;
     register int i;
 
