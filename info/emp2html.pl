@@ -8,7 +8,7 @@ my @a;
 
 line: while (<>) {
     chomp;			# strip record separator
-    s/([^\\](\\\\)*)\\\".*/$1/g;# strip comments
+    s/([^\\](\\\\)*)\\\".*/$1/g; # strip comments
 
     @a = req($_);
 
@@ -72,7 +72,7 @@ sub req {
     if (/^([\.\'])[ \t]*([^ ]+) *(.*)/) {
 	my @a = ($1, $2);
 	$_ = $3;
-	while (/(\"((\\.|[^\\\"])*)(\"|$))|(([^ ]|\\.)+) */g) {
+	while (/(\"((\\.|[^\\\"])*)(\"|\Z))|(([^ ]|\\.)+) */g) {
 	    push(@a, $2 || $5);
 	}
 	return @a;
@@ -98,38 +98,38 @@ sub anchor {
 
 # Translate HTML special characters into escape sequences
 sub htmlify {
-        local ($_) = @_;
-	die "funny escape character `$esc' not supported"
-	    if $esc && $esc ne "\\";
-	# translate some troff escapes
-	s/\\&//g if $esc;	# zero width space character
-	# escape HTML special characters
-        s/\&/&amp;/g;
-        s/\</&lt;/g;
-        s/\>/&gt;/g;
-	return $_ unless $esc;
-	# translate more troff escapes
-	s/\\e/&\#92;/g;		# escape character
-	# turn quoted strings that look like info names into links
-	# tacky...
-	while (/(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
-	    $_ = $` . anchor($2) . "$'";
-	}
-	while (/(\"info )([A-Za-z0-9\-\.]+)/) {
-	    $_ = "$`\"info " . anchor($2) . "$'";
-	}
-	# tranlate more troff escapes and strings
-        s/\\\*Q/<em>/g;
-        s/\\\*U/<\/em>/g;
-        s/\\fI/<em>/g;
-        s/\\fR/<\/em><\/em>/g;
-        s/\\fB/<strong>/g;
-        s/\\fP/<\/strong><\/em>/g;
-	s/\\\*\(bF/<strong>/g;	# bold font
-	s/\\\*\(pF/<\/strong><\/em>/g; # pica font
-	s/\\\*\(nF/<\/strong><\/em>/g; # normal font
-	s/\\\*\(iF/<em>/g;	# italic font
-	s/\\\(mu/x/g;		# multiply symbol
-	s/\\ /&nbsp;/g;		# non breaking space
-        return $_;
+    local ($_) = @_;
+    die "funny escape character `$esc' not supported"
+	if $esc && $esc ne "\\";
+    # translate some troff escapes
+    s/\\&//g if $esc;		# zero width space character
+    # escape HTML special characters
+    s/\&/&amp;/g;
+    s/\</&lt;/g;
+    s/\>/&gt;/g;
+    return $_ unless $esc;
+    # translate more troff escapes
+    s/\\e/&\#92;/g;		# escape character
+    # turn quoted strings that look like info names into links
+    # tacky...
+    while (/(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
+	$_ = $` . anchor($2) . "$'";
+    }
+    while (/(\"info )([A-Za-z0-9\-\.]+)/) {
+	$_ = "$`\"info " . anchor($2) . "$'";
+    }
+    # tranlate more troff escapes and strings
+    s/\\\*Q/<em>/g;
+    s/\\\*U/<\/em>/g;
+    s/\\fI/<em>/g;
+    s/\\fR/<\/em><\/em>/g;
+    s/\\fB/<strong>/g;
+    s/\\fP/<\/strong><\/em>/g;
+    s/\\\*\(bF/<strong>/g;	# bold font
+    s/\\\*\(pF/<\/strong><\/em>/g; # pica font
+    s/\\\*\(nF/<\/strong><\/em>/g; # normal font
+    s/\\\*\(iF/<em>/g;		# italic font
+    s/\\\(mu/x/g;		# multiply symbol
+    s/\\ /&nbsp;/g;		# non breaking space
+    return $_;
 }
