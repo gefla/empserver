@@ -53,6 +53,13 @@ typedef unsigned int u_int;
 #define random rand
 #define srandom srand
 
+#define strncasecmp(s1, s2, s3) _strnicmp(s1, s2, s3)
+#define mkdir(dir,perm) _mkdir(dir)
+/* used for access */
+#define F_OK 0  // FILE existence
+#define W_OK 02 // Write permission
+#define R_OK 04 // Read permission
+
 /*#define _POSIX_ */
 #endif
 
