@@ -157,8 +157,6 @@ struct rptstr {
 #define N_TELE          11
 #define	N_MAX_PAGE	11
 
-#define	NEWS_PERIOD	days(10)
-
 #define getnews(n, p) \
 	ef_read(EF_NEWS, n, p)
 #define putnews(n, p) \

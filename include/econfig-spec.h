@@ -291,6 +291,8 @@ EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, NSC_FLOAT, 0,
 EMPCF_COMMENT("\n\n### Misc.")
 EMPCFBOTH("anno_keep_days", anno_keep_days, int, NSC_INT, KM_INTERNAL,
 	  "How long until announcements expire (<0 means never)")
+EMPCFBOTH("news_keep_days", news_keep_days, int, NSC_INT, KM_INTERNAL,
+	  "How long until news expire")
 EMPCFBOTH("fuel_mult", fuel_mult, int, NSC_INT, 0,
     "Multiplier for fuel to mobility calculation")
 EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, NSC_INT, KM_INTERNAL,

@@ -38,6 +38,7 @@
 #include "file.h"
 #include "empio.h"
 #include <fcntl.h>
+#include "optlist.h"
 #include "prototypes.h"
 
 static void filereport(int, int, int, int);
@@ -105,13 +106,11 @@ addfree(int n)
 static void
 findfree(void)
 {
-    register time_t oldnewstime;
-    register int n;
+    time_t oldnewstime;
+    int n;
     struct nwsstr news;
-    time_t newstime;
 
-    (void)time(&newstime);
-    oldnewstime = newstime - NEWS_PERIOD;
+    oldnewstime = time(NULL) - days(news_keep_days);
     for (n = 0; getnews(n, &news); n++) {
 	if (news.nws_when < oldnewstime)
 	    addfree(n);
