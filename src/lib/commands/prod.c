@@ -80,7 +80,6 @@ prod(void)
     int cost;
     int i;
     int max;			/* production w/infinate materials */
-    double maxtake;
     int nsect;
     double take;
     double mtake;
@@ -227,11 +226,6 @@ prod(void)
 	    unit_work++;
 	    resource = ((s_char *)&sect) + pp->p_nrndx;
 	    p_e = (*resource * p_e) / 100.0;
-	    if (pp->p_nrdep > 0) {
-		maxtake = (*resource * 100.0) / pp->p_nrdep;
-		if (p_e > maxtake)
-		    p_e = maxtake;
-	    }
 	}
 	/*
 	 * production effic.

@@ -64,7 +64,6 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     int output;
     int actual;
     int unit_work;
-    double depend;
     int item;
     int worker_limit;
     int material_limit;
@@ -89,12 +88,6 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	unit_work++;
 	resource = ((s_char *)sp) + product->p_nrndx;
 	p_e = (*resource * p_e) / 100.0;
-	if (product->p_nrdep > 0) {
-	    /* XXX this looks way wrong */
-	    depend = (*resource * 100.0) / product->p_nrdep;
-	    if (p_e > depend)
-		p_e = depend;
-	}
     }
     /*
      * determine number that can be made with
