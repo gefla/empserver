@@ -208,12 +208,13 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 
 void
 pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
-	    s_char *ptr, int type)
+	    void *ptr, int type)
 {
     struct emp_qelem *qp;
     struct plist *plp;
     int amt;
-    struct shpstr *ship;
+    struct sctstr *sectp;
+    struct shpstr *sp;
     int there;
     int max;
     struct mchrstr *mp;
@@ -225,54 +226,52 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	plp = (struct plist *)qp;
 	amt += plp->misc;
     }
-    if (type == EF_SECTOR &&
-	(((struct sctstr *)ptr)->sct_type == SCT_WATER) &&
-	ip->i_vtype == V_SHELL) {
-	((struct sctstr *)ptr)->sct_mines += amt;
-	pr("%d mines laid in %s.\n", amt,
-	   xyas(((struct sctstr *)ptr)->sct_x,
-		((struct sctstr *)ptr)->sct_y, player->cnum));
-	if (amt > 0 &&
-	    map_set(player->cnum, ((struct sctstr *)ptr)->sct_x,
-		    ((struct sctstr *)ptr)->sct_y, 'X', 0))
-	    writemap(player->cnum);
+    if (type == EF_SECTOR) {
+	sectp = ptr;
+	if (sectp->sct_type == SCT_WATER && ip->i_vtype == V_SHELL) {
+	    /* aerial mining */
+	    sectp->sct_mines += amt;
+	    pr("%d mines laid in %s.\n", amt,
+	       xyas(sectp->sct_x, sectp->sct_y, player->cnum));
+	    if (amt > 0
+		&& map_set(player->cnum, sectp->sct_x, sectp->sct_y, 'X', 0))
+		writemap(player->cnum);
+	    putsect(sectp);
+	    return;
+	}
+	there = sectp->sct_item[ip->i_vtype];
+	max = 32767;
+    } else {
+	sp = ptr;
+	there = sp->shp_item[ip->i_vtype];
+	mp = &mchr[(int)sp->shp_type];
+	max = vl_find(ip->i_vtype, mp->m_vtype,
+		      mp->m_vamt, (int)mp->m_nv);
+    }
+    there += amt;
+    if (there > max) {
+	pr("%d excess %s discarded\n", max - there, ip->i_name);
+	amt = max - there;
+	there = max;
+    }
+    pr("%d %s landed safely", amt, ip->i_name);
+    if (type == EF_SECTOR) {
+	sectp = ptr;
+	sectp->sct_item[ip->i_vtype] = there;
+	if (sectp->sct_own != player->cnum)
+	    wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
+	       cname(player->cnum), amt, ip->i_name,
+	       xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
+	pr(" at %s\n", xyas(tx, ty, player->cnum));
 	putsect((struct sctstr *)ptr);
     } else {
-	if (type == EF_SHIP) {
-	    ship = (struct shpstr *)ptr;
-	    there = ship->shp_item[ip->i_vtype];
-	    mp = &mchr[(int)ship->shp_type];
-	    max = vl_find(ip->i_vtype, mp->m_vtype,
-			  mp->m_vamt, (int)mp->m_nv);
-	} else {
-	    there = ((struct sctstr *)ptr)->sct_item[ip->i_vtype];
-	    max = 32767;
-	}
-	there += amt;
-	if (there > max) {
-	    pr("%d excess %s discarded\n", max - there, ip->i_name);
-	    amt = max - there;
-	    there = max;
-	}
-	pr("%d %s landed safely", amt, ip->i_name);
-	if (type == EF_SECTOR) {
-	    struct sctstr *sectp = (struct sctstr *)ptr;
-	    sectp->sct_item[ip->i_vtype] = there;
-	    if (sectp->sct_own != player->cnum)
-		wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
-		   cname(player->cnum), amt, ip->i_name,
-		   xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    pr(" at %s\n", xyas(tx, ty, player->cnum));
-	    putsect((struct sctstr *)ptr);
-	} else {
-	    struct shpstr *sp = (struct shpstr *)ptr;
-	    sp->shp_item[ip->i_vtype] = there;
-	    if (sp->shp_own != player->cnum)
-		wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
-		   cname(player->cnum), amt, ip->i_name, sp->shp_uid);
-	    pr(" on carrier #%d\n", ship->shp_uid);
-	    putship(ship->shp_uid, ship);
-	}
+	struct shpstr *sp = (struct shpstr *)ptr;
+	sp->shp_item[ip->i_vtype] = there;
+	if (sp->shp_own != player->cnum)
+	    wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
+	       cname(player->cnum), amt, ip->i_name, sp->shp_uid);
+	pr(" on carrier #%d\n", sp->shp_uid);
+	putship(sp->shp_uid, sp);
     }
 }
 

@@ -395,8 +395,8 @@ extern int pln_onewaymission(struct sctstr *, int *, int *);
 extern void pln_newlanding(struct emp_qelem *, coord, coord, int);
 extern int can_be_on_ship(int, int);
 extern int put_plane_on_ship(struct plnstr *, struct shpstr *);
-extern void pln_dropoff(struct emp_qelem *, struct ichrstr *, coord,
-			coord, s_char *, int);
+extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
+			coord, coord, void *, int);
 extern void pln_sel(struct nstr_item *, struct emp_qelem *,
 		    struct sctstr *, int, int, int, int);
 extern int pln_arm(struct emp_qelem *, int, int, struct ichrstr *,
