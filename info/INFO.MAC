@@ -1,8 +1,6 @@
 .\" EMPIRE TROFF MACRO FILE
 .\"
 .\"
-.\" $Header: INFO.MAC,v 1.6 89/09/29 01:55:49 mr-frog Exp $
-.\"
 .\" The TH Macro is for specifying the title of a new section
 .\"
 .\" In english:
