@@ -138,14 +138,19 @@ map(void)
 	    where = 2;
 	    break;
 	case 't':
+	    if (!bmap)
+		goto bad_flag;
 	    bmap = EF_MAP;
 	    *(b + 1) = 0;
 	    break;
 	case 'r':
+	    if (!bmap)
+		goto bad_flag;
 	    bmap = EF_MAP + EF_BMAP;
 	    *(b + 1) = 0;
 	    break;
 	default:
+	bad_flag:
 	    pr("Bad flag %c!\n", *b);
 	    break;
 	}
