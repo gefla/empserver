@@ -41,9 +41,9 @@
 #include "common.h"
 
 int
-max_pop(float research, struct sctstr *sp)
+max_population(float research, int desig, int eff)
 {
-    int maxpop = dchr[sp ? sp->sct_type : SCT_MINE].d_maxpop;
+    int maxpop = dchr[desig].d_maxpop;
 
     if (opt_RES_POP) {
 	/* research limits maximum population */
@@ -55,10 +55,17 @@ max_pop(float research, struct sctstr *sp)
 
     if (opt_BIG_CITY) {
 	/* city efficiency limits maximum population */
-	if (sp && dchr[sp->sct_type].d_pkg == UPKG)
-	    maxpop = (int)(maxpop * ((9.0 * sp->sct_effic) / 100 + 1));
+	if (dchr[desig].d_pkg == UPKG)
+	    maxpop *= 1 + 9.0 * eff / 100;
 	if (CANT_HAPPEN(maxpop > 9999))
 	    maxpop = 9999;
     }
+
     return maxpop;
+}
+
+int
+max_pop(float research, struct sctstr *sp)
+{
+    return max_population(research, sp->sct_type, sp->sct_effic);
 }

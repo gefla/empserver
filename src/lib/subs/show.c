@@ -655,12 +655,9 @@ void
 show_sect_stats(int foo)
 {
     int x, first = 1;
-    struct sctstr sect;
     struct natstr *natp;
 
     natp = getnatp(player->cnum);
-    /* We fake this */
-    sect.sct_effic = 100;
     for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
@@ -669,7 +666,6 @@ show_sect_stats(int foo)
 	    pr("  sector type           mcost    off   def   mil  uw civ bar other   pop\n");
 	    first = 0;
 	}
-	sect.sct_type = x;
 	pr("%c %-23s %3d  %5.2f %5.2f   %3d %3d %3d %3d %5d %5d\n",
 	   dchr[x].d_mnem, dchr[x].d_name,
 	   dchr[x].d_mcst, dchr[x].d_ostr,
@@ -679,7 +675,7 @@ show_sect_stats(int foo)
 	   ichr[I_CIVIL].i_pkg[dchr[x].d_pkg],
 	   ichr[I_BAR].i_pkg[dchr[x].d_pkg],
 	   ichr[I_LCM].i_pkg[dchr[x].d_pkg],
-	   max_pop(natp->nat_level[NAT_RLEV], &sect));
+	   max_population(natp->nat_level[NAT_RLEV], x, 100));
     }
 }
 

@@ -330,6 +330,7 @@ extern s_char *BestShipPath(s_char *, int, int, int, int, int);
 extern s_char *BestAirPath(s_char *, int, int, int, int);
 extern double pathcost(struct sctstr *, s_char *, int);
 /* res_pop.c */
+extern int max_population(float, int, int);
 extern int max_pop(float, struct sctstr *);
 /* sectdamage.c */
 extern int sect_damage(struct sctstr *, int, struct emp_qelem *);

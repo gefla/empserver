@@ -144,8 +144,10 @@ prod(void)
 		if (!eff && dchr[otype].d_pkg == UPKG &&
 		    dchr[type].d_pkg != UPKG) {
 		    natp = getnatp(sect.sct_own);
-		    civs = min(civs, max_pop(natp->nat_level[NAT_RLEV], 0));
-		    uws = min(uws, max_pop(natp->nat_level[NAT_RLEV], 0));
+		    maxpop = max_population(natp->nat_level[NAT_RLEV],
+					    type, eff);
+		    civs = min(civs, maxpop);
+		    uws = min(uws, maxpop);
 		    wforce = (int)(((double)civs * sect.sct_work) / 100.0
 				   + uws
 				   + sect.sct_item[I_MILIT] * 2 / 5.0);

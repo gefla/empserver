@@ -329,7 +329,7 @@ gen_power(void)
 
 	if (opt_RES_POP) {
 	    np = getnatp(i);
-	    maxpop = max_pop(np->nat_level[NAT_RLEV], 0);
+	    maxpop = max_population(np->nat_level[NAT_RLEV], SCT_MINE, 0);
 	    f = 1.0 + (((float)maxpop) / 10000.0);
 	}
 	powbuf[i].p_power *= f;

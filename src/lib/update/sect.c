@@ -87,7 +87,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	if (opt_BIG_CITY) {
 	    if (!n && dchr[old_type].d_pkg == UPKG &&
 		dchr[*desig].d_pkg != UPKG) {
-		int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
+		int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
 		if (vec[I_CIVIL] > maxpop)
 		    vec[I_CIVIL] = maxpop;
 		if (vec[I_UW] > maxpop)
