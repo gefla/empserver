@@ -8,6 +8,7 @@
 #
 # REDIRECT	-	Redirect all output to a logfile
 # CHECKOUT	-	Fill the sandbox with a fresh cvs checkout
+# PATCH		-	Apply the patches for this system (global + specific)
 # BUILD		-	Build everything
 # GENERATE	-	Generate a new world
 # SERVERSTART	-	Start the server
@@ -120,7 +121,7 @@ while ! cvs -z3 -d:ext:"${SFLOGIN}"@cvs.sourceforge.net:/cvsroot/empserver co em
 do
 	sleep "`expr 5 + ${RETR}`"
 	RETR="`expr 1 + ${RETR}`"
-	[ "${RETR}" -gt 100 ] && err "CVS Timeout after ${RETR} retres."
+	[ "${RETR}" -gt 5 ] && err "CVS Timeout after ${RETR} retres."
 done
 echo "Done (CVS)."
 echo ""
@@ -438,7 +439,7 @@ EOF
 
 	echo "Turn 2 for player 1"
 
-	runfeed 1 1 << EOF
+	runfeed 1 << EOF >/dev/null 2>&1
 desi -3,-1 b
 mov i 1,-1 120 2,-2
 mov i 1,-1 4 jh
@@ -501,13 +502,12 @@ EOF
 
 	echo "Run an update"
 	runfeed POGO peter << EOF
+power new
 cen * ?own#0
 reso * ?own#0
 enable
 force 1
 disable
-power new
-repo *
 EOF
 	echo "Done (force)."
 	echo ""
