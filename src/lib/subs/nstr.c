@@ -86,6 +86,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	/* find operator type, coerce operands */
 	lft_type = nstr_promote(np->lft.val_type);
 	rgt_type = nstr_promote(np->rgt.val_type);
+	np->optype = NSC_NOTYPE;
 	if (lft_type == NSC_TYPEID) {
 	    if (!nstr_coerce_val(&np->rgt, NSC_TYPEID, str))
 		np->optype = NSC_TYPEID;
@@ -109,6 +110,8 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 		&& !nstr_coerce_val(&np->rgt, NSC_LONG, str))
 		np->optype = NSC_LONG;
 	}
+	if (np->optype == NSC_NOTYPE)
+	    return -1;
 
 	/* another condition? */
 	if (*tail == 0)
@@ -317,7 +320,7 @@ static int
 cond_type_mismatch(char *str)
 {
     if (str)
-	pr("%s -- condition type mismatch\n", str);
+	pr("%s -- condition operand type mismatch\n", str);
     return -1;
 }
 
