@@ -7,6 +7,60 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.2.19 - Thu Dec 23 20:24:24 UTC 2004
+ * Fix order not to unload into full sectors.
+ * Fix scrap not to dump stuff into full sectors.  Excess stuff is now
+   destroyed.
+ * Fix distribute not to conjure up a civilian when importing
+   civilians from a dist center that doesn't have any.
+ * Fix flak to resupply no more shells than actually needed.
+ * Fix rounding error in shoot that could result in more people shot
+   than actually there.
+ * Fix info and apro error handling.  In particular, do not leak
+   potentially sensitive information on the server to players.
+ * info no longer shows a random matching page when the topic argument
+   is ambiguous.  Instead, it lists all matching topics.
+ * Embarked land units and overflying planes no longer spot each
+   other.
+ * Fix show command to show only sectors that players can designate
+   (was broken in 4.2.18).
+ * Fix a rounding error in production command column `max'.
+ * Fix production command for overpopulated mountains and plains.
+ * Fix tradeship ally cut to match documentation.
+ * Fix plague, which was was broken in 4.2.14: it got stuck in stage I.
+ * Fix a bug in aerial sonar where ships could mask submarines with
+   the same number modulo 256.
+ * Don't allow bombing of subs that were not detected.
+ * MOTD and the game down message are now entirely separate: use `turn
+   motd' for the MOTD, and `turn on' and `turn off' for the game down
+   message.  `turn on' no longer lets you edit the MOTD.
+ * Remove option NUKEFAILDETONATE.
+ * Option ORBIT is no longer optional.
+ * New option GUINEA_PIGS to control experimental stuff not ready for
+   prime time.  If your deity enables this in a serious game, run!
+ * Many xdump fixes.  xdump is now enabled by option GUINEA_PIGS.
+ * New ship and land selectors rflags, rpath.
+ * New ship selectors for order: xstart. xend, ystart, yend,
+   cargostart, cargend, amtstart, amtend
+ * New ship selectors for sail: mobquota, path, follow.
+ * New news selector uid.
+ * Implement command line parsing under Windows where it was missing.
+ * emp_server and and files print a usage message on command line
+   syntax errors.
+ * Fix how emp_server exits after being panicked by a signal.  It can
+   now dump core when this happens.
+ * Fix bug in client that could crash it when a line of input starts
+   with '?'.
+ * Client now gets user name from environment variable LOGNAME if set,
+   else from system.
+ * The native Windows build can now run as a service.
+ * Redirecting client input now works under Windows.
+ * Code cleanups.
+ * Don't confuse work with loyalty in info Citizens.
+ * Minor info file and manual page fixes.
+ * Much of the above was contributed by Ron Koenderink and Marc
+   Olzheim.  Many thanks!
+
 Changes to Empire 4.2.18 - Tue Sep  7 14:08:59 UTC 2004
  * Fix info to accept abbreviated arguments under Windows.  From Ron
    Koenderink.
