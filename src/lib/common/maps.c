@@ -95,7 +95,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	if (!confirm("Are you sure you want to revert your bmap? "))
 	    return RET_OK;
     }
-    if (!player->command->c_flags & C_MOD) {
+    if (!(player->command->c_flags & C_MOD)) {
 	logerror("%s command needs C_MOD flag set",
 		 player->command->c_form);
 	player->command->c_flags |= C_MOD;
