@@ -327,6 +327,12 @@ int opt_TECH_POP = 1;
 int opt_TECH_POP = 0;
 #endif
 
+#ifdef ROLLOVER_AVAIL
+int opt_ROLLOVER_AVAIL = 1;
+#else
+int opt_ROLLOVER_AVAIL = 0;
+#endif
+
 struct option_list Options[] = {
     {"ALL_BLEED", &opt_ALL_BLEED},
     {"BIG_CITY", &opt_BIG_CITY},
@@ -365,6 +371,7 @@ struct option_list Options[] = {
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
     {"PLANENAMES", &opt_PLANENAMES},
     {"RES_POP", &opt_RES_POP},
+    {"ROLLOVER_AVAIL", &opt_ROLLOVER_AVAIL},
     {"SAIL", &opt_SAIL},
     {"SHIP_DECAY", &opt_SHIP_DECAY},
     {"SHIPNAMES", &opt_SHIPNAMES},

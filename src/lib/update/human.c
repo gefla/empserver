@@ -82,6 +82,11 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
     uws = (vec[I_UW] > maxpop) ? maxpop : vec[I_UW];
     mil = (vec[I_MILIT] > maxpop) ? maxpop : vec[I_MILIT];
     work_avail = total_work(sctwork, etu, civvies, mil, uws);
+    if (opt_ROLLOVER_AVAIL) {
+	if (sp->sct_type == sp->sct_newtype) {
+	    work_avail += sp->sct_avail;
+	}
+    }
 
     people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
     if (sp->sct_type != SCT_SANCT) {
@@ -140,6 +145,7 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
     pt_bg_nmbr(bp, sp, I_CIVIL, vec[I_CIVIL]);
     pt_bg_nmbr(bp, sp, I_UW, vec[I_UW]);
     pt_bg_nmbr(bp, sp, I_MILIT, vec[I_MILIT]);
+    if (work_avail > 999) work_avail = 999;
     *workp = work_avail;
     return sctwork;
 }

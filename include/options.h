@@ -100,6 +100,7 @@
 #define ALL_BLEED		/* Tech bleeds to everyone */
 /*#define DRNUKE*//* Need research to make nukes */
 #define NO_PLAGUE		/* Plague is disabled */
+/*#define ROLLOVER_AVAIL*/ 	/* Avail builds up across updates like mob */
 #define NEW_STARVE		/* UW's starve, then civs, then mil */
 #define NEW_WORK		/* Work is changed in proportion to the # of civs mvd */
 /*#define RES_POP*//* population is limited by research */

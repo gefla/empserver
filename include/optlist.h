@@ -99,6 +99,7 @@ extern int opt_DEMANDUPDATE;
 extern int opt_BIG_CITY;
 extern int opt_INTERDICT_ATT;
 extern int opt_TECH_POP;
+extern int opt_ROLLOVER_AVAIL;
 
 struct keymatch;		/* forward decl */
 

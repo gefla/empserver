@@ -42,6 +42,7 @@
 #include "item.h"
 #include "file.h"
 #include "commands.h"
+#include "optlist.h"
 
 int
 newe(void)
@@ -83,11 +84,17 @@ newe(void)
 	    uws = min(uws, maxpop);
 	    /* This isn't quite right, since research might rise/fall */
 	    /* during the update, but it's the best we can really do  */
-	    wforce = (int)
-		((civs * sect.sct_work) / 100.0
-		 + uws + items[I_MILIT] * 2 / 5.0);
+	    wforce = (int)((civs * sect.sct_work) / 100.0
+			   + uws + items[I_MILIT] * 2 / 5.0);
 
 	    work = etu_per_update * wforce / 100.0;
+	    if (opt_ROLLOVER_AVAIL) {
+		if (sect.sct_type == sect.sct_newtype) {
+		    work += sect.sct_avail;
+		}
+		if (work > 999) work = 999;
+	    }
+
 	    bwork = work / 2;
 
 	    type = sect.sct_type;

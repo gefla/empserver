@@ -142,6 +142,12 @@ prod(void)
 		       / 100.0 + (double)uws +
 		       (double)items[I_MILIT] * 2.0 / 5.0);
 	work = (double)etu_per_update *(double)wforce / 100.0;
+ 	if (opt_ROLLOVER_AVAIL) {
+	    if (sect.sct_type == sect.sct_newtype) {
+		work += sect.sct_avail;
+	    }
+	    if (work > 999) work = 999;
+ 	}
 	bwork = (int)((double)work / 2.0);
 
 	if (sect.sct_off)

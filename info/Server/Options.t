@@ -10,7 +10,7 @@ SAIL:		another wait to automatically move ships (may also be buggy)
 NUKEFAIL(etc):	nukes on missiles that explode in launching may detonate
 SHIPNAMES:	ships may be named
 DEMANDUPDATE:	updates may be allowed on player demand
-UPDATESC(etc):	updates can be controlled by the 'hours' file. NITP
+UPDATESCHED:	updates can be controlled by the 'hours' file. NITP
 
 The following options were introduced in the Chainsaw server:
 
@@ -44,6 +44,7 @@ BIG_CITY:	'c' sectors cost $, lcm, hcm to build and hold 10x civs
 INTERDICT_ATT	Interdict units & mil as they move in after an attack
 
 The following options were introduced in the Empire4 Server:
+ROLLOVER_AVAIL: Unused production avail is rolled over across updates.
 BRIDGETOWERS:   You can build bridge towers, which allow you to build
                  bridges from them.
 DEFENSE_INFRA:  Use the new defensive infrastructure.  Otherwise, use
