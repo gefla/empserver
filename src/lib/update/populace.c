@@ -49,22 +49,23 @@
 #include "lost.h"
 
 void
-populace(struct natstr *np, register struct sctstr *sp, register int *vec,
-	 int etu)
+populace(struct natstr *np, register struct sctstr *sp, int etu)
 {
     float hap;
     float tech;
     float edu;
     float pct;
     int n;
+    int civ = sp->sct_item[I_CIVIL];
+    int mil = sp->sct_item[I_MILIT];
 
-    if (vec[I_CIVIL] == 0 && vec[I_MILIT] > 0) {
+    if (civ == 0 && mil > 0) {
 	sp->sct_work = 100;
 	sp->sct_loyal = 0;
 	sp->sct_oldown = sp->sct_own;
     }
-    if (!vec[I_CIVIL] && !vec[I_MILIT] && !vec[I_UW] &&
-	!has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
+    if (!civ && !mil && !sp->sct_item[I_UW]
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;
@@ -93,7 +94,7 @@ populace(struct natstr *np, register struct sctstr *sp, register int *vec,
 	    n = 127;
 	sp->sct_loyal = n;
     }
-    if (sp->sct_loyal > 65 && vec[I_MILIT] < vec[I_CIVIL] / 20) {
+    if (sp->sct_loyal > 65 && mil < civ / 20) {
 	int work_red;
 
 	work_red = sp->sct_loyal - (50 + (random() % 15));

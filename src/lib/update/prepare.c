@@ -113,32 +113,28 @@ void
 tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax,
     int *uw_tax, int *mil_pay)
 {
-    int vec[I_MAX + 1];
-
     *civ_tax = 0;
     *uw_tax = 0;
     *mil_pay = 0;
-    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	return;
 
     if (!player->simulation)
-	populace(np, sp, vec, etu);
-    *civ_tax = (int)(0.5 + vec[I_CIVIL] * sp->sct_effic *
+	populace(np, sp, etu);
+    *civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
 		     etu * money_civ / 100);
     /*
      * captured civs only pay 1/4 taxes
      */
     if (sp->sct_own != sp->sct_oldown)
 	*civ_tax = *civ_tax / 4;
-    *uw_tax = (int)(0.5 + vec[I_UW] * sp->sct_effic *
+    *uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
 		    etu * money_uw / 100);
-    *mil_pay = vec[I_MILIT] * etu * money_mil;
+    *mil_pay = sp->sct_item[I_MILIT] * etu * money_mil;
 
     /*
      * only non-captured civs add to census for nation
      */
     if (sp->sct_oldown == sp->sct_own)
-	*pop += vec[I_CIVIL];
+	*pop += sp->sct_item[I_CIVIL];
 }
 
 int

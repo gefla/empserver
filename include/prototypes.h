@@ -595,8 +595,7 @@ extern int plague_people(struct natstr *, int *, u_short *, u_short *, int);
 /* plane.c */
 extern int prod_plane(int, int, int *, int);
 /* populace.c */
-extern void populace(struct natstr *, register struct sctstr *,
-		     register int *, int);
+extern void populace(struct natstr *, register struct sctstr *, int);
 extern int total_work(register int, register int, register int,
 		      register int, register int);
 /* prepare.c */
