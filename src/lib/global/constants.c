@@ -60,7 +60,8 @@ int update_wantmin = 0;		/* number of votes required for demand update */
 int blitz_time = 10;		/* number of minutes between blitz updates */
 char *update_demandtimes = "";	/* times demand update is allowed */
 char *game_days = "";		/* days game is running */
-char *game_hours = "";	/* hours game is running */
+char *game_hours = "";		/* hours game is running */
+char *pre_update_hook = "";
 int max_idle = 15;		/* session dies after max_idle minutes idle */
 
 int sect_mob_max = 127;		/* sector mobility limits */

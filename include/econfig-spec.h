@@ -86,6 +86,8 @@ EMPCFBOTH("hourslop", hourslop, int, NSC_INT, KM_INTERNAL,
     "Number of minutes update check can slip to match update_times")
 EMPCFBOTH("blitz_time", blitz_time, int, NSC_INT, 0,
     "Number of minutes between updates under policy #2.")
+EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, 0,
+    "Shell command run right before the update.")
 
 EMPCF_COMMENT("\n\n### Demand update policy")
 EMPCFBOTH("update_demandpolicy", update_demandpolicy, int, NSC_INT, 0,

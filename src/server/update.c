@@ -32,6 +32,11 @@
  *     Steve McClure, 1996
  */
 
+#include <errno.h>
+#include <stdlib.h>
+#ifndef _WIN32
+#include <sys/wait.h>
+#endif
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"
@@ -40,9 +45,10 @@
 #include "server.h"
 
 empth_sem_t *update_sem;
+time_t update_time;
 
 static void update_wait(void *unused);
-time_t update_time;
+static int run_hook(char *cmd, char *name);
 
 /*ARGSUSED*/
 void
@@ -119,6 +125,10 @@ update_wait(void *unused)
 	    /* sleep a few, wait for aborts to take effect */
 	    empth_sleep(now + 2);
 	}
+	if (*pre_update_hook) {
+	    if (run_hook(pre_update_hook, "pre-update"))
+		continue;
+	}
 	/* 
 	 * we rely on the fact that update's priority is the highest
 	 * in the land so it can finish before it yields.
@@ -136,4 +146,27 @@ update_wait(void *unused)
 		     "UpdateRun", "Updates the world", dp);
     }
     /*NOTREACHED*/
+}
+
+static int
+run_hook(char *cmd, char *name)
+{
+    int status = system(cmd);
+    if (status == 0)
+	;			/* successful exit */
+    else if (status == -1)
+	logerror("couldn't execute command processor for %s hook (%s)",
+		 name, strerror(errno));
+#ifndef _WIN32
+    else if (WIFEXITED(status))
+	logerror("%s hook terminated unsuccessfully (exit status %d)",
+		 name, WEXITSTATUS(status));
+    else if (WIFSIGNALED(status))
+	logerror("%s hook terminated abnormally (signal %d)",
+		 name, WTERMSIG(status));
+#endif
+    else if (status)
+	logerror("%s hook terminated strangely (status %d)",
+		 name, status);
+    return status;
 }
