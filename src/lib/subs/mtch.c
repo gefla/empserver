@@ -58,8 +58,10 @@ intmatch(register int value, register int *ptr, int size)
 }
 
 /*
- * find a matching command from coms[].  Return status is:
- *  >= 0: match found, value is array entry in coms[]
+ * Search for COMMAND in COMS[], return its index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several, M_IGNORE if the command should be ignored.
+ * Ignore commands that require more permissions than COMSTAT.
  */
 int
 comtch(register s_char *command, struct cmndstr *coms, int comstat,
@@ -67,7 +69,6 @@ comtch(register s_char *command, struct cmndstr *coms, int comstat,
 {
     register struct cmndstr *com;
     register int status;
-    register int i;
 
     if (command == 0 || *command == 0)
 	return M_IGNORE;
@@ -75,14 +76,16 @@ comtch(register s_char *command, struct cmndstr *coms, int comstat,
     for (com = coms; com->c_form != 0; com++) {
 	if ((com->c_permit & comstat) != com->c_permit && !god)
 	    continue;
-	if ((i = mineq(command, com->c_form)) == ME_MISMATCH)
-	    continue;
-	if (i == ME_EXACT)
+	switch (mineq(command, com->c_form)) {
+	case ME_MISMATCH:
+	    break;
+	case ME_PARTIAL:
+	    if (status >= 0)
+		return M_NOTUNIQUE;
+	    status = com - coms;
+	case ME_EXACT:
 	    return com - coms;
-	/* partial */
-	if (status != M_NOTFOUND)
-	    return M_NOTUNIQUE;
-	status = com - coms;
+	}
     }
 
     return status;
