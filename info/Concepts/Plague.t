@@ -59,8 +59,7 @@ by a Dr.\ M.\ Welby entitled
 In part it states:
 .s1
 .in +0.8i
-.ev 2
-.ll 5.5i
+.ll -0.8i
 It appeared that our original hypothesis
 based on the high percentage of Lumbagan Legionnaires
 among the afflicted had led us down a blind alley
@@ -77,14 +76,13 @@ entitled \*QClose Encounters of the Third Grade\*U] ...
 leading us to the following amazing formulation
 of the relationship between medical research,
 technology, population, standard of living and the Empire Plague:
-.ll 6.5i
-.ev
 .in
 .s1
 .NF
-likelihood   civ + mil + uw   t_level + (iron + oil + rad * 2) / 10 + 100
-    of     = -------------- * -------------------------------------------
-  plague           999               r_level + effic + mobil + 100
+Likelihood of plague outbreak (in percent) is
+        civ + mil + uw   t_level + (iron + oil + rad * 2) / 10 + 100
+max (0, -------------- * ------------------------------------------- - 1)
+              999               r_level + effic + mobil + 100
 .FI
 .s1
 Later formulations of this relationship show great similarity
