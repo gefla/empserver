@@ -44,16 +44,6 @@
 #include "misc.h"
 #include "tags.h"
 
-extern struct tagstruct *taglist;
-extern s_char buf[4096];
-extern s_char exec[];
-
-#ifdef _WIN32
-extern HANDLE hStdIn;
-#endif
-
-int sendeof(int sock);
-
 int
 termio(int fd, int sock, FILE *auxfi)
 {

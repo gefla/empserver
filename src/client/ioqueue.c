@@ -47,8 +47,6 @@ static int dequeuecc(register struct ioqueue *ioq, register int cc);
 void
 ioq_init(struct ioqueue *ioq, int bsize)
 {
-    extern s_char num_teles[];
-
     initque(&ioq->queue);
     ioq->cc = 0;
     ioq->bsize = bsize;

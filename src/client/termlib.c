@@ -47,7 +47,7 @@ s_char *SE = 0;
 
 int tgetent(char *, char *);
 
-void
+static void
 parsedelay(s_char *r)
 {
     s_char *s, *t;

@@ -73,17 +73,6 @@ HANDLE hStdIn;
 int interrupt;
 int sock;
 
-void saveargv(int ac, s_char **src, s_char **dst);
-void getsose(void);
-int hostport(s_char *name, struct sockaddr_in *addr);
-int hostaddr(s_char *name, struct sockaddr_in *addr);
-int hostconnect(struct sockaddr_in *addr);
-int login(int s, s_char *uname, s_char *cname, s_char *cpass, int kill_proc);
-int handleintr(int);
-int termio(int fd, int sock, FILE *auxfi);
-int serverio(int s, struct ioqueue *ioq);
-void servercmd(struct ioqueue *ioq, FILE *auxfi);
-
 static void intr(int sig);
 
 
@@ -98,8 +87,6 @@ main(int ac, s_char **av)
     DWORD stdinmode;
     SECURITY_ATTRIBUTES security;
 #endif
-    extern s_char empireport[];
-    extern s_char empirehost[];
     fd_set mask;
     struct ioqueue server;
     s_char *argv[128];

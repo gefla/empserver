@@ -142,7 +142,6 @@ expect(int s, int match, s_char *buf)
 void
 sendcmd(int s, int cmd, s_char *arg)
 {
-    extern struct fn fnlist[];
     s_char buf[128];
     int cc;
     int len;

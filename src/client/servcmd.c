@@ -58,18 +58,12 @@ FILE *redir_fp;
 FILE *pipe_fp;
 int exec_fd;
 
-void prompt(FILE *auxfi);
-void doredir(s_char *p);
-void dopipe(s_char *p);
-void doexecute(s_char *p, FILE *auxfi);
-void output(int code, s_char *buf, FILE *auxfi);
-void screen(register s_char *buf);
-int sendeof(int);
-int termio(int fd, int sock, FILE *auxfi);
-void _noecho(int);
-
-extern s_char *SO;
-extern s_char *SE;
+static void prompt(FILE *auxfi);
+static void doredir(s_char *p);
+static void dopipe(s_char *p);
+static void doexecute(s_char *p, FILE *auxfi);
+static void output(int code, s_char *buf, FILE *auxfi);
+static void screen(register s_char *buf);
 
 void
 servercmd(struct ioqueue *ioq, FILE *auxfi)
@@ -128,7 +122,7 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
     }
 }
 
-void
+static void
 prompt(FILE *auxfi)
 {
     if (mode == C_PROMPT) {
@@ -160,7 +154,7 @@ prompt(FILE *auxfi)
 /*
  * opens redir_fp if successful
  */
-void
+static void
 doredir(s_char *p)
 {
     s_char *how;
@@ -212,7 +206,7 @@ doredir(s_char *p)
 /*
  * opens "pipe_fp" if successful
  */
-void
+static void
 dopipe(s_char *p)
 {
     s_char *tag;
@@ -242,10 +236,9 @@ dopipe(s_char *p)
     free(tag);
 }
 
-void
+static void
 doexecute(s_char *p, FILE *auxfi)
 {
-    extern int sock;
     int fd;
     s_char *tag;
 
@@ -286,7 +279,7 @@ doexecute(s_char *p, FILE *auxfi)
     free(tag);
 }
 
-void
+static void
 output(int code, s_char *buf, FILE *auxfi)
 {
     switch (code) {
@@ -344,7 +337,7 @@ output(int code, s_char *buf, FILE *auxfi)
     }
 }
 
-void
+static void
 screen(register s_char *buf)
 {
     register s_char *sop;

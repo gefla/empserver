@@ -35,12 +35,11 @@
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
+#include "misc.h"
 
 int
 handleintr(int s)
 {
-    extern int interrupt;
-
     if (interrupt) {
 	/* tacky, but it works */
 	if (write(s, "\naborted\n", 1 + 7 + 1) <= 0)
