@@ -31,8 +31,9 @@
 # the examples there on what to do.
 #
 
-OSXCFLAGS = -g -fwritable-strings -traditional-cpp -D_EMPTH_POSIX=1
-OSXLFLAGS = -flat_namespace -undefined warning
+OSXCFLAGS = -g -Wall -W -ansi -D_EMPTH_POSIX=1
+# -O fails on Darwin 5.5, works on 6.6
+OSXLFLAGS = -flat_namespace -lcurses
 OSXMASTER = GLOBALCFLAGS="$(OSXCFLAGS)" GLOBALLFLAGS="$(OSXLFLAGS)"
 
 FREEBSDRANLIB = /usr/bin/ranlib
@@ -52,11 +53,11 @@ NEXTCFLAGS = -bsd -fwritable-strings -traditional -Dconst="" -Dinline=""
 NEXTLFLAGS = -lsys_s
 NEXTMASTER = GLOBALCFLAGS="$(NEXTCFLAGS)" GLOBALLFLAGS="$(NEXTLFLAGS)"
 
-LINUXCFLAGS = -Wall -W -Wno-unused -Dlint -D__USE_BSD -D__USE_BSD_SIGNAL -DLISTENMAXCONN=5 -DRel4
+LINUXCFLAGS = -g -Wall -W -Wno-unused -Dlint -D__USE_BSD -D__USE_BSD_SIGNAL -DLISTENMAXCONN=5 -DRel4
 LINUXLFLAGS = 
 LINUXMASTER = GLOBALCFLAGS="$(LINUXCFLAGS)" GLOBALLFLAGS="$(LINUXLFLAGS)" CLIENTLIBS=-lncurses
 
-LINUXPTHCFLAGS = -Wall -W -Wno-unused -Dlint -D_EMPTH_POSIX=1 -U_EMPTH_LWP -D__USE_BSD -D__USE_BSD_SIGNAL -DLISTENMAXCONN=5 -DRel4
+LINUXPTHCFLAGS = -g -Wall -W -Wno-unused -Dlint -D_EMPTH_POSIX=1 -U_EMPTH_LWP -D__USE_BSD -D__USE_BSD_SIGNAL -DLISTENMAXCONN=5 -DRel4
 LINUXPTHLFLAGS = -lpthread
 LINUXPTHMASTER = GLOBALCFLAGS="$(LINUXPTHCFLAGS)" GLOBALLFLAGS="$(LINUXPTHLFLAGS)" CLIENTLIBS=-lncurses
 
