@@ -518,14 +518,12 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 
 int
 pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
-	int flags, int mission_flags, int *tech)
+	int flags, int mission_flags)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct plist *plp;
 
-    if (*tech == 0)
-	*tech = 9999;
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
@@ -540,8 +538,6 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
 	    if (plp->pcp->pl_flags & P_I)
 		mission_flags |= P_I;
 	}
-	if (*tech > plp->plane.pln_tech)
-	    *tech = plp->plane.pln_tech;
 	if (!(plp->pcp->pl_flags & P_H))
 	    /* no stealth on this mission */
 	    mission_flags &= ~P_H;

@@ -52,7 +52,6 @@ drop(void)
 {
     s_char *p;
     int mission_flags;
-    int tech;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -130,21 +129,18 @@ drop(void)
 	    2, P_ESC | P_F, P_M | P_O);
     /*
      * now arm and equip the bombers, transports, whatever.
-     * tech is stored in high 16 bits of mission_flags.
-     * yuck.
      */
-    tech = 0;
     mission_flags |= P_X;	/* stealth (shhh) */
     mission_flags |= P_H;	/* gets turned off if not all choppers */
     mission_flags |= P_MINE;
     mission_flags = pln_arm(&bomb_list, 2 * ap_to_target, 'd',
-			    ip, 0, mission_flags, &tech);
+			    ip, 0, mission_flags);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
     mission_flags = pln_arm(&esc_list, 2 * ap_to_target, 'd',
-			    ip, P_ESC | P_F, mission_flags, &tech);
+			    ip, P_ESC | P_F, mission_flags);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
 		 0, 0, 0);
     if (QEMPTY(&bomb_list)) {
