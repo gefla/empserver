@@ -45,6 +45,7 @@
 #else
 #include <direct.h>
 #endif
+#include <stdarg.h>
 #include <stdio.h>
 
 #include "options.h"
@@ -62,8 +63,6 @@
 #include "tel.h"
 #include "prototypes.h"
 #include "optlist.h"
-
-s_char program[] = "file";
 
 static void comminit(int fd);
 static int make(char *filename);
@@ -256,6 +255,16 @@ file_sct_init(coord x, coord y, s_char *ptr)
     sp->sct_y = y;
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
+}
+
+void
+logerror(s_char *format, ...)
+{
+    va_list ap;
+
+    va_start(ap, format);
+    vfprintf(stderr, format, ap);
+    va_end(ap);
 }
 
 void
