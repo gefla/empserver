@@ -39,6 +39,12 @@
 #define NS_LSIZE	128
 #define NS_NCOND	16
 
+enum {				/* masks for struct nscstr member oper */
+    NSC_OPMASK = 0x0ff,		/* operator */
+    NSC_ISNUM1 = 0x100,		/* is left operand a number? */
+    NSC_ISNUM2 = 0x200		/* is right operand a number? */
+};
+
 struct nscstr {
     long fld1;			/* first commodity or number */
     long fld2;			/* second commodity or number */

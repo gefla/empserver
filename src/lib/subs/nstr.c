@@ -62,7 +62,6 @@ nstr_comp(struct nscstr *np, int *size, int type, s_char *str)
     register int c;
     s_char ident[80];
     s_char arg[255];
-    int op;
     int val;
 
     strncpy(arg, str, sizeof(arg) - 1);
@@ -79,12 +78,11 @@ nstr_comp(struct nscstr *np, int *size, int type, s_char *str)
 	pr("'%s'? -- meaningless condition?\n", arg);
 	return 0;
     }
-    op = c;
-    np[*size].oper = op;
+    np[*size].oper = c & NSC_OPMASK;
     if ((val = encode(ident, &np[*size].fld1, type)) < 0)
 	return 0;
     if (val == 2)
-	np[*size].oper += 255;
+	np[*size].oper |= NSC_ISNUM1;
     bp = ident;
     while ((c = *cp++) && bp < &ident[sizeof(ident) - 1]) {
 	if (c == '&')
@@ -95,7 +93,7 @@ nstr_comp(struct nscstr *np, int *size, int type, s_char *str)
     if ((val = encode(ident, &np[*size].fld2, type)) < 0)
 	return 0;
     if (val == 2)
-	np[*size].oper += 65535;
+	np[*size].oper |= NSC_ISNUM2;
     if (c == 0)
 	cp--;
     (*size)++;
@@ -117,19 +115,17 @@ nstr_exec(struct nscstr *conds, register int ncond, void *ptr, int type)
 
     for (nsc = conds; --ncond >= 0; nsc++) {
 	oper = nsc->oper;
-	if (oper > 65535) {
-	    oper = oper - 65535;
+	if (oper & NSC_ISNUM2) {
 	    rhs = nsc->fld2;
 	} else
 	    rhs = decode(player->cnum, nsc->fld2, ptr, type);
 
-	if (oper > 255) {
-	    oper = oper - 255;
+	if (oper & NSC_ISNUM1) {
 	    lhs = nsc->fld1;
 	} else
 	    lhs = decode(player->cnum, nsc->fld1, ptr, type);
 
-	op = oper;
+	op = oper & NSC_OPMASK;
 	if ((op == '<' && lhs >= rhs)
 	    || (op == '=' && lhs != rhs)
 	    || (op == '>' && lhs <= rhs)
