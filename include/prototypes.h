@@ -48,8 +48,8 @@
 #include "commodity.h"
 
 /* src/server/main.c */
-extern emp_sig_t panic(int sig);
-extern emp_sig_t shutdwn(int sig);
+extern void panic(int sig);
+extern void shutdwn(int sig);
 
 /*****************************************************************************
  * src/lib/ * / *.c 
@@ -73,7 +73,7 @@ extern void empth_sleep(long int until);
 extern empth_sem_t *empth_sem_create(char *name, int cnt);
 extern void empth_sem_signal(empth_sem_t *sm);
 extern void empth_sem_wait(empth_sem_t *sm);
-extern emp_sig_t empth_alarm(int sig);
+extern void empth_alarm(int sig);
 #endif /* _EMPTH_LWP */
 
 /* src/lib/empthread/pthread.c */
@@ -87,7 +87,7 @@ extern void empth_exit(void);
 extern void empth_yield(void);
 extern void empth_terminate(empth_t *a);
 extern void empth_select(int fd, int flags);
-extern emp_sig_t empth_alarm(int sig);
+extern void empth_alarm(int sig);
 extern void empth_wakeup(empth_t *a);
 extern void empth_sleep(long until);
 extern empth_sem_t *empth_sem_create(char *name, int cnt);

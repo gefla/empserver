@@ -585,7 +585,7 @@ empth_select(int fd, int flags)
 /************************
  * empth_alarm
  */
-emp_sig_t
+void
 empth_alarm(int sig)
 {
     loc_Thread_t *pThread =

@@ -297,7 +297,7 @@ close_files(void)
 }
 
 /* we're going down.  try to close the files at least */
-emp_sig_t
+void
 panic(int sig)
 {
 #if !defined(_WIN32)
@@ -324,7 +324,7 @@ panic(int sig)
     _exit(0);
 }
 
-emp_sig_t
+void
 shutdwn(int sig)
 {
     struct player *p;

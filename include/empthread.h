@@ -123,7 +123,7 @@ void empth_sleep _PROTO((long until));
 empth_sem_t *empth_sem_create _PROTO((char *name, int count));
 void empth_sem_signal _PROTO((empth_sem_t *));
 void empth_sem_wait _PROTO((empth_sem_t *));
-emp_sig_t empth_alarm _PROTO((int));
+void empth_alarm _PROTO((int));
 
 
 #include "prototypes.h"		/* must come at end, after defines and typedefs */

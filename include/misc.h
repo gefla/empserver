@@ -91,12 +91,6 @@ typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 #define POSIXSIGNALS
 #endif
 
-#if defined(POSIXSIGNALS) || defined(__STDC__)
-typedef void emp_sig_t;
-#else
-typedef int emp_sig_t;
-#endif
-
 
 #if !defined(aix) && !defined(sgi)
 #ifndef ultrix			/* already defined in ultrix */

@@ -65,9 +65,6 @@ static void *
 empth_start(void *ctx)
 {
     struct sigaction act;
-    extern emp_sig_t panic();
-    extern emp_sig_t shutdwn();
-
 
     /* actually it should inherit all this from main but... */
 #ifdef SA_SIGINFO
@@ -411,7 +408,7 @@ empth_select(int fd, int flags)
 }
 
 
-emp_sig_t
+void
 empth_alarm(int sig)
 {
     struct sigaction act;
