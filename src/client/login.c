@@ -73,7 +73,7 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc)
     }
     if (cpass == NULL) {
 #ifndef _WIN32
-	cpass = (char *)getpass("Your name? ");
+	cpass = getpass("Your name? ");
 	if (cpass == NULL || *cpass == 0)
 	    return 0;
 #else
