@@ -98,11 +98,10 @@ fly(void)
     ty = ay;
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("Ending sector is %s\n", xyas(tx, ty, player->cnum));
-    getsect(tx, ty, &target);
-    cno = -1;
     ip = whatitem(player->argp[5], "transport what? ");
     getsect(tx, ty, &target);
-    mission_flags = 0;
+
+    cno = -1;
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
     if (cno < 0) {
@@ -113,6 +112,17 @@ fly(void)
 	dst_ptr = (s_char *)&ship;
 	dst_type = EF_SHIP;
     }
+
+    if (ip && ip->i_vtype == V_CIVIL) {
+	if (target.sct_own != player->cnum) {
+	    pr("Your civilians refuse to emigrate!\n");
+	    return RET_FAIL;
+	} else if (target.sct_own != target.sct_oldown) {
+	    pr("Can't drop civilians into occupied sectors.\n");
+	    return RET_FAIL;
+	}
+    }
+
     ap_to_target = strlen(flightpath);
     if (*(flightpath + strlen(flightpath) - 1) == 'h')
 	ap_to_target--;
@@ -120,6 +130,7 @@ fly(void)
     /*
      * select planes within range
      */
+    mission_flags = 0;
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
 	    1, wantflags, P_M | P_O);
     if (QEMPTY(&bomb_list)) {
