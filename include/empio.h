@@ -36,8 +36,6 @@
 
 #include <time.h>		/* struct timeval */
 
-typedef struct iop *iop_t;
-
 #define	IO_READ		0x1
 #define IO_WRITE	0x2
 #define IO_NEWSOCK	0x4
