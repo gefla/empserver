@@ -1,4 +1,5 @@
 #!/bin/sh -e
+tar='tar --owner=0 --group=0 --mode=ug+w,a+rX'
 srvdir=emp4
 clidir=client
 
@@ -38,8 +39,8 @@ ln src/client/ipglob.c dist/cli
 
 # bake tarballs
 mv dist/srv dist/$srvdir
-tar -czf empire.tar.gz -C dist $srvdir
+$tar -czf empire.tar.gz -C dist $srvdir
 mv dist/cli dist/$clidir
-tar -czf client.tar.gz -C dist $clidir
-tar -czf info.text.tar.gz info.nr
-tar -czf info.html.tar.gz info.html
+$tar -czf client.tar.gz -C dist $clidir
+$tar -czf info.text.tar.gz info.nr
+$tar -czf info.html.tar.gz info.html
