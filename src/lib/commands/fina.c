@@ -57,13 +57,14 @@ fina(void)
 	pr("Loans are not enabled.\n");
 	return RET_FAIL;
     }
+    if (!snxtitem(&ni, EF_LOAN, "*"))
+    	return RET_SYN;
     (void)time(&now);
     pr("\n");
     pr("             -= Empire Financial Status Report =- \n");
     pr("                  ");
     prdate();
     pr("Loan       From            To        Rate   Dur     Paid      Total\n");
-    snxtitem(&ni, EF_LOAN, "*");
     while (nxtitem(&ni, &loan)) {
 	if (loan.l_status != LS_SIGNED)
 	    continue;

@@ -65,6 +65,8 @@ news(void)
     s_char num[128];
     s_char *verb;
 
+    if (!snxtitem(&nstr, EF_NEWS, "*"))
+    	return RET_SYN;
     memset(page_has_news, 0, sizeof(page_has_news));
     memset(sectors_taken, 0, sizeof(sectors_taken));
     (void)head();
@@ -86,7 +88,6 @@ news(void)
 /*	if (then < now - days(3))
 		then = now - days(3);
 */
-    snxtitem(&nstr, EF_NEWS, "*");
     pr("\nThe details of Empire news since %s", ctime(&then));
     while (nxtitem(&nstr, (s_char *)&nws)) {
 	if (nws.nws_when < then)
