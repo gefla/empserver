@@ -184,9 +184,9 @@ upd_ship(register struct shpstr *sp, int shipno, register int etus,
 		*resource -= roundavg(oil_gained *
 				      product->p_nrdep / 100.0);
 	    }
-	} else
-	    if (((mp->m_flags & M_FOOD) && (sectp->sct_type == SCT_WATER))
-		&& !player->simulation) {
+	}
+	if (((mp->m_flags & M_FOOD) && (sectp->sct_type == SCT_WATER))
+	    && !player->simulation) {
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 	    vec[I_FOOD] += ((vec[I_CIVIL] * etus) / 1000.0)
 		* sectp->sct_fertil;
