@@ -151,7 +151,7 @@ extern int dist(void);
 extern int drop(void);
 extern int dump(void);
 extern int echo(void);
-extern int doland(s_char, int, struct sctstr *);
+extern int doland(s_char, int, s_char *, struct sctstr *);
 extern int docountry(s_char, int, s_char *, float, natid, struct natstr *);
 extern int doship(s_char, int, s_char *, struct shpstr *);
 extern int dounit(s_char, int, s_char *, struct lndstr *);

@@ -31,6 +31,7 @@
  *     David Muir Sharnoff
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
+ *     Ron Koenderink, 2003
  */
 
 #include <stdio.h>
@@ -63,7 +64,7 @@ static void prsect(struct sctstr *sect);
 static void noise(struct sctstr *sptr, int public_amt, s_char *name,
 		  int old, int new);
 static void benefit(natid who, int good);
-int doland(s_char op, int arg, struct sctstr *sect);
+int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
 int docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	      struct natstr *np);
 int doship(s_char op, int arg, s_char *p, struct shpstr *ship);
@@ -71,9 +72,6 @@ int dounit(s_char op, int arg, s_char *p, struct lndstr *land);
 int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
 
 
-/*
- * format: give c <amt> <commod> <sect>
- */
 int
 edit(void)
 {
@@ -163,15 +161,14 @@ edit(void)
     ptr = &buf[0];
     *ptr = 0;
     for (;;) {
-    	if (player->argp[arg_index] != 0) {
-    	    if (player->argp[arg_index+1] != 0) {
+	if (player->argp[arg_index] != 0) {
+	    if (player->argp[arg_index+1] != 0) {
 		thing = player->argp[arg_index++];
 		ptr = player->argp[arg_index++];
 		arg = atoi(ptr);
 	    } else
 		return RET_SYN;
-	}
-	else if (arg_index == 3) {
+	} else if (arg_index == 3) {
 	    if ((err = getin(&thing, &ptr, &arg, buf)) != RET_OK) {
 		if (err == END) {
 		    switch (ewhat) {
@@ -205,7 +202,7 @@ edit(void)
 		return err;
 	    break;
 	case 'l':
-	    if ((err = doland(thing[0], arg, &sect)) != RET_OK)
+	    if ((err = doland(thing[0], arg, ptr, &sect)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
@@ -276,20 +273,27 @@ noise(struct sctstr *sptr, int public_amt, s_char *name, int old, int new)
 static void
 prsect(struct sctstr *sect)
 {
-    pr("X coord <X>: %d\t", sect->sct_x);
-    pr("Y coord <Y>: %d\n", sect->sct_y);
-    pr("X dist coord: %d\t", sect->sct_dist_x);
-    pr("Y dist coord: %d\n", sect->sct_dist_y);
-    pr("  sect       own  oo eff mob min gld frt oil urn wrk lty  che plg ptime fall avail\n");
-    pr("things:        o   O   e   m   i   g   f   c   u   w   l    x   p     t    F     a\n");
-    prxy("%4d,%-4d", sect->sct_x, sect->sct_y, player->cnum);
-    pr(" %c%c %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %4d %3d %5d %4d %5d\n", dchr[sect->sct_type].d_mnem, (sect->sct_newtype == sect->sct_type) ? ' ' : dchr[sect->sct_newtype].d_mnem, sect->sct_own, sect->sct_oldown, sect->sct_effic, sect->sct_mobil, sect->sct_min, sect->sct_gmin, sect->sct_fertil, sect->sct_oil, sect->sct_uran, sect->sct_work, sect->sct_loyal, getvar(V_CHE, (s_char *)sect, EF_SECTOR), getvar(V_PSTAGE, (s_char *)sect, EF_SECTOR), getvar(V_PTIME, (s_char *)sect, EF_SECTOR), getvar(V_FALLOUT, (s_char *)sect, EF_SECTOR), sect->sct_avail);
+    pr("Location <L>: %s\t", xyas(sect->sct_x, sect->sct_y, player->cnum));
+    pr("Distribution sector <D>: %s\n",
+       xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum));
+    pr("Designation <s>: %c\t New designation <S>: %c\n",
+       dchr[sect->sct_type].d_mnem, dchr[sect->sct_newtype].d_mnem);
+    pr("own  oo eff mob min gld frt oil urn wrk lty  che plg ptime fall avail\n");
+    pr("  o   O   e   m   i   g   f   c   u   w   l    x   p     t    F     a\n");
+    pr("%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %4d %3d %5d %4d %5d\n",
+       sect->sct_own, sect->sct_oldown, sect->sct_effic, sect->sct_mobil,
+       sect->sct_min, sect->sct_gmin, sect->sct_fertil, sect->sct_oil,
+       sect->sct_uran, sect->sct_work, sect->sct_loyal,
+       getvar(V_CHE, (s_char *)sect, EF_SECTOR),
+       getvar(V_PSTAGE, (s_char *)sect, EF_SECTOR),
+       getvar(V_PTIME, (s_char *)sect, EF_SECTOR),
+       getvar(V_FALLOUT, (s_char *)sect, EF_SECTOR), sect->sct_avail);
 
-    pr(" Mines <M>: %d\n", getvar(V_MINE, (s_char *)sect, EF_SECTOR));
-    pr(" Road %% <R>: %d\n", sect->sct_road);
-    pr(" Rail %% <r>: %d\n", sect->sct_rail);
-    pr(" Defense %% <d>: %d\n", sect->sct_defense);
-    pr(" Coastal <C>: %d\n", sect->sct_coastal);
+    pr("Mines <M>: %d\t", getvar(V_MINE, (s_char *)sect, EF_SECTOR));
+    pr("Coastal <C>: %d\n", sect->sct_coastal);
+    pr("Road %% <R>: %d\t", sect->sct_road);
+    pr("Rail %% <r>: %d\t", sect->sct_rail);
+    pr("Defense %% <d>: %d\n", sect->sct_defense);
 }
 
 
@@ -479,10 +483,12 @@ getin(s_char **what, s_char **p, int *arg, s_char *buf)
 
 
 int
-doland(s_char op, int arg, struct sctstr *sect)
+doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 {
     natid newown, oldown;
+    coord newx, newy;
     int new, old;
+    int des;
     switch (op) {
     case 'C':
 	if (arg < 0)
@@ -612,11 +618,39 @@ doland(s_char op, int arg, struct sctstr *sect)
 	putvar(V_MINE, arg, (s_char *)sect, EF_SECTOR);
 	pr("Mines changed to %d\n", arg);
 	break;
-    case 'X':
-	sect->sct_x = arg;
+    case 'L':
+	if (!sarg_xy(p, &newx, &newy))
+	    return RET_SYN;
+	sect->sct_x = newx;
+	sect->sct_y = newy;
 	break;
-    case 'Y':
-	sect->sct_y = arg;
+    case 'D':
+	if (!sarg_xy(p, &newx, &newy))
+	    return RET_SYN;
+	pr("Distribtion Location for sector %s changed from %s to %s\n",
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
+	   xyas(newx, newy, player->cnum));
+	sect->sct_dist_x = newx;
+	sect->sct_dist_y = newy;
+	break;
+    case 's':
+	des = typematch(p, EF_SECTOR);
+	if (des < 0)
+	    return RET_SYN;
+	pr("Designation for sector %s changed from %c to %c\n",
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   dchr[sect->sct_type].d_mnem, dchr[des].d_mnem);
+	sect->sct_type = des;
+	break;
+    case 'S':
+	des = typematch(p, EF_SECTOR);
+	if (des < 0)
+	    return RET_SYN;
+	pr("New Designation for sector %s changed from %c to %c\n",
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   dchr[sect->sct_newtype].d_mnem, dchr[des].d_mnem);
+	sect->sct_newtype = des;
 	break;
     case 'R':
 	if (arg > 100)
