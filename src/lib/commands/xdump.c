@@ -139,6 +139,7 @@ static struct castr mchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_speed), "speed"},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_visib), "visib"},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_vrnge), "vrnge"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_frnge), "frnge"},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_glim), "glim"},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nxlight), "nxlight"},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nchoppers), "nchoppers"},
@@ -303,7 +304,7 @@ xdprval(struct valstr *val, char *sep)
 	pr("%s%g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
-	s = val->val_as.str;
+	s = (unsigned char *)val->val_as.str;
 	if (s) {
 	    pr("%s\"", sep);
 	    while (*s) {
