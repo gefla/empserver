@@ -333,8 +333,8 @@ shiprepair(struct shpstr *ship, struct natstr *np,
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
 	return 1;
-    if (delta > etus * ship_grow_scale)
-	delta = etus * ship_grow_scale;
+    if (delta > (int)((float)etus * ship_grow_scale))
+	delta = (int)((float)etus * ship_grow_scale);
     if (delta > left)
 	delta = left;
 

@@ -107,9 +107,9 @@ int start_unit_type[START_UNITS] = { 0, 1 };	/* type of unit */
 /* opt_FUEL */
 int fuel_mult = 10;		/* 1 fuel = 10 mob */
 
-int land_grow_scale = 2;	/* how fast eff grows for land units (xETUS) */
-int ship_grow_scale = 3;	/* how fast eff grows for ships (xETUS) */
-int plane_grow_scale = 2;	/* how fast eff grows for planes (xETUS) */
+float land_grow_scale = 2.0;	/* how fast eff grows for land units (xETUS) */
+float ship_grow_scale = 3.0;	/* how fast eff grows for ships (xETUS) */
+float plane_grow_scale = 2.0;	/* how fast eff grows for planes (xETUS) */
 
 double fgrate = 0.0012;		/* food growth rate (dt * fert) */
 double fcrate = 0.0013;		/* food cultivate rate (dt * workforce) */

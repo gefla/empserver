@@ -177,7 +177,7 @@ EMPCFBOTH("buil_tower_bt", buil_tower_bt, double, NSC_DOUBLE, 0,
 EMPCF_COMMENT("\n\n### Land Units")
 EMPCFBOTH("land_mob_scale", land_mob_scale, float, NSC_FLOAT, 0,
     "Land unit mobility accumulation (land_mob_scale * ETUs per update)")
-EMPCFBOTH("land_grow_scale", land_grow_scale, int, NSC_INT, 0,
+EMPCFBOTH("land_grow_scale", land_grow_scale, float, NSC_FLOAT, 0,
     "How fast efficiency grows for land units each update (* ETUs)")
 EMPCFBOTH("land_mob_max", land_mob_max, int, NSC_INT, 0,
     "Maximum mobility for land units")
@@ -189,7 +189,7 @@ EMPCFBOTH("morale_base", morale_base, int, NSC_INT, KM_INTERNAL,
 EMPCF_COMMENT("\n\n### Planes")
 EMPCFBOTH("plane_mob_scale", plane_mob_scale, float, NSC_FLOAT, 0,
     "Plane mobility accumulation (plane_mob_scale * ETUs per update)")
-EMPCFBOTH("plane_grow_scale", plane_grow_scale, int, NSC_INT, 0,
+EMPCFBOTH("plane_grow_scale", plane_grow_scale, float, NSC_FLOAT, 0,
     "How fast efficiency grows for planes each update (* ETUs)")
 EMPCFBOTH("plane_mob_max", plane_mob_max, int, NSC_INT, 0,
     "Maximum mobility for planes")
@@ -199,7 +199,7 @@ EMPCFBOTH("money_plane", money_plane, double, NSC_DOUBLE, 0,
 EMPCF_COMMENT("\n\n### Ships")
 EMPCFBOTH("ship_mob_scale", ship_mob_scale, float, NSC_FLOAT, 0,
     "Ship mobility accumulation (ship_mob_scale * ETUs per update)")
-EMPCFBOTH("ship_grow_scale", ship_grow_scale, int, NSC_INT, 0,
+EMPCFBOTH("ship_grow_scale", ship_grow_scale, float, NSC_FLOAT, 0,
     "How fast efficiency grows for ships each update (* ETUs)")
 EMPCFBOTH("ship_mob_max", ship_mob_max, int, NSC_INT, 0,
     "Maximum mobility for ships")

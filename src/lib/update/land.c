@@ -269,8 +269,8 @@ landrepair(struct lndstr *land, struct natstr *np,
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
 	return 1;
-    if (delta > etus * land_grow_scale)
-	delta = etus * land_grow_scale;
+    if (delta > (int)((float)etus * land_grow_scale))
+	delta = (int)((float)etus * land_grow_scale);
 
     /* delta is the max amount we can grow */
 
