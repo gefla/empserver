@@ -1,3 +1,36 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2000, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  xdump.c: Experimental extended dump
+ * 
+ *  Known contributors to this file:
+ *     Markus Armbruster, 2004
+ */
+
 #include <stddef.h>
 #include "misc.h"
 #include "file.h"
@@ -39,6 +72,11 @@
  * - Bmap: EF_BMAP
  * - Market: EF_COMM, commodity_ca[]
  */
+
+/* FIXME document dump format */
+
+/* Selector descriptors for characteristics tables */
+/* FIXME belongs into src/lib/global/ */
 
 static struct castr ichr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name"},
@@ -153,13 +191,15 @@ static struct castr nchr_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
+/* Characteristics table meta data */
 struct camap {
-    char *name;
-    struct castr *ca;
-    void *chr;
-    size_t size;
+    char *name;			/* name for lookup */
+    struct castr *ca;		/* selector descriptors */
+    void *chr;			/* characteristics table */
+    size_t size;		/* size of characteristics table element */
 };
 
+/* Table of characteristics tables */
 static struct camap chr_camap[] = {
     {"item", ichr_ca, ichr, sizeof(ichr[0])},
     {"product", pchr_ca, pchr, sizeof(pchr[0])},
@@ -170,6 +210,11 @@ static struct camap chr_camap[] = {
     {NULL, NULL, NULL, 0}
 };
 
+/*
+ * Search chr_camap[] for element named NAME, return its index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ */
 static int
 chridx_by_name(char *name)
 {
@@ -177,18 +222,26 @@ chridx_by_name(char *name)
 		  sizeof(chr_camap[0]));
 }
 
+/*
+ * Evaluate a attribute of an object into VAL.
+ * TYPE is the attribute's type.
+ * PTR points to the context object.
+ * The attribute is stored there at offset OFF + IDX * S, where S is
+ * its size.
+ */
 static struct valstr *
-xdeval(struct valstr *val, nsc_type type, ptrdiff_t off, void *item, int idx)
+xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
 {
     val->val_type = type;
     val->val_cat = NSC_OFF;
     val->val_as_type = -1;
     val->val_as.sym.off = off;
     val->val_as.sym.idx = idx;
-    nstr_exec_val(val, player->cnum, item, 0);
+    nstr_exec_val(val, player->cnum, ptr, 0);
     return val;			/* FIXME nstr_exec_val() should return VAL */
 }
 
+/* Dump VAL prefixed with SEP, return " ".  */
 static char *
 xdprval(struct valstr *val, char *sep)
 {
@@ -218,8 +271,13 @@ xdprval(struct valstr *val, char *sep)
     return " ";
 }
 
+/*
+ * Dump field values of a context object.
+ * CA[] describes fields.
+ * PTR points to context object.
+ */
 static void
-xdflds(struct castr ca[], void *item)
+xdflds(struct castr ca[], void *ptr)
 {
     int i, j;
     struct valstr val;
@@ -230,14 +288,15 @@ xdflds(struct castr ca[], void *item)
 	    continue;
 	j = 0;
 	do {
-	    xdeval(&val, ca[i].ca_type, ca[i].ca_off, item, j);
+	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j);
 	    sep = xdprval(&val, sep);
 	} while (++j < ca[i].ca_len);
     }
 }
 
+/* Dump field names; CA[] describes fields.  */
 static void
-xdhdrs(struct castr ca[])
+xdfldnam(struct castr ca[])
 {
     int i;
     char *sep = "";
@@ -252,22 +311,28 @@ xdhdrs(struct castr ca[])
     }
 }
 
+/* Dump header for dump NAME with fields described by CA[].  */
 static void
 xdhdr(char *name, struct castr ca[])
 {
     prdate();
     pr("DUMP %s %ld\n", name, (long)time(NULL));
 
-    xdhdrs(ca);
+    xdfldnam(ca);
     pr("\n");
 }
 
+/* Dump footer for a dump that dumped N objects.  */
 static void
 xdftr(int n)
 {
     pr("dumped %d\n", n);
 }
 
+/*
+ * Dump items of type TYPE selected by ARG.
+ * Return RET_OK on success, RET_SYN on error.
+ */
 static int
 xditem(int type, char *arg)
 {
@@ -299,6 +364,10 @@ xditem(int type, char *arg)
     return RET_OK;
 }
 
+/*
+ * Dump characteristics described by chr_camap[IDX].
+ * Return RET_OK on success, RET_SYN if IDX < 0.
+ */
 static int
 xdchr(int chridx)
 {
@@ -333,6 +402,7 @@ xdchr(int chridx)
     return RET_OK;
 }
 
+/* Experimental extended dump command */
 int
 xdump(void)
 {
