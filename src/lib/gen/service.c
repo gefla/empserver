@@ -147,14 +147,13 @@ remove_service(char *service_name)
     }
 }
 
-static SERVICE_STATUS          service_status; 
-static SERVICE_STATUS_HANDLE   service_status_handle; 
+static SERVICE_STATUS		service_status; 
+static SERVICE_STATUS_HANDLE	service_status_handle;
+static HANDLE			hShutdownEvent = NULL;
 
 void WINAPI
 service_ctrl_handler(DWORD Opcode) 
 { 
-    DWORD status; 
- 
     switch(Opcode) 
     { 
         case SERVICE_CONTROL_PAUSE: 
@@ -167,20 +166,9 @@ service_ctrl_handler(DWORD Opcode)
             service_status.dwCurrentState = SERVICE_RUNNING; 
             break; 
  
-        case SERVICE_CONTROL_STOP: 
-            service_status.dwWin32ExitCode = 0; 
-            service_status.dwCurrentState  = SERVICE_STOPPED; 
-            service_status.dwCheckPoint    = 0; 
-            service_status.dwWaitHint      = 0; 
- 
-            if (!SetServiceStatus (service_status_handle, 
-                &service_status)) { 
-                status = GetLastError(); 
-                logerror("Error while stopping service SetServiceStatus"
-		    " error %ld", status); 
-            } 
- 
-            logerror("Service stopped"); 
+        case SERVICE_CONTROL_STOP:
+	    logerror("Service stopping");
+	    SetEvent(hShutdownEvent);
             return; 
  
         case SERVICE_CONTROL_INTERROGATE: 
@@ -193,10 +181,8 @@ service_ctrl_handler(DWORD Opcode)
     } 
  
     /* Send current status. */
-    if (!SetServiceStatus (service_status_handle,  &service_status)) { 
-        status = GetLastError(); 
-        logerror("SetServiceStatus error %ld",status); 
-    } 
+    if (!SetServiceStatus (service_status_handle,  &service_status))
+        logerror("SetServiceStatus error %ld",GetLastError()); 
     return; 
 } 
 
@@ -215,10 +201,17 @@ service_main(DWORD argc, LPTSTR *argv)
         DEFAULT_SERVICE_NAME, service_ctrl_handler);
  
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
-        logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError()); 
-        return; 
+        logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError());
+	loc_NTTerm();
+        return;
     }
  
+    if ((hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) == NULL) {
+        logerror("CreateEvent for Shutdown failed %d\n", GetLastError());
+	loc_NTTerm();
+	return;
+    }
+
     start_server(0);
  
     /* Initialization complete - report running status. */
@@ -236,19 +229,27 @@ service_main(DWORD argc, LPTSTR *argv)
     close_files();
 
     loc_NTTerm();
-
-    /* This is where the service does its work. */
-    logerror("Returning the Main Thread \n",0);
     return;
 }
 
-int
+void
 service_stopped(void)
 {
-    if (service_status.dwCurrentState == SERVICE_STOPPED)
-	return 1;
-    else
-	return 0;
+    if (hShutdownEvent != NULL) {
+	WaitForSingleObject(hShutdownEvent,INFINITE);
+        shutdwn(0);
+        logerror("Service stopped");
+	service_status.dwWin32ExitCode = 0; 
+	service_status.dwCurrentState  = SERVICE_STOPPED; 
+	service_status.dwCheckPoint    = 0; 
+	service_status.dwWaitHint      = 0; 
+
+	if (!SetServiceStatus (service_status_handle, 
+	    &service_status)) { 
+	    logerror("Error while stopping service SetServiceStatus"
+		" error %ld", GetLastError()); 
+	}
+    }
 }
 
 #endif /* _WIN32 */

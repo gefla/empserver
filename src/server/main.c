@@ -218,7 +218,7 @@ main(int argc, char **argv)
 	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
 		logerror("Failed to dispatch service (%d)", GetLastError());
-		printf("Failed to dispatch service (%d)\n", GetLastError());
+		loc_NTTerm();
 		exit(EXIT_FAILURE);
 	    }
 	}
@@ -488,7 +488,14 @@ shutdwn(int sig)
     else
 	logerror("Server shutting down at Deity's request");
     close_files();
+
+#if defined(_WIN32)
+    loc_NTTerm();
+    if (!daemonize)
+	_exit(0);
+#else
     _exit(0);
+#endif
 }
 
 

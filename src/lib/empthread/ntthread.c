@@ -473,9 +473,7 @@ empth_exit(void)
 	/* The main line.  Wait forever. */
 	while (1) {
 	    if (daemonize) {
-		if (service_stopped())
-		    shutdwn(0);
-		Sleep(3);
+		service_stopped();
 	    } else {
 		char buf[20];
 		printf("\nEmpire Server>");
