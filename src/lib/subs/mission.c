@@ -682,8 +682,10 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 			      "sector", victim, mission);
 	qp = missiles.q_forw;
 	while (qp != (&missiles)) {
-	    qp = qp->q_forw;
+	    newqp = qp->q_forw;
+	    emp_remque(qp);
 	    free(qp);
+	    qp = newqp;
 	}
     }
 
