@@ -1,3 +1,66 @@
+Changes to Empire 4.2.18 - Tue Sep  7 14:08:59 UTC 2004
+ * Fix info to accept abbreviated arguments under Windows.  From Ron
+   Koenderink.
+ * Buying planes or land units loaded on something didn't work when
+   that something moved.
+ * Fix a bug that could produce update cascades with update policy
+   UDP_TIMES.
+ * Fix delivery and distribution to grant packing bonus only to
+   efficient sectors, just like move.  Previously, delivery ignored
+   efficiency, and distribution behaved as if it were an efficient
+   sector without special bonuses.
+ * New sector selectors loyal, access; ship selectors radius, access,
+   xbuilt, ybuilt, builder, name; plane selectors radius, access,
+   theta; land unit selectors radius, react, nland, access; lost
+   selector id.
+ * Fix sector selectors che, che_target; plane selectors att, def;
+   nuke selector types; treaty selector exp; news selector time;
+   commodity selectors type, xbuy, ybuy.
+ * Option PLANENAMES is no longer optional.
+ * Ensure config parameter variables and their description in
+   configkeys[] are consistent.  Inconsistencies there caused bugs in
+   the past.  From Marc Olzheim.
+ * Complain if econfig file can't be read.
+ * Better messages for errors in econfig file.
+ * Remove unused econfig keys hard_tech and last_demand_update.
+ * New econfig key news_keep_days to configure news expiry.
+ * New econfig key anno_keep_days to configure announcement expiry.
+ * Fix announcement expiry.  It leaked file descriptors and memory,
+   and could corrupt the anno file.  From Ron Koenderink.
+ * New command xdump: experimental extended dump.  Disabled for now.
+ * Bankers no longer round down debts, and they collect interest for
+   the time debtors are idling at sub-prompts.
+ * Loan interest calculation was broken at the due date and after a
+   last payment made at the due date.  With luck, debtors could abuse
+   this to repay loans cheap (they couldn't gain cash, though), sharks
+   to purchase loans cheap, and creditors to collect excessively.
+ * Fix major bug in transport that allowed two cooperating countries
+   to duplicate items.
+ * Don't report interdiction damage twice when transporting planes.
+ * Fix message for attempting to transport a plane in a sector not
+   owned by the player.
+ * Fix confusing diagnostics when refusing to improve defense because
+   option DEFENSE_INFRA is off.
+ * Simplify confusing code in budget.
+ * Fix spacing in output of budget and show.
+ * Change one-way plane sorties to match ordinary sorties: offer
+   carriers regardless of the sector they're in, require carriers to
+   be efficient.
+ * Allow `realm #'.
+ * Don't print owner of incoming missile twice when intercepting it.
+ * Simplify constituent storage in product characteristics.
+ * Replace remaining `variables' leftovers; mainly in unit
+   characteristics.
+ * Remove leading spaces in deity unit dumps.
+ * Replace inappropriate uses of compile time constant ETUS by 60.
+   Deities don't change ETUS, they change etu_per_update by editing
+   econfig.  This nonsense dates back at least to chainsaw 3.31.
+ * Change ship production (fishing and drilling for oil) to match
+   sector production.  Ship efficiency and tech are now relevant, and
+   all people on board work.  From Ron Koenderink.
+ * Code cleanups.
+ * Minor info file fixes.
+
 Changes to Empire 4.2.17 - Mon Aug 16 16:21:53 UTC 2004
  * Fix seeding of PRNG under Windows.  The bug made updates occur at
    a predictable time in the update window.  From Ron Koenderink.
@@ -21,7 +84,7 @@ Changes to Empire 4.2.17 - Mon Aug 16 16:21:53 UTC 2004
    sectors equally vulnerable, even mountains, plains, and inefficient
    big cities.
  * Oil derricks no longer drill and deplete more oil than they can
-   hold.
+   hold.  From Ron Koenderink.
  * Version 4.2.15's coordinate and list parsing fixes reject trailing
    junk.  That's too strict.  Silently ignore trailing junk as long as
    it starts with whitespace.
