@@ -32,6 +32,7 @@
  */
 
 #if defined(_WIN32)
+#define WIN32
 #include <winsock2.h>
 #undef NS_ALL
 #endif
