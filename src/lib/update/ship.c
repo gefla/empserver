@@ -436,7 +436,7 @@ feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
     int can_eat, need;
     int total_people;
     int to_starve;
-    int starved, lvec[I_MAX + 1];
+    int starved;
     struct nstr_item ni;
     struct lndstr *lp;
 
@@ -463,16 +463,14 @@ feed_ship(struct shpstr *sp, register int *vec, int etus, int *needed,
 		if (lp->lnd_ship != sp->shp_uid)
 		    continue;
 		need = ifood_eaten - vec[I_FOOD];
-		getvec(VT_ITEM, lvec, (s_char *)lp, EF_LAND);
 		land_eaten = (etus * eatrate) * (double)lnd_getmil(lp);
-		if (lvec[I_FOOD] - need > land_eaten) {
+		if (lp->lnd_item[I_FOOD] - need > land_eaten) {
 		    vec[I_FOOD] += need;
-		    lvec[I_FOOD] -= need;
-		} else if ((lvec[I_FOOD] - land_eaten) > 0) {
-		    vec[I_FOOD] += (lvec[I_FOOD] - land_eaten);
-		    lvec[I_FOOD] -= (lvec[I_FOOD] - land_eaten);
+		    lp->lnd_item[I_FOOD] -= need;
+		} else if (lp->lnd_item[I_FOOD] - land_eaten > 0) {
+		    vec[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
+		    lp->lnd_item[I_FOOD] -= lp->lnd_item[I_FOOD] - land_eaten;
 		}
-		putvec(VT_ITEM, lvec, (s_char *)lp, EF_LAND);
 	    }
 	}
     }
