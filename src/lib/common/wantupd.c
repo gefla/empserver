@@ -152,31 +152,6 @@ demand_check(void)
 
     time(&cur);
 
-/*
-	if (last_demand_update == 0){
-		natp=getnatp(0);
-		last_demand_update = natp->nat_reserve;
-	}
-
-	logerror("last_demand_update = %d\n",last_demand_update);
-	logerror("update_between = %d\n",update_between());
-	logerror("now = %d\n",cur);
-	diff = (cur-(last_demand_update + update_between()));
-	logerror("diff = %d\n",diff);
-	if (diff >= 0){
-		logerror("Forced update!\n");
-		last_demand_update = cur;
-		for (cn = 1; natp = getnatp(cn); cn++){
-			if (((natp->nat_stat & NORM) == NORM)  &&
-				((natp->nat_stat & GOD) != GOD)){
-				natp->nat_missed = 0;
-			}
-		}
-		return(1);
-	}
-
-	logerror("No forced update!\n");
-*/
     if (0 == update_wantmin) {
 	logerror("no demand update allowed, wantmin = 0");
 	return (0);
@@ -211,10 +186,6 @@ demand_check(void)
 	return (0);
     }
 
-    last_demand_update = cur;
-    natp = getnatp(0);
-    /* A dumb way to do it, but simple */
-    last_demand_update = natp->nat_reserve;
     return (1);
 }
 

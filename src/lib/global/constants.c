@@ -219,10 +219,6 @@ double buil_tower_bc = 7500.0;	/* cash required to build a bridge tower */
 /* opt_SLOW_WAR */
 int War_Cost = 1000;		/* Cost to declare war */
 
-/* opt_DEMANDUPDATE */
-long last_demand_update = 0;	/* When was last demand update? */
-
-
 /* opt_DRNUKE */
 float drnuke_const = .33;	/* research must be at least drnuke_const*tech */
 				/* in order to build a nuke. For example, if

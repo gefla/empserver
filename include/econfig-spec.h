@@ -296,8 +296,6 @@ EMPCFBOTH("fuel_mult", fuel_mult, int, intset, 0,
     "Multiplier for fuel to mobility calculation")
 EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, intset, 0,
     "Seconds before a lost item is timed out of the database")
-EMPCFBOTH("last_demand_update", last_demand_update, long, longset, 0,
-    "When was the last demand update occured")
 
 EMPCFONLYC(NULL, emp_config_dummy, NULL, NULL, 0, NULL)
 
