@@ -50,7 +50,7 @@ procline:
     if (/^\.SA/) {
 	@a = split('[: ",.]+');
 
-	printf("See also : %s\n",&anchor($a[2]) );
+	printf("<p>See also : %s\n",&anchor($a[2]) );
 	for (my $i = 3; $i <= $#a ; ($i)++) {       
 	    printf(", %s\n",&anchor($a[$i]));
 	}
