@@ -53,7 +53,7 @@ mobupdate(void)
     FILE *fp;
     long minites;
     struct mob_acc_globals timestamps;
-    long now;
+    time_t now;
 
     if (!opt_MOB_ACCESS) {
 	pr("Command invalid - MOB_ACCESS is not enabled.\n");
