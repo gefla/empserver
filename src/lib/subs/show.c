@@ -624,7 +624,7 @@ show_sect_build(int foo)
 {
     register int x, first = 1;
 
-    for (x = 5; x < SCT_MAXDEF + 2; x++) {
+    for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if ((dchr[x].d_cost > 0) || (dchr[x].d_build != 1) ||
@@ -658,7 +658,7 @@ show_sect_stats(int foo)
     natp = getnatp(player->cnum);
     /* We fake this */
     sect.sct_effic = 100;
-    for (x = 0; x < SCT_MAXDEF + 2; x++) {
+    for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (first) {
@@ -686,7 +686,7 @@ show_sect_capab(int foo)
     register int x, first = 1, i, j;
     char *tmpstr;
 
-    for (x = 0; x < SCT_MAXDEF + 2; x++) {
+    for (x = 0; x <= SCT_MAXDEF; x++) {
 	if ((dchr[x].d_mnem == 0) || (dchr[x].d_prd == 0))
 	    continue;
 	if (first) {

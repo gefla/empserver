@@ -138,8 +138,8 @@ main(int argc, char *argv[])
     nat.nat_money = 123456789;
     nat.nat_cnum = 0;
     nat.nat_flags |= NF_FLASH;
-    for (x = 0; x < SCT_MAXDEF + 8; x++)
-	nat.nat_priorities[x] = -1;
+    for (i = 0; i <= PRI_MAX; i++)
+	nat.nat_priorities[i] = -1;
     putnat((&nat));
     printf("All praise to %s!\n", nat.nat_cnam);
     memset(&nat, 0, sizeof(nat));

@@ -65,7 +65,7 @@ budg(void)
 {
     s_char stype = 0, *pq;
     int priority, x;
-    long p_sect[SCT_MAXDEF + 1][2];
+    long p_sect[SCT_MAXDEF+1][2];
     int taxes = 0, bars = 0, mil = 0;
     int Ncivs = 0, Nuws = 0, Nbars = 0;
     int n, etu;
@@ -108,11 +108,11 @@ budg(void)
     if (pq != (s_char *)0) {
 	if (isdigit(*pq)) {
 	    priority = (atoi(pq) < 0 ? -1 * atoi(pq) : atoi(pq));
-	    if (priority >= SCT_MAXDEF + 8) {
-		pr("Priorities must be less than %d!\n", SCT_MAXDEF + 8);
+	    if (priority > PRI_MAX) {
+		pr("Priorities must be less than %d!\n", PRI_MAX + 1);
 		return RET_FAIL;
 	    }
-	    for (x = 0; x < SCT_MAXDEF + 8; x++)
+	    for (x = 0; x <= PRI_MAX; x++)
 		if (priority && (np->nat_priorities[x] == priority)) {
 		    pr("Priorities must be unique!\n");
 		    return RET_FAIL;
@@ -158,7 +158,7 @@ budg(void)
 	    }
 	}
 	if (which == -1) {
-	    for (x = 0; x < SCT_MAXDEF + 8; x++) {
+	    for (x = 0; x <= PRI_MAX; x++) {
 		np->nat_priorities[x] = -1;
 	    }
 	} else {
@@ -175,7 +175,7 @@ budg(void)
 
     income = taxes + bars;
     pr("Sector Type\t\tAbbr\tProduction\tPriority\t    Cost\n");
-    for (x = 0; x < SCT_MAXDEF + 1; x++) {
+    for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (!p_sect[x][1] && np->nat_priorities[x] == -1)
 	    continue;
 	if (!pchr[dchr[x].d_prd].p_cost &&
@@ -355,8 +355,8 @@ calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs, int *Nuws,
 
     *mil += (int)upd_slmilcosts(np->nat_cnum, etu);
 
-    for (y = 1; y < SCT_MAXDEF + 8; y++) {
-	for (z = 0; z < SCT_MAXDEF + 8; z++)
+    for (y = 1; y <= PRI_MAX; y++) {
+	for (z = 0; z <= PRI_MAX; z++)
 	    if (np->nat_priorities[z] == y)
 		switch (z) {
 		case PRI_SMAINT:

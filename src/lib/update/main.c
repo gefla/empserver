@@ -112,7 +112,7 @@ update_main(void *unused)
     logerror("producing for countries...");
     for (x = 0; x < MAXNOC; x++) {
 	int y, z, sb = 0, sm = 0, pb = 0, pm = 0, lm = 0, lb = 0;
-	long p_sect[SCT_MAXDEF + 1][2];
+	long p_sect[SCT_MAXDEF+1][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
 	mil_dbl_pay = 0;
@@ -126,8 +126,8 @@ update_main(void *unused)
 	}
 	np->nat_money += (int)(np->nat_reserve * money_res * etu);
 
-	for (y = 1; y < SCT_MAXDEF + 8; y++) {
-	    for (z = 0; z < SCT_MAXDEF + 8; z++) {
+	for (y = 1; y <= PRI_MAX; y++) {
+	    for (z = 0; z <= PRI_MAX; z++) {
 		if (np->nat_priorities[z] == y) {
 		    do_prod(z, etu, x, bp, p_sect,
 			    &sb, &sm, &pb, &pm, &lb, &lm);

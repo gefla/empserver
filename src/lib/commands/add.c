@@ -230,7 +230,7 @@ add(void)
     } else
 	pr("No special initializations done...\n");
 
-    for (i = 0; i < SCT_MAXDEF + 8; i++)
+    for (i = 0; i <= PRI_MAX; i++)
 	natp->nat_priorities[i] = -1;
     natp->nat_flags =
 	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;

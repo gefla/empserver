@@ -40,6 +40,17 @@
 
 #define	MAXNOR		50	/* max # realms */
 
+enum {				/* Priorities */
+    /* sector types are also priorities */
+    PRI_SMAINT = SCT_MAXDEF+1,	/* ship maintenance */
+    PRI_PMAINT,			/* plane maintenance */
+    PRI_LMAINT,			/* land unit maintenance */
+    PRI_SBUILD,			/* ship building */
+    PRI_PBUILD,			/* plane building */
+    PRI_LBUILD,			/* land building */
+    PRI_MAX = PRI_LBUILD
+};
+
 struct boundstr {
     short b_xl, b_xh;		/* horizontal bounds */
     short b_yl, b_yh;		/* vertical bounds */
@@ -75,19 +86,11 @@ struct natstr {
     struct boundstr nat_b[MAXNOR];	/* realm bounds */
     short nat_relate[MAXNOC];
     short nat_contact[MAXNOC];
-    short nat_rejects[(MAXNOC + 3) / 4];	/* four bits for each country */
-    s_char nat_priorities[SCT_MAXDEF + 8];	/* priority for each SCT_MAXDEF+8 */
+    short nat_rejects[(MAXNOC + 3) / 4]; /* four bits for each country */
+    s_char nat_priorities[PRI_MAX+1]; /* budget priority */
     long nat_flags;		/* nation flags */
     char nat_spare[15];
 };
-
-	/* Priorities */
-#define	PRI_SMAINT	SCT_MAXDEF+2
-#define PRI_PMAINT	SCT_MAXDEF+3
-#define PRI_LMAINT	SCT_MAXDEF+4
-#define PRI_SBUILD	SCT_MAXDEF+5
-#define PRI_PBUILD	SCT_MAXDEF+6
-#define PRI_LBUILD	SCT_MAXDEF+7
 
 	/* nation status types */
 #define STAT_INUSE	bit(0)	/* cnum in use */
