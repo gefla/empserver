@@ -1,7 +1,10 @@
 .TH Command DELIVER
 .NA deliver "Establish delivery routes for shells, ore, etc"
 .LV Expert
-.SY "deliver <COMM> <SECTS> [q|<THRESH>] [<DIR>]"
+.SY "deliver <COMM> <SECTS> <THRESH> <DIR>"
+.SY "deliver <COMM> <SECTS> +<THRESH>"
+.SY "deliver <COMM> <SECTS> <DIR>"
+.SY "deliver <COMM> <SECTS> q"
 .s1
 An example of using deliver in addition to distribute is where
 you may have a mine which uses distribute to get its food

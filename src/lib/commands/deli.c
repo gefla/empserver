@@ -49,7 +49,7 @@ deli(void)
     struct sctstr sect;
     register int dir, del;
     register struct ichrstr *ich;
-    register int thresh = -1;
+    register int thresh;
     int i_del;
     int sx, sy;
     int status;
@@ -73,27 +73,37 @@ deli(void)
     while (nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
-	sprintf(prompt, "%s %s 'query' or %s threshold? ",
+	
+	del = getvar(i_del, (s_char *)&sect, EF_SECTOR);
+	thresh = del & ~0x7;
+	dir = del & 0x7;
+
+	sprintf(prompt, "%s %s %s threshold or direction or 'query'? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		dchr[sect.sct_type].d_name, ich->i_name);
 	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
 	    return RET_SYN;
-	del = getvar(i_del, (s_char *)&sect, EF_SECTOR);
-	if (((*p >= '0') && (*p <= '9')) || *p == '+') {
-	    thresh = atoi(p) & ~0x7;
-	    if (*p == '+'
-		|| !(p = getstarg(player->argp[4], "Direction? ", buf))
-		|| !*p)
-		dir = del & 0x7;
-	    else if ((dir = chkdir(*p, DIR_STOP, DIR_LAST)) < 0)
-		return RET_SYN;
-	} else if (*p != 'q')
-	    return RET_SYN;
+	if (*p != 'q') {
+	    sprintf(prompt, "%s %s %s direction? ",
+		    xyas(nstr.x, nstr.y, player->cnum),
+		    dchr[sect.sct_type].d_name, ich->i_name);
+	    if (((*p >= '0') && (*p <= '9')) || *p == '+') {
+		thresh = atoi(p) & ~0x7;
+		if (*p == '+')
+		    p = NULL;
+		else {
+		    p = getstarg(player->argp[4], prompt, buf);
+		}
+	    }
+	    if (p && *p) {
+		dir = chkdir(*p, DIR_STOP, DIR_LAST);
+		if (dir < 0)
+		    return RET_SYN;
+	    }
+	    
+	    if (!check_sect_ok(&sect))
+		continue;
 
-	if (!check_sect_ok(&sect))
-	    continue;
-
-	if (thresh >= 0) {
 	    del = thresh + dir;
 	    status = putvar(i_del, del, (s_char *)&sect, EF_SECTOR);
 	    if (status < 0) {
@@ -106,9 +116,10 @@ deli(void)
 	    } else
 		putsect(&sect);
 	}
+
 	if (!del)
 	    continue;
-	dir = del & 0x7;
+
 	sx = diroff[dir][0] + sect.sct_x;
 	sy = diroff[dir][1] + sect.sct_y;
 	pr("Deliver %s from %s @ %s to %s",
@@ -119,7 +130,8 @@ deli(void)
 	if (!(del & ~0x7))
 	    pr("\n");
 	else
-	    pr(" (cutoff %d)\n", del & ~0x7);
+	    pr(" (cutoff %d)\n", thresh);
     }
+
     return RET_OK;
 }
