@@ -1,7 +1,9 @@
 #!/usr/local/bin/perl
 
+use strict;
+use warnings;
 
-$[ = 1;			# set array base to 1
+my (@Fld, $str, @a);
 
 line: while (<>) {
     chop;	# strip record separator
@@ -9,17 +11,17 @@ line: while (<>) {
 
 procline:
     if (/^\.TH/) {
-	$str=$Fld[3];
-	for ($i=4;$i <= $#Fld; $i++) {
+	$str=$Fld[2];
+	for (my $i=3; $i <= $#Fld; $i++) {
 	    $str .= " " . $Fld[$i];
 	}
 	$str = &htmlify($str);
 	printf("<title>%s : %s</title><h1>%s : %s</h1>\n",
-	       $Fld[2],$str,$Fld[2], $str);
+	       $Fld[1], $str, $Fld[1], $str);
 	next line;
     }
 
-    if (/^\.SY/) {
+    if (/^\.SY../) {
 #	$i = $_ =~ "\"" && ($RLENGTH = length($&), $RSTART = length($`)+1);
 #	$str = substr($_, $i + 1, length($_) - $i - 1);
 	$str = substr($_,5);
@@ -28,13 +30,13 @@ procline:
 	next line;
     }
 
-    if (/^\.EX/) {
+    if (/^\.EX../) {
 	$str = substr($_, 5);
 	printf "<br><samp>[##:##] </samp><kbd>%s</kbd><p>\n", &htmlify($str);
 	next line;
     }
 
-    if (/^\.L/) {
+    if (/^\.L../) {
 	$str = substr($_, 4);
 	printf "<h2>%s</h2>\n", &htmlify($str);
 	next line;
@@ -48,8 +50,8 @@ procline:
     if (/^\.SA/) {
 	@a = split('[: ",.]+');
 
-	printf("See also : %s\n",&anchor($a[3]) );
-	for ($i = 4; $i <= $#a ; ($i)++) {       
+	printf("See also : %s\n",&anchor($a[2]) );
+	for (my $i = 3; $i <= $#a ; ($i)++) {       
 	    printf(", %s\n",&anchor($a[$i]));
 	}
 
@@ -58,7 +60,7 @@ procline:
 	    @a = split('[: ,.]+');
 	    @Fld = split(' ', $_, 9999);
 	    if (/^\./) { goto procline; }
-	    for ($i = 1; $i <= $#a ; ($i)++) {       
+	    for (my $i = 0; $i <= $#a ; ($i)++) {       
 		printf(", %s\n",&anchor($a[$i]));
 	    }
 	}
@@ -71,8 +73,8 @@ procline:
     if (/^(See also|See Also|see also)/) {
 	@a = split('[: ,.]+');
 
-	printf("See also : %s\n",&anchor($a[3]) );
-	for ($i = 4; $i <= $#a ; ($i)++) {       
+	printf("See also : %s\n",&anchor($a[2]) );
+	for (my $i = 3; $i <= $#a ; ($i)++) {       
 	    printf(", %s\n",&anchor($a[$i]));
 	}
 
@@ -81,7 +83,7 @@ procline:
 	    @a = split('[: ,.]+');
 	    @Fld = split(' ', $_, 9999);
 	    if (/^\./) { goto procline; }
-	    for ($i = 1; $i <= $#a ; ($i)++) {       
+	    for (my $i = 0; $i <= $#a ; ($i)++) {       
 		printf(", %s\n",&anchor($a[$i]));
 	    }
 	}
@@ -103,8 +105,8 @@ procline:
 #}
 
 sub anchor {
-    local($_) = @_;
-    local(@file,$file);
+    local ($_) = @_;
+    my (@file,$file);
     $file = $_ . ".t";
 #    if (-r $file) {
     if (1) {
@@ -113,9 +115,9 @@ sub anchor {
     } else {
 	@file = <$_*t>;
 	if (@file) {
-	  warn "Expanding $_ to $file[$[]\n";
-	  $file[$[] =~ s/.t$/.html/;
-	  return ("<a href=\"$file[$[]\">$_</a>");
+	  warn "Expanding $_ to $file[0]\n";
+	  $file[0] =~ s/.t$/.html/;
+	  return ("<a href=\"$file[0]\">$_</a>");
 	} else {
 	  warn "Unable to link $_\n";
 	  return ( "<em>$_</em>");
@@ -126,7 +128,7 @@ sub anchor {
     
 # Translate HTML special characters into escape sequences
 sub htmlify {
-        local($_) = @_;
+        local ($_) = @_;
 	s/^\"(.*)\"$/$1/;
 	s/\\&//g;		# a nothing character
         s/\&/&amp;/g;
@@ -134,15 +136,15 @@ sub htmlify {
         s/\>/&gt;/g;
 	while (@a = /(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
 	    /(\\\*Q)([A-Za-z\-]+)(\\\*U)/;
-	    $_ = $` . &anchor($a[2]) . $';
+	    $_ = $` . &anchor($a[1]) . $';
 	}
 	while (@a = /(\\\*Q)(\"info )([A-Za-z0-9\-\.]+)(\\\*U)/) {
 	    /(\\\*Q)(\"info )([\w\-\.]+)(\\\*U)/;
-	    $_ = $` . "\"info " . &anchor($a[3]) . $';
+	    $_ = $` . "\"info " . &anchor($a[2]) . $';
 	}
 	while (@a = /(\"info )([A-Za-z0-9\-\.]+)/) {
 	    /(\"info )([\w\-\.]+)/;
-	    $_ = $` . "\"info " . &anchor($a[2]) . $';
+	    $_ = $` . "\"info " . &anchor($a[1]) . $';
 	}
         s/\\\*Q/<em>/g;
         s/\\\*U/<\/em>/g;

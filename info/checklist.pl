@@ -11,6 +11,11 @@
 # to check which Empire commands need to be documented.
 #
 
+use strict;
+use warnings;
+
+my ($com, @list, @obsolete, @Commands);
+
 open(LIST, "<player.list") || die "Can't read player.list\n";
 
 while(<LIST>) {
@@ -60,10 +65,10 @@ while (<LS>) {
 close LS;
 
 print "In list but not Commands:\n";
-for $l (@list) {
+for my $l (@list) {
   print "  $l\n" unless grep (/^$l$/, @Commands);
 }
 print "In Commands but not list:\n";
-for $c (@Commands) {
+for my $c (@Commands) {
   print "  $c\n" unless grep(/^$c$/, @list) || grep(/^$c$/, @obsolete);
 }

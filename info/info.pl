@@ -84,6 +84,12 @@
 # flush_subj      Print a row of Subjects to TOP
 # error           Print an integrity error to STDERR and exit with code 1.
 
+use strict;
+use warnings;
+
+our (@dirs, $dir, $filename, %filedir, @Subjects, $type, %desc, %level);
+our (%see_also, %subject, %largest, $subj, @rowsubj, @colsubj, @subj);
+
 eval("require 5");		# Test for perl version 5
 die "info.pl requires version 5 of perl.\n" if $@;
 
@@ -208,9 +214,9 @@ sub parse_file {
 
 # Create %subject from %see_also
 sub parse_see_also {
-  local (@see_also) = split(/, /, $see_also{$filename});
+  my (@see_also) = split(/, /, $see_also{$filename});
   local ($dir) = $filedir{$filename};
-  local ($found);		# Does this item belong to any Subject?
+  my ($found);		# Does this item belong to any Subject?
 
   for (@see_also) {
     if (!(defined $filedir{$_})) { # is this entry a subject?
@@ -225,6 +231,7 @@ sub parse_see_also {
 # Add a new entry to %subject and possibly to %largest
 sub set_subject {
   $subject{$_}{$dir} .= "$filename\n";
+  $largest{$_} = "" unless defined $largest{$_};
   $largest{$_} = $filename if length $filename > length $largest{$_};
   $largest{$_} = $dir if length $dir > length $largest{$_};
 }
@@ -283,8 +290,9 @@ EOF
       $subj eq 'TOP' || grep (/^$subj$/, @rowsubj);
   }
 
-  for $i (0..2) {
-    for ($j = $i; $j <= $#rowsubj; $j += 3) {
+  my $k = 0;
+  for my $i (0..2) {
+    for (my $j = $i; $j <= $#rowsubj; $j += 3) {
       $colsubj[$j] = $rowsubj[$k++];
     }
   }
@@ -316,7 +324,7 @@ sub flush_subj {
 
 # Print an integrity error message and exit with code 1
 sub error {
-  local ($error) = @_;
+  my ($error) = @_;
 
   print STDERR "Error on line $. of $filedir{$filename}/$filename.t:\n";
   print STDERR "$_";
