@@ -34,7 +34,7 @@
 #include "gen.h"
 
 int
-scthash(register int x, register int y, int tsize)
+scthash(int x, int y, int tsize)
 {
     if (x < 0)
 	x = -x;
