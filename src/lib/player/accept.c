@@ -37,7 +37,6 @@
 #include "empthread.h"
 #include "player.h"
 #include "file.h"
-#include "io_mask.h"
 #include "empio.h"
 #include "power.h"
 #include "common.h"

@@ -58,17 +58,12 @@
 #include "misc.h"
 #include "queue.h"
 #include "ioqueue.h"
-#include "io_mask.h"
 #include "empio.h"
 #include "gen.h"		/* getfdtablesize */
 
 #include "empthread.h"
 
 extern struct player *player;	/* XXX */
-
-static struct io_mask *iom;
-static int fdmax;		/* largest file descriptor seen */
-static fd_set newoutput;
 
 struct iop {
     int fd;
@@ -83,9 +78,6 @@ struct iop {
 void
 io_init(void)
 {
-    iom = iom_create(IO_READ | IO_WRITE);
-    fdmax = 0;
-    FD_ZERO(&newoutput);
 }
 
 struct iop *
@@ -114,8 +106,6 @@ io_open(int fd, int flags, int bufsize, int (*notify) (void),
     iop->flags = flags;
     iop->assoc = assoc;
     iop->notify = notify;
-    iom_set(iom, flags, fd);
-    if (fd > fdmax) fdmax = fd;
     return iop;
 }
 
@@ -127,8 +117,6 @@ io_close(struct iop *iop)
 	ioq_destroy(iop->input);
     if (iop->output != 0)
 	ioq_destroy(iop->output);
-    iom_clear(iom, iop->flags, iop->fd);
-    FD_CLR(iop->fd, &newoutput);
 #if !defined(_WIN32)
     (void)close(iop->fd);
 #else
@@ -163,7 +151,6 @@ io_input(struct iop *iop, int waitforinput)
 
 	/* Some form of file error occurred... */
 	iop->flags |= IO_ERROR;
-	iom_clear(iom, IO_READ, iop->fd);
 	return -1;
     }
 #else
@@ -176,7 +163,6 @@ io_input(struct iop *iop, int waitforinput)
 
 	/* Some form of file error occurred... */
 	iop->flags |= IO_ERROR;
-	iom_clear(iom, IO_READ, iop->fd);
 	return -1;
     }
 #endif
@@ -220,9 +206,6 @@ io_output(struct iop *iop, int waitforoutput)
     if (!io_outputwaiting(iop))
 	return 0;
 
-    /* bit clear */
-    FD_CLR(iop->fd, &newoutput);
-
     /* If the iop is not write enabled. */
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
@@ -246,8 +229,6 @@ io_output(struct iop *iop, int waitforoutput)
 #endif
 
     if (n <= 0) {
-	/* If we got no elements, we have no output.... */
-	iom_clear(iom, IO_WRITE, iop->fd);
 	return 0;
     }
 
@@ -268,12 +249,9 @@ io_output(struct iop *iop, int waitforoutput)
 	if (errno == EWOULDBLOCK) {
 	    /* If there are remaining bytes, set the IO as remaining.. */
 	    remain = ioq_qsize(iop->output);
-	    if (remain > 0)
-		iom_set(iom, IO_WRITE, iop->fd);
 	    return remain;
 	}
 	iop->flags |= IO_ERROR;
-	iom_clear(iom, IO_WRITE, iop->fd);
 	return -1;
     }
 #else
@@ -286,12 +264,9 @@ io_output(struct iop *iop, int waitforoutput)
 	if (err == WSAEWOULDBLOCK) {
 	    /* If there are remaining bytes, set the IO as remaining.. */
 	    remain = ioq_qsize(iop->output);
-	    if (remain > 0)
-		iom_set(iom, IO_WRITE, iop->fd);
 	    return remain;
 	}
 	iop->flags |= IO_ERROR;
-	iom_clear(iom, IO_WRITE, iop->fd);
 	return -1;
     }
 #endif
@@ -306,8 +281,6 @@ io_output(struct iop *iop, int waitforoutput)
 #else
     if (cc == 0) {
 	remain = ioq_qsize(iop->output);
-	if (remain > 0)
-	    iom_set(iom, IO_WRITE, iop->fd);
 	return remain;
     }
 #endif /* hpux */
@@ -315,13 +288,6 @@ io_output(struct iop *iop, int waitforoutput)
     /* Remove the number of written bytes from the queue. */
     ioq_dequeue(iop->output, cc);
 
-    /* If the queue has stuff remaining, set it still needing output. */
-    remain = ioq_qsize(iop->output);
-    if (remain == 0) {
-	iom_clear(iom, IO_WRITE, iop->fd);
-    } else {
-	iom_set(iom, IO_WRITE, iop->fd);
-    }
     return cc;
 }
 
@@ -354,7 +320,6 @@ io_write(struct iop *iop, s_char *buf, int nbytes, int doWait)
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
     ioq_append(iop->output, buf, nbytes);
-    FD_SET(iop->fd, &newoutput);
     len = ioq_qsize(iop->output);
     if (len > iop->bufsize) {
 	if (doWait) {
@@ -392,7 +357,6 @@ io_puts(struct iop *iop, s_char *buf)
 {
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
-    FD_SET(iop->fd, &newoutput);
     return ioq_puts(iop->output, buf);
 }
 
