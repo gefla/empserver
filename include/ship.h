@@ -215,7 +215,7 @@ struct mlist {
 
 enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */
-    M_TORP_SHELLS = 3		/* number of shells used by a torpedo */
+    SHP_TORP_SHELLS = 3		/* number of shells used by a torpedo */
 };
 
 #endif /* _SHIP_H_ */

@@ -811,10 +811,10 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    continue;
 
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
-	    if (shell < M_TORP_SHELLS)
+	    if (shell < SHP_TORP_SHELLS)
 		shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
-				       I_SHELL, M_TORP_SHELLS - shell);
-	    if (shell < M_TORP_SHELLS)
+				       I_SHELL, SHP_TORP_SHELLS - shell);
+	    if (shell < SHP_TORP_SHELLS)
 		continue;
 	    if (gun < 1)
 		continue;
@@ -1008,7 +1008,7 @@ use_ammo(struct emp_qelem *list)
 	    item = ship.shp_item;
 	    if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
 		shell = item[I_SHELL];
-		shell -= M_TORP_SHELLS - 1;
+		shell -= SHP_TORP_SHELLS - 1;
 		if (shell < 0)
 		    shell = 0;
 		item[I_SHELL] = shell;
