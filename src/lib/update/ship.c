@@ -170,10 +170,10 @@ upd_ship(register struct shpstr *sp, register int etus,
 		 */
 		oil_gained = roundavg((sp->shp_item[I_CIVIL] * etus / 10000.0)
 				      * sectp->sct_oil);
-		sp->shp_item[I_OIL] += oil_gained;
 		max_oil = vl_find(V_OIL, mp->m_vtype, mp->m_vamt, mp->m_nv);
 		if (sp->shp_item[I_OIL] > max_oil)
-		    sp->shp_item[I_OIL] = max_oil;
+		    oil_gained = max_oil - sp->shp_item[I_OIL];
+		sp->shp_item[I_OIL] += oil_gained;
 		product = &pchr[P_OIL];
 		if (product->p_nrdep != 0 && oil_gained > 0) {
 		    resource = ((s_char *)sectp) + product->p_nrndx;
