@@ -99,3 +99,15 @@ logerror(s_char *format, ...)
 #endif
     va_end(list);
 }
+
+/*
+ * Log internal error MSG occured in FILE:LINE.
+ * If debugging, call abort(), else return 1.
+ */
+int
+oops(char *msg, char *file, int line)
+{
+  logerror("Oops: %s in %s:%d\n", msg, file, line);
+  if (debug) abort();
+  return 1;
+}

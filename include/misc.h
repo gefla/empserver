@@ -123,6 +123,15 @@ typedef short coord;
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
+extern int debug;
+
+/*
+ * If EXPR is true, an internal error occured.
+ * Return EXPR != 0.
+ * Usage: if (CANT_HAPPEN(...)) recovery_code();
+ */
+#define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__) : 0)
+
 typedef int (*qsort_func_t) (const void *, const void *);
 
 	/* return codes from command routines */

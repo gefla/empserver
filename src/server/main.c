@@ -80,13 +80,19 @@ static void loc_NTTerm(void);
 static int mainpid = 0;
 #endif
 
+/*
+ * Debugging?
+ * If yes, don't fork into background, don't catch certain signals,
+ * call abort() on internal error.
+ */
+int debug = 0;
+
 int
 main(int argc, char **argv)
 {
     time_t now;
     int hour[2];
     int flags = 0;
-    int debug = 0;
     int op;
     char *config_file = NULL;
     extern char *optarg;

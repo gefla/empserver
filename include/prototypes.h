@@ -128,6 +128,7 @@ extern int has_helpful_engineer(coord x, coord y, natid cn);
 /* log.c */
 extern void loginit(s_char *);
 extern void logerror(s_char *, ...) ATTRIBUTE((format (printf, 1, 2)));
+extern int oops(char *, char *, int);
 /* maps.c */
 extern int draw_map(int, s_char, int, struct nstr_sect *, int);
 extern int unit_map(int, int, struct nstr_sect *, s_char *);
