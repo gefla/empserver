@@ -28,14 +28,14 @@
 # (standalone mode)
 #
 
-CFILES = bit.c dtable.c expect.c globals.c handle.c host.c \
-	hpux.c ioqueue.c ipglob.c login.c main.c queue.c saveargv.c \
+CFILES = expect.c globals.c handle.c host.c \
+	ioqueue.c ipglob.c login.c main.c queue.c saveargv.c \
 	servcmd.c serverio.c tags.c termio.c termlib.c
-OFILES = bit.o dtable.o expect.o globals.o handle.o host.o \
-	hpux.o ioqueue.o ipglob.o login.o main.o queue.o saveargv.o \
+OFILES = expect.o globals.o handle.o host.o \
+	ioqueue.o ipglob.o login.o main.o queue.o saveargv.o \
 	servcmd.o serverio.o tags.o termio.o termlib.o
-OBJFILES = bit.obj dtable.obj expect.obj globals.obj handle.obj host.obj \
-	hpux.obj ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
+OBJFILES = expect.obj globals.obj handle.obj host.obj \
+	ioqueue.obj ipglob.obj login.obj main.obj queue.obj saveargv.obj \
 	servcmd.obj serverio.obj tags.obj termio.obj termlib.obj
 
 CFLAGS= -g
@@ -68,14 +68,17 @@ clean:
 	rm -f $(OFILES) empire
 
 # created using mkmf
-bit.o: bit.h
-expect.o: fnlist.h
-globals.o: fnlist.h proto.h
-ioqueue.o: queue.h ioqueue.h
+expect.o: misc.h fnlist.h
+globals.o: misc.h fnlist.h proto.h
+host.o: misc.h 
+ioqueue.o: misc.h queue.h ioqueue.h
+ipglob.o: misc.h fnlist.h proto.h
 login.o: misc.h proto.h
-main.o: misc.h proto.h queue.h ioqueue.h bit.h
-queue.o: queue.h
+main.o: misc.h proto.h queue.h ioqueue.h
+queue.o: misc.h queue.h
+saveargv.o: misc.h
 servcmd.o: misc.h proto.h queue.h ioqueue.h
 serverio.o: misc.h queue.h ioqueue.h
-tags.o: tags.h
-termio.o: tags.h
+tags.o: misc.h tags.h
+termio.o: misc.h tags.h
+termlib.o: misc.h
