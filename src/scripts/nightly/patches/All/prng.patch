@@ -19,7 +19,7 @@ Index: empserver/include/damage.h
 Index: empserver/include/prototypes.h
 --- empserver/include/prototypes.h	16 May 2004 14:19:38 -0000	1.45
 +++ empserver/include/prototypes.h	20 Jun 2004 15:14:59 -0000
-@@ -395,6 +395,9 @@
+@@ -393,6 +393,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
  #endif
@@ -54,16 +54,9 @@ Index: empserver/src/lib/commands/laun.c
  	sy += diroff[dir][1];
  	pr("Your trajectory was a little off.\n");
 Index: empserver/src/lib/commands/mfir.c
---- empserver/src/lib/commands/mfir.c	Thu Dec 30 14:53:46 2004
-+++ empserver/src/lib/commands/mfir.c	Mon Jan  3 18:25:16 2005
-@@ -553,13 +553,13 @@
- 	    pr("Kaboom!!!\n");
- 	    prb = (double)(range2 ? (trange / range2) : 1.0);
- 	    prb *= prb;
--	    srandom(time(NULL));
-+	    emp_srandom(time(NULL));
- 	    if (chance(prb)) {
- 		pr("Wind deflects shell%s.\n", splur(shots));
+--- empserver/src/lib/commands/mfir.c	Fri Mar 11 18:01:38 2005
++++ empserver/src/lib/commands/mfir.c	Tue Mar 15 18:22:43 2005
+@@ -558,7 +558,7 @@
  /*			dam = (int)((double)dam / 2.0);*/
  		dam =
  		    (int)((double)dam *
@@ -73,14 +66,10 @@ Index: empserver/src/lib/commands/mfir.c
  		if (dam < 0)
  		    dam = 0;
 Index: empserver/src/lib/commands/new.c
---- empserver/src/lib/commands/new.c	Thu Dec 30 14:57:04 2004
-+++ empserver/src/lib/commands/new.c	Mon Jan  3 18:23:10 2005
-@@ -103,11 +103,11 @@
- 	    return RET_SYN;
- 	}
+--- empserver/src/lib/commands/new.c	Fri Mar 11 18:01:35 2005
++++ empserver/src/lib/commands/new.c	Tue Mar 15 18:24:42 2005
+@@ -105,8 +105,8 @@
      } else {
--	srandom(time(NULL));
-+	emp_srandom(time(NULL));
  	for (i = 0; i < 300 && !player->aborted; i++) {
  	    /* Both x and y should be either odd or even */
 -	    x = (random() % WORLD_X) - (WORLD_X / 2);
@@ -142,7 +131,7 @@ Index: empserver/src/lib/common/damage.c
 Index: empserver/src/lib/subs/attsub.c
 --- empserver/src/lib/subs/attsub.c	5 Mar 2004 13:14:28 -0000	1.17
 +++ empserver/src/lib/subs/attsub.c	20 Jun 2004 15:15:06 -0000
-@@ -1925,12 +1925,12 @@
+@@ -1924,12 +1924,12 @@
       * recalculate the odds every 8-50 casualties, not every cacsualty,
       * since a single dead guy normally wouldn't cause a commander to
       * rethink his strategies, but 50 dead guys might. */
@@ -157,7 +146,7 @@ Index: empserver/src/lib/subs/attsub.c
      while (!success && ototal) {
  	if (chance(odds)) {
  	    pr("!");
-@@ -1946,9 +1946,9 @@
+@@ -1945,9 +1945,9 @@
  	if (((a_cas + d_cas) % 70) == 69)
  	    pr("\n");
  	if (recalctime-- <= 0) {
@@ -369,9 +358,9 @@ Index: empserver/src/lib/update/revolt.c
  		continue;
  	    nicest_sp = nsp;
 Index: empserver/src/util/fairland.c
---- empserver/src/util/fairland.c	Thu Dec 30 00:34:08 2004
-+++ empserver/src/util/fairland.c	Mon Jan  3 18:20:33 2005
-@@ -126,7 +126,7 @@
+--- empserver/src/util/fairland.c	Thu Mar 10 19:35:27 2005
++++ empserver/src/util/fairland.c	Tue Mar 15 18:18:33 2005
+@@ -124,7 +124,7 @@
  #if !defined(_WIN32)
  #define max(a,b) (a>b?a:b)
  #endif
@@ -380,23 +369,23 @@ Index: empserver/src/util/fairland.c
  
  int secs;			/* number of sectors grown */
  int ctot;			/* total number of continents and islands grown */
-@@ -225,7 +225,7 @@
+@@ -218,7 +218,7 @@
  	    break;
  	}
      }
 -    srandom(rnd_seed);
 +    srand48(rnd_seed);
-     if (config_file == NULL) {
- 	sprintf(tbuf, "%s/econfig", datadir);
- 	config_file = tbuf;
-Index: empserver/src/lib/gen/chance.c
---- empserver/src/lib/gen/chance.c	2 Sep 2003 20:48:48 -0000	1.2
-+++ empserver/src/lib/gen/chance.c	20 Jun 2004 15:15:05 -0000
-@@ -33,30 +33,34 @@
+     if (emp_config(config_file))
+ 	exit(1);
  
+Index: empserver/src/lib/gen/chance.c
+--- empserver/src/lib/gen/chance.c	Fri Mar 11 18:05:19 2005
++++ empserver/src/lib/gen/chance.c	Tue Mar 15 18:34:37 2005
+@@ -33,12 +33,35 @@
+ 
++#include <stdlib.h>
  #include "gen.h"
  
--#ifdef hpux
 +#ifndef	RANDOM
 +#ifdef	NOSVIDPRNG
 +#define	RANDOM	random
@@ -405,29 +394,20 @@ Index: empserver/src/lib/gen/chance.c
 +#define	RANDOM	lrand48
 +#define	SRANDOM	srand48
 +#endif	/* ! NOSVIDPRNG */
-+#endif	/* RANDOM */
++#endif	/* ! RANDOM */
 +
- void
--srandom(unsigned int n)
++void
 +emp_srandom(unsigned int n)
- {
--    extern void srand48();
--
--    srand48(n);
-+    SRANDOM(1);
- }
- 
- long
--random(void)
++{
++	SRANDOM(1);
++}
++
++long
 +emp_random(void)
- {
--    extern long lrand48();
--
--    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
-+    return (RANDOM());		/* 5/28/91 by bailey@mcs.kent.edu */
- }
--#endif
- 
++{
++	return (RANDOM());	/* 5/28/91 by bailey@mcs.kent.edu */
++}
++
  int
  chance(double d)
  {
@@ -438,7 +418,7 @@ Index: empserver/src/lib/gen/chance.c
  
      if (d > roll / 32768.0)
  	return 1;
-@@ -66,7 +70,7 @@
+@@ -48,7 +71,7 @@
  int
  roll(int n)
  {
@@ -448,17 +428,17 @@ Index: empserver/src/lib/gen/chance.c
  
  /*
 Index: empserver/src/server/main.c
---- empserver/src/server/main.c	4 Apr 2004 14:20:30 -0000	1.12
-+++ empserver/src/server/main.c	20 Jun 2004 17:38:12 -0000
-@@ -307,7 +307,7 @@
- #endif /* POSIXSIGNALS */
- #endif /* _WIN32 */
-     empth_init((char **)&player, flags);
--    srand(time(NULL));
+--- empserver/src/server/main.c	Sun Mar 13 22:51:34 2005
++++ empserver/src/server/main.c	Tue Mar 15 18:36:11 2005
+@@ -244,7 +244,7 @@
+ void
+ init_server(void)
+ {
+-    srandom(time(NULL));
 +    emp_srandom(time(NULL));
-     global_init();
-     shutdown_init();
-     player_init();
+ #if defined(_WIN32)
+     loc_NTInit();
+ #endif
 Index: empserver/src/server/update.c
 --- empserver/src/server/update.c	4 Apr 2004 15:52:24 -0000	1.14
 +++ empserver/src/server/update.c	20 Jun 2004 17:38:12 -0000
