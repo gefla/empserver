@@ -239,7 +239,7 @@ struct cmndstr player_coms[] = {
     {"stop <SECTS>", 1, stop, C_MOD, NORM + CAP},
     {"strength <SECTS>", 1, stre, C_MOD, NORM},
     {"supply <LAND UNITS>", 1, supp, C_MOD, NORM + CAP},
-    {"survey <COMM|VAR> <SECTS>", 0, surv, 0, NORM + CAP},
+    {"survey <SELECTOR> <SECTS>", 0, surv, 0, NORM + CAP},
     {"swapsector <SECT> <SECT>", 0, swaps, C_MOD, GOD},
     {"sweep <sweep-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>",
      3, reco, C_MOD, NORM + MONEY + CAP},
