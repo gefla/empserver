@@ -709,8 +709,8 @@ extern int trechk(register natid, register natid, int);
 /* in item.h */
 /* wu.c */
 extern void clear_telegram_is_new(natid);
-extern int typed_wu(natid, natid, s_char *, int);
-extern int wu(natid, natid, s_char *, ...) ATTRIBUTE((format (printf, 3, 4)));
+extern int typed_wu(natid, natid, char *, int);
+extern int wu(natid, natid, char *, ...) ATTRIBUTE((format (printf, 3, 4)));
 
 /*
  * src/lib/update/ *.c 

@@ -80,11 +80,11 @@ telegram_is_new(natid to, struct telstr *tel)
 
 /*VARARGS*/
 int
-wu(natid from, natid to, s_char *format, ...)
+wu(natid from, natid to, char *format, ...)
 {
     struct natstr *np;
     va_list ap;
-    s_char buf[4096];
+    char buf[4096];
 
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
@@ -99,9 +99,9 @@ wu(natid from, natid to, s_char *format, ...)
 }
 
 int
-typed_wu(natid from, natid to, s_char *message, int type)
+typed_wu(natid from, natid to, char *message, int type)
 {
-    register s_char *bp;
+    char *bp;
     int len;
     struct telstr tel;
     struct natstr *np;
@@ -109,8 +109,9 @@ typed_wu(natid from, natid to, s_char *message, int type)
     struct iovec iov[2];
 #endif
     int fd;
-    s_char box[1024];
+    char box[1024];
     int notify = 0;
+    int write_ok = 0;
     int new_tele = 0;
     struct player *other;
 
@@ -154,7 +155,12 @@ typed_wu(natid from, natid to, s_char *message, int type)
 	(write(fd, message, len) != len)) {
 #endif
 	logerror("telegram 'write' to #%d failed", to);
-    } else if (type == TEL_ANNOUNCE) {
+    } else
+    	write_ok = 1;
+
+    if (close(fd) == -1) {
+	logerror("telegram 'write' to #%d failed to close.", to);
+    } else if (write_ok && type == TEL_ANNOUNCE) {
 	for (to = 0; NULL != (np = getnatp(to)); to++) {
 	    if (!(np->nat_stat & STAT_NORM) &&
 		!(np->nat_stat & STAT_SANCT))
@@ -167,7 +173,7 @@ typed_wu(natid from, natid to, s_char *message, int type)
 	    if (notify)
 		player_wakeup_all(to);
 	}
-    } else {
+    } else if (write_ok) {
 	notify = (np->nat_tgms == 0);
 	new_tele = telegram_is_new(to, &tel);
 	np->nat_tgms += new_tele || notify;
@@ -185,6 +191,5 @@ typed_wu(natid from, natid to, s_char *message, int type)
 	    player_wakeup_all(to);
     }
 
-    close(fd);
     return 0;
 }
