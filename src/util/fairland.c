@@ -121,7 +121,13 @@ static int DISTINCT_ISLANDS = 1;
 #if !defined(_WIN32)
 #define max(a,b) (a>b?a:b)
 #endif
-#define rnd(x) (random() % (x))
+#ifndef SRANDOM
+#define SRANDOM srandom
+#endif
+#ifndef RANDOM
+#define RANDOM random
+#endif
+#define rnd(x) (RANDOM() % (x))
 
 int secs;			/* number of sectors grown */
 int ctot;			/* total number of continents and islands grown */
@@ -221,7 +227,7 @@ main(int argc, char *argv[])
 	}
     }
 #endif
-    srandom(rnd_seed);
+    SRANDOM(rnd_seed);
     if (config_file == NULL) {
 	sprintf(tbuf, "%s/econfig", datadir);
 	config_file = tbuf;
