@@ -17,3 +17,4 @@ avoid capture.
 .s1
 The boarding parties do not recognize relations.  Thus "pboard *" will
 board all planes in your territory whether owned by allies or enemies.
+.SA "Attack, Planes, Combat"
