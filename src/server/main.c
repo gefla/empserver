@@ -206,6 +206,15 @@ main(int argc, char **argv)
 
     start_server(flags, config_file);
 
+#if defined(__linux__) && defined(_EMPTH_POSIX)
+    strcpy(tbuf, argv[0]);
+    for (op = 1; op < argc; op++) {
+	strcat(tbuf, " ");
+	strcat(tbuf, argv[op]);
+    }
+    sprintf(argv[0], "%s (main pid: %d)", tbuf, getpid());
+#endif
+
     empth_exit();
 
 /* We should never get here.  But, just in case... */
@@ -305,14 +314,6 @@ start_server(int flags, char *config_file)
 	empth_create(PP_TIMESTAMP, market_update, (50 * 1024), flags,
 		     "MarketUpdate", "Updates the market", 0);
     }
-#if defined(__linux__) && defined(_EMPTH_POSIX)
-    strcpy(tbuf, argv[0]);
-    for (op = 1; op < argc; op++) {
-	strcat(tbuf, " ");
-	strcat(tbuf, argv[op]);
-    }
-    sprintf(argv[0], "%s (main pid: %d)", tbuf, getpid());
-#endif
 }
 
 static void
