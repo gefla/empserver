@@ -122,7 +122,7 @@ main(int ac, char **av)
     auxout_fp = NULL;
     for (i = j = 1; i < ac; ++i) {
 	ptr = argv[i];
-	if (strcmp(ptr, "-2") == NULL) {
+	if (strcmp(ptr, "-2") == 0) {
 	    if (i + 1 >= ac) {
 		fprintf(stderr, "-2: Missing filename!\n");
 		exit(1);
@@ -130,7 +130,7 @@ main(int ac, char **av)
 	    auxout_fname = argv[i + 1];
 	    ++i;
 	    continue;
-	} else if (strcmp(ptr, "-k") == NULL) {
+	} else if (strcmp(ptr, "-k") == 0) {
 	    send_kill = 1;
 	    continue;
 	}
@@ -270,7 +270,7 @@ main(int ac, char **av)
     while (1) {
 	FD_ZERO(&readfds);
 	FD_SET(sock, &readfds);
-	n = select(sock + 1, &readfds, NULL, NULL, (struct timeval *)&tm);
+	n = select(sock + 1, &readfds, NULL, NULL, &tm);
 	if (interrupt) {
 	    if (!handleintr(sock))
 		break;
