@@ -257,7 +257,7 @@ struct castr loan_ca[] = {
 struct castr news_ca[] = {
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor"},
     {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid"},
-    {NSC_TYPEID, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
+    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action"},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim"},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times"},
     {NSC_TIME, 0, 0, fldoff(nwsstr, nws_when), "time"},
