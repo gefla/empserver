@@ -34,6 +34,11 @@
 #ifndef _IO_MASK_H_
 #define _IO_MASK_H_
 
+#include <sys/types.h>
+#ifdef _WIN32
+#include <winsock.h>
+#endif
+
 struct io_mask {
     int what;
     int maxfd;
