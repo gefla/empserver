@@ -65,4 +65,4 @@ clean:
 	-(del /q $(NTOBJS))
 
 include ../../make.rules
-include Makedepend
+-include Makedepend

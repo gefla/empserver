@@ -23,7 +23,8 @@
 #   related information and legal notices. It is expected that any future
 #   projects/authors will amend these files as needed.
 # 
-all: 
+all:
+	-mkdir ../info.nr
 	@echo "Making automated Subjects."
 	@echo "If this fails, you may not have perl5 installed."
 	-perl info.pl
@@ -36,7 +37,8 @@ all:
 	-(cd ../info.nr ; ls -CF > all)
 	@echo Done making info files.
 
-html: 
+html:
+	-mkdir ../info.html
 	@echo "Making automated Subjects."
 	@echo "If this fails, you may not have perl5 installed."
 	-perl info.pl
@@ -50,4 +52,3 @@ html:
 	(cp ls2html.pl ../info.html)
 	-(cd ../info.html ; ls -CF *.html | perl ls2html.pl > all.html)
 	@echo Done making HTML info files.
-	

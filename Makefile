@@ -328,6 +328,7 @@ ntbinaries:
 
 genlibs:
 	@echo 'building generic libraries'
+	-mkdir lib
 	(cd src/lib/as; $(MAKE)  $(GENMASTER))
 	(cd src/lib/commands; $(MAKE)  $(GENMASTER))
 	(cd src/lib/common; $(MAKE)  $(GENMASTER))
@@ -440,20 +441,8 @@ realclean:
 	(rm -rf data/*)
 	-(rm -rf $(EMPDIR)/data/*)
 	-(rm -rf $(EMPDIR)/bin/*)
-	(cd src/lib/as ; echo "# Empty" > Makedepend)
-	(cd src/lib/commands ; echo "# Empty" > Makedepend)
-	(cd src/lib/common ; echo "# Empty" > Makedepend)
-	(cd src/lib/gen ; echo "# Empty" > Makedepend)
-	(cd src/lib/global ; echo "# Empty" > Makedepend)
-	(cd src/lib/player ; echo "# Empty" > Makedepend)
-	(cd src/lib/subs ; echo "# Empty" > Makedepend)
-	(cd src/lib/update ; echo "# Empty" > Makedepend)
-	(cd src/lib/lwp ; echo "# Empty" > Makedepend)
-	(cd src/lib/empthread ; echo "# Empty" > Makedepend)
-	(cd src/client ; echo "# Empty" > Makedepend)
-	(cd src/server ; echo "# Empty" > Makedepend)
-	(cd src/util ; echo "# Empty" > Makedepend)
-	(cd src/doconfig ; echo "# Empty" > Makedepend)
+	rm -rf lib info.nr info.html
+	rm -f include/gamesdef.h src/client/ipglob.c src/make.src
 
 ntrealclean:
 	$(MAKE) ntclean
@@ -463,48 +452,6 @@ ntrealclean:
 	cd data
 	-(del /Q *.*)
 	cd ..
-	cd src/lib/as
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/commands
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/common
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/gen
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/global
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/player
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/subs
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/update
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/lwp
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/lib/empthread
-	echo # Empty > Makedepend
-	cd ../../../
-	cd src/client
-	echo # Empty > Makedepend
-	cd ../../
-	cd src/server
-	echo # Empty > Makedepend
-	cd ../../
-	cd src/util
-	echo # Empty > Makedepend
-	cd ../../
-	cd src/doconfig
-	echo # Empty > Makedepend
-	cd ../../
 	cd $(EMPDIR)\data
 	-(del /Q *.*)
 	-(rmdir tel)

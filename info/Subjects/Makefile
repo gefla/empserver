@@ -33,7 +33,7 @@ INFOOBJS = $(INFOSRCS:.t=)
 
 HTMLOBJS = $(INFOSRCS:.t=.)
 
-include MakeSrcs
+-include MakeSrcs
 
 .SUFFIXES: .t
 

@@ -95,5 +95,5 @@ ntinstall:
 	copy emp_client.exe $(NTINSTDIR)\bin
 
 include ../make.rules
-include Makedepend
+-include Makedepend
 

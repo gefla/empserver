@@ -70,4 +70,4 @@ clean:
 	-(del *.pdb)
 
 include ../make.rules
-include Makedepend
+-include Makedepend
