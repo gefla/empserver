@@ -187,6 +187,7 @@ int
 feed_people(register int *vec, int etu, int *needed)
 {
     double food_eaten;
+    int ifood_eaten;
     int can_eat;
     int total_people;
     int to_starve;
@@ -194,22 +195,21 @@ feed_people(register int *vec, int etu, int *needed)
 
     if (opt_NOFOOD)
 	return 0;
-    food_eaten = (double)(((double)etu * (double)eatrate) *
-			  (double)(vec[I_CIVIL] + vec[I_MILIT] +
-				   vec[I_UW]));
-    if (food_eaten <= 1)
+
+    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+    food_eaten = etu * eatrate * total_people;
+    ifood_eaten = (int)food_eaten;
+    if (food_eaten - ifood_eaten > 0)
+	ifood_eaten++;
+    if (ifood_eaten <= 1)
 	return 0;
     starved = 0;
     *needed = 0;
-    if (food_eaten > vec[I_FOOD]) {
-	*needed = food_eaten - vec[I_FOOD];
-	if ((double)(*needed) < (double)(food_eaten - (double)vec[I_FOOD]))
-	    (*needed)++;
-	can_eat = (vec[I_FOOD] / (etu * eatrate));
-	total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-
+    if (ifood_eaten > vec[I_FOOD]) {
+	*needed = ifood_eaten - vec[I_FOOD];
+	can_eat = vec[I_FOOD] / (etu * eatrate);
 	/* only want to starve off at most 1/2 the populace. */
-	if (can_eat < (total_people / 2))
+	if (can_eat < total_people / 2)
 	    can_eat = total_people / 2;
 
 	to_starve = total_people - can_eat;
