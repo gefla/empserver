@@ -45,97 +45,118 @@
 #include "optlist.h"
 #include "common.h"
 
+static int copy_and_expire(FILE *annfp, FILE *tmpfp,
+			   char *tmp_filename, time_t expiry_time);
+
 void
 delete_old_announcements(void)
 {
     time_t now;
     time_t old;
-    struct telstr tgm;
-    FILE *oldfp;
-    int tmpfd;
-    s_char tmp_filename[1024];
-    int writeit;
-    s_char message[MAXTELSIZE];
-    int deleted = 0;
-    int saved = 0;
-    int length;
-    int nbytes;
-    int first = 1;
+    FILE *annfp;
+    FILE *tmpfp;
+    char tmp_filename[1024];
+    int copy_file;
 
     time(&now);
     old = now - days(ANNO_KEEP_DAYS);
     logerror("Deleting annos older than %s", ctime(&old));
 
-#if !defined(_WIN32)
-    if ((oldfp = fopen(annfil, "r+")) == 0) {
-#else
-    if ((oldfp = fopen(annfil, "r+b")) == 0) {
-#endif
-	logerror("can't read telegram file %s", annfil);
+    if ((annfp = fopen(annfil, "rb")) == NULL) {
+	logerror("can't open telegram file %s for reading", annfil);
 	return;
     }
     sprintf(tmp_filename, "%s.tmp", annfil);
-#if !defined(_WIN32)
-    if ((tmpfd =
-	 open(tmp_filename, O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0) {
-#else
-    if ((tmpfd =
-	 open(tmp_filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY,
-	      0666)) < 0) {
-#endif
-	logerror("can't write telegram file %s", tmp_filename);
+    if ((tmpfp = fopen(tmp_filename, "wb")) == NULL) {
+	logerror("can't open telegram file %s for writing",
+		 tmp_filename);
+	if (fclose(annfp) != 0)
+	    logerror("can't close telegram file %s", annfil);
 	return;
     }
-    while (fread((s_char *)&tgm, sizeof(tgm), 1, oldfp) == 1) {
+    copy_file = copy_and_expire(annfp, tmpfp, tmp_filename, old);
+
+    if (fclose(annfp) != 0) {
+	logerror("can't close telegram file %s", annfil);
+	copy_file = 0;
+    }
+    if (fclose(tmpfp) != 0) {
+	logerror("can't close temporary telegram file %s",
+		 tmp_filename);
+	copy_file = 0;
+    }
+#if defined(_WIN32)
+    if (copy_file) {
+	if (unlink(annfil) != 0) {
+	    logerror("can't delete telegram file %s", annfil);
+	    copy_file = 0;
+	}
+    }
+#endif
+    if (copy_file) {
+	if (rename(tmp_filename, annfil) != 0)
+	    logerror("can't move temporary telegram file %s "
+		     "to telegram file %s", tmp_filename, annfil);
+    }
+}
+
+static int
+copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
+		time_t expiry_time)
+{
+    struct telstr tgm;
+    int writeit;
+    char message[MAXTELSIZE];
+    int deleted = 0;
+    int saved = 0;
+    int first = 1;
+
+    while (fread((void *)&tgm, sizeof(tgm), 1, annfp) == 1) {
 	writeit = 1;
-	if (tgm.tel_length < 0) {
-	    logerror("bad telegram file header (length)");
-	    return;
+	if (tgm.tel_length < 0 || tgm.tel_length > MAXTELSIZE) {
+	    logerror("bad telegram file header (length=%ld)",
+		     tgm.tel_length);
+	    return 0;
 	}
 	if (tgm.tel_type < 0 || tgm.tel_type > TEL_LAST) {
-	    logerror("bad telegram file header (type)");
-	    writeit = 0;
+	    logerror("bad telegram file header (type=%d)",
+		     tgm.tel_type);
+	    return 0;
 	}
+
 	if (first) {
 	    first = 0;
-	    if (tgm.tel_date >= old) {
-		fclose(oldfp);
-		return;
-	    }
+	    if (tgm.tel_date >= expiry_time)
+		return 0;
 	}
-
-	if (tgm.tel_date < old) {
+	if (tgm.tel_date < expiry_time)
 	    writeit = 0;
-	}
 
 	if (writeit) {
-	    if (write(tmpfd, &tgm, sizeof(tgm)) < (int)sizeof(tgm)) {
-		logerror("error writing to ann.tmp");
-		return;
+	    if (fwrite((void *)&tgm, sizeof(tgm), 1, tmpfp) != 1) {
+		logerror("error writing header to temporary "
+			 "telegram file %s", tmp_filename);
+		return 0;
 	    }
 	    ++saved;
-	} else {
+	} else
 	    ++deleted;
+	if (fread(message, sizeof(char), tgm.tel_length, annfp) !=
+	    (size_t)tgm.tel_length) {
+	    logerror("error reading body from telegram file %s",
+		     annfil);
+	    return 0;
 	}
-	length = tgm.tel_length;
-	while (length > 0) {
-	    nbytes = length;
-	    if (nbytes > (int)sizeof(message))
-		nbytes = sizeof(message);
-	    (void)fread(message, sizeof(s_char), nbytes, oldfp);
-	    if (writeit) {
-		if (write(tmpfd, message, nbytes) < nbytes) {
-		    logerror("Error writing to ann.tmp");
-		    return;
-		}
+	if (writeit) {
+	    if (fwrite(message, sizeof(char), tgm.tel_length, tmpfp) !=
+		(size_t)tgm.tel_length) {
+		logerror("error writing body to temporary telegram "
+			 "file %s", tmp_filename);
+		return 0;
 	    }
-	    length -= nbytes;
 	}
     }
     logerror("%d announcements deleted; %d announcements saved",
 	     deleted, saved);
-    fclose(oldfp);
-    close(tmpfd);
-    unlink(annfil);
-    rename(tmp_filename, annfil);
+    return 1;
 }
