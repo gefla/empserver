@@ -246,7 +246,6 @@ struct cmndstr player_coms[] = {
      NORM + MONEY + CAP},
     {"bdes <SECTS> <type>", 0, bdes, C_MOD, NORM},
     {"bestpath <SECTS> <SECTS>", 0, best, 0, NORM},
-    {"bestdistpath <SECTS> <SECTS>", 0, best, 0, NORM},
     {"bmap <SECTS|UNIT> [s|l|p|r|t*]", 0, map, C_MOD, NORM},
     {"board <to-SHIP> [<from-SHIP>|<from-sector>]", 3, boar, C_MOD,
      NORM + MONEY + CAP},

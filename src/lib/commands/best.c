@@ -51,10 +51,7 @@ best(void)
     s_char *BestDistPath(), *BestLandPath(), *s;
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
-    int dist = 0;
     s_char buf[1024];
-
-    dist = player->argp[0][4] == 'd';
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -69,13 +66,9 @@ best(void)
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (s2.sct_own != player->cnum)
 		continue;
-	    if (dist)
-		s = BestDistPath(buf, &s1, &s2, &cost, MOB_ROAD);
-	    else
-		s = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
+	    s = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
 	    if (s != (s_char *)0)
-		pr("Best %spath from %s to %s is %s (cost %1.3f)\n",
-		   (dist ? "dist" : ""),
+		pr("Best path from %s to %s is %s (cost %1.3f)\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
 		   xyas(s2.sct_x, s2.sct_y, player->cnum), s, cost);
 	    else
