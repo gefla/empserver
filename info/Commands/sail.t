@@ -3,7 +3,7 @@
 .LV Expert
 .SY "sail <SHIP/FLEET> [<PATH>|q[uery]|-]"
 You use the \*Qsail\*U command to give a sailing path to ships.
-At each update, ships with a sailing path \*Qautonavigate\*U along
+At each update, ships with a sailing path \*Qauto-navigate\*U along
 the path that was set for them.  Telegrams notify you of arrivals
 or problems encountered while attempting to follow the path.
 .s1
@@ -18,7 +18,7 @@ to some extent.
 Note that ships sailing can encounter exactly the same interdiction as
 ships navigating.
 .s1
-.EX sail <SHIP/FLEET> \*Qq[uery]\*U
+.EX sail <SHIP/FLEET> q
 .s1
 \*Qsail\*U, with the \*Qquery\*U parameter, shows the current sailing path.
 The report indicates:
@@ -39,7 +39,7 @@ shp#     ship type       x,y    mobil mobquota follows path
 4 ship(s)
 .FI
 .s1
-.EX sail <SHIP/FLEET> \*Q-\*U
+.EX sail <SHIP/FLEET> -
 .s1
 \*Qsail\*U, with the \*Q-\*U parameter, causes the sailing path
 for the ships specified to be removed.

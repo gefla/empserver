@@ -17,7 +17,7 @@ SN#123456
 .nf
 hi
 .fi
-.EX echo \*Qhi mom\*U
+.EX echo \&"hi mom"
 .nf
 hi mom
 .fi
