@@ -439,13 +439,13 @@ nullify_objects(void)
 	    dchr[i].d_lcms = 0;
     }
     for (i = 0; i < prd_maxno; i++) {
-	for (j = 0; j < pchr[i].p_nv; j++) {
-	    if (opt_NO_HCMS && pchr[i].p_vtype[j] == V_HCM)
-		pchr[i].p_vamt[j] = 0;
-	    if (opt_NO_LCMS && pchr[i].p_vtype[j] == V_LCM)
-		pchr[i].p_vamt[j] = 0;
-	    if (opt_NO_OIL && pchr[i].p_vtype[j] == V_OIL)
-		pchr[i].p_vamt[j] = 0;
+	for (j = 0; j < MAXPRCON; j++) {
+	    if (opt_NO_HCMS && pchr[i].p_ctype[j] == I_HCM)
+		pchr[i].p_camt[j] = 0;
+	    if (opt_NO_LCMS && pchr[i].p_ctype[j] == I_LCM)
+		pchr[i].p_camt[j] = 0;
+	    if (opt_NO_OIL && pchr[i].p_ctype[j] == I_OIL)
+		pchr[i].p_camt[j] = 0;
 	}
     }
 }

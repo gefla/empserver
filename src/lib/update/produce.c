@@ -176,53 +176,42 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 }
 
 static int
-materials_cost(struct pchrstr *product, short *vec, int *costp)
+materials_cost(struct pchrstr *pp, short *vec, int *costp)
 {
-    register u_char *vp;
-    register u_short *ap;
-    register int count;
-    register int cost;
-    register int n;
-    register u_char *endp;
+    int count;
+    int cost;
+    int i, n;
 
     count = 9999;
     cost = 0;
-    ap = product->p_vamt;
-    endp = product->p_vtype + product->p_nv;
-    for (vp = product->p_vtype; vp < endp; vp++, ap++) {
-	if (!*ap)
+    for (i = 0; i < MAXPRCON; ++i) {
+	if (!pp->p_camt[i])
 	    continue;
-	n = vec[*vp & ~VT_ITEM] / *ap;
+	if (CANT_HAPPEN(pp->p_ctype[i] <= I_NONE || I_MAX < pp->p_ctype[i]))
+	    continue;
+	n = vec[pp->p_ctype[i]] / pp->p_camt[i];
 	if (n < count)
 	    count = n;
-	cost += *ap;
+	cost += pp->p_camt[i];
     }
     *costp = cost;
     return count;
 }
 
 static void
-materials_charge(struct pchrstr *product, short *vec, int count)
+materials_charge(struct pchrstr *pp, short *vec, int count)
 {
-    register u_char *vp;
-    register u_short *ap;
-    register u_char *endp;
-    register int item;
-    register int n;
+    int i, item, n;
 
-    ap = product->p_vamt;
-    endp = product->p_vtype + product->p_nv;
-    for (vp = product->p_vtype; vp < endp; vp++, ap++) {
-	item = *vp & ~VT_ITEM;
-	if (item < 0 || item > I_MAX) {
-	    logerror("materials_charge: bad item %d", item);
+    for (i = 0; i < MAXPRCON; ++i) {
+	item = pp->p_ctype[i];
+	if (!pp->p_camt[i])
 	    continue;
-	}
-	if ((n = vec[item] - *ap * count) < 0) {
-	    logerror("materials_charge: %d > %d item #%d",
-		     n, vec[item], item);
+	if (CANT_HAPPEN(item <= I_NONE || I_MAX < item))
+	    continue;
+	n = vec[item] - pp->p_camt[i] * count;
+	if (CANT_HAPPEN(n < 0))
 	    n = 0;
-	}
 	vec[item] = n;
     }
 }

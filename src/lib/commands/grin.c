@@ -68,23 +68,36 @@ grin(void)
 	if (sect.sct_effic < 60 || sect.sct_own != player->cnum)
 	    continue;
 	n = sect.sct_item[I_BAR] >= qty ? qty : sect.sct_item[I_BAR];
-	avail = n * 5.0;
+	/* work limit */
+	avail = n * 5;
 	if (avail > sect.sct_avail) {
 	    n = sect.sct_avail / 5;
 	    avail = sect.sct_avail;
 	}
-	for (i = 0; i < pchr[P_BAR].p_nv; i++) {
+	/* space limit */
+	for (i = 0; i < MAXPRCON; i++) {
+	    if (!pchr[P_BAR].p_camt[i])
+		continue;
+	    if (CANT_HAPPEN(pchr[P_BAR].p_ctype[i] <= I_NONE ||
+			    pchr[P_BAR].p_ctype[i] > I_MAX))
+		continue;
 	    n = min(n,
-		    (double)(ITEM_MAX - sect.sct_item[pchr[P_BAR].p_vtype[i]])
-		    / (pchr[P_BAR].p_vamt[i] * grind_eff));
+		    (double)(ITEM_MAX - sect.sct_item[pchr[P_BAR].p_ctype[i]])
+		    / (pchr[P_BAR].p_camt[i] * grind_eff));
 	}
+
 	if (n > 0) {
 	    pr("%d bars ground up in %s\n", n,
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    sect.sct_item[I_BAR] -= n;
-	    for (i = 0; i < pchr[P_BAR].p_nv; i++) {
-		sect.sct_item[pchr[P_BAR].p_vtype[i]]
-		    += n * pchr[P_BAR].p_vamt[i] * grind_eff;
+	    for (i = 0; i < MAXPRCON; i++) {
+		if (!pchr[P_BAR].p_camt[i])
+		    continue;
+		if (CANT_HAPPEN(pchr[P_BAR].p_ctype[i] <= I_NONE ||
+				pchr[P_BAR].p_ctype[i] > I_MAX))
+		    continue;
+		sect.sct_item[pchr[P_BAR].p_ctype[i]]
+		    += n * pchr[P_BAR].p_camt[i] * grind_eff;
 	    }
 	    sect.sct_avail -= avail;
 	    putsect(&sect);

@@ -77,8 +77,8 @@ prod(void)
     int totpop;
     int act;			/* actual production */
     int cost;
-    int i;
-    int max;			/* production w/infinate materials */
+    int i, j;
+    int max;			/* production w/infinite materials */
     int nsect;
     double take;
     double mtake;
@@ -87,14 +87,10 @@ prod(void)
     int used;			/* production w/infinite workforce */
     int wforce;
     int it;
-    u_short *amount;		/* amount for component pointer */
-    u_char *comp;		/* component pointer */
-    u_char *endcomp;
     u_char vtype;
     s_char *resource;
-    int c;
-    s_char maxc[3][10];
-    s_char use[3][10];
+    s_char maxc[MAXPRCON][10];
+    s_char use[MAXPRCON][10];
     int lcms, hcms;
     int civs = 0;
     int uws = 0;
@@ -232,13 +228,14 @@ prod(void)
 	 * raw material limit
 	 */
 	used = 9999;
-	amount = pp->p_vamt;
-	endcomp = pp->p_vtype + pp->p_nv;
-	for (comp = pp->p_vtype; comp < endcomp; comp++, amount++) {
-	    if (*amount == 0)
+	for (j = 0; j < MAXPRCON; ++j) {
+	    it = pp->p_ctype[j];
+	    if (!pp->p_camt[j])
 		continue;
-	    used = min(used, sect.sct_item[(int)*comp] / *amount);
-	    unit_work += *amount;
+	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
+		continue;
+	    used = min(used, sect.sct_item[it] / pp->p_camt[j]);
+	    unit_work += pp->p_camt[j];
 	}
 	if (unit_work == 0)
 	    unit_work = 1;
@@ -275,22 +272,20 @@ prod(void)
 	    }
 	}
 
-	comp = pp->p_vtype;
-	amount = pp->p_vamt;
 	i = 0;
-	while (comp < endcomp) {
-	    it = unitem((int)*comp);
-	    if (it > 0 && it <= I_MAX && ichr[it].i_name != 0)
-		c = ichr[it].i_name[0];
-	    else
-		c = ' ';
-	    (void)sprintf(use[i], " %3d%c",
-			  (int)((take * (double)(*amount)) + 0.5), c);
-	    (void)sprintf(maxc[i], " %3d%c",
-			  (int)((mtake * (double)(*amount)) + 0.5), c);
-	    ++comp;
-	    ++amount;
-	    ++i;
+	for (j = 0; j < MAXPRCON; ++j) {
+	    it = pp->p_ctype[j];
+	    if (it > I_NONE && it <= I_MAX && ichr[it].i_name != 0) {
+		if (CANT_HAPPEN(i >= 3))
+		    break;
+		sprintf(use[i], " %3d%c",
+			(int)((take * (double)pp->p_camt[j]) + 0.5),
+			ichr[it].i_name[0]);
+		sprintf(maxc[i], " %3d%c",
+			(int)((mtake * (double)pp->p_camt[j]) + 0.5),
+			ichr[it].i_name[0]);
+		++i;
+	    }
 	}
 	while (i < 3) {
 	    strcpy(use[i], "     ");

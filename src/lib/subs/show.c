@@ -701,12 +701,14 @@ show_sect_capab(int foo)
 
 	pr("%c %-23s %-7s ", dchr[x].d_mnem, dchr[x].d_name,
 	   pchr[j].p_sname);
-	/*for(i=0;i<MAXCHRNV;i++) */
-	/* XXX currently no more than 3 items actually used */
+	CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
 	for (i = 0; i < 3; i++) {
-	    if ((i < pchr[j].p_nv) && (pchr[j].p_vamt[i] > 0)) {
-		pr("%2d %c ", pchr[j].p_vamt[i],
-		   ichr[pchr[j].p_vtype[i] & (~VT_ITEM)].i_name[0]);
+	    if (i < MAXPRCON
+		&& pchr[j].p_camt[i]
+		&& pchr[j].p_ctype[i] > I_NONE
+		&& pchr[j].p_ctype[i] <= I_MAX) {
+		pr("%2d %c ", pchr[j].p_camt[i],
+		   ichr[pchr[j].p_ctype[i] & (~VT_ITEM)].i_name[0]);
 	    } else {
 		pr("     ");
 	    }

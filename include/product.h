@@ -34,10 +34,15 @@
 #ifndef _PRODUCT_H_
 #define _PRODUCT_H_
 
+/*
+ * Maximum number of product constituents.
+ * Beware, some output formats rely on MAXPRCON <= 3!
+ */
+enum { MAXPRCON = 3 };
+
 struct pchrstr {
-    u_char p_nv;		/* number of constituents */
-    u_char p_vtype[MAXCHRNV];	/* constituent types */
-    u_short p_vamt[MAXCHRNV];	/* constituent amounts */
+    u_char p_ctype[MAXPRCON];	/* constituent types */
+    u_short p_camt[MAXPRCON];	/* constituent amounts */
     int p_type;			/* vtype if product is a variable */
     int p_level;		/* index (NAT_?LEV) if product is not a var */
     int p_cost;			/* dollars / product unit */
