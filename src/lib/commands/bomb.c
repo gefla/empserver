@@ -34,6 +34,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 #include "misc.h"
 #include "player.h"
 #include "var.h"
@@ -116,7 +117,7 @@ bomb(void)
 	 getstarg(player->argp[3], "pinpoint, or strategic? ", buf)) == 0)
 	return RET_SYN;
     mission = *p;
-    if (index("ps", mission) == 0)
+    if (strchr("ps", mission) == 0)
 	return RET_SYN;
     if ((p = getstarg(player->argp[4], "assembly point? ", buf)) == 0
 	|| *p == 0)

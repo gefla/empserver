@@ -91,11 +91,11 @@ logerror(s_char *format, ...)
 	loginit();
     va_start(list, format);
     vsprintf(buf, format, list);
-    if ((p = index(buf, '\n')) != 0)
+    if ((p = strchr(buf, '\n')) != 0)
 	*p = 0;
     (void)time(&now);
     strcpy(cbuf, ctime(&now));
-    if ((p = index(cbuf, '\n')) != 0)
+    if ((p = strchr(cbuf, '\n')) != 0)
 	*p = 0;
     (void)sprintf(buf1, "%s %s\n", cbuf, buf);
     if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)

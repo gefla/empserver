@@ -36,6 +36,7 @@
 #include "gen.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include "common.h"
 
@@ -67,10 +68,10 @@ kw_read(FILE * fp)
 	/* Allow for comments.. any line starting with # */
 	if (buf[0] == '#')
 	    continue;
-	p = rindex(buf, '\n');
+	p = strrchr(buf, '\n');
 	if (p != 0)
 	    *p = 0;
-	if ((p = index(buf, ':')) == 0) {
+	if ((p = strchr(buf, ':')) == 0) {
 	    logerror("kw_read: Bad keyword line #%d\n", n);
 	    return 0;
 	}
@@ -123,7 +124,7 @@ kw_parse(int type, s_char *text, int *data)
 	text = get_time(text, &data[0]);
 	break;
     case CF_TIMERANGE:
-	if ((next = index(text, '-')) == 0)
+	if ((next = strchr(text, '-')) == 0)
 	    return 0;
 	next++;
 	if ((text = get_time(text, &data[0])) == 0)

@@ -84,25 +84,6 @@ void servercmd();
 void ioq_drain();
 
 
-#ifdef _WIN32
-s_char *
-index(str, c)
-s_char *str;
-char c;
-{
-    static s_char *p;
-
-    p = str;
-    while (p && *p) {
-	if (*p == c)
-	    return (s_char *)p;
-	p++;
-    }
-    return (s_char *)0;
-}
-
-#endif
-
 int
 main(ac, av)
 int ac;

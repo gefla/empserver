@@ -160,7 +160,7 @@ pr_player(struct player *pl, int id, s_char *buf)
 	if (pl->curid == -1) {
 	    outid(pl, id);
 	}
-	p = index(bp, '\n');
+	p = strchr(bp, '\n');
 	if (p != 0) {
 	    len = (p - bp) + 1;
 	    if (pl->command && (pl->command->c_flags & C_MOD))

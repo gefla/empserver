@@ -32,6 +32,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 #include "misc.h"
 #include "player.h"
 #include "file.h"
@@ -54,7 +55,7 @@ offs(void)
     yorg = natp->nat_yorg;
     if (!(cp = getstarg(player->argp[1], "sector or nation? ", buf)))
 	return RET_SYN;
-    if (index(cp, ',')) {	/* x, y pair for offset */
+    if (strchr(cp, ',')) {	/* x, y pair for offset */
 	if (!sarg_xy(cp, &dx, &dy)) {
 	    pr("Bad sector designation.\n");
 	    return RET_SYN;

@@ -32,6 +32,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
@@ -63,7 +64,7 @@ sarg_type(s_char *ptr)
 	return NS_DIST;
     if (c == '*')
 	return NS_ALL;
-    if (c == '#' || index(ptr, ',') != 0)
+    if (c == '#' || strchr(ptr, ',') != 0)
 	return NS_AREA;
     if (isdigit(c))
 	return NS_LIST;

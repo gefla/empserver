@@ -123,10 +123,6 @@ extern s_char *calloc();
 extern s_char *ctime();
 extern s_char *strncpy();
 extern s_char *strcpy();
-#ifndef NeXT
-extern s_char *index();
-extern s_char *rindex();
-#endif /* NeXT */
 #endif /* !aix && !sgi */
 
 extern time_t time();

@@ -100,7 +100,7 @@ s_char *buf;
 	    }
 	    size -= n;
 	    ptr[n] = '\0';
-	} while ((p = index(ptr, '\n')) == 0);
+	} while ((p = strchr(ptr, '\n')) == 0);
 	newline = 1 + p - buf;
 	*p = 0;
     } else

@@ -114,7 +114,7 @@ info(void)
     /*
      * don't let sneaky people go outside the info directory
      */
-    else if (NULL != (bp = rindex(player->argp[1], '/')))
+    else if (NULL != (bp = strrchr(player->argp[1], '/')))
 	bp++;
     else
 	bp = player->argp[1];
@@ -394,11 +394,11 @@ info(void)
 	 * don't let sneaky people go outside the info directory
 	 */
 	bp = player->argp[1];
-	if (NULL != (bp2 = rindex(bp, '/')))
+	if (NULL != (bp2 = strrchr(bp, '/')))
 	    bp = ++bp2;
-	if (NULL != (bp2 = rindex(bp, '\\')))
+	if (NULL != (bp2 = strrchr(bp, '\\')))
 	    bp = ++bp2;
-	if (NULL != (bp2 = rindex(bp, ':')))
+	if (NULL != (bp2 = strrchr(bp, ':')))
 	    bp = ++bp2;
 	if (!*bp)
 	    bp = "TOP";

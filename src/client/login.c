@@ -37,6 +37,7 @@
 
 #include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -116,7 +117,7 @@ int kill_proc;
     }
     for (ptr = buf; !isspace(*ptr); ptr++) ;
     ptr++;
-    p = index(ptr, '\n');
+    p = strchr(ptr, '\n');
     if (p != 0)
 	*p = 0;
     if (atoi(ptr) != CLIENTPROTO) {
