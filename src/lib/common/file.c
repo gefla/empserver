@@ -474,3 +474,13 @@ ef_check(int type)
     }
     return 0;
 }
+
+int
+ef_ensure_space(int type, int id, int count)
+{
+    while (id >= empfile[type].fids) {
+	if (!ef_extend(type, count))
+	    return 0;
+    }
+    return 1;
+}

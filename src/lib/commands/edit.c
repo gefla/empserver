@@ -210,6 +210,8 @@ edit(void)
 	case 's':
 	    if ((err = doship(thing[0], arg, ptr, &ship)) != RET_OK)
 		return err;
+	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
+		return RET_FAIL;
 	    if (!putship(ship.shp_uid, &ship))
 		return RET_FAIL;
 	    break;
@@ -217,6 +219,8 @@ edit(void)
 	    if ((err = dounit(thing[0], arg, ptr, &land))
 		!= RET_OK)
 		return err;
+	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
+		return RET_FAIL;
 	    if (!putland(land.lnd_uid, &land))
 		return RET_FAIL;
 	    break;
@@ -224,6 +228,8 @@ edit(void)
 	    if ((err = doplane(thing[0], arg, ptr, &plane))
 		!= RET_OK)
 		return err;
+	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
+		return RET_FAIL;
 	    if (!putplane(plane.pln_uid, &plane))
 		return RET_FAIL;
 	    break;

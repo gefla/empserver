@@ -102,6 +102,7 @@ extern int ef_close(int);
 extern int ef_flush(int);
 extern int ef_write(int, int, caddr_t);
 extern int ef_extend(int, int);
+extern int ef_ensure_space(int, int, int);
 extern void ef_zapcache(int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
