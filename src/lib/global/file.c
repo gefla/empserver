@@ -53,16 +53,16 @@
 #include "commodity.h"
 
 struct empfile empfile[] = {
-    {"sect", EMPDIR "/data/sector", EFF_COM | EFF_XY | EFF_OWNER,
+    {"sect", EMPDIR "/data/sector", EFF_XY | EFF_OWNER,
      0, sizeof(struct sctstr), 0, 0, 0, offsetof(struct sctstr, sct_item),
      -1, -1, 0, 0, 0, 0, 0},
-    {"ship", EMPDIR "/data/ship", EFF_COM | EFF_XY | EFF_OWNER | EFF_GROUP,
+    {"ship", EMPDIR "/data/ship", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct shpstr), 0, 0, 0, offsetof(struct shpstr, shp_item),
      -1, -1, 0, 0, 0, 0, 0},
     {"plane", EMPDIR "/data/plane", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct plnstr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0},
-    {"land", EMPDIR "/data/land", EFF_COM | EFF_XY | EFF_OWNER | EFF_GROUP,
+    {"land", EMPDIR "/data/land", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct lndstr), 0, 0, 0, offsetof(struct lndstr, lnd_item),
      -1, -1, 0, 0, 0, 0, 0},
     {"nuke", EMPDIR "/data/nuke", EFF_XY | EFF_OWNER,
