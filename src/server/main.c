@@ -172,21 +172,16 @@ main(int argc, char **argv)
 	remove_service_set) {
 	logerror("Can't use -d, -D or -e with either "
 	    "-r or -R options when starting the server");
-	printf("Can't use -d, -D or -e with either -r "
-	    "or -R options\n");
 	exit(EXIT_FAILURE);
     }
     if (debug && install_service_set) {
 	logerror("Can't use -d with either "
 	    "-i or -I options when starting the server");
-	printf("Can't use -d with either -i "
-	    "or -I options\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
 	logerror("Can't use both -r or -R and -i or -I options when starting "
 	    "the server");
-	printf("Can't use both -r or -R and -i or -I options\n");
 	exit(EXIT_FAILURE);
     }
 #endif	/* _WIN32 */
