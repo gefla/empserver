@@ -61,6 +61,9 @@ typedef long ssize_t;
 #define W_OK 02 /* Write permission */
 #define R_OK 04 /* Read permission */
 
+typedef int pid_t;
+#define vsnprintf _vsnprintf;
+
 /*#define _POSIX_ */
 #endif
 
