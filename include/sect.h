@@ -188,6 +188,8 @@ extern struct dchrstr bigcity_dchr;
 #define CHE_MAX 255
 /* maximum number of mines, must fit into struct sctstr member sct_mines */
 #define MINES_MAX 65535
+/* maximum fallout, must fit into struct sctstr member sct_fallout */
+#define FALLOUT_MAX 9999
 
 /* Each cost is per point of efficency */
 struct sctintrins {

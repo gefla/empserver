@@ -616,7 +616,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	break;
     case 'F':
 	old = sect->sct_fallout;
-	new = errcheck(arg, 0, 9999);
+	new = errcheck(arg, 0, FALLOUT_MAX);
 	pr("Fallout for sector %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_fallout = new;

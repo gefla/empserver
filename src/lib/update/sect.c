@@ -307,7 +307,7 @@ spread_fallout(struct sctstr *sp, int etus)
 #endif
 	if (inc < 0)
 	    inc = 0;
-	ap->sct_fallout += inc;
+	ap->sct_fallout = min(ap->sct_fallout + inc, FALLOUT_MAX);
     }
 }
 
@@ -327,8 +327,7 @@ decay_fallout(struct sctstr *sp, int etus)
 	   sp->sct_y, decay, sp->sct_fallout);
 #endif
 
-    sp->sct_fallout =
-	(decay < sp->sct_fallout) ? (sp->sct_fallout - decay) : 0;
+    sp->sct_fallout = decay < sp->sct_fallout ? sp->sct_fallout - decay : 0;
 }
 
 #define SHOULD_PRODUCE(sp,t)	(((sp->sct_type == t) || (t == -1)) ? 1 : 0)
