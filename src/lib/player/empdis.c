@@ -166,7 +166,7 @@ gamedown(void)
 	return 1;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
-	logerror("text length (%d) is too long for login message (downfil)", tgm.tel_length);
+	logerror("text length (%ld) is too long for login message (downfil)", tgm.tel_length);
 	close(downf);
 	return 1;
     }

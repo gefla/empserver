@@ -364,7 +364,7 @@ show_motd(void)
 	return RET_FAIL;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
-	logerror("text length (%d) is too long for login message (motdfil)", tgm.tel_length);
+	logerror("text length (%ld) is too long for login message (motdfil)", tgm.tel_length);
 	close(motdf);
 	return RET_FAIL;
     }
