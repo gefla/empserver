@@ -1,5 +1,5 @@
 .TH Command PBMAP
-.NA bmap "Big map of all your worldly knowledge around a plane"
+.NA pbmap "Big map of all your worldly knowledge around a plane"
 .LV Expert
 .SY "bmap [<SECTS> | <SHIP>] <s|p|l|r|t|*|h>"
 .SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|*|h>"

@@ -1,5 +1,5 @@
-.TH Command INFO
-.NA info "Provide information on various topics"
+.TH Command HELP
+.NA help "Provide information on various topics"
 .LV Basic
 .SY "info [<SUBJECT|COMMAND|TOPIC|all>]"
 .SY "help [<SUBJECT|COMMAND|TOPIC|all>]"
