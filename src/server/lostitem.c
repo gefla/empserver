@@ -44,14 +44,14 @@
 /*ARGSUSED*/
 void
 delete_lostitems(argv)
-void	*argv;
+void *argv;
 {
     extern int lost_items_timeout;
-    time_t    now;
-    struct loststr   lost;
-    int       n;
-    int       ncnt;
-    
+    time_t now;
+    struct loststr lost;
+    int n;
+    int ncnt;
+
     while (1) {
 	time(&now);
 /*	logerror("Deleting lost items at %s", ctime(&now));*/
@@ -67,9 +67,8 @@ void	*argv;
 	    ncnt++;
 	}
 /*	logerror("Deleted %d lost items", ncnt, ctime(&now));*/
-	now = now + 900; /* Every 15 minutes */
+	now = now + 900;	/* Every 15 minutes */
 	empth_sleep(now);
     }
     /*NOTREACHED*/
 }
-

@@ -36,36 +36,38 @@
 #include "xy.h"
 
 /* must agree with DIR_ defines */
-s_char    dirch[] = {
-	'h',		/* stop */
-	'u',		/* up-right */
-	'j',		/* right */
-	'n',		/* down-right */
-	'b',		/* down-left */
-	'g',		/* left */
-	'y',		/* up-left */
-	'v',		/* view */
-	'm',		/* map */
-	'\0',
+s_char dirch[] = {
+    'h',			/* stop */
+    'u',			/* up-right */
+    'j',			/* right */
+    'n',			/* down-right */
+    'b',			/* down-left */
+    'g',			/* left */
+    'y',			/* up-left */
+    'v',			/* view */
+    'm',			/* map */
+    '\0',
 };
 
 /* must agree with dirch[] and DIR_ defines */
-int	diroff[][2] = {
-  {0,0}, {1,-1}, {2,0}, {1,1}, {-1,1}, {-2,0}, {-1,-1}, {0,0}, {0,0}
+int diroff[][2] = {
+    {0, 0}, {1, -1}, {2, 0}, {1, 1}, {-1, 1}, {-2, 0}, {-1, -1}, {0, 0},
+	{0, 0}
 };
 
 /* this maps a character from a to z into the diroff mappings.  It
    keeps us from having to loop if we don't want to */
 int dirindex[] = { 0, 4, 0, 0, 0, 0, 5, 0, 0, 2, 0, 0, 8,
-		   3, 0, 0, 0, 0, 0, 0, 1, 7, 0, 0, 6, 0 };
+    3, 0, 0, 0, 0, 0, 0, 1, 7, 0, 0, 6, 0
+};
 
 /* must agree with dirch[] and DIR_ defines */
-s_char   *routech[7][2] = {
-	{ "   ",	"$ $" },
-	{ "  /",	"$ /" },
-	{ "  >",	"$ >" },
-	{ "  \\",	"$ \\" },
-	{ "/  ",	"/ $" },
-	{ "<  ",	"< $" },
-	{ "\\  ",	"\\ $" }
+s_char *routech[7][2] = {
+    {"   ", "$ $"},
+    {"  /", "$ /"},
+    {"  >", "$ >"},
+    {"  \\", "$ \\"},
+    {"/  ", "/ $"},
+    {"<  ", "< $"},
+    {"\\  ", "\\ $"}
 };

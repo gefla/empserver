@@ -42,31 +42,31 @@
 #define _GENITEM_H_
 
 struct genitem {
-	short	ef_type;
-        natid	own;
-        short	uid;
-        coord	x;
-	coord	y;
-        s_char	type;
-        s_char	effic;
-        s_char	mobil;
-        short	sell;
-        short	tech;
-        s_char	group;
-	coord	opx,opy;
-	short	mission;
-	short	radius;
+    short ef_type;
+    natid own;
+    short uid;
+    coord x;
+    coord y;
+    s_char type;
+    s_char effic;
+    s_char mobil;
+    short sell;
+    short tech;
+    s_char group;
+    coord opx, opy;
+    short mission;
+    short radius;
 };
 
 struct genobject {
-	short	ef_type;
-        natid	own;
+    short ef_type;
+    natid own;
 };
 
 struct genchrstr {
-	u_char	nv;	/* current number of variables */
-	u_char	vtype[MAXCHRNV];
-	u_short	vamt[MAXCHRNV];
+    u_char nv;			/* current number of variables */
+    u_char vtype[MAXCHRNV];
+    u_short vamt[MAXCHRNV];
 };
 
 #endif /* _GENITEM_H_ */

@@ -48,94 +48,96 @@
 int
 rout(void)
 {
-	struct	ichrstr	*ip;
-	struct	nstr_sect ns;
-	struct	natstr	*natp;
-	struct	sctstr	sect;
-	struct	nscstr	cond[NS_NCOND];
-	int	ncond;
-	struct	range	relrange;
-	int	row;
-	int	y;
-	int	ry;
-	int     i_del;
-	int	dir;
-	s_char  *p;
-	s_char	what[64];
-	s_char	*str;
-	s_char	buf1[1024];
-	/* Note this is not re-entrant anyway, so we keep the buffers
-	   around */
-	static s_char      *mapbuf = (s_char *)0;
-	static s_char      **map = (s_char **)0;
-	static s_char      *buf = (s_char *)0;
-	int i;
+    struct ichrstr *ip;
+    struct nstr_sect ns;
+    struct natstr *natp;
+    struct sctstr sect;
+    struct nscstr cond[NS_NCOND];
+    int ncond;
+    struct range relrange;
+    int row;
+    int y;
+    int ry;
+    int i_del;
+    int dir;
+    s_char *p;
+    s_char what[64];
+    s_char *str;
+    s_char buf1[1024];
+    /* Note this is not re-entrant anyway, so we keep the buffers
+       around */
+    static s_char *mapbuf = (s_char *)0;
+    static s_char **map = (s_char **)0;
+    static s_char *buf = (s_char *)0;
+    int i;
 
-	if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
-		return RET_SYN;
-	i_del = V_DEL(ip-ichr);
-	if(player->argp[2] == (s_char *) 0) {
-		if ((str = getstring("(sects)? ", buf1)) == 0)
-			return RET_SYN;
-	} else {
-		str = player->argp[2];
-	}
-	if(*str == '*') {
-		sprintf(what, "%d:%d,%d:%d",
-			-WORLD_X/2, WORLD_X/2-1,
-			-WORLD_Y/2, WORLD_Y/2-1);
-		if (!snxtsct(&ns, what))
-			return RET_FAIL;
-	} else if (!snxtsct(&ns, str))
-		return RET_FAIL;
-	if (!mapbuf)
-	    mapbuf = (s_char *)malloc((WORLD_Y*MAPWIDTH(3))*sizeof(s_char));
-	if (!map) {
-	    map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
-	    if (map && mapbuf) {
-		for (i = 0; i < WORLD_Y; i++)
-		    map[i] = &mapbuf[MAPWIDTH(3) * i];
-	    } else if (map) {
-		free((s_char *)map);
-		map = (s_char **)0;
-	    }
-	}
-	if (!buf)
-	    buf = (s_char *)malloc((MAPWIDTH(3) + 12) * sizeof(s_char));
-	if (!mapbuf || !map || !buf) {
-	    pr("Memory error, tell the deity.\n");
-	    logerror("malloc failed in rout\n");
+    if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
+	return RET_SYN;
+    i_del = V_DEL(ip - ichr);
+    if (player->argp[2] == (s_char *)0) {
+	if ((str = getstring("(sects)? ", buf1)) == 0)
+	    return RET_SYN;
+    } else {
+	str = player->argp[2];
+    }
+    if (*str == '*') {
+	sprintf(what, "%d:%d,%d:%d",
+		-WORLD_X / 2, WORLD_X / 2 - 1,
+		-WORLD_Y / 2, WORLD_Y / 2 - 1);
+	if (!snxtsct(&ns, what))
 	    return RET_FAIL;
+    } else if (!snxtsct(&ns, str))
+	return RET_FAIL;
+    if (!mapbuf)
+	mapbuf =
+	    (s_char *)malloc((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char));
+    if (!map) {
+	map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	if (map && mapbuf) {
+	    for (i = 0; i < WORLD_Y; i++)
+		map[i] = &mapbuf[MAPWIDTH(3) * i];
+	} else if (map) {
+	    free((s_char *)map);
+	    map = (s_char **)0;
 	}
-	ncond = ns.ncond;
-	bcopy((s_char *)ns.cond, (s_char *)cond, sizeof(struct nscstr) * ncond);
-	ns.ncond = 0;
+    }
+    if (!buf)
+	buf = (s_char *)malloc((MAPWIDTH(3) + 12) * sizeof(s_char));
+    if (!mapbuf || !map || !buf) {
+	pr("Memory error, tell the deity.\n");
+	logerror("malloc failed in rout\n");
+	return RET_FAIL;
+    }
+    ncond = ns.ncond;
+    bcopy((s_char *)ns.cond, (s_char *)cond,
+	  sizeof(struct nscstr) * ncond);
+    ns.ncond = 0;
 
-	natp = getnatp(player->cnum);
-	xyrelrange(natp, &ns.range, &relrange);
-	bzero((s_char *)mapbuf,((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char)));
-	blankfill((s_char *)mapbuf, &ns.range, 3);
-	border(&relrange, "     ", " ");
+    natp = getnatp(player->cnum);
+    xyrelrange(natp, &ns.range, &relrange);
+    bzero((s_char *)mapbuf, ((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char)));
+    blankfill((s_char *)mapbuf, &ns.range, 3);
+    border(&relrange, "     ", " ");
 
-	while (nxtsct(&ns, &sect)) {
-		if (!player->owner)
-			continue;
-		p = &map[ns.dy][ns.dx*2];
-		if ((dir = getvar(i_del, (s_char *)&sect, EF_SECTOR) & 0x7) &&
-		    nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR))
-			bcopy(routech[dir][0], p, 3);
-		p[1] = dchr[sect.sct_type].d_mnem;
-	}
-	for (row = 0, y = ns.range.ly; row < ns.range.height; y++,row++) {
-		ry = yrel(natp, y);
-		bzero(buf,(MAPWIDTH(3) + 10) * sizeof(s_char));
-		sprintf(buf,"%4d ",ry);
-		bcopy(map[row],buf+5,ns.range.width*2+1);
-		sprintf(buf+5+ns.range.width*2+1," %-4d\n",ry);
-		pr("%s", buf);
-		if (y >= WORLD_Y)
-			y -= WORLD_Y;
-	}
-	border(&relrange, "     ", " ");
-	return RET_OK;
+    while (nxtsct(&ns, &sect)) {
+	if (!player->owner)
+	    continue;
+	p = &map[ns.dy][ns.dx * 2];
+	if ((dir = getvar(i_del, (s_char *)&sect, EF_SECTOR) & 0x7) &&
+	    nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR))
+	    bcopy(routech[dir][0], p, 3);
+	p[1] = dchr[sect.sct_type].d_mnem;
+    }
+    for (row = 0, y = ns.range.ly; row < ns.range.height; y++, row++) {
+	ry = yrel(natp, y);
+	bzero(buf, (MAPWIDTH(3) + 10) * sizeof(s_char));
+	sprintf(buf, "%4d ", ry);
+	bcopy(map[row], buf + 5, ns.range.width * 2 + 1);
+	sprintf(buf + 5 + ns.range.width * 2 + 1, " %-4d\n", ry);
+	pr("%s", buf);
+	if (y >= WORLD_Y)
+	    y -= WORLD_Y;
+    }
+    border(&relrange, "     ", " ");
+    return RET_OK;
 }

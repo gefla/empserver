@@ -49,93 +49,95 @@
 #include "lost.h"
 
 void
-populace(struct natstr *np, register struct sctstr *sp, register int *vec, int etu)
+populace(struct natstr *np, register struct sctstr *sp, register int *vec,
+	 int etu)
 {
-	float	hap;
-	float	tech;
-	float	edu;
-	float	pct;
-	int	n;
+    float hap;
+    float tech;
+    float edu;
+    float pct;
+    int n;
 
-	if (vec[I_CIVIL] == 0 && vec[I_MILIT] > 0) {
-		sp->sct_work = 100;
-		sp->sct_loyal = 0;
-		sp->sct_oldown = sp->sct_own;
-	}
-	if (!vec[I_CIVIL] && !vec[I_MILIT] && !vec[I_UW] &&
-		!has_units(sp->sct_x,sp->sct_y,sp->sct_own,0)) {
-	        makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-		sp->sct_own = 0;
-		sp->sct_oldown = 0;
-		return;
-	}
-	if (sp->sct_own != sp->sct_oldown && sp->sct_loyal == 0) {
-		sp->sct_oldown = sp->sct_own;
-	}
-
-	hap = np->nat_level[NAT_HLEV];
-	edu = np->nat_level[NAT_ELEV];
-	tech = np->nat_level[NAT_TLEV];
-	pct = (double)((tech - 40) / 40.0 + edu / 3.0);
-	if (sp->sct_own == sp->sct_oldown && hap < pct &&
-	    chance((double)(((double)pct-(double)hap)/(double)5.0))) {
-		/*
-		 * zap the loyalty of unhappy civilians.
-		 * there is a 20% chance per hap point below the
-		 * "recommended" amount of this happening.
-		 */
-		 n = roundavg(etu * 0.125);
-		 if (n == 0) n = 1;
-		n = sp->sct_loyal + (random() % n) + 1;
-		if (n > 127)
-			n = 127;
-		sp->sct_loyal = n;
-	}
-	if (sp->sct_loyal > 65 && vec[I_MILIT] < vec[I_CIVIL]/20) {
-		int	work_red;
-
-		work_red = sp->sct_loyal - (50 + (random() % 15));
-		n = sp->sct_work - work_red;
-		if (n < 0)
-			n = 0;
-		sp->sct_work = n;
-		if (chance((double)work_red/1000.0)) {
-			/*
-			 * small chance of rebellion...
-			 * if work_red is (max) 67,
-			 * then revolt chance is 6.7%
-			 */
-			revolt(sp);
-		} else if (chance(.30) && sp->sct_own)
-			wu(0, sp->sct_own, "Civil unrest in %s!\n", ownxy(sp));
-	}
-	if (sp->sct_loyal) {
-		n = sp->sct_loyal;
-		if (chance(0.75))
-			n -= roundavg(etu * 0.25);
-		else
-			n += roundavg(etu * 0.125);
-		if (n < 0)
-			n = 0;
-		else if (n > 127)
-			n = 127;
-		sp->sct_loyal = n;
-		if (sp->sct_loyal == 0) {
-			if (sp->sct_oldown != sp->sct_own) {
-				wu(0, sp->sct_own,
-					"Sector %s is now fully yours\n",
-					ownxy(sp));
-				sp->sct_oldown = sp->sct_own;
-			}
-			sp->sct_loyal = 0;
-		}
-	}
+    if (vec[I_CIVIL] == 0 && vec[I_MILIT] > 0) {
+	sp->sct_work = 100;
+	sp->sct_loyal = 0;
+	sp->sct_oldown = sp->sct_own;
+    }
+    if (!vec[I_CIVIL] && !vec[I_MILIT] && !vec[I_UW] &&
+	!has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
+	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
+	sp->sct_own = 0;
+	sp->sct_oldown = 0;
 	return;
+    }
+    if (sp->sct_own != sp->sct_oldown && sp->sct_loyal == 0) {
+	sp->sct_oldown = sp->sct_own;
+    }
+
+    hap = np->nat_level[NAT_HLEV];
+    edu = np->nat_level[NAT_ELEV];
+    tech = np->nat_level[NAT_TLEV];
+    pct = (double)((tech - 40) / 40.0 + edu / 3.0);
+    if (sp->sct_own == sp->sct_oldown && hap < pct &&
+	chance((double)(((double)pct - (double)hap) / (double)5.0))) {
+	/*
+	 * zap the loyalty of unhappy civilians.
+	 * there is a 20% chance per hap point below the
+	 * "recommended" amount of this happening.
+	 */
+	n = roundavg(etu * 0.125);
+	if (n == 0)
+	    n = 1;
+	n = sp->sct_loyal + (random() % n) + 1;
+	if (n > 127)
+	    n = 127;
+	sp->sct_loyal = n;
+    }
+    if (sp->sct_loyal > 65 && vec[I_MILIT] < vec[I_CIVIL] / 20) {
+	int work_red;
+
+	work_red = sp->sct_loyal - (50 + (random() % 15));
+	n = sp->sct_work - work_red;
+	if (n < 0)
+	    n = 0;
+	sp->sct_work = n;
+	if (chance((double)work_red / 1000.0)) {
+	    /*
+	     * small chance of rebellion...
+	     * if work_red is (max) 67,
+	     * then revolt chance is 6.7%
+	     */
+	    revolt(sp);
+	} else if (chance(.30) && sp->sct_own)
+	    wu(0, sp->sct_own, "Civil unrest in %s!\n", ownxy(sp));
+    }
+    if (sp->sct_loyal) {
+	n = sp->sct_loyal;
+	if (chance(0.75))
+	    n -= roundavg(etu * 0.25);
+	else
+	    n += roundavg(etu * 0.125);
+	if (n < 0)
+	    n = 0;
+	else if (n > 127)
+	    n = 127;
+	sp->sct_loyal = n;
+	if (sp->sct_loyal == 0) {
+	    if (sp->sct_oldown != sp->sct_own) {
+		wu(0, sp->sct_own,
+		   "Sector %s is now fully yours\n", ownxy(sp));
+		sp->sct_oldown = sp->sct_own;
+	    }
+	    sp->sct_loyal = 0;
+	}
+    }
+    return;
 }
 
 int
-total_work(register int sctwork, register int etu, register int civil, register int milit, register int uw)
+total_work(register int sctwork, register int etu, register int civil,
+	   register int milit, register int uw)
 {
-	return ((int)((((civil * sctwork) / 100.0 +
-		(milit * 2 / 5.0) + uw)) * etu) / 100);
+    return ((int)((((civil * sctwork) / 100.0 +
+		    (milit * 2 / 5.0) + uw)) * etu) / 100);
 }

@@ -46,63 +46,62 @@
 int
 range(void)
 {
-	struct nstr_item np;
-	struct plnstr plane;
-	int	i;
-	s_char	*p;
-	s_char	buf[1024];
+    struct nstr_item np;
+    struct plnstr plane;
+    int i;
+    s_char *p;
+    s_char buf[1024];
 
-	if (!snxtitem(&np, EF_PLANE, player->argp[1]))
-		return RET_SYN;
-	while (nxtitem(&np, (s_char *)&plane)) {
-		if (!player->owner || plane.pln_own == 0)
-			continue;
-		p = getstarg(player->argp[2],"New range? ", buf);
-		if (!check_plane_ok(&plane))
-		    return RET_SYN;
-		if (!p || (i = atoi(p)) < 0)
-			continue;
-		plane.pln_range = (plane.pln_range_max < i) ?
-			plane.pln_range_max : i;
-		pr("Plane %d range changed to %d\n",plane.pln_uid,
-			plane.pln_range);
+    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+	return RET_SYN;
+    while (nxtitem(&np, (s_char *)&plane)) {
+	if (!player->owner || plane.pln_own == 0)
+	    continue;
+	p = getstarg(player->argp[2], "New range? ", buf);
+	if (!check_plane_ok(&plane))
+	    return RET_SYN;
+	if (!p || (i = atoi(p)) < 0)
+	    continue;
+	plane.pln_range = (plane.pln_range_max < i) ?
+	    plane.pln_range_max : i;
+	pr("Plane %d range changed to %d\n", plane.pln_uid,
+	   plane.pln_range);
 
-		putplane(plane.pln_uid,&plane);
-	}
+	putplane(plane.pln_uid, &plane);
+    }
 
-	return RET_OK;
+    return RET_OK;
 }
 
 int
 lrange(void)
 {
-	struct nstr_item np;
-	struct lndstr land;
-	struct lchrstr *lcp;
-	int	i;
-	s_char	*p;
-	s_char	prompt[128];
-	s_char	buf[128];
+    struct nstr_item np;
+    struct lndstr land;
+    struct lchrstr *lcp;
+    int i;
+    s_char *p;
+    s_char prompt[128];
+    s_char buf[128];
 
-	if (!snxtitem(&np, EF_LAND, player->argp[1]))
-		return RET_SYN;
-	while (nxtitem(&np, (s_char *)&land)) {
-		if (!player->owner || land.lnd_own == 0)
-			continue;
-		lcp = &lchr[(int)land.lnd_type];
-		sprintf(prompt, "New range for %s? ", prland(&land));
-		if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-			return RET_SYN;
-		if (!check_land_ok(&land))
-		    return RET_SYN;
-		if ((i = atoi(p)) < 0)
-			continue;
-		land.lnd_rad_max = (i < land.lnd_rad) ?
-			i : land.lnd_rad;
-		pr("%s reaction radius changed to %d\n", prland(&land),
-		   land.lnd_rad_max);
-		putland(land.lnd_uid,&land);
-	}
+    if (!snxtitem(&np, EF_LAND, player->argp[1]))
+	return RET_SYN;
+    while (nxtitem(&np, (s_char *)&land)) {
+	if (!player->owner || land.lnd_own == 0)
+	    continue;
+	lcp = &lchr[(int)land.lnd_type];
+	sprintf(prompt, "New range for %s? ", prland(&land));
+	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
+	    return RET_SYN;
+	if (!check_land_ok(&land))
+	    return RET_SYN;
+	if ((i = atoi(p)) < 0)
+	    continue;
+	land.lnd_rad_max = (i < land.lnd_rad) ? i : land.lnd_rad;
+	pr("%s reaction radius changed to %d\n", prland(&land),
+	   land.lnd_rad_max);
+	putland(land.lnd_uid, &land);
+    }
 
-	return RET_OK;
+    return RET_OK;
 }

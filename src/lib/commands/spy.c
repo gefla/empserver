@@ -60,160 +60,159 @@ static int check(coord *table, int *len, coord x, coord y);
 int
 spy(void)
 {
-	int     caught;
-	natid	own;
-	int     relat;
-	coord	x, y;
-	coord	nx, ny;
-	int     military;
-	int     savemil;
-	int     btucost;
-	int     i;
-	coord   *table;		    /* sectors already seen */
-	int	t_len = 0;
-	int	vec[I_MAX+1];
-	int	dvec[I_MAX+1];
-	int	nrecon;
-	int	nunits;
-	struct nstr_sect nstr;
-	struct nstr_item ni;
-	struct natstr *natp;
-	struct sctstr from;
-	struct sctstr dsect;
-	struct lndstr land;
-	int	changed = 0;
-        int nsects;
+    int caught;
+    natid own;
+    int relat;
+    coord x, y;
+    coord nx, ny;
+    int military;
+    int savemil;
+    int btucost;
+    int i;
+    coord *table;		/* sectors already seen */
+    int t_len = 0;
+    int vec[I_MAX + 1];
+    int dvec[I_MAX + 1];
+    int nrecon;
+    int nunits;
+    struct nstr_sect nstr;
+    struct nstr_item ni;
+    struct natstr *natp;
+    struct sctstr from;
+    struct sctstr dsect;
+    struct lndstr land;
+    int changed = 0;
+    int nsects;
 
-	/*
-	 * first arg should be the range of sectors
-	 */
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	nsects = (nstr.range.width+1) * nstr.range.height / 2;
-	btucost = (nsects / 40) + 1;
-	natp = getnatp(player->cnum);
-	if (natp->nat_btu < btucost) {
-		pr("You don't have the BTU's for spying on that scale!\n");
-		return RET_FAIL;
+    /*
+     * first arg should be the range of sectors
+     */
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    nsects = (nstr.range.width + 1) * nstr.range.height / 2;
+    btucost = (nsects / 40) + 1;
+    natp = getnatp(player->cnum);
+    if (natp->nat_btu < btucost) {
+	pr("You don't have the BTU's for spying on that scale!\n");
+	return RET_FAIL;
+    }
+    /*
+     * set up all the goodies we need later
+     * 6 = neighbors, 2 = x,y
+     */
+    table = (coord *)malloc((nsects + 1) * 6 * 2 * sizeof(coord));
+    bzero((s_char *)table, (nsects + 1) * 6 * 2 * sizeof(coord));
+    pr("SPY report\n");
+    prdate();
+    pr("                 old sct rd  rl  def\n");
+    pr("   sect   de own own eff eff eff eff  civ  mil  shl gun  pet food bars lnd pln\n");
+    while (nxtsct(&nstr, &from)) {
+	if (!player->owner && !player->god)
+	    continue;
+	getvec(VT_ITEM, vec, (s_char *)&from, EF_SECTOR);
+	nrecon = 0;
+	nunits = 0;
+	snxtitem_xy(&ni, EF_LAND, from.sct_x, from.sct_y);
+	while (nxtitem(&ni, (s_char *)&land)) {
+	    nunits++;
+	    if (lchr[(int)land.lnd_type].l_flags & L_RECON)
+		nrecon++;
 	}
+	if ((military = vec[I_MILIT]) == 0 && (nunits == 0))
+	    continue;
+	x = from.sct_x;
+	y = from.sct_y;
+	/* Print out the units/planes in this sector */
+	prunits(x, y);
+	prplanes(x, y);
+	savemil = military;
 	/*
-	 * set up all the goodies we need later
-	 * 6 = neighbors, 2 = x,y
+	 * check the neighboring sectors.
 	 */
-	table = (coord *) malloc((nsects + 1) * 6 * 2 * sizeof(coord));
-	bzero((s_char *)table, (nsects + 1) * 6 * 2 * sizeof(coord));
-	pr("SPY report\n");
-	prdate();
-pr("                 old sct rd  rl  def\n");
-pr("   sect   de own own eff eff eff eff  civ  mil  shl gun  pet food bars lnd pln\n");
-	while (nxtsct(&nstr, &from)) {
-		if (!player->owner && !player->god)
-			continue;
-		getvec(VT_ITEM, vec, (s_char *) &from, EF_SECTOR);
-		nrecon=0;
-		nunits=0;
-		snxtitem_xy(&ni, EF_LAND, from.sct_x, from.sct_y);
-                while (nxtitem(&ni, (s_char *)&land)){
-			nunits++;
-			if (lchr[(int)land.lnd_type].l_flags & L_RECON)
-				nrecon++;
+	for (i = 1; i <= 6; i++) {
+	    if ((military == 0) && (nunits == 0))
+		break;
+	    nx = x + diroff[i][0];
+	    ny = y + diroff[i][1];
+	    /*
+	     * if we've already seen the
+	     * sector, don't bother checking it
+	     * out.
+	     */
+	    if (check(table, &t_len, nx, ny)) {
+		continue;
+	    }
+	    getsect(nx, ny, &dsect);
+	    getvec(VT_ITEM, dvec, (s_char *)&dsect, EF_SECTOR);
+	    if (player->owner || (dsect.sct_type == SCT_WATER) ||
+		(!dvec[I_MILIT] && !dvec[I_CIVIL] &&
+		 (num_units(nx, ny) == 0))) {
+		/* mark sector as seen */
+		insert(table, &t_len, nx, ny);
+		continue;
+	    }
+	    /* catch spy N/200 chance, N = # military */
+	    caught = chance((double)dvec[I_MILIT] / 200.0);
+	    own = dsect.sct_own;
+	    /* determine spyee relations with spyer */
+	    relat = getrel(getnatp(own), player->cnum);
+	    if (relat == NEUTRAL && caught) {
+		/* neutral spy-ee */
+		pr("Spy deported from %s\n", xyas(nx, ny, player->cnum));
+		if (own != 0)
+		    wu(0, own, "%s (#%d) spy deported from %s\n",
+		       cname(player->cnum), player->cnum,
+		       xyas(nx, ny, own));
+	    } else if (relat < NEUTRAL && caught) {
+		/* at-war with spy-ee */
+		pr("BANG!! A spy was shot in %s\n",
+		   xyas(nx, ny, player->cnum));
+		military--;
+		if (own != 0)
+		    wu(0, own, "%s (#%d) spy caught in %s\n",
+		       cname(player->cnum), player->cnum,
+		       xyas(nx, ny, own));
+		nreport(player->cnum, N_SPY_SHOT, own, 1);
+	    } else {
+		insert(table, &t_len, nx, ny);
+		spyline(&dsect);
+		changed += map_set(player->cnum, dsect.sct_x,
+				   dsect.sct_y,
+				   dchr[dsect.sct_type].d_mnem, 0);
+		prunits(dsect.sct_x, dsect.sct_y);
+		prplanes(dsect.sct_x, dsect.sct_y);
+		if (opt_HIDDEN) {
+		    setcont(player->cnum, own, FOUND_SPY);
 		}
-		if ((military = vec[I_MILIT]) == 0 && (nunits == 0))
-			continue;
-		x = from.sct_x;
-		y = from.sct_y;
-		/* Print out the units/planes in this sector */
-		prunits(x, y);
-		prplanes(x, y);
-		savemil = military;
-		/*
-		 * check the neighboring sectors.
-		 */
-		for (i = 1; i <= 6; i++) {
-			if ((military == 0) && (nunits == 0))
-				break;
-			nx = x + diroff[i][0];
-			ny = y + diroff[i][1];
-			/*
-			 * if we've already seen the
-			 * sector, don't bother checking it
-			 * out.
-			 */
-			if (check(table, &t_len, nx, ny)) {
-				continue;
-			}
-			getsect(nx, ny, &dsect);
-			getvec(VT_ITEM, dvec, (s_char *) &dsect, EF_SECTOR);
-			if (player->owner || (dsect.sct_type == SCT_WATER) ||
-				(!dvec[I_MILIT] && !dvec[I_CIVIL] &&
-				 (num_units(nx, ny) == 0))) {
-				/* mark sector as seen */
-				insert(table, &t_len, nx, ny);
-				continue;
-			}
-			/* catch spy N/200 chance, N = # military */
-			caught = chance((double) dvec[I_MILIT] / 200.0);
-			own = dsect.sct_own;
-			/* determine spyee relations with spyer */
-			relat = getrel(getnatp(own), player->cnum);
-			if (relat == NEUTRAL && caught) {
-				/* neutral spy-ee */
-				pr("Spy deported from %s\n", 
-					xyas(nx, ny, player->cnum));
-				if(own != 0)
-				wu(0, own, "%s (#%d) spy deported from %s\n",
-					cname(player->cnum), player->cnum,
-					xyas(nx, ny, own));
-			} else if (relat < NEUTRAL && caught) {
-				/* at-war with spy-ee */
-				pr("BANG!! A spy was shot in %s\n",
-				       xyas(nx, ny, player->cnum));
-				military--;
-				if(own != 0)
-				wu(0, own, "%s (#%d) spy caught in %s\n",
-					cname(player->cnum), player->cnum,
-					xyas(nx, ny, own));
-				nreport(player->cnum, N_SPY_SHOT, own, 1);
-			} else {
-				insert(table, &t_len, nx, ny);
-				spyline(&dsect);
-				changed += map_set(player->cnum, dsect.sct_x,
-					dsect.sct_y,
-					dchr[dsect.sct_type].d_mnem, 0);
-				prunits(dsect.sct_x,dsect.sct_y);
-				prplanes(dsect.sct_x,dsect.sct_y);
-				if (opt_HIDDEN) {
-				    setcont(player->cnum, own, FOUND_SPY);
-				}
-			}
-			/*
-			 * If you have a recon unit, it'll
-			 * see the sector anyway...
-			 */
-			if (nrecon && caught){
-				insert(table, &t_len, nx, ny);
-				spyline(&dsect);
-				changed += map_set(player->cnum, dsect.sct_x,
-					dsect.sct_y,
-					dchr[dsect.sct_type].d_mnem, 0);
-				prunits(dsect.sct_x, dsect.sct_y);
-				prplanes(dsect.sct_x,dsect.sct_y);
-			}
-		}
-		/* subtract any military if necessary */
-		if ((savemil != military) && (savemil > 0)){
-			if ((military < 0) || (military > savemil))
-				military = 0;
-			vec[I_MILIT] = military;
-			putvec (VT_ITEM, vec, (s_char *) &from, EF_SECTOR);
-			putsect(&from);
-		}
+	    }
+	    /*
+	     * If you have a recon unit, it'll
+	     * see the sector anyway...
+	     */
+	    if (nrecon && caught) {
+		insert(table, &t_len, nx, ny);
+		spyline(&dsect);
+		changed += map_set(player->cnum, dsect.sct_x,
+				   dsect.sct_y,
+				   dchr[dsect.sct_type].d_mnem, 0);
+		prunits(dsect.sct_x, dsect.sct_y);
+		prplanes(dsect.sct_x, dsect.sct_y);
+	    }
 	}
-	if (changed)
-		writemap(player->cnum);
-	player->btused += btucost;
-	free((s_char *)table);
-	return RET_OK;
+	/* subtract any military if necessary */
+	if ((savemil != military) && (savemil > 0)) {
+	    if ((military < 0) || (military > savemil))
+		military = 0;
+	    vec[I_MILIT] = military;
+	    putvec(VT_ITEM, vec, (s_char *)&from, EF_SECTOR);
+	    putsect(&from);
+	}
+    }
+    if (changed)
+	writemap(player->cnum);
+    player->btused += btucost;
+    free((s_char *)table);
+    return RET_OK;
 }
 
 
@@ -223,23 +222,11 @@ pr("   sect   de own own eff eff eff eff  civ  mil  shl gun  pet food bars lnd p
 static void
 spyline(struct sctstr *sp)
 {
-	int vec[I_MAX+1];
+    int vec[I_MAX + 1];
 
-	getvec(VT_ITEM, vec, (s_char *) sp, EF_SECTOR);
-	prxy("%4d,%-4d",sp->sct_x, sp->sct_y, player->cnum);
-	pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n",
-	   dchr[sp->sct_type].d_mnem,
-	   (sp->sct_newtype == sp->sct_type)?' ':dchr[sp->sct_newtype].d_mnem,
-	   sp->sct_own,
-	   sp->sct_oldown,
-	   roundintby((int)sp->sct_effic, 10),
-	   roundintby((int)sp->sct_road, 10),
-	   roundintby((int)sp->sct_rail, 10),
-	   roundintby((int)sp->sct_defense, 10),
-	   roundintby(vec[I_CIVIL], 10), roundintby(vec[I_MILIT], 10),
-	   roundintby(vec[I_SHELL], 10), roundintby(vec[I_GUN], 10),
-	   roundintby(vec[I_PETROL], 10), roundintby(vec[I_FOOD], 10),
-	   roundintby(vec[I_BAR], 10), count_sect_units(sp), count_sect_planes(sp));
+    getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
+    prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
+    pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n", dchr[sp->sct_type].d_mnem, (sp->sct_newtype == sp->sct_type) ? ' ' : dchr[sp->sct_newtype].d_mnem, sp->sct_own, sp->sct_oldown, roundintby((int)sp->sct_effic, 10), roundintby((int)sp->sct_road, 10), roundintby((int)sp->sct_rail, 10), roundintby((int)sp->sct_defense, 10), roundintby(vec[I_CIVIL], 10), roundintby(vec[I_MILIT], 10), roundintby(vec[I_SHELL], 10), roundintby(vec[I_GUN], 10), roundintby(vec[I_PETROL], 10), roundintby(vec[I_FOOD], 10), roundintby(vec[I_BAR], 10), count_sect_units(sp), count_sect_planes(sp));
 }
 
 
@@ -249,32 +236,33 @@ spyline(struct sctstr *sp)
 static void
 insert(coord *table, int *len, coord x, coord y)
 {
-	if (!check(table, len, x, y)) {
-	   table[(*len)++] = x;
-	   table[(*len)++] = y;
-	}
+    if (!check(table, len, x, y)) {
+	table[(*len)++] = x;
+	table[(*len)++] = y;
+    }
 }
+
 /*
  * see if a key is in the bitmask table
  */
 static int
 check(coord *table, int *len, coord x, coord y)
 {
-	int     i;
+    int i;
 
-	for (i = 0; i < *len; i += 2)
-	   if (table[i] == x && table[i + 1] == y)
-	      return 1;
-	return 0;
+    for (i = 0; i < *len; i += 2)
+	if (table[i] == x && table[i + 1] == y)
+	    return 1;
+    return 0;
 }
 
 int
 num_units(int x, int y)
 {
-    struct	lndstr land;
-    struct	nstr_item ni;
-    int	n=0;
-    
+    struct lndstr land;
+    struct nstr_item ni;
+    int n = 0;
+
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
 	if ((land.lnd_own == player->cnum) || (land.lnd_own == 0))
@@ -283,7 +271,7 @@ num_units(int x, int y)
 	    continue;
 	n++;
     }
-    
+
     return n;
 }
 
@@ -292,36 +280,36 @@ prunits(int x, int y)
 {
     struct lndstr land;
     struct nstr_item ni;
-    s_char      report[128];
+    s_char report[128];
     double odds;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, (s_char *)&land)) {
-        if (land.lnd_own == player->cnum || land.lnd_own == 0)
-            continue;
-        if (land.lnd_ship >= 0 || land.lnd_land >= 0)
-            continue;
-        /* Don't always see spies */
-        if (lchr[(int)land.lnd_type].l_flags & L_SPY) {
-            odds = (double)(100 - land.lnd_effic) + 0.10;
-            if (!(chance(odds)))
-                continue;
-        }
-        if ((land.lnd_own != player->cnum) && land.lnd_own) {
-            int rel;
-            s_char      *format;
+	if (land.lnd_own == player->cnum || land.lnd_own == 0)
+	    continue;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    continue;
+	/* Don't always see spies */
+	if (lchr[(int)land.lnd_type].l_flags & L_SPY) {
+	    odds = (double)(100 - land.lnd_effic) + 0.10;
+	    if (!(chance(odds)))
+		continue;
+	}
+	if ((land.lnd_own != player->cnum) && land.lnd_own) {
+	    int rel;
+	    s_char *format;
 
-            rel = getrel(getnatp(player->cnum),land.lnd_own);
-            if (rel == ALLIED)
-                format = "Allied (%s) unit in %s: ";
-            else if (rel == FRIENDLY || rel == NEUTRAL)
-                format = "Neutral (%s) unit in %s: ";
-            else
-                format = "Enemy (%s) unit in %s: ";
-            sprintf(report, format, cname(land.lnd_own),
-                    xyas(land.lnd_x, land.lnd_y,player->cnum));
-            intelligence_report(player->cnum, &land, 3, report);
-        }
+	    rel = getrel(getnatp(player->cnum), land.lnd_own);
+	    if (rel == ALLIED)
+		format = "Allied (%s) unit in %s: ";
+	    else if (rel == FRIENDLY || rel == NEUTRAL)
+		format = "Neutral (%s) unit in %s: ";
+	    else
+		format = "Enemy (%s) unit in %s: ";
+	    sprintf(report, format, cname(land.lnd_own),
+		    xyas(land.lnd_x, land.lnd_y, player->cnum));
+	    intelligence_report(player->cnum, &land, 3, report);
+	}
     }
 }
 
@@ -330,32 +318,31 @@ prplanes(int x, int y)
 {
     struct plnstr plane;
     struct nstr_item ni;
-    s_char      report[128];
+    s_char report[128];
 
     snxtitem_xy(&ni, EF_PLANE, x, y);
     while (nxtitem(&ni, (s_char *)&plane)) {
-        if (plane.pln_own == player->cnum || plane.pln_own == 0)
-            continue;
-        if (plane.pln_ship >= 0 || plane.pln_land >= 0)
-            continue;
+	if (plane.pln_own == player->cnum || plane.pln_own == 0)
+	    continue;
+	if (plane.pln_ship >= 0 || plane.pln_land >= 0)
+	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
-        if ((plane.pln_own != player->cnum) && plane.pln_own) {
-            int rel;
-            s_char      *format;
+	if ((plane.pln_own != player->cnum) && plane.pln_own) {
+	    int rel;
+	    s_char *format;
 
-            rel = getrel(getnatp(player->cnum),plane.pln_own);
-            if (rel == ALLIED)
-                format = "Allied (%s) plane in %s: %s\n";
-            else if (rel == FRIENDLY || rel == NEUTRAL)
-                format = "Neutral (%s) plane in %s: %s\n";
-            else
-                format = "Enemy (%s) plane in %s: %s\n";
-            sprintf(report, format, cname(plane.pln_own),
-                    xyas(plane.pln_x, plane.pln_y,player->cnum),
+	    rel = getrel(getnatp(player->cnum), plane.pln_own);
+	    if (rel == ALLIED)
+		format = "Allied (%s) plane in %s: %s\n";
+	    else if (rel == FRIENDLY || rel == NEUTRAL)
+		format = "Neutral (%s) plane in %s: %s\n";
+	    else
+		format = "Enemy (%s) plane in %s: %s\n";
+	    sprintf(report, format, cname(plane.pln_own),
+		    xyas(plane.pln_x, plane.pln_y, player->cnum),
 		    prplane(&plane));
 	    pr(report);
-        }
+	}
     }
 }
-

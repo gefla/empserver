@@ -43,77 +43,82 @@
 #include "common.h"
 
 int
-deliver(register struct sctstr *from, struct ichrstr *ip, int dir, int thresh, int amt_src, int plague)
+deliver(register struct sctstr *from, struct ichrstr *ip, int dir,
+	int thresh, int amt_src, int plague)
 {
-	register struct sctstr *to;
-	int	vtype;		/* item vartype */
-	int	pack_src;
-	int	amt_moved;
-	int	amt_dst;
-	int	mobility;
-	float	mcost;
-	struct	dchrstr *dp;
-	int	n;
+    register struct sctstr *to;
+    int vtype;			/* item vartype */
+    int pack_src;
+    int amt_moved;
+    int amt_dst;
+    int mobility;
+    float mcost;
+    struct dchrstr *dp;
+    int n;
 
-	if (dir <= 0 || dir > DIR_UL)
-		return 0;
-	if (amt_src <= 0)
-		return 0;
-	if ((amt_moved = amt_src - thresh) <= 0)
-		return 0;
-	/*
-	 * make sure delivery looks ok.  Check where its going,
-	 * where its coming from, and see if there is more than
-	 * the threshold amount
-	 */
-	if (!military_control(from))
-	        return 0;
-	to = getsectp(from->sct_x+diroff[dir][0], from->sct_y+diroff[dir][1]);
-	if (to->sct_own != from->sct_own) {
-		wu(0, from->sct_own, "%s delivery walkout at %s\n",
-			ip->i_name, ownxy(from));
-		return 0;
-	}
-	dp = &dchr[from->sct_type];
-	vtype = ip->i_vtype;
-	pack_src = ip->i_pkg[dp->d_pkg];
-	mobility = from->sct_mobil / 2;
-        if (vtype == V_CIVIL && from->sct_own != from->sct_oldown) {
-	    wu(0, from->sct_own, "The conquered populace in %s refuses to relocate!\n", ownxy(from));
+    if (dir <= 0 || dir > DIR_UL)
+	return 0;
+    if (amt_src <= 0)
+	return 0;
+    if ((amt_moved = amt_src - thresh) <= 0)
+	return 0;
+    /*
+     * make sure delivery looks ok.  Check where its going,
+     * where its coming from, and see if there is more than
+     * the threshold amount
+     */
+    if (!military_control(from))
+	return 0;
+    to = getsectp(from->sct_x + diroff[dir][0],
+		  from->sct_y + diroff[dir][1]);
+    if (to->sct_own != from->sct_own) {
+	wu(0, from->sct_own, "%s delivery walkout at %s\n",
+	   ip->i_name, ownxy(from));
+	return 0;
+    }
+    dp = &dchr[from->sct_type];
+    vtype = ip->i_vtype;
+    pack_src = ip->i_pkg[dp->d_pkg];
+    mobility = from->sct_mobil / 2;
+    if (vtype == V_CIVIL && from->sct_own != from->sct_oldown) {
+	wu(0, from->sct_own,
+	   "The conquered populace in %s refuses to relocate!\n",
+	   ownxy(from));
+	return 0;
+    }
+    /*
+     * disallow delivery into prohibited sectors.
+     * calculate unit movement cost; decrease amount if
+     * there isn't enough mobility.
+     */
+    mcost = sector_mcost(to, MOB_ROAD) * ip->i_lbs / pack_src;
+    mcost /= 4.0;
+
+    if (mobility < mcost * amt_moved) {
+	/* XXX can mcost be == 0? */
+	amt_moved = (int)(mobility / mcost);
+	if (amt_moved <= 0)
 	    return 0;
-        }
-	/*
-	 * disallow delivery into prohibited sectors.
-	 * calculate unit movement cost; decrease amount if
-	 * there isn't enough mobility.
-	 */
-	mcost = sector_mcost(to, MOB_ROAD)*ip->i_lbs/pack_src;
-	mcost /= 4.0;
-
-	if (mobility < mcost * amt_moved) {
-		/* XXX can mcost be == 0? */
-		amt_moved = (int) (mobility / mcost);
-		if (amt_moved <= 0)
-			return 0;
-	}
-	amt_dst = getvar(vtype, (caddr_t)to, EF_SECTOR);
-	if (amt_moved + amt_dst > 9990) {
-		/* delivery backlog */
-		if ((amt_moved = 9990 - amt_dst) <= 0)
-			return 0;
-	}
-	if (putvar(vtype, amt_moved + amt_dst, (s_char *)to, EF_SECTOR) < 0) {
-		/* "No room to deliver commodities */
-		wu(0, from->sct_own, "no room for %s in %s\n",
-			ip->i_name, ownxy(to));
-		return 0;
-	}
-	/* deliver the plague too! */
-	if (plague == PLG_INFECT && getvar(V_PSTAGE, (s_char *)to,EF_SECTOR) == 0)
-		putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)to, EF_SECTOR);
-	n = from->sct_mobil - (int) (mcost * amt_moved);
-	if (n < 0)
-		n = 0;
-	from->sct_mobil = n;
-	return amt_moved;
+    }
+    amt_dst = getvar(vtype, (caddr_t)to, EF_SECTOR);
+    if (amt_moved + amt_dst > 9990) {
+	/* delivery backlog */
+	if ((amt_moved = 9990 - amt_dst) <= 0)
+	    return 0;
+    }
+    if (putvar(vtype, amt_moved + amt_dst, (s_char *)to, EF_SECTOR) < 0) {
+	/* "No room to deliver commodities */
+	wu(0, from->sct_own, "no room for %s in %s\n",
+	   ip->i_name, ownxy(to));
+	return 0;
+    }
+    /* deliver the plague too! */
+    if (plague == PLG_INFECT
+	&& getvar(V_PSTAGE, (s_char *)to, EF_SECTOR) == 0)
+	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)to, EF_SECTOR);
+    n = from->sct_mobil - (int)(mcost * amt_moved);
+    if (n < 0)
+	n = 0;
+    from->sct_mobil = n;
+    return amt_moved;
 }

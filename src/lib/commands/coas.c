@@ -47,13 +47,13 @@
 #define	TSIZE	200
 
 struct coast {
-	struct coast *c_next;
-	int c_spotted;
-	int c_number;
-	struct shpstr c_shp;
+    struct coast *c_next;
+    int c_spotted;
+    int c_number;
+    struct shpstr c_shp;
 };
 
-static	int showship(struct coast **cpp, int x, int y);
+static int showship(struct coast **cpp, int x, int y);
 
 /*
  * format: coastwatch [<SECTS>]
@@ -61,119 +61,119 @@ static	int showship(struct coast **cpp, int x, int y);
 int
 coas(void)
 {
-	struct sctstr sect;
-	struct nstr_sect nstr;
-	struct coast *cp;
-	struct coast *list[TSIZE];
-	int i, k, j, n;
-	int vrange, see;
-	int x, y;
-	int mink, minj, maxk, maxj;
-	int nship = 0;
-	float tech;
-	struct	nstr_item ni;
+    struct sctstr sect;
+    struct nstr_sect nstr;
+    struct coast *cp;
+    struct coast *list[TSIZE];
+    int i, k, j, n;
+    int vrange, see;
+    int x, y;
+    int mink, minj, maxk, maxj;
+    int nship = 0;
+    float tech;
+    struct nstr_item ni;
 
-	if (snxtsct(&nstr, player->argp[1]) == 0)
-		return RET_SYN;
-	for (i = 0; i < TSIZE; i++)
-		list[i] = 0;
+    if (snxtsct(&nstr, player->argp[1]) == 0)
+	return RET_SYN;
+    for (i = 0; i < TSIZE; i++)
+	list[i] = 0;
+    cp = (struct coast *)malloc(sizeof(*cp));
+    snxtitem_all(&ni, EF_SHIP);
+    while (nxtitem(&ni, (s_char *)&cp->c_shp)) {
+	if (cp->c_shp.shp_own == 0 || cp->c_shp.shp_own == player->cnum)
+	    continue;
+	/*
+	 * don't bother putting subs in the table...
+	 * unless they're in a sector you own (harbor or such)
+	 */
+	getsect(cp->c_shp.shp_x, cp->c_shp.shp_y, &sect);
+	if ((mchr[(int)cp->c_shp.shp_type].m_flags & M_SUB) &&
+	    (sect.sct_own != player->cnum))
+	    continue;
+	n = scthash(cp->c_shp.shp_x, cp->c_shp.shp_y, TSIZE);
+	cp->c_spotted = 0;
+	cp->c_number = i;
+	cp->c_next = list[n];
+	list[n] = cp;
 	cp = (struct coast *)malloc(sizeof(*cp));
-	snxtitem_all(&ni, EF_SHIP);
-	while (nxtitem(&ni, (s_char *) &cp->c_shp)) {
-		if (cp->c_shp.shp_own == 0 || cp->c_shp.shp_own == player->cnum)
-			continue;
-		/*
-		 * don't bother putting subs in the table...
-		 * unless they're in a sector you own (harbor or such)
-		 */
-		getsect(cp->c_shp.shp_x, cp->c_shp.shp_y, &sect);
-		if ((mchr[(int)cp->c_shp.shp_type].m_flags & M_SUB) && 
-			(sect.sct_own != player->cnum))
-			continue;
-		n = scthash(cp->c_shp.shp_x, cp->c_shp.shp_y, TSIZE);
-		cp->c_spotted = 0;
-		cp->c_number = i;
-		cp->c_next = list[n];
-		list[n] = cp;
-		cp = (struct coast *)malloc(sizeof(*cp));
-		nship++;
+	nship++;
+    }
+    /* get that last one! */
+    free((s_char *)cp);
+    pr("- = [ Coastwatch report for %s ] = -\n", cname(player->cnum));
+    pr("  Country            Ship          Location\n");
+    tech = tfact(player->cnum, 1.0);
+    while (nxtsct(&nstr, &sect) && nship) {
+	if (sect.sct_own != player->cnum)
+	    continue;
+	see = sect.sct_type == SCT_RADAR ? 14 : 4;
+	vrange = (int)(sect.sct_effic / 100.0 * see * tech);
+	if (vrange < 1)
+	    vrange = 1;
+	maxk = vrange;
+	maxj = vrange * 2;
+	vrange *= vrange;
+	mink = -maxk;
+	minj = -maxj;
+	for (j = minj; j <= maxj && nship; j++) {
+	    x = xnorm(sect.sct_x + j);
+	    for (k = mink; k <= maxk && nship; k++) {
+		if ((j + k) & 01)
+		    continue;
+		/* quick range check to save time... */
+		if (vrange < (j * j + 3 * k * k) / 4)
+		    continue;
+		y = ynorm(sect.sct_y + k);
+		n = scthash(x, y, TSIZE);
+		if (list[n] == 0)
+		    continue;
+		nship -= showship(&list[n], x, y);
+	    }
 	}
-	/* get that last one! */
-	free((s_char *)cp);
-	pr("- = [ Coastwatch report for %s ] = -\n", cname(player->cnum));
-	pr("  Country            Ship          Location\n");
-	tech = tfact(player->cnum, 1.0);
-	while (nxtsct(&nstr, &sect) && nship) {
-		if (sect.sct_own != player->cnum)
-			continue;
-		see = sect.sct_type == SCT_RADAR ? 14 : 4;
-		vrange = (int) (sect.sct_effic / 100.0 * see * tech);
-		if (vrange < 1)
-			vrange = 1;
-		maxk = vrange;
-		maxj = vrange * 2;
-		vrange *= vrange;
-		mink = -maxk;
-		minj = -maxj;
-		for (j = minj; j <= maxj && nship; j++) {
-			x = xnorm(sect.sct_x + j);
-			for (k = mink; k <= maxk && nship; k++) {
-				if ((j + k) & 01)
-					 continue;
-				/* quick range check to save time... */
-				if (vrange < (j * j + 3 * k * k) / 4)
-					continue;
-				y = ynorm(sect.sct_y + k);
-				n = scthash(x, y, TSIZE);
-				if (list[n] == 0)
-					continue;
-				nship -= showship(&list[n], x, y);
-			}
-		}
+    }
+    /* free up the coast structs calloc'ed above */
+    for (i = 0; i < TSIZE; i++) {
+	while (NULL != (cp = list[i])) {
+	    list[i] = cp->c_next;
+	    free((s_char *)cp);
 	}
-	/* free up the coast structs calloc'ed above */
-	for (i = 0; i < TSIZE; i++) {
-		while (NULL != (cp = list[i])) {
-			list[i] = cp->c_next;
-			free((s_char *)cp);
-		}
-	}
-	return RET_OK;
+    }
+    return RET_OK;
 }
 
 static int
 showship(struct coast **cpp, int x, int y)
 {
-	register struct coast *cp;
-	register struct coast *todelete = 0;
-	register struct coast **prev;
-	int	nship = 0;
+    register struct coast *cp;
+    register struct coast *todelete = 0;
+    register struct coast **prev;
+    int nship = 0;
 
-	prev = 0;
-	cp = *cpp;
-	prev = cpp;
-	do {
-		/* we delete it, we free it. */
-		if (todelete) {
-			free((s_char *)todelete);
-			todelete = 0;
-		}
-		if (cp->c_shp.shp_x != x || cp->c_shp.shp_y != y) {
-			prev = &(*prev)->c_next;
-			continue;
-		}
-		pr(" %12.12s (#%3d) %s @ %s\n",
-		   cname(cp->c_shp.shp_own), cp->c_shp.shp_own,
-		   prship(&cp->c_shp), xyas(x, y, player->cnum));
-		if (opt_HIDDEN) {
-		    setcont(player->cnum, cp->c_shp.shp_own, FOUND_COAST);
-		}
-		*prev = cp->c_next;
-		todelete = cp;
-		nship++;
-	} while (NULL != (cp = cp->c_next));
-	/* check that last one! */
-	if (todelete)
-		free((s_char *)todelete);
-	return (nship);
+    prev = 0;
+    cp = *cpp;
+    prev = cpp;
+    do {
+	/* we delete it, we free it. */
+	if (todelete) {
+	    free((s_char *)todelete);
+	    todelete = 0;
+	}
+	if (cp->c_shp.shp_x != x || cp->c_shp.shp_y != y) {
+	    prev = &(*prev)->c_next;
+	    continue;
+	}
+	pr(" %12.12s (#%3d) %s @ %s\n",
+	   cname(cp->c_shp.shp_own), cp->c_shp.shp_own,
+	   prship(&cp->c_shp), xyas(x, y, player->cnum));
+	if (opt_HIDDEN) {
+	    setcont(player->cnum, cp->c_shp.shp_own, FOUND_COAST);
+	}
+	*prev = cp->c_next;
+	todelete = cp;
+	nship++;
+    } while (NULL != (cp = cp->c_next));
+    /* check that last one! */
+    if (todelete)
+	free((s_char *)todelete);
+    return (nship);
 }

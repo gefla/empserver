@@ -38,15 +38,15 @@
 
 int
 handleintr(s)
-	int	s;
+int s;
 {
-	extern	int interrupt;
+    extern int interrupt;
 
-	if (interrupt) {
-		/* tacky, but it works */
-		if (write(s, "\naborted\n", 1+7+1) <= 0)
-			return 0;
-		interrupt = 0;
-	}
-	return 1;
+    if (interrupt) {
+	/* tacky, but it works */
+	if (write(s, "\naborted\n", 1 + 7 + 1) <= 0)
+	    return 0;
+	interrupt = 0;
+    }
+    return 1;
 }

@@ -45,44 +45,43 @@
 int
 army(void)
 {
-	struct	lndstr land;
-	register int count;
-	s_char	*cp;
-	s_char	c;
-	struct	nstr_item nstr;
-	struct  nstr_item ni;
-	struct	lndstr land2;
-	int	r;
-	s_char	buf[1024];
+    struct lndstr land;
+    register int count;
+    s_char *cp;
+    s_char c;
+    struct nstr_item nstr;
+    struct nstr_item ni;
+    struct lndstr land2;
+    int r;
+    s_char buf[1024];
 
-	cp = getstarg(player->argp[1], "army? ", buf);
-	if (cp == 0)
-		return RET_SYN;
-	c = *cp;
-	if (!isalpha(c) && c != '~') {
-		pr("Specify army, (1 alpha char or '~')\n");
-		return RET_SYN;
+    cp = getstarg(player->argp[1], "army? ", buf);
+    if (cp == 0)
+	return RET_SYN;
+    c = *cp;
+    if (!isalpha(c) && c != '~') {
+	pr("Specify army, (1 alpha char or '~')\n");
+	return RET_SYN;
+    }
+    if (c == '~')
+	c = ' ';
+    if (!snxtitem(&nstr, EF_LAND, player->argp[2]))
+	return RET_SYN;
+    count = 0;
+    while (nxtitem(&nstr, (s_char *)&land)) {
+	if (!player->owner)
+	    continue;
+	land.lnd_army = c;
+	snxtitem(&ni, EF_LAND, cp);
+	while ((r = nxtitem(&ni, (s_char *)&land2)) &&
+	       (land2.lnd_army != c)) ;
+	if (r) {
+	    bcopy(land2.lnd_rpath, land.lnd_rpath, 10);
+	    land.lnd_rflags = land2.lnd_rflags;
 	}
-	if (c == '~')
-		c = ' ';
-	if (!snxtitem(&nstr, EF_LAND, player->argp[2]))
-		return RET_SYN;
-	count = 0;
-	while (nxtitem(&nstr, (s_char *)&land)) {
-		if (!player->owner)
-			continue;
-		land.lnd_army = c;
-		snxtitem(&ni, EF_LAND, cp);
-		while ((r=nxtitem(&ni, (s_char *)&land2)) &&
-		    (land2.lnd_army != c))
-			;
-		if (r){
-			bcopy(land2.lnd_rpath, land.lnd_rpath,10);
-			land.lnd_rflags = land2.lnd_rflags;
-		}
-		putland(land.lnd_uid, &land);
-		count++;
-	}
-	pr("%d unit%s added to army `%c'\n", count, splur(count), c);
-	return RET_OK;
+	putland(land.lnd_uid, &land);
+	count++;
+    }
+    pr("%d unit%s added to army `%c'\n", count, splur(count), c);
+    return RET_OK;
 }

@@ -38,17 +38,17 @@
 struct ichrstr *
 whatitem(s_char *ptr, s_char *prompt)
 {
-	register s_char *p;
-	register struct ichrstr *ip;
-	s_char	buf[1024];
+    register s_char *p;
+    register struct ichrstr *ip;
+    s_char buf[1024];
 
-	p = getstarg(ptr, prompt, buf);
-	if (p == 0 || *p == 0)
-		return 0;
-	for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
-		if (*p == ip->i_mnem)
-			return ip;
-	}
-	pr("Unrecognized item \"%c\"\n", *p);
+    p = getstarg(ptr, prompt, buf);
+    if (p == 0 || *p == 0)
 	return 0;
+    for (ip = &ichr[1]; ip->i_mnem != 0; ip++) {
+	if (*p == ip->i_mnem)
+	    return ip;
+    }
+    pr("Unrecognized item \"%c\"\n", *p);
+    return 0;
 }

@@ -40,17 +40,17 @@
 int
 brea(void)
 {
-	struct	natstr *natp;
+    struct natstr *natp;
 
-	natp = getnatp(player->cnum);
-	if ((natp->nat_stat & STAT_SANCT) == 0) {
-		pr("You aren't in sanctuary!\n");
-		return RET_SYN;
-	}
-	bsanct();
-	natp->nat_stat &= ~STAT_SANCT;
-	natp->nat_stat |= STAT_NORM;
-	putnat(natp);
-	player->nstat |= NORM;
-	return RET_OK;
+    natp = getnatp(player->cnum);
+    if ((natp->nat_stat & STAT_SANCT) == 0) {
+	pr("You aren't in sanctuary!\n");
+	return RET_SYN;
+    }
+    bsanct();
+    natp->nat_stat &= ~STAT_SANCT;
+    natp->nat_stat |= STAT_NORM;
+    putnat(natp);
+    player->nstat |= NORM;
+    return RET_OK;
 }

@@ -49,15 +49,15 @@
 int
 confirm(s_char *promptstring)
 {
-	s_char	y_or_n[1024];
-	char	c;
+    s_char y_or_n[1024];
+    char c;
 
-	if (getstring(promptstring, y_or_n) == 0)
-		return 0;
-	c = *y_or_n;
-	if (c == 'y' || c == 'Y')
-		return 1;
+    if (getstring(promptstring, y_or_n) == 0)
 	return 0;
+    c = *y_or_n;
+    if (c == 'y' || c == 'Y')
+	return 1;
+    return 0;
 }
 
 /*
@@ -67,17 +67,17 @@ confirm(s_char *promptstring)
 int
 askyn(s_char *promptstring)
 {
-	s_char	y_or_n[1024];
-	char	c;
+    s_char y_or_n[1024];
+    char c;
 
-	while (getstring(promptstring, y_or_n)) {
-		c = *y_or_n;
-		if (c == 'y' || c == 'Y')
-			return 1;
-		if (c == 'n' || c == 'N')
-			return 0;
-		pr("You must answer either yes or no!\n");
-	}
-	/* assume no if aborted */
-	return 0;
+    while (getstring(promptstring, y_or_n)) {
+	c = *y_or_n;
+	if (c == 'y' || c == 'Y')
+	    return 1;
+	if (c == 'n' || c == 'N')
+	    return 0;
+	pr("You must answer either yes or no!\n");
+    }
+    /* assume no if aborted */
+    return 0;
 }

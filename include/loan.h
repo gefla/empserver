@@ -37,19 +37,19 @@
 #define	MAXLOAN		100000
 #define SECS_PER_DAY	(60*60*24)
 
-struct	lonstr {
-	short	ef_type;
-	natid	l_loner;	/* loan shark */
-	short	l_uid;
-	natid	l_lonee;	/* sucker */
-	s_char	l_status;	/* loan status */
-	short	l_sell;		/* pointer to trade file */
-	int	l_irate;	/* interest rate */
-	int	l_ldur;		/* intended duration */
-	long	l_amtpaid;	/* amount paid so far */
-	long	l_amtdue;	/* amount still owed */
-	time_t	l_lastpay;	/* date of most recent payment */
-	time_t	l_duedate;	/* date after which interest doubles, etc */
+struct lonstr {
+    short ef_type;
+    natid l_loner;		/* loan shark */
+    short l_uid;
+    natid l_lonee;		/* sucker */
+    s_char l_status;		/* loan status */
+    short l_sell;		/* pointer to trade file */
+    int l_irate;		/* interest rate */
+    int l_ldur;			/* intended duration */
+    long l_amtpaid;		/* amount paid so far */
+    long l_amtdue;		/* amount still owed */
+    time_t l_lastpay;		/* date of most recent payment */
+    time_t l_duedate;		/* date after which interest doubles, etc */
 };
 
 #define LS_FREE		0

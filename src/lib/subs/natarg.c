@@ -42,40 +42,40 @@
 int
 natarg(s_char *arg, s_char *prompt)
 {
-	s_char	buf[1024];
-	int	n;
-        struct  natstr *np;
-        int     byname = 0;
+    s_char buf[1024];
+    int n;
+    struct natstr *np;
+    int byname = 0;
 
-	arg = getstarg(arg, prompt, buf);
-	if (arg == 0 || *arg == 0)
-		return -1;
-	if (isdigit(*arg))
-		n = atoi(arg);
-	else {
-		n = cnumb(arg);
-		if (opt_HIDDEN) {
-		    byname = 1;
-		}
-	}
-	if (n < 0 || n >= MAXNOC) {
-		pr("No such country exists.\n");
-		n = -1;
-	}
+    arg = getstarg(arg, prompt, buf);
+    if (arg == 0 || *arg == 0)
+	return -1;
+    if (isdigit(*arg))
+	n = atoi(arg);
+    else {
+	n = cnumb(arg);
 	if (opt_HIDDEN) {
-	    if (!player->god && !getcontact(getnatp(player->cnum), n)) {
-                if ((np = getnatp(n)) == 0)
-                        return -1;
-                if ((np->nat_stat & STAT_GOD) == 0) {
-                        if (byname) {
-                                pr("No such country exists.\n");
-                                n = -1;
-                        } else {
-                                pr("Country has not been contacted.\n");
-                                n = -2;
-                        }
-                }
+	    byname = 1;
+	}
+    }
+    if (n < 0 || n >= MAXNOC) {
+	pr("No such country exists.\n");
+	n = -1;
+    }
+    if (opt_HIDDEN) {
+	if (!player->god && !getcontact(getnatp(player->cnum), n)) {
+	    if ((np = getnatp(n)) == 0)
+		return -1;
+	    if ((np->nat_stat & STAT_GOD) == 0) {
+		if (byname) {
+		    pr("No such country exists.\n");
+		    n = -1;
+		} else {
+		    pr("Country has not been contacted.\n");
+		    n = -2;
+		}
 	    }
 	}
-	return n;
+    }
+    return n;
 }

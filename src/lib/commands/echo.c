@@ -38,7 +38,7 @@
 int
 echo(void)
 {
-      pr("%s\n", player->argp[1]?player->argp[1]:(s_char *)"");
+    pr("%s\n", player->argp[1] ? player->argp[1] : (s_char *)"");
 
-	return RET_OK;
+    return RET_OK;
 }

@@ -36,30 +36,29 @@
 void
 emp_insque(struct emp_qelem *elem, struct emp_qelem *queue)
 {
-	struct	emp_qelem *next;
+    struct emp_qelem *next;
 
-	next = queue->q_forw;
-	queue->q_forw = elem;
-	elem->q_forw = next;
-	elem->q_back = queue;
-	next->q_back = elem;
+    next = queue->q_forw;
+    queue->q_forw = elem;
+    elem->q_forw = next;
+    elem->q_back = queue;
+    next->q_back = elem;
 }
 
 void
 emp_remque(struct emp_qelem *elem)
 {
-	if (elem == (struct emp_qelem *)0)
-		return;
-	if (elem->q_forw != (struct emp_qelem *)0)
-		elem->q_forw->q_back = elem->q_back;
-	if (elem->q_back != (struct emp_qelem *)0)
-		elem->q_back->q_forw = elem->q_forw;
+    if (elem == (struct emp_qelem *)0)
+	return;
+    if (elem->q_forw != (struct emp_qelem *)0)
+	elem->q_forw->q_back = elem->q_back;
+    if (elem->q_back != (struct emp_qelem *)0)
+	elem->q_back->q_forw = elem->q_forw;
 }
 
 void
 emp_initque(struct emp_qelem *elem)
 {
-	elem->q_forw = elem;
-	elem->q_back = elem;
+    elem->q_forw = elem;
+    elem->q_back = elem;
 }
-

@@ -39,42 +39,42 @@
 
 void
 insque(p, q)
-	struct	qelem *p;
-	struct	qelem *q;
+struct qelem *p;
+struct qelem *q;
 {
-	p->q_forw = q->q_forw;
-	p->q_back = q;
-	q->q_forw->q_back = p;
-	q->q_forw = p;
+    p->q_forw = q->q_forw;
+    p->q_back = q;
+    q->q_forw->q_back = p;
+    q->q_forw = p;
 }
 
 void
 remque(p)
-	struct	qelem *p;
+struct qelem *p;
 {
-	p->q_back->q_forw = p->q_forw;
-	p->q_forw->q_back = p->q_back;
+    p->q_back->q_forw = p->q_forw;
+    p->q_forw->q_back = p->q_back;
 }
 
 void
 initque(p)
-	struct	qelem *p;
+struct qelem *p;
 {
-	p->q_forw = p;
-	p->q_back = p;
+    p->q_forw = p;
+    p->q_back = p;
 }
 
 struct qelem *
 makeqt(nelem)
-	int	nelem;
+int nelem;
 {
-	extern	s_char *malloc();
-	struct	qelem *table;
-	struct	qelem *qp;
-	int	i;
+    extern s_char *malloc();
+    struct qelem *table;
+    struct qelem *qp;
+    int i;
 
-	table = (struct qelem *) malloc(sizeof(*table) * nelem);
-	for (i=0,qp=table; i<nelem; i++,qp++)
-		initque(qp);
-	return table;
+    table = (struct qelem *)malloc(sizeof(*table) * nelem);
+    for (i = 0, qp = table; i < nelem; i++, qp++)
+	initque(qp);
+    return table;
 }

@@ -47,86 +47,86 @@
 void
 snxtsct_all(struct nstr_sect *np)
 {
-  struct range worldrange;
+    struct range worldrange;
 
-  worldrange.lx = -WORLD_X/2;
-  worldrange.ly = -WORLD_Y/2;
-  worldrange.hx = WORLD_X/2;
-  worldrange.hy = WORLD_Y/2;
-  worldrange.width = worldrange.height = 0;
-  snxtsct_area(np, &worldrange);
+    worldrange.lx = -WORLD_X / 2;
+    worldrange.ly = -WORLD_Y / 2;
+    worldrange.hx = WORLD_X / 2;
+    worldrange.hy = WORLD_Y / 2;
+    worldrange.width = worldrange.height = 0;
+    snxtsct_area(np, &worldrange);
 }
 
 void
 snxtsct_area(register struct nstr_sect *np, struct range *range)
 {
-	bzero((s_char *)np, sizeof(*np));
-	np->range = *range;
-	np->ncond = 0;
-	np->type = NS_AREA;
-	np->read = ef_read;
-	np->x = np->range.lx - 1;
-	np->y = np->range.ly;
-	np->dx = -1;
-	np->dy = 0;
-	xysize_range(&np->range);
-	ef_zapcache(EF_SECTOR);
+    bzero((s_char *)np, sizeof(*np));
+    np->range = *range;
+    np->ncond = 0;
+    np->type = NS_AREA;
+    np->read = ef_read;
+    np->x = np->range.lx - 1;
+    np->y = np->range.ly;
+    np->dx = -1;
+    np->dy = 0;
+    xysize_range(&np->range);
+    ef_zapcache(EF_SECTOR);
 }
 
 void
 snxtsct_rewind(struct nstr_sect *np)
 {
-	np->x = np->range.lx - 1;
-	np->y = np->range.ly;
-	np->dx = -1;
-	np->dy = 0;
-	np->id = -1;
-	ef_zapcache(EF_SECTOR);
+    np->x = np->range.lx - 1;
+    np->y = np->range.ly;
+    np->dx = -1;
+    np->dy = 0;
+    np->id = -1;
+    ef_zapcache(EF_SECTOR);
 }
 
 void
 snxtsct_dist(register struct nstr_sect *np, coord cx, coord cy, int dist)
 {
-	bzero((s_char *)np, sizeof(*np));
-	xydist_range(cx, cy, dist, &np->range);
-	np->cx = cx;
-	np->cy = cy;
-	np->ncond = 0;
-	np->dist = dist;
-	np->type = NS_DIST;
-	np->read = ef_read;
-	np->x = np->range.lx - 1;
-	np->y = np->range.ly;
-	np->dx = -1;
-	np->dy = 0;
+    bzero((s_char *)np, sizeof(*np));
+    xydist_range(cx, cy, dist, &np->range);
+    np->cx = cx;
+    np->cy = cy;
+    np->ncond = 0;
+    np->dist = dist;
+    np->type = NS_DIST;
+    np->read = ef_read;
+    np->x = np->range.lx - 1;
+    np->y = np->range.ly;
+    np->dx = -1;
+    np->dy = 0;
 #if 0
-	/* This function is now done elsewhere. */
-	/* It was not doing the right thing when the world was small */
-	xysize_range(&np->range);
+    /* This function is now done elsewhere. */
+    /* It was not doing the right thing when the world was small */
+    xysize_range(&np->range);
 #endif
-	ef_zapcache(EF_SECTOR);
+    ef_zapcache(EF_SECTOR);
 }
 
 void
 xysize_range(register struct range *rp)
 {
-	if (rp->lx >= rp->hx)
-		rp->width = WORLD_X + rp->hx - rp->lx;
-	else
-		rp->width = rp->hx - rp->lx;
+    if (rp->lx >= rp->hx)
+	rp->width = WORLD_X + rp->hx - rp->lx;
+    else
+	rp->width = rp->hx - rp->lx;
 #ifndef HAY
-	/* This is a necessary check for small, hitech worlds. */
-	if (rp->width > WORLD_X)
-		rp->width = WORLD_X;
+    /* This is a necessary check for small, hitech worlds. */
+    if (rp->width > WORLD_X)
+	rp->width = WORLD_X;
 #endif
-	if (rp->ly >= rp->hy)
-		rp->height = WORLD_Y + rp->hy - rp->ly;
-	else
-		rp->height = rp->hy - rp->ly;
+    if (rp->ly >= rp->hy)
+	rp->height = WORLD_Y + rp->hy - rp->ly;
+    else
+	rp->height = rp->hy - rp->ly;
 #ifndef HAY
-	/* This is a necessary check for small, hitech worlds. */
-	if (rp->height > WORLD_Y)
-		rp->height = WORLD_Y;
+    /* This is a necessary check for small, hitech worlds. */
+    if (rp->height > WORLD_Y)
+	rp->height = WORLD_Y;
 #endif
 }
 
@@ -134,26 +134,26 @@ xysize_range(register struct range *rp)
 void
 xydist_range(coord x, coord y, register int dist, struct range *rp)
 {
-	if (dist < WORLD_X/4) {
-		rp->lx = xnorm((coord)(x - 2 * dist));
-		rp->hx = xnorm((coord)(x + 2 * dist) + 1);
-		rp->width = 4 * dist + 1;
-	} else {
-		/* Range is larger than the world */
-		/* Make sure we get lx in the right place. */
-		rp->lx = xnorm((coord)(x - WORLD_X/2));
-		rp->hx = xnorm((coord)(rp->lx + WORLD_X - 1));
-		rp->width = WORLD_X;
-	}
+    if (dist < WORLD_X / 4) {
+	rp->lx = xnorm((coord)(x - 2 * dist));
+	rp->hx = xnorm((coord)(x + 2 * dist) + 1);
+	rp->width = 4 * dist + 1;
+    } else {
+	/* Range is larger than the world */
+	/* Make sure we get lx in the right place. */
+	rp->lx = xnorm((coord)(x - WORLD_X / 2));
+	rp->hx = xnorm((coord)(rp->lx + WORLD_X - 1));
+	rp->width = WORLD_X;
+    }
 
-	if (dist < WORLD_Y/2) {
-		rp->ly = ynorm((coord)(y - dist));
-		rp->hy = ynorm((coord)(y + dist) + 1);
-		rp->height = 2 * dist + 1;
-	} else {
-		/* Range is larger than the world */
-		rp->ly = ynorm((coord)(y - WORLD_Y/2));
-		rp->hy = ynorm((coord)(rp->ly + WORLD_Y - 1));
-		rp->height = WORLD_Y;
-	}
+    if (dist < WORLD_Y / 2) {
+	rp->ly = ynorm((coord)(y - dist));
+	rp->hy = ynorm((coord)(y + dist) + 1);
+	rp->height = 2 * dist + 1;
+    } else {
+	/* Range is larger than the world */
+	rp->ly = ynorm((coord)(y - WORLD_Y / 2));
+	rp->hy = ynorm((coord)(rp->ly + WORLD_Y - 1));
+	rp->height = WORLD_Y;
+    }
 }

@@ -34,18 +34,18 @@
 #ifndef _COM_H_
 #define _COM_H_
 
-struct	cmndstr {
-	s_char	*c_form;	/* prototype of command */
-	int	c_cost;		/* btu cost of command */
-	int	(*c_addr)();	/* core addr of appropriate routine */
-	int	c_flags;
-	int	c_permit;	/* who is allowed to "do" this command */
+struct cmndstr {
+    s_char *c_form;		/* prototype of command */
+    int c_cost;			/* btu cost of command */
+    int (*c_addr) ();		/* core addr of appropriate routine */
+    int c_flags;
+    int c_permit;		/* who is allowed to "do" this command */
 };
 
 #define C_MOD		0x1	/* modifies database */
 
 /* variables associated with this stuff */
 
-extern	struct cmndstr coms[];
+extern struct cmndstr coms[];
 
 #endif /* _COM_H_ */

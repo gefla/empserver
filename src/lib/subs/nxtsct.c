@@ -47,35 +47,35 @@
 int
 nxtsct(register struct nstr_sect *np, struct sctstr *sp)
 {
-	while (1) {
-		np->dx++;
-		np->x++;
-		if (np->x >= WORLD_X)
-			np->x = 0;
-		if (np->dx >= np->range.width) {
-			np->dx = 0;
-			np->x = np->range.lx;
-			np->dy++;
-			if (np->dy >= np->range.height)
-				return 0;
-			np->y++;
-			if (np->y >= WORLD_Y)
-				np->y = 0;
-		}
-		if ((np->y + np->x) & 01)
-			continue;
-		if (np->type == NS_DIST) {
-			np->curdist = mapdist(np->x, np->y, np->cx, np->cy);
-			if (np->curdist > np->dist)
-				continue;
-		}
-		np->id = sctoff(np->x, np->y);
-		if (!np->read(EF_SECTOR, np->id, (caddr_t) sp))
-			continue;
-		if (np->ncond == 0)
-			return 1;
-		if (nstr_exec(np->cond, np->ncond, (caddr_t)sp, EF_SECTOR))
-			return 1;
+    while (1) {
+	np->dx++;
+	np->x++;
+	if (np->x >= WORLD_X)
+	    np->x = 0;
+	if (np->dx >= np->range.width) {
+	    np->dx = 0;
+	    np->x = np->range.lx;
+	    np->dy++;
+	    if (np->dy >= np->range.height)
+		return 0;
+	    np->y++;
+	    if (np->y >= WORLD_Y)
+		np->y = 0;
 	}
-	/*NOTREACHED*/
+	if ((np->y + np->x) & 01)
+	    continue;
+	if (np->type == NS_DIST) {
+	    np->curdist = mapdist(np->x, np->y, np->cx, np->cy);
+	    if (np->curdist > np->dist)
+		continue;
+	}
+	np->id = sctoff(np->x, np->y);
+	if (!np->read(EF_SECTOR, np->id, (caddr_t)sp))
+	    continue;
+	if (np->ncond == 0)
+	    return 1;
+	if (nstr_exec(np->cond, np->ncond, (caddr_t)sp, EF_SECTOR))
+	    return 1;
+    }
+    /*NOTREACHED*/
 }

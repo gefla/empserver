@@ -47,46 +47,49 @@
 int
 ndump(void)
 {
-	register int i;
-	struct	nstr_item nstr;
-	struct	nukstr nuk;
-	time_t  now;
-	int nnukes;
+    register int i;
+    struct nstr_item nstr;
+    struct nukstr nuk;
+    time_t now;
+    int nnukes;
 
-	if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	if (player->god) pr("   ");
-	time(&now);
-	pr("DUMP NUKES %d\n", now);
-	if (player->god) pr("own ");
-	pr("id x y num type\n");
-	nnukes = 0;
-	while (nxtitem(&nstr, (s_char *)&nuk)) {
-		if (!player->god && !player->owner)
-			continue;
-		if (nuk.nuk_own == 0)
-			continue;
-		nnukes++;
-		for (i = 0; i < N_MAXNUKE; i++) {
-			if (nuk.nuk_types[i] > 0) {
-				if (player->god) pr("%3d ", nuk.nuk_own);
-				pr("%d ", nuk.nuk_uid);
-				prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
-				pr(" %d", nuk.nuk_types[i]);
-				pr(" %0.5s", nchr[i].n_name);
-				pr("\n");
-			}
-		}
+    if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    if (player->god)
+	pr("   ");
+    time(&now);
+    pr("DUMP NUKES %d\n", now);
+    if (player->god)
+	pr("own ");
+    pr("id x y num type\n");
+    nnukes = 0;
+    while (nxtitem(&nstr, (s_char *)&nuk)) {
+	if (!player->god && !player->owner)
+	    continue;
+	if (nuk.nuk_own == 0)
+	    continue;
+	nnukes++;
+	for (i = 0; i < N_MAXNUKE; i++) {
+	    if (nuk.nuk_types[i] > 0) {
+		if (player->god)
+		    pr("%3d ", nuk.nuk_own);
+		pr("%d ", nuk.nuk_uid);
+		prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
+		pr(" %d", nuk.nuk_types[i]);
+		pr(" %0.5s", nchr[i].n_name);
+		pr("\n");
+	    }
 	}
-	if (nnukes == 0) {
-		if (player->argp[1])
-			pr("%s: No nuke(s)\n", player->argp[1]);
-		else
-			pr("%s: No nuke(s)\n", "");
-		return RET_FAIL;
-	} else
-		pr("%d nuke%s\n", nnukes, splur(nnukes));
+    }
+    if (nnukes == 0) {
+	if (player->argp[1])
+	    pr("%s: No nuke(s)\n", player->argp[1]);
+	else
+	    pr("%s: No nuke(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d nuke%s\n", nnukes, splur(nnukes));
 
-	return RET_OK;
+    return RET_OK;
 }

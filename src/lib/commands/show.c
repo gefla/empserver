@@ -44,80 +44,88 @@
 int
 show(void)
 {
-	s_char   *p;
-	void     (*cfunc)(int);
-	void     (*sfunc)(int);
-	void	 (*bfunc)(int);
-	struct	natstr *natp;
-	int	tlev;
-	s_char	buf[1024];
-	extern	float drnuke_const;
-	int	rlev;
+    s_char *p;
+    void (*cfunc) (int);
+    void (*sfunc) (int);
+    void (*bfunc) (int);
+    struct natstr *natp;
+    int tlev;
+    s_char buf[1024];
+    extern float drnuke_const;
+    int rlev;
 
-	if (!(p = getstarg(player->argp[1], "Describe what (plane, nuke, bridge, ship, sect, land unit, tower)? ", buf)) || !*p)
-		return RET_SYN;
+    if (!
+	(p =
+	 getstarg(player->argp[1],
+		  "Describe what (plane, nuke, bridge, ship, sect, land unit, tower)? ",
+		  buf)) || !*p)
+	return RET_SYN;
 
-	natp = getnatp (player->cnum);
-	rlev = (int) (1.25 * natp->nat_level[NAT_RLEV]);
+    natp = getnatp(player->cnum);
+    rlev = (int)(1.25 * natp->nat_level[NAT_RLEV]);
 
-	if (!player->argp[3]) {
-	    tlev = (int) (1.25 * natp->nat_level[NAT_TLEV]);
-	    if (player->god)
-	        tlev = 1000;
-	} else {
-	    tlev = (int)atoi(player->argp[3]);
-	    if (tlev > (int)(1.25 * natp->nat_level[NAT_TLEV]) && !player->god)
-	        tlev = (int) (1.25 * natp->nat_level[NAT_TLEV]);
-	}
+    if (!player->argp[3]) {
+	tlev = (int)(1.25 * natp->nat_level[NAT_TLEV]);
 	if (player->god)
-	    rlev = 1000;
-	pr("Printing for tech level '%d'\n", tlev);
-	switch (*p) {
-	case 'b':
-		show_bridge(99999);
-		return RET_OK;
-	case 't':
-		show_tower(99999);
-		return RET_OK;
-	case 'n':
-		if (opt_DRNUKE)
-			tlev = ((rlev/drnuke_const) > tlev ? tlev :
-				(rlev/drnuke_const));
-		bfunc = show_nuke_build;
-		cfunc = show_nuke_capab;
-		sfunc = show_nuke_stats;
-		break;
-	case 'l':
-		bfunc = show_land_build;
-		sfunc = show_land_stats;
-		cfunc = show_land_capab;
-		break;
-	case 'p':
-		bfunc = show_plane_build;
-		sfunc = show_plane_stats;
-		cfunc = show_plane_capab;
-		break;
-	case 's':
-		if (*(p+1) == 'e'){
-			bfunc = show_sect_build;
-			sfunc = show_sect_stats;
-			cfunc = show_sect_capab;
-		}else{
-			bfunc = show_ship_build;
-			sfunc = show_ship_stats;
-			cfunc = show_ship_capab;
-		}
-		break;
-	default:
-		return RET_SYN;
-	}
-	if (!(p = getstarg(player->argp[2], "Build, stats, or capability data (b,s,c)? ", buf)) || !*p)
-		return RET_SYN;
-	if (*p == 'B' || *p == 'b')
-		(*bfunc) (tlev);
-	else if (*p == 'C' || *p == 'c')
-		(*cfunc) (tlev);
-	else if (*p == 'S' || *p == 's')
-		(*sfunc) (tlev);
+	    tlev = 1000;
+    } else {
+	tlev = (int)atoi(player->argp[3]);
+	if (tlev > (int)(1.25 * natp->nat_level[NAT_TLEV]) && !player->god)
+	    tlev = (int)(1.25 * natp->nat_level[NAT_TLEV]);
+    }
+    if (player->god)
+	rlev = 1000;
+    pr("Printing for tech level '%d'\n", tlev);
+    switch (*p) {
+    case 'b':
+	show_bridge(99999);
 	return RET_OK;
+    case 't':
+	show_tower(99999);
+	return RET_OK;
+    case 'n':
+	if (opt_DRNUKE)
+	    tlev = ((rlev / drnuke_const) > tlev ? tlev :
+		    (rlev / drnuke_const));
+	bfunc = show_nuke_build;
+	cfunc = show_nuke_capab;
+	sfunc = show_nuke_stats;
+	break;
+    case 'l':
+	bfunc = show_land_build;
+	sfunc = show_land_stats;
+	cfunc = show_land_capab;
+	break;
+    case 'p':
+	bfunc = show_plane_build;
+	sfunc = show_plane_stats;
+	cfunc = show_plane_capab;
+	break;
+    case 's':
+	if (*(p + 1) == 'e') {
+	    bfunc = show_sect_build;
+	    sfunc = show_sect_stats;
+	    cfunc = show_sect_capab;
+	} else {
+	    bfunc = show_ship_build;
+	    sfunc = show_ship_stats;
+	    cfunc = show_ship_capab;
+	}
+	break;
+    default:
+	return RET_SYN;
+    }
+    if (!
+	(p =
+	 getstarg(player->argp[2],
+		  "Build, stats, or capability data (b,s,c)? ", buf))
+	|| !*p)
+	return RET_SYN;
+    if (*p == 'B' || *p == 'b')
+	(*bfunc) (tlev);
+    else if (*p == 'C' || *p == 'c')
+	(*cfunc) (tlev);
+    else if (*p == 'S' || *p == 's')
+	(*sfunc) (tlev);
+    return RET_OK;
 }

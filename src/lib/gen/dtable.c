@@ -32,7 +32,7 @@
  */
 
 #if !defined(_WIN32)
-#include <unistd.h> /* getdtablesize */
+#include <unistd.h>		/* getdtablesize */
 #endif
 #include "gen.h"
 
@@ -41,14 +41,14 @@ void
 setfdtablesize(int min, int start)
 {
 #ifdef sequent
-	extern	int errno;
+    extern int errno;
 
-	while (start >= min) {
-		if (setdtablesize(start) > 0)
-			break;
-		start -= 16;
-	}
-	errno = 0;
+    while (start >= min) {
+	if (setdtablesize(start) > 0)
+	    break;
+	start -= 16;
+    }
+    errno = 0;
 #endif
 }
 
@@ -56,10 +56,10 @@ int
 getfdtablesize(void)
 {
 #if defined(_WIN32)
-	return (_NFILE);
+    return (_NFILE);
 #elif defined(hpux)
-	return (int)sysconf(_SC_OPEN_MAX);
+    return (int)sysconf(_SC_OPEN_MAX);
 #else
-	return getdtablesize();
+    return getdtablesize();
 #endif
 }

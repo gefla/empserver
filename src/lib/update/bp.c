@@ -41,57 +41,59 @@
 #include "common.h"
 #include "optlist.h"
 
-static  int bud_key[I_MAX+2] = {0,1,2,3,4,0,0,0,0,0,0,5,6,0,0,7};
+static int bud_key[I_MAX + 2] =
+    { 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
 
 int
-*get_wp(int *bp, struct sctstr *sp, int cm)
+*
+get_wp(int *bp, struct sctstr *sp, int cm)
 {
-        return (bp + (sp->sct_x + (sp->sct_y * WORLD_X)) + WORLD_X * WORLD_Y * (cm - 1));
+    return (bp + (sp->sct_x + (sp->sct_y * WORLD_X)) +
+	    WORLD_X * WORLD_Y * (cm - 1));
 }
 
 int
 gt_bg_nmbr(int *bp, struct sctstr *sp, int comm)
 {
-        int   *wp;
-	int   cm;
-	int   svec[I_MAX+1];
+    int *wp;
+    int cm;
+    int svec[I_MAX + 1];
 
-	if ((cm = bud_key[comm]) == 0)  {
-	  getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
-	  return svec[comm];
-	} else {
-	  wp = get_wp(bp, sp, cm);
-	  return *wp;
-	}
+    if ((cm = bud_key[comm]) == 0) {
+	getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
+	return svec[comm];
+    } else {
+	wp = get_wp(bp, sp, cm);
+	return *wp;
+    }
 }
 
-void pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount)
+void
+pt_bg_nmbr(int *bp, struct sctstr *sp, int comm, int amount)
 {
-        int   *wp;
-	int   cm;
+    int *wp;
+    int cm;
 
-	if ((cm = bud_key[comm]) != 0)  {
-	  wp = get_wp(bp, sp, cm);
-	  *wp = amount;
-	} 
+    if ((cm = bud_key[comm]) != 0) {
+	wp = get_wp(bp, sp, cm);
+	*wp = amount;
+    }
 }
 
 void
 fill_update_array(int *bp, struct sctstr *sp)
 {
-        int   vec[I_MAX+1];
-	int   i, k;
-	int   *wp;
+    int vec[I_MAX + 1];
+    int i, k;
+    int *wp;
 
-        if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	  return;
-	for (i=1;i<=I_MAX;i++) 
-	  if ((k = bud_key[i]) != 0)  {
-	    wp = get_wp(bp, sp, k); 
+    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
+	return;
+    for (i = 1; i <= I_MAX; i++)
+	if ((k = bud_key[i]) != 0) {
+	    wp = get_wp(bp, sp, k);
 	    *wp = vec[i];
-	  }
-	wp = get_wp(bp, sp, bud_key[I_MAX+1]);
-	*wp = sp->sct_avail;
+	}
+    wp = get_wp(bp, sp, bud_key[I_MAX + 1]);
+    *wp = sp->sct_avail;
 }
-
-

@@ -42,14 +42,14 @@
 int
 atopi(s_char *p)
 {
-	register int r11;
+    register int r11;
 
-	if (p) {
-		r11 = atoi(p);
-		if (r11 < 0)
-			r11 = -r11;
-		return r11;
-	} else {
-		return (0);
-	}
+    if (p) {
+	r11 = atoi(p);
+	if (r11 < 0)
+	    r11 = -r11;
+	return r11;
+    } else {
+	return (0);
+    }
 }

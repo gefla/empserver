@@ -37,19 +37,19 @@
 #define _COMMODITY_H_
 
 struct comstr {
-        short   ef_type;
-	natid	com_owner;
-	short	com_uid;
-	char	com_type;
-	int	com_amount;
-	float	com_price;
-	int	com_maxbidder;
-	float	com_maxprice;
-	time_t  com_markettime;
-      coord   com_x;
-      coord   com_y;
-	coord	sell_x;
-	coord	sell_y;
+    short ef_type;
+    natid com_owner;
+    short com_uid;
+    char com_type;
+    int com_amount;
+    float com_price;
+    int com_maxbidder;
+    float com_maxprice;
+    time_t com_markettime;
+    coord com_x;
+    coord com_y;
+    coord sell_x;
+    coord sell_y;
 };
 
 #define getcomm(n, p) \

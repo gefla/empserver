@@ -39,18 +39,18 @@
 int
 pboa(void)
 {
-    struct  sctstr  sect;
+    struct sctstr sect;
     struct nstr_item np;
-    struct  plnstr  plane;
+    struct plnstr plane;
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;
     np.flags = 0;
     while (nxtitem(&np, (s_char *)&plane)) {
 	getsect(plane.pln_x, plane.pln_y, &sect);
-	if (sect.sct_own != player->cnum) continue;
+	if (sect.sct_own != player->cnum)
+	    continue;
 	takeover_plane(&plane, player->cnum);
     }
     return RET_OK;
 }
-

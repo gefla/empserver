@@ -37,8 +37,8 @@
 #define	QEMPTY(p)	((p)->q_forw == (p))
 
 struct qelem {
-	struct qelem *q_forw;
-	struct qelem *q_back;
+    struct qelem *q_forw;
+    struct qelem *q_back;
 };
 
-#endif _QUEUE
+#endif	/* _QUEUE */

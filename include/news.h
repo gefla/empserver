@@ -41,22 +41,22 @@
 #ifndef _NEWS_H_
 #define _NEWS_H_
 
-struct	nwsstr {
-	short	ef_type;
-	natid	nws_ano;	/* "actor" country # */
-	short	nws_uid;
-	s_char	nws_vrb;	/* action (verb) */
-	natid	nws_vno;	/* "victim" country # */
-	s_char	nws_ntm;	/* number of times */
-	time_t	nws_when;	/* time of action */
+struct nwsstr {
+    short ef_type;
+    natid nws_ano;		/* "actor" country # */
+    short nws_uid;
+    s_char nws_vrb;		/* action (verb) */
+    natid nws_vno;		/* "victim" country # */
+    s_char nws_ntm;		/* number of times */
+    time_t nws_when;		/* time of action */
 };
 
 #define	NUM_RPTS	2	/* number of story alternates */
 
-struct	rptstr {
-	int	r_good_will;	/* how "nice" the action is */
-	int	r_newspage;	/* which page this item belongs on */
-	s_char	*r_newstory[NUM_RPTS];	/* texts for fmt( */
+struct rptstr {
+    int r_good_will;		/* how "nice" the action is */
+    int r_newspage;		/* which page this item belongs on */
+    s_char *r_newstory[NUM_RPTS];	/* texts for fmt( */
 };
 
 	/* news verbs */
@@ -157,7 +157,7 @@ struct	rptstr {
 #define N_TELE          11
 #define	N_MAX_PAGE	11
 
-#define	NEWS_PERIOD	days(10) 
+#define	NEWS_PERIOD	days(10)
 
 #define getnews(n, p) \
 	ef_read(EF_NEWS, n, (caddr_t)p)
@@ -166,8 +166,8 @@ struct	rptstr {
 #define getnewsp(n) \
 	(struct nwsstr *) ef_ptr(EF_NEWS, n)
 
-extern	struct rptstr rpt[];
+extern struct rptstr rpt[];
 
-extern	int nws_maxno;
+extern int nws_maxno;
 
 #endif /* _NEWS_H_ */

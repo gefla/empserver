@@ -44,57 +44,60 @@ extern void shutdown_sequence();
 int
 shut(void)
 {
-	extern	int update_pending;
-	extern	int shutdown_pending;
-	int	shutdown_minutes;
-	int	shutdown_was_pending;
-	s_char  buf[100];
-	s_char  newbuf[100];
-	struct	natstr *us;
-	s_char	*p;
-	
-	if (update_pending) {
-		pr("Update is pending\n");
-		return RET_FAIL;
-	}
-	shutdown_minutes = onearg(player->argp[1], "Time until shutdown in minutes (0 to abort shutdown sequence)? ");
-	if (shutdown_minutes < 0)
-		return RET_SYN;
-	if (!updates_disabled())
-		if (!(p=getstarg(player->argp[3],"Disable update [y]? ",buf))||
-		    *p != 'n')
-			disa();
+    extern int update_pending;
+    extern int shutdown_pending;
+    int shutdown_minutes;
+    int shutdown_was_pending;
+    s_char buf[100];
+    s_char newbuf[100];
+    struct natstr *us;
+    s_char *p;
 
-	shutdown_was_pending = shutdown_pending;
-	shutdown_pending = shutdown_minutes + !!shutdown_minutes;
-	buf[0] = '\0';
-	if (shutdown_was_pending) {
-		if (shutdown_minutes) {
-			sprintf(buf, "The shutdown time has been changed to %d minutes", shutdown_minutes);
-		} else {
-			sprintf(buf, "The server shutdown has been cancelled");
-		}
-	} else if (shutdown_minutes) {
-		pr("Shutdown sequence begun.\n");
-		logerror("Shutdown sequence begun");
-		empth_create(PP_SHUTDOWN, shutdown_sequence, (50*1024),
-			     0, "shutdownSeq",
-			     "Counts down server shutdown", 0);
-	}
-	us = getnatp(player->cnum);
-	if (buf[0]) {
-		sprintf(newbuf, ": %s!", buf);
-		sendmessage(us, 0, newbuf, 1);
-		pr("%s.\n", buf);
-		logerror(buf);
-	}
+    if (update_pending) {
+	pr("Update is pending\n");
+	return RET_FAIL;
+    }
+    shutdown_minutes =
+	onearg(player->argp[1],
+	       "Time until shutdown in minutes (0 to abort shutdown sequence)? ");
+    if (shutdown_minutes < 0)
+	return RET_SYN;
+    if (!updates_disabled())
+	if (!(p = getstarg(player->argp[3], "Disable update [y]? ", buf))
+	    || *p != 'n')
+	    disa();
+
+    shutdown_was_pending = shutdown_pending;
+    shutdown_pending = shutdown_minutes + !!shutdown_minutes;
+    buf[0] = '\0';
+    if (shutdown_was_pending) {
 	if (shutdown_minutes) {
-		sprintf(buf, "The server will shut down in %d minutes", shutdown_minutes);
-		sprintf(newbuf, ": %s!", buf);
-		sendmessage(us, 0, newbuf, 1);
-		pr("%s.\n", buf);
-		logerror(buf);
+	    sprintf(buf,
+		    "The shutdown time has been changed to %d minutes",
+		    shutdown_minutes);
+	} else {
+	    sprintf(buf, "The server shutdown has been cancelled");
 	}
-	return RET_OK;
+    } else if (shutdown_minutes) {
+	pr("Shutdown sequence begun.\n");
+	logerror("Shutdown sequence begun");
+	empth_create(PP_SHUTDOWN, shutdown_sequence, (50 * 1024),
+		     0, "shutdownSeq", "Counts down server shutdown", 0);
+    }
+    us = getnatp(player->cnum);
+    if (buf[0]) {
+	sprintf(newbuf, ": %s!", buf);
+	sendmessage(us, 0, newbuf, 1);
+	pr("%s.\n", buf);
+	logerror(buf);
+    }
+    if (shutdown_minutes) {
+	sprintf(buf, "The server will shut down in %d minutes",
+		shutdown_minutes);
+	sprintf(newbuf, ": %s!", buf);
+	sendmessage(us, 0, newbuf, 1);
+	pr("%s.\n", buf);
+	logerror(buf);
+    }
+    return RET_OK;
 }
-

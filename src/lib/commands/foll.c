@@ -46,67 +46,66 @@
 int
 foll(void)
 {
-	struct shpstr ship;
-	s_char	*cp;
-	int	good,leader,count=0;
-	coord	x,y;
-	struct	nstr_item nstr;
-	s_char	buf[1024];
+    struct shpstr ship;
+    s_char *cp;
+    int good, leader, count = 0;
+    coord x, y;
+    struct nstr_item nstr;
+    s_char buf[1024];
 
-	if (!opt_SAIL) {
-	    pr("The SAIL option is not enabled, so this command is not valid.\n");
-	    return RET_FAIL;
+    if (!opt_SAIL) {
+	pr("The SAIL option is not enabled, so this command is not valid.\n");
+	return RET_FAIL;
+    }
+    if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
+	return RET_SYN;
+    cp = getstarg(player->argp[2], "leader?", buf);
+    if (cp == 0)
+	cp = "";
+    good = sscanf(cp, "%d", &leader);
+    if (!good)
+	return RET_SYN;
+    getship(leader, &ship);
+    if (ship.shp_own != player->cnum &&
+	getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY) {
+	pr("That ship won't let you follow.\n");
+	return RET_FAIL;
+    }
+    x = ship.shp_x;
+    y = ship.shp_y;
+    while (nxtitem(&nstr, (s_char *)&ship)) {
+	if (!player->owner)
+	    continue;
+	if (ship.shp_x != x || ship.shp_y != y) {
+	    pr("Ship #%d not in same sector as #%d\n", ship.shp_uid,
+	       leader);
+	    continue;
 	}
-	if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
-		return RET_SYN;
-	cp = getstarg(player->argp[2],"leader?", buf);
-	if (cp==0) cp="";
-	good = sscanf(cp,"%d",&leader);
-	if  (!good)
-	  return RET_SYN;
-	getship(leader,&ship);
-	if (ship.shp_own!=player->cnum &&
-	    getrel(getnatp(ship.shp_own),player->cnum) < FRIENDLY)
-	  {
-	    pr("That ship won't let you follow.\n");
-	    return RET_FAIL;
-	  }
-	x = ship.shp_x;
-	y = ship.shp_y;
-	while (nxtitem(&nstr, (s_char *)&ship)) {
-		if (!player->owner)
-			continue;
-		if ( ship.shp_x!=x || ship.shp_y!=y )
-		  {
-		    pr("Ship #%d not in same sector as #%d\n",ship.shp_uid,leader);
-		    continue;
-		  }
-		if (ship.shp_uid==leader)
-		  {
-		    pr("Ship #%d can't follow itself!\n",leader);
-		    continue;
-		  }
-		if ((ship.shp_autonav & AN_AUTONAV) && !(ship.shp_autonav & AN_STANDBY))
-		  {
-		    pr("Ship #%d has other orders!\n",ship.shp_uid);
-		    continue;
-		  }
-		count++;
-		ship.shp_mission = 0;
-		*ship.shp_path = 'f';
-		ship.shp_path[1] = 0;
+	if (ship.shp_uid == leader) {
+	    pr("Ship #%d can't follow itself!\n", leader);
+	    continue;
+	}
+	if ((ship.shp_autonav & AN_AUTONAV)
+	    && !(ship.shp_autonav & AN_STANDBY)) {
+	    pr("Ship #%d has other orders!\n", ship.shp_uid);
+	    continue;
+	}
+	count++;
+	ship.shp_mission = 0;
+	*ship.shp_path = 'f';
+	ship.shp_path[1] = 0;
 /*		sprintf(ship.shp_path,"f%d",leader);*/
-		ship.shp_follow = leader;
-		pr("Ship #%d follows #%d.\n",ship.shp_uid,leader);
-		putship(ship.shp_uid, &ship);
-	}
-	if (count == 0) {
-		if (player->argp[1])
-			pr("%s: No ship(s)\n", player->argp[1]);
-		else
-			pr("%s: No ship(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d ship%s\n", count, splur(count));
-	return RET_OK;
+	ship.shp_follow = leader;
+	pr("Ship #%d follows #%d.\n", ship.shp_uid, leader);
+	putship(ship.shp_uid, &ship);
+    }
+    if (count == 0) {
+	if (player->argp[1])
+	    pr("%s: No ship(s)\n", player->argp[1]);
+	else
+	    pr("%s: No ship(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d ship%s\n", count, splur(count));
+    return RET_OK;
 }

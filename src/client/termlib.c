@@ -40,57 +40,57 @@
 #include <unistd.h>
 #endif
 
-s_char	*SO = 0;
-s_char	*SE = 0;
+s_char *SO = 0;
+s_char *SE = 0;
 
 int tgetent();
 
 void
 parsedelay(r)
-	s_char *r;
+s_char *r;
 {
-	s_char *s, *t;
+    s_char *s, *t;
 
-	s = r;
-	while (isdigit(*s) || (*s == '*') || (*s == '.')) {
-		s++;
-	}
-	for (t = r; *s != 0; (s++, t++)) {
-		*t = *s;
-	}
-	*t = 0;
+    s = r;
+    while (isdigit(*s) || (*s == '*') || (*s == '.')) {
+	s++;
+    }
+    for (t = r; *s != 0; (s++, t++)) {
+	*t = *s;
+    }
+    *t = 0;
 }
 
 void
 getsose()
 {
 #ifndef _WIN32
-	extern	s_char *getenv();
-	extern	s_char *tgetstr();
+    extern s_char *getenv();
+    extern s_char *tgetstr();
 #endif
-	static	s_char tbuf[1024];
-	static	s_char cbuf[20];
-	s_char	*cp;
-	s_char	*term;
+    static s_char tbuf[1024];
+    static s_char cbuf[20];
+    s_char *cp;
+    s_char *term;
 
 #ifndef _WIN32
-	memset((s_char *)&cbuf[0], 0, 20);
-	term = getenv("TERM");
-	if (term == 0) {
-		fprintf(stderr, "warning: no TERM environment variable\n");
-		return;
-	}
-	tgetent(tbuf, term);
-	cp = cbuf;
-	SO = tgetstr("so", &cp);
-	SE = tgetstr("se", &cp);
-	if (SO == 0) {
-		SO = tgetstr("us", &cp);
-		SE = tgetstr("ue", &cp);
-	}
-	if (SO != 0) {
-		parsedelay(SO);
-		parsedelay(SE);
-	}
+    memset((s_char *)&cbuf[0], 0, 20);
+    term = getenv("TERM");
+    if (term == 0) {
+	fprintf(stderr, "warning: no TERM environment variable\n");
+	return;
+    }
+    tgetent(tbuf, term);
+    cp = cbuf;
+    SO = tgetstr("so", &cp);
+    SE = tgetstr("se", &cp);
+    if (SO == 0) {
+	SO = tgetstr("us", &cp);
+	SE = tgetstr("ue", &cp);
+    }
+    if (SO != 0) {
+	parsedelay(SO);
+	parsedelay(SE);
+    }
 #endif
 }

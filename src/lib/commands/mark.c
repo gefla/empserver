@@ -52,30 +52,27 @@ mark(void)
 	return RET_FAIL;
     }
     if (player->argp[1] && *(player->argp[1]))
-        return display_mark(player->argp[1]);
+	return display_mark(player->argp[1]);
     else
-        return display_mark("   ");
+	return display_mark("   ");
 }
 
 void
 pr_mark(struct comstr *comm)
 {
     time_t now;
-    double  tleft;
+    double tleft;
     extern int MARK_DELAY;
-    
-    (void) time(&now);
+
+    (void)time(&now);
     tleft = MARK_DELAY / 3600.0 - (now - comm->com_markettime) / 3600.0;
-    if (tleft < 0.0) 
+    if (tleft < 0.0)
 	tleft = 0.0;
     pr(" %3d  $%12.2f  %2d  %5.2f hrs  (%3d)   %c    %6d  ",
        comm->com_uid,
        comm->com_maxprice,
        comm->com_maxbidder,
-       tleft,
-       comm->com_owner,
-       comm->com_type,
-       comm->com_amount);
+       tleft, comm->com_owner, comm->com_type, comm->com_amount);
     if (comm->com_owner == player->cnum || player->god)
 	pr("%s", xyas(comm->sell_x, comm->sell_y, player->cnum));
     pr("\n");
@@ -84,18 +81,18 @@ pr_mark(struct comstr *comm)
 int
 display_mark(s_char *arg)
 {
-    struct  comstr  comm;
+    struct comstr comm;
     struct comstr comm2;
-    int     sellers = 0;
-    int     cnt = 0;
-    char    c;
-    s_char  *p;
-    struct ichrstr	*ip;
-    s_char  buf[1024];
+    int sellers = 0;
+    int cnt = 0;
+    char c;
+    s_char *p;
+    struct ichrstr *ip;
+    s_char buf[1024];
     int cheapest_items[I_MAX + 2];
     int i;
     int all = 0;
-    
+
 /* First, we execute all trades, so that we can only buy what is available. */
     check_market();
     check_trade();
@@ -103,10 +100,10 @@ display_mark(s_char *arg)
     p = getstarg(arg, "What commodity (or 'all')? ", buf);
     c = (char)0;
     if (p && *p)
-      c = *p;
+	c = *p;
     for (ip = &ichr[0]; ip && ip->i_mnem; ip++)
-      if (ip->i_mnem == c)
-	break;
+	if (ip->i_mnem == c)
+	    break;
     c = ip->i_mnem;
 
     pr("\n     Empire Market Report\n   ");
@@ -155,7 +152,7 @@ display_mark(s_char *arg)
 		continue;
 	    cnt = 1;
 	    pr_mark(&comm);
-	}       
+	}
     }
     if (cnt <= 0)
 	pr("\nHmmmm, the market seems to be empty today.\n");

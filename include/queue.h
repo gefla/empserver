@@ -37,12 +37,12 @@
 #define	QEMPTY(p)	((p)->q_forw == (p))
 
 struct emp_qelem {
-	struct emp_qelem *q_forw;
-	struct emp_qelem *q_back;
+    struct emp_qelem *q_forw;
+    struct emp_qelem *q_back;
 };
 
-extern void emp_remque(struct emp_qelem * );
-extern void emp_initque(struct emp_qelem * );
-extern void emp_insque(struct emp_qelem *  , struct emp_qelem * );
+extern void emp_remque(struct emp_qelem *);
+extern void emp_initque(struct emp_qelem *);
+extern void emp_insque(struct emp_qelem *, struct emp_qelem *);
 
 #endif /* _QUEUE_H_ */

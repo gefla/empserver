@@ -50,60 +50,60 @@
 
 /* The order of the following elements is there to match up with genitem */
 
-struct	sctstr {
-	short	ef_type;
-	natid	sct_own;	/* owner's country num */
-	short	sct_elev;	/* elevation/depth */
-	coord	sct_x;		/* x coord of sector */
-	coord	sct_y;		/* y coord of sector */
-	u_char	sct_type;	/* sector type */
-	u_char	sct_effic;	/* 0% to 100% */
-	short	sct_mobil;	/* mobility units */
-	u_char	sct_loyal;	/* updates until civilans "converted" */
-	u_char	sct_terr;	/* territory 0 id # of sector */
-	u_char	sct_terr1;	/* territory 1 id # of sector */
-	u_char	sct_terr2;	/* territory 2 id # of sector */
-	u_char	sct_terr3;	/* territory 3 id # of sector */
-	coord	sct_dist_x;	/* Dist sector */
-	coord	sct_dist_y;
-	short	sct_avail;	/* available workforce for "other things" */
-	short	sct_flags;	/* temporary flags */
-	short	sct_fill;	/* gunk */
-	u_char	sct_work;	/* pct of civ actually working */
-	u_char	sct_coastal;	/* is this a coastal sector? */
-	u_char	sct_newtype;	/* for changing designations */
-	u_char	sct_min;	/* ease of mining ore */
-	u_char	sct_gmin;	/* amount of gold ore */
-	u_char	sct_fertil;	/* fertility of soil */
-	u_char	sct_oil;	/* oil content */
-	u_char	sct_uran;	/* uranium ore content */
-	natid	sct_oldown;	/* old owner of sector (for liberation) */
-	u_char	sct_updated;	/* Has this sect been updated? */
-	u_char	sct_off;	/* Should this sector produce? */
-	u_char	sct_nv;		/* current number of variables */
-	u_char	sct_vtype[MAXSCTV];
-	u_short	sct_vamt[MAXSCTV];
-	time_t  sct_access;     /* Last time mob was updated (MOB_ACCESS) */
-	u_char  sct_road;       /* Road value of a sector */
-	u_char  sct_rail;       /* Rail value of a sector */
-	u_char  sct_defense;    /* Defensive value of a sector */
-        time_t  sct_timestamp;  /* Last time this sector was written to */
+struct sctstr {
+    short ef_type;
+    natid sct_own;		/* owner's country num */
+    short sct_elev;		/* elevation/depth */
+    coord sct_x;		/* x coord of sector */
+    coord sct_y;		/* y coord of sector */
+    u_char sct_type;		/* sector type */
+    u_char sct_effic;		/* 0% to 100% */
+    short sct_mobil;		/* mobility units */
+    u_char sct_loyal;		/* updates until civilans "converted" */
+    u_char sct_terr;		/* territory 0 id # of sector */
+    u_char sct_terr1;		/* territory 1 id # of sector */
+    u_char sct_terr2;		/* territory 2 id # of sector */
+    u_char sct_terr3;		/* territory 3 id # of sector */
+    coord sct_dist_x;		/* Dist sector */
+    coord sct_dist_y;
+    short sct_avail;		/* available workforce for "other things" */
+    short sct_flags;		/* temporary flags */
+    short sct_fill;		/* gunk */
+    u_char sct_work;		/* pct of civ actually working */
+    u_char sct_coastal;		/* is this a coastal sector? */
+    u_char sct_newtype;		/* for changing designations */
+    u_char sct_min;		/* ease of mining ore */
+    u_char sct_gmin;		/* amount of gold ore */
+    u_char sct_fertil;		/* fertility of soil */
+    u_char sct_oil;		/* oil content */
+    u_char sct_uran;		/* uranium ore content */
+    natid sct_oldown;		/* old owner of sector (for liberation) */
+    u_char sct_updated;		/* Has this sect been updated? */
+    u_char sct_off;		/* Should this sector produce? */
+    u_char sct_nv;		/* current number of variables */
+    u_char sct_vtype[MAXSCTV];
+    u_short sct_vamt[MAXSCTV];
+    time_t sct_access;		/* Last time mob was updated (MOB_ACCESS) */
+    u_char sct_road;		/* Road value of a sector */
+    u_char sct_rail;		/* Rail value of a sector */
+    u_char sct_defense;		/* Defensive value of a sector */
+    time_t sct_timestamp;	/* Last time this sector was written to */
 };
 
-struct	dchrstr	{
-	int	d_mnem;		/* map symbol */
-	int	d_prd;		/* product vtype */
-	int	d_mcst;		/* movement cost */
-	int	d_flg;		/* movement cost */
-	int	d_pkg;		/* type of packaging in these sects */
-	float	d_ostr;		/* offensive strength */
-	float	d_dstr;		/* defensive strength */
-	int	d_value;	/* resale ("collect") value */
-	int	d_cost;		/* cost to designate the sect */
-	int	d_build;	/* cost multiplier for eff */
-	int	d_lcms;		/* lcm's needed per point of eff */
-	int	d_hcms;		/* hcm's needed per point of eff */
-	s_char	*d_name;	/* full name of sector type */
+struct dchrstr {
+    int d_mnem;			/* map symbol */
+    int d_prd;			/* product vtype */
+    int d_mcst;			/* movement cost */
+    int d_flg;			/* movement cost */
+    int d_pkg;			/* type of packaging in these sects */
+    float d_ostr;		/* offensive strength */
+    float d_dstr;		/* defensive strength */
+    int d_value;		/* resale ("collect") value */
+    int d_cost;			/* cost to designate the sect */
+    int d_build;		/* cost multiplier for eff */
+    int d_lcms;			/* lcm's needed per point of eff */
+    int d_hcms;			/* hcm's needed per point of eff */
+    s_char *d_name;		/* full name of sector type */
 };
 
 #define	NPKG	0		/* no special packaging */
@@ -118,7 +118,7 @@ struct	dchrstr	{
 
 	/* sector types (must agree with order in dchr, empglb.c) */
 
-#define	SCT_WATER	0       /* basics */
+#define	SCT_WATER	0	/* basics */
 #define	SCT_MOUNT	1
 #define	SCT_SANCT	2
 #define	SCT_WASTE	3
@@ -126,7 +126,7 @@ struct	dchrstr	{
 #define	SCT_CAPIT	5
 #define	SCT_URAN	6
 #define	SCT_PARK	7
-#define	SCT_ARMSF	8       /* industries */
+#define	SCT_ARMSF	8	/* industries */
 #define	SCT_AMMOF	9
 #define	SCT_MINE	10
 #define	SCT_GMINE	11
@@ -137,23 +137,23 @@ struct	dchrstr	{
 #define	SCT_OIL		16
 #define	SCT_LIGHT	17
 #define	SCT_HEAVY	18
-#define	SCT_FORTR	19      /* military/scientific */
+#define	SCT_FORTR	19	/* military/scientific */
 #define	SCT_TECH	20
 #define	SCT_RSRCH	21
 #define	SCT_NUKE	22
 #define	SCT_LIBR	23
-#define	SCT_HIWAY	24      /* communications */
+#define	SCT_HIWAY	24	/* communications */
 #define	SCT_RADAR	25
 #define	SCT_HEADQ	26	/* headquarters */
-#define	SCT_BHEAD	27      /* Bridge head */
-#define	SCT_BSPAN	28      /* Bridge span */
-#define	SCT_BANK	29      /* financial */
+#define	SCT_BHEAD	27	/* Bridge head */
+#define	SCT_BSPAN	28	/* Bridge span */
+#define	SCT_BANK	29	/* financial */
 #define	SCT_REFINE	30	/* refinery */
 #define SCT_ENLIST	31	/* enlistment center */
-#define SCT_PLAINS      32      /* plains sector */
-#define SCT_BTOWER      33      /* Bridge tower */
+#define SCT_PLAINS      32	/* plains sector */
+#define SCT_BTOWER      33	/* Bridge tower */
 
-#define SCT_EFFIC       34      /* used in update & budget */
+#define SCT_EFFIC       34	/* used in update & budget */
 #define	SCT_MAXDEF	34	/* highest sector type in header files */
 
 #define getsect(x, y, p) \
@@ -168,14 +168,14 @@ struct	dchrstr	{
 
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
-extern	double landgun();
+extern double landgun();
 
-extern	int sct_maxno;
-extern	struct dchrstr dchr[];
-extern	struct dchrstr bigcity_dchr;
+extern int sct_maxno;
+extern struct dchrstr dchr[];
+extern struct dchrstr bigcity_dchr;
 
-#define MIN_MOBCOST  0.001 /* lowest cost a sector can have to move into */
-#define FORTEFF 5	/* forts must be 5% efficient to fire. */
+#define MIN_MOBCOST  0.001	/* lowest cost a sector can have to move into */
+#define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
 #define MOB_NONE    0
 #define MOB_ROAD    1
@@ -186,10 +186,10 @@ extern	struct dchrstr bigcity_dchr;
 #define INT_DEF     2
 
 /* Sector flags */
-#define MOVE_IN_PROGRESS	bit(0)  /* move in progress */
+#define MOVE_IN_PROGRESS	bit(0)	/* move in progress */
 
 /* Each cost is per point of efficency */
-struct  sctintrins {
+struct sctintrins {
     char *in_name;
     u_char in_lcms;
     u_char in_hcms;

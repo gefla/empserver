@@ -56,19 +56,19 @@ extern int sect_mob_neg_factor;
 int
 anti(void)
 {
-    struct	sctstr sect;
-    int	nsect;
-    struct	nstr_sect nstr;
-    int	cond[I_MAX+1];
-    int	mil, che, target;
-    int	avail_mil;
-    int	amil, ache;
-    int	milkilled, chekilled;
-    double	odds, damil, dache;
-    int	mob;
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
+    int cond[I_MAX + 1];
+    int mil, che, target;
+    int avail_mil;
+    int amil, ache;
+    int milkilled, chekilled;
+    double odds, damil, dache;
+    int mob;
     int n_cheleft;
-    extern  double  hap_fact();
-    
+    extern double hap_fact();
+
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     prdate();
@@ -84,17 +84,16 @@ anti(void)
 	mil = getvar(V_MILIT, (char *)&sect, EF_SECTOR);
 	che = get_che_value(cond[C_CHE]);
 	target = get_che_cnum(cond[C_CHE]);
-	avail_mil = sect.sct_mobil/2;
-	if (mil <= avail_mil) 
+	avail_mil = sect.sct_mobil / 2;
+	if (mil <= avail_mil)
 	    avail_mil = mil;
 	prxy("%4d,%-4d ", sect.sct_x, sect.sct_y, player->cnum);
 	if (avail_mil <= 0) {
 	    pr("No available mil or mob in sector.\n");
 	    continue;
 	}
-	pr("Sector mobility/troop strength will allow %d troops to engage.\n",
-	   avail_mil);
-	
+	pr("Sector mobility/troop strength will allow %d troops to engage.\n", avail_mil);
+
 	if (target == player->cnum) {
 	    amil = mil;
 	    ache = che;
@@ -105,7 +104,8 @@ anti(void)
 		damil = amil;
 		dache = ache;
 		odds = (dache * 2.0 / (damil + dache));
-		odds /= hap_fact(getnatp(sect.sct_own),getnatp(sect.sct_oldown));
+		odds /= hap_fact(getnatp(sect.sct_own),
+				 getnatp(sect.sct_oldown));
 		mob = mob - 2;
 		if (chance(odds)) {
 		    amil = amil - 1;
@@ -117,9 +117,8 @@ anti(void)
 	    }
 	    if (mil - milkilled > 0) {
 		sect.sct_mobil = sect.sct_mobil - chekilled - milkilled;
-		putvar(V_MILIT, mil - milkilled, (char *)&sect,
-		       EF_SECTOR);
-		if ( ache == 0 )
+		putvar(V_MILIT, mil - milkilled, (char *)&sect, EF_SECTOR);
+		if (ache == 0)
 		    cond[C_CHE] = 0;
 		set_che_value(cond[C_CHE], ache);
 		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
@@ -132,11 +131,11 @@ anti(void)
 		    pr("          Partisans still active in this sector.\n");
 		}
 	    } else {
-	        if (opt_MOB_ACCESS) {
-		  sect.sct_mobil =
-		    -(etu_per_update/sect_mob_neg_factor);
+		if (opt_MOB_ACCESS) {
+		    sect.sct_mobil =
+			-(etu_per_update / sect_mob_neg_factor);
 		} else {
-		  sect.sct_mobil = 0;
+		    sect.sct_mobil = 0;
 		}
 		sect.sct_loyal = sect.sct_loyal * 0.5;
 		n_cheleft = (random() % 4);
@@ -146,21 +145,23 @@ anti(void)
 		    n_cheleft = (ache / (n_cheleft + 3));
 		    ache -= n_cheleft;
 		    set_che_value(cond[C_CHE], n_cheleft);
-		} else 
+		} else
 		    cond[C_CHE] = 0;
 		putvar(V_MILIT, ache, (char *)&sect, EF_SECTOR);
 		putvar(V_CHE, cond[C_CHE], (char *)&sect, EF_SECTOR);
 		if (sect.sct_own == sect.sct_oldown)
 		    sect.sct_oldown = 0;
-		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
-		makenotlost(EF_SECTOR, sect.sct_oldown, 0, sect.sct_x, sect.sct_y);
+		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x,
+			 sect.sct_y);
+		makenotlost(EF_SECTOR, sect.sct_oldown, 0, sect.sct_x,
+			    sect.sct_y);
 		sect.sct_own = sect.sct_oldown;
-		sect.sct_off = 1; /* Turn the sector off */
+		sect.sct_off = 1;	/* Turn the sector off */
 		putsect(&sect);
 		pr("          Partisans take over the sector.  You blew it.\n");
-		wu(0, sect.sct_oldown, 
+		wu(0, sect.sct_oldown,
 		   "Sector %s regained from Partisan activity.\n",
-		   xyas(nstr.x,nstr.y,sect.sct_oldown));
+		   xyas(nstr.x, nstr.y, sect.sct_oldown));
 	    }
 	} else {
 	    pr("          Body count:  Military 0 - Guerillas 0.\n");

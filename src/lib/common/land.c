@@ -47,52 +47,52 @@
 int
 adj_units(coord x, coord y, natid own)
 {
-	register int i;
-	struct	sctstr sect;
+    register int i;
+    struct sctstr sect;
 
-	for (i = DIR_FIRST; i <= DIR_LAST; i++) {
-		getsect(x + diroff[i][0], y + diroff[i][1], &sect);
-		if (has_units(sect.sct_x, sect.sct_y, own, 0))
-			return 1;
-	}
-	return 0;
+    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
+	getsect(x + diroff[i][0], y + diroff[i][1], &sect);
+	if (has_units(sect.sct_x, sect.sct_y, own, 0))
+	    return 1;
+    }
+    return 0;
 }
 
 int
 has_units(coord x, coord y, natid cn, struct lndstr *lp)
 {
-	register int n;
-	struct	lndstr land;
-	
-	for (n=0; ef_read(EF_LAND, n, (s_char *)&land); n++) {
-		if(land.lnd_x != x || land.lnd_y != y)
-			continue;
-		if (lp) {
-		    /* Check this unit.  If it is this one, we don't want
-		       it included in the count. */
-		    if (lp->lnd_uid == land.lnd_uid)
-		        continue;
-		}
-		if (land.lnd_own == cn)
-			return 1;
-	}
+    register int n;
+    struct lndstr land;
 
-	return 0;
+    for (n = 0; ef_read(EF_LAND, n, (s_char *)&land); n++) {
+	if (land.lnd_x != x || land.lnd_y != y)
+	    continue;
+	if (lp) {
+	    /* Check this unit.  If it is this one, we don't want
+	       it included in the count. */
+	    if (lp->lnd_uid == land.lnd_uid)
+		continue;
+	}
+	if (land.lnd_own == cn)
+	    return 1;
+    }
+
+    return 0;
 }
 
 int
 has_units_with_mob(coord x, coord y, natid cn)
 {
-	struct	nstr_item ni;
-	struct	lndstr land;
-	
-	snxtitem_xy(&ni,EF_LAND,x,y);
-	while(nxtitem(&ni,(s_char *)&land)) {
-		if (land.lnd_own != cn)
-			continue;
-		if (land.lnd_mobil > 0)
-			return 1;
-	}
+    struct nstr_item ni;
+    struct lndstr land;
 
-	return 0;
+    snxtitem_xy(&ni, EF_LAND, x, y);
+    while (nxtitem(&ni, (s_char *)&land)) {
+	if (land.lnd_own != cn)
+	    continue;
+	if (land.lnd_mobil > 0)
+	    return 1;
+    }
+
+    return 0;
 }

@@ -55,35 +55,36 @@ void free();
 void
 io_init()
 {
-	taglist = NULL;
-	buf[0] = 0;
-	tagnum = 0;
-	sprintf(exec,"execute");
+    taglist = NULL;
+    buf[0] = 0;
+    tagnum = 0;
+    sprintf(exec, "execute");
 }
 
 s_char *
 gettag(p)
-	s_char *p;
+s_char *p;
 {
-	struct tagstruct *tag1,*tag2;
+    struct tagstruct *tag1, *tag2;
 
-	if (taglist == NULL) return NULL;
-	tag1 = taglist;
-	if (!strncmp(tag1->item,p,strlen(tag1->item))) {
-		p = tag1->item;
-		taglist = taglist->next;
-		free(tag1);
-		return p;
-	}
-	while (tag1->next != NULL) {
-		tag2 = tag1->next;
-		if (!strncmp(tag2->item,p,strlen(tag2->item))) {
-			p = tag2->item;
-			tag1->next = tag2->next;
-			free(tag2);
-			return p;
-		}
-		tag1 = tag1->next;
-	}
+    if (taglist == NULL)
 	return NULL;
+    tag1 = taglist;
+    if (!strncmp(tag1->item, p, strlen(tag1->item))) {
+	p = tag1->item;
+	taglist = taglist->next;
+	free(tag1);
+	return p;
+    }
+    while (tag1->next != NULL) {
+	tag2 = tag1->next;
+	if (!strncmp(tag2->item, p, strlen(tag2->item))) {
+	    p = tag2->item;
+	    tag1->next = tag2->next;
+	    free(tag2);
+	    return p;
+	}
+	tag1 = tag1->next;
+    }
+    return NULL;
 }

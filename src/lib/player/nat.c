@@ -41,28 +41,28 @@
 int
 natbyname(s_char *name, natid *result)
 {
-	struct	natstr *np;
-	int	i;
+    struct natstr *np;
+    int i;
 
-	for (i=0; NULL != (np = getnatp(i)); i++) {
-		if (strcmp(np->nat_cnam, name) == 0) {
-			*result = i;
-			return 0;
-		}
+    for (i = 0; NULL != (np = getnatp(i)); i++) {
+	if (strcmp(np->nat_cnam, name) == 0) {
+	    *result = i;
+	    return 0;
 	}
-	*result = 255;
-	return -1;
+    }
+    *result = 255;
+    return -1;
 }
 
 int
 natpass(int cn, s_char *pass)
 {
-	struct	natstr *np;
+    struct natstr *np;
 
-	np = getnatp((natid)cn);
-	if (np->nat_stat == VIS)
-		return 1;
-	if (strcmp(np->nat_pnam, pass) == 0)
-		return 1;
-	return 0;
+    np = getnatp((natid)cn);
+    if (np->nat_stat == VIS)
+	return 1;
+    if (strcmp(np->nat_pnam, pass) == 0)
+	return 1;
+    return 0;
 }

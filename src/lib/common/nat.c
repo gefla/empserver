@@ -39,115 +39,115 @@
 s_char *
 cname(natid n)
 {
-	struct	natstr *np;
+    struct natstr *np;
 
-	if ((np = getnatp(n)) == 0)
-		return 0;
-	return np->nat_cnam;
+    if ((np = getnatp(n)) == 0)
+	return 0;
+    return np->nat_cnam;
 }
 
 s_char *
 relatename(struct natstr *np, natid other)
 {
-	extern	s_char *relates[];
+    extern s_char *relates[];
 
-	return relates[getrel(np, other)];
+    return relates[getrel(np, other)];
 }
 
 s_char *
 rejectname(struct natstr *np, natid other)
 {
-	extern s_char	*rejects[];
+    extern s_char *rejects[];
 
-	return rejects[getrejects(other, np)];
+    return rejects[getrejects(other, np)];
 }
 
 s_char *
 natstate(struct natstr *np)
 {
-	if ((np->nat_stat & STAT_INUSE) == 0)
-		return "FREE";
-	if (np->nat_stat & STAT_GOD)
-		return "DEITY";
-	if ((np->nat_stat & STAT_NORM) == 0)
-		return "VISITOR";
-	return "ACTIVE";
+    if ((np->nat_stat & STAT_INUSE) == 0)
+	return "FREE";
+    if (np->nat_stat & STAT_GOD)
+	return "DEITY";
+    if ((np->nat_stat & STAT_NORM) == 0)
+	return "VISITOR";
+    return "ACTIVE";
 }
 
 /* This returns the relations that np has with them */
 int
 getrel(struct natstr *np, natid them)
 {
-	return np->nat_relate[them];
+    return np->nat_relate[them];
 }
 
 int
 getrejects(natid them, struct natstr *np)
 {
-	int	ind;
-	int	shift;
-	int	reject;
+    int ind;
+    int shift;
+    int reject;
 
-	ind = them / 4;
-	shift = 12 - ((them - ((them / 4) << 2)) * 4);
-	/* the 07 should *really* be 017 */
-	reject = (np->nat_rejects[ind] >> shift) & 0x0f;
-	return reject;
+    ind = them / 4;
+    shift = 12 - ((them - ((them / 4) << 2)) * 4);
+    /* the 07 should *really* be 017 */
+    reject = (np->nat_rejects[ind] >> shift) & 0x0f;
+    return reject;
 }
 
 void
 agecontact(struct natstr *np)
 {
-       int them;
+    int them;
 
-       if (opt_LOSE_CONTACT) {
-               for (them = 1;  them < MAXNOC;  ++them) {
-                       if (them != np->nat_cnum && np->nat_contact[them]) {
-                               --np->nat_contact[them];
-                       }
-               }
-       }
+    if (opt_LOSE_CONTACT) {
+	for (them = 1; them < MAXNOC; ++them) {
+	    if (them != np->nat_cnum && np->nat_contact[them]) {
+		--np->nat_contact[them];
+	    }
+	}
+    }
 }
 
 int
 getcontact(struct natstr *np, natid them)
 {
-	int	contact;
+    int contact;
 
-	if (opt_LOSE_CONTACT) {
-	    contact = np->nat_contact[them];
-	} else {
-	    int ind = them/16;
-	    int shift = (them % 16);
+    if (opt_LOSE_CONTACT) {
+	contact = np->nat_contact[them];
+    } else {
+	int ind = them / 16;
+	int shift = (them % 16);
 
-	    contact = (np->nat_contact[ind] >> shift) & 1;
-	}
-	return contact;
-}	
+	contact = (np->nat_contact[ind] >> shift) & 1;
+    }
+    return contact;
+}
 
 void
 putrel(struct natstr *np, natid them, int relate)
 {
-	np->nat_relate[them] = relate;
+    np->nat_relate[them] = relate;
 }
 
 void
 putreject(struct natstr *np, natid them, int how, int what)
 {
-	int	shift;
-	int	newrej;
-	int	ind;
+    int shift;
+    int newrej;
+    int ind;
 
-	/* This 07 should be changed to 017 after the current game is over */
-	what &= 0x0f;
-	ind = them / 4;
-	shift = 12 - ((them - ((them / 4) << 2)) * 4);
-	newrej = np->nat_rejects[ind];
-	if (how)
-		newrej |= (what << shift);
-	else
-		newrej &= ~(what << shift);
-	np->nat_rejects[ind] = newrej;
+    /* This 07 should be changed to 017 after the current game is over */
+    what &= 0x0f;
+    ind = them / 4;
+    shift = 12 - ((them - ((them / 4) << 2)) * 4);
+    newrej = np->nat_rejects[ind];
+    if (how)
+	newrej |= (what << shift);
+    else
+	newrej &= ~(what << shift);
+    np->nat_rejects[ind] = newrej;
 }
 
 void
@@ -155,14 +155,14 @@ putcontact(struct natstr *np, natid them, int contact)
 {
     if (opt_LOSE_CONTACT) {
 	if (np->nat_contact[them] > contact)
-		return;
+	    return;
 	np->nat_contact[them] = contact;
     } else {
-	int ind = them/16;
-	int shift = them%16;
+	int ind = them / 16;
+	int shift = them % 16;
 	int new = np->nat_contact[ind];
 	if (contact)
-		contact = 1;
+	    contact = 1;
 	new &= ~(1 << shift);
 	new |= (contact << shift);
 	np->nat_contact[ind] = new;

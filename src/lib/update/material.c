@@ -45,49 +45,51 @@
 #ifndef MIN
 #define MIN(x,y)        ((x) > (y) ? (y) : (x))
 #endif
- 
+
 void
 get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
-               /* only check if found=0, remove them=1 */
+	       /* only check if found=0, remove them=1 */
 {
-  struct sctstr *usp;
-  int  i;
-  int  used_already;
-  int  still_left;
-  int  svec[I_MAX+1];
+    struct sctstr *usp;
+    int i;
+    int used_already;
+    int still_left;
+    int svec[I_MAX + 1];
 
-  getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
-  for(i=1;i<=I_MAX;i++)  {
-    if (mvec[i]==0)
-      continue;
+    getvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
+    for (i = 1; i <= I_MAX; i++) {
+	if (mvec[i] == 0)
+	    continue;
 
-    usp = sp;
-    if (check)  {
-      still_left = gt_bg_nmbr(bp, sp, i);
-      if ((still_left - mvec[i])<0)
-	still_left = 0;
-      else 
-	still_left -= mvec[i];
+	usp = sp;
+	if (check) {
+	    still_left = gt_bg_nmbr(bp, sp, i);
+	    if ((still_left - mvec[i]) < 0)
+		still_left = 0;
+	    else
+		still_left -= mvec[i];
 
-      if (opt_GRAB_THINGS)
-	mvec[i] = supply_commod(usp->sct_own, usp->sct_x, usp->sct_y,
-                                i, mvec[i]);
-      pt_bg_nmbr(bp, sp, i, still_left);
-      svec[i] = still_left;
-      if (!player->simulation)
-	putvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
+	    if (opt_GRAB_THINGS)
+		mvec[i] =
+		    supply_commod(usp->sct_own, usp->sct_x, usp->sct_y, i,
+				  mvec[i]);
+	    pt_bg_nmbr(bp, sp, i, still_left);
+	    svec[i] = still_left;
+	    if (!player->simulation)
+		putvec(VT_ITEM, svec, (s_char *)sp, EF_SECTOR);
 
-    } else {
+	} else {
 
-      if (opt_GRAB_THINGS)  {
-	used_already = svec[i] - gt_bg_nmbr(bp, sp, i);
-	mvec[i] = try_supply_commod(usp->sct_own, usp->sct_x, usp->sct_y,
-                                    i, (mvec[i] + used_already));
-	mvec[i] -= used_already;
-      } else {   /* ! GRAB_THINGS */
-	still_left = gt_bg_nmbr(bp, sp, i);
-	mvec[i] = MIN(mvec[i], still_left);
-      }
+	    if (opt_GRAB_THINGS) {
+		used_already = svec[i] - gt_bg_nmbr(bp, sp, i);
+		mvec[i] =
+		    try_supply_commod(usp->sct_own, usp->sct_x, usp->sct_y,
+				      i, (mvec[i] + used_already));
+		mvec[i] -= used_already;
+	    } else {		/* ! GRAB_THINGS */
+		still_left = gt_bg_nmbr(bp, sp, i);
+		mvec[i] = MIN(mvec[i], still_left);
+	    }
+	}
     }
-  }
 }

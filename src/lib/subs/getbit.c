@@ -46,34 +46,35 @@
 int
 emp_getbit(int x, int y, u_char *bitmap)
 {
-	int	id;
+    int id;
 
-	id = (GCFy(y)) * WORLD_X/2 + GCFx(x)/2;
-	return bitmap[id / 8] & bit(id & 07);
+    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
+    return bitmap[id / 8] & bit(id & 07);
 }
 
 void
 emp_setbit(int x, int y, u_char *bitmap)
 {
-	register int id;
+    register int id;
 
-	id = (GCFy(y)) * WORLD_X/2 + GCFx(x)/2;
-	bitmap[id / 8] |= bit(id & 07);
+    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
+    bitmap[id / 8] |= bit(id & 07);
 }
 
 void
-emp_setbitmap(register int x, register int y, register u_char *bitmap, int *bitmaps)
+emp_setbitmap(register int x, register int y, register u_char *bitmap,
+	      int *bitmaps)
 {
-	register int *mp;
-	register int id;
-	register int dx, dy;
+    register int *mp;
+    register int id;
+    register int dx, dy;
 
-	for (mp = bitmaps; *mp != 9999; ) {
-		dx = x + *mp++;
-		dy = y + *mp++;
-		id = (GCFy(dy)) * WORLD_X/2 + GCFx(dx)/2;
-		bitmap[id / 8] |= bit(id & 07);
-	}
+    for (mp = bitmaps; *mp != 9999;) {
+	dx = x + *mp++;
+	dy = y + *mp++;
+	id = (GCFy(dy)) * WORLD_X / 2 + GCFx(dx) / 2;
+	bitmap[id / 8] |= bit(id & 07);
+    }
 }
 
 
@@ -85,19 +86,19 @@ emp_setbitmap(register int x, register int y, register u_char *bitmap, int *bitm
 void
 emp_bitinit(struct nstr_sect *np, u_char *bitmap)
 {
-	extern	int *bitmaps[];
-	struct	sctstr sect;
-	int	eff;
+    extern int *bitmaps[];
+    struct sctstr sect;
+    int eff;
 
-	while (nxtsct(np, &sect)) {
-		if (!player->owner)
-			continue;
-		eff = sect.sct_effic / 20;
-		if (eff > 4)
-			eff = 4;
-		emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
-	}
-	snxtsct_rewind(np);
+    while (nxtsct(np, &sect)) {
+	if (!player->owner)
+	    continue;
+	eff = sect.sct_effic / 20;
+	if (eff > 4)
+	    eff = 4;
+	emp_setbitmap(np->x, np->y, bitmap, bitmaps[eff]);
+    }
+    snxtsct_rewind(np);
 }
 
 /*
@@ -112,64 +113,67 @@ emp_bitinit(struct nstr_sect *np, u_char *bitmap)
  * bitmap4: 81-100%
  */
 
-#define bitoff(x, y) x, y 
+#define bitoff(x, y) x, y
 
 int bitmap0[] = {
-	bitoff(-1,-1), bitoff(1,-1),
-	bitoff(-2,0), bitoff(0,0), bitoff(2,0),
-	bitoff(-1,1), bitoff(1,1),
-	bitoff(9999,9999),
+    bitoff(-1, -1), bitoff(1, -1),
+    bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0),
+    bitoff(-1, 1), bitoff(1, 1),
+    bitoff(9999, 9999),
 };
 
 int bitmap1[] = {
-	bitoff(0,-2),
-	bitoff(-3,-1), bitoff(-1,-1), bitoff(1,-1), bitoff(3,-1),
-	bitoff(-2,0), bitoff(0,0), bitoff(2,0),
-	bitoff(-3,1), bitoff(-1,1), bitoff(1,1), bitoff(3,1),
-	bitoff(0,2),
-	bitoff(9999,9999),
+    bitoff(0, -2),
+    bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1), bitoff(3, -1),
+    bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0),
+    bitoff(-3, 1), bitoff(-1, 1), bitoff(1, 1), bitoff(3, 1),
+    bitoff(0, 2),
+    bitoff(9999, 9999),
 };
 
 int bitmap2[] = {
-	bitoff(-2,-2), bitoff(0,-2), bitoff(2,-2),
-	bitoff(-3,-1), bitoff(-1,-1), bitoff(1,-1), bitoff(3,-1),
-	bitoff(-4,0), bitoff(-2,0), bitoff(0,0), bitoff(2,0), bitoff(4,0),
-	bitoff(-3,1), bitoff(-1,1), bitoff(1,1), bitoff(3,1),
-	bitoff(-2,2), bitoff(0,2), bitoff(2,2),
-	bitoff(9999,9999),
+    bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2),
+    bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1), bitoff(3, -1),
+    bitoff(-4, 0), bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0), bitoff(4, 0),
+    bitoff(-3, 1), bitoff(-1, 1), bitoff(1, 1), bitoff(3, 1),
+    bitoff(-2, 2), bitoff(0, 2), bitoff(2, 2),
+    bitoff(9999, 9999),
 };
 
 int bitmap3[] = {
-	bitoff(-1,-3), bitoff(1,-3),
-	bitoff(-4,-2), bitoff(-2,-2), bitoff(0,-2), bitoff(2,-2), bitoff(4,-2),
-	bitoff(-5,-1), bitoff(-3,-1), bitoff(-1,-1), bitoff(1,-1),
-		bitoff(3,-1), bitoff(5,-1),
-	bitoff(-4,0), bitoff(-2,0), bitoff(0,0), bitoff(2,0), bitoff(4,0),
-	bitoff(-5,1), bitoff(-3,1), bitoff(-1,1), bitoff(1,1),
-		bitoff(3,1), bitoff(5,1),
-	bitoff(-4,2), bitoff(-2,2), bitoff(0,2), bitoff(2,2), bitoff(4,2),
-	bitoff(-1,3), bitoff(1,3),
-	bitoff(9999,9999),
+    bitoff(-1, -3), bitoff(1, -3),
+    bitoff(-4, -2), bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2), bitoff(4,
+									 -2),
+    bitoff(-5, -1), bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1),
+    bitoff(3, -1), bitoff(5, -1),
+    bitoff(-4, 0), bitoff(-2, 0), bitoff(0, 0), bitoff(2, 0), bitoff(4, 0),
+    bitoff(-5, 1), bitoff(-3, 1), bitoff(-1, 1), bitoff(1, 1),
+    bitoff(3, 1), bitoff(5, 1),
+    bitoff(-4, 2), bitoff(-2, 2), bitoff(0, 2), bitoff(2, 2), bitoff(4, 2),
+    bitoff(-1, 3), bitoff(1, 3),
+    bitoff(9999, 9999),
 };
 
 int bitmap4[] = {
-	bitoff(-3,-3), bitoff(-1,-3), bitoff(1,-3), bitoff(3,-3),
-	bitoff(-4,-2), bitoff(-2,-2), bitoff(0,-2), bitoff(2,-2), bitoff(4,-2),
-	bitoff(-5,-1), bitoff(-3,-1), bitoff(-1,-1), bitoff(1,-1),
-		bitoff(3,-1), bitoff(5,-1),
-	bitoff(-6,0), bitoff(-4,0), bitoff(-2,0), bitoff(0,0), bitoff(2,0),
-		bitoff(4,0), bitoff(6,0),
-	bitoff(-5,1), bitoff(-3,1), bitoff(-1,1), bitoff(1,1),
-		bitoff(3,1), bitoff(5,1),
-	bitoff(-4,2), bitoff(-2,2), bitoff(0,2), bitoff(2,2), bitoff(4,2),
-	bitoff(-3,3), bitoff(-1,3), bitoff(1,3), bitoff(3, 3),
-	bitoff(9999,9999),
+    bitoff(-3, -3), bitoff(-1, -3), bitoff(1, -3), bitoff(3, -3),
+    bitoff(-4, -2), bitoff(-2, -2), bitoff(0, -2), bitoff(2, -2), bitoff(4,
+									 -2),
+    bitoff(-5, -1), bitoff(-3, -1), bitoff(-1, -1), bitoff(1, -1),
+    bitoff(3, -1), bitoff(5, -1),
+    bitoff(-6, 0), bitoff(-4, 0), bitoff(-2, 0), bitoff(0, 0), bitoff(2,
+								      0),
+    bitoff(4, 0), bitoff(6, 0),
+    bitoff(-5, 1), bitoff(-3, 1), bitoff(-1, 1), bitoff(1, 1),
+    bitoff(3, 1), bitoff(5, 1),
+    bitoff(-4, 2), bitoff(-2, 2), bitoff(0, 2), bitoff(2, 2), bitoff(4, 2),
+    bitoff(-3, 3), bitoff(-1, 3), bitoff(1, 3), bitoff(3, 3),
+    bitoff(9999, 9999),
 };
 
 int *bitmaps[5] = {
-	bitmap0,
-	bitmap1,
-	bitmap2,
-	bitmap3,
-	bitmap4,
+    bitmap0,
+    bitmap1,
+    bitmap2,
+    bitmap3,
+    bitmap4,
 };

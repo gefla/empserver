@@ -41,40 +41,40 @@
 int
 offs(void)
 {
-	register int i;
-	struct	natstr *natp;
-	coord	xorg, yorg;
-	coord	dx, dy;
-	s_char	*cp;
-	struct	natstr *np;
-	s_char	buf[1024];
+    register int i;
+    struct natstr *natp;
+    coord xorg, yorg;
+    coord dx, dy;
+    s_char *cp;
+    struct natstr *np;
+    s_char buf[1024];
 
-	natp = getnatp(player->cnum);
-	xorg = natp->nat_xorg;
-	yorg = natp->nat_yorg;
-	if (!(cp = getstarg(player->argp[1], "sector or nation? ", buf)))
-		return RET_SYN;
-	if (index(cp, ',')) {	/* x, y pair for offset */
-		if (!sarg_xy(cp, &dx, &dy)) {
-			pr("Bad sector designation.\n");
-			return RET_SYN;
-		}
-		xorg = dx;
-		yorg = dy;
-	} else {
-		/* actually nation name */
-		if ((i = natarg(cp, (s_char *)0)) < 0)
-			return RET_SYN;
-		np = getnatp(i);
-		xorg = np->nat_xorg;
-		yorg = np->nat_yorg;
+    natp = getnatp(player->cnum);
+    xorg = natp->nat_xorg;
+    yorg = natp->nat_yorg;
+    if (!(cp = getstarg(player->argp[1], "sector or nation? ", buf)))
+	return RET_SYN;
+    if (index(cp, ',')) {	/* x, y pair for offset */
+	if (!sarg_xy(cp, &dx, &dy)) {
+	    pr("Bad sector designation.\n");
+	    return RET_SYN;
 	}
-	np = getnatp(player->cnum);
-	/* NOTE: it's OK to use %d,%d here, because we want abs coords */
-	pr("Old offset was %d,%d\n", np->nat_xorg, np->nat_yorg);
-	np->nat_xorg = xorg;
-	np->nat_yorg = yorg;
-	putnat(np);
-	pr("New offset was %d,%d\n", xorg, yorg);
-	return RET_OK;
+	xorg = dx;
+	yorg = dy;
+    } else {
+	/* actually nation name */
+	if ((i = natarg(cp, (s_char *)0)) < 0)
+	    return RET_SYN;
+	np = getnatp(i);
+	xorg = np->nat_xorg;
+	yorg = np->nat_yorg;
+    }
+    np = getnatp(player->cnum);
+    /* NOTE: it's OK to use %d,%d here, because we want abs coords */
+    pr("Old offset was %d,%d\n", np->nat_xorg, np->nat_yorg);
+    np->nat_xorg = xorg;
+    np->nat_yorg = yorg;
+    putnat(np);
+    pr("New offset was %d,%d\n", xorg, yorg);
+    return RET_OK;
 }

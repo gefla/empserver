@@ -53,33 +53,33 @@
 int
 lboa(void)
 {
-    struct	combat off[1];	/* boarding sector */
-    struct	combat def[1];	/* defending land unit */
-    struct	emp_qelem olist;	/* boarding units */
-    struct	emp_qelem dlist;	/* defending units */
-    int	ototal;		/* total boarding strength */
-    int	a_engineer = 0;	/* boarder engineers are present */
-    int	a_spy = 0;	/* the best boarder scout */
-    struct  sctstr  sect;
-    struct  lndstr  land;
-    s_char	*p;
-    s_char	buf[1024];
-    
+    struct combat off[1];	/* boarding sector */
+    struct combat def[1];	/* defending land unit */
+    struct emp_qelem olist;	/* boarding units */
+    struct emp_qelem dlist;	/* defending units */
+    int ototal;			/* total boarding strength */
+    int a_engineer = 0;		/* boarder engineers are present */
+    int a_spy = 0;		/* the best boarder scout */
+    struct sctstr sect;
+    struct lndstr land;
+    s_char *p;
+    s_char buf[1024];
+
     att_combat_init(def, EF_LAND);
     /*
      * Collect input from the boarder
      */
-    
+
     /* What are we boarding? */
-    
+
     if (!(p = getstarg(player->argp[1], "Victim land unit #?  ", buf)) ||
 	(def->lnd_uid = atoi(p)) < 0)
 	return RET_SYN;
-    
+
     /*
      * Ask the boarder what sector they want to board with
      */
-    
+
     /* Note: if we allow land units to board other land units, we need
      * to make sure the code will allow that */
     if (!(p = getstarg(player->argp[2], "Boarding party from? ", buf)))
@@ -90,8 +90,7 @@ lboa(void)
 	    return RET_SYN;
 	getsect(off->x, off->y, &sect);
 	if (sect.sct_own != player->cnum) {
-	    pr("You don't own %s!\n",
-	       xyas(off->x, off->y, player->cnum));
+	    pr("You don't own %s!\n", xyas(off->x, off->y, player->cnum));
 	    return RET_SYN;
 	}
 	if (sect.sct_mobil <= 0) {
@@ -107,51 +106,50 @@ lboa(void)
 	pr("Land unit boarding aborted\n");
 	return RET_OK;
     }
-    
+
     /* Show what we're boarding */
-    
+
     if (att_show(def))
 	return RET_FAIL;
-    
+
     /* Ask the player what he wants to board with */
-    
+
     att_ask_offense(A_LBOARD, off, def, &olist, &a_spy, &a_engineer);
     if (att_abort(A_LBOARD, off, def)) {
 	pr("Land unit boarding aborted\n");
 	att_empty_attack(A_LBOARD, 0, def);
 	return att_free_lists(&olist, 0);
     }
-    
+
     /*
      * Estimate the defense strength and give the player a chance to abort
      */
-    
+
     ototal = att_estimate_defense(A_LBOARD, off, &olist, def, a_spy);
     if (att_abort(A_LBOARD, off, def)) {
 	pr("Land unit boarding aborted\n");
 	att_empty_attack(A_LBOARD, 0, def);
 	return att_free_lists(&olist, 0);
     }
-    
+
     /*
      * We have now got all the answers from the boarder.  From this point
      * forward, we can assume that this battle is the _only_ thing
      * happening in the game.
      */
-    
+
     /* Get the real defense */
-    
+
     att_get_defense(&olist, def, &dlist, a_spy, ototal);
-    
+
     /*
      * Death, carnage, and destruction.
      */
-    
-    if (!(att_fight(A_LBOARD,off,&olist,1.0,def,&dlist,1.0))) {
+
+    if (!(att_fight(A_LBOARD, off, &olist, 1.0, def, &dlist, 1.0))) {
 	getland(def->lnd_uid, &land);
 	/* Now what? Don't bother retreating? No flag for it (yet) */
     }
-    
+
     return RET_OK;
 }
-

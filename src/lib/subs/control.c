@@ -53,20 +53,20 @@
 int
 military_control(struct sctstr *sp)
 {
-	int     tot_mil=0;
-	struct  nstr_item ni;
-	struct  lndstr land;
+    int tot_mil = 0;
+    struct nstr_item ni;
+    struct lndstr land;
 
-	if (sp->sct_oldown != sp->sct_own){
-		snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-		while (nxtitem(&ni, (s_char *)&land)){
-			if (land.lnd_own == sp->sct_own)
-				tot_mil += total_mil(&land);
-		}
-		if ((getvar(V_MILIT, (s_char *)sp, EF_SECTOR)+tot_mil) * 10
-			< getvar(V_CIVIL, (s_char *)sp, EF_SECTOR))
-			return 0;
+    if (sp->sct_oldown != sp->sct_own) {
+	snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+	while (nxtitem(&ni, (s_char *)&land)) {
+	    if (land.lnd_own == sp->sct_own)
+		tot_mil += total_mil(&land);
 	}
+	if ((getvar(V_MILIT, (s_char *)sp, EF_SECTOR) + tot_mil) * 10
+	    < getvar(V_CIVIL, (s_char *)sp, EF_SECTOR))
+	    return 0;
+    }
 
-	return 1;
+    return 1;
 }

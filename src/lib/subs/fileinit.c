@@ -43,52 +43,52 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-extern	struct castr sect_ca[];
-extern	struct castr news_ca[];
-extern	struct castr loan_ca[];
-extern	struct castr ship_ca[];
-extern	struct castr plane_ca[];
-extern	struct castr treaty_ca[];
-extern	struct castr nuke_ca[];
-extern	struct castr trade_ca[];
-extern  struct castr commodity_ca[];
-extern  struct castr lost_ca[];
+extern struct castr sect_ca[];
+extern struct castr news_ca[];
+extern struct castr loan_ca[];
+extern struct castr ship_ca[];
+extern struct castr plane_ca[];
+extern struct castr treaty_ca[];
+extern struct castr nuke_ca[];
+extern struct castr trade_ca[];
+extern struct castr commodity_ca[];
+extern struct castr lost_ca[];
 
 struct fileinit fileinit[EF_MAX] = {
-	{ (ef_fileinit) sct_init,	sct_postread,	sct_prewrite,	sect_ca },
-	{ shp_init,	shp_postread,	shp_prewrite,	ship_ca },
-	{ pln_init,	pln_postread,	pln_prewrite,	plane_ca },
-	{ lnd_init,	lnd_postread,   lnd_prewrite,   land_ca },
-	{ nuk_init,	nuk_postread,	nuk_prewrite,	nuke_ca },
-	{ 0,		0,		0,		news_ca },
-	{ 0,		0,		0,		treaty_ca },
-	{ 0,		0,		0,		trade_ca },
-	{ 0,		0,		0,		0 }, /* power */
-	{ 0,		0,		0,		0 }, /* nation */
-	{ 0,		0,		0,		loan_ca },
-	{ 0,		0,		0,		0 }, /* map */
-	{ 0,		0,		0,		0 }, /* map */
-	{ 0,            0,              0,              commodity_ca },
-	{ 0,            0,              0,              lost_ca }
+    {(ef_fileinit)sct_init, sct_postread, sct_prewrite, sect_ca},
+    {shp_init, shp_postread, shp_prewrite, ship_ca},
+    {pln_init, pln_postread, pln_prewrite, plane_ca},
+    {lnd_init, lnd_postread, lnd_prewrite, land_ca},
+    {nuk_init, nuk_postread, nuk_prewrite, nuke_ca},
+    {0, 0, 0, news_ca},
+    {0, 0, 0, treaty_ca},
+    {0, 0, 0, trade_ca},
+    {0, 0, 0, 0},		/* power */
+    {0, 0, 0, 0},		/* nation */
+    {0, 0, 0, loan_ca},
+    {0, 0, 0, 0},		/* map */
+    {0, 0, 0, 0},		/* map */
+    {0, 0, 0, commodity_ca},
+    {0, 0, 0, lost_ca}
 };
 
 void
 ef_init(void)
 {
-	int	i;
-	struct	empfile *ef;
-	struct	fileinit *fi;
+    int i;
+    struct empfile *ef;
+    struct fileinit *fi;
 
-	ef = empfile;
-	fi = fileinit;
-	for (i=0; i<EF_MAX; i++, ef++, fi++) {
-		ef->init = fi->init;
-		ef->postread = fi->postread;
-		ef->prewrite = fi->prewrite;
-		ef->cadef = fi->cadef;
-		/* We have to set the size for the map and bmap files at
-		   runtime. */
-		if (i == EF_MAP || i == EF_BMAP)
-		  ef->size = (WORLD_X * WORLD_Y) / 2;
-	}
+    ef = empfile;
+    fi = fileinit;
+    for (i = 0; i < EF_MAX; i++, ef++, fi++) {
+	ef->init = fi->init;
+	ef->postread = fi->postread;
+	ef->prewrite = fi->prewrite;
+	ef->cadef = fi->cadef;
+	/* We have to set the size for the map and bmap files at
+	   runtime. */
+	if (i == EF_MAP || i == EF_BMAP)
+	    ef->size = (WORLD_X * WORLD_Y) / 2;
+    }
 }

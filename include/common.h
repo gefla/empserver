@@ -34,16 +34,16 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include <stdio.h>     /* FILE */
-#include <sys/types.h> /* caddr_t */
-#include "misc.h" /* s_char coord natid */
-#include "sect.h" /* struct sctstr */
-#include "ship.h" /* struct shpstr */
-#include "land.h" /* struct lndstr */
-#include "plane.h" /* struct plnstr */
-#include "nuke.h" /* struct nchrstr */
-#include "nsc.h"  /* struct castr struct nstr_sect struct nstr_item */
-#include "xy.h"   /* struct range */
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include <stdio.h>		/* FILE */
+#include <sys/types.h>		/* caddr_t */
+#include "misc.h"		/* s_char coord natid */
+#include "sect.h"		/* struct sctstr */
+#include "ship.h"		/* struct shpstr */
+#include "land.h"		/* struct lndstr */
+#include "plane.h"		/* struct plnstr */
+#include "nuke.h"		/* struct nchrstr */
+#include "nsc.h"		/* struct castr struct nstr_sect struct nstr_item */
+#include "xy.h"			/* struct range */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _COMMON_H_ */

@@ -33,40 +33,41 @@
 
 #include "misc.h"
 
-s_char    *effadv_list[]   = {
-	"minimally",	"partially",	"moderately",	"completely", 0,
+s_char *effadv_list[] = {
+    "minimally", "partially", "moderately", "completely", 0,
 };
 
 /* must follow nation relation defines in nat.h */
-s_char	*relates[] = {
-        "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly", "Allied"
+s_char *relates[] = {
+    "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly",
+	"Allied"
 };
 
 /* must follow reject flags defined in nat.h */
-s_char	*rejects[] = {
-	"  YES  YES  YES  YES",
-	"  NO   YES  YES  YES",
-	"  YES  NO   YES  YES",
-	"  NO   NO   YES  YES",
-	"  YES  YES  NO   YES",
-	"  NO   YES  NO   YES",
-	"  YES  NO   NO   YES",
-	"  NO   NO   NO   YES",
-	"  YES  YES  YES  NO ",
-	"  NO   YES  YES  NO ",
-	"  YES  NO   YES  NO ",
-	"  NO   NO   YES  NO ",
-	"  YES  YES  NO   NO ",
-	"  NO   YES  NO   NO ",
-	"  YES  NO   NO   NO ",
-	"  NO   NO   NO   NO "
+s_char *rejects[] = {
+    "  YES  YES  YES  YES",
+    "  NO   YES  YES  YES",
+    "  YES  NO   YES  YES",
+    "  NO   NO   YES  YES",
+    "  YES  YES  NO   YES",
+    "  NO   YES  NO   YES",
+    "  YES  NO   NO   YES",
+    "  NO   NO   NO   YES",
+    "  YES  YES  YES  NO ",
+    "  NO   YES  YES  NO ",
+    "  YES  NO   YES  NO ",
+    "  NO   NO   YES  NO ",
+    "  YES  YES  NO   NO ",
+    "  NO   YES  NO   NO ",
+    "  YES  NO   NO   NO ",
+    "  NO   NO   NO   NO "
 };
 
 /* must follow TEL_ defines in tel.h */
-s_char	*telnames[] = {
-	"Telegram", "Announcement", "BULLETIN", "Production Report"
+s_char *telnames[] = {
+    "Telegram", "Announcement", "BULLETIN", "Production Report"
 };
 
-s_char  *att_mode[] = {
-	"defend", "attack", "assault", "paradrop", "board", "lboard"
+s_char *att_mode[] = {
+    "defend", "attack", "assault", "paradrop", "board", "lboard"
 };

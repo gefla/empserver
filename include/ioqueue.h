@@ -38,17 +38,17 @@
 #define MAXIOV		16
 
 struct io {
-	struct emp_qelem queue;
-	int size;
-	int nbytes;
-	int offset;
-	s_char *data;
+    struct emp_qelem queue;
+    int size;
+    int nbytes;
+    int offset;
+    s_char *data;
 };
 
 struct ioqueue {
-	struct io list;
-	int bufsize;
-	int cc;
+    struct io list;
+    int bufsize;
+    int cc;
 };
 
 extern struct ioqueue *ioq_create(int size);

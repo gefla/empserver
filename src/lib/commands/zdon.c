@@ -62,84 +62,83 @@
 int
 zdon(void)
 {
-	extern	empth_sem_t *update_sem;
-	natid	whichcnum;
-	struct	natstr *natp;
-	register s_char *p;
+    extern empth_sem_t *update_sem;
+    natid whichcnum;
+    struct natstr *natp;
+    register s_char *p;
 
-	int	update;
-	int	checking;
-	int	wantupd;
-	int	totpop;
-	int	totwant;
-	int	dowant;
-	s_char	buf[1024];
+    int update;
+    int checking;
+    int wantupd;
+    int totpop;
+    int totwant;
+    int dowant;
+    s_char buf[1024];
 
-	if (!opt_DEMANDUPDATE) {
-	    pr("Demand updates are not enabled.\n");
+    if (!opt_DEMANDUPDATE) {
+	pr("Demand updates are not enabled.\n");
+	return RET_FAIL;
+    }
+    whichcnum = player->cnum;
+    p = NULL;
+    if (player->god) {
+	/* Deity syntax "country what" */
+	whichcnum = onearg(player->argp[1], "Which country no.? ");
+	if ((whichcnum > 0) && (getnatp(whichcnum)))
+	    p = getstarg(player->argp[2], "Want update? [Yes|No|Check] ",
+			 buf);
+    } else {
+	p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
+    }
+    if (player->aborted)
+	return RET_FAIL;
+
+    if (!p) {
+	/* Default response is checking only */
+	checking = 1;
+    } else {
+	checking = 0;
+	if (*p == 'n' || *p == 'N') {
+	    wantupd = 0;
+	} else if (*p == 'y' || *p == 'Y') {
+	    wantupd = 1;
+	} else {
+	    /* Default response is checking only */
+	    checking = 1;
+	}
+    }
+
+    if (!checking) {
+	if (!(natp = getnatp(whichcnum))) {
+	    pr("Unable to find country. %d\n", whichcnum);
+	    pr("Notify the Deity.\n");
 	    return RET_FAIL;
 	}
-	whichcnum = player->cnum;
-	p = NULL;
-	if (player->god) {
-		/* Deity syntax "country what" */
-		whichcnum = onearg(player->argp[1], "Which country no.? ");
-		if ((whichcnum > 0)  && (getnatp(whichcnum)))
-			p = getstarg(player->argp[2], "Want update? [Yes|No|Check] ", buf);
+	if (wantupd) {
+	    update = natp->nat_update | WUPD_WANT;
+	    natp->nat_missed = 0;
+	    pr("You (%d) now want an update.\n", whichcnum);
 	} else {
-		p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
+	    update = natp->nat_update & ~WUPD_WANT;
+	    pr("You (%d) now DON'T want an update.\n", whichcnum);
 	}
-	if (player->aborted)
-		return RET_FAIL;
+	natp->nat_update = update;
+	putnat(natp);
+    }
 
-	if (!p) {
-		/* Default response is checking only */
-		checking = 1;
-	} else {
-		checking = 0;
-		if (*p == 'n' || *p == 'N') {
-			wantupd = 0;
-		} else if (*p == 'y' || *p == 'Y') {
-			wantupd = 1;
-		} else {
-			/* Default response is checking only */
-			checking = 1;
-		}
-	}
+    dowant = demand_update_want(&totwant, &totpop, whichcnum);
+    if (checking) {
+	if (dowant) {
+	    pr("You want an update.\n");
+	} else
+	    pr("You DON'T want an update, yet.\n");
+    }
 
-	if (!checking) {
-		if (!(natp = getnatp(whichcnum))) {
-			pr("Unable to find country. %d\n", whichcnum);
-			pr("Notify the Deity.\n");
-			return RET_FAIL;
-		}
-		if (wantupd) {
-			update = natp->nat_update | WUPD_WANT;
-			natp->nat_missed = 0;
-			pr("You (%d) now want an update.\n",
-				whichcnum);
-		} else {
-			update = natp->nat_update & ~WUPD_WANT;
-			pr("You (%d) now DON'T want an update.\n",
-				whichcnum);
-		}
-		natp->nat_update = update;
-		putnat(natp);
-	}
+    pr("%d of a total of %d lunatics want an update.\n", totwant, totpop);
 
-	dowant = demand_update_want(&totwant, &totpop, whichcnum);
-	if (checking) {
-		if (dowant) {
-			pr("You want an update.\n");
-		} else
-			pr("You DON'T want an update, yet.\n");
-	}
-
-	pr("%d of a total of %d lunatics want an update.\n", totwant, totpop);
-
-	if (!checking && wantupd && demandupdatecheck()) {
-		pr("Here goes...\n");
-		empth_sem_signal(update_sem);
-	}
-	return RET_OK;
+    if (!checking && wantupd && demandupdatecheck()) {
+	pr("Here goes...\n");
+	empth_sem_signal(update_sem);
+    }
+    return RET_OK;
 }

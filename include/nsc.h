@@ -40,42 +40,42 @@
 #define NS_LSIZE	128
 #define NS_NCOND	16
 
-struct	nscstr	{
-	long	fld1;			/* first commodity or number */
-	long	fld2;			/* second commodity or number */
-	int	oper;			/* required relationship operator */
+struct nscstr {
+    long fld1;			/* first commodity or number */
+    long fld2;			/* second commodity or number */
+    int oper;			/* required relationship operator */
 };
 
 struct nstr_sect {
-	coord	x, y;			/* current x-y */
-	coord	dx, dy;			/* accumlated x,y travel */
-	int	id;			/* return value of sctoff */
-	int	type;			/* type of query */
-	int	curdist;		/* dist query: current range */
-	struct	range range;		/* area of coverage */
-	int	dist;			/* dist query: range */
-	coord	cx, cy;			/* dist query: center x-y */
-	int	(*read)();		/* read function */
-	int	ncond;			/* # of selection conditions */
-	struct	nscstr cond[NS_NCOND];	/* selection conditions */
+    coord x, y;			/* current x-y */
+    coord dx, dy;		/* accumlated x,y travel */
+    int id;			/* return value of sctoff */
+    int type;			/* type of query */
+    int curdist;		/* dist query: current range */
+    struct range range;		/* area of coverage */
+    int dist;			/* dist query: range */
+    coord cx, cy;		/* dist query: center x-y */
+    int (*read) ();		/* read function */
+    int ncond;			/* # of selection conditions */
+    struct nscstr cond[NS_NCOND];	/* selection conditions */
 };
 
 struct nstr_item {
-	int	cur;			/* current item */
-	int	sel;			/* selection type */
-	int	type;			/* item type being selected */
-	int	curdist;		/* if NS_DIST, current item's dist */
-	struct	range range;		/* NS_AREA/NS_DIST: range selector */
-	int	dist;			/* NS_DIST: distance selector */
-	coord	cx, cy;			/* NS_DIST: center x-y, NS_XY: xy */
-	int	group;			/* NS_GROUP: fleet/wing match */
-	int	size;			/* NS_LIST: size of list */
-	int	index;			/* NS_LIST: index */
-	int	list[NS_LSIZE]; 	/* NS_LIST: item list */
-	int	(*read)();		/* read function */
-	int	flags;			/* EFF_ flags */
-	int	ncond;			/* # of selection conditions */
-	struct	nscstr cond[NS_NCOND];	/* selection conditions */
+    int cur;			/* current item */
+    int sel;			/* selection type */
+    int type;			/* item type being selected */
+    int curdist;		/* if NS_DIST, current item's dist */
+    struct range range;		/* NS_AREA/NS_DIST: range selector */
+    int dist;			/* NS_DIST: distance selector */
+    coord cx, cy;		/* NS_DIST: center x-y, NS_XY: xy */
+    int group;			/* NS_GROUP: fleet/wing match */
+    int size;			/* NS_LIST: size of list */
+    int index;			/* NS_LIST: index */
+    int list[NS_LSIZE];		/* NS_LIST: item list */
+    int (*read) ();		/* read function */
+    int flags;			/* EFF_ flags */
+    int ncond;			/* # of selection conditions */
+    struct nscstr cond[NS_NCOND];	/* selection conditions */
 };
 
 #define NS_UNDEF	0
@@ -105,7 +105,7 @@ struct nstr_item {
  */
 #define NSC_VAL		(0)	/* normal number */
 #define	NSC_VAR		(1<<16)	/* is a vtype */
-#define NSC_OFF		(2<<16) /* is an offset */
+#define NSC_OFF		(2<<16)	/* is an offset */
 #define	NSC_CMASK	(3<<16)
 
 /*
@@ -117,11 +117,11 @@ struct nstr_item {
 #define NSC_USHORT	(4<<18)	/* pointer to unsigned short */
 #define NSC_INT		(5<<18)	/* pointer to int */
 #define	NSC_LONG	(6<<18)	/* pointer to long */
-#define NSC_XCOORD	(7<<18) /* pointer to short that needs x conversion */
-#define NSC_YCOORD	(8<<18) /* pointer to short that needs y conversion */
-#define NSC_FLOAT	(9<<18) /* pointer to float */
-#define NSC_CHARP	(10<<18) /* pointer to string pointer */
-#define NSC_TIME        (11<<18) /* pointer to time_t */
+#define NSC_XCOORD	(7<<18)	/* pointer to short that needs x conversion */
+#define NSC_YCOORD	(8<<18)	/* pointer to short that needs y conversion */
+#define NSC_FLOAT	(9<<18)	/* pointer to float */
+#define NSC_CHARP	(10<<18)	/* pointer to string pointer */
+#define NSC_TIME        (11<<18)	/* pointer to time_t */
 #define NSC_TMASK	(15<<18)
 
 #define NSC_NATID	NSC_UCHAR	/* change if natid typedef changes */
@@ -131,37 +131,37 @@ struct nstr_item {
 #define NSC_ROUND	(1<<22)
 #define NSC_DEITY	(1<<23)
 
-struct	castr	{
-	long	ca_code;	/* encoded form */
-	s_char	*ca_name;	/* name used for matches */
-	u_short	ca_len;		/* Used for arrays */
-	long	ca_edv;		/* which commands is this field visible to? */
+struct castr {
+    long ca_code;		/* encoded form */
+    s_char *ca_name;		/* name used for matches */
+    u_short ca_len;		/* Used for arrays */
+    long ca_edv;		/* which commands is this field visible to? */
 };
 
 /* variables using the above */
 
-extern  struct castr var_ca[];
-extern  struct castr sect_ca[];
-extern  struct castr ship_ca[];
-extern  struct castr plane_ca[];
-extern  struct castr land_ca[];
-extern  struct castr nuke_ca[];
-extern  struct castr news_ca[];
-extern	struct castr nat_ca[];
-extern  struct castr treaty_ca[];
-extern  struct castr trade_ca[];
-extern  struct castr loan_ca[];
-extern  struct castr genitem_ca[];
-extern  struct castr map_ca[];
-extern  struct castr bmp_ca[];
-extern  struct castr ca[];
-extern  struct castr commodity_ca[];
+extern struct castr var_ca[];
+extern struct castr sect_ca[];
+extern struct castr ship_ca[];
+extern struct castr plane_ca[];
+extern struct castr land_ca[];
+extern struct castr nuke_ca[];
+extern struct castr news_ca[];
+extern struct castr nat_ca[];
+extern struct castr treaty_ca[];
+extern struct castr trade_ca[];
+extern struct castr loan_ca[];
+extern struct castr genitem_ca[];
+extern struct castr map_ca[];
+extern struct castr bmp_ca[];
+extern struct castr ca[];
+extern struct castr commodity_ca[];
 
 /* src/lib/subs/nstr.c */
-extern s_char * nstr_comp(struct nscstr *  , int *  , int  , s_char * );
-extern int encode(register s_char *  , long *  , int );
+extern s_char *nstr_comp(struct nscstr *, int *, int, s_char *);
+extern int encode(register s_char *, long *, int);
 
 
-extern        s_char *decodep _PROTO((register long code, register void *addr));
+extern s_char *decodep _PROTO((register long code, register void *addr));
 
 #endif /* _NSC_H_ */

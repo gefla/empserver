@@ -44,53 +44,54 @@
 #include "gen.h"
 
 int
-parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space, s_char **redir)
+parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
+      s_char **redir)
 {
-	register s_char *bp2;
-	register s_char *bp1 = space;
-	register s_char **arg = argpp;
-	int	fs;
-	int     quoted;
-	int	argnum;
+    register s_char *bp2;
+    register s_char *bp1 = space;
+    register s_char **arg = argpp;
+    int fs;
+    int quoted;
+    int argnum;
 
-	if (space == 0)
-		return -1;
-	if (redir)
-		*redir = 0;
-	if (condp != 0)
-		*condp = 0;
-	for (argnum=0; *buf && argnum < 100; ) {
-		arg[argnum] = bp1;
-		argnum++;
-		while (isspace(*buf))
-			buf++;
-		if (redir && (*buf == '>' || *buf == '|')) {
-			*redir = buf;
-			argnum--;
-			arg[argnum] = 0;
-			break;
-		}
-		quoted = 0;
-		for (bp2 = bp1; *buf; ) {
-		    if (!quoted && isspace(*buf)) {
-				buf++;
-				break;
-			}
-			if (*buf == '"'){
-			        quoted = !quoted;
-				buf++;
-			} else {
-			        *bp1++ = *buf++;
-			}
-		}
-		*bp1++ = 0;
-		if (*bp2 == '?' && condp != 0) {
-			*condp = bp2 + 1;
-			argnum--;
-		}
+    if (space == 0)
+	return -1;
+    if (redir)
+	*redir = 0;
+    if (condp != 0)
+	*condp = 0;
+    for (argnum = 0; *buf && argnum < 100;) {
+	arg[argnum] = bp1;
+	argnum++;
+	while (isspace(*buf))
+	    buf++;
+	if (redir && (*buf == '>' || *buf == '|')) {
+	    *redir = buf;
+	    argnum--;
+	    arg[argnum] = 0;
+	    break;
 	}
-	arg[argnum] = 0;
-	for (fs = argnum + 1; fs < 16; fs++)
-		arg[fs] = 0;
-	return argnum;
+	quoted = 0;
+	for (bp2 = bp1; *buf;) {
+	    if (!quoted && isspace(*buf)) {
+		buf++;
+		break;
+	    }
+	    if (*buf == '"') {
+		quoted = !quoted;
+		buf++;
+	    } else {
+		*bp1++ = *buf++;
+	    }
+	}
+	*bp1++ = 0;
+	if (*bp2 == '?' && condp != 0) {
+	    *condp = bp2 + 1;
+	    argnum--;
+	}
+    }
+    arg[argnum] = 0;
+    for (fs = argnum + 1; fs < 16; fs++)
+	arg[fs] = 0;
+    return argnum;
 }

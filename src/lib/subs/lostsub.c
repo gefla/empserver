@@ -87,12 +87,12 @@ makenotlost(char type, natid owner, short int id, coord x, coord y)
 
 int
 findlost(char type, natid owner, short int id, coord x, coord y, int free)
-          
-            
-         
-        
-        
-          /* Give me the item of a free slot */
+
+
+
+
+
+	  /* Give me the item of a free slot */
 {
     struct loststr lost;
     int n;

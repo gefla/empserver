@@ -22,10 +22,10 @@
 #include "as.h"
 
 #if !defined(lint) && !defined(SABER)
-static	char	sccsid[] = "@(#)as_delete.c	1.5	11/13/90";
+static char sccsid[] = "@(#)as_delete.c	1.5	11/13/90";
 #endif /* not lint */
 
-static	void	as_free_queue(struct as_queue *queue);
+static void as_free_queue(struct as_queue *queue);
 
 /*
  * Free any dynamically allocated data stored in the as_data structure.
@@ -34,15 +34,15 @@ void
 as_reset(struct as_data *adp)
 {
 
-	as_free_queue(adp->head);
-	adp->head = NULL;
-	as_free_queue(adp->tried);
-	adp->tried = NULL;
-	as_free_queue(adp->subsumed);
-	adp->subsumed = NULL;
-	as_free_hashtab(adp);
-	as_free_path(adp->path);
-	adp->path = NULL;
+    as_free_queue(adp->head);
+    adp->head = NULL;
+    as_free_queue(adp->tried);
+    adp->tried = NULL;
+    as_free_queue(adp->subsumed);
+    adp->subsumed = NULL;
+    as_free_hashtab(adp);
+    as_free_path(adp->path);
+    adp->path = NULL;
 }
 
 /*
@@ -51,13 +51,13 @@ as_reset(struct as_data *adp)
 static void
 as_free_queue(struct as_queue *queue)
 {
-	struct as_queue	*qp, *qp2;
+    struct as_queue *qp, *qp2;
 
-	for (qp = queue; qp; qp = qp2) {
-		free((s_char *)qp->np);
-		qp2 = qp->next;
-		free((s_char *)qp);
-	}
+    for (qp = queue; qp; qp = qp2) {
+	free((s_char *)qp->np);
+	qp2 = qp->next;
+	free((s_char *)qp);
+    }
 }
 
 /*
@@ -66,12 +66,12 @@ as_free_queue(struct as_queue *queue)
 void
 as_free_path(struct as_path *pp)
 {
-	struct as_path	*pp2;
+    struct as_path *pp2;
 
-	for (; pp; pp = pp2) {
-		pp2 = pp->next;
-		free((s_char *)pp);
-	}
+    for (; pp; pp = pp2) {
+	pp2 = pp->next;
+	free((s_char *)pp);
+    }
 }
 
 /*
@@ -80,9 +80,9 @@ as_free_path(struct as_path *pp)
 void
 as_delete(struct as_data *adp)
 {
-	as_reset(adp);
-	free((s_char *)adp->neighbor_coords);
-	free((s_char *)adp->neighbor_nodes);
-	free((s_char *)adp->hashtab);
-	free((s_char *)adp);
+    as_reset(adp);
+    free((s_char *)adp->neighbor_coords);
+    free((s_char *)adp->neighbor_nodes);
+    free((s_char *)adp->hashtab);
+    free((s_char *)adp);
 }

@@ -40,59 +40,59 @@
 
 void
 border(struct range *rp, s_char *prefstr, s_char *sep)
-	      	          
-	      	         	/* prefixes each line */
-	      	     		/* separates the numbers */
+
+				/* prefixes each line */
+				/* separates the numbers */
 {
-	register int posi;
-	register int n;
-	register int x;
-	
-	if ((WORLD_X / 2) >= 100) {
-	    if (rp->lx + rp->width > 99 || rp->hx - rp->width < -99) {
-			/*
-			 * hundreds
-			 */
-			pr(prefstr);
-			for (x=rp->lx, n=0; n < rp->width; n++, x++) {
-				if (x >= WORLD_X/2)
-					x -= WORLD_X;
-				pr(sep);
-				if (x < 0 && x > -100) {
-					pr("-");
-				} else {
-					posi = (x < 0 ? -x : x) / 100;
-					pr("%d", posi % 10);
-				}
-			}
-			pr("\n");
-	    }
-	}
-	/*
-	 * tens
-	 */
-	pr(prefstr);
-	for (x=rp->lx, n=0; n < rp->width; n++, x++) {
-		if (x >= WORLD_X/2)
-			x -= WORLD_X;
+    register int posi;
+    register int n;
+    register int x;
+
+    if ((WORLD_X / 2) >= 100) {
+	if (rp->lx + rp->width > 99 || rp->hx - rp->width < -99) {
+	    /*
+	     * hundreds
+	     */
+	    pr(prefstr);
+	    for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
+		if (x >= WORLD_X / 2)
+		    x -= WORLD_X;
 		pr(sep);
-		if (x < 0 && x > -10) {
-			pr("-");
+		if (x < 0 && x > -100) {
+		    pr("-");
 		} else {
-			posi = (x < 0 ? -x : x) / 10;
-			pr("%d", posi % 10);
+		    posi = (x < 0 ? -x : x) / 100;
+		    pr("%d", posi % 10);
 		}
+	    }
+	    pr("\n");
 	}
-	pr("\n");
-	/*
-	 * units...
-	 */
-	pr(prefstr);
-	for (x=rp->lx, n=0; n < rp->width; n++, x++) {
-		if (x >= WORLD_X/2)
-			x -= WORLD_X;
-		posi = (x < 0 ? -x : x);
-		pr("%s%d", sep, posi % 10);
+    }
+    /*
+     * tens
+     */
+    pr(prefstr);
+    for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
+	if (x >= WORLD_X / 2)
+	    x -= WORLD_X;
+	pr(sep);
+	if (x < 0 && x > -10) {
+	    pr("-");
+	} else {
+	    posi = (x < 0 ? -x : x) / 10;
+	    pr("%d", posi % 10);
 	}
-	pr("\n");
+    }
+    pr("\n");
+    /*
+     * units...
+     */
+    pr(prefstr);
+    for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
+	if (x >= WORLD_X / 2)
+	    x -= WORLD_X;
+	posi = (x < 0 ? -x : x);
+	pr("%s%d", sep, posi % 10);
+    }
+    pr("\n");
 }

@@ -46,37 +46,37 @@
 #include "prototype.h"
 
 struct trdstr {
-        short   ef_type;
-	natid	trd_owner;
-	short	trd_uid;
-	char	trd_type;
-	short	trd_unitid;
-	long	trd_price;
-	int	trd_maxbidder;
-	int	trd_maxprice;
-	time_t  trd_markettime;
-	coord	trd_x;
-	coord	trd_y;
+    short ef_type;
+    natid trd_owner;
+    short trd_uid;
+    char trd_type;
+    short trd_unitid;
+    long trd_price;
+    int trd_maxbidder;
+    int trd_maxprice;
+    time_t trd_markettime;
+    coord trd_x;
+    coord trd_y;
 };
 
 struct genstr {
-        short   trg_ef_type;
-	natid   trg_own;
-	short   trg_uid;
-	coord	trg_x;
-	coord	trg_y;
-	s_char  trg_type;
+    short trg_ef_type;
+    natid trg_own;
+    short trg_uid;
+    coord trg_x;
+    coord trg_y;
+    s_char trg_type;
 };
 
 union trdgenstr {
-        struct  genstr gen;
-        struct  nukstr nuk;
-        struct  plnstr pln;
-        struct  lndstr lnd;
-        struct  shpstr shp;
+    struct genstr gen;
+    struct nukstr nuk;
+    struct plnstr pln;
+    struct lndstr lnd;
+    struct shpstr shp;
 };
- 
-s_char	*trade_nameof _PROTO((struct trdstr *tp, union trdgenstr *tgp));
+
+s_char *trade_nameof _PROTO((struct trdstr * tp, union trdgenstr * tgp));
 
 #define gettrade(n, p) \
 	ef_read(EF_TRADE, n, (caddr_t)p)

@@ -52,108 +52,107 @@
 int
 nstr_exec(struct nscstr *conds, register int ncond, void *ptr, int type)
 {
-	register struct nscstr *nsc;
-	register int op;
-	register int lhs;
-	register int rhs;
-	register int oper;
+    register struct nscstr *nsc;
+    register int op;
+    register int lhs;
+    register int rhs;
+    register int oper;
 
-	for (nsc=conds; --ncond >= 0; nsc++) {
-	        oper = nsc->oper;
-		if (oper > 65535) {
-		    oper = oper - 65535;
-		    rhs = nsc->fld2;
-		} else
-		    rhs = decode(player->cnum, nsc->fld2, ptr, type);
+    for (nsc = conds; --ncond >= 0; nsc++) {
+	oper = nsc->oper;
+	if (oper > 65535) {
+	    oper = oper - 65535;
+	    rhs = nsc->fld2;
+	} else
+	    rhs = decode(player->cnum, nsc->fld2, ptr, type);
 
-		if (oper > 255) {
-		    oper = oper - 255;
-		    lhs = nsc->fld1;
-		} else
-		    lhs = decode(player->cnum, nsc->fld1, ptr, type);
+	if (oper > 255) {
+	    oper = oper - 255;
+	    lhs = nsc->fld1;
+	} else
+	    lhs = decode(player->cnum, nsc->fld1, ptr, type);
 
-		op = oper;
-		if ((op == '<' && lhs >= rhs) ||
-		    (op == '=' && lhs != rhs) ||
-		    (op == '>' && lhs <= rhs) ||
-		    (op == '#' && lhs == rhs))
-			return 0;
-	}
-	return 1;
+	op = oper;
+	if ((op == '<' && lhs >= rhs) ||
+	    (op == '=' && lhs != rhs) ||
+	    (op == '>' && lhs <= rhs) || (op == '#' && lhs == rhs))
+	    return 0;
+    }
+    return 1;
 }
 
 int
 decode(natid cnum, long int code, void *addr, int type)
 {
-	register int val;
-	register int nsc_code;
-	struct natstr *np;
-	long code_type = (code & NSC_TMASK);
+    register int val;
+    register int nsc_code;
+    struct natstr *np;
+    long code_type = (code & NSC_TMASK);
 
-	val = (code & ~NSC_MASK) & 0xffff;
+    val = (code & ~NSC_MASK) & 0xffff;
 
-	/* handle negative numbers properly */
-	/* this assumes a binary two's complement number representation */
-	if (val>=0x8000) val -= 0x10000;
-	
-	nsc_code = code & NSC_CMASK;
-	if (nsc_code == NSC_VAR) {
-		val = getvar(val, addr, type);
-	} else if (nsc_code == NSC_OFF) {
-		/*
-		 * add offset to value
-		 */
-		addr = (s_char *)addr + val;
-		switch (code_type) {
-		case NSC_TIME:
-		        val = *((time_t *)addr);
-			break;
-		case NSC_CHAR:
-			val = *((s_char *) addr);
-			break;
-		case NSC_UCHAR:
-			val = (int) *((unsigned char *) addr);
-			break;
-		case NSC_SHORT:
-			val = *((short *) addr);
-			break;
-		case NSC_USHORT:
-			val = *((u_short *) addr);
-			break;
-		case NSC_INT:
-			val = *((int *) addr);
-			break;
-		case NSC_LONG:
-			val = *((long *) addr);
-			break;
-		case NSC_XCOORD:
-			val = *((short *) addr);
-			np = getnatp(cnum);
-			val = xrel(np, val);
-			break;
-		case NSC_YCOORD:
-			val = *((short *) addr);
-			np = getnatp(cnum);
-			val = yrel(np, val);
-			break;
-		default:
-			logerror("bad type in decode: %x!\n",
-				code & NSC_TMASK);
-			val = 0;
-			break;
-		}
+    /* handle negative numbers properly */
+    /* this assumes a binary two's complement number representation */
+    if (val >= 0x8000)
+	val -= 0x10000;
+
+    nsc_code = code & NSC_CMASK;
+    if (nsc_code == NSC_VAR) {
+	val = getvar(val, addr, type);
+    } else if (nsc_code == NSC_OFF) {
+	/*
+	 * add offset to value
+	 */
+	addr = (s_char *)addr + val;
+	switch (code_type) {
+	case NSC_TIME:
+	    val = *((time_t *) addr);
+	    break;
+	case NSC_CHAR:
+	    val = *((s_char *)addr);
+	    break;
+	case NSC_UCHAR:
+	    val = (int)*((unsigned char *)addr);
+	    break;
+	case NSC_SHORT:
+	    val = *((short *)addr);
+	    break;
+	case NSC_USHORT:
+	    val = *((u_short *)addr);
+	    break;
+	case NSC_INT:
+	    val = *((int *)addr);
+	    break;
+	case NSC_LONG:
+	    val = *((long *)addr);
+	    break;
+	case NSC_XCOORD:
+	    val = *((short *)addr);
+	    np = getnatp(cnum);
+	    val = xrel(np, val);
+	    break;
+	case NSC_YCOORD:
+	    val = *((short *)addr);
+	    np = getnatp(cnum);
+	    val = yrel(np, val);
+	    break;
+	default:
+	    logerror("bad type in decode: %x!\n", code & NSC_TMASK);
+	    val = 0;
+	    break;
 	}
-	if (code & NSC_ROUND)
-		val = roundintby(val, 10);
-	return val;
+    }
+    if (code & NSC_ROUND)
+	val = roundintby(val, 10);
+    return val;
 }
 
 s_char *
 decodep(long int code, void *addr)
 {
-	addr = (char *)addr + ((code & ~NSC_MASK) & 0xffff);
+    addr = (char *)addr + ((code & ~NSC_MASK) & 0xffff);
 
-	if ((code & NSC_TMASK) == NSC_CHARP)
-		return *(s_char **)addr?*((s_char **)addr):(s_char *)"";
-	return addr;
+    if ((code & NSC_TMASK) == NSC_CHARP)
+	return *(s_char **)addr ? *((s_char **)addr) : (s_char *)"";
+    return addr;
 }

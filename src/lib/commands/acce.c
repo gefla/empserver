@@ -49,44 +49,44 @@
 int
 acce(void)
 {
-	struct	natstr *natp;
-	struct	natstr *np;
-	natid	cn;
-	natid	as;
-	int	n;
+    struct natstr *natp;
+    struct natstr *np;
+    natid cn;
+    natid as;
+    int n;
 
-	if (player->argp[1] == 0)
-		as = player->cnum;
-	else {
-		if ((n = natarg(player->argp[1], "Which country? ")) < 0) {
-			pr("Bad country number\n");
-			return RET_SYN;
-		}
-		as = (natid) n;
+    if (player->argp[1] == 0)
+	as = player->cnum;
+    else {
+	if ((n = natarg(player->argp[1], "Which country? ")) < 0) {
+	    pr("Bad country number\n");
+	    return RET_SYN;
 	}
-	if ((natp = getnatp(as)) == 0) {
-		pr("Bad country number %d\n", player->cnum);
-		return RET_SYN;
+	as = (natid)n;
+    }
+    if ((natp = getnatp(as)) == 0) {
+	pr("Bad country number %d\n", player->cnum);
+	return RET_SYN;
+    }
+    pr("\t%s Acceptance Status Report\t", cname(as));
+    prdate();
+    pr("\n  Acceptance status          %5s                theirs\n",
+       player->cnum == as ? "yours" : " his");
+    pr("                       tel trty anno loan   tel trty anno loan\n");
+    for (cn = 1; cn < MAXNOC; cn++) {
+	if ((np = getnatp(cn)) == 0)
+	    break;
+	if (cn == as)
+	    continue;
+	if ((np->nat_stat & STAT_NORM) == 0 &&
+	    (np->nat_stat & STAT_SANCT) == 0)
+	    continue;
+	if (opt_HIDDEN) {
+	    if (!player->god && !getcontact(getnatp(player->cnum), cn))
+		continue;
 	}
-	pr("\t%s Acceptance Status Report\t", cname(as));
-	prdate();
-	pr("\n  Acceptance status          %5s                theirs\n",
-			player->cnum == as ? "yours" : " his");
-	pr("                       tel trty anno loan   tel trty anno loan\n");
-	for (cn=1; cn < MAXNOC; cn++) {
-		if ((np = getnatp(cn)) == 0)
-			break;
-		if (cn == as)
-			continue;
-		if ((np->nat_stat & STAT_NORM) == 0 &&
-		    (np->nat_stat & STAT_SANCT) == 0)
-			continue;
-		if (opt_HIDDEN) {
-		    if (!player->god && !getcontact(getnatp(player->cnum), cn))
-			continue;
-		}
-		pr("%3d) %-14.14s  ", cn, cname(cn));
-		pr("%-9s %s\n", rejectname(natp, cn), rejectname(np, as));
-	}
-	return RET_OK;
+	pr("%3d) %-14.14s  ", cn, cname(cn));
+	pr("%-9s %s\n", rejectname(natp, cn), rejectname(np, as));
+    }
+    return RET_OK;
 }

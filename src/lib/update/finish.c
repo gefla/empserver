@@ -50,9 +50,9 @@
 
 /* Used for building up distribution info */
 struct distinfo {
-    s_char *path;  /* path to take */
-    double imcost; /* import cost */
-    double excost; /* export cost */
+    s_char *path;		/* path to take */
+    double imcost;		/* import cost */
+    double excost;		/* export cost */
 };
 
 /* This is our global buffer of distribution pointers.  Note that
@@ -68,7 +68,7 @@ struct distinfo *g_distptrs = (struct distinfo *)0;
 /* #define SAVE_FINISH_PATHS */
 
 #ifndef SAVE_FINISH_PATHS
-static s_char *finish_path = "h"; /* Placeholder indicating path exists */
+static s_char *finish_path = "h";	/* Placeholder indicating path exists */
 #endif /* SAVE_FINISH_PATHS */
 
 static void assemble_dist_paths(struct distinfo *distptrs);
@@ -79,109 +79,109 @@ double pathcost();
 void
 finish_sects(int etu)
 {
-	register struct sctstr *sp;
-	struct	natstr *np;
-	int	n;
-	int	vec[I_MAX+1];
-	int	changed;
-	struct distinfo *infptr;
+    register struct sctstr *sp;
+    struct natstr *np;
+    int n;
+    int vec[I_MAX + 1];
+    int changed;
+    struct distinfo *infptr;
 
+    if (g_distptrs == (struct distinfo *)0) {
+	logerror("First update since reboot, allocating buffer\n");
+	/* Allocate the information buffer */
+	g_distptrs = (struct distinfo *)(malloc((WORLD_X * WORLD_Y) *
+						sizeof(struct distinfo)));
 	if (g_distptrs == (struct distinfo *)0) {
-	    logerror("First update since reboot, allocating buffer\n");
-	    /* Allocate the information buffer */
-	    g_distptrs = (struct distinfo *)(malloc((WORLD_X * WORLD_Y) *
-						    sizeof(struct distinfo)));
-	    if (g_distptrs == (struct distinfo *)0) {
-		logerror("malloc failed in finish_sects.\n");
-		return;
-	    }
-
-	    logerror("Allocated '%d' bytes '%d' indices\n",
-		     ((WORLD_X * WORLD_Y) * sizeof(struct distinfo)),
-		     (WORLD_X * WORLD_Y));
-
+	    logerror("malloc failed in finish_sects.\n");
+	    return;
 	}
 
-	/* Wipe it clean */
-	bzero((s_char *)g_distptrs, ((WORLD_X * WORLD_Y) *
-				   sizeof(struct distinfo)));
+	logerror("Allocated '%d' bytes '%d' indices\n",
+		 ((WORLD_X * WORLD_Y) * sizeof(struct distinfo)),
+		 (WORLD_X * WORLD_Y));
 
-	logerror("delivering...\n");
-	/* Do deliveries */
-	for (n=0; NULL != (sp = getsectid(n)); n++) {
-		if (sp->sct_type == SCT_WATER)
-			continue;
-		if (sp->sct_own == 0)
-			continue;
-		np = getnatp(sp->sct_own);
-		if (np->nat_money < 0)
-			continue;
-		changed = 0;
-		if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) > 0)
-			changed += dodeliver(sp, vec);
-		if (changed)
-			putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
-	}
-	logerror("done delivering\n");
+    }
 
-	logerror("assembling paths...\n");
+    /* Wipe it clean */
+    bzero((s_char *)g_distptrs, ((WORLD_X * WORLD_Y) *
+				 sizeof(struct distinfo)));
 
-	/* First, enable the best_path cacheing */
-	bp_enable_cachepath();
+    logerror("delivering...\n");
+    /* Do deliveries */
+    for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	if (sp->sct_type == SCT_WATER)
+	    continue;
+	if (sp->sct_own == 0)
+	    continue;
+	np = getnatp(sp->sct_own);
+	if (np->nat_money < 0)
+	    continue;
+	changed = 0;
+	if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) > 0)
+	    changed += dodeliver(sp, vec);
+	if (changed)
+	    putvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR);
+    }
+    logerror("done delivering\n");
 
-	/* Now assemble the paths */
-	assemble_dist_paths(g_distptrs);
+    logerror("assembling paths...\n");
 
-	/* Now disable the best_path cacheing */
-	bp_disable_cachepath();
+    /* First, enable the best_path cacheing */
+    bp_enable_cachepath();
 
-	/* Now, clear the best_path cache that may have been created */
-	bp_clear_cachepath();
+    /* Now assemble the paths */
+    assemble_dist_paths(g_distptrs);
 
-	logerror("done assembling paths\n");
+    /* Now disable the best_path cacheing */
+    bp_disable_cachepath();
 
-	logerror("exporting...");
-	for (n=0; NULL != (sp = getsectid(n)); n++) {
-	    if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
-		continue;
-	    np = getnatp(sp->sct_own);
-	    if (np->nat_money < 0)
-		continue;
-	    /* Get the pointer */
-	    infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
-	    dodistribute(sp, EXPORT,
-			 infptr->path, infptr->imcost, infptr->excost);
-	}
-	logerror("done exporting\n");
+    /* Now, clear the best_path cache that may have been created */
+    bp_clear_cachepath();
 
-	/* Note that we free the paths (if allocated) as we loop here */
-	logerror("importing...");
-	for (n=0; NULL != (sp = getsectid(n)); n++) {
-	    /* Get the pointer (we do it first so we can free if needed) */
-	    infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
-	    if (sp->sct_type == SCT_WATER || sp->sct_own == 0) {
-#ifdef SAVE_FINISH_PATHS
-		if (infptr->path)
-		    free((s_char *)infptr->path);
-#endif /* SAVE_FINISH_PATHS */
-		continue;
-	    }
-	    np = getnatp(sp->sct_own);
-	    if (np->nat_money < 0) {
-#ifdef SAVE_FINISH_PATHS
-		if (infptr->path)
-		    free((s_char *)infptr->path);
-#endif /* SAVE_FINISH_PATHS */
-		continue;
-	    }
-	    dodistribute(sp, IMPORT, 
-			 infptr->path, infptr->imcost, infptr->excost);
+    logerror("done assembling paths\n");
+
+    logerror("exporting...");
+    for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
+	    continue;
+	np = getnatp(sp->sct_own);
+	if (np->nat_money < 0)
+	    continue;
+	/* Get the pointer */
+	infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
+	dodistribute(sp, EXPORT,
+		     infptr->path, infptr->imcost, infptr->excost);
+    }
+    logerror("done exporting\n");
+
+    /* Note that we free the paths (if allocated) as we loop here */
+    logerror("importing...");
+    for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	/* Get the pointer (we do it first so we can free if needed) */
+	infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
+	if (sp->sct_type == SCT_WATER || sp->sct_own == 0) {
 #ifdef SAVE_FINISH_PATHS
 	    if (infptr->path)
 		free((s_char *)infptr->path);
 #endif /* SAVE_FINISH_PATHS */
+	    continue;
 	}
-	logerror("done importing\n");
+	np = getnatp(sp->sct_own);
+	if (np->nat_money < 0) {
+#ifdef SAVE_FINISH_PATHS
+	    if (infptr->path)
+		free((s_char *)infptr->path);
+#endif /* SAVE_FINISH_PATHS */
+	    continue;
+	}
+	dodistribute(sp, IMPORT,
+		     infptr->path, infptr->imcost, infptr->excost);
+#ifdef SAVE_FINISH_PATHS
+	if (infptr->path)
+	    free((s_char *)infptr->path);
+#endif /* SAVE_FINISH_PATHS */
+    }
+    logerror("done importing\n");
 
 }
 
@@ -196,16 +196,16 @@ assemble_dist_paths(struct distinfo *distptrs)
     int n;
     s_char buf[512];
 
-    for (n=0; NULL != (sp = getsectid(n)); n++) {
+    for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	    continue;
 	/* Set the pointer */
 	infptr = &distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
 	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
-	if (dist == (struct sctstr *)0){
-	    logerror("Bad dist sect %d,%d for %d,%d !\n",sp->sct_dist_x,
-		     sp->sct_dist_y,sp->sct_x,sp->sct_y);
+	if (dist == (struct sctstr *)0) {
+	    logerror("Bad dist sect %d,%d for %d,%d !\n", sp->sct_dist_x,
+		     sp->sct_dist_y, sp->sct_x, sp->sct_y);
 	    continue;
 	}
 	/* Now, get the best distribution path over roads */
@@ -242,7 +242,8 @@ assemble_dist_paths(struct distinfo *distptrs)
 }
 
 s_char
-*ReversePath(s_char *path)
+*
+ReversePath(s_char *path)
 {
     s_char *patharray = "aucdefjhigklmyopqrstbvwxnz";
     static s_char new_path[512];
@@ -267,4 +268,3 @@ s_char
 
     return new_path;
 }
-

@@ -47,55 +47,55 @@
 int
 typematch(s_char *buf, int type)
 {
-	register int n;
-	int	len;
+    register int n;
+    int len;
 
-	len = strlen(buf);
-	switch (type) {
-	case EF_SECTOR: {
-		register struct dchrstr *dcp;
-	
-		if (!buf[0] || buf[1])
-			return -1;
-		for (dcp=dchr,n=0; dcp->d_name; n++,dcp++)
-			if (dcp->d_mnem == *buf)
-				return n;
-		}
-		break;
-	case EF_SHIP: {
-		register struct mchrstr *mcp;
-	
-		for (mcp=mchr,n=0; *mcp->m_name; n++,mcp++)
-			if (strncmp(mcp->m_name, buf, len) == 0)
-				return n;
-		}
-		break;
-	case EF_LAND: {
-		register struct lchrstr *lcp;
+    len = strlen(buf);
+    switch (type) {
+    case EF_SECTOR:{
+	    register struct dchrstr *dcp;
 
-		for (lcp=lchr,n=0; *lcp->l_name; n++,lcp++)
-			if (strncmp(lcp->l_name, buf, len) == 0)
-				return n;
-		}
-		break;
-	case EF_PLANE: {
-		register struct plchrstr *pcp;
-	
-		for (pcp=plchr,n=0; *pcp->pl_name; n++,pcp++)
-			if (strncmp(pcp->pl_name, buf, len) == 0)
-				return n;
-		}
-		break;
-	case EF_NUKE: {
-		register struct nchrstr *ncp;
-	
-		for (ncp=nchr,n=0; *ncp->n_name; n++,ncp++)
-			if (strncmp(ncp->n_name, buf, len) == 0)
-				return n;
-		}
-		break;
-	default:
-		break;
+	    if (!buf[0] || buf[1])
+		return -1;
+	    for (dcp = dchr, n = 0; dcp->d_name; n++, dcp++)
+		if (dcp->d_mnem == *buf)
+		    return n;
 	}
-	return -1;
+	break;
+    case EF_SHIP:{
+	    register struct mchrstr *mcp;
+
+	    for (mcp = mchr, n = 0; *mcp->m_name; n++, mcp++)
+		if (strncmp(mcp->m_name, buf, len) == 0)
+		    return n;
+	}
+	break;
+    case EF_LAND:{
+	    register struct lchrstr *lcp;
+
+	    for (lcp = lchr, n = 0; *lcp->l_name; n++, lcp++)
+		if (strncmp(lcp->l_name, buf, len) == 0)
+		    return n;
+	}
+	break;
+    case EF_PLANE:{
+	    register struct plchrstr *pcp;
+
+	    for (pcp = plchr, n = 0; *pcp->pl_name; n++, pcp++)
+		if (strncmp(pcp->pl_name, buf, len) == 0)
+		    return n;
+	}
+	break;
+    case EF_NUKE:{
+	    register struct nchrstr *ncp;
+
+	    for (ncp = nchr, n = 0; *ncp->n_name; n++, ncp++)
+		if (strncmp(ncp->n_name, buf, len) == 0)
+		    return n;
+	}
+	break;
+    default:
+	break;
+    }
+    return -1;
 }

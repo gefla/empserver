@@ -22,7 +22,7 @@
 #include "as.h"
 
 #if !defined(lint) && !defined(SABER)
-static	char	sccsid[] = "@(#)as_hash.c	1.2	11/13/90";
+static char sccsid[] = "@(#)as_hash.c	1.2	11/13/90";
 #endif /* not lint */
 
 /*
@@ -32,16 +32,16 @@ static	char	sccsid[] = "@(#)as_hash.c	1.2	11/13/90";
 struct as_queue *
 as_iscinq(struct as_data *adp, struct as_coord c)
 {
-	int		hashval;
-	struct as_hash	*hp;
+    int hashval;
+    struct as_hash *hp;
 
-	hashval = (*adp->hash)(c) % adp->hashsize;
+    hashval = (*adp->hash) (c) % adp->hashsize;
 
-	for (hp = adp->hashtab[hashval]; hp; hp = hp->next)
-		if (hp->c.x == c.x && hp->c.y == c.y)
-				return (hp->qp);
+    for (hp = adp->hashtab[hashval]; hp; hp = hp->next)
+	if (hp->c.x == c.x && hp->c.y == c.y)
+	    return (hp->qp);
 
-	return (NULL);
+    return (NULL);
 }
 
 /*
@@ -50,19 +50,19 @@ as_iscinq(struct as_data *adp, struct as_coord c)
 void
 as_setcinq(struct as_data *adp, struct as_coord c, struct as_queue *qp)
 {
-	int		hashval;
-	struct as_hash	*hp;
-	struct as_hash	*new;
+    int hashval;
+    struct as_hash *hp;
+    struct as_hash *new;
 
-	new = (struct as_hash *)malloc(sizeof(struct as_hash));
-	new->c = c;
-	new->qp = qp;
+    new = (struct as_hash *)malloc(sizeof(struct as_hash));
+    new->c = c;
+    new->qp = qp;
 
-	hashval = (*adp->hash)(c) % adp->hashsize;
-	hp = adp->hashtab[hashval];
+    hashval = (*adp->hash) (c) % adp->hashsize;
+    hp = adp->hashtab[hashval];
 
-	new->next = (hp) ? hp : NULL;
-	adp->hashtab[hashval] = new;
+    new->next = (hp) ? hp : NULL;
+    adp->hashtab[hashval] = new;
 }
 
 /*
@@ -72,14 +72,14 @@ as_setcinq(struct as_data *adp, struct as_coord c, struct as_queue *qp)
 void
 as_free_hashtab(struct as_data *adp)
 {
-	int		i;
-	struct as_hash	*hp, *hp2;
+    int i;
+    struct as_hash *hp, *hp2;
 
-	for (i = 0; i < adp->hashsize; i++) {
-		for (hp = adp->hashtab[i]; hp; hp = hp2) {
-			hp2 = hp->next;
-			free((char *)hp);
-		}
-		adp->hashtab[i] = NULL;
+    for (i = 0; i < adp->hashsize; i++) {
+	for (hp = adp->hashtab[i]; hp; hp = hp2) {
+	    hp2 = hp->next;
+	    free((char *)hp);
 	}
+	adp->hashtab[i] = NULL;
+    }
 }

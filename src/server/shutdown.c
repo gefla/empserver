@@ -46,51 +46,53 @@ int shutdown_pending;
 void
 shutdown_init(void)
 {
-	shutdown_pending = 0;
+    shutdown_pending = 0;
 }
 
 void
 shutdown_sequence(argc, argv)
-	int	argc;
-	s_char	**argv;
+int argc;
+s_char **argv;
 {
-	struct	natstr *god;
-	struct tm *tm;
-	time_t	now;
-	s_char header[100];
+    struct natstr *god;
+    struct tm *tm;
+    time_t now;
+    s_char header[100];
 
-	if (shutdown_pending <= 0) {
-		shutdown_pending = 0;
-		logerror("shutdown called with 0 shutdown_pending");
-		empth_exit();
-		return;
-	}
-	god = getnatp(0);
-	while (shutdown_pending > 0) {
-		--shutdown_pending;
-		time(&now);
-		if (shutdown_pending <= 1440) { /* one day */
-			tm = localtime(&now);
-			sprintf(header, "BROADCAST from %s @ %02d:%02d: ",
-				god->nat_cnam, tm->tm_hour, tm->tm_min);
-			if (!shutdown_pending) {
-				pr_wall("%sServer shutting down NOW!\n", header);
-				shutdwn(0);
-			} else if (shutdown_pending == 1) {
-				pr_wall("%sServer shutting down in 1 minute!\n", header);
-			} else if (shutdown_pending <= 5) {
-				pr_wall("%sServer shutting down in %d minutes!\n", header, shutdown_pending);
-			} else if (shutdown_pending <= 60 &&
-				   shutdown_pending%10 == 0) {
-				pr_wall("%sThe server will be shutting down in %d minutes!\n", header, shutdown_pending);
-			} else if (shutdown_pending%60 == 0) {
-				pr_wall("%sThe server will be shutting down %d hours from now.\n", header, (int)(shutdown_pending/60));
-			}
-		}
-		empth_sleep(now + 60);
-	}
+    if (shutdown_pending <= 0) {
+	shutdown_pending = 0;
+	logerror("shutdown called with 0 shutdown_pending");
 	empth_exit();
+	return;
+    }
+    god = getnatp(0);
+    while (shutdown_pending > 0) {
+	--shutdown_pending;
+	time(&now);
+	if (shutdown_pending <= 1440) {	/* one day */
+	    tm = localtime(&now);
+	    sprintf(header, "BROADCAST from %s @ %02d:%02d: ",
+		    god->nat_cnam, tm->tm_hour, tm->tm_min);
+	    if (!shutdown_pending) {
+		pr_wall("%sServer shutting down NOW!\n", header);
+		shutdwn(0);
+	    } else if (shutdown_pending == 1) {
+		pr_wall("%sServer shutting down in 1 minute!\n", header);
+	    } else if (shutdown_pending <= 5) {
+		pr_wall("%sServer shutting down in %d minutes!\n", header,
+			shutdown_pending);
+	    } else if (shutdown_pending <= 60
+		       && shutdown_pending % 10 == 0) {
+		pr_wall
+		    ("%sThe server will be shutting down in %d minutes!\n",
+		     header, shutdown_pending);
+	    } else if (shutdown_pending % 60 == 0) {
+		pr_wall
+		    ("%sThe server will be shutting down %d hours from now.\n",
+		     header, (int)(shutdown_pending / 60));
+	    }
+	}
+	empth_sleep(now + 60);
+    }
+    empth_exit();
 }
-
-
-

@@ -41,31 +41,31 @@
 #define FILEPATH(p) EMPPATH(data\\p)
 #endif
 
-s_char	*gamedir	= EMPPATH(.);
-s_char	*infodir	= EMPPATH(info.nr);
-s_char	*datadir	= EMPPATH(data);
-s_char	*teldir		= FILEPATH(tel);
+s_char *gamedir = EMPPATH(.);
+s_char *infodir = EMPPATH(info.nr);
+s_char *datadir = EMPPATH(data);
+s_char *teldir = FILEPATH(tel);
 
-s_char	*upfil		= FILEPATH(up);
-s_char	*downfil	= FILEPATH(down);
-s_char	*disablefil	= FILEPATH(disable);
+s_char *upfil = FILEPATH(up);
+s_char *downfil = FILEPATH(down);
+s_char *disablefil = FILEPATH(disable);
 #if !defined(_WIN32)
-s_char	*telfil		= FILEPATH(tel/tel);
+s_char *telfil = FILEPATH(tel / tel);
 #else
-s_char	*telfil		= FILEPATH(tel\\tel);
+s_char *telfil = FILEPATH(tel \\ tel);
 #endif
-s_char	*annfil		= FILEPATH(ann);
-s_char	*commfil	= FILEPATH(comm);
-s_char	*banfil		= FILEPATH(ban);
-s_char	*authfil	= FILEPATH(auth);
-s_char  *timestampfil   = FILEPATH(timestamp);
-s_char  *lostfil        = FILEPATH(lostitems);
+s_char *annfil = FILEPATH(ann);
+s_char *commfil = FILEPATH(comm);
+s_char *banfil = FILEPATH(ban);
+s_char *authfil = FILEPATH(auth);
+s_char *timestampfil = FILEPATH(timestamp);
+s_char *lostfil = FILEPATH(lostitems);
 
 #if !defined(_WIN32)
-s_char	*playerbin	= EMPPATH(bin/emp_player);
-s_char	*updatebin	= EMPPATH(bin/emp_update);
+s_char *playerbin = EMPPATH(bin / emp_player);
+s_char *updatebin = EMPPATH(bin / emp_update);
 #else
-s_char	*playerbin	= EMPPATH(bin\\emp_player);
-s_char	*updatebin	= EMPPATH(bin\\emp_update);
+s_char *playerbin = EMPPATH(bin \\ emp_player);
+s_char *updatebin = EMPPATH(bin \\ emp_update);
 #endif
-s_char	*loginport	= EMP_PORT;
+s_char *loginport = EMP_PORT;

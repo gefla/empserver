@@ -45,135 +45,132 @@
 #include "commands.h"
 #include "optlist.h"
 
-static	void cens_hdr(void);
+static void cens_hdr(void);
 
 int
 cens(void)
 {
-	struct	sctstr sect;
-	int	nsect;
-	int	n;
-	struct	nstr_sect nstr;
-	s_char	dirstr[20];
-	int	vec[I_MAX+1];
+    struct sctstr sect;
+    int nsect;
+    int n;
+    struct nstr_sect nstr;
+    s_char dirstr[20];
+    int vec[I_MAX + 1];
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	for (n = 1; n <= 6; n++)
-		dirstr[n] = dirch[n];
-	dirstr[0] = '.';
-	dirstr[7] = '$';
-	dirstr[8] = '\0';
-	nsect = 0;
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (nsect++ == 0)
-			cens_hdr();
-		if (player->god)
-			pr("%3d ", sect.sct_own);
-		prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
-		pr(" %c", dchr[sect.sct_type].d_mnem);
-		if (sect.sct_newtype != sect.sct_type)
-			pr("%c", dchr[sect.sct_newtype].d_mnem);
-		else
-			pr(" ");
-		pr("%4d%%", sect.sct_effic);
-		if (sect.sct_off)
-			pr(" no ");
-		else
-			pr("    ");
-		pr("%4d", sect.sct_mobil);
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    for (n = 1; n <= 6; n++)
+	dirstr[n] = dirch[n];
+    dirstr[0] = '.';
+    dirstr[7] = '$';
+    dirstr[8] = '\0';
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0)
+	    cens_hdr();
+	if (player->god)
+	    pr("%3d ", sect.sct_own);
+	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	pr(" %c", dchr[sect.sct_type].d_mnem);
+	if (sect.sct_newtype != sect.sct_type)
+	    pr("%c", dchr[sect.sct_newtype].d_mnem);
+	else
+	    pr(" ");
+	pr("%4d%%", sect.sct_effic);
+	if (sect.sct_off)
+	    pr(" no ");
+	else
+	    pr("    ");
+	pr("%4d", sect.sct_mobil);
 
-		getvec(VT_DEL, vec, (s_char *)&sect, EF_SECTOR);
-		pr(" %c", dirstr[vec[I_UW] & 0x7]);
-		pr("%c", dirstr[vec[I_FOOD] & 0x7]);
+	getvec(VT_DEL, vec, (s_char *)&sect, EF_SECTOR);
+	pr(" %c", dirstr[vec[I_UW] & 0x7]);
+	pr("%c", dirstr[vec[I_FOOD] & 0x7]);
 
-		getvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
-		n = vec[I_UW] % 1000;
-		pr(" %c", n == 0 ? '.' : '0'+ (n/100));
-		n = vec[I_FOOD] % 1000;
-		pr("%c ", n == 0 ? '.' : '0'+ (n/100));
-		pr("%c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
+	getvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
+	n = vec[I_UW] % 1000;
+	pr(" %c", n == 0 ? '.' : '0' + (n / 100));
+	n = vec[I_FOOD] % 1000;
+	pr("%c ", n == 0 ? '.' : '0' + (n / 100));
+	pr("%c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
 
-		getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
-		pr("%5d", vec[I_CIVIL]);
-		pr("%5d", vec[I_MILIT]);
-		pr("%5d", vec[I_UW]);
-		pr("%5d", vec[I_FOOD]);
-		pr("%4d%%", sect.sct_work);
-		pr("%5d", sect.sct_avail);
-		if (!player->god) {
-			if (sect.sct_terr)
-				pr("%4d", sect.sct_terr);
-			else
-				pr("    ");
-		}
-		if (opt_FALLOUT) {
-		  getvec(VT_COND, vec, (void *)&sect, EF_SECTOR);
-		  pr("%5d",vec[C_FALLOUT]);
-		}
-		set_coastal(&sect);
-		if (sect.sct_coastal)
-			pr("%4d", sect.sct_coastal);
-		pr("\n");
+	getvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
+	pr("%5d", vec[I_CIVIL]);
+	pr("%5d", vec[I_MILIT]);
+	pr("%5d", vec[I_UW]);
+	pr("%5d", vec[I_FOOD]);
+	pr("%4d%%", sect.sct_work);
+	pr("%5d", sect.sct_avail);
+	if (!player->god) {
+	    if (sect.sct_terr)
+		pr("%4d", sect.sct_terr);
+	    else
+		pr("    ");
 	}
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return 0;
+	if (opt_FALLOUT) {
+	    getvec(VT_COND, vec, (void *)&sect, EF_SECTOR);
+	    pr("%5d", vec[C_FALLOUT]);
+	}
+	set_coastal(&sect);
+	if (sect.sct_coastal)
+	    pr("%4d", sect.sct_coastal);
+	pr("\n");
+    }
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
 }
 
 static void
 cens_hdr(void)
 {
-	if (player->god)
-		pr("    ");
-	pr("CENSUS                   del dst\n");
-	if (player->god)
-		pr("own ");
-	pr("  sect        eff ");
-	pr("prd ");
-	pr("mob uf uf *  civ  mil   uw food work avail ");
-	if (!player->god)
-		pr("ter ");
-	if (opt_FALLOUT)
-	  pr("fall ");
-	pr("coa");
-	pr("\n");
+    if (player->god)
+	pr("    ");
+    pr("CENSUS                   del dst\n");
+    if (player->god)
+	pr("own ");
+    pr("  sect        eff ");
+    pr("prd ");
+    pr("mob uf uf *  civ  mil   uw food work avail ");
+    if (!player->god)
+	pr("ter ");
+    if (opt_FALLOUT)
+	pr("fall ");
+    pr("coa");
+    pr("\n");
 }
 
 void
 set_coastal(struct sctstr *sp)
 {
-	int	n;
-	struct	sctstr	sect;
-	u_char	start_flags = sp->sct_coastal;
+    int n;
+    struct sctstr sect;
+    u_char start_flags = sp->sct_coastal;
 
-	/* It's already been set, it didn't change (you can't fill
-	   in water, even with bridge spans they are still coastal.) */
-	if (sp->sct_coastal)
-	    return;
-	for (n = 1; n <= 6; ++n) {	/* Directions */
-		getsect(sp->sct_x + diroff[n][0],
-			sp->sct_y + diroff[n][1],
-			&sect);
-		if (sect.sct_type == SCT_WATER ||
-		    sect.sct_type == SCT_BTOWER ||
-		    sect.sct_type == SCT_BSPAN) {
-			sp->sct_coastal = 1;
-			if (start_flags != sp->sct_coastal)
-				putsect(sp);
-			return;
-		}
-	}
-	sp->sct_coastal = 0;
-	if (start_flags != sp->sct_coastal)
+    /* It's already been set, it didn't change (you can't fill
+       in water, even with bridge spans they are still coastal.) */
+    if (sp->sct_coastal)
+	return;
+    for (n = 1; n <= 6; ++n) {	/* Directions */
+	getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
+	if (sect.sct_type == SCT_WATER ||
+	    sect.sct_type == SCT_BTOWER || sect.sct_type == SCT_BSPAN) {
+	    sp->sct_coastal = 1;
+	    if (start_flags != sp->sct_coastal)
 		putsect(sp);
+	    return;
+	}
+    }
+    sp->sct_coastal = 0;
+    if (start_flags != sp->sct_coastal)
+	putsect(sp);
 }

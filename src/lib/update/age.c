@@ -40,63 +40,60 @@
 void
 age_levels(int etu)
 {
-	extern	float	level_age_rate;
-	register float best_tech;
-	register float best_res;
-	register struct natstr *np;
-	int	i;
-	double	level;
-	double	delta;
-	int	deltares;
+    extern float level_age_rate;
+    register float best_tech;
+    register float best_res;
+    register struct natstr *np;
+    int i;
+    double level;
+    double delta;
+    int deltares;
 
-	best_tech = 0.0;
-	best_res = 0.0;
-	for (i=0; NULL != (np = getnatp(i)); i++) {
-		if ((np->nat_stat & STAT_NORM) == 0)
-			continue;
+    best_tech = 0.0;
+    best_res = 0.0;
+    for (i = 0; NULL != (np = getnatp(i)); i++) {
+	if ((np->nat_stat & STAT_NORM) == 0)
+	    continue;
 
-		if (np->nat_stat & STAT_GOD)
-			continue;
+	if (np->nat_stat & STAT_GOD)
+	    continue;
 
-		if (np->nat_stat == VIS)
-			continue;
+	if (np->nat_stat == VIS)
+	    continue;
 
-		if (best_tech < np->nat_level[NAT_TLEV])
-			best_tech = np->nat_level[NAT_TLEV];
-		if (best_res < np->nat_level[NAT_RLEV])
-			best_res = np->nat_level[NAT_RLEV];
-		if (level_age_rate != 0.0) {
-			delta = np->nat_level[NAT_RLEV] * etu /
-				(100 * level_age_rate);
-			np->nat_level[NAT_RLEV] -= delta;
-			delta = np->nat_level[NAT_TLEV] * etu /
-				(100 * level_age_rate);
-			np->nat_level[NAT_TLEV] -= delta;
-		}
-		/*
-		 * age reserves by 1% per every 24 etus
-		 */
-		deltares = -roundavg(np->nat_reserve * etu / 2400.0);
-		if (deltares != 0)
-			np->nat_reserve += deltares;
-		/* Chad Zabel - above number is negative ( was a -= there
-		which was wrong. */
+	if (best_tech < np->nat_level[NAT_TLEV])
+	    best_tech = np->nat_level[NAT_TLEV];
+	if (best_res < np->nat_level[NAT_RLEV])
+	    best_res = np->nat_level[NAT_RLEV];
+	if (level_age_rate != 0.0) {
+	    delta = np->nat_level[NAT_RLEV] * etu / (100 * level_age_rate);
+	    np->nat_level[NAT_RLEV] -= delta;
+	    delta = np->nat_level[NAT_TLEV] * etu / (100 * level_age_rate);
+	    np->nat_level[NAT_TLEV] -= delta;
 	}
-	best_tech /= 5;
-	best_res /= 5;
-	for (i=0; NULL != (np = getnatp(i)); i++) {
-		if ((np->nat_stat & STAT_INUSE) == 0)
-			continue;
-		if (np->nat_stat & STAT_GOD)
-			continue;
-		if (np->nat_stat == VIS)
-			continue;
-		level = np->nat_level[NAT_TLEV];
-		if (level < best_tech && chance(0.2))
-			np->nat_level[NAT_TLEV] += (best_tech - level) / 3;
-		level = np->nat_level[NAT_RLEV];
-		if (level < best_res && chance(0.2))
-			np->nat_level[NAT_RLEV] += (best_res - level) / 3;
-	}
+	/*
+	 * age reserves by 1% per every 24 etus
+	 */
+	deltares = -roundavg(np->nat_reserve * etu / 2400.0);
+	if (deltares != 0)
+	    np->nat_reserve += deltares;
+	/* Chad Zabel - above number is negative ( was a -= there
+	   which was wrong. */
+    }
+    best_tech /= 5;
+    best_res /= 5;
+    for (i = 0; NULL != (np = getnatp(i)); i++) {
+	if ((np->nat_stat & STAT_INUSE) == 0)
+	    continue;
+	if (np->nat_stat & STAT_GOD)
+	    continue;
+	if (np->nat_stat == VIS)
+	    continue;
+	level = np->nat_level[NAT_TLEV];
+	if (level < best_tech && chance(0.2))
+	    np->nat_level[NAT_TLEV] += (best_tech - level) / 3;
+	level = np->nat_level[NAT_RLEV];
+	if (level < best_res && chance(0.2))
+	    np->nat_level[NAT_RLEV] += (best_res - level) / 3;
+    }
 }
-

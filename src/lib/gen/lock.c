@@ -58,20 +58,20 @@ int
 file_lock(int fd)
 {
     if (_locking(fd, _LK_LOCK, 0) < 0) {
-		logerror("file lock (fd %d) failed", fd);
-		return 0;
+	logerror("file lock (fd %d) failed", fd);
+	return 0;
     }
-	return 1;
+    return 1;
 }
 
 int
 file_unlock(int fd)
 {
     if (_locking(fd, _LK_UNLCK, 0) < 0) {
-		logerror("file lock (fd %d) failed", fd);
-		return 0;
+	logerror("file lock (fd %d) failed", fd);
+	return 0;
     }
-	return 1;
+    return 1;
 }
 
 #else
@@ -83,21 +83,21 @@ int flock();
 int
 file_lock(int fd)
 {
-	if (flock(fd, LOCK_EX) < 0) {
-		logerror("file lock (fd %d) failed", fd);
-		return 0;
-	}
-	return 1;
+    if (flock(fd, LOCK_EX) < 0) {
+	logerror("file lock (fd %d) failed", fd);
+	return 0;
+    }
+    return 1;
 }
 
 int
 file_unlock(int fd)
 {
-	if (flock(fd, LOCK_UN) < 0) {
-		logerror("file unlock (fd %d) failed", fd);
-		return 0;
-	}
-	return 1;
+    if (flock(fd, LOCK_UN) < 0) {
+	logerror("file unlock (fd %d) failed", fd);
+	return 0;
+    }
+    return 1;
 }
 
 #else
@@ -105,35 +105,35 @@ file_unlock(int fd)
 int
 file_lock(int fd)
 {
-	struct	flock lock;
+    struct flock lock;
 
-	lock.l_type = F_WRLCK;
-	lock.l_whence = L_SET;
-	lock.l_start = 0;
-	lock.l_len = 0;
-	lock.l_pid = 0;
-	if (fcntl(fd, F_SETLKW, &lock) < 0) {
-		logerror("file lock (fd %d) failed", fd);
-		return 0;
-	}
-	return 1;
+    lock.l_type = F_WRLCK;
+    lock.l_whence = L_SET;
+    lock.l_start = 0;
+    lock.l_len = 0;
+    lock.l_pid = 0;
+    if (fcntl(fd, F_SETLKW, &lock) < 0) {
+	logerror("file lock (fd %d) failed", fd);
+	return 0;
+    }
+    return 1;
 }
 
 int
 file_unlock(int fd)
 {
-	struct	flock lock;
+    struct flock lock;
 
-	lock.l_type = F_UNLCK;
-	lock.l_whence = L_SET;
-	lock.l_start = 0;
-	lock.l_len = 0;
-	lock.l_pid = 0;
-	if (fcntl(fd, F_SETLKW, &lock) < 0) {
-		logerror("file unlock (fd %d) failed", fd);
-		return 0;
-	}
-	return 1;
+    lock.l_type = F_UNLCK;
+    lock.l_whence = L_SET;
+    lock.l_start = 0;
+    lock.l_len = 0;
+    lock.l_pid = 0;
+    if (fcntl(fd, F_SETLKW, &lock) < 0) {
+	logerror("file unlock (fd %d) failed", fd);
+	return 0;
+    }
+    return 1;
 }
 #endif
 

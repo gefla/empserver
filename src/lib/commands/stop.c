@@ -50,53 +50,53 @@ static void stop_hdr(void);
 int
 stop(void)
 {
-	struct	sctstr sect;
-	int	nsect;
-	struct	nstr_sect nstr;
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	nsect = 0;
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (nsect++ == 0)
-			stop_hdr();
-		if (player->god)
-			pr("%3d ", sect.sct_own);
-		prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
-		pr(" %c", dchr[sect.sct_type].d_mnem);
-		if (sect.sct_newtype != sect.sct_type)
-			pr("%c", dchr[sect.sct_newtype].d_mnem);
-		else
-			pr(" ");
-		pr("%4d%%", sect.sct_effic);
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0)
+	    stop_hdr();
+	if (player->god)
+	    pr("%3d ", sect.sct_own);
+	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	pr(" %c", dchr[sect.sct_type].d_mnem);
+	if (sect.sct_newtype != sect.sct_type)
+	    pr("%c", dchr[sect.sct_newtype].d_mnem);
+	else
+	    pr(" ");
+	pr("%4d%%", sect.sct_effic);
 
-		pr(" will not produce or gain efficiency.\n");
-		if (sect.sct_off != 1) {
-		  sect.sct_off = 1;
-		  putsect(&sect);
-		}
+	pr(" will not produce or gain efficiency.\n");
+	if (sect.sct_off != 1) {
+	    sect.sct_off = 1;
+	    putsect(&sect);
 	}
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return 0;
+    }
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
 }
 
 static void
 stop_hdr(void)
 {
-	if (player->god)
-		pr("    ");
-	pr("PRODUCTION STOPPAGE\n");
-	if (player->god)
-		pr("own ");
-	pr("  sect        eff\n");
+    if (player->god)
+	pr("    ");
+    pr("PRODUCTION STOPPAGE\n");
+    if (player->god)
+	pr("own ");
+    pr("  sect        eff\n");
 }

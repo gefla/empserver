@@ -44,62 +44,64 @@
  */
 
 static int
-do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force, int sync);
+ do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force, int sync);
 
 int
 map_set(natid cnum, coord x, coord y, s_char t, int only_bmap)
 {
-	int	set = 0;
+    int set = 0;
 
-	if (!t)
-		return 0;
-	if (!only_bmap)
-		set |= do_map_set(cnum, ef_ptr(EF_MAP,cnum), x,y, t, 0, 0);
-	set |= do_map_set(cnum, ef_ptr(EF_BMAP,cnum),x,y, t, only_bmap > 1, 1);
+    if (!t)
+	return 0;
+    if (!only_bmap)
+	set |= do_map_set(cnum, ef_ptr(EF_MAP, cnum), x, y, t, 0, 0);
+    set |=
+	do_map_set(cnum, ef_ptr(EF_BMAP, cnum), x, y, t, only_bmap > 1, 1);
 
-	return set;
+    return set;
 }
 
 
 static int
-do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force, int sync)
+do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force,
+	   int sync)
 {
-	int	id;
-	s_char	ot;
+    int id;
+    s_char ot;
 
-	if ((id = sctoff(x, y)) < 0)
-		return 0;
+    if ((id = sctoff(x, y)) < 0)
+	return 0;
 
-	if (((map[id] == 'x') || (map[id] == 'X')) && !force)
-		return 0;
+    if (((map[id] == 'x') || (map[id] == 'X')) && !force)
+	return 0;
 
-	ot = map[id];
-	if (t == '?') {
-		switch (map[id]) {
-		case '.':
-		case '-':
-		case ' ':
-		case   0:
-			map[id] = t;
-			break;
-		default:
-			break;
-		}
-	} else {
-		map[id] = t;
+    ot = map[id];
+    if (t == '?') {
+	switch (map[id]) {
+	case '.':
+	case '-':
+	case ' ':
+	case 0:
+	    map[id] = t;
+	    break;
+	default:
+	    break;
 	}
-	return 1;
+    } else {
+	map[id] = t;
+    }
+    return 1;
 }
 
 void
 writebmap(natid cnum)
 {
-	ef_write(EF_BMAP, cnum, ef_ptr(EF_BMAP,cnum));
+    ef_write(EF_BMAP, cnum, ef_ptr(EF_BMAP, cnum));
 }
 
 void
 writemap(natid cnum)
 {
-	ef_write(EF_MAP, cnum, ef_ptr(EF_MAP,cnum));
-	ef_write(EF_BMAP, cnum, ef_ptr(EF_BMAP,cnum));
+    ef_write(EF_MAP, cnum, ef_ptr(EF_MAP, cnum));
+    ef_write(EF_BMAP, cnum, ef_ptr(EF_BMAP, cnum));
 }

@@ -45,70 +45,80 @@
 int
 decl(void)
 {
-	struct	natstr	nat, *natp;
-	int	rel;
-	int	who;
-	struct	nstr_item ni;
-	s_char *p;
-	s_char	buf[1024];
+    struct natstr nat, *natp;
+    int rel;
+    int who;
+    struct nstr_item ni;
+    s_char *p;
+    s_char buf[1024];
 
-	if (!(p = getstarg(player->argp[1], "alliance, friendly, neutrality, hostility, or war? ", buf)))
-		return RET_SYN;
-	switch (*p) {
-	case 'a':
-		rel = ALLIED;
-		break;
-	case 'f':
-		rel = FRIENDLY;
-		break;
-	case 'n':
-		rel = NEUTRAL;
-		break;
-	case 'h':
-		rel = HOSTILE;
-		break;
-	case 'm':
-	        if (!opt_SLOW_WAR) return RET_SYN;
-		if (!player->god) return RET_SYN;
-		rel = MOBILIZATION;
-		break;
-	case 's':
-	        if (!opt_SLOW_WAR) return RET_SYN;
-		if (!player->god) return RET_SYN;
-		rel = SITZKRIEG;
-		break;
-	case 'w':
-		rel = AT_WAR;
-		break;
-	default:
-		pr("That's no declaration!\n");
-		return RET_SYN;
-	}
+    if (!
+	(p =
+	 getstarg(player->argp[1],
+		  "alliance, friendly, neutrality, hostility, or war? ",
+		  buf)))
+	return RET_SYN;
+    switch (*p) {
+    case 'a':
+	rel = ALLIED;
+	break;
+    case 'f':
+	rel = FRIENDLY;
+	break;
+    case 'n':
+	rel = NEUTRAL;
+	break;
+    case 'h':
+	rel = HOSTILE;
+	break;
+    case 'm':
+	if (!opt_SLOW_WAR)
+	    return RET_SYN;
+	if (!player->god)
+	    return RET_SYN;
+	rel = MOBILIZATION;
+	break;
+    case 's':
+	if (!opt_SLOW_WAR)
+	    return RET_SYN;
+	if (!player->god)
+	    return RET_SYN;
+	rel = SITZKRIEG;
+	break;
+    case 'w':
+	rel = AT_WAR;
+	break;
+    default:
+	pr("That's no declaration!\n");
+	return RET_SYN;
+    }
 
-	if (!snxtitem(&ni, EF_NATION, player->argp[2]))
-		return RET_SYN;
-	who = player->cnum;
-	if (player->god){
-		who = natarg(player->argp[3], "for which country? ");
-		if (who < 0) return RET_SYN;
-	}
-	if (who == 255) return RET_SYN;
+    if (!snxtitem(&ni, EF_NATION, player->argp[2]))
+	return RET_SYN;
+    who = player->cnum;
+    if (player->god) {
+	who = natarg(player->argp[3], "for which country? ");
+	if (who < 0)
+	    return RET_SYN;
+    }
+    if (who == 255)
+	return RET_SYN;
 
-	natp = getnatp(who);
-	while (nxtitem(&ni, (s_char *) &nat)) {
-		if (!(nat.nat_stat & STAT_INUSE))
-			continue;
-		if (player->cnum == (natid)ni.cur)
-			continue;
-		if (opt_HIDDEN) {
-		    if (!player->god && !getcontact(natp, ni.cur)) {
-			pr("You haven't contacted country #%d yet\n", ni.cur);
-			continue;
-		    }
-		}
-		if (getrel(natp, (natid)ni.cur) == rel)
-			continue;
-		setrel(who, (natid)ni.cur, rel);
+    natp = getnatp(who);
+    while (nxtitem(&ni, (s_char *)&nat)) {
+	if (!(nat.nat_stat & STAT_INUSE))
+	    continue;
+	if (player->cnum == (natid)ni.cur)
+	    continue;
+	if (opt_HIDDEN) {
+	    if (!player->god && !getcontact(natp, ni.cur)) {
+		pr("You haven't contacted country #%d yet\n", ni.cur);
+		continue;
+	    }
 	}
-	return RET_OK;
+	if (getrel(natp, (natid)ni.cur) == rel)
+	    continue;
+	setrel(who, (natid)ni.cur, rel);
+    }
+    return RET_OK;
 }

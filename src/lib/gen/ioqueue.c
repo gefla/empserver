@@ -38,7 +38,7 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h> /* malloc free */
+#include <stdlib.h>		/* malloc free */
 #include <sys/types.h>
 #if !defined(_WIN32)
 #include <sys/uio.h>
@@ -47,9 +47,11 @@
 #include "queue.h"
 #include "ioqueue.h"
 
-static int ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc);
+static int ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc,
+		     register int stopc);
 #if !defined(_WIN32)
-static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max);
+static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov,
+		    register int max);
 #endif
 static int ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc);
 static int appendcc(struct ioqueue *ioq, s_char *buf, int cc);
@@ -62,43 +64,43 @@ static void loc_StripDels(char *pBuf);
 struct ioqueue *
 ioq_create(int size)
 {
-	struct	ioqueue *ioq;
+    struct ioqueue *ioq;
 
-	ioq = (struct ioqueue *) malloc(sizeof(struct ioqueue));
-	emp_initque(&ioq->list.queue);
-	ioq->list.nbytes = 0;
-	ioq->list.offset = 0;
-	ioq->list.size = 0;
-	ioq->list.data = 0;
-	ioq->bufsize = size;
-	ioq->cc = 0;
-	return ioq;
+    ioq = (struct ioqueue *)malloc(sizeof(struct ioqueue));
+    emp_initque(&ioq->list.queue);
+    ioq->list.nbytes = 0;
+    ioq->list.offset = 0;
+    ioq->list.size = 0;
+    ioq->list.data = 0;
+    ioq->bufsize = size;
+    ioq->cc = 0;
+    return ioq;
 }
 
 void
 ioq_destroy(struct ioqueue *ioq)
 {
-#if !defined(aix) && !defined(NeXT) 
+#if !defined(aix) && !defined(NeXT)
 /* ioq_drain doesn't work under aix or NeXT... dunno why --ts */
-	ioq_drain(ioq); 
+    ioq_drain(ioq);
 #endif /* aix */
-	free((s_char *)ioq);
+    free((s_char *)ioq);
 }
 
 void
 ioq_drain(struct ioqueue *ioq)
 {
-	struct emp_qelem *qp;
-	struct io *io;
+    struct emp_qelem *qp;
+    struct io *io;
 
-	while ((qp = ioq->list.queue.q_forw) != &ioq->list.queue){
-		io = (struct io *) qp;
-		(void) emp_remque(&io->queue);
-		(void) free((s_char *)io->data);
-		(void) free((s_char *)io);
-	}
-	
-	ioq->cc = 0;
+    while ((qp = ioq->list.queue.q_forw) != &ioq->list.queue) {
+	io = (struct io *)qp;
+	(void)emp_remque(&io->queue);
+	(void)free((s_char *)io->data);
+	(void)free((s_char *)io);
+    }
+
+    ioq->cc = 0;
 }
 
 /*
@@ -110,9 +112,9 @@ ioq_drain(struct ioqueue *ioq)
 int
 ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc)
 {
-	if (ioq->cc <= 0)
-		return 0;
-	return ioqtoiov(ioq, iov, cc);
+    if (ioq->cc <= 0)
+	return 0;
+    return ioqtoiov(ioq, iov, cc);
 }
 #endif
 
@@ -124,25 +126,25 @@ ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc)
 int
 ioq_peek(struct ioqueue *ioq, s_char *buf, int cc)
 {
-	return ioqtobuf(ioq, buf, cc);
+    return ioqtobuf(ioq, buf, cc);
 }
 
 int
 ioq_dequeue(struct ioqueue *ioq, int cc)
 {
-	return removecc(ioq, cc);
+    return removecc(ioq, cc);
 }
 
 void
 ioq_append(struct ioqueue *ioq, s_char *buf, int cc)
 {
-	appendcc(ioq, buf, cc);
+    appendcc(ioq, buf, cc);
 }
 
 int
 ioq_qsize(struct ioqueue *ioq)
 {
-	return ioq->cc;
+    return ioq->cc;
 }
 
 /*
@@ -153,28 +155,28 @@ ioq_qsize(struct ioqueue *ioq)
 int
 ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 {
-	int	nbytes;
-	int	actual;
+    int nbytes;
+    int actual;
 
-	nbytes = ioqtocbuf(ioq, buf, cc - 1, '\n');
-	if (nbytes >= 0) {
-		actual = nbytes;
-		if (actual > cc - 1)
-			actual = cc - 1;
-		buf[actual] = '\0';
-		/* remove the newline too */
-		removecc(ioq, nbytes + 1);
+    nbytes = ioqtocbuf(ioq, buf, cc - 1, '\n');
+    if (nbytes >= 0) {
+	actual = nbytes;
+	if (actual > cc - 1)
+	    actual = cc - 1;
+	buf[actual] = '\0';
+	/* remove the newline too */
+	removecc(ioq, nbytes + 1);
 #if defined(_WIN32)
-        loc_StripDels(buf);
+	loc_StripDels(buf);
 #endif
-	}
-	return nbytes;
+    }
+    return nbytes;
 }
 
 int
 ioq_puts(struct ioqueue *ioq, s_char *buf)
 {
-	return appendcc(ioq, buf, strlen(buf));
+    return appendcc(ioq, buf, strlen(buf));
 }
 
 /*
@@ -188,34 +190,34 @@ ioq_puts(struct ioqueue *ioq, s_char *buf)
  * left for a higher level.
  */
 static
-int
+    int
 ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
 {
-	struct io *io;
-	struct emp_qelem *qp;
-	struct emp_qelem *head;
-	register int nbytes;
-	register int nleft;
-	register s_char *offset;
+    struct io *io;
+    struct emp_qelem *qp;
+    struct emp_qelem *head;
+    register int nbytes;
+    register int nleft;
+    register s_char *offset;
 
-	nleft = cc;
-	offset = buf;
-	head = &ioq->list.queue;
-	for (qp = head->q_forw; qp != head && nleft > 0; qp = qp->q_forw) {
-		io = (struct io *) qp;
-		if ((nbytes = io->nbytes - io->offset) < 0) {
-			/* XXX log something here */
-			continue;
-		}
-		if (nbytes > 0) {
-			if (nleft < nbytes)
-				nbytes = nleft;
-			bcopy(io->data + io->offset, offset, nbytes);
-			offset += nbytes;
-			nleft -= nbytes;
-		}
+    nleft = cc;
+    offset = buf;
+    head = &ioq->list.queue;
+    for (qp = head->q_forw; qp != head && nleft > 0; qp = qp->q_forw) {
+	io = (struct io *)qp;
+	if ((nbytes = io->nbytes - io->offset) < 0) {
+	    /* XXX log something here */
+	    continue;
 	}
-	return offset - buf;
+	if (nbytes > 0) {
+	    if (nleft < nbytes)
+		nbytes = nleft;
+	    bcopy(io->data + io->offset, offset, nbytes);
+	    offset += nbytes;
+	    nleft -= nbytes;
+	}
+    }
+    return offset - buf;
 }
 
 /*
@@ -223,38 +225,37 @@ ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
  * terminating on the stop character.
  */
 static
-int
+    int
 ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc)
 {
-	register int nbytes;
-	register s_char *p;
-	register int n;
-	struct	io *io;
-	struct	emp_qelem *qp;
-	struct	emp_qelem *head;
-	int	total;
-	int	found;
+    register int nbytes;
+    register s_char *p;
+    register int n;
+    struct io *io;
+    struct emp_qelem *qp;
+    struct emp_qelem *head;
+    int total;
+    int found;
 
-	head = &ioq->list.queue;
-	found = 0;
-	total = 0;
-	for (qp = head->q_forw; qp != head; qp = qp->q_forw) {
-		io = (struct io *) qp;
-		if ((nbytes = io->nbytes - io->offset) <= 0)
-			continue;
-		p = io->data + io->offset;
-		for (n=0; n < nbytes && p[n] != stopc; n++)
-			;
-		total += n;
-		if (n < nbytes) {
-			found++;
-			break;
-		}
+    head = &ioq->list.queue;
+    found = 0;
+    total = 0;
+    for (qp = head->q_forw; qp != head; qp = qp->q_forw) {
+	io = (struct io *)qp;
+	if ((nbytes = io->nbytes - io->offset) <= 0)
+	    continue;
+	p = io->data + io->offset;
+	for (n = 0; n < nbytes && p[n] != stopc; n++) ;
+	total += n;
+	if (n < nbytes) {
+	    found++;
+	    break;
 	}
-	if (found == 0)
-		return -1;
-	ioqtobuf(ioq, buf, cc < total ? cc : total);
-	return total;
+    }
+    if (found == 0)
+	return -1;
+    ioqtobuf(ioq, buf, cc < total ? cc : total);
+    return total;
 }
 
 /*
@@ -263,33 +264,33 @@ ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc)
  */
 #if !defined(_WIN32)
 static
-int
+    int
 ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
 {
-	struct io *io;
-	register int cc;
-	register int niov;
-	register int len;
-	struct	emp_qelem *qp;
+    struct io *io;
+    register int cc;
+    register int niov;
+    register int len;
+    struct emp_qelem *qp;
 
-	cc = max;
-	niov = 0;
-	qp = ioq->list.queue.q_forw;
-	while (qp != &ioq->list.queue && cc > 0) {
-		io = (struct io *) qp;
-		len = io->nbytes - io->offset;
-		if (len > cc)
-			len = cc;
-		iov->iov_base = io->data + io->offset;
-		iov->iov_len = len;
-		cc -= len;
-		niov++;
-		iov++;
-		qp = qp->q_forw;
-		if (niov >= 16)
-			break;
-	}
-	return niov;
+    cc = max;
+    niov = 0;
+    qp = ioq->list.queue.q_forw;
+    while (qp != &ioq->list.queue && cc > 0) {
+	io = (struct io *)qp;
+	len = io->nbytes - io->offset;
+	if (len > cc)
+	    len = cc;
+	iov->iov_base = io->data + io->offset;
+	iov->iov_len = len;
+	cc -= len;
+	niov++;
+	iov++;
+	qp = qp->q_forw;
+	if (niov >= 16)
+	    break;
+    }
+    return niov;
 }
 #endif
 
@@ -297,39 +298,39 @@ ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
  * append a buffer to the end of the ioq.
  */
 static
-int
+    int
 appendcc(struct ioqueue *ioq, s_char *buf, int cc)
 {
-	struct io *io;
-	int	len;
-	s_char	*ptr;
-	int	avail;
+    struct io *io;
+    int len;
+    s_char *ptr;
+    int avail;
 
-	/* determine if any space is left */
-	io = (struct io *)ioq->list.queue.q_back;
-	avail = io->size - io->nbytes;
-	if (avail > 0) {
-		/* append to existing buffer */
-		len = cc > avail ? avail : cc;
-		bcopy(buf, io->data + io->nbytes, len);
-		io->nbytes += len;
-		ioq->cc += len;
-		if (avail < cc)
-			appendcc(ioq, buf + len, cc - len);
-	} else {
-		/* create a new buffer, minimum bufsize bytes */
-		len = cc > ioq->bufsize ? cc : ioq->bufsize;
-		ptr = malloc(len);
-		bcopy(buf, ptr, cc);
-		io = (struct io *) malloc(sizeof(struct io));
-		io->nbytes = cc;
-		io->size = len;
-		io->offset = 0;
-		io->data = ptr;
-		emp_insque(&io->queue, ioq->list.queue.q_back);
-		ioq->cc += cc;
-	}
-	return cc;
+    /* determine if any space is left */
+    io = (struct io *)ioq->list.queue.q_back;
+    avail = io->size - io->nbytes;
+    if (avail > 0) {
+	/* append to existing buffer */
+	len = cc > avail ? avail : cc;
+	bcopy(buf, io->data + io->nbytes, len);
+	io->nbytes += len;
+	ioq->cc += len;
+	if (avail < cc)
+	    appendcc(ioq, buf + len, cc - len);
+    } else {
+	/* create a new buffer, minimum bufsize bytes */
+	len = cc > ioq->bufsize ? cc : ioq->bufsize;
+	ptr = malloc(len);
+	bcopy(buf, ptr, cc);
+	io = (struct io *)malloc(sizeof(struct io));
+	io->nbytes = cc;
+	io->size = len;
+	io->offset = 0;
+	io->data = ptr;
+	emp_insque(&io->queue, ioq->list.queue.q_back);
+	ioq->cc += cc;
+    }
+    return cc;
 }
 
 /*
@@ -338,45 +339,46 @@ appendcc(struct ioqueue *ioq, s_char *buf, int cc)
  * which are no longer used.
  */
 static
-int
+    int
 removecc(struct ioqueue *ioq, register int cc)
 {
-	struct io *io;
-	struct emp_qelem *qp;
-	register int nbytes;
-	register int there;
-	register int remain;
+    struct io *io;
+    struct emp_qelem *qp;
+    register int nbytes;
+    register int there;
+    register int remain;
 
-	nbytes = 0;
-	remain = cc;
-	while ((qp = ioq->list.queue.q_forw) != &ioq->list.queue) {
-		io = (struct io *) qp;
-		there = io->nbytes - io->offset;
-		if (there < 0) {
-			/* error */
-			(void) emp_remque(&io->queue);
-			(void) free((s_char *)io);
-			continue;
-		}
-		if (remain >= there) {
-			/* not enough or exact; free entry */
-			nbytes += there;
-			remain -= there;
-			(void) emp_remque(&io->queue);
-			(void) free(io->data);
-			(void) free((s_char *)io);
-		} else {
-			/* too much; increment offset */
-			io->offset += remain;
-			nbytes += remain;
-			remain = 0;
-		}
-		if (remain <= 0)
-			break;
+    nbytes = 0;
+    remain = cc;
+    while ((qp = ioq->list.queue.q_forw) != &ioq->list.queue) {
+	io = (struct io *)qp;
+	there = io->nbytes - io->offset;
+	if (there < 0) {
+	    /* error */
+	    (void)emp_remque(&io->queue);
+	    (void)free((s_char *)io);
+	    continue;
 	}
-	ioq->cc -= nbytes;
-	return nbytes;
+	if (remain >= there) {
+	    /* not enough or exact; free entry */
+	    nbytes += there;
+	    remain -= there;
+	    (void)emp_remque(&io->queue);
+	    (void)free(io->data);
+	    (void)free((s_char *)io);
+	} else {
+	    /* too much; increment offset */
+	    io->offset += remain;
+	    nbytes += remain;
+	    remain = 0;
+	}
+	if (remain <= 0)
+	    break;
+    }
+    ioq->cc -= nbytes;
+    return nbytes;
 }
+
 #if defined(_WIN32)
 /*
  * Make an (output) buffer up to the
@@ -387,39 +389,37 @@ removecc(struct ioqueue *ioq, register int cc)
 int
 ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen)
 {
-	struct io *io;
-	struct emp_qelem *qp;
-	struct emp_qelem *head;
-	int nbytes;
-	int nleft;
+    struct io *io;
+    struct emp_qelem *qp;
+    struct emp_qelem *head;
+    int nbytes;
+    int nleft;
     int ncopied;
-	s_char *offset;
+    s_char *offset;
 
     ncopied = 0;
-	nleft = nBufLen;
-	offset = pBuf;
-	head = &ioq->list.queue;
+    nleft = nBufLen;
+    offset = pBuf;
+    head = &ioq->list.queue;
 
-	for (qp = head->q_forw;
-                    (qp != head) && (nleft > 0);
-                    qp = qp->q_forw) {
-		io = (struct io *) qp;
-		nbytes = io->nbytes - io->offset;
-		if (nbytes < 0) {
-            /* Paranoid check for bad buffer. */
-			continue;
-		}
-
-        /* too many bytes, wait till next time. */
-        if (nbytes > nleft)
-            break;
-
-		bcopy(io->data + io->offset, offset, nbytes);
-		offset += nbytes;
-		nleft -= nbytes;
-        ncopied += nbytes;
+    for (qp = head->q_forw; (qp != head) && (nleft > 0); qp = qp->q_forw) {
+	io = (struct io *)qp;
+	nbytes = io->nbytes - io->offset;
+	if (nbytes < 0) {
+	    /* Paranoid check for bad buffer. */
+	    continue;
 	}
-	return ncopied;
+
+	/* too many bytes, wait till next time. */
+	if (nbytes > nleft)
+	    break;
+
+	bcopy(io->data + io->offset, offset, nbytes);
+	offset += nbytes;
+	nleft -= nbytes;
+	ncopied += nbytes;
+    }
+    return ncopied;
 }
 #endif /* _WIN32 */
 
@@ -438,19 +438,18 @@ loc_StripDels(char *pBuf)
     char *sp;
 
     for (cp = pBuf; *cp;) {
-        /* Remove Backspace and DEL */
-        if (*cp == '\b' || *cp == '\x8F') {
-            if (cp == pBuf)
-                dp = cp;
-            else
-                dp = cp - 1;
-            sp = cp + 1;
-            while (*sp)
-                *dp++ = *sp++;
-            *dp = 0;
-        } else
-            cp++;
+	/* Remove Backspace and DEL */
+	if (*cp == '\b' || *cp == '\x8F') {
+	    if (cp == pBuf)
+		dp = cp;
+	    else
+		dp = cp - 1;
+	    sp = cp + 1;
+	    while (*sp)
+		*dp++ = *sp++;
+	    *dp = 0;
+	} else
+	    cp++;
     }
 }
 #endif
-

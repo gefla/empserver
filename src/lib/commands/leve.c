@@ -46,53 +46,53 @@
 int
 leve(void)
 {
-	struct	sctstr sect;
-	int	nsect;
-	struct	nstr_sect nstr;
-	int	dist[I_MAX+1];
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
+    int dist[I_MAX + 1];
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	nsect = 0;
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (nsect++ == 0) {
-			pr("DISTRIBUTION LEVELS\n");
-			if (player->god) 
-				pr("own");
-			pr("  sect      dst    civ mil  uw food  sh gun pet iron dust bar oil lcm hcm rad\n");
-		}
-		if (player->god)
-			pr("%2d ", sect.sct_own);
-		getvec(VT_DIST, dist, (s_char *)&sect, EF_SECTOR);
-		prxy("%3d,%-3d", nstr.x, nstr.y, player->cnum);
-		pr(" %c ", dchr[sect.sct_type].d_mnem);
-		prxy("%3d,%-3d", sect.sct_dist_x,sect.sct_dist_y,player->cnum);
-		pr(" %4d", dist[I_CIVIL]);
-		pr("%4d", dist[I_MILIT]);
-		pr("%4d", dist[I_UW]);
-		pr("%5d", dist[I_FOOD]);
-		pr("%4d", dist[I_SHELL]);
-		pr("%4d", dist[I_GUN]);
-		pr("%4d", dist[I_PETROL]);
-		pr("%5d", dist[I_IRON]);
-		pr("%5d", dist[I_DUST]);
-		pr("%4d", dist[I_BAR]);
-		pr("%4d", dist[I_OIL]);
-		pr("%4d", dist[I_LCM]);
-		pr("%4d", dist[I_HCM]);
-		pr("%4d", dist[I_RAD]);
-		pr("\n");
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0) {
+	    pr("DISTRIBUTION LEVELS\n");
+	    if (player->god)
+		pr("own");
+	    pr("  sect      dst    civ mil  uw food  sh gun pet iron dust bar oil lcm hcm rad\n");
 	}
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return 0;
+	if (player->god)
+	    pr("%2d ", sect.sct_own);
+	getvec(VT_DIST, dist, (s_char *)&sect, EF_SECTOR);
+	prxy("%3d,%-3d", nstr.x, nstr.y, player->cnum);
+	pr(" %c ", dchr[sect.sct_type].d_mnem);
+	prxy("%3d,%-3d", sect.sct_dist_x, sect.sct_dist_y, player->cnum);
+	pr(" %4d", dist[I_CIVIL]);
+	pr("%4d", dist[I_MILIT]);
+	pr("%4d", dist[I_UW]);
+	pr("%5d", dist[I_FOOD]);
+	pr("%4d", dist[I_SHELL]);
+	pr("%4d", dist[I_GUN]);
+	pr("%4d", dist[I_PETROL]);
+	pr("%5d", dist[I_IRON]);
+	pr("%5d", dist[I_DUST]);
+	pr("%4d", dist[I_BAR]);
+	pr("%4d", dist[I_OIL]);
+	pr("%4d", dist[I_LCM]);
+	pr("%4d", dist[I_HCM]);
+	pr("%4d", dist[I_RAD]);
+	pr("\n");
+    }
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
 }

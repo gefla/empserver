@@ -38,14 +38,14 @@
 #include "proto.h"
 
 struct fn fnlist[] = {
-	{ NULL,	"user",	USER,},
-	{ NULL,	"coun",	COUN,},
-	{ NULL,	"quit",	QUIT,},
-	{ NULL,	"pass",	PASS,},
-	{ NULL,	"play",	PLAY,},
-	{ NULL,	"list",	LIST,},
-	{ NULL,	"cmd",	CMD,},
-	{ NULL,	"ctld",	CTLD,},
-	{ NULL, "kill", KILL,},
-	{ NULL,	"",	0,},
+    {NULL, "user", USER,},
+    {NULL, "coun", COUN,},
+    {NULL, "quit", QUIT,},
+    {NULL, "pass", PASS,},
+    {NULL, "play", PLAY,},
+    {NULL, "list", LIST,},
+    {NULL, "cmd", CMD,},
+    {NULL, "ctld", CTLD,},
+    {NULL, "kill", KILL,},
+    {NULL, "", 0,},
 };

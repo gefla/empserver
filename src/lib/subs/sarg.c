@@ -56,91 +56,91 @@
 int
 sarg_type(s_char *ptr)
 {
-	int	c;
+    int c;
 
-	c = *ptr;
-	if (c == '@')
-		return NS_DIST;
-	if (c == '*')
-		return NS_ALL;
-	if (c == '#' || index(ptr, ',') != 0)
-		return NS_AREA;
-	if (isdigit(c))
-		return NS_LIST;
-	if (c == '~' || isupper(c) || islower(c))
-		return NS_GROUP;
-	return 0;
+    c = *ptr;
+    if (c == '@')
+	return NS_DIST;
+    if (c == '*')
+	return NS_ALL;
+    if (c == '#' || index(ptr, ',') != 0)
+	return NS_AREA;
+    if (isdigit(c))
+	return NS_LIST;
+    if (c == '~' || isupper(c) || islower(c))
+	return NS_GROUP;
+    return 0;
 }
 
 int
 sarg_xy(s_char *ptr, coord *xp, coord *yp)
 {
-	if (sarg_type(ptr) != NS_AREA)
-		return 0;
-	*xp = atoip(&ptr);
-	if (*ptr++ != ',')
-		return 0;
-	if (!isdigit(*ptr) && *ptr != '-')
-		return 0;
-	*yp = atoi(ptr);
-	inputxy(xp, yp, player->cnum);
-	if ((*xp ^ *yp) & 01)
-		return 0;
-	return 1;
+    if (sarg_type(ptr) != NS_AREA)
+	return 0;
+    *xp = atoip(&ptr);
+    if (*ptr++ != ',')
+	return 0;
+    if (!isdigit(*ptr) && *ptr != '-')
+	return 0;
+    *yp = atoi(ptr);
+    inputxy(xp, yp, player->cnum);
+    if ((*xp ^ *yp) & 01)
+	return 0;
+    return 1;
 }
 
 /* returns absolute coords */
 int
 sarg_getrange(s_char *buf, register struct range *rp)
 {
-	register int rlm;
-	register int c;
-	struct	natstr *np;
-	s_char	*bp;
+    register int rlm;
+    register int c;
+    struct natstr *np;
+    s_char *bp;
 
-	bp = buf;
-	c = *bp;
-	if (c == '#') {
-		/*
-		 * realm #X where (X > 0 && X < MAXNOR)
-		 * Assumes realms are in abs coordinates
-		 */
-		bp++;
-		rlm = atoi(bp);
-		if (rlm < 0 || rlm >= MAXNOR) 
-			return 0;
-		np = getnatp(player->cnum);
-		rp->lx = np->nat_b[rlm].b_xl;
-		rp->hx = np->nat_b[rlm].b_xh;
-		rp->ly = np->nat_b[rlm].b_yl;
-		rp->hy = np->nat_b[rlm].b_yh;
-	} else {
-		/*
-		 * full map specification
-		 * LX:LY,HX:HY where
-		 * ly, hy are optional.
-		 */
-		if (!isdigit(c) && c != '-')
-			return 0;
-		rp->lx = rp->hx = atoip(&bp);
-		if (*bp == ':') {
-			bp++;
-			rp->hx = atoip(&bp);
-		}
-		if (*bp++ != ',')
-			return 0;
-		if (!isdigit(c) && c != '-')
-			return 0;
-		rp->ly = rp->hy = atoip(&bp);
-		if (*bp == ':') {
-			bp++;
-			rp->hy = atoip(&bp);
-		}
-		inputxy(&rp->lx, &rp->ly, player->cnum);
-		inputxy(&rp->hx, &rp->hy, player->cnum);
+    bp = buf;
+    c = *bp;
+    if (c == '#') {
+	/*
+	 * realm #X where (X > 0 && X < MAXNOR)
+	 * Assumes realms are in abs coordinates
+	 */
+	bp++;
+	rlm = atoi(bp);
+	if (rlm < 0 || rlm >= MAXNOR)
+	    return 0;
+	np = getnatp(player->cnum);
+	rp->lx = np->nat_b[rlm].b_xl;
+	rp->hx = np->nat_b[rlm].b_xh;
+	rp->ly = np->nat_b[rlm].b_yl;
+	rp->hy = np->nat_b[rlm].b_yh;
+    } else {
+	/*
+	 * full map specification
+	 * LX:LY,HX:HY where
+	 * ly, hy are optional.
+	 */
+	if (!isdigit(c) && c != '-')
+	    return 0;
+	rp->lx = rp->hx = atoip(&bp);
+	if (*bp == ':') {
+	    bp++;
+	    rp->hx = atoip(&bp);
 	}
-	xysize_range(rp);
-	return 1;
+	if (*bp++ != ',')
+	    return 0;
+	if (!isdigit(c) && c != '-')
+	    return 0;
+	rp->ly = rp->hy = atoip(&bp);
+	if (*bp == ':') {
+	    bp++;
+	    rp->hy = atoip(&bp);
+	}
+	inputxy(&rp->lx, &rp->ly, player->cnum);
+	inputxy(&rp->hx, &rp->hy, player->cnum);
+    }
+    xysize_range(rp);
+    return 1;
 }
 
 /*
@@ -150,16 +150,16 @@ sarg_getrange(s_char *buf, register struct range *rp)
 int
 sarg_area(s_char *buf, register struct range *rp)
 {
-	if (!sarg_getrange(buf, rp))
-		return 0;
-	rp->hx += 1;
-	if (rp->hx >= WORLD_X)
-		rp->hx = 0;
-	rp->hy += 1;
-	if (rp->hy >= WORLD_Y)
-		rp->hy = 0;
-	xysize_range(rp);
-	return 1;
+    if (!sarg_getrange(buf, rp))
+	return 0;
+    rp->hx += 1;
+    if (rp->hx >= WORLD_X)
+	rp->hx = 0;
+    rp->hy += 1;
+    if (rp->hy >= WORLD_Y)
+	rp->hy = 0;
+    xysize_range(rp);
+    return 1;
 }
 
 /*
@@ -169,22 +169,22 @@ sarg_area(s_char *buf, register struct range *rp)
 int
 sarg_range(s_char *buf, coord *xp, coord *yp, int *dist)
 {
-	s_char	*bp;
+    s_char *bp;
 
-	bp = buf;
-	if (bp == 0 || *bp == 0)
-		return 0;
-	if (*bp++ != '@')
-		return 0;
-	*xp = atoip(&bp);
-	if (*bp++ != ',')
-		return 0;
-	*yp = atoip(&bp);
-	if (*bp++ != ':')
-		return 0;
-	inputxy(xp, yp, player->cnum);
-	*dist = atoi(bp);
-	return 1;
+    bp = buf;
+    if (bp == 0 || *bp == 0)
+	return 0;
+    if (*bp++ != '@')
+	return 0;
+    *xp = atoip(&bp);
+    if (*bp++ != ',')
+	return 0;
+    *yp = atoip(&bp);
+    if (*bp++ != ':')
+	return 0;
+    inputxy(xp, yp, player->cnum);
+    *dist = atoi(bp);
+    return 1;
 }
 
 /*
@@ -193,36 +193,36 @@ sarg_range(s_char *buf, coord *xp, coord *yp, int *dist)
 int
 sarg_list(s_char *str, register int *list, int max)
 {
-	register int i;
-	register int j;
-	register int n;
-	s_char	*arg;
+    register int i;
+    register int j;
+    register int n;
+    s_char *arg;
 
-	arg = str;
-	for (i=0; i<max; i++) {
-		if (!isdigit(*arg)) {
-			pr("Illegal character '%c'\n", *arg);
-			return 0;
-		}
-		n = atoip(&arg);
-		for (j=0; j<i; j++) {
-			if (list[j] == n)
-				break;
-		}
-		if (j != i) {
-			/* duplicate; ignore */
-			i--;
-		} else
-			list[i] = n;
-		if (*arg == 0)
-			break;
-		if (*arg != '/') {
-			pr("Expecting '/', got '%c'\n", *arg);
-			return 0;
-		}
-		arg++;
-		if (*arg == 0)
-			break;
+    arg = str;
+    for (i = 0; i < max; i++) {
+	if (!isdigit(*arg)) {
+	    pr("Illegal character '%c'\n", *arg);
+	    return 0;
 	}
-	return i + 1;
+	n = atoip(&arg);
+	for (j = 0; j < i; j++) {
+	    if (list[j] == n)
+		break;
+	}
+	if (j != i) {
+	    /* duplicate; ignore */
+	    i--;
+	} else
+	    list[i] = n;
+	if (*arg == 0)
+	    break;
+	if (*arg != '/') {
+	    pr("Expecting '/', got '%c'\n", *arg);
+	    return 0;
+	}
+	arg++;
+	if (*arg == 0)
+	    break;
+    }
+    return i + 1;
 }

@@ -35,19 +35,19 @@
 #include "misc.h"
 #include "treaty.h"
 
-struct  tchrstr tchr[]  = {
-	{ LNDATT,	"no attacks on any land units" },
-	{ SEAATT,	"no attacks on any ships" },
-	{ SEAFIR,	"no shelling any ships" },
-	{ SUBFIR,	"no depth-charging any subs" },
-	{ LANATT,	"no sector attacks" },
-	{ LANFIR,	"no shelling any land" },
-	{ NEWSHP,	"no building ships" },
-	{ NEWNUK,	"no new nuclear weapons" },
-	{ NEWPLN,	"no building planes" },
-	{ NEWLND,	"no building land units" },
-	{ TRTENL,	"no enlistment" },
-	{ 0,      0 }
+struct tchrstr tchr[] = {
+    {LNDATT, "no attacks on any land units"},
+    {SEAATT, "no attacks on any ships"},
+    {SEAFIR, "no shelling any ships"},
+    {SUBFIR, "no depth-charging any subs"},
+    {LANATT, "no sector attacks"},
+    {LANFIR, "no shelling any land"},
+    {NEWSHP, "no building ships"},
+    {NEWNUK, "no new nuclear weapons"},
+    {NEWPLN, "no building planes"},
+    {NEWLND, "no building land units"},
+    {TRTENL, "no enlistment"},
+    {0, 0}
 };
 
-int	trt_maxno   = (sizeof(tchr) / sizeof(struct tchrstr)) - 1;
+int trt_maxno = (sizeof(tchr) / sizeof(struct tchrstr)) - 1;

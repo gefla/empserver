@@ -43,99 +43,99 @@
 /*ARGSUSED*/
 void
 mobility_check(argv)
-void	*argv;
+void *argv;
 
 {
-	extern  s_char *timestampfil;
-	extern  int updating_mob;
-	struct  mob_acc_globals timestamps;
-	time_t  now;
-	FILE    *fp;
-	int     hour[2];
+    extern s_char *timestampfil;
+    extern int updating_mob;
+    struct mob_acc_globals timestamps;
+    time_t now;
+    FILE *fp;
+    int hour[2];
 
-	while (1) {
-		time(&now);
-/*		logerror("Updating timestamp file at %s", ctime(&now));*/
-#if !defined(_WIN32)
-		if ((fp = fopen(timestampfil, "r+")) == NULL) {
-#else
-		if ((fp = fopen(timestampfil, "r+b")) == NULL) {
-#endif
-			logerror("Unable to edit timestamp file.");
-			continue;
-		}
-		rewind(fp);
-		fread(&timestamps, sizeof(timestamps), 1, fp);
-		timestamps.timestamp = now;
-		rewind(fp);
-		fwrite(&timestamps, sizeof(timestamps), 1, fp);
-		fclose(fp);
-		if (!gamehours(now, hour)) {
-			if (updating_mob == 1) {
-				update_all_mob();
-				logerror("Turning off mobility updating (gamehours).");
-				updating_mob = 0;
-			}
-		} else if (updating_mob == 1 && now < timestamps.starttime) {
-			logerror("Turning off mobility updating at %s", ctime(&now));
-			update_all_mob();
-			updating_mob = 0;
-		} else if (updating_mob == 0 && now >= timestamps.starttime) {
-			logerror("Turning on mobility updating at %s", ctime(&now));
-			update_all_mob();
-			updating_mob = 1;
-		}
-		now = now + 180; /* Every 3 minutes */
-		empth_sleep(now);
-		
-	}
-		/*NOTREACHED*/
-}
-
-void
-mobility_init()
-{
-	extern  s_char *timestampfil;
-	extern  int updating_mob;
-	struct  mob_acc_globals timestamps;
-	time_t  now;
-	time_t  lastsavedtime;
-	FILE    *fp;
-	int     hour[2];
-
-	/* During downtime, we don't want mobility to accrue.  So, we look
-	   at the timestamp file, and determine how far forward to push
-	   mobility */
-
+    while (1) {
 	time(&now);
+/*		logerror("Updating timestamp file at %s", ctime(&now));*/
 #if !defined(_WIN32)
 	if ((fp = fopen(timestampfil, "r+")) == NULL) {
 #else
 	if ((fp = fopen(timestampfil, "r+b")) == NULL) {
 #endif
-		logerror("Unable to edit timestamp file.");
-	} else {
-		rewind(fp);
-		fread(&timestamps, sizeof(timestamps), 1, fp);
-		lastsavedtime = timestamps.timestamp;
-		timestamps.timestamp = now;
-		rewind(fp);
-		fwrite(&timestamps, sizeof(timestamps), 1, fp);
-		fclose(fp);
+	    logerror("Unable to edit timestamp file.");
+	    continue;
 	}
-	time(&now);
-	logerror("Adjusting timestamps at %s",ctime(&now));
-	logerror("(was %s)",ctime(&lastsavedtime));
-	/* Update the timestamps to this point in time */
-	update_timestamps(lastsavedtime);
-	time(&now);
-	logerror("Done at %s", ctime(&now));
-
-	if (now >= timestamps.starttime && gamehours(now, hour)) {
-		logerror("Turning on mobility updating.");
-		updating_mob = 1;
-	} else {
-		logerror("Turning off mobility updating.");
+	rewind(fp);
+	fread(&timestamps, sizeof(timestamps), 1, fp);
+	timestamps.timestamp = now;
+	rewind(fp);
+	fwrite(&timestamps, sizeof(timestamps), 1, fp);
+	fclose(fp);
+	if (!gamehours(now, hour)) {
+	    if (updating_mob == 1) {
+		update_all_mob();
+		logerror("Turning off mobility updating (gamehours).");
 		updating_mob = 0;
+	    }
+	} else if (updating_mob == 1 && now < timestamps.starttime) {
+	    logerror("Turning off mobility updating at %s", ctime(&now));
+	    update_all_mob();
+	    updating_mob = 0;
+	} else if (updating_mob == 0 && now >= timestamps.starttime) {
+	    logerror("Turning on mobility updating at %s", ctime(&now));
+	    update_all_mob();
+	    updating_mob = 1;
 	}
+	now = now + 180;	/* Every 3 minutes */
+	empth_sleep(now);
+
+    }
+    /*NOTREACHED*/
+}
+
+void
+mobility_init()
+{
+    extern s_char *timestampfil;
+    extern int updating_mob;
+    struct mob_acc_globals timestamps;
+    time_t now;
+    time_t lastsavedtime;
+    FILE *fp;
+    int hour[2];
+
+    /* During downtime, we don't want mobility to accrue.  So, we look
+       at the timestamp file, and determine how far forward to push
+       mobility */
+
+    time(&now);
+#if !defined(_WIN32)
+    if ((fp = fopen(timestampfil, "r+")) == NULL) {
+#else
+    if ((fp = fopen(timestampfil, "r+b")) == NULL) {
+#endif
+	logerror("Unable to edit timestamp file.");
+    } else {
+	rewind(fp);
+	fread(&timestamps, sizeof(timestamps), 1, fp);
+	lastsavedtime = timestamps.timestamp;
+	timestamps.timestamp = now;
+	rewind(fp);
+	fwrite(&timestamps, sizeof(timestamps), 1, fp);
+	fclose(fp);
+    }
+    time(&now);
+    logerror("Adjusting timestamps at %s", ctime(&now));
+    logerror("(was %s)", ctime(&lastsavedtime));
+    /* Update the timestamps to this point in time */
+    update_timestamps(lastsavedtime);
+    time(&now);
+    logerror("Done at %s", ctime(&now));
+
+    if (now >= timestamps.starttime && gamehours(now, hour)) {
+	logerror("Turning on mobility updating.");
+	updating_mob = 1;
+    } else {
+	logerror("Turning off mobility updating.");
+	updating_mob = 0;
+    }
 }

@@ -40,30 +40,31 @@
 
 #if defined(_EMPTH_LWP)
 
-void lwpStatus(struct lwpProc *proc, char *format, ...)
+void
+lwpStatus(struct lwpProc *proc, char *format, ...)
 {
-	va_list	ap;
-	static	struct timeval startTime;
-	struct	timeval tv;
-	char	buf[1024];
-	int	sec, msec;
+    va_list ap;
+    static struct timeval startTime;
+    struct timeval tv;
+    char buf[1024];
+    int sec, msec;
 
-	va_start(ap,format);
-	if (proc->flags & LWP_PRINT) {
-		if (startTime.tv_sec == 0)
-			gettimeofday(&startTime, 0);
-		gettimeofday(&tv, 0);
-		sec = tv.tv_sec - startTime.tv_sec;
-		msec = (tv.tv_usec - startTime.tv_usec) / 1000;
-		if (msec < 0) {
-			sec++;
-			msec += 1000;
-		}
-		vsprintf(buf, format, ap);
-		printf("%d:%02d.%03d %17s[%d]: %s\n", sec/60, sec%60, msec/10,
-			proc->name, proc->pri, buf);
+    va_start(ap, format);
+    if (proc->flags & LWP_PRINT) {
+	if (startTime.tv_sec == 0)
+	    gettimeofday(&startTime, 0);
+	gettimeofday(&tv, 0);
+	sec = tv.tv_sec - startTime.tv_sec;
+	msec = (tv.tv_usec - startTime.tv_usec) / 1000;
+	if (msec < 0) {
+	    sec++;
+	    msec += 1000;
 	}
-	va_end(ap);
+	vsprintf(buf, format, ap);
+	printf("%d:%02d.%03d %17s[%d]: %s\n", sec / 60, sec % 60,
+	       msec / 10, proc->name, proc->pri, buf);
+    }
+    va_end(ap);
 }
 
 #endif

@@ -44,29 +44,29 @@
 int
 recvclient(s_char *cmd, int size)
 {
-	extern	int errno;
-	int	count;
+    extern int errno;
+    int count;
 
-	if (player->aborted)
-		return -2; 
-	count = io_gets(player->iop, cmd, size);
-	while (!player->aborted && count < 0) {
-		io_output_all(player->iop);
-		io_input(player->iop, IO_WAIT);
-		if (io_error(player->iop))
-			player->aborted++;
-		else if (io_eof(player->iop))
-			return -1;
-		else
-			count = io_gets(player->iop, cmd, size);
-	}
-	if (count > 0) {
-		if (strcmp(cmd, "ctld") == 0)
-			return -1;
-		if (strcmp(cmd, "aborted") == 0)
-			player->aborted = 1;
-	}
-	if (player->aborted)
-		return -2;
-	return count;
+    if (player->aborted)
+	return -2;
+    count = io_gets(player->iop, cmd, size);
+    while (!player->aborted && count < 0) {
+	io_output_all(player->iop);
+	io_input(player->iop, IO_WAIT);
+	if (io_error(player->iop))
+	    player->aborted++;
+	else if (io_eof(player->iop))
+	    return -1;
+	else
+	    count = io_gets(player->iop, cmd, size);
+    }
+    if (count > 0) {
+	if (strcmp(cmd, "ctld") == 0)
+	    return -1;
+	if (strcmp(cmd, "aborted") == 0)
+	    player->aborted = 1;
+    }
+    if (player->aborted)
+	return -2;
+    return count;
 }

@@ -55,6 +55,6 @@
 #include "map.h"
 #include "update.h"
 
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _COMMANDS_H_ */

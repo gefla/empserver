@@ -26,26 +26,28 @@
 
 #if defined(_EMPTH_LWP)
 
-struct lwpProc *lwpGetFirst(q)
-	struct lwpQueue *q;
+struct lwpProc *
+lwpGetFirst(q)
+struct lwpQueue *q;
 {
-	struct lwpProc *head;
+    struct lwpProc *head;
 
-	if ((head = q->head) && !(q->head = head->next))
-		q->tail = 0;
-	return (head);
+    if ((head = q->head) && !(q->head = head->next))
+	q->tail = 0;
+    return (head);
 }
 
-void lwpAddTail(q, p)
-	register struct lwpQueue *q;
-	register struct lwpProc *p;
+void
+lwpAddTail(q, p)
+register struct lwpQueue *q;
+register struct lwpProc *p;
 {
-	if (!q->tail)
-		q->head = p;
-	else
-		q->tail->next = p;
-	q->tail = p;
-	p->next = 0;
+    if (!q->tail)
+	q->head = p;
+    else
+	q->tail->next = p;
+    q->tail = p;
+    p->next = 0;
 }
 
 #endif

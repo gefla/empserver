@@ -44,56 +44,56 @@
 void
 nreport(natid actor, int event, natid victim, int times)
 {
-	int	nice;
-	int	rel;
-	struct	natstr *np;
+    int nice;
+    int rel;
+    struct natstr *np;
 
-	filereport(actor, event, victim, times);
-	/*
-	 * this is probably pretty expensive, but hopefully we
-	 * don't fire zillions of these things off every second.
-	 */
-	if (victim == 0 || (nice = rpt[event].r_good_will) >= 0)
-		return;
-	/*
-	 * Pretty schlocky to put it here, but
-	 * I guess it can't go anywhere else.
-	 */
-	if (actor == victim)
-		return;
-	if (!chance((double)-nice * times/20.0))
-		return;
-	if ((np = getnatp(victim)) == 0)
-		return;
-	if ((rel = getrel(np, actor)) < HOSTILE)
-		return;
+    filereport(actor, event, victim, times);
+    /*
+     * this is probably pretty expensive, but hopefully we
+     * don't fire zillions of these things off every second.
+     */
+    if (victim == 0 || (nice = rpt[event].r_good_will) >= 0)
+	return;
+    /*
+     * Pretty schlocky to put it here, but
+     * I guess it can't go anywhere else.
+     */
+    if (actor == victim)
+	return;
+    if (!chance((double)-nice * times / 20.0))
+	return;
+    if ((np = getnatp(victim)) == 0)
+	return;
+    if ((rel = getrel(np, actor)) < HOSTILE)
+	return;
 
-	rel = HOSTILE;
+    rel = HOSTILE;
 /*
 	if (rel > HOSTILE)
 		rel = HOSTILE;
 	else
 		rel = AT_WAR;
  */
-	setrel(victim, actor, rel);
+    setrel(victim, actor, rel);
 }
 
 struct free {
-	struct free *next;
-	int id;
+    struct free *next;
+    int id;
 };
 
-struct	free *freelist;
+struct free *freelist;
 
 static void
 addfree(int n)
 {
-	struct	free *fp;
+    struct free *fp;
 
-	fp = (struct free *) malloc(sizeof(*fp));
-	fp->next = freelist;
-	fp->id = n;
-	freelist = fp;
+    fp = (struct free *)malloc(sizeof(*fp));
+    fp->next = freelist;
+    fp->id = n;
+    freelist = fp;
 }
 
 /*
@@ -104,97 +104,97 @@ addfree(int n)
 static void
 findfree(void)
 {
-	register time_t oldnewstime;
-	register int n;
-	struct	nwsstr news;
-	time_t	newstime;
+    register time_t oldnewstime;
+    register int n;
+    struct nwsstr news;
+    time_t newstime;
 
-	(void) time(&newstime);
-	oldnewstime = newstime - NEWS_PERIOD;
-	for (n=0; getnews(n, &news); n++) {
-		if (news.nws_when < oldnewstime)
-			addfree(n);
-	}
-	if (freelist == 0) {
-		if (!ef_extend(EF_NEWS, 100))
-			return;
-		findfree();
-	}
+    (void)time(&newstime);
+    oldnewstime = newstime - NEWS_PERIOD;
+    for (n = 0; getnews(n, &news); n++) {
+	if (news.nws_when < oldnewstime)
+	    addfree(n);
+    }
+    if (freelist == 0) {
+	if (!ef_extend(EF_NEWS, 100))
+	    return;
+	findfree();
+    }
 }
 
 static
-int
+    int
 nextfree(void)
 {
-	struct	free *fp;
-	int	id;
+    struct free *fp;
+    int id;
 
-	if (freelist == 0)
-		findfree();
-	if ((fp = freelist) == 0)
-		return 0;
-	freelist = fp->next;
-	id = fp->id;
-	free(fp);
-	return id;
+    if (freelist == 0)
+	findfree();
+    if ((fp = freelist) == 0)
+	return 0;
+    freelist = fp->next;
+    id = fp->id;
+    free(fp);
+    return id;
 }
 
 #define SLOTS	5
 
 struct newscache {
-	struct nwsstr news;
-	int id;
+    struct nwsstr news;
+    int id;
 };
 
 static
 struct newscache *
 ncache(time_t now, int actor, int event, int victim, int times)
 {
-	static	struct newscache cache[MAXNOC][SLOTS];
-	register struct newscache *np;
-	int	i;
-	int	oldslot;
-	time_t	oldtime;
+    static struct newscache cache[MAXNOC][SLOTS];
+    register struct newscache *np;
+    int i;
+    int oldslot;
+    time_t oldtime;
 
-	oldslot = -1;
-	oldtime = 0x7fffffff;
-	for (i=0; i<SLOTS; i++) {
-		np = &cache[actor][i];
-		if (np->news.nws_when < oldtime) {
-			oldslot = i;
-			oldtime = np->news.nws_when;
-		}
-		if (np->id == 0)
-			continue;
-		if ((now - np->news.nws_when) > minutes(5))
-			continue;
-		if (np->news.nws_vrb == event && np->news.nws_vno == victim &&
-		    np->news.nws_ntm + times <= 127) {
-			np->news.nws_ntm += times;
-			return np;
-		}
+    oldslot = -1;
+    oldtime = 0x7fffffff;
+    for (i = 0; i < SLOTS; i++) {
+	np = &cache[actor][i];
+	if (np->news.nws_when < oldtime) {
+	    oldslot = i;
+	    oldtime = np->news.nws_when;
 	}
-	if (oldslot < 0) {
-		logerror("internal error; ncache oldslot < 0");
-		return &cache[actor][0];
+	if (np->id == 0)
+	    continue;
+	if ((now - np->news.nws_when) > minutes(5))
+	    continue;
+	if (np->news.nws_vrb == event && np->news.nws_vno == victim &&
+	    np->news.nws_ntm + times <= 127) {
+	    np->news.nws_ntm += times;
+	    return np;
 	}
-	np = &cache[actor][oldslot];
-	np->news.nws_ano = actor;
-	np->news.nws_vno = victim;
-	np->news.nws_when = now;
-	np->news.nws_vrb = event;
-	np->news.nws_ntm = times;
-	np->id = nextfree();
-	return np;
+    }
+    if (oldslot < 0) {
+	logerror("internal error; ncache oldslot < 0");
+	return &cache[actor][0];
+    }
+    np = &cache[actor][oldslot];
+    np->news.nws_ano = actor;
+    np->news.nws_vno = victim;
+    np->news.nws_when = now;
+    np->news.nws_vrb = event;
+    np->news.nws_ntm = times;
+    np->id = nextfree();
+    return np;
 }
 
 void
 filereport(int actor, int event, int victim, int times)
 {
-	struct	newscache *np;
-	time_t	now;
+    struct newscache *np;
+    time_t now;
 
-	time(&now);
-	np = ncache(now, actor, event, victim, times);
-	ef_write(EF_NEWS, np->id, (s_char *)&np->news);
+    time(&now);
+    np = ncache(now, actor, event, victim, times);
+    ef_write(EF_NEWS, np->id, (s_char *)&np->news);
 }

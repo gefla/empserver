@@ -37,17 +37,17 @@
 #include "queue.h"
 
 struct user {
-	struct emp_qelem queue;
-	struct iop *u_iop;
-	int u_cnum;
-	int u_pid;
+    struct emp_qelem queue;
+    struct iop *u_iop;
+    int u_cnum;
+    int u_pid;
 };
 
 /*
  * lock commandsx
  */
-#define L_UNLOCK	bit(0)		/* command to unlock */
-#define	L_LOCK		bit(1)		/* command to lock */
-#define L_NOLOCK	bit(3)		/* allow no new locks */
+#define L_UNLOCK	bit(0)	/* command to unlock */
+#define	L_LOCK		bit(1)	/* command to lock */
+#define L_NOLOCK	bit(3)	/* allow no new locks */
 
 #endif /* _USER_H_ */

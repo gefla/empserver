@@ -35,15 +35,14 @@
 #define MAXIOV		16
 
 struct ioqueue {
-	struct qelem queue;	/* queue fwd/back */
-	int bsize;		/* basic block size */
-	int cc;			/* character count */
+    struct qelem queue;		/* queue fwd/back */
+    int bsize;			/* basic block size */
+    int cc;			/* character count */
 };
 
 struct io {
-	struct qelem queue;	/* list of ioqueue elements */
-	int nbytes;		/* number of data bytes present */
-	int offset;		/* offset into current entry */
-	s_char *data;		/* pointer to start */
+    struct qelem queue;		/* list of ioqueue elements */
+    int nbytes;			/* number of data bytes present */
+    int offset;			/* offset into current entry */
+    s_char *data;		/* pointer to start */
 };
-

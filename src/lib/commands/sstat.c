@@ -47,52 +47,44 @@
 int
 sstat(void)
 {
-	int	nships;
-	struct	nstr_item ni;
-	struct	shpstr ship;
+    int nships;
+    struct nstr_item ni;
+    struct shpstr ship;
 
-	if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
-		return RET_SYN;
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+	return RET_SYN;
 
-	nships = 0;
-	while (nxtitem(&ni, (s_char *)&ship)) {
-	        if (!player->owner || ship.shp_own == 0)
-   		        continue;
-		if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-			pr("bad ship type %d (#%d)\n",
-				ship.shp_type, ni.cur);
-			continue;
-		}
-		count_planes(&ship);
-		count_units(&ship);
-
-		if (nships++ == 0) {
-pr("shp# %22.22s    x,y    eff  tech def spd vis rng fir\n", "ship-type");
-		}
-		pr("%4d %-22.22s ",
-		   ship.shp_uid,
-		   mchr[(int)ship.shp_type].m_name);
-		prxy("%4d,%-4d",
-		   ship.shp_x,
-		   ship.shp_y,
-		   player->cnum);
-		pr(" %3d%% %4d %3d %3d %3d %3d %3d",
-		   ship.shp_effic,
-		   ship.shp_tech,
-		   ship.shp_armor,
-		   ship.shp_speed,
-		   ship.shp_visib,
-		   ship.shp_frnge,
-		   ship.shp_glim);
-		pr("\n");
+    nships = 0;
+    while (nxtitem(&ni, (s_char *)&ship)) {
+	if (!player->owner || ship.shp_own == 0)
+	    continue;
+	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
+	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
+	    continue;
 	}
-	if (nships == 0) {
-		if (player->argp[1])
-			pr("%s: No ship(s)\n", player->argp[1]);
-		else
-			pr("%s: No ship(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d ship%s\n", nships, splur(nships));
-	return RET_OK;
+	count_planes(&ship);
+	count_units(&ship);
+
+	if (nships++ == 0) {
+	    pr("shp# %22.22s    x,y    eff  tech def spd vis rng fir\n",
+	       "ship-type");
+	}
+	pr("%4d %-22.22s ", ship.shp_uid, mchr[(int)ship.shp_type].m_name);
+	prxy("%4d,%-4d", ship.shp_x, ship.shp_y, player->cnum);
+	pr(" %3d%% %4d %3d %3d %3d %3d %3d",
+	   ship.shp_effic,
+	   ship.shp_tech,
+	   ship.shp_armor,
+	   ship.shp_speed, ship.shp_visib, ship.shp_frnge, ship.shp_glim);
+	pr("\n");
+    }
+    if (nships == 0) {
+	if (player->argp[1])
+	    pr("%s: No ship(s)\n", player->argp[1]);
+	else
+	    pr("%s: No ship(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d ship%s\n", nships, splur(nships));
+    return RET_OK;
 }

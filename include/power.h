@@ -35,24 +35,24 @@
 #define _POWER_H_
 
 struct powstr {
-	natid	p_nation;
-	float	p_sects;
-	float	p_effic;
-	float	p_civil;
-	float	p_milit;
-	float	p_shell;
-	float	p_guns;
-	float	p_petrol;
-	float	p_iron;
-	float	p_dust;
-	float	p_food;
-	float	p_oil;
-	float   p_bars;
-	float	p_planes;
-	float	p_ships;
-	float	p_units;
-	float	p_money;
-	float	p_power;
+    natid p_nation;
+    float p_sects;
+    float p_effic;
+    float p_civil;
+    float p_milit;
+    float p_shell;
+    float p_guns;
+    float p_petrol;
+    float p_iron;
+    float p_dust;
+    float p_food;
+    float p_oil;
+    float p_bars;
+    float p_planes;
+    float p_ships;
+    float p_units;
+    float p_money;
+    float p_power;
 };
 
 #define getpower(n, p) \

@@ -47,38 +47,38 @@ extern int morale_base;
 int
 morale(void)
 {
-	struct nstr_item np;
-	struct lndstr land;
-	struct natstr *natp;
-	int	i,min;
-	s_char	*p;
-	s_char	mess[128];
-	double	techfact(int, double);
-	s_char	buf[1024];
+    struct nstr_item np;
+    struct lndstr land;
+    struct natstr *natp;
+    int i, min;
+    s_char *p;
+    s_char mess[128];
+    double techfact(int, double);
+    s_char buf[1024];
 
-	if (!snxtitem(&np, EF_LAND, player->argp[1]))
-		return RET_SYN;
-	while (!player->aborted && nxtitem(&np, (s_char *)&land)) {
-		if (!player->owner || land.lnd_own == 0)
-			continue;
-		natp=getnatp(land.lnd_own);
-		min = morale_base-(int)natp->nat_level[NAT_HLEV];
-		sprintf(mess, "New retreat percentage for %s (min %d%%)? ",
-			prland(&land), min);
-		p = getstarg(player->argp[2], mess, buf);
-		if (!check_land_ok(&land))
-		    continue;
-		if (player->aborted)
-			continue;
-		if (!p || (i = atoi(p)) < 0)
-			continue;
-		land.lnd_retreat = ((i < min) ? min : i);
-		if (land.lnd_retreat > 100)
-			land.lnd_retreat = 100;
-		pr("Unit %d retreat percentage changed to %d\n",
-			land.lnd_uid, land.lnd_retreat);
-		putland(land.lnd_uid,&land);
-	}
+    if (!snxtitem(&np, EF_LAND, player->argp[1]))
+	return RET_SYN;
+    while (!player->aborted && nxtitem(&np, (s_char *)&land)) {
+	if (!player->owner || land.lnd_own == 0)
+	    continue;
+	natp = getnatp(land.lnd_own);
+	min = morale_base - (int)natp->nat_level[NAT_HLEV];
+	sprintf(mess, "New retreat percentage for %s (min %d%%)? ",
+		prland(&land), min);
+	p = getstarg(player->argp[2], mess, buf);
+	if (!check_land_ok(&land))
+	    continue;
+	if (player->aborted)
+	    continue;
+	if (!p || (i = atoi(p)) < 0)
+	    continue;
+	land.lnd_retreat = ((i < min) ? min : i);
+	if (land.lnd_retreat > 100)
+	    land.lnd_retreat = 100;
+	pr("Unit %d retreat percentage changed to %d\n",
+	   land.lnd_uid, land.lnd_retreat);
+	putland(land.lnd_uid, &land);
+    }
 
-	return RET_OK;
+    return RET_OK;
 }

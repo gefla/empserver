@@ -51,71 +51,70 @@
 int
 hard(void)
 {
-	struct	plchrstr *pcp;
-	struct	plnstr pln;
-	int	level;
-	s_char	*p;
-	int	hcm;
-	int	n;
-	struct	nstr_item ni;
-	struct	sctstr sect;
-	s_char	buf[1024];
-	long    cash;
-	struct natstr *natp;
+    struct plchrstr *pcp;
+    struct plnstr pln;
+    int level;
+    s_char *p;
+    int hcm;
+    int n;
+    struct nstr_item ni;
+    struct sctstr sect;
+    s_char buf[1024];
+    long cash;
+    struct natstr *natp;
 
-	if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
-		return RET_SYN;
-	if ((p = getstarg(player->argp[2], "Increase by? ", buf)) == 0 || *p == 0)
-		return RET_SYN;
-	level = atoi(p);
-	if (level < 0)
-		return RET_SYN;
-	natp = getnatp(player->cnum);
-	cash = natp->nat_money;
-	while (nxtitem(&ni, (s_char *)&pln)) {
-		if (!player->owner)
-			continue;
-		pcp = &plchr[(int)pln.pln_type];
-		if ((pcp->pl_flags & P_M) == 0) {
-			pr("%s isn't a missile!\n", prplane(&pln));
-			continue;
-		}
-		if (pln.pln_ship >= 0)	/* can't harden ssbns ... */
-			continue;
-		n = level;
-		if (level + pln.pln_harden > 127)
-			n = 127 - pln.pln_harden;
-		if (n <= 0) {
-			pr("%s is already completely hardened!\n", prplane(&pln));
-			continue;
-		}
-		if (!getsect(pln.pln_x, pln.pln_y, &sect))
-			continue;
-		if (sect.sct_own != player->cnum) {
-			pr("%s: you don't own %s!\n",
-			   prplane(&pln),
-			   xyas(pln.pln_x, pln.pln_y, player->cnum));
-			continue;
-		}
-		hcm = getvar(V_HCM, (s_char *)&sect, EF_SECTOR);
-		if (hcm == 0) {
-			pr("No hcm in %s\n",
-				xyas(pln.pln_x, pln.pln_y, player->cnum));
-			continue;
-		}
-		if (player->dolcost + 5.0 * n > cash) {
-			pr("You don't have enough money to harden %s!\n",
-			   prplane(&pln));
-			continue;
-		}
-		if (hcm <= n)
-			n = hcm;
-		pln.pln_harden += n;
-		player->dolcost += (5.0 * n);
-		putplane(pln.pln_uid, &pln);
-		putvar(V_HCM, hcm - n, (s_char *)&sect, EF_SECTOR);
-		putsect(&sect);
-		pr("%s hardened to %d\n", prplane(&pln), pln.pln_harden);
+    if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
+	return RET_SYN;
+    if ((p = getstarg(player->argp[2], "Increase by? ", buf)) == 0
+	|| *p == 0)
+	return RET_SYN;
+    level = atoi(p);
+    if (level < 0)
+	return RET_SYN;
+    natp = getnatp(player->cnum);
+    cash = natp->nat_money;
+    while (nxtitem(&ni, (s_char *)&pln)) {
+	if (!player->owner)
+	    continue;
+	pcp = &plchr[(int)pln.pln_type];
+	if ((pcp->pl_flags & P_M) == 0) {
+	    pr("%s isn't a missile!\n", prplane(&pln));
+	    continue;
 	}
-	return RET_OK;
+	if (pln.pln_ship >= 0)	/* can't harden ssbns ... */
+	    continue;
+	n = level;
+	if (level + pln.pln_harden > 127)
+	    n = 127 - pln.pln_harden;
+	if (n <= 0) {
+	    pr("%s is already completely hardened!\n", prplane(&pln));
+	    continue;
+	}
+	if (!getsect(pln.pln_x, pln.pln_y, &sect))
+	    continue;
+	if (sect.sct_own != player->cnum) {
+	    pr("%s: you don't own %s!\n",
+	       prplane(&pln), xyas(pln.pln_x, pln.pln_y, player->cnum));
+	    continue;
+	}
+	hcm = getvar(V_HCM, (s_char *)&sect, EF_SECTOR);
+	if (hcm == 0) {
+	    pr("No hcm in %s\n", xyas(pln.pln_x, pln.pln_y, player->cnum));
+	    continue;
+	}
+	if (player->dolcost + 5.0 * n > cash) {
+	    pr("You don't have enough money to harden %s!\n",
+	       prplane(&pln));
+	    continue;
+	}
+	if (hcm <= n)
+	    n = hcm;
+	pln.pln_harden += n;
+	player->dolcost += (5.0 * n);
+	putplane(pln.pln_uid, &pln);
+	putvar(V_HCM, hcm - n, (s_char *)&sect, EF_SECTOR);
+	putsect(&sect);
+	pr("%s hardened to %d\n", prplane(&pln), pln.pln_harden);
+    }
+    return RET_OK;
 }

@@ -42,19 +42,21 @@
 #include <sys/uio.h>
 #endif
 
-int	commf;
+int commf;
 
-int	c_comm[MAXNOC][I_MAX+1];
-float	c_price[MAXNOC][I_MAX+1];
-float	c_mult[MAXNOC][MAXNOC];
+int c_comm[MAXNOC][I_MAX + 1];
+float c_price[MAXNOC][I_MAX + 1];
+float c_mult[MAXNOC][MAXNOC];
 
 #if !defined(_WIN32)
-static	struct iovec commvec[3] = {
-	{ (caddr_t)c_comm,	sizeof(c_comm) },
-	{ (caddr_t)c_price,	sizeof(c_price) },
-	{ (caddr_t)c_mult,	sizeof(c_mult) }
+static struct iovec commvec[3] = {
+    {(caddr_t)c_comm, sizeof(c_comm)}
+    ,
+    {(caddr_t)c_price, sizeof(c_price)}
+    ,
+    {(caddr_t)c_mult, sizeof(c_mult)}
 };
-static	int nvec = sizeof(commvec)/sizeof(struct iovec);
+static int nvec = sizeof(commvec) / sizeof(struct iovec);
 #endif
 
 /*
@@ -70,72 +72,73 @@ static	int nvec = sizeof(commvec)/sizeof(struct iovec);
 int
 commread(void)
 {
-	int	n;
+    int n;
 
-	(void) lseek(commf, (off_t) 0, 0);
+    (void)lseek(commf, (off_t) 0, 0);
 #if !defined(_WIN32)
-	if ((n = readv(commf, commvec, nvec)) !=
-	    sizeof(c_comm) + sizeof(c_price) + sizeof(c_mult)) {
-		logerror("commread: readv returns %d", n);
-		return -1;
-	}
+    if ((n = readv(commf, commvec, nvec)) !=
+	sizeof(c_comm) + sizeof(c_price) + sizeof(c_mult)) {
+	logerror("commread: readv returns %d", n);
+	return -1;
+    }
 #else
-	if ((n = read(commf, c_comm, sizeof(c_comm))) != sizeof(c_comm)) {
-		logerror("commread: read returns %d, not %d", n, sizeof(c_comm));
-		return -1;
+    if ((n = read(commf, c_comm, sizeof(c_comm))) != sizeof(c_comm)) {
+	logerror("commread: read returns %d, not %d", n, sizeof(c_comm));
+	return -1;
     }
-	if ((n = read(commf, c_price, sizeof(c_price))) != sizeof(c_price)) {
-		logerror("commread: read returns %d, not %d", n, sizeof(c_price));
-		return -1;
+    if ((n = read(commf, c_price, sizeof(c_price))) != sizeof(c_price)) {
+	logerror("commread: read returns %d, not %d", n, sizeof(c_price));
+	return -1;
     }
-	if ((n = read(commf, c_mult, sizeof(c_mult))) != sizeof(c_mult)) {
-		logerror("commread: read returns %d, not %d", n, sizeof(c_mult));
-		return -1;
+    if ((n = read(commf, c_mult, sizeof(c_mult))) != sizeof(c_mult)) {
+	logerror("commread: read returns %d, not %d", n, sizeof(c_mult));
+	return -1;
     }
 #endif
-	return 0;
+    return 0;
 }
 
 int
 commwrite(void)
 {
 #if defined(_WIN32)
-	int n;
+    int n;
 #endif
-	(void) lseek(commf, (off_t) 0, 0);
+    (void)lseek(commf, (off_t) 0, 0);
 #if !defined(_WIN32)
-	if (writev(commf, commvec, nvec) != 
-	    sizeof(c_comm) + sizeof(c_price) + sizeof(c_mult)) {
-		logerror("commwrite: writev failed");
-		return -1;
-	}
+    if (writev(commf, commvec, nvec) !=
+	sizeof(c_comm) + sizeof(c_price) + sizeof(c_mult)) {
+	logerror("commwrite: writev failed");
+	return -1;
+    }
 #else
-	if ((n = write(commf, c_comm, sizeof(c_comm))) != sizeof(c_comm)) {
-		logerror("commwrite: write returns %d, not %d", n, sizeof(c_comm));
-		return -1;
+    if ((n = write(commf, c_comm, sizeof(c_comm))) != sizeof(c_comm)) {
+	logerror("commwrite: write returns %d, not %d", n, sizeof(c_comm));
+	return -1;
     }
-	if ((n = write(commf, c_price, sizeof(c_price))) != sizeof(c_price)) {
-		logerror("commwrite: write returns %d, not %d", n, sizeof(c_price));
-		return -1;
+    if ((n = write(commf, c_price, sizeof(c_price))) != sizeof(c_price)) {
+	logerror("commwrite: write returns %d, not %d", n,
+		 sizeof(c_price));
+	return -1;
     }
-	if ((n = write(commf, c_mult, sizeof(c_mult))) != sizeof(c_mult)) {
-		logerror("commwrite: write returns %d, not %d", n, sizeof(c_mult));
-		return -1;
+    if ((n = write(commf, c_mult, sizeof(c_mult))) != sizeof(c_mult)) {
+	logerror("commwrite: write returns %d, not %d", n, sizeof(c_mult));
+	return -1;
     }
 #endif
-	return 0;
+    return 0;
 }
 
 int
 commlock(void)
 {
-	return file_lock(commf);
+    return file_lock(commf);
 }
 
 int
 communlock(void)
 {
-	return file_unlock(commf);
+    return file_unlock(commf);
 }
 
 /*
@@ -144,30 +147,30 @@ communlock(void)
 int
 commamt(natid trader, int product, float *priceval)
 {
-	*priceval = c_price[trader][product] * c_mult[trader][player->cnum];
-	return c_comm[trader][product];
+    *priceval = c_price[trader][product] * c_mult[trader][player->cnum];
+    return c_comm[trader][product];
 }
 
 void
 commset(natid trader, int product, int amt)
 {
-	c_comm[trader][product] += amt;
+    c_comm[trader][product] += amt;
 }
 
 double
 multread(natid trader, natid tradee)
 {
-	return c_mult[trader][tradee];
+    return c_mult[trader][tradee];
 }
 
 void
 multset(natid tradee, float newmult)
 {
-	c_mult[player->cnum][tradee] = newmult;
+    c_mult[player->cnum][tradee] = newmult;
 }
 
 void
 commprice(int product, float *newprice)
 {
-	c_price[player->cnum][product] = *newprice;
+    c_price[player->cnum][product] = *newprice;
 }

@@ -34,8 +34,8 @@
 #ifndef _DEITY_H_
 #define _DEITY_H_
 
-extern	s_char *privname;
-extern	s_char *privlog;
-extern	int privuid;
+extern s_char *privname;
+extern s_char *privlog;
+extern int privuid;
 
 #endif /* _DEITY_H_ */

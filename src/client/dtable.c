@@ -41,18 +41,18 @@
 /*ARGSUSED*/
 void
 setfdtablesize(min, start)
-	int	min;
-	int	start;
+int min;
+int start;
 {
 #ifdef sequent
-	extern	int errno;
+    extern int errno;
 
-	while (start >= min) {
-		if (setdtablesize(start) < 0)
-			break;
-		start -= 16;
-	}
-	errno = 0;
+    while (start >= min) {
+	if (setdtablesize(start) < 0)
+	    break;
+	start -= 16;
+    }
+    errno = 0;
 #endif
 }
 
@@ -60,14 +60,14 @@ int
 getfdtablesize()
 {
 #ifdef hpux
-	return _NFILE;
+    return _NFILE;
 #else
 #ifdef _WIN32
-	return _NFILE;
+    return _NFILE;
 #else
-	int getdtablesize();
+    int getdtablesize();
 
-	return getdtablesize();
+    return getdtablesize();
 #endif
 #endif
 }

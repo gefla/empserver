@@ -48,91 +48,89 @@
 int
 sct(void)
 {
-	struct	nstr_sect ns;
-	struct	sctstr sect;
-	struct	nscstr cond[NS_NCOND];
-	struct	range range;
-	struct	natstr *np;
-	int	ncond;
-	int     nsect;
-	s_char	*ptr;
-	coord	y, yval;
-	int	i;
-	s_char	what[64];
-	s_char	*str;
-	s_char	buf[1024];
-	/* Note this is not re-entrant anyway, so we keep the buffers
-	   around */
-	static s_char      *mapbuf = (s_char *)0;
-	static s_char      **map = (s_char **)0;
+    struct nstr_sect ns;
+    struct sctstr sect;
+    struct nscstr cond[NS_NCOND];
+    struct range range;
+    struct natstr *np;
+    int ncond;
+    int nsect;
+    s_char *ptr;
+    coord y, yval;
+    int i;
+    s_char what[64];
+    s_char *str;
+    s_char buf[1024];
+    /* Note this is not re-entrant anyway, so we keep the buffers
+       around */
+    static s_char *mapbuf = (s_char *)0;
+    static s_char **map = (s_char **)0;
 
-	nsect = 0;
-	if(player->argp[1] == (s_char *) 0) {
-		if ((str = getstring("(sects)? ", buf)) == 0)
-			return RET_SYN;
-	}
-	else {
-		str = player->argp[1];
-	}
+    nsect = 0;
+    if (player->argp[1] == (s_char *)0) {
+	if ((str = getstring("(sects)? ", buf)) == 0)
+	    return RET_SYN;
+    } else {
+	str = player->argp[1];
+    }
 
-	if(*str == '*') {
-		sprintf(what, "%d:%d,%d:%d",
-			-WORLD_X/2, WORLD_X/2-1,
-			-WORLD_Y/2, WORLD_Y/2-1);
-		if (!snxtsct(&ns, what))
-			return RET_FAIL;
-	}
-	else
-	if (!snxtsct(&ns, str))
-		return RET_SYN;
-	if (!mapbuf)
-	    mapbuf = (s_char *)malloc((WORLD_Y*MAPWIDTH(1))*sizeof(s_char));
-	if (!map) {
-	    map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
-	    if (map && mapbuf) {
-		for (i = 0; i < WORLD_Y; i++)
-		    map[i] = &mapbuf[MAPWIDTH(1) * i];
-	    } else if (map) {
-		free((s_char *)map);
-		map = (s_char **)0;
-	    }
-	}
-	if (!mapbuf || !map) {
-	    pr("Memory error, tell the deity.\n");
-	    logerror("malloc failed in sect\n");
+    if (*str == '*') {
+	sprintf(what, "%d:%d,%d:%d",
+		-WORLD_X / 2, WORLD_X / 2 - 1,
+		-WORLD_Y / 2, WORLD_Y / 2 - 1);
+	if (!snxtsct(&ns, what))
 	    return RET_FAIL;
+    } else if (!snxtsct(&ns, str))
+	return RET_SYN;
+    if (!mapbuf)
+	mapbuf =
+	    (s_char *)malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+    if (!map) {
+	map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	if (map && mapbuf) {
+	    for (i = 0; i < WORLD_Y; i++)
+		map[i] = &mapbuf[MAPWIDTH(1) * i];
+	} else if (map) {
+	    free((s_char *)map);
+	    map = (s_char **)0;
 	}
-	np = getnatp(player->cnum);
-	ncond = ns.ncond;
-	bcopy((s_char *)ns.cond, (s_char *)cond, sizeof(*cond) * ncond);
-	ns.ncond = 0;
-	xyrelrange(getnatp(player->cnum), &ns.range, &range);
-	border(&range, "    ", "");
-	blankfill((s_char *)mapbuf, &ns.range, 1);
-	while (nxtsct(&ns, &sect)) {
-		if (!player->owner)
-			continue;
-		ptr = &map[ns.dy][ns.dx];
-		*ptr = dchr[sect.sct_type].d_mnem;
-		if (nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR)) {
-			++nsect;
-			*ptr |= 0x80;
-		}
+    }
+    if (!mapbuf || !map) {
+	pr("Memory error, tell the deity.\n");
+	logerror("malloc failed in sect\n");
+	return RET_FAIL;
+    }
+    np = getnatp(player->cnum);
+    ncond = ns.ncond;
+    bcopy((s_char *)ns.cond, (s_char *)cond, sizeof(*cond) * ncond);
+    ns.ncond = 0;
+    xyrelrange(getnatp(player->cnum), &ns.range, &range);
+    border(&range, "    ", "");
+    blankfill((s_char *)mapbuf, &ns.range, 1);
+    while (nxtsct(&ns, &sect)) {
+	if (!player->owner)
+	    continue;
+	ptr = &map[ns.dy][ns.dx];
+	*ptr = dchr[sect.sct_type].d_mnem;
+	if (nstr_exec(cond, ncond, (s_char *)&sect, EF_SECTOR)) {
+	    ++nsect;
+	    *ptr |= 0x80;
 	}
-	for (i=0,y=ns.range.ly; i < ns.range.height; y++,i++) {
-		yval = yrel(np, y);
-		pr("%3d %s %-3d\n", yval, map[i], yval);
-		if (y >= WORLD_Y)
-			y -= WORLD_Y;
-	}
-	border(&range, "    ", "");
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return RET_OK;
+    }
+    for (i = 0, y = ns.range.ly; i < ns.range.height; y++, i++) {
+	yval = yrel(np, y);
+	pr("%3d %s %-3d\n", yval, map[i], yval);
+	if (y >= WORLD_Y)
+	    y -= WORLD_Y;
+    }
+    border(&range, "    ", "");
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return RET_OK;
 }

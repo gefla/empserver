@@ -34,7 +34,7 @@
 #ifndef _EMPIO_H_
 #define _EMPIO_H_
 
-#include <time.h> /* struct timeval */
+#include <time.h>		/* struct timeval */
 
 typedef struct iop *iop_t;
 
@@ -51,27 +51,27 @@ typedef struct iop *iop_t;
 #define IO_NOWAIT	0
 #define IO_WAIT		1
 
-extern struct iop * io_open(int  , int  , int  , int (* )(void) , s_char * );
-extern void io_init(void );
-extern int io_noblocking(struct iop *  , int );
-extern void io_close(struct iop * );
-extern int io_input(struct iop *  , int );
-extern int io_inputwaiting(struct iop * );
-extern int io_outputwaiting(struct iop * );
-extern int io_output(struct iop *  , int );
-extern int io_select(struct timeval * );
-extern void io_flush(int );
-extern int io_peek(struct iop *  , s_char *  , int );
-extern int io_read(struct iop *  , s_char *  , int );
-extern int io_write(struct iop *  , s_char *  , int  , int );
-extern int io_output_all(struct iop * );
-extern int io_gets(struct iop *  , s_char *  , int );
-extern int io_puts(struct iop *  , s_char * );
-extern int io_shutdown(struct iop *  , int );
-extern int io_conn(struct iop * );
-extern int io_error(struct iop * );
-extern int io_eof(struct iop * );
-extern int io_fileno(struct iop * );
-extern struct iop * io_iopfromfd(int );
+extern struct iop *io_open(int, int, int, int (*)(void), s_char *);
+extern void io_init(void);
+extern int io_noblocking(struct iop *, int);
+extern void io_close(struct iop *);
+extern int io_input(struct iop *, int);
+extern int io_inputwaiting(struct iop *);
+extern int io_outputwaiting(struct iop *);
+extern int io_output(struct iop *, int);
+extern int io_select(struct timeval *);
+extern void io_flush(int);
+extern int io_peek(struct iop *, s_char *, int);
+extern int io_read(struct iop *, s_char *, int);
+extern int io_write(struct iop *, s_char *, int, int);
+extern int io_output_all(struct iop *);
+extern int io_gets(struct iop *, s_char *, int);
+extern int io_puts(struct iop *, s_char *);
+extern int io_shutdown(struct iop *, int);
+extern int io_conn(struct iop *);
+extern int io_error(struct iop *);
+extern int io_eof(struct iop *);
+extern int io_fileno(struct iop *);
+extern struct iop *io_iopfromfd(int);
 
 #endif /* _EMPIO_H_ */

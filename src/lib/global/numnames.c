@@ -33,16 +33,16 @@
 
 #include "misc.h"
 
-s_char    *numnames[]  = {
-	"zero", "one", "two", "three", "four", "five", "six",
-	"seven", "eight", "nine", "ten", "eleven", "twelve",
-	"thirteen", "fourteen", "fifteen", "sixteen",
-	"seventeen", "eighteen", "nineteen",
+s_char *numnames[] = {
+    "zero", "one", "two", "three", "four", "five", "six",
+    "seven", "eight", "nine", "ten", "eleven", "twelve",
+    "thirteen", "fourteen", "fifteen", "sixteen",
+    "seventeen", "eighteen", "nineteen",
 };
 
-s_char    *tennames[]  = {
-	"", "", "twenty", "thirty", "forty", "fifty",
-	"sixty", "seventy", "eighty", "ninety",
-	"hundred", "hundred ten", "hundred twenty",
-	"hundred thirty", 0,
+s_char *tennames[] = {
+    "", "", "twenty", "thirty", "forty", "fifty",
+    "sixty", "seventy", "eighty", "ninety",
+    "hundred", "hundred ten", "hundred twenty",
+    "hundred thirty", 0,
 };

@@ -36,9 +36,9 @@
 int
 scthash(register int x, register int y, int tsize)
 {
-	if (x < 0)
-		x = -x;
-	if (y < 0)
-		y = -y;
-	return ((x*10 + y) % tsize);
+    if (x < 0)
+	x = -x;
+    if (y < 0)
+	y = -y;
+    return ((x * 10 + y) % tsize);
 }

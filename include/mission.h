@@ -40,29 +40,29 @@
 #define	MI_SUPPORT	2
 #define	MI_RESERVE	3
 #define MI_ESCORT	4
-#define MI_SINTERDICT	5 /* sub interdiction */
+#define MI_SINTERDICT	5	/* sub interdiction */
 #define MI_AIR_DEFENSE	6
 #define MI_DSUPPORT	7
 #define MI_OSUPPORT	8
 
 /* The following "missions" do not need to be set--they are automatic */
-#define MI_FINTERDICT   9  /* forts interdicting ships */
-#define MI_MINTERDICT	10 /* missiles interdicting ships or land units */
-#define MI_MINTERCEPT	11 /* missile interception */
-#define MI_SINTERCEPT	12 /* sattelite interception */
-#define MI_PINTERCEPT	13 /* intercept planes */
-#define MI_SAM		14 /* SAM interception */
-#define MI_LREACT	15 /* land units react */
+#define MI_FINTERDICT   9	/* forts interdicting ships */
+#define MI_MINTERDICT	10	/* missiles interdicting ships or land units */
+#define MI_MINTERCEPT	11	/* missile interception */
+#define MI_SINTERCEPT	12	/* sattelite interception */
+#define MI_PINTERCEPT	13	/* intercept planes */
+#define MI_SAM		14	/* SAM interception */
+#define MI_LREACT	15	/* land units react */
 #define MI_MAX		15
 
 struct genlist {
-        struct emp_qelem queue;     /* list of units */
-        int type;               /* type of unit */
-        int x,y;                /* x,y it came from */
-        s_char *cp;             /* pointer to desc of thing */
-        s_char *thing;          /* thing's struct */
+    struct emp_qelem queue;	/* list of units */
+    int type;			/* type of unit */
+    int x, y;			/* x,y it came from */
+    s_char *cp;			/* pointer to desc of thing */
+    s_char *thing;		/* thing's struct */
 };
 
-#define SECT_HARDTARGET (-92917) /* a very low number that no-one might pick */
+#define SECT_HARDTARGET (-92917)	/* a very low number that no-one might pick */
 
 #endif /* _MISSION_H_ */

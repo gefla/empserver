@@ -41,49 +41,49 @@
 int
 turn(void)
 {
-	extern	s_char *upfil;
-	extern	s_char *downfil;
-	int	fd;
-	struct	telstr tgm;
-	register s_char *p;
-	s_char	buf[MAXTELSIZE];
+    extern s_char *upfil;
+    extern s_char *downfil;
+    int fd;
+    struct telstr tgm;
+    register s_char *p;
+    s_char buf[MAXTELSIZE];
 
-	p = getstarg(player->argp[1], "on, off or message? ", buf);
-	if (!p)
-		return RET_SYN;
-	if (strcmp(p, "off") == 0) {
-		(void) unlink(upfil);
+    p = getstarg(player->argp[1], "on, off or message? ", buf);
+    if (!p)
+	return RET_SYN;
+    if (strcmp(p, "off") == 0) {
+	(void)unlink(upfil);
 #if !defined(_WIN32)
-		fd = open(downfil, O_RDWR|O_CREAT|O_TRUNC, 0660);
+	fd = open(downfil, O_RDWR | O_CREAT | O_TRUNC, 0660);
 #else
-		fd = open(downfil, O_RDWR|O_CREAT|O_TRUNC|O_BINARY, 0660);
+	fd = open(downfil, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
 #endif
-		pr("off ");
-	} else if (strcmp(p, "on") == 0) {
-		(void) unlink(downfil);
+	pr("off ");
+    } else if (strcmp(p, "on") == 0) {
+	(void)unlink(downfil);
 #if !defined(_WIN32)
-		fd = open(upfil, O_RDWR|O_CREAT|O_TRUNC, 0660);
+	fd = open(upfil, O_RDWR | O_CREAT | O_TRUNC, 0660);
 #else
-		fd = open(upfil, O_RDWR|O_CREAT|O_TRUNC|O_BINARY, 0660);
+	fd = open(upfil, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
 #endif
-		pr("on ");
-	} else {
+	pr("on ");
+    } else {
 #if !defined(_WIN32)
-		fd = open(upfil, O_RDWR|O_CREAT|O_TRUNC, 0660);
+	fd = open(upfil, O_RDWR | O_CREAT | O_TRUNC, 0660);
 #else
-		fd = open(upfil, O_RDWR|O_CREAT|O_TRUNC|O_BINARY, 0660);
+	fd = open(upfil, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0660);
 #endif
-		pr("motd ");
-	}
-	(void) time(&tgm.tel_date);
-	if ((tgm.tel_length = getele("The World", buf)) <= 0) {
-		pr("Ignored\n");
-		close(fd);
-		return RET_SYN;
-	}
-	(void) write(fd, (s_char *)&tgm, sizeof (tgm));
-	(void) write(fd, buf, tgm.tel_length);
-	(void) close(fd);
-	pr("\n");
-	return RET_OK;
+	pr("motd ");
+    }
+    (void)time(&tgm.tel_date);
+    if ((tgm.tel_length = getele("The World", buf)) <= 0) {
+	pr("Ignored\n");
+	close(fd);
+	return RET_SYN;
+    }
+    (void)write(fd, (s_char *)&tgm, sizeof(tgm));
+    (void)write(fd, buf, tgm.tel_length);
+    (void)close(fd);
+    pr("\n");
+    return RET_OK;
 }

@@ -48,12 +48,12 @@
 #include "player.h"
 #include "common.h"
 
-static	s_char *logfile = 0;
+static s_char *logfile = 0;
 
 s_char *
 getlogfile()
 {
-	return (s_char *)logfile;
+    return (s_char *)logfile;
 }
 
 /*
@@ -62,103 +62,105 @@ getlogfile()
 void
 loginit(void)
 {
-	extern	s_char program[];
-	extern	s_char *datadir;
-	s_char	buf[1024];
+    extern s_char program[];
+    extern s_char *datadir;
+    s_char buf[1024];
 
 #if !defined(_WIN32)
-	sprintf(buf, "%s/%s.log", datadir, program);
+    sprintf(buf, "%s/%s.log", datadir, program);
 #else
-	sprintf(buf, "%s\\%s.log", datadir, program);
+    sprintf(buf, "%s\\%s.log", datadir, program);
 #endif
-	logfile = malloc(strlen(buf) + 1);
-	strcpy(logfile, buf);
+    logfile = malloc(strlen(buf) + 1);
+    strcpy(logfile, buf);
 }
 
 /*VARARGS*/
-void logerror(s_char *format, ...)
+void
+logerror(s_char *format, ...)
 {
 #if !defined(Rel4) && !defined(__linux__) && !defined(__ppc__)
-	extern	s_char *sys_errlist[];
-#endif 
+    extern s_char *sys_errlist[];
+#endif
 #ifndef sgi
-	extern	int errno;
+    extern int errno;
 #endif /* sgi */
-	va_list	list;
-	time_t	now;
-	s_char	buf[512];
-	s_char	cbuf[512];
-	s_char	buf1[512];
-	int	logf;
+    va_list list;
+    time_t now;
+    s_char buf[512];
+    s_char cbuf[512];
+    s_char buf1[512];
+    int logf;
 /*	s_char	*error; */
-	s_char	 *p;
+    s_char *p;
 
-	if (logfile == 0)
-		loginit();
-	va_start(list, format);
-	vsprintf(buf, format, list);
-	if ((p = index(buf, '\n')) != 0)
-		*p = 0;
-	(void) time(&now);
+    if (logfile == 0)
+	loginit();
+    va_start(list, format);
+    vsprintf(buf, format, list);
+    if ((p = index(buf, '\n')) != 0)
+	*p = 0;
+    (void)time(&now);
 /*	error = "log";
 	if (errno != 0)
 		error = sys_errlist[errno];
 	(void) sprintf(buf1, "%s; (%s) %s", buf, error, ctime(&now));
 */
-	strcpy(cbuf, ctime(&now));
-	if ((p = index(cbuf, '\n')) != 0)
-		*p = 0;
-	(void) sprintf(buf1, "%s %s\n", cbuf, buf);
-	if ((logf = open(logfile, O_WRONLY|O_CREAT|O_APPEND, 0666)) < 0)
-		return;
-	(void) write(logf, buf1, strlen(buf1));
-	(void) close(logf);
-	errno = 0;
+    strcpy(cbuf, ctime(&now));
+    if ((p = index(cbuf, '\n')) != 0)
+	*p = 0;
+    (void)sprintf(buf1, "%s %s\n", cbuf, buf);
+    if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
+	return;
+    (void)write(logf, buf1, strlen(buf1));
+    (void)close(logf);
+    errno = 0;
 #ifdef notdef
-	if (player) {
-		pr("A system error has occured; please notify the deity.\n");
-		pr(buf1);
-	}
+    if (player) {
+	pr("A system error has occured; please notify the deity.\n");
+	pr(buf1);
+    }
 #endif
-	va_end(list);
+    va_end(list);
 }
 
 /*VARARGS*/
-void filelogerror(s_char *format, ...)
+void
+filelogerror(s_char *format, ...)
 {
 #if !defined(Rel4) && !defined(__linux__) && !defined(__ppc__)
-	extern	s_char *sys_errlist[];
+    extern s_char *sys_errlist[];
 #endif /* Rel4 */
 #ifndef sgi
-	extern	int errno;
+    extern int errno;
 #endif /* sgi */
-	va_list	list;
-	time_t	now;
-	s_char	buf[512];
-	s_char	buf1[512];
-	int	logf;
-	s_char	*error;
-	s_char	 *p;
+    va_list list;
+    time_t now;
+    s_char buf[512];
+    s_char buf1[512];
+    int logf;
+    s_char *error;
+    s_char *p;
 
-	if (logfile == 0)
-		loginit();
-	va_start(list, format);
-	vsprintf(buf, format, list);
-	if ((p = index(buf, '\n')) != 0)
-		*p = 0;
-	(void) time(&now);
-	error = "log";
-	if (errno != 0)
+    if (logfile == 0)
+	loginit();
+    va_start(list, format);
+    vsprintf(buf, format, list);
+    if ((p = index(buf, '\n')) != 0)
+	*p = 0;
+    (void)time(&now);
+    error = "log";
+    if (errno != 0)
 #ifdef Rel4
-		error = strerror (errno);
+	error = strerror(errno);
 #else
-		error = (s_char *)sys_errlist[errno];
+	error = (s_char *)sys_errlist[errno];
 #endif /* Rel4 */
-	(void) sprintf(buf1, "%s; (%s) %s", buf, error, ctime(&now));
-	if ((logf = open(logfile, O_WRONLY|O_CREAT|O_APPEND, 0666)) < 0)
-		return;
-	(void) write(logf, buf1, strlen(buf1));
-	(void) close(logf);
-	errno = 0;
-	va_end(list);
+    (void)sprintf(buf1, "%s; (%s) %s", buf, error, ctime(&now));
+    if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
+	return;
+    (void)write(logf, buf1, strlen(buf1));
+    (void)close(logf);
+    errno = 0;
+    va_end(list);
 }

@@ -41,40 +41,39 @@
 int
 shar(void)
 {
-	int	to;
-	struct	nstr_sect ns;
-	s_char	des = 0;
-	int	n;
+    int to;
+    struct nstr_sect ns;
+    s_char des = 0;
+    int n;
 
-	if (!player->argp[1] ||
-	    !*player->argp[1] ||
-	    (to = natarg(player->argp[1], "Share bmap with which country? ")) < 0)
-		return RET_SYN;
+    if (!player->argp[1] ||
+	!*player->argp[1] ||
+	(to =
+	 natarg(player->argp[1], "Share bmap with which country? ")) < 0)
+	return RET_SYN;
 
-	if (getrel(getnatp(to), player->cnum) < FRIENDLY) {
-		pr("%s does not have friendly relations towards you\n",
-		   cname(to));
-		return RET_FAIL;
-	}
+    if (getrel(getnatp(to), player->cnum) < FRIENDLY) {
+	pr("%s does not have friendly relations towards you\n", cname(to));
+	return RET_FAIL;
+    }
 
-	if (!snxtsct(&ns, player->argp[2]))
-		return RET_SYN;
+    if (!snxtsct(&ns, player->argp[2]))
+	return RET_SYN;
 
-	if (player->argp[3] && *player->argp[3]) {
-		if (typematch(player->argp[3], EF_SECTOR) < 0)
-			return RET_SYN;
-		else
-			des = *player->argp[3];
-	}
+    if (player->argp[3] && *player->argp[3]) {
+	if (typematch(player->argp[3], EF_SECTOR) < 0)
+	    return RET_SYN;
+	else
+	    des = *player->argp[3];
+    }
 
-	if (!bmaps_intersect(player->cnum, to)) {
-		pr("Your bmap does not intersect %s's bmap.\n", cname(to));
-		return RET_FAIL;
-	}
+    if (!bmaps_intersect(player->cnum, to)) {
+	pr("Your bmap does not intersect %s's bmap.\n", cname(to));
+	return RET_FAIL;
+    }
 
-	n = share_bmap(player->cnum, to, &ns, des, cname(player->cnum));
-	pr("%d designations transmitted\n", n);
+    n = share_bmap(player->cnum, to, &ns, des, cname(player->cnum));
+    pr("%d designations transmitted\n", n);
 
-	return RET_OK;
+    return RET_OK;
 }
-

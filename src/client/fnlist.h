@@ -35,11 +35,10 @@
 #ifndef _FNLIST_H_
 #define _FNLIST_H_
 
-struct	fn {
-	int	(*func)();
-	s_char	*name;
-	int	value;
+struct fn {
+    int (*func) ();
+    s_char *name;
+    int value;
 };
 
-#endif _FNLIST_H_
-
+#endif	/* _FNLIST_H_ */

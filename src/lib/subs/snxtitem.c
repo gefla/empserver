@@ -50,82 +50,81 @@
 int
 snxtitem(register struct nstr_item *np, int type, s_char *str)
 {
-	register s_char *cp;
-	struct	range range;
-	int	list[NS_LSIZE];
-	int	n;
-	coord	cx, cy;
-	int	dist;
-	int	flags;
-	s_char	natnumber[16];
-	s_char	prompt[128];
-	s_char	buf[1024];
+    register s_char *cp;
+    struct range range;
+    int list[NS_LSIZE];
+    int n;
+    coord cx, cy;
+    int dist;
+    int flags;
+    s_char natnumber[16];
+    s_char prompt[128];
+    s_char buf[1024];
 
-	np->type = NS_UNDEF;
-	np->sel = NS_UNDEF;
-	if (str == 0) {
-		sprintf(prompt, "%s(s)? ", ef_nameof(type));
-		str = getstring(prompt, buf);
-		if (str == 0)
-			return 0;
-	}
-	if (*str == 0) {
-		/* str present, but only <cr>: nil string passed by player */
-		return 0;
-	}
-	if (type == EF_NATION && isalpha(*str)) {
-		sprintf(natnumber, "%d", natarg(str, ""));
-		str = natnumber;
-	}
-	flags = ef_flags(type);
-	switch (sarg_type(str)) {
-	case NS_AREA:
-		if (!(flags & EFF_XY))
-			return 0;
-		if (!sarg_area(str, &range))
-			return 0;
-		snxtitem_area(np, type, &range);
-		break;
-	case NS_DIST:
-		if (!(flags & EFF_XY))
-			return 0;
-		if (!sarg_range(str, &cx, &cy, &dist))
-			return 0;
-		snxtitem_dist(np, type, cx, cy, dist);
-		break;
-	case NS_ALL:
-		snxtitem_all(np, type);
-		break;
-	case NS_LIST:
-		if ((n = sarg_list(str, list, NS_LSIZE)) == 0)
-			return 0;
-		if (!snxtitem_list(np, type, list, n))
-			return 0;
-		break;
-	case NS_XY:
-		if (!(flags & EFF_XY))
-			return 0;
-		if (!sarg_xy(str, &cx, &cy))
-			return 0;
-		snxtitem_xy(np, type, cx, cy);
-		break;
-	case NS_GROUP:
-		if (!(flags & EFF_GROUP))
-			return 0;
-		snxtitem_group(np, type, *str);
-		break;
-	default:
-		return 0;
-	}
-	np->flags = flags;
-	if (player->condarg == 0)
-		return 1;
-	cp = player->condarg;
-	while ((cp = nstr_comp(np->cond, &np->ncond, type, cp)) && *cp)
-		;
-	if (cp == 0)
-		return 0;
+    np->type = NS_UNDEF;
+    np->sel = NS_UNDEF;
+    if (str == 0) {
+	sprintf(prompt, "%s(s)? ", ef_nameof(type));
+	str = getstring(prompt, buf);
+	if (str == 0)
+	    return 0;
+    }
+    if (*str == 0) {
+	/* str present, but only <cr>: nil string passed by player */
+	return 0;
+    }
+    if (type == EF_NATION && isalpha(*str)) {
+	sprintf(natnumber, "%d", natarg(str, ""));
+	str = natnumber;
+    }
+    flags = ef_flags(type);
+    switch (sarg_type(str)) {
+    case NS_AREA:
+	if (!(flags & EFF_XY))
+	    return 0;
+	if (!sarg_area(str, &range))
+	    return 0;
+	snxtitem_area(np, type, &range);
+	break;
+    case NS_DIST:
+	if (!(flags & EFF_XY))
+	    return 0;
+	if (!sarg_range(str, &cx, &cy, &dist))
+	    return 0;
+	snxtitem_dist(np, type, cx, cy, dist);
+	break;
+    case NS_ALL:
+	snxtitem_all(np, type);
+	break;
+    case NS_LIST:
+	if ((n = sarg_list(str, list, NS_LSIZE)) == 0)
+	    return 0;
+	if (!snxtitem_list(np, type, list, n))
+	    return 0;
+	break;
+    case NS_XY:
+	if (!(flags & EFF_XY))
+	    return 0;
+	if (!sarg_xy(str, &cx, &cy))
+	    return 0;
+	snxtitem_xy(np, type, cx, cy);
+	break;
+    case NS_GROUP:
+	if (!(flags & EFF_GROUP))
+	    return 0;
+	snxtitem_group(np, type, *str);
+	break;
+    default:
+	return 0;
+    }
+    np->flags = flags;
+    if (player->condarg == 0)
 	return 1;
+    cp = player->condarg;
+    while ((cp = nstr_comp(np->cond, &np->ncond, type, cp)) && *cp) ;
+    if (cp == 0)
+	return 0;
+    return 1;
 }
 
 /*

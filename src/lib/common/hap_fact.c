@@ -45,22 +45,23 @@
 #include "file.h"
 #include "common.h"
 
-double hap_fact(struct natstr *tnat, struct natstr *vnat)
+double
+hap_fact(struct natstr *tnat, struct natstr *vnat)
 {
-    double     hap_fact;
+    double hap_fact;
 
     hap_fact = vnat->nat_level[NAT_HLEV];
     if (hap_fact && tnat->nat_level[NAT_HLEV])
-        hap_fact = tnat->nat_level[NAT_HLEV] / hap_fact;
+	hap_fact = tnat->nat_level[NAT_HLEV] / hap_fact;
     else if (!hap_fact && !tnat->nat_level[NAT_HLEV])
-        hap_fact = 1.0;
-    else if (tnat->nat_level[NAT_HLEV]) /* Target has happy, better fighting */
-        hap_fact = 2.0;
-    else  /* Target has no happy, worse fighting */
-        hap_fact = 0.8;
+	hap_fact = 1.0;
+    else if (tnat->nat_level[NAT_HLEV])	/* Target has happy, better fighting */
+	hap_fact = 2.0;
+    else			/* Target has no happy, worse fighting */
+	hap_fact = 0.8;
     if (hap_fact > 2.0)
-        hap_fact = 2.0;
+	hap_fact = 2.0;
     if (hap_fact < 0.8)
-        hap_fact = 0.8;
+	hap_fact = 0.8;
     return hap_fact;
 }

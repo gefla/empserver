@@ -53,27 +53,27 @@ static int set_flagship(struct emp_qelem *list, struct shpstr **flagshipp);
 int
 navi(void)
 {
-    struct	nstr_item ni_ship;
-    struct	emp_qelem ship_list;
-    double	minmob, maxmob;
-    int	together;
-    s_char	*cp = 0;
-    struct	shpstr  *shp = 0; /* flagship */
+    struct nstr_item ni_ship;
+    struct emp_qelem ship_list;
+    double minmob, maxmob;
+    int together;
+    s_char *cp = 0;
+    struct shpstr *shp = 0;	/* flagship */
     struct nstr_sect ns;
-    s_char	origin;
-    int	dir;
-    int	stopping = 0;
-    int	skip = 0;
-    s_char	buf[1024];
-    s_char	prompt[128];
-    s_char  pathtaken[1024]; /* Doubtful we'll have a path longer than this */
-    s_char  *pt = pathtaken;
-    
+    s_char origin;
+    int dir;
+    int stopping = 0;
+    int skip = 0;
+    s_char buf[1024];
+    s_char prompt[128];
+    s_char pathtaken[1024];	/* Doubtful we'll have a path longer than this */
+    s_char *pt = pathtaken;
+
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     shp_sel(&ni_ship, &ship_list);
     shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
-    player->condarg = 0; /* conditions don't apply to nav_map() */
+    player->condarg = 0;	/* conditions don't apply to nav_map() */
     if (QEMPTY(&ship_list)) {
 	pr("No ships\n");
 	return RET_FAIL;
@@ -84,18 +84,18 @@ navi(void)
 	if (!(cp = shp_path(together, shp, buf)))
 	    cp = player->argp[2];
     }
-    
+
     *pt = '\0';
     while (!QEMPTY(&ship_list)) {
-	s_char    *bp,dp[80];
-	
+	s_char *bp, dp[80];
+
 	if (cp == 0 || *cp == '\0' || stopping) {
 	    stopping = 0;
 	    shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
 	    if (QEMPTY(&ship_list)) {
 		pr("No ships left\n");
 		if (strlen(pathtaken) > 0) {
-		    pathtaken[strlen(pathtaken)-1] = '\0';
+		    pathtaken[strlen(pathtaken) - 1] = '\0';
 		    if (strlen(pathtaken) > 0)
 			pr("Path taken: %s\n", pathtaken);
 		}
@@ -106,10 +106,10 @@ navi(void)
 		continue;
 	    }
 	    if (!skip)
-		nav_map(shp->shp_x, shp->shp_y, 
-			!(mchr[(int)shp->shp_type].m_flags&M_SUB));
+		nav_map(shp->shp_x, shp->shp_y,
+			!(mchr[(int)shp->shp_type].m_flags & M_SUB));
 	    else
-		skip=0;
+		skip = 0;
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", maxmob,
 		    minmob, xyas(shp->shp_x, shp->shp_y, player->cnum));
 	    cp = getstring(prompt, buf);
@@ -120,7 +120,7 @@ navi(void)
 	    if (QEMPTY(&ship_list)) {
 		pr("No ships left\n");
 		if (strlen(pathtaken) > 0) {
-		    pathtaken[strlen(pathtaken)-1] = '\0';
+		    pathtaken[strlen(pathtaken) - 1] = '\0';
 		    if (strlen(pathtaken) > 0)
 			pr("Path taken: %s\n", pathtaken);
 		}
@@ -131,19 +131,15 @@ navi(void)
 		continue;
 	    }
 	}
-	radmapnopr(shp->shp_x, shp->shp_y, (int)shp->shp_effic, 
+	radmapnopr(shp->shp_x, shp->shp_y, (int)shp->shp_effic,
 		   (int)techfact(shp->shp_tech,
 				 (double)mchr[(int)shp->shp_type].m_vrnge),
-		   (double)((mchr[(int)shp->shp_type].m_flags 
-			     & M_SONAR)
+		   (double)((mchr[(int)shp->shp_type].m_flags & M_SONAR)
 			    ? techfact(shp->shp_tech, 1.0) : 0.0));
 	if (cp == 0 || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
 	if (*cp == 'M' ||
-	    *cp == 'B' ||
-	    *cp == 'f' ||
-	    *cp == 'i' ||
-	    *cp == 'm') {
+	    *cp == 'B' || *cp == 'f' || *cp == 'i' || *cp == 'm') {
 	    ++cp;
 	    if (cp[-1] == 'M') {
 		unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
@@ -165,16 +161,16 @@ navi(void)
 		stopping |= shp_sweep(&ship_list, 1, player->cnum);
 	    }
 	    continue;
-	} else if (*cp == 'r' ||
-		   *cp == 'l' ||
-		   *cp == 's') {
-	    bp=++cp;
-	    while((*bp != ' ') && (*bp)) bp++;
-	    while((*bp == ' ') && (*bp)) bp++;
+	} else if (*cp == 'r' || *cp == 'l' || *cp == 's') {
+	    bp = ++cp;
+	    while ((*bp != ' ') && (*bp))
+		bp++;
+	    while ((*bp == ' ') && (*bp))
+		bp++;
 	    if ((bp != (s_char *)0) && (*bp))
 		player->argp[1] = bp;
 	    else {
-		sprintf(dp,"%d",shp->shp_uid);
+		sprintf(dp, "%d", shp->shp_uid);
 		player->argp[1] = dp;
 	    }
 	    if (cp[-1] == 'r') {
@@ -206,14 +202,15 @@ navi(void)
 		continue;
 	    }
 	}
-	stopping |= shp_nav_one_sector(&ship_list, dir, player->cnum, together);
+	stopping |=
+	    shp_nav_one_sector(&ship_list, dir, player->cnum, together);
 	if (stopping != 2) {
-	  *pt++ = dirch[dir];
-	  *pt = '\0';
+	    *pt++ = dirch[dir];
+	    *pt = '\0';
 	}
     }
     if (strlen(pathtaken) > 0) {
-	pathtaken[strlen(pathtaken)-1] = '\0';
+	pathtaken[strlen(pathtaken) - 1] = '\0';
 	if (strlen(pathtaken) > 0)
 	    pr("Path taken: %s\n", pathtaken);
     }
@@ -224,26 +221,27 @@ int
 nav_map(int x, int y, int show_designations)
 {
     register s_char *ptr;
-    struct	nstr_sect ns;
-    struct	natstr *np;
-    struct	sctstr sect;
-    struct	range range;
-    int	i;
+    struct nstr_sect ns;
+    struct natstr *np;
+    struct sctstr sect;
+    struct range range;
+    int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static u_char      *bitmap = (u_char *)0;
-    static s_char      *wmapbuf = (s_char *)0;
-    static s_char      **wmap = (s_char **)0;
-    s_char	what[64];
-    int	changed = 0;
-    
+    static u_char *bitmap = (u_char *)0;
+    static s_char *wmapbuf = (s_char *)0;
+    static s_char **wmap = (s_char **)0;
+    s_char what[64];
+    int changed = 0;
+
     np = getnatp(player->cnum);
-    sprintf(what, "%d:%d,%d:%d",xrel(np,x-2),xrel(np,x+2),yrel(np,y-1),
-	    yrel(np,y+1));
+    sprintf(what, "%d:%d,%d:%d", xrel(np, x - 2), xrel(np, x + 2),
+	    yrel(np, y - 1), yrel(np, y + 1));
     if (!snxtsct(&ns, what))
 	return RET_FAIL;
     if (!wmapbuf)
-	wmapbuf = (s_char *)malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+	wmapbuf =
+	    (s_char *)malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
     if (!wmap) {
 	wmap = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
 	if (wmap && wmapbuf) {
@@ -266,14 +264,13 @@ nav_map(int x, int y, int show_designations)
     ns.ncond = 0;
     xyrelrange(np, &ns.range, &range);
     blankfill((s_char *)wmapbuf, &ns.range, 1);
-    while (nxtsct(&ns, &sect)){
+    while (nxtsct(&ns, &sect)) {
 	ptr = &wmap[ns.dy][ns.dx];
 	*ptr = dchr[sect.sct_type].d_mnem;
 	if (!show_designations &&
 	    sect.sct_own != player->cnum &&
 	    sect.sct_type != SCT_WATER &&
-	    sect.sct_type != SCT_BSPAN &&
-	    sect.sct_type != SCT_HARBR)
+	    sect.sct_type != SCT_BSPAN && sect.sct_type != SCT_HARBR)
 	    *ptr = '?';
 	changed += map_set(player->cnum, sect.sct_x, sect.sct_y, *ptr, 0);
 	/*
@@ -289,7 +286,7 @@ nav_map(int x, int y, int show_designations)
     }
     if (changed)
 	writemap(player->cnum);
-    for (i=0; i < ns.range.height; i++)
+    for (i = 0; i < ns.range.height; i++)
 	pr("%s\n", wmap[i]);
     return RET_OK;
 }
@@ -298,7 +295,7 @@ static int
 set_flagship(struct emp_qelem *list, struct shpstr **flagshipp)
 {
     struct mlist *mlp = (struct mlist *)(list->q_back);
-    
+
     if (!*flagshipp)
 	pr("Flagship is ");
     else if ((*flagshipp)->shp_uid != mlp->ship.shp_uid)

@@ -51,42 +51,41 @@ void ioq_write();
 
 int
 serverio(s, ioq)
-	int	s;
-	struct	ioqueue *ioq;
+int s;
+struct ioqueue *ioq;
 {
 #ifndef _WIN32
-	extern	s_char *realloc();
+    extern s_char *realloc();
 #else
-	extern void *realloc();
+    extern void *realloc();
 #endif
-	s_char	*buf;
-	int	n;
+    s_char *buf;
+    int n;
 
-	if ((buf = malloc(ioq->bsize)) == 0) {
-		fprintf(stderr, "malloc server i/o failed\n");
-		return 0;
-	}
+    if ((buf = malloc(ioq->bsize)) == 0) {
+	fprintf(stderr, "malloc server i/o failed\n");
+	return 0;
+    }
 #ifdef _WIN32
-	n = recv(s, buf, ioq->bsize, 0);
+    n = recv(s, buf, ioq->bsize, 0);
 #else
-	n = read(s, buf, ioq->bsize);
+    n = read(s, buf, ioq->bsize);
 #endif
-	if (n < 0) {
+    if (n < 0) {
 #ifdef _WIN32
-		errno = WSAGetLastError();
+	errno = WSAGetLastError();
 #endif
-		perror("server i/o read");
-		free(buf);
-		return 0;
-	}
-	if (n == 0) {
-		fprintf(stderr, "Server EOF\n");
-		(void) close(s);
-		return 0;
-	}
-	if (n != ioq->bsize)
-		buf = (s_char *)realloc(buf, n);
-	ioq_write(ioq, buf, n);
-	return 1;
+	perror("server i/o read");
+	free(buf);
+	return 0;
+    }
+    if (n == 0) {
+	fprintf(stderr, "Server EOF\n");
+	(void)close(s);
+	return 0;
+    }
+    if (n != ioq->bsize)
+	buf = (s_char *)realloc(buf, n);
+    ioq_write(ioq, buf, n);
+    return 1;
 }
-

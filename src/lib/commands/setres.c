@@ -54,116 +54,115 @@
 int
 setres(void)
 {
-	struct	sctstr sect;
-	s_char	*what;
-	int	amt;
-	s_char	*p;
-	struct	nstr_sect nstr;
-	s_char	buf[1024];
+    struct sctstr sect;
+    s_char *what;
+    int amt;
+    s_char *p;
+    struct nstr_sect nstr;
+    s_char buf[1024];
 
-	if ((what = getstarg(player->argp[1],
-		"Set What (iron, gold, oil, uranium, fertility)? ", buf)) == 0) 
+    if ((what = getstarg(player->argp[1],
+			 "Set What (iron, gold, oil, uranium, fertility)? ",
+			 buf)) == 0)
+	return RET_SYN;
+    switch (what[0]) {
+    case 'i':
+	if (!snxtsct(&nstr, player->argp[2]))
+	    return RET_SYN;
+	while (nxtsct(&nstr, &sect) > 0) {
+	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
+		(*p == '\0'))
 		return RET_SYN;
-	switch (what[0]) {
-	case 'i':
-		if (!snxtsct(&nstr, player->argp[2]))
-                 	return RET_SYN;
-		while (nxtsct(&nstr,&sect) > 0) {
-			if( !(p = getstarg(player->argp[3], "What value : ", buf)) || 
-			    (*p == '\0'))
-				return RET_SYN;
-			amt = atoi(p);
-			if (amt > 100)
-		 		amt = 100;
-			if (amt < 0)
-				amt = 0;
-			if (sect.sct_own != 0)
-				resnoise(&sect,1,"Iron ore content",
-					(int) sect.sct_min, amt);
-			sect.sct_min = (u_char) amt;
-			putsect(&sect);
-			}
-		break;
-	case 'g':
-		if (!snxtsct(&nstr, player->argp[2]))
-                 	return RET_SYN;
-		while (nxtsct(&nstr,&sect) > 0) {
-			if( !(p = getstarg(player->argp[3], "What value : ", buf)) || 
-			    (*p == '\0'))
-				return RET_SYN;
-			amt = atoi(p);
-			if (amt > 100)
-		 		amt = 100;
-			if (amt < 0)
-				amt = 0;
-			if (sect.sct_own != 0) 
-				resnoise(&sect,1,"Gold content",
-					(int) sect.sct_gmin, amt);
-			sect.sct_gmin = (u_char) amt;
-			putsect(&sect);
-			}
-		break;
-	case 'o':
-		if (!snxtsct(&nstr, player->argp[2]))
-			return RET_SYN;
-		while (nxtsct(&nstr,&sect) > 0) {
-			if( !(p = getstarg(player->argp[3], "What value : ", buf)) || 
-			    (*p == '\0'))
-				return RET_SYN;
-			amt = atoi(p);
-			if (amt > 100)
-		 		amt = 100;
-			if (amt < 0)
-				amt = 0;
-			if (sect.sct_own != 0)
-				resnoise(&sect,1,"Oil content",
-					(int) sect.sct_oil, amt);
-			sect.sct_oil = (u_char) amt;
-			putsect(&sect);
-			}
-		break;
-	case 'f':
-		if (!snxtsct(&nstr, player->argp[2]))
-			return RET_SYN;
-		while (nxtsct(&nstr,&sect) > 0) {
-			if( !(p = getstarg(player->argp[3], "What value : ", buf)) || 
-			    (*p == '\0'))
-				return RET_SYN;
-			amt = atoi(p);
-			if (amt > 100)
-		 		amt = 100;
-			if (amt < 0)
-				amt = 0;
-			if (sect.sct_own != 0)
-				resnoise(&sect,1,"Fertility content",
-					(int) sect.sct_fertil, amt);
-			sect.sct_fertil = (u_char) amt;
-			putsect(&sect);
-			}
-		break;
-	case 'u':
-		if (!snxtsct(&nstr, player->argp[2]))
-			return RET_SYN;
-		while (nxtsct(&nstr,&sect) > 0) {
-			if( !(p = getstarg(player->argp[3], "What value : ", buf)) || 
-			    (*p == '\0'))
-				return RET_SYN;
-			amt = atoi(p);
-			if (amt > 100)
-		 		amt = 100;
-			if (amt < 0)
-				amt = 0;
-			if (sect.sct_own != 0) 
-				resnoise(&sect,1,"Uranium content",
-					(int) sect.sct_uran, amt);
-			sect.sct_uran = (u_char) amt;
-			putsect(&sect);
-			}
-		break;
-	default:
-		pr("huh?\n");
-		return RET_SYN;
+	    amt = atoi(p);
+	    if (amt > 100)
+		amt = 100;
+	    if (amt < 0)
+		amt = 0;
+	    if (sect.sct_own != 0)
+		resnoise(&sect, 1, "Iron ore content",
+			 (int)sect.sct_min, amt);
+	    sect.sct_min = (u_char)amt;
+	    putsect(&sect);
 	}
-	return RET_OK;
+	break;
+    case 'g':
+	if (!snxtsct(&nstr, player->argp[2]))
+	    return RET_SYN;
+	while (nxtsct(&nstr, &sect) > 0) {
+	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
+		(*p == '\0'))
+		return RET_SYN;
+	    amt = atoi(p);
+	    if (amt > 100)
+		amt = 100;
+	    if (amt < 0)
+		amt = 0;
+	    if (sect.sct_own != 0)
+		resnoise(&sect, 1, "Gold content",
+			 (int)sect.sct_gmin, amt);
+	    sect.sct_gmin = (u_char)amt;
+	    putsect(&sect);
+	}
+	break;
+    case 'o':
+	if (!snxtsct(&nstr, player->argp[2]))
+	    return RET_SYN;
+	while (nxtsct(&nstr, &sect) > 0) {
+	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
+		(*p == '\0'))
+		return RET_SYN;
+	    amt = atoi(p);
+	    if (amt > 100)
+		amt = 100;
+	    if (amt < 0)
+		amt = 0;
+	    if (sect.sct_own != 0)
+		resnoise(&sect, 1, "Oil content", (int)sect.sct_oil, amt);
+	    sect.sct_oil = (u_char)amt;
+	    putsect(&sect);
+	}
+	break;
+    case 'f':
+	if (!snxtsct(&nstr, player->argp[2]))
+	    return RET_SYN;
+	while (nxtsct(&nstr, &sect) > 0) {
+	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
+		(*p == '\0'))
+		return RET_SYN;
+	    amt = atoi(p);
+	    if (amt > 100)
+		amt = 100;
+	    if (amt < 0)
+		amt = 0;
+	    if (sect.sct_own != 0)
+		resnoise(&sect, 1, "Fertility content",
+			 (int)sect.sct_fertil, amt);
+	    sect.sct_fertil = (u_char)amt;
+	    putsect(&sect);
+	}
+	break;
+    case 'u':
+	if (!snxtsct(&nstr, player->argp[2]))
+	    return RET_SYN;
+	while (nxtsct(&nstr, &sect) > 0) {
+	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
+		(*p == '\0'))
+		return RET_SYN;
+	    amt = atoi(p);
+	    if (amt > 100)
+		amt = 100;
+	    if (amt < 0)
+		amt = 0;
+	    if (sect.sct_own != 0)
+		resnoise(&sect, 1, "Uranium content",
+			 (int)sect.sct_uran, amt);
+	    sect.sct_uran = (u_char)amt;
+	    putsect(&sect);
+	}
+	break;
+    default:
+	pr("huh?\n");
+	return RET_SYN;
+    }
+    return RET_OK;
 }
-

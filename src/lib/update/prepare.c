@@ -52,99 +52,101 @@
 #include "gen.h"
 #include "common.h"
 
-extern	float levels[MAXNOC][4];
+extern float levels[MAXNOC][4];
 
 void
 prepare_sects(int etu, int *bp)
 {
-	extern	long pops[];
-	register struct sctstr *sp;
-	struct	natstr *np;
-	int	n, civ_tax, uw_tax, mil_pay;
+    extern long pops[];
+    register struct sctstr *sp;
+    struct natstr *np;
+    int n, civ_tax, uw_tax, mil_pay;
 
-	bzero((s_char *)levels, sizeof(levels));
+    bzero((s_char *)levels, sizeof(levels));
 
 /* Process all the fallout. */
-	if (opt_FALLOUT) {
-	  if (!player->simulation) {
+    if (opt_FALLOUT) {
+	if (!player->simulation) {
 	    /* First, we determine which sectors to process fallout in */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	      if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
-		sp->sct_updated = 1;
-	      else
-		sp->sct_updated = 0;
+		if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
+		    sp->sct_updated = 1;
+		else
+		    sp->sct_updated = 0;
 	    }
 	    /* Next, we process the fallout there */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-	      if (sp->sct_updated)
-		do_fallout(sp, etu);
+		if (sp->sct_updated)
+		    do_fallout(sp, etu);
 	    /* Next, we spread the fallout */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-	      if (sp->sct_updated)
-		spread_fallout(sp, etu);
+		if (sp->sct_updated)
+		    spread_fallout(sp, etu);
 	    /* Next, we decay the fallout */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-	      if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
-		decay_fallout(sp, etu);
-	  }
+		if (getvar(V_FALLOUT, (s_char *)sp, EF_SECTOR))
+		    decay_fallout(sp, etu);
 	}
-	for (n=0; NULL != (sp = getsectid(n)); n++) {
-		sp->sct_updated = 0;
+    }
+    for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	sp->sct_updated = 0;
 
-		if (sp->sct_type == SCT_WATER)
-			continue;
-		fill_update_array(bp, sp);
-		np = getnatp(sp->sct_own);
+	if (sp->sct_type == SCT_WATER)
+	    continue;
+	fill_update_array(bp, sp);
+	np = getnatp(sp->sct_own);
 
 #ifdef DEBUG
-                if (np->nat_stat & STAT_SANCT)
-		   logerror("Prepare.c: country in sanctuary skipped production");
-#endif  /* DEBUG */
+	if (np->nat_stat & STAT_SANCT)
+	    logerror("Prepare.c: country in sanctuary skipped production");
+#endif /* DEBUG */
 
-                if (!(np->nat_stat & STAT_SANCT)){
-  	 	  guerrilla(sp);
-		  do_plague(sp, np, etu);
-		  tax(sp, np, etu, &pops[sp->sct_own], &civ_tax, &uw_tax, &mil_pay);
-		  np->nat_money += civ_tax + uw_tax + mil_pay;
-		  if (sp->sct_type == SCT_BANK)
-		    np->nat_money += bank_income(sp, etu);
-		}
+	if (!(np->nat_stat & STAT_SANCT)) {
+	    guerrilla(sp);
+	    do_plague(sp, np, etu);
+	    tax(sp, np, etu, &pops[sp->sct_own], &civ_tax, &uw_tax,
+		&mil_pay);
+	    np->nat_money += civ_tax + uw_tax + mil_pay;
+	    if (sp->sct_type == SCT_BANK)
+		np->nat_money += bank_income(sp, etu);
 	}
-	for (n=0; NULL != (np = getnatp(n)); n++) {
-	  np->nat_money += upd_slmilcosts(np->nat_cnum, etu);
-	}
+    }
+    for (n = 0; NULL != (np = getnatp(n)); n++) {
+	np->nat_money += upd_slmilcosts(np->nat_cnum, etu);
+    }
 }
 
 void
-tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax, int *uw_tax, int *mil_pay)
+tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax,
+    int *uw_tax, int *mil_pay)
 {
-        int     vec[I_MAX+1];
-	extern  double money_civ, money_mil, money_uw; 
+    int vec[I_MAX + 1];
+    extern double money_civ, money_mil, money_uw;
 
-	*civ_tax = 0;
-	*uw_tax = 0;
-	*mil_pay = 0;
-	if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-	  return;
+    *civ_tax = 0;
+    *uw_tax = 0;
+    *mil_pay = 0;
+    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
+	return;
 
-	if (!player->simulation)
-	  populace(np, sp, vec, etu);
-	*civ_tax = (int)(0.5 + vec[I_CIVIL] * sp->sct_effic * 
-                     etu * money_civ / 100);
-	/*
-	 * captured civs only pay 1/4 taxes
-	 */
-	if (sp->sct_own != sp->sct_oldown)
-	    *civ_tax = *civ_tax / 4;
-	*uw_tax = (int)(0.5 + vec[I_UW] * sp->sct_effic *
-		     etu * money_uw / 100);
-	*mil_pay = vec[I_MILIT] * etu * money_mil;
+    if (!player->simulation)
+	populace(np, sp, vec, etu);
+    *civ_tax = (int)(0.5 + vec[I_CIVIL] * sp->sct_effic *
+		     etu * money_civ / 100);
+    /*
+     * captured civs only pay 1/4 taxes
+     */
+    if (sp->sct_own != sp->sct_oldown)
+	*civ_tax = *civ_tax / 4;
+    *uw_tax = (int)(0.5 + vec[I_UW] * sp->sct_effic *
+		    etu * money_uw / 100);
+    *mil_pay = vec[I_MILIT] * etu * money_mil;
 
-	/*
-	 * only non-captured civs add to census for nation
-	 */
-	if (sp->sct_oldown == sp->sct_own)
-		*pop += vec[I_CIVIL];
+    /*
+     * only non-captured civs add to census for nation
+     */
+    if (sp->sct_oldown == sp->sct_own)
+	*pop += vec[I_CIVIL];
 }
 
 int
@@ -177,11 +179,11 @@ upd_slmilcosts(natid n, int etu)
 int
 bank_income(struct sctstr *sp, int etu)
 {
-  extern  double bankint;
-  int     vec[I_MAX+1];
+    extern double bankint;
+    int vec[I_MAX + 1];
 
-  if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-    return 0;
-  else
-    return (int)(vec[I_BAR] * etu * bankint * sp->sct_effic / 100);
+    if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
+	return 0;
+    else
+	return (int)(vec[I_BAR] * etu * bankint * sp->sct_effic / 100);
 }

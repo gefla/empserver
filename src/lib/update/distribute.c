@@ -47,177 +47,178 @@
 #include "common.h"
 
 int
-dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost, double dist_e_cost)
-          /* import or export? */
+dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
+	     double dist_e_cost)
+	  /* import or export? */
 {
-	struct	sctstr *getdistsp();
-	float	distpathcost();
-	struct ichrstr *ip;
-	struct sctstr *dist;
-	int	amt;
-	int	thresh;
-	int	amt_dist;
-	int	amt_sect;
-	int	packing;
-	float	imcost;
-	float	excost;
-	int	dist_packing;
-	int	diff;
-	int	item;
-	int	dists[I_MAX+1];
-	int	remote[I_MAX+1];
-	int     local[I_MAX+1];
-	int	changed;
-	int     rplague;
-	int     lplague;
+    struct sctstr *getdistsp();
+    float distpathcost();
+    struct ichrstr *ip;
+    struct sctstr *dist;
+    int amt;
+    int thresh;
+    int amt_dist;
+    int amt_sect;
+    int packing;
+    float imcost;
+    float excost;
+    int dist_packing;
+    int diff;
+    int item;
+    int dists[I_MAX + 1];
+    int remote[I_MAX + 1];
+    int local[I_MAX + 1];
+    int changed;
+    int rplague;
+    int lplague;
 
-	getvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
-	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
-		return 0;
+    getvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
+    if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
+	return 0;
 
-	if (getvec(VT_DIST, dists, (s_char *)sp, EF_SECTOR) <= 0)
-		return 0;
+    if (getvec(VT_DIST, dists, (s_char *)sp, EF_SECTOR) <= 0)
+	return 0;
 
-	if (path == (s_char *)0){
-		if (sp->sct_own != 0) {
-			if (imex == EXPORT) /* only want this once */
-			wu(0,sp->sct_own,"No path to dist sector for %s\n",
-				ownxy(sp));
-		}
-		return 0;
+    if (path == (s_char *)0) {
+	if (sp->sct_own != 0) {
+	    if (imex == EXPORT)	/* only want this once */
+		wu(0, sp->sct_own, "No path to dist sector for %s\n",
+		   ownxy(sp));
 	}
+	return 0;
+    }
 
-	dist = getsectp(sp->sct_dist_x,sp->sct_dist_y);
-	if (dist->sct_effic >= 60)
-		dist_packing = dchr[dist->sct_type].d_pkg;
-	else
-		dist_packing = NPKG; /* No packing */
-	
-	if (sp->sct_effic >= 60)
-		packing = dchr[sp->sct_type].d_pkg;
-	else
-		packing = NPKG; /* No packing */
+    dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
+    if (dist->sct_effic >= 60)
+	dist_packing = dchr[dist->sct_type].d_pkg;
+    else
+	dist_packing = NPKG;	/* No packing */
 
-	if ((dist->sct_effic >= 60) && dchr[dist->sct_type].d_pkg == WPKG)
-		packing = dchr[dist->sct_type].d_pkg;
+    if (sp->sct_effic >= 60)
+	packing = dchr[sp->sct_type].d_pkg;
+    else
+	packing = NPKG;		/* No packing */
 
-	getvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
-	lplague = rplague = changed = 0;
-	for (item = 1; item < I_MAX+1; item++) {
-		if (dists[item] == 0)
-			continue;
-		ip = &ichr[item];
-		thresh = dists[item];
-		/*
-		 * calculate costs for importing and exporting.
-		 * the div 10.0 is because delivering straight through
-		 * to the dist sect is cheaper than stopping at each
-		 * sector along the way (processor-timewise)
-		 */
-		excost = (dist_e_cost/ip->i_pkg[packing] * ip->i_lbs) / 10.0;
-		imcost = (dist_i_cost/ip->i_pkg[dist_packing] *ip->i_lbs)/10.0;
-		amt_sect = local[item];
-		amt_dist = remote[item];
-		diff = amt_sect - thresh;
-		if (item == I_CIVIL)
-			if (sp->sct_own != sp->sct_oldown)
-				continue;
-		if (item == I_CIVIL)
-			if (dist->sct_own != dist->sct_oldown)
-				continue;
-		if (diff < 0){
-			if (imex != IMPORT)
-				continue;
+    if ((dist->sct_effic >= 60) && dchr[dist->sct_type].d_pkg == WPKG)
+	packing = dchr[dist->sct_type].d_pkg;
 
-			if (!military_control(dist))
-				continue;
+    getvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
+    lplague = rplague = changed = 0;
+    for (item = 1; item < I_MAX + 1; item++) {
+	if (dists[item] == 0)
+	    continue;
+	ip = &ichr[item];
+	thresh = dists[item];
+	/*
+	 * calculate costs for importing and exporting.
+	 * the div 10.0 is because delivering straight through
+	 * to the dist sect is cheaper than stopping at each
+	 * sector along the way (processor-timewise)
+	 */
+	excost = (dist_e_cost / ip->i_pkg[packing] * ip->i_lbs) / 10.0;
+	imcost =
+	    (dist_i_cost / ip->i_pkg[dist_packing] * ip->i_lbs) / 10.0;
+	amt_sect = local[item];
+	amt_dist = remote[item];
+	diff = amt_sect - thresh;
+	if (item == I_CIVIL)
+	    if (sp->sct_own != sp->sct_oldown)
+		continue;
+	if (item == I_CIVIL)
+	    if (dist->sct_own != dist->sct_oldown)
+		continue;
+	if (diff < 0) {
+	    if (imex != IMPORT)
+		continue;
 
-			diff = -diff;
-			/*
-			 * import.
-			 * don't import if no mobility.
-			 * check to make sure have enough mobility in the
-			 * dist sector to import what we need.
-			 */
-			if (dist->sct_mobil <= 0) {
-				/*logerror("  dist mobil < 0");*/
-				continue;
-			}
-			amt = diff;
-			if (item == I_CIVIL)
-				amt_dist--;	/* Don't send your last civ */
+	    if (!military_control(dist))
+		continue;
 
-			if (amt_dist < amt) {
-				amt = amt_dist;
-				if (amt_dist == 0)
-					continue;
-			}
-			if (dist->sct_mobil < imcost * amt)
-				amt = dist->sct_mobil / imcost;
+	    diff = -diff;
+	    /*
+	     * import.
+	     * don't import if no mobility.
+	     * check to make sure have enough mobility in the
+	     * dist sector to import what we need.
+	     */
+	    if (dist->sct_mobil <= 0) {
+		/*logerror("  dist mobil < 0"); */
+		continue;
+	    }
+	    amt = diff;
+	    if (item == I_CIVIL)
+		amt_dist--;	/* Don't send your last civ */
 
-			lplague++;
-			/* XXX replace with vector assign and putvec() */
-			remote[item] -= amt;
-			changed++;
-			dist->sct_mobil -= (int) (imcost * amt);
-			local[item] += amt;
-		} else {
-			if (imex != EXPORT)
-				continue;
-			if (!military_control(sp))
-				continue;
-			if ((item == I_CIVIL)&&(sp->sct_work < 100))
-				continue;
-			if ((item == I_CIVIL)&&(sp->sct_own != sp->sct_oldown))
-				continue;
-			/*
-			 * export.
-			 * don't export if no mobility. check to make sure we
-			 * have mobility enough to do the right thing.
-			 * also make sure that there's enough space in the
-			 * target sector to hold the required amt.
-			 */
-			if (sp->sct_mobil <= 0) {
-				/*logerror("  sp mob is zero");*/
-				continue;
-			}
-			amt = diff;
-			if (amt > amt_sect)
-				amt = amt_sect;
-			if (sp->sct_mobil < excost * amt)
-				amt = sp->sct_mobil / excost;
-			if (amt + amt_dist > 9999)
-				amt = 9999 - amt_dist;
-			if (amt == 0)
-				continue;
-			/* XXX replace with vector assign and putvec() */
+	    if (amt_dist < amt) {
+		amt = amt_dist;
+		if (amt_dist == 0)
+		    continue;
+	    }
+	    if (dist->sct_mobil < imcost * amt)
+		amt = dist->sct_mobil / imcost;
 
-			rplague++;
-			local[item] -= amt;
-			changed++;
-			sp->sct_mobil -= (int) (excost * amt);
-			remote[item] += amt;
-		}
+	    lplague++;
+	    /* XXX replace with vector assign and putvec() */
+	    remote[item] -= amt;
+	    changed++;
+	    dist->sct_mobil -= (int)(imcost * amt);
+	    local[item] += amt;
+	} else {
+	    if (imex != EXPORT)
+		continue;
+	    if (!military_control(sp))
+		continue;
+	    if ((item == I_CIVIL) && (sp->sct_work < 100))
+		continue;
+	    if ((item == I_CIVIL) && (sp->sct_own != sp->sct_oldown))
+		continue;
+	    /*
+	     * export.
+	     * don't export if no mobility. check to make sure we
+	     * have mobility enough to do the right thing.
+	     * also make sure that there's enough space in the
+	     * target sector to hold the required amt.
+	     */
+	    if (sp->sct_mobil <= 0) {
+		/*logerror("  sp mob is zero"); */
+		continue;
+	    }
+	    amt = diff;
+	    if (amt > amt_sect)
+		amt = amt_sect;
+	    if (sp->sct_mobil < excost * amt)
+		amt = sp->sct_mobil / excost;
+	    if (amt + amt_dist > 9999)
+		amt = 9999 - amt_dist;
+	    if (amt == 0)
+		continue;
+	    /* XXX replace with vector assign and putvec() */
+
+	    rplague++;
+	    local[item] -= amt;
+	    changed++;
+	    sp->sct_mobil -= (int)(excost * amt);
+	    remote[item] += amt;
 	}
-	putvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
-	putvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
+    }
+    putvec(VT_ITEM, remote, (s_char *)dist, EF_SECTOR);
+    putvec(VT_ITEM, local, (s_char *)sp, EF_SECTOR);
 
-	if (lplague) {
-	  lplague = getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR);
-	  if (lplague == PLG_INFECT &&
-	      getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_HEALTHY) {
+    if (lplague) {
+	lplague = getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR);
+	if (lplague == PLG_INFECT &&
+	    getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_HEALTHY) {
 	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)sp, EF_SECTOR);
-	  }
 	}
+    }
 
-	if (rplague) {
-	  rplague = getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR);
-	  if (rplague == PLG_INFECT &&
-	      getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR) == PLG_HEALTHY) {
+    if (rplague) {
+	rplague = getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR);
+	if (rplague == PLG_INFECT &&
+	    getvar(V_PSTAGE, (s_char *)dist, EF_SECTOR) == PLG_HEALTHY) {
 	    putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)dist, EF_SECTOR);
-	  }
 	}
+    }
 
-	return changed;
+    return changed;
 }
-

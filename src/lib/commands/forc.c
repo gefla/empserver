@@ -40,33 +40,33 @@
 int
 force(void)
 {
-	extern	empth_sem_t *update_sem;
-	extern	int update_pending;
-	extern	int shutdown_pending;
-	int	seconds;
-	time_t	now;
+    extern empth_sem_t *update_sem;
+    extern int update_pending;
+    extern int shutdown_pending;
+    int seconds;
+    time_t now;
 
-	if (update_pending) {
-		pr("Update is pending\n");
-		return RET_FAIL;
-	}
-	if (shutdown_pending) {
-		pr("Shutdown is pending\n");
-		return RET_FAIL;
-	}
-	if (updates_disabled()) {
-		pr("Updates are disabled\n");
-		return RET_FAIL;
-	}
-	seconds = onearg(player->argp[1], "Time until update [in seconds]? ");
-	if (seconds < 0)
-		return RET_FAIL;
-	if (seconds) {
-		time(&now);
-		pr("Waiting %d seconds...\n", seconds);
-		empth_sleep(now + seconds);
-	}
-	pr("Scheduling update now\n");
-	empth_sem_signal(update_sem);
-	return RET_OK;
+    if (update_pending) {
+	pr("Update is pending\n");
+	return RET_FAIL;
+    }
+    if (shutdown_pending) {
+	pr("Shutdown is pending\n");
+	return RET_FAIL;
+    }
+    if (updates_disabled()) {
+	pr("Updates are disabled\n");
+	return RET_FAIL;
+    }
+    seconds = onearg(player->argp[1], "Time until update [in seconds]? ");
+    if (seconds < 0)
+	return RET_FAIL;
+    if (seconds) {
+	time(&now);
+	pr("Waiting %d seconds...\n", seconds);
+	empth_sleep(now + seconds);
+    }
+    pr("Scheduling update now\n");
+    empth_sem_signal(update_sem);
+    return RET_OK;
 }

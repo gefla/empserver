@@ -48,7 +48,7 @@
 #if defined(_WIN32)
 typedef unsigned char u_char;
 typedef unsigned short u_short;
-typedef char * caddr_t;
+typedef char *caddr_t;
 typedef unsigned int u_int;
 
 /* Promote warning to error - undefined function. assuming eternal int */
@@ -87,12 +87,12 @@ typedef unsigned int u_int;
    mobility and the timestamp of when the game was last up.  These
    times are in seconds. */
 struct mob_acc_globals {
-  time_t timestamp;  /* Last timestamp of when the game was up */
-  time_t starttime;  /* When we should start updating mobility again. */
+    time_t timestamp;		/* Last timestamp of when the game was up */
+    time_t starttime;		/* When we should start updating mobility again. */
 };
-  
-#define ANNO_KEEP_DAYS 7 /* Keep announcements around for this many days */
-#define RESOLVE_IPADDRESS /* resolve ip addresses into hostnames */
+
+#define ANNO_KEEP_DAYS 7	/* Keep announcements around for this many days */
+#define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
 
 typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 
@@ -102,7 +102,7 @@ typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 
 #if !defined (_EMPTH_LWP) && !defined (_EMPTH_POSIX)
 #define _EMPTH_LWP     1
-#endif 
+#endif
 
 #if defined(_EMPTH_POSIX) && !defined(POSIXSIGNALS)
 #define POSIXSIGNALS
@@ -122,7 +122,7 @@ typedef char s_char;		/* change to signed char for aix */
 #else
 typedef signed char s_char;
 #endif /* !aix && !sgi */
-typedef	short coord;		/* also change NSC_COORD in nsc.h */
+typedef short coord;		/* also change NSC_COORD in nsc.h */
 /*
  * watch it; your compiler might not like this.
  * If you think this is bogus, look at /usr/include/struct.h
@@ -138,14 +138,14 @@ typedef	short coord;		/* also change NSC_COORD in nsc.h */
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
-typedef void (*voidfunc)();
-typedef int(*qsort_func_t)(const void *, const void *);
+typedef void (*voidfunc) ();
+typedef int (*qsort_func_t) (const void *, const void *);
 
 	/* return codes from command routines */
-#define	RET_OK		0   /* command completed sucessfully */
-#define	RET_FAIL	1   /* command completed unsucessfully [?] */
-#define	RET_SYN		2   /* syntax error in command */
-#define	RET_SYS		3   /* system error (missing file, etc) */
+#define	RET_OK		0	/* command completed sucessfully */
+#define	RET_FAIL	1	/* command completed unsucessfully [?] */
+#define	RET_SYN		2	/* syntax error in command */
+#define	RET_SYS		3	/* system error (missing file, etc) */
 
 #define MAX_DISTPATH_LEN	10	/* Has to go somewhere */
 
@@ -154,20 +154,21 @@ typedef int(*qsort_func_t)(const void *, const void *);
  * particular object, and are of general interest
  */
 #if !defined(ALPHA) && !defined(__osf__) && !defined(__linux__) && !defined(_WIN32)
-extern	long random();
+extern long random();
 #endif
 
 double dmax _PROTO((double n1, double n2));
 double dmin _PROTO((double n1, double n2));
 
-extern	s_char *copy _PROTO((s_char *s1, s_char *s2));
-extern	s_char *numstr _PROTO((s_char buf[], int n));
-extern	s_char *esplur _PROTO((int n));
-extern	s_char *splur _PROTO((int n));
-extern	s_char *iesplur _PROTO((int n));
-extern	s_char *plur _PROTO((int n, s_char *no, s_char *yes));
-extern	s_char *getstarg _PROTO((s_char *input, s_char *prompt, s_char buf[]));
-extern	s_char *getstring _PROTO((s_char *prompt, s_char buf[]));
+extern s_char *copy _PROTO((s_char *s1, s_char *s2));
+extern s_char *numstr _PROTO((s_char buf[], int n));
+extern s_char *esplur _PROTO((int n));
+extern s_char *splur _PROTO((int n));
+extern s_char *iesplur _PROTO((int n));
+extern s_char *plur _PROTO((int n, s_char *no, s_char *yes));
+extern s_char *getstarg
+_PROTO((s_char *input, s_char *prompt, s_char buf[]));
+extern s_char *getstring _PROTO((s_char *prompt, s_char buf[]));
 extern s_char *prbuf(s_char *format, ...);
 
 /*
@@ -177,46 +178,46 @@ extern s_char *prbuf(s_char *format, ...);
 #if !defined(_WIN32)
 #if defined(linux)
 #ifndef __STDC__
-extern	char *malloc();
-extern	char *calloc();
+extern char *malloc();
+extern char *calloc();
 #endif
 #else
 #if !defined(ALPHA) && !defined(__osf__) && !defined(ultrix) && !defined(hpux) && !defined(FBSD)
-extern	char *malloc();
-extern	char *calloc();
+extern char *malloc();
+extern char *calloc();
 #endif
 #endif
 #endif
 
 #if (!defined (aix) && !defined (sgi))
-extern	char *ctime();
-extern	char *strncpy();
-extern	char *strcpy();
+extern char *ctime();
+extern char *strncpy();
+extern char *strcpy();
 #ifndef NeXT
-extern	char *index();
-extern	char *rindex();
+extern char *index();
+extern char *rindex();
 #endif /* NeXT */
-#endif /* !aix && !sgi*/
+#endif /* !aix && !sgi */
 
-extern	time_t time();
+extern time_t time();
 #if !defined(_WIN32)
 #ifdef linux
 #ifndef atof
-extern	double atof();
+extern double atof();
 #endif
 #else
-extern	double atof();
+extern double atof();
 #endif
 #endif
 
 #if !defined(_WIN32)
 #if !defined (__ppc__) && !defined (hpux) && !defined (aix) && !defined (linux) && !defined(ALPHA) && !defined(__osf__) && !defined(SUN4) && !defined (Rel4) && !(defined (ultrix) && (defined (__STDC__) || defined (__SYSTEMFIVE) || defined (__POSIX)))
-extern	char *sprintf();
+extern char *sprintf();
 #endif /* aix */
 #endif
 
 #define MAXCHRNV 12
 
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _MISC_H_ */

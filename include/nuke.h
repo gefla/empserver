@@ -36,31 +36,31 @@
 
 #define	N_MAXNUKE	15
 
-struct	nukstr {
-	short	ef_type;
-	natid	nuk_own;
-	short	nuk_uid;
-	coord	nuk_x;		/* current loc of device */
-	coord	nuk_y;
-	s_char	nuk_n;		/* number of nukes in list */
-	short	nuk_ship;	/* currently aboard ship */
-	short	nuk_trade;	/* index into trade file */
-	short	nuk_types[N_MAXNUKE];	/* # of nukes in sector of given type */
-        time_t  nuk_timestamp;  /* Last time this nuke was touched */
+struct nukstr {
+    short ef_type;
+    natid nuk_own;
+    short nuk_uid;
+    coord nuk_x;		/* current loc of device */
+    coord nuk_y;
+    s_char nuk_n;		/* number of nukes in list */
+    short nuk_ship;		/* currently aboard ship */
+    short nuk_trade;		/* index into trade file */
+    short nuk_types[N_MAXNUKE];	/* # of nukes in sector of given type */
+    time_t nuk_timestamp;	/* Last time this nuke was touched */
 };
 
 struct nchrstr {
-	s_char *n_name;		/* warhead unit name */
-	int n_lcm;		/* costs to build */
-	int n_hcm;
-	int n_oil;
-	int n_rad;
-	int n_blast;		/* blast radius */
-	int n_dam;		/* damage at center */
-	int n_cost;
-	int n_tech;		/* tech needed to build */
-	int n_weight;
-	int n_flags;		/* description of capability */
+    s_char *n_name;		/* warhead unit name */
+    int n_lcm;			/* costs to build */
+    int n_hcm;
+    int n_oil;
+    int n_rad;
+    int n_blast;		/* blast radius */
+    int n_dam;			/* damage at center */
+    int n_cost;
+    int n_tech;			/* tech needed to build */
+    int n_weight;
+    int n_flags;		/* description of capability */
 };
 
 #define	N_NEUT	bit(0)		/* Neutron bomb (low damage, high fallout) */
@@ -72,8 +72,8 @@ struct nchrstr {
 #define getnukep(n) \
 	(struct nukstr *) ef_ptr(EF_NUKE, n)
 
-extern  struct nchrstr nchr[];
+extern struct nchrstr nchr[];
 
-extern	int nuk_maxno;
+extern int nuk_maxno;
 
 #endif /* _NUKE_H_ */

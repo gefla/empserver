@@ -47,46 +47,45 @@
 int
 hidd(void)
 {
-	struct	sctstr sect;
-	int	nsect;
-	struct	nstr_sect nstr;
-	int	cond[I_MAX+1];
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
+    int cond[I_MAX + 1];
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	nsect = 0;
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (nsect++ == 0) {
-			if (player->god)
-				pr("    ");
-			pr("HIDDEN VALUES     old        che-------  plague----\n");
-			if (player->god)
-				pr("own ");
-			pr("  sect        eff own  loyal cnum value  stage time mines\n");
-		}
-		if (player->god)
-			pr("%3d ", sect.sct_own);
-		getvec(VT_COND, cond, (s_char *)&sect, EF_SECTOR);
-		prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
-		pr(" %c  %3d%% %3d   %3d  %3d  %3d    %3d   %3d  %3d",
-			dchr[sect.sct_type].d_mnem, sect.sct_effic,
-			sect.sct_oldown, sect.sct_loyal,
-			get_che_cnum(cond[C_CHE]),
-			get_che_value(cond[C_CHE]),
-			cond[C_PSTAGE], cond[C_PTIME],
-			cond[C_MINE]);
-		pr("\n");
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0) {
+	    if (player->god)
+		pr("    ");
+	    pr("HIDDEN VALUES     old        che-------  plague----\n");
+	    if (player->god)
+		pr("own ");
+	    pr("  sect        eff own  loyal cnum value  stage time mines\n");
 	}
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return 0;
+	if (player->god)
+	    pr("%3d ", sect.sct_own);
+	getvec(VT_COND, cond, (s_char *)&sect, EF_SECTOR);
+	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	pr(" %c  %3d%% %3d   %3d  %3d  %3d    %3d   %3d  %3d",
+	   dchr[sect.sct_type].d_mnem, sect.sct_effic,
+	   sect.sct_oldown, sect.sct_loyal,
+	   get_che_cnum(cond[C_CHE]),
+	   get_che_value(cond[C_CHE]),
+	   cond[C_PSTAGE], cond[C_PTIME], cond[C_MINE]);
+	pr("\n");
+    }
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
 }

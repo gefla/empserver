@@ -37,54 +37,54 @@
 #include <stdio.h>
 
 setbuffer(fp, buf, size)
-	FILE	*fp;
-	s_char	*buf;
-	int	size;
+FILE *fp;
+s_char *buf;
+int size;
 {
-	if (size > BUFSIZ)
-		setbuf(fp, buf);
-	/* XXX else report error */
+    if (size > BUFSIZ)
+	setbuf(fp, buf);
+    /* XXX else report error */
 }
 
 s_char *
 rindex(sp, c)
-	register s_char *sp;
-	register int c;
+register s_char *sp;
+register int c;
 {
-	register s_char *r;
+    register s_char *r;
 
-	r = NULL;
-	do {
-		if (*sp == c)
-			r = sp;
-	} while (*sp++);
-	return r;
+    r = NULL;
+    do {
+	if (*sp == c)
+	    r = sp;
+    } while (*sp++);
+    return r;
 }
 
 s_char *
 index(sp, c)
-	register s_char *sp;
-	register int c;
+register s_char *sp;
+register int c;
 {
-	do {
-		if (*sp == c)
-			return (sp);
-	} while (*sp++);
-	return NULL;
+    do {
+	if (*sp == c)
+	    return (sp);
+    } while (*sp++);
+    return NULL;
 }
 
 int
 ffs(marg)
-	register unsigned marg;
+register unsigned marg;
 {
-	register unsigned bval;
-	register int i;
+    register unsigned bval;
+    register int i;
 
-	if (marg == 0)
-		return 0;
-	for (bval=1, i=1; i <= 32; i++, bval <<= 1)
-		if (marg & bval)
-			return i;
+    if (marg == 0)
 	return 0;
+    for (bval = 1, i = 1; i <= 32; i++, bval <<= 1)
+	if (marg & bval)
+	    return i;
+    return 0;
 }
 #endif

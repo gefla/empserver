@@ -40,27 +40,27 @@
 int
 cnumb(s_char *cntry)
 {
-	register s_char *ncp;
-	register s_char *cp;
-	register struct natstr *natp;
-	int	bcount;
-	natid	best;
-	natid	cn;
+    register s_char *ncp;
+    register s_char *cp;
+    register struct natstr *natp;
+    int bcount;
+    natid best;
+    natid cn;
 
-	bcount = 0;
-	for (cn = 0; cn < MAXNOC; cn++) {
-		if ((natp = getnatp(cn)) == 0)
-			break;
-		ncp = natp->nat_cnam;
-		for (cp=cntry; *cp == *ncp; cp++, ncp++) {
-			if (*cp == 0)
-				return cn;
-		}
-		if (cp > cntry && *cp == 0) {
-			best = cn;
-			bcount++;
-		}
+    bcount = 0;
+    for (cn = 0; cn < MAXNOC; cn++) {
+	if ((natp = getnatp(cn)) == 0)
+	    break;
+	ncp = natp->nat_cnam;
+	for (cp = cntry; *cp == *ncp; cp++, ncp++) {
+	    if (*cp == 0)
+		return cn;
 	}
-	/* can only have 1 match or not successful */
-	return bcount == 1 ? (int) best : -1;
+	if (cp > cntry && *cp == 0) {
+	    best = cn;
+	    bcount++;
+	}
+    }
+    /* can only have 1 match or not successful */
+    return bcount == 1 ? (int)best : -1;
 }

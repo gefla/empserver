@@ -37,54 +37,57 @@ extern char *strdup();
 /*
  * create a lwpSemaphore.
  */
-struct lwpSem *lwpCreateSem(name, count)
-	char	*name;
-	int	count;
+struct lwpSem *
+lwpCreateSem(name, count)
+char *name;
+int count;
 {
-	struct lwpSem *new;
+    struct lwpSem *new;
 
-	if (!(new = (struct lwpSem *)malloc(sizeof(struct lwpSem))))
-		return (0);
-	new->name = strdup(name);
-	new->count = count;
-	new->q.head = new->q.tail = 0;
-	return (new);
+    if (!(new = (struct lwpSem *)malloc(sizeof(struct lwpSem))))
+	return (0);
+    new->name = strdup(name);
+    new->count = count;
+    new->q.head = new->q.tail = 0;
+    return (new);
 }
 
 /*
  * signal a lwpSemaphore.  We only yield here if
  * the blocked process has a higher priority than ours'.
  */
-void lwpSignal(s)
-	struct lwpSem *s;
+void
+lwpSignal(s)
+struct lwpSem *s;
 {
-	extern struct lwpProc *LwpCurrent;
+    extern struct lwpProc *LwpCurrent;
 
-	lwpStatus(LwpCurrent, "done with semaphore %s", s->name);
-	if (s->count++ < 0) {
-		struct lwpProc *p = lwpGetFirst(&s->q);
-		lwpStatus(LwpCurrent, "activating first waiter");
-		lwpReady(p);
-		if (LwpCurrent->pri < p->pri) {
-			lwpStatus(p, "priority is higher");
-			lwpYield();
-		}
+    lwpStatus(LwpCurrent, "done with semaphore %s", s->name);
+    if (s->count++ < 0) {
+	struct lwpProc *p = lwpGetFirst(&s->q);
+	lwpStatus(LwpCurrent, "activating first waiter");
+	lwpReady(p);
+	if (LwpCurrent->pri < p->pri) {
+	    lwpStatus(p, "priority is higher");
+	    lwpYield();
 	}
+    }
 }
 
 /*
  * wait on a lwpSemaphore
  */
-void lwpWait(s)
-	struct lwpSem *s;
+void
+lwpWait(s)
+struct lwpSem *s;
 {
-	extern struct lwpProc *LwpCurrent;
+    extern struct lwpProc *LwpCurrent;
 
-	lwpStatus(LwpCurrent, "checking semaphore %s", s->name);
-	if (--s->count < 0) {
-		lwpStatus(LwpCurrent, "blocking");
-		lwpAddTail(&s->q, LwpCurrent);
-		lwpReschedule();
-	}
+    lwpStatus(LwpCurrent, "checking semaphore %s", s->name);
+    if (--s->count < 0) {
+	lwpStatus(LwpCurrent, "blocking");
+	lwpAddTail(&s->q, LwpCurrent);
+	lwpReschedule();
+    }
 }
 #endif

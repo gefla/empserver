@@ -20,8 +20,8 @@
 #include "as.h"
 
 #if !defined(lint) && !defined(SABER)
-static	char	sccsid[] = "@(#)as_costcomp.c	1.4	11/13/90";
-#endif /* not lint*/
+static char sccsid[] = "@(#)as_costcomp.c	1.4	11/13/90";
+#endif /* not lint */
 
 /*
  * Compare the lower bound costs of two nodes.  If the two nodes have
@@ -31,19 +31,19 @@ static	char	sccsid[] = "@(#)as_costcomp.c	1.4	11/13/90";
 int
 as_costcomp(struct as_node **n1, struct as_node **n2)
 {
-	double		diff;
+    double diff;
 
-	diff = (*n1)->lbcost - (*n2)->lbcost;
-	if (diff < -0.0001)
-		return (-1);
-	if (diff > 0.0001)
-		return (1);
+    diff = (*n1)->lbcost - (*n2)->lbcost;
+    if (diff < -0.0001)
+	return (-1);
+    if (diff > 0.0001)
+	return (1);
 
-	/* equal, check secondary cost */
-	diff = (*n1)->seccost - (*n2)->seccost;
-	if (diff < -0.0001)
-		return (-1);
-	if (diff > 0.0001)
-		return (1);
-	return (0);
+    /* equal, check secondary cost */
+    diff = (*n1)->seccost - (*n2)->seccost;
+    if (diff < -0.0001)
+	return (-1);
+    if (diff > 0.0001)
+	return (1);
+    return (0);
 }

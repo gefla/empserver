@@ -44,25 +44,25 @@
 int
 ledg(void)
 {
-	struct	nstr_item nstr;
-	struct	lonstr loan;
-	int	nloan;
+    struct nstr_item nstr;
+    struct lonstr loan;
+    int nloan;
 
-	if (!opt_LOANS) {
-	    pr("Loans are not enabled.\n");
-	    return RET_FAIL;
-	}
-	if (!snxtitem(&nstr, EF_LOAN, player->argp[1]))
-		return RET_SYN;
-	pr("\n... %s Ledger ...\n", cname(player->cnum));
-	nloan = 0;
-	while (nxtitem(&nstr, (s_char *)&loan)) {
-		if (disloan(nstr.cur, &loan) > 0)
-			nloan++;
-	}
-	if (!nloan)
-		pr("No loans found\n");
-	else
-		pr("%d loan%s outstanding.\n", nloan, splur(nloan));
-	return RET_OK;
+    if (!opt_LOANS) {
+	pr("Loans are not enabled.\n");
+	return RET_FAIL;
+    }
+    if (!snxtitem(&nstr, EF_LOAN, player->argp[1]))
+	return RET_SYN;
+    pr("\n... %s Ledger ...\n", cname(player->cnum));
+    nloan = 0;
+    while (nxtitem(&nstr, (s_char *)&loan)) {
+	if (disloan(nstr.cur, &loan) > 0)
+	    nloan++;
+    }
+    if (!nloan)
+	pr("No loans found\n");
+    else
+	pr("%d loan%s outstanding.\n", nloan, splur(nloan));
+    return RET_OK;
 }

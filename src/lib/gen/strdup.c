@@ -36,13 +36,13 @@
 #include "gen.h"
 #ifdef NOSTRDUP
 
-char *strdup(char *x) 
+char *
+strdup(char *x)
 {
-        char *y;
+    char *y;
 
-        y=(char *)malloc((sizeof(char)*strlen(x))+1);
-        strcpy(y,x);
-        return y;
+    y = (char *)malloc((sizeof(char) * strlen(x)) + 1);
+    strcpy(y, x);
+    return y;
 }
 #endif /* NOSTRDUP  */
-

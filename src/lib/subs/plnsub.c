@@ -54,1119 +54,1120 @@
 int
 pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 {
-	int	nships;
-	int	cno;
-	int	flags;
-	int	n;
-	struct	shpstr ship;
-	s_char	buf[1024];
-	s_char	*p;
+    int nships;
+    int cno;
+    int flags;
+    int n;
+    struct shpstr ship;
+    s_char buf[1024];
+    s_char *p;
 
-	flags = *flagp;
-	if ((target->sct_own && target->sct_own != player->cnum &&
-		(getrel(getnatp(target->sct_own),player->cnum) != ALLIED)) &&
-		(target->sct_type != SCT_HARBR) &&
-		(target->sct_type != SCT_BSPAN)) {
+    flags = *flagp;
+    if ((target->sct_own && target->sct_own != player->cnum &&
+	 (getrel(getnatp(target->sct_own), player->cnum) != ALLIED)) &&
+	(target->sct_type != SCT_HARBR) &&
+	(target->sct_type != SCT_BSPAN)) {
+	pr("Nowhere to land at sector %s!\n",
+	   xyas(target->sct_x, target->sct_y, player->cnum));
+	return -1;
+    }
+    if (target->sct_type == SCT_MOUNT) {
+	pr("Nowhere to land at sector %s!\n",
+	   xyas(target->sct_x, target->sct_y, player->cnum));
+	return -1;
+    }
+    cno = -1;
+    if (target->sct_type != SCT_AIRPT || target->sct_effic < 60)
+	flags |= P_V;
+    if (target->sct_type == SCT_WATER || target->sct_type == SCT_HARBR
+	|| target->sct_type == SCT_BSPAN) {
+	nships = carriersatxy(target->sct_x, target->sct_y,
+			      M_FLY | M_CHOPPER, 0, player->cnum);
+	if (nships <= 0) {
+	    if (target->sct_type == SCT_WATER) {
 		pr("Nowhere to land at sector %s!\n",
-			xyas(target->sct_x, target->sct_y, player->cnum));
+		   xyas(target->sct_x, target->sct_y, player->cnum));
 		return -1;
-	}
-	if (target->sct_type == SCT_MOUNT) {
-		pr("Nowhere to land at sector %s!\n",
-			xyas(target->sct_x, target->sct_y, player->cnum));
-		return -1;
-	}
-	cno = -1;
-	if (target->sct_type != SCT_AIRPT || target->sct_effic < 60)
-		flags |= P_V;
-	if (target->sct_type == SCT_WATER || target->sct_type == SCT_HARBR
-					|| target->sct_type == SCT_BSPAN) {
-		nships = carriersatxy(target->sct_x, target->sct_y,
-				M_FLY|M_CHOPPER, 0, player->cnum);
-		if (nships <= 0) {
-                        if (target->sct_type == SCT_WATER){
-                                pr("Nowhere to land at sector %s!\n",
-                                xyas(target->sct_x, target->sct_y, player->cnum));
-    				return -1;
-                        }else{
-				if ((target->sct_own && target->sct_own != player->cnum)
-					&& (getrel(getnatp(target->sct_own),player->cnum) != ALLIED)){
-					pr("Nowhere to land at sector %s!\n",
-						xyas(target->sct_x,
-						target->sct_y, player->cnum));
-					return -1;
-				}
-                                *shipno=cno;
-                                *flagp=flags;
-                                return 0;
-                        }
+	    } else {
+		if ((target->sct_own && target->sct_own != player->cnum)
+		    && (getrel(getnatp(target->sct_own), player->cnum) !=
+			ALLIED)) {
+		    pr("Nowhere to land at sector %s!\n",
+		       xyas(target->sct_x, target->sct_y, player->cnum));
+		    return -1;
 		}
-		cno = (-1);
-		n = (-1);
-		while (cno < 0) {
-			if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
-				break;
-			n = atoi(p);
-			if (n < 0 || !getship(n, &ship) || (!player->owner &&
-			    (getrel(getnatp(ship.shp_own),player->cnum) != ALLIED))) {
-				pr("Not yours\n");
-				continue;
-			}
-			if (ship.shp_x != target->sct_x ||
-			    ship.shp_y != target->sct_y) {
-				pr("Ship #%d not in %s\n", n,
-				    xyas(target->sct_x, target->sct_y, player->cnum));
-				continue;
-			}
-			if (!(mchr[(int)ship.shp_type].m_flags & M_FLY)
-				&& !(mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-				&& !(mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
-			){
-				pr("Can't land on %s.\n", prship(&ship));
-				continue;
-			}
-			pr("landing on carrier %d\n",n);
-			cno = n;
-			flags &= ~P_V;
-			if (mchr[(int)ship.shp_type].m_flags & M_FLY)
-				flags |= P_L;
-			if (mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
-				flags |= P_K;
-			if (mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-				flags |= P_E;
-		}
-		if ((target->sct_own && target->sct_own != player->cnum) && 
-		    (getrel(getnatp(target->sct_own),player->cnum)!= ALLIED) &&
-		    (cno== -1)) {
-		  pr("Nowhere to land at sector %s!\n",
-		     xyas(target->sct_x, target->sct_y, player->cnum));
-		  return -1;
-		}
+		*shipno = cno;
+		*flagp = flags;
+		return 0;
+	    }
 	}
+	cno = (-1);
+	n = (-1);
+	while (cno < 0) {
+	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
+		break;
+	    n = atoi(p);
+	    if (n < 0 || !getship(n, &ship) || (!player->owner &&
+						(getrel
+						 (getnatp(ship.shp_own),
+						  player->cnum) !=
+						 ALLIED))) {
+		pr("Not yours\n");
+		continue;
+	    }
+	    if (ship.shp_x != target->sct_x || ship.shp_y != target->sct_y) {
+		pr("Ship #%d not in %s\n", n,
+		   xyas(target->sct_x, target->sct_y, player->cnum));
+		continue;
+	    }
+	    if (!(mchr[(int)ship.shp_type].m_flags & M_FLY)
+		&& !(mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
+		&& !(mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
+		) {
+		pr("Can't land on %s.\n", prship(&ship));
+		continue;
+	    }
+	    pr("landing on carrier %d\n", n);
+	    cno = n;
+	    flags &= ~P_V;
+	    if (mchr[(int)ship.shp_type].m_flags & M_FLY)
+		flags |= P_L;
+	    if (mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
+		flags |= P_K;
+	    if (mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
+		flags |= P_E;
+	}
+	if ((target->sct_own && target->sct_own != player->cnum) &&
+	    (getrel(getnatp(target->sct_own), player->cnum) != ALLIED) &&
+	    (cno == -1)) {
+	    pr("Nowhere to land at sector %s!\n",
+	       xyas(target->sct_x, target->sct_y, player->cnum));
+	    return -1;
+	}
+    }
 
-	if ((target->sct_own == 0) && (cno < 0)) {
-		pr("Nowhere to land at sector %s!\n",
-			xyas(target->sct_x, target->sct_y, player->cnum));
-		return -1;
-	}
+    if ((target->sct_own == 0) && (cno < 0)) {
+	pr("Nowhere to land at sector %s!\n",
+	   xyas(target->sct_x, target->sct_y, player->cnum));
+	return -1;
+    }
 
-	*shipno = cno;
-	*flagp = flags;
-	return 0;
+    *shipno = cno;
+    *flagp = flags;
+    return 0;
 }
 
 void
 pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 {
-	struct	emp_qelem *qp;
-	struct	plist *plp;
-	struct	shpstr ship;
-	struct	sctstr sect;
+    struct emp_qelem *qp;
+    struct plist *plp;
+    struct shpstr ship;
+    struct sctstr sect;
 
-	if (cno >= 0)
-		getship(cno, &ship);
-	for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-		plp = (struct plist *)qp;
-		/* XXX - need to restrict # of planes per ship */
-		if (cno >= 0){
-                        count_planes(&ship);
-			if (!can_be_on_ship(plp->plane.pln_uid,ship.shp_uid))
-				pr("\t%s cannot land on ship #%d! %s aborts!\n",prplane(&plp->plane),cno,prplane(&plp->plane));
-			else if (!put_plane_on_ship(&plp->plane,&ship))
-				pr("\tNo room on ship #%d! %s aborts!\n",cno,prplane(&plp->plane));
-			else{
-				if (plp->plane.pln_own != ship.shp_own){
+    if (cno >= 0)
+	getship(cno, &ship);
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	/* XXX - need to restrict # of planes per ship */
+	if (cno >= 0) {
+	    count_planes(&ship);
+	    if (!can_be_on_ship(plp->plane.pln_uid, ship.shp_uid))
+		pr("\t%s cannot land on ship #%d! %s aborts!\n",
+		   prplane(&plp->plane), cno, prplane(&plp->plane));
+	    else if (!put_plane_on_ship(&plp->plane, &ship))
+		pr("\tNo room on ship #%d! %s aborts!\n", cno,
+		   prplane(&plp->plane));
+	    else {
+		if (plp->plane.pln_own != ship.shp_own) {
 /*					plp->plane.pln_own = ship.shp_own;*/
-					wu(0,ship.shp_own,
-					   "%s %s lands on your %s\n",
-					   cname(player->cnum),
-					   prplane(&plp->plane),
-					   prship(&ship));
-				}
-			}
+		    wu(0, ship.shp_own,
+		       "%s %s lands on your %s\n",
+		       cname(player->cnum),
+		       prplane(&plp->plane), prship(&ship));
 		}
-		else{
-			plp->plane.pln_x = tx;
-			plp->plane.pln_y = ty;
-			getsect(tx,ty,&sect);
-			if (plp->plane.pln_own != sect.sct_own){
+	    }
+	} else {
+	    plp->plane.pln_x = tx;
+	    plp->plane.pln_y = ty;
+	    getsect(tx, ty, &sect);
+	    if (plp->plane.pln_own != sect.sct_own) {
 /*				plp->plane.pln_own = sect.sct_own;*/
-				wu(0,sect.sct_own,
-				   "%s %s lands at your sector %s\n",
-				   cname(player->cnum),
-				   prplane(&plp->plane),
-				   xyas(tx,ty,sect.sct_own));
-			}
-			plp->plane.pln_ship = cno;
-		}
+		wu(0, sect.sct_own,
+		   "%s %s lands at your sector %s\n",
+		   cname(player->cnum),
+		   prplane(&plp->plane), xyas(tx, ty, sect.sct_own));
+	    }
+	    plp->plane.pln_ship = cno;
 	}
-	if (cno >= 0)
-		putship(ship.shp_uid, &ship);
+    }
+    if (cno >= 0)
+	putship(ship.shp_uid, &ship);
 }
 
 void
-pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty, s_char *ptr, int type)
+pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
+	    s_char *ptr, int type)
 {
-	struct	emp_qelem *qp;
-	struct	plist *plp;
-	int	amt;
-	struct	shpstr *ship;
-	int	there;
-	int	max;
-	struct	mchrstr *mp;
-	int	mines_there;
+    struct emp_qelem *qp;
+    struct plist *plp;
+    int amt;
+    struct shpstr *ship;
+    int there;
+    int max;
+    struct mchrstr *mp;
+    int mines_there;
 
-	if (ip == 0)
-		return;
-	amt = 0;
-	for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-		plp = (struct plist *)qp;
-		amt += plp->misc;
+    if (ip == 0)
+	return;
+    amt = 0;
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	amt += plp->misc;
+    }
+    if (type == EF_SECTOR &&
+	(((struct sctstr *)ptr)->sct_type == SCT_WATER) &&
+	ip->i_vtype == V_SHELL) {
+	mines_there = getvar(V_MINE, ptr, EF_SECTOR);
+	putvar(V_MINE, amt + mines_there, ptr, EF_SECTOR);
+	pr("%d mines laid in %s.\n", amt,
+	   xyas(((struct sctstr *)ptr)->sct_x,
+		((struct sctstr *)ptr)->sct_y, player->cnum));
+	if (amt > 0 &&
+	    map_set(player->cnum, ((struct sctstr *)ptr)->sct_x,
+		    ((struct sctstr *)ptr)->sct_y, 'X', 0))
+	    writemap(player->cnum);
+	putsect((struct sctstr *)ptr);
+    } else {
+	there = getvar(ip->i_vtype, ptr, type) + amt;
+	max = 32767;
+	if (type == EF_SHIP) {
+	    ship = (struct shpstr *)ptr;
+	    mp = &mchr[(int)ship->shp_type];
+	    max = vl_find(ip->i_vtype, mp->m_vtype,
+			  mp->m_vamt, (int)mp->m_nv);
 	}
-	if (type == EF_SECTOR &&
-		(((struct sctstr *)ptr)->sct_type == SCT_WATER) &&
-		ip->i_vtype == V_SHELL){
-                mines_there = getvar(V_MINE, ptr, EF_SECTOR);
-                putvar(V_MINE, amt + mines_there, ptr, EF_SECTOR);
-                pr("%d mines laid in %s.\n", amt,
-                        xyas(((struct sctstr *)ptr)->sct_x,
-			((struct sctstr *)ptr)->sct_y, player->cnum));
-		if (amt > 0 &&
-		    map_set(player->cnum, ((struct sctstr *)ptr)->sct_x,
-			   ((struct sctstr *)ptr)->sct_y, 'X', 0))
-			writemap(player->cnum);
-		putsect((struct sctstr *) ptr);
-	}else{
-		there = getvar(ip->i_vtype, ptr, type) + amt;
-		max = 32767;
-		if (type == EF_SHIP) {
-			ship = (struct shpstr *) ptr;
-			mp = &mchr[(int)ship->shp_type];
-			max = vl_find(ip->i_vtype, mp->m_vtype,
-				mp->m_vamt, (int)mp->m_nv);
-		}
-		if (there > max) {
-			pr("%d excess %s discarded\n", max-there, ip->i_name);
-			amt = max - there;
-			there = max;
-		}
-		putvar(ip->i_vtype, there, ptr, type);
-		pr("%d %s landed safely", amt, ip->i_name);
-		if (type == EF_SECTOR) {
-			struct	sctstr *sectp = (struct sctstr *)ptr;
-			if (sectp->sct_own != player->cnum)
-				wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
-					cname(player->cnum),amt,ip->i_name,
-					xyas(sectp->sct_x,sectp->sct_y,
-					sectp->sct_own));
-			pr(" at %s\n", xyas(tx, ty, player->cnum));
-			putsect((struct sctstr *) ptr);
-		} else {
-			struct	shpstr *sp = (struct shpstr *)ptr;
-			if (sp->shp_own != player->cnum)
-				wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
-					cname(player->cnum),amt,ip->i_name,sp->shp_uid);
-			pr(" on carrier #%d\n", ship->shp_uid);
-			putship(ship->shp_uid, ship);
-		}
+	if (there > max) {
+	    pr("%d excess %s discarded\n", max - there, ip->i_name);
+	    amt = max - there;
+	    there = max;
 	}
+	putvar(ip->i_vtype, there, ptr, type);
+	pr("%d %s landed safely", amt, ip->i_name);
+	if (type == EF_SECTOR) {
+	    struct sctstr *sectp = (struct sctstr *)ptr;
+	    if (sectp->sct_own != player->cnum)
+		wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
+		   cname(player->cnum), amt, ip->i_name,
+		   xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
+	    pr(" at %s\n", xyas(tx, ty, player->cnum));
+	    putsect((struct sctstr *)ptr);
+	} else {
+	    struct shpstr *sp = (struct shpstr *)ptr;
+	    if (sp->shp_own != player->cnum)
+		wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
+		   cname(player->cnum), amt, ip->i_name, sp->shp_uid);
+	    pr(" on carrier #%d\n", ship->shp_uid);
+	    putship(ship->shp_uid, ship);
+	}
+    }
 }
 
 void
-pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap, int ap_to_target, int rangemult, int wantflags, int nowantflags)
+pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
+	int ap_to_target, int rangemult, int wantflags, int nowantflags)
 {
-	struct	plnstr plane;
-	struct	shpstr ship;
-	struct	lndstr land;
-	struct	sctstr sect;
-	int	range;
-	struct	plchrstr *pcp;
-	struct	plist *plp;
-	register int y;
-	register int bad,bad1;
-	unsigned int x;
+    struct plnstr plane;
+    struct shpstr ship;
+    struct lndstr land;
+    struct sctstr sect;
+    int range;
+    struct plchrstr *pcp;
+    struct plist *plp;
+    register int y;
+    register int bad, bad1;
+    unsigned int x;
 
-	emp_initque(list);
-	while (nxtitem(ni, (s_char *)&plane)) {
-		if (!player->owner)
-			continue;
-		if (plane.pln_mobil <= (s_char)0)
-			continue;
-		if (opt_MARKET) {
-		    if (ontradingblock(EF_PLANE, (int *)&plane)) {
-			pr("plane #%d inelligible - it's for sale.\n", plane.pln_uid);
-			continue;
-		    }
-		}
+    emp_initque(list);
+    while (nxtitem(ni, (s_char *)&plane)) {
+	if (!player->owner)
+	    continue;
+	if (plane.pln_mobil <= (s_char)0)
+	    continue;
+	if (opt_MARKET) {
+	    if (ontradingblock(EF_PLANE, (int *)&plane)) {
+		pr("plane #%d inelligible - it's for sale.\n",
+		   plane.pln_uid);
+		continue;
+	    }
+	}
 
-		range = mapdist(plane.pln_x, plane.pln_y, ap->sct_x, ap->sct_y);
-		if (range > 4) {
-			pr("%s too far from assembly point\n",
-			   prplane(&plane));
-			continue;
-		}
-		if (plane.pln_effic < 40) {
-			pr("%s not efficient enough (must be 40%%)\n", prplane(&plane));
-			continue;
-		}
-		range += ap_to_target;
-		pcp = &plchr[(int)plane.pln_type];
-		bad=0;
-		bad1=0;
-		if (wantflags) {
-			for(x=0;x<sizeof(wantflags)*8;x++){
-				y=(1<<x);
-				if ((wantflags & y) == y)
-					if ((pcp->pl_flags & y) != y){
-						switch(y){
-							case P_F:
-							case P_ESC: bad1=2;
-								    break;
-							case P_E:
-							case P_L:
-							case P_K: bad1=1;
-								  break;
-							default:  bad=1;
-						}
-					}
-			}
-			if (bad)
-				continue;
-			if (bad1 == 2){
-				if ((pcp->pl_flags &  P_ESC) ||
-					(pcp->pl_flags & P_F))
-					bad1=0;
-			}
-			if (bad1 == 1){
-				if ((wantflags & P_L) && (pcp->pl_flags &  P_L))
-					bad1=0;
-				if ((wantflags & P_K) && (pcp->pl_flags &  P_K))
-					bad1=0;
-				if ((wantflags & P_E) && (pcp->pl_flags &  P_E))
-					bad1=0;
-			}
-			if (bad1)
-				continue;
-		}
-		bad=0;
-		bad1=0;
-		if (nowantflags) {
-			for(x=0;x<sizeof(nowantflags)*8;x++){
-				y=(1<<x);
-				if ((nowantflags & y) == y)
-					if ((pcp->pl_flags & y) == y)
-						bad=1;
-			}
-			if (bad)
-				continue;
-		}
-		range *= rangemult;
-		if (plane.pln_range < range) {
-			pr("%s out of range (%d:%d)\n", prplane(&plane),
-				plane.pln_range, range);
-			continue;
-		}
-		if (plane.pln_ship >= 0) {
-			if (!getship(plane.pln_ship, &ship) ||
-			    plane.pln_own != player->cnum) {
-	shipsunk:
-				plane.pln_effic = 0;
-				pr("(note) ship not valid for %s\n",
-					prplane(&plane));
-				putplane(plane.pln_uid, &plane);
-				continue;
-			}
-			if (!can_be_on_ship(plane.pln_uid,ship.shp_uid))
-				goto shipsunk;
-			if (ship.shp_effic < SHIP_MINEFF)
-				goto shipsunk;
-			if (ship.shp_effic < 50)
-				continue;
-			/* Can't fly off non-owned ships or non-allied ship */
-			if ((ship.shp_own != player->cnum) &&
-			    (getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
-			    pr("(note) An ally does not own the ship %s is on\n",
-			       prplane(&plane));
-			    continue;
-			}
-		}
-		if (plane.pln_land >= 0) {
-			if (!getland(plane.pln_land, &land) ||
-			    (plane.pln_own != player->cnum)) {
-	landdead:
-				plane.pln_effic = 0;
-				pr("(note) land unit not valid for %s\n",
-				   prplane(&plane));
-				putplane(plane.pln_uid, &plane);
-				continue;
-			}
-			if (!(plchr[(int)plane.pln_type].pl_flags & P_E))
-				goto landdead;
-			if (land.lnd_effic < LAND_MINEFF)
-				goto landdead;
-			if (land.lnd_effic < 50)
-				continue;
-			/* Can't fly off units in ships or other units */
-			if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))
-				continue;
-			/* Can't fly off non-owned units or non-allied unit */
-			if ((land.lnd_own != player->cnum) &&
-			    (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
-			    pr("(note) An ally does not own the unit %s is on\n",
-			       prplane(&plane));
-			    continue;
-			}
-		}
-		/* Now, check the sector status if not on a plane or unit */
-		if ((plane.pln_ship < 0) && (plane.pln_land < 0)) {
-		    if (!getsect(plane.pln_x, plane.pln_y, &sect))
-			continue;
-		    /* First, check allied status */
-		    /* Can't fly from non-owned sectors or non-allied sectors */
-		    if ((sect.sct_own != player->cnum) &&
-			(getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)) {
-			pr("(note) An ally does not own the sector %s is in\n",
-			   prplane(&plane));
-			continue;
-		    }
-		    /* non-vtol plane */
-		    if ((pcp->pl_flags & P_V) == 0) {
-		        if (sect.sct_type != SCT_AIRPT) {
-			    pr("%s not at airport\n", prplane(&plane));
-			    continue;
-			}
-			if (sect.sct_effic < 40) {
-			    pr("%s is not 40%% efficient, %s can't take off from there.\n",
-			       xyas(sect.sct_x,sect.sct_y,plane.pln_own),
-			       prplane(&plane));
-			    continue;
-			}
-			if (rangemult == 2 && sect.sct_effic < 60) {
-			    pr("%s is not 60%% efficient, %s can't land there.\n",
-			       xyas(sect.sct_x,sect.sct_y,plane.pln_own),
-			       prplane(&plane));
-			    continue;
+	range = mapdist(plane.pln_x, plane.pln_y, ap->sct_x, ap->sct_y);
+	if (range > 4) {
+	    pr("%s too far from assembly point\n", prplane(&plane));
+	    continue;
+	}
+	if (plane.pln_effic < 40) {
+	    pr("%s not efficient enough (must be 40%%)\n",
+	       prplane(&plane));
+	    continue;
+	}
+	range += ap_to_target;
+	pcp = &plchr[(int)plane.pln_type];
+	bad = 0;
+	bad1 = 0;
+	if (wantflags) {
+	    for (x = 0; x < sizeof(wantflags) * 8; x++) {
+		y = (1 << x);
+		if ((wantflags & y) == y)
+		    if ((pcp->pl_flags & y) != y) {
+			switch (y) {
+			case P_F:
+			case P_ESC:
+			    bad1 = 2;
+			    break;
+			case P_E:
+			case P_L:
+			case P_K:
+			    bad1 = 1;
+			    break;
+			default:
+			    bad = 1;
 			}
 		    }
-		}
-		pr("%s standing by\n", prplane(&plane));
-		plane.pln_mission = 0;
+	    }
+	    if (bad)
+		continue;
+	    if (bad1 == 2) {
+		if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
+		    bad1 = 0;
+	    }
+	    if (bad1 == 1) {
+		if ((wantflags & P_L) && (pcp->pl_flags & P_L))
+		    bad1 = 0;
+		if ((wantflags & P_K) && (pcp->pl_flags & P_K))
+		    bad1 = 0;
+		if ((wantflags & P_E) && (pcp->pl_flags & P_E))
+		    bad1 = 0;
+	    }
+	    if (bad1)
+		continue;
+	}
+	bad = 0;
+	bad1 = 0;
+	if (nowantflags) {
+	    for (x = 0; x < sizeof(nowantflags) * 8; x++) {
+		y = (1 << x);
+		if ((nowantflags & y) == y)
+		    if ((pcp->pl_flags & y) == y)
+			bad = 1;
+	    }
+	    if (bad)
+		continue;
+	}
+	range *= rangemult;
+	if (plane.pln_range < range) {
+	    pr("%s out of range (%d:%d)\n", prplane(&plane),
+	       plane.pln_range, range);
+	    continue;
+	}
+	if (plane.pln_ship >= 0) {
+	    if (!getship(plane.pln_ship, &ship) ||
+		plane.pln_own != player->cnum) {
+	      shipsunk:
+		plane.pln_effic = 0;
+		pr("(note) ship not valid for %s\n", prplane(&plane));
 		putplane(plane.pln_uid, &plane);
-		plp = (struct plist *) malloc(sizeof(struct plist));
-		plp->state = P_OK;
-		plp->misc = 0;
-		plp->bombs = 0;
-		plp->pcp = pcp;
-		bcopy((s_char *)&plane, (s_char *)&plp->plane,
-			sizeof(struct plnstr));
-		emp_insque(&plp->queue, list);
+		continue;
+	    }
+	    if (!can_be_on_ship(plane.pln_uid, ship.shp_uid))
+		goto shipsunk;
+	    if (ship.shp_effic < SHIP_MINEFF)
+		goto shipsunk;
+	    if (ship.shp_effic < 50)
+		continue;
+	    /* Can't fly off non-owned ships or non-allied ship */
+	    if ((ship.shp_own != player->cnum) &&
+		(getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
+		pr("(note) An ally does not own the ship %s is on\n",
+		   prplane(&plane));
+		continue;
+	    }
 	}
+	if (plane.pln_land >= 0) {
+	    if (!getland(plane.pln_land, &land) ||
+		(plane.pln_own != player->cnum)) {
+	      landdead:
+		plane.pln_effic = 0;
+		pr("(note) land unit not valid for %s\n", prplane(&plane));
+		putplane(plane.pln_uid, &plane);
+		continue;
+	    }
+	    if (!(plchr[(int)plane.pln_type].pl_flags & P_E))
+		goto landdead;
+	    if (land.lnd_effic < LAND_MINEFF)
+		goto landdead;
+	    if (land.lnd_effic < 50)
+		continue;
+	    /* Can't fly off units in ships or other units */
+	    if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))
+		continue;
+	    /* Can't fly off non-owned units or non-allied unit */
+	    if ((land.lnd_own != player->cnum) &&
+		(getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
+		pr("(note) An ally does not own the unit %s is on\n",
+		   prplane(&plane));
+		continue;
+	    }
+	}
+	/* Now, check the sector status if not on a plane or unit */
+	if ((plane.pln_ship < 0) && (plane.pln_land < 0)) {
+	    if (!getsect(plane.pln_x, plane.pln_y, &sect))
+		continue;
+	    /* First, check allied status */
+	    /* Can't fly from non-owned sectors or non-allied sectors */
+	    if ((sect.sct_own != player->cnum) &&
+		(getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)) {
+		pr("(note) An ally does not own the sector %s is in\n",
+		   prplane(&plane));
+		continue;
+	    }
+	    /* non-vtol plane */
+	    if ((pcp->pl_flags & P_V) == 0) {
+		if (sect.sct_type != SCT_AIRPT) {
+		    pr("%s not at airport\n", prplane(&plane));
+		    continue;
+		}
+		if (sect.sct_effic < 40) {
+		    pr("%s is not 40%% efficient, %s can't take off from there.\n", xyas(sect.sct_x, sect.sct_y, plane.pln_own), prplane(&plane));
+		    continue;
+		}
+		if (rangemult == 2 && sect.sct_effic < 60) {
+		    pr("%s is not 60%% efficient, %s can't land there.\n",
+		       xyas(sect.sct_x, sect.sct_y, plane.pln_own),
+		       prplane(&plane));
+		    continue;
+		}
+	    }
+	}
+	pr("%s standing by\n", prplane(&plane));
+	plane.pln_mission = 0;
+	putplane(plane.pln_uid, &plane);
+	plp = (struct plist *)malloc(sizeof(struct plist));
+	plp->state = P_OK;
+	plp->misc = 0;
+	plp->bombs = 0;
+	plp->pcp = pcp;
+	bcopy((s_char *)&plane, (s_char *)&plp->plane,
+	      sizeof(struct plnstr));
+	emp_insque(&plp->queue, list);
+    }
 }
 
 int
-pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip, int flags, int mission_flags, int *tech)
+pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
+	int flags, int mission_flags, int *tech)
 {
-	struct	emp_qelem *qp;
-	struct	emp_qelem *next;
-	struct	plist *plp;
+    struct emp_qelem *qp;
+    struct emp_qelem *next;
+    struct plist *plp;
 
-	if (*tech == 0)
-		*tech = 9999;
-	for (qp = list->q_forw; qp != list; qp = next) {
-		next = qp->q_forw;
-		plp = (struct plist *) qp;
-		if (pln_equip(plp, ip, flags, mission) < 0) {
-			emp_remque(qp);
-			free((s_char *)qp);
-			continue;
-		}
-		if (flags & (P_S|P_I)) {
-			if(plp->pcp->pl_flags & P_S)
-				mission_flags |= P_S;
-			if(plp->pcp->pl_flags & P_I)
-				mission_flags |= P_I;
-		}
-		if (*tech > plp->plane.pln_tech)
-			*tech = plp->plane.pln_tech;
-		if (!(plp->pcp->pl_flags & P_H))
-			/* no stealth on this mission */
-			mission_flags &= ~P_H;
-		if (!(plp->pcp->pl_flags & P_X))
-			/* no stealth on this mission */
-			mission_flags &= ~P_X;
-		if (!(plp->pcp->pl_flags & P_A)) {
-			/* no asw on this mission */
-			mission_flags &= ~P_A;
-		}
-		if (!(plp->pcp->pl_flags & P_MINE)) {
-			/* no asw on this mission */
-			mission_flags &= ~P_MINE;
-		}
-		plp->plane.pln_mobil -= pln_mobcost(dist,&plp->plane,flags);
-		pr("%s equipped\n", prplane(&plp->plane));
+    if (*tech == 0)
+	*tech = 9999;
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
+	plp = (struct plist *)qp;
+	if (pln_equip(plp, ip, flags, mission) < 0) {
+	    emp_remque(qp);
+	    free((s_char *)qp);
+	    continue;
 	}
-	return mission_flags;
+	if (flags & (P_S | P_I)) {
+	    if (plp->pcp->pl_flags & P_S)
+		mission_flags |= P_S;
+	    if (plp->pcp->pl_flags & P_I)
+		mission_flags |= P_I;
+	}
+	if (*tech > plp->plane.pln_tech)
+	    *tech = plp->plane.pln_tech;
+	if (!(plp->pcp->pl_flags & P_H))
+	    /* no stealth on this mission */
+	    mission_flags &= ~P_H;
+	if (!(plp->pcp->pl_flags & P_X))
+	    /* no stealth on this mission */
+	    mission_flags &= ~P_X;
+	if (!(plp->pcp->pl_flags & P_A)) {
+	    /* no asw on this mission */
+	    mission_flags &= ~P_A;
+	}
+	if (!(plp->pcp->pl_flags & P_MINE)) {
+	    /* no asw on this mission */
+	    mission_flags &= ~P_MINE;
+	}
+	plp->plane.pln_mobil -= pln_mobcost(dist, &plp->plane, flags);
+	pr("%s equipped\n", prplane(&plp->plane));
+    }
+    return mission_flags;
 }
 
 int
 pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 {
-	register struct plchrstr *pcp;
-	struct	plnstr *pp;
-	int	needed;
-	struct	lndstr land;
-	struct	shpstr ship;
-	struct	sctstr sect;
-	int	type;
-	s_char	*ptr;
-	int	item;
-	int	rval;
-	int	vec[I_MAX+1];
-	int     own;
+    register struct plchrstr *pcp;
+    struct plnstr *pp;
+    int needed;
+    struct lndstr land;
+    struct shpstr ship;
+    struct sctstr sect;
+    int type;
+    s_char *ptr;
+    int item;
+    int rval;
+    int vec[I_MAX + 1];
+    int own;
 
-	pp = &plp->plane;
-	pcp = plp->pcp;
-	if (pp->pln_ship >= 0) {
-		getship(pp->pln_ship, &ship);
-		type = EF_SHIP;
-		ptr = (s_char *) &ship;
-		own = ship.shp_own;
-	} else if (pp->pln_land >= 0) {
-		getland(pp->pln_land, &land);
-		type = EF_LAND;
-		ptr = (s_char *) &land;
-		own = land.lnd_own;
-	} else {
-		getsect(pp->pln_x, pp->pln_y, &sect);
-		type = EF_SECTOR;
-		ptr = (s_char *) &sect;
-		own = sect.sct_oldown;
-	}
-	if (ip) {
-	    if (ip->i_vtype == V_CIVIL) {
-		if (pp->pln_own != own) {
-		    pr("You don't control those civilians!\n");
-		    return -1;
-		}
+    pp = &plp->plane;
+    pcp = plp->pcp;
+    if (pp->pln_ship >= 0) {
+	getship(pp->pln_ship, &ship);
+	type = EF_SHIP;
+	ptr = (s_char *)&ship;
+	own = ship.shp_own;
+    } else if (pp->pln_land >= 0) {
+	getland(pp->pln_land, &land);
+	type = EF_LAND;
+	ptr = (s_char *)&land;
+	own = land.lnd_own;
+    } else {
+	getsect(pp->pln_x, pp->pln_y, &sect);
+	type = EF_SECTOR;
+	ptr = (s_char *)&sect;
+	own = sect.sct_oldown;
+    }
+    if (ip) {
+	if (ip->i_vtype == V_CIVIL) {
+	    if (pp->pln_own != own) {
+		pr("You don't control those civilians!\n");
+		return -1;
 	    }
 	}
-	getvec(VT_ITEM, vec, ptr, type);
-	if (pcp->pl_fuel > vec[I_PETROL]) {
-		pr("%s not enough petrol there!\n", prplane(pp));
-		return -1;
-	}
-	vec[I_PETROL] -= pcp->pl_fuel;
-	rval = 0;
-	if ((flags & P_F) == 0) {
+    }
+    getvec(VT_ITEM, vec, ptr, type);
+    if (pcp->pl_fuel > vec[I_PETROL]) {
+	pr("%s not enough petrol there!\n", prplane(pp));
+	return -1;
+    }
+    vec[I_PETROL] -= pcp->pl_fuel;
+    rval = 0;
+    if ((flags & P_F) == 0) {
+	item = 0;
+	needed = 0;
+	switch (mission) {
+	case 's':
+	case 'p':
+	    if (pp->pln_nuketype == -1) {
+		item = I_SHELL;
+		needed = pp->pln_load;
+	    }
+	    break;
+	case 't':
+	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
+		break;
+	    item = ip - ichr;
+	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    break;
+	case 'd':
+	    item = ip - ichr;
+	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    /* Is this mine dropping excursion? */
+	    if ((item == I_SHELL) && (pcp->pl_flags & P_MINE))
+		break;
+	    /* Is this a cargo drop? */
+	    if ((pcp->pl_flags & P_C) == 0 || ip == 0) {
 		item = 0;
 		needed = 0;
-		switch (mission) {
-		case 's':
-		case 'p':
-                        if (pp->pln_nuketype == -1) {
-				item = I_SHELL;
-				needed = pp->pln_load;
-			}
-			break;
-		case 't':
-			if ((pcp->pl_flags & P_C) == 0 || ip == 0)
-				break;
-			item = ip - ichr;
-			needed = (pp->pln_load * 2) / ip->i_lbs;
-			break;
-		case 'd':
-			item = ip - ichr;
-			needed = (pp->pln_load * 2) / ip->i_lbs;
-			/* Is this mine dropping excursion? */
-			if ((item == I_SHELL) && (pcp->pl_flags & P_MINE))
-			    break;
-			/* Is this a cargo drop? */
-			if ((pcp->pl_flags & P_C) == 0 || ip == 0) {
-			    item = 0;
-			    needed = 0;
-			    break;
-			}
-			break;
-		case 'a':
-			if ((pcp->pl_flags & (P_V|P_C)) == 0)
-				break;
-			item = I_MILIT;
-			needed = pp->pln_load / ip->i_lbs;
-			break;
-		case 'n':
-			if (pp->pln_nuketype == (s_char)-1)
-				rval = -1;
-			break;
-		default:
-			break;
-		}
-		if (rval < 0 || (item && needed <= 0)) {
-			pr("%s can't contribute to mission\n", prplane(pp));
-			return -1;
-		}
+		break;
+	    }
+	    break;
+	case 'a':
+	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
+		break;
+	    item = I_MILIT;
+	    needed = pp->pln_load / ip->i_lbs;
+	    break;
+	case 'n':
+	    if (pp->pln_nuketype == (s_char)-1)
+		rval = -1;
+	    break;
+	default:
+	    break;
+	}
+	if (rval < 0 || (item && needed <= 0)) {
+	    pr("%s can't contribute to mission\n", prplane(pp));
+	    return -1;
+	}
 #if 0
-		/* Supply is broken somewhere, so don't use it for now */
-		if ((vec[item] < needed) && (item == I_SHELL))
-			vec[item] += supply_commod(plp->plane.pln_own,
-				plp->plane.pln_x,plp->plane.pln_y,I_SHELL,
-				needed);
+	/* Supply is broken somewhere, so don't use it for now */
+	if ((vec[item] < needed) && (item == I_SHELL))
+	    vec[item] += supply_commod(plp->plane.pln_own,
+				       plp->plane.pln_x, plp->plane.pln_y,
+				       I_SHELL, needed);
 #endif
-		if (vec[item] < needed) {
-			pr("Not enough %s for %s\n",
-				ichr[item].i_name, prplane(pp));
-			return -1;
-		} else {
-			vec[item] -= needed;
-		}
-		if (item == I_SHELL && (mission == 's' || mission == 'p'))
-			plp->bombs = needed;
-		else
-			plp->misc = needed;
-	}
-	putvec(VT_ITEM, vec, ptr, type);
-	if (type == EF_SHIP) {
-	    if (pp->pln_own != ship.shp_own) {
-		wu(0, ship.shp_own, "%s %s prepares for takeoff from ship %s\n",
-		   cname(pp->pln_own), prplane(pp), prship(&ship));
-	    }
-	    putship(ship.shp_uid,&ship);
-	} else if (type == EF_LAND) {
-	    if (pp->pln_own != land.lnd_own) {
-		wu(0, land.lnd_own, "%s %s prepares for takeoff from unit %s\n",
-		   cname(pp->pln_own), prplane(pp), prland(&land));
-	    }
-	    putland(land.lnd_uid,&land);
+	if (vec[item] < needed) {
+	    pr("Not enough %s for %s\n", ichr[item].i_name, prplane(pp));
+	    return -1;
 	} else {
-	    if (pp->pln_own != sect.sct_own) {
-		wu(0, sect.sct_own, "%s %s prepares for takeoff from %s\n",
-		   cname(pp->pln_own), prplane(pp), xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-	    }
-	    putsect(&sect);
+	    vec[item] -= needed;
 	}
-	return rval;
+	if (item == I_SHELL && (mission == 's' || mission == 'p'))
+	    plp->bombs = needed;
+	else
+	    plp->misc = needed;
+    }
+    putvec(VT_ITEM, vec, ptr, type);
+    if (type == EF_SHIP) {
+	if (pp->pln_own != ship.shp_own) {
+	    wu(0, ship.shp_own,
+	       "%s %s prepares for takeoff from ship %s\n",
+	       cname(pp->pln_own), prplane(pp), prship(&ship));
+	}
+	putship(ship.shp_uid, &ship);
+    } else if (type == EF_LAND) {
+	if (pp->pln_own != land.lnd_own) {
+	    wu(0, land.lnd_own,
+	       "%s %s prepares for takeoff from unit %s\n",
+	       cname(pp->pln_own), prplane(pp), prland(&land));
+	}
+	putland(land.lnd_uid, &land);
+    } else {
+	if (pp->pln_own != sect.sct_own) {
+	    wu(0, sect.sct_own, "%s %s prepares for takeoff from %s\n",
+	       cname(pp->pln_own), prplane(pp), xyas(sect.sct_x,
+						     sect.sct_y,
+						     sect.sct_own));
+	}
+	putsect(&sect);
+    }
+    return rval;
 }
 
 void
 pln_put(struct emp_qelem *list)
 {
-	register struct emp_qelem *qp;
-	register struct emp_qelem *newqp;
-	struct	plist *plp;
-	struct  plnstr *pp;
-	struct shpstr ship;
-	struct sctstr sect;
+    register struct emp_qelem *qp;
+    register struct emp_qelem *newqp;
+    struct plist *plp;
+    struct plnstr *pp;
+    struct shpstr ship;
+    struct sctstr sect;
 
-	/* Here is where planes return home from bombing runs.
-	   We need to make sure they still have somewhere to return
-	   home to! */
-	qp = list->q_forw;
-	while (qp != list) { 
-		plp = (struct plist *) qp;
-		pp = &plp->plane;
-		/* Ok, check out where it wants to land */
-		if (pp->pln_ship >= 0) {
-		  /* It is landing on a carrier */
-		  getship(pp->pln_ship, &ship);
-		  /* We should do more, like make sure it's really
-		     a carrier, etc. but for now just make sure it's
-		     not sunk. */
-		  if (ship.shp_effic < SHIP_MINEFF) {
-		    mpr(pp->pln_own, "Ship #%d has been sunk, plane #%d has nowhere to land, and\nsplashes into the sea.\n", pp->pln_ship, pp->pln_uid);
-		    pp->pln_effic = 0;
-		  }
-		} else {
-		  /* Presume we are landing back in a sector. */
-		  getsect(pp->pln_x, pp->pln_y, &sect);
-		  if (sect.sct_type == SCT_WATER ||
-		      sect.sct_type == SCT_WASTE) {
-		    mpr(pp->pln_own, "Nowwhere to land at %s, plane #%d crashes and burns...\n", xyas(pp->pln_x, pp->pln_y, pp->pln_own), pp->pln_uid);
-		    pp->pln_effic = 0;
-		  }
-		}
-		putplane(pp->pln_uid, pp);
-		newqp = qp->q_forw;
-		emp_remque(qp);
-		free((s_char *)qp);
-		qp = newqp;
+    /* Here is where planes return home from bombing runs.
+       We need to make sure they still have somewhere to return
+       home to! */
+    qp = list->q_forw;
+    while (qp != list) {
+	plp = (struct plist *)qp;
+	pp = &plp->plane;
+	/* Ok, check out where it wants to land */
+	if (pp->pln_ship >= 0) {
+	    /* It is landing on a carrier */
+	    getship(pp->pln_ship, &ship);
+	    /* We should do more, like make sure it's really
+	       a carrier, etc. but for now just make sure it's
+	       not sunk. */
+	    if (ship.shp_effic < SHIP_MINEFF) {
+		mpr(pp->pln_own,
+		    "Ship #%d has been sunk, plane #%d has nowhere to land, and\nsplashes into the sea.\n",
+		    pp->pln_ship, pp->pln_uid);
+		pp->pln_effic = 0;
+	    }
+	} else {
+	    /* Presume we are landing back in a sector. */
+	    getsect(pp->pln_x, pp->pln_y, &sect);
+	    if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_WASTE) {
+		mpr(pp->pln_own,
+		    "Nowwhere to land at %s, plane #%d crashes and burns...\n",
+		    xyas(pp->pln_x, pp->pln_y, pp->pln_own), pp->pln_uid);
+		pp->pln_effic = 0;
+	    }
 	}
+	putplane(pp->pln_uid, pp);
+	newqp = qp->q_forw;
+	emp_remque(qp);
+	free((s_char *)qp);
+	qp = newqp;
+    }
 }
 
 void
 pln_removedupes(struct emp_qelem *bomb_list, struct emp_qelem *esc_list)
 {
-	struct	emp_qelem *bomb;
-	struct	emp_qelem *esc;
-	struct	plist *bombp;
-	struct	plist *escp;
+    struct emp_qelem *bomb;
+    struct emp_qelem *esc;
+    struct plist *bombp;
+    struct plist *escp;
 
-	if (QEMPTY(bomb_list) || QEMPTY(esc_list))
-		return;
-	bomb = bomb_list->q_forw;
-	while (bomb != bomb_list) {
-		if (QEMPTY(esc_list)) {
-			bomb = bomb_list;
-			continue;
-		}
-		esc = esc_list->q_forw;
-		bombp = (struct plist *) bomb;
-		while (esc != esc_list) {
-			escp = (struct plist *) esc;
-			if (escp->plane.pln_uid == bombp->plane.pln_uid) {
-				emp_remque(esc);
-				free((s_char *)esc);
-				esc = esc_list;
-			} else
-				esc = esc->q_forw;
-		}
-		bomb = bomb->q_forw;
+    if (QEMPTY(bomb_list) || QEMPTY(esc_list))
+	return;
+    bomb = bomb_list->q_forw;
+    while (bomb != bomb_list) {
+	if (QEMPTY(esc_list)) {
+	    bomb = bomb_list;
+	    continue;
 	}
+	esc = esc_list->q_forw;
+	bombp = (struct plist *)bomb;
+	while (esc != esc_list) {
+	    escp = (struct plist *)esc;
+	    if (escp->plane.pln_uid == bombp->plane.pln_uid) {
+		emp_remque(esc);
+		free((s_char *)esc);
+		esc = esc_list;
+	    } else
+		esc = esc->q_forw;
+	}
+	bomb = bomb->q_forw;
+    }
 }
 
 int
 put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
 {
-	struct	plchrstr *pcp;
-	struct	mchrstr *mcp;
+    struct plchrstr *pcp;
+    struct mchrstr *mcp;
 
-	pcp = &plchr[(int)plane->pln_type];
-	mcp = &mchr[(int)ship->shp_type];
+    pcp = &plchr[(int)plane->pln_type];
+    mcp = &mchr[(int)ship->shp_type];
 
-	if (((int)plane->pln_ship) == ((int)ship->shp_uid))
-		return 1; /* Already on ship */
+    if (((int)plane->pln_ship) == ((int)ship->shp_uid))
+	return 1;		/* Already on ship */
 
-	/* Try to put on ship as a chopper plane */
-	if ((pcp->pl_flags & P_K) &&
-		(mcp->m_flags & M_CHOPPER) &&
-		(ship->shp_nchoppers < mcp->m_nchoppers)){
+    /* Try to put on ship as a chopper plane */
+    if ((pcp->pl_flags & P_K) &&
+	(mcp->m_flags & M_CHOPPER) &&
+	(ship->shp_nchoppers < mcp->m_nchoppers)) {
 
-		ship->shp_nchoppers++;
-		plane->pln_x = ship->shp_x;
-		plane->pln_y = ship->shp_y;
-		plane->pln_ship = ship->shp_uid;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nchoppers++;
+	plane->pln_x = ship->shp_x;
+	plane->pln_y = ship->shp_y;
+	plane->pln_ship = ship->shp_uid;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* Try to put on ship as an xlight plane */
-	if ((pcp->pl_flags & P_E) &&
-		(mcp->m_flags & M_XLIGHT) &&
-		(ship->shp_nxlight < mcp->m_nxlight)){
+    /* Try to put on ship as an xlight plane */
+    if ((pcp->pl_flags & P_E) &&
+	(mcp->m_flags & M_XLIGHT) &&
+	(ship->shp_nxlight < mcp->m_nxlight)) {
 
-		ship->shp_nxlight++;
-		plane->pln_x = ship->shp_x;
-		plane->pln_y = ship->shp_y;
-		plane->pln_ship = ship->shp_uid;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nxlight++;
+	plane->pln_x = ship->shp_x;
+	plane->pln_y = ship->shp_y;
+	plane->pln_ship = ship->shp_uid;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* Try to put on ship as a normal plane */
-	if ( ( ((pcp->pl_flags & P_L) && (mcp->m_flags & M_FLY)) ||
-		((pcp->pl_flags & P_M) && (pcp->pl_flags & P_L) &&
-		(mcp->m_flags & M_MSL)) ) &&
-		(ship->shp_nplane < mcp->m_nplanes)){
+    /* Try to put on ship as a normal plane */
+    if ((((pcp->pl_flags & P_L) && (mcp->m_flags & M_FLY)) ||
+	 ((pcp->pl_flags & P_M) && (pcp->pl_flags & P_L) &&
+	  (mcp->m_flags & M_MSL))) &&
+	(ship->shp_nplane < mcp->m_nplanes)) {
 
-		ship->shp_nplane++;
-		plane->pln_x = ship->shp_x;
-		plane->pln_y = ship->shp_y;
-		plane->pln_ship = ship->shp_uid;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nplane++;
+	plane->pln_x = ship->shp_x;
+	plane->pln_y = ship->shp_y;
+	plane->pln_ship = ship->shp_uid;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* We have failed */
-	return 0;
+    /* We have failed */
+    return 0;
 }
 
 int
 take_plane_off_ship(struct plnstr *plane, struct shpstr *ship)
 {
-	struct plchrstr	*pcp;
-	struct mchrstr	*mcp;
+    struct plchrstr *pcp;
+    struct mchrstr *mcp;
 
-	pcp = &plchr[(int)plane->pln_type];
-	mcp = &mchr[(int)ship->shp_type];
+    pcp = &plchr[(int)plane->pln_type];
+    mcp = &mchr[(int)ship->shp_type];
 
-	/* Try to take off ship as a chopper plane */
-	if ((pcp->pl_flags & P_K) &&
-		(mcp->m_flags & M_CHOPPER) &&
-		(ship->shp_nchoppers)){
+    /* Try to take off ship as a chopper plane */
+    if ((pcp->pl_flags & P_K) &&
+	(mcp->m_flags & M_CHOPPER) && (ship->shp_nchoppers)) {
 
-		ship->shp_nchoppers--;
-		plane->pln_ship = -1;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nchoppers--;
+	plane->pln_ship = -1;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* Try to take off ship as an xlight plane */
-	if ((pcp->pl_flags & P_E) &&
-		(mcp->m_flags & M_XLIGHT) &&
-		(ship->shp_nxlight)){
+    /* Try to take off ship as an xlight plane */
+    if ((pcp->pl_flags & P_E) &&
+	(mcp->m_flags & M_XLIGHT) && (ship->shp_nxlight)) {
 
-		ship->shp_nxlight--;
-		plane->pln_ship = -1;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nxlight--;
+	plane->pln_ship = -1;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* Try to take off ship as a normal plane */
-	if ( ( ((pcp->pl_flags & P_L) && (mcp->m_flags & M_FLY)) ||
-		((pcp->pl_flags & P_M) && (pcp->pl_flags & P_L) &&
-		(mcp->m_flags & M_MSL)) ) &&
-		(ship->shp_nplane)){
+    /* Try to take off ship as a normal plane */
+    if ((((pcp->pl_flags & P_L) && (mcp->m_flags & M_FLY)) ||
+	 ((pcp->pl_flags & P_M) && (pcp->pl_flags & P_L) &&
+	  (mcp->m_flags & M_MSL))) && (ship->shp_nplane)) {
 
-		ship->shp_nplane--;
-		plane->pln_ship = -1;
-		putship(ship->shp_uid,ship);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	ship->shp_nplane--;
+	plane->pln_ship = -1;
+	putship(ship->shp_uid, ship);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* We have failed */
-	return 0;
+    /* We have failed */
+    return 0;
 }
 
 int
 take_plane_off_land(struct plnstr *plane, struct lndstr *land)
 {
-	struct plchrstr	*pcp;
-	struct lchrstr	*lcp;
+    struct plchrstr *pcp;
+    struct lchrstr *lcp;
 
-	pcp = &plchr[(int)plane->pln_type];
-	lcp = &lchr[(int)land->lnd_type];
+    pcp = &plchr[(int)plane->pln_type];
+    lcp = &lchr[(int)land->lnd_type];
 
-	/* Try to take off ship as an xlight plane */
-	if ((pcp->pl_flags & P_E) &&
-		(lcp->l_flags & L_XLIGHT) &&
-		(land->lnd_nxlight)){
+    /* Try to take off ship as an xlight plane */
+    if ((pcp->pl_flags & P_E) &&
+	(lcp->l_flags & L_XLIGHT) && (land->lnd_nxlight)) {
 
-		land->lnd_nxlight--;
-		plane->pln_land = -1;
-		putland(land->lnd_uid,land);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	land->lnd_nxlight--;
+	plane->pln_land = -1;
+	putland(land->lnd_uid, land);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* We have failed */
-	return 0;
+    /* We have failed */
+    return 0;
 }
 
 int
 can_be_on_ship(int p, int s)
 {
-	struct plnstr	plane;
-	struct shpstr	ship;
-	struct plchrstr	*pcp;
-	struct mchrstr	*mcp;
+    struct plnstr plane;
+    struct shpstr ship;
+    struct plchrstr *pcp;
+    struct mchrstr *mcp;
 
-	getplane(p,&plane);
-	getship(s,&ship);
+    getplane(p, &plane);
+    getship(s, &ship);
 
-	pcp = &plchr[(int)plane.pln_type];
-	mcp = &mchr[(int)ship.shp_type];
+    pcp = &plchr[(int)plane.pln_type];
+    mcp = &mchr[(int)ship.shp_type];
 
-	if (pcp->pl_flags & P_L)
-		if (mcp->m_flags & M_FLY)
-			return 1;
+    if (pcp->pl_flags & P_L)
+	if (mcp->m_flags & M_FLY)
+	    return 1;
 
-	if (pcp->pl_flags & P_K)
-		if (mcp->m_flags & M_CHOPPER)
-			return 1;
+    if (pcp->pl_flags & P_K)
+	if (mcp->m_flags & M_CHOPPER)
+	    return 1;
 
-	if (pcp->pl_flags & P_M)
-		if (mcp->m_flags & M_MSL)
-			return 1;
+    if (pcp->pl_flags & P_M)
+	if (mcp->m_flags & M_MSL)
+	    return 1;
 
-	if (pcp->pl_flags & P_E)
-		if (mcp->m_flags & M_XLIGHT)
-			return 1;
+    if (pcp->pl_flags & P_E)
+	if (mcp->m_flags & M_XLIGHT)
+	    return 1;
 
-	return 0;
+    return 0;
 }
 
 void
 plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 {
-	struct	plnstr	*pp;
-	struct	plchrstr *pcp;
-	struct  emp_qelem   *qp;
-	struct  emp_qelem   *next;
-	struct  plist   *ip;
-	struct  sctstr  sect;
-	int	mines_there;
-	int	found = 0;
+    struct plnstr *pp;
+    struct plchrstr *pcp;
+    struct emp_qelem *qp;
+    struct emp_qelem *next;
+    struct plist *ip;
+    struct sctstr sect;
+    int mines_there;
+    int found = 0;
 
-	getsect(x,y,&sect);
-	mines_there = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
+    getsect(x, y, &sect);
+    mines_there = getvar(V_MINE, (s_char *)&sect, EF_SECTOR);
 
-	if (mines_there == 0)
-		return;
+    if (mines_there == 0)
+	return;
 
-	if ((sect.sct_type != SCT_WATER) && (sect.sct_type != SCT_HARBR))
-		return;
+    if ((sect.sct_type != SCT_WATER) && (sect.sct_type != SCT_HARBR))
+	return;
 
-        for (qp=plane_list->q_forw;((qp!=plane_list)&&(mines_there));qp=next) {
-                next = qp->q_forw;
-                ip = (struct plist *) qp;
-                pp = &ip->plane;
-                pcp = ip->pcp;
-		if (!(pcp->pl_flags & P_SWEEP)) /* if it isn't an sweep plane */
-			continue;
+    for (qp = plane_list->q_forw; ((qp != plane_list) && (mines_there));
+	 qp = next) {
+	next = qp->q_forw;
+	ip = (struct plist *)qp;
+	pp = &ip->plane;
+	pcp = ip->pcp;
+	if (!(pcp->pl_flags & P_SWEEP))	/* if it isn't an sweep plane */
+	    continue;
 
-		if (chance( ((double) (100-pp->pln_acc))/100.0 )){
-			pr("Sweep! in %s\n",
-				xyas(sect.sct_x,sect.sct_y,pp->pln_own));
-			mines_there--;
-			found = 1;
-		}
+	if (chance(((double)(100 - pp->pln_acc)) / 100.0)) {
+	    pr("Sweep! in %s\n",
+	       xyas(sect.sct_x, sect.sct_y, pp->pln_own));
+	    mines_there--;
+	    found = 1;
 	}
+    }
 
-	if (found && map_set(player->cnum, sect.sct_x, sect.sct_y, 'X', 0))
-		writemap(player->cnum);
-	putvar(V_MINE, mines_there, (s_char *)&sect, EF_SECTOR);
-	putsect(&sect);
+    if (found && map_set(player->cnum, sect.sct_x, sect.sct_y, 'X', 0))
+	writemap(player->cnum);
+    putvar(V_MINE, mines_there, (s_char *)&sect, EF_SECTOR);
+    putsect(&sect);
 }
 
 void
 count_planes(struct shpstr *sp)
 {
-        struct  nstr_item ni;
-        struct  plnstr plane;
-        struct  plchrstr *pcp;
-        struct  mchrstr *mcp;
-	int nplane = 0;
-	int nchoppers = 0;
-	int nxlight = 0;
+    struct nstr_item ni;
+    struct plnstr plane;
+    struct plchrstr *pcp;
+    struct mchrstr *mcp;
+    int nplane = 0;
+    int nchoppers = 0;
+    int nxlight = 0;
 
-        if (sp->shp_effic < SHIP_MINEFF)
-                return;
+    if (sp->shp_effic < SHIP_MINEFF)
+	return;
 
-        mcp = &mchr[(int)sp->shp_type];
-        snxtitem_xy(&ni, EF_PLANE, sp->shp_x, sp->shp_y);
-        while (nxtitem(&ni, (s_char *)&plane)){
-                if (plane.pln_own == 0)
-                	continue;
-                if (plane.pln_ship == sp->shp_uid){
-                        pcp = &plchr[(int)plane.pln_type];
-                        if ((pcp->pl_flags & P_K) &&
-				(nchoppers < mcp->m_nchoppers))
-                                nchoppers++;
-			else
-                        if ((pcp->pl_flags & P_E) &&
-				(nxlight < mcp->m_nxlight))
-                                nxlight++;
-			else
-                        if ((pcp->pl_flags & P_L) || (pcp->pl_flags & P_M))
-                                nplane++;
-                }
-        }
-
-	if (nplane != sp->shp_nplane ||
-	    nxlight != sp->shp_nxlight ||
-	    nchoppers != sp->shp_nchoppers) {
-	    sp->shp_nplane = nplane;
-	    sp->shp_nxlight = nxlight;
-	    sp->shp_nchoppers = nchoppers;
-	    putship(sp->shp_uid, sp);
+    mcp = &mchr[(int)sp->shp_type];
+    snxtitem_xy(&ni, EF_PLANE, sp->shp_x, sp->shp_y);
+    while (nxtitem(&ni, (s_char *)&plane)) {
+	if (plane.pln_own == 0)
+	    continue;
+	if (plane.pln_ship == sp->shp_uid) {
+	    pcp = &plchr[(int)plane.pln_type];
+	    if ((pcp->pl_flags & P_K) && (nchoppers < mcp->m_nchoppers))
+		nchoppers++;
+	    else if ((pcp->pl_flags & P_E) && (nxlight < mcp->m_nxlight))
+		nxlight++;
+	    else if ((pcp->pl_flags & P_L) || (pcp->pl_flags & P_M))
+		nplane++;
 	}
+    }
+
+    if (nplane != sp->shp_nplane ||
+	nxlight != sp->shp_nxlight || nchoppers != sp->shp_nchoppers) {
+	sp->shp_nplane = nplane;
+	sp->shp_nxlight = nxlight;
+	sp->shp_nchoppers = nchoppers;
+	putship(sp->shp_uid, sp);
+    }
 }
 
 void
 count_land_planes(struct lndstr *lp)
 {
-        struct  nstr_item ni;
-        struct  plnstr plane;
-	int nplane = 0;
+    struct nstr_item ni;
+    struct plnstr plane;
+    int nplane = 0;
 
-        if (lp->lnd_effic < LAND_MINEFF)
-                return;
+    if (lp->lnd_effic < LAND_MINEFF)
+	return;
 
-        snxtitem_all(&ni, EF_PLANE);
-        while (nxtitem(&ni, (s_char *)&plane)) {
-	    if (plane.pln_own == 0)
-		continue;
-	    if (plane.pln_land == lp->lnd_uid)
-		nplane++;
-	}
+    snxtitem_all(&ni, EF_PLANE);
+    while (nxtitem(&ni, (s_char *)&plane)) {
+	if (plane.pln_own == 0)
+	    continue;
+	if (plane.pln_land == lp->lnd_uid)
+	    nplane++;
+    }
 
-	if (lp->lnd_nxlight != nplane) {
-	    lp->lnd_nxlight = nplane;
-	    putland(lp->lnd_uid,lp);
-	}
+    if (lp->lnd_nxlight != nplane) {
+	lp->lnd_nxlight = nplane;
+	putland(lp->lnd_uid, lp);
+    }
 }
 
 int
 count_sect_planes(struct sctstr *sp)
 {
-	int	count = 0;
-        struct  nstr_item ni;
-        struct  plnstr plane;
+    int count = 0;
+    struct nstr_item ni;
+    struct plnstr plane;
 
-        snxtitem_all(&ni, EF_PLANE);
-        while (nxtitem(&ni, (s_char *)&plane)) {
-		if (!plane.pln_own)
-			continue;
-		if (plane.pln_flags & PLN_LAUNCHED)
-			continue;
-                if (plane.pln_x == sp->sct_x && plane.pln_y == sp->sct_y)
-			++count;
-	}
+    snxtitem_all(&ni, EF_PLANE);
+    while (nxtitem(&ni, (s_char *)&plane)) {
+	if (!plane.pln_own)
+	    continue;
+	if (plane.pln_flags & PLN_LAUNCHED)
+	    continue;
+	if (plane.pln_x == sp->sct_x && plane.pln_y == sp->sct_y)
+	    ++count;
+    }
 
-	return count;
+    return count;
 }
 
 int
 put_plane_on_land(struct plnstr *plane, struct lndstr *land)
 {
-	struct	plchrstr *pcp;
-	struct	lchrstr *lcp;
+    struct plchrstr *pcp;
+    struct lchrstr *lcp;
 
-	pcp = &plchr[(int)plane->pln_type];
-	lcp = &lchr[(int)land->lnd_type];
+    pcp = &plchr[(int)plane->pln_type];
+    lcp = &lchr[(int)land->lnd_type];
 
-	if (((int)plane->pln_land) == ((int)land->lnd_uid))
-		return 1; /* Already on unit */
+    if (((int)plane->pln_land) == ((int)land->lnd_uid))
+	return 1;		/* Already on unit */
 
-	/* Try to put on unit as an xlight plane */
-	if ((pcp->pl_flags & P_E) &&
-		(lcp->l_flags & L_XLIGHT) &&
-		(land->lnd_nxlight < lcp->l_nxlight)){
+    /* Try to put on unit as an xlight plane */
+    if ((pcp->pl_flags & P_E) &&
+	(lcp->l_flags & L_XLIGHT) &&
+	(land->lnd_nxlight < lcp->l_nxlight)) {
 
-		land->lnd_nxlight++;
-		plane->pln_x = land->lnd_x;
-		plane->pln_y = land->lnd_y;
-		plane->pln_land = land->lnd_uid;
-		putland(land->lnd_uid,land);
-		putplane(plane->pln_uid,plane);
-		return 1;
-	}
+	land->lnd_nxlight++;
+	plane->pln_x = land->lnd_x;
+	plane->pln_y = land->lnd_y;
+	plane->pln_land = land->lnd_uid;
+	putland(land->lnd_uid, land);
+	putplane(plane->pln_uid, plane);
+	return 1;
+    }
 
-	/* We have failed */
-	return 0;
+    /* We have failed */
+    return 0;
 }
 
 int
 pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 {
-	struct	plchrstr *pcp = plchr + pp->pln_type;
-	float	tfact = (float)(pp->pln_tech - pcp->pl_tech) /
-		            (pp->pln_tech - pcp->pl_tech / 2);
-	int	acc = pp->pln_acc;
-	int	hitchance;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+    float tfact = (float)(pp->pln_tech - pcp->pl_tech) /
+	(pp->pln_tech - pcp->pl_tech / 2);
+    int acc = pp->pln_acc;
+    int hitchance;
 
-	if (type == EF_SHIP) {
-		if (pcp->pl_flags & P_A)
-			acc -= 20;
-		if (!(pcp->pl_flags & P_T))
-			acc += 35;
-	}
-	hitchance = (int)(pp->pln_effic * (1.0 - 0.1 * tfact) *
-			 (1.0 - (float)acc / 100.0)) - hardtarget;
+    if (type == EF_SHIP) {
+	if (pcp->pl_flags & P_A)
+	    acc -= 20;
+	if (!(pcp->pl_flags & P_T))
+	    acc += 35;
+    }
+    hitchance = (int)(pp->pln_effic * (1.0 - 0.1 * tfact) *
+		      (1.0 - (float)acc / 100.0)) - hardtarget;
 
-	/* smooth out the bottom of the graph with asymtote at 5 -KHS */
-	if (hitchance < 20)
-		hitchance = 5 + ldround(300.0 / (40.0 - hitchance), 1);
-	if (hitchance > 100)
-		hitchance = 100;
-	return hitchance;
+    /* smooth out the bottom of the graph with asymtote at 5 -KHS */
+    if (hitchance < 20)
+	hitchance = 5 + ldround(300.0 / (40.0 - hitchance), 1);
+    if (hitchance > 100)
+	hitchance = 100;
+    return hitchance;
 }
 
 /* return 0 if there was a nuclear detonation */
 
 int
-pln_damage(struct plnstr *pp, coord x, coord y, s_char type, int *nukedamp, int noisy)
+pln_damage(struct plnstr *pp, coord x, coord y, s_char type, int *nukedamp,
+	   int noisy)
 {
-	struct plchrstr *pcp = plchr + pp->pln_type;
-	int	i;
-	int	hitroll;
-	int	dam = 0;
-	int	aim;
-	int	effective = 1;
-	int	pinbomber = 0;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+    int i;
+    int hitroll;
+    int dam = 0;
+    int aim;
+    int effective = 1;
+    int pinbomber = 0;
 
-	if (pp->pln_nuketype != (s_char)-1) {
-		mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
-		    pp->pln_flags & PLN_AIRBURST?"airburst":"groundburst");
-		*nukedamp = detonate(pp, x, y);
-		return 0;
-	} else
-		*nukedamp = 0;
+    if (pp->pln_nuketype != (s_char)-1) {
+	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
+	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
+	*nukedamp = detonate(pp, x, y);
+	return 0;
+    } else
+	*nukedamp = 0;
 
-	if (!pp->pln_load) /* e.g. ab, blowing up on launch pad */
-		return 0;
+    if (!pp->pln_load)		/* e.g. ab, blowing up on launch pad */
+	return 0;
 
-	i = roll(pp->pln_load) + 1;
-	if (i > pp->pln_load)
-		i = pp->pln_load;
+    i = roll(pp->pln_load) + 1;
+    if (i > pp->pln_load)
+	i = pp->pln_load;
 
-	if (pcp->pl_flags & P_M) {
-		if (pcp->pl_flags & P_MAR)
-			pinbomber = 1;
-	} else if (pcp->pl_flags & P_T)
-		pinbomber = 1;
+    if (pcp->pl_flags & P_M) {
+	if (pcp->pl_flags & P_MAR)
+	    pinbomber = 1;
+    } else if (pcp->pl_flags & P_T)
+	pinbomber = 1;
 
-	aim = 100 - pp->pln_acc;
-	if (type == 's') {
-		if (pinbomber) {
-			aim = pp->pln_acc;
-			effective = 0;
-		}
-		aim += 30;
+    aim = 100 - pp->pln_acc;
+    if (type == 's') {
+	if (pinbomber) {
+	    aim = pp->pln_acc;
+	    effective = 0;
+	}
+	aim += 30;
+    } else {
+	if (!pinbomber) {
+	    effective = 0;
+	}
+    }
+    while (i--) {
+	dam += roll(6);
+	hitroll = roll(100);
+	if (hitroll >= 90) {
+	    dam += 8;
+	    if (noisy)
+		mpr(pp->pln_own, "BLAM");
+	} else if (hitroll < aim) {
+	    dam += 5;
+	    if (noisy)
+		mpr(pp->pln_own, "Blam");
 	} else {
-		if (!pinbomber) {
-			effective = 0;
-		}
+	    dam += 1;
+	    if (noisy)
+		mpr(pp->pln_own, "blam");
 	}
-	while (i--) {
-		dam += roll(6);
-		hitroll = roll(100);
-		if (hitroll >= 90) {
-			dam += 8;
-			if (noisy)
-			    mpr(pp->pln_own, "BLAM");
-		} else if (hitroll < aim) {
-			dam += 5;
-			if (noisy)
-			    mpr(pp->pln_own, "Blam");
-		} else {
-			dam += 1;
-			if (noisy)
-			    mpr(pp->pln_own, "blam");
-		}
-		if (i && noisy)
-			mpr(pp->pln_own, "-");
-	}
-	if (noisy)
-	    mpr(pp->pln_own, "\n");
-	if (effective)
-		dam *= 2;
-	return dam;
+	if (i && noisy)
+	    mpr(pp->pln_own, "-");
+    }
+    if (noisy)
+	mpr(pp->pln_own, "\n");
+    if (effective)
+	dam *= 2;
+    return dam;
 }
 
 int
 pln_identchance(struct plnstr *pp, int hardtarget, int type)
 {
-	double	misschance = (100.0-pln_hitchance(pp, hardtarget, type))/100.0;
-	return (int)(100 - 100 * misschance * misschance);
+    double misschance =
+	(100.0 - pln_hitchance(pp, hardtarget, type)) / 100.0;
+    return (int)(100 - 100 * misschance * misschance);
 }
 
 int
 pln_mobcost(int dist, struct plnstr *pp, int flags)
 {
-	int cost;
+    int cost;
 
-	if ((flags & P_F) || (flags & P_ESC))
-		cost = 10 * 100 / pp->pln_effic;
-	else
-		cost = 20 * 100 / pp->pln_effic;
+    if ((flags & P_F) || (flags & P_ESC))
+	cost = 10 * 100 / pp->pln_effic;
+    else
+	cost = 20 * 100 / pp->pln_effic;
 
-	cost = ldround((double)cost * dist/pp->pln_range_max, 1);
+    cost = ldround((double)cost * dist / pp->pln_range_max, 1);
 
-	return min(32 + pp->pln_mobil, cost + 5);
+    return min(32 + pp->pln_mobil, cost + 5);
 }
-

@@ -47,80 +47,79 @@ void sendcmd();
 
 int
 login(s, uname, cname, cpass, kill_proc)
-	int	s;
-	s_char	*uname;
-	s_char	*cname;
-	s_char	*cpass;
-	int	kill_proc;
+int s;
+s_char *uname;
+s_char *cname;
+s_char *cpass;
+int kill_proc;
 {
-	s_char  tmp[128];
-	s_char	buf[1024];
-	s_char	*ptr;
-	s_char	*p;
+    s_char tmp[128];
+    s_char buf[1024];
+    s_char *ptr;
+    s_char *p;
 
-	if (!expect(s, C_INIT, buf))
-		return 0;
-	(void) sendcmd(s, USER, uname);
-	if (!expect(s, C_CMDOK, buf))
-		return 0;
-	if (cname == 0) {
-		(void) printf("Country name? ");
-		cname = fgets(tmp, 128, stdin);
-		if (cname == 0 || *cname == 0)
-			return 0;
-	}
-	if (cname[strlen(cname) - 1] == '\n')
-		cname[strlen(cname) - 1] = 0;
-	if (cname[strlen(cname) - 1] == '\r')
-		cname[strlen(cname) - 1] = 0;
-	(void) sendcmd(s, COUN, cname);
-	if (!expect(s, C_CMDOK, buf)) {
-		(void) fprintf(stderr, "empire: no such country\n");
-		return 0;
-	}
-	if (cpass == 0) {
+    if (!expect(s, C_INIT, buf))
+	return 0;
+    (void)sendcmd(s, USER, uname);
+    if (!expect(s, C_CMDOK, buf))
+	return 0;
+    if (cname == 0) {
+	(void)printf("Country name? ");
+	cname = fgets(tmp, 128, stdin);
+	if (cname == 0 || *cname == 0)
+	    return 0;
+    }
+    if (cname[strlen(cname) - 1] == '\n')
+	cname[strlen(cname) - 1] = 0;
+    if (cname[strlen(cname) - 1] == '\r')
+	cname[strlen(cname) - 1] = 0;
+    (void)sendcmd(s, COUN, cname);
+    if (!expect(s, C_CMDOK, buf)) {
+	(void)fprintf(stderr, "empire: no such country\n");
+	return 0;
+    }
+    if (cpass == 0) {
 #ifndef _WIN32
-		cpass = (s_char *)getpass("Your name? ");
+	cpass = (s_char *)getpass("Your name? ");
 #else
-		printf("Note: This is echoed to the screen\n");
-		printf("Your name? ");
-		cpass = tmp;
-		*cpass = 0;
-		fgets(cpass, 128, stdin);
+	printf("Note: This is echoed to the screen\n");
+	printf("Your name? ");
+	cpass = tmp;
+	*cpass = 0;
+	fgets(cpass, 128, stdin);
 #endif
-		if (cpass == 0 || *cpass == 0)
-			return 0;
-	}
-	(void) printf("\n");
-	(void) sendcmd(s, PASS, cpass);
-	bzero(cpass, strlen(cpass));		/* for core dumps */
-	if (!expect(s, C_CMDOK, buf)) {
-		(void) fprintf(stderr, "Bad password\n");
-		return 0;
-	}
-	if (kill_proc) {
-		(void) sendcmd(s, KILL, (s_char *)0);
-		(void) printf("\n\t-=O=-\n");
-		(void) expect(s, C_EXIT, buf);
-		fprintf(stderr, "%s\n", buf);
-		return 0;
-	}
-	(void) sendcmd(s, PLAY, (s_char *)0);
-	(void) printf("\n\t-=O=-\n");
-	if (!expect(s, C_INIT, buf)) {
-		fprintf(stderr, "%s\n", buf);
-		return 0;
-	}
-	for (ptr = buf; !isspace(*ptr); ptr++)
-		;
-	ptr++;
-	p = index(ptr, '\n');
-	if (p != 0)
-		*p = 0;
-	if (atoi(ptr) != CLIENTPROTO) {
-		printf("Empire client out of date; get new version!\n");
-		printf("   this version: %d, current version: %d\n",
-			CLIENTPROTO, atoi(ptr));
-	}
-	return 1;
+	if (cpass == 0 || *cpass == 0)
+	    return 0;
+    }
+    (void)printf("\n");
+    (void)sendcmd(s, PASS, cpass);
+    bzero(cpass, strlen(cpass));	/* for core dumps */
+    if (!expect(s, C_CMDOK, buf)) {
+	(void)fprintf(stderr, "Bad password\n");
+	return 0;
+    }
+    if (kill_proc) {
+	(void)sendcmd(s, KILL, (s_char *)0);
+	(void)printf("\n\t-=O=-\n");
+	(void)expect(s, C_EXIT, buf);
+	fprintf(stderr, "%s\n", buf);
+	return 0;
+    }
+    (void)sendcmd(s, PLAY, (s_char *)0);
+    (void)printf("\n\t-=O=-\n");
+    if (!expect(s, C_INIT, buf)) {
+	fprintf(stderr, "%s\n", buf);
+	return 0;
+    }
+    for (ptr = buf; !isspace(*ptr); ptr++) ;
+    ptr++;
+    p = index(ptr, '\n');
+    if (p != 0)
+	*p = 0;
+    if (atoi(ptr) != CLIENTPROTO) {
+	printf("Empire client out of date; get new version!\n");
+	printf("   this version: %d, current version: %d\n",
+	       CLIENTPROTO, atoi(ptr));
+    }
+    return 1;
 }

@@ -43,24 +43,24 @@
 #include "file.h"
 #include "commands.h"
 
-static	void prthresh(s_char *format, int val);
+static void prthresh(s_char *format, int val);
 
 int
 comm(void)
 {
-    struct	sctstr sect;
-    s_char	dirstr[12];
-    int	nsect;
-    int	n;
-    struct	nstr_sect nstr;
-    int	del[I_MAX+1];
-    int	dist[I_MAX+1];
-    int	item[I_MAX+1];
-    
+    struct sctstr sect;
+    s_char dirstr[12];
+    int nsect;
+    int n;
+    struct nstr_sect nstr;
+    int del[I_MAX + 1];
+    int dist[I_MAX + 1];
+    int item[I_MAX + 1];
+
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     prdate();
-    (void) strcpy(dirstr, ".      $");
+    (void)strcpy(dirstr, ".      $");
     n = 1;
     for (n = 1; n <= 6; n++)
 	dirstr[n] = dirch[n];
@@ -121,7 +121,7 @@ comm(void)
 	else
 	    pr("%s: No sector(s)\n", "");
 	return RET_FAIL;
-    }else
+    } else
 	pr("%d sector%s\n", nsect, splur(nsect));
     return 0;
 }
@@ -137,5 +137,3 @@ prthresh(s_char *format, int val)
 	val = '.';
     pr(format, val);
 }
-
-

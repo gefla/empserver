@@ -42,115 +42,116 @@
 void
 snxtitem_area(register struct nstr_item *np, int type, struct range *range)
 {
-	bzero((s_char *)np, sizeof(*np));
-	np->cur = -1;
-	np->type = type;
-	np->sel = NS_AREA;
-	np->index = -1;
-	np->range = *range;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
-	xysize_range(&np->range);
-	ef_zapcache(type);
+    bzero((s_char *)np, sizeof(*np));
+    np->cur = -1;
+    np->type = type;
+    np->sel = NS_AREA;
+    np->index = -1;
+    np->range = *range;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
+    xysize_range(&np->range);
+    ef_zapcache(type);
 }
 
 void
-snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy, int dist)
+snxtitem_dist(register struct nstr_item *np, int type, int cx, int cy,
+	      int dist)
 {
-	struct	range range;
+    struct range range;
 
-	bzero((s_char *)np, sizeof(*np));
-	xydist_range(cx, cy, dist, &range);
-	np->cur = -1;
-	np->type = type;
-	np->sel = NS_DIST;
-	np->cx = cx;
-	np->cy = cy;
-	np->index = -1;
-	np->range = range;
-	np->dist = dist;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
+    bzero((s_char *)np, sizeof(*np));
+    xydist_range(cx, cy, dist, &range);
+    np->cur = -1;
+    np->type = type;
+    np->sel = NS_DIST;
+    np->cx = cx;
+    np->cy = cy;
+    np->index = -1;
+    np->range = range;
+    np->dist = dist;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
 #if 0
-	/* This is no longer proper. */
-	/* It did the wrong thing for small, hitech worlds. */
-	xysize_range(&np->range);
+    /* This is no longer proper. */
+    /* It did the wrong thing for small, hitech worlds. */
+    xysize_range(&np->range);
 #endif
-	ef_zapcache(type);
+    ef_zapcache(type);
 }
 
 void
 snxtitem_xy(register struct nstr_item *np, int type, coord x, coord y)
 {
-	bzero((s_char *)np, sizeof(*np));
-	np->cur = -1;
-	np->type = type;
-	np->sel = NS_XY;
-	np->cx = xnorm(x);
-	np->cy = ynorm(y);
-	np->index = -1;
-	np->dist = 0;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
-	ef_zapcache(type);
+    bzero((s_char *)np, sizeof(*np));
+    np->cur = -1;
+    np->type = type;
+    np->sel = NS_XY;
+    np->cx = xnorm(x);
+    np->cy = ynorm(y);
+    np->index = -1;
+    np->dist = 0;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
+    ef_zapcache(type);
 }
 
 void
 snxtitem_all(register struct nstr_item *np, int type)
 {
-	bzero((s_char *)np, sizeof(*np));
-	np->cur = -1;
-	np->sel = NS_ALL;
-	np->type = type;
-	np->index = -1;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
-	xysize_range(&np->range);
-	ef_zapcache(type);
+    bzero((s_char *)np, sizeof(*np));
+    np->cur = -1;
+    np->sel = NS_ALL;
+    np->type = type;
+    np->index = -1;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
+    xysize_range(&np->range);
+    ef_zapcache(type);
 }
 
 void
 snxtitem_group(register struct nstr_item *np, int type, s_char group)
 {
-	if (group == '~')
-		group = ' ';
-	bzero((s_char *)np, sizeof(*np));
-	np->cur = -1;
-	np->sel = NS_GROUP;
-	np->group = group;
-	np->type = type;
-	np->index = -1;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
-	xysize_range(&np->range);
-	ef_zapcache(type);
+    if (group == '~')
+	group = ' ';
+    bzero((s_char *)np, sizeof(*np));
+    np->cur = -1;
+    np->sel = NS_GROUP;
+    np->group = group;
+    np->type = type;
+    np->index = -1;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
+    xysize_range(&np->range);
+    ef_zapcache(type);
 }
 
 void
 snxtitem_rewind(struct nstr_item *np)
 {
-	np->cur = -1;
-	np->index = -1;
-	ef_zapcache(np->type);
+    np->cur = -1;
+    np->index = -1;
+    ef_zapcache(np->type);
 }
 
 int
 snxtitem_list(register struct nstr_item *np, int type, int *list, int len)
 {
-	int	i;
+    int i;
 
-	bzero((s_char *)np, sizeof(*np));
-	np->cur = -1;
-	np->type = type;
-	np->sel = NS_LIST;
-	np->index = -1;
-	np->read = ef_read;
-	np->flags = ef_flags(type);
-	if (len <= 0 || len > NS_LSIZE)
-		return 0;
-	for (i=0; i<len; i++)
-		np->list[i] = list[i];
-	np->size = len;
-	ef_zapcache(type);
-	return 1;
+    bzero((s_char *)np, sizeof(*np));
+    np->cur = -1;
+    np->type = type;
+    np->sel = NS_LIST;
+    np->index = -1;
+    np->read = ef_read;
+    np->flags = ef_flags(type);
+    if (len <= 0 || len > NS_LSIZE)
+	return 0;
+    for (i = 0; i < len; i++)
+	np->list[i] = list[i];
+    np->size = len;
+    ef_zapcache(type);
+    return 1;
 }

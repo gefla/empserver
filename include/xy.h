@@ -45,21 +45,23 @@
 #define YNORM(y) (((y)<0) ? ((WORLD_Y-(-(y)%WORLD_Y))%WORLD_Y) : ((y)%WORLD_Y))
 
 struct range {
-	coord lx;	/* low-range x,y */
-	coord ly;
-	coord hx;	/* high-range x,y */
-	coord hy;
-	int width;	/* range width, height */
-	int height;
+    coord lx;			/* low-range x,y */
+    coord ly;
+    coord hx;			/* high-range x,y */
+    coord hy;
+    int width;			/* range width, height */
+    int height;
 };
 
-extern	s_char *xyfmt();
+extern s_char *xyfmt();
 extern s_char *xyas(coord x, coord y, natid country);
 extern s_char *ownxy(struct sctstr *sp);
-extern coord   xrel(struct natstr *np, coord absx);
-extern coord   yrel(struct natstr *np, coord absy);
-extern void xyrelrange(struct natstr *np, struct range *src,struct range *dst);
-extern void xyabsrange(struct natstr *np, struct range *src,struct range *dst);
+extern coord xrel(struct natstr *np, coord absx);
+extern coord yrel(struct natstr *np, coord absy);
+extern void xyrelrange(struct natstr *np, struct range *src,
+		       struct range *dst);
+extern void xyabsrange(struct natstr *np, struct range *src,
+		       struct range *dst);
 extern void inputxy(coord *xp, coord *yp, natid cn);
 extern coord xabs(struct natstr *np, coord relx);
 extern coord yabs(struct natstr *np, coord rely);
@@ -68,4 +70,3 @@ extern coord ynorm(register coord y);
 extern int xyinrange(coord x, coord y, struct range *rp);
 
 #endif /* _XY_H_ */
-

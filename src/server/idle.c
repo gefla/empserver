@@ -41,43 +41,41 @@
 /*ARGSUSED*/
 void
 player_kill_idle(argv)
-	void	*argv;
+void *argv;
 {
-	extern int max_idle;
-	struct	player *p;
-	time_t	now;
+    extern int max_idle;
+    struct player *p;
+    time_t now;
 
+    time(&now);
+    while (1) {
+	empth_sleep(now + 60);
 	time(&now);
-	while (1) {
-		empth_sleep(now + 60);
-		time(&now);
-		/*if (update_pending)*/
-			/*continue;*/
-		for (p = player_next(0); p != 0; p = player_next(p)) {
-			if (p->state == PS_SHUTDOWN) {
-				/* no more mr. nice guy */
-				p->state = PS_KILL;
-				p->aborted++;
-				empth_terminate(p->proc);
-				p = player_delete(p);
-				continue;
-			}
-			if (p->curup + max_idle * 60 < now) { 
-				p->state = PS_SHUTDOWN;
-				/* giving control to another thread while
-				 * in the middle of walking player list is
-				 * not a good idea at all. Sasha */
-				p->aborted++;
-				pr_flash(p, 
-				   "idle connection terminated\n");
-				empth_wakeup(p->proc);
-				/* go to sleep because player thread
-				   could vandalize a player list */
-				
-				break;
-			}
-		}
-	}
-	/*NOTREACHED*/
-}
+	/*if (update_pending) */
+	/*continue; */
+	for (p = player_next(0); p != 0; p = player_next(p)) {
+	    if (p->state == PS_SHUTDOWN) {
+		/* no more mr. nice guy */
+		p->state = PS_KILL;
+		p->aborted++;
+		empth_terminate(p->proc);
+		p = player_delete(p);
+		continue;
+	    }
+	    if (p->curup + max_idle * 60 < now) {
+		p->state = PS_SHUTDOWN;
+		/* giving control to another thread while
+		 * in the middle of walking player list is
+		 * not a good idea at all. Sasha */
+		p->aborted++;
+		pr_flash(p, "idle connection terminated\n");
+		empth_wakeup(p->proc);
+		/* go to sleep because player thread
+		   could vandalize a player list */
 
+		break;
+	    }
+	}
+    }
+    /*NOTREACHED*/
+}

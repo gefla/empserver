@@ -42,53 +42,53 @@
 int
 distrea(int n, register struct trtstr *tp)
 {
-	register int i;
-	int	acond;
-	int	bcond;
-	int	cond;
-	time_t	now;
+    register int i;
+    int acond;
+    int bcond;
+    int cond;
+    time_t now;
 
-	if (tp->trt_status == TS_FREE)
-		return 0;
-	if (tp->trt_cna != player->cnum &&
-	    tp->trt_cnb != player->cnum && !player->god)
-		return 0;
-	(void) time(&now);
-	if (now > tp->trt_exp) {
-		if (!ef_lock(EF_TREATY)) {
-			pr("Can't lock treaty file; get help!\n");
-			return 0;
-		}
-		tp->trt_status = TS_FREE;
-		if (!puttre(n, tp)) {
-			pr("Couldn't save treaty; get help!\n");
-			(void) ef_unlock(EF_TREATY);
-			return 0;
-		}
-		(void) ef_unlock(EF_TREATY);
-		pr("Treaty #%d expired %s", n, ctime(&tp->trt_exp));
-		return 0;
+    if (tp->trt_status == TS_FREE)
+	return 0;
+    if (tp->trt_cna != player->cnum &&
+	tp->trt_cnb != player->cnum && !player->god)
+	return 0;
+    (void)time(&now);
+    if (now > tp->trt_exp) {
+	if (!ef_lock(EF_TREATY)) {
+	    pr("Can't lock treaty file; get help!\n");
+	    return 0;
 	}
-	pr("\n      * * *  Empire Treaty #%d  * * *\n", n);
-	if (tp->trt_status == TS_PROPOSED)
-		pr("(proposed)\n");
-	pr("between %s and ", cname(tp->trt_cna));
-	pr("%s  expires %s", cname(tp->trt_cnb), ctime(&tp->trt_exp));
-	pr("%24.24s terms", cname(tp->trt_cna));
-	pr(" - %s terms\n", cname(tp->trt_cnb));
-	for (i = 0; 0 != (cond = tchr[i].t_cond); i++) {
-		acond = tp->trt_acond & cond;
-		bcond = tp->trt_bcond & cond;
-		if (acond | bcond) {
-			if (acond)
-				pr("%30s", tchr[i].t_name);
-			else
-				pr("%30s", "");
-			if (bcond)
-				pr(" - %s\n", tchr[i].t_name);
-			else
-				pr(" -\n");
-		}
+	tp->trt_status = TS_FREE;
+	if (!puttre(n, tp)) {
+	    pr("Couldn't save treaty; get help!\n");
+	    (void)ef_unlock(EF_TREATY);
+	    return 0;
 	}
-	return 1;
+	(void)ef_unlock(EF_TREATY);
+	pr("Treaty #%d expired %s", n, ctime(&tp->trt_exp));
+	return 0;
+    }
+    pr("\n      * * *  Empire Treaty #%d  * * *\n", n);
+    if (tp->trt_status == TS_PROPOSED)
+	pr("(proposed)\n");
+    pr("between %s and ", cname(tp->trt_cna));
+    pr("%s  expires %s", cname(tp->trt_cnb), ctime(&tp->trt_exp));
+    pr("%24.24s terms", cname(tp->trt_cna));
+    pr(" - %s terms\n", cname(tp->trt_cnb));
+    for (i = 0; 0 != (cond = tchr[i].t_cond); i++) {
+	acond = tp->trt_acond & cond;
+	bcond = tp->trt_bcond & cond;
+	if (acond | bcond) {
+	    if (acond)
+		pr("%30s", tchr[i].t_name);
+	    else
+		pr("%30s", "");
+	    if (bcond)
+		pr(" - %s\n", tchr[i].t_name);
+	    else
+		pr(" -\n");
+	}
+    }
+    return 1;
 }

@@ -47,87 +47,87 @@
 int
 init_nats(void)
 {
-	struct	natstr *np;
+    struct natstr *np;
 
-	if ((np = getnatp(player->cnum)) == 0)
-		return -1;
-	player->nstat = np->nat_stat;
-	player->god = np->nat_stat & STAT_GOD;
-	player->map = ef_ptr(EF_MAP, player->cnum);
-	player->bmap = ef_ptr(EF_BMAP, player->cnum);
-	if (opt_HIDDEN) {
-	    putcontact(np, player->cnum, FOUND_SPY);
-	}
-	if (np->nat_money <= 0)
-		player->broke = 1;
-	else {
-		player->nstat |= MONEY;
-		player->broke = 0;
-	}
-	if (nat_cap(np->nat_btu) < 0)
-		return -1;
-	return 0;
+    if ((np = getnatp(player->cnum)) == 0)
+	return -1;
+    player->nstat = np->nat_stat;
+    player->god = np->nat_stat & STAT_GOD;
+    player->map = ef_ptr(EF_MAP, player->cnum);
+    player->bmap = ef_ptr(EF_BMAP, player->cnum);
+    if (opt_HIDDEN) {
+	putcontact(np, player->cnum, FOUND_SPY);
+    }
+    if (np->nat_money <= 0)
+	player->broke = 1;
+    else {
+	player->nstat |= MONEY;
+	player->broke = 0;
+    }
+    if (nat_cap(np->nat_btu) < 0)
+	return -1;
+    return 0;
 }
 
 int
 nat_cap(int btu)
 {
-	extern	int s_p_etu;
-	extern	int max_btus;
-	extern	float btu_build_rate;
-	struct	sctstr sect;
-	struct	natstr *np;
-	double	d;
-	double	civ;
-	int	delta;
+    extern int s_p_etu;
+    extern int max_btus;
+    extern float btu_build_rate;
+    struct sctstr sect;
+    struct natstr *np;
+    double d;
+    double civ;
+    int delta;
 
-	np = getnatp(player->cnum);
-	if (!getsect(np->nat_xcap, np->nat_ycap, &sect)) {
-		logerror("can't read %s's cap @ %d,%d",
-			np->nat_cnam, np->nat_xcap, np->nat_ycap);
-		return -1;
-	}
-	if ((player->nstat & NORM) == NORM) {
-		if (player->owner && (sect.sct_type == SCT_CAPIT ||
-		    sect.sct_type == SCT_MOUNT ||
-		    sect.sct_type == SCT_SANCT))
-			player->nstat |= CAP;
-		else
-			player->nstat &= ~CAP;
-		/* Ok, has the country owner reset his capital yet after it was sacked? */
-		if (np->nat_flags & NF_SACKED)
-		    player->nstat &= ~CAP; /* No capital yet */
-	}
-	delta = 0;
-	if ((player->nstat & CAP) || player->god) {
-		d = (double) (player->curup - np->nat_last_login) / s_p_etu;
-		if (d > 336.0)
-			d = 336.0;
-		civ = getvar(V_CIVIL, (caddr_t)&sect, EF_SECTOR);
-		if (civ > 999)
-			civ = 999;
-		if ((sect.sct_effic) && (sect.sct_type != SCT_MOUNT))
-			delta=roundavg(d*civ*sect.sct_effic*btu_build_rate);
-		else /* Assume 1/2% efficiency minimum */
-			delta=roundavg(d*civ*btu_build_rate/2.0);
-		if (player->god)
-			delta = max_btus - btu;
-		if (delta + btu > max_btus)
-			delta = max_btus - btu;
-		if (btu > max_btus)
-			delta = max_btus - btu;
-		if (opt_BLITZ)
-			delta = max_btus - btu;
+    np = getnatp(player->cnum);
+    if (!getsect(np->nat_xcap, np->nat_ycap, &sect)) {
+	logerror("can't read %s's cap @ %d,%d",
+		 np->nat_cnam, np->nat_xcap, np->nat_ycap);
+	return -1;
+    }
+    if ((player->nstat & NORM) == NORM) {
+	if (player->owner && (sect.sct_type == SCT_CAPIT ||
+			      sect.sct_type == SCT_MOUNT ||
+			      sect.sct_type == SCT_SANCT))
+	    player->nstat |= CAP;
+	else
+	    player->nstat &= ~CAP;
+	/* Ok, has the country owner reset his capital yet after it was sacked? */
+	if (np->nat_flags & NF_SACKED)
+	    player->nstat &= ~CAP;	/* No capital yet */
+    }
+    delta = 0;
+    if ((player->nstat & CAP) || player->god) {
+	d = (double)(player->curup - np->nat_last_login) / s_p_etu;
+	if (d > 336.0)
+	    d = 336.0;
+	civ = getvar(V_CIVIL, (caddr_t)&sect, EF_SECTOR);
+	if (civ > 999)
+	    civ = 999;
+	if ((sect.sct_effic) && (sect.sct_type != SCT_MOUNT))
+	    delta = roundavg(d * civ * sect.sct_effic * btu_build_rate);
+	else			/* Assume 1/2% efficiency minimum */
+	    delta = roundavg(d * civ * btu_build_rate / 2.0);
+	if (player->god)
+	    delta = max_btus - btu;
+	if (delta + btu > max_btus)
+	    delta = max_btus - btu;
+	if (btu > max_btus)
+	    delta = max_btus - btu;
+	if (opt_BLITZ)
+	    delta = max_btus - btu;
 
-		if (delta > 0) {
-			/* set date if BTUs made */
-			np->nat_btu += delta;
-		}
-		if (btu > max_btus)
-			np->nat_btu = max_btus;
+	if (delta > 0) {
+	    /* set date if BTUs made */
+	    np->nat_btu += delta;
 	}
-	if (np->nat_stat == VIS)
+	if (btu > max_btus)
 	    np->nat_btu = max_btus;
-	putnat(np);
-	return 0;
+    }
+    if (np->nat_stat == VIS)
+	np->nat_btu = max_btus;
+    putnat(np);
+    return 0;
 }

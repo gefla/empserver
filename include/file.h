@@ -35,23 +35,23 @@
 #define _FILE_H_
 
 struct empfile {
-	s_char *name;		/* file name (e.g., "treaty") */
-	s_char *file;		/* file path */
-	int flags;		/* misc stuff */
-	int mode;		/* O_flags */
-	int size;		/* size of object */
-	void (*init)(int , s_char *);/* call this when object is created */
-	int (*postread)(int, s_char *);   /* specific massage routines for items */
-	int (*prewrite)(int , s_char *);
-	int varoffs[3];		/* struct offs for nv, vtype, vamt */
-	int maxvars;		/* max # vars for type */
-	int fd;			/* file descriptor */
-	int baseid;		/* starting item in cache */
-	int cids;		/* # ids in cache */
-	int csize;		/* size of cache in bytes */
-	caddr_t cache;		/* pointer to cache */
-	int fids;		/* # of ids in file */
-	struct castr *cadef;	/* ca defs selection list */
+    s_char *name;		/* file name (e.g., "treaty") */
+    s_char *file;		/* file path */
+    int flags;			/* misc stuff */
+    int mode;			/* O_flags */
+    int size;			/* size of object */
+    void (*init) (int, s_char *);	/* call this when object is created */
+    int (*postread) (int, s_char *);	/* specific massage routines for items */
+    int (*prewrite) (int, s_char *);
+    int varoffs[3];		/* struct offs for nv, vtype, vamt */
+    int maxvars;		/* max # vars for type */
+    int fd;			/* file descriptor */
+    int baseid;			/* starting item in cache */
+    int cids;			/* # ids in cache */
+    int csize;			/* size of cache in bytes */
+    caddr_t cache;		/* pointer to cache */
+    int fids;			/* # of ids in file */
+    struct castr *cadef;	/* ca defs selection list */
 };
 
 #define EFF_COM		bit(0)	/* item has commodities attached */
@@ -78,40 +78,40 @@ struct empfile {
 #define EF_LOST         14
 #define EF_MAX		15
 
-#define EF_NMAP         222 /* Kinda bogus, but used to describe a newdesmap
-                               instead of bmap or map. */
+#define EF_NMAP         222	/* Kinda bogus, but used to describe a newdesmap
+				   instead of bmap or map. */
 
-typedef void (*ef_fileinit)(int, s_char *);
+typedef void (*ef_fileinit) (int, s_char *);
 
 struct fileinit {
-	void (*init)(int , s_char *);
-	int (*postread)(int, s_char *);
-	int (*prewrite)(int, s_char *);
-	struct castr *cadef;
+    void (*init) (int, s_char *);
+    int (*postread) (int, s_char *);
+    int (*prewrite) (int, s_char *);
+    struct castr *cadef;
 };
 
 
-extern struct castr * ef_cadef(int );
-extern int ef_read(int  , int  , caddr_t );
-extern s_char * ef_ptr(int  , int );
-extern s_char * ef_nameof(int );
-extern time_t ef_mtime(int );
-extern int ef_open(int  , int  , int );
-extern int ef_check(int );
-extern int ef_close(int );
-extern int ef_flush(int );
-extern int ef_write(int  , int  , caddr_t );
-extern int ef_extend(int  , int );
-extern void ef_zapcache(int );
-extern int ef_nelem(int );
-extern int ef_flags(int );
-extern int ef_lock(int );
-extern int ef_unlock(int );
-extern int ef_vars(int  , register s_char *  , u_char * *  ,
-		   u_char * *  , u_short * * );
-extern int ef_byname(s_char * );
+extern struct castr *ef_cadef(int);
+extern int ef_read(int, int, caddr_t);
+extern s_char *ef_ptr(int, int);
+extern s_char *ef_nameof(int);
+extern time_t ef_mtime(int);
+extern int ef_open(int, int, int);
+extern int ef_check(int);
+extern int ef_close(int);
+extern int ef_flush(int);
+extern int ef_write(int, int, caddr_t);
+extern int ef_extend(int, int);
+extern void ef_zapcache(int);
+extern int ef_nelem(int);
+extern int ef_flags(int);
+extern int ef_lock(int);
+extern int ef_unlock(int);
+extern int ef_vars(int, register s_char *, u_char **,
+		   u_char **, u_short **);
+extern int ef_byname(s_char *);
 
-extern	int ef_nbread();
-extern	struct empfile empfile[];
+extern int ef_nbread();
+extern struct empfile empfile[];
 
 #endif /* _FILE_H_ */

@@ -50,14 +50,14 @@ deli(void)
     register int dir, del;
     register struct ichrstr *ich;
     register int thresh = -1;
-    int	i_del;
-    int	sx, sy;
-    int     status;
+    int i_del;
+    int sx, sy;
+    int status;
     struct nstr_sect nstr;
-    s_char  buf[1024];
-    s_char  prompt[128];
+    s_char buf[1024];
+    s_char prompt[128];
     s_char *p;
-    
+
     if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
 	return RET_SYN;
     /*
@@ -65,36 +65,37 @@ deli(void)
        pr("You cannot deliver people!\n");
        return RET_FAIL;
        }
-       */
+     */
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    i_del = V_DEL(ich-ichr);
-    
+    i_del = V_DEL(ich - ichr);
+
     while (nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
 	sprintf(prompt, "%s %s 'query' or %s threshold? ",
 		xyas(nstr.x, nstr.y, player->cnum),
-		dchr[sect.sct_type].d_name,
-		ich->i_name);
+		dchr[sect.sct_type].d_name, ich->i_name);
 	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
-	    return RET_SYN;		
+	    return RET_SYN;
 	del = getvar(i_del, (s_char *)&sect, EF_SECTOR);
 	if (((*p >= '0') && (*p <= '9')) || *p == '+') {
 	    thresh = atoi(p) & ~0x7;
-	    if (*p == '+' || !(p = getstarg(player->argp[4], "Direction? ", buf)) || !*p)
+	    if (*p == '+'
+		|| !(p = getstarg(player->argp[4], "Direction? ", buf))
+		|| !*p)
 		dir = del & 0x7;
 	    else if ((dir = chkdir(*p, DIR_STOP, DIR_LAST)) < 0)
 		return RET_SYN;
 	} else if (*p != 'q')
 	    return RET_SYN;
-	
+
 	if (!check_sect_ok(&sect))
 	    continue;
 
 	if (thresh >= 0) {
 	    del = thresh + dir;
-	    status = putvar(i_del, del,(s_char *)&sect,EF_SECTOR);
+	    status = putvar(i_del, del, (s_char *)&sect, EF_SECTOR);
 	    if (status < 0) {
 		pr("No room for delivery path in %s\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));

@@ -46,32 +46,32 @@ int
 wing(void)
 {
 
-	struct plnstr plane;
-	register int count;
-	s_char	*cp;
-	s_char	c;
-	struct	nstr_item nstr;
-	s_char	buf[1024];
+    struct plnstr plane;
+    register int count;
+    s_char *cp;
+    s_char c;
+    struct nstr_item nstr;
+    s_char buf[1024];
 
-	if (!(cp = getstarg(player->argp[1], "wing? ", buf)))
-		return RET_SYN;
-	c = *cp;
-	if (!isalpha(c) && c != '~') {
-		pr("Specify wing, (1 alpha char or '~')\n");
-		return RET_SYN;
+    if (!(cp = getstarg(player->argp[1], "wing? ", buf)))
+	return RET_SYN;
+    c = *cp;
+    if (!isalpha(c) && c != '~') {
+	pr("Specify wing, (1 alpha char or '~')\n");
+	return RET_SYN;
+    }
+    if (c == '~')
+	c = ' ';
+    if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
+	return RET_SYN;
+    for (count = 0; nxtitem(&nstr, (s_char *)&plane); count++) {
+	if (plane.pln_own != player->cnum) {
+	    count--;
+	    continue;
 	}
-	if (c == '~')
-		c = ' ';
-	if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
-		return RET_SYN;
-	for (count = 0; nxtitem(&nstr, (s_char *)&plane); count++) {
-		if (plane.pln_own != player->cnum) {
-			count--;
-			continue;
-		}
-		plane.pln_wing = c;
-		putplane(plane.pln_uid, &plane);
-	}
-	pr("%d plane%s added to wing `%c'\n", count, splur(count), c);
-	return RET_OK;
+	plane.pln_wing = c;
+	putplane(plane.pln_uid, &plane);
+    }
+    pr("%d plane%s added to wing `%c'\n", count, splur(count), c);
+    return RET_OK;
 }

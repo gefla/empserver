@@ -43,21 +43,21 @@
 int
 trea(void)
 {
-	struct	trtstr treaty;
-	struct	nstr_item nstr;
-	int	ntreaty;
+    struct trtstr treaty;
+    struct nstr_item nstr;
+    int ntreaty;
 
-	if (!snxtitem(&nstr, EF_TREATY, player->argp[1]))
-		return RET_SYN;
-	pr("\t... %s Treaty Report ...\n", cname(player->cnum));
-	ntreaty = 0;
-	while (nxtitem(&nstr, (s_char *)&treaty)) {
-		if (distrea(nstr.cur, &treaty) > 0)
-			ntreaty++;
-	}
-	if (!ntreaty)
-		pr("No treaties found.\n");
-	else
-		pr("%d treat%s\n", ntreaty, iesplur(ntreaty));
-	return RET_OK;
+    if (!snxtitem(&nstr, EF_TREATY, player->argp[1]))
+	return RET_SYN;
+    pr("\t... %s Treaty Report ...\n", cname(player->cnum));
+    ntreaty = 0;
+    while (nxtitem(&nstr, (s_char *)&treaty)) {
+	if (distrea(nstr.cur, &treaty) > 0)
+	    ntreaty++;
+    }
+    if (!ntreaty)
+	pr("No treaties found.\n");
+    else
+	pr("%d treat%s\n", ntreaty, iesplur(ntreaty));
+    return RET_OK;
 }

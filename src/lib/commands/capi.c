@@ -47,33 +47,33 @@
 int
 capi(void)
 {
-	struct	sctstr sect;
-	struct	natstr *np;
-	struct	nstr_sect nstr;
-	int	found;
+    struct sctstr sect;
+    struct natstr *np;
+    struct nstr_sect nstr;
+    int found;
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	np = getnatp(player->cnum);
-	found = 0;
-	while (!found && nxtsct(&nstr, &sect)) {
-		if (player->owner && (sect.sct_type == SCT_CAPIT ||
-			sect.sct_type == SCT_MOUNT))
-			found++;
-	}
-	if (!found)
-		return RET_FAIL;
-	if (sect.sct_x == np->nat_xcap && sect.sct_y == np->nat_ycap) {
-		pr("%s is already your capital.\n",
-			xyas(sect.sct_x, sect.sct_y, player->cnum));
-		return RET_FAIL;
-	}
-	player->nstat |= CAP;
-	np->nat_xcap = sect.sct_x;
-	np->nat_ycap = sect.sct_y;
-	/* They have set a capital, so it wasn't sacked last. */
-	np->nat_flags &= ~NF_SACKED;
-	putnat(np);
-	pr("Capital now at %s.\n", xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return 0;
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    np = getnatp(player->cnum);
+    found = 0;
+    while (!found && nxtsct(&nstr, &sect)) {
+	if (player->owner && (sect.sct_type == SCT_CAPIT ||
+			      sect.sct_type == SCT_MOUNT))
+	    found++;
+    }
+    if (!found)
+	return RET_FAIL;
+    if (sect.sct_x == np->nat_xcap && sect.sct_y == np->nat_ycap) {
+	pr("%s is already your capital.\n",
+	   xyas(sect.sct_x, sect.sct_y, player->cnum));
+	return RET_FAIL;
+    }
+    player->nstat |= CAP;
+    np->nat_xcap = sect.sct_x;
+    np->nat_ycap = sect.sct_y;
+    /* They have set a capital, so it wasn't sacked last. */
+    np->nat_flags &= ~NF_SACKED;
+    putnat(np);
+    pr("Capital now at %s.\n", xyas(sect.sct_x, sect.sct_y, player->cnum));
+    return 0;
 }

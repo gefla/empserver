@@ -58,20 +58,21 @@ rese(void)
     struct comstr comm;
     struct sctstr sect;
     struct ichrstr *ix;
-    int     number_set;
-    int     m;
-    char	*p;
-    float	price;
-    time_t	now;
+    int number_set;
+    int m;
+    char *p;
+    float price;
+    time_t now;
     s_char buf[1024];
-    
+
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");
 	return RET_FAIL;
     }
     check_market();
     check_trade();
-    if ((p = getstarg(player->argp[1], "Which lot :  ",buf)) == 0 || *p == 0)
+    if ((p = getstarg(player->argp[1], "Which lot :  ", buf)) == 0
+	|| *p == 0)
 	return RET_SYN;
     number_set = atoi(p);
     getcomm(number_set, &comm);
@@ -83,7 +84,8 @@ rese(void)
 	pr("Some one already has a bid out on that\n");
 	return RET_OK;
     }
-    if ((p = getstarg(player->argp[2], "New (lower) price: ",buf)) == 0 || *p == 0)
+    if ((p = getstarg(player->argp[2], "New (lower) price: ", buf)) == 0
+	|| *p == 0)
 	return RET_SYN;
     if (!check_comm_ok(&comm))
 	return RET_FAIL;
@@ -133,16 +135,16 @@ rese(void)
 	pr("You can only lower the price.\n");
 	return RET_OK;
     }
-    if (price < 0){
+    if (price < 0) {
 	pr("New price must be greater than or equal to zero.\n");
 	return RET_OK;
     }
     comm.com_price = price;
-    (void) time(&now);
+    (void)time(&now);
     comm.com_markettime = now;
-    if((int)price < comm.com_maxprice)
-	comm.com_maxprice = (int) price;
-    if(!putcomm(number_set, &comm)){
+    if ((int)price < comm.com_maxprice)
+	comm.com_maxprice = (int)price;
+    if (!putcomm(number_set, &comm)) {
 	pr("Problems with the commodities file, Call the Deity\n");
 	return RET_OK;
     }

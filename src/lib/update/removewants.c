@@ -44,15 +44,15 @@
 int
 update_removewants(void)
 {
-	natid   cn;
-	struct natstr *natp;
+    natid cn;
+    struct natstr *natp;
 
-	for (cn = 0; NULL != (natp=getnatp(cn)); cn++) {
-		if ((natp->nat_stat & STAT_INUSE) &&
-		    (natp->nat_update & WUPD_WANT) == 0){
-			natp->nat_missed++;
-		}
-		natp->nat_update = natp->nat_stat & ~WUPD_WANT;
+    for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
+	if ((natp->nat_stat & STAT_INUSE) &&
+	    (natp->nat_update & WUPD_WANT) == 0) {
+	    natp->nat_missed++;
 	}
-	return 0;
+	natp->nat_update = natp->nat_stat & ~WUPD_WANT;
+    }
+    return 0;
 }

@@ -51,36 +51,33 @@
 int
 name(void)
 {
-	struct	shpstr	ship;
-	s_char	*p;
-	struct nstr_item nb;
-	s_char	buf[1024];
+    struct shpstr ship;
+    s_char *p;
+    struct nstr_item nb;
+    s_char buf[1024];
 
-	if (!opt_SHIPNAMES) {
-	    pr("Ship naming is not enabled.\n");
+    if (!opt_SHIPNAMES) {
+	pr("Ship naming is not enabled.\n");
+	return RET_FAIL;
+    }
+    if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
+	return RET_SYN;
+    while (nxtitem(&nb, (s_char *)&ship)) {
+	if (!player->owner)
+	    continue;
+	p = getstarg(player->argp[2], "Name? ", buf);
+	if (!check_ship_ok(&ship))
 	    return RET_FAIL;
+	if (p == 0 || *p == 0)
+	    return RET_SYN;
+	if (!strcmp(p, "~")) {
+	    ship.shp_name[0] = 0;
+	} else {
+	    strncpy(ship.shp_name, p, MAXSHPNAMLEN - 1);
+	    ship.shp_name[MAXSHPNAMLEN - 1] = 0;
 	}
-	if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
-		return RET_SYN;
-	while (nxtitem(&nb, (s_char *)&ship)) {
-		if (!player->owner)
-			continue;
-		p = getstarg(player->argp[2], "Name? ", buf);
-		if (!check_ship_ok(&ship))
-		    return RET_FAIL;
-		if (p == 0 || *p == 0)
-			return RET_SYN;
-		if (!strcmp(p,"~")) {
-			ship.shp_name[0] = 0;
-		}
-		else
-		{
-			strncpy(ship.shp_name,p,MAXSHPNAMLEN - 1);
-			ship.shp_name[MAXSHPNAMLEN - 1] = 0;
-		}
-		putship(ship.shp_uid,&ship);
-	}
+	putship(ship.shp_uid, &ship);
+    }
 
-	return RET_OK;
+    return RET_OK;
 }
-

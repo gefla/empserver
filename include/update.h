@@ -44,6 +44,6 @@
 #include "nat.h"
 #include "nsc.h"
 #include "product.h"
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _UPDATE_H_ */

@@ -52,54 +52,54 @@
 int
 give(void)
 {
-	struct	sctstr sect;
-	int	amt;
-	struct	ichrstr *ip;
-	int	m, n;
-	s_char	*p;
-	struct nstr_sect nstr;
-	s_char	buf[1024];
+    struct sctstr sect;
+    int amt;
+    struct ichrstr *ip;
+    int m, n;
+    s_char *p;
+    struct nstr_sect nstr;
+    s_char buf[1024];
 
-	if (!(ip = whatitem(player->argp[1], "which commodity? ")))
-		return RET_SYN;
-	if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "how much : ", buf);
-		if (p == 0 || *p  == '\0')
-			return RET_SYN;
-		if ((amt = atoi(p)) == 0)
-			return RET_SYN;
-		n = getvar(ip->i_vtype, (s_char *)&sect, EF_SECTOR);
-		if (amt < 0 && -amt > n) {
-			m = 0;
-		} else if (amt > 0 && amt+n > 9990) {
-			m = 9990;
-		} else
-			m = n + amt;
-		if (putvar(ip->i_vtype, m, (s_char *)&sect, EF_SECTOR) < 0) {
-			pr("No room to store %s in %s\n", ip->i_name,
-				xyas(sect.sct_x, sect.sct_y, player->cnum));
-			return RET_FAIL;
-		}
-		putsect(&sect);
-		if (sect.sct_own != 0 && m != n) {
-			if (m > n) {
-			    if (opt_GODNEWS)
-				nreport(player->cnum, N_GIFT, sect.sct_own, 1);
-			    wu(player->cnum, sect.sct_own, "%s gave you %d %s in %s\n",
-			       cname(player->cnum), m-n, ip->i_name, 
-			       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-			} else {
-			    if (opt_GODNEWS)
-				nreport(sect.sct_own, N_TAKE, player->cnum, 1);
-			    wu(player->cnum, sect.sct_own, "%s stole %d %s from %s\n",
-			       cname(player->cnum), n-m, ip->i_name,
-			       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-			}
-		}
-		pr("%d %s in %s\n", m, ip->i_name,
-			xyas(sect.sct_x, sect.sct_y, player->cnum));
+    if (!(ip = whatitem(player->argp[1], "which commodity? ")))
+	return RET_SYN;
+    if (!snxtsct(&nstr, player->argp[2]))
+	return RET_SYN;
+    while (nxtsct(&nstr, &sect) > 0) {
+	p = getstarg(player->argp[3], "how much : ", buf);
+	if (p == 0 || *p == '\0')
+	    return RET_SYN;
+	if ((amt = atoi(p)) == 0)
+	    return RET_SYN;
+	n = getvar(ip->i_vtype, (s_char *)&sect, EF_SECTOR);
+	if (amt < 0 && -amt > n) {
+	    m = 0;
+	} else if (amt > 0 && amt + n > 9990) {
+	    m = 9990;
+	} else
+	    m = n + amt;
+	if (putvar(ip->i_vtype, m, (s_char *)&sect, EF_SECTOR) < 0) {
+	    pr("No room to store %s in %s\n", ip->i_name,
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    return RET_FAIL;
 	}
-	return RET_OK;
+	putsect(&sect);
+	if (sect.sct_own != 0 && m != n) {
+	    if (m > n) {
+		if (opt_GODNEWS)
+		    nreport(player->cnum, N_GIFT, sect.sct_own, 1);
+		wu(player->cnum, sect.sct_own, "%s gave you %d %s in %s\n",
+		   cname(player->cnum), m - n, ip->i_name,
+		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
+	    } else {
+		if (opt_GODNEWS)
+		    nreport(sect.sct_own, N_TAKE, player->cnum, 1);
+		wu(player->cnum, sect.sct_own, "%s stole %d %s from %s\n",
+		   cname(player->cnum), n - m, ip->i_name,
+		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
+	    }
+	}
+	pr("%d %s in %s\n", m, ip->i_name,
+	   xyas(sect.sct_x, sect.sct_y, player->cnum));
+    }
+    return RET_OK;
 }

@@ -37,16 +37,16 @@
 int
 onearg(s_char *arg, s_char *prompt)
 {
-	extern	s_char *getstring(s_char *prompt, s_char *buf);
-	int	n;
-	s_char	buf[1024];
+    extern s_char *getstring(s_char *prompt, s_char *buf);
+    int n;
+    s_char buf[1024];
 
-	if (arg == 0 || *arg == 0) {
-		if ((arg = getstring(prompt, buf)) == 0)
-			return -1;
-	}
-	n = atoi(arg);
-	if (n < 0)
-		return -1;
-	return n;
+    if (arg == 0 || *arg == 0) {
+	if ((arg = getstring(prompt, buf)) == 0)
+	    return -1;
+    }
+    n = atoi(arg);
+    if (n < 0)
+	return -1;
+    return n;
 }

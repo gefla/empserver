@@ -40,9 +40,8 @@
 s_char *
 copy(register s_char *s1, register s_char *s2)
 {
-	while ((*s2++ = *s1++) != 0)
-		;
-	return s2 - 1;
+    while ((*s2++ = *s1++) != 0) ;
+    return s2 - 1;
 }
 
 #ifdef hpux
@@ -51,13 +50,13 @@ copy(register s_char *s1, register s_char *s2)
 void
 bzero(s_char *ptr, int len)
 {
-	memset(ptr, 0, len);
+    memset(ptr, 0, len);
 }
 
 void
 bcopy(s_char *src, s_char *dst, int len)
 {
-	memcpy(dst, src, len);
+    memcpy(dst, src, len);
 }
 #endif
 
@@ -68,16 +67,16 @@ bcopy(s_char *src, s_char *dst, int len)
 void
 blankfill(s_char *ptr, register struct range *range, int size)
 {
-	register s_char *p;
-	register int row;
-	register int col;
+    register s_char *p;
+    register int row;
+    register int col;
 
-	for (row=0; row<range->height; row++) {
-		col = (range->width + 1) * (size + 1) / 2 - 1;
-		p = ptr;
-		while (--col >= 0)
-			*p++ = ' ';
-		*p++ = 0;
-		ptr += MAPWIDTH(size);
-	}
+    for (row = 0; row < range->height; row++) {
+	col = (range->width + 1) * (size + 1) / 2 - 1;
+	p = ptr;
+	while (--col >= 0)
+	    *p++ = ' ';
+	*p++ = 0;
+	ptr += MAPWIDTH(size);
+    }
 }

@@ -37,35 +37,35 @@
 double
 dmax(double n1, double n2)
 {
-	if (n1 > n2)
-		return n1;
-	return n2;
+    if (n1 > n2)
+	return n1;
+    return n2;
 }
 
 double
 dmin(double n1, double n2)
 {
-	if (n1 < n2)
-		return n1;
-	return n2;
+    if (n1 < n2)
+	return n1;
+    return n2;
 }
 
 #if !defined(_WIN32)
 int
 max(int n1, int n2)
 {
-	if (n1 > n2)
-		return n1;
-	return n2;
+    if (n1 > n2)
+	return n1;
+    return n2;
 }
 
 
 int
 min(int n1, int n2)
 {
-	if (n1 < n2)
-		return n1;
-	return n2;
+    if (n1 < n2)
+	return n1;
+    return n2;
 }
 
 #endif

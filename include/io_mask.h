@@ -35,19 +35,19 @@
 #define _IO_MASK_H_
 
 struct io_mask {
-	int what;
-	int maxfd;
-	bit_fdmask readmask;
-	bit_fdmask user_readmask;
-	bit_fdmask writemask;
-	bit_fdmask user_writemask;
+    int what;
+    int maxfd;
+    bit_fdmask readmask;
+    bit_fdmask user_readmask;
+    bit_fdmask writemask;
+    bit_fdmask user_writemask;
 };
 
-extern struct io_mask * iom_create(int );
-extern void iom_getmask(struct io_mask *  , int *  , bit_fdmask *  ,
-			bit_fdmask * );
-extern void iom_set(struct io_mask *  , int  , int );
-extern void iom_clear(struct io_mask *  , int  , int );
-extern void iom_zero(struct io_mask *  , int );
+extern struct io_mask *iom_create(int);
+extern void iom_getmask(struct io_mask *, int *, bit_fdmask *,
+			bit_fdmask *);
+extern void iom_set(struct io_mask *, int, int);
+extern void iom_clear(struct io_mask *, int, int);
+extern void iom_zero(struct io_mask *, int);
 
 #endif /* _IO_MASK_H_ */

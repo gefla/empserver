@@ -36,24 +36,25 @@
 int
 atoip(s_char **ptrptr)
 {
-	register int num;
-	register s_char *cp;
-	register int neg;
+    register int num;
+    register s_char *cp;
+    register int neg;
 
-	if (ptrptr == 0 || *ptrptr == 0) return 0;
-	cp = *ptrptr;
-	num = 0;
-	neg = 0;
-loop:
-	while (*cp == ' ' || *cp == '\t')
-		cp++;
-	if (*cp == '-') {
-		neg++;
-		cp++;
-		goto loop;
-	}
-	while (*cp >= '0' && *cp <= '9')
-		num = num * 10 + *cp++ - '0';
-	*ptrptr = cp;
-	return(neg ? -num : num);
+    if (ptrptr == 0 || *ptrptr == 0)
+	return 0;
+    cp = *ptrptr;
+    num = 0;
+    neg = 0;
+  loop:
+    while (*cp == ' ' || *cp == '\t')
+	cp++;
+    if (*cp == '-') {
+	neg++;
+	cp++;
+	goto loop;
+    }
+    while (*cp >= '0' && *cp <= '9')
+	num = num * 10 + *cp++ - '0';
+    *ptrptr = cp;
+    return (neg ? -num : num);
 }

@@ -48,100 +48,102 @@
 int
 pln_postread(int n, s_char *ptr)
 {
-	struct	plnstr *pp = (struct plnstr *) ptr;
-	struct	shpstr theship;
-	struct	lndstr theland;
+    struct plnstr *pp = (struct plnstr *)ptr;
+    struct shpstr theship;
+    struct lndstr theland;
 
-	if (pp->pln_uid != n) {
-		logerror("pln_postread: Error - %d != %d, zeroing.\n", pp->pln_uid, n);
-		bzero(ptr, sizeof(struct plnstr));
-	}
+    if (pp->pln_uid != n) {
+	logerror("pln_postread: Error - %d != %d, zeroing.\n", pp->pln_uid,
+		 n);
+	bzero(ptr, sizeof(struct plnstr));
+    }
 
-	if (pp->pln_ship >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
-		if (getship(pp->pln_ship, &theship) &&
-		    (theship.shp_effic >= SHIP_MINEFF)) {
-			/* wooof!  Carriers are a pain */
-			if (pp->pln_mission){
-				/*
-				 *  If the plane is on a mission centered
-				 *  on it's loc, the op-area travels with
-				 *  the plane.
-				 */
-				if ((pp->pln_opx == pp->pln_x) &&
-					(pp->pln_opy == pp->pln_y)){
-					pp->pln_opx = theship.shp_x;
-					pp->pln_opy = theship.shp_y;
-				}
-			}
-			if (pp->pln_x != theship.shp_x || pp->pln_y != theship.shp_y)
-			  time(&pp->pln_timestamp);
-			pp->pln_x = theship.shp_x;
-			pp->pln_y = theship.shp_y;
+    if (pp->pln_ship >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
+	if (getship(pp->pln_ship, &theship) &&
+	    (theship.shp_effic >= SHIP_MINEFF)) {
+	    /* wooof!  Carriers are a pain */
+	    if (pp->pln_mission) {
+		/*
+		 *  If the plane is on a mission centered
+		 *  on it's loc, the op-area travels with
+		 *  the plane.
+		 */
+		if ((pp->pln_opx == pp->pln_x) &&
+		    (pp->pln_opy == pp->pln_y)) {
+		    pp->pln_opx = theship.shp_x;
+		    pp->pln_opy = theship.shp_y;
 		}
+	    }
+	    if (pp->pln_x != theship.shp_x || pp->pln_y != theship.shp_y)
+		time(&pp->pln_timestamp);
+	    pp->pln_x = theship.shp_x;
+	    pp->pln_y = theship.shp_y;
 	}
-	if (pp->pln_land >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
-		if (getland(pp->pln_land, &theland) &&
-		    (theland.lnd_effic >= LAND_MINEFF)) {
-			/* wooof!  Units are a pain, too */
-			if (pp->pln_mission){
-				/*
-				 *  If the plane is on a mission centered
-				 *  on it's loc, the op-area travels with
-				 *  the plane.
-				 */
-				if ((pp->pln_opx == pp->pln_x) &&
-					(pp->pln_opy == pp->pln_y)){
-					pp->pln_opx = theland.lnd_x;
-					pp->pln_opy = theland.lnd_y;
-				}
-			}
-			if (pp->pln_x != theland.lnd_x || pp->pln_y != theland.lnd_y)
-			  time(&pp->pln_timestamp);
-			pp->pln_x = theland.lnd_x;
-			pp->pln_y = theland.lnd_y;
+    }
+    if (pp->pln_land >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
+	if (getland(pp->pln_land, &theland) &&
+	    (theland.lnd_effic >= LAND_MINEFF)) {
+	    /* wooof!  Units are a pain, too */
+	    if (pp->pln_mission) {
+		/*
+		 *  If the plane is on a mission centered
+		 *  on it's loc, the op-area travels with
+		 *  the plane.
+		 */
+		if ((pp->pln_opx == pp->pln_x) &&
+		    (pp->pln_opy == pp->pln_y)) {
+		    pp->pln_opx = theland.lnd_x;
+		    pp->pln_opy = theland.lnd_y;
 		}
+	    }
+	    if (pp->pln_x != theland.lnd_x || pp->pln_y != theland.lnd_y)
+		time(&pp->pln_timestamp);
+	    pp->pln_x = theland.lnd_x;
+	    pp->pln_y = theland.lnd_y;
 	}
-	player->owner = (player->god || pp->pln_own == player->cnum);
-	if (opt_MOB_ACCESS)
-	  pln_do_upd_mob(pp);
-	return 1;
+    }
+    player->owner = (player->god || pp->pln_own == player->cnum);
+    if (opt_MOB_ACCESS)
+	pln_do_upd_mob(pp);
+    return 1;
 }
 
 /*ARGSUSED*/
 int
 pln_prewrite(int n, s_char *ptr)
 {
-	struct	plnstr *pp = (struct plnstr *) ptr;
-	struct	plnstr plane;
+    struct plnstr *pp = (struct plnstr *)ptr;
+    struct plnstr plane;
 
-	if (pp->pln_effic < PLANE_MINEFF) {
-		if (pp->pln_own)
-		    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-		pp->pln_own = 0;
-		pp->pln_effic = 0;
-	}
-	pp->ef_type = EF_PLANE;
-	pp->pln_uid = n;
+    if (pp->pln_effic < PLANE_MINEFF) {
+	if (pp->pln_own)
+	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
+		     pp->pln_y);
+	pp->pln_own = 0;
+	pp->pln_effic = 0;
+    }
+    pp->ef_type = EF_PLANE;
+    pp->pln_uid = n;
 
-	time(&pp->pln_timestamp);
+    time(&pp->pln_timestamp);
 
-	getplane(n, &plane);
+    getplane(n, &plane);
 
-	return 1;
+    return 1;
 }
 
 void
 pln_init(int n, s_char *ptr)
 {
-	struct	plnstr *pp = (struct plnstr *) ptr;
+    struct plnstr *pp = (struct plnstr *)ptr;
 
-	pp->ef_type = EF_PLANE;
-	pp->pln_uid = n;
-	pp->pln_own = 0;
+    pp->ef_type = EF_PLANE;
+    pp->pln_uid = n;
+    pp->pln_own = 0;
 }
 
 s_char *
 prplane(struct plnstr *pp)
 {
-	return prbuf("%s #%d", plchr[(int)pp->pln_type].pl_name, pp->pln_uid);
+    return prbuf("%s #%d", plchr[(int)pp->pln_type].pl_name, pp->pln_uid);
 }

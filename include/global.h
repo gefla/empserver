@@ -33,6 +33,6 @@
 
 #ifndef _GLOBAL_H_
 #define _GLOBAL_H_
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _GLOBAL_H_ */

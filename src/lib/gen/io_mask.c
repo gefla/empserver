@@ -31,83 +31,84 @@
  *     
  */
 
-#include <stdlib.h> /* malloc */
+#include <stdlib.h>		/* malloc */
 #include <errno.h>
 #include "misc.h"
 #include "bit.h"
 #include "empio.h"
 #include "io_mask.h"
 
-extern	int errno;
+extern int errno;
 
 struct io_mask *
 iom_create(int what)
 {
-	struct	io_mask *imp;
+    struct io_mask *imp;
 
-	imp = (struct io_mask *) malloc(sizeof(*imp));
-	if (what & IO_READ) {
-		imp->readmask = bit_newfdmask();
-		imp->user_readmask = bit_newfdmask();
-	} else {
-		imp->readmask = 0;
-		imp->user_readmask = 0;
-	}
-	if (what & IO_WRITE) {
-		imp->writemask = bit_newfdmask();
-		imp->user_writemask = bit_newfdmask();
-	} else {
-		imp->writemask = 0;
-		imp->user_writemask = 0;
-	}
-	imp->what = what;
-	imp->maxfd = 0;
-	return imp;
+    imp = (struct io_mask *)malloc(sizeof(*imp));
+    if (what & IO_READ) {
+	imp->readmask = bit_newfdmask();
+	imp->user_readmask = bit_newfdmask();
+    } else {
+	imp->readmask = 0;
+	imp->user_readmask = 0;
+    }
+    if (what & IO_WRITE) {
+	imp->writemask = bit_newfdmask();
+	imp->user_writemask = bit_newfdmask();
+    } else {
+	imp->writemask = 0;
+	imp->user_writemask = 0;
+    }
+    imp->what = what;
+    imp->maxfd = 0;
+    return imp;
 }
 
 void
-iom_getmask(struct io_mask *mask, int *nfdp, bit_fdmask *readp, bit_fdmask *writep)
+iom_getmask(struct io_mask *mask, int *nfdp, bit_fdmask *readp,
+	    bit_fdmask *writep)
 {
-	if (mask->what & IO_READ)
-		bit_copy(mask->readmask, mask->user_readmask);
-	if (mask->what & IO_WRITE)
-		bit_copy(mask->writemask, mask->user_writemask);
-	*readp = mask->user_readmask;
-	*writep = mask->user_writemask;
-	*nfdp = mask->maxfd;
+    if (mask->what & IO_READ)
+	bit_copy(mask->readmask, mask->user_readmask);
+    if (mask->what & IO_WRITE)
+	bit_copy(mask->writemask, mask->user_writemask);
+    *readp = mask->user_readmask;
+    *writep = mask->user_writemask;
+    *nfdp = mask->maxfd;
 }
 
 void
 iom_set(struct io_mask *mask, int what, int fd)
 {
-	if ((mask->what & what) == 0)
-		return;
-	if (what & IO_READ)
-		BIT_SETB(fd, mask->readmask);
-	if (what & IO_WRITE)
-		BIT_SETB(fd, mask->writemask);
-	if (fd > mask->maxfd)
-		mask->maxfd = fd;
+    if ((mask->what & what) == 0)
+	return;
+    if (what & IO_READ)
+	BIT_SETB(fd, mask->readmask);
+    if (what & IO_WRITE)
+	BIT_SETB(fd, mask->writemask);
+    if (fd > mask->maxfd)
+	mask->maxfd = fd;
 }
 
 void
 iom_clear(struct io_mask *mask, int what, int fd)
 {
-	if ((mask->what & what) == 0)
-		return;
-	if (what & IO_READ)
-		BIT_CLRB(fd, mask->readmask);
-	if (what & IO_WRITE)
-		BIT_CLRB(fd, mask->writemask);
+    if ((mask->what & what) == 0)
+	return;
+    if (what & IO_READ)
+	BIT_CLRB(fd, mask->readmask);
+    if (what & IO_WRITE)
+	BIT_CLRB(fd, mask->writemask);
 }
 
 void
 iom_zero(struct io_mask *mask, int what)
 {
-	if ((mask->what & what) == 0)
-		return;
-	if (what & IO_READ)
-		bit_zero(mask->readmask);
-	if (what & IO_WRITE)
-		bit_zero(mask->writemask);
+    if ((mask->what & what) == 0)
+	return;
+    if (what & IO_READ)
+	bit_zero(mask->readmask);
+    if (what & IO_WRITE)
+	bit_zero(mask->writemask);
 }

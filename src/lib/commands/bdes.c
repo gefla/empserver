@@ -47,32 +47,30 @@
 int
 bdes(void)
 {
-        s_char    *p, d;
-        struct  nstr_sect nstr;
-	struct	sctstr sect;
-	s_char	prompt[128];
-	s_char	buf[1024];
-	int	changed = 0;
+    s_char *p, d;
+    struct nstr_sect nstr;
+    struct sctstr sect;
+    s_char prompt[128];
+    s_char buf[1024];
+    int changed = 0;
 
-        if (!snxtsct(&nstr, player->argp[1]))
-                return RET_SYN;
-        while (!player->aborted && nxtsct(&nstr, &sect)) {
-                if ((nstr.ncond > 0) && (sect.sct_own != player->cnum))
-                	continue;
-                d = player->map[sctoff(nstr.x, nstr.y)];
-                sprintf(prompt, "%s '%c'  desig? ",
-			xyas(nstr.x, nstr.y, player->cnum), d);
-                if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-                        continue;
-                if (!isprint(*p)){
-                        pr("Bad character. Must be printable!\n");
-                        continue;
-                }
-                changed |= map_set(player->cnum, nstr.x, nstr.y, *p, 2);
-        }
-	if (changed)
-		writebmap(player->cnum);
-	return RET_OK;
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    while (!player->aborted && nxtsct(&nstr, &sect)) {
+	if ((nstr.ncond > 0) && (sect.sct_own != player->cnum))
+	    continue;
+	d = player->map[sctoff(nstr.x, nstr.y)];
+	sprintf(prompt, "%s '%c'  desig? ",
+		xyas(nstr.x, nstr.y, player->cnum), d);
+	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
+	    continue;
+	if (!isprint(*p)) {
+	    pr("Bad character. Must be printable!\n");
+	    continue;
+	}
+	changed |= map_set(player->cnum, nstr.x, nstr.y, *p, 2);
+    }
+    if (changed)
+	writebmap(player->cnum);
+    return RET_OK;
 }
-
-

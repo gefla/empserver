@@ -46,12 +46,12 @@
 int
 sinfra(void)
 {
-    struct	sctstr sect;
-    int	nsect;
-    struct	nstr_sect nstr;
-    double      sector_mcost();
-    double      sector_strength(struct sctstr *);
-    
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
+    double sector_mcost();
+    double sector_strength(struct sctstr *);
+
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     prdate();
@@ -81,7 +81,7 @@ sinfra(void)
 	pr("%4d%% ", sect.sct_rail);
 	pr("%4.3f ", sector_mcost(&sect, MOB_RAIL));
 	pr("%4d%% ", sect.sct_defense);
-	pr("%5.2f\n",  sector_strength(&sect));
+	pr("%5.2f\n", sector_strength(&sect));
     }
     if (nsect == 0) {
 	if (player->argp[1])
@@ -89,9 +89,7 @@ sinfra(void)
 	else
 	    pr("%s: No sector(s)\n", "");
 	return RET_FAIL;
-    }else
+    } else
 	pr("%d sector%s\n", nsect, splur(nsect));
     return 0;
 }
-
-

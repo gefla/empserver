@@ -49,72 +49,72 @@
 int
 fina(void)
 {
-	struct	lonstr loan;
-	struct	nstr_item ni;
-      time_t  now;
-	int	rdur;
-	int	xdur;
-	double	rate;
-	double	amt;
-      time_t  due;
-      time_t  last;
+    struct lonstr loan;
+    struct nstr_item ni;
+    time_t now;
+    int rdur;
+    int xdur;
+    double rate;
+    double amt;
+    time_t due;
+    time_t last;
 
-	if (!opt_LOANS) {
-	    pr("Loans are not enabled.\n");
-	    return RET_FAIL;
+    if (!opt_LOANS) {
+	pr("Loans are not enabled.\n");
+	return RET_FAIL;
+    }
+    (void)time(&now);
+    pr("\n");
+    pr("             -= Empire Financial Status Report =- \n");
+    pr("                  ");
+    prdate();
+    pr("Loan       From            To        Rate   Dur     Paid      Total\n");
+    snxtitem(&ni, EF_LOAN, "*");
+    while (nxtitem(&ni, (s_char *)&loan)) {
+	if (loan.l_status != LS_SIGNED)
+	    continue;
+	due = loan.l_duedate;
+	last = loan.l_lastpay;
+	rdur = 0;
+	xdur = 0;
+	if (now < due) {
+	    rdur = now - last;
+	    xdur = 0;
 	}
-	(void)time(&now);
-	pr("\n");
-	pr("             -= Empire Financial Status Report =- \n");
-	pr("                  ");
-	prdate();
-	pr("Loan       From            To        Rate   Dur     Paid      Total\n");
-	snxtitem(&ni, EF_LOAN, "*");
-	while (nxtitem(&ni, (s_char *)&loan)) {
-		if (loan.l_status != LS_SIGNED)
-			continue;
-		due = loan.l_duedate;
-		last = loan.l_lastpay;
-		rdur = 0;
-		xdur = 0;
-		if (now < due) {
-			rdur = now - last;
-			xdur = 0;
-		}
-		if (last < due && due < now) {
-			rdur = due - last;
-			xdur = now - due;
-		}
-		if (due < last) {
-			rdur = 0;
-			xdur = now - last;
-		}
-		if (loan.l_ldur == 0) {
-			logerror("loan #%d has zero duration", ni.cur);
-			continue;
-		}
-		rate = loan.l_irate / (loan.l_ldur * 8640000.0);
+	if (last < due && due < now) {
+	    rdur = due - last;
+	    xdur = now - due;
+	}
+	if (due < last) {
+	    rdur = 0;
+	    xdur = now - last;
+	}
+	if (loan.l_ldur == 0) {
+	    logerror("loan #%d has zero duration", ni.cur);
+	    continue;
+	}
+	rate = loan.l_irate / (loan.l_ldur * 8640000.0);
 
 /* changed following to avoid overflow 3/27/89 bailey@math-cs.kent.edu
 		amt = (rdur * rate + xdur * rate * 2.0 + 1.0) * loan.l_amtdue;
    Begin overflow fix */
-		amt = (rdur * rate + xdur * rate * 2.0 + 1.0);
-		if (((1 << 30) / amt) < loan.l_amtdue)
-			amt = (1 << 30);
-		else
-			amt *= loan.l_amtdue;
+	amt = (rdur * rate + xdur * rate * 2.0 + 1.0);
+	if (((1 << 30) / amt) < loan.l_amtdue)
+	    amt = (1 << 30);
+	else
+	    amt *= loan.l_amtdue;
 /* End overflow fix */
 
-		pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,
-		       loan.l_loner, cname(loan.l_loner),
-		       loan.l_lonee, cname(loan.l_lonee));
-		pr("%3d%%   %3d    %5d    %7d",
-		       loan.l_irate, loan.l_ldur, loan.l_amtpaid, (int) amt);
-		if (now > loan.l_duedate)
-			pr(" (in arrears)\n");
-		else
-			pr("\n");
-	}
-	pr("\n");
-	return RET_OK;
+	pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,
+	   loan.l_loner, cname(loan.l_loner),
+	   loan.l_lonee, cname(loan.l_lonee));
+	pr("%3d%%   %3d    %5d    %7d",
+	   loan.l_irate, loan.l_ldur, loan.l_amtpaid, (int)amt);
+	if (now > loan.l_duedate)
+	    pr(" (in arrears)\n");
+	else
+	    pr("\n");
+    }
+    pr("\n");
+    return RET_OK;
 }

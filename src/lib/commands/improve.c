@@ -48,20 +48,21 @@
 #include "commands.h"
 
 char *prompt[] = {
-      "Improve what ('road' or 'rail')? ",
-      "Improve what ('road', 'rail' or 'defense')? " };
+    "Improve what ('road' or 'rail')? ",
+    "Improve what ('road', 'rail' or 'defense')? "
+};
 
 int
 improve(void)
 {
-    struct	sctstr sect;
-    int	nsect;
-    struct	nstr_sect nstr;
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
     s_char *p;
     s_char buf[1024];
     s_char inbuf[128];
     int type;
-    int vec[I_MAX+1];
+    int vec[I_MAX + 1];
     int value;
     int ovalue;
     int maxup;
@@ -71,10 +72,9 @@ improve(void)
     int mneeded;
     int dneeded;
     int wanted;
-    
+
     if (!(p = getstarg(player->argp[1],
-		        prompt[opt_DEFENSE_INFRA], buf)) ||
-	!*p)
+		       prompt[opt_DEFENSE_INFRA], buf)) || !*p)
 	return RET_SYN;
     if (!strncmp(p, "ro", 2))
 	type = INT_ROAD;
@@ -114,7 +114,8 @@ improve(void)
 	if (!maxup)
 	    continue;
 	lneeded = intrchr[type].in_lcms * maxup;
-	if (opt_NO_LCMS) lneeded = 0;
+	if (opt_NO_LCMS)
+	    lneeded = 0;
 	if (vec[I_LCM] < lneeded) {
 	    lneeded = vec[I_LCM];
 	    maxup = lneeded / intrchr[type].in_lcms;
@@ -125,7 +126,8 @@ improve(void)
 	    }
 	}
 	hneeded = intrchr[type].in_hcms * maxup;
-	if (opt_NO_HCMS) hneeded = 0;
+	if (opt_NO_HCMS)
+	    hneeded = 0;
 	if (vec[I_HCM] < hneeded) {
 	    hneeded = vec[I_HCM];
 	    maxup = hneeded / intrchr[type].in_hcms;
@@ -168,8 +170,10 @@ improve(void)
 	mneeded = intrchr[type].in_mcost * maxup;
 	dneeded = intrchr[type].in_dcost * maxup;
 	player->dolcost += dneeded;
-	if (!opt_NO_LCMS) vec[I_LCM] -= lneeded;
-	if (!opt_NO_HCMS) vec[I_HCM] -= hneeded;
+	if (!opt_NO_LCMS)
+	    vec[I_LCM] -= lneeded;
+	if (!opt_NO_HCMS)
+	    vec[I_HCM] -= hneeded;
 	sect.sct_mobil -= mneeded;
 	putvec(VT_ITEM, vec, (s_char *)&sect, EF_SECTOR);
 	ovalue = value;
@@ -194,9 +198,7 @@ improve(void)
 	else
 	    pr("%s: No sector(s)\n", "");
 	return RET_FAIL;
-    }else
+    } else
 	pr("%d sector%s\n", nsect, splur(nsect));
     return 0;
 }
-
-

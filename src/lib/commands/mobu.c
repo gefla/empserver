@@ -50,67 +50,67 @@
 int
 mobupdate(void)
 {
-	FILE    *fp;
-	long    minites;
-	extern  int updating_mob;
-	struct  mob_acc_globals timestamps;
-	long    now;
-	extern  s_char *timestampfil;
-	
-	if (!opt_MOB_ACCESS) {
-		pr("Command invalid - MOB_ACCESS is not enabled.\n");
-		return RET_FAIL;
-	}
-	if (!player->argp[1])
-		return RET_SYN;
-	if (*player->argp[1] == 'c')
-		minites = -1;
-	else
-		minites = atol(player->argp[1]) * 60;
-	time(&now);
+    FILE *fp;
+    long minites;
+    extern int updating_mob;
+    struct mob_acc_globals timestamps;
+    long now;
+    extern s_char *timestampfil;
+
+    if (!opt_MOB_ACCESS) {
+	pr("Command invalid - MOB_ACCESS is not enabled.\n");
+	return RET_FAIL;
+    }
+    if (!player->argp[1])
+	return RET_SYN;
+    if (*player->argp[1] == 'c')
+	minites = -1;
+    else
+	minites = atol(player->argp[1]) * 60;
+    time(&now);
 #if !defined(_WIN32)
-	if ((fp = fopen(timestampfil, "r+")) == NULL) {
+    if ((fp = fopen(timestampfil, "r+")) == NULL) {
 #else
-	if ((fp = fopen(timestampfil, "r+b")) == NULL) {
+    if ((fp = fopen(timestampfil, "r+b")) == NULL) {
 #endif
-		logerror("Unable to edit timestamp file.");
-	} else {
-		rewind(fp);
-		fread(&timestamps, sizeof(timestamps), 1, fp);
-		if (minites < 0) {
-			fclose(fp);
-			if (updating_mob)
-				pr("Mobility updating is enabled.");
-			else {
-				pr("Mobility updating will come back on around %s",
-				   ctime(&timestamps.starttime));
-				pr("within 3 minutes, depending on when the server checks.");
-			}
-			return 0;
-		}
-		timestamps.timestamp = now;
-		timestamps.starttime = now + minites;
-		rewind(fp);
-		fwrite(&timestamps, sizeof(timestamps), 1, fp);
-		fclose(fp);
-		if (now >= timestamps.starttime) {
-			pr("Turning on mobility updating.");
-			update_all_mob();
-			updating_mob = 1;
-		} else if (updating_mob == 1) {
-			pr("Turning off mobility updating.\n\r");
-			pr("Mobility updating will come back on around %s",
-			   ctime(&timestamps.starttime));
-			pr("within 3 minutes, depending on when the server checks.");
-			update_all_mob();
-			updating_mob = 0;
-		} else if (updating_mob == 0) {
-			pr("Mobility updating is already off.\n\r");
-			pr("Mobility updating will come back on around %s",
-			   ctime(&timestamps.starttime));
-			pr("within 3 minutes, depending on when the server checks.");
-		}
+	logerror("Unable to edit timestamp file.");
+    } else {
+	rewind(fp);
+	fread(&timestamps, sizeof(timestamps), 1, fp);
+	if (minites < 0) {
+	    fclose(fp);
+	    if (updating_mob)
+		pr("Mobility updating is enabled.");
+	    else {
+		pr("Mobility updating will come back on around %s",
+		   ctime(&timestamps.starttime));
+		pr("within 3 minutes, depending on when the server checks.");
+	    }
+	    return 0;
 	}
-	
-	return 0;
+	timestamps.timestamp = now;
+	timestamps.starttime = now + minites;
+	rewind(fp);
+	fwrite(&timestamps, sizeof(timestamps), 1, fp);
+	fclose(fp);
+	if (now >= timestamps.starttime) {
+	    pr("Turning on mobility updating.");
+	    update_all_mob();
+	    updating_mob = 1;
+	} else if (updating_mob == 1) {
+	    pr("Turning off mobility updating.\n\r");
+	    pr("Mobility updating will come back on around %s",
+	       ctime(&timestamps.starttime));
+	    pr("within 3 minutes, depending on when the server checks.");
+	    update_all_mob();
+	    updating_mob = 0;
+	} else if (updating_mob == 0) {
+	    pr("Mobility updating is already off.\n\r");
+	    pr("Mobility updating will come back on around %s",
+	       ctime(&timestamps.starttime));
+	    pr("within 3 minutes, depending on when the server checks.");
+	}
+    }
+
+    return 0;
 }

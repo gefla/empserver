@@ -62,11 +62,11 @@ typedef u_char natid;		/* also change NSC_NATID in nsc.h */
 #if !defined(aix) && !defined(sgi)
 #ifndef ultrix			/* already defined in ultrix */
 typedef char s_char;		/* change to signed char for aix */
-#endif ultrix
+#endif	/* ultrix */
 #else
 typedef signed char s_char;
 #endif /* !aix && !sgi */
-typedef	short coord;		/* also change NSC_COORD in nsc.h */
+typedef short coord;		/* also change NSC_COORD in nsc.h */
 /*
  * watch it; your compiler might not like this.
  * If you think this is bogus, look at /usr/include/struct.h
@@ -82,13 +82,13 @@ typedef	short coord;		/* also change NSC_COORD in nsc.h */
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
-typedef void (*voidfunc)();
+typedef void (*voidfunc) ();
 
 	/* return codes from command routines */
-#define	RET_OK		0   /* command completed sucessfully */
-#define	RET_FAIL	1   /* command completed unsucessfully [?] */
-#define	RET_SYN		2   /* syntax error in command */
-#define	RET_SYS		3   /* system error (missing file, etc) */
+#define	RET_OK		0	/* command completed sucessfully */
+#define	RET_FAIL	1	/* command completed unsucessfully [?] */
+#define	RET_SYN		2	/* syntax error in command */
+#define	RET_SYS		3	/* system error (missing file, etc) */
 
 #define MAX_DISTPATH_LEN	10	/* Has to go somewhere */
 
@@ -96,41 +96,41 @@ typedef void (*voidfunc)();
  * references to library functions which aren't related to any
  * particular object, and are of general interest
  */
-extern	long random();
+extern long random();
 
-extern	double dmax();
-extern	double dmin();
+extern double dmax();
+extern double dmin();
 
-extern	s_char *fmt();
-extern	s_char *copy();
-extern	s_char *numstr();
-extern	s_char *esplur();
-extern	s_char *splur();
-extern	s_char *iesplur();
-extern	s_char *plur();
-extern	s_char *getstarg();
-extern	s_char *getstring();
+extern s_char *fmt();
+extern s_char *copy();
+extern s_char *numstr();
+extern s_char *esplur();
+extern s_char *splur();
+extern s_char *iesplur();
+extern s_char *plur();
+extern s_char *getstarg();
+extern s_char *getstring();
 
 /*
  * frequently used libc functions
  */
 
 #ifndef _WIN32
-extern	s_char *malloc();
-extern	s_char *calloc();
+extern s_char *malloc();
+extern s_char *calloc();
 #endif
 
 #if (!defined (aix) && !defined (sgi))
-extern	s_char *ctime();
-extern	s_char *strncpy();
-extern	s_char *strcpy();
+extern s_char *ctime();
+extern s_char *strncpy();
+extern s_char *strcpy();
 #ifndef NeXT
-extern	s_char *index();
-extern	s_char *rindex();
+extern s_char *index();
+extern s_char *rindex();
 #endif /* NeXT */
-#endif /* !aix && !sgi*/
+#endif /* !aix && !sgi */
 
-extern	time_t time();
-extern	double atof();
+extern time_t time();
+extern double atof();
 
 #endif

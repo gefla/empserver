@@ -41,20 +41,20 @@
 int
 wai(void)
 {
-	struct natstr *np;
+    struct natstr *np;
 
-	np = getnatp(player->cnum);
-	io_output(player->iop, IO_WAIT);
-	if (np->nat_ann == 0 && np->nat_tgms == 0) {
-		player->waiting++;
-		io_input(player->iop, IO_WAIT);
-		player->waiting--;
-	}
-	if (player->aborted || io_eof(player->iop))
-		return RET_OK;
-	if (np->nat_ann != 0)
-		player->argp[0] = "wire";
-	if (np->nat_tgms != 0)
-		player->argp[0] = "read";
-	return rea();
-}  
+    np = getnatp(player->cnum);
+    io_output(player->iop, IO_WAIT);
+    if (np->nat_ann == 0 && np->nat_tgms == 0) {
+	player->waiting++;
+	io_input(player->iop, IO_WAIT);
+	player->waiting--;
+    }
+    if (player->aborted || io_eof(player->iop))
+	return RET_OK;
+    if (np->nat_ann != 0)
+	player->argp[0] = "wire";
+    if (np->nat_tgms != 0)
+	player->argp[0] = "read";
+    return rea();
+}

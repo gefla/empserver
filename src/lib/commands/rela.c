@@ -49,54 +49,54 @@
 int
 rela(void)
 {
-	struct	natstr *natp;
-	struct	natstr *np;
-	natid	cn;
-	natid	as;
-	int	n;
+    struct natstr *natp;
+    struct natstr *np;
+    natid cn;
+    natid as;
+    int n;
 
-	if (player->argp[1] == 0)
-		as = player->cnum;
-	else {
-		if ((n = natarg(player->argp[1], "Which country? ")) < 0) {
-			pr("Bad country number\n");
-			return RET_SYN;
-		}
-		as = (natid) n;
+    if (player->argp[1] == 0)
+	as = player->cnum;
+    else {
+	if ((n = natarg(player->argp[1], "Which country? ")) < 0) {
+	    pr("Bad country number\n");
+	    return RET_SYN;
 	}
-	if ((natp = getnatp(as)) == 0) {
-		pr("Bad country number %d\n", player->cnum);
-		return RET_SYN;
+	as = (natid)n;
+    }
+    if ((natp = getnatp(as)) == 0) {
+	pr("Bad country number %d\n", player->cnum);
+	return RET_SYN;
+    }
+    pr("\t%s Diplomatic Relations Report\t", cname(as));
+    prdate();
+    if (opt_SLOW_WAR) {
+	pr("\n  Formal Relations         %5s      theirs\n",
+	   player->cnum == as ? "yours" : "his");
+    } else {
+	pr("\n  Formal Relations         %5s     theirs\n",
+	   player->cnum == as ? "yours" : "his");
+    }
+    for (cn = 1; cn < MAXNOC; cn++) {
+	if ((np = getnatp(cn)) == 0)
+	    break;
+	if (cn == as)
+	    continue;
+	if ((np->nat_stat & STAT_NORM) == 0 &&
+	    (np->nat_stat & STAT_SANCT) == 0)
+	    continue;
+	if (opt_HIDDEN) {
+	    if (!player->god && !getcontact(natp, cn))
+		continue;
+	    if (!player->god && !getcontact(getnatp(player->cnum), cn))
+		continue;
 	}
-	pr("\t%s Diplomatic Relations Report\t", cname(as));
-	prdate();
+	pr("%3d) %-20.20s  ", cn, cname(cn));
 	if (opt_SLOW_WAR) {
-	  pr("\n  Formal Relations         %5s      theirs\n",
-	     player->cnum == as ? "yours" : "his");
+	    pr("%-10s %s\n", relatename(natp, cn), relatename(np, as));
 	} else {
-	  pr("\n  Formal Relations         %5s     theirs\n",
-	     player->cnum == as ? "yours" : "his");
+	    pr("%-9s %s\n", relatename(natp, cn), relatename(np, as));
 	}
-	for (cn=1; cn < MAXNOC; cn++) {
-		if ((np = getnatp(cn)) == 0)
-			break;
-		if (cn == as)
-			continue;
-		if ((np->nat_stat & STAT_NORM) == 0 &&
-		    (np->nat_stat & STAT_SANCT) == 0)
-			continue;
-		if (opt_HIDDEN) {
-		    if (!player->god && !getcontact(natp, cn)) 
-			continue;
-		    if (!player->god && !getcontact(getnatp(player->cnum), cn))
-			continue;
-		}
-		pr("%3d) %-20.20s  ", cn, cname(cn));
-		if (opt_SLOW_WAR) {
-		  pr("%-10s %s\n", relatename(natp, cn), relatename(np, as));
-		} else {
-		  pr("%-9s %s\n", relatename(natp, cn), relatename(np, as));
-		}
-	}
-	return RET_OK;
+    }
+    return RET_OK;
 }

@@ -41,13 +41,13 @@
 int
 neigh(coord x, coord y, natid own)
 {
-	register int i;
-	struct	sctstr sect;
+    register int i;
+    struct sctstr sect;
 
-	for (i = DIR_FIRST; i <= DIR_LAST; i++) {
-		getsect(x + diroff[i][0], y + diroff[i][1], &sect);
-		if (sect.sct_own == own)
-			return 1;
-	}
-	return 0;
+    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
+	getsect(x + diroff[i][0], y + diroff[i][1], &sect);
+	if (sect.sct_own == own)
+	    return 1;
+    }
+    return 0;
 }

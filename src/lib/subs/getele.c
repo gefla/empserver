@@ -42,74 +42,74 @@ static int tilde_escape(s_char *s, s_char c);
 int
 getele(s_char *nation, s_char *buf)
 {
-	register s_char *bp;
-	register int len;
-	register int c;
-	s_char	buffer[MAXTELSIZE + 2];
-	s_char	left[MAXTELSIZE + 2];
+    register s_char *bp;
+    register int len;
+    register int c;
+    s_char buffer[MAXTELSIZE + 2];
+    s_char left[MAXTELSIZE + 2];
 
-	pr("Enter telegram for %s\n", nation);
-	pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
-	bp = buf;
-	while (!player->aborted) {
-		sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
-		buffer[0] = 0;
-		if (prmptrd(left, buffer, MAXTELSIZE-2) <= 0)
-			break;
-		if (tilde_escape(buffer, 'q'))
-			return -1;
-		if (tilde_escape(buffer, 'u')) {
-			if (bp == buf) {
-				pr("No more lines to undo\n");
-				continue;
-			}
-			pr("Last line deleted.\n");
-			for (bp -= 2; bp > buf && *bp != '\n'; --bp);
-			if (bp > buf)
-				*(++bp) = 0;
-			else
-				bp = buf;
-			continue;
-		}
-		if (tilde_escape(buffer, 'p')) {
-			pr("This is what you have written so far:\n");
-			pr("%s", buf);
-			continue;
-		}
-		if (buffer[0] == '.' && ((buffer[1] == 0) ||
-			(buffer[1] == '\n') || (buffer[1] == '\r')))
-			break;
-		len = strlen(buffer);
-		buffer[len++] = '\n';
-		buffer[len] = 0;
-		if (len + (bp - buf) > MAXTELSIZE)
-			pr("Too long.  Try that last line again...\n");
-		else {
-			if (buffer[0] == '>')		/* forgery attempt? */
-				buffer[0] = '?';	/* foil it */
-			(void) strcpy(bp, buffer);
-			bp += len;
-		}
+    pr("Enter telegram for %s\n", nation);
+    pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
+    bp = buf;
+    while (!player->aborted) {
+	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
+	buffer[0] = 0;
+	if (prmptrd(left, buffer, MAXTELSIZE - 2) <= 0)
+	    break;
+	if (tilde_escape(buffer, 'q'))
+	    return -1;
+	if (tilde_escape(buffer, 'u')) {
+	    if (bp == buf) {
+		pr("No more lines to undo\n");
+		continue;
+	    }
+	    pr("Last line deleted.\n");
+	    for (bp -= 2; bp > buf && *bp != '\n'; --bp) ;
+	    if (bp > buf)
+		*(++bp) = 0;
+	    else
+		bp = buf;
+	    continue;
 	}
-	if (player->aborted)
-		return -1;
-	len = bp - buf;
-	buf[len] = 0;
-	/* Get rid of non-ASCII and control characters.  */
-	for (bp = buf; 0 != (c = *bp); bp++) {
-		if (isascii(c) && (isprint(c) || isspace(c)))
-			continue;
-		*bp = '?';
+	if (tilde_escape(buffer, 'p')) {
+	    pr("This is what you have written so far:\n");
+	    pr("%s", buf);
+	    continue;
 	}
-	return len;
+	if (buffer[0] == '.' && ((buffer[1] == 0) ||
+				 (buffer[1] == '\n')
+				 || (buffer[1] == '\r')))
+	    break;
+	len = strlen(buffer);
+	buffer[len++] = '\n';
+	buffer[len] = 0;
+	if (len + (bp - buf) > MAXTELSIZE)
+	    pr("Too long.  Try that last line again...\n");
+	else {
+	    if (buffer[0] == '>')	/* forgery attempt? */
+		buffer[0] = '?';	/* foil it */
+	    (void)strcpy(bp, buffer);
+	    bp += len;
+	}
+    }
+    if (player->aborted)
+	return -1;
+    len = bp - buf;
+    buf[len] = 0;
+    /* Get rid of non-ASCII and control characters.  */
+    for (bp = buf; 0 != (c = *bp); bp++) {
+	if (isascii(c) && (isprint(c) || isspace(c)))
+	    continue;
+	*bp = '?';
+    }
+    return len;
 }
 
 static int
 tilde_escape(s_char *s, s_char c)
 {
-	if (s[0] == '~' && s[1] == c && 
-	    ((s[2] == 0) || (s[2] == '\n') || (s[2] == '\r')))
-		return 1;
-	return 0;
+    if (s[0] == '~' && s[1] == c &&
+	((s[2] == 0) || (s[2] == '\n') || (s[2] == '\r')))
+	return 1;
+    return 0;
 }
-

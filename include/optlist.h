@@ -39,7 +39,7 @@
 
 struct option_list {
     char *opt_key;
-    int  *opt_valuep;
+    int *opt_valuep;
 };
 
 extern struct option_list Options[];
@@ -103,24 +103,24 @@ extern int opt_TECH_POP;
 struct keymatch;		/* forward decl */
 
 /* function prototype for variable setting routines */
-typedef void KmFunc _PROTO((struct keymatch *kp, s_char **av));
+typedef void KmFunc _PROTO((struct keymatch * kp, s_char **av));
 
 /* current known routines */
 #if defined(__cplusplus) || (defined(__STDC__) &&__STDC__)
-KmFunc optstrset, intset, floatset, doubleset, longset, 
-	optionset, optiondel, worldxset;
+KmFunc optstrset, intset, floatset, doubleset, longset,
+    optionset, optiondel, worldxset;
 #else
-void optstrset(), intset(), floatset(), doubleset(), longset(), 
-	optionset(), optiondel(), worldxset();
+void optstrset(), intset(), floatset(), doubleset(), longset(),
+optionset(), optiondel(), worldxset();
 #endif
 
 struct keymatch {
-	s_char *km_key;		/* the key */
-	KmFunc *km_func;	/* the function to call if matches */
-	caddr_t km_data;	/* associated data */
-	int km_flags;		/* useful flags */
+    s_char *km_key;		/* the key */
+    KmFunc *km_func;		/* the function to call if matches */
+    caddr_t km_data;		/* associated data */
+    int km_flags;		/* useful flags */
 #define KM_ALLOC	0x01	/* memory allocated */
-        s_char *km_comment;     /* Comment (hopefully useful) */
+    s_char *km_comment;		/* Comment (hopefully useful) */
 };
 
 extern struct keymatch configkeys[];

@@ -63,141 +63,140 @@
 int
 sell(void)
 {
-	struct sctstr	sect;
-	struct ichrstr	*ip;
-	struct comstr comm;
-	int     number_set;
-	int     number_sub;
-	int     totalcom;
-	int     amt;
-	int     com;
-	char	*p;
-	float   price;
-	char	cc;
-        time_t	now;
-	int	ii = 0;
-        coord   x, y;
-	s_char  buf[1024];
+    struct sctstr sect;
+    struct ichrstr *ip;
+    struct comstr comm;
+    int number_set;
+    int number_sub;
+    int totalcom;
+    int amt;
+    int com;
+    char *p;
+    float price;
+    char cc;
+    time_t now;
+    int ii = 0;
+    coord x, y;
+    s_char buf[1024];
 
-	if (!opt_MARKET) {
-	    pr("The market is disabled.\n");
-	    return RET_FAIL;
-	}	
-	check_market();
-	check_trade();
-	if ((ip = whatitem(player->argp[1], "Commodity you want to sell: ")) == 0)
-		return RET_SYN;
-	if (ip->i_sell == 0) {
-		pr("You can't sell %s\n", ip->i_name);
-		return RET_FAIL;
-	}
-	if (!(p = getstarg(player->argp[2], "Sector to sell from: ",buf)))
-	    return RET_SYN;
-	if (!sarg_xy(p, &x, &y))
-	    return RET_SYN;
-	if (!getsect(x, y, &sect))
-	    pr("Could not access that sector.\n");
-	if ((sect.sct_type != SCT_HARBR && sect.sct_type != SCT_WAREH) ||
-	    !player->owner) {
-	    pr("That sector cannot sell goods.\n");
-	    return RET_FAIL;
-	}
-	if(sect.sct_effic < 60){
-	    pr("Sectors need to be >= 60%% efficient to sell goods.\n");
-	    return RET_FAIL;
-	}
-	if (sect.sct_mobil <= 0) {
-	    pr("Sectors need at least 1 mobility to sell goods.\n");
-	    return RET_FAIL;
-	}
-	number_set = 0;
-	number_sub = 0;
-	if ((p = getstarg(player->argp[3], "Amount:  ",buf)) == 0 || *p == 0)
-		return RET_SYN;
-	if (!check_sect_ok(&sect))
-	    return RET_FAIL;
-	number_set = atoi(p);
-	if ((p = getstarg(player->argp[4], "Price per unit: ", buf)) == 0 ||
-	    *p == 0)
-		return RET_SYN;
-	if (!check_sect_ok(&sect))
-	    return RET_FAIL;
-	price = atof(p);
-	if (price <= 0.0) {
-		pr("No sale.\n");
-		return RET_FAIL;
-	}
-	if (price > 1000.0) /* Inf can cause overflow */
-		price = 1000.0;		  /* bailey@math-cs.kent.edu */
-	totalcom = 0;
-	/*
-	 * military control necessary to sell
-	 * goodies in occupied territory.
-	 */
-	if (sect.sct_oldown != player->cnum) {
-	    int     tot_mil=0;
-	    struct  nstr_item ni;
-	    struct  lndstr land;
+    if (!opt_MARKET) {
+	pr("The market is disabled.\n");
+	return RET_FAIL;
+    }
+    check_market();
+    check_trade();
+    if ((ip =
+	 whatitem(player->argp[1], "Commodity you want to sell: ")) == 0)
+	return RET_SYN;
+    if (ip->i_sell == 0) {
+	pr("You can't sell %s\n", ip->i_name);
+	return RET_FAIL;
+    }
+    if (!(p = getstarg(player->argp[2], "Sector to sell from: ", buf)))
+	return RET_SYN;
+    if (!sarg_xy(p, &x, &y))
+	return RET_SYN;
+    if (!getsect(x, y, &sect))
+	pr("Could not access that sector.\n");
+    if ((sect.sct_type != SCT_HARBR && sect.sct_type != SCT_WAREH) ||
+	!player->owner) {
+	pr("That sector cannot sell goods.\n");
+	return RET_FAIL;
+    }
+    if (sect.sct_effic < 60) {
+	pr("Sectors need to be >= 60%% efficient to sell goods.\n");
+	return RET_FAIL;
+    }
+    if (sect.sct_mobil <= 0) {
+	pr("Sectors need at least 1 mobility to sell goods.\n");
+	return RET_FAIL;
+    }
+    number_set = 0;
+    number_sub = 0;
+    if ((p = getstarg(player->argp[3], "Amount:  ", buf)) == 0 || *p == 0)
+	return RET_SYN;
+    if (!check_sect_ok(&sect))
+	return RET_FAIL;
+    number_set = atoi(p);
+    if ((p = getstarg(player->argp[4], "Price per unit: ", buf)) == 0 ||
+	*p == 0)
+	return RET_SYN;
+    if (!check_sect_ok(&sect))
+	return RET_FAIL;
+    price = atof(p);
+    if (price <= 0.0) {
+	pr("No sale.\n");
+	return RET_FAIL;
+    }
+    if (price > 1000.0)		/* Inf can cause overflow */
+	price = 1000.0;		/* bailey@math-cs.kent.edu */
+    totalcom = 0;
+    /*
+     * military control necessary to sell
+     * goodies in occupied territory.
+     */
+    if (sect.sct_oldown != player->cnum) {
+	int tot_mil = 0;
+	struct nstr_item ni;
+	struct lndstr land;
 
-	    snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	    while (nxtitem(&ni, (s_char *)&land)){
-		if (land.lnd_own == player->cnum)
-		    tot_mil  += total_mil(&land);
-	    }
-	    if (((tot_mil+(getvar(V_MILIT, (char *)&sect, EF_SECTOR))) * 10)
-		< getvar(V_CIVIL, (char *)&sect, EF_SECTOR)) {
-		pr("Military control required to sell goods.\n");
-		return RET_FAIL;
-	    }
+	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
+	while (nxtitem(&ni, (s_char *)&land)) {
+	    if (land.lnd_own == player->cnum)
+		tot_mil += total_mil(&land);
 	}
-	if (((amt = getvar(ip->i_vtype, (char *)&sect,EF_SECTOR))) == 0) {
-	    pr("You don't have any %s to sell there.\n", ip->i_name);
+	if (((tot_mil + (getvar(V_MILIT, (char *)&sect, EF_SECTOR))) * 10)
+	    < getvar(V_CIVIL, (char *)&sect, EF_SECTOR)) {
+	    pr("Military control required to sell goods.\n");
 	    return RET_FAIL;
 	}
-	if (number_set > 0)
-	    com = min(number_set, amt);
-	else if (number_set < 0)
-	    com = amt + number_set;
-	else
-	    com = 0;
-	if (com <= 0)
-	    return RET_SYN;
-	totalcom += com;
-	amt -= com;
-	pr("Sold %d %s at %s (%d left)\n", com, ip->i_name,
-	   xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
-	putvar(ip->i_vtype, amt, (char *)&sect, EF_SECTOR);
-	cc = ip->i_mnem;
-	putsect(&sect);
-	if (totalcom > 0) {
-	    for (ii = 0; getcomm(ii, &comm); ii++) {
-		if (comm.com_owner == 0)
-		    break;
-	    }
-	    if (getcomm(ii, &comm) == 0)
-		ef_extend(EF_COMM, 1);
-	    (void) time(&now);
-	    comm.com_type = ip->i_mnem;
-	    comm.com_owner = player->cnum;
-	    comm.com_price = price;
-	    comm.com_maxbidder = player->cnum;
-	    comm.com_maxprice = price;
-	    comm.com_markettime = now;
-	    comm.com_amount = totalcom;
-	    comm.com_x = 0;
-	    comm.com_y = 0;
-	    comm.sell_x = sect.sct_x;
-	    comm.sell_y = sect.sct_y;
-	    comm.com_uid = ii;
-	    if(!putcomm(ii, &comm)) {
-		pr("Problems with the commodities file, call the Deity\n");
-		return RET_FAIL;
-	    }
-	} else {
-	    pr("No eligible %s for sale\n", ip->i_name);
+    }
+    if (((amt = getvar(ip->i_vtype, (char *)&sect, EF_SECTOR))) == 0) {
+	pr("You don't have any %s to sell there.\n", ip->i_name);
+	return RET_FAIL;
+    }
+    if (number_set > 0)
+	com = min(number_set, amt);
+    else if (number_set < 0)
+	com = amt + number_set;
+    else
+	com = 0;
+    if (com <= 0)
+	return RET_SYN;
+    totalcom += com;
+    amt -= com;
+    pr("Sold %d %s at %s (%d left)\n", com, ip->i_name,
+       xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
+    putvar(ip->i_vtype, amt, (char *)&sect, EF_SECTOR);
+    cc = ip->i_mnem;
+    putsect(&sect);
+    if (totalcom > 0) {
+	for (ii = 0; getcomm(ii, &comm); ii++) {
+	    if (comm.com_owner == 0)
+		break;
+	}
+	if (getcomm(ii, &comm) == 0)
+	    ef_extend(EF_COMM, 1);
+	(void)time(&now);
+	comm.com_type = ip->i_mnem;
+	comm.com_owner = player->cnum;
+	comm.com_price = price;
+	comm.com_maxbidder = player->cnum;
+	comm.com_maxprice = price;
+	comm.com_markettime = now;
+	comm.com_amount = totalcom;
+	comm.com_x = 0;
+	comm.com_y = 0;
+	comm.sell_x = sect.sct_x;
+	comm.sell_y = sect.sct_y;
+	comm.com_uid = ii;
+	if (!putcomm(ii, &comm)) {
+	    pr("Problems with the commodities file, call the Deity\n");
 	    return RET_FAIL;
 	}
-	return RET_OK;
+    } else {
+	pr("No eligible %s for sale\n", ip->i_name);
+	return RET_FAIL;
+    }
+    return RET_OK;
 }
-
-

@@ -39,47 +39,47 @@
 #include "mission.h"
 #include "sect.h"
 
-#define	MAXNOR		50              /* max # realms */
+#define	MAXNOR		50	/* max # realms */
 
-struct	boundstr {
-	short	b_xl, b_xh;		/* horizontal bounds */
-	short	b_yl, b_yh;		/* vertical bounds */
+struct boundstr {
+    short b_xl, b_xh;		/* horizontal bounds */
+    short b_yl, b_yh;		/* vertical bounds */
 };
 
-struct	natstr {
-	short	ef_type;	
-	s_char	nat_cnam[20];		/* country name */
-	s_char	nat_pnam[20];		/* representative */
-	s_char	nat_hostaddr[32];	/* host addr of last user */
-	s_char	nat_hostname[512];	/* hostname of last user */
-	s_char	nat_userid[32];		/* userid of last user */
-	coord	nat_xstart, nat_ystart;	/* cap location at start */
-	coord	nat_xcap, nat_ycap;	/* cap location in abs coords */
-	coord	nat_xorg, nat_yorg;	/* origin location in abs coords */
-	natid	nat_cnum;		/* our country number */
-	s_char	nat_stat;		/* inuse, norm, god, abs */
-	s_char	nat_dayno;		/* day of the year mod 128 */
-	s_char	nat_connected;		/* connected or not? */
-	s_char	nat_update;		/* Want an update or not. */
-	u_char	nat_missed;		/* How many updates missed */
-	u_short	nat_tgms;		/* # of telegrams to be announced */
-	u_short	nat_ann;		/* # of annos pending */
-	u_short	nat_minused;		/* number of minutes used today */
-	short	nat_btu;		/* bureaucratic time units */
-	long	nat_reserve;		/* military reserves */
-	long	nat_money;		/* moola */
-	time_t	nat_last_login;		/* time of last login */
-	time_t	nat_last_logout;	/* time of last logout */
-	time_t	nat_newstim;		/* date news last read */
-	time_t	nat_annotim;		/* date annos last read */
-	float	nat_level[4];		/* technology, etc */
-	struct	boundstr nat_b[MAXNOR];	/* realm bounds */
-	short	nat_relate[MAXNOC];
-	short	nat_contact[MAXNOC];	/* short for everyone */
-	short	nat_rejects[(MAXNOC+3)/4];	/* four bits for each country */
-	s_char	nat_priorities[SCT_MAXDEF+8];	/* priority for each SCT_MAXDEF+8*/
-        long    nat_flags;              /* nation flags */
-	s_char	nat_mission_trigger[MI_MAX]; /* not used -- relation to trig */
+struct natstr {
+    short ef_type;
+    s_char nat_cnam[20];	/* country name */
+    s_char nat_pnam[20];	/* representative */
+    s_char nat_hostaddr[32];	/* host addr of last user */
+    s_char nat_hostname[512];	/* hostname of last user */
+    s_char nat_userid[32];	/* userid of last user */
+    coord nat_xstart, nat_ystart;	/* cap location at start */
+    coord nat_xcap, nat_ycap;	/* cap location in abs coords */
+    coord nat_xorg, nat_yorg;	/* origin location in abs coords */
+    natid nat_cnum;		/* our country number */
+    s_char nat_stat;		/* inuse, norm, god, abs */
+    s_char nat_dayno;		/* day of the year mod 128 */
+    s_char nat_connected;	/* connected or not? */
+    s_char nat_update;		/* Want an update or not. */
+    u_char nat_missed;		/* How many updates missed */
+    u_short nat_tgms;		/* # of telegrams to be announced */
+    u_short nat_ann;		/* # of annos pending */
+    u_short nat_minused;	/* number of minutes used today */
+    short nat_btu;		/* bureaucratic time units */
+    long nat_reserve;		/* military reserves */
+    long nat_money;		/* moola */
+    time_t nat_last_login;	/* time of last login */
+    time_t nat_last_logout;	/* time of last logout */
+    time_t nat_newstim;		/* date news last read */
+    time_t nat_annotim;		/* date annos last read */
+    float nat_level[4];		/* technology, etc */
+    struct boundstr nat_b[MAXNOR];	/* realm bounds */
+    short nat_relate[MAXNOC];
+    short nat_contact[MAXNOC];	/* short for everyone */
+    short nat_rejects[(MAXNOC + 3) / 4];	/* four bits for each country */
+    s_char nat_priorities[SCT_MAXDEF + 8];	/* priority for each SCT_MAXDEF+8 */
+    long nat_flags;		/* nation flags */
+    s_char nat_mission_trigger[MI_MAX];	/* not used -- relation to trig */
 };
 
 	/* Priorities */
@@ -91,12 +91,12 @@ struct	natstr {
 #define PRI_LBUILD	SCT_MAXDEF+7
 
 	/* nation status types */
-#define STAT_INUSE	bit(0)		/* cnum in use */
-#define STAT_SANCT	bit(1)		/* country in sanctuary */
-#define STAT_NORM	bit(2)		/* normal country */
-#define STAT_GOD	bit(3)		/* deity powers */
-#define STAT_ABS	bit(4)		/* abs coords */
-#define STAT_NEW	bit(5)		/* just initialized */
+#define STAT_INUSE	bit(0)	/* cnum in use */
+#define STAT_SANCT	bit(1)	/* country in sanctuary */
+#define STAT_NORM	bit(2)	/* normal country */
+#define STAT_GOD	bit(3)	/* deity powers */
+#define STAT_ABS	bit(4)	/* abs coords */
+#define STAT_NEW	bit(5)	/* just initialized */
 
 	/* Update fields. */
 #define	WUPD_WANT	bit(0)
@@ -119,10 +119,10 @@ struct	natstr {
 #define	ALLIED		6
 
 	/* nation reject codes */
-#define	REJ_TELE	bit(0)		/* dont allow telegrams to be sent */
-#define	REJ_TREA	bit(1)		/* dont allow treaties to be offered */
-#define	REJ_ANNO	bit(2)		/* don't receive announcements */
-#define	REJ_LOAN	bit(3)		/* don't allow loans to be offered */
+#define	REJ_TELE	bit(0)	/* dont allow telegrams to be sent */
+#define	REJ_TREA	bit(1)	/* dont allow treaties to be offered */
+#define	REJ_ANNO	bit(2)	/* don't receive announcements */
+#define	REJ_LOAN	bit(3)	/* don't allow loans to be offered */
 
 #define	NAT_TLEV	0
 #define	NAT_RLEV	1
@@ -144,19 +144,19 @@ struct	natstr {
 #define NF_NATID	NF_UCHAR
 #define NF_COORD	NF_SHORT
 
-#define FOUND_FLY	3		/* Number of updates contact lasts */
-#define FOUND_LOOK	5		/* These are only useful with the */
-#define FOUND_SPY	6		/* LOSE_CONTACT option (and HIDDEN) */
+#define FOUND_FLY	3	/* Number of updates contact lasts */
+#define FOUND_LOOK	5	/* These are only useful with the */
+#define FOUND_SPY	6	/* LOSE_CONTACT option (and HIDDEN) */
 #define FOUND_MAP	6
 #define FOUND_TELE	3
 #define FOUND_COAST	3
 
 struct fixnat {
-	s_char *name;
-	int type;
-	int index;
-	int notify;
-	int offset;
+    s_char *name;
+    int type;
+    int index;
+    int notify;
+    int offset;
 };
 
 /* procedures relating to nation stuff */
@@ -172,35 +172,35 @@ extern double techfact(int level, double mult);
 extern double techfactfire(int level, double mult);
 extern double reltech(int level1, int level2, double mult);
 /* src/lib/subs/comsub.c */
-extern double multread(natid  , natid );
-extern int commread(void );
-extern int commwrite(void );
-extern int commlock(void );
-extern int communlock(void );
-extern int commamt(natid  , int  , float * );
-extern void commset(natid  , int  , int );
-extern void multset(natid  , float );
-extern void commprice(int  , float * );
+extern double multread(natid, natid);
+extern int commread(void);
+extern int commwrite(void);
+extern int commlock(void);
+extern int communlock(void);
+extern int commamt(natid, int, float *);
+extern void commset(natid, int, int);
+extern void multset(natid, float);
+extern void commprice(int, float *);
 
 extern s_char *cname(natid n);
 extern s_char *relatename(struct natstr *np, natid other);
 extern s_char *rejectname(struct natstr *np, natid other);
 extern s_char *natstate(struct natstr *np);
-extern int     getrel(struct natstr *np, natid them);
-extern int     getrejects(natid them, struct natstr *np);
-extern int     getcontact(struct natstr *np, natid them);
-extern void    putrel(struct natstr *np, natid them, int relate);
-extern void    putreject(struct natstr *np, natid them, int how, int what);
-extern void    putcontact(struct natstr *np, natid them, int contact);
-extern void    agecontact(struct natstr *np);
-extern	struct fixnat *natfield();
+extern int getrel(struct natstr *np, natid them);
+extern int getrejects(natid them, struct natstr *np);
+extern int getcontact(struct natstr *np, natid them);
+extern void putrel(struct natstr *np, natid them, int relate);
+extern void putreject(struct natstr *np, natid them, int how, int what);
+extern void putcontact(struct natstr *np, natid them, int contact);
+extern void agecontact(struct natstr *np);
+extern struct fixnat *natfield();
 
-#define NF_INFORM    	bit(0) /* Inform me of telegrams right away */
-#define NF_FLASH     	bit(1) /* Allow other players to flash me (sicko :) */
-#define NF_BEEP      	bit(2) /* Make beeping sounds when appropriate */
-#define NF_COASTWATCH	bit(3) /* Turn auto-coastwatch on */
-#define NF_SONAR	bit(4) /* Turn auto-sonar on */
-#define NF_TECHLISTS    bit(5) /* Sort lists by tech not type */
-#define NF_SACKED       bit(6) /* Capital was sacked, and hasn't been reset yet */
+#define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */
+#define NF_FLASH     	bit(1)	/* Allow other players to flash me (sicko :) */
+#define NF_BEEP      	bit(2)	/* Make beeping sounds when appropriate */
+#define NF_COASTWATCH	bit(3)	/* Turn auto-coastwatch on */
+#define NF_SONAR	bit(4)	/* Turn auto-sonar on */
+#define NF_TECHLISTS    bit(5)	/* Sort lists by tech not type */
+#define NF_SACKED       bit(6)	/* Capital was sacked, and hasn't been reset yet */
 
 #endif /* _NAT_H_ */

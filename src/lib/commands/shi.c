@@ -48,74 +48,73 @@
 int
 shi(void)
 {
-	int	nships;
-	struct	nstr_item ni;
-	struct	shpstr ship;
-	int	vec[I_MAX+1];
+    int nships;
+    struct nstr_item ni;
+    struct shpstr ship;
+    int vec[I_MAX + 1];
 
-	if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
-		return RET_SYN;
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+	return RET_SYN;
 
-	nships = 0;
-	while (nxtitem(&ni, (s_char *)&ship)) {
-		if (!player->owner || ship.shp_own == 0)
-			continue;
-		if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-			pr("bad ship type %d (#%d)\n",
-				ship.shp_type, ni.cur);
-			continue;
-		}
-		count_planes(&ship);
-		count_units(&ship);
-		if (nships++ == 0) {
-			if (player->god)
-				pr("own ");
-pr("shp#     ship type       x,y   fl  eff civ mil  uw  fd pn");
-			pr(" he");
-			pr(" xl");
-			pr(" ln");
-			pr(" mob");
-			if (opt_FUEL)
-				pr(" fuel");
-			pr(" tech\n");
-		}
-		if (player->god)
-			pr("%3d ", ship.shp_own);
-		pr("%4d ", ni.cur);
-		pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
-		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-		pr("%1c", ship.shp_fleet);
-		pr("%4d%%", ship.shp_effic);
-
-		getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
-		pr("%4d", vec[I_CIVIL]);
-		pr("%4d", vec[I_MILIT]);
-		pr("%4d", vec[I_UW]);
-		pr("%4d", vec[I_FOOD]);
-
-		pr("%3d", ship.shp_nplane);
-		pr("%3d",ship.shp_nchoppers);
-		pr("%3d",ship.shp_nxlight);
-		pr("%3d", ship.shp_nland);
-		pr("%4d", ship.shp_mobil);
-		if (opt_FUEL)
-			pr("%5d",ship.shp_fuel);
-		pr("%5d\n", ship.shp_tech);
-		if (opt_SHIPNAMES) {
-		    if (ship.shp_name[0] != 0) {
-			if (player->god)
-			    pr("    ");
-			pr("       %s\n",ship.shp_name);
-		    }
-		}
+    nships = 0;
+    while (nxtitem(&ni, (s_char *)&ship)) {
+	if (!player->owner || ship.shp_own == 0)
+	    continue;
+	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
+	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
+	    continue;
 	}
-	if (nships == 0) {
-		if (player->argp[1])
-			pr("%s: No ship(s)\n", player->argp[1]);
-		else
-			pr("%s: No ship(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d ship%s\n", nships, splur(nships));
-	return RET_OK;
+	count_planes(&ship);
+	count_units(&ship);
+	if (nships++ == 0) {
+	    if (player->god)
+		pr("own ");
+	    pr("shp#     ship type       x,y   fl  eff civ mil  uw  fd pn");
+	    pr(" he");
+	    pr(" xl");
+	    pr(" ln");
+	    pr(" mob");
+	    if (opt_FUEL)
+		pr(" fuel");
+	    pr(" tech\n");
+	}
+	if (player->god)
+	    pr("%3d ", ship.shp_own);
+	pr("%4d ", ni.cur);
+	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
+	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+	pr("%1c", ship.shp_fleet);
+	pr("%4d%%", ship.shp_effic);
+
+	getvec(VT_ITEM, vec, (s_char *)&ship, EF_SHIP);
+	pr("%4d", vec[I_CIVIL]);
+	pr("%4d", vec[I_MILIT]);
+	pr("%4d", vec[I_UW]);
+	pr("%4d", vec[I_FOOD]);
+
+	pr("%3d", ship.shp_nplane);
+	pr("%3d", ship.shp_nchoppers);
+	pr("%3d", ship.shp_nxlight);
+	pr("%3d", ship.shp_nland);
+	pr("%4d", ship.shp_mobil);
+	if (opt_FUEL)
+	    pr("%5d", ship.shp_fuel);
+	pr("%5d\n", ship.shp_tech);
+	if (opt_SHIPNAMES) {
+	    if (ship.shp_name[0] != 0) {
+		if (player->god)
+		    pr("    ");
+		pr("       %s\n", ship.shp_name);
+	    }
+	}
+    }
+    if (nships == 0) {
+	if (player->argp[1])
+	    pr("%s: No ship(s)\n", player->argp[1]);
+	else
+	    pr("%s: No ship(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d ship%s\n", nships, splur(nships));
+    return RET_OK;
 }

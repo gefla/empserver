@@ -41,7 +41,7 @@
 #include <sys/types.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
-#include <unistd.h> /* fork close dup2 */
+#include <unistd.h>		/* fork close dup2 */
 #endif
 #include <fcntl.h>
 #include "gen.h"
@@ -50,23 +50,23 @@ void
 disassoc(void)
 {
 #if !defined(_WIN32)
-	int	i;
+    int i;
 
-	if (fork() != 0)
-		exit(0);
-	for (i = 0; i < 10; i++)
-		(void) close(i);
-	(void) open("/", O_RDONLY, 0);
-	(void) dup2(0, 1);
-	(void) dup2(0, 2);
+    if (fork() != 0)
+	exit(0);
+    for (i = 0; i < 10; i++)
+	(void)close(i);
+    (void)open("/", O_RDONLY, 0);
+    (void)dup2(0, 1);
+    (void)dup2(0, 2);
 #if defined hpux || defined Rel4
-	setsid();
+    setsid();
 #else
-	i = open("/dev/tty", O_RDWR, 0);
-	if (i > 0) {
-		(void) ioctl(i, TIOCNOTTY, 0);
-		(void) close(i);
-	}
+    i = open("/dev/tty", O_RDWR, 0);
+    if (i > 0) {
+	(void)ioctl(i, TIOCNOTTY, 0);
+	(void)close(i);
+    }
 #endif
 #endif
 }

@@ -45,103 +45,102 @@
 int
 enli(void)
 {
-	struct	nstr_sect nstr;
-	struct	sctstr sect;
-	struct	natstr *natp;
-	int	civ;
-	int	mil;
-	int	newmil;
-	int	milwant;
-	int	totalmil;
-	long	reserve;
-	s_char	*p;
-	int	quota;
-	s_char	prompt[128];
-	s_char	buf[1024];
+    struct nstr_sect nstr;
+    struct sctstr sect;
+    struct natstr *natp;
+    int civ;
+    int mil;
+    int newmil;
+    int milwant;
+    int totalmil;
+    long reserve;
+    s_char *p;
+    int quota;
+    s_char prompt[128];
+    s_char buf[1024];
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	if (!trechk(player->cnum, 0, TRTENL))
-		return RET_FAIL;
-	natp = getnatp(player->cnum);
-	newmil = 500;
-	sprintf(prompt, "Number to enlist (max %d) : ", newmil);
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-		return RET_SYN;
-	if ((milwant = atoi(p)) > newmil)
-		milwant = newmil;
-	if (0 != (quota = (milwant < 0)))
-		milwant = -milwant;
-	totalmil = 0;
-	reserve = natp->nat_reserve;
-	if (reserve <= 0) {
-		pr("No military reserves left\n");
-		return RET_OK;
-	}
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (sect.sct_oldown != player->cnum)
-			continue;
-		civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
-		if (civ == 0)
-			continue;
-		if (sect.sct_loyal > 70) {
-			pr("civilians refuse to report in %s!\n",
-			       xyas(sect.sct_x, sect.sct_y, player->cnum));
-			continue;
-		}
-		if (sect.sct_mobil <= 0) {
-			pr("%s is out of mobility!\n",
-			   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		}
-		mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
-		newmil = civ * 0.5;
-		if (quota) {
-			if (newmil > milwant - mil)
-				newmil = milwant - mil;
-			if (newmil > 500)
-				newmil = 500;
-		} else if (newmil > milwant)
-			newmil = milwant;
-		if (newmil > 999 - mil)
-			newmil = 999 - mil;
-		if (newmil <= 0)
-			continue;
-		if (newmil > reserve)
-			newmil = reserve;
-		if (!putvar(V_MILIT, newmil + mil, (s_char *)&sect, EF_SECTOR)) {
-			pr("No room for military in %s\n",
-			       xyas(sect.sct_x, sect.sct_y, player->cnum));
-			continue;
-		}
-		reserve -= newmil;
-		totalmil += newmil;
-		putvar(V_CIVIL, civ - newmil, (s_char *)&sect, EF_SECTOR);
-		pr("%3d enlisted in %s (%d)\n", newmil,
-		       xyas(sect.sct_x, sect.sct_y, player->cnum), mil + newmil);
-		if (sect.sct_mobil > 0) {
-			sect.sct_mobil = (u_char)((float)sect.sct_mobil *
-									  (1.0 - (float)newmil / (float)civ));
-		}
-		putsect(&sect);
-		if (totalmil >= 10000) {
-			pr("Rioting in induction center interrupts enlistment\n");
-			break;
-		}
-		if (reserve == 0) {
-			pr("Military reserve exhausted\n");
-			break;
-		}
-	}
-	pr("Total new enlistment : %d\n", totalmil);
-	pr("Military reserves stand at %d\n", reserve);
-	if (totalmil) {
-		natp->nat_reserve -= totalmil;
-		putnat(natp);
-	}
-	if ((player->btused += roundavg((float)totalmil * 0.02)) > 0)
-		pr("Paperwork at recruiting stations ... %d\n",
-			player->btused);
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    if (!trechk(player->cnum, 0, TRTENL))
+	return RET_FAIL;
+    natp = getnatp(player->cnum);
+    newmil = 500;
+    sprintf(prompt, "Number to enlist (max %d) : ", newmil);
+    if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
+	return RET_SYN;
+    if ((milwant = atoi(p)) > newmil)
+	milwant = newmil;
+    if (0 != (quota = (milwant < 0)))
+	milwant = -milwant;
+    totalmil = 0;
+    reserve = natp->nat_reserve;
+    if (reserve <= 0) {
+	pr("No military reserves left\n");
 	return RET_OK;
+    }
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (sect.sct_oldown != player->cnum)
+	    continue;
+	civ = getvar(V_CIVIL, (s_char *)&sect, EF_SECTOR);
+	if (civ == 0)
+	    continue;
+	if (sect.sct_loyal > 70) {
+	    pr("civilians refuse to report in %s!\n",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    continue;
+	}
+	if (sect.sct_mobil <= 0) {
+	    pr("%s is out of mobility!\n",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	}
+	mil = getvar(V_MILIT, (s_char *)&sect, EF_SECTOR);
+	newmil = civ * 0.5;
+	if (quota) {
+	    if (newmil > milwant - mil)
+		newmil = milwant - mil;
+	    if (newmil > 500)
+		newmil = 500;
+	} else if (newmil > milwant)
+	    newmil = milwant;
+	if (newmil > 999 - mil)
+	    newmil = 999 - mil;
+	if (newmil <= 0)
+	    continue;
+	if (newmil > reserve)
+	    newmil = reserve;
+	if (!putvar(V_MILIT, newmil + mil, (s_char *)&sect, EF_SECTOR)) {
+	    pr("No room for military in %s\n",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    continue;
+	}
+	reserve -= newmil;
+	totalmil += newmil;
+	putvar(V_CIVIL, civ - newmil, (s_char *)&sect, EF_SECTOR);
+	pr("%3d enlisted in %s (%d)\n", newmil,
+	   xyas(sect.sct_x, sect.sct_y, player->cnum), mil + newmil);
+	if (sect.sct_mobil > 0) {
+	    sect.sct_mobil = (u_char)((float)sect.sct_mobil *
+				      (1.0 - (float)newmil / (float)civ));
+	}
+	putsect(&sect);
+	if (totalmil >= 10000) {
+	    pr("Rioting in induction center interrupts enlistment\n");
+	    break;
+	}
+	if (reserve == 0) {
+	    pr("Military reserve exhausted\n");
+	    break;
+	}
+    }
+    pr("Total new enlistment : %d\n", totalmil);
+    pr("Military reserves stand at %d\n", reserve);
+    if (totalmil) {
+	natp->nat_reserve -= totalmil;
+	putnat(natp);
+    }
+    if ((player->btused += roundavg((float)totalmil * 0.02)) > 0)
+	pr("Paperwork at recruiting stations ... %d\n", player->btused);
+    return RET_OK;
 }

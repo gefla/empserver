@@ -39,25 +39,25 @@
 #include "var.h"
 #include "item.h"
 
-struct  ichrstr ichr[I_MAX+2]  = {
+struct ichrstr ichr[I_MAX + 2] = {
 /*        mnem vtype      val  sell lbs rg,wh,ur,bnk  name */
-	{ '?', 0,         0,   0,   0, { 0, 0, 0, 0}, "unused" },
+    {'?', 0, 0, 0, 0, {0, 0, 0, 0}, "unused"},
 /* STM CHANGED HERE */
-	{ 'c', V_CIVIL,   1,   0,   1, {10,10,10,10}, "civilians" },
-	{ 'm', V_MILIT,   0,   0,   1, { 1, 1, 1, 1}, "military" },
-	{ 's', V_SHELL,   5,   1,   1, { 1,10, 1, 1}, "shells" },
-	{ 'g', V_GUN,     60,  1,   10,{ 1,10, 1, 1}, "guns" },
-	{ 'p', V_PETROL,  4,   1,   1, { 1,10, 1, 1}, "petrol" },
-	{ 'i', V_IRON,    2,   1,   1, { 1,10, 1, 1}, "iron ore" },
-	{ 'd', V_DUST,    20,  1,   5, { 1,10, 1, 1}, "dust (gold)" },
-	{ 'b', V_BAR,     280, 1,   50,{ 1, 5, 1, 4}, "bars of gold" },
-	{ 'f', V_FOOD,    0,   1,   1, { 1,10, 1, 1}, "food" },
-	{ 'o', V_OIL,     8,   1,   1, { 1,10, 1, 1}, "oil" },
-	{ 'l', V_LCM,     2,   1,   1, { 1,10, 1, 1}, "light products" },
-	{ 'h', V_HCM,     4,   1,   1, { 1,10, 1, 1}, "heavy products" },
-	{ 'u', V_UW,      1,   1,   2, { 1, 2, 1, 1}, "uncompensated workers"},
-	{ 'r', V_RAD,	  150, 1,   8, { 1,10, 1, 1}, "radioactive materials"},
-  	{ 0,   0,         0,   0,   0, { 0, 0, 0, 0}, 0 }
+    {'c', V_CIVIL, 1, 0, 1, {10, 10, 10, 10}, "civilians"},
+    {'m', V_MILIT, 0, 0, 1, {1, 1, 1, 1}, "military"},
+    {'s', V_SHELL, 5, 1, 1, {1, 10, 1, 1}, "shells"},
+    {'g', V_GUN, 60, 1, 10, {1, 10, 1, 1}, "guns"},
+    {'p', V_PETROL, 4, 1, 1, {1, 10, 1, 1}, "petrol"},
+    {'i', V_IRON, 2, 1, 1, {1, 10, 1, 1}, "iron ore"},
+    {'d', V_DUST, 20, 1, 5, {1, 10, 1, 1}, "dust (gold)"},
+    {'b', V_BAR, 280, 1, 50, {1, 5, 1, 4}, "bars of gold"},
+    {'f', V_FOOD, 0, 1, 1, {1, 10, 1, 1}, "food"},
+    {'o', V_OIL, 8, 1, 1, {1, 10, 1, 1}, "oil"},
+    {'l', V_LCM, 2, 1, 1, {1, 10, 1, 1}, "light products"},
+    {'h', V_HCM, 4, 1, 1, {1, 10, 1, 1}, "heavy products"},
+    {'u', V_UW, 1, 1, 2, {1, 2, 1, 1}, "uncompensated workers"},
+    {'r', V_RAD, 150, 1, 8, {1, 10, 1, 1}, "radioactive materials"},
+    {0, 0, 0, 0, 0, {0, 0, 0, 0}, 0}
 };
 
-int	itm_maxno   = (sizeof(ichr) / sizeof(struct ichrstr)) - 1;
+int itm_maxno = (sizeof(ichr) / sizeof(struct ichrstr)) - 1;

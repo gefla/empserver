@@ -54,17 +54,18 @@
  *
  */
 int
-do_feed(register struct sctstr *sp, register struct natstr *np, int *vec, int *workp, int *bp, int etu)
+do_feed(register struct sctstr *sp, register struct natstr *np, int *vec,
+	int *workp, int *bp, int etu)
 {
-    extern	double eatrate;
-    int	people;
-    int	work_avail;
-    int	starved, sctwork;
-    int	needed, dummy;
+    extern double eatrate;
+    int people;
+    int work_avail;
+    int starved, sctwork;
+    int needed, dummy;
     int civvies, uws;
     int mil;
     int maxpop;
-    
+
     /* grow people & stuff */
     sctwork = sp->sct_work;
 
@@ -73,32 +74,33 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec, int *w
     uws = (vec[I_UW] > maxpop) ? maxpop : vec[I_UW];
     mil = (vec[I_MILIT] > maxpop) ? maxpop : vec[I_MILIT];
     work_avail = total_work(sctwork, etu, civvies, mil, uws);
-    
+
     people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
     if (sp->sct_type != SCT_SANCT) {
 	if (opt_NOFOOD == 0) {
 	    if (vec[I_FOOD] < 1 + etu * people * eatrate) {
-		/* need to grow "emergency rations" */ 
-		work_avail -= (2 * 
-			       growfood(sp, vec, (int)(work_avail/2), etu));
-		/* It's twice as hard to grow those than norm*/
-		pt_bg_nmbr(bp, sp, I_MAX+1, work_avail);
+		/* need to grow "emergency rations" */
+		work_avail -= (2 *
+			       growfood(sp, vec, (int)(work_avail / 2),
+					etu));
+		/* It's twice as hard to grow those than norm */
+		pt_bg_nmbr(bp, sp, I_MAX + 1, work_avail);
 		if (!player->simulation)
 		    sp->sct_avail = work_avail;
 	    }
 	    if ((vec[I_FOOD] < 1 + etu * people * eatrate) &&
-		(sp->sct_own == sp->sct_oldown)){
-		
+		(sp->sct_own == sp->sct_oldown)) {
+
 		/* steal food from warehouses, headquarters,
 		   supply ships in port, or supply units */
-		int	needed;
-		
-		needed = ldround((double)(1+etu*people*eatrate),1);
-		
+		int needed;
+
+		needed = ldround((double)(1 + etu * people * eatrate), 1);
+
 		/* Now, find some food */
-		vec[I_FOOD] = supply_commod(sp->sct_own,sp->sct_x,
-					    sp->sct_y,I_FOOD,needed);
-		
+		vec[I_FOOD] = supply_commod(sp->sct_own, sp->sct_x,
+					    sp->sct_y, I_FOOD, needed);
+
 	    }
 	}
 	starved = feed_people(vec, etu, &needed);
@@ -112,7 +114,7 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec, int *w
 	if (starved > 0) {
 	    if (!player->simulation)
 		starvation(sp);
-	    sctwork = 0;		    
+	    sctwork = 0;
 	} else {
 	    if (sp->sct_work < 100)
 		sctwork = sp->sct_work + 8 + (random() % 15);
@@ -126,7 +128,7 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec, int *w
 	sctwork = sp->sct_work = 100;
     /* Here is where we truncate extra people, always */
     trunc_people(sp, np, vec);
-    
+
     pt_bg_nmbr(bp, sp, I_CIVIL, vec[I_CIVIL]);
     pt_bg_nmbr(bp, sp, I_UW, vec[I_UW]);
     pt_bg_nmbr(bp, sp, I_MILIT, vec[I_MILIT]);
@@ -137,13 +139,13 @@ do_feed(register struct sctstr *sp, register struct natstr *np, int *vec, int *w
 int
 growfood(struct sctstr *sp, register int *vec, int work, int etu)
 {
-    extern	double fgrate;
-    extern	double fcrate;
-    double	food_fertil;
-    double	food_workers;
-    double	food;
-    int	work_used;
-    
+    extern double fgrate;
+    extern double fcrate;
+    double food_fertil;
+    double food_workers;
+    double food;
+    int work_used;
+
     /* I'm being very nice and commenting out this so players
      * won't whine about starvation
      if (sp->sct_fertil == 0 || work == 0)
@@ -158,12 +160,12 @@ growfood(struct sctstr *sp, register int *vec, int work, int etu)
      * be nice; grow minimum one food unit.
      * This makes life simpler for the player.
      */
-    vec[I_FOOD] += (int) food;
+    vec[I_FOOD] += (int)food;
     if (vec[I_FOOD] == 0)
 	vec[I_FOOD] = 1;
     if (vec[I_FOOD] > 9999)
 	vec[I_FOOD] = 9999;
-    work_used = (int) food / fcrate;
+    work_used = (int)food / fcrate;
     return work_used;
 }
 
@@ -173,18 +175,19 @@ growfood(struct sctstr *sp, register int *vec, int work, int etu)
 int
 feed_people(register int *vec, int etu, int *needed)
 {
-    extern	double eatrate;
-    double	food_eaten;
-    double	people_left;
-    int	can_eat;
-    int	total_people;
-    int	to_starve;
-    int	starved;
-    
+    extern double eatrate;
+    double food_eaten;
+    double people_left;
+    int can_eat;
+    int total_people;
+    int to_starve;
+    int starved;
+
     if (opt_NOFOOD)
 	return 0;
     food_eaten = (double)(((double)etu * (double)eatrate) *
-	(double)(vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW]));
+			  (double)(vec[I_CIVIL] + vec[I_MILIT] +
+				   vec[I_UW]));
     if (food_eaten <= 1)
 	return 0;
     starved = 0;
@@ -196,43 +199,42 @@ feed_people(register int *vec, int etu, int *needed)
 	if (opt_NEW_STARVE) {
 	    can_eat = (vec[I_FOOD] / (etu * eatrate));
 	    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-	    
+
 	    /* only want to starve off at most 1/2 the populace. */
-	    if (can_eat < (total_people/2))
-		can_eat = total_people/2;
-	    
-	    to_starve = total_people - can_eat;	
-	    while(to_starve && vec[I_UW]){
+	    if (can_eat < (total_people / 2))
+		can_eat = total_people / 2;
+
+	    to_starve = total_people - can_eat;
+	    while (to_starve && vec[I_UW]) {
 		to_starve--;
 		starved++;
 		vec[I_UW]--;
 	    }
-	    while(to_starve && vec[I_CIVIL]){
+	    while (to_starve && vec[I_CIVIL]) {
 		to_starve--;
 		starved++;
 		vec[I_CIVIL]--;
 	    }
-	    while(to_starve && vec[I_MILIT]){
+	    while (to_starve && vec[I_MILIT]) {
 		to_starve--;
 		starved++;
 		vec[I_MILIT]--;
 	    }
-	    
+
 	    vec[I_FOOD] = 0;
-	}
-	else {		/* ! opt_NEW_STARVE */
-	    
+	} else {		/* ! opt_NEW_STARVE */
+
 	    people_left = (vec[I_FOOD] + 0.01) / (food_eaten + 0.01);
 	    starved = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
 	    /* only want to starve off at most 1/2 the populace. */
 	    if (people_left < 0.5)
 		people_left = 0.5;
-	    vec[I_CIVIL] = (int) (vec[I_CIVIL] * people_left);
-	    vec[I_MILIT] = (int) (vec[I_MILIT] * people_left);
-	    vec[I_UW] = (int) (vec[I_UW] * people_left);
+	    vec[I_CIVIL] = (int)(vec[I_CIVIL] * people_left);
+	    vec[I_MILIT] = (int)(vec[I_MILIT] * people_left);
+	    vec[I_UW] = (int)(vec[I_UW] * people_left);
 	    starved -= vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
 	    vec[I_FOOD] = 0;
-	} /* end opt_NEW_STARVE */
+	}			/* end opt_NEW_STARVE */
     } else {
 	vec[I_FOOD] -= roundavg(food_eaten);
     }
@@ -243,10 +245,11 @@ feed_people(register int *vec, int etu, int *needed)
  * Truncate any extra people that may be around
  */
 void
-trunc_people(struct sctstr *sp, register struct natstr *np, register int *vec)
+trunc_people(struct sctstr *sp, register struct natstr *np,
+	     register int *vec)
 {
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
-    
+
     if (vec[I_CIVIL] > maxpop)
 	vec[I_CIVIL] = maxpop;
     if (vec[I_UW] > maxpop)
@@ -259,26 +262,29 @@ trunc_people(struct sctstr *sp, register struct natstr *np, register int *vec)
  * rate limitation on countries with high tech
  * production?  Maybe with just high education?
  */
-int grow_people(struct sctstr *sp, register int etu, register struct natstr *np, int *workp, int sctwork, register int *vec)
+int
+grow_people(struct sctstr *sp, register int etu,
+	    register struct natstr *np, int *workp, int sctwork,
+	    register int *vec)
 {
-    extern	double obrate;
-    extern	double uwbrate;
-    extern	double babyeat;
-    int	newciv;
-    int	newuw;
-    int	new_birth;
-    int	new_food;
-    int	maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
-    
+    extern double obrate;
+    extern double uwbrate;
+    extern double babyeat;
+    int newciv;
+    int newuw;
+    int new_birth;
+    int new_food;
+    int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
+
     newciv = 0;
     newuw = 0;
     if (vec[I_CIVIL] < maxpop) {
-	new_birth = (int) roundavg(obrate * (double)(etu * vec[I_CIVIL]));
-	if (opt_NOFOOD) 
-	    new_food = (int) (0.5 + maxpop / (2.0 * babyeat));
-	else		/* we are using food */
-	    new_food = (int) (0.5 + vec[I_FOOD] / (2.0 * babyeat));
-	
+	new_birth = (int)roundavg(obrate * (double)(etu * vec[I_CIVIL]));
+	if (opt_NOFOOD)
+	    new_food = (int)(0.5 + maxpop / (2.0 * babyeat));
+	else			/* we are using food */
+	    new_food = (int)(0.5 + vec[I_FOOD] / (2.0 * babyeat));
+
 	newciv = new_birth;
 	if (newciv > new_food)
 	    newciv = new_food;
@@ -291,12 +297,12 @@ int grow_people(struct sctstr *sp, register int etu, register struct natstr *np,
 	/*
 	 * now grow uw's
 	 */
-	new_birth = (int) roundavg(uwbrate * (double)(etu * vec[I_UW]));
+	new_birth = (int)roundavg(uwbrate * (double)(etu * vec[I_UW]));
 	if (opt_NOFOOD)
-	    new_food = (int) (0.5 + maxpop / (2.0 * babyeat));
-	else		/* food is important */
-	    new_food = (int) (0.5 + vec[I_FOOD] / (2.0 * babyeat));
-	
+	    new_food = (int)(0.5 + maxpop / (2.0 * babyeat));
+	else			/* food is important */
+	    new_food = (int)(0.5 + vec[I_FOOD] / (2.0 * babyeat));
+
 	newuw = new_birth;
 	if (newuw > new_food)
 	    newuw = new_food;

@@ -53,89 +53,88 @@
 int
 sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
 {
-	int     eff;
+    int eff;
 
-	if (dam <= 0)
-		return 0;
-	if (dam > 100)
-		dam = 100;
+    if (dam <= 0)
+	return 0;
+    if (dam > 100)
+	dam = 100;
 
-	sp->sct_effic = damage((int)sp->sct_effic, dam);
-	sp->sct_road = damage((int)sp->sct_road, dam);
-	sp->sct_rail = damage((int)sp->sct_rail, dam);
-	sp->sct_defense = damage((int)sp->sct_defense, dam);
-	if (!opt_DEFENSE_INFRA)
-	  sp->sct_defense = sp->sct_effic;
+    sp->sct_effic = damage((int)sp->sct_effic, dam);
+    sp->sct_road = damage((int)sp->sct_road, dam);
+    sp->sct_rail = damage((int)sp->sct_rail, dam);
+    sp->sct_defense = damage((int)sp->sct_defense, dam);
+    if (!opt_DEFENSE_INFRA)
+	sp->sct_defense = sp->sct_effic;
 
-	eff = dam;
+    eff = dam;
 
-	if (sp->sct_mobil > 0)
-	     sp->sct_mobil = damage((int)sp->sct_mobil, dam);
-	sp->sct_nv = vl_damage(dam,
-			       sp->sct_vtype, sp->sct_vamt,
-			       (int)sp->sct_nv);
-	if (opt_EASY_BRIDGES == 0) {
-	  if (sp->sct_effic < 20 && sp->sct_type == SCT_BHEAD)
+    if (sp->sct_mobil > 0)
+	sp->sct_mobil = damage((int)sp->sct_mobil, dam);
+    sp->sct_nv = vl_damage(dam,
+			   sp->sct_vtype, sp->sct_vamt, (int)sp->sct_nv);
+    if (opt_EASY_BRIDGES == 0) {
+	if (sp->sct_effic < 20 && sp->sct_type == SCT_BHEAD)
 	    bridgefall(sp, list);
-	} else {
-	  if (sp->sct_effic < 20 && sp->sct_type == SCT_BSPAN)
+    } else {
+	if (sp->sct_effic < 20 && sp->sct_type == SCT_BSPAN)
 	    knockdown(sp, list);
-	} 
-	putsect(sp);
-	return eff;
+    }
+    putsect(sp);
+    return eff;
 }
 
 int
 sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
 {
-	extern	double unit_damage;
-	struct	nstr_item ni;
-	struct	lndstr land;
-	struct  plnstr plane;
-	double	real_dam;
-	int     eff;
-	double  sector_strength();
+    extern double unit_damage;
+    struct nstr_item ni;
+    struct lndstr land;
+    struct plnstr plane;
+    double real_dam;
+    int eff;
+    double sector_strength();
 
-	/* Some sectors are harder/easier to kill..   */
-	/* Average sector has a dstr of 1, so adjust  */
-	/* the damage accordingly. Makes forts a pain */
-	
+    /* Some sectors are harder/easier to kill..   */
+    /* Average sector has a dstr of 1, so adjust  */
+    /* the damage accordingly. Makes forts a pain */
+
 /*	real_dam = (double)dam * (1.0/((((double)(dchr[sp->sct_type].d_dstr - 1))*(sp->sct_effic/100.0)) + 1.0));*/
-	real_dam = (double)dam * (1.0/sector_strength(sp));
-	dam = ldround(real_dam,1);
+    real_dam = (double)dam *(1.0 / sector_strength(sp));
+    dam = ldround(real_dam, 1);
 
-	eff = sect_damage(sp, PERCENT_DAMAGE(dam), list);
+    eff = sect_damage(sp, PERCENT_DAMAGE(dam), list);
 
-	/* Damage all the land units in the sector */
-	/* Units don't take full damage */
-	dam = ldround(DPERCENT_DAMAGE(dam * unit_damage), 1);
-	if (dam <= 0)
-		return eff;
-
-	snxtitem_xy(&ni,EF_LAND,sp->sct_x,sp->sct_y);	
-	while(nxtitem(&ni,(s_char *)&land)){
-		if (!land.lnd_own)
-			continue;
-		landdamage(&land,dam);
-		putland(land.lnd_uid,&land);
-	}
-
-	dam = dam / 7;
-	if (dam <= 0)
-	    return eff;
-	snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
-	while (nxtitem(&ni, (s_char *)&plane)) {
-	    if (!plane.pln_own)
-		continue;
-	    if (plane.pln_flags & PLN_LAUNCHED)
-		continue;
-	    if (plane.pln_ship >= 0)
-		continue;
-	    /* Is this plane flying in this list? */
-	    if (ac_isflying(&plane, list))
-	      continue;
-	    planedamage(&plane, dam);
-	    putplane(plane.pln_uid, &plane);
-	}
+    /* Damage all the land units in the sector */
+    /* Units don't take full damage */
+    dam = ldround(DPERCENT_DAMAGE(dam * unit_damage), 1);
+    if (dam <= 0)
 	return eff;
+
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (nxtitem(&ni, (s_char *)&land)) {
+	if (!land.lnd_own)
+	    continue;
+	landdamage(&land, dam);
+	putland(land.lnd_uid, &land);
+    }
+
+    dam = dam / 7;
+    if (dam <= 0)
+	return eff;
+    snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
+    while (nxtitem(&ni, (s_char *)&plane)) {
+	if (!plane.pln_own)
+	    continue;
+	if (plane.pln_flags & PLN_LAUNCHED)
+	    continue;
+	if (plane.pln_ship >= 0)
+	    continue;
+	/* Is this plane flying in this list? */
+	if (ac_isflying(&plane, list))
+	    continue;
+	planedamage(&plane, dam);
+	putplane(plane.pln_uid, &plane);
+    }
+    return eff;
 }

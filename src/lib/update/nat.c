@@ -45,7 +45,7 @@
 #include "update.h"
 #include "subs.h"
 
-float	levels[MAXNOC][4];
+float levels[MAXNOC][4];
 
 /*
  * hap and edu avg mean that the weight on current happiness is
@@ -58,9 +58,9 @@ float	levels[MAXNOC][4];
  * level of 0 yields (1) 0.4, (6) 2.2, (12) 3.9, (18) 5.2.
  */
 
-extern float	hap_avg;
-extern float	edu_avg;
-extern float	ally_factor;
+extern float hap_avg;
+extern float edu_avg;
+extern float ally_factor;
 
 /*
  * for values below the "easy level" values, production is
@@ -75,8 +75,8 @@ extern float	ally_factor;
  * They are changed later in the limit_level routine.
  */
 			/*tech   res   edu   hap */
-float	level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
-float	level_log[4] =  { 1.75, 2.00, 4.00, 6.00 };
+float level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
+float level_log[4] = { 1.75, 2.00, 4.00, 6.00 };
 
 /*
  * technique to limit the sharpers who turn entire countries
@@ -86,158 +86,156 @@ float	level_log[4] =  { 1.75, 2.00, 4.00, 6.00 };
 double
 logx(double d, double base)
 {
-	if (base == 1.0)
-		return d;
-	return log10(d) / log10(base);
+    if (base == 1.0)
+	return d;
+    return log10(d) / log10(base);
 }
 
 double
 limit_level(double level, int type, int flag)
 {
-	double	above_easy;
-	double	above;
-	double	logbase;
-	double	easy;
+    double above_easy;
+    double above;
+    double logbase;
+    double easy;
 
 /*
  * Begin ugly hack.
  */
-	extern float	easy_tech, tech_log_base;
+    extern float easy_tech, tech_log_base;
 
-	level_easy[0] = easy_tech;
-	level_log[0] = tech_log_base;
+    level_easy[0] = easy_tech;
+    level_log[0] = tech_log_base;
 /*
  * End ugly hack.
  */
 
-	if (level > level_easy[type]) {
-		logbase = level_log[type];
-		easy = level_easy[type];
-		above_easy = level - easy;
-		if (flag)
-			above = above_easy / logx(logbase + above_easy,logbase);
-		else
-	    		above = logx(above_easy + 1.0, logbase);
-		if (above > 250) above = 250;
-		return ((above) < 0) ? easy : (easy + above);
-	} else
-		return level;
+    if (level > level_easy[type]) {
+	logbase = level_log[type];
+	easy = level_easy[type];
+	above_easy = level - easy;
+	if (flag)
+	    above = above_easy / logx(logbase + above_easy, logbase);
+	else
+	    above = logx(above_easy + 1.0, logbase);
+	if (above > 250)
+	    above = 250;
+	return ((above) < 0) ? easy : (easy + above);
+    } else
+	return level;
 }
 
 void
 prod_nat(int etu)
 {
-	extern	long money[MAXNOC];
-	extern	long pops[MAXNOC];
-	extern	double hap_cons, edu_cons;
-	extern	long sea_money[MAXNOC];
-	extern	long lnd_money[MAXNOC];
-	extern	long air_money[MAXNOC];
-	struct	natstr *np;
-	float	hap;
-	float	edu;
-	float	hap_edu;
-	long	pop;
-	double	rlev;
-	double	tlev;
-	double	tech[MAXNOC];
-	double	res[MAXNOC];
-	double	newvalue;
-	natid	n;
-	int	cn,cont;
+    extern long money[MAXNOC];
+    extern long pops[MAXNOC];
+    extern double hap_cons, edu_cons;
+    extern long sea_money[MAXNOC];
+    extern long lnd_money[MAXNOC];
+    extern long air_money[MAXNOC];
+    struct natstr *np;
+    float hap;
+    float edu;
+    float hap_edu;
+    long pop;
+    double rlev;
+    double tlev;
+    double tech[MAXNOC];
+    double res[MAXNOC];
+    double newvalue;
+    natid n;
+    int cn, cont;
 
-	for (n=0; NULL != (np = getnatp(n)); n++) {
-		if ((np->nat_stat & STAT_NORM) == 0)
-			continue;
-		/*
-		 * hap_edu: the more education people have, the
-		 * more happiness they want.
-		 */
-		hap_edu = np->nat_level[NAT_ELEV];
-		hap_edu = 1.5 - ((hap_edu + 10.0) / (hap_edu + 20.0));
-		pop = pops[n] + 1;
-		/*
-		 * get per-population happiness and education
-		 * see what the total per-civilian production is
-		 * for this time period.
-		 */
-		hap = levels[n][NAT_HLEV] * hap_edu * hap_cons /
-			((float)pop * etu);
-		edu = levels[n][NAT_ELEV] * edu_cons /
-			((float)pop * etu);
-		wu((natid)0, n, "%3.0f happiness, %3.0f education produced\n",
-			levels[n][NAT_HLEV], levels[n][NAT_ELEV]);
-		hap = limit_level(hap, NAT_HLEV, 1);
-		edu = limit_level(edu, NAT_ELEV, 1);
-		/*
-		 * change the "moving average"...old happiness and
-		 * education levels are weighted heavier than current
-		 * production.
-		 */
-		newvalue = (np->nat_level[NAT_HLEV] * hap_avg + hap * etu) / 
-			(hap_avg + etu);
-		np->nat_level[NAT_HLEV] = newvalue;
-		newvalue = (np->nat_level[NAT_ELEV] * edu_avg + edu * etu) / 
-			(edu_avg + etu);
-		np->nat_level[NAT_ELEV] = newvalue;
-		/*
-		 * limit tech/research production
-		 */
-		levels[n][NAT_TLEV] =
-			limit_level(levels[n][NAT_TLEV] / 1,
-				NAT_TLEV, 0) * 1;
-		levels[n][NAT_RLEV] =
-			limit_level(levels[n][NAT_RLEV] / 1,
-				NAT_RLEV, 0) * 1;
-		wu((natid)0, n,
-			"total pop is %d, yielding %4.2f hap, %4.2f edu\n",
-			pop - 1, hap, edu);
-	}
-	if (ally_factor > 0.0)
-		share_incr(res, tech);
-	else {
-		bzero((s_char *)res, sizeof(res));
-		bzero((s_char *)tech, sizeof(tech));
-	}
-	for (n=0; NULL != (np = getnatp(n)); n++) {
-		if ((np->nat_stat & STAT_NORM) == 0)
-			continue;
-		tlev = levels[n][NAT_TLEV];
-		rlev = levels[n][NAT_RLEV];
-		if (tech[n] != 0.0 || res[n] != 0.0) {
-			wu((natid)0, n,
-				"%5.4f technology (%5.4f + %5.4f), ",
-				tlev + tech[n], tlev, tech[n]);
-			wu((natid)0, n,
-				"%5.4f research (%5.4f + %5.4f) produced\n",
-				rlev + res[n], rlev, res[n]);
-		} else
-			wu((natid)0, n,
-				"%5.4f tech, %5.4f research produced\n",
-				     tlev, rlev);
-		rlev += res[n];
-		tlev += tech[n];
-		if (rlev != 0.0)
-			np->nat_level[NAT_RLEV] += rlev;
-		if (tlev != 0.0)
-			np->nat_level[NAT_TLEV] += tlev;
-		if ((sea_money[n] != 0) || (air_money[n] != 0) ||
-			(lnd_money[n] != 0))
-			wu((natid)0, n, 
-			"Army delta $%d, Navy delta $%d, Air force delta $%d\n",
-				lnd_money[n], sea_money[n], air_money[n]);
-		wu((natid)0, n, "money delta was $%d for this update\n",
-			np->nat_money - money[n]);
-		if (opt_LOSE_CONTACT) {
-		    for (cn=0; cn <= MAXNOC; cn++) {
-                        cont = getcontact(np, cn);
-			if (cont > 0) {
-				logerror ("country %d at level %d with country %d.\n", n, cont, cn);
-                                setcont(n, cn, cont-1); 
-			}
-		    }
+    for (n = 0; NULL != (np = getnatp(n)); n++) {
+	if ((np->nat_stat & STAT_NORM) == 0)
+	    continue;
+	/*
+	 * hap_edu: the more education people have, the
+	 * more happiness they want.
+	 */
+	hap_edu = np->nat_level[NAT_ELEV];
+	hap_edu = 1.5 - ((hap_edu + 10.0) / (hap_edu + 20.0));
+	pop = pops[n] + 1;
+	/*
+	 * get per-population happiness and education
+	 * see what the total per-civilian production is
+	 * for this time period.
+	 */
+	hap = levels[n][NAT_HLEV] * hap_edu * hap_cons /
+	    ((float)pop * etu);
+	edu = levels[n][NAT_ELEV] * edu_cons / ((float)pop * etu);
+	wu((natid)0, n, "%3.0f happiness, %3.0f education produced\n",
+	   levels[n][NAT_HLEV], levels[n][NAT_ELEV]);
+	hap = limit_level(hap, NAT_HLEV, 1);
+	edu = limit_level(edu, NAT_ELEV, 1);
+	/*
+	 * change the "moving average"...old happiness and
+	 * education levels are weighted heavier than current
+	 * production.
+	 */
+	newvalue = (np->nat_level[NAT_HLEV] * hap_avg + hap * etu) /
+	    (hap_avg + etu);
+	np->nat_level[NAT_HLEV] = newvalue;
+	newvalue = (np->nat_level[NAT_ELEV] * edu_avg + edu * etu) /
+	    (edu_avg + etu);
+	np->nat_level[NAT_ELEV] = newvalue;
+	/*
+	 * limit tech/research production
+	 */
+	levels[n][NAT_TLEV] =
+	    limit_level(levels[n][NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
+	levels[n][NAT_RLEV] =
+	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
+	wu((natid)0, n,
+	   "total pop is %d, yielding %4.2f hap, %4.2f edu\n",
+	   pop - 1, hap, edu);
+    }
+    if (ally_factor > 0.0)
+	share_incr(res, tech);
+    else {
+	bzero((s_char *)res, sizeof(res));
+	bzero((s_char *)tech, sizeof(tech));
+    }
+    for (n = 0; NULL != (np = getnatp(n)); n++) {
+	if ((np->nat_stat & STAT_NORM) == 0)
+	    continue;
+	tlev = levels[n][NAT_TLEV];
+	rlev = levels[n][NAT_RLEV];
+	if (tech[n] != 0.0 || res[n] != 0.0) {
+	    wu((natid)0, n,
+	       "%5.4f technology (%5.4f + %5.4f), ",
+	       tlev + tech[n], tlev, tech[n]);
+	    wu((natid)0, n,
+	       "%5.4f research (%5.4f + %5.4f) produced\n",
+	       rlev + res[n], rlev, res[n]);
+	} else
+	    wu((natid)0, n,
+	       "%5.4f tech, %5.4f research produced\n", tlev, rlev);
+	rlev += res[n];
+	tlev += tech[n];
+	if (rlev != 0.0)
+	    np->nat_level[NAT_RLEV] += rlev;
+	if (tlev != 0.0)
+	    np->nat_level[NAT_TLEV] += tlev;
+	if ((sea_money[n] != 0) || (air_money[n] != 0) ||
+	    (lnd_money[n] != 0))
+	    wu((natid)0, n,
+	       "Army delta $%d, Navy delta $%d, Air force delta $%d\n",
+	       lnd_money[n], sea_money[n], air_money[n]);
+	wu((natid)0, n, "money delta was $%d for this update\n",
+	   np->nat_money - money[n]);
+	if (opt_LOSE_CONTACT) {
+	    for (cn = 0; cn <= MAXNOC; cn++) {
+		cont = getcontact(np, cn);
+		if (cont > 0) {
+		    logerror("country %d at level %d with country %d.\n",
+			     n, cont, cn);
+		    setcont(n, cn, cont - 1);
 		}
+	    }
 	}
+    }
 }
 
 /*
@@ -246,64 +244,63 @@ prod_nat(int etu)
 void
 share_incr(register double *res, register double *tech)
 {
-	register struct natstr *np;
-	register struct natstr *other;
-	register natid i;
-	register natid j;
-	int rnc;
-	int tnc;
+    register struct natstr *np;
+    register struct natstr *other;
+    register natid i;
+    register natid j;
+    int rnc;
+    int tnc;
 
-	for (i=0; NULL != (np = getnatp(i)); i++) {
-		res[i] = tech[i] = 0.0;
-		if ((np->nat_stat & STAT_INUSE) == 0)
-			continue;
-		if (np->nat_stat & STAT_GOD)
-		  continue;
-		if (np->nat_stat == VIS)
-		  continue;
-		rnc = tnc = 0;
-		for (j=0; NULL != (other = getnatp(j)); j++) {
-			if (j == i)
-				continue;
-			if (other->nat_stat & STAT_GOD)
-			  continue;
-			if (other->nat_stat == VIS)
-			  continue;
-			if ((other->nat_stat & STAT_INUSE) == 0)
-			  continue;
-			if (opt_HIDDEN) {
-			    if (!getcontact(np, j))
-                                continue;
-			}
-			if (!opt_ALL_BLEED) {
-			  if (getrel(np, j) != ALLIED)
-			    continue;
-			  if (getrel(other, i) != ALLIED)
-			    continue;
-			  res[i] += levels[j][NAT_RLEV];
-			  tech[i] += levels[j][NAT_TLEV];
-			  rnc++;
-			  tnc++;
-			} else {
-			  if (levels[j][NAT_TLEV] > 0.001) {
-			    tech[i] += levels[j][NAT_TLEV];
-			    tnc++;
-			  }
-			  if (levels[j][NAT_RLEV] > 0.001) {
-			    res[i] += levels[j][NAT_RLEV];
-			    rnc++;
-			  }
-			}
+    for (i = 0; NULL != (np = getnatp(i)); i++) {
+	res[i] = tech[i] = 0.0;
+	if ((np->nat_stat & STAT_INUSE) == 0)
+	    continue;
+	if (np->nat_stat & STAT_GOD)
+	    continue;
+	if (np->nat_stat == VIS)
+	    continue;
+	rnc = tnc = 0;
+	for (j = 0; NULL != (other = getnatp(j)); j++) {
+	    if (j == i)
+		continue;
+	    if (other->nat_stat & STAT_GOD)
+		continue;
+	    if (other->nat_stat == VIS)
+		continue;
+	    if ((other->nat_stat & STAT_INUSE) == 0)
+		continue;
+	    if (opt_HIDDEN) {
+		if (!getcontact(np, j))
+		    continue;
+	    }
+	    if (!opt_ALL_BLEED) {
+		if (getrel(np, j) != ALLIED)
+		    continue;
+		if (getrel(other, i) != ALLIED)
+		    continue;
+		res[i] += levels[j][NAT_RLEV];
+		tech[i] += levels[j][NAT_TLEV];
+		rnc++;
+		tnc++;
+	    } else {
+		if (levels[j][NAT_TLEV] > 0.001) {
+		    tech[i] += levels[j][NAT_TLEV];
+		    tnc++;
 		}
-		if (rnc == 0 && tnc == 0)
-		  continue;
-		if (rnc > 0) {
-		  res[i] /= rnc * ally_factor;
+		if (levels[j][NAT_RLEV] > 0.001) {
+		    res[i] += levels[j][NAT_RLEV];
+		    rnc++;
 		}
-		if (tnc > 0) {
-		  tech[i] /= tnc * ally_factor;
-		}
-/*		logerror("Country #%d gets %g res from %d allies, %g tech from %d allies", i, res[i], rnc, tech[i], tnc);*/
+	    }
 	}
+	if (rnc == 0 && tnc == 0)
+	    continue;
+	if (rnc > 0) {
+	    res[i] /= rnc * ally_factor;
+	}
+	if (tnc > 0) {
+	    tech[i] /= tnc * ally_factor;
+	}
+/*		logerror("Country #%d gets %g res from %d allies, %g tech from %d allies", i, res[i], rnc, tech[i], tnc);*/
+    }
 }
-

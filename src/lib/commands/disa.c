@@ -38,12 +38,12 @@
 int
 disa(void)
 {
-	extern	s_char *disablefil;
-	int	fd;
+    extern s_char *disablefil;
+    int fd;
 
-	if ((fd = open(disablefil, O_RDWR|O_CREAT|O_TRUNC, 0660)) < 0)
-		return RET_FAIL;
-	close(fd);
-	pr("Updates are disabled\n");
-	return RET_OK;
+    if ((fd = open(disablefil, O_RDWR | O_CREAT | O_TRUNC, 0660)) < 0)
+	return RET_FAIL;
+    close(fd);
+    pr("Updates are disabled\n");
+    return RET_OK;
 }

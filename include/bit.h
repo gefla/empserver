@@ -34,8 +34,8 @@
 #ifndef _BIT_H_
 #define _BIT_H_
 
-typedef unsigned int	bit_mask;
-typedef bit_mask	*bit_fdmask;
+typedef unsigned int bit_mask;
+typedef bit_mask *bit_fdmask;
 
 #ifndef bit
 #define	bit(x) 		(1 << (x))
@@ -56,16 +56,16 @@ typedef bit_mask	*bit_fdmask;
 #define BIT_ISCLRB(a,b)	\
 	(((b)[(a)/BIT_BITSPERMASK] & (1<<((a) % BIT_BITSPERMASK))) == 0)
 
-extern	bit_fdmask	bit_newfdmask();
+extern bit_fdmask bit_newfdmask();
 
-extern bit_fdmask bit_newfdmask(void );
-extern void bit_zero(bit_fdmask );
-extern void bit_not(bit_fdmask );
-extern void bit_copy(bit_fdmask  , bit_fdmask );
-extern void bit_or(bit_fdmask  , bit_fdmask );
-extern void bit_or3(bit_fdmask  , bit_fdmask  , bit_fdmask );
-extern void bit_and(bit_fdmask  , bit_fdmask );
-extern void bit_and3(bit_fdmask  , bit_fdmask  , bit_fdmask );
-extern int bit_fd(bit_fdmask );
+extern bit_fdmask bit_newfdmask(void);
+extern void bit_zero(bit_fdmask);
+extern void bit_not(bit_fdmask);
+extern void bit_copy(bit_fdmask, bit_fdmask);
+extern void bit_or(bit_fdmask, bit_fdmask);
+extern void bit_or3(bit_fdmask, bit_fdmask, bit_fdmask);
+extern void bit_and(bit_fdmask, bit_fdmask);
+extern void bit_and3(bit_fdmask, bit_fdmask, bit_fdmask);
+extern int bit_fd(bit_fdmask);
 
 #endif /* _BIT_H_ */

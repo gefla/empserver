@@ -42,24 +42,25 @@
 int
 orig(void)
 {
-	struct	sctstr sect;
-	s_char	*p;
-	coord	x, y;
-	s_char	buf[1024];
-	struct	natstr *np;
+    struct sctstr sect;
+    s_char *p;
+    coord x, y;
+    s_char buf[1024];
+    struct natstr *np;
 
-	if ((p = getstarg(player->argp[1], "New origin location : ", buf)) == 0) {
-		return RET_SYN;
-	}
-	if (!sarg_xy(p, &x, &y))
-		return RET_SYN;
-	if (!getsect(x, y, &sect))
-		return RET_SYN;
-	pr("Origin at %s (old system) is now at 0,0 (new system).\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum));
-	np = getnatp(player->cnum);
-	np->nat_xorg = sect.sct_x;
-	np->nat_yorg = sect.sct_y;
-	putnat(np);
-	return RET_OK;
+    if ((p =
+	 getstarg(player->argp[1], "New origin location : ", buf)) == 0) {
+	return RET_SYN;
+    }
+    if (!sarg_xy(p, &x, &y))
+	return RET_SYN;
+    if (!getsect(x, y, &sect))
+	return RET_SYN;
+    pr("Origin at %s (old system) is now at 0,0 (new system).\n",
+       xyas(sect.sct_x, sect.sct_y, player->cnum));
+    np = getnatp(player->cnum);
+    np->nat_xorg = sect.sct_x;
+    np->nat_yorg = sect.sct_y;
+    putnat(np);
+    return RET_OK;
 }

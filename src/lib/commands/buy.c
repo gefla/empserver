@@ -54,7 +54,7 @@
 #include "commands.h"
 #include "optlist.h"
 
-extern	int MARK_DELAY;
+extern int MARK_DELAY;
 
 /*
  * format: buy <COMMODITY>
@@ -70,18 +70,18 @@ buy(void)
     struct comstr comt;
     struct trdstr tmpt;
     struct ichrstr *ip;
-    int	qty;
-    int	o, n, q;
-    coord	x, y;
-    char	*p;
-    float	bid;
-    time_t	now;
-    double	tally;
-    double      canspend;
-    extern	double	buytax;
-    extern	double	tradetax;
-    s_char  buf[1024];
-    
+    int qty;
+    int o, n, q;
+    coord x, y;
+    char *p;
+    float bid;
+    time_t now;
+    double tally;
+    double canspend;
+    extern double buytax;
+    extern double tradetax;
+    s_char buf[1024];
+
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");
 	return RET_FAIL;
@@ -91,13 +91,13 @@ buy(void)
     pr("\n");
     p = getstarg(player->argp[2], "Which lot are you bidding on: ", buf);
     if (p == 0)
-        return RET_SYN;
+	return RET_SYN;
     if (*p == 0)
-        return RET_SYN;
+	return RET_SYN;
     o = atoi(p);
     if (o < 0)
 	return RET_SYN;
-    if(!getcomm(o, &comm) || comm.com_owner == 0){
+    if (!getcomm(o, &comm) || comm.com_owner == 0) {
 	pr("Invalid lot number.\n");
 	return RET_OK;
     }
@@ -106,7 +106,7 @@ buy(void)
 	pr("That lot is not of the type you specified.\n");
 	return RET_OK;
     }
-    if (comm.com_owner == player->cnum){
+    if (comm.com_owner == player->cnum) {
 	pr("You can't bid on your own lot.\n");
 	return RET_OK;
     }
@@ -114,8 +114,8 @@ buy(void)
     pr("  bids than your treasury can cover at the time of sale,\n");
     pr("  you can potentially go into financial ruin, and see no\n");
     pr("  gains.  You have been warned.\n\n");
-    if ((p = getstarg(player->argp[3], "How much per unit: ",buf)) == 0)
-        return RET_SYN;
+    if ((p = getstarg(player->argp[3], "How much per unit: ", buf)) == 0)
+	return RET_SYN;
     bid = atof(p);
     if (bid <= 0)
 	return RET_FAIL;
@@ -131,15 +131,13 @@ buy(void)
     tally = 0.0;
     for (q = 0; gettrade(q, &tmpt); q++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
-	    tmpt.trd_unitid >= 0 &&
-	    tmpt.trd_owner != player->cnum) {
+	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_maxprice * tradetax;
 	}
     }
     for (q = 0; getcomm(q, &comt); q++) {
 	if (comt.com_maxbidder == player->cnum &&
-	    comt.com_owner != 0 &&
-	    comt.com_owner != player->cnum) {
+	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
 	    tally += (comt.com_maxprice * comt.com_amount) * buytax;
 	}
     }
@@ -187,25 +185,25 @@ buy(void)
 	return RET_FAIL;
     }
     if ((bid * comm.com_amount) > natp->nat_money) {
-        pr("You don't have that much to spend!\n");
-        return RET_FAIL;
+	pr("You don't have that much to spend!\n");
+	return RET_FAIL;
     }
     getcomm(o, &ncomm);
     if (!ncomm.com_owner) {
-        pr("That lot has been taken off the market.\n");
+	pr("That lot has been taken off the market.\n");
 	return RET_FAIL;
     }
-    if (bid > 0.04 + comm.com_maxprice){
+    if (bid > 0.04 + comm.com_maxprice) {
 	comm.com_maxprice = bid;
- /* Add five minutes to the time if less than 5 minutes */
+	/* Add five minutes to the time if less than 5 minutes */
 	time(&now);
 	if (((MARK_DELAY - (now - comm.com_markettime)) < 300) &&
 	    comm.com_maxbidder != player->cnum) {
-	  comm.com_markettime += 300;
-	  /* Special case - what if so much time has gone by?  Well,
-	     Just reset the markettime  so that only 5 minutes are left */
-	  if ((MARK_DELAY - (now - comm.com_markettime)) < 0)
-	    comm.com_markettime = (now - (MARK_DELAY - 300));
+	    comm.com_markettime += 300;
+	    /* Special case - what if so much time has gone by?  Well,
+	       Just reset the markettime  so that only 5 minutes are left */
+	    if ((MARK_DELAY - (now - comm.com_markettime)) < 0)
+		comm.com_markettime = (now - (MARK_DELAY - 300));
 	}
 	comm.com_maxbidder = player->cnum;
 	comm.com_x = x;
@@ -217,7 +215,7 @@ buy(void)
 	pr("than the last bid.\n");
 	return RET_OK;
     }
-    
+
     check_market();
 
     return RET_OK;
@@ -226,7 +224,7 @@ buy(void)
 int
 check_market(void)
 {
-    extern	double	buytax;
+    extern double buytax;
     struct comstr comm;
     struct sctstr *sect;
     struct ichrstr *ip;
@@ -241,15 +239,14 @@ check_market(void)
     double gain;
     double price;
     struct lonstr loan;
-    long outstanding;  /* Outstanding debt */
-    long couval;  /* Value of country's goods */
+    long outstanding;		/* Outstanding debt */
+    long couval;		/* Value of country's goods */
     int foundloan;
     int j;
 
 /*    logerror("Checking the market.\n");*/
     for (n = 0; getcomm(n, &comm); n++) {
-	if (comm.com_maxbidder == comm.com_owner ||
-	    comm.com_owner == 0)
+	if (comm.com_maxbidder == comm.com_owner || comm.com_owner == 0)
 	    continue;
 	(void)time(&now);
 	tleft = MARK_DELAY / 3600.0 - (now - comm.com_markettime) / 3600.0;
@@ -269,7 +266,7 @@ check_market(void)
 	natp = getnatp(comm.com_maxbidder);
 	tmoney = natp->nat_money;
 	if (tmoney <= 0)
-	  monleft = price;
+	    monleft = price;
 	if (tmoney < price && tmoney > 0) {
 	    monleft = price - (tmoney - 1);
 	    tmoney = 1;
@@ -286,7 +283,8 @@ check_market(void)
 	    /* Try to make a loan for the rest from the owner. */
 	    if (monleft > 0 && tmoney > 0) {
 		if ((float)((float)price / (float)(price + monleft)) < 0.1) {
-		    wu(0, comm.com_maxbidder, "You need at least 10 percent down to purchase something on credit.\n");
+		    wu(0, comm.com_maxbidder,
+		       "You need at least 10 percent down to purchase something on credit.\n");
 		} else {
 		    couval = get_couval(comm.com_maxbidder);
 		    outstanding = get_outstand(comm.com_maxbidder);
@@ -310,57 +308,69 @@ check_market(void)
 			loan.l_amtpaid = 0;
 			loan.l_amtdue = monleft;
 			time(&loan.l_lastpay);
-			loan.l_duedate = (loan.l_ldur * SECS_PER_DAY) + loan.l_lastpay;
+			loan.l_duedate =
+			    (loan.l_ldur * SECS_PER_DAY) + loan.l_lastpay;
 			loan.l_uid = j;
 			if (!putloan(j, &loan))
 			    logerror("Error writing to the loan file.\n");
 			else
 			    monleft = 0;
-			nreport(comm.com_maxbidder,N_FIN_TROUBLE, comm.com_owner, 1);
-			wu(0, comm.com_maxbidder, "You just took loan #%d for $%.2f to cover the cost of your purchase.\n", j, loan.l_amtdue);
-			wu(0, comm.com_owner, "You just extended loan #%d to %s to help with the purchase cose.\n", j, cname(comm.com_maxbidder));
+			nreport(comm.com_maxbidder, N_FIN_TROUBLE,
+				comm.com_owner, 1);
+			wu(0, comm.com_maxbidder,
+			   "You just took loan #%d for $%.2f to cover the cost of your purchase.\n",
+			   j, loan.l_amtdue);
+			wu(0, comm.com_owner,
+			   "You just extended loan #%d to %s to help with the purchase cose.\n",
+			   j, cname(comm.com_maxbidder));
 		    } else {
-			nreport(comm.com_maxbidder,N_CREDIT_JUNK, comm.com_owner, 1);
-			wu(0, comm.com_maxbidder, "You don't have enough credit to get a loan.\n");
-			wu(0, comm.com_owner, "You just turned down a loan to %s.\n", cname(comm.com_maxbidder));
+			nreport(comm.com_maxbidder, N_CREDIT_JUNK,
+				comm.com_owner, 1);
+			wu(0, comm.com_maxbidder,
+			   "You don't have enough credit to get a loan.\n");
+			wu(0, comm.com_owner,
+			   "You just turned down a loan to %s.\n",
+			   cname(comm.com_maxbidder));
 		    }
 		}
 	    }
 	}
-	
+
 	if (monleft > 0) {
 	    nreport(comm.com_maxbidder, N_WELCH_DEAL, comm.com_owner, 1);
 	    wu(0, comm.com_maxbidder,
 	       "You didn't have enough cash/credit to cover the cost.\n");
-	    wu(0, comm.com_owner, 
+	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
-	} else if (sect->sct_type != SCT_WAREH && sect->sct_type != SCT_HARBR) {
-	    wu(0, comm.com_maxbidder, 
+	} else if (sect->sct_type != SCT_WAREH
+		   && sect->sct_type != SCT_HARBR) {
+	    wu(0, comm.com_maxbidder,
 	       "Sector not a warehouse now, sale #%d fell though.\n", n);
-	    wu(0, comm.com_owner, 
+	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
 	} else if (putvar(ip->i_vtype, m + comm.com_amount,
 			  (char *)sect, EF_SECTOR) <= 0) {
-	    wu(0, comm.com_maxbidder, 
+	    wu(0, comm.com_maxbidder,
 	       "Warehouse full,  sale #%d fell though.\n", n);
-	    wu(0, comm.com_owner, 
+	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
 	} else {
 	    putsect(sect);
 	    nreport(comm.com_owner, N_MAKE_SALE, comm.com_maxbidder, 1);
 	    wu(0, comm.com_owner, "%s bought %d %c's from you for $%.2f\n",
-	       cname(comm.com_maxbidder), comm.com_amount, 
+	       cname(comm.com_maxbidder), comm.com_amount,
 	       comm.com_type, gain);
-	    wu(0, comm.com_maxbidder, "You just bought %d %c's from %s for $%.2f\n",
+	    wu(0, comm.com_maxbidder,
+	       "You just bought %d %c's from %s for $%.2f\n",
 	       comm.com_amount, comm.com_type, cname(comm.com_owner),
 	       gain * buytax);
-	    natp=getnatp(comm.com_owner);
+	    natp = getnatp(comm.com_owner);
 	    /* Make sure we subtract the amount that came out in a loan */
 	    natp->nat_money += (gain - subleft);
-	    natp=getnatp(comm.com_maxbidder);
+	    natp = getnatp(comm.com_maxbidder);
 	    natp->nat_money = tmoney;
 	    comm.com_owner = 0;
 	}
@@ -370,5 +380,3 @@ check_market(void)
 /*    logerror("Done checking the market.\n");*/
     return RET_OK;
 }
-
-

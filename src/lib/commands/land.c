@@ -47,72 +47,71 @@
 int
 land(void)
 {
-	int	nunits;
-	struct	nstr_item ni;
-	struct	lndstr land;
-	int	vec[I_MAX+1];
-	s_char	*mission_short_name();
+    int nunits;
+    struct nstr_item ni;
+    struct lndstr land;
+    int vec[I_MAX + 1];
+    s_char *mission_short_name();
 
-	if (!snxtitem(&ni, EF_LAND, player->argp[1]))
-		return RET_SYN;
+    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+	return RET_SYN;
 
-	nunits = 0;
-	while (nxtitem(&ni, (s_char *)&land)) {
-		if (land.lnd_own == 0)
-			continue;
-		if (!player->owner && !player->god)
-			continue;
-		if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-			pr("bad unit type %d (#%d)\n",
-				land.lnd_type, ni.cur);
-			continue;
-		}
-		count_land_planes(&land);
-		lnd_count_units(&land);
-
-		if (nunits++ == 0) {
-			if (player->god)
-				pr("own ");
-pr("   # unit type          x,y   a  eff mil frt  mu  fd");
-			if (opt_FUEL)	
-				pr(" fl");
-			pr(" tch retr rd");
-			pr(" xl");
-			pr(" ln");
-			pr(" l/s\n");
-		}
-		if (player->god)
-			pr("%3d ", land.lnd_own);
-		pr("%4d ", ni.cur);
-		pr("%-15.15s", lchr[(int)land.lnd_type].l_name);
-		prxy(" %4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
-		pr("%c", land.lnd_army);
-		pr("%4d%%", land.lnd_effic);
-		pr("%4d", lnd_getmil(&land));
-		pr("%4d", land.lnd_harden);
-		pr("%4d", land.lnd_mobil);
-		getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
-		pr("%4d", vec[I_FOOD]);
-		if (opt_FUEL)
-			pr("%3d",land.lnd_fuel);
-		pr("%4d ", land.lnd_tech);
-		pr("%3d%%", land.lnd_retreat);
-		pr("%3d", land.lnd_rad_max);
-		pr("%3d",land.lnd_nxlight);
-		pr("%3d",land.lnd_nland);
-		if (land.lnd_ship >= 0)
-			pr(" S%4d", land.lnd_ship);
-		else if (land.lnd_land >= 0)
-		        pr(" L%4d", land.lnd_land);
-		pr("\n");
+    nunits = 0;
+    while (nxtitem(&ni, (s_char *)&land)) {
+	if (land.lnd_own == 0)
+	    continue;
+	if (!player->owner && !player->god)
+	    continue;
+	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
+	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
+	    continue;
 	}
-	if (nunits == 0) {
-		if (player->argp[1])
-			pr("%s: No unit(s)\n", player->argp[1]);
-		else
-			pr("%s: No unit(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d unit%s\n", nunits, splur(nunits));
-	return RET_OK;
+	count_land_planes(&land);
+	lnd_count_units(&land);
+
+	if (nunits++ == 0) {
+	    if (player->god)
+		pr("own ");
+	    pr("   # unit type          x,y   a  eff mil frt  mu  fd");
+	    if (opt_FUEL)
+		pr(" fl");
+	    pr(" tch retr rd");
+	    pr(" xl");
+	    pr(" ln");
+	    pr(" l/s\n");
+	}
+	if (player->god)
+	    pr("%3d ", land.lnd_own);
+	pr("%4d ", ni.cur);
+	pr("%-15.15s", lchr[(int)land.lnd_type].l_name);
+	prxy(" %4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
+	pr("%c", land.lnd_army);
+	pr("%4d%%", land.lnd_effic);
+	pr("%4d", lnd_getmil(&land));
+	pr("%4d", land.lnd_harden);
+	pr("%4d", land.lnd_mobil);
+	getvec(VT_ITEM, vec, (s_char *)&land, EF_LAND);
+	pr("%4d", vec[I_FOOD]);
+	if (opt_FUEL)
+	    pr("%3d", land.lnd_fuel);
+	pr("%4d ", land.lnd_tech);
+	pr("%3d%%", land.lnd_retreat);
+	pr("%3d", land.lnd_rad_max);
+	pr("%3d", land.lnd_nxlight);
+	pr("%3d", land.lnd_nland);
+	if (land.lnd_ship >= 0)
+	    pr(" S%4d", land.lnd_ship);
+	else if (land.lnd_land >= 0)
+	    pr(" L%4d", land.lnd_land);
+	pr("\n");
+    }
+    if (nunits == 0) {
+	if (player->argp[1])
+	    pr("%s: No unit(s)\n", player->argp[1]);
+	else
+	    pr("%s: No unit(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d unit%s\n", nunits, splur(nunits));
+    return RET_OK;
 }

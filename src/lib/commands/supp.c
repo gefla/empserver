@@ -46,32 +46,32 @@
 int
 supp(void)
 {
-	int	nunits;
-	struct	nstr_item ni;
-	struct	lndstr land;
+    int nunits;
+    struct nstr_item ni;
+    struct lndstr land;
 
-	if (!snxtitem(&ni, EF_LAND, player->argp[1]))
-		return RET_SYN;
+    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+	return RET_SYN;
 
-	nunits = 0;
-	while (nxtitem(&ni, (s_char *)&land)) {
-		if (!player->owner || land.lnd_own == 0)
-			continue;
-		nunits++;
-		resupply_all(&land);
-		putland(land.lnd_uid,&land);
-		if (has_supply(&land))
-			pr("%s has supplies\n", prland(&land));
-		else
-			pr("%s is out of supply\n", prland(&land));
-	}
-	if (nunits == 0) {
-		if (player->argp[1])
-			pr("%s: No unit(s)\n", player->argp[1]);
-		else
-			pr("%s: No unit(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d unit%s\n", nunits, splur(nunits));
-	return RET_OK;
+    nunits = 0;
+    while (nxtitem(&ni, (s_char *)&land)) {
+	if (!player->owner || land.lnd_own == 0)
+	    continue;
+	nunits++;
+	resupply_all(&land);
+	putland(land.lnd_uid, &land);
+	if (has_supply(&land))
+	    pr("%s has supplies\n", prland(&land));
+	else
+	    pr("%s is out of supply\n", prland(&land));
+    }
+    if (nunits == 0) {
+	if (player->argp[1])
+	    pr("%s: No unit(s)\n", player->argp[1]);
+	else
+	    pr("%s: No unit(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d unit%s\n", nunits, splur(nunits));
+    return RET_OK;
 }

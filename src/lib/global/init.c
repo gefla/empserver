@@ -53,31 +53,31 @@ global_init(void)
 void
 init_mchr(void)
 {
-	register struct mchrstr *mp;
-	register int n;
+    register struct mchrstr *mp;
+    register int n;
 
-	for (mp = mchr, n = 0; n < shp_maxno; n++, mp++) {
-		if (mp->m_nxlight)
-			mp->m_flags |= M_XLIGHT;
-		if (mp->m_nchoppers)
-			mp->m_flags |= M_CHOPPER;
-		if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
-			mp->m_flags |= M_MSL;
-		if (mp->m_nland)
-			mp->m_flags |= M_UNIT;
-	}
+    for (mp = mchr, n = 0; n < shp_maxno; n++, mp++) {
+	if (mp->m_nxlight)
+	    mp->m_flags |= M_XLIGHT;
+	if (mp->m_nchoppers)
+	    mp->m_flags |= M_CHOPPER;
+	if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
+	    mp->m_flags |= M_MSL;
+	if (mp->m_nland)
+	    mp->m_flags |= M_UNIT;
+    }
 }
 
 void
 init_plchr(void)
 {
-	register struct plchrstr *pp;
-	int     pcount;
+    register struct plchrstr *pp;
+    int pcount;
 
-	for (pp = plchr, pcount = 0; pcount < pln_maxno; pcount++, pp++) {
-		if (pp->pl_flags & P_M)
-			pp->pl_flags |= P_V;
-	}
+    for (pp = plchr, pcount = 0; pcount < pln_maxno; pcount++, pp++) {
+	if (pp->pl_flags & P_M)
+	    pp->pl_flags |= P_V;
+    }
 }
 
 void

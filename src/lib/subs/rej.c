@@ -45,123 +45,125 @@ extern int update_pending;
 int
 setrel(natid us, natid them, int rel)
 {
-	struct	natstr *mynp;
-	struct	natstr *themnp;
-	s_char	*myname = cname(us);
-	s_char  *themname;
-	int	oldrel;
-	s_char *whichway;
-	int	n_up = 0;
-	int	n_down = 0;
-	s_char	*addendum = 0;
-	int	theirrel;
-	extern int	War_Cost;
+    struct natstr *mynp;
+    struct natstr *themnp;
+    s_char *myname = cname(us);
+    s_char *themname;
+    int oldrel;
+    s_char *whichway;
+    int n_up = 0;
+    int n_down = 0;
+    s_char *addendum = 0;
+    int theirrel;
+    extern int War_Cost;
 
-	if (rel < AT_WAR)
-		rel = AT_WAR;
-	if (rel > ALLIED)
-		rel = ALLIED;
-	if (!(mynp = getnatp(us)))
-		return RET_FAIL;
-	if (!(themnp = getnatp(them)))
-		return RET_FAIL;
-	if ((oldrel = getrel(mynp, them)) == rel)
-		return RET_FAIL;
-	themname = cname(them);
-	if (rel > oldrel)
-		whichway = "upgraded";
-	else
-		whichway = "downgraded";
-	if (rel == ALLIED) {
-		addendum = "Congratulations!";
-		n_up = N_DECL_ALLY;
-	} else if (rel == FRIENDLY) {
-		n_up = N_UP_FRIENDLY;
-		n_down = N_DOWN_FRIENDLY;
-	} else if (rel == NEUTRAL) {
-		n_up = N_UP_NEUTRAL;
-		n_down = N_DOWN_NEUTRAL;
-	} else if (rel == HOSTILE) {
-		addendum = "Another cold war...";
-		n_up = N_UP_HOSTILE;
-		n_down = N_DOWN_HOSTILE;
-	} else if (rel < HOSTILE) {
-	  if (opt_SLOW_WAR) {
-		struct  natstr  *natp2;
-		double  cost;
+    if (rel < AT_WAR)
+	rel = AT_WAR;
+    if (rel > ALLIED)
+	rel = ALLIED;
+    if (!(mynp = getnatp(us)))
+	return RET_FAIL;
+    if (!(themnp = getnatp(them)))
+	return RET_FAIL;
+    if ((oldrel = getrel(mynp, them)) == rel)
+	return RET_FAIL;
+    themname = cname(them);
+    if (rel > oldrel)
+	whichway = "upgraded";
+    else
+	whichway = "downgraded";
+    if (rel == ALLIED) {
+	addendum = "Congratulations!";
+	n_up = N_DECL_ALLY;
+    } else if (rel == FRIENDLY) {
+	n_up = N_UP_FRIENDLY;
+	n_down = N_DOWN_FRIENDLY;
+    } else if (rel == NEUTRAL) {
+	n_up = N_UP_NEUTRAL;
+	n_down = N_DOWN_NEUTRAL;
+    } else if (rel == HOSTILE) {
+	addendum = "Another cold war...";
+	n_up = N_UP_HOSTILE;
+	n_down = N_DOWN_HOSTILE;
+    } else if (rel < HOSTILE) {
+	if (opt_SLOW_WAR) {
+	    struct natstr *natp2;
+	    double cost;
 
-		if (!player->god) {
-			natp2 = themnp;
-       			theirrel = getrel(natp2,us);
-			if (theirrel <= MOBILIZATION) {
-				rel = theirrel;
-				cost = 0;
-			} else if (us == player->cnum && !update_pending) {
-				if (mynp->nat_money < War_Cost){
-					mpr(us, "You don't have the money!\n");
-					return RET_FAIL;
-				}
-				rel = MOBILIZATION;
-				cost = War_Cost;
-			} else { /* nreport is forcing us to decl war */
-				return RET_FAIL;
-			}
-			if (rel >= oldrel) {
-				if (us == player->cnum && !update_pending)
-				    mpr(us, "No change required for that!\n");
-				return RET_FAIL;
-			}
-			player->dolcost += cost;
+	    if (!player->god) {
+		natp2 = themnp;
+		theirrel = getrel(natp2, us);
+		if (theirrel <= MOBILIZATION) {
+		    rel = theirrel;
+		    cost = 0;
+		} else if (us == player->cnum && !update_pending) {
+		    if (mynp->nat_money < War_Cost) {
+			mpr(us, "You don't have the money!\n");
+			return RET_FAIL;
+		    }
+		    rel = MOBILIZATION;
+		    cost = War_Cost;
+		} else {	/* nreport is forcing us to decl war */
+		    return RET_FAIL;
 		}
-	  }
-	  addendum = "Declaration made (give 'em hell).";
-	  n_down = N_DECL_WAR;
+		if (rel >= oldrel) {
+		    if (us == player->cnum && !update_pending)
+			mpr(us, "No change required for that!\n");
+		    return RET_FAIL;
+		}
+		player->dolcost += cost;
+	    }
 	}
+	addendum = "Declaration made (give 'em hell).";
+	n_down = N_DECL_WAR;
+    }
 
-	if (addendum && us == player->cnum && !update_pending)
-		pr("%s\n", addendum);
-	mpr(us, "Diplomatic relations with %s %s to \"%s\".\n", themname, whichway, relates[rel]);
-	if(!(getrejects(us, themnp) & REJ_TELE))
-		mpr(them,
-		    "Country %s (#%d) has %s their relations with you to \"%s\"!\n", myname, us, whichway, relates[rel]);
+    if (addendum && us == player->cnum && !update_pending)
+	pr("%s\n", addendum);
+    mpr(us, "Diplomatic relations with %s %s to \"%s\".\n", themname,
+	whichway, relates[rel]);
+    if (!(getrejects(us, themnp) & REJ_TELE))
+	mpr(them,
+	    "Country %s (#%d) has %s their relations with you to \"%s\"!\n",
+	    myname, us, whichway, relates[rel]);
 
-	putrel(mynp, them, rel);
-	putnat(mynp);
+    putrel(mynp, them, rel);
+    putnat(mynp);
 
-	if (!player->god) {
-		if (oldrel == ALLIED)
-			nreport(us, N_DIS_ALLY, them, 1);
-		else if (oldrel < HOSTILE && rel >= HOSTILE)
-			nreport(us, N_DIS_WAR, them, 1);
-		if (rel > oldrel)
-			nreport(us, n_up, them, 1);
-		else
-			nreport(us, n_down, them, 1);
-	}
+    if (!player->god) {
+	if (oldrel == ALLIED)
+	    nreport(us, N_DIS_ALLY, them, 1);
+	else if (oldrel < HOSTILE && rel >= HOSTILE)
+	    nreport(us, N_DIS_WAR, them, 1);
+	if (rel > oldrel)
+	    nreport(us, n_up, them, 1);
+	else
+	    nreport(us, n_down, them, 1);
+    }
 
-	return RET_OK;
+    return RET_OK;
 }
 
 int
 setcont(natid us, natid them, int contact)
 {
-	struct	natstr *np;
+    struct natstr *np;
 
-	if ((np = getnatp(us)) == 0)
-		return 0;
-	putcontact(np, them, contact);
-	putnat(np);
-	return 1;
+    if ((np = getnatp(us)) == 0)
+	return 0;
+    putcontact(np, them, contact);
+    putnat(np);
+    return 1;
 }
 
 int
 setrej(natid us, natid them, int how, int what)
 {
-	struct	natstr *np;
+    struct natstr *np;
 
-	if ((np = getnatp(us)) == 0)
-		return 0;
-	putreject(np, them, how, what);
-	putnat(np);
-	return 1;
+    if ((np = getnatp(us)) == 0)
+	return 0;
+    putreject(np, them, how, what);
+    putnat(np);
+    return 1;
 }

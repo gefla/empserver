@@ -44,73 +44,83 @@
 int
 reje(void)
 {
-	register s_char *p;
-	int	rel;
-	int	do_undo;
-	struct	natstr nat;
-	struct	nstr_item ni;
-	s_char	buf[1024];
+    register s_char *p;
+    int rel;
+    int do_undo;
+    struct natstr nat;
+    struct nstr_item ni;
+    s_char buf[1024];
 
-	if ((p = getstarg(player->argp[1], "reject or accept? ", buf)) == 0)
-		return RET_SYN;
-	switch (*p) {
-	case 'r':
-		do_undo = 1;
-		break;
-	case 'a':
-		do_undo = 0;
-		break;
-	default:
-		pr("That's not one of the choices!\n");
-		return RET_SYN;
-	}
-	if ((p = getstarg(player->argp[2], "mail, treaties, loans, or announcements? ", buf)) == 0)
-		return RET_SYN;
-	switch (*p) {
-	case 'a':
-		rel = REJ_ANNO;
-		break;
-	case 'l':
-		rel = REJ_LOAN;
-		break;
-	case 'm':
-		rel = REJ_TELE;
-		break;
-	case 't':
-		rel = REJ_TREA;
-		break;
-	default:
-		pr("That's not one of the choices!\n");
-		return RET_SYN;
-	}
-	if (!snxtitem(&ni, EF_NATION, player->argp[3]))
-		return RET_SYN;
-	while (nxtitem(&ni, (s_char *) &nat)) {
+    if ((p = getstarg(player->argp[1], "reject or accept? ", buf)) == 0)
+	return RET_SYN;
+    switch (*p) {
+    case 'r':
+	do_undo = 1;
+	break;
+    case 'a':
+	do_undo = 0;
+	break;
+    default:
+	pr("That's not one of the choices!\n");
+	return RET_SYN;
+    }
+    if ((p =
+	 getstarg(player->argp[2],
+		  "mail, treaties, loans, or announcements? ", buf)) == 0)
+	return RET_SYN;
+    switch (*p) {
+    case 'a':
+	rel = REJ_ANNO;
+	break;
+    case 'l':
+	rel = REJ_LOAN;
+	break;
+    case 'm':
+	rel = REJ_TELE;
+	break;
+    case 't':
+	rel = REJ_TREA;
+	break;
+    default:
+	pr("That's not one of the choices!\n");
+	return RET_SYN;
+    }
+    if (!snxtitem(&ni, EF_NATION, player->argp[3]))
+	return RET_SYN;
+    while (nxtitem(&ni, (s_char *)&nat)) {
 #if 0
-		if ((nat.nat_stat & STAT_NORM) == 0) {
-			pr("You may not reject/accept stuff from %s\nbecause they are not a normal country.\n", nat.nat_cnam);
-			continue;
-		}
-#endif
-		if (nat.nat_stat & STAT_GOD) {
-			pr("You may not reject/accept stuff from %s\nbecause they are a deity.\n", nat.nat_cnam);
-			continue;
-		}
-		if (opt_HIDDEN) {
-		    if (!getcontact(getnatp(player->cnum), ni.cur))
-                        continue;
-		}
-		switch(rel){
-			case REJ_ANNO: pr("%s annos from %s\n",(do_undo == 1 ? "Rejecting" : "Accepting"),nat.nat_cnam);
-					break;
-			case REJ_LOAN: pr("%s loans from %s\n",(do_undo == 1 ? "Rejecting" : "Accepting"),nat.nat_cnam);
-					break;
-			case REJ_TELE: pr("%s teles from %s\n",(do_undo == 1 ? "Rejecting" : "Accepting"),nat.nat_cnam);
-					break;
-			case REJ_TREA: pr("%s treaties from %s\n",(do_undo == 1 ? "Rejecting" : "Accepting"),nat.nat_cnam);
-					break;
-			}
-		setrej(player->cnum, (natid)ni.cur, do_undo, rel);
+	if ((nat.nat_stat & STAT_NORM) == 0) {
+	    pr("You may not reject/accept stuff from %s\nbecause they are not a normal country.\n", nat.nat_cnam);
+	    continue;
 	}
-	return RET_OK;
+#endif
+	if (nat.nat_stat & STAT_GOD) {
+	    pr("You may not reject/accept stuff from %s\nbecause they are a deity.\n", nat.nat_cnam);
+	    continue;
+	}
+	if (opt_HIDDEN) {
+	    if (!getcontact(getnatp(player->cnum), ni.cur))
+		continue;
+	}
+	switch (rel) {
+	case REJ_ANNO:
+	    pr("%s annos from %s\n",
+	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
+	    break;
+	case REJ_LOAN:
+	    pr("%s loans from %s\n",
+	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
+	    break;
+	case REJ_TELE:
+	    pr("%s teles from %s\n",
+	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
+	    break;
+	case REJ_TREA:
+	    pr("%s treaties from %s\n",
+	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
+	    break;
+	}
+	setrej(player->cnum, (natid)ni.cur, do_undo, rel);
+    }
+    return RET_OK;
 }

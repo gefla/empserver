@@ -53,7 +53,7 @@ lost(void)
     } else {
 	if (!snxtitem(&ni, EF_LOST, player->argp[1]))
 	    return RET_SYN;
-    }	
+    }
 
     prdate();
     nlost = 0;

@@ -43,76 +43,76 @@
 int
 diffx(int x1, int x2)
 {
-	int	dx;
+    int dx;
 
-	dx = x1 - x2;
-	dx = dx % WORLD_X;
-	if (dx > WORLD_X/2)
-		dx = dx - WORLD_X;
-	if (dx < -WORLD_X/2)
-		dx = dx + WORLD_X;
-	return dx; 
+    dx = x1 - x2;
+    dx = dx % WORLD_X;
+    if (dx > WORLD_X / 2)
+	dx = dx - WORLD_X;
+    if (dx < -WORLD_X / 2)
+	dx = dx + WORLD_X;
+    return dx;
 }
 
 int
 diffy(int y1, int y2)
 {
-	int	dy;
+    int dy;
 
-	dy = y1 - y2;
-	dy = dy % WORLD_Y;
-	if (dy > WORLD_Y/2)
-		dy = dy - WORLD_Y;
-	if (dy < -WORLD_Y/2)
-		dy = dy + WORLD_Y;
-	return dy; 
+    dy = y1 - y2;
+    dy = dy % WORLD_Y;
+    if (dy > WORLD_Y / 2)
+	dy = dy - WORLD_Y;
+    if (dy < -WORLD_Y / 2)
+	dy = dy + WORLD_Y;
+    return dy;
 }
 
 int
 deltax(int x1, int x2)
 {
-	int	dx;
+    int dx;
 
-	dx = abs(x1 - x2);
-	dx = dx % WORLD_X;
-	if (dx > WORLD_X/2)
-		dx = WORLD_X - dx;
-	return dx; 
+    dx = abs(x1 - x2);
+    dx = dx % WORLD_X;
+    if (dx > WORLD_X / 2)
+	dx = WORLD_X - dx;
+    return dx;
 }
 
 int
 deltay(int y1, int y2)
 {
-	int	dy;
+    int dy;
 
-	dy = abs(y1 - y2);
-	dy = dy % WORLD_Y;
-	if (dy > WORLD_Y/2)
-		dy = WORLD_Y - dy;
-	return dy; 
+    dy = abs(y1 - y2);
+    dy = dy % WORLD_Y;
+    if (dy > WORLD_Y / 2)
+	dy = WORLD_Y - dy;
+    return dy;
 }
 
 int
 mapdist(int x1, int y1, int x2, int y2)
 {
-	int	dx, dy;
+    int dx, dy;
 
-	x1 = x1 % WORLD_X;
-	y1 = y1 % WORLD_Y;
-	x2 = x2 % WORLD_X;
-	y2 = y2 % WORLD_Y;
-	dx = deltax(x1, x2);
-	dy = deltay(y1, y2);
-	if (dx > dy)
-		return (dx - dy) / 2 + dy;
-	return dy;
+    x1 = x1 % WORLD_X;
+    y1 = y1 % WORLD_Y;
+    x2 = x2 % WORLD_X;
+    y2 = y2 % WORLD_Y;
+    dx = deltax(x1, x2);
+    dy = deltay(y1, y2);
+    if (dx > dy)
+	return (dx - dy) / 2 + dy;
+    return dy;
 }
 
 int
 mapdsq(int x1, int y1, int x2, int y2)
 {
-	int	sq;
+    int sq;
 
-	sq = mapdist(x1, y1, x2, y2);
-	return sq * sq;
+    sq = mapdist(x1, y1, x2, y2);
+    return sq * sq;
 }

@@ -35,8 +35,8 @@
 #define _TAGS_H_
 
 struct tagstruct {
-  s_char *item;
-  struct tagstruct *next;
+    s_char *item;
+    struct tagstruct *next;
 };
 
 #endif

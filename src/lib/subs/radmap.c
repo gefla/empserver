@@ -47,168 +47,162 @@
 void
 radmap(int cx, int cy, int eff, int range, double seesub)
 {
-	radmap2(player->cnum, cx, cy, eff, range, seesub, 1);
+    radmap2(player->cnum, cx, cy, eff, range, seesub, 1);
 }
 
 void
 radmapnopr(int cx, int cy, int eff, int range, double seesub)
 {
-	radmap2(player->cnum, cx, cy, eff, range, seesub, 0);
+    radmap2(player->cnum, cx, cy, eff, range, seesub, 0);
 }
 
 void
 radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
 {
-	radmap2(own, cx, cy, eff, range, seesub, 0);
+    radmap2(own, cx, cy, eff, range, seesub, 0);
 }
 
 /* More dynamic world sized buffers.  We create 'em once, and then
  * never again.  No need to keep creating/tearint apart.  We may
  * want to do this in other places too where it doesn't matter. */
-static s_char  **rad;
-static s_char  *radbuf;
-static s_char  **vis;
-static s_char  *visbuf;
+static s_char **rad;
+static s_char *radbuf;
+static s_char **vis;
+static s_char *visbuf;
 
 void
 radmap2(int owner,
-	int cx,
-	int cy,
-	int eff,
-	int range,
-	double seesub,
-	int pr_flag)
+	int cx, int cy, int eff, int range, double seesub, int pr_flag)
 {
-	int	rng;
-	struct	sctstr sect;
-	struct	shpstr ship;
-	struct	plnstr plane;
-	struct	nstr_sect ns;
-	struct	nstr_item ni;
-	int	x, y;
-	int	row;
-	int	n;
-	int	changed = 0;
+    int rng;
+    struct sctstr sect;
+    struct shpstr ship;
+    struct plnstr plane;
+    struct nstr_sect ns;
+    struct nstr_item ni;
+    int x, y;
+    int row;
+    int n;
+    int changed = 0;
 
-	if (!radbuf)
-	    radbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
-				      sizeof(s_char));
-	if (!visbuf)
-	    visbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
-				      sizeof(s_char));
-	if (!rad) {
-	    rad = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
-	    if (rad && radbuf) {
-		for (x = 0; x < WORLD_Y; x++)
-		    rad[x] = &radbuf[(WORLD_X + 1) * x];
-	    }
+    if (!radbuf)
+	radbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
+				  sizeof(s_char));
+    if (!visbuf)
+	visbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
+				  sizeof(s_char));
+    if (!rad) {
+	rad = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	if (rad && radbuf) {
+	    for (x = 0; x < WORLD_Y; x++)
+		rad[x] = &radbuf[(WORLD_X + 1) * x];
 	}
-	if (!vis) {
-	    vis = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
-	    if (vis && visbuf) {
-		for (x = 0; x < WORLD_Y; x++) 
-		    vis[x] = &visbuf[(WORLD_X + 1) * x];
-	    }
+    }
+    if (!vis) {
+	vis = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	if (vis && visbuf) {
+	    for (x = 0; x < WORLD_Y; x++)
+		vis[x] = &visbuf[(WORLD_X + 1) * x];
 	}
-	if (!radbuf || !visbuf || !rad || !vis) {
-	    pr("Memory error in radmap2, tell the deity.\n");
-	    return;
-	}
+    }
+    if (!radbuf || !visbuf || !rad || !vis) {
+	pr("Memory error in radmap2, tell the deity.\n");
+	return;
+    }
 
-	bzero((s_char *)visbuf, (WORLD_Y * (WORLD_X + 1)));
-	range = (int) (range * (eff / 100.0));
-	if (range < 1)
-		range = 1;
-	if (pr_flag)
-	    pr("%s efficiency %d%%, max range %d\n",
-	       xyas(cx, cy, owner), eff, range);
-	snxtsct_dist(&ns, cx, cy, range);
-	blankfill((s_char *)radbuf, &ns.range, 1);
-	while (nxtsct(&ns, &sect)) {
-		if (sect.sct_own == owner ||
-		    (sect.sct_type <= SCT_RURAL && sect.sct_type != SCT_SANCT)
-		    || ns.curdist <= range/3)
-			rad[ns.dy][ns.dx] = dchr[sect.sct_type].d_mnem;
-		else
-			rad[ns.dy][ns.dx] = '?';
-		changed += map_set(owner, ns.x, ns.y, rad[ns.dy][ns.dx],0);
-	}
-	if (changed)
-		writemap(owner);
-	if (!pr_flag)
-		return;
-	snxtitem_dist(&ni, EF_PLANE, cx, cy, range);
-	while (nxtitem(&ni, (caddr_t)&plane)) {
-		if (plane.pln_own == 0)
-			continue;
-		/* Used to have 'ghosts' when scanning whole world --ts */
-		x = deltx(&ns.range,(int)plane.pln_x);
-		y = delty(&ns.range,(int)plane.pln_y);
+    bzero((s_char *)visbuf, (WORLD_Y * (WORLD_X + 1)));
+    range = (int)(range * (eff / 100.0));
+    if (range < 1)
+	range = 1;
+    if (pr_flag)
+	pr("%s efficiency %d%%, max range %d\n",
+	   xyas(cx, cy, owner), eff, range);
+    snxtsct_dist(&ns, cx, cy, range);
+    blankfill((s_char *)radbuf, &ns.range, 1);
+    while (nxtsct(&ns, &sect)) {
+	if (sect.sct_own == owner ||
+	    (sect.sct_type <= SCT_RURAL && sect.sct_type != SCT_SANCT)
+	    || ns.curdist <= range / 3)
+	    rad[ns.dy][ns.dx] = dchr[sect.sct_type].d_mnem;
+	else
+	    rad[ns.dy][ns.dx] = '?';
+	changed += map_set(owner, ns.x, ns.y, rad[ns.dy][ns.dx], 0);
+    }
+    if (changed)
+	writemap(owner);
+    if (!pr_flag)
+	return;
+    snxtitem_dist(&ni, EF_PLANE, cx, cy, range);
+    while (nxtitem(&ni, (caddr_t)&plane)) {
+	if (plane.pln_own == 0)
+	    continue;
+	/* Used to have 'ghosts' when scanning whole world --ts */
+	x = deltx(&ns.range, (int)plane.pln_x);
+	y = delty(&ns.range, (int)plane.pln_y);
 
-		if ((plane.pln_flags & PLN_LAUNCHED) &&
-		    plane.pln_own != owner) {
-			vis[y][x] = (s_char) 100;
-			rad[y][x] = '$';
-		}
+	if ((plane.pln_flags & PLN_LAUNCHED) && plane.pln_own != owner) {
+	    vis[y][x] = (s_char)100;
+	    rad[y][x] = '$';
 	}
-	snxtitem_dist(&ni, EF_SHIP, cx, cy, range);
-	while (nxtitem(&ni, (caddr_t)&ship)) {
-		if (ship.shp_own == 0)
-			continue;
-		/* Used to have 'ghosts' when scanning whole world --ts */
-		x = deltx(&ns.range,(int)ship.shp_x);
-		y = delty(&ns.range,(int)ship.shp_y);
+    }
+    snxtitem_dist(&ni, EF_SHIP, cx, cy, range);
+    while (nxtitem(&ni, (caddr_t)&ship)) {
+	if (ship.shp_own == 0)
+	    continue;
+	/* Used to have 'ghosts' when scanning whole world --ts */
+	x = deltx(&ns.range, (int)ship.shp_x);
+	y = delty(&ns.range, (int)ship.shp_y);
 
-		rng = (int) (range * ship.shp_visib / 20.0);
-		if (ni.curdist > rng)
-			continue;
-		if ((mchr[(int)ship.shp_type].m_flags & M_SUB) &&
-		    ni.curdist > rng * seesub)
-			continue;
-		if (ship.shp_visib > vis[y][x]) {
-			vis[y][x] = ship.shp_visib;
-			/* &~0x20 makes it a cap letter */
-			rad[y][x] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
-		}
+	rng = (int)(range * ship.shp_visib / 20.0);
+	if (ni.curdist > rng)
+	    continue;
+	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) &&
+	    ni.curdist > rng * seesub)
+	    continue;
+	if (ship.shp_visib > vis[y][x]) {
+	    vis[y][x] = ship.shp_visib;
+	    /* &~0x20 makes it a cap letter */
+	    rad[y][x] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
 	}
-	/* 
-	 * make the center of the display 0
-	 * so ve et al can find it.
-	 */
-	rad[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx)] = '0';
-	/* won't work for radar maps > WORLD_Y/2 */
+    }
+    /* 
+     * make the center of the display 0
+     * so ve et al can find it.
+     */
+    rad[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx)] = '0';
+    /* won't work for radar maps > WORLD_Y/2 */
 #ifdef HAY
-	/* This is not correct for small, hitech worlds. */
-	n = deltay(ns.range.hy, ns.range.ly);
+    /* This is not correct for small, hitech worlds. */
+    n = deltay(ns.range.hy, ns.range.ly);
 #else
-	/* This is already available, so why not use it. */
-	n = ns.range.height;
+    /* This is already available, so why not use it. */
+    n = ns.range.height;
 #endif
-	for (row=0; row < n; row++)
-		pr("%s\n", rad[row]);
-	pr("\n");
+    for (row = 0; row < n; row++)
+	pr("%s\n", rad[row]);
+    pr("\n");
 }
 
 int
 deltx(struct range *r, coord x)
 {
-        if (r->lx < r->hx)
-                return x-r->lx;
+    if (r->lx < r->hx)
+	return x - r->lx;
 
-        if (x >= r->lx)
-                return x-r->lx;
+    if (x >= r->lx)
+	return x - r->lx;
 
-        return x+WORLD_X-r->lx;
+    return x + WORLD_X - r->lx;
 }
 
 int
 delty(struct range *r, coord y)
 {
-        if (r->ly < r->hy)
-                return y-r->ly;
+    if (r->ly < r->hy)
+	return y - r->ly;
 
-        if (y >= r->ly)
-                return y-r->ly;
+    if (y >= r->ly)
+	return y - r->ly;
 
-        return y+WORLD_Y-r->ly;
+    return y + WORLD_Y - r->ly;
 }

@@ -41,56 +41,57 @@
 #include "prototypes.h"
 
 int
-getdir(s_char *prompt, s_char *stop_msg, s_char *view_msg, s_char *bomb_msg)
+getdir(s_char *prompt, s_char *stop_msg, s_char *view_msg,
+       s_char *bomb_msg)
 {
-	register int max_dir;
-	register int min_dir;
-	register int dir_num;
-	s_char	buf[1024];
+    register int max_dir;
+    register int min_dir;
+    register int dir_num;
+    s_char buf[1024];
 
-	if (stop_msg != 0)
-		min_dir = DIR_STOP;
-	else
-		min_dir = DIR_FIRST;
-	if (view_msg == 0)
-		max_dir = DIR_LAST;
-	else
-		max_dir = DIR_VIEW;
-	while (1) {
-		if (getstring(prompt, buf) == 0 || *buf == 0)
-			return -1;
-		dir_num = chkdir(buf[0], min_dir, max_dir);
-		if (dir_num >= min_dir)
-			break;
-		direrr(stop_msg, view_msg, bomb_msg);
-	}
-	return dir_num;
+    if (stop_msg != 0)
+	min_dir = DIR_STOP;
+    else
+	min_dir = DIR_FIRST;
+    if (view_msg == 0)
+	max_dir = DIR_LAST;
+    else
+	max_dir = DIR_VIEW;
+    while (1) {
+	if (getstring(prompt, buf) == 0 || *buf == 0)
+	    return -1;
+	dir_num = chkdir(buf[0], min_dir, max_dir);
+	if (dir_num >= min_dir)
+	    break;
+	direrr(stop_msg, view_msg, bomb_msg);
+    }
+    return dir_num;
 }
 
 int
 chkdir(s_char dir_char, int min_dir, int max_dir)
 {
-	register int i;
+    register int i;
 
-	for (i = min_dir; i <= max_dir; i++)
-		if (dir_char == dirch[i])
-			return i;
-	return -1;
+    for (i = min_dir; i <= max_dir; i++)
+	if (dir_char == dirch[i])
+	    return i;
+    return -1;
 }
 
 void
 direrr(s_char *stop_msg, s_char *view_msg, s_char *map_msg)
 {
-	pr("Legal directions are:\n");
-	pr(" %c %c\n", dirch[DIR_UL], dirch[DIR_UR]);
-	pr("%c   %c\n", dirch[DIR_L], dirch[DIR_R]);
-	pr(" %c %c\n", dirch[DIR_DL], dirch[DIR_DR]);
-	if (stop_msg != 0)
-		pr(stop_msg, dirch[DIR_STOP]);
-	if (view_msg != 0)
-		pr(view_msg, dirch[DIR_VIEW]);
-	if (map_msg != 0)
-		pr(map_msg, dirch[DIR_MAP]);
+    pr("Legal directions are:\n");
+    pr(" %c %c\n", dirch[DIR_UL], dirch[DIR_UR]);
+    pr("%c   %c\n", dirch[DIR_L], dirch[DIR_R]);
+    pr(" %c %c\n", dirch[DIR_DL], dirch[DIR_DR]);
+    if (stop_msg != 0)
+	pr(stop_msg, dirch[DIR_STOP]);
+    if (view_msg != 0)
+	pr(view_msg, dirch[DIR_VIEW]);
+    if (map_msg != 0)
+	pr(map_msg, dirch[DIR_MAP]);
 }
 
 /*
@@ -101,108 +102,109 @@ direrr(s_char *stop_msg, s_char *view_msg, s_char *map_msg)
  * which do not accept partial moves.
  */
 s_char *
-getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown, int showdes, int showxy, int destinations)
+getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown,
+	int showdes, int showxy, int destinations)
 {
-	s_char	*p = buf;
-	s_char	*bp;
-	s_char	prompt[128];
-	coord	dx, dy;
-	struct	sctstr sect, dsect;
-	coord	nx, ny;
-	int	dir;
-	s_char	*execute;
-	double	mv_cost;
+    s_char *p = buf;
+    s_char *bp;
+    s_char prompt[128];
+    coord dx, dy;
+    struct sctstr sect, dsect;
+    coord nx, ny;
+    int dir;
+    s_char *execute;
+    double mv_cost;
 
-	if (arg) {
-		strncpy(buf, arg, MAX_PATH_LEN - 1);
-		buf[MAX_PATH_LEN - 1] = 0;
-	} else {
+    if (arg) {
+	strncpy(buf, arg, MAX_PATH_LEN - 1);
+	buf[MAX_PATH_LEN - 1] = 0;
+    } else {
+	*p = 0;
+    }
+
+    if (showxy)
+	execute = " & '%c' to execute\n";
+    else
+	execute = "\n";
+
+    getsect(x, y, &sect);
+    nx = x;
+    ny = y;
+
+  more:
+    while (*p) {
+	if (sarg_xy(p, &dx, &dy)) {
+	    bp = 0;
+	    if (destinations == P_NONE) {
+		pr("Destination sectors not allowed here!\n");
 		*p = 0;
-	}
-
-	if (showxy)
-		execute = " & '%c' to execute\n";
-	else
-		execute = "\n";
-
-	getsect(x,y,&sect);
-	nx = x;
-	ny = y;
-
-more:
-	while (*p) {
-		if (sarg_xy(p, &dx, &dy)) {
-			bp = 0;
-			if (destinations == P_NONE) {
-				pr("Destination sectors not allowed here!\n");
-				*p = 0;
-			}
-			if (getsect(dx,dy,&dsect)) {
-				if (destinations == P_WALKING){
-					bp=BestLandPath(p, &sect,&dsect,
-							&mv_cost, MOB_ROAD);
-				} else if (destinations == P_FLYING) {
-				        bp=BestAirPath(p, nx, ny, dx, dy);
-				}
-			} else {
-				pr("Invalid destination sector!\n");
-				*p = 0;
-			}
-			if (bp) {
-				pr("Using best path  '%s'\n", p);
-				pr("Using total path '%s'\n", buf);
-				return buf;
-			} else {			
-				pr("Can't get to %s from here!\n",
-					xyas(nx,ny,player->cnum));
-				*p = 0;
-			}
-			break;
+	    }
+	    if (getsect(dx, dy, &dsect)) {
+		if (destinations == P_WALKING) {
+		    bp = BestLandPath(p, &sect, &dsect,
+				      &mv_cost, MOB_ROAD);
+		} else if (destinations == P_FLYING) {
+		    bp = BestAirPath(p, nx, ny, dx, dy);
 		}
-		dir = chkdir(*p, DIR_STOP, DIR_LAST);
-		if (dir < 0) {
-			pr("\"%c\" is not legal...", *p);
-			direrr("'%c' to stop", (s_char *)0, execute);
-			*p = 0;
-			break;
-		}
-		nx = x + diroff[dir][0];
-		ny = y + diroff[dir][1];
-		getsect(nx, ny, &sect);
-		if (onlyown && sect.sct_own != player->cnum) {
-			*p = 0;
-			pr("You don't own %s; you can't go there!\n",
-				xyas(nx, ny, player->cnum));
-			break;
-		}
-		if (dir == DIR_STOP || dir == DIR_MAP) {
-			p[1] = 0;
-			return buf;
-		}
-		if (++p - buf == MAX_PATH_LEN) {
-			pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
-			pr("Aborting...\n");
-			*buf = 0;
-			return buf;
-		}
-		x = nx;
-		y = ny;
-	}
-	fly_map(x,y);
-	if (showdes) {
-		getsect(x, y, &sect);
-		sprintf(prompt, "<%c: %s> ", dchr[sect.sct_type].d_mnem,
-			xyas(x, y, player->cnum));
-	} else {
-		sprintf(prompt, "<%d: %s> ", (int)(p - buf),
-			xyas(x, y, player->cnum));
-	}
-	if (!(bp = getstring(prompt, p)) || !*bp) {
-		if (player->aborted)
-			*buf = 0;
+	    } else {
+		pr("Invalid destination sector!\n");
+		*p = 0;
+	    }
+	    if (bp) {
+		pr("Using best path  '%s'\n", p);
+		pr("Using total path '%s'\n", buf);
 		return buf;
+	    } else {
+		pr("Can't get to %s from here!\n",
+		   xyas(nx, ny, player->cnum));
+		*p = 0;
+	    }
+	    break;
 	}
-	goto more;
+	dir = chkdir(*p, DIR_STOP, DIR_LAST);
+	if (dir < 0) {
+	    pr("\"%c\" is not legal...", *p);
+	    direrr("'%c' to stop", (s_char *)0, execute);
+	    *p = 0;
+	    break;
+	}
+	nx = x + diroff[dir][0];
+	ny = y + diroff[dir][1];
+	getsect(nx, ny, &sect);
+	if (onlyown && sect.sct_own != player->cnum) {
+	    *p = 0;
+	    pr("You don't own %s; you can't go there!\n",
+	       xyas(nx, ny, player->cnum));
+	    break;
+	}
+	if (dir == DIR_STOP || dir == DIR_MAP) {
+	    p[1] = 0;
+	    return buf;
+	}
+	if (++p - buf == MAX_PATH_LEN) {
+	    pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
+	    pr("Aborting...\n");
+	    *buf = 0;
+	    return buf;
+	}
+	x = nx;
+	y = ny;
+    }
+    fly_map(x, y);
+    if (showdes) {
+	getsect(x, y, &sect);
+	sprintf(prompt, "<%c: %s> ", dchr[sect.sct_type].d_mnem,
+		xyas(x, y, player->cnum));
+    } else {
+	sprintf(prompt, "<%d: %s> ", (int)(p - buf),
+		xyas(x, y, player->cnum));
+    }
+    if (!(bp = getstring(prompt, p)) || !*bp) {
+	if (player->aborted)
+	    *buf = 0;
+	return buf;
+    }
+    goto more;
 }
 
 /* ARGSUSED */
@@ -230,7 +232,7 @@ mcost(struct sctstr *sp, int own)
 double
 fcost(struct sctstr *sp, natid own)
 {
-	return 1.0;
+    return 1.0;
 }
 
 /*
@@ -240,7 +242,7 @@ fcost(struct sctstr *sp, natid own)
 double
 ncost(struct sctstr *sp, natid own)
 {
-	return 1.0;
+    return 1.0;
 }
 
 /*
@@ -248,34 +250,35 @@ ncost(struct sctstr *sp, natid own)
  * movement cost it takes to get there.
  */
 double
-pathtoxy(s_char *path, coord *xp, coord *yp, double (*cost) (struct sctstr *, natid))
+pathtoxy(s_char *path, coord *xp, coord *yp,
+	 double (*cost) (struct sctstr *, natid))
 {
-	struct	sctstr s;
-	s_char	*pp;
-	coord	x;
-	coord	y;
-	int	val;
-	double	m;
-	int	c;
+    struct sctstr s;
+    s_char *pp;
+    coord x;
+    coord y;
+    int val;
+    double m;
+    int c;
 
-	x = *xp;
-	y = *yp;
-	m = 0.0;
-	for (pp = path; *pp; pp++) {
-		if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
-			break;
-		x += diroff[val][0];
-		y += diroff[val][1];
-		c = dirch[val];
-		if (c == DIR_STOP)
-			break;
-		if (!getsect(x, y, &s))
-			return -1.0;
-		m += cost(&s, s.sct_own);
-	}
-	*xp = xnorm(x);
-	*yp = ynorm(y);
-	return m;
+    x = *xp;
+    y = *yp;
+    m = 0.0;
+    for (pp = path; *pp; pp++) {
+	if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
+	    break;
+	x += diroff[val][0];
+	y += diroff[val][1];
+	c = dirch[val];
+	if (c == DIR_STOP)
+	    break;
+	if (!getsect(x, y, &s))
+	    return -1.0;
+	m += cost(&s, s.sct_own);
+    }
+    *xp = xnorm(x);
+    *yp = ynorm(y);
+    return m;
 }
 
 /*
@@ -284,49 +287,49 @@ pathtoxy(s_char *path, coord *xp, coord *yp, double (*cost) (struct sctstr *, na
 int
 chkpath(natid who, s_char *path, coord x, coord y)
 {
-	s_char	*pp;
-	int	val;
-	struct	sctstr sect;
+    s_char *pp;
+    int val;
+    struct sctstr sect;
 
-	for (pp = path; *pp; pp++) {
-		if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
-			break;
-		x += diroff[val][0];
-		y += diroff[val][1];
-		if (!getsect(x, y, &sect) || sect.sct_own != who)
-			return 0;
-	}
-	return 1;
+    for (pp = path; *pp; pp++) {
+	if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
+	    break;
+	x += diroff[val][0];
+	y += diroff[val][1];
+	if (!getsect(x, y, &sect) || sect.sct_own != who)
+	    return 0;
+    }
+    return 1;
 }
 
 void
-pathrange(register coord cx, register coord cy, register s_char *pp, int border, struct range *range)
+pathrange(register coord cx, register coord cy, register s_char *pp,
+	  int border, struct range *range)
 {
-	int	dir;
+    int dir;
 
-	range->lx = cx;
-	range->hx = cx;
-	range->ly = cy;
-	range->hy = cy;
-	range->width = 0;
-	range->height = 0;
-	while ((dir = chkdir(*pp, DIR_FIRST, DIR_LAST)) >= 0) {
-		pp++;
-		cx += diroff[dir][0];
-		cy += diroff[dir][1];
-		if (cx < range->lx)
-			range->lx = cx;
-		if (cx > range->hx)
-			range->hx = cx;
-		if (cy < range->ly)
-			range->ly = cy;
-		if (cy > range->hy)
-			range->hy = cy;
-	}
-	range->lx = xnorm(range->lx - border*2);
-	range->ly = ynorm(range->ly - border);
-	range->hx = xnorm(range->hx + border*2 + 1);
-	range->hy = ynorm(range->hy + border + 1);
-	xysize_range(range);
+    range->lx = cx;
+    range->hx = cx;
+    range->ly = cy;
+    range->hy = cy;
+    range->width = 0;
+    range->height = 0;
+    while ((dir = chkdir(*pp, DIR_FIRST, DIR_LAST)) >= 0) {
+	pp++;
+	cx += diroff[dir][0];
+	cy += diroff[dir][1];
+	if (cx < range->lx)
+	    range->lx = cx;
+	if (cx > range->hx)
+	    range->hx = cx;
+	if (cy < range->ly)
+	    range->ly = cy;
+	if (cy > range->hy)
+	    range->hy = cy;
+    }
+    range->lx = xnorm(range->lx - border * 2);
+    range->ly = ynorm(range->ly - border);
+    range->hx = xnorm(range->hx + border * 2 + 1);
+    range->hy = ynorm(range->hy + border + 1);
+    xysize_range(range);
 }
-

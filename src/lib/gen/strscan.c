@@ -40,18 +40,18 @@
 int
 strscan(s_char *target, s_char *string)
 {
-	int	i,n,delta;
+    int i, n, delta;
 
-	if ((string == NULL) || (target == NULL))
-		return(1);
-	n = strlen(target);
-	delta = strlen(string);
-	if (delta < n)
-		return(1);
-	delta -= n;
-	for (i = 0; i <= delta; i++) {
-		if (!strncmp(target,&(string[i]),n))
-			return(0);
-	}
-	return(1);
+    if ((string == NULL) || (target == NULL))
+	return (1);
+    n = strlen(target);
+    delta = strlen(string);
+    if (delta < n)
+	return (1);
+    delta -= n;
+    for (i = 0; i <= delta; i++) {
+	if (!strncmp(target, &(string[i]), n))
+	    return (0);
+    }
+    return (1);
 }

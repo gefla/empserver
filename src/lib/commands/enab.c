@@ -39,9 +39,9 @@
 int
 enab(void)
 {
-	extern	s_char *disablefil;
+    extern s_char *disablefil;
 
-	(void) unlink(disablefil);
-	pr("Updates are enabled\n");
-	return RET_OK;
+    (void)unlink(disablefil);
+    pr("Updates are enabled\n");
+    return RET_OK;
 }

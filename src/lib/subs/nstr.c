@@ -57,116 +57,116 @@ static int legal_val(s_char *str, int val);
 s_char *
 nstr_comp(struct nscstr *np, int *size, int type, s_char *str)
 {
-	register s_char *bp;
-	register s_char *cp;
-	register int c;
-	s_char	ident[80];
-	s_char	arg[255];
-	int op;
-	int val;
+    register s_char *bp;
+    register s_char *cp;
+    register int c;
+    s_char ident[80];
+    s_char arg[255];
+    int op;
+    int val;
 
-	strncpy(arg, str, sizeof(arg)-1);
-	arg[sizeof(arg)-1] = 0;
-	cp = arg;
-	bp = ident;
-	while ((c = *cp++) && bp < &ident[sizeof(ident)-1]) {
-		if (c == '<' || c == '=' || c == '>' || c == '#')
-			break;
-		*bp++ = c;
-	}
-	*bp = 0;
-	if (c == 0) {
-		pr("'%s'? -- meaningless condition?\n", arg);
-		return 0;
-	}
-	op = c;
-	np[*size].oper = op;
-	if ((val = encode(ident, &np[*size].fld1, type)) < 0)
-		return 0;
-	if (val == 2)
-	    np[*size].oper += 255;
-	bp = ident;
-	while ((c = *cp++) && bp < &ident[sizeof(ident)-1]) {
-		if (c == '&')
-			break;
-		*bp++ = c;
-	}
-	*bp = 0;
-	if ((val = encode(ident, &np[*size].fld2, type)) < 0)
-		return 0;
-	if (val == 2)
-	    np[*size].oper += 65535;
-	if (c == 0)
-		cp--;
-	(*size)++;
-	return str + (cp - arg);
+    strncpy(arg, str, sizeof(arg) - 1);
+    arg[sizeof(arg) - 1] = 0;
+    cp = arg;
+    bp = ident;
+    while ((c = *cp++) && bp < &ident[sizeof(ident) - 1]) {
+	if (c == '<' || c == '=' || c == '>' || c == '#')
+	    break;
+	*bp++ = c;
+    }
+    *bp = 0;
+    if (c == 0) {
+	pr("'%s'? -- meaningless condition?\n", arg);
+	return 0;
+    }
+    op = c;
+    np[*size].oper = op;
+    if ((val = encode(ident, &np[*size].fld1, type)) < 0)
+	return 0;
+    if (val == 2)
+	np[*size].oper += 255;
+    bp = ident;
+    while ((c = *cp++) && bp < &ident[sizeof(ident) - 1]) {
+	if (c == '&')
+	    break;
+	*bp++ = c;
+    }
+    *bp = 0;
+    if ((val = encode(ident, &np[*size].fld2, type)) < 0)
+	return 0;
+    if (val == 2)
+	np[*size].oper += 65535;
+    if (c == 0)
+	cp--;
+    (*size)++;
+    return str + (cp - arg);
 }
 
 int
 encode(register s_char *str, long int *val, int type)
 {
-	register int i;
-	struct	castr *cap;
+    register int i;
+    struct castr *cap;
 
-	if (str == 0) {
-		*val = 0;
-		return 0;
-	}
-	if (isdigit(*str) || ((*str == '-') && isdigit(str[1]))) {
-#ifdef BIT16ONLY
-		/* XXX silently truncate to 16 bit int */
-		*val = atoi(str) & 0xffff;
-#else
-		*val = atoi(str);
-#endif /* BIT16ONLY */
-		return 2;
-	}
-	if ((i = typematch(str, type)) >= 0) {
-		*val = i;
-		return 1;
-	}
-	if ((cap = ef_cadef(type)) != 0) {
-		i = stmtch(str, (caddr_t)cap, fldoff(castr, ca_name),
-			sizeof(struct castr));
-		if (i >= 0) {
-			*val = cap[i].ca_code|NSC_OFF;
-			*val &= ~NSC_ROUND;
-			return legal_val(str, *val);
-		}
-		if (i == M_NOTUNIQUE) {
-			pr("%s -- ambiguous type selector\n", str);
-			return 0;
-		}
-	}
-	/*
-	 * Only check for commodity selectors on objects which
-	 * are allowed to have commodities.
-	 */
-	if (ef_flags(type) & EFF_COM) {
-		i = stmtch(str, (caddr_t)var_ca, fldoff(castr, ca_name),
-			sizeof(struct castr));
-		if (i >= 0) {
-			*val = var_ca[i].ca_code & ~NSC_ROUND;
-			return legal_val(str, *val);
-			return 1;
-		}
-		if (i == M_NOTUNIQUE) {
-			pr("%s -- ambiguous commodity selector\n", str);
-			return 0;
-		}
-	}
-	pr("%s -- not a valid selector\n", str);
+    if (str == 0) {
+	*val = 0;
 	return 0;
+    }
+    if (isdigit(*str) || ((*str == '-') && isdigit(str[1]))) {
+#ifdef BIT16ONLY
+	/* XXX silently truncate to 16 bit int */
+	*val = atoi(str) & 0xffff;
+#else
+	*val = atoi(str);
+#endif /* BIT16ONLY */
+	return 2;
+    }
+    if ((i = typematch(str, type)) >= 0) {
+	*val = i;
+	return 1;
+    }
+    if ((cap = ef_cadef(type)) != 0) {
+	i = stmtch(str, (caddr_t)cap, fldoff(castr, ca_name),
+		   sizeof(struct castr));
+	if (i >= 0) {
+	    *val = cap[i].ca_code | NSC_OFF;
+	    *val &= ~NSC_ROUND;
+	    return legal_val(str, *val);
+	}
+	if (i == M_NOTUNIQUE) {
+	    pr("%s -- ambiguous type selector\n", str);
+	    return 0;
+	}
+    }
+    /*
+     * Only check for commodity selectors on objects which
+     * are allowed to have commodities.
+     */
+    if (ef_flags(type) & EFF_COM) {
+	i = stmtch(str, (caddr_t)var_ca, fldoff(castr, ca_name),
+		   sizeof(struct castr));
+	if (i >= 0) {
+	    *val = var_ca[i].ca_code & ~NSC_ROUND;
+	    return legal_val(str, *val);
+	    return 1;
+	}
+	if (i == M_NOTUNIQUE) {
+	    pr("%s -- ambiguous commodity selector\n", str);
+	    return 0;
+	}
+    }
+    pr("%s -- not a valid selector\n", str);
+    return 0;
 }
 
 static int
 legal_val(s_char *str, int val)
 {
-	if (val & NSC_DEITY && !player->god) {
-		pr("%s -- permission denied\n", str);
-		return -1;
-	}
-	return 1;
+    if (val & NSC_DEITY && !player->god) {
+	pr("%s -- permission denied\n", str);
+	return -1;
+    }
+    return 1;
 }
 
 

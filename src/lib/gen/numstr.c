@@ -40,35 +40,35 @@
 s_char *
 numstr(s_char *buf, int n)
 {
-	extern	s_char *numnames[];
-	extern	s_char *tennames[];
+    extern s_char *numnames[];
+    extern s_char *tennames[];
 
-	if (n > 100) {
-		(void) strcpy(buf, "several");
-	} else if (n < 0) {
-		(void) strcpy(buf, "a negative number of");
+    if (n > 100) {
+	(void)strcpy(buf, "several");
+    } else if (n < 0) {
+	(void)strcpy(buf, "a negative number of");
+    } else {
+	if (n >= 20) {
+	    (void)strcpy(buf, tennames[n / 10]);
+	    if (n % 10) {
+		(void)strcat(buf, "-");
+		(void)strcat(buf, numnames[n % 10]);
+	    }
 	} else {
-		if (n >= 20) {
-			(void) strcpy(buf, tennames[n / 10]);
-			if (n % 10) {
-				(void) strcat(buf, "-");
-				(void) strcat(buf, numnames[n % 10]);
-			}
-		} else {
-			(void) strcpy(buf, numnames[n % 20]);
-		}
+	    (void)strcpy(buf, numnames[n % 20]);
 	}
-	return buf;
+    }
+    return buf;
 }
 
 s_char *
 effadv(int n)
 {
-	extern	s_char *effadv_list[];
+    extern s_char *effadv_list[];
 
-	if (n < 0)
-		n = 0;
-	if (n >= 100)
-		n = 99;
-	return effadv_list[n/25];
+    if (n < 0)
+	n = 0;
+    if (n >= 100)
+	n = 99;
+    return effadv_list[n / 25];
 }

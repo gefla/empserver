@@ -36,14 +36,15 @@
 #include "prototypes.h"
 
 int
-main (argc, argv)
+main(argc, argv)
 int argc;
 char *argv[];
 {
-	if (argc > 1)
-		emp_config (argv[1]);
-	else	emp_config (NULL);
+    if (argc > 1)
+	emp_config(argv[1]);
+    else
+	emp_config(NULL);
 
-	print_config (stdout);
-	exit (0);
+    print_config(stdout);
+    exit(0);
 }

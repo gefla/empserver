@@ -48,61 +48,62 @@
 int
 plan(void)
 {
-	int nplanes;
-	struct nstr_item np;
-	struct plnstr plane;
+    int nplanes;
+    struct nstr_item np;
+    struct plnstr plane;
 
-	if (!snxtitem(&np, EF_PLANE, player->argp[1]))
-		return RET_SYN;
-	nplanes = 0;
-	while (nxtitem(&np, (s_char *)&plane)) {
-		if (!player->owner || plane.pln_own == 0)
-			continue;
-		if (nplanes++ == 0) {
-			if (player->god)
-				pr("own ");
-			pr("   #    type                x,y    w  eff  mu def tech ran hard   s/l L");
-			if (opt_ORBIT)
-				pr("S");
-			pr("B nuke\n");
-		}
-		if (player->god)
-			pr("%3d ", plane.pln_own);
-		pr("%4d %-19.19s ", np.cur, plchr[(int)plane.pln_type].pl_name);
-		prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
-		pr(" %c %3d%% %3d %3d %4d %3d  %3d",
-			plane.pln_wing, plane.pln_effic,
-			plane.pln_mobil,
-			plane.pln_def, plane.pln_tech,
-			plane.pln_range, plane.pln_harden);
-		if (plane.pln_ship >= 0)
-			pr("%5dS", plane.pln_ship);
-		else
-		if (plane.pln_land >= 0)
-			pr("%5dL", plane.pln_land);
-		else
-			pr("      ");
-		if ((plchr[(int)plane.pln_type].pl_flags & (P_O|P_M)) == P_O) {
-			pr(" %c", (plane.pln_flags & PLN_LAUNCHED)?'Y':'N');
-			pr("%c",
-			   opt_ORBIT?(plane.pln_flags & PLN_SYNCHRONOUS)?'Y':'N':' ');
-		} else
-				pr("   ");
-		if (plane.pln_nuketype != -1)
-			pr("%c %-5.5s",
-			   plane.pln_flags & PLN_AIRBURST?'A':'G',
-			   nchr[(int)plane.pln_nuketype].n_name);
-		pr("\n");
+    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+	return RET_SYN;
+    nplanes = 0;
+    while (nxtitem(&np, (s_char *)&plane)) {
+	if (!player->owner || plane.pln_own == 0)
+	    continue;
+	if (nplanes++ == 0) {
+	    if (player->god)
+		pr("own ");
+	    pr("   #    type                x,y    w  eff  mu def tech ran hard   s/l L");
+	    if (opt_ORBIT)
+		pr("S");
+	    pr("B nuke\n");
 	}
+	if (player->god)
+	    pr("%3d ", plane.pln_own);
+	pr("%4d %-19.19s ", np.cur, plchr[(int)plane.pln_type].pl_name);
+	prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
+	pr(" %c %3d%% %3d %3d %4d %3d  %3d",
+	   plane.pln_wing, plane.pln_effic,
+	   plane.pln_mobil,
+	   plane.pln_def, plane.pln_tech,
+	   plane.pln_range, plane.pln_harden);
+	if (plane.pln_ship >= 0)
+	    pr("%5dS", plane.pln_ship);
+	else if (plane.pln_land >= 0)
+	    pr("%5dL", plane.pln_land);
+	else
+	    pr("      ");
+	if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) == P_O) {
+	    pr(" %c", (plane.pln_flags & PLN_LAUNCHED) ? 'Y' : 'N');
+	    pr("%c",
+	       opt_ORBIT ? (plane.
+			    pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N' :
+	       ' ');
+	} else
+	    pr("   ");
+	if (plane.pln_nuketype != -1)
+	    pr("%c %-5.5s",
+	       plane.pln_flags & PLN_AIRBURST ? 'A' : 'G',
+	       nchr[(int)plane.pln_nuketype].n_name);
+	pr("\n");
+    }
 
-	if (nplanes == 0) {
-		if (player->argp[1])
-			pr("%s: No plane(s)\n", player->argp[1]);
-		else
-			pr("%s: No plane(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d plane%s\n", nplanes, splur(nplanes));
+    if (nplanes == 0) {
+	if (player->argp[1])
+	    pr("%s: No plane(s)\n", player->argp[1]);
+	else
+	    pr("%s: No plane(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d plane%s\n", nplanes, splur(nplanes));
 
-	return RET_OK;
+    return RET_OK;
 }

@@ -36,17 +36,17 @@
 int
 iceil(double arg)
 {
-	register int i;
+    register int i;
 
-	i = arg;
-	return(i >= arg ? i : i + 1);
+    i = arg;
+    return (i >= arg ? i : i + 1);
 }
 
 int
 ifloor(double arg)
 {
-	register int i;
+    register int i;
 
-	i = arg;
-	return(i <= arg ? i : i - 1);
+    i = arg;
+    return (i <= arg ? i : i - 1);
 }

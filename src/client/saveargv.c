@@ -35,19 +35,19 @@
 
 void
 saveargv(ac, src, dst)
-	int	ac;
-	s_char	**src;
-	s_char	**dst;
+int ac;
+s_char **src;
+s_char **dst;
 {
-	extern	s_char *strcpy();
-	extern	s_char *malloc();
-	register s_char *ptr;
-	register int i;
+    extern s_char *strcpy();
+    extern s_char *malloc();
+    register s_char *ptr;
+    register int i;
 
-	for (i = 0; i < ac; i++) {
-		dst[i] = strcpy(malloc(strlen(src[i])+1), src[i]);
-		ptr = src[i];
-		while (*ptr)
-		    *ptr++ = ' ';
-	}
+    for (i = 0; i < ac; i++) {
+	dst[i] = strcpy(malloc(strlen(src[i]) + 1), src[i]);
+	ptr = src[i];
+	while (*ptr)
+	    *ptr++ = ' ';
+    }
 }

@@ -68,20 +68,19 @@ void *argv;
 /*ARGSUSED*/
 void
 market_update(argv)
-void	*argv;
+void *argv;
 {
-    time_t    now;
+    time_t now;
     struct player *dp;
-    
+
     while (1) {
 	time(&now);
 /*	logerror("Checking the world markets at %s", ctime(&now));*/
 	dp = player_new(0, 0);
-	empth_create(PP_UPDATE, check_all_markets, (50*1024), 0,
-		  "MarketCheck", "Checks the world markets", dp);
-	now = now + 300; /* Every 5 minutes */
+	empth_create(PP_UPDATE, check_all_markets, (50 * 1024), 0,
+		     "MarketCheck", "Checks the world markets", dp);
+	now = now + 300;	/* Every 5 minutes */
 	empth_sleep(now);
     }
     /*NOTREACHED*/
 }
-

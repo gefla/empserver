@@ -44,14 +44,14 @@
 int
 terr(void)
 {
-    struct	sctstr sect;
-    s_char   *p;
-    int     terr_n;
-    int         field;
-    struct	nstr_sect nstr;
-    s_char	prompt[128];
-    s_char	buf[1024];
-    
+    struct sctstr sect;
+    s_char *p;
+    int terr_n;
+    int field;
+    struct nstr_sect nstr;
+    s_char prompt[128];
+    s_char buf[1024];
+
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     if (player->argp[3] && isdigit(*(player->argp[3]))) {
@@ -62,7 +62,7 @@ terr(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	sprintf(prompt, "%s %d%% %s  territory? ", 
+	sprintf(prompt, "%s %d%% %s  territory? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
@@ -74,7 +74,7 @@ terr(void)
 	terr_n = atoi(p);
 	while (terr_n < 0 || terr_n > 99 || *p < '0' || *p > '9') {
 	    pr("Enter a number between 0 and 99!\n");
-	    sprintf(prompt, "%s %d%% %s  territory? ", 
+	    sprintf(prompt, "%s %d%% %s  territory? ",
 		    xyas(nstr.x, nstr.y, player->cnum),
 		    sect.sct_effic, dchr[sect.sct_type].d_name);
 	    if ((p = getstarg((s_char *)0, prompt, buf)) == 0)
@@ -88,13 +88,19 @@ terr(void)
 	if (*p == 0)
 	    continue;
 	switch (field) {
-	    case 1: sect.sct_terr1 = terr_n; break;
-	    case 2: sect.sct_terr2 = terr_n; break;
-	    case 3: sect.sct_terr3 = terr_n; break;
-	    default: sect.sct_terr = terr_n;
+	case 1:
+	    sect.sct_terr1 = terr_n;
+	    break;
+	case 2:
+	    sect.sct_terr2 = terr_n;
+	    break;
+	case 3:
+	    sect.sct_terr3 = terr_n;
+	    break;
+	default:
+	    sect.sct_terr = terr_n;
 	}
 	putsect(&sect);
     }
     return RET_OK;
 }
-

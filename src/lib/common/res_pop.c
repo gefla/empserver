@@ -47,25 +47,27 @@
 int
 max_pop(float research, struct sctstr *sp)
 {
-	int	maxpop = 999;
+    int maxpop = 999;
 
-	if (opt_RES_POP) {
-	    maxpop = (((50.0+4.0*research)/(200.0+3.0*research))*600.0) + 400;
-	    if (maxpop > 999)
-		maxpop = 999;
-	}
+    if (opt_RES_POP) {
+	maxpop =
+	    (((50.0 + 4.0 * research) / (200.0 +
+					 3.0 * research)) * 600.0) + 400;
+	if (maxpop > 999)
+	    maxpop = 999;
+    }
 
-	if (opt_BIG_CITY) {
-	    if (sp && dchr[sp->sct_type].d_pkg == UPKG)
-		maxpop = (int)(maxpop * ((9.0 * sp->sct_effic) / 100 + 1));
-	}
+    if (opt_BIG_CITY) {
+	if (sp && dchr[sp->sct_type].d_pkg == UPKG)
+	    maxpop = (int)(maxpop * ((9.0 * sp->sct_effic) / 100 + 1));
+    }
 
-	if (sp) {
-	    if (sp->sct_type == SCT_MOUNT)
-		maxpop /= 10;
-	    else if (sp->sct_type == SCT_PLAINS)
-		maxpop /= 20;
-	}
+    if (sp) {
+	if (sp->sct_type == SCT_MOUNT)
+	    maxpop /= 10;
+	else if (sp->sct_type == SCT_PLAINS)
+	    maxpop /= 20;
+    }
 
-	return maxpop;
+    return maxpop;
 }

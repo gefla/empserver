@@ -50,76 +50,79 @@
 int
 shp_postread(int n, s_char *ptr)
 {
-	struct	shpstr *sp = (struct shpstr *)ptr;
+    struct shpstr *sp = (struct shpstr *)ptr;
 
-	if (sp->shp_uid != n) {
-		logerror("shp_postread: Error - %d != %d, zeroing.\n", sp->shp_uid, n);
-		bzero(ptr, sizeof(struct shpstr));
-	}
+    if (sp->shp_uid != n) {
+	logerror("shp_postread: Error - %d != %d, zeroing.\n", sp->shp_uid,
+		 n);
+	bzero(ptr, sizeof(struct shpstr));
+    }
 
-	if (opt_MOB_ACCESS)
-	  shp_do_upd_mob(sp);
-	player->owner = (player->god || sp->shp_own == player->cnum);
-	return 1;
+    if (opt_MOB_ACCESS)
+	shp_do_upd_mob(sp);
+    player->owner = (player->god || sp->shp_own == player->cnum);
+    return 1;
 }
 
 int
 shp_prewrite(int n, s_char *ptr)
 {
-    struct	shpstr *sp = (struct shpstr *) ptr;
-    struct	shpstr ship;
+    struct shpstr *sp = (struct shpstr *)ptr;
+    struct shpstr ship;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;
-    
+
     sp->ef_type = EF_SHIP;
     sp->shp_uid = n;
-    
+
     time(&sp->shp_timestamp);
-	
+
     if (sp->shp_own != 0 && sp->shp_effic < SHIP_MINEFF) {
-		mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
-		makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
-		sp->shp_own = 0;
-		
-		getship(n, &ship);
-		
-		for (i = 0; NULL != (lp = getlandp(i)); i++) {
-			if (lp->lnd_own && lp->lnd_ship == n) {
-				mpr(lp->lnd_own, "%s sunk!\n", prland(lp));
-				makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-				lp->lnd_own = 0;
-				lp->lnd_effic = 0;
-				lp->lnd_ship = -1;
-				lp->lnd_land = -1;
-				putland(lp->lnd_uid, lp);
-			}
-		}
-		for (i = 0; NULL != (pp = getplanep(i)); i++) {
-			if (pp->pln_own && pp->pln_ship == n) {
-				mpr(pp->pln_own, "%s sunk!\n", prplane(pp));
-				makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-				pp->pln_own = 0;
-				pp->pln_effic = 0;
-				pp->pln_ship = -1;
-				pp->pln_land = -1;
-				putplane(pp->pln_uid, pp);
-			}
-		}
+	mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
+	makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
+	sp->shp_own = 0;
+
+	getship(n, &ship);
+
+	for (i = 0; NULL != (lp = getlandp(i)); i++) {
+	    if (lp->lnd_own && lp->lnd_ship == n) {
+		mpr(lp->lnd_own, "%s sunk!\n", prland(lp));
+		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x,
+			 lp->lnd_y);
+		lp->lnd_own = 0;
+		lp->lnd_effic = 0;
+		lp->lnd_ship = -1;
+		lp->lnd_land = -1;
+		putland(lp->lnd_uid, lp);
+	    }
+	}
+	for (i = 0; NULL != (pp = getplanep(i)); i++) {
+	    if (pp->pln_own && pp->pln_ship == n) {
+		mpr(pp->pln_own, "%s sunk!\n", prplane(pp));
+		makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
+			 pp->pln_y);
+		pp->pln_own = 0;
+		pp->pln_effic = 0;
+		pp->pln_ship = -1;
+		pp->pln_land = -1;
+		putplane(pp->pln_uid, pp);
+	    }
+	}
     } else
-		getship(n, &ship);
-    
+	getship(n, &ship);
+
     return 1;
 }
 
 void
 shp_init(int n, s_char *ptr)
 {
-	struct	shpstr *sp = (struct shpstr *) ptr;
+    struct shpstr *sp = (struct shpstr *)ptr;
 
-	sp->ef_type = EF_SHIP;
-	sp->shp_uid = n;
-	sp->shp_own = 0;
+    sp->ef_type = EF_SHIP;
+    sp->shp_uid = n;
+    sp->shp_own = 0;
 }
 
 s_char *
@@ -127,8 +130,10 @@ prship(struct shpstr *sp)
 {
     if (opt_SHIPNAMES) {
 	return prbuf("%s %s(#%d)",
-		     mchr[(int)sp->shp_type].m_name, sp->shp_name, sp->shp_uid);
+		     mchr[(int)sp->shp_type].m_name, sp->shp_name,
+		     sp->shp_uid);
     } else {
-	return prbuf("%s #%d", mchr[(int)sp->shp_type].m_name, sp->shp_uid);
+	return prbuf("%s #%d", mchr[(int)sp->shp_type].m_name,
+		     sp->shp_uid);
     }
 }

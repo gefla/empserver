@@ -37,9 +37,9 @@
 int
 same(register s_char *s1, register s_char *s2)
 {
-	while (*s1 == *s2++) {
-		if (*s1++ == 0)
-			return 1;
-	}
-	return 0;
+    while (*s1 == *s2++) {
+	if (*s1++ == 0)
+	    return 1;
+    }
+    return 0;
 }

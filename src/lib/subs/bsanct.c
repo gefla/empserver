@@ -47,32 +47,32 @@
 void
 bsanct(void)
 {
-	register int count;
-	struct	sctstr s;
-	struct  nstr_sect nstr;
+    register int count;
+    struct sctstr s;
+    struct nstr_sect nstr;
 
-	if (player->god)
-		return;
-	count = 0;
-	snxtsct(&nstr, "*");
-	while (nxtsct(&nstr, &s)) {
-		if (!player->owner)
-			continue;
-		if (s.sct_type != SCT_SANCT)
-			continue;
-		pr("%s is no longer a sanctuary.\n",
-			xyas(s.sct_x, s.sct_y, player->cnum));
-		if (s.sct_effic == 100) {
-			s.sct_type = SCT_CAPIT;
-			s.sct_newtype = SCT_CAPIT;
-		} else {
-			s.sct_type = SCT_HIWAY;
-			s.sct_newtype = SCT_HIWAY;
-		}
-		time(&s.sct_access);
-		(void) putsect(&s);
-		count++;
+    if (player->god)
+	return;
+    count = 0;
+    snxtsct(&nstr, "*");
+    while (nxtsct(&nstr, &s)) {
+	if (!player->owner)
+	    continue;
+	if (s.sct_type != SCT_SANCT)
+	    continue;
+	pr("%s is no longer a sanctuary.\n",
+	   xyas(s.sct_x, s.sct_y, player->cnum));
+	if (s.sct_effic == 100) {
+	    s.sct_type = SCT_CAPIT;
+	    s.sct_newtype = SCT_CAPIT;
+	} else {
+	    s.sct_type = SCT_HIWAY;
+	    s.sct_newtype = SCT_HIWAY;
 	}
-	if (count > 0)
-		nreport(player->cnum, N_BROKE_SANCT, 0, 1);
+	time(&s.sct_access);
+	(void)putsect(&s);
+	count++;
+    }
+    if (count > 0)
+	nreport(player->cnum, N_BROKE_SANCT, 0, 1);
 }

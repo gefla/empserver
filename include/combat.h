@@ -37,27 +37,27 @@
 #include "sect.h"
 #include "queue.h"
 
-struct	combat {
-	int	type;	/* EF_BAD, EF_SECTOR, EF_SHIP, or EF_PLANE */
-	int	set;	/* Has the struct been initialized? */
-	int	last;	/* The index of the last element in off array */
-	coord	x;	/* location of attacking sector/ship/plane */
-        coord   y;
-	natid	own;
-	int	eff;
-	int	mob;
-	int	mobcost;
-	int	mil;    /* mil in the sector/ship/unit */
-	int	troops; /* mil in the combat */
-	int	plague;
-	int	sct_type;
-	int	shp_uid;
-        int     lnd_uid;
-	struct	dchrstr *sct_dcp;
-	struct	mchrstr *shp_mcp;
-        struct  lchrstr *lnd_lcp;
-	s_char	shp_name[MAXSHPNAMLEN];
-	int	relations_checked;
+struct combat {
+    int type;			/* EF_BAD, EF_SECTOR, EF_SHIP, or EF_PLANE */
+    int set;			/* Has the struct been initialized? */
+    int last;			/* The index of the last element in off array */
+    coord x;			/* location of attacking sector/ship/plane */
+    coord y;
+    natid own;
+    int eff;
+    int mob;
+    int mobcost;
+    int mil;			/* mil in the sector/ship/unit */
+    int troops;			/* mil in the combat */
+    int plague;
+    int sct_type;
+    int shp_uid;
+    int lnd_uid;
+    struct dchrstr *sct_dcp;
+    struct mchrstr *shp_mcp;
+    struct lchrstr *lnd_lcp;
+    s_char shp_name[MAXSHPNAMLEN];
+    int relations_checked;
 };
 
 /* Types of combat for use by attack routines */
@@ -69,32 +69,32 @@ struct	combat {
 #define A_LBOARD        5
 
 /* src/lib/subs/attsub.c */
-extern double att_calcodds(int  , int );
-extern double att_combat_eff(struct combat * );
-extern void att_move_in_off(int  , struct combat *  , struct emp_qelem *  ,
-			    struct combat * );
-extern int att_combat_init(struct combat *  , int );
-extern int att_get_combat(struct combat *  , int );
-extern int att_abort(int  , struct combat *  , struct combat * );
-extern int att_approach(struct combat *  , struct combat * );
-extern int att_show(struct combat * );
-extern int att_ask_support(int  , int *  , int *  , int *  , int * );
-extern int att_ask_offense(int  , struct combat *  , struct combat *  ,
-			   struct emp_qelem *  , int *  , int * );
-extern double sector_strength(struct sctstr * );
-extern int att_estimate_defense(int  , struct combat *  , struct emp_qelem *,
-				struct combat *  , int );
-extern int att_empty_attack(int  , int  , struct combat * );
-extern int att_get_defense(struct emp_qelem *  , struct combat *  ,
-			   struct emp_qelem *  , int  , int );
-extern int att_reacting_units(struct combat *  , struct emp_qelem *  , int  ,
-			      int *  , int );
-extern int att_get_support(int  , int  , int  , int  , int, struct emp_qelem *,
-			   struct combat *  , struct emp_qelem *  ,
-			   struct combat *  , double *  , double *  , int );
-extern int att_fight(int  , struct combat *  , struct emp_qelem *  , double  ,
-		     struct combat *  , struct emp_qelem *  , double );
-extern int att_free_lists(struct emp_qelem *  , struct emp_qelem * );
+extern double att_calcodds(int, int);
+extern double att_combat_eff(struct combat *);
+extern void att_move_in_off(int, struct combat *, struct emp_qelem *,
+			    struct combat *);
+extern int att_combat_init(struct combat *, int);
+extern int att_get_combat(struct combat *, int);
+extern int att_abort(int, struct combat *, struct combat *);
+extern int att_approach(struct combat *, struct combat *);
+extern int att_show(struct combat *);
+extern int att_ask_support(int, int *, int *, int *, int *);
+extern int att_ask_offense(int, struct combat *, struct combat *,
+			   struct emp_qelem *, int *, int *);
+extern double sector_strength(struct sctstr *);
+extern int att_estimate_defense(int, struct combat *, struct emp_qelem *,
+				struct combat *, int);
+extern int att_empty_attack(int, int, struct combat *);
+extern int att_get_defense(struct emp_qelem *, struct combat *,
+			   struct emp_qelem *, int, int);
+extern int att_reacting_units(struct combat *, struct emp_qelem *, int,
+			      int *, int);
+extern int att_get_support(int, int, int, int, int, struct emp_qelem *,
+			   struct combat *, struct emp_qelem *,
+			   struct combat *, double *, double *, int);
+extern int att_fight(int, struct combat *, struct emp_qelem *, double,
+		     struct combat *, struct emp_qelem *, double);
+extern int att_free_lists(struct emp_qelem *, struct emp_qelem *);
 
 
 extern double att_asupport();
@@ -104,4 +104,3 @@ extern double combat_mob;
 extern s_char *att_mode[];
 
 #endif /* _COMBAT_H_ */
-

@@ -38,7 +38,7 @@
 #ifdef _EMPTH_LWP
 
 int
-empth_init (char **ctx, int flags)
+empth_init(char **ctx, int flags)
 {
     lwpInitSystem(7, ctx, flags);
     return 0;
@@ -46,11 +46,11 @@ empth_init (char **ctx, int flags)
 
 
 empth_t *
-empth_create (int prio, void (*entry)(), int size, int flags, char *name,
-	      char *desc, void *ud)
+empth_create(int prio, void (*entry) (), int size, int flags, char *name,
+	     char *desc, void *ud)
 {
     /* inherit flags */
-    if(!flags)
+    if (!flags)
 	flags = LwpCurrent->flags;
     return lwpCreate(prio, entry, size, flags, name, desc, 0, 0, ud);
 }
@@ -72,23 +72,23 @@ empth_self(void)
 }
 
 void
-empth_exit (void)
+empth_exit(void)
 {
-	time_t now;
+    time_t now;
 
-	/* We want to leave the main thread around forever, until it's time
-	   for it to die for real (in a shutdown) */
+    /* We want to leave the main thread around forever, until it's time
+       for it to die for real (in a shutdown) */
     if (!strcmp(LwpCurrent->name, "Main")) {
-		while(1) {
-			time(&now);
-			lwpSleepUntil(now + 60);
-		}
+	while (1) {
+	    time(&now);
+	    lwpSleepUntil(now + 60);
+	}
     }
     lwpExit();
 }
-	
+
 void
-empth_yield (void)
+empth_yield(void)
 {
     /* a hack! */
     lwpReschedule();
@@ -132,7 +132,7 @@ empth_sem_signal(empth_sem_t *sm)
 }
 
 void
-empth_sem_wait (empth_sem_t *sm)
+empth_sem_wait(empth_sem_t *sm)
 {
     lwpWait(sm);
 }
@@ -144,4 +144,3 @@ empth_alarm(int sig)
     panic(sig);
 }
 #endif
-

@@ -36,17 +36,17 @@
 int
 roundintby(int n, int m)
 {
-	register int r11;
+    register int r11;
 
-	r11 = (m >> 1) + n;
-	return (r11 / m * m);
+    r11 = (m >> 1) + n;
+    return (r11 / m * m);
 }
 
 int
 ldround(double a4, int ac)
 {
-	int	f4;
+    int f4;
 
-	f4 = ac / 2.0 + a4;
-	return (f4 / ac * ac);
+    f4 = ac / 2.0 + a4;
+    return (f4 / ac * ac);
 }

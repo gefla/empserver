@@ -50,70 +50,70 @@
 s_char *
 nxtitemp(struct nstr_item *np, int owner)
 {
-	struct	genitem *gp;
-	int	selected;
+    struct genitem *gp;
+    int selected;
 
-	if (np->sel == NS_UNDEF)
+    if (np->sel == NS_UNDEF)
+	return 0;
+    do {
+	if (np->sel == NS_LIST) {
+	    np->index++;
+	    if (np->index >= np->size)
 		return 0;
-	do {
-		if (np->sel == NS_LIST) {
-			np->index++;
-			if (np->index >= np->size)
-				return 0;
-			np->cur = np->list[np->index];
-		} else {
-			np->cur++;
-		}
-		gp = (struct genitem *)ef_ptr(np->type,np->cur);
-		if (gp == (struct genitem *)0)
-			return 0;
+	    np->cur = np->list[np->index];
+	} else {
+	    np->cur++;
+	}
+	gp = (struct genitem *)ef_ptr(np->type, np->cur);
+	if (gp == (struct genitem *)0)
+	    return 0;
 
-		selected = 1;
-		switch (np->sel) {
-		/*
-		 * This one won't work unless you're running in emp_player
-		 *
-		 */
-		case NS_LIST:
-			if ((np->flags & EFF_OWNER) && !owner)
-				selected = 0;
-			break;
-		case NS_ALL:
-			/* XXX maybe combine NS_LIST and NS_ALL later */
-			break;
-		case NS_DIST:
-			if (!xyinrange(gp->x, gp->y, &np->range)) {
-				selected = 0;
-				break;
-			}
-			np->curdist = mapdist((int)gp->x, (int)gp->y,
-				(int)np->cx, (int)np->cy);
-			if (np->curdist > np->dist)
-				selected = 0;
-			break;
-		case NS_AREA:
-			if (!xyinrange(gp->x, gp->y, &np->range))
-				selected = 0;
-			if (gp->x == np->range.hx || gp->y == np->range.hy)
-				selected = 0;
-			break;
-		case NS_XY:
-			if (xnorm(gp->x) != np->cx || ynorm(gp->y) != np->cy)
-				selected = 0;
-			break;
-		case NS_GROUP:
-			if (np->group != gp->group)
-				selected = 0;
-			break;
-		default:
-			logerror("nxtitemp: bad selector %d\n", np->sel);
-			return 0;
-		}
-		if (selected && np->ncond) {
-			/* nstr_exec is expensive, so we do it last */
-			if (!nstr_exec(np->cond, np->ncond, (s_char *)gp, np->type))
-				selected = 0;
-		}
-	} while (!selected);
-	return (s_char *)gp;
+	selected = 1;
+	switch (np->sel) {
+	    /*
+	     * This one won't work unless you're running in emp_player
+	     *
+	     */
+	case NS_LIST:
+	    if ((np->flags & EFF_OWNER) && !owner)
+		selected = 0;
+	    break;
+	case NS_ALL:
+	    /* XXX maybe combine NS_LIST and NS_ALL later */
+	    break;
+	case NS_DIST:
+	    if (!xyinrange(gp->x, gp->y, &np->range)) {
+		selected = 0;
+		break;
+	    }
+	    np->curdist = mapdist((int)gp->x, (int)gp->y,
+				  (int)np->cx, (int)np->cy);
+	    if (np->curdist > np->dist)
+		selected = 0;
+	    break;
+	case NS_AREA:
+	    if (!xyinrange(gp->x, gp->y, &np->range))
+		selected = 0;
+	    if (gp->x == np->range.hx || gp->y == np->range.hy)
+		selected = 0;
+	    break;
+	case NS_XY:
+	    if (xnorm(gp->x) != np->cx || ynorm(gp->y) != np->cy)
+		selected = 0;
+	    break;
+	case NS_GROUP:
+	    if (np->group != gp->group)
+		selected = 0;
+	    break;
+	default:
+	    logerror("nxtitemp: bad selector %d\n", np->sel);
+	    return 0;
+	}
+	if (selected && np->ncond) {
+	    /* nstr_exec is expensive, so we do it last */
+	    if (!nstr_exec(np->cond, np->ncond, (s_char *)gp, np->type))
+		selected = 0;
+	}
+    } while (!selected);
+    return (s_char *)gp;
 }

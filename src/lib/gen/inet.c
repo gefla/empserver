@@ -35,7 +35,7 @@
 #if !defined(_WIN32)
 #include <netinet/in.h>
 #endif
-#include <stdio.h> /* sprintf */
+#include <stdio.h>		/* sprintf */
 #include "misc.h"
 #include "gen.h"
 
@@ -43,11 +43,11 @@
 s_char *
 inet_ntoa(struct in_addr addr)
 {
-	static	s_char str[18];
-	register u_char *p;
+    static s_char str[18];
+    register u_char *p;
 
-	p = (u_char *)&addr;
-	sprintf(str, "%d.%d.%d.%d", p[0], p[1], p[2], p[3]);
-	return str;
+    p = (u_char *)&addr;
+    sprintf(str, "%d.%d.%d.%d", p[0], p[1], p[2], p[3]);
+    return str;
 }
 #endif /* NeXT */

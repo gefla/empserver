@@ -47,87 +47,87 @@
 
 int
 hostaddr(name, addr)
-	s_char	*name;
-	struct	sockaddr_in *addr;
+s_char *name;
+struct sockaddr_in *addr;
 {
 #ifndef _WIN32
-	extern	u_long inet_addr();
+    extern u_long inet_addr();
 #endif
-	struct	hostent *hp;
+    struct hostent *hp;
 
-	if (name == 0 || *name == 0)
-		return 0;
-	if (isdigit(*name)) {
-		addr->sin_addr.s_addr = inet_addr(name);
-	} else {
-		hp = gethostbyname(name);
-		if (hp == NULL) {
-			fprintf(stderr, "%s: No such host\n", name);
-			return 0;
-		}
-		bcopy(hp->h_addr, (s_char *)&addr->sin_addr,
-			sizeof(addr->sin_addr));
-#ifdef _WIN32
-		printf("Trying to connect to '%s'\n", inet_ntoa(addr->sin_addr));
-		fflush(stdout);
-#endif
+    if (name == 0 || *name == 0)
+	return 0;
+    if (isdigit(*name)) {
+	addr->sin_addr.s_addr = inet_addr(name);
+    } else {
+	hp = gethostbyname(name);
+	if (hp == NULL) {
+	    fprintf(stderr, "%s: No such host\n", name);
+	    return 0;
 	}
-	return 1;
+	bcopy(hp->h_addr, (s_char *)&addr->sin_addr,
+	      sizeof(addr->sin_addr));
+#ifdef _WIN32
+	printf("Trying to connect to '%s'\n", inet_ntoa(addr->sin_addr));
+	fflush(stdout);
+#endif
+    }
+    return 1;
 }
 
 int
 hostport(name, addr)
-	s_char	*name;
-	struct	sockaddr_in *addr;
+s_char *name;
+struct sockaddr_in *addr;
 {
-	struct	servent *sp;
+    struct servent *sp;
 #ifndef _WIN32
-	int atoi();
+    int atoi();
 #endif
 
-	if (name == 0 || *name == 0)
-		return 0;
-	if (isdigit(*name)) {
+    if (name == 0 || *name == 0)
+	return 0;
+    if (isdigit(*name)) {
 #ifndef _WIN32
-		addr->sin_port = htons(atoi(name));
+	addr->sin_port = htons(atoi(name));
 #else
-		addr->sin_port = atoi(name);
-		addr->sin_port = htons(addr->sin_port);
+	addr->sin_port = atoi(name);
+	addr->sin_port = htons(addr->sin_port);
 #endif
-	} else {
-		sp = getservbyname(name, "tcp");
-		if (sp == NULL)
-			return 0;
-		addr->sin_port = sp->s_port;
-	}
-	return 1;
+    } else {
+	sp = getservbyname(name, "tcp");
+	if (sp == NULL)
+	    return 0;
+	addr->sin_port = sp->s_port;
+    }
+    return 1;
 }
 
 int
 hostconnect(addr)
-	struct	sockaddr_in *addr;
+struct sockaddr_in *addr;
 {
-	int	s;
+    int s;
 
-	s = socket(AF_INET, SOCK_STREAM, 0);
-	if (s < 0) {
+    s = socket(AF_INET, SOCK_STREAM, 0);
+    if (s < 0) {
 #ifdef _WIN32
-		errno = WSAGetLastError();
+	errno = WSAGetLastError();
 #endif
-		perror("socket");
-		return -1;
-	}
-	addr->sin_family = AF_INET;
-	if (connect(s, (struct sockaddr *)addr, sizeof(*addr)) < 0) {
+	perror("socket");
+	return -1;
+    }
+    addr->sin_family = AF_INET;
+    if (connect(s, (struct sockaddr *)addr, sizeof(*addr)) < 0) {
 #ifdef _WIN32
-		errno = WSAGetLastError();
+	errno = WSAGetLastError();
 #endif
-		perror("connect");
+	perror("connect");
 #ifdef _WIN32
-		printf("Check that your EMPIREHOST and EMPIREPORT are correct.\n");
+	printf("Check that your EMPIREHOST and EMPIREPORT are correct.\n");
 #endif
-		(void) close(s);
-		return -1;
-	}
-	return s;
+	(void)close(s);
+	return -1;
+    }
+    return s;
 }

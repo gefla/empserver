@@ -34,22 +34,21 @@
 #ifndef _LOST_H_
 #define _LOST_H_
 struct loststr {
-    short   ef_type;
-    natid   lost_owner; /* Who lost it */
-    int     lost_uid;   /* This lost # */
-    char    lost_type;  /* Type of thing (ship, plane, nuke, land, sector) */
-    short   lost_id;    /* ID of thing */
-    coord   lost_x;
-    coord   lost_y;
-    time_t  lost_timestamp; /* When it was lost */
+    short ef_type;
+    natid lost_owner;		/* Who lost it */
+    int lost_uid;		/* This lost # */
+    char lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
+    short lost_id;		/* ID of thing */
+    coord lost_x;
+    coord lost_y;
+    time_t lost_timestamp;	/* When it was lost */
 };
 
 #define getlost(n, p) ef_read(EF_LOST, n, (caddr_t)p)
 #define putlost(n, p) ef_write(EF_LOST, n, (caddr_t)p)
 
 /* src/lib/subs/lostsub.c */
-extern int findlost(char  , natid  , short  , coord  , coord  , int );
-extern void makelost(char  , natid  , short  , coord  , coord );
-extern void makenotlost(char  , natid  , short  , coord  , coord );
+extern int findlost(char, natid, short, coord, coord, int);
+extern void makelost(char, natid, short, coord, coord);
+extern void makenotlost(char, natid, short, coord, coord);
 #endif /* _LOST_H_ */
-

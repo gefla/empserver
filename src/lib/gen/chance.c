@@ -37,36 +37,36 @@
 void
 srandom(unsigned int n)
 {
-	extern void srand48();
+    extern void srand48();
 
-	srand48(n);
+    srand48(n);
 }
 
 long
 random(void)
 {
-	extern	long lrand48();
+    extern long lrand48();
 
-	return (lrand48());	/* 5/28/91 by bailey@mcs.kent.edu */
+    return (lrand48());		/* 5/28/91 by bailey@mcs.kent.edu */
 }
 #endif
 
 int
 chance(double d)
 {
-	double	roll;
+    double roll;
 
-	roll = (random() & 0x7fff);
+    roll = (random() & 0x7fff);
 
-	if (d >  roll/32768.0)
-		return 1;
-	return 0;
+    if (d > roll / 32768.0)
+	return 1;
+    return 0;
 }
 
 int
 roll(int n)
 {
-	return (random() % n) + 1;
+    return (random() % n) + 1;
 }
 
 /*
@@ -76,12 +76,12 @@ roll(int n)
 int
 roundavg(double val)
 {
-	int	flr;
+    int flr;
 
-	flr = (int) val;
-	if (val < 0)
-		flr -= chance(flr - val);
-	else
-		flr += chance(val - flr);
-	return flr;
+    flr = (int)val;
+    if (val < 0)
+	flr -= chance(flr - val);
+    else
+	flr += chance(val - flr);
+    return flr;
 }

@@ -50,6 +50,6 @@
 #include "genitem.h"
 #include "trade.h"
 #include "player.h"
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _SUBS_H_ */

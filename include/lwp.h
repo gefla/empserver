@@ -25,7 +25,7 @@
 #include "prototype.h"
 #ifdef UCONTEXT
 #include <ucontext.h>
-#else /* UCONTEXT */
+#else  /* UCONTEXT */
 #include <setjmp.h>
 #endif /* UCONTEXT */
 #include <sys/time.h>
@@ -36,39 +36,39 @@
 /* process control block.  do *not* change the position of context */
 struct lwpProc {
 #ifdef UCONTEXT
-	ucontext_t context;     /* context structure */
-#else /* UCONTEXT */
-	jmp_buf	context;	/* processor context area */
-#endif /* UCONTEXT */
-	void	*sbtm;		/* bottom of stack attached to it */
-	int     size;           /* size of stack */
-	void	(*entry)();	/* entry point */
-	int	dead;		/* whether the process can be rescheduled */
-	int	pri;		/* which scheduling queue we're on */
-	long	runtime;	/* time at which process is restarted */
-	int	fd;		/* fd we're blocking on */
-	int	argc;		/* initial arguments */
-	char	**argv;
-	void	*ud;		/* user data */
-	void	*lowmark;	/* start of low buffer around stack */
-	void	*himark;	/* start of upper buffer around stack */
-	char	*name;		/* process name and description */
-	char	*desc;
-	int	flags;
-	struct lwpProc *next;
+    ucontext_t context;		/* context structure */
+#else				/* UCONTEXT */
+    jmp_buf context;		/* processor context area */
+#endif				/* UCONTEXT */
+    void *sbtm;			/* bottom of stack attached to it */
+    int size;			/* size of stack */
+    void (*entry) ();		/* entry point */
+    int dead;			/* whether the process can be rescheduled */
+    int pri;			/* which scheduling queue we're on */
+    long runtime;		/* time at which process is restarted */
+    int fd;			/* fd we're blocking on */
+    int argc;			/* initial arguments */
+    char **argv;
+    void *ud;			/* user data */
+    void *lowmark;		/* start of low buffer around stack */
+    void *himark;		/* start of upper buffer around stack */
+    char *name;			/* process name and description */
+    char *desc;
+    int flags;
+    struct lwpProc *next;
 };
 
 /* queue */
 struct lwpQueue {
-	struct lwpProc *head;
-	struct lwpProc *tail;
+    struct lwpProc *head;
+    struct lwpProc *tail;
 };
 
 /* semaphore */
 struct lwpSem {
-	int	count;
-	struct lwpQueue q;
-	char	*name;
+    int count;
+    struct lwpQueue q;
+    char *name;
 };
 
 #define LWP_FD_READ	0x1
@@ -76,30 +76,30 @@ struct lwpSem {
 
 #define LWP_MAX_PRIO	8
 
-struct lwpProc	*lwpInitSystem _PROTO((int prio, char **ctxp, int flags));
-struct lwpProc	*lwpCreate _PROTO((int prio, void (*)(), int size,
-			int flags, char *name, char *desc, int argc, 
-			char **argv, void *ud));
-void		lwpExit _PROTO((void));
-void		lwpTerminate _PROTO((struct lwpProc *p));
-void		lwpYield _PROTO((void));
-void		lwpSleepFd _PROTO((int fd, int flags));
-void		lwpSleepUntil _PROTO((long until));
-void		lwpWakeupFd _PROTO((struct lwpProc *p));
-void		*lwpGetUD _PROTO((struct lwpProc *p));
-void		lwpSetUD _PROTO((struct lwpProc *p, char *ud));
-void		lwpSetDesc _PROTO((struct lwpProc *p, char *name, char *desc));
-int		lwpSetPriority _PROTO((int prio));
-void		lwpReschedule _PROTO((void));
+struct lwpProc *lwpInitSystem _PROTO((int prio, char **ctxp, int flags));
+struct lwpProc *lwpCreate _PROTO((int prio, void (*)(), int size,
+				  int flags, char *name, char *desc,
+				  int argc, char **argv, void *ud));
+void lwpExit _PROTO((void));
+void lwpTerminate _PROTO((struct lwpProc * p));
+void lwpYield _PROTO((void));
+void lwpSleepFd _PROTO((int fd, int flags));
+void lwpSleepUntil _PROTO((long until));
+void lwpWakeupFd _PROTO((struct lwpProc * p));
+void *lwpGetUD _PROTO((struct lwpProc * p));
+void lwpSetUD _PROTO((struct lwpProc * p, char *ud));
+void lwpSetDesc _PROTO((struct lwpProc * p, char *name, char *desc));
+int lwpSetPriority _PROTO((int prio));
+void lwpReschedule _PROTO((void));
 
-struct lwpSem	*lwpCreateSem _PROTO((char *name, int count));
-void		lwpSignal _PROTO((struct lwpSem *));
-void		lwpWait _PROTO((struct lwpSem *));
-void		lwpSelect _PROTO((int argc, char **argv));
-void		lwpStatus _PROTO((struct lwpProc *proc, char *format, ...));
+struct lwpSem *lwpCreateSem _PROTO((char *name, int count));
+void lwpSignal _PROTO((struct lwpSem *));
+void lwpWait _PROTO((struct lwpSem *));
+void lwpSelect _PROTO((int argc, char **argv));
+void lwpStatus _PROTO((struct lwpProc * proc, char *format, ...));
 
-extern struct lwpProc	*LwpCurrent;
+extern struct lwpProc *LwpCurrent;
 
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif	/* _LWP_H_ */
+#endif /* _LWP_H_ */

@@ -34,8 +34,8 @@
 #ifndef _PATH_H_
 #define _PATH_H_
 
-#include "misc.h" /* s_char coord etc. */
-#include "sect.h" /* struct sctstr */
+#include "misc.h"		/* s_char coord etc. */
+#include "sect.h"		/* struct sctstr */
 #include "xy.h"
 
 	/* direction indices */
@@ -51,30 +51,31 @@
 #define	DIR_FIRST	1
 #define	DIR_LAST	6
 
-#define	SELL_NOT_DELIV	7                   /* in "_use" field => contract */
+#define	SELL_NOT_DELIV	7	/* in "_use" field => contract */
 
-extern  int     dirindex[];
-extern	int	diroff[][2];
-extern	s_char	dirch[];
+extern int dirindex[];
+extern int diroff[][2];
+extern s_char dirch[];
 
 /* src/lib/subs/paths.c */
-extern s_char * getpath(s_char *  , s_char *  , coord  , coord  , int  , int,
-			int  , int );
-extern double fcost(struct sctstr *  , natid );
-extern double ncost(struct sctstr *  , natid );
-extern double pathtoxy(s_char *  , coord *  , coord *  , double (* )(struct sctstr *sp, natid own));
-extern int chkdir(s_char  , int  , int );
-extern int getdir(s_char *  , s_char *  , s_char *  , s_char * );
-extern void direrr(s_char *  , s_char *  , s_char * );
-extern double mcost(struct sctstr *  , int );
-extern int chkpath(natid  , s_char *  , coord  , coord );
-extern void pathrange(register coord  , register coord  , register s_char *,
-		      int  , struct range * );
+extern s_char *getpath(s_char *, s_char *, coord, coord, int, int,
+		       int, int);
+extern double fcost(struct sctstr *, natid);
+extern double ncost(struct sctstr *, natid);
+extern double pathtoxy(s_char *, coord *, coord *,
+		       double (*)(struct sctstr * sp, natid own));
+extern int chkdir(s_char, int, int);
+extern int getdir(s_char *, s_char *, s_char *, s_char *);
+extern void direrr(s_char *, s_char *, s_char *);
+extern double mcost(struct sctstr *, int);
+extern int chkpath(natid, s_char *, coord, coord);
+extern void pathrange(register coord, register coord, register s_char *,
+		      int, struct range *);
 
-extern	s_char	*masktopath();
-extern	long	pathtomask();
+extern s_char *masktopath();
+extern long pathtomask();
 
-extern	double	sector_mcost();
+extern double sector_mcost();
 
 #define	P_NONE		0	/* NO destinations allowed */
 #define	P_WALKING	1	/* use BestLandPath, only owned */

@@ -46,38 +46,38 @@
 #include "empthread.h"
 
 struct player {
-	struct emp_qelem queue;
-	empth_t *proc;
-	s_char	hostaddr[32];
-	s_char	hostname[512];
-	s_char	client[128];
-	s_char	userid[32];
-	int	validated;
-	natid	cnum;
-	int	state;
-	struct cmndstr *command;
-	struct iop *iop;
-	s_char	combuf[1024];
-	s_char	*argp[128];
-	s_char	*condarg;
-	time_t	lasttime;
-	int	ncomstat;
-	int	minleft;
-	int	btused;
-	int	visitor;
-	int	god;
-	int	owner;
-	int	nstat;
-	int	waiting;
-	int	simulation;		/* e.g. budget command */
-	double  dolcost;
-	int	broke;
-	time_t	curup;                   /* used in calc of minutes used */
-	int	aborted;
-	int     curid;                  /* for pr, cur. line's id, -1 none */
-	int	blitz_time;
-	char	*map;			/* pointer to in-mem map */
-	char	*bmap;			/* pointer to in-mem bmap */
+    struct emp_qelem queue;
+    empth_t *proc;
+    s_char hostaddr[32];
+    s_char hostname[512];
+    s_char client[128];
+    s_char userid[32];
+    int validated;
+    natid cnum;
+    int state;
+    struct cmndstr *command;
+    struct iop *iop;
+    s_char combuf[1024];
+    s_char *argp[128];
+    s_char *condarg;
+    time_t lasttime;
+    int ncomstat;
+    int minleft;
+    int btused;
+    int visitor;
+    int god;
+    int owner;
+    int nstat;
+    int waiting;
+    int simulation;		/* e.g. budget command */
+    double dolcost;
+    int broke;
+    time_t curup;		/* used in calc of minutes used */
+    int aborted;
+    int curid;			/* for pr, cur. line's id, -1 none */
+    int blitz_time;
+    char *map;			/* pointer to in-mem map */
+    char *bmap;			/* pointer to in-mem bmap */
 };
 
 #define PS_INIT		0
@@ -95,12 +95,6 @@ struct player {
 #define PP_ACCEPT	3
 #define PP_KILLIDLE	2
 
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _PLAYER_H_ */
-
-
-
-
-
-

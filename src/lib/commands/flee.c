@@ -45,43 +45,43 @@
 int
 flee(void)
 {
-	struct shpstr ship;
-	register int count;
-	s_char	*cp;
-	s_char	c;
-	struct	nstr_item nstr;
-	struct  nstr_item ni;
-	struct	shpstr ship2;
-	int	r;
-	s_char	buf[1024];
+    struct shpstr ship;
+    register int count;
+    s_char *cp;
+    s_char c;
+    struct nstr_item nstr;
+    struct nstr_item ni;
+    struct shpstr ship2;
+    int r;
+    s_char buf[1024];
 
-	cp = getstarg(player->argp[1], "fleet? ", buf);
-	if (cp == 0)
-		return RET_SYN;
-	c = *cp;
-	if (!isalpha(c) && c != '~') {
-		pr("Specify fleet, (1 alpha char or '~')\n");
-		return RET_SYN;
+    cp = getstarg(player->argp[1], "fleet? ", buf);
+    if (cp == 0)
+	return RET_SYN;
+    c = *cp;
+    if (!isalpha(c) && c != '~') {
+	pr("Specify fleet, (1 alpha char or '~')\n");
+	return RET_SYN;
+    }
+    if (c == '~')
+	c = ' ';
+    if (!snxtitem(&nstr, EF_SHIP, player->argp[2]))
+	return RET_SYN;
+    count = 0;
+    while (nxtitem(&nstr, (s_char *)&ship)) {
+	if (!player->owner)
+	    continue;
+	ship.shp_fleet = c;
+	snxtitem(&ni, EF_SHIP, cp);
+	while ((r = nxtitem(&ni, (s_char *)&ship2))
+	       && (ship2.shp_fleet != c)) ;
+	if (r) {
+	    bcopy(ship2.shp_rpath, ship.shp_rpath, 10);
+	    ship.shp_rflags = ship2.shp_rflags;
 	}
-	if (c == '~')
-		c = ' ';
-	if (!snxtitem(&nstr, EF_SHIP, player->argp[2]))
-		return RET_SYN;
-	count = 0;
-	while (nxtitem(&nstr, (s_char *)&ship)) {
-		if (!player->owner)
-			continue;
-		ship.shp_fleet = c;
-		snxtitem(&ni, EF_SHIP, cp);
-		while((r=nxtitem(&ni, (s_char *)&ship2))
-			&& (ship2.shp_fleet != c));
-		if (r){
-			bcopy(ship2.shp_rpath, ship.shp_rpath,10);
-			ship.shp_rflags = ship2.shp_rflags;
-		}
-		putship(ship.shp_uid, &ship);
-		count++;
-	}
-	pr("%d ship%s added to fleet `%c'\n", count, splur(count), c);
-	return RET_OK;
+	putship(ship.shp_uid, &ship);
+	count++;
+    }
+    pr("%d ship%s added to fleet `%c'\n", count, splur(count), c);
+    return RET_OK;
 }

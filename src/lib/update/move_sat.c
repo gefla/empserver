@@ -53,15 +53,14 @@
 void
 move_sat(register struct plnstr *pp)
 {
-    coord	x1,y1,x2,y2;
-    coord	dx,dy;
-    float	newtheta;
-    struct sctstr	sect;
+    coord x1, y1, x2, y2;
+    coord dx, dy;
+    float newtheta;
+    struct sctstr sect;
 
     newtheta = pp->pln_theta + .05;
 
-    if (newtheta >= 1.0)
-    {
+    if (newtheta >= 1.0) {
 	newtheta -= 1.0;
     }
 
@@ -76,8 +75,7 @@ move_sat(register struct plnstr *pp)
     x2 -= dx;
     y2 -= dy;
 
-    if	((x2 + y2) & 1)
-    {
+    if ((x2 + y2) & 1) {
 	x2++;
     }
 
@@ -86,8 +84,9 @@ move_sat(register struct plnstr *pp)
     pp->pln_theta = newtheta;
     getsect(pp->pln_x, pp->pln_y, &sect);
     if (sect.sct_own)
-	    if (pp->pln_own != sect.sct_own)
-		    wu(0, sect.sct_own, "%s satellite spotted over %s\n",
-		       cname(pp->pln_own), xyas(pp->pln_x, pp->pln_y, sect.sct_own));
+	if (pp->pln_own != sect.sct_own)
+	    wu(0, sect.sct_own, "%s satellite spotted over %s\n",
+	       cname(pp->pln_own), xyas(pp->pln_x, pp->pln_y,
+					sect.sct_own));
     return;
 }

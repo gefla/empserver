@@ -65,44 +65,44 @@ extern int TRADE_DELAY;
 int
 trad(void)
 {
-    struct	sctstr sect;
-    struct	natstr *natp;
-    struct  comstr comt;
-    int	lotno;
-    float	price;
-    coord	sx, sy;
-    int	n;
-    char	*p;
-    struct	nstr_item ni;
-    struct	trdstr trade;
-    struct	trdstr tmpt;
-    union	trdgenstr tg;
-    int	plflags;
-    extern	double tradetax;
-    extern  double buytax;
-    double  canspend;
-    time_t	now;
-    int	bid;
-    double	tleft;
+    struct sctstr sect;
+    struct natstr *natp;
+    struct comstr comt;
+    int lotno;
+    float price;
+    coord sx, sy;
+    int n;
+    char *p;
+    struct nstr_item ni;
+    struct trdstr trade;
+    struct trdstr tmpt;
+    union trdgenstr tg;
+    int plflags;
+    extern double tradetax;
+    extern double buytax;
+    double canspend;
+    time_t now;
+    int bid;
+    double tleft;
     double tally;
     int q;
     s_char buf[1024];
-    
-    
+
+
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");
 	return RET_FAIL;
-    }	
+    }
     /* First, we execute all trades, so that we can only buy what is available. */
     check_market();
     check_trade();
-    
+
     pr("\n     Empire Trade Report\n  ");
     prdate();
     n = 0;
     pr(" lot high bid  by time left owner  description\n");
-    pr(" --- --------  -- --------- -----  -------------------------\n");  
-    
+    pr(" --- --------  -- --------- -----  -------------------------\n");
+
     snxtitem_all(&ni, EF_TRADE);
     while (nxtitem(&ni, (char *)&trade)) {
 	if (trade.trd_unitid < 0)
@@ -112,17 +112,19 @@ trad(void)
 	};
 	/* fix up database if things get weird */
 	/*if (trade.trd_owner != tg.gen.trg_own) {
-	  trade.trd_unitid = -1;
-	  (void) puttrade(ni.cur, &trade);
-	  continue;
-	  }*/
+	   trade.trd_unitid = -1;
+	   (void) puttrade(ni.cur, &trade);
+	   continue;
+	   } */
 	pr(" %3d ", ni.cur);
-	(void) time(&now);
-	tleft = TRADE_DELAY/3600.0 - (now - trade.trd_markettime) / 3600.0;
-	if (tleft < 0.0) tleft = 0.0;
-	pr("$%7d  %2d %5.2f hrs ",trade.trd_maxprice,
+	(void)time(&now);
+	tleft =
+	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
+	if (tleft < 0.0)
+	    tleft = 0.0;
+	pr("$%7d  %2d %5.2f hrs ", trade.trd_maxprice,
 	   trade.trd_maxbidder, tleft);
-	(void) trade_desc(&trade, &tg);		/* XXX */
+	(void)trade_desc(&trade, &tg);	/* XXX */
 	pr("\n");
 	if (trade.trd_owner == player->cnum && !player->god)
 	    pr(" (your own lot)\n");
@@ -160,13 +162,13 @@ trad(void)
     }
     switch (trade.trd_type) {
     case EF_NUKE:
-      /*
-	if (!getsect(tg.gen.trg_x, tg.gen.trg_y, &sect)) {
-	    return RET_FAIL;
-	}
-	trade.trd_owner = sect.sct_own;
-	break;
-      */
+	/*
+	   if (!getsect(tg.gen.trg_x, tg.gen.trg_y, &sect)) {
+	   return RET_FAIL;
+	   }
+	   trade.trd_owner = sect.sct_own;
+	   break;
+	 */
     case EF_PLANE:
     case EF_SHIP:
     case EF_LAND:
@@ -188,15 +190,13 @@ trad(void)
     tally = 0.0;
     for (q = 0; gettrade(q, &tmpt); q++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
-	    tmpt.trd_unitid >= 0 &&
-	    tmpt.trd_owner != player->cnum) {
+	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_maxprice * tradetax;
 	}
     }
     for (q = 0; getcomm(q, &comt); q++) {
 	if (comt.com_maxbidder == player->cnum &&
-	    comt.com_owner != 0 &&
-	    comt.com_owner != player->cnum) {
+	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
 	    tally += (comt.com_maxprice * comt.com_amount) * buytax;
 	}
     }
@@ -217,8 +217,7 @@ trad(void)
 	    if (p == 0) {
 		return RET_FAIL;
 	    }
-	    if (!sarg_xy(p, &sx, &sy) ||
-		!getsect(sx, sy, &sect)) {
+	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {
 		pr("Bad sector designation; try again!\n");
 		continue;
 	    }
@@ -228,20 +227,18 @@ trad(void)
 	    }
 	    if (!(plflags & (P_V | P_O))) {
 		if (!player->god && (sect.sct_type != SCT_AIRPT)) {
-		    pr(
-		       "Destination sector is not an airfield!\n");
+		    pr("Destination sector is not an airfield!\n");
 		    continue;
 		}
-		if (!player->god && (sect.sct_effic < 60))  {
-		    pr(
-		       "That airport still under construction!\n");
+		if (!player->god && (sect.sct_effic < 60)) {
+		    pr("That airport still under construction!\n");
 		    continue;
 		}
 	    }
 	    break;
 	}
     }
-    if (trade.trd_type == EF_LAND){
+    if (trade.trd_type == EF_LAND) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(lotno, &trade, &tg))
@@ -249,8 +246,7 @@ trad(void)
 	    if (p == 0) {
 		return RET_FAIL;
 	    }
-	    if (!sarg_xy(p, &sx, &sy) ||
-		!getsect(sx, sy, &sect)) {
+	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {
 		pr("Bad sector designation; try again!\n");
 		continue;
 	    }
@@ -262,20 +258,20 @@ trad(void)
 		pr("Destination sector is not a headquarters!\n");
 		continue;
 	    }
-	    if (!player->god && (sect.sct_effic < 60))  {
-		pr("That headquarters still under construction!\n");	
+	    if (!player->god && (sect.sct_effic < 60)) {
+		pr("That headquarters still under construction!\n");
 		continue;
 	    }
 	    break;
 	}
     }
-    
+
     pr("WARNING!  This market issues credit.  If you make more\n");
     pr("  bids than your treasury can cover at the time of sale,\n");
     pr("  you can potentially go into financial ruin, and see no\n");
     pr("  gains.  You have been warned.\n\n");
-    
-    if((p = getstring("How much do you bid: ", buf)) == 0 || *p == 0)
+
+    if ((p = getstring("How much do you bid: ", buf)) == 0 || *p == 0)
 	return RET_OK;
     if (!trade_check_ok(lotno, &trade, &tg))
 	return RET_FAIL;
@@ -296,14 +292,14 @@ trad(void)
 	trade.trd_maxbidder = player->cnum;
 	trade.trd_x = sx;
 	trade.trd_y = sy;
-	pr("Your bid on lot #%d is being considered.\n",lotno);
+	pr("Your bid on lot #%d is being considered.\n", lotno);
 	if (!puttrade(lotno, &trade))
 	    pr("Problems with the trade file.  Get help\n");
     } else
 	pr("Your bid wasn't high enough (you need to bid more than someone else.)\n");
-    
+
     check_trade();
-    
+
     return RET_OK;
 }
 
@@ -318,7 +314,7 @@ check_trade(void)
     struct lndstr land;
     struct natstr *natp;
     struct trdstr trade;
-    union  trdgenstr tg;
+    union trdgenstr tg;
     time_t now;
     double subleft;
     double monleft;
@@ -326,10 +322,10 @@ check_trade(void)
     float price;
     int saveid;
     struct lonstr loan;
-    long outstanding;  /* Outstanding debt */
-    long couval;  /* Value of country's goods */
+    long outstanding;		/* Outstanding debt */
+    long couval;		/* Value of country's goods */
     int foundloan;
-    
+
 /*    logerror("Checking the trades.\n");*/
     for (n = 0; gettrade(n, &trade); n++) {
 	if (trade.trd_unitid < 0)
@@ -342,27 +338,29 @@ check_trade(void)
 	    continue;
 	}
 	if (tg.gen.trg_own != trade.trd_owner) {
-	    logerror("SOmething weird, tg.gen.trg_own != trade.trd_owner!\n");
+	    logerror
+		("SOmething weird, tg.gen.trg_own != trade.trd_owner!\n");
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
 	}
-	
+
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    continue;
-	
-	(void) time(&now);
-	tleft = TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
+
+	(void)time(&now);
+	tleft =
+	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
 	if (tleft < 0.0)
 	    tleft = 0.0;
 	if (tleft > 0.0)
 	    continue;
-	
+
 	saveid = trade.trd_unitid;
 	trade.trd_unitid = -1;
 	if (!puttrade(n, &trade)) {
-		logerror("Couldn't save trade after purchase; get help!\n");
-		continue;
+	    logerror("Couldn't save trade after purchase; get help!\n");
+	    continue;
 	}
 
 	monleft = 0;
@@ -385,7 +383,8 @@ check_trade(void)
 	    /* Try to make a loan for the rest from the owner. */
 	    if (monleft > 0 && natp->nat_money > 0) {
 		if ((float)((float)price / (float)(price + monleft)) < 0.1) {
-		    wu(0, trade.trd_maxbidder, "You need at least 10 percent down to purchase something on credit.\n");
+		    wu(0, trade.trd_maxbidder,
+		       "You need at least 10 percent down to purchase something on credit.\n");
 		} else {
 		    couval = get_couval(trade.trd_maxbidder);
 		    outstanding = get_outstand(trade.trd_maxbidder);
@@ -409,34 +408,46 @@ check_trade(void)
 			loan.l_amtpaid = 0;
 			loan.l_amtdue = monleft;
 			time(&loan.l_lastpay);
-			loan.l_duedate = (loan.l_ldur * SECS_PER_DAY) + loan.l_lastpay;
+			loan.l_duedate =
+			    (loan.l_ldur * SECS_PER_DAY) + loan.l_lastpay;
 			loan.l_uid = j;
 			if (!putloan(j, &loan))
 			    logerror("Error writing to the loan file.\n");
 			else
 			    monleft = 0;
-			nreport(trade.trd_maxbidder,N_FIN_TROUBLE, trade.trd_owner, 1);
-			wu(0, trade.trd_maxbidder, "You just took loan #%d for $%.2f to cover the cost of your purchase.\n", j, (float)loan.l_amtdue);
-			wu(0, trade.trd_owner, "You just extended loan #%d to %s to help with the purchase cost.\n", j, cname(trade.trd_maxbidder));
+			nreport(trade.trd_maxbidder, N_FIN_TROUBLE,
+				trade.trd_owner, 1);
+			wu(0, trade.trd_maxbidder,
+			   "You just took loan #%d for $%.2f to cover the cost of your purchase.\n",
+			   j, (float)loan.l_amtdue);
+			wu(0, trade.trd_owner,
+			   "You just extended loan #%d to %s to help with the purchase cost.\n",
+			   j, cname(trade.trd_maxbidder));
 		    } else {
-			nreport(trade.trd_maxbidder,N_CREDIT_JUNK, trade.trd_owner, 1);
-			wu(0, trade.trd_maxbidder, "You don't have enough credit to get a loan.\n");
-			wu(0, trade.trd_owner, "You just turned down a loan to %s.\n", cname(trade.trd_maxbidder));
+			nreport(trade.trd_maxbidder, N_CREDIT_JUNK,
+				trade.trd_owner, 1);
+			wu(0, trade.trd_maxbidder,
+			   "You don't have enough credit to get a loan.\n");
+			wu(0, trade.trd_owner,
+			   "You just turned down a loan to %s.\n",
+			   cname(trade.trd_maxbidder));
 		    }
 		}
 	    }
 	}
 	if (monleft > 0) {
 	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, trade.trd_owner, 1);
-	    wu(0, trade.trd_owner, "%s tried to buy a %s #%d from you for $%.2f\n",
-	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg), 
+	    wu(0, trade.trd_owner,
+	       "%s tried to buy a %s #%d from you for $%.2f\n",
+	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
 	       saveid, (float)(price * tradetax));
 	    wu(0, trade.trd_owner, "   but couldn't afford it.\n");
-	    wu(0, trade.trd_owner, "   Your item was taken off the market.\n");
-	    wu(0, trade.trd_maxbidder, 
+	    wu(0, trade.trd_owner,
+	       "   Your item was taken off the market.\n");
+	    wu(0, trade.trd_maxbidder,
 	       "You tried to buy %s #%d from %s for $%.2f\n",
-		trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
-		(float)(price * tradetax));
+	       trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
+	       (float)(price * tradetax));
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
 	    continue;
 	}
@@ -446,107 +457,113 @@ check_trade(void)
    we don't tax the part you have to give a loan on. */
 
 	putnat(natp);
-        natp = getnatp(trade.trd_owner);
+	natp = getnatp(trade.trd_owner);
 	/* Make sure we subtract the extra amount */
-        natp->nat_money += (roundavg(price * tradetax) - subleft);
+	natp->nat_money += (roundavg(price * tradetax) - subleft);
 	putnat(natp);
 	switch (trade.trd_type) {
 	case EF_NUKE:
-		tg.nuk.nuk_x =  trade.trd_x;
-		tg.nuk.nuk_y =  trade.trd_y;
-		makelost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid, tg.nuk.nuk_x, tg.nuk.nuk_y);
-		tg.nuk.nuk_own = trade.trd_maxbidder;
-		makenotlost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid, tg.nuk.nuk_x, tg.nuk.nuk_y);
-		break;
+	    tg.nuk.nuk_x = trade.trd_x;
+	    tg.nuk.nuk_y = trade.trd_y;
+	    makelost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid, tg.nuk.nuk_x,
+		     tg.nuk.nuk_y);
+	    tg.nuk.nuk_own = trade.trd_maxbidder;
+	    makenotlost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid,
+			tg.nuk.nuk_x, tg.nuk.nuk_y);
+	    break;
 	case EF_PLANE:
-		if ((tg.pln.pln_flags & PLN_LAUNCHED) == 0) {
-			tg.pln.pln_x = trade.trd_x;
-			tg.pln.pln_y = trade.trd_y;
-		}
-		makelost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid, tg.pln.pln_x, tg.pln.pln_y);
-		tg.pln.pln_own = trade.trd_maxbidder;
-		makenotlost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid, tg.pln.pln_x, tg.pln.pln_y);
-		tg.pln.pln_wing = ' ';
-		/* no cheap version of fly */
-		if (opt_MOB_ACCESS) {
-		    tg.pln.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
-		} else {
-		    tg.pln.pln_mobil = 0;
-		}
-		tg.pln.pln_mission = 0;
-		tg.pln.pln_harden = 0;
-		time(&tg.pln.pln_access);
-		tg.pln.pln_ship = -1;
-		tg.pln.pln_land = -1;
-		break;
+	    if ((tg.pln.pln_flags & PLN_LAUNCHED) == 0) {
+		tg.pln.pln_x = trade.trd_x;
+		tg.pln.pln_y = trade.trd_y;
+	    }
+	    makelost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid,
+		     tg.pln.pln_x, tg.pln.pln_y);
+	    tg.pln.pln_own = trade.trd_maxbidder;
+	    makenotlost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid,
+			tg.pln.pln_x, tg.pln.pln_y);
+	    tg.pln.pln_wing = ' ';
+	    /* no cheap version of fly */
+	    if (opt_MOB_ACCESS) {
+		tg.pln.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
+	    } else {
+		tg.pln.pln_mobil = 0;
+	    }
+	    tg.pln.pln_mission = 0;
+	    tg.pln.pln_harden = 0;
+	    time(&tg.pln.pln_access);
+	    tg.pln.pln_ship = -1;
+	    tg.pln.pln_land = -1;
+	    break;
 	case EF_SHIP:
-		takeover_ship(&tg.shp, trade.trd_maxbidder, 0);
-		break;
-        case EF_LAND:
-                tg.lnd.lnd_x = trade.trd_x;
-                tg.lnd.lnd_y = trade.trd_y;
-                if (tg.lnd.lnd_ship >= 0){
-                        struct shpstr ship;
-                        getship(tg.lnd.lnd_ship, &ship);
-                        ship.shp_nland--;
-                        putship(ship.shp_uid,&ship);
-                }
-		makelost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid, tg.lnd.lnd_x, tg.lnd.lnd_y);
-                tg.lnd.lnd_own = trade.trd_maxbidder;
-		makenotlost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid, tg.lnd.lnd_x, tg.lnd.lnd_y);
-                tg.lnd.lnd_army = ' ';
-                /* no cheap version of fly */
-		if (opt_MOB_ACCESS) {
-		    tg.lnd.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
-		} else {
-		    tg.lnd.lnd_mobil = 0;
-		}
-		tg.lnd.lnd_harden = 0;
-		time(&tg.lnd.lnd_access);
-                tg.lnd.lnd_mission = 0;
-		/* Drop any land units this unit was carrying */
-		snxtitem_xy(&ni, EF_LAND, tg.lnd.lnd_x, tg.lnd.lnd_y);
-		while (nxtitem(&ni, (s_char *)&land)) {
-		    if (land.lnd_land != tg.lnd.lnd_uid)
-			continue;
-		    land.lnd_land = -1;
-		    wu(0, land.lnd_own, "unit #%d dropped in %s\n",
-		       land.lnd_uid,
-		       xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		    putland(land.lnd_uid, &land);
-		}
-		/* Drop any planes this unit was carrying */
-		snxtitem_xy(&ni, EF_PLANE, tg.lnd.lnd_x, tg.lnd.lnd_y);
-		while (nxtitem(&ni, (s_char *)&plane)) {
-		    if (plane.pln_flags & PLN_LAUNCHED)
-			continue;
-		    if (plane.pln_land != land.lnd_uid)
-			continue;
-		    plane.pln_land = -1;
-		    wu(0, plane.pln_own, "plane #%d dropped in %s\n",
-		       plane.pln_uid,
-		       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		    putplane(plane.pln_uid, &plane);
-		}
-                tg.lnd.lnd_ship = -1;
-		tg.lnd.lnd_land = -1;
-                break;
+	    takeover_ship(&tg.shp, trade.trd_maxbidder, 0);
+	    break;
+	case EF_LAND:
+	    tg.lnd.lnd_x = trade.trd_x;
+	    tg.lnd.lnd_y = trade.trd_y;
+	    if (tg.lnd.lnd_ship >= 0) {
+		struct shpstr ship;
+		getship(tg.lnd.lnd_ship, &ship);
+		ship.shp_nland--;
+		putship(ship.shp_uid, &ship);
+	    }
+	    makelost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid, tg.lnd.lnd_x,
+		     tg.lnd.lnd_y);
+	    tg.lnd.lnd_own = trade.trd_maxbidder;
+	    makenotlost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
+			tg.lnd.lnd_x, tg.lnd.lnd_y);
+	    tg.lnd.lnd_army = ' ';
+	    /* no cheap version of fly */
+	    if (opt_MOB_ACCESS) {
+		tg.lnd.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
+	    } else {
+		tg.lnd.lnd_mobil = 0;
+	    }
+	    tg.lnd.lnd_harden = 0;
+	    time(&tg.lnd.lnd_access);
+	    tg.lnd.lnd_mission = 0;
+	    /* Drop any land units this unit was carrying */
+	    snxtitem_xy(&ni, EF_LAND, tg.lnd.lnd_x, tg.lnd.lnd_y);
+	    while (nxtitem(&ni, (s_char *)&land)) {
+		if (land.lnd_land != tg.lnd.lnd_uid)
+		    continue;
+		land.lnd_land = -1;
+		wu(0, land.lnd_own, "unit #%d dropped in %s\n",
+		   land.lnd_uid,
+		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
+		putland(land.lnd_uid, &land);
+	    }
+	    /* Drop any planes this unit was carrying */
+	    snxtitem_xy(&ni, EF_PLANE, tg.lnd.lnd_x, tg.lnd.lnd_y);
+	    while (nxtitem(&ni, (s_char *)&plane)) {
+		if (plane.pln_flags & PLN_LAUNCHED)
+		    continue;
+		if (plane.pln_land != land.lnd_uid)
+		    continue;
+		plane.pln_land = -1;
+		wu(0, plane.pln_own, "plane #%d dropped in %s\n",
+		   plane.pln_uid,
+		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
+		putplane(plane.pln_uid, &plane);
+	    }
+	    tg.lnd.lnd_ship = -1;
+	    tg.lnd.lnd_land = -1;
+	    break;
 	default:
-		logerror("Bad trade type %d in trade\n", trade.trd_type);
-		break;
+	    logerror("Bad trade type %d in trade\n", trade.trd_type);
+	    break;
 	}
 	if (!ef_write(trade.trd_type, saveid, (char *)&tg)) {
-		logerror("Couldn't write unit to disk; seek help.\n");
-		continue;
+	    logerror("Couldn't write unit to disk; seek help.\n");
+	    continue;
 	}
 	nreport(trade.trd_owner, N_MAKE_SALE, trade.trd_maxbidder, 1);
 	wu(0, trade.trd_owner, "%s bought a %s #%d from you for $%.2f\n",
-		cname(trade.trd_maxbidder), trade_nameof(&trade, &tg), 
-		saveid, (float)(price * tradetax));
-	wu(0, trade.trd_maxbidder, 
-		"The bidding is over & you bought %s #%d from %s for $%.2f\n",
-		trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
-		(float)price);
+	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
+	   saveid, (float)(price * tradetax));
+	wu(0, trade.trd_maxbidder,
+	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
+	   trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
+	   (float)price);
     }
 /*    logerror("Done checking the trades.\n");*/
     return RET_OK;
@@ -554,7 +571,7 @@ check_trade(void)
 
 int
 ontradingblock(int type, int *ptr)
-          /* Generic pointer */
+	  /* Generic pointer */
 {
     struct trdstr trade;
     union trdgenstr tg;
@@ -567,7 +584,7 @@ ontradingblock(int type, int *ptr)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-        if (tg.gen.trg_uid == ((struct genstr *)ptr)->trg_uid)
+	if (tg.gen.trg_uid == ((struct genstr *)ptr)->trg_uid)
 	    return 1;
     }
     return 0;
@@ -575,7 +592,7 @@ ontradingblock(int type, int *ptr)
 
 void
 trdswitchown(int type, int *ptr, int newown)
-          /* Generic pointer */           
+	  /* Generic pointer */
 {
     struct trdstr trade;
     union trdgenstr tg;
@@ -588,7 +605,7 @@ trdswitchown(int type, int *ptr, int newown)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-        if (tg.gen.trg_uid != ((struct genstr *)ptr)->trg_uid)
+	if (tg.gen.trg_uid != ((struct genstr *)ptr)->trg_uid)
 	    continue;
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    trade.trd_maxbidder = newown;

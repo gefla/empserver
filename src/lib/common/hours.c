@@ -58,43 +58,43 @@
 int
 gamehours(time_t now, int *hour)
 {
-	extern	s_char *game_days,*game_hours;
-	extern	int errno;
-	extern	struct tm *localtime(const time_t *);
-	register s_char *bp;
-	register struct tm *tm;
-	int	day;
-	int	curtime;
-	int	okday[7];
-	int	tomorrow;
+    extern s_char *game_days, *game_hours;
+    extern int errno;
+    extern struct tm *localtime(const time_t *);
+    register s_char *bp;
+    register struct tm *tm;
+    int day;
+    int curtime;
+    int okday[7];
+    int tomorrow;
 
-	tm = localtime(&now);
-	curtime = tm->tm_min + tm->tm_hour * 60;
-	bp = game_days;
-	if (*bp != 0) {
-		for (day=0; day<7; day++)
-			okday[day] = 0;
-		while (NULL != (bp = kw_parse(CF_WEEKDAY, bp, &day)))
-			okday[day] = 1;
-	} else {
-		for (day=0; day<7; day++)
-			okday[day] = 1;
-	}
-	if (!okday[tm->tm_wday])
-		return 0;
-	bp = game_hours;
-	if (*bp != 0) {
-		while (NULL != (bp = kw_parse(CF_TIMERANGE, bp, hour)))
-			if (curtime >= hour[0] && curtime < hour[1])
-				break;
-		if (bp == 0)
-			return 0;
-	} else {
-		hour[0] = 0;
-		hour[1] = 24*60;
-	}
-	tomorrow = tm->tm_wday + 1;
-	if (tomorrow >= 7)
-		tomorrow = 0;
-	return 1;
+    tm = localtime(&now);
+    curtime = tm->tm_min + tm->tm_hour * 60;
+    bp = game_days;
+    if (*bp != 0) {
+	for (day = 0; day < 7; day++)
+	    okday[day] = 0;
+	while (NULL != (bp = kw_parse(CF_WEEKDAY, bp, &day)))
+	    okday[day] = 1;
+    } else {
+	for (day = 0; day < 7; day++)
+	    okday[day] = 1;
+    }
+    if (!okday[tm->tm_wday])
+	return 0;
+    bp = game_hours;
+    if (*bp != 0) {
+	while (NULL != (bp = kw_parse(CF_TIMERANGE, bp, hour)))
+	    if (curtime >= hour[0] && curtime < hour[1])
+		break;
+	if (bp == 0)
+	    return 0;
+    } else {
+	hour[0] = 0;
+	hour[1] = 24 * 60;
+    }
+    tomorrow = tm->tm_wday + 1;
+    if (tomorrow >= 7)
+	tomorrow = 0;
+    return 1;
 }

@@ -66,30 +66,30 @@ typedef struct lwpSem empth_sem_t;
 #define EMPTH_PRINT       0x1
 #define EMPTH_STACKCHECK  0x2
 
-typedef void (*vf_ptr)();
+typedef void (*vf_ptr) ();
 #define EMPTH_KILLED  1
 typedef struct empth_ctx_t {
-    char *name;           /* thread name */
-    char *desc;           /* description */
-    void *ud;             /* user data */
-    int  state;           /* my state */
-    vf_ptr ep;            /* entry point */
-    pthread_t id;         /* thread id */
-}empth_t;
+    char *name;			/* thread name */
+    char *desc;			/* description */
+    void *ud;			/* user data */
+    int state;			/* my state */
+    vf_ptr ep;			/* entry point */
+    pthread_t id;		/* thread id */
+} empth_t;
 
 typedef struct {
-    pthread_mutex_t mtx_update; /* use it to update count */
+    pthread_mutex_t mtx_update;	/* use it to update count */
     int count;
     char name[80];
     pthread_mutex_t mtx_sem;
     pthread_cond_t cnd_sem;
-}empth_sem_t;
+} empth_sem_t;
 
 #endif
 
 /* DEC has slightly different names for whatever reason... */
 #ifdef _DECTHREADS_
-#define pthread_key_create  pthread_keycreate 
+#define pthread_key_create  pthread_keycreate
 #define pthread_attr_init   pthread_attr_create
 #define pthread_attr_destroy pthread_attr_delete
 
@@ -112,26 +112,19 @@ typedef void empth_sem_t;
 
 int empth_init _PROTO((char **ctx, int flags));
 empth_t *empth_create _PROTO((int, void (*)(), int,
-			int, char *, char *, void *));
+			      int, char *, char *, void *));
 empth_t *empth_self();
 void empth_exit _PROTO((void));
 void empth_yield _PROTO((void));
 void empth_terminate _PROTO((empth_t *));
 void empth_select _PROTO((int fd, int flags));
 void empth_wakeup _PROTO((empth_t *));
-void empth_sleep  _PROTO((long until));
+void empth_sleep _PROTO((long until));
 empth_sem_t *empth_sem_create _PROTO((char *name, int count));
 void empth_sem_signal _PROTO((empth_sem_t *));
 void empth_sem_wait _PROTO((empth_sem_t *));
 emp_sig_t empth_alarm _PROTO((int));
 
 
-#include "prototypes.h" /* must come at end, after defines and typedefs */
-#endif	
-
-
-
-
-
-
-
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
+#endif

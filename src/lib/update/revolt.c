@@ -60,15 +60,15 @@
 void
 revolt(struct sctstr *sp)
 {
-    int	che_civ;
-    int	che_uw;
-    int	civ;
-    int	uw;
-    u_short	che_combo;
-    int	che;
-    int	n;
-    int	target;
-    
+    int che_civ;
+    int che_uw;
+    int civ;
+    int uw;
+    u_short che_combo;
+    int che;
+    int n;
+    int target;
+
     che_combo = getvar(V_CHE, (s_char *)sp, EF_SECTOR);
     che = get_che_value(che_combo);
     target = get_che_cnum(che_combo);
@@ -82,7 +82,7 @@ revolt(struct sctstr *sp)
     che_civ = 0;
     /* che due to civilian unrest */
     n = 10 - (random() % 20);
-    che_civ = 3 + (civ * n/500);
+    che_civ = 3 + (civ * n / 500);
     if (che_civ < 0)
 	che_civ = 0;
     else if (che_civ * 3 > civ)
@@ -93,7 +93,7 @@ revolt(struct sctstr *sp)
     if (che < CHE_MAX) {
 	/* che due to uw unrest */
 	n = 10 + (random() % 30);
-	che_uw = 5 + (uw * n/500);
+	che_uw = 5 + (uw * n / 500);
 	if (che_uw > uw)
 	    che_uw = uw;
 	if (che + che_uw > CHE_MAX)
@@ -142,454 +142,449 @@ revolt(struct sctstr *sp)
 void
 guerrilla(struct sctstr *sp)
 {
-    extern	s_char *effadv();
-    struct	sctstr *nsp;
-    int	recruit;
-    int	move;
-    int	ratio;
-    int	che;
-    int	mil;
-    int	cc, mc;
-    double	odds;
-    int	civ;
-    int	n;
-    int	uw;
-    natid	target;
-    struct	natstr *tnat;
-    int	convert;
-    natid	actor;
-    natid	victim;
-    u_short	che_combo;
-    int	vec[I_MAX+1];
-    int	tmp;
-    int	min_mil;
-    int	val;
+    extern s_char *effadv();
+    struct sctstr *nsp;
+    int recruit;
+    int move;
+    int ratio;
+    int che;
+    int mil;
+    int cc, mc;
+    double odds;
+    int civ;
+    int n;
+    int uw;
+    natid target;
+    struct natstr *tnat;
+    int convert;
+    natid actor;
+    natid victim;
+    u_short che_combo;
+    int vec[I_MAX + 1];
+    int tmp;
+    int min_mil;
+    int val;
     int oldmob;
-    struct	lndstr *lp;
-    s_char	*nxtitemp(struct nstr_item *np, int owner);
-    struct	nstr_item ni;
-    extern  double  hap_fact();
-    
+    struct lndstr *lp;
+    s_char *nxtitemp(struct nstr_item *np, int owner);
+    struct nstr_item ni;
+    extern double hap_fact();
+
     mc = cc = 0;
     recruit = 0;
     convert = 0;
     move = 0;
     if ((n = getvar(V_CHE, (s_char *)sp, EF_SECTOR)) <= 0)
-		return;
+	return;
     che_combo = n;
     if (getvec(VT_ITEM, vec, (s_char *)sp, EF_SECTOR) <= 0)
-		return;
+	return;
     civ = vec[I_CIVIL];
-    
+
     uw = vec[I_UW];
     victim = sp->sct_own;
     actor = sp->sct_oldown;
     che = get_che_value(che_combo);
-    
-    mil = vec[I_MILIT];
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
 
-    while (NULL != (lp=(struct lndstr *)nxtitemp(&ni, 0))){
-		if (lp->lnd_own != sp->sct_own)
-			continue;
-		
-		mil += lnd_getmil(lp);
-		
-		/* Security troops can now kill up to 1/2 their complement each
-		   update, before doing anything else. */
-		if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY){
-			int	che_kill, r;
-			struct lchrstr *lcp;
-			
-			lcp = &lchr[(int)lp->lnd_type];
-			mil += lnd_getmil(lp);
-			r = (((float)(lp->lnd_effic / 100) * (float)(lnd_getmil(lp))) / 2);
-			if (r < 2)
-				r = 2;
-			che_kill = (roll(r) - 1);
-			if (che_kill > che)
-			   che_kill = che;
-			if (che_kill) {
-			   wu(0, sp->sct_own, 
-			      "%s kills %d guerrilla%s in raid at %s!\n",
-			      prland(lp),
-			      che_kill, splur(che_kill),
-			      ownxy(sp));
-			   che -= che_kill;
-			}
-		}
+    mil = vec[I_MILIT];
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
+
+	mil += lnd_getmil(lp);
+
+	/* Security troops can now kill up to 1/2 their complement each
+	   update, before doing anything else. */
+	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
+	    int che_kill, r;
+	    struct lchrstr *lcp;
+
+	    lcp = &lchr[(int)lp->lnd_type];
+	    mil += lnd_getmil(lp);
+	    r = (((float)(lp->lnd_effic / 100) * (float)(lnd_getmil(lp))) /
+		 2);
+	    if (r < 2)
+		r = 2;
+	    che_kill = (roll(r) - 1);
+	    if (che_kill > che)
+		che_kill = che;
+	    if (che_kill) {
+		wu(0, sp->sct_own,
+		   "%s kills %d guerrilla%s in raid at %s!\n",
+		   prland(lp), che_kill, splur(che_kill), ownxy(sp));
+		che -= che_kill;
+	    }
+	}
     }
-    
+
     /* Security forces killed all the che */
     if (che <= 0) {
-		putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
-		return;
+	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
+	return;
     }
-    
+
     target = get_che_cnum(che_combo);
     if (target == 0) {
-		/* the deity can't be a target! */
-		return;
+	/* the deity can't be a target! */
+	return;
     }
     tnat = getnatp(target);
     if ((tnat->nat_stat & STAT_INUSE) == 0) {
-		/* target nation has dissolved: che's retire.  */
-		logerror("%d Che targeted at country %d retiring", che, target);
-		civ += che;
-		putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
-		putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
-		return;
+	/* target nation has dissolved: che's retire.  */
+	logerror("%d Che targeted at country %d retiring", che, target);
+	civ += che;
+	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
+	putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	return;
     }
-	
+
     if (sp->sct_own != target) {
-		/*logerror("own %d != target %d", sp->sct_own, target);*/
-		move++;
-		goto domove;
+	/*logerror("own %d != target %d", sp->sct_own, target); */
+	move++;
+	goto domove;
     }
-    
+
     ratio = mil / che;
-    odds = (double) che / (mil+che);
-    odds /= hap_fact(tnat,getnatp(sp->sct_oldown));
+    odds = (double)che / (mil + che);
+    odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
     if (mil == 0) {
-		wu(0, sp->sct_own, "Revolutionary subversion reported in %s!\n",
-		   ownxy(sp));
-		recruit++;
-		convert++;
+	wu(0, sp->sct_own, "Revolutionary subversion reported in %s!\n",
+	   ownxy(sp));
+	recruit++;
+	convert++;
     } else if (che > mil && mil > 0) {
-		/*logerror("guerrilla shootout with military");*/
-		/*
-		 * shoot it out with the military, and kill them off.
-		 * If loyalty bad enough, then take the sector over,
-		 * and enlist 5% of civ as military force.
-		 */
-		while (che > 0 && mil > 0) {
-			if (chance(odds)) {
-				mc++;
-				mil--;
-			} else {
-				cc++;
-				che--;
-			}
-		}
-		if (mil > 0) {
-			/* military won.  */
-			n = sp->sct_loyal - (random() % 15);
-			if (n < 0)
-				n = 0;
-			sp->sct_loyal = n;
-			/*logerror("(#%d) mil beat che in %s", sp->sct_own,*/
-			/*ownxy(sp));*/
-		} else {
-			convert++;
-			recruit++;
-			/*logerror("(#%d) che beat mil in %s", sp->sct_own,*/
-			/*ownxy(sp));*/
-		}
-		take_casualties(sp,mc);
-    } else if (ratio < 5) {
-		/*
-		 * guerrillas have to resort to blowing things up.
-		 * Note this disrupts work in the sector.
-		 */
+	/*logerror("guerrilla shootout with military"); */
+	/*
+	 * shoot it out with the military, and kill them off.
+	 * If loyalty bad enough, then take the sector over,
+	 * and enlist 5% of civ as military force.
+	 */
+	while (che > 0 && mil > 0) {
+	    if (chance(odds)) {
+		mc++;
+		mil--;
+	    } else {
+		cc++;
+		che--;
+	    }
+	}
+	if (mil > 0) {
+	    /* military won.  */
+	    n = sp->sct_loyal - (random() % 15);
+	    if (n < 0)
 		n = 0;
-		n = (random() % 10) + (random() % che);
-		if (n > 100)
-			n = 100;
-		tmp = sp->sct_work - n;
-		if (tmp < 0)
-			tmp = 0;
-		sp->sct_work = tmp;
-		wu(0, sp->sct_own,
-		   "Production %s disrupted by terrorists in %s\n",
-		   effadv(n), ownxy(sp));
-		sect_damage(sp, n/10, 0);
-		/*logerror("(#%d) che blew up %s for %d", sp->sct_own,*/
-		/*ownxy(sp), n);*/
-		recruit++;
+	    sp->sct_loyal = n;
+	    /*logerror("(#%d) mil beat che in %s", sp->sct_own, */
+	    /*ownxy(sp)); */
+	} else {
+	    convert++;
+	    recruit++;
+	    /*logerror("(#%d) che beat mil in %s", sp->sct_own, */
+	    /*ownxy(sp)); */
+	}
+	take_casualties(sp, mc);
+    } else if (ratio < 5) {
+	/*
+	 * guerrillas have to resort to blowing things up.
+	 * Note this disrupts work in the sector.
+	 */
+	n = 0;
+	n = (random() % 10) + (random() % che);
+	if (n > 100)
+	    n = 100;
+	tmp = sp->sct_work - n;
+	if (tmp < 0)
+	    tmp = 0;
+	sp->sct_work = tmp;
+	wu(0, sp->sct_own,
+	   "Production %s disrupted by terrorists in %s\n",
+	   effadv(n), ownxy(sp));
+	sect_damage(sp, n / 10, 0);
+	/*logerror("(#%d) che blew up %s for %d", sp->sct_own, */
+	/*ownxy(sp), n); */
+	recruit++;
     } else {
-		/* ratio >= 5 */
-		/*logerror("(#%d) %d che fleeing %d mil in %s", sp->sct_own,*/
-		/*che, mil, ownxy(sp));*/
-		move++;
+	/* ratio >= 5 */
+	/*logerror("(#%d) %d che fleeing %d mil in %s", sp->sct_own, */
+	/*che, mil, ownxy(sp)); */
+	move++;
     }
     if (mil > 0 && che > 0) {
-		/*
-		 * we only get here if we haven't had combat previously.
-		 * Chance to catch them.
-		 * 20% of mil involved in attacking the che's.
-		 */
-		if (chance(ratio*0.10)) {
-			n = (mil/5) + 1;
-			if ((n+che) == 0){
-				logerror("n=%d che=%d\n",n,che);
-				if (che == 0)
-					return;
-			}
-			odds = (double) che / (n + che);
-			odds /= hap_fact(tnat,getnatp(sp->sct_oldown));
-			while (che > 0 && n > 0) {
-				if (chance(odds)) {
-					mc++;
-					n--;
-				} else {
-					cc++;
-					che--;
-				}
-			}
-			take_casualties(sp,mc);
-			recruit = 0;
-			/*logerror("Caught che; mc: %d, cc: %d", cc, mc);*/
+	/*
+	 * we only get here if we haven't had combat previously.
+	 * Chance to catch them.
+	 * 20% of mil involved in attacking the che's.
+	 */
+	if (chance(ratio * 0.10)) {
+	    n = (mil / 5) + 1;
+	    if ((n + che) == 0) {
+		logerror("n=%d che=%d\n", n, che);
+		if (che == 0)
+		    return;
+	    }
+	    odds = (double)che / (n + che);
+	    odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
+	    while (che > 0 && n > 0) {
+		if (chance(odds)) {
+		    mc++;
+		    n--;
+		} else {
+		    cc++;
+		    che--;
 		}
+	    }
+	    take_casualties(sp, mc);
+	    recruit = 0;
+	    /*logerror("Caught che; mc: %d, cc: %d", cc, mc); */
+	}
     }
     if (convert && sp->sct_loyal >= 50) {
-		register int n;
-		/* new owner gets to keep the mobility there */
-		oldmob = sp->sct_mobil;
-		/* che won, and sector converts. */
-		if (sp->sct_own == sp->sct_oldown)
-			sp->sct_oldown = 0;
-		else
-			takeover(sp, sp->sct_oldown);
-		sp->sct_mobil = oldmob;
-		civ += uw;
-		uw = 0;
-		/*
-		 * so we can't keep losing money by having
-		 * our cap retaken
-		 */
-		if (sp->sct_type == SCT_CAPIT &&
-			sp->sct_newtype == SCT_CAPIT)
-			sp->sct_newtype = SCT_AGRI;
-		n = civ / 20;
-		civ -= n;
-		putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
-		putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
-		putvar(V_MILIT, n, (s_char *)sp, EF_SECTOR);
-		move++;
-		recruit = 0;
-		if (sp->sct_own)
-			wu(0, sp->sct_own, "Sector %s has been retaken!\n",
-			   xyas(sp->sct_x, sp->sct_y, sp->sct_own));
+	register int n;
+	/* new owner gets to keep the mobility there */
+	oldmob = sp->sct_mobil;
+	/* che won, and sector converts. */
+	if (sp->sct_own == sp->sct_oldown)
+	    sp->sct_oldown = 0;
+	else
+	    takeover(sp, sp->sct_oldown);
+	sp->sct_mobil = oldmob;
+	civ += uw;
+	uw = 0;
+	/*
+	 * so we can't keep losing money by having
+	 * our cap retaken
+	 */
+	if (sp->sct_type == SCT_CAPIT && sp->sct_newtype == SCT_CAPIT)
+	    sp->sct_newtype = SCT_AGRI;
+	n = civ / 20;
+	civ -= n;
+	putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
+	putvar(V_MILIT, n, (s_char *)sp, EF_SECTOR);
+	move++;
+	recruit = 0;
+	if (sp->sct_own)
+	    wu(0, sp->sct_own, "Sector %s has been retaken!\n",
+	       xyas(sp->sct_x, sp->sct_y, sp->sct_own));
     }
     if (recruit && che > 0) {
-		/* loyalty drops during recruitment efforts */
-		n = sp->sct_loyal;
-		if (n < 30)
-			n += (random() % 5) + 1;
-		else if (n < 70)
-			n += (random() % 10) + 4;
-		if (n > 127)
-			n = 127;
-		sp->sct_loyal = n;
-		if (sp->sct_oldown != sp->sct_own || n > 100) {
-			n = civ * (random() % 3) / 200;
-			n /= hap_fact(tnat,getnatp(sp->sct_oldown));
-			if (n + che > CHE_MAX)
-				n = CHE_MAX - che;
-			che += n;
-			civ -= n;
-			putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
-		}
-		n = uw * (random() % 3) / 200;
-		if (n + che > CHE_MAX)
-			n = CHE_MAX - che;
-		che += n;
-		uw -= n;
-		putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
+	/* loyalty drops during recruitment efforts */
+	n = sp->sct_loyal;
+	if (n < 30)
+	    n += (random() % 5) + 1;
+	else if (n < 70)
+	    n += (random() % 10) + 4;
+	if (n > 127)
+	    n = 127;
+	sp->sct_loyal = n;
+	if (sp->sct_oldown != sp->sct_own || n > 100) {
+	    n = civ * (random() % 3) / 200;
+	    n /= hap_fact(tnat, getnatp(sp->sct_oldown));
+	    if (n + che > CHE_MAX)
+		n = CHE_MAX - che;
+	    che += n;
+	    civ -= n;
+	    putvar(V_CIVIL, civ, (s_char *)sp, EF_SECTOR);
+	}
+	n = uw * (random() % 3) / 200;
+	if (n + che > CHE_MAX)
+	    n = CHE_MAX - che;
+	che += n;
+	uw -= n;
+	putvar(V_UW, uw, (s_char *)sp, EF_SECTOR);
     }
- domove:
+  domove:
     if (move && che > 0) {
-		struct sctstr *maybe_sp = 0;
-		if (convert)
-			min_mil = 999;
-		else
-			min_mil = mil;
-		for (n=1; n<=6; n++) {
-			nsp = getsectp(sp->sct_x+diroff[n][0],
-						   sp->sct_y+diroff[n][1]);
-			if (dchr[nsp->sct_type].d_mcst == 0)
-				continue;
-			if (nsp->sct_own != target)
-				continue;
-			if ((val = getvar(V_CHE, (s_char *)nsp, EF_SECTOR)) > 0) {
-				che_combo = val;
-				if (get_che_cnum(che_combo) != target)
-					continue;
-				if (get_che_value(che_combo) + che > CHE_MAX)
-					continue;
-			}
-			val = getvar(V_MILIT, (s_char *)nsp, EF_SECTOR);
-			if (val >= min_mil)
-				continue;
-			maybe_sp = nsp;
-			min_mil = val;
-		}
-		/*
-		 * if n <= 6, we found a sector owned by TARGET which
-		 * is a nice sector.  Otherwise, we move to the first
-		 * one we find ("maybe_sp").
-		 */
-		if (maybe_sp != 0) {
-			che_combo = getvar(V_CHE, (s_char *)maybe_sp, EF_SECTOR);
-			che += get_che_value(che_combo);
-			set_che_value(che_combo, che);
-			set_che_cnum(che_combo, target);
-			putvar(V_CHE, (int) che_combo, (s_char *)maybe_sp, EF_SECTOR);
-			che = 0;
-		}
+	struct sctstr *maybe_sp = 0;
+	if (convert)
+	    min_mil = 999;
+	else
+	    min_mil = mil;
+	for (n = 1; n <= 6; n++) {
+	    nsp = getsectp(sp->sct_x + diroff[n][0],
+			   sp->sct_y + diroff[n][1]);
+	    if (dchr[nsp->sct_type].d_mcst == 0)
+		continue;
+	    if (nsp->sct_own != target)
+		continue;
+	    if ((val = getvar(V_CHE, (s_char *)nsp, EF_SECTOR)) > 0) {
+		che_combo = val;
+		if (get_che_cnum(che_combo) != target)
+		    continue;
+		if (get_che_value(che_combo) + che > CHE_MAX)
+		    continue;
+	    }
+	    val = getvar(V_MILIT, (s_char *)nsp, EF_SECTOR);
+	    if (val >= min_mil)
+		continue;
+	    maybe_sp = nsp;
+	    min_mil = val;
+	}
+	/*
+	 * if n <= 6, we found a sector owned by TARGET which
+	 * is a nice sector.  Otherwise, we move to the first
+	 * one we find ("maybe_sp").
+	 */
+	if (maybe_sp != 0) {
+	    che_combo = getvar(V_CHE, (s_char *)maybe_sp, EF_SECTOR);
+	    che += get_che_value(che_combo);
+	    set_che_value(che_combo, che);
+	    set_che_cnum(che_combo, target);
+	    putvar(V_CHE, (int)che_combo, (s_char *)maybe_sp, EF_SECTOR);
+	    che = 0;
+	}
     }
     if (che > 0) {
-		set_che_value(che_combo, che);
-		set_che_cnum(che_combo, target);
-		putvar(V_CHE, (int) che_combo, (s_char *)sp, EF_SECTOR);
+	set_che_value(che_combo, che);
+	set_che_cnum(che_combo, target);
+	putvar(V_CHE, (int)che_combo, (s_char *)sp, EF_SECTOR);
     } else
-		putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
+	putvar(V_CHE, 0, (s_char *)sp, EF_SECTOR);
     if (mc > 0 || cc > 0) {
-		/* don't tell who won just to be mean */
-		wu(0, target,
-		   "Guerrilla warfare in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, target));
-		wu(0, target, "  body count: troops: %d, rebels: %d\n", mc, cc);
-		nreport(actor, N_FREEDOM_FIGHT, victim, 1);
+	/* don't tell who won just to be mean */
+	wu(0, target,
+	   "Guerrilla warfare in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, target));
+	wu(0, target, "  body count: troops: %d, rebels: %d\n", mc, cc);
+	nreport(actor, N_FREEDOM_FIGHT, victim, 1);
     }
 }
 
 void
 take_casualties(struct sctstr *sp, int mc)
 {
-    int	orig_mil;
-    int	cantake;
-    int	nunits=0, each, deq;
-    struct	lndstr *lp;
-    s_char	*nxtitemp(struct nstr_item *np, int owner);
-    struct	nstr_item ni;
-    
+    int orig_mil;
+    int cantake;
+    int nunits = 0, each, deq;
+    struct lndstr *lp;
+    s_char *nxtitemp(struct nstr_item *np, int owner);
+    struct nstr_item ni;
+
     /* casualties come out of mil first */
     orig_mil = getvar(V_MILIT, (s_char *)sp, EF_SECTOR);
-    
-    if (mc <= orig_mil){
-	putvar(V_MILIT, (orig_mil-mc), (s_char *)sp, EF_SECTOR);
+
+    if (mc <= orig_mil) {
+	putvar(V_MILIT, (orig_mil - mc), (s_char *)sp, EF_SECTOR);
 	return;
     }
     putvar(V_MILIT, 0, (s_char *)sp, EF_SECTOR);
-    
+
     /* remaining casualites */
     mc -= orig_mil;
-    
+
     /*
      * Need to take total_casualties and divide
      * them amongst the land units in the sector
      * Do security troops first, then others.
      * Try not to kill any unit.
      */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
-    while(NULL != (lp=(struct lndstr *)nxtitemp(&ni, 0))){
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
 	nunits++;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    nunits++;
     }
-    
-    if (nunits==0)
+
+    if (nunits == 0)
 	return;
-    
-    each = (mc/nunits)+2;
-    
+
+    each = (mc / nunits) + 2;
+
     /* kill some security troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
-    while(NULL != (lp=(struct lndstr *)nxtitemp(&ni, 0))){
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
-	
-	cantake = (((float)(lp->lnd_effic-40)/100.0)*
-		   (float)lnd_getmil(lp))*2;
-	/*				(float)lchr[lp->lnd_type].l_mil)*2;*/
-	
-	if (cantake >= each){
-	    /*			deq = (((float)each/(float)(lchr[lp->lnd_type].l_mil*2))*/
-	    deq = (((float)each/(float)(lnd_getmil(lp)*2))
-		   *100.0);
-	    mc -= each;
-	}else if (cantake > 0){
-	    deq = (((float)cantake/
-		    (float)(lnd_getmil(lp)*2)) * 100.0);
-	    /*				(float)(lchr[lp->lnd_type].l_mil*2)) * 100.0);*/
-	    mc -= (((float)deq/100.0)*
-		   (float)lnd_getmil(lp))*2;
-	    /*				(float)lchr[lp->lnd_type].l_mil)*2;*/
-	}else
-	    deq = 0;
-	
-	lp->lnd_effic -= deq;
-	lp->lnd_mobil -= deq/2;
-	deq = (double)lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
-	lnd_submil(lp, deq);
-	if (mc<=0) return;
-    }
-    
-    /* kill some normal troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
-    while(NULL != (lp=(struct lndstr *)nxtitemp(&ni, 0))){
-	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
-	    continue;
-	
-	cantake = (((float)(lp->lnd_effic-40)/100.0)*
-		   (float)lnd_getmil(lp));
-	
-	if (cantake >= each){
-	    deq = (((float)each/(float)(lnd_getmil(lp)*2))
-		   *100.0);
-	    mc -= each;
-	}else if (cantake > 0){
-	    deq = (((float)cantake/(float)lnd_getmil(lp))
+
+	cantake = (((float)(lp->lnd_effic - 40) / 100.0) *
+		   (float)lnd_getmil(lp)) * 2;
+	/*                              (float)lchr[lp->lnd_type].l_mil)*2; */
+
+	if (cantake >= each) {
+	    /*                  deq = (((float)each/(float)(lchr[lp->lnd_type].l_mil*2)) */
+	    deq = (((float)each / (float)(lnd_getmil(lp) * 2))
 		   * 100.0);
-	    mc -= (((float)deq/100.0)*
-		   (float)lnd_getmil(lp));
-	}else
+	    mc -= each;
+	} else if (cantake > 0) {
+	    deq = (((float)cantake / (float)(lnd_getmil(lp) * 2)) * 100.0);
+	    /*                          (float)(lchr[lp->lnd_type].l_mil*2)) * 100.0); */
+	    mc -= (((float)deq / 100.0) * (float)lnd_getmil(lp)) * 2;
+	    /*                          (float)lchr[lp->lnd_type].l_mil)*2; */
+	} else
 	    deq = 0;
+
 	lp->lnd_effic -= deq;
-	lp->lnd_mobil -= deq/2;
+	lp->lnd_mobil -= deq / 2;
 	deq = (double)lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
 	lnd_submil(lp, deq);
-	if (mc<=0) return;
-    }
-    
-    /* Hmm.. still some left.. kill off units now */
-    /* kill some normal troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
-    while(NULL != (lp=(struct lndstr *)nxtitemp(&ni, 0))){
-	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
-	    continue;
-	
-	mc -= (((float)lp->lnd_effic/100.0) *
-	       (float)lnd_getmil(lp));
-	lp->lnd_effic = 0;
-	lnd_submil(lp, 1000); /* Remove 'em all */
-	wu(0,lp->lnd_own,"%s dies fighting guerrillas in %s\n",
-	   prland(lp),
-	   xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
-	if (mc<=0) return;
-    }
-    
-    /* Hmm.. still some left.. kill off units now */
-    /* kill some security troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x,sp->sct_y);
-    while(NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))){
-	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
-	    continue;
-	
-	mc -= (((float)lp->lnd_effic / 100.0) * (float)lnd_getmil(lp)) * 2;
-	lp->lnd_effic = 0;
-	lnd_submil(lp, 1000); /* Kill 'em all */
-	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
-	   prland(lp),
-	   xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
-	if (mc <= 0) 
+	if (mc <= 0)
 	    return;
     }
-    
+
+    /* kill some normal troops */
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
+	    continue;
+
+	cantake = (((float)(lp->lnd_effic - 40) / 100.0) *
+		   (float)lnd_getmil(lp));
+
+	if (cantake >= each) {
+	    deq = (((float)each / (float)(lnd_getmil(lp) * 2))
+		   * 100.0);
+	    mc -= each;
+	} else if (cantake > 0) {
+	    deq = (((float)cantake / (float)lnd_getmil(lp))
+		   * 100.0);
+	    mc -= (((float)deq / 100.0) * (float)lnd_getmil(lp));
+	} else
+	    deq = 0;
+	lp->lnd_effic -= deq;
+	lp->lnd_mobil -= deq / 2;
+	deq = (double)lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
+	lnd_submil(lp, deq);
+	if (mc <= 0)
+	    return;
+    }
+
+    /* Hmm.. still some left.. kill off units now */
+    /* kill some normal troops */
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
+	    continue;
+
+	mc -= (((float)lp->lnd_effic / 100.0) * (float)lnd_getmil(lp));
+	lp->lnd_effic = 0;
+	lnd_submil(lp, 1000);	/* Remove 'em all */
+	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
+	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
+	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
+	lp->lnd_own = 0;
+	if (mc <= 0)
+	    return;
+    }
+
+    /* Hmm.. still some left.. kill off units now */
+    /* kill some security troops */
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
+	    continue;
+
+	mc -= (((float)lp->lnd_effic / 100.0) * (float)lnd_getmil(lp)) * 2;
+	lp->lnd_effic = 0;
+	lnd_submil(lp, 1000);	/* Kill 'em all */
+	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
+	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
+	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
+	lp->lnd_own = 0;
+	if (mc <= 0)
+	    return;
+    }
+
     /* Hmm.. everyone dead.. too bad */
 }

@@ -53,14 +53,21 @@
 #include "optlist.h"
 #include "commands.h"
 
-static	int build_nuke(register struct sctstr *sp, register struct nchrstr *np, register int *vec);
-static	int build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int *vec, int tlev);
-static	int build_land(register struct sctstr *sp, register struct lchrstr *lp, register int *vec, int tlev);
-static	int build_bridge(register struct sctstr *sp, register int *vec);
-static	int build_tower(register struct sctstr *sp, register int *vec);
-static	int build_plane(register struct sctstr *sp, register struct plchrstr *pp, register int *vec, int tlev);
+static int build_nuke(register struct sctstr *sp,
+		      register struct nchrstr *np, register int *vec);
+static int build_ship(register struct sctstr *sp,
+		      register struct mchrstr *mp, register int *vec,
+		      int tlev);
+static int build_land(register struct sctstr *sp,
+		      register struct lchrstr *lp, register int *vec,
+		      int tlev);
+static int build_bridge(register struct sctstr *sp, register int *vec);
+static int build_tower(register struct sctstr *sp, register int *vec);
+static int build_plane(register struct sctstr *sp,
+		       register struct plchrstr *pp, register int *vec,
+		       int tlev);
 
-static	int cash;	/* static ok */
+static int cash;		/* static ok */
 
 double sqrt(double);
 double logx();
@@ -75,58 +82,62 @@ extern int etu_per_update;
 int
 buil(void)
 {
-    extern  double buil_bt;
-    extern  double buil_tower_bt;
-    struct  sctstr sect;
-    struct  nstr_sect nstr;
-    struct  natstr *natp;
-    int	    rqtech;
-    int	    tlev;
-    int	    rlev;
-    int	    n;
-    int	    type;
-    int	    what;
-    struct  lchrstr *lp;
-    struct  mchrstr *mp;
-    struct  plchrstr *pp;
-    struct  nchrstr *np;
-    s_char  *p;
-    int	    vec[I_MAX+1];
-    int	    gotsect = 0;
-    int	    built;
-    int	    hold, found, number=1, x;
-    extern  float drnuke_const;
-    int     asked = 0;
-    s_char  buf[1024];
-    
+    extern double buil_bt;
+    extern double buil_tower_bt;
+    struct sctstr sect;
+    struct nstr_sect nstr;
+    struct natstr *natp;
+    int rqtech;
+    int tlev;
+    int rlev;
+    int n;
+    int type;
+    int what;
+    struct lchrstr *lp;
+    struct mchrstr *mp;
+    struct plchrstr *pp;
+    struct nchrstr *np;
+    s_char *p;
+    int vec[I_MAX + 1];
+    int gotsect = 0;
+    int built;
+    int hold, found, number = 1, x;
+    extern float drnuke_const;
+    int asked = 0;
+    s_char buf[1024];
+
     natp = getnatp(player->cnum);
-    if ((p = getstarg(player->argp[1], "Build (ship, nuke, bridge, plane, land unit, tower)? ", buf)) == 0)
+    if ((p =
+	 getstarg(player->argp[1],
+		  "Build (ship, nuke, bridge, plane, land unit, tower)? ",
+		  buf)) == 0)
 	return RET_SYN;
     what = *p;
-    
-    for(x= 0 ; x < number; x++) {
+
+    for (x = 0; x < number; x++) {
 	if (!snxtsct(&nstr, player->argp[2])) {
 	    pr("Bad sector specification.\n");
 	    return RET_SYN;
 	}
-ask_again:
-	tlev = (int) natp->nat_level[NAT_TLEV];
-	rlev = (int) natp->nat_level[NAT_RLEV];
-	
+      ask_again:
+	tlev = (int)natp->nat_level[NAT_TLEV];
+	rlev = (int)natp->nat_level[NAT_RLEV];
+
 	switch (what) {
 	case 'p':
 	    p = getstarg(player->argp[3], "Plane type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
 	    n = strlen(p);
-	    while (n && iscntrl(p[n-1]))
-	      n--;
-	    if ( !n )
-	      return RET_SYN;
-	    for (found=0,type=0,pp=plchr; type <= pln_maxno; type++,pp++) {
+	    while (n && iscntrl(p[n - 1]))
+		n--;
+	    if (!n)
+		return RET_SYN;
+	    for (found = 0, type = 0, pp = plchr; type <= pln_maxno;
+		 type++, pp++) {
 		if (pp->pl_tech > tlev)
 		    continue;
-		if(pp->pl_name && strncmp(p, pp->pl_name, n) == 0) {
+		if (pp->pl_name && strncmp(p, pp->pl_name, n) == 0) {
 		    found++;
 		    hold = type;
 		    break;
@@ -135,7 +146,7 @@ ask_again:
 	    if (found != 1) {
 		pr("Illegal plane type: \"%s\"\n", p);
 		if (confirm("List plane types? "))
-		    show_plane_build (tlev);
+		    show_plane_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
@@ -148,17 +159,18 @@ ask_again:
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
 	    n = strlen(p);
-	    while (n && iscntrl(p[n-1]))
-	      n--;
-	    if ( !n )
-	      return RET_SYN;
-	    for (found=0,mp=mchr,type=0; type <= shp_maxno; type++, mp++) {
+	    while (n && iscntrl(p[n - 1]))
+		n--;
+	    if (!n)
+		return RET_SYN;
+	    for (found = 0, mp = mchr, type = 0; type <= shp_maxno;
+		 type++, mp++) {
 		if (mp->m_tech > tlev)
 		    continue;
 		/* Can't build trade ships unless it's turned on */
 		if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
 		    continue;
-		if(mp->m_name && strncmp(p, mp->m_name, n) == 0) {
+		if (mp->m_name && strncmp(p, mp->m_name, n) == 0) {
 		    found++;
 		    hold = type;
 		    break;
@@ -167,7 +179,7 @@ ask_again:
 	    if (found != 1) {
 		pr("Illegal ship type: \"%s\"\n", p);
 		if (confirm("List ship types? "))
-		    show_ship_build (tlev);
+		    show_ship_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
@@ -180,16 +192,17 @@ ask_again:
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
 	    n = strlen(p);
-	    while (n && iscntrl(p[n-1]))
-	      n--;
-	    if ( !n )
-	      return RET_SYN;
-	    for (found=0,lp=lchr,type=0; type <= lnd_maxno; type++, lp++) {
+	    while (n && iscntrl(p[n - 1]))
+		n--;
+	    if (!n)
+		return RET_SYN;
+	    for (found = 0, lp = lchr, type = 0; type <= lnd_maxno;
+		 type++, lp++) {
 		if (lp->l_tech > tlev)
 		    continue;
 		if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
 		    continue;
-		if(lp->l_name && strncmp(p, lp->l_name, n) == 0) {
+		if (lp->l_name && strncmp(p, lp->l_name, n) == 0) {
 		    found++;
 		    hold = type;
 		    break;
@@ -198,7 +211,7 @@ ask_again:
 	    if (found != 1) {
 		pr("Illegal land unit type: \"%s\"\n", p);
 		if (confirm("List unit types? "))
-		    show_land_build (tlev);
+		    show_land_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
@@ -207,9 +220,8 @@ ask_again:
 	    rqtech = lp->l_tech;
 	    break;
 	case 'b':
-	    if (natp->nat_level[NAT_TLEV]+0.005 < buil_bt) {
-		pr("Building a span requires a tech of %.0f\n",
-		   buil_bt);
+	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
+		pr("Building a span requires a tech of %.0f\n", buil_bt);
 		return 2;
 	    }
 	    break;
@@ -218,45 +230,47 @@ ask_again:
 		pr("Bridge tower building is disabled.\n");
 		return RET_FAIL;
 	    }
-	    if (natp->nat_level[NAT_TLEV]+0.005 < buil_tower_bt) {
+	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
 		pr("Building a tower requires a tech of %.0f\n",
 		   buil_tower_bt);
 		return 2;
 	    }
 	    break;
 	case 'n':
-  	    if (opt_NONUKES) {
-	        pr("There are no nukes in this game.\n");
+	    if (opt_NONUKES) {
+		pr("There are no nukes in this game.\n");
 		return RET_FAIL;
 	    }
 	    p = getstarg(player->argp[3], "Nuke type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
 	    n = strlen(p);
-	    while (n && iscntrl(p[n-1]))
-	      n--;
-	    if ( !n )
-	      return RET_SYN;
-	    for (found=0,np=nchr,type=0; type < nuk_maxno; type++, np++) {
-		if ((np->n_tech > tlev) ||
-		    (opt_DRNUKE && ((np->n_tech*drnuke_const) > rlev)))
+	    while (n && iscntrl(p[n - 1]))
+		n--;
+	    if (!n)
+		return RET_SYN;
+	    for (found = 0, np = nchr, type = 0; type < nuk_maxno;
+		 type++, np++) {
+		if ((np->n_tech > tlev)
+		    || (opt_DRNUKE
+			&& ((np->n_tech * drnuke_const) > rlev)))
 		    continue;
 		if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
 		    continue;
-		
-		if(np->n_name && strncmp(p, np->n_name, n) == 0) {
+
+		if (np->n_name && strncmp(p, np->n_name, n) == 0) {
 		    found++;
 		    hold = type;
 		    break;
 		}
 	    }
 	    if (found != 1) {
-		int	tt = tlev;
+		int tt = tlev;
 		pr("Possible nuke types are:\n");
-		if (opt_DRNUKE) 
-		    tt = (tlev < (rlev/drnuke_const) ? (int)tlev :
-			  (int)(rlev/drnuke_const));
-		
+		if (opt_DRNUKE)
+		    tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
+			  (int)(rlev / drnuke_const));
+
 		show_nuke_build(tt);
 		player->argp[3] = 0;
 		goto ask_again;
@@ -274,12 +288,14 @@ ask_again:
 		if (atoi(player->argp[4]) > 20 && !asked) {
 		    s_char bstr[80];
 		    asked = 1;
-		    (void) sprintf(bstr,"Are you sure that you want to build %s of them? ", player->argp[4]);
+		    (void)sprintf(bstr,
+				  "Are you sure that you want to build %s of them? ",
+				  player->argp[4]);
 		    p = getstarg(player->argp[6], bstr, buf);
 		    if (p == 0 || *p != 'y')
 			return RET_SYN;
 		}
-		number=atoi(player->argp[4]);
+		number = atoi(player->argp[4]);
 	    }
 	}
 	if (what != 'b' && what != 'n' && what != 't') {
@@ -291,7 +307,7 @@ ask_again:
 		    return RET_FAIL;
 		}
 		if (rqtech > tlev) {
-		    pr("Required tech is %d.\n",rqtech);
+		    pr("Required tech is %d.\n", rqtech);
 		    return RET_FAIL;
 		}
 		pr("building with tech level %d.\n", tlev);
@@ -340,20 +356,21 @@ ask_again:
 }
 
 static int
-build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int *vec, int tlev)
+build_ship(register struct sctstr *sp, register struct mchrstr *mp,
+	   register int *vec, int tlev)
 {
-    struct	shpstr ship;
-    struct	nstr_item nstr;
-    int	cost, i;
-    int	w_p_eff,x;
-    float	eff=((float)SHIP_MINEFF/100.0);
-    int	points, lcm, hcm;
-    int	freeship = 0;
+    struct shpstr ship;
+    struct nstr_item nstr;
+    int cost, i;
+    int w_p_eff, x;
+    float eff = ((float)SHIP_MINEFF / 100.0);
+    int points, lcm, hcm;
+    int freeship = 0;
     int techdiff;
-    
+
     hcm = roundavg(((double)mp->m_hcm * (double)eff));
     lcm = roundavg(((double)mp->m_lcm * (double)eff));
-    
+
     if (sp->sct_type != SCT_HARBR) {
 	pr("Ships must be built in harbours.\n");
 	return 0;
@@ -374,7 +391,7 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int
 	pr("Not enough available work in %s to build a %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), mp->m_name);
 	pr(" (%d available work required)\n",
-	   1 + (w_p_eff * SHIP_MINEFF)/100);
+	   1 + (w_p_eff * SHIP_MINEFF) / 100);
 	return 0;
     }
     cost = mp->m_cost * eff;
@@ -397,9 +414,9 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int
 	}
     }
     if (freeship == 0) {
-		ef_extend(EF_SHIP, 50);
+	ef_extend(EF_SHIP, 50);
     }
-	bzero(&ship, sizeof(struct shpstr));
+    bzero(&ship, sizeof(struct shpstr));
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
     ship.shp_destx[0] = sp->sct_x;
@@ -408,11 +425,11 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int
     ship.shp_desty[1] = sp->sct_y;
     ship.shp_autonav = 0;
     /* new code for autonav, Chad Zabel 1-15-94 */
-    for (i=0;i<TMAX;++i) {
+    for (i = 0; i < TMAX; ++i) {
 	ship.shp_tstart[i] = ' ';
-	ship.shp_tend[i]   = ' ';
+	ship.shp_tend[i] = ' ';
 	ship.shp_lstart[i] = 0;
-	ship.shp_lend[i]   = 0;
+	ship.shp_lend[i] = 0;
     }
     ship.shp_mission = 0;
     ship.shp_own = player->cnum;
@@ -450,15 +467,16 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int
     ship.shp_orig_y = sp->sct_y;
     ship.shp_fuel = mchr[(int)ship.shp_type].m_fuelc;
     ship.shp_rflags = 0;
-    for(x=0;x<10;x++)
-	ship.shp_rpath[x]=0;
-    
+    for (x = 0; x < 10; x++)
+	ship.shp_rpath[x] = 0;
+
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
-    
+
     if (getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_INFECT)
 	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&ship, EF_SHIP);
-    makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid, ship.shp_x, ship.shp_y);
+    makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid, ship.shp_x,
+		ship.shp_y);
     putship(ship.shp_uid, &ship);
     pr("%s", prship(&ship));
     pr(" built in sector %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -466,94 +484,95 @@ build_ship(register struct sctstr *sp, register struct mchrstr *mp, register int
 }
 
 static int
-build_land(register struct sctstr *sp, register struct lchrstr *lp, register int *vec, int tlev)
+build_land(register struct sctstr *sp, register struct lchrstr *lp,
+	   register int *vec, int tlev)
 {
-    struct	lndstr land;
-    struct	nstr_item nstr;
-    int	cost;
-    int	w_p_eff;
-    int	points;
-    struct  natstr *natp;
-    float	eff=((float)LAND_MINEFF/100.0);
-    double	techfact(int, double);
-    int	mil, lcm, hcm, gun, shell;
-    int	freeland = 0;
-    
+    struct lndstr land;
+    struct nstr_item nstr;
+    int cost;
+    int w_p_eff;
+    int points;
+    struct natstr *natp;
+    float eff = ((float)LAND_MINEFF / 100.0);
+    double techfact(int, double);
+    int mil, lcm, hcm, gun, shell;
+    int freeland = 0;
+
     /*
        mil = roundavg(((double)lp->l_mil * (double)eff));
        shell = roundavg(((double)lp->l_shell * (double)eff));
-	   gun = roundavg(((double)lp->l_gun * (double)eff));
-       */
+       gun = roundavg(((double)lp->l_gun * (double)eff));
+     */
     mil = shell = gun = 0;
     hcm = roundavg(((double)lp->l_hcm * (double)eff));
     lcm = roundavg(((double)lp->l_lcm * (double)eff));
-    
+
     natp = getnatp(player->cnum);
-    
+
     if (sp->sct_type != SCT_HEADQ) {
-		pr("Land Units must be built in headquarters.\n");
-		return 0;
+	pr("Land Units must be built in headquarters.\n");
+	return 0;
     }
     if (sp->sct_effic < 60 && !player->god) {
-		pr("Sector %s is not 60%% efficient.\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+	pr("Sector %s is not 60%% efficient.\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
     if (vec[I_LCM] < lcm || vec[I_HCM] < hcm) {
-		pr("Not enough materials in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+	pr("Not enough materials in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
 #if 0
-    if (vec[I_GUN] < gun || vec[I_GUN] == 0){
-		pr("Not enough guns in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+    if (vec[I_GUN] < gun || vec[I_GUN] == 0) {
+	pr("Not enough guns in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
-    if (vec[I_SHELL] < shell){
-		pr("Not enough shells in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+    if (vec[I_SHELL] < shell) {
+	pr("Not enough shells in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
-    if (vec[I_MILIT] < mil){
-		pr("Not enough military in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+    if (vec[I_MILIT] < mil) {
+	pr("Not enough military in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
 #endif
     if (!trechk(player->cnum, 0, NEWLND))
-		return 0;
+	return 0;
     if (!check_sect_ok(sp))
-		return 0;
+	return 0;
     w_p_eff = (20 + lp->l_lcm + (lp->l_hcm * 2));
     points = sp->sct_avail * 100 / w_p_eff;
     if (points < LAND_MINEFF) {
-		pr("Not enough available work in %s to build a %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum), lp->l_name);
-		pr(" (%d available work required)\n",
-		   1 + (w_p_eff * LAND_MINEFF)/100);
-		return 0;
+	pr("Not enough available work in %s to build a %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum), lp->l_name);
+	pr(" (%d available work required)\n",
+	   1 + (w_p_eff * LAND_MINEFF) / 100);
+	return 0;
     }
     cost = ((float)lp->l_cost * eff);
-    /*	cost = (int)LND_COST(cost, tlev - lp->l_tech);*/
+    /*  cost = (int)LND_COST(cost, tlev - lp->l_tech); */
     if (cash < cost) {
-		pr("Not enough money left to build a %s\n", lp->l_name);
-		return 0;
+	pr("Not enough money left to build a %s\n", lp->l_name);
+	return 0;
     }
     sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * LAND_MINEFF) / 100;
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_LAND);
     while (nxtitem(&nstr, (s_char *)&land)) {
-		if (land.lnd_own == 0) {
-			freeland++;
-			break;
-		}
+	if (land.lnd_own == 0) {
+	    freeland++;
+	    break;
+	}
     }
     if (freeland == 0) {
-		ef_extend(EF_LAND, 50);
+	ef_extend(EF_LAND, 50);
     }
-	bzero(&land, sizeof(struct lndstr));
+    bzero(&land, sizeof(struct lndstr));
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
     land.lnd_own = player->cnum;
@@ -579,7 +598,7 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp, register int
     land.lnd_fuel = lp->l_fuelc;
     land.lnd_nxlight = 0;
     land.lnd_rflags = 0;
-    bzero(land.lnd_rpath,10);
+    bzero(land.lnd_rpath, 10);
     land.lnd_rad_max = 0;
     land.lnd_nv = 0;
     land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
@@ -598,13 +617,13 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp, register int
     land.lnd_fuelu = (int)LND_FU(lp->l_fuelu, tlev - lp->l_tech);
     land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
     land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
-    
+
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
     vec[I_MILIT] -= mil;
     vec[I_GUN] -= gun;
     vec[I_SHELL] -= shell;
-    
+
 /* Disabled autoloading of food onto units
     max_amt = vl_find(V_FOOD, lp->l_vtype, lp->l_vamt, (int) lp->l_nv);
     food_needed = (etu_per_update * eatrate) *
@@ -622,32 +641,33 @@ build_land(register struct sctstr *sp, register struct lchrstr *lp, register int
     lvec[I_FOOD] += max_amt;
     putvec(VT_ITEM, lvec, (s_char *)&land, EF_LAND);
 */
-    
+
     if (getvar(V_PSTAGE, (s_char *)sp, EF_SECTOR) == PLG_INFECT)
-		putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&land, EF_LAND);
+	putvar(V_PSTAGE, PLG_EXPOSED, (s_char *)&land, EF_LAND);
     putland(nstr.cur, &land);
-    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x, land.lnd_y);
+    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
+		land.lnd_y);
     pr("%s", prland(&land));
     pr(" built in sector %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
 }
 
 static
-int
+    int
 build_bridge(register struct sctstr *sp, register int *vec)
 {
-    extern  int buil_bh;
-    extern	double buil_bc;
-    struct	sctstr sect;
-    int	val;
-    int	newx, newy;
-    int	w_p_eff;
-    int	points;
-    int     nx,ny,i,good=0;
-    s_char	*p;
-    s_char	buf[1024];
-    
-    if (opt_EASY_BRIDGES == 0) { /* must have a bridge head or tower */
+    extern int buil_bh;
+    extern double buil_bc;
+    struct sctstr sect;
+    int val;
+    int newx, newy;
+    int w_p_eff;
+    int points;
+    int nx, ny, i, good = 0;
+    s_char *p;
+    s_char buf[1024];
+
+    if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
 	if (sp->sct_type != SCT_BTOWER) {
 	    if (sp->sct_type != SCT_BHEAD)
 		return 0;
@@ -656,8 +676,8 @@ build_bridge(register struct sctstr *sp, register int *vec)
 	}
     }
 #if 0
- else {
-	
+    else {
+
 	for (i = 1; i <= 6; i++) {
 	    struct sctstr s2;
 	    nx = sp->sct_x + diroff[i][0];
@@ -669,25 +689,25 @@ build_bridge(register struct sctstr *sp, register int *vec)
 		getsect(nx2, ny2, &s2);
 		if ((s2.sct_type != SCT_WATER) &&
 		    (s2.sct_type != SCT_BSPAN))
-		    good=1;
+		    good = 1;
 	    }
-	    
+
 	}
-	
-	if (!good){
+
+	if (!good) {
 	    pr("Bridges must be built adjacent to land or bridge towers.\n");
 	    pr("No eligible sectors adjacent to this sector.\n");
 	    return 0;
 	}
-    } /* end EASY_BRIDGES */
+    }				/* end EASY_BRIDGES */
 #endif
-    
+
     if (sp->sct_effic < 60 && !player->god) {
 	pr("Sector %s is not 60%% efficient.\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-	
+
     if (!opt_NO_HCMS) {
 	if (vec[I_HCM] < buil_bh) {
 	    pr("%s only has %d unit%s of hcm,\n",
@@ -715,15 +735,18 @@ build_bridge(register struct sctstr *sp, register int *vec)
     if (points < 20) {
 	pr("Not enough available work in %s to build a bridge\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n",
-	   1 + (w_p_eff * 20)/100);
+	pr(" (%d available work required)\n", 1 + (w_p_eff * 20) / 100);
 	return 0;
     }
     if (!player->argp[3]) {
-	pr("Bridge head at %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
+	pr("Bridge head at %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!(p = getstarg(player->argp[3], "build span in what direction? ", buf)) || !*p) {
+    if (!
+	(p =
+	 getstarg(player->argp[3], "build span in what direction? ", buf))
+	|| !*p) {
 	return 0;
     }
     /* Sanity check time */
@@ -738,28 +761,26 @@ build_bridge(register struct sctstr *sp, register int *vec)
     newx = sp->sct_x + diroff[val][0];
     newy = sp->sct_y + diroff[val][1];
     if (getsect(newx, newy, &sect) == 0 || sect.sct_type != SCT_WATER) {
-	pr("%s is not a water sector\n",
-	   xyas(newx, newy, player->cnum));
+	pr("%s is not a water sector\n", xyas(newx, newy, player->cnum));
 	return 0;
     }
     if (opt_EASY_BRIDGES) {
-	good=0;
-	
+	good = 0;
+
 	for (i = 1; i <= 6; i++) {
 	    struct sctstr s2;
 	    nx = sect.sct_x + diroff[i][0];
 	    ny = sect.sct_y + diroff[i][1];
 	    getsect(nx, ny, &s2);
-	    if ((s2.sct_type != SCT_WATER) &&
-		(s2.sct_type != SCT_BSPAN))
-		good=1;
+	    if ((s2.sct_type != SCT_WATER) && (s2.sct_type != SCT_BSPAN))
+		good = 1;
 	}
-	if (!good){
+	if (!good) {
 	    pr("Bridges must be built adjacent to land or bridge towers.\n");
 	    pr("That sector is not adjacent to land or a bridge tower.\n");
 	    return 0;
 	}
-    } /* end EASY_BRIDGES */
+    }				/* end EASY_BRIDGES */
     sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * 20) / 100;
     player->dolcost += buil_bc;
     cash -= buil_bc;
@@ -770,14 +791,14 @@ build_bridge(register struct sctstr *sp, register int *vec)
     sect.sct_rail = 0;
     sect.sct_defense = 0;
     if (!opt_DEFENSE_INFRA)
-      sect.sct_defense = sect.sct_effic;
+	sect.sct_defense = sect.sct_effic;
     if (opt_MOB_ACCESS) {
 	time(&sect.sct_access);
 	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	sect.sct_mobil = 0;
     }
-    putvar(V_MINE,0,(s_char *)&sect,EF_SECTOR);
+    putvar(V_MINE, 0, (s_char *)&sect, EF_SECTOR);
     putsect(&sect);
     pr("Bridge span built over %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -789,12 +810,13 @@ build_bridge(register struct sctstr *sp, register int *vec)
 }
 
 static
-int
-build_nuke(register struct sctstr *sp, register struct nchrstr *np, register int *vec)
+    int
+build_nuke(register struct sctstr *sp, register struct nchrstr *np,
+	   register int *vec)
 {
-    int	w_p_eff;
-    int	points;
-    
+    int w_p_eff;
+    int points;
+
     if (sp->sct_type != SCT_NUKE && !player->god) {
 	pr("Nuclear weapons must be built in nuclear plants.\n");
 	return 0;
@@ -826,8 +848,7 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np, register int
     if (points < 20) {
 	pr("Not enough available work in %s to build a %s;\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum), np->n_name);
-	pr(" (%d available work required)\n",
-	   1 + w_p_eff*20/100);
+	pr(" (%d available work required)\n", 1 + w_p_eff * 20 / 100);
 	return 0;
     }
     if (!trechk(player->cnum, 0, NEWNUK))
@@ -848,18 +869,19 @@ build_nuke(register struct sctstr *sp, register struct nchrstr *np, register int
 }
 
 static
-int
-build_plane(register struct sctstr *sp, register struct plchrstr *pp, register int *vec, int tlev)
+    int
+build_plane(register struct sctstr *sp, register struct plchrstr *pp,
+	    register int *vec, int tlev)
 {
-    struct	plnstr plane;
-    int	cost;
-    struct	nstr_item nstr;
-    float	eff=((float)PLANE_MINEFF/100.0);
-    int	points;
-    int	w_p_eff;
-    int	hcm, lcm, mil;
-    int	freeplane = 0;
-    
+    struct plnstr plane;
+    int cost;
+    struct nstr_item nstr;
+    float eff = ((float)PLANE_MINEFF / 100.0);
+    int points;
+    int w_p_eff;
+    int hcm, lcm, mil;
+    int freeplane = 0;
+
     mil = roundavg(((double)pp->pl_crew * (double)eff));
     /* Always use at least 1 mil to build a plane */
     if (mil == 0 && pp->pl_crew > 0)
@@ -867,57 +889,57 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp, register i
     hcm = roundavg(((double)pp->pl_hcm * (double)eff));
     lcm = roundavg(((double)pp->pl_lcm * (double)eff));
     if (sp->sct_type != SCT_AIRPT && !player->god) {
-		pr("Planes must be built in airports.\n");
-		return 0;
+	pr("Planes must be built in airports.\n");
+	return 0;
     }
     if (sp->sct_effic < 60 && !player->god) {
-		pr("Sector %s is not 60%% efficient.\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+	pr("Sector %s is not 60%% efficient.\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
     if (vec[I_LCM] < lcm || vec[I_HCM] < hcm) {
-		pr("Not enough materials in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+	pr("Not enough materials in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
     w_p_eff = (20 + pp->pl_lcm + (pp->pl_hcm * 2));
     points = sp->sct_avail * 100 / w_p_eff;
     if (points < PLANE_MINEFF) {
-		pr("Not enough available work in %s to build a %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum), pp->pl_name);
-		pr(" (%d available work required)\n",
-		   1 + PLANE_MINEFF * w_p_eff/100);
-		return 0;
+	pr("Not enough available work in %s to build a %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum), pp->pl_name);
+	pr(" (%d available work required)\n",
+	   1 + PLANE_MINEFF * w_p_eff / 100);
+	return 0;
     }
     cost = pp->pl_cost * eff;
     if (cash < cost) {
-		pr("Not enough money left to build a %s\n", pp->pl_name);
-		return 0;
+	pr("Not enough money left to build a %s\n", pp->pl_name);
+	return 0;
     }
     if (vec[I_MILIT] < mil || (vec[I_MILIT] == 0 && pp->pl_crew > 0)) {
-		pr("Not enough military for crew in %s\n",
-		   xyas(sp->sct_x, sp->sct_y, player->cnum));
-		return 0;
+	pr("Not enough military for crew in %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
     }
     if (!trechk(player->cnum, 0, NEWPLN))
-		return 0;
+	return 0;
     if (!check_sect_ok(sp))
-		return 0;
+	return 0;
     sp->sct_avail = (sp->sct_avail * 100 - w_p_eff * PLANE_MINEFF) / 100;
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_PLANE);
     freeplane = 0;
     while (nxtitem(&nstr, (s_char *)&plane)) {
-		if (plane.pln_own == 0) {
-			freeplane++;
-			break;
-		}
+	if (plane.pln_own == 0) {
+	    freeplane++;
+	    break;
+	}
     }
     if (freeplane == 0) {
-		ef_extend(EF_PLANE, 50);
+	ef_extend(EF_PLANE, 50);
     }
-	bzero(&plane, sizeof(struct plnstr));
+    bzero(&plane, sizeof(struct plnstr));
     plane.pln_x = sp->sct_x;
     plane.pln_y = sp->sct_y;
     plane.pln_own = sp->sct_own;
@@ -933,7 +955,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp, register i
     plane.pln_opx = 0;
     plane.pln_opy = 0;
     plane.pln_radius = 0;
-    
+
     /* Note that this next block of variables can be changed so that individual
      * planes may have their own stats (like based on tech maybe? :) )  Thus,
      * the code now checks the pln_acc, pln_load and pln_fuel instead of using
@@ -965,7 +987,7 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp, register i
     plane.pln_range_max = plane.pln_range;
     plane.pln_load = PLN_LOAD(pp->pl_load, (int)(tlev - pp->pl_tech));
     plane.pln_fuel = pp->pl_fuel;
-    
+
     plane.pln_wing = ' ';
     plane.pln_tech = tlev;
     plane.pln_ship = -1;
@@ -975,7 +997,8 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp, register i
     plane.pln_harden = 0;
     plane.pln_sell = 0;
     plane.pln_flags = 0;
-    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x, plane.pln_y);
+    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
+		plane.pln_y);
     putplane(plane.pln_uid, &plane);
     pr("%s built in sector %s\n", prplane(&plane),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -986,18 +1009,18 @@ build_plane(register struct sctstr *sp, register struct plchrstr *pp, register i
 }
 
 static
-int
+    int
 build_tower(register struct sctstr *sp, register int *vec)
 {
-    extern  int buil_tower_bh;
-    extern  double buil_tower_bc;
-    struct  sctstr sect;
-    int	val;
-    int	newx, newy;
-    int	w_p_eff;
-    int	points;
-    s_char	*p;
-    s_char	buf[1024];
+    extern int buil_tower_bh;
+    extern double buil_tower_bc;
+    struct sctstr sect;
+    int val;
+    int newx, newy;
+    int w_p_eff;
+    int points;
+    s_char *p;
+    s_char buf[1024];
     int good;
     int i;
     int nx;
@@ -1013,7 +1036,7 @@ build_tower(register struct sctstr *sp, register int *vec)
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-	
+
     if (!opt_NO_HCMS) {
 	if (vec[I_HCM] < buil_tower_bh) {
 	    pr("%s only has %d unit%s of hcm,\n",
@@ -1041,15 +1064,17 @@ build_tower(register struct sctstr *sp, register int *vec)
     if (points < 20) {
 	pr("Not enough available work in %s to build a bridge tower\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n",
-	   1 + (w_p_eff * 20)/100);
+	pr(" (%d available work required)\n", 1 + (w_p_eff * 20) / 100);
 	return 0;
     }
     if (!player->argp[3]) {
 	pr("Building from %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!(p = getstarg(player->argp[3], "build tower in what direction? ", buf)) || !*p) {
+    if (!
+	(p =
+	 getstarg(player->argp[3], "build tower in what direction? ", buf))
+	|| !*p) {
 	return 0;
     }
     /* Sanity check time */
@@ -1064,8 +1089,7 @@ build_tower(register struct sctstr *sp, register int *vec)
     newx = sp->sct_x + diroff[val][0];
     newy = sp->sct_y + diroff[val][1];
     if (getsect(newx, newy, &sect) == 0 || sect.sct_type != SCT_WATER) {
-	pr("%s is not a water sector\n",
-	   xyas(newx, newy, player->cnum));
+	pr("%s is not a water sector\n", xyas(newx, newy, player->cnum));
 	return 0;
     }
 
@@ -1078,13 +1102,12 @@ build_tower(register struct sctstr *sp, register int *vec)
 	ny = sect.sct_y + diroff[i][1];
 	getsect(nx, ny, &s2);
 	if ((s2.sct_type != SCT_WATER) &&
-	    (s2.sct_type != SCT_BTOWER) &&
-	    (s2.sct_type != SCT_BSPAN)) {
+	    (s2.sct_type != SCT_BTOWER) && (s2.sct_type != SCT_BSPAN)) {
 	    good = 1;
 	    break;
 	}
     }
-    if (good){
+    if (good) {
 	pr("Bridge towers cannot be built adjacent to land.\n");
 	pr("That sector is adjacent to land.\n");
 	return 0;
@@ -1106,8 +1129,8 @@ build_tower(register struct sctstr *sp, register int *vec)
 	sect.sct_mobil = 0;
     }
     if (!opt_DEFENSE_INFRA)
-      sect.sct_defense = sect.sct_effic;
-    putvar(V_MINE,0,(s_char *)&sect,EF_SECTOR);
+	sect.sct_defense = sect.sct_effic;
+    putvar(V_MINE, 0, (s_char *)&sect, EF_SECTOR);
     putsect(&sect);
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -1117,4 +1140,3 @@ build_tower(register struct sctstr *sp, register int *vec)
 	vec[I_LCM] -= buil_tower_bh;
     return 1;
 }
-

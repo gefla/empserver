@@ -49,17 +49,17 @@
 int
 thre(void)
 {
-    extern	struct ichrstr *whatitem();
-    struct	sctstr sect;
-    struct	nstr_sect nstr;
-    int	val;
-    struct	ichrstr *ip;
-    s_char	*p;
-    int	thresh;
-    int	type;
-    s_char	prompt[128];
-    s_char	buf[128];
-    
+    extern struct ichrstr *whatitem();
+    struct sctstr sect;
+    struct nstr_sect nstr;
+    int val;
+    struct ichrstr *ip;
+    s_char *p;
+    int thresh;
+    int type;
+    s_char prompt[128];
+    s_char buf[128];
+
     if ((ip = whatitem(player->argp[1], "What commodity? ")) == 0)
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
@@ -67,7 +67,7 @@ thre(void)
     type = V_DIST(ip->i_vtype & (~VT_TYPE));
     if (player->argp[3] && *player->argp[3] &&
 	(*player->argp[3] < '0' || *player->argp[3] > '9')) {
-	pr ("Threshold must be a number\n");
+	pr("Threshold must be a number\n");
 	return RET_SYN;
     }
     while (!player->aborted && nxtsct(&nstr, &sect)) {
@@ -98,8 +98,7 @@ thre(void)
 	}
 	if (val > 0 && (player->argp[3] != 0 && *player->argp[3] != 0))
 	    pr("%s old threshold %d\n",
-	       xyas(nstr.x, nstr.y, player->cnum),
-	       val);
+	       xyas(nstr.x, nstr.y, player->cnum), val);
 	if (putvar(type, thresh, (s_char *)&sect, EF_SECTOR) < 0)
 	    pr("No room for threshold in %s\n",
 	       xyas(nstr.x, nstr.y, player->cnum));

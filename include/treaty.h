@@ -35,20 +35,20 @@
 #ifndef _TREATY_H_
 #define _TREATY_H_
 
-struct	trtstr {
-	natid	trt_cna;	/* proposer */
-	natid	trt_cnb;	/* acceptor */
-	s_char	trt_status;	/* treaty status */
-	s_char	trt_fill;
-	short	trt_acond;	/* conditions for proposer */
-	short	trt_bcond;	/* conditions for accepter */
-	float	trt_bond;	/* amount of bond involved */
-	time_t	trt_exp;	/* expiration date */
+struct trtstr {
+    natid trt_cna;		/* proposer */
+    natid trt_cnb;		/* acceptor */
+    s_char trt_status;		/* treaty status */
+    s_char trt_fill;
+    short trt_acond;		/* conditions for proposer */
+    short trt_bcond;		/* conditions for accepter */
+    float trt_bond;		/* amount of bond involved */
+    time_t trt_exp;		/* expiration date */
 };
 
-struct	tchrstr {
-	int	t_cond;		/* bit to indicate this clause */
-	s_char	*t_name;	/* description of clause */
+struct tchrstr {
+    int t_cond;			/* bit to indicate this clause */
+    s_char *t_name;		/* description of clause */
 };
 
 #define TS_FREE		0
@@ -64,9 +64,9 @@ struct	tchrstr {
 #define	NEWSHP	bit(5)		/* no new ships */
 #define	NEWNUK	bit(6)		/* no new nuclear weapons */
 #define	NEWPLN	bit(7)		/* no new planes */
-#define NEWLND  bit(8)          /* no new land units */
+#define NEWLND  bit(8)		/* no new land units */
 #define	TRTENL	bit(9)		/* no enlistment */
-#define SUBFIR  bit(10)         /* no depth-charging submarines */
+#define SUBFIR  bit(10)		/* no depth-charging submarines */
 
 /* global treaty variables */
 
@@ -77,8 +77,8 @@ struct	tchrstr {
 #define gettrep(n) \
 	(struct trtstr *) ef_ptr(EF_TREATY, n)
 
-extern  struct tchrstr tchr[];
+extern struct tchrstr tchr[];
 
-extern	int trt_maxno;
+extern int trt_maxno;
 
 #endif /* _TREATY_H_ */

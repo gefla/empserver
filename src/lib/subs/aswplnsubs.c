@@ -50,127 +50,125 @@
 int
 have_looked(u_char uid, struct shiplook *head)
 {
-	struct	shiplook *s;
+    struct shiplook *s;
 
-	s=head;
-	if (s->uid == -1)
-		return 0;
-
-	while (s != ((struct shiplook *)0)){
-		if (s->uid == uid)
-			return s->looked;
-		s=s->next;
-	}
-
+    s = head;
+    if (s->uid == -1)
 	return 0;
+
+    while (s != ((struct shiplook *)0)) {
+	if (s->uid == uid)
+	    return s->looked;
+	s = s->next;
+    }
+
+    return 0;
 }
 
 int
 have_found(u_char uid, struct shiplook *head)
 {
-	struct	shiplook *s;
+    struct shiplook *s;
 
-	s=head;
-	if (s->uid == -1)
-		return 0;
-
-	while (s != ((struct shiplook *)0)){
-		if (s->uid == uid)
-			return s->found;
-		s=s->next;
-	}
-
+    s = head;
+    if (s->uid == -1)
 	return 0;
+
+    while (s != ((struct shiplook *)0)) {
+	if (s->uid == uid)
+	    return s->found;
+	s = s->next;
+    }
+
+    return 0;
 }
 
 void
 set_have_looked(u_char uid, struct shiplook *head)
 {
-	struct	shiplook *s,*s2;
+    struct shiplook *s, *s2;
 
-	s=head;
-	if (s->uid == -1){
-		s->uid=uid;
-		s->looked=1;
-		s->found=0;
-		s->next=(struct shiplook *)0;
-	}
-
-	while (s != ((struct shiplook *)0)){
-		if (s->uid == uid){
-			s->looked=1;
-			return;
-			}
-		s2=s;
-		s=s->next;
-	}
-
-	s=(struct shiplook *)malloc(sizeof(struct shiplook));
-	bzero((s_char *)s,sizeof(struct shiplook));
-	s2->next = s;
+    s = head;
+    if (s->uid == -1) {
 	s->uid = uid;
 	s->looked = 1;
+	s->found = 0;
 	s->next = (struct shiplook *)0;
+    }
+
+    while (s != ((struct shiplook *)0)) {
+	if (s->uid == uid) {
+	    s->looked = 1;
+	    return;
+	}
+	s2 = s;
+	s = s->next;
+    }
+
+    s = (struct shiplook *)malloc(sizeof(struct shiplook));
+    bzero((s_char *)s, sizeof(struct shiplook));
+    s2->next = s;
+    s->uid = uid;
+    s->looked = 1;
+    s->next = (struct shiplook *)0;
 }
 
 void
 set_have_found(u_char uid, struct shiplook *head)
 {
-	struct	shiplook *s,*s2;
+    struct shiplook *s, *s2;
 
-	s=head;
-	if (s->uid == -1){
-		s->uid=uid;
-		s->looked=0;
-		s->found=1;
-		s->next=(struct shiplook *)0;
-	}
-
-
-	while (s != ((struct shiplook *)0)){
-		if (s->uid == uid){
-			s->found=1;
-			return;
-		}
-		s2=s;
-		s=s->next;
-	}
-
-	s=(struct shiplook *)malloc(sizeof(struct shiplook));
-	bzero((s_char *)s,sizeof(struct shiplook));
-	s2->next = s;
+    s = head;
+    if (s->uid == -1) {
 	s->uid = uid;
+	s->looked = 0;
 	s->found = 1;
 	s->next = (struct shiplook *)0;
+    }
+
+
+    while (s != ((struct shiplook *)0)) {
+	if (s->uid == uid) {
+	    s->found = 1;
+	    return;
+	}
+	s2 = s;
+	s = s->next;
+    }
+
+    s = (struct shiplook *)malloc(sizeof(struct shiplook));
+    bzero((s_char *)s, sizeof(struct shiplook));
+    s2->next = s;
+    s->uid = uid;
+    s->found = 1;
+    s->next = (struct shiplook *)0;
 }
 
 int
 print_found(struct shiplook *head)
 {
-	struct	shiplook *s;
-	extern	s_char *effadv(int);
-	int	first;
-	struct	mchrstr *mp;
-	struct	shpstr ship;
+    struct shiplook *s;
+    extern s_char *effadv(int);
+    int first;
+    struct mchrstr *mp;
+    struct shpstr ship;
 
-	s=head;
-	first = 1;
-	if (s->uid == -1)
-		return 0;
+    s = head;
+    first = 1;
+    if (s->uid == -1)
+	return 0;
 
-	while (s != ((struct shiplook *)0)){
-		getship(s->uid,&ship);
-		mp = &mchr[(int)ship.shp_type];
-		if (first) {
-			pr(" #          player->owner           eff        type\n");
-			first = 0;
-		}
-		pr("(#%3d) %10.10s  %12.12s  %s\n", ship.shp_uid,
-		   cname(ship.shp_own),
-		   effadv(ship.shp_effic),
-		   prship(&ship));
-		s=s->next;
+    while (s != ((struct shiplook *)0)) {
+	getship(s->uid, &ship);
+	mp = &mchr[(int)ship.shp_type];
+	if (first) {
+	    pr(" #          player->owner           eff        type\n");
+	    first = 0;
 	}
+	pr("(#%3d) %10.10s  %12.12s  %s\n", ship.shp_uid,
+	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
+	s = s->next;
+    }
 
-	return 1;
+    return 1;
 }

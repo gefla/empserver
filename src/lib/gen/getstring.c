@@ -38,8 +38,8 @@
 s_char *
 getstring(s_char *prompt, s_char *buf)
 {
-	*buf = '\0';
-	if (prmptrd(prompt, buf, 1024) < 0)
-		return 0;
-	return buf;
+    *buf = '\0';
+    if (prmptrd(prompt, buf, 1024) < 0)
+	return 0;
+    return buf;
 }

@@ -49,83 +49,82 @@
 int
 shark(void)
 {
-	register int arg;
-	time_t	now;
-	char	*p;
-	struct	lonstr loan;
-	struct natstr *natp;
-	struct natstr *oldie;
-	long	due;
-	long	last;
-	long	rdur;
-	long	xdur;
-	double	rate;
-	double	owed;
-	long payment;
-	s_char buf[1024];
+    register int arg;
+    time_t now;
+    char *p;
+    struct lonstr loan;
+    struct natstr *natp;
+    struct natstr *oldie;
+    long due;
+    long last;
+    long rdur;
+    long xdur;
+    double rate;
+    double owed;
+    long payment;
+    s_char buf[1024];
 
-	if (!opt_LOANS) {
-	    pr("Loans are not enabled.\n");
-	    return RET_FAIL;
-	}
-	p = getstarg(player->argp[1], "Transfer which loan #: ", buf);
-	if (p == 0)
-		return RET_SYN;
-	if (*p == 0)
-		return RET_SYN;
-	arg = atoi(p);
-	if (arg < 0)
-		return RET_SYN;
-	/* Check if it's a valid loan to shark.  That means, is it a valid loan,
-	   not owed to this player, with a valid duration and it's been signed. */
-	if (!getloan(arg,&loan) || (loan.l_loner == player->cnum) || 
-		(loan.l_ldur == 0) || (loan.l_status != LS_SIGNED)) {
-		pr("Invalid loan\n");
-		return RET_FAIL;
-	}
-	/* If we got here, we check to see if it's been defaulted on. */
-	(void) time(&now);
-	due = loan.l_duedate;
-	if (now <= due) {
-		pr("There has been no default on loan %d\n", arg);
-		return RET_FAIL;
-	}
-	last = loan.l_lastpay;
-	if (last < due && due < now) {
-		rdur = due - last;
-		xdur = now - due;
-	} else if (due < last) {
-		rdur = 0;
-		xdur = now - last;
-	}
-	rate = loan.l_irate / (loan.l_ldur * 8.64e6);
+    if (!opt_LOANS) {
+	pr("Loans are not enabled.\n");
+	return RET_FAIL;
+    }
+    p = getstarg(player->argp[1], "Transfer which loan #: ", buf);
+    if (p == 0)
+	return RET_SYN;
+    if (*p == 0)
+	return RET_SYN;
+    arg = atoi(p);
+    if (arg < 0)
+	return RET_SYN;
+    /* Check if it's a valid loan to shark.  That means, is it a valid loan,
+       not owed to this player, with a valid duration and it's been signed. */
+    if (!getloan(arg, &loan) || (loan.l_loner == player->cnum) ||
+	(loan.l_ldur == 0) || (loan.l_status != LS_SIGNED)) {
+	pr("Invalid loan\n");
+	return RET_FAIL;
+    }
+    /* If we got here, we check to see if it's been defaulted on. */
+    (void)time(&now);
+    due = loan.l_duedate;
+    if (now <= due) {
+	pr("There has been no default on loan %d\n", arg);
+	return RET_FAIL;
+    }
+    last = loan.l_lastpay;
+    if (last < due && due < now) {
+	rdur = due - last;
+	xdur = now - due;
+    } else if (due < last) {
+	rdur = 0;
+	xdur = now - last;
+    }
+    rate = loan.l_irate / (loan.l_ldur * 8.64e6);
 
-	owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0);
-	if (((1 << 30) / owed) < loan.l_amtdue)
-		owed = (1 << 30);
-	else
-		owed *= loan.l_amtdue;
-	pr("That loan is worth $%.2f.\n", owed);
-	natp = getnatp(player->cnum);
-	payment = owed * (1.0 + loan.l_irate / 100.0);
-	if (payment > natp->nat_money - 100.0){
-		pr("You do not have enough to cover that loan\n");
-		return RET_FAIL;
-	}else{
-		wu(0, loan.l_lonee,
-			"%s bought loan #%d.  You now owe him!\n",
-				cname(player->cnum),
-				arg);
-		wu(0, loan.l_loner,
-			"%s bought loan #%d out from under you for %d\n",
-			cname(player->cnum), arg, payment);
-		pr("You now own loan #%d.  Go break some legs.\n", arg);
-	}
+    owed = ((rdur * rate) + (xdur * rate * 2.0) + 1.0);
+    if (((1 << 30) / owed) < loan.l_amtdue)
+	owed = (1 << 30);
+    else
+	owed *= loan.l_amtdue;
+    pr("That loan is worth $%.2f.\n", owed);
+    natp = getnatp(player->cnum);
+    payment = owed * (1.0 + loan.l_irate / 100.0);
+    if (payment > natp->nat_money - 100.0) {
+	pr("You do not have enough to cover that loan\n");
+	return RET_FAIL;
+    } else {
+	wu(0, loan.l_lonee,
+	   "%s bought loan #%d.  You now owe him!\n",
+	   cname(player->cnum), arg);
+	wu(0, loan.l_loner,
+	   "%s bought loan #%d out from under you for %d\n",
+	   cname(player->cnum), arg, payment);
+	pr("You now own loan #%d.  Go break some legs.\n", arg);
+    }
 /*	NAT_DELTA(natp->nat_money, loan.l_loner, payment);*/
-	oldie = getnatp(loan.l_loner);
-	oldie->nat_money += payment;
-	player->dolcost += payment;
-	loan.l_loner = player->cnum;
-	putloan(arg, &loan);
-	return RET_OK;
+    oldie = getnatp(loan.l_loner);
+    oldie->nat_money += payment;
+    player->dolcost += payment;
+    loan.l_loner = player->cnum;
+    putloan(arg, &loan);
+    return RET_OK;
 }

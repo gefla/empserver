@@ -35,11 +35,11 @@
 #define _GEN_H_
 #include <sys/types.h>
 #if !defined(_WIN32)
-#include <netinet/in.h> /* struct in_addr */
+#include <netinet/in.h>		/* struct in_addr */
 #endif
-#include <stdlib.h>     /* atoi etc. */
-#include "misc.h"       /* s_char etc */
-#include "xy.h"         /* struct range */
-#include "prototypes.h" /* must come at end, after defines and typedefs */
+#include <stdlib.h>		/* atoi etc. */
+#include "misc.h"		/* s_char etc */
+#include "xy.h"			/* struct range */
+#include "prototypes.h"		/* must come at end, after defines and typedefs */
 
 #endif /* _GEN_H_ */

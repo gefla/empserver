@@ -37,15 +37,15 @@
 /* country #1's battleship #2 hit your battleship #3 for 30% damage */
 /* actor's from_type #from_id hit your to_type #to_id for data% damage */
 struct event {
-	short verb;
-	natid actor;
-	natid victim;
-	short from_type;
-	short data;
-	int from_id;
-	short to_type;
-	int to_id;
-	time_t time;
+    short verb;
+    natid actor;
+    natid victim;
+    short from_type;
+    short data;
+    int from_id;
+    short to_type;
+    int to_id;
+    time_t time;
 };
 
 #endif /* _EVENT_H_ */

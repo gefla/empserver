@@ -26,7 +26,7 @@
 #include "as.h"
 
 #if !defined(lint) && !defined(SABER)
-static	char	sccsid[] = "@(#)as_search.c	1.2	11/13/90";
+static char sccsid[] = "@(#)as_search.c	1.2	11/13/90";
 #endif /* not lint */
 
 /*
@@ -39,95 +39,94 @@ static	char	sccsid[] = "@(#)as_search.c	1.2	11/13/90";
 int
 as_search(struct as_data *adp)
 {
-	int		iter = 0;
-	struct as_queue	*head;
-	struct as_node	*np;
+    int iter = 0;
+    struct as_queue *head;
+    struct as_node *np;
 #ifdef DEBUG
-	int		i;
-	struct as_queue	*qp;
-	struct as_path	*pp;
+    int i;
+    struct as_queue *qp;
+    struct as_path *pp;
 #endif /* DEBUG */
-	struct as_queue *as_extend(struct as_data *adp);
+    struct as_queue *as_extend(struct as_data *adp);
 
-	as_reset(adp);
+    as_reset(adp);
 
-	/*
-	 * Jump start the queue by making first element the zero-cost
-	 * node where we start.
-	 */
-	AS_NEW_MALLOC(head, struct as_queue, -2);
-	adp->head = head;
-	head->next = head->prev = NULL;
-	AS_NEW(np, struct as_node, -2);
-	np->c = adp->from;
-	head->np = np;
-	as_setcinq(adp, head->np->c, adp->head);
+    /*
+     * Jump start the queue by making first element the zero-cost
+     * node where we start.
+     */
+    AS_NEW_MALLOC(head, struct as_queue, -2);
+    adp->head = head;
+    head->next = head->prev = NULL;
+    AS_NEW(np, struct as_node, -2);
+    np->c = adp->from;
+    head->np = np;
+    as_setcinq(adp, head->np->c, adp->head);
 
-	for (;;) {
-		iter++;
+    for (;;) {
+	iter++;
 #ifdef DEBUG
-		fprintf(stderr, "Iteration %d, head at %d, %d\n", iter,
-			head->np->c.x, head->np->c.y);
-#endif /* DEBUG */
-
-		/* see if we're done, one way or another */
-		if (head == NULL)
-			break;
-
-		/* Add it to the cache */
-		as_add_cachepath(adp);
-
-		if (head->np->c.x == adp->to.x && head->np->c.y == adp->to.y)
-			break;
-
-		/* extend queue by neighbors */
-#ifdef DEBUG
-		fprintf(stderr, "\tExtending queue\n");
-#endif /* DEBUG */
-		adp->head = head = as_extend(adp);
-
-#ifdef DEBUG
-		fprintf(stderr, "queue:\n");
-		i = 0;
-		for (qp = head; qp; qp = qp->next) {
-			fprintf(stderr, "\t%d, %d so far %f lb %f sec %f\n",
-				qp->np->c.x, qp->np->c.y,
-				qp->np->knowncost,
-				qp->np->lbcost,
-				qp->np->seccost);
-			i++;
-		}
-		fprintf(stderr, "\tqueue len %d\n", i);
+	fprintf(stderr, "Iteration %d, head at %d, %d\n", iter,
+		head->np->c.x, head->np->c.y);
 #endif /* DEBUG */
 
+	/* see if we're done, one way or another */
+	if (head == NULL)
+	    break;
+
+	/* Add it to the cache */
+	as_add_cachepath(adp);
+
+	if (head->np->c.x == adp->to.x && head->np->c.y == adp->to.y)
+	    break;
+
+	/* extend queue by neighbors */
+#ifdef DEBUG
+	fprintf(stderr, "\tExtending queue\n");
+#endif /* DEBUG */
+	adp->head = head = as_extend(adp);
+
+#ifdef DEBUG
+	fprintf(stderr, "queue:\n");
+	i = 0;
+	for (qp = head; qp; qp = qp->next) {
+	    fprintf(stderr, "\t%d, %d so far %f lb %f sec %f\n",
+		    qp->np->c.x, qp->np->c.y,
+		    qp->np->knowncost, qp->np->lbcost, qp->np->seccost);
+	    i++;
 	}
-
-	if (head == NULL) {
-#ifdef DEBUG
-		fprintf(stderr, "Failed\n");
+	fprintf(stderr, "\tqueue len %d\n", i);
 #endif /* DEBUG */
-		return (-1);
-	}
 
-	as_makepath(adp);
+    }
+
+    if (head == NULL) {
+#ifdef DEBUG
+	fprintf(stderr, "Failed\n");
+#endif /* DEBUG */
+	return (-1);
+    }
+
+    as_makepath(adp);
 
 #ifdef DEBUG
-	fprintf(stderr, "Succeeded, iter %d, cost %f!\n", iter, head->np->knowncost);
-	fprintf(stderr, "Path:\n");
-	for (pp = adp->path; pp; pp = pp->next) {
-		fprintf(stderr, "\t%d, %d\n", pp->c.x, pp->c.y);
-	}
-	fprintf(stderr, "Tried queue:\n");
-	for (qp = adp->tried; qp; qp = qp->next) {
-		fprintf(stderr, "\t%d, %d\n", qp->np->c.x, qp->np->c.y);
-	}
-	fprintf(stderr, "Subsumed queue:\n");
-	for (qp = adp->subsumed; qp; qp = qp->next) {
-		fprintf(stderr, "\t%d, %d\n", qp->np->c.x, qp->np->c.y);
-	}
+    fprintf(stderr, "Succeeded, iter %d, cost %f!\n", iter,
+	    head->np->knowncost);
+    fprintf(stderr, "Path:\n");
+    for (pp = adp->path; pp; pp = pp->next) {
+	fprintf(stderr, "\t%d, %d\n", pp->c.x, pp->c.y);
+    }
+    fprintf(stderr, "Tried queue:\n");
+    for (qp = adp->tried; qp; qp = qp->next) {
+	fprintf(stderr, "\t%d, %d\n", qp->np->c.x, qp->np->c.y);
+    }
+    fprintf(stderr, "Subsumed queue:\n");
+    for (qp = adp->subsumed; qp; qp = qp->next) {
+	fprintf(stderr, "\t%d, %d\n", qp->np->c.x, qp->np->c.y);
+    }
 #endif /* DEBUG */
-	
-	return (0);
+
+    return (0);
 }
 
 /*
@@ -137,13 +136,13 @@ as_search(struct as_data *adp)
 void
 as_makepath(struct as_data *adp)
 {
-	struct as_path	*pp;
-	struct as_node	*np;
+    struct as_path *pp;
+    struct as_node *np;
 
-	for (np = adp->head->np; np; np = np->back) {
-	        pp = (struct as_path *)malloc(sizeof(struct as_path));
-		pp->c = np->c;
-		pp->next = adp->path;
-		adp->path = pp;
-	}
+    for (np = adp->head->np; np; np = np->back) {
+	pp = (struct as_path *)malloc(sizeof(struct as_path));
+	pp->c = np->c;
+	pp->next = adp->path;
+	adp->path = pp;
+    }
 }

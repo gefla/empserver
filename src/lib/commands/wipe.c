@@ -45,20 +45,20 @@
 int
 wipe(void)
 {
-	struct	sctstr sect;
-	struct	nstr_sect nstr;
-	int	vec[I_MAX+1];
+    struct sctstr sect;
+    struct nstr_sect nstr;
+    int vec[I_MAX + 1];
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	bzero((s_char *)vec, sizeof(vec));
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		putvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
-		pr("Distribution thresholds wiped from %s\n",
-			xyas(nstr.x, nstr.y, player->cnum));
-		putsect(&sect);
-	}
-	return RET_OK;
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    bzero((s_char *)vec, sizeof(vec));
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	putvec(VT_DIST, vec, (s_char *)&sect, EF_SECTOR);
+	pr("Distribution thresholds wiped from %s\n",
+	   xyas(nstr.x, nstr.y, player->cnum));
+	putsect(&sect);
+    }
+    return RET_OK;
 }

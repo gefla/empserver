@@ -38,9 +38,9 @@
 #include "var.h"
 #include "sect.h"
 #include "ship.h"
-#include "plane.h"	
+#include "plane.h"
 #include "nuke.h"
-#include "land.h"	
+#include "land.h"
 #include "item.h"
 #include "nsc.h"
 #include "nat.h"
@@ -161,5 +161,3 @@ check_comm_ok(struct comstr *commp)
     }
     return 1;
 }
-
-

@@ -47,23 +47,23 @@
 int
 stmtch(register s_char *obj, s_char *base, int off, int size)
 {
-	register s_char *str;
-	register int stat2;
-	register int i;
-	register int n;
+    register s_char *str;
+    register int stat2;
+    register int i;
+    register int n;
 
-	stat2 = M_NOTFOUND;
-	str = base + off;
-	for (i=0; *(s_char **)str; i++, str += size) {
-		if ((n = mineq(obj, *(s_char **)str)) == ME_MISMATCH)
-			continue;
-		if (n == ME_EXACT)
-			return i;
-		if (stat2 != M_NOTFOUND)
-			return M_NOTUNIQUE;
-		stat2 = i;
-	}
-	return stat2;
+    stat2 = M_NOTFOUND;
+    str = base + off;
+    for (i = 0; *(s_char **)str; i++, str += size) {
+	if ((n = mineq(obj, *(s_char **)str)) == ME_MISMATCH)
+	    continue;
+	if (n == ME_EXACT)
+	    return i;
+	if (stat2 != M_NOTFOUND)
+	    return M_NOTUNIQUE;
+	stat2 = i;
+    }
+    return stat2;
 }
 
 /*
@@ -72,11 +72,11 @@ stmtch(register s_char *obj, s_char *base, int off, int size)
 int
 mineq(register s_char *a, register s_char *b)
 {
-	do {
-		if (*a++ != *b++)
-			return ME_MISMATCH;
-	} while (*b != ' ' && *a != 0);
-	if (*a == 0 && (*b == ' ' || *b == 0))
-		return ME_EXACT;
-	return ME_PARTIAL;
+    do {
+	if (*a++ != *b++)
+	    return ME_MISMATCH;
+    } while (*b != ' ' && *a != 0);
+    if (*a == 0 && (*b == ' ' || *b == 0))
+	return ME_EXACT;
+    return ME_PARTIAL;
 }

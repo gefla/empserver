@@ -43,64 +43,64 @@
 #include "file.h"
 #include "commands.h"
 
-static	void reso_hdr(void);
+static void reso_hdr(void);
 
 int
 reso(void)
 {
-	struct	sctstr sect;
-	int	nsect;
-	struct	nstr_sect nstr;
+    struct sctstr sect;
+    int nsect;
+    struct nstr_sect nstr;
 
-	if (!snxtsct(&nstr, player->argp[1]))
-		return RET_SYN;
-	prdate();
-	nsect = 0;
-	while (nxtsct(&nstr, &sect)) {
-		if (!player->owner)
-			continue;
-		if (nsect++ == 0)
-			reso_hdr();
-		if (player->god)
-			pr("%3d ", sect.sct_own);
-		prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
-		pr(" %c", dchr[sect.sct_type].d_mnem);
-		if (sect.sct_newtype != sect.sct_type)
-			pr("%c", dchr[sect.sct_newtype].d_mnem);
-		else
-			pr(" ");
-		pr("%4d%%", sect.sct_effic);
-		pr(" %4d", sect.sct_min);
-		pr("%5d", sect.sct_gmin);
-		pr("%5d", sect.sct_fertil);
-		pr("%4d", sect.sct_oil);
-		pr("%5d", sect.sct_uran);
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    prdate();
+    nsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	if (!player->owner)
+	    continue;
+	if (nsect++ == 0)
+	    reso_hdr();
+	if (player->god)
+	    pr("%3d ", sect.sct_own);
+	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	pr(" %c", dchr[sect.sct_type].d_mnem);
+	if (sect.sct_newtype != sect.sct_type)
+	    pr("%c", dchr[sect.sct_newtype].d_mnem);
+	else
+	    pr(" ");
+	pr("%4d%%", sect.sct_effic);
+	pr(" %4d", sect.sct_min);
+	pr("%5d", sect.sct_gmin);
+	pr("%5d", sect.sct_fertil);
+	pr("%4d", sect.sct_oil);
+	pr("%5d", sect.sct_uran);
 /*		pr("%5d", sect.sct_elev);*/
-		if (!player->god && sect.sct_terr)
-			pr("%4d", sect.sct_terr);
-		pr("\n");
-	}
-	if (nsect == 0) {
-		if (player->argp[1])
-			pr("%s: No sector(s)\n", player->argp[1]);
-		else
-			pr("%s: No sector(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d sector%s\n", nsect, splur(nsect));
-	return 0;
+	if (!player->god && sect.sct_terr)
+	    pr("%4d", sect.sct_terr);
+	pr("\n");
+    }
+    if (nsect == 0) {
+	if (player->argp[1])
+	    pr("%s: No sector(s)\n", player->argp[1]);
+	else
+	    pr("%s: No sector(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d sector%s\n", nsect, splur(nsect));
+    return 0;
 }
 
 static void
 reso_hdr(void)
 {
-	if (player->god)
-		pr("    ");
-	pr("RESOURCE\n");
-	if (player->god)
-		pr("own ");
-	pr("  sect        eff  min gold fert oil uran ");
-	if (!player->god)
-		pr("ter");
-	pr("\n");
+    if (player->god)
+	pr("    ");
+    pr("RESOURCE\n");
+    if (player->god)
+	pr("own ");
+    pr("  sect        eff  min gold fert oil uran ");
+    if (!player->god)
+	pr("ter");
+    pr("\n");
 }

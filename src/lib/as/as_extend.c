@@ -22,7 +22,7 @@
 #include "as.h"
 
 #if !defined(lint) && !defined(SABER)
-static	char	sccsid[] = "@(#)as_extend.c	1.2	11/13/90";
+static char sccsid[] = "@(#)as_extend.c	1.2	11/13/90";
 #endif /* not lint */
 
 /*
@@ -34,41 +34,41 @@ static	char	sccsid[] = "@(#)as_extend.c	1.2	11/13/90";
 struct as_queue *
 as_extend(struct as_data *adp)
 {
-	struct as_queue	*qp;
-	int		i;
-	struct as_queue	*head;
+    struct as_queue *qp;
+    int i;
+    struct as_queue *head;
 
-	head = adp->head;
+    head = adp->head;
 
-	/* Find the neighboring coordinates. */
-	i = (*adp->neighbor)(head->np->c, adp->neighbor_coords, adp->userdata);
-	if (i == 0)
-		return (NULL);
-	/*
-	 * Get rid of neighbors that are more costly than ones we already have,
-	 * and sort the rest into an array of as_nodes.
-	 */
-	i = as_winnow(adp, adp->neighbor_coords, i);
-	if (i < 0)
-		return (NULL);
-	if (i > 1)
-		qsort(adp->neighbor_nodes, i,
-			sizeof (*adp->neighbor_nodes),
-		      (qsort_func_t) as_costcomp);
+    /* Find the neighboring coordinates. */
+    i = (*adp->neighbor) (head->np->c, adp->neighbor_coords,
+			  adp->userdata);
+    if (i == 0)
+	return (NULL);
+    /*
+     * Get rid of neighbors that are more costly than ones we already have,
+     * and sort the rest into an array of as_nodes.
+     */
+    i = as_winnow(adp, adp->neighbor_coords, i);
+    if (i < 0)
+	return (NULL);
+    if (i > 1)
+	qsort(adp->neighbor_nodes, i,
+	      sizeof(*adp->neighbor_nodes), (qsort_func_t)as_costcomp);
 
-	/* remove old coord from head of queue and add to list of tried */
-	qp = head;
-	head = head->next;
-	if (head)
-		head->prev = NULL;
-	if (adp->tried) {
-		adp->tried->prev = qp;
-		qp->next = adp->tried;
-		adp->tried = qp;
-	} else
-		adp->tried = qp;
-	adp->tried->np->flags |= AS_TRIED;
+    /* remove old coord from head of queue and add to list of tried */
+    qp = head;
+    head = head->next;
+    if (head)
+	head->prev = NULL;
+    if (adp->tried) {
+	adp->tried->prev = qp;
+	qp->next = adp->tried;
+	adp->tried = qp;
+    } else
+	adp->tried = qp;
+    adp->tried->np->flags |= AS_TRIED;
 
-	head = as_merge(adp, head, adp->neighbor_nodes);
-	return (head);
+    head = as_merge(adp, head, adp->neighbor_nodes);
+    return (head);
 }

@@ -49,13 +49,13 @@
 int
 intmatch(register int value, register int *ptr, int size)
 {
-	register int i;
+    register int i;
 
-	size /= sizeof(*ptr);
-	for (i=0; *ptr; i++, ptr += size)
-		if (value == *ptr)
-			return i;
-	return -1;
+    size /= sizeof(*ptr);
+    for (i = 0; *ptr; i++, ptr += size)
+	if (value == *ptr)
+	    return i;
+    return -1;
 }
 
 /*
@@ -63,28 +63,28 @@ intmatch(register int value, register int *ptr, int size)
  *  >= 0: match found, value is array entry in coms[]
  */
 int
-comtch(register s_char *command, struct cmndstr *coms, int comstat, int god)
+comtch(register s_char *command, struct cmndstr *coms, int comstat,
+       int god)
 {
-	register struct cmndstr *com;
-	register int status;
-	register int i;
+    register struct cmndstr *com;
+    register int status;
+    register int i;
 
-	if (command == 0 || *command == 0)
-		return M_IGNORE;
-	status = M_NOTFOUND;
-	for (com=coms; com->c_form != 0; com++) {
-		if ((com->c_permit & comstat) != com->c_permit && !god)
-			continue;
-		if ((i = mineq(command, com->c_form)) == ME_MISMATCH)
-			continue;
-		if (i == ME_EXACT)
-			return com - coms;
-		/* partial */
-		if (status != M_NOTFOUND)
-			return M_NOTUNIQUE;
-		status = com - coms;
-	}
+    if (command == 0 || *command == 0)
+	return M_IGNORE;
+    status = M_NOTFOUND;
+    for (com = coms; com->c_form != 0; com++) {
+	if ((com->c_permit & comstat) != com->c_permit && !god)
+	    continue;
+	if ((i = mineq(command, com->c_form)) == ME_MISMATCH)
+	    continue;
+	if (i == ME_EXACT)
+	    return com - coms;
+	/* partial */
+	if (status != M_NOTFOUND)
+	    return M_NOTUNIQUE;
+	status = com - coms;
+    }
 
-	return status;
+    return status;
 }
-

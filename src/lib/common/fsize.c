@@ -48,11 +48,11 @@
 int
 fsize(int fd)
 {
-	struct	stat statb;
+    struct stat statb;
 
-	if (fstat(fd, &statb) < 0)
-		return -1;
-	return statb.st_size;
+    if (fstat(fd, &statb) < 0)
+	return -1;
+    return statb.st_size;
 }
 
 /*
@@ -63,30 +63,30 @@ int
 blksize(int fd)
 {
 #if defined(_WIN32)
-	return 2048;
+    return 2048;
 #elif (!defined (aix) && !defined (sgi))
-	struct	stat statb;
+    struct stat statb;
 
-	if (fstat(fd, &statb) < 0)
-		return 1024;
-	return statb.st_blksize;
-#else
+    if (fstat(fd, &statb) < 0)
 	return 1024;
+    return statb.st_blksize;
+#else
+    return 1024;
 #endif
 }
 
 time_t
 fdate(int fd)
 {
-	struct	stat statb;
+    struct stat statb;
 
-	if (fstat(fd, &statb) < 0)
-		return 0;
-	return statb.st_mtime;
+    if (fstat(fd, &statb) < 0)
+	return 0;
+    return statb.st_mtime;
 }
 
 void
 filetruncate(s_char *name)
 {
-	close(open(name, O_RDWR|O_TRUNC, 0660));
+    close(open(name, O_RDWR | O_TRUNC, 0660));
 }

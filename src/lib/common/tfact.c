@@ -40,40 +40,40 @@ extern float fire_range_factor;
 double
 tfact(natid cn, double mult)
 {
-	double	tlev;
-	struct	natstr *np;
+    double tlev;
+    struct natstr *np;
 
-	np = getnatp(cn);
-	tlev = np->nat_level[NAT_TLEV];
-	tlev = (50.0 + tlev) / (200.0 + tlev);
-	return mult * tlev;
+    np = getnatp(cn);
+    tlev = np->nat_level[NAT_TLEV];
+    tlev = (50.0 + tlev) / (200.0 + tlev);
+    return mult * tlev;
 }
 
 double
 tfactfire(natid cn, double mult)
 {
-	double	tlev;
-	struct	natstr *np;
+    double tlev;
+    struct natstr *np;
 
-	np = getnatp(cn);
-	tlev = np->nat_level[NAT_TLEV];
-	tlev = (50.0 + tlev) / (200.0 + tlev);
-	return mult * tlev * fire_range_factor;
+    np = getnatp(cn);
+    tlev = np->nat_level[NAT_TLEV];
+    tlev = (50.0 + tlev) / (200.0 + tlev);
+    return mult * tlev * fire_range_factor;
 }
 
 double
 techfact(int level, double mult)
 {
-	return mult * ((50.0 + level) / (200.0 + level));
+    return mult * ((50.0 + level) / (200.0 + level));
 }
 
 /*
  * added so that firing range can be different to other ranges
- */ 
+ */
 double
 techfactfire(int level, double mult)
 {
-	return mult * ((50.0 + level) / (200.0 + level)) * fire_range_factor;
+    return mult * ((50.0 + level) / (200.0 + level)) * fire_range_factor;
 }
 
 /*
@@ -82,8 +82,8 @@ techfactfire(int level, double mult)
 double
 reltech(int level1, int level2, double mult)
 {
-	int	diff;
+    int diff;
 
-	diff = level1 - level2;
-	return (1.0 + ((diff + 50.0) / (level1 + 50.0))) * mult;
+    diff = level1 - level2;
+    return (1.0 + ((diff + 50.0) / (level1 + 50.0))) * mult;
 }

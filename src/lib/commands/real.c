@@ -42,9 +42,9 @@
 static void
 list_realm(int curr, struct natstr *natp)
 {
-    struct	boundstr *b;
-    struct	range abs;
-    struct	range rel;
+    struct boundstr *b;
+    struct range abs;
+    struct range rel;
 
     abs.width = 0;
     abs.height = 0;
@@ -54,60 +54,59 @@ list_realm(int curr, struct natstr *natp)
     abs.ly = b->b_yl;
     abs.hy = b->b_yh;
     xyrelrange(natp, &abs, &rel);
-    pr("Realm #%d is %d:%d,%d:%d\n", curr,
-       rel.lx, rel.hx, rel.ly, rel.hy);
+    pr("Realm #%d is %d:%d,%d:%d\n", curr, rel.lx, rel.hx, rel.ly, rel.hy);
 
 }
 
 int
 real(void)
 {
-	register struct boundstr *rp;
-	struct	natstr *natp;
-	int     curr;
-	int     lastr;
-	struct	range abs;
-	s_char	*realmp = player->argp[1];
+    register struct boundstr *rp;
+    struct natstr *natp;
+    int curr;
+    int lastr;
+    struct range abs;
+    s_char *realmp = player->argp[1];
 
-	natp = getnatp(player->cnum);
-	if (!realmp) {
-		curr = 0;
-		lastr = MAXNOR - 1;
-	} else {
-		if (*realmp == '#')
-			++realmp;
-		if (!isdigit(*realmp))
-			return RET_SYN;
-		curr = lastr = atoi(realmp);
-		if (curr < 0 || curr >= MAXNOR) {
-			pr("Realm number must be in the range 0:%d\n",
-			       MAXNOR-1);
-			return RET_SYN;
-		}
+    natp = getnatp(player->cnum);
+    if (!realmp) {
+	curr = 0;
+	lastr = MAXNOR - 1;
+    } else {
+	if (*realmp == '#')
+	    ++realmp;
+	if (!isdigit(*realmp))
+	    return RET_SYN;
+	curr = lastr = atoi(realmp);
+	if (curr < 0 || curr >= MAXNOR) {
+	    pr("Realm number must be in the range 0:%d\n", MAXNOR - 1);
+	    return RET_SYN;
 	}
-	abs.width = 0;
-	abs.height = 0;
-	if (player->argp[2] == 0) {
-		while (curr <= lastr) {
-		    list_realm(curr, natp);
-		    curr++;
-		}
-	} else {
-		if (sarg_type(player->argp[2]) != NS_AREA)
-			return RET_SYN;
-		if (!sarg_area(player->argp[2], &abs))
-			return RET_SYN;
-		rp = &natp->nat_b[curr];
-		rp->b_xl = abs.lx;
-		rp->b_xh = abs.hx - 1;
-		rp->b_yl = abs.ly;
-		rp->b_yh = abs.hy - 1;
-		natp->nat_b[curr] = *rp;
-		list_realm(curr, natp);
-		putnat(natp);
+    }
+    abs.width = 0;
+    abs.height = 0;
+    if (player->argp[2] == 0) {
+	while (curr <= lastr) {
+	    list_realm(curr, natp);
+	    curr++;
 	}
-	return RET_OK;
+    } else {
+	if (sarg_type(player->argp[2]) != NS_AREA)
+	    return RET_SYN;
+	if (!sarg_area(player->argp[2], &abs))
+	    return RET_SYN;
+	rp = &natp->nat_b[curr];
+	rp->b_xl = abs.lx;
+	rp->b_xh = abs.hx - 1;
+	rp->b_yl = abs.ly;
+	rp->b_yh = abs.hy - 1;
+	natp->nat_b[curr] = *rp;
+	list_realm(curr, natp);
+	putnat(natp);
+    }
+    return RET_OK;
 }
+
 /*
 dreal()
 {

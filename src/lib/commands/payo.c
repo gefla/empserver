@@ -47,85 +47,83 @@
 int
 payo(void)
 {
-	struct	sctstr sect;
-	int	nships;
-	struct	nstr_item ni;
-	struct	shpstr ship;
-	struct	mchrstr *mp;
-	int	dist;
-	float	cash=0.0;
-        extern  int   trade_1_dist;     /* less than this gets no money */
-        extern  int   trade_2_dist;     /* less than this gets trade_1 money */
-        extern  int   trade_3_dist;     /* less than this gets trade_2 money */
-        extern  float trade_1;          /* return on trade_1 distance */
-        extern  float trade_2;          /* return on trade_2 distance */
-        extern  float trade_3;          /* return on trade_3 distance */
-        extern  float trade_ally_bonus; /* 20% bonus for trading with allies */
+    struct sctstr sect;
+    int nships;
+    struct nstr_item ni;
+    struct shpstr ship;
+    struct mchrstr *mp;
+    int dist;
+    float cash = 0.0;
+    extern int trade_1_dist;	/* less than this gets no money */
+    extern int trade_2_dist;	/* less than this gets trade_1 money */
+    extern int trade_3_dist;	/* less than this gets trade_2 money */
+    extern float trade_1;	/* return on trade_1 distance */
+    extern float trade_2;	/* return on trade_2 distance */
+    extern float trade_3;	/* return on trade_3 distance */
+    extern float trade_ally_bonus;	/* 20% bonus for trading with allies */
 
 
-	if (!opt_TRADESHIPS) {
-	    pr("Tradeships are not enabled.\n");
-	    return RET_FAIL;
+    if (!opt_TRADESHIPS) {
+	pr("Tradeships are not enabled.\n");
+	return RET_FAIL;
+    }
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+	return RET_SYN;
+
+    nships = 0;
+    while (nxtitem(&ni, (s_char *)&ship)) {
+	if (!player->owner || ship.shp_own == 0)
+	    continue;
+	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
+	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
+	    continue;
 	}
-	if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
-		return RET_SYN;
+	mp = &mchr[(int)ship.shp_type];
 
-	nships = 0;
-	while (nxtitem(&ni, (s_char *)&ship)) {
-		if (!player->owner || ship.shp_own == 0)
-			continue;
-		if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-			pr("bad ship type %d (#%d)\n",
-				ship.shp_type, ni.cur);
-			continue;
-		}
-		mp = &mchr[(int)ship.shp_type];
+	if (!(mp->m_flags & M_TRADE))
+	    continue;
 
-		if (!(mp->m_flags & M_TRADE))
-			continue;
-
-		if (nships++ == 0) {
-			if (player->god)
-				pr("own ");
-			pr("shp#     ship type  orig x,y       x,y    dist $$\n");
-		}
-		if (player->god)
-			pr("%3d ", ship.shp_own);
-		pr("%4d ", ni.cur);
-		pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
-		prxy("%4d,%-4d ", ship.shp_orig_x,
-			ship.shp_orig_y, player->cnum);
-		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-
-		getsect(ship.shp_x,ship.shp_y,&sect);
-
-		dist = mapdist(ship.shp_x, ship.shp_y,
-			ship.shp_orig_x, ship.shp_orig_y);
-		pr("%4d ", dist);
-
-		if (dist < trade_1_dist)
-			cash = 0;
-		else if (dist < trade_2_dist)
-			cash = (1.0 + trade_1*((float)dist));
-		else if (dist < trade_3_dist)
-			cash = (1.0 + trade_2*((float)dist));
-		else
-			cash = (1.0 + trade_3*((float)dist));
-
-		cash *= mp->m_cost;
-		cash *= (((float)ship.shp_effic) / 100.0);
-
-		if (sect.sct_own && (sect.sct_own != ship.shp_own))
-			cash *= (1.0 + trade_ally_bonus);
-		pr("$%6.2f\n",cash);
+	if (nships++ == 0) {
+	    if (player->god)
+		pr("own ");
+	    pr("shp#     ship type  orig x,y       x,y    dist $$\n");
 	}
-	if (nships == 0) {
-		if (player->argp[1])
-			pr("%s: No ship(s)\n", player->argp[1]);
-		else
-			pr("%s: No ship(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d ship%s\n", nships, splur(nships));
-	return RET_OK;
+	if (player->god)
+	    pr("%3d ", ship.shp_own);
+	pr("%4d ", ni.cur);
+	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
+	prxy("%4d,%-4d ", ship.shp_orig_x, ship.shp_orig_y, player->cnum);
+	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+
+	getsect(ship.shp_x, ship.shp_y, &sect);
+
+	dist = mapdist(ship.shp_x, ship.shp_y,
+		       ship.shp_orig_x, ship.shp_orig_y);
+	pr("%4d ", dist);
+
+	if (dist < trade_1_dist)
+	    cash = 0;
+	else if (dist < trade_2_dist)
+	    cash = (1.0 + trade_1 * ((float)dist));
+	else if (dist < trade_3_dist)
+	    cash = (1.0 + trade_2 * ((float)dist));
+	else
+	    cash = (1.0 + trade_3 * ((float)dist));
+
+	cash *= mp->m_cost;
+	cash *= (((float)ship.shp_effic) / 100.0);
+
+	if (sect.sct_own && (sect.sct_own != ship.shp_own))
+	    cash *= (1.0 + trade_ally_bonus);
+	pr("$%6.2f\n", cash);
+    }
+    if (nships == 0) {
+	if (player->argp[1])
+	    pr("%s: No ship(s)\n", player->argp[1]);
+	else
+	    pr("%s: No ship(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d ship%s\n", nships, splur(nships));
+    return RET_OK;
 }

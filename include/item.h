@@ -36,25 +36,25 @@
 
 #define	NUMPKG	4		/* number of different kinds of packaging */
 
-struct	ichrstr	{
-	int	i_mnem;		/* usually the initial letter */
-	int	i_vtype;	/* var type */
-	int	i_value;	/* mortgage value */
-	int	i_sell;		/* can this be sold? */
-	int	i_lbs;		/* how hard to move */
-	int	i_pkg[NUMPKG];	/* units for reg, ware, urb, bank */
-	s_char	*i_name;	/* full name of item */
+struct ichrstr {
+    int i_mnem;			/* usually the initial letter */
+    int i_vtype;		/* var type */
+    int i_value;		/* mortgage value */
+    int i_sell;			/* can this be sold? */
+    int i_lbs;			/* how hard to move */
+    int i_pkg[NUMPKG];		/* units for reg, ware, urb, bank */
+    s_char *i_name;		/* full name of item */
 };
 
 /* variables using this structure */
 
-extern  struct ichrstr ichr[];
-extern	int maxitem;
+extern struct ichrstr ichr[];
+extern int maxitem;
 
 /* procedures using/returning this struct */
 
-extern	struct ichrstr *whatitem();
+extern struct ichrstr *whatitem();
 
-extern	int itm_maxno;
+extern int itm_maxno;
 
 #endif /* _ITEM_H_ */

@@ -45,91 +45,89 @@
 int
 tele(void)
 {
-	natid	to;
-	struct	natstr *natp;
-	int	teltype;
-	s_char  buf[MAXTELSIZE+1];
-	int	n;
+    natid to;
+    struct natstr *natp;
+    int teltype;
+    s_char buf[MAXTELSIZE + 1];
+    int n;
 
-	natp = getnatp(player->cnum);
-	if (*player->argp[0] == 'a') {
-		if (getele("everybody", buf) <= 0) {
-			pr("Announcement aborted\n");
-			return RET_OK;
-		}
-		pr("\n");
-		to = 0;
-		if (typed_wu(player->cnum, to, buf, TEL_ANNOUNCE) < 0)
-			logerror("tele: typed_wu failed to #%d", to);
-	} else if (*player->argp[0] == 'p') {
-		if (getele("your Gracious Deity", buf) <= 0) {
-			pr("Prayor aborted\n");
-			return RET_OK;
-		}
-		pr("\n");
-		if (typed_wu(player->cnum, 0, buf, TEL_NORM) < 0)
-			logerror("tele: typed_wu failed to #0");
-	} else {
-		int	kk;
-
-		kk = 1;
-		while (player->argp[kk] != (s_char *)0){
-		        if ((n = natarg(player->argp[kk], "for which country? ")) < 0) {
-			    if (opt_HIDDEN) {
-                                if (n < -1) {
-				    return RET_OK;
-                                } else {
-				    return RET_SYN;
-				}
-			    } else {
-				return RET_SYN;
-			    }
-			}
-			to = n;
-
-			if (kk == 1){
-				if (player->argp[2]){
-					if(getele("multiple recipients",buf)<0){
-						pr("Telegram aborted\n");
-						return RET_OK;
-					}
-				}else{
-					if (getele(cname(to), buf) < 0) {
-						pr("Telegram aborted\n");
-						return RET_OK;
-					}
-				}
-				pr("\n");
-			}
-
-			natp = getnatp(to);
-			if (((natp->nat_stat & STAT_NORM) == 0) &&
-				((natp->nat_stat & STAT_SANCT) == 0)){
-				pr("%s has no \"telegram priveleges\".\n",
-					cname(to));
-				kk++;
-				continue;
-			}
-			if (!player->god && (getrejects(player->cnum,natp) & REJ_TELE)) {
-				pr("%s is rejecting your telegrams.\n",
-					cname(to));
-				return RET_SYN;
-			}
-			teltype = /* player->god ? TEL_BULLETIN : */ TEL_NORM;
-			if (typed_wu(player->cnum, to, buf, teltype) < 0) {
-				logerror("tele: typed_wu failed to #%d", n);
-				return RET_FAIL;
-			}
-
-			if (!player->god &&
-			    (natp->nat_stat & GOD) != GOD &&
-			    player->cnum != to)
-				nreport(player->cnum, N_SENT_TEL, to, 1);
-			if (opt_HIDDEN) {
-			    setcont(to, player->cnum, FOUND_TELE);
-			}
-			kk++;
-		}
+    natp = getnatp(player->cnum);
+    if (*player->argp[0] == 'a') {
+	if (getele("everybody", buf) <= 0) {
+	    pr("Announcement aborted\n");
+	    return RET_OK;
 	}
-	return RET_OK;
+	pr("\n");
+	to = 0;
+	if (typed_wu(player->cnum, to, buf, TEL_ANNOUNCE) < 0)
+	    logerror("tele: typed_wu failed to #%d", to);
+    } else if (*player->argp[0] == 'p') {
+	if (getele("your Gracious Deity", buf) <= 0) {
+	    pr("Prayor aborted\n");
+	    return RET_OK;
+	}
+	pr("\n");
+	if (typed_wu(player->cnum, 0, buf, TEL_NORM) < 0)
+	    logerror("tele: typed_wu failed to #0");
+    } else {
+	int kk;
+
+	kk = 1;
+	while (player->argp[kk] != (s_char *)0) {
+	    if ((n = natarg(player->argp[kk], "for which country? ")) < 0) {
+		if (opt_HIDDEN) {
+		    if (n < -1) {
+			return RET_OK;
+		    } else {
+			return RET_SYN;
+		    }
+		} else {
+		    return RET_SYN;
+		}
+	    }
+	    to = n;
+
+	    if (kk == 1) {
+		if (player->argp[2]) {
+		    if (getele("multiple recipients", buf) < 0) {
+			pr("Telegram aborted\n");
+			return RET_OK;
+		    }
+		} else {
+		    if (getele(cname(to), buf) < 0) {
+			pr("Telegram aborted\n");
+			return RET_OK;
+		    }
+		}
+		pr("\n");
+	    }
+
+	    natp = getnatp(to);
+	    if (((natp->nat_stat & STAT_NORM) == 0) &&
+		((natp->nat_stat & STAT_SANCT) == 0)) {
+		pr("%s has no \"telegram priveleges\".\n", cname(to));
+		kk++;
+		continue;
+	    }
+	    if (!player->god
+		&& (getrejects(player->cnum, natp) & REJ_TELE)) {
+		pr("%s is rejecting your telegrams.\n", cname(to));
+		return RET_SYN;
+	    }
+	    teltype = /* player->god ? TEL_BULLETIN : */ TEL_NORM;
+	    if (typed_wu(player->cnum, to, buf, teltype) < 0) {
+		logerror("tele: typed_wu failed to #%d", n);
+		return RET_FAIL;
+	    }
+
+	    if (!player->god &&
+		(natp->nat_stat & GOD) != GOD && player->cnum != to)
+		nreport(player->cnum, N_SENT_TEL, to, 1);
+	    if (opt_HIDDEN) {
+		setcont(to, player->cnum, FOUND_TELE);
+	    }
+	    kk++;
+	}
+    }
+    return RET_OK;
 }

@@ -42,20 +42,20 @@
 #define TEL_UPDATE	3	/* update message */
 #define TEL_LAST        3
 
-#define TEL_SECONDS 5 /* how many seconds before starting a new telegram */
+#define TEL_SECONDS 5		/* how many seconds before starting a new telegram */
 
-struct	telstr {
-	natid	tel_from;	/* sender */
-	s_char	tel_type;
-	long	tel_length;	/* how long */
-	time_t	tel_date;	/* when sent */
+struct telstr {
+    natid tel_from;		/* sender */
+    s_char tel_type;
+    long tel_length;		/* how long */
+    time_t tel_date;		/* when sent */
 };
 
 extern s_char *mailbox(s_char *buf, natid cn);
 
-extern	s_char *teldir, *telfil;
+extern s_char *teldir, *telfil;
 
-extern  s_char *annfil;
+extern s_char *annfil;
 
 
 #endif /* _TEL_H_ */

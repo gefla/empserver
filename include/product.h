@@ -34,21 +34,21 @@
 #ifndef _PRODUCT_H_
 #define _PRODUCT_H_
 
-struct	pchrstr {
-	u_char	p_nv;		/* number of constituents */
-	u_char	p_vtype[MAXCHRNV];/* constituent types */
-	u_short	p_vamt[MAXCHRNV]; /* constituent amounts */
-	int	p_type;		/* vtype if product is a variable */
-	int	p_level;	/* index (NAT_?LEV) if product is not a var */
-	int	p_cost;		/* dollars / product unit */
-	int	p_nrndx;	/* index into sect of natural resource */
-	int	p_nrdep;	/* depletion as a % of resource used */
-	int	p_nlndx;	/* index (NAT_?LEV) affecting production */
-	int	p_nlmin;	/* minimum lvl required */
-	int	p_nllag;	/* lag, mul by (lvl-nlmin)/(lvl-nlmin+nllag) */
-	int	p_effic;	/* process efficiency, mult by p_effic/100 */
-	s_char	*p_name;	/* name of product */
-	s_char	*p_sname;	/* short (7char or less) name of product */
+struct pchrstr {
+    u_char p_nv;		/* number of constituents */
+    u_char p_vtype[MAXCHRNV];	/* constituent types */
+    u_short p_vamt[MAXCHRNV];	/* constituent amounts */
+    int p_type;			/* vtype if product is a variable */
+    int p_level;		/* index (NAT_?LEV) if product is not a var */
+    int p_cost;			/* dollars / product unit */
+    int p_nrndx;		/* index into sect of natural resource */
+    int p_nrdep;		/* depletion as a % of resource used */
+    int p_nlndx;		/* index (NAT_?LEV) affecting production */
+    int p_nlmin;		/* minimum lvl required */
+    int p_nllag;		/* lag, mul by (lvl-nlmin)/(lvl-nlmin+nllag) */
+    int p_effic;		/* process efficiency, mult by p_effic/100 */
+    s_char *p_name;		/* name of product */
+    s_char *p_sname;		/* short (7char or less) name of product */
 };
 
 #define	P_SHELL	1
@@ -68,8 +68,8 @@ struct	pchrstr {
 #define P_URAN	15
 #define P_MDUST	16
 
-extern	struct pchrstr pchr[];
+extern struct pchrstr pchr[];
 
-extern	int prd_maxno;
+extern int prd_maxno;
 
 #endif /* _PRODUCT_H_ */

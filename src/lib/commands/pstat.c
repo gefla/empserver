@@ -47,51 +47,44 @@
 int
 pstat(void)
 {
-	int nplanes;
-	struct nstr_item np;
-	struct plnstr plane;
+    int nplanes;
+    struct nstr_item np;
+    struct plnstr plane;
 
-	if (!snxtitem(&np, EF_PLANE, player->argp[1]))
-		return RET_SYN;
-	nplanes = 0;
-	while (nxtitem(&np, (s_char *)&plane)) {
- 	        if (!player->owner || plane.pln_own == 0)
-		        continue;
-		if (plane.pln_type < 0 || plane.pln_type > pln_maxno) {
-			pr("bad plane type %d (#%d)\n",
-				plane.pln_type, np.cur);
-			continue;
-		}
-		if (nplanes++ == 0) {
-pr("pln# %22.22s    x,y    eff  tech att def acc ran load fuel\n", "plane-type");
-		}
-		pr("%4d %-22.22s ",
-		   plane.pln_uid,
-		   plchr[(int)plane.pln_type].pl_name);
-		prxy("%4d,%-4d",
-		   plane.pln_x,
-		   plane.pln_y,
-		   player->cnum);
-		pr(" %3d%% %4d %3d %3d %3d %3d %4d %4d",
-		   plane.pln_effic,
-		   plane.pln_tech,
-		   plane.pln_att,
-		   plane.pln_def,
-		   plane.pln_acc,
-		   plane.pln_range_max,
-		   plane.pln_load,
-		   plane.pln_fuel);
-		pr("\n");
+    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+	return RET_SYN;
+    nplanes = 0;
+    while (nxtitem(&np, (s_char *)&plane)) {
+	if (!player->owner || plane.pln_own == 0)
+	    continue;
+	if (plane.pln_type < 0 || plane.pln_type > pln_maxno) {
+	    pr("bad plane type %d (#%d)\n", plane.pln_type, np.cur);
+	    continue;
 	}
+	if (nplanes++ == 0) {
+	    pr("pln# %22.22s    x,y    eff  tech att def acc ran load fuel\n", "plane-type");
+	}
+	pr("%4d %-22.22s ",
+	   plane.pln_uid, plchr[(int)plane.pln_type].pl_name);
+	prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
+	pr(" %3d%% %4d %3d %3d %3d %3d %4d %4d",
+	   plane.pln_effic,
+	   plane.pln_tech,
+	   plane.pln_att,
+	   plane.pln_def,
+	   plane.pln_acc,
+	   plane.pln_range_max, plane.pln_load, plane.pln_fuel);
+	pr("\n");
+    }
 
-	if (nplanes == 0) {
-		if (player->argp[1])
-			pr("%s: No plane(s)\n", player->argp[1]);
-		else
-			pr("%s: No plane(s)\n", "");
-		return RET_FAIL;
-	}else
-		pr("%d plane%s\n", nplanes, splur(nplanes));
+    if (nplanes == 0) {
+	if (player->argp[1])
+	    pr("%s: No plane(s)\n", player->argp[1]);
+	else
+	    pr("%s: No plane(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d plane%s\n", nplanes, splur(nplanes));
 
-	return RET_OK;
+    return RET_OK;
 }

@@ -38,39 +38,43 @@
 int
 chkmoney(long int cost, long int cash, s_char *argp)
 {
-	s_char buf[1024];
-	s_char *p;
+    s_char buf[1024];
+    s_char *p;
 
-	if (cash > 0 && cost > cash/2) {
-		pr("This operation will cost you $%d, and you only have $%d.\n", cost, cash);
-		if (cost > cash) {
-			pr("You will be broke with $%d if you proceed with this command.\n", cash - cost);
-		}
-		p = getstarg(argp, "Are you sure that you want to do this? ", buf);
-		if (p == 0 || *p != 'y')
-			return RET_SYN;
+    if (cash > 0 && cost > cash / 2) {
+	pr("This operation will cost you $%d, and you only have $%d.\n",
+	   cost, cash);
+	if (cost > cash) {
+	    pr("You will be broke with $%d if you proceed with this command.\n", cash - cost);
 	}
-	return 0;
+	p = getstarg(argp, "Are you sure that you want to do this? ", buf);
+	if (p == 0 || *p != 'y')
+	    return RET_SYN;
+    }
+    return 0;
 }
 
 int
-check_cost(int looping, int cost, long int cash, int *warnedp, s_char *argp)
+check_cost(int looping, int cost, long int cash, int *warnedp,
+	   s_char *argp)
 {
-	s_char buf[1024];
-	s_char *p;
+    s_char buf[1024];
+    s_char *p;
 
-	if (looping && cash > 0 && player->dolcost + cost > cash && *warnedp < 2) {
-		*warnedp = 2;
-		pr("You will go broke!  (it will cost $%d and you only have $%d)\n", cost, cash - (long)player->dolcost);
-		p = getstarg(argp, "Are you sure you wish to continue? ", buf);
-		if (p == 0 || *p != 'y')
-			return 1;
-	}
-	player->dolcost += cost;
-	if (looping && cash > 0 && player->dolcost > cash/2 && *warnedp < 1) {
-		*warnedp = 1;
-		pr("WARNING.  You have just spent over half of your money.\n");
-		pr("You started with $%d and now you only have $%d left\n", cash, cash - (long)player->dolcost);
-	}
-	return 0;
+    if (looping && cash > 0 && player->dolcost + cost > cash
+	&& *warnedp < 2) {
+	*warnedp = 2;
+	pr("You will go broke!  (it will cost $%d and you only have $%d)\n", cost, cash - (long)player->dolcost);
+	p = getstarg(argp, "Are you sure you wish to continue? ", buf);
+	if (p == 0 || *p != 'y')
+	    return 1;
+    }
+    player->dolcost += cost;
+    if (looping && cash > 0 && player->dolcost > cash / 2 && *warnedp < 1) {
+	*warnedp = 1;
+	pr("WARNING.  You have just spent over half of your money.\n");
+	pr("You started with $%d and now you only have $%d left\n", cash,
+	   cash - (long)player->dolcost);
+    }
+    return 0;
 }

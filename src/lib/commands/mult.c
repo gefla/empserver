@@ -42,35 +42,35 @@
 #include "optlist.h"
 #include <math.h>		/* bailey@math-cs.kent.edu */
 
-static void	multsingle(natid us, natid them, struct natstr *natp);
+static void multsingle(natid us, natid them, struct natstr *natp);
 
 int
 mult(void)
 {
-	struct	nstr_item ni;
-	struct	natstr nat;
-	int	nats;
+    struct nstr_item ni;
+    struct natstr nat;
+    int nats;
 
-	if (!opt_MARKET) {
-	    pr("The market is disabled.\n");
-	    return RET_FAIL;
-	}
-	pr("The mult command is no longer used.\n");
-	if (!snxtitem(&ni, EF_NATION, player->argp[1]))
-		return RET_SYN;
-	if (commread() < 0) {
-		pr("Unable to read commodity file; get help!\n");
-		return RET_SYS;
-	}
-	nats = 0;
-	while (!player->aborted && nxtitem(&ni, (s_char *)&nat)) {
-		if ((nat.nat_stat & STAT_NORM) == 0)
-			continue;
-		multsingle(player->cnum, (natid)ni.cur, &nat);
-		nats++;
-	}
-	pr("%d nation multipliers changed\n", nats);
-	return RET_OK;
+    if (!opt_MARKET) {
+	pr("The market is disabled.\n");
+	return RET_FAIL;
+    }
+    pr("The mult command is no longer used.\n");
+    if (!snxtitem(&ni, EF_NATION, player->argp[1]))
+	return RET_SYN;
+    if (commread() < 0) {
+	pr("Unable to read commodity file; get help!\n");
+	return RET_SYS;
+    }
+    nats = 0;
+    while (!player->aborted && nxtitem(&ni, (s_char *)&nat)) {
+	if ((nat.nat_stat & STAT_NORM) == 0)
+	    continue;
+	multsingle(player->cnum, (natid)ni.cur, &nat);
+	nats++;
+    }
+    pr("%d nation multipliers changed\n", nats);
+    return RET_OK;
 }
 
 /*
@@ -79,44 +79,44 @@ mult(void)
 static void
 multsingle(natid us, natid them, struct natstr *natp)
 {
-	extern	double minmult;
-	extern	double maxmult;
-	double	price;
-	s_char	*p;
-	s_char	prompt[128];
-	s_char	buf[1024];
+    extern double minmult;
+    extern double maxmult;
+    double price;
+    s_char *p;
+    s_char prompt[128];
+    s_char buf[1024];
 
-	sprintf(prompt, "%s (%7.3f) : ", natp->nat_cnam, multread(us, them));
-	p = getstarg(player->argp[2], prompt, buf);
-	if (p == 0 || *p == 0)
-		return;
-	if ((price = atof(p)) == 0.0)
-		return;
+    sprintf(prompt, "%s (%7.3f) : ", natp->nat_cnam, multread(us, them));
+    p = getstarg(player->argp[2], prompt, buf);
+    if (p == 0 || *p == 0)
+	return;
+    if ((price = atof(p)) == 0.0)
+	return;
 #if defined(HUGE)
-	if ((price == HUGE) || (price > 1000000.0)) /* Inf causes overflow. */
+    if ((price == HUGE) || (price > 1000000.0))	/* Inf causes overflow. */
 #else
-	if (price > 1000000.0)
+    if (price > 1000000.0)
 #endif
-		price = 1000000.0;		/* bailey@math-cs.kent.edu */
-	/*
-	 * no free lunches!
-	 */
-	if (price <= minmult)
-		price = minmult;
-	if (price >= maxmult)
-		price = maxmult;
-	if (!commlock()) {
-		pr("Unable to lock commodity file; get help!\n");
-		return;
-	}
-	if (commread() < 0) {
-		(void) communlock();
-		pr("Unable to re-read commodity file; get help!\n");
-		return;
-	}
-	multset(them, price);
-	if (commwrite() < 0) {
-		pr("Unable to write out commodity file; get help!\n");
-	}
-	(void) communlock();
+	price = 1000000.0;	/* bailey@math-cs.kent.edu */
+    /*
+     * no free lunches!
+     */
+    if (price <= minmult)
+	price = minmult;
+    if (price >= maxmult)
+	price = maxmult;
+    if (!commlock()) {
+	pr("Unable to lock commodity file; get help!\n");
+	return;
+    }
+    if (commread() < 0) {
+	(void)communlock();
+	pr("Unable to re-read commodity file; get help!\n");
+	return;
+    }
+    multset(them, price);
+    if (commwrite() < 0) {
+	pr("Unable to write out commodity file; get help!\n");
+    }
+    (void)communlock();
 }

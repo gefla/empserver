@@ -49,66 +49,66 @@
 int
 dispatch(s_char *buf, s_char *redir)
 {
-	extern struct cmndstr player_coms[];
-	extern int update_pending;
-	extern int max_btus;
-	struct	natstr *np;
-	struct	cmndstr *command;
-	int	cmd;
+    extern struct cmndstr player_coms[];
+    extern int update_pending;
+    extern int max_btus;
+    struct natstr *np;
+    struct cmndstr *command;
+    int cmd;
 
-	cmd = comtch(player->argp[0], player_coms,
-		player->ncomstat, player->god);
-	if (cmd < 0) {
-		if (cmd == M_NOTUNIQUE)
-			pr("\"%s\" is ambiguous -- ", buf);
-		else if (cmd == M_IGNORE)
-		        return 0;
-		else {
-			pr("\"%s\" is not a legal command ", buf);
-			if (player->nstat != player->ncomstat)
-				pr("now ");
-			pr("\n");
-		}
-		return -1;
+    cmd = comtch(player->argp[0], player_coms,
+		 player->ncomstat, player->god);
+    if (cmd < 0) {
+	if (cmd == M_NOTUNIQUE)
+	    pr("\"%s\" is ambiguous -- ", buf);
+	else if (cmd == M_IGNORE)
+	    return 0;
+	else {
+	    pr("\"%s\" is not a legal command ", buf);
+	    if (player->nstat != player->ncomstat)
+		pr("now ");
+	    pr("\n");
 	}
-	command = &player_coms[cmd];
-	np = getnatp(player->cnum);
-	if (np->nat_btu < command->c_cost && command->c_cost > 0) {
-		if (player->god || opt_BLITZ)
-			np->nat_btu = max_btus;
-		else {
-			pr("You don't have the BTU's, bozo\n");
-			return 0;
-		}
+	return -1;
+    }
+    command = &player_coms[cmd];
+    np = getnatp(player->cnum);
+    if (np->nat_btu < command->c_cost && command->c_cost > 0) {
+	if (player->god || opt_BLITZ)
+	    np->nat_btu = max_btus;
+	else {
+	    pr("You don't have the BTU's, bozo\n");
+	    return 0;
 	}
-	if (command->c_addr == 0) {
-		pr("Command not implemented\n");
-		return 0;
-	}
-	if (update_pending) {
-		pr("Update in progress...command failed\n");
-		return 0;
-	}
-	if (redir) {
-		prredir(redir);
-                pr("%s\n", buf);
-	}
-	player->command = command;
-	switch (command->c_addr()) {
-	case RET_OK:
-		player->btused += command->c_cost;
-		break;
-	case RET_FAIL:
-		pr("command failed\n");
-		player->btused += command->c_cost;
-		break;
-	case RET_SYN:
-		pr("Usage: %s\n", command->c_form);
-		break;
-	default:
-		logerror("%s: returned bad value", command->c_form);
-		break;
-	}
-	player->command = 0;
+    }
+    if (command->c_addr == 0) {
+	pr("Command not implemented\n");
 	return 0;
+    }
+    if (update_pending) {
+	pr("Update in progress...command failed\n");
+	return 0;
+    }
+    if (redir) {
+	prredir(redir);
+	pr("%s\n", buf);
+    }
+    player->command = command;
+    switch (command->c_addr()) {
+    case RET_OK:
+	player->btused += command->c_cost;
+	break;
+    case RET_FAIL:
+	pr("command failed\n");
+	player->btused += command->c_cost;
+	break;
+    case RET_SYN:
+	pr("Usage: %s\n", command->c_form);
+	break;
+    default:
+	logerror("%s: returned bad value", command->c_form);
+	break;
+    }
+    player->command = 0;
+    return 0;
 }

@@ -34,8 +34,8 @@
 #ifndef _BIT_H_
 #define _BIT_H_
 
-typedef unsigned int	bit_mask;
-typedef bit_mask	*bit_fdmask;
+typedef unsigned int bit_mask;
+typedef bit_mask *bit_fdmask;
 
 #ifndef bit
 #define	bit(x) 		(1 << (x))
@@ -56,6 +56,6 @@ typedef bit_mask	*bit_fdmask;
 #define BIT_ISCLRB(a,b)	\
 	(((b)[(a)/BIT_BITSPERMASK] & (1<<((a) % BIT_BITSPERMASK))) == 0)
 
-extern	bit_fdmask	bit_newfdmask();
+extern bit_fdmask bit_newfdmask();
 
 #endif
