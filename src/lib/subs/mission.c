@@ -562,11 +562,11 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (gun < 1)
 		    continue;
 		shell = sp->shp_item[I_SHELL];
-		if (shell < 3)
+		if (shell < M_TORP_SHELLS)
 		    shell += supply_commod(sp->shp_own,
 					   sp->shp_x, sp->shp_y, I_SHELL,
-					   3 - shell);
-		if (shell < 3)
+					   M_TORP_SHELLS - shell);
+		if (shell < M_TORP_SHELLS)
 		    continue;
 
 		range = sp->shp_effic * techfact(sp->shp_tech,
@@ -579,7 +579,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 		if (!line_of_sight((s_char **)0, x, y, gp->x, gp->y))
 		    continue;
-		sp->shp_item[I_SHELL] = shell - 3;
+		sp->shp_item[I_SHELL] = shell - M_TORP_SHELLS;
 		mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
 		mobcost = (480.0 / (mobcost +
 				    techfact(sp->shp_tech, mobcost)));

@@ -88,11 +88,10 @@ torp(void)
 	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0)
 	    continue;
 	shells = sub.shp_item[I_SHELL];
-	if (shells < 3)
-	    shells +=
-		supply_commod(sub.shp_own, sub.shp_x, sub.shp_y, I_SHELL,
-			      3 - shells);
-	if (sub.shp_item[I_GUN] == 0 || shells < 3)
+	if (shells < M_TORP_SHELLS)
+	    shells += supply_commod(sub.shp_own, sub.shp_x, sub.shp_y,
+				    I_SHELL, M_TORP_SHELLS - shells);
+	if (sub.shp_item[I_GUN] == 0 || shells < M_TORP_SHELLS)
 	    continue;
 	if (sub.shp_item[I_MILIT] < 1)
 	    continue;
@@ -116,11 +115,10 @@ torp(void)
 	    continue;
 	}
 	shells = sub.shp_item[I_SHELL];
-	if (shells < 3)
-	    shells +=
-		supply_commod(sub.shp_own, sub.shp_x, sub.shp_y, I_SHELL,
-			      3 - shells);
-	if (sub.shp_item[I_GUN] == 0 || shells < 3) {
+	if (shells < M_TORP_SHELLS)
+	    shells += supply_commod(sub.shp_own, sub.shp_x, sub.shp_y,
+				    I_SHELL, M_TORP_SHELLS - shells);
+	if (sub.shp_item[I_GUN] == 0 || shells < M_TORP_SHELLS) {
 	    pr("Ship #%d has insufficient armament\n", sub.shp_uid);
 	    continue;
 	}
@@ -169,7 +167,7 @@ torp(void)
 	    techfact(sub.shp_tech, ((double)sub.shp_frnge));
 	erange = (double)roundrange(erange);
 	pr("Effective torpedo range is %.1f\n", erange);
-	shells -= 3;
+	shells -= M_TORP_SHELLS;
 	sub.shp_item[I_SHELL] = shells;
 	putship(sub.shp_uid, &sub);
 	mcp = &mchr[(int)sub.shp_type];
@@ -409,11 +407,11 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 
     shells = sp->shp_item[I_SHELL];
 
-    if (shells < 3)
+    if (shells < M_TORP_SHELLS)
 	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
-				3 - shells);
+				M_TORP_SHELLS - shells);
 
-    if (sp->shp_item[I_GUN] == 0 || shells < 3)
+    if (sp->shp_item[I_GUN] == 0 || shells < M_TORP_SHELLS)
 	return 0;
 
     if (sp->shp_item[I_MILIT] < 1)
@@ -426,7 +424,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 	return 0;
 
     /* All set.. fire! */
-    shells -= 3;
+    shells -= M_TORP_SHELLS;
     sp->shp_item[I_SHELL] = shells;
     putship(sp->shp_uid, sp);
 
