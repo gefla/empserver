@@ -440,6 +440,7 @@ extern int vl_getvec(register u_char *, register u_short *, register int,
 extern int vl_setvec(register u_char *, register u_short *, u_char *,
 		     int, register int, register int *);
 /* wantupd.c */
+extern void update_policy_check(void);
 extern int demand_update_want(int *, int *, int);
 extern int update_maxmissed(void);
 extern int demandupdatecheck(void);
@@ -475,6 +476,8 @@ extern s_char *inet_ntoa(struct in_addr);
 #endif
 extern int file_lock(int);
 extern int file_unlock(int);
+extern int diffx(int, int);
+extern int diffy(int, int);
 extern int deltax(int, int);
 extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
@@ -850,6 +853,7 @@ extern int use_supply(struct lndstr *);
 extern void takeover_land(register struct lndstr *, natid, int);
 extern void takeover(register struct sctstr *, natid);
 extern void takeover_ship(register struct shpstr *, natid, int);
+extern void takeover_plane(register struct plnstr *, natid);
 /* trdsub.c */
 extern int trade_check_ok(int, struct trdstr *, union trdgenstr *);
 extern s_char *trade_nameof(struct trdstr *, union trdgenstr *);
