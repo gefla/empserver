@@ -234,12 +234,12 @@ int
 nav_ship(struct shpstr *sp)
 {
     struct sctstr *sectp;
-    s_char *cp;
+    char *cp;
     int stopping;
     int quit;
     int didsomething = 0;
     int max_amt, food_amt;
-    s_char buf[1024];
+    char buf[1024];
     struct emp_qelem ship_list;
     struct emp_qelem *qp, *newqp;
     struct mlist *mlp;
@@ -288,14 +288,14 @@ nav_ship(struct shpstr *sp)
 		wu(0, cnum,
 		   "%s bad path, ship put on standby\n", prship(sp));
 		sp->shp_autonav |= AN_STANDBY;
-		putship(sp->shp_uid, (s_char *)sp);
+		putship(sp->shp_uid, sp);
 
 		/* We need to free the ship list */
 		qp = ship_list.q_forw;
 		while (qp != &(ship_list)) {
 		    newqp = qp->q_forw;
 		    emp_remque(qp);
-		    free((s_char *)qp);
+		    free(qp);
 		    qp = newqp;
 		}
 		return RET_SYN;
@@ -344,7 +344,7 @@ nav_ship(struct shpstr *sp)
     while (qp != &(ship_list)) {
 	newqp = qp->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
     return RET_OK;
