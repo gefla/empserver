@@ -360,7 +360,7 @@ resbenefit(natid who, int good)
     }
 }
 
-extern void
+void
 resnoise(struct sctstr *sptr, int public_amt, s_char *name, int old,
 	 int new)
 {

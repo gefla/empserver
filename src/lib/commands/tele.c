@@ -62,7 +62,7 @@ tele(void)
 	    logerror("tele: typed_wu failed to #%d", to);
     } else if (*player->argp[0] == 'p') {
 	if (getele("your Gracious Deity", buf) <= 0) {
-	    pr("Prayor aborted\n");
+	    pr("Prayer aborted\n");
 	    return RET_OK;
 	}
 	pr("\n");

@@ -115,7 +115,7 @@ struct nstr_item {
 #define NSC_SHORT	(3<<18)	/* pointer to short */
 #define NSC_USHORT	(4<<18)	/* pointer to unsigned short */
 #define NSC_INT		(5<<18)	/* pointer to int */
-#define	NSC_LONG	(6<<18)	/* pointer to long */
+#define NSC_LONG	(6<<18)	/* pointer to long */
 #define NSC_XCOORD	(7<<18)	/* pointer to coord that needs x conversion */
 #define NSC_YCOORD	(8<<18)	/* pointer to coord that needs y conversion */
 #define NSC_FLOAT	(9<<18)	/* pointer to float */
@@ -134,7 +134,6 @@ struct castr {
     long ca_code;		/* encoded form */
     s_char *ca_name;		/* name used for matches */
     u_short ca_len;		/* Used for arrays */
-    long ca_edv;		/* which commands is this field visible to? */
 };
 
 /* variables using the above */
@@ -152,7 +151,6 @@ extern struct castr trade_ca[];
 extern struct castr loan_ca[];
 extern struct castr genitem_ca[];
 extern struct castr map_ca[];
-extern struct castr bmp_ca[];
 extern struct castr lost_ca[];
 extern struct castr commodity_ca[];
 

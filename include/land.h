@@ -53,7 +53,7 @@ struct lndstr {
     short lnd_uid;		/* unit id (land unit) */
     coord lnd_x;		/* x location in abs coords */
     coord lnd_y;		/* y location in abs coords */
-    s_char lnd_type;		/* ship type */
+    s_char lnd_type;		/* index in lchr[] */
     s_char lnd_effic;		/* 0% to 100% */
     s_char lnd_mobil;		/* mobility units made int for RS/6000 */
     short lnd_sell;		/* pointer to trade file */

@@ -43,8 +43,8 @@
  * 2 = update only bmap with force
  */
 
-static int
- do_map_set(natid cnum, s_char *map, coord x, coord y, s_char t, int force, int sync);
+static int do_map_set(natid cnum, s_char *map, coord x, coord y,
+		      s_char t, int force, int sync);
 
 int
 map_set(natid cnum, coord x, coord y, s_char t, int only_bmap)

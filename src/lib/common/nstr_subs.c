@@ -73,9 +73,10 @@ nstr_exec(struct nscstr *conds, register int ncond, void *ptr, int type)
 	    lhs = decode(player->cnum, nsc->fld1, ptr, type);
 
 	op = oper;
-	if ((op == '<' && lhs >= rhs) ||
-	    (op == '=' && lhs != rhs) ||
-	    (op == '>' && lhs <= rhs) || (op == '#' && lhs == rhs))
+	if ((op == '<' && lhs >= rhs)
+	    || (op == '=' && lhs != rhs)
+	    || (op == '>' && lhs <= rhs)
+	    || (op == '#' && lhs == rhs))
 	    return 0;
     }
     return 1;

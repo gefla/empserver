@@ -76,7 +76,7 @@ struct mob_acc_globals {
 #define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
 #endif
 
-typedef u_char natid;		/* also change NSC_NATID in nsc.h */
+typedef u_char natid;		/* NSC_NATID must match this */
 
 #if defined(__linux__ ) || defined(__osf__)
 #define POSIXSIGNALS 1
@@ -98,7 +98,7 @@ typedef char s_char;		/* change to signed char for aix */
 #else
 typedef signed char s_char;
 #endif /* !aix && !sgi */
-typedef short coord;		/* also change NSC_COORD in nsc.h */
+typedef short coord;
 /*
  * watch it; your compiler might not like this.
  * If you think this is bogus, look at /usr/include/struct.h

@@ -72,7 +72,7 @@ struct shpstr {
     short shp_uid;		/* unit id (ship #) */
     coord shp_x;		/* x location in abs coords */
     coord shp_y;		/* y location in abs coords */
-    s_char shp_type;		/* ship type */
+    s_char shp_type;		/* index in mchr[] */
     s_char shp_effic;		/* 0% to 100% */
     s_char shp_mobil;		/* mobility units */
     short shp_sell;		/* pointer to trade file */

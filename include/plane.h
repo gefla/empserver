@@ -51,7 +51,7 @@ struct plnstr {
     short pln_uid;		/* plane unit id */
     coord pln_x;		/* plane x-y */
     coord pln_y;
-    s_char pln_type;		/* fighter, bomber, etc */
+    s_char pln_type;		/* index in plchr[] */
     s_char pln_effic;		/* actually "training" */
     s_char pln_mobil;		/* plane mobility */
     short pln_sell;		/* index into trade file */

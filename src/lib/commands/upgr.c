@@ -70,10 +70,10 @@ upgr(void)
     case 'L':
 	return lupgr();
     default:
-	pr("Ships, land units or planes only!\n");
-	return RET_SYN;
+	break;
     }
-    return RET_OK;
+    pr("Ships, land units or planes only!\n");
+    return RET_SYN;
 }
 
 static int

@@ -113,14 +113,15 @@ encode(register s_char *str, long int *val, int type)
 	return 0;
     }
     if (isdigit(*str) || ((*str == '-') && isdigit(str[1]))) {
-#ifdef BIT16ONLY
-	/* XXX silently truncate to 16 bit int */
-	*val = atoi(str) & 0xffff;
-#else
 	*val = atoi(str);
-#endif /* BIT16ONLY */
 	return 2;
     }
+    /*
+     * FIXME This accepts the first match found, even if there are
+     * more matches in other tables, i.e. it quietly accepts ambiguous
+     * matches (matches in multiple tables), and fails to prefer an
+     * exact match to partial match in an earlier table.
+     */
     if ((i = typematch(str, type)) >= 0) {
 	*val = i;
 	return 1;
@@ -148,7 +149,6 @@ encode(register s_char *str, long int *val, int type)
 	if (i >= 0) {
 	    *val = var_ca[i].ca_code & ~NSC_ROUND;
 	    return legal_val(str, *val);
-	    return 1;
 	}
 	if (i == M_NOTUNIQUE) {
 	    pr("%s -- ambiguous commodity selector\n", str);
