@@ -397,10 +397,10 @@ ldump(void)
 		pr(" %d", land.lnd_item[I_RAD]);
 		break;
 	    case 28:
-		pr(" %1.2f", (float)land.lnd_att);
+		pr(" %1.2f", land.lnd_att);
 		break;
 	    case 29:
-		pr(" %1.2f", (float)land.lnd_def);
+		pr(" %1.2f", land.lnd_def);
 		break;
 	    case 30:
 		pr(" %d", land.lnd_vul);
