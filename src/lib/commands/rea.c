@@ -79,7 +79,7 @@ rea(void)
     int readit;
 
     memset(kind, 0, sizeof(kind));
-    (void)time(&now);
+    now = time(NULL);
 
     if (*player->argp[0] == 'w') {
 	sprintf(kind, "announcement");
@@ -147,12 +147,9 @@ rea(void)
 	    lasttype = tgm.tel_type;
 	    pr("%s ", telnames[(int)tgm.tel_type]);
 	    if ((tgm.tel_type == TEL_NORM) ||
-		(tgm.tel_type == TEL_ANNOUNCE)) {
+		(tgm.tel_type == TEL_ANNOUNCE) ||
+		(tgm.tel_type == TEL_BULLETIN))
 		pr("from %s, (#%d)", cname(tgm.tel_from), tgm.tel_from);
-	    }
-	    if (tgm.tel_type == TEL_BULLETIN) {
-		pr("from %s, (#%d)", cname(tgm.tel_from), tgm.tel_from);
-	    }
 	    pr("  dated %s", ctime(&tgm.tel_date));
 	    lastdate = tgm.tel_date;
 	}
@@ -194,7 +191,7 @@ rea(void)
 		(void)fflush(telfp);
 		(void)fseek(telfp, (long)size, SEEK_SET);
 		size = filelen;
-		(void)time(&now);
+		now = time(NULL);
 		goto more;
 	    }
 	    if (*kind == 'a') {
@@ -208,12 +205,11 @@ rea(void)
 	    }
 	}
     }
-    if (teles <= 0) {
+    if (teles <= 0)
 	if (player->cnum == num)
 	    pr("No %ss for you at the moment...\n", kind);
 	else
 	    pr("No %ss for %s at the moment...\n", kind, cname(num));
-    }
     (void)fclose(telfp);
     if (np->nat_flags & NF_INFORM) {
 	pr_inform(player, "\n");
