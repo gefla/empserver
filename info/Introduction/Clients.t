@@ -9,7 +9,7 @@ Archives located at:
 or
   ftp://ftp.wolfpackempire.com/pub/empire/
 
-empclient-2.8   - full support
+empclient-2.8 and later - full support
 
 If you are using one of these clients, then you should type
 "toggle inform" once you have broken sanctuary.  These clients
@@ -20,9 +20,6 @@ will be printed on your screen immediately.  Similarly, with "inform"
 toggled on, you will be informed the moment a telegram arrives.  Note,
 the server remembers your toggle flags when you log out, so you do not
 have to type "toggle inform" again the next time you connect.
-
-
-other clients   - no support
 
 Most other clients should work fine with the Empire4 server, however
 they may get confused if a flash message comes in.  Users of other
@@ -39,7 +36,7 @@ server to help the development of clients.  They are:
    dump - Dump sector information
    ldump - Dump land unit information
    sdump - Dump ship information
-   pdump - Dump plane inforamation
+   pdump - Dump plane information
    ndump - Dump nuclear stockpile information
    lost - Report lost items
 .FI
