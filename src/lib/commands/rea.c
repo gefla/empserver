@@ -33,11 +33,6 @@
  *     Steve McClure, 1998-2000
  */
 
-
-#ifdef aix
-#define L_SET 0
-#endif /* aix */
-
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
@@ -201,11 +196,7 @@ rea(void)
 		pr("Wait a sec!  A new %s has arrived...\n", kind);
 		/* force stdio to re-read tel file */
 		(void)fflush(telfp);
-#if !defined(_WIN32)
-		(void)fseek(telfp, (long)size, L_SET);
-#else
 		(void)fseek(telfp, (long)size, SEEK_SET);
-#endif
 		size = filelen;
 		(void)time(&now);
 		goto more;
