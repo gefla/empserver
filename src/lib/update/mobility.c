@@ -412,7 +412,10 @@ do_mob_land(register struct lndstr *lp, register int etus)
 
     if (lp->lnd_mobil >= land_mob_max) {
 	lp->lnd_mobil = land_mob_max;
-	return;
+	if (lp->lnd_harden >= land_mob_max) {
+	    lp->lnd_harden = land_mob_max;
+	    return;
+	}
     }
 
     /*
@@ -440,8 +443,10 @@ do_mob_land(register struct lndstr *lp, register int etus)
 	} else {
 	    value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	}
-	if (value > land_mob_max)
+	if (value > land_mob_max) {
+	    lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
+	}
 	lp->lnd_mobil = value;
 
 	return;			/* Done! */
@@ -458,8 +463,10 @@ do_mob_land(register struct lndstr *lp, register int etus)
 	} else {
 	    value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	}
-	if (value > land_mob_max)
+	if (value > land_mob_max) {
+	    lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
+	}
 	lp->lnd_mobil = value;
 
     } else {
@@ -517,6 +524,7 @@ do_mob_land(register struct lndstr *lp, register int etus)
 	if (total_add + lp->lnd_mobil > land_mob_max) {
 	    total_add = land_mob_max - lp->lnd_mobil;
 	}
+	/* no automatic fortification here, as it would cost fuel */
 
 	if (opt_MOB_ACCESS) {
 	    if (lp->lnd_mobil < 0)
