@@ -466,7 +466,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 		goto shipsunk;
 	    if (ship.shp_effic < SHIP_MINEFF)
 		goto shipsunk;
-	    if (ship.shp_effic < 50)
+	    if (ship.shp_effic < SHP_AIROPS_EFF)
 		continue;
 	    /* Can't fly off non-owned ships or non-allied ship */
 	    if ((ship.shp_own != player->cnum) &&
@@ -489,7 +489,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 		goto landdead;
 	    if (land.lnd_effic < LAND_MINEFF)
 		goto landdead;
-	    if (land.lnd_effic < 50)
+	    if (land.lnd_effic < LND_AIROPS_EFF)
 		continue;
 	    /* Can't fly off units in ships or other units */
 	    if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))

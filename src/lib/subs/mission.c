@@ -1115,8 +1115,8 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    if (ship.shp_effic < SHIP_MINEFF) {
 		goto shipsunk;
 	    }
-	    /* Can't fly off of ships < 50%, or non-owned or non-allied ships */
-	    if ((ship.shp_effic < 50) ||
+	    /* Can't fly off of inefficient or non-owned, non-allied ships */
+	    if ((ship.shp_effic < SHP_AIROPS_EFF) ||
 		((ship.shp_own != pp->pln_own) &&
 		 (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
 		emp_remque(qp);
@@ -1138,8 +1138,8 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    if (land.lnd_effic < LAND_MINEFF)
 		goto landdead;
 
-	    /* Can't fly off of units < 50%, or non-owned or non-allied units */
-	    if ((land.lnd_effic < 50) ||
+	    /* Can't fly off of inefficient or non-owned, non-allied units */
+	    if ((land.lnd_effic < LND_AIROPS_EFF) ||
 		((land.lnd_own != pp->pln_own) &&
 		 (getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED))) {
 		emp_remque(qp);

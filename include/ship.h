@@ -214,6 +214,7 @@ struct mlist {
 #define CN_ERROR	(-1)
 
 enum {
+    SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */
     M_TORP_SHELLS = 3		/* number of shells used by a torpedo */
 };
 

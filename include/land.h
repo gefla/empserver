@@ -194,6 +194,10 @@ struct llist {
     int supplied;
 };
 
+enum {
+    LND_AIROPS_EFF = 50		/* min. efficiency for air ops */
+};
+
 /* src/lib/subs/lndsub.c */
 extern void lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
