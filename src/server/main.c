@@ -415,7 +415,7 @@ panic(int sig)
 void
 shutdwn(int sig)
 {
-    struct player *p,*phold;
+    struct player *p;
     time_t now;
 
 #if defined(__linux__) && defined(_EMPTH_POSIX)
@@ -443,8 +443,7 @@ shutdwn(int sig)
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
-    p = player_next(0);
-    while (p != 0) {
+    for (p = player_next(0); p != 0; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");
@@ -453,9 +452,7 @@ shutdwn(int sig)
 	if (p->command) {
 	    pr_flash(p, "Shutdown aborting command\n");
 	}
-	phold = p;
-	p = player_next(p);
-	empth_wakeup(phold->proc);
+	empth_wakeup(p->proc);
     }
 
     if (!sig) {
