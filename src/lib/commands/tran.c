@@ -101,15 +101,7 @@ tran_nuke(void)
 	pr("Not yours\n");
 	return RET_FAIL;
     }
-#if 0
-    if (!snxtitem_xy(&nstr, EF_NUKE, sect.sct_x, sect.sct_y)) {
-	pr("There are no nukes in %s\n",
-	   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return RET_FAIL;
-    }
-#else
     snxtitem_xy(&nstr, EF_NUKE, sect.sct_x, sect.sct_y);
-#endif
     found = 0;
     while (nxtitem(&nstr, &nuke)) {
 	if (player->owner) {
@@ -203,14 +195,12 @@ tran_plane(void)
     int dstx, dsty;
     int mcost;
     int weight, count;
-    int first;
     int type, dam;
     struct nstr_item nstr;
     struct plnstr plane;
     struct sctstr sect;
     struct sctstr endsect;
 
-    first = 1;
     weight = 0;
     count = 0;
     if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
@@ -238,10 +228,9 @@ tran_plane(void)
 	       prplane(&plane));
 	    return RET_FAIL;
 	}
-	if (first == 1) {
+	if (count == 0) {
 	    srcx = plane.pln_x;
 	    srcy = plane.pln_y;
-	    first = 0;
 	} else {
 	    if (plane.pln_x != srcx || plane.pln_y != srcy) {
 		pr("All planes must be in the same sector.\n");
@@ -251,8 +240,8 @@ tran_plane(void)
 	weight += plchr[type].pl_lcm + (plchr[type].pl_hcm * 2);
 	++count;
     }
-    if (first == 1) {
-	/* no planes */
+    if (count == 0) {
+	pr("No planes\n");
 	return RET_FAIL;
     }
     if (!getsect(srcx, srcy, &sect) || !player->owner) {
@@ -277,10 +266,8 @@ tran_plane(void)
     while (nxtitem(&nstr, (s_char *)&plane)) {
 	if (!player->owner)
 	    continue;
-	if (dam) {
+	if (dam)
 	    planedamage(&plane, dam);
-	    pr("\t%s takes %d\n", prplane(&plane), dam);
-	}
 	plane.pln_x = dstx;
 	plane.pln_y = dsty;
 	plane.pln_mission = 0;
@@ -290,6 +277,7 @@ tran_plane(void)
 	pr("Total movement cost = %d\n", mcost);
     else
 	pr("No mobility used\n");
+    getsect(srcx, srcy, &sect);
     sect.sct_mobil -= mcost;
     if (sect.sct_mobil < 0)
 	sect.sct_mobil = 0;
