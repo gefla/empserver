@@ -270,7 +270,7 @@ prod(void)
 	 * is production limited by resources or
 	 * workforce?
 	 */
-	max = (int)(work * effic / (double)totcomp) + 0.5;
+	max = (int)((work * effic / (double)totcomp) + 0.5);
 	act = min(used, max);
 	/*
 	 * some things are easier to make..  food,
