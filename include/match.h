@@ -36,7 +36,7 @@
 
 #include <stddef.h>
 
-/* returned by stmtch() */
+/* returned by stmtch() and comtch() */
 #define M_IGNORE        -3
 #define M_NOTUNIQUE	-2
 #define M_NOTFOUND	-1

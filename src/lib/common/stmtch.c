@@ -45,7 +45,7 @@
  * several.
  * Each array element has a pointer to its name stored at offset OFFS.
  * Search stops when this name is a null pointer or empty.  NEEDLE is
- * compared to element names with mineq().
+ * compared to element names with mineq(NEEDLE, NAME).
  * ELT_SIZE gives the size of an array element.
  */
 int

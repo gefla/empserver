@@ -391,6 +391,7 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
 
 /*
  * Evaluate VAL.
+ * If VAL is symbolic, evaluate it into a promoted value type.
  * Use coordinate system of country CNUM.
  * PTR points to a context object of the type that was used to compile
  * the value.
