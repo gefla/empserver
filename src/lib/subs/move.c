@@ -76,6 +76,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     s_char prompt[128];
     s_char buf[1024];
 
+    *end = *start;
     if (mobility <= 0.0)
 	return -1;
     *dam = 0;
@@ -101,7 +102,6 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	}
 	if ((total_mcost * weight) > mobility) {
 	    pr("Not enough mobility to go all the way. Nothing moved.\n");
-	    *end = *start;
 	    return -1;
 	}
     }
