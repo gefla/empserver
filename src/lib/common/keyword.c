@@ -99,11 +99,6 @@ kw_find(s_char *name)
     return 0;
 }
 
-#define CF_VALUE	1
-#define CF_TIME		2
-#define CF_TIMERANGE	3
-#define CF_WEEKDAY	4
-
 /*
  * destructive parse
  */
