@@ -87,14 +87,16 @@ static void
 print_usage(char *program_name)
 {
 #if defined(_WIN32)
-    printf("Usage: %s -i -I service_name -r -R service_name -D datadir -e config_file -d\n", program_name);
+    printf("Usage: %s -i -I service_name -r -R service_name -D datadir -e config_file -d -p\n",
+	program_name);
     printf("-i install service with the default name %s\n", DEFAULT_SERVICE_NAME);
     printf("-r remove service with the default name %s\n", DEFAULT_SERVICE_NAME);
+
 #else
     printf("Usage: %s -D datadir -e config_file -d -p -s\n", program_name);
-    printf("-p print flag\n");
     printf("-s stack check flag (include print flag)\n");
 #endif
+    printf("-p print flag\n");
     printf("-d debug mode\n");
 }
 
@@ -112,7 +114,7 @@ main(int argc, char **argv)
     int op;
 
 #if defined(_WIN32)
-    while ((op = getopt(argc, argv, "D:de:iI:rR:h")) != EOF) {
+    while ((op = getopt(argc, argv, "D:de:iI:rR:hp")) != EOF) {
 #else
     while ((op = getopt(argc, argv, "D:de:psh")) != EOF) {
 #endif
@@ -129,6 +131,10 @@ main(int argc, char **argv)
 	    break;
 	case 'e':
 	    config_file = optarg;
+	    break;
+	case 'p':
+	    flags |= EMPTH_PRINT;
+	    daemonize = 0;
 	    break;
 #if defined(_WIN32)
 	case 'I':
@@ -149,10 +155,6 @@ main(int argc, char **argv)
 	    remove_service_set++;
 	    break;
 #else
-	case 'p':
-	    flags |= EMPTH_PRINT;
-	    daemonize = 0;
-	    break;
 	case 's':
 	    flags |= EMPTH_PRINT | EMPTH_STACKCHECK;
 	    daemonize = 0;
@@ -478,8 +480,10 @@ shutdwn(int sig)
     finish_server();
 
 #if defined(_WIN32)
-    if (daemonize)
+    if (daemonize) {
+        stop_service();
 	return;
+    }
 #endif
     _exit(0);
 }

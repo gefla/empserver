@@ -234,19 +234,21 @@ service_stopped(void)
 {
     if (hShutdownEvent != NULL) {
 	WaitForSingleObject(hShutdownEvent,INFINITE);
-        shutdwn(0);
-        logerror("Service stopped");
-	service_status.dwWin32ExitCode = 0; 
-	service_status.dwCurrentState  = SERVICE_STOPPED; 
-	service_status.dwCheckPoint    = 0; 
-	service_status.dwWaitHint      = 0; 
-
-	if (!SetServiceStatus (service_status_handle, 
-	    &service_status)) { 
-	    logerror("Error while stopping service SetServiceStatus"
-		" error %ld", GetLastError()); 
-	}
     }
+}
+
+void
+stop_service(void)
+{
+    logerror("Service stopped");
+    service_status.dwWin32ExitCode = 0; 
+    service_status.dwCurrentState  = SERVICE_STOPPED; 
+    service_status.dwCheckPoint    = 0; 
+    service_status.dwWaitHint      = 0; 
+
+    if (!SetServiceStatus (service_status_handle, &service_status)) 
+	logerror("Error while stopping service SetServiceStatus"
+	    " error %ld", GetLastError()); 
 }
 
 #endif /* _WIN32 */

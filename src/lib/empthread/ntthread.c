@@ -60,7 +60,6 @@
 #include <windows.h>
 #include <process.h>
 
-
 #define loc_MIN_THREAD_STACK  16384
 
 /************************
@@ -470,18 +469,19 @@ empth_exit(void)
     loc_debug("empth_exit");
 
     if (pThread->bMainThread) {
-	/* The main line.  Wait forever. */
-	while (1) {
-	    if (daemonize) {
-		service_stopped();
-	    } else {
+	if (daemonize)
+	    service_stopped(); /* Wait until the service is stopped */
+	else {
+	    while (1) { /* server UI - Wait forever. */
 		char buf[20];
 		printf("\nEmpire Server>");
 		fgets(buf, sizeof(buf), stdin);
 		if (!strnicmp(buf, "quit", 4))
-		    shutdwn(0);
+		    break;
 	    }
 	}
+	loc_RunThisThread();
+	shutdwn(0);
     } else {
 	TlsSetValue(loc_GVAR.dwTLSIndex, NULL);
 	loc_FreeThreadInfo(pThread);
@@ -529,63 +529,32 @@ empth_terminate(empth_t *a)
 void
 empth_select(int fd, int flags)
 {
+    WSAEVENT hEventObject[2];
     loc_Thread_t *pThread =
 	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
-    fd_set readmask;
-    fd_set writemask;
-    struct lwpProc *proc;
-    struct timeval tv;
-    int n;
 
     loc_debug("%s select on %d",
 	      flags == EMPTH_FD_READ ? "read" : "write", fd);
     loc_BlockThisThread();
 
-    while (1) {
-	tv.tv_sec = 1000000;
-	tv.tv_usec = 0;
+    hEventObject[0] = WSACreateEvent();
+    hEventObject[1] = pThread->hThreadEvent;
 
-	FD_ZERO(&readmask);
-	FD_ZERO(&writemask);
-
-	switch (flags) {
-	case EMPTH_FD_READ:
-	    FD_SET(fd, &readmask);
-	    break;
-	case EMPTH_FD_WRITE:
-	    FD_SET(fd, &writemask);
-	    break;
-	default:
-	    logerror("bad flag %d passed to empth_select", flags);
-	    empth_exit();
-	}
-
-	n = select(fd + 1, &readmask, &writemask, (fd_set *) 0, &tv);
-
-	if (n < 0) {
-	    if (errno == EINTR) {
-		/* go handle the signal */
-		loc_debug("select broken by signal");
-		goto done;
-		return;
-	    }
-	    /* strange but we dont get EINTR on select broken by signal */
-	    loc_debug("select failed (%s)", strerror(errno));
-	    goto done;
-	    return;
-	}
-
-	if (flags == EMPTH_FD_READ && FD_ISSET(fd, &readmask)) {
-	    loc_debug("input ready");
-	    break;
-	}
-	if (flags == EMPTH_FD_WRITE && FD_ISSET(fd, &writemask)) {
-	    loc_debug("output ready");
-	    break;
-	}
+    if (flags == EMPTH_FD_READ)
+	WSAEventSelect(fd, hEventObject[0], FD_READ | FD_ACCEPT | FD_CLOSE);
+    else if (flags == EMPTH_FD_WRITE)
+	WSAEventSelect(fd, hEventObject[0], FD_WRITE | FD_CLOSE);
+    else {
+	logerror("bad flag %d passed to empth_select", flags);
+	empth_exit();
     }
 
-  done:
+    WSAWaitForMultipleEvents(2, hEventObject, FALSE, WSA_INFINITE, FALSE);
+
+    WSAEventSelect(fd, hEventObject[0], 0);
+
+    WSACloseEvent(hEventObject[0]);
+
     loc_RunThisThread();
 }
 
