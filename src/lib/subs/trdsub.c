@@ -140,8 +140,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
 
 	for (i = 0; i < sp->shp_nv; i++) {
-	    pr("%c:%d ",
-	       ichr[sp->shp_vtype[i] & ~VT_TYPE].i_mnem, sp->shp_vamt[i]);
+	    if (isitem(sp->shp_vtype[i]))
+		pr("%c:%d ",
+		   ichr[unitem(sp->shp_vtype[i])].i_mnem, sp->shp_vamt[i]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
@@ -198,8 +199,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	   tp->trd_owner,
 	   lp->lnd_tech, lp->lnd_effic, lchr[(int)lp->lnd_type].l_name);
 	for (i = 0; i < lp->lnd_nv; i++) {
-	    pr("%c:%d ",
-	       ichr[lp->lnd_vtype[i] & ~VT_TYPE].i_mnem, lp->lnd_vamt[i]);
+	    if (isitem(lp->lnd_vtype[i]))
+		pr("%c:%d ",
+		   ichr[unitem(lp->lnd_vtype[i])].i_mnem, lp->lnd_vamt[i]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
