@@ -195,9 +195,6 @@ main(int argc, char *argv[])
     int i = 0;
 
     rnd_seed = time(NULL);
-#if !defined(_WIN32)
-    rnd_seed += getpid();
-#endif
 
     while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
 	switch (opt) {
