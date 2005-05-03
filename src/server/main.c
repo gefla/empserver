@@ -117,6 +117,7 @@ main(int argc, char **argv)
     int flags = 0;
 #if defined(_WIN32)
     int install_service_set = 0;
+    char *program_name = NULL;
     char *service_name = NULL;
     int remove_service_set = 0;
 #endif
@@ -197,6 +198,11 @@ main(int argc, char **argv)
 #if defined(_WIN32)
     if (remove_service_set)
         return remove_service(service_name);
+    if (install_service_set) {
+	program_name = _fullpath(NULL, argv[0], 0);
+	if (config_file != NULL)
+	    config_file = _fullpath(NULL, config_file, 0);
+    }
 #endif	/* _WIN32 */
 
     if (emp_config(config_file) < 0)
@@ -208,7 +214,7 @@ main(int argc, char **argv)
 
 #if defined(_WIN32)
     if (install_service_set)
-	return install_service(argv[0], service_name, config_file);
+	return install_service(program_name, service_name, config_file);
 #endif	/* _WIN32 */
 
     init_server();

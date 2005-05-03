@@ -41,22 +41,14 @@
 int
 install_service(char *program_name, char *service_name, char *config_file)
 {
-    char strDir[1024];
     HANDLE schSCManager,schService;
-    LPCTSTR lpszBinaryPathName;
     SERVICE_DESCRIPTION sdBuf;
 
-    if (strrchr(program_name,'\\') == NULL) {
-	GetCurrentDirectory(sizeof(strDir), strDir);
-	strcat(strDir, "\\");
-	strcat(strDir, program_name);
-    } else
-	strcpy(strDir, program_name);
+    if (config_file == NULL)
+	config_file = _fullpath(NULL, "econfig", 0);
 
-    if (config_file != NULL) {
-	strcat(strDir, " -e ");
-	strcat(strDir, config_file);
-    }
+    _snprintf(&program_name[strlen(program_name)], _MAX_PATH-strlen(program_name), " -e %s",
+	config_file);
 
     if (service_name == NULL)
 	service_name = DEFAULT_SERVICE_NAME;
@@ -70,8 +62,6 @@ install_service(char *program_name, char *service_name, char *config_file)
 	return EXIT_FAILURE;
     }
 
-    lpszBinaryPathName = strDir;
-
     schService = CreateService(schSCManager,
     	service_name,
     	service_name,			/* service name to display */
@@ -79,7 +69,7 @@ install_service(char *program_name, char *service_name, char *config_file)
         SERVICE_WIN32_OWN_PROCESS,	/* service type */
         SERVICE_AUTO_START,		/* start type */
         SERVICE_ERROR_NORMAL,		/* error control type */
-        lpszBinaryPathName,		/* service's binary */
+        program_name,			/* service's binary */
         NULL,				/* no load ordering group */
         NULL,				/* no tag identifier */
         NULL,				/* database service dependency */
