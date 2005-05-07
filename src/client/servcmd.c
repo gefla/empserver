@@ -83,11 +83,11 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 	    code = *buf - '0';
 	switch (code) {
 	case C_PROMPT:
-	    if (sscanf(p, "%d %d", &nbtu, &nmin) != 2) {
+	    if (sscanf(p, "%d %d", &nmin, &nbtu) != 2) {
 		fprintf(stderr, "prompt: bad server prompt %s\n", p);
 	    }
 	    mode = code;
-	    sprintf(the_prompt, "[%d:%d] Command : ", nbtu, nmin);
+	    sprintf(the_prompt, "[%d:%d] Command : ", nmin, nbtu);
 	    prompt(auxfi);
 	    break;
 	case C_REDIR:
