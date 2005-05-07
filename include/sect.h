@@ -187,7 +187,7 @@ extern struct dchrstr bigcity_dchr;
 /* maximum item amount, must fit into sct_item[], sct_del[], sct_dist[] */
 #define ITEM_MAX 9999
 /* maximum number of mines, must fit into struct sctstr member sct_mines */
-#define MINES_MAX 65535
+#define MINES_MAX 32767
 /* maximum number of che, must fit into struct sctstr member sct_che */
 #define CHE_MAX 255
 /* maximum fallout, must fit into struct sctstr member sct_fallout */
