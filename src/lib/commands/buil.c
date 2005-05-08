@@ -723,6 +723,8 @@ build_bridge(struct sctstr *sp, short *vec)
 	sect.sct_mobil = 0;
     }
     sect.sct_mines = 0;
+    map_set(player->cnum, sect.sct_x, sect.sct_y, dchr[SCT_BSPAN].d_mnem, 2);
+    writemap(player->cnum);
     putsect(&sect);
     pr("Bridge span built over %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -1010,6 +1012,8 @@ build_tower(struct sctstr *sp, short *vec)
     if (!opt_DEFENSE_INFRA)
 	sect.sct_defense = sect.sct_effic;
     sect.sct_mines = 0;
+    map_set(player->cnum, sect.sct_x, sect.sct_y, dchr[SCT_BTOWER].d_mnem, 2);
+    writemap(player->cnum);
     putsect(&sect);
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));

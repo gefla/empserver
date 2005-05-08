@@ -145,6 +145,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     double mobcost;
     struct mchrstr *mcp;
     int time_to_stop;
+    int changed;
 
     sp->shp_mission = 0;
     if (sp->shp_own == 0)
@@ -276,6 +277,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	    continue;
 
 	mines = sect.sct_mines;
+	changed = 0;
 	if ((mcp->m_flags & M_SWEEP) && mines > 0 && !player->owner) {
 	    max = mcp->m_item[I_SHELL];
 	    shells = sp->shp_item[I_SHELL];
@@ -283,11 +285,21 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 		if (chance(0.66)) {
 		    mines--;
 		    shells = min(max, shells + 1);
+		    changed |= map_set(sp->shp_own, sp->shp_x, sp->shp_y,
+			'X', 0);
 		}
+	    }
+	    if (sect.sct_mines != mines) {
+		wu(0, sp->shp_own,
+		   "%s cleared %d mine%s in %s while retreating\n",
+		   prship(sp), sect.sct_mines-mines, splur(sect.sct_mines-mines),
+		   xyas(newx, newy, sp->shp_own));
 	    }
 	    sect.sct_mines = mines;
 	    sect.sct_item[I_SHELL] = shells;
 	    putsect(&sect);
+	    if (changed)
+		writemap(sp->shp_own);
 	}
 	if (mines > 0 && !player->owner && chance(DMINE_HITCHANCE(mines))) {
 	    wu(0, sp->shp_own,
@@ -298,6 +310,8 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	    m = MINE_DAMAGE();
 	    shipdamage(sp, m);
 	    mines--;
+	    if (map_set(sp->shp_own, sp->shp_x, sp->shp_y, 'X', 0))
+		writemap(sp->shp_own);
 	    sect.sct_mines = mines;
 	    putsect(&sect);
 	    if (sp->shp_effic < SHIP_MINEFF)
