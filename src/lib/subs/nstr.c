@@ -45,7 +45,7 @@ static int nstr_match_ca(struct valstr *, struct castr *);
 static int nstr_match_val(struct valstr *, int, struct castr *, int);
 static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
-static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int);
+static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int, int);
 static int nstr_promote(int);
 
 
@@ -126,9 +126,13 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	     * Neither side works as selector value; any identifiers
 	     * must name selectors.
 	     */
-	    if (!nstr_resolve_id(&np->lft, ca, lft_caidx))
+	    if (!nstr_resolve_id(&np->lft, ca, lft_caidx,
+				 nstr_promote(ca[rgt_caidx].ca_type)
+				 == NSC_STRING))
 		return -1;
-	    if (!nstr_resolve_id(&np->rgt, ca, rgt_caidx))
+	    if (!nstr_resolve_id(&np->rgt, ca, rgt_caidx,
+				 nstr_promote(ca[lft_caidx].ca_type)
+				 == NSC_STRING))
 		return -1;
 	}
 
@@ -361,12 +365,14 @@ nstr_match_val(struct valstr *val, int type, struct castr *ca, int idx)
 /*
  * Change VAL to resolve identifier to selector or string.
  * Return VAL on success, NULL on error.
- * No change if VAL is not an identifier.
- * Else error if IDX == M_NOTUNIQUE, string if IDX == M_NOTFOUND, and
- * selector CA[IDX] otherwise.
+ * No change if VAL is not an identifier.  Otherwise, change it as
+ * follows.
+ * Error if IDX == M_NOTUNIQUE or IDX == M_NOTFOUND and !STRING_OK.
+ * Change into string if IDX == M_NOTFOUND and STRING_OK.
+ * Change into selector CA[IDX] if IDX >= 0.
  */
 static struct valstr *
-nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
+nstr_resolve_id(struct valstr *val, struct castr *ca, int idx, int string_ok)
 {
     if (val->val_cat != NSC_ID)
 	return val;
@@ -378,7 +384,14 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
 	return NULL;
     }
 
-    if (idx == M_NOTFOUND) {
+    if (idx < 0) {
+	CANT_HAPPEN(idx != M_NOTFOUND);
+	if (!string_ok) {
+	    pr("%.*s -- unkown name\n",
+	       (int)val->val_as.str.maxsz, val->val_as.str.base);
+	    val->val_cat = NSC_NOCAT;
+	    return NULL;
+	}
 	/* interpret unbound identifier as string */
 	val->val_type = NSC_STRING;
 	val->val_cat = NSC_VAL;
@@ -448,7 +461,7 @@ nstr_comp_val(char *str, struct valstr *val, int type)
 {
     struct castr *ca = ef_cadef(type);
     char *tail = nstr_parse_val(str, val);
-    return nstr_resolve_id(val, ca, nstr_match_ca(val, ca)) ? tail : NULL;
+    return nstr_resolve_id(val, ca, nstr_match_ca(val, ca), 0) ? tail : NULL;
 }
 
 
