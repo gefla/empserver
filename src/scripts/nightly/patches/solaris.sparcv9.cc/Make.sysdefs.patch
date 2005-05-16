@@ -5,9 +5,9 @@ Index: empserver/Make.sysdefs
  RTPCLFLAGS = 
  RTPCMASTER = GLOBALCFLAGS="$(RTPCCFLAGS)" GLOBALLFLAGS="$(RTPCLFLAGS)"
  
--SOLCFLAGS = -g -DSVR4 -DRel4 -DUCONTEXT -DPOSIXSIGNALS -Dsolaris
+-SOLCFLAGS = -g -DSVR4 -DRel4 -DUCONTEXT -Dsolaris
 -SOLLFLAGS = -lnsl -lsocket -lthread
-+SOLCFLAGS = -g -DSVR4 -DRel4 -DUCONTEXT -DPOSIXSIGNALS -Dsolaris -xarch=v9
++SOLCFLAGS = -g -DSVR4 -DRel4 -DUCONTEXT -Dsolaris -xarch=v9
 +SOLLFLAGS = -lnsl -lsocket -lthread -xarch=v9
  SOLMASTER = GLOBALCFLAGS="$(SOLCFLAGS)" GLOBALLFLAGS="$(SOLLFLAGS)"
  
