@@ -40,21 +40,21 @@
 #include "optlist.h"
 
 struct fileinit fileinit[EF_MAX] = {
-    {0, sct_postread, sct_prewrite, sect_ca},
+    {NULL, sct_postread, sct_prewrite, sect_ca},
     {shp_init, shp_postread, shp_prewrite, ship_ca},
     {pln_init, pln_postread, pln_prewrite, plane_ca},
     {lnd_init, lnd_postread, lnd_prewrite, land_ca},
     {nuk_init, nuk_postread, nuk_prewrite, nuke_ca},
-    {0, 0, 0, news_ca},
-    {0, 0, 0, treaty_ca},
-    {0, 0, 0, trade_ca},
-    {0, 0, 0, 0},		/* power */
-    {0, 0, 0, 0},		/* nation */
-    {0, 0, 0, loan_ca},
-    {0, 0, 0, 0},		/* map */
-    {0, 0, 0, 0},		/* map */
-    {0, 0, 0, commodity_ca},
-    {0, 0, 0, lost_ca}
+    {NULL, NULL, NULL, news_ca},
+    {NULL, NULL, NULL, treaty_ca},
+    {NULL, NULL, NULL, trade_ca},
+    {NULL, NULL, NULL, NULL},		/* power */
+    {NULL, NULL, NULL, NULL},		/* nation */
+    {NULL, NULL, NULL, loan_ca},
+    {NULL, NULL, NULL, NULL},		/* map */
+    {NULL, NULL, NULL, NULL},		/* map */
+    {NULL, NULL, NULL, commodity_ca},
+    {NULL, NULL, NULL, lost_ca}
 };
 
 void
