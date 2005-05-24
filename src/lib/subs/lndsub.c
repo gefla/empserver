@@ -1242,7 +1242,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
  *
  */
 int
-lnd_support(natid victim, natid attacker, coord x, coord y)
+lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 {
     struct nstr_item ni;
     struct lndstr land;
@@ -1296,7 +1296,10 @@ lnd_support(natid victim, natid attacker, coord x, coord y)
 	    continue;
 
 	use_supply(&land);
-	nreport(land.lnd_own, N_FIRE_L_ATTACK, victim, 1);
+	if (defending)
+	    nreport(land.lnd_own, N_FIRE_BACK, victim, 1);
+	else
+	    nreport(land.lnd_own, N_FIRE_L_ATTACK, victim, 1);
 	if (roll(100) < land.lnd_acc) {
 	    dam += landunitgun(land.lnd_effic, land.lnd_dam, gun,
 			       land.lnd_ammo, shell) / 2;

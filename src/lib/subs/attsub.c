@@ -1654,7 +1654,7 @@ get_osupport(s_char *outs, struct combat *def, int fort_sup, int ship_sup,
     }
 
     if (land_sup) {
-	dam = lnd_support(def->own, player->cnum, def->x, def->y);
+	dam = lnd_support(def->own, player->cnum, def->x, def->y, 0);
 	au = ((double)dam / 100.0);
 	osupport += au;
     }
@@ -1698,7 +1698,7 @@ get_dsupport(s_char *outs, struct emp_qelem *list, struct combat *def,
 	    dtotal = get_dtotal(def, list, dsupport, 0);
 	}
 	if (dtotal < 1.2 * ototal) {
-	    dam = lnd_support(player->cnum, def->own, def->x, def->y);
+	    dam = lnd_support(player->cnum, def->own, def->x, def->y, 1);
 	    du = ((double)dam / 100.0);
 	    dsupport += du;
 	    dtotal = get_dtotal(def, list, dsupport, 1);

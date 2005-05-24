@@ -226,7 +226,7 @@ extern int lnd_hit_mine(struct lndstr *, struct lchrstr *);
 extern void lnd_list(struct emp_qelem *);
 extern int lnd_hardtarget(struct lndstr *);
 extern int lnd_mar_one_sector(struct emp_qelem *, int, natid, int);
-extern int lnd_support(natid, natid, coord, coord);
+extern int lnd_support(natid, natid, coord, coord, int);
 extern int lnd_can_attack(struct lndstr *);
 extern int lnd_fortify (struct lndstr *lp, int hard_amt);
 extern void lnd_set_tech(struct lndstr *, int);
