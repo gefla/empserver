@@ -79,7 +79,10 @@ parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
 		quoted = !quoted;
 		buf++;
 	    } else {
-		*bp1++ = *buf++;
+		if (*buf >= 0x20 && *buf <= 0x7e)
+		    *bp1++ = *buf++;
+		else
+		    buf++;
 	    }
 	}
 	*bp1++ = 0;

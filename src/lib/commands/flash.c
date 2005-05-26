@@ -39,14 +39,17 @@
 #include "file.h"
 #include "commands.h"
 
+static int ufindbreak(char *message /* message is message text */,
+		      int num_chars);
+
 int
 flash(void)
 {
     struct natstr *us;
     struct natstr *to;
-    s_char buf[1024];
+    char buf[1024]; /* buf is message text */
     int tocn;
-    s_char *sp;
+    char *sp; /* sp is message text */
 
     us = getnatp(player->cnum);
     if ((tocn = natarg(player->argp[1], "to which country? ")) < 0)
@@ -77,10 +80,17 @@ flash(void)
 	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
 	for (++sp; *sp && *sp != ' '; ++sp) ;
 	sprintf(buf, ":%s", sp);
+	for(sp = buf; 0 != *sp; ++sp) {
+	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
+		*sp == 0x7f)
+		*sp = '?';
+	    else if (!(us->nat_flags & NF_UTF8) && (*sp & 0x80))
+		*sp = '?';
+	}
 	sendmessage(us, to, buf, 1);
     } else {
 	sendmessage(us, to, "...", 1);
-	while (getstring("> ", buf)) {
+	while (ugetstring("> ", buf)) {
 	    if (*buf == '.')
 		break;
 	    sendmessage(us, to, buf, 0);
@@ -94,17 +104,24 @@ int
 wall(void)
 {
     struct natstr *us;
-    s_char buf[1024];
-    s_char *sp;
+    char buf[1024]; /* buf is message text */
+    char *sp; /* sp is message text */
 
     us = getnatp(player->cnum);
     if (player->argp[1]) {
 	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
 	sprintf(buf, ":%s", sp);
+	for(sp = buf; 0 != *sp; ++sp) {
+	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
+		*sp == 0x7f)
+		*sp = '?';
+	    else if (!(us->nat_flags & NF_UTF8) && (*sp & 0x80))
+		*sp = '?';
+	}
 	sendmessage(us, 0, buf, 1);
     } else {
 	sendmessage(us, 0, "...", 1);
-	while (getstring("> ", buf)) {
+	while (ugetstring("> ", buf)) {
 	    if (*buf == '.')
 		break;
 	    sendmessage(us, 0, buf, 0);
@@ -115,29 +132,22 @@ wall(void)
 }
 
 int
-sendmessage(struct natstr *us, struct natstr *to, char *message,
-	    int oneshot)
+sendmessage(struct natstr *us, struct natstr *to, char *message
+	    /* message is message text */, int oneshot)
 {
     struct player *other;
     struct tm *tm;
-    char *p;
-    char c;
     time_t now;
     int sent = 0;
     struct natstr *wto;
+    char c; /* c is message text */
+    int pos;
 
-    for (p = message; 0 != (c = *p); p++) {
-	if (!isprint(c))
-	    *p = '*';
-    }
-    if (strlen(message) > 60) {
-	s_char c = message[60];
-	message[60] = '\0';
-	sendmessage(us, to, message, oneshot);
-	message[60] = c;
-	sendmessage(us, to, &message[60], 0);
-	return 0;
-    }
+    pos = ufindbreak(message, 60);
+    c = message[pos];
+    if (c)
+        message[pos] = '\0';
+    
     time(&now);
     tm = localtime(&now);
     for (other = player_next(0); other != 0; other = player_next(other)) {
@@ -188,5 +198,28 @@ sendmessage(struct natstr *us, struct natstr *to, char *message,
 		pr("%s is not accepting flashes\n", to->nat_cnam);
 	}
     }
+    if (c) {
+	message[pos] = c;
+	sendmessage(us, to, &message[pos], 0);
+    }
     return 0;
+}
+
+/*
+ * Return byte-index of the N-th UTF-8 character in UTF-8 string S.
+ * If S doesn't have that many characters, return its length instead.
+ */
+int
+ufindbreak(char *s /* s is message text */, int n)
+{
+    int i = 0;
+
+    while (n && s[i])
+    {
+	if ((s[i++] & 0xc0) == 0xc0)
+            while ((s[i] & 0xc0) == 0x80)
+		i++;
+        --n;
+    }
+    return i;
 }

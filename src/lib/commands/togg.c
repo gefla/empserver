@@ -73,6 +73,10 @@ togg(void)
 	    name = "techlists";
 	    flag = NF_TECHLISTS;
 	    break;
+	case 'u':
+	    name = "UTF-8";
+	    flag = NF_UTF8;
+	    break;
 	default:
 	    return RET_SYN;
 	}
@@ -116,6 +120,10 @@ togg(void)
 	    pr("techlists flag on\n");
 	else
 	    pr("techlists flag off\n");
+	if (np->nat_flags & NF_UTF8)
+	    pr("UTF-8 flag on\n");
+	else
+	    pr("UTF-8 flag off\n");
     }
 
     return RET_OK;

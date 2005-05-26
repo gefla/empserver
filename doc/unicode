@@ -1,0 +1,102 @@
+Unicode changes:
+
+1. toggle UTF-8
+
+   Add utf8 as a toggle option and store in the nat_flags field in
+   nation structure.  In the future, this should be a login option
+   rather than a country toggle once the login options are added.
+
+2. flash and wall
+
+   a. Message as command argument
+
+      Interpret raw command line as message text rather than normal
+      text.
+
+   b. Multi-line mode
+
+      Read message lines as message text rather than normal text.
+
+   c. Break long lines
+
+      Count the charactes using utf8 format.  This works for both ASCII
+      and UTF8 formatted strings.
+
+   d. Print lines
+
+      Print as message text rather than normal text.
+
+3. Telexes and telex-like things
+
+   a. read and wire, MOTD and gamedown message
+
+      Print as message text rather than normal text.
+
+   c. tele, anno, pray, turn.
+
+      Read as message text rather than normal text.
+
+4. Input filtering
+
+   a. Parsing commands (normal text)
+
+      Ignore control and non-ASCII characters when copying argument
+      strings.
+
+   b. Reading normal text command arguments
+
+      Replace control and non-ASCII characters, except for tab with
+      "?'.
+
+   c. Reading message text command arguments
+
+      Support message text arguments, used by 3a. and 2b.  Replace
+      control and, if NF_UTF8 is off, non-ASCII characters.
+
+5. Output filtering
+
+   Output filtering asssumes that there are no control characters or
+   invalid characters in the output messages.  The control characters
+   and invalid characters are filtered out during input filtering or
+   that the server will not generate control characters or invalid
+   characters.
+
+   a. Printing normal text
+
+      When NF_UTF8 is on, highlighted text is printed using SO/SI.
+
+   b. Printing message text
+
+      When NF_UTF8 is off, replace UTF8 charactes with '?'.
+
+
+Definitions:
+
+1. Normal Text
+	For normal text, the following ASCII characters are valid:
+	CR, LF and 0x20-0x7e.  Normally, LF is an termination action
+	event.	Normally, CR is not used except by the server.
+	Normal Text does not support UTF8 characters.  In normal
+	text, the 8th bit is used a highlight bit.  If the client
+	has the utf8 nation flag set, the standout bit is removed
+	and the highlight block is prefixed with SO (ASCII standout)
+	and suffixed with SI (ASCII standin).
+	
+2. Message Text
+	For message text, the following ASCII characters are valid:
+	Tab, CR, LF and 0x020-0x7e.  Normally, LF is an termination
+	action event.	Normally, CR is not used except by the server.
+	Message text also supports UTF8 characters if the utf8 nation
+	flag is	turn on otherwise only the ASCII characters are
+	supported.
+
+
+Notes:
+
+1. Strings that considered message text are commented.
+
+2. Both Normal and Message text are char strings are in the server.
+	Care needs to be taken as some compiler consider char
+	signed and other default to unsigned char.
+
+3. Unicode functions are prefixed with u.

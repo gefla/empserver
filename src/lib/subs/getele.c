@@ -40,13 +40,12 @@
 static int tilde_escape(s_char *s, s_char c);
 
 int
-getele(s_char *nation, s_char *buf)
+getele(char *nation, char *buf /* buf is message text */)
 {
-    register s_char *bp;
+    register char *bp;
     register int len;
-    register int c;
-    s_char buffer[MAXTELSIZE + 2];
-    s_char left[MAXTELSIZE + 2];
+    char buffer[MAXTELSIZE + 2]; /* buf is message text */
+    char left[MAXTELSIZE + 2]; /* buf is message text */
 
     pr("Enter telegram for %s\n", nation);
     pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
@@ -54,7 +53,7 @@ getele(s_char *nation, s_char *buf)
     while (!player->aborted) {
 	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
 	buffer[0] = 0;
-	if (prmptrd(left, buffer, MAXTELSIZE - 2) <= 0)
+	if (uprmptrd(left, buffer, MAXTELSIZE - 2) <= 0)
 	    break;
 	if (tilde_escape(buffer, 'q'))
 	    return -1;
@@ -96,12 +95,6 @@ getele(s_char *nation, s_char *buf)
 	return -1;
     len = bp - buf;
     buf[len] = 0;
-    /* Get rid of non-ASCII and control characters.  */
-    for (bp = buf; 0 != (c = *bp); bp++) {
-	if (isascii(c) && (isprint(c) || isspace(c)))
-	    continue;
-	*bp = '?';
-    }
     return len;
 }
 

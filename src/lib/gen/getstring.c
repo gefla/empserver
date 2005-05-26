@@ -47,3 +47,16 @@ getstring(char *prompt, char *buf)
 	return 0;
     return buf;
 }
+
+/*
+ * Print sub-prompt PROMPT, receive a line of UTF8 input into BUF[1024].
+ * Return BUF on success, else NULL.
+ */
+char *
+ugetstring(char *prompt, char *buf /* buf is message text */)
+{
+    *buf = '\0';
+    if (uprmptrd(prompt, buf, 1024) < 0)
+	return 0;
+    return buf;
+}

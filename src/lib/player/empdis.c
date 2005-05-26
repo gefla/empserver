@@ -154,7 +154,7 @@ gamedown(void)
 {
     FILE *down_fp;
     struct telstr tgm;
-    s_char buf[MAXTELSIZE];
+    s_char buf[MAXTELSIZE]; /* buf is message text */
 
     if (player->god)
 	return 0;
@@ -176,7 +176,7 @@ gamedown(void)
 	return 1;
     }
     buf[tgm.tel_length] = 0;
-    prnf(buf);
+    uprnf(buf);
     pr("\nThe game is down\n");
     fclose(down_fp);
     return 1;

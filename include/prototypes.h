@@ -63,7 +63,8 @@ extern void finish_server(void);
  */
 extern int check_market(void);
 extern void set_coastal(struct sctstr *);
-extern int sendmessage(struct natstr *, struct natstr *, char *, int);
+extern int sendmessage(struct natstr *, struct natstr *, char *message
+		       /* message is message text */, int);
 extern void gift(int, int, s_char *, int, s_char *);
 extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
@@ -484,7 +485,7 @@ extern void emp_setbit(int, int, u_char *);
 extern void emp_setbitmap(int, int, u_char *, int *);
 extern void bitinit2(struct nstr_sect *, u_char *, int);
 /* getele.c */
-extern int getele(s_char *, s_char *);
+extern int getele(char *, char *);
 /* land.c */
 extern s_char *prland(struct lndstr *);
 extern int lnd_postread(int, s_char *);
@@ -591,29 +592,35 @@ extern int pln_damage(struct plnstr *, coord, coord, s_char, int *, int);
 extern int pln_identchance(struct plnstr *, int, int);
 extern void pln_set_tech(struct plnstr *, int);
 /* pr.c */
-extern void pr(s_char *, ...) ATTRIBUTE((format (printf, 1, 2)));
-extern void prnf(s_char *buf);
+extern void pr(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
+extern void uprnf(char *buf /* buf is message text */);
 extern void pr_id(struct player *, int, s_char *, ...)
 		ATTRIBUTE((format (printf, 3, 4)));
-extern void pr_flash(struct player *, s_char *, ...)
+extern void pr_flash(struct player *, char *format
+		     /* format is message text */, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
 extern void pr_inform(struct player *, s_char *, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
 extern void pr_wall(s_char *, ...)
 		ATTRIBUTE((format (printf, 1, 2)));
 extern void pr_player(struct player *pl, int id, s_char *buf);
+extern void upr_player(struct player *pl, int id, char *buf
+		                  /* buf is message text */);
 extern void pr_hilite(s_char *buf);
 extern void prredir(s_char *redir);
 extern void prexec(s_char *file);
 extern void prprompt(int min, int btu);
 extern void showvers(int vers);
-extern int prmptrd(s_char *prompt, s_char *str, int size);
+extern int prmptrd(char *prompt, char *str, int size);
+extern int uprmptrd(char *prompt, char *str /* str is message text */,
+		    int size);
 extern void prdate(void);
 extern void prxy(s_char *format, coord x, coord y, natid country);
 extern void PR(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern void PRdate(natid cn);
 extern void pr_beep(void);
 extern void mpr(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
+extern void prtoascii(char *buf /* buf is message text */);
 
 /* radmap.c */
 extern int deltx(struct range *, coord);

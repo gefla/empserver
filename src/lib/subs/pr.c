@@ -59,20 +59,32 @@ static void outid(struct player *pl, int n);
 
 /*VARARGS*/
 void
-pr(s_char *format, ...)
+pr(char *format, ...)
 {
-    s_char buf[4096];
+    struct natstr *np = getnatp(player->cnum);
+    char buf[4096];
     va_list ap;
 
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
     va_end(ap);
-    pr_player(player, C_DATA, buf);
+    if (np->nat_flags & NF_UTF8)
+	upr_player(player, C_DATA, buf);
+    else
+        pr_player(player, C_DATA, buf);
 }
 
 void
-prnf(s_char *buf)
+uprnf(char *buf /* buf is message text */)
 {
+    struct natstr *np = getnatp(player->cnum);
+
+    /*
+     * Translate to ASCII if the client is not in UTF mode
+     */
+    if (!(np->nat_flags & NF_UTF8))
+	prtoascii(buf);
+
     pr_player(player, C_DATA, buf);
 }
 
@@ -94,9 +106,11 @@ pr_id(struct player *p, int id, s_char *format, ...)
 }
 
 void
-pr_flash(struct player *pl, s_char *format, ...)
+pr_flash(struct player *pl, char *format
+	 /* format is message text */, ...)
 {
-    s_char buf[4096];
+    struct natstr *np = getnatp(pl->cnum);
+    char buf[4096]; /* buf is message text */
     va_list ap;
 
     if (pl->state != PS_PLAYING)
@@ -104,6 +118,11 @@ pr_flash(struct player *pl, s_char *format, ...)
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
     va_end(ap);
+    /*
+     * Translate to ASCII if the client is not in UTF mode
+     */
+    if (!(np->nat_flags & NF_UTF8))
+	prtoascii(buf);
     pr_player(pl, C_FLASH, buf);
     io_output(pl->iop, IO_NOWAIT);
 }
@@ -154,9 +173,8 @@ pr_player(struct player *pl, int id, s_char *buf)
 	    io_puts(pl->iop, "\n");
 	    pl->curid = -1;
 	}
-	if (pl->curid == -1) {
+	if (pl->curid == -1)
 	    outid(pl, id);
-	}
 	p = strchr(bp, '\n');
 	if (p != 0) {
 	    len = (p - bp) + 1;
@@ -170,6 +188,54 @@ pr_player(struct player *pl, int id, s_char *buf)
 	    len = io_puts(pl->iop, bp);
 	    bp += len;
 	}
+    }
+}
+
+void
+upr_player(struct player *pl, int id, char *buf
+                      /* buf is message text */)
+{
+    register char *bp; /* bp is message text */
+    register int standout = 0;
+    char printbuf[2]; /* bp is message text */
+
+    printbuf[0] = '\0';
+    printbuf[1] = '\0';
+
+    bp = buf;
+    while (*bp != '\0') {
+	if (pl->curid != -1 && pl->curid != id) {
+	    io_puts(pl->iop, "\n");
+	    pl->curid = -1;
+	}
+	if (pl->curid == -1)
+	    outid(pl, id);
+
+	if (*bp < 0) { /* looking for standout bit 0x80 */
+	    if (standout == 0) {
+		printbuf[0] = 0x0e;
+		io_puts(pl->iop, printbuf);
+		standout = 1;
+	    }
+	    *bp &= 0x7f;
+	} else {
+	    if (standout == 1) {
+		printbuf[0] = 0x0f;
+		io_puts(pl->iop, printbuf);
+		standout = 0;
+	    }
+	}
+	if (*bp == '\n') {
+	    if (pl->command && (pl->command->c_flags & C_MOD))
+		io_write(pl->iop, bp, 1, IO_NOWAIT);
+	    else
+		io_write(pl->iop, bp, 1, IO_WAIT);
+	    pl->curid = -1;
+	} else {
+	    printbuf[0] = *bp;
+	    io_puts(pl->iop, printbuf);
+	}
+        bp++;
     }
 }
 
@@ -242,9 +308,10 @@ showvers(int vers)
 }
 
 int
-prmptrd(s_char *prompt, s_char *str, int size)
+prmptrd(char *prompt, char *str, int size)
 {
     int r;
+    char *cp;
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(str, size)) < 0)
@@ -252,6 +319,35 @@ prmptrd(s_char *prompt, s_char *str, int size)
     time(&player->curup);
     if (*str == 0)
 	return 1;
+    for(cp = str; 0 != *cp; ++cp) {
+	if ((*cp >= 0x0 && *cp < 0x20  && *cp != '\t') ||
+	    *cp == 0x7f || *cp & 0x80)
+	    *cp = '?';
+    }
+    return strlen(str);
+}
+
+int
+uprmptrd(char *prompt, char *str /* str is message text */, int size)
+{
+    int r;
+    char *cp; /* cp is message text */
+    struct natstr *np = getnatp(player->cnum);
+
+    pr_id(player, C_FLUSH, "%s\n", prompt);
+    if ((r = recvclient(str, size)) < 0)
+	return r;
+    time(&player->curup);
+    if (*str == 0)
+	return 1;
+    
+    for(cp = (unsigned char *)str; 0 != *cp; ++cp) {
+	if ((*cp >= 0x0 && *cp < 0x20  && *cp != '\t') ||
+	    *cp == 0x7f)
+	    *cp = '?';
+	else if (!(np->nat_flags & NF_UTF8) && (*cp & 0x80))
+	    *cp = '?';
+    }
     return strlen(str);
 }
 
@@ -335,4 +431,18 @@ mpr(int cn, s_char *format, ...)
 	else
 	    pr_player(player, C_DATA, buf);
     }
+}
+
+void
+prtoascii(char *buf /* buf is message text */)
+{
+    char *pbuf; /* pbuf is message text */
+
+    for(pbuf = buf; *pbuf != 0; pbuf++)
+	if ((*pbuf & 0xc0) == 0xc0)
+	    *pbuf = '?';
+	else if (*pbuf & 0x80) {
+	    memmove(pbuf,pbuf+1,strlen(pbuf)-1);
+	    pbuf--;
+	}
 }

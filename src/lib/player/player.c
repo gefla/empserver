@@ -374,7 +374,7 @@ show_motd(void)
 	return RET_FAIL;
     }
     buf[tgm.tel_length] = 0;
-    prnf(buf);
+    uprnf(buf);
     fclose(motd_fp);
     return RET_OK;
 }
