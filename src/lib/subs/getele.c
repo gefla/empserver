@@ -72,7 +72,7 @@ getele(char *nation, char *buf /* buf is message text */)
 	}
 	if (tilde_escape(buffer, 'p')) {
 	    pr("This is what you have written so far:\n");
-	    pr("%s", buf);
+	    uprnf(buf);
 	    continue;
 	}
 	if (buffer[0] == '.' && ((buffer[1] == 0)
