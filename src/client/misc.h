@@ -68,7 +68,7 @@ int hostconnect(struct sockaddr_in *addr);
 int hostport(char *name, struct sockaddr_in *addr);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc);
 void saveargv(int ac, char **src, char **dst);
-void sendcmd(int s, int cmd, char *arg);
+void sendcmd(int s, char *cmd, char *arg);
 int sendeof(int sock);
 void servercmd(struct ioqueue *ioq, FILE *auxfi);
 int serverio(int s, struct ioqueue *ioq);

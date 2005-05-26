@@ -32,7 +32,6 @@
  */
 
 #include "misc.h"
-#include "fnlist.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -140,13 +139,13 @@ expect(int s, int match, char *buf)
 }
 
 void
-sendcmd(int s, int cmd, char *arg)
+sendcmd(int s, char *cmd, char *arg)
 {
     char buf[128];
     int cc;
     int len;
 
-    (void)sprintf(buf, "%s %s\n", fnlist[cmd].name, arg != NULL ? arg : "");
+    (void)sprintf(buf, "%s %s\n", cmd, arg != NULL ? arg : "");
     len = strlen(buf);
 #ifndef _WIN32
     cc = write(s, buf, len);

@@ -38,16 +38,6 @@
 
 #define CLIENTPROTO	2	/* if new things are added, bump this */
 
-#define	USER		0
-#define	COUN		1
-#define	QUIT		2
-#define	PASS		3
-#define	PLAY		4
-#define	LIST		5
-#define	CMD		6
-#define	CTLD		7
-#define KILL		8
-
 #define	C_CMDOK		0x0
 #define	C_DATA		0x1
 #define	C_INIT		0x2
