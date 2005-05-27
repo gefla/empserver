@@ -40,6 +40,7 @@
 #include "com.h"
 #include "empthread.h"
 #include "empio.h"
+#include "match.h"
 #include "nsc.h"
 #include "nat.h"
 #include "optlist.h"
@@ -207,6 +208,51 @@ pass_cmd(void)
 }
 
 static int
+options_cmd(void)
+{
+    /*
+     * The login option mechanism allows arbitrary string values, but
+     * so far all options are flags in struct player.  Should be easy
+     * to generalize if needed.
+     */
+    struct logoptstr {
+	char *name;
+	int val;
+    };
+    static struct logoptstr login_opts[] = {
+	{ "utf-8", PF_UTF8 }
+    };
+    char **ap;
+    char *p;
+    int opt;
+
+    for (ap = player->argp+1; *ap; ++ap) {
+	p = strchr(*ap, '=');
+	if (p)
+	    *p++ = 0;
+	opt = stmtch(*ap, login_opts,
+		     offsetof(struct logoptstr, name),
+		     sizeof(struct logoptstr));
+	if (opt < 0) {
+	    pr_id(player, C_BADCMD, "Option %s not found\n", *ap);
+	    return RET_FAIL;
+	}
+	if (!p || atoi(p))
+	    player->flags |= login_opts[opt].val;
+	else
+	    player->flags &= ~login_opts[opt].val;
+    }
+
+    for (opt = 0; opt < sizeof(login_opts) / sizeof(*login_opts); ++opt)
+	pr_id(player, C_DATA, "%s=%d",
+	      login_opts[opt].name,
+	      (player->flags & login_opts[opt].val) != 0);
+    pr_id(player, C_CMDOK, "Options okay\n");
+
+    return RET_OK;
+}
+
+static int
 play_cmd(void)
 {
     struct player *other;
@@ -223,7 +269,7 @@ play_cmd(void)
     if (*++ap) {
 	if (natbyname(*ap, &cnum) < 0) {
 	    pr_id(player, C_CMDERR, "country %s does not exist\n", *ap);
-	    return 0;
+	    return RET_FAIL;
 	}
     }
     if (*++ap) {
@@ -310,14 +356,15 @@ quit_cmd(void)
 }
 
 struct cmndstr login_coms[] = {
-    {"list", 0, list_cmd, 0, 0},
     {"client clientname [version info]", 0, client_cmd, 0, 0},
-    {"user username", 0, user_cmd, 0, 0},
-    {"sanc", 0, sanc_cmd, 0, 0},
     {"coun countryname", 0, coun_cmd, 0, 0},
+    {"kill", 0, kill_cmd, 0, 0},
+    {"list", 0, list_cmd, 0, 0},
+    {"options", 0, options_cmd, 0, 0},
     {"pass password", 0, pass_cmd, 0, 0},
     {"play [user country pass]", 0, play_cmd, 0, 0},
-    {"quit ", 0, quit_cmd, 0, 0},
-    {"kill {self}", 0, kill_cmd, 0, 0},
+    {"quit", 0, quit_cmd, 0, 0},
+    {"sanc", 0, sanc_cmd, 0, 0},
+    {"user username", 0, user_cmd, 0, 0},
     {0, 0, 0, 0, 0}
 };

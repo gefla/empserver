@@ -84,7 +84,7 @@ flash(void)
 	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
 		*sp == 0x7f)
 		*sp = '?';
-	    else if (!(us->nat_flags & NF_UTF8) && (*sp & 0x80))
+	    else if (!(player->flags & PF_UTF8) && (*sp & 0x80))
 		*sp = '?';
 	}
 	sendmessage(us, to, buf, 1);
@@ -115,7 +115,7 @@ wall(void)
 	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
 		*sp == 0x7f)
 		*sp = '?';
-	    else if (!(us->nat_flags & NF_UTF8) && (*sp & 0x80))
+	    else if (!(player->flags & PF_UTF8) && (*sp & 0x80))
 		*sp = '?';
 	}
 	sendmessage(us, 0, buf, 1);

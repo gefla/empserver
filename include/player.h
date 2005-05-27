@@ -54,6 +54,7 @@ struct player {
     int validated;
     natid cnum;
     int state;
+    int flags;
     struct cmndstr *command;
     struct iop *iop;
     s_char combuf[1024];
@@ -84,6 +85,11 @@ struct player {
 #define PS_PLAYING	2
 #define PS_SHUTDOWN	3
 #define PS_KILL		4
+
+/* player flags */
+enum {
+    PF_UTF8 = bit(0)			/* client wants UTF-8 */
+};
 
 /* thread priorities */
 #define PP_UPDATE	6

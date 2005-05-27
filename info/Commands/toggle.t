@@ -1,7 +1,7 @@
 .TH Command TOGGLE
 .NA toggle "Toggle client flags"
 .LV Expert
-.SY "toggle [inform|flash|beep|coastwatch|sonar|techlists|utf8] [on|off]"
+.SY "toggle [inform|flash|beep|coastwatch|sonar|techlists] [on|off]"
 You use the toggle command to set various user-interface flags for
 your country.  The server will remember which flags you have set
 between sessions.  If you do not specify the second argument ("on" or
@@ -38,19 +38,6 @@ sonar-equipped ships detect a sonar ping.
 Will toggle the "techlists" flag (default off) for your country.  When
 techlists is on, when you do a "show" command, the lists shows will be
 in order of tech instead of grouping order.
-.s1
-.EX "toggle utf8"
-Will toggle the "utf8" flag (default off) for your country.
-When utf8 is on, you can use multiple langauges in your user communication.
-To use this feature, the client must support the unicode character set
-and must encode unicode characters using the UTF8 format
-when sending the characters to the server and must decode
-the UTF8 characters into
-unicode characters when receiving characters from the server.
-Also both the sending and receiving clients must support
-unicode in order to communicate using unicode characters.
-This feature applies to the follow commands:
-wire, read, announcement, flash, telegram and turn.
 .s1
 .EX "toggle"
 Will list all your flags and show whether they are on or off.

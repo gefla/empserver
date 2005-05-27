@@ -172,7 +172,5 @@ extern void agecontact(struct natstr *np);
 #define NF_SONAR	bit(4)	/* Turn auto-sonar on */
 #define NF_TECHLISTS    bit(5)	/* Sort lists by tech not type */
 #define NF_SACKED       bit(6)	/* Capital was sacked, and hasn't been reset yet */
-#define NF_UTF8         bit(7)	/* Whether the client accepts UTF-8 (true) or
-                                   ASCII only (false) */
 
 #endif /* _NAT_H_ */

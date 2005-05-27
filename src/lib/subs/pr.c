@@ -61,14 +61,13 @@ static void outid(struct player *pl, int n);
 void
 pr(char *format, ...)
 {
-    struct natstr *np = getnatp(player->cnum);
     char buf[4096];
     va_list ap;
 
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
     va_end(ap);
-    if (np->nat_flags & NF_UTF8)
+    if (player->flags & PF_UTF8)
 	upr_player(player, C_DATA, buf);
     else
         pr_player(player, C_DATA, buf);
@@ -77,12 +76,10 @@ pr(char *format, ...)
 void
 uprnf(char *buf /* buf is message text */)
 {
-    struct natstr *np = getnatp(player->cnum);
-
     /*
      * Translate to ASCII if the client is not in UTF mode
      */
-    if (!(np->nat_flags & NF_UTF8))
+    if (!(player->flags & PF_UTF8))
 	prtoascii(buf);
 
     pr_player(player, C_DATA, buf);
@@ -109,7 +106,6 @@ void
 pr_flash(struct player *pl, char *format
 	 /* format is message text */, ...)
 {
-    struct natstr *np = getnatp(pl->cnum);
     char buf[4096]; /* buf is message text */
     va_list ap;
 
@@ -121,7 +117,7 @@ pr_flash(struct player *pl, char *format
     /*
      * Translate to ASCII if the client is not in UTF mode
      */
-    if (!(np->nat_flags & NF_UTF8))
+    if (!(pl->flags & PF_UTF8))
 	prtoascii(buf);
     pr_player(pl, C_FLASH, buf);
     io_output(pl->iop, IO_NOWAIT);
@@ -320,7 +316,7 @@ prmptrd(char *prompt, char *str, int size)
     if (*str == 0)
 	return 1;
     for(cp = str; 0 != *cp; ++cp) {
-	if ((*cp >= 0x0 && *cp < 0x20  && *cp != '\t') ||
+	if ((*cp >= 0x0 && *cp < 0x20 && *cp != '\t') ||
 	    *cp == 0x7f || *cp & 0x80)
 	    *cp = '?';
     }
@@ -332,7 +328,6 @@ uprmptrd(char *prompt, char *str /* str is message text */, int size)
 {
     int r;
     char *cp; /* cp is message text */
-    struct natstr *np = getnatp(player->cnum);
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(str, size)) < 0)
@@ -342,10 +337,10 @@ uprmptrd(char *prompt, char *str /* str is message text */, int size)
 	return 1;
     
     for(cp = str; 0 != *cp; ++cp) {
-	if ((*cp >= 0x0 && *cp < 0x20  && *cp != '\t') ||
+	if ((*cp >= 0x0 && *cp < 0x20 && *cp != '\t') ||
 	    *cp == 0x7f)
 	    *cp = '?';
-	else if (!(np->nat_flags & NF_UTF8) && (*cp & 0x80))
+	else if (!(player->flags & PF_UTF8) && (*cp & 0x80))
 	    *cp = '?';
     }
     return strlen(str);
