@@ -44,19 +44,31 @@
 #endif
 
 int
-login(int s, char *uname, char *cname, char *cpass, int kill_proc)
+login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
 {
     char tmp[128];
     char buf[1024];
     char *ptr;
     char *p;
-    int len;
+    int len, code;
 
     if (!expect(s, C_INIT, buf))
 	return 0;
     (void)sendcmd(s, "user", uname);
     if (!expect(s, C_CMDOK, buf))
 	return 0;
+    if (utf8) {
+	sendcmd(s, "options", "utf-8");
+	for (;;) {
+	    code = recvline(s, buf);
+	    if (code == C_CMDOK)
+		break;
+	    if (code != C_DATA) {
+		fprintf(stderr, "Server doesn't support UTF-8\n");
+		return 0;
+	    }
+	}
+    }
     if (cname == NULL) {
 	(void)printf("Country name? ");
 	cname = fgets(tmp, sizeof(tmp), stdin);

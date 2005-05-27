@@ -45,7 +45,7 @@
 #endif
 
 int
-expect(int s, int match, char *buf)
+recvline(int s, char *buf)
 {
     int size;
     char *p;
@@ -62,7 +62,6 @@ expect(int s, int match, char *buf)
     ptr = buf;
     n = recv(s, ptr, size, MSG_PEEK);
     if (n <= 0) {
-	fprintf(stderr, "Expecting code %d\n", match);
 #ifdef _WIN32
 	errno = WSAGetLastError();
 #endif
@@ -91,7 +90,10 @@ expect(int s, int match, char *buf)
 	    }
 	    ptr += n;
 	    if ((n = recv(s, ptr, size, MSG_PEEK)) <= 0) {
-		fprintf(stderr, "Expecting %d, got %s\n", match, buf);
+#ifdef _WIN32
+		errno = WSAGetLastError();
+#endif
+		perror("recv");
 		return 0;
 	    }
 	    size -= n;
@@ -123,7 +125,7 @@ expect(int s, int match, char *buf)
     (void)alarm(0);
 #endif
     if (!isxdigit(*buf)) {
-	fprintf(stderr, "Expecting %d, got %s\n", match, buf);
+	fprintf(stderr, "Malformed line %s\n", buf);
 	return 0;
     }
     if (isdigit(*buf))
@@ -133,9 +135,14 @@ expect(int s, int match, char *buf)
 	    *buf = tolower(*buf);
 	code = 10 + *buf - 'a';
     }
-    if (code == match)
-	return 1;
-    return 0;
+    return code;
+}
+
+int
+expect(int s, int match, char *buf)
+{
+    int code = recvline(s, buf);
+    return code == match;
 }
 
 void

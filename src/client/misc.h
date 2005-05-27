@@ -50,6 +50,7 @@ struct ioqueue;
 
 extern char empirehost[];
 extern char empireport[];
+extern int eight_bit_clean;
 extern int interrupt;
 extern char num_teles[];
 extern int sock;
@@ -61,12 +62,13 @@ HANDLE hStdIn;
 #endif
 
 void getsose(void);
+int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
 int handleintr(int);
 int hostaddr(char *name, struct sockaddr_in *addr);
 int hostconnect(struct sockaddr_in *addr);
 int hostport(char *name, struct sockaddr_in *addr);
-int login(int s, char *uname, char *cname, char *cpass, int kill_proc);
+int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
 void saveargv(int ac, char **src, char **dst);
 void sendcmd(int s, char *cmd, char *arg);
 int sendeof(int sock);

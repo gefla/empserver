@@ -344,11 +344,15 @@ screen(char *buf)
     char c;
 
     while ((c = *buf++)) {
-	if (c & 0x80) {
-	    for (sop = SO; putc(*sop, stdout); sop++) ;
-	    (void)putc(c & 0x7f, stdout);
-	    for (sop = SE; putc(*sop, stdout); sop++) ;
+	if (eight_bit_clean) {
+	    if (c == 14) fputs(SO, stdout);
+	    else if (c == 15) fputs(SE, stdout);
+	    else putchar(c);
+	} else if (c & 0x80) {
+	    fputs(SO, stdout);
+	    putchar(c & 0x7f);
+	    fputs(SE, stdout);
 	} else
-	    (void)putc(c, stdout);
+	    putchar(c);
     }
 }

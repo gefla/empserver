@@ -70,6 +70,7 @@ HANDLE hStdIn;
 
 #define	RETRY	3
 
+int eight_bit_clean;
 int interrupt;
 int sock;
 
@@ -105,6 +106,7 @@ main(int ac, char **av)
     char *pname;
     char *uname;
     int send_kill = 0;
+    int utf8 = 0;
 
 #ifdef _WIN32
     err = WSAStartup(0x0101, &WsaData);
@@ -132,6 +134,9 @@ main(int ac, char **av)
 	    continue;
 	} else if (strcmp(ptr, "-k") == 0) {
 	    send_kill = 1;
+	    continue;
+	} else if (strcmp(ptr, "-u") == 0) {
+	    utf8 = eight_bit_clean = 1;
 	    continue;
 	}
 	argv[j] = argv[i];
@@ -184,7 +189,7 @@ main(int ac, char **av)
 	    uname = "nobody";
 #endif
     }
-    if (!login(sock, uname, cname, pname, send_kill)) {
+    if (!login(sock, uname, cname, pname, send_kill, utf8)) {
 	close(sock);
 	exit(1);
     }
