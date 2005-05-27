@@ -177,7 +177,7 @@ coun_cmd(void)
 	return RET_SYN;
     if (natbyname(player->argp[1], &cnum) < 0) {
 	pr_id(player, C_CMDERR, "country %s does not exist\n", player->argp[1]);
-	return 0;
+	return RET_FAIL;
     }
     player->cnum = cnum;
     player->validated = 0;
