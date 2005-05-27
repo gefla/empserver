@@ -341,7 +341,7 @@ uprmptrd(char *prompt, char *str /* str is message text */, int size)
     if (*str == 0)
 	return 1;
     
-    for(cp = (unsigned char *)str; 0 != *cp; ++cp) {
+    for(cp = str; 0 != *cp; ++cp) {
 	if ((*cp >= 0x0 && *cp < 0x20  && *cp != '\t') ||
 	    *cp == 0x7f)
 	    *cp = '?';
