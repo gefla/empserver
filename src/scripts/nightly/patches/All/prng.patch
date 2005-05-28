@@ -17,9 +17,9 @@ Index: empserver/include/damage.h
  
  #endif /* _DAMAGE_H_ */
 Index: empserver/include/prototypes.h
---- empserver/include/prototypes.h	16 Mar 2005 21:51:59 -0000	1.73
-+++ empserver/include/prototypes.h	17 Mar 2005 10:01:13 -0000
-@@ -393,6 +393,9 @@
+--- empserver/include/prototypes.h	26 May 2005 01:58:48 -0000	1.75
++++ empserver/include/prototypes.h	28 May 2005 08:32:39 -0000
+@@ -394,6 +394,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
  #endif
@@ -240,9 +240,9 @@ Index: empserver/src/lib/subs/landgun.c
      if (shells < ammo && ammo != 0)
  	d *= (double)((double)shells / (double)ammo);
 Index: empserver/src/lib/subs/shpsub.c
---- empserver/src/lib/subs/shpsub.c	16 Mar 2005 21:57:55 -0000	1.18
-+++ empserver/src/lib/subs/shpsub.c	17 Mar 2005 10:01:14 -0000
-@@ -766,7 +766,7 @@
+--- empserver/src/lib/subs/shpsub.c	21 Mar 2005 21:04:59 -0000	1.19
++++ empserver/src/lib/subs/shpsub.c	28 May 2005 08:32:40 -0000
+@@ -765,7 +765,7 @@
  
      nreport(sp->shp_own, N_HIT_MINE, 0, 1);
  
@@ -409,9 +409,9 @@ Index: empserver/src/lib/update/revolt.c
  		continue;
  	    nicest_sp = nsp;
 Index: empserver/src/server/main.c
---- empserver/src/server/main.c	16 Mar 2005 21:57:58 -0000	1.59
-+++ empserver/src/server/main.c	17 Mar 2005 10:01:15 -0000
-@@ -250,7 +250,7 @@
+--- empserver/src/server/main.c	3 May 2005 00:06:10 -0000	1.61
++++ empserver/src/server/main.c	28 May 2005 08:32:40 -0000
+@@ -257,7 +257,7 @@
  void
  init_server(void)
  {
