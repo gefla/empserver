@@ -34,13 +34,11 @@ include ../make.defs
 
 LIBDIR = $(SRCDIR)/lib
 
-LIBS = $(LIBDIR)/libsubs.a \
-       $(LIBDIR)/libcommon.a \
+LIBS = $(LIBDIR)/libcommon.a \
        $(LIBDIR)/libgen.a \
        $(LIBDIR)/libglobal.a
 
-NTLIBS = $(LIBDIR)\libsubs.lib \
-       $(LIBDIR)\libcommon.lib \
+NTLIBS = $(LIBDIR)\libcommon.lib \
        $(LIBDIR)\libgen.lib \
        $(LIBDIR)\libglobal.lib
 
