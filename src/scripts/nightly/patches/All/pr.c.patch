@@ -1,6 +1,6 @@
 Index: empserver/src/lib/subs/pr.c
---- empserver/src/lib/subs/pr.c	Thu Feb 19 19:30:18 2004
-+++ empserver/src/lib/subs/pr.c	Wed Jun 16 17:37:35 2004
+--- empserver/src/lib/subs/pr.c	27 May 2005 16:31:19 -0000	1.12
++++ empserver/src/lib/subs/pr.c	28 May 2005 08:32:40 -0000
 @@ -57,6 +57,13 @@
  
  static void outid(struct player *pl, int n);
@@ -14,8 +14,8 @@ Index: empserver/src/lib/subs/pr.c
 +
  /*VARARGS*/
  void
- pr(s_char *format, ...)
-@@ -232,7 +239,7 @@
+ pr(char *format, ...)
+@@ -294,7 +301,7 @@
  void
  prprompt(int min, int btu)
  {
