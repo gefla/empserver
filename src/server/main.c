@@ -80,8 +80,6 @@ static void loc_NTTerm(void);
 
 static char pidfname[] = "server.pid";
 
-/* Debugging?  If yes call abort() on internal error.  */
-int debug = 0;
 /* Run as daemon?  If yes, detach from controlling terminal etc. */
 int daemonize = 1;
 

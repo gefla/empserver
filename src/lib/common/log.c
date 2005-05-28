@@ -45,6 +45,9 @@
 #include "common.h"
 #include "optlist.h"
 
+/* Debugging?  If yes call abort() on internal error.  */
+int debug = 0;
+
 static char logfile[32];
 
 /*
