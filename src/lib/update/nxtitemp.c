@@ -44,7 +44,7 @@
 #include "common.h"
 
 s_char *
-nxtitemp(struct nstr_item *np, int owner)
+nxtitemp(struct nstr_item *np)
 {
     struct genitem *gp;
     int selected;
@@ -66,13 +66,7 @@ nxtitemp(struct nstr_item *np, int owner)
 
 	selected = 1;
 	switch (np->sel) {
-	    /*
-	     * This one won't work unless you're running in emp_player
-	     *
-	     */
 	case NS_LIST:
-	    if ((np->flags & EFF_OWNER) && !owner)
-		selected = 0;
 	    break;
 	case NS_ALL:
 	    /* XXX maybe combine NS_LIST and NS_ALL later */

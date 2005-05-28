@@ -393,7 +393,7 @@ shiprepair(struct shpstr *ship, struct natstr *np,
 
     np->nat_money -= mult * mp->m_cost * build / 100.0;
     if (!player->simulation)
-	ship->shp_effic += (s_char)build;
+	ship->shp_effic += build;
     return 1;
 }
 
@@ -431,7 +431,7 @@ feed_ship(struct shpstr *sp, int etus, int *needed, int doit)
 /* doit - only steal food from land units during the update */
     if (ifood_eaten > sp->shp_item[I_FOOD] && sp->shp_nland > 0 && doit) {
 	snxtitem_all(&ni, EF_LAND);
-	while ((lp = (struct lndstr *)nxtitemp(&ni, 0)) &&
+	while ((lp = (struct lndstr *)nxtitemp(&ni)) &&
 	       ifood_eaten > sp->shp_item[I_FOOD]) {
 	    if (lp->lnd_ship != sp->shp_uid)
 		continue;

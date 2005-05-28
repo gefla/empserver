@@ -168,7 +168,7 @@ guerrilla(struct sctstr *sp)
 
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
 
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
 
@@ -463,7 +463,7 @@ take_casualties(struct sctstr *sp, int mc)
      * Try not to kill any unit.
      */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	nunits++;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    nunits++;
@@ -476,7 +476,7 @@ take_casualties(struct sctstr *sp, int mc)
 
     /* kill some security troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
@@ -507,7 +507,7 @@ take_casualties(struct sctstr *sp, int mc)
 
     /* kill some normal troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -535,7 +535,7 @@ take_casualties(struct sctstr *sp, int mc)
     /* Hmm.. still some left.. kill off units now */
     /* kill some normal troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -553,7 +553,7 @@ take_casualties(struct sctstr *sp, int mc)
     /* Hmm.. still some left.. kill off units now */
     /* kill some security troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni, 0))) {
+    while (NULL != (lp = (struct lndstr *)nxtitemp(&ni))) {
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
