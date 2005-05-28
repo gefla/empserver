@@ -261,11 +261,7 @@ ef_write(int type, int id, void *from)
 	to = ep->cache + (id - ep->baseid) * ep->size;
 	memcpy(to, from, ep->size);
     }
-    if (id > ep->fids) {
-	logerror("WARNING ef_write: expanded %s by more than one id",
-		 ep->name);
-	log_last_commands();
-    }
+    CANT_HAPPEN(id > ep->fids);
     if (id >= ep->fids) {
 	if (ep->flags & EFF_MEM) {
 	    logerror("file %s went beyond %d items; won't be able toread item w/o restart",
