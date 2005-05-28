@@ -40,6 +40,8 @@
 #include "lost.h"
 #include "prototypes.h"
 
+static int findlost(char, natid, short, coord, coord, int);
+
 void
 makelost(char type, natid owner, short int id, coord x, coord y)
 {
@@ -80,20 +82,21 @@ makenotlost(char type, natid owner, short int id, coord x, coord y)
     putlost(n, &lost);
 }
 
-int
+
+/*
+ * Find a suitable slot in the lost file.
+ * If a record for TYPE, OWNER, ID, X, Y exists, return its index.
+ * Else if FREE is non-zero, return the index of an unused record if
+ * there is one.
+ * Else return -1.
+ */
+static int
 findlost(char type, natid owner, short int id, coord x, coord y, int free)
-
-
-
-
-
-	  /* Give me the item of a free slot */
 {
     struct loststr lost;
     int n;
     int freeslot = -1;
 
-/* Find a free slot, or find this item again */
     for (n = 0; getlost(n, &lost); n++) {
 	if (!lost.lost_owner && freeslot == -1 && free == 1)
 	    freeslot = n;

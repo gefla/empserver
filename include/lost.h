@@ -33,6 +33,7 @@
 
 #ifndef _LOST_H_
 #define _LOST_H_
+
 struct loststr {
     short ef_type;
     natid lost_owner;		/* Who lost it */
@@ -48,7 +49,7 @@ struct loststr {
 #define putlost(n, p) ef_write(EF_LOST, n, p)
 
 /* src/lib/subs/lostsub.c */
-extern int findlost(char, natid, short, coord, coord, int);
 extern void makelost(char, natid, short, coord, coord);
 extern void makenotlost(char, natid, short, coord, coord);
+
 #endif /* _LOST_H_ */
