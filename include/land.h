@@ -47,6 +47,7 @@
 #define LND_MINMOBCOST  0.200
 
 struct lndstr {
+    /* initial part must match struct genitem */
     short ef_type;
     natid lnd_own;		/* owner's country num */
     short lnd_uid;		/* unit id (land unit) */
@@ -60,6 +61,7 @@ struct lndstr {
     coord lnd_opx, lnd_opy;	/* Op sector coords */
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
+    /* end of part matching struct genitem */
     s_char lnd_flags;		/* unit flags (unused) */
     short lnd_ship;		/* pointer to transporting ship */
     s_char lnd_harden;		/* for missiles */

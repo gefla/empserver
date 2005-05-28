@@ -37,11 +37,13 @@
 #define	N_MAXNUKE	15
 
 struct nukstr {
+    /* initial part must match struct genitem */
     short ef_type;
     natid nuk_own;
     short nuk_uid;
     coord nuk_x;		/* current loc of device */
     coord nuk_y;
+    /* end of part matching struct genitem */
     s_char nuk_n;		/* number of nukes in list */
     short nuk_ship;		/* currently aboard ship (unused) */
     short nuk_trade;		/* index into trade file (unused) */

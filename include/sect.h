@@ -42,11 +42,13 @@
 /* The order of the following elements is there to match up with genitem */
 
 struct sctstr {
+    /* initial part must match struct genitem */
     short ef_type;
     natid sct_own;		/* owner's country num */
     short sct_elev;		/* elevation/depth */
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
+    /* end of part matching struct genitem */
     u_char sct_type;		/* sector type */
     u_char sct_effic;		/* 0% to 100% */
     short sct_mobil;		/* mobility units */

@@ -46,6 +46,7 @@
  * exactly equivalent with shp_x to shp_fleet
  */
 struct plnstr {
+    /* initial part must match struct genitem */
     short ef_type;
     natid pln_own;		/* owning country */
     short pln_uid;		/* plane unit id */
@@ -60,6 +61,7 @@ struct plnstr {
     coord pln_opy;		/* Op sector coords */
     short pln_mission;		/* mission code */
     short pln_radius;		/* mission radius */
+    /* end of part matching struct genitem */
     u_char pln_range;		/* total distance, not radius */
     u_char pln_range_max;	/* max range for this plane */
     short pln_ship;		/* pointer to carrier */

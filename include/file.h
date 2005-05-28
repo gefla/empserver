@@ -55,11 +55,19 @@ struct empfile {
     struct castr *cadef;	/* ca defs selection list */
 };
 
+/*
+ * struct empfile flags
+ *
+ * EFF_XY and EFF_GROUP assert that coordinates / group of such a
+ * file's record can be safely obtained by dereferencing its memory
+ * address cast to struct genitem *
+ */
 #define EFF_XY		bit(0)	/* has location */
 #define EFF_MEM		bit(1)	/* stored entirely in-memory */
 #define EFF_OWNER	bit(2)	/* has concept of owner */
 #define EFF_GROUP	bit(3)	/* has concept of group */
 
+/* file types, types 0..EF_MAX-1 are empfile[] indexes */
 #define EF_BAD		-1	/* illegal file type */
 #define EF_SECTOR	0
 #define EF_SHIP		1
