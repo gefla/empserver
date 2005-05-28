@@ -340,7 +340,6 @@ output(int code, char *buf, FILE *auxfi)
 static void
 screen(char *buf)
 {
-    char *sop;
     char c;
 
     while ((c = *buf++)) {
