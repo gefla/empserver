@@ -549,7 +549,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
    a sub. */
 		if (*s != 's')
 		    continue;
-		if (sp->shp_mobil < (s_char)0)
+		if (sp->shp_mobil < 0)
 		    continue;
 		gun = sp->shp_item[I_GUN];
 		if (gun < 1)

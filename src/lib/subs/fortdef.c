@@ -188,7 +188,7 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 	    continue;
 	if (firing.sct_own == 0)
 	    continue;
-	if (firing.sct_effic < (u_char)FORTEFF)
+	if (firing.sct_effic < FORTEFF)
 	    continue;
 	rel = getrel(getnatp(firing.sct_own), def_own);
 	rel2 = getrel(getnatp(firing.sct_own), att);
@@ -231,7 +231,7 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
 	return 0;
     }
 
-    if (sp->sct_effic < (u_char)FORTEFF)
+    if (sp->sct_effic < FORTEFF)
 	return 0;
 
     own = sp->sct_own;

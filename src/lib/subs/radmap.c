@@ -144,7 +144,7 @@ radmap2(int owner,
 	y = delty(&ns.range, (int)plane.pln_y);
 
 	if ((plane.pln_flags & PLN_LAUNCHED) && plane.pln_own != owner) {
-	    vis[y][x] = (s_char)100;
+	    vis[y][x] = 100;
 	    rad[y][x] = '$';
 	}
     }

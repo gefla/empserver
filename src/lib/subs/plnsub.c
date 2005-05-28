@@ -342,7 +342,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
     while (nxtitem(ni, (s_char *)&plane)) {
 	if (!player->owner)
 	    continue;
-	if (plane.pln_mobil <= (s_char)0)
+	if (plane.pln_mobil <= 0)
 	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, (int *)&plane)) {
@@ -635,7 +635,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	    needed = pp->pln_load / ip->i_lbs;
 	    break;
 	case 'n':
-	    if (pp->pln_nuketype == (s_char)-1)
+	    if (pp->pln_nuketype == -1)
 		rval = -1;
 	    break;
 	default:
@@ -1128,7 +1128,7 @@ pln_damage(struct plnstr *pp, coord x, coord y, s_char type, int *nukedamp,
     int effective = 1;
     int pinbomber = 0;
 
-    if (pp->pln_nuketype != (s_char)-1) {
+    if (pp->pln_nuketype != -1) {
 	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
 	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
 	*nukedamp = detonate(pp, x, y);

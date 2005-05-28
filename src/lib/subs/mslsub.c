@@ -123,7 +123,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
-    if (pp->pln_nuketype != (s_char)-1)
+    if (pp->pln_nuketype != -1)
 	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
 
     if (pcp->pl_flags & P_T)
@@ -144,7 +144,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	}
     }
 
-    if (pp->pln_nuketype != (s_char)-1)
+    if (pp->pln_nuketype != -1)
 	hitchance = 100;
 
     mpr(pp->pln_own, "\t%d%% hitchance...", hitchance);
@@ -193,7 +193,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	/* missiles go one way, so we can use all the range */
 	if (plane.pln_range < mapdist(x, y, plane.pln_x, plane.pln_y))
 	    continue;
-	if (plane.pln_mobil <= (s_char)0)
+	if (plane.pln_mobil <= 0)
 	    continue;
 	if (plane.pln_effic < 100)
 	    continue;

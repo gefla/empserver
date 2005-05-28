@@ -182,7 +182,7 @@ takeover_plane(struct plnstr *pp, natid newown)
     if (n < 0)
 	n = 0;
     pp->pln_effic = n;
-    if (pp->pln_effic < PLANE_MINEFF || pp->pln_harden > (s_char)0) {
+    if (pp->pln_effic < PLANE_MINEFF || pp->pln_harden > 0) {
 	pp->pln_effic = 0;
 	mpr(newown, "%s blown up by the crew!\n", prplane(pp));
 	wu(0, pp->pln_own,
@@ -198,7 +198,7 @@ takeover_plane(struct plnstr *pp, natid newown)
     }
     if (opt_MARKET)
 	trdswitchown(EF_PLANE, (int *)pp, newown);
-    if (pp->pln_mobil > (s_char)0)
+    if (pp->pln_mobil > 0)
 	pp->pln_mobil = 0;
     makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
     pp->pln_own = newown;

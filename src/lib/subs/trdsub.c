@@ -145,7 +145,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 		       plane.pln_tech,
 		       plane.pln_effic,
 		       plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		    if (plane.pln_nuketype != (s_char)-1) {
+		    if (plane.pln_nuketype != -1) {
 			pr("(%s)", nchr[(int)plane.pln_nuketype].n_name);
 		    }
 		}
@@ -166,7 +166,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 				   plane.pln_effic,
 				   plchr[(int)plane.pln_type].pl_name,
 				   plane.pln_uid);
-				if (plane.pln_nuketype != (s_char)-1) {
+				if (plane.pln_nuketype != -1) {
 				    pr("(%s)",
 				       nchr[(int)plane.pln_nuketype].
 				       n_name);
@@ -203,7 +203,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 		       plane.pln_tech,
 		       plane.pln_effic,
 		       plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		    if (plane.pln_nuketype != (s_char)-1) {
+		    if (plane.pln_nuketype != -1) {
 			pr("(%s)", nchr[(int)plane.pln_nuketype].n_name);
 		    }
 		}
@@ -219,7 +219,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	   pp->pln_tech,
 	   pp->pln_effic,
 	   plchr[(int)pp->pln_type].pl_name, tp->trd_unitid);
-	if (pp->pln_nuketype != (s_char)-1) {
+	if (pp->pln_nuketype != -1) {
 	    pr("(%s)", nchr[(int)pp->pln_nuketype].n_name);
 	}
 	break;
