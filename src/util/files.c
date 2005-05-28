@@ -123,7 +123,7 @@ main(int argc, char *argv[])
   	    exit(1);
     }
     for (i = 0; i < EF_MAX; i++) {
-	if (ef_open(i, O_RDWR | O_CREAT | O_TRUNC, 0) < 0) {
+	if (!ef_open(i, O_RDWR | O_CREAT | O_TRUNC, 0)) {
 	    perror("ef_open");
 	    exit(1);
 	}
@@ -199,19 +199,4 @@ file_sct_init(coord x, coord y, s_char *ptr)
     sp->sct_y = y;
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
-}
-
-void
-logerror(s_char *format, ...)
-{
-    va_list ap;
-
-    va_start(ap, format);
-    vfprintf(stderr, format, ap);
-    va_end(ap);
-}
-
-void
-log_last_commands(void)
-{
 }
