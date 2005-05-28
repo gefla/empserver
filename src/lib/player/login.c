@@ -225,6 +225,7 @@ options_cmd(void)
     char **ap;
     char *p;
     int opt;
+    unsigned i;
 
     for (ap = player->argp+1; *ap; ++ap) {
 	p = strchr(*ap, '=');
@@ -243,10 +244,10 @@ options_cmd(void)
 	    player->flags &= ~login_opts[opt].val;
     }
 
-    for (opt = 0; opt < sizeof(login_opts) / sizeof(*login_opts); ++opt)
+    for (i = 0; i < sizeof(login_opts) / sizeof(*login_opts); ++i)
 	pr_id(player, C_DATA, "%s=%d",
-	      login_opts[opt].name,
-	      (player->flags & login_opts[opt].val) != 0);
+	      login_opts[i].name,
+	      (player->flags & login_opts[i].val) != 0);
     pr_id(player, C_CMDOK, "Options okay\n");
 
     return RET_OK;
