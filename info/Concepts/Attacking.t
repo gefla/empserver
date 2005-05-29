@@ -3,7 +3,7 @@
 .LV Expert
 
 This info page describes 5 different commands: "attack", "assault",
-"paradrop", "board" and "lboard".  These are the four commands that you
+"paradrop", "board" and "lboard".  These are the five commands that you
 use to take something (either a ship, land unit or a sector) from the
 enemy by force.
 
