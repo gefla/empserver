@@ -1,10 +1,14 @@
 Unicode changes:
 
-1. toggle UTF-8
+1. login utf-8
 
-   Add utf8 as a toggle option and store in the nat_flags field in
-   nation structure.  In the future, this should be a login option
-   rather than a country toggle once the login options are added.
+   Added a login options.  The first option is utf-8 and it sets
+   the PF_UTF8 player's flags. Default is off.
+   Syntax
+   options utf-8       -- turns on the utf-8
+   options utf-8=1     -- turns on the utf-8
+   options utf-8=0     -- turns off the utf-8
+   options             -- lists current options and their values
 
 2. flash and wall
 
@@ -100,3 +104,31 @@ Notes:
 	signed and other default to unsigned char.
 
 3. Unicode functions are prefixed with u.
+
+Notes for Client Implementors:
+
+ASCII Mode
+
+1. If you do not specify a login options, it the server will start the
+session in ASCII mode.
+
+2. This is close to the previous mode (<4.2.21) but there is more filtering
+to remove non-ASCII characters and ASCII control characters.
+
+3. If another client in UTF8 mode tries to send to this client then the
+server will replace the non-ASCII characters with question marks.
+
+4. The standout works the same as before where the 8th bit indicates that
+the character should be highlighted.
+
+UTF8 Mode
+
+1. The login options must be specified before the play command is sent.
+The syntax is 'options utf-8'.
+
+2. The server will filter ASCII control characters but will pass any characters
+with the 8 bit set.
+
+3. For the standout mode, the server inserts an ASCII SO character at the
+beginning of standout sequence and the server sends an ASCII SI character at
+the end of the standout sequence.
