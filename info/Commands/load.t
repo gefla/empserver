@@ -70,4 +70,4 @@ number (e.g. it is of the form "s" or "*" or "#1" and not of the form
 so that you can type something like "load land * *" without getting a
 hundred error messages.
 .s1
-.SA "unload, navigate, Ship-types, Unit-types, Plane-types, Ships"
+.SA "unload, navigate, Ship-types, Unit-types, Plane-types, Ships, Moving"

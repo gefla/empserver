@@ -27,4 +27,4 @@ the same effect as though you were simply loading the unit onto a
 ship.  In particular, you may tend land units to "friendly" ships in
 the same sector.
 .s1
-.SA "load, unload, lload, lunload, ltend, Ships"
+.SA "load, unload, lload, lunload, ltend, Ships, Moving"

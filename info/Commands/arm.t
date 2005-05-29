@@ -18,4 +18,4 @@ on, just arm the plane/missile again (in this case, the second
 argument will be ignored).  You can see whether a nuke will air- or
 ground-burst using the "plane" command.
 .s1
-.SA "disarm, plane, build, transport, launch, Damage, Planes"
+.SA "disarm, plane, build, transport, launch, Damage, Planes, Moving"

@@ -11,4 +11,4 @@ The only thing to know is that lunload won't unload more of a thing if the
 sector already has 999. For example, if a unit has 10 food, and the sector
 has 994, you can only unload 5 of the 10 food.
 .s1
-.SA "lload, LandUnits"
+.SA "lload, LandUnits, Moving"

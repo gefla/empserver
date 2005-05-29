@@ -43,4 +43,4 @@ number (e.g. it is of the form "a" or "*" or "#1" and not of the form
 so that you can type something like "lload plane * *" without getting a
 hundred error messages.
 .s1
-.SA "lunload, Unit-types, Plane-types, LandUnits"
+.SA "lunload, Unit-types, Plane-types, LandUnits, Moving"

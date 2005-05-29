@@ -6,4 +6,4 @@ The \*Qdisarm\*U command removes nuclear warheads from
 delivery systems such as planes or missiles.
 .s1
 .s1
-.SA "arm, transport, Planes"
+.SA "arm, transport, Planes, Moving"
