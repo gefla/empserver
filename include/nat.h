@@ -57,7 +57,11 @@ struct boundstr {
 };
 
 struct natstr {
+    /* initial part must match struct genitem */
     short ef_type;
+    natid nat_cnum;		/* our country number */
+    /* end of part matching struct genitem */
+    s_char nat_stat;		/* inuse, norm, god, abs */
     s_char nat_cnam[20];	/* country name */
     s_char nat_pnam[20];	/* representative */
     s_char nat_hostaddr[32];	/* host addr of last user */
@@ -66,8 +70,6 @@ struct natstr {
     coord nat_xstart, nat_ystart;	/* cap location at start */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
-    natid nat_cnum;		/* our country number */
-    s_char nat_stat;		/* inuse, norm, god, abs */
     s_char nat_dayno;		/* day of the year mod 128 */
     s_char nat_connected;	/* connected or not? */
     s_char nat_update;		/* Want an update or not. */

@@ -58,11 +58,9 @@ struct empfile {
 /*
  * struct empfile flags
  *
- * EFF_XY and EFF_GROUP assert that coordinates / group of such a
- * file's record can be safely obtained by dereferencing its memory
- * address cast to struct genitem *.
- *
- * EFF_OWNER asserts that player->owner is set by ef_read().
+ * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
+ * group of such a file's record can be safely obtained by
+ * dereferencing its memory address cast to struct genitem *.
  */
 #define EFF_XY		bit(0)	/* has location */
 #define EFF_MEM		bit(1)	/* stored entirely in-memory */

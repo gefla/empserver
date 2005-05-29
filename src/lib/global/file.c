@@ -80,7 +80,7 @@ struct empfile empfile[] = {
     {"pow", "power", 0,
      0, sizeof(struct powstr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0},
-    {"nat", "nation", 0,
+    {"nat", "nation", EFF_OWNER,
      0, sizeof(struct natstr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0},
     {"loan", "loan", 0,
@@ -95,7 +95,7 @@ struct empfile empfile[] = {
     {"commodity", "commodity", 0,
      0, sizeof(struct comstr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0},
-    {"lost", "lostitems", 0,
+    {"lost", "lostitems", EFF_OWNER,
      0, sizeof(struct loststr), 0, 0, 0, 0,
      -1, -1, 0, 0, 0, 0, 0}
 };

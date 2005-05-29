@@ -56,7 +56,7 @@
  * - News item characteristics: rpt[] (TODO)
  * - News page headings: page_headings[] (TODO)
  * - Treaty clause characteristics: tchr[]
- * - Commands: coms[] (TODO)
+ * - Commands: player_coms[] (TODO)
  * - Options: Options[]
  * - Configuration: configkeys[]
  *
@@ -406,6 +406,7 @@ xdftr(int n)
 static int
 xditem(int type, char *arg)
 {
+    int check_owner = !player->god && (ef_flags(type) & EFF_OWNER) != 0;
     struct castr *ca;
     struct nstr_item ni;
     int n;
@@ -422,7 +423,7 @@ xditem(int type, char *arg)
 
     n = 0;
     while (nxtitem(&ni, buf)) {
-	if (!player->owner)
+	if (check_owner && ((struct genitem *)buf)->own != player->cnum)
 	    continue;
 	++n;
 	xdflds(ca, buf);

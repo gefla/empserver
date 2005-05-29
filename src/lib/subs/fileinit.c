@@ -49,10 +49,10 @@ struct fileinit fileinit[EF_MAX] = {
     {NULL, NULL, NULL, treaty_ca},
     {NULL, NULL, NULL, trade_ca},
     {NULL, NULL, NULL, NULL},		/* power */
-    {NULL, NULL, NULL, NULL},		/* nation */
+    {NULL, NULL, NULL, nat_ca}, 	/* nation */
     {NULL, NULL, NULL, loan_ca},
-    {NULL, NULL, NULL, NULL},		/* map */
-    {NULL, NULL, NULL, NULL},		/* map */
+    {NULL, NULL, NULL, NULL},		/* map, a.k.a. true bmap */
+    {NULL, NULL, NULL, NULL},		/* (working) bmap */
     {NULL, NULL, NULL, commodity_ca},
     {NULL, NULL, NULL, lost_ca}
 };
@@ -71,9 +71,7 @@ ef_init(void)
 	ef->postread = fi->postread;
 	ef->prewrite = fi->prewrite;
 	ef->cadef = fi->cadef;
-	/* We have to set the size for the map and bmap files at
-	   runtime. */
-	if (i == EF_MAP || i == EF_BMAP)
-	    ef->size = (WORLD_X * WORLD_Y) / 2;
     }
+
+    empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
 }

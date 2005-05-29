@@ -225,7 +225,7 @@ struct castr nuke_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc"},
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc"},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number"},
-    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types[0]), "types"},
+    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types"},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
@@ -307,40 +307,36 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
-    {NSC_CHAR, 0, 20, fldoff(natstr, nat_cnam[0]), "cnam"},
-    {NSC_CHAR, NSC_DEITY, 20, fldoff(natstr, nat_pnam[0]), "pnam"},
+    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
+    {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat"},
+    {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname"},
+    {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd"},
+    {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip"},
+    {NSC_STRINGY, 0, 512, fldoff(natstr, nat_hostname), "hostname"},
+    {NSC_STRINGY, 0, 32, fldoff(natstr, nat_userid), "userid"},
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xstart), "xstart"},
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ystart), "ystart"},
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xcap), "xcap"},
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ycap), "ycap"},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(natstr, nat_xorg), "xorg"},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(natstr, nat_yorg), "yorg"},
-    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum"},
-#ifdef MAYBE_LATER
-    {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat"},
-    {NSC_CHAR, 0, 0, fldoff(natstr, nat_dayno), "dayno"},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_update), "update"},
     {NSC_UCHAR, 0, 0, fldoff(natstr, nat_missed), "missed"},
-#endif /* MAYBE_LATER */
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_tgms), "tgms"},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_ann), "ann"},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_minused), "minused"},
     {NSC_SHORT, 0, 0, fldoff(natstr, nat_btu), "btu"},
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_reserve), "reserve"},
+    {NSC_LONG, 0, 0, fldoff(natstr, nat_reserve), "milreserve"},
     {NSC_LONG, 0, 0, fldoff(natstr, nat_money), "money"},
-#ifdef MAYBE_LATER
-    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_login), "last_login"},
-    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_logout), "last_logout"},
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_login), "login"},
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_last_logout), "logout"},
     {NSC_TIME, 0, 0, fldoff(natstr, nat_newstim), "newstim"},
-#endif /* MAYBE_LATER */
+    {NSC_TIME, 0, 0, fldoff(natstr, nat_annotim), "annotim"},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_TLEV]), "tech"},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_RLEV]), "research"},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_ELEV]), "education"},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness"},
-#if 0
-    {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate[0]),"relate"},
-    {NSC_CHAR, 0, PRI_MAX+1, fldoff(natstr, nat_priorities[0]),"priorities"},
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags",0},
-#endif
+    /* FIXME nat_b[], nat_relate[], nat_contact[], nat_rejects[], nat_priorities[] */
+    {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
