@@ -326,10 +326,7 @@ output(int code, char *buf, FILE *auxfi)
     else if (pipe_fp)
 	fprintf(pipe_fp, "%s\n", buf);
     else {
-	if (SO && SE)
-	    screen(buf);
-	else
-	    fputs(buf, stdout);
+	screen(buf);
 	if (code == C_FLUSH)
 	    (void)fflush(stdout);
 	else
@@ -344,13 +341,21 @@ screen(char *buf)
 
     while ((c = *buf++)) {
 	if (eight_bit_clean) {
-	    if (c == 14) fputs(SO, stdout);
-	    else if (c == 15) fputs(SE, stdout);
+	    if (c == 14) {
+		if (SO)
+		    fputs(SO, stdout);
+	    }
+	    else if (c == 15) {
+		if (SE)
+		    fputs(SE, stdout);
+	    }
 	    else putchar(c);
 	} else if (c & 0x80) {
-	    fputs(SO, stdout);
+	    if (SO)
+		fputs(SO, stdout);
 	    putchar(c & 0x7f);
-	    fputs(SE, stdout);
+	    if (SE)
+		fputs(SE, stdout);
 	} else
 	    putchar(c);
     }
