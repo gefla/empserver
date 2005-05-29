@@ -11,4 +11,4 @@ your people to work for a living.
 You can't do any country development commands until you break out
 of sanctuary.
 .s1
-.SA "Sector-types, Nation"
+.SA "Sector-types, Nations"

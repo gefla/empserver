@@ -49,4 +49,4 @@ Looks just like Christmas at K-mart, doesn't it!
 Looks just like Christmas at K-mart, doesn't it!
 .FI
 .s1
-.SA "buy, sell, reset, Market"
+.SA "buy, sell, reset, Commerce"

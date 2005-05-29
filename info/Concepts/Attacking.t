@@ -1,5 +1,5 @@
 .TH Concept "How to take a sector or ship from the enemy"
-.NA Attack "Details for attack, assault, paradrop, board and lboard"
+.NA Attacking "Details for attack, assault, paradrop, board and lboard"
 .LV Expert
 
 This info page describes 5 different commands: "attack", "assault",

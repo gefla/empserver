@@ -146,4 +146,4 @@ civilians but only has 2 spare units of food,
 (after the current population has eaten),
 only three babies will be born and one unit of food will be left.
 .s1
-.SA "Innards, Populace, Update"
+.SA "Innards, Populace, Updates"

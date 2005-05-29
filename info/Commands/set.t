@@ -20,5 +20,5 @@ You may withdraw an offer by setting the price to zero.
 Note that ships are not \*Qdelivered\*U to the purchaser,
 but planes and units are.
 .sp
-.SA "trade, Market"
+.SA "trade, Commerce"
 

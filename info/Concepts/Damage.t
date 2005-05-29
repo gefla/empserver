@@ -100,4 +100,4 @@ bars take no damage
 civs, mil, and uws take 0.4 * %damage
 
 .fi
-.SA "fire, launch, torpedo, lmine, bomb, Hitchance, Attack, Combat"
+.SA "fire, launch, torpedo, lmine, bomb, Hitchance, Attacking, Combat"

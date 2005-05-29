@@ -40,4 +40,4 @@ the mission must have VTOL capability.
 Note that a plane must be at least 40% efficient before it can leave
 the ground.
 .s1
-.SA "Plane-types, bomb, paradrop, drop, recon, Mobility, Planes, Moving"
+.SA "Plane-types, bomb, paradrop, drop, recon, Mobility, Planes, Transportation"

@@ -85,4 +85,4 @@ because you will not have enough money.  If a cost is in (parenthesises),
 then that means that you will not pay it because you have chosen not
 to pay that cost (i.e. you have set the priority of that item to 0).
 .s1
-.SA "show, Sector-types, Nation, Update"
+.SA "show, Sector-types, Nations, Updates"

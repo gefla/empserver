@@ -33,11 +33,11 @@ guns present on the ground.
 Surviving transports will drop the paratroops they carry, which will
 attack any enemy military occupying the target sector.
 .s1
-See info \*QAttack\*U for the exact procedure. The sector being air-assaulted
+See info \*QAttacking\*U for the exact procedure. The sector being air-assaulted
 will have exactly the same reaction to being conquered as if it were attacked
 by land.
 .s1
 Note that a plane must be at least 40% efficient before it can leave
 the ground.
 .s1
-.SA "bomb, fly, drop, recon, Attack, Mobility, Combat, Planes"
+.SA "bomb, fly, drop, recon, Attacking, Mobility, Combat, Planes"

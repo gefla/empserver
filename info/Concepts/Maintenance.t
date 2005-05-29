@@ -28,4 +28,4 @@ efficiency.  Thus, if you were playing in a 60 ETU game, and you did
 not pay your maintenance costs for a 50% frigate, then the frigate
 would drop to 38% efficiency.
 .s1
-.SA "Unit-types, Ship-types, Plane-types, Ships, LandUnits, Planes, Update"
+.SA "Unit-types, Ship-types, Plane-types, Ships, LandUnits, Planes, Updates"

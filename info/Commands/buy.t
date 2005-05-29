@@ -38,4 +38,4 @@ Your bid is being considered.
 In addition, the \*Qdestination sector\*U must be a warehouse or harbor,
 and must be greater than 60% efficient to receive commodities.
 .s1
-.SA "reset, sell, market, Market"
+.SA "reset, sell, market, Commerce"

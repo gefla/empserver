@@ -31,4 +31,4 @@ own line in the "version" output:
 It has also been rumored that increasing happiness will help to keep
 the rebels in check somewhat, but the exact results are sketchy at best.
 .s1
-.SA "Education, Innards, nation, Products, Research, Technology, attack, Nation, Production, Update"
+.SA "Education, Innards, nation, Products, Research, Technology, attack, Nations, Producing, Updates"

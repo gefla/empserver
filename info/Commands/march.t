@@ -101,4 +101,4 @@ automatically fire one after another until 100 damage has been done.
 Missiles and pinbombers have a 100% chance of hitting their target
 (provided they make it through plane/missile defenses).  Collateral
 damage will be done to the sector that the units were marching into.
-.SA "Unit-types, lmine, LandUnits, Moving, Spies"
+.SA "Unit-types, lmine, LandUnits, Transportation, Spies"

@@ -43,6 +43,6 @@ Mil on the victim ship will still die before units take casualties, however.
 Note that you can only board with as many mil and land units that the
 ship you are trying to board can hold.
 .s1
-See info \*QAttack\*U for the exact procedure.
+See info \*QAttacking\*U for the exact procedure.
 .s1
-.SA "Attack, LandUnits, Ships, Combat"
+.SA "Attacking, LandUnits, Ships, Combat"

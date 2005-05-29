@@ -66,7 +66,7 @@ Other than these factors, assault is the same as normal land combat, with
 forts/units/ships/planes firing on both sides to support, etc. Support
 arguments are also as in attacking.
 .s1
-See info \*QAttack\*U for the exact procedure. The sector being assaulted
+See info \*QAttacking\*U for the exact procedure. The sector being assaulted
 will have exactly the same reaction to being conquered as if it were attacked
 by land.
 .s1
@@ -78,4 +78,4 @@ You may also use assault to sneak spies on land.  To do this, you must
 assault with spies only, and they will try and sneak on land. See "info Spies"
 for more information.
 .s1
-.SA "Spies, Attack, LandUnits, Ships, Combat"
+.SA "Spies, Attacking, LandUnits, Ships, Combat"

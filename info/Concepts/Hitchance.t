@@ -118,4 +118,4 @@ curve:
 On the other hand, you can just find out the hitchance by pinbombing
 or launching a missile--the hitchance is always printed!  :-)
 .fi
-.SA "fire, launch, bomb, torpedo, Attack, Damage, Interception, Combat"
+.SA "fire, launch, bomb, torpedo, Attacking, Damage, Interception, Combat"

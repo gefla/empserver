@@ -45,4 +45,4 @@ Autonavigation as they do when you do these things by hand, namely
 that you may only use harbours owned by nations which consider you to
 be a friendly trading partner (see info relations).
 .s1
-.SA "navigate, order, Ships, Update"
+.SA "navigate, order, Ships, Updates"

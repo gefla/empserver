@@ -93,4 +93,4 @@ PRODUCTION SIMULATION
 26 sectors
 .FI
 .s1
-.SA "Products, Update, Production"
+.SA "Products, Updates, Producing"

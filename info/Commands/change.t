@@ -26,4 +26,4 @@ type WILL print out, (in case of a typing error).
 As a consequence
 you won't want to do this while your arch-enemy is watching.
 .s1
-.SA "nation, Nation"
+.SA "nation, Nations"

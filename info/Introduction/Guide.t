@@ -710,7 +710,7 @@ of gggvgh the game would move whatever I am moving three sectors West, view
 the sector at three sectors west of my starting point, then move one more 
 sector west and then stop. 
 
-Concept: Update
+Concept: Updates
 	Empire games have "turns" known as updates.  When an update occurs,
 your country goes through economic growth or decline, interests are paid
 on gold bars, military costs are paid for, mobility increases in your

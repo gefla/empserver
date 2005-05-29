@@ -71,4 +71,4 @@ This document gives a rough order of events during the update.
    d) Add mobility to land units
 .fi
 .s1
-.SA "Innards, Update"
+.SA "Innards, Updates"

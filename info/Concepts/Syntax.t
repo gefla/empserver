@@ -155,4 +155,4 @@ Exit Empire
 Exit Empire
 .in
 .s1
-.SA "realm, Move, Selector, Playing"
+.SA "realm, Moving, Selector, Playing"

@@ -29,7 +29,7 @@ rounded down to 2 and a 40% chance that it is rounded up to 3.
 Land units are charged mobility for the following actions:
 
 1. Fighting
-See "info Attack" for the mobility cost to attack.
+See "info Attacking" for the mobility cost to attack.
 
 2. Fighting rebels
 For each 2 points of efficiency a land unit looses fighting rebels at
@@ -117,7 +117,7 @@ The cost for a ship to fire a torpedo is one half of the cost for it
 to move one sector.
 
 3. Boarding a ship from a ship
-See "info Attack" for the mobility cost to board a ship from a ship.
+See "info Attacking" for the mobility cost to board a ship from a ship.
 
 4. Navigating and retreating
 The mobility cost for a ship to navigate or retreat is:
@@ -148,7 +148,7 @@ civs present you are enlisting:
   (new mobility) = (old mobility) * (1 - newmil / (starv civs))
 
 4. Fighting
-See "info Attack" for the mobility cost of attacking.
+See "info Attacking" for the mobility cost of attacking.
 
 5. Moving commodities
 Sectors move commodities in the "move" and "explore" commands, when
@@ -228,4 +228,4 @@ When a sector is shelled, its mobility goes down in exactly the same
 way that efficiency goes down (see "info Damage").
 
 .fi
-.SA "Sectors, Ships, LandUnits, Planes, Moving"
+.SA "Sectors, Ships, LandUnits, Planes, Transportation"

@@ -130,4 +130,4 @@ costs $90 to produce and requires 10 units
 of light construction materials,
 5 units of oil and 1 unit of gold dust (see "info Research").
 .in
-.SA "Production, Update"
+.SA "Producing, Updates"

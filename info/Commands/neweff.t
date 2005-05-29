@@ -18,4 +18,4 @@ EFFICIENCY SIMULATION
     1 sector
 .FI
 .s1
-.SA "Innards, Sectors, Update"
+.SA "Innards, Sectors, Updates"

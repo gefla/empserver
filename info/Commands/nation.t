@@ -47,4 +47,4 @@ each update, the chance is the number above - your happiness / 5.0.
 For the country above, the chance would be (4.385283-2.01)/5.0 = .475 = 47%
 chance that any individual sector's loyalty would go down.
 .s1
-.SA "power, Nation"
+.SA "power, Nations"

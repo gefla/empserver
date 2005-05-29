@@ -86,4 +86,4 @@ power factor = ((power factor) * (research factor))
 The research factor is either 1, if RES_POP is not being used, or 1+(max 
 pop in a sector)/10000, if it is being used.
 .s1
-.SA "census, nation, Communication, Nation, Diplomacy"
+.SA "census, nation, Communication, Nations, Diplomacy"

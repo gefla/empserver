@@ -89,4 +89,4 @@ Note that if the TECH_POP option is enabled, technology costs
 proportionately more $$$ to make as your civilian population grows
 past 50,000 civilians.
 .s1
-.SA "Innards, nation, Research, Nation, Production, Update"
+.SA "Innards, nation, Research, Nations, Producing, Updates"

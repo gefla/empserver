@@ -29,4 +29,4 @@ immune to land mines and interdiction.
 .s1
 See info \*QMobility\*U for the mobility cost to transport planes and nukes.
 .s1
-.SA "arm, move, navigate, nuke, Mobility, Planes, Moving"
+.SA "arm, move, navigate, nuke, Mobility, Planes, Transportation"

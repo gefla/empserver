@@ -1,5 +1,5 @@
 .TH Concept "Moving Things About"
-.NA Move "A quick reference for moving things around"
+.NA Moving "A quick reference for moving things around"
 .LV Basic
 .s1
 Most of Empire consists of you moving something from one place to
@@ -32,5 +32,5 @@ the unit or plane id.  So for example, to load ship #1 with land unit
 #2, you would type:
 .EX "load land 1 2"
 .s1
-.SA "Mobility, Moving"
+.SA "Mobility, Transportation"
 

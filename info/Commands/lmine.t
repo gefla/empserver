@@ -43,4 +43,4 @@ times its 'att' value (see show land stats).  If an engineer sweeps
 more mines than it can carry, then it will drop the rest as shells
 into the sector.
 .s1
-.SA "march, strength, move, explore, transport, Hitchance, Damage, Attack, LandUnits"
+.SA "march, strength, move, explore, transport, Hitchance, Damage, Attacking, LandUnits"

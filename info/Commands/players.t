@@ -22,4 +22,4 @@ the last command that the player typed
 If you are not a deity and the BLITZ option is off, then the "players"
 command will only list your allies (and omit userid@host.name).
 .s1
-.SA "country, Nation, Communication, Deity, Playing"
+.SA "country, Nations, Communication, Deity, Playing"

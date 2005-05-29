@@ -56,4 +56,4 @@ This is how the ranges are determined.
     statistic.
 .FI
 .s1
-.SA "country, Diplomacy, Nation"
+.SA "country, Diplomacy, Nations"

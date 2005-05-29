@@ -39,4 +39,4 @@ Happy:    9     1    0    0    0    0    0      0    0
 Tech:  5*ETUS  10    0    0    1    5    0      0    (edu-5)/(edu+5)
 Resrch:  90    10    0    0    1    5    0      0    (edu-5)/(edu+5)
 .FI
-.SA "Sectors, Production"
+.SA "Sectors, Producing"

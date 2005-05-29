@@ -39,4 +39,4 @@ There is a certain overhead on selling items, based on the difficulty
 of moving the items in question.  This is based on the tax you pay
 which is set by the deity (see \*Qinfo version\*U).
 .s1
-.SA "buy, reset, Market"
+.SA "buy, reset, Commerce"

@@ -45,4 +45,4 @@ the \*Qcapital\*U command to create a new capital. The effects are:
    info BTU).
 .FI
 .s1
-.SA "origin, designate, BTU, Nation"
+.SA "origin, designate, BTU, Nations"

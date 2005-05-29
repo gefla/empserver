@@ -25,6 +25,6 @@ Mil on the victim unit will still die before units take casualties, however.
 Note that you can only board with as many mil that the
 unit you are trying to board can hold.
 .s1
-See info \*QAttack\*U for the exact procedure.
+See info \*QAttacking\*U for the exact procedure.
 .s1
-.SA "Attack, LandUnits, Combat"
+.SA "Attacking, LandUnits, Combat"

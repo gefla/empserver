@@ -34,4 +34,4 @@ update is exactly the same for research as it is for technology
 is always 2.00 and "easy research" is always 0.75.  But besides this,
 research bleeds, decays, and leaks in exactly the same way as technology.
 .s1
-.SA "Innards, nation, Products, Technology, Nation, Production, Update"
+.SA "Innards, nation, Products, Technology, Nations, Producing, Updates"

@@ -113,4 +113,4 @@ If a sector is infected with the plague, then anything moved out of
 the sector will infect the sector that it moves into.  Note that
 sectors moved through will not catch the plague.
 .s1
-.SA "navigate, transport, test, explore, Plague, Mobility, Commodities, Moving"
+.SA "navigate, transport, test, explore, Plague, Mobility, Commodities, Transportation"

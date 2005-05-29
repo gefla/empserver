@@ -109,4 +109,4 @@ Once an outbreak has been spotted, the plague takes on an infectious
 state at the next update.  There is very little time to isolate the
 sector and limit deaths caused by plague.
 .s1
-.SA "Innards, Research, Sector-types, Technology, Populace, Update"
+.SA "Innards, Research, Sector-types, Technology, Populace, Updates"

@@ -37,4 +37,4 @@ The cargo of ships and land units are listed in the square
 brackets, in this case, 4 guns and 40 shells.  The nuclear armament of
 planes is listed in parentheses.
 .s1
-.SA "set, Market"
+.SA "set, Commerce"

@@ -67,4 +67,4 @@ delta" was 25, then your new edu would be:
           = 36.43
 .fi
 .s1
-.SA "Happiness, Innards, nation, Products, Research, Technology, Nation, Production, Update"
+.SA "Happiness, Innards, nation, Products, Research, Technology, Nations, Producing, Updates"

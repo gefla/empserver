@@ -5,4 +5,4 @@
 The update command shows you when the next update will occur, and
 describes the current update policies.
 .sp
-.SA "zdone, Update"
+.SA "zdone, Updates"

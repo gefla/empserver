@@ -73,4 +73,4 @@ The Max limit that autonav will stockpile is 99999 units.
 So if your sector get overcrowded the ship will sit in the harbor
 until it can unload all of its food.
 .FI
-.SA "Autonav, order, navigate, Ships, Populace, Update"
+.SA "Autonav, order, navigate, Ships, Populace, Updates"

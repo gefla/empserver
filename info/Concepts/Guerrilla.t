@@ -69,4 +69,4 @@ any multiplier, either offensive or defensive and without any
 fortification bonus. Any units with the
 \*Qsecurity\*U ability will also kill some che before anything else is
 done (commando raids).
-.SA "Populace, Occupation, Update"
+.SA "Populace, Occupation, Updates"

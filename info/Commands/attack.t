@@ -4,6 +4,6 @@
 .SY "attack <SECT> [<forts?> <ships?> <arty?> <planes?>]"
 .s1
 The attack command is used to attack a sector from neighboring sectors.
-For more details, see "info Attack".
+For more details, see "info Attacking".
 .s1
-.SA "Attack, Combat, LandUnits"
+.SA "Attacking, Combat, LandUnits"

@@ -9,5 +9,5 @@ commodities that are on the market.
 <PRICE> is the new asking price.  An asking price of 0 will take
 your goods off the market and return them to your harbor or warehouse.
 .sp
-.SA "buy, sell, Market"
+.SA "buy, sell, Commerce"
 

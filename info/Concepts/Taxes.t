@@ -33,4 +33,4 @@ already have made the technological investment.
 Also note that captured civilians only pay 1/4 the normal taxes.  They
 like to hide money until they are all finally agree to become naturalized
 citizens of their new government. 
-.SA "Update, Nation"
+.SA "Updates, Nations"
