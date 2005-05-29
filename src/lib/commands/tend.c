@@ -133,7 +133,7 @@ tend(void)
 	if (!check_ship_ok(&tender))
 	    return RET_SYN;
 	total = 0;
-	while (tend_nxtitem(&targets, (s_char *)&target)) {
+	while (nxtitem(&targets, &target)) {
 	    if (!player->owner &&
 		(getrel(getnatp(target.shp_own), player->cnum) < FRIENDLY))
 		continue;
@@ -197,81 +197,6 @@ expose_ship(struct shpstr *s1, struct shpstr *s2)
 	s1->shp_pstage = PLG_EXPOSED;
 }
 
-/*
- * tend_nxtitem.c
- *
- * get next item from list. Stolen from nxtitem to make 1 itsy-bitsy change
- *
- * Dave Pare, 1989
- */
-
-int
-tend_nxtitem(struct nstr_item *np, void *ptr)
-{
-    struct genitem *gp;
-    int selected;
-
-    if (np->sel == NS_UNDEF)
-	return 0;
-    gp = (struct genitem *)ptr;
-    do {
-	if (np->sel == NS_LIST) {
-	    np->index++;
-	    if (np->index >= np->size)
-		return 0;
-	    np->cur = np->list[np->index];
-	} else {
-	    np->cur++;
-	}
-	if (!np->read(np->type, np->cur, ptr)) {
-	    /* if read fails, fatal */
-	    return 0;
-	}
-	selected = 1;
-	switch (np->sel) {
-	case NS_LIST:
-	    /* The change is to take the player->owner check out here */
-	    break;
-	case NS_ALL:
-	    /* XXX maybe combine NS_LIST and NS_ALL later */
-	    break;
-	case NS_DIST:
-	    if (!xyinrange(gp->x, gp->y, &np->range)) {
-		selected = 0;
-		break;
-	    }
-	    np->curdist = mapdist((int)gp->x, (int)gp->y,
-				  (int)np->cx, (int)np->cy);
-	    if (np->curdist > np->dist)
-		selected = 0;
-	    break;
-	case NS_AREA:
-	    if (!xyinrange(gp->x, gp->y, &np->range))
-		selected = 0;
-	    if (gp->x == np->range.hx || gp->y == np->range.hy)
-		selected = 0;
-	    break;
-	case NS_XY:
-	    if (gp->x != np->cx || gp->y != np->cy)
-		selected = 0;
-	    break;
-	case NS_GROUP:
-	    if (np->group != gp->group)
-		selected = 0;
-	    break;
-	default:
-	    CANT_HAPPEN("bad np->sel");
-	    return 0;
-	}
-	if (selected && np->ncond) {
-	    /* nstr_exec is expensive, so we do it last */
-	    if (!nstr_exec(np->cond, np->ncond, ptr))
-		selected = 0;
-	}
-    } while (!selected);
-    return 1;
-}
-
 static int
 tend_land(struct shpstr *tenderp, s_char *units)
 {
@@ -303,7 +228,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
 	    break;
 	if (!check_land_ok(&land))
 	    return RET_SYN;
-	while (tend_nxtitem(&targets, (s_char *)&target)) {
+	while (nxtitem(&targets, &target)) {
 	    if (!player->owner &&
 		(getrel(getnatp(target.shp_own), player->cnum) < FRIENDLY))
 		continue;

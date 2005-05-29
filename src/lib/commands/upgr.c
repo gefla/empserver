@@ -94,7 +94,6 @@ lupgr(void)
 
     if (!snxtitem(&ni, EF_LAND, player->argp[2]))
 	return RET_SYN;
-    ni.flags &= ~(EFF_OWNER);
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];
@@ -178,7 +177,6 @@ supgr(void)
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[2]))
 	return RET_SYN;
-    ni.flags &= ~(EFF_OWNER);
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];
@@ -261,7 +259,6 @@ pupgr(void)
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[2]))
 	return RET_SYN;
-    ni.flags &= ~(EFF_OWNER);
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];

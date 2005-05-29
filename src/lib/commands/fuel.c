@@ -102,8 +102,6 @@ fuel(void)
 	return RET_FAIL;
     }
 
-    ni.flags &= ~(EFF_OWNER);
-
     while (nxtitem(&ni, (s_char *)&item)) {
 	fueled = 0;
 	if (type == EF_SHIP) {

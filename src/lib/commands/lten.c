@@ -103,7 +103,7 @@ ltend(void)
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	total = 0;
-	while (tend_nxtitem(&targets, (s_char *)&target)) {
+	while (nxtitem(&targets, (s_char *)&target)) {
 	    if (!player->owner)
 		continue;
 

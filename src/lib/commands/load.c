@@ -109,8 +109,6 @@ load(void)
     if (!snxtitem(&nbst, EF_SHIP, p))
 	return RET_SYN;
 
-    nbst.flags &= ~(EFF_OWNER);
-
     load_unload = **player->argp == 'l' ? LOAD : UNLOAD;
 
     nships = 0;
@@ -250,8 +248,6 @@ lload(void)
 	return RET_SYN;
 
     load_unload = *(*player->argp + 1) == 'l' ? LOAD : UNLOAD;
-
-    nbst.flags &= ~(EFF_OWNER);
 
     nunits = 0;
     while (nxtitem(&nbst, (s_char *)&land)) {

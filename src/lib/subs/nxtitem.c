@@ -65,15 +65,9 @@ nxtitem(struct nstr_item *np, void *ptr)
 	}
 	selected = 1;
 	switch (np->sel) {
-	    /*
-	     * This one won't work unless you're running in emp_player
-	     */
 	case NS_LIST:
-	    if ((np->flags & EFF_OWNER) && !player->owner)
-		selected = 0;
 	    break;
 	case NS_ALL:
-	    /* XXX maybe combine NS_LIST and NS_ALL later */
 	    break;
 	case NS_DIST:
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {
