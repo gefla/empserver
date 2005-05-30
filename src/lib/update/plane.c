@@ -77,7 +77,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
     int avail;
     int w_p_eff;
     int used;
-    int start_money, onship = 0;
+    int start_money, onship;
 
     for (n = 0; NULL != (pp = getplanep(n)); n++) {
 	if (pp->pln_own == 0)
