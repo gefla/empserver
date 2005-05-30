@@ -61,13 +61,15 @@ wing(void)
 	c = ' ';
     if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
 	return RET_SYN;
-    for (count = 0; nxtitem(&nstr, (s_char *)&plane); count++) {
-	if (plane.pln_own != player->cnum) {
-	    count--;
+    count = 0;
+    while (nxtitem(&nstr, (s_char *)&plane)) {
+	if (plane.pln_own != player->cnum)
 	    continue;
-	}
+	if (plane.pln_wing == c)
+	    continue;
 	plane.pln_wing = c;
 	putplane(plane.pln_uid, &plane);
+	count++;
     }
     pr("%d plane%s added to wing `%c'\n", count, splur(count), c);
     return RET_OK;

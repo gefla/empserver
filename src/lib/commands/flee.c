@@ -49,7 +49,6 @@ flee(void)
     struct nstr_item nstr;
     struct nstr_item ni;
     struct shpstr ship2;
-    int r;
     s_char buf[1024];
 
     cp = getstarg(player->argp[1], "fleet? ", buf);
@@ -65,17 +64,24 @@ flee(void)
     if (!snxtitem(&nstr, EF_SHIP, player->argp[2]))
 	return RET_SYN;
     count = 0;
-    while (nxtitem(&nstr, (s_char *)&ship)) {
+    while (nxtitem(&nstr, &ship)) {
 	if (!player->owner)
 	    continue;
-	ship.shp_fleet = c;
-	snxtitem(&ni, EF_SHIP, cp);
-	while ((r = nxtitem(&ni, (s_char *)&ship2))
-	       && (ship2.shp_fleet != c)) ;
-	if (r) {
-	    memcpy(ship.shp_rpath, ship2.shp_rpath, sizeof(ship.shp_rpath));
-	    ship.shp_rflags = ship2.shp_rflags;
+	if (ship.shp_fleet == c)
+	    continue;
+	ship.shp_rflags &= ~RET_GROUP;
+	snxtitem_group(&ni, EF_SHIP, c);
+	while (nxtitem(&ni, &ship2)) {
+	    if ((ship2.shp_rflags & RET_GROUP) == 0)
+		continue;
+	    if (ship2.shp_x == ship.shp_x && ship2.shp_y == ship.shp_y) {
+		memcpy(ship.shp_rpath, ship2.shp_rpath,
+		       sizeof(ship.shp_rpath));
+		ship.shp_rflags = ship2.shp_rflags;
+		break;
+	    }
 	}
+	ship.shp_fleet = c;
 	putship(ship.shp_uid, &ship);
 	count++;
     }

@@ -52,8 +52,9 @@ is Yes, then every ship in that fleet with fleet retreat orders retreats
 along the specified path. If it is no, then the retreat orders apply to 
 that ship only, and only that ship retreats.
 .s1
-When a ship is added to a fleet, it is given the retreat orders of that
-fleet, if any exist.
+When a ship is added to a fleet, it is given the retreat orders of the
+first ship in that fleet that has fleet retreat orders and is in the
+same sector, if any exist.
 .s1
 Retreat orders are wiped when a ship navigates.
 .s1

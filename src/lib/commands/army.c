@@ -49,7 +49,6 @@ army(void)
     struct nstr_item nstr;
     struct nstr_item ni;
     struct lndstr land2;
-    int r;
     s_char buf[1024];
 
     cp = getstarg(player->argp[1], "army? ", buf);
@@ -65,17 +64,24 @@ army(void)
     if (!snxtitem(&nstr, EF_LAND, player->argp[2]))
 	return RET_SYN;
     count = 0;
-    while (nxtitem(&nstr, (s_char *)&land)) {
+    while (nxtitem(&nstr, &land)) {
 	if (!player->owner)
 	    continue;
-	land.lnd_army = c;
-	snxtitem(&ni, EF_LAND, cp);
-	while ((r = nxtitem(&ni, (s_char *)&land2)) &&
-	       (land2.lnd_army != c)) ;
-	if (r) {
-	    memcpy(land.lnd_rpath, land2.lnd_rpath, sizeof(land.lnd_rpath));
-	    land.lnd_rflags = land2.lnd_rflags;
+	if (land.lnd_army == c)
+	    continue;
+	land.lnd_rflags &= ~RET_GROUP;
+	snxtitem_group(&ni, EF_LAND, c);
+	while (nxtitem(&ni, &land2)) {
+	    if ((land2.lnd_rflags & RET_GROUP) == 0)
+		continue;
+	    if (land2.lnd_x == land.lnd_x && land2.lnd_y == land.lnd_y) {
+		memcpy(land.lnd_rpath, land2.lnd_rpath,
+		       sizeof(land.lnd_rpath));
+		land.lnd_rflags = land2.lnd_rflags;
+		break;
+	    }
 	}
+	land.lnd_army = c;
 	putland(land.lnd_uid, &land);
 	count++;
     }
