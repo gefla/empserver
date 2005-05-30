@@ -117,7 +117,7 @@ gain efficiency.
 .s1
 Ships can repair themselves in any sector, and can use work from their crew,
 or from a harbor they are in. Planes can only be repaired in airports, and
-only use work from the airport. Land units can be repaired in HQ's, \*Qor\*U
+only use work from the airport. Land units can be repaired in HQ's or
 in fortresses, and use the work of the HQ or fort. This means that front-line
 units in forts will repair themselves each update, assuming that the
 necessary materials and work are available. They can also gain efficiency
