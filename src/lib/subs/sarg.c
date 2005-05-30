@@ -48,6 +48,7 @@
  *  #1, lx:ly,hx:hy --> NS_AREA
  *  @x,y:dist  --> NS_DIST
  *  %d or %d/%d/%d --> NS_LIST
+ *  ~ or letter --> NS_GROUP
  *  * --> NS_ALL
  *
  * or 0 for none of the above.
@@ -66,7 +67,7 @@ sarg_type(char *str)
 	return NS_AREA;
     if (isdigit(c))
 	return NS_LIST;
-    if (c == '~' || isupper(c) || islower(c))
+    if (c == '~' || isalpha(c))
 	return NS_GROUP;
     return NS_UNDEF;
 }
