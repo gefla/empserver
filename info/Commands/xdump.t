@@ -117,4 +117,4 @@ meta-data, tools have to know the server's internal coding of various
 \*Qxdump\*U discloses all units, regardless of player's tech level.
 \*Qxdump\*U fails to suppress empty rows in some tables.
 .s1
-.SA "dump, ldump, pdump, sdump"
+.SA "dump, ldump, ndump, pdump, sdump, lost, Clients, Communication, LandUnits, Planes, Sectors, Ships"
