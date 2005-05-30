@@ -70,7 +70,7 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
 /*
  * Compare A with B.
  * Return ME_EXACT if they are the same, or A is a prefix of B
- * followed by a space.
+ * followed by a space in B.
  * Return ME_PARTIAL if A is a prefix of B not followed by a space.
  * Else return ME_NOMATCH.
  */

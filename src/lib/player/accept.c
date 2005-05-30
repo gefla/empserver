@@ -79,7 +79,6 @@ player_init(void)
     emp_initque(&Players);
     init_player_commands();
 
-
     sp = getservbyname("empire", "tcp");
     if (sp == 0)
 	port = htons(atoi(loginport));

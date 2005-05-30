@@ -69,7 +69,6 @@ nxtitemp(struct nstr_item *np)
 	case NS_LIST:
 	    break;
 	case NS_ALL:
-	    /* XXX maybe combine NS_LIST and NS_ALL later */
 	    break;
 	case NS_DIST:
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {

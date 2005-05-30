@@ -159,7 +159,6 @@ sona(void)
 	memset(visbuf, 0, (WORLD_Y * (WORLD_X + 1)));
 	snxtitem_dist(&nit, EF_SHIP, ship.shp_x, ship.shp_y, range);
 	while (nxtitem(&nit, &targ)) {
-
 	    if (targ.shp_own == player->cnum || targ.shp_own == 0)
 		continue;
 	    tmcp = &mchr[(int)targ.shp_type];

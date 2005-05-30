@@ -104,8 +104,8 @@ player_main(struct player *p)
 					     nat_last_logout) : "?");
 	    pr("                  by: %s@%s\n",
 	       *natp->nat_userid ? natp->nat_userid : "nobody",
-	       *natp->nat_hostname ? natp->nat_hostname : *natp->
-	       nat_hostaddr ? natp->nat_hostaddr : "nowhere");
+	       *natp->nat_hostname ? natp->nat_hostname
+	       : *natp->nat_hostaddr ? natp->nat_hostaddr : "nowhere");
 	}
     }
     if (*player->userid)
