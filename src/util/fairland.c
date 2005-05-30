@@ -102,6 +102,8 @@ static int AIRPORT_MARKER = 0;
    1 = don't merge, 0 = merge. */
 static int DISTINCT_ISLANDS = 1;
 
+static char *program_name;
+
 #define XSIZE           ((WORLD_X) / 2)	/* basically world x-y size */
 #define YSIZE           (WORLD_Y)
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
@@ -158,6 +160,8 @@ int fl_status;			/* is anything wrong? */
 const char *numletter =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+static void help(char *);
+static void usage(void);
 static void parse_args(int argc, char *argv[]);
 static int allocate_memory(void);
 static void init(void);
@@ -191,9 +195,10 @@ main(int argc, char *argv[])
     char *config_file = NULL;
     int i = 0;
 
+    program_name = argv[0];
     rnd_seed = time(NULL);
 
-    while ((opt = getopt(argc, argv, "ae:ioqs:R:")) != EOF) {
+    while ((opt = getopt(argc, argv, "ae:hioqs:R:")) != EOF) {
 	switch (opt) {
 	case 'a':
 	    AIRPORT_MARKER = 1;
@@ -216,6 +221,12 @@ main(int argc, char *argv[])
 	case 'R':
 	    rnd_seed = strtoul(optarg, NULL, 10);
 	    break;
+	case 'h':
+	    usage();
+	    return 0;
+	default:
+	    help(NULL);
+	    exit(1);
 	}
     }
     srandom(rnd_seed);
@@ -294,28 +305,46 @@ my_sqrt(int n)
 ****************************************************************************/
 
 static void
+help(char *complaint)
+{
+    if (complaint)
+	fprintf(stderr, "%s: %s\n", program_name, complaint);
+    fprintf(stderr, "Try -h for help.\n");
+}
+
+static void
+usage(void)
+{
+    printf("Usage: %s [-e CONFIG] [-aiqo] [-s SCRIPT] [-R SEED] NC SC [NI] [IS] [SP] [PM] [DI] [ID]\n"
+	   "  -q            quiet\n"
+	   "  -o            don't set resources\n"
+	   "  -a            airport marker for continents\n"
+	   "  -i            islands may merge\n"
+	   "  -R SEED       seed for random number generator\n"
+	   "  -e CONFIG     configuration file\n"
+	   "  -s SCRIPT     name of script to create (default %s)\n"
+	   "  NC            number of continents\n"
+	   "  SC            continent size\n"
+	   "  NI            number of islands (default NC)\n"
+	   "  IS            average island size (default SC/2)\n"
+	   "  SP            spike percentage: 0 = round, 100 = snake\n"
+	   "                (default = %d)\n"
+	   "  PM            percentage of land that is mountain (default %d)\n"
+	   "  DI            minimum distance between continents (default %d)\n"
+	   "  ID            minimum distance from islands to continents (default %d)\n",
+	   program_name, DEFAULT_OUTFILE_NAME,
+	   DEFAULT_SPIKE, DEFAULT_MOUNTAIN, DEFAULT_CONTDIST, DEFAULT_ISLDIST);
+}
+
+static void
 parse_args(int argc, char *argv[])
 {
-    if (argc < 2 || argc > 8) {
-	puts("fairland syntax:\n");
-	puts("fairland [-e config] [-aiqo] [-s script] [-R seed] <nc> <sc> [<ni>] [<is>] [<sp>] [<pm>] [<di>] [<id>]");
-	puts("-q = quiet, -o = no ore produced");
-	puts("-a = Airport marker for continents, -i = islands not distinct");
-	puts("-R = seed to use for random, -e = read config file");
-	printf("-s = name of script (default = %s)\n",
-	       DEFAULT_OUTFILE_NAME);
-	puts("nc = number of continents [MANDATORY]");
-	puts("sc = continent size [MANDATORY]");
-	puts("ni = number of islands (default = nc)");
-	puts("is = average size of islands (default = sc/2)");
-	printf("sp = spike percentage: 0 = round, 100 = snake (default = %d)\n",
-	       DEFAULT_SPIKE);
-	printf("pm = the percentage of land that is mountain (default = %d)\n",
-	       DEFAULT_MOUNTAIN);
-	printf("di = the minimum distance between continents (default = %d)\n",
-	       DEFAULT_CONTDIST);
-	printf("id = minimum distance from islands to continents (default = %d)\n",
-	       DEFAULT_ISLDIST);
+    if (argc < 2) {
+	help("missing arguments");
+	exit(1);
+    }
+    if (argc > 8) {
+	help("too many arguments");
 	exit(1);
     }
     nc = atoi(argv[0]);
