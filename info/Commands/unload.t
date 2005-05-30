@@ -14,4 +14,4 @@ has 994, you can only unload 5 of the 10 food.
 .s1
 Also, you must have Friendly relations with the owner of the harbour
 in order to unload into it.
-.SA "load, Ships, , Moving"
+.SA "load, Ships, Moving"
