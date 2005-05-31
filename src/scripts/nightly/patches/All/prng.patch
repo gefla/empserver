@@ -409,9 +409,9 @@ Index: empserver/src/lib/update/revolt.c
  		continue;
  	    nicest_sp = nsp;
 Index: empserver/src/server/main.c
---- empserver/src/server/main.c	3 May 2005 00:06:10 -0000	1.61
+--- empserver/src/server/main.c	3 May 2005 00:06:10 -0000	1.62
 +++ empserver/src/server/main.c	28 May 2005 08:32:40 -0000
-@@ -257,7 +257,7 @@
+@@ -255,7 +255,7 @@
  void
  init_server(void)
  {
@@ -433,7 +433,7 @@ Index: empserver/src/server/update.c
  	    delta += wind;
  	}
 Index: empserver/src/util/fairland.c
---- empserver/src/util/fairland.c	16 Mar 2005 22:03:16 -0000	1.22
+--- empserver/src/util/fairland.c	16 Mar 2005 22:03:16 -0000	1.23
 +++ empserver/src/util/fairland.c	17 Mar 2005 10:01:15 -0000
 @@ -124,7 +124,7 @@
  #if !defined(_WIN32)
@@ -444,8 +444,8 @@ Index: empserver/src/util/fairland.c
  
  int secs;			/* number of sectors grown */
  int ctot;			/* total number of continents and islands grown */
-@@ -218,7 +218,7 @@
- 	    break;
+@@ -229,7 +229,7 @@
+ 	    exit(1);
  	}
      }
 -    srandom(rnd_seed);
