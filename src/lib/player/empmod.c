@@ -40,6 +40,8 @@
 #include "nat.h"
 #include "file.h"
 #include "commands.h"
+#include "version.h" /* need to OBSOLETE hidden command */
+
 
 struct cmndstr player_coms[] = {
 /*  command form                       cost	addr    permit */
@@ -118,7 +120,13 @@ struct cmndstr player_coms[] = {
     {"harden <PLANES> <NUM>", 2, hard, C_MOD, NORM + MONEY + CAP},
     {"help <topic>", 0, info, 0, VIS},
     {"headlines [days]", 0, head, C_MOD, VIS},
-    {"hidden <SECTS>", 0, hidd, 0, GOD},
+#if EMP_VERS_MINOR == 2 && EMP_VERS_PATCH <= 22
+    /* 
+     * OBSOLETE
+     * once hidden command is removed, also remove the hidden code in peek.c
+     */
+    {"hidden <SECTS>", 0, peek, 0, GOD},
+#endif
     {"improve <road|rail|defense> <SECTS> <NUM>", 1, improve, C_MOD,
      NORM + MONEY + CAP},
     {"info <topic>", 0, info, 0, VIS},
@@ -181,6 +189,7 @@ struct cmndstr player_coms[] = {
     {"pbmap <SECTS|UNIT> [s|l|p|r|t|*|h]", 0, map, C_MOD, NORM},
     {"pboard <PLANES>", 3, pboa, C_MOD, NORM + MONEY + CAP},
     {"pdump <PLANES> [<fields>]", 0, pdump, 0, NORM},
+    {"peek <SECTS>", 0, peek, 0, GOD},
     {"plane <SECTS>", 0, plan, 0, NORM},
     {"players", 0, play, 0, VIS},
     {"pmap <SECTS|UNIT> [s|l|p|*|h]", 0, map, C_MOD, NORM},

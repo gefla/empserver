@@ -40,11 +40,11 @@ OBJS =  acce.o add.o anti.o arm.o army.o assa.o atta.o bdes.o best.o boar.o \
 	coas.o coll.o comm.o cons.o conv.o coun.o cuto.o decl.o deli.o demo.o \
 	desi.o disa.o dist.o drop.o dump.o echo.o edit.o enab.o enli.o \
 	expl.o fina.o flash.o flee.o fly.o foll.o forc.o fort.o fuel.o give.o \
-	grin.o hard.o head.o hidd.o improve.o info.o land.o laun.o lboard.o \
-	ldump.o ledg.o leve.o load.o look.o lost.o lstat.o lten.o map.o \
-	marc.o mark.o mfir.o mine.o miss.o mobq.o mobu.o mora.o move.o \
-	name.o nati.o navi.o ndump.o new.o newe.o news.o nuke.o offe.o offs.o \
-	orde.o orig.o para.o path.o payo.o pboa.o pdump.o plan.o play.o \
+	grin.o hard.o head.o improve.o info.o land.o laun.o lboard.o ldump.o \
+	ledg.o leve.o load.o look.o lost.o lstat.o lten.o map.o marc.o mark.o \
+	mfir.o mine.o miss.o mobq.o mobu.o mora.o move.o name.o nati.o navi.o \
+	ndump.o new.o newe.o news.o nuke.o offe.o offs.o orde.o orig.o para.o \
+	path.o payo.o pboa.o peek.o pdump.o plan.o play.o \
 	powe.o prod.o pstat.o rada.o rang.o rea.o real.o reco.o reje.o rela.o \
 	repa.o repo.o rese.o reso.o retr.o rout.o sabo.o sail.o sate.o scra.o \
 	scut.o sdump.o sect.o sell.o set.o setres.o setsect.o shar.o shark.o \
@@ -60,13 +60,13 @@ NTOBJS = acce.obj add.obj anti.obj arm.obj army.obj assa.obj atta.obj \
 	deli.obj demo.obj desi.obj disa.obj dist.obj drop.obj \
 	dump.obj echo.obj edit.obj enab.obj enli.obj expl.obj fina.obj \
 	flash.obj flee.obj fly.obj foll.obj forc.obj fort.obj fuel.obj \
-	give.obj grin.obj hard.obj head.obj hidd.obj improve.obj info.obj \
+	give.obj grin.obj hard.obj head.obj improve.obj info.obj \
 	land.obj laun.obj lboard.obj ldump.obj ledg.obj leve.obj load.obj \
 	look.obj lost.obj lstat.obj lten.obj map.obj marc.obj mark.obj \
 	mfir.obj mine.obj miss.obj mobq.obj mobu.obj mora.obj move.obj \
-	name.obj nati.obj navi.obj ndump.obj new.obj newe.obj \
-	news.obj nuke.obj offe.obj offs.obj orde.obj orig.obj para.obj \
-	path.obj payo.obj pboa.obj pdump.obj plan.obj play.obj powe.obj \
+	name.obj nati.obj navi.obj ndump.obj new.obj newe.obj news.obj \
+	nuke.obj offe.obj offs.obj orde.obj orig.obj para.obj path.obj \
+	payo.obj pboa.obj pdump.obj peek.obj plan.obj play.obj powe.obj \
 	prod.obj pstat.obj rada.obj rang.obj rea.obj real.obj reco.obj \
 	reje.obj rela.obj repa.obj repo.obj rese.obj reso.obj retr.obj \
 	rout.obj sabo.obj sail.obj sate.obj scra.obj scut.obj sdump.obj \

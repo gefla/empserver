@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  hidd.c: Do a hidden values report (deity)
+ *  peek.c: Show hidden values report (deity)
  * 
  *  Known contributors to this file:
  *     Jeff Wallace, 1989
@@ -40,14 +40,23 @@
 #include "nsc.h"
 #include "nat.h"
 #include "commands.h"
+#include "version.h" /* need to OBSOLETE hidden command */
 
 int
-hidd(void)
+peek(void)
 {
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
 
+#if EMP_VERS_MINOR == 2 && EMP_VERS_PATCH <= 22
+    /* 
+     * OBSOLETE
+     * Can be removed once hidden command is removed from empmod.c
+     */
+    if (player->argp[0][0] == 'h')
+    	pr("The hidden command has been renamed to peek, use peek in the future\n");
+#endif
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     prdate();
