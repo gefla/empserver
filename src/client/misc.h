@@ -61,7 +61,15 @@ extern char *SE;
 HANDLE hStdIn;
 #endif
 
+#ifdef _WIN32
+#define getsose() ((void)0)
+#define putso() ((void)0)
+#define putse() ((void)0)
+#else
 void getsose(void);
+void putso(void);
+void putse(void);
+#endif
 int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
 int handleintr(int);

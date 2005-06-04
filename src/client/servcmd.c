@@ -341,21 +341,16 @@ screen(char *buf)
 
     while ((c = *buf++)) {
 	if (eight_bit_clean) {
-	    if (c == 14) {
-		if (SO)
-		    fputs(SO, stdout);
-	    }
-	    else if (c == 15) {
-		if (SE)
-		    fputs(SE, stdout);
-	    }
-	    else putchar(c);
+	    if (c == 14)
+		putso();
+	    else if (c == 15)
+		putse();
+	    else
+		putchar(c);
 	} else if (c & 0x80) {
-	    if (SO)
-		fputs(SO, stdout);
+	    putso();
 	    putchar(c & 0x7f);
-	    if (SE)
-		fputs(SE, stdout);
+	    putse();
 	} else
 	    putchar(c);
     }

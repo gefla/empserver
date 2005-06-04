@@ -32,63 +32,46 @@
  *     Steve McClure, 1998
  */
 
+#ifndef _WIN32
+
+#include <curses.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <term.h>
+#include <unistd.h>
 #include "misc.h"
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-
-char *SO = 0;
-char *SE = 0;
-
-int tgetent(char *, char *);
-
-static void
-parsedelay(char *r)
-{
-    char *s, *t;
-
-    s = r;
-    while (isdigit(*s) || (*s == '*') || (*s == '.')) {
-	s++;
-    }
-    for (t = r; *s != 0; (s++, t++)) {
-	*t = *s;
-    }
-    *t = 0;
-}
+static char *smso = 0;
+static char *rmso = 0;
 
 void
 getsose(void)
 {
-#ifndef _WIN32
-    extern char *tgetstr(char *, char **);
-    char *cp;
-    char *term;
-    static char tbuf[1024];
-    static char cbuf[20];
+    int err;
 
-    memset(cbuf, 0, 20);
-    term = getenv("TERM");
-    if (term == 0) {
-	fprintf(stderr, "warning: no TERM environment variable\n");
+    if (!isatty(fileno(stdout)))
+	return;
+
+    if (setupterm(NULL, fileno(stdout), &err) != OK) {
+	fprintf(stderr, "Can't setup terminal, check environment variable TERM\n");
 	return;
     }
-    tgetent(tbuf, term);
-    cp = cbuf;
-    SO = tgetstr("so", &cp);
-    SE = tgetstr("se", &cp);
-    if (SO == 0) {
-	SO = tgetstr("us", &cp);
-	SE = tgetstr("ue", &cp);
-    }
-    if (SO != 0) {
-	parsedelay(SO);
-	parsedelay(SE);
-    }
-#endif
+
+    smso = tigetstr("smso");
+    rmso = tigetstr("rmso");
 }
+
+void
+putso(void)
+{
+    if (smso)
+	putp(smso);
+}
+
+void
+putse(void)
+{
+    if (rmso)
+	putp(rmso);
+}
+
+#endif /* !_WIN32 */
