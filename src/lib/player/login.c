@@ -211,9 +211,9 @@ static int
 options_cmd(void)
 {
     /*
-     * The login option mechanism allows arbitrary string values, but
-     * so far all options are flags in struct player.  Should be easy
-     * to generalize if needed.
+     * The option mechanism allows arbitrary string values, but so far
+     * all options are flags in struct player.  Should be easy to
+     * generalize if needed.
      */
     struct logoptstr {
 	char *name;
@@ -226,6 +226,14 @@ options_cmd(void)
     char *p;
     int opt;
     unsigned i;
+
+    if (!player->argp[1]) {
+	for (i = 0; i < sizeof(login_opts) / sizeof(*login_opts); ++i)
+	    pr_id(player, C_DATA, "%s=%d",
+		  login_opts[i].name,
+		  (player->flags & login_opts[i].val) != 0);
+	pr_id(player, C_CMDOK, "\n");
+    }
 
     for (ap = player->argp+1; *ap; ++ap) {
 	p = strchr(*ap, '=');
@@ -244,11 +252,7 @@ options_cmd(void)
 	    player->flags &= ~login_opts[opt].val;
     }
 
-    for (i = 0; i < sizeof(login_opts) / sizeof(*login_opts); ++i)
-	pr_id(player, C_DATA, "%s=%d",
-	      login_opts[i].name,
-	      (player->flags & login_opts[i].val) != 0);
-    pr_id(player, C_CMDOK, "Options okay\n");
+    pr_id(player, C_CMDOK, "Accepted\n");
 
     return RET_OK;
 }
@@ -327,28 +331,6 @@ kill_cmd(void)
 }
 
 static int
-list_cmd(void)
-{
-    struct player *lp;
-    int first = 1;
-
-    if (player->cnum != 0 || !player->validated) {
-	pr_id(player, C_CMDERR, "Permission denied\n");
-	return 0;
-    }
-    for (lp = player_next(0); lp != 0; lp = player_next(lp)) {
-	if (first) {
-	    pr_id(player, C_DATA, "user@host\tcountry\tpid\n");
-	    first = 0;
-	}
-	pr_id(player, C_DATA, "%s\t%d\n", praddr(lp), lp->cnum);
-    }
-    if (first == 0)
-	pr_id(player, C_DATA, "\n");
-    return 0;
-}
-
-static int
 quit_cmd(void)
 {
     pr_id(player, C_EXIT, "so long\n");
@@ -357,15 +339,14 @@ quit_cmd(void)
 }
 
 struct cmndstr login_coms[] = {
-    {"client clientname [version info]", 0, client_cmd, 0, 0},
-    {"coun countryname", 0, coun_cmd, 0, 0},
+    {"client client-id...", 0, client_cmd, 0, 0},
+    {"coun country", 0, coun_cmd, 0, 0},
     {"kill", 0, kill_cmd, 0, 0},
-    {"list", 0, list_cmd, 0, 0},
-    {"options", 0, options_cmd, 0, 0},
+    {"options option=value...", 0, options_cmd, 0, 0},
     {"pass password", 0, pass_cmd, 0, 0},
-    {"play [user country pass]", 0, play_cmd, 0, 0},
+    {"play [user [country [password]]]", 0, play_cmd, 0, 0},
     {"quit", 0, quit_cmd, 0, 0},
     {"sanc", 0, sanc_cmd, 0, 0},
-    {"user username", 0, user_cmd, 0, 0},
+    {"user name", 0, user_cmd, 0, 0},
     {0, 0, 0, 0, 0}
 };
