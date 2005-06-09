@@ -127,12 +127,10 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	     * must name selectors.
 	     */
 	    if (!nstr_resolve_id(&np->lft, ca, lft_caidx,
-				 nstr_promote(ca[rgt_caidx].ca_type)
-				 == NSC_STRING))
+				 nstr_string_ok(ca, rgt_caidx)))
 		return -1;
 	    if (!nstr_resolve_id(&np->rgt, ca, rgt_caidx,
-				 nstr_promote(ca[lft_caidx].ca_type)
-				 == NSC_STRING))
+				 nstr_string_ok(ca, lft_caidx)))
 		return -1;
 	}
 
@@ -336,9 +334,9 @@ nstr_match_ca(struct valstr *val, struct castr *ca)
 /*
  * Match VAL in a selector's values, return its (non-negative) value.
  * TYPE is the context type, a file type.
- * CA is ef_cadef(TYPE).
- * Match values of selector descriptor CA[IDX], provided CA is not
- * null and IDX is not negative.
+ * CA is ef_cadef(TYPE).  If it is null, then IDX must be negative.
+ * Match values of selector descriptor CA[IDX], provided IDX is not
+ * negative.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  * TODO: This is just a stub and works only for NSC_TYPEID.
@@ -360,6 +358,16 @@ nstr_match_val(struct valstr *val, int type, struct castr *ca, int idx)
     id[val->val_as.str.maxsz] = 0;
 
     return typematch(id, type);
+}
+
+/*
+ * Can CA[IDX] be compared to a string?
+ * Return 0 for negative IDX.
+ */
+int
+nstr_string_ok(struct castr *ca, int idx)
+{
+    return idx >= 0 && nstr_promote(ca[idx].ca_type) == NSC_STRING;
 }
 
 /*
