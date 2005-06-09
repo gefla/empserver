@@ -87,14 +87,14 @@ mobupdate(void)
 	    update_all_mob();
 	    updating_mob = 1;
 	} else if (updating_mob == 1) {
-	    pr("Turning off mobility updating.\n\r");
+	    pr("Turning off mobility updating.\n");
 	    pr("Mobility updating will come back on around %s",
 	       ctime(&timestamps.starttime));
 	    pr("within 3 minutes, depending on when the server checks.");
 	    update_all_mob();
 	    updating_mob = 0;
 	} else if (updating_mob == 0) {
-	    pr("Mobility updating is already off.\n\r");
+	    pr("Mobility updating is already off.\n");
 	    pr("Mobility updating will come back on around %s",
 	       ctime(&timestamps.starttime));
 	    pr("within 3 minutes, depending on when the server checks.");
