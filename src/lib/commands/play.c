@@ -47,15 +47,13 @@ play(void)
 {
     struct player *joe;
     int saw = 0;
-    int count = 0;
 
+    play_header();
     for (joe = player_prev(0); joe; joe = player_prev(joe)) {
-	if (!count++)
-	    play_header();
 	saw += play_list(joe);
     }
     if (player->god || opt_BLITZ)
-	pr("%d player%s\n", count, splur(count));
+	pr("%d player%s\n", saw, splur(saw));
 
     return RET_OK;
 }
