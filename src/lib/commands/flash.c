@@ -151,6 +151,8 @@ sendmessage(struct natstr *us, struct natstr *to, char *message
     time(&now);
     tm = localtime(&now);
     for (other = player_next(0); other != 0; other = player_next(other)) {
+	if (other->state != PS_PLAYING)
+	    continue;
 	if (to && other->cnum != to->nat_cnum)
 	    continue;
 	if (!(wto = getnatp(other->cnum)))
