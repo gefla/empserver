@@ -14,7 +14,7 @@ what we'd do to his code)
 
 1986 UCSD Empire 0.x, Dave Pare
 
-Made Empire multiplayer with fixed update times.  Added hexmap, planes, nukes,
+Made Empire multi-player with fixed update times.  Added hex map, planes, nukes,
 satellites, ships, market, distribute, and updates.
 
 Jim Reuter (and his PDP/11 decompiler) provided Dave Pare with a large
@@ -82,7 +82,7 @@ edu, terrorists, shoot, many new ships.
 198? BSD Empire -- KSU Distribution (1.04), Jeff Bailey
 
 One of the goals of the KSU team was to make the server as
-configureable as possible.  As such, they added many OPTIONS, and
+configurable as possible.  As such, they added many OPTIONS, and
 global constants.  Added abms, asats, bmap, autonav, scuttle,
 NUKEFAILDETONATE, MISSINGMISSILES, SHIPNAMES, NEUTRON, RANGEEDIT,
 MISSDEF, NOFOOD, UPDATESCHED, DEMANDUPDATE, ORBIT, FALLOUT, SAIL,
@@ -105,9 +105,9 @@ Added land units, SUPER_BARS, EASY_BRIDGES, SLOW_WAR.
 
 1992 Chainsaw Empire 2.0, Thomas Ruschak
 
-Added trade ships, fuel, semiland ships, ASW planes, payoff, wire, SNEAK_ATTACK
+Added trade ships, fuel, semi-land ships, ASW planes, payoff, wire, SNEAK_ATTACK
 retreat paths, sweep planes, budget.  Tom thanks the following people
-for helping him with ideas and playtesting:
+for helping him with ideas and play-testing:
 
 			Jorge Diaz (Ansalon)
 			Tom Tedrick (Afrika Korps)
@@ -127,7 +127,7 @@ for helping him with ideas and playtesting:
 Added land units, missions, bestpath, people take less damage from shelling, +1
 range bonus for 60% forts, cede, neweff, starva, forts interdict
 ships, mountain caps, RES_POP, NEW_STARVE, NEW_WORK, uncrewed ship
-decay, anonymous sublaunched missiles, stop & start, bdes.
+decay, anonymous sub-launched missiles, stop & start, bdes.
 
 
 1995 Empire 2.0, Dave Pare
@@ -139,7 +139,7 @@ added HIDDEN and NEWPAF options.  Many options were made standard.
 These are the people who submitted patches for Empire 2.0:
 			Chad Zabel (3 letter abbrev's, & autonav)
 			Ken Huisman
-			Scott Ferguson (linux port)
+			Scott Ferguson (Linux port)
 			Kevin Klemmick
 			Doug Hay (threads debugging)
 			Bill Canning (AIX port)
@@ -151,14 +151,14 @@ These are the people who submitted patches for Empire 2.0:
 Organized info pages, wrote a "configure" script, made minor
 improvements to many commands, rewrote missile, navigation, and march
 code.  Consolidated launch/bomb and missile/plane interdiction so that
-hitchance and damage is the same whether it's a mission or done "by
+hit chance and damage is the same whether it's a mission or done "by
 hand".  Added collateral damage, interdiction nuke detonation,
 "friendly" trade relations, BIG_CITY, ATT_INTERDICT, 
 Consolidated sail, navi, and order.  Added toggle, flash, wall,
 shutdown, strength.  Other contributers:
 			Chad Zabel (ship anti-missile defense)
 			Julian Onions (runtime configuration)
-			Sasha Mikheev (linux port)
+			Sasha Mikheev (Linux port)
 
 1995 Empire 2.2 beta, Ken Stevens
 
@@ -171,8 +171,8 @@ Completely rewrote attack, assault, board, and paradrop.  Added
 
 1995 Empire 2.3, Ken Stevens
 
-After running a series of playtest games, Ken fixed all known bugs in
-the server, organized and rewrote alot of documentation (including
+After running a series of play-test games, Ken fixed all known bugs in
+the server, organized and rewrote a lot of documentation (including
 this info page) and released the Empire2 server out of beta.
 
 1995 Empire 3.0, Ken Stevens
@@ -185,7 +185,7 @@ C_SYNC messages from the server into a database for the client.  Thus,
 clients can link with the Empire Toolkit and be confident that when
 the server gets upgraded, their client will still work.  Note that the
 C_SYNC protocol is asynchronous so, in particular, players will be
-able to watch their neighbours sail ships past their coast etc...
+able to watch their neighbors sail ships past their coast etc...
 
 1996 Empire 4.0, Wolfpack (http://www.wolfpackempire.com)
 
@@ -209,7 +209,7 @@ following people:
 
 1998 Empire 4.2, Wolfpack (http://www.wolfpackempire.com)
 
-The above authors (Dave Pare, Jeff Bailey, Thomas Rushack, Ken Stevens
+The above authors (Dave Pare, Jeff Bailey, Thomas Ruschack, Ken Stevens
 and Steve McClure) agreed to re-release the source code under the GNU
 GPL.  The source was already freely released to the public, but any
 copyright issues (such as gaining permission from Phil Lapsley for the
