@@ -7,6 +7,7 @@ your country.  The server will remember which flags you have set
 between sessions.  If you do not specify the second argument ("on" or
 "off"), then the server will just flip the switch from on to off or
 vice versa.
+.s1
 .EX "toggle inform"
 Will toggle the "inform" flag (default off) for your country.  When
 inform is on, the server will inform you immediately whenever you
