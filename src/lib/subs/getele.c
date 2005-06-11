@@ -75,9 +75,7 @@ getele(char *nation, char *buf /* buf is message text */)
 	    uprnf(buf);
 	    continue;
 	}
-	if (buffer[0] == '.' && ((buffer[1] == 0)
-				 || (buffer[1] == '\n')
-				 || (buffer[1] == '\r')))
+	if (buffer[0] == '.' && buffer[1] == 0)
 	    break;
 	len = strlen(buffer);
 	buffer[len++] = '\n';
@@ -101,8 +99,7 @@ getele(char *nation, char *buf /* buf is message text */)
 static int
 tilde_escape(s_char *s, s_char c)
 {
-    if (s[0] == '~' && s[1] == c &&
-	((s[2] == 0) || (s[2] == '\n') || (s[2] == '\r')))
+    if (s[0] == '~' && s[1] == c && s[2] == 0)
 	return 1;
     return 0;
 }

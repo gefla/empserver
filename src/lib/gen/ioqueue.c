@@ -163,6 +163,9 @@ ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 	actual = nbytes;
 	if (actual > cc - 1)
 	    actual = cc - 1;
+	/* telnet terminates lines with "\r\n", get rid of \r */
+	if (actual > 0 && buf[actual-1] == '\r')
+	    actual--;
 	buf[actual] = '\0';
 	/* remove the newline too */
 	removecc(ioq, nbytes + 1);
