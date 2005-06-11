@@ -43,6 +43,7 @@
 static char *nstr_parse_val(char *, struct valstr *);
 static int nstr_match_ca(struct valstr *, struct castr *);
 static int nstr_match_val(struct valstr *, int, struct castr *, int);
+static int nstr_string_ok(struct castr *ca, int idx);
 static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
 static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int, int);
@@ -364,7 +365,7 @@ nstr_match_val(struct valstr *val, int type, struct castr *ca, int idx)
  * Can CA[IDX] be compared to a string?
  * Return 0 for negative IDX.
  */
-int
+static int
 nstr_string_ok(struct castr *ca, int idx)
 {
     return idx >= 0 && nstr_promote(ca[idx].ca_type) == NSC_STRING;
