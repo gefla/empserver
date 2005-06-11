@@ -169,9 +169,6 @@ ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 	buf[actual] = '\0';
 	/* remove the newline too */
 	removecc(ioq, nbytes + 1);
-#if defined(_WIN32)
-	loc_StripDels(buf);
-#endif
     }
     return nbytes;
 }
@@ -420,34 +417,3 @@ ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen)
     return ncopied;
 }
 #endif /* _WIN32 */
-
-#if defined(_WIN32)
-/*
- * Remove backspaces and DELs from the buffer.
- *
- * Why?  Because I got tired of telneting into the
- * server and having to type perfectly...
- */
-static void
-loc_StripDels(char *pBuf)
-{
-    char *cp;
-    char *dp;
-    char *sp;
-
-    for (cp = pBuf; *cp;) {
-	/* Remove Backspace and DEL */
-	if (*cp == '\b' || *cp == '\x8F') {
-	    if (cp == pBuf)
-		dp = cp;
-	    else
-		dp = cp - 1;
-	    sp = cp + 1;
-	    while (*sp)
-		*dp++ = *sp++;
-	    *dp = 0;
-	} else
-	    cp++;
-    }
-}
-#endif
