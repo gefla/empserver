@@ -78,7 +78,15 @@ telegram_is_new(natid to, struct telstr *tel)
     return is_new;
 }
 
-/*VARARGS*/
+/*
+ * Send a telegram from FROM to TO.
+ * Format text to send under control of printf-style FORMAT using
+ * optional arguments.  It is plain ASCII.
+ * If running from the update, telegram type is TEL_UPDATE.
+ * Else if FROM is a deity, type is TEL_BULLETIN.
+ * Else it is TEL_NORM.
+ * Return 0 on success, -1 on error.
+ */
 int
 wu(natid from, natid to, char *format, ...)
 {
@@ -98,10 +106,15 @@ wu(natid from, natid to, char *format, ...)
 	return typed_wu(from, to, buf, TEL_NORM);
 }
 
+/*
+ * Send a telegram from FROM to TO.
+ * MESSAGE is the text to send, encoded as message text.
+ * TYPE is the telegram type.
+ * Return 0 on success, -1 on error.
+ */
 int
 typed_wu(natid from, natid to, char *message, int type)
 {
-    char *bp;
     int len;
     struct telstr tel;
     struct natstr *np;
@@ -136,12 +149,11 @@ typed_wu(natid from, natid to, char *message, int type)
     }
     tel.tel_from = from;
     (void)time(&tel.tel_date);
-    bp = message;
-    while (*bp++) ;
-    len = bp - message;
-    if (len >= MAXTELSIZE)
-	len = (MAXTELSIZE - 1);
-    message[len] = 0;
+    len = strlen(message);
+    if (CANT_HAPPEN(len > MAXTELSIZE)) {
+	len = MAXTELSIZE;
+	message[len] = 0;
+    }
     tel.tel_length = len;
     tel.tel_type = type;
 #if !defined(_WIN32)
