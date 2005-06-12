@@ -74,9 +74,9 @@ skyw(void)
 	return RET_SYN;
     for (i = 0; i < TSIZE; i++)
 	list[i] = 0;
-    skyp = (struct sky *)malloc(sizeof(*skyp));
+    skyp = malloc(sizeof(*skyp));
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&skyp->s_sat)) {
+    while (nxtitem(&ni, &skyp->s_sat)) {
 	if (!skyp->s_sat.pln_own)
 	    continue;
 	if (!(skyp->s_sat.pln_flags & PLN_LAUNCHED))
@@ -86,11 +86,11 @@ skyw(void)
 	skyp->s_spotted = 0;
 	skyp->s_next = list[n];
 	list[n] = skyp;
-	skyp = (struct sky *)malloc(sizeof(*skyp));
+	skyp = malloc(sizeof(*skyp));
 	nsat++;
     }
     /* get that last one! */
-    free((s_char *)skyp);
+    free(skyp);
     pr("- = [ Skywatch report for %s ] = -\n", cname(player->cnum));
     pr(" %18s%20s        %s\n", "Country", "Satellite", "Location");
     tech = tfact(player->cnum, 1.0);
@@ -126,7 +126,7 @@ skyw(void)
     for (i = 0; i < TSIZE; i++) {
 	while (NULL != (skyp = list[i])) {
 	    list[i] = skyp->s_next;
-	    free((s_char *)skyp);
+	    free(skyp);
 	}
     }
     return RET_OK;
@@ -148,7 +148,7 @@ showsat(struct sky **skypp, int x, int y)
     do {
 	/* we delete it, we free it. */
 	if (todelete) {
-	    free((s_char *)todelete);
+	    free(todelete);
 	    todelete = 0;
 	}
 	if (skyp->s_sat.pln_x != x || skyp->s_sat.pln_y != y) {
@@ -170,6 +170,6 @@ showsat(struct sky **skypp, int x, int y)
     } while (NULL != (skyp = skyp->s_next));
     /* check that last one! */
     if (todelete)
-	free((s_char *)todelete);
+	free(todelete);
     return (nsat);
 }

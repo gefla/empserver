@@ -132,7 +132,7 @@ retr(void)
     if (zero)
 	rflags = 0;
 
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
@@ -261,7 +261,7 @@ lretr(void)
     if (zero)
 	rflags = 0;
 
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {

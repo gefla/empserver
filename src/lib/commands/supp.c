@@ -49,7 +49,7 @@ supp(void)
 	return RET_SYN;
 
     nunits = 0;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	nunits++;

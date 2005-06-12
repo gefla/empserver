@@ -72,7 +72,7 @@ trechk(register natid actor, register natid victim, int provision)
     for (cn = 0; cn < MAXNOC; cn++)
 	involved[cn] = 0;
     snxtitem_all(&nstr, EF_TREATY);
-    while (nxtitem(&nstr, (s_char *)&treaty)) {
+    while (nxtitem(&nstr, &treaty)) {
 	if (treaty.trt_status == TS_FREE)
 	    continue;
 	if (treaty.trt_exp < now)

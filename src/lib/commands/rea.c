@@ -117,7 +117,7 @@ rea(void)
     lastdate = 0;
     lastcnum = -1;
     lasttype = -1;
-    while (fread((s_char *)&tgm, sizeof(tgm), 1, telfp) == 1) {
+    while (fread(&tgm, sizeof(tgm), 1, telfp) == 1) {
 	readit = 1;
 	if (tgm.tel_length < 0) {
 	    logerror("bad telegram file header in %s", mbox);

@@ -97,7 +97,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	 * count.
 	 */
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
+	while (nxtitem(&ni, &land)) {
 	    mil += lnd_getmil(&land);
 /*			mil += (lnd_getmil(&land) *
 				((double)land.lnd_effic/100.0));*/

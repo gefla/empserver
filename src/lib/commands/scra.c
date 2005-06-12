@@ -136,7 +136,7 @@ scra(void)
 	if (!confirm(y_or_n))
 	    return RET_FAIL;
     }
-    while (nxtitem(&ni, (s_char *)&item)) {
+    while (nxtitem(&ni, &item)) {
 	if (!player->owner)
 	    continue;
 
@@ -192,7 +192,7 @@ scra(void)
 	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
 	    getsect(item.ship.shp_x, item.ship.shp_y, &sect2);
 	    snxtitem_all(&ni2, EF_PLANE);
-	    while (nxtitem(&ni2, (s_char *)&plane)) {
+	    while (nxtitem(&ni2, &plane)) {
 		if (plane.pln_own == 0)
 		    continue;
 		if (plane.pln_ship == item.ship.shp_uid) {
@@ -214,11 +214,11 @@ scra(void)
 		    plane.pln_own = sect2.sct_own;
 		    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid,
 				plane.pln_x, plane.pln_y);
-		    putplane(plane.pln_uid, (s_char *)&plane);
+		    putplane(plane.pln_uid, &plane);
 		}
 	    }
 	    snxtitem_all(&ni2, EF_LAND);
-	    while (nxtitem(&ni2, (s_char *)&land)) {
+	    while (nxtitem(&ni2, &land)) {
 		if (land.lnd_own == 0)
 		    continue;
 		if (land.lnd_ship == item.ship.shp_uid) {
@@ -240,13 +240,13 @@ scra(void)
 		    land.lnd_own = sect2.sct_own;
 		    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
 				land.lnd_x, land.lnd_y);
-		    putland(land.lnd_uid, (s_char *)&land);
+		    putland(land.lnd_uid, &land);
 		}
 	    }
 	    makelost(EF_SHIP, item.ship.shp_own, item.ship.shp_uid,
 		     item.ship.shp_x, item.ship.shp_y);
 	    item.ship.shp_own = 0;
-	    putship(item.ship.shp_uid, (s_char *)&item.ship);
+	    putship(item.ship.shp_uid, &item.ship);
 	} else if (type == EF_LAND) {
 	    eff = ((float)item.land.lnd_effic / 100.0);
 	    lp = &lchr[(int)item.land.lnd_type];
@@ -259,7 +259,7 @@ scra(void)
 	    getsect(item.land.lnd_x, item.land.lnd_y, &sect2);
 
 	    snxtitem_all(&ni2, EF_LAND);
-	    while (nxtitem(&ni2, (s_char *)&land)) {
+	    while (nxtitem(&ni2, &land)) {
 		if (land.lnd_own == 0)
 		    continue;
 		if (land.lnd_land == item.land.lnd_uid) {
@@ -281,12 +281,12 @@ scra(void)
 		    land.lnd_own = sect2.sct_own;
 		    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
 				land.lnd_x, land.lnd_y);
-		    putland(land.lnd_uid, (s_char *)&land);
+		    putland(land.lnd_uid, &land);
 		}
 	    }
 
 	    snxtitem_all(&ni2, EF_PLANE);
-	    while (nxtitem(&ni2, (s_char *)&plane)) {
+	    while (nxtitem(&ni2, &plane)) {
 		if (plane.pln_own == 0)
 		    continue;
 		if (plane.pln_land == item.land.lnd_uid) {
@@ -308,13 +308,13 @@ scra(void)
 		    plane.pln_own = sect2.sct_own;
 		    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid,
 				plane.pln_x, plane.pln_y);
-		    putplane(plane.pln_uid, (s_char *)&plane);
+		    putplane(plane.pln_uid, &plane);
 		}
 	    }
 	    makelost(EF_LAND, item.land.lnd_own, item.land.lnd_uid,
 		     item.land.lnd_x, item.land.lnd_y);
 	    item.land.lnd_own = 0;
-	    putland(item.land.lnd_uid, (s_char *)&item.land);
+	    putland(item.land.lnd_uid, &item.land);
 	} else {
 	    eff = ((float)item.land.lnd_effic / 100.0);
 	    pp = &plchr[(int)item.plane.pln_type];
@@ -325,7 +325,7 @@ scra(void)
 	    makelost(EF_PLANE, item.plane.pln_own, item.plane.pln_uid,
 		     item.plane.pln_x, item.plane.pln_y);
 	    item.plane.pln_own = 0;
-	    putplane(item.plane.pln_uid, (s_char *)&item.plane);
+	    putplane(item.plane.pln_uid, &item.plane);
 	}
 	pr(" scrapped in %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));

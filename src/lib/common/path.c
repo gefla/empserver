@@ -81,7 +81,7 @@ bp_init(void)
 
     ep = &empfile[EF_SECTOR];
 
-    bp = (struct bestp *)malloc(sizeof(*bp));
+    bp = malloc(sizeof(*bp));
     memset(bp, 0, sizeof(*bp));
     bp->adp = as_init(BP_NEIGHBORS, BP_ASHASHSIZE, bp_coord_hash,
 		      bp_neighbors, bp_lbcost, bp_realcost,
@@ -91,9 +91,8 @@ bp_init(void)
 	return NULL;
 
     if (neighsects == (struct sctstr **)0)
-	neighsects = (struct sctstr **)calloc(1, (sizeof(struct sctstr *) *
-						  ((WORLD_X * WORLD_Y) /
-						   2) * 6));
+	neighsects = calloc(((WORLD_X * WORLD_Y) / 2) * 6,
+			    sizeof(struct sctstr *));
 
     return (s_char *)bp;
 }

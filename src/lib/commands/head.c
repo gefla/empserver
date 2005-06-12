@@ -93,7 +93,7 @@ head(void)
     memset(hist, 0, sizeof(hist));
     snxtitem_all(&nstr, EF_NEWS);
     maxcnum = 0;
-    while (nxtitem(&nstr, (s_char *)&news)) {
+    while (nxtitem(&nstr, &news)) {
 	news_age = now - news.nws_when;
 	if (news_age > news_per)
 	    continue;

@@ -246,7 +246,7 @@ pr_hilite(s_char *buf)
     register s_char c;
     s_char *p;
 
-    p = (s_char *)malloc(strlen(buf) + 1);
+    p = malloc(strlen(buf) + 1);
     strcpy(p, buf);
     for (bp = p; 0 != (c = *bp); bp++)
 	if (isprint(c))

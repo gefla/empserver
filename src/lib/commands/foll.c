@@ -72,7 +72,7 @@ foll(void)
     }
     x = ship.shp_x;
     y = ship.shp_y;
-    while (nxtitem(&nstr, (s_char *)&ship)) {
+    while (nxtitem(&nstr, &ship)) {
 	if (!player->owner)
 	    continue;
 	if (ship.shp_x != x || ship.shp_y != y) {

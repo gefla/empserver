@@ -41,7 +41,7 @@ strdup(char *x)
 {
     char *y;
 
-    y = (char *)malloc((sizeof(char) * strlen(x)) + 1);
+    y = malloc((sizeof(char) * strlen(x)) + 1);
     strcpy(y, x);
     return y;
 }

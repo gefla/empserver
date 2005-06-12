@@ -57,7 +57,7 @@ name(void)
     }
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&nb, (s_char *)&ship)) {
+    while (nxtitem(&nb, &ship)) {
 	if (!player->owner)
 	    continue;
 	p = getstarg(player->argp[2], "Name? ", buf);

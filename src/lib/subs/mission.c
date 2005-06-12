@@ -309,7 +309,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 /*
         size = max(sizeof(struct shpstr),sizeof(struct lndstr));
         size = max(size,sizeof(struct plnstr));
-        block = (s_char *)malloc(size);
+        block = malloc(size);
  */
     size = sizeof(u_block);
     block = (s_char *)&u_block;
@@ -360,7 +360,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	if (opt_SLOW_WAR) {
 	    if (mission != MI_AIR_DEFENSE) {
-		getsect(x, y, (s_char *)&sect);
+		getsect(x, y, &sect);
 		if (getrel(getnatp(gp->own), sect.sct_own) > AT_WAR) {
 
 		    /*
@@ -377,7 +377,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	    }
 	}
 
-	glp = (struct genlist *)malloc(sizeof(struct genlist));
+	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));
 	glp->x = gp->x;
 	glp->y = gp->y;
@@ -393,7 +393,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	    glp->cp = (s_char *)&plchr[(int)gp->type];
 	    break;
 	}
-	glp->thing = (s_char *)malloc(size);
+	glp->thing = malloc(size);
 	memcpy(glp->thing, block, size);
 	emp_insque(&glp->queue, &mi[gp->own].queue);
     }
@@ -408,7 +408,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
     int dist;
 
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own != cn)
 	    continue;
 
@@ -420,7 +420,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 	if (dist > ((int)((float)plane.pln_range / 2.0)))
 	    continue;
 
-	plp = (struct plist *)malloc(sizeof(struct plist));
+	plp = malloc(sizeof(struct plist));
 	memset(plp, 0, sizeof(struct plist));
 	plp->pcp = &plchr[(int)plane.pln_type];
 	plp->plane = plane;
@@ -656,7 +656,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 
 	    /* save planes for later */
-	    plp = (struct plist *)malloc(sizeof(struct plist));
+	    plp = malloc(sizeof(struct plist));
 
 	    memset(plp, 0, sizeof(struct plist));
 	    plp->pcp = pcp;
@@ -689,7 +689,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    qp = qp->q_forw;
 
 	    free(glp->thing);
-	    free((s_char *)glp);
+	    free(glp);
 	}
 	return dam;
     }
@@ -779,14 +779,14 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	qp = qp->q_forw;
 
 	free(glp->thing);
-	free((s_char *)glp);
+	free(glp);
     }
 
     qp = escorts.q_forw;
     while (qp != (&escorts)) {
 	newqp = qp->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
 
@@ -794,7 +794,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     while (qp != (&bombers)) {
 	newqp = qp->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
 
@@ -906,7 +906,7 @@ show_mission(int type, struct nstr_item *np)
 
     size = max(sizeof(struct lndstr), sizeof(struct plnstr));
     size = max(size, sizeof(struct shpstr));
-    block = (s_char *)malloc(size);
+    block = malloc(size);
 
     while (nxtitem(np, block)) {
 	gp = (struct genitem *)block;
@@ -1018,20 +1018,20 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 
 	if (pp->pln_effic < 40) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 
 	if (pp->pln_mobil < 1) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, (int *)pp)) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1060,7 +1060,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    }
 	    if (bad) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	    if (bad1 == 2) {
@@ -1074,7 +1074,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    }
 	    if (bad1) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1089,7 +1089,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    }
 	    if (bad) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1099,7 +1099,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		pp->pln_effic = 0;
 		putplane(pp->pln_uid, pp);
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	    if (!can_be_on_ship(pp->pln_uid, ship.shp_uid)) {
@@ -1113,7 +1113,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		((ship.shp_own != pp->pln_own) &&
 		 (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1123,7 +1123,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		pp->pln_effic = 0;
 		putplane(pp->pln_uid, pp);
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	    if (!(pcp->pl_flags & P_E))
@@ -1136,14 +1136,14 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		((land.lnd_own != pp->pln_own) &&
 		 (getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED))) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 
 	    /* Can't fly off units in ships or other units */
 	    if ((land.lnd_ship >= 0) || (land.lnd_land >= 0)) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1152,7 +1152,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    /* If we can't get the sector, we can't check it, and can't fly */
 	    if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	    /* First, check allied status */
@@ -1160,14 +1160,14 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    if ((sect.sct_own != pp->pln_own) &&
 		(getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED)) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	    /* non-vtol plane */
 	    if ((pcp->pl_flags & P_V) == 0) {
 		if ((sect.sct_type != SCT_AIRPT) || (sect.sct_effic < 40)) {
 		    emp_remque(qp);
-		    free((s_char *)qp);
+		    free(qp);
 		    continue;
 		}
 	    }
@@ -1175,7 +1175,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	if (pcp->pl_flags & P_A) {
 	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 		continue;
 	    }
 	}
@@ -1210,7 +1210,7 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 
 	if (mission_pln_equip(plp, ip, flags, mission) < 0) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 	if (flags & (P_S | P_I)) {
@@ -1371,7 +1371,7 @@ add_airport(struct emp_qelem *airp, coord x, coord y)
     struct airport *a;
     struct sctstr sect;
 
-    a = (struct airport *)malloc(sizeof(struct airport));
+    a = malloc(sizeof(struct airport));
 
     a->x = x;
     a->y = y;
@@ -1554,7 +1554,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 
 	    dist = mapdist(x, y, gp->x, gp->y);
 
-	    plp = (struct plist *)malloc(sizeof(struct plist));
+	    plp = malloc(sizeof(struct plist));
 	    memset(plp, 0, sizeof(struct plist));
 	    plp->pcp = (struct plchrstr *)glp->cp;
 	    memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
@@ -1594,7 +1594,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 		/* Free it up and continue */
 		emp_remque(qp);
 		glp = (struct genlist *)qp;
-		free((s_char *)glp);
+		free(glp);
 	    }
 	}
 
@@ -1704,7 +1704,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    next = qp->q_forw;
 	    glp = (struct genlist *)qp;
 	    free(glp->thing);
-	    free((s_char *)glp);
+	    free(glp);
 	}
     }
 

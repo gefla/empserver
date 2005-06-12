@@ -48,7 +48,7 @@ show_sail(struct nstr_item *nstr)
     int count = 0;
     struct shpstr ship;
 
-    while (nxtitem(nstr, (s_char *)&ship)) {
+    while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
@@ -100,7 +100,7 @@ cmd_unsail_ship(struct nstr_item *nstr)
     struct shpstr ship;
     int count = 0;
 
-    while (nxtitem(nstr, (s_char *)&ship)) {
+    while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
@@ -124,7 +124,7 @@ cmd_sail_ship(struct nstr_item *nstr)
     struct shpstr ship;
     char navpath[MAX_PATH_LEN];
 
-    while (!player->aborted && nxtitem(nstr, (s_char *)&ship)) {
+    while (!player->aborted && nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {

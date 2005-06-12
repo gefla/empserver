@@ -94,7 +94,7 @@ rada(void)
 		pr("Specify at least one ship\n");
 		return RET_SYN;
 	    }
-	    while (nxtitem(&ni, (s_char *)&ship)) {
+	    while (nxtitem(&ni, &ship)) {
 		if (!player->owner)
 		    continue;
 		if (mchr[(int)ship.shp_type].m_flags & M_SONAR)
@@ -117,7 +117,7 @@ rada(void)
 		pr("Specify at least one unit\n");
 		return RET_SYN;
 	    }
-	    while (nxtitem(&ni, (s_char *)&land)) {
+	    while (nxtitem(&ni, &land)) {
 		if (!player->owner)
 		    continue;
 		if (!(lchr[(int)land.lnd_type].l_flags & L_RADAR)) {

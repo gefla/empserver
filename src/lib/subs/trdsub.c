@@ -139,7 +139,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
 	    snxtitem_all(&ni, EF_PLANE);
-	    while (nxtitem(&ni, (s_char *)&plane)) {
+	    while (nxtitem(&ni, &plane)) {
 		if (plane.pln_ship == sp->shp_uid && plane.pln_own != 0) {
 		    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
 		       plane.pln_tech,
@@ -151,7 +151,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 		}
 	    }
 	    snxtitem_all(&ni, EF_LAND);
-	    while (nxtitem(&ni, (s_char *)&land)) {
+	    while (nxtitem(&ni, &land)) {
 		if (land.lnd_ship == sp->shp_uid && land.lnd_own != 0) {
 		    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
 		       land.lnd_tech,
@@ -159,7 +159,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 		       lchr[(int)land.lnd_type].l_name, land.lnd_uid);
 		    if (land.lnd_nxlight) {
 			snxtitem_all(&ni, EF_PLANE);
-			while (nxtitem(&ni, (s_char *)&plane)) {
+			while (nxtitem(&ni, &plane)) {
 			    if (plane.pln_land == land.lnd_uid) {
 				pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
 				   plane.pln_tech,
@@ -197,7 +197,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
 	    snxtitem_all(&ni, EF_PLANE);
-	    while (nxtitem(&ni, (s_char *)&plane)) {
+	    while (nxtitem(&ni, &plane)) {
 		if (plane.pln_land == lp->lnd_uid && plane.pln_own != 0) {
 		    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
 		       plane.pln_tech,
@@ -233,7 +233,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 int
 trade_getitem(struct trdstr *tp, union trdgenstr *tgp)
 {
-    if (!ef_read(tp->trd_type, tp->trd_unitid, (s_char *)tgp))
+    if (!ef_read(tp->trd_type, tp->trd_unitid, tgp))
 	return 0;
     return 1;
 }

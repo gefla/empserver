@@ -218,7 +218,7 @@ loan_accept(struct ltcomstr *ltcp)
     }
     /* check to see if a loan already exists */
     snxtitem_all(&nstr, EF_LOAN);
-    while (nxtitem(&nstr, (s_char *)&loan)) {
+    while (nxtitem(&nstr, &loan)) {
 	if (loan.l_status == LS_SIGNED && loan.l_lonee == lp->l_loner
 	    && (loan.l_loner == lp->l_lonee)) {
 	    pr("He already owes you money - make him repay his loan!\n");
@@ -240,7 +240,7 @@ loan_accept(struct ltcomstr *ltcp)
     (void)time(&lp->l_lastpay);
     lp->l_duedate = lp->l_ldur * 86400 + lp->l_lastpay;
     lp->l_status = LS_SIGNED;
-    if (!putloan(ltcp->num, (s_char *)lp)) {
+    if (!putloan(ltcp->num, lp)) {
 	pr("Problem writing lp->to disk; get help!\n");
 	return RET_FAIL;
     }

@@ -163,7 +163,7 @@ lnd_delete(struct llist *llp, s_char *s)
 	lnd_print(llp, s);
     putland(llp->land.lnd_uid, &llp->land);
     emp_remque((struct emp_qelem *)llp);
-    free((s_char *)llp);
+    free(llp);
 }
 
 int
@@ -204,9 +204,8 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 
     if (llp->land.lnd_effic < LAND_MINEFF) {
 	sprintf(buf, "dies %s %s!",
-		combat_mode ? att_mode[combat_mode] : (s_char *)
-		"defending", xyas(llp->land.lnd_x, llp->land.lnd_y,
-				  llp->land.lnd_own));
+		combat_mode ? att_mode[combat_mode] : "defending",
+		xyas(llp->land.lnd_x, llp->land.lnd_y, llp->land.lnd_own));
 	lnd_delete(llp, buf);
 	/* Since we killed the unit, we killed all the mil on it */
 	return taken;
@@ -433,7 +432,7 @@ count_sect_units(struct sctstr *sp)
     struct lndstr land;
 
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!land.lnd_own)
 	    continue;
 	if (land.lnd_x != sp->sct_x || land.lnd_y != sp->sct_y)
@@ -461,7 +460,7 @@ count_units(struct shpstr *sp)
 	return;
 
     snxtitem_xy(&ni, EF_LAND, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_ship == sp->shp_uid)
@@ -485,7 +484,7 @@ lnd_count_units(struct lndstr *lp)
 	return;
 
     snxtitem_xy(&ni, EF_LAND, lp->lnd_x, lp->lnd_y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_land == lp->lnd_uid)
@@ -511,7 +510,7 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
     struct llist *llp;
 
     emp_initque(list);
-    while (nxtitem(ni, (s_char *)&land)) {
+    while (nxtitem(ni, &land)) {
 	if (!player->owner)
 	    continue;
 	if (opt_MARKET) {
@@ -546,7 +545,7 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	land.lnd_harden = 0;
 	memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	putland(land.lnd_uid, &land);
-	llp = (struct llist *)malloc(sizeof(struct llist));
+	llp = malloc(sizeof(struct llist));
 	llp->lcp = lcp;
 	llp->land = land;
 	llp->mobil = (double)land.lnd_mobil;
@@ -581,7 +580,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    mpr(actor, "%s was disbanded at %s\n",
 		prland(&land), xyas(land.lnd_x, land.lnd_y, land.lnd_own));
 	    emp_remque((struct emp_qelem *)llp);
-	    free((s_char *)llp);
+	    free(llp);
 	    continue;
 	}
 	if (land.lnd_ship >= 0) {
@@ -648,7 +647,7 @@ lnd_put(struct emp_qelem *list, natid actor)
 	putland(llp->land.lnd_uid, &llp->land);
 	newqp = qp->q_back;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
 }
@@ -764,11 +763,11 @@ lnd_check_mines(struct emp_qelem *land_list)
 	    lnd_hit_mine(&llp->land, llp->lcp);
 	    sect.sct_mines--;
 	    putsect(&sect);
-	    putland(llp->land.lnd_uid, (s_char *)&llp->land);
+	    putland(llp->land.lnd_uid, &llp->land);
 	    if (!llp->land.lnd_own) {
 		stopping = 1;
 		emp_remque(qp);
-		free((s_char *)qp);
+		free(qp);
 	    }
 	}
     }
@@ -816,7 +815,7 @@ lnd_mess(s_char *str, struct llist *llp)
     llp->land.lnd_mobil = llp->mobil;
     putland(llp->land.lnd_uid, &llp->land);
     emp_remque((struct emp_qelem *)llp);
-    free((s_char *)llp);
+    free(llp);
 }
 
 static int
@@ -856,7 +855,7 @@ lnd_damage(struct emp_qelem *list, int totdam)
 	putland(llp->land.lnd_uid, &llp->land);
 	if (!llp->land.lnd_own) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	}
     }
     return dam;
@@ -1254,7 +1253,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     double range, range2;
 
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_frg == 0)
 	    continue;
 	if ((land.lnd_x == x) && (land.lnd_y == y))
@@ -1336,9 +1335,9 @@ lnd_path(int together, struct lndstr *lp, s_char *buf)
     }
     getsect(lp->lnd_x, lp->lnd_y, &sect);
     if (lchr[(int)lp->lnd_type].l_flags & L_TRAIN)
-	cp = (s_char *)BestLandPath(buf, &sect, &d_sect, &dummy, MOB_RAIL);
+	cp = BestLandPath(buf, &sect, &d_sect, &dummy, MOB_RAIL);
     else
-	cp = (s_char *)BestLandPath(buf, &sect, &d_sect, &dummy, MOB_ROAD);
+	cp = BestLandPath(buf, &sect, &d_sect, &dummy, MOB_ROAD);
     if (!cp) {
 	pr("No owned path from %s to %s!\n",
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum),

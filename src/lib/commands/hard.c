@@ -71,7 +71,7 @@ hard(void)
 	return RET_SYN;
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
-    while (nxtitem(&ni, (s_char *)&pln)) {
+    while (nxtitem(&ni, &pln)) {
 	if (!player->owner)
 	    continue;
 	pcp = &plchr[(int)pln.pln_type];

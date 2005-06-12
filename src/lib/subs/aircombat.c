@@ -269,7 +269,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     /* Go figure out if there are ships in this sector, and who's they are */
     memset(nats, 0, sizeof(nats));
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
 	    continue;
 	nats[ship.shp_own]++;
@@ -277,7 +277,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     /* Go figure out if there are units in this sector, and who's they are */
     memset(lnats, 0, sizeof(lnats));
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
 	lnats[land.lnd_own]++;
@@ -390,12 +390,12 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	    if (dplp->plane.pln_range <
 		mapdist(x, y, dplp->plane.pln_x, dplp->plane.pln_y)) {
 		emp_remque(dqp);
-		free((s_char *)dqp);
+		free(dqp);
 		continue;
 	    }
 	    if (mission_pln_equip(dplp, 0, P_F, 0) < 0) {
 		emp_remque(dqp);
-		free((s_char *)dqp);
+		free(dqp);
 		continue;
 	    }
 	    if (first) {
@@ -421,7 +421,7 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	    if (!(dplp->pcp->pl_flags & P_M))
 		continue;
 	    emp_remque(dqp);
-	    free((s_char *)dqp);
+	    free(dqp);
 	    continue;
 	}
     }
@@ -465,7 +465,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    continue;
 	if (mission_pln_equip(plp, 0, P_F, 0) < 0) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 	/* got one; delete from def_list, add to int_list */
@@ -746,11 +746,11 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 	pp->pln_own = 0;
 	putplane(pp->pln_uid, pp);
 	emp_remque(&plp->queue);
-	free((s_char *)plp);
+	free(plp);
     } else if (disp == 2) {
 	putplane(pp->pln_uid, pp);
 	emp_remque(&plp->queue);
-	free((s_char *)plp);
+	free(plp);
     } else
 	putplane(pp->pln_uid, pp);
     strcpy(mesg, dmess);
@@ -813,7 +813,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     memset(nats, 0, sizeof(nats));
     guns = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (!QEMPTY(list) && nxtitem(&ni, (s_char *)&ship)) {
+    while (!QEMPTY(list) && nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0 || ship.shp_own == plane_owner)
 	    continue;
 	if (guns >= 14)
@@ -881,7 +881,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     memset(nats, 0, sizeof(nats));
     guns = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (!QEMPTY(list) && nxtitem(&ni, (s_char *)&land)) {
+    while (!QEMPTY(list) && nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0 || land.lnd_own == plane_owner)
 	    continue;
 	if (guns >= 14)
@@ -1034,7 +1034,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 
     emp_initque(list);
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own != own)
 	    continue;
 	pcp = &plchr[(int)plane.pln_type];
@@ -1076,7 +1076,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	if (ac_isflying(&plane, d))
 	    continue;
 	/* got one! */
-	ip = (struct plist *)malloc(sizeof(*ip));
+	ip = malloc(sizeof(*ip));
 	ip->state = P_OK;
 	ip->bombs = 0;
 	ip->misc = 0;

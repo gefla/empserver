@@ -152,7 +152,7 @@ sanc_cmd(void)
     }
 
     snxtitem_all(&ni, EF_NATION);
-    while (nxtitem(&ni, (s_char *)&nat)) {
+    while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat != (STAT_INUSE | STAT_SANCT))
 	    continue;
 	if (first) {

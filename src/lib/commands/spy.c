@@ -99,7 +99,7 @@ spy(void)
      * set up all the goodies we need later
      * 6 = neighbors, 2 = x,y
      */
-    table = (coord *)malloc((nsects + 1) * 6 * 2 * sizeof(coord));
+    table = malloc((nsects + 1) * 6 * 2 * sizeof(coord));
     memset(table, 0, (nsects + 1) * 6 * 2 * sizeof(coord));
     pr("SPY report\n");
     prdate();
@@ -111,7 +111,7 @@ spy(void)
 	nrecon = 0;
 	nunits = 0;
 	snxtitem_xy(&ni, EF_LAND, from.sct_x, from.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
+	while (nxtitem(&ni, &land)) {
 	    nunits++;
 	    if (lchr[(int)land.lnd_type].l_flags & L_RECON)
 		nrecon++;
@@ -208,7 +208,7 @@ spy(void)
     if (changed)
 	writemap(player->cnum);
     player->btused += btucost;
-    free((s_char *)table);
+    free(table);
     return RET_OK;
 }
 
@@ -275,7 +275,7 @@ num_units(int x, int y)
     int n = 0;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if ((land.lnd_own == player->cnum) || (land.lnd_own == 0))
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
@@ -294,7 +294,7 @@ prunits(int x, int y)
     s_char report[128];
 
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == player->cnum || land.lnd_own == 0)
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
@@ -330,7 +330,7 @@ prplanes(int x, int y)
     s_char report[128];
 
     snxtitem_xy(&ni, EF_PLANE, x, y);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == player->cnum || plane.pln_own == 0)
 	    continue;
 	if (plane.pln_ship >= 0 || plane.pln_land >= 0)

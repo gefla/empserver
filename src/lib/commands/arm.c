@@ -101,7 +101,7 @@ arm(void)
 	nuketype = i;
 	nukenum = -1;
 	snxtitem_all(&ni, EF_NUKE);
-	while (nxtitem(&ni, (s_char *)&nuke)) {
+	while (nxtitem(&ni, &nuke)) {
 	    if (nuke.nuk_own != player->cnum)
 		continue;
 	    if (nuke.nuk_x != pl.pln_x || nuke.nuk_y != pl.pln_y)

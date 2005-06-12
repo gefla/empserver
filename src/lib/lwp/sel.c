@@ -73,8 +73,7 @@ lwpInitSelect(struct lwpProc *proc)
 #endif
     FD_ZERO(&LwpSelect.readmask);
     FD_ZERO(&LwpSelect.writemask);
-    LwpSelect.wait = (struct lwpProc **)
-	calloc(LwpSelect.nfile, sizeof(char *));
+    LwpSelect.wait = calloc(LwpSelect.nfile, sizeof(char *));
     LwpSelect.delayq.head = 0;
     LwpSelect.delayq.tail = 0;
     LwpSelect.proc = proc;

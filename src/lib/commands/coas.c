@@ -76,9 +76,9 @@ coas(void)
 	return RET_SYN;
     for (i = 0; i < TSIZE; i++)
 	list[i] = 0;
-    cp = (struct coast *)malloc(sizeof(*cp));
+    cp = malloc(sizeof(*cp));
     snxtitem_all(&ni, EF_SHIP);
-    while (nxtitem(&ni, (s_char *)&cp->c_shp)) {
+    while (nxtitem(&ni, &cp->c_shp)) {
 	if (cp->c_shp.shp_own == 0 || cp->c_shp.shp_own == player->cnum)
 	    continue;
 	/*
@@ -94,11 +94,11 @@ coas(void)
 	cp->c_number = i;
 	cp->c_next = list[n];
 	list[n] = cp;
-	cp = (struct coast *)malloc(sizeof(*cp));
+	cp = malloc(sizeof(*cp));
 	nship++;
     }
     /* get that last one! */
-    free((s_char *)cp);
+    free(cp);
     pr("- = [ Coastwatch report for %s ] = -\n", cname(player->cnum));
     pr("  Country            Ship          Location\n");
     tech = tfact(player->cnum, 1.0);
@@ -134,7 +134,7 @@ coas(void)
     for (i = 0; i < TSIZE; i++) {
 	while (NULL != (cp = list[i])) {
 	    list[i] = cp->c_next;
-	    free((s_char *)cp);
+	    free(cp);
 	}
     }
     return RET_OK;
@@ -154,7 +154,7 @@ showship(struct coast **cpp, int x, int y)
     do {
 	/* we delete it, we free it. */
 	if (todelete) {
-	    free((s_char *)todelete);
+	    free(todelete);
 	    todelete = 0;
 	}
 	if (cp->c_shp.shp_x != x || cp->c_shp.shp_y != y) {
@@ -173,6 +173,6 @@ showship(struct coast **cpp, int x, int y)
     } while (NULL != (cp = cp->c_next));
     /* check that last one! */
     if (todelete)
-	free((s_char *)todelete);
+	free(todelete);
     return (nship);
 }

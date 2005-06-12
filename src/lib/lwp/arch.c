@@ -71,7 +71,7 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     int endpoint;
 
     if (initcontext == NULL) {
-	initcontext = (struct lwpProc *)malloc(sizeof(struct lwpProc));
+	initcontext = malloc(sizeof(struct lwpProc));
 	tempcontext = &holder;
 	if (!setjmp(tempcontext->context))
 	    startcontext();

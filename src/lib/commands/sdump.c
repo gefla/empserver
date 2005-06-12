@@ -264,7 +264,7 @@ sdump(void)
 
     nships = 0;
     np = getnatp(player->cnum);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {

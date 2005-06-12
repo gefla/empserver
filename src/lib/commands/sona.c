@@ -80,30 +80,28 @@ sona(void)
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     if (!radbuf)
-	radbuf =
-	    (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
+	radbuf = malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
     if (!visbuf)
-	visbuf =
-	    (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
+	visbuf = malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
     if (!rad) {
-	rad = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	rad = malloc(WORLD_Y * sizeof(s_char *));
 	if (rad && radbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		rad[x] = &radbuf[(WORLD_X + 1) * x];
 	    }
 	} else if (rad) {
-	    free((s_char *)rad);
+	    free(rad);
 	    rad = (s_char **)0;
 	}
     }
     if (!vis) {
-	vis = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	vis = malloc(WORLD_Y * sizeof(s_char *));
 	if (vis && visbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		vis[x] = &visbuf[(WORLD_X + 1) * x];
 	    }
 	} else if (vis) {
-	    free((s_char *)vis);
+	    free(vis);
 	    vis = (s_char **)0;
 	}
     }
@@ -112,7 +110,7 @@ sona(void)
 	logerror("malloc failed in sona\n");
 	return RET_FAIL;
     }
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!player->owner)
 	    continue;
 	mcp = &mchr[(int)ship.shp_type];

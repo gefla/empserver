@@ -87,20 +87,20 @@ radmap2(int owner,
     int changed = 0;
 
     if (!radbuf)
-	radbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
+	radbuf = malloc((WORLD_Y * (WORLD_X + 1)) *
 				  sizeof(s_char));
     if (!visbuf)
-	visbuf = (s_char *)malloc((WORLD_Y * (WORLD_X + 1)) *
+	visbuf = malloc((WORLD_Y * (WORLD_X + 1)) *
 				  sizeof(s_char));
     if (!rad) {
-	rad = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	rad = malloc(WORLD_Y * sizeof(s_char *));
 	if (rad && radbuf) {
 	    for (x = 0; x < WORLD_Y; x++)
 		rad[x] = &radbuf[(WORLD_X + 1) * x];
 	}
     }
     if (!vis) {
-	vis = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	vis = malloc(WORLD_Y * sizeof(s_char *));
 	if (vis && visbuf) {
 	    for (x = 0; x < WORLD_Y; x++)
 		vis[x] = &visbuf[(WORLD_X + 1) * x];

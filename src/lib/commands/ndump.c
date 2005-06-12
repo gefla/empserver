@@ -59,7 +59,7 @@ ndump(void)
 	pr("own ");
     pr("id x y num type\n");
     nnukes = 0;
-    while (nxtitem(&nstr, (s_char *)&nuk)) {
+    while (nxtitem(&nstr, &nuk)) {
 	if (!player->god && !player->owner)
 	    continue;
 	if (nuk.nuk_own == 0)

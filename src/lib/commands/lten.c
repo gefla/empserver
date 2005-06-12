@@ -74,7 +74,7 @@ ltend(void)
     if (!snxtitem(&tenders, EF_SHIP,
 		  getstarg(player->argp[2], "Tender(s)? ", buf)))
 	return RET_SYN;
-    while (nxtitem(&tenders, (s_char *)&tender)) {
+    while (nxtitem(&tenders, &tender)) {
 	if (!player->owner)
 	    continue;
 	if ((p =
@@ -103,7 +103,7 @@ ltend(void)
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	total = 0;
-	while (nxtitem(&targets, (s_char *)&target)) {
+	while (nxtitem(&targets, &target)) {
 	    if (!player->owner)
 		continue;
 

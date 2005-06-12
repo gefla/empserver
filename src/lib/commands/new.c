@@ -229,14 +229,14 @@ isok(int x, int y)
 
     nmin = ngold = noil = nur = 0;
     navail = nfree = nowned = 0;
-    if ((map = (s_char *)malloc((WORLD_X * WORLD_Y) / 2)) == 0) {
+    if ((map = malloc((WORLD_X * WORLD_Y) / 2)) == 0) {
 	logerror("malloc failed in isok\n");
 	pr("Memory error.  Tell the deity.\n");
 	return 0;
     }
     memset(map, 0, (WORLD_X * WORLD_Y) / 2);
     ok(map, x, y);
-    free((s_char *)map);
+    free(map);
     if (nfree < 5)
 	return 0;
     pr("Cap at %s; owned sectors: %d, free sectors: %d, avail: %d\n",
@@ -261,7 +261,7 @@ ok(s_char *map, int x, int y)
     id = sctoff(x, y);
     if (map[id])
 	return;
-    if (!ef_read(EF_SECTOR, id, (s_char *)&sect))
+    if (!ef_read(EF_SECTOR, id, &sect))
 	return;
     if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN)
 	return;
@@ -302,7 +302,7 @@ deity_build_land(int type, coord x, coord y, natid own, int tlev)
     natp = getnatp(own);
 
     snxtitem_all(&nstr, EF_LAND);
-    while (nxtitem(&nstr, (s_char *)&land)) {
+    while (nxtitem(&nstr, &land)) {
 	if (land.lnd_own == 0) {
 	    extend = 0;
 	    break;

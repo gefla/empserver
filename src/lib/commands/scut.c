@@ -203,7 +203,7 @@ scut(void)
 	if (!confirm(y_or_n))
 	    return RET_FAIL;
     }
-    while (nxtitem(&ni, (s_char *)&item)) {
+    while (nxtitem(&ni, &item)) {
 	if (!player->owner)
 	    continue;
 	if (opt_MARKET) {
@@ -241,7 +241,7 @@ scut(void)
 	    makelost(EF_PLANE, item.plane.pln_own, item.plane.pln_uid,
 		     item.plane.pln_x, item.plane.pln_y);
 	    item.plane.pln_own = 0;
-	    putplane(item.plane.pln_uid, (s_char *)&item.plane);
+	    putplane(item.plane.pln_uid, &item.plane);
 	}
 	pr(" scuttled in %s\n",
 	   xyas(item.ship.shp_x, item.ship.shp_y, player->cnum));
@@ -260,7 +260,7 @@ scuttle_ship(struct shpstr *sp)
 
     getsect(sp->shp_x, sp->shp_y, &sect);
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	if (plane.pln_ship == sp->shp_uid) {
@@ -278,11 +278,11 @@ scuttle_ship(struct shpstr *sp)
 		   plane.pln_uid, sp->shp_uid,
 		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 	    }
-	    putplane(plane.pln_uid, (s_char *)&plane);
+	    putplane(plane.pln_uid, &plane);
 	}
     }
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_ship == sp->shp_uid) {
@@ -292,7 +292,7 @@ scuttle_ship(struct shpstr *sp)
 		   "Land unit %d transferred off ship %d to %s\n",
 		   land.lnd_uid, sp->shp_uid,
 		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		putland(land.lnd_uid, (s_char *)&land);
+		putland(land.lnd_uid, &land);
 	    } else
 		scuttle_land(&land);
 	}
@@ -312,7 +312,7 @@ scuttle_land(struct lndstr *lp)
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	if (plane.pln_land == lp->lnd_uid) {
@@ -330,11 +330,11 @@ scuttle_land(struct lndstr *lp)
 		   plane.pln_uid, lp->lnd_uid,
 		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 	    }
-	    putplane(plane.pln_uid, (s_char *)&plane);
+	    putplane(plane.pln_uid, &plane);
 	}
     }
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_land == lp->lnd_uid) {
@@ -344,7 +344,7 @@ scuttle_land(struct lndstr *lp)
 		   "Land unit %d transferred off unit %d to %s\n",
 		   land.lnd_uid, lp->lnd_uid,
 		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		putland(land.lnd_uid, (s_char *)&land);
+		putland(land.lnd_uid, &land);
 	    } else
 		scuttle_land(&land);
 	}

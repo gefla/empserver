@@ -101,7 +101,7 @@ retreat_ship(struct shpstr *sp, s_char code)
 	buf[0] = sp->shp_fleet;
 	buf[1] = 0;
 	snxtitem(&ni, EF_SHIP, buf);
-	while (nxtitem(&ni, (s_char *)&ship))
+	while (nxtitem(&ni, &ship))
 	    if ((ship.shp_fleet == buf[0]) &&
 		(ship.shp_own == sp->shp_own)) {
 		if (ship.shp_uid == sp->shp_uid) {
@@ -402,7 +402,7 @@ retreat_land(struct lndstr *lp, s_char code)
 	buf[0] = lp->lnd_army;
 	buf[1] = 0;
 	snxtitem(&ni, EF_SHIP, buf);
-	while (nxtitem(&ni, (s_char *)&land))
+	while (nxtitem(&ni, &land))
 	    if ((land.lnd_army == buf[0]) && (land.lnd_own == lp->lnd_own)) {
 		if (land.lnd_uid == lp->lnd_uid) {
 		    retreat_land1(lp, code, 1);

@@ -80,7 +80,7 @@ shoo(void)
 	mil = sect.sct_item[I_MILIT];
 	nsec = 0;
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, (s_char *)&land)) {
+	while (nxtitem(&ni, &land)) {
 	    mil += total_mil(&land);
 
 	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {

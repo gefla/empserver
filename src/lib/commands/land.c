@@ -51,7 +51,7 @@ land(void)
 	return RET_SYN;
 
     nunits = 0;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (!player->owner && !player->god)

@@ -50,7 +50,7 @@ range(void)
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&np, (s_char *)&plane)) {
+    while (nxtitem(&np, &plane)) {
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
 	p = getstarg(player->argp[2], "New range? ", buf);
@@ -82,7 +82,7 @@ lrange(void)
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&np, (s_char *)&land)) {
+    while (nxtitem(&np, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	lcp = &lchr[(int)land.lnd_type];

@@ -95,7 +95,7 @@ trad(void)
     pr(" --- --------  -- --------- -----  -------------------------\n");
 
     snxtitem_all(&ni, EF_TRADE);
-    while (nxtitem(&ni, (char *)&trade)) {
+    while (nxtitem(&ni, &trade)) {
 	if (trade.trd_owner == 0)
 	    continue;
 	if (!trade_getitem(&trade, &tg)) {
@@ -512,7 +512,7 @@ check_trade(void)
 	    tg.lnd.lnd_mission = 0;
 	    /* Drop any land units this unit was carrying */
 	    snxtitem_xy(&ni, EF_LAND, tg.lnd.lnd_x, tg.lnd.lnd_y);
-	    while (nxtitem(&ni, (s_char *)&land)) {
+	    while (nxtitem(&ni, &land)) {
 		if (land.lnd_land != tg.lnd.lnd_uid)
 		    continue;
 		land.lnd_land = -1;
@@ -523,7 +523,7 @@ check_trade(void)
 	    }
 	    /* Drop any planes this unit was carrying */
 	    snxtitem_xy(&ni, EF_PLANE, tg.lnd.lnd_x, tg.lnd.lnd_y);
-	    while (nxtitem(&ni, (s_char *)&plane)) {
+	    while (nxtitem(&ni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
 		if (plane.pln_land != land.lnd_uid)
@@ -541,7 +541,7 @@ check_trade(void)
 	    logerror("Bad trade type %d in trade\n", trade.trd_type);
 	    break;
 	}
-	if (!ef_write(trade.trd_type, saveid, (char *)&tg)) {
+	if (!ef_write(trade.trd_type, saveid, &tg)) {
 	    logerror("Couldn't write unit to disk; seek help.\n");
 	    continue;
 	}

@@ -339,7 +339,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
     unsigned int x;
 
     emp_initque(list);
-    while (nxtitem(ni, (s_char *)&plane)) {
+    while (nxtitem(ni, &plane)) {
 	if (!player->owner)
 	    continue;
 	if (plane.pln_mobil <= 0)
@@ -503,7 +503,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	pr("%s standing by\n", prplane(&plane));
 	plane.pln_mission = 0;
 	putplane(plane.pln_uid, &plane);
-	plp = (struct plist *)malloc(sizeof(struct plist));
+	plp = malloc(sizeof(struct plist));
 	plp->state = P_OK;
 	plp->misc = 0;
 	plp->bombs = 0;
@@ -526,7 +526,7 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
 	plp = (struct plist *)qp;
 	if (pln_equip(plp, ip, flags, mission) < 0) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 	if (flags & (P_S | P_I)) {
@@ -732,7 +732,7 @@ pln_put(struct emp_qelem *list)
 	putplane(pp->pln_uid, pp);
 	newqp = qp->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
 }
@@ -759,7 +759,7 @@ pln_removedupes(struct emp_qelem *bomb_list, struct emp_qelem *esc_list)
 	    escp = (struct plist *)esc;
 	    if (escp->plane.pln_uid == bombp->plane.pln_uid) {
 		emp_remque(esc);
-		free((s_char *)esc);
+		free(esc);
 		esc = esc_list;
 	    } else
 		esc = esc->q_forw;
@@ -991,7 +991,7 @@ count_planes(struct shpstr *sp)
 
     mcp = &mchr[(int)sp->shp_type];
     snxtitem_xy(&ni, EF_PLANE, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	if (plane.pln_ship == sp->shp_uid) {
@@ -1025,7 +1025,7 @@ count_land_planes(struct lndstr *lp)
 	return;
 
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	if (plane.pln_land == lp->lnd_uid)
@@ -1046,7 +1046,7 @@ count_sect_planes(struct sctstr *sp)
     struct plnstr plane;
 
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)

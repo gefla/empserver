@@ -81,7 +81,7 @@ torp(void)
 	return RET_SYN;
     if (!snxtitem(&nbst, EF_SHIP, sav))
 	return RET_SYN;
-    while (nxtitem(&nbst, (s_char *)&sub)) {
+    while (nxtitem(&nbst, &sub)) {
 	if (sub.shp_own != player->cnum)
 	    continue;
 	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0)
@@ -102,7 +102,7 @@ torp(void)
     }
     pr("%d ships are eligible to torp\n", ntorping);
     snxtitem(&nbst, EF_SHIP, sav);
-    while (nxtitem(&nbst, (s_char *)&sub)) {
+    while (nxtitem(&nbst, &sub)) {
 	if (!sub.shp_own)
 	    continue;
 	if (sub.shp_own != player->cnum) {

@@ -190,7 +190,7 @@ mission(void)
 
     size = max(sizeof(struct lndstr), sizeof(struct plnstr));
     size = max(size, sizeof(struct shpstr));
-    block = (s_char *)malloc(size);
+    block = malloc(size);
     switch (type) {
     case EF_SHIP:
 	mobmax = ship_mob_max;

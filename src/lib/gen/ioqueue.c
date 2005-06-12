@@ -66,7 +66,7 @@ ioq_create(int size)
 {
     struct ioqueue *ioq;
 
-    ioq = (struct ioqueue *)malloc(sizeof(struct ioqueue));
+    ioq = malloc(sizeof(struct ioqueue));
     emp_initque(&ioq->list.queue);
     ioq->list.nbytes = 0;
     ioq->list.offset = 0;
@@ -84,7 +84,7 @@ ioq_destroy(struct ioqueue *ioq)
 /* ioq_drain doesn't work under aix or NeXT... dunno why --ts */
     ioq_drain(ioq);
 #endif /* aix */
-    free((s_char *)ioq);
+    free(ioq);
 }
 
 void
@@ -318,7 +318,7 @@ appendcc(struct ioqueue *ioq, s_char *buf, int cc)
 	len = cc > ioq->bufsize ? cc : ioq->bufsize;
 	ptr = malloc(len);
 	memcpy(ptr, buf, cc);
-	io = (struct io *)malloc(sizeof(struct io));
+	io = malloc(sizeof(struct io));
 	io->nbytes = cc;
 	io->size = len;
 	io->offset = 0;

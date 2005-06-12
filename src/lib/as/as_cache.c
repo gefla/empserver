@@ -102,7 +102,7 @@ as_add_cachepath(struct as_data *adp)
 	}
     } else {
 	/* We must make a new one of these */
-	from = (struct as_frompath *)malloc(sizeof(struct as_frompath));
+	from = malloc(sizeof(struct as_frompath));
 	if (from == NULL)
 	    return;
 	/* And set some stuff */
@@ -115,7 +115,7 @@ as_add_cachepath(struct as_data *adp)
     }
     if (!to) {
 	/* We must make a new one */
-	to = (struct as_topath *)malloc(sizeof(struct as_topath));
+	to = malloc(sizeof(struct as_topath));
 	/* We can't, sorry */
 	if (to == NULL)
 	    return;
@@ -152,15 +152,15 @@ as_clear_cachepath(void)
 		    /* Free this path */
 		    as_free_path(to->path);
 		    /* Free this node */
-		    free((s_char *)to);
+		    free(to);
 		}
 	    }
 	    /* Now, free the list of lists */
-	    free((s_char *)from->tolist);
+	    free(from->tolist);
 	    /* Save the next pointer */
 	    from2 = from->next;
 	    /* now, free this from node */
-	    free((s_char *)from);
+	    free(from);
 	}
     }
     /* Note we don't free the fromhead here, we just zero it.  That way,

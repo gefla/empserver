@@ -54,7 +54,7 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags)
     first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (player->owner)
 	    continue;
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
@@ -93,7 +93,7 @@ carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
     first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_own != own
@@ -133,7 +133,7 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
     first = 1;
     units = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_effic < LAND_MINEFF || land.lnd_own == 0)
 	    continue;
 	/* Can't bomb units on ships or other units */
@@ -179,7 +179,7 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags,
     planes = 0;
     first = 1;
     snxtitem_xy(&ni, EF_PLANE, x, y);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_effic < PLANE_MINEFF || plane.pln_own == 0)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
@@ -220,7 +220,7 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
     first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (player->owner)
 	    continue;
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
@@ -261,7 +261,7 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];

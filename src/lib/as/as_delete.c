@@ -50,9 +50,9 @@ as_free_queue(struct as_queue *queue)
     struct as_queue *qp, *qp2;
 
     for (qp = queue; qp; qp = qp2) {
-	free((s_char *)qp->np);
+	free(qp->np);
 	qp2 = qp->next;
-	free((s_char *)qp);
+	free(qp);
     }
 }
 
@@ -66,7 +66,7 @@ as_free_path(struct as_path *pp)
 
     for (; pp; pp = pp2) {
 	pp2 = pp->next;
-	free((s_char *)pp);
+	free(pp);
     }
 }
 
@@ -77,8 +77,8 @@ void
 as_delete(struct as_data *adp)
 {
     as_reset(adp);
-    free((s_char *)adp->neighbor_coords);
-    free((s_char *)adp->neighbor_nodes);
-    free((s_char *)adp->hashtab);
-    free((s_char *)adp);
+    free(adp->neighbor_coords);
+    free(adp->neighbor_nodes);
+    free(adp->hashtab);
+    free(adp);
 }

@@ -68,7 +68,7 @@ makeqt(int nelem)
     struct qelem *qp;
     int i;
 
-    table = (struct qelem *)malloc(sizeof(*table) * nelem);
+    table = malloc(sizeof(*table) * nelem);
     for (i = 0, qp = table; i < nelem; i++, qp++)
 	initque(qp);
     return table;

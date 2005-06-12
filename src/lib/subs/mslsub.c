@@ -175,7 +175,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 
     emp_initque(list);
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;
 
@@ -198,7 +198,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	if (plane.pln_effic < 100)
 	    continue;
 	/* got a valid interceptor */
-	irv = (struct plist *)malloc(sizeof(*irv));
+	irv = malloc(sizeof(*irv));
 	irv->state = P_OK;
 	irv->bombs = 0;
 	irv->misc = 0;
@@ -267,7 +267,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	pcp = ip->pcp;
 	if (mission_pln_equip(ip, 0, 0, 'i') < 0) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 	/* got one interceptor, delete from irv_list and
@@ -286,7 +286,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	pcp = ip->pcp;
 	if (mission_pln_equip(ip, 0, 0, 'i') < 0) {
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	    continue;
 	}
 	/* got one interceptor, delete from irv_list and
@@ -301,7 +301,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     while (!QEMPTY(irvlist)) {
 	qp = irvlist->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
     }
     if (icount == 0) {
 	if (sect.sct_own != 0)
@@ -348,7 +348,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	pp->pln_own = 0;
 	putplane(pp->pln_uid, pp);
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	if (destroyed)
 	    break;
     }
@@ -356,7 +356,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     while (!QEMPTY(intlist)) {
 	qp = intlist->q_forw;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
     }
     if (destroyed)
 	return (destroyed);

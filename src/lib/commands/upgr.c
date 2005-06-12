@@ -98,7 +98,7 @@ lupgr(void)
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];
     n = 0;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	getsect(land.lnd_x, land.lnd_y, &sect);
@@ -181,7 +181,7 @@ supgr(void)
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];
     n = 0;
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 	getsect(ship.shp_x, ship.shp_y, &sect);
@@ -263,7 +263,7 @@ pupgr(void)
     cash = natp->nat_money;
     tlev = (int)natp->nat_level[NAT_TLEV];
     n = 0;
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	getsect(plane.pln_x, plane.pln_y, &sect);

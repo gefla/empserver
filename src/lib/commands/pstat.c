@@ -49,7 +49,7 @@ pstat(void)
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;
     nplanes = 0;
-    while (nxtitem(&np, (s_char *)&plane)) {
+    while (nxtitem(&np, &plane)) {
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
 	if (plane.pln_type < 0 || plane.pln_type > pln_maxno) {

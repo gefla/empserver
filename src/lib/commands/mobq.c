@@ -72,7 +72,7 @@ mobq(void)
 	    pr("warning: %d less than optimal\n", mobquota);
 	}
     }
-    while (nxtitem(&nstr, (s_char *)&ship)) {
+    while (nxtitem(&nstr, &ship)) {
 	if (!player->owner)
 	    continue;
 	if (!oldmq)

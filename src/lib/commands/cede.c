@@ -158,7 +158,7 @@ cede_sect(struct nstr_sect *ns, natid to)
 		bad = 0;
 	}
 	snxtitem_all(&ni, EF_SHIP);
-	while (nxtitem(&ni, (s_char *)&ship)) {
+	while (nxtitem(&ni, &ship)) {
 	    if ((ship.shp_own == to) &&
 		((ship.shp_x == sect.sct_x) && (ship.shp_y == sect.sct_y)))
 		bad = 0;
@@ -300,14 +300,14 @@ cede_ship(struct nstr_item *ni, natid to)
     int nships = 0;
     int bad = 0;
 
-    while (nxtitem(ni, (s_char *)&ship)) {
+    while (nxtitem(ni, &ship)) {
 
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 
 	bad = 1;
 	snxtitem_xy(&tni, EF_SHIP, ship.shp_x, ship.shp_y);
-	while (nxtitem(&tni, (s_char *)&tship) && bad)
+	while (nxtitem(&tni, &tship) && bad)
 	    if (tship.shp_own == to)
 		bad = 0;
 

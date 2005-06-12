@@ -88,20 +88,19 @@ rout(void)
     } else if (!snxtsct(&ns, str))
 	return RET_FAIL;
     if (!mapbuf)
-	mapbuf =
-	    (s_char *)malloc((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char));
+	mapbuf = malloc((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char));
     if (!map) {
-	map = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	map = malloc(WORLD_Y * sizeof(s_char *));
 	if (map && mapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		map[i] = &mapbuf[MAPWIDTH(3) * i];
 	} else if (map) {
-	    free((s_char *)map);
+	    free(map);
 	    map = (s_char **)0;
 	}
     }
     if (!buf)
-	buf = (s_char *)malloc((MAPWIDTH(3) + 12) * sizeof(s_char));
+	buf = malloc((MAPWIDTH(3) + 12) * sizeof(s_char));
     if (!mapbuf || !map || !buf) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in rout\n");

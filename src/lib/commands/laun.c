@@ -70,7 +70,7 @@ laun(void)
 
     if (!snxtitem(&nstr, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&nstr, (s_char *)&plane)) {
+    while (nxtitem(&nstr, &plane)) {
 	if (plane.pln_own != player->cnum)
 	    continue;
 	pcp = &plchr[(int)plane.pln_type];

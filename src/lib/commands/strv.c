@@ -166,7 +166,7 @@ starv_ships(s_char *range)
     if (!snxtitem(&ni, EF_SHIP, range))
 	return;
 
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!player->owner || !ship.shp_own)
 	    continue;
 
@@ -214,7 +214,7 @@ starv_units(s_char *range)
     if (!snxtitem(&ni, EF_LAND, range))
 	return;
 
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner || !land.lnd_own)
 	    continue;
 

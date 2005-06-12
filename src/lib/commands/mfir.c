@@ -158,7 +158,7 @@ multifire(void)
 	pr("Fire aborted.\n");
 	return RET_OK;
     }
-    while (nxtitem(&nbst, (s_char *)&item)) {
+    while (nxtitem(&nbst, &item)) {
 	attacker = orig_attacker;
 	if (attacker == targ_unit) {
 	    if (!getland(item.land.lnd_uid, &fland))
@@ -674,7 +674,7 @@ defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
 	(dam = quiet_bigdef(attacker, dl, vict, aown, fx, fy, &nfiring))) {
 	if (nfiring > *nd)
 	    *nd = nfiring;
-	fp = (struct flist *)malloc(sizeof(struct flist));
+	fp = malloc(sizeof(struct flist));
 	memset(fp, 0, sizeof(struct flist));
 	fp->defdam = dam;
 	fp->victim = vict;
@@ -742,7 +742,7 @@ do_defdam(struct emp_qelem *list, double odds)
 		   xyas(fp->x, fp->y, vict), dam);
 	}
 	emp_remque(&fp->queue);
-	free((s_char *)fp);
+	free(fp);
     }
 }
 
@@ -813,7 +813,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 		continue;
 
 	    (*nfiring)++;
-	    fp = (struct flist *)malloc(sizeof(struct flist));
+	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
@@ -844,7 +844,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    if (nshot == 0)
 		continue;
 	    (*nfiring)++;
-	    fp = (struct flist *)malloc(sizeof(struct flist));
+	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
@@ -897,7 +897,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 				land.lnd_ammo, shell);
 
 	(*nfiring)++;
-	fp = (struct flist *)malloc(sizeof(struct flist));
+	fp = malloc(sizeof(struct flist));
 	memset(fp, 0, sizeof(struct flist));
 	fp->type = targ_unit;
 	fp->uid = land.lnd_uid;
@@ -950,7 +950,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    if (gun == 0 || firing.sct_item[I_MILIT] < 5 || shell == 0)
 		continue;
 	    (*nfiring)++;
-	    fp = (struct flist *)malloc(sizeof(struct flist));
+	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->x = firing.sct_x;
 	    fp->y = firing.sct_y;
@@ -1021,7 +1021,7 @@ use_ammo(struct emp_qelem *list)
 	    putland(land.lnd_uid, &land);
 
 	emp_remque(&fp->queue);
-	free((s_char *)fp);
+	free(fp);
     }
 
 }

@@ -42,7 +42,7 @@ lwpCreateSem(char *name, int count)
 {
     struct lwpSem *new;
 
-    if (!(new = (struct lwpSem *)malloc(sizeof(struct lwpSem))))
+    if (!(new = malloc(sizeof(struct lwpSem))))
 	return (0);
     new->name = strdup(name);
     new->count = count;

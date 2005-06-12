@@ -208,7 +208,7 @@ tran_plane(void)
      * No one could seriously want to move planes in parallel from
      * several sectors!
      */
-    while (nxtitem(&nstr, (s_char *)&plane)) {
+    while (nxtitem(&nstr, &plane)) {
 	if (!player->owner)
 	    continue;
 	type = plane.pln_type;
@@ -260,7 +260,7 @@ tran_plane(void)
     dstx = endsect.sct_x;
     dsty = endsect.sct_y;
     snxtitem_rewind(&nstr);
-    while (nxtitem(&nstr, (s_char *)&plane)) {
+    while (nxtitem(&nstr, &plane)) {
 	if (!player->owner)
 	    continue;
 	if (dam)

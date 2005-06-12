@@ -99,7 +99,7 @@ decl(void)
     }
 
     natp = getnatp(who);
-    while (nxtitem(&ni, (s_char *)&nat)) {
+    while (nxtitem(&ni, &nat)) {
 	if (!(nat.nat_stat & STAT_INUSE))
 	    continue;
 	if (player->cnum == (natid)ni.cur)

@@ -174,11 +174,11 @@ main(int argc, char *argv[])
 	    putsect(&sct);
 	}
     }
-    map = (s_char *)calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
+    map = calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
     for (i = 0; i < MAXNOC; i++) {
 	ef_write(EF_MAP, i, map);
     }
-    map = (s_char *)calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
+    map = calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
     for (i = 0; i < MAXNOC; i++) {
 	ef_write(EF_BMAP, i, map);
     }

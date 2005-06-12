@@ -124,7 +124,7 @@ powe(void)
 
     if (!power_generated) {
 	snxtitem_all(&ni, EF_POWER);
-	if (!nxtitem(&ni, (s_char *)&pow)) {
+	if (!nxtitem(&ni, &pow)) {
 	    pr("Power for this game has not been built yet.  Type 'power new' to build it.\n");
 	    return RET_FAIL;
 	}
@@ -134,7 +134,7 @@ powe(void)
     pr("      as of %s\n         sects  eff civ", ctime(&pow_time));
     pr("  mil  shell gun pet  iron dust oil  pln ship unit money\n");
     snxtitem_all(&ni, EF_POWER);
-    while ((nxtitem(&ni, (s_char *)&pow)) && num > 0) {
+    while ((nxtitem(&ni, &pow)) && num > 0) {
 	if (pow.p_nation == 0 || pow.p_power <= 0.0)
 	    continue;
 	if (opt_HIDDEN) {
@@ -251,7 +251,7 @@ gen_power(void)
 	addtopow(sect.sct_item, pow);
     }
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	pow = &powbuf[land.lnd_own];
@@ -262,7 +262,7 @@ gen_power(void)
 	pow->p_units += 1.0;
     }
     snxtitem_all(&ni, EF_SHIP);
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 	pow = &powbuf[ship.shp_own];
@@ -273,7 +273,7 @@ gen_power(void)
 	pow->p_ships += 1.0;
     }
     snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	pow = &powbuf[plane.pln_own];

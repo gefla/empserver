@@ -1020,7 +1020,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	maxland = def->shp_mcp->m_nland;
 
     snxtitem_xy(&ni, EF_LAND, off->x, off->y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != player->cnum)
 	    continue;
 	if (land.lnd_effic < LAND_MINEFF)
@@ -1111,7 +1111,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		land_answer[(int)land.lnd_army] != 'Y')
 		continue;
 	}
-	if (!(llp = (struct llist *)malloc(sizeof(struct llist)))) {
+	if (!(llp = malloc(sizeof(struct llist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
 	    return;
@@ -1257,7 +1257,7 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
    lists.  Spies try to hide, trains get trapped and can be boarded. */
 
     snxtitem_xy(&ni, EF_LAND, def->x, def->y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!land.lnd_own)
 	    continue;
 	if (land.lnd_own != def->own)
@@ -1276,7 +1276,7 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 					    "Scouts report defending unit:");
 	    continue;
 	}
-	if (!(llp = (struct llist *)malloc(sizeof(struct llist)))) {
+	if (!(llp = malloc(sizeof(struct llist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
 	    return 0;
@@ -1498,7 +1498,7 @@ put_land(struct emp_qelem *list)
 	putland(llp->land.lnd_uid, &llp->land);
 	if (llp->land.lnd_own != player->cnum) {
 	    emp_remque((struct emp_qelem *)llp);
-	    free((s_char *)llp);
+	    free(llp);
 	} else
 	    get_land(A_ATTACK, 0, llp->land.lnd_uid, llp, 0);
     }
@@ -1543,7 +1543,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     else
 	dtotal = 0;
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land) &&
+    while (nxtitem(&ni, &land) &&
 	   (dtotal + new_land * eff < (int)(1.2 * (float)ototal))) {
 	if (!land.lnd_own)
 	    continue;

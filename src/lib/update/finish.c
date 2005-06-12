@@ -148,7 +148,7 @@ finish_sects(int etu)
 	if (sp->sct_type == SCT_WATER || sp->sct_own == 0) {
 #ifdef SAVE_FINISH_PATHS
 	    if (infptr->path)
-		free((s_char *)infptr->path);
+		free(infptr->path);
 #endif /* SAVE_FINISH_PATHS */
 	    continue;
 	}
@@ -156,7 +156,7 @@ finish_sects(int etu)
 	if (np->nat_money < 0) {
 #ifdef SAVE_FINISH_PATHS
 	    if (infptr->path)
-		free((s_char *)infptr->path);
+		free(infptr->path);
 #endif /* SAVE_FINISH_PATHS */
 	    continue;
 	}
@@ -164,7 +164,7 @@ finish_sects(int etu)
 		     infptr->path, infptr->imcost, infptr->excost);
 #ifdef SAVE_FINISH_PATHS
 	if (infptr->path)
-	    free((s_char *)infptr->path);
+	    free(infptr->path);
 #endif /* SAVE_FINISH_PATHS */
     }
     logerror("done importing\n");
@@ -205,7 +205,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	    int len;
 	    /* Here we malloc a buffer and save it */
 	    len = strlen(path);
-	    infptr->path = (s_char *)malloc(len);
+	    infptr->path = malloc(len);
 	    if (infptr->path == (s_char *)0) {
 		logerror("malloc failed in assemble_dist_path!\n");
 		return;

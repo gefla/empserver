@@ -46,7 +46,7 @@ pboa(void)
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&np, (s_char *)&plane)) {
+    while (nxtitem(&np, &plane)) {
 	getsect(plane.pln_x, plane.pln_y, &sect);
 	if (sect.sct_own != player->cnum)
 	    continue;

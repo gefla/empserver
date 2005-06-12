@@ -49,7 +49,7 @@ sabo(void)
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
 
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner)
 	    continue;
 	if (!(lchr[(int)land.lnd_type].l_flags & L_SPY)) {

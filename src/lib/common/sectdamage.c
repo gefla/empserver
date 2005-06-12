@@ -108,7 +108,7 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
 	return eff;
 
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!land.lnd_own)
 	    continue;
 	landdamage(&land, dam);
@@ -119,7 +119,7 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
     if (dam <= 0)
 	return eff;
     snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)

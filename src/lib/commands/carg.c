@@ -51,7 +51,7 @@ carg(void)
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     nships = 0;
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
 	if ((player->cnum != ship.shp_own) && !player->god)
@@ -104,7 +104,7 @@ lcarg(void)
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
     nunits = 0;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!land.lnd_own)
 	    continue;
 	if ((player->cnum != land.lnd_own) && !player->god)

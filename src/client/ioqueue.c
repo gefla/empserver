@@ -178,7 +178,7 @@ enqueuecc(struct ioqueue *ioq, char *buf, int cc)
 {
     struct io *io;
 
-    io = (struct io *)malloc(sizeof(*io));
+    io = malloc(sizeof(*io));
     io->nbytes = cc;
     io->offset = 0;
     io->data = buf;

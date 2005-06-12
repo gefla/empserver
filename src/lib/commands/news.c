@@ -89,7 +89,7 @@ news(void)
 		then = now - days(3);
 */
     pr("\nThe details of Empire news since %s", ctime(&then));
-    while (nxtitem(&nstr, (s_char *)&nws)) {
+    while (nxtitem(&nstr, &nws)) {
 	if (nws.nws_when < then)
 	    continue;
 	if (opt_HIDDEN) {
@@ -106,7 +106,7 @@ news(void)
 	    continue;
 	pr("\n\t ===  %s  ===\n", page_headings[page]);
 	snxtitem_rewind(&nstr);
-	while (nxtitem(&nstr, (s_char *)&nws)) {
+	while (nxtitem(&nstr, &nws)) {
 	    if (rpt[(int)nws.nws_vrb].r_newspage != page)
 		continue;
 	    if (nws.nws_when < then)

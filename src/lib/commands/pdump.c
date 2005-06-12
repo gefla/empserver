@@ -200,7 +200,7 @@ pdump(void)
 
     nplanes = 0;
     natp = getnatp(player->cnum);
-    while (nxtitem(&np, (s_char *)&plane)) {
+    while (nxtitem(&np, &plane)) {
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
 	nplanes++;

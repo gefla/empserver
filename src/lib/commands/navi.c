@@ -237,20 +237,19 @@ nav_map(int x, int y, int show_designations)
     if (!snxtsct(&ns, what))
 	return RET_FAIL;
     if (!wmapbuf)
-	wmapbuf =
-	    (s_char *)malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+	wmapbuf = malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
     if (!wmap) {
-	wmap = (s_char **)malloc(WORLD_Y * sizeof(s_char *));
+	wmap = malloc(WORLD_Y * sizeof(s_char *));
 	if (wmap && wmapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];
 	} else if (wmap) {
-	    free((s_char *)wmap);
+	    free(wmap);
 	    wmap = (s_char **)0;
 	}
     }
     if (!bitmap)
-	bitmap = (u_char *)malloc((WORLD_X * WORLD_Y) / 8);
+	bitmap = malloc((WORLD_X * WORLD_Y) / 8);
     if (!wmapbuf || !wmap || !bitmap) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in navi\n");

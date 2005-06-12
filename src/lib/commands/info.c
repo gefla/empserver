@@ -199,9 +199,9 @@ apro(void)
 	return RET_SYS;
     }
 
-    fbuf = (s_char *)malloc(256);
-    lbuf = (s_char *)malloc(256);
-    lbp = (s_char *)malloc(256);
+    fbuf = malloc(256);
+    lbuf = malloc(256);
+    lbp = malloc(256);
 
     /*
      *  lower case search string into lbp
@@ -434,9 +434,9 @@ apro(void)
 	return RET_SYS;
     }
 
-    fbuf = (s_char *)malloc(256);
-    lbuf = (s_char *)malloc(256);
-    lbp = (s_char *)malloc(256);
+    fbuf = malloc(256);
+    lbuf = malloc(256);
+    lbp = malloc(256);
 
     /*
      *  lower case search string into lbp

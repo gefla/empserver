@@ -60,7 +60,7 @@ lost(void)
     if (player->god)
 	pr("owner ");
     pr("type id x y timestamp\n");
-    while (nxtitem(&ni, (s_char *)&lost)) {
+    while (nxtitem(&ni, &lost)) {
 	if (lost.lost_owner == 0)
 	    continue;
 	if (lost.lost_owner != player->cnum && !player->god)

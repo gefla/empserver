@@ -148,7 +148,7 @@ drop(void)
 	    && ip->i_vtype == I_SHELL)
 	    pln_mine(&bomb_list, &target);
 	else
-	    pln_dropoff(&bomb_list, ip, tx, ty, (s_char *)&target, EF_SECTOR);
+	    pln_dropoff(&bomb_list, ip, tx, ty, &target, EF_SECTOR);
     }
     pln_put(&bomb_list);
     pln_put(&esc_list);

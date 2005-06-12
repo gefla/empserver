@@ -89,7 +89,7 @@ io_open(int fd, int flags, int bufsize, int (*notify)(void),
     flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK | IO_NEWSOCK);
     if ((flags & (IO_READ | IO_WRITE)) == 0)
 	return NULL;
-    iop = (struct iop *)malloc(sizeof(struct iop));
+    iop = malloc(sizeof(struct iop));
     if (!iop)
 	return NULL;
     iop->fd = fd;
@@ -122,7 +122,7 @@ io_close(struct iop *iop)
 #else
     closesocket(iop->fd);
 #endif
-    free((s_char *)iop);
+    free(iop);
 }
 
 int

@@ -262,7 +262,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     /* look for an owned ship in a harbor */
     snxtitem_dist(&ni, EF_SHIP, x, y, lookrange);
 
-    while (nxtitem(&ni, (s_char *)&ship) && wanted) {
+    while (nxtitem(&ni, &ship) && wanted) {
 	if (ship.shp_own != own)
 	    continue;
 
@@ -335,7 +335,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     /* look for an owned supply unit */
     snxtitem_dist(&ni, EF_LAND, x, y, lookrange);
 
-    while (nxtitem(&ni, (s_char *)&land) && wanted) {
+    while (nxtitem(&ni, &land) && wanted) {
 	int min;
 
 	if (land.lnd_own != own)

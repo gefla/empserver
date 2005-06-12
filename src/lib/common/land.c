@@ -62,7 +62,7 @@ has_units(coord x, coord y, natid cn, struct lndstr *lp)
     int n;
     struct lndstr land;
 
-    for (n = 0; ef_read(EF_LAND, n, (s_char *)&land); n++) {
+    for (n = 0; ef_read(EF_LAND, n, &land); n++) {
 	if (land.lnd_x != x || land.lnd_y != y)
 	    continue;
 	if (lp) {
@@ -85,7 +85,7 @@ has_units_with_mob(coord x, coord y, natid cn)
     struct lndstr land;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != cn)
 	    continue;
 	if (land.lnd_mobil > 0)
@@ -105,7 +105,7 @@ has_helpful_engineer(coord x, coord y, natid cn)
     struct lndstr land;
 
     snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != cn && getrel(getnatp(land.lnd_own), cn) != ALLIED)
 	    continue;
 	if (lchr[(int)land.lnd_type].l_flags & L_ENGINEER)

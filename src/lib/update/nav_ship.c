@@ -258,7 +258,7 @@ nav_ship(struct shpstr *sp)
 
     /* Make a list of one ships so we can use the navi.c code */
     emp_initque(&ship_list);
-    mlp = (struct mlist *)malloc(sizeof(struct mlist));
+    mlp = malloc(sizeof(struct mlist));
     mlp->mcp = mchr + sp->shp_type;
     mlp->ship = *sp;
     mlp->mobil = (double)sp->shp_mobil;

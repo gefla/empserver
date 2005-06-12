@@ -67,7 +67,7 @@ work(void)
 	return RET_FAIL;
     }
     nunits = 0;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {

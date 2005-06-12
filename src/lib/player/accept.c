@@ -93,8 +93,7 @@ player_init(void)
     }
     val = 1;
 #if !(defined(__linux__) && defined(__alpha__))
-    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *)&val, sizeof(val))
-	< 0) {
+    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0) {
 	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
 	exit(1);
     }
@@ -128,7 +127,7 @@ player_new(int s, struct sockaddr_in *sin)
     struct hostent *hostp;
 #endif
 
-    lp = (struct player *)malloc(sizeof(struct player));
+    lp = malloc(sizeof(struct player));
     if (!lp)
       return NULL;
     memset(lp, 0, sizeof(struct player));
@@ -145,9 +144,8 @@ player_new(int s, struct sockaddr_in *sin)
 	strcpy(lp->hostaddr, inet_ntoa(sin->sin_addr));
 #ifdef RESOLVE_IPADDRESS
 	if (NULL !=
-	    (hostp =
-	     gethostbyaddr((char *)&sin->sin_addr, sizeof(sin->sin_addr),
-			   AF_INET)))
+	    (hostp = gethostbyaddr(&sin->sin_addr, sizeof(sin->sin_addr),
+				   AF_INET)))
 	    strcpy(lp->hostname, hostp->h_name);
 #endif /* RESOLVE_IPADDRESS */
 	lp->cnum = 255;
@@ -170,7 +168,7 @@ player_delete(struct player *lp)
 	io_close(lp->iop);
 	lp->iop = 0;
     }
-    free((s_char *)lp);
+    free(lp);
     /* XXX may need to free bigmap here */
     return back;
 }
@@ -263,8 +261,7 @@ player_accept(void *unused)
 	    logerror("new socket accept");
 	    continue;
 	}
-	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE,
-			 (char *)&set, sizeof(set));
+	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE, &set, sizeof(set));
 	np = player_new(ns, &sin);
 	if (!np) {
 	    logerror("can't create player for fd %d", ns);

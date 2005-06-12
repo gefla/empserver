@@ -117,7 +117,7 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 
     /* Sink all the units */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (land.lnd_x != sp->sct_x || land.lnd_y != sp->sct_y)
@@ -137,7 +137,7 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     }
     /* Sink all the planes */
     snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
-    while (nxtitem(&ni, (s_char *)&plane)) {
+    while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
 	if (plane.pln_x != sp->sct_x || plane.pln_y != sp->sct_y)

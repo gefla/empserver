@@ -90,7 +90,7 @@ tend(void)
 		  getstarg(player->argp[2], "Tender(s)? ", buf)))
 	return RET_SYN;
 
-    while (nxtitem(&tenders, (s_char *)&tender)) {
+    while (nxtitem(&tenders, &tender)) {
 	if (!player->owner)
 	    continue;
 	if (type == EF_LAND) {
@@ -211,7 +211,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
     if (!snxtitem(&lni, EF_LAND, units))
 	return RET_SYN;
 
-    while (nxtitem(&lni, (s_char *)&land)) {
+    while (nxtitem(&lni, &land)) {
 	if (!player->owner)
 	    continue;
 	if (land.lnd_ship != tenderp->shp_uid) {
@@ -272,7 +272,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
 	    count_units(tenderp);
 	    putship(tenderp->shp_uid, tenderp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, (s_char *)&plane)) {
+	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
 		if (plane.pln_land != land.lnd_uid)

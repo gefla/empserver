@@ -94,7 +94,7 @@ boar(void)
 	    /* Look for land units with mobility */
 	    snxtitem_xy(&ni, EF_LAND, off->x, off->y);
 	    foundland = 0;
-	    while (nxtitem(&ni, (s_char *)&land)) {
+	    while (nxtitem(&ni, &land)) {
 		if (land.lnd_own != player->cnum)
 		    continue;
 		if (land.lnd_ship >= 0)

@@ -133,8 +133,8 @@ termio(int fd, int sock, FILE *auxfi)
     while (p < buf + n && q < out + 4000) {
 	if (*p == '\n') {
 	    if (tagging) {
-		tag = (struct tagstruct *)malloc(sizeof(struct tagstruct));
-		tag->item = (char *)malloc((1 + p - s) * sizeof(char));
+		tag = malloc(sizeof(struct tagstruct));
+		tag->item = malloc((1 + p - s) * sizeof(char));
 		tag->next = taglist;
 		taglist = tag;
 		t = tag->item;

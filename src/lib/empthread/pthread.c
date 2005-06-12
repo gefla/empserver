@@ -140,7 +140,7 @@ empth_init(char **ctx_ptr, int flags)
     sigaction(SIGALRM, &act, NULL);
 
     udata = ctx_ptr;
-    ctx = (empth_t *)malloc(sizeof(empth_t));
+    ctx = malloc(sizeof(empth_t));
     if (!ctx) {
 	logerror("pthread init failed: not enough memory");
 	exit(1);
@@ -176,7 +176,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     empth_status("creating new thread %s:%s", name, desc);
 
-    ctx = (empth_t *)malloc(sizeof(empth_t));
+    ctx = malloc(sizeof(empth_t));
     if (!ctx) {
 	logerror("not enough memoty to create thread: %s (%s)", name,
 		 desc);
@@ -262,7 +262,7 @@ empth_restorectx(void)
 #else
     ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
 #endif
-    *udata = (char *)ctx_ptr->ud;
+    *udata = ctx_ptr->ud;
     if (ctx_ptr->state == EMPTH_KILLED) {
 	empth_status("i am dead");
 	empth_exit();
@@ -447,7 +447,7 @@ empth_sem_create(char *name, int cnt)
 {
     empth_sem_t *sm;
 
-    sm = (empth_sem_t *)malloc(sizeof(empth_sem_t));
+    sm = malloc(sizeof(empth_sem_t));
     if (!sm) {
 	logerror("out of memory at %s:%d", __FILE__, __LINE__);
 	return NULL;

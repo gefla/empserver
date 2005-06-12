@@ -102,7 +102,7 @@ fuel(void)
 	return RET_FAIL;
     }
 
-    while (nxtitem(&ni, (s_char *)&item)) {
+    while (nxtitem(&ni, &item)) {
 	fueled = 0;
 	if (type == EF_SHIP) {
 	    if (item.ship.shp_own != player->cnum) {
@@ -222,7 +222,7 @@ fuel(void)
 		if (!check_ship_ok(&item.ship))
 		    continue;
 
-		if (!nxtitem(&tender, (s_char *)&item2))
+		if (!nxtitem(&tender, &item2))
 		    continue;
 
 		if (!(mchr[(int)item2.ship.shp_type].m_flags & M_OILER)) {
@@ -384,7 +384,7 @@ fuel(void)
 		if (!check_land_ok(&item.land))
 		    continue;
 
-		if (!nxtitem(&ltender, (s_char *)&item2))
+		if (!nxtitem(&ltender, &item2))
 		    continue;
 
 		if (!(lchr[(int)item2.land.lnd_type].l_flags & L_SUPPLY)) {

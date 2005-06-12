@@ -387,7 +387,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp,
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_SHIP);
-    while (nxtitem(&nstr, (s_char *)&ship)) {
+    while (nxtitem(&nstr, &ship)) {
 	if (ship.shp_own == 0) {
 	    freeship++;
 	    break;
@@ -527,7 +527,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp,
     player->dolcost += cost;
     cash -= cost;
     snxtitem_all(&nstr, EF_LAND);
-    while (nxtitem(&nstr, (s_char *)&land)) {
+    while (nxtitem(&nstr, &land)) {
 	if (land.lnd_own == 0) {
 	    freeland++;
 	    break;
@@ -848,7 +848,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
     cash -= cost;
     snxtitem_all(&nstr, EF_PLANE);
     freeplane = 0;
-    while (nxtitem(&nstr, (s_char *)&plane)) {
+    while (nxtitem(&nstr, &plane)) {
 	if (plane.pln_own == 0) {
 	    freeplane++;
 	    break;

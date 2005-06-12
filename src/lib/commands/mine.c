@@ -62,7 +62,7 @@ mine(void)
 		   "Drop how many mines from each ship?  ");
     if (mines <= 0)
 	return RET_SYN;
-    while (nxtitem(&ni, (s_char *)&ship)) {
+    while (nxtitem(&ni, &ship)) {
 	if (!player->owner)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];
@@ -107,7 +107,7 @@ landmine(void)
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (!player->owner)
 	    continue;
 	lp = &lchr[(int)land.lnd_type];

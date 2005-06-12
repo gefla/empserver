@@ -112,7 +112,7 @@ load(void)
     load_unload = **player->argp == 'l' ? LOAD : UNLOAD;
 
     nships = 0;
-    while (nxtitem(&nbst, (s_char *)&ship)) {
+    while (nxtitem(&nbst, &ship)) {
 	if (!ship.shp_own)
 	    continue;
 	if (!player->owner && (load_unload == UNLOAD)) {
@@ -250,7 +250,7 @@ lload(void)
     load_unload = *(*player->argp + 1) == 'l' ? LOAD : UNLOAD;
 
     nunits = 0;
-    while (nxtitem(&nbst, (s_char *)&land)) {
+    while (nxtitem(&nbst, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 
@@ -402,7 +402,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (p && *p)
 	noisy &= isdigit(*p);
 
-    while (nxtitem(&ni, (s_char *)&pln)) {
+    while (nxtitem(&ni, &pln)) {
 	if (pln.pln_own != player->cnum)
 	    continue;
 	if (!(plchr[(int)pln.pln_type].pl_flags & P_L)
@@ -547,7 +547,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (p && *p)
 	noisy &= isdigit(*p);
 
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != player->cnum)
 	    continue;
 
@@ -656,7 +656,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 	    putship(sp->shp_uid, sp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, (s_char *)&plane)) {
+	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
 		if (plane.pln_land != land.lnd_uid)
@@ -698,7 +698,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	       they are quietly unloaded too. */
 	    if (!(lchr[(int)land.lnd_type].l_flags & L_SPY)) {
 		snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-		while (nxtitem(&pni, (s_char *)&plane)) {
+		while (nxtitem(&pni, &plane)) {
 		    if (plane.pln_flags & PLN_LAUNCHED)
 			continue;
 		    if (plane.pln_land != land.lnd_uid)
@@ -857,7 +857,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	return 0;
     }
 
-    while (nxtitem(&ni, (s_char *)&pln)) {
+    while (nxtitem(&ni, &pln)) {
 	if (pln.pln_own != player->cnum)
 	    continue;
 
@@ -1059,7 +1059,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (p && *p)
 	noisy &= isdigit(*p);
 
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 
 	if (land.lnd_own != player->cnum)
 	    continue;
@@ -1136,7 +1136,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 	    putland(lp->lnd_uid, lp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, (s_char *)&plane)) {
+	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
 		if (plane.pln_land != land.lnd_uid)
@@ -1168,7 +1168,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    putland(land.lnd_uid, &land);
 	    putland(lp->lnd_uid, lp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, (s_char *)&plane)) {
+	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
 		if (plane.pln_land != land.lnd_uid)

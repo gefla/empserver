@@ -135,7 +135,7 @@ do_treaty(void)
     }
     (void)time(&now);
     snxtitem_all(&nstr, EF_TREATY);
-    while (nxtitem(&nstr, (s_char *)&trty)) {
+    while (nxtitem(&nstr, &trty)) {
 	if (trty.trt_status == TS_FREE) {
 	    break;
 	}
@@ -212,7 +212,7 @@ do_loan(void)
     if (irate < 5)
 	return RET_FAIL;
     snxtitem_all(&nstr, EF_LOAN);
-    while (nxtitem(&nstr, (s_char *)&loan)) {
+    while (nxtitem(&nstr, &loan)) {
 	if ((loan.l_status == LS_SIGNED) && (loan.l_lonee == player->cnum)
 	    && (loan.l_loner == recipient)) {
 	    pr("You already owe HIM money - how about repaying your loan?\n");
@@ -220,7 +220,7 @@ do_loan(void)
 	}
     }
     snxtitem_all(&nstr, EF_LOAN);
-    while (nxtitem(&nstr, (s_char *)&loan)) {
+    while (nxtitem(&nstr, &loan)) {
 	if (loan.l_status == LS_FREE)
 	    break;
     }

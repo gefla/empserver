@@ -88,7 +88,7 @@ repo(void)
     } else {
 	first = 1;
     }
-    while (nxtitem(&ni, (s_char *)&nat)) {
+    while (nxtitem(&ni, &nat)) {
 	if (!(nat.nat_stat & STAT_INUSE))
 	    continue;
 	if (opt_HIDDEN) {

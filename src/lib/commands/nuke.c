@@ -55,7 +55,7 @@ nuke(void)
     if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
 	return RET_SYN;
 
-    while (nxtitem(&nstr, (s_char *)&nuk)) {
+    while (nxtitem(&nstr, &nuk)) {
 	if (!player->god && !player->owner)
 	    continue;
 	if (nuk.nuk_own == 0)

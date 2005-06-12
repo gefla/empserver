@@ -90,7 +90,7 @@ set(void)
 	type = EF_LAND;
     if (!snxtitem(&ni, type, player->argp[2]))
 	return RET_SYN;
-    while (nxtitem(&ni, (char *)&item)) {
+    while (nxtitem(&ni, &item)) {
 	if (!player->owner && !player->god)
 	    continue;
 	getsect(item.gen.trg_x, item.gen.trg_y, &sect);
@@ -113,7 +113,7 @@ set(void)
 	foundslot = -1;
 	freeslot = -1;
 	snxtitem_all(&ni_trade, EF_TRADE);
-	while (nxtitem(&ni_trade, (char *)&trade)) {
+	while (nxtitem(&ni_trade, &trade)) {
 	    if (trade.trd_owner == 0)
 		freeslot = ni_trade.cur;
 	    if (trade.trd_unitid == ni.cur && trade.trd_type == type) {

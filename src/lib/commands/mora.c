@@ -54,7 +54,7 @@ morale(void)
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))
 	return RET_SYN;
-    while (!player->aborted && nxtitem(&np, (s_char *)&land)) {
+    while (!player->aborted && nxtitem(&np, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	natp = getnatp(land.lnd_own);

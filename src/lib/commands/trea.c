@@ -51,7 +51,7 @@ trea(void)
 	return RET_SYN;
     pr("\t... %s Treaty Report ...\n", cname(player->cnum));
     ntreaty = 0;
-    while (nxtitem(&nstr, (s_char *)&treaty)) {
+    while (nxtitem(&nstr, &treaty)) {
 	if (distrea(nstr.cur, &treaty) > 0)
 	    ntreaty++;
     }

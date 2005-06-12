@@ -215,7 +215,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
 #endif /* UCONTEXT */
     unsigned long stackp;
 
-    if (!(newp = (struct lwpProc *)malloc(sizeof(struct lwpProc))))
+    if (!(newp = malloc(sizeof(struct lwpProc))))
 	return (0);
     if (flags & LWP_STACKCHECK) {
 	/* Add a 1K buffer on each side of the stack */
@@ -223,7 +223,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     }
     size += LWP_EXTRASTACK;
     size += sizeof(stkalign_t);
-    if (!(s = (int *)malloc(size)))
+    if (!(s = malloc(size)))
 	return (0);
     newp->flags = flags;
     newp->name = strdup(name);
@@ -304,7 +304,7 @@ lwpDestroy(struct lwpProc *proc)
     proc->entry = 0;
     proc->ud = 0;
     proc->argv = 0;
-    free((char *)proc->sbtm);
+    free(proc->sbtm);
     free(proc->name);
     free(proc->desc);
     proc->name = 0;
@@ -312,7 +312,7 @@ lwpDestroy(struct lwpProc *proc)
     proc->sbtm = 0;
     proc->lowmark = 0;
     proc->himark = 0;
-    free((char *)proc);
+    free(proc);
 }
 
 /*
@@ -434,7 +434,7 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     /* *LwpContextPtr = 0; */
     if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
 	return (0);
-    if (!(stack = (int *)malloc(64)))
+    if (!(stack = malloc(64)))
 	return (0);
     if (LWP_MAX_PRIO <= pri)
 	pri = LWP_MAX_PRIO - 1;

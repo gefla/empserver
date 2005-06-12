@@ -63,13 +63,13 @@ look(void)
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    if ((bitmap = (u_char *)malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
+    if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
 	logerror("malloc failed in look\n");
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
     memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-    while (nxtitem(&ni, (s_char *)&myship)) {
+    while (nxtitem(&ni, &myship)) {
 	if (!player->owner)
 	    continue;
 	look_ship(&myship);
@@ -107,7 +107,7 @@ look(void)
     }
     if (changed)
 	writemap(player->cnum);
-    free((s_char *)bitmap);
+    free(bitmap);
     return RET_OK;
 }
 
@@ -188,13 +188,13 @@ llook(void)
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
-    if ((bitmap = (u_char *)malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
+    if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
 	logerror("malloc failed in llook\n");
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
     memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-    while (nxtitem(&ni, (s_char *)&myland)) {
+    while (nxtitem(&ni, &myland)) {
 	if (!player->owner)
 	    continue;
 	if (myland.lnd_ship >= 0)
@@ -241,7 +241,7 @@ llook(void)
     }
     if (changed)
 	writemap(player->cnum);
-    free((s_char *)bitmap);
+    free(bitmap);
     return RET_OK;
 }
 

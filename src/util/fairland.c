@@ -439,37 +439,36 @@ allocate_memory(void)
 	return -1;
     }
     free(fname);
-    sectsbuf =
-	(struct sctstr *)calloc((YSIZE * XSIZE), sizeof(struct sctstr));
-    sects = (struct sctstr **)calloc(YSIZE, sizeof(struct sctstr *));
+    sectsbuf = calloc((YSIZE * XSIZE), sizeof(struct sctstr));
+    sects = calloc(YSIZE, sizeof(struct sctstr *));
     for (i = 0; i < YSIZE; i++)
 	sects[i] = &sectsbuf[XSIZE * i];
-    capx = (int *)calloc(nc, sizeof(int));
-    capy = (int *)calloc(nc, sizeof(int));
-    vector = (int *)calloc(WORLD_X + WORLD_Y, sizeof(int));
-    mc = (int *)calloc(STABLE_CYCLE, sizeof(int));
-    own = (int **)calloc(WORLD_X, sizeof(int *));
-    elev = (int **)calloc(WORLD_X, sizeof(int *));
+    capx = calloc(nc, sizeof(int));
+    capy = calloc(nc, sizeof(int));
+    vector = calloc(WORLD_X + WORLD_Y, sizeof(int));
+    mc = calloc(STABLE_CYCLE, sizeof(int));
+    own = calloc(WORLD_X, sizeof(int *));
+    elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
-	own[i] = (int *)calloc(WORLD_Y, sizeof(int));
-	elev[i] = (int *)calloc(WORLD_Y, sizeof(int));
+	own[i] = calloc(WORLD_Y, sizeof(int));
+	elev[i] = calloc(WORLD_Y, sizeof(int));
     }
-    sectx = (int **)calloc(nc + ni, sizeof(int *));
-    secty = (int **)calloc(nc + ni, sizeof(int *));
-    sectc = (int **)calloc(nc + ni, sizeof(int *));
-    isecs = (int *)calloc(nc + ni, sizeof(int));
-    weight = (int *)calloc(max(sc, is * 2), sizeof(int));
-    dsea = (int *)calloc(max(sc, is * 2), sizeof(int));
-    dmoun = (int *)calloc(max(sc, is * 2), sizeof(int));
+    sectx = calloc(nc + ni, sizeof(int *));
+    secty = calloc(nc + ni, sizeof(int *));
+    sectc = calloc(nc + ni, sizeof(int *));
+    isecs = calloc(nc + ni, sizeof(int));
+    weight = calloc(max(sc, is * 2), sizeof(int));
+    dsea = calloc(max(sc, is * 2), sizeof(int));
+    dmoun = calloc(max(sc, is * 2), sizeof(int));
     for (i = 0; i < nc; ++i) {
-	sectx[i] = (int *)calloc(sc, sizeof(int));
-	secty[i] = (int *)calloc(sc, sizeof(int));
-	sectc[i] = (int *)calloc(sc, sizeof(int));
+	sectx[i] = calloc(sc, sizeof(int));
+	secty[i] = calloc(sc, sizeof(int));
+	sectc[i] = calloc(sc, sizeof(int));
     }
     for (i = nc; i < nc + ni; ++i) {
-	sectx[i] = (int *)calloc(is * 2, sizeof(int));
-	secty[i] = (int *)calloc(is * 2, sizeof(int));
-	sectc[i] = (int *)calloc(is * 2, sizeof(int));
+	sectx[i] = calloc(is * 2, sizeof(int));
+	secty[i] = calloc(is * 2, sizeof(int));
+	sectc[i] = calloc(is * 2, sizeof(int));
     }
 
     return 0;
@@ -1163,10 +1162,10 @@ translate_continents(void)
     int i, j, n = 0, k, gotit, c;
     int *trans, *trans_cont, *oldcapx, *oldcapy;
 
-    trans = (int *)calloc(nc, sizeof(int));
-    trans_cont = (int *)calloc(nc, sizeof(int));
-    oldcapx = (int *)calloc(nc, sizeof(int));
-    oldcapy = (int *)calloc(nc, sizeof(int));
+    trans = calloc(nc, sizeof(int));
+    trans_cont = calloc(nc, sizeof(int));
+    oldcapx = calloc(nc, sizeof(int));
+    oldcapy = calloc(nc, sizeof(int));
 
     for (i = 0; i < WORLD_Y; ++i) {
 	for (j = i % 2; j < WORLD_X; j += 2) {

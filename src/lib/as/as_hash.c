@@ -74,7 +74,7 @@ as_free_hashtab(struct as_data *adp)
     for (i = 0; i < adp->hashsize; i++) {
 	for (hp = adp->hashtab[i]; hp; hp = hp2) {
 	    hp2 = hp->next;
-	    free((char *)hp);
+	    free(hp);
 	}
 	adp->hashtab[i] = NULL;
     }

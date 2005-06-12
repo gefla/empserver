@@ -56,7 +56,7 @@ ledg(void)
 	return RET_SYN;
     pr("\n... %s Ledger ...\n", cname(player->cnum));
     nloan = 0;
-    while (nxtitem(&nstr, (s_char *)&loan)) {
+    while (nxtitem(&nstr, &loan)) {
 	if (disloan(nstr.cur, &loan) > 0)
 	    nloan++;
     }

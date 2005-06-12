@@ -83,7 +83,7 @@ orde(void)
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    while (!player->aborted && nxtitem(&nb, (s_char *)(&ship))) {
+    while (!player->aborted && nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
@@ -370,7 +370,7 @@ qorde(void)
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&nb, (s_char *)(&ship))) {
+    while (nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
@@ -444,7 +444,7 @@ sorde(void)
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    while (nxtitem(&nb, (s_char *)(&ship))) {
+    while (nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {

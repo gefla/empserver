@@ -71,7 +71,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
     struct mlist *mlp;
 
     emp_initque(list);
-    while (nxtitem(ni, (s_char *)&ship)) {
+    while (nxtitem(ni, &ship)) {
 	if (!player->owner)
 	    continue;
 	mcp = &mchr[(int)ship.shp_type];
@@ -103,7 +103,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	ship.shp_rflags = 0;
 	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	putship(ship.shp_uid, &ship);
-	mlp = (struct mlist *)malloc(sizeof(struct mlist));
+	mlp = malloc(sizeof(struct mlist));
 	mlp->mcp = mcp;
 	mlp->ship = ship;
 	mlp->mobil = (double)ship.shp_mobil;
@@ -136,7 +136,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    mpr(actor, "%s was sunk at %s\n",
 		prship(&ship), xyas(ship.shp_x, ship.shp_y, actor));
 	    emp_remque((struct emp_qelem *)mlp);
-	    free((s_char *)mlp);
+	    free(mlp);
 	    continue;
 	}
 	if (opt_SAIL) {
@@ -203,7 +203,7 @@ shp_put(struct emp_qelem *list, natid actor)
 	putship(mlp->ship.shp_uid, &mlp->ship);
 	newqp = qp->q_back;
 	emp_remque(qp);
-	free((s_char *)qp);
+	free(qp);
 	qp = newqp;
     }
 }
@@ -264,7 +264,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	}
 	putship(mlp->ship.shp_uid, &mlp->ship);
 	putsect(&sect);
@@ -294,7 +294,7 @@ shp_check_one_mines(struct mlist *mlp)
 	if (changed)
 	    writemap(actor);
 	putsect(&sect);
-	putship(mlp->ship.shp_uid, (s_char *)&mlp->ship);
+	putship(mlp->ship.shp_uid, &mlp->ship);
 	if (!mlp->ship.shp_own)
 	    return 1;
     }
@@ -315,7 +315,7 @@ shp_check_mines(struct emp_qelem *ship_list)
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
-	    free((s_char *)qp);
+	    free(qp);
 	}
     }
     return stopping;
@@ -363,7 +363,7 @@ shp_mess(s_char *str, struct mlist *mlp)
     mlp->ship.shp_mobil = (int)mlp->mobil;
     putship(mlp->ship.shp_uid, &mlp->ship);
     emp_remque((struct emp_qelem *)mlp);
-    free((s_char *)mlp);
+    free(mlp);
 }
 
 static int
@@ -417,7 +417,7 @@ shp_damage_one(struct mlist *mlp, int dam)
     putship(mlp->ship.shp_uid, &mlp->ship);
     if (!mlp->ship.shp_own) {
 	emp_remque((struct emp_qelem *)mlp);
-	free((s_char *)mlp);
+	free(mlp);
     }
 }
 
@@ -1008,8 +1008,8 @@ shp_path(int together, struct shpstr *shp, s_char *buf)
 	return 0;
     }
 
-    cp = (s_char *)BestShipPath(buf, shp->shp_x, shp->shp_y,
-				d_sect.sct_x, d_sect.sct_y, player->cnum);
+    cp = BestShipPath(buf, shp->shp_x, shp->shp_y,
+		      d_sect.sct_x, d_sect.sct_y, player->cnum);
     if (!cp || shp->shp_mobil <= 0) {
 	mpr(shp->shp_own, "Can't get to '%s' right now.\n",
 	    xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
@@ -1029,7 +1029,7 @@ shp_missdef(struct shpstr *sp, natid victim)
 
     emp_initque(&list);
 
-    mlp = (struct mlist *)malloc(sizeof(struct mlist));
+    mlp = malloc(sizeof(struct mlist));
     mlp->mcp = &mchr[(int)sp->shp_type];
     mlp->ship = *sp;
     mlp->mobil = (double)sp->shp_mobil;

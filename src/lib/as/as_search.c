@@ -135,7 +135,7 @@ as_makepath(struct as_data *adp)
     struct as_node *np;
 
     for (np = adp->head->np; np; np = np->back) {
-	pp = (struct as_path *)malloc(sizeof(struct as_path));
+	pp = malloc(sizeof(struct as_path));
 	pp->c = np->c;
 	pp->next = adp->path;
 	adp->path = pp;

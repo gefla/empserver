@@ -143,7 +143,7 @@ add(void)
     if (p == 0)
 	return RET_OK;
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == coun) {
 	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		     land.lnd_y);

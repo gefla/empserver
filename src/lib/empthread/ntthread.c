@@ -414,7 +414,7 @@ empth_init(char **ctx_ptr, int flags)
     SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Exit_Handler, TRUE);
 
     /* Create the global Thread context. */
-    pThread = (loc_Thread_t *)malloc(sizeof(*pThread));
+    pThread = malloc(sizeof(*pThread));
     if (!pThread) {
 	logerror("not enough memory to create main thread.");
 	return 0;
@@ -461,7 +461,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     loc_debug("creating new thread %s:%s", name, desc);
 
-    pThread = (loc_Thread_t *)malloc(sizeof(*pThread));
+    pThread = malloc(sizeof(*pThread));
     if (!pThread) {
 	logerror("not enough memory to create thread: %s (%s)", name,
 		 desc);
@@ -671,7 +671,7 @@ empth_sem_create(char *name, int cnt)
 {
     loc_Sem_t *pSem;
 
-    pSem = (loc_Sem_t *)malloc(sizeof(*pSem));
+    pSem = malloc(sizeof(*pSem));
     if (!pSem) {
 	logerror("out of memory at %s:%d", __FILE__, __LINE__);
 	return NULL;

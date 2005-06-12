@@ -289,7 +289,7 @@ ldump(void)
     pr("\n");
 
     np = getnatp(player->cnum);
-    while (nxtitem(&ni, (s_char *)&land)) {
+    while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (!player->owner && !player->god)

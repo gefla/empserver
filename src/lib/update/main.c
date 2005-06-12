@@ -95,7 +95,7 @@ update_main(void *unused)
     memset(air_money, 0, sizeof(air_money));
     memset(sea_money, 0, sizeof(sea_money));
     memset(lnd_money, 0, sizeof(lnd_money));
-    bp = (int *)calloc(WORLD_X * WORLD_Y * 7, sizeof(int));
+    bp = calloc(WORLD_X * WORLD_Y * 7, sizeof(int));
     for (n = 0; n < MAXNOC; n++) {
 	money[n] = 0;
 	if ((np = getnatp(n)) == (struct natstr *)0)

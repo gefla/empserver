@@ -106,7 +106,7 @@ surv(void)
 	    for (i = 0; i < WORLD_Y; i++)
 		map[i] = &mapbuf[MAPWIDTH(1) * i];
 	} else if (map) {
-	    free((s_char *)map);
+	    free(map);
 	    map = (s_char **)0;
 	}
     }

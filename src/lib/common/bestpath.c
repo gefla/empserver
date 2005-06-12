@@ -132,13 +132,12 @@ bestownedpath(s_char *bpath,
     unsigned int routelen;
 
     if (!mapbuf)
-	mapbuf = (unsigned int *)malloc((WORLD_X * WORLD_Y) *
+	mapbuf = malloc((WORLD_X * WORLD_Y) *
 					sizeof(unsigned int));
     if (!mapbuf)
 	return ((s_char *)0);
     if (!mapindex) {
-	mapindex =
-	    (unsigned int **)malloc(WORLD_X * sizeof(unsigned int *));
+	mapindex = malloc(WORLD_X * sizeof(unsigned int *));
 	if (mapindex) {
 	    /* Setup the map pointers */
 	    for (i = 0; i < WORLD_X; i++)
@@ -160,7 +159,7 @@ bestownedpath(s_char *bpath,
     if (x == ex && y == ey) {
 	bpath[0] = 'h';
 	bpath[1] = 0;
-	return ((s_char *)bpath);
+	return bpath;
     }
 
     if (!valid(x, y) || !valid(ex, ey))
@@ -186,7 +185,7 @@ bestownedpath(s_char *bpath,
 	if (++routelen == MAXROUTE) {
 	    bpath[0] = '?';
 	    bpath[1] = 0;
-	    return ((s_char *)bpath);
+	    return bpath;
 	}
 	markedsectors = 0;
 	for (scanx = minx; scanx <= maxx; scanx++) {
@@ -219,7 +218,7 @@ bestownedpath(s_char *bpath,
 				    tx = XNORM(tx);
 				    ty = YNORM(ty);
 				}
-				return ((s_char *)bpath);
+				return bpath;
 			    }
 			}
 		    }
