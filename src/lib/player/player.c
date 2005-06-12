@@ -345,14 +345,12 @@ show_motd(void)
 {
     FILE *motd_fp;
     struct telstr tgm;
-    char buf[MAXTELSIZE];
+    char buf[MAXTELSIZE + 1];	/* message text */
 
-    if ((motd_fp = fopen(motdfil, "rb")) == NULL)
-    {
+    if ((motd_fp = fopen(motdfil, "rb")) == NULL) {
     	if (errno == ENOENT)
 	    return RET_OK;
-	else
-	{
+	else {
 	    pr ("Could not open motd.\n");
 	    logerror("Could not open motd (%s).\n", motdfil);
 	    return RET_SYS;
