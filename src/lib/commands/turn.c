@@ -105,8 +105,8 @@ turn(void)
     if (msgfilepath == downfil)
 	pr("Logins disabled.\n");
 
-    if ((fwrite((void *)&tgm, sizeof(tgm), 1, fptr) != 1) ||
-	(fwrite((void *)buf, tgm.tel_length, 1, fptr) != 1)) {
+    if ((fwrite(&tgm, sizeof(tgm), 1, fptr) != 1) ||
+	(fwrite(buf, tgm.tel_length, 1, fptr) != 1)) {
 	fclose(fptr);
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",

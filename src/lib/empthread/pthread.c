@@ -215,9 +215,9 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
 #ifdef _DECTHREADS_
-    eno = pthread_create(&t, attr, empth_start, (void *)ctx) ? errno : 0;
+    eno = pthread_create(&t, attr, empth_start, ctx) ? errno : 0;
 #else
-    eno = pthread_create(&t, &attr, empth_start, (void *)ctx);
+    eno = pthread_create(&t, &attr, empth_start, ctx);
 #endif
     if (eno) {
 	logerror("can not create thread: %s (%s): %s", name, desc,
@@ -246,8 +246,8 @@ empth_setctx(void *ct)
     ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
 #endif
     ctx_ptr->ud = ct;
-    *udata = ((empth_t *)ctx_ptr)->ud;
-    pthread_setspecific(ctx_key, (void *)ctx_ptr);
+    *udata = ctx_ptr->ud;
+    pthread_setspecific(ctx_key, ctx_ptr);
     empth_status("context saved");
 }
 #endif

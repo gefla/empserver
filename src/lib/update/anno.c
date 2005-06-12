@@ -114,7 +114,7 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
     int saved = 0;
     int first = 1;
 
-    while (fread((void *)&tgm, sizeof(tgm), 1, annfp) == 1) {
+    while (fread(&tgm, sizeof(tgm), 1, annfp) == 1) {
 	writeit = 1;
 	if (tgm.tel_length < 0 || tgm.tel_length > MAXTELSIZE) {
 	    logerror("bad telegram file header (length=%ld)",
@@ -136,7 +136,7 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 	    writeit = 0;
 
 	if (writeit) {
-	    if (fwrite((void *)&tgm, sizeof(tgm), 1, tmpfp) != 1) {
+	    if (fwrite(&tgm, sizeof(tgm), 1, tmpfp) != 1) {
 		logerror("error writing header to temporary "
 			 "telegram file %s", tmp_filename);
 		return 0;

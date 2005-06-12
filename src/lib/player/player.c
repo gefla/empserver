@@ -358,7 +358,7 @@ show_motd(void)
 	    return RET_SYS;
 	}
     }
-    if (fread((void *)&tgm, sizeof(tgm), 1, motd_fp) != 1) {
+    if (fread(&tgm, sizeof(tgm), 1, motd_fp) != 1) {
 	logerror("bad header on login message (motdfil)");
 	fclose(motd_fp);
 	return RET_FAIL;

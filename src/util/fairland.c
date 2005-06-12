@@ -1115,8 +1115,8 @@ write_file(void)
 {
     int n;
 
-    if ((n = fwrite((void *)sectsbuf, sizeof(struct sctstr),
-                    YSIZE * XSIZE, sect_fptr)) <= 0) {
+    n = fwrite(sectsbuf, sizeof(struct sctstr), YSIZE * XSIZE, sect_fptr);
+    if (n <= 0) {
 	perror(empfile[EF_SECTOR].file);
 	return -1;
     }
