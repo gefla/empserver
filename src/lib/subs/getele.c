@@ -37,69 +37,73 @@
 #include "tel.h"
 #include "prototypes.h"
 
-static int tilde_escape(s_char *s, s_char c);
+static int tilde_escape(char *s);
 
+/*
+ * Read a telegram for RECIPIENT into BUF.
+ * BUF must have space for MAXTELSIZE+1 characters.
+ * Return telegram length, or -1 on error.
+ * Note: telegrams are message text (see doc/unicode).
+ */
 int
-getele(char *nation, char *buf /* buf is message text */)
+getele(char *recipient, char *buf)
 {
-    register char *bp;
-    register int len;
-    char buffer[MAXTELSIZE + 2]; /* buf is message text */
-    char left[MAXTELSIZE + 2]; /* buf is message text */
+    char *bp;
+    size_t len;
+    char buffer[MAXTELSIZE + 2]; /* message text */
+    char left[16];
 
-    pr("Enter telegram for %s\n", nation);
+    pr("Enter telegram for %s\n", recipient);
     pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
     bp = buf;
     while (!player->aborted) {
 	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
-	buffer[0] = 0;
-	if (uprmptrd(left, buffer, MAXTELSIZE - 2) <= 0)
-	    break;
-	if (tilde_escape(buffer, 'q'))
+	if (uprmptrd(left, buffer, sizeof(buffer) - 2) <= 0)
 	    return -1;
-	if (tilde_escape(buffer, 'u')) {
+	switch(tilde_escape(buffer)) {
+	case 'q':
+	    return -1;
+	case 'u':
 	    if (bp == buf) {
 		pr("No more lines to undo\n");
 		continue;
 	    }
+	    for (bp -= 2; bp >= buf && *bp != '\n'; --bp) ;
+	    *++bp = 0;
 	    pr("Last line deleted.\n");
-	    for (bp -= 2; bp > buf && *bp != '\n'; --bp) ;
-	    if (bp > buf)
-		*(++bp) = 0;
-	    else
-		bp = buf;
 	    continue;
-	}
-	if (tilde_escape(buffer, 'p')) {
+	case 'p':
 	    pr("This is what you have written so far:\n");
 	    uprnf(buf);
 	    continue;
 	}
 	if (buffer[0] == '.' && buffer[1] == 0)
 	    break;
+	if (buffer[0] == '>')	/* forgery attempt? */
+	    buffer[0] = '?';	/* foil it */
 	len = strlen(buffer);
+	if (CANT_HAPPEN(len > sizeof(buffer) - 2))
+	    len = sizeof(buffer) - 2;
 	buffer[len++] = '\n';
 	buffer[len] = 0;
-	if (len + (bp - buf) > MAXTELSIZE)
+	if (bp + len > buf + MAXTELSIZE)
 	    pr("Too long.  Try that last line again...\n");
 	else {
-	    if (buffer[0] == '>')	/* forgery attempt? */
-		buffer[0] = '?';	/* foil it */
-	    (void)strcpy(bp, buffer);
+	    memcpy(bp, buffer, len + 1);
 	    bp += len;
 	}
     }
     if (player->aborted)
 	return -1;
-    len = bp - buf;
-    buf[len] = 0;
-    return len;
+    return bp - buf;
 }
 
+/*
+ * If S is a `tilde escape', return its code, else 0.
+ * A tilde escape is '~' followed by the code character.
+ */
 static int
-tilde_escape(s_char *s, s_char c)
+tilde_escape(char *s)
 {
-    if (s[0] == '~' && s[1] == c && s[2] == 0)
-	return 1;
-    return 0;
+    return s[0] == '~' && s[2] == 0 ? s[1] : 0;
 }
