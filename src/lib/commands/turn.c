@@ -49,7 +49,8 @@ turn(void)
     FILE *fptr;
     struct telstr tgm;
     char *p;
-    char buf[MAXTELSIZE + 1];
+    char buf[1024];
+    char msgbuf[MAXTELSIZE + 1]; /* message text */
     char *msgfilepath;
 
     p = getstarg(player->argp[1], "on, off or motd? ", buf);
@@ -75,7 +76,7 @@ turn(void)
 	pr("Enter a new message of the day.\n");
 
     time(&tgm.tel_date);
-    tgm.tel_length = getele("The World", buf);
+    tgm.tel_length = getele("The World", msgbuf);
 
     if (tgm.tel_length < 0) {
 	pr("Ignored\n");
@@ -106,7 +107,7 @@ turn(void)
 	pr("Logins disabled.\n");
 
     if ((fwrite(&tgm, sizeof(tgm), 1, fptr) != 1) ||
-	(fwrite(buf, tgm.tel_length, 1, fptr) != 1)) {
+	(fwrite(msgbuf, tgm.tel_length, 1, fptr) != 1)) {
 	fclose(fptr);
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",

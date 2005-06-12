@@ -63,7 +63,8 @@ rea(void)
     int teles;
     int size;
     unsigned int nbytes;
-    s_char buf[4096]; /* buf is message text */
+    char buf[1024];
+    char msgbuf[4096];		/* message text */
     int lasttype;
     int lastcnum;
     time_t lastdate;
@@ -163,12 +164,12 @@ rea(void)
       skip:
 	while (tgm.tel_length > 0) {
 	    nbytes = tgm.tel_length;
-	    if (nbytes > sizeof(buf) - 1)
-		nbytes = sizeof(buf) - 1;
-	    (void)fread(buf, sizeof(s_char), nbytes, telfp);
-	    buf[nbytes] = 0;
+	    if (nbytes > sizeof(msgbuf) - 1)
+		nbytes = sizeof(msgbuf) - 1;
+	    (void)fread(msgbuf, sizeof(s_char), nbytes, telfp);
+	    msgbuf[nbytes] = 0;
 	    if (readit)
-		uprnf(buf);
+		uprnf(msgbuf);
 	    tgm.tel_length -= nbytes;
 	}
     }
