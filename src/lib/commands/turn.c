@@ -49,7 +49,7 @@ turn(void)
     FILE *fptr;
     struct telstr tgm;
     char *p;
-    char buf[MAXTELSIZE];
+    char buf[MAXTELSIZE + 1];
     char *msgfilepath;
 
     p = getstarg(player->argp[1], "on, off or motd? ", buf);
