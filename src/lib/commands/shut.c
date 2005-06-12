@@ -46,8 +46,8 @@ shut(void)
 {
     int shutdown_minutes;
     int shutdown_was_pending;
-    s_char buf[100];
-    s_char newbuf[100];
+    char buf[1024];
+    s_char msgbuf[100];		/* user text */
     struct natstr *us;
     s_char *p;
 
@@ -61,20 +61,20 @@ shut(void)
     if (shutdown_minutes < 0)
 	return RET_SYN;
     if (!updates_disabled())
-	if (!(p = getstarg(player->argp[3], "Disable update [y]? ", buf))
+	if (!(p = getstarg(player->argp[2], "Disable update [y]? ", buf))
 	    || *p != 'n')
 	    disa();
 
     shutdown_was_pending = shutdown_pending;
     shutdown_pending = shutdown_minutes + !!shutdown_minutes;
-    buf[0] = '\0';
+    msgbuf[0] = '\0';
     if (shutdown_was_pending) {
 	if (shutdown_minutes) {
-	    sprintf(buf,
-		    "The shutdown time has been changed to %d minutes",
+	    sprintf(msgbuf,
+		    ": The shutdown time has been changed to %d minutes!",
 		    shutdown_minutes);
 	} else {
-	    sprintf(buf, "The server shutdown has been cancelled");
+	    sprintf(msgbuf, ": The server shutdown has been cancelled!");
 	}
     } else if (shutdown_minutes) {
 	pr("Shutdown sequence begun.\n");
@@ -83,19 +83,17 @@ shut(void)
 		     0, "shutdownSeq", "Counts down server shutdown", 0);
     }
     us = getnatp(player->cnum);
-    if (buf[0]) {
-	sprintf(newbuf, ": %s!", buf);
-	sendmessage(us, 0, newbuf, 1);
-	pr("%s.\n", buf);
-	logerror(buf);
+    if (msgbuf[0]) {
+	sendmessage(us, 0, msgbuf, 1);
+	pr("%s\n", msgbuf + 2);
+	logerror(msgbuf + 2);
     }
     if (shutdown_minutes) {
-	sprintf(buf, "The server will shut down in %d minutes",
+	sprintf(msgbuf, ": The server will shut down in %d minutes!",
 		shutdown_minutes);
-	sprintf(newbuf, ": %s!", buf);
-	sendmessage(us, 0, newbuf, 1);
-	pr("%s.\n", buf);
-	logerror(buf);
+	sendmessage(us, 0, msgbuf, 1);
+	pr("%s\n", msgbuf + 2);
+	logerror(msgbuf + 2);
     }
     return RET_OK;
 }
