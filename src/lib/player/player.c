@@ -72,7 +72,6 @@ player_main(struct player *p)
     player = p;
     time(&player->lasttime);
     time(&player->curup);
-    showvers(CLIENTPROTO);
     show_motd();
     if (init_nats() < 0)
 	return;

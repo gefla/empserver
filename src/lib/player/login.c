@@ -64,8 +64,8 @@ extern struct cmndstr login_coms[];
 void
 player_login(void *ud)
 {
-    s_char buf[128];
-    s_char space[128];
+    char buf[128];
+    char space[128];
     int ac;
     int cmd;
 
@@ -306,6 +306,7 @@ play_cmd(void)
 	io_shutdown(player->iop, IO_READ);
 	return RET_FAIL;
     }
+    pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
     player_main(player);
     player->state = PS_SHUTDOWN;
     return RET_OK;

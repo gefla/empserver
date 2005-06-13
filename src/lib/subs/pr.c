@@ -297,12 +297,6 @@ prprompt(int min, int btu)
     pr_id(player, C_PROMPT, "%d %d\n", min, btu);
 }
 
-void
-showvers(int vers)
-{
-    pr_id(player, C_INIT, "%d\n", vers);
-}
-
 int
 prmptrd(char *prompt, char *str, int size)
 {

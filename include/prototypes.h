@@ -609,7 +609,6 @@ extern void pr_hilite(s_char *buf);
 extern void prredir(s_char *redir);
 extern void prexec(s_char *file);
 extern void prprompt(int min, int btu);
-extern void showvers(int vers);
 extern int prmptrd(char *prompt, char *str, int size);
 extern int uprmptrd(char *prompt, char *str /* str is message text */,
 		    int size);
