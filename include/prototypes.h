@@ -417,7 +417,7 @@ extern void player_wakeup_all(natid);
 extern void player_wakeup(struct player *);
 extern void player_accept(void *);
 /* dispatch.c */
-extern int dispatch(s_char *, s_char *);
+extern int dispatch(char *, char *);
 /* empdis.c */
 extern int getcommand(s_char *);
 extern void init_player_commands(void);

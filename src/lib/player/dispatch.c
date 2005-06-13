@@ -46,8 +46,16 @@
 #include "common.h"
 #include "server.h"
 
+/*
+ * Execute command named by player->argp[0].
+ * BUF is the raw command line (user text).  It should have been
+ * passed to parse() to set up player->argp.
+ * If REDIR is not null, it's the command's redirection; it is user
+ * text.
+ * Return -1 if the command is not unique or doesn't exist, else 0.
+ */
 int
-dispatch(s_char *buf, s_char *redir)
+dispatch(char *buf, char *redir)
 {
     struct natstr *np;
     struct cmndstr *command;
@@ -57,11 +65,11 @@ dispatch(s_char *buf, s_char *redir)
 		 player->ncomstat, player->god);
     if (cmd < 0) {
 	if (cmd == M_NOTUNIQUE)
-	    pr("\"%s\" is ambiguous -- ", buf);
+	    pr("Command \"%s\" is ambiguous -- ", player->argp[0]);
 	else if (cmd == M_IGNORE)
 	    return 0;
 	else {
-	    pr("\"%s\" is not a legal command ", buf);
+	    pr("\"%s\" is not a legal command ", player->argp[0]);
 	    if (player->nstat != player->ncomstat)
 		pr("now ");
 	    pr("\n");
@@ -88,7 +96,8 @@ dispatch(s_char *buf, s_char *redir)
     }
     if (redir) {
 	prredir(redir);
-	pr("%s\n", buf);
+	uprnf(buf);
+	pr("\n");
     }
     player->command = command;
     switch (command->c_addr()) {
