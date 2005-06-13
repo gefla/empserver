@@ -57,10 +57,10 @@ shoo(void)
     struct ichrstr *ip;
     struct lndstr land;
     int targets;
-    s_char *p;
+    char *p;
     int mil, nsec;
-    s_char prompt[128];
-    s_char buf[128];
+    char prompt[128];
+    char buf[1024];
 
     ip = whatitem(player->argp[1], "Shoot what <civ or uw> ");
     if (ip == 0 || (ip->i_vtype != I_CIVIL && ip->i_vtype != I_UW))

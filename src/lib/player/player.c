@@ -303,7 +303,7 @@ status(void)
 int
 execute(void)
 {
-    char buf[512];
+    char buf[1024];
     int failed;
     char *p;
     char *redir;

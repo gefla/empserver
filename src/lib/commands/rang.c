@@ -76,9 +76,9 @@ lrange(void)
     struct lndstr land;
     struct lchrstr *lcp;
     int i;
-    s_char *p;
-    s_char prompt[128];
-    s_char buf[128];
+    char *p;
+    char prompt[128];
+    char buf[1024];
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))
 	return RET_SYN;
