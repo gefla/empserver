@@ -194,12 +194,13 @@ upr_player(struct player *pl, int id, char *buf
     register char *bp; /* bp is message text */
     register int standout = 0;
     char printbuf[2]; /* bp is message text */
+    char ch;
 
     printbuf[0] = '\0';
     printbuf[1] = '\0';
 
     bp = buf;
-    while (*bp != '\0') {
+    while ((ch = *bp++)) {
 	if (pl->curid != -1 && pl->curid != id) {
 	    io_puts(pl->iop, "\n");
 	    pl->curid = -1;
@@ -207,13 +208,13 @@ upr_player(struct player *pl, int id, char *buf
 	if (pl->curid == -1)
 	    outid(pl, id);
 
-	if (*bp < 0) { /* looking for standout bit 0x80 */
+	if (ch & 0x80) {
 	    if (standout == 0) {
 		printbuf[0] = 0x0e;
 		io_puts(pl->iop, printbuf);
 		standout = 1;
 	    }
-	    *bp &= 0x7f;
+	    ch &= 0x7f;
 	} else {
 	    if (standout == 1) {
 		printbuf[0] = 0x0f;
@@ -221,17 +222,16 @@ upr_player(struct player *pl, int id, char *buf
 		standout = 0;
 	    }
 	}
-	if (*bp == '\n') {
+	if (ch == '\n') {
 	    if (pl->command && (pl->command->c_flags & C_MOD))
-		io_write(pl->iop, bp, 1, IO_NOWAIT);
+		io_write(pl->iop, &ch, 1, IO_NOWAIT);
 	    else
-		io_write(pl->iop, bp, 1, IO_WAIT);
+		io_write(pl->iop, &ch, 1, IO_WAIT);
 	    pl->curid = -1;
 	} else {
-	    printbuf[0] = *bp;
+	    printbuf[0] = ch;
 	    io_puts(pl->iop, printbuf);
 	}
-        bp++;
     }
 }
 
