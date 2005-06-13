@@ -80,8 +80,8 @@ emp_config(char *file)
 {
     FILE *fp;
     char scanspace[1024];
-    char *av[65];
-    char buf[BUFSIZ];
+    char *av[128];
+    char buf[1024];
     struct keymatch *kp;
     int lno = 0;
     int errors = 0;
@@ -103,7 +103,7 @@ emp_config(char *file)
 	for (i = 0; buf[i] && isspace(buf[i]); ++i) ;
 	if (!buf[i] || buf[i] == '#')
 	    continue;
-	if (parse(buf, av, 0, scanspace, 0) < 0) {
+	if (parse(buf, av, NULL, scanspace, NULL) < 0) {
 	    fprintf(stderr, "%s:%d: Can't parse line %s", file, lno, buf);
 	    errors = 1;
 	    continue;
