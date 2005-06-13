@@ -39,9 +39,6 @@
 #include "file.h"
 #include "commands.h"
 
-static int ufindbreak(char *message /* message is message text */,
-		      int num_chars);
-
 int
 flash(void)
 {
@@ -143,7 +140,7 @@ sendmessage(struct natstr *us, struct natstr *to, char *message
     char c; /* c is message text */
     int pos;
 
-    pos = ufindbreak(message, 60);
+    pos = ufindpfx(message, 60);
     c = message[pos];
     if (c)
         message[pos] = '\0';
@@ -205,23 +202,4 @@ sendmessage(struct natstr *us, struct natstr *to, char *message
 	sendmessage(us, to, &message[pos], 0);
     }
     return 0;
-}
-
-/*
- * Return byte-index of the N-th UTF-8 character in UTF-8 string S.
- * If S doesn't have that many characters, return its length instead.
- */
-int
-ufindbreak(char *s /* s is message text */, int n)
-{
-    int i = 0;
-
-    while (n && s[i])
-    {
-	if ((s[i++] & 0xc0) == 0xc0)
-            while ((s[i] & 0xc0) == 0x80)
-		i++;
-        --n;
-    }
-    return i;
 }

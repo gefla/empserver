@@ -441,3 +441,22 @@ prtoascii(char *buf /* buf is message text */)
 	    pbuf--;
 	}
 }
+
+/*
+ * Return byte-index of the N-th UTF-8 character in UTF-8 string S.
+ * If S doesn't have that many characters, return its length instead.
+ */
+int
+ufindpfx(char *s, int n)
+{
+    int i = 0;
+
+    while (n && s[i])
+    {
+	if ((s[i++] & 0xc0) == 0xc0)
+            while ((s[i] & 0xc0) == 0x80)
+		i++;
+        --n;
+    }
+    return i;
+}

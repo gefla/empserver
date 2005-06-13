@@ -621,6 +621,7 @@ extern void PRdate(natid cn);
 extern void pr_beep(void);
 extern void mpr(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern void prtoascii(char *buf /* buf is message text */);
+extern int ufindpfx(char *, int);
 
 /* radmap.c */
 extern int deltx(struct range *, coord);

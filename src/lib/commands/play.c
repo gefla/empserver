@@ -70,9 +70,10 @@ static int
 play_list(struct player *joe)
 {
     time_t now;
-    s_char *com;
+    char com[1 + 6*20 + 2];	/* user text */
     struct natstr *natp;
     struct natstr *us;
+    int n;
 
     if (joe->cnum >= MAXNOC || !(natp = getnatp(joe->cnum)))
 	return 0;
@@ -98,22 +99,28 @@ play_list(struct player *joe)
     }
 
     time(&now);
-    if (player->god) {
-	if (!joe->combuf || !*joe->combuf)
-	    com = "NULL";
-	else
-	    com = joe->combuf;
-    } else
-	com = "";
-
-
-    pr("%-9.9s %3d %32.32s %2d:%02d %4lds %-20.20s\n",
+    pr("%-9.9s %3d %32.32s %2d:%02d %4lds",
        cname(joe->cnum),
        joe->cnum,
        player->god || joe->cnum == player->cnum ? praddr(joe) : "",
        natp->nat_minused / 60,
        natp->nat_minused % 60,
-       (long)(now - joe->curup),
-       com);
+       (long)(now - joe->curup));
+
+    if (player->god) {
+	if (!joe->combuf || !*joe->combuf)
+	    pr(" NULL\n");
+	else {
+	    n = ufindpfx(joe->combuf, 20);
+	    if (CANT_HAPPEN(n + 3u > sizeof(com))) {
+		pr(" BUGGY\n");
+		return 1;
+	    }
+	    sprintf(com, " %.*s\n", n, joe->combuf);
+	    uprnf(com);
+	}
+    } else
+	pr("\n");
+
     return 1;
 }
