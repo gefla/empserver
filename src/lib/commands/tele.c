@@ -46,8 +46,7 @@ tele(void)
 {
     natid to;
     struct natstr *natp;
-    int teltype;
-    s_char buf[MAXTELSIZE + 1];
+    char buf[MAXTELSIZE + 1];	/* UTF-8 */
     int n;
 
     natp = getnatp(player->cnum);
@@ -113,8 +112,7 @@ tele(void)
 		pr("%s is rejecting your telegrams.\n", cname(to));
 		return RET_SYN;
 	    }
-	    teltype = /* player->god ? TEL_BULLETIN : */ TEL_NORM;
-	    if (typed_wu(player->cnum, to, buf, teltype) < 0) {
+	    if (typed_wu(player->cnum, to, buf, TEL_NORM) < 0) {
 		logerror("tele: typed_wu failed to #%d", n);
 		return RET_FAIL;
 	    }

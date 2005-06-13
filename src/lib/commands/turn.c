@@ -50,7 +50,7 @@ turn(void)
     struct telstr tgm;
     char *p;
     char buf[1024];
-    char msgbuf[MAXTELSIZE + 1]; /* message text */
+    char msgbuf[MAXTELSIZE + 1]; /* UTF-8 */
     char *msgfilepath;
 
     p = getstarg(player->argp[1], "on, off or motd? ", buf);

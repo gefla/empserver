@@ -47,9 +47,9 @@ shut(void)
     int shutdown_minutes;
     int shutdown_was_pending;
     char buf[1024];
-    s_char msgbuf[100];		/* user text */
+    char msgbuf[100];
     struct natstr *us;
-    s_char *p;
+    char *p;
 
     if (update_pending) {
 	pr("Update is pending\n");

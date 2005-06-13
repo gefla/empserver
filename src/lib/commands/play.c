@@ -70,7 +70,7 @@ static int
 play_list(struct player *joe)
 {
     time_t now;
-    char com[1 + 6*20 + 2];	/* user text */
+    char com[1 + 6*20 + 2];	/* UTF-8 */
     struct natstr *natp;
     struct natstr *us;
     int n;

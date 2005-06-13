@@ -80,8 +80,8 @@ telegram_is_new(natid to, struct telstr *tel)
 
 /*
  * Send a telegram from FROM to TO.
- * Format text to send under control of printf-style FORMAT using
- * optional arguments.  It is plain ASCII.
+ * Format text to send using printf-style FORMAT and optional
+ * arguments.  It is plain ASCII.
  * If running from the update, telegram type is TEL_UPDATE.
  * Else if FROM is a deity, type is TEL_BULLETIN.
  * Else it is TEL_NORM.
@@ -108,7 +108,7 @@ wu(natid from, natid to, char *format, ...)
 
 /*
  * Send a telegram from FROM to TO.
- * MESSAGE is the text to send, encoded as message text.
+ * MESSAGE is the text to send, in UTF-8.
  * TYPE is the telegram type.
  * Return 0 on success, -1 on error.
  */

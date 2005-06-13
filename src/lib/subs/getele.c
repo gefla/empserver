@@ -40,17 +40,16 @@
 static int tilde_escape(char *s);
 
 /*
- * Read a telegram for RECIPIENT into BUF.
+ * Read a telegram for RECIPIENT into BUF, in UTF-8.
  * BUF must have space for MAXTELSIZE+1 characters.
  * Return telegram length, or -1 on error.
- * Note: telegrams are message text (see doc/unicode).
  */
 int
 getele(char *recipient, char *buf)
 {
     char *bp;
     size_t len;
-    char buffer[MAXTELSIZE + 2]; /* message text */
+    char buffer[MAXTELSIZE + 2]; /* UTF-8 */
     char left[16];
 
     pr("Enter telegram for %s\n", recipient);

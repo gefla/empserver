@@ -158,7 +158,7 @@ int
 command(void)
 {
     unsigned int x;
-    char *redir;
+    char *redir;		/* UTF-8 */
     char scanspace[1024];
 
     if (getcommand(player->combuf) < 0)
@@ -306,18 +306,20 @@ execute(void)
     char buf[1024];
     int failed;
     char *p;
-    char *redir;
+    char *redir;		/* UTF-8 */
     char scanspace[1024];
 
     failed = 0;
-    redir = 0;
+    redir = NULL;
 
     p = getstarg(player->argp[1], "File? ", buf);
 
     if (p == NULL || *p == '\0')
 	return RET_SYN;
 
+    /* FIXME should use raw argument here, to support UTF-8 file names */
     prexec(player->argp[1]);
+
     while (!failed && status()) {
 	if (recvclient(buf, sizeof(buf)) < 0)
 	    break;
@@ -326,7 +328,7 @@ execute(void)
 	    failed = 1;
 	    continue;
 	}
-	if (redir == 0)
+	if (redir == NULL)
 	    pr("\nExecute : %s\n", buf);
 	if (dispatch(buf, redir) < 0)
 	    failed = 1;
@@ -334,7 +336,7 @@ execute(void)
     if (failed) {
 	while (recvclient(buf, sizeof(buf)) >= 0) ;
     }
-    if (redir == 0)
+    if (redir == NULL)
 	pr("Execute : %s\n", failed ? "aborted" : "terminated");
     return RET_OK;
 }
@@ -344,7 +346,7 @@ show_motd(void)
 {
     FILE *motd_fp;
     struct telstr tgm;
-    char buf[MAXTELSIZE + 1];	/* message text */
+    char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
     if ((motd_fp = fopen(motdfil, "rb")) == NULL) {
     	if (errno == ENOENT)

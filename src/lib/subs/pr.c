@@ -57,7 +57,12 @@
 
 static void outid(struct player *pl, int n);
 
-/*VARARGS*/
+/*
+ * Print to current player similar to printf().
+ * Use printf-style FORMAT with the optional arguments.
+ * Note: `to print' without further qualifications means sending
+ * C_DATA text.
+ */
 void
 pr(char *format, ...)
 {
@@ -68,8 +73,10 @@ pr(char *format, ...)
     (void)vsprintf(buf, format, ap);
     va_end(ap);
     if (player->flags & PF_UTF8)
+	/* normal text needs to be converted to user text */
 	upr_player(player, C_DATA, buf);
     else
+	/* normal text and user text are identical */
         pr_player(player, C_DATA, buf);
 }
 
@@ -90,11 +97,19 @@ uprnf(char *buf)
 	pr_player(player, C_DATA, buf);
 }
 
-/*VARARGS*/
+/*
+ * Send some text to P with id ID, line-buffered.
+ * Format text to send using printf-style FORMAT and optional
+ * arguments.  It is assumed to be already user text.  Plain ASCII and
+ * text received from the same player are fine, for anything else the
+ * caller has to deal with output filtering.
+ * If a partial line with different id is buffered, terminate it with
+ * a newline first.
+ */
 void
-pr_id(struct player *p, int id, s_char *format, ...)
+pr_id(struct player *p, int id, char *format, ...)
 {
-    s_char buf[4096];
+    char buf[4096];
     va_list ap;
 
     if (p->curid >= 0) {
@@ -107,11 +122,15 @@ pr_id(struct player *p, int id, s_char *format, ...)
     pr_player(p, id, buf);
 }
 
+/*
+ * Send C_FLASH text to PL.
+ * Format text to send using printf-style FORMAT and optional
+ * arguments.  It is assumed to be UTF-8.
+ */
 void
-pr_flash(struct player *pl, char *format
-	 /* format is message text */, ...)
+pr_flash(struct player *pl, char *format, ...)
 {
-    char buf[4096]; /* buf is message text */
+    char buf[4096];		/* UTF-8 */
     va_list ap;
 
     if (pl->state != PS_PLAYING)
@@ -125,10 +144,15 @@ pr_flash(struct player *pl, char *format
     io_output(pl->iop, IO_NOWAIT);
 }
 
+/*
+ * Send C_INFORM text to PL.
+ * Format text to send using printf-style FORMAT and optional
+ * arguments.  It is assumed to be plain ASCII.
+ */
 void
-pr_inform(struct player *pl, s_char *format, ...)
+pr_inform(struct player *pl, char *format, ...)
 {
-    s_char buf[4096];
+    char buf[4096];
     va_list ap;
 
     if (pl->state != PS_PLAYING)
@@ -140,10 +164,15 @@ pr_inform(struct player *pl, s_char *format, ...)
     io_output(pl->iop, IO_NOWAIT);
 }
 
+/*
+ * Send C_FLASH text to everyone.
+ * Format text to send using printf-style FORMAT and optional
+ * arguments.  It is assumed to be plain ASCII.
+ */
 void
-pr_wall(s_char *format, ...)
+pr_wall(char *format, ...)
 {
-    s_char buf[4096];
+    char buf[4096];		/* UTF-8 */
     struct player *p;
     va_list ap;
 
@@ -158,12 +187,18 @@ pr_wall(s_char *format, ...)
     }
 }
 
+/*
+ * Send ID text BUF to PL, line-buffered.
+ * BUF is user text.
+ * If a partial line with different id is buffered, terminate it with
+ * a newline first.
+ */
 void
-pr_player(struct player *pl, int id, s_char *buf)
+pr_player(struct player *pl, int id, char *buf)
 {
-    register s_char *p;
-    register s_char *bp;
-    register int len;
+    char *p;
+    char *bp;
+    int len;
 
     bp = buf;
     while (*bp != '\0') {
@@ -174,7 +209,7 @@ pr_player(struct player *pl, int id, s_char *buf)
 	if (pl->curid == -1)
 	    outid(pl, id);
 	p = strchr(bp, '\n');
-	if (p != 0) {
+	if (p != NULL) {
 	    len = (p - bp) + 1;
 	    if (pl->command && (pl->command->c_flags & C_MOD))
 		io_write(pl->iop, bp, len, IO_NOWAIT);
@@ -189,13 +224,17 @@ pr_player(struct player *pl, int id, s_char *buf)
     }
 }
 
+/*
+ * Send ID text BUF to PL, line-buffered.
+ * If a partial line with different id is buffered, terminate it with
+ * a newline first.
+ */
 void
-upr_player(struct player *pl, int id, char *buf
-                      /* buf is message text */)
+upr_player(struct player *pl, int id, char *buf)
 {
-    register char *bp; /* bp is message text */
-    register int standout = 0;
-    char printbuf[2]; /* bp is message text */
+    char *bp;
+    int standout = 0;
+    char printbuf[2];
     char ch;
 
     printbuf[0] = '\0';
@@ -258,7 +297,8 @@ pr_hilite(s_char *buf)
 }
 
 /*
- * output hex code + space
+ * Send id N to PL.
+ * This runs always at the beginning of a line.
  */
 static void
 outid(struct player *pl, int n)
@@ -278,58 +318,89 @@ outid(struct player *pl, int n)
     pl->curid = n;
 }
 
+/*
+ * Send redirection request REDIR to the current player.
+ * REDIR is UTF-8, but non-ASCII characters can occur only if the
+ * player sent them.  Therefore, it is also user text.
+ */
 void
-prredir(s_char *redir)
+prredir(char *redir)
 {
     pr_id(player, *redir == '>' ? C_REDIR : C_PIPE, "%s\n", redir);
 }
 
+/*
+ * Send script execute request FILE to the current player.
+ * REDIR is UTF-8, but non-ASCII characters can occur only if the
+ * player sent them.  Therefore, it is also user text.
+ */
 void
-prexec(s_char *file)
+prexec(char *file)
 {
     pr_id(player, C_EXECUTE, "%s\n", file);
 }
 
+/*
+ * Send a command prompt to the current player.
+ */
 void
 prprompt(int min, int btu)
 {
     pr_id(player, C_PROMPT, "%d %d\n", min, btu);
 }
 
+/*
+ * Prompt for a line of non-command input.
+ * Send C_FLUSH prompt PROMPT to the current player.
+ * Read a line of input into BUF[SIZE] and convert it to ASCII.
+ * Return number of bytes in BUF[], not counting the terminating 0,
+ * or -1 on error.
+ */
 int
-prmptrd(char *prompt, char *str, int size)
+prmptrd(char *prompt, char *buf, int size)
 {
     int r;
     char *cp;
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
-    if ((r = recvclient(str, size)) < 0)
+    if ((r = recvclient(buf, size)) < 0)
 	return r;
     time(&player->curup);
-    if (*str == 0)
+    if (*buf == 0)
 	return 1;
     if (player->flags & PF_UTF8)
-	return copy_utf8_to_ascii_no_funny(str, str);
-    return copy_ascii_no_funny(str, str);
+	return copy_utf8_to_ascii_no_funny(buf, buf);
+    return copy_ascii_no_funny(buf, buf);
 }
 
+/*
+ * Prompt for a line of non-command, UTF-8 input.
+ * Send C_FLUSH prompt PROMPT to the current player.
+ * Read a line of input into BUF[SIZE], replacing funny characters by
+ * '?'.  The result is UTF-8.
+ * Return number of bytes in BUF[], not counting the terminating 0,
+ * or -1 on error.
+ */
 int
-uprmptrd(char *prompt, char *str /* str is message text */, int size)
+uprmptrd(char *prompt, char *buf, int size)
 {
     int r;
-    char *cp; /* cp is message text */
+    char *cp;
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
-    if ((r = recvclient(str, size)) < 0)
+    if ((r = recvclient(buf, size)) < 0)
 	return r;
     time(&player->curup);
-    if (*str == 0)
+    if (*buf == 0)
 	return 1;
     if (player->flags & PF_UTF8)
-	return copy_utf8_no_funny(str, str);
-    return copy_ascii_no_funny(str, str);
+	return copy_utf8_no_funny(buf, buf);
+    return copy_ascii_no_funny(buf, buf);
 }
 
+/*
+ * Print the current time in ctime() format.
+ */
 void
 prdate(void)
 {
@@ -340,12 +411,14 @@ prdate(void)
 }
 
 /*
- * print x,y formatting as country
+ * Print coordinates X, Y for COUNTRY.
+ * FORMAT must be a printf-style format string that converts exactly
+ * two int values.
  */
 void
-prxy(s_char *format, coord x, coord y, natid country)
+prxy(char *format, coord x, coord y, natid country)
 {
-    s_char buf[255];
+    char buf[255];
     struct natstr *np;
 
     np = getnatp(country);
@@ -353,15 +426,23 @@ prxy(s_char *format, coord x, coord y, natid country)
     pr(buf);
 }
 
-/*VARARGS*/
+/*
+ * Print to country CN similar to printf().
+ * Use printf-style FORMAT with the optional arguments.
+ * Output is buffered until a newline arrives.
+ * If CN is the current player, print just like pr().
+ * Else print into a bulletin.
+ * Because printing like pr() requires normal text, and bulletins
+ * require user text, only plain ASCII is allowed.
+ */
 void
-PR(int cn, s_char *format, ...)
+PR(int cn, char *format, ...)
 {
     /* XXX should really do this on a per-nation basis */
-    static s_char longline[MAXNOC][512];
+    static char longline[MAXNOC][512];
     int newline;
     va_list ap;
-    s_char buf[1024];
+    char buf[1024];
 
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
@@ -377,6 +458,11 @@ PR(int cn, s_char *format, ...)
     }
 }
 
+/*
+ * Print the current time in ctime() format to country CN.
+ * If CN is the current player, print like prdate().
+ * Else print into a bulletin.
+ */
 void
 PRdate(natid cn)
 {
@@ -386,6 +472,9 @@ PRdate(natid cn)
     PR(cn, ctime(&now));
 }
 
+/*
+ * Sound the current player's bell.
+ */
 void
 pr_beep(void)
 {
@@ -395,10 +484,18 @@ pr_beep(void)
 	pr("\07");
 }
 
+/*
+ * Print to country CN similar to printf().
+ * Use printf-style FORMAT with the optional arguments.
+ * If CN is the current player, print just like pr().
+ * Else print into a bulletin.
+ * Because printing like pr() requires normal text, and bulletins
+ * require user text, only plain ASCII is allowed.
+ */
 void
-mpr(int cn, s_char *format, ...)
+mpr(int cn, char *format, ...)
 {
-    s_char buf[4096];
+    char buf[4096];
     va_list ap;
 
     va_start(ap, format);

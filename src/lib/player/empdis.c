@@ -165,7 +165,7 @@ gamedown(void)
 {
     FILE *down_fp;
     struct telstr tgm;
-    char buf[MAXTELSIZE + 1];	/* message text */
+    char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
     if (player->god)
 	return 0;

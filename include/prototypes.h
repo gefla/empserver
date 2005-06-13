@@ -63,8 +63,7 @@ extern void finish_server(void);
  */
 extern int check_market(void);
 extern void set_coastal(struct sctstr *);
-extern int sendmessage(struct natstr *, struct natstr *, char *message
-		       /* message is message text */, int);
+extern int sendmessage(struct natstr *, struct natstr *, char *message, int);
 extern void gift(int, int, s_char *, int, s_char *);
 extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
@@ -592,32 +591,29 @@ extern int pln_identchance(struct plnstr *, int, int);
 extern void pln_set_tech(struct plnstr *, int);
 /* pr.c */
 extern void pr(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
-extern void uprnf(char *buf /* buf is message text */);
-extern void pr_id(struct player *, int, s_char *, ...)
+extern void uprnf(char *buf);
+extern void pr_id(struct player *, int, char *, ...)
 		ATTRIBUTE((format (printf, 3, 4)));
-extern void pr_flash(struct player *, char *format
-		     /* format is message text */, ...)
+extern void pr_flash(struct player *, char *format, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
-extern void pr_inform(struct player *, s_char *, ...)
+extern void pr_inform(struct player *, char *, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
-extern void pr_wall(s_char *, ...)
+extern void pr_wall(char *, ...)
 		ATTRIBUTE((format (printf, 1, 2)));
 extern void pr_player(struct player *pl, int id, s_char *buf);
-extern void upr_player(struct player *pl, int id, char *buf
-		                  /* buf is message text */);
+extern void upr_player(struct player *pl, int id, char *buf);
 extern void pr_hilite(s_char *buf);
-extern void prredir(s_char *redir);
-extern void prexec(s_char *file);
+extern void prredir(char *redir);
+extern void prexec(char *file);
 extern void prprompt(int min, int btu);
 extern int prmptrd(char *prompt, char *str, int size);
-extern int uprmptrd(char *prompt, char *str /* str is message text */,
-		    int size);
+extern int uprmptrd(char *prompt, char *str, int size);
 extern void prdate(void);
-extern void prxy(s_char *format, coord x, coord y, natid country);
-extern void PR(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
+extern void prxy(char *format, coord x, coord y, natid country);
+extern void PR(int, char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern void PRdate(natid cn);
 extern void pr_beep(void);
-extern void mpr(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
+extern void mpr(int, char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern size_t copy_ascii_no_funny(char *, char *);
 extern size_t copy_utf8_no_funny(char *, char *);
 extern size_t copy_utf8_to_ascii_no_funny(char *, char *);

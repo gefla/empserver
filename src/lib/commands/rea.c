@@ -64,7 +64,7 @@ rea(void)
     int size;
     unsigned int nbytes;
     char buf[1024];
-    char msgbuf[4096];		/* message text */
+    char msgbuf[4096];		/* UTF-8 */
     int lasttype;
     int lastcnum;
     time_t lastdate;

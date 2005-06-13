@@ -37,7 +37,7 @@
 
 /*
  * Parse user command in BUF.
- * BUF is user text.
+ * BUF is UTF-8.
  * Set ARG[0] to point to the command name.
  * Set ARG[1..N] to point to arguments, where N is the number of
  * arguments.  Set ARG[N+1..127] to NULL.
@@ -45,9 +45,8 @@
  * set *CONDP to the conditional argument if present, else NULL.
  * Command name and arguments are copied into SPACE[], whose size must
  * be at least strlen(BUF) + 1.
- * If *REDIR is not null, recognize the redirection syntax, and set
- * *REDIR to redirection string if present, else NULL.  The
- * redirection string is user text.
+ * If *REDIR is not null, recognize redirection syntax, and set *REDIR
+ * to UTF-8 redirection string if present, else NULL.
  * Return number of slots used in ARG[], or -1 on error.
  */
 int

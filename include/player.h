@@ -58,8 +58,8 @@ struct player {
     struct cmndstr *command;
     struct iop *iop;
     char combuf[1024];		/* command input buffer, UTF-8 */
-    s_char *argp[128];
-    s_char *condarg;
+    char *argp[128];		/* arguments, ASCII */
+    char *condarg;		/* conditional, ASCII */
     time_t lasttime;
     int ncomstat;
     int minleft;

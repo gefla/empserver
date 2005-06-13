@@ -74,7 +74,7 @@ flash(void)
     }
 
     if (player->argp[2]) {
-	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
+	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
 	for (++sp; *sp && *sp != ' '; ++sp) ;
 	buf[0] = ':';
 	if (player->flags & PF_UTF8)
@@ -103,7 +103,7 @@ wall(void)
 
     us = getnatp(player->cnum);
     if (player->argp[1]) {
-	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
+	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
 	buf[0] = ':';
 	if (player->flags & PF_UTF8)
 	    strcpy(buf+1, sp);
@@ -122,23 +122,28 @@ wall(void)
     return RET_OK;
 }
 
+/*
+ * Send flash message MESSAGE from US to TO.
+ * MESSAGE is UTF-8.  Long messages are broken into several parts.
+ * A header identifying US is prepended to each part.  The first
+ * header is more verbose if ONESHOT.
+ */
 int
-sendmessage(struct natstr *us, struct natstr *to, char *message
-	    /* message is message text */, int oneshot)
+sendmessage(struct natstr *us, struct natstr *to, char *message, int oneshot)
 {
     struct player *other;
     struct tm *tm;
     time_t now;
     int sent = 0;
     struct natstr *wto;
-    char c; /* c is message text */
+    char c;
     int pos;
 
     pos = ufindpfx(message, 60);
     c = message[pos];
     if (c)
         message[pos] = '\0';
-    
+
     time(&now);
     tm = localtime(&now);
     for (other = player_next(0); other != 0; other = player_next(other)) {
