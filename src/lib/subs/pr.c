@@ -73,13 +73,21 @@ pr(char *format, ...)
         pr_player(player, C_DATA, buf);
 }
 
+/*
+ * Print UTF-8 text BUF to current player.
+ */
 void
-uprnf(char *buf /* buf is message text */)
+uprnf(char *buf)
 {
-    if (!(player->flags & PF_UTF8))
-	copy_utf8_to_ascii_no_funny(buf, buf);
+    char *p;
 
-    pr_player(player, C_DATA, buf);
+    if (!(player->flags & PF_UTF8)) {
+	p = malloc(strlen(buf) + 1);
+	copy_utf8_to_ascii_no_funny(p, buf);
+	pr_player(player, C_DATA, p);
+	free(p);
+    } else
+	pr_player(player, C_DATA, buf);
 }
 
 /*VARARGS*/
