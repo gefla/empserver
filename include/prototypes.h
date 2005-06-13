@@ -600,9 +600,6 @@ extern void pr_inform(struct player *, char *, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
 extern void pr_wall(char *, ...)
 		ATTRIBUTE((format (printf, 1, 2)));
-extern void pr_player(struct player *pl, int id, s_char *buf);
-extern void upr_player(struct player *pl, int id, char *buf);
-extern void pr_hilite(s_char *buf);
 extern void prredir(char *redir);
 extern void prexec(char *file);
 extern void prprompt(int min, int btu);

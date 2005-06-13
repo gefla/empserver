@@ -55,6 +55,8 @@
 #include "server.h"
 #include "prototypes.h"
 
+static void pr_player(struct player *pl, int id, char *buf);
+static void upr_player(struct player *pl, int id, char *buf);
 static void outid(struct player *pl, int n);
 
 /*
@@ -193,7 +195,7 @@ pr_wall(char *format, ...)
  * If a partial line with different id is buffered, terminate it with
  * a newline first.
  */
-void
+static void
 pr_player(struct player *pl, int id, char *buf)
 {
     char *p;
@@ -229,7 +231,7 @@ pr_player(struct player *pl, int id, char *buf)
  * If a partial line with different id is buffered, terminate it with
  * a newline first.
  */
-void
+static void
 upr_player(struct player *pl, int id, char *buf)
 {
     char *bp;
@@ -274,26 +276,6 @@ upr_player(struct player *pl, int id, char *buf)
 	    io_puts(pl->iop, printbuf);
 	}
     }
-}
-
-/*
- * highlighted characters have hex 80 or'ed in
- * with them to designate their highlightedness
- */
-void
-pr_hilite(s_char *buf)
-{
-    register s_char *bp;
-    register s_char c;
-    s_char *p;
-
-    p = malloc(strlen(buf) + 1);
-    strcpy(p, buf);
-    for (bp = p; 0 != (c = *bp); bp++)
-	if (isprint(c))
-	    *bp |= 0x80;
-    pr(p);
-    free(p);
 }
 
 /*
