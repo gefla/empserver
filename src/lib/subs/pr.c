@@ -263,18 +263,15 @@ pr_hilite(s_char *buf)
 static void
 outid(struct player *pl, int n)
 {
-    s_char c;
-    s_char buf[3];
+    char buf[3];
 
-    if (n > C_LAST) {
-	logerror("outid: %d not valid code\n", n);
-	return;
-    }
+    if (CANT_HAPPEN(n > C_LAST))
+	n = C_DATA;
+
     if (n >= 10)
-	c = 'a' - 10 + n;
+	buf[0] = 'a' - 10 + n;
     else
-	c = '0' + n;
-    buf[0] = c;
+	buf[0] = '0' + n;
     buf[1] = ' ';
     buf[2] = '\0';
     io_puts(pl->iop, buf);
