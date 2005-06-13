@@ -54,21 +54,29 @@
 #include <signal.h>
 
 #define KEEP_COMMANDS 50
-s_char player_commands[KEEP_COMMANDS][1024 + 8];
-int player_commands_index = 0;
 
+/* ring buffer of most recent command prompts and commands, user text */
+static char player_commands[KEEP_COMMANDS][1024 + 8];
+
+/* the slot holding the most recent command in player_commands[] */
+static int player_commands_index = 0;
+
+/*
+ * Get a command from the current player into COMBUFP[1024], in UTF-8.
+ * Return command's byte length on success, -1 on error.
+ */
 int
-getcommand(s_char *combufp)
+getcommand(char *combufp)
 {
-    struct natstr *natp;
-    s_char buf[1024];
+    struct natstr *natp = getnatp(player->cnum);
+    char buf[1024];		/* user text */
+    int i;
 
-/* Note this now assumes a 1024 byte buffer is being passed in */
-    natp = getnatp(player->cnum);
     if (++player_commands_index >= KEEP_COMMANDS)
 	player_commands_index = 0;
     sprintf(player_commands[player_commands_index], "%3d %3d [prompt]",
 	    player_commands_index, player->cnum);
+
     do {
 	prprompt(natp->nat_minused, natp->nat_btu);
 	buf[0] = 0;
@@ -76,12 +84,15 @@ getcommand(s_char *combufp)
 	    return -1;
 	}
     } while (buf[0] == 0);
+
     if (++player_commands_index >= KEEP_COMMANDS)
 	player_commands_index = 0;
     sprintf(player_commands[player_commands_index], "%3d %3d %s",
 	    player_commands_index, player->cnum, buf);
-    strcpy(combufp, buf);
-    return (strlen(combufp));
+
+    if (player->flags & PF_UTF8)
+	return copy_utf8_no_funny(combufp, buf);
+    return copy_ascii_no_funny(combufp, buf);
 }
 
 void

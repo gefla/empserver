@@ -76,11 +76,8 @@ pr(char *format, ...)
 void
 uprnf(char *buf /* buf is message text */)
 {
-    /*
-     * Translate to ASCII if the client is not in UTF mode
-     */
     if (!(player->flags & PF_UTF8))
-	prtoascii(buf);
+	copy_utf8_to_ascii_no_funny(buf, buf);
 
     pr_player(player, C_DATA, buf);
 }
@@ -114,11 +111,8 @@ pr_flash(struct player *pl, char *format
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
     va_end(ap);
-    /*
-     * Translate to ASCII if the client is not in UTF mode
-     */
     if (!(pl->flags & PF_UTF8))
-	prtoascii(buf);
+	copy_utf8_to_ascii_no_funny(buf, buf);
     pr_player(pl, C_FLASH, buf);
     io_output(pl->iop, IO_NOWAIT);
 }
@@ -309,12 +303,9 @@ prmptrd(char *prompt, char *str, int size)
     time(&player->curup);
     if (*str == 0)
 	return 1;
-    for(cp = str; 0 != *cp; ++cp) {
-	if ((*cp >= 0x0 && *cp < 0x20 && *cp != '\t') ||
-	    *cp == 0x7f || *cp & 0x80)
-	    *cp = '?';
-    }
-    return strlen(str);
+    if (player->flags & PF_UTF8)
+	return copy_utf8_to_ascii_no_funny(str, str);
+    return copy_ascii_no_funny(str, str);
 }
 
 int
@@ -329,15 +320,9 @@ uprmptrd(char *prompt, char *str /* str is message text */, int size)
     time(&player->curup);
     if (*str == 0)
 	return 1;
-    
-    for(cp = str; 0 != *cp; ++cp) {
-	if ((*cp >= 0x0 && *cp < 0x20 && *cp != '\t') ||
-	    *cp == 0x7f)
-	    *cp = '?';
-	else if (!(player->flags & PF_UTF8) && (*cp & 0x80))
-	    *cp = '?';
-    }
-    return strlen(str);
+    if (player->flags & PF_UTF8)
+	return copy_utf8_no_funny(str, str);
+    return copy_ascii_no_funny(str, str);
 }
 
 void
@@ -422,18 +407,89 @@ mpr(int cn, s_char *format, ...)
     }
 }
 
-void
-prtoascii(char *buf /* buf is message text */)
+/*
+ * Copy SRC without funny characters to DST.
+ * Drop control characters, except for '\t'.
+ * Replace non-ASCII characters by '?'.
+ * Return length of DST.
+ * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * hold.
+ */
+size_t
+copy_ascii_no_funny(char *dst, char *src)
 {
-    char *pbuf; /* pbuf is message text */
+    char *p;
+    unsigned char ch;
 
-    for(pbuf = buf; *pbuf != 0; pbuf++)
-	if ((*pbuf & 0xc0) == 0xc0)
-	    *pbuf = '?';
-	else if (*pbuf & 0x80) {
-	    memmove(pbuf,pbuf+1,strlen(pbuf)-1);
-	    pbuf--;
-	}
+    p = dst;
+    while ((ch = *src++)) {
+	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
+	    ;			/* ignore control */
+	else if (ch > 0x7f)
+	    *p++ = '?';	/* replace non-ASCII */
+	else
+	    *p++ = ch;
+    }
+    *p = 0;
+
+    return p - dst;
+}
+
+/*
+ * Copy UTF-8 SRC without funny characters to DST.
+ * Drop control characters, except for '\t'.
+ * FIXME Replace malformed UTF-8 sequences by '?'.
+ * Return byte length of DST.
+ * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * hold.
+ */
+size_t
+copy_utf8_no_funny(char *dst, char *src)
+{
+    char *p;
+    unsigned char ch;
+
+    p = dst;
+    while ((ch = *src++)) {
+	/* FIXME do the right thing for malformed and overlong sequences */
+	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
+	    ;			/* ignore control */
+	else
+	    *p++ = ch;
+    }
+    *p = 0;
+
+    return p - dst;
+}
+
+/*
+ * Copy UTF-8 SRC without funny characters to ASCII DST.
+ * Drop control characters, except for '\t'.
+ * Replace non-ASCII characters by '?'.
+ * Return length of DST.
+ * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * hold.
+ */
+size_t
+copy_utf8_to_ascii_no_funny(char *dst, char *src)
+{
+    char *p;
+    unsigned char ch;
+
+    p = dst;
+    while ((ch = *src++)) {
+	/* FIXME do the right thing for malformed and overlong sequences */
+	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
+	    ;			/* ignore control */
+	else if (ch > 0x7f) {
+	    *p++ = '?';		/* replace non-ASCII */
+	    while ((*src++ & 0xc0) == 0x80) ;
+	} else
+	    *p++ = ch;
+    }
+    *p = 0;
+
+    return p - dst;
 }
 
 /*

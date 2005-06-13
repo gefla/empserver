@@ -44,9 +44,9 @@ flash(void)
 {
     struct natstr *us;
     struct natstr *to;
-    char buf[1024]; /* buf is message text */
+    char buf[1024];		/* UTF-8 */
     int tocn;
-    char *sp; /* sp is message text */
+    char *sp;			/* points into player->combuf[], UTF-8 */
 
     us = getnatp(player->cnum);
     if ((tocn = natarg(player->argp[1], "to which country? ")) < 0)
@@ -76,14 +76,11 @@ flash(void)
     if (player->argp[2]) {
 	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
 	for (++sp; *sp && *sp != ' '; ++sp) ;
-	sprintf(buf, ":%s", sp);
-	for(sp = buf; 0 != *sp; ++sp) {
-	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
-		*sp == 0x7f)
-		*sp = '?';
-	    else if (!(player->flags & PF_UTF8) && (*sp & 0x80))
-		*sp = '?';
-	}
+	buf[0] = ':';
+	if (player->flags & PF_UTF8)
+	    strcpy(buf+1, sp);
+	else
+	    copy_utf8_to_ascii_no_funny(buf+1, sp);
 	sendmessage(us, to, buf, 1);
     } else {
 	sendmessage(us, to, "...", 1);
@@ -101,20 +98,17 @@ int
 wall(void)
 {
     struct natstr *us;
-    char buf[1024]; /* buf is message text */
-    char *sp; /* sp is message text */
+    char buf[1024];		/* UTF-8 */
+    char *sp;			/* points into player->combuf[], UTF-8 */
 
     us = getnatp(player->cnum);
     if (player->argp[1]) {
 	for (sp = &player->combuf[0]; *sp && *sp != ' '; ++sp) ;
-	sprintf(buf, ":%s", sp);
-	for(sp = buf; 0 != *sp; ++sp) {
-	    if ((*sp >= 0x0 && *sp < 0x20  && *sp != '\t') ||
-		*sp == 0x7f)
-		*sp = '?';
-	    else if (!(player->flags & PF_UTF8) && (*sp & 0x80))
-		*sp = '?';
-	}
+	buf[0] = ':';
+	if (player->flags & PF_UTF8)
+	    strcpy(buf+1, sp);
+	else
+	    copy_utf8_to_ascii_no_funny(buf+1, sp);
 	sendmessage(us, 0, buf, 1);
     } else {
 	sendmessage(us, 0, "...", 1);

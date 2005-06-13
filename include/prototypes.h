@@ -418,7 +418,7 @@ extern void player_accept(void *);
 /* dispatch.c */
 extern int dispatch(char *, char *);
 /* empdis.c */
-extern int getcommand(s_char *);
+extern int getcommand(char *);
 extern void init_player_commands(void);
 extern void log_last_commands(void);
 extern int gamedown(void);
@@ -618,7 +618,9 @@ extern void PR(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern void PRdate(natid cn);
 extern void pr_beep(void);
 extern void mpr(int, s_char *, ...) ATTRIBUTE((format (printf, 2, 3)));
-extern void prtoascii(char *buf /* buf is message text */);
+extern size_t copy_ascii_no_funny(char *, char *);
+extern size_t copy_utf8_no_funny(char *, char *);
+extern size_t copy_utf8_to_ascii_no_funny(char *, char *);
 extern int ufindpfx(char *, int);
 
 /* radmap.c */

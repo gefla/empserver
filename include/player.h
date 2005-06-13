@@ -57,7 +57,7 @@ struct player {
     int flags;
     struct cmndstr *command;
     struct iop *iop;
-    s_char combuf[1024];
+    char combuf[1024];		/* command input buffer, UTF-8 */
     s_char *argp[128];
     s_char *condarg;
     time_t lasttime;
