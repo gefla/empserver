@@ -386,8 +386,7 @@ extern int min(int, int);
 #endif
 extern s_char *effadv(int);
 extern int onearg(s_char *, s_char *);
-extern int parse(register s_char *, s_char **, s_char **, s_char *,
-		 s_char **);
+extern int parse(char *, char **, char **, char *, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(register int, register int, int);

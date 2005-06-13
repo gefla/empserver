@@ -31,36 +31,39 @@
  *     
  */
 
-/*
- * parse empire command line, chop into argp
- * If values argpp and spacep passed, parse will use them.
- * otherwise, parse will use static space and global argp.
- * parse assumes that argpp is a char *buf[16], and that spacep
- * points to a buf of at least 256 bytes.
- */
-
 #include <ctype.h>
 #include "misc.h"
 #include "gen.h"
 
+/*
+ * Parse user command in BUF.
+ * BUF is user text.
+ * Set ARG[0] to point to the command name.
+ * Set ARG[1..N] to point to arguments, where N is the number of
+ * arguments.  Set ARG[N+1..127] to NULL.
+ * If *CONDP is not null, recognize conditional argument syntax, and
+ * set *CONDP to the conditional argument if present, else NULL.
+ * Command name and arguments are copied into SPACE[], whose size must
+ * be at least strlen(BUF) + 1.
+ * If *REDIR is not null, recognize the redirection syntax, and set
+ * *REDIR to redirection string if present, else NULL.  The
+ * redirection string is user text.
+ * Return number of slots used in ARG[], or -1 on error.
+ */
 int
-parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
-      s_char **redir)
+parse(char *buf, char **arg, char **condp, char *space, char **redir)
 {
-    register s_char *bp2;
-    register s_char *bp1 = space;
-    register s_char **arg = argpp;
+    char *bp2;
+    char *bp1 = space;
     int fs;
     int quoted;
     int argnum;
 
-    if (space == 0)
-	return -1;
     if (redir)
 	*redir = 0;
-    if (condp != 0)
-	*condp = 0;
-    for (argnum = 0; *buf && argnum < 100;) {
+    if (condp != NULL)
+	*condp = NULL;
+    for (argnum = 0; *buf && argnum < 127;) {
 	while (isspace(*buf))
 	    buf++;
 	if (!*buf)
@@ -86,15 +89,14 @@ parse(register s_char *buf, s_char **argpp, s_char **condp, s_char *space,
 	    }
 	}
 	*bp1++ = 0;
-	if (*bp2 == '?' && condp != 0) {
+	if (*bp2 == '?' && condp != NULL) {
 	    *condp = bp2 + 1;
 	} else {
 	    arg[argnum] = bp2;
 	    argnum++;
 	}
     }
-    arg[argnum] = 0;
-    for (fs = argnum + 1; fs < 16; fs++)
-	arg[fs] = 0;
+    for (fs = argnum; fs < 128; fs++)
+	arg[fs] = NULL;
     return argnum;
 }
