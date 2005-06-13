@@ -109,7 +109,7 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 {
     struct telstr tgm;
     int writeit;
-    char message[MAXTELSIZE];
+    char message[MAXTELSIZE];	/* UTF-8 */
     int deleted = 0;
     int saved = 0;
     int first = 1;
