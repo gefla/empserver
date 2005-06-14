@@ -507,8 +507,8 @@ copy_ascii_no_funny(char *dst, char *src)
 
     p = dst;
     while ((ch = *src++)) {
-	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
-	    ;			/* ignore control */
+	if ((ch < 0x20 && ch != '\t' && ch != '\n') || ch == 0x7f)
+	    ;			/* ignore funny control */
 	else if (ch > 0x7f)
 	    *p++ = '?';	/* replace non-ASCII */
 	else
@@ -536,8 +536,8 @@ copy_utf8_no_funny(char *dst, char *src)
     p = dst;
     while ((ch = *src++)) {
 	/* FIXME do the right thing for malformed and overlong sequences */
-	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
-	    ;			/* ignore control */
+	if ((ch < 0x20 && ch != '\t' && ch != '\n') || ch == 0x7f)
+	    ;			/* ignore funny control */
 	else
 	    *p++ = ch;
     }
@@ -563,8 +563,8 @@ copy_utf8_to_ascii_no_funny(char *dst, char *src)
     p = dst;
     while ((ch = *src++)) {
 	/* FIXME do the right thing for malformed and overlong sequences */
-	if ((ch < 0x20 && ch != '\t') || ch == 0x7f)
-	    ;			/* ignore control */
+	if ((ch < 0x20 && ch != '\t' && ch != '\n') || ch == 0x7f)
+	    ;			/* ignore funny control */
 	else if (ch > 0x7f) {
 	    *p++ = '?';		/* replace non-ASCII */
 	    while ((*src++ & 0xc0) == 0x80) ;
