@@ -17,9 +17,9 @@ Index: empserver/include/damage.h
  
  #endif /* _DAMAGE_H_ */
 Index: empserver/include/prototypes.h
---- empserver/include/prototypes.h	26 May 2005 01:58:48 -0000	1.75
+--- empserver/include/prototypes.h	26 May 2005 01:58:48 -0000	1.84
 +++ empserver/include/prototypes.h	28 May 2005 08:32:39 -0000
-@@ -394,6 +394,9 @@
+@@ -392,6 +392,9 @@
  #ifdef NOSTRDUP
  extern char *strdup(char *x);
  #endif
@@ -433,9 +433,9 @@ Index: empserver/src/server/update.c
  	    delta += wind;
  	}
 Index: empserver/src/util/fairland.c
---- empserver/src/util/fairland.c	16 Mar 2005 22:03:16 -0000	1.23
+--- empserver/src/util/fairland.c	16 Mar 2005 22:03:16 -0000	1.25
 +++ empserver/src/util/fairland.c	17 Mar 2005 10:01:15 -0000
-@@ -124,7 +124,7 @@
+@@ -126,7 +126,7 @@
  #if !defined(_WIN32)
  #define max(a,b) (a>b?a:b)
  #endif
