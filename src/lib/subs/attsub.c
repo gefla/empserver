@@ -2461,12 +2461,10 @@ att_move_in_off(int combat_mode, struct combat *off,
 {
     struct sctstr sect;
     struct shpstr ship;
-    int troops;
-    int n, lunchbox;
+    int troops, n;
+    int lunchbox = 0;
 
     move_in_land(combat_mode, off, olist, def);
-
-    getsect(def->x, def->y, &sect);
 
     for (n = 0; n <= off->last; ++n) {
 	if (off[n].type == EF_BAD || !off[n].troops)
@@ -2477,25 +2475,29 @@ att_move_in_off(int combat_mode, struct combat *off,
 	def->mil += troops;
 	put_combat(off + n);
 	if (combat_mode == A_ASSAULT) {
-	    if (off[n].type != EF_SHIP || def->type != EF_SECTOR) {
-		logerror("att_move_in_off: strange assault");
+	    if (CANT_HAPPEN(off[n].type != EF_SHIP))
 		continue;
-	    }
 	    getship(off[n].shp_uid, &ship);
-	    lunchbox = (int)((troops + 1) * ship.shp_item[I_FOOD]
-			     / (ship.shp_item[I_MILIT] + troops
-				+ ship.shp_item[I_CIVIL] + 0.5));
-	    if (lunchbox > ITEM_MAX - sect.sct_item[I_FOOD])
-		lunchbox = ITEM_MAX - sect.sct_item[I_FOOD];
+	    lunchbox += (int)((troops + 1) * ship.shp_item[I_FOOD]
+			      / (ship.shp_item[I_MILIT] + troops
+				 + ship.shp_item[I_CIVIL] + 0.5));
 
 	    ship.shp_item[I_FOOD] -= lunchbox;
-	    sect.sct_item[I_FOOD] += lunchbox;
 	    putship(ship.shp_uid, &ship);
 	}
     }
 
-    putsect(&sect);
     put_combat(def);
+
+    if (combat_mode == A_ASSAULT) {
+	if (CANT_HAPPEN(def->type != EF_SECTOR))
+	    return;
+	getsect(def->x, def->y, &sect);
+	if (lunchbox > ITEM_MAX - sect.sct_item[I_FOOD])
+	    lunchbox = ITEM_MAX - sect.sct_item[I_FOOD];
+	sect.sct_item[I_FOOD] += lunchbox;
+	putsect(&sect);
+    }
 }
 
 
