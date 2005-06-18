@@ -1,3 +1,60 @@
+Changes to Empire 4.2.21 - Sat Jun 18 17:33:07 UTC 2005
+ * Fix board mil duplication.  Broken in 4.2.14.
+ * Fix stack smash in lrange, shoot and execute.  Remote holes, and
+   the last one doesn't even require authentication.
+ * Fix crash bug in emp_config parsing.
+ * Fix shutdown second argument.
+ * tele and turn now abort on EOF.
+ * Fix buffer overruns in turn and shutdown.
+ * Fix display of MOTD and game down message of maximum size.
+ * Correctly support telnet line termination on input.  Previously,
+   carriage returns could slip into ship names and such.
+ * Fix flash not to lie about recipients that are just logging in.
+ * Remove obscure login command list.
+ * Convert client from obsolete termcap to terminfo, and clean up
+   terminal handling.
+ * Rename info topics so they don't just differ in case.  Rename deity
+   command hidden to peek because its info topic clashed with that of
+   option HIDDEN.
+ * New fairland option -h to print usage information.  Improved
+   command line syntax diagnostics.  Exit unsuccessfully on unknown
+   options.
+ * fleet and army now copy retreat orders of the fleet's or army's
+   first member with group retreat orders in the same sector.
+   Previously, they used the retreat orders of the first fleet or army
+   member, which is less than useful, and failed to take ownership
+   into account, which is an abusable bug.
+ * New xdump nation.
+ * Fix xdump not to disclose other countries' losses.
+ * Fix exit status of files program when it can't create files.
+ * Support UTF-8 encoded Unicode in human-human communications.  This
+   affects MOTD, game down message, telexes, announcements and flash
+   messages.  See doc/unicode for technical details.
+ * New login command `options' for client/server option negotiation.
+   See doc/FIXME for technical details.  The only option so far is
+   UTF-8.
+ * emp_client -u now requests UTF-8.  This requires a terminal that
+   understands UTF-8.
+ * Fix news for defensive land unit support.
+ * Properly mark seamines hit by retreating ships.  Unmark mines
+   cleared by bridges.
+ * Fix diagnostics for unknown selector names in conditionals.  Broken
+   in 4.2.20.
+ * Fix selector name clashes: rename ship selector mobquota to mquota,
+   land selector for reaction range limit from rad to rmax.
+ * Fix Windows services for relative file names on command line or in
+   econfig.  Broken in 4.2.20.
+ * econfig keys ship_grow_scale, plane_grow_scale and land_grow_scale
+   are now loat.  This gives deities finer control over maximum
+   efficiency gain.
+ * Fix production command for sectors with 60% efficiency.
+ * Improve syntax of read for deities.
+ * Code cleanups.
+ * Some info topic names differed only in case, which loses on
+   case-insensitive filesystems, and is a bad user interface even when
+   it works.  Change those names.
+ * Documentation fixes.
+
 Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
  * When units in different sectors marched, only units in the sector
    with the highest-numbered unit were interdicted.  A marching
@@ -21,7 +78,7 @@ Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
    Other programs only support -e.  Remove option -D.  Use -e
    DIR/econfig instead of -D DIR.
  * New server option -v shows version information.
- * Fix the server's exit status with -h broken in 4.2.19.
+ * Fix the server's exit status with -h.  Broken in 4.2.19.
  * The linux-pthreads build failed to shut down on signals.
  * Fix threading bugs in the native Windows build that made shutdown
    unsafe and screwed up update aborting commands.
