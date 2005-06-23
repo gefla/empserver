@@ -7,14 +7,14 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.21 - Sat Jun 18 17:33:07 UTC 2005
- * Fix board mil duplication.  Broken in 4.2.14.
+Changes to Empire 4.2.21 - Thu Jun 23 19:51:04 UTC 2005
+ * Fix mil duplication in board.  Broken in 4.2.14.
  * Fix stack smash in lrange, shoot and execute.  Remote holes, and
    the last one doesn't even require authentication.
  * Fix crash bug in emp_config parsing.
- * Fix shutdown second argument.
- * tele and turn now abort on EOF.
  * Fix buffer overruns in turn and shutdown.
+ * Fix second argument of shutdown.
+ * tele and turn now abort on EOF.
  * Fix display of MOTD and game down message of maximum size.
  * Correctly support telnet line termination on input.  Previously,
    carriage returns could slip into ship names and such.
@@ -38,10 +38,10 @@ Changes to Empire 4.2.21 - Sat Jun 18 17:33:07 UTC 2005
  * Fix exit status of files program when it can't create files.
  * Support UTF-8 encoded Unicode in human-human communications.  This
    affects MOTD, game down message, telexes, announcements and flash
-   messages.  See doc/unicode for technical details.
+   messages.  See new doc/unicode for technical details.
  * New login command `options' for client/server option negotiation.
-   See doc/FIXME for technical details.  The only option so far is
-   UTF-8.
+   See new doc/clients-howto for technical details.  The only option
+   so far is UTF-8.
  * emp_client -u now requests UTF-8.  This requires a terminal that
    understands UTF-8.
  * Fix news for defensive land unit support.
@@ -62,6 +62,7 @@ Changes to Empire 4.2.21 - Sat Jun 18 17:33:07 UTC 2005
  * Some info topic names differed only in case, which loses on
    case-insensitive filesystems, and is a bad user interface even when
    it works.  Change those names.
+ * Thanks to Doug Wescott, sheep are finally covered properly in info.
  * Documentation fixes.
 
 Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
