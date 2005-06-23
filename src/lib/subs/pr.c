@@ -228,6 +228,7 @@ pr_player(struct player *pl, int id, char *buf)
 
 /*
  * Send ID text BUF to PL, line-buffered.
+ * This function translates from normal text to user text.
  * If a partial line with different id is buffered, terminate it with
  * a newline first.
  */
