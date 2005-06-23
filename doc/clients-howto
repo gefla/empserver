@@ -1,0 +1,373 @@
+This file contains material useful for client writers.
+
+Protocol
+========
+
+Empire's client server protocol is plain text.  It is simple enough
+that you could play using nothing more than telnet.  That's a feature.
+
+A session uses either ASCII or UTF-8, controlled by session option
+utf-8.  See below for session options.  The session always starts in
+ASCII.
+
+Client-server communication is line-oriented.
+
+The server sends lines of output.  Each output line starts with a
+character identifying the line, followed by a space, then arbitrary
+text, then a line feed.
+
+Identification characters encode small integers called ids.  Ids less
+than 10 are encoded as decimal digits, and larger ids as lower case
+letters starting with 'a'.  Symbolic names for ids are defined in
+proto.h.
+
+Clients shall be able to safely handle output lines of arbitrary
+length.  Naturally, a client may not be able to handle a sufficiently
+large line without loss of functionality, but safety must be ensured.
+
+When using ASCII, the most significant bit in text characters
+indicates highlighting.
+
+The following control characters have a defined meaning:
+
+  ASCII name	     decimal  meaning
+  ----------------------------------------------------
+  horizontal tab	 9    move to next tab stop(1)
+  line feed		10    end of line
+  shift out		14    begin highlighting(2)
+  shift in		15    end highlighting(2)
+
+  (1) Tab stops are every eight columns.
+  (2) Only if session uses UTF-8
+
+Other ASCII control characters should not occur and may be ignored by
+clients.  Likewise, overlong or malformed UTF-8 sequences should not
+occur and may be ignored.
+
+The server prompts for input.  Each prompt `consumes' one line of
+input.  Input lines are arbitrary text, terminated by line feed,
+optionally preceded by carriage return (decimal 13).  Lines should not
+contain ASCII control characters other than horizontal tab.  Clients
+should not send overlong or malformed UTF-8 sequences.
+
+A client is called synchronous if it waits for a prompt before it
+sends another line of input.  Else it is called asynchronous.
+
+An Empire session consists of two phases: login and playing.
+emp_client is synchronous during the former and asynchronous during
+the latter.
+
+Login phase
+-----------
+
+In the login phase, the server prompts for login commands.
+
+The server starts with a C_INIT prompt.  The login phase ends when the
+server sends another C_INIT prompt, which starts the playing phase, or
+when it closes the connection.
+
+The server replies to a login command with another prompt.  Except as
+noted below, the server replies C_BADCMD for syntax errors, C_CMDERR
+for other errors, and C_CMDOK on success.  In any case, the prompt
+text contains further information intended for humans.
+
+Login commands are:
+
+* client CLIENT-ID...
+
+  Identify the client.  This is optional.  If given, version
+  information should be included.
+
+* coun COUNTRY
+
+  Set country name to COUNTRY.
+
+* kill
+
+  Country must be logged in.
+
+  If another connection is open for this country, forcibly close it,
+  else do nothing.  Reply is C_EXIT in either case.
+
+* options OPTION[=VALUE]...
+
+  Negotiate session options.  Each argument requests setting OPTION to
+  VALUE.  The string VALUE is interpreted in an option-specific way.
+  The form without the `=' sets it to an option-specific implied
+  value.
+
+  The server accepts the request by sending C_CMDOK.  If the server
+  encounters an unknown option, it rejects the request by sending
+  C_BADCMD.  It rejects unsupported values by sending C_CMDERR.  It
+  may or may not process valid parts of such a rejected request.
+
+  If there are no arguments, the server lists its options.  For each
+  option, it sends a C_DATA line with OPTION=VALUE as text.
+
+  See below for supported session options.
+
+* pass PASSWORD
+
+  Log in.  Country name must be set already.
+
+* play [USER [COUNTRY [PASSWORD]]]
+
+  Optional argument USER sets the user name.
+
+  Optional argument COUNTRY sets the country name.
+
+  Optional argument PASSWORD logs in.  If it isn't present, the
+  country must be logged in already.
+
+  If another connection is open for this country, the server replies
+  C_EXIT.
+
+  On success, the server sends C_INIT.  The text is the protocol
+  version number in decimal, currently 2.  The client should terminate
+  on protocol versions it doesn't know how to handle.
+
+  The protocol version is not expected to change often.  In fact, it
+  hasn't changed since the oldest known versions of Empire.
+
+  Unlike the first C_INIT, the second one is not a prompt, i.e the
+  server does not consume a line of input for it.
+
+  The session then proceeds to the playing phase.
+
+* quit
+
+  Terminate the session.  The server replies with C_EXIT and closes
+  the connection.
+
+* sanc
+
+  List all countries that are still in sanctuary.  The output consists
+  of a number of C_DATA lines with human-readable text.
+
+  This command is only recognized if option BLITZ is enabled.
+
+* user NAME
+
+  Set the user name.  This is optional and defaults to "".
+
+Playing phase
+-------------
+
+In the playing phase, the server sends data, control and prompt lines.
+
+Clients signal `EOF' by sending a line "ctld\n", and `interrupt' by
+sending "aborted\n".  The server treats these conditions specially, as
+described below.  Anything else is either a command or input for a
+command, depending on how the server prompts for the line.
+
+The following ids occur:
+
+* Command prompt C_PROMPT
+
+  The server consumes a line of input.  On EOF, the server terminates
+  the session.  Interrupt is ignored.  Anything else is interpreted as
+  Empire command.
+
+  Text is minutes used, space, BTUs left.  Both numbers are in
+  decimal.  Clients shall ignore additional text separated by another
+  space.
+
+  emp_client prints this prompt using format "[%d:%d] Command : ".
+  Clients with a tty-like user interface are advised to use a similar
+  format, to minimize differences to the examples in info.
+
+* Sub-prompt C_FLUSH
+
+  The server consumes a line of input and passes it to the currently
+  executing command.  Commands usually fail on EOF or interrupt.
+
+  Text is a human-readable prompt supplied by the command.
+
+  emp_client prints the text verbatim.
+
+* Data C_DATA
+
+  Text is human-readable server output.
+
+  emp_client prints the text verbatim.
+
+* Control C_EXECUTE
+
+  Request execution of a script.  The text is a copy of the execute
+  command's first argument.  Its syntax and semantics is left to the
+  client.
+
+  emp_client interprets the text as file name, and sends the contents
+  of that file.
+
+  The client shall mark the end of the script by signalling EOF as
+  described above.  It may signal interrupt if it is unable or
+  unwilling to send the complete script.
+
+  While executing the script, the server sends no C_PROMPT command
+  prompts.  It still sends C_FLUSH sub-prompts.
+
+  Certain bad failures make the server ignore the rest of the script
+  file.  This feature is too hard to predict to be really useful.
+
+  Strictly asynchronous clients cannot support C_EXECUTE correctly.
+  By the time C_EXECUTE arrives, the client may have sent more input
+  already.  That input `overtakes' the script in the input stream.
+
+  emp_client has this problem.
+
+  Clients are not required to support C_EXECUTE.  Clients are
+  encouraged to offer alternative means for scripting.
+
+* Control C_EXIT
+
+  End of session.  The server will close the connection.  Text is a
+  human-readable farewell.
+
+  emp_client prints this text prepended with "Exit: ".
+
+* Control C_FLASH
+
+  Asynchronous message.  The client should display the text
+  immediately.
+
+  emp_client prints the text verbatim, prepended by a newline.  This
+  is clearly sub-optimal, because it can be inserted in the middle of
+  user input.  Clients wishing to to display asynchronous messages
+  together with normal I/O should insert them before the current
+  prompt.
+
+  Although asynchronous messages can be switched off with the toggle
+  command, client support for C_FLASH is not really optional, because
+  a C_FLASH could arrive before the client manages to switch them off.
+  And if the client lets the user send arbitrary commands, the user
+  can switch it back on at any time.  A session option controlling
+  C_FLASH would make more sense.  Since all popular clients support
+  C_FLASH, it's not worth the trouble.
+
+* Control C_INFORM
+
+  Notification that the number of unread telegrams changed.  The text
+  is the notification in human-readable form.
+
+  emp_client prints the last received C_INFORM text right before each
+  prompt.  It also repeats the last prompt when a C_INFORM arrives.
+  This is sub-optimal just like its treatment of C_FLASH.
+
+  The user can switch these off with the toggle command.  Client
+  support is not really optional for the same reasons as for C_FLASH.
+
+* Control C_PIPE
+
+  When a command is redirected to a pipeline, its output is prededed
+  by a C_PIPE line.  The text is a copy of the redirection, starting
+  with '|'.  Syntax and semantics of the text after the '|' are left
+  to the client.
+
+  emp_client executes text after '|' as shell command, with standard
+  input connected to the Empire command's output.
+
+  For obvious security reasons, clients supporting pipes shall ensure
+  that the text is identical to whatever was sent to the server.  Note
+  that the server recognizes redirection only in command lines, not
+  argument lines.  Asynchronous clients cannot distinguish the two.
+
+  emp_client prepares for redirections being recognized in any line,
+  and copes with only some of them being actually recognized.
+
+* Control C_REDIR
+
+  When a command is redirected to a file, its output is prededed by a
+  C_REDIR line.  The text is a copy of the redirection, starting with
+  '>', optionally followed by '>' or '!'.  Syntax and semantics of the
+  remaining text are left to the client.
+
+  emp_client interprets the first word (sequence of non-space
+  characters) in the remaining text as file name, and redirects the
+  command's output to that file.  The use of the first word is
+  unfortunate, as it arbitrarily limits the user's choice of file
+  names.  If the text starts with '>!', it silently overwrites any
+  existing file, with '>>' it appends to the file, and with just '>'
+  it refuses to overwrite an existing file.
+
+  The security considerations on C_PIPE apply to C_REDIR as well.
+
+* Other ids
+
+  Other ids do not occur currently.  Clients shall deal gracefully
+  with ids they don't know.
+
+  emp_client treats unknown ids like C_DATA.  For historical reasons,
+  it prepends "Aborted\n" to C_ABORT lines, and "Error; " to C_CMDERR
+  and C_BADCMD lines.
+
+
+Session Options
+===============
+
+Session options control client preferences.  They are not persistent;
+each session starts with the same default session options.
+
+The only session option so far is utf-8.  It controls whether to use
+ASCII (disabled) or UTF-8 (enabled).  Initial value is disabled.
+Setting it to 0 disables, setting it to 1 enables, and the implied
+value is enabled.
+
+Session options should not be confused with command toggle, which
+controls player preferences.  Clients should leave those accessible to
+their users.
+
+
+Commands Useful for Clients
+===========================
+
+Traditional dumps
+-----------------
+
+A number of commands are available for clients that wish to maintain
+their own game state.  These commands are called dumps.
+
+      dump  - Dump sector information
+      ldump - Dump land unit information
+      lost  - Report lost items
+      ndump - Dump nuclear stockpile information
+      pdump - Dump plane information
+      sdump - Dump ship information
+
+See the various info pages on these for complete documentation on how
+they work and how you can use them to help improve your clients.
+
+Each of the above commands prints a timestamp, which is a decimal
+number.  This together with the timestamp selector enables you to dump
+incrementally, i.e.  retrieve only what changed since another dump.
+For instance, if `dump *' printed timestamp 855544597, `dump *
+?timestamp>855544596' dumps everything changed since.
+
+Note that the condition compares with the timestamp value minus one.
+That's because timestamps have a noticeable granularity: things may
+change between a dump and the next timestamp increase.
+
+Timestamp values are currently seconds since the epoch, but this might
+change, and clients are advised not to rely on it.
+
+Experimental extended dump
+--------------------------
+
+Traditional dumps have a number of shortcomings.  They cover only the
+most important part of the game state: sectors, ships, planes, land
+units, nukes, but not game configuration, loans, news, and so forth.
+They are not quite complete even for what they attempt to cover.
+Finally, their output is harder to parse than necessary.
+
+The new `xdump' command is designed to overcome these deficiencies.
+It still needs significant work, and is subject to change in
+incompatible ways.  To protect real games from known and unknown flaws
+in xdump, it is only accessible when option GUINEA_PIGS is enabled.
+
+Technical xdump documentation to be written.
+
+
+Advice on parsing human-readable command output
+===============================================
+
+To be written.
