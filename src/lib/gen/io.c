@@ -271,7 +271,6 @@ io_output(struct iop *iop, int waitforoutput)
     }
 #endif
 
-
     /* If no bytes were written, something happened..  Like an EOF. */
 #ifndef	hpux
     if (cc == 0) {
@@ -327,7 +326,7 @@ io_write(struct iop *iop, s_char *buf, int nbytes, int doWait)
 	} else {
 	    /* only try a write every BUFSIZE characters */
 	    if (((len - nbytes) % iop->bufsize) < (len % iop->bufsize))
-		io_output(iop, 0);
+		io_output(iop, IO_NOWAIT);
 	}
     }
     return nbytes;
