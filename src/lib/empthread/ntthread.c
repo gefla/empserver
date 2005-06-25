@@ -263,24 +263,6 @@ loc_BlockThisThread()
     }
 }
 
-
-/************************
- * loc_SleepThisThread
- */
-static void
-loc_SleepThisThread(unsigned long ulMillisecs)
-{
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
-
-    /* Make sure the event thread is clean. */
-    ResetEvent(pThread->hThreadEvent);
-
-    /* Get the MUTEX semaphore, wait the number of MS */
-    WaitForSingleObject(pThread->hThreadEvent, ulMillisecs);
-}
-
-
 /************************
  * loc_Exit_Handler
  *
@@ -642,17 +624,14 @@ empth_wakeup(empth_t *a)
 void
 empth_sleep(time_t until)
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
-    unsigned long ulSec;
-
-    ulSec = until - time(0);
-
-    loc_debug("going to sleep %ld sec", ulSec);
+    long lSec;
 
     loc_BlockThisThread();
 
-    WaitForSingleObject(pThread->hThreadEvent, (ulSec * 1000));
+    while ((lSec = until - time(0)) > 0) {
+        loc_debug("going to sleep %ld sec", lSec);
+	Sleep(lSec * 1000L);
+    }
 
     loc_debug("sleep done. Waiting to run.");
 
