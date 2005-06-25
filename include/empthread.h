@@ -33,6 +33,18 @@
  *     Steve McClure, 1998
  */
 
+/*
+ * This header defines Empire's abstract thread interface.  There are
+ * several concrete implementations.
+ *
+ * Empire threads are non-preemptive, i.e. they run until they
+ * voluntarily yield the processor.  The thread scheduler then picks
+ * one of the runnable threads with the highest priority.  Priorities
+ * are static.  Empire code relies on these properties heavily.  The
+ * most common form of yielding the processor is sleeping for some
+ * event to happen.
+ */
+
 #ifndef _EMTHREAD_H_
 #define _EMTHREAD_H_
 
@@ -46,13 +58,26 @@
 
 #ifdef _EMPTH_LWP
 #include "lwp.h"
+
+/* Abstract data types */
+
+/* empth_t * represents a thread.  */
 typedef struct lwpProc empth_t;
+
+/* empth_sem_t * represents a semaphore */
 typedef struct lwpSem empth_sem_t;
+
+/* Flags for empth_select(): whether to sleep on input or output */
 #define EMPTH_FD_READ     LWP_FD_READ
 #define EMPTH_FD_WRITE    LWP_FD_WRITE
+
+/* Flags for empth_init() and empth_create() */
+/* Request debug prints */
 #define EMPTH_PRINT       LWP_PRINT
+/* Request stack checking */
 #define EMPTH_STACKCHECK  LWP_STACKCHECK
-#endif
+
+#endif /* _EMPTH_LWP */
 
 #ifdef _EMPTH_POSIX
 #ifdef __linux__
@@ -83,7 +108,7 @@ typedef struct {
     pthread_cond_t cnd_sem;
 } empth_sem_t;
 
-#endif
+#endif /* _EMPTH_POSIX */
 
 /* DEC has slightly different names for whatever reason... */
 #ifdef _DECTHREADS_
@@ -106,20 +131,107 @@ typedef struct loc_Thread_t empth_t;
 typedef struct loc_Sem_t empth_sem_t;
 
 void empth_request_shutdown(void);
-#endif
+#endif /* _EMPTH_WIN32 */
 
-int empth_init(char **ctx, int flags);
-empth_t *empth_create(int, void (*)(void *), int, int, char *, char *, void *);
+/*
+ * Initialize thread package.
+ * CTX points to a thread context variable; see empth_create().
+ * FLAGS request optional features.
+ * Should return 0 on success, -1 on error, but currently always
+ * returns 0.
+ */
+int empth_init(void **ctx, int flags);
+
+/*
+ * Create a new thread.
+ * PRIO is the scheduling priority.
+ * ENTRY is the entry point.  It will be called with argument UD.
+ * Thread stack is at least SIZE bytes.
+ * FLAGS should be the same as were passed to empth_init(), or zero.
+ * NAME is the threads name, and DESC its description.  These are used
+ * for logging and debugging.
+ * UD is the value to pass to ENTRY.  It is also assigned to the
+ * context variable defined with empth_init() whenever the thread gets
+ * scheduled.
+ * Return the thread, or NULL on error.
+ */
+empth_t *empth_create(int prio, void (*entry)(void *),
+		      int size, int flags, char *name, char *desc, void *ud);
+
+/*
+ * Return the current thread.
+ */
 empth_t *empth_self(void);
+
+/*
+ * Terminate the current thread.
+ * Never returns.
+ */
 void empth_exit(void);
+
+/*
+ * Yield the processor.
+ */
 void empth_yield(void);
-void empth_terminate(empth_t *);
+
+/*
+ * Terminate THREAD.
+ * THREAD will not be scheduled again.  Instead, it will terminate as
+ * if it executed empth_exit().  It is unspecified when exactly that
+ * happens.
+ * THREAD must not be the current thread.
+ */
+void empth_terminate(empth_t *thread);
+
+/*
+ * Put current thread to sleep until file descriptor FD is ready for I/O.
+ * If FLAGS & EMPTH_FD_READ, wake up if FD is ready for input.
+ * If FLAGS & EMPTH_FD_WRITE, wake up if FD is ready for output.
+ * Note: Currently, Empire sleeps only on network I/O, i.e. FD is a
+ * socket.  Implementations should not rely on that.
+ */
 void empth_select(int fd, int flags);
-void empth_wakeup(empth_t *);
-void empth_sleep(long until);
+
+/*
+ * Awaken THREAD if it is sleeping in empth_select().
+ * Note: This must not awaken threads sleeping in other functions.
+ */
+void empth_wakeup(empth_t *thread);
+
+/*
+ * Put current thread to sleep until the time is UNTIL.
+ * May sleep somehwat longer, but never shorter.
+ */
+void empth_sleep(time_t until);
+
+/*
+ * Create a semaphore.
+ * NAME is its name, it is used for debugging.
+ * COUNT is the initial count value of the semaphore, it must not be
+ * negative.
+ * Return the semaphore, or NULL on error.
+ */
 empth_sem_t *empth_sem_create(char *name, int count);
-void empth_sem_signal(empth_sem_t *);
-void empth_sem_wait(empth_sem_t *);
+
+/*
+ * Signal SEM.
+ * Increase SEM's count.  If threads are sleeping on it, wake up
+ * exactly one of them.  If that thread has a higher priority, yield
+ * the processor.
+ * This semaphore operation is often called `down' or `V' otherwhere.
+ */
+void empth_sem_signal(empth_sem_t *sem);
+
+/*
+ * Wait for SEM.
+ * If SEM has a zero count, put current thread to sleep until
+ * empth_sem_signal() awakens it.  SEM will have non-zero value then.
+ * Decrement SEM's count.
+ * This semaphore operation is often called `up' or `P' otherwhere.
+ */
+void empth_sem_wait(empth_sem_t *sem);
+
+/* Internal function, not part of the thread abstraction */
 void empth_alarm(int);
 
 #endif

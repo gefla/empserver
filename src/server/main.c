@@ -309,7 +309,7 @@ start_server(int flags)
     sigaction(SIGPIPE, &act, NULL);
 #endif /* !_WIN32 */
 
-    empth_init((char **)&player, flags);
+    empth_init((void **)&player, flags);
 
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
 		 "AcceptPlayers", "Accept network connections", 0);

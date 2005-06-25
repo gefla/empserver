@@ -139,7 +139,7 @@ static struct {
 
     /* Pointer out to global context.  "player". */
     /* From empth_init parameter. */
-    char **ppvUserData;
+    void **ppvUserData;
 
     /* Global flags.  From empth_init parameter. */
     int flags;
@@ -379,7 +379,7 @@ empth_threadMain(void *pvData)
  * This is called from the program main line.
  */
 int
-empth_init(char **ctx_ptr, int flags)
+empth_init(void **ctx_ptr, int flags)
 {
     loc_Thread_t *pThread = NULL;
 
@@ -640,7 +640,7 @@ empth_wakeup(empth_t *a)
  * Put the given thread to sleep...
  */
 void
-empth_sleep(long until)
+empth_sleep(time_t until)
 {
     loc_Thread_t *pThread =
 	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);

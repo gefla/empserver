@@ -52,7 +52,7 @@
 #ifdef _EMPTH_POSIX
 static pthread_key_t ctx_key;
 static int empth_flags;
-static char **udata;		/* pointer to out global context */
+static void **udata;		/* pointer to out global context */
 
 static pthread_mutex_t mtx_ctxsw;	/* thread in critical section */
 
@@ -121,7 +121,7 @@ empth_status(char *format, ...)
 
 
 int
-empth_init(char **ctx_ptr, int flags)
+empth_init(void **ctx_ptr, int flags)
 {
     empth_t *ctx;
     struct sigaction act;
@@ -425,7 +425,7 @@ empth_wakeup(empth_t *a)
 }
 
 void
-empth_sleep(long until)
+empth_sleep(time_t until)
 {
     struct timeval tv;
 

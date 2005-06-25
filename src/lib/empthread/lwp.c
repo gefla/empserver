@@ -38,9 +38,9 @@
 #ifdef _EMPTH_LWP
 
 int
-empth_init(char **ctx, int flags)
+empth_init(void **ctx, int flags)
 {
-    lwpInitSystem(7, ctx, flags);
+    lwpInitSystem(7, (char **)ctx, flags);
     return 0;
 }
 
@@ -113,7 +113,7 @@ empth_wakeup(empth_t *a)
 }
 
 void
-empth_sleep(long int until)
+empth_sleep(time_t until)
 {
     lwpSleepUntil(until);
 }
