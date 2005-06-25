@@ -16,10 +16,10 @@ The server sends lines of output.  Each output line starts with a
 character identifying the line, followed by a space, then arbitrary
 text, then a line feed.
 
-Identification characters encode small integers called ids.  Ids less
-than 10 are encoded as decimal digits, and larger ids as lower case
-letters starting with 'a'.  Symbolic names for ids are defined in
-proto.h.
+Identification characters encode small integers called output ids.
+Ids less than 10 are encoded as decimal digits, and larger ids as
+lower case letters, starting with 'a'.  Symbolic names for ids are
+defined in proto.h.
 
 Clients shall be able to safely handle output lines of arbitrary
 length.  Naturally, a client may not be able to handle a sufficiently
@@ -45,10 +45,10 @@ clients.  Likewise, overlong or malformed UTF-8 sequences should not
 occur and may be ignored.
 
 The server prompts for input.  Each prompt `consumes' one line of
-input.  Input lines are arbitrary text, terminated by line feed,
-optionally preceded by carriage return (decimal 13).  Lines should not
-contain ASCII control characters other than horizontal tab.  Clients
-should not send overlong or malformed UTF-8 sequences.
+input.  Input lines are arbitrary text, terminated by line feed, which
+is optionally preceded by carriage return (decimal 13).  Lines should
+not contain ASCII control characters other than horizontal tab.
+Clients should not send overlong or malformed UTF-8 sequences.
 
 A client is called synchronous if it waits for a prompt before it
 sends another line of input.  Else it is called asynchronous.
