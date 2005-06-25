@@ -349,7 +349,7 @@ create_pidfile(char *fname, pid_t pid)
 {
     FILE *pidf = fopen(fname, "w");
     if (!pidf
-	|| fprintf(pidf, "%d\n", pid) < 0
+	|| fprintf(pidf, "%d\n", (int)pid) < 0
 	|| fclose(pidf)) {
 	logerror("Can't write PID file (%s)", strerror(errno));
 	exit(1);
