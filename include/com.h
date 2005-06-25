@@ -38,11 +38,20 @@ struct cmndstr {
     char *c_form;		/* prototype of command */
     int c_cost;			/* btu cost of command */
     int (*c_addr)(void);	/* core addr of appropriate routine */
-    int c_flags;
+    int c_flags;		/* command flags */
     int c_permit;		/* who is allowed to "do" this command */
 };
 
-#define C_MOD		0x1	/* modifies database */
+/* Command flag bits */
+enum {
+    /*
+     * Command modifies database.
+     * This also makes printing functions not to block.  In fact,
+     * that's the effective meaning of this flag.  Nothing stops a
+     * command without C_MOD modifying whatever it wants.
+     */
+    C_MOD = 1
+};
 
 /* variables associated with this stuff */
 

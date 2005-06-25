@@ -25,19 +25,23 @@
  *
  *  ---
  *
- *  pr.c: Use to do output to a player
+ *  pr.c: Output to players
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1986, 1989 
  *     Steve McClure, 1998-2000
  */
+
 /*
- * The pr routine historically arranged for nonbuffered i/o
- * because stdio didn't used to automatically flush stdout before
- * it read something from stdin.  Now pr() prepends an "output id"
- * in front of each line of text, informing the user interface
- * what sort of item it is seeing; prompt, noecho prompt,
- * more input data, etc.
+ * Player output is fully buffered.  Unless the receiving player's
+ * last command has the C_MOD flag set, it can block.  Such commands
+ * can print to the current player without yielding the processor.
+ * Printing to another player must be assumed to block.
+ *
+ * Each line of output starts with an identification character
+ * encoding the output id, followed by space.  Ids less than 10 are
+ * encoded as decimal digits, and larger ids as lower case letters,
+ * starting with 'a'.  Symbolic names for ids are defined in proto.h.
  */
 
 #include <string.h>
@@ -128,6 +132,7 @@ pr_id(struct player *p, int id, char *format, ...)
  * Send C_FLASH text to PL.
  * Format text to send using printf-style FORMAT and optional
  * arguments.  It is assumed to be UTF-8.
+ * Initiate an output queue flush, but do not wait for it to complete.
  */
 void
 pr_flash(struct player *pl, char *format, ...)
@@ -150,6 +155,7 @@ pr_flash(struct player *pl, char *format, ...)
  * Send C_INFORM text to PL.
  * Format text to send using printf-style FORMAT and optional
  * arguments.  It is assumed to be plain ASCII.
+ * Initiate an output queue flush, but do not wait for it to complete.
  */
 void
 pr_inform(struct player *pl, char *format, ...)
@@ -170,6 +176,7 @@ pr_inform(struct player *pl, char *format, ...)
  * Send C_FLASH text to everyone.
  * Format text to send using printf-style FORMAT and optional
  * arguments.  It is assumed to be plain ASCII.
+ * Initiate an output queue flush, but do not wait for it to complete.
  */
 void
 pr_wall(char *format, ...)
@@ -336,6 +343,8 @@ prprompt(int min, int btu)
  * Prompt for a line of non-command input.
  * Send C_FLUSH prompt PROMPT to the current player.
  * Read a line of input into BUF[SIZE] and convert it to ASCII.
+ * This may block for input, yielding the processor.  Flush buffered
+ * output when blocking, to make sure player sees the prompt.
  * Return number of bytes in BUF[], not counting the terminating 0,
  * or -1 on error.
  */
@@ -361,6 +370,8 @@ prmptrd(char *prompt, char *buf, int size)
  * Send C_FLUSH prompt PROMPT to the current player.
  * Read a line of input into BUF[SIZE], replacing funny characters by
  * '?'.  The result is UTF-8.
+ * This may block for input, yielding the processor.  Flush buffered
+ * output when blocking, to make sure player sees the prompt.
  * Return number of bytes in BUF[], not counting the terminating 0,
  * or -1 on error.
  */
@@ -413,8 +424,8 @@ prxy(char *format, coord x, coord y, natid country)
  * Print to country CN similar to printf().
  * Use printf-style FORMAT with the optional arguments.
  * Output is buffered until a newline arrives.
- * If CN is the current player, print just like pr().
- * Else print into a bulletin.
+ * If CN is the current player and we're not in the update, print just
+ * like pr().  Else print into a bulletin.
  * Because printing like pr() requires normal text, and bulletins
  * require user text, only plain ASCII is allowed.
  */
@@ -443,8 +454,8 @@ PR(int cn, char *format, ...)
 
 /*
  * Print the current time in ctime() format to country CN.
- * If CN is the current player, print like prdate().
- * Else print into a bulletin.
+ * If CN is the current player and we're not in the update, print just
+ * like prdate().  Else print into a bulletin.
  */
 void
 PRdate(natid cn)
@@ -470,8 +481,8 @@ pr_beep(void)
 /*
  * Print to country CN similar to printf().
  * Use printf-style FORMAT with the optional arguments.
- * If CN is the current player, print just like pr().
- * Else print into a bulletin.
+ * If CN is the current player and we're not in the update, print just
+ * like pr().  Else print into a bulletin.
  * Because printing like pr() requires normal text, and bulletins
  * require user text, only plain ASCII is allowed.
  */

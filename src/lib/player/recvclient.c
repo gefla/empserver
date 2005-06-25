@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  recvclient.c: Send and receive commands from the client
+ *  recvclient.c: Receive input from the client
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1986
@@ -38,8 +38,22 @@
 #include "player.h"
 #include "empthread.h"
 
+/*
+ * Receive a line of input from the current player.
+ * If the player's aborted flag is set, return -2 without receiving
+ * input.
+ * Else receive one line and store it in CMD[SIZE].
+ * This may block for input, yielding the processor.  Flush buffered
+ * output when blocking, to make sure player sees the prompt.
+ * If the player's connection has the I/O error indicator set, or the
+ * line is "aborted", set the player's aborted flag and return -2.
+ * If the player's connection has the EOF indicator set, or the line
+ * is "ctld", return -1.
+ * Else return the length of the line.
+ * Design bug: there is no way to indicate truncation of a long line.
+ */
 int
-recvclient(s_char *cmd, int size)
+recvclient(char *cmd, int size)
 {
     int count;
 

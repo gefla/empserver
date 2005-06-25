@@ -441,7 +441,7 @@ extern int status(void);
 extern int command(void);
 /* more in commands.h */
 /* recvclient.c */
-extern int recvclient(s_char *, int);
+extern int recvclient(char *, int);
 
 /* service.c */
 extern void stop_service(void);
