@@ -80,11 +80,18 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
     dp = &dchr[from->sct_type];
     vtype = ip->i_vtype;
     mobility = from->sct_mobil / 2;
-    if (vtype == I_CIVIL && from->sct_own != from->sct_oldown) {
-	wu(0, from->sct_own,
-	   "The conquered populace in %s refuses to relocate!\n",
-	   ownxy(from));
-	return 0;
+    if (vtype == I_CIVIL) {
+	if (from->sct_own != from->sct_oldown) {
+	    wu(0, from->sct_own,
+	       "The conquered populace in %s refuses to relocate!\n",
+	       ownxy(from));
+	    return 0;
+	}
+	if (to->sct_own != to->sct_oldown) {
+	    wu(0, from->sct_own,
+	       "Citizens in %s refuse to relocate!\n", ownxy(from));
+	    return 0;
+	}
     }
     /*
      * disallow delivery into prohibited sectors.
