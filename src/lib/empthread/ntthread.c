@@ -100,7 +100,7 @@ typedef struct loc_Thread_t {
  * The REAL empth_sem_t structure.
  * The external world only gets a void pointer to this.
  */
-typedef struct empth_sem_t {
+typedef struct loc_Sem_t {
 
     char szName[17];
 
@@ -673,7 +673,7 @@ empth_sem_create(char *name, int cnt)
 void
 empth_sem_signal(empth_sem_t *sm)
 {
-    loc_Sem_t *pSem = (loc_Sem_t *)sm;
+    loc_Sem_t *pSem = sm;
 
     loc_debug("signal on semaphore %s:%d", pSem->szName, pSem->count);
 
@@ -697,7 +697,7 @@ empth_sem_wait(empth_sem_t *sm)
 {
     loc_Thread_t *pThread =
 	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
-    loc_Sem_t *pSem = (loc_Sem_t *)sm;
+    loc_Sem_t *pSem = sm;
 
     loc_debug("wait on semaphore %s:%d", pSem->szName, pSem->count);
 
