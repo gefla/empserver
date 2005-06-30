@@ -63,11 +63,8 @@
 
 /************************
  * loc_Thread_t
- *
- * The REAL empth_t thread structure.
- * The external world only gets a void pointer to this.
  */
-typedef struct loc_Thread_t {
+struct loc_Thread_t {
 
     /* The thread name, passed in at create time. */
     char szName[17];
@@ -91,16 +88,13 @@ typedef struct loc_Thread_t {
 
     /* An Event sem that the thread will wait/sleep on. */
     HANDLE hThreadEvent;
-} loc_Thread_t;
+};
 
 
 /************************
  * loc_Sem_t
- *
- * The REAL empth_sem_t structure.
- * The external world only gets a void pointer to this.
  */
-typedef struct loc_Sem_t {
+struct loc_Sem_t {
 
     char szName[17];
 
@@ -111,7 +105,7 @@ typedef struct loc_Sem_t {
     HANDLE hEvent;
     /* The count variable */
     int count;
-} loc_Sem_t;
+};
 
 static struct {
     /* This is the thread exclusion/non-premption mutex. */
@@ -132,7 +126,7 @@ static struct {
     DWORD dwTLSIndex;
 
     /* The current running thread. */
-    loc_Thread_t *pCurThread;
+    empth_t *pCurThread;
 
     /* Ticks at start */
     unsigned long ulTickAtStart;
@@ -158,8 +152,7 @@ loc_debug(const char *pszFmt, ...)
     unsigned long ulCurTick;
     unsigned long ulRunTick;
     unsigned long ulMs, ulSec, ulMin, ulHr;
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
     char buf[1024];
 
     if ((loc_GVAR.flags & EMPTH_PRINT) != 0) {
@@ -193,7 +186,7 @@ loc_debug(const char *pszFmt, ...)
  *
  */
 static void
-loc_FreeThreadInfo(loc_Thread_t *pThread)
+loc_FreeThreadInfo(empth_t *pThread)
 {
     if (pThread) {
 	if (pThread->hThreadEvent)
@@ -213,8 +206,7 @@ loc_FreeThreadInfo(loc_Thread_t *pThread)
 static void
 loc_RunThisThread()
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     if (pThread->bKilled) {
 	if (!pThread->bMainThread) {
@@ -246,8 +238,7 @@ loc_RunThisThread()
 static void
 loc_BlockThisThread()
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     if (loc_GVAR.pCurThread == pThread) {
 	/* Reset the globals back to original */
@@ -323,7 +314,7 @@ empth_threadMain(void *pvData)
 {
     time_t now;
 
-    loc_Thread_t *pThread = (loc_Thread_t *)pvData;
+    empth_t *pThread = pvData;
 
     /* Out of here... */
     if (!pvData)
@@ -363,7 +354,7 @@ empth_threadMain(void *pvData)
 int
 empth_init(void **ctx_ptr, int flags)
 {
-    loc_Thread_t *pThread = NULL;
+    empth_t *pThread = NULL;
 
     loc_GVAR.ulTickAtStart = GetTickCount();
     loc_GVAR.ppvUserData = ctx_ptr;
@@ -439,7 +430,7 @@ empth_t *
 empth_create(int prio, void (*entry)(void *), int size, int flags,
 	     char *name, char *desc, void *ud)
 {
-    loc_Thread_t *pThread = NULL;
+    empth_t *pThread = NULL;
 
     loc_debug("creating new thread %s:%s", name, desc);
 
@@ -487,8 +478,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 empth_t *
 empth_self(void)
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     return pThread;
 }
@@ -499,8 +489,7 @@ empth_self(void)
 void
 empth_exit(void)
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     loc_BlockThisThread();
 
@@ -535,10 +524,8 @@ empth_yield(void)
  * Kill off the thread.
  */
 void
-empth_terminate(empth_t *a)
+empth_terminate(empth_t *pThread)
 {
-    loc_Thread_t *pThread = (loc_Thread_t *)a;
-
     loc_debug("killing thread %s", pThread->szName);
     pThread->bKilled = TRUE;
 
@@ -557,8 +544,7 @@ void
 empth_select(int fd, int flags)
 {
     WSAEVENT hEventObject[2];
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     loc_debug("%s select on %d",
 	      flags == EMPTH_FD_READ ? "read" : "write", fd);
@@ -591,8 +577,7 @@ empth_select(int fd, int flags)
 void
 empth_alarm(int sig)
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     loc_debug("got alarm signal  %d", sig);
 
@@ -606,10 +591,8 @@ empth_alarm(int sig)
  * Wake up the specified thread.
  */
 void
-empth_wakeup(empth_t *a)
+empth_wakeup(empth_t *pThread)
 {
-    loc_Thread_t *pThread = (loc_Thread_t *)a;
-
     loc_debug("waking up thread %s", pThread->szName);
 
     /* Let it run if it is blocked... */
@@ -647,7 +630,7 @@ empth_sleep(time_t until)
 empth_sem_t *
 empth_sem_create(char *name, int cnt)
 {
-    loc_Sem_t *pSem;
+    empth_sem_t *pSem;
 
     pSem = malloc(sizeof(*pSem));
     if (!pSem) {
@@ -671,10 +654,8 @@ empth_sem_create(char *name, int cnt)
  * Hit/signal the specified semaphore.
  */
 void
-empth_sem_signal(empth_sem_t *sm)
+empth_sem_signal(empth_sem_t *pSem)
 {
-    loc_Sem_t *pSem = sm;
-
     loc_debug("signal on semaphore %s:%d", pSem->szName, pSem->count);
 
     /* Wait for the Semaphore */
@@ -693,11 +674,9 @@ empth_sem_signal(empth_sem_t *sm)
  * Wait for the specified signal semaphore to be signaled.
  */
 void
-empth_sem_wait(empth_sem_t *sm)
+empth_sem_wait(empth_sem_t *pSem)
 {
-    loc_Thread_t *pThread =
-	(loc_Thread_t *)TlsGetValue(loc_GVAR.dwTLSIndex);
-    loc_Sem_t *pSem = sm;
+    empth_t *pThread = TlsGetValue(loc_GVAR.dwTLSIndex);
 
     loc_debug("wait on semaphore %s:%d", pSem->szName, pSem->count);
 
