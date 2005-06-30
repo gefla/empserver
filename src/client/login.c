@@ -71,6 +71,7 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
     }
     if (cname == NULL) {
 	(void)printf("Country name? ");
+	fflush(stdout);
 	cname = fgets(tmp, sizeof(tmp), stdin);
 	if (cname == NULL || *cname == 0)
 	    return 0;
@@ -91,6 +92,7 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
 #else
 	printf("Note: This is echoed to the screen\n");
 	printf("Your name? ");
+	fflush(stdout);
 	cpass = fgets(tmp, sizeof(tmp), stdin);
 	if (cpass == NULL || *cpass == 0)
 	    return 0;
@@ -129,5 +131,6 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
 	printf("   this version: %d, current version: %d\n",
 	       CLIENTPROTO, atoi(ptr));
     }
+    fflush(stdout);
     return 1;
 }

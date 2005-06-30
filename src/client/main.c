@@ -109,6 +109,7 @@ main(int ac, char **av)
     int utf8 = 0;
 
 #ifdef _WIN32
+    setvbuf(stdout, NULL, _IOLBF, 4096);
     err = WSAStartup(0x0101, &WsaData);
     if (err == SOCKET_ERROR) {
 	printf("WSAStartup Failed\n");
