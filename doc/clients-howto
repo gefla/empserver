@@ -53,9 +53,15 @@ Clients should not send overlong or malformed UTF-8 sequences.
 A client is called synchronous if it waits for a prompt before it
 sends another line of input.  Else it is called asynchronous.
 
+Asynchronous clients must take care to avoid blocking on sending
+input.  If the client process blocks that way, it can't receive server
+output until the server reads more input.  That may never happen,
+because the server may well block on output, which then deadlocks the
+session.
+
 An Empire session consists of two phases: login and playing.
 emp_client is synchronous during the former and asynchronous during
-the latter.
+the latter.  It can currently deadlock as described above.
 
 Login phase
 -----------
