@@ -187,6 +187,7 @@ void empth_terminate(empth_t *thread);
  * Put current thread to sleep until file descriptor FD is ready for I/O.
  * If FLAGS & EMPTH_FD_READ, wake up if FD is ready for input.
  * If FLAGS & EMPTH_FD_WRITE, wake up if FD is ready for output.
+ * At most one thread may sleep on the same file descriptor.
  * Note: Currently, Empire sleeps only on network I/O, i.e. FD is a
  * socket.  Implementations should not rely on that.
  */
