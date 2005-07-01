@@ -109,6 +109,14 @@ main(int ac, char **av)
     int utf8 = 0;
 
 #ifdef _WIN32
+    /*
+     * stdout is unbuffered under Windows if connected to a character
+     * device, and putchar() screws up when printing multibyte strings
+     * bytewise to an unbuffered stream.  Switch stdout to line-
+     * buffered mode.  Unfortunately, ISO C allows implementations to
+     * screw that up, and of course Windows does.  Manual flushing
+     * after each prompt is required.
+     */
     setvbuf(stdout, NULL, _IOLBF, 4096);
     err = WSAStartup(0x0101, &WsaData);
     if (err == SOCKET_ERROR) {
