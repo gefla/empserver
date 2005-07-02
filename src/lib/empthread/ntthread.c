@@ -135,7 +135,7 @@ static unsigned long ulTickAtStart;
 static void **ppvUserData;
 
 /* Global flags.  From empth_init parameter. */
-static int flags;
+static int global_flags;
 
 
 /************************
@@ -153,7 +153,7 @@ loc_debug(const char *pszFmt, ...)
     empth_t *pThread = TlsGetValue(dwTLSIndex);
     char buf[1024];
 
-    if ((flags & EMPTH_PRINT) != 0) {
+    if ((global_flags & EMPTH_PRINT) != 0) {
 
 	/* Ticks are in milliseconds */
 	ulCurTick = GetTickCount();
@@ -356,7 +356,7 @@ empth_init(void **ctx_ptr, int flags)
 
     ulTickAtStart = GetTickCount();
     ppvUserData = ctx_ptr;
-    flags = flags;
+    global_flags = flags;
     dwTLSIndex = TlsAlloc();
 
     /* Create the thread mutex sem. */
