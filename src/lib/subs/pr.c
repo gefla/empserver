@@ -220,7 +220,8 @@ pr_player(struct player *pl, int id, char *buf)
 	p = strchr(bp, '\n');
 	if (p != NULL) {
 	    len = (p - bp) + 1;
-	    if (pl->command && (pl->command->c_flags & C_MOD))
+	    if ((pl->command && (pl->command->c_flags & C_MOD)) ||
+		(player != pl))
 		io_write(pl->iop, bp, len, IO_NOWAIT);
 	    else
 		io_write(pl->iop, bp, len, IO_WAIT);
@@ -274,7 +275,8 @@ upr_player(struct player *pl, int id, char *buf)
 	    }
 	}
 	if (ch == '\n') {
-	    if (pl->command && (pl->command->c_flags & C_MOD))
+	    if ((pl->command && (pl->command->c_flags & C_MOD)) ||
+		(player != pl))
 		io_write(pl->iop, &ch, 1, IO_NOWAIT);
 	    else
 		io_write(pl->iop, &ch, 1, IO_WAIT);
