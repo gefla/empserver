@@ -7,7 +7,16 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.21 - Thu Jun 23 19:51:04 UTC 2005
+Changes to Empire 4.2.21 - Tue Jul  5 16:08:46 UTC 2005
+ * Don't let threads block on output to another player thread's
+   socket.  Such blocking violates basic design assumptions and can
+   cause all kinds of grief.  In particular, it causes player session
+   hangs under Windows with 4.2.20.  Broken since the introduction of
+   flash and asynchronous telegram notification many years ago.
+ * Fix deliver not to deliver friendly civilians into occupied
+   sectors.
+ * Threads sleeping until a specified time could return early under
+   Windows.  This could cause double-updates.
  * Fix mil duplication in board.  Broken in 4.2.14.
  * Fix stack smash in lrange, shoot and execute.  Remote holes, and
    the last one doesn't even require authentication.
@@ -44,8 +53,8 @@ Changes to Empire 4.2.21 - Thu Jun 23 19:51:04 UTC 2005
    so far is UTF-8.
  * emp_client -u now requests UTF-8.  This requires a terminal that
    understands UTF-8.
- * Fix news for defensive land unit support.
- * Properly mark seamines hit by retreating ships.  Unmark mines
+ * Fix news for land unit defensive support.
+ * Properly mark sea mines hit by retreating ships.  Unmark mines
    cleared by bridges.
  * Fix diagnostics for unknown selector names in conditionals.  Broken
    in 4.2.20.
@@ -54,16 +63,17 @@ Changes to Empire 4.2.21 - Thu Jun 23 19:51:04 UTC 2005
  * Fix Windows services for relative file names on command line or in
    econfig.  Broken in 4.2.20.
  * econfig keys ship_grow_scale, plane_grow_scale and land_grow_scale
-   are now loat.  This gives deities finer control over maximum
+   are now float.  This gives deities finer control over maximum
    efficiency gain.
  * Fix production command for sectors with 60% efficiency.
  * Improve syntax of read for deities.
  * Code cleanups.
  * Some info topic names differed only in case, which loses on
-   case-insensitive filesystems, and is a bad user interface even when
+   case-insensitive file systems, and is a bad user interface even when
    it works.  Change those names.
  * Thanks to Doug Wescott, sheep are finally covered properly in info.
  * Documentation fixes.
+ * Much of the above was contributed by Ron Koenderink.  Many thanks!
 
 Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
  * When units in different sectors marched, only units in the sector
