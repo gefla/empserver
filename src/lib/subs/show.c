@@ -732,7 +732,7 @@ show_sect_capab(int foo)
 	   pchr[j].p_nlmin,
 	   pchr[j].p_nllag,
 	   pchr[j].p_effic, pchr[j].p_cost, pchr[j].p_nrdep,
-	   pchr[j].p_type ? ichr[pchr[j].p_type].i_mnem : ' ');
+	   pchr[j].p_type != I_NONE ? ichr[pchr[j].p_type].i_mnem : ' ');
 
 	pr("\n");
     }

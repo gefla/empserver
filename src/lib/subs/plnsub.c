@@ -599,7 +599,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
     item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if ((flags & P_F) == 0) {
-	itype = 0;
+	itype = I_NONE;
 	needed = 0;
 	switch (mission) {
 	case 's':
@@ -641,7 +641,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	default:
 	    break;
 	}
-	if (rval < 0 || (itype && needed <= 0)) {
+	if (rval < 0 || (itype != I_NONE && needed <= 0)) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
 	}

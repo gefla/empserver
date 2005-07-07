@@ -1279,7 +1279,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if (!(flags & P_F)) {
-	itype = 0;
+	itype = I_NONE;
 	needed = 0;
 	switch (mission) {
 	case 's':
@@ -1320,7 +1320,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	default:
 	    break;
 	}
-	if (rval < 0 || (itype && needed <= 0)) {
+	if (rval < 0 || (itype != I_NONE && needed <= 0)) {
 	    return -1;
 	}
 	if (item[itype] < needed && (itype == I_SHELL))
