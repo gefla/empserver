@@ -1,19 +1,20 @@
-Changes to Empire 4.2.21 - Tue Jul  5 16:08:46 UTC 2005
+Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
  * Don't let threads block on output to another player thread's
    socket.  Such blocking violates basic design assumptions and can
    cause all kinds of grief.  In particular, it causes player session
    hangs under Windows with 4.2.20.  Broken since the introduction of
    flash and asynchronous telegram notification many years ago.
- * Fix deliver not to deliver friendly civilians into occupied
-   sectors.
  * Threads sleeping until a specified time could return early under
    Windows.  This could cause double-updates.
+ * Fix deliver not to deliver friendly civilians into occupied
+   sectors.
  * Fix mil duplication in board.  Broken in 4.2.14.
  * Fix stack smash in lrange, shoot and execute.  Remote holes, and
    the last one doesn't even require authentication.
  * Fix crash bug in emp_config parsing.
  * Fix buffer overruns in turn and shutdown.
  * Fix second argument of shutdown.
+ * Fix show sector s.  Broken in 4.2.19.
  * tele and turn now abort on EOF.
  * Fix display of MOTD and game down message of maximum size.
  * Correctly support telnet line termination on input.  Previously,
