@@ -1323,13 +1323,14 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	if (rval < 0 || (itype != I_NONE && needed <= 0)) {
 	    return -1;
 	}
-	if (item[itype] < needed && (itype == I_SHELL))
-	    item[itype] += supply_commod(plp->plane.pln_own,
-					 plp->plane.pln_x, plp->plane.pln_y,
-					 I_SHELL, needed);
-	if (item[itype] < needed) {
-	    return -1;
-	} else {
+	if (itype != I_NONE) {
+	    if (itype == I_SHELL && item[itype] < needed)
+		item[itype] += supply_commod(plp->plane.pln_own,
+					     plp->plane.pln_x,
+					     plp->plane.pln_y,
+					     I_SHELL, needed);
+	    if (item[itype] < needed)
+		return -1;
 	    item[itype] -= needed;
 	}
 	if (itype == I_SHELL && (mission == 's' || mission == 'p'))

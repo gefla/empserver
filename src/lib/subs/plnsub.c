@@ -645,17 +645,19 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
 	}
+	if (item != I_NONE) {
 #if 0
-	/* Supply is broken somewhere, so don't use it for now */
-	if (item[itype] < needed && itype == I_SHELL)
-	    item[itype] += supply_commod(plp->plane.pln_own,
-					 plp->plane.pln_x, plp->plane.pln_y,
-					 I_SHELL, needed);
+	    /* Supply is broken somewhere, so don't use it for now */
+	    if (itype == I_SHELL && item[itype] < needed)
+		item[itype] += supply_commod(plp->plane.pln_own,
+					     plp->plane.pln_x,
+					     plp->plane.pln_y,
+					     I_SHELL, needed);
 #endif
-	if (item[itype] < needed) {
-	    pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
-	    return -1;
-	} else {
+	    if (item[itype] < needed) {
+		pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
+		return -1;
+	    }
 	    item[itype] -= needed;
 	}
 	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
