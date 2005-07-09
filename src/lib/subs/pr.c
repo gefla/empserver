@@ -33,10 +33,13 @@
  */
 
 /*
- * Player output is fully buffered.  Unless the receiving player's
- * last command has the C_MOD flag set, it can block.  Such commands
- * can print to the current player without yielding the processor.
- * Printing to another player must be assumed to block.
+ * Player output is fully buffered.  It can block only if the
+ * receiving player is the current player and his last command doesn't
+ * have the C_MOD flag.  Output to another player must not block
+ * because that player could be gone when the printing thread wakes
+ * up, and the code isn't prepared for that.  Output within C_MOD
+ * command never blocks, so that such commands can print freely
+ * without yielding the processor.
  *
  * Each line of output starts with an identification character
  * encoding the output id, followed by space.  Ids less than 10 are
