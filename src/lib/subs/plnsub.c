@@ -645,7 +645,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
 	}
-	if (item != I_NONE) {
+	if (itype != I_NONE) {
 #if 0
 	    /* Supply is broken somewhere, so don't use it for now */
 	    if (itype == I_SHELL && item[itype] < needed)
