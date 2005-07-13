@@ -10,6 +10,9 @@ files
 backups
 	Recommendations for how to do backups when running a game.
 
+clients-howto
+	Material useful for client writers.
+
 troubleshooting
 	Some common problems and solutions.
 
@@ -40,6 +43,9 @@ pthreads
 
 coding           
 	Guidelines for coding style
+
+unicode
+	Design and implementation of Empire's Unicode support.
 
 CHANGES
 	Revision history for all the changes that were coded in the Empire2
