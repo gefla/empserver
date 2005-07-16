@@ -7,7 +7,7 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
+Changes to Empire 4.2.21 - Sat Jul 16 17:51:01 UTC 2005
  * Don't let threads block on output to another player thread's
    socket.  Such blocking violates basic design assumptions and can
    cause all kinds of grief.  In particular, it causes player session
@@ -15,15 +15,16 @@ Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
    flash and asynchronous telegram notification many years ago.
  * Threads sleeping until a specified time could return early under
    Windows.  This could cause double-updates.
+ * Fix fallout damage (was broken in 4.2.19).
+ * Fix show sector s (was broken in 4.2.19).
  * Fix deliver not to deliver friendly civilians into occupied
    sectors.
- * Fix mil duplication in board.  Broken in 4.2.14.
+ * Fix mil duplication in board (was broken in 4.2.14).
  * Fix stack smash in lrange, shoot and execute.  Remote holes, and
    the last one doesn't even require authentication.
  * Fix crash bug in emp_config parsing.
  * Fix buffer overruns in turn and shutdown.
  * Fix second argument of shutdown.
- * Fix show sector s.  Broken in 4.2.19.
  * tele and turn now abort on EOF.
  * Fix display of MOTD and game down message of maximum size.
  * Correctly support telnet line termination on input.  Previously,
@@ -32,9 +33,6 @@ Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
  * Remove obscure login command list.
  * Convert client from obsolete termcap to terminfo, and clean up
    terminal handling.
- * Rename info topics so they don't just differ in case.  Rename deity
-   command hidden to peek because its info topic clashed with that of
-   option HIDDEN.
  * New fairland option -h to print usage information.  Improved
    command line syntax diagnostics.  Exit unsuccessfully on unknown
    options.
@@ -57,12 +55,12 @@ Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
  * Fix news for land unit defensive support.
  * Properly mark sea mines hit by retreating ships.  Unmark mines
    cleared by bridges.
- * Fix diagnostics for unknown selector names in conditionals.  Broken
-   in 4.2.20.
+ * Fix diagnostics for unknown selector names in conditionals (was
+   broken in 4.2.20).
  * Fix selector name clashes: rename ship selector mobquota to mquota,
    land selector for reaction range limit from rad to rmax.
  * Fix Windows services for relative file names on command line or in
-   econfig.  Broken in 4.2.20.
+   econfig (was broken in 4.2.20).
  * econfig keys ship_grow_scale, plane_grow_scale and land_grow_scale
    are now float.  This gives deities finer control over maximum
    efficiency gain.
@@ -70,9 +68,10 @@ Changes to Empire 4.2.21 - Sat Jul  9 14:01:49 UTC 2005
  * Improve syntax of read for deities.
  * Code cleanups.
  * Some info topic names differed only in case, which loses on
-   case-insensitive file systems, and is a bad user interface even when
-   it works.  Change those names.
- * Thanks to Doug Wescott, sheep are finally covered properly in info.
+   case-insensitive file systems, and is a bad user interface even
+   when it works.  Change those names.  Rename deity command hidden to
+   peek because its info topic clashed with that of option HIDDEN.
+ * Thanks to Doug Wescott sheep are finally covered properly in info.
  * Documentation fixes.
  * Much of the above was contributed by Ron Koenderink.  Many thanks!
 
