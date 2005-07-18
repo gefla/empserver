@@ -435,6 +435,6 @@ launch_sat(struct plnstr *pp, int sublaunch)
     pp->pln_flags |= PLN_LAUNCHED;
     pp->pln_mobil = (pp->pln_mobil > dist) ? (pp->pln_mobil - dist) : 0;
     putplane(pp->pln_uid, pp);
-    pr(", will be ready for use in %d time units\n", 127 - pp->pln_mobil);
+    pr(", will be ready for use in %d time units\n", plane_mob_max - pp->pln_mobil);
     return -1;
 }
