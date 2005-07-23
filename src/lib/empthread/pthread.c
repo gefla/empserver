@@ -50,18 +50,50 @@
 #include <stdarg.h>
 
 #ifdef _EMPTH_POSIX
-static pthread_key_t ctx_key;
-static int empth_flags;
-static void **udata;		/* pointer to out global context */
 
-static pthread_mutex_t mtx_ctxsw;	/* thread in critical section */
+#define EMPTH_KILLED  1
+
+struct empth_t {
+    char *name;			/* thread name */
+    char *desc;			/* description */
+    void *ud;			/* user data */
+    int state;			/* my state */
+    void (*ep)(void *);		/* entry point */
+    pthread_t id;		/* thread id */
+};
+
+struct empth_sem_t {
+    pthread_mutex_t mtx_update;	/* use it to update count */
+    int count;
+    char name[80];
+    pthread_mutex_t mtx_sem;
+    pthread_cond_t cnd_sem;
+};
+
+/* Thread-specific data key */
+static pthread_key_t ctx_key;
+
+/* Flags that were passed to empth_init() */
+static int empth_flags;
+
+/* Pointer to thread context variable */
+static void **udata;
+
+/*
+ * Non-preemption mutex.
+ * Empire code outside this file is only executed while holding this
+ * mutex.  This makes sure Empire code is never preempted by Empire
+ * code.
+ */
+static pthread_mutex_t mtx_ctxsw;
 
 static void empth_status(char *format, ...) ATTRIBUTE((format (printf, 1, 2)));
 
 
 static void *
-empth_start(void *ctx)
+empth_start(void *arg)
 {
+    empth_t *ctx = arg;
     struct sigaction act;
 
     /* actually it should inherit all this from main but... */
@@ -80,11 +112,11 @@ empth_start(void *ctx)
     act.sa_handler = empth_alarm;
     sigaction(SIGALRM, &act, NULL);
 
-    ((empth_t *)ctx)->id = pthread_self();
+    ctx->id = pthread_self();
     pthread_setspecific(ctx_key, ctx);
     pthread_mutex_lock(&mtx_ctxsw);
-    *udata = ((empth_t *)ctx)->ud;
-    ((empth_t *)ctx)->ep(((empth_t *)ctx)->ud);
+    *udata = ctx->ud;
+    ctx->ep(ctx->ud);
     empth_exit();
     return NULL;
 }
@@ -127,8 +159,8 @@ empth_init(void **ctx_ptr, int flags)
     struct sigaction act;
 
 
-    pthread_key_create(&ctx_key, 0);
-    pthread_mutex_init(&mtx_ctxsw, 0);
+    pthread_key_create(&ctx_key, NULL);
+    pthread_mutex_init(&mtx_ctxsw, NULL);
 
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
@@ -203,7 +235,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     }
     empth_status("new thread id is %ld", (long)t);
     return ctx;
-    pthread_attr_destroy(&attr);
+
   bad:
     pthread_attr_destroy(&attr);
     free(ctx);
@@ -216,7 +248,7 @@ empth_restorectx(void)
 {
     empth_t *ctx_ptr;
 
-    ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
+    ctx_ptr = pthread_getspecific(ctx_key);
     *udata = ctx_ptr->ud;
     if (ctx_ptr->state == EMPTH_KILLED) {
 	empth_status("i am dead");
@@ -228,7 +260,7 @@ empth_restorectx(void)
 empth_t *
 empth_self(void)
 {
-    return (empth_t *)pthread_getspecific(ctx_key);
+    return pthread_getspecific(ctx_key);
 }
 
 void
@@ -238,7 +270,7 @@ empth_exit(void)
 
     pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("empth_exit");
-    ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
+    ctx_ptr = pthread_getspecific(ctx_key);
     /* We want to leave the main thread around forever, until it's time
        for it to die for real (in a shutdown) */
     if (!strcmp(ctx_ptr->name, "Main")) {
@@ -263,12 +295,9 @@ empth_yield(void)
 void
 empth_terminate(empth_t *a)
 {
-    /* logerror("calling non supported function empth_terminate: %s:%d",
-       __FILE__, __LINE__); */
     empth_status("killing thread %s", a->name);
     a->state = EMPTH_KILLED;
     pthread_kill(a->id, SIGALRM);
-    return;
 }
 
 void
@@ -353,7 +382,6 @@ empth_wakeup(empth_t *a)
     empth_status("waking up thread %s", a->name);
     pthread_kill(a->id, SIGALRM);
     empth_status("waiting for it to run");
-    /* empth_yield(); */
 }
 
 void
@@ -386,9 +414,9 @@ empth_sem_create(char *name, int cnt)
     }
     strncpy(sm->name, name, sizeof(sm->name) - 1);
     sm->count = cnt;
-    pthread_mutex_init(&sm->mtx_update, 0);
-    pthread_mutex_init(&sm->mtx_sem, 0);
-    pthread_cond_init(&sm->cnd_sem, 0);
+    pthread_mutex_init(&sm->mtx_update, NULL);
+    pthread_mutex_init(&sm->mtx_sem, NULL);
+    pthread_cond_init(&sm->cnd_sem, NULL);
     return sm;
 }
 

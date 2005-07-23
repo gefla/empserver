@@ -87,23 +87,8 @@ typedef struct lwpSem empth_sem_t;
 #define EMPTH_PRINT       0x1
 #define EMPTH_STACKCHECK  0x2
 
-#define EMPTH_KILLED  1
-typedef struct {
-    char *name;			/* thread name */
-    char *desc;			/* description */
-    void *ud;			/* user data */
-    int state;			/* my state */
-    void (*ep)(void *);		/* entry point */
-    pthread_t id;		/* thread id */
-} empth_t;
-
-typedef struct {
-    pthread_mutex_t mtx_update;	/* use it to update count */
-    int count;
-    char name[80];
-    pthread_mutex_t mtx_sem;
-    pthread_cond_t cnd_sem;
-} empth_sem_t;
+typedef struct empth_t empth_t;
+typedef struct empth_sem_t empth_sem_t;
 
 #endif /* _EMPTH_POSIX */
 
