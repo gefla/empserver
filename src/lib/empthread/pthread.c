@@ -223,7 +223,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 	goto bad;
     }
     if (size < PTHREAD_STACK_MIN)
-	size = PTHREAD_STACK_MIN + 1;
+	size = PTHREAD_STACK_MIN;
     pthread_attr_setstacksize(&attr, size);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
