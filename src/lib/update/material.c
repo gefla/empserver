@@ -47,7 +47,7 @@ void
 get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
 	       /* only check if found=0, remove them=1 */
 {
-    int i;
+    i_type i;
     int still_left;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {

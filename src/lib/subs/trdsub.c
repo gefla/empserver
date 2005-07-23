@@ -97,6 +97,7 @@ int
 trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 {
     int i;
+    i_type it;
     struct sctstr sect;
     struct nukstr *np;
     struct shpstr *sp;
@@ -132,9 +133,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
 
-	for (i = I_NONE + 1; i <= I_MAX; ++i) {
-	    if (sp->shp_item[i])
-		pr("%c:%d ", ichr[i].i_mnem, sp->shp_item[i]);
+	for (it = I_NONE + 1; it <= I_MAX; ++it) {
+	    if (sp->shp_item[it])
+		pr("%c:%d ", ichr[it].i_mnem, sp->shp_item[it]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
@@ -190,9 +191,9 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner,
 	   lp->lnd_tech, lp->lnd_effic, lchr[(int)lp->lnd_type].l_name);
-	for (i = I_NONE + 1; i <= I_MAX; ++i) {
-	    if (lp->lnd_item[i])
-		pr("%c:%d ", ichr[i].i_mnem, lp->lnd_item[i]);
+	for (it = I_NONE + 1; it <= I_MAX; ++it) {
+	    if (lp->lnd_item[it])
+		pr("%c:%d ", ichr[it].i_mnem, lp->lnd_item[it]);
 	}
 	pr("] #%d", tp->trd_unitid);
 	if (opt_SHOWPLANE) {
