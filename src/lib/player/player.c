@@ -136,6 +136,7 @@ player_main(struct player *p)
 	if (command() == 0 && !player->aborted)
 	    break;
 	player->aborted = 0;
+	empth_yield();
     }
     /* #*# I put the following line in to prevent server crash -KHS */
     natp = getnatp(player->cnum);
