@@ -2181,7 +2181,7 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
     }
 
     if (QEMPTY(olist))
-	return (CASUALTY_LUMP - to_take);
+	return CASUALTY_LUMP - to_take;
 
     /*
      *  Need to take some casualties from attacking units
@@ -2199,11 +2199,11 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
 	}
     }
     if (biggest == (struct emp_qelem *)0)
-	return (CASUALTY_LUMP - to_take);
+	return CASUALTY_LUMP - to_take;
 
     llp = (struct llist *)biggest;
     cas = lnd_take_casualty(combat_mode, llp, to_take);
-    return (CASUALTY_LUMP - (to_take - cas));
+    return CASUALTY_LUMP - (to_take - cas);
 }
 
 /* Send reacting defense units back to where they came from (at no mob cost) */
@@ -2594,16 +2594,14 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 	if (off->shp_mcp->m_flags & M_LAND) {
 	    if (llp->lcp->l_flags & L_MARINE)
 		llp->land.lnd_mobil -=
-		    ((float)etu_per_update * land_mob_scale * 0.5);
+		    (float)etu_per_update * land_mob_scale * 0.5;
 	    else
-		llp->land.lnd_mobil -= ((float)etu_per_update
-					* land_mob_scale);
+		llp->land.lnd_mobil -= (float)etu_per_update * land_mob_scale;
 	} else {
 	    if (llp->lcp->l_flags & L_MARINE)
 		llp->land.lnd_mobil = 0;
 	    else
-		llp->land.lnd_mobil = (((float)etu_per_update
-					* land_mob_scale) * (-1));
+		llp->land.lnd_mobil = -(float)etu_per_update * land_mob_scale;
 	}
 	break;
     case A_BOARD:

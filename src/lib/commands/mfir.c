@@ -125,7 +125,7 @@ multifire(void)
 
     emp_initque(&fired);
     emp_initque(&defended);
-    type = (-1);
+    type = -1;
     while ((type != EF_SECTOR) && (type != EF_SHIP) && (type != EF_LAND)) {
 	if (!(p = getstarg(player->argp[1],
 			   "Firing from ship(s), sect(s), or land unit(s)? ",
@@ -692,7 +692,7 @@ defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
 	emp_insque(&fp->queue, al);
     }
 
-    return (dam);
+    return dam;
 }
 
 static void
@@ -963,7 +963,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	}
     }
 
-    return ((*nfiring) == 0 ? 0 : (dam / (*nfiring)));
+    return *nfiring == 0 ? 0 : dam / *nfiring;
 }
 
 static void

@@ -347,11 +347,11 @@ findcondition(s_char code)
     x = 0;
     while (conditions[x].code) {
 	if (conditions[x].code == code)
-	    return (x);
+	    return x;
 	x++;
     }
 
-    return (x);
+    return x;
 }
 
 int

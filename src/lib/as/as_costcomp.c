@@ -33,15 +33,15 @@ as_costcomp(const void *p1, const void *p2)
 
     diff = (*n1)->lbcost - (*n2)->lbcost;
     if (diff < -0.0001)
-	return (-1);
+	return -1;
     if (diff > 0.0001)
-	return (1);
+	return 1;
 
     /* equal, check secondary cost */
     diff = (*n1)->seccost - (*n2)->seccost;
     if (diff < -0.0001)
-	return (-1);
+	return -1;
     if (diff > 0.0001)
-	return (1);
-    return (0);
+	return 1;
+    return 0;
 }

@@ -216,7 +216,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     unsigned long stackp;
 
     if (!(newp = malloc(sizeof(struct lwpProc))))
-	return (0);
+	return 0;
     if (flags & LWP_STACKCHECK) {
 	/* Add a 1K buffer on each side of the stack */
 	size += 2 * LWP_REDZONE;
@@ -224,7 +224,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     size += LWP_EXTRASTACK;
     size += sizeof(stkalign_t);
     if (!(s = malloc(size)))
-	return (0);
+	return 0;
     newp->flags = flags;
     newp->name = strdup(name);
     newp->desc = strdup(desc);
@@ -290,7 +290,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     lwpInitContext(newp, sp);	/* architecture-dependent: from arch.c */
 #endif /* UCONTEXT */
     lwpReschedule();
-    return (newp);
+    return newp;
 }
 
 void
@@ -335,7 +335,7 @@ lwpGetUD(struct lwpProc *p)
 {
     if (!p)
 	p = LwpCurrent;
-    return (p->ud);
+    return p->ud;
 }
 
 /*
@@ -415,7 +415,7 @@ lwpSetPriority(int new)
     lwpStatus(LwpCurrent, "resetting priority (%d -> %d)", old, new);
     if (new < old)
 	lwpYield();
-    return (old);
+    return old;
 }
 
 /*
@@ -433,9 +433,9 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
 	pri = 1;
     /* *LwpContextPtr = 0; */
     if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
-	return (0);
+	return 0;
     if (!(stack = malloc(64)))
-	return (0);
+	return 0;
     if (LWP_MAX_PRIO <= pri)
 	pri = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < pri)
@@ -453,7 +453,7 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler",
 		    "Select (main loop) Event Handler", 0, 0, 0);
     lwpInitSelect(sel);
-    return (LwpCurrent);
+    return LwpCurrent;
 }
 
 /* lwpStackCheckInit

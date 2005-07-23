@@ -91,7 +91,7 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
 #endif /* DEBUG */
 		if (qp->np->flags & AS_TRIED) {
 		    /* should "never happen" */
-		    return (0);
+		    return 0;
 		}
 		/*
 		 * The neighbor is better than a previously visited coordinate;
@@ -135,7 +135,7 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
 	np = as_newnode(adp->head->np, *cp, inclbcost, lbcost,
 			knowncost, seccost);
 	if (np == NULL)
-	    return (0);
+	    return 0;
 	if (fix_pointer) {
 #ifdef DEBUG
 	    fprintf(stderr, "Fixing pointer for %d, %d\n",
@@ -148,7 +148,7 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
     }
     adp->neighbor_nodes[i] = NULL;
 
-    return (i);
+    return i;
 }
 
 
@@ -170,5 +170,5 @@ as_newnode(struct as_node *backp, struct as_coord c,
     np->step = backp->step;
     np->back = backp;
 
-    return (np);
+    return np;
 }

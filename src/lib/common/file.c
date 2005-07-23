@@ -175,7 +175,7 @@ ef_ptr(int type, int id)
 	logerror("ef_ptr: (%s) only valid for EFF_MEM entries", ep->file);
 	return NULL;
     }
-    return (ep->cache + ep->size * id);
+    return ep->cache + ep->size * id;
 }
 
 /*

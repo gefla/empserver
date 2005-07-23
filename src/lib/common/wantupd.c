@@ -139,7 +139,7 @@ demand_update_want(int *want, int *pop, int which)
     }
     *want = totwant;
     *pop = totpop;
-    return (whichwants);
+    return whichwants;
 }
 
 static int
@@ -154,20 +154,20 @@ demand_check(void)
 
     if (0 == update_wantmin) {
 	logerror("no demand update allowed, wantmin = 0");
-	return (0);
+	return 0;
     }
 
     demand_update_want(&want, &pop, 0);
     if (want < update_wantmin) {
 	logerror("no demand update, want = %d, min = %d",
 		 want, update_wantmin);
-	return (0);
+	return 0;
     }
 
     time(&now);
     if (!demand_update_time(&now)) {
 	logerror("no demand update, not within hours allowed.");
-	return (0);
+	return 0;
     }
 
 
@@ -183,10 +183,10 @@ demand_check(void)
     if (veto) {
 	logerror("no demand update, %d has missed more than %d updates",
 		 veto - 1, update_missed);
-	return (0);
+	return 0;
     }
 
-    return (1);
+    return 1;
 }
 
 /* Check if enough countries want an update,
@@ -197,10 +197,10 @@ demandupdatecheck(void)
 {
     if (UDDEM_COMSET != update_demandpolicy) {
 	logerror("no demand update, not policy.");
-	return (0);
+	return 0;
     }
 
-    return (demand_check());
+    return demand_check();
 }
 
 /* Is it time for a regular or scheduled update?
@@ -212,27 +212,27 @@ updatetime(time_t *now)
 {
     if (opt_BLITZ && update_policy == UDP_BLITZ) {
 	logerror("BLITZ Update.");
-	return (1);
+	return 1;
     }
 
     if (UDP_NORMAL == update_policy) {
 	logerror("Regular update, etu type.");
-	return (1);
+	return 1;
     }
 
     if (UDP_TIMES == update_policy) {
 	if (scheduled_update_time(now)) {
 	    logerror("Scheduled update.");
-	    return (1);
+	    return 1;
 	}
     }
     if (opt_DEMANDUPDATE) {
 	if (demand_check()) {
 	    logerror("Demand update, at check time.");
-	    return (1);
+	    return 1;
 	}
     }
-    return (0);
+    return 0;
 }
 
 /* Return the time, and delta seconds, of the next update.

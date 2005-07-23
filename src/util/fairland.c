@@ -154,7 +154,7 @@ FILE *sect_fptr;			/* the file we write everything to */
 struct sctstr **sects;
 struct sctstr *sectsbuf;
 int fl_status;			/* is anything wrong? */
-#define STATUS_NO_ROOM (1)	/* there was no room to grow */
+#define STATUS_NO_ROOM 1	/* there was no room to grow */
 #define NUMTRIES 10		/* keep trying to grow this many times */
 
 const char *numletter =

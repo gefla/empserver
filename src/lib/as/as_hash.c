@@ -35,9 +35,9 @@ as_iscinq(struct as_data *adp, struct as_coord c)
 
     for (hp = adp->hashtab[hashval]; hp; hp = hp->next)
 	if (hp->c.x == c.x && hp->c.y == c.y)
-	    return (hp->qp);
+	    return hp->qp;
 
-    return (NULL);
+    return NULL;
 }
 
 /*

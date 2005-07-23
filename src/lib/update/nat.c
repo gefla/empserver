@@ -115,7 +115,7 @@ limit_level(double level, int type, int flag)
 	    above = logx(above_easy + 1.0, logbase);
 	if (above > 250)
 	    above = 250;
-	return ((above) < 0) ? easy : (easy + above);
+	return above < 0 ? easy : easy + above;
     } else
 	return level;
 }

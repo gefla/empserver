@@ -40,5 +40,5 @@ scthash(int x, int y, int tsize)
 	x = -x;
     if (y < 0)
 	y = -y;
-    return ((x * 10 + y) % tsize);
+    return (x * 10 + y) % tsize;
 }

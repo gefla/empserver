@@ -33,7 +33,7 @@ lwpGetFirst(struct lwpQueue *q)
 
     if ((head = q->head) && !(q->head = head->next))
 	q->tail = 0;
-    return (head);
+    return head;
 }
 
 void

@@ -231,7 +231,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 	cp[n].y = sy;
 	n++;
     }
-    return (n);
+    return n;
 }
 
 /*
@@ -253,7 +253,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
     offset = (sy * WORLD_X + sx) / 2;
     ts = (struct sctstr *)(ep->cache + ep->size * offset);
     cost = sector_mcost(ts, bp->bp_mobtype);
-    return (cost);
+    return cost;
 }
 
 /*
@@ -262,7 +262,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
 static double
 bp_realcost(struct as_coord from, struct as_coord to, s_char *pp)
 {
-    return (bp_lbcost(from, to, pp));
+    return bp_lbcost(from, to, pp);
 }
 
 /*
@@ -369,12 +369,12 @@ BestShipPath(s_char *path, int fx, int fy, int tx, int ty, int owner)
     /* need to make sector database available to bestpath */
     map = ef_ptr(EF_BMAP, owner);
 
-    return (bestownedpath(path, map, fx, fy, tx, ty, ".=h", owner));
+    return bestownedpath(path, map, fx, fy, tx, ty, ".=h", owner);
 }
 
 s_char *
 BestAirPath(s_char *path, int fx, int fy, int tx, int ty)
 {
-    return (bestownedpath(path, 0, fx, fy, tx, ty, "", -1));
+    return bestownedpath(path, 0, fx, fy, tx, ty, "", -1);
     /*    return (bestpath(path, fx, fy, tx, ty, "")); */
 }

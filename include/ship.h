@@ -209,10 +209,10 @@ struct mlist {
 #define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
  /* return codes from shp_check_nav */
-#define CN_NAVIGABLE	(0)
-#define CN_LANDLOCKED	(1)
-#define CN_CONSTRUCTION	(2)
-#define CN_ERROR	(-1)
+#define CN_NAVIGABLE	0
+#define CN_LANDLOCKED	1
+#define CN_CONSTRUCTION	2
+#define CN_ERROR	-1
 
 enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */

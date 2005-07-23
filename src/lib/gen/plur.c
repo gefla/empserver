@@ -37,23 +37,23 @@
 s_char *
 plur(int n, s_char *no, s_char *yes)
 {
-    return (n == 1 ? no : yes);
+    return n == 1 ? no : yes;
 }
 
 s_char *
 splur(int n)
 {
-    return (n == 1 ? "" : "s");
+    return n == 1 ? "" : "s";
 }
 
 s_char *
 esplur(int n)
 {
-    return (n == 1 ? "" : "es");
+    return n == 1 ? "" : "es";
 }
 
 s_char *
 iesplur(int n)
 {
-    return (n == 1 ? "y" : "ies");
+    return n == 1 ? "y" : "ies";
 }

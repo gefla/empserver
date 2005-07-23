@@ -91,7 +91,7 @@ increase_mob(time_t *counter, float mult)
     *counter = *counter - left;
 
     if (updating_mob)
-	return (newetus);
+	return newetus;
     return 0;
 }
 

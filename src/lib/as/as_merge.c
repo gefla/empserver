@@ -77,5 +77,5 @@ as_merge(struct as_data *adp, struct as_queue *head,
 	np->step++;
     }
 
-    return (head);
+    return head;
 }

@@ -405,19 +405,19 @@ io_noblocking(struct iop *iop, int value)
 int
 io_conn(struct iop *iop)
 {
-    return (iop->flags & IO_CONN);
+    return iop->flags & IO_CONN;
 }
 
 int
 io_error(struct iop *iop)
 {
-    return (iop->flags & IO_ERROR);
+    return iop->flags & IO_ERROR;
 }
 
 int
 io_eof(struct iop *iop)
 {
-    return (iop->flags & IO_EOF);
+    return iop->flags & IO_EOF;
 }
 
 int

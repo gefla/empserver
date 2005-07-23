@@ -135,7 +135,7 @@ bestownedpath(s_char *bpath,
 	mapbuf = malloc((WORLD_X * WORLD_Y) *
 					sizeof(unsigned int));
     if (!mapbuf)
-	return ((s_char *)0);
+	return NULL;
     if (!mapindex) {
 	mapindex = malloc(WORLD_X * sizeof(unsigned int *));
 	if (mapindex) {
@@ -145,7 +145,7 @@ bestownedpath(s_char *bpath,
 	}
     }
     if (!mapindex)
-	return ((s_char *)0);
+	return NULL;
 
     bpath[0] = 0;
     if (0 != (restr2 = (*terrain == 'R')))
@@ -163,11 +163,11 @@ bestownedpath(s_char *bpath,
     }
 
     if (!valid(x, y) || !valid(ex, ey))
-	return ((s_char *)0);
+	return NULL;
 
     if (restr2 && (!owned_and_navigable(bigmap, x, y, terrain, own) ||
 		   !owned_and_navigable(bigmap, x, y, terrain, own)))
-	return ((s_char *)0);
+	return NULL;
 
     for (i = 0; i < WORLD_X; i++)
 	for (j = 0; j < WORLD_Y; j++)
@@ -232,7 +232,7 @@ bestownedpath(s_char *bpath,
     } while (markedsectors);
 
     bpath[0] = 0;
-    return ((s_char *)0);	/* no route possible    */
+    return NULL;		/* no route possible    */
 }
 
 /* return TRUE if sector is passable */
@@ -249,7 +249,7 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
     /* No terrain to check?  Everything is navigable! (this
        probably means we are flying) */
     if (!(*terrain))
-	return (1);
+	return 1;
 
     /* Are we checking this map? */
     if (map) {
@@ -257,14 +257,14 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
 	   since otherwise we'll never venture anywhere */
 	mapspot = map[sctoff(x, y)];
 	if (mapspot == ' ' || mapspot == 0)
-	    return (1);
+	    return 1;
 
 	/* Now, is it marked with a 'x' or 'X'? If so, avoid it! */
 	if (mapspot == 'x' || mapspot == 'X')
-	    return (0);
+	    return 0;
     } else {
 	/* We don't know what it is since we have no map, so return ok! */
-	return (1);
+	return 1;
     }
 
     /* Now, check this bmap entry to see if it is one of the
@@ -283,10 +283,10 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
     }
     if (negate && *t) {
 	/* We found it, so we say it's bad since we are negating */
-	return (0);
+	return 0;
     } else if (!negate && !*t) {
 	/* We didn't find it, so we say it's bad since we aren't negating */
-	return (0);
+	return 0;
     }
 
     /* According to our bmap, this sector is ok so far. */
@@ -301,16 +301,16 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
 	    /* We can't sail through deity sectors, but we can sail
 	       through any ocean */
 	    if (rel < FRIENDLY && sect->sct_type != SCT_WATER)
-		return (0);
+		return 0;
 	}
     }
     /* Ok, now, check these two sector types */
     /* check for bad harbors. */
     if (c == 'h' && sect->sct_effic < 2)
-	return (0);
+	return 0;
     /* check for bad bridges  */
     if (c == '=' && sect->sct_effic < 60)
-	return (0);
+	return 0;
     /* Woo-hoo, it's ok! */
-    return (1);
+    return 1;
 }

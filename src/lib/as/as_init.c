@@ -54,5 +54,5 @@ as_init(int maxneighbors,
     adp->seccost = seccostfunc;
     adp->userdata = userdata;
 
-    return (adp);
+    return adp;
 }

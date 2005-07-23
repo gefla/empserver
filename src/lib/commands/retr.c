@@ -50,7 +50,9 @@ retr(void)
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
-    int isfleet = 0, rflags = (-2), zero;
+    int isfleet = 0;
+    int rflags = -2;
+    int zero;
     unsigned int x;
     s_char buf1[1024];
     s_char buf2[1024];
@@ -200,7 +202,9 @@ lretr(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    int isarmy = 0, rflags = (-2), zero;
+    int isarmy = 0;
+    int rflags = -2;
+    int zero;
     s_char buf1[1024];
     s_char buf2[1024];
     unsigned int x;

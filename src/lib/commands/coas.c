@@ -174,5 +174,5 @@ showship(struct coast **cpp, int x, int y)
     /* check that last one! */
     if (todelete)
 	free(todelete);
-    return (nship);
+    return nship;
 }

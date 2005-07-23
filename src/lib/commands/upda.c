@@ -145,7 +145,7 @@ upda(void)
 	if (*game_hours != 0)
 	    pr("Game hours are: %s\n", game_hours);
 
-	return (0);
+	return 0;
     } else {
 	time_t now;
 	time_t upd_time;

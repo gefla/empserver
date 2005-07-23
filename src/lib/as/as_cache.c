@@ -176,20 +176,20 @@ as_find_cachepath(coord fx, coord fy, coord tx, coord ty)
 
     /* Is the cache on?  if not, return NULL */
     if (as_cachepath_on == 0)
-	return (NULL);
+	return NULL;
 
     /* Do we have any cached? */
     if (fromhead == (struct as_frompath **)0)
-	return (NULL);
+	return NULL;
 
     /* Yes! */
     for (from = fromhead[fy]; from; from = from->next) {
 	if (from->x == fx) {
 	    for (to = from->tolist[ty]; to; to = to->next) {
 		if (to->x == tx)
-		    return (to->path);
+		    return to->path;
 	    }
 	}
     }
-    return (NULL);
+    return NULL;
 }

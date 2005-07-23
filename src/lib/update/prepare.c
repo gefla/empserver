@@ -157,7 +157,7 @@ upd_slmilcosts(natid n, int etu)
 	    totalmil += mil;
     }
     mil_pay = totalmil * etu * money_mil;
-    return (mil_pay);
+    return mil_pay;
 }
 
 int

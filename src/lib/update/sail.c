@@ -99,7 +99,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
     s_char *cp;
 
     if (sp->shp_own == 0)
-	return (0);
+	return 0;
 
 
 
@@ -111,7 +111,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	    wu(0, sp->shp_own,
 	       "Ship #%d, following #%d, which you don't own.\n",
 	       sp->shp_uid, ap->shp_uid);
-	    return (0);
+	    return 0;
 	}
 	/* Not a follower. */
 	if (ap->shp_path[0] != 'f')
@@ -124,7 +124,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	wu(0, sp->shp_own,
 	   "Ship #%d, following #%d, which you don't own.\n",
 	   sp->shp_uid, follow);
-	return (0);
+	return 0;
     }
 
     /* This should prevent infinite loops. */
@@ -132,7 +132,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	wu(0, sp->shp_own,
 	   "Ship #%d, too many follows (circular follow?).\n",
 	   sp->shp_uid);
-	return (0);
+	return 0;
     }
 
     for (stop = 0, cp = ap->shp_path; (!stop) && (*cp); cp++) {
@@ -160,7 +160,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 
     /* if this ship is not sailing anywhere then ignore it. */
     if (!*ap->shp_path)
-	return (0);
+	return 0;
 
     /* Find the fleet structure we belong to. */
     for (fltp = (*head); (fltp && fltp->leader != follow);
@@ -189,7 +189,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	   "Ship %d not in same sector as its sailing fleet\n",
 	   sp->shp_uid);
 	fltp->real_q = LEADER_WRONGSECT;
-	return (0);
+	return 0;
     }
 
     this = malloc(sizeof(*this));
@@ -245,7 +245,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     default:
 	wu(0, fltp->own, "Your fleet lead by %d is trapped by land.\n",
 	   fltp->leader);
-	return (0);
+	return 0;
     }
     for (fe = fltp->head; fe; fe = fe->next) {
 	sp = getshipp(fe->num);
@@ -257,7 +257,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
 	}
     }
     if (error)
-	return (0);
+	return 0;
     sp = getshipp(fltp->leader);
     own = sp->shp_own;
     fltp_to_list(fltp, &ship_list);	/* hack -KHS 1995 */

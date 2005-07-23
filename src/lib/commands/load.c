@@ -618,7 +618,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		    load_spy = 1;
 		}
 	    }
-	    if ((!load_spy) &&
+	    if (!load_spy &&
 		(sp->shp_nland >= mchr[(int)sp->shp_type].m_nland)) {
 		if (noisy) {
 		    if (mchr[(int)sp->shp_type].m_nland)
@@ -678,7 +678,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 			    land.lnd_x, land.lnd_y);
 	    }
 
-	    land.lnd_ship = (-1);
+	    land.lnd_ship = -1;
 	    sp->shp_nland--;
 	    putland(land.lnd_uid, &land);
 	    putship(sp->shp_uid, sp);
@@ -1153,7 +1153,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    land.lnd_own = sectp->sct_own;
 	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 			land.lnd_y);
-	    land.lnd_land = (-1);
+	    land.lnd_land = -1;
 	    lp->lnd_nland--;
 	    putland(land.lnd_uid, &land);
 	    putland(lp->lnd_uid, lp);

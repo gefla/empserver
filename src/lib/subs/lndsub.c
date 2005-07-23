@@ -130,7 +130,7 @@ defense_val(struct lndstr *lp)
     if (value < 1.0 && men > 0 && !(lcp->l_flags & L_SPY))
 	return 1;
 
-    return (int)(value);
+    return (int)value;
 }
 
 int
@@ -187,8 +187,6 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     double mobcost;
     s_char orig;
     int mob;
-
-
 
     taken = lnd_getmil(&(llp->land));
     /* Spies always die */
@@ -274,7 +272,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		orig = llp->land.lnd_mobil;
 		llp->land.lnd_mobil = (s_char)mob;
 		if (llp->land.lnd_mobil > orig)
-		    llp->land.lnd_mobil = (-127);
+		    llp->land.lnd_mobil = -127;
 		sprintf(buf, "retreats at %d%% efficiency to %s!",
 			llp->land.lnd_effic,
 			xyas(bx, by, llp->land.lnd_own));
@@ -346,9 +344,9 @@ int
 lnd_spyval(struct lndstr *lp)
 {
     if (lchr[(int)lp->lnd_type].l_flags & L_RECON)
-	return (lp->lnd_spy * (lp->lnd_effic / 100.0)) + 2;
+	return lp->lnd_spy * (lp->lnd_effic / 100.0) + 2;
     else
-	return (lp->lnd_spy * (lp->lnd_effic / 100.0));
+	return lp->lnd_spy * (lp->lnd_effic / 100.0);
 }
 
 int

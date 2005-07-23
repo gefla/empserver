@@ -141,7 +141,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	    }
 	}
     }
-    return (int)100 - (eff * 100);
+    return (int)100 - eff * 100;
 }
 
 int

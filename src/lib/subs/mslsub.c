@@ -306,7 +306,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     if (icount == 0) {
 	if (sect.sct_own != 0)
 	    mpr(sect.sct_own, "No %ss launched to intercept.\n", def_name);
-	return (destroyed);
+	return destroyed;
     }
 
     /* attempt to destroy incoming missile */
@@ -359,7 +359,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	free(qp);
     }
     if (destroyed)
-	return (destroyed);
+	return destroyed;
     if (icount) {
 	mpr(bombown, "%s made it through %s defenses!\n", att_name,
 	    def_name);
@@ -367,7 +367,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	    mpr(sect.sct_own, "%s made it through %s defenses!\n",
 		att_name, def_name);
     }
-    return (destroyed);
+    return destroyed;
 }
 
 /* Keep launching missiles on list until mindam damage has been done */

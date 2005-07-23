@@ -79,7 +79,7 @@ roundrange(double r)
 
     f = r - ((int)r);
     if (chance(f))
-	return (((int)r) + 1);
+	return ((int)r) + 1;
     else
-	return ((int)r);
+	return (int)r;
 }

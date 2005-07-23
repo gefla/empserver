@@ -99,7 +99,7 @@ as_search(struct as_data *adp)
 #ifdef DEBUG
 	fprintf(stderr, "Failed\n");
 #endif /* DEBUG */
-	return (-1);
+	return -1;
     }
 
     as_makepath(adp);
@@ -121,7 +121,7 @@ as_search(struct as_data *adp)
     }
 #endif /* DEBUG */
 
-    return (0);
+    return 0;
 }
 
 /*

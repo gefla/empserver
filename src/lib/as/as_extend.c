@@ -40,14 +40,14 @@ as_extend(struct as_data *adp)
     i = (*adp->neighbor) (head->np->c, adp->neighbor_coords,
 			  adp->userdata);
     if (i == 0)
-	return (NULL);
+	return NULL;
     /*
      * Get rid of neighbors that are more costly than ones we already have,
      * and sort the rest into an array of as_nodes.
      */
     i = as_winnow(adp, adp->neighbor_coords, i);
     if (i < 0)
-	return (NULL);
+	return NULL;
     if (i > 1)
 	qsort(adp->neighbor_nodes, i,
 	      sizeof(*adp->neighbor_nodes), as_costcomp);
@@ -66,5 +66,5 @@ as_extend(struct as_data *adp)
     adp->tried->np->flags |= AS_TRIED;
 
     head = as_merge(adp, head, adp->neighbor_nodes);
-    return (head);
+    return head;
 }

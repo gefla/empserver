@@ -69,7 +69,7 @@ nxtsctp(struct nstr_sect *np)
 	    if (np->curdist > np->dist)
 		continue;
 	}
-	return (getsectp(np->x, np->y));
+	return getsectp(np->x, np->y);
     }
     /*NOTREACHED*/
 }

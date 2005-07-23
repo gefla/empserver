@@ -57,7 +57,7 @@ desi(void)
     if (player->argp[2]) {
 	cost = do_desi(natp, player->argp[1], player->argp[2], cash, 0);
 	if (cost < 0)
-	    return (int)(-cost);
+	    return (int)-cost;
 	if (chkmoney(cost, cash, player->argp[3]))
 	    return RET_SYN;
     }

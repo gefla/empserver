@@ -171,5 +171,5 @@ showsat(struct sky **skypp, int x, int y)
     /* check that last one! */
     if (todelete)
 	free(todelete);
-    return (nsat);
+    return nsat;
 }
