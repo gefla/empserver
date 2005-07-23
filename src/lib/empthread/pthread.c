@@ -178,7 +178,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     ctx = malloc(sizeof(empth_t));
     if (!ctx) {
-	logerror("not enough memoty to create thread: %s (%s)", name,
+	logerror("not enough memory to create thread: %s (%s)", name,
 		 desc);
 	return NULL;
     }
@@ -233,24 +233,6 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     return NULL;
 }
 
-
-#if 0
-static void
-empth_setctx(void *ct)
-{
-    empth_t *ctx_ptr;
-
-#ifdef _DECTHREADS_
-    pthread_getspecific(ctx_key, (pthread_addr_t *) & ctx_ptr);
-#else
-    ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
-#endif
-    ctx_ptr->ud = ct;
-    *udata = ctx_ptr->ud;
-    pthread_setspecific(ctx_key, ctx_ptr);
-    empth_status("context saved");
-}
-#endif
 
 static void
 empth_restorectx(void)

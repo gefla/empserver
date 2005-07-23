@@ -55,16 +55,6 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     return lwpCreate(prio, entry, size, flags, name, desc, 0, 0, ud);
 }
 
-#if 0
-/* This is unused now? */
-void
-empth_setctx(void *ctx)
-{
-    /* lwp does it automatically */
-    return;
-}
-#endif
-
 empth_t *
 empth_self(void)
 {
