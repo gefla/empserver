@@ -92,13 +92,18 @@ player_init(void)
 	exit(1);
     }
     val = 1;
-#if !(defined(__linux__) && defined(__alpha__))
+    /*
+     * WIN32's SO_REUSEADDR operates differently than POSIX's SO_REUSEADDR.
+     * WIN32's SO_REUSEADDR allows the port number to be used immediately
+     * even if the port number is currently being used by another program.
+     * In WIN32, there is no waiting time when a port is closed before it
+     * can be reused so SO_REUSEADDR is not required for WIN32.
+     */
+#ifndef _WIN32
     if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0) {
 	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
 	exit(1);
     }
-#else
-    logerror("Alpha/Linux?  You don't support SO_REUSEADDR yet, do you?\n");
 #endif
     if (bind(s, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
 	logerror("inet socket bind");
