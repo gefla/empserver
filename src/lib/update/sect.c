@@ -247,14 +247,6 @@ spread_fallout(struct sctstr *sp, int etus)
 	if (ap->sct_type == SCT_SANCT)
 	    continue;
 	inc = roundavg(etus * fallout_spread * (sp->sct_fallout)) - 1;
-#if 0
-	if (sp->sct_fallout) {
-	    wu(0, 0, "Fallout from sector %d,%d to %d,%d is %d=%d*%e*%d\n",
-	       sp->sct_x, sp->sct_y, sp->sct_x + diroff[n][0],
-	       sp->sct_y + diroff[n][1], inc, etus,
-	       fallout_spread, sp->sct_fallout);
-	}
-#endif
 	if (inc < 0)
 	    inc = 0;
 	ap->sct_fallout = min(ap->sct_fallout + inc, FALLOUT_MAX);
@@ -270,12 +262,6 @@ decay_fallout(struct sctstr *sp, int etus)
 	etus = 24;
     decay = roundavg(((decay_per_etu + 6.0) * fallout_spread) *
 		     (double)etus * (double)sp->sct_fallout);
-
-#if 0
-    if (decay || sp->sct_fallout)
-	wu(0, 0, "Fallout decay in %d,%d is %d from %d\n", sp->sct_x,
-	   sp->sct_y, decay, sp->sct_fallout);
-#endif
 
     sp->sct_fallout = decay < sp->sct_fallout ? sp->sct_fallout - decay : 0;
 }

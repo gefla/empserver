@@ -602,32 +602,6 @@ build_bridge(struct sctstr *sp, short *vec)
 		return 0;
 	}
     }
-#if 0
-    else {
-
-	for (i = 1; i <= 6; i++) {
-	    struct sctstr s2;
-	    nx = sp->sct_x + diroff[i][0];
-	    ny = sp->sct_y + diroff[i][1];
-	    getsect(nx, ny, &sect);
-	    for (j = 1; j <= 6; j++) {
-		nx2 = sect.sct_x + diroff[j][0];
-		ny2 = sect.sct_y + diroff[j][1];
-		getsect(nx2, ny2, &s2);
-		if ((s2.sct_type != SCT_WATER) &&
-		    (s2.sct_type != SCT_BSPAN))
-		    good = 1;
-	    }
-
-	}
-
-	if (!good) {
-	    pr("Bridges must be built adjacent to land or bridge towers.\n");
-	    pr("No eligible sectors adjacent to this sector.\n");
-	    return 0;
-	}
-    }				/* end EASY_BRIDGES */
-#endif
 
     if (sp->sct_effic < 60 && !player->god) {
 	pr("Sector %s is not 60%% efficient.\n",

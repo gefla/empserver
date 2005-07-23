@@ -339,30 +339,6 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     return 1;
 }
 
-#if 0
-static int
-check_nav(sect)
-struct sctstr *sect;
-{
-    switch (dchr[sect->sct_type].d_flg & 03) {
-    case NAVOK:
-	break;
-
-    case NAV_02:
-	if (sect->sct_effic < 2)
-	    return CN_CONSTRUCTION;
-	break;
-    case NAV_60:
-	if (sect->sct_effic < 60)
-	    return CN_CONSTRUCTION;
-	break;
-    default:
-	return CN_LANDLOCKED;
-    }
-    return CN_NAVIGABLE;
-}
-#endif
-
 static int
 findcondition(s_char code)
 {

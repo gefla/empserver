@@ -628,16 +628,6 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		}
 		return 0;
 	    }
-#if 0
-	    if (sp->shp_nland >= mchr[(int)sp->shp_type].m_nland) {
-		if (noisy)
-		    if (mchr[(int)sp->shp_type].m_nland)
-			pr("%s doesn't have room for any more land units!\n", prship(sp));
-		    else
-			pr("%s cannot carry land units!\n", prship(sp));
-		break;
-	    }
-#endif
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
 	    gift(sp->shp_own, player->cnum, (s_char *)&land, EF_LAND, buf);

@@ -144,27 +144,6 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
     return (int)100 - (eff * 100);
 }
 
-/*
- * Determine if any nearby gun-equipped sectors are within
- * range and able to fire at an attacker.  Firing sectors
- * need to have guns, shells, and military.  Sector being
- * attacked is x,y -- attacker is at ax,ay.
- */
-#if 0
-/* defdef isn't called anywhere, and uses wrong
- * number of arguments for dd */
-int
-defdef(att, def_own, defval, ax, ay)
-natid att;
-natid def_own;
-int defval;
-coord ax;
-coord ay;
-{
-    return dd(att, def_own, defval, ax, ay, NOISY, 1);
-}
-#endif
-
 int
 dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 {
