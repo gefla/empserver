@@ -86,7 +86,10 @@ stre(void)
 	else
 	    pr("%7s", "");
 
-	r_total = att_reacting_units(def, 0, 0, &dummy, 9999999);
+	if (def->sct_type != SCT_MOUNT)
+	    r_total = att_reacting_units(def, 0, 0, &dummy, 9999999);
+	else
+	    r_total = 0.0;
 	def->own = 0;
 	eff = att_combat_eff(def);
 	if (sect.sct_own == sect.sct_oldown || player->god) {
@@ -105,6 +108,12 @@ stre(void)
 	else
 	    pr(" %9s", "");
 	pr("%9d\n", (int)((dtotal + def->mil + r_total) * eff));
+	/*
+	 * This command is quite compute intensive.  Yield the
+	 * processor after every sector, to keep the game responsive
+	 * for other players.
+	 */
+	empth_yield();
     }
     if (!nsect) {
 	if (player->argp[1])
