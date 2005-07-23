@@ -109,18 +109,10 @@ player_init(void)
 	logerror("inet socket bind");
 	exit(1);
     }
-#ifdef LISTENMAXCONN		/* because someone in linux world didn't want to use
-				 * SOMAXCONN as defined in the header files... */
-    if (listen(s, LISTENMAXCONN) < 0) {
-	logerror("inet socket listen");
-	exit(1);
-    }
-#else
     if (listen(s, SOMAXCONN) < 0) {
 	logerror("inet socket listen");
 	exit(1);
     }
-#endif
     player_socket = s;
 }
 
