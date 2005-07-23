@@ -59,6 +59,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
+static int status(void);
+
 struct player *player;
 
 void
@@ -183,7 +185,7 @@ command(void)
     return 1;
 }
 
-int
+static int
 status(void)
 {
     struct natstr *natp;
