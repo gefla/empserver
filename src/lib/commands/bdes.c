@@ -57,7 +57,8 @@ bdes(void)
 	    continue;
 	d = player->map[sctoff(nstr.x, nstr.y)];
 	sprintf(prompt, "%s '%c'  desig? ",
-		xyas(nstr.x, nstr.y, player->cnum), d);
+		xyas(nstr.x, nstr.y, player->cnum),
+		d ? d : ' ');
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	    continue;
 	if (!isprint(*p)) {
