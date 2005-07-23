@@ -128,11 +128,7 @@ empth_init(void **ctx_ptr, int flags)
 
 
     pthread_key_create(&ctx_key, 0);
-#ifdef _DECTHREADS_
-    pthread_mutex_init(&mtx_ctxsw, pthread_mutexattr_default);
-#else
     pthread_mutex_init(&mtx_ctxsw, 0);
-#endif
 
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
@@ -188,37 +184,18 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     ctx->state = 0;
     ctx->ep = entry;
 
-#ifdef _DECTHREADS_
-    eno = pthread_attr_init(&attr) ? errno : 0;
-#else
     eno = pthread_attr_init(&attr);
-#endif
     if (eno) {
 	logerror("can not create thread attribute %s (%s): %s", name, desc,
 		 strerror(eno));
 	goto bad;
     }
-#if defined(__linux__)
-    /* Linux doesn't let you adjust the stack */
-#elif defined(_DECTHREADS_)
-    /* DEC does not have PTHREAD_STACK_MIN constant */
-    /* Do not go below default size                 */
-    if (size > pthread_attr_getstacksize(attr))
-	pthread_attr_setstacksize(&attr, size);
-#else
     if (size < PTHREAD_STACK_MIN)
 	size = PTHREAD_STACK_MIN + 1;
-
     pthread_attr_setstacksize(&attr, size);
-#endif
-
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
-#ifdef _DECTHREADS_
-    eno = pthread_create(&t, attr, empth_start, ctx) ? errno : 0;
-#else
     eno = pthread_create(&t, &attr, empth_start, ctx);
-#endif
     if (eno) {
 	logerror("can not create thread: %s (%s): %s", name, desc,
 		 strerror(eno));
@@ -239,11 +216,7 @@ empth_restorectx(void)
 {
     empth_t *ctx_ptr;
 
-#ifdef _DECTHREADS_
-    pthread_getspecific(ctx_key, (pthread_addr_t *) & ctx_ptr);
-#else
     ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
-#endif
     *udata = ctx_ptr->ud;
     if (ctx_ptr->state == EMPTH_KILLED) {
 	empth_status("i am dead");
@@ -255,14 +228,7 @@ empth_restorectx(void)
 empth_t *
 empth_self(void)
 {
-#ifdef _DECTHREADS_
-    empth_t *ctx_ptr;
-
-    pthread_getspecific(ctx_key, (pthread_addr_t *) & ctx_ptr);
-    return ctx_ptr;
-#else
     return (empth_t *)pthread_getspecific(ctx_key);
-#endif
 }
 
 void
@@ -272,18 +238,11 @@ empth_exit(void)
 
     pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("empth_exit");
-#ifdef _DECTHREADS_
-    pthread_getspecific(ctx_key, (pthread_addr_t *) & ctx_ptr);
-#else
     ctx_ptr = (empth_t *)pthread_getspecific(ctx_key);
-#endif
     /* We want to leave the main thread around forever, until it's time
        for it to die for real (in a shutdown) */
     if (!strcmp(ctx_ptr->name, "Main")) {
 	while (1) {
-#ifdef _DECTHREADS_
-	    pthread_yield();
-#endif
 	    sleep(60);
 	}
     }
@@ -308,12 +267,7 @@ empth_terminate(empth_t *a)
        __FILE__, __LINE__); */
     empth_status("killing thread %s", a->name);
     a->state = EMPTH_KILLED;
-#ifndef _DECTHREADS_
-    /* DEC and OSX do not have pthread_kill. Not sure that cancel is correct. */
-#if (!defined __ppc__)
     pthread_kill(a->id, SIGALRM);
-#endif
-#endif
     return;
 }
 
@@ -397,11 +351,7 @@ void
 empth_wakeup(empth_t *a)
 {
     empth_status("waking up thread %s", a->name);
-#ifndef _DECTHREADS_
-#if (!defined __ppc__)
     pthread_kill(a->id, SIGALRM);
-#endif
-#endif
     empth_status("waiting for it to run");
     /* empth_yield(); */
 }
@@ -436,15 +386,9 @@ empth_sem_create(char *name, int cnt)
     }
     strncpy(sm->name, name, sizeof(sm->name) - 1);
     sm->count = cnt;
-#ifdef _DECTHREADS_
-    pthread_mutex_init(&sm->mtx_update, pthread_mutexattr_default);
-    pthread_mutex_init(&sm->mtx_sem, pthread_mutexattr_default);
-    pthread_cond_init(&sm->cnd_sem, pthread_condattr_default);
-#else
     pthread_mutex_init(&sm->mtx_update, 0);
     pthread_mutex_init(&sm->mtx_sem, 0);
     pthread_cond_init(&sm->cnd_sem, 0);
-#endif
     return sm;
 }
 

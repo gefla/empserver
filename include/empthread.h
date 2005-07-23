@@ -80,9 +80,6 @@ typedef struct lwpSem empth_sem_t;
 #endif /* _EMPTH_LWP */
 
 #ifdef _EMPTH_POSIX
-#ifdef __linux__
-#define _MIT_POSIX_THREADS 1
-#endif
 #include <pthread.h>
 #define EMPTH_FD_READ   0x1
 #define EMPTH_FD_WRITE  0x2
@@ -109,15 +106,6 @@ typedef struct {
 } empth_sem_t;
 
 #endif /* _EMPTH_POSIX */
-
-/* DEC has slightly different names for whatever reason... */
-#ifdef _DECTHREADS_
-#define pthread_key_create  pthread_keycreate
-#define pthread_attr_init   pthread_attr_create
-#define pthread_attr_destroy pthread_attr_delete
-
-#endif
-
 
 #if defined(_EMPTH_WIN32)
 /* The Windows NT Threads */
