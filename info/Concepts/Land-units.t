@@ -45,8 +45,8 @@ goes below 75%. This is user settable in a range determined by the happiness
 of the owning country. The happier your people are, the more determinedly
 they fight. If, on the other hand, you \*Qwant\*U the unit to retreat easily,
 you can set this to 100% or some other high number. (For information on
-setting this, see info morale. For information on morale checks, see info
-attack)
+setting this, see info \*Qmorale\*U. For information on morale checks, see info
+\*QAttacking\*U)
 .s1
 The 'rd' field is referred to as the unit's 'reaction radius',
 and is the distance to which the unit can react to defend your country.
@@ -54,9 +54,9 @@ Basically, if an enemy attacks a sector close enough to the unit, it will go
 to the threatened sector and fight, like a plane intercepting. If it survives
 the attack without failing a morale check, it will return to the sector it
 started from, just like a plane would. (For more information on reacting and
-morale checks, see info attack) Just as you can use rangeedit to change the
-range of your planes and control how far away they'll intercept, so you can
-change the reaction radius with \*Qlrangedit\*U. Units with a base reaction
+morale checks, see info \*QAttacking\*U) Just as you can use \*Qrange\*U to change the
+range of your planes and control how far away they'll intercept, you can
+change the reaction radius for land units with \*Qlrange\*U. Units with a base reaction
 radius of 0, or those whose radius you have set to 0, will not react.
 .s1
 .L Cargo
@@ -176,17 +176,17 @@ A unit with a low spy won't be very good at locating other units, and won't
 be able to report much when it encounters them in battle. A high-spy unit
 will be able to use the \*Qllookout\*U command with more chance of success, and 
 will be able to more accurately report information about the units it runs
-into in battle. (See info \*Qattack\*U for information about intelligence
+into in battle. (See info \*QAttacking\*U for information about intelligence
 reports) Units with radar capacity also use their spy value to determine how
 far they can see. Spy values range from 0-127, with low numbers being most
 common.
 .s1
 Don't confuse this spy value with the "spy" capability of a unit.  See
-"info Spies" for more information.
+"info \*QSpies\*U" for more information.
 .s1
 Rad is the maximum reaction radius for the unit. When built, the unit will
 have this as its reaction radius. If you change the reaction radius by using
-the \*Qlrangedit\*U command, you will be able to select any value that is
+the \*Qlrange\*U command, you will be able to select any value that is
 between 0 and the maximum.
 .s1
 Frg is the unit's firing range. The unit can fire as far as the frg, modified
@@ -200,8 +200,8 @@ Ammo is the number of shells a land unit uses every time it fires or
 participates in combat. If the unit does not have enough shells when
 firing, damage will be reduced proportionately. If a unit does not have
 enough shells in combat, it will be out of supply, and have its combat
-strength cut in half. (See info \*Qsupply\*U and info \*Qattack\*U for
-information on supply and how it affects combat.
+strength cut in half. (See info \*Qsupply\*U and info \*QAttacking\*U for
+information on supply and how it affects combat)
 .s1
 Aaf is the unit's anti-aircraft fire value. The higher the value, the more
 damage the unit will do to planes flying overhead.
@@ -236,22 +236,22 @@ various capabilities.
 .s1
 Land units move with the \*Qmarch\*U command, which is pretty identical to the
 navigate command. Marching units can run into land-mines, be interdicted, etc.
-See info \*Qmarch\*U for more info. See info \*Qmission\*U for information on
+See info \*Qmarch\*U for more information. See info \*Qmission\*U for information on
 interdiction.
 .s1
 .L "Units & ships"
 .s1
 Each type of ship is rated on the number of land units it can carry.
 Land units that are 'light' can be loaded onto ships using the normal \*Qload\*U
-command (see info load). Units that also have the 'assault' ability (see info
+command (see info \*Qload\*U). Units that also have the 'assault' ability (see info
 \*Qshow\*U and info \*QUnit-types\*U for explanations of abilities) can be
-used in assaulting sectors. (See info \*Qassault\*U).
+used in assaulting sectors. (See info \*Qassault\*U)
 .s1
 .L Supply
 .s1
 Units need supplies in order to attack. Each update, and each time they
 attack, units will attempt to draw supplies. See info \*Qsupply\*U.
-Really, I'm serious. If you don't read info supply, you'll die a horrible
+Really, I'm serious. If you don't read info \*Qsupply\*U, you'll die a horrible
 death. I'm not kidding.
 .s1
 .L Fortification
@@ -270,14 +270,14 @@ look command used by ships. When llooking, land units have a chance to spot
 other land units and also planes. Recon units tend to have better spy values,
 and so are better at this.
 (See info \*Qshow\*U and info \*QUnit-types\*U to
-find out more about recon units).
+find out more about recon units)
 .s1
 .L Radar
 .s1
 Some units can use the \*Qlradar\*U command. This command works like the
 radar command. Radar range is determined by the unit's spy value.
 (See info \*Qshow\*U and info \*QUnit-types\*U to
-find out more about radar units).
+find out more about radar units)
 .s1
 .L Engineers
 .s1
@@ -290,7 +290,7 @@ They also tend to be quite expensive.
 .s1
 .L "Attacking & defending"
 .s1
-Info \*Qattack\*U has a complete treatment of this, but I will summarize here.
+Info \*QAttacking\*U has a complete treatment of this, but I will summarize here.
 When you decide to attack a sector, you can use mil and units from adjacent
 sectors. The attack value of your forces is the combined attack values of all
 attacking land units, plus the number of mil coming in from adjacent sectors.
@@ -313,7 +313,7 @@ total strength is determined similarly. Both sides have their strength modified
 by the terrain. (show sector stats will show the defensive value of a sector)
 He can also get support
 by having mine-fields in the sector (see info \*Qlmine\*U and info
-\*Qattack\*U for more information). Planes support only if assigned to a
+\*QAttacking\*U for more information). Planes support only if assigned to a
 support mission. See info \*Qmission\*U for information on support missions.
 .s1
 Combat is done fairly normally, with a series of rolls for attacker/
