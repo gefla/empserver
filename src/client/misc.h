@@ -65,6 +65,8 @@ HANDLE hStdIn;
 #define getsose() ((void)0)
 #define putso() ((void)0)
 #define putse() ((void)0)
+#define pclose _pclose
+#define popen _popen
 #else
 void getsose(void);
 void putso(void);

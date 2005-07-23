@@ -130,9 +130,7 @@ prompt(FILE *auxfi)
 	    (void)fclose(redir_fp);
 	    redir_fp = NULL;
 	} else if (pipe_fp) {
-#ifndef _WIN32
 	    (void)pclose(pipe_fp);
-#endif
 	    pipe_fp = NULL;
 	} else if (exec_fd > 0) {
 	    close(exec_fd);
@@ -225,11 +223,7 @@ dopipe(char *p)
 	free(tag);
 	return;
     }
-#ifndef _WIN32
     if ((pipe_fp = popen(p, "w")) == NULL) {
-#else
-    if (1) {
-#endif
 	fprintf(stderr, "Pipe open failed\n");
 	perror(p);
     }
