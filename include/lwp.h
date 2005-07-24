@@ -89,7 +89,6 @@ void *lwpGetUD(struct lwpProc * p);
 void lwpSetUD(struct lwpProc * p, char *ud);
 void lwpSetDesc(struct lwpProc * p, char *name, char *desc);
 int lwpSetPriority(int prio);
-void lwpReschedule(void);
 
 struct lwpSem *lwpCreateSem(char *name, int count);
 void lwpSignal(struct lwpSem *);

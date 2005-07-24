@@ -84,7 +84,7 @@ typedef struct {
 void lwpAddTail(struct lwpQueue *, struct lwpProc *);
 struct lwpProc *lwpGetFirst(struct lwpQueue *);
 void lwpReady(struct lwpProc *);
-void lwpOnalarm(void);
+void lwpReschedule(void);
 
 #ifdef UCONTEXT
 void lwpInitContext(struct lwpProc *, stack_t *);
