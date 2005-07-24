@@ -72,7 +72,6 @@ getcommand(char *combufp)
 {
     struct natstr *natp = getnatp(player->cnum);
     char buf[1024];		/* user text */
-    int i;
 
     if (++player_commands_index >= KEEP_COMMANDS)
 	player_commands_index = 0;
