@@ -357,7 +357,6 @@ int
 prmptrd(char *prompt, char *buf, int size)
 {
     int r;
-    char *cp;
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(buf, size)) < 0)
@@ -384,7 +383,6 @@ int
 uprmptrd(char *prompt, char *buf, int size)
 {
     int r;
-    char *cp;
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(buf, size)) < 0)
