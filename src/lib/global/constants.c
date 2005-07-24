@@ -124,14 +124,6 @@ double uwbrate = 0.0025;	/* uncompensated worker birth rate */
 int rollover_avail_max = 0;	/* max. avail that can roll over an update */
 
 /* opt_FALLOUT */
-/* these are the radioactive decay constants */
-/* fraction of commodity destroyed is
-   etus*fallout/(1000*melt_item_denom[item])
-   higher denominators for tougher commodities */
-int melt_item_denom[] = {
-/* civ  mil shell gun  pet iron dust  bar food  oil  lcm  hcm uw  rads */
-     4,  20,  80, 100,  50, 100, 100, 200,   2,  50, 100, 100, 2, 1000
-};
 double decay_per_etu = 0.006;	/* This gives a half life of ? etus,
 				   about ? days.
 				   half life in Jt

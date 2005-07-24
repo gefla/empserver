@@ -171,7 +171,7 @@ meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
 
     for (n = I_NONE + 1; n <= I_MAX; n++) {
 	melt = roundavg(vec[n] * etus * (long)fallout
-			/ (1000.0 * melt_item_denom[n]));
+			/ (1000.0 * ichr[n].i_melt_denom));
 	if (melt > vec[n])
 	    melt = vec[n];
 	if (melt > 5 && own) {
@@ -193,12 +193,10 @@ meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
 }
 
 /*
- * do_fallout - calculate fallout for sectors.
- *
- * This is etu based.  But, do limit HUGE kill offs in large ETU
- * games, the melting etus rate is limited to 24 etus.
+ * Do fallout meltdown for sector SP.
+ * ETUS above 24 are treated as 24 to avoid *huge* kill offs in
+ * large ETU games.
  */
-
 void
 do_fallout(struct sctstr *sp, int etus)
 {

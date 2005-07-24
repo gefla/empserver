@@ -74,6 +74,7 @@ struct ichrstr {
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */
     int i_pkg[NUMPKG];		/* units for reg, ware, urb, bank */
+    int i_melt_denom;		/* fallout meltdown denominator */
     char *i_name;		/* full name of item */
 };
 
