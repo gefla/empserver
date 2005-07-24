@@ -80,8 +80,7 @@ empth_exit(void)
 void
 empth_yield(void)
 {
-    /* a hack! */
-    lwpReschedule();
+    lwpYield();
 }
 
 void
