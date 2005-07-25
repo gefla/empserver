@@ -177,15 +177,15 @@ meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
 	if (melt > 5 && own) {
 	    if (type == EF_SECTOR)
 		wu(0, own, "Lost %d %s to radiation in %s.\n",
-		   melt < vec[n] ? melt : vec[n], ichr[n].i_name,
+		   melt, ichr[n].i_name,
 		   xyas(x, y, own));
 	    else if (type == EF_LAND)
 		wu(0, own, "Unit #%d lost %d %s to radiation in %s.\n",
-		   uid, melt < vec[n] ? melt : vec[n], ichr[n].i_name,
+		   uid, melt, ichr[n].i_name,
 		   xyas(x, y, own));
 	    else if (type == EF_SHIP)
 		wu(0, own, "Ship #%d lost %d %s to radiation in %s.\n",
-		   uid, melt < vec[n] ? melt : vec[n], ichr[n].i_name,
+		   uid, melt, ichr[n].i_name,
 		   xyas(x, y, own));
 	}
 	vec[n] -= melt;
