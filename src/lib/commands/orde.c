@@ -401,7 +401,7 @@ qorde(void)
 		pr(" scuttling");
 	    pr("\n");
 	} else
-	    pr("has a sail path\n");
+	    pr(" has a sail path\n");
 
 	if (opt_SHIPNAMES && ship.shp_name[0] != 0) {
 	    if (player->god)
@@ -420,10 +420,6 @@ qorde(void)
     return RET_OK;
 }
 
-/*  Chad Zabel 1-15-94
- *  New command added to display autonav stats.
- */
-
 int
 sorde(void)
 {
@@ -439,26 +435,24 @@ sorde(void)
     while (nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, nb.cur);
+	if (!(ship.shp_autonav & AN_AUTONAV)
+	    && (!opt_SAIL || !ship.shp_path[0]))
 	    continue;
-	}
-	if ((ship.shp_autonav & AN_AUTONAV) ||
-	    (ship.shp_path[0] && opt_SAIL)) {
-	    if (!nships) {	/* 1st ship, print banner */
-		if (player->god)
-		    pr("own ");
-		pr("shp#     ship type      x,y    ");
-		pr("start    end   ");
-		pr("len  eta\n");
-	    }
-	    nships++;
+
+	if (!nships) {		/* 1st ship, print banner */
 	    if (player->god)
-		pr("%3d ", ship.shp_own);
-	    pr("%4d", nb.cur);
-	    pr(" %-16.16s", mchr[(int)ship.shp_type].m_name);
-	    prxy(" %3d,%-3d", ship.shp_x, ship.shp_y, player->cnum);
+		pr("own ");
+	    pr("shp#     ship type      x,y    ");
+	    pr("start    end   ");
+	    pr("len  eta\n");
 	}
+	nships++;
+	if (player->god)
+	    pr("%3d ", ship.shp_own);
+	pr("%4d", nb.cur);
+	pr(" %-16.16s", mchr[(int)ship.shp_type].m_name);
+	prxy(" %3d,%-3d", ship.shp_x, ship.shp_y, player->cnum);
+
 	if (ship.shp_autonav & AN_AUTONAV) {
 	    /* Destination 1 */
 	    prxy(" %3d,%-3d", ship.shp_destx[1],
@@ -497,18 +491,13 @@ sorde(void)
 	    if (ship.shp_autonav & AN_SCUTTLE)
 		pr(" (scuttling)");
 	    pr("\n");
-	}
-	if (opt_SHIPNAMES) {
-	    if ((ship.shp_autonav & AN_AUTONAV) ||
-		(ship.shp_path[0] && opt_SAIL)) {
-		if (!(ship.shp_autonav & AN_AUTONAV))
-		    pr("\n");
-		if (ship.shp_name[0] != 0) {
-		    if (player->god)
-			pr("    ");
-		    pr("       %s\n", ship.shp_name);
-		}
-	    }
+	} else
+	    pr(" has a sail path\n");
+
+	if (opt_SHIPNAMES && ship.shp_name[0] != 0) {
+	    if (player->god)
+		pr("    ");
+	    pr("       %s\n", ship.shp_name);
 	}
     }
     if (!nships) {
