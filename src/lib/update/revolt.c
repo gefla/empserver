@@ -332,12 +332,6 @@ guerrilla(struct sctstr *sp)
 	sp->sct_mobil = oldmob;
 	civ += uw;
 	uw = 0;
-	/*
-	 * so we can't keep losing money by having
-	 * our cap retaken
-	 */
-	if (sp->sct_type == SCT_CAPIT && sp->sct_newtype == SCT_CAPIT)
-	    sp->sct_newtype = SCT_AGRI;
 	n = civ / 20;
 	civ -= n;
 	if (civ > ITEM_MAX) {

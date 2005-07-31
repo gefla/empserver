@@ -45,7 +45,6 @@
 #include "optlist.h"
 
 static int checksect(struct sctstr *);
-static void give_back_cap(struct sctstr *sp);
 
 /*ARGSUSED*/
 int
@@ -128,15 +127,8 @@ checksect(struct sctstr *sp)
 		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 		sp->sct_own = 0;
 		sp->sct_oldown = 0;
-	    } else {
-		/* if oldown gets his cap back make agri */
-		if (sp->sct_oldown &&
-		    player->cnum == sp->sct_own &&
-		    sp->sct_type == SCT_CAPIT &&
-		    sp->sct_newtype == SCT_CAPIT)
-		    give_back_cap(sp);
+	    } else
 		takeover(sp, sp->sct_oldown);
-	    }
 	    sp->sct_mobil = 0;
 	}
     }
@@ -155,17 +147,6 @@ issector(s_char *arg)
 	    return 1;
 
     return 0;
-}
-
-static void
-give_back_cap(struct sctstr *sp)
-{
-    struct natstr *natp = getnatp(sp->sct_oldown);
-
-    if (xrel(natp, natp->nat_xcap) == xrel(natp, sp->sct_x) &&
-	yrel(natp, natp->nat_ycap) == yrel(natp, sp->sct_y)) {
-	sp->sct_newtype = SCT_AGRI;
-    }
 }
 
 void
