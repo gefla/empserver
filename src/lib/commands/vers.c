@@ -45,13 +45,12 @@
 #include "optlist.h"
 #include "commands.h"
 
+static void show_opts(int val);
+
 int
 vers(void)
 {
-    struct option_list *op;
-
     time_t now;
-    int j;
 
     (void)time(&now);
     pr("Empire %d.%d.%d\n(KSU distribution %2.2f, Chainsaw version %2.2f, Wolfpack version %2.2f)\n\n", EMP_VERS_MAJOR, EMP_VERS_MINOR, EMP_VERS_PATCH, (float)KSU_DIST, (float)CHAINSAW_DIST, (float)WOLFPACK_DIST);
@@ -85,7 +84,7 @@ vers(void)
     pr("1000 babies eat %.1f units of food becoming adults.\n",
        1000.0 * babyeat);
     if (opt_NOFOOD)
-	pr("No food is needed!!\n");
+	pr("No food is needed!\n");
 
     pr("\n");
 
@@ -160,33 +159,38 @@ vers(void)
     pr("Fire ranges are scaled by %.2f\n", fire_range_factor);
 
     pr("\nOptions enabled in this game:\n        ");
-    for (j = 0, op = Options; op->opt_key; op++) {
-	if (*op->opt_valuep == 0)
-	    continue;
-
-	j += strlen(op->opt_key) + 2;
-	if (j > 70) {
-	    pr("\n        ");
-	    j = strlen(op->opt_key) + 2;
-	}
-	pr("%s%s", op->opt_key, op[1].opt_key == NULL ? "" : ", ");
-    }
+    show_opts(1);
     pr("\n\nOptions disabled in this game:\n        ");
-    for (j = 0, op = Options; op->opt_key; op++) {
-	if (!(*op->opt_valuep == 0))
-	    continue;
-
-	j += strlen(op->opt_key) + 2;
-	if (j > 70) {
-	    pr("\n        ");
-	    j = strlen(op->opt_key) + 2;
-	}
-	pr("%s%s", op->opt_key, op[1].opt_key == NULL ? "" : ", ");
-    }
-    pr("\n\n\"info Options\" for a detailed list of options and descriptions");
+    show_opts(0);
+    pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.");
     pr("\n\n");
     pr("The person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n",
        privname, privlog);
     pr("You can get your own copy of the source %s\n", GET_SOURCE);
     return RET_OK;
+}
+
+
+static void
+show_opts(int val)
+{
+    int col;
+    char *sep;
+    struct option_list *op;
+
+    sep = "";
+    col = 0;
+    for (op = Options; op->opt_key; op++) {
+	if (!*op->opt_valuep != !val)
+	    continue;
+
+	col += strlen(sep) + strlen(op->opt_key);
+	if (col > 70) {
+	    pr(",\n        ");
+	    sep = "";
+	    col = strlen(op->opt_key);
+	}
+	pr("%s%s", sep, op->opt_key);
+	sep = ", ";
+    }
 }
