@@ -270,7 +270,7 @@ wrgamesdef(char *filename)
     fprintf(fp, "#define EMPDIR \"%s\"\n", EP);
     fprintf(fp, "#define PRVNAM \"%s\"\n", PV);
     fprintf(fp, "#define PRVLOG \"%s\"\n", EM);
-    fprintf(fp, "#define GET_SOURCE \"using:\\n    ftp://ftp.wolfpackempire.com/pub/empire/server or \\n    http://www.wolfpackempire.com/\"\n");
+    fprintf(fp, "#define GET_SOURCE \"using:\\n    http://www.wolfpackempire.com/\"\n");
     fprintf(fp, "#define EMP_HOST \"%s\"\n", IP);
     fprintf(fp, "#define EMP_PORT \"%d\"\n\n", PN);
     fprintf(fp, "#define MAXNOC %d\n\n", MC);
