@@ -77,11 +77,8 @@ carg(void)
 	pr("%4d", ship.shp_item[I_LCM]);
 	pr("%4d", ship.shp_item[I_HCM]);
 	pr("%4d\n", ship.shp_item[I_RAD]);
-	if (opt_SHIPNAMES) {
-	    if (ship.shp_name[0] != 0) {
-		pr("       %s\n", ship.shp_name);
-	    }
-	}
+	if (ship.shp_name[0] != 0)
+	    pr("       %s\n", ship.shp_name);
     }
     if (nships == 0) {
 	if (player->argp[1])

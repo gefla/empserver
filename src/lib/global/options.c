@@ -243,12 +243,6 @@ int opt_SAIL = 1;
 int opt_SAIL = 0;
 #endif
 
-#ifdef SHIPNAMES
-int opt_SHIPNAMES = 1;
-#else
-int opt_SHIPNAMES = 0;
-#endif
-
 #ifdef NEUTRON
 int opt_NEUTRON = 1;
 #else
@@ -318,7 +312,6 @@ struct option_list Options[] = {
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
     {"RES_POP", &opt_RES_POP},
     {"SAIL", &opt_SAIL},
-    {"SHIPNAMES", &opt_SHIPNAMES},
     {"SHOWPLANE", &opt_SHOWPLANE},
     {"SLOW_WAR", &opt_SLOW_WAR},
     {"SNEAK_ATTACK", &opt_SNEAK_ATTACK},

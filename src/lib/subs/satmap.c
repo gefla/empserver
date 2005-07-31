@@ -152,11 +152,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	if (flags & P_S) {
 	    pr("Satellite ship report\n");
 	    prdate();
-	    if (opt_SHIPNAMES) {
-		pr(" own  shp# ship type                                  sector   eff\n");
-	    } else {
-		pr(" own  shp# ship type         sector   eff\n");
-	    }
+	    pr(" own  shp# ship type                                  sector   eff\n");
 	}
 	while (nxtitem(&ni, &ship)) {
 	    if (ship.shp_own == 0)
@@ -169,11 +165,9 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    if (noise[crackle])
 		continue;
 	    if (flags & P_S) {
-		pr("%4d %4d %-16.16s ",
+		pr("%4d %4d %-16.16s %-25.25s ",
 		   ship.shp_own, ship.shp_uid,
-		   mchr[(int)ship.shp_type].m_name);
-		if (opt_SHIPNAMES)
-		    pr("%-25.25s ", ship.shp_name);
+		   mchr[(int)ship.shp_type].m_name, ship.shp_name);
 		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 		pr("%3d%%\n", ship.shp_effic);
 		++count;
@@ -313,17 +307,12 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
 	    continue;
 	if (first) {
-	    if (opt_SHIPNAMES) {
-		pr("\t own  shp# ship type                                  sector   eff\n");
-	    } else {
-		pr("\t own  shp# ship type         sector   eff\n");
-	    }
+	    pr("\t own  shp# ship type                                  sector   eff\n");
 	    first = 0;
 	}
-	pr("\t%4d %4d %-16.16s ", ship.shp_own, ship.shp_uid,
-	   mchr[(int)ship.shp_type].m_name);
-	if (opt_SHIPNAMES)
-	    pr("%-25.25s ", ship.shp_name);
+	pr("\t%4d %4d %-16.16s %-25.25s ",
+	   ship.shp_own, ship.shp_uid,
+	   mchr[(int)ship.shp_type].m_name, ship.shp_name);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 	pr("%3d%%\n", ship.shp_effic);
     }

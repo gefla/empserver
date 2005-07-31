@@ -133,16 +133,10 @@ pr_com(int inon, struct combat *com, natid who)
 		     inon ? inon == 1 ? "in " : "into " : "",
 		     xyas(com->x, com->y, who));
     } else if (com->type == EF_SHIP) {
-	if (opt_SHIPNAMES) {
-	    return prbuf("%s%s %s(#%d)",
-			 inon ? inon == 1 ? "on " : "onto " : "",
-			 com->shp_mcp->m_name, com->shp_name,
-			 com->shp_uid);
-	} else {
-	    return prbuf("%s%s #%d",
-			 inon ? inon == 1 ? "on " : "onto " : "",
-			 com->shp_mcp->m_name, com->shp_uid);
-	}
+	return prbuf("%s%s %s(#%d)",
+		     inon ? inon == 1 ? "on " : "onto " : "",
+		     com->shp_mcp->m_name, com->shp_name,
+		     com->shp_uid);
     } else if (com->type == EF_LAND) {
 	return prbuf("%s%s #%d",
 		     inon ? inon == 1 ? "on " : "onto " : "",
@@ -266,8 +260,7 @@ att_get_combat(struct combat *com, int isdef)
 	    return att_combat_init(com, EF_BAD);
 	}
 	com->shp_mcp = &mchr[(int)ship.shp_type];
-	if (opt_SHIPNAMES)
-	    strncpy(com->shp_name, ship.shp_name, MAXSHPNAMLEN);
+	strncpy(com->shp_name, ship.shp_name, MAXSHPNAMLEN);
 	if (!isdef && !player->owner) {
 	    if (com->set)
 		pr("%s was just sunk!\n", prcom(0, com));

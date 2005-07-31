@@ -51,10 +51,6 @@ name(void)
     struct nstr_item nb;
     s_char buf[1024];
 
-    if (!opt_SHIPNAMES) {
-	pr("Ship naming is not enabled.\n");
-	return RET_FAIL;
-    }
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     while (nxtitem(&nb, &ship)) {

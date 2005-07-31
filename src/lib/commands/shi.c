@@ -94,12 +94,10 @@ shi(void)
 	if (opt_FUEL)
 	    pr("%5d", ship.shp_fuel);
 	pr("%5d\n", ship.shp_tech);
-	if (opt_SHIPNAMES) {
-	    if (ship.shp_name[0] != 0) {
-		if (player->god)
-		    pr("    ");
-		pr("       %s\n", ship.shp_name);
-	    }
+	if (ship.shp_name[0] != 0) {
+	    if (player->god)
+		pr("    ");
+	    pr("       %s\n", ship.shp_name);
 	}
     }
     if (nships == 0) {

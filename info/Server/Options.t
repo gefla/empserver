@@ -8,7 +8,6 @@ SHOWPLANE:	planes/units on ships/units up for trade are shown
 PINPOINT(etc):	Missile exist which target ships instead of sectors
 SAIL:		another way to automatically move ships (may also be buggy)
 NUKEFAIL(etc):	nukes on missiles that explode in launching may detonate
-SHIPNAMES:	ships may be named
 DEMANDUPDATE:	updates may be allowed on player demand
 UPDATESCHED:	updates can be controlled by the 'hours' file. NITP
 

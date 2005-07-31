@@ -403,7 +403,7 @@ qorde(void)
 	} else
 	    pr(" has a sail path\n");
 
-	if (opt_SHIPNAMES && ship.shp_name[0] != 0) {
+	if (ship.shp_name[0] != 0) {
 	    if (player->god)
 		pr("    ");
 	    pr("       %s\n", ship.shp_name);
@@ -494,7 +494,7 @@ sorde(void)
 	} else
 	    pr(" has a sail path\n");
 
-	if (opt_SHIPNAMES && ship.shp_name[0] != 0) {
+	if (ship.shp_name[0] != 0) {
 	    if (player->god)
 		pr("    ");
 	    pr("       %s\n", ship.shp_name);

@@ -75,12 +75,10 @@ show_sail(struct nstr_item *nstr)
 	    pr("Has orders");
 	}
 	pr("\n");
-	if (opt_SHIPNAMES) {
-	    if (ship.shp_name[0] != 0) {
-		if (player->god)
-		    pr("    ");
-		pr("       %s\n", ship.shp_name);
-	    }
+	if (ship.shp_name[0] != 0) {
+	    if (player->god)
+		pr("    ");
+	    pr("       %s\n", ship.shp_name);
 	}
     }
     if (count == 0) {

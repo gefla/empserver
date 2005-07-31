@@ -126,12 +126,7 @@ shp_init(int n, s_char *ptr)
 s_char *
 prship(struct shpstr *sp)
 {
-    if (opt_SHIPNAMES) {
-	return prbuf("%s %s(#%d)",
-		     mchr[(int)sp->shp_type].m_name, sp->shp_name,
-		     sp->shp_uid);
-    } else {
-	return prbuf("%s #%d", mchr[(int)sp->shp_type].m_name,
-		     sp->shp_uid);
-    }
+    return prbuf("%s %s(#%d)",
+		 mchr[(int)sp->shp_type].m_name, sp->shp_name,
+		 sp->shp_uid);
 }

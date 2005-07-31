@@ -81,7 +81,6 @@ extern int opt_PINPOINTMISSILE;
 extern int opt_RES_POP;
 extern int opt_ROLLOVER_AVAIL;
 extern int opt_SAIL;
-extern int opt_SHIPNAMES;
 extern int opt_SHOWPLANE;
 extern int opt_SLOW_WAR;
 extern int opt_SNEAK_ATTACK;
