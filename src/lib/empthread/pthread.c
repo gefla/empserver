@@ -287,7 +287,6 @@ void
 empth_yield(void)
 {
     pthread_mutex_unlock(&mtx_ctxsw);
-    sleep(10);			/* take a nap  pthread_yield(); */
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
 }
