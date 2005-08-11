@@ -180,9 +180,9 @@ Index: empserver/src/lib/gen/chance.c
  
  /*
 Index: empserver/src/lib/subs/attsub.c
---- empserver/src/lib/subs/attsub.c	16 Mar 2005 21:57:53 -0000	1.23
-+++ empserver/src/lib/subs/attsub.c	17 Mar 2005 10:01:14 -0000
-@@ -1924,12 +1924,12 @@
+--- empserver/src/lib/subs/attsub.c	31 Jul 2005 16:54:59 -0000	1.28
++++ empserver/src/lib/subs/attsub.c	11 Aug 2005 09:14:25 -0000
+@@ -1917,12 +1917,12 @@
       * recalculate the odds every 8-50 casualties, not every cacsualty,
       * since a single dead guy normally wouldn't cause a commander to
       * rethink his strategies, but 50 dead guys might. */
@@ -197,7 +197,7 @@ Index: empserver/src/lib/subs/attsub.c
      while (!success && ototal) {
  	if (chance(odds)) {
  	    pr("!");
-@@ -1945,9 +1945,9 @@
+@@ -1938,9 +1938,9 @@
  	if (((a_cas + d_cas) % 70) == 69)
  	    pr("\n");
  	if (recalctime-- <= 0) {
@@ -334,8 +334,8 @@ Index: empserver/src/lib/update/populace.c
  	if (n < 0)
  	    n = 0;
 Index: empserver/src/lib/update/revolt.c
---- empserver/src/lib/update/revolt.c	16 Mar 2005 21:57:57 -0000	1.13
-+++ empserver/src/lib/update/revolt.c	17 Mar 2005 10:01:15 -0000
+--- empserver/src/lib/update/revolt.c	31 Jul 2005 13:55:49 -0000	1.16
++++ empserver/src/lib/update/revolt.c	11 Aug 2005 09:14:25 -0000
 @@ -70,7 +70,7 @@
      che_uw = 0;
      che_civ = 0;
@@ -372,7 +372,7 @@ Index: empserver/src/lib/update/revolt.c
  	if (n > 100)
  	    n = 100;
  	tmp = sp->sct_work - n;
-@@ -357,14 +357,14 @@
+@@ -351,14 +351,14 @@
  	/* loyalty drops during recruitment efforts */
  	n = sp->sct_loyal;
  	if (n < 30)
@@ -390,7 +390,7 @@ Index: empserver/src/lib/update/revolt.c
  	    n /= hap_fact(tnat, getnatp(sp->sct_oldown));
  	    if (n + che > CHE_MAX)
  		n = CHE_MAX - che;
-@@ -372,7 +372,7 @@
+@@ -366,7 +366,7 @@
  	    civ -= n;
  	    sp->sct_item[I_CIVIL] = civ;
  	}
@@ -399,7 +399,7 @@ Index: empserver/src/lib/update/revolt.c
  	if (n + che > CHE_MAX)
  	    n = CHE_MAX - che;
  	che += n;
-@@ -405,7 +405,7 @@
+@@ -399,7 +399,7 @@
  	    val = roundintby(val, 10);
  	    /* inject a modicum of indeterminism; also
  	     * avoids che preferring certain directions */
