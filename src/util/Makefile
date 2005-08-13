@@ -79,7 +79,7 @@ ntfairland: fairland.obj
 pconfig: pconfig.o
 	$(CC) -o pconfig $(IFLAGS) $(CFLAGS) pconfig.o $(LIBS) $(LFLAGS) -lc
 
-ntpconfig: pconfig.o
+ntpconfig: pconfig.obj
 	link /OUT:pconfig.exe \
         /NOD /DEBUG:full /DEBUGTYPE:cv /MACHINE:IX86 /NOLOGO \
         pconfig.obj $(NTLIBS) \
