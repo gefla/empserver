@@ -97,6 +97,17 @@ update_sched(void *unused)
     /*NOTREACHED*/
 }
 
+void
+update_force(void *seconds)
+{
+    time_t now;
+
+    time(&now);
+    empth_sleep(now + *(int *)seconds);
+    empth_sem_signal(update_sem);
+    empth_exit();
+}
+
 /*ARGSUSED*/
 static void
 update_wait(void *unused)

@@ -51,5 +51,6 @@ void player_kill_idle(void *);
 void update_main(void *);
 void update_sched(void *);
 void shutdown_sequence(void *);
+void update_force(void *);
 
 #endif
