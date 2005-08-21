@@ -62,6 +62,7 @@
 #include "ioqueue.h"
 #include "empio.h"
 #include "gen.h"		/* getfdtablesize */
+#include "server.h"
 
 #include "empthread.h"
 
@@ -337,7 +338,11 @@ io_output_all(struct iop *iop)
 {
     int n;
 
-    while ((n = io_output(iop, IO_NOWAIT)) > 0) {
+    /*
+     * Mustn't block a player thread while update is pending, or else
+     * a malicous player could delay the update indefinitely
+     */
+    while (((n = io_output(iop, IO_NOWAIT)) > 0) && !update_pending) {
 	empth_select(iop->fd, EMPTH_FD_WRITE);
     }
     return n;

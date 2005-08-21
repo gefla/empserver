@@ -74,6 +74,9 @@ update_main(void *unused)
     struct natstr *cnp;
     struct natstr *np;
 
+    if (CANT_HAPPEN(!update_pending))
+        update_pending = 1;
+
     /* First, make sure all mobility is updated correctly. */
     if (opt_MOB_ACCESS) {
 	mob_ship(etu);
@@ -81,7 +84,6 @@ update_main(void *unused)
 	mob_plane(etu);
 	mob_land(etu);
     }
-    update_pending = 1;
     player->proc = empth_self();
     player->cnum = 0;
     player->god = 1;

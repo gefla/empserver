@@ -120,6 +120,7 @@ update_wait(void *unused)
 
     while (1) {
 	empth_sem_wait(update_sem);
+	update_pending = 1;
 	running = 0;
 	for (p = player_next(0); p != 0; p = player_next(p)) {
 	    if (p->state != PS_PLAYING)
@@ -137,8 +138,10 @@ update_wait(void *unused)
 	    empth_sleep(now + 2);
 	}
 	if (*pre_update_hook) {
-	    if (run_hook(pre_update_hook, "pre-update"))
+	    if (run_hook(pre_update_hook, "pre-update")) {
+		update_pending = 0;
 		continue;
+	    }
 	}
 	/* 
 	 * we rely on the fact that update's priority is the highest
@@ -147,6 +150,7 @@ update_wait(void *unused)
 	dp = player_new(0, 0);
 	if (!dp) {
 	    logerror("can't create dummy player for update");
+	    update_pending = 0;
 	    continue;
 	}
 	stacksize = 100000 +
