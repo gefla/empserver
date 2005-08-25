@@ -396,7 +396,7 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx, int string_ok)
     if (idx < 0) {
 	CANT_HAPPEN(idx != M_NOTFOUND);
 	if (!string_ok) {
-	    pr("%.*s -- unkown name\n",
+	    pr("%.*s -- unknown name\n",
 	       (int)val->val_as.str.maxsz, val->val_as.str.base);
 	    val->val_cat = NSC_NOCAT;
 	    return NULL;
