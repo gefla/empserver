@@ -68,12 +68,10 @@ shoo(void)
     item = ip->i_vtype;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    sprintf(prompt, "number of %s to shoot (max 999)? ", ip->i_name);
+    sprintf(prompt, "number of %s to shoot? ", ip->i_name);
     p = getstarg(player->argp[3], prompt, buf);
     if (p == 0 || (targets = atoi(p)) <= 0)
 	return RET_SYN;
-    if (targets > 999)
-	targets = 999;
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
