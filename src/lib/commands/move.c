@@ -133,7 +133,11 @@ move(void)
 	return RET_FAIL;
     if (amount > amt_src) {
 	if (istest) {
-	    pr("Note: there are actually only %d %s in %s,\nbut the test will be made for %d %s as you requested.\n", amt_src, ip->i_name, xyas(sect.sct_x, sect.sct_y, player->cnum), amount, ip->i_name);
+	    pr("Note: there are actually only %d %s in %s,\n"
+	       "but the test will be made for %d %s as you requested.\n",
+	       amt_src, ip->i_name,
+	       xyas(sect.sct_x, sect.sct_y, player->cnum),
+	       amount, ip->i_name);
 	} else {
 	    amount = amt_src;
 	    pr("Only moving %d.\n", amount);
@@ -152,8 +156,9 @@ move(void)
 	return RET_SYN;
     packing = sect.sct_effic >= 60 ? dchr[sect.sct_type].d_pkg : IPKG;
     weight = (double)amount * ip->i_lbs / ip->i_pkg[packing];
+
     /*
-     * First remove commodities from source sector
+     * First remove stuff from source sector
      */
     if (!istest) {
 	getsect(x, y, &start);
@@ -189,7 +194,10 @@ move(void)
 	left = commdamage(amount, dam, ip->i_vtype);
 	if (left < amount) {
 	    if (left) {
-		pr("%d of the %s you were moving were destroyed!\nOnly %d %s made it to %s\n", amount - left, ip->i_name, left, ip->i_name, xyas(endsect.sct_x, endsect.sct_y, player->cnum));
+		pr("%d of the %s you were moving were destroyed!\n"
+		   "Only %d %s made it to %s\n",
+		   amount - left, ip->i_name, left, ip->i_name,
+		   xyas(endsect.sct_x, endsect.sct_y, player->cnum));
 	    } else {
 		pr("All of the %s you were moving were destroyed!\n",
 		   ip->i_name);
@@ -209,20 +217,22 @@ move(void)
 	getsect(x, y, &sect);
 	sect.sct_mobil = (u_char)mob;
 	left = mob;
-    } else if (!istest) {
-	/*
-	 * decrement mobility appropriately.
-	 */
-	getsect(x, y, &start);
-	mob = start.sct_mobil;
-	if (mob < mcost) {
-	    if (mob > 0)
-		mob = 0;
-	} else
-	    mob -= mcost;
-	start.sct_mobil = (u_char)mob;
-	left = start.sct_mobil;
-	putsect(&start);
+    } else {
+	if (!istest) {
+	    /*
+	     * Decrement mobility appropriately.
+	     */
+	    getsect(x, y, &start);
+	    mob = start.sct_mobil;
+	    if (mob < mcost) {
+		if (mob > 0)
+		    mob = 0;
+	    } else
+		mob -= mcost;
+	    start.sct_mobil = (u_char)mob;
+	    left = start.sct_mobil;
+	    putsect(&start);
+	}
 	getsect(endsect.sct_x, endsect.sct_y, &sect);
     }
 
@@ -248,9 +258,11 @@ move(void)
 	getsect(x, y, &sect);
     }
 
-    if (!istest)
-	pr("%d mob left in %s\n", left,
-	   xyas(start.sct_x, start.sct_y, player->cnum));
+    if (istest)
+	return RET_OK;
+
+    pr("%d mob left in %s\n", left,
+       xyas(start.sct_x, start.sct_y, player->cnum));
 
     if (amount <= 0) {
 	getsect(x, y, &start);
@@ -259,10 +271,12 @@ move(void)
 	return RET_OK;
     }
 
-/* If the sector that things are going to is no longer
-   owned by the player, and was the starting sector,
-   try to find somewhere to dump the stuff.  If nowhere
-   to dump it, it disappears. */
+    /*
+     * If the sector that things are going to is no longer owned by
+     * the player, and it was the starting sector, try to find
+     * somewhere to dump the stuff.  If nowhere to dump it, it
+     * disappears.
+     */
     if (sect.sct_own != player->cnum && sect.sct_x == x && sect.sct_y == y) {
 	pr("Can't return the goods, since the starting point is no longer\n");
 	pr("owned by you.\n");
@@ -303,8 +317,6 @@ move(void)
 	amount = ITEM_MAX - amt_dst;
 	pr("Only room for %d, the rest were lost.\n", amount);
     }
-    if (istest)
-	return RET_OK;
     sect.sct_item[vtype] = amount + amt_dst;
     /*
      * Now add commodities to destination sector,
@@ -350,20 +362,17 @@ want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 {
     char prompt[80];
 
-    /* First, would we be abandoning it?  If not, just return that it's
-       ok to move out */
+    /*
+     * First, would we be abandoning it?  If not, just return that
+     * it's ok to move out.
+     */
     if (!would_abandon(sp, vtype, amnt, lp))
 	return 1;
 
     sprintf(prompt, "Do you really want to abandon %s [yn]? ",
 	    xyas(sp->sct_x, sp->sct_y, player->cnum));
 
-    /* now, if they say yes that it's ok, just return 1 */
-    if (askyn(prompt))
-	return 1;
-
-    /* Nope, not ok */
-    return 0;
+    return askyn(prompt);
 }
 
 int
