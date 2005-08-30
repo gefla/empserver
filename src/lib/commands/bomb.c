@@ -79,7 +79,7 @@ static i_type bombcomm[] = {
     I_UW,
     I_RAD
 };
-static int nbomb = sizeof(bombcomm) / sizeof(int);
+static int nbomb = sizeof(bombcomm) / sizeof(*bombcomm);
 
 int
 bomb(void)
