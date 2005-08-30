@@ -215,10 +215,6 @@ io_output(struct iop *iop, int waitforoutput)
     if (iop->flags & IO_ERROR)
 	return -1;
 
-    /* This is the same test as io_outputwaiting.... */
-    if (ioq_qsize(iop->output) == 0)
-	return 0;
-
 #if !defined(_WIN32)
     /* make the iov point to the data in the queue. */
     /* I.E., each of the elements in the queue. */
