@@ -72,23 +72,24 @@ conv(void)
 static long
 do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 {
+    struct natstr *natp;
     struct sctstr sect;
     int newuw, totaluw, uw;
-    int civ, mil, adj_mob, mob;
+    int maxpop, civ, mil, adj_mob, mob;
     double security_extra = 1.0;
     struct lndstr land;
     struct nstr_item ni;
     long cost = 0;
 
+    natp = getnatp(sect.sct_own);
     totaluw = 0;
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	if (sect.sct_oldown == player->cnum)
 	    continue;
+	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civ = sect.sct_item[I_CIVIL];
-	if (civ == 0)
-	    continue;
 	mil = sect.sct_item[I_MILIT];
 
 	/*
@@ -99,8 +100,6 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
 	while (nxtitem(&ni, &land)) {
 	    mil += lnd_getmil(&land);
-/*			mil += (lnd_getmil(&land) *
-				((double)land.lnd_effic/100.0));*/
 
 	    /* Anti-terrorist units count double */
 	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {
@@ -115,8 +114,6 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 		if (for_real)
 		    putland(land.lnd_uid, &land);
 		mil += lnd_getmil(&land);
-/*				mil += (lchr[land.lnd_type].l_mil *
-					((double)land.lnd_effic/100.0));*/
 	    }
 	}
 	/*
@@ -128,11 +125,9 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	if (newuw > uwtoconvert)
 	    newuw = uwtoconvert;
 	uw = sect.sct_item[I_UW];
-	if (uw > 999)
-	    continue;
-	if (newuw > 999 - uw)
-	    newuw = 999 - uw;
-	if (newuw == 0)
+	if (newuw > maxpop - uw)
+	    newuw = maxpop - uw;
+	if (newuw <= 0)
 	    continue;
 	/*
 	 * So entire civilian populations don't disappear immediately
