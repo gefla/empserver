@@ -112,7 +112,7 @@ ltend(void)
 	    ontarget = target.lnd_item[ip->i_vtype];
 	    if (ontarget == 0 && amt < 0) {
 		pr("No %s on %s\n",
-		   ip->i_name, prship((struct shpstr *)&target));
+		   ip->i_name, prland(&target));
 		continue;
 	    }
 	    lbase = &lchr[(int)target.lnd_type];
