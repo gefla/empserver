@@ -180,14 +180,16 @@ upd_ship(struct shpstr *sp, int etus,
 		max_oil = mp->m_item[I_OIL];
 		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
 		    oil_gained = max_oil - sp->shp_item[I_OIL];
-		sp->shp_item[I_OIL] += oil_gained;
 		if (product->p_nrdep != 0 && oil_gained > 0) {
 		    resource = (u_char *)sectp + product->p_nrndx;
+		    if (*resource * 100 < product->p_nrdep * oil_gained)
+			oil_gained = *resource * 100 / product->p_nrdep;
 		    dep = roundavg(oil_gained * product->p_nrdep / 100.0);
 		    if (CANT_HAPPEN(dep > *resource))
 			dep = *resource;
 		    *resource -= dep;
 		}
+		sp->shp_item[I_OIL] += oil_gained;
 	    }
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
 		product = &pchr[P_FOOD];
