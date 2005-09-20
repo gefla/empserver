@@ -58,6 +58,7 @@ morale checks, see info \*QAttacking\*U) Just as you can use \*Qrange\*U to chan
 range of your planes and control how far away they'll intercept, you can
 change the reaction radius for land units with \*Qlrange\*U. Units with a base reaction
 radius of 0, or those whose radius you have set to 0, will not react.
+When built, the unit will have as its reaction radius set to zero. 
 .s1
 .L Cargo
 .s1
@@ -184,8 +185,8 @@ common.
 Don't confuse this spy value with the "spy" capability of a unit.  See
 "info \*QSpies\*U" for more information.
 .s1
-Rad is the maximum reaction radius for the unit. When built, the unit will
-have this as its reaction radius. If you change the reaction radius by using
+Rad is the maximum reaction radius for the unit.
+If you change the reaction radius by using
 the \*Qlrange\*U command, you will be able to select any value that is
 between 0 and the maximum.
 .s1
