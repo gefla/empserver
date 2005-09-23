@@ -50,4 +50,5 @@ char *banfil	= "ban";
 char *authfil	= "auth";
 char *timestampfil = "timestamp";
 
+char *listen_addr = "";
 char *loginport = EMP_PORT;

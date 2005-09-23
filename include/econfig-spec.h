@@ -58,6 +58,8 @@ EMPCFBOTH("data", datadir, char *, NSC_STRING, KM_INTERNAL,
     "Directory the data is stored in")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
     "Directory the info pages are stored in")
+EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
+	  "Local address the server should listen on.  \"\" listens on all.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP/IP port the server will start up on")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,

@@ -71,22 +71,37 @@ void
 player_init(void)
 {
     struct sockaddr_in sin;
+    struct hostent *hp;
     struct servent *sp;
     int s;
-    short port;
     int val;
 
     emp_initque(&Players);
     init_player_commands();
 
-    sp = getservbyname("empire", "tcp");
-    if (sp == 0)
-	port = htons(atoi(loginport));
-    else
-	port = sp->s_port;
-    sin.sin_addr.s_addr = INADDR_ANY;
-    sin.sin_port = port;
     sin.sin_family = AF_INET;
+    if (!*listen_addr)
+	sin.sin_addr.s_addr = INADDR_ANY;
+    else if (isdigit(*listen_addr))
+	sin.sin_addr.s_addr = inet_addr(listen_addr);
+    else {
+	hp = gethostbyname(listen_addr);
+	if (!hp) {
+	    logerror("Can't resolve listen address %s", listen_addr);
+	    exit(1);
+	}
+	memcpy(&sin.sin_addr, hp->h_addr, sizeof(sin.sin_addr));
+    }
+    if (isdigit(*loginport))
+	sin.sin_port = htons(atoi(loginport));
+    else {
+	sp = getservbyname(loginport, "tcp");
+	if (!sp) {
+	    logerror("Can't resolve service %s", loginport);
+	    exit(1);
+	}
+	sin.sin_port = sp->s_port;
+    }
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 	logerror("inet socket create");
 	exit(1);
