@@ -32,7 +32,7 @@
  *     Steve McClure, 1998
  */
 
-#include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -46,7 +46,6 @@
 #include <io.h>
 #include <winsock.h>
 #endif
-#include <ctype.h>
 #include "misc.h"
 
 int
@@ -60,15 +59,9 @@ hostaddr(char *name, struct sockaddr_in *addr)
 	addr->sin_addr.s_addr = inet_addr(name);
     } else {
 	hp = gethostbyname(name);
-	if (hp == NULL) {
-	    fprintf(stderr, "%s: No such host\n", name);
+	if (hp == NULL)
 	    return 0;
-	}
 	memcpy(&addr->sin_addr, hp->h_addr, sizeof(addr->sin_addr));
-#ifdef _WIN32
-	printf("Trying to connect to '%s'\n", inet_ntoa(addr->sin_addr));
-	fflush(stdout);
-#endif
     }
     return 1;
 }
@@ -81,12 +74,7 @@ hostport(char *name, struct sockaddr_in *addr)
     if (name == NULL || *name == 0)
 	return 0;
     if (isdigit(*name)) {
-#ifndef _WIN32
 	addr->sin_port = htons(atoi(name));
-#else
-	addr->sin_port = atoi(name);
-	addr->sin_port = htons(addr->sin_port);
-#endif
     } else {
 	sp = getservbyname(name, "tcp");
 	if (sp == NULL)
@@ -106,17 +94,12 @@ hostconnect(struct sockaddr_in *addr)
 #ifdef _WIN32
 	errno = WSAGetLastError();
 #endif
-	perror("socket");
 	return -1;
     }
     addr->sin_family = AF_INET;
     if (connect(s, (struct sockaddr *)addr, sizeof(*addr)) < 0) {
 #ifdef _WIN32
 	errno = WSAGetLastError();
-#endif
-	perror("connect");
-#ifdef _WIN32
-	printf("Check that your EMPIREHOST and EMPIREPORT are correct.\n");
 #endif
 	(void)close(s);
 	return -1;

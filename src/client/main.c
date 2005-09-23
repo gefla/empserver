@@ -105,6 +105,8 @@ main(int ac, char **av)
     char *cname;
     char *pname;
     char *uname;
+    char *host;
+    char *port;
     int send_kill = 0;
     int utf8 = 0;
 
@@ -157,18 +159,24 @@ main(int ac, char **av)
 	exit(1);
     }
     getsose();
-    if (!hostport(getenv("EMPIREPORT"), &sin) &&
-	!hostport("empire", &sin) && !hostport(empireport, &sin)) {
-	fprintf(stderr, "No empire port\n");
+    port = getenv("EMPIREPORT");
+    if (!port)
+	port = empireport;
+    if (!hostport(port, &sin)) {
+	fprintf(stderr, "Can't resolve Empire port %s\n", port);
 	exit(1);
     }
-    if (!hostaddr(getenv("EMPIREHOST"), &sin) &&
-	!hostaddr(empirehost, &sin)) {
-	fprintf(stderr, "No empire host\n");
+    host = getenv("EMPIREHOST");
+    if (!host)
+	host = empirehost;
+    if (!hostaddr(host, &sin)) {
+	fprintf(stderr, "Can't resolve Empire host %s\n", host);
 	exit(1);
     }
-    if ((sock = hostconnect(&sin)) < 0)
+    if ((sock = hostconnect(&sin)) < 0) {
+	perror("Can't connect to Empire server");
 	exit(1);
+    }
     cname = getenv("COUNTRY");
     if (ac > 1)
 	cname = argv[1];
