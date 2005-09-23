@@ -66,7 +66,7 @@ deli(void)
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
 
-    while (nxtsct(&nstr, &sect) > 0) {
+    while (!player->aborted && nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
 
