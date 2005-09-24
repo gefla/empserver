@@ -250,11 +250,7 @@ doexecute(char *p, FILE *auxfi)
 	free(tag);
 	return;
     }
-#if !defined(_WIN32)
     if ((fd = open(p, O_RDONLY, 0)) < 0) {
-#else
-    if ((fd = open(p, O_RDONLY | O_BINARY, 0)) < 0) {
-#endif
 	fprintf(stderr, "Can't open execute file\n");
 	perror(p);
 	free(tag);
