@@ -51,8 +51,6 @@
 #define	DIR_FIRST	1
 #define	DIR_LAST	6
 
-#define	SELL_NOT_DELIV	7	/* in "_use" field => contract */
-
 extern int dirindex[];
 extern int diroff[][2];
 extern s_char dirch[];
@@ -65,9 +63,7 @@ extern double ncost(struct sctstr *, natid);
 extern double pathtoxy(s_char *, coord *, coord *,
 		       double (*)(struct sctstr * sp, natid own));
 extern int chkdir(s_char, int, int);
-extern int getdir(s_char *, s_char *, s_char *, s_char *);
 extern void direrr(s_char *, s_char *, s_char *);
-extern int chkpath(natid, s_char *, coord, coord);
 extern void pathrange(register coord, register coord, register s_char *,
 		      int, struct range *);
 

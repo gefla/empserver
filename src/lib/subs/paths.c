@@ -41,34 +41,6 @@
 #include "prototypes.h"
 
 int
-getdir(s_char *prompt, s_char *stop_msg, s_char *view_msg,
-       s_char *bomb_msg)
-{
-    register int max_dir;
-    register int min_dir;
-    register int dir_num;
-    s_char buf[1024];
-
-    if (stop_msg != 0)
-	min_dir = DIR_STOP;
-    else
-	min_dir = DIR_FIRST;
-    if (view_msg == 0)
-	max_dir = DIR_LAST;
-    else
-	max_dir = DIR_VIEW;
-    while (1) {
-	if (getstring(prompt, buf) == 0 || *buf == 0)
-	    return -1;
-	dir_num = chkdir(buf[0], min_dir, max_dir);
-	if (dir_num >= min_dir)
-	    break;
-	direrr(stop_msg, view_msg, bomb_msg);
-    }
-    return dir_num;
-}
-
-int
 chkdir(s_char dir_char, int min_dir, int max_dir)
 {
     register int i;
@@ -261,27 +233,6 @@ pathtoxy(s_char *path, coord *xp, coord *yp,
     *xp = xnorm(x);
     *yp = ynorm(y);
     return m;
-}
-
-/*
- * return true if "who" owns the path starting at x,y
- */
-int
-chkpath(natid who, s_char *path, coord x, coord y)
-{
-    s_char *pp;
-    int val;
-    struct sctstr sect;
-
-    for (pp = path; *pp; pp++) {
-	if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
-	    break;
-	x += diroff[val][0];
-	y += diroff[val][1];
-	if (!getsect(x, y, &sect) || sect.sct_own != who)
-	    return 0;
-    }
-    return 1;
 }
 
 void
