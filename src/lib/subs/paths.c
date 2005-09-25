@@ -137,7 +137,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 		return buf;
 	    } else {
 		pr("Can't get to %s from here!\n",
-		   xyas(nx, ny, player->cnum));
+		   xyas(dx, dy, player->cnum));
 		*p = 0;
 	    }
 	    break;
