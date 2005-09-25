@@ -93,8 +93,11 @@ deli(void)
 	    }
 	    if (p && *p) {
 		dir = chkdir(*p, DIR_STOP, DIR_LAST);
-		if (dir < 0)
+		if (dir < 0) {
+		    pr("'%c' is not a valid direction...\n", *p);
+		    direrr(NULL, NULL, NULL);
 		    return RET_SYN;
+		}
 	    }
 
 	    if (!check_sect_ok(&sect))
