@@ -51,7 +51,7 @@
 #define	DIR_FIRST	1
 #define	DIR_LAST	6
 
-extern int dirindex[];
+extern signed char dirindex['z'-'a'+1];
 extern int diroff[][2];
 extern s_char dirch[];
 

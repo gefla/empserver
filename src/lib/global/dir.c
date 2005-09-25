@@ -55,8 +55,9 @@ int diroff[][2] = {
 
 /* this maps a character from a to z into the diroff mappings.  It
    keeps us from having to loop if we don't want to */
-int dirindex[] = { 0, 4, 0, 0, 0, 0, 5, 0, 0, 2, 0, 0, 8,
-    3, 0, 0, 0, 0, 0, 0, 1, 7, 0, 0, 6, 0
+signed char dirindex[] = {
+    -1, 4, -1, -1, -1, -1, 5, 0, -1, 2, -1, -1, 8,
+    3, -1, -1, -1, -1, -1, -1, 1, 7, -1, -1, 6, -1
 };
 
 /* must agree with dirch[] and DIR_ defines */

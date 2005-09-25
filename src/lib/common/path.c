@@ -307,8 +307,9 @@ bp_clear_cachepath(void)
 double
 pathcost(struct sctstr *start, s_char *path, int mob_type)
 {
-    register int o;
-    register int cx, cy;
+    unsigned i;
+    int o;
+    int cx, cy;
     double cost = 0.0;
     struct sctstr *sp;
     int sx, sy, offset;
@@ -321,7 +322,12 @@ pathcost(struct sctstr *start, s_char *path, int mob_type)
 	    path++;
 	    continue;
 	}
-	o = dirindex[(int)((*path) - 'a')];
+	i = *path - 'a';
+	if (CANT_HAPPEN(i >= sizeof(dirindex) / sizeof(*dirindex)))
+	    break;
+	o = dirindex[i];
+	if (CANT_HAPPEN(o) < 0)
+	    break;
 	cx += diroff[o][0];
 	cy += diroff[o][1];
 	sx = XNORM(cx);
