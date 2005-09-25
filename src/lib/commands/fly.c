@@ -95,6 +95,8 @@ fly(void)
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("Ending sector is %s\n", xyas(tx, ty, player->cnum));
     ip = whatitem(player->argp[5], "transport what? ");
+    if (player->aborted)
+	return RET_SYN;
     getsect(tx, ty, &target);
 
     cno = -1;
