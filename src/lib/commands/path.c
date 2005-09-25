@@ -101,7 +101,10 @@ path(void)
     natp = getnatp(player->cnum);
     xyrelrange(natp, &absrange, &relrange);
     blankfill((s_char *)mapbuf, &ns.range, 3);
-    while (*pp && (i = chkdir(*pp, DIR_STOP, DIR_LAST)) >= 0) {
+    for (; *pp; ++pp) {
+	i = diridx(*pp);
+	if (i == DIR_STOP)
+	    break;
 	memcpy(&map[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx) * 2],
 	       routech[i][0],
 	       3);

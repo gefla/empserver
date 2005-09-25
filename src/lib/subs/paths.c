@@ -67,6 +67,21 @@ direrr(s_char *stop_msg, s_char *view_msg, s_char *map_msg)
 }
 
 /*
+ * Map direction DIR to a direction index DIR_STOP..DIR_LAST.
+ * DIR must be a valid direction.
+ */
+int
+diridx(char dir)
+{
+    unsigned i = dir - 'a';
+
+    if (CANT_HAPPEN(i >= sizeof(dirindex) / sizeof(*dirindex)
+		    || dirindex[i] < 0))
+	return DIR_STOP;
+    return dirindex[i];
+}
+
+/*
  * return pointer to path; prompt user until a stop char
  * or a bomb char have been entered.  A "bomb" char in
  * this context is actually "execute" for the partial
@@ -213,19 +228,15 @@ pathtoxy(s_char *path, coord *xp, coord *yp,
     coord y;
     int val;
     double m;
-    int c;
 
     x = *xp;
     y = *yp;
     m = 0.0;
     for (pp = path; *pp; pp++) {
-	if ((val = chkdir(*pp, DIR_STOP, DIR_LAST)) == 0)
+	if ((val = diridx(*pp)) == DIR_STOP)
 	    break;
 	x += diroff[val][0];
 	y += diroff[val][1];
-	c = dirch[val];
-	if (c == DIR_STOP)
-	    break;
 	if (!getsect(x, y, &s))
 	    return -1.0;
 	m += cost(&s, s.sct_own);
@@ -236,8 +247,7 @@ pathtoxy(s_char *path, coord *xp, coord *yp,
 }
 
 void
-pathrange(register coord cx, register coord cy, register s_char *pp,
-	  int border, struct range *range)
+pathrange(coord cx, coord cy, s_char *pp, int border, struct range *range)
 {
     int dir;
 
@@ -247,8 +257,10 @@ pathrange(register coord cx, register coord cy, register s_char *pp,
     range->hy = cy;
     range->width = 0;
     range->height = 0;
-    while ((dir = chkdir(*pp, DIR_FIRST, DIR_LAST)) >= 0) {
-	pp++;
+    for (; *pp; pp++) {
+	dir = diridx(*pp);
+	if (dir == DIR_STOP)
+	    break;
 	cx += diroff[dir][0];
 	cy += diroff[dir][1];
 	if (cx < range->lx)

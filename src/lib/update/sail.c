@@ -262,10 +262,10 @@ sail_nav_fleet(struct fltheadstr *fltp)
     own = sp->shp_own;
     fltp_to_list(fltp, &ship_list);	/* hack -KHS 1995 */
     for (s = sp->shp_path; (*s) && (fltp->maxmoves > 0); s++) {
-	dir = chkdir(*s, DIR_STOP, DIR_LAST);
-	if (0 != (error = shp_nav_one_sector(&ship_list, dir, own, 0)))
+	dir = diridx(*s);
+	if (0 != shp_nav_one_sector(&ship_list, dir, own, 0))
 	    fltp->maxmoves = 1;
-	--(fltp->maxmoves);
+	--fltp->maxmoves;
     }
     shp_put(&ship_list, own);
     getship(sp->shp_uid, &ship);

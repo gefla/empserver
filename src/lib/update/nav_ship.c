@@ -303,14 +303,11 @@ nav_ship(struct shpstr *sp)
 	    stopping = 0;
 
 	    while (*cp && !stopping && sp->shp_own && mlp->mobil > 0.0) {
-		dir = chkdir(*cp++, DIR_STOP, DIR_LAST);
-
+		dir = diridx(*cp++);
 		stopping |= shp_nav_one_sector(&ship_list, dir,
 					       sp->shp_own, 0);
 	    }
 
-/*			sp->shp_mobil = (int) mobil;
- */
 	    /* Ship not sunk */
 	    if (sp->shp_own)
 		nav_check_atdest(sp);

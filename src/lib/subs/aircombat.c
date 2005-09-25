@@ -129,7 +129,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
     pln_removedupes(bomb_list, esc_list);
     while ((dir = mypath[myp++]) && !QEMPTY(bomb_list)) {
-	if ((val = chkdir(dir, DIR_STOP, DIR_LAST)) == 0)
+	if ((val = diridx(dir)) == DIR_STOP)
 	    break;
 	/* XXX using xnorm is probably bad */
 	x = xnorm(x + diroff[val][0]);
