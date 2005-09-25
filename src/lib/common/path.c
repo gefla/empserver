@@ -326,7 +326,7 @@ pathcost(struct sctstr *start, s_char *path, int mob_type)
 	if (CANT_HAPPEN(i >= sizeof(dirindex) / sizeof(*dirindex)))
 	    break;
 	o = dirindex[i];
-	if (CANT_HAPPEN(o) < 0)
+	if (CANT_HAPPEN(o < 0))
 	    break;
 	cx += diroff[o][0];
 	cy += diroff[o][1];
