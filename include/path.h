@@ -56,8 +56,7 @@ extern int diroff[][2];
 extern s_char dirch[];
 
 /* src/lib/subs/paths.c */
-extern s_char *getpath(s_char *, s_char *, coord, coord, int, int,
-		       int, int);
+extern char *getpath(char *, char *, coord, coord, int, int, int);
 extern double fcost(struct sctstr *, natid);
 extern double ncost(struct sctstr *, natid);
 extern double pathtoxy(s_char *, coord *, coord *,

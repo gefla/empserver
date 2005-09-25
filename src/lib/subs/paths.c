@@ -88,18 +88,17 @@ diridx(char dir)
  * move commands, and isn't valid for those commands
  * which do not accept partial moves.
  */
-s_char *
-getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown,
-	int showdes, int showxy, int destinations)
+char *
+getpath(char *buf, char *arg, coord x, coord y, int onlyown,
+	int showdes, int destinations)
 {
-    s_char *p = buf;
-    s_char *bp;
-    s_char prompt[128];
+    char *p = buf;
+    char *bp;
+    char prompt[128];
     coord dx, dy;
     struct sctstr sect, dsect;
     coord nx, ny;
     int dir;
-    s_char *execute;
     double mv_cost;
 
     if (arg) {
@@ -108,11 +107,6 @@ getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown,
     } else {
 	*p = 0;
     }
-
-    if (showxy)
-	execute = " & '%c' to execute\n";
-    else
-	execute = "\n";
 
     getsect(x, y, &sect);
     nx = x;
@@ -151,7 +145,7 @@ getpath(s_char *buf, s_char *arg, coord x, coord y, int onlyown,
 	dir = chkdir(*p, DIR_STOP, DIR_LAST);
 	if (dir < 0) {
 	    pr("\"%c\" is not legal...", *p);
-	    direrr("'%c' to stop", (s_char *)0, execute);
+	    direrr("'%c' to stop\n", NULL, NULL);
 	    *p = 0;
 	    break;
 	}
