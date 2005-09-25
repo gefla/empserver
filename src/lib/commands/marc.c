@@ -160,7 +160,7 @@ march(void)
 	    continue;
 	} else {
 	    dir = chkdir(*cp++, DIR_STOP, DIR_LAST);
-	    if (dir == -1) {
+	    if (dir < 0) {
 		if (NULL != (cp = lnd_path(together, lnd, buf)))
 		    continue;
 		direrr("`%c' to stop", 0, 0);

@@ -185,7 +185,7 @@ navi(void)
 	    continue;
 	} else {
 	    dir = chkdir(*cp++, DIR_STOP, DIR_VIEW);
-	    if (dir == -1) {
+	    if (dir < 0) {
 		if (NULL != (cp = shp_path(together, shp, buf)))
 		    continue;
 		direrr("`%c' to stop", ", `%c' to view, ", 0);
