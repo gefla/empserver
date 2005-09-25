@@ -241,7 +241,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 		putship(sp->shp_uid, sp);
 	    return 0;
 	}
-	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_VIEW);
+	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_LAST);
 	memmove(sp->shp_rpath, sp->shp_rpath+1, sizeof(sp->shp_rpath) - 1);
 	if (dir < 0)
 	    continue;
@@ -467,7 +467,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 		putland(lp->lnd_uid, lp);
 	    return 0;
 	}
-	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_VIEW);
+	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_LAST);
 	memmove(lp->lnd_rpath, lp->lnd_rpath+1, sizeof(lp->lnd_rpath) - 1);
 	if (dir < 0)
 	    continue;
