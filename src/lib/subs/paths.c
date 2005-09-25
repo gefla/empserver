@@ -92,6 +92,7 @@ char *
 getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	int showdes, int destinations)
 {
+    char buf2[1024];
     char *p = buf;
     char *bp;
     char prompt[128];
@@ -115,30 +116,28 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
   more:
     while (*p) {
 	if (sarg_xy(p, &dx, &dy)) {
-	    bp = 0;
+	    bp = NULL;
 	    if (destinations == P_NONE) {
 		pr("Destination sectors not allowed here!\n");
-		*p = 0;
 	    }
 	    if (getsect(dx, dy, &dsect)) {
 		if (destinations == P_WALKING) {
-		    bp = BestLandPath(p, &sect, &dsect,
+		    bp = BestLandPath(buf2, &sect, &dsect,
 				      &mv_cost, MOB_ROAD);
 		} else if (destinations == P_FLYING) {
-		    bp = BestAirPath(p, nx, ny, dx, dy);
+		    bp = BestAirPath(buf2, nx, ny, dx, dy);
 		}
 	    } else {
 		pr("Invalid destination sector!\n");
-		*p = 0;
 	    }
-	    if (bp) {
+	    if (bp && p + strlen(bp) + 1 < buf + MAX_PATH_LEN) {
+		strcpy(p, bp);
 		pr("Using best path  '%s'\n", p);
 		pr("Using total path '%s'\n", buf);
 		return buf;
 	    } else {
 		pr("Can't get to %s from here!\n",
 		   xyas(dx, dy, player->cnum));
-		*p = 0;
 	    }
 	    break;
 	}
@@ -146,14 +145,12 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	if (dir < 0) {
 	    pr("\"%c\" is not legal...", *p);
 	    direrr("'%c' to stop\n", NULL, NULL);
-	    *p = 0;
 	    break;
 	}
 	nx = x + diroff[dir][0];
 	ny = y + diroff[dir][1];
 	getsect(nx, ny, &sect);
 	if (onlyown && sect.sct_own != player->cnum) {
-	    *p = 0;
 	    pr("You don't own %s; you can't go there!\n",
 	       xyas(nx, ny, player->cnum));
 	    break;
@@ -162,12 +159,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	    p[1] = 0;
 	    return buf;
 	}
-	if (++p - buf == MAX_PATH_LEN) {
-	    pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
-	    pr("Aborting...\n");
-	    *buf = 0;
-	    return buf;
-	}
+	++p;
 	x = nx;
 	y = ny;
     }
@@ -180,12 +172,18 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	sprintf(prompt, "<%d: %s> ", (int)(p - buf),
 		xyas(x, y, player->cnum));
     }
-    if (!(bp = getstring(prompt, p)) || !*bp) {
-	if (player->aborted)
-	    *buf = 0;
-	return buf;
+    bp = getstring(prompt, buf2);
+    if (bp && p + strlen(bp) + 1 >= buf + MAX_PATH_LEN) {
+	pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
+	pr("Aborting...\n");
+	bp = NULL;
     }
-    goto more;
+    if (!bp)
+	return NULL;
+    strcpy(p, bp);
+    if (*bp)
+	goto more;
+    return buf;
 }
 
 /*
