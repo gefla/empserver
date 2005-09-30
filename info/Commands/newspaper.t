@@ -43,14 +43,11 @@ and what news to see with the ?action selector.  Actions are:
      17) Planes bombing ships           
      18) Successful boarding actions    
      19) Unsuccessful boarding actions  
-     20) AA fire                        
      21) Collecting on loans            
      22) Considering treaty violation   
      23) Actual treaty violation        
-     24) Country dissolving             
      25) Ships hitting mines            
      26) Alliance declaration	          
-     27) Neutrality declaration         
      28) War declarations               
      29) Alliance dissolving
      30) War ending
@@ -58,7 +55,6 @@ and what news to see with the ?action selector.  Actions are:
      32) Plague deaths
      33) Name changes
      34) Starvation
-     35) Rioting (from dissolving)
      36) Air to air combat
      37) Nukes going off
      38) Terrorists
@@ -77,7 +73,6 @@ and what news to see with the ?action selector.  Actions are:
      51) Pirates keep loot
      52) Ship torps ship
      53) Sub bombed by ASW plane
-     54) Assault defeated
      55) Unit bombed
      56) Unit hits land mine
      57) Fortress artillery supports attack

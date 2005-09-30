@@ -56,10 +56,11 @@ char *page_headings[N_MAX_PAGE + 1] = {
 /* N_TELE   */ "Telecommunications"
 };
 
+static char no_news[] = "does nothing in particular to %s";
+
 struct rptstr rpt[N_MAX_VERB + 1] = {
 /*  nice  page     text */
-    { 0,  0,	   { "does nothing in particular to %s",
-/*  0*/	  	     "does nothing to %s" } },
+/*  0*/ { 0,  0, { no_news, no_news } },
     { -4, N_FRONT, { "infantry capture %s territory",
 /*  1*/	  	     "shock troops overrun one of %s's sectors" } },
     { -4, N_FRONT, { "infantry beaten back by %s troops",
@@ -98,22 +99,19 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
 /* 18*/	  	     "pirates board %s ship" } },
     { -3, N_SEA,   { "is repelled by %s while attempting to board a ship",
 /* 19*/	  	     "pirates prove inept at boarding %s's ships" } },
-    { -1, N_SKY,   { "anti-aircraft gunners fire on %s airforce",
-/* 20*/	  	     "attempts to shoot down %s aircraft" } },
+/* 20*/ { 0, 0, { no_news, no_news } },
     { -2, N_ECON,  { "seizes a sector from %s to collect on a loan",
 /* 21*/	  	     "collects one of %s's sectors in repayment of a loan" } },
     { -1, N_FOR,   { "considers an action which would violate a treaty with %s",
 /* 22*/	  	     "decides not to violate treaty with %s (yet)" } },
     { -4, N_FOR,   { "violates a treaty with %s",
 /* 23*/	  	     "actions violate treaty with %s" } },
-    { 0,  N_FOR,   { "dissolves its government",
-/* 24*/	  	     "throws in the towel" } },
+/* 24*/ { 0, 0, { no_news, no_news } },
     { 0,  N_SEA,   { "ship hits a mine",
 /* 25*/	  	     "ship severely damaged in mine field" } },
     { 5,  N_FOR,   { "announces an alliance with %s",
 /* 26*/	  	     "/ %s alliance declared" } },
-    { 0,  N_FOR,   { "declares their neutrality toward %s", /* no longer used */
-/* 27*/	  	     "announces neutral relations with %s" } },
+/* 27*/ { 0, 0, { no_news, no_news } },
     { -5, N_FOR,   { "declares TOTAL WAR on %s",
 /* 28*/	  	     "gets serious with %s and declares WAR" } },
     { 0,  N_FOR,   { "diplomats disavow former alliance with %s",
@@ -128,8 +126,7 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
 /* 33*/	  	     "adopts a new country name" } },
     { 0,  N_HOME,  { "citizens starve in disastrous famine",
 /* 34*/	  	     "loses citizens to mass starvation" } },
-    { 0,  N_HOME,  { "endures lawless rioting",
-/* 35*/	  	     "suffers from outbreaks of rioting" } },
+/* 35*/ { 0, 0, { no_news, no_news } },
     { -3, N_SKY,   { "pilots down %s planes",
 /* 36*/	  	     "victorious in air-to-air combat against %s" } },
     { -10,N_MISS,  { "nuclear device devastates %s sector",
@@ -166,8 +163,7 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
 /* 52*/	  	     "ships sunk by marauding %s torpedo-boats" } },
     {  0, N_SEA,   { "planes bomb a skulking %s submarine",
 /* 53*/	  	     "planes drop depth-charges on a %s sub" } },
-    { -2, N_SEA,    { "ship is blown up in a failed assault on %s",
-/* 54*/	  	     "has a ship destroyed while assaulting %s" } },
+/* 54*/ { 0, 0, { no_news, no_news } },
     { -2, N_SKY,   { "divebombs a brave %s unit",
 /* 55*/	  	     "airforce bombs %s units" } },
     { 0,  N_FRONT, { "troops run afoul of a landmine",

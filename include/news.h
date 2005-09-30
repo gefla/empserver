@@ -79,14 +79,14 @@ struct rptstr {
 #define	N_SHP_BOMB	17
 #define	N_BOARD_SHIP	18
 #define	N_SHP_LOSE	19
-#define	N_FLAK		20
+/* unused		20 */
 #define	N_SEIZE_SECT	21
 #define	N_HONOR_TRE	22
 #define	N_VIOL_TRE	23
-#define	N_DISS_GOV	24
+/* unused		24 */
 #define	N_HIT_MINE	25
 #define	N_DECL_ALLY	26
-#define	N_DECL_NEUT	27
+/* unused		27 */
 #define	N_DECL_WAR	28
 #define	N_DIS_ALLY	29
 #define	N_DIS_WAR	30
@@ -94,7 +94,7 @@ struct rptstr {
 #define	N_DIE_PLAGUE	32
 #define	N_NAME_CHNG	33
 #define	N_DIE_FAMINE	34
-#define	N_RIOT		35
+/* unused		35 */
 #define	N_DOWN_PLANE	36
 #define	N_NUKE		37
 #define N_FREEDOM_FIGHT	38
@@ -113,7 +113,7 @@ struct rptstr {
 #define N_PIRATE_KEEP	51
 #define	N_SHIP_TORP	52
 #define N_SUB_BOMB	53
-#define N_ASSAULT_LOSE	54
+/* unused		54 */
 #define N_UNIT_BOMB	55
 #define	N_LHIT_MINE	56
 #define	N_FIRE_F_ATTACK	57
