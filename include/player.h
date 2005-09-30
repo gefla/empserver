@@ -92,6 +92,7 @@ enum {
 };
 
 /* thread priorities */
+#define PP_MAIN		7
 #define PP_UPDATE	6
 #define PP_SHUTDOWN	5
 #define PP_SCHED	4

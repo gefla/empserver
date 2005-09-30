@@ -40,7 +40,7 @@
 int
 empth_init(void **ctx, int flags)
 {
-    lwpInitSystem(7, (char **)ctx, flags);
+    lwpInitSystem(PP_MAIN, (char **)ctx, flags);
     return 0;
 }
 
