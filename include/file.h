@@ -45,7 +45,6 @@ struct empfile {
     void (*init) (int, char *);	/* call this when object is created */
     int (*postread) (int, char *);	/* specific massage routines for items */
     int (*prewrite) (int, char *);
-    ptrdiff_t itemoffs;		/* offset of item[] in struct */
     int fd;			/* file descriptor */
     int baseid;			/* starting item in cache */
     int cids;			/* # ids in cache */

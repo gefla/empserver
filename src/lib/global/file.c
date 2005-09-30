@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  fileglb.c: Empire selection global structures.
+ *  file.c: Empire game data file descriptions.
  * 
  *  Known contributors to this file:
  *     
@@ -55,47 +55,47 @@
 struct empfile empfile[] = {
     {"sect", "sector", EFF_XY | EFF_OWNER,
      0, sizeof(struct sctstr), NULL, NULL, NULL,
-     offsetof(struct sctstr, sct_item), -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"ship", "ship", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct shpstr), NULL, NULL, NULL,
-     offsetof(struct shpstr, shp_item), -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"plane", "plane", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct plnstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"land", "land", EFF_XY | EFF_OWNER | EFF_GROUP,
      0, sizeof(struct lndstr), NULL, NULL, NULL,
-     offsetof(struct lndstr, lnd_item), -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"nuke", "nuke", EFF_XY | EFF_OWNER,
      0, sizeof(struct nukstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"news", "news", 0,
      0, sizeof(struct nwsstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"treaty", "treaty", 0,
      0, sizeof(struct trtstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"trade", "trade", 0,
      0, sizeof(struct trdstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"pow", "power", 0,
      0, sizeof(struct powstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"nat", "nation", EFF_OWNER,
      0, sizeof(struct natstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"loan", "loan", 0,
      0, sizeof(struct lonstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"map", "map", 0,
      0, DEF_WORLD_X * DEF_WORLD_Y / 2, NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"bmap", "bmap", 0,
      0, DEF_WORLD_X * DEF_WORLD_Y / 2, NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"commodity", "commodity", 0,
      0, sizeof(struct comstr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL},
+     -1, -1, 0, 0, NULL, 0, NULL},
     {"lost", "lostitems", EFF_OWNER,
      0, sizeof(struct loststr), NULL, NULL, NULL,
-     0, -1, -1, 0, 0, NULL, 0, NULL}
+     -1, -1, 0, 0, NULL, 0, NULL}
 };
