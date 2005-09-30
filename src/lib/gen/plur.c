@@ -35,12 +35,6 @@
 #include "gen.h"
 
 s_char *
-plur(int n, s_char *no, s_char *yes)
-{
-    return n == 1 ? no : yes;
-}
-
-s_char *
 splur(int n)
 {
     return n == 1 ? "" : "s";

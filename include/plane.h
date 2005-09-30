@@ -125,8 +125,6 @@ struct plchrstr {
 #define PM_R	bit(0)		/* Recon mission */
 #define PM_S	bit(1)		/* Mine-sweeping mission */
 
-#define PLN_MAXDEF	50
-
 	/* internal to "fly" module -- really shouldn't be here */
 
 struct plist {

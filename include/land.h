@@ -97,8 +97,6 @@ struct lndstr {
     time_t lnd_timestamp;	/* Last time this unit was touched */
 };
 
-#define LND_NOTANY bit(0)	/* Just a placeholder, not used */
-
 struct lchrstr {
     u_short l_item[I_MAX+1];	/* load limit */
     char *l_name;		/* full name of type of land unit */

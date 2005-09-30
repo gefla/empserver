@@ -148,15 +148,3 @@ issector(s_char *arg)
 
     return 0;
 }
-
-void
-sct_init(coord x, coord y, s_char *ptr)
-{
-    struct sctstr *sp = (struct sctstr *)ptr;
-
-    sp->ef_type = EF_SECTOR;
-    sp->sct_x = x;
-    sp->sct_y = y;
-    sp->sct_dist_x = x;
-    sp->sct_dist_y = y;
-}

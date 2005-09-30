@@ -141,7 +141,6 @@ extern s_char *numstr(s_char buf[], int n);
 extern s_char *esplur(int n);
 extern s_char *splur(int n);
 extern s_char *iesplur(int n);
-extern s_char *plur(int n, s_char *no, s_char *yes);
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);
 extern char *ugetstring(char *prompt, char buf[]);

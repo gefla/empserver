@@ -179,7 +179,7 @@ orde(void)
 	    ship.shp_destx[0] = p0x;
 	    ship.shp_desty[0] = p0y;
 
-	    ship.shp_autonav &= ~(AN_STANDBY + AN_SAILDIR + AN_LOADING);
+	    ship.shp_autonav &= ~(AN_STANDBY | AN_LOADING);
 	    ship.shp_autonav |= AN_AUTONAV;
 
 	    if (scuttling)

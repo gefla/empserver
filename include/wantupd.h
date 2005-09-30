@@ -87,15 +87,10 @@
 #define  UDP_MAX	3
 #define  UDP_DEFAULT	UDP_NORMAL
 
-/* The maximum number of "update_times" allowed */
-#define  UDTIMES_MAX	20
-
 #define  UDDEM_TMCHECK	0
 #define  UDDEM_COMSET	1
 #define  UDDEM_DISABLE	2
 #define  UDDEM_MAX	2
 #define  UDDEM_DEFAULT	UDDEM_TMCHECK
-
-#define BLITZTIME 20
 
 #endif /* _WANTUPD_H_ */

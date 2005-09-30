@@ -65,24 +65,3 @@ techfact(int level, double mult)
 {
     return mult * ((50.0 + level) / (200.0 + level));
 }
-
-/*
- * added so that firing range can be different to other ranges
- */
-double
-techfactfire(int level, double mult)
-{
-    return mult * ((50.0 + level) / (200.0 + level)) * fire_range_factor;
-}
-
-/*
- * figure out relative difference between two tech levels
- */
-double
-reltech(int level1, int level2, double mult)
-{
-    int diff;
-
-    diff = level1 - level2;
-    return (1.0 + ((diff + 50.0) / (level1 + 50.0))) * mult;
-}

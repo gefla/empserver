@@ -73,7 +73,6 @@ extern double sector_mcost(struct sctstr *sp, int do_bonus);
 #define	P_WALKING	1	/* use BestLandPath, only owned */
 #define	P_FLYING	2	/* use bestpath, any */
 #define	P_SAILING	3	/* use bestpath, any */
-#define	P_DISTING	4	/* use BestDistPath, only owned */
 
 #define MAX_PATH_LEN 1024
 

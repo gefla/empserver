@@ -84,9 +84,3 @@ fdate(int fd)
 	return 0;
     return statb.st_mtime;
 }
-
-void
-filetruncate(s_char *name)
-{
-    close(open(name, O_RDWR | O_TRUNC, 0660));
-}

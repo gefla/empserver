@@ -41,7 +41,6 @@
 #define IO_NEWSOCK	0x4
 #define IO_NBLOCK	0x8
 #define	IO_EOF		0x10
-#define IO_CONN		0x20
 #define IO_ERROR	0x40
 
 #define IO_BUFSIZE	4096
@@ -64,7 +63,6 @@ extern int io_output_all(struct iop *);
 extern int io_gets(struct iop *, s_char *, int);
 extern int io_puts(struct iop *, s_char *);
 extern int io_shutdown(struct iop *, int);
-extern int io_conn(struct iop *);
 extern int io_error(struct iop *);
 extern int io_eof(struct iop *);
 extern int io_fileno(struct iop *);

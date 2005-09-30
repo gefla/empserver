@@ -288,7 +288,6 @@ extern int check_trade_ok(struct trdstr *);
 extern int fsize(int);
 extern int blksize(int);
 extern time_t fdate(int);
-extern void filetruncate(s_char *);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
 /* hours.c */
@@ -648,7 +647,6 @@ extern int sct_postread(int, s_char *);
 extern int sct_prewrite(int, s_char *);
 extern void item_prewrite(short *);
 extern int issector(s_char *);
-extern void sct_init(coord, coord, s_char *);
 /* ship.c */
 extern s_char *prship(struct shpstr *);
 extern int shp_postread(int, s_char *);
@@ -764,8 +762,6 @@ extern void unload_it(struct shpstr *);
 extern void auto_fuel_ship(struct shpstr *);
 /* nxtitemp.c */
 extern s_char *nxtitemp(struct nstr_item *);
-/* nxtsctp.c */
-extern struct sctstr *nxtsctp(register struct nstr_sect *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);

@@ -34,9 +34,6 @@
 #ifndef _IOQUEUE_H_
 #define _IOQUEUE_H_
 
-#define IOQ_BUFSIZE	2048
-#define MAXIOV		16
-
 struct io {
     struct emp_qelem queue;
     int size;

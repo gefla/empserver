@@ -32,8 +32,6 @@
  *  
  */
 
-#define MAXIOV		16
-
 struct ioqueue {
     struct qelem queue;		/* queue fwd/back */
     int bsize;			/* basic block size */

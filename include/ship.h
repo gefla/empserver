@@ -46,7 +46,6 @@
 
 /* bit masks for the autonav mode flags */
 
-#define AN_SAILDIR bit(1)
 #define AN_AUTONAV bit(2)
 #define AN_STANDBY bit(3)
 #define AN_LOADING bit(4)

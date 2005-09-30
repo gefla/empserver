@@ -37,12 +37,12 @@ NTLIB = $(SRCDIR)\lib\libupdate.lib
 
 OBJS =  age.o anno.o bp.o deliver.o distribute.o finish.o human.o land.o \
 	main.o material.o mobility.o move_sat.o nat.o nav_ship.o nav_util.o \
-	nxtitemp.o nxtsctp.o plague.o plane.o populace.o prepare.o produce.o \
+	nxtitemp.o plague.o plane.o populace.o prepare.o produce.o \
 	removewants.o revolt.o sail.o sect.o ship.o
 
 NTOBJS = age.obj anno.obj bp.obj deliver.obj distribute.obj finish.obj \
 	human.obj land.obj main.obj material.obj mobility.obj move_sat.obj \
-	nat.obj nav_ship.obj nav_util.obj nxtitemp.obj nxtsctp.obj plague.obj \
+	nat.obj nav_ship.obj nav_util.obj nxtitemp.obj plague.obj \
 	plane.obj populace.obj prepare.obj produce.obj removewants.obj \
 	revolt.obj sail.obj sect.obj ship.obj
 

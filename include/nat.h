@@ -151,8 +151,6 @@ extern s_char *relates[];
 extern double tfact(natid cn, double mult);
 extern double tfactfire(natid cn, double mult);
 extern double techfact(int level, double mult);
-extern double techfactfire(int level, double mult);
-extern double reltech(int level1, int level2, double mult);
 
 extern s_char *cname(natid n);
 extern s_char *relatename(struct natstr *np, natid other);
