@@ -79,7 +79,6 @@ extern int opt_NO_OIL;
 extern int opt_NO_PLAGUE;
 extern int opt_PINPOINTMISSILE;
 extern int opt_RES_POP;
-extern int opt_ROLLOVER_AVAIL;
 extern int opt_SAIL;
 extern int opt_SHOWPLANE;
 extern int opt_SLOW_WAR;
@@ -96,7 +95,6 @@ extern int opt_UPDATESCHED;
 #undef	EMP_CONFIG_H_OUTPUT
 
 /* Game parameters that cannot be set in econfig (yet) */
-extern int melt_item_denom[];
 #ifdef START_UNITS
 int start_unit_type[];
 #endif

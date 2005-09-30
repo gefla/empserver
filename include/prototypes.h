@@ -76,7 +76,6 @@ extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
 		     int old, int new);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
-extern int tend_nxtitem(struct nstr_item *, void *);
 extern s_char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, int *);

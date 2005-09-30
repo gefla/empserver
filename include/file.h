@@ -113,7 +113,6 @@ extern int ef_nelem(int);
 extern int ef_flags(int);
 extern int ef_byname(char *);
 
-extern int ef_nbread(int type, int id, void *ptr);
 extern struct empfile empfile[];
 
 #endif /* _FILE_H_ */
