@@ -1077,7 +1077,6 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	    continue;
 	/* got one! */
 	ip = malloc(sizeof(*ip));
-	ip->state = P_OK;
 	ip->bombs = 0;
 	ip->misc = 0;
 	ip->pcp = &plchr[(int)plane.pln_type];

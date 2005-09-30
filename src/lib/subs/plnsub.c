@@ -504,7 +504,6 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	plane.pln_mission = 0;
 	putplane(plane.pln_uid, &plane);
 	plp = malloc(sizeof(struct plist));
-	plp->state = P_OK;
 	plp->misc = 0;
 	plp->bombs = 0;
 	plp->pcp = pcp;

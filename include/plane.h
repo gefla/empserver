@@ -129,16 +129,11 @@ struct plchrstr {
 
 struct plist {
     struct emp_qelem queue;	/* list of planes */
-    int state;			/* state of plane */
     int bombs;			/* bombs carried for bombing mission */
     int misc;			/* amount of random item being transported */
     struct plchrstr *pcp;	/* pointer to desc of plane */
     struct plnstr plane;	/* struct plane */
 };
-
-#define	P_OK		0
-#define P_FIRED		1
-#define P_DEL		2
 
 #define getplane(n, p) \
 	ef_read(EF_PLANE, n, p)
