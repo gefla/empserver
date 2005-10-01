@@ -221,7 +221,7 @@ att_get_combat(struct combat *com, int isdef)
 	y = com->y;
 	break;
     case EF_LAND:
-	if (!getland(com->lnd_uid, &land)) {
+	if (!getland(com->lnd_uid, &land) || !land.lnd_own) {
 	    if (isdef)
 		pr("Land unit #%d is not in the same sector!\n",
 		   com->lnd_uid);
@@ -1969,11 +1969,9 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    if (off[n].type == EF_SECTOR && off[n].mil)
 		off[n].mobcost +=
 		    min(20,
-			min(1,
-			    off[n].mob - damage(off[n].mob,
-						100 * (a_troops[n] -
-						       off[n].troops) /
-						off[n].mil)));
+			off[n].mob - damage(off[n].mob,
+					    100 * (a_troops[n] - off[n].troops)
+					    / off[n].mil));
 	    off[n].mil -= a_troops[n] - off[n].troops;
 	}
 
