@@ -51,6 +51,33 @@
 
 static int pln_equip(struct plist *, struct ichrstr *, int, s_char);
 
+/*
+ * Get assembly point argument.
+ * If INPUT is not empty, use it, else prompt for more input using PROMPT.
+ * If this yields a valid assembly point, read it into *AP_SECT and
+ * return AP_SECT.
+ * Else complain and return NULL.
+ * *AP_SECT and BUF[1024] may be modified in either case.
+ */
+struct sctstr *
+get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
+{
+    char *p;
+    coord x, y;
+
+    p = getstarg(input, "assembly point? ", buf);
+    if (!p || *p == 0)
+	return NULL;
+    if (!sarg_xy(p, &x, &y) || !getsect(x, y, ap_sect))
+	return NULL;
+    if (ap_sect->sct_own && ap_sect->sct_own != player->cnum &&
+	getrel(getnatp(ap_sect->sct_own), player->cnum) != ALLIED) {
+	pr("Assembly point not owned by you or an ally!\n");
+	return NULL;
+    }
+    return ap_sect;
+}
+
 int
 pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 {

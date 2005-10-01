@@ -560,6 +560,7 @@ extern int pln_prewrite(int, s_char *);
 extern void pln_init(int, s_char *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
+extern struct sctstr *get_assembly_point(char *, struct sctstr *, char *);
 extern int pln_onewaymission(struct sctstr *, int *, int *);
 extern int pln_oneway_to_carrier_ok(struct emp_qelem *,
 				    struct emp_qelem *, int);

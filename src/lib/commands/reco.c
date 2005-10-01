@@ -46,7 +46,6 @@
 int
 reco(void)
 {
-    s_char *p;
     int mission_flags;
     coord tx, ty;
     coord ax, ay;
@@ -55,7 +54,6 @@ reco(void)
     int cno;
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
-    coord x, y;
     struct sctstr target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
@@ -69,18 +67,10 @@ reco(void)
     if (!snxtitem(&ni_esc, EF_PLANE,
 		  getstarg(player->argp[2], "escort(s)? ", buf)))
 	pr("No escorts...\n");
-    if ((p = getstarg(player->argp[3], "assembly point? ", buf)) == 0
-	|| *p == 0)
+    if (!get_assembly_point(player->argp[3], &ap_sect, buf))
 	return RET_SYN;
-    if (!sarg_xy(p, &x, &y) || !getsect(x, y, &ap_sect))
-	return RET_SYN;
-    if (ap_sect.sct_own && ap_sect.sct_own != player->cnum &&
-	getrel(getnatp(ap_sect.sct_own), player->cnum) != ALLIED) {
-	pr("Assembly point not owned by you or an ally!\n");
-	return RET_SYN;
-    }
-    ax = x;
-    ay = y;
+    ax = ap_sect.sct_x;
+    ay = ap_sect.sct_y;
     if (getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING) == 0
 	|| *flightpath == 0)
 	return RET_SYN;

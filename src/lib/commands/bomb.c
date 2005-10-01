@@ -93,7 +93,6 @@ bomb(void)
     s_char flightpath[MAX_PATH_LEN];
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
-    coord x, y;
     struct sctstr target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
@@ -116,18 +115,10 @@ bomb(void)
     mission = *p;
     if (strchr("ps", mission) == 0)
 	return RET_SYN;
-    if ((p = getstarg(player->argp[4], "assembly point? ", buf)) == 0
-	|| *p == 0)
+    if (!get_assembly_point(player->argp[4], &ap_sect, buf))
 	return RET_SYN;
-    if (!sarg_xy(p, &x, &y) || !getsect(x, y, &ap_sect))
-	return RET_SYN;
-    if (ap_sect.sct_own && ap_sect.sct_own != player->cnum &&
-	getrel(getnatp(ap_sect.sct_own), player->cnum) != ALLIED) {
-	pr("Assembly point not owned by you or an ally!\n");
-	return RET_SYN;
-    }
-    ax = x;
-    ay = y;
+    ax = ap_sect.sct_x;
+    ay = ap_sect.sct_y;
     if (getpath(flightpath, player->argp[5], ax, ay, 0, 0, P_FLYING) == 0
 	|| *flightpath == 0)
 	return RET_SYN;
