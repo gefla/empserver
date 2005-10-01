@@ -6,8 +6,6 @@ What follows is a list of clients which support the new Empire4
 protocol.  All of these clients may be found on the Wolfpack Empire
 Archives located at:
   http://www.wolfpackempire.com
-or
-  ftp://ftp.wolfpackempire.com/pub/empire/
 
 empclient-2.8 and later - full support
 
