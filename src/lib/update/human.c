@@ -50,7 +50,6 @@ static int grow_people(struct sctstr *, int,
 		       struct natstr *, int *, int,
 		       short *);
 static int growfood(struct sctstr *, short *, int, int);
-static void starvation(struct sctstr *);
 static void trunc_people(struct sctstr *, struct natstr *,
 			 short *);
 
@@ -106,16 +105,18 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	    }
 	}
 	starved = feed_people(vec, etu, &needed);
-	if ((starved > 0 && sp->sct_own) && (!player->simulation)) {
-	    /* don't report POGO starvation */
-	    wu(0, sp->sct_own, "%d starved in %s.\n", starved,
-	       xyas(sp->sct_x, sp->sct_y, sp->sct_own));
-	    if (starved > 25)
-		nreport(sp->sct_own, N_DIE_FAMINE, 0, 1);
-	}
 	if (starved > 0) {
-	    if (!player->simulation)
-		starvation(sp);
+	    if (!player->simulation) {
+		/* don't report POGO starvation */
+		if (sp->sct_own) {
+		    wu(0, sp->sct_own, "%d starved in %s.\n", starved,
+		       xyas(sp->sct_x, sp->sct_y, sp->sct_own));
+		    if (starved > 25)
+			nreport(sp->sct_own, N_DIE_FAMINE, 0, 1);
+		}
+		sp->sct_work = 0;
+		sp->sct_loyal += (random() % 8) + 2;
+	    }
 	    sctwork = 0;
 	} else {
 	    if (sp->sct_work < 100)
@@ -155,20 +156,15 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
     int food;
     int work_used;
 
-    /* I'm being very nice and commenting out this so players
-     * won't whine about starvation
-     if (sp->sct_fertil == 0 || work == 0)
-     return 0;
-     */
     food_workers = work * fcrate;
     food_fertil = etu * sp->sct_fertil * fgrate;
     food = min(food_workers, food_fertil);
-    /*
-     * be nice; grow minimum one food unit.
-     * This makes life simpler for the player.
-     */
     if (food > ITEM_MAX - vec[I_FOOD])
 	food = ITEM_MAX - vec[I_FOOD];
+    /*
+     * Be nice; grow minimum one food unit.
+     * This makes life simpler for the player.
+     */
     vec[I_FOOD] += food;
     if (vec[I_FOOD] == 0)
 	vec[I_FOOD] = 1;
@@ -307,14 +303,4 @@ grow_people(struct sctstr *sp, int etu,
 	vec[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
     *workp += total_work(sctwork, etu, newciv, 0, newuw, ITEM_MAX);
     return newciv + newuw;
-}
-
-/*
- * percentage of people who starved
- */
-static void
-starvation(struct sctstr *sp)
-{
-    sp->sct_work = 0;
-    sp->sct_loyal += (random() % 8) + 2;
 }
