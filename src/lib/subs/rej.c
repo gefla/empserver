@@ -137,6 +137,8 @@ setrel(natid us, natid them, int rel)
 	else
 	    nreport(us, n_down, them, 1);
     }
+    if (opt_HIDDEN)
+	setcont(them, us, FOUND_TELE);
 
     return RET_OK;
 }
