@@ -123,7 +123,6 @@ player_main(struct player *p)
 	strcpy(natp->nat_hostaddr, player->hostaddr);
 
     time(&natp->nat_last_login);
-    natp->nat_connected = 1;
     putnat(natp);
     if (natp->nat_flags & NF_INFORM && natp->nat_tgms > 0) {
 	if (natp->nat_tgms == 1)
@@ -152,7 +151,6 @@ player_main(struct player *p)
     secs = secs % 60;
     if (chance(secs / 60.0))
 	natp->nat_minused += 1;
-    natp->nat_connected = 0;
     putnat(natp);
     pr("Bye-bye\n");
 }

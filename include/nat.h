@@ -71,7 +71,6 @@ struct natstr {
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
     s_char nat_dayno;		/* day of the year mod 128 */
-    s_char nat_connected;	/* connected or not? */
     s_char nat_update;		/* Want an update or not. */
     u_char nat_missed;		/* How many updates missed */
     u_short nat_tgms;		/* # of telegrams to be announced */

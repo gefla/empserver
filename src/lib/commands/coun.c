@@ -52,8 +52,6 @@ coun(void)
     struct natstr nat;
     int first;
 
-    pr("The 'country' command is temporarily out of order.\n");
-    pr("Please use the 'players' command instead.\n");
     if (!snxtitem(&ni, EF_NATION, player->argp[1]))
 	return RET_SYN;
     first = 1;
@@ -84,7 +82,7 @@ coun_list(natid cn, struct natstr *natp)
     s_char *status;
     struct sctstr sect;
 
-    if (natp->nat_connected)
+    if (getplayer(cn))
 	pr("%3d  %-16.16s   [%d]", cn, " Now logged on", natp->nat_btu);
     else
 	pr("%3d  %-16.16s   [%d]", cn, ctime(&natp->nat_last_login),

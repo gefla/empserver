@@ -203,7 +203,6 @@ add(void)
 	*natp->nat_hostname = '\0';
 	*natp->nat_userid = '\0';
 	natp->nat_btu = 0;
-	natp->nat_connected = 0;
 	natp->nat_reserve = 0;
 	natp->nat_tgms = 0;
 	natp->nat_ystart = 0;
