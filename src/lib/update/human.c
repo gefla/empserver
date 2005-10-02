@@ -49,6 +49,7 @@
 static int grow_people(struct sctstr *, int,
 		       struct natstr *, int *, int,
 		       short *);
+static int babies(int, int, double, int, int);
 static int growfood(struct sctstr *, short *, int, int);
 static void trunc_people(struct sctstr *, struct natstr *,
 			 short *);
@@ -256,45 +257,12 @@ grow_people(struct sctstr *sp, int etu,
 {
     int newciv;
     int newuw;
-    int new_birth;
-    int new_food;
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
 
-    newciv = 0;
-    newuw = 0;
-    if (vec[I_CIVIL] < maxpop) {
-	new_birth = (int)roundavg(obrate * (double)(etu * vec[I_CIVIL]));
-	if (opt_NOFOOD)
-	    new_food = (int)(0.5 + maxpop / (2.0 * babyeat));
-	else			/* we are using food */
-	    new_food = (int)(0.5 + vec[I_FOOD] / (2.0 * babyeat));
-
-	newciv = new_birth;
-	if (newciv > new_food)
-	    newciv = new_food;
-	/* Now, check max pops */
-	if ((vec[I_CIVIL] + newciv) > maxpop)
-	    newciv = maxpop - vec[I_CIVIL];
-	vec[I_CIVIL] += newciv;
-    }
-    if (vec[I_UW] < maxpop) {
-	/*
-	 * now grow uw's
-	 */
-	new_birth = (int)roundavg(uwbrate * (double)(etu * vec[I_UW]));
-	if (opt_NOFOOD)
-	    new_food = (int)(0.5 + maxpop / (2.0 * babyeat));
-	else			/* food is important */
-	    new_food = (int)(0.5 + vec[I_FOOD] / (2.0 * babyeat));
-
-	newuw = new_birth;
-	if (newuw > new_food)
-	    newuw = new_food;
-	/* Now, check max pops */
-	if ((vec[I_UW] + newuw) > maxpop)
-	    newuw = maxpop - vec[I_UW];
-	vec[I_UW] += newuw;
-    }
+    newciv = babies(vec[I_CIVIL], etu, obrate, vec[I_FOOD], maxpop);
+    vec[I_CIVIL] += newciv;
+    newuw = babies(vec[I_UW], etu, uwbrate, vec[I_FOOD], maxpop);
+    vec[I_UW] += newuw;
     /*
      * subtract the baby eat food (if we are using FOOD) and return
      * # of births.
@@ -303,4 +271,30 @@ grow_people(struct sctstr *sp, int etu,
 	vec[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
     *workp += total_work(sctwork, etu, newciv, 0, newuw, ITEM_MAX);
     return newciv + newuw;
+}
+
+/*
+ * Return the number of babies born to ADULTS in ETU ETUs.
+ * BRATE is the birth rate.
+ * FOOD is the food available for growing babies.
+ * MAXPOP is the population limit.
+ */
+static int
+babies(int adults, int etu, double brate, int food, int maxpop)
+{
+    int new_birth, new_food, new;
+
+    new_birth = roundavg(brate * etu * adults);
+    if (opt_NOFOOD)
+	new_food = new_birth;
+    else
+	new_food = (int)(0.5 + food / (2.0 * babyeat));
+
+    new = new_birth;
+    if (new > new_food)
+	new = new_food;
+    if (adults + new > maxpop)
+	new = maxpop - adults;
+
+    return new;
 }
