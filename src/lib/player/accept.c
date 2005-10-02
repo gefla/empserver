@@ -209,16 +209,22 @@ player_prev(struct player *lp)
     return lp;
 }
 
+/*
+ * Return player in state PS_PLAYING for CNUM.
+ */
 struct player *
 getplayer(natid cnum)
 {
-    register struct emp_qelem *qp;
+    struct emp_qelem *qp;
+    struct player *pl;
 
-    for (qp = Players.q_forw; qp != &Players; qp = qp->q_forw)
-	if (((struct player *)qp)->cnum == cnum)
-	    return (struct player *)qp;
+    for (qp = Players.q_forw; qp != &Players; qp = qp->q_forw) {
+	pl = (struct player *)qp;
+	if (pl->cnum == cnum && pl->state == PS_PLAYING)
+	    return pl;
+    }
 
-    return 0;
+    return NULL;
 }
 
 struct player *
