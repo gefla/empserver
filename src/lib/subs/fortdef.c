@@ -92,7 +92,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	    continue;
 	if (ship.shp_effic < 60)
 	    continue;
-	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && (!usesubs))
+	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && !usesubs)
 	    continue;
 	range = techfact(ship.shp_tech,
 			 ship.shp_frnge * ship.shp_effic / 200.0);

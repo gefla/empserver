@@ -227,7 +227,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     n = (-1 * MAX_RETREAT);
     stopping = 0;
     time_to_stop = 0;
-    while ((!stopping) && n) {
+    while (!stopping && n) {
 	dx = dy = 0;
 	if (sp->shp_rpath[0] == 0 || sp->shp_rpath[0] == 0) {
 	    stopping = 1;
@@ -453,7 +453,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
     n = (-1 * MAX_RETREAT);
     stopping = 0;
     time_to_stop = 0;
-    while ((!stopping) && n) {
+    while (!stopping && n) {
 	dx = dy = 0;
 	if (lp->lnd_rpath[0] == 0 || lp->lnd_rpath[0] == 0) {
 	    stopping = 1;

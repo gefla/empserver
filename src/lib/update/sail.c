@@ -135,7 +135,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	return 0;
     }
 
-    for (stop = 0, cp = ap->shp_path; (!stop) && (*cp); cp++) {
+    for (stop = 0, cp = ap->shp_path; !stop && *cp; cp++) {
 	switch (*cp) {
 	case 'y':
 	case 'u':

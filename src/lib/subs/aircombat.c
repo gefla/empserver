@@ -195,7 +195,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
 	evaded = do_evade(bomb_list, esc_list);
 
-	if (sect.sct_own != 0 && sect.sct_own != plane_owner && (!evaded)) {
+	if (sect.sct_own != 0 && sect.sct_own != plane_owner && !evaded) {
 	    /* We only show planes overhead if they didn't
 	     * evade radar */
 	    overfly[sect.sct_own]++;
@@ -216,7 +216,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* mission planes aborted due to flak -- don't send escorts */
 	if (QEMPTY(bomb_list))
 	    break;
-	if ((!no_air_defense) && (!evaded))
+	if (!no_air_defense && !evaded)
 	    air_defense(x, y, plane_owner, bomb_list, esc_list);
 
 	if (sect.sct_own == 0 || sect.sct_own == plane_owner)
