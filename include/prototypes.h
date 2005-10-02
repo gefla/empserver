@@ -408,7 +408,6 @@ extern struct player *player_delete(struct player *);
 extern struct player *player_next(struct player *);
 extern struct player *player_prev(struct player *);
 extern struct player *getplayer(natid);
-extern struct player *player_find_other(struct player *, register natid);
 extern void player_wakeup_all(natid);
 extern void player_wakeup(struct player *);
 extern void player_accept(void *);

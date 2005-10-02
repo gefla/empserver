@@ -291,7 +291,8 @@ play_cmd(void)
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return RET_FAIL;
     }
-    if ((other = player_find_other(player, (natid)player->cnum)) != 0) {
+    other = getplayer((natid)player->cnum);
+    if (other) {
 	natp = getnatp(player->cnum);
 	if (natp->nat_stat != VIS) {
 	    pr_id(player, C_EXIT, "country in use by %s\n", praddr(other));
@@ -321,8 +322,8 @@ kill_cmd(void)
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return RET_FAIL;
     }
-    /* XXX find cnum other than us */
-    if ((other = player_find_other(player, player->cnum)) == 0) {
+    other = getplayer(player->cnum);
+    if (!other) {
 	pr_id(player, C_EXIT, "country not in use\n");
 	return RET_FAIL;
     }

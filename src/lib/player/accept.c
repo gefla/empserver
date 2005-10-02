@@ -227,21 +227,6 @@ getplayer(natid cnum)
     return NULL;
 }
 
-struct player *
-player_find_other(struct player *us, register natid cnum)
-{
-    register struct emp_qelem *qp;
-
-    for (qp = Players.q_forw; qp != &Players; qp = qp->q_forw)
-	if (((struct player *)qp)->cnum == cnum &&
-	    ((struct player *)qp != us) &&
-	    (((struct player *)qp)->state == PS_PLAYING))
-	    return (struct player *)qp;
-
-
-    return 0;
-}
-
 void
 player_wakeup_all(natid cnum)
 {
