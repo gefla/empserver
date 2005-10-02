@@ -201,6 +201,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    overfly[sect.sct_own]++;
 	    PR(sect.sct_own, "%s planes spotted over %s\n",
 	       cname(plane_owner), xyas(x, y, sect.sct_own));
+	    if (opt_HIDDEN)
+		setcont(cn, plane_owner, FOUND_FLY);
 	}
 
 	if (!evaded) {
@@ -291,9 +293,12 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* Are there ships owned by this country? */
 	if (nats[cn] != 0) {
 	    /* Yes. */
-	    if (cn != 0)
+	    if (cn != 0) {
 		PR(cn, "%s planes spotted over ships in %s\n",
 		   cname(plane_owner), xyas(x, y, cn));
+		if (opt_HIDDEN)
+		    setcont(cn, plane_owner, FOUND_FLY);
+	    }
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
@@ -317,9 +322,12 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* Are there units owned by this country? */
 	if (lnats[cn] != 0) {
 	    /* Yes. */
-	    if (cn != 0)
+	    if (cn != 0) {
 		PR(cn, "%s planes spotted over land units in %s\n",
 		   cname(plane_owner), xyas(x, y, cn));
+		if (opt_HIDDEN)
+		    setcont(cn, plane_owner, FOUND_FLY);
+	    }
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
