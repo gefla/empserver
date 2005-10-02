@@ -97,7 +97,7 @@ prod_land(int etus, int natnum, int *bp, int build)
 	start_money = np->nat_money;
 	upd_land(lp, etus, np, bp, build);
 	lnd_money[lp->lnd_own] += np->nat_money - start_money;
-	if ((build && (np->nat_money != start_money)) || (!build))
+	if (!build || np->nat_money != start_money)
 	    k++;
 	if (player->simulation)
 	    np->nat_money = start_money;
