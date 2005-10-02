@@ -82,7 +82,6 @@ extern int opt_RES_POP;
 extern int opt_SAIL;
 extern int opt_SHOWPLANE;
 extern int opt_SLOW_WAR;
-extern int opt_SNEAK_ATTACK;
 extern int opt_SUPER_BARS;
 extern int opt_TECH_POP;
 extern int opt_TRADESHIPS;

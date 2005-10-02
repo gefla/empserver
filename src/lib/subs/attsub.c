@@ -152,39 +152,6 @@ prcom(int inon, struct combat *com)
     return pr_com(inon, com, player->cnum);
 }
 
-/* Doing a sneak attack */
-static void
-do_sneak(struct combat *def, int success)
-{
-    struct sctstr sect;
-    struct natstr *natp = getnatp(player->cnum);
-    int issneak = getrel(natp, def->own);
-
-    if (def->type != EF_SECTOR)
-	return;
-
-    getsect(def->x, def->y, &sect);
-
-    if (issneak == AT_WAR || !def->own || sect.sct_oldown == player->cnum)
-	return;
-
-    if (success)
-	pr("Your sneak attack was successful\nBut ");
-    else
-	pr("Your sneak attack was unsuccessful\nAnd ");
-
-    pr("it will cost you $5000\n");
-    pr("War has been declared!!!!\n");
-    wu(0, def->own, "Country %s (#%d) has Sneak Attacked!!\n",
-       cname(player->cnum), player->cnum);
-    wu(0, def->own, "Country %s (#%d) has Declared WAR on you!!\n",
-       cname(player->cnum), player->cnum);
-    player->dolcost += 5000;
-    issneak = min(issneak, MOBILIZATION);
-    nreport(player->cnum, N_DECL_WAR, def->own, 1);
-    setrel(player->cnum, def->own, issneak);
-}
-
 /*
  * This is the combat object "type" based integrity check.  It basically
  * splits along three divisions: ship/sector, attacker/defender, 
@@ -476,7 +443,7 @@ int
 att_abort(int combat_mode, struct combat *off, struct combat *def)
 {
     struct sctstr sect;
-    int issneak;
+    int rel;
     s_char y_or_n[512];
     struct natstr *natp;
 
@@ -555,40 +522,19 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
     }
     if (opt_SLOW_WAR && def->own != player->cnum) {
 	natp = getnatp(player->cnum);
-	issneak = getrel(natp, def->own);
+	rel = getrel(natp, def->own);
 
-	if (issneak == ALLIED) {
+	if (rel == ALLIED) {
 	    sprintf(y_or_n, "Sector is owned by %s, your ally, %s [yn]? ",
 		    cname(def->own), att_mode[combat_mode]);
 	    if (!confirm(y_or_n))
 		return abort_attack();
 
 	}
-	if (opt_SNEAK_ATTACK) {
-	    getsect(def->x, def->y, &sect);
-	    if ((issneak != AT_WAR) && (def->own)
-		&& (def->own != player->cnum)
-		&& (sect.sct_oldown != player->cnum)
-		&& (issneak != SITZKRIEG) && (issneak != MOBILIZATION)) {
-		pr("You're not at war with them!\n");
-		if (!confirm("Do you really want to sneak attack (it will cost you $5000) [yn]? ")) {
-		    pr("Sneak attack cancelled!\n");
-		    return abort_attack();
-		}
-	    }
-	    if ((issneak != AT_WAR) && (def->own)
-		&& (def->own != player->cnum)
-		&& (sect.sct_oldown != player->cnum)
-		&& ((issneak == MOBILIZATION) || (issneak == SITZKRIEG))) {
-		pr("You're not at war with them!\n");
-		return abort_attack();
-	    }
-	} else {
-	    if ((issneak != AT_WAR) && (def->own) &&
-		(sect.sct_oldown != player->cnum)) {
-		pr("You're not at war with them!\n");
-		return abort_attack();
-	    }
+	if ((rel != AT_WAR) && (def->own) &&
+	    (sect.sct_oldown != player->cnum)) {
+	    pr("You're not at war with them!\n");
+	    return abort_attack();
 	}
     }
     return 0;
@@ -2055,10 +2001,6 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	   "%s (#%d) lost %d troops %s %s\nWe lost %d troops defending\n",
 	   cname(player->cnum), player->cnum, a_cas,
 	   action, pr_com(0, def, def->own), d_cas);
-    }
-
-    if (opt_SNEAK_ATTACK) {
-	do_sneak(def, success);
     }
 
     send_reacting_units_home(dlist);

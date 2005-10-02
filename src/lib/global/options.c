@@ -129,12 +129,6 @@ int opt_NOFOOD = 1;
 int opt_NOFOOD = 0;
 #endif
 
-#ifdef SNEAK_ATTACK
-int opt_SNEAK_ATTACK = 1;
-#else
-int opt_SNEAK_ATTACK = 0;
-#endif
-
 #ifdef BLITZ
 int opt_BLITZ = 1;
 #else
@@ -314,7 +308,6 @@ struct option_list Options[] = {
     {"SAIL", &opt_SAIL},
     {"SHOWPLANE", &opt_SHOWPLANE},
     {"SLOW_WAR", &opt_SLOW_WAR},
-    {"SNEAK_ATTACK", &opt_SNEAK_ATTACK},
     {"SUPER_BARS", &opt_SUPER_BARS},
     {"TECH_POP", &opt_TECH_POP},
     {"TRADESHIPS", &opt_TRADESHIPS},

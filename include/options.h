@@ -83,7 +83,6 @@
 #endif
 /*#define TRADESHIPS*//* Use Tradeships */
 /*#define SLOW_WAR*//* Declaring war takes time */
-/*#define SNEAK_ATTACK*//* Allows sneak attacks */
 #define	PINPOINTMISSILE /**/
 #define	FALLOUT			/* Enables secondary effects caused by radiation */
 #define	SAIL			/* A update routine to move ships */
@@ -102,11 +101,10 @@
 #ifdef UPDATESCHED		/* be used */
 #define	DEMANDUPDATE		/* NOTE! Depends on UPDATESCHED! Don't use without it! */
 #endif /* UPDATESCHED */
+/*#define	NOFOOD*/ /**/
+
 #ifdef BLITZ
 #define NOFOOD			/* automatically have no food for blitzes */
 #endif /* BLITZ */
-/*#define	NOFOOD*/ /**/
-#ifndef SLOW_WAR
-#undef SNEAK_ATTACK		/* SNEAK_ATTACK is only useful with SLOW_WAR */
-#endif /* SLOW_WAR */
+
 #endif /* _OPTIONS_H_ */
