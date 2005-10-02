@@ -47,6 +47,7 @@
 #include "optlist.h"
 
 static void look_ship(struct shpstr *lookship);
+static void look_land(struct lndstr *lookland);
 
 int
 look(void)
@@ -168,10 +169,10 @@ look_ship(struct shpstr *lookship)
 	pr("%s (#%d) %s @ %s\n",
 	   cname(sp->shp_own), sp->shp_own, prship(sp),
 	   xyas(sp->shp_x, sp->shp_y, player->cnum));
+	if (opt_HIDDEN)
+	    setcont(player->cnum, sp->shp_own, FOUND_LOOK);
     }
 }
-
-static void look_land(struct lndstr *lookland);
 
 int
 llook(void)
@@ -287,6 +288,8 @@ look_land(struct lndstr *lookland)
 	   cname(lp->lnd_own), lp->lnd_own,
 	   prland(lp), ldround((double)total_mil(lp), 20),
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
+	if (opt_HIDDEN)
+	    setcont(player->cnum, lp->lnd_own, FOUND_LOOK);
     }
     for (i = 0; NULL != (pp = getplanep(i)); i++) {
 	if (pp->pln_own == player->cnum || pp->pln_own == 0)
@@ -304,5 +307,7 @@ look_land(struct lndstr *lookland)
 	pr("%s (#%d) %s @ %s\n",
 	   cname(pp->pln_own), pp->pln_own,
 	   prplane(pp), xyas(pp->pln_x, pp->pln_y, player->cnum));
+	if (opt_HIDDEN)
+	    setcont(player->cnum, pp->pln_own, FOUND_LOOK);
     }
 }
