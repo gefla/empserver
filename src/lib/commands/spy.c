@@ -161,8 +161,10 @@ spy(void)
 		    wu(0, own, "%s (#%d) spy deported from %s\n",
 		       cname(player->cnum), player->cnum,
 		       xyas(nx, ny, own));
+		if (opt_HIDDEN)
+		    setcont(own, player->cnum, FOUND_SPY);
 	    } else if (relat < NEUTRAL && caught) {
-		/* at-war with spy-ee */
+		/* hostile spy-ee */
 		pr("BANG!! A spy was shot in %s\n",
 		   xyas(nx, ny, player->cnum));
 		military--;
@@ -171,6 +173,8 @@ spy(void)
 		       cname(player->cnum), player->cnum,
 		       xyas(nx, ny, own));
 		nreport(player->cnum, N_SPY_SHOT, own, 1);
+		if (opt_HIDDEN)
+		    setcont(own, player->cnum, FOUND_SPY);
 	    } else {
 		insert(table, &t_len, nx, ny);
 		spyline(&dsect);
@@ -179,9 +183,8 @@ spy(void)
 				   dchr[dsect.sct_type].d_mnem, 0);
 		prunits(dsect.sct_x, dsect.sct_y);
 		prplanes(dsect.sct_x, dsect.sct_y);
-		if (opt_HIDDEN) {
+		if (opt_HIDDEN)
 		    setcont(player->cnum, own, FOUND_SPY);
-		}
 	    }
 	    /*
 	     * If you have a recon unit, it'll
