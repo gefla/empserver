@@ -132,10 +132,20 @@ struct natstr {
 #define	NAT_ELEV	2
 #define	NAT_HLEV	3
 
-#define FOUND_FLY	3	/* Number of updates contact lasts */
-#define FOUND_LOOK	5	/* These are only useful with the */
-#define FOUND_SPY	6	/* LOSE_CONTACT option (and HIDDEN) */
+/*
+ * Number of updates contact lasts for various ways of making contact.
+ * These are only useful with option LOSE_CONTACT option, which
+ * implies option HIDDEN.
+ */
+/* Planes spotting and being spotted */
+#define FOUND_FLY	3
+/* Lookout */
+#define FOUND_LOOK	5
+/* Spies and ground combat */
+#define FOUND_SPY	6
+/* Communication */
 #define FOUND_TELE	3
+/* Coastwatch and skywatch */
 #define FOUND_COAST	3
 
 extern s_char *relates[];
