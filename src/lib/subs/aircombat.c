@@ -136,11 +136,10 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	y = ynorm(y + diroff[val][1]);
 	getsect(x, y, &sect);
 	over = getnatp(sect.sct_own);
-	if (opt_HIDDEN) {
-	    setcont(plane_owner, sect.sct_own, FOUND_FLY);
-	}
 
 	if (mission_flags & PM_R) {
+	    if (opt_HIDDEN)
+		setcont(plane_owner, sect.sct_own, FOUND_FLY);
 	    if (sect.sct_type == SCT_WATER) {
 		PR(plane_owner, "flying over %s at %s\n",
 		   dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
