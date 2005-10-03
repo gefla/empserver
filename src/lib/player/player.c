@@ -93,34 +93,21 @@ player_main(struct player *p)
 	pr("Time exceeded today\n");
 	return;
     }
-    if ((*natp->nat_hostaddr &&
-	 *player->hostaddr &&
-	 strcmp(natp->nat_hostaddr, player->hostaddr)) ||
-	(*natp->nat_userid &&
-	 *player->userid && strcmp(natp->nat_userid, player->userid))) {
-	if (natp->nat_stat != VIS) {
-	    pr("Last connection from: %s", ctime(&natp->nat_last_login));
-	    pr("                  to: %s", natp->nat_last_login <
-	       natp->nat_last_logout ? ctime(&natp->
-					     nat_last_logout) : "?");
-	    pr("                  by: %s@%s\n",
-	       *natp->nat_userid ? natp->nat_userid : "nobody",
-	       *natp->nat_hostname ? natp->nat_hostname
-	       : *natp->nat_hostaddr ? natp->nat_hostaddr : "nowhere");
-	}
+    if (natp->nat_stat != VIS
+	&& natp->nat_last_login
+	&& (strcmp(natp->nat_hostaddr, player->hostaddr)
+	    || strcmp(natp->nat_userid, player->userid))) {
+	pr("Last connection from: %s", ctime(&natp->nat_last_login));
+	pr("                  to: %s",
+	   natp->nat_last_login <= natp->nat_last_logout
+	   ? ctime(&natp->nat_last_logout) : "?");
+	pr("                  by: %s@%s\n",
+	   natp->nat_userid,
+	   *natp->nat_hostname ? natp->nat_hostname : natp->nat_hostaddr);
     }
-    if (*player->userid)
-	strcpy(natp->nat_userid, player->userid);
-    else
-	strcpy(natp->nat_userid, "nobody");
-
-    if (*player->hostname)
-	strcpy(natp->nat_hostname, player->hostname);
-    else
-	strcpy(natp->nat_hostname, "nowhere");
-
-    if (*player->hostaddr)
-	strcpy(natp->nat_hostaddr, player->hostaddr);
+    strcpy(natp->nat_userid, player->userid);
+    strcpy(natp->nat_hostname, player->hostname);
+    strcpy(natp->nat_hostaddr, player->hostaddr);
 
     time(&natp->nat_last_login);
     putnat(natp);

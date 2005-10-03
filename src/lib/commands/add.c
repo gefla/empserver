@@ -214,8 +214,7 @@ add(void)
 	natp->nat_dayno = 0;
 	natp->nat_minused = 0;
 	memset(natp->nat_b, 0, sizeof(natp->nat_b));
-	(void)time(&natp->nat_last_login);
-	(void)time(&natp->nat_last_logout);
+	natp->nat_last_login = natp->nat_last_login = 0;
 	natp->nat_money = 0;
 	natp->nat_level[NAT_TLEV] = start_technology;
 	natp->nat_level[NAT_RLEV] = start_research;

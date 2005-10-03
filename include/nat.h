@@ -65,8 +65,8 @@ struct natstr {
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
     char nat_hostaddr[32];	/* host addr of last user */
-    char nat_hostname[512];	/* hostname of last user */
-    char nat_userid[32];	/* userid of last user */
+    char nat_hostname[512];	/* hostname of last user, may be empty */
+    char nat_userid[32];	/* userid of last user, may be empty */
     coord nat_xstart, nat_ystart;	/* cap location at start */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
@@ -79,8 +79,8 @@ struct natstr {
     short nat_btu;		/* bureaucratic time units */
     long nat_reserve;		/* military reserves */
     long nat_money;		/* moola */
-    time_t nat_last_login;	/* time of last login */
-    time_t nat_last_logout;	/* time of last logout */
+    time_t nat_last_login;	/* time of last login, 0 menas never */
+    time_t nat_last_logout;	/* time of last logout, 0 means never */
     time_t nat_newstim;		/* date news last read */
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
