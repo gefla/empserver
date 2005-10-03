@@ -54,8 +54,8 @@ add(void)
     struct sctstr sect;
     struct nstr_sect nstr;
     int i;
-    s_char cntryname[21];
-    s_char pname[21];
+    char cntryname[sizeof(natp->nat_cnam)];
+    char pname[sizeof(natp->nat_pnam)];
     natid coun;
     natid freecn;
     s_char prompt[128];
@@ -89,7 +89,7 @@ add(void)
     }
     natp = getnatp(coun);
     while ((p = getstarg(player->argp[2], "Country Name? ", buf)) && *p) {
-	if (strlen(p) < 20) {
+	if (strlen(p) < sizeof(cntryname)) {
 	    (void)strcpy(cntryname, p);
 	    break;
 	}
@@ -99,7 +99,7 @@ add(void)
     if (p == 0 || *p == 0)
 	return RET_OK;
     while ((p = getstarg(player->argp[3], "Representative? ", buf)) && *p) {
-	if (strlen(p) < 20) {
+	if (strlen(p) < sizeof(pname)) {
 	    (void)strcpy(pname, p);
 	    break;
 	}
