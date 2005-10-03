@@ -203,7 +203,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     s_char *p;
     struct plist *plp;
     struct emp_qelem *qp;
-    int bestacc;
     int nsubs;
     int nunits;
     struct natstr *natp;
@@ -219,11 +218,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     nsubs = 0;
     plp = (struct plist *)list->q_forw;
     if (plp->pcp->pl_flags & P_A) {
-	bestacc = 0;
-	for (qp = list->q_forw; qp != list; qp = qp->q_forw)
-	    plp = (struct plist *)qp;
-	if (plp->plane.pln_acc < bestacc)
-	    bestacc = plp->plane.pln_acc;
 	nships = num_shipsatxy(target->sct_x, target->sct_y, 0, 0);
 	nsubs = nships - shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
 	if (nsubs > 0)
