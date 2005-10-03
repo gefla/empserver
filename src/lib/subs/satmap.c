@@ -122,9 +122,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		if (sect.sct_own && sect.sct_own != player->cnum) {
 		    satdisp(&sect, acc, 0);
 		    ++count;
-		}
-		if (opt_HIDDEN) {
-		    setcont(player->cnum, sect.sct_own, FOUND_FLY);
+		    if (opt_HIDDEN)
+			setcont(player->cnum, sect.sct_own, FOUND_FLY);
 		}
 	    }
 	    if ((flags & P_I) ||
@@ -171,9 +170,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 		pr("%3d%%\n", ship.shp_effic);
 		++count;
-		if (opt_HIDDEN) {
+		if (opt_HIDDEN)
 		    setcont(player->cnum, ship.shp_own, FOUND_FLY);
-		}
 	    }
 	    /* If we are imaging *and* drawing the map */
 	    if ((flags & P_I) && (type == EF_BAD)) {
@@ -223,6 +221,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		prxy("%4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
 		pr("%3d%%\n", land.lnd_effic);
 		++count;
+		if (opt_HIDDEN)
+		    setcont(player->cnum, land.lnd_own, FOUND_FLY);
 	    }
 	    /* If we are imaging *and* drawing the map */
 	    if ((flags & P_I) && (type == EF_BAD)) {
