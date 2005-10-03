@@ -118,7 +118,7 @@ chan(void)
 	if ((p = getstarg(player->argp[2],
 			  "New representative name -- ", buf)) == 0)
 	    return RET_SYN;
-	p[8] = 0;
+	p[sizeof(us->nat_pnam) - 1] = 0;
 	strcpy(us->nat_pnam, p);
 	putnat(us);
 	break;
