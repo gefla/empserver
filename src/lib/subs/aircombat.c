@@ -906,6 +906,9 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	if (land.lnd_aaf == 0)
 	    continue;
 
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    continue;
+
 	rel = getrel(getnatp(land.lnd_own), plane_owner);
 	if (rel > HOSTILE)
 	    continue;
