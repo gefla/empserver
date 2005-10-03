@@ -591,22 +591,17 @@ notify_coastguard(struct emp_qelem *list, int trange, struct sctstr *sectp)
     if (vrange < trange)
 	return 0;
 
-    /* We got here, so we could theoretically see the ship.  Now,
-     * do we want to see it in our telebox? If not, return positive
-     * since we could see the ship and want forts to fire. */
-    if (!(natp->nat_flags & NF_COASTWATCH))
-	return 1;
-
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct mlist *)qp;
 	if (mlp->mcp->m_flags & M_SUB)
 	    continue;
-	wu(0, sectp->sct_own,
-	   "%s %s sighted at %s\n",
-	   cname(mlp->ship.shp_own),
-	   prship(&mlp->ship),
-	   xyas(mlp->ship.shp_x, mlp->ship.shp_y, sectp->sct_own));
+	if (natp->nat_flags & NF_COASTWATCH)
+	    wu(0, sectp->sct_own,
+	       "%s %s sighted at %s\n",
+	       cname(mlp->ship.shp_own),
+	       prship(&mlp->ship),
+	       xyas(mlp->ship.shp_x, mlp->ship.shp_y, sectp->sct_own));
 	if (opt_HIDDEN)
 	    setcont(sectp->sct_own, mlp->ship.shp_own, FOUND_COAST);
     }
