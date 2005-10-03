@@ -393,11 +393,11 @@ match_user(char *file, struct player *p)
     }
     match = 0;
     while (!feof(fp) && !match) {
-	if (fgets(host, sizeof(host) - 1, fp) == NULL)
+	if (fgets(host, sizeof(host), fp) == NULL)
 	    break;
 	if (host[0] == '#')
 	    continue;
-	if (fgets(user, sizeof(user) - 1, fp) == NULL)
+	if (fgets(user, sizeof(user), fp) == NULL)
 	    break;
 	host[strlen(host) - 1] = '\0';
 	user[strlen(user) - 1] = '\0';

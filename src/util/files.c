@@ -118,7 +118,7 @@ main(int argc, char *argv[])
     	printf("WARNING: this blasts the existing game in %s (if any)\n",
 	   datadir);
     	printf("continue? ");
-    	fgets(buf, sizeof(buf) - 1, stdin);
+    	fgets(buf, sizeof(buf), stdin);
     	if (*buf != 'y' && *buf != 'Y')
   	    exit(1);
     }
