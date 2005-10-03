@@ -672,6 +672,11 @@ ac_dog(struct plist *ap, struct plist *dp)
     ac_planedamage(dp, ap->plane.pln_own, ddam, att_own, 1, 0, mesg);
     PR(att_own, "%-13.13s %-13.13s\n", temp, mesg);
     PR(def_own, "%-13.13s %-13.13s\n", mesg, temp);
+
+    if (opt_HIDDEN) {
+	setcont(att_own, def_own, FOUND_FLY);
+	setcont(def_own, att_own, FOUND_FLY);
+    }
 }
 
 /*
