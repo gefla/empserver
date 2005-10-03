@@ -130,10 +130,8 @@ main(int argc, char *argv[])
     }
     memset(&nat, 0, sizeof(nat));
     nat.ef_type = EF_NATION;
-    if (nat.nat_cnam[0] == 0)
-	strcpy(nat.nat_cnam, "POGO");
-    if (nat.nat_pnam[0] == 0)
-	strcpy(nat.nat_pnam, "peter");
+    strcpy(nat.nat_cnam, "POGO");
+    strcpy(nat.nat_pnam, "peter");
     nat.nat_stat = STAT_INUSE | STAT_NORM | STAT_GOD | STAT_ABS;
     nat.nat_btu = 255;
     nat.nat_money = 123456789;
