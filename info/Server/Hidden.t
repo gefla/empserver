@@ -5,16 +5,19 @@
 The following commands are restricted when the HIDDEN option is
 in play:
 .NF
-power:  Will only display your country's power. Other nations never show up.
-report: Will only report on contacted countries, and no status (active/flux).
-relat:  Will only display contacted countries.
-news:   Will only show news about contacted countries (except for headlines).
-accep:  Will only display contacted countries.
-tele:   Only allowed with contacted and deity countries.
+power:     Displays your own power only; other nations never show up.
+report:    Reports on contacted countries only, and no status.
+relations: Reports on contacted countries only.
+newspaper: Reports on contacted countries only, except for headlines.
+accept:    Will only display contacted countries.
 .FI
 .s1
+Commands to interact with other countries, like telegram, work only
+for contacted and deity countries.
+.s1
 A country is 'contacted' with a successful spy, look, coastwatch,
-or recon, when an attack is made, or when you are the victom of an attack
+recon, skywatch, by catching spies, spotting planes or sighting ships,
+by combat
 or if you receive a telegram.
 .s1
 It possible for contact to be one sided. If you contact someone, they must
