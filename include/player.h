@@ -47,10 +47,10 @@
 struct player {
     struct emp_qelem queue;
     empth_t *proc;
-    s_char hostaddr[32];
-    s_char hostname[512];
-    s_char client[128];
-    s_char userid[32];
+    char hostaddr[32];
+    char hostname[512];		/* may be empty */
+    char client[128];		/* may be empty */
+    char userid[32];		/* may be empty */
     int validated;
     natid cnum;
     int state;

@@ -62,11 +62,11 @@ struct natstr {
     natid nat_cnum;		/* our country number */
     /* end of part matching struct genitem */
     s_char nat_stat;		/* inuse, norm, god, abs */
-    s_char nat_cnam[20];	/* country name */
-    s_char nat_pnam[20];	/* representative */
-    s_char nat_hostaddr[32];	/* host addr of last user */
-    s_char nat_hostname[512];	/* hostname of last user */
-    s_char nat_userid[32];	/* userid of last user */
+    char nat_cnam[20];		/* country name */
+    char nat_pnam[20];		/* representative */
+    char nat_hostaddr[32];	/* host addr of last user */
+    char nat_hostname[512];	/* hostname of last user */
+    char nat_userid[32];	/* userid of last user */
     coord nat_xstart, nat_ystart;	/* cap location at start */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */

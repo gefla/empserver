@@ -69,7 +69,7 @@ struct lndstr {
     u_char lnd_fuel;		/* How much fuel do we have */
     u_char lnd_nxlight;		/* How many xlight planes on board? */
     int lnd_rflags;		/* When do I retreat? */
-    s_char lnd_rpath[RET_LEN];	/* retreat path */
+    char lnd_rpath[RET_LEN];	/* retreat path */
     u_char lnd_rad_max;		/* max radius for this unit */
     u_char lnd_scar;		/* how experienced the unit is (not used) */
     short lnd_item[I_MAX+1];	/* amount of items on board */

@@ -94,9 +94,9 @@ struct shpstr {
     time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
     u_char shp_mobquota;	/* mobility quota */
-    s_char shp_path[MAXSHPPATH];
+    char shp_path[MAXSHPPATH];
     short shp_follow;
-    s_char shp_name[MAXSHPNAMLEN];	/* name set with the "name" command */
+    char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
     u_char shp_fuel;		/* How much fuel do we have */
     u_char shp_nchoppers;	/* How many choppers on board? */
     u_char shp_nxlight;		/* How many xlight planes on board? */
@@ -104,7 +104,7 @@ struct shpstr {
     coord shp_orig_y;		/* Where we were built */
     natid shp_orig_own;		/* Who built us */
     int shp_rflags;		/* When do I retreat? */
-    s_char shp_rpath[RET_LEN];	/* retreat path */
+    char shp_rpath[RET_LEN];	/* retreat path */
 };
 
 struct fltelemstr {
