@@ -607,9 +607,8 @@ notify_coastguard(struct emp_qelem *list, int trange, struct sctstr *sectp)
 	   cname(mlp->ship.shp_own),
 	   prship(&mlp->ship),
 	   xyas(mlp->ship.shp_x, mlp->ship.shp_y, sectp->sct_own));
-	if (opt_HIDDEN) {
-	    setcont(sectp->sct_own, mlp->ship.shp_own, FOUND_LOOK);
-	}
+	if (opt_HIDDEN)
+	    setcont(sectp->sct_own, mlp->ship.shp_own, FOUND_COAST);
     }
 
     return 1;
