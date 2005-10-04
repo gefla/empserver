@@ -1,3 +1,75 @@
+Changes to Empire 4.2.22 - Tue Oct  4 07:19:01 UTC 2005
+ * Close loophole in assembly point rules that allowed players to find
+   all unowned sectors.  The assembly point must now be owned by you
+   or an ally, or you or an ally must have a ship there.
+ * Don't let embarked land units fire flak.
+ * Fix display of the last connection's host when the host name was
+   not resolved.
+ * Fix change to accept full length representatives (passwords),
+   currently 19 characters.  It used to chop off after eight
+   characters.
+ * Non-recon missions no longer establish contact to owners of
+   overflown sectors, because those mission do not identify the owner.
+   This matches info Hidden.
+ * The following events now establish contact:
+   - Catching a spy
+   - Sighting a ship when toggle coastwatch is off
+   - Spotting overflying planes
+   - satellite spotting land units
+   - lookout and llookout spotting ships, planes and land units
+   - Any relations change
+ * The country command's `temporary' state of disorder ended after
+   just ten years.
+ * Telegram notifications could get lost in exotic circumstances,
+   e.g. while a second client attempted to connect.  Abusable.
+ * Remove option SNEAK_ATTACK.
+ * Fix lboard not to let you board dead land units.
+ * Fix stack smash in bomb, drop, fly, para, reco and sail.  Remote
+   hole!
+ * bomb, drop, fly, para, reco and sail now deal with EOF correctly.
+ * Fix fly to let the player abort the command at the last prompt.
+ * Client no longer reads execute scripts in binary mode under
+   Windows.
+ * New econfig key listen_address.
+ * econfig key port can now be a service name.  Service empire no
+   longer takes precedence over econfig.
+ * Client falls back to compiled-in host only if environment doesn't
+   supply one, not if it can't be resolved.  Same for port.
+ * Oil derrick could extract slightly more oil than was in the ground.
+ * test command checked start sector for space and some other things
+   instead of end sector.
+ * conv now silently limits conversions to avoid exceeding maximum
+   population.
+ * shoot no longer limits you to 999 victims.
+ * 4.2.19 broke pin bombing commodities on some platforms.
+ * Don't block on output while update is pending.  This is required to
+   ensure the update can abort commands.
+ * Commands submitted while the update is waiting for commands to
+   abort now fail.
+ * Change force command to start a scheduling thread, like shutdown.
+ * Correct grammar and punctuation in output of version.
+ * Option SHIPNAMES is no longer optional.
+ * Fix output of qorder and sorder for ships with sail path.
+ * Don't change capital to agribusiness on retake.  From Pat Loney.
+ * bdes prompt for new designation was messed up for empty bmaps.
+ * Client now supports pipes under Windows.
+ * Care for subtle Windows socket incompatibilities.
+ * Fix strength command not to lie about units reacting into
+   mountains.
+ * strength now yields the processor periodically, to keep the game
+   responsive.
+ * Schedule commands more fairly.  Previously, a sufficiently fast
+   player could starve out the others.
+ * launch assumed plane maximum mobility 127 for calculating when
+   satellites will be ready to use.
+ * Drop support for for DCE threads.
+ * Drop support for pthread implementations lacking pthread_kill().
+   This includes ancient versions of OS X.
+ * Code cleanups.
+ * Minor info file fixes.
+ * The above includes major contributions from Ron Koenderink.  Many
+   thanks!
+
 Changes to Empire 4.2.21 - Sat Jul 16 17:51:01 UTC 2005
  * Don't let threads block on output to another player thread's
    socket.  Such blocking violates basic design assumptions and can
