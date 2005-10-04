@@ -17,7 +17,8 @@ To be selected, escorts must have fuel and mobility.
 .s1
 <SECT> represents an assembly point, where all of the planes in the
 mission meet before proceeding on to the target sector.
-The assembly point must be owned by you, and must not be more than
+The assembly point must be owned by you or an ally, or you or an ally
+must have a ship there.  It must not be more than
 four sectors away from any of the planes selected for the mission.
 .s1
 <COMMODITY> is the name of a commodity which is to be carried along

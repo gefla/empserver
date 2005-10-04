@@ -64,18 +64,32 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
 {
     char *p;
     coord x, y;
+    struct nstr_item ni;
+    struct shpstr ship;
 
     p = getstarg(input, "assembly point? ", buf);
     if (!p || *p == 0)
 	return NULL;
     if (!sarg_xy(p, &x, &y) || !getsect(x, y, ap_sect))
 	return NULL;
-    if (ap_sect->sct_own && ap_sect->sct_own != player->cnum &&
-	getrel(getnatp(ap_sect->sct_own), player->cnum) != ALLIED) {
-	pr("Assembly point not owned by you or an ally!\n");
-	return NULL;
+
+    /* over own or allied sector is fine */
+    if (ap_sect->sct_own == player->cnum
+	|| getrel(getnatp(ap_sect->sct_own), player->cnum) == ALLIED)
+	return ap_sect;
+
+    /* over own or allied ship is fine */
+    snxtitem_xy(&ni, EF_SHIP, x, y);
+    while (nxtitem(&ni, &ship)) {
+	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
+	    continue;
+	if (ship.shp_own == player->cnum
+	    || getrel(getnatp(ship.shp_own), player->cnum) == ALLIED)
+	    return ap_sect;
     }
-    return ap_sect;
+
+    pr("Assembly point not owned by you or an ally!\n");
+    return NULL;
 }
 
 int
