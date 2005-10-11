@@ -307,8 +307,10 @@ play_cmd(void)
 	io_shutdown(player->iop, IO_READ);
 	return RET_FAIL;
     }
+    logerror("%s logged in as country #%d", praddr(player), player->cnum);
     pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
     player_main(player);
+    logerror("%s logged out, country #%d", praddr(player), player->cnum);
     player->state = PS_SHUTDOWN;
     return RET_OK;
 }
@@ -327,6 +329,7 @@ kill_cmd(void)
 	pr_id(player, C_EXIT, "country not in use\n");
 	return RET_FAIL;
     }
+    logerror("%s killed country #%d", praddr(player), player->cnum);
     io_shutdown(other->iop, IO_READ | IO_WRITE);
     pr_id(player, C_EXIT, "closed socket of offending job\n");
     return RET_OK;
