@@ -93,7 +93,6 @@ foll(void)
 	ship.shp_mission = 0;
 	*ship.shp_path = 'f';
 	ship.shp_path[1] = 0;
-/*		sprintf(ship.shp_path,"f%d",leader);*/
 	ship.shp_follow = leader;
 	pr("Ship #%d follows #%d.\n", ship.shp_uid, leader);
 	putship(ship.shp_uid, &ship);
