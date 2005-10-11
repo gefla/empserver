@@ -10,12 +10,8 @@ A country with an unhappy population can expect a decrease in the
 .s1
 Also, the morale of your land units is determined by the happiness
 of your people. The morale of a unit can be set by the player, but
-the minimum level allowable is determined by happiness:
-.ti 3
-75 - happiness
-.s1
-Thus, a nation with a happiness of 20 would have a minimum allowable 
-morale level of 55%
+the minimum level allowable depends on happiness.  See "info morale"
+for details.
 .s1
 The \*Qnation\*U command will display, among other things, your current
 happiness level.
