@@ -20,7 +20,7 @@
 # How to name backups
 #
 # If you back up multiple games to the same directories, better change
-# this ot include a unique game name.
+# this to include a unique game name.
 #
 # Single name, keep just the last backup:
 name=data
