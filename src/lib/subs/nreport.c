@@ -54,7 +54,6 @@ void
 nreport(natid actor, int event, natid victim, int times)
 {
     int nice;
-    int rel;
     struct natstr *natp;
     struct newscache *ncp;
 
@@ -77,17 +76,10 @@ nreport(natid actor, int event, natid victim, int times)
 	return;
     if ((natp = getnatp(victim)) == 0)
 	return;
-    if ((rel = getrel(natp, actor)) < HOSTILE)
+    if (getrel(natp, actor) < HOSTILE)
 	return;
 
-    rel = HOSTILE;
-/*
-	if (rel > HOSTILE)
-		rel = HOSTILE;
-	else
-		rel = AT_WAR;
- */
-    setrel(victim, actor, rel);
+    setrel(victim, actor, HOSTILE);
 }
 
 /*
