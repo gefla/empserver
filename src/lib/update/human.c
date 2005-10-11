@@ -284,6 +284,9 @@ babies(int adults, int etu, double brate, int food, int maxpop)
 {
     int new_birth, new_food, new;
 
+    if (adults >= maxpop)
+	return 0;
+
     new_birth = roundavg(brate * etu * adults);
     if (opt_NOFOOD)
 	new_food = new_birth;
