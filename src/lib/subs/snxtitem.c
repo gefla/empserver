@@ -66,7 +66,7 @@ snxtitem(struct nstr_item *np, int type, s_char *str)
 	    return 0;
     }
     if (*str == 0) {
-	/* str present, but only <cr>: nil string passed by player */
+	/* empty string passed by player */
 	return 0;
     }
     if (type == EF_NATION && isalpha(*str)) {
