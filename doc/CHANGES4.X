@@ -1,16 +1,17 @@
-Changes to Empire 4.2.22 - Tue Oct  4 07:19:01 UTC 2005
+Changes to Empire 4.2.22 - Tue Oct 11 20:23:51 UTC 2005
+ * Log player login, logout and session kill.
  * Close loophole in assembly point rules that allowed players to find
    all unowned sectors.  The assembly point must now be owned by you
    or an ally, or you or an ally must have a ship there.
  * Don't let embarked land units fire flak.
  * Fix display of the last connection's host when the host name was
    not resolved.
- * Fix change to accept full length representatives (passwords),
+ * Fix change command to accept full length representative (password),
    currently 19 characters.  It used to chop off after eight
    characters.
  * Non-recon missions no longer establish contact to owners of
-   overflown sectors, because those mission do not identify the owner.
-   This matches info Hidden.
+   overflown sectors, because those missions do not identify the
+   owner.  This matches info Hidden.
  * The following events now establish contact:
    - Catching a spy
    - Sighting a ship when toggle coastwatch is off
@@ -19,14 +20,15 @@ Changes to Empire 4.2.22 - Tue Oct  4 07:19:01 UTC 2005
    - lookout and llookout spotting ships, planes and land units
    - Any relations change
  * The country command's `temporary' state of disorder ended after
-   just ten years.
+   ten years.
  * Telegram notifications could get lost in exotic circumstances,
    e.g. while a second client attempted to connect.  Abusable.
  * Remove option SNEAK_ATTACK.
  * Fix lboard not to let you board dead land units.
- * Fix stack smash in bomb, drop, fly, para, reco and sail.  Remote
-   hole!
- * bomb, drop, fly, para, reco and sail now deal with EOF correctly.
+ * Fix stack smash in bomb, drop, fly, paradrop, recon and sail.
+   Remote hole!
+ * bomb, drop, fly, paradrop, recon and sail now deal with EOF
+   correctly.
  * Fix fly to let the player abort the command at the last prompt.
  * Client no longer reads execute scripts in binary mode under
    Windows.
@@ -38,7 +40,7 @@ Changes to Empire 4.2.22 - Tue Oct  4 07:19:01 UTC 2005
  * Oil derrick could extract slightly more oil than was in the ground.
  * test command checked start sector for space and some other things
    instead of end sector.
- * conv now silently limits conversions to avoid exceeding maximum
+ * convert now silently limits conversions to avoid exceeding maximum
    population.
  * shoot no longer limits you to 999 victims.
  * 4.2.19 broke pin bombing commodities on some platforms.
@@ -46,7 +48,8 @@ Changes to Empire 4.2.22 - Tue Oct  4 07:19:01 UTC 2005
    ensure the update can abort commands.
  * Commands submitted while the update is waiting for commands to
    abort now fail.
- * Change force command to start a scheduling thread, like shutdown.
+ * The force command no longer waits for the specified time.  It
+   starts a scheduling thread instead, just like shutdown.
  * Correct grammar and punctuation in output of version.
  * Option SHIPNAMES is no longer optional.
  * Fix output of qorder and sorder for ships with sail path.
