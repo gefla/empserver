@@ -114,8 +114,7 @@ display_mark(i_type only_itype, int only_cheapest)
 	for (sellers = 0; getcomm(sellers, &comm); sellers++) {
 	    if (comm.com_owner == 0)
 		continue;
-	    if (CANT_HAPPEN(comm.com_type <= I_NONE
-				|| comm.com_type > I_MAX))
+	    if (CANT_HAPPEN(comm.com_type <= I_NONE || comm.com_type > I_MAX))
 		continue;
 	    if (cheapest_items[comm.com_type] != -1) {
 		getcomm(cheapest_items[comm.com_type], &comm2);

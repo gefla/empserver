@@ -145,8 +145,7 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	    pr("\n");
 	} else {
 	    if ((cap.sct_own != cn) ||
-		(cap.sct_type != SCT_CAPIT &&
-		 cap.sct_type != SCT_MOUNT) ||
+		(cap.sct_type != SCT_CAPIT && cap.sct_type != SCT_MOUNT) ||
 		(natp->nat_flags & NF_SACKED))
 		pr("In flux\n");
 	    else if (natp->nat_money <= 0)
