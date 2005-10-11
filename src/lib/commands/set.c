@@ -138,7 +138,7 @@ set(void)
 		id = ni_trade.cur;
 	    }
 	    trade.trd_x = item.gen.trg_x;
-	    trade.trd_y = item.gen.trg_x;
+	    trade.trd_y = item.gen.trg_y;
 	    trade.trd_type = type;
 	    trade.trd_owner = player->cnum;
 	    trade.trd_uid = id;
