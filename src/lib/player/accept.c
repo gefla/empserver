@@ -107,14 +107,16 @@ player_init(void)
 	exit(1);
     }
     val = 1;
-    /*
-     * WIN32's SO_REUSEADDR operates differently than POSIX's SO_REUSEADDR.
-     * WIN32's SO_REUSEADDR allows the port number to be used immediately
-     * even if the port number is currently being used by another program.
-     * In WIN32, there is no waiting time when a port is closed before it
-     * can be reused so SO_REUSEADDR is not required for WIN32.
-     */
 #ifndef _WIN32
+    /*
+     * SO_REUSEADDR requests to permit another bind even when the port
+     * is still in state TIME_WAIT.  Windows' SO_REUSEADDR is broken:
+     * it makes bind() succeed no matter what, even if there's another
+     * server running on the same port.  Luckily, bind() seems to be
+     * broken as well: it seems to suceed while the port in state
+     * TIME_WAIT by default; thus we get the behavior we want by not
+     * setting SO_REUSEADDR.
+     */
     if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0) {
 	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
 	exit(1);
