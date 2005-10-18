@@ -50,6 +50,7 @@
 #include "map.h"
 #include "commodity.h"
 #include "lost.h"
+#include "product.h"
 
 #define fldoff(str, fld) offsetof(struct str, fld)
 
@@ -72,6 +73,34 @@ NSC_IELT("lcm", "l", sfx, base, I_LCM),		\
 NSC_IELT("hcm", "h", sfx, base, I_HCM),		\
 NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
+
+struct castr ichr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_mnem), "mnem"},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell"},
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs"},
+    {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_pkg), "pkg"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr pchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name"},
+    {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_sname), "sname"},
+    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype"},
+    {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt"},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrdep), "nrdep"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlmin), "nlmin"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nllag), "nllag"},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_effic), "effic"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
 
 struct castr sect_ca[] = {
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner"},
@@ -113,6 +142,24 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_rail), "rail"},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_defense), "dfense"},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(sctstr, sct_timestamp), "timestamp"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr dchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mnem), "mnem"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg"},
+    {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg"},
+    {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr"},
+    {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_dstr), "dstr"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_value), "value"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_build), "build"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_lcms), "lcms"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_hcms), "hcms"},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_maxpop), "maxpop"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -166,6 +213,29 @@ struct castr ship_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
+struct castr mchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name"},
+    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_armor), "armor"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_speed), "speed"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_visib), "visib"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_vrnge), "vrnge"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_frnge), "frnge"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_glim), "glim"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nxlight), "nxlight"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nchoppers), "nchoppers"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelc), "fuelc"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelu), "fuelu"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_cost), "cost"},
+    {NSC_LONG, 0, 0, offsetof(struct mchrstr, m_flags), "flags"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nplanes), "nplanes"},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nland), "nland"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
 struct castr plane_ca[] = {
     NSC_GENITEM,
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing"},
@@ -180,6 +250,24 @@ struct castr plane_ca[] = {
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_access), "access"},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(plnstr, pln_timestamp), "timestamp"},
     {NSC_FLOAT, 0, 0, fldoff(plnstr, pln_theta), "theta"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr plchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_acc), "acc"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_load), "load"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_att), "att"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_def), "def"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_range), "range"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_crew), "crew"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_fuel), "fuel"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_stealth), "stealth"},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_flags), "flags"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -219,6 +307,35 @@ struct castr land_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
+struct castr lchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name"},
+    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "gun"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_shell), "shell"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_cost), "cost"},
+    {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_att), "att"},
+    {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_def), "def"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_vul), "vul"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spd), "spd"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_vis), "vis"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spy), "spy"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_rad), "rad"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_frg), "frg"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_acc), "acc"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_dam), "dam"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_ammo), "ammo"},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_aaf), "aaf"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelc), "fuelc"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelu), "fuelu"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nxlight), "nxlight"},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_mxland), "mxland"},
+    {NSC_LONG, 0, 0, offsetof(struct lchrstr, l_flags), "flags"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
 struct castr nuke_ca[] = {
     {NSC_NATID, 0, 0, fldoff(nukstr, nuk_own), "owner"},
     {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_uid), "uid"},
@@ -230,6 +347,21 @@ struct castr nuke_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
+struct castr nchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct nchrstr, n_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "lcm"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "hcm"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_oil), "oil"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_rad), "rad"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_blast), "blast"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_dam), "dam"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_cost), "cost"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_tech), "tech"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_weight), "weight"},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_flags), "flags"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
 struct castr treaty_ca[] = {
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna"},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb"},
@@ -237,6 +369,12 @@ struct castr treaty_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond"},
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond"},
     {NSC_TIME, 0, 0, fldoff(trtstr, trt_exp), "exp"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr tchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct tchrstr, t_name), "name"},
+    {NSC_INT, 0, 0, offsetof(struct tchrstr, t_cond), "cond"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
@@ -340,3 +478,20 @@ struct castr nat_ca[] = {
     {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
+
+struct castr intrchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct sctintrins, in_name), "name"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_lcms), "lcms"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_hcms), "hcms"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_dcost), "dcost"},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_mcost), "mcost"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr rpt_ca[] = {
+    {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory"},
+    {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will"},
+    {NSC_INT, 0, 0, offsetof(struct rptstr, r_newspage), "newspage"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+

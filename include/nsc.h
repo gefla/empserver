@@ -182,18 +182,28 @@ struct castr {
 
 /* variables using the above */
 
+extern struct castr ichr_ca[];
+extern struct castr pchr_ca[];
 extern struct castr sect_ca[];
+extern struct castr dchr_ca[];
 extern struct castr ship_ca[];
+extern struct castr mchr_ca[];
 extern struct castr plane_ca[];
+extern struct castr plchr_ca[];
 extern struct castr land_ca[];
+extern struct castr lchr_ca[];
 extern struct castr nuke_ca[];
-extern struct castr news_ca[];
-extern struct castr nat_ca[];
+extern struct castr nchr_ca[];
 extern struct castr treaty_ca[];
-extern struct castr trade_ca[];
+extern struct castr tchr_ca[];
 extern struct castr loan_ca[];
+extern struct castr news_ca[];
 extern struct castr lost_ca[];
 extern struct castr commodity_ca[];
+extern struct castr trade_ca[];
+extern struct castr nat_ca[];
+extern struct castr intrchr_ca[];
+extern struct castr rpt_ca[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
