@@ -81,13 +81,13 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
     struct nstr_item ni;
     long cost = 0;
 
-    natp = getnatp(sect.sct_own);
     totaluw = 0;
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	if (sect.sct_oldown == player->cnum)
 	    continue;
+        natp = getnatp(sect.sct_own);
 	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civ = sect.sct_item[I_CIVIL];
 	mil = sect.sct_item[I_MILIT];
