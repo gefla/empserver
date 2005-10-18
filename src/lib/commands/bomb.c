@@ -202,7 +202,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     int bad;
     s_char *p;
     struct plist *plp;
-    struct emp_qelem *qp;
     int nsubs;
     int nunits;
     struct natstr *natp;
