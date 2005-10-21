@@ -1,4 +1,6 @@
-Changes to Empire 4.2.23 - Fri Oct 21 05:47:17 UTC 2005
+Changes to Empire 4.2.23 - Fri Oct 21 18:14:39 UTC 2005
+ * Make version pretend option SHIPNAMES still exists, for the benefit
+   of clients that still depend on it.
  * The change to conv in 4.2.22 could crash or compute incorrect
    maximum population.
  * Code cleanups.

@@ -7,7 +7,9 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.2.23 - Fri Oct 21 05:47:17 UTC 2005
+Changes to Empire 4.2.23 - Fri Oct 21 18:14:39 UTC 2005
+ * Make version pretend option SHIPNAMES still exists, for the benefit
+   of clients that still depend on it.
  * The change to conv in 4.2.22 could crash or compute incorrect
    maximum population.
  * Code cleanups.
