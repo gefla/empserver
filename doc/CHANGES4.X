@@ -1,3 +1,8 @@
+Changes to Empire 4.2.23 - Fri Oct 21 05:47:17 UTC 2005
+ * The change to conv in 4.2.22 could crash or compute incorrect
+   maximum population.
+ * Code cleanups.
+
 Changes to Empire 4.2.22 - Tue Oct 11 20:23:51 UTC 2005
  * Log player login, logout and session kill.
  * Close loophole in assembly point rules that allowed players to find
