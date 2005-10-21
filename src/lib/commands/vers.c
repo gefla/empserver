@@ -193,4 +193,19 @@ show_opts(int val)
 	pr("%s%s", sep, op->opt_key);
 	sep = ", ";
     }
+
+    /*
+     * OBSOLETE: Ships used to be printed differently depending on
+     * option SHIPNAMES.  Clients had to know whether SHIPNAMES was
+     * one to parse this.  To ease the transition, pretend the option
+     * still exists.
+     */
+    if (val) {
+	col += strlen(sep) + 9;
+	if (col > 70) {
+	    pr(",\n        ");
+	    sep = "";
+	}
+	pr("%sSHIPNAMES", sep, op->opt_key);
+    }
 }
