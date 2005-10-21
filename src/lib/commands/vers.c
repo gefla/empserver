@@ -206,6 +206,6 @@ show_opts(int val)
 	    pr(",\n        ");
 	    sep = "";
 	}
-	pr("%sSHIPNAMES", sep, op->opt_key);
+	pr("%sSHIPNAMES", sep);
     }
 }
