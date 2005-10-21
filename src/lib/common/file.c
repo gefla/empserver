@@ -362,8 +362,8 @@ ef_mtime(int type)
 }
 
 /*
- * Return the filedescriptor used for the file containing objects of type
- * 'type'.
+ * Search empfile[0..EF_MAX-1] for element named NAME.
+ * Return its index in empfile[] if found, else -1.
  */
 int
 ef_byname(char *name)

@@ -48,11 +48,13 @@
 #include "news.h"
 #include "nat.h"
 #include "lost.h"
+#include "product.h"
 
 #include "gamesdef.h"
 #include "commodity.h"
 
 struct empfile empfile[] = {
+    /* Dynamic game data */
     {"sect", "sector", EFF_XY | EFF_OWNER,
      0, sizeof(struct sctstr), NULL, NULL, NULL,
      -1, -1, 0, 0, NULL, 0, NULL},
@@ -97,5 +99,45 @@ struct empfile empfile[] = {
      -1, -1, 0, 0, NULL, 0, NULL},
     {"lost", "lostitems", EFF_OWNER,
      0, sizeof(struct loststr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, NULL}
+     -1, -1, 0, 0, NULL, 0, NULL},
+
+    /* Static game data (configuation) */
+    {"sect chr", NULL, EFF_MEM,
+     0, sizeof(dchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)dchr, 0, dchr_ca},
+    {"ship chr", NULL, EFF_MEM,
+     0, sizeof(mchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)mchr, 0, mchr_ca},
+    {"plane chr", NULL, EFF_MEM,
+     0, sizeof(plchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)plchr, 0, plchr_ca},
+    {"land chr", NULL, EFF_MEM,
+     0, sizeof(lchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)lchr, 0, lchr_ca},
+    {"nuke chr", NULL, EFF_MEM,
+     0, sizeof(nchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)nchr, 0, nchr_ca},
+#if 0
+    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
+    {"news chr", NULL, EFF_MEM,
+     0, sizeof(rpt[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)rpt, 0, rpt_ca},
+#endif
+    {"treaty chr", NULL, EFF_MEM,
+     0, sizeof(tchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)tchr, 0, tchr_ca},
+    {"item", NULL, EFF_MEM,
+     0, sizeof(ichr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)ichr, 0, ichr_ca},
+    {"infrastructure", NULL, EFF_MEM,
+     0, sizeof(intrchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)intrchr, 0, intrchr_ca},
+    {"product", NULL, EFF_MEM,
+     0, sizeof(pchr[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)pchr, 0, pchr_ca},
+
+    /* Sentinel */
+    {NULL, NULL, 0,
+     0, 0, NULL, NULL, NULL,
+     -1, -1, 0,0,NULL, 0, NULL}
 };

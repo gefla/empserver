@@ -80,44 +80,17 @@
 /* FIXME document dump format */
 /* FIXME don't dump stuff that's useless due to options */
 
-/* Selector descriptors for characteristics tables */
-
-/* Characteristics table meta data */
-struct camap {
-    char *name;			/* name for lookup */
-    struct castr *ca;		/* selector descriptors */
-    void *chr;			/* characteristics table */
-    size_t size;		/* size of characteristics table element */
-};
-
-/* Table of characteristics tables */
-static struct camap chr_camap[] = {
-    {"sect chr", dchr_ca, dchr, sizeof(dchr[0])},
-    {"ship chr", mchr_ca, mchr, sizeof(mchr[0])},
-    {"plane chr", plchr_ca, plchr, sizeof(plchr[0])},
-    {"land chr", lchr_ca, lchr, sizeof(lchr[0])},
-    {"nuke chr", nchr_ca, nchr, sizeof(nchr[0])},
-#if 0
-    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
-    {"news chr", rpt_ca, rpt, sizeof(rpt[0])},
-#endif
-    {"treaty chr", tchr_ca, tchr, sizeof(tchr[0])},
-    {"item", ichr_ca, ichr, sizeof(ichr[0])},
-    {"infrastructure", intrchr_ca, intrchr, sizeof(intrchr[0])},
-    {"product", pchr_ca, pchr, sizeof(pchr[0])},
-    {NULL, NULL, NULL, 0}
-};
-
 /*
- * Search chr_camap[] for element named NAME, return its index.
+ * Search empfile[] for element named NAME, return its index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
+ * FIXME Merge into ef_byname().  ef_byname() stops at EF_MAX!
  */
 static int
-chridx_by_name(char *name)
+my_ef_byname(char *name)
 {
-    return stmtch(name, chr_camap, offsetof(struct camap, name),
-		  sizeof(chr_camap[0]));
+    return stmtch(name, empfile, offsetof(struct empfile, name),
+		  sizeof(empfile[0]));
 }
 
 /*
@@ -157,6 +130,7 @@ xdprval(struct valstr *val, char *sep)
 	if (s) {
 	    pr("%s\"", sep);
 	    l = s + val->val_as.str.maxsz;
+	    /* FIXME maxsz == INT_MAX ! */
 	    for (;;) {
 		for (e=s; e<l && *e != '"' && *e != '\\' && isgraph(*e); ++e) ;
 		pr("%.*s", (int)(e-s), s);
@@ -284,32 +258,30 @@ xditem(int type, char *arg)
 /*
  * Dump characteristics described by chr_camap[IDX].
  * Return RET_OK on success, RET_SYN if IDX < 0.
+ * FIXME Merge into xditem() when nxtitem() is ready for it.
  */
 static int
 xdchr(int chridx)
 {
-    struct camap *cm;
+    struct empfile *ef = &empfile[chridx];
+    struct castr *ca = ef->cadef;
     char *p;
     struct valstr val;
     int n;
 
-    if (chridx < 0)
-	return RET_SYN;
-    cm = &chr_camap[chridx];
-
-    xdhdr(cm->name, cm->ca);
+    xdhdr(ef->name, ca);
 
     n = 0;
-    for (p = cm->chr; ; p += cm->size) {
-	val.val_type = cm->ca[0].ca_type;
+    for (p = ef->cache; ; p += ef->size) {
+	val.val_type = ca[0].ca_type;
 	val.val_cat = NSC_OFF;
-	val.val_as.sym.off = cm->ca[0].ca_off;
+	val.val_as.sym.off = ca[0].ca_off;
 	val.val_as.sym.idx = 0;
 	nstr_exec_val(&val, player->cnum, p, NSC_STRING);
 	if (!val.val_as.str.base || !*val.val_as.str.base)
 	    break;
 	++n;
-	xdflds(cm->ca, p);
+	xdflds(ca, p);
 	pr("\n");
     }
 
@@ -391,11 +363,11 @@ xdump(void)
     if (!p)
 	return RET_SYN;
 
-    type = ef_byname(p);
-    if (type >= 0) {
+    type = my_ef_byname(p);
+    if (type >= EF_MAX)
+	return xdchr(type);
+    else if (type >= 0) {
 	return xditem(type, player->argp[2]);
-    } else if (!strncmp(p, "chr", strlen(p)) && player->argp[2]) {
-	return xdchr(chridx_by_name(player->argp[2]));
     } else if (!strncmp(p, "opt", strlen(p))) {
 	return xdopt();
     } else if (!strncmp(p, "ver", strlen(p))) {

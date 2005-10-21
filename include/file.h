@@ -66,8 +66,18 @@ struct empfile {
 #define EFF_OWNER	bit(2)	/* has concept of owner */
 #define EFF_GROUP	bit(3)	/* has concept of group */
 
-/* file types, types 0..EF_MAX-1 are empfile[] indexes */
-#define EF_BAD		-1	/* illegal file type */
+/*
+ * Empire `file types'
+ * These are really table IDs.  Some tables are backed by files, some
+ * are compiled into the server.
+ * Historically, only table IDs 0..EF_MAX-1 existed.  All the
+ * functions operating on table IDs still reject the new indexes >=
+ * EF_MAX.  This needs to be rectified, carefully checking existing
+ * code, which could rely on unspoken assumptions about these tables.
+ */
+/* Error value */
+#define EF_BAD		-1
+/* Dynamic game data tables: 0..EF_MAX-1 */
 #define EF_SECTOR	0
 #define EF_SHIP		1
 #define EF_PLANE	2
@@ -84,6 +94,19 @@ struct empfile {
 #define EF_COMM         13
 #define EF_LOST         14
 #define EF_MAX		15
+/* Static game data (configuation): EF_MAX.. */
+#define EF_SECTOR_CHR	15
+#define EF_SHIP_CHR	16
+#define EF_PLANE_CHR	17
+#define EF_LAND_CHR	18
+#define EF_NUKE_CHR	19
+#if 0 /* doesn't exist yet */
+#define EF_NEWS_CHR
+#endif
+#define EF_TREATY_CHR	20
+#define EF_ITEM		21
+#define EF_INFRASTRUCTURE   22
+#define EF_PRODUCT	23
 
 #define EF_NMAP         222	/* Kinda bogus, but used to describe a newdesmap
 				   instead of bmap or map. */
