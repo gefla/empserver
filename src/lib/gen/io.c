@@ -103,7 +103,7 @@ io_open(int fd, int flags, int bufsize, int (*notify)(void),
     if ((flags & IO_WRITE) && (flags & IO_NEWSOCK) == 0)
 	iop->output = ioq_create(bufsize);
     if (flags & IO_NBLOCK)
-	io_noblocking(iop, 1);
+	io_noblocking(iop, 1);	/* FIXME check success */
     iop->flags = flags;
     iop->assoc = assoc;
     iop->notify = notify;
@@ -387,9 +387,9 @@ io_noblocking(struct iop *iop, int value)
     if (flags < 0)
 	return -1;
     if (value == 0)
-	flags &= ~FNDELAY;
+	flags &= ~O_NONBLOCK;
     else
-	flags |= FNDELAY;
+	flags |= O_NONBLOCK;
     if (fcntl(iop->fd, F_SETFL, flags) < 0)
 	return -1;
 #else
