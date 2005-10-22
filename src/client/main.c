@@ -32,10 +32,6 @@
  *     Steve McClure, 1998
  */
 
-#ifdef _NTSDK
-#undef _NTSDK
-#endif
-
 #include "misc.h"
 #include "proto.h"
 #include "queue.h"
