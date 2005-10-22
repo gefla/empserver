@@ -57,7 +57,6 @@ int
 ef_open(int type, int mode, int how)
 {
     struct empfile *ep;
-    static int block;
     int size;
 
 #if defined(_WIN32)
@@ -70,8 +69,6 @@ ef_open(int type, int mode, int how)
 	logerror("%s: open failed", ep->file);
 	return 0;
     }
-    if (block == 0)
-	block = blksize(ep->fd);
     ep->baseid = 0;
     ep->cids = 0;
     ep->mode = mode;
@@ -80,7 +77,7 @@ ef_open(int type, int mode, int how)
     if (ep->flags & EFF_MEM)
 	ep->csize = ep->fids;
     else
-	ep->csize = block / ep->size;
+	ep->csize = max(1, blksize(ep->fd) / ep->size);
     size = ep->csize * ep->size;
     ep->cache = malloc(size);
     if ((ep->cache == NULL) && (size != 0)) {
