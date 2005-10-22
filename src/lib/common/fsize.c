@@ -56,23 +56,20 @@ fsize(int fd)
 }
 
 /*
- * return the block size of the filesystem
- * If it's not a filesystem, return 1024.
+ * Return the preferred block size for I/O on FD.
  */
 int
 blksize(int fd)
 {
 #if defined(_WIN32)
     return 2048;
-#elif (!defined (aix) && !defined (sgi))
+#else  /* !_WIN32 */
     struct stat statb;
 
     if (fstat(fd, &statb) < 0)
 	return 1024;
     return statb.st_blksize;
-#else
-    return 1024;
-#endif
+#endif /* !_WIN32 */
 }
 
 time_t
