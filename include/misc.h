@@ -99,9 +99,7 @@ typedef u_char natid;		/* NSC_NATID must match this */
 
 
 #if !defined(aix) && !defined(sgi)
-#ifndef ultrix			/* already defined in ultrix */
 typedef char s_char;		/* change to signed char for aix */
-#endif /* ultrix */
 #else
 typedef signed char s_char;
 /* gcc __attribute__((format ...)) chokes on s_char * format strings */
