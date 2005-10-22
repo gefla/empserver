@@ -80,10 +80,7 @@ ioq_create(int size)
 void
 ioq_destroy(struct ioqueue *ioq)
 {
-#if !defined(aix) && !defined(NeXT)
-/* ioq_drain doesn't work under aix or NeXT... dunno why --ts */
     ioq_drain(ioq);
-#endif /* aix */
     free(ioq);
 }
 
