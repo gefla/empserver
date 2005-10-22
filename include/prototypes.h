@@ -387,9 +387,6 @@ extern int parse(char *, char **, char **, char *, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(register int, register int, int);
-#ifdef NOSTRDUP
-extern char *strdup(char *x);
-#endif
 /* more in misc.h */
 
 /*

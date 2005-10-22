@@ -60,9 +60,6 @@ all:
 	@echo '   linux'
 	@echo '   linux-pthreads'
 	@echo '   mach2.5'
-	@echo '   mipsbsd'
-	@echo '   mipsultrix'
-	@echo '   mipsultrix.gcc'
 	@echo '   next'
 	@echo '   nt'
 	@echo '   osx'
@@ -74,7 +71,6 @@ all:
 	@echo '   sun4'
 	@echo '   sun4.debug'
 	@echo '   sun4.opt'
-	@echo '   vaxultrix'
 
 alpha:
 	@echo 'building a $(WORLDX) by $(WORLDY) server...'
@@ -181,36 +177,12 @@ linux-pthreads:
 	($(MAKE) binaries $(LINUXPTHMASTER))
 	($(MAKE) install)
 
-mipsbsd:
-	@echo 'building a $(WORLDX) by $(WORLDY) server...'
-	(cd src/doconfig; $(MAKE) $(MIPSBSDMASTER))
-	($(MAKE) genlibs $(MIPSBSDMASTER))
-	(cd src/lib/lwp; $(MAKE) mipsultrix $(MIPSBSDMASTER))
-	($(MAKE) binaries $(MIPSBSDMASTER))
-	($(MAKE) install)
-
 mach2.5:
 	@echo 'building a $(WORLDX) by $(WORLDY) server...'
 	(cd src/doconfig; $(MAKE) $(MACH25MASTER))
 	($(MAKE) genlibs $(MACH25MASTER))
 	(cd src/lib/lwp; $(MAKE) mipsultrix $(MACH25MASTER))
 	($(MAKE) binaries $(MACH25MASTER))
-	($(MAKE) install)
-
-mipsultrix:
-	@echo 'building a $(WORLDX) by $(WORLDY) server...'
-	(cd src/doconfig; $(MAKE) $(MIPSULTMASTER))
-	($(MAKE) genlibs $(MIPSULTMASTER))
-	(cd src/lib/lwp; $(MAKE) mipsultrix $(MIPSULTMASTER))
-	($(MAKE) binaries $(MIPSULTMASTER))
-	($(MAKE) install)
-
-mipsultrix.gcc:
-	@echo 'building a $(WORLDX) by $(WORLDY) server...'
-	(cd src/doconfig; $(MAKE) $(MIPSULTGMASTER))
-	($(MAKE) genlibs $(MIPSULTGMASTER))
-	(cd src/lib/lwp; $(MAKE) mipsultrix $(MIPSULTGMASTER))
-	($(MAKE) binaries $(MIPSULTGMASTER))
 	($(MAKE) install)
 
 nt:
@@ -231,14 +203,6 @@ interix:
 	($(MAKE) genlibs $(INTERIXMASTER))
 	(cd src/lib/lwp; $(MAKE) $(INTERIXMASTER))
 	($(MAKE) binaries $(INTERIXMASTER))
-	($(MAKE) install)
-
-vaxultrix:
-	@echo 'building a $(WORLDX) by $(WORLDY) server...'
-	(cd src/doconfig; $(MAKE) $(VAXULTMASTER))
-	($(MAKE) genlibs $(VAXULTMASTER))
-	(cd src/lib/lwp; $(MAKE) $(VAXULTMASTER))
-	($(MAKE) binaries $(VAXULTMASTER))
 	($(MAKE) install)
 
 aix:
