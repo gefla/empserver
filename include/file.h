@@ -37,6 +37,7 @@
 #include <stddef.h>
 
 struct empfile {
+    int ef_uid;			/* Table ID */
     char *name;			/* Empire name (e.g., "treaty") */
     char *file;			/* file name (relative to data directory) */
     int flags;			/* misc stuff */
