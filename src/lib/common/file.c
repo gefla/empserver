@@ -80,7 +80,7 @@ ef_open(int type, int mode, int how)
 	ep->csize = max(1, blksize(ep->fd) / ep->size);
     size = ep->csize * ep->size;
     ep->cache = malloc(size);
-    if ((ep->cache == NULL) && (size != 0)) {
+    if (ep->cache == NULL) {
 	logerror("ef_open: %s malloc(%d) failed\n", ep->file, size);
 	return 0;
     }
