@@ -25,10 +25,12 @@
  *
  *  ---
  *
- *  fileinit.c: Stuff that ef_init uses to initialize the ca pointers and
- *              the pre/post i/o calls.
+ *  fileinit.c: Fill the empfile[] with function pointers only required for
+ *              full server operations.  This allows the empfile[] to be
+ *              used in files and fairland.
  * 
  *  Known contributors to this file:
+ *     Ron Koenderink, 2005
  *  
  */
 
@@ -39,38 +41,23 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-struct fileinit fileinit[EF_MAX] = {
-    {NULL, sct_postread, sct_prewrite, sect_ca},
-    {shp_init, shp_postread, shp_prewrite, ship_ca},
-    {pln_init, pln_postread, pln_prewrite, plane_ca},
-    {lnd_init, lnd_postread, lnd_prewrite, land_ca},
-    {nuk_init, nuk_postread, nuk_prewrite, nuke_ca},
-    {NULL, NULL, NULL, news_ca},
-    {NULL, NULL, NULL, treaty_ca},
-    {NULL, NULL, NULL, trade_ca},
-    {NULL, NULL, NULL, NULL},		/* power */
-    {NULL, NULL, NULL, nat_ca}, 	/* nation */
-    {NULL, NULL, NULL, loan_ca},
-    {NULL, NULL, NULL, NULL},		/* map, a.k.a. true bmap */
-    {NULL, NULL, NULL, NULL},		/* (working) bmap */
-    {NULL, NULL, NULL, commodity_ca},
-    {NULL, NULL, NULL, lost_ca}
+struct fileinit fileinit[] = {
+    {EF_SECTOR, NULL, sct_postread, sct_prewrite},
+    {EF_SHIP, shp_init, shp_postread, shp_prewrite},
+    {EF_PLANE, pln_init, pln_postread, pln_prewrite},
+    {EF_LAND, lnd_init, lnd_postread, lnd_prewrite},
+    {EF_NUKE, nuk_init, nuk_postread, nuk_prewrite}
 };
 
 void
 ef_init(void)
 {
     int i;
-    struct empfile *ef;
-    struct fileinit *fi;
 
-    ef = empfile;
-    fi = fileinit;
-    for (i = 0; i < EF_MAX; i++, ef++, fi++) {
-	ef->init = fi->init;
-	ef->postread = fi->postread;
-	ef->prewrite = fi->prewrite;
-	ef->cadef = fi->cadef;
+    for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
+	empfile[fileinit[i].ef_type].init = fileinit[i].init;
+	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
+	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
 
     empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;

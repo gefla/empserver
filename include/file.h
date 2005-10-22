@@ -113,10 +113,10 @@ struct empfile {
 				   instead of bmap or map. */
 
 struct fileinit {
+    int ef_type;
     void (*init) (int, char *);
     int (*postread) (int, char *);
     int (*prewrite) (int, char *);
-    struct castr *cadef;
 };
 
 extern struct castr *ef_cadef(int);
