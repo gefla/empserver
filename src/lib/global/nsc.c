@@ -177,7 +177,7 @@ struct castr dchr_ca[] = {
 { NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx", EF_BAD},		\
 { NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy", EF_BAD},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission", EF_BAD},	\
-{ NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius"}
+{ NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius", EF_BAD}
 
 struct castr ship_ca[] = {
     NSC_GENITEM,
