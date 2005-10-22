@@ -188,18 +188,17 @@ new(void)
     natp->nat_ystart = y;
     natp->nat_xcap = x;
     natp->nat_ycap = y;
-    if (players_at_00) {
-	natp->nat_xorg = 0;
-	natp->nat_yorg = 0;
-    } else {
-	natp->nat_xorg = x;
-	natp->nat_yorg = y;
-    }
+    natp->nat_xorg = x;
+    natp->nat_yorg = y;
     xyabsrange(natp, &defrealm, &absrealm);
     newrealms.b_xl = absrealm.lx;
     newrealms.b_xh = absrealm.hx;
     newrealms.b_yl = absrealm.ly;
     newrealms.b_yh = absrealm.hy;
+    if (players_at_00) {
+	natp->nat_xorg = 0;
+	natp->nat_yorg = 0;
+    }
     natp->nat_money = START_CASH;
     natp->nat_level[NAT_HLEV] = start_happiness;
     natp->nat_level[NAT_RLEV] = start_research;
