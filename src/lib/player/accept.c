@@ -79,9 +79,10 @@ player_init(void)
     emp_initque(&Players);
     init_player_commands();
 
+    memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
     if (!*listen_addr)
-	sin.sin_addr.s_addr = INADDR_ANY;
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
     else if (isdigit(*listen_addr))
 	sin.sin_addr.s_addr = inet_addr(listen_addr);
     else {
