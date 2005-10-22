@@ -186,7 +186,6 @@ wripglob(char *filename)
     }
     fprintf(fp, copyright_header,
 	    strrchr(filename, '/')+1, "IP globals.");
-    fprintf(fp, "#include \"misc.h\"\n");
     fprintf(fp, "char empirehost[] = \"%s\";\n", HN);
     fprintf(fp, "char empireport[] = \"%d\";\n", PN);
     fclose(fp);
