@@ -204,6 +204,7 @@ extern struct castr trade_ca[];
 extern struct castr nat_ca[];
 extern struct castr intrchr_ca[];
 extern struct castr rpt_ca[];
+extern struct castr empfile_ca[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

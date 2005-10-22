@@ -135,6 +135,9 @@ struct empfile empfile[] = {
     {"product", NULL, EFF_MEM,
      0, sizeof(pchr[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)pchr, 0, pchr_ca},
+    {"table", NULL, EFF_MEM,
+     0, sizeof(empfile[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)empfile, 0, empfile_ca},
 
     /* Sentinel */
     {NULL, NULL, 0,

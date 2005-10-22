@@ -51,6 +51,7 @@
 #include "commodity.h"
 #include "lost.h"
 #include "product.h"
+#include "file.h"
 
 #define fldoff(str, fld) offsetof(struct str, fld)
 
@@ -492,6 +493,13 @@ struct castr rpt_ca[] = {
     {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory"},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will"},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_newspage), "newspage"},
+    {NSC_NOTYPE, 0, 0, 0, NULL}
+};
+
+struct castr empfile_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name"},
+    {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file_name"},
+    {NSC_INT, 0, 0, offsetof(struct empfile, flags), "flags"},
     {NSC_NOTYPE, 0, 0, 0, NULL}
 };
 
