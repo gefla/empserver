@@ -49,9 +49,6 @@
 #include "common.h"
 #include "gen.h"
 
-#ifdef aix
-#include <unistd.h>
-#endif /* aix */
 #if !defined(_WIN32)
 #include <netinet/in.h>
 #endif
