@@ -52,6 +52,7 @@
 
 #include "gamesdef.h"
 #include "commodity.h"
+#include "nsc.h"
 
 struct empfile empfile[] = {
     /* Dynamic game data */
@@ -138,6 +139,18 @@ struct empfile empfile[] = {
     {"table", NULL, EFF_MEM,
      0, sizeof(empfile[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)empfile, 0, empfile_ca},
+    {"ship chr flags", NULL, EFF_MEM,
+     0, sizeof(ship_chr_flags[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)ship_chr_flags, 0, lookup_ca},
+    {"plane chr flags", NULL, EFF_MEM,
+     0, sizeof(plane_chr_flags[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)plane_chr_flags, 0, lookup_ca},
+    {"land chr flags", NULL, EFF_MEM,
+     0, sizeof(land_chr_flags[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)land_chr_flags, 0, lookup_ca},
+    {"nuke chr flags", NULL, EFF_MEM,
+     0, sizeof(nuke_chr_flags[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)nuke_chr_flags, 0, lookup_ca},
 
     /* Sentinel */
     {NULL, NULL, 0,

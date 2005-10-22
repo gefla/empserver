@@ -169,6 +169,14 @@ struct nstr_item {
 };
 
 /*
+ * Symbol table definition
+ */
+struct lookup {
+    int key;
+    s_char *value;
+};
+
+/*
  * Selector descriptor.
  * Value is at offset CA_OFF in the context object.
  */
@@ -178,6 +186,7 @@ struct castr {
     unsigned short ca_len;	/* non-zero: is an array; #array elements */
     ptrdiff_t ca_off;
     char *ca_name;
+    int ca_table;		/* table index -- symbols, symbol sets */
 };
 
 /* variables using the above */
@@ -205,6 +214,11 @@ extern struct castr nat_ca[];
 extern struct castr intrchr_ca[];
 extern struct castr rpt_ca[];
 extern struct castr empfile_ca[];
+extern struct castr lookup_ca[];
+extern struct lookup ship_chr_flags[];
+extern struct lookup plane_chr_flags[];
+extern struct lookup land_chr_flags[];
+extern struct lookup nuke_chr_flags[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

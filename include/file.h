@@ -108,6 +108,10 @@ struct empfile {
 #define EF_INFRASTRUCTURE   22
 #define EF_PRODUCT	23
 #define EF_TABLE	24
+#define EF_SHIP_CHR_FLAGS	25
+#define EF_PLANE_CHR_FLAGS	26
+#define EF_LAND_CHR_FLAGS	27
+#define EF_NUKE_CHR_FLAGS	28
 
 #define EF_NMAP         222	/* Kinda bogus, but used to describe a newdesmap
 				   instead of bmap or map. */

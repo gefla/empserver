@@ -55,87 +55,6 @@
 #include "nat.h"
 #include "prototypes.h"
 
-
-/*
- * This cruft really belongs in the empglb.c file.
- * Yuck.
- */
-
-struct lookup {
-    int key;
-    s_char *value;
-};
-
-struct lookup ship_flags[] = {
-    {M_FOOD, "fish"},
-    {M_TORP, "torp"},
-    {M_DCH, "dchrg"},
-    {M_FLY, "plane"},
-    {M_MSL, "miss"},
-    {M_OIL, "oil"},
-    {M_SONAR, "sonar"},
-    {M_MINE, "mine"},
-    {M_SWEEP, "sweep"},
-    {M_SUB, "sub"},
-    {M_SPY, "spy"},
-    {M_LAND, "land"},
-    {M_SUBT, "sub-torp"},
-    {M_TRADE, "trade"},
-    {M_SEMILAND, "semi-land"},
-    {M_OILER, "oiler"},
-    {M_SUPPLY, "supply"},
-    {M_ANTIMISSILE, "anti-missile"},
-    {0, 0}
-};
-
-struct lookup land_flags[] = {
-    {L_XLIGHT, "xlight"},
-    {L_ENGINEER, "engineer"},
-    {L_SUPPLY, "supply"},
-    {L_SECURITY, "security"},
-    {L_LIGHT, "light"},
-    {L_MARINE, "marine"},
-    {L_RECON, "recon"},
-    {L_RADAR, "radar"},
-    {L_ASSAULT, "assault"},
-    {L_FLAK, "flak"},
-    {L_SPY, "spy"},
-    {L_TRAIN, "train"},
-    {L_HEAVY, "heavy"},
-    {0, 0}
-};
-
-
-struct lookup plane_flags[] = {
-    {P_T, "tactical"},
-    {P_B, "bomber"},
-    {P_F, "intercept"},
-    {P_C, "cargo"},
-    {P_V, "VTOL"},
-    {P_M, "missile"},
-    {P_L, "light"},
-    {P_S, "spy"},
-    {P_I, "image"},
-    {P_O, "satellite"},
-    {P_X, "stealth"},
-    {P_N, "SDI"},
-    {P_H, "half-stealth"},
-    {P_E, "x-light"},
-    {P_K, "helo"},
-    {P_A, "ASW"},
-    {P_P, "para"},
-    {P_ESC, "escort"},
-    {P_MINE, "mine"},
-    {P_SWEEP, "sweep"},
-    {P_MAR, "marine"},
-    {0, 0}
-};
-
-struct lookup nuke_flags[] = {
-    {N_NEUT, "neutron"},
-    {0, 0}
-};
-
 struct look_list {
     union {
 	struct lchrstr *lp;
@@ -329,7 +248,7 @@ show_nuke_capab(int tlev)
 	for (i = j = 0; i < 32; i++) {
 	    if (!(np->n_flags & bit(i)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), nuke_flags))) {
+	    if (NULL != (p = lookup(bit(i), nuke_chr_flags))) {
 		if (j++ > 0)
 		    pr(" ");
 		pr(p);
@@ -443,7 +362,7 @@ show_ship_capab(int tlev)
 	for (j = n = 0; j < 32; j++) {
 	    if (!(mp->m_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(j), ship_flags))) {
+	    if (NULL != (p = lookup(bit(j), ship_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
@@ -494,7 +413,7 @@ show_plane_capab(int tlev)
 	for (i = n = 0; i < 32; i++) {
 	    if (!(pp->pl_flags & bit(i)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), plane_flags))) {
+	    if (NULL != (p = lookup(bit(i), plane_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
@@ -567,7 +486,7 @@ show_land_capab(int tlev)
 	for (j = n = 0; j < 32; j++) {
 	    if (!(lcp->l_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(j), land_flags))) {
+	    if (NULL != (p = lookup(bit(j), land_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
