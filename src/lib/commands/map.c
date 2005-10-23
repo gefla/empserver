@@ -54,7 +54,6 @@ map(void)
     s_char *str;
     struct nstr_sect ns;
     s_char origin = '\0';
-    int as_country;
     int map_flags = 0;
     int i;
     s_char what[64];
