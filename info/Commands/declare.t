@@ -40,15 +40,10 @@ prevent someone from declaring war with you, taking some sectors, then
 declaring neutrality before you declare war. (Assuming you didn't notice
 their declaration of war)
 .s1
-Also, if the SNEAK_ATTACK option is enabled, you make make one attack upon
-someone you're not at war with. You'll pay $5K for the privilege, however.
-Once the sneak attack is over (win or lose), war is automatically declare.
-(The normal $1K cost is waived in this case)
-.s1
 The newspaper is very interested in declarations of war or alliance --
 don't expect to keep such declarations secret.
 .s1
-Deities can will be prompted for a third parameter, the country to make
+Deities will be prompted for a third parameter, the country to make
 the declaration for. The default is to make it for the deity's country.
 .s1
 .SA "fly, nation, spy, relations, Diplomacy"

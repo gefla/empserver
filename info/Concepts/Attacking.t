@@ -48,12 +48,6 @@ If the SLOW_WAR option is enabled, you will not be able to attack
 a sector owned by a country you are not AT_WAR with, unless you
 are the old owner of the sector.
 .s1
-If the SNEAK_ATTACK option is also enabled, you can attack ONE sector
-owned by a country you are not AT_WAR with, paying $5K for the
-privilege. Once the sneak attack is done, you will automatically
-declare war against the enemy, and go through the normal SLOW_WAR
-sequence before you can attack again (see info relations).
-.s1
 .L "(2)  Ask the aggressor further details about the offensive force."
 .s1
 When you board, you are asked for a ship or sector to board from.

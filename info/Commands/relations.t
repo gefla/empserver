@@ -80,6 +80,11 @@ then you should declare war on them.  This will cause all of your
 ships, artillery, planes and missiles which have been put on a mission
 to react to enemy movement.
 .s1
+Also, there is an automatic progression. If someone you are allied with
+attacks you, you become hostile towards them. If someone you are neutral
+to over-flies or attacks you, you become hostile towards them. Neither of
+these progressions can lead to war, however, they both stop at hostility.
+.s1
 The following paragraphs apply only if the SLOW_WAR option is used.
 .s1
 .L Mobilizing
@@ -95,15 +100,4 @@ their land. At the next update, you will automatically move to \*QAt War\*U.
 .s1
 When you are At War with someone, you may attack them willy-nilly.
 .s1
-Note that if the SNEAK_ATTACK option is enabled, you can make an attack
-on someone you're not at war with (not shelling or anything else, just an
-attack or assault). For this privilege, you are charged $5K. Once your
-attack is over, whether successful or not, you automatically declare war
-on them and must wait through the normal SLOW_WAR procedure to attack again.
-(In this case, the $1K fee for declaring war is waived)
-.s1
-Also, there is an automatic progression. If someone you are allied with
-attacks you, you become hostile towards them. If someone you are neutral
-to over-flies or attacks you, you become hostile towards them. Neither of
-these progressions can lead to war, however, they both stop at hostility.
 .SA "Diplomacy"
