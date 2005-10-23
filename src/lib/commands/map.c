@@ -62,9 +62,9 @@ map(void)
 
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')
-	    bmap = EF_BMAP;
+	    bmap = 'b';
 	else if (**player->argp == 'n')
-	    bmap = EF_NMAP;
+	    bmap = 'n';
 	else {
 	    if (**player->argp == 'l')
 		unit_type = EF_LAND;
@@ -77,7 +77,7 @@ map(void)
 		return RET_SYN;
 	    }
 	    if (player->argp[0][1] == 'b')
-		bmap = EF_BMAP;
+		bmap = 'b';
 	}
     }
 
@@ -123,15 +123,15 @@ map(void)
 	    map_flags |= MAP_ALL;
 	    break;
 	case 't':
-	    if (bmap != EF_BMAP)
+	    if (bmap != 'b')
 		goto bad_flag;
-	    bmap = EF_MAP;
+	    bmap = 't';
 	    *(b + 1) = 0;
 	    break;
 	case 'r':
-	    if (bmap != EF_BMAP)
+	    if (bmap != 'b')
 		goto bad_flag;
-	    bmap = EF_MAP + EF_BMAP;
+	    bmap = 'r';
 	    *(b + 1) = 0;
 	    break;
 	default:

@@ -117,9 +117,6 @@ struct empfile {
 #define EF_LAND_CHR_FLAGS	27
 #define EF_NUKE_CHR_FLAGS	28
 
-#define EF_NMAP         222	/* Kinda bogus, but used to describe a newdesmap
-				   instead of bmap or map. */
-
 struct fileinit {
     int ef_type;
     void (*init) (int, char *);

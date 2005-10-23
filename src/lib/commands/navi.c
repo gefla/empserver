@@ -144,7 +144,7 @@ navi(void)
 		skip = 1;
 	    } else if (cp[-1] == 'B') {
 		unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
-		draw_map(EF_BMAP, origin, MAP_SHIP, &ns);
+		draw_map('b', origin, MAP_SHIP, &ns);
 		skip = 1;
 	    } else if (cp[-1] == 'f') {
 		struct emp_qelem *qp;

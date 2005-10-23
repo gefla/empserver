@@ -88,7 +88,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 	return RET_FAIL;
     }
 
-    if (bmap == EF_MAP + EF_BMAP) {
+    if (bmap == 'r') {
 	if (!confirm("Are you sure you want to revert your bmap? "))
 	    return RET_OK;
     }
@@ -106,19 +106,23 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     if (bmap) {
 	int c;
 	switch (bmap) {
-	case EF_BMAP:
+	default:
+	    CANT_HAPPEN("bad BMAP");
+	    bmap = 'b';
+	    /* fall through */
+	case 'b':
 	    while (bmnxtsct(nsp) && !player->aborted) {
 		if (0 != (c = player->bmap[sctoff(nsp->x, nsp->y)]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
-	case EF_MAP:
+	case 't':
 	    while (bmnxtsct(nsp) && !player->aborted) {
 		if (0 != (c = player->map[sctoff(nsp->x, nsp->y)]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
-	case (EF_MAP + EF_BMAP):
+	case 'r':
 	    while (bmnxtsct(nsp) && !player->aborted) {
 		player->bmap[sctoff(nsp->x, nsp->y)] =
 		    player->map[sctoff(nsp->x, nsp->y)];
@@ -127,7 +131,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 	    }
 	    ef_write(EF_BMAP, player->cnum, player->bmap);
 	    break;
-	case EF_NMAP:
+	case 'n':
 	    {
 		struct sctstr sect;
 
