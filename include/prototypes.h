@@ -306,7 +306,7 @@ extern void loginit(char *);
 extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 extern int oops(char *, char *, int);
 /* maps.c */
-extern int draw_map(int, s_char, int, struct nstr_sect *, int);
+extern int draw_map(int, s_char, int, struct nstr_sect *);
 extern int unit_map(int, int, struct nstr_sect *, s_char *);
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, s_char, s_char *);

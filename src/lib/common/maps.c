@@ -52,8 +52,7 @@ static int bmnxtsct(struct nstr_sect *);
 static s_char map_char(u_char type, natid own, int owner_or_god);
 
 int
-draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
-	 int country)
+draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 {
     struct natstr *np;
     struct range range;
@@ -98,7 +97,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 		 player->command->c_form);
 	player->command->c_flags |= C_MOD;
     }
-    np = getnatp(country);
+    np = getnatp(player->cnum);
     /* zap any conditionals */
     nsp->ncond = 0;
     xyrelrange(np, &nsp->range, &range);
@@ -132,19 +131,16 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	    {
 		struct sctstr sect;
 
-		if ((!player->god || country)) {
+		if (!player->god) {
 		    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-		    bitinit2(nsp, bitmap, country);
+		    bitinit2(nsp, bitmap, player->cnum);
 		}
 		while (nxtsct(nsp, &sect) && !player->aborted) {
-		    if ((!player->god || country) &&
-			!emp_getbit(nsp->x, nsp->y, bitmap)) {
-			if (!player->god)
-			    continue;
-		    }
+		    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+			continue;
 		    wmap[nsp->dy][nsp->dx]
 			= map_char(sect.sct_newtype, sect.sct_own,
-				   sect.sct_own == country || player->god);
+				   player->owner);
 		}
 		break;
 	    }
@@ -154,18 +150,14 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	s_char mapch;
 	int changed = 0;
 
-	if ((!player->god || country)) {
+	if (!player->god) {
 	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-	    bitinit2(nsp, bitmap, country);
+	    bitinit2(nsp, bitmap, player->cnum);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {
-	    if ((!player->god || country)
-		&& !emp_getbit(nsp->x, nsp->y, bitmap)) {
-		if (!player->god)
-		    continue;
-	    }
-	    mapch = map_char(sect.sct_type, sect.sct_own,
-			     sect.sct_own == country || player->god);
+	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+		continue;
+	    mapch = map_char(sect.sct_type, sect.sct_own, player->owner);
 	    wmap[nsp->dy][nsp->dx] = mapch;
 	    changed |= map_set(player->cnum, nsp->x, nsp->y, mapch, 0);
 	}
@@ -224,16 +216,13 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp,
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
-	if ((!player->god || country)) {
+	if (!player->god) {
 	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-	    bitinit2(nsp, bitmap, country);
+	    bitinit2(nsp, bitmap, player->cnum);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {
-	    if ((!player->god || country) &&
-		!emp_getbit(nsp->x, nsp->y, bitmap)) {
-		if (!player->god)
-		    continue;
-	    }
+	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+		continue;
 	    ptr = &wmap[nsp->dy][nsp->dx];
 	    if (sect.sct_own == player->cnum)
 		 *ptr |= 0x80;

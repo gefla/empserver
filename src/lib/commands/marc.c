@@ -118,11 +118,11 @@ march(void)
 	    ++cp;
 	    if (cp[-1] == 'M') {
 		unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
-		draw_map(0, origin, 0, &ns, player->cnum);
+		draw_map(0, origin, 0, &ns);
 		skip = 1;
 	    } else if (cp[-1] == 'B') {
 		unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
-		draw_map(EF_BMAP, origin, 0, &ns, player->cnum);
+		draw_map(EF_BMAP, origin, 0, &ns);
 		skip = 1;
 	    } else if (cp[-1] == 'f') {
 		struct emp_qelem *qp;

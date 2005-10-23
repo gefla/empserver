@@ -57,7 +57,6 @@ map(void)
     int as_country;
     int map_flags = 0;
     int i;
-    int where = 2;
     s_char what[64];
     s_char buf[1024];
 
@@ -103,7 +102,6 @@ map(void)
     }
     b = player->argp[2];
     while (b != (s_char *)0 && (*b)) {
-	where = 3;
 	switch (*b) {
 	case 's':
 	case 'S':
@@ -123,18 +121,6 @@ map(void)
 	    break;
 	case '*':
 	    map_flags |= MAP_ALL;
-	    break;
-	case '0':
-	case '1':
-	case '2':
-	case '3':
-	case '4':
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-	    where = 2;
 	    break;
 	case 't':
 	    if (bmap != EF_BMAP)
@@ -156,15 +142,5 @@ map(void)
 	b++;
     }
 
-    as_country = player->cnum;
-    if (player->god) {
-	if (player->argp[where] != (s_char *)0) {
-	    as_country = atoi(player->argp[where]);
-	    if ((as_country < 0) || (as_country > MAXNOC)) {
-		as_country = player->cnum;
-	    }
-	}
-    }
-
-    return draw_map(bmap, origin, map_flags, &ns, as_country);
+    return draw_map(bmap, origin, map_flags, &ns);
 }
