@@ -49,10 +49,11 @@
 static void fillcache(struct empfile *ep, int start);
 
 /*
- * Open a the file for table TYPE (EF_SECTOR, ...).
+ * Open the binary file for table TYPE (EF_SECTOR, ...).
  * MODE is passed to open().
  * HOW are EFF_OPEN flags to control operation.
  * Return non-zero on success, zero on failure.
+ * You must call ef_close() before the next ef_open().
  */
 int
 ef_open(int type, int mode, int how)
@@ -68,6 +69,8 @@ ef_open(int type, int mode, int how)
     if (CANT_HAPPEN(how & ~EFF_OPEN))
 	how &= EFF_OPEN;
     ep = &empfile[type];
+    if (CANT_HAPPEN(ep->fd >= 0))
+	return 0;
     if ((ep->fd = open(ep->file, mode, 0660)) < 0) {
 	logerror("%s: open failed", ep->file);
 	return 0;
@@ -121,6 +124,7 @@ ef_close(int type)
     if ((r = close(ep->fd)) < 0) {
 	logerror("ef_close: %s close(%d) -> %d", ep->name, ep->fd, r);
     }
+    ep->fd = -1;
     return 1;
 }
 
