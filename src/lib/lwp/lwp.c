@@ -44,11 +44,6 @@ int LwpMaxpri = 0;		/* maximum priority so far */
 
 static sigset_t oldmask;
 
-/* for systems without strdup  */
-#ifdef NOSTRDUP
-extern char *strdup();
-#endif /* NOSTRDUP */
-
 static void lwpStackCheckInit(struct lwpProc *newp);
 static void lwpStackCheck(struct lwpProc *newp);
 static void lwpStackCheckUsed(struct lwpProc *newp);

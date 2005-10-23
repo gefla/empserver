@@ -29,11 +29,6 @@
 
 #if defined(_EMPTH_LWP)
 
-/* for systems without strdup  */
-#ifdef NOSTRDUP
-extern char *strdup();
-#endif /* NOSTRDUP */
-
 /*
  * create a lwpSemaphore.
  */

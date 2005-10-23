@@ -54,11 +54,6 @@
 #include "optlist.h"
 #include "gen.h"		/* parse */
 
-/* for systems without strdup  */
-#ifdef NOSTRDUP
-extern char *strdup();
-#endif /* NOSTRDUP */
-
 /* Dummy one */
 static int emp_config_dummy;
 
