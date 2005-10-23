@@ -93,11 +93,6 @@ extern int opt_UPDATESCHED;
 #include "econfig-spec.h"
 #undef	EMP_CONFIG_H_OUTPUT
 
-/* Game parameters that cannot be set in econfig (yet) */
-#ifdef START_UNITS
-int start_unit_type[];
-#endif
-
 /* Variables that get values derived from econfig */
 extern char *motdfil;
 extern char *downfil;

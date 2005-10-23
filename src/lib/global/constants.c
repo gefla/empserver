@@ -99,11 +99,6 @@ double people_damage = 1.00;	/* Civs/mil/uw take this fraction of damage */
 double collateral_dam = 0.10;	/* Side effect damage to sector */
 double assault_penalty = 0.50;	/* attack factor for para & assault troops */
 
-/* START_UNITS */
-#ifdef START_UNITS
-int start_unit_type[START_UNITS] = { 0, 1 };	/* type of unit */
-#endif /* START_UNITS */
-
 /* opt_FUEL */
 int fuel_mult = 10;		/* 1 fuel = 10 mob */
 

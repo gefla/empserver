@@ -59,9 +59,6 @@
 			   2.  Changing name doesn't take any btus or $$
 			   enables BLITZ updates, also turns on NOFOOD, below */
 
-/*#define START_UNITS	2 *//* How many free start units you get. Types are
-   specified in src/lib/global/constants.c */
-
 /* #define GO_RENEW *//* Gold and Oil are renewable resources */
 /* #define GUINEA_PIGS *//* Experimental stuff not ready for prime time */
 /* #define DEFENSE_INFRA *//* Allow the improvement of defensive infrastructure */

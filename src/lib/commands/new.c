@@ -47,9 +47,6 @@
 
 #include <fcntl.h>
 
-#ifdef START_UNITS
-static int deity_build_land(int, coord, coord, natid, int);
-#endif
 static int isok(int x, int y);
 static void ok(s_char *map, int x, int y);
 
@@ -208,10 +205,6 @@ new(void)
 	natp->nat_b[i] = newrealms;
     natp->nat_tgms = 0;
     (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT, 0660));
-#ifdef START_UNITS
-    for (n = 0; n < START_UNITS; n++)
-	deity_build_land(start_unit_type[n], x, y, num, 0);
-#endif /* START_UNITS */
     putnat(natp);
     return 0;
 }
@@ -287,78 +280,3 @@ ok(s_char *map, int x, int y)
     for (dir = DIR_FIRST; dir <= DIR_LAST; dir++)
 	ok(map, diroff[dir][0] + x, diroff[dir][1] + y);
 }
-
-#ifdef START_UNITS
-static int
-deity_build_land(int type, coord x, coord y, natid own, int tlev)
-{
-    struct lndstr land;
-    struct lchrstr *lp;
-    struct nstr_item nstr;
-    struct natstr *natp;
-    int extend = 1;
-
-    natp = getnatp(own);
-
-    snxtitem_all(&nstr, EF_LAND);
-    while (nxtitem(&nstr, &land)) {
-	if (land.lnd_own == 0) {
-	    extend = 0;
-	    break;
-	}
-    }
-    if (extend)
-	ef_extend(EF_LAND, 50);
-    land.lnd_x = x;
-    land.lnd_y = y;
-    land.lnd_own = own;
-    land.lnd_mission = 0;
-    land.lnd_type = type;
-    land.lnd_effic = 100;
-    land.lnd_mobil = land_mob_max;
-    land.lnd_tech = tlev;
-    land.lnd_uid = nstr.cur;
-    land.lnd_army = ' ';
-    land.lnd_flags = 0;
-    land.lnd_ship = -1;
-    land.lnd_land = -1;
-    land.lnd_nland = 0;
-    land.lnd_harden = 0;
-    time(&land.lnd_access);
-
-    land.lnd_retreat = morale_base;
-
-    lp = &lchr[type];
-    land.lnd_fuel = lp->l_fuelc;
-    land.lnd_nxlight = 0;
-    land.lnd_rflags = 0;
-    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
-    land.lnd_rad_max = lp->l_rad;
-    memset(land.lnd_item, 0, sizeof(land.lnd_item));
-
-    land.lnd_att = (float)LND_ATTDEF(lp->l_att, tlev - lp->l_tech);
-    land.lnd_def = (float)LND_ATTDEF(lp->l_def, tlev - lp->l_tech);
-    land.lnd_vul = (int)LND_VUL(lp->l_vul, tlev - lp->l_tech);
-    land.lnd_spd = (int)LND_SPD(lp->l_spd, tlev - lp->l_tech);
-    land.lnd_vis = (int)LND_VIS(lp->l_vis, tlev - lp->l_tech);
-    land.lnd_spy = (int)LND_SPY(lp->l_spy, tlev - lp->l_tech);
-    land.lnd_rad = (int)LND_RAD(lp->l_rad, tlev - lp->l_tech);
-    land.lnd_frg = (int)LND_FRG(lp->l_frg, tlev - lp->l_tech);
-    land.lnd_acc = (int)LND_ACC(lp->l_acc, tlev - lp->l_tech);
-    land.lnd_dam = (int)LND_DAM(lp->l_dam, tlev - lp->l_tech);
-    land.lnd_ammo = (int)LND_AMM(lp->l_ammo, lp->l_dam, tlev - lp->l_tech);
-    land.lnd_aaf = (int)LND_AAF(lp->l_aaf, tlev - lp->l_tech);
-    land.lnd_fuelc = (int)LND_FC(lp->l_fuelc, tlev - lp->l_tech);
-    land.lnd_fuelu = (int)LND_FU(lp->l_fuelu, tlev - lp->l_tech);
-    land.lnd_maxlight = (int)LND_XPL(lp->l_nxlight, tlev - lp->l_tech);
-    land.lnd_maxland = (int)LND_MXL(lp->l_mxland, tlev - lp->l_tech);
-    land.lnd_item[I_FOOD] = lp->l_item[I_FOOD];
-
-    putland(land.lnd_uid, &land);
-    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-		land.lnd_y);
-    pr("%s", prland(&land));
-    pr(" built in sector %s\n", xyas(x, y, player->cnum));
-    return 1;
-}
-#endif /* START_UNITS */
