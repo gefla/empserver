@@ -137,13 +137,13 @@ map(void)
 	    where = 2;
 	    break;
 	case 't':
-	    if (!bmap)
+	    if (bmap != EF_BMAP)
 		goto bad_flag;
 	    bmap = EF_MAP;
 	    *(b + 1) = 0;
 	    break;
 	case 'r':
-	    if (!bmap)
+	    if (bmap != EF_BMAP)
 		goto bad_flag;
 	    bmap = EF_MAP + EF_BMAP;
 	    *(b + 1) = 0;
