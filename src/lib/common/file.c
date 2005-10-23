@@ -49,9 +49,10 @@
 static void fillcache(struct empfile *ep, int start);
 
 /*
- * Open the file containing objects of the type 'type' with mode 'mode'.
- * 'how' sets whether the file should be cached (EFF_MEM), or type specific
- * flags (EFF_XY,EFF_OWNER,EFF,EFF_GROUP).
+ * Open a the file for table TYPE (EF_SECTOR, ...).
+ * MODE is passed to open().
+ * HOW are EFF_OPEN flags to control operation.
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_open(int type, int mode, int how)
@@ -64,6 +65,8 @@ ef_open(int type, int mode, int how)
 #endif
     if (ef_check(type) < 0)
 	return 0;
+    if (CANT_HAPPEN(how & ~EFF_OPEN))
+	how &= EFF_OPEN;
     ep = &empfile[type];
     if ((ep->fd = open(ep->file, mode, 0660)) < 0) {
 	logerror("%s: open failed", ep->file);

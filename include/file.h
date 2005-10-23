@@ -67,6 +67,9 @@ struct empfile {
 #define EFF_OWNER	bit(2)	/* has concept of owner */
 #define EFF_GROUP	bit(3)	/* has concept of group */
 
+/* Flags that may be passed to ef_open() */
+#define EFF_OPEN	EFF_MEM
+
 /*
  * Empire `file types'
  * These are really table IDs.  Some tables are backed by files, some
