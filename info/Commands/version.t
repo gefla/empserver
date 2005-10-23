@@ -12,17 +12,17 @@ For example:
 .s1
 .EX version
 .NF
-Empire 4.2.21
-(KSU distribution 1.04, Chainsaw version 4.00, Wolfpack version 2.21)
+Empire 4.2.23
+(KSU distribution 1.04, Chainsaw version 4.00, Wolfpack version 2.23)
 
 The following parameters have been set for this game:
 World size is 64 by 32.
-There can be up to 52 countries.
+There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 An Empire time unit is 10 seconds long.
 Use the 'update' command to find out the time of the next update.
-The current time is Sun Jul 31 18:55:31.
+The current time is Sun Oct 23 10:16:35.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -51,7 +51,6 @@ Max mob gain per update         60      90      60      60
 Max eff gain per update         --      100     100     100
 
 Ships on autonavigation may use 6 cargo holds per ship.
-
 Fire ranges are scaled by 1.00
 
 Options enabled in this game:
@@ -62,16 +61,15 @@ Options enabled in this game:
 Options disabled in this game:
         BIG_CITY, DEFENSE_INFRA, DRNUKE, FUEL, GO_RENEW, GUINEA_PIGS, HIDDEN,
         LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, NO_HCMS, NO_LCMS,
-        NO_OIL, NONUKES, RES_POP, SLOW_WAR, SNEAK_ATTACK, SUPER_BARS, TECH_POP,
-        TRADESHIPS
+        NO_OIL, NONUKES, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP, TRADESHIPS
 
-"info Options" for a detailed list of options and descriptions.
+See "info Options" for a detailed list of options and descriptions.
 
 The person to annoy if something goes wrong is:
         John Doe
         (johndoe@bar.edu).
 You can get your own copy of the source using:
-http://www.wolfpackempire.com/
+    http://www.wolfpackempire.com/
 .FI
 .s1
 .SA "Innards, Basics, Playing"
