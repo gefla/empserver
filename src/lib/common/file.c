@@ -178,7 +178,6 @@ ef_ptr(int type, int id)
 
     if (ef_check(type) < 0)
 	return NULL;
-
     ep = &empfile[type];
     if (CANT_HAPPEN(!(ep->flags & EFF_MEM)))
 	return NULL;
@@ -200,21 +199,20 @@ ef_read(int type, int id, void *into)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (id < 0)
+    if (CANT_HAPPEN(!ep->cache))
 	return 0;
+    if (id < 0)
+	return 0;		/* FIXME can this happen? */
+    if (id >= ep->fids)
+	return 0;
+
     if (ep->flags & EFF_MEM) {
-	if (id >= ep->fids)
-	    return 0;
-	from = ep->cache + (id * ep->size);
+	from = ep->cache + id * ep->size;
     } else {
-	if (id >= ep->fids) {
-	    ep->fids = fsize(ep->fd) / ep->size;
-	    if (id >= ep->fids)
-		return 0;
-	}
-	if (ep->baseid + ep->cids <= id || ep->baseid > id)
+	if (ep->baseid + ep->cids <= id || ep->baseid > id) {
 	    if (fillcache(ep, id) < 1)
 		return 0;
+	}
 	from = ep->cache + (id - ep->baseid) * ep->size;
     }
     memcpy(into, from, ep->size);
@@ -318,11 +316,8 @@ ef_write(int type, int id, void *from)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (id > 65536) {
-	/* largest unit id; this may bite us in large games */
-	logerror("ef_write: type %d id %d is too large!\n", type, id);
+    if (CANT_HAPPEN(ep->fd < 0))
 	return 0;
-    }
     if (ep->prewrite)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
