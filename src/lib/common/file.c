@@ -293,6 +293,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 	if (ret < 0) {
 	    if (errno != EAGAIN) {
 		logerror("Error writing %s (%s)", ep->file, strerror(errno));
+		/* FIXME if this extended file, truncate back to old size */
 		return -1;
 	    }
 	} else {
@@ -348,43 +349,36 @@ ef_extend(int type, int count)
 {
     struct empfile *ep;
     char *tmpobj;
-    int cur, max;
-    int how;
-    int r;
+    int id, i, how;
 
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    max = ep->fids + count;
-    cur = ep->fids;
-    tmpobj = calloc(1, ep->size);
-    if ((r = lseek(ep->fd, ep->fids * ep->size, SEEK_SET)) < 0) {
-	logerror("ef_extend: %s +#%d lseek(%d, %d, SEEK_SET) -> %d",
-		 ep->name, count, ep->fd, ep->fids * ep->size, r);
-	free(tmpobj);
+    if (CANT_HAPPEN(ep->fd < 0 || count < 0))
 	return 0;
-    }
-    for (cur = ep->fids; cur < max; cur++) {
+
+    tmpobj = calloc(1, ep->size);
+    id = ep->fids;
+    for (i = 0; i < count; i++) {
 	if (ep->init)
-	    ep->init(cur, tmpobj);
-	if ((r = write(ep->fd, tmpobj, ep->size)) != ep->size) {
-	    logerror("ef_extend: %s +#%d write(%d, %p, %d) -> %d",
-		     ep->name, count, ep->fd, tmpobj, ep->size, r);
-	    free(tmpobj);
-	    return 0;
-	}
+	    ep->init(id + i, tmpobj);
+	if (do_write(ep, tmpobj, id + i, 1) < 0)
+	    break;
     }
     free(tmpobj);
+
     if (ep->flags & EFF_MEM) {
+	/* FIXME lazy bastards...  do this right */
 	/* XXX this will cause problems if there are ef_ptrs (to the
 	 * old allocated structure) active when we do the re-open */
 	how = ep->flags & EFF_OPEN;
 	ef_close(type);
 	ef_open(type, how);
     } else {
-	ep->fids += count;
+	ep->fids += i;
     }
-    return 1;
+
+    return i == count;
 }
 
 /*
