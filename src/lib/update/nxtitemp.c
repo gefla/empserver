@@ -60,7 +60,7 @@ nxtitemp(struct nstr_item *np)
 	} else {
 	    np->cur++;
 	}
-	gp = (struct genitem *)ef_ptr(np->type, np->cur);
+	gp = ef_ptr(np->type, np->cur);
 	if (gp == (struct genitem *)0)
 	    return 0;
 

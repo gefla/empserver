@@ -171,20 +171,19 @@ ef_flush(int type)
 /*
  * Return a pointer the id 'id' of object of type 'type' in the cache.
  */
-char *
+void *
 ef_ptr(int type, int id)
 {
     struct empfile *ep;
 
     if (ef_check(type) < 0)
 	return NULL;
+
     ep = &empfile[type];
+    if (CANT_HAPPEN(!(ep->flags & EFF_MEM)))
+	return NULL;
     if (id < 0 || id >= ep->fids)
-	return NULL;
-    if ((ep->flags & EFF_MEM) == 0) {
-	logerror("ef_ptr: (%s) only valid for EFF_MEM entries", ep->file);
-	return NULL;
-    }
+	return NULL;		/* FIXME can this happen? */
     return ep->cache + ep->size * id;
 }
 
