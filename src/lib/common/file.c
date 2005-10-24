@@ -333,7 +333,6 @@ ef_write(int type, int id, void *from)
 	to = ep->cache + (id - ep->baseid) * ep->size;
 	memcpy(to, from, ep->size);
     }
-    CANT_HAPPEN(id > ep->fids);
     if (id >= ep->fids) {
 	/* write beyond end of file extends it, take note */
 	ep->fids = id + 1;
