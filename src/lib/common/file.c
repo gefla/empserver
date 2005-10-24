@@ -58,7 +58,7 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
-    int oflags, size;
+    int oflags, fsiz, size;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -82,7 +82,14 @@ ef_open(int type, int how)
     ep->baseid = 0;
     ep->cids = 0;
     ep->flags = (ep->flags & ~EFF_OPEN) | (how ^ ~EFF_CREATE);
-    ep->fids = fsize(ep->fd) / ep->size;
+    fsiz = fsize(ep->fd);
+    if (fsiz % ep->size) {
+	logerror("Can't open %s (file size not a multiple of record size %d)",
+		 ep->file, ep->size);
+	close(ep->fd);
+	return 0;
+    }
+    ep->fids = fsiz / ep->size;
     if (ep->flags & EFF_MEM)
 	ep->csize = ep->fids;
     else
