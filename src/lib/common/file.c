@@ -25,11 +25,12 @@
  *
  *  ---
  *
- *  file.c: Misc. operations on files
+ *  file.c: Operations on Empire tables (`files' for historical reasons)
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2005
  */
 
 #include <errno.h>
@@ -50,9 +51,8 @@
 static int fillcache(struct empfile *, int);
 static int do_write(struct empfile *, void *, int, int);
 
-
 /*
- * Open the binary file for table TYPE (EF_SECTOR, ...).
+ * Open the file-backed table TYPE (EF_SECTOR, ...).
  * HOW are EFF_OPEN flags to control operation.
  * Return non-zero on success, zero on failure.
  * You must call ef_close() before the next ef_open().
@@ -67,6 +67,8 @@ ef_open(int type, int how)
 	return 0;
     if (CANT_HAPPEN(how & ~EFF_OPEN))
 	how &= EFF_OPEN;
+
+    /* open file */
     ep = &empfile[type];
     if (CANT_HAPPEN(ep->fd >= 0))
 	return 0;
@@ -82,6 +84,8 @@ ef_open(int type, int how)
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
     }
+
+    /* get file size */
     fsiz = fsize(fd);
     if (fsiz % ep->size) {
 	logerror("Can't open %s (file size not a multiple of record size %d)",
@@ -109,6 +113,8 @@ ef_open(int type, int how)
     ep->cids = 0;
     ep->flags = (ep->flags & ~EFF_OPEN) | (how & ~EFF_CREATE);
     ep->fd = fd;
+
+    /* map file into cache */
     if ((how & EFF_MEM) && ep->fids) {
 	if (fillcache(ep, 0) != ep->fids) {
 	    ep->cids = 0;	/* prevent cache flush */
@@ -117,12 +123,13 @@ ef_open(int type, int how)
 	    return 0;
 	}
     }
+
     return 1;
 }
 
 /*
- * Close the file containing objects of the type 'type', flushing the cache
- * if applicable.
+ * Close the file-backed table TYPE (EF_SECTOR, ...).
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_close(int type)
@@ -144,7 +151,8 @@ ef_close(int type)
 }
 
 /*
- * Flush the cache of the file containing objects of type 'type' to disk.
+ * Flush file-backed table TYPE (EF_SECTOR, ...) to disk.
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_flush(int type)
@@ -169,7 +177,9 @@ ef_flush(int type)
 }
 
 /*
- * Return a pointer the id 'id' of object of type 'type' in the cache.
+ * Return pointer to element ID in table TYPE if it exists, else NULL.
+ * The table must be fully cached, i.e. flags & EFF_MEM.
+ * The caller is responsible for flushing changes he makes.
  */
 void *
 ef_ptr(int type, int id)
@@ -187,8 +197,9 @@ ef_ptr(int type, int id)
 }
 
 /*
- * buffered read.  Tries to read a large number of items.
- * This system won't work if item size is > sizeof buffer area.
+ * Read element ID from table TYPE into buffer INTO.
+ * FIXME pass buffer size!
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_read(int type, int id, void *into)
@@ -304,8 +315,12 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 }
 
 /*
- * buffered write.  Modifies read cache (if applicable)
- * and writes through to disk.
+ * Write element ID into file-backed table TYPE from buffer FROM.
+ * FIXME pass buffer size!
+ * Write through cache straight to disk.
+ * Cannot write beyond the end of fully cached table (flags & EFF_MEM).
+ * Can write at the end of partially cached table.
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_write(int type, int id, void *from)
@@ -337,7 +352,8 @@ ef_write(int type, int id, void *from)
 }
 
 /*
- * Grow the file containing objects of the type 'type' by 'count' objects.
+ * Extend the file-backed table TYPE by COUNT elements.
+ * Return the ID of the first new element, or -1 on failure.
  */
 int
 ef_extend(int type, int count)
@@ -425,24 +441,30 @@ ef_byname(char *name)
 char *
 ef_nameof(int type)
 {
-    if (type < 0 || type >= EF_MAX)
-	return "bad item type";
+    if (ef_check(type) < 0)
+	return "bad ef_type";
     return empfile[type].name;
 }
 
 int
 ef_check(int type)
 {
-    if (type < 0 || type >= EF_MAX) {
-	logerror("ef_ptr: bad EF_type %d\n", type);
+    if (CANT_HAPPEN((unsigned)type >= EF_MAX))
 	return -1;
-    }
     return 0;
 }
 
+/*
+ * Ensure file-backed table contains ID.
+ * If necessary, extend it in steps of COUNT elements.
+ * Return non-zero on success, zero on failure.
+ */
 int
 ef_ensure_space(int type, int id, int count)
 {
+    if (ef_check(type) < 0)
+	return 0;
+
     while (id >= empfile[type].fids) {
 	if (!ef_extend(type, count))
 	    return 0;
