@@ -25,10 +25,10 @@
  *
  *  ---
  *
- *  file.h: Describes Empire files and their contents
+ *  file.h: Describes Empire tables (`files' for historical reasons)
  * 
  *  Known contributors to this file:
- *    
+ *     Markus Armbruster, 2005
  */
 
 #ifndef _FILE_H_
@@ -39,27 +39,29 @@
 struct empfile {
     int ef_uid;			/* Table ID */
     char *name;			/* Empire name (e.g., "treaty") */
-    char *file;			/* file name (relative to data directory) */
-    int flags;			/* misc stuff */
-    int size;			/* size of object */
-    void (*init) (int, char *);	/* call this when object is created */
-    int (*postread) (int, char *);	/* specific massage routines for items */
-    int (*prewrite) (int, char *);
+    char *file;			/* if backed by file, file name relative to
+				   data directory */
+    int flags;			/* EFF_XY, ... */
+    int size;			/* size of a table entry */
+    void (*init)(int, char *);	/* called after entry creation, unless null */
+    int (*postread)(int, char *); /* called after read, unless null */
+    int (*prewrite)(int, char *); /* called before write, unless null */
     int fd;			/* file descriptor, -1 if not open */
-    int baseid;			/* starting item in cache */
-    int cids;			/* # ids in cache */
-    int csize;			/* size of cache in bytes */
+    int baseid;			/* id of first entry in cache */
+    int cids;			/* # entries in cache */
+    int csize;			/* cache size, in entries */
     char *cache;		/* pointer to cache */
-    int fids;			/* # of ids in file */
-    struct castr *cadef;	/* ca defs selection list */
+    int fids;			/* # entries in table */
+    struct castr *cadef;	/* table column selectors (column meta-data) */
 };
 
 /*
  * struct empfile flags
- *
+ */
+/*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
- * group of such a file's record can be safely obtained by
- * dereferencing its memory address cast to struct genitem *.
+ * group of such a table's entries can be safely obtained by
+ * dereferencing entry address cast to struct genitem *.
  */
 #define EFF_XY		bit(0)
 #define EFF_OWNER	bit(1)
@@ -103,7 +105,7 @@ struct empfile {
 #define EF_COMM         13
 #define EF_LOST         14
 #define EF_MAX		15
-/* Static game data (configuation): EF_MAX.. */
+/* Static game data (configuration): EF_MAX.. */
 #define EF_SECTOR_CHR	15
 #define EF_SHIP_CHR	16
 #define EF_PLANE_CHR	17
