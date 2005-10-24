@@ -94,6 +94,12 @@ ef_open(int type, int how)
 	return 0;
     }
     ep->fids = fsiz / ep->size;
+
+    /* allocate cache */
+    if (CANT_HAPPEN(ep->flags & EFF_STATIC)) {
+	/* not implemented */
+	ep->flags &= ~EFF_STATIC;
+    }
     if (how & EFF_MEM)
 	ep->csize = ep->fids;
     else
@@ -140,8 +146,10 @@ ef_close(int type)
     retval = ef_flush(type);
     ep = &empfile[type];
     ep->flags &= ~EFF_OPEN;
-    free(ep->cache);
-    ep->cache = NULL;
+    if (!(ep->flags & EFF_STATIC)) {
+	free(ep->cache);
+	ep->cache = NULL;
+    }
     if (close(ep->fd) < 0) {
 	logerror("Error closing %s (%s)", ep->name, strerror(errno));
 	retval = 0;

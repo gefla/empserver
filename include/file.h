@@ -73,6 +73,7 @@ struct empfile {
 /* Create table file, clobbering any existing file */
 #define EFF_CREATE	bit(5)
 /* Table is allocated statically */
+#define EFF_STATIC	bit(6)
 
 /* Flags that may be passed to ef_open() */
 #define EFF_OPEN	(EFF_MEM | EFF_RDONLY | EFF_CREATE)
