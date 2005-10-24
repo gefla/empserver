@@ -147,7 +147,6 @@ main(int argc, char *argv[])
 	nat.nat_cnum = i;
 	putnat((&nat));
     }
-    ef_close(EF_NATION);
     if (access(teldir, F_OK) < 0 && mkdir(teldir, 0750) < 0) {
 	perror(teldir);
 	printf("Can't make telegram directory\n");
