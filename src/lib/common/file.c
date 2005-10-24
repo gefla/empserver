@@ -376,19 +376,6 @@ ef_extend(int type, int count)
     return i == count;
 }
 
-/*
- * Mark the cache for the file containing objects of type 'type' as unused.
- */
-void
-ef_zapcache(int type)
-{
-    struct empfile *ep = &empfile[type];
-    if ((ep->flags & EFF_MEM) == 0) {
-	ep->cids = 0;
-	ep->baseid = -1;
-    }
-}
-
 struct castr *
 ef_cadef(int type)
 {

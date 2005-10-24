@@ -134,7 +134,6 @@ snxtitem_area(struct nstr_item *np, int type, struct range *range)
     np->read = ef_read;
     np->flags = ef_flags(type);
     xysize_range(&np->range);
-    ef_zapcache(type);
 }
 
 void
@@ -160,7 +159,6 @@ snxtitem_dist(struct nstr_item *np, int type, int cx, int cy,
     /* It did the wrong thing for small, hitech worlds. */
     xysize_range(&np->range);
 #endif
-    ef_zapcache(type);
 }
 
 void
@@ -176,7 +174,6 @@ snxtitem_xy(struct nstr_item *np, int type, coord x, coord y)
     np->dist = 0;
     np->read = ef_read;
     np->flags = ef_flags(type);
-    ef_zapcache(type);
 }
 
 void
@@ -190,7 +187,6 @@ snxtitem_all(struct nstr_item *np, int type)
     np->read = ef_read;
     np->flags = ef_flags(type);
     xysize_range(&np->range);
-    ef_zapcache(type);
 }
 
 void
@@ -207,7 +203,6 @@ snxtitem_group(struct nstr_item *np, int type, s_char group)
     np->read = ef_read;
     np->flags = ef_flags(type);
     xysize_range(&np->range);
-    ef_zapcache(type);
 }
 
 void
@@ -215,7 +210,6 @@ snxtitem_rewind(struct nstr_item *np)
 {
     np->cur = -1;
     np->index = -1;
-    ef_zapcache(np->type);
 }
 
 int
@@ -235,6 +229,5 @@ snxtitem_list(struct nstr_item *np, int type, int *list, int len)
     for (i = 0; i < len; i++)
 	np->list[i] = list[i];
     np->size = len;
-    ef_zapcache(type);
     return 1;
 }

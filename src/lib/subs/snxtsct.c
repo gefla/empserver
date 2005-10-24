@@ -115,7 +115,6 @@ snxtsct_area(struct nstr_sect *np, struct range *range)
     np->dx = -1;
     np->dy = 0;
     xysize_range(&np->range);
-    ef_zapcache(EF_SECTOR);
 }
 
 void
@@ -126,7 +125,6 @@ snxtsct_rewind(struct nstr_sect *np)
     np->dx = -1;
     np->dy = 0;
     np->id = -1;
-    ef_zapcache(EF_SECTOR);
 }
 
 void
@@ -149,7 +147,6 @@ snxtsct_dist(struct nstr_sect *np, coord cx, coord cy, int dist)
     /* It was not doing the right thing when the world was small */
     xysize_range(&np->range);
 #endif
-    ef_zapcache(EF_SECTOR);
 }
 
 void
