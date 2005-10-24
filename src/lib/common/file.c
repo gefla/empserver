@@ -47,7 +47,9 @@
 #include "gen.h"
 
 
-static int fillcache(struct empfile *ep, int start);
+static int fillcache(struct empfile *, int);
+static int do_write(struct empfile *, void *, int, int);
+
 
 /*
  * Open the binary file for table TYPE (EF_SECTOR, ...).
@@ -144,8 +146,6 @@ int
 ef_flush(int type)
 {
     struct empfile *ep;
-    int size;
-    int r;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -160,19 +160,9 @@ ef_flush(int type)
      * allowed only with EFF_MEM.  Assume the whole cash is dirty
      * then.
      */
-    if (!(ep->flags & EFF_RDONLY) && (ep->flags & EFF_MEM)) {
-	size = ep->csize * ep->size;
-	if ((r = lseek(ep->fd, 0L, SEEK_SET)) < 0) {
-	    logerror("ef_flush: %s cache lseek(%d, 0L, SEEK_SET) -> %d",
-		     ep->name, ep->fd, r);
-	    return 0;
-	}
-	if (write(ep->fd, ep->cache, size) != size) {
-	    logerror("ef_flush: %s cache write(%d, %p, %d) -> %d",
-		     ep->name, ep->fd, ep->cache, ep->size, r);
-	    return 0;
-	}
-    }
+    if (!(ep->flags & EFF_RDONLY) && (ep->flags & EFF_MEM))
+	return do_write(ep, ep->cache, ep->baseid, ep->cids) >= 0;
+
     return 1;
 }
 
@@ -278,13 +268,48 @@ fillcache(struct empfile *ep, int start)
 }
 
 /*
+ * Write COUNT elements from BUF to EP, starting at ID.
+ * Return 0 on success, -1 on error.
+ */
+static int
+do_write(struct empfile *ep, void *buf, int id, int count)
+{
+    int n, ret;
+    char *p;
+
+    if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
+	return -1;
+
+    if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
+	logerror("Error seeking %s (%s)", ep->file, strerror(errno));
+	return -1;
+    }
+
+    p = buf;
+    n = count * ep->size;
+    while (n > 0) {
+	ret = write(ep->fd, p, n);
+	if (ret < 0) {
+	    if (errno != EAGAIN) {
+		logerror("Error writing %s (%s)", ep->file, strerror(errno));
+		return -1;
+	    }
+	} else {
+	    p += ret;
+	    n -= ret;
+	}
+    }
+
+    return 0;
+}
+
+/*
  * buffered write.  Modifies read cache (if applicable)
  * and writes through to disk.
  */
 int
 ef_write(int type, int id, void *from)
 {
-    int r;
     struct empfile *ep;
     char *to;
 
@@ -296,18 +321,12 @@ ef_write(int type, int id, void *from)
 	logerror("ef_write: type %d id %d is too large!\n", type, id);
 	return 0;
     }
-    if ((r = lseek(ep->fd, id * ep->size, SEEK_SET)) < 0) {
-	logerror("ef_write: %s #%d lseek(%d, %d, SEEK_SET) -> %d",
-		 ep->name, id, ep->fd, id * ep->size, r);
-	return 0;
-    }
     if (ep->prewrite)
 	ep->prewrite(id, from);
-    if ((r = write(ep->fd, from, ep->size)) != ep->size) {
-	logerror("ef_write: %s #%d write(%d, %p, %d) -> %d",
-		 ep->name, id, ep->fd, from, ep->size, r);
+    if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
+	return 0;		/* not implemented */
+    if (do_write(ep, from, id, 1) < 0)
 	return 0;
-    }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	/* update the cache if necessary */
 	to = ep->cache + (id - ep->baseid) * ep->size;
@@ -315,13 +334,8 @@ ef_write(int type, int id, void *from)
     }
     CANT_HAPPEN(id > ep->fids);
     if (id >= ep->fids) {
-	if (ep->flags & EFF_MEM) {
-	    logerror("file %s went beyond %d items; won't be able toread item w/o restart",
-		     ep->name, ep->fids);
-	} else {
-	    /* write expanded file; ep->fids = last id + 1 */
-	    ep->fids = id + 1;
-	}
+	/* write beyond end of file extends it, take note */
+	ep->fids = id + 1;
     }
     return 1;
 }
