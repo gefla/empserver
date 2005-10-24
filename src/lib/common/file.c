@@ -95,17 +95,21 @@ ef_open(int type, int how)
     else
 	ep->csize = max(1, blksize(fd) / ep->size);
     size = ep->csize * ep->size;
-    ep->cache = malloc(size);
-    if (ep->cache == NULL) {
-	logerror("Can't open %s: out of memory", ep->file);
-	close(fd);
-	return 0;
+    if (size) {
+	ep->cache = malloc(size);
+	if (ep->cache == NULL) {
+	    logerror("Can't open %s: out of memory", ep->file);
+	    close(fd);
+	    return 0;
+	}
+    } else {
+	ep->cache = NULL;
     }
     ep->baseid = 0;
     ep->cids = 0;
     ep->flags = (ep->flags & ~EFF_OPEN) | (how ^ ~EFF_CREATE);
     ep->fd = fd;
-    if (how & EFF_MEM) {
+    if ((how & EFF_MEM) && ep->fids) {
 	if (fillcache(ep, 0) != ep->fids) {
 	    ep->cids = 0;	/* prevent cache flush */
 	    ep->flags &= ~EFF_OPEN; /* maintain invariant */
