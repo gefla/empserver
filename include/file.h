@@ -41,7 +41,6 @@ struct empfile {
     char *name;			/* Empire name (e.g., "treaty") */
     char *file;			/* file name (relative to data directory) */
     int flags;			/* misc stuff */
-    int mode;			/* O_flags */
     int size;			/* size of object */
     void (*init) (int, char *);	/* call this when object is created */
     int (*postread) (int, char *);	/* specific massage routines for items */
@@ -62,13 +61,19 @@ struct empfile {
  * group of such a file's record can be safely obtained by
  * dereferencing its memory address cast to struct genitem *.
  */
-#define EFF_XY		bit(0)	/* has location */
-#define EFF_MEM		bit(1)	/* stored entirely in-memory */
-#define EFF_OWNER	bit(2)	/* has concept of owner */
-#define EFF_GROUP	bit(3)	/* has concept of group */
+#define EFF_XY		bit(0)
+#define EFF_OWNER	bit(1)
+#define EFF_GROUP	bit(2)
+/* Table is entirely in memory */
+#define EFF_MEM		bit(3)
+/* Table is read-only */
+#define EFF_RDONLY	bit(4)
+/* Create table file, clobbering any existing file */
+#define EFF_CREATE	bit(5)
+/* Table is allocated statically */
 
 /* Flags that may be passed to ef_open() */
-#define EFF_OPEN	EFF_MEM
+#define EFF_OPEN	(EFF_MEM | EFF_RDONLY | EFF_CREATE)
 
 /*
  * Empire `file types'
@@ -129,7 +134,7 @@ extern int ef_read(int, int, void *);
 extern char *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);
-extern int ef_open(int, int, int);
+extern int ef_open(int, int);
 extern int ef_check(int);
 extern int ef_close(int);
 extern int ef_flush(int);

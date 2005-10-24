@@ -38,7 +38,6 @@
 #include <sys/ioctl.h>
 #endif
 #include <errno.h>
-#include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -360,21 +359,21 @@ static void
 init_files(void)
 {
     int failed = 0;
-    failed |= !ef_open(EF_NATION, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_SECTOR, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_SHIP, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_PLANE, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_LAND, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_NEWS, O_RDWR, 0);
-    failed |= !ef_open(EF_LOAN, O_RDWR, 0);
-    failed |= !ef_open(EF_TREATY, O_RDWR, 0);
-    failed |= !ef_open(EF_NUKE, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_POWER, O_RDWR, 0);
-    failed |= !ef_open(EF_TRADE, O_RDWR, 0);
-    failed |= !ef_open(EF_MAP, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_BMAP, O_RDWR, EFF_MEM);
-    failed |= !ef_open(EF_COMM, O_RDWR, 0);
-    failed |= !ef_open(EF_LOST, O_RDWR, 0);
+    failed |= !ef_open(EF_NATION, EFF_MEM);
+    failed |= !ef_open(EF_SECTOR, EFF_MEM);
+    failed |= !ef_open(EF_SHIP, EFF_MEM);
+    failed |= !ef_open(EF_PLANE, EFF_MEM);
+    failed |= !ef_open(EF_LAND, EFF_MEM);
+    failed |= !ef_open(EF_NEWS, 0);
+    failed |= !ef_open(EF_LOAN, 0);
+    failed |= !ef_open(EF_TREATY, 0);
+    failed |= !ef_open(EF_NUKE, EFF_MEM);
+    failed |= !ef_open(EF_POWER, 0);
+    failed |= !ef_open(EF_TRADE, 0);
+    failed |= !ef_open(EF_MAP, EFF_MEM);
+    failed |= !ef_open(EF_BMAP, EFF_MEM);
+    failed |= !ef_open(EF_COMM, 0);
+    failed |= !ef_open(EF_LOST, 0);
     if (failed) {
 	logerror("Missing files, giving up");
 	exit(EXIT_FAILURE);

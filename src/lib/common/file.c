@@ -50,20 +50,16 @@ static void fillcache(struct empfile *ep, int start);
 
 /*
  * Open the binary file for table TYPE (EF_SECTOR, ...).
- * MODE is passed to open().
  * HOW are EFF_OPEN flags to control operation.
  * Return non-zero on success, zero on failure.
  * You must call ef_close() before the next ef_open().
  */
 int
-ef_open(int type, int mode, int how)
+ef_open(int type, int how)
 {
     struct empfile *ep;
-    int size;
+    int oflags, size;
 
-#if defined(_WIN32)
-    mode |= O_BINARY;
-#endif
     if (ef_check(type) < 0)
 	return 0;
     if (CANT_HAPPEN(how & ~EFF_OPEN))
@@ -71,14 +67,21 @@ ef_open(int type, int mode, int how)
     ep = &empfile[type];
     if (CANT_HAPPEN(ep->fd >= 0))
 	return 0;
-    if ((ep->fd = open(ep->file, mode, 0660)) < 0) {
+    oflags = O_RDWR;
+    if (how & EFF_RDONLY)
+	oflags = O_RDONLY;
+    if (how & EFF_CREATE)
+	oflags |= O_CREAT | O_TRUNC;
+#if defined(_WIN32)
+    oflags |= O_BINARY;
+#endif
+    if ((ep->fd = open(ep->file, oflags, 0660)) < 0) {
 	logerror("%s: open failed", ep->file);
 	return 0;
     }
     ep->baseid = 0;
     ep->cids = 0;
-    ep->mode = mode;
-    ep->flags |= how;
+    ep->flags = (ep->flags & ~EFF_OPEN) | (how ^ ~EFF_CREATE);
     ep->fids = fsize(ep->fd) / ep->size;
     if (ep->flags & EFF_MEM)
 	ep->csize = ep->fids;
@@ -145,8 +148,14 @@ ef_flush(int type)
 	/* no cache implies never opened */
 	return 0;
     }
-    size = ep->csize * ep->size;
-    if (ep->mode > 0 && (ep->flags & EFF_MEM)) {
+    /*
+     * We don't know which cache entries are dirty.  ef_write() writes
+     * through, but direct updates through ef_ptr() don't.  They are
+     * allowed only with EFF_MEM.  Assume the whole cash is dirty
+     * then.
+     */
+    if (!(ep->flags & EFF_RDONLY) && (ep->flags & EFF_MEM)) {
+	size = ep->csize * ep->size;
 	if ((r = lseek(ep->fd, 0L, SEEK_SET)) < 0) {
 	    logerror("ef_flush: %s cache lseek(%d, 0L, SEEK_SET) -> %d",
 		     ep->name, ep->fd, r);
@@ -158,7 +167,6 @@ ef_flush(int type)
 	    return 0;
 	}
     }
-    /*ef_zapcache(type); */
     return 1;
 }
 
@@ -287,7 +295,7 @@ ef_extend(int type, int count)
     struct empfile *ep;
     char *tmpobj;
     int cur, max;
-    int mode, how;
+    int how;
     int r;
 
     if (ef_check(type) < 0)
@@ -316,10 +324,9 @@ ef_extend(int type, int count)
     if (ep->flags & EFF_MEM) {
 	/* XXX this will cause problems if there are ef_ptrs (to the
 	 * old allocated structure) active when we do the re-open */
-	mode = ep->mode;
 	how = ep->flags;
 	ef_close(type);
-	ef_open(type, mode, how);
+	ef_open(type, how);
     } else {
 	ep->fids += count;
     }

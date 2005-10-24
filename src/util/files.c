@@ -123,7 +123,7 @@ main(int argc, char *argv[])
   	    exit(1);
     }
     for (i = 0; i < EF_MAX; i++) {
-	if (!ef_open(i, O_RDWR | O_CREAT | O_TRUNC, 0)) {
+	if (!ef_open(i, EFF_CREATE)) {
 	    perror("ef_open");
 	    exit(1);
 	}
