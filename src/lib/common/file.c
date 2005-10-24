@@ -32,10 +32,11 @@
  *     Steve McClure, 2000
  */
 
-#include <string.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <stdlib.h>
+#include <string.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -46,7 +47,7 @@
 #include "gen.h"
 
 
-static void fillcache(struct empfile *ep, int start);
+static int fillcache(struct empfile *ep, int start);
 
 /*
  * Open the binary file for table TYPE (EF_SECTOR, ...).
@@ -101,11 +102,9 @@ ef_open(int type, int how)
 	return 0;
     }
     if (ep->flags & EFF_MEM) {
-	if (read(ep->fd, ep->cache, size) != size) {
-	    logerror("ef_open: read(%s) failed\n", ep->file);
+	if (fillcache(ep, 0) != ep->fids) {
 	    return 0;
 	}
-	ep->cids = size / ep->size;
     }
     return 1;
 }
@@ -223,7 +222,8 @@ ef_read(int type, int id, void *into)
 		return 0;
 	}
 	if (ep->baseid + ep->cids <= id || ep->baseid > id)
-	    fillcache(ep, id);
+	    if (fillcache(ep, id) < 1)
+		return 0;
 	from = ep->cache + (id - ep->baseid) * ep->size;
     }
     memcpy(into, from, ep->size);
@@ -233,15 +233,48 @@ ef_read(int type, int id, void *into)
     return 1;
 }
 
-static void
+/*
+ * Fill cache of EP with elements starting at ID.
+ * If any were read, return their number.
+ * Else return -1 and leave the cache unchanged.
+ */
+static int
 fillcache(struct empfile *ep, int start)
 {
-    int n;
+    int n, ret;
+    char *p;
+
+    if (CANT_HAPPEN(ep->fd < 0 || !ep->cache))
+	return -1;
+
+    if (lseek(ep->fd, start * ep->size, SEEK_SET) == (off_t)-1) {
+	logerror("Error seeking %s (%s)", ep->file, strerror(errno));
+	return -1;
+    }
+
+    p = ep->cache;
+    n = ep->csize * ep->size;
+    while (n > 0) {
+	ret = read(ep->fd, p, n);
+	if (ret < 0) {
+	    if (errno != EAGAIN) {
+		logerror("Error reading %s (%s)", ep->file, strerror(errno));
+		break;
+	    }
+	} else if (ret == 0) {
+	    break;
+	} else {
+	    p += ret;
+	    n -= ret;
+	}
+    }
+
+    if (p == ep->cache)
+	return -1;		/* nothing read, old cache still ok */
 
     ep->baseid = start;
-    lseek(ep->fd, start * ep->size, SEEK_SET);
-    n = read(ep->fd, ep->cache, ep->csize * ep->size);
-    ep->cids = n / ep->size;
+    ep->cids = (p - ep->cache) / ep->size;
+    return ep->cids;
 }
 
 /*
