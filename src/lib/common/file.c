@@ -107,7 +107,7 @@ ef_open(int type, int how)
     }
     ep->baseid = 0;
     ep->cids = 0;
-    ep->flags = (ep->flags & ~EFF_OPEN) | (how ^ ~EFF_CREATE);
+    ep->flags = (ep->flags & ~EFF_OPEN) | (how & ~EFF_CREATE);
     ep->fd = fd;
     if ((how & EFF_MEM) && ep->fids) {
 	if (fillcache(ep, 0) != ep->fids) {
