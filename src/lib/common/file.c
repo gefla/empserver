@@ -378,7 +378,7 @@ ef_extend(int type, int count)
     if (ep->flags & EFF_MEM) {
 	/* XXX this will cause problems if there are ef_ptrs (to the
 	 * old allocated structure) active when we do the re-open */
-	how = ep->flags;
+	how = ep->flags & EFF_OPEN;
 	ef_close(type);
 	ef_open(type, how);
     } else {
