@@ -61,7 +61,7 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
-    int oflags, fsiz, size;
+    int oflags, fd, fsiz, size;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -78,33 +78,38 @@ ef_open(int type, int how)
 #if defined(_WIN32)
     oflags |= O_BINARY;
 #endif
-    if ((ep->fd = open(ep->file, oflags, 0660)) < 0) {
-	logerror("%s: open failed", ep->file);
+    if ((fd = open(ep->file, oflags, 0660)) < 0) {
+	logerror("Can't open %s (%s)", ep->file, strerror(errno));
+	return 0;
+    }
+    fsiz = fsize(fd);
+    if (fsiz % ep->size) {
+	logerror("Can't open %s (file size not a multiple of record size %d)",
+		 ep->file, ep->size);
+	close(fd);
+	return 0;
+    }
+    ep->fids = fsiz / ep->size;
+    if (how & EFF_MEM)
+	ep->csize = ep->fids;
+    else
+	ep->csize = max(1, blksize(fd) / ep->size);
+    size = ep->csize * ep->size;
+    ep->cache = malloc(size);
+    if (ep->cache == NULL) {
+	logerror("Can't open %s: out of memory", ep->file);
+	close(fd);
 	return 0;
     }
     ep->baseid = 0;
     ep->cids = 0;
     ep->flags = (ep->flags & ~EFF_OPEN) | (how ^ ~EFF_CREATE);
-    fsiz = fsize(ep->fd);
-    if (fsiz % ep->size) {
-	logerror("Can't open %s (file size not a multiple of record size %d)",
-		 ep->file, ep->size);
-	close(ep->fd);
-	return 0;
-    }
-    ep->fids = fsiz / ep->size;
-    if (ep->flags & EFF_MEM)
-	ep->csize = ep->fids;
-    else
-	ep->csize = max(1, blksize(ep->fd) / ep->size);
-    size = ep->csize * ep->size;
-    ep->cache = malloc(size);
-    if (ep->cache == NULL) {
-	logerror("ef_open: %s malloc(%d) failed\n", ep->file, size);
-	return 0;
-    }
-    if (ep->flags & EFF_MEM) {
+    ep->fd = fd;
+    if (how & EFF_MEM) {
 	if (fillcache(ep, 0) != ep->fids) {
+	    ep->cids = 0;	/* prevent cache flush */
+	    ep->flags &= ~EFF_OPEN; /* maintain invariant */
+	    ef_close(type);
 	    return 0;
 	}
     }
@@ -119,24 +124,19 @@ int
 ef_close(int type)
 {
     struct empfile *ep;
-    int r;
+    int retval;
 
-    if (ef_check(type) < 0)
-	return 0;
+    retval = ef_flush(type);
     ep = &empfile[type];
-    if (ep->cache == NULL) {
-	/* no cache implies never opened */
-	return 0;
-    }
-    ef_flush(type);
-    ep->flags &= ~EFF_MEM;
+    ep->flags &= ~EFF_OPEN;
     free(ep->cache);
     ep->cache = NULL;
-    if ((r = close(ep->fd)) < 0) {
-	logerror("ef_close: %s close(%d) -> %d", ep->name, ep->fd, r);
+    if (close(ep->fd) < 0) {
+	logerror("Error closing %s (%s)", ep->name, strerror(errno));
+	retval = 0;
     }
     ep->fd = -1;
-    return 1;
+    return retval;
 }
 
 /*
@@ -150,10 +150,8 @@ ef_flush(int type)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (ep->cache == NULL) {
-	/* no cache implies never opened */
+    if (CANT_HAPPEN(ep->fd < 0))
 	return 0;
-    }
     /*
      * We don't know which cache entries are dirty.  ef_write() writes
      * through, but direct updates through ef_ptr() don't.  They are
