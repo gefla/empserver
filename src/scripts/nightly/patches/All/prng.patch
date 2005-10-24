@@ -17,12 +17,12 @@ Index: empserver/include/damage.h
  
  #endif /* _DAMAGE_H_ */
 Index: empserver/include/prototypes.h
---- empserver/include/prototypes.h	2 Oct 2005 16:30:43 -0000	1.90
-+++ empserver/include/prototypes.h	4 Oct 2005 14:57:35 -0000
-@@ -390,6 +390,9 @@
- #ifdef NOSTRDUP
- extern char *strdup(char *x);
- #endif
+--- empserver/include/prototypes.h	23 Oct 2005 08:32:49 -0000	1.92
++++ empserver/include/prototypes.h	24 Oct 2005 15:27:54 -0000
+@@ -387,6 +387,9 @@
+ extern int ldround(double, int);
+ extern int roundintby(int, int);
+ extern int scthash(register int, register int, int);
 +/* chance.c */
 +extern void emp_srandom(unsigned int);
 +extern long emp_random(void);
@@ -66,9 +66,9 @@ Index: empserver/src/lib/commands/mfir.c
  		if (dam < 0)
  		    dam = 0;
 Index: empserver/src/lib/commands/new.c
---- empserver/src/lib/commands/new.c	16 Mar 2005 21:56:02 -0000	1.21
-+++ empserver/src/lib/commands/new.c	17 Mar 2005 10:01:14 -0000
-@@ -105,8 +105,8 @@
+--- empserver/src/lib/commands/new.c	23 Oct 2005 20:52:46 -0000	1.24
++++ empserver/src/lib/commands/new.c	24 Oct 2005 15:30:24 -0000
+@@ -102,8 +102,8 @@
      } else {
  	for (i = 0; i < 300 && !player->aborted; i++) {
  	    /* Both x and y should be either odd or even */
