@@ -235,8 +235,12 @@ main(int argc, char **argv)
     }
     daemonize = 0;
 #else  /* !_WIN32 */
-    if (daemonize)
-	disassoc();
+    if (daemonize) {
+	if (disassoc() < 0) {
+	    logerror("Can't become daemon (%s)", strerror(errno));
+	    _exit(1);
+	}
+    }
 #endif /* !_WIN32 */
     start_server(flags);
 

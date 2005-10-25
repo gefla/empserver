@@ -25,48 +25,54 @@
  *
  *  ---
  *
- *  disassoc.c: Fork and close
+ *  disassoc.c: Boilerplate daemonization code
  * 
  *  Known contributors to this file:
  *     Doug Hay, 1998
+ *     Markus Armbruster, 2005
  */
 
 /*
- * boilerplate daemon code; disassociate from
- * the current tty by forking, closing all file
- * descriptors, opening slash, and ioctl-ing
- * TIOCNOTTY
+ * See W. Richard Stevens: UNIX Network Programming, Vol. 1
  */
 
-#include <sys/types.h>
-#if !defined(_WIN32)
-#include <sys/ioctl.h>
-#include <unistd.h>		/* fork close dup2 */
-#endif
 #include <fcntl.h>
-#include "gen.h"
+#include <sys/types.h>
+#include <unistd.h>
+#include "prototypes.h"
 
-void
+int
 disassoc(void)
 {
-#if !defined(_WIN32)
+    pid_t pid;
     int i;
 
-    if (fork() != 0)
-	exit(0);
-    for (i = 0; i < 2; i++)
-	(void)close(i);
-    (void)open("/", O_RDONLY, 0);
-    (void)dup2(0, 1);
-    (void)dup2(0, 2);
-#if defined hpux || defined Rel4
-    setsid();
-#else
-    i = open("/dev/tty", O_RDWR, 0);
-    if (i > 0) {
-	(void)ioctl(i, TIOCNOTTY, 0);
-	(void)close(i);
-    }
-#endif
-#endif
+    if ((pid = fork()) < 0)
+	return -1;
+    else if (pid)
+	_exit(0);		/* parent */
+
+    /* Become session leader of new session, lose controlling tty */
+    if (setsid() < 0)
+	return -1;
+
+    /* Lose session leader status, so we can't acquire a controlling tty */
+    if ((pid = fork()) < 0)
+	return -1;
+    else if (pid)
+	_exit(0);		/* parent */
+    /* Note: no controlling tty, therefore no SIGHUP sent */
+
+    /* datadir is working directory, that's fine */
+
+    /* We opened a bunch of files already, so just close 0..2 */
+    for (i = 0; i < 3; i++)
+	close(i);
+
+    /* Library code may use 0..2; make sure that's safe */
+    open("/dev/null", O_RDWR);
+    dup(0);
+    dup(0);
+
+    return 0;
 }

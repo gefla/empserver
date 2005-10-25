@@ -371,7 +371,7 @@ extern void print_config(FILE * fp);
 extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
-extern void disassoc(void);
+extern int disassoc(void);
 extern int diffx(int, int);
 extern int diffy(int, int);
 extern int deltax(int, int);
