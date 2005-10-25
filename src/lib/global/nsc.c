@@ -579,3 +579,35 @@ struct lookup nuke_chr_flags[] = {
     {0, 0}
 };
 
+struct castr mdchr_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct castr, ca_name), "name", EF_BAD},
+    {NSC_CHAR, 0, 0, offsetof(struct castr, ca_type), "type", EF_META_TYPE},
+    {NSC_UCHAR, 0, 0, offsetof(struct castr, ca_flags), "flags", EF_META_FLAGS},
+    {NSC_USHORT, 0, 0, offsetof(struct castr, ca_len), "len", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct castr, ca_table), "table", EF_BAD},
+    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
+};
+
+struct lookup meta_flags[] = {
+    {NSC_DEITY, "DEITY"},
+    {NSC_EXTRA, "EXTRA"},
+    {0, ""}
+};
+    
+struct lookup meta_type[]  = {
+    {NSC_LONG, "d"},
+    {NSC_DOUBLE, "g"},
+    {NSC_STRING, "s"},
+    {NSC_TYPEID, "d"},
+    {NSC_CHAR, "d"},
+    {NSC_UCHAR, "d"},
+    {NSC_SHORT, "d"},
+    {NSC_USHORT, "d"},
+    {NSC_INT, "d"},
+    {NSC_XCOORD, "d"},
+    {NSC_YCOORD, "d"},
+    {NSC_TIME, "t"},
+    {NSC_FLOAT, "g"},
+    {NSC_STRINGY,"c"},
+    {0 ,""}
+};

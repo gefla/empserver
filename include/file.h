@@ -124,6 +124,9 @@ struct empfile {
 #define EF_PLANE_CHR_FLAGS	26
 #define EF_LAND_CHR_FLAGS	27
 #define EF_NUKE_CHR_FLAGS	28
+#define EF_META		29
+#define EF_META_TYPE	30
+#define EF_META_FLAGS	31
 
 struct fileinit {
     int ef_type;

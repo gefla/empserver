@@ -219,6 +219,9 @@ extern struct lookup ship_chr_flags[];
 extern struct lookup plane_chr_flags[];
 extern struct lookup land_chr_flags[];
 extern struct lookup nuke_chr_flags[];
+extern struct castr mdchr_ca[];
+extern struct lookup meta_type[];
+extern struct lookup meta_flags[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

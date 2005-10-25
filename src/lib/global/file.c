@@ -152,6 +152,15 @@ struct empfile empfile[] = {
     {EF_NUKE_CHR_FLAGS, "nuke chr flags", NULL, EFF_CFG,
      sizeof(nuke_chr_flags[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)nuke_chr_flags, 0, lookup_ca},
+    {EF_META, "meta", NULL, EFF_CFG,
+     sizeof(mdchr_ca[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)mdchr_ca, 0, mdchr_ca},
+    {EF_META_TYPE, "meta type", NULL, EFF_CFG,
+     sizeof(meta_type[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)meta_type, 0, lookup_ca},
+    {EF_META_FLAGS, "meta flags", NULL, EFF_CFG,
+     sizeof(meta_flags[0]), NULL, NULL, NULL,
+     -1, -1, 0, 0, (char *)meta_flags, 0, lookup_ca},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, 0,
