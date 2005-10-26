@@ -18,7 +18,6 @@ SUPER_BARS:	gold bars aren't destroyed by shelling or bombing
 ALL_BLEED:	you get tech bleed from all countries, not just allies
 DRNUKE:		research is required to make nukes
 SLOW_WAR:	War declaring takes time. No land attacks unless at war.
-SNEAK_ATTACK:	If SLOW_WAR, allows you to pay money and sneak one attack.
 NOMOBCOST:	ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost
 TRADESHIPS:	you can build/nav/scuttle trade ships to make money
 FUEL:		ships need fuel to gain mobility
