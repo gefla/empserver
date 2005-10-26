@@ -96,24 +96,28 @@ ef_open(int type, int how)
     ep->fids = fsiz / ep->size;
 
     /* allocate cache */
-    if (CANT_HAPPEN(ep->flags & EFF_STATIC)) {
-	/* not implemented */
-	ep->flags &= ~EFF_STATIC;
-    }
-    if (how & EFF_MEM)
-	ep->csize = ep->fids;
-    else
-	ep->csize = max(1, blksize(fd) / ep->size);
-    size = ep->csize * ep->size;
-    if (size) {
+    if (ep->flags & EFF_STATIC) {
+	/* ep->cache already points to space for e->csize elements */
+	if (how & EFF_MEM) {
+	    if (ep->fids > ep->csize) {
+		logerror("Can't open %s: file larger than %d bytes",
+			 ep->file, ep->fids * ep->size);
+		close(fd);
+		return 0;
+	    }
+	}
+    } else {
+	if (how & EFF_MEM)
+	    ep->csize = ep->fids;
+	else
+	    ep->csize = max(1, blksize(fd) / ep->size);
+	size = ep->csize * ep->size;
 	ep->cache = malloc(size);
-	if (ep->cache == NULL) {
+	if (ep->cache == NULL && size) {
 	    logerror("Can't open %s: out of memory", ep->file);
 	    close(fd);
 	    return 0;
 	}
-    } else {
-	ep->cache = NULL;
     }
     ep->baseid = 0;
     ep->cids = 0;
