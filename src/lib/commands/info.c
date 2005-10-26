@@ -96,7 +96,6 @@ info(void)
     snprintf(filename, sizeof(filename), "%s/%s", infodir, name);
     fp = fopen(filename, "r");
     if (fp == NULL) {
-	int len = strlen(name);
 	/* may be a "partial" request.  */
 	info_dp = opendir(infodir);
 	if (info_dp == 0) {
@@ -310,7 +309,6 @@ info(void)
 	/* may be a "partial" request.  */
 	HANDLE hDir;
 	WIN32_FIND_DATA fData;
-	int len = strlen(name);
 	strcat(filename, "*");
 	hDir = FindFirstFile(filename, &fData);
 	if (hDir == INVALID_HANDLE_VALUE) {
