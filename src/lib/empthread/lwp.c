@@ -126,10 +126,4 @@ empth_sem_wait(empth_sem_t *sm)
     lwpWait(sm);
 }
 
-void
-empth_alarm(int sig)
-{
-    /* no way we can be here while using LWP threads */
-    panic(sig);
-}
 #endif

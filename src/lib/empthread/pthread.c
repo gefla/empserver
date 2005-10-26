@@ -109,9 +109,6 @@ empth_start(void *arg)
     act.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &act, NULL);
 
-    act.sa_handler = empth_alarm;
-    sigaction(SIGALRM, &act, NULL);
-
     ctx->id = pthread_self();
     pthread_setspecific(ctx_key, ctx);
     pthread_mutex_lock(&mtx_ctxsw);
@@ -156,16 +153,10 @@ int
 empth_init(void **ctx_ptr, int flags)
 {
     empth_t *ctx;
-    struct sigaction act;
 
 
     pthread_key_create(&ctx_key, NULL);
     pthread_mutex_init(&mtx_ctxsw, NULL);
-
-    act.sa_flags = 0;
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = empth_alarm;
-    sigaction(SIGALRM, &act, NULL);
 
     udata = ctx_ptr;
     ctx = malloc(sizeof(empth_t));
@@ -361,19 +352,6 @@ empth_select(int fd, int flags)
 
 }
 
-
-void
-empth_alarm(int sig)
-{
-    struct sigaction act;
-    empth_status("got alarm signal");
-#ifdef SA_RESTART
-    act.sa_flags &= ~SA_RESTART;
-#endif
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = empth_alarm;
-    sigaction(SIGALRM, &act, NULL);
-}
 
 void
 empth_wakeup(empth_t *a)

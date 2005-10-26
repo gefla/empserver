@@ -570,20 +570,6 @@ empth_select(int fd, int flags)
 }
 
 /************************
- * empth_alarm
- */
-void
-empth_alarm(int sig)
-{
-    empth_t *pThread = TlsGetValue(dwTLSIndex);
-
-    loc_debug("got alarm signal  %d", sig);
-
-    /* Let it run if it is blocked like... */
-    SetEvent(pThread->hThreadEvent);
-}
-
-/************************
  * empth_wakeup
  *
  * Wake up the specified thread.

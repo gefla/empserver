@@ -205,7 +205,4 @@ void empth_sem_signal(empth_sem_t *sem);
  */
 void empth_sem_wait(empth_sem_t *sem);
 
-/* Internal function, not part of the thread abstraction */
-void empth_alarm(int);
-
 #endif
