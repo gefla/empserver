@@ -80,7 +80,7 @@ set(void)
     if ((p = getstarg(player->argp[1], "Ship, plane, land unit or nuke? ", buf)) == 0)
 	return RET_SYN;
     if ((type = ef_byname_from(p, ef_saleable)) < 0) {
-	pr("You can sell only ships, planes, land units or nukes\n", p);
+	pr("You can sell only ships, planes, land units or nukes\n");
 	return RET_SYN;
     }
     if (!snxtitem(&ni, type, player->argp[2]))
