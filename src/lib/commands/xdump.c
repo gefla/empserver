@@ -198,16 +198,16 @@ xdfldnam(struct castr ca[])
 
 /* Dump first line of header for dump NAME.  */
 static void
-xdhdr1(char *name)
+xdhdr1(char *name, int meta)
 {
-    pr("XDUMP %s %ld\n", name, (long)time(NULL));
+    pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
 }
 
 /* Dump header for dump NAME with fields described by CA[].  */
 static void
-xdhdr(char *name, struct castr ca[])
+xdhdr(char *name, struct castr ca[], int meta)
 {
-    xdhdr1(name);
+    xdhdr1(name, meta);
     xdfldnam(ca);
     pr("\n");
 }
@@ -239,7 +239,7 @@ xditem(int type, char *arg)
     if (!snxtitem(&ni, type, arg))
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), ca);
+    xdhdr(ef_nameof(type), ca, 0);
 
     n = 0;
     while (nxtitem(&ni, buf)) {
@@ -261,18 +261,29 @@ xditem(int type, char *arg)
  * FIXME Merge into xditem() when nxtitem() is ready for it.
  */
 static int
-xdchr(int chridx)
+xdchr(int chridx, int meta)
 {
     struct empfile *ef = &empfile[chridx];
     struct castr *ca = ef->cadef;
     char *p;
     struct valstr val;
     int n;
+    int size;
 
-    xdhdr(ef->name, ca);
+    if (meta) {
+	p = (char *)ca;
+	size = sizeof(struct castr);
+	ca = mdchr_ca;
+    } else {
+	p = ef->cache;
+	size = ef->size;
+	ca = ef->cadef;
+    }
+
+    xdhdr(ef->name, ca, meta);
 
     n = 0;
-    for (p = ef->cache; ; p += ef->size) {
+    for (;; p += size) {
 	val.val_type = ca[0].ca_type;
 	val.val_cat = NSC_OFF;
 	val.val_as.sym.off = ca[0].ca_off;
@@ -297,7 +308,7 @@ xdopt(void)
     int i;
     char *sep;
 
-    xdhdr1("options");
+    xdhdr1("options" , 0);
 
     sep = "";
     for (i = 0; Options[i].opt_key; ++i) {
@@ -323,7 +334,7 @@ xdver(void)
     char *sep;
     struct valstr val;
 
-    xdhdr1("version");
+    xdhdr1("version", 0);
 
     sep = "";
     for (kp = configkeys; kp->km_key; ++kp) {
@@ -353,6 +364,7 @@ xdump(void)
     char *p;
     char buf[1024];
     int type;
+    int meta = 0;
 
     if (!opt_GUINEA_PIGS) {
 	pr("You are not a guinea pig!\n");
@@ -360,12 +372,16 @@ xdump(void)
     }
 
     p = getstarg(player->argp[1], "What? ", buf);
+    if (p && strcmp(p, "meta") == 0) {
+	meta = 1;
+	p = getstarg(player->argp[2], "What? ", buf);
+    }
     if (!p)
 	return RET_SYN;
 
     type = my_ef_byname(p);
-    if (type >= EF_MAX)
-	return xdchr(type);
+    if (type >= EF_MAX || (meta && type >=0))
+	return xdchr(type, meta);
     else if (type >= 0) {
 	return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "opt", strlen(p))) {
