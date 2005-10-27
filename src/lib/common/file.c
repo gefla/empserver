@@ -41,12 +41,12 @@
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
+#include "common.h"
+#include "file.h"
+#include "gen.h"
+#include "match.h"
 #include "misc.h"
 #include "nsc.h"
-#include "file.h"
-#include "common.h"
-#include "gen.h"
-
 
 static int fillcache(struct empfile *, int);
 static int do_write(struct empfile *, void *, int, int);
@@ -437,6 +437,7 @@ ef_mtime(int type)
 int
 ef_byname(char *name)
 {
+    /* FIXME should use stmtch() */
     struct empfile *ef;
     int i;
     int len;
@@ -448,6 +449,37 @@ ef_byname(char *name)
 	    return i;
     }
     return -1;
+}
+
+/*
+ * Search CHOICES[] for a table ID matching NAME.
+ * CHOICES[] contains indexes in empfile[] and is terminated with a
+ * negative value.
+ * Return the matching index if there is one, else -1.
+ */
+int
+ef_byname_from(char *name, int choices[])
+{
+    int res;
+    int *p;
+
+    res = M_NOTFOUND;
+    for (p = choices; *p >= 0; p++) {
+	if (ef_check(*p) < 0)
+	    continue;
+	switch (mineq(name, empfile[*p].name)) {
+	case ME_MISMATCH:
+	    break;
+	case ME_PARTIAL:
+	    if (res >= 0)
+		return M_NOTUNIQUE;
+	    res = *p;
+	    break;
+	case ME_EXACT:
+	    return *p;
+	}
+    }
+    return res;
 }
 
 char *

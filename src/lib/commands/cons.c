@@ -110,6 +110,7 @@ cons(void)
 static int
 cons_choose(struct ltcomstr *ltcp)
 {
+    static int lon_or_trt[] = { EF_LOAN, EF_TREATY, EF_BAD };
     s_char *p;
     struct lonstr *lp;
     struct trtstr *tp;
@@ -119,7 +120,7 @@ cons_choose(struct ltcomstr *ltcp)
     memset(ltcp, 0, sizeof(*ltcp));
     if (getstarg(player->argp[1], "loan or treaty? ", buf) == 0)
 	return RET_SYN;
-    ltcp->type = ef_byname(buf);
+    ltcp->type = ef_byname_from(buf, lon_or_trt);
     switch (ltcp->type) {
     case EF_TREATY:
 	if (!opt_TREATIES) {

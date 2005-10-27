@@ -54,6 +54,7 @@ union item_u {
 int
 fuel(void)
 {
+    static int shp_or_lnd[] = { EF_SHIP, EF_LAND, EF_BAD };
     struct nstr_item ni;
     union item_u item, item2;
     int type;
@@ -80,10 +81,8 @@ fuel(void)
     if ((p =
 	 getstarg(player->argp[1], "Ship or land unit (s,l)? ", buf)) == 0)
 	return RET_SYN;
-    type = ef_byname(p);
-    if (type == EF_SECTOR)
-	type = EF_SHIP;
-    if (type != EF_SHIP && type != EF_LAND) {
+    type = ef_byname_from(p, shp_or_lnd);
+    if (type < 0) {
 	pr("Ships or land units only! (s, l)\n");
 	return RET_SYN;
     }

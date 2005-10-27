@@ -55,6 +55,7 @@
 int
 mission(void)
 {
+    static int ef_with_missions[] = { EF_SHIP, EF_LAND, EF_PLANE, EF_BAD };
     s_char *p;
     int type;
     int mission;
@@ -72,10 +73,8 @@ mission(void)
 	 getstarg(player->argp[1], "Ship, plane or land unit (p,sh,la)? ",
 		  buf)) == 0)
 	return RET_SYN;
-    type = ef_byname(p);
-    if (type == EF_SECTOR)
-	type = EF_SHIP;
-    if (type != EF_SHIP && type != EF_LAND && type != EF_PLANE) {
+    type = ef_byname_from(p, ef_with_missions);
+    if (type < 0) {
 	pr("Ships, land units or planes only! (s, l, p)\n");
 	return RET_SYN;
     }

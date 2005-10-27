@@ -53,6 +53,7 @@
 int
 set(void)
 {
+    static int ef_saleable[] = { EF_SHIP, EF_PLANE, EF_LAND, EF_NUKE, EF_BAD };
     char *p;
     int type;
     int price;
@@ -76,18 +77,12 @@ set(void)
     check_market();
     check_trade();
 
-    if ((p = getstarg(player->argp[1], "Item type? ", buf)) == 0)
+    if ((p = getstarg(player->argp[1], "Ship, plane, land unit or nuke? ", buf)) == 0)
 	return RET_SYN;
-    if ((type = ef_byname(p)) < 0) {
-	pr("%s: not an item type\n", p);
+    if ((type = ef_byname_from(p, ef_saleable)) < 0) {
+	pr("You can sell only ships, planes, land units or nukes\n", p);
 	return RET_SYN;
     }
-    if (type == EF_SECTOR)
-	type = EF_SHIP;
-    if (type == EF_NEWS)
-	type = EF_NUKE;
-    if (type == EF_LOAN)
-	type = EF_LAND;
     if (!snxtitem(&ni, type, player->argp[2]))
 	return RET_SYN;
     while (nxtitem(&ni, &item)) {

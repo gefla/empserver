@@ -55,6 +55,7 @@ static void grab_ship(struct shpstr *, natid);
 int
 cede(void)
 {
+    static int sct_or_shp[] = { EF_SECTOR, EF_SHIP, EF_BAD };
     natid to;
     int n;
     int is_sector = 0, is_ship = 0;
@@ -83,13 +84,8 @@ cede(void)
 	    return RET_FAIL;
 	if (strlen(p) > 4)
 	    p[2] = 0;
-	type = ef_byname(p);
-
-	if (type == EF_SECTOR)
-	    is_ship = 0;
-	else if (type == EF_SHIP)
-	    is_sector = 0;
-	else {
+	type = ef_byname_from(p, sct_or_shp);
+	if (type < 0) {
 	    pr("Please type 'se' or 'sh'!\n");
 	    return RET_FAIL;
 	}

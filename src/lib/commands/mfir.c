@@ -86,6 +86,7 @@ static void use_ammo(struct emp_qelem *);
 int
 multifire(void)
 {
+    static int ef_with_guns[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
     s_char vbuf[20];
     s_char *ptr;
     double range2, range;
@@ -132,7 +133,7 @@ multifire(void)
 			   buf)))
 	    return RET_SYN;
 	player->argp[1] = 0;
-	type = ef_byname(p);
+	type = ef_byname_from(p, ef_with_guns);
 	if (type == EF_SECTOR) {
 	    if (opt_NO_FORT_FIRE) {
 		pr("Fort firing is disabled.\n");
