@@ -216,7 +216,7 @@ xdhdr(char *name, struct castr ca[], int meta)
 static void
 xdftr(int n)
 {
-    pr("dumped %d\n", n);
+    pr("/%d\n", n);
 }
 
 /*
