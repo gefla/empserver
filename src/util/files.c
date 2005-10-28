@@ -123,6 +123,8 @@ main(int argc, char *argv[])
   	    exit(1);
     }
     for (i = 0; i < EF_MAX; i++) {
+	if (!EF_IS_GAME_STATE(i))
+	    continue;
 	if (!ef_open(i, EFF_CREATE)) {
 	    perror("ef_open");
 	    exit(1);
@@ -180,6 +182,8 @@ main(int argc, char *argv[])
 	ef_write(EF_BMAP, i, map);
     }
     for (i = 0; i < EF_MAX; i++) {
+	if (!EF_IS_GAME_STATE(i))
+	    continue;
 	ef_close(i);
     }
 

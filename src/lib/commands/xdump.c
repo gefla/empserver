@@ -81,19 +81,6 @@
 /* FIXME don't dump stuff that's useless due to options */
 
 /*
- * Search empfile[] for element named NAME, return its index.
- * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
- * several.
- * FIXME Merge into ef_byname().  ef_byname() stops at EF_MAX!
- */
-static int
-my_ef_byname(char *name)
-{
-    return stmtch(name, empfile, offsetof(struct empfile, name),
-		  sizeof(empfile[0]));
-}
-
-/*
  * Evaluate a attribute of an object into VAL, return VAL.
  * TYPE is the attribute's type.
  * PTR points to the context object.
@@ -379,11 +366,12 @@ xdump(void)
     if (!p)
 	return RET_SYN;
 
-    type = my_ef_byname(p);
-    if (type >= EF_MAX || (meta && type >=0))
-	return xdchr(type, meta);
-    else if (type >= 0) {
-	return xditem(type, player->argp[2]);
+    type = ef_byname(p);
+    if (type >= 0) {
+	if (meta || !EF_IS_GAME_STATE(type))
+	    return xdchr(type, meta);
+	else
+	    return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "opt", strlen(p))) {
 	return xdopt();
     } else if (!strncmp(p, "ver", strlen(p))) {

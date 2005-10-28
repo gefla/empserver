@@ -58,6 +58,7 @@ struct empfile {
 /*
  * struct empfile flags
  */
+/* Immutable flags */
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
  * group of such a table's entries can be safely obtained by
@@ -66,14 +67,16 @@ struct empfile {
 #define EFF_XY		bit(0)
 #define EFF_OWNER	bit(1)
 #define EFF_GROUP	bit(2)
-/* Table is entirely in memory */
-#define EFF_MEM		bit(3)
-/* Table is read-only */
-#define EFF_RDONLY	bit(4)
-/* Create table file, clobbering any existing file */
-#define EFF_CREATE	bit(5)
 /* Table is allocated statically */
-#define EFF_STATIC	bit(6)
+#define EFF_STATIC	bit(3)
+/* Flags set when table contents is mapped */
+/* Table is entirely in memory */
+#define EFF_MEM		bit(4)
+/* Table is read-only */
+#define EFF_RDONLY	bit(5)
+/* Transient flags, just to control ef_open() */
+/* Create table file, clobbering any existing file */
+#define EFF_CREATE	bit(6)
 
 /* Flags that may be passed to ef_open() */
 #define EFF_OPEN	(EFF_MEM | EFF_RDONLY | EFF_CREATE)
@@ -82,14 +85,10 @@ struct empfile {
  * Empire `file types'
  * These are really table IDs.  Some tables are backed by files, some
  * are compiled into the server.
- * Historically, only table IDs 0..EF_MAX-1 existed.  All the
- * functions operating on table IDs still reject the new indexes >=
- * EF_MAX.  This needs to be rectified, carefully checking existing
- * code, which could rely on unspoken assumptions about these tables.
  */
 /* Error value */
 #define EF_BAD		-1
-/* Dynamic game data tables: 0..EF_MAX-1 */
+/* Dynamic game data tables */
 #define EF_SECTOR	0
 #define EF_SHIP		1
 #define EF_PLANE	2
@@ -105,8 +104,7 @@ struct empfile {
 #define EF_BMAP		12
 #define EF_COMM         13
 #define EF_LOST         14
-#define EF_MAX		15
-/* Static game data (configuration): EF_MAX.. */
+/* Static game data (configuration) */
 #define EF_SECTOR_CHR	15
 #define EF_SHIP_CHR	16
 #define EF_PLANE_CHR	17
@@ -127,6 +125,9 @@ struct empfile {
 #define EF_META		29
 #define EF_META_TYPE	30
 #define EF_META_FLAGS	31
+#define EF_MAX		32
+
+#define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 
 struct fileinit {
     int ef_type;
@@ -152,6 +153,6 @@ extern int ef_flags(int);
 extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
 
-extern struct empfile empfile[];
+extern struct empfile empfile[EF_MAX];
 
 #endif /* _FILE_H_ */
