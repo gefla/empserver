@@ -34,7 +34,7 @@
 #ifndef _NUKE_H_
 #define _NUKE_H_
 
-#define	N_MAXNUKE	15
+#define	N_MAXNUKE	20
 
 struct nukstr {
     /* initial part must match struct genitem */
@@ -78,7 +78,7 @@ struct nchrstr {
 #define NUK_BLD_WORK(lcm, hcm, oil, rad) \
   (((lcm) + 2 * (hcm) + (oil) + (rad) + 4) / 5)
 
-extern struct nchrstr nchr[];
+extern struct nchrstr nchr[N_MAXNUKE + 1];
 
 extern int nuk_maxno;
 

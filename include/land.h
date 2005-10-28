@@ -42,6 +42,7 @@
 #include "nsc.h"
 #include "retreat.h"
 
+#define N_MAXLAND	30
 #define LAND_MINEFF	10
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */
 #define LND_MINMOBCOST  0.200
@@ -180,7 +181,7 @@ struct lchrstr {
 #define getlandp(n) \
 	(struct lndstr *) ef_ptr(EF_LAND, n)
 
-extern struct lchrstr lchr[];
+extern struct lchrstr lchr[N_MAXLAND + 1];
 extern int lnd_maxno;
 
 struct llist {

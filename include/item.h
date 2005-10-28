@@ -80,7 +80,7 @@ struct ichrstr {
 
 /* variables using this structure */
 
-extern struct ichrstr ichr[];
+extern struct ichrstr ichr[I_MAX + 2];
 
 /* procedures using/returning this struct */
 

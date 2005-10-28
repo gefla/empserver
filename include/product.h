@@ -75,7 +75,7 @@ struct pchrstr {
 #define P_URAN	15
 #define P_MDUST	16
 
-extern struct pchrstr pchr[];
+extern struct pchrstr pchr[P_MDUST + 2];
 
 extern int prd_maxno;
 

@@ -35,7 +35,7 @@
 #include "nuke.h"
 
 
-struct nchrstr nchr[N_MAXNUKE] = {
+struct nchrstr nchr[] = {
     /* name         lcm  hcm  oil  rads blst dam    cost  tech lbs flags */
     {"10kt  fission", 50, 50, 25, 70, 3, 70, 10000, 280, 4, 0},
     {"15kt  fission", 50, 50, 25, 80, 3, 90, 15000, 290, 5, 0},
