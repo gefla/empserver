@@ -77,7 +77,7 @@ NSC_IELT("rad", "r", sfx, base, I_RAD)
 
 struct castr ichr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
+    {NSC_INT, NSC_CONST, 0, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
     {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell", EF_BAD},
@@ -88,7 +88,7 @@ struct castr ichr_ca[] = {
 
 struct castr pchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name", EF_BAD},
-    {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_sname), "sname", EF_BAD},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct pchrstr, p_sname), "sname", EF_BAD},
     {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype", EF_BAD},
     {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt", EF_BAD},
     {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type", EF_BAD},
@@ -148,7 +148,7 @@ struct castr sect_ca[] = {
 
 struct castr dchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
+    {NSC_INT, NSC_CONST, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD},
@@ -481,7 +481,7 @@ struct castr nat_ca[] = {
 };
 
 struct castr intrchr_ca[] = {
-    {NSC_STRING, 0, 0, offsetof(struct sctintrins, in_name), "name", EF_BAD},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_lcms), "lcms", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_hcms), "hcms", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_dcost), "dcost", EF_BAD},
@@ -591,9 +591,10 @@ struct castr mdchr_ca[] = {
 struct lookup meta_flags[] = {
     {NSC_DEITY, "DEITY"},
     {NSC_EXTRA, "EXTRA"},
+    {NSC_CONST, "CONST"},
     {0, ""}
 };
-    
+
 struct lookup meta_type[]  = {
     {NSC_LONG, "d"},
     {NSC_DOUBLE, "g"},
