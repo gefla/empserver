@@ -25,23 +25,24 @@
  *
  *  ---
  *
- *  fileinit.c: Fill the empfile[] with function pointers only required for
- *              full server operations.  This allows the empfile[] to be
- *              used in files and fairland.
+ *  fileinit.c: Initialize Empire tables for full server operations.
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
  *  
  */
 
-#include <fcntl.h>
-#include "misc.h"
-#include "nsc.h"
 #include "file.h"
 #include "prototypes.h"
-#include "optlist.h"
 
-struct fileinit fileinit[] = {
+struct fileinit {
+    int ef_type;
+    void (*init) (int, char *);
+    int (*postread) (int, char *);
+    int (*prewrite) (int, char *);
+};
+
+static struct fileinit fileinit[] = {
     {EF_SECTOR, NULL, sct_postread, sct_prewrite},
     {EF_SHIP, shp_init, shp_postread, shp_prewrite},
     {EF_PLANE, pln_init, pln_postread, pln_prewrite},
@@ -49,10 +50,16 @@ struct fileinit fileinit[] = {
     {EF_NUKE, nuk_init, nuk_postread, nuk_prewrite}
 };
 
+/*
+ * Initialize empfile for full server operations.
+ * Like ef_init(), but additionally installs the server's callbacks.
+ * This is separate from ef_init(), so that utility programs like
+ * files can use empfile.
+ */
 void
-ef_init(void)
+ef_init_srv(void)
 {
-    int i;
+    unsigned i;
 
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
 	empfile[fileinit[i].ef_type].init = fileinit[i].init;
@@ -60,5 +67,5 @@ ef_init(void)
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
 
-    empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
+    ef_init();
 }

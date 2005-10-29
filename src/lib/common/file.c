@@ -47,6 +47,7 @@
 #include "match.h"
 #include "misc.h"
 #include "nsc.h"
+#include "optlist.h"
 
 static int fillcache(struct empfile *, int);
 static int do_write(struct empfile *, void *, int, int);
@@ -505,4 +506,57 @@ ef_ensure_space(int type, int id, int count)
 	    return 0;
     }
     return 1;
+}
+
+static void
+ef_fix_size(struct empfile *ep, int n)
+{
+    ep->cids = ep->fids = n;
+    ep->csize = n + 1;
+}
+
+static void
+ef_init_chr(int type, size_t size, ptrdiff_t name_offs)
+{
+    struct empfile *ep = &empfile[type];
+    char *p;
+
+    for (p = ep->cache; **((char **)(p + name_offs)); p += size) ;
+    ef_fix_size(ep, (p - ep->cache) / size);
+}
+
+/*
+ * Initialize Empire tables.
+ * Must be called once, before using anything else from this module.
+ */
+void
+ef_init(void)
+{
+    struct castr *ca;
+    struct empfile *ep;
+    struct symbol *lup;
+    int i;
+
+    empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
+
+    ef_init_chr(EF_SHIP_CHR,
+		sizeof(struct mchrstr), offsetof(struct mchrstr, m_name));
+    ef_init_chr(EF_PLANE_CHR,
+		sizeof(struct plchrstr), offsetof(struct plchrstr, pl_name));
+    ef_init_chr(EF_LAND_CHR,
+		sizeof(struct lchrstr), offsetof(struct lchrstr, l_name));
+    ef_init_chr(EF_NUKE_CHR,
+		sizeof(struct nchrstr), offsetof(struct nchrstr, n_name));
+
+    ca = (struct castr *)empfile[EF_META].cache;
+    for (i = 0; ca[i].ca_name; i++) ;
+    ef_fix_size(&empfile[EF_META], i);
+
+    for (ep = empfile; ep->ef_uid >= 0; ep++) {
+	if (ep->cadef == symbol_ca) {
+	    lup = (struct symbol *)ep->cache;
+	    for (i = 0; lup[i].value; i++) ;
+	    ef_fix_size(ep, i);
+	}
+    }
 }

@@ -267,7 +267,7 @@ init_server(void)
     global_init();
     shutdown_init();
     player_init();
-    ef_init();
+    ef_init_srv();
     init_files();
     io_init();
     init_nreport();

@@ -35,6 +35,7 @@
 #define _FILE_H_
 
 #include <stddef.h>
+#include <time.h>
 
 struct empfile {
     int ef_uid;			/* Table ID */
@@ -127,13 +128,6 @@ struct empfile {
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 
-struct fileinit {
-    int ef_type;
-    void (*init) (int, char *);
-    int (*postread) (int, char *);
-    int (*prewrite) (int, char *);
-};
-
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
 extern void *ef_ptr(int, int);
@@ -150,6 +144,7 @@ extern int ef_nelem(int);
 extern int ef_flags(int);
 extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
+extern void ef_init(void);
 
 extern struct empfile empfile[EF_MAX + 1];
 

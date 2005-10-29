@@ -464,7 +464,7 @@ extern int disloan(int, register struct lonstr *);
 /* distrea.c */
 extern int distrea(int, register struct trtstr *);
 /* fileinit.c */
-extern void ef_init(void);
+extern void ef_init_srv(void);
 /* fortdef.c */
 extern int sd(natid, natid, coord, coord, int, int, int);
 extern int dd(natid, natid, coord, coord, int, int);

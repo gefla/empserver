@@ -101,8 +101,7 @@ main(int argc, char *argv[])
     if (emp_config(config_file) < 0)
 	exit(1);
 
-    empfile[EF_MAP].size = (WORLD_X * WORLD_Y) / 2;
-    empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
+    ef_init();
 
     if (access(datadir, F_OK) < 0 && mkdir(datadir, 0750) < 0) {
 	perror(datadir);
