@@ -523,7 +523,7 @@ struct symbol ship_chr_flags[] = {
     {M_OILER, "oiler"},
     {M_SUPPLY, "supply"},
     {M_ANTIMISSILE, "anti-missile"},
-    {0, 0}
+    {0, NULL}
 };
 
 struct symbol land_chr_flags[] = {
@@ -540,7 +540,7 @@ struct symbol land_chr_flags[] = {
     {L_SPY, "spy"},
     {L_TRAIN, "train"},
     {L_HEAVY, "heavy"},
-    {0, 0}
+    {0, NULL}
 };
 
 struct symbol plane_chr_flags[] = {
@@ -565,12 +565,12 @@ struct symbol plane_chr_flags[] = {
     {P_MINE, "mine"},
     {P_SWEEP, "sweep"},
     {P_MAR, "marine"},
-    {0, 0}
+    {0, NULL}
 };
 
 struct symbol nuke_chr_flags[] = {
     {N_NEUT, "neutron"},
-    {0, 0}
+    {0, NULL}
 };
 
 struct castr mdchr_ca[] = {
@@ -586,7 +586,7 @@ struct symbol meta_flags[] = {
     {NSC_DEITY, "DEITY"},
     {NSC_EXTRA, "EXTRA"},
     {NSC_CONST, "CONST"},
-    {0, ""}
+    {0, NULL}
 };
 
 struct symbol meta_type[]  = {
@@ -604,5 +604,5 @@ struct symbol meta_type[]  = {
     {NSC_TIME, "t"},
     {NSC_FLOAT, "g"},
     {NSC_STRINGY,"c"},
-    {0 ,""}
+    {NSC_NOTYPE, NULL}
 };
