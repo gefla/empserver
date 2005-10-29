@@ -102,11 +102,14 @@ struct empfile empfile[] = {
      sizeof(struct loststr), NULL, NULL, NULL,
      -1, -1, 0, 0, NULL, 0, lost_ca},
 
-    /* Static game data (configuation) */
+    /* Static game data (configuration) */
 #define EFF_CFG (EFF_RDONLY | EFF_MEM | EFF_STATIC)
-    {EF_SECTOR_CHR, "sect chr", NULL, EFF_CFG,
-     sizeof(dchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)dchr, 0, dchr_ca},
+#define SZ(array) (sizeof(array) / sizeof((array)[0]))
+#define CFGTAB(type, name, array, ca) \
+{(type), (name), NULL, EFF_RDONLY | EFF_MEM | EFF_STATIC, \
+ sizeof((array)[0]), NULL, NULL, NULL, \
+ -1, 0, SZ((array)) - 1, SZ((array)), (char *)(array), SZ((array)) - 1, (ca)}
+    CFGTAB(EF_SECTOR_CHR, "sect chr", dchr, dchr_ca),
     {EF_SHIP_CHR, "ship chr", NULL, EFF_CFG,
      sizeof(mchr[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)mchr, 0, mchr_ca},
@@ -119,24 +122,14 @@ struct empfile empfile[] = {
     {EF_NUKE_CHR, "nuke chr", NULL, EFF_CFG,
      sizeof(nchr[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)nchr, 0, nchr_ca},
-    {EF_NEWS_CHR, "news chr", NULL, EFF_CFG,
-     sizeof(rpt[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)rpt, 0, rpt_ca},
+    CFGTAB(EF_NEWS_CHR, "news chr", rpt, rpt_ca),
     {EF_TREATY_FLAGS, "treaty flags", NULL, EFF_CFG,
      sizeof(treaty_flags[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)treaty_flags, 0, symbol_ca},
-    {EF_ITEM, "item", NULL, EFF_CFG,
-     sizeof(ichr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)ichr, 0, ichr_ca},
-    {EF_INFRASTRUCTURE, "infrastructure", NULL, EFF_CFG,
-     sizeof(intrchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)intrchr, 0, intrchr_ca},
-    {EF_PRODUCT, "product", NULL, EFF_CFG,
-     sizeof(pchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)pchr, 0, pchr_ca},
-    {EF_TABLE, "table", NULL, EFF_CFG,
-     sizeof(empfile[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)empfile, 0, empfile_ca},
+    CFGTAB(EF_ITEM, "item", ichr, ichr_ca),
+    CFGTAB(EF_INFRASTRUCTURE, "infrastructure", intrchr, intrchr_ca),
+    CFGTAB(EF_PRODUCT, "product", pchr, pchr_ca),
+    CFGTAB(EF_TABLE, "table", empfile, empfile_ca),
     {EF_SHIP_CHR_FLAGS, "ship chr flags", NULL, EFF_CFG,
      sizeof(ship_chr_flags[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)ship_chr_flags, 0, symbol_ca},

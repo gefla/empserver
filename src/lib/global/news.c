@@ -41,7 +41,7 @@
 #include "misc.h"
 #include "news.h"
 
-char *page_headings[N_MAX_PAGE + 1] = {
+char *page_headings[] = {
 /* not used */ "Comics",
 /* N_FOR    */ "Foreign Affairs",
 /* N_FRONT  */ "The Front Line",
@@ -58,7 +58,7 @@ char *page_headings[N_MAX_PAGE + 1] = {
 
 static char no_news[] = "does nothing in particular to %s";
 
-struct rptstr rpt[N_MAX_VERB + 2] = {
+struct rptstr rpt[] = {
 /*  nice  page     text */
 /*  0*/ { 0,  0, { no_news, no_news } },
     { -4, N_FRONT, { "infantry capture %s territory",

@@ -164,7 +164,7 @@ struct rptstr {
 #define getnewsp(n) \
 	(struct nwsstr *) ef_ptr(EF_NEWS, n)
 
-extern struct rptstr rpt[];
-extern char *page_headings[];
+extern struct rptstr rpt[N_MAX_VERB + 2];
+extern char *page_headings[N_MAX_PAGE + 1];
 
 #endif /* _NEWS_H_ */
