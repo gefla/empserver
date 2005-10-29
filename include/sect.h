@@ -163,7 +163,7 @@ struct dchrstr {
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
 
-extern struct dchrstr dchr[SCT_MAXDEF + 2];
+extern struct dchrstr dchr[SCT_MAXDEF + 1];
 extern struct dchrstr bigcity_dchr;
 
 /* Minimal efficiency of sectors that can be knocked down (bridges) */

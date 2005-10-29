@@ -45,7 +45,7 @@ struct dchrstr bigcity_dchr = {
     'c', 0, 2, NAV_02, UPKG, 1.0, 2.0, 30, 0, 10, 1, 2, 999, "city"
 };
 
-struct dchrstr dchr[SCT_MAXDEF + 2] = {
+struct dchrstr dchr[] = {
 /*
   mnem prd     mcst  flg    pkg ostr dstr value $ bld lcm hcm maxpop  name    */
     {'.', 0, 0, NAVOK, NPKG, 0.0, 0.0, 0, -1, 0, 0, 0, 0, "sea"},
@@ -83,7 +83,6 @@ struct dchrstr dchr[SCT_MAXDEF + 2] = {
     {'~', 0, 2, 0, NPKG, 1.0, 1.5, 1, -1, 1, 0, 0, 49, "plains"},
     {'@', 0, 1, 0, NPKG, 1.0, 1.5, 4, -1, 1, 0, 0, 999, "bridge tower"},
     {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0, NULL},
-    {0, 0, 0, 0, IPKG, 0, 0, 0, 0, 0, 0, 0, 0, NULL}
 };
 
 struct sctintrins intrchr[] = {
