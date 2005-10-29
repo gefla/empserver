@@ -122,7 +122,7 @@ struct empfile empfile[] = {
     {EF_NEWS_CHR, "news chr", NULL, EFF_CFG,
      sizeof(rpt[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)rpt, 0, rpt_ca},
-    {EF_TREATY_CHR, "treaty flags", NULL, EFF_CFG,
+    {EF_TREATY_FLAGS, "treaty flags", NULL, EFF_CFG,
      sizeof(treaty_flags[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)treaty_flags, 0, symbol_ca},
     {EF_ITEM, "item", NULL, EFF_CFG,

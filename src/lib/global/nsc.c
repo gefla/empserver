@@ -367,8 +367,8 @@ struct castr treaty_ca[] = {
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_BAD},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond", EF_TREATY_FLAGS},
+    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond", EF_TREATY_FLAGS},
     {NSC_TIME, 0, 0, fldoff(trtstr, trt_exp), "exp", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };

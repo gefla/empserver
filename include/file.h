@@ -111,7 +111,7 @@ struct empfile {
 #define EF_LAND_CHR	18
 #define EF_NUKE_CHR	19
 #define EF_NEWS_CHR	20
-#define EF_TREATY_CHR	21
+#define EF_TREATY_FLAGS	21
 #define EF_ITEM		22
 #define EF_INFRASTRUCTURE   23
 #define EF_PRODUCT	24
