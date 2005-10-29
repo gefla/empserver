@@ -133,13 +133,13 @@ make_new_list(int tlev, int type)
 }
 
 static char *
-lookup(int key, struct lookup *table)
+lookup(int key, struct symbol *table)
 {
     int i;
 
-    for (i = 0; table[i].value; i++)
-	if (key == table[i].key)
-	    return table[i].value;
+    for (i = 0; table[i].name; i++)
+	if (key == table[i].value)
+	    return table[i].name;
 
     return NULL;
 }

@@ -504,13 +504,13 @@ struct castr empfile_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct castr lookup_ca[] = {
-    {NSC_STRING, 0, 0, offsetof(struct lookup, value), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lookup, key), "value", EF_BAD},
+struct castr symbol_ca[] = {
+    {NSC_STRING, 0, 0, offsetof(struct symbol, name), "name", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct symbol, value), "value", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct lookup ship_chr_flags[] = {
+struct symbol ship_chr_flags[] = {
     {M_FOOD, "fish"},
     {M_TORP, "torp"},
     {M_DCH, "dchrg"},
@@ -532,7 +532,7 @@ struct lookup ship_chr_flags[] = {
     {0, 0}
 };
 
-struct lookup land_chr_flags[] = {
+struct symbol land_chr_flags[] = {
     {L_XLIGHT, "xlight"},
     {L_ENGINEER, "engineer"},
     {L_SUPPLY, "supply"},
@@ -549,7 +549,7 @@ struct lookup land_chr_flags[] = {
     {0, 0}
 };
 
-struct lookup plane_chr_flags[] = {
+struct symbol plane_chr_flags[] = {
     {P_T, "tactical"},
     {P_B, "bomber"},
     {P_F, "intercept"},
@@ -574,7 +574,7 @@ struct lookup plane_chr_flags[] = {
     {0, 0}
 };
 
-struct lookup nuke_chr_flags[] = {
+struct symbol nuke_chr_flags[] = {
     {N_NEUT, "neutron"},
     {0, 0}
 };
@@ -588,14 +588,14 @@ struct castr mdchr_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct lookup meta_flags[] = {
+struct symbol meta_flags[] = {
     {NSC_DEITY, "DEITY"},
     {NSC_EXTRA, "EXTRA"},
     {NSC_CONST, "CONST"},
     {0, ""}
 };
 
-struct lookup meta_type[]  = {
+struct symbol meta_type[]  = {
     {NSC_LONG, "d"},
     {NSC_DOUBLE, "g"},
     {NSC_STRING, "s"},

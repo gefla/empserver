@@ -170,11 +170,11 @@ struct nstr_item {
 };
 
 /*
- * Symbol table definition
+ * Symbol binding: associate NAME with VALUE.
  */
-struct lookup {
-    int key;
-    s_char *value;
+struct symbol {
+    int value;
+    char *name;
 };
 
 /*
@@ -215,14 +215,14 @@ extern struct castr nat_ca[];
 extern struct castr intrchr_ca[];
 extern struct castr rpt_ca[];
 extern struct castr empfile_ca[];
-extern struct castr lookup_ca[];
-extern struct lookup ship_chr_flags[];
-extern struct lookup plane_chr_flags[];
-extern struct lookup land_chr_flags[];
-extern struct lookup nuke_chr_flags[];
+extern struct castr symbol_ca[];
+extern struct symbol ship_chr_flags[];
+extern struct symbol plane_chr_flags[];
+extern struct symbol land_chr_flags[];
+extern struct symbol nuke_chr_flags[];
 extern struct castr mdchr_ca[];
-extern struct lookup meta_type[];
-extern struct lookup meta_flags[];
+extern struct symbol meta_type[];
+extern struct symbol meta_flags[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
