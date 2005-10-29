@@ -132,14 +132,16 @@ make_new_list(int tlev, int type)
     sort_lookup_list();
 }
 
-static s_char *
+static char *
 lookup(int key, struct lookup *table)
 {
-    int match;
+    int i;
 
-    if ((match = intmatch(key, &table->key, sizeof(*table))) < 0)
-	return 0;
-    return table[match].value;
+    for (i = 0; table[i].value; i++)
+	if (key == table[i].key)
+	    return table[i].value;
+
+    return NULL;
 }
 
 void
@@ -219,7 +221,7 @@ show_nuke_capab(int tlev)
 {
     struct nchrstr *np;
     int i, j, n;
-    s_char *p;
+    char *p;
 
     if (opt_DRNUKE)
 	pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");
@@ -342,7 +344,7 @@ show_ship_capab(int tlev)
     int j;
     int scount;
     int n;
-    s_char *p;
+    char *p;
 
     pr("%25s cargos & capabilities\n", "");
 
@@ -402,7 +404,7 @@ show_plane_capab(int tlev)
     int i;
     int pcount;
     int n;
-    s_char *p;
+    char *p;
 
     pr("%25s capabilities\n", "");
     make_new_list(tlev, EF_PLANE);
@@ -467,7 +469,7 @@ show_land_capab(int tlev)
     int lcount;
     i_type i;
     int j, n;
-    s_char *p;
+    char *p;
 
     pr("%25s capabilities\n", "");
 

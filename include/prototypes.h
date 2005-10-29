@@ -529,7 +529,6 @@ extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,
 extern int msl_launch_mindam(struct emp_qelem *, coord, coord, int,
 			     int, int, s_char *, int, int);
 /* mtch.c */
-extern int intmatch(register int, register int *, int);
 extern int comtch(register s_char *, struct cmndstr *, int, int);
 /* natarg.c */
 extern int natarg(s_char *, s_char *);

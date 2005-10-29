@@ -30,32 +30,12 @@
  *  Known contributors to this file:
  *     (List known contributors to this file)
  */
-/*
- * XXX These routines gamble that structures are all longword-aligned.
- * If this is not true, they will BREAK!
- */
 
 #include "misc.h"
 #include "player.h"
 #include "com.h"
 #include "match.h"
 #include "prototypes.h"
-
-/*
- * find a matching integer from a member of a structure.
- * Inspired by stmtch above.
- */
-int
-intmatch(register int value, register int *ptr, int size)
-{
-    register int i;
-
-    size /= sizeof(*ptr);
-    for (i = 0; *ptr; i++, ptr += size)
-	if (value == *ptr)
-	    return i;
-    return -1;
-}
 
 /*
  * Search for COMMAND in COMS[], return its index.
