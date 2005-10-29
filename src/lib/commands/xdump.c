@@ -55,7 +55,6 @@
  * Less important:
  * - News item characteristics: rpt[]
  * - News page headings: page_headings[] (TODO)
- * - Treaty clause characteristics: tchr[]
  * - Commands: player_coms[] (TODO)
  * - Options: Options[]
  * - Configuration: configkeys[]
@@ -243,47 +242,23 @@ xditem(int type, char *arg)
 }
 
 /*
- * Dump characteristics described by chr_camap[IDX].
- * Return RET_OK on success, RET_SYN if IDX < 0.
- * FIXME Merge into xditem() when nxtitem() is ready for it.
+ * Dump meta-data for items of type TYPE.
+ * Return RET_OK.
  */
 static int
-xdchr(int chridx, int meta)
+xdmeta(int type)
 {
-    struct empfile *ef = &empfile[chridx];
-    struct castr *ca = ef->cadef;
-    char *p;
-    struct valstr val;
-    int n;
-    int size;
+    struct castr *ca = ef_cadef(type);
+    int i;
 
-    if (meta) {
-	p = (char *)ca;
-	size = sizeof(struct castr);
-	ca = mdchr_ca;
-    } else {
-	p = ef->cache;
-	size = ef->size;
-	ca = ef->cadef;
-    }
+    xdhdr(ef_nameof(type), mdchr_ca, 1);
 
-    xdhdr(ef->name, ca, meta);
-
-    n = 0;
-    for (;; p += size) {
-	val.val_type = ca[0].ca_type;
-	val.val_cat = NSC_OFF;
-	val.val_as.sym.off = ca[0].ca_off;
-	val.val_as.sym.idx = 0;
-	nstr_exec_val(&val, player->cnum, p, NSC_STRING);
-	if (!val.val_as.str.base || !*val.val_as.str.base)
-	    break;
-	++n;
-	xdflds(ca, p);
+    for (i = 0; ca[i].ca_name; i++) {
+	xdflds(mdchr_ca, &ca[i]);
 	pr("\n");
     }
 
-    xdftr(n);
+    xdftr(i);
 
     return RET_OK;
 }
@@ -368,8 +343,8 @@ xdump(void)
 
     type = ef_byname(p);
     if (type >= 0) {
-	if (meta || !EF_IS_GAME_STATE(type))
-	    return xdchr(type, meta);
+	if (meta)
+	    return xdmeta(type);
 	else
 	    return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "opt", strlen(p))) {
