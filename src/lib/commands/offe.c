@@ -81,7 +81,7 @@ do_treaty(void)
     register int ourcond;
     register int theircond;
     register int j;
-    struct tchrstr *tcp;
+    struct symbol *tfp;
     struct trtstr trty;
     struct nstr_item nstr;
     natid recipient;
@@ -105,21 +105,21 @@ do_treaty(void)
     }
     pr("Terms for %s:\n", cname(recipient));
     theircond = 0;
-    for (tcp = tchr; tcp && tcp->t_cond; tcp++) {
-	sprintf(prompt, "%s? ", tcp->t_name);
+    for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
+	sprintf(prompt, "%s? ", tfp->name);
 	if ((cp = getstring(prompt, buf)) == 0)
 	    return RET_FAIL;
 	if (*cp == 'y')
-	    theircond |= tcp->t_cond;
+	    theircond |= tfp->value;
     }
     pr("Terms for you:\n");
     ourcond = 0;
-    for (tcp = tchr; tcp && tcp->t_cond; tcp++) {
-	sprintf(prompt, "%s? ", tcp->t_name);
+    for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
+	sprintf(prompt, "%s? ", tfp->name);
 	if ((cp = getstring(prompt, buf)) == 0)
 	    return RET_FAIL;
 	if (*cp == 'y')
-	    ourcond |= tcp->t_cond;
+	    ourcond |= tfp->value;
     }
     if (ourcond == 0 && theircond == 0) {
 	pr("Treaties with no clauses aren't very useful, boss!\n");

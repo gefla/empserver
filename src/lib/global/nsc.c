@@ -373,12 +373,6 @@ struct castr treaty_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct castr tchr_ca[] = {
-    {NSC_STRING, 0, 0, offsetof(struct tchrstr, t_name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct tchrstr, t_cond), "cond", EF_BAD},
-    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
-};
-
 struct castr loan_ca[] = {
     {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_BAD},

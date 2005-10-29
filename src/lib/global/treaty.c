@@ -33,9 +33,10 @@
  */
 
 #include "misc.h"
+#include "nsc.h"
 #include "treaty.h"
 
-struct tchrstr tchr[] = {
+struct symbol treaty_flags[] = {
     {LNDATT, "no attacks on any land units"},
     {SEAATT, "no attacks on any ships"},
     {SEAFIR, "no shelling any ships"},
@@ -47,5 +48,5 @@ struct tchrstr tchr[] = {
     {NEWPLN, "no building planes"},
     {NEWLND, "no building land units"},
     {TRTENL, "no enlistment"},
-    {0, 0}
+    {0, NULL}
 };

@@ -46,11 +46,6 @@ struct trtstr {
     time_t trt_exp;		/* expiration date */
 };
 
-struct tchrstr {
-    int t_cond;			/* bit to indicate this clause */
-    char *t_name;		/* description of clause */
-};
-
 #define TS_FREE		0
 #define TS_PROPOSED	1
 #define TS_SIGNED	2
@@ -68,15 +63,11 @@ struct tchrstr {
 #define	TRTENL	bit(9)		/* no enlistment */
 #define SUBFIR  bit(10)		/* no depth-charging submarines */
 
-/* global treaty variables */
-
 #define gettre(n, p) \
 	ef_read(EF_TREATY, n, p)
 #define puttre(n, p) \
 	ef_write(EF_TREATY, n, p)
 #define gettrep(n) \
 	(struct trtstr *) ef_ptr(EF_TREATY, n)
-
-extern struct tchrstr tchr[];
 
 #endif /* _TREATY_H_ */

@@ -69,16 +69,16 @@ distrea(int n, register struct trtstr *tp)
     pr("%s  expires %s", cname(tp->trt_cnb), ctime(&tp->trt_exp));
     pr("%24.24s terms", cname(tp->trt_cna));
     pr(" - %s terms\n", cname(tp->trt_cnb));
-    for (i = 0; 0 != (cond = tchr[i].t_cond); i++) {
+    for (i = 0; 0 != (cond = treaty_flags[i].value); i++) {
 	acond = tp->trt_acond & cond;
 	bcond = tp->trt_bcond & cond;
 	if (acond | bcond) {
 	    if (acond)
-		pr("%30s", tchr[i].t_name);
+		pr("%30s", treaty_flags[i].name);
 	    else
 		pr("%30s", "");
 	    if (bcond)
-		pr(" - %s\n", tchr[i].t_name);
+		pr(" - %s\n", treaty_flags[i].name);
 	    else
 		pr(" -\n");
 	}
