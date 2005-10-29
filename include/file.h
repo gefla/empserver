@@ -110,22 +110,20 @@ struct empfile {
 #define EF_PLANE_CHR	17
 #define EF_LAND_CHR	18
 #define EF_NUKE_CHR	19
-#if 0 /* doesn't exist yet */
-#define EF_NEWS_CHR
-#endif
-#define EF_TREATY_CHR	20
-#define EF_ITEM		21
-#define EF_INFRASTRUCTURE   22
-#define EF_PRODUCT	23
-#define EF_TABLE	24
-#define EF_SHIP_CHR_FLAGS	25
-#define EF_PLANE_CHR_FLAGS	26
-#define EF_LAND_CHR_FLAGS	27
-#define EF_NUKE_CHR_FLAGS	28
-#define EF_META		29
-#define EF_META_TYPE	30
-#define EF_META_FLAGS	31
-#define EF_MAX		32
+#define EF_NEWS_CHR	20
+#define EF_TREATY_CHR	21
+#define EF_ITEM		22
+#define EF_INFRASTRUCTURE   23
+#define EF_PRODUCT	24
+#define EF_TABLE	25
+#define EF_SHIP_CHR_FLAGS	26
+#define EF_PLANE_CHR_FLAGS	27
+#define EF_LAND_CHR_FLAGS	28
+#define EF_NUKE_CHR_FLAGS	29
+#define EF_META		30
+#define EF_META_TYPE	31
+#define EF_META_FLAGS	32
+#define EF_MAX		33
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 

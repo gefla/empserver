@@ -53,7 +53,7 @@
  * - Sector infrastructure characteristics: intrchr[]
  * - Ship characteristics: mchr[]
  * Less important:
- * - News item characteristics: rpt[] (TODO)
+ * - News item characteristics: rpt[]
  * - News page headings: page_headings[] (TODO)
  * - Treaty clause characteristics: tchr[]
  * - Commands: player_coms[] (TODO)

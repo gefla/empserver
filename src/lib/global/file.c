@@ -119,12 +119,9 @@ struct empfile empfile[] = {
     {EF_NUKE_CHR, "nuke chr", NULL, EFF_CFG,
      sizeof(nchr[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)nchr, 0, nchr_ca},
-#if 0
-    /* FIXME rpt[] lacks sentinel, xdchr() doesn't terminate */
-    {EF_, "news chr", NULL, EFF_CFG,
+    {EF_NEWS_CHR, "news chr", NULL, EFF_CFG,
      sizeof(rpt[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)rpt, 0, rpt_ca},
-#endif
     {EF_TREATY_CHR, "treaty chr", NULL, EFF_CFG,
      sizeof(tchr[0]), NULL, NULL, NULL,
      -1, -1, 0, 0, (char *)tchr, 0, tchr_ca},

@@ -58,7 +58,7 @@ char *page_headings[N_MAX_PAGE + 1] = {
 
 static char no_news[] = "does nothing in particular to %s";
 
-struct rptstr rpt[N_MAX_VERB + 1] = {
+struct rptstr rpt[N_MAX_VERB + 2] = {
 /*  nice  page     text */
 /*  0*/ { 0,  0, { no_news, no_news } },
     { -4, N_FRONT, { "infantry capture %s territory",
@@ -219,5 +219,6 @@ struct rptstr rpt[N_MAX_VERB + 1] = {
     { -3, N_FRONT, { "is repelled by %s while attempting to board a land unit",
 /* 81*/	  	     "forces prove inept at boarding %s's land unit" } },
     { -2, N_FRONT, { "mercenaries board one of %s's land units",
-/* 82*/		     "elite forces board %s land unit" } }
+/* 82*/		     "elite forces board %s land unit" } },
+    { 0, 0, { NULL, NULL } }
 };
