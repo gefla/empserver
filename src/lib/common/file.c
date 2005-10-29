@@ -431,31 +431,22 @@ ef_mtime(int type)
 }
 
 /*
- * Search empfile[0..EF_MAX-1] for element named NAME.
- * Return its index in empfile[] if found, else -1.
+ * Search for a table matching NAME, return its table type.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
  */
 int
 ef_byname(char *name)
 {
-    /* FIXME should use stmtch() */
-    struct empfile *ef;
-    int i;
-    int len;
-
-    len = strlen(name);
-    for (i = 0; i < EF_MAX; i++) {
-	ef = &empfile[i];
-	if (strncmp(ef->name, name, min(len, strlen(ef->name))) == 0)
-	    return i;
-    }
-    return -1;
+    return stmtch(name, empfile, offsetof(struct empfile, name),
+		  sizeof(empfile[0]));
 }
 
 /*
- * Search CHOICES[] for a table ID matching NAME.
- * CHOICES[] contains indexes in empfile[] and is terminated with a
- * negative value.
- * Return the matching index if there is one, else -1.
+ * Search CHOICES[] for a table type matching NAME, return it.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ * CHOICES[] must be terminated with a negative value.
  */
 int
 ef_byname_from(char *name, int choices[])
