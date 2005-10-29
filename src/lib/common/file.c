@@ -555,7 +555,7 @@ ef_init(void)
     for (ep = empfile; ep->ef_uid >= 0; ep++) {
 	if (ep->cadef == symbol_ca) {
 	    lup = (struct symbol *)ep->cache;
-	    for (i = 0; lup[i].value; i++) ;
+	    for (i = 0; lup[i].name; i++) ;
 	    ef_fix_size(ep, i);
 	}
     }
