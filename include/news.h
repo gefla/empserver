@@ -137,8 +137,8 @@ struct rptstr {
 #define N_PARA_UNOCC	75
 #define N_ALOSE_SCT	76
 #define N_PLOSE_SCT	77
-#define N_FIN_TROUBLE   78
-#define N_CREDIT_JUNK   79
+/* unused		78 */
+/* unused		79 */
 #define N_WELCH_DEAL    80
 #define N_LND_LOSE      81
 #define N_BOARD_LAND    82

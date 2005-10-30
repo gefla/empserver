@@ -24,11 +24,6 @@ Typical output looks like:
    0 $   1000   2  0.06 hrs (  2)  tech 0 100% inf1  infantry 1 [f:21 ] #3
 Which lot to buy: 0
 Destination sector: 4,0
-WARNING!  This market issues credit.  If you make more
-  bids than your treasury can cover at the time of sale,
-  you can potentially go into financial ruin, and see no
-  gains.  You have been warned.
-
 How much do you bid: 1100
 Your bid on lot #0 is being considered.
 .FI

@@ -25,11 +25,6 @@ Typical output looks like:
 Looks just like Christmas at K-mart, doesn't it!
 
 Which lot are you bidding on: 1
-WARNING!  This market issues credit.  If you make more
-  bids than your treasury can cover at the time of sale,
-  you can potentially go into financial ruin, and see no
-  gains.  You have been warned.
-
 How much per unit: 2
 destination sector : 3,1
 Your bid is being considered.

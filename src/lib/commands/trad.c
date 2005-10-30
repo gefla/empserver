@@ -257,11 +257,6 @@ trad(void)
 	}
     }
 
-    pr("WARNING!  This market issues credit.  If you make more\n");
-    pr("  bids than your treasury can cover at the time of sale,\n");
-    pr("  you can potentially go into financial ruin, and see no\n");
-    pr("  gains.  You have been warned.\n\n");
-
     if ((p = getstring("How much do you bid: ", buf)) == 0 || *p == 0)
 	return RET_OK;
     if (!trade_check_ok(&trade, &tg))
@@ -298,7 +293,6 @@ int
 check_trade(void)
 {
     int n;
-    int j;
     struct nstr_item ni;
     struct plnstr plane;
     struct lndstr land;
@@ -311,10 +305,6 @@ check_trade(void)
     double tleft;
     float price;
     int saveid;
-    struct lonstr loan;
-    long outstanding;		/* Outstanding debt */
-    long couval;		/* Value of country's goods */
-    int foundloan;
 
 /*    logerror("Checking the trades.\n");*/
     for (n = 0; gettrade(n, &trade); n++) {
@@ -368,62 +358,6 @@ check_trade(void)
 
 	subleft = monleft;
 
-	if (opt_LOANS) {
-	    /* Try to make a loan for the rest from the owner. */
-	    if (monleft > 0 && natp->nat_money > 0) {
-		if ((float)((float)price / (float)(price + monleft)) < 0.1) {
-		    wu(0, trade.trd_maxbidder,
-		       "You need at least 10 percent down to purchase something on credit.\n");
-		} else {
-		    couval = get_couval(trade.trd_maxbidder);
-		    outstanding = get_outstand(trade.trd_maxbidder);
-		    couval = couval - outstanding;
-		    if (couval > monleft) {
-			/*  Make the loan */
-			foundloan = 0;
-			for (j = 0; getloan(j, &loan); j++) {
-			    if (loan.l_status != LS_FREE)
-				continue;
-			    foundloan = 1;
-			    break;
-			}
-			if (!foundloan)
-			    ef_extend(EF_LOAN, 1);
-			loan.l_status = LS_SIGNED;
-			loan.l_loner = trade.trd_owner;
-			loan.l_lonee = trade.trd_maxbidder;
-			loan.l_irate = 25;
-			loan.l_ldur = 4;
-			loan.l_amtpaid = 0;
-			loan.l_amtdue = monleft;
-			time(&loan.l_lastpay);
-			loan.l_duedate =
-			    (loan.l_ldur * SECS_PER_DAY) + loan.l_lastpay;
-			loan.l_uid = j;
-			if (!putloan(j, &loan))
-			    logerror("Error writing to the loan file.\n");
-			else
-			    monleft = 0;
-			nreport(trade.trd_maxbidder, N_FIN_TROUBLE,
-				trade.trd_owner, 1);
-			wu(0, trade.trd_maxbidder,
-			   "You just took loan #%d for $%.2f to cover the cost of your purchase.\n",
-			   j, (float)loan.l_amtdue);
-			wu(0, trade.trd_owner,
-			   "You just extended loan #%d to %s to help with the purchase cost.\n",
-			   j, cname(trade.trd_maxbidder));
-		    } else {
-			nreport(trade.trd_maxbidder, N_CREDIT_JUNK,
-				trade.trd_owner, 1);
-			wu(0, trade.trd_maxbidder,
-			   "You don't have enough credit to get a loan.\n");
-			wu(0, trade.trd_owner,
-			   "You just turned down a loan to %s.\n",
-			   cname(trade.trd_maxbidder));
-		    }
-		}
-	    }
-	}
 	if (monleft > 0) {
 	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, trade.trd_owner, 1);
 	    wu(0, trade.trd_owner,

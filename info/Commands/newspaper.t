@@ -24,7 +24,7 @@ Which will print the news for the last two days.
 You can select whose news to see with the ?actor or ?victim selectors,
 and what news to see with the ?action selector.  Actions are:
 .nf
-     1)  Successful Sector attack       
+     1)  Successful sector attack       
      2)  Unsuccessful attack            
      3)  Spy shot                       
      4)  Telegram sent                  
@@ -96,8 +96,6 @@ and what news to see with the ?action selector.  Actions are:
      75) Paradrop into unoccuppied land
      76) Failed assault
      77) Failed paradrop
-     78) Forced loan taken out (by the market)
-     79) Forced loan denied (by the market)
      80) Failed boarding of a land unit
      81) Successful boarding of a land unit
 .fi
