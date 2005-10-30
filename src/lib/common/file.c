@@ -54,7 +54,8 @@ static int do_write(struct empfile *, void *, int, int);
 
 /*
  * Open the file-backed table TYPE (EF_SECTOR, ...).
- * HOW are EFF_OPEN flags to control operation.
+ * HOW are flags to control operation.  Naturally, immutable flags are
+ * not permitted.
  * Return non-zero on success, zero on failure.
  * You must call ef_close() before the next ef_open().
  */
@@ -66,8 +67,8 @@ ef_open(int type, int how)
 
     if (ef_check(type) < 0)
 	return 0;
-    if (CANT_HAPPEN(how & ~EFF_OPEN))
-	how &= EFF_OPEN;
+    if (CANT_HAPPEN(how & EFF_IMMUTABLE))
+	how &= ~EFF_IMMUTABLE;
 
     /* open file */
     ep = &empfile[type];
@@ -122,14 +123,14 @@ ef_open(int type, int how)
     }
     ep->baseid = 0;
     ep->cids = 0;
-    ep->flags = (ep->flags & ~EFF_OPEN) | (how & ~EFF_CREATE);
+    ep->flags = (ep->flags & EFF_IMMUTABLE) | (how & ~EFF_CREATE);
     ep->fd = fd;
 
     /* map file into cache */
     if ((how & EFF_MEM) && ep->fids) {
 	if (fillcache(ep, 0) != ep->fids) {
 	    ep->cids = 0;	/* prevent cache flush */
-	    ep->flags &= ~EFF_OPEN; /* maintain invariant */
+	    ep->flags &= EFF_IMMUTABLE; /* maintain invariant */
 	    ef_close(type);
 	    return 0;
 	}
@@ -150,7 +151,7 @@ ef_close(int type)
 
     retval = ef_flush(type);
     ep = &empfile[type];
-    ep->flags &= ~EFF_OPEN;
+    ep->flags &= EFF_IMMUTABLE;
     if (!(ep->flags & EFF_STATIC)) {
 	free(ep->cache);
 	ep->cache = NULL;
@@ -395,7 +396,7 @@ ef_extend(int type, int count)
 	/* FIXME lazy bastards...  do this right */
 	/* XXX this will cause problems if there are ef_ptrs (to the
 	 * old allocated structure) active when we do the re-open */
-	how = ep->flags & EFF_OPEN;
+	how = ep->flags & ~EFF_IMMUTABLE;
 	ef_close(type);
 	ef_open(type, how);
     } else {
@@ -554,7 +555,7 @@ ef_init(void)
     for (i = 0; ca[i].ca_name; i++) ;
     ef_fix_size(&empfile[EF_META], i);
 
-    for (ep = empfile; ep->ef_uid >= 0; ep++) {
+    for (ep = empfile; ep->uid >= 0; ep++) {
 	if (ep->cadef == symbol_ca) {
 	    lup = (struct symbol *)ep->cache;
 	    for (i = 0; lup[i].name; i++) ;

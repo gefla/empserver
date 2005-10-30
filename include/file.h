@@ -38,28 +38,37 @@
 #include <time.h>
 
 struct empfile {
-    int ef_uid;			/* Table ID */
+    /* Members with immutable values */
+    int uid;			/* Table ID */
     char *name;			/* Empire name (e.g., "treaty") */
     char *file;			/* if backed by file, file name relative to
 				   data directory */
-    int flags;			/* EFF_XY, ... */
+    struct castr *cadef;	/* table column selectors (column meta-data) */
     int size;			/* size of a table entry */
+    int flags;			/* only EFF_IMMUTABLE immutable, see below
+				   for use of remaining bits */
+    /* Members whose values are fixed when the cache is mapped */
+    char *cache;		/* pointer to cache */
+    int csize;			/* cache size, in entries */
+    /* and flags bit EFF_MEM */
+    /* Members whose values may vary throughout operation */
+    int baseid;			/* id of first entry in cache */
+    int cids;			/* # entries in cache */
+    int fids;			/* # entries in table */
+    int fd;			/* file descriptor, -1 if not open */
+    /* and flags bit EFF_RDONLY */
+    /* User callbacks */
     void (*init)(int, char *);	/* called after entry creation, unless null */
     int (*postread)(int, char *); /* called after read, unless null */
     int (*prewrite)(int, char *); /* called before write, unless null */
-    int fd;			/* file descriptor, -1 if not open */
-    int baseid;			/* id of first entry in cache */
-    int cids;			/* # entries in cache */
-    int csize;			/* cache size, in entries */
-    char *cache;		/* pointer to cache */
-    int fids;			/* # entries in table */
-    struct castr *cadef;	/* table column selectors (column meta-data) */
 };
 
 /*
- * struct empfile flags
+ * Flag bits for struct empfile member flags
+ * Immutable flags are properties of the table and thus cannot change.
+ * The remaining flags record how the table is being used.
  */
-/* Immutable flags */
+/* Immutable flags, fixed at compile-time */
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
  * group of such a table's entries can be safely obtained by
@@ -70,17 +79,16 @@ struct empfile {
 #define EFF_GROUP	bit(2)
 /* Table is allocated statically */
 #define EFF_STATIC	bit(3)
+/* All the immutable flags */
+#define EFF_IMMUTABLE	(EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC)
 /* Flags set when table contents is mapped */
 /* Table is entirely in memory */
-#define EFF_MEM		bit(4)
+#define EFF_MEM		bit(8)
 /* Table is read-only */
-#define EFF_RDONLY	bit(5)
-/* Transient flags, just to control ef_open() */
+#define EFF_RDONLY	bit(9)
+/* Transient flags, only occur in argument of ef_open() */
 /* Create table file, clobbering any existing file */
-#define EFF_CREATE	bit(6)
-
-/* Flags that may be passed to ef_open() */
-#define EFF_OPEN	(EFF_MEM | EFF_RDONLY | EFF_CREATE)
+#define EFF_CREATE	bit(10)
 
 /*
  * Empire `file types'

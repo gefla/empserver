@@ -54,106 +54,99 @@
 #include "commodity.h"
 #include "nsc.h"
 
+/* Some abbreviations: */
+#define SZ(array) (sizeof(array) / sizeof((array)[0]))
+/* Unmapped cache initializers for members flags... */
+#define UNMAPPED_INIT(type, flags) \
+    sizeof(type), flags, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL
+/* Same for cache mapped to array with known size */
+#define ARRAY_INIT(array, flags) \
+    sizeof(*(array)), flags, (char *)(array), \
+    SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1, NULL, NULL, NULL
+/* Same for unknown size, size to be filled in by ef_init() */
+#define PTR_INIT(ptr, flags) sizeof(*(ptr)), flags, (char *)(ptr), \
+    0, 0, 0, 0, -1, NULL, NULL, NULL
+/* Common configuration table flags */
+#define EFF_CFG (EFF_RDONLY | EFF_MEM | EFF_STATIC)
+
 struct empfile empfile[] = {
+    /*
+     * How empfile[] is initialized:
+     *
+     * Members uid, name, file, size, cadef, and the EFF_IMMUTABLE
+     * bits of flags get their final value.
+     * If flags & EFF_STATIC, the cache is mapped here, and members
+     * cache, csize get their final value.
+     * Members baseid, cids, fids and the EFF_MEM|EFF_RDONLY bits of
+     * flags are initialized according the initial cache contents.
+     * Member fd is initialized to -1.
+     * Members init, postread, prewrite get initialized to NULL, but
+     * that can be changed by users.
+     *
+     * Whatever of the above can't be done here must be done in
+     * ef_init().
+     */
+
     /* Dynamic game data */
-    {EF_SECTOR, "sect", "sector", EFF_XY | EFF_OWNER,
-     sizeof(struct sctstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, sect_ca},
-    {EF_SHIP, "ship", "ship", EFF_XY | EFF_OWNER | EFF_GROUP,
-     sizeof(struct shpstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, ship_ca},
-    {EF_PLANE, "plane", "plane", EFF_XY | EFF_OWNER | EFF_GROUP,
-     sizeof(struct plnstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, plane_ca},
-    {EF_LAND, "land", "land", EFF_XY | EFF_OWNER | EFF_GROUP,
-     sizeof(struct lndstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, land_ca},
-    {EF_NUKE, "nuke", "nuke", EFF_XY | EFF_OWNER,
-     sizeof(struct nukstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, nuke_ca},
-    {EF_NEWS, "news", "news", 0,
-     sizeof(struct nwsstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, news_ca},
-    {EF_TREATY, "treaty", "treaty", 0,
-     sizeof(struct trtstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, treaty_ca},
-    {EF_TRADE, "trade", "trade", 0,
-     sizeof(struct trdstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, trade_ca},
-    {EF_POWER, "pow", "power", 0,
-     sizeof(struct powstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, NULL},
-    {EF_NATION, "nat", "nation", EFF_OWNER,
-     sizeof(struct natstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, nat_ca},
-    {EF_LOAN, "loan", "loan", 0,
-     sizeof(struct lonstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, loan_ca},
-    {EF_MAP, "map", "map", 0,
-     DEF_WORLD_X * DEF_WORLD_Y / 2, NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, NULL},
-    {EF_BMAP, "bmap", "bmap", 0,
-     DEF_WORLD_X * DEF_WORLD_Y / 2, NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, NULL},
-    {EF_COMM, "commodity", "commodity", 0,
-     sizeof(struct comstr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, commodity_ca},
-    {EF_LOST, "lost", "lostitems", EFF_OWNER,
-     sizeof(struct loststr), NULL, NULL, NULL,
-     -1, -1, 0, 0, NULL, 0, lost_ca},
+    {EF_SECTOR, "sect", "sector", sect_ca,
+     UNMAPPED_INIT(struct sctstr, EFF_XY | EFF_OWNER)},
+    {EF_SHIP, "ship", "ship", ship_ca,
+     UNMAPPED_INIT(struct shpstr, EFF_XY | EFF_OWNER | EFF_GROUP)},
+    {EF_PLANE, "plane", "plane", plane_ca,
+     UNMAPPED_INIT(struct plnstr, EFF_XY | EFF_OWNER | EFF_GROUP)},
+    {EF_LAND, "land", "land", land_ca,
+     UNMAPPED_INIT(struct lndstr, EFF_XY | EFF_OWNER | EFF_GROUP)},
+    {EF_NUKE, "nuke", "nuke", nuke_ca,
+     UNMAPPED_INIT(struct nukstr, EFF_XY | EFF_OWNER)},
+    {EF_NEWS, "news", "news", news_ca,
+     UNMAPPED_INIT(struct nwsstr, 0)},
+    {EF_TREATY, "treaty", "treaty", treaty_ca,
+     UNMAPPED_INIT(struct trtstr, 0)},
+    {EF_TRADE, "trade", "trade", trade_ca,
+     UNMAPPED_INIT(struct trdstr, 0)},
+    {EF_POWER, "pow", "power", NULL,
+     UNMAPPED_INIT(struct powstr, 0)},
+    {EF_NATION, "nat", "nation", nat_ca,
+     UNMAPPED_INIT(struct natstr, EFF_OWNER)},
+    {EF_LOAN, "loan", "loan", loan_ca,
+     UNMAPPED_INIT(struct lonstr, 0)},
+    {EF_MAP, "map", "map", NULL,
+     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
+    {EF_BMAP, "bmap", "bmap", NULL,
+     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
+    {EF_COMM, "commodity", "commodity", commodity_ca,
+     UNMAPPED_INIT(struct comstr, 0)},
+    {EF_LOST, "lost", "lostitems", lost_ca,
+     UNMAPPED_INIT(struct loststr, EFF_OWNER)},
 
     /* Static game data (configuration) */
-#define EFF_CFG (EFF_RDONLY | EFF_MEM | EFF_STATIC)
-#define SZ(array) (sizeof(array) / sizeof((array)[0]))
-#define CFGTAB(type, name, array, ca) \
-{(type), (name), NULL, EFF_RDONLY | EFF_MEM | EFF_STATIC, \
- sizeof((array)[0]), NULL, NULL, NULL, \
- -1, 0, SZ((array)) - 1, SZ((array)), (char *)(array), SZ((array)) - 1, (ca)}
-    CFGTAB(EF_SECTOR_CHR, "sect chr", dchr, dchr_ca),
-    {EF_SHIP_CHR, "ship chr", NULL, EFF_CFG,
-     sizeof(mchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)mchr, 0, mchr_ca},
-    {EF_PLANE_CHR, "plane chr", NULL, EFF_CFG,
-     sizeof(plchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)plchr, 0, plchr_ca},
-    {EF_LAND_CHR, "land chr", NULL, EFF_CFG,
-     sizeof(lchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)lchr, 0, lchr_ca},
-    {EF_NUKE_CHR, "nuke chr", NULL, EFF_CFG,
-     sizeof(nchr[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)nchr, 0, nchr_ca},
-    CFGTAB(EF_NEWS_CHR, "news chr", rpt, rpt_ca),
-    {EF_TREATY_FLAGS, "treaty flags", NULL, EFF_CFG,
-     sizeof(treaty_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)treaty_flags, 0, symbol_ca},
-    CFGTAB(EF_ITEM, "item", ichr, ichr_ca),
-    CFGTAB(EF_INFRASTRUCTURE, "infrastructure", intrchr, intrchr_ca),
-    CFGTAB(EF_PRODUCT, "product", pchr, pchr_ca),
-    CFGTAB(EF_TABLE, "table", empfile, empfile_ca),
-    {EF_SHIP_CHR_FLAGS, "ship chr flags", NULL, EFF_CFG,
-     sizeof(ship_chr_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)ship_chr_flags, 0, symbol_ca},
-    {EF_PLANE_CHR_FLAGS, "plane chr flags", NULL, EFF_CFG,
-     sizeof(plane_chr_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)plane_chr_flags, 0, symbol_ca},
-    {EF_LAND_CHR_FLAGS, "land chr flags", NULL, EFF_CFG,
-     sizeof(land_chr_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)land_chr_flags, 0, symbol_ca},
-    {EF_NUKE_CHR_FLAGS, "nuke chr flags", NULL, EFF_CFG,
-     sizeof(nuke_chr_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)nuke_chr_flags, 0, symbol_ca},
-    {EF_META, "meta", NULL, EFF_CFG,
-     sizeof(mdchr_ca[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)mdchr_ca, 0, mdchr_ca},
-    {EF_META_TYPE, "meta type", NULL, EFF_CFG,
-     sizeof(meta_type[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)meta_type, 0, symbol_ca},
-    {EF_META_FLAGS, "meta flags", NULL, EFF_CFG,
-     sizeof(meta_flags[0]), NULL, NULL, NULL,
-     -1, -1, 0, 0, (char *)meta_flags, 0, symbol_ca},
+    {EF_SECTOR_CHR, "sect chr", NULL, dchr_ca, ARRAY_INIT(dchr, EFF_CFG)},
+    {EF_SHIP_CHR, "ship chr", NULL, mchr_ca, PTR_INIT(mchr, EFF_CFG)},
+    {EF_PLANE_CHR, "plane chr", NULL, plchr_ca, PTR_INIT(plchr, EFF_CFG)},
+    {EF_LAND_CHR, "land chr", NULL, lchr_ca, PTR_INIT(lchr, EFF_CFG)},
+    {EF_NUKE_CHR, "nuke chr", NULL, nchr_ca, PTR_INIT(nchr, EFF_CFG)},
+    {EF_NEWS_CHR, "news chr", NULL, rpt_ca, ARRAY_INIT(rpt, EFF_CFG)},
+    {EF_TREATY_FLAGS, "treaty flags", NULL, symbol_ca,
+     PTR_INIT(treaty_flags, EFF_CFG)},
+    {EF_ITEM, "item", NULL, ichr_ca, ARRAY_INIT(ichr, EFF_CFG)},
+    {EF_INFRASTRUCTURE, "infrastructure", NULL, intrchr_ca,
+     ARRAY_INIT(intrchr, EFF_CFG)},
+    {EF_PRODUCT, "product", NULL, pchr_ca, ARRAY_INIT(pchr, EFF_CFG)},
+    {EF_TABLE, "table", NULL, empfile_ca, ARRAY_INIT(empfile, EFF_CFG)},
+    {EF_SHIP_CHR_FLAGS, "ship chr flags", NULL, symbol_ca,
+     PTR_INIT(ship_chr_flags, EFF_CFG)},
+    {EF_PLANE_CHR_FLAGS, "plane chr flags", NULL, symbol_ca,
+     PTR_INIT(plane_chr_flags, EFF_CFG)},
+    {EF_LAND_CHR_FLAGS, "land chr flags", NULL, symbol_ca,
+     PTR_INIT(land_chr_flags, EFF_CFG)},
+    {EF_NUKE_CHR_FLAGS, "nuke chr flags", NULL, symbol_ca,
+     PTR_INIT(nuke_chr_flags, EFF_CFG)},
+    {EF_META, "meta", NULL, mdchr_ca, PTR_INIT(mdchr_ca, EFF_CFG)},
+    {EF_META_TYPE, "meta type", NULL, symbol_ca,
+     PTR_INIT(meta_type, EFF_CFG)},
+    {EF_META_FLAGS, "meta flags", NULL, symbol_ca,
+     PTR_INIT(meta_flags, EFF_CFG)},
 
     /* Sentinel */
-    {EF_BAD, NULL, NULL, 0,
-     0, NULL, NULL, NULL,
-     -1, -1, 0,0,NULL, 0, NULL}
+    {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
 };
