@@ -5,11 +5,12 @@
 The following commands are restricted when the HIDDEN option is
 in play:
 .NF
-power:     Displays your own power only; other nations never show up.
-report:    Reports on contacted countries only, and no status.
-relations: Reports on contacted countries only.
-newspaper: Reports on contacted countries only, except for headlines.
 accept:    Will only display contacted countries.
+country:   Discloses less detailed status of active countries.
+newspaper: Reports on contacted countries only, except for headlines.
+power:     Displays your own power only; other nations never show up.
+relations: Reports on contacted countries only.
+report:    Reports on contacted countries only, and no status.
 .FI
 .s1
 Commands to interact with other countries, like telegram, work only
@@ -35,5 +36,5 @@ If the LOSE_CONTACT option is in play, contact is lost after three
 update of no contact. Contact can be maintained by the same methods described
 above. It's important to note, however, that contact is retained by RECEIVING
 a telegram, not sending one.
-
+.s1
 .SA "Options, Server"
