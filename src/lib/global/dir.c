@@ -31,10 +31,10 @@
  *  Known contributors to this file:
  */
 
-#include "misc.h"
+#include "path.h"
 
 /* must agree with DIR_ defines */
-s_char dirch[] = {
+char dirch[] = {
     'h',			/* stop */
     'u',			/* up-right */
     'j',			/* right */
@@ -61,7 +61,7 @@ signed char dirindex[] = {
 };
 
 /* must agree with dirch[] and DIR_ defines */
-s_char *routech[7][2] = {
+char *routech[][2] = {
     {"   ", "$ $"},
     {"  /", "$ /"},
     {"  >", "$ >"},

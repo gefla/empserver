@@ -39,8 +39,6 @@
 
 #define	MAPWIDTH(persec) ((WORLD_X/2)*(persec + 1)+1)
 
-extern s_char *routech[7][2];
-
 extern void blankfill(s_char *, register struct range *, int);
 /* src/lib/subs/border.c */
 extern int map_set(natid, coord, coord, s_char, int);

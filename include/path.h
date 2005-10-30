@@ -34,8 +34,8 @@
 #ifndef _PATH_H_
 #define _PATH_H_
 
-#include "misc.h"		/* s_char coord etc. */
-#include "sect.h"		/* struct sctstr */
+#include "misc.h"
+#include "sect.h"
 #include "xy.h"
 
 	/* direction indices */
@@ -52,8 +52,9 @@
 #define	DIR_LAST	6
 
 extern signed char dirindex['z'-'a'+1];
-extern int diroff[][2];
-extern s_char dirch[];
+extern int diroff[DIR_MAP+1][2];
+extern char dirch[DIR_MAP+2];
+extern char *routech[DIR_LAST+1][2];
 
 /* src/lib/subs/paths.c */
 extern char *getpath(char *, char *, coord, coord, int, int, int);
