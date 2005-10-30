@@ -114,6 +114,8 @@ ef_open(int type, int how)
 	else
 	    ep->csize = max(1, blksize(fd) / ep->size);
 	size = ep->csize * ep->size;
+	if (CANT_HAPPEN(ep->cache))
+	    free(ep->cache);
 	ep->cache = malloc(size);
 	if (ep->cache == NULL && size) {
 	    logerror("Can't open %s: out of memory", ep->file);
@@ -135,6 +137,11 @@ ef_open(int type, int how)
 	    return 0;
 	}
     }
+
+    /*
+     * Could close fd if both EFF_RDONLY and EFF_MEM, but that doesn't
+     * happen, so don't bother.
+     */
 
     return 1;
 }
@@ -345,8 +352,6 @@ ef_write(int type, int id, void *from)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (CANT_HAPPEN(ep->fd < 0))
-	return 0;
     if (ep->prewrite)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
@@ -367,7 +372,7 @@ ef_write(int type, int id, void *from)
 
 /*
  * Extend the file-backed table TYPE by COUNT elements.
- * Return the ID of the first new element, or -1 on failure.
+ * Return non-zero on success, zero on failure.
  */
 int
 ef_extend(int type, int count)
