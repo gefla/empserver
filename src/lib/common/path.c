@@ -68,8 +68,6 @@ static double bp_seccost(struct as_coord from, struct as_coord to,
 			 s_char *pp);
 static int bp_coord_hash(struct as_coord c);
 
-struct empfile *ep;
-
 /* We use this for caching neighbors.  It never changes except
  * at reboot time (maybe) so we never need to free it */
 struct sctstr **neighsects = (struct sctstr **)0;
@@ -78,8 +76,6 @@ static s_char *
 bp_init(void)
 {
     struct bestp *bp;
-
-    ep = &empfile[EF_SECTOR];
 
     bp = malloc(sizeof(*bp));
     memset(bp, 0, sizeof(*bp));
@@ -187,6 +183,7 @@ bp_path(struct as_path *pp, s_char *buf)
 static int
 bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 {
+    struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     coord x, y;
     coord nx, ny;
     int n = 0, q;
@@ -200,7 +197,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
     sx = XNORM(x);
     sy = YNORM(y);
     offset = (sy * WORLD_X + sx) / 2;
-    from = (struct sctstr *)(ep->cache + ep->size * offset);
+    from = &sectp[offset];
 
     if (neighsects == (struct sctstr **)0)
 	ssp = (struct sctstr **)&tsp[0];
@@ -214,7 +211,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 	    sx = XNORM(nx);
 	    sy = YNORM(ny);
 	    offset = (sy * WORLD_X + sx) / 2;
-	    sp = (struct sctstr *)(ep->cache + ep->size * offset);
+	    sp = &sectp[offset];
 	    *ssp = sp;
 	} else {
 	    sp = *ssp;
@@ -241,6 +238,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
 static double
 bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
 {
+    struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     struct bestp *bp = (struct bestp *)pp;
     struct sctstr *ts;
     float cost;
@@ -251,7 +249,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
     sx = XNORM(x);
     sy = YNORM(y);
     offset = (sy * WORLD_X + sx) / 2;
-    ts = (struct sctstr *)(ep->cache + ep->size * offset);
+    ts = &sectp[offset];
     cost = sector_mcost(ts, bp->bp_mobtype);
     return cost;
 }
@@ -307,6 +305,7 @@ bp_clear_cachepath(void)
 double
 pathcost(struct sctstr *start, s_char *path, int mob_type)
 {
+    struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     unsigned i;
     int o;
     int cx, cy;
@@ -333,7 +332,7 @@ pathcost(struct sctstr *start, s_char *path, int mob_type)
 	sx = XNORM(cx);
 	sy = YNORM(cy);
 	offset = (sy * WORLD_X + sx) / 2;
-	sp = (struct sctstr *)(ep->cache + ep->size * offset);
+	sp = &sectp[offset];
 	cost += sector_mcost(sp, mob_type);
 	path++;
     }
