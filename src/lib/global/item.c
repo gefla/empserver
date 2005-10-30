@@ -34,7 +34,7 @@
 #include "misc.h"
 #include "item.h"
 
-struct ichrstr ichr[I_MAX + 2] = {
+struct ichrstr ichr[] = {
 /*  mnem  vtype   val sell lbs {in rg wh  ur bnk} melt  name */
     {'c', I_CIVIL,  1, 0,  1, {1, 10, 10, 10, 10},   4, "civilians"},
     {'m', I_MILIT,  0, 0,  1, {1,  1,  1,  1,  1},  20, "military"},
