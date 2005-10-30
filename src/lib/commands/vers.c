@@ -196,8 +196,8 @@ show_opts(int val)
 
     /*
      * OBSOLETE: Ships used to be printed differently depending on
-     * option SHIPNAMES.  Clients had to know whether SHIPNAMES was
-     * one to parse this.  To ease the transition, pretend the option
+     * option SHIPNAMES.  Clients had to know whether SHIPNAMES was on
+     * to parse this.  To ease the transition, pretend the option
      * still exists.
      */
     if (val) {

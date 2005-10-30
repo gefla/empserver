@@ -39,8 +39,8 @@
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  * Each array element has a pointer to its name stored at offset OFFS.
- * Search stops when this name is a null pointer or empty.  NEEDLE is
- * compared to element names with mineq(NEEDLE, NAME).
+ * Search stops when this name is a null pointer or empty.
+ * NEEDLE is compared to element names with mineq(NEEDLE, NAME).
  * ELT_SIZE gives the size of an array element.
  */
 int
@@ -50,7 +50,7 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
     int i, res;
 
     res = M_NOTFOUND;
-    for (i = 0; ELT_NAME(i) && ELT_NAME(i)[0] != 0; ++i) {
+    for (i = 0; ELT_NAME(i) && ELT_NAME(i)[0] != 0; i++) {
 	switch (mineq(needle, ELT_NAME(i))) {
 	case ME_MISMATCH:
 	    break;
@@ -72,7 +72,7 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
  * Return ME_EXACT if they are the same, or A is a prefix of B
  * followed by a space in B.
  * Return ME_PARTIAL if A is a prefix of B not followed by a space.
- * Else return ME_NOMATCH.
+ * Else return ME_MISMATCH.
  */
 int
 mineq(char *a, char *b)
@@ -80,7 +80,7 @@ mineq(char *a, char *b)
     int i;
 
     /* find common prefix: */
-    for (i = 0; a[i] != 0 && a[i] == b[i]; ++i) ;
+    for (i = 0; a[i] != 0 && a[i] == b[i]; i++) ;
 
     if (a[i] != 0) return ME_MISMATCH;
     if (b[i] == 0 || b[i] == ' ') return ME_EXACT;
