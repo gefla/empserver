@@ -206,6 +206,9 @@ The following ids occur:
   emp_client interprets the text as file name, and sends the contents
   of that file.
 
+  The security considerations on C_PIPE (below) apply to C_EXECUTE as
+  well.
+
   The client shall mark the end of the script by signalling EOF as
   described above.  It may signal interrupt if it is unable or
   unwilling to send the complete script.
