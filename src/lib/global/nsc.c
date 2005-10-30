@@ -493,7 +493,7 @@ struct castr rpt_ca[] = {
 struct castr empfile_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_BAD},
-    {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file_name", EF_BAD},
+    {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct empfile, flags), "flags", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
