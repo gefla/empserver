@@ -210,7 +210,7 @@ ef_ptr(int type, int id)
     if (ef_check(type) < 0)
 	return NULL;
     ep = &empfile[type];
-    if (CANT_HAPPEN(!(ep->flags & EFF_MEM)))
+    if (CANT_HAPPEN(!(ep->flags & EFF_MEM) || !ep->cache))
 	return NULL;
     if (id < 0 || id >= ep->fids)
 	return NULL;		/* FIXME can this happen? */
