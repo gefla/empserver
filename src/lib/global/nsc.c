@@ -76,9 +76,9 @@ NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
 
 struct castr ichr_ca[] = {
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype", EF_ITEM},
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name", EF_BAD},
     {NSC_INT, NSC_CONST, 0, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
-    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs", EF_BAD},
@@ -89,9 +89,9 @@ struct castr ichr_ca[] = {
 struct castr pchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name", EF_BAD},
     {NSC_STRING, NSC_CONST, 0, offsetof(struct pchrstr, p_sname), "sname", EF_BAD},
-    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype", EF_BAD},
+    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype", EF_ITEM},
     {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt", EF_BAD},
-    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type", EF_BAD},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type", EF_ITEM},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_BAD},
@@ -104,10 +104,10 @@ struct castr pchr_ca[] = {
 };
 
 struct castr sect_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_BAD},
+    {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_NATION},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
-    {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_type), "des", EF_BAD},
+    {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_type), "des", EF_SECTOR_CHR},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_effic), "effic", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_mobil), "mobil", EF_BAD},
     {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_loyal), "loyal", EF_BAD},
@@ -121,13 +121,13 @@ struct castr sect_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_coastal), "coastal", EF_BAD},
-    {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_newtype), "newdes", EF_BAD},
+    {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_newtype), "newdes", EF_SECTOR_CHR},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_min), "min", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_gmin), "gold", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_fertil), "fert", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_oil), "ocontent", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_uran), "uran", EF_BAD},
-    {NSC_NATID, 0, 0, fldoff(sctstr, sct_oldown), "oldown", EF_BAD},
+    {NSC_NATID, 0, 0, fldoff(sctstr, sct_oldown), "oldown", EF_NATION},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_off), "off", EF_BAD},
     NSC_IVEC(fldoff(sctstr, sct_item), ""),
     NSC_IVEC(fldoff(sctstr, sct_dist), "_dist"),
@@ -136,7 +136,7 @@ struct castr sect_ca[] = {
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage", EF_BAD},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime", EF_BAD},
     {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che", EF_BAD},
-    {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target", EF_BAD},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target", EF_NATION},
     {NSC_USHORT, 0, 0, fldoff(sctstr, sct_fallout), "fallout", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(sctstr, sct_access), "access", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_road), "road", EF_BAD},
@@ -164,12 +164,12 @@ struct castr dchr_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-#define NSC_GENITEM						\
-{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner", EF_BAD},		\
-{ NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid", EF_BAD},		\
+#define NSC_GENITEM(ef_type, ef_chr)					\
+{ NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid", ef_type},		\
+{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner", EF_NATION},		\
 { NSC_XCOORD, 0, 0, fldoff(genitem, x), "xloc", EF_BAD},		\
 { NSC_YCOORD, 0, 0, fldoff(genitem, y), "yloc", EF_BAD},		\
-{ NSC_TYPEID, 0, 0, fldoff(genitem, type), "type", EF_BAD},		\
+{ NSC_TYPEID, 0, 0, fldoff(genitem, type), "type", ef_chr},		\
 { NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic", EF_BAD},		\
 { NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil", EF_BAD},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech", EF_BAD},		\
@@ -180,7 +180,7 @@ struct castr dchr_ca[] = {
 { NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius", EF_BAD}
 
 struct castr ship_ca[] = {
-    NSC_GENITEM,
+    NSC_GENITEM(EF_SHIP, EF_SHIP_CHR),
     {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nplane), "nplane", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nland), "nland", EF_BAD},
@@ -188,8 +188,8 @@ struct castr ship_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[1]), "xend", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[0]), "ystart", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[1]), "yend", EF_BAD},
-    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tstart), "cargostart", EF_BAD},
-    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tend), "cargoend", EF_BAD},
+    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tstart), "cargostart", EF_ITEM},
+    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tend), "cargoend", EF_ITEM},
     {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lstart), "amtstart", EF_BAD},
     {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lend), "amtend", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav", EF_BAD},
@@ -208,7 +208,7 @@ struct castr ship_ca[] = {
     /* could let builder access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt", EF_BAD},
-    {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder", EF_BAD},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder", EF_NATION},
     {NSC_INT, 0, 0, fldoff(shpstr, shp_rflags), "rflags", EF_BAD},
     {NSC_STRINGY, 0, RET_LEN, fldoff(shpstr, shp_rpath), "rpath", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -238,7 +238,7 @@ struct castr mchr_ca[] = {
 };
 
 struct castr plane_ca[] = {
-    NSC_GENITEM,
+    NSC_GENITEM(EF_PLANE, EF_PLANE_CHR),
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_range), "range", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_ship), "ship", EF_BAD},
@@ -273,7 +273,7 @@ struct castr plchr_ca[] = {
 };
 
 struct castr land_ca[] = {
-    NSC_GENITEM,
+    NSC_GENITEM(EF_LAND, EF_LAND_CHR),
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_army), "army", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_ship), "ship", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_harden), "harden", EF_BAD},
@@ -338,12 +338,12 @@ struct castr lchr_ca[] = {
 };
 
 struct castr nuke_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(nukstr, nuk_own), "owner", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_uid), "uid", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_uid), "uid", EF_NUKE},
+    {NSC_NATID, 0, 0, fldoff(nukstr, nuk_own), "owner", EF_NATION},
     {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number", EF_BAD},
-    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types", EF_BAD},
+    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types", EF_NUKE_CHR},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
@@ -364,9 +364,9 @@ struct castr nchr_ca[] = {
 };
 
 struct castr treaty_ca[] = {
-    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_BAD},
-    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_BAD},
-    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_TREATY},
+    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_NATION},
+    {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond", EF_TREATY_FLAGS},
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond", EF_TREATY_FLAGS},
@@ -375,9 +375,9 @@ struct castr treaty_ca[] = {
 };
 
 struct castr loan_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_BAD},
-    {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_LOAN},
+    {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_NATION},
+    {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(lonstr, l_status), "status", EF_BAD},
     {NSC_INT, 0, 0, fldoff(lonstr, l_irate), "irate", EF_BAD},
     {NSC_INT, 0, 0, fldoff(lonstr, l_ldur), "ldur", EF_BAD},
@@ -389,18 +389,18 @@ struct castr loan_ca[] = {
 };
 
 struct castr news_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid", EF_BAD},
-    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_BAD},
-    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid", EF_NEWS},
+    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_NATION},
+    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
+    {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(nwsstr, nws_when), "time", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
 struct castr lost_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner", EF_BAD},
-    {NSC_INT, 0, 0, fldoff(loststr, lost_uid), "uid", EF_BAD},
+    {NSC_INT, 0, 0, fldoff(loststr, lost_uid), "uid", EF_LOST},
+    {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(loststr, lost_id), "id", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(loststr, lost_x), "x", EF_BAD},
@@ -410,11 +410,11 @@ struct castr lost_ca[] = {
 };
 
 struct castr commodity_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(comstr, com_owner), "owner", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(comstr, com_uid), "uid", EF_BAD},
-    {NSC_SITYPE(i_type), 0, 0, fldoff(comstr, com_type), "type", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(comstr, com_uid), "uid", EF_COMM},
+    {NSC_NATID, 0, 0, fldoff(comstr, com_owner), "owner", EF_NATION},
+    {NSC_SITYPE(i_type), 0, 0, fldoff(comstr, com_type), "type", EF_ITEM},
     {NSC_INT, 0, 0, fldoff(comstr, com_amount), "amount", EF_BAD},
-    {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder", EF_BAD},
+    {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(comstr, com_markettime), "markettime", EF_BAD},
     /* could let maxbidder access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_x), "xbuy", EF_BAD},
@@ -427,12 +427,12 @@ struct castr commodity_ca[] = {
 };
 
 struct castr trade_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(trdstr, trd_owner), "owner", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(trdstr, trd_uid), "uid", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(trdstr, trd_uid), "uid", EF_TRADE},
+    {NSC_NATID, 0, 0, fldoff(trdstr, trd_owner), "owner", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(trdstr, trd_type), "type", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(trdstr, trd_unitid), "unitid", EF_BAD},
     {NSC_LONG, 0, 0, fldoff(trdstr, trd_price), "price", EF_BAD},
-    {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder", EF_BAD},
+    {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(trdstr, trd_markettime), "markettime", EF_BAD},
     /* could let the owner access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(trdstr, trd_x), "xloc", EF_BAD},
@@ -441,7 +441,7 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_BAD},
+    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat", EF_BAD},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
@@ -492,8 +492,8 @@ struct castr rpt_ca[] = {
 };
 
 struct castr empfile_ca[] = {
+    {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_TABLE},
     {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_BAD},
     {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct empfile, flags), "flags", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
