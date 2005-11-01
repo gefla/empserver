@@ -36,7 +36,9 @@
 #define _TREATY_H_
 
 struct trtstr {
+    short ef_type;
     natid trt_cna;		/* proposer */
+    short trt_uid;
     natid trt_cnb;		/* acceptor */
     s_char trt_status;		/* treaty status */
     s_char trt_fill;

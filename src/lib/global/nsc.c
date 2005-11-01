@@ -364,6 +364,7 @@ struct castr nchr_ca[] = {
 };
 
 struct castr treaty_ca[] = {
+    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_BAD},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_BAD},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status", EF_BAD},
