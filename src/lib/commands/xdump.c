@@ -289,6 +289,8 @@ xdopt(void)
     }
     pr("\n");
 
+    xdftr(1);
+
     return RET_OK;
 }
 
@@ -318,6 +320,8 @@ xdver(void)
 	}
     }
     pr("\n");
+
+    xdftr(1);
 
     return RET_OK;
 }
