@@ -57,6 +57,10 @@ nreport(natid actor, int event, natid victim, int times)
     struct natstr *natp;
     struct newscache *ncp;
 
+    if (CANT_HAPPEN((unsigned)event > N_MAX_VERB
+		    || rpt[event].r_newstory[0] == rpt[0].r_newstory[0]))
+	return;
+
     ncp = ncache(actor, event, victim, times);
     putnews(ncp->id, &ncp->news);
 
@@ -171,10 +175,10 @@ ncache(int actor, int event, int victim, int times)
 	    return np;
 	}
     }
-    if (oldslot < 0) {
-	logerror("internal error; ncache oldslot < 0");
-	return &cache[actor][0];
-    }
+    if (CANT_HAPPEN(oldslot < 0))
+	oldslot = 0;
+    if (CANT_HAPPEN(!strstr(rpt[event].r_newstory[0], "%s") && victim != 0))
+	victim = 0;
     np = &cache[actor][oldslot];
     np->news.nws_ano = actor;
     np->news.nws_vno = victim;

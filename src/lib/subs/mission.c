@@ -600,7 +600,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		dam2 = TORP_DAMAGE();
 
 		dam += dam2;
-		nreport(victim, N_TORP_SHIP, sp->shp_own, 1);
+		nreport(victim, N_TORP_SHIP, 0, 1);
 		wu(0, sp->shp_own,
 		   "\tTorpedo hit %s %s for %d damage\n",
 		   cname(victim), s, dam2);
