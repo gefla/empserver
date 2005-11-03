@@ -253,6 +253,9 @@ xdmeta(int type)
 
     xdhdr(ef_nameof(type), mdchr_ca, 1);
 
+    if (!ca)
+	return RET_SYN;
+
     for (i = 0; ca[i].ca_name; i++) {
 	xdflds(mdchr_ca, &ca[i]);
 	pr("\n");
