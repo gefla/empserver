@@ -530,7 +530,7 @@ ef_init_chr(int type, size_t size, ptrdiff_t name_offs)
     for (p = ep->cache;
 	 *((char **)(p + name_offs)) && **((char **)(p + name_offs));
 	 p += size) ;
-    ef_fix_size(ep, (p - ep->cache) / size);
+    ep->cids = ep->fids = (p - ep->cache) / size;
 }
 
 /*
