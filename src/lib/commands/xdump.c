@@ -257,6 +257,10 @@ xdmeta(int type)
     xdhdr(ef_nameof(type), mdchr_ca, 1);
 
     for (i = 0; ca[i].ca_name; i++) {
+	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	    continue;
+	if (ca[i].ca_flags & NSC_EXTRA)
+	    continue;
 	xdflds(mdchr_ca, &ca[i]);
 	pr("\n");
     }
