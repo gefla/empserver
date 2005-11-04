@@ -251,10 +251,10 @@ xdmeta(int type)
     struct castr *ca = ef_cadef(type);
     int i;
 
-    xdhdr(ef_nameof(type), mdchr_ca, 1);
-
     if (!ca)
 	return RET_SYN;
+
+    xdhdr(ef_nameof(type), mdchr_ca, 1);
 
     for (i = 0; ca[i].ca_name; i++) {
 	xdflds(mdchr_ca, &ca[i]);
