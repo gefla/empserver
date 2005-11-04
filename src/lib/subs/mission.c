@@ -849,31 +849,6 @@ nameofitem(struct genitem *gp, int type)
 }
 
 s_char *
-mission_short_name(int mission)
-{
-    switch (mission) {
-    case MI_INTERDICT:
-	return "interdict";
-    case MI_SUPPORT:
-	return "support  ";
-    case MI_OSUPPORT:
-	return "offensive";
-    case MI_DSUPPORT:
-	return "defensive";
-    case MI_RESERVE:
-	return "reserve  ";
-    case MI_ESCORT:
-	return "escort   ";
-    case MI_SINTERDICT:
-	return "interdict";
-    case MI_AIR_DEFENSE:
-	return "air def  ";
-    default:
-	return "         ";
-    }
-}
-
-s_char *
 mission_name(short int mission)
 {
     switch (mission) {

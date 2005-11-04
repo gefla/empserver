@@ -508,7 +508,6 @@ extern int off_support(coord, coord, natid, natid);
 extern int def_support(coord, coord, natid, natid);
 extern int oprange(struct genitem *, int, int *);
 extern int cando(int, int);
-extern s_char *mission_short_name(int);
 extern void show_mission(int, struct nstr_item *);
 extern int air_defense(coord, coord, natid, struct emp_qelem *,
 		       struct emp_qelem *);
