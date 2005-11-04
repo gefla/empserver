@@ -250,6 +250,7 @@ xdmeta(int type)
 {
     struct castr *ca = ef_cadef(type);
     int i;
+    int n = 0;
 
     if (!ca)
 	return RET_SYN;
@@ -262,10 +263,11 @@ xdmeta(int type)
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	xdflds(mdchr_ca, &ca[i]);
+	n++;
 	pr("\n");
     }
 
-    xdftr(i);
+    xdftr(n);
 
     return RET_OK;
 }
