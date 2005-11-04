@@ -112,8 +112,6 @@ improve(void)
 	if (!maxup)
 	    continue;
 	lneeded = intrchr[type].in_lcms * maxup;
-	if (opt_NO_LCMS)
-	    lneeded = 0;
 	if (sect.sct_item[I_LCM] < lneeded) {
 	    lneeded = sect.sct_item[I_LCM];
 	    maxup = lneeded / intrchr[type].in_lcms;
@@ -124,8 +122,6 @@ improve(void)
 	    }
 	}
 	hneeded = intrchr[type].in_hcms * maxup;
-	if (opt_NO_HCMS)
-	    hneeded = 0;
 	if (sect.sct_item[I_HCM] < hneeded) {
 	    hneeded = sect.sct_item[I_HCM];
 	    maxup = hneeded / intrchr[type].in_hcms;
@@ -168,10 +164,8 @@ improve(void)
 	mneeded = intrchr[type].in_mcost * maxup;
 	dneeded = intrchr[type].in_dcost * maxup;
 	player->dolcost += dneeded;
-	if (!opt_NO_LCMS)
-	    sect.sct_item[I_LCM] -= lneeded;
-	if (!opt_NO_HCMS)
-	    sect.sct_item[I_HCM] -= hneeded;
+	sect.sct_item[I_LCM] -= lneeded;
+	sect.sct_item[I_HCM] -= hneeded;
 	sect.sct_mobil -= mneeded;
 	ovalue = value;
 	value += maxup;

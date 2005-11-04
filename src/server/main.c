@@ -543,6 +543,12 @@ nullify_objects(void)
 		pchr[i].p_camt[j] = 0;
 	}
     }
+    for (i = 0; intrchr[i].in_name; i++) {
+	if (opt_NO_HCMS)
+	    intrchr[i].in_hcms = 0;
+	if (opt_NO_LCMS)
+	    intrchr[i].in_lcms = 0;
+    }
 }
 
 #if defined(_WIN32)
