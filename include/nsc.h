@@ -60,6 +60,7 @@ typedef enum {
     NSC_TIME,			/* time_t */
     NSC_FLOAT,			/* float */
     NSC_STRINGY,		/* char[], zero-terminated string */
+				/* FIXME zero may be missing */
     /* aliases, must match typedefs */
     NSC_NATID = NSC_UCHAR	/* nation id */
 } nsc_type;
@@ -85,7 +86,8 @@ typedef char packed_nsc_cat;
 enum {
     NSC_DEITY = bit(0),		/* access restricted to deity */
     NSC_EXTRA = bit(1),		/* computable from other selectors */
-    NSC_CONST = bit(2)		/* field cannot be changed */
+    NSC_CONST = bit(2),		/* field cannot be changed */
+    NSC_BITS = bit(3),		/* value consists of flag bits */
 };
 typedef unsigned char nsc_flags;
 
@@ -179,15 +181,14 @@ struct symbol {
 
 /*
  * Selector descriptor.
- * Value is at offset CA_OFF in the context object.
  */
 struct castr {
     packed_nsc_type ca_type;	/* type of value */
     nsc_flags ca_flags;
     unsigned short ca_len;	/* non-zero: is an array; #array elements */
-    ptrdiff_t ca_off;
+    ptrdiff_t ca_off;		/* offset of value in the context object */
     char *ca_name;
-    int ca_table;		/* table index -- symbols, symbol sets */
+    int ca_table;		/* referred table ID, or EF_BAD */
 };
 
 /* variables using the above */

@@ -76,7 +76,8 @@ NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
 
 struct castr ichr_ca[] = {
-    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype", EF_ITEM},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype",
+     EF_ITEM},
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name", EF_BAD},
     {NSC_INT, NSC_CONST, 0, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value", EF_BAD},
@@ -88,10 +89,14 @@ struct castr ichr_ca[] = {
 
 struct castr pchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name", EF_BAD},
-    {NSC_STRING, NSC_CONST, 0, offsetof(struct pchrstr, p_sname), "sname", EF_BAD},
-    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype), "ctype", EF_ITEM},
-    {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt", EF_BAD},
-    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type", EF_ITEM},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct pchrstr, p_sname), "sname",
+     EF_BAD},
+    {NSC_SITYPE(i_type), 0, MAXPRCON, offsetof(struct pchrstr, p_ctype),
+     "ctype", EF_ITEM},
+    {NSC_USHORT, 0, MAXPRCON, offsetof(struct pchrstr, p_camt), "camt",
+     EF_BAD},
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type",
+     EF_ITEM},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_BAD},
@@ -136,13 +141,15 @@ struct castr sect_ca[] = {
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage", EF_BAD},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime", EF_BAD},
     {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che", EF_BAD},
-    {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target", EF_NATION},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target",
+     EF_NATION},
     {NSC_USHORT, 0, 0, fldoff(sctstr, sct_fallout), "fallout", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(sctstr, sct_access), "access", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_road), "road", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_rail), "rail", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_defense), "dfense", EF_BAD},
-    {NSC_TIME, NSC_EXTRA, 0, fldoff(sctstr, sct_timestamp), "timestamp", EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(sctstr, sct_timestamp), "timestamp",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -152,7 +159,8 @@ struct castr dchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD},
-    {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg", EF_BAD},
+    {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg",
+     EF_BAD},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr", EF_BAD},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_dstr), "dstr", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_value), "value", EF_BAD},
@@ -188,8 +196,10 @@ struct castr ship_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[1]), "xend", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[0]), "ystart", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(shpstr, shp_desty[1]), "yend", EF_BAD},
-    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tstart), "cargostart", EF_ITEM},
-    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tend), "cargoend", EF_ITEM},
+    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tstart), "cargostart",
+     EF_ITEM},
+    {NSC_SITYPE(i_type), 0, TMAX, fldoff(shpstr, shp_tend), "cargoend",
+     EF_ITEM},
     {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lstart), "amtstart", EF_BAD},
     {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lend), "amtend", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav", EF_BAD},
@@ -197,19 +207,22 @@ struct castr ship_ca[] = {
     {NSC_SHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage", EF_BAD},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access", EF_BAD},
-    {NSC_TIME, NSC_EXTRA, 0, fldoff(shpstr, shp_timestamp), "timestamp", EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(shpstr, shp_timestamp), "timestamp",
+     EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_mobquota), "mquota", EF_BAD},
     {NSC_STRINGY, 0, MAXSHPPATH, fldoff(shpstr, shp_path), "path", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(shpstr, shp_follow), "follow", EF_BAD},
     {NSC_STRINGY, 0, MAXSHPNAMLEN, fldoff(shpstr, shp_name), "name", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_fuel), "fuel", EF_BAD},
-    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nchoppers), "nchoppers", EF_BAD},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nchoppers), "nchoppers",
+     EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nxlight), "nxlight", EF_BAD},
     /* could let builder access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt", EF_BAD},
-    {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder", EF_NATION},
-    {NSC_INT, 0, 0, fldoff(shpstr, shp_rflags), "rflags", EF_BAD},
+    {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder",
+     EF_NATION},
+    {NSC_INT, NSC_BITS, 0, fldoff(shpstr, shp_rflags), "rflags", EF_BAD},
     {NSC_STRINGY, 0, RET_LEN, fldoff(shpstr, shp_rpath), "rpath", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
@@ -226,12 +239,14 @@ struct castr mchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_frnge), "frnge", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_glim), "glim", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nxlight), "nxlight", EF_BAD},
-    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nchoppers), "nchoppers", EF_BAD},
+    {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nchoppers), "nchoppers",
+     EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelc), "fuelc", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_fuelu), "fuelu", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_tech), "tech", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_cost), "cost", EF_BAD},
-    {NSC_LONG, 0, 0, offsetof(struct mchrstr, m_flags), "flags", EF_SHIP_CHR_FLAGS},
+    {NSC_LONG, NSC_BITS, 0, offsetof(struct mchrstr, m_flags), "flags",
+     EF_SHIP_CHR_FLAGS},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nplanes), "nplanes", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct mchrstr, m_nland), "nland", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -247,9 +262,10 @@ struct castr plane_ca[] = {
     {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_def), "def", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype", EF_BAD},
-    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_flags), "flags", EF_BAD},
+    {NSC_CHAR, NSC_BITS, 0, fldoff(plnstr, pln_flags), "flags", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_access), "access", EF_BAD},
-    {NSC_TIME, NSC_EXTRA, 0, fldoff(plnstr, pln_timestamp), "timestamp", EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(plnstr, pln_timestamp), "timestamp",
+     EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(plnstr, pln_theta), "theta", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
@@ -268,7 +284,8 @@ struct castr plchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_crew), "crew", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_fuel), "fuel", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_stealth), "stealth", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_flags), "flags", EF_PLANE_CHR_FLAGS},
+    {NSC_INT, NSC_BITS, 0, offsetof(struct plchrstr, pl_flags), "flags",
+     EF_PLANE_CHR_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -280,7 +297,7 @@ struct castr land_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_nxlight), "nxlight", EF_BAD},
-    {NSC_INT, 0, 0, fldoff(lndstr, lnd_rflags), "rflags", EF_BAD},
+    {NSC_INT, NSC_BITS, 0, fldoff(lndstr, lnd_rflags), "rflags", EF_BAD},
     {NSC_STRINGY, 0, RET_LEN, fldoff(lndstr, lnd_rpath), "rpath", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react", EF_BAD},
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
@@ -303,8 +320,10 @@ struct castr land_ca[] = {
     {NSC_INT, NSC_EXTRA, 0, fldoff(lndstr, lnd_aaf), "aaf", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelc), "fuelc", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_fuelu), "fuelu", EF_BAD},
-    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_maxlight), "maxlight", EF_BAD},
-    {NSC_TIME, NSC_EXTRA, 0, fldoff(lndstr, lnd_timestamp), "timestamp", EF_BAD},
+    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_maxlight), "maxlight",
+     EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(lndstr, lnd_timestamp), "timestamp",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -333,7 +352,8 @@ struct castr lchr_ca[] = {
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelu), "fuelu", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nxlight), "nxlight", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_mxland), "mxland", EF_BAD},
-    {NSC_LONG, 0, 0, offsetof(struct lchrstr, l_flags), "flags", EF_LAND_CHR_FLAGS},
+    {NSC_LONG, NSC_BITS, 0, offsetof(struct lchrstr, l_flags), "flags",
+     EF_LAND_CHR_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -344,7 +364,8 @@ struct castr nuke_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number", EF_BAD},
     {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types", EF_NUKE_CHR},
-    {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp", EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -359,7 +380,8 @@ struct castr nchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_tech), "tech", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_weight), "weight", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_flags), "flags", EF_NUKE_CHR_FLAGS},
+    {NSC_INT, NSC_BITS, 0, offsetof(struct nchrstr, n_flags), "flags",
+     EF_NUKE_CHR_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -368,8 +390,10 @@ struct castr treaty_ca[] = {
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status", EF_BAD},
-    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_acond), "acond", EF_TREATY_FLAGS},
-    {NSC_SHORT, 0, 0, fldoff(trtstr, trt_bcond), "bcond", EF_TREATY_FLAGS},
+    {NSC_SHORT, NSC_BITS, 0, fldoff(trtstr, trt_acond), "acond",
+     EF_TREATY_FLAGS},
+    {NSC_SHORT, NSC_BITS, 0, fldoff(trtstr, trt_bcond), "bcond",
+     EF_TREATY_FLAGS},
     {NSC_TIME, 0, 0, fldoff(trtstr, trt_exp), "exp", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
@@ -442,7 +466,7 @@ struct castr trade_ca[] = {
 
 struct castr nat_ca[] = {
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat", EF_BAD},
+    {NSC_CHAR, NSC_BITS, 0, fldoff(natstr, nat_stat), "stat", EF_BAD},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
@@ -468,15 +492,18 @@ struct castr nat_ca[] = {
     {NSC_TIME, 0, 0, fldoff(natstr, nat_annotim), "annotim", EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_TLEV]), "tech", EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_RLEV]), "research", EF_BAD},
-    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_ELEV]), "education", EF_BAD},
-    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness", EF_BAD},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_ELEV]), "education",
+     EF_BAD},
+    {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
+     EF_BAD},
     /* FIXME nat_b[], nat_relate[], nat_contact[], nat_rejects[], nat_priorities[] */
-    {NSC_LONG, 0, 0, fldoff(natstr, nat_flags),"flags", EF_BAD},
+    {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags),"flags", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
 struct castr intrchr_ca[] = {
-    {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name", EF_BAD},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name",
+     EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_lcms), "lcms", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_hcms), "hcms", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_dcost), "dcost", EF_BAD},
@@ -485,7 +512,8 @@ struct castr intrchr_ca[] = {
 };
 
 struct castr rpt_ca[] = {
-    {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory", EF_BAD},
+    {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory",
+     EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_newspage), "newspage", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -495,13 +523,13 @@ struct castr empfile_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_TABLE},
     {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name", EF_BAD},
     {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct empfile, flags), "flags", EF_BAD},
+    {NSC_INT, NSC_BITS, 0, offsetof(struct empfile, flags), "flags", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
 struct castr symbol_ca[] = {
-    {NSC_STRING, 0, 0, offsetof(struct symbol, name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct symbol, value), "value", EF_BAD},
+    {NSC_STRING, 0, 0, offsetof(struct symbol, name), "name", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -577,16 +605,18 @@ struct symbol nuke_chr_flags[] = {
 struct castr mdchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct castr, ca_name), "name", EF_BAD},
     {NSC_CHAR, 0, 0, offsetof(struct castr, ca_type), "type", EF_META_TYPE},
-    {NSC_UCHAR, 0, 0, offsetof(struct castr, ca_flags), "flags", EF_META_FLAGS},
+    {NSC_UCHAR, NSC_BITS, 0, offsetof(struct castr, ca_flags), "flags",
+     EF_META_FLAGS},
     {NSC_USHORT, 0, 0, offsetof(struct castr, ca_len), "len", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct castr, ca_table), "table", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
 struct symbol meta_flags[] = {
-    {NSC_DEITY, "DEITY"},
-    {NSC_EXTRA, "EXTRA"},
-    {NSC_CONST, "CONST"},
+    {NSC_DEITY, "deity"},
+    {NSC_EXTRA, "extra"},
+    {NSC_CONST, "const"},
+    {NSC_BITS, "bits"},
     {0, NULL}
 };
 
