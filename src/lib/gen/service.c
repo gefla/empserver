@@ -44,11 +44,9 @@ install_service(char *program_name, char *service_name, char *config_file)
     HANDLE schSCManager,schService;
     SERVICE_DESCRIPTION sdBuf;
 
-    if (config_file == NULL)
-	config_file = _fullpath(NULL, "econfig", 0);
-
-    _snprintf(&program_name[strlen(program_name)], _MAX_PATH-strlen(program_name), " -e %s",
-	config_file);
+    if (config_file != NULL)
+        _snprintf(&program_name[strlen(program_name)], _MAX_PATH-strlen(program_name), " -e %s",
+	    config_file);
 
     if (service_name == NULL)
 	service_name = DEFAULT_SERVICE_NAME;
