@@ -274,10 +274,27 @@ xdmeta(int type)
 
 /* Dump Options[], return RET_OK.  */
 static int
-xdopt(void)
+xdopt(int meta)
 {
     int i;
     char *sep;
+    struct castr ca;
+
+    if (meta) {
+	xdhdr("options", mdchr_ca, 1);
+	for (i = 0; Options[i].opt_key; ++i) {
+	    ca.ca_type = NSC_INT;
+	    ca.ca_flags = 0;
+	    ca.ca_len = 0;
+	    ca.ca_off = 0;
+	    ca.ca_name = Options[i].opt_key;
+	    ca.ca_table = EF_BAD;
+	    xdflds(mdchr_ca, &ca);
+	    pr("\n");
+	}
+	xdftr(i);
+	return RET_OK;
+    }
 
     xdhdr1("options" , 0);
 
@@ -301,11 +318,33 @@ xdopt(void)
 }
 
 static int
-xdver(void)
+xdver(int meta)
 {
     struct keymatch *kp;
     char *sep;
+    int n;
+    struct castr ca;
     struct valstr val;
+
+    if (meta) {
+	xdhdr("version", mdchr_ca, 1);
+	n = 0;
+	for (kp = configkeys; kp->km_key; ++kp) {
+	    if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
+		ca.ca_type = kp->km_type;
+		ca.ca_flags = 0;
+		ca.ca_len = 0;
+		ca.ca_off = 0;
+		ca.ca_name = kp->km_key;
+		ca.ca_table = EF_BAD;
+		xdflds(mdchr_ca, &ca);
+		pr("\n");
+		n++;
+	    }
+	}
+	xdftr(n);
+	return RET_OK;
+    }
 
     xdhdr1("version", 0);
 
@@ -361,9 +400,9 @@ xdump(void)
 	else
 	    return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "opt", strlen(p))) {
-	return xdopt();
+	return xdopt(meta);
     } else if (!strncmp(p, "ver", strlen(p))) {
-	return xdver();
+	return xdver(meta);
     }
 
     return RET_SYN;
