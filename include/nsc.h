@@ -87,7 +87,7 @@ enum {
     NSC_DEITY = bit(0),		/* access restricted to deity */
     NSC_EXTRA = bit(1),		/* computable from other selectors */
     NSC_CONST = bit(2),		/* field cannot be changed */
-    NSC_BITS = bit(3),		/* value consists of flag bits */
+    NSC_BITS = bit(3)		/* value consists of flag bits */
 };
 typedef unsigned char nsc_flags;
 
