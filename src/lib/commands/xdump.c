@@ -163,39 +163,11 @@ xdflds(struct castr ca[], void *ptr)
     }
 }
 
-/* Dump field names; CA[] describes fields.  */
-static void
-xdfldnam(struct castr ca[])
-{
-    int i;
-    char *sep = "";
-
-    for (i = 0; ca[i].ca_name; ++i) {
-	if (ca[i].ca_flags & NSC_DEITY && !player->god)
-	    continue;
-	if (ca[i].ca_flags & NSC_EXTRA)
-	    continue;
-	pr("%s%s", sep, ca[i].ca_name);
-	if (ca[i].ca_len && ca[i].ca_type != NSC_STRINGY)
-	    pr(" %d", ca[i].ca_len);
-	sep = " ";
-    }
-}
-
 /* Dump first line of header for dump NAME.  */
 static void
-xdhdr1(char *name, int meta)
+xdhdr(char *name, int meta)
 {
     pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
-}
-
-/* Dump header for dump NAME with fields described by CA[].  */
-static void
-xdhdr(char *name, struct castr ca[], int meta)
-{
-    xdhdr1(name, meta);
-    xdfldnam(ca);
-    pr("\n");
 }
 
 /* Dump footer for a dump that dumped N objects.  */
@@ -225,7 +197,7 @@ xditem(int type, char *arg)
     if (!snxtitem(&ni, type, arg))
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), ca, 0);
+    xdhdr(ef_nameof(type), 0);
 
     n = 0;
     while (nxtitem(&ni, buf)) {
@@ -255,7 +227,7 @@ xdmeta(int type)
     if (!ca)
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), mdchr_ca, 1);
+    xdhdr(ef_nameof(type), 1);
 
     for (i = 0; ca[i].ca_name; i++) {
 	if (ca[i].ca_flags & NSC_DEITY && !player->god)
@@ -281,7 +253,7 @@ xdopt(int meta)
     struct castr ca;
 
     if (meta) {
-	xdhdr("options", mdchr_ca, 1);
+	xdhdr("options", 1);
 	for (i = 0; Options[i].opt_key; ++i) {
 	    ca.ca_type = NSC_INT;
 	    ca.ca_flags = 0;
@@ -296,15 +268,8 @@ xdopt(int meta)
 	return RET_OK;
     }
 
-    xdhdr1("options" , 0);
+    xdhdr("options", 0);
 
-    sep = "";
-    for (i = 0; Options[i].opt_key; ++i) {
-	pr("%s%s", sep, Options[i].opt_key);
-	sep = " ";
-    }
-    pr("\n");
-    
     sep = "";
     for (i = 0; Options[i].opt_key; ++i) {
 	pr("%s%d", sep, *Options[i].opt_valuep);
@@ -327,7 +292,7 @@ xdver(int meta)
     struct valstr val;
 
     if (meta) {
-	xdhdr("version", mdchr_ca, 1);
+	xdhdr("version", 1);
 	n = 0;
 	for (kp = configkeys; kp->km_key; ++kp) {
 	    if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
@@ -346,17 +311,8 @@ xdver(int meta)
 	return RET_OK;
     }
 
-    xdhdr1("version", 0);
+    xdhdr("version", 0);
 
-    sep = "";
-    for (kp = configkeys; kp->km_key; ++kp) {
-	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
-	    pr("%s%s", sep, kp->km_key);
-	    sep = " ";
-	}
-    }
-    pr("\n");
-    
     sep = "";
     for (kp = configkeys; kp->km_key; ++kp) {
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
