@@ -117,10 +117,8 @@ make_new_list(int tlev, int type)
 	    lookup_list_cnt++;
 	}
     } else if (type == EF_LAND) {
-	for (lp = lchr, count = 0; count < lnd_maxno; count++, lp++) {
+	for (lp = lchr; lp->l_name; lp++) {
 	    if (lp->l_tech > tlev)
-		continue;
-	    if (lp->l_name == 0 || lp->l_name[0] == '\0')
 		continue;
 	    lookup_list[lookup_list_cnt].l_u.lp = lp;
 	    lookup_list[lookup_list_cnt].tech = lp->l_tech;

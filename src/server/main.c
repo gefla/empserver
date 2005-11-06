@@ -503,7 +503,7 @@ nullify_objects(void)
 	if (opt_NO_OIL)
 	    plchr[i].pl_fuel = 0;
     }
-    for (i = 0; i < lnd_maxno; i++) {
+    for (i = 0; i < lchr[i].l_name; i++) {
 	if (opt_NO_HCMS)
 	    lchr[i].l_hcm = 0;
 	if (opt_NO_LCMS)

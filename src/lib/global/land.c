@@ -207,11 +207,9 @@ struct lchrstr lchr[] = {
 */
 
     {{0},
-     "",
+     NULL,
      0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,
      }
 };
-
-int lnd_maxno = (sizeof(lchr) / sizeof(struct lchrstr)) - 1;

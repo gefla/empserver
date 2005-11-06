@@ -182,7 +182,6 @@ struct lchrstr {
 	(struct lndstr *) ef_ptr(EF_LAND, n)
 
 extern struct lchrstr lchr[N_MAXLAND + 1];
-extern int lnd_maxno;
 
 struct llist {
     struct emp_qelem queue;	/* list of units */
