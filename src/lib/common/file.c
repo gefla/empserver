@@ -212,8 +212,10 @@ ef_ptr(int type, int id)
     ep = &empfile[type];
     if (CANT_HAPPEN(!(ep->flags & EFF_MEM) || !ep->cache))
 	return NULL;
-    if (id < 0 || id >= ep->fids)
-	return NULL;		/* FIXME can this happen? */
+    if (id < 0 || id >= ep->fids) {
+	CANT_HAPPEN(id != ep->fids);
+	return NULL;
+    }
     return ep->cache + ep->size * id;
 }
 
@@ -233,10 +235,10 @@ ef_read(int type, int id, void *into)
     ep = &empfile[type];
     if (CANT_HAPPEN(!ep->cache))
 	return 0;
-    if (id < 0)
-	return 0;		/* FIXME can this happen? */
-    if (id >= ep->fids)
+    if (id < 0 || id >= ep->fids) {
+	CANT_HAPPEN(id != ep->fids);
 	return 0;
+    }
 
     if (ep->flags & EFF_MEM) {
 	from = ep->cache + id * ep->size;
@@ -506,6 +508,7 @@ ef_ensure_space(int type, int id, int count)
 {
     if (ef_check(type) < 0)
 	return 0;
+    CANT_HAPPEN(id < 0);
 
     while (id >= empfile[type].fids) {
 	if (!ef_extend(type, count))
