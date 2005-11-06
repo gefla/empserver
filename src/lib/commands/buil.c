@@ -78,7 +78,6 @@ buil(void)
     int rqtech;
     int tlev;
     int rlev;
-    int n;
     int type;
     int what;
     struct lchrstr *lp;
@@ -88,7 +87,7 @@ buil(void)
     s_char *p;
     int gotsect = 0;
     int built;
-    int hold, found, number = 1, x;
+    int number = 1, x;
     int asked = 0;
     s_char buf[1024];
 
@@ -114,96 +113,62 @@ buil(void)
 	    p = getstarg(player->argp[3], "Plane type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
-	    n = strlen(p);
-	    while (n && iscntrl(p[n - 1]))
-		n--;
-	    if (!n)
-		return RET_SYN;
-	    for (found = 0, type = 0, pp = plchr; type <= pln_maxno;
-		 type++, pp++) {
-		if (pp->pl_tech > tlev)
-		    continue;
-		if (pp->pl_name && strncmp(p, pp->pl_name, n) == 0) {
-		    found++;
-		    hold = type;
-		    break;
-		}
+	    type = typematch(p, EF_PLANE);
+	    if (type >= 0) {
+		pp = &plchr[type];
+		rqtech = pp->pl_tech;
+		if (rqtech > tlev)
+		    type = -1;
 	    }
-	    if (found != 1) {
+	    if (type < 0) {
 		pr("Illegal plane type: \"%s\"\n", p);
 		if (confirm("List plane types? "))
 		    show_plane_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
-	    type = hold;
-	    pp = &(plchr[type]);
-	    rqtech = pp->pl_tech;
 	    break;
 	case 's':
 	    p = getstarg(player->argp[3], "Ship type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
-	    n = strlen(p);
-	    while (n && iscntrl(p[n - 1]))
-		n--;
-	    if (!n)
-		return RET_SYN;
-	    for (found = 0, mp = mchr, type = 0; type <= shp_maxno;
-		 type++, mp++) {
-		if (mp->m_tech > tlev)
-		    continue;
-		/* Can't build trade ships unless it's turned on */
+	    type = typematch(p, EF_SHIP);
+	    if (type >= 0) {
+		mp = &mchr[type];
+		rqtech = mp->m_tech;
+		if (rqtech > tlev)
+		    type = -1;
 		if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
-		    continue;
-		if (mp->m_name && strncmp(p, mp->m_name, n) == 0) {
-		    found++;
-		    hold = type;
-		    break;
-		}
+		    type = -1;
 	    }
-	    if (found != 1) {
+	    if (type < 0) {
 		pr("Illegal ship type: \"%s\"\n", p);
 		if (confirm("List ship types? "))
 		    show_ship_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
-	    type = hold;
-	    mp = &(mchr[type]);
-	    rqtech = mp->m_tech;
 	    break;
 	case 'l':
 	    p = getstarg(player->argp[3], "Land unit type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
-	    n = strlen(p);
-	    while (n && iscntrl(p[n - 1]))
-		n--;
-	    if (!n)
-		return RET_SYN;
-	    for (found = 0, lp = lchr, type = 0; type <= lnd_maxno;
-		 type++, lp++) {
-		if (lp->l_tech > tlev)
-		    continue;
+	    type = typematch(p, EF_LAND);
+	    if (type >= 0) {
+		lp = &lchr[type];
+		rqtech = lp->l_tech;
+		if (rqtech > tlev)
+		    type = -1;
 		if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
-		    continue;
-		if (lp->l_name && strncmp(p, lp->l_name, n) == 0) {
-		    found++;
-		    hold = type;
-		    break;
-		}
+		    type = -1;
 	    }
-	    if (found != 1) {
+	    if (type < 0) {
 		pr("Illegal land unit type: \"%s\"\n", p);
 		if (confirm("List unit types? "))
 		    show_land_build(tlev);
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
-	    type = hold;
-	    lp = &(lchr[type]);
-	    rqtech = lp->l_tech;
 	    break;
 	case 'b':
 	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
@@ -230,27 +195,17 @@ buil(void)
 	    p = getstarg(player->argp[3], "Nuke type? ", buf);
 	    if (p == 0 || *p == 0)
 		return RET_SYN;
-	    n = strlen(p);
-	    while (n && iscntrl(p[n - 1]))
-		n--;
-	    if (!n)
-		return RET_SYN;
-	    for (found = 0, np = nchr, type = 0; type < nuk_maxno;
-		 type++, np++) {
-		if ((np->n_tech > tlev)
-		    || (opt_DRNUKE
-			&& ((np->n_tech * drnuke_const) > rlev)))
-		    continue;
-		if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
-		    continue;
-
-		if (np->n_name && strncmp(p, np->n_name, n) == 0) {
-		    found++;
-		    hold = type;
-		    break;
-		}
+	    type = typematch(p, EF_NUKE);
+	    if (type >= 0) {
+		np = &nchr[type];
+		rqtech = np->n_tech;
+		if (rqtech > tlev
+		    || (opt_DRNUKE && np->n_tech * drnuke_const > rlev))
+		    type = -1;
+		if ((np->n_flags & N_NEUT) && !opt_NEUTRON)
+		    type = -1;
 	    }
-	    if (found != 1) {
+	    if (type < 0) {
 		int tt = tlev;
 		pr("Possible nuke types are:\n");
 		if (opt_DRNUKE)
@@ -261,9 +216,6 @@ buil(void)
 		player->argp[3] = 0;
 		goto ask_again;
 	    }
-	    type = hold;
-	    np = &(nchr[type]);
-	    rqtech = np->n_tech;
 	    break;
 	default:
 	    pr("You can't build that!\n");
