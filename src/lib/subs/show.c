@@ -186,7 +186,6 @@ void
 show_nuke_build(int tlev)
 {
     struct nchrstr *np;
-    int n;
     int avail;
 
     if (opt_DRNUKE)
@@ -196,11 +195,9 @@ show_nuke_build(int tlev)
 
     if (opt_NONUKES)
 	return;
-    for (np = nchr, n = 0; n < N_MAXNUKE; np++, n++) {
+    for (np = nchr; np->n_name; np++) {
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
-	    continue;
-	if (np->n_name == 0 || np->n_name[0] == '\0')
 	    continue;
 	if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
 	    continue;
@@ -209,7 +206,7 @@ show_nuke_build(int tlev)
 	       np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
 	       np->n_rad, avail, np->n_tech,
 	       (int)(np->n_tech * drnuke_const) + 1, np->n_cost);
-	else			/* not DRNUKE */
+	else
 	    pr("%-13.13s %3d %3d %4d %4d %5d %4d $%6d\n",
 	       np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
 	       np->n_rad, avail, np->n_tech, np->n_cost);
@@ -220,7 +217,7 @@ void
 show_nuke_capab(int tlev)
 {
     struct nchrstr *np;
-    int i, j, n;
+    int i, j;
     char *p;
 
     if (opt_DRNUKE)
@@ -230,12 +227,10 @@ show_nuke_capab(int tlev)
 
     if (opt_NONUKES)
 	return;
-    for (np = nchr, n = 0; n < N_MAXNUKE; np++, n++) {
+    for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
 	    continue;
 	if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
-	    continue;
-	if (np->n_name == 0 || np->n_name[0] == '\0')
 	    continue;
 	if (opt_DRNUKE)
 	    pr("%-13.13s %4d %3d %3d %4d %3d $%7d ",
