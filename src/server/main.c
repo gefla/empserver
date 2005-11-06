@@ -495,7 +495,7 @@ nullify_objects(void)
 	dchr[SCT_OIL].d_cost = -1;
 	dchr[SCT_REFINE].d_cost = -1;
     }
-    for (i = 0; i < pln_maxno; i++) {
+    for (i = 0; i < plchr[i].pl_name; i++) {
 	if (opt_NO_HCMS)
 	    plchr[i].pl_hcm = 0;
 	if (opt_NO_LCMS)

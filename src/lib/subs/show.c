@@ -97,7 +97,7 @@ make_new_list(int tlev, int type)
 
     lookup_list_cnt = 0;
     if (type == EF_PLANE) {
-	for (pp = plchr, count = 0; count < pln_maxno; count++, pp++) {
+	for (pp = plchr; pp->pl_name; pp++) {
 	    if (pp->pl_tech > tlev)
 		continue;
 	    if (pp->pl_name == 0 || pp->pl_name[0] == '\0')

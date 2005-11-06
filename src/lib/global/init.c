@@ -76,7 +76,7 @@ init_plchr(void)
     struct plchrstr *pp;
     int pcount;
 
-    for (pp = plchr, pcount = 0; pcount < pln_maxno; pcount++, pp++) {
+    for (pp = plchr; pp->pl_name; pp++) {
 	if (pp->pl_flags & P_M)
 	    pp->pl_flags |= P_V;
     }

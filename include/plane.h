@@ -144,7 +144,6 @@ struct plist {
 	(struct plnstr *) ef_ptr(EF_PLANE, n)
 
 extern struct plchrstr plchr[N_MAXPLANE + 1];
-extern int pln_maxno;
 
 struct shiplist {
     short uid;

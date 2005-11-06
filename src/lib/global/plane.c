@@ -301,9 +301,8 @@ struct plchrstr plchr[] = {
      0,
      P_N | P_M},
     {
-     "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     NULL,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,
      0}
 };
-
-int pln_maxno = (sizeof(plchr) / sizeof(struct plchrstr)) - 1;
