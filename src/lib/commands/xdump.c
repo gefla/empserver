@@ -163,7 +163,10 @@ xdflds(struct castr ca[], void *ptr)
     }
 }
 
-/* Dump first line of header for dump NAME.  */
+/*
+ * Dump header for dump NAME.
+ * If META, it's for the meta-data dump rather than the data dump.
+ */
 static void
 xdhdr(char *name, int meta)
 {
@@ -244,7 +247,10 @@ xdmeta(int type)
     return RET_OK;
 }
 
-/* Dump Options[], return RET_OK.  */
+/*
+ * Dump Options[], return RET_OK.
+ * If META, dump meta-data rather than data.
+ */
 static int
 xdopt(int meta)
 {
@@ -252,8 +258,9 @@ xdopt(int meta)
     char *sep;
     struct castr ca;
 
+    xdhdr("options", meta);
+
     if (meta) {
-	xdhdr("options", 1);
 	for (i = 0; Options[i].opt_key; ++i) {
 	    ca.ca_type = NSC_INT;
 	    ca.ca_flags = 0;
@@ -268,8 +275,6 @@ xdopt(int meta)
 	return RET_OK;
     }
 
-    xdhdr("options", 0);
-
     sep = "";
     for (i = 0; Options[i].opt_key; ++i) {
 	pr("%s%d", sep, *Options[i].opt_valuep);
@@ -282,6 +287,10 @@ xdopt(int meta)
     return RET_OK;
 }
 
+/*
+ * Dump configkeys[], return RET_OK.
+ * If META, dump meta-data rather than data.
+ */
 static int
 xdver(int meta)
 {
@@ -291,8 +300,9 @@ xdver(int meta)
     struct castr ca;
     struct valstr val;
 
+    xdhdr("version", meta);
+
     if (meta) {
-	xdhdr("version", 1);
 	n = 0;
 	for (kp = configkeys; kp->km_key; ++kp) {
 	    if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
@@ -310,8 +320,6 @@ xdver(int meta)
 	xdftr(n);
 	return RET_OK;
     }
-
-    xdhdr("version", 0);
 
     sep = "";
     for (kp = configkeys; kp->km_key; ++kp) {
@@ -349,7 +357,7 @@ xdump(void)
     if (!p)
 	return RET_SYN;
 
-    type = ef_byname(p);
+    type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type >= 0) {
 	if (meta)
 	    return xdmeta(type);
