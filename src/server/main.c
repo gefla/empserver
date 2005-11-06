@@ -519,7 +519,7 @@ nullify_objects(void)
 	if (opt_NO_OIL)
 	    mchr[i].m_flags &= ~M_OIL;
     }
-    for (i = 0; i < nuk_maxno; i++) {
+    for (i = 0; nchr[i].n_name; i++) {
 	if (opt_NO_HCMS)
 	    nchr[i].n_hcm = 0;
 	if (opt_NO_LCMS)

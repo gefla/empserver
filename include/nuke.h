@@ -80,6 +80,4 @@ struct nchrstr {
 
 extern struct nchrstr nchr[N_MAXNUKE + 1];
 
-extern int nuk_maxno;
-
 #endif /* _NUKE_H_ */
