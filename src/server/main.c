@@ -267,6 +267,8 @@ init_server(void)
     global_init();
     shutdown_init();
     player_init();
+    if (ef_load() < 0)
+	exit(EXIT_FAILURE);
     ef_init_srv();
     init_files();
     io_init();
@@ -495,7 +497,7 @@ nullify_objects(void)
 	dchr[SCT_OIL].d_cost = -1;
 	dchr[SCT_REFINE].d_cost = -1;
     }
-    for (i = 0; i < plchr[i].pl_name; i++) {
+    for (i = 0; plchr[i].pl_name; i++) {
 	if (opt_NO_HCMS)
 	    plchr[i].pl_hcm = 0;
 	if (opt_NO_LCMS)
@@ -503,7 +505,7 @@ nullify_objects(void)
 	if (opt_NO_OIL)
 	    plchr[i].pl_fuel = 0;
     }
-    for (i = 0; i < lchr[i].l_name; i++) {
+    for (i = 0; lchr[i].l_name; i++) {
 	if (opt_NO_HCMS)
 	    lchr[i].l_hcm = 0;
 	if (opt_NO_LCMS)
@@ -511,7 +513,7 @@ nullify_objects(void)
 	/* Fix up the military values */
 	lchr[i].l_mil = lchr[i].l_item[I_MILIT];
     }
-    for (i = 0; i < mchr[i].m_name; i++) {
+    for (i = 0; mchr[i].m_name; i++) {
 	if (opt_NO_HCMS)
 	    mchr[i].m_hcm = 0;
 	if (opt_NO_LCMS)
