@@ -86,10 +86,6 @@ orde(void)
     while (!player->aborted && nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, nb.cur);
-	    continue;
-	}
 	if (opt_SAIL) {
 	    if (*ship.shp_path) {
 		if (!diffeachship)

@@ -51,10 +51,6 @@ show_sail(struct nstr_item *nstr)
     while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, nstr->cur);
-	    continue;
-	}
 	if (count++ == 0) {
 	    if (player->god)
 		pr("own ");
@@ -101,10 +97,6 @@ cmd_unsail_ship(struct nstr_item *nstr)
     while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, nstr->cur);
-	    continue;
-	}
 	if (ship.shp_path[0]) {
 	    pr("Ship #%d unsailed\n", ship.shp_uid);
 	    count++;
@@ -125,10 +117,6 @@ cmd_sail_ship(struct nstr_item *nstr)
     while (!player->aborted && nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, nstr->cur);
-	    continue;
-	}
 	if ((ship.shp_autonav & AN_AUTONAV) &&
 	    !(ship.shp_autonav & AN_STANDBY)) {
 	    pr("Ship #%d has other orders!\n", ship.shp_uid);

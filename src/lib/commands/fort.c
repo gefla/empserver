@@ -62,11 +62,6 @@ fort(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
-
 	getland(land.lnd_uid, &land);
 	if (land.lnd_mobil < 0)
 	    continue;

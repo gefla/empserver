@@ -64,10 +64,6 @@ payo(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
-	    continue;
-	}
 	mp = &mchr[(int)ship.shp_type];
 
 	if (!(mp->m_flags & M_TRADE))

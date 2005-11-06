@@ -55,10 +55,6 @@ shi(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
-	    continue;
-	}
 	count_planes(&ship);
 	count_units(&ship);
 	if (nships++ == 0) {

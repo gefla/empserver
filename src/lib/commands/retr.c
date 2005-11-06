@@ -137,10 +137,6 @@ retr(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
-	    continue;
-	}
 	if (zero)
 	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 
@@ -268,10 +264,6 @@ lretr(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
 	if (zero)
 	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 

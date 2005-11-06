@@ -52,10 +52,6 @@ lsta(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
 	count_land_planes(&land);
 
 	if (nunits++ == 0) {

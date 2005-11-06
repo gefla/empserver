@@ -294,10 +294,6 @@ ldump(void)
 	    continue;
 	if (!player->owner && !player->god)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
 	count_land_planes(&land);
 	lnd_count_units(&land);
 

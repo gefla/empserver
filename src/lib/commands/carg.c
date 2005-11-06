@@ -56,10 +56,6 @@ carg(void)
 	    continue;
 	if ((player->cnum != ship.shp_own) && !player->god)
 	    continue;
-	if (ship.shp_type < 0 || ship.shp_type > shp_maxno) {
-	    pr("bad ship type %d (#%d)\n", ship.shp_type, ni.cur);
-	    continue;
-	}
 	if (nships++ == 0)
 	    pr("shp# ship type           x,y   flt  eff  sh gun pet irn dst bar oil lcm hcm rad\n");
 	pr("%4d ", ni.cur);
@@ -106,10 +102,6 @@ lcarg(void)
 	    continue;
 	if ((player->cnum != land.lnd_own) && !player->god)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
 	if (nunits++ == 0)
 	    pr("lnd# unit type           x,y    a   eff  sh gun pet irn dst bar oil lcm hcm rad\n");
 	pr("%4d ", ni.cur);

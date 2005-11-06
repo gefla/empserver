@@ -70,10 +70,6 @@ work(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	if (land.lnd_type < 0 || land.lnd_type > lnd_maxno) {
-	    pr("bad unit type %d (#%d)\n", land.lnd_type, ni.cur);
-	    continue;
-	}
 	if (!(lchr[(int)land.lnd_type].l_flags & L_ENGINEER))
 	    continue;
 	if (land.lnd_mobil <= 0) {
