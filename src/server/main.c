@@ -531,7 +531,7 @@ nullify_objects(void)
 	if (opt_NO_LCMS)
 	    dchr[i].d_lcms = 0;
     }
-    for (i = 0; i < prd_maxno; i++) {
+    for (i = 0; pchr[i].p_name; i++) {
 	for (j = 0; j < MAXPRCON; j++) {
 	    if (opt_NO_HCMS && pchr[i].p_ctype[j] == I_HCM)
 		pchr[i].p_camt[j] = 0;

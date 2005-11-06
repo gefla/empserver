@@ -92,7 +92,5 @@ struct pchrstr pchr[] = {
      I_DUST, -1, 0, offsetof(struct sctstr, sct_gmin), 20, -1, 0, 0, 75,
      "gold dust", "dust",},
     {{I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_NONE, 0, 0, 0, 0, 0, 0, 0, 0, "", "",}
+     I_NONE, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL,}
 };
-
-int prd_maxno = (sizeof(pchr) / sizeof(struct pchrstr)) - 1;

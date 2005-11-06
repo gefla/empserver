@@ -86,9 +86,8 @@ static void
 init_pchr(void)
 {
     struct pchrstr *p;
-    int pcount;
 
-    for (p = pchr, pcount = 0; pcount < prd_maxno; pcount++, p++) {
+    for (p = pchr; p->p_name; p++) {
 	if (opt_GO_RENEW) {
 	    if (p->p_type == I_DUST || p->p_type == I_OIL)
 		p->p_nrdep = 0;

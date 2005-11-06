@@ -77,6 +77,4 @@ struct pchrstr {
 
 extern struct pchrstr pchr[P_MDUST + 2];
 
-extern int prd_maxno;
-
 #endif /* _PRODUCT_H_ */
