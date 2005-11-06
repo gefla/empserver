@@ -75,12 +75,10 @@ static int
 tran_nuke(void)
 {
     struct nchrstr *ncp;
-    int len;
     coord x, y;
     coord dstx, dsty;
     int found;
     s_char *p;
-    int i;
     int nuketype;
     int moving;
     struct nukstr nuke;
@@ -115,16 +113,12 @@ tran_nuke(void)
 	return RET_SYN;
     if (!check_sect_ok(&sect))
 	return RET_FAIL;
-    len = strlen(p);
-    for (i = 0, ncp = nchr; i < N_MAXNUKE; i++, ncp++) {
-	if (strncmp(ncp->n_name, p, len) == 0)
-	    break;
-    }
-    if (i >= N_MAXNUKE) {
+    nuketype = typematch(p, EF_NUKE);
+    if (nuketype < 0) {
 	pr("No such nuke type!\n");
 	return RET_SYN;
     }
-    nuketype = i;
+    ncp = &nchr[nuketype];
     if (!nuke.nuk_types[nuketype]) {
 	pr("No %s nukes in %s\n",
 	   ncp->n_name, xyas(sect.sct_x, sect.sct_y, player->cnum));

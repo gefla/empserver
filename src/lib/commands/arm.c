@@ -53,11 +53,9 @@ arm(void)
     struct plnstr start;	/* Used for sanity checking */
     struct nukstr nuke;
     s_char *p;
-    int i;
     int pno;
     int nuketype;
-    int nukenum;
-    int len;
+    int found;
     struct nstr_item ni;
     s_char buf[1024];
     int disarm = **player->argp == 'd';
@@ -89,27 +87,21 @@ arm(void)
 	    return RET_SYN;
 	if (!check_plane_ok(&start))
 	    return RET_FAIL;
-	len = strlen(p);
-	for (i = 0, ncp = nchr; i < N_MAXNUKE; i++, ncp++) {
-	    if (strncmp(ncp->n_name, p, len) == 0)
-		break;
-	}
-	if (i >= N_MAXNUKE) {
+	nuketype = typematch(p, EF_NUKE);
+	if (nuketype < 0) {
 	    pr("No such nuke type!\n");
 	    return RET_SYN;
 	}
-	nuketype = i;
-	nukenum = -1;
-	snxtitem_all(&ni, EF_NUKE);
+	ncp = &nchr[nuketype];
+	found = 0;
+	snxtitem_xy(&ni, EF_NUKE, pl.pln_x, pl.pln_y);
 	while (nxtitem(&ni, &nuke)) {
-	    if (nuke.nuk_own != player->cnum)
-		continue;
-	    if (nuke.nuk_x != pl.pln_x || nuke.nuk_y != pl.pln_y)
-		continue;
-	    nukenum = ni.cur;
-	    break;
+	    if (nuke.nuk_own == player->cnum) {
+		found = 1;
+		break;
+	    }
 	}
-	if (nukenum < 0) {
+	if (!found) {
 	    pr("You don't own any nukes in that sector.\n");
 	    return RET_FAIL;
 	}
