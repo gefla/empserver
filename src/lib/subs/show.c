@@ -93,24 +93,19 @@ make_new_list(int tlev, int type)
     struct plchrstr *pp;
     struct lchrstr *lp;
     struct mchrstr *mp;
-    int count;
 
     lookup_list_cnt = 0;
     if (type == EF_PLANE) {
 	for (pp = plchr; pp->pl_name; pp++) {
 	    if (pp->pl_tech > tlev)
 		continue;
-	    if (pp->pl_name == 0 || pp->pl_name[0] == '\0')
-		continue;
 	    lookup_list[lookup_list_cnt].l_u.pp = pp;
 	    lookup_list[lookup_list_cnt].tech = pp->pl_tech;
 	    lookup_list_cnt++;
 	}
     } else if (type == EF_SHIP) {
-	for (mp = mchr, count = 0; count < shp_maxno; count++, mp++) {
+	for (mp = mchr; mp->m_name; mp++) {
 	    if (mp->m_tech > tlev)
-		continue;
-	    if (mp->m_name == 0 || mp->m_name[0] == '\0')
 		continue;
 	    lookup_list[lookup_list_cnt].l_u.mp = mp;
 	    lookup_list[lookup_list_cnt].tech = mp->m_tech;

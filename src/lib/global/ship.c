@@ -205,8 +205,6 @@ struct mchrstr mchr[] = {
      360, 1500, M_SUPPLY, 0, 2},
 
     {{0},
-     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "",
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL,
      0, 0, 0, 0, 0}
 };
-
-int shp_maxno = (sizeof(mchr) / sizeof(struct mchrstr)) - 1;

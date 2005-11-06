@@ -49,16 +49,14 @@ global_init(void)
     init_pchr();
     init_mchr();
     init_plchr();
-    /* the same thing should be done for units... */
 }
 
 static void
 init_mchr(void)
 {
     struct mchrstr *mp;
-    int n;
 
-    for (mp = mchr, n = 0; n < shp_maxno; n++, mp++) {
+    for (mp = mchr; mp->m_name; mp++) {
 	if (mp->m_nxlight)
 	    mp->m_flags |= M_XLIGHT;
 	if (mp->m_nchoppers)
@@ -74,7 +72,6 @@ static void
 init_plchr(void)
 {
     struct plchrstr *pp;
-    int pcount;
 
     for (pp = plchr; pp->pl_name; pp++) {
 	if (pp->pl_flags & P_M)

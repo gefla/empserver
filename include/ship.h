@@ -186,7 +186,6 @@ struct mchrstr {
 	(struct shpstr *) ef_ptr(EF_SHIP, n)
 
 extern struct mchrstr mchr[N_MAXSHIPS + 1];
-extern int shp_maxno;
 
 struct mlist {
     struct emp_qelem queue;	/* list of ships */
