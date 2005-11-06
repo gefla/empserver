@@ -52,10 +52,6 @@ pstat(void)
     while (nxtitem(&np, &plane)) {
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
-	if (plane.pln_type < 0 || plane.pln_type > pln_maxno) {
-	    pr("bad plane type %d (#%d)\n", plane.pln_type, np.cur);
-	    continue;
-	}
 	if (nplanes++ == 0) {
 	    pr("pln# %22.22s    x,y    eff  tech att def acc ran load fuel\n", "plane-type");
 	}
