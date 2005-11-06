@@ -163,6 +163,8 @@ struct empfile empfile[] = {
      PTR_CACHE(meta_type, EFF_CFG)},
     {EF_META_FLAGS, "meta flags", NULL, symbol_ca,
      PTR_CACHE(meta_flags, EFF_CFG)},
+    {EF_MISSION_FLAGS, "mission flags", NULL, symbol_ca,
+     PTR_CACHE(mission_flags, EFF_CFG)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},

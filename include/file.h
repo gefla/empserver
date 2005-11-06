@@ -132,7 +132,8 @@ struct empfile {
 #define EF_META		30
 #define EF_META_TYPE	31
 #define EF_META_FLAGS	32
-#define EF_MAX		33
+#define EF_MISSION_FLAGS	33
+#define EF_MAX		34
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 
