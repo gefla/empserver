@@ -267,8 +267,6 @@ init_server(void)
     global_init();
     shutdown_init();
     player_init();
-    if (ef_load() < 0)
-	exit(EXIT_FAILURE);
     ef_init_srv();
     init_files();
     io_init();
