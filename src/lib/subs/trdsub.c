@@ -169,8 +169,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 				   plane.pln_uid);
 				if (plane.pln_nuketype != -1) {
 				    pr("(%s)",
-				       nchr[(int)plane.pln_nuketype].
-				       n_name);
+				       nchr[(int)plane.pln_nuketype].n_name);
 				}
 			    }
 			}
