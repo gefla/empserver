@@ -299,6 +299,7 @@ start_server(int flags)
 #if !defined(_WIN32)
     /* signal() should not be used with mit pthreads. Anyway if u
        have a posix threads u definitly have posix signals -- Sasha */
+    act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
     act.sa_handler = shutdwn;
     sigaction(SIGTERM, &act, NULL);

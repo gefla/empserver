@@ -97,6 +97,7 @@ empth_start(void *arg)
     struct sigaction act;
 
     /* actually it should inherit all this from main but... */
+    act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
     act.sa_handler = shutdwn;
     sigaction(SIGTERM, &act, NULL);
