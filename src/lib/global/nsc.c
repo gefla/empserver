@@ -223,7 +223,8 @@ struct castr ship_ca[] = {
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt", EF_BAD},
     {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder",
      EF_NATION},
-    {NSC_INT, NSC_BITS, 0, fldoff(shpstr, shp_rflags), "rflags", EF_BAD},
+    {NSC_INT, NSC_BITS, 0, fldoff(shpstr, shp_rflags), "rflags",
+     EF_RETREAT_FLAGS},
     {NSC_STRINGY, 0, RET_LEN, fldoff(shpstr, shp_rpath), "rpath", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
@@ -263,7 +264,8 @@ struct castr plane_ca[] = {
     {NSC_INT, NSC_EXTRA, 0, fldoff(plnstr, pln_def), "def", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_harden), "harden", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(plnstr, pln_nuketype), "nuketype", EF_BAD},
-    {NSC_CHAR, NSC_BITS, 0, fldoff(plnstr, pln_flags), "flags", EF_BAD},
+    {NSC_CHAR, NSC_BITS, 0, fldoff(plnstr, pln_flags), "flags",
+     EF_PLANE_FLAGS},
     {NSC_TIME, 0, 0, fldoff(plnstr, pln_access), "access", EF_BAD},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(plnstr, pln_timestamp), "timestamp",
      EF_BAD},
@@ -298,7 +300,8 @@ struct castr land_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_fuel), "fuel", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_nxlight), "nxlight", EF_BAD},
-    {NSC_INT, NSC_BITS, 0, fldoff(lndstr, lnd_rflags), "rflags", EF_BAD},
+    {NSC_INT, NSC_BITS, 0, fldoff(lndstr, lnd_rflags), "rflags",
+     EF_RETREAT_FLAGS},
     {NSC_STRINGY, 0, RET_LEN, fldoff(lndstr, lnd_rpath), "rpath", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react", EF_BAD},
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
@@ -497,8 +500,11 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    /* FIXME nat_b[], nat_relate[], nat_contact[], nat_rejects[], nat_priorities[] */
-    {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags),"flags", EF_BAD},
+    /* FIXME nat_b[], nat_contact[], nat_rejects[], nat_priorities[] */
+    {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
+     EF_NATION_RELATIONS},
+    {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags),"flags",
+     EF_NATION_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -523,8 +529,6 @@ struct castr rpt_ca[] = {
 struct castr empfile_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_TABLE},
     {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name", EF_BAD},
-    {NSC_STRING, 0, 0, offsetof(struct empfile, file), "file", EF_BAD},
-    {NSC_INT, NSC_BITS, 0, offsetof(struct empfile, flags), "flags", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -647,5 +651,46 @@ struct symbol mission_flags[] = {
     {MI_AIR_DEFENSE, "air defense"},
     {MI_DSUPPORT, "defensive support"},
     {MI_OSUPPORT, "offensive support"},
+    {0, NULL}
+};
+
+struct symbol plane_flags[] = {
+    {PLN_LAUNCHED, "launched"},
+    {PLN_SYNCHRONOUS, "synchronous"},
+    {PLN_AIRBURST, "airbust"},
+    {0, NULL}
+};
+
+struct symbol retreat_flags[] = {
+    {RET_GROUP, "group"},
+    {RET_INJURED, "injured"},
+    {RET_TORPED, "torped"},
+    {RET_SONARED, "sonared"},
+    {RET_HELPLESS, "helpless"},
+    {RET_BOMBED, "bombed"},
+    {RET_DCHRGED, "depth-charged"},
+    {RET_BOARDED, "boarded"},
+    {0, NULL}
+};
+
+struct symbol nation_flags[] = {
+    {NF_INFORM, "inform"},
+    {NF_FLASH, "flash"},
+    {NF_BEEP, "beep"},
+    {NF_COASTWATCH, "coastwatch"},
+    {NF_SONAR, "sonar"},
+    {NF_TECHLISTS, "techlists"},
+    {NF_SACKED, "sacked"},
+    {0, NULL}
+};
+
+struct symbol nation_relations[] = {
+    {AT_WAR, "at-war"},
+    {SITZKRIEG, "sitzkrieg"},
+    {MOBILIZATION, "mobilization"},
+    {HOSTILE, "hostile"},
+    {NEUTRAL, "neutral"},
+    {FRIENDLY, "friendly"},
+    {ALLIED, "allied"},
     {0, NULL}
 };

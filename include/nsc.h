@@ -225,6 +225,10 @@ extern struct castr mdchr_ca[];
 extern struct symbol meta_type[];
 extern struct symbol meta_flags[];
 extern struct symbol mission_flags[];
+extern struct symbol plane_flags[];
+extern struct symbol retreat_flags[];
+extern struct symbol nation_flags[];
+extern struct symbol nation_relations[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

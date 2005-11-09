@@ -165,6 +165,14 @@ struct empfile empfile[] = {
      PTR_CACHE(meta_flags, EFF_CFG)},
     {EF_MISSION_FLAGS, "mission flags", NULL, symbol_ca,
      PTR_CACHE(mission_flags, EFF_CFG)},
+    {EF_PLANE_FLAGS, "plane flags", NULL, symbol_ca,
+     PTR_CACHE(plane_flags, EFF_CFG)},
+    {EF_RETREAT_FLAGS, "retreat flags", NULL, symbol_ca,
+     PTR_CACHE(retreat_flags, EFF_CFG)},
+    {EF_NATION_FLAGS, "nation flags", NULL, symbol_ca,
+     PTR_CACHE(nation_flags, EFF_CFG)},
+    {EF_NATION_RELATIONS, "nation relationships", NULL, symbol_ca,
+     PTR_CACHE(nation_relations, EFF_CFG)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
