@@ -157,7 +157,7 @@ struct castr sect_ca[] = {
 struct castr dchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name", EF_BAD},
     {NSC_INT, NSC_CONST, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD},
     {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg",
