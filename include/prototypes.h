@@ -284,6 +284,8 @@ extern int check_plane_ok(struct plnstr *);
 extern int check_comm_ok(struct comstr *);
 extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
+/* ef_load.c */
+/* in file.h */
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);
@@ -360,6 +362,8 @@ extern int updatetime(time_t *);
 extern void next_update_time(time_t *, time_t *, time_t *);
 extern void next_update_check_time(time_t *, time_t *, time_t *);
 extern int updates_disabled(void);
+/* xundump.c */
+extern int xundump(FILE *, char *, int);
 
 /*
  * src/lib/gen/ *.c 

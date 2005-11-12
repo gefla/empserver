@@ -263,6 +263,8 @@ init_server(void)
     loc_NTInit();
 #endif
     update_policy_check();
+    if (ef_load() < 0)
+	exit(EXIT_FAILURE);
     nullify_objects();
     global_init();
     shutdown_init();

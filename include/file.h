@@ -158,6 +158,7 @@ extern int ef_flags(int);
 extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
 extern void ef_init(void);
+extern int ef_load(void);
 
 extern struct empfile empfile[EF_MAX + 1];
 
