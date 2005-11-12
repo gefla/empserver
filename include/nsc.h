@@ -224,7 +224,7 @@ extern struct symbol treaty_flags[];
 extern struct castr mdchr_ca[];
 extern struct symbol meta_type[];
 extern struct symbol meta_flags[];
-extern struct symbol mission_flags[];
+extern struct symbol missions[];
 extern struct symbol plane_flags[];
 extern struct symbol retreat_flags[];
 extern struct symbol nation_flags[];

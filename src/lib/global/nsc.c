@@ -185,7 +185,7 @@ struct castr dchr_ca[] = {
 { NSC_CHAR, NSC_EXTRA, 0, fldoff(genitem, group), "group", EF_BAD},	\
 { NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx", EF_BAD},		\
 { NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy", EF_BAD},		\
-{ NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission", EF_MISSION_FLAGS},	\
+{ NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission", EF_MISSIONS},	\
 { NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius", EF_BAD}
 
 struct castr ship_ca[] = {
@@ -643,7 +643,7 @@ struct symbol meta_type[]  = {
     {NSC_NOTYPE, NULL}
 };
 
-struct symbol mission_flags[] = {
+struct symbol missions[] = {
     {MI_INTERDICT, "interdiction"},
     {MI_SUPPORT, "support"},
     {MI_RESERVE, "reserve"},

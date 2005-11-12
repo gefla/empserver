@@ -132,7 +132,7 @@ struct empfile {
 #define EF_META		30
 #define EF_META_TYPE	31
 #define EF_META_FLAGS	32
-#define EF_MISSION_FLAGS	33
+#define EF_MISSIONS	33
 #define EF_PLANE_FLAGS	34
 #define EF_RETREAT_FLAGS	35
 #define EF_NATION_FLAGS	36
