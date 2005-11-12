@@ -186,8 +186,6 @@ show_nuke_build(int tlev)
     else
 	pr("%13s lcm hcm  oil  rad avail tech $\n", "");
 
-    if (opt_NONUKES)
-	return;
     for (np = nchr; np->n_name; np++) {
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
@@ -218,8 +216,6 @@ show_nuke_capab(int tlev)
     else
 	pr("%13s blst dam lbs tech $%7s abilities\n", "", "");
 
-    if (opt_NONUKES)
-	return;
     for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
 	    continue;

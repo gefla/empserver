@@ -71,7 +71,6 @@ extern int opt_MOB_ACCESS;
 extern int opt_NEUTRON;
 extern int opt_NOFOOD;
 extern int opt_NOMOBCOST;
-extern int opt_NONUKES;
 extern int opt_NO_FORT_FIRE;
 extern int opt_NO_HCMS;
 extern int opt_NO_LCMS;

@@ -44,6 +44,7 @@
 #include "ship.h"
 #include "optlist.h"
 #include "commands.h"
+#include "file.h"
 
 static void show_opts(int val);
 
@@ -149,7 +150,7 @@ vers(void)
 	pr("The tax you pay on buying commodities on the market is %.1f%%\n\n", (buytax - 1.00) * 100.0);
     }
 
-    if (opt_NONUKES)
+    if (!ef_nelem(EF_NUKE_CHR))
 	pr("Nukes are disabled.\n");
     else if (opt_DRNUKE) {	/* NUKES && DRNUKE enabled */
 	pr("In order to build a nuke, you need %1.2f times the tech level in research\n", drnuke_const);

@@ -188,7 +188,7 @@ buil(void)
 	    }
 	    break;
 	case 'n':
-	    if (opt_NONUKES) {
+	    if (!ef_nelem(EF_NUKE_CHR)) {
 		pr("There are no nukes in this game.\n");
 		return RET_FAIL;
 	    }

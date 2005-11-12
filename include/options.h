@@ -74,7 +74,6 @@
 /*#define LOSE_CONTACT*//* Allows contact to be lost after a few updates */
 
 /* Chainsaw Mods */
-/*#define NONUKES*//* Eliminates nukes */
 #ifndef NO_OIL			/* Can't have fuel with no oil! */
 /*#define FUEL*//* Ships use fuel to move */
 #endif

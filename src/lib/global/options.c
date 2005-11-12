@@ -147,12 +147,6 @@ int opt_LOSE_CONTACT = 1;
 int opt_LOSE_CONTACT = 0;
 #endif
 
-#ifdef NONUKES
-int opt_NONUKES = 1;
-#else
-int opt_NONUKES = 0;
-#endif
-
 #ifdef FUEL
 int opt_FUEL = 1;
 #else
@@ -302,7 +296,6 @@ struct option_list Options[] = {
     {"NO_PLAGUE", &opt_NO_PLAGUE},
     {"NOFOOD", &opt_NOFOOD},
     {"NOMOBCOST", &opt_NOMOBCOST},
-    {"NONUKES", &opt_NONUKES},
     {"PINPOINTMISSILE", &opt_PINPOINTMISSILE},
     {"RES_POP", &opt_RES_POP},
     {"SAIL", &opt_SAIL},
