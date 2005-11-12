@@ -125,9 +125,9 @@ ioq_gets(struct ioqueue *ioq, char *buf, int cc, int *eol)
     end = &buf[nbytes];
     for (p = buf; p < end && *p; p++) {
 	if (*p == '\n') {
-	    *p = '\0';
+	    *++p = '\0';
 	    *eol = 1;
-	    dequeuecc(ioq, (p - buf) + 1);
+	    dequeuecc(ioq, p - buf);
 	    return buf;
 	}
     }

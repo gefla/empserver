@@ -312,20 +312,16 @@ output(int code, char *buf, FILE *auxfi, int eol)
 	fprintf(auxfi, "%s", buf);
 	if (code == C_FLUSH)
 	    (void)fflush(auxfi);
-	else if (eol)
-	    (void)putc('\n', auxfi);
     }
 
     if (redir_fp)
-	fprintf(redir_fp, "%s%s", buf, eol ? "\n" : "");
+	fprintf(redir_fp, "%s", buf);
     else if (pipe_fp)
-	fprintf(pipe_fp, eol ? "%s\n": "%s", buf);
+	fprintf(pipe_fp, "%s", buf);
     else {
 	screen(buf);
 	if (code == C_FLUSH)
 	    (void)fflush(stdout);
-	else if (eol)
-	    (void)putc('\n', stdout);
     }
 }
 
