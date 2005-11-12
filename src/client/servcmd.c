@@ -84,6 +84,11 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 		p++;
 	    *p++ = 0;
 	}
+	/*
+	 * FIXME
+	 * C_REDIR, C_PIPE, and C_EXECUTE will not
+	 * work with filename longer than one buffer
+	 */
 	switch (code) {
 	case C_PROMPT:
 	    if (sscanf(p, "%d %d", &nmin, &nbtu) != 2) {
@@ -94,20 +99,30 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 	    prompt(auxfi);
 	    break;
 	case C_REDIR:
+	    if (eol)
+		p[strlen(p) - 1] = '\0';
 	    doredir(p);
 	    break;
 	case C_PIPE:
+	    if (eol)
+		p[strlen(p) - 1] = '\0';
 	    dopipe(p);
 	    break;
 	case C_FLUSH:
 	    mode = code;
+	    if (eol)
+		p[strlen(p) - 1] = '\0';
 	    sprintf(the_prompt, "%s", p);
 	    prompt(auxfi);
 	    break;
 	case C_EXECUTE:
+	    if (eol)
+		p[strlen(p) - 1] = '\0';
 	    doexecute(p, auxfi);
 	    break;
 	case C_INFORM:
+	    if (eol)
+		p[strlen(p) - 1] = '\0';
 	    if (*p) {
 		p[strlen(p) - 1] = '\0';
 		sprintf(num_teles, "(%s) ", p + 1);
