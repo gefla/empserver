@@ -358,7 +358,7 @@ xdump(void)
 	return RET_SYN;
 
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
-    if (type >= 0) {
+    if (type >= 0 && type < EF_MAX) {
 	if (meta)
 	    return xdmeta(type);
 	else
