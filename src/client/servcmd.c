@@ -62,7 +62,7 @@ static void prompt(FILE *auxfi);
 static void doredir(char *p);
 static void dopipe(char *p);
 static void doexecute(char *p, FILE *auxfi);
-static void output(int code, char *buf, FILE *auxfi);
+static void output(int code, char *buf, FILE *auxfi, int eol);
 static void screen(char *buf);
 
 void
@@ -70,17 +70,20 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 {
     char buf[1024];
     char *p;
-    int code;
+    static int code = -1;
+    int eol;
 
-    while (ioq_gets(ioq, buf, sizeof(buf))) {
+    while (ioq_gets(ioq, buf, sizeof(buf), &eol)) {
 	p = buf;
-	while (*p && !isspace(*p))
-	    p++;
-	*p++ = 0;
-	if (isalpha(*buf))
-	    code = 10 + (*buf - 'a');
-	else
-	    code = *buf - '0';
+	if (code == -1) {
+    	    if (isalpha(*buf))
+		code = 10 + (*buf - 'a');
+	    else
+		code = *buf - '0';
+	    while (*p && !isspace(*p))
+		p++;
+	    *p++ = 0;
+	}
 	switch (code) {
 	case C_PROMPT:
 	    if (sscanf(p, "%d %d", &nmin, &nbtu) != 2) {
@@ -116,9 +119,11 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 		*num_teles = '\0';
 	    break;
 	default:
-	    output(code, p, auxfi);
+	    output(code, p, auxfi, eol);
 	    break;
 	}
+	if (eol)
+	    code = -1;
     }
 }
 
@@ -270,7 +275,7 @@ doexecute(char *p, FILE *auxfi)
 }
 
 static void
-output(int code, char *buf, FILE *auxfi)
+output(int code, char *buf, FILE *auxfi, int eol)
 {
     switch (code) {
     case C_NOECHO:
@@ -307,19 +312,19 @@ output(int code, char *buf, FILE *auxfi)
 	fprintf(auxfi, "%s", buf);
 	if (code == C_FLUSH)
 	    (void)fflush(auxfi);
-	else
+	else if (eol)
 	    (void)putc('\n', auxfi);
     }
 
     if (redir_fp)
-	fprintf(redir_fp, "%s\n", buf);
+	fprintf(redir_fp, "%s%s", buf, eol ? "\n" : "");
     else if (pipe_fp)
-	fprintf(pipe_fp, "%s\n", buf);
+	fprintf(pipe_fp, eol ? "%s\n": "%s", buf);
     else {
 	screen(buf);
 	if (code == C_FLUSH)
 	    (void)fflush(stdout);
-	else
+	else if (eol)
 	    (void)putc('\n', stdout);
     }
 }

@@ -52,4 +52,4 @@ int ioq_read(struct ioqueue *ioq, char *buf, int cc);
 void ioq_write(struct ioqueue *ioq, char *buf, int cc);
 int ioq_qsize(struct ioqueue *ioq);
 void ioq_drain(struct ioqueue *ioq);
-char *ioq_gets(struct ioqueue *ioq, char *buf, int cc);
+char *ioq_gets(struct ioqueue *ioq, char *buf, int cc, int *eol);

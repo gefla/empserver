@@ -111,22 +111,30 @@ ioq_drain(struct ioqueue *ioq)
 }
 
 char *
-ioq_gets(struct ioqueue *ioq, char *buf, int cc)
+ioq_gets(struct ioqueue *ioq, char *buf, int cc, int *eol)
 {
     char *p;
     char *end;
     int nbytes;
 
+    *eol = 0;
+
+    cc--;
+
     nbytes = ioqtobuf(ioq, buf, cc);
-    if (nbytes < cc)
-	cc = nbytes;
-    end = &buf[cc];
+    end = &buf[nbytes];
     for (p = buf; p < end && *p; p++) {
 	if (*p == '\n') {
 	    *p = '\0';
+	    *eol = 1;
 	    dequeuecc(ioq, (p - buf) + 1);
 	    return buf;
 	}
+    }
+    if (cc && (p - buf) == cc) {
+    	dequeuecc(ioq, cc);
+	buf[cc] = '\0';
+	return buf;
     }
     return NULL;
 }
