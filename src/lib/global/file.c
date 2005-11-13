@@ -173,6 +173,13 @@ struct empfile empfile[] = {
      PTR_CACHE(nation_flags, EFF_CFG)},
     {EF_NATION_RELATIONS, "nation relationships", NULL, symbol_ca,
      PTR_CACHE(nation_relations, EFF_CFG)},
+    {EF_LEVEL, "level", NULL, symbol_ca, PTR_CACHE(level, EFF_CFG)},
+    {EF_AGREEMENT_STATUS, "agreement status", NULL, symbol_ca,
+     PTR_CACHE(agreement_statuses, EFF_CFG)},
+    {EF_PLAGUE_STAGES, "plague stages", NULL, symbol_ca,
+     PTR_CACHE(plague_stages, EFF_CFG)},
+    {EF_PACKING, "packing", NULL, symbol_ca,
+     PTR_CACHE(packing, EFF_CFG)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},

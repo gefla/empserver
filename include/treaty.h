@@ -48,9 +48,9 @@ struct trtstr {
     time_t trt_exp;		/* expiration date */
 };
 
-#define TS_FREE		0
-#define TS_PROPOSED	1
-#define TS_SIGNED	2
+#define TS_FREE		AGREE_FREE
+#define TS_PROPOSED	AGREE_PROPOSED
+#define TS_SIGNED	AGREE_SIGNED
 
 	/* treaty clauses */
 #define	LNDATT	bit(0)		/* no attacks on land units */

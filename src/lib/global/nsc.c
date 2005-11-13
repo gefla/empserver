@@ -53,6 +53,7 @@
 #include "product.h"
 #include "file.h"
 #include "mission.h"
+#include "plague.h"
 
 #define fldoff(str, fld) offsetof(struct str, fld)
 
@@ -98,7 +99,7 @@ struct castr pchr_ca[] = {
      EF_BAD},
     {NSC_SITYPE(i_type), 0, 0, offsetof(struct pchrstr, p_type), "type",
      EF_ITEM},
-    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level", EF_LEVEL},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrdep), "nrdep", EF_BAD},
@@ -139,7 +140,8 @@ struct castr sect_ca[] = {
     NSC_IVEC(fldoff(sctstr, sct_dist), "_dist"),
     NSC_IVEC(fldoff(sctstr, sct_del), "_del"),
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_mines), "mines", EF_BAD},
-    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage", EF_BAD},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage",
+     EF_PLAGUE_STAGES},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_ptime), "ptime", EF_BAD},
     {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_che), "che", EF_BAD},
     {NSC_NATID, NSC_DEITY, 0, fldoff(sctstr, sct_che_target), "che_target",
@@ -161,7 +163,7 @@ struct castr dchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD},
     {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg",
-     EF_BAD},
+     EF_PACKING},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr", EF_BAD},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_dstr), "dstr", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_value), "value", EF_BAD},
@@ -205,7 +207,8 @@ struct castr ship_ca[] = {
     {NSC_SHORT, 0, TMAX, fldoff(shpstr, shp_lend), "amtend", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(shpstr, shp_autonav), "autonav", EF_BAD},
     NSC_IVEC(fldoff(shpstr, shp_item), ""),
-    {NSC_SHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage", EF_BAD},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(shpstr, shp_pstage), "pstage",
+     EF_PLAGUE_STAGES},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(shpstr, shp_ptime), "ptime", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(shpstr, shp_access), "access", EF_BAD},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(shpstr, shp_timestamp), "timestamp",
@@ -305,7 +308,8 @@ struct castr land_ca[] = {
     {NSC_STRINGY, 0, RET_LEN, fldoff(lndstr, lnd_rpath), "rpath", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(lndstr, lnd_rad_max), "react", EF_BAD},
     NSC_IVEC(fldoff(lndstr, lnd_item), ""),
-    {NSC_SHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage", EF_BAD},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_pstage), "pstage",
+     EF_PLAGUE_STAGES},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(lndstr, lnd_ptime), "ptime", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_land), "land", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(lndstr, lnd_nland), "nland", EF_BAD},
@@ -393,7 +397,8 @@ struct castr treaty_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_TREATY},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status", EF_BAD},
+    {NSC_CHAR, 0, 0, fldoff(trtstr, trt_status), "status",
+     EF_AGREEMENT_STATUS},
     {NSC_SHORT, NSC_BITS, 0, fldoff(trtstr, trt_acond), "acond",
      EF_TREATY_FLAGS},
     {NSC_SHORT, NSC_BITS, 0, fldoff(trtstr, trt_bcond), "bcond",
@@ -406,7 +411,8 @@ struct castr loan_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_LOAN},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(lonstr, l_status), "status", EF_BAD},
+    {NSC_CHAR, 0, 0, fldoff(lonstr, l_status), "status",
+     EF_AGREEMENT_STATUS},
     {NSC_INT, 0, 0, fldoff(lonstr, l_irate), "irate", EF_BAD},
     {NSC_INT, 0, 0, fldoff(lonstr, l_ldur), "ldur", EF_BAD},
     {NSC_LONG, 0, 0, fldoff(lonstr, l_amtpaid), "amtpaid", EF_BAD},
@@ -692,5 +698,38 @@ struct symbol nation_relations[] = {
     {NEUTRAL, "neutral"},
     {FRIENDLY, "friendly"},
     {ALLIED, "allied"},
+    {0, NULL}
+};
+
+struct symbol level[] = {
+    {NAT_TLEV, "technology"},
+    {NAT_RLEV, "research"},
+    {NAT_ELEV, "education"},
+    {NAT_HLEV, "happiness"},
+    {0, NULL}
+};
+
+struct symbol agreement_statuses[] = {
+    {AGREE_FREE, "free"},
+    {AGREE_PROPOSED, "proposed"},
+    {AGREE_SIGNED, "signed"},
+    {0, NULL}
+};
+
+struct symbol plague_stages[] = {
+    {PLG_HEALTHY, "healthy"},
+    {PLG_DYING, "dying"},
+    {PLG_INFECT, "infect"},
+    {PLG_INCUBATE, "incubate"},
+    {PLG_EXPOSED, "exposed"},
+    {0, NULL}
+};
+
+struct symbol packing[] = {
+    {IPKG, "inefficient"},
+    {NPKG, "normal"},
+    {WPKG, "warehouse"},
+    {UPKG, "urban"},
+    {BPKG, "bank"},
     {0, NULL}
 };

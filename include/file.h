@@ -137,7 +137,11 @@ struct empfile {
 #define EF_RETREAT_FLAGS	35
 #define EF_NATION_FLAGS	36
 #define EF_NATION_RELATIONS 37
-#define EF_MAX		38
+#define EF_LEVEL	38
+#define EF_AGREEMENT_STATUS	39
+#define EF_PLAGUE_STAGES	40
+#define EF_PACKING	41
+#define EF_MAX		42
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 

@@ -229,6 +229,10 @@ extern struct symbol plane_flags[];
 extern struct symbol retreat_flags[];
 extern struct symbol nation_flags[];
 extern struct symbol nation_relations[];
+extern struct symbol level[];
+extern struct symbol agreement_statuses[];
+extern struct symbol plague_stages[];
+extern struct symbol packing[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

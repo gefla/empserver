@@ -146,4 +146,8 @@ extern char *ugetstring(char *prompt, char buf[]);
 extern s_char *prbuf(s_char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
+#define AGREE_FREE	0
+#define AGREE_PROPOSED	1
+#define AGREE_SIGNED	2
+
 #endif /* _MISC_H_ */
