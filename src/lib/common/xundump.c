@@ -40,6 +40,7 @@
 #include <stdarg.h>
 #include <time.h>
 
+#include "prototypes.h"
 #include "file.h"
 #include "nsc.h"
 #include "match.h"
