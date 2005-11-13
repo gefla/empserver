@@ -296,11 +296,6 @@ output(int code, char *buf, FILE *auxfi, int eol)
     case C_NOECHO:
 	/* not implemented; serve doesn't send it */
 	break;
-    case C_FLUSH:
-	(void)fflush(stdout);
-	if (auxfi)
-	    (void)fflush(auxfi);
-	break;
     case C_ABORT:
 	printf("Aborted\n");
 	if (auxfi)
@@ -325,8 +320,6 @@ output(int code, char *buf, FILE *auxfi, int eol)
     }
     if (auxfi) {
 	fprintf(auxfi, "%s", buf);
-	if (code == C_FLUSH)
-	    (void)fflush(auxfi);
     }
 
     if (redir_fp)
@@ -335,8 +328,6 @@ output(int code, char *buf, FILE *auxfi, int eol)
 	fprintf(pipe_fp, "%s", buf);
     else {
 	screen(buf);
-	if (code == C_FLUSH)
-	    (void)fflush(stdout);
     }
 }
 
