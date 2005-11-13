@@ -82,7 +82,6 @@
 #define	PINPOINTMISSILE /**/
 #define	FALLOUT			/* Enables secondary effects caused by radiation */
 #define	SAIL			/* A update routine to move ships */
-#define	NEUTRON			/* Enables Neurton Warheads */
 #define NOMOBCOST		/* No mob cost for firing from ships */
 /*#define SUPER_BARS *//* Bars can't be destroyed by fire */
 #define EASY_BRIDGES		/* Bridges can be built anywhere */

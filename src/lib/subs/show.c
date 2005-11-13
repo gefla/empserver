@@ -190,8 +190,6 @@ show_nuke_build(int tlev)
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
 	    continue;
-	if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
-	    continue;
 	if (opt_DRNUKE)
 	    pr("%-13.13s %3d %3d %4d %4d %5d %4d %3d $%6d\n",
 	       np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
@@ -218,8 +216,6 @@ show_nuke_capab(int tlev)
 
     for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
-	    continue;
-	if (opt_NEUTRON == 0 && (np->n_flags & N_NEUT))
 	    continue;
 	if (opt_DRNUKE)
 	    pr("%-13.13s %4d %3d %3d %4d %3d $%7d ",

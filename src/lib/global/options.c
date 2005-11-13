@@ -231,12 +231,6 @@ int opt_SAIL = 1;
 int opt_SAIL = 0;
 #endif
 
-#ifdef NEUTRON
-int opt_NEUTRON = 1;
-#else
-int opt_NEUTRON = 0;
-#endif
-
 #ifdef UPDATESCHED
 int opt_UPDATESCHED = 1;
 #else
@@ -288,7 +282,6 @@ struct option_list Options[] = {
     {"LOSE_CONTACT", &opt_LOSE_CONTACT},
     {"MARKET", &opt_MARKET},
     {"MOB_ACCESS", &opt_MOB_ACCESS},
-    {"NEUTRON", &opt_NEUTRON},
     {"NO_FORT_FIRE", &opt_NO_FORT_FIRE},
     {"NO_HCMS", &opt_NO_HCMS},
     {"NO_LCMS", &opt_NO_LCMS},

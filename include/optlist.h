@@ -68,7 +68,6 @@ extern int opt_LOANS;
 extern int opt_LOSE_CONTACT;
 extern int opt_MARKET;
 extern int opt_MOB_ACCESS;
-extern int opt_NEUTRON;
 extern int opt_NOFOOD;
 extern int opt_NOMOBCOST;
 extern int opt_NO_FORT_FIRE;

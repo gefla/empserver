@@ -107,7 +107,7 @@ detonate(struct plnstr *pp, int x, int y)
 	if (sect.sct_x == x && sect.sct_y == y)
 	    retval = damage;
 	if (opt_FALLOUT) {
-	    if (opt_NEUTRON && (ncp->n_flags & N_NEUT))
+	    if (ncp->n_flags & N_NEUT)
 		fallout += damage * 30;
 	    else
 		fallout += damage * 3;
