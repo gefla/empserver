@@ -81,24 +81,6 @@ int opt_DEFENSE_INFRA = 1;
 int opt_DEFENSE_INFRA = 0;
 #endif
 
-#ifdef NO_HCMS
-int opt_NO_HCMS = 1;
-#else
-int opt_NO_HCMS = 0;
-#endif
-
-#ifdef NO_LCMS
-int opt_NO_LCMS = 1;
-#else
-int opt_NO_LCMS = 0;
-#endif
-
-#ifdef NO_OIL
-int opt_NO_OIL = 1;
-#else
-int opt_NO_OIL = 0;
-#endif
-
 #ifdef LANDSPIES
 int opt_LANDSPIES = 1;
 #else
@@ -283,9 +265,6 @@ struct option_list Options[] = {
     {"MARKET", &opt_MARKET},
     {"MOB_ACCESS", &opt_MOB_ACCESS},
     {"NO_FORT_FIRE", &opt_NO_FORT_FIRE},
-    {"NO_HCMS", &opt_NO_HCMS},
-    {"NO_LCMS", &opt_NO_LCMS},
-    {"NO_OIL", &opt_NO_OIL},
     {"NO_PLAGUE", &opt_NO_PLAGUE},
     {"NOFOOD", &opt_NOFOOD},
     {"NOMOBCOST", &opt_NOMOBCOST},

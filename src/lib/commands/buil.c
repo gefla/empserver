@@ -561,23 +561,14 @@ build_bridge(struct sctstr *sp, short *vec)
 	return 0;
     }
 
-    if (!opt_NO_HCMS) {
-	if (vec[I_HCM] < buil_bh) {
-	    pr("%s only has %d unit%s of hcm,\n",
-	       xyas(sp->sct_x, sp->sct_y, player->cnum),
-	       vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
-	    pr("(a bridge span requires %d)\n", buil_bh);
-	    return 0;
-	}
-    } else if (!opt_NO_LCMS) {
-	if (vec[I_LCM] < buil_bh) {
-	    pr("%s only has %d unit%s of lcm,\n",
-	       xyas(sp->sct_x, sp->sct_y, player->cnum),
-	       vec[I_LCM], vec[I_LCM] > 1 ? "s" : "");
-	    pr("(a bridge span requires %d)\n", buil_bh);
-	    return 0;
-	}
+    if (vec[I_HCM] < buil_bh) {
+	pr("%s only has %d unit%s of hcm,\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum),
+	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
+	pr("(a bridge span requires %d)\n", buil_bh);
+	return 0;
     }
+
     if (cash < buil_bc) {
 	pr("A span costs $%.2f to build; ", buil_bc);
 	pr("you only have %d.\n", cash);
@@ -654,10 +645,7 @@ build_bridge(struct sctstr *sp, short *vec)
     putsect(&sect);
     pr("Bridge span built over %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
-    if (!opt_NO_HCMS)
-	vec[I_HCM] -= buil_bh;
-    else if (!opt_NO_LCMS)
-	vec[I_LCM] -= buil_bh;
+    vec[I_HCM] -= buil_bh;
     return 1;
 }
 
@@ -847,23 +835,14 @@ build_tower(struct sctstr *sp, short *vec)
 	return 0;
     }
 
-    if (!opt_NO_HCMS) {
-	if (vec[I_HCM] < buil_tower_bh) {
-	    pr("%s only has %d unit%s of hcm,\n",
-	       xyas(sp->sct_x, sp->sct_y, player->cnum),
-	       vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
-	    pr("(a bridge tower requires %d)\n", buil_tower_bh);
-	    return 0;
-	}
-    } else if (!opt_NO_LCMS) {
-	if (vec[I_LCM] < buil_tower_bh) {
-	    pr("%s only has %d unit%s of lcm,\n",
-	       xyas(sp->sct_x, sp->sct_y, player->cnum),
-	       vec[I_LCM], vec[I_LCM] > 1 ? "s" : "");
-	    pr("(a bridge tower requires %d)\n", buil_tower_bh);
-	    return 0;
-	}
+    if (vec[I_HCM] < buil_tower_bh) {
+	pr("%s only has %d unit%s of hcm,\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum),
+	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
+	pr("(a bridge tower requires %d)\n", buil_tower_bh);
+	return 0;
     }
+
     if (cash < buil_tower_bc) {
 	pr("A bridge tower costs $%.2f to build; ", buil_tower_bc);
 	pr("you only have %d.\n", cash);
@@ -943,9 +922,6 @@ build_tower(struct sctstr *sp, short *vec)
     putsect(&sect);
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
-    if (!opt_NO_HCMS)
-	vec[I_HCM] -= buil_tower_bh;
-    else if (!opt_NO_LCMS)
-	vec[I_LCM] -= buil_tower_bh;
+    vec[I_HCM] -= buil_tower_bh;
     return 1;
 }

@@ -486,69 +486,13 @@ shutdwn(int sig)
 static void
 nullify_objects(void)
 {
-    int i, j;
+    int i;
 
     if (opt_BIG_CITY)
 	dchr[SCT_CAPIT] = bigcity_dchr;
-    if (opt_NO_LCMS)
-	dchr[SCT_LIGHT].d_cost = -1;
-    if (opt_NO_HCMS)
-	dchr[SCT_HEAVY].d_cost = -1;
-    if (opt_NO_OIL) {
-	dchr[SCT_OIL].d_cost = -1;
-	dchr[SCT_REFINE].d_cost = -1;
-    }
-    for (i = 0; plchr[i].pl_name; i++) {
-	if (opt_NO_HCMS)
-	    plchr[i].pl_hcm = 0;
-	if (opt_NO_LCMS)
-	    plchr[i].pl_lcm = 0;
-	if (opt_NO_OIL)
-	    plchr[i].pl_fuel = 0;
-    }
     for (i = 0; lchr[i].l_name; i++) {
-	if (opt_NO_HCMS)
-	    lchr[i].l_hcm = 0;
-	if (opt_NO_LCMS)
-	    lchr[i].l_lcm = 0;
 	/* Fix up the military values */
 	lchr[i].l_mil = lchr[i].l_item[I_MILIT];
-    }
-    for (i = 0; mchr[i].m_name; i++) {
-	if (opt_NO_HCMS)
-	    mchr[i].m_hcm = 0;
-	if (opt_NO_LCMS)
-	    mchr[i].m_lcm = 0;
-	if (opt_NO_OIL)
-	    mchr[i].m_flags &= ~M_OIL;
-    }
-    for (i = 0; nchr[i].n_name; i++) {
-	if (opt_NO_HCMS)
-	    nchr[i].n_hcm = 0;
-	if (opt_NO_LCMS)
-	    nchr[i].n_lcm = 0;
-    }
-    for (i = 0; i <= SCT_MAXDEF; i++) {
-	if (opt_NO_HCMS)
-	    dchr[i].d_hcms = 0;
-	if (opt_NO_LCMS)
-	    dchr[i].d_lcms = 0;
-    }
-    for (i = 0; pchr[i].p_name; i++) {
-	for (j = 0; j < MAXPRCON; j++) {
-	    if (opt_NO_HCMS && pchr[i].p_ctype[j] == I_HCM)
-		pchr[i].p_camt[j] = 0;
-	    if (opt_NO_LCMS && pchr[i].p_ctype[j] == I_LCM)
-		pchr[i].p_camt[j] = 0;
-	    if (opt_NO_OIL && pchr[i].p_ctype[j] == I_OIL)
-		pchr[i].p_camt[j] = 0;
-	}
-    }
-    for (i = 0; intrchr[i].in_name; i++) {
-	if (opt_NO_HCMS)
-	    intrchr[i].in_hcms = 0;
-	if (opt_NO_LCMS)
-	    intrchr[i].in_lcms = 0;
     }
 }
 

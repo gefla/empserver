@@ -41,9 +41,6 @@
 
 #include "gamesdef.h"
 
-/* #define NO_LCMS *//* No lcms needed */
-/* #define NO_HCMS *//* No hcms needed */
-
 /* #define NO_FORT_FIRE *//* Forts cannot fire */
 
 #define BRIDGETOWERS		/* Bridge towers are enabled */
@@ -74,9 +71,6 @@
 /*#define LOSE_CONTACT*//* Allows contact to be lost after a few updates */
 
 /* Chainsaw Mods */
-#ifndef NO_OIL			/* Can't have fuel with no oil! */
-/*#define FUEL*//* Ships use fuel to move */
-#endif
 /*#define TRADESHIPS*//* Use Tradeships */
 /*#define SLOW_WAR*//* Declaring war takes time */
 #define	PINPOINTMISSILE /**/

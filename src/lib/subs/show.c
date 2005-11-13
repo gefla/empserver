@@ -143,10 +143,7 @@ show_bridge(int tlev)
     if (tlev < buil_bt)
 	return;
     pr("Bridges require %g tech,", buil_bt);
-    if (!opt_NO_HCMS)
-	pr(" %d hcm,", buil_bh);
-    else if (!opt_NO_LCMS)
-	pr(" %d lcm,", buil_bh);
+    pr(" %d hcm,", buil_bh);
     pr(" %d workers,\n", 0);
     pr("%d available workforce, and cost $%g\n",
        (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100,
@@ -159,10 +156,7 @@ show_tower(int tlev)
     if (tlev < buil_tower_bt)
 	return;
     pr("Bridge Towers require %g tech,", buil_tower_bt);
-    if (!opt_NO_HCMS)
-	pr(" %d hcm,", buil_tower_bh);
-    else if (!opt_NO_LCMS)
-	pr(" %d lcm,", buil_tower_bh);
+    pr(" %d hcm,", buil_tower_bh);
     pr(" %d workers,\n", 0);
     pr("%d available workforce, and cost $%g\n",
        (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100,
