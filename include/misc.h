@@ -135,11 +135,6 @@ extern int daemonize;
 double dmax(double n1, double n2);
 double dmin(double n1, double n2);
 
-extern s_char *numstr(s_char buf[], int n);
-extern s_char *esplur(int n);
-extern s_char *splur(int n);
-extern s_char *iesplur(int n);
-extern char *plurize(char *buf, int max_len, int n);
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);
 extern char *ugetstring(char *prompt, char buf[]);

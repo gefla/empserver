@@ -31,8 +31,7 @@
  *     
  */
 
-#include "misc.h"
-#include "gen.h"
+#include "prototypes.h"
 
 s_char *
 splur(int n)
@@ -61,19 +60,21 @@ iesplur(int n)
 char *
 plurize(char *buf, int max_len, int n)
 {
-    if (!strlen(buf) || n <= 1)
+    size_t size = strlen(buf);
+
+    if (size || n <= 1)
 	return buf;
 
-    switch(buf[strlen(buf) - 1]) {
+    switch(buf[size - 1]) {
     case 'y':
-	buf[strlen(buf) -1] = '\0';
-	strncat(buf, "ies", max_len - 1);
+	buf[size - 1] = '\0';
+	strncat(buf, "ies", max_len - size - 1);
 	break;
     case 's':
-	strncat(buf, "es", max_len - 1);
+	strncat(buf, "es", max_len - size - 1);
 	break;
     default:
-	strncat(buf, "s", max_len - 1);
+	strncat(buf, "s", max_len - size - 1);
     }
     return buf;
 }
