@@ -181,13 +181,13 @@ budg(void)
 	expenses -= mil;
     }
     if (p_sect[SCT_CAPIT][0]) {
+	sprintf(in, "%s maintenance\t\t", dchr[SCT_CAPIT].d_name);
+	in[0] = toupper(in[0]);
+	pr(in);
 	n = p_sect[SCT_CAPIT][0];
-	sprintf(in, "%d %s%s",
-		n,
-		opt_BIG_CITY ? "cit" : "capital",
-		opt_BIG_CITY ? iesplur(n) : splur(n));
-	pr("%s maintenance\t\t%-32s%8ld\n",
-	   opt_BIG_CITY ? "City" : "Capital", in, p_sect[SCT_CAPIT][1]);
+	sprintf(in, "%d %s", n, dchr[SCT_CAPIT].d_name);
+	plurize(in, sizeof(in), n);
+	pr("%-32s%8ld\n", in, p_sect[SCT_CAPIT][1]);
 	expenses += p_sect[SCT_CAPIT][1];
     }
     pr("Total expenses%s\n", dotsprintf(buf, "%58d", expenses));

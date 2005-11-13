@@ -51,3 +51,29 @@ iesplur(int n)
 {
     return n == 1 ? "y" : "ies";
 }
+
+/*
+ * Change suffix of BUF to English plural if N > 1.
+ * Best effort, not 100% accurate English.
+ * Array BUF[MAX_LEN] contains a zero-terminated string.
+ * If there's not enough space for changed suffix, it is truncated.
+ */
+char *
+plurize(char *buf, int max_len, int n)
+{
+    if (!strlen(buf) || n <= 1)
+	return buf;
+
+    switch(buf[strlen(buf) - 1]) {
+    case 'y':
+	buf[strlen(buf) -1] = '\0';
+	strncat(buf, "ies", max_len - 1);
+	break;
+    case 's':
+	strncat(buf, "es", max_len - 1);
+	break;
+    default:
+	strncat(buf, "s", max_len - 1);
+    }
+    return buf;
+}
