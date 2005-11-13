@@ -184,7 +184,6 @@ xunsymbol(struct castr *ca, char *buf)
 	    if (!(ca->ca_flags & NSC_BITS))
 		return(symbol[i].value);
 	    value |= symbol[i].value;
-	    break;
 	}
 	else
 	    return gripe("Symbol %s was not found for field %s", token,
