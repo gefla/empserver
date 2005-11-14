@@ -60,21 +60,21 @@ iesplur(int n)
 char *
 plurize(char *buf, int max_len, int n)
 {
-    size_t size = strlen(buf);
+    size_t len = strlen(buf);
 
-    if (size || n <= 1)
+    if (!len || n <= 1)
 	return buf;
 
-    switch(buf[size - 1]) {
+    switch(buf[len - 1]) {
     case 'y':
-	buf[size - 1] = '\0';
-	strncat(buf, "ies", max_len - size - 1);
+	buf[len - 1] = '\0';
+	strncat(buf, "ies", max_len - len - 1);
 	break;
     case 's':
-	strncat(buf, "es", max_len - size - 1);
+	strncat(buf, "es", max_len - len - 1);
 	break;
     default:
-	strncat(buf, "s", max_len - size - 1);
+	strncat(buf, "s", max_len - len - 1);
     }
     return buf;
 }
