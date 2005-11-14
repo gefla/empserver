@@ -54,11 +54,11 @@ iesplur(int n)
 /*
  * Change suffix of BUF to English plural if N > 1.
  * Best effort, not 100% accurate English.
- * Array BUF[MAX_LEN] contains a zero-terminated string.
+ * Array BUF[SIZE] contains a zero-terminated string.
  * If there's not enough space for changed suffix, it is truncated.
  */
 char *
-plurize(char *buf, int max_len, int n)
+plurize(char *buf, int size, int n)
 {
     size_t len = strlen(buf);
 
@@ -68,13 +68,13 @@ plurize(char *buf, int max_len, int n)
     switch(buf[len - 1]) {
     case 'y':
 	buf[len - 1] = '\0';
-	strncat(buf, "ies", max_len - len - 1);
+	strncat(buf, "ies", size - len - 1);
 	break;
     case 's':
-	strncat(buf, "es", max_len - len - 1);
+	strncat(buf, "es", size - len - 1);
 	break;
     default:
-	strncat(buf, "s", max_len - len - 1);
+	strncat(buf, "s", size - len - 1);
     }
     return buf;
 }
