@@ -138,7 +138,7 @@ load(void)
 	    continue;
 	if (!player->owner &&
 	    sect.sct_type != SCT_HARBR &&
-	    (!opt_BIG_CITY || sect.sct_type != SCT_CAPIT))
+	    !IS_BIG_CITY(sect.sct_type))
 	    continue;
 	if (!sect.sct_own)
 	    continue;
@@ -149,11 +149,13 @@ load(void)
 	    continue;
 	}
 	if (sect.sct_type != SCT_HARBR &&
-	    (!opt_BIG_CITY || sect.sct_type != SCT_CAPIT)) {
+	    !IS_BIG_CITY(sect.sct_type)) {
 	    if (noisy)
-		pr("Sector %s is not a harbor%s.\n",
+		pr("Sector %s is not a harbor%s%s.\n",
 		   xyas(ship.shp_x, ship.shp_y, player->cnum),
-		   opt_BIG_CITY ? " or a city" : "");
+		   IS_BIG_CITY(sect.sct_type) ? " or a " : "",
+		   IS_BIG_CITY(sect.sct_type) ?
+		    dchr[sect.sct_type].d_name : "");
 	    continue;
 	}
 	if (sect.sct_own != player->cnum && load_unload == UNLOAD

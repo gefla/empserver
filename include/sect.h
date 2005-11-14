@@ -165,6 +165,7 @@ extern int sctoff(coord x, coord y);
 
 extern struct dchrstr dchr[SCT_MAXDEF + 1];
 extern struct dchrstr bigcity_dchr;
+#define IS_BIG_CITY(sect) (dchr[sect].d_pkg == UPKG)
 
 /* Minimal efficiency of sectors that can be knocked down (bridges) */
 #define SCT_MINEFF 20

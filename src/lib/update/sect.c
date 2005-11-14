@@ -84,20 +84,18 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	}
 	neweff = n;
 	*cost += work_cost;
-	if (opt_BIG_CITY) {
-	    if (!n && dchr[old_type].d_pkg == UPKG &&
-		dchr[*desig].d_pkg != UPKG) {
-		int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
-		if (vec[I_CIVIL] > maxpop)
-		    vec[I_CIVIL] = maxpop;
-		if (vec[I_UW] > maxpop)
-		    vec[I_UW] = maxpop;
-		*workp = (vec[I_CIVIL] * sctwork) / 100.0
-		    + (vec[I_MILIT] * 2 / 5.0) + vec[I_UW];
-		*workp = roundavg((etu * (*workp)) / 100.0);
+	if (!n && IS_BIG_CITY(old_type) &&
+	    !IS_BIG_CITY(*desig)) {
+	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
+	    if (vec[I_CIVIL] > maxpop)
+		vec[I_CIVIL] = maxpop;
+	    if (vec[I_UW] > maxpop)
+		vec[I_UW] = maxpop;
+	    *workp = (vec[I_CIVIL] * sctwork) / 100.0
+		+ (vec[I_MILIT] * 2 / 5.0) + vec[I_UW];
+	    *workp = roundavg((etu * (*workp)) / 100.0);
 
-		buildeff_work = min((int)(*workp / 2), buildeff_work);
-	    }
+	    buildeff_work = min((int)(*workp / 2), buildeff_work);
 	}
     }
     if (np->nat_priorities[*desig]) {

@@ -121,9 +121,8 @@ fuel(void)
 
 	    if ((sect.sct_type != SCT_HARBR)
 		&& (sect.sct_type != SCT_WATER)
-		&& (sect.sct_type != SCT_BSPAN) && (!opt_BIG_CITY
-						    || sect.sct_type !=
-						    SCT_CAPIT)) {
+		&& (sect.sct_type != SCT_BSPAN)
+		&& (!IS_BIG_CITY(sect.sct_type))) {
 		pr("Sector %s is not a harbor, bridge span, or sea.\n",
 		   xyas(item.ship.shp_x, item.ship.shp_y,
 			item.ship.shp_own));
@@ -134,7 +133,7 @@ fuel(void)
 
 	    harbor = 0;
 	    if (sect.sct_type == SCT_HARBR
-		|| (opt_BIG_CITY && sect.sct_type == SCT_CAPIT)) {
+		|| IS_BIG_CITY(sect.sct_type)) {
 		harbor = 1;
 		oil_amt = sect.sct_item[I_OIL];
 		pet_amt = sect.sct_item[I_PETROL];

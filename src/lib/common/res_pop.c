@@ -46,11 +46,9 @@ max_population(float research, int desig, int eff)
     int maxpop = dchr[desig].d_maxpop;
     int rmax;
 
-    if (opt_BIG_CITY) {
-	/* city efficiency limits maximum population */
-	if (dchr[desig].d_pkg == UPKG)
-	    maxpop *= 1 + 9.0 * eff / 100;
-    }
+    /* city efficiency limits maximum population */
+    if (IS_BIG_CITY(desig))
+	maxpop *= 1 + 9.0 * eff / 100;
 
     if (opt_RES_POP) {
 	/* research limits maximum population */

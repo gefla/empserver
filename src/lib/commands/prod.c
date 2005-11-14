@@ -136,18 +136,16 @@ prod(void)
 		type = sect.sct_newtype;
 		eff = 0;
 	    }
-	    if (opt_BIG_CITY) {
-		if (!eff && dchr[otype].d_pkg == UPKG &&
-		    dchr[type].d_pkg != UPKG) {
-		    natp = getnatp(sect.sct_own);
-		    maxpop = max_population(natp->nat_level[NAT_RLEV],
-					    type, eff);
-		    work = new_work(&sect,
-				    total_work(sect.sct_work, etu_per_update,
-					       civs, sect.sct_item[I_MILIT],
-					       uws, maxpop));
-		    bwork = min(work / 2, bwork);
-		}
+	    if (!eff && IS_BIG_CITY(otype) &&
+		!IS_BIG_CITY(type)) {
+		natp = getnatp(sect.sct_own);
+		maxpop = max_population(natp->nat_level[NAT_RLEV],
+					type, eff);
+		work = new_work(&sect,
+				total_work(sect.sct_work, etu_per_update,
+					   civs, sect.sct_item[I_MILIT],
+					   uws, maxpop));
+		bwork = min(work / 2, bwork);
 	    }
 	    twork = 100 - eff;
 	    if (twork > bwork) {
