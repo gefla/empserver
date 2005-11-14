@@ -17,12 +17,12 @@ Index: empserver/include/damage.h
  
  #endif /* _DAMAGE_H_ */
 Index: empserver/include/prototypes.h
---- empserver/include/prototypes.h	23 Oct 2005 08:32:49 -0000	1.92
-+++ empserver/include/prototypes.h	24 Oct 2005 15:27:54 -0000
-@@ -387,6 +387,9 @@
- extern int ldround(double, int);
- extern int roundintby(int, int);
- extern int scthash(register int, register int, int);
+--- empserver/include/prototypes.h	13 Nov 2005 23:18:37 -0000	1.98
++++ empserver/include/prototypes.h	14 Nov 2005 16:34:10 -0000
+@@ -397,6 +397,9 @@
+ extern s_char *splur(int n);
+ extern s_char *iesplur(int n);
+ extern char *plurize(char *buf, int max_len, int n);
 +/* chance.c */
 +extern void emp_srandom(unsigned int);
 +extern long emp_random(void);
@@ -54,9 +54,9 @@ Index: empserver/src/lib/commands/laun.c
  	sy += diroff[dir][1];
  	pr("Your trajectory was a little off.\n");
 Index: empserver/src/lib/commands/mfir.c
---- empserver/src/lib/commands/mfir.c	16 Mar 2005 21:56:02 -0000	1.23
-+++ empserver/src/lib/commands/mfir.c	17 Mar 2005 10:01:14 -0000
-@@ -558,7 +558,7 @@
+--- empserver/src/lib/commands/mfir.c	27 Oct 2005 21:33:17 -0000	1.26
++++ empserver/src/lib/commands/mfir.c	14 Nov 2005 16:31:28 -0000
+@@ -559,7 +559,7 @@
  /*			dam = (int)((double)dam / 2.0);*/
  		dam =
  		    (int)((double)dam *
@@ -409,9 +409,9 @@ Index: empserver/src/lib/update/revolt.c
  		continue;
  	    nicest_sp = nsp;
 Index: empserver/src/server/main.c
---- empserver/src/server/main.c	3 May 2005 00:06:10 -0000	1.62
-+++ empserver/src/server/main.c	28 May 2005 08:32:40 -0000
-@@ -255,7 +255,7 @@
+--- empserver/src/server/main.c	13 Nov 2005 16:39:26 -0000	1.79
++++ empserver/src/server/main.c	14 Nov 2005 16:33:18 -0000
+@@ -258,7 +258,7 @@
  void
  init_server(void)
  {
