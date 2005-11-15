@@ -90,7 +90,10 @@ cens(void)
 	pr(" %c", n == 0 ? '.' : '0' + (n / 100));
 	n = sect.sct_dist[I_FOOD] % 1000;
 	pr("%c ", n == 0 ? '.' : '0' + (n / 100));
-	pr("%c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
+	if (sect.sct_own != sect.sct_oldown)
+	  pr("%3d",  sect.sct_oldown);
+	else
+	  pr("   ");
 
 	pr("%5d", sect.sct_item[I_CIVIL]);
 	pr("%5d", sect.sct_item[I_MILIT]);
@@ -133,7 +136,7 @@ cens_hdr(void)
 	pr("own ");
     pr("  sect        eff ");
     pr("prd ");
-    pr("mob uf uf *  civ  mil   uw food work avail ");
+    pr("mob uf uf old  civ  mil   uw food work avail ");
     if (!player->god)
 	pr("ter ");
     if (opt_FALLOUT)
