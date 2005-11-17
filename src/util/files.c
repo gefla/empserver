@@ -61,7 +61,8 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static void file_sct_init(coord x, coord y, s_char *ptr);
+static void file_sct_init(coord x, coord y, s_char *ptr,
+			  time_t timestamp);
 
 static void
 print_usage(char *program_name)
@@ -83,6 +84,7 @@ main(int argc, char *argv[])
     int opt;
     char *config_file = NULL;
     int force = 0;
+    time_t current_time = time(NULL);
 
     while ((opt = getopt(argc, argv, "e:f")) != EOF) {
 	switch (opt) {
@@ -168,7 +170,8 @@ main(int argc, char *argv[])
     memset(&sct, 0, sizeof(sct));
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = 0; x < WORLD_X / 2; x++) {
-	    file_sct_init(x * 2 + (y & 01), y, (s_char *)&sct);
+	    file_sct_init(x * 2 + (y & 01), y, (s_char *)&sct,
+		current_time);
 	    putsect(&sct);
 	}
     }
@@ -190,7 +193,7 @@ main(int argc, char *argv[])
 }
 
 static void
-file_sct_init(coord x, coord y, s_char *ptr)
+file_sct_init(coord x, coord y, s_char *ptr, time_t timestamp)
 {
     struct sctstr *sp = (struct sctstr *)ptr;
 
@@ -199,4 +202,5 @@ file_sct_init(coord x, coord y, s_char *ptr)
     sp->sct_y = y;
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
+    sp->sct_timestamp = timestamp;
 }

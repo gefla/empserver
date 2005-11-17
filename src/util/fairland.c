@@ -177,7 +177,8 @@ static void elevate_land(void);
 static void elevate_sea(void);
 static void translate_continents(void);
 static int map_symbol(int x, int y);
-static void fl_sct_init(coord x, coord y, s_char *ptr);
+static void fl_sct_init(coord x, coord y, s_char *ptr,
+			time_t timestamp);
 
 static void print_vars(void);
 static void fl_move(int);
@@ -1077,12 +1078,13 @@ write_sects(void)
 {
     struct sctstr *sct;
     int c, x, y, total;
+    time_t current_time = time(NULL);
 
     /*  sct = &sects[0][0]; */
     sct = sectsbuf;
     for (y = 0; y < YSIZE; y++) {
 	for (x = 0; x < XSIZE; x++, sct++) {
-	    fl_sct_init(x * 2 + (y & 01), y, (s_char *)sct);
+	    fl_sct_init(x * 2 + (y & 01), y, (s_char *)sct, current_time);
 	    total = elev[sct->sct_x][y];
 	    if (total < LANDMIN) {
 		sct->sct_type = SCT_WATER;
@@ -1260,7 +1262,7 @@ qprint(const char * const fmt, ...)
 }
 
 static void
-fl_sct_init(coord x, coord y, s_char *ptr)
+fl_sct_init(coord x, coord y, s_char *ptr, time_t timestamp)
 {
     struct sctstr *sp = (struct sctstr *)ptr;
 
@@ -1272,4 +1274,5 @@ fl_sct_init(coord x, coord y, s_char *ptr)
     sp->sct_road = 0;
     sp->sct_rail = 0;
     sp->sct_defense = 0;
+    sp->sct_timestamp = timestamp;
 }
