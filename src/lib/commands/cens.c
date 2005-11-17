@@ -32,14 +32,8 @@
  *     
  */
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
+#include "prototypes.h"
 #include "path.h"
-#include "file.h"
 #include "commands.h"
 #include "optlist.h"
 
@@ -110,7 +104,6 @@ cens(void)
 	if (opt_FALLOUT) {
 	    pr("%5d", sect.sct_fallout);
 	}
-	set_coastal(&sect);
 	if (sect.sct_coastal)
 	    pr("%4d", sect.sct_coastal);
 	pr("\n");
@@ -145,28 +138,3 @@ cens_hdr(void)
     pr("\n");
 }
 
-void
-set_coastal(struct sctstr *sp)
-{
-    int n;
-    struct sctstr sect;
-    u_char start_flags = sp->sct_coastal;
-
-    /* It's already been set, it didn't change (you can't fill
-       in water, even with bridge spans they are still coastal.) */
-    if (sp->sct_coastal)
-	return;
-    for (n = 1; n <= 6; ++n) {	/* Directions */
-	getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
-	if (sect.sct_type == SCT_WATER ||
-	    sect.sct_type == SCT_BTOWER || sect.sct_type == SCT_BSPAN) {
-	    sp->sct_coastal = 1;
-	    if (start_flags != sp->sct_coastal)
-		putsect(sp);
-	    return;
-	}
-    }
-    sp->sct_coastal = 0;
-    if (start_flags != sp->sct_coastal)
-	putsect(sp);
-}

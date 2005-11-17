@@ -203,4 +203,6 @@ file_sct_init(coord x, coord y, s_char *ptr, time_t timestamp)
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
     sp->sct_timestamp = timestamp;
+    sp->sct_newtype = sp->sct_type = SCT_WATER;
+    sp->sct_coastal = 1;
 }

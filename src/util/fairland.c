@@ -179,6 +179,7 @@ static void translate_continents(void);
 static int map_symbol(int x, int y);
 static void fl_sct_init(coord x, coord y, s_char *ptr,
 			time_t timestamp);
+static void set_coastal_flags(void);
 
 static void print_vars(void);
 static void fl_move(int);
@@ -775,6 +776,9 @@ grow_continents(void)
 	    grow_one_sector(c);
 	}
     }
+    for (c = 0; c < nc; ++c)
+	find_coast(c);
+
     if (fl_status)
 	qprint("Only managed to grow %d out of %d sectors.\n", secs, sc);
     ctot = nc;
@@ -830,6 +834,7 @@ grow_islands(void)
 	    ++secs;
 	    find_coast(c);
 	} while (secs < isiz && grow_one_sector(c));
+	find_coast(c);
 	qprint(" %d(%d)", c - nc + 1, secs);
 	isecs[c] = secs;
 	ctot = c;
@@ -1107,6 +1112,7 @@ write_sects(void)
 	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_type = SCT_AIRPT;
 	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_newtype = SCT_AIRPT;
 	}
+    set_coastal_flags();
 }
 
 /****************************************************************************
@@ -1275,4 +1281,19 @@ fl_sct_init(coord x, coord y, s_char *ptr, time_t timestamp)
     sp->sct_rail = 0;
     sp->sct_defense = 0;
     sp->sct_timestamp = timestamp;
+    sp->sct_coastal = 1;
+}
+
+static void
+set_coastal_flags(void)
+{
+    int i, j;
+
+    qprint("setting coastal flags...\n");
+    for (i = 0; i < nc; ++i)
+	for (j = 0; j < sc; j++)
+	    sects[secty[i][j]][sectx[i][j] / 2].sct_coastal = sectc[i][j];
+    for (i = nc; i < nc + ni; ++i)
+	for (j = 0; j < isecs[i]; j++)
+	    sects[secty[i][j]][sectx[i][j] / 2].sct_coastal = sectc[i][j];
 }

@@ -169,6 +169,8 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	    }
 	}
 	if (sect.sct_type != des && (sect.sct_effic < 5 || player->god)) {
+	    if (player->god)
+		set_coastal(&sect, des);
 	    sect.sct_type = des;
 	    sect.sct_effic = 0;
 	    changed += map_set(player->cnum, sect.sct_x, sect.sct_y,

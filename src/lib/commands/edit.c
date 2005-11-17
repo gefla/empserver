@@ -651,6 +651,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 	pr("Designation for sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_type].d_mnem, dchr[des].d_mnem);
+	set_coastal(sect, des);
 	sect->sct_type = des;
 	break;
     case 'S':

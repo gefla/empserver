@@ -510,7 +510,6 @@ dump(void)
 	    pr("%d ", sect.sct_own);
 	pr("%d %d", xrel(np, nstr.x), yrel(np, nstr.y));
 
-	set_coastal(&sect);
 	n = 0;
 	while (field[n]) {
 	    pr(" ");

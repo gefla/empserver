@@ -62,7 +62,6 @@ extern void finish_server(void);
  * src/lib/commands/ *.c 
  */
 extern int check_market(void);
-extern void set_coastal(struct sctstr *);
 extern int sendmessage(struct natstr *, struct natstr *, char *message, int);
 extern void gift(int, int, s_char *, int, s_char *);
 extern int display_mark(i_type, int);
@@ -465,6 +464,8 @@ extern int chkmoney(long, long, s_char *);
 extern int check_cost(int, int, long, int *, s_char *);
 /* cnumb.c */
 extern int cnumb(s_char *);
+/* coastal.c */
+extern void set_coastal(struct sctstr *sp, int des);
 /* control.c */
 extern int military_control(struct sctstr *);
 /* detonate.c */
