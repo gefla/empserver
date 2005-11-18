@@ -134,7 +134,8 @@ prod_nat(int etu)
     double res[MAXNOC];
     double newvalue;
     natid n;
-    int cn, cont;
+    int cn;
+    struct natstr *cnp;
 
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	if ((np->nat_stat & STAT_NORM) == 0)
@@ -215,13 +216,9 @@ prod_nat(int etu)
 	wu((natid)0, n, "money delta was $%ld for this update\n",
 	   np->nat_money - money[n]);
 	if (opt_LOSE_CONTACT) {
-	    for (cn = 0; cn <= MAXNOC; cn++) {
-		cont = getcontact(np, cn);
-		if (cont > 0) {
-		    logerror("country %d at level %d with country %d.\n",
-			     n, cont, cn);
-		    setcont(n, cn, cont - 1);
-		}
+	    for (cn = 1; cn < MAXNOC; cn++) {
+		if ((cnp = getnatp(cn)) != NULL)
+		    agecontact(cnp);
 	    }
 	}
     }

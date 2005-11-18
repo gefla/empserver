@@ -179,13 +179,6 @@ update_main(void *unused)
 	    }
 	}
     }
-    /* Age contact */
-    if (opt_LOSE_CONTACT) {
-	for (cn = 1; cn < MAXNOC; cn++) {
-	    if ((cnp = getnatp(cn)) != NULL)
-		agecontact(cnp);
-	}
-    }
     /* Only update mobility for non-MOB_ACCESS here, since it doesn't
        get done for MOB_ACCESS anyway during the update */
     if (!opt_MOB_ACCESS) {
