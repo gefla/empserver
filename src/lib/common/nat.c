@@ -121,11 +121,9 @@ agecontact(struct natstr *np)
 {
     int them;
 
-    if (opt_LOSE_CONTACT) {
-	for (them = 1; them < MAXNOC; ++them) {
-	    if (them != np->nat_cnum && np->nat_contact[them]) {
-		--np->nat_contact[them];
-	    }
+    for (them = 1; them < MAXNOC; ++them) {
+	if (them != np->nat_cnum && np->nat_contact[them]) {
+	    --np->nat_contact[them];
 	}
     }
 }
