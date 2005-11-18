@@ -133,17 +133,7 @@ agecontact(struct natstr *np)
 int
 getcontact(struct natstr *np, natid them)
 {
-    int contact;
-
-    if (opt_LOSE_CONTACT) {
-	contact = np->nat_contact[them];
-    } else {
-	int ind = them / 16;
-	int shift = (them % 16);
-
-	contact = (np->nat_contact[ind] >> shift) & 1;
-    }
-    return contact;
+    return np->nat_contact[them];
 }
 
 void
@@ -173,18 +163,6 @@ putreject(struct natstr *np, natid them, int how, int what)
 void
 putcontact(struct natstr *np, natid them, int contact)
 {
-    if (opt_LOSE_CONTACT) {
-	if (np->nat_contact[them] > contact)
-	    return;
+    if (np->nat_contact[them] < contact)
 	np->nat_contact[them] = contact;
-    } else {
-	int ind = them / 16;
-	int shift = them % 16;
-	int new = np->nat_contact[ind];
-	if (contact)
-	    contact = 1;
-	new &= ~(1 << shift);
-	new |= (contact << shift);
-	np->nat_contact[ind] = new;
-    }
 }
