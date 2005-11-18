@@ -86,7 +86,7 @@ struct natstr {
     float nat_level[4];		/* technology, etc */
     struct boundstr nat_b[MAXNOR];	/* realm bounds */
     short nat_relate[MAXNOC];
-    short nat_contact[MAXNOC];
+    unsigned char nat_contact[MAXNOC];
     short nat_rejects[(MAXNOC + 3) / 4]; /* four bits for each country */
     s_char nat_priorities[PRI_MAX+1]; /* budget priority */
     long nat_flags;		/* nation flags */
@@ -167,10 +167,11 @@ extern s_char *rejectname(struct natstr *np, natid other);
 extern s_char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int getrejects(natid them, struct natstr *np);
-extern int getcontact(struct natstr *np, natid them);
+extern unsigned char getcontact(struct natstr *np, natid them);
 extern void putrel(struct natstr *np, natid them, int relate);
 extern void putreject(struct natstr *np, natid them, int how, int what);
-extern void putcontact(struct natstr *np, natid them, int contact);
+extern void putcontact(struct natstr *np, natid them,
+		       unsigned char contact);
 extern void agecontact(struct natstr *np);
 
 /* nation flags */

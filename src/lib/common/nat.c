@@ -128,7 +128,7 @@ agecontact(struct natstr *np)
     }
 }
 
-int
+unsigned char
 getcontact(struct natstr *np, natid them)
 {
     return np->nat_contact[them];
@@ -159,7 +159,7 @@ putreject(struct natstr *np, natid them, int how, int what)
 }
 
 void
-putcontact(struct natstr *np, natid them, int contact)
+putcontact(struct natstr *np, natid them, unsigned char contact)
 {
     if (np->nat_contact[them] < contact)
 	np->nat_contact[them] = contact;
