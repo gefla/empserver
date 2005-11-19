@@ -65,7 +65,7 @@ laun(void)
     struct sctstr sect;
     int sublaunch;
     struct plchrstr *pcp;
-    int rel;
+    int rel, retval, gone;
     struct natstr *natp;
 
     if (!snxtitem(&nstr, EF_PLANE, player->argp[1]))
@@ -145,28 +145,32 @@ laun(void)
 	   xyas(plane.pln_x, plane.pln_y, player->cnum),
 	   plane.pln_range, plane.pln_effic);
 	if (!(pcp->pl_flags & P_O)) {
-	    if (launch_missile(&plane, sublaunch) < 0)
-		continue;
+	    retval = launch_missile(&plane, sublaunch);
+	    gone = 1;
 	} else if ((pcp->pl_flags & (P_M | P_O)) == (P_M | P_O)) {
-	    if (launch_as(&plane) < 0)	/* anti-sat */
-		continue;
+	    retval = launch_as(&plane);
+	    gone = 1;
 	} else {		/* satellites */
-	    if (launch_sat(&plane, sublaunch) < 0)
-		continue;
+	    retval = launch_sat(&plane, sublaunch);
+	    gone = !(plane.pln_flags & PLN_LAUNCHED);
 	}
-	makelost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
-		 plane.pln_y);
-	plane.pln_own = 0;
-	putplane(plane.pln_uid, &plane);
+	if (retval != RET_OK)
+	    return retval;
+	if (gone) {
+	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
+		     plane.pln_y);
+	    plane.pln_own = 0;
+	    putplane(plane.pln_uid, &plane);
+	}
     }
     return RET_OK;
 }
 
 /*
- * Launch an anti-sat weapon.
- * Return -1 on failure, 0 on success (even if missile explodes).
+ * Launch anti-sat weapon PP.
+ * Return RET_OK if launched (even when missile explodes),
+ * else RET_SYN or RET_FAIL.
  */
-
 static int
 launch_as(struct plnstr *pp)
 {
@@ -180,24 +184,20 @@ launch_as(struct plnstr *pp)
 
     if (msl_equip(pp) < 0) {
 	pr("%s not enough petrol or shells!\n", prplane(pp));
-	return -1;
+	return RET_FAIL;
     }
-    for (;;) {
-	cp = getstarg(player->argp[2], "Target sector? ", buf);
-	if (!check_plane_ok(pp))
-	    return -1;
-	player->argp[2] = 0;
-	if (!cp || !*cp)
-	    return -1;
-	if (!sarg_xy(cp, &sx, &sy)) {
-	    pr("Bad sector designation; try again!\n");
-	    continue;
-	}
-	if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
-	    pr("Range too great; try again!\n");
-	    continue;
-	}
-	break;
+    cp = getstarg(player->argp[2], "Target sector? ", buf);
+    if (!check_plane_ok(pp))
+	return RET_FAIL;
+    if (!cp || !*cp)
+	return RET_SYN;
+    if (!sarg_xy(cp, &sx, &sy)) {
+	pr("Bad sector designation!\n");
+	return RET_SYN;
+    }
+    if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
+	pr("Range too great!\n");
+	return RET_FAIL;
     }
     goodtarget = 0;
     snxtitem_dist(&ni, EF_PLANE, sx, sy, 0);
@@ -211,7 +211,7 @@ launch_as(struct plnstr *pp)
     }
     if (!goodtarget) {
 	pr("No satellites there!\n");
-	return -1;
+	return RET_FAIL;
     }
     if (msl_hit(pp, plane.pln_def, EF_PLANE, N_SAT_KILL, N_SAT_KILL,
 		prplane(&plane), sx, sy, plane.pln_own)) {
@@ -227,12 +227,14 @@ launch_as(struct plnstr *pp)
 	if (!plane.pln_own)
 	    mpr(oldown, "Satellite shot down\n");
     }
-    return 0;
+    return RET_OK;
 }
 
 /*
- * Launch a missile
- * Return -1 on failure, 0 on success (even if missile explodes).
+ * Launch missile PP.
+ * If SUBLAUNCH, it's sub-launched.
+ * Return RET_OK if launched (even when missile explodes),
+ * else RET_SYN or RET_FAIL.
  */
 static int
 launch_missile(struct plnstr *pp, int sublaunch)
@@ -249,54 +251,50 @@ launch_missile(struct plnstr *pp, int sublaunch)
     struct natstr *natp;
     s_char buf[1024];
 
-    for (;;) {
-	if (pcp->pl_flags & P_MAR)
-	    cp = getstarg(player->argp[2], "Target ship? ", buf);
-	else
-	    cp = getstarg(player->argp[2], "Target sector? ", buf);
-	player->argp[2] = 0;
-	if (!cp || !*cp)
-	    return -1;
-	if (!check_plane_ok(pp))
-	    return -1;
-	if (opt_PINPOINTMISSILE && sarg_type(cp) == NS_LIST) {
-	    if (!(pcp->pl_flags & P_MAR)) {
-		pr("Missile not designed to attack ships!\n");
-		continue;
-	    }
-	    n = atoi(cp);
-	    if ((n < 0) || !getship(n, &target_ship) ||
-		!target_ship.shp_own) {
-		pr("Bad ship number; try again!\n");
-		continue;
-	    }
-	    sx = target_ship.shp_x;
-	    sy = target_ship.shp_y;
-	    mcp = &mchr[(int)target_ship.shp_type];
-	    if (mcp->m_flags & M_SUB) {
-		pr("Bad ship number; try again!\n");
-		continue;
-	    }
-	} /* not PINPOINTMISSILE for ships */
-	else if (!sarg_xy(cp, &sx, &sy)) {
-	    pr("That's no good! try again!\n");
-	    continue;
-	} else if (opt_PINPOINTMISSILE) {
-	    if (pcp->pl_flags & P_MAR) {
-		pr("Missile designed to attack ships!\n");
-		continue;
-	    }
+    if (pcp->pl_flags & P_MAR)
+	cp = getstarg(player->argp[2], "Target ship? ", buf);
+    else
+	cp = getstarg(player->argp[2], "Target sector? ", buf);
+    if (!cp || !*cp)
+	return RET_SYN;
+    if (!check_plane_ok(pp))
+	return RET_FAIL;
+    if (opt_PINPOINTMISSILE && sarg_type(cp) == NS_LIST) {
+	if (!(pcp->pl_flags & P_MAR)) {
+	    pr("Missile not designed to attack ships!\n");
+	    return RET_FAIL;
 	}
-	/* end PINPOINTMISSILE */
-	if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
-	    pr("Range too great; try again!\n");
-	    continue;
+	n = atoi(cp);
+	if ((n < 0) || !getship(n, &target_ship) ||
+	    !target_ship.shp_own) {
+	    pr("Bad ship number!\n");
+	    return RET_FAIL;
 	}
-	break;
+	sx = target_ship.shp_x;
+	sy = target_ship.shp_y;
+	mcp = &mchr[(int)target_ship.shp_type];
+	if (mcp->m_flags & M_SUB) {
+	    pr("Bad ship number!\n");
+	    return RET_FAIL;
+	}
+    } /* not PINPOINTMISSILE for ships */
+    else if (!sarg_xy(cp, &sx, &sy)) {
+	pr("Not a sector!\n");
+	return RET_FAIL;
+    } else if (opt_PINPOINTMISSILE) {
+	if (pcp->pl_flags & P_MAR) {
+	    pr("Missile designed to attack ships!\n");
+	    return RET_FAIL;
+	}
+    }
+    /* end PINPOINTMISSILE */
+    if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
+	pr("Range too great; try again!\n");
+	return RET_FAIL;
     }
     if (msl_equip(pp) < 0) {
 	pr("%s not enough shells!\n", prplane(pp));
-	return -1;
+	return RET_FAIL;
     }
     if (opt_PINPOINTMISSILE == 0 || !(pcp->pl_flags & P_MAR)) {
 	getsect(sx, sy, &sect);
@@ -309,7 +307,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		pr_beep();
 		pr("Kaboom!!!\n");
 		pr("Missile monitoring officer destroys RV before detonation.\n");
-		return 0;
+		return RET_OK;
 	    }
 	}
 	if (!msl_hit(pp, SECT_HARDTARGET, EF_SECTOR, N_SCT_MISS,
@@ -318,7 +316,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	       dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 0);
 	       collateral_damage(sect.sct_x, sect.sct_y, dam, 0);
 	     */
-	    return 0;
+	    return RET_OK;
 	}
 	dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 1);
 	if (!nukedam) {
@@ -349,7 +347,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	       dam = pln_damage(pp,target_ship.shp_x,target_ship.shp_y,'p',&nukedam, 0);
 	       collateral_damage(target_ship.shp_x, target_ship.shp_y, dam, 0);
 	     */
-	    return 0;
+	    return RET_OK;
 	}
 	dam =
 	    pln_damage(pp, target_ship.shp_x, target_ship.shp_y, 'p',
@@ -365,12 +363,13 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	    pr("%s sunk!\n", prship(&target_ship));
     }
     /* end PINPOINTMISSILE */
-    return 0;
+    return RET_OK;
 }
 
 /*
  * Launch a satellite.
- * Return -1 on error, 0 on success (even if the satellite fails).
+ * Return RET_OK if launched (even when satellite fails),
+ * else RET_SYN or RET_FAIL.
  */
 static int
 launch_sat(struct plnstr *pp, int sublaunch)
@@ -385,28 +384,24 @@ launch_sat(struct plnstr *pp, int sublaunch)
     s_char buf[1024];
 
     pr("\n");
-    while (1) {
-	cp = getstarg(player->argp[2], "Target sector? ", buf);
-	if (!check_plane_ok(pp))
-	    return -1;
-	player->argp[2] = 0;
-	if (!cp || !*cp)
-	    return -1;
-	if (!sarg_xy(cp, &sx, &sy)) {
-	    pr("Bad sector designation; try again!\n");
-	    continue;
-	}
-	if ((dist = mapdist(pp->pln_x, pp->pln_y, sx, sy)) > pp->pln_range) {
-	    pr("Range too great; try again!\n");
-	    continue;
-	}
-	break;
+    cp = getstarg(player->argp[2], "Target sector? ", buf);
+    if (!check_plane_ok(pp))
+	return RET_FAIL;
+    if (!cp || !*cp)
+	return RET_SYN;
+    if (!sarg_xy(cp, &sx, &sy)) {
+	pr("Bad sector designation!\n");
+	return RET_SYN;
+    }
+    if ((dist = mapdist(pp->pln_x, pp->pln_y, sx, sy)) > pp->pln_range) {
+	pr("Range too great; try again!\n");
+	return RET_FAIL;
     }
     p = getstring("Geostationary orbit? ", buf);
     if (p == 0)
-	return -1;
+	return RET_SYN;
     if (!check_plane_ok(pp))
-	return -1;
+	return RET_FAIL;
     pp->pln_theta = 0;
     pp->pln_flags |= PLN_SYNCHRONOUS;
     if (*p == 0 || *p == 'n')
@@ -416,7 +411,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	pr("KABOOOOM!  Range safety officer detonates booster!\n");
 	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = 0;
-	return 0;
+	return RET_OK;
     }
     i = pp->pln_tech + pp->pln_effic;
     if (chance(1.0 - (i / (i + 50.0)))) {
@@ -428,7 +423,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
     nreport(player->cnum, N_LAUNCH, 0, 1);
     pr("%s positioned over %s", prplane(pp), xyas(sx, sy, player->cnum));
     if (msl_intercept(sx, sy, pp->pln_own, pcp->pl_def, sublaunch, P_O, 0)) {
-	return 0;
+	return RET_OK;
     }
     pp->pln_x = sx;
     pp->pln_y = sy;
@@ -436,5 +431,5 @@ launch_sat(struct plnstr *pp, int sublaunch)
     pp->pln_mobil = (pp->pln_mobil > dist) ? (pp->pln_mobil - dist) : 0;
     putplane(pp->pln_uid, pp);
     pr(", will be ready for use in %d time units\n", plane_mob_max - pp->pln_mobil);
-    return -1;
+    return RET_OK;
 }
