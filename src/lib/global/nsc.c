@@ -506,7 +506,9 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    /* FIXME nat_b[], nat_contact[], nat_rejects[], nat_priorities[] */
+    /* FIXME nat_b[], nat_rejects[], nat_priorities[] */
+    {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
+     EF_BAD},
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags),"flags",
