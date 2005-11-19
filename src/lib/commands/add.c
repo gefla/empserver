@@ -58,10 +58,9 @@ add(void)
     char pname[sizeof(natp->nat_pnam)];
     natid coun;
     natid freecn;
-    s_char prompt[128];
-    s_char buf[1024];
-    s_char *p;
-    s_char loopflag;
+    char prompt[128];
+    char buf[1024];
+    char *p;
     int stat;
     struct nstr_item ni;
     struct lndstr land;
@@ -74,74 +73,64 @@ add(void)
 	sprintf(prompt, "New country number? (%d is unused) ", freecn);
     else
 	strcpy(prompt, "New country number? (they all seem to be used) ");
-    while ((p = getstarg(player->argp[1], prompt, buf)) && *p) {
-	coun = atoi(p);
-	if (coun < MAXNOC)
-	    break;
-	pr("Max # countries is %d\n", MAXNOC);
-	player->argp[1] = 0;
-    }
+    p = getstarg(player->argp[1], prompt, buf);
     if (p == 0 || *p == 0)
+	return RET_SYN;
+    i = atoi(p);
+    if (i >= MAXNOC) {
+	pr("Max # countries is %d\n", MAXNOC);
 	return RET_FAIL;
+    }
+    coun = i;
     if (coun == 0) {
 	pr("Not allowed to add country #0\n");
 	return RET_FAIL;
     }
     natp = getnatp(coun);
-    while ((p = getstarg(player->argp[2], "Country Name? ", buf)) && *p) {
-	if (strlen(p) < sizeof(cntryname)) {
-	    (void)strcpy(cntryname, p);
-	    break;
-	}
-	pr("Too long.\n");
-	player->argp[2] = 0;
-    }
+    p = getstarg(player->argp[2], "Country Name? ", buf);
     if (p == 0 || *p == 0)
-	return RET_OK;
-    while ((p = getstarg(player->argp[3], "Representative? ", buf)) && *p) {
-	if (strlen(p) < sizeof(pname)) {
-	    (void)strcpy(pname, p);
-	    break;
-	}
-	pr("Too long.\n");
-	player->argp[3] = 0;
+	return RET_SYN;
+    if (strlen(p) >= sizeof(cntryname)) {
+	pr("Country name too long\n");
+	return RET_FAIL;
     }
+    strcpy(cntryname, p);
+    p = getstarg(player->argp[3], "Representative? ", buf);
     if (p == 0 || *p == 0)
-	return RET_OK;
-    loopflag = 1;
-    stat = natp->nat_stat;
-    strcpy(prompt, "Status? (visitor, new, active, god, delete) ");
-    while (loopflag && (p = getstarg(player->argp[4], prompt, buf))) {
-	loopflag = 0;
-	switch (*p) {
-	case 'v':
-	    stat = STAT_INUSE;
-	    break;
-	case 'n':
-	    stat = STAT_NEW | STAT_INUSE;
-	    break;
-	case 'a':
-	    stat = STAT_NORM | STAT_INUSE;
-	    break;
-	case 'g':
-	    stat = STAT_GOD | STAT_NORM | STAT_INUSE;
-	    break;
-	case 'd':
-	    stat = 0;
-	    break;
-	default:
-	    pr("Illegal selection\n");
-	    loopflag = 1;
-	    break;
-	}
-	player->argp[4] = 0;
+	return RET_SYN;
+    if (strlen(p) >= sizeof(pname)) {
+	pr("Representative too long\n");
+	return RET_FAIL;
     }
-    if (p == 0)
-	return RET_OK;
+    strcpy(pname, p);
+    p = getstarg(player->argp[4],
+		 "Status? (visitor, new, active, god, delete) ", buf);
+    if (p == 0 || *p == 0)
+	return RET_SYN;
+    switch (*p) {
+    case 'v':
+	stat = STAT_INUSE;
+	break;
+    case 'n':
+	stat = STAT_NEW | STAT_INUSE;
+	break;
+    case 'a':
+	stat = STAT_NORM | STAT_INUSE;
+	break;
+    case 'g':
+	stat = STAT_GOD | STAT_NORM | STAT_INUSE;
+	break;
+    case 'd':
+	stat = 0;
+	break;
+    default:
+	pr("Illegal status\n");
+	return RET_SYN;
+    }
     p = getstarg(player->argp[5],
 		 "Check, wipe, or ignore existing sectors (c|w|i) ", buf);
     if (p == 0)
-	return RET_OK;
+	return RET_SYN;
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == coun) {
