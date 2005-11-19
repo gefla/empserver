@@ -71,6 +71,7 @@
 /*#define LOSE_CONTACT*//* Allows contact to be lost after a few updates */
 
 /* Chainsaw Mods */
+/*#define FUEL*//* Ships use fuel to move */
 /*#define TRADESHIPS*//* Use Tradeships */
 /*#define SLOW_WAR*//* Declaring war takes time */
 #define	PINPOINTMISSILE /**/
