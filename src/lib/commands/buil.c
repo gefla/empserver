@@ -202,8 +202,6 @@ buil(void)
 		if (rqtech > tlev
 		    || (opt_DRNUKE && np->n_tech * drnuke_const > rlev))
 		    type = -1;
-		if (np->n_flags & N_NEUT)
-		    type = -1;
 	    }
 	    if (type < 0) {
 		int tt = tlev;
