@@ -129,7 +129,7 @@ struct cmndstr player_coms[] = {
      NORM + MONEY + CAP},
     {"info <topic>", 0, info, 0, VIS},
     {"land <UNITS>", 0, land, C_MOD, NORM},
-    {"launch <PLANES>", 3, laun, C_MOD, NORM + MONEY + CAP},
+    {"launch <PLANES> <SECT|SHIP>", 3, laun, C_MOD, NORM + MONEY + CAP},
     {"lboard <to-LAND> [<from-sector>]", 3, lboa, C_MOD,
      NORM + MONEY + CAP},
     {"lcargo <UNITS>", 0, lcarg, 0, NORM},
