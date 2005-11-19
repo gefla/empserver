@@ -68,7 +68,7 @@ plurize(char *buf, int size, int n)
     switch(buf[len - 1]) {
     case 'y':
 	buf[len - 1] = '\0';
-	strncat(buf, "ies", size - len - 1);
+	strncat(buf, "ies", size - len);
 	break;
     case 's':
 	strncat(buf, "es", size - len - 1);
