@@ -126,27 +126,25 @@ multifire(void)
 
     emp_initque(&fired);
     emp_initque(&defended);
-    type = -1;
-    while ((type != EF_SECTOR) && (type != EF_SHIP) && (type != EF_LAND)) {
-	if (!(p = getstarg(player->argp[1],
-			   "Firing from ship(s), sect(s), or land unit(s)? ",
-			   buf)))
-	    return RET_SYN;
-	player->argp[1] = 0;
-	type = ef_byname_from(p, ef_with_guns);
-	if (type == EF_SECTOR) {
-	    if (opt_NO_FORT_FIRE) {
-		pr("Fort firing is disabled.\n");
-		return RET_FAIL;
-	    }
-	    orig_attacker = attacker = targ_land;
-	    shots = 1;
-	} else if (type == EF_SHIP) {
-	    orig_attacker = attacker = targ_ship;
-	} else if (type == EF_LAND) {
-	    orig_attacker = attacker = targ_unit;
-	} else
-	    pr("Please type 'sh', 'l', or 'se'!\n");
+    if (!(p = getstarg(player->argp[1],
+		       "Firing from ship(s), sect(s), or land unit(s)? ",
+		       buf)))
+	return RET_SYN;
+    type = ef_byname_from(p, ef_with_guns);
+    if (type == EF_SECTOR) {
+	if (opt_NO_FORT_FIRE) {
+	    pr("Fort firing is disabled.\n");
+	    return RET_FAIL;
+	}
+	orig_attacker = attacker = targ_land;
+	shots = 1;
+    } else if (type == EF_SHIP) {
+	orig_attacker = attacker = targ_ship;
+    } else if (type == EF_LAND) {
+	orig_attacker = attacker = targ_unit;
+    } else {
+	pr("Ships, land units or sectors only!\n");
+	return RET_SYN;
     }
     if ((ptr = getstarg(player->argp[2], "Firing from? ", buf)) == 0
 	|| *ptr == '\0')
