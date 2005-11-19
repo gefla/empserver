@@ -90,6 +90,7 @@ struct sctstr {
 };
 
 struct dchrstr {
+    unsigned char d_uid;
     int d_mnem;			/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */

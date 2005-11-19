@@ -90,6 +90,7 @@ struct castr ichr_ca[] = {
 };
 
 struct castr pchr_ca[] = {
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_uid), "uid", EF_PRODUCT},
     {NSC_STRING, 0, 0, offsetof(struct pchrstr, p_name), "name", EF_BAD},
     {NSC_STRING, NSC_CONST, 0, offsetof(struct pchrstr, p_sname), "sname",
      EF_BAD},
@@ -157,6 +158,7 @@ struct castr sect_ca[] = {
 };
 
 struct castr dchr_ca[] = {
+    {NSC_UCHAR, 0, 0, offsetof(struct dchrstr, d_uid), "uid", EF_SECTOR_CHR},
     {NSC_STRING, 0, 0, offsetof(struct dchrstr, d_name), "name", EF_BAD},
     {NSC_INT, NSC_CONST, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
@@ -527,6 +529,7 @@ struct castr intrchr_ca[] = {
 };
 
 struct castr rpt_ca[] = {
+    {NSC_CHAR, 0, 0, offsetof(struct rptstr, r_uid), "uid", EF_NEWS_CHR},
     {NSC_STRING, 0, NUM_RPTS, offsetof(struct rptstr, r_newstory), "newstory",
      EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will", EF_BAD},

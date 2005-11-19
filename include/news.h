@@ -54,6 +54,7 @@ struct nwsstr {
 #define	NUM_RPTS	2	/* number of story alternates */
 
 struct rptstr {
+    signed char r_uid;
     int r_good_will;		/* how "nice" the action is */
     int r_newspage;		/* which page this item belongs on */
     char *r_newstory[NUM_RPTS];	/* texts for fmt( */
