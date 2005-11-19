@@ -174,14 +174,8 @@ cons_choose(struct ltcomstr *ltcp)
     }
     ltcp->mailee = (ltcp->proposer == player->cnum)
 	? ltcp->proposee : ltcp->proposer;
-    while ((p =
-	    getstarg(player->argp[3], "Accept, decline or postpone? ",
-		     buf)) && *p) {
-	if (*p == 'a' || *p == 'd' || *p == 'p')
-	    break;
-	player->argp[3] = 0;
-    }
-    if (p == 0 || *p == 0)
+    p = getstarg(player->argp[3], "Accept, decline or postpone? ", buf);
+    if (!p || (*p != 'a' && *p != 'd' && *p != 'p'))
 	return RET_SYN;
     ltcp->op = *p;
     return RET_OK;
