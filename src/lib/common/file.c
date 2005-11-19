@@ -359,7 +359,8 @@ ef_write(int type, int id, void *from)
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	/* update the cache if necessary */
 	to = ep->cache + (id - ep->baseid) * ep->size;
-	memcpy(to, from, ep->size);
+	if (to != from)
+	    memcpy(to, from, ep->size);
     }
     if (id >= ep->fids) {
 	/* write beyond end of file extends it, take note */
