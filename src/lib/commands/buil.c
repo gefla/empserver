@@ -104,7 +104,6 @@ buil(void)
 	    pr("Bad sector specification.\n");
 	    return RET_SYN;
 	}
-      ask_again:
 	tlev = (int)natp->nat_level[NAT_TLEV];
 	rlev = (int)natp->nat_level[NAT_RLEV];
 
@@ -121,11 +120,9 @@ buil(void)
 		    type = -1;
 	    }
 	    if (type < 0) {
-		pr("Illegal plane type: \"%s\"\n", p);
-		if (confirm("List plane types? "))
-		    show_plane_build(tlev);
-		player->argp[3] = 0;
-		goto ask_again;
+		pr("You can't build that!\n");
+		pr("Use `show plane build %d' to show types you can build.\n", tlev);
+		return RET_FAIL;
 	    }
 	    break;
 	case 's':
@@ -142,11 +139,9 @@ buil(void)
 		    type = -1;
 	    }
 	    if (type < 0) {
-		pr("Illegal ship type: \"%s\"\n", p);
-		if (confirm("List ship types? "))
-		    show_ship_build(tlev);
-		player->argp[3] = 0;
-		goto ask_again;
+		pr("You can't build that!\n");
+		pr("Use `show ship build %d' to show types you can build.\n", tlev);
+		return RET_FAIL;
 	    }
 	    break;
 	case 'l':
@@ -163,11 +158,9 @@ buil(void)
 		    type = -1;
 	    }
 	    if (type < 0) {
-		pr("Illegal land unit type: \"%s\"\n", p);
-		if (confirm("List unit types? "))
-		    show_land_build(tlev);
-		player->argp[3] = 0;
-		goto ask_again;
+		pr("You can't build that!\n");
+		pr("Use `show land build %d' to show types you can build.\n", tlev);
+		return RET_FAIL;
 	    }
 	    break;
 	case 'b':
@@ -205,14 +198,12 @@ buil(void)
 	    }
 	    if (type < 0) {
 		int tt = tlev;
-		pr("Possible nuke types are:\n");
 		if (opt_DRNUKE)
 		    tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
 			  (int)(rlev / drnuke_const));
-
-		show_nuke_build(tt);
-		player->argp[3] = 0;
-		goto ask_again;
+		pr("You can't build that!\n");
+		pr("Use `show nuke build %d' to show types you can build.\n", tlev);
+		return RET_FAIL;
 	    }
 	    break;
 	default:
