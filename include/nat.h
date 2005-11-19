@@ -167,11 +167,10 @@ extern s_char *rejectname(struct natstr *np, natid other);
 extern s_char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int getrejects(natid them, struct natstr *np);
-extern unsigned char getcontact(struct natstr *np, natid them);
+extern int getcontact(struct natstr *np, natid them);
 extern void putrel(struct natstr *np, natid them, int relate);
 extern void putreject(struct natstr *np, natid them, int how, int what);
-extern void putcontact(struct natstr *np, natid them,
-		       unsigned char contact);
+extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
 
 /* nation flags */

@@ -31,6 +31,7 @@
  *     Dave Pare, 1989
  */
 
+#include "prototypes.h"
 #include "misc.h"
 #include "nat.h"
 #include "file.h"
@@ -128,7 +129,7 @@ agecontact(struct natstr *np)
     }
 }
 
-unsigned char
+int
 getcontact(struct natstr *np, natid them)
 {
     return np->nat_contact[them];
@@ -159,8 +160,13 @@ putreject(struct natstr *np, natid them, int how, int what)
 }
 
 void
-putcontact(struct natstr *np, natid them, unsigned char contact)
+putcontact(struct natstr *np, natid them, int contact)
 {
+    if (CANT_HAPPEN(contact < 0))
+	contact = 0;
+    if (CANT_HAPPEN(contact > 255))
+	contact = 255;
+
     if (np->nat_contact[them] < contact)
 	np->nat_contact[them] = contact;
 }
