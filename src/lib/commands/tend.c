@@ -242,7 +242,15 @@ tend_land(struct shpstr *tenderp, s_char *units)
 	    count_units(&target);
 	    getship(target.shp_uid, &target);
 
-	    if (target.shp_nland >= mchr[(int)target.shp_type].m_nland) {
+	    if ((mchr[(int)target.shp_type].m_flags & M_SUB) &&
+		(lchr[(int)land.lnd_type].l_flags & L_SPY) &&
+		!mchr[(int)target.shp_type].m_nland) {
+		if (target.shp_nland > 1) {
+		    pr("%s doesn't have room for more than two spy units!\n",
+		       prship(&target));
+		    continue;
+		}
+	    } else if (target.shp_nland >= mchr[(int)target.shp_type].m_nland) {
 		if (mchr[(int)target.shp_type].m_nland)
 		    pr("%s doesn't have room for any more land units!\n",
 		       prship(&target));
