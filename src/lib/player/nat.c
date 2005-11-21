@@ -45,7 +45,8 @@ natbyname(s_char *name, natid *result)
     int i;
 
     for (i = 0; NULL != (np = getnatp(i)); i++) {
-	if (strcmp(np->nat_cnam, name) == 0) {
+	if ((np->nat_stat & STAT_INUSE) &&
+	    (strcmp(np->nat_cnam, name) == 0)) {
 	    *result = i;
 	    return 0;
 	}
