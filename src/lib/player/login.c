@@ -316,9 +316,22 @@ static int
 kill_cmd(void)
 {
     struct player *other;
+    struct natstr *np;
 
     if (player->cnum == 255 || !player->validated) {
 	pr_id(player, C_CMDERR, "need country and password\n");
+	return RET_FAIL;
+    }
+    if (match_user(banfil, player)) {
+	logerror("Attempted login by BANNED host %s", praddr(player));
+	pr_id(player, C_EXIT, "Your login has been banned from this game\n");
+	io_shutdown(player->iop, IO_READ);
+	return RET_FAIL;
+    }
+    np = getnatp(player->cnum);
+    if (np->nat_stat & STAT_GOD && !match_user(authfil, player)) {
+	logerror("NON-AUTHed Login attempted by %s", praddr(player));
+	pr_id(player, C_EXIT, "You're not a deity!\n");
 	return RET_FAIL;
     }
     other = getplayer(player->cnum);
