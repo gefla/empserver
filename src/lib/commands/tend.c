@@ -181,6 +181,10 @@ tend(void)
 	pr("%d total %s transferred %s %s\n",
 	   total, ip->i_name, (amt > 0) ? "off of" : "to",
 	   prship(&tender));
+	if (target.shp_own != player->cnum) {
+	    wu(0, target.shp_own, "%s tended %d %s to %s\n",
+	       cname(player->cnum), total, ip->i_name, prship(&target));
+	}
 	tender.shp_item[ip->i_vtype] = ontender;
 	tender.shp_mission = 0;
 	putship(tender.shp_uid, &tender);
