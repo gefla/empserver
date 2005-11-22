@@ -63,8 +63,6 @@ init_mchr(void)
 	    mp->m_flags |= M_CHOPPER;
 	if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
 	    mp->m_flags |= M_MSL;
-	if (mp->m_nland)
-	    mp->m_flags |= M_UNIT;
     }
 }
 

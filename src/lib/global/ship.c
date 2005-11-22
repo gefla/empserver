@@ -38,7 +38,7 @@
 /*
  * marine characteristics -- ship capabilities descriptions
  * 
- * Note, that you should not set the flags M_XLIGHT, M_UNIT, or M_CHOPPER
+ * Note, that you should not set the flags M_XLIGHT or M_CHOPPER
  * here.  They will be automatically set by init_global() when the server
  * starts if the ship can carry a non-zero amount of those things.
  * Also note that if nplanes > 0 and M_FLY is not set, then M_MSL will

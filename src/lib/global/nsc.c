@@ -569,7 +569,6 @@ struct symbol ship_chr_flags[] = {
     {M_CHOPPER, "chopper"},
     {M_OILER, "oiler"},
     {M_SUPPLY, "supply"},
-    {M_UNIT, "unit"},
     {M_ANTIMISSILE, "anti-missile"},
     {0, NULL}
 };

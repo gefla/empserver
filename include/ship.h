@@ -174,8 +174,6 @@ struct mchrstr {
 #define M_CHOPPER	bit(16)	/* can hold choppers */
 #define M_OILER		bit(17)	/* can re-fuel ships */
 #define M_SUPPLY	bit(18)	/* Can supply units/sects/ships */
-/* M_UNIT will be automatically set in init_global() if m_nland > 0 */
-#define M_UNIT		bit(19)	/* Can carry units */
 #define M_ANTIMISSILE   bit(20)	/* Shoot down missile */
 
 #define getship(n, p) \
