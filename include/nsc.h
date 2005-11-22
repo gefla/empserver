@@ -240,5 +240,6 @@ extern char *nstr_comp_val(char *, struct valstr*, int);
 extern int nstr_coerce_val(struct valstr *, nsc_type, char *);
 extern int nstr_exec(struct nscstr *, int, void *);
 extern void nstr_exec_val(struct valstr *, natid, void *, nsc_type);
+extern char *symbol_by_value(int, struct symbol *);
 
 #endif /* _NSC_H_ */

@@ -54,6 +54,7 @@
 #include "file.h"
 #include "nat.h"
 #include "prototypes.h"
+#include "nsc.h"
 
 struct look_list {
     union {
@@ -123,18 +124,6 @@ make_new_list(int tlev, int type)
 	return;
 
     sort_lookup_list();
-}
-
-static char *
-lookup(int key, struct symbol *table)
-{
-    int i;
-
-    for (i = 0; table[i].name; i++)
-	if (key == table[i].value)
-	    return table[i].name;
-
-    return NULL;
 }
 
 void
@@ -224,7 +213,7 @@ show_nuke_capab(int tlev)
 	for (i = j = 0; i < 32; i++) {
 	    if (!(np->n_flags & bit(i)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), nuke_chr_flags))) {
+	    if (NULL != (p = symbol_by_value(bit(i), nuke_chr_flags))) {
 		if (j++ > 0)
 		    pr(" ");
 		pr(p);
@@ -338,7 +327,7 @@ show_ship_capab(int tlev)
 	for (j = n = 0; j < 32; j++) {
 	    if (!(mp->m_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(j), ship_chr_flags))) {
+	    if (NULL != (p = symbol_by_value(bit(j), ship_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
@@ -389,7 +378,7 @@ show_plane_capab(int tlev)
 	for (i = n = 0; i < 32; i++) {
 	    if (!(pp->pl_flags & bit(i)))
 		continue;
-	    if (NULL != (p = lookup(bit(i), plane_chr_flags))) {
+	    if (NULL != (p = symbol_by_value(bit(i), plane_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);
@@ -462,7 +451,7 @@ show_land_capab(int tlev)
 	for (j = n = 0; j < 32; j++) {
 	    if (!(lcp->l_flags & bit(j)))
 		continue;
-	    if (NULL != (p = lookup(bit(j), land_chr_flags))) {
+	    if (NULL != (p = symbol_by_value(bit(j), land_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
 		pr(p);

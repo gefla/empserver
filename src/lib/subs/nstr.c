@@ -680,3 +680,15 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 
     val->val_type = valtype;
 }
+
+char *
+symbol_by_value(int key, struct symbol *table)
+{
+    int i;
+
+    for (i = 0; table[i].name; i++)
+	if (key == table[i].value)
+	    return table[i].name;
+
+    return NULL;
+}
