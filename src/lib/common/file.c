@@ -276,7 +276,7 @@ fillcache(struct empfile *ep, int start)
     while (n > 0) {
 	ret = read(ep->fd, p, n);
 	if (ret < 0) {
-	    if (errno != EAGAIN) {
+	    if (errno != EAGAIN && errno != EWOULDBLOCK) {
 		logerror("Error reading %s (%s)", ep->file, strerror(errno));
 		break;
 	    }
@@ -319,7 +319,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
     while (n > 0) {
 	ret = write(ep->fd, p, n);
 	if (ret < 0) {
-	    if (errno != EAGAIN) {
+	    if (errno != EAGAIN && errno != EWOULDBLOCK) {
 		logerror("Error writing %s (%s)", ep->file, strerror(errno));
 		/* FIXME if this extended file, truncate back to old size */
 		return -1;

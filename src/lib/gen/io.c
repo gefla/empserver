@@ -147,7 +147,7 @@ io_input(struct iop *iop, int waitforinput)
     cc = read(iop->fd, buf, sizeof(buf));
     if (cc < 0) {
 	/* would block, so nothing to read. */
-	if (errno == EWOULDBLOCK)
+	if (errno == EAGAIN || errno == EWOULDBLOCK)
 	    return 0;
 
 	/* Some form of file error occurred... */
@@ -243,7 +243,7 @@ io_output(struct iop *iop, int waitforoutput)
     /* if it failed.... */
     if (cc < 0) {
 	/* Hmm, it would block.  file is opened noblock, soooooo.. */
-	if (errno == EWOULDBLOCK) {
+	if (errno == EAGAIN || errno == EWOULDBLOCK) {
 	    /* If there are remaining bytes, set the IO as remaining.. */
 	    remain = ioq_qsize(iop->output);
 	    return remain;
@@ -269,17 +269,10 @@ io_output(struct iop *iop, int waitforoutput)
 #endif
 
     /* If no bytes were written, something happened..  Like an EOF. */
-#ifndef	hpux
     if (cc == 0) {
 	iop->flags |= IO_EOF;
 	return 0;
     }
-#else
-    if (cc == 0) {
-	remain = ioq_qsize(iop->output);
-	return remain;
-    }
-#endif /* hpux */
 
     /* Remove the number of written bytes from the queue. */
     ioq_dequeue(iop->output, cc);
