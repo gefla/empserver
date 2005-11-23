@@ -122,5 +122,7 @@ show(void)
 	(*cfunc) (tlev);
     else if (*p == 'S' || *p == 's')
 	(*sfunc) (tlev);
+    else
+	return RET_SYN;
     return RET_OK;
 }
