@@ -35,6 +35,31 @@
 #include "file.h"
 #include "prototypes.h"
 
+static void
+ef_open_srv(void)
+{
+    int failed = 0;
+    failed |= !ef_open(EF_NATION, EFF_MEM);
+    failed |= !ef_open(EF_SECTOR, EFF_MEM);
+    failed |= !ef_open(EF_SHIP, EFF_MEM);
+    failed |= !ef_open(EF_PLANE, EFF_MEM);
+    failed |= !ef_open(EF_LAND, EFF_MEM);
+    failed |= !ef_open(EF_NEWS, 0);
+    failed |= !ef_open(EF_LOAN, 0);
+    failed |= !ef_open(EF_TREATY, 0);
+    failed |= !ef_open(EF_NUKE, EFF_MEM);
+    failed |= !ef_open(EF_POWER, 0);
+    failed |= !ef_open(EF_TRADE, 0);
+    failed |= !ef_open(EF_MAP, EFF_MEM);
+    failed |= !ef_open(EF_BMAP, EFF_MEM);
+    failed |= !ef_open(EF_COMM, 0);
+    failed |= !ef_open(EF_LOST, 0);
+    if (failed) {
+	logerror("Missing files, giving up");
+	exit(EXIT_FAILURE);
+    }
+}
+
 struct fileinit {
     int ef_type;
     void (*init) (int, char *);
@@ -61,11 +86,41 @@ ef_init_srv(void)
 {
     unsigned i;
 
+    if (ef_load() < 0)
+	exit(EXIT_FAILURE);
+
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
 	empfile[fileinit[i].ef_type].init = fileinit[i].init;
 	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
-
     ef_init();
+    ef_open_srv();
+    global_init();
+}
+
+static void
+ef_close_srv(void)
+{
+    ef_close(EF_NATION);
+    ef_close(EF_SECTOR);
+    ef_close(EF_SHIP);
+    ef_close(EF_PLANE);
+    ef_close(EF_LAND);
+    ef_close(EF_NEWS);
+    ef_close(EF_LOAN);
+    ef_close(EF_TREATY);
+    ef_close(EF_NUKE);
+    ef_close(EF_POWER);
+    ef_close(EF_TRADE);
+    ef_close(EF_MAP);
+    ef_close(EF_COMM);
+    ef_close(EF_BMAP);
+    ef_close(EF_LOST);
+}
+
+void
+ef_fin_srv(void)
+{
+    ef_close_srv();
 }

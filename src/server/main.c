@@ -67,9 +67,6 @@
 #include "version.h"
 #include "prototypes.h"
 
-static void nullify_objects(void);
-static void init_files(void);
-static void close_files(void);
 static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
@@ -263,14 +260,9 @@ init_server(void)
     loc_NTInit();
 #endif
     update_policy_check();
-    if (ef_load() < 0)
-	exit(EXIT_FAILURE);
-    nullify_objects();
-    global_init();
     shutdown_init();
     player_init();
     ef_init_srv();
-    init_files();
     io_init();
     init_nreport();
 
@@ -343,7 +335,7 @@ start_server(int flags)
 void
 finish_server(void)
 {
-    close_files();
+    ef_fin_srv();
 #if defined(_WIN32)
     loc_NTTerm();
 #endif
@@ -362,51 +354,6 @@ create_pidfile(char *fname, pid_t pid)
     }
 }
 
-static void
-init_files(void)
-{
-    int failed = 0;
-    failed |= !ef_open(EF_NATION, EFF_MEM);
-    failed |= !ef_open(EF_SECTOR, EFF_MEM);
-    failed |= !ef_open(EF_SHIP, EFF_MEM);
-    failed |= !ef_open(EF_PLANE, EFF_MEM);
-    failed |= !ef_open(EF_LAND, EFF_MEM);
-    failed |= !ef_open(EF_NEWS, 0);
-    failed |= !ef_open(EF_LOAN, 0);
-    failed |= !ef_open(EF_TREATY, 0);
-    failed |= !ef_open(EF_NUKE, EFF_MEM);
-    failed |= !ef_open(EF_POWER, 0);
-    failed |= !ef_open(EF_TRADE, 0);
-    failed |= !ef_open(EF_MAP, EFF_MEM);
-    failed |= !ef_open(EF_BMAP, EFF_MEM);
-    failed |= !ef_open(EF_COMM, 0);
-    failed |= !ef_open(EF_LOST, 0);
-    if (failed) {
-	logerror("Missing files, giving up");
-	exit(EXIT_FAILURE);
-    }
-}
-
-static void
-close_files(void)
-{
-    ef_close(EF_NATION);
-    ef_close(EF_SECTOR);
-    ef_close(EF_SHIP);
-    ef_close(EF_PLANE);
-    ef_close(EF_LAND);
-    ef_close(EF_NEWS);
-    ef_close(EF_LOAN);
-    ef_close(EF_TREATY);
-    ef_close(EF_NUKE);
-    ef_close(EF_POWER);
-    ef_close(EF_TRADE);
-    ef_close(EF_MAP);
-    ef_close(EF_COMM);
-    ef_close(EF_BMAP);
-    ef_close(EF_LOST);
-}
-
 /* we're going down.  try to close the files at least */
 #if !defined(_WIN32)
 void
@@ -423,7 +370,7 @@ panic(int sig)
     sigaction(SIGFPE, &act, NULL);
     logerror("server received fatal signal %d", sig);
     log_last_commands();
-    close_files();
+    ef_fin_srv();
     if (CANT_HAPPEN(sig != SIGBUS && sig != SIGSEGV
 		    && sig != SIGILL && sig != SIGFPE))
 	_exit(1);
@@ -480,20 +427,6 @@ shutdwn(int sig)
     }
 #endif
     _exit(0);
-}
-
-
-static void
-nullify_objects(void)
-{
-    int i;
-
-    if (opt_BIG_CITY)
-	dchr[SCT_CAPIT] = bigcity_dchr;
-    for (i = 0; lchr[i].l_name; i++) {
-	/* Fix up the military values */
-	lchr[i].l_mil = lchr[i].l_item[I_MILIT];
-    }
 }
 
 #if defined(_WIN32)
