@@ -388,6 +388,26 @@ xuloadrow(int type, int row, struct value values[])
     return 0;
 }
 
+void
+xuskipcommentlines(FILE *fp)
+{
+    int ch;
+
+    for (;;) {
+        ch = getc(fp);
+	if (ch == EOF)
+	    return;
+	if (ch == '#') {
+	    do {
+		ch = getc(fp);
+	    } while (ch != '\n' && ch != EOF);
+	} else {
+	    ungetc(ch, fp);
+	    return;
+	}
+    }
+}
+
 int
 xundump(FILE *fp, char *file, int expected_table)
 {
@@ -404,6 +424,7 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
+    xuskipcommentlines(fp);
     if (fscanf(fp, "XDUMP %63[^0123456789]%*d%c", name, &sep) != 2)
 	return gripe("Expected XDUMP header");
     if (sep != '\n')
@@ -427,6 +448,7 @@ xundump(FILE *fp, char *file, int expected_table)
     fixed_rows = has_const(ef_cadef(type));
 
     for (row = 0; ; row++) {
+        xuskipcommentlines(fp);
 	lineno++;
 	ch = getc(fp);
 	ungetc(ch, fp);
@@ -465,5 +487,6 @@ xundump(FILE *fp, char *file, int expected_table)
     if (!fixed_rows)
 	xuinitrow(type, row);
 
+    xuskipcommentlines(fp);
     return 0;
 }
