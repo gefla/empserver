@@ -714,7 +714,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	       cname(player->cnum), dam, prplane(&plane),
 	       xyas(target->sct_x, target->sct_y, own));
 	putplane(plane.pln_uid, &plane);
-	collateral_damage(plane.pln_x, plane.pln_y, dam, list);
+	collateral_damage(target->sct_x, target->sct_y, dam, list);
       next:
 	;
     }
@@ -821,7 +821,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		retreat_land(&land, 'b');
 	nreport(player->cnum, N_UNIT_BOMB, own, 1);
 	putland(land.lnd_uid, &land);
-	collateral_damage(land.lnd_x, land.lnd_y, dam, list);
+	collateral_damage(target->sct_x, target->sct_y, dam, list);
       next:
 	;
     }
