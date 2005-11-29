@@ -109,8 +109,8 @@ bomb(void)
     if (!snxtitem(&ni_esc, EF_PLANE,
 		  getstarg(player->argp[2], "escort(s)? ", buf)))
 	pr("No escorts...\n");
-    if ((p =
-	 getstarg(player->argp[3], "pinpoint, or strategic? ", buf)) == 0)
+    p = getstarg(player->argp[3], "pinpoint, or strategic? ", buf);
+    if (!p)
 	return RET_SYN;
     mission = *p;
     if (strchr("ps", mission) == 0)
@@ -354,9 +354,8 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || plp->plane.pln_nuketype != -1)
-	    dam +=
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			   &nukedam, 1);
+	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			      'p', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
@@ -441,9 +440,8 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || plp->plane.pln_nuketype != -1)
-	    dam +=
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			   &nukedam, 1);
+	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			      'p', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
@@ -565,21 +563,19 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (plp->plane.pln_nuketype != -1)
 	    hitchance = 100;
 	else {
-	    hitchance =
-		pln_hitchance(&plp->plane, shp_hardtarget(&ship), EF_SHIP);
+	    hitchance = pln_hitchance(&plp->plane,
+				      shp_hardtarget(&ship), EF_SHIP);
 	    pr("%d%% hitchance...", hitchance);
 	}
 	if (roll(100) <= hitchance) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam =
-		2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			       'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
+				 'p', &nukedam, 1);
 	} else {
 	    pr("splash\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam =
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			   &nukedam, 0);
+	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
+			     &nukedam, 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam, list);
 	    dam = 0;
 	}
@@ -681,15 +677,13 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (roll(100) <= hitchance) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam =
-		2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			       'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
+				 'p', &nukedam, 1);
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam =
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			   &nukedam, 0);
+	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			     'p', &nukedam, 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam, list);
 	    dam = 0;
 	}
@@ -796,20 +790,18 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (plp->plane.pln_nuketype != -1)
 	    hitchance = 100;
 	else {
-	    hitchance =
-		pln_hitchance(&plp->plane, lnd_hardtarget(&land), EF_LAND);
+	    hitchance = pln_hitchance(&plp->plane,
+				      lnd_hardtarget(&land), EF_LAND);
 	    pr("%d%% hitchance...", hitchance);
 	}
 	if (roll(100) <= hitchance) {
-	    dam =
-		2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			       'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
+				 'p', &nukedam, 1);
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam =
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			   &nukedam, 0);
+	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
+			     &nukedam, 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam, list);
 	    dam = 0;
 	}
@@ -849,9 +841,8 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || plp->plane.pln_nuketype != -1)
-	    dam +=
-		pln_damage(&plp->plane, target->sct_x, target->sct_y, 's',
-			   &nukedam, 1);
+	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y, 's',
+			      &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
