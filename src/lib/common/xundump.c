@@ -401,6 +401,7 @@ xuskipcommentlines(FILE *fp)
 	    do {
 		ch = getc(fp);
 	    } while (ch != '\n' && ch != EOF);
+	    lineno++;
 	} else {
 	    ungetc(ch, fp);
 	    return;
