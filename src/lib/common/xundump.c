@@ -198,7 +198,7 @@ xunsymbol(struct castr *ca, char *buf, int symbol_set)
 	return gripe("Symbol (%s) was found but the field was expecting an "
 	    "Symbol Set for field %s", buf, ca->ca_name);
     if (symbol_set)
-	token = strtok( buf, " ");
+	token = strtok(buf, " ");
     else
 	token = buf;
 
