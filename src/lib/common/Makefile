@@ -35,16 +35,17 @@ include ../../make.defs
 LIB = $(SRCDIR)/lib/libcommon.a
 NTLIB = $(SRCDIR)\lib\libcommon.lib
 
-OBJS =  bestpath.o bridgefall.o check.o damage.o file.o fsize.o \
-	hap_fact.o hours.o land.o log.o mailbox.o maps.o move.o \
-	nat.o path.o res_pop.o sectdamage.o \
-	stmtch.o tfact.o type.o wantupd.o xy.o ef_load.o xundump.o
+OBJS =  bestpath.o bridgefall.o check.o damage.o ef_load.o ef_verify.o \
+	file.o fsize.o hap_fact.o hours.o land.o log.o mailbox.o \
+	maps.o move.o nat.o path.o res_pop.o sectdamage.o \
+	stmtch.o tfact.o type.o wantupd.o xundump.o xy.o
 
-NTOBJS = bestpath.obj bridgefall.obj check.obj damage.obj file.obj fsize.obj \
+NTOBJS = bestpath.obj bridgefall.obj check.obj damage.obj \
+	ef_load.obj ef_verify.obj file.obj fsize.obj \
 	hap_fact.obj hours.obj land.obj log.obj \
 	mailbox.obj maps.obj move.obj nat.obj path.obj res_pop.obj \
 	sectdamage.obj stmtch.obj tfact.obj \
-	type.obj wantupd.obj xy.obj ef_load.obj xundump.obj
+	type.obj wantupd.obj xundump.obj xy.obj
 
 all: $(LIB)
 

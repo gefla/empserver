@@ -285,6 +285,8 @@ extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
 /* ef_load.c */
 /* in file.h */
+/* ef_verify.c */
+/* in file.h */
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);

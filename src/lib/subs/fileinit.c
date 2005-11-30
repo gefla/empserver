@@ -96,6 +96,8 @@ ef_init_srv(void)
     }
     ef_init();
     ef_open_srv();
+    if (ef_verify() < 0)
+	exit(EXIT_FAILURE);
     global_init();
 }
 
