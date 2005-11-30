@@ -108,7 +108,7 @@ xuesc(char *buf)
 static int
 xuflds(FILE *fp, struct value values[])
 {
-    int i, ch;
+    int i, j, ch;
     char sep;
     char buf[1024];
 
@@ -125,35 +125,88 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_type = VAL_DOUBLE;
 	    break;
 	case '"':
-	    if (fscanf(fp, "\"%1023[^ \n]%c", buf, &sep) != 2
-		|| buf[strlen(buf)-1] != '"')
-		return gripe("Malformed string in field %d", i + 1);
-	    buf[strlen(buf)-1] = '\0';
-	    if (!xuesc(buf))
-		return gripe("Invalid escape sequence in field %d",
-		    i + 1);
-	    values[i].v_type = VAL_STRING;
-	    values[i].v_field.v_string = strdup(buf);
+	    ch = getc(fp);
+	    j = 0;
+	    buf[j] = '\0';
+	    do {
+		if (j >= 1023)
+		    return gripe("Malformed string in field %d", i + 1);
+		ch = getc(fp);
+		switch (ch) {
+		case '"':
+		    values[i].v_type = VAL_STRING;
+		    if (!j)
+			values[i].v_field.v_string = NULL;
+		    else {
+			buf[j] = '\0';
+			if (!xuesc(buf))
+			    return gripe("Invalid escape sequence in field %d",
+				i + 1);
+			values[i].v_field.v_string = strdup(buf);
+		    }
+		    sep = getc(fp);
+		    if (sep == EOF)
+		    	return gripe("Unexpected end of the row");
+		    break;
+		case EOF:
+		case '\n':
+		    return gripe("Malformed string in field %d", i + 1);
+		case ' ':
+		    if (!j)
+			break;
+		    /*
+		     * fall through
+		     */
+		default:
+		    buf[j++] = ch;
+		    break;
+		} 
+	    } while (ch != '"');
 	    break;
 	case '(':
 	    ch = getc(fp);
+	    j = 0;
+	    buf[j] = '\0';
+	    do {
+		if (j >= 1023)
+		    return gripe("Malformed string in field %d", i + 1);
+		ch = getc(fp);
+		switch (ch) {
+		case ')':
+		    if (!j) {
+			values[i].v_type = VAL_DOUBLE;
+			values[i].v_field.v_double = 0.0;
+		    } else {
+			buf[j] = '\0';
+			if (!xuesc(buf))
+			    return gripe("Invalid escape sequence in field %d",
+				i + 1);
+			values[i].v_type = VAL_SYMBOL_SET;
+			values[i].v_field.v_string = strdup(buf);
+		    }
+		    sep = getc(fp);
+		    if (sep == EOF)
+		    	return gripe("Unexpected end of the row");
+		    break;
+		case EOF:
+		case '\n':
+		    return gripe("Malformed string in field %d", i + 1);
+		case ' ':
+		    if (!j)
+			break;
+		    else if (buf[j-1] == ' ')
+			break;
+		    /*
+		     * fall through
+		     */
+		default:
+		    buf[j++] = ch;
+		    break;
+		} 
+	    } while (ch != ')');
+	    break;
+	case ' ':
 	    ch = getc(fp);
-	    if (ch == EOF)
-		return gripe("Unexpected end of file while reading a symbol set for field %d", i + 1);
-	    if (ch == ')') {
-		values[i].v_field.v_double = 0.0;
-		values[i].v_type = VAL_DOUBLE;
-	        sep = getc(fp);
-		if (sep == EOF)
-		    return gripe("Unexpected end of file while reading a symbol set for field %d", i + 1);
-		break;
-	    }
-	    ungetc(ch, fp);
-	    ungetc('(', fp);
-	    if (fscanf(fp, "(%1023[^)\n])%c", buf, &sep) != 2)
-		return gripe("Malformed symbol set in field %d", i + 1);
-	    values[i].v_type = VAL_SYMBOL_SET;
-	    values[i].v_field.v_string = strdup(buf);
 	    break;
 	default:
 	    if (fscanf(fp, "%1023[^ \n]%c", buf, &sep) != 2) {
