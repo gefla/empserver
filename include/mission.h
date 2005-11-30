@@ -36,6 +36,7 @@
 
 #include "queue.h"
 
+#define	MI_NONE		0
 #define	MI_INTERDICT	1
 #define	MI_SUPPORT	2
 #define	MI_RESERVE	3

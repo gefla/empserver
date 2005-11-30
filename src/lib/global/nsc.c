@@ -565,8 +565,6 @@ struct symbol ship_chr_flags[] = {
     {M_SUBT, "sub-torp"},
     {M_TRADE, "trade"},
     {M_SEMILAND, "semi-land"},
-    {M_XLIGHT, "xlight"},
-    {M_CHOPPER, "chopper"},
     {M_OILER, "oiler"},
     {M_SUPPLY, "supply"},
     {M_ANTIMISSILE, "anti-missile"},
@@ -657,6 +655,7 @@ struct symbol meta_type[]  = {
 };
 
 struct symbol missions[] = {
+    {MI_NONE, "none"},
     {MI_INTERDICT, "interdiction"},
     {MI_SUPPORT, "support"},
     {MI_RESERVE, "reserve"},
