@@ -405,6 +405,7 @@ xuloadrow(int type, int row, struct value values[])
 	break;
     case VAL_STRING:
     case VAL_SYMBOL:
+    case VAL_SYMBOL_SET:
 	return gripe("Extra junk after the last column, read %s",
 	    values[j].v_field.v_string);
     case VAL_DOUBLE:
@@ -417,7 +418,7 @@ xuloadrow(int type, int row, struct value values[])
     return 0;
 }
 
-void
+static void
 xuskipcommentlines(FILE *fp)
 {
     int ch;
