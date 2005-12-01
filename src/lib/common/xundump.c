@@ -112,6 +112,7 @@ xuflds(FILE *fp, struct value values[])
     char buf[1024];
 
     for (i = 0; i < MAX_NUM_COLUMNS; i++) {
+	values[i].v_type = VAL_NOTUSED;
 	ch = getc(fp);
 	ungetc(ch, fp);
 
@@ -139,12 +140,12 @@ xuflds(FILE *fp, struct value values[])
 		return gripe("Junk in field %d", i + 1);
 	    }
 	    if (!strcmp(buf, "nil")) {
-		values[i].v_field.v_string = NULL;
 		values[i].v_type = VAL_STRING;
+		values[i].v_field.v_string = NULL;
 	    }
 	    else {
-		values[i].v_field.v_string = strdup(buf);
 		values[i].v_type = VAL_SYMBOL;
+		values[i].v_field.v_string = strdup(buf);
 	    }
 	}
 	if (sep == '\n')
@@ -160,6 +161,17 @@ xuflds(FILE *fp, struct value values[])
 	return gripe("No columns read");
     values[++i].v_type = VAL_NOTUSED;
     return i;
+}
+
+static void
+freeflds(struct value values[])
+{
+    struct value *vp;
+
+    for (vp = values; vp->v_type != VAL_NOTUSED; vp++) {
+	if (vp->v_type != VAL_DOUBLE)
+	    free(vp->v_field.v_string);
+    }
 }
 
 static int
@@ -245,7 +257,6 @@ xuloadrow(int type, int row, struct value values[])
 			values[j].v_field.v_string, ca[i].ca_name));
 		values[j].v_field.v_double =
 		    (double)xunsymbol(&ca[i], values[j].v_field.v_string);
-		free(values[i].v_field.v_string);
 		if (values[j].v_field.v_double < 0.0)
 		    return -1;
 		/*
@@ -393,7 +404,7 @@ xundump(FILE *fp, char *file, int expected_table)
 {
     char name[64];
     char sep;
-    int row, rows, ch;
+    int row, res, rows, ch;
     struct value values[MAX_NUM_COLUMNS + 1];
     int type;
     int fixed_rows;
@@ -438,17 +449,20 @@ xundump(FILE *fp, char *file, int expected_table)
 	 * TODO
 	 * Add column count check to the return value of xuflds()
 	 */
-	if (xuflds(fp, values) <= 0)
-	    return -1;
-	else {
-	    if (row >= empfile[type].csize - 1)
-		return gripe("Too many rows for table %s", name);
+	res = xuflds(fp, values);
+	if (res > 0 && row >= empfile[type].csize - 1) {
+	    gripe("Too many rows for table %s", name);
+	    res = -1;
+	}
+	if (res > 0) {
 	    empfile[type].fids = row + 1;
 	    if (!fixed_rows)
 		xuinitrow(type, row);
-	    if (xuloadrow(type, row, values) < 0)
-		return -1;
+	    res = xuloadrow(type, row, values);
 	}
+	freeflds(values);
+	if (res < 0)
+	    return -1;
     }
 
     if (fscanf(fp, "/%d%c", &rows, &sep) != 2)
