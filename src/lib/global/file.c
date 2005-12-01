@@ -88,7 +88,7 @@
 
 struct empfile empfile[] = {
     /*
-     * How empfile[] is initialized:
+     * How this initializer works:
      *
      * Members uid, name, file, size, cadef, and the EFF_IMMUTABLE
      * bits of flags get their final value.
@@ -102,6 +102,11 @@ struct empfile empfile[] = {
      *
      * Whatever of the above can't be done here must be done in
      * ef_init().
+     */
+
+    /*
+     * Keep in mind that player command arguments are matched against
+     * member name; no whitespace please.
      */
 
     /* Dynamic game data */
@@ -137,46 +142,46 @@ struct empfile empfile[] = {
      UNMAPPED_CACHE(struct loststr, EFF_OWNER)},
 
     /* Static game data (configuration) */
-    {EF_SECTOR_CHR, "sect chr", "sect_def", dchr_ca, ARRAY_TABLE(dchr, EFF_CFG)},
-    {EF_SHIP_CHR, "ship chr", "ship_def", mchr_ca, ARRAY_CACHE(mchr, EFF_CFG)},
-    {EF_PLANE_CHR, "plane chr", "plane_def", plchr_ca, ARRAY_CACHE(plchr, EFF_CFG)},
-    {EF_LAND_CHR, "land chr", "land_def", lchr_ca, ARRAY_CACHE(lchr, EFF_CFG)},
-    {EF_NUKE_CHR, "nuke chr", "nuke_def", nchr_ca, ARRAY_CACHE(nchr, EFF_CFG)},
-    {EF_NEWS_CHR, "news chr", NULL, rpt_ca, ARRAY_TABLE(rpt, EFF_CFG)},
-    {EF_TREATY_FLAGS, "treaty flags", NULL, symbol_ca,
+    {EF_SECTOR_CHR, "sect-chr", "sect_def", dchr_ca, ARRAY_TABLE(dchr, EFF_CFG)},
+    {EF_SHIP_CHR, "ship-chr", "ship_def", mchr_ca, ARRAY_CACHE(mchr, EFF_CFG)},
+    {EF_PLANE_CHR, "plane-chr", "plane_def", plchr_ca, ARRAY_CACHE(plchr, EFF_CFG)},
+    {EF_LAND_CHR, "land-chr", "land_def", lchr_ca, ARRAY_CACHE(lchr, EFF_CFG)},
+    {EF_NUKE_CHR, "nuke-chr", "nuke_def", nchr_ca, ARRAY_CACHE(nchr, EFF_CFG)},
+    {EF_NEWS_CHR, "news-chr", NULL, rpt_ca, ARRAY_TABLE(rpt, EFF_CFG)},
+    {EF_TREATY_FLAGS, "treaty-flags", NULL, symbol_ca,
      PTR_CACHE(treaty_flags, EFF_CFG)},
     {EF_ITEM, "item", "item_def", ichr_ca, ARRAY_TABLE(ichr, EFF_CFG)},
     {EF_INFRASTRUCTURE, "infrastructure", "infrastructure_def", intrchr_ca,
      ARRAY_TABLE(intrchr, EFF_CFG)},
     {EF_PRODUCT, "product", "product_def", pchr_ca, ARRAY_TABLE(pchr, EFF_CFG)},
     {EF_TABLE, "table", NULL, empfile_ca, ARRAY_TABLE(empfile, EFF_CFG)},
-    {EF_SHIP_CHR_FLAGS, "ship chr flags", NULL, symbol_ca,
+    {EF_SHIP_CHR_FLAGS, "ship-chr-flags", NULL, symbol_ca,
      PTR_CACHE(ship_chr_flags, EFF_CFG)},
-    {EF_PLANE_CHR_FLAGS, "plane chr flags", NULL, symbol_ca,
+    {EF_PLANE_CHR_FLAGS, "plane-chr-flags", NULL, symbol_ca,
      PTR_CACHE(plane_chr_flags, EFF_CFG)},
-    {EF_LAND_CHR_FLAGS, "land chr flags", NULL, symbol_ca,
+    {EF_LAND_CHR_FLAGS, "land-chr-flags", NULL, symbol_ca,
      PTR_CACHE(land_chr_flags, EFF_CFG)},
-    {EF_NUKE_CHR_FLAGS, "nuke chr flags", NULL, symbol_ca,
+    {EF_NUKE_CHR_FLAGS, "nuke-chr-flags", NULL, symbol_ca,
      PTR_CACHE(nuke_chr_flags, EFF_CFG)},
     {EF_META, "meta", NULL, mdchr_ca, PTR_CACHE(mdchr_ca, EFF_CFG)},
-    {EF_META_TYPE, "meta type", NULL, symbol_ca,
+    {EF_META_TYPE, "meta-type", NULL, symbol_ca,
      PTR_CACHE(meta_type, EFF_CFG)},
-    {EF_META_FLAGS, "meta flags", NULL, symbol_ca,
+    {EF_META_FLAGS, "meta-flags", NULL, symbol_ca,
      PTR_CACHE(meta_flags, EFF_CFG)},
     {EF_MISSIONS, "missions", NULL, symbol_ca,
      PTR_CACHE(missions, EFF_CFG)},
-    {EF_PLANE_FLAGS, "plane flags", NULL, symbol_ca,
+    {EF_PLANE_FLAGS, "plane-flags", NULL, symbol_ca,
      PTR_CACHE(plane_flags, EFF_CFG)},
-    {EF_RETREAT_FLAGS, "retreat flags", NULL, symbol_ca,
+    {EF_RETREAT_FLAGS, "retreat-flags", NULL, symbol_ca,
      PTR_CACHE(retreat_flags, EFF_CFG)},
-    {EF_NATION_FLAGS, "nation flags", NULL, symbol_ca,
+    {EF_NATION_FLAGS, "nation-flags", NULL, symbol_ca,
      PTR_CACHE(nation_flags, EFF_CFG)},
-    {EF_NATION_RELATIONS, "nation relationships", NULL, symbol_ca,
+    {EF_NATION_RELATIONS, "nation-relationships", NULL, symbol_ca,
      PTR_CACHE(nation_relations, EFF_CFG)},
     {EF_LEVEL, "level", NULL, symbol_ca, PTR_CACHE(level, EFF_CFG)},
-    {EF_AGREEMENT_STATUS, "agreement status", NULL, symbol_ca,
+    {EF_AGREEMENT_STATUS, "agreement-status", NULL, symbol_ca,
      PTR_CACHE(agreement_statuses, EFF_CFG)},
-    {EF_PLAGUE_STAGES, "plague stages", NULL, symbol_ca,
+    {EF_PLAGUE_STAGES, "plague-stages", NULL, symbol_ca,
      PTR_CACHE(plague_stages, EFF_CFG)},
     {EF_PACKING, "packing", NULL, symbol_ca,
      PTR_CACHE(packing, EFF_CFG)},
