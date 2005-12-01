@@ -57,7 +57,6 @@ verify_row(int type, int row)
     } else 
 	row_ref = ef_ptr(type, row); 
 
-//    if (ef_flags(type) & EFF_OWNER) != 0
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
@@ -100,7 +99,7 @@ verify_row(int type, int row)
 		    if (ca_sym != symbol_ca) {
 			if (val.val_as.lng >= ef_nelem(ca[i].ca_table) ||
 			    val.val_as.lng < -2) {
-			    fprintf(stderr, "Table index %d to table %s "
+			    fprintf(stderr, "Table index %ld to table %s "
 				"out of range, nelements %d for table %s "
 				"row %d field %s\n",
 				val.val_as.lng, ef_nameof(ca[i].ca_table),
@@ -112,7 +111,7 @@ verify_row(int type, int row)
 			if (val.val_as.lng > -1) {
 			    if (!symbol_by_value(val.val_as.lng,
 				       ef_ptr(ca[i].ca_table,0))) {
-				fprintf(stderr, "value %d not found in "
+				fprintf(stderr, "value %ld not found in "
 				    "symbol table %s when verify table %s "
 				    "row %d field %s\n",
 				    val.val_as.lng,
