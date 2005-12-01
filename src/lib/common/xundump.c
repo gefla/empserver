@@ -58,7 +58,6 @@ enum enum_value {
     VAL_NOTUSED,
     VAL_STRING,
     VAL_SYMBOL,
-    VAL_SYMBOL_SET,
     VAL_DOUBLE
 };
 
@@ -108,7 +107,7 @@ xuesc(char *buf)
 static int
 xuflds(FILE *fp, struct value values[])
 {
-    int i, j, ch;
+    int i, ch;
     char sep;
     char buf[1024];
 
@@ -125,88 +124,15 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_type = VAL_DOUBLE;
 	    break;
 	case '"':
-	    ch = getc(fp);
-	    j = 0;
-	    buf[j] = '\0';
-	    do {
-		if (j >= 1023)
-		    return gripe("Malformed string in field %d", i + 1);
-		ch = getc(fp);
-		switch (ch) {
-		case '"':
-		    values[i].v_type = VAL_STRING;
-		    if (!j)
-			values[i].v_field.v_string = NULL;
-		    else {
-			buf[j] = '\0';
-			if (!xuesc(buf))
-			    return gripe("Invalid escape sequence in field %d",
-				i + 1);
-			values[i].v_field.v_string = strdup(buf);
-		    }
-		    sep = getc(fp);
-		    if (sep == EOF)
-		    	return gripe("Unexpected end of the row");
-		    break;
-		case EOF:
-		case '\n':
-		    return gripe("Malformed string in field %d", i + 1);
-		case ' ':
-		    if (!j)
-			break;
-		    /*
-		     * fall through
-		     */
-		default:
-		    buf[j++] = ch;
-		    break;
-		} 
-	    } while (ch != '"');
-	    break;
-	case '(':
-	    ch = getc(fp);
-	    j = 0;
-	    buf[j] = '\0';
-	    do {
-		if (j >= 1023)
-		    return gripe("Malformed string in field %d", i + 1);
-		ch = getc(fp);
-		switch (ch) {
-		case ')':
-		    if (!j) {
-			values[i].v_type = VAL_DOUBLE;
-			values[i].v_field.v_double = 0.0;
-		    } else {
-			buf[j] = '\0';
-			if (!xuesc(buf))
-			    return gripe("Invalid escape sequence in field %d",
-				i + 1);
-			values[i].v_type = VAL_SYMBOL_SET;
-			values[i].v_field.v_string = strdup(buf);
-		    }
-		    sep = getc(fp);
-		    if (sep == EOF)
-		    	return gripe("Unexpected end of the row");
-		    break;
-		case EOF:
-		case '\n':
-		    return gripe("Malformed string in field %d", i + 1);
-		case ' ':
-		    if (!j)
-			break;
-		    else if (buf[j-1] == ' ')
-			break;
-		    /*
-		     * fall through
-		     */
-		default:
-		    buf[j++] = ch;
-		    break;
-		} 
-	    } while (ch != ')');
-	    break;
-	case ' ':
-	    ch = getc(fp);
+	    if (fscanf(fp, "\"%1023[^ \n]%c", buf, &sep) != 2
+		|| buf[strlen(buf)-1] != '"')
+		return gripe("Malformed string in field %d", i + 1);
+	    buf[strlen(buf)-1] = '\0';
+	    if (!xuesc(buf))
+		return gripe("Invalid escape sequence in field %d",
+		    i + 1);
+	    values[i].v_type = VAL_STRING;
+	    values[i].v_field.v_string = strdup(buf);
 	    break;
 	default:
 	    if (fscanf(fp, "%1023[^ \n]%c", buf, &sep) != 2) {
@@ -237,21 +163,15 @@ xuflds(FILE *fp, struct value values[])
 }
 
 static int
-xunsymbol(struct castr *ca, char *buf, int symbol_set)
+xunsymbol(struct castr *ca, char *buf)
 {
     struct symbol *symbol = (struct symbol *)empfile[ca->ca_table].cache;
     int i;
     int value = 0;
     char *token;
 
-    if (symbol_set && !(ca->ca_flags & NSC_BITS))
-	return gripe("Symbol Set (%s) was found but the field does not have "
-	    "NSC_BITS set for field %s", buf, ca->ca_name);
-    if (!symbol_set && (ca->ca_flags & NSC_BITS))
-	return gripe("Symbol (%s) was found but the field was expecting an "
-	    "Symbol Set for field %s", buf, ca->ca_name);
-    if (symbol_set)
-	token = strtok(buf, " ");
+    if (ca->ca_flags & NSC_BITS)
+	token = strtok( buf, "|");
     else
 	token = buf;
 
@@ -268,7 +188,7 @@ xunsymbol(struct castr *ca, char *buf, int symbol_set)
 	else
 	    return gripe("Symbol %s was not found for field %s", token,
 		ca->ca_name);
-	token = strtok(NULL, " ");
+	token = strtok(NULL, "|");
     }
     return(value);
 }
@@ -318,15 +238,13 @@ xuloadrow(int type, int row, struct value values[])
 	     * factor out NSC_CONST comparsion
 	     */
 	    switch (values[j].v_type) {
-	    case VAL_SYMBOL_SET:
 	    case VAL_SYMBOL:
 		if (ca[i].ca_table == EF_BAD)
 		    return(gripe("Found symbol string %s, but column %s "
 			"is not symbol or symbol sets",
 			values[j].v_field.v_string, ca[i].ca_name));
 		values[j].v_field.v_double =
-		    (double)xunsymbol(&ca[i], values[j].v_field.v_string,
-		    values[j].v_type == VAL_SYMBOL_SET ? 1 : 0);
+		    (double)xunsymbol(&ca[i], values[j].v_field.v_string);
 		free(values[i].v_field.v_string);
 		if (values[j].v_field.v_double < 0.0)
 		    return -1;
@@ -458,7 +376,6 @@ xuloadrow(int type, int row, struct value values[])
 	break;
     case VAL_STRING:
     case VAL_SYMBOL:
-    case VAL_SYMBOL_SET:
 	return gripe("Extra junk after the last column, read %s",
 	    values[j].v_field.v_string);
     case VAL_DOUBLE:
@@ -469,27 +386,6 @@ xuloadrow(int type, int row, struct value values[])
 	    "unknown value type %d", values[j].v_type);
     }
     return 0;
-}
-
-static void
-xuskipcommentlines(FILE *fp)
-{
-    int ch;
-
-    for (;;) {
-        ch = getc(fp);
-	if (ch == EOF)
-	    return;
-	if (ch == '#') {
-	    do {
-		ch = getc(fp);
-	    } while (ch != '\n' && ch != EOF);
-	    lineno++;
-	} else {
-	    ungetc(ch, fp);
-	    return;
-	}
-    }
 }
 
 int
@@ -508,7 +404,6 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    xuskipcommentlines(fp);
     if (fscanf(fp, "XDUMP %63[^0123456789]%*d%c", name, &sep) != 2)
 	return gripe("Expected XDUMP header");
     if (sep != '\n')
@@ -520,7 +415,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	return gripe("Missing space after table name in header %s",
 	    name);
     name[strlen(name) - 1] = '\0';
-
+    
     type = ef_byname(name);
     if (type < 0)
 	return gripe("Table not found %s", name);
@@ -532,7 +427,6 @@ xundump(FILE *fp, char *file, int expected_table)
     fixed_rows = has_const(ef_cadef(type));
 
     for (row = 0; ; row++) {
-        xuskipcommentlines(fp);
 	lineno++;
 	ch = getc(fp);
 	ungetc(ch, fp);
@@ -571,6 +465,5 @@ xundump(FILE *fp, char *file, int expected_table)
     if (!fixed_rows)
 	xuinitrow(type, row);
 
-    xuskipcommentlines(fp);
     return 0;
 }
