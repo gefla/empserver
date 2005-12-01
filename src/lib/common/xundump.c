@@ -417,18 +417,11 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    if (fscanf(fp, "XDUMP %63[^0123456789]%*d%c", name, &sep) != 2)
+    if (fscanf(fp, "XDUMP %63s %*d%c", name, &sep) != 2)
 	return gripe("Expected XDUMP header");
     if (sep != '\n')
 	return gripe("Junk after XDUMP header");
 
-    if (strlen(name) < 2)
-	return gripe("Invalid table name in header %s", name);
-    if (name[strlen(name) - 1] != ' ')
-	return gripe("Missing space after table name in header %s",
-	    name);
-    name[strlen(name) - 1] = '\0';
-    
     type = ef_byname(name);
     if (type < 0)
 	return gripe("Table not found %s", name);
