@@ -162,8 +162,6 @@ xuflds(FILE *fp, struct value values[])
 		"Expected space or newline as field separator found %c",
 		sep);
     }
-    if (i == 0)
-	return gripe("No columns read");
     values[++i].v_type = VAL_NOTUSED;
     return i;
 }
