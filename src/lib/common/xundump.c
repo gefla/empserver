@@ -25,11 +25,11 @@
  *
  *  ---
  *
- *  xundump.c: Text loading functions based on xdump output
+ *  xundump.c: Load back xdump output
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *  
+ *     Markus Armbruster, 2005
  */
 
 #include <stdio.h>
@@ -424,11 +424,11 @@ xundump(FILE *fp, char *file, int expected_table)
 
     type = ef_byname(name);
     if (type < 0)
-	return gripe("Table not found %s", name);
+	return gripe("Unknown table `%s'", name);
 
     if (expected_table != EF_BAD && expected_table != type)
-	return gripe("Incorrect Table expecting %s got %s",
-	    ef_nameof(expected_table), name);
+	return gripe("Expected table `%s', not `%s'",
+		     ef_nameof(expected_table), name);
 
     fixed_rows = has_const(ef_cadef(type));
 
@@ -436,8 +436,6 @@ xundump(FILE *fp, char *file, int expected_table)
 	lineno++;
 	ch = getc(fp);
 	ungetc(ch, fp);
-	if (ch == EOF)
-	    return gripe("Unexpected EOF");
 	if (ch == '/')
 	    break;
 	/*
@@ -461,15 +459,15 @@ xundump(FILE *fp, char *file, int expected_table)
     }
 
     if (fscanf(fp, "/%d%c", &rows, &sep) != 2)
-	return gripe("Failed to find number of rows trailer");
+	return gripe("Expected table footer");
     if (row != rows)
-	return gripe("Number of rows doesn't match between "
-	    "the trailer and what was read");
+	return gripe("Read %d rows, which doesn't match footer",
+		     row);
     if (fixed_rows && row != empfile[type].csize -1)
-	return gripe("Number of rows doesn't match, and "
-	    "it must for table %s", name);
+	return gripe("Table %s requires %d rows, got %d",
+		     name, empfile[type].csize - 1, row);
     if (sep != '\n')
-	return gripe("Junk after number of rows trailer");
+	return gripe("Junk after table footer");
 
     if (!fixed_rows)
 	xuinitrow(type, row);
