@@ -418,7 +418,7 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    if (fscanf(fp, "XDUMP %63s %*d%c", name, &sep) != 2)
+    if (fscanf(fp, "XDUMP%*1[ ]%63s%*1[ ]%*d%c", name, &sep) != 2)
 	return gripe("Expected XDUMP header");
     if (sep != '\n')
 	return gripe("Junk after XDUMP header");
