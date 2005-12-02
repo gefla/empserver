@@ -416,7 +416,7 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    if (fscanf(fp, "XDUMP%*1[ ]%63s%*1[ ]%*d%c", name, &sep) != 2)
+    if (fscanf(fp, "XDUMP%*1[ ]%63[^ \n]%*1[ ]%*[^ \n]%c", name, &sep) != 2)
 	return gripe("Expected XDUMP header");
     if (sep != '\n')
 	return gripe("Junk after XDUMP header");
@@ -434,9 +434,9 @@ xundump(FILE *fp, char *file, int expected_table)
     for (row = 0; ; row++) {
 	lineno++;
 	ch = getc(fp);
-	ungetc(ch, fp);
 	if (ch == '/')
 	    break;
+	ungetc(ch, fp);
 	/*
 	 * TODO
 	 * Add column count check to the return value of xuflds()
@@ -457,8 +457,10 @@ xundump(FILE *fp, char *file, int expected_table)
 	    return -1;
     }
 
-    if (fscanf(fp, "/%d%c", &rows, &sep) != 2)
-	return gripe("Expected table footer");
+    ch = getc(fp);
+    ungetc(ch, fp);
+    if (!isdigit(ch) || fscanf(fp, "%d%c", &rows, &sep) != 2)
+	return gripe("Malformed table footer");
     if (row != rows)
 	return gripe("Read %d rows, which doesn't match footer",
 		     row);
