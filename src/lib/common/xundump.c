@@ -110,7 +110,6 @@ static int
 xuflds(FILE *fp, struct value values[])
 {
     int i, ch;
-    char sep;
     char buf[1024];
 
     for (i = 0; ; i++) {
@@ -119,20 +118,21 @@ xuflds(FILE *fp, struct value values[])
 	    return gripe("Too many columns");
 
 	ch = getc(fp);
-	ungetc(ch, fp);
-
 	switch (ch) {
 	case EOF:
 	    return gripe("Unexpected EOF");
+	case '\n':
+	    return i;
 	case '+': case '-': case '.':
 	case '0': case '1': case '2': case '3': case '4':
 	case '5': case '6': case '7': case '8': case '9':
-	    if (fscanf(fp, "%lg%c", &values[i].v_field.v_double, &sep) != 2)
+	    ungetc(ch, fp);
+	    if (fscanf(fp, "%lg", &values[i].v_field.v_double) != 1)
 		return gripe("Malformed number in field %d", i + 1);
 	    values[i].v_type = VAL_DOUBLE;
 	    break;
 	case '"':
-	    if (fscanf(fp, "\"%1023[^ \n]%c", buf, &sep) != 2
+	    if (fscanf(fp, "%1023[^ \n]", buf) != 1
 		|| buf[strlen(buf)-1] != '"')
 		return gripe("Malformed string in field %d", i + 1);
 	    buf[strlen(buf)-1] = '\0';
@@ -143,7 +143,8 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_field.v_string = strdup(buf);
 	    break;
 	default:
-	    if (fscanf(fp, "%1023[^ \n]%c", buf, &sep) != 2) {
+	    ungetc(ch, fp);
+	    if (fscanf(fp, "%1023[^ \n]", buf) != 1 || !isalpha(buf[0])) {
 		return gripe("Junk in field %d", i + 1);
 	    }
 	    if (!strcmp(buf, "nil")) {
@@ -155,15 +156,12 @@ xuflds(FILE *fp, struct value values[])
 		values[i].v_field.v_string = strdup(buf);
 	    }
 	}
-	if (sep == '\n')
-	    break;
-	if (sep != ' ')
-	    return gripe(
-		"Expected space or newline as field separator found %c",
-		sep);
+	ch = getc(fp);
+	if (ch == '\n')
+	    ungetc(ch, fp);
+	else if (ch != ' ')
+	    return gripe("Bad field separator after field %d", i + 1);
     }
-    values[++i].v_type = VAL_NOTUSED;
-    return i;
 }
 
 static void
