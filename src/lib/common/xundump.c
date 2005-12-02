@@ -32,6 +32,8 @@
  *     Markus Armbruster, 2005
  */
 
+/* FIXME normalize terminology: table/rows/columns or file/records/fields */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -111,8 +113,11 @@ xuflds(FILE *fp, struct value values[])
     char sep;
     char buf[1024];
 
-    for (i = 0; i < MAX_NUM_COLUMNS; i++) {
+    for (i = 0; ; i++) {
 	values[i].v_type = VAL_NOTUSED;
+	if (i >= MAX_NUM_COLUMNS)
+	    return gripe("Too many columns");
+
 	ch = getc(fp);
 	ungetc(ch, fp);
 
@@ -157,8 +162,6 @@ xuflds(FILE *fp, struct value values[])
 		"Expected space or newline as field separator found %c",
 		sep);
     }
-    if (i >= MAX_NUM_COLUMNS)
-	return gripe("Too many columns");
     if (i == 0)
 	return gripe("No columns read");
     values[++i].v_type = VAL_NOTUSED;
