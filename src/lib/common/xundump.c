@@ -355,7 +355,8 @@ xuloadrow(int type, int row, struct value values[])
 				*((char **)row_ref)[k],
 				*values[j].v_field.v_string);
 		    } else
-			((char **)row_ref)[k] = values[j].v_field.v_string;
+			((char **)row_ref)[k]
+			    = strdup(values[j].v_field.v_string);
 		    break;
 		case NSC_INT:
 		case NSC_LONG:
