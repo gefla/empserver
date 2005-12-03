@@ -188,7 +188,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     s_char orig;
     int mob;
 
-    taken = lnd_getmil(&(llp->land));
+    taken = lnd_getmil(&llp->land);
     /* Spies always die */
     if (llp->lcp->l_flags & L_SPY) {
 	eff_eq = 100;
@@ -197,7 +197,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 	eff_eq =
 	    ldround((((double)cas * 100.0) / (double)llp->lcp->l_mil), 1);
 	llp->land.lnd_effic -= eff_eq;
-	lnd_submil(&(llp->land), cas);
+	lnd_submil(&llp->land, cas);
     }
 
     if (llp->land.lnd_effic < LAND_MINEFF) {
@@ -209,7 +209,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 	return taken;
     } else {
 	/* Ok, now, how many did we take off? (sould be the diff) */
-	taken = taken - lnd_getmil(&(llp->land));
+	taken = taken - lnd_getmil(&llp->land);
     }
 
     if (llp->land.lnd_effic >= llp->land.lnd_retreat)
@@ -1127,9 +1127,9 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	}
 	/* Note we check would_abandon first because we don't want
 	   to always have to do these checks */
-	if (would_abandon(&osect, I_CIVIL, 0, &(llp->land))) {
+	if (would_abandon(&osect, I_CIVIL, 0, &llp->land)) {
 	    stop = 0;
-	    if (!want_to_abandon(&osect, I_CIVIL, 0, &(llp->land))) {
+	    if (!want_to_abandon(&osect, I_CIVIL, 0, &llp->land)) {
 		stop = 1;
 	    }
 	    /* now check stuff */
@@ -1138,7 +1138,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    if (!check_sect_ok(&osect))
 		return 1;
 	    for (qp2 = list->q_back; qp2 != list; qp2 = qp2->q_back) {
-		if (!check_land_ok(&(((struct llist *)qp2)->land)))
+		if (!check_land_ok(&((struct llist *)qp2)->land))
 		    return 1;
 	    }
 	    if (stop) {

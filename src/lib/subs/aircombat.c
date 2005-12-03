@@ -1004,7 +1004,7 @@ ac_flak_dam(int flak)
     dam = (int)((roll(8) + 2) * mult);
     if (dam > 100)
 	dam = 100;
-    return(dam);
+    return dam;
 }
 
 /*

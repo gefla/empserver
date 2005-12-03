@@ -292,7 +292,7 @@ nav_ship(struct shpstr *sp)
 
 		/* We need to free the ship list */
 		qp = ship_list.q_forw;
-		while (qp != &(ship_list)) {
+		while (qp != &ship_list) {
 		    newqp = qp->q_forw;
 		    emp_remque(qp);
 		    free(qp);
@@ -338,7 +338,7 @@ nav_ship(struct shpstr *sp)
 
     /* We need to free the ship list (just in case) */
     qp = ship_list.q_forw;
-    while (qp != &(ship_list)) {
+    while (qp != &ship_list) {
 	newqp = qp->q_forw;
 	emp_remque(qp);
 	free(qp);

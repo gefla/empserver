@@ -374,10 +374,10 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 void
 lwpInitContext(struct lwpProc *newp, stack_t *spp)
 {
-    getcontext(&(newp->context));
+    getcontext(&newp->context);
     newp->context.uc_stack.ss_sp = spp->ss_sp;
     newp->context.uc_stack.ss_size = spp->ss_size;
-    makecontext(&(newp->context), lwpEntryPoint, 0);
+    makecontext(&newp->context, lwpEntryPoint, 0);
 }
 
 #elif defined(ALPHA)

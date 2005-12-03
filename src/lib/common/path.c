@@ -271,8 +271,8 @@ bp_realcost(struct as_coord from, struct as_coord to, s_char *pp)
 static double
 bp_seccost(struct as_coord from, struct as_coord to, s_char *pp)
 {
-    return ((double)mapdist((coord)from.x, (coord)from.y,
-			    (coord)to.x, (coord)to.y));
+    return (double)mapdist((coord)from.x, (coord)from.y,
+			   (coord)to.x, (coord)to.y);
 }
 
 /*

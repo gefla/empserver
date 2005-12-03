@@ -314,9 +314,9 @@ gen_power(void)
 	else
 	    pow->p_power = pow->p_power * (1.0 / 500.0);
 	/* ack.  add this vec to the "world power" element */
-	f_pt2 = &(powbuf[0].p_sects);
-	f_ptr = &(pow->p_sects);
-	while (f_ptr <= &(pow->p_power)) {
+	f_pt2 = &powbuf[0].p_sects;
+	f_ptr = &pow->p_sects;
+	while (f_ptr <= &pow->p_power) {
 	    *f_pt2 += *f_ptr;
 	    f_pt2++;
 	    f_ptr++;

@@ -128,7 +128,7 @@ verify_row(int type, int row)
     } 
     if (!in_mem)
         free(row_ref);
-    return(ret_val);
+    return ret_val;
 }
 
 int
