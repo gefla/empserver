@@ -494,7 +494,10 @@ xundump(FILE *fp, char *file, int expected_table)
 	return -1;
     ungetc(ch, fp);
 
-    if (fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]", name) != 1)
+    res = -1;
+    if (fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
+	       name, &res) != 1
+	|| res < 0)
 	return gripe("Expected XDUMP header");
     if (skipfs(fp) != '\n')
 	return gripe("Junk after XDUMP header");
