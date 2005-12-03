@@ -406,10 +406,11 @@ xundump(FILE *fp, char *file, int expected_table)
 {
     char name[64];
     char sep;
+    struct empfile *ep;
     int row, res, rows, ch;
     struct value values[MAX_NUM_COLUMNS + 1];
     int type;
-    int fixed_rows;
+    int fixed_rows, need_sentinel;
 
     if (strcmp(fname, file) != 0) {
         fname = file;
@@ -425,12 +426,16 @@ xundump(FILE *fp, char *file, int expected_table)
     type = ef_byname(name);
     if (type < 0)
 	return gripe("Unknown table `%s'", name);
+    ep = &empfile[type];
+    if (CANT_HAPPEN(!(ep->flags & EFF_MEM)))
+	return -1;		/* not implemented */
 
     if (expected_table != EF_BAD && expected_table != type)
 	return gripe("Expected table `%s', not `%s'",
 		     ef_nameof(expected_table), name);
 
     fixed_rows = has_const(ef_cadef(type));
+    need_sentinel = !fixed_rows; /* FIXME only approximation */
 
     for (row = 0; ; row++) {
 	lineno++;
@@ -443,12 +448,12 @@ xundump(FILE *fp, char *file, int expected_table)
 	 * Add column count check to the return value of xuflds()
 	 */
 	res = xuflds(fp, values);
-	if (res > 0 && row >= empfile[type].csize - 1) {
+	if (res > 0 && row >= ep->csize - 1) {
+	    /* TODO grow cache unless EFF_STATIC */
 	    gripe("Too many rows for table %s", name);
 	    res = -1;
 	}
 	if (res > 0) {
-	    empfile[type].fids = row + 1;
 	    if (!fixed_rows)
 		xuinitrow(type, row);
 	    res = xuloadrow(type, row, values);
@@ -465,14 +470,14 @@ xundump(FILE *fp, char *file, int expected_table)
     if (row != rows)
 	return gripe("Read %d rows, which doesn't match footer",
 		     row);
-    if (fixed_rows && row != empfile[type].csize -1)
+    if (fixed_rows && row != ep->csize -1)
 	return gripe("Table %s requires %d rows, got %d",
-		     name, empfile[type].csize - 1, row);
+		     name, ep->csize - 1, row);
     if (sep != '\n')
 	return gripe("Junk after table footer");
-
-    if (!fixed_rows)
+    if (need_sentinel)
 	xuinitrow(type, row);
 
-    return 0;
+    ep->fids = ep->cids = row;
+    return type;
 }

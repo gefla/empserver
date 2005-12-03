@@ -35,6 +35,56 @@
 #include "file.h"
 #include "prototypes.h"
 
+struct fileinit {
+    int ef_type;
+    void (*init) (int, char *);
+    int (*postread) (int, char *);
+    int (*prewrite) (int, char *);
+};
+
+static struct fileinit fileinit[] = {
+    {EF_SECTOR, NULL, sct_postread, sct_prewrite},
+    {EF_SHIP, shp_init, shp_postread, shp_prewrite},
+    {EF_PLANE, pln_init, pln_postread, pln_prewrite},
+    {EF_LAND, lnd_init, lnd_postread, lnd_prewrite},
+    {EF_NUKE, nuk_init, nuk_postread, nuk_prewrite}
+};
+
+static void ef_open_srv(void);
+static void ef_close_srv(void);
+
+/*
+ * Initialize empfile for full server operations.
+ * Like ef_init(), but additionally installs the server's callbacks.
+ * This is separate from ef_init(), so that utility programs like
+ * files can use empfile.
+ */
+void
+ef_init_srv(void)
+{
+    unsigned i;
+
+    ef_init();
+    if (ef_load() < 0)
+	exit(EXIT_FAILURE);
+
+    for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
+	empfile[fileinit[i].ef_type].init = fileinit[i].init;
+	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
+	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
+    }
+    ef_open_srv();
+    if (ef_verify() < 0)
+	exit(EXIT_FAILURE);
+    global_init();
+}
+
+void
+ef_fin_srv(void)
+{
+    ef_close_srv();
+}
+
 static void
 ef_open_srv(void)
 {
@@ -60,47 +110,6 @@ ef_open_srv(void)
     }
 }
 
-struct fileinit {
-    int ef_type;
-    void (*init) (int, char *);
-    int (*postread) (int, char *);
-    int (*prewrite) (int, char *);
-};
-
-static struct fileinit fileinit[] = {
-    {EF_SECTOR, NULL, sct_postread, sct_prewrite},
-    {EF_SHIP, shp_init, shp_postread, shp_prewrite},
-    {EF_PLANE, pln_init, pln_postread, pln_prewrite},
-    {EF_LAND, lnd_init, lnd_postread, lnd_prewrite},
-    {EF_NUKE, nuk_init, nuk_postread, nuk_prewrite}
-};
-
-/*
- * Initialize empfile for full server operations.
- * Like ef_init(), but additionally installs the server's callbacks.
- * This is separate from ef_init(), so that utility programs like
- * files can use empfile.
- */
-void
-ef_init_srv(void)
-{
-    unsigned i;
-
-    if (ef_load() < 0)
-	exit(EXIT_FAILURE);
-
-    for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
-	empfile[fileinit[i].ef_type].init = fileinit[i].init;
-	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
-	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
-    }
-    ef_init();
-    ef_open_srv();
-    if (ef_verify() < 0)
-	exit(EXIT_FAILURE);
-    global_init();
-}
-
 static void
 ef_close_srv(void)
 {
@@ -119,10 +128,4 @@ ef_close_srv(void)
     ef_close(EF_COMM);
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
-}
-
-void
-ef_fin_srv(void)
-{
-    ef_close_srv();
 }
