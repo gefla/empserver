@@ -60,6 +60,7 @@ enum enum_value {
     VAL_NOTUSED,
     VAL_STRING,
     VAL_SYMBOL,
+    VAL_SYMBOL_SET,
     VAL_DOUBLE
 };
 
@@ -70,6 +71,8 @@ struct value {
 	double v_double;
     } v_field;
 };
+
+static int gripe(char *fmt, ...) ATTRIBUTE((format (printf, 1, 2)));
 
 static int
 gripe(char *fmt, ...)
@@ -103,6 +106,15 @@ skipfs(FILE *fp)
     return ch;
 }
 
+static int
+getid(FILE *fp, char *buf)
+{
+    int n;
+    if (fscanf(fp, "%1023[^#() \t\n]%n", buf, &n) != 1 || !isalpha(buf[0]))
+	return -1;
+    return n;
+}
+
 static char *
 xuesc(char *buf)
 {
@@ -129,6 +141,8 @@ xuflds(FILE *fp, struct value values[])
 {
     int i, ch;
     char buf[1024];
+    char *p;
+    int len, l1;
 
     for (i = 0; ; i++) {
 	values[i].v_type = VAL_NOTUSED;
@@ -164,9 +178,32 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_type = VAL_STRING;
 	    values[i].v_field.v_string = strdup(buf);
 	    break;
+	case '(':
+	    p = strdup("");
+	    len = 0;
+	    for (;;) {
+		ch = skipfs(fp);
+		if (ch == EOF || ch == '\n')
+		    return gripe("Unmatched '(' in field %d", i + 1);
+		if (ch == ')')
+		    break;
+		ungetc(ch, fp);
+		l1 = getid(fp, buf);
+		if (l1 < 0)
+		    return gripe("Junk in field %d", i + 1);
+		p = realloc(p, len + l1 + 2);
+		strcpy(p + len, buf);
+		strcpy(p + len + l1, " ");
+		len += l1 + 1;
+	    }
+	    if (len)
+		p[len - 1] = 0;
+	    values[i].v_type = VAL_SYMBOL_SET;
+	    values[i].v_field.v_string = p;
+	    break;
 	default:
 	    ungetc(ch, fp);
-	    if (fscanf(fp, "%1023[^ \t#\n]", buf) != 1 || !isalpha(buf[0])) {
+	    if (getid(fp, buf) < 0) {
 		return gripe("Junk in field %d", i + 1);
 	    }
 	    if (!strcmp(buf, "nil")) {
@@ -198,34 +235,47 @@ freeflds(struct value values[])
 }
 
 static int
-xunsymbol(struct castr *ca, struct value *vp)
+xunsymbol1(char *id, struct symbol *symtab, struct castr *ca, int n)
+{
+    int i = stmtch(id, symtab, offsetof(struct symbol, name),
+		   sizeof(struct symbol));
+    if (i < 0)
+	return gripe("%s %s symbol `%s' in field %d",
+		     i == M_NOTUNIQUE ? "Ambiguous" : "Unknown",
+		     ca->ca_name, id, n);
+    return i;
+}
+
+static int
+xunsymbol(struct castr *ca, struct value *vp, int n)
 {
     struct symbol *symtab = (struct symbol *)empfile[ca->ca_table].cache;
     char *buf = vp->v_field.v_string;
     int i;
-    int value = 0;
+    int value;
     char *token;
 
-    if (ca->ca_flags & NSC_BITS)
-	token = strtok( buf, "|");
-    else
-	token = buf;
-
-    if (!token || token[0] == '\0')
-	return gripe("Empty symbol value for field %s", ca->ca_name);
-
-    while (token) {
-	if ((i = stmtch(token, symtab, offsetof(struct symbol, name),
-			sizeof(struct symbol))) != M_NOTFOUND) {
-	    if (!(ca->ca_flags & NSC_BITS))
-		return(symtab[i].value);
+    if (vp->v_type == VAL_SYMBOL_SET) {
+	if (!(ca->ca_flags & NSC_BITS) || ca->ca_table == EF_BAD)
+	    return gripe("%s doesn't take a symbol set in field %d",
+			 ca->ca_name, n);
+	value = 0;
+	for (token = strtok(buf, " "); token; token = strtok(NULL, " ")) {
+	    i = xunsymbol1(token, symtab, ca, n);
+	    if (i < 0)
+		return -1;
 	    value |= symtab[i].value;
 	}
-	else
-	    return gripe("Symbol %s was not found for field %s", token,
-		ca->ca_name);
-	token = strtok(NULL, "|");
-    }
+    } else if (vp->v_type == VAL_SYMBOL) {
+	if ((ca->ca_flags & NSC_BITS) || ca->ca_table == EF_BAD)
+	    return gripe("%s doesn't take a symbol in field %d",
+			 ca->ca_name, n);
+	i = xunsymbol1(buf, symtab, ca, n);
+	if (i < 0)
+	    return -1;
+	value = symtab[i].value;
+    } else
+	return 0;
 
     vp->v_type = VAL_DOUBLE;
     vp->v_field.v_double = value;
@@ -282,11 +332,8 @@ xuloadrow(int type, int row, struct value values[])
 	     */
 	    switch (values[j].v_type) {
 	    case VAL_SYMBOL:
-		if (ca[i].ca_table == EF_BAD)
-		    return(gripe("Found symbol string %s, but column %s "
-			"is not symbol or symbol sets",
-			values[j].v_field.v_string, ca[i].ca_name));
-		if (xunsymbol(&ca[i], &values[j]) < 0)
+	    case VAL_SYMBOL_SET:
+		if (xunsymbol(&ca[i], &values[j], j) < 0)
 		    return -1;
 		/* fall through */
 	    case VAL_DOUBLE:
@@ -412,6 +459,7 @@ xuloadrow(int type, int row, struct value values[])
 	break;
     case VAL_STRING:
     case VAL_SYMBOL:
+    case VAL_SYMBOL_SET:
 	return gripe("Extra junk after the last column, read %s",
 	    values[j].v_field.v_string);
     case VAL_DOUBLE:
