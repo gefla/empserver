@@ -371,8 +371,8 @@ xuloadrow(int type, int row, struct value values[])
 			    gripe("Field %s must be same, "
 				"read %s != expected %s",
 				ca[i].ca_name,
-				*((char **)row_ref)[k],
-				*values[j].v_field.v_string);
+				((char **)row_ref)[k],
+				values[j].v_field.v_string);
 		    } else
 			((char **)row_ref)[k]
 			    = strdup(values[j].v_field.v_string);
