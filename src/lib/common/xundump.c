@@ -243,6 +243,10 @@ xuloadrow(int type, int row, struct value values[])
     j = 0;
     while (ca[i].ca_type != NSC_NOTYPE &&
 	   values[j].v_type != VAL_NOTUSED) {
+	if (ca[i].ca_flags & NSC_EXTRA) {
+	    i++;
+	    continue;
+	}
 	row_ref = (char *)ptr + ca[i].ca_off;
 	k = 0;
 	do {
@@ -342,9 +346,6 @@ xuloadrow(int type, int row, struct value values[])
 		break;
 	    case VAL_STRING:
 		switch(ca[i].ca_type) {
-		case NSC_STRINGY:
-		    return gripe("Field %s is of NSC_STRINGY type "
-			"which is not supported", ca[i].ca_name);
 		case NSC_STRING:
     		    if (ca[i].ca_flags & NSC_CONST) {
 			if (strcmp(((char **)row_ref)[k],
