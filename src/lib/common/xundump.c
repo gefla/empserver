@@ -198,9 +198,10 @@ freeflds(struct value values[])
 }
 
 static int
-xunsymbol(struct castr *ca, char *buf)
+xunsymbol(struct castr *ca, struct value *vp)
 {
-    struct symbol *symbol = (struct symbol *)empfile[ca->ca_table].cache;
+    struct symbol *symtab = (struct symbol *)empfile[ca->ca_table].cache;
+    char *buf = vp->v_field.v_string;
     int i;
     int value = 0;
     char *token;
@@ -214,18 +215,21 @@ xunsymbol(struct castr *ca, char *buf)
 	return gripe("Empty symbol value for field %s", ca->ca_name);
 
     while (token) {
-	if ((i = stmtch(token, symbol, offsetof(struct symbol, name),
+	if ((i = stmtch(token, symtab, offsetof(struct symbol, name),
 			sizeof(struct symbol))) != M_NOTFOUND) {
 	    if (!(ca->ca_flags & NSC_BITS))
-		return(symbol[i].value);
-	    value |= symbol[i].value;
+		return(symtab[i].value);
+	    value |= symtab[i].value;
 	}
 	else
 	    return gripe("Symbol %s was not found for field %s", token,
 		ca->ca_name);
 	token = strtok(NULL, "|");
     }
-    return(value);
+
+    vp->v_type = VAL_DOUBLE;
+    vp->v_field.v_double = value;
+    return 0;
 }
 
 static int
@@ -282,13 +286,9 @@ xuloadrow(int type, int row, struct value values[])
 		    return(gripe("Found symbol string %s, but column %s "
 			"is not symbol or symbol sets",
 			values[j].v_field.v_string, ca[i].ca_name));
-		values[j].v_field.v_double =
-		    (double)xunsymbol(&ca[i], values[j].v_field.v_string);
-		if (values[j].v_field.v_double < 0.0)
+		if (xunsymbol(&ca[i], &values[j]) < 0)
 		    return -1;
-		/*
-		 * fall through
-		 */
+		/* fall through */
 	    case VAL_DOUBLE:
 		switch (ca[i].ca_type) {
 		case NSC_INT:
