@@ -85,6 +85,24 @@ gripe(char *fmt, ...)
     return -1;
 }
 
+static int
+skipfs(FILE *fp)
+{
+    int ch;
+
+    do {
+	ch = getc(fp);
+    } while (ch == ' ' || ch == '\t');
+
+    if (ch == '#') {
+	do {
+	    ch = getc(fp);
+	} while (ch != EOF && ch != '\n');
+    }
+
+    return ch;
+}
+
 static char *
 xuesc(char *buf)
 {
@@ -117,7 +135,7 @@ xuflds(FILE *fp, struct value values[])
 	if (i >= MAX_NUM_COLUMNS)
 	    return gripe("Too many columns");
 
-	ch = getc(fp);
+	ch = skipfs(fp);
 	switch (ch) {
 	case EOF:
 	    return gripe("Unexpected EOF");
@@ -132,7 +150,7 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_type = VAL_DOUBLE;
 	    break;
 	case '"':
-	    if (fscanf(fp, "%1023[^ \n]", buf) != 1
+	    if (fscanf(fp, "%1023[^ \t#\n]", buf) != 1
 		|| buf[strlen(buf)-1] != '"')
 		return gripe("Malformed string in field %d", i + 1);
 	    buf[strlen(buf)-1] = '\0';
@@ -144,7 +162,7 @@ xuflds(FILE *fp, struct value values[])
 	    break;
 	default:
 	    ungetc(ch, fp);
-	    if (fscanf(fp, "%1023[^ \n]", buf) != 1 || !isalpha(buf[0])) {
+	    if (fscanf(fp, "%1023[^ \t#\n]", buf) != 1 || !isalpha(buf[0])) {
 		return gripe("Junk in field %d", i + 1);
 	    }
 	    if (!strcmp(buf, "nil")) {
@@ -159,7 +177,7 @@ xuflds(FILE *fp, struct value values[])
 	ch = getc(fp);
 	if (ch == '\n')
 	    ungetc(ch, fp);
-	else if (ch != ' ')
+	else if (ch != ' ' && ch != '\t')
 	    return gripe("Bad field separator after field %d", i + 1);
     }
 }
@@ -406,7 +424,6 @@ int
 xundump(FILE *fp, char *file, int expected_table)
 {
     char name[64];
-    char sep;
     struct empfile *ep;
     int row, res, rows, ch;
     struct value values[MAX_NUM_COLUMNS + 1];
@@ -419,9 +436,15 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    if (fscanf(fp, "XDUMP%*1[ ]%63[^ \n]%*1[ ]%*[^ \n]%c", name, &sep) != 2)
+    while ((ch = skipfs(fp)) == '\n')
+	lineno++;
+    if (ch == EOF && expected_table == EF_BAD)
+	return -1;
+    ungetc(ch, fp);
+
+    if (fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]", name) != 1)
 	return gripe("Expected XDUMP header");
-    if (sep != '\n')
+    if (skipfs(fp) != '\n')
 	return gripe("Junk after XDUMP header");
 
     type = ef_byname(name);
@@ -440,7 +463,7 @@ xundump(FILE *fp, char *file, int expected_table)
 
     for (row = 0; ; row++) {
 	lineno++;
-	ch = getc(fp);
+	ch = skipfs(fp);
 	if (ch == '/')
 	    break;
 	ungetc(ch, fp);
@@ -466,16 +489,16 @@ xundump(FILE *fp, char *file, int expected_table)
 
     ch = getc(fp);
     ungetc(ch, fp);
-    if (!isdigit(ch) || fscanf(fp, "%d%c", &rows, &sep) != 2)
+    if (!isdigit(ch) || fscanf(fp, "%d", &rows) != 1)
 	return gripe("Malformed table footer");
+    if (skipfs(fp) != '\n')
+	return gripe("Junk after table footer");
     if (row != rows)
 	return gripe("Read %d rows, which doesn't match footer",
 		     row);
     if (fixed_rows && row != ep->csize -1)
 	return gripe("Table %s requires %d rows, got %d",
 		     name, ep->csize - 1, row);
-    if (sep != '\n')
-	return gripe("Junk after table footer");
     if (need_sentinel)
 	xuinitrow(type, row);
 
