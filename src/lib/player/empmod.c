@@ -40,8 +40,6 @@
 #include "nat.h"
 #include "file.h"
 #include "commands.h"
-#include "version.h" /* need to OBSOLETE hidden command */
-
 
 struct cmndstr player_coms[] = {
 /*  command form                       cost	addr    permit */
@@ -120,11 +118,6 @@ struct cmndstr player_coms[] = {
     {"harden <PLANES> <NUM>", 2, hard, C_MOD, NORM + MONEY + CAP},
     {"help <topic>", 0, info, 0, VIS},
     {"headlines [days]", 0, head, C_MOD, VIS},
-    /* 
-     * OBSOLETE
-     * once hidden command is removed, also remove the hidden code in peek.c
-     */
-    {"hidden <SECTS>", 0, peek, 0, GOD},
     {"improve <road|rail|defense> <SECTS> <NUM>", 1, improve, C_MOD,
      NORM + MONEY + CAP},
     {"info <topic>", 0, info, 0, VIS},

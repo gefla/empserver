@@ -40,7 +40,6 @@
 #include "nsc.h"
 #include "nat.h"
 #include "commands.h"
-#include "version.h" /* need to OBSOLETE hidden command */
 
 int
 peek(void)
@@ -48,13 +47,6 @@ peek(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-
-    /* 
-     * OBSOLETE
-     * Can be removed once hidden command is removed from empmod.c
-     */
-    if (player->argp[0][0] == 'h')
-    	pr("The hidden command has been renamed to peek, use peek in the future\n");
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
