@@ -56,20 +56,14 @@ peek(void)
 	if (!player->owner)
 	    continue;
 	if (nsect++ == 0) {
-	    if (player->god)
-		pr("    ");
-	    pr("HIDDEN VALUES     old        che-------  plague----\n");
-	    if (player->god)
-		pr("own ");
-	    pr("  sect        eff own  loyal cnum value  stage time mines\n");
+	    pr("    HIDDEN VALUES           che-------  plague----\n");
+	    pr("own   sect        eff loyal cnum value  stage time mines\n");
 	}
-	if (player->god)
-	    pr("%3d ", sect.sct_own);
+	pr("%3d ", sect.sct_own);
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
-	pr(" %c  %3d%% %3d   %3d  %3d  %3d    %3d   %3d  %3d",
+	pr(" %c  %3d%%   %3d  %3d  %3d    %3d   %3d  %3d",
 	   dchr[sect.sct_type].d_mnem, sect.sct_effic,
-	   sect.sct_oldown, sect.sct_loyal,
-	   sect.sct_che_target, sect.sct_che,
+	   sect.sct_loyal, sect.sct_che_target, sect.sct_che,
 	   sect.sct_pstage, sect.sct_ptime, sect.sct_mines);
 	pr("\n");
     }
