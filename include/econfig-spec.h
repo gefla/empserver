@@ -268,7 +268,7 @@ EMPCFBOTH("decay_per_etu", decay_per_etu, double, NSC_DOUBLE, 0,
 EMPCFBOTH("fallout_spread", fallout_spread, double, NSC_DOUBLE, 0,
     "Amount of fallout that leaks into surrounding sectors")
 EMPCFBOTH("drnuke_const", drnuke_const, float, NSC_FLOAT, 0,
-    "Amount of research to tech needed to build a nuke (if DR_NUKE is on)")
+    "Amount of research to tech needed to build a nuke (if DRNUKE is on)")
 
 EMPCF_COMMENT("\n\n### Market/Trade")
 EMPCFBOTH("MARK_DELAY", MARK_DELAY, int, NSC_INT, 0,
