@@ -150,13 +150,17 @@ xuflds(FILE *fp, struct value values[])
 	    values[i].v_type = VAL_DOUBLE;
 	    break;
 	case '"':
-	    if (fscanf(fp, "%1023[^ \t#\n]", buf) != 1
-		|| buf[strlen(buf)-1] != '"')
-		return gripe("Malformed string in field %d", i + 1);
-	    buf[strlen(buf)-1] = '\0';
-	    if (!xuesc(buf))
-		return gripe("Invalid escape sequence in field %d",
-		    i + 1);
+	    ch = getc(fp);
+	    if (ch == '"')
+		buf[0] = 0;
+	    else {
+		ungetc(ch, fp);
+		if (fscanf(fp, "%1023[^\"\n]", buf) != 1 || getc(fp) != '"')
+		    return gripe("Malformed string in field %d", i + 1);
+		if (!xuesc(buf))
+		    return gripe("Invalid escape sequence in field %d",
+				 i + 1);
+	    }
 	    values[i].v_type = VAL_STRING;
 	    values[i].v_field.v_string = strdup(buf);
 	    break;
