@@ -125,6 +125,7 @@ extern int daemonize;
  * Usage: if (CANT_HAPPEN(...)) recovery_code();
  */
 #define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__) : 0)
+extern int oops(char *, char *, int);
 
 	/* return codes from command routines */
 #define	RET_OK		0	/* command completed sucessfully */
