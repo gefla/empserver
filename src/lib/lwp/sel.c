@@ -83,7 +83,7 @@ lwpInitSelect(struct lwpProc *proc)
 void
 lwpSleepFd(int fd, int mask)
 {
-    lwpStatus(LwpCurrent, "sleeping on fd %d", fd);
+    lwpStatus(LwpCurrent, "sleeping on fd %d for %d", fd, mask);
 
     if (LwpSelect.wait[fd] != 0) {
 	lwpStatus(LwpCurrent,
@@ -180,7 +180,7 @@ lwpSelect(void *arg)
 	    if (tv.tv_sec < 0)
 		tv.tv_sec = 0;
 	}
-	lwpStatus(us, "selecting; sleep %ld secs", (long)delta);
+	lwpStatus(us, "selecting; sleep %ld secs", tv.tv_sec);
 
 	memcpy(&readmask, &LwpSelect.readmask, sizeof(fd_set));
 	memcpy(&writemask, &LwpSelect.writemask, sizeof(fd_set));
