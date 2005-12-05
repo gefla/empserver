@@ -22,7 +22,6 @@
  */
 #include "lwp.h"
 #include "lwpint.h"
-#include "prototypes.h"
 
 #if defined(_EMPTH_LWP)
 

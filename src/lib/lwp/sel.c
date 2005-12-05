@@ -36,7 +36,8 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <sys/file.h>
-#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
 #ifdef hpux
 #include <stdio.h>
@@ -44,7 +45,6 @@
 
 #include "lwp.h"
 #include "lwpint.h"
-#include "prototypes.h"
 
 #if defined(_EMPTH_LWP)
 

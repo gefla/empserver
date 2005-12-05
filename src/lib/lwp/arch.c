@@ -32,12 +32,10 @@
  *     Steve McClure, 1994-2000
  */
 
-#include "prototypes.h"
-
-#if defined(_EMPTH_LWP)
-
 #include "lwp.h"
 #include "lwpint.h"
+
+#if defined(_EMPTH_LWP)
 
 /*
  * Implement machine-dependent functions lwpInitContext(), lwpSave(),
