@@ -202,20 +202,17 @@ struct lwpProc *
 lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, char *desc, int argc, char **argv, void *ud)
 {
     struct lwpProc *newp;
-    int *s, x;
+    char *s, *sp;
+    int redsize, x;
 #ifdef UCONTEXT
-    stack_t sp;
-#else  /* UCONTEXT */
-    void *sp;
+    stack_t usp;
 #endif /* UCONTEXT */
-    unsigned long stackp;
 
     if (!(newp = malloc(sizeof(struct lwpProc))))
 	return 0;
-    if (flags & LWP_STACKCHECK) {
-	/* Add a 1K buffer on each side of the stack */
-	size += 2 * LWP_REDZONE;
-    }
+    /* Add a 1K buffer on each side of the stack */
+    redsize = flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
+    size += 2 * redsize;
     size += LWP_EXTRASTACK;
     size += sizeof(stkalign_t);
     if (!(s = malloc(size)))
@@ -227,50 +224,22 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     newp->argc = argc;
     newp->argv = argv;
     newp->ud = ud;
-    if ((newp->flags & LWP_STACKCHECK) == 0) {
-	stackp = growsdown((void *)&x)
-	    ? (unsigned long)s + size - sizeof(stkalign_t) - LWP_EXTRASTACK
-	    : (unsigned long)s + LWP_EXTRASTACK;
-#ifdef UCONTEXT
-	sp.ss_sp = (void *)(stackp & -sizeof(stkalign_t));
-	sp.ss_size = size;
-	sp.ss_flags = 0;
-#else  /* UCONTEXT */
-	sp = (void *)(stackp & -sizeof(stkalign_t));
-#endif /* UCONTEXT */
+    if (growsdown(&x)) {
+	sp = s + size - sizeof(stkalign_t) - LWP_EXTRASTACK - redsize;
+	sp = (char *)0 + ((sp - (char *)0) & -sizeof(stkalign_t));
+	newp->lowmark = sp + LWP_EXTRASTACK;
+	newp->himark = s;
     } else {
-	if (growsdown(&x)) {
-	    /* round address off to stkalign_t */
-	    stackp = ((long)s) + size - LWP_REDZONE -
-		LWP_EXTRASTACK - sizeof(stkalign_t);
-#ifdef UCONTEXT
-	    sp.ss_sp = (void *)(stackp & -sizeof(stkalign_t));
-	    sp.ss_size = size;
-	    sp.ss_flags = 0;
-	    newp->lowmark = (void *)(((long)sp.ss_sp) + LWP_EXTRASTACK);
-#else  /* UCONTEXT */
-	    sp = (void *)(stackp & -sizeof(stkalign_t));
-	    newp->lowmark = (void *)(((long)sp) + LWP_EXTRASTACK);
-#endif /* UCONTEXT */
-	    newp->himark = s;
-	} else {
-	    stackp = ((long)s) + LWP_REDZONE + LWP_EXTRASTACK;
-#ifdef UCONTEXT
-	    sp.ss_sp = (void *)(((long)stackp) & -sizeof(stkalign_t));
-	    sp.ss_size = size;
-	    sp.ss_flags = 0;
-#else  /* UCONTEXT */
-	    sp = (void *)(((long)stackp) & -sizeof(stkalign_t));
-#endif /* UCONTEXT */
-	    newp->lowmark = (void *)s;
-	    newp->himark = (void *)(((long)s) + size - LWP_REDZONE);
-	}
+	sp = s + LWP_EXTRASTACK + redsize;
+	sp = (char *)0 + ((sp - (char *)0) & -sizeof(stkalign_t));
+	newp->lowmark = s;
+	newp->himark = s + size - LWP_REDZONE;
     }
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
 	LwpMaxpri = priority;
-    newp->sbtm = (void *)s;
+    newp->sbtm = s;
     newp->size = size;
     newp->dead = 0;
     if (flags & LWP_STACKCHECK)
@@ -280,7 +249,10 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     lwpReady(newp);
     lwpReady(LwpCurrent);
 #ifdef UCONTEXT
-    lwpInitContext(newp, &sp);	/* architecture-dependent: from arch.c */
+    usp.ss_sp = sp;
+    usp.ss_size = size;
+    usp.ss_flags = 0;
+    lwpInitContext(newp, &usp);	/* architecture-dependent: from arch.c */
 #else  /* UCONTEXT */
     lwpInitContext(newp, sp);	/* architecture-dependent: from arch.c */
 #endif /* UCONTEXT */
