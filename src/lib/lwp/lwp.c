@@ -31,11 +31,6 @@
 
 #if defined(_EMPTH_LWP)
 
-#ifdef BOUNDS_CHECK
-#include <bounds/fix-args.h>
-#include <bounds/unchecked.h>
-#endif
-
 struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 
 struct lwpProc *LwpCurrent = NULL;
@@ -53,16 +48,7 @@ static int
 growsdown(void *x)
 {
     int y;
-
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_OFF;
-#endif
     y = (x > (void *)&y);
-
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_ON;
-#endif
-
     return y;
 }
 
@@ -111,7 +97,6 @@ lwpReschedule(void)
 		lwpAddTail(&LwpDeadQ, nextp);
 	    } else {
 		lwpDestroy(nextp);
-/*				fprintf(stderr,  "Destroying done\n"); */
 	    }
 	    nextp = 0;
 	}
@@ -125,28 +110,12 @@ lwpReschedule(void)
     if (LwpCurrent)
 	lwpStatus(LwpCurrent, "switch out");
     /* do context switch */
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_OFF;
-#endif
-
-    i = lwpSave(LwpCurrent->context);
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_ON;
-#endif
-
-    if (LwpCurrent != nextp && !(LwpCurrent && i)) {
+    if (LwpCurrent != nextp && !(LwpCurrent && lwpSave(LwpCurrent->context))) {
 	/* restore previous context */
 	lwpStatus(nextp, "switch in %d", nextp->pri);
 	LwpCurrent = nextp;
 	*LwpContextPtr = LwpCurrent->ud;
-#ifdef BOUNDS_CHECK
-	BOUNDS_CHECKING_OFF;
-#endif
 	lwpRestore(LwpCurrent->context);
-
-#ifdef BOUNDS_CHECK
-	BOUNDS_CHECKING_ON;
-#endif
     }
 }
 
@@ -158,9 +127,6 @@ lwpEntryPoint(void)
 {
     sigset_t set;
 
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_OFF;
-#endif
     sigemptyset(&set);
     sigaddset(&set, SIGALRM);
     sigprocmask(SIG_SETMASK, &set, &oldmask);
@@ -169,11 +135,6 @@ lwpEntryPoint(void)
     lwpStatus(LwpCurrent, "starting at entry point");
     (*LwpCurrent->entry)(LwpCurrent->ud);
     lwpExit();
-#ifdef BOUNDS_CHECK
-    BOUNDS_CHECKING_ON;
-#endif
-
-
 }
 
 /*

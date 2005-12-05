@@ -33,9 +33,6 @@
 
 #include <stdarg.h>
 #include <stdio.h>
-#ifdef BOUNDS_CHECK
-#include <bounds/fix-args.h>
-#endif
 #include "lwp.h"
 
 #if defined(_EMPTH_LWP)
