@@ -29,35 +29,31 @@
 /* more inefficient the context switch time */
 #define LCOUNT	-1
 
-#ifdef hpc
-extern struct lwpProc *initcontext;
-extern int startpoint;
+#ifdef UCONTEXT
+void lwpInitContext(struct lwpProc *, stack_t *);
+#define lwpSave(x)    getcontext(&(x))
+#define lwpRestore(x) setcontext(&(x))
+#else  /* !UCONTEXT */
+#if defined(hpux) && !defined(hpc)
+void lwpInitContext(volatile struct lwpProc * volatile, void *);
+#else
+void lwpInitContext(struct lwpProc *, void *);
 #endif
-
-#ifdef hpux
-int lwpSave(jmp_buf);
-void lwpRestore(jmp_buf);
-#endif
-
-#if defined(MIPS) || defined(AIX32) || defined(ALPHA) || defined(__vax)
+#if (defined(hpux) && !defined(hpc)) || defined(MIPS) || defined(AIX32) || defined(ALPHA) || defined(__vax)
 int lwpSave(jmp_buf);
 void lwpRestore(jmp_buf);
 #elif defined(SUN4)
 #define	lwpSave(x)	_setjmp(x)
 #define lwpRestore(x)	_longjmp(x, 1)
-#elif defined (UCONTEXT)
-#define lwpSave(x)    getcontext(&(x))
-#define lwpRestore(x) setcontext(&(x))
 #else
+#define	lwpSave(x)	setjmp(x)
+#define lwpRestore(x)	longjmp(x, 1)
+#endif
+#endif /* !UCONTEXT */
+
 #ifdef hpc
-#define	lwpSave(x)	setjmp(x)
-#define lwpRestore(x)	longjmp(x, 1)
-#else
-#ifndef hpux
-#define	lwpSave(x)	setjmp(x)
-#define lwpRestore(x)	longjmp(x, 1)
-#endif /* hpux */
-#endif /* hpc */
+extern struct lwpProc *initcontext;
+extern int startpoint;
 #endif
 
 #ifdef AIX32
@@ -72,12 +68,12 @@ void lwpRestore(jmp_buf);
 /* XXX Note that this assumes sizeof(long) == 4 */
 #define LWP_CHECKMARK	0x5a5a5a5aL
 
-#ifndef hpux
-typedef double stkalign_t;
-#else
+#ifdef hpux
 typedef struct {
     char x[64];
 } stkalign_t;
+#else
+typedef double stkalign_t;
 #endif
 
 /* internal routines */
@@ -85,20 +81,6 @@ void lwpAddTail(struct lwpQueue *, struct lwpProc *);
 struct lwpProc *lwpGetFirst(struct lwpQueue *);
 void lwpReady(struct lwpProc *);
 void lwpReschedule(void);
-
-#ifdef UCONTEXT
-void lwpInitContext(struct lwpProc *, stack_t *);
-#else  /* GETCONTEXT */
-#ifdef hpc
-void lwpInitContext(struct lwpProc *, void *);
-#else
-#ifdef hpux
-void lwpInitContext(volatile struct lwpProc * volatile, void *);
-#else
-void lwpInitContext(struct lwpProc *, void *);
-#endif /* hpux */
-#endif /* hpc */
-#endif /* GETCONTEXT */
 void lwpEntryPoint(void);
 void lwpInitSelect(struct lwpProc * self);
 void lwpDestroy(struct lwpProc * proc);

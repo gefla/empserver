@@ -36,13 +36,27 @@
 
 #if defined(_EMPTH_LWP)
 
-#if (!defined(AIX32))
-
 #include "lwp.h"
-
 #include "lwpint.h"
 
-#if defined(hpc)
+#if defined UCONTEXT
+/*
+ * Alternate aproach using setcontext and getcontext instead of setjmp and
+ * longjump. This should work on any SVr4 machine independant of
+ * architecture.  Unfortunately some changes are still nessesary in lwp.c.
+ * Tested on IRIX 5.3
+ */
+
+void
+lwpInitContext(struct lwpProc *newp, stack_t *spp)
+{
+    getcontext(&newp->context);
+    newp->context.uc_stack.ss_sp = spp->ss_sp;
+    newp->context.uc_stack.ss_size = spp->ss_size;
+    makecontext(&newp->context, lwpEntryPoint, 0);
+}
+
+#elif defined(hpc)
 
 static struct lwpProc *tempcontext;
 struct lwpProc *initcontext = NULL;
@@ -362,24 +376,6 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     newp->context[5] = (int)lwpEntryPoint;
 }
 
-#elif defined UCONTEXT
-
-/*
- * Alternate aproach using setcontext en getcontext in stead of setjmp and
- * longjump. This should work on any SVr4 machine independant of
- * architecture. Unfortunaltely some changes are still nessesary in lwp.c.
- * Tested on IRIX 5.3
- */
-
-void
-lwpInitContext(struct lwpProc *newp, stack_t *spp)
-{
-    getcontext(&newp->context);
-    newp->context.uc_stack.ss_sp = spp->ss_sp;
-    newp->context.uc_stack.ss_size = spp->ss_size;
-    makecontext(&newp->context, lwpEntryPoint, 0);
-}
-
 #elif defined(ALPHA)
 
 #include <c_asm.h>
@@ -412,8 +408,6 @@ lwpRestore(jmp_buf jb)
     /* generates a warning, but functions just fine */
     asm("bsr	%ra, __longjump_resume");
 }
-
-#endif
 
 #endif
 
