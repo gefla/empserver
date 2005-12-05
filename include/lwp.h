@@ -24,9 +24,9 @@
 #define _LWP_H_
 #ifdef UCONTEXT
 #include <ucontext.h>
-#else  /* UCONTEXT */
+#else  /* !UCONTEXT */
 #include <setjmp.h>
-#endif /* UCONTEXT */
+#endif /* !UCONTEXT */
 #include <sys/time.h>
 #include "misc.h"
 #define LWP_STACKCHECK	0x1
@@ -36,9 +36,9 @@
 struct lwpProc {
 #ifdef UCONTEXT
     ucontext_t context;		/* context structure */
-#else				/* UCONTEXT */
+#else  /* !UCONTEXT */
     jmp_buf context;		/* processor context area */
-#endif				/* UCONTEXT */
+#endif /* !UCONTEXT */
     void *sbtm;			/* bottom of stack attached to it */
     int size;			/* size of stack */
     void (*entry)(void *);	/* entry point */
