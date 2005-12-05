@@ -39,6 +39,17 @@
 #include "lwp.h"
 #include "lwpint.h"
 
+/*
+ * Implement machine-dependent functions lwpInitContext(), lwpSave(),
+ * lwpRestore().
+ *
+ * If lwpSave() and lwpRestore() are #def'd to setjmp() and longjmp(),
+ * then lwpInitContext() needs to set up the jmp_buf for a longjmp(),
+ * similar to setjmp().  To figure that out for another machine, check
+ * their source or reverse engineer.
+ */
+
+
 #if defined UCONTEXT
 /*
  * Alternate aproach using setcontext and getcontext instead of setjmp and
@@ -191,14 +202,6 @@ lwpRestore(jmp_buf jb)
     asm volatile ("ldi	1, %ret0");
 }
 
-#elif defined(BSD386)
-void
-lwpInitContext(struct lwpProc *newp, void *sp)
-{
-    newp->context[2] = (int)sp;
-    newp->context[0] = (int)lwpEntryPoint;
-}
-
 #elif defined(FBSD)
 
 void
@@ -240,78 +243,6 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     newp->context[3] = (int)lwpEntryPoint;
 }
 
-#elif defined(__vax)
-
-#include <stdio.h>
-
-void
-lwpInitContext(struct lwpProc *newp, void *stack)
-{
-    int *sp = (int *)stack;
-    int *fp = 0;
-
-    /* Build root frame on new stack for lwpEntryPoint */
-    *--sp = 0;			/* pc */
-    *--sp = (int)fp;		/* fp */
-    *--sp = 0;			/* ap */
-    *--sp = 0;			/* psw  */
-    *--sp = 0;			/* condition handler */
-    fp = sp;
-
-    /* Build stack frame to return from. */
-    *--sp = (int)lwpEntryPoint + 2;	/* pc */
-    *--sp = (int)fp;		/* fp */
-    *--sp = 0;			/* ap */
-    *--sp = 0;			/* psw  */
-    *--sp = 0;			/* condition handler */
-    fp = sp;
-
-    /* Fill in the context */
-    /* Note: This is *not* how libc fills out jump buffers. */
-    newp->context[0] = 0;	/* r6 */
-    newp->context[1] = 0;
-    newp->context[2] = 0;
-    newp->context[3] = 0;
-    newp->context[4] = 0;
-    newp->context[5] = 0;	/* r11 */
-    newp->context[6] = 0;	/* ap */
-    newp->context[7] = (int)fp;	/* fp */
-    return;
-}
-
-int
-lwpSave(jmp_buf jb)
-{
-    asm("movl 4(ap), r0");	/* r0 = &jb */
-    asm("movl r6, (r0)");	/* jb[0] = r6 */
-    asm("movl r7, 4(r0)");
-    asm("movl r8, 8(r0)");
-    asm("movl r9, 12(r0)");
-    asm("movl r10, 16(r0)");
-    asm("movl r11, 20(r0)");
-    asm("movl ap, 24(r0)");
-    asm("movl fp, 28(r0)");	/* jb[7] = fp */
-    return 0;
-}
-
-void
-lwpRestore(jmp_buf jb)
-{
-    asm("movl 4(ap), r0");	/* r0 = &jb */
-    asm("movl (r0), r6");	/* r6 = jb[0] */
-    asm("movl 4(r0), r7");
-    asm("movl 8(r0), r8");
-    asm("movl 12(r0), r9");
-    asm("movl 16(r0), r10");
-    asm("movl 20(r0), r11");
-    asm("movl 24(r0), ap");
-    asm("movl 28(r0), fp");	/* fp = jb[7] */
-    asm("movl $1, r0");		/* faked return 1 from lwpSave() */
-    asm("ret");
-    return;
-}
-
-
 #elif defined(SUN4)
 
 void
@@ -337,43 +268,6 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 	    _longjmp(LwpCurrent->context, 1);
 	lwpEntryPoint();
     }
-}
-
-#elif defined(__USLC__) && defined(i386)
-
-/* USL/Unixware on an Intel 386/486/... processor.
- * Tested on Unixware v1.1.2, based on SYSV R4.2
- */
-
-/* As per normal empire documentation, there is none.
- *
- * But, what we are attempting to do here is set up a longjump
- * context buffer so that the lwpEntryPoint is called when
- * the thread starts.
- *
- * I.E., what a setjmp/longjmp call set would do.
- *
- * How to figure this out?  Well, without the setjmp code, you
- * need to reverse engineer it by printing out the context buffer
- * and the processor registers, and mapping which ones need
- * to be set.
- *
- * Alternatively, you can single instruction step through the longjmp
- * function, and figure out the offsets that it uses.
- *
- * Using offsets in bytes,
- * context + 0x04 [1] -> esi  (general purpose reg)
- * context + 0x08 [2] -> edi  (general purpose reg)
- * context + 0x0C [3] -> ebp  (general purpose or parameter passing)
- * context + 0x10 [4] -> esp  (stack)
- * context + 0x14 [5] -> jump location for return
- */
-
-void
-lwpInitContext(struct lwpProc *newp, void *sp)
-{
-    newp->context[4] = (int)sp;
-    newp->context[5] = (int)lwpEntryPoint;
 }
 
 #elif defined(ALPHA)
@@ -409,6 +303,8 @@ lwpRestore(jmp_buf jb)
     asm("bsr	%ra, __longjump_resume");
 }
 
+#elif defined(AIX32)
+/* Code is in .s files, as compiler doesn't grok asm */
 #endif
 
 #endif

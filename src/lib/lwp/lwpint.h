@@ -39,7 +39,7 @@ void lwpInitContext(volatile struct lwpProc * volatile, void *);
 #else
 void lwpInitContext(struct lwpProc *, void *);
 #endif
-#if (defined(hpux) && !defined(hpc)) || defined(MIPS) || defined(AIX32) || defined(ALPHA) || defined(__vax)
+#if (defined(hpux) && !defined(hpc)) || defined(AIX32) || defined(ALPHA)
 int lwpSave(jmp_buf);
 void lwpRestore(jmp_buf);
 #elif defined(SUN4)

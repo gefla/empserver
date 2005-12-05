@@ -36,8 +36,6 @@ LIB = $(SRCDIR)/lib/liblwp.a
 
 OBJS = arch.o lwp.o queue.o sel.o sem.o status.o
 
-MIPSOBJS = mipsarch.o
-
 AIXOBJS = lwpInit.o lwpRestore.o lwpSave.o
 
 GENMASTER = GLOBALCFLAGS="$(GLOBALCFLAGS)" GLOBALLFLAGS="$(GLOBALLFLAGS)"
@@ -50,9 +48,6 @@ $(LIB): $(OBJS) $(EXTRAOBJS)
 	$(RANLIB) $(LIB)
 
 nt:
-
-mipsultrix: 
-	make EXTRAOBJS="$(MIPSOBJS)" $(GENMASTER)
 
 aix:
 	make EXTRAOBJS="$(AIXOBJS)" $(GENMASTER)
