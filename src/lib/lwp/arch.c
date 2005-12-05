@@ -70,8 +70,8 @@ lwpInitContext(struct lwpProc *newp, stack_t *spp)
 #elif defined(hpc)
 
 static struct lwpProc *tempcontext;
-struct lwpProc *initcontext = NULL;
-int startpoint;
+static struct lwpProc *initcontext = NULL;
+static int startpoint;
 
 static void
 startcontext(void)
@@ -115,6 +115,25 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 	    longjmp(initcontext->context, 1);
 	memcpy(startpoint, LwpCurrent->sbtm, LwpCurrent->size);
     }
+}
+
+int
+lwpSave(jmp_buf jb)
+{
+    int endpoint;
+
+    endpoint = &endpoint;
+    if (initcontext == NULL || endpoint < startpoint)
+	return setjmp(jb, 1);
+
+    LwpCurrent->size = endpoint - startpoint;
+    LwpCurrent->sbtm = realloc(LwpCurrent->sbtm, LwpCurrent->size);
+    memcpy(LwpCurrent->sbtm, startpoint, LwpCurrent->size);
+    if (setjmp(jb, 1)) {
+	memcpy(startpoint, LwpCurrent->sbtm, LwpCurrent->size);
+	return 1;
+    }
+    return 0;
 }
 
 #elif defined(hpux)

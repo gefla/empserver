@@ -129,26 +129,7 @@ lwpReschedule(void)
     BOUNDS_CHECKING_OFF;
 #endif
 
-#if defined(hpc)
-    {
-	int endpoint;
-
-	endpoint = &endpoint;
-	if (initcontext == NULL || endpoint < startpoint) {
-	    i = lwpSave(LwpCurrent->context);
-	} else {
-	    LwpCurrent->size = endpoint - startpoint;
-	    LwpCurrent->sbtm = realloc(LwpCurrent->sbtm, LwpCurrent->size);
-	    memcpy(LwpCurrent->sbtm, startpoint, LwpCurrent->size);
-	    if (i = lwpSave(LwpCurrent->context)) {
-		memcpy(startpoint, LwpCurrent->sbtm, LwpCurrent->size);
-		i = 1;
-	    }
-	}
-    }
-#else
     i = lwpSave(LwpCurrent->context);
-#endif
 #ifdef BOUNDS_CHECK
     BOUNDS_CHECKING_ON;
 #endif

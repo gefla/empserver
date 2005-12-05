@@ -39,7 +39,10 @@ void lwpInitContext(volatile struct lwpProc * volatile, void *);
 #else
 void lwpInitContext(struct lwpProc *, void *);
 #endif
-#if (defined(hpux) && !defined(hpc)) || defined(AIX32) || defined(ALPHA)
+#if defined(hpc)
+int lwpSave(jmp_buf);
+#define lwpRestore(x)	longjmp(x, 1)
+#elif defined(hpux) || defined(AIX32) || defined(ALPHA)
 int lwpSave(jmp_buf);
 void lwpRestore(jmp_buf);
 #elif defined(SUN4)
@@ -50,11 +53,6 @@ void lwpRestore(jmp_buf);
 #define lwpRestore(x)	longjmp(x, 1)
 #endif
 #endif /* !UCONTEXT */
-
-#ifdef hpc
-extern struct lwpProc *initcontext;
-extern int startpoint;
-#endif
 
 #ifdef AIX32
 /* AIX needs 12 extra bytes above the stack; we add it here */
