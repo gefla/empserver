@@ -110,7 +110,8 @@ lwpReschedule(void)
     if (LwpCurrent)
 	lwpStatus(LwpCurrent, "switch out");
     /* do context switch */
-    if (LwpCurrent != nextp && !(LwpCurrent && lwpSave(LwpCurrent->context))) {
+    i = LwpCurrent && lwpSave(LwpCurrent->context);
+    if (LwpCurrent != nextp && !i) {
 	/* restore previous context */
 	lwpStatus(nextp, "switch in %d", nextp->pri);
 	LwpCurrent = nextp;
