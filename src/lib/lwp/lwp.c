@@ -142,22 +142,24 @@ lwpEntryPoint(void)
  * lwpCreate -- create a process.
  */
 struct lwpProc *
-lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, char *desc, int argc, char **argv, void *ud)
+lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *name, char *desc, int argc, char **argv, void *ud)
 {
     struct lwpProc *newp;
     char *s, *sp;
-    int redsize, x;
+    int size, redsize, x;
 #ifdef UCONTEXT
     stack_t usp;
 #endif /* UCONTEXT */
 
+    if (CANT_HAPPEN(STKALIGN == 0|| (STKALIGN & (STKALIGN - 1))))
+	return NULL;		/* STKALIGN not power of 2 */
     if (!(newp = malloc(sizeof(struct lwpProc))))
 	return 0;
-    /* Add a 1K buffer on each side of the stack */
+    /* Make size a multiple of sizeof(long) to things aligned */
+    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
+    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
     redsize = flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
-    size += 2 * redsize;
-    size += LWP_EXTRASTACK;
-    size += STKALIGN;
+    size = stacksz + 2 * redsize + LWP_EXTRASTACK + STKALIGN - 1;
     if (!(s = malloc(size)))
 	return 0;
     newp->flags = flags;
@@ -168,15 +170,39 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     newp->argv = argv;
     newp->ud = ud;
     if (growsdown(&x)) {
-	sp = s + size - STKALIGN - LWP_EXTRASTACK - redsize;
-	sp = (char *)0 + ((sp - (char *)0) & -STKALIGN);
+	/*
+	 * Stack layout for stack growing downward:
+	 *     ptr        block      size
+	 *     --------------------------------------
+	 *                waste      x
+	 *     lowmark -> red zone   LWP_REDZONE
+	 *     sp      -> extra      LWP_EXTRASTACK
+	 *                stack      stacksz
+	 *     himark  -> red zone   LWP_EXTRASTACK
+	 *                waste      STKALIGN - 1 - x
+	 * sp is aligned to a multiple of STKALIGN.
+	 */
+	sp = s + redsize + stacksz;
+	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
 	newp->lowmark = sp + LWP_EXTRASTACK;
-	newp->himark = s;
+	newp->himark = sp - stacksz - redsize;
     } else {
-	sp = s + LWP_EXTRASTACK + redsize;
-	sp = (char *)0 + ((sp - (char *)0) & -STKALIGN);
-	newp->lowmark = s;
-	newp->himark = s + size - LWP_REDZONE;
+	/*
+	 * Stack layout for stack growing upward:
+	 *     ptr        block      size
+	 *     --------------------------------------
+	 *                waste      x
+	 *     himark  -> red zone   LWP_REDZONE
+	 *                extra      LWP_EXTRASTACK
+	 *     sp      -> stack      stacksz
+	 *     lowmark -> red zone   LWP_EXTRASTACK
+	 *                waste      STKALIGN - 1 - x
+	 * sp is aligned to a multiple of STKALIGN.
+	 */
+	sp = s + redsize + LWP_EXTRASTACK;
+	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
+	newp->lowmark = sp - LWP_EXTRASTACK - redsize;
+	newp->himark = sp + size;
     }
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
