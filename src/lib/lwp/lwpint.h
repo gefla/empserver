@@ -105,11 +105,9 @@ void lwpRestore(jmp_buf);
 #define LWP_CHECKMARK	0x5a5a5a5aL
 
 #ifdef hpux
-typedef struct {
-    char x[64];
-} stkalign_t;
+#define STKALIGN 64
 #else
-typedef double stkalign_t;
+#define STKALIGN sizeof(double)
 #endif
 
 /* internal routines */

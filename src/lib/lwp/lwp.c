@@ -157,7 +157,7 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     redsize = flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
     size += 2 * redsize;
     size += LWP_EXTRASTACK;
-    size += sizeof(stkalign_t);
+    size += STKALIGN;
     if (!(s = malloc(size)))
 	return 0;
     newp->flags = flags;
@@ -168,13 +168,13 @@ lwpCreate(int priority, void (*entry)(void *), int size, int flags, char *name, 
     newp->argv = argv;
     newp->ud = ud;
     if (growsdown(&x)) {
-	sp = s + size - sizeof(stkalign_t) - LWP_EXTRASTACK - redsize;
-	sp = (char *)0 + ((sp - (char *)0) & -sizeof(stkalign_t));
+	sp = s + size - STKALIGN - LWP_EXTRASTACK - redsize;
+	sp = (char *)0 + ((sp - (char *)0) & -STKALIGN);
 	newp->lowmark = sp + LWP_EXTRASTACK;
 	newp->himark = s;
     } else {
 	sp = s + LWP_EXTRASTACK + redsize;
-	sp = (char *)0 + ((sp - (char *)0) & -sizeof(stkalign_t));
+	sp = (char *)0 + ((sp - (char *)0) & -STKALIGN);
 	newp->lowmark = s;
 	newp->himark = s + size - LWP_REDZONE;
     }
@@ -421,7 +421,7 @@ lwpStackCheck(struct lwpProc *newp)
 	}
 	logerror("Thread %s stack overflow %d bytes (of %u)",
 		 newp->name, amt,
-		 newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
+		 newp->size - 2 * LWP_REDZONE - (int)STKALIGN);
 	abort();
     }
     for (lp = newp->lowmark, i = 0; i < LWP_REDZONE / sizeof(long);
@@ -442,7 +442,7 @@ lwpStackCheck(struct lwpProc *newp)
 	}
 	logerror("Thread %s stack underflow %d bytes (of %u)",
 		  newp->name, amt,
-		 newp->size - 2 * LWP_REDZONE - (int)sizeof(stkalign_t));
+		 newp->size - 2 * LWP_REDZONE - (int)STKALIGN);
 	abort();
     }
 }
