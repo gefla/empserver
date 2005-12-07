@@ -218,8 +218,8 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
     lwpReady(newp);
     lwpReady(LwpCurrent);
 #ifdef UCONTEXT
-    usp.ss_sp = sp;
-    usp.ss_size = size;
+    usp.ss_sp = s + redsize;
+    usp.ss_size = stacksz;
     usp.ss_flags = 0;
     lwpInitContext(newp, &usp);	/* architecture-dependent: from arch.c */
 #else  /* UCONTEXT */
