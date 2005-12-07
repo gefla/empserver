@@ -34,6 +34,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "lwp.h"
+#include "lwpint.h"
 
 #if defined(_EMPTH_LWP)
 

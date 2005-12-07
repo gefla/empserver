@@ -37,10 +37,18 @@
 
 #ifdef _EMPTH_LWP
 
+/* The thread `created' by lwpInitSystem() */
+static empth_t *empth_main;
+
+/* Flags that were passed to empth_init() */
+static int empth_flags;
+
+
 int
 empth_init(void **ctx, int flags)
 {
-    lwpInitSystem(PP_MAIN, (char **)ctx, flags);
+    empth_flags = flags;
+    empth_main = lwpInitSystem(PP_MAIN, (char **)ctx, flags);
     return 0;
 }
 
@@ -49,9 +57,8 @@ empth_t *
 empth_create(int prio, void (*entry)(void *), int size, int flags,
 	     char *name, char *desc, void *ud)
 {
-    /* inherit flags */
     if (!flags)
-	flags = LwpCurrent->flags;
+	flags = empth_flags;
     return lwpCreate(prio, entry, size, flags, name, desc, 0, 0, ud);
 }
 
@@ -68,7 +75,7 @@ empth_exit(void)
 
     /* We want to leave the main thread around forever, until it's time
        for it to die for real (in a shutdown) */
-    if (!strcmp(LwpCurrent->name, "Main")) {
+    if (LwpCurrent == empth_main) {
 	while (1) {
 	    time(&now);
 	    lwpSleepUntil(now + 60);

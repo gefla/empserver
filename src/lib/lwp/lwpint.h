@@ -29,6 +29,44 @@
 /* more inefficient the context switch time */
 #define LCOUNT	-1
 
+/* process control block.  do *not* change the position of context */
+struct lwpProc {
+#ifdef UCONTEXT
+    ucontext_t context;		/* context structure */
+#else  /* !UCONTEXT */
+    jmp_buf context;		/* processor context area */
+#endif /* !UCONTEXT */
+    void *sbtm;			/* bottom of stack attached to it */
+    int size;			/* size of stack */
+    void (*entry)(void *);	/* entry point */
+    int dead;			/* whether the process can be rescheduled */
+    int pri;			/* which scheduling queue we're on */
+    long runtime;		/* time at which process is restarted */
+    int fd;			/* fd we're blocking on */
+    int argc;			/* initial arguments */
+    char **argv;
+    void *ud;			/* user data */
+    void *lowmark;		/* start of low buffer around stack */
+    void *himark;		/* start of upper buffer around stack */
+    char *name;			/* process name and description */
+    char *desc;
+    int flags;
+    struct lwpProc *next;
+};
+
+/* queue */
+struct lwpQueue {
+    struct lwpProc *head;
+    struct lwpProc *tail;
+};
+
+/* semaphore */
+struct lwpSem {
+    int count;
+    struct lwpQueue q;
+    char *name;
+};
+
 #ifdef UCONTEXT
 void lwpInitContext(struct lwpProc *, stack_t *);
 #define lwpSave(x)    getcontext(&(x))
