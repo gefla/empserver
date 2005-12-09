@@ -88,7 +88,7 @@ static void **udata;
 static pthread_mutex_t mtx_ctxsw;
 
 static void empth_status(char *format, ...) ATTRIBUTE((format (printf, 1, 2)));
-
+static void empth_alarm(int sig);
 
 static void *
 empth_start(void *arg)
@@ -109,6 +109,9 @@ empth_start(void *arg)
     sigaction(SIGFPE, &act, NULL);
     act.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &act, NULL);
+
+    act.sa_handler = empth_alarm;
+    sigaction(SIGALRM, &act, NULL);
 
     ctx->id = pthread_self();
     pthread_setspecific(ctx_key, ctx);
@@ -154,10 +157,16 @@ int
 empth_init(void **ctx_ptr, int flags)
 {
     empth_t *ctx;
+    struct sigaction act;
 
 
     pthread_key_create(&ctx_key, NULL);
     pthread_mutex_init(&mtx_ctxsw, NULL);
+
+    act.sa_flags = 0;
+    sigemptyset(&act.sa_mask);
+    act.sa_handler = empth_alarm;
+    sigaction(SIGALRM, &act, NULL);
 
     udata = ctx_ptr;
     ctx = malloc(sizeof(empth_t));
@@ -353,6 +362,19 @@ empth_select(int fd, int flags)
 
 }
 
+
+static void
+empth_alarm(int sig)
+{
+    struct sigaction act;
+    empth_status("got alarm signal");
+#ifdef SA_RESTART
+    act.sa_flags &= ~SA_RESTART;
+#endif
+    sigemptyset(&act.sa_mask);
+    act.sa_handler = empth_alarm;
+    sigaction(SIGALRM, &act, NULL);
+}
 
 void
 empth_wakeup(empth_t *a)
