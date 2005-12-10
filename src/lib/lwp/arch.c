@@ -73,8 +73,10 @@ lwpNewContext(struct lwpProc *newp, int stacksz)
     newp->ustack = s + redsize;
     newp->usize = stacksz;
 
-    if (getcontext(&newp->context) < 0)
+    if (getcontext(&newp->context) < 0) {
+	free(s);
 	return -1;
+    }
     newp->context.uc_stack.ss_sp = newp->ustack;
     newp->context.uc_stack.ss_size = newp->usize;
     newp->context.uc_stack.ss_flags = 0;
