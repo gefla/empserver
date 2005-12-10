@@ -60,8 +60,7 @@ void
 lwpInitContext(struct lwpProc *newp, stack_t *spp)
 {
     getcontext(&newp->context);
-    newp->context.uc_stack.ss_sp = spp->ss_sp;
-    newp->context.uc_stack.ss_size = spp->ss_size;
+    newp->context.uc_stack = *spp;
     newp->context.uc_link = NULL;
     makecontext(&newp->context, lwpEntryPoint, 0);
 }
