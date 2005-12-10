@@ -36,6 +36,7 @@ struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 struct lwpProc *LwpCurrent = NULL;
 char **LwpContextPtr;
 int LwpMaxpri = 0;		/* maximum priority so far */
+int LwpStackGrowsDown;
 
 static sigset_t oldmask;
 
@@ -107,16 +108,14 @@ lwpReschedule(void)
 	fprintf(stderr, "No processes to run!\n");
 	exit(1);
     }
-    if (LwpCurrent)
-	lwpStatus(LwpCurrent, "switch out");
-    /* do context switch */
-    i = LwpCurrent && lwpSave(LwpCurrent->context);
-    if (LwpCurrent != nextp && !i) {
-	/* restore previous context */
-	lwpStatus(nextp, "switch in %d", nextp->pri);
+    if (LwpCurrent != nextp) {
+	struct lwpProc *oldp = LwpCurrent;
+	if (oldp)
+	    lwpStatus(oldp, "switch out");
 	LwpCurrent = nextp;
-	*LwpContextPtr = LwpCurrent->ud;
-	lwpRestore(LwpCurrent->context);
+	*LwpContextPtr = nextp->ud;
+	lwpSwitchContext(oldp, nextp);
+	lwpStatus(nextp, "switch in %d", nextp->pri);
     }
 }
 
@@ -145,22 +144,8 @@ struct lwpProc *
 lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *name, char *desc, int argc, char **argv, void *ud)
 {
     struct lwpProc *newp;
-    char *s, *sp;
-    int size, redsize, x;
-#ifdef UCONTEXT
-    stack_t usp;
-#endif /* UCONTEXT */
 
-    if (CANT_HAPPEN(STKALIGN == 0|| (STKALIGN & (STKALIGN - 1))))
-	return NULL;		/* STKALIGN not power of 2 */
     if (!(newp = malloc(sizeof(struct lwpProc))))
-	return 0;
-    /* Make size a multiple of sizeof(long) to keep things aligned */
-    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
-    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
-    redsize = flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
-    size = stacksz + 2 * redsize + LWP_EXTRASTACK + STKALIGN - 1;
-    if (!(s = malloc(size)))
 	return 0;
     newp->flags = flags;
     newp->name = strdup(name);
@@ -169,61 +154,18 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
     newp->argc = argc;
     newp->argv = argv;
     newp->ud = ud;
-    if (growsdown(&x)) {
-	/*
-	 * Stack layout for stack growing downward:
-	 *     ptr        block      size
-	 *     --------------------------------------
-	 *                waste      x
-	 *                red zone   LWP_REDZONE
-	 *     sp      -> extra      LWP_EXTRASTACK
-	 *     ustack  -> stack      stacksz
-	 *                red zone   LWP_REDZONE
-	 *                waste      STKALIGN - 1 - x
-	 * sp is aligned to a multiple of STKALIGN.
-	 */
-	sp = s + redsize + stacksz;
-	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
-	newp->ustack = sp - stacksz;
-    } else {
-	/*
-	 * Stack layout for stack growing upward:
-	 *     ptr        block      size
-	 *     --------------------------------------
-	 *                waste      x
-	 *     		  red zone   LWP_REDZONE
-	 *     sp      -> stack      stacksz
-	 *     ustack  -> extra      LWP_EXTRASTACK
-	 *     		  red zone   LWP_REDZONE
-	 *                waste      STKALIGN - 1 - x
-	 * sp is aligned to a multiple of STKALIGN.
-	 */
-	sp = s + redsize + LWP_EXTRASTACK;
-	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
-	newp->ustack = sp - LWP_EXTRASTACK;
-    }
-    newp->usize = stacksz + LWP_EXTRASTACK;
+    newp->dead = 0;
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
 	LwpMaxpri = priority;
-    newp->sbtm = s;
-    newp->size = size;
-    newp->dead = 0;
-    if (flags & LWP_STACKCHECK)
-	lwpStackCheckInit(newp);
+    lwpNewContext(newp, stacksz);
     lwpStatus(newp, "creating process structure %p (sbtm %p)",
 	      newp, newp->sbtm);
+    if (flags & LWP_STACKCHECK)
+	lwpStackCheckInit(newp);
     lwpReady(newp);
     lwpReady(LwpCurrent);
-#ifdef UCONTEXT
-    usp.ss_sp = s + redsize;
-    usp.ss_size = stacksz;
-    usp.ss_flags = 0;
-    lwpInitContext(newp, &usp);	/* architecture-dependent: from arch.c */
-#else  /* UCONTEXT */
-    lwpInitContext(newp, sp);	/* architecture-dependent: from arch.c */
-#endif /* UCONTEXT */
     lwpReschedule();
     return newp;
 }
@@ -352,13 +294,14 @@ struct lwpProc *
 lwpInitSystem(int pri, char **ctxptr, int flags)
 {
     struct lwpQueue *q;
-    int i, *stack;
+    int i, *stack, marker;
     struct lwpProc *sel;
 
     LwpContextPtr = ctxptr;
     if (pri < 1)
 	pri = 1;
     /* *LwpContextPtr = 0; */
+    LwpStackGrowsDown = growsdown(&marker);
     if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
 	return 0;
     if (!(stack = malloc(64)))
@@ -410,7 +353,7 @@ lwpStackCheck(struct lwpProc *newp)
     int *btm = (int *)(newp->ustack - LWP_REDZONE);
     int *top = (int *)(newp->ustack + newp->usize + LWP_REDZONE);
     int n = LWP_REDZONE / sizeof(int);
-    int i, lo_clean, hi_clean, marker, overflow, underflow;
+    int i, lo_clean, hi_clean, overflow, underflow;
 
     for (i = 0; i < n && btm[i] == LWP_CHECKMARK; i++) ;
     lo_clean = i;
@@ -418,7 +361,7 @@ lwpStackCheck(struct lwpProc *newp)
     for (i = 1; i <= n && top[-i] == LWP_CHECKMARK; i++) ;
     hi_clean = i - 1;
 
-    if (growsdown(&marker)) {
+    if (LwpStackGrowsDown) {
 	overflow = n - lo_clean;
 	underflow = n - hi_clean;
     } else {
@@ -445,9 +388,9 @@ lwpStackCheckUsed(struct lwpProc *newp)
     int *base = (int *)newp->ustack;
     int *lim = (int *)(newp->ustack + newp->usize);
     int total = (lim + 1 - base) * sizeof(int);
-    int marker, used, *p;
+    int used, *p;
 
-    if (growsdown(&marker)) {
+    if (LwpStackGrowsDown) {
 	for (p = base; p < lim && *p == LWP_CHECKMARK; ++p) ;
 	used = (lim - p) * sizeof(int);
     } else {

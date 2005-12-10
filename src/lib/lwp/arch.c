@@ -32,40 +32,81 @@
  *     Steve McClure, 1994-2000
  */
 
+#include <stdlib.h>
 #include "lwp.h"
 #include "lwpint.h"
 
 #if defined(_EMPTH_LWP)
 
 /*
- * Implement machine-dependent functions lwpInitContext(), lwpSave(),
- * lwpRestore().
- *
+ * Implement machine-dependent functions lwpNewContext(),
+ * lwpSwitchContext().
+ */
+
+
+#if defined UCONTEXT
+
+/*
+ * Alternate aproach using setcontext and getcontext instead of setjmp
+ * and longjump.  This should work on any SVr4 machine independant of
+ * architecture.
+ */
+
+int
+lwpNewContext(struct lwpProc *newp, int stacksz)
+{
+    char *s;
+    int size, redsize;
+
+    /* Make size a multiple of sizeof(long) to keep things aligned */
+    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
+    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
+    redsize = newp->flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
+    size = stacksz + 2 * redsize;
+
+    s = malloc(size);
+    if (!s)
+	return -1;
+
+    newp->sbtm = s;
+    newp->size = size;
+    newp->ustack = s + redsize;
+    newp->usize = stacksz;
+
+    if (getcontext(&newp->context) < 0)
+	return -1;
+    newp->context.uc_stack.ss_sp = newp->ustack;
+    newp->context.uc_stack.ss_size = newp->usize;
+    newp->context.uc_stack.ss_flags = 0;
+    newp->context.uc_link = NULL;
+    makecontext(&newp->context, lwpEntryPoint, 0);
+    return 0;
+}
+
+void
+lwpSwitchContext(struct lwpProc *oldp, struct lwpProc *nextp)
+{
+    if (!oldp) {
+	setcontext(&nextp->context);
+	abort();
+    } else {
+	if (swapcontext(&oldp->context, &nextp->context) < 0)
+	    abort();
+    }
+}
+
+#else  /* !UCONTEXT */
+
+/*
  * If lwpSave() and lwpRestore() are #def'd to setjmp() and longjmp(),
  * then lwpInitContext() needs to set up the jmp_buf for a longjmp(),
  * similar to setjmp().  To figure that out for another machine, check
  * their source or reverse engineer.
  */
 
+#if defined(hpc)
 
-#if defined UCONTEXT
-/*
- * Alternate aproach using setcontext and getcontext instead of setjmp and
- * longjump. This should work on any SVr4 machine independant of
- * architecture.  Unfortunately some changes are still nessesary in lwp.c.
- * Tested on IRIX 5.3
- */
-
-void
-lwpInitContext(struct lwpProc *newp, stack_t *spp)
-{
-    getcontext(&newp->context);
-    newp->context.uc_stack = *spp;
-    newp->context.uc_link = NULL;
-    makecontext(&newp->context, lwpEntryPoint, 0);
-}
-
-#elif defined(hpc)
+#define STKALIGN 64
 
 static struct lwpProc *tempcontext;
 static struct lwpProc *initcontext = NULL;
@@ -87,7 +128,7 @@ startcontext(void)
     lwpEntryPoint();
 }
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     struct lwpProc holder;
@@ -115,7 +156,7 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     }
 }
 
-int
+static int
 lwpSave(jmp_buf jb)
 {
     int endpoint;
@@ -136,13 +177,15 @@ lwpSave(jmp_buf jb)
 
 #elif defined(hpux)
 
-void
+#define STKALIGN 64
+
+static void
 lwpInitContext(volatile struct lwpProc *volatile newp, void *sp)
 {
     static jmp_buf *cpp;
 
     if (!lwpSave(LwpCurrent->context)) {
-	cpp = (jmp_buf *) & newp->context;
+	cpp = (jmp_buf *)&newp->context;
 	asm volatile ("ldw	%0, %%sp"::"o" (sp));
 	if (!lwpSave(*cpp))
 	    lwpRestore(LwpCurrent->context);
@@ -150,7 +193,7 @@ lwpInitContext(volatile struct lwpProc *volatile newp, void *sp)
     }
 }
 
-int
+static int
 lwpSave(jmp_buf jb)
 {
     /* save stack pointer and return program counter */
@@ -185,7 +228,7 @@ lwpSave(jmp_buf jb)
     asm(".LABEL _comefrom_");
 }
 
-void
+static void
 lwpRestore(jmp_buf jb)
 {
     /* restore stack pointer and program counter */
@@ -221,7 +264,7 @@ lwpRestore(jmp_buf jb)
 
 #elif defined(FBSD)
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     setjmp(newp->context);
@@ -232,7 +275,7 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 
 #elif defined(__linux__)
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
 #if defined(__GLIBC__) && (__GLIBC__ >= 2)
@@ -253,7 +296,7 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 
 #elif defined(SUN3)
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     newp->context[2] = (int)sp;
@@ -262,7 +305,7 @@ lwpInitContext(struct lwpProc *newp, void *sp)
 
 #elif defined(SUN4)
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     static jmp_buf *cpp;
@@ -287,11 +330,14 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     }
 }
 
+#define	lwpSave(x)	_setjmp(x)
+#define lwpRestore(x)	_longjmp(x, 1)
+
 #elif defined(ALPHA)
 
 #include <c_asm.h>
 
-void
+static void
 lwpInitContext(struct lwpProc *newp, void *sp)
 {
     extern long *_gp;
@@ -304,13 +350,13 @@ lwpInitContext(struct lwpProc *newp, void *sp)
     newp->context[34] = (long)sp;	/* stack pointer */
 }
 
-int
+static int
 lwpSave(jmp_buf jb)
 {
     return _setjmp(jb);
 }
 
-void
+static void
 lwpRestore(jmp_buf jb)
 {
     /* resume, but get the pv from the jmp_buf */
@@ -321,7 +367,94 @@ lwpRestore(jmp_buf jb)
 }
 
 #elif defined(AIX32)
+
+#define	LWP_EXTRASTACK 12
+
 /* Code is in .s files, as compiler doesn't grok asm */
+extern int lwpSave(jmp_buf);
+extern void lwpRestore(jmp_buf);
+extern void lwpInitContext(struct lwpProc *);
+
 #endif
+
+#ifndef LWP_EXTRASTACK
+#define LWP_EXTRASTACK 0
+#endif
+#ifndef STKALIGN
+#define STKALIGN sizeof(double)
+#endif
+#ifndef lwpSave
+#define lwpSave(x)	setjmp(x)
+#endif
+#ifndef lwpRestore
+#define lwpRestore(x)	longjmp(x, 1)
+#endif
+
+int
+lwpNewContext(struct lwpProc *newp, int stacksz)
+{
+    char *s, *sp;
+    int size, redsize;
+
+    if (CANT_HAPPEN(STKALIGN == 0|| (STKALIGN & (STKALIGN - 1))))
+	return -1;		/* STKALIGN not power of 2 */
+
+    /* Make size a multiple of sizeof(long) to keep things aligned */
+    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
+    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
+    redsize = newp->flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
+    size = stacksz + 2 * redsize + LWP_EXTRASTACK + STKALIGN - 1;
+
+    s = malloc(size);
+    if (!s)
+	return -1;
+
+    if (LwpStackGrowsDown) {
+	/*
+	 * Stack layout for stack growing downward:
+	 *     ptr        block      size
+	 *     --------------------------------------
+	 *                red zone   LWP_REDZONE
+	 *     sp      -> extra      LWP_EXTRASTACK
+	 *     ustack  -> stack      stacksz
+	 *                red zone   LWP_REDZONE
+	 *                waste      STKALIGN - 1 - x
+	 * sp is aligned to a multiple of STKALIGN.
+	 */
+	sp = s + redsize + stacksz;
+	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
+	newp->ustack = sp - stacksz;
+    } else {
+	/*
+	 * Stack layout for stack growing upward:
+	 *     ptr        block      size
+	 *     --------------------------------------
+	 *                waste      x
+	 *     		  red zone   LWP_REDZONE
+	 *     sp      -> stack      stacksz
+	 *     ustack  -> extra      LWP_EXTRASTACK
+	 *     		  red zone   LWP_REDZONE
+	 *                waste      STKALIGN - 1 - x
+	 * sp is aligned to a multiple of STKALIGN.
+	 */
+	sp = s + redsize + LWP_EXTRASTACK;
+	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
+	newp->ustack = sp - LWP_EXTRASTACK;
+    }
+    newp->sbtm = s;
+    newp->size = size;
+    newp->usize = stacksz + LWP_EXTRASTACK;
+    lwpInitContext(newp, sp);
+    return 0;
+}
+
+void
+lwpSwitchContext(struct lwpProc *oldp, struct lwpProc *nextp)
+{
+    if (!(oldp && lwpSave(oldp->context)))
+	lwpRestore(nextp->context);
+}
+
+#endif /* !UCONTEXT */
 
 #endif

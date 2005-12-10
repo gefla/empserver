@@ -73,50 +73,15 @@ struct lwpSem {
     char *name;
 };
 
-#ifdef UCONTEXT
-void lwpInitContext(struct lwpProc *, stack_t *);
-#define lwpSave(x)    getcontext(&(x))
-#define lwpRestore(x) setcontext(&(x))
-#else  /* !UCONTEXT */
-#if defined(hpux) && !defined(hpc)
-void lwpInitContext(volatile struct lwpProc * volatile, void *);
-#else
-void lwpInitContext(struct lwpProc *, void *);
-#endif
-#if defined(hpc)
-int lwpSave(jmp_buf);
-#define lwpRestore(x)	longjmp(x, 1)
-#elif defined(hpux) || defined(AIX32) || defined(ALPHA)
-int lwpSave(jmp_buf);
-void lwpRestore(jmp_buf);
-#elif defined(SUN4)
-#define	lwpSave(x)	_setjmp(x)
-#define lwpRestore(x)	_longjmp(x, 1)
-#else
-#define	lwpSave(x)	setjmp(x)
-#define lwpRestore(x)	longjmp(x, 1)
-#endif
-#endif /* !UCONTEXT */
-
-#ifdef AIX32
-/* AIX needs 12 extra bytes above the stack; we add it here */
-#define	LWP_EXTRASTACK	3*sizeof(long)
-#else
-#define LWP_EXTRASTACK	0
-#endif
-
 #define LWP_REDZONE	1024	/* make this a multiple of 1024 */
 
 /* XXX Note that this assumes sizeof(long) == 4 */
 #define LWP_CHECKMARK	0x5a5a5a5aL
 
-#ifdef hpux
-#define STKALIGN 64
-#else
-#define STKALIGN sizeof(double)
-#endif
+extern int LwpStackGrowsDown;
 
-/* internal routines */
+int lwpNewContext(struct lwpProc *, int);
+void lwpSwitchContext(struct lwpProc *, struct lwpProc *);
 void lwpAddTail(struct lwpQueue *, struct lwpProc *);
 struct lwpProc *lwpGetFirst(struct lwpQueue *);
 void lwpReady(struct lwpProc *);
