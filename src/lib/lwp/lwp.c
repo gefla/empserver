@@ -146,7 +146,7 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
     struct lwpProc *newp;
 
     if (!(newp = malloc(sizeof(struct lwpProc))))
-	return 0;
+	return NULL;
     newp->flags = flags;
     newp->name = strdup(name);
     newp->desc = strdup(desc);
@@ -159,7 +159,12 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
 	LwpMaxpri = priority;
-    lwpNewContext(newp, stacksz);
+    if (lwpNewContext(newp, stacksz) < 0) {
+	free(newp->name);
+	free(newp->desc);
+	free(newp);
+	return NULL;
+    }
     lwpStatus(newp, "creating process structure %p (sbtm %p)",
 	      newp, newp->sbtm);
     if (flags & LWP_STACKCHECK)
