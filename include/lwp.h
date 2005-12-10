@@ -20,15 +20,12 @@
  * Imperial College of Science, Technology and Medicine, 180 Queen's
  * Gate, London SW7 2BZ, England.
  */
+
 #ifndef _LWP_H_
 #define _LWP_H_
-#ifdef UCONTEXT
-#include <ucontext.h>
-#else  /* !UCONTEXT */
-#include <setjmp.h>
-#endif /* !UCONTEXT */
-#include <sys/time.h>
+
 #include "misc.h"
+
 #define LWP_STACKCHECK	0x1
 #define LWP_PRINT	0x2
 

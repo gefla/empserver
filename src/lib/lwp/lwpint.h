@@ -24,6 +24,12 @@
 #ifndef _LWPINT_H
 #define _LWPINT_H
 
+#ifdef UCONTEXT
+#include <ucontext.h>
+#else  /* !UCONTEXT */
+#include <setjmp.h>
+#endif /* !UCONTEXT */
+
 /* `liveness' counter: check signals every `n' visits to the scheduler */
 /* note: the lower this value, the more responsive the system but the */
 /* more inefficient the context switch time */
