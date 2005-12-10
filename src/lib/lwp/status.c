@@ -33,6 +33,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <sys/time.h>
 #include "lwp.h"
 #include "lwpint.h"
 
