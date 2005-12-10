@@ -42,8 +42,10 @@ struct lwpProc {
 #else  /* !UCONTEXT */
     jmp_buf context;		/* processor context area */
 #endif /* !UCONTEXT */
-    void *sbtm;			/* bottom of stack attached to it */
-    int size;			/* size of stack */
+    void *sbtm;			/* stack buffer attached to it */
+    int size;			/* size of stack buffer */
+    char *ustack;		/* lowest usable stack address */
+    int usize;			/* size of usable stack */
     void (*entry)(void *);	/* entry point */
     int dead;			/* whether the process can be rescheduled */
     int pri;			/* which scheduling queue we're on */
@@ -52,8 +54,6 @@ struct lwpProc {
     int argc;			/* initial arguments */
     char **argv;
     void *ud;			/* user data */
-    void *lowmark;		/* start of low buffer around stack */
-    void *himark;		/* start of upper buffer around stack */
     char *name;			/* process name and description */
     char *desc;
     int flags;

@@ -155,7 +155,7 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
 	return NULL;		/* STKALIGN not power of 2 */
     if (!(newp = malloc(sizeof(struct lwpProc))))
 	return 0;
-    /* Make size a multiple of sizeof(long) to things aligned */
+    /* Make size a multiple of sizeof(long) to keep things aligned */
     stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
     /* Add a red zone on each side of the stack for LWP_STACKCHECK */
     redsize = flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
@@ -175,35 +175,34 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
 	 *     ptr        block      size
 	 *     --------------------------------------
 	 *                waste      x
-	 *     lowmark -> red zone   LWP_REDZONE
+	 *                red zone   LWP_REDZONE
 	 *     sp      -> extra      LWP_EXTRASTACK
-	 *                stack      stacksz
-	 *     himark  -> red zone   LWP_EXTRASTACK
+	 *     ustack  -> stack      stacksz
+	 *                red zone   LWP_REDZONE
 	 *                waste      STKALIGN - 1 - x
 	 * sp is aligned to a multiple of STKALIGN.
 	 */
 	sp = s + redsize + stacksz;
 	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
-	newp->lowmark = sp + LWP_EXTRASTACK;
-	newp->himark = sp - stacksz - redsize;
+	newp->ustack = sp - stacksz;
     } else {
 	/*
 	 * Stack layout for stack growing upward:
 	 *     ptr        block      size
 	 *     --------------------------------------
 	 *                waste      x
-	 *     himark  -> red zone   LWP_REDZONE
-	 *                extra      LWP_EXTRASTACK
+	 *     		  red zone   LWP_REDZONE
 	 *     sp      -> stack      stacksz
-	 *     lowmark -> red zone   LWP_EXTRASTACK
+	 *     ustack  -> extra      LWP_EXTRASTACK
+	 *     		  red zone   LWP_REDZONE
 	 *                waste      STKALIGN - 1 - x
 	 * sp is aligned to a multiple of STKALIGN.
 	 */
 	sp = s + redsize + LWP_EXTRASTACK;
 	sp = (char *)0 + (((sp + STKALIGN - 1) - (char *)0) & -STKALIGN);
-	newp->lowmark = sp - LWP_EXTRASTACK - redsize;
-	newp->himark = sp + size;
+	newp->ustack = sp - LWP_EXTRASTACK;
     }
+    newp->usize = stacksz + LWP_EXTRASTACK;
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
@@ -213,8 +212,8 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
     newp->dead = 0;
     if (flags & LWP_STACKCHECK)
 	lwpStackCheckInit(newp);
-    lwpStatus(newp, "creating process structure sbtm: %p",
-	      newp->sbtm);
+    lwpStatus(newp, "creating process structure %p (sbtm %p)",
+	      newp, newp->sbtm);
     lwpReady(newp);
     lwpReady(LwpCurrent);
 #ifdef UCONTEXT
@@ -237,17 +236,9 @@ lwpDestroy(struct lwpProc *proc)
 	lwpStackCheck(proc);
     }
     lwpStatus(proc, "destroying sbtm: %p", proc->sbtm);
-    proc->entry = 0;
-    proc->ud = 0;
-    proc->argv = 0;
     free(proc->sbtm);
     free(proc->name);
     free(proc->desc);
-    proc->name = 0;
-    proc->desc = 0;
-    proc->sbtm = 0;
-    proc->lowmark = 0;
-    proc->himark = 0;
     free(proc);
 }
 
@@ -401,15 +392,11 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
 static void
 lwpStackCheckInit(struct lwpProc *newp)
 {
-    register int i;
-    register long *lp;
+    int *p;
+    int *lim = (int *)((char *)newp->sbtm + newp->size);
 
-    int lim = newp->size / sizeof(long);
-    if (!newp || !newp->sbtm)
-	return;
-    for (lp = newp->sbtm, i = 0; i < lim; i++, lp++) {
-	*lp = LWP_CHECKMARK;
-    }
+    for (p = newp->sbtm; p < lim; p++)
+	*p = LWP_CHECKMARK;
 }
 
 /* lwpStackCheck
@@ -420,57 +407,32 @@ lwpStackCheckInit(struct lwpProc *newp)
 static void
 lwpStackCheck(struct lwpProc *newp)
 {
-    register int end, amt;
-    register unsigned int i;
-    register long *lp;
-    register int growsDown;
-    int marker;
+    int *btm = (int *)(newp->ustack - LWP_REDZONE);
+    int *top = (int *)(newp->ustack + newp->usize + LWP_REDZONE);
+    int n = LWP_REDZONE / sizeof(int);
+    int i, lo_clean, hi_clean, marker, overflow, underflow;
 
-    if (CANT_HAPPEN(!newp || !newp->himark || !newp->lowmark))
-	return;
-    growsDown = growsdown(&marker);
-    for (lp = newp->himark, i = 0; i < LWP_REDZONE / sizeof(long);
-	 i++, lp++) {
-	if (*lp == LWP_CHECKMARK)
-	    continue;
-	/* Stack overflow. */
-	if (growsDown) {
-	    end = i;
-	    while (i < LWP_REDZONE / sizeof(long)) {
-		if (*lp++ != LWP_CHECKMARK)
-		    end = i;
-		i++;
-	    }
-	    amt = (end + 1) * sizeof(long);
-	} else {
-	    amt = (i + 1) * sizeof(long);
-	}
-	logerror("Thread %s stack overflow %d bytes (of %u)",
-		 newp->name, amt,
-		 newp->size - 2 * LWP_REDZONE - (int)STKALIGN);
-	abort();
+    for (i = 0; i < n && btm[i] == LWP_CHECKMARK; i++) ;
+    lo_clean = i;
+
+    for (i = 1; i <= n && top[-i] == LWP_CHECKMARK; i++) ;
+    hi_clean = i - 1;
+
+    if (growsdown(&marker)) {
+	overflow = n - lo_clean;
+	underflow = n - hi_clean;
+    } else {
+	overflow = n - hi_clean;
+	underflow = n - lo_clean;
     }
-    for (lp = newp->lowmark, i = 0; i < LWP_REDZONE / sizeof(long);
-	 i++, lp++) {
-	if (*lp == LWP_CHECKMARK)
-	    continue;
-	/* Stack underflow. */
-	if (growsDown) {
-	    end = i;
-	    while (i < LWP_REDZONE / sizeof(long)) {
-		if (*lp++ != LWP_CHECKMARK)
-		    end = i;
-		i++;
-	    }
-	    amt = (end + 1) * sizeof(long);
-	} else {
-	    amt = (LWP_REDZONE - i + 1) * sizeof(long);
-	}
-	logerror("Thread %s stack underflow %d bytes (of %u)",
-		  newp->name, amt,
-		 newp->size - 2 * LWP_REDZONE - (int)STKALIGN);
+    if (overflow)
+	logerror("Thread %s stack overflow %d bytes",
+		 newp->name, overflow * sizeof(int));
+    if (underflow)
+	logerror("Thread %s stack underflow %d bytes",
+		 newp->name, underflow * sizeof(int));
+    if (overflow || underflow)
 	abort();
-    }
 }
 
 /* lwpStackCheckUsed
@@ -480,36 +442,20 @@ lwpStackCheck(struct lwpProc *newp)
 static void
 lwpStackCheckUsed(struct lwpProc *newp)
 {
-    register int i;
-    register long *lp;
-    register int lim;
-    int marker;
+    int *base = (int *)newp->ustack;
+    int *lim = (int *)(newp->ustack + newp->usize);
+    int total = (lim + 1 - base) * sizeof(int);
+    int marker, used, *p;
 
-    if (!newp || !newp->sbtm)
-	return;
-    lim = newp->size / sizeof(long);
     if (growsdown(&marker)) {
-	/* Start at the bottom and find first non checkmark. */
-	for (lp = newp->sbtm, i = 0; i < lim; i++, lp++) {
-	    if (*lp != LWP_CHECKMARK) {
-		break;
-	    }
-	}
+	for (p = base; p < lim && *p == LWP_CHECKMARK; ++p) ;
+	used = (lim - p) * sizeof(int);
     } else {
-	/* Start at the top and find first non checkmark. */
-	lp = newp->sbtm;
-	lp += newp->size / sizeof(long);
-	lp--;
-	for (i = 0; i < lim; i++, lp--) {
-	    if (*lp != LWP_CHECKMARK) {
-		break;
-	    }
-	}
+	for (p = lim - 1; p >= base && *p == LWP_CHECKMARK; --p) ;
+	used = (p - base + 1) * sizeof(int);
     }
-    lwpStatus(newp, "Thread stack %lu used %lu left %lu total",
-	      labs((char *)lp - (char *)newp->lowmark) - LWP_REDZONE,
-	      labs((char *)newp->himark - (char *)lp) - LWP_REDZONE,
-	      labs((char *)newp->himark - (char *)newp->lowmark) - LWP_REDZONE);
+    lwpStatus(newp, "Thread stack %d used, %d left, %d total",
+	      used, total - used, total);
 }
 
 #endif
