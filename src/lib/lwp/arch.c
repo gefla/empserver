@@ -79,6 +79,13 @@ lwpNewContext(struct lwpProc *newp, int stacksz)
     }
     newp->context.uc_stack.ss_sp = newp->ustack;
     newp->context.uc_stack.ss_size = newp->usize;
+#ifdef MAKECONTEXT_SP_HIGH
+    /*
+     * Known systems that are broken that way: Solaris prior to 10,
+     * IRIX.
+     */
+    newp->context.uc_stack.ss_sp += stacksz - 8;
+#endif
     newp->context.uc_stack.ss_flags = 0;
     newp->context.uc_link = NULL;
     makecontext(&newp->context, lwpEntryPoint, 0);
