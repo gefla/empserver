@@ -77,7 +77,6 @@ static int quiet = 0;
 #include "power.h"
 #include "nat.h"
 #include "sect.h"
-#include "gamesdef.h"
 #include "file.h"
 #include "xy.h"
 #include "optlist.h"

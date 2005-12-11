@@ -34,7 +34,6 @@
 
 #include "prototypes.h"
 #include <string.h>
-#include "gamesdef.h"
 #include "misc.h"
 #include "player.h"
 #include "proto.h"

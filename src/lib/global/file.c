@@ -50,7 +50,6 @@
 #include "lost.h"
 #include "product.h"
 
-#include "gamesdef.h"
 #include "commodity.h"
 #include "nsc.h"
 
