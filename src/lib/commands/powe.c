@@ -259,7 +259,8 @@ gen_power(void)
 	f = (lchr[(int)land.lnd_type].l_lcm / 10.0) * (land.lnd_effic / 100.0);
 	f += (lchr[(int)land.lnd_type].l_hcm / 10.0) * (land.lnd_effic / 100.0);
 	pow->p_power += f * 2;
-	pow->p_units += 1.0;
+	if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
+	    pow->p_units += 1.0;
     }
     snxtitem_all(&ni, EF_SHIP);
     while (nxtitem(&ni, &ship)) {
