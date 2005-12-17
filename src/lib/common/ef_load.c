@@ -55,7 +55,7 @@ ef_load()
 	    else {
 		int ch = getc(fp);
 		if (ch != EOF) {
-		    fprintf(stderr, "%s: Junk after the trailer\n",
+		    fprintf(stderr, "%s: Junk after the table\n",
 			ep->file);
 		    retval = -1;
 		}

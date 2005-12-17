@@ -559,6 +559,9 @@ xundump(FILE *fp, char *file, int expected_table)
     if (need_sentinel)
 	xuinitrow(type, row);
 
+    while ((ch = skipfs(fp)) == '\n') ;
+    ungetc(ch, fp);
+
     ep->fids = ep->cids = row;
     return type;
 }
