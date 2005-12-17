@@ -134,7 +134,6 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
     }
     switch (natp->nat_stat & (STAT_NORM | STAT_GOD | STAT_NEW | STAT_SANCT)) {
     case STAT_NORM:
-    case (STAT_NORM | STAT_SANCT):
 	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);
 	printdiff(stat->stat, stat->tech, natp, NAT_TLEV);
 	printdiff(stat->stat, stat->res, natp, NAT_RLEV);
