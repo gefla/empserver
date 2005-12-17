@@ -516,7 +516,8 @@ xundump(FILE *fp, char *file, int expected_table)
     fixed_rows = has_const(ef_cadef(type));
     need_sentinel = !fixed_rows; /* FIXME only approximation */
 
-    for (row = 0; ; row++) {
+    row = 0;
+    for (;;) {
 	lineno++;
 	ch = skipfs(fp);
 	if (ch == '/')
@@ -536,6 +537,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	    if (!fixed_rows)
 		xuinitrow(type, row);
 	    res = xuloadrow(type, row, values);
+	    row++;
 	}
 	freeflds(values);
 	if (res < 0)
