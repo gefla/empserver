@@ -68,7 +68,6 @@ static void
 coun_list(struct natstr *natp)
 {
     char *status;
-    struct sctstr sect;
     natid cn = natp->nat_cnum;
 
     pr("%3d  ", cn);
@@ -102,9 +101,7 @@ coun_list(struct natstr *natp)
     else if (natp->nat_stat & STAT_NORM) {
 	status = "Active";
 	if (!opt_HIDDEN || player->god) {
-	    getsect(natp->nat_xcap, natp->nat_ycap, &sect);
-	    if (sect.sct_own != cn ||
-		(sect.sct_type != SCT_CAPIT && sect.sct_type != SCT_MOUNT))
+	    if (influx(natp))
 		status = "In flux";
 	    else if (natp->nat_money < 0)
 		status = "Broke";

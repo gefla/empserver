@@ -172,6 +172,7 @@ extern void putrel(struct natstr *np, natid them, int relate);
 extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
+extern int influx(struct natstr *np);
 
 /* nation flags */
 #define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */

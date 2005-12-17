@@ -61,9 +61,7 @@ nati(void)
     pr("     Bureaucratic Time Units: %d\n", natp->nat_btu);
     if (natp->nat_stat & STAT_INUSE) {
 	getsect(natp->nat_xcap, natp->nat_ycap, &sect);
-	if (!player->owner || (sect.sct_type != SCT_CAPIT &&
-			       sect.sct_type != SCT_MOUNT &&
-			       sect.sct_type != SCT_SANCT))
+	if (influx(natp))
 	    pr("No capital. (was at %s)\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	else {

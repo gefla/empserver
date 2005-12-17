@@ -121,8 +121,6 @@ repo_header(void)
 static void
 repo_list(struct stats *stat, natid cn, struct natstr *natp)
 {
-    struct sctstr cap;
-
     if (player->god) {
 	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);
 	pr(" %7.2f    %7.2f      %7.2f     %7.2f",
@@ -139,13 +137,10 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	printdiff(stat->stat, stat->res, natp, NAT_RLEV);
 	printdiff(stat->stat, stat->edu, natp, NAT_ELEV);
 	printdiff(stat->stat, stat->hap, natp, NAT_HLEV);
-	getsect(natp->nat_xcap, natp->nat_ycap, &cap);
 	if (opt_HIDDEN) {
 	    pr("\n");
 	} else {
-	    if ((cap.sct_own != cn) ||
-		(cap.sct_type != SCT_CAPIT && cap.sct_type != SCT_MOUNT) ||
-		(natp->nat_flags & NF_SACKED))
+	    if (influx(natp))
 		pr("In flux\n");
 	    else if (natp->nat_money <= 0)
 		pr("Broke\n");

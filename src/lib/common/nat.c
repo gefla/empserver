@@ -170,3 +170,18 @@ putcontact(struct natstr *np, natid them, int contact)
     if (np->nat_contact[them] < contact)
 	np->nat_contact[them] = contact;
 }
+
+int
+influx(struct natstr *np)
+{
+    struct sctstr sect;
+
+    getsect(np->nat_xcap, np->nat_ycap, &sect);
+    if (sect.sct_own != np->nat_cnum ||
+	(sect.sct_type != SCT_CAPIT && sect.sct_type != SCT_MOUNT &&
+	 sect.sct_type != SCT_SANCT) ||
+	(np->nat_flags & NF_SACKED))
+	return 1;
+    else
+	return 0;
+}
