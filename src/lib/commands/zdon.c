@@ -114,6 +114,10 @@ zdon(void)
 	    return RET_FAIL;
 	}
 	if (wantupd) {
+	    if (influx(natp)) {
+		pr("Unable to request an update as the country is in flux\n");
+		return RET_FAIL;
+	    }
 	    update = natp->nat_update | WUPD_WANT;
 	    natp->nat_missed = 0;
 	    pr("You (%d) now want an update.\n", whichcnum);
