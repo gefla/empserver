@@ -35,13 +35,8 @@
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
-#include "sect.h"
 #include "file.h"
-#include "xy.h"
 #include "news.h"
-#include "path.h"
-#include "loan.h"
-#include "commodity.h"
 #include "prototypes.h"
 #include "optlist.h"
 
@@ -53,8 +48,6 @@ caploss(struct sctstr *sp, natid coun, s_char *msg)
     struct comstr comm;
     long lose;
     long gain;
-    struct sctstr sect;
-    int n;
     int loan_num = 0;
     int comm_num = 0;
 
@@ -75,10 +68,6 @@ caploss(struct sctstr *sp, natid coun, s_char *msg)
     gain = lose = natp->nat_money / 2;
     if (lose < 3000)
 	lose = 3000;
-    n = roll(6);
-    getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
-    natp->nat_xcap = sect.sct_x;
-    natp->nat_ycap = sect.sct_y;
     natp->nat_money -= lose;
     /* Your capital has now been sacked, no more sacking until you reset it */
     natp->nat_flags |= NF_SACKED;
