@@ -62,7 +62,7 @@ nati(void)
     if (natp->nat_stat & STAT_INUSE) {
 	getsect(natp->nat_xcap, natp->nat_ycap, &sect);
 	if (influx(natp))
-	    pr("No capital. (was at %s)\n",
+	    pr("No capital (was at %s).\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	else {
 	    civ = sect.sct_item[I_CIVIL];
