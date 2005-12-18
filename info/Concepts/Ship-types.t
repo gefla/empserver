@@ -267,6 +267,8 @@ The vessel is a trade ship. (only if TRADESHIPS are enabled)
 .L supply
 The vessel can supply other units.
 Unless the vessel is a submarine, it can load non-light land units.
+.L canal
+The vessel can navigate canals (see info \*QSector-types\*U).
 .L anti-missile
 The vessel will intercept enemy marine missiles (see \*Qinfo Hitchance\*U).
 .in
@@ -312,4 +314,4 @@ battleship 1               120m 20s 4g 120f semi-land
 fishing boat 2             300c 10m 900f 15u fish
 .FI
 .s1
-.SA "coastwatch, fire, load, lookout, mine, navigate, tend, torpedo, fly, show, Trade-ships, Ships"
+.SA "coastwatch, fire, load, lookout, mine, navigate, tend, torpedo, fly, show, Trade-ships, Ships, Sector-types"

@@ -83,6 +83,9 @@ perhaps like Pancho Villa.  Note that if the BIG_CITY option is
 enabled, then 'c' sectors stand for 'cities' and can hold 10x as many
 civs.  They also get a 10x packing bonus for moving civs, and require
 a certain number of lcm's, hcm's, and $$ to build (see show sect build).
+Cities also have canals which allows ships with canal cability
+(see info \*QShip-types\*U) to navigate
+through them.
 .s1
 PARK - Parks are provided solely for the convenience of the 
 people.
@@ -413,4 +416,4 @@ one product, tech and edu requirements, production efficiency
 multiplier, monetary cost and resource depletion.  See info
 \*QProducts\*U for details.
 .s1
-.SA "improve, designate, show, BTU, Sectors"
+.SA "improve, designate, show, BTU, Sectors, Ship-types"

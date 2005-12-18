@@ -835,7 +835,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    }
 	}
 	if (IS_BIG_CITY(sect.sct_type)) {
-	    if (mlp->mcp->m_lcm + 2 * mlp->mcp->m_hcm >= 60) {
+	    if (!(mlp->mcp->m_flags & M_CANAL)) {
 		sprintf(dp,
 			"is too large to fit into the canal system at %s",
 			xyas(newx, newy, actor));
