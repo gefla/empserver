@@ -61,7 +61,8 @@ capi(void)
     }
     if (!found)
 	return RET_FAIL;
-    if (sect.sct_x == np->nat_xcap && sect.sct_y == np->nat_ycap) {
+    if (!(np->nat_flags & NF_SACKED) &&
+	sect.sct_x == np->nat_xcap && sect.sct_y == np->nat_ycap) {
 	pr("%s is already your capital.\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_FAIL;
