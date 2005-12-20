@@ -1,8 +1,10 @@
 .TH Command NATION
 .NA nation "The state of your nation"
 .LV Basic
-.SY "nation"
-The nation report command displays various data about your country.
+.SY "nation [as-COUNTRY]"
+The nation report command displays various data about a country.
+The as-COUNTRY defaults to yourself.
+Only a deity can request a nation report for another country.
 .s1
 The data displayed by the nation command is formatted as a single page
 report and should be self explanatory.

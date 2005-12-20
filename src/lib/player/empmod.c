@@ -161,7 +161,7 @@ struct cmndstr player_coms[] = {
      move, C_MOD, NORM + CAP},
     {"mquota <SHIPS> <value>", 2, mobq, C_MOD, NORM + CAP},
     {"name <SHIPS> <NAME>", 0, name, C_MOD, NORM},
-    {"nation", 0, nati, 0, VIS},
+    {"nation [as-COUNTRY]", 0, nati, 0, VIS},
     {"navigate <SHIPS> <PATH|DESTINATION>", 1, navi, C_MOD, NORM + CAP},
     {"ndump <SECTS>", 0, ndump, 0, NORM},
     {"newcap <NAT> [<SECTOR>]", 0, new, C_MOD, GOD},

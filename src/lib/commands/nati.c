@@ -48,14 +48,27 @@ nati(void)
     float hap;
     int mil;
     int civ;
+    int cnum;
     int poplimit, safepop, uwpop;
     double pfac;
 
-    if ((natp = getnatp(player->cnum)) == 0) {
-	pr("Bad country number %d\n", player->cnum);
+    if (player->argp[1])
+	cnum = natarg(player->argp[1], "for which country? ");
+    else
+    	cnum = player->cnum;
+
+    if ((natp = getnatp(cnum)) == 0) {
+	pr("Bad country number %d\n", cnum);
 	return RET_SYN;
     }
-    pr("\n(#%i) %s Nation Report\t", player->cnum, cname(player->cnum));
+
+    if (!player->god && cnum != player->cnum) {
+	pr("Only deities can request a nation "
+	   "report for a different country than yourself.\n");
+	return RET_SYN;
+    }
+
+    pr("\n(#%i) %s Nation Report\t", cnum, cname(cnum));
     prdate();
     pr("Nation status is %s", natstate(natp));
     pr("     Bureaucratic Time Units: %d\n", natp->nat_btu);
@@ -63,7 +76,7 @@ nati(void)
 	getsect(natp->nat_xcap, natp->nat_ycap, &sect);
 	if (influx(natp))
 	    pr("No capital (was at %s).\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	       xyas(sect.sct_x, sect.sct_y, cnum));
 	else {
 	    civ = sect.sct_item[I_CIVIL];
 	    mil = sect.sct_item[I_MILIT];
@@ -71,7 +84,7 @@ nati(void)
 	       sect.sct_effic,
 	       (sect.sct_type ==
 		SCT_CAPIT ? "capital" : "mountain capital"),
-	       xyas(sect.sct_x, sect.sct_y, player->cnum), civ, splur(civ),
+	       xyas(sect.sct_x, sect.sct_y, cnum), civ, splur(civ),
 	       mil);
 	}
     }
@@ -83,7 +96,7 @@ nati(void)
     pr("Technology.........%6.2f       Research........%6.2f\n",
        (double)natp->nat_level[NAT_TLEV],
        (double)natp->nat_level[NAT_RLEV]);
-    pr("Technology factor :%6.2f%%", tfact(player->cnum, 100.));
+    pr("Technology factor :%6.2f%%", tfact(cnum, 100.));
 
     if (opt_NO_PLAGUE)
 	pfac = 0.0;
