@@ -92,6 +92,8 @@ natstate(struct natstr *np)
 	return "FREE";
     if (np->nat_stat & STAT_GOD)
 	return "DEITY";
+    if (np->nat_stat & STAT_SANCT)
+	return "SANCTUARY";
     if ((np->nat_stat & STAT_NORM) == 0)
 	return "VISITOR";
     return "ACTIVE";
