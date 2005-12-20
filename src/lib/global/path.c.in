@@ -25,19 +25,17 @@
  *
  *  ---
  *
+ *  @configure_input@
  *  path.c: Path initializations needed outside of the file initialization
  *          tables
  * 
  *  Known contributors to this file:
- *     
+ *     Markus Armbruster, 2005
  */
 
-#include "gamesdef.h"
-
-char dflt_econfig[] = EMPDIR "/data/econfig";
-
-char *infodir	= EMPDIR "/info.nr";
-char *datadir	= EMPDIR "/data";
+char dflt_econfig[] = "@econfig@";
+char *infodir	= "@einfodir@";
+char *datadir	= "@edatadir@";
 
 /* relative to DATADIR */
 char *teldir	= "tel";
@@ -51,4 +49,4 @@ char *authfil	= "auth";
 char *timestampfil = "timestamp";
 
 char *listen_addr = "";
-char *loginport = EMP_PORT;
+char *loginport = "@EMPIREPORT@";

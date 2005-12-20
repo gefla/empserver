@@ -39,7 +39,8 @@
 #ifndef _OPTIONS_H_
 #define _OPTIONS_H_
 
-#include "gamesdef.h"
+#define MAXNOC 99
+#define BLITZ
 
 /* #define NO_FORT_FIRE *//* Forts cannot fire */
 

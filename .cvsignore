@@ -1,5 +1,16 @@
+GNUmakefile
+aclocal.m4
+autom4te.cache
 bin
+config.h
+config.h.in
+config.log
+config.status
+configure
 data
 info.html
 info.nr
 lib
+sources.mk
+stamp-h
+stamp-h.in

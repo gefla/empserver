@@ -19,18 +19,13 @@ below to build and start the server.
   server in binary format, go to the next step, "Creating the world."
 
   To build the server, you need to do the following steps:
+FIXME needs work
 
   1) Get a copy of the source.  Since you're reading this, we assume
      you have done that. 
   2) Gunzip the source.  Again, since you're reading this . . . ;-)
-  3) edit the build.conf file in this directory, and answer the questions
-     it asks you.
-  4) type "make" to see what architectures are currently supported.
-  5) choose the architecture that best suits you, and type "make <arch>"
-     where <arch> is the architecture you want to build.
-  6) type "make depend" to build the dependencies (not required, but
-      helps a lot when you want to recompile something again.)
-     Note: "make depend" doesn't work under NT yet.
+  3) Run configure.
+  4) Run make.
 
 (3) Creating the world
   (NOTE: If you received a binary, you must edit the included data/econfig
@@ -63,11 +58,8 @@ is POGO/peter.
 If you get a "You're not a deity!" message and logged off, check the
 "data/server.log" file and look at the end for a "NON-AUTH" entry.
 There should be a "user@host" message in there that failed to log in.
-The user and host that your system is using may be different than the
-one you put in your build.conf file.  So, enter this new user and host
-in the auth file, and you should be able to log into the server as a
-deity now.  Note that if you rebuild the server again, the auth file
-will be overwritten.
+Enter this user and host in the auth file, and you should be able to
+log into the server as a deity now.
 
 For more information on options, programs, files and other general hints
 look in the "doc" directory.  The README there describes the files there and

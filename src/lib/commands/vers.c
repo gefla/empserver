@@ -37,7 +37,6 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "gamesdef.h"
 #include "misc.h"
 #include "player.h"
 #include "version.h"
@@ -167,7 +166,8 @@ vers(void)
     pr("\n\n");
     pr("The person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n",
        privname, privlog);
-    pr("You can get your own copy of the source %s\n", GET_SOURCE);
+    pr("You can get your own copy of the source from "
+       "http://www.wolfpackempire.com/\n");
     return RET_OK;
 }
 
