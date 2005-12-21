@@ -12,7 +12,9 @@ the server, etc. take a look in the "doc" directory, then follow the steps
 below to build and start the server.
 
 (1) Unpacking the server
-  To unpack the server, simply gunzip and untar the source.
+  If you're building from a tarball, unpack it.
+  If you're building from CVS, check out and run bootstrap.  This
+  requires Autoconf and Automake to be installed.
 
 (2) Building a server
   Note that you may not have to build a server.  If you received the
@@ -25,7 +27,7 @@ FIXME needs work
      you have done that. 
   2) Gunzip the source.  Again, since you're reading this . . . ;-)
   3) Run configure.
-  4) Run make.
+  4) Run make.  You need GNU make.
 
 (3) Creating the world
   (NOTE: If you received a binary, you must edit the included data/econfig
