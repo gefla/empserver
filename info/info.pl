@@ -2,80 +2,64 @@
 #
 #                                 info.pl
 #        
-#               Create Subjects/Subject.t files from the Info Pages.
+#                 Create SUBJECT.t files from the Info Pages.
 #
 #                           written by Ken Stevens
 #
 #
 # DESCRIPTION:
 # info.pl reads all of the info pages and creates a table of contents
-# for them organized by subject.  An info page belongs to a subject if
-# that subject appears as an entry in the .SA ("SEE ALSO") field of the
-# info page _and_ that entry is not the name of another info page.
-# 
-# For example, the .SA field of headlines.t contains the entries
-# "newspaper" and "Communication".  Since there's already an info page
-# called "newspaper.t", but there is no "Communication" info page, then
-# the headlines info page is considered to be a member of the
+# for them organized by subject. 
+#
+# Info consists of pages organized into chapters and subjects.  Each
+# page is about a topic.  The page for topic ITEM is in info file
+# info/ITEM.t.  An info page's chapter is the first argument of its
+# .TH request.  It belongs to a subject if that subject appears in its
+# .SA request ("SEE ALSO") _and_ that entry is not the name of another
+# info page.  An info page may belong to more than one subject.
+#
+# For example, the .SA request of headlines.t contains "newspaper" and
+# "Communication".  Since there's already an info page called
+# "newspaper.t", but there is no "Communication" info page, the
+# headlines info page is considered to be a member of the
 # Communication subject.
 #
-# An info page may belong to more than one subject, and if it belongs
-# to no subject, then its subject will be set to the name of the subdirectory
-# it is in (e.g. the Server and Information info pages work this way).
-# 
-# The output of this script is a bunch of files in the "Subjects"
-# subdirectory.  The file Subjects/TOP.t is the toplevel table of
-# contents and lists all of the subjects.  This is what the player
-# sees when they type "info".  Then for each subject, a
-# Subjects/Subject.t file is created, listing all of the info pages that
-# belong to that subject.
+# This script reads GNUmakefile and sources.mk to find info sources.
+# It reads existing subjects from subjects.mk, and updates that file.
+# It creates a file info/SUBJECT.t for each SUBJECT, and a table of
+# subjects info/TOP.t.
 #
-# INSTALLATION:
+# REQUIREMENTS:
 # info.pl requires perl5 to run.  If you don't have version 5 of perl, then
 # you'll either have to install it, or you'll have to get someone to create
 # your Subjects.t files for you.
 #
 # HOW TO RUN IT:
-# Type "info.pl" at the unix prompt.
-#
-# BUG REPORTS:
-# mail your bug-reports and comments to:
-# Ken Stevens <children@empire.net>
+# Run "info.pl" at the root of the build tree.
 
-#       --- Glossary ---
-# item.t          An info page file
-# item            An info page
-# Subject         An entry in a SEE ALSO entry which is not an item
-# subdirectory    Where the info files are kept
-#
 #       --- Global variables ---
-# @dirs           Subdirectories of info directory containing item.t files
-# @Subjects       Subjects which already exist (as Subjects/Subject.t)
-# $dir            The current subdirectory we're working in
-# $filename       The name of an item.t file
-# $filedir{$filename}
-#                 The subdirectory item.t is in
-# F               Filehandle for item.t
-# $desc{$filename}
-#                 A one line description of the item (second arg to .NA)
-# $level{$filename}
-#                 The difficulty level of the page.  At present either
-#                 Basic or Expert.
-# $see_also{$filename}
-#                 A list of SEE ALSO items for the file (.SA argument)
-# $subj           A subject
+# @Subjects       Existing subjects
+# @Chapters       Existing chapters
+# $filename       The name of the current info file
+# $chapter{TOPIC} TOPIC's chapter (first arg to .TH)
+# $desc{TOPIC}    A one line description of TOPIC (second arg to .NA)
+# $level{TOPIC}   TOPIC's difficulty level (arg to .LV)
+# $see_also{TOPIC}
+#                 TOPIC's SEE ALSO items (.SA argument)
+# $sanr{TOPIC}    Line number of TOPIC's .SA request
+# $subject{$subj}{$chap} = "item1\nitem2\n..."
+#                 Topics in that subject organized by chapter.
+# $largest{$sub}  The largest topic name in that subject (used for
+#                 column formatting)
+#
+#     --- File handles ---
+# F               Filehandle for info page sources and makefiles
 # SUBJ            Filehandle for Subject.t
-# $subject{$subj}{$dir} = "item1\nitem2\n..."
-#                 Items in that subject organized by directory.
-# $largest{$sub}  The largest item in that subject (used for column formatting)
-# TOP             Filehandle for Subjects/TOP.t
-# @rowsubj        List of subjects
-# @colsubj        List of subjects organized into 3 columns
+# TOP             Filehandle for TOP.t
 #
 #     --- Functions ---
 #
-# read_subjects   Get list of current subjects
-# parse_files     Parse all the item.t files in one $dir
+# read_make_var   Read a variable value from a makefile
 # parse_file      Check the .TH, .NA, and .SA fields & parse them
 # parse_see_also  Create %subject from %see_also
 # set_subject     Add a new entry to %subject and possibly to %largest
@@ -87,248 +71,265 @@
 use strict;
 use warnings;
 
-our (@dirs, $dir, $filename, %filedir, @Subjects, $type, %desc, %level);
-our (%see_also, %subject, %largest, $subj, @rowsubj, @colsubj, @subj);
+use Errno qw(ENOENT);
+use Fcntl qw(O_WRONLY O_EXCL O_CREAT);
+
+our (%chapter, %desc, %level, %see_also, %sanr);
+our ($filename, %subject, %largest);
 
 eval("require 5");		# Test for perl version 5
-die "info.pl requires version 5 of perl.\n" if $@;
+die "$0 requires version 5 of perl.\n" if $@;
 
-# These are the directories which contain item.t files:
-@dirs = ('Commands', 'Concepts', 'Server', 'Introduction');
+# The chapters, in order
+our @Chapters = qw/Introduction Concept Command Server/;
 
-# Get list of current subjects
-&read_subjects;
+# Get known subjects
+our @Subjects = split(' ', read_make_var("subjects", "subjects.mk", ""));
+# Get source directory
+my $srcdir = read_make_var("srcdir", "GNUmakefile");
+# Get info sources
+my @tsrc = grep(/\.t$/, split(' ' , read_make_var("src", "sources.mk")));
 
-# Parse the item.t files in each info directory
-for $dir (@dirs) {
-  &parse_files;
+# Parse the .t files
+for my $t (@tsrc) {
+    parse_file("$srcdir/$t");
 }
 
 # Create %subject from %see_also
-for $filename (sort keys %filedir) {
-  &parse_see_also;
+for my $t (sort keys %desc) {
+    parse_see_also($t);
 }
 
 # Create the Subject.t files
-&create_subjects;
+@Subjects = create_subjects();
+
+# Update subjects.mk
+open(F, ">subjects.mk")
+    or die "Can't open subjects.mk for writing: $!";
+print F "subjects := " . join(' ', @Subjects) . "\n";
+close(F);
 
 exit 0;
 
-# Get list of current subjects
-sub read_subjects {
-  open (LS, "ls Subjects|");
+# Read a variable value from a makefile
+sub read_make_var {
+    my ($var, $fname, $dflt) = @_;
+    my $val;
 
-  while (<LS>) {    
-    chop;
-    next unless /^(\S+).t/;
-    push(@Subjects, $1);
-  }
-  close LS;
-}
-
-# Parse all the item.t files in one $dir with lots of integrity checks
-sub parse_files {
-  local ($type) = $dir;
-  chop($type) unless $type eq "Server" || $type eq "Introduction";
-
-  if (defined $filedir{$dir}) {
-    $filename = $dir;
-    &error("Illegal filename (it is a directory name).");
-  } elsif (defined $filedir{$type}) {
-    $filename = $type;
-    &error("Illegal filename (it is a type name).");
-  }
-
-  open (LS, "cd $dir && ls *.t|");
-
-  while (<LS>) {    
-    chop;
-    $filename = $_;
-    &parse_file;
-  }
-  close LS;
-}
-
-# Check the .TH, .NA, and .SA fields.
-# Parse .NA into %desc and .SA into %see_also
-sub parse_file {
-  $filename =~ s/\.t$//;
-
-  if (grep (/^$filename$/, @dirs)) {
-    &error("Illegal filename.  $filename is a name of a subdirectory of the info directory.");
-  }
-  if ($filedir{$filename}) {
-    &error("$filename.t is in both $filedir{$filename} and $dir");
-  } elsif (grep (/^$filename$/, @Subjects)) {
-    &error("Illegal filename.  $filename is already a Subject name.");
-  } else {
-    $filedir{$filename} = $dir;
-  }
-
-  die "Can't open $dir/$filename.t\n" unless open(F, "<$dir/$filename.t");
-  
-  $_ = <F>;
-  if (/^\.TH (\S+) (\S.+\S)$/) {
-    if ($1 ne $type) {
-      &error("First argument to .TH was '$1' but it should be '$type'");
-    }
-    if ($type eq "Command" && $2 ne "\U$filename") {
-      &error("Second argument to .TH was '$2' but it should be '\U$filename'");
-    }
-  } else {
-    &error("The first line in the file must be a .TH entry");
-  }
-  $_ = <F>;
-  if (/^\.NA (\S+) "(\S.+\S)"$/) {
-    if ($filename ne $1) {
-      &error("First argument to .NA was '$1' but it should be '$filename'");
-    }
-    $desc{$filename} = $2;
-  } else {
-    &error("The second line in the file must be an .NA entry");
-  }
-  $_ = <F>;
-  if (/^\.LV (\S+)$/) {
-    if ($1 ne 'Basic' && $1 ne 'Expert') {
-      &error("The argument to .LV was '$1' but it must be either 'Basic' or 'Expert'");
-    }
-    $level{$filename} = $1;
-  } else {
-    &error("The third line in the file must be a .LV entry");
-  }
-  while (<F>) {
-    last if /^\.SA/;
-  }
-  if ($_) {
-    if (/^\.SA "([^\"]*)"/) {
-      $see_also{$filename} = $1;
-    } else {
-      &error("Incorrect .SA Syntax.  Syntax should be '.SA \"item1, item2\"'");
+    unless (open(F, "<$fname")) {
+	return $dflt if $! == ENOENT and defined $dflt;
+	die "Can't open $fname: $!";
     }
     while (<F>) {
-      &error("Multiple .SA entries.  Each file may contain at most one .SA entry") if /^\.SA/;
+	if (/^[ \t]*\Q$var\E[ \t]:?=*(.*)/) {
+	    $val = $1;
+	    last;
+	}
     }
-  }
-  close F;
+    close(F);
+    $val or die "Can't find $var in $fname";
+    return $val;
+}
+
+# Check .TH, .NA, .LV and .SA.
+# Parse .NA into %desc and .SA into %see_also
+sub parse_file {
+    ($filename) = @_;
+    my $topic;
+
+    $topic = $filename;
+    $topic =~ s,.*/([^/]*)\.t$,$1,;
+    
+    open(F, "<$filename")
+	or die "Can't open $filename: $!";
+  
+    $_ = <F>;
+    if (/^\.TH (\S+) (\S.+\S)$/) {
+	if (!grep(/^$1$/, @Chapters)) {
+	    error("First argument to .TH was '$1', which is not a known chapter");
+	}
+	$chapter{$topic} = $1;
+	if ($1 eq "Command" && $2 ne "\U$topic") {
+	    error("Second argument to .TH was '$2' but it should be '\U$topic'");
+	}
+    } else {
+	error("The first line in the file must be a .TH request");
+    }
+
+    $_ = <F>;
+    if (/^\.NA (\S+) "(\S.+\S)"$/) {
+	if ($topic ne $1) {
+	    error("First argument to .NA was '$1' but it should be '$topic'");
+	}
+	$desc{$topic} = $2;
+    } else {
+	error("The second line in the file must be a .NA request");
+    }
+
+    $_ = <F>;
+    if (/^\.LV (\S+)$/) {
+	if ($1 ne 'Basic' && $1 ne 'Expert') {
+	    error("The argument to .LV was '$1' but it must be either 'Basic' or 'Expert'");
+	}
+	$level{$topic} = $1;
+    } else {
+	error("The third line in the file must be a .LV request");
+    }
+
+    while (<F>) {
+	last if /^\.SA/;
+    }
+
+    if ($_) {
+	if (/^\.SA "([^\"]*)"/) {
+	    $see_also{$topic} = $1;
+	    $sanr{$topic} = $.;
+	} else {
+	    error("Incorrect .SA Syntax.  Syntax should be '.SA \"item1, item2\"'");
+	}
+
+	while (<F>) {
+	    error("Multiple .SA requests.  Each file may contain at most one.") if /^\.SA/;
+	}
+    } else {
+	error(".SA request is missing");
+    }
+
+    close F;
 }
 
 # Create %subject from %see_also
 sub parse_see_also {
-  my (@see_also) = split(/, /, $see_also{$filename});
-  local ($dir) = $filedir{$filename};
-  my ($found);		# Does this item belong to any Subject?
+    my ($topic) = @_;
+    my @see_also = split(/, /, $see_also{$topic});
+    my $found;		       # found a subject?
 
-  for (@see_also) {
-    if (!(defined $filedir{$_})) { # is this entry a subject?
-      &set_subject;
-      $found = 1;
+    $filename = "$srcdir/$topic";
+
+    for (@see_also) {
+	if (!exists $desc{$_}) { # is this entry a subject?
+	    set_subject($_, $topic);
+	    $found = 1;
+	}
     }
-  }
 
-  &error("No Subject listed in .SA field") unless $found;
+    $. = $sanr{$topic};
+    error("No subject listed in .SA") unless $found;
 }
 
 # Add a new entry to %subject and possibly to %largest
 sub set_subject {
-  $subject{$_}{$dir} .= "$filename\n";
-  $largest{$_} = "" unless defined $largest{$_};
-  $largest{$_} = $filename if length $filename > length $largest{$_};
-  $largest{$_} = $dir if length $dir > length $largest{$_};
+    my ($sub, $topic) = @_;
+    my $chap = $chapter{$topic};
+    $subject{$sub}{$chap} .= "$topic\n";
+    $largest{$sub} = "" unless defined $largest{$_};
+    $largest{$sub} = $topic if length $topic > length $largest{$sub};
+    $largest{$sub} = $chap if length $chap > length $largest{$_};
 }
 
 # Create a Subject.t file
 sub create_subj {
-  print "  Creating Subjects/$subj.t\n";
-  print "WARNING: $subj is a NEW subject\n" unless
-    grep(/^$subj$/, @Subjects);
-  die "Unable to write to Subjects/$subj.t\n" unless
-    open(SUBJ, ">Subjects/$subj.t");
+    my ($subj) = @_;
+    my $fname = "info/$subj.t";
 
-  print SUBJ '.\" DO NOT EDIT THIS FILE.  It was automatically generated by info.pl'."\n";
-  print SUBJ ".TH Subject \U$subj\n";
-  $largest{$subj} =~ s/-/M/g;
-  print SUBJ ".in \\w'$largest{$subj}XX\\0\\0\\0\\0'u\n";
-  for $dir (keys %{$subject{$subj}}) {
-    print SUBJ ".s1\n";
-    for (split(/\n/, $subject{$subj}{$dir})) {
-      print SUBJ ".L \"$_ ";
-      if ($level{$_} eq 'Basic') {
-	print SUBJ "* \"\n";
-      } else {
-	print SUBJ "  \"\n";
-      }
-      print SUBJ "$desc{$_}\n";
+    print "  Creating $fname\n";
+    print "WARNING: $subj is a NEW subject\n"
+	unless grep(/^$subj$/, @Subjects);
+    sysopen(SUBJ, $fname, O_WRONLY | O_EXCL | O_CREAT)
+	or die "Unable to create $fname: $!\n";
+
+    print SUBJ '.\" DO NOT EDIT THIS FILE.  It was automatically generated by info.pl'."\n";
+    print SUBJ ".TH Subject \U$subj\n";
+    $largest{$subj} =~ s/-/M/g;
+    print SUBJ ".in \\w'$largest{$subj}XX\\0\\0\\0\\0'u\n";
+    for my $chap (@Chapters) {
+	next unless exists $subject{$subj}{$chap};
+	print SUBJ ".s1\n";
+	for (split(/\n/, $subject{$subj}{$chap})) {
+	    print SUBJ ".L \"$_ ";
+	    if ($level{$_} eq 'Basic') {
+		print SUBJ "* \"\n";
+	    } else {
+		print SUBJ "  \"\n";
+	    }
+	    print SUBJ "$desc{$_}\n";
+	}
     }
-  }
-  print SUBJ <<EOF;
+    print SUBJ <<EOF;
 .s1
 .in 0
 For info on a particular subject, type "info <subject>" where <subject> is
 one of the subjects listed above.  Subjects marked by * are the most
 important and should be read by new players.
 EOF
-  close SUBJ;
+    close SUBJ;
 }
 
 # Remove the old Subject.t files and create the Subject.t files and TOP.t
 sub create_subjects {
-  print "  Removing Subjects/*.t\n";
-  `rm -f Subjects/*.t`;
-  print "  Creating Subjects/TOP.t\n";
-  die "Can't open Subjects/TOP.t" unless open(TOP, ">Subjects/TOP.t");
-  print TOP <<EOF;
+    my (@colsubj, @rowsubj, @subj);
+
+    print "  Removing Subjects\n";
+    for (@Subjects) {
+	unlink "info/$_.t";
+    }
+    print "  Creating info/TOP.t\n";
+    open(TOP, ">info/TOP.t")
+	or die "Can't open info/TOP.t: $!";
+    print TOP <<EOF;
 .TH Info "List of Subjects"
 .s1
 Empire info is available on the following subjects:
 .NF
 EOF
 
-  @rowsubj = sort keys %subject;
+    @rowsubj = sort keys %subject;
 
-  for $subj (@Subjects) {
-    print "WARNING: The subject $subj has been removed.\n" unless
-      $subj eq 'TOP' || grep (/^$subj$/, @rowsubj);
-  }
-
-  my $k = 0;
-  for my $i (0..2) {
-    for (my $j = $i; $j <= $#rowsubj; $j += 3) {
-      $colsubj[$j] = $rowsubj[$k++];
+    for my $subj (@Subjects) {
+	print "WARNING: The subject $subj has been removed.\n"
+	    unless grep (/^$subj$/, @rowsubj);
     }
-  }
 
-  for $subj (@colsubj) {
-    &create_subj;
-    push(@subj, $subj);
-    &flush_subj if $#subj > 1;
-  }
-  &flush_subj;
-  print TOP <<EOF;
+    # reorder subjects for display in three columns
+    my $k = 0;
+    for my $i (0..2) {
+	for (my $j = $i; $j <= $#rowsubj; $j += 3) {
+	    $colsubj[$j] = $rowsubj[$k++];
+	}
+    }
+
+    for my $subj (@colsubj) {
+	create_subj($subj);
+	push(@subj, $subj);
+	if ($#subj > 1) {
+	    flush_subj(@subj);
+	    @subj = ();
+	}
+    }
+    flush_subj(@subj);
+    print TOP <<EOF;
 .FI
 Type "info <Subject>" where <Subject> is one of the subjects listed above.
 For a complete list of all info topics, type "info all".
 EOF
-  close TOP;
+    close TOP;
+    return @rowsubj;
 }
 
 # Print a row of subjects to TOP
 sub flush_subj {
-  return unless $#subj >= 0;
-  print TOP "  ";
-  for (@subj) {
-    printf TOP "%-25s", $_;
-  }
-  print TOP "\n";
-  @subj = ();
+    return unless $#_ >= 0;
+    print TOP "  ";
+    for (@_) {
+	printf TOP "%-25s", $_;
+    }
+    print TOP "\n";
 }
 
 # Print an integrity error message and exit with code 1
 sub error {
-  my ($error) = @_;
+    my ($error) = @_;
 
-  print STDERR "Error on line $. of $filedir{$filename}/$filename.t:\n";
-  print STDERR "$_";
-  print STDERR "\n" unless /\n$/;
-  print STDERR "$error\n";
-  exit 1;
+    print STDERR "info.pl:$filename:$.: $error\n";
+    exit 1;
 }

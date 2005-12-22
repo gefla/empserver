@@ -14,3 +14,4 @@ lib
 sources.mk
 stamp-h
 stamp-h.in
+subjects.mk

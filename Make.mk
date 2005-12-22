@@ -46,9 +46,15 @@
 -include sources.mk
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
+tsrc := $(filter %.t, $(src))
+
+# Info topics and subjects
+-include subjects.mk
+topics := $(patsubst %.t,%,$(notdir $(tsrc)))
+info := $(topics) $(subjects) all
 
 # Generated files
-mk := sources.mk
+mk := sources.mk subjects.mk
 ac := autom4te.cache config.h config.status config.log stamp-h	\
 $(basename $(filter %.in, $(src)))
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
@@ -57,6 +63,12 @@ deps := $(obj:.o=.d)
 libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
 util := $(addprefix src/util/, fairland files pconfig)
 progs := $(util) src/client/empire src/server/emp_server
+tsubj := $(addprefix info/, $(addsuffix .t, $(subjects)))
+ttop := info/TOP.t
+info.nr := $(addprefix info.nr/, $(info))
+subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
+topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
+info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 
 ifeq ($(empthread),POSIX)
 empth_obj := src/lib/empthread/pthread.o
@@ -68,8 +80,9 @@ endif
 
 # Abbreviations
 scripts = $(srcdir)/src/scripts
-clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib)
-distclean := $(ac)
+clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
+$(info.nr) $(info.html)
+distclean := $(ac) info/stamp $(ttop)
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -Iinclude
@@ -83,11 +96,11 @@ LDLIBS += -lm
 ### Advertized goals
 
 .PHONY: all
-all: $(progs) # FIXME info
+all: $(progs) info
 
 .PHONY: info html
-info html:
-	false # FIXME
+info: $(info.nr)
+html: $(info.html)
 
 .PHONY: clean
 clean:
@@ -129,6 +142,13 @@ endif
 # automatic dependency generation
 %: %.c
 
+info.nr/%: info/%.t
+	$(NROFF) -I $(srcdir)/info $(filter %/CRT.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@
+# FIXME AT&T nroff doesn't grok -I
+
+info.html/%.html: info/%.t
+	perl $(filter %.pl, $^) $< >$@
+
 
 ### Explicit rules
 
@@ -149,7 +169,37 @@ $(libs) $(empth_lib): | lib
 	$(AR) rc $@ $?
 	$(RANLIB) $@
 
-lib:
+# info.pl reads $(tsrc) and writes subjects.mk $(ttop) $(tsubj).  The
+# naive rule
+#     subjects.mk $(ttop) $(tsubj): $(tsrc)
+#           COMMAND
+# runs COMMAND once for each target.  That's because multiple targets
+# in an explicit rule is just a shorthand for one rule per target,
+# each with the same prerequisites and commands.  A pattern rule with
+# multiple targets does what we want.  So we artificially turn the
+# explicit rule into a pattern rule: we replace info with %, and
+# insert a touch target info/stamp.
+$(patsubst info/%, \%/%, $(ttop) $(tsubj)): %/stamp
+	perl $(srcdir)/info/info.pl
+info/stamp: $(tsrc) info/info.pl
+	>$@
+subjects.mk: $(ttop)
+	:
+
+info.nr/all: $(filter-out info.nr/all, $(info.nr))
+	(cd info.nr && ls -CF) >$@
+# FIXME should use $^ and not ls
+
+info.html/all.html: $(filter-out info.html/all.html, $(info.html)) info/ls2html.pl
+	(cd info.html && ls -CF *.html) | expand | perl $(filter %.pl, $^) >$@
+# FIXME should use $^ and not ls
+
+$(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk | info.nr
+
+$(subjects.html): info/subj2html.pl | info.html
+$(topics.html): info/emp2html.pl | info.html
+
+info.nr info.html lib:
 	mkdir -p $@
 
 ifeq ($(cvs_controlled),yes)
