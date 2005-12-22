@@ -181,7 +181,7 @@ $(libs) $(empth_lib): | lib
 # insert a touch target info/stamp.
 $(patsubst info/%, \%/%, $(ttop) $(tsubj)): %/stamp
 	perl $(srcdir)/info/info.pl
-info/stamp: $(tsrc) info/info.pl
+info/stamp: $(tsrc) info/info.pl sources.mk
 	>$@
 subjects.mk: $(ttop)
 	:
