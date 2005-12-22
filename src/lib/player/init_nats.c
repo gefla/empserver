@@ -74,7 +74,7 @@ nat_cap(int btu)
 {
     struct sctstr sect;
     struct natstr *np;
-    double d;
+    double d, eff;
     double civ;
     int delta;
 
@@ -103,10 +103,10 @@ nat_cap(int btu)
 	civ = sect.sct_item[I_CIVIL];
 	if (civ > 999)
 	    civ = 999;
-	if ((sect.sct_effic) && (sect.sct_type != SCT_MOUNT))
-	    delta = roundavg(d * civ * sect.sct_effic * btu_build_rate);
-	else			/* Assume 1/2% efficiency minimum */
-	    delta = roundavg(d * civ * btu_build_rate / 2.0);
+	eff = sect.sct_effic * sect.sct_work / 100.0;
+	if (eff < 0.5 || sect.sct_type == SCT_MOUNT)
+	    eff = 0.5;
+	delta = roundavg(d * civ * eff * btu_build_rate);
 
 	if (delta + btu > max_btus)
 	    np->nat_btu = max_btus;
