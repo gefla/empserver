@@ -202,8 +202,10 @@ sub parse_file {
 sub parse_see_also {
     my ($topic) = @_;
     my @see_also = split(/, /, $see_also{$topic});
+    my $wanted = $chapter{$topic};
     my $found;		       # found a subject?
 
+    $wanted = undef if $wanted eq 'Concept' or $wanted eq 'Command';
     $filename = "$srcdir/$topic";
 
     for (@see_also) {
@@ -211,10 +213,14 @@ sub parse_see_also {
 	    set_subject($_, $topic);
 	    $found = 1;
 	}
+	if ($wanted && $_ eq $wanted) {
+	    $wanted = undef;
+	}
     }
 
     $. = $sanr{$topic};
     error("No subject listed in .SA") unless $found;
+    error("Chapter $wanted not listed in .SA") if $wanted;
 }
 
 # Add a new entry to %subject and possibly to %largest

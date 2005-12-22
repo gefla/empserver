@@ -98,4 +98,4 @@ Any time the Deity helps anyone,
 Deity intervention starts becoming a factor in the game.
 As a Deity, you absolutely can't go wrong
 if you do nothing at all except routine game maintenance.
-.SA "Deity"
+.SA "Deity, Server"
