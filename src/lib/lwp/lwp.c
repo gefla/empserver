@@ -375,10 +375,10 @@ lwpStackCheck(struct lwpProc *newp)
     }
     if (overflow)
 	logerror("Thread %s stack overflow %d bytes",
-		 newp->name, overflow * sizeof(int));
+		 newp->name, overflow * (int)sizeof(int));
     if (underflow)
 	logerror("Thread %s stack underflow %d bytes",
-		 newp->name, underflow * sizeof(int));
+		 newp->name, underflow * (int)sizeof(int));
     if (overflow || underflow)
 	abort();
 }
