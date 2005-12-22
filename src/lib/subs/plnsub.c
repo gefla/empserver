@@ -651,23 +651,17 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	    }
 	    break;
 	case 't':
+	case 'd':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
 	    itype = ip->i_vtype;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    break;
-	case 'd':
-	    itype = ip->i_vtype;
+	case 'm':
+	    if ((pcp->pl_flags & P_MINE) == 0)
+		break;
+	    itype = I_SHELL;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
-	    /* Is this mine dropping excursion? */
-	    if (itype == I_SHELL && (pcp->pl_flags & P_MINE))
-		break;
-	    /* Is this a cargo drop? */
-	    if ((pcp->pl_flags & P_C) == 0 || ip == 0) {
-		itype = 0;
-		needed = 0;
-		break;
-	    }
 	    break;
 	case 'a':
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)

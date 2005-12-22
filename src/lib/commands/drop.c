@@ -120,7 +120,8 @@ drop(void)
     mission_flags |= P_X;	/* stealth (shhh) */
     mission_flags |= P_H;	/* gets turned off if not all choppers */
     mission_flags |= P_MINE;
-    mission_flags = pln_arm(&bomb_list, 2 * ap_to_target, 'd',
+    mission_flags = pln_arm(&bomb_list, 2 * ap_to_target,
+			    wantflags & P_MINE ? 'm' : 'd',
 			    ip, 0, mission_flags);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
