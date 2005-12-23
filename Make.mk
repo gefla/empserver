@@ -51,7 +51,7 @@ tsrc := $(filter %.t, $(src))
 # Info topics and subjects
 -include subjects.mk
 topics := $(patsubst %.t,%,$(notdir $(tsrc)))
-info := $(topics) $(subjects) all
+info := $(topics) $(subjects) all TOP
 
 # Generated files
 mk := sources.mk subjects.mk
