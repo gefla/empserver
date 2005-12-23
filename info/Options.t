@@ -7,7 +7,6 @@ The following options are from KSU code:
 SHOWPLANE:	planes/units on ships/units up for trade are shown
 PINPOINT(etc):	Missile exist which target ships instead of sectors
 SAIL:		another way to automatically move ships (may also be buggy)
-NUKEFAIL(etc):	nukes on missiles that explode in launching may detonate
 DEMANDUPDATE:	updates may be allowed on player demand
 UPDATESCHED:	updates can be controlled by the 'hours' file. NITP
 
@@ -23,17 +22,14 @@ TRADESHIPS:	you can build/nav/scuttle trade ships to make money
 FUEL:		ships need fuel to gain mobility
 RES_POP:	Research affects max sector population.
 NOFOOD:		No food is required.
-BLITZ:		Turns NOFOOD option on and players get infinite BTU's.
-NONUKES:	No nuclear weapons
+BLITZ:		Players get infinite BTU's.
 NO_PLAGUE:	Plague is disabled.
-NEUTRON:	Enables neutron bombs
 FALLOUT:	Sectors are damaged by radiation for a few updates after blast
 
 The following options were introduced in the Empire2 Server:
 
 HIDDEN:		Hides information about countries you haven't contacted
 LOSE_CONTACT:	In HIDDEN, lose contact after a few updates
-ORBIT:		Satellites can orbit the planet
 BIG_CITY:	'c' sectors cost $, lcm, hcm to build and hold 10x civs
 INTERDICT_ATT:	Interdict units & mil as they move in after an attack
 
@@ -52,9 +48,6 @@ MARKET:         Time-delay market and trade.
 LOANS:          Allows S&L type interaction between countries.
 LANDSPIES:      Creates land unit style spies.
 NO_FORT_FIRE:   Forts cannot fire.
-NO_LCMS:        The game doesn't need lcms to be played.
-NO_HCMS:        The game doesn't need hcms to be played.
-NO_OIL:         The game doesn't need oil to be played.
 TECH_POP:       Technology costs more to make as your civilian population
                  grows past 50,000 civilians.
 TREATIES:       Sign treaties with your friends and enemies, and breaking of
