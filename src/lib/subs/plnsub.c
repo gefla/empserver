@@ -355,6 +355,10 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
 
     }
     if (amt > 0) {
+	if (sectp->sct_type != SCT_WATER) {
+	    pr("Your seamines have no effect here.\n");
+	    return;
+	}
 	sectp->sct_mines = min(sectp->sct_mines + amt, MINES_MAX);
 	pr("%d mines laid in %s.\n", amt,
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));

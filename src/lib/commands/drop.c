@@ -135,8 +135,7 @@ drop(void)
 	pr("No planes got through fighter defenses\n");
     } else {
 	getsect(tx, ty, &target);
-	if (target.sct_type == SCT_WATER && (mission_flags & P_MINE)
-	    && ip->i_vtype == I_SHELL)
+	if (wantflags & P_MINE)
 	    pln_mine(&bomb_list, &target);
 	else
 	    pln_dropoff(&bomb_list, ip, tx, ty, &target, EF_SECTOR);
