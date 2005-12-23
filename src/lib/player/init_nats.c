@@ -85,15 +85,10 @@ nat_cap(int btu)
 	return -1;
     }
     if ((player->nstat & NORM) == NORM) {
-	if (player->owner && (sect.sct_type == SCT_CAPIT ||
-			      sect.sct_type == SCT_MOUNT ||
-			      sect.sct_type == SCT_SANCT))
-	    player->nstat |= CAP;
-	else
+	if (influx(np))
 	    player->nstat &= ~CAP;
-	/* Ok, has the country owner reset his capital yet after it was sacked? */
-	if (np->nat_flags & NF_SACKED)
-	    player->nstat &= ~CAP;	/* No capital yet */
+	else
+	    player->nstat |= CAP;
     }
     delta = 0;
     if ((player->nstat & CAP) || player->god) {

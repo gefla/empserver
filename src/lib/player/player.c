@@ -214,14 +214,10 @@ status(void)
 	}
     }
     getsect(natp->nat_xcap, natp->nat_ycap, &sect);
-    if ((sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT ||
-	 sect.sct_type == SCT_SANCT) && sect.sct_own == player->cnum)
-	player->nstat |= CAP;
-    else
+    if (influx(natp))
 	player->nstat &= ~CAP;
-    /* Ok, has the country owner reset his capital yet after it was sacked? */
-    if (natp->nat_flags & NF_SACKED)
-	player->nstat &= ~CAP;	/* No capital yet */
+    else
+	player->nstat |= CAP;
     player->ncomstat = player->nstat;
     time(&player->curup);
     minute = (player->curup - player->lasttime) / 60;
