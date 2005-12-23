@@ -50,8 +50,6 @@
 
 #define LANDSPIES		/* Enable the land unit type spies */
 
-#define START_CASH 25000	/* set starting cash when capitol created */
-
 			/* Setting BLITZ sets a couple of things.
 			   1.  BTU's always max when you login. 
 			   2.  Changing name doesn't take any btus or $$

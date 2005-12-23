@@ -195,7 +195,7 @@ new(void)
 	natp->nat_xorg = 0;
 	natp->nat_yorg = 0;
     }
-    natp->nat_money = START_CASH;
+    natp->nat_money = start_cash;
     natp->nat_level[NAT_HLEV] = start_happiness;
     natp->nat_level[NAT_RLEV] = start_research;
     natp->nat_level[NAT_TLEV] = start_technology;
