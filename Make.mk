@@ -47,6 +47,8 @@
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
 tsrc := $(filter %.t, $(src))
+man1 := $(filter man/%.1, $(src))
+man6 := $(filter man/%.6, $(src))
 
 # Info topics and subjects
 -include subjects.mk
@@ -62,7 +64,9 @@ obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 deps := $(obj:.o=.d)
 libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
 util := $(addprefix src/util/, fairland files pconfig)
-progs := $(util) src/client/empire src/server/emp_server
+client := src/client/empire
+server := src/server/emp_server
+progs := $(util) $(client) $(server)
 tsubj := $(addprefix info/, $(addsuffix .t, $(subjects)))
 ttop := info/TOP.t
 info.nr := $(addprefix info.nr/, $(info))
@@ -84,6 +88,18 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
 $(info.nr) $(info.html)
 distclean := $(ac) info/stamp $(ttop)
+econfig := $(sysconfdir)/empire/econfig
+edatadir := $(localstatedir)/empire
+einfodir := $(datadir)/empire/info.nr
+ehtmldir := $(datadir)/empire/info.html
+# Recursively expanded so that $@ and $< work.
+subst.in = sed \
+	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
+	-e 's?@econfig\@?$(econfig)?g' \
+	-e 's?@edatadir\@?$(edatadir)?g' \
+	-e 's?@einfodir\@?$(einfodir)?g' \
+	-e 's/@EMPIREHOST\@/$(EMPIREHOST)/g' \
+	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -Iinclude
@@ -111,11 +127,34 @@ clean:
 distclean: clean
 	rm -rf $(distclean)
 
-.PHONY: install install-html
-install: all
-	false # FIXME
-install-html: html
-	false # FIXME
+.PHONY: install
+install: all installdirs
+	$(INSTALL_PROGRAM) $(util) $(server) $(sbindir)
+	$(INSTALL_PROGRAM) $(client) $(bindir)
+	$(INSTALL_DATA) $(info.nr) $(einfodir)
+	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man1)) $(mandir)/man1
+	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
+	if test -e $(econfig); then					\
+	    if src/util/pconfig $(econfig) >$(econfig).new; then	\
+	        if cmp -s $(econfig) $(econfig).new; then		\
+		    rm $(econfig).new;					\
+		else							\
+		    echo "Check out $(econfig).new";			\
+		fi							\
+	    else							\
+		echo "Your $(econfig) doesn't work";			\
+	    fi								\
+	else								\
+	    src/util/pconfig >$(econfig);				\
+	fi
+
+.PHONY: installdirs
+installdirs:
+	mkdir -p $(bindir) $(sbindir) $(edatadir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig))
+
+.PHONY: install-html
+install-html: html | $(ehtmldir)
+	$(INSTALL_DATA) $(info.html) $(ehtmldir)
 
 .PHONY: uninstall
 uninstall:
@@ -153,10 +192,10 @@ info.html/%.html: info/%.t
 
 ### Explicit rules
 
-src/server/emp_server: $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
+$(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-src/client/empire: $(filter src/client/%, $(obj)) $(termlibs)
+$(client): $(filter src/client/%, $(obj)) $(termlibs)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(util): $(libs)
@@ -180,6 +219,7 @@ $(libs) $(empth_lib): | lib
 # multiple targets does what we want.  So we artificially turn the
 # explicit rule into a pattern rule: we replace info with %, and
 # insert a touch target info/stamp.
+# FIXME if sources.mk is out-of-date, $(tsubj) is, and the bogus deps can prevent remaking of subjects.mk and thus sources.mk
 $(patsubst info/%, \%/%, $(ttop) $(tsubj)): %/stamp
 	perl $(srcdir)/info/info.pl
 info/stamp: $(tsrc) info/info.pl sources.mk

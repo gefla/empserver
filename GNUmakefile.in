@@ -68,6 +68,7 @@ RANLIB := @RANLIB@
 prefix := @prefix@
 exec_prefix := @exec_prefix@
 bindir := @bindir@
+sbindir := @sbindir@
 datadir := @datadir@
 localstatedir := @localstatedir@
 mandir := @mandir@
@@ -78,13 +79,7 @@ VPATH := @srcdir@
 
 cvs_controlled := @cvs_controlled@
 
-# Recursively expanded so that $@ and $< work.
-subst.in = sed \
-	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
-	-e 's?@econfig\@?$(sysconfdir)/empire/econfig?g' \
-	-e 's?@edatadir\@?$(localstatedir)/empire?g' \
-	-e 's?@einfodir\@?$(datadir)/empire/info.nr?g' \
-	-e 's/@EMPIREHOST\@/@EMPIREHOST@/g' \
-	-e 's/@EMPIREPORT\@/@EMPIREPORT@/g'
+EMPIREHOST := @EMPIREHOST@
+EMPIREPORT := @EMPIREPORT@
 
 include $(srcdir)/Make.mk
