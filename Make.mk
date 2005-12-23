@@ -80,6 +80,7 @@ endif
 
 # Abbreviations
 scripts = $(srcdir)/src/scripts
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
 $(info.nr) $(info.html)
 distclean := $(ac) info/stamp $(ttop)
