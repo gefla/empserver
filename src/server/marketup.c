@@ -31,7 +31,6 @@
  *     Steve McClure, 1996
  */
 
-#include "options.h"
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"

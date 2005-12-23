@@ -32,7 +32,6 @@
  *     Steve McClure, 1996-2000
  */
 
-#include "options.h"
 #include "misc.h"
 #include "player.h"
 #include "xy.h"

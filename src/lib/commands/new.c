@@ -41,7 +41,6 @@
 #include "tel.h"
 #include "land.h"
 #include "nsc.h"
-#include "options.h"
 #include "optlist.h"
 #include "commands.h"
 

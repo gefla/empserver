@@ -46,7 +46,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "options.h"
 #include "misc.h"
 #include "sect.h"
 #include "nat.h"

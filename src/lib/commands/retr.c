@@ -32,7 +32,6 @@
  *     Steve McClure, 2000
  */
 
-#include "options.h"
 #include "misc.h"
 #include "player.h"
 #include "retreat.h"

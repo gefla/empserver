@@ -32,7 +32,6 @@
  *     Doug Hay, 1998
  */
 
-#include "options.h"
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"
