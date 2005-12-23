@@ -102,7 +102,7 @@ subst.in = sed \
 	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
 # Compiler flags
-CPPFLAGS += -I$(srcdir)/include -Iinclude
+CPPFLAGS += -I$(srcdir)/include -I.
 ifeq ($(have_gcc),yes)
 CFLAGS += -fno-common
 CFLAGS += -Wall -W -Wno-unused -Wpointer-arith -Wstrict-prototypes	\
