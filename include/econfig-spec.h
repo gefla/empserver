@@ -52,6 +52,9 @@
 #define EMPCF_COMMENT(comment) \
 EMPCFONLYC("", emp_config_dummy, unused , NSC_NOTYPE, 0, (comment))
 
+#define EMPCF_OPT(fvname, vname, descr) \
+EMPCFBOTH((fvname), (vname), int, NSC_INT, KM_OPTION, (descr))
+
 /* things that can be changed */
 EMPCF_COMMENT("\n### Server configuration and information")
 EMPCFBOTH("data", datadir, char *, NSC_STRING, KM_INTERNAL,
@@ -107,10 +110,75 @@ EMPCFBOTH("game_days", game_days, char *, NSC_STRING, 0,
 EMPCFBOTH("game_hours", game_hours, char *, NSC_STRING, 0,
     "Hours game is up and running (6:00-18:00)")
 
-EMPCF_COMMENT("\n\n### Options\n")
-EMPCFONLYC("option", emp_config_dummy, unused , NSC_NOTYPE, 0, NULL)
-EMPCFONLYC("nooption", emp_config_dummy, unused , NSC_NOTYPE, 0, NULL)
-
+EMPCF_COMMENT("\n\n### Options")
+EMPCF_OPT("ALL_BLEED", opt_ALL_BLEED,
+    "Let tech bleed to everyone, not just allies")
+EMPCF_OPT("BIG_CITY", opt_BIG_CITY,
+    "Allow 10x civs in 'c' sectors")
+EMPCF_OPT("BLITZ", opt_BLITZ,
+    "Enable blitz mode")
+EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,
+    "Allow bridge towers")
+EMPCF_OPT("DEFENSE_INFRA", opt_DEFENSE_INFRA,
+    "Allow the improvement of defensive infrastructure")
+EMPCF_OPT("DEMANDUPDATE", opt_DEMANDUPDATE,
+    "Allow demand updates")
+EMPCF_OPT("DRNUKE", opt_DRNUKE,
+    "Require research for nuke building")
+EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
+    "Allow bridge building without bridge heads")
+EMPCF_OPT("FALLOUT", opt_FALLOUT,
+    "Enable secondary effects caused by radiation")
+EMPCF_OPT("FUEL", opt_FUEL,
+    "Make ships use fuel to move")
+EMPCF_OPT("GODNEWS", opt_GODNEWS,
+    "Inform the world when deities give/take away")
+EMPCF_OPT("GO_RENEW", opt_GO_RENEW,
+    "Make gold and oil renewable resources")
+EMPCF_OPT("GUINEA_PIGS", opt_GUINEA_PIGS,
+    "Enable experimental stuff not ready for prime time")
+EMPCF_OPT("HIDDEN", opt_HIDDEN,
+    "Hide information between players")
+EMPCF_OPT("INTERDICT_ATT", opt_INTERDICT_ATT,
+    "Interdict post-attack move in")
+EMPCF_OPT("LANDSPIES", opt_LANDSPIES,
+    "Enable the land unit type spies")
+EMPCF_OPT("LOANS", opt_LOANS,
+    "Allow bailing out of other countries via S&L scandals")
+EMPCF_OPT("LOSE_CONTACT", opt_LOSE_CONTACT,
+    "Let contact be lost after a few updates")
+EMPCF_OPT("MARKET", opt_MARKET,
+    "Enable time-based market and trading")
+EMPCF_OPT("MOB_ACCESS", opt_MOB_ACCESS,
+    "Update mobility in real-time rather than at the update")
+EMPCF_OPT("NOFOOD", opt_NOFOOD,
+    "Disable food consumption")
+EMPCF_OPT("NOMOBCOST", opt_NOMOBCOST,
+    "Don't charge mobility for firing from ships")
+EMPCF_OPT("NO_FORT_FIRE", opt_NO_FORT_FIRE,
+    "Disable fortress fire")
+EMPCF_OPT("NO_PLAGUE", opt_NO_PLAGUE,
+    "Disable plague")
+EMPCF_OPT("PINPOINTMISSILE", opt_PINPOINTMISSILE,
+    "Enable marine missiles")
+EMPCF_OPT("RES_POP", opt_RES_POP,
+    "Population is limited by research")
+EMPCF_OPT("SAIL", opt_SAIL,
+    "Enable sail command")
+EMPCF_OPT("SHOWPLANE", opt_SHOWPLANE,
+    "Show planes and land units embarked on ships or land units up for trade")
+EMPCF_OPT("SLOW_WAR", opt_SLOW_WAR,
+    "Declaring war takes time")
+EMPCF_OPT("SUPER_BARS", opt_SUPER_BARS,
+    "Make bars immune to damage")
+EMPCF_OPT("TECH_POP", opt_TECH_POP,
+    "Technology costs more as population rises")
+EMPCF_OPT("TRADESHIPS", opt_TRADESHIPS,
+    "Enable Tradeships")
+EMPCF_OPT("TREATIES", opt_TREATIES,
+    "Allow treaties")
+EMPCF_OPT("UPDATESCHED", opt_UPDATESCHED,
+    "Used to control update times and should always be used")
 
 EMPCF_COMMENT("\n\n### Countries")
 EMPCFBOTH("btu_build_rate", btu_build_rate, float, NSC_FLOAT, 0,

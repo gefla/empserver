@@ -3,7 +3,6 @@
 .LV Expert
 .SY "xdump <STATE-TABLE> <ENTRIES>"
 .SY "xdump chr <CONFIG-TABLE>"
-.SY "xdump opt"
 .SY "xdump ver"
 The xdump command displays information on game configuration and state
 in machine readable tables.  It is intended for use by clients and
@@ -62,15 +61,13 @@ abbreviations of table names are recognized.
 We plan to extend the syntax to select rows and columns to be shown.
 .s1
 Finally,
-.SY "xdump opt"
-displays game options, and
 .SY "xdump ver"
 displays configuration parameters.
 .s1
 The output of \*Qxdump\*U is a table, which consists of two header
 lines, the table body and a footer line.
 .s1
-The first header line is of the form \Q*XDUMP <TABLE-NAME>
+The first header line is of the form \*QXDUMP <TABLE-NAME>
 <TIMESTAMP>\*U.  It identifies the dump.
 .s1
 The second header line lists column names.  The name of a column is

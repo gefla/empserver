@@ -65,7 +65,6 @@ struct keymatch configkeys[] = {
 };
 
 static struct keymatch *keylookup(s_char *key, struct keymatch tbl[]);
-static int set_option(const char *, int);
 
 /*
  * read in empire configuration
@@ -135,15 +134,6 @@ emp_config(char *file)
 	    *(char **)kp->km_data = strdup(av[1]);
 	    kp->km_flags |= KM_ALLOC;
 	    break;
-	case NSC_NOTYPE:
-	    for (i = 1; av[i]; ++i) {
-		if (set_option(av[i], kp->km_key[0] != 'n') < 0) {
-		    fprintf(stderr, "%s:%d: Unknown option %s\n",
-			    file, lno, av[i]);
-		    errors = 1;
-		}
-	    }
-	    break;
 	default:
 	    assert(0);
 	}
@@ -177,7 +167,6 @@ keylookup(register s_char *command, struct keymatch *tbl)
 void
 print_config(FILE *fp)
 {
-    struct option_list *op;
     struct keymatch *kp;
 
     fprintf(fp, "# Empire Configuration File:\n");
@@ -205,31 +194,10 @@ print_config(FILE *fp)
 	case NSC_LONG:
 	    fprintf(fp, "%s %ld\n", kp->km_key, *(long *)kp->km_data);
 	    break;
-	case NSC_NOTYPE:
-	    for (op = Options; op->opt_key; op++)
-		if (*op->opt_valuep != (kp->km_key[0] == 'n'))
-		    fprintf(fp, "%s %s\n", kp->km_key, op->opt_key);
-	    break;
 	default:
 	    assert(0);
 	}
     }
 
     fprintf(fp, "\n");
-}
-
-
-/* Set option S to value VAL; return 0 on success, -1 on failure.  */
-static int
-set_option(const char *s, int val)
-{
-    struct option_list *op;
-
-    for (op = Options; op->opt_key; op++) {
-	if (strcmp(op->opt_key, s) == 0) {
-	    *op->opt_valuep = val;
-	    return 0;
-	}
-    }
-    return -1;
 }

@@ -177,21 +177,24 @@ show_opts(int val)
 {
     int col;
     char *sep;
-    struct option_list *op;
+    struct keymatch *kp;
 
     sep = "";
     col = 0;
-    for (op = Options; op->opt_key; op++) {
-	if (!*op->opt_valuep != !val)
+    for (kp = configkeys; kp->km_key; kp++) {
+	if (!(kp->km_flags & KM_OPTION))
 	    continue;
-
-	col += strlen(sep) + strlen(op->opt_key);
+	if (CANT_HAPPEN(kp->km_type != NSC_INT))
+	    continue;
+	if (!*(int *)kp->km_data != !val)
+	    continue;
+	col += strlen(sep) + strlen(kp->km_key);
 	if (col > 70) {
 	    pr(",\n        ");
 	    sep = "";
-	    col = strlen(op->opt_key);
+	    col = strlen(kp->km_key);
 	}
-	pr("%s%s", sep, op->opt_key);
+	pr("%s%s", sep, kp->km_key);
 	sep = ", ";
     }
 

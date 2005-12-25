@@ -56,7 +56,6 @@
  * - News item characteristics: rpt[]
  * - News page headings: page_headings[] (TODO)
  * - Commands: player_coms[] (TODO)
- * - Options: Options[]
  * - Configuration: configkeys[]
  *
  * Dynamic game data:
@@ -248,46 +247,6 @@ xdmeta(int type)
 }
 
 /*
- * Dump Options[], return RET_OK.
- * If META, dump meta-data rather than data.
- */
-static int
-xdopt(int meta)
-{
-    int i;
-    char *sep;
-    struct castr ca;
-
-    xdhdr("options", meta);
-
-    if (meta) {
-	for (i = 0; Options[i].opt_key; ++i) {
-	    ca.ca_type = NSC_INT;
-	    ca.ca_flags = 0;
-	    ca.ca_len = 0;
-	    ca.ca_off = 0;
-	    ca.ca_name = Options[i].opt_key;
-	    ca.ca_table = EF_BAD;
-	    xdflds(mdchr_ca, &ca);
-	    pr("\n");
-	}
-	xdftr(i);
-	return RET_OK;
-    }
-
-    sep = "";
-    for (i = 0; Options[i].opt_key; ++i) {
-	pr("%s%d", sep, *Options[i].opt_valuep);
-	sep = " ";
-    }
-    pr("\n");
-
-    xdftr(1);
-
-    return RET_OK;
-}
-
-/*
  * Dump configkeys[], return RET_OK.
  * If META, dump meta-data rather than data.
  */
@@ -363,8 +322,6 @@ xdump(void)
 	    return xdmeta(type);
 	else
 	    return xditem(type, player->argp[2]);
-    } else if (!strncmp(p, "opt", strlen(p))) {
-	return xdopt(meta);
     } else if (!strncmp(p, "ver", strlen(p))) {
 	return xdver(meta);
     }

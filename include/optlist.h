@@ -40,49 +40,6 @@
 /* Default econfig file */
 extern char dflt_econfig[];
 
-struct option_list {
-    char *opt_key;
-    int *opt_valuep;
-};
-
-extern struct option_list Options[];
-
-/* Options, can be switched in econfig */
-extern int opt_ALL_BLEED;
-extern int opt_BIG_CITY;
-extern int opt_BLITZ;
-extern int opt_BRIDGETOWERS;
-extern int opt_DEFENSE_INFRA;
-extern int opt_DEMANDUPDATE;
-extern int opt_DRNUKE;
-extern int opt_EASY_BRIDGES;
-extern int opt_FALLOUT;
-extern int opt_FUEL;
-extern int opt_GODNEWS;
-extern int opt_GO_RENEW;
-extern int opt_GUINEA_PIGS;
-extern int opt_HIDDEN;
-extern int opt_INTERDICT_ATT;
-extern int opt_LANDSPIES;
-extern int opt_LOANS;
-extern int opt_LOSE_CONTACT;
-extern int opt_MARKET;
-extern int opt_MOB_ACCESS;
-extern int opt_NOFOOD;
-extern int opt_NOMOBCOST;
-extern int opt_NO_FORT_FIRE;
-extern int opt_NO_PLAGUE;
-extern int opt_PINPOINTMISSILE;
-extern int opt_RES_POP;
-extern int opt_SAIL;
-extern int opt_SHOWPLANE;
-extern int opt_SLOW_WAR;
-extern int opt_SUPER_BARS;
-extern int opt_TECH_POP;
-extern int opt_TRADESHIPS;
-extern int opt_TREATIES;
-extern int opt_UPDATESCHED;
-
 /* Game parameters, can be set in econfig */
 #define	EMP_CONFIG_H_OUTPUT
 #include "econfig-spec.h"
@@ -100,8 +57,9 @@ extern char *teldir;
 extern char *telfil;
 
 enum {
-    KM_ALLOC = 0x01,		/* memory allocated */
-    KM_INTERNAL = 0x02		/* not to be disclosed to players */
+    KM_ALLOC = 1,		/* memory allocated */
+    KM_INTERNAL = 2,		/* not to be disclosed to players */
+    KM_OPTION = 4		/* historically an option */
 };
 
 struct keymatch {
