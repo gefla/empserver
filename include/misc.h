@@ -48,7 +48,7 @@ typedef long ssize_t;
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
-#include <minmax.h>
+#include <windef.h>
 #include <io.h>
 
 #define random rand
@@ -57,9 +57,15 @@ typedef long ssize_t;
 #define strncasecmp(s1, s2, s3) _strnicmp(s1, s2, s3)
 #define mkdir(dir,perm) _mkdir(dir)
 /* used for access */
+#ifndef F_OK
 #define F_OK 0  /* FILE existence */
+#endif
+#ifndef W_OK
 #define W_OK 02 /* Write permission */
+#endif
+#ifndef R_OK
 #define R_OK 04 /* Read permission */
+#endif
 
 typedef int pid_t;
 #define vsnprintf _vsnprintf
