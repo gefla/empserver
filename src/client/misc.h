@@ -58,7 +58,7 @@ extern char *SO;
 extern char *SE;
 
 #ifdef _WIN32
-HANDLE hStdIn;
+extern HANDLE hStdIn;
 #endif
 
 #ifdef _WIN32
