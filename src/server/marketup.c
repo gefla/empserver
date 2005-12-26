@@ -72,7 +72,7 @@ market_update(void *unused)
     while (1) {
 	time(&now);
 /*	logerror("Checking the world markets at %s", ctime(&now));*/
-	dp = player_new(0, 0);
+	dp = player_new(-1);
 	if (dp) {
 	    empth_create(PP_UPDATE, check_all_markets, (50 * 1024), 0,
 			 "MarketCheck", "Checks the world markets", dp);

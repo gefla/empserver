@@ -147,7 +147,7 @@ update_wait(void *unused)
 	 * we rely on the fact that update's priority is the highest
 	 * in the land so it can finish before it yields.
 	 */
-	dp = player_new(0, 0);
+	dp = player_new(-1);
 	if (!dp) {
 	    logerror("can't create dummy player for update");
 	    update_pending = 0;

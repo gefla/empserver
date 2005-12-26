@@ -135,18 +135,15 @@ player_init(void)
 }
 
 struct player *
-player_new(int s, struct sockaddr_in *sin)
+player_new(int s)
 {
     struct player *lp;
-#ifdef RESOLVE_IPADDRESS
-    struct hostent *hostp;
-#endif
 
     lp = malloc(sizeof(struct player));
     if (!lp)
       return NULL;
     memset(lp, 0, sizeof(struct player));
-    if (sin) {
+    if (s >= 0) {
 	/* real player, not dummy created by update and market update */
 	lp->iop = io_open(s,
 			  IO_READ | IO_WRITE | IO_NBLOCK,
@@ -156,13 +153,6 @@ player_new(int s, struct sockaddr_in *sin)
 	    return NULL;
 	}
 	emp_insque(&lp->queue, &Players);
-	strcpy(lp->hostaddr, inet_ntoa(sin->sin_addr));
-#ifdef RESOLVE_IPADDRESS
-	if (NULL !=
-	    (hostp = gethostbyaddr(&sin->sin_addr, sizeof(sin->sin_addr),
-				   AF_INET)))
-	    strcpy(lp->hostname, hostp->h_name);
-#endif /* RESOLVE_IPADDRESS */
 	lp->cnum = 255;
 	lp->curid = -1;
 	time(&lp->curup);
@@ -258,6 +248,9 @@ player_accept(void *unused)
     int set = 1;
     int stacksize;
     char buf[128];
+#ifdef RESOLVE_IPADDRESS
+    struct hostent *hostp;
+#endif
 
     while (1) {
 	empth_select(s, EMPTH_FD_READ);
@@ -268,12 +261,19 @@ player_accept(void *unused)
 	    continue;
 	}
 	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE, &set, sizeof(set));
-	np = player_new(ns, &sin);
+	np = player_new(ns);
 	if (!np) {
 	    logerror("can't create player for fd %d", ns);
  	    close(ns);
  	    continue;
  	}
+	strcpy(np->hostaddr, inet_ntoa(sin.sin_addr));
+#ifdef RESOLVE_IPADDRESS
+	if (NULL !=
+	    (hostp = gethostbyaddr(&sin.sin_addr, sizeof(sin.sin_addr),
+				   AF_INET)))
+	    strcpy(np->hostname, hostp->h_name);
+#endif /* RESOLVE_IPADDRESS */
 	/* XXX may not be big enough */
 	stacksize = 100000
 /* budget */  + max(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,

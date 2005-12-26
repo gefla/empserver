@@ -411,7 +411,7 @@ extern void global_init(void);
  */
 /* accept.c */
 extern void player_init(void);
-extern struct player *player_new(int, struct sockaddr_in *);
+extern struct player *player_new(int);
 extern struct player *player_delete(struct player *);
 extern struct player *player_next(struct player *);
 extern struct player *player_prev(struct player *);
