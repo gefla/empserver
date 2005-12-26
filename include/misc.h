@@ -46,7 +46,9 @@ typedef unsigned int u_int;
 typedef long ssize_t;
 
 /* integral mismatch, due to misuse of sector short */
+#ifndef __GNUC__
 #pragma warning (disable : 4761 )
+#endif
 
 #include <windef.h>
 #include <io.h>
