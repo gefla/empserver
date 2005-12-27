@@ -41,11 +41,6 @@
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
-
-#ifdef hpux
-#include <stdio.h>
-#endif
-
 #include "lwp.h"
 #include "lwpint.h"
 
@@ -54,7 +49,6 @@
 struct lwpSelect {
     int maxfd;
     int nfds;
-    int nfile;
     fd_set readmask;
     fd_set writemask;
     struct lwpProc **wait;
@@ -69,14 +63,9 @@ lwpInitSelect(struct lwpProc *proc)
 {
     LwpSelect.maxfd = 0;
     LwpSelect.nfds = 0;
-#ifdef hpux
-    LwpSelect.nfile = _NFILE;
-#else
-    LwpSelect.nfile = getdtablesize();
-#endif
     FD_ZERO(&LwpSelect.readmask);
     FD_ZERO(&LwpSelect.writemask);
-    LwpSelect.wait = calloc(LwpSelect.nfile, sizeof(char *));
+    LwpSelect.wait = calloc(FD_SETSIZE, sizeof(struct lwpProc *));
     LwpSelect.delayq.head = 0;
     LwpSelect.delayq.tail = 0;
     LwpSelect.proc = proc;
@@ -87,6 +76,8 @@ lwpSleepFd(int fd, int mask)
 {
     lwpStatus(LwpCurrent, "sleeping on fd %d for %d", fd, mask);
 
+    if (CANT_HAPPEN(fd > FD_SETSIZE))
+	return;
     if (LwpSelect.wait[fd] != 0) {
 	lwpStatus(LwpCurrent,
 		  "multiple sleeps attempted on file descriptor %d", fd);
