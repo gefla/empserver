@@ -35,6 +35,8 @@
  * mapdist returns (integer) distance between two sectors.
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "gen.h"
 #include "optlist.h"

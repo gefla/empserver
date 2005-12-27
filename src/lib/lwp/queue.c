@@ -20,6 +20,9 @@
  * Imperial College of Science, Technology and Medicine, 180 Queen's
  * Gate, London SW7 2BZ, England.
  */
+
+#include <config.h>
+
 #include "lwp.h"
 #include "lwpint.h"
 

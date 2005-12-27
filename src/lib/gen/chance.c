@@ -31,6 +31,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "gen.h"
 
 int

@@ -31,6 +31,8 @@
  *     Markus Armbruster, 2004
  */
 
+#include <config.h>
+
 #include <stddef.h>
 #include "misc.h"
 #include "file.h"

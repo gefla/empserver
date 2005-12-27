@@ -31,6 +31,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <stdlib.h>
 #if !defined(_WIN32)
 #include <unistd.h>

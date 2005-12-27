@@ -33,6 +33,8 @@
  *     Doug Hay, 1998
  */
 
+#include <config.h>
+
 #include <signal.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>

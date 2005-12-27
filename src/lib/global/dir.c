@@ -31,6 +31,8 @@
  *  Known contributors to this file:
  */
 
+#include <config.h>
+
 #include "path.h"
 
 /* must agree with DIR_ defines */

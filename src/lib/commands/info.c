@@ -34,6 +34,8 @@
  *     Steve McClure, 1998-2000
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include <errno.h>

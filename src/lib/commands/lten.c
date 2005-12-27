@@ -35,6 +35,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "plague.h"

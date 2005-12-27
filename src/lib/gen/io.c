@@ -39,6 +39,8 @@
  * reading or writing when appropriate.
  */
 
+#include <config.h>
+
 #include <errno.h>
 #include <sys/types.h>
 #if !defined(_WIN32)

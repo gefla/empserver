@@ -32,6 +32,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 /* define ORE 1 to add resources, define ORE 0 if you want to use another
    program to add the resources */
 static int ORE = 1;

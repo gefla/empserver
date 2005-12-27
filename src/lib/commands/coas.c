@@ -32,6 +32,8 @@
  *     Dave Pare, 1986 (rewrite)
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "sect.h"

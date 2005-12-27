@@ -31,6 +31,8 @@
  *     Ken Stevens, 1995
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <ctype.h>
 #include "misc.h"

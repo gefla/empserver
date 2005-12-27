@@ -32,6 +32,8 @@
  *     Steve McClure, 2000
  */
 
+#include <config.h>
+
 #include "prototypes.h"
 #include <stdio.h>
 #include "misc.h"

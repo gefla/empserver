@@ -31,6 +31,8 @@
  *     Dave Pare, 1989
  */
 
+#include <config.h>
+
 #include "prototypes.h"
 #include "misc.h"
 #include "nat.h"

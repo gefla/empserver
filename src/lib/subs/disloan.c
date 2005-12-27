@@ -31,6 +31,7 @@
  *     Pat Loney, 1992
  *     Steve McClure, 1996
  */
+
 /*
  * Display a loan; there's a lot of stuff going
  * on here to figure out how much people owe.
@@ -42,6 +43,8 @@
  * I'd have made this more like treaty if I weren't
  * so disgusted with how it works.
  */
+
+#include <config.h>
 
 #include "misc.h"
 #include "player.h"

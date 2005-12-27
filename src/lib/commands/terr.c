@@ -31,6 +31,8 @@
  *     Edward M. Rynes Esq.
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "sect.h"

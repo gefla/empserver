@@ -31,6 +31,8 @@
  *     Yannick Trembley
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "nat.h"
 #include "file.h"

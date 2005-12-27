@@ -31,6 +31,8 @@
  *     Dave Pare, 1994
  */
 
+#include <config.h>
+
 #if defined(_WIN32)
 #define WIN32
 #include <winsock2.h>

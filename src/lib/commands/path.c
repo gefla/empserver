@@ -32,6 +32,8 @@
  *     (unknown rewrite), 1989
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "xy.h"

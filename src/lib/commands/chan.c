@@ -32,6 +32,8 @@
  *     
  */
 
+#include <config.h>
+
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"

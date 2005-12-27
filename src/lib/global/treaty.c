@@ -32,6 +32,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "nsc.h"
 #include "treaty.h"

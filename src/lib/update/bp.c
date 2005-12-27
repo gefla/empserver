@@ -31,6 +31,8 @@
  *     Ville Virrankoski, 1996
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "nat.h"
 #include "sect.h"

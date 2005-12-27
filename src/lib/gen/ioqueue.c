@@ -37,6 +37,8 @@
  * that is left for a higher level.
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>		/* malloc free */
 #include <sys/types.h>

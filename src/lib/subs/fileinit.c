@@ -32,6 +32,8 @@
  *  
  */
 
+#include <config.h>
+
 #include "file.h"
 #include "prototypes.h"
 

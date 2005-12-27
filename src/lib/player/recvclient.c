@@ -31,6 +31,8 @@
  *     Dave Pare, 1986
  */
 
+#include <config.h>
+
 #include "prototypes.h"
 #include <stdio.h>
 #include "misc.h"

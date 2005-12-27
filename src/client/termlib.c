@@ -32,6 +32,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #ifndef _WIN32
 
 #include <curses.h>

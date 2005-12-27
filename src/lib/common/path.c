@@ -35,6 +35,8 @@
  *     Steve McClure, 1997
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "../as/as.h"

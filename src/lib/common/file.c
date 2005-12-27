@@ -33,6 +33,8 @@
  *     Markus Armbruster, 2005
  */
 
+#include <config.h>
+
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>

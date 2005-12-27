@@ -31,6 +31,8 @@
  *     Dave Pare, 1994
  */
 
+#include <config.h>
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <sys/time.h>

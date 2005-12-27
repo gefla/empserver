@@ -31,6 +31,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "gen.h"
 #include "subs.h"

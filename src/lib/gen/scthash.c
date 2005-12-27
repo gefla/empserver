@@ -31,6 +31,8 @@
  *     Dave Pare, 1986
  */
 
+#include <config.h>
+
 #include "gen.h"
 
 int

@@ -34,6 +34,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "misc.h"
 
 char *privname = "Deity forgot to edit econfig"; /* name of priv user */

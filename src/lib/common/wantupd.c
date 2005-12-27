@@ -31,6 +31,8 @@
  *     Doug Hay, 1990
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #if !defined(_WIN32)
 #include <unistd.h>

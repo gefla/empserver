@@ -32,6 +32,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #if !defined(_WIN32)
 #include <sys/time.h>

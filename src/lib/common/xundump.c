@@ -34,6 +34,8 @@
 
 /* FIXME normalize terminology: table/rows/columns or file/records/fields */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 

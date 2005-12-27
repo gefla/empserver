@@ -31,6 +31,8 @@
  *     Sasha Mikheev
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include "prototypes.h"
 #include "empthread.h"

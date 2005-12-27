@@ -32,6 +32,8 @@
  *     Steve McClure, 1997
  */
 
+#include <config.h>
+
 #include "prototypes.h"
 #include "news.h"
 #include "file.h"

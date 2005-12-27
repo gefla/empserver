@@ -31,6 +31,8 @@
  *     John Yockey, 2001
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "land.h"
 #include "nsc.h"

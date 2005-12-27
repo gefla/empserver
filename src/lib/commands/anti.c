@@ -32,6 +32,7 @@
  *     Steve McClure, 1997
  */
 
+#include <config.h>
 
 #include <stdio.h>
 #include <ctype.h>

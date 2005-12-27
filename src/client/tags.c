@@ -32,6 +32,8 @@
  *     John Yockey, 1998
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "tags.h"
 

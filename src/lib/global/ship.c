@@ -45,6 +45,8 @@
  * automatically be set.
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "ship.h"
 

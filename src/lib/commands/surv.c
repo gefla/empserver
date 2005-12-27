@@ -31,6 +31,8 @@
  *     Dave Pare, 1986
  */
 
+#include <config.h>
+
 #include <ctype.h>
 #include "misc.h"
 #include "player.h"

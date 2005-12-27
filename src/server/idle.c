@@ -31,6 +31,8 @@
  *     Dave Pare, 1994
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "empio.h"

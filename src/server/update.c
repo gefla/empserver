@@ -32,6 +32,8 @@
  *     Steve McClure, 1996
  */
 
+#include <config.h>
+
 #include <errno.h>
 #include <stdlib.h>
 #ifndef _WIN32

@@ -31,6 +31,8 @@
  *     
  */
 
+#include <config.h>
+
 #include <fcntl.h>
 #include "misc.h"
 #include "commands.h"

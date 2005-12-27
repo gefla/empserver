@@ -32,6 +32,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>

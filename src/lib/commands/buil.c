@@ -31,6 +31,8 @@
  *      Steve McClure, 1998-2000
  */
 
+#include <config.h>
+
 #include <limits.h>
 #include <string.h>
 #include "misc.h"

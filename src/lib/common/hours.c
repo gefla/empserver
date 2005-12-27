@@ -33,6 +33,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <limits.h>
 #include <time.h>
 #include "misc.h"

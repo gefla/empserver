@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     
  */
+
 /*
  * News item characteristics; one entry (and two different
  * strings) per news item.  Be sure and increase N_MAX_VERB
@@ -37,6 +38,8 @@
  *
  * Order must correspond to ordering in news.h
  */
+
+#include <config.h>
 
 #include "misc.h"
 #include "news.h"

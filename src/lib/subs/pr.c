@@ -47,6 +47,8 @@
  * starting with 'a'.  Symbolic names for ids are defined in proto.h.
  */
 
+#include <config.h>
+
 #include <string.h>
 #include <fcntl.h>
 #include <ctype.h>

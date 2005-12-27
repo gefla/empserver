@@ -41,6 +41,8 @@
  *                                    (bailey@mcs.kent.edu)
  */
 
+#include <config.h>
+
 #include <math.h>
 #include "misc.h"
 #include "player.h"

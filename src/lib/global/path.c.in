@@ -33,6 +33,8 @@
  *     Markus Armbruster, 2005
  */
 
+#include <config.h>
+
 #include "optlist.h"
 
 char dflt_econfig[] = "@econfig@";

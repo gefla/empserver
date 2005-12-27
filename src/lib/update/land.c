@@ -33,6 +33,8 @@
  *     Steve McClure, 1996
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "plague.h"
 #include "sect.h"

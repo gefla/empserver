@@ -21,6 +21,9 @@
  * 11/09/98 - Steve McClure
  *  Added path list caching structures
  */
+
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "as.h"

@@ -32,6 +32,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <ctype.h>
 #include "misc.h"

@@ -32,6 +32,8 @@
  *     Steve McClure, 1998-1999
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "sect.h"
 #include "ship.h"

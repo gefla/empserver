@@ -35,6 +35,8 @@
  * format: convert <SECTS> <NUMBER PER SECTOR>
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "sect.h"

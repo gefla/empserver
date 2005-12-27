@@ -31,6 +31,8 @@
  *     David Muir Sharnoff, 1987
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "sect.h"

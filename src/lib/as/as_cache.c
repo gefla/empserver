@@ -31,6 +31,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <stdlib.h>
 #include "as.h"
 #include "optlist.h"

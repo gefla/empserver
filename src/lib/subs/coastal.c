@@ -31,6 +31,9 @@
  *     Ron Koenderink, 2005
  *     
  */
+
+#include <config.h>
+
 #include "prototypes.h"
 #include "file.h"
 #include "path.h"

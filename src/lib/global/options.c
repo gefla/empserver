@@ -32,6 +32,8 @@
  *       Markus Armbruster, 2005
  */
 
+#include <config.h>
+
 #include "optlist.h"
 
 int opt_ALL_BLEED = 1;

@@ -31,6 +31,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "queue.h"
 
 void

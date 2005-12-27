@@ -43,6 +43,8 @@
  * information.
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "xy.h"
 #include "sect.h"

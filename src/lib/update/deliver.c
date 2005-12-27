@@ -31,6 +31,8 @@
  *  
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "plague.h"
 #include "sect.h"

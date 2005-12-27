@@ -31,6 +31,8 @@
  *     Steve McClure, 1997
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"

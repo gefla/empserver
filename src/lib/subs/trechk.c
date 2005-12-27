@@ -31,6 +31,7 @@
  *      Steve McClure, 1998-1999
  *     
  */
+
 /*
  * Check to see if an actor has a treaty forbidding a given action,
  * and if so, see if the actor wishes to break the treaty.
@@ -38,6 +39,8 @@
  * if the action is to be allowed.  Propsed treaties are warned about,
  * but no mention of broken pending treaties are made in the news.
  */
+
+#include <config.h>
 
 #include "misc.h"
 #include "treaty.h"

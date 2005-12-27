@@ -33,6 +33,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include <sys/types.h>
 #include <fcntl.h>
 #if !defined(_WIN32)

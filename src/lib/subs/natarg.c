@@ -31,6 +31,8 @@
  *     (List known contributors to this file)
  */
 
+#include <config.h>
+
 #include <ctype.h>
 #include "misc.h"
 #include "nat.h"

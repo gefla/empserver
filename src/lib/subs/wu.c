@@ -32,6 +32,8 @@
  *     
  */
 
+#include <config.h>
+
 #include <stdarg.h>
 #include "misc.h"
 #include <fcntl.h>

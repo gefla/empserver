@@ -37,6 +37,8 @@
 
 /* order must agree with sect.h */
 
+#include <config.h>
+
 #include "misc.h"
 #include "sect.h"
 #include "product.h"

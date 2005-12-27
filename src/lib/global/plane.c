@@ -54,6 +54,8 @@
  * P_V (vtol) in init_global()
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "plane.h"
 

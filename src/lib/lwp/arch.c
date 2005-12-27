@@ -32,6 +32,8 @@
  *     Steve McClure, 1994-2000
  */
 
+#include <config.h>
+
 #include <stdlib.h>
 #include "lwp.h"
 #include "lwpint.h"

@@ -33,6 +33,8 @@
  *     Markus Armbruster, 2004
  */
 
+#include <config.h>
+
 #include <limits.h>
 #include "misc.h"
 #include "file.h"

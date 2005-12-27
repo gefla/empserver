@@ -31,6 +31,8 @@
  *     Dave Pare, 1989
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include <stdlib.h>
 #if !defined(_WIN32)

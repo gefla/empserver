@@ -33,6 +33,8 @@
  *     Steve McClure, 1998
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "sect.h"
 #include "nat.h"

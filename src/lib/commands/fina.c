@@ -32,6 +32,8 @@
  *     Steve McClure, 1996
  */
 
+#include <config.h>
+
 #include <math.h>
 #include "misc.h"
 #include "player.h"

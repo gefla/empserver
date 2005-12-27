@@ -31,6 +31,8 @@
  *     
  */
 
+#include <config.h>
+
 #include "prototypes.h"
 
 s_char *

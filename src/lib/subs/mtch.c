@@ -31,6 +31,8 @@
  *     (List known contributors to this file)
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "com.h"

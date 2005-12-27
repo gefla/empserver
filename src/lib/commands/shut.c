@@ -31,6 +31,8 @@
  *     Ken Stevens, 1995
  */
 
+#include <config.h>
+
 #include <sys/types.h>
 #include "misc.h"
 #include "player.h"

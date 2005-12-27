@@ -31,6 +31,8 @@
  *     Jeff Wallace, 1989
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "plague.h"

@@ -49,6 +49,8 @@
  * if an update should occur.
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include "misc.h"
 #include "player.h"

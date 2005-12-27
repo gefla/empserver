@@ -31,6 +31,8 @@
  *     Thomas Ruschak, 1993
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "xy.h"

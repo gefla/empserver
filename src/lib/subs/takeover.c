@@ -32,6 +32,8 @@
  *     Steve McClure, 1996-2000
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "sect.h"
 #include "xy.h"

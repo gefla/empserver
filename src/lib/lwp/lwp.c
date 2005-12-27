@@ -21,6 +21,8 @@
  * Gate, London SW7 2BZ, England.
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>

@@ -35,6 +35,8 @@
  *     Steve McClure
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <time.h>
 #include "misc.h"

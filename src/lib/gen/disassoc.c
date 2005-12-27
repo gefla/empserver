@@ -36,6 +36,8 @@
  * See W. Richard Stevens: UNIX Network Programming, Vol. 1
  */
 
+#include <config.h>
+
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>

@@ -32,6 +32,7 @@
  *     Steve McClure, 2000
  */
 
+#include <config.h>
 
 #include "misc.h"
 #include "player.h"

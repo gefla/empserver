@@ -31,6 +31,8 @@
  *     Dave Pare, 1989
  */
 
+#include <config.h>
+
 #include <ctype.h>
 #include <string.h>
 #include "misc.h"

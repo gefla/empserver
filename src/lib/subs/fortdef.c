@@ -30,11 +30,14 @@
  *  Known contributors to this file:
  *    
  */
+
 /*
  * The base routines can also be used for general purposes.
  * Noisy tells whther to send teles, print things, etc.
  * Defending tells whether they are being defensive, or offensive.
  */
+
+#include <config.h>
 
 #include "misc.h"
 #include "xy.h"

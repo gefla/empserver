@@ -31,6 +31,8 @@
  *  
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "nat.h"
 #include "ship.h"
