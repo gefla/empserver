@@ -33,6 +33,8 @@
  *     Markus Armbruster, 2005
  */
 
+#include "optlist.h"
+
 char dflt_econfig[] = "@econfig@";
 char *infodir	= "@einfodir@";
 char *datadir	= "@edatadir@";
