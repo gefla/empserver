@@ -31,8 +31,6 @@
 #include "lwpint.h"
 #include "prototypes.h"
 
-#if defined(_EMPTH_LWP)
-
 struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 
 struct lwpProc *LwpCurrent = NULL;
@@ -310,9 +308,9 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     /* *LwpContextPtr = 0; */
     LwpStackGrowsDown = growsdown(&marker);
     if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
-	return 0;
+	return NULL;
     if (!(stack = malloc(64)))
-	return 0;
+	return NULL;
     if (LWP_MAX_PRIO <= pri)
 	pri = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < pri)
@@ -407,5 +405,3 @@ lwpStackCheckUsed(struct lwpProc *newp)
     lwpStatus(newp, "Thread stack %d used, %d left, %d total",
 	      used, total - used, total);
 }
-
-#endif

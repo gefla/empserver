@@ -74,12 +74,17 @@ subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
 topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 
+ifeq ($(empthread),LWP)
+empth_obj := src/lib/empthread/lwp.o
+empth_lib := lib/liblwp.a
+endif
 ifeq ($(empthread),POSIX)
 empth_obj := src/lib/empthread/pthread.o
 empth_lib :=
-else
-empth_obj := src/lib/empthread/lwp.o
-empth_lib := lib/liblwp.a
+endif
+ifeq ($(empthread),Windows)
+empth_obj := src/lib/empthread/ntthread.o
+empth_lib :=
 endif
 
 # Abbreviations

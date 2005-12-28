@@ -99,11 +99,6 @@ struct mob_acc_globals {
 
 typedef u_char natid;		/* NSC_NATID must match this */
 
-#if !defined (_EMPTH_LWP) && !defined (_EMPTH_POSIX)
-#define _EMPTH_LWP     1
-#endif
-
-
 #if !defined(aix) && !defined(sgi)
 typedef char s_char;		/* change to signed char for aix */
 #else

@@ -39,8 +39,6 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-#if defined(_EMPTH_LWP)
-
 void
 lwpStatus(struct lwpProc *proc, char *format, ...)
 {
@@ -67,5 +65,3 @@ lwpStatus(struct lwpProc *proc, char *format, ...)
     }
     va_end(ap);
 }
-
-#endif

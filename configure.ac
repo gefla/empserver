@@ -99,6 +99,7 @@ AC_ARG_WITH([pthread],
 			   [use POSIX threads]))
 
 # Select thread package
+# TODO Windows
 case "$ac_cv_func_makecontext$acx_pthread_ok" in
 yesyes)
     if test -z "$with_pthread" || test "$with_pthread" = no; then
@@ -116,6 +117,11 @@ yes*)
 esac
 AC_SUBST(empthread)
 AC_MSG_NOTICE([Using $empthread threads])
+case $empthread in
+LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads]) ;;
+POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
+Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
+esac
 
 op=
 if test "$with_pthread" = no; then

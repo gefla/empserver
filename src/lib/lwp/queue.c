@@ -26,8 +26,6 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-#if defined(_EMPTH_LWP)
-
 struct lwpProc *
 lwpGetFirst(struct lwpQueue *q)
 {
@@ -48,5 +46,3 @@ lwpAddTail(register struct lwpQueue *q, register struct lwpProc *p)
     q->tail = p;
     p->next = 0;
 }
-
-#endif

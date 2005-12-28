@@ -48,15 +48,7 @@
 #ifndef _EMTHREAD_H_
 #define _EMTHREAD_H_
 
-#include "misc.h"
-
-#if defined(_WIN32)
-#undef _EMPTH_LWP
-#undef _EMPTH_POSIX
-#define _EMPTH_WIN32
-#endif
-
-#ifdef _EMPTH_LWP
+#ifdef EMPTH_LWP
 #include "lwp.h"
 
 /* Abstract data types */
@@ -77,9 +69,9 @@ typedef struct lwpSem empth_sem_t;
 /* Request stack checking */
 #define EMPTH_STACKCHECK  LWP_STACKCHECK
 
-#endif /* _EMPTH_LWP */
+#endif /* EMPTH_LWP */
 
-#ifdef _EMPTH_POSIX
+#ifdef EMPTH_POSIX
 #include <pthread.h>
 #define EMPTH_FD_READ   0x1
 #define EMPTH_FD_WRITE  0x2
@@ -90,9 +82,9 @@ typedef struct lwpSem empth_sem_t;
 typedef struct empth_t empth_t;
 typedef struct empth_sem_t empth_sem_t;
 
-#endif /* _EMPTH_POSIX */
+#endif /* EMPTH_POSIX */
 
-#if defined(_EMPTH_WIN32)
+#ifdef EMPTH_W32
 /* The Windows NT Threads */
 #define EMPTH_FD_READ   0x1
 #define EMPTH_FD_WRITE  0x2
@@ -104,7 +96,7 @@ typedef struct loc_Thread_t empth_t;
 typedef struct loc_Sem_t empth_sem_t;
 
 void empth_request_shutdown(void);
-#endif /* _EMPTH_WIN32 */
+#endif /* EMPTH_W32 */
 
 /*
  * Initialize thread package.

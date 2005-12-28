@@ -37,8 +37,6 @@
 #include "prototypes.h"
 #include "empthread.h"
 
-#ifdef _EMPTH_LWP
-
 /* The thread `created' by lwpInitSystem() */
 static empth_t *empth_main;
 
@@ -134,5 +132,3 @@ empth_sem_wait(empth_sem_t *sm)
 {
     lwpWait(sm);
 }
-
-#endif

@@ -51,8 +51,6 @@
 
 #include <stdarg.h>
 
-#ifdef _EMPTH_POSIX
-
 #define EMPTH_KILLED  1
 
 struct empth_t {
@@ -454,5 +452,3 @@ empth_sem_wait(empth_sem_t *sm)
     } else
 	pthread_mutex_unlock(&sm->mtx_update);
 }
-
-#endif

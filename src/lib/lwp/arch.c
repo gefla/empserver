@@ -38,8 +38,6 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-#if defined(_EMPTH_LWP)
-
 /*
  * Implement machine-dependent functions lwpNewContext(),
  * lwpSwitchContext().
@@ -468,5 +466,3 @@ lwpSwitchContext(struct lwpProc *oldp, struct lwpProc *nextp)
 }
 
 #endif /* !UCONTEXT */
-
-#endif

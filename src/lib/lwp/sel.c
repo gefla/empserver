@@ -44,8 +44,6 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-#if defined(_EMPTH_LWP)
-
 struct lwpSelect {
     int maxfd;
     int nfds;
@@ -228,4 +226,3 @@ lwpSelect(void *arg)
     }
     /*NOTREACHED*/
 }
-#endif

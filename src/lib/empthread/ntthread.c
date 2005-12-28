@@ -54,7 +54,6 @@
 #include "empthread.h"
 #include "prototypes.h"
 
-#if defined(_WIN32) && defined(_EMPTH_WIN32)
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
@@ -683,5 +682,3 @@ empth_sem_wait(empth_sem_t *pSem)
 
     loc_RunThisThread();
 }
-
-#endif /* _WIN32 */

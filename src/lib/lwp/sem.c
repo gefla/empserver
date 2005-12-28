@@ -29,8 +29,6 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-#if defined(_EMPTH_LWP)
-
 /*
  * create a lwpSemaphore.
  */
@@ -79,4 +77,3 @@ lwpWait(struct lwpSem *s)
 	lwpReschedule();
     }
 }
-#endif
