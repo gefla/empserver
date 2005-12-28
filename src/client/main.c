@@ -73,7 +73,7 @@ int sock;
 
 static volatile sig_atomic_t interrupt;
 static void intr(int sig);
-
+static int handleintr(int);
 
 int
 main(int ac, char **av)
