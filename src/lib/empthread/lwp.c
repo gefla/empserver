@@ -33,8 +33,7 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include "prototypes.h"
+#include <time.h>
 #include "empthread.h"
 
 /* The thread `created' by lwpInitSystem() */

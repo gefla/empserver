@@ -91,14 +91,4 @@ enum {
     PF_UTF8 = bit(0)			/* client wants UTF-8 */
 };
 
-/* thread priorities */
-#define PP_MAIN		7
-#define PP_UPDATE	6
-#define PP_SHUTDOWN	5
-#define PP_SCHED	4
-#define PP_TIMESTAMP    2
-#define PP_PLAYER	3
-#define PP_ACCEPT	3
-#define PP_KILLIDLE	2
-
 #endif /* _PLAYER_H_ */

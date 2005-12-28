@@ -48,6 +48,18 @@
 #ifndef _EMTHREAD_H_
 #define _EMTHREAD_H_
 
+/* thread priorities */
+enum {
+    PP_MAIN	 = 7,
+    PP_UPDATE	 = 6,
+    PP_SHUTDOWN	 = 5,
+    PP_SCHED	 = 4,
+    PP_TIMESTAMP = 2,
+    PP_PLAYER	 = 3,
+    PP_ACCEPT	 = 3,
+    PP_KILLIDLE	 = 2
+};
+
 #ifdef EMPTH_LWP
 #include "lwp.h"
 
