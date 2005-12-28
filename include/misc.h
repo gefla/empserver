@@ -75,8 +75,6 @@ typedef int pid_t;
 /*#define _POSIX_ */
 #endif
 
-#include "options.h"
-
 /* This is the structure we use to keep track of the global mobility
    things, such as when the server is supposed to start/stop updating
    mobility and the timestamp of when the game was last up.  These

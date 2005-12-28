@@ -84,6 +84,10 @@ MY_FUNC_MAKECONTEXT
 
 ### Site configuration
 
+# Can't be bothered to make MAXNOC configurable right now.
+AC_DEFINE([MAXNOC], [99],
+	  [The maximum number of countries])
+
 AC_ARG_VAR([EMPIREHOST], [Default host (client only) [127.0.0.1]])
 test "$EMPIREHOST" || EMPIREHOST=127.0.0.1
 
@@ -94,6 +98,7 @@ AC_ARG_WITH([pthread],
 	    AS_HELP_STRING([--with-pthread],
 			   [use POSIX threads]))
 
+# Select thread package
 case "$ac_cv_func_makecontext$acx_pthread_ok" in
 yesyes)
     if test -z "$with_pthread" || test "$with_pthread" = no; then
