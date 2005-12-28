@@ -103,9 +103,6 @@ typedef u_char natid;		/* NSC_NATID must match this */
 typedef char s_char;		/* change to signed char for aix */
 #else
 typedef signed char s_char;
-/* gcc __attribute__((format ...)) chokes on s_char * format strings */
-#undef ATTRIBUTE
-#define ATTRIBUTE(attr)
 #endif /* !aix && !sgi */
 typedef short coord;
 
@@ -141,7 +138,7 @@ extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);
 extern char *ugetstring(char *prompt, char buf[]);
              
-extern s_char *prbuf(s_char *format, ...)
+extern char *prbuf(char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
 #define AGREE_FREE	0

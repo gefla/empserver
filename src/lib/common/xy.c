@@ -49,7 +49,7 @@
  * return pointer to a string containing the x,y
  * coords as desired by a particular target country.
  */
-s_char *
+char *
 xyas(coord x, coord y, natid country)
 {
     struct natstr *np;
@@ -58,7 +58,7 @@ xyas(coord x, coord y, natid country)
     return prbuf("%d,%d", xrel(np, x), yrel(np, y));
 }
 
-s_char *
+char *
 ownxy(struct sctstr *sp)
 {
     return xyas(sp->sct_x, sp->sct_y, sp->sct_own);
@@ -223,11 +223,11 @@ xyinrange(coord x, coord y, struct range *rp)
 }
 
 
-s_char *
-prbuf(s_char *format, ...)
+char *
+prbuf(char *format, ...)
 {
     static int nbuf = -1;
-    static s_char buf[20][1024];
+    static char buf[20][1024];
     va_list ap;
 
     if (++nbuf > 19)

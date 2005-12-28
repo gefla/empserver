@@ -97,6 +97,6 @@ extern int att_fight(int, struct combat *, struct emp_qelem *, double,
 extern int att_free_lists(struct emp_qelem *, struct emp_qelem *);
 
 
-extern s_char *att_mode[];
+extern char *att_mode[A_LBOARD + 1];
 
 #endif /* _COMBAT_H_ */

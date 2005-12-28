@@ -87,7 +87,7 @@ static int take_def(int combat_mode, struct emp_qelem *list,
 static int get_land(int combat_mode, struct combat *def, int uid,
 		    struct llist *llp, int victim_land);
 
-s_char *att_mode[] = {
+char *att_mode[] = {
     /* must match combat types in combat.h */
     "defend", "attack", "assault", "paradrop", "board", "lboard"
 };
