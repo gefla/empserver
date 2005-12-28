@@ -207,7 +207,7 @@ main(int ac, char **av)
     sa.sa_handler = intr;
     sigaction(SIGINT, &sa, NULL);
     sa.sa_handler = SIG_IGN;
-    sigaction(SIG_IGN, &sa, NULL);
+    sigaction(SIGPIPE, &sa, NULL);
     while (FD_ISSET(sock, &savemask)) {
 	mask = savemask;
 	n = select(sock + 1, &mask, NULL, NULL, NULL);
