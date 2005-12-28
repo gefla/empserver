@@ -51,7 +51,7 @@
 #include "commands.h"
 #include "optlist.h"
 
-static int blankrow(s_char *);
+static int blankrow(char *);
 
 int
 sona(void)
@@ -74,37 +74,37 @@ sona(void)
     int changed = 0;
     int row;
     /* Where these are used are non-re-entrant, so we keep 'em around */
-    static s_char **rad = (s_char **)0;
-    static s_char *radbuf = (s_char *)0;
-    static s_char **vis = (s_char **)0;
-    static s_char *visbuf = (s_char *)0;
+    static char **rad = NULL;
+    static char *radbuf = NULL;
+    static char **vis = NULL;
+    static char *visbuf = NULL;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     if (!radbuf)
-	radbuf = malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
+	radbuf = malloc((WORLD_Y * (WORLD_X + 1)));
     if (!visbuf)
-	visbuf = malloc((WORLD_Y * (WORLD_X + 1)) * sizeof(s_char));
+	visbuf = malloc((WORLD_Y * (WORLD_X + 1)));
     if (!rad) {
-	rad = malloc(WORLD_Y * sizeof(s_char *));
+	rad = malloc(WORLD_Y);
 	if (rad && radbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		rad[x] = &radbuf[(WORLD_X + 1) * x];
 	    }
 	} else if (rad) {
 	    free(rad);
-	    rad = (s_char **)0;
+	    rad = NULL;
 	}
     }
     if (!vis) {
-	vis = malloc(WORLD_Y * sizeof(s_char *));
+	vis = malloc(WORLD_Y);
 	if (vis && visbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		vis[x] = &visbuf[(WORLD_X + 1) * x];
 	    }
 	} else if (vis) {
 	    free(vis);
-	    vis = (s_char **)0;
+	    vis = NULL;
 	}
     }
     if (!radbuf || !visbuf || !rad || !vis) {
@@ -128,7 +128,7 @@ sona(void)
 	   xyas(ship.shp_x, ship.shp_y, player->cnum),
 	   ship.shp_effic, srange);
 	snxtsct_dist(&ns, ship.shp_x, ship.shp_y, srange);
-	blankfill((s_char *)radbuf, &ns.range, 1);
+	blankfill(radbuf, &ns.range, 1);
 	while (nxtsct(&ns, &sect)) {
 	    if (player->owner || sect.sct_type == SCT_WATER)
 		rad[ns.dy][ns.dx] = dchr[sect.sct_type].d_mnem;
@@ -385,7 +385,7 @@ line_of_sight(char **rad, int ax, int ay, int bx, int by)
 }
 
 static int
-blankrow(s_char *s)
+blankrow(char *s)
 {
     while (*s) {
 	if (*s != ' ')

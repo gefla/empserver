@@ -571,7 +571,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (md > range)
 		    continue;
 
-		if (!line_of_sight((s_char **)0, x, y, gp->x, gp->y))
+		if (!line_of_sight(NULL, x, y, gp->x, gp->y))
 		    continue;
 		sp->shp_item[I_SHELL] = shell - SHP_TORP_SHELLS;
 		mobcost = sp->shp_effic * 0.01 * sp->shp_speed;

@@ -187,7 +187,7 @@ torp(void)
 	    pr("Hitchance = %d%%\n", (int)(hitchance * 100));
 	}
 	/* Now, can the torpedo even get there? */
-	if (!line_of_sight((s_char **)0, sub.shp_x, sub.shp_y,
+	if (!line_of_sight(NULL, sub.shp_x, sub.shp_y,
 			   vship.shp_x, vship.shp_y)) {
 	    pr("BOOM!... Torpedo slams into land before reaching target.\n");
 	    /* We only tell the victim if we were within range. */
@@ -272,8 +272,7 @@ anti_torp(int f, int ntorping, int vshipown)
 	if (range > erange)
 	    continue;
 
-	if (!line_of_sight((s_char **)0, sub.shp_x, sub.shp_y,
-			   dd.shp_x, dd.shp_y))
+	if (!line_of_sight(NULL, sub.shp_x, sub.shp_y, dd.shp_x, dd.shp_y))
 	    continue;
 
 	if (cantorp(&dd, &sub)) {
