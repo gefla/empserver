@@ -118,7 +118,8 @@ esac
 AC_SUBST(empthread)
 AC_MSG_NOTICE([Using $empthread threads])
 case $empthread in
-LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads]) ;;
+LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads])
+	AC_DEFINE([UCONTEXT], 1, [Define to make LWP use makecontext()]) ;;
 POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
 Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
 esac

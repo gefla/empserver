@@ -48,10 +48,6 @@ CFLAGS := $(CFLAGS) @PTHREAD_CFLAGS@
 LDFLAGS := $(LDFLAGS) @PTHREAD_CFLAGS@
 LDLIBS := @PTHREAD_LIBS@ $(LDLIBS)
 endif
-ifeq ($(empthread),LWP)
-# TODO use config.h
-CPPFLAGS += -DUCONTEXT
-endif
 termlibs := @termlibs@
 CCDEPMODE := @CCDEPMODE@
 @am__fastdepCC_TRUE@how_to_dep := fast
