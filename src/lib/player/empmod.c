@@ -37,11 +37,8 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "com.h"
-#include "nat.h"
-#include "file.h"
-#include "commands.h"
+#include "prototypes.h"
 
 struct cmndstr player_coms[] = {
 /*  command form                       cost	addr    permit */

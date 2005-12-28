@@ -33,10 +33,6 @@
 
 #ifndef _GEN_H_
 #define _GEN_H_
-#include <sys/types.h>
-#if !defined(_WIN32)
-#include <netinet/in.h>		/* struct in_addr */
-#endif
 #include <stdlib.h>		/* atoi etc. */
 #include "misc.h"		/* s_char etc */
 #include "xy.h"			/* struct range */
