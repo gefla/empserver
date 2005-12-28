@@ -51,6 +51,7 @@
 #include <io.h>
 #include <winsock.h>
 #endif
+#include "misc.h"
 
 #ifdef HAVE_GETADDRINFO
 /*
