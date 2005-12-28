@@ -49,7 +49,6 @@
 #endif
 #include <signal.h>
 #include <errno.h>
-#include <time.h>
 #ifndef _WIN32
 #include <sys/socket.h>
 #include <sys/time.h>
@@ -99,7 +98,6 @@ main(int ac, char **av)
     char *ptr;
     char *auxout_fname;
     FILE *auxout_fp;
-    struct sockaddr_in sin;
     int n;
     char *cname;
     char *pname;
@@ -161,21 +159,10 @@ main(int ac, char **av)
     port = getenv("EMPIREPORT");
     if (!port)
 	port = empireport;
-    if (!hostport(port, &sin)) {
-	fprintf(stderr, "Can't resolve Empire port %s\n", port);
-	exit(1);
-    }
     host = getenv("EMPIREHOST");
     if (!host)
 	host = empirehost;
-    if (!hostaddr(host, &sin)) {
-	fprintf(stderr, "Can't resolve Empire host %s\n", host);
-	exit(1);
-    }
-    if ((sock = hostconnect(&sin)) < 0) {
-	perror("Can't connect to Empire server");
-	exit(1);
-    }
+    sock = tcp_connect(host, port);
     cname = getenv("COUNTRY");
     if (ac > 1)
 	cname = argv[1];

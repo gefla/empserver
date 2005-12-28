@@ -53,7 +53,6 @@
 #if !defined(_WIN32)
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <sys/wait.h>
 #include <sys/time.h>
 #include <netdb.h>
 #include <netinet/in.h>
@@ -68,72 +67,16 @@
 
 static struct emp_qelem Players;
 static int player_socket;
+static int player_addrlen;
 
 void
 player_init(void)
 {
-    struct sockaddr_in sin;
-    struct hostent *hp;
-    struct servent *sp;
-    int s;
-    int val;
-
     emp_initque(&Players);
     init_player_commands();
 
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    if (!*listen_addr)
-	sin.sin_addr.s_addr = htonl(INADDR_ANY);
-    else if (isdigit(*listen_addr))
-	sin.sin_addr.s_addr = inet_addr(listen_addr);
-    else {
-	hp = gethostbyname(listen_addr);
-	if (!hp) {
-	    logerror("Can't resolve listen address %s", listen_addr);
-	    exit(1);
-	}
-	memcpy(&sin.sin_addr, hp->h_addr, sizeof(sin.sin_addr));
-    }
-    if (isdigit(*loginport))
-	sin.sin_port = htons(atoi(loginport));
-    else {
-	sp = getservbyname(loginport, "tcp");
-	if (!sp) {
-	    logerror("Can't resolve service %s", loginport);
-	    exit(1);
-	}
-	sin.sin_port = sp->s_port;
-    }
-    if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-	logerror("inet socket create");
-	exit(1);
-    }
-    val = 1;
-#ifndef _WIN32
-    /*
-     * SO_REUSEADDR requests to permit another bind even when the port
-     * is still in state TIME_WAIT.  Windows' SO_REUSEADDR is broken:
-     * it makes bind() succeed no matter what, even if there's another
-     * server running on the same port.  Luckily, bind() seems to be
-     * broken as well: it seems to suceed while the port in state
-     * TIME_WAIT by default; thus we get the behavior we want by not
-     * setting SO_REUSEADDR.
-     */
-    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0) {
-	logerror("inet socket setsockopt SO_REUSEADDR (%d)", errno);
-	exit(1);
-    }
-#endif
-    if (bind(s, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
-	logerror("inet socket bind");
-	exit(1);
-    }
-    if (listen(s, SOMAXCONN) < 0) {
-	logerror("inet socket listen");
-	exit(1);
-    }
-    player_socket = s;
+    player_socket = tcp_listen(*listen_addr ? listen_addr : NULL,
+			       loginport, &player_addrlen);
 }
 
 struct player *
@@ -242,7 +185,8 @@ player_wakeup(struct player *pl)
 void
 player_accept(void *unused)
 {
-    struct sockaddr_in sin;
+    struct sockaddr *sap;
+    void *inaddr;
     int s = player_socket;
     struct player *np;
     int len;
@@ -254,14 +198,19 @@ player_accept(void *unused)
     struct hostent *hostp;
 #endif
 
+    /* auto sockaddr_storage would be simpler, but less portable */
+    sap = malloc(player_addrlen);
+
     while (1) {
 	empth_select(s, EMPTH_FD_READ);
-	len = sizeof(sin);
-	ns = accept(s, (struct sockaddr *)&sin, &len);
+	len = player_addrlen;
+	ns = accept(s, sap, &len);
+	/* FIXME accept() can block on some systems (RST after select() reported s ready) */
 	if (ns < 0) {
 	    logerror("new socket accept");
 	    continue;
 	}
+	/* FIXME SO_KEEPALIVE is useless, player_kill_idle() strikes long before */
 	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE, &set, sizeof(set));
 	np = player_new(ns);
 	if (!np) {
@@ -269,11 +218,24 @@ player_accept(void *unused)
  	    close(ns);
  	    continue;
  	}
-	strcpy(np->hostaddr, inet_ntoa(sin.sin_addr));
+#ifdef HAVE_GETADDRINFO
+	inaddr = sap->sa_family == AF_INET
+	    ? (void *)&((struct sockaddr_in *)sap)->sin_addr
+	    : (void *)&((struct sockaddr_in6 *)sap)->sin6_addr;
+	/* Assumes that if you got getaddrinfo(), you got inet_ntop() too */
+	if (!inet_ntop(sap->sa_family, inaddr,
+		       np->hostaddr, sizeof(np->hostaddr))) {
+	    logerror("inet_ntop() failed: %s", strerror(errno));
+	    close(ns);
+	    continue;
+	}
+#else
+	inaddr = &((struct sockaddr_in *)sap)->sin_addr;
+	strcpy(np->hostaddr, inet_ntoa(*(struct in_addr *)inaddr));
+#endif
 #ifdef RESOLVE_IPADDRESS
-	if (NULL !=
-	    (hostp = gethostbyaddr(&sin.sin_addr, sizeof(sin.sin_addr),
-				   AF_INET)))
+	hostp = gethostbyaddr(inaddr, player_addrlen, sap->sa_family);
+	if (NULL != hostp)
 	    strcpy(np->hostname, hostp->h_name);
 #endif /* RESOLVE_IPADDRESS */
 	/* XXX may not be big enough */

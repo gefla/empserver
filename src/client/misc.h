@@ -73,9 +73,7 @@ void putse(void);
 #endif
 int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
-int hostaddr(char *name, struct sockaddr_in *addr);
-int hostconnect(struct sockaddr_in *addr);
-int hostport(char *name, struct sockaddr_in *addr);
+int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
 void saveargv(int ac, char **src, char **dst);
 void sendcmd(int s, char *cmd, char *arg);

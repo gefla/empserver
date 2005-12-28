@@ -392,6 +392,7 @@ extern int parse(char *, char **, char **, char *, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(register int, register int, int);
+extern int tcp_listen(char *, char *, size_t *);
 /* plur.c */
 extern s_char *numstr(s_char buf[], int n);
 extern s_char *esplur(int n);

@@ -1,0 +1,158 @@
+/*
+ *  Empire - A multi-player, client/server Internet based war game.
+ *  Copyright (C) 1986-2005, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *                           Ken Stevens, Steve McClure
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ *  ---
+ *
+ *  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
+ *  related information and legal notices. It is expected that any future
+ *  projects/authors will amend these files as needed.
+ *
+ *  ---
+ *
+ *  tcp_listen.c: Create a socket and listen on it
+ * 
+ *  Known contributors to this file:
+ *     Markus Armbruster, 2005
+ */
+
+#include <config.h>
+
+#include <ctype.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <unistd.h>
+
+static int cant_listen(char *, char *, const char *);
+
+int
+tcp_listen(char *host, char *serv, size_t *addrlenp)
+{
+    int fd;
+    int on = 1;
+#ifdef HAVE_GETADDRINFO
+    /*
+     * Inspired by example code from W. Richard Stevens: UNIX Network
+     * Programming, Vol. 1
+     */
+    int n;
+    struct addrinfo hints, *res, *ressave;
+
+    memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_flags = AI_PASSIVE;
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+
+    if ((n = getaddrinfo(host, serv, &hints, &res)) != 0)
+	cant_listen(host, serv, gai_strerror(n));
+    ressave = res;
+
+    do {
+	fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+	if (fd < 0)
+	    continue;		/* error, try next one */
+
+#ifndef _WIN32
+	/*
+	 * SO_REUSEADDR requests to permit another bind even when the
+	 * port is still in state TIME_WAIT.  Windows' SO_REUSEADDR is
+	 * broken: it makes bind() succeed no matter what, even if
+	 * there's another server running on the same port.  Luckily,
+	 * bind() seems to be broken as well: it seems to suceed while
+	 * the port in state TIME_WAIT by default; thus we get the
+	 * behavior we want by not setting SO_REUSEADDR.
+	 */
+	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+	    cant_listen(host, serv, strerror(errno));
+#endif
+	if (bind(fd, res->ai_addr, res->ai_addrlen) == 0)
+	    break;		/* success */
+
+	close(fd);		/* error, close and try next one */
+    } while ((res = res->ai_next) != NULL);
+
+    if (res == NULL)	     /* errno from final socket() or bind() */
+	cant_listen(host, serv, strerror(errno));
+
+    if (listen(fd, SOMAXCONN) < 0)
+	cant_listen(host, serv, strerror(errno));
+
+    if (addrlenp)
+	*addrlenp = res->ai_addrlen;
+
+    freeaddrinfo(ressave);
+
+#else  /* !HAVE_GETADDRINFO */
+    struct sockaddr_in sin;
+    struct hostent *hp;
+    struct servent *sp;
+
+    memset(&sin, 0, sizeof(sin));
+    sin.sin_family = AF_INET;
+    if (!host)
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
+    else if (isdigit(*host))
+	sin.sin_addr.s_addr = inet_addr(host);
+    else {
+	hp = gethostbyname(host);
+	if (!hp)
+	    cant_listen(host, serv, strerror(errno));
+	memcpy(&sin.sin_addr, hp->h_addr, sizeof(sin.sin_addr));
+    }
+    if (isdigit(*serv))
+	sin.sin_port = htons(atoi(serv));
+    else {
+	sp = getservbyname(serv, "tcp");
+	if (!sp)
+	    cant_listen(host, serv, strerror(errno));
+	sin.sin_port = sp->s_port;
+    }
+    if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+	cant_listen(host, serv, strerror(errno));
+#ifndef _WIN32
+    /* see comment on setsockopt() above */
+    if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+	cant_listen(host, serv, strerror(errno));
+#endif
+    if (bind(fd, (struct sockaddr *)&sin, sizeof(sin)) < 0)
+	cant_listen(host, serv, strerror(errno));
+    if (listen(fd, SOMAXCONN) < 0)
+	cant_listen(host, serv, strerror(errno));
+
+    if (addrlenp)
+	*addrlenp = sizeof(struct sockaddr_in);
+
+#endif /* !HAVE_GETADDRINFO */
+
+    return fd;
+}
+
+
+static int
+cant_listen(char *host, char *serv, const char *err)
+{
+    fprintf(stderr, "Can't listen on %s:%s: %s", host, serv, err);
+    exit(1);
+}

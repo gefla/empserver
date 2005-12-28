@@ -79,6 +79,7 @@ LIBS=$save_LIBS
 
 ### Checks for library functions
 
+AC_CHECK_FUNCS(getaddrinfo)
 MY_FUNC_MAKECONTEXT
 
 
