@@ -238,7 +238,6 @@ sub create_subj {
     my ($subj) = @_;
     my $fname = "info/$subj.t";
 
-    print "  Creating $fname\n";
     print "WARNING: $subj is a NEW subject\n"
 	unless grep(/^$subj$/, @Subjects);
     sysopen(SUBJ, $fname, O_WRONLY | O_EXCL | O_CREAT)
@@ -275,11 +274,9 @@ EOF
 sub create_subjects {
     my (@colsubj, @rowsubj, @subj);
 
-    print "  Removing Subjects\n";
     for (@Subjects) {
 	unlink "info/$_.t";
     }
-    print "  Creating info/TOP.t\n";
     open(TOP, ">info/TOP.t")
 	or die "Can't open info/TOP.t: $!";
     print TOP <<EOF;
