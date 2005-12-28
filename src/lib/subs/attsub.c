@@ -706,10 +706,10 @@ att_ask_support(int offset, int *fortp, int *shipp, int *landp,
     s_char *p;
     *fortp = *shipp = *landp = *planep = 1;
 
-    if (player->argp[offset] != (s_char *)0) {
-	if ((player->argp[offset + 1] == (s_char *)0) ||
-	    (player->argp[offset + 2] == (s_char *)0) ||
-	    (player->argp[offset + 3] == (s_char *)0)) {
+    if (player->argp[offset] != NULL) {
+	if ((player->argp[offset + 1] == NULL) ||
+	    (player->argp[offset + 2] == NULL) ||
+	    (player->argp[offset + 3] == NULL)) {
 	    pr("If any support arguments are used, all must be!\n");
 	    return RET_SYN;
 	}

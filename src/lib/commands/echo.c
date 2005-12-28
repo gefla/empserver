@@ -40,7 +40,7 @@
 int
 echo(void)
 {
-    pr("%s\n", player->argp[1] ? player->argp[1] : (s_char *)"");
+    pr("%s\n", player->argp[1] ? player->argp[1] : "");
 
     return RET_OK;
 }

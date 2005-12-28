@@ -178,7 +178,7 @@ mission(void)
 	y = 0;
     }
 
-    if (player->argp[5] != (s_char *)0) {
+    if (player->argp[5] != NULL) {
 	desired_radius = atoi(player->argp[5]);
 	if (desired_radius < 0) {
 	    pr("Radius must be greater than zero!\n");

@@ -61,10 +61,10 @@ retr(void)
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     nships = 0;
-    if (player->argp[1] != (s_char *)0)
+    if (player->argp[1] != NULL)
 	if (isalpha(player->argp[1][0]))
 	    isfleet = RET_GROUP;
-    if (player->argp[2] != (s_char *)0)
+    if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
 	pq = (s_char *)0;
@@ -209,10 +209,10 @@ lretr(void)
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
     nunits = 0;
-    if (player->argp[1] != (s_char *)0)
+    if (player->argp[1] != NULL)
 	if (isalpha(player->argp[1][0]))
 	    isarmy = RET_GROUP;
-    if (player->argp[2] != (s_char *)0)
+    if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
 	pq = (s_char *)0;

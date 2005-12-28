@@ -86,7 +86,7 @@ surv(void)
     for (; isspace(*ptr); ++ptr) ;
     if (*ptr)
 	return RET_SYN;
-    if (player->argp[2] == (s_char *)0) {
+    if (player->argp[2] == NULL) {
 	if ((str = getstring("(sects)? ", buf)) == 0)
 	    return RET_SYN;
     } else {

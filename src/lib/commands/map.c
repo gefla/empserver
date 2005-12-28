@@ -82,7 +82,7 @@ map(void)
 	}
     }
 
-    if (player->argp[1] == (s_char *)0) {
+    if (player->argp[1] == NULL) {
 	if ((str = getstring("(sects)? ", buf)) == 0)
 	    return RET_SYN;
     } else {

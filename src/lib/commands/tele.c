@@ -73,7 +73,7 @@ tele(void)
 	int kk;
 
 	kk = 1;
-	while (player->argp[kk] != (s_char *)0) {
+	while (player->argp[kk] != NULL) {
 	    if ((n = natarg(player->argp[kk], "for which country? ")) < 0) {
 		if (opt_HIDDEN) {
 		    if (n < -1) {
