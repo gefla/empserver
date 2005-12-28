@@ -99,11 +99,16 @@ struct mob_acc_globals {
 
 typedef u_char natid;		/* NSC_NATID must match this */
 
-#if !defined(aix) && !defined(sgi)
-typedef char s_char;		/* change to signed char for aix */
-#else
+/*
+ * TODO s_char has to go.  Use plain char for characters and strings,
+ * signed char for small integers.
+ */
+#ifdef __CHAR_UNSIGNED__
 typedef signed char s_char;
-#endif /* !aix && !sgi */
+#else
+typedef char s_char;
+#endif
+
 typedef short coord;
 
 #ifndef bit
