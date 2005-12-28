@@ -88,6 +88,7 @@ main(int ac, char **av)
     int bRedirected = 0;
     char unamebuf[128];
 #else
+    struct sigaction sa;
     fd_set mask;
     fd_set savemask;
     int retry = 0;
@@ -214,10 +215,12 @@ main(int ac, char **av)
     FD_ZERO(&mask);
     FD_SET(0, &savemask);
     FD_SET(sock, &savemask);
-#endif
-    (void)signal(SIGINT, intr);
-#ifndef _WIN32
-    (void)signal(SIGPIPE, SIG_IGN);
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sa.sa_handler = intr;
+    sigaction(SIGINT, &sa, NULL);
+    sa.sa_handler = SIG_IGN;
+    sigaction(SIG_IGN, &sa, NULL);
     while (FD_ISSET(sock, &savemask)) {
 	mask = savemask;
 	n = select(sock + 1, &mask, NULL, NULL, NULL);
@@ -250,7 +253,9 @@ main(int ac, char **av)
 	    }
 	}
     }
-#else
+#else  /* _WIN32 */
+    signal(SIGINT, intr);
+
     bRedirected = 0;
     tm.tv_sec = 0;
     tm.tv_usec = 1000;
@@ -323,7 +328,7 @@ main(int ac, char **av)
     }
     if (bRedirected == 0)
 	CloseHandle(hStdIn);
-#endif
+#endif /* _WIN32 */
     ioq_drain(&server);
     (void)close(sock);
     return 0;			/* Shut the compiler up */
@@ -334,9 +339,6 @@ intr(int sig)
 {
     interrupt = 1;
 #ifdef _WIN32
-    signal(SIGINT, intr);
-#endif
-#ifdef hpux
     signal(SIGINT, intr);
 #endif
 }
