@@ -57,8 +57,10 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
     if (!expect(s, C_INIT, buf))
 	return 0;
     (void)sendcmd(s, "user", uname);
-    if (!expect(s, C_CMDOK, buf))
+    if (!expect(s, C_CMDOK, buf)) {
+	fprintf(stderr, "Server rejects your user name\n");
 	return 0;
+    }
     if (utf8) {
 	sendcmd(s, "options", "utf-8");
 	for (;;) {
@@ -83,7 +85,7 @@ login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
 	cname[len-1] = 0;
     (void)sendcmd(s, "coun", cname);
     if (!expect(s, C_CMDOK, buf)) {
-	(void)fprintf(stderr, "empire: no such country\n");
+	(void)fprintf(stderr, "No such country\n");
 	return 0;
     }
     if (cpass == NULL) {
