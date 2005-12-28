@@ -39,6 +39,7 @@
 #ifndef _WIN32
 #include <sys/wait.h>
 #endif
+#include <time.h>
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"

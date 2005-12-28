@@ -34,8 +34,6 @@
 #ifndef _EMPIO_H_
 #define _EMPIO_H_
 
-#include <time.h>		/* struct timeval */
-
 #define	IO_READ		0x1
 #define IO_WRITE	0x2
 #define IO_NEWSOCK	0x4

@@ -34,10 +34,11 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <time.h>
 #include "misc.h"
 #include "player.h"
 #include "empthread.h"
-#include <stdio.h>
 #include "prototypes.h"
 #include "optlist.h"
 #include "server.h"

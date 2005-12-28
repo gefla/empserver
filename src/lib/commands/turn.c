@@ -33,14 +33,14 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <fcntl.h>
+#include <time.h>
 #include "misc.h"
 #include "player.h"
 #include "tel.h"
 #include "commands.h"
 #include "optlist.h"
-
-#include <errno.h>
-#include <fcntl.h>
 
 /*
  * Enable / disable logins and set the message of the day.

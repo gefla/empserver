@@ -36,17 +36,18 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <time.h>
 #if !defined(_WIN32)
 #include <dirent.h>
 #else
 #include <windows.h>
 #endif
+#include "misc.h"
+#include "player.h"
 #include "commands.h"
 #include "optlist.h"
 

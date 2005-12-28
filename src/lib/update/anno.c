@@ -37,10 +37,10 @@
 
 #include "misc.h"
 #include "tel.h"
-#include <stdio.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <time.h>
 #if !defined(_WIN32)
-#include <sys/file.h>
 #include <unistd.h>
 #endif
 #include "update.h"
