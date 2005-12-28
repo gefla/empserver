@@ -69,9 +69,9 @@ HANDLE hStdIn;
 #define	RETRY	3
 
 int eight_bit_clean;
-int interrupt;
 int sock;
 
+static volatile sig_atomic_t interrupt;
 static void intr(int sig);
 
 
@@ -332,11 +332,27 @@ main(int ac, char **av)
 static void
 intr(int sig)
 {
-    interrupt++;
+    interrupt = 1;
 #ifdef _WIN32
     signal(SIGINT, intr);
 #endif
 #ifdef hpux
     signal(SIGINT, intr);
 #endif
+}
+
+static int
+handleintr(int s)
+{
+    if (interrupt) {
+	/* tacky, but it works */
+#if !defined(_WIN32)
+	if (write(s, "\naborted\n", 1 + 7 + 1) <= 0)
+#else
+	if (send(s, "\naborted\n", 1 + 7 + 1, 0) <= 0)
+#endif
+	    return 0;
+	interrupt = 0;
+    }
+    return 1;
 }

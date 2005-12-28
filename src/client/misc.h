@@ -51,7 +51,6 @@ struct ioqueue;
 extern char empirehost[];
 extern char empireport[];
 extern int eight_bit_clean;
-extern int interrupt;
 extern char num_teles[];
 extern int sock;
 extern char *SO;
@@ -74,7 +73,6 @@ void putse(void);
 #endif
 int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
-int handleintr(int);
 int hostaddr(char *name, struct sockaddr_in *addr);
 int hostconnect(struct sockaddr_in *addr);
 int hostport(char *name, struct sockaddr_in *addr);
