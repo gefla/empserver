@@ -38,8 +38,8 @@
  * parts of the tops, be sure to change this file!
  */
 
-#ifndef _GENITEM_H_
-#define _GENITEM_H_
+#ifndef GENITEM_H
+#define GENITEM_H
 
 struct genitem {
     short ef_type;
@@ -57,4 +57,4 @@ struct genitem {
     short radius;
 };
 
-#endif /* _GENITEM_H_ */
+#endif

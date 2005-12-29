@@ -33,8 +33,8 @@
  *     Steve McClure, 1996
  */
 
-#ifndef _COMMODITY_H_
-#define _COMMODITY_H_
+#ifndef COMMODITY_H
+#define COMMODITY_H
 
 struct comstr {
     short ef_type;
@@ -56,4 +56,4 @@ struct comstr {
 #define putcomm(n, p) \
 	ef_write(EF_COMM, n, p)
 
-#endif /* _COMMODITY_H_ */
+#endif

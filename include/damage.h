@@ -32,8 +32,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _DAMAGE_H_
-#define _DAMAGE_H_
+#ifndef DAMAGE_H
+#define DAMAGE_H
 
 #define PERCENT_DAMAGE(x) (100 * (x) / ((x) + 100))
 #define DPERCENT_DAMAGE(x) ((double)(100.0 * (x) / ((x) + 100.0)))
@@ -45,4 +45,4 @@
 #define TORP_DAMAGE() (torpedo_damage + (random() % torpedo_damage) + \
 		       (random() % torpedo_damage))
 
-#endif /* _DAMAGE_H_ */
+#endif

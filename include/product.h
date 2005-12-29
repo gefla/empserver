@@ -31,8 +31,8 @@
  * 
  */
 
-#ifndef _PRODUCT_H_
-#define _PRODUCT_H_
+#ifndef PRODUCT_H
+#define PRODUCT_H
 
 #include "item.h"
 
@@ -78,4 +78,4 @@ struct pchrstr {
 
 extern struct pchrstr pchr[P_MDUST + 2];
 
-#endif /* _PRODUCT_H_ */
+#endif

@@ -77,8 +77,8 @@
  *      Not implemented yet.
  */
 
-#ifndef _WANTUPD_H_
-#define _WANTUPD_H_
+#ifndef WANTUPD_H
+#define WANTUPD_H
 
 #define  UDP_NORMAL	0
 #define  UDP_TIMES	1
@@ -93,4 +93,4 @@
 #define  UDDEM_MAX	2
 #define  UDDEM_DEFAULT	UDDEM_TMCHECK
 
-#endif /* _WANTUPD_H_ */
+#endif

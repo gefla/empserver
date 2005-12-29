@@ -31,8 +31,8 @@
  *     Dave Pare, 1986
  */
 
-#ifndef _NUKE_H_
-#define _NUKE_H_
+#ifndef NUKE_H
+#define NUKE_H
 
 #define	N_MAXNUKE	20
 
@@ -80,4 +80,4 @@ struct nchrstr {
 
 extern struct nchrstr nchr[N_MAXNUKE + 1];
 
-#endif /* _NUKE_H_ */
+#endif

@@ -32,6 +32,9 @@
  *  
  */
 
+#ifndef IOQUEUE_H
+#define IOQUEUE_H
+
 struct ioqueue {
     struct qelem queue;		/* queue fwd/back */
     int bsize;			/* basic block size */
@@ -53,3 +56,5 @@ void ioq_write(struct ioqueue *ioq, char *buf, int cc);
 int ioq_qsize(struct ioqueue *ioq);
 void ioq_drain(struct ioqueue *ioq);
 char *ioq_gets(struct ioqueue *ioq, char *buf, int cc, int *eol);
+
+#endif

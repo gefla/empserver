@@ -31,8 +31,8 @@
  *     Ken Stevens, 1995
  */
 
-#ifndef _RETREAT_H_
-#define _RETREAT_H_
+#ifndef RETREAT_H
+#define RETREAT_H
 
 #define	MAX_RETREAT	2	/* Max number of sectors you can retreat */
 #define	RET_LEN		10
@@ -47,4 +47,4 @@
 #define	RET_DCHRGED	64	/* Retreat when depth-charged */
 #define	RET_BOARDED	128	/* Retreat when unsuccessfully boarded */
 
-#endif /* _RETREAT_H_ */
+#endif

@@ -31,8 +31,8 @@
  *     
  */
 
-#ifndef _TEL_H_
-#define _TEL_H_
+#ifndef TEL_H
+#define TEL_H
 
 #define	MAXTELSIZE	1024	/* doesn't apply to TEL_UPDATE */
 
@@ -53,4 +53,4 @@ struct telstr {
 
 extern s_char *mailbox(s_char *buf, natid cn);
 
-#endif /* _TEL_H_ */
+#endif

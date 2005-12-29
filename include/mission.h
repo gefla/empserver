@@ -31,8 +31,8 @@
  *     Ken Stevens, 1995
  */
 
-#ifndef _MISSION_H_
-#define _MISSION_H_
+#ifndef MISSION_H
+#define MISSION_H
 
 #include "queue.h"
 
@@ -56,4 +56,4 @@ struct genlist {
 
 #define SECT_HARDTARGET (-92917)	/* a very low number that no-one might pick */
 
-#endif /* _MISSION_H_ */
+#endif

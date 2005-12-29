@@ -45,8 +45,8 @@
  * event to happen.
  */
 
-#ifndef _EMTHREAD_H_
-#define _EMTHREAD_H_
+#ifndef EMPTHREAD_H
+#define EMPTHREAD_H
 
 /* thread priorities */
 enum {

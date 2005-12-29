@@ -31,8 +31,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _MISC_H_
-#define _MISC_H_
+#ifndef MISC_H
+#define MISC_H
 
 #include <ctype.h>
 #include <stdio.h>

@@ -32,8 +32,8 @@
  *     Doug Hay, 1998
  */
 
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include <sys/types.h>
 #if !defined(_WIN32)
@@ -91,4 +91,4 @@ enum {
     PF_UTF8 = bit(0)			/* client wants UTF-8 */
 };
 
-#endif /* _PLAYER_H_ */
+#endif

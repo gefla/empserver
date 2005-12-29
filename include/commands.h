@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _COMMANDS_H_
-#define _COMMANDS_H_
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -57,4 +57,4 @@
 
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif /* _COMMANDS_H_ */
+#endif

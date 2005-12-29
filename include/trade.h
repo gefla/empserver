@@ -34,8 +34,8 @@
  *     Steve McClure, 1996
  */
 
-#ifndef _TRADE_H_
-#define _TRADE_H_
+#ifndef TRADE_H
+#define TRADE_H
 
 #include "genitem.h"
 #include "nuke.h"
@@ -86,4 +86,4 @@ extern long get_couval(int);
 #define gettradep(n) \
 	(struct trdstr *) ef_ptr(EF_TRADE, n)
 
-#endif /* _TRADE_H_ */
+#endif

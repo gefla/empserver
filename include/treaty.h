@@ -32,8 +32,8 @@
  *     
  */
 
-#ifndef _TREATY_H_
-#define _TREATY_H_
+#ifndef TREATY_H
+#define TREATY_H
 
 struct trtstr {
     short ef_type;
@@ -72,4 +72,4 @@ struct trtstr {
 #define gettrep(n) \
 	(struct trtstr *) ef_ptr(EF_TREATY, n)
 
-#endif /* _TREATY_H_ */
+#endif

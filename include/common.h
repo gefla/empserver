@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef COMMON_H
+#define COMMON_H
 
 #include <stdio.h>		/* FILE */
 #include "misc.h"		/* s_char coord natid */
@@ -45,4 +45,4 @@
 #include "xy.h"			/* struct range */
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif /* _COMMON_H_ */
+#endif

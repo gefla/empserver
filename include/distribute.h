@@ -31,10 +31,10 @@
  *  
  */
 
-#ifndef _DISTRIBUTE_H_
-#define _DISTRIBUTE_H_
+#ifndef DISTRIBUTE_H
+#define DISTRIBUTE_H
 
 #define	IMPORT	0
 #define	EXPORT	1
 
-#endif /* _DISTRIBUTE_H_ */
+#endif

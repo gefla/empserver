@@ -31,8 +31,8 @@
  * 
  */
 
-#ifndef _IOQUEUE_H_
-#define _IOQUEUE_H_
+#ifndef IOQUEUE_H
+#define IOQUEUE_H
 
 struct io {
     struct emp_qelem queue;
@@ -63,4 +63,4 @@ extern int ioq_puts(struct ioqueue *ioq, s_char *buf);
 extern int ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen);
 #endif
 
-#endif /* _IOQUEUE_H_ */
+#endif

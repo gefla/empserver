@@ -33,8 +33,8 @@
  *     Steve McClure, 1998, 1999
  */
 
-#ifndef _VERSION_H_
-#define _VERSION_H_
+#ifndef VERSION_H
+#define VERSION_H
 
 #define EMP_VERS_MAJOR	4
 #define EMP_VERS_MINOR	3
@@ -44,4 +44,4 @@
 #define	CHAINSAW_DIST	4.00
 #define WOLFPACK_DIST   3.00
 
-#endif /* _VERSION_H_ */
+#endif

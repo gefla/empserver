@@ -21,8 +21,8 @@
  * Imperial College of Science, Technology and Medicine, 180 Queen's
  * Gate, London SW7 2BZ, England.
  */
-#ifndef _LWPINT_H
-#define _LWPINT_H
+#ifndef LWPINT_H
+#define LWPINT_H
 
 #ifdef UCONTEXT
 #include <ucontext.h>
@@ -90,4 +90,4 @@ void lwpEntryPoint(void);
 void lwpInitSelect(struct lwpProc * self);
 void lwpDestroy(struct lwpProc * proc);
 
-#endif /* _LWP_H */
+#endif

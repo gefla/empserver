@@ -27,6 +27,9 @@
  *  Added path list caching structures
  */
 
+#ifndef AS_H
+#define AS_H
+
 #include <stdio.h>		/* for FILE */
 #include "misc.h"		/* for s_char */
 
@@ -183,3 +186,5 @@ extern void as_setcinq(struct as_data *adp,
 extern void as_free_hashtab(struct as_data *adp);
 extern int as_winnow(struct as_data *adp,
 		     struct as_coord *coords, int ncoords);
+
+#endif

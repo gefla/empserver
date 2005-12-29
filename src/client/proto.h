@@ -36,6 +36,9 @@
  * to be compiled independently of the rest of the game.
  */
 
+#ifndef PROTO_H
+#define PROTO_H
+
 #define CLIENTPROTO	2	/* if new things are added, bump this */
 
 #define	C_CMDOK		0x0
@@ -54,3 +57,5 @@
 #define C_FLASH		0xD
 #define C_INFORM        0xE
 #define C_LAST          0xE
+
+#endif

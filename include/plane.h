@@ -33,8 +33,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _PLANE_H_
-#define _PLANE_H_
+#ifndef PLANE_H
+#define PLANE_H
 
 #include "queue.h"
 #include "sect.h"
@@ -187,4 +187,4 @@ extern void add_shiplist(short, struct shiplist **);
 extern void free_shiplist(struct shiplist **);
 extern void print_shiplist(struct shiplist *);
 
-#endif /* _PLANE_H_ */
+#endif

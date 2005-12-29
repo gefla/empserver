@@ -33,8 +33,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _LAND_H_
-#define _LAND_H_
+#ifndef LAND_H
+#define LAND_H
 
 #include "sect.h"
 #include "ship.h"
@@ -231,4 +231,4 @@ extern int lnd_can_attack(struct lndstr *);
 extern int lnd_fortify (struct lndstr *lp, int hard_amt);
 extern void lnd_set_tech(struct lndstr *, int);
 
-#endif /* _LAND_H_ */
+#endif

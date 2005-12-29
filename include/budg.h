@@ -31,6 +31,9 @@
  *     Ville Virrankoski, 1995
  */
 
+#ifndef BUDG_H
+#define BUDG_H
+
 void fill_update_array(int *bp, struct sctstr *sp);
 int *get_wp(int *bp, struct sctstr *sp, int cm);
 int gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm);
@@ -46,3 +49,5 @@ extern long tpops[MAXNOC];
 extern float levels[MAXNOC][4];
 
 extern int mil_dbl_pay;
+
+#endif

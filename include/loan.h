@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _LOAN_H_
-#define _LOAN_H_
+#ifndef LOAN_H
+#define LOAN_H
 
 #define	MAXLOAN		100000
 #define SECS_PER_DAY	(60*60*24)
@@ -66,4 +66,4 @@ extern double loan_owed(struct lonstr *loan, time_t paytime);
 #define getloanp(n) \
 	(struct lonstr *) ef_ptr(EF_LOAN, n)
 
-#endif /* _LOAN_H_ */
+#endif

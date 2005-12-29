@@ -32,8 +32,8 @@
  *     Markus Armbruster, 2004
  */
 
-#ifndef _NSC_H_
-#define _NSC_H_
+#ifndef NSC_H
+#define NSC_H
 
 #include <stddef.h>
 #include "xy.h"
@@ -242,4 +242,4 @@ extern int nstr_exec(struct nscstr *, int, void *);
 extern void nstr_exec_val(struct valstr *, natid, void *, nsc_type);
 extern char *symbol_by_value(int, struct symbol *);
 
-#endif /* _NSC_H_ */
+#endif

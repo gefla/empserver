@@ -31,8 +31,8 @@
  *     
  */
 
-#ifndef _UPDATE_H_
-#define _UPDATE_H_
+#ifndef UPDATE_H
+#define UPDATE_H
 
 #include "misc.h"
 #include "queue.h"
@@ -46,4 +46,4 @@
 #include "product.h"
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif /* _UPDATE_H_ */
+#endif

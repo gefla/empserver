@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _EMPIO_H_
-#define _EMPIO_H_
+#ifndef EMPIO_H
+#define EMPIO_H
 
 #define	IO_READ		0x1
 #define IO_WRITE	0x2
@@ -65,4 +65,4 @@ extern int io_error(struct iop *);
 extern int io_eof(struct iop *);
 extern int io_fileno(struct iop *);
 
-#endif /* _EMPIO_H_ */
+#endif

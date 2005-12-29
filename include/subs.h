@@ -31,8 +31,8 @@
  *     
  */
 
-#ifndef _SUBS_H_
-#define _SUBS_H_
+#ifndef SUBS_H
+#define SUBS_H
 
 #include "misc.h"
 #include "sect.h"
@@ -52,4 +52,4 @@
 #include "player.h"
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif /* _SUBS_H_ */
+#endif

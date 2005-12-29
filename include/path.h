@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _PATH_H_
-#define _PATH_H_
+#ifndef PATH_H
+#define PATH_H
 
 #include "misc.h"
 #include "sect.h"
@@ -77,4 +77,4 @@ extern double sector_mcost(struct sctstr *sp, int do_bonus);
 
 #define MAX_PATH_LEN 1024
 
-#endif /* _PATH_H_ */
+#endif

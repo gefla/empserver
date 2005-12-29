@@ -31,8 +31,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _XY_H_
-#define _XY_H_
+#ifndef XY_H
+#define XY_H
 
 #include "sect.h"
 #include "nat.h"
@@ -69,4 +69,4 @@ extern coord xnorm(coord x);
 extern coord ynorm(coord y);
 extern int xyinrange(coord x, coord y, struct range *rp);
 
-#endif /* _XY_H_ */
+#endif

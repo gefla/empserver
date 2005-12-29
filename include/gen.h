@@ -31,11 +31,12 @@
  * 
  */
 
-#ifndef _GEN_H_
-#define _GEN_H_
+#ifndef GEN_H
+#define GEN_H
+
 #include <stdlib.h>		/* atoi etc. */
 #include "misc.h"		/* s_char etc */
 #include "xy.h"			/* struct range */
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 
-#endif /* _GEN_H_ */
+#endif

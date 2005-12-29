@@ -21,8 +21,8 @@
  * Gate, London SW7 2BZ, England.
  */
 
-#ifndef _LWP_H_
-#define _LWP_H_
+#ifndef LWP_H
+#define LWP_H
 
 #include "misc.h"
 
@@ -61,4 +61,4 @@ void lwpStatus(struct lwpProc *proc, char *format, ...)
 
 extern struct lwpProc *LwpCurrent;
 
-#endif /* _LWP_H_ */
+#endif

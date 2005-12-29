@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _COM_H_
-#define _COM_H_
+#ifndef COM_H
+#define COM_H
 
 struct cmndstr {
     char *c_form;		/* prototype of command */
@@ -57,4 +57,4 @@ enum {
 
 extern struct cmndstr player_coms[];
 
-#endif /* _COM_H_ */
+#endif

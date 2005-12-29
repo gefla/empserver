@@ -31,8 +31,8 @@
  *     
  */
 
-#ifndef _POWER_H_
-#define _POWER_H_
+#ifndef POWER_H
+#define POWER_H
 
 struct powstr {
     natid p_nation;
@@ -62,4 +62,4 @@ struct powstr {
 #define getpowerp(n) \
 	(struct powstr *) ef_ptr(EF_POWER, n)
 
-#endif /* _POWER_H_ */
+#endif

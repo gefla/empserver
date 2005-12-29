@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _ITEM_H_
-#define _ITEM_H_
+#ifndef ITEM_H
+#define ITEM_H
 
 #include "misc.h"
 
@@ -87,4 +87,4 @@ extern struct ichrstr ichr[I_MAX + 2];
 extern struct ichrstr *whatitem(char *, char *);
 extern struct ichrstr *item_by_name(char *);
 
-#endif /* _ITEM_H_ */
+#endif

@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _MATCH_H_
-#define _MATCH_H_
+#ifndef MATCH_H
+#define MATCH_H
 
 #include <stddef.h>
 
@@ -50,4 +50,4 @@
 extern int stmtch(char *, void *, ptrdiff_t, size_t);
 extern int mineq(char *, char *);
 
-#endif /* _MATCH_H_ */
+#endif

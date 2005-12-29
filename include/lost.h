@@ -31,8 +31,8 @@
  *     Steve McClure, 1997
  */
 
-#ifndef _LOST_H_
-#define _LOST_H_
+#ifndef LOST_H
+#define LOST_H
 
 struct loststr {
     /* initial part must match struct genitem */
@@ -54,4 +54,4 @@ struct loststr {
 extern void makelost(char, natid, short, coord, coord);
 extern void makenotlost(char, natid, short, coord, coord);
 
-#endif /* _LOST_H_ */
+#endif

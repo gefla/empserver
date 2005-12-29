@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _QUEUE
-#define _QUEUE
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #define	QEMPTY(p)	((p)->q_forw == (p))
 
@@ -46,4 +46,4 @@ void remque(struct qelem *p);
 void initque(struct qelem *p);
 struct qelem *makeqt(int nelem);
 
-#endif /* _QUEUE */
+#endif

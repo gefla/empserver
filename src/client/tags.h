@@ -31,8 +31,8 @@
  *     John Yockey, 1998
  */
 
-#ifndef _TAGS_H_
-#define _TAGS_H_
+#ifndef TAGS_H
+#define TAGS_H
 
 struct tagstruct {
     char *item;

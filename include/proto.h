@@ -31,8 +31,8 @@
  *     Dave Pare, 1986
  */
 
-#ifndef _PROTO_H_
-#define _PROTO_H_
+#ifndef PROTO_H
+#define PROTO_H
 
 #define CLIENTPROTO	2	/* if new things are added, bump this */
 
@@ -53,4 +53,4 @@
 #define C_INFORM        0xE
 #define C_LAST          0xE
 
-#endif /* _PROTO_H_ */
+#endif

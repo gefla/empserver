@@ -32,8 +32,8 @@
  *     Steve McClure, 1998,2000
  */
 
-#ifndef _PROTOTYPES_H_
-#define _PROTOTYPES_H_
+#ifndef PROTOTYPES_H
+#define PROTOTYPES_H
 
 #include <stdio.h>
 #include "misc.h"
@@ -813,4 +813,4 @@ extern int feed_ship(struct shpstr *, int, int *, int);
 /* shutdown.c */
 /* in server.h */
 
-#endif /* _PROTOTYPES_H_ */
+#endif

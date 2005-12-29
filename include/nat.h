@@ -33,8 +33,8 @@
  *     Steve McClure, 1998-2000
  */
 
-#ifndef _NAT_H_
-#define _NAT_H_
+#ifndef NAT_H
+#define NAT_H
 
 #include "sect.h"
 
@@ -183,4 +183,4 @@ extern int influx(struct natstr *np);
 #define NF_TECHLISTS    bit(5)	/* Sort lists by tech not type */
 #define NF_SACKED       bit(6)	/* Capital was sacked, and hasn't been reset yet */
 
-#endif /* _NAT_H_ */
+#endif

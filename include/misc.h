@@ -32,8 +32,8 @@
  *       Doug Hay, 1998
  */
 
-#ifndef _MISC_H_
-#define _MISC_H_
+#ifndef MISC_H
+#define MISC_H
 
 #include <ctype.h>
 #include <string.h>
@@ -150,4 +150,4 @@ extern char *prbuf(char *format, ...)
 #define AGREE_PROPOSED	1
 #define AGREE_SIGNED	2
 
-#endif /* _MISC_H_ */
+#endif

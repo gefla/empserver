@@ -31,8 +31,8 @@
  *     Ken Stevens, 1995
  */
 
-#ifndef _COMBAT_H_
-#define _COMBAT_H_
+#ifndef COMBAT_H
+#define COMBAT_H
 
 #include "sect.h"
 #include "queue.h"
@@ -99,4 +99,4 @@ extern int att_free_lists(struct emp_qelem *, struct emp_qelem *);
 
 extern char *att_mode[A_LBOARD + 1];
 
-#endif /* _COMBAT_H_ */
+#endif

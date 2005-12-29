@@ -34,8 +34,8 @@
  */
 
 
-#ifndef _SECT_H_
-#define _SECT_H_
+#ifndef SECT_H
+#define SECT_H
 
 #include "item.h"
 
@@ -208,4 +208,4 @@ struct sctintrins {
 
 extern struct sctintrins intrchr[INT_DEF + 2];
 
-#endif /* _SECT_H_ */
+#endif

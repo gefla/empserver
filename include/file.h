@@ -31,8 +31,8 @@
  *     Markus Armbruster, 2005
  */
 
-#ifndef _FILE_H_
-#define _FILE_H_
+#ifndef FILE_H
+#define FILE_H
 
 #include <stddef.h>
 #include <time.h>
@@ -167,4 +167,4 @@ extern int ef_verify(void);
 
 extern struct empfile empfile[EF_MAX + 1];
 
-#endif /* _FILE_H_ */
+#endif

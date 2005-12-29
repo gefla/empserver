@@ -31,8 +31,8 @@
  *  
  */
 
-#ifndef _MAP_H_
-#define _MAP_H_
+#ifndef MAP_H
+#define MAP_H
 
 #include "misc.h"
 #include "xy.h"
@@ -53,4 +53,4 @@ extern void border(struct range *, s_char *, s_char *);
 #define MAP_HIGH	bit(3)
 #define MAP_ALL		MAP_SHIP | MAP_LAND | MAP_PLANE
 
-#endif /* _MAP_H_ */
+#endif

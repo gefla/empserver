@@ -32,8 +32,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _OPTLIST_H_
-#define _OPTLIST_H_
+#ifndef OPTLIST_H
+#define OPTLIST_H
 
 #include "nsc.h"
 
@@ -72,4 +72,4 @@ struct keymatch {
 
 extern struct keymatch configkeys[];
 
-#endif /* _OPTLIST_H_ */
+#endif

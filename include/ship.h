@@ -34,8 +34,8 @@
  *     Steve McClure, 1998
  */
 
-#ifndef _SHIP_H_
-#define _SHIP_H_
+#ifndef SHIP_H
+#define SHIP_H
 
 #include "item.h"
 #include "queue.h"
@@ -217,4 +217,4 @@ enum {
     SHP_TORP_SHELLS = 3		/* number of shells used by a torpedo */
 };
 
-#endif /* _SHIP_H_ */
+#endif

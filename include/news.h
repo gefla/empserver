@@ -38,8 +38,8 @@
  *	would be a pain, and it doesn't hurt to leave them in --ts
  */
 
-#ifndef _NEWS_H_
-#define _NEWS_H_
+#ifndef NEWS_H
+#define NEWS_H
 
 struct nwsstr {
     short ef_type;
@@ -168,4 +168,4 @@ struct rptstr {
 extern struct rptstr rpt[N_MAX_VERB + 2];
 extern char *page_headings[N_MAX_PAGE + 1];
 
-#endif /* _NEWS_H_ */
+#endif
