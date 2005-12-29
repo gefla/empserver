@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Dave Pare
- *     Thomas Rushack, 1992
+ *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
  */

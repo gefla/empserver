@@ -28,7 +28,7 @@
  *  version.h: describes major, minor and release levels of the software
  * 
  *  Known contributors to this file:
- *     Thomas Rushack, 1992
+ *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998, 1999
  */

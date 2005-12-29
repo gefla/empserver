@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Dave Pare
- *     Thomas Rushack
+ *     Thomas Ruschak
  *     Steve McClure
  */
 

@@ -28,7 +28,7 @@
  *  land.h: Definitions for land units
  * 
  *  Known contributors to this file:
- *     Thomas Rushack, 1992
+ *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
  */
