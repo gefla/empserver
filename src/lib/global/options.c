@@ -69,4 +69,3 @@ int opt_SUPER_BARS = 0;
 int opt_TECH_POP = 0;
 int opt_TRADESHIPS = 0;
 int opt_TREATIES = 1;
-int opt_UPDATESCHED = 1;

@@ -177,8 +177,6 @@ EMPCF_OPT("TRADESHIPS", opt_TRADESHIPS,
     "Enable Tradeships")
 EMPCF_OPT("TREATIES", opt_TREATIES,
     "Allow treaties")
-EMPCF_OPT("UPDATESCHED", opt_UPDATESCHED,
-    "Used to control update times and should always be used")
 
 EMPCF_COMMENT("\n\n### Countries")
 EMPCFBOTH("btu_build_rate", btu_build_rate, float, NSC_FLOAT, 0,
