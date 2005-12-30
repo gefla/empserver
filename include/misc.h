@@ -57,8 +57,7 @@ typedef long ssize_t;
 #define srandom srand
 
 #define strncasecmp(s1, s2, s3) _strnicmp(s1, s2, s3)
-#define mkdir(dir,perm) _mkdir(dir)
-/* used for access */
+#define mkdir(dir,perm) _mkdir((dir))
 #ifndef F_OK
 #define F_OK 0  /* FILE existence */
 #endif
@@ -72,8 +71,7 @@ typedef long ssize_t;
 typedef int pid_t;
 #define vsnprintf _vsnprintf
 
-/*#define _POSIX_ */
-#endif
+#endif /* _WIN32 */
 
 /* This is the structure we use to keep track of the global mobility
    things, such as when the server is supposed to start/stop updating
