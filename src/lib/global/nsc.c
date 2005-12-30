@@ -562,7 +562,6 @@ struct symbol ship_chr_flags[] = {
     {M_MINE, "mine"},
     {M_SWEEP, "sweep"},
     {M_SUB, "sub"},
-    {M_SPY, "spy"},
     {M_LAND, "land"},
     {M_SUBT, "sub-torp"},
     {M_TRADE, "trade"},

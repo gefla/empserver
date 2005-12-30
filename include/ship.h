@@ -163,7 +163,7 @@ struct mchrstr {
 #define M_MINE		bit(7)	/* drop mines */
 #define M_SWEEP		bit(8)	/* clean up the mines */
 #define M_SUB		bit(9)	/* a submarine */
-#define M_SPY		bit(10)	/* gather intelligence info */
+/* unused		bit(10)	*/
 #define M_LAND		bit(11)	/* allows full landing ability */
 #define M_SUBT		bit(12)	/* allows torping of other subs */
 #define M_TRADE		bit(13)	/* is a trade ship */
