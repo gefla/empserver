@@ -70,7 +70,7 @@ cuto(void)
 	}
 	if (player->god)
 	    pr("%3d", sect.sct_own);
-	pr("%7s", xyas(nstr.x, nstr.y, player->cnum));
+	prxy("%3d,%-3d", nstr.x, nstr.y, player->cnum);
 	pr(" %c ", dchr[sect.sct_type].d_mnem);
 	pr("%c", dirstr[sect.sct_del[I_CIVIL] & 0x7]);
 	pr("%c", dirstr[sect.sct_del[I_MILIT] & 0x7]);

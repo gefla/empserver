@@ -894,13 +894,13 @@ show_mission(int type, struct nstr_item *np)
 	    first = 0;
 	}
 	pr("%-25s", nameofitem(gp, type));
-	pr(" %7s", xyas(gp->x, gp->y, player->cnum));
+	prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
 	if (gp->mission == MI_INTERDICT || gp->mission == MI_SUPPORT ||
 	    gp->mission == MI_OSUPPORT ||
 	    gp->mission == MI_DSUPPORT || gp->mission == MI_AIR_DEFENSE) {
 	    radius = 999;
 	    oprange(gp, type, &radius);
-	    pr(" %7s", xyas(gp->opx, gp->opy, player->cnum));
+	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
 	    if (radius < gp->radius)
 		pr("  %4d", radius);
 	    else
@@ -917,7 +917,7 @@ show_mission(int type, struct nstr_item *np)
 		plus = 0;
 	    else
 		plus += ((struct lndstr *)block)->lnd_rad_max;
-	    pr(" %7s", xyas(gp->x, gp->y, player->cnum));
+	    prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
 	    pr("  %4d", plus);
 	} else if (gp->mission == MI_ESCORT) {
 	    pr("        ");
