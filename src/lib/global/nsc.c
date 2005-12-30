@@ -88,6 +88,8 @@ struct castr ichr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs", EF_BAD},
     {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_pkg), "pkg", EF_BAD},
+    {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_melt_denom), "melt_denom",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -165,7 +167,7 @@ struct castr dchr_ca[] = {
     {NSC_INT, NSC_CONST, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_flg), "flg", EF_BAD /* FIXME */},
     {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg",
      EF_PACKING},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr", EF_BAD},
@@ -375,7 +377,7 @@ struct castr nuke_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(nukstr, nuk_n), "number", EF_BAD},
-    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types", EF_NUKE_CHR},
+    {NSC_SHORT, 0, N_MAXNUKE, fldoff(nukstr, nuk_types), "types", EF_BAD},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp",
      EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -398,6 +400,7 @@ struct castr nchr_ca[] = {
 };
 
 struct castr treaty_ca[] = {
+    /* FIXME disclose only to cna, cnb */
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_TREATY},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_NATION},
@@ -412,6 +415,7 @@ struct castr treaty_ca[] = {
 };
 
 struct castr loan_ca[] = {
+    /* FIXME disclose only to loaner, loanee and partially to all if signed */
     {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_LOAN},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee", EF_NATION},
@@ -427,6 +431,7 @@ struct castr loan_ca[] = {
 };
 
 struct castr news_ca[] = {
+    /* FIXME if HIDDEN disclose requires contact with actor and victim, and new */
     {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid", EF_NEWS},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
@@ -452,6 +457,7 @@ struct castr commodity_ca[] = {
     {NSC_NATID, 0, 0, fldoff(comstr, com_owner), "owner", EF_NATION},
     {NSC_SITYPE(i_type), 0, 0, fldoff(comstr, com_type), "type", EF_ITEM},
     {NSC_INT, 0, 0, fldoff(comstr, com_amount), "amount", EF_BAD},
+    {NSC_FLOAT, 0, 0, fldoff(comstr, com_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(comstr, com_markettime), "markettime", EF_BAD},
     /* could let maxbidder access these, but we can't express that yet: */
@@ -460,7 +466,6 @@ struct castr commodity_ca[] = {
     /* could let the owner access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, sell_x), "xsell", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(comstr, sell_y), "ysell", EF_BAD},
-    {NSC_FLOAT, 0, 0, fldoff(comstr, com_price), "price", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -472,7 +477,7 @@ struct castr trade_ca[] = {
     {NSC_LONG, 0, 0, fldoff(trdstr, trd_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(trdstr, trd_markettime), "markettime", EF_BAD},
-    /* could let the owner access these, but we can't express that yet: */
+    /* could let the maxbidder access these, but we can't express that yet: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(trdstr, trd_x), "xloc", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(trdstr, trd_y), "yloc", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -480,7 +485,7 @@ struct castr trade_ca[] = {
 
 struct castr nat_ca[] = {
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_CHAR, NSC_BITS, 0, fldoff(natstr, nat_stat), "stat", EF_BAD},
+    {NSC_CHAR, NSC_BITS, 0, fldoff(natstr, nat_stat), "stat", EF_BAD /* FIXME */},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
