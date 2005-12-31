@@ -31,6 +31,8 @@
  *     Dave Pare, 1986
  */
 
+#include <config.h>
+
 #include "misc.h"
 #include "player.h"
 #include "nat.h"
@@ -180,8 +182,6 @@ new(void)
     natp->nat_btu = max_btus;
     natp->nat_stat &= ~STAT_NEW;
     natp->nat_stat |= STAT_SANCT;
-    natp->nat_xstart = x;
-    natp->nat_ystart = y;
     natp->nat_xcap = x;
     natp->nat_ycap = y;
     natp->nat_xorg = x;

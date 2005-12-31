@@ -67,7 +67,6 @@ struct natstr {
     char nat_hostaddr[32];	/* host addr of last user */
     char nat_hostname[512];	/* hostname of last user, may be empty */
     char nat_userid[32];	/* userid of last user, may be empty */
-    coord nat_xstart, nat_ystart;	/* cap location at start */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
     s_char nat_dayno;		/* day of the year mod 128 */

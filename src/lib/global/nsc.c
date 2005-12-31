@@ -491,8 +491,6 @@ struct castr nat_ca[] = {
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
     {NSC_STRINGY, 0, 512, fldoff(natstr, nat_hostname), "hostname", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_userid), "userid", EF_BAD},
-    {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xstart), "xstart", EF_BAD},
-    {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ystart), "ystart", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xcap), "xcap", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ycap), "ycap", EF_BAD},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(natstr, nat_xorg), "xorg", EF_BAD},

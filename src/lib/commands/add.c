@@ -197,8 +197,6 @@ add(void)
 	natp->nat_btu = 0;
 	natp->nat_reserve = 0;
 	natp->nat_tgms = 0;
-	natp->nat_ystart = 0;
-	natp->nat_xstart = 0;
 	natp->nat_ycap = 0;
 	natp->nat_xcap = 0;
 	natp->nat_yorg = 0;
