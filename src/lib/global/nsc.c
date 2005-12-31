@@ -88,7 +88,7 @@ struct castr ichr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs", EF_BAD},
     {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_pkg), "pkg", EF_BAD},
-    {NSC_INT, 0, NUMPKG, offsetof(struct ichrstr, i_melt_denom), "melt_denom",
+    {NSC_INT, 0, 0, offsetof(struct ichrstr, i_melt_denom), "melt_denom",
      EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
