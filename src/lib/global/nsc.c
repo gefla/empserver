@@ -497,6 +497,7 @@ struct castr nat_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ycap), "ycap", EF_BAD},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(natstr, nat_xorg), "xorg", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(natstr, nat_yorg), "yorg", EF_BAD},
+    {NSC_CHAR, 0, 0, fldoff(natstr, nat_dayno), "dayno", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_update), "update", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(natstr, nat_missed), "missed", EF_BAD},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_tgms), "tgms", EF_BAD},
@@ -515,12 +516,13 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    /* FIXME nat_b[], nat_rejects[], nat_priorities[] */
-    {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
-     EF_BAD},
+    /* FIXME nat_b[] */
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
-    {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags),"flags",
+    {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
+     EF_BAD},
+    /* FIXME nat_rejects[], nat_priorities[] */
+    {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
      EF_NATION_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
