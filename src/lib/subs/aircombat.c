@@ -992,7 +992,7 @@ ac_flak_dam(int flak)
 	 0.35f, 0.40f, 0.45f, 0.50f, 0.50f, 0.55f, 0.60f, 0.65f,
     /*    +5    +6     +7     +8    >+8 */
 	 0.70f,0.75f, 0.80f, 0.85f, 1.1305f };
-    enum { FLAK_MAX = sizeof(flaktable)/sizeof(flaktable[0]) };
+    enum { FLAK_MAX = sizeof(flaktable)/sizeof(flaktable[0]) - 1 };
 
     if (flak > 8)
 	mult = flaktable[FLAK_MAX];
