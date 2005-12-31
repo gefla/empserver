@@ -106,7 +106,7 @@ struct castr pchr_ca[] = {
      EF_ITEM},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_level), "level", EF_LEVEL},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_RESOURCES},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrdep), "nrdep", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlmin), "nlmin", EF_BAD},
@@ -746,5 +746,16 @@ struct symbol packing[] = {
     {WPKG, "warehouse"},
     {UPKG, "urban"},
     {BPKG, "bank"},
+    {0, NULL}
+};
+
+struct symbol resources[] = {
+    /* names should match resource selector names in sect_ca[] */
+    {0, "none"},
+    {offsetof(struct sctstr, sct_min), "min"},
+    {offsetof(struct sctstr, sct_gmin), "gold"},
+    {offsetof(struct sctstr, sct_fertil), "fert"},
+    {offsetof(struct sctstr, sct_oil), "ocontent"},
+    {offsetof(struct sctstr, sct_uran), "uran"},
     {0, NULL}
 };
