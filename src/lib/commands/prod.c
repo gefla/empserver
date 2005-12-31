@@ -225,6 +225,10 @@ prod(void)
 	 * workforce?
 	 */
 	max = (int)(work * p_e / (double)unit_work + 0.5);
+	if (pp->p_nrdep != 0 && vtype != I_NONE) {
+	    if (*resource * 100 < pp->p_nrdep * max)
+		max = *resource * 100 / pp->p_nrdep;
+	}
 	act = min(used, max);
 
 	real = dmin(999.0, (double)act * prodeff);
