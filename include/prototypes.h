@@ -494,9 +494,9 @@ extern void bitinit2(struct nstr_sect *, u_char *, int);
 extern int getele(char *, char *);
 /* land.c */
 extern s_char *prland(struct lndstr *);
-extern int lnd_postread(int, s_char *);
-extern int lnd_prewrite(int, s_char *);
-extern void lnd_init(int, s_char *);
+extern int lnd_postread(int, void *);
+extern int lnd_prewrite(int, void *);
+extern void lnd_init(int, void *);
 /* landgun.c */
 extern double seagun(int, int);
 extern double landgun(int, int);
@@ -553,9 +553,9 @@ extern void delete_old_news(void);
 extern void init_nreport(void);
 extern void nreport(natid, int, natid, int);
 /* nuke.c */
-extern int nuk_postread(int, s_char *);
-extern int nuk_prewrite(int, s_char *);
-extern void nuk_init(int, s_char *);
+extern int nuk_postread(int, void *);
+extern int nuk_prewrite(int, void *);
+extern void nuk_init(int, void *);
 extern void nuk_add(coord, coord, int, int);
 extern void nuk_delete(struct nukstr *, int, int);
 /* nxtitem.c */
@@ -564,9 +564,9 @@ extern int nxtitem(struct nstr_item *, void *);
 extern int nxtsct(struct nstr_sect *, struct sctstr *);
 /* plane.c */
 extern s_char *prplane(struct plnstr *);
-extern int pln_postread(int, s_char *);
-extern int pln_prewrite(int, s_char *);
-extern void pln_init(int, s_char *);
+extern int pln_postread(int, void *);
+extern int pln_prewrite(int, void *);
+extern void pln_init(int, void *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
 extern struct sctstr *get_assembly_point(char *, struct sctstr *, char *);
@@ -653,15 +653,15 @@ extern void satdisp(struct sctstr *, int, int);
 extern void satmap(int, int, int, int, int, int);
 extern void sathead(void);
 /* sect.c */
-extern int sct_postread(int, s_char *);
-extern int sct_prewrite(int, s_char *);
+extern int sct_postread(int, void *);
+extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
 extern int issector(s_char *);
 /* ship.c */
 extern s_char *prship(struct shpstr *);
-extern int shp_postread(int, s_char *);
-extern int shp_prewrite(int, s_char *);
-extern void shp_init(int, s_char *);
+extern int shp_postread(int, void *);
+extern int shp_prewrite(int, void *);
+extern void shp_init(int, void *);
 /* show.c */
 extern void show_bridge(int);
 extern void show_tower(int);

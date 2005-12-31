@@ -44,11 +44,10 @@
 #include "nat.h"
 #include "prototypes.h"
 
-/*ARGSUSED*/
 int
-nuk_postread(int n, s_char *ptr)
+nuk_postread(int n, void *ptr)
 {
-    struct nukstr *np = (struct nukstr *)ptr;
+    struct nukstr *np = ptr;
 
     if (np->nuk_uid != n) {
 	logerror("nuk_postread: Error - %d != %d, zeroing.\n", np->nuk_uid,
@@ -59,11 +58,10 @@ nuk_postread(int n, s_char *ptr)
     return 1;
 }
 
-/*ARGSUSED*/
 int
-nuk_prewrite(int n, s_char *ptr)
+nuk_prewrite(int n, void *ptr)
 {
-    struct nukstr *np = (struct nukstr *)ptr;
+    struct nukstr *np = ptr;
     struct nukstr nuke;
 
     np->ef_type = EF_NUKE;
@@ -77,9 +75,9 @@ nuk_prewrite(int n, s_char *ptr)
 }
 
 void
-nuk_init(int n, s_char *ptr)
+nuk_init(int n, void *ptr)
 {
-    struct nukstr *np = (struct nukstr *)ptr;
+    struct nukstr *np = ptr;
 
     np->ef_type = EF_NUKE;
     np->nuk_uid = n;

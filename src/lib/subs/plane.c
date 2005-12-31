@@ -44,9 +44,9 @@
 #include "optlist.h"
 
 int
-pln_postread(int n, s_char *ptr)
+pln_postread(int n, void *ptr)
 {
-    struct plnstr *pp = (struct plnstr *)ptr;
+    struct plnstr *pp = ptr;
     struct shpstr theship;
     struct lndstr theland;
 
@@ -106,11 +106,10 @@ pln_postread(int n, s_char *ptr)
     return 1;
 }
 
-/*ARGSUSED*/
 int
-pln_prewrite(int n, s_char *ptr)
+pln_prewrite(int n, void *ptr)
 {
-    struct plnstr *pp = (struct plnstr *)ptr;
+    struct plnstr *pp = ptr;
     struct plnstr plane;
 
     if (pp->pln_effic < PLANE_MINEFF) {
@@ -131,9 +130,9 @@ pln_prewrite(int n, s_char *ptr)
 }
 
 void
-pln_init(int n, s_char *ptr)
+pln_init(int n, void *ptr)
 {
-    struct plnstr *pp = (struct plnstr *)ptr;
+    struct plnstr *pp = ptr;
 
     pp->ef_type = EF_PLANE;
     pp->pln_uid = n;

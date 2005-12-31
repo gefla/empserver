@@ -44,9 +44,9 @@
 #include "optlist.h"
 
 int
-lnd_postread(int n, s_char *ptr)
+lnd_postread(int n, void *ptr)
 {
-    struct lndstr *llp = (struct lndstr *)ptr;
+    struct lndstr *llp = ptr;
     struct shpstr theship;
     struct lndstr theland;
 
@@ -108,11 +108,10 @@ lnd_postread(int n, s_char *ptr)
     return 1;
 }
 
-/*ARGSUSED*/
 int
-lnd_prewrite(int n, s_char *ptr)
+lnd_prewrite(int n, void *ptr)
 {
-    struct lndstr *llp = (struct lndstr *)ptr;
+    struct lndstr *llp = ptr;
     struct lndstr land;
     struct lndstr *lp;
     struct plnstr *pp;
@@ -163,9 +162,9 @@ lnd_prewrite(int n, s_char *ptr)
 }
 
 void
-lnd_init(int n, s_char *ptr)
+lnd_init(int n, void *ptr)
 {
-    struct lndstr *lp = (struct lndstr *)ptr;
+    struct lndstr *lp = ptr;
 
     lp->ef_type = EF_LAND;
     lp->lnd_uid = n;

@@ -58,9 +58,9 @@ struct empfile {
     int fd;			/* file descriptor, -1 if not open */
     /* and flags bit EFF_RDONLY */
     /* User callbacks */
-    void (*init)(int, char *);	/* called after entry creation, unless null */
-    int (*postread)(int, char *); /* called after read, unless null */
-    int (*prewrite)(int, char *); /* called before write, unless null */
+    void (*init)(int, void *);	/* called after entry creation, unless null */
+    int (*postread)(int, void *); /* called after read, unless null */
+    int (*prewrite)(int, void *); /* called before write, unless null */
 };
 
 /*

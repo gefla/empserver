@@ -379,7 +379,7 @@ int
 ef_extend(int type, int count)
 {
     struct empfile *ep;
-    char *tmpobj;
+    void *tmpobj;
     int id, i, how;
 
     if (ef_check(type) < 0)

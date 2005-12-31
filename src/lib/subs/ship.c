@@ -44,11 +44,10 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-/*ARGSUSED*/
 int
-shp_postread(int n, s_char *ptr)
+shp_postread(int n, void *ptr)
 {
-    struct shpstr *sp = (struct shpstr *)ptr;
+    struct shpstr *sp = ptr;
 
     if (sp->shp_uid != n) {
 	logerror("shp_postread: Error - %d != %d, zeroing.\n", sp->shp_uid,
@@ -63,9 +62,9 @@ shp_postread(int n, s_char *ptr)
 }
 
 int
-shp_prewrite(int n, s_char *ptr)
+shp_prewrite(int n, void *ptr)
 {
-    struct shpstr *sp = (struct shpstr *)ptr;
+    struct shpstr *sp = ptr;
     struct shpstr ship;
     struct lndstr *lp;
     struct plnstr *pp;
@@ -116,9 +115,9 @@ shp_prewrite(int n, s_char *ptr)
 }
 
 void
-shp_init(int n, s_char *ptr)
+shp_init(int n, void *ptr)
 {
-    struct shpstr *sp = (struct shpstr *)ptr;
+    struct shpstr *sp = ptr;
 
     sp->ef_type = EF_SHIP;
     sp->shp_uid = n;

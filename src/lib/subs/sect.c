@@ -48,11 +48,10 @@
 
 static int checksect(struct sctstr *);
 
-/*ARGSUSED*/
 int
-sct_postread(int id, s_char *ptr)
+sct_postread(int id, void *ptr)
 {
-    struct sctstr *sp = (struct sctstr *)ptr;
+    struct sctstr *sp = ptr;
 
     checksect(sp);
     player->owner = (player->god || sp->sct_own == player->cnum);
@@ -61,11 +60,10 @@ sct_postread(int id, s_char *ptr)
     return 1;
 }
 
-/*ARGSUSED*/
 int
-sct_prewrite(int id, s_char *ptr)
+sct_prewrite(int id, void *ptr)
 {
-    struct sctstr *sp = (struct sctstr *)ptr;
+    struct sctstr *sp = ptr;
     struct sctstr sect;
 
     time(&sp->sct_timestamp);
