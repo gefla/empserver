@@ -474,21 +474,13 @@ xuloadrow(int type, int row, struct value values[])
     return 0;
 }
 
-int
-xundump(FILE *fp, char *file, int expected_table)
+static int
+xuheader(FILE *fp, int expected_table, struct value values[])
 {
     char name[64];
     struct empfile *ep;
-    int row, res, rows, ch;
-    struct value values[MAX_NUM_COLUMNS + 1];
+    int res, ch;
     int type;
-    int fixed_rows, need_sentinel;
-
-    if (strcmp(fname, file) != 0) {
-        fname = file;
-	lineno = 1;
-    } else
-	lineno++;
 
     while ((ch = skipfs(fp)) == '\n')
 	lineno++;
@@ -514,7 +506,55 @@ xundump(FILE *fp, char *file, int expected_table)
     if (expected_table != EF_BAD && expected_table != type)
 	return gripe("Expected table `%s', not `%s'",
 		     ef_nameof(expected_table), name);
+    return type;
+}
 
+static int
+xutrailer(FILE *fp, int type, int row)
+{
+    int rows, ch;
+
+    ch = skipfs(fp);
+    if (!isdigit(ch)) {
+        if (ch != '\n')
+	    return gripe("Malformed table footer");
+    } else {
+        ungetc(ch, fp);
+	if (fscanf(fp, "%d", &rows) != 1)
+	    return gripe("Malformed table footer");
+	if (row != rows)
+	    return gripe("Read %d rows, which doesn't match footer "
+			 "%d rows", row, rows);
+    }
+    if (skipfs(fp) != '\n')
+	return gripe("Junk after table footer");
+
+    while ((ch = skipfs(fp)) == '\n') ;
+    ungetc(ch, fp);
+
+    return 0;
+}
+
+int
+xundump(FILE *fp, char *file, int expected_table)
+{
+    int row, res, ch;
+    struct empfile *ep;
+    int need_sentinel;
+    struct value values[MAX_NUM_COLUMNS + 1];
+    int type;
+    int fixed_rows;
+
+    if (strcmp(fname, file) != 0) {
+        fname = file;
+	lineno = 1;
+    } else
+	lineno++;
+
+    if ((type = xuheader(fp, expected_table, values)) == -1)
+	return -1;
+    
+    ep = &empfile[type];
     fixed_rows = has_const(ef_cadef(type));
     need_sentinel = !fixed_rows; /* FIXME only approximation */
 
@@ -532,7 +572,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	res = xuflds(fp, values);
 	if (res > 0 && row >= ep->csize - 1) {
 	    /* TODO grow cache unless EFF_STATIC */
-	    gripe("Too many rows for table %s", name);
+	    gripe("Too many rows for table %s", ef_nameof(type));
 	    res = -1;
 	}
 	if (res > 0) {
@@ -545,25 +585,16 @@ xundump(FILE *fp, char *file, int expected_table)
 	if (res < 0)
 	    return -1;
     }
-
-    ch = getc(fp);
-    ungetc(ch, fp);
-    if (!isdigit(ch) || fscanf(fp, "%d", &rows) != 1)
-	return gripe("Malformed table footer");
-    if (skipfs(fp) != '\n')
-	return gripe("Junk after table footer");
-    if (row != rows)
-	return gripe("Read %d rows, which doesn't match footer",
-		     row);
     if (fixed_rows && row != ep->csize -1)
 	return gripe("Table %s requires %d rows, got %d",
-		     name, ep->csize - 1, row);
+		     ef_nameof(type), ep->csize - 1, row);
+
     if (need_sentinel)
 	xuinitrow(type, row);
 
-    while ((ch = skipfs(fp)) == '\n') ;
-    ungetc(ch, fp);
-
+    if (xutrailer(fp, type, row) == -1)
+	return -1;
+    
     ep->fids = ep->cids = row;
     return type;
 }
