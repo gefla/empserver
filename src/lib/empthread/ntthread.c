@@ -204,7 +204,7 @@ loc_FreeThreadInfo(empth_t *pThread)
  * info, and the thread owns the MUTEX sem.
  */
 static void
-loc_RunThisThread()
+loc_RunThisThread(void)
 {
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
@@ -236,7 +236,7 @@ loc_RunThisThread()
  * This thread was running.  It no longer wants to.
  */
 static void
-loc_BlockThisThread()
+loc_BlockThisThread(void)
 {
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
@@ -309,7 +309,7 @@ loc_BlockMainThread(void)
  * This is the main line of each thread.
  * This is really a static local func....
  */
-void
+static void
 empth_threadMain(void *pvData)
 {
     time_t now;
@@ -365,7 +365,7 @@ empth_init(void **ctx_ptr, int flags)
     /* Initally unowned. */
     hThreadMutex = CreateMutex(NULL, FALSE, NULL);
     if (!hThreadMutex) {
-	logerror("Failed to create mutex %d", GetLastError());
+	logerror("Failed to create mutex %lu", GetLastError());
 	return 0;
     }
 
@@ -373,7 +373,7 @@ empth_init(void **ctx_ptr, int flags)
     /* Automatic state reset. */
     hThreadStartEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (!hThreadStartEvent) {
-	logerror("Failed to create start event %d", GetLastError());
+	logerror("Failed to create start event %lu", GetLastError());
 	return 0;
     }
 
@@ -381,7 +381,7 @@ empth_init(void **ctx_ptr, int flags)
     /* Manual reset */
     hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
     if (!hShutdownEvent) {
-        logerror("Failed to create shutdown event %d", GetLastError());
+        logerror("Failed to create shutdown event %lu", GetLastError());
 	return 0;
     }
     SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Exit_Handler, TRUE);
