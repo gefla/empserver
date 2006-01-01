@@ -41,8 +41,8 @@
 #include <sys/types.h>
 #ifdef _WIN32
 #define WIN32
-#undef NS_ALL
 #include "winsock2.h"
+#undef NS_ALL
 #else
 #include <sys/socket.h>
 #include <netdb.h>
