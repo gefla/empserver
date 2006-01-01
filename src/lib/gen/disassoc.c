@@ -38,6 +38,7 @@
 
 #include <config.h>
 
+#ifndef _WIN32
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -78,3 +79,4 @@ disassoc(void)
 
     return 0;
 }
+#endif
