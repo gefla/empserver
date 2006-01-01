@@ -326,8 +326,8 @@ info(void)
 		break;
 	    default:
 		pr("Error reading info dir\n");
-		logerror("Error (%d) reading info dir(%s)\\file(%s)",
-		    infodir, filename, GetLastError());
+		logerror("Error (%lu) reading info dir(%s)\\file(%s)",
+		    GetLastError(), infodir, filename);
 	    }
 	    return RET_SYS;
 	}
@@ -429,8 +429,8 @@ apro(void)
 	    logerror("Can't open info dir \"%s\"", infodir);
 	} else {
 	    pr("Error reading info dir\n");
-	    logerror("Error (%d) reading info dir(%s)\\file(%s)",
-		infodir, filename, GetLastError());
+	    logerror("Error (%lu) reading info dir(%s)\\file(%s)",
+		 GetLastError(), infodir, filename);
 	}
 	return RET_SYS;
     }
