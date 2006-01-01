@@ -136,7 +136,7 @@ remove_service(char *service_name)
 static SERVICE_STATUS		service_status; 
 static SERVICE_STATUS_HANDLE	service_status_handle;
 
-void WINAPI
+static void WINAPI
 service_ctrl_handler(DWORD Opcode) 
 { 
     switch(Opcode) 
@@ -186,7 +186,7 @@ service_main(DWORD argc, LPTSTR *argv)
         DEFAULT_SERVICE_NAME, service_ctrl_handler);
  
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
-        logerror("RegisterServiceCtrlHandler failed %d\n", GetLastError());
+        logerror("RegisterServiceCtrlHandler failed %lu\n", GetLastError());
 	finish_server();
         return;
     }
