@@ -226,7 +226,7 @@ main(int argc, char **argv)
 	     * start server in the foreground
 	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
-		logerror("Failed to dispatch service (%d)", GetLastError());
+		logerror("Failed to dispatch service (%lu)", GetLastError());
 		finish_server();
 		exit(EXIT_FAILURE);
 	    }
