@@ -377,9 +377,9 @@ info(void)
     else {
 	DWORD fAttrib = GetFileAttributes(filename);
 	if ((fAttrib == (DWORD)-1) || /* INVALID_FILE_ATTRIBUTES */
-	    (fAttrib != FILE_ATTRIBUTE_NORMAL) &&
-	    (fAttrib != FILE_ATTRIBUTE_ARCHIVE) &&
-	    (fAttrib != FILE_ATTRIBUTE_READONLY)) {
+	    ((fAttrib != FILE_ATTRIBUTE_NORMAL) &&
+	     (fAttrib != FILE_ATTRIBUTE_ARCHIVE) &&
+	     (fAttrib != FILE_ATTRIBUTE_READONLY))) {
 	    pr("Error reading info file for %s\n", name);
 	    logerror("The info file \"%s\" is not regular file\n",
 		     filename);
@@ -430,7 +430,7 @@ apro(void)
 	} else {
 	    pr("Error reading info dir\n");
 	    logerror("Error (%lu) reading info dir(%s)\\file(%s)",
-		 GetLastError(), infodir, filename);
+		GetLastError(), infodir, filename);
 	}
 	return RET_SYS;
     }
@@ -496,7 +496,7 @@ apro(void)
     free(lbp);
 
     if ((nhl) > lhitlim) {
-	pr("Limit of %ld lines exceeded\n", lhitlim);
+	pr("Limit of %d lines exceeded\n", lhitlim);
     }
     pr("Found %s in %ld of %ld files and in %ld of %ld lines\n",
        name, nhf, nf, nhl, nl);
