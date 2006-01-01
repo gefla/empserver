@@ -53,6 +53,7 @@
 
 static char *fname = "";
 static int lineno = 0;
+static int human;
 
 /*
  * TODO
@@ -488,13 +489,16 @@ xuheader(FILE *fp, int expected_table, struct value values[])
 	return -1;
     ungetc(ch, fp);
 
+    human = ch == 'c';
     res = -1;
-    if (fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
-	       name, &res) != 1
-	|| res < 0)
-	return gripe("Expected XDUMP header");
+    if ((human
+         ? fscanf(fp, "config%*[ \t]%63[^ \t#\n]%n", name, &res) != 1
+         : fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
+                  name, &res) != 1) || res < 0)
+	return gripe("Expected xdump header");
+
     if (skipfs(fp) != '\n')
-	return gripe("Junk after XDUMP header");
+	return gripe("Junk after xdump header");
 
     type = ef_byname(name);
     if (type < 0)
@@ -510,13 +514,39 @@ xuheader(FILE *fp, int expected_table, struct value values[])
 }
 
 static int
+xucolumnheader(FILE *fp, int type)
+{
+    char ch;
+
+    if (!human)
+	return 0;
+
+    while ((ch = skipfs(fp)) == '\n');
+    ungetc(ch, fp);
+
+    /* FIXME parse column header */
+    if (fscanf(fp, "%*[^\n]\n") == -1)
+	return gripe("Invalid Column Header for table %s",
+	    ef_nameof(type));
+    lineno++;
+
+    return 0;
+}
+
+static int
 xutrailer(FILE *fp, int type, int row)
 {
-    int rows, ch;
+    int rows, ch, res;
 
+    res = -1;
+    if (human) {
+	if (fscanf(fp, "config%n",  &res) != 0) {
+	    return gripe("Malformed table footer");
+	}
+    }
     ch = skipfs(fp);
     if (!isdigit(ch)) {
-        if (ch != '\n')
+        if (ch != '\n' || !human)
 	    return gripe("Malformed table footer");
     } else {
         ungetc(ch, fp);
@@ -557,6 +587,9 @@ xundump(FILE *fp, char *file, int expected_table)
     ep = &empfile[type];
     fixed_rows = has_const(ef_cadef(type));
     need_sentinel = !fixed_rows; /* FIXME only approximation */
+
+    if (xucolumnheader(fp, type) == -1)
+	return -1;
 
     row = 0;
     for (;;) {
