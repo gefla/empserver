@@ -51,16 +51,16 @@ struct ioqueue {
 extern struct ioqueue *ioq_create(int size);
 extern void ioq_destroy(struct ioqueue *ioq);
 extern void ioq_drain(struct ioqueue *ioq);
+#if defined (_WIN32)
+extern int ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen);
+#else
 extern int ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc);
+#endif
 extern int ioq_peek(struct ioqueue *ioq, s_char *buf, int cc);
 extern int ioq_dequeue(struct ioqueue *ioq, int cc);
 extern void ioq_append(struct ioqueue *ioq, s_char *buf, int cc);
 extern int ioq_qsize(struct ioqueue *ioq);
 extern int ioq_gets(struct ioqueue *ioq, s_char *buf, int cc);
 extern int ioq_puts(struct ioqueue *ioq, s_char *buf);
-
-#if defined (_WIN32)
-extern int ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen);
-#endif
 
 #endif
