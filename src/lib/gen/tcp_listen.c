@@ -39,11 +39,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#ifdef _WIN32
+#define WIN32
+#undef NS_ALL
+#include "winsock2.h"
+#else
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#endif
+#include "prototypes.h"
 
 static int cant_listen(char *, char *, const char *);
 
