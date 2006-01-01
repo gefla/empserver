@@ -86,7 +86,7 @@ verify_row(int type, int row)
 			    );
 			continue;
 		    }
-		    for (k = 0; k < sizeof(long) * 8; k++) {
+		    for (k = 0; k < (int)sizeof(long) * 8; k++) {
 			if (val.val_as.lng & (1 << k))
 			    if (!symbol_by_value(1 << k, ef_ptr(ca[i].ca_table, 0))) {
 				fprintf(stderr,
