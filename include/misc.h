@@ -48,9 +48,11 @@ typedef long ssize_t;
 /* integral mismatch, due to misuse of sector short */
 #ifndef __GNUC__
 #pragma warning (disable : 4761 )
+#else
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)<(b)?(a):(b))
 #endif
 
-#include <windef.h>
 #include <io.h>
 
 #define random rand
