@@ -207,16 +207,19 @@ xdvisible(int type, void *p)
 	return ((struct natstr *)p)->nat_stat != 0
 	    && (gp->own == player->cnum || player->god);
     case EF_NEWS:
-	return ((struct nwsstr *)p)->nws_vrb != 0 && !opt_HIDDEN; /* FIXME */
+	return ((struct nwsstr *)p)->nws_vrb != 0
+	    && (!opt_HIDDEN || player->god); /* FIXME */
     case EF_TREATY:
 	return tp->trt_status != TS_FREE
-	    && (tp->trt_cna == player->cnum || tp->trt_cnb == player->cnum);
+	    && (tp->trt_cna == player->cnum || tp->trt_cnb == player->cnum
+		|| player->god);
     case EF_LOAN:
 	if (lp->l_status == LS_FREE)
 	    return 0;
 	if (lp->l_status == LS_SIGNED)
 	    return 1;
-	return lp->l_loner == player->cnum || lp->l_lonee == player->cnum;
+	return lp->l_loner == player->cnum || lp->l_lonee == player->cnum
+	    || player->god;
     case EF_TRADE:
     case EF_COMM:
 	return gp->own != 0;
@@ -228,11 +231,16 @@ xdvisible(int type, void *p)
 	goto tech;
     case EF_LAND_CHR:
 	tlev = ((struct lchrstr *)p)->l_tech;
-	goto tech;
-    case EF_NUKE_CHR:
-	tlev = ((struct nchrstr *)p)->n_tech;
     tech:
 	natp = getnatp(player->cnum);
+	return player->god || tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
+    case EF_NUKE_CHR:
+	tlev = ((struct nchrstr *)p)->n_tech;
+	natp = getnatp(player->cnum);
+	if (opt_DRNUKE)
+	    if (tlev > (int)((int)(1.25 * natp->nat_level[NAT_RLEV])
+			     / drnuke_const))
+		return 0;
 	return tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
     case EF_NEWS_CHR:
 	return ((struct rptstr *)p)->r_newspage != 0;
