@@ -146,7 +146,7 @@ struct natstr {
 /* Coastwatch and skywatch */
 #define FOUND_COAST	3
 
-extern s_char *relates[];
+extern char *relates[];
 
 /* procedures relating to nation stuff */
 
@@ -159,10 +159,10 @@ extern double tfact(natid cn, double mult);
 extern double tfactfire(natid cn, double mult);
 extern double techfact(int level, double mult);
 
-extern s_char *cname(natid n);
-extern s_char *relatename(struct natstr *np, natid other);
-extern s_char *rejectname(struct natstr *np, natid other);
-extern s_char *natstate(struct natstr *np);
+extern char *cname(natid n);
+extern char *relatename(struct natstr *np, natid other);
+extern char *rejectname(struct natstr *np, natid other);
+extern char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int getrejects(natid them, struct natstr *np);
 extern int getcontact(struct natstr *np, natid them);

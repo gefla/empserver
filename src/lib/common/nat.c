@@ -39,13 +39,13 @@
 #include "file.h"
 #include "optlist.h"
 
-s_char *relates[] = {
+char *relates[] = {
     /* must follow nation relation defines in nat.h */
     "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly",
     "Allied"
 };
 
-s_char *
+char *
 cname(natid n)
 {
     struct natstr *np;
@@ -55,16 +55,16 @@ cname(natid n)
     return np->nat_cnam;
 }
 
-s_char *
+char *
 relatename(struct natstr *np, natid other)
 {
     return relates[getrel(np, other)];
 }
 
-s_char *
+char *
 rejectname(struct natstr *np, natid other)
 {
-    s_char *rejects[] = {
+    char *rejects[] = {
 	/* must follow reject flags defined in nat.h */
 	"  YES  YES  YES  YES",
 	"  NO   YES  YES  YES",
@@ -87,7 +87,7 @@ rejectname(struct natstr *np, natid other)
     return rejects[getrejects(other, np)];
 }
 
-s_char *
+char *
 natstate(struct natstr *np)
 {
     if ((np->nat_stat & STAT_INUSE) == 0)
