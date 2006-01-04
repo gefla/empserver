@@ -172,10 +172,10 @@ powe(void)
 	out5(pow.p_units, 10, round_flag);
 	out5(pow.p_money, 5000, round_flag);
 	pr("\n");
-	if (player->god != 0 && !no_numbers)
+	if (player->god && !no_numbers)
 	    pr("%9.2f\n", pow.p_power);
     }
-    if (((player->god != 0) && opt_HIDDEN) || !opt_HIDDEN) {
+    if (!opt_HIDDEN || player->god) {
 	pr("          ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n");
 	getpower(0, &pow);
 	pr("worldwide");
