@@ -185,6 +185,8 @@ struct empfile empfile[] = {
      PTR_CACHE(plague_stages, EFF_CFG)},
     {EF_PACKING, "packing", NULL, symbol_ca, PTR_CACHE(packing, EFF_CFG)},
     {EF_RESOURCES, "resources", NULL, symbol_ca, PTR_CACHE(resources, EFF_CFG)},
+    {EF_NATION_STATUS, "nation-status", NULL, symbol_ca,
+     PTR_CACHE(nation_status, EFF_CFG)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},

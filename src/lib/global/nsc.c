@@ -486,7 +486,7 @@ struct castr trade_ca[] = {
 struct castr nat_ca[] = {
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
     {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
-     EF_BAD /* FIXME */},
+     EF_NATION_STATUS},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
@@ -691,6 +691,15 @@ struct symbol retreat_flags[] = {
     {RET_DCHRGED, "depth-charged"},
     {RET_BOARDED, "boarded"},
     {0, NULL}
+};
+
+struct symbol nation_status[] = {
+    {STAT_UNUSED, "unused"},
+    {STAT_NEW,	"new"},
+    {STAT_VIS, "visitor"},
+    {STAT_SANCT, "sanctuary"},
+    {STAT_ACTIVE, "active"},
+    {STAT_GOD, "deity"}
 };
 
 struct symbol nation_flags[] = {
