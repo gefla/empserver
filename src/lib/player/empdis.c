@@ -127,20 +127,18 @@ explain(void)
     register s_char *format;
     register int i;
 
-    pr("\t\tCurrent EMPIRE Command List\n");
-    pr("\t\t------- ------ ------- ----\n");
-    pr("Initial number is cost in B.T.U. units.\n");
-    pr("Next 2 chars (if present) are:\n");
-    pr("$ - must be non-broke\tc -- must have capital\n");
-    pr("Args in [brackets] are optional.\n");
-    if (player->nstat > 4) {
-	pr("All-caps args in <angle brackets>");
-	pr(" have the following meanings:\n");
-	pr("  <NUM> :: a number in unspecified units\n");
-	pr("  <COMM> :: a commodity such as `food', `guns', etc\n");
-	pr("  <VAR> :: a commodity such as `food', `guns', etc\n");
-	pr("  <TYPE> :: an item type such as `ship', `plane', etc\n");
-    }
+    pr("\t\tCurrent EMPIRE Command List\n"
+       "\t\t------- ------ ------- ----\n"
+       "Initial number is cost in B.T.U. units.\n"
+       "Next 2 chars (if present) are:\n"
+       "$ - must be non-broke\tc -- must have capital\n"
+       "Args in [brackets] are optional.\n"
+       "All-caps args in <angle brackets>"
+       " have the following meanings:\n"
+       "  <NUM> :: a number in unspecified units\n"
+       "  <COMM> :: a commodity such as `food', `guns', etc\n"
+       "  <VAR> :: a commodity such as `food', `guns', etc\n"
+       "  <TYPE> :: an item type such as `ship', `plane', etc\n");
     for (i = 0; (format = player_coms[i].c_form) != 0; i++) {
 	if ((player_coms[i].c_permit & player->ncomstat) ==
 	    player_coms[i].c_permit) {
