@@ -243,7 +243,8 @@ status(void)
 	player->lasttime += minute * 60;
 	natp->nat_minused += minute;
     }
-    if ((player->nstat & NORM) && natp->nat_minused > m_m_p_d) {
+    if ((player->nstat & STAT_NORM) && !player->god
+	&& natp->nat_minused > m_m_p_d) {
 	pr("Max minutes per day limit exceeded.\n");
 	player->ncomstat = VIS;
     }
