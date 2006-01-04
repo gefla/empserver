@@ -79,6 +79,7 @@ extern s_char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, int *);
 extern void trdswitchown(int, int *, int);
+/* Commands */
 int acce(void);
 int add(void);
 int anti(void);
@@ -172,7 +173,6 @@ int newe(void);
 int news(void);
 int nuke(void);
 int offe(void);
-int offs(void);
 int orde(void);
 int orig(void);
 int para(void);
@@ -429,7 +429,7 @@ extern void log_last_commands(void);
 extern int gamedown(void);
 extern void daychange(time_t);
 extern int getminleft(time_t, int);
-/* more in commands.h */
+/* more under Commands */
 /* empmod.c */
 /* init_nats.c */
 extern int init_nats(void);
@@ -444,7 +444,7 @@ extern char *praddr(struct player *);
 extern void player_main(struct player *);
 extern int match_user(char *, struct player *);
 extern int command(void);
-/* more in commands.h */
+/* more under Commands */
 /* recvclient.c */
 extern int recvclient(char *, int);
 
@@ -601,7 +601,7 @@ extern void pr(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 extern void uprnf(char *buf);
 extern void pr_id(struct player *, int, char *, ...)
 		ATTRIBUTE((format (printf, 3, 4)));
-extern void pr_flash(struct player *, char *format, ...)
+extern void pr_flash(struct player *, char *, ...)
 		ATTRIBUTE((format (printf, 2, 3)));
 extern void pr_inform(struct player *, char *, ...)
 		ATTRIBUTE((format (printf, 2, 3)));

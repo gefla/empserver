@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Shelley Louie, 1988
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -44,25 +45,46 @@
 int
 orig(void)
 {
-    struct sctstr sect;
     s_char *p;
     coord x, y;
     s_char buf[1024];
+    natid cnum;
     struct natstr *np;
 
-    if ((p =
-	 getstarg(player->argp[1], "New origin location : ", buf)) == 0) {
+    p = getstarg(player->argp[1], "New origin (sector or country) : ", buf);
+    if (!p)
 	return RET_SYN;
+    if (!isalpha(*p) && strchr(p, ',')) {
+	/* sector */
+	if (!sarg_xy(p, &x, &y)) {
+	    pr("Bad sector designation.\n");
+	    return RET_SYN;
+	}
+    } else if (*p == '~') {
+	/* reset */
+	if (!player->god) {
+	    pr("Only deities can reset their origin.\n");
+	    return RET_FAIL;
+	}
+	x = y = 0;
+    } else {
+	/* country */
+	cnum = natarg(p, NULL);
+	if (!(np = getnatp(cnum)))
+	    return RET_SYN;
+	if (!player->god && player->cnum != cnum
+	    && getrel(np, player->cnum) != ALLIED) {
+	    pr("Country %s is not allied with you!\n", np->nat_cnam);
+	    return RET_FAIL;
+	}
+	x = np->nat_xorg;
+	y = np->nat_yorg;
     }
-    if (!sarg_xy(p, &x, &y))
-	return RET_SYN;
-    if (!getsect(x, y, &sect))
-	return RET_SYN;
     pr("Origin at %s (old system) is now at 0,0 (new system).\n",
-       xyas(sect.sct_x, sect.sct_y, player->cnum));
+       xyas(x, y, player->cnum));
     np = getnatp(player->cnum);
-    np->nat_xorg = sect.sct_x;
-    np->nat_yorg = sect.sct_y;
+    np->nat_xorg = x;
+    np->nat_yorg = y;
     putnat(np);
     return RET_OK;
 }
