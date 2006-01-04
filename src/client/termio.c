@@ -61,7 +61,8 @@ termio(int fd, int sock, FILE *auxfi)
 #ifdef _WIN32
     char c;
     INPUT_RECORD InpBuffer[2];
-    int err;
+    int ret;
+    DWORD records;
 #endif
 
     i = strlen(buf);
@@ -73,13 +74,34 @@ termio(int fd, int sock, FILE *auxfi)
  * events for the same key.  Thus, we only want to grab keydown
  * events. */
     if (fd == -1) {
-	err = PeekConsoleInput(hStdIn, InpBuffer, 1, &n);
+	ret = PeekConsoleInput(hStdIn, InpBuffer, 1, &records);
+	if (!ret) {
+	    fprintf(stderr, "Error peeking the console input (%lu)\n",
+		GetLastError());
+	    return 0;
+	}
+	if (records == 0)
+	    return 0;
 	if (InpBuffer[0].EventType != KEY_EVENT) {
-	    ReadConsoleInput(hStdIn, InpBuffer, 1, &n);
+	    ret = ReadConsoleInput(hStdIn, InpBuffer, 1, &records);
+	    if (!ret) {
+		fprintf(stderr, "Error reading the console input (%lu)\n",
+		    GetLastError());
+		return 0;
+	    }
+	    if (records == 0)
+		return 0;
 	    return 1;
 	}
 	if (!InpBuffer[0].Event.KeyEvent.bKeyDown) {
-	    ReadConsoleInput(hStdIn, InpBuffer, 1, &n);
+	    ret = ReadConsoleInput(hStdIn, InpBuffer, 1, &records);
+	    if (!ret) {
+		fprintf(stderr, "Error reading the console input (%lu)\n",
+		    GetLastError());
+		return 0;
+	    }
+	    if (records == 0)
+		return 0;
 	    return 1;
 	}
 	c = InpBuffer[0].Event.KeyEvent.uChar.AsciiChar;
@@ -89,9 +111,14 @@ termio(int fd, int sock, FILE *auxfi)
 	n = 1;
 	p[0] = c;
 	p[1] = '\0';
-	if (c != 10)
-	    ReadConsole(hStdIn, p, sizeof(buf) - i, &n, NULL);
-	else
+	if (c != 10) {
+	    ret = ReadConsole(hStdIn, p, sizeof(buf) - i, &records, NULL);
+	    if (!ret) {
+		fprintf(stderr, "Error reading the console (%lu)\n",
+		    GetLastError());
+		return 0;
+	    }
+	} else
 	    putchar(c);
 /* Strip off the CRLF to just LF */
 	if (n > 1) {
@@ -102,7 +129,9 @@ termio(int fd, int sock, FILE *auxfi)
 	    }
 	}
 	FlushConsoleInputBuffer(hStdIn);
-	if (n == 0) return 1;
+	if (records == 0)
+	    return 0;
+	n = records;
     } else if (fd == 0) {
 	if (feof(stdin)) {
 	    sendeof(sock);
