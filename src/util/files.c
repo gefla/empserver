@@ -136,7 +136,7 @@ main(int argc, char *argv[])
     nat.ef_type = EF_NATION;
     strcpy(nat.nat_cnam, "POGO");
     strcpy(nat.nat_pnam, "peter");
-    nat.nat_stat = STAT_INUSE | STAT_NORM | STAT_GOD | STAT_ABS;
+    nat.nat_stat = STAT_INUSE | STAT_NORM | STAT_GOD;
     nat.nat_btu = 255;
     nat.nat_money = 123456789;
     nat.nat_cnum = 0;

@@ -69,11 +69,7 @@ xrel(struct natstr *np, coord absx)
 {
     coord x;
 
-    if ((np->nat_stat & STAT_ABS) == 0) {
-	x = XNORM(absx - np->nat_xorg);
-    } else {
-	x = XNORM(absx);
-    }
+    x = XNORM(absx - np->nat_xorg);
     if (x >= WORLD_X / 2)
 	x -= WORLD_X;
     else if (x < -WORLD_X / 2)
@@ -86,11 +82,7 @@ yrel(struct natstr *np, coord absy)
 {
     coord y;
 
-    if ((np->nat_stat & STAT_ABS) == 0) {
-	y = YNORM(absy - np->nat_yorg);
-    } else {
-	y = YNORM(absy);
-    }
+    y = YNORM(absy - np->nat_yorg);
     if (y >= WORLD_Y / 2)
 	y -= WORLD_Y;
     else if (y < -WORLD_Y / 2)
@@ -161,16 +153,14 @@ strtoy(char *str, char **end)
 coord
 xabs(struct natstr *np, coord relx)
 {
-    if ((np->nat_stat & STAT_ABS) == 0)
-	relx += np->nat_xorg;
+    relx += np->nat_xorg;
     return XNORM(relx);
 }
 
 coord
 yabs(struct natstr *np, coord rely)
 {
-    if ((np->nat_stat & STAT_ABS) == 0)
-	rely += np->nat_yorg;
+    rely += np->nat_yorg;
     return YNORM(rely);
 }
 

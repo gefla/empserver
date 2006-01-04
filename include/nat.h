@@ -97,7 +97,6 @@ struct natstr {
 #define STAT_SANCT	bit(1)	/* country in sanctuary */
 #define STAT_NORM	bit(2)	/* normal country */
 #define STAT_GOD	bit(3)	/* deity powers */
-#define STAT_ABS	bit(4)	/* abs coords */
 #define STAT_NEW	bit(5)	/* just initialized */
 
 	/* Update fields. */
