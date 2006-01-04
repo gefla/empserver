@@ -59,7 +59,7 @@ coun(void)
     pr("  #   last access                         %sstatus     country name\n",
        player->god ? "BTU  " : "");
     while (nxtitem(&ni, &nat)) {
-	if ((nat.nat_stat & STAT_INUSE) == 0)
+	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	coun_list(&nat);
     }
@@ -76,7 +76,7 @@ coun_list(struct natstr *natp)
 
     if (getplayer(cn)
 	&& (player->god
-	    || (natp->nat_stat & STAT_GOD)
+	    || natp->nat_stat == STAT_GOD
 	    || cn == player->cnum || getrel(natp, player->cnum) == ALLIED))
         pr(" Now logged on                     ");
     else if (player->god) {
@@ -94,13 +94,13 @@ coun_list(struct natstr *natp)
     if (player->god)
 	pr(" %4d", natp->nat_btu);
 
-    if (natp->nat_stat & STAT_GOD)
+    if (natp->nat_stat == STAT_GOD)
 	status = "DEITY";
-    else if (natp->nat_stat & STAT_NEW)
+    else if (natp->nat_stat == STAT_NEW)
 	status = "New";
-    else if (natp->nat_stat & STAT_SANCT)
+    else if (natp->nat_stat == STAT_SANCT)
 	status = "Sanctuary";
-    else if (natp->nat_stat & STAT_NORM) {
+    else if (natp->nat_stat == STAT_ACTIVE) {
 	status = "Active";
 	if (!opt_HIDDEN || player->god) {
 	    if (influx(natp))

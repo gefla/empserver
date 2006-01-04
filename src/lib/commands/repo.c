@@ -78,7 +78,7 @@ repo(void)
     natp = getnatp(player->cnum);
     memset(&mystat, 0, sizeof(struct stats));
     mystat.stat = natp->nat_stat;
-    if (mystat.stat & STAT_NORM) {
+    if (mystat.stat >= STAT_ACTIVE) {
 	mystat.res = natp->nat_level[NAT_RLEV];
 	mystat.tech = natp->nat_level[NAT_TLEV];
 	mystat.edu = natp->nat_level[NAT_ELEV];
@@ -91,7 +91,7 @@ repo(void)
 	first = 1;
     }
     while (nxtitem(&ni, &nat)) {
-	if (!(nat.nat_stat & STAT_INUSE))
+	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	if (opt_HIDDEN) {
 	    if (!player->god && !getcontact(getnatp(player->cnum), ni.cur))
@@ -132,8 +132,7 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap, player->cnum);
 	return;
     }
-    switch (natp->nat_stat & (STAT_NORM | STAT_GOD | STAT_NEW | STAT_SANCT)) {
-    case STAT_NORM:
+    if (natp->nat_stat == STAT_ACTIVE) {
 	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);
 	printdiff(stat->stat, stat->tech, natp, NAT_TLEV);
 	printdiff(stat->stat, stat->res, natp, NAT_RLEV);
@@ -149,19 +148,6 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	    else
 		pr("Active\n");
 	}
-	break;
-    case STAT_SANCT:
-	break;
-    case STAT_NEW:
-    case 0:
-	break;
-    case STAT_SANCT | STAT_NORM | STAT_GOD:
-    case STAT_NORM | STAT_GOD:
-    case STAT_GOD:
-	break;
-    default:
-	pr("????        ????        ????        ????\n");
-	break;
     }
 }
 
@@ -177,7 +163,7 @@ printdiff(int mystat, double ours, struct natstr *natp, int what)
 	pr(" %7.2f    ", ours);
 	return;
     }
-    if (ours && mystat & STAT_NORM && natp->nat_stat & STAT_NORM) {
+    if (ours && mystat >= STAT_ACTIVE && natp->nat_stat >= STAT_ACTIVE) {
 	theirs = natp->nat_level[what];
 	if ((shift = min((int)theirs, (int)ours) - 100) > 0) {
 	    ours -= shift;

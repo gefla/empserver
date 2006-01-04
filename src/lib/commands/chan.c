@@ -61,7 +61,7 @@ chan(void)
 		  buf)) == 0)
 	return RET_SYN;
     us = getnatp(player->cnum);
-    if (us->nat_stat == VIS) {
+    if (us->nat_stat == STAT_VIS) {
 	pr("Visitor countries can't change their country name or representative.\n");
 	return RET_FAIL;
     }
@@ -70,7 +70,7 @@ chan(void)
     case 'c':
 	charge = 0;
 	btucost = 0;
-	if (!player->god && (us->nat_stat & STAT_NORM)) {
+	if (us->nat_stat == STAT_ACTIVE) {
 	    if (opt_BLITZ == 0) {
 		if (us->nat_btu < 254) {
 		    pr("You need 254 btus to change your country name!\n");

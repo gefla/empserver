@@ -103,8 +103,7 @@ tele(void)
 	    }
 
 	    natp = getnatp(to);
-	    if (((natp->nat_stat & STAT_NORM) == 0) &&
-		((natp->nat_stat & STAT_SANCT) == 0)) {
+	    if (natp->nat_stat < STAT_SANCT) {
 		pr("%s has no \"telegram priveleges\".\n", cname(to));
 		kk++;
 		continue;
@@ -119,8 +118,8 @@ tele(void)
 		return RET_FAIL;
 	    }
 
-	    if (!player->god &&
-		(natp->nat_stat & GOD) != GOD && player->cnum != to)
+	    if (!player->god && natp->nat_stat != STAT_GOD
+		&& player->cnum != to)
 		nreport(player->cnum, N_SENT_TEL, to, 1);
 	    if (opt_HIDDEN) {
 		setcont(to, player->cnum, FOUND_TELE);

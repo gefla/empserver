@@ -68,7 +68,7 @@ natarg(s_char *arg, s_char *prompt)
 	if (!player->god && !getcontact(getnatp(player->cnum), n)) {
 	    if ((np = getnatp(n)) == 0)
 		return -1;
-	    if ((np->nat_stat & STAT_GOD) == 0) {
+	    if (np->nat_stat != STAT_GOD) {
 		if (byname) {
 		    pr("No such country exists.\n");
 		    n = -1;

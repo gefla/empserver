@@ -54,13 +54,7 @@ age_levels(int etu)
     best_tech = 0.0;
     best_res = 0.0;
     for (i = 0; NULL != (np = getnatp(i)); i++) {
-	if ((np->nat_stat & STAT_NORM) == 0)
-	    continue;
-
-	if (np->nat_stat & STAT_GOD)
-	    continue;
-
-	if (np->nat_stat == VIS)
+	if (np->nat_stat != STAT_ACTIVE)
 	    continue;
 
 	if (best_tech < np->nat_level[NAT_TLEV])
@@ -85,11 +79,11 @@ age_levels(int etu)
     best_tech /= 5;
     best_res /= 5;
     for (i = 0; NULL != (np = getnatp(i)); i++) {
-	if ((np->nat_stat & STAT_INUSE) == 0)
+	if (np->nat_stat == STAT_UNUSED)
 	    continue;
-	if (np->nat_stat & STAT_GOD)
+	if (np->nat_stat == STAT_GOD)
 	    continue;
-	if (np->nat_stat == VIS)
+	if (np->nat_stat == STAT_VIS)
 	    continue;
 	level = np->nat_level[NAT_TLEV];
 	if (level < best_tech && chance(0.2))

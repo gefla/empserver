@@ -49,12 +49,16 @@ static int nat_cap(int);
 int
 init_nats(void)
 {
+    static int nstat[] = {
+	/* must match nat_status */
+	0, VIS, VIS, SANCT, NORM, GOD
+    };
     struct natstr *np;
 
     if ((np = getnatp(player->cnum)) == 0)
 	return -1;
-    player->nstat = np->nat_stat;
-    player->god = np->nat_stat & STAT_GOD;
+    player->nstat = nstat[np->nat_stat];
+    player->god = np->nat_stat == STAT_GOD;
     player->map = ef_ptr(EF_MAP, player->cnum);
     player->bmap = ef_ptr(EF_BMAP, player->cnum);
     if (opt_HIDDEN) {
@@ -86,7 +90,7 @@ nat_cap(int btu)
 		 np->nat_cnam, np->nat_xcap, np->nat_ycap);
 	return -1;
     }
-    if ((player->nstat & NORM) == NORM) {
+    if (np->nat_stat >= STAT_ACTIVE) {
 	if (influx(np))
 	    player->nstat &= ~CAP;
 	else
@@ -110,7 +114,7 @@ nat_cap(int btu)
 	else
 	    np->nat_btu += delta;
     }
-    if (np->nat_stat == VIS)
+    if (np->nat_stat == STAT_VIS)
 	np->nat_btu = max_btus;
     putnat(np);
     return 0;

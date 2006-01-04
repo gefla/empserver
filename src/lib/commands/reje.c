@@ -89,13 +89,7 @@ reje(void)
     if (!snxtitem(&ni, EF_NATION, player->argp[3]))
 	return RET_SYN;
     while (nxtitem(&ni, &nat)) {
-#if 0
-	if ((nat.nat_stat & STAT_NORM) == 0) {
-	    pr("You may not reject/accept stuff from %s\nbecause they are not a normal country.\n", nat.nat_cnam);
-	    continue;
-	}
-#endif
-	if (nat.nat_stat & STAT_GOD) {
+	if (nat.nat_stat == STAT_GOD) {
 	    pr("You may not reject/accept stuff from %s\nbecause they are a deity.\n", nat.nat_cnam);
 	    continue;
 	}

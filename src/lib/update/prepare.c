@@ -89,11 +89,11 @@ prepare_sects(int etu, int *bp)
 	np = getnatp(sp->sct_own);
 
 #ifdef DEBUG
-	if (np->nat_stat & STAT_SANCT)
+	if (np->nat_stat == STAT_SANCT)
 	    logerror("Prepare.c: country in sanctuary skipped production");
 #endif /* DEBUG */
 
-	if (!(np->nat_stat & STAT_SANCT)) {
+	if (np->nat_stat != STAT_SANCT) {
 	    guerrilla(sp);
 	    do_plague(sp, np, etu);
 	    tax(sp, np, etu, &pops[sp->sct_own], &civ_tax, &uw_tax,

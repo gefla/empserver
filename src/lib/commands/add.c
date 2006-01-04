@@ -68,7 +68,7 @@ add(void)
     struct lndstr land;
 
     for (freecn = 0; NULL != (natp = getnatp(freecn)); freecn++) {
-	if ((natp->nat_stat & STAT_INUSE) == 0)
+	if (natp->nat_stat == STAT_UNUSED)
 	    break;
     }
     if (freecn < MAXNOC)
@@ -111,19 +111,19 @@ add(void)
 	return RET_SYN;
     switch (*p) {
     case 'v':
-	stat = STAT_INUSE;
+	stat = STAT_VIS;
 	break;
     case 'n':
-	stat = STAT_NEW | STAT_INUSE;
+	stat = STAT_NEW;
 	break;
     case 'a':
-	stat = STAT_NORM | STAT_INUSE;
+	stat = STAT_ACTIVE;
 	break;
     case 'g':
-	stat = STAT_GOD | STAT_NORM | STAT_INUSE;
+	stat = STAT_GOD;
 	break;
     case 'd':
-	stat = 0;
+	stat = STAT_UNUSED;
 	break;
     default:
 	pr("Illegal status\n");
@@ -189,8 +189,7 @@ add(void)
 	}
     }
 
-    if ((natp->nat_stat & (STAT_INUSE | STAT_NORM | STAT_GOD)) ==
-	STAT_INUSE) {
+    if (natp->nat_stat == STAT_NEW || natp->nat_stat == STAT_VIS) {
 	*natp->nat_hostaddr = '\0';
 	*natp->nat_hostname = '\0';
 	*natp->nat_userid = '\0';

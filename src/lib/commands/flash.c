@@ -58,18 +58,17 @@ flash(void)
 	return RET_SYN;
     }
 
-    if (us->nat_stat & STAT_GOD) {
+    if (us->nat_stat == STAT_GOD) {
 	/* We are gods, we can flash anyone */
-    } else if (us->nat_stat == VIS) {
+    } else if (us->nat_stat == STAT_VIS) {
 	/* We are a visitor.  We can only flash the gods. :) */
-	if (!(to->nat_stat & STAT_GOD)) {
+	if (to->nat_stat != STAT_GOD) {
 	    pr("Visitors can only flash the gods.\n");
 	    return RET_SYN;
 	}
     } else {
 	/* Ok, we are a normal country, can we flash them? */
-	if ((!(to->nat_stat & STAT_GOD)) &&
-	    (getrel(to, player->cnum) < FRIENDLY)) {
+	if (to->nat_stat != STAT_GOD && getrel(to, player->cnum) < FRIENDLY) {
 	    pr("%s is not a deity or friendly with us.\n", to->nat_cnam);
 	    return RET_SYN;
 	}

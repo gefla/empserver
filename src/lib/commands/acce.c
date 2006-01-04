@@ -78,8 +78,7 @@ acce(void)
 	    break;
 	if (cn == as)
 	    continue;
-	if ((np->nat_stat & STAT_NORM) == 0 &&
-	    (np->nat_stat & STAT_SANCT) == 0)
+	if (np->nat_stat < STAT_SANCT)
 	    continue;
 	if (opt_HIDDEN) {
 	    if (!player->god && !getcontact(getnatp(player->cnum), cn))

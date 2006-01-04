@@ -204,7 +204,7 @@ xdvisible(int type, void *p)
     case EF_LOST:
 	return gp->own != 0 && (gp->own == player->cnum || player->god);
     case EF_NATION:
-	return ((struct natstr *)p)->nat_stat != 0
+	return ((struct natstr *)p)->nat_stat != STAT_UNUSED
 	    && (gp->own == player->cnum || player->god);
     case EF_NEWS:
 	return ((struct nwsstr *)p)->nws_vrb != 0

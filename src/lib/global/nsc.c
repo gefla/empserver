@@ -485,7 +485,8 @@ struct castr trade_ca[] = {
 
 struct castr nat_ca[] = {
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_CHAR, NSC_BITS, 0, fldoff(natstr, nat_stat), "stat", EF_BAD /* FIXME */},
+    {NSC_CHAR, NSC_SITYPE(nat_status), 0, fldoff(natstr, nat_stat), "stat",
+     EF_BAD /* FIXME */},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},

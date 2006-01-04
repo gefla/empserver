@@ -86,7 +86,7 @@ player_main(struct player *p)
     }
     if (!gamehours(player->curup)) {
 	pr("Empire hours restriction in force\n");
-	if ((natp->nat_stat & STAT_GOD) == 0)
+	if (natp->nat_stat != STAT_GOD)
 	    return;
     }
     daychange(player->curup);
@@ -94,7 +94,7 @@ player_main(struct player *p)
 	pr("Time exceeded today\n");
 	return;
     }
-    if (natp->nat_stat != VIS
+    if (natp->nat_stat != STAT_VIS
 	&& natp->nat_last_login
 	&& (strcmp(natp->nat_hostaddr, player->hostaddr)
 	    || strcmp(natp->nat_userid, player->userid))) {
@@ -186,7 +186,7 @@ status(void)
 	putnat(natp);
 	return 0;
     }
-    player->visitor = (natp->nat_stat & (STAT_NORM | STAT_GOD)) == 0;
+    player->visitor = natp->nat_stat < STAT_SANCT;
     if (player->dolcost != 0.0) {
 	if (player->dolcost > 100.0)
 	    pr("That just cost you $%.2f\n", player->dolcost);
@@ -233,7 +233,7 @@ status(void)
 	    daychange(player->curup);
 	    if (!gamehours(player->curup)) {
 		pr("Empire hours restriction in force\n");
-		if ((natp->nat_stat & STAT_GOD) == 0) {
+		if (natp->nat_stat != STAT_GOD) {
 		    putnat(natp);
 		    return 0;
 		}
@@ -243,8 +243,7 @@ status(void)
 	player->lasttime += minute * 60;
 	natp->nat_minused += minute;
     }
-    if ((player->nstat & STAT_NORM) && !player->god
-	&& natp->nat_minused > m_m_p_d) {
+    if (natp->nat_stat == STAT_ACTIVE && natp->nat_minused > m_m_p_d) {
 	pr("Max minutes per day limit exceeded.\n");
 	player->ncomstat = VIS;
     }

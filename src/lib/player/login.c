@@ -152,7 +152,7 @@ sanc_cmd(void)
 
     snxtitem_all(&ni, EF_NATION);
     while (nxtitem(&ni, &nat)) {
-	if (nat.nat_stat != (STAT_INUSE | STAT_SANCT))
+	if (nat.nat_stat != STAT_SANCT)
 	    continue;
 	if (first) {
 	    pr_id(player, C_DATA,
@@ -293,7 +293,7 @@ play_cmd(void)
     other = getplayer((natid)player->cnum);
     if (other) {
 	natp = getnatp(player->cnum);
-	if (natp->nat_stat != VIS) {
+	if (natp->nat_stat != STAT_VIS) {
 	    pr_id(player, C_EXIT, "country in use by %s\n", praddr(other));
 	} else {
 	    pr_id(player, C_EXIT, "country in use\n");
@@ -331,7 +331,7 @@ kill_cmd(void)
 	return RET_FAIL;
     }
     np = getnatp(player->cnum);
-    if (np->nat_stat & STAT_GOD && !match_user(authfil, player)) {
+    if (np->nat_stat == STAT_GOD && !match_user(authfil, player)) {
 	logerror("NON-AUTHed Login attempted by %s", praddr(player));
 	pr_id(player, C_EXIT, "You're not a deity!\n");
 	return RET_FAIL;

@@ -213,7 +213,7 @@ guerrilla(struct sctstr *sp)
 	return;
     }
     tnat = getnatp(target);
-    if ((tnat->nat_stat & STAT_INUSE) == 0) {
+    if (tnat->nat_stat == STAT_UNUSED) {
 	/* target nation has dissolved: che's retire.  */
 	logerror("%d Che targeted at country %d retiring", che, target);
 	sp->sct_che = 0;

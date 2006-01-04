@@ -74,7 +74,7 @@ nati(void)
     prdate();
     pr("Nation status is %s", natstate(natp));
     pr("     Bureaucratic Time Units: %d\n", natp->nat_btu);
-    if (natp->nat_stat & STAT_INUSE) {
+    if (natp->nat_stat != STAT_UNUSED) {
 	getsect(natp->nat_xcap, natp->nat_ycap, &sect);
 	if (influx(natp))
 	    pr("No capital (was at %s).\n",

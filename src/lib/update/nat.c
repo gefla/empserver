@@ -140,7 +140,7 @@ prod_nat(int etu)
     struct natstr *cnp;
 
     for (n = 0; NULL != (np = getnatp(n)); n++) {
-	if ((np->nat_stat & STAT_NORM) == 0)
+	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
 	/*
 	 * hap_edu: the more education people have, the
@@ -190,7 +190,7 @@ prod_nat(int etu)
 	memset(tech, 0, sizeof(tech));
     }
     for (n = 0; NULL != (np = getnatp(n)); n++) {
-	if ((np->nat_stat & STAT_NORM) == 0)
+	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
 	tlev = levels[n][NAT_TLEV];
 	rlev = levels[n][NAT_RLEV];
@@ -241,21 +241,21 @@ share_incr(double *res, double *tech)
 
     for (i = 0; NULL != (np = getnatp(i)); i++) {
 	res[i] = tech[i] = 0.0;
-	if ((np->nat_stat & STAT_INUSE) == 0)
+	if (np->nat_stat == STAT_UNUSED)
 	    continue;
-	if (np->nat_stat & STAT_GOD)
+	if (np->nat_stat == STAT_GOD)
 	    continue;
-	if (np->nat_stat == VIS)
+	if (np->nat_stat == STAT_VIS)
 	    continue;
 	rnc = tnc = 0;
 	for (j = 0; NULL != (other = getnatp(j)); j++) {
 	    if (j == i)
 		continue;
-	    if (other->nat_stat & STAT_GOD)
+	    if (other->nat_stat == STAT_GOD)
 		continue;
-	    if (other->nat_stat == VIS)
+	    if (other->nat_stat == STAT_VIS)
 		continue;
-	    if ((other->nat_stat & STAT_INUSE) == 0)
+	    if (other->nat_stat == STAT_UNUSED)
 		continue;
 	    if (opt_HIDDEN) {
 		if (!getcontact(np, j))

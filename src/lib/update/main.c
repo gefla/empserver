@@ -120,7 +120,7 @@ update_main(void *unused)
 	mil_dbl_pay = 0;
 	if ((np = getnatp(x)) == (struct natstr *)0)
 	    continue;
-	if (np->nat_stat & STAT_SANCT) {
+	if (np->nat_stat == STAT_SANCT) {
 #ifdef DEBUG
 	    logerror("Country %i is in sanctuary and did not update", x);
 #endif

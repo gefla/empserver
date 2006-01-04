@@ -99,7 +99,7 @@ cede(void)
 	return RET_FAIL;
     }
     natp = getnatp(n);
-    if (natp->nat_stat & STAT_GOD) {
+    if (natp->nat_stat == STAT_GOD) {
 	pr("You can only give to normal countries...\n");
 	return RET_FAIL;
     }

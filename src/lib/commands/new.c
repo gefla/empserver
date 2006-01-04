@@ -80,7 +80,7 @@ new(void)
     }
     num = n;
     natp = getnatp(num);
-    if ((natp->nat_stat & STAT_NEW) == 0) {
+    if (natp->nat_stat != STAT_NEW) {
 	pr("Country #%d (%s) isn't a new country!\n", num, cname(num));
 	return RET_SYN;
     }
@@ -180,8 +180,7 @@ new(void)
     sect.sct_item[I_UW] = 75;
     putsect(&sect);
     natp->nat_btu = max_btus;
-    natp->nat_stat &= ~STAT_NEW;
-    natp->nat_stat |= STAT_SANCT;
+    natp->nat_stat = STAT_SANCT;
     natp->nat_xcap = x;
     natp->nat_ycap = y;
     natp->nat_xorg = x;

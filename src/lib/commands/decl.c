@@ -102,7 +102,7 @@ decl(void)
 
     natp = getnatp(who);
     while (nxtitem(&ni, &nat)) {
-	if (!(nat.nat_stat & STAT_INUSE))
+	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	if (player->cnum == (natid)ni.cur)
 	    continue;

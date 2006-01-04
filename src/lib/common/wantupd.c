@@ -129,8 +129,7 @@ demand_update_want(int *want, int *pop, int which)
     for (cn = 1; 0 != (natp = getnatp(cn)); cn++) {
 	/* Only countries which are normal. */
 	/* Should probably include sanctuaries ..... */
-	if (((natp->nat_stat & NORM) == NORM) &&
-	    ((natp->nat_stat & GOD) != GOD)) {
+	if (natp->nat_stat == STAT_ACTIVE) {
 	    totpop++;
 	    if ((natp->nat_update & WUPD_WANT) == WUPD_WANT) {
 		totwant++;
@@ -175,8 +174,7 @@ demand_check(void)
 
     veto = 0;
     for (cn = 1; 0 != (natp = getnatp(cn)); cn++) {
-	if (((natp->nat_stat & NORM) == NORM) &&
-	    ((natp->nat_stat & GOD) != GOD)) {
+	if (natp->nat_stat == STAT_ACTIVE) {
 	    if (natp->nat_missed >= update_missed)
 		veto = cn;
 	}

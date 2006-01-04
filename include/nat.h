@@ -40,6 +40,20 @@
 
 #define	MAXNOR		50	/* max # realms */
 
+/* Nation status */
+typedef enum {
+    /*
+     * Don't change order without checking inequality comparisons and
+     * array initializers!
+     */
+    STAT_UNUSED,		/* not in use */
+    STAT_NEW,			/* just initialized */
+    STAT_VIS,			/* visitor */
+    STAT_SANCT,			/* still in sanctuary */
+    STAT_ACTIVE,		/* active (sanctuary broken) */
+    STAT_GOD			/* deity powers */
+} nat_status;
+
 enum {				/* Priorities */
     /* sector types are also priorities */
     PRI_SMAINT = SCT_MAXDEF+1,	/* ship maintenance */
@@ -61,7 +75,7 @@ struct natstr {
     short ef_type;
     natid nat_cnum;		/* our country number */
     /* end of part matching struct genitem */
-    s_char nat_stat;		/* inuse, norm, god, abs */
+    nat_status nat_stat;
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
     char nat_hostaddr[32];	/* host addr of last user */
@@ -92,21 +106,14 @@ struct natstr {
     char nat_spare[15];
 };
 
-	/* nation status types */
-#define STAT_INUSE	bit(0)	/* cnum in use */
-#define STAT_SANCT	bit(1)	/* country in sanctuary */
-#define STAT_NORM	bit(2)	/* normal country */
-#define STAT_GOD	bit(3)	/* deity powers */
-#define STAT_NEW	bit(5)	/* just initialized */
-
 	/* Update fields. */
 #define	WUPD_WANT	bit(0)
 
 	/* nstat values */
-#define VIS		STAT_INUSE
-#define	NORM		(STAT_INUSE|STAT_NORM)
-#define	GOD		(STAT_INUSE|STAT_GOD)
-#define	SANCT		(STAT_INUSE|STAT_SANCT)
+#define VIS		bit(0)
+#define SANCT		(bit(1) | VIS)
+#define NORM		(bit(2) | VIS)
+#define GOD		(bit(3) | NORM | VIS)
 #define	CAP		bit(6)
 #define	MONEY		bit(7)
 

@@ -90,15 +90,11 @@ rejectname(struct natstr *np, natid other)
 char *
 natstate(struct natstr *np)
 {
-    if ((np->nat_stat & STAT_INUSE) == 0)
-	return "FREE";
-    if (np->nat_stat & STAT_GOD)
-	return "DEITY";
-    if (np->nat_stat & STAT_SANCT)
-	return "SANCTUARY";
-    if ((np->nat_stat & STAT_NORM) == 0)
-	return "VISITOR";
-    return "ACTIVE";
+    static char *stnam[] = {
+	/* must match nat_status */
+	"FREE", "VISITOR", "VISITOR", "SANCTUARY", "ACTIVE", "DEITY"
+    };
+    return stnam[np->nat_stat];
 }
 
 /* This returns the relations that np has with them */

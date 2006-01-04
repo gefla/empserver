@@ -144,7 +144,7 @@ powe(void)
 		continue;
 	}
 	natp2 = getnatp(pow.p_nation);
-	if (natp2->nat_stat & STAT_GOD)
+	if (natp2->nat_stat == STAT_GOD)
 	    continue;
 	if (use_targets && !targets[pow.p_nation])
 	    continue;
@@ -288,12 +288,7 @@ gen_power(void)
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];
 	pow->p_nation = i;
-	if ((natp->nat_stat & STAT_INUSE) == 0 ||
-	    (natp->nat_stat & STAT_NORM) == 0) {
-	    pow->p_power = 0.;
-	    continue;
-	}
-	if (natp->nat_stat & STAT_GOD) {
+	if (natp->nat_stat != STAT_ACTIVE) {
 	    pow->p_power = 0.;
 	    continue;
 	}
@@ -397,11 +392,11 @@ set_target(s_char *p, int *targets)
 	target = cnumb(p);
 
     if (target > 0 && target < MAXNOC && (natp = getnatp(target))) {
-	if (natp->nat_stat & STAT_GOD) {
+	if (natp->nat_stat == STAT_GOD) {
 	    pr("Country #%d is a deity country\n", target);
-	} else if (!(natp->nat_stat & STAT_INUSE)) {
+	} else if (natp->nat_stat == STAT_UNUSED) {
 	    pr("Country #%d is not in use\n", target);
-	} else if (!(natp->nat_stat & STAT_NORM)) {
+	} else if (natp->nat_stat != STAT_ACTIVE) {
 	    pr("Country #%d is not a normal country\n", target);
 	} else {
 	    targets[target] = 1;

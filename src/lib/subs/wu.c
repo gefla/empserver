@@ -102,7 +102,7 @@ wu(natid from, natid to, char *format, ...)
     np = getnatp(from);
     if (update_pending)
 	return typed_wu(from, to, buf, TEL_UPDATE);
-    else if (np->nat_stat & STAT_GOD)
+    else if (np->nat_stat == STAT_GOD)
 	return typed_wu(from, to, buf, TEL_BULLETIN);
     else
 	return typed_wu(from, to, buf, TEL_NORM);
@@ -136,11 +136,8 @@ typed_wu(natid from, natid to, char *message, int type)
 	mailbox(box, to);
 
     if (type != TEL_ANNOUNCE)
-	if ((np = getnatp(to)) == 0 ||
-	    ((np->nat_stat & STAT_NORM) == 0 &&
-	     (np->nat_stat & STAT_SANCT) == 0)) {
+	if ((np = getnatp(to)) == 0 || np->nat_stat < STAT_SANCT)
 	    return -1;
-	}
 #if !defined(_WIN32)
     if ((fd = open(box, O_WRONLY | O_APPEND, 0)) < 0) {
 #else
@@ -176,8 +173,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	logerror("telegram 'write' to #%d failed to close.", to);
     } else if (write_ok && type == TEL_ANNOUNCE) {
 	for (to = 0; NULL != (np = getnatp(to)); to++) {
-	    if (!(np->nat_stat & STAT_NORM) &&
-		!(np->nat_stat & STAT_SANCT))
+	    if (np->nat_stat < STAT_SANCT)
 		continue;
 	    if (!player->god && (getrejects(from, np) & REJ_ANNO))
 		continue;

@@ -748,7 +748,7 @@ docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	np->nat_yorg = newy;
 	break;
     case 's':
-	np->nat_stat = (s_char)errcheck(arg, 0, STAT_NEW);
+	np->nat_stat = (nat_status)errcheck(arg, STAT_UNUSED, STAT_GOD);
 	break;
     case 'u':
 	arg = errcheck(arg, 0, m_m_p_d);

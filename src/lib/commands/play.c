@@ -87,12 +87,12 @@ play_list(struct player *joe)
 	/* It's a blitz, we see everything */
     } else if (joe->god) {
 	/* This country is a god, so we see it */
-    } else if (us->nat_stat == VIS) {
+    } else if (us->nat_stat == STAT_VIS) {
 	/* We are a visitor country, we can't see squat, except deities */
 	return 0;
     } else if (joe->cnum != player->cnum) {
 	/* This isn't us.  Can we see it? */
-	if (natp->nat_stat == VIS) {
+	if (natp->nat_stat == STAT_VIS) {
 	    /* Yes, we can see visitors are logged on */
 	} else if (getrel(natp, player->cnum) < ALLIED) {
 	    /* This is a non-allied country, don't show it. */

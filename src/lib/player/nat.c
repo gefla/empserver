@@ -47,8 +47,7 @@ natbyname(s_char *name, natid *result)
     int i;
 
     for (i = 0; NULL != (np = getnatp(i)); i++) {
-	if ((np->nat_stat & STAT_INUSE) &&
-	    (strcmp(np->nat_cnam, name) == 0)) {
+	if (np->nat_stat != STAT_UNUSED && !strcmp(np->nat_cnam, name)) {
 	    *result = i;
 	    return 0;
 	}
@@ -63,7 +62,7 @@ natpass(int cn, s_char *pass)
     struct natstr *np;
 
     np = getnatp((natid)cn);
-    if (np->nat_stat == VIS)
+    if (np->nat_stat == STAT_VIS)
 	return 1;
     if (strcmp(np->nat_pnam, pass) == 0)
 	return 1;

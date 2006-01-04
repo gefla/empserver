@@ -45,7 +45,7 @@ update_removewants(void)
     struct natstr *natp;
 
     for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
-	if ((natp->nat_stat & STAT_INUSE) &&
+	if ((natp->nat_stat != STAT_UNUSED) &&
 	    (natp->nat_update & WUPD_WANT) == 0) {
 	    natp->nat_missed++;
 	}
