@@ -33,11 +33,6 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <ctype.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
 #include "misc.h"
 #include "nat.h"
 #include "file.h"
@@ -54,7 +49,7 @@ update_removewants(void)
 	    (natp->nat_update & WUPD_WANT) == 0) {
 	    natp->nat_missed++;
 	}
-	natp->nat_update = natp->nat_stat & ~WUPD_WANT;
+	natp->nat_update &= ~WUPD_WANT;
     }
     return 0;
 }
