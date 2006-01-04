@@ -46,8 +46,7 @@
  * Ignore commands that require more permissions than COMSTAT.
  */
 int
-comtch(register s_char *command, struct cmndstr *coms, int comstat,
-       int god)
+comtch(register s_char *command, struct cmndstr *coms, int comstat)
 {
     register struct cmndstr *com;
     register int status;
@@ -56,7 +55,7 @@ comtch(register s_char *command, struct cmndstr *coms, int comstat,
 	return M_IGNORE;
     status = M_NOTFOUND;
     for (com = coms; com->c_form != 0; com++) {
-	if ((com->c_permit & comstat) != com->c_permit && !god)
+	if ((com->c_permit & comstat) != com->c_permit)
 	    continue;
 	switch (mineq(command, com->c_form)) {
 	case ME_MISMATCH:

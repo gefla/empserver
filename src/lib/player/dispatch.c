@@ -62,8 +62,7 @@ dispatch(char *buf, char *redir)
     struct cmndstr *command;
     int cmd;
 
-    cmd = comtch(player->argp[0], player_coms,
-		 player->ncomstat, player->god);
+    cmd = comtch(player->argp[0], player_coms, player->ncomstat);
     if (cmd < 0) {
 	if (cmd == M_NOTUNIQUE)
 	    pr("Command \"%s\" is ambiguous -- ", player->argp[0]);
