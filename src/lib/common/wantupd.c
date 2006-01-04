@@ -178,13 +178,13 @@ demand_check(void)
 	if (((natp->nat_stat & NORM) == NORM) &&
 	    ((natp->nat_stat & GOD) != GOD)) {
 	    if (natp->nat_missed >= update_missed)
-		veto = cn + 1;
+		veto = cn;
 	}
     }
 
     if (veto) {
 	logerror("no demand update, %d has missed more than %d updates",
-		 veto - 1, update_missed);
+		 veto, update_missed);
 	return 0;
     }
 
