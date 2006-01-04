@@ -724,10 +724,9 @@ docountry(s_char op, int arg, s_char *p, float farg, natid nat,
 	benefit(nat, np->nat_reserve < arg);
 	pr("Military Reserves changed from %ld to %d\n",
 	   np->nat_reserve, arg);
-	if (np->nat_stat == STAT_NORM)
-	    wu(player->cnum, nat,
-	       "Military Reserves changed from %ld to %d by divine intervention.\n",
-	       np->nat_reserve, arg);
+	wu(player->cnum, nat,
+	   "Military Reserves changed from %ld to %d by divine intervention.\n",
+	   np->nat_reserve, arg);
 	np->nat_reserve = arg;
 	break;
     case 'c':
