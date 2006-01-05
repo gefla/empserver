@@ -240,7 +240,7 @@ struct castr ship_ca[] = {
 
 struct castr mchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name", EF_BAD},
-    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item", EF_BAD},
+    NSC_IVEC(offsetof(struct mchrstr, m_item), ""),
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "lcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_hcm), "hcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_armor), "armor", EF_BAD},
@@ -343,7 +343,7 @@ struct castr land_ca[] = {
 
 struct castr lchr_ca[] = {
     {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name", EF_BAD},
-    {NSC_USHORT, 0, I_MAX+1, offsetof(struct mchrstr, m_item), "item", EF_BAD},
+    NSC_IVEC(offsetof(struct lchrstr, l_item), ""),
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "lcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "hcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "gun", EF_BAD},

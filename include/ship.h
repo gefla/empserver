@@ -130,7 +130,7 @@ struct fltheadstr {
 };
 
 struct mchrstr {
-    u_short m_item[I_MAX+1];	/* load limit */
+    short m_item[I_MAX+1];	/* load limit */
     int m_lcm;			/* units of lcm to build */
     int m_hcm;			/* units of hcm to build */
     int m_armor;		/* how well armored it is */
