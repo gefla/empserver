@@ -70,13 +70,8 @@ rela(void)
     }
     pr("\t%s Diplomatic Relations Report\t", cname(as));
     prdate();
-    if (opt_SLOW_WAR) {
-	pr("\n  Formal Relations         %5s      theirs\n",
-	   player->cnum == as ? "yours" : "his");
-    } else {
-	pr("\n  Formal Relations         %5s     theirs\n",
-	   player->cnum == as ? "yours" : "his");
-    }
+    pr("\n  Formal Relations         %5s      theirs\n",
+       player->cnum == as ? "yours" : "his");
     for (cn = 1; cn < MAXNOC; cn++) {
 	if ((np = getnatp(cn)) == 0)
 	    break;
@@ -91,11 +86,7 @@ rela(void)
 		continue;
 	}
 	pr("%3d) %-20.20s  ", cn, cname(cn));
-	if (opt_SLOW_WAR) {
-	    pr("%-10s %s\n", relatename(natp, cn), relatename(np, as));
-	} else {
-	    pr("%-9s %s\n", relatename(natp, cn), relatename(np, as));
-	}
+	pr("%-10s %s\n", relatename(natp, cn), relatename(np, as));
     }
     return RET_OK;
 }
