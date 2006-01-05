@@ -176,7 +176,6 @@ static int write_newcap_script(void);
 static int stable(void);
 static void elevate_land(void);
 static void elevate_sea(void);
-static void translate_continents(void);
 static int map_symbol(int x, int y);
 static void fl_sct_init(coord x, coord y, s_char *ptr,
 			time_t timestamp);
@@ -1144,8 +1143,6 @@ static void
 output(void)
 {
     int i, j;
-    if (opt_BLITZ)
-	translate_continents();
     if (quiet == 0) {
 	for (i = 0; i < WORLD_Y; ++i) {
 	    puts("");
@@ -1162,55 +1159,6 @@ output(void)
     }
     if (AIRPORT_MARKER)
 	printf("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\nthe islands).  You can redesignate these airfields to wilderness sectors\none at a time, each time you add a new country to the game.\n");
-}
-
-/* Reorder the continents from top left to bottom right */
-static void
-translate_continents(void)
-{
-    int i, j, n = 0, k, gotit, c;
-    int *trans, *trans_cont, *oldcapx, *oldcapy;
-
-    trans = calloc(nc, sizeof(int));
-    trans_cont = calloc(nc, sizeof(int));
-    oldcapx = calloc(nc, sizeof(int));
-    oldcapy = calloc(nc, sizeof(int));
-
-    for (i = 0; i < WORLD_Y; ++i) {
-	for (j = i % 2; j < WORLD_X; j += 2) {
-	    if (own[j][i] > -1 && own[j][i] < nc) {
-		gotit = 0;
-		for (k = 0; k < n; ++k) {
-		    if (trans[k] == own[j][i])
-			gotit = 1;
-		}
-		if (!gotit) {
-		    if (n > nc) {
-			printf("fairland: BUG in translate continents!  mail stevens@math.utoronto.ca\n");
-			exit(2);
-		    }
-		    trans[n] = own[j][i];
-		    trans_cont[own[j][i]] = n;
-		    ++n;
-		}
-	    }
-	}
-    }
-    for (i = 0; i < WORLD_Y; ++i) {
-	for (j = i % 2; j < WORLD_X; j += 2) {
-	    if (own[j][i] > -1 && own[j][i] < nc) {
-		own[j][i] = trans_cont[own[j][i]];
-	    }
-	}
-    }
-    for (c = 0; c < nc; ++c) {
-	oldcapx[c] = capx[c];
-	oldcapy[c] = capy[c];
-    }
-    for (c = 0; c < nc; ++c) {
-	capx[c] = oldcapx[trans[c]];
-	capy[c] = oldcapy[trans[c]];
-    }
 }
 
 static int
