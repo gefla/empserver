@@ -4,6 +4,8 @@
 #
 # By Ken Stevens <children@empire.net>
 #
+# FIXME This does not work at the moment
+#
 # HOW TO RUN IT:
 # In empire, redirect the output of the player "list" command to a file called
 # "player.list".  Similarly, make a file listing deity commands and call it

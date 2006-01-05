@@ -1,41 +1,18 @@
         --- How to build the info pages ---
 
-It is very easy to build the info pages.  Note that you need perl5 installed to
-build the Subject info pages.  The default ones are supplied, but if you want
-to build new ones yourself, you need perl5.
+Make remakes info pages, table of contents and index automatically.
+This requires Perl 5 and troff.  To remake just formatted info pages,
+run make info.
 
-To build the info pages, just type "make" at the high level info directory.
-This will build you the text info pages that the game uses and put them into
-the info.nr directory.
-
-To build the html info page, just type "make html" at the high level info
-directory.  This will build you the html info pages (thanks Drake!) and put
-them into the info.html directory.  Use the "TOP.html" or the "all.html" as
-the first html pages you reference (TOP.html is better.)
+To remake HTML info, run make html.  This is not done by default.  The
+recommended start page is TOP.html, but you may also like all.html.
 
 
         --- How to add a new info page ---
 
-NOTE: info.pl requires perl5.  If you don't have perl5, your Subject.t
-files will have to be built for you by someone who has perl5.
+To create a new info page, follow these steps:
 
-==EASY INSTALL==
-
-To create a new info page, follow these five easy steps:
-1.  Copy an existing info page and change the relevant stuff.
-2.  The .SA ("SEE ALSO") line at the bottom must contain at
-    least one Subject (see the Subjects subdirectory).
-3.  Make sure that the entire .SA line is on one line (i.e. no line-breaks
-    inside the quotes).
-4.  Type "info.pl".
-5.  Type "make".
-
-==SECURE INSTALL==
-
-If something goes wrong, or if you like doing things carefully, then
-follow these more elaborate directions:
-
-1.  Decide which subdirectory to put your info page in:
+1.  Decide which chapter to put your info page in:
       Commands     - Empire Commands
       Concepts     - Game concepts
       Introduction - General info about playing Empire
@@ -44,32 +21,37 @@ follow these more elaborate directions:
 2.  Decide what to call your info page:
     - If it's an Empire command, give it the same name as the command
       as listed in lib/player/empmod.c
-    - You may not name your info page any of the following:
-      "Command", "Commands", "Concept", "Concepts", "Introduction", "Server"
-    - Make sure there isn't another info page with the same name in a
-      different subdirectory.
+    - Info names are case-insensitive.  Make sure there isn't another
+      one that differs only in case.
     - Make sure your info page doesn't have the same name as an existing
-      Subject name (see the "Subjects" subdirectory).
+      subject or chapter.
 
 3.  Format your info page.
 
-Copy the same format as a similar file in the same directory.
-The first "Title Header" line must be:
+The file name for a page NAME must be NAME.t.  It's easiest to start
+with an existing file.
+
+The first line must be a title header:
 .TH arg1 arg2
-  - arg1 should be one of: Command, Concept, Introduction, Server
-  - arg1 should match the directory the info page is in
-  - If arg2 contains more than one word, make sure it's in double quotes
+  - arg1 should be the chapter, one of: Command, Concept,
+    Introduction, Server
+  - arg2 is the title of your page.  If it contains more than one
+    word, make sure it's in double quotes
   - if the info page is for an Empire command, then arg2 must be the
     command name in ALL UPPERCASE.
 
-The second "NAME" line must be:
+The second line must be a name header:
 .NA arg1 arg2
-  - arg1 must be the name of the file
-  - arg2 must be in quotes
-  - arg2 is a one-line description of the info page which info.pl will
-    put on the Subject page that your info page belongs to.
+  - arg1 must be the name
+  - arg2 is a one-line description of the info page which will be
+    put on the Subject page that your info page belongs to.  It should
+    be in double quotes
 
-The last "SEE ALSO" line should be:
+The third line must be a level header:
+.LV arg
+  - arg must be a level, one of Basic, Expert
+
+The last line should be a see also:
 .SA "item1, item2, ..., subject1, subject2"
   - the stuff in quotes is a list of other info pages which are
     related to this page and info Subjects to which this page belongs.
@@ -77,7 +59,8 @@ The last "SEE ALSO" line should be:
   - You must include at least one subject (see the Subjects
     subdirectory) in the list (at the end of the list by convention).
 
-The lines in between can contain the following formatting characters:
+The lines in between can contain troff requests.  The following
+additional requests are available:
 
 Empire command syntax:
 .SY "command <ARGS>"
@@ -94,21 +77,23 @@ won't be formatted
 Begin paragraph:
 .s1
 
-4. Run "info.pl"
-  Type "info.pl" at the Unix prompt.
-  If there are any problems with your info page, info.pl will abort
-  with a clear error message explaining what went wrong.  
+Item in a description:
+.L
 
-5. Type "make"
-  This will compile your info pages into ../info.nr
+Fancy troff magic is prone to break HTML output.
+
+4. Format your info page, update table of contents and index
+  Run make info html.  If it fails, peruse the error messages and fix
+  your info page.
 
 
-==APPENDIX A  -  What exactly info.pl does==
+==APPENDIX A  -  What exactly the Perl scripts do==
 
-info.pl reads all of the info pages and creates a table of contents
-for them organized by subject.  An info page belongs to a subject if
-that subject appears as an entry in the .SA ("SEE ALSO") field of the
-info page _and_ that entry is not the name of another info page.
+The scripts read all of the info pages and create a two-level table of
+contents for them, organized by subject.  An info page belongs to a
+subject if that subject appears as an entry in the .SA ("SEE ALSO")
+field of the info page _and_ that entry is not the name of another
+info page.
 
 For example, the .SA field of headlines.t contains the entries
 "newspaper" and "Communication".  Since there's already an info page
@@ -117,18 +102,19 @@ the headlines info page is considered to be a member of the
 Communication
 subject.
 
-The output of this script is a bunch of files in the "Subjects"
-subdirectory.  The file Subjects/TOP.t is the top-level table of
-contents and lists all of the subjects.  Then for each subject, a
-Subjects/Subject.t file is created, listing all of the info pages that
-belong to it.
+The output of these script is a bunch of .t files.  The file TOP.t is
+the top-level table of contents and lists all of the subjects.  Then
+for each SUBJECT, a SUBJECT.t file is created, listing all of the info
+pages that belong to it.
 
 
 ==APPENDIX B  -  The checklist.pl script==
 
-This little perl script compares the "list" of legal Empire commands in your
-server with the Empire commands documented in the Commands
-subdirectory.  To run it, login to your game and type:
+FIXME This does not work at the moment
+
+This little perl script compares the "list" of legal Empire commands
+in your server with the Empire commands documented in info.  To run
+it, login to your game and type:
 
   [##:##]% list > list.out
 
