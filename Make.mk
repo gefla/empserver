@@ -39,6 +39,9 @@
 # slow and tricky.  Do not use them gratuitously.  If you don't
 # understand this, always use `:=' rather than `='.
 
+# Default goal
+all:
+
 # Delete target on error.  Every Makefile should have this.
 .DELETE_ON_ERROR:
 
@@ -214,23 +217,14 @@ $(libs) $(empth_lib): | lib
 	$(AR) rc $@ $?
 	$(RANLIB) $@
 
-# info.pl reads $(tsrc) and writes subjects.mk $(ttop) $(tsubj).  The
-# naive rule
-#     subjects.mk $(ttop) $(tsubj): $(tsrc)
-#           COMMAND
-# runs COMMAND once for each target.  That's because multiple targets
-# in an explicit rule is just a shorthand for one rule per target,
-# each with the same prerequisites and commands.  A pattern rule with
-# multiple targets does what we want.  So we artificially turn the
-# explicit rule into a pattern rule: we replace info with %, and
-# insert a touch target info/stamp.
-# FIXME if sources.mk is out-of-date, $(tsubj) is, and the bogus deps can prevent remaking of subjects.mk and thus sources.mk
-$(patsubst info/%, \%/%, $(ttop) $(tsubj)): %/stamp
-	perl $(srcdir)/info/info.pl
-info/stamp: $(tsrc) info/info.pl sources.mk
-	>$@
-subjects.mk: $(ttop)
-	:
+subjects.mk: $(tsrc) info/findsubj.pl sources.mk
+	perl $(srcdir)/info/findsubj.pl
+
+$(tsubj): info/mksubj.pl
+	perl $(srcdir)/info/mksubj.pl $@ $(filter %.t, $^)
+
+$(ttop): $(tsubj)
+	perl $(srcdir)/info/mktop.pl $@ $(filter %.t, $^)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))
 	(cd info.nr && ls -CF) >$@
