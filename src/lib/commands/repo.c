@@ -112,12 +112,8 @@ repo_header(void)
     pr(" #    name                tech      research   education   happiness ");
     if (player->god)
 	pr("capital\n");
-    else {
-	if (opt_HIDDEN)
-	    pr("\n");
-	else
-	    pr(" status\n");
-    }
+    else
+	pr(" status\n");
 }
 
 static void
@@ -138,16 +134,12 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 	printdiff(stat->stat, stat->res, natp, NAT_RLEV);
 	printdiff(stat->stat, stat->edu, natp, NAT_ELEV);
 	printdiff(stat->stat, stat->hap, natp, NAT_HLEV);
-	if (opt_HIDDEN) {
-	    pr("\n");
-	} else {
-	    if (influx(natp))
-		pr("In flux\n");
-	    else if (natp->nat_money <= 0)
-		pr("Broke\n");
-	    else
-		pr("Active\n");
-	}
+	if (!opt_HIDDEN && influx(natp))
+	    pr("In flux\n");
+	else if (!opt_HIDDEN && natp->nat_money <= 0)
+	    pr("Broke\n");
+	else
+	    pr("Active\n");
     }
 }
 

@@ -10,7 +10,7 @@ country:   Discloses less detailed status of active countries.
 newspaper: Reports on contacted countries only, except for headlines.
 power:     Displays your own power only; other nations never show up.
 relations: Reports on contacted countries only.
-report:    Reports on contacted countries only, and no status.
+report:    Reports on contacted countries only, and less status.
 .FI
 .s1
 Commands to interact with other countries, like telegram, work only
