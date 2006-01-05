@@ -219,6 +219,10 @@ $(libs) $(empth_lib): | lib
 
 subjects.mk: $(tsrc) info/findsubj.pl sources.mk
 	perl $(srcdir)/info/findsubj.pl
+# If sources.mk is out of date, $(tsrc) is.  If it contains files that
+# went away, make can't remake subjects.mk.  Tell it to ignore such
+# missing files:
+$(tsrc):
 
 $(tsubj): info/mksubj.pl
 	perl $(srcdir)/info/mksubj.pl $@ $(filter %.t, $^)
