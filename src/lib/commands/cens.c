@@ -103,9 +103,7 @@ cens(void)
 	    else
 		pr("    ");
 	}
-	if (opt_FALLOUT) {
-	    pr("%5d", sect.sct_fallout);
-	}
+	pr("%5d", opt_FALLOUT ? sect.sct_fallout : 0);
 	if (sect.sct_coastal)
 	    pr("%4d", sect.sct_coastal);
 	pr("\n");
@@ -134,9 +132,6 @@ cens_hdr(void)
     pr("mob uf uf old  civ  mil   uw food work avail ");
     if (!player->god)
 	pr("ter ");
-    if (opt_FALLOUT)
-	pr("fall ");
-    pr("coa");
-    pr("\n");
+    pr("fall coa\n");
 }
 
