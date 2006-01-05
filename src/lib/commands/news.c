@@ -75,21 +75,20 @@ news(void)
     (void)time(&now);
     natp = getnatp(player->cnum);
     then = natp->nat_newstim;
-    /*
-     * Don't disclose events before contact.  Proper solution would be
-     * to timestamp the contact.  Cheesy approximatation: disable old
-     * news.
-     */
-    if (!opt_HIDDEN) {
-	if (player->argp[1] != 0 && isdigit(*player->argp[1])) {
-	    delta = days(atoi(player->argp[1]));
-	    then = now - delta;
+    if (player->argp[1]) {
+	/*
+	 * We want to hide events before contact.  Proper solution
+	 * would be to timestamp the contact.  Cheesy approximation:
+	 * disable old news.
+	 */
+	if (opt_HIDDEN && !player->god) {
+	    pr("Sorry, argument doesn't work with HIDDEN enabled\n");
+	    return RET_FAIL;
 	}
+	delta = days(atoi(player->argp[1]));
+	then = now - delta;
     }
     natp->nat_newstim = now;
-/*	if (then < now - days(3))
-		then = now - days(3);
-*/
     pr("\nThe details of Empire news since %s", ctime(&then));
     while (nxtitem(&nstr, &nws)) {
 	if (nws.nws_when < then)
