@@ -166,24 +166,17 @@ show_nuke_build(int tlev)
     struct nchrstr *np;
     int avail;
 
-    if (opt_DRNUKE)
-	pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
-    else
-	pr("%13s lcm hcm  oil  rad avail tech $\n", "");
+    pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
 
     for (np = nchr; np->n_name; np++) {
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
 	    continue;
-	if (opt_DRNUKE)
-	    pr("%-13.13s %3d %3d %4d %4d %5d %4d %3d $%6d\n",
-	       np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
-	       np->n_rad, avail, np->n_tech,
-	       (int)(np->n_tech * drnuke_const) + 1, np->n_cost);
-	else
-	    pr("%-13.13s %3d %3d %4d %4d %5d %4d $%6d\n",
-	       np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
-	       np->n_rad, avail, np->n_tech, np->n_cost);
+	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3d $%6d\n",
+	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
+	   np->n_rad, avail, np->n_tech,
+	   opt_DRNUKE ? (int)(np->n_tech * drnuke_const) + 1 : 0,
+	   np->n_cost);
     }
 }
 
@@ -194,24 +187,16 @@ show_nuke_capab(int tlev)
     int i, j;
     char *p;
 
-    if (opt_DRNUKE)
-	pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");
-    else
-	pr("%13s blst dam lbs tech $%7s abilities\n", "", "");
+    pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");
 
     for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
 	    continue;
-	if (opt_DRNUKE)
-	    pr("%-13.13s %4d %3d %3d %4d %3d $%7d ",
-	       np->n_name, np->n_blast, np->n_dam,
-	       np->n_weight, np->n_tech,
-	       (int)(np->n_tech * drnuke_const) + 1, np->n_cost);
-	else			/* not DRNUKE */
-	    pr("%-13.13s %4d %3d %3d %4d $%7d ",
-	       np->n_name, np->n_blast, np->n_dam,
-	       np->n_weight, np->n_tech, np->n_cost);
-
+	pr("%-13.13s %4d %3d %3d %4d %3d $%7d ",
+	   np->n_name, np->n_blast, np->n_dam,
+	   np->n_weight, np->n_tech,
+	   opt_DRNUKE ? (int)(np->n_tech * drnuke_const) + 1 : 0,
+	   np->n_cost);
 	for (i = j = 0; i < 32; i++) {
 	    if (!(np->n_flags & bit(i)))
 		continue;

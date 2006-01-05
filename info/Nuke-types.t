@@ -48,26 +48,20 @@ device carrying capacity.
 As a guide (these numbers are subject to change):
 .EX show nuke build
 .NF
-        lcm hcm  oil  rad tech $
-10kt fission   50  50   25   50  200 $7500
-50kt fission   60  60   30   75  225 $9000
-100kt fission  75  75   40  100  250 $12000
-250kt fusion   50  50   25   50  280 $7500
-500kt fusion   60  60   30   75  295 $9000
-1mt fusion     75  75   50  100  310 $12000
-3mt fusion    100 100   75  127  325 $19000
+Printing for tech level '300'
+              lcm hcm  oil  rad avail tech res $
+10kt  fission  50  50   25   70    49  280   0 $ 10000
+15kt  fission  50  50   25   80    51  290   0 $ 15000
+50kt  fission  60  60   30   90    60  300   0 $ 25000
 .FI
 .s1
 .EX show nuke capab
 .NF
-        blst dam lbs tech $
-10kt fission     3  80   4  200 $7500
-50kt fission     3 100   6  225 $9000
-100kt fission    4 120   8  250 $12000
-250kt fusion     4 150   4  280 $7500
-500kt fusion     5 170   6  295 $9000
-1mt fusion       6 190   8  310 $12000
-3mt fusion       7 210  10  325 $19000
+Printing for tech level '300'
+              blst dam lbs tech res $        abilities
+10kt  fission    3  70   4  280   0 $  10000
+15kt  fission    3  90   5  290   0 $  15000
+50kt  fission    3 100   6  300   0 $  25000
 .FI
 .s1
 The larger the megatonnage, the more damage done by the weapon.
