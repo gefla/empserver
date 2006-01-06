@@ -54,18 +54,16 @@ nati(void)
     int poplimit, safepop, uwpop;
     double pfac;
 
-    if (player->argp[1])
-	cnum = natarg(player->argp[1], "for which country? ");
-    else
-    	cnum = player->cnum;
+    if (player->argp[1]) {
+	if (!(natp = natargp(player->argp[1], NULL)))
+	    return RET_SYN;
+    } else
+    	natp = getnatp(player->cnum);
 
-    if ((natp = getnatp(cnum)) == 0)
-	return RET_SYN;
-
+    cnum = natp->nat_cnum;
     if (!player->god && cnum != player->cnum) {
-	pr("Only deities can request a nation "
-	   "report for a different country than yourself.\n");
-	return RET_SYN;
+	pr("Only deities can request a nation report for another country.\n");
+	return RET_FAIL;
     }
 
     pr("\n(#%i) %s Nation Report\t", cnum, cname(cnum));
