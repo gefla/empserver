@@ -100,7 +100,7 @@ rea(void)
 	if (player->god && player->argp[1] &&
 	    (mineq(player->argp[1], "yes") == ME_MISMATCH) &&
 	    (mineq(player->argp[1], "no") == ME_MISMATCH)) {
-	    if ((n = natarg(player->argp[1], "")) < 0)
+	    if ((n = natarg(player->argp[1], NULL)) < 0)
 		return RET_SYN;
 	    num = n;
 	    may_delete = 0;

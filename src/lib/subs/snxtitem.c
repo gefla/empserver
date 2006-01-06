@@ -72,7 +72,7 @@ snxtitem(struct nstr_item *np, int type, s_char *str)
 	return 0;
     }
     if (type == EF_NATION && isalpha(*str)) {
-	sprintf(natnumber, "%d", natarg(str, ""));
+	sprintf(natnumber, "%d", natarg(str, NULL));
 	str = natnumber;
     }
     flags = ef_flags(type);

@@ -58,7 +58,7 @@ acce(void)
     if (player->argp[1] == 0) {
 	natp = getnatp(player->cnum);
     } else {
-	if (!(natp = natargp(player->argp[1], "Which country? ")))
+	if (!(natp = natargp(player->argp[1], NULL)))
 	    return RET_SYN;
     }
     as = natp->nat_cnum;

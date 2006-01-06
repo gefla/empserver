@@ -58,7 +58,7 @@ rela(void)
     if (player->argp[1] == 0)
 	as = player->cnum;
     else {
-	if ((n = natarg(player->argp[1], "Which country? ")) < 0)
+	if ((n = natarg(player->argp[1], NULL)) < 0)
 	    return RET_SYN;
 	as = (natid)n;
     }
