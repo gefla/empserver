@@ -64,7 +64,7 @@ relatename(struct natstr *np, natid other)
 char *
 rejectname(struct natstr *np, natid other)
 {
-    char *rejects[] = {
+    static char *rejects[] = {
 	/* must follow reject flags defined in nat.h */
 	"  YES  YES  YES  YES",
 	"  NO   YES  YES  YES",
