@@ -385,21 +385,15 @@ set_target(char *p, int *targets)
 
     if (!p)
 	return 0;
+    target = natarg(p, NULL);
+    if (target < 0)
+	return 0;
+    natp = getnatp(target);
+    if (natp->nat_stat != STAT_ACTIVE) {
+	pr("Country '%s' is not a normal country\n", p);
+	return 0;
+    }
 
-    if (isdigit(*p))
-	target = atoi(p);
-    else
-	target = cnumb(p);
-
-    if (target >= 0 && target < MAXNOC && (natp = getnatp(target))) {
-	if (natp->nat_stat != STAT_ACTIVE) {
-	    pr("Country '%s' is not a normal country\n", p);
-	} else {
-	    targets[target] = 1;
-	    return 1;
-	}
-    } else
-	pr("Bad country: \'%s\'\n", p);
-
-    return 0;
+    targets[target] = 1;
+    return 1;
 }
