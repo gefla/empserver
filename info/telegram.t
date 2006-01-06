@@ -1,7 +1,7 @@
 .TH Command TELEGRAM
 .NA telegram "Send \*Qdiplomatic\*U communique to another country"
 .LV Basic
-.SY "telegram <CNUM/CNAME> [<CNUM/CNAME>] [[<CNUM/CNAME>]]"
+.SY "telegram <CNUM/CNAME>..."
 The telegram command allows non-treaty communication
 to take place between representatives.  Currently you
 are given only 1024 characters per telegram.
