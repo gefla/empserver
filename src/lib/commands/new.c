@@ -49,7 +49,7 @@
 #include <fcntl.h>
 
 static int isok(int x, int y);
-static void ok(s_char *map, int x, int y);
+static void ok(signed char *map, int x, int y);
 
 static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
 
@@ -65,19 +65,17 @@ new(void)
     natid num;
     coord x, y;
     int i;
-    s_char *p;
-    int n;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     natp = getnatp(player->cnum);
     if (natp->nat_xorg != 0 || natp->nat_yorg != 0) {
 	pr("Must be at 0,0 to add a new country\n");
 	return RET_FAIL;
     }
-    if ((n = natarg(player->argp[1], "Country? ")) < 0)
+    if (!(natp = natargp(player->argp[1], "Country? ")))
 	return RET_SYN;
-    num = n;
-    natp = getnatp(num);
+    num = natp->nat_cnum;
     if (natp->nat_stat != STAT_NEW) {
 	pr("Country #%d (%s) isn't a new country!\n", num, cname(num));
 	return RET_SYN;
@@ -202,7 +200,7 @@ new(void)
     natp->nat_tgms = 0;
     (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT, 0660));
     putnat(natp);
-    return 0;
+    return RET_OK;
 }
 
 static int nmin, ngold, noil, nur;
@@ -211,9 +209,9 @@ static int nfree, navail, nowned;
 static int
 isok(int x, int y)
 {
-    s_char *map;
-    s_char *p;
-    s_char buf[1024];
+    signed char *map;
+    char *p;
+    char buf[1024];
 
     nmin = ngold = noil = nur = 0;
     navail = nfree = nowned = 0;
@@ -238,7 +236,7 @@ isok(int x, int y)
 }
 
 static void
-ok(s_char *map, int x, int y)
+ok(signed char *map, int x, int y)
 {
     struct sctstr sect;
     int dir;
