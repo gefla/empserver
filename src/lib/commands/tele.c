@@ -73,7 +73,7 @@ tele(void)
 	int kk;
 
 	kk = 1;
-	while (player->argp[kk] != NULL) {
+	do {
 	    if ((n = natarg(player->argp[kk], "for which country? ")) < 0)
 		return RET_SYN;
 	    to = n;
@@ -95,7 +95,7 @@ tele(void)
 
 	    natp = getnatp(to);
 	    if (natp->nat_stat < STAT_SANCT) {
-		pr("%s has no \"telegram priveleges\".\n", cname(to));
+		pr("%s has no \"telegram privileges\".\n", cname(to));
 		kk++;
 		continue;
 	    }
@@ -116,7 +116,7 @@ tele(void)
 		setcont(to, player->cnum, FOUND_TELE);
 	    }
 	    kk++;
-	}
+	} while (player->argp[kk] != NULL);
     }
     return RET_OK;
 }
