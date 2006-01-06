@@ -41,6 +41,16 @@
 #include "prototypes.h"
 #include "optlist.h"
 
+/*
+ * Get nation argument.
+ * If ARG is not empty, use it, else prompt for input using PROMPT.
+ * If no input is provided, return -1.
+ * If the argument identifies a country, return its number.  getnatp()
+ * can be assumed to succeed for this number.
+ * Else complain and return -1.
+ * If HIDDEN is enabled, countries not contacted are not eligible
+ * unless the player is a deity.
+ */
 int
 natarg(char *arg, char *prompt)
 {
@@ -64,7 +74,7 @@ natarg(char *arg, char *prompt)
 	if (!player->god && !getcontact(getnatp(player->cnum), n)) {
 	    if (np->nat_stat != STAT_GOD) {
 		pr("Country '%s' has not been contacted.\n", arg);
-		return -2;
+		return -1;
 	    }
 	}
     }
