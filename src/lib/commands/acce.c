@@ -55,30 +55,25 @@ acce(void)
     natid as;
     int n;
 
-    if (player->argp[1] == 0)
-	as = player->cnum;
-    else {
-	if ((n = natarg(player->argp[1], "Which country? ")) < 0)
+    if (player->argp[1] == 0) {
+	natp = getnatp(player->cnum);
+    } else {
+	if (!(natp = natargp(player->argp[1], "Which country? ")))
 	    return RET_SYN;
-	as = (natid)n;
     }
-    natp = getnatp(as);
+    as = natp->nat_cnum;
     pr("\t%s Acceptance Status Report\t", cname(as));
     prdate();
     pr("\n  Acceptance status          %5s                theirs\n",
        player->cnum == as ? "yours" : " his");
     pr("                       tel trty anno loan   tel trty anno loan\n");
-    for (cn = 1; cn < MAXNOC; cn++) {
-	if ((np = getnatp(cn)) == 0)
-	    break;
+    for (cn = 0; cn < MAXNOC; cn++) {
 	if (cn == as)
 	    continue;
-	if (np->nat_stat < STAT_SANCT)
+	if ((np = getnatp(cn)) == 0)
+	    break;
+	if (np->nat_stat == STAT_UNUSED)
 	    continue;
-	if (opt_HIDDEN) {
-	    if (!player->god && !getcontact(getnatp(player->cnum), cn))
-		continue;
-	}
 	pr("%3d) %-14.14s  ", cn, cname(cn));
 	pr("%-9s %s\n", rejectname(natp, cn), rejectname(np, as));
     }
