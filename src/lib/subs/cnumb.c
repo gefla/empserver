@@ -53,12 +53,14 @@ cnumb(s_char *cntry)
     for (cn = 0; cn < MAXNOC; cn++) {
 	if ((natp = getnatp(cn)) == 0)
 	    break;
+	if (natp->nat_stat == STAT_UNUSED)
+	    continue;
 	ncp = natp->nat_cnam;
 	for (cp = cntry; *cp == *ncp; cp++, ncp++) {
 	    if (*cp == 0)
 		return cn;
 	}
-	if (cp > cntry && *cp == 0) {
+	if (*cp == 0) {
 	    best = cn;
 	    bcount++;
 	}
