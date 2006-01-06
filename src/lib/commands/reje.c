@@ -93,10 +93,8 @@ reje(void)
 	    pr("You may not reject/accept stuff from %s\nbecause they are a deity.\n", nat.nat_cnam);
 	    continue;
 	}
-	if (opt_HIDDEN) {
-	    if (!getcontact(getnatp(player->cnum), ni.cur))
-		continue;
-	}
+	if (nat.nat_stat == STAT_UNUSED)
+	    continue;
 	switch (rel) {
 	case REJ_ANNO:
 	    pr("%s annos from %s\n",
