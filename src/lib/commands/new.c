@@ -72,12 +72,10 @@ new(void)
     natp = getnatp(player->cnum);
     if (natp->nat_xorg != 0 || natp->nat_yorg != 0) {
 	pr("Must be at 0,0 to add a new country\n");
-	return 0;
+	return RET_FAIL;
     }
-    if ((n = natarg(player->argp[1], "Country? ")) < 0) {
-	pr("Bad country number\n");
-	return 0;
-    }
+    if ((n = natarg(player->argp[1], "Country? ")) < 0)
+	return RET_SYN;
     num = n;
     natp = getnatp(num);
     if (natp->nat_stat != STAT_NEW) {

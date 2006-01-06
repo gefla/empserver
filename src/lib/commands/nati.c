@@ -59,10 +59,8 @@ nati(void)
     else
     	cnum = player->cnum;
 
-    if ((natp = getnatp(cnum)) == 0) {
-	pr("Bad country number %d\n", cnum);
+    if ((natp = getnatp(cnum)) == 0)
 	return RET_SYN;
-    }
 
     if (!player->god && cnum != player->cnum) {
 	pr("Only deities can request a nation "

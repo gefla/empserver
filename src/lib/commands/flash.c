@@ -53,10 +53,7 @@ flash(void)
     us = getnatp(player->cnum);
     if ((tocn = natarg(player->argp[1], "to which country? ")) < 0)
 	return RET_SYN;
-    if (!(to = getnatp((natid)tocn))) {
-	pr("Bad country number\n");
-	return RET_SYN;
-    }
+    to = getnatp(tocn);
 
     if (us->nat_stat == STAT_GOD) {
 	/* We are gods, we can flash anyone */

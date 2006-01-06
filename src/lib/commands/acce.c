@@ -58,16 +58,11 @@ acce(void)
     if (player->argp[1] == 0)
 	as = player->cnum;
     else {
-	if ((n = natarg(player->argp[1], "Which country? ")) < 0) {
-	    pr("Bad country number\n");
+	if ((n = natarg(player->argp[1], "Which country? ")) < 0)
 	    return RET_SYN;
-	}
 	as = (natid)n;
     }
-    if ((natp = getnatp(as)) == 0) {
-	pr("Bad country number %d\n", player->cnum);
-	return RET_SYN;
-    }
+    natp = getnatp(as);
     pr("\t%s Acceptance Status Report\t", cname(as));
     prdate();
     pr("\n  Acceptance status          %5s                theirs\n",
