@@ -59,7 +59,7 @@
 #define END -1
 
 static void benefit(natid who, int good);
-static int docountry(s_char op, int arg, s_char *p, float farg, natid nat,
+static int docountry(s_char op, int arg, s_char *p, float farg,
 		     struct natstr *np);
 static int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
 static int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
@@ -71,7 +71,7 @@ static void noise(struct sctstr *sptr, int public_amt, s_char *name,
 static void pr_land(struct lndstr *land);
 static void pr_plane(struct plnstr *plane);
 static void pr_ship(struct shpstr *ship);
-static void prnat(natid n);
+static void prnat(struct natstr *);
 static void prsect(struct sctstr *sect);
 
 
@@ -91,7 +91,6 @@ edit(void)
     int arg_index = 3;
     coord x, y;
     float farg;
-    natid nat;
     struct natstr *np;
     s_char buf[1024];
     s_char ewhat;		/* saves information from the command line
@@ -112,10 +111,12 @@ edit(void)
 	    return RET_FAIL;
 	break;
     case 'c':
-	if ((num = natarg(player->argp[2], "Country number? ")) < 0)
+	if (!(ptr = getstarg(player->argp[2], "Country number? ", buf)))
 	    return RET_SYN;
-	nat = (natid)num;
-	np = getnatp(nat);
+	if (isdigit(*ptr))
+	    np = getnatp(atoi(ptr));
+	else
+	    np = natargp(ptr, NULL);
 	break;
     case 'p':
 	if ((num = onearg(player->argp[2], "Plane number? ")) < 0)
@@ -148,7 +149,7 @@ edit(void)
 	    prsect(&sect);
 	    break;
 	case 'c':
-	    prnat(nat);
+	    prnat(np);
 	    break;
 	case 'p':
 	    pr_plane(&plane);
@@ -176,7 +177,7 @@ edit(void)
 		if (err == END) {
 		    switch (ewhat) {
 		    case 'c':
-			prnat(nat);
+			prnat(np);
 			break;
 		    case 'l':
 			prsect(&sect);
@@ -200,7 +201,7 @@ edit(void)
 	switch (ewhat) {
 	case 'c':
 	    farg = (float)atof(ptr);
-	    if ((err = docountry(thing[0], arg, ptr, farg, nat, np))
+	    if ((err = docountry(thing[0], arg, ptr, farg, np))
 		!= RET_OK)
 		return err;
 	    break;
@@ -307,14 +308,11 @@ prsect(struct sctstr *sect)
 
 
 static void
-prnat(natid n)
+prnat(struct natstr *np)
 {
-    struct natstr *np;
     int i;
 
-    if ((np = getnatp(n)) == 0)
-	return;
-    pr("Country #: %2d\n", n);
+    pr("Country #: %2d\n", np->nat_cnum);
     pr("Name <n>: %-20s\t", np->nat_cnam);
     pr("Representative <r>: %-20s\n", np->nat_pnam);
     pr("BTUs <b>: %3d\t\t\t", np->nat_btu);
@@ -698,10 +696,11 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 
 
 static int
-docountry(s_char op, int arg, s_char *p, float farg, natid nat,
-	  struct natstr *np)
+docountry(s_char op, int arg, s_char *p, float farg, struct natstr *np)
 {
     coord newx, newy;
+    natid nat = np->nat_cnum;
+
     switch (op) {
     case 'n':
 	pr("Country name changed from %s to %s\n", np->nat_cnam, p);
