@@ -45,8 +45,7 @@
 static void repo_header(void);
 static void repo_list(struct natstr *, struct natstr *);
 static void printdiff(struct natstr *, struct natstr *, int what);
-static int check(char *buf, double theirs, double min, double max,
-		 int shift, int tolerance);
+static int tryprdiff(double, double, double, int, int);
 
 int
 repo(void)
@@ -116,7 +115,6 @@ printdiff(struct natstr *plnatp, struct natstr *natp, int what)
     double theirs;
     int shift;
     int tolerance;
-    char buf[128];
 
     if (ours
 	&& plnatp->nat_stat >= STAT_ACTIVE && natp->nat_stat >= STAT_ACTIVE) {
@@ -138,34 +136,31 @@ printdiff(struct natstr *plnatp, struct natstr *natp, int what)
 	}
 	if (tolerance > 2 * ours)
 	    tolerance = (int)(2 * ours);
-	if (check(buf, theirs, 2 * ours, -1.0, shift, tolerance))
+	if (tryprdiff(theirs, 2 * ours, -1.0, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, 1.5 * ours, 2.0 * ours, shift, tolerance))
+	else if (tryprdiff(theirs, 1.5 * ours, 2.0 * ours, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, 1.2 * ours, 1.5 * ours, shift, tolerance))
+	else if (tryprdiff(theirs, 1.2 * ours, 1.5 * ours, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, 1.1 * ours, 1.2 * ours, shift, tolerance))
+	else if (tryprdiff(theirs, 1.1 * ours, 1.2 * ours, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, ours / 1.1, 1.1 * ours, shift, tolerance))
+	else if (tryprdiff(theirs, ours / 1.1, 1.1 * ours, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, ours / 1.2, ours / 1.1, shift, tolerance))
+	else if (tryprdiff(theirs, ours / 1.2, ours / 1.1, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, ours / 1.5, ours / 1.2, shift, tolerance))
+	else if (tryprdiff(theirs, ours / 1.5, ours / 1.2, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, ours / 2.0, ours / 1.5, shift, tolerance))
+	else if (tryprdiff(theirs, ours / 2.0, ours / 1.5, shift, tolerance))
 	  ;
-	else if (check(buf, theirs, -1.0, ours / 2.0, shift, tolerance)) ;
+	else if (tryprdiff(theirs, -1.0, ours / 2.0, shift, tolerance)) ;
 	else
-	    sprintf(buf, "    n/a");
+	    pr("    n/a     ");
     } else
-	sprintf(buf, "    n/a");
-
-    pr("%-11s ", buf);
+	pr("    n/a     ");
 }
 
 static int
-check(char *buf, double theirs, double min, double max, int shift,
-      int tolerance)
+tryprdiff(double theirs, double min, double max, int shift, int tolerance)
 {
     double shove;
 
@@ -173,12 +168,12 @@ check(char *buf, double theirs, double min, double max, int shift,
 	if (theirs <= max) {
 	    if (max < tolerance)
 		max = tolerance;
-	    sprintf(buf, "   0 - %d", (int)max + shift);
+	    pr("   0 - %-4d ", (int)max + shift);
 	    return 1;
 	}
     } else if (max < 0) {
 	if (theirs >= min) {
-	    sprintf(buf, "    >= %d", (int)min + shift);
+	    pr("    >= %-4d ", (int)min + shift);
 	    return 1;
 	}
     } else if (theirs >= min && theirs <= max) {
@@ -192,7 +187,7 @@ check(char *buf, double theirs, double min, double max, int shift,
 		max = tolerance;
 	    }
 	}
-	sprintf(buf, "%4d - %d", (int)min + shift, (int)max + shift);
+	pr("%4d - %-4d ", (int)min + shift, (int)max + shift);
 	return 1;
     }
 
