@@ -45,7 +45,7 @@
 #include "gen.h"
 #include "common.h"
 
-s_char *
+void *
 nxtitemp(struct nstr_item *np)
 {
     struct genitem *gp;
@@ -106,5 +106,5 @@ nxtitemp(struct nstr_item *np)
 		selected = 0;
 	}
     } while (!selected);
-    return (s_char *)gp;
+    return gp;
 }

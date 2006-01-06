@@ -435,8 +435,7 @@ feed_ship(struct shpstr *sp, int etus, int *needed, int doit)
 /* doit - only steal food from land units during the update */
     if (ifood_eaten > sp->shp_item[I_FOOD] && sp->shp_nland > 0 && doit) {
 	snxtitem_all(&ni, EF_LAND);
-	while ((lp = (struct lndstr *)nxtitemp(&ni)) &&
-	       ifood_eaten > sp->shp_item[I_FOOD]) {
+	while ((lp = nxtitemp(&ni)) && ifood_eaten > sp->shp_item[I_FOOD]) {
 	    if (lp->lnd_ship != sp->shp_uid)
 		continue;
 	    need = ifood_eaten - sp->shp_item[I_FOOD];

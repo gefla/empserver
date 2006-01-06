@@ -771,7 +771,7 @@ extern int load_it(struct shpstr *, struct sctstr *,
 extern void unload_it(struct shpstr *);
 extern void auto_fuel_ship(struct shpstr *);
 /* nxtitemp.c */
-extern s_char *nxtitemp(struct nstr_item *);
+extern void *nxtitemp(struct nstr_item *);
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
