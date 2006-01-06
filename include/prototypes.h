@@ -545,7 +545,7 @@ extern int msl_launch_mindam(struct emp_qelem *, coord, coord, int,
 /* mtch.c */
 extern int comtch(register s_char *, struct cmndstr *, int);
 /* natarg.c */
-extern int natarg(s_char *, s_char *);
+extern int natarg(char *, char *);
 /* neigh.c */
 extern int neigh(coord, coord, natid);
 /* nreport.c */
