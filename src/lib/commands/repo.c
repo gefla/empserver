@@ -37,71 +37,39 @@
 
 #include "misc.h"
 #include "player.h"
-#include "sect.h"
 #include "nat.h"
 #include "file.h"
-#include "xy.h"
-#include "nsc.h"
-#include <fcntl.h>
-#include <ctype.h>
 #include "commands.h"
 #include "optlist.h"
 
-struct stats {
-    double res;
-    double tech;
-    double edu;
-    double hap;
-    int stat;
-};
-
-static void printdiff(int mystat, double ours, struct natstr *natp,
-		      int what);
 static void repo_header(void);
-static void repo_list(struct stats *stat, natid cn, struct natstr *natp);
-
-static int check(s_char *buf, double theirs, double min, double max,
+static void repo_list(struct natstr *, struct natstr *);
+static void printdiff(struct natstr *, struct natstr *, int what);
+static int check(char *buf, double theirs, double min, double max,
 		 int shift, int tolerance);
 
 int
 repo(void)
 {
     struct natstr *natp;
-    struct stats mystat;
     struct natstr nat;
     struct nstr_item ni;
-    int first;
 
     if (!snxtitem(&ni, EF_NATION, player->argp[1]))
 	return RET_SYN;
     prdate();
     natp = getnatp(player->cnum);
-    memset(&mystat, 0, sizeof(struct stats));
-    mystat.stat = natp->nat_stat;
-    if (mystat.stat >= STAT_ACTIVE) {
-	mystat.res = natp->nat_level[NAT_RLEV];
-	mystat.tech = natp->nat_level[NAT_TLEV];
-	mystat.edu = natp->nat_level[NAT_ELEV];
-	mystat.hap = natp->nat_level[NAT_HLEV];
-    }
-    if (opt_HIDDEN) {
-	repo_header();
-	first = 0;
-    } else {
-	first = 1;
-    }
+    repo_header();
     while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	if (opt_HIDDEN) {
-	    if (!player->god && !getcontact(getnatp(player->cnum), ni.cur))
+	    if (!player->god && !getcontact(natp, ni.cur))
 		continue;
 	}
-	if (first) {
-	    repo_header();
-	    first = 0;
-	}
-	repo_list(&mystat, (natid)ni.cur, &nat);
+	if (!player->god && nat.nat_stat != STAT_ACTIVE)
+	    continue;
+	repo_list(natp, &nat);
     }
     return RET_OK;
 }
@@ -109,31 +77,29 @@ repo(void)
 static void
 repo_header(void)
 {
-    pr(" #    name                tech      research   education   happiness ");
-    if (player->god)
-	pr("capital\n");
-    else
-	pr(" status\n");
+    pr(" #    name                tech      research   education   happiness"
+       " %s\n",
+       player->god ? "capital" : " status");
 }
 
 static void
-repo_list(struct stats *stat, natid cn, struct natstr *natp)
+repo_list(struct natstr *plnatp, struct natstr *natp)
 {
-    if (player->god) {
-	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);
-	pr(" %7.2f    %7.2f      %7.2f     %7.2f",
-	   natp->nat_level[NAT_TLEV],
-	   natp->nat_level[NAT_RLEV],
-	   natp->nat_level[NAT_ELEV], natp->nat_level[NAT_HLEV]);
-	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap, player->cnum);
-	return;
+    pr(" %-3d   %-14.14s ", natp->nat_cnum, natp->nat_cnam);
+    if (player->god || player->cnum == natp->nat_cnum) {
+	pr(" %7.2f     %7.2f     %7.2f     %7.2f%s",
+	   natp->nat_level[NAT_TLEV], natp->nat_level[NAT_RLEV],
+	   natp->nat_level[NAT_ELEV], natp->nat_level[NAT_HLEV],
+	   player->god ? "" : "    ");
+    } else {
+	printdiff(plnatp, natp, NAT_TLEV);
+	printdiff(plnatp, natp, NAT_RLEV);
+	printdiff(plnatp, natp, NAT_ELEV);
+	printdiff(plnatp, natp, NAT_HLEV);
     }
-    if (natp->nat_stat == STAT_ACTIVE) {
-	pr(" %-3d   %-14.14s ", cn, natp->nat_cnam);
-	printdiff(stat->stat, stat->tech, natp, NAT_TLEV);
-	printdiff(stat->stat, stat->res, natp, NAT_RLEV);
-	printdiff(stat->stat, stat->edu, natp, NAT_ELEV);
-	printdiff(stat->stat, stat->hap, natp, NAT_HLEV);
+    if (player->god) {
+	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap, player->cnum);
+    } else {
 	if (!opt_HIDDEN && influx(natp))
 	    pr("In flux\n");
 	else if (!opt_HIDDEN && natp->nat_money <= 0)
@@ -144,18 +110,16 @@ repo_list(struct stats *stat, natid cn, struct natstr *natp)
 }
 
 static void
-printdiff(int mystat, double ours, struct natstr *natp, int what)
+printdiff(struct natstr *plnatp, struct natstr *natp, int what)
 {
+    double ours = plnatp->nat_level[what];
     double theirs;
     int shift;
     int tolerance;
-    s_char buf[128];
+    char buf[128];
 
-    if (natp->nat_cnum == player->cnum) {
-	pr(" %7.2f    ", ours);
-	return;
-    }
-    if (ours && mystat >= STAT_ACTIVE && natp->nat_stat >= STAT_ACTIVE) {
+    if (ours
+	&& plnatp->nat_stat >= STAT_ACTIVE && natp->nat_stat >= STAT_ACTIVE) {
 	theirs = natp->nat_level[what];
 	if ((shift = min((int)theirs, (int)ours) - 100) > 0) {
 	    ours -= shift;
@@ -200,7 +164,7 @@ printdiff(int mystat, double ours, struct natstr *natp, int what)
 }
 
 static int
-check(s_char *buf, double theirs, double min, double max, int shift,
+check(char *buf, double theirs, double min, double max, int shift,
       int tolerance)
 {
     double shove;
