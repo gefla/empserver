@@ -38,6 +38,7 @@
 #include "nat.h"
 #include "player.h"
 #include "file.h"
+#include "match.h"
 #include "prototypes.h"
 #include "optlist.h"
 
@@ -63,8 +64,13 @@ natarg(char *arg, char *prompt)
 	return -1;
     if (isdigit(*arg))
 	n = atoi(arg);
-    else
+    else {
 	n = cnumb(arg);
+	if (n == M_NOTUNIQUE) {
+	    pr("Country '%s' is ambiguous\n", arg);
+	    return -1;
+	}
+    }
     np = getnatp(n);
     if (!np) {
 	pr("Country '%s' doesn't exist.\n", arg);
