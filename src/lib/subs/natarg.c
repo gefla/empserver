@@ -45,6 +45,41 @@
 /*
  * Get nation argument.
  * If ARG is not empty, use it, else prompt for input using PROMPT.
+ * If no input is provided, return NULL.
+ * If the argument identifies a country, return its getnatp() value.
+ * Else complain and return NULL.
+ * Caution: this function doesn't care for lack of contact.
+ */
+struct natstr *
+natargp(char *arg, char *prompt)
+{
+    char buf[1024];
+    int n;
+    struct natstr *np;
+
+    arg = getstarg(arg, prompt, buf);
+    if (arg == 0 || *arg == 0)
+	return NULL;
+    if (isdigit(*arg))
+	n = atoi(arg);
+    else {
+	n = cnumb(arg);
+	if (n == M_NOTUNIQUE) {
+	    pr("Country '%s' is ambiguous\n", arg);
+	    return NULL;
+	}
+    }
+    np = getnatp(n);
+    if (!np) {
+	pr("Country '%s' doesn't exist.\n", arg);
+	return NULL;
+    }
+    return np;
+}
+
+/*
+ * Get nation argument.
+ * If ARG is not empty, use it, else prompt for input using PROMPT.
  * If no input is provided, return -1.
  * If the argument identifies a country, return its number.  getnatp()
  * can be assumed to succeed for this number.
@@ -55,34 +90,16 @@
 int
 natarg(char *arg, char *prompt)
 {
-    char buf[1024];
-    int n;
-    struct natstr *np;
-
-    arg = getstarg(arg, prompt, buf);
-    if (arg == 0 || *arg == 0)
+    struct natstr *np = natargp(arg, prompt);
+    if (!np)
 	return -1;
-    if (isdigit(*arg))
-	n = atoi(arg);
-    else {
-	n = cnumb(arg);
-	if (n == M_NOTUNIQUE) {
-	    pr("Country '%s' is ambiguous\n", arg);
-	    return -1;
-	}
-    }
-    np = getnatp(n);
-    if (!np) {
-	pr("Country '%s' doesn't exist.\n", arg);
-	return -1;
-    }
     if (opt_HIDDEN) {
-	if (!player->god && !getcontact(getnatp(player->cnum), n)) {
+	if (!player->god && !getcontact(getnatp(player->cnum), np->nat_cnum)) {
 	    if (np->nat_stat != STAT_GOD) {
 		pr("Country '%s' has not been contacted.\n", arg);
 		return -1;
 	    }
 	}
     }
-    return n;
+    return np->nat_cnum;
 }
