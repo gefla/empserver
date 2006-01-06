@@ -63,7 +63,7 @@ static void addtopow(short *vec, struct powstr *pow);
 static void gen_power(void);
 static void out5(double value, int round_val, int round_flag);
 static int powcmp(const void *, const void *);
-static int set_target(s_char *, int *);
+static int set_target(char *, int *);
 
 int
 powe(void)
@@ -378,7 +378,7 @@ addtopow(short *vec, struct powstr *pow)
 }
 
 static int
-set_target(s_char *p, int *targets)
+set_target(char *p, int *targets)
 {
     int target;
     struct natstr *natp;
@@ -391,13 +391,9 @@ set_target(s_char *p, int *targets)
     else
 	target = cnumb(p);
 
-    if (target > 0 && target < MAXNOC && (natp = getnatp(target))) {
-	if (natp->nat_stat == STAT_GOD) {
-	    pr("Country #%d is a deity country\n", target);
-	} else if (natp->nat_stat == STAT_UNUSED) {
-	    pr("Country #%d is not in use\n", target);
-	} else if (natp->nat_stat != STAT_ACTIVE) {
-	    pr("Country #%d is not a normal country\n", target);
+    if (target >= 0 && target < MAXNOC && (natp = getnatp(target))) {
+	if (natp->nat_stat != STAT_ACTIVE) {
+	    pr("Country '%s' is not a normal country\n", p);
 	} else {
 	    targets[target] = 1;
 	    return 1;
