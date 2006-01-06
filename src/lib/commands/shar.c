@@ -48,10 +48,8 @@ shar(void)
     s_char des = 0;
     int n;
 
-    if (!player->argp[1] ||
-	!*player->argp[1] ||
-	(to =
-	 natarg(player->argp[1], "Share bmap with which country? ")) < 0)
+    to = natarg(player->argp[1], "Share bmap with which country? ");
+    if (to < 0)
 	return RET_SYN;
 
     if (getrel(getnatp(to), player->cnum) < FRIENDLY) {
