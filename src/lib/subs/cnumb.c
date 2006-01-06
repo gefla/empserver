@@ -37,19 +37,24 @@
 #include "player.h"
 #include "nat.h"
 #include "file.h"
+#include "match.h"
 #include "prototypes.h"
 
+/*
+ * Search for a country matching CNTRY, return its number.
+ * Return M_NOTFOUND if no such country exists, M_NOTUNIQUE if there
+ * are several.
+ */
 int
-cnumb(s_char *cntry)
+cnumb(char *cntry)
 {
-    register s_char *ncp;
-    register s_char *cp;
-    register struct natstr *natp;
-    int bcount;
-    natid best;
+    char *ncp;
+    char *cp;
+    struct natstr *natp;
+    int res;
     natid cn;
 
-    bcount = 0;
+    res = M_NOTFOUND;
     for (cn = 0; cn < MAXNOC; cn++) {
 	if ((natp = getnatp(cn)) == 0)
 	    break;
@@ -58,13 +63,14 @@ cnumb(s_char *cntry)
 	ncp = natp->nat_cnam;
 	for (cp = cntry; *cp == *ncp; cp++, ncp++) {
 	    if (*cp == 0)
-		return cn;
+		return cn;	/* exact match */
 	}
 	if (*cp == 0) {
-	    best = cn;
-	    bcount++;
+	    /* is a prefix */
+	    if (res >= 0)
+		return M_NOTUNIQUE;
+	    res = cn;
 	}
     }
-    /* can only have 1 match or not successful */
-    return bcount == 1 ? (int)best : -1;
+    return res;
 }

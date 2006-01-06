@@ -466,7 +466,7 @@ extern void caploss(struct sctstr *, natid, s_char *);
 extern int chkmoney(long, long, s_char *);
 extern int check_cost(int, int, long, int *, s_char *);
 /* cnumb.c */
-extern int cnumb(s_char *);
+extern int cnumb(char *);
 /* coastal.c */
 extern void set_coastal(struct sctstr *sp, int des);
 /* control.c */
