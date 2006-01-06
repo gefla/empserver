@@ -74,17 +74,8 @@ tele(void)
 
 	kk = 1;
 	while (player->argp[kk] != NULL) {
-	    if ((n = natarg(player->argp[kk], "for which country? ")) < 0) {
-		if (opt_HIDDEN) {
-		    if (n < -1) {
-			return RET_OK;
-		    } else {
-			return RET_SYN;
-		    }
-		} else {
-		    return RET_SYN;
-		}
-	    }
+	    if ((n = natarg(player->argp[kk], "for which country? ")) < 0)
+		return RET_SYN;
 	    to = n;
 
 	    if (kk == 1) {
