@@ -221,6 +221,8 @@ status(void)
     else
 	player->nstat |= CAP;
     player->ncomstat = player->nstat;
+    if (player->god)
+	player->ncomstat |= CAP | MONEY;
     time(&player->curup);
     minute = (player->curup - player->lasttime) / 60;
     if (minute > 0) {
