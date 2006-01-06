@@ -70,7 +70,7 @@ natargp(char *arg, char *prompt)
 	}
     }
     np = getnatp(n);
-    if (!np) {
+    if (!np || np->nat_stat == STAT_UNUSED) {
 	pr("Country '%s' doesn't exist.\n", arg);
 	return NULL;
     }
