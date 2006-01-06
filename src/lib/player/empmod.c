@@ -241,7 +241,7 @@ struct cmndstr player_coms[] = {
     {"swapsector <SECT> <SECT>", 0, swaps, C_MOD, GOD},
     {"sweep <sweep-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>",
      3, reco, C_MOD, NORM + MONEY + CAP},
-    {"telegram <NAT>", 0, tele, C_MOD, NORM},
+    {"telegram <NATS>...", 0, tele, C_MOD, NORM},
     {"tend <COMM|\"land\"> <tender-SHIPS> <NUM|UNIT> <dest-SHIPS>", 1,
      tend, C_MOD, NORM + CAP},
     {"territory <SECTS> <NUMBER> [<FIELD>]", 0, terr, C_MOD, NORM},
