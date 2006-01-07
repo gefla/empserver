@@ -79,11 +79,7 @@ age_levels(int etu)
     best_tech /= 5;
     best_res /= 5;
     for (i = 0; NULL != (np = getnatp(i)); i++) {
-	if (np->nat_stat == STAT_UNUSED)
-	    continue;
-	if (np->nat_stat == STAT_GOD)
-	    continue;
-	if (np->nat_stat == STAT_VIS)
+	if (np->nat_stat < STAT_SANCT || np->nat_stat == STAT_GOD)
 	    continue;
 	level = np->nat_level[NAT_TLEV];
 	if (level < best_tech && chance(0.2))
