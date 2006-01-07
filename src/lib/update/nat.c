@@ -241,21 +241,13 @@ share_incr(double *res, double *tech)
 
     for (i = 0; NULL != (np = getnatp(i)); i++) {
 	res[i] = tech[i] = 0.0;
-	if (np->nat_stat == STAT_UNUSED)
-	    continue;
-	if (np->nat_stat == STAT_GOD)
-	    continue;
-	if (np->nat_stat == STAT_VIS)
+	if (np->nat_stat < STAT_SANCT || np->nat_stat == STAT_GOD)
 	    continue;
 	rnc = tnc = 0;
 	for (j = 0; NULL != (other = getnatp(j)); j++) {
 	    if (j == i)
 		continue;
-	    if (other->nat_stat == STAT_GOD)
-		continue;
-	    if (other->nat_stat == STAT_VIS)
-		continue;
-	    if (other->nat_stat == STAT_UNUSED)
+	    if (other->nat_stat != STAT_ACTIVE)
 		continue;
 	    if (opt_HIDDEN) {
 		if (!getcontact(np, j))
@@ -281,8 +273,6 @@ share_incr(double *res, double *tech)
 		}
 	    }
 	}
-	if (rnc == 0 && tnc == 0)
-	    continue;
 	if (rnc > 0) {
 	    res[i] /= rnc * ally_factor;
 	}
