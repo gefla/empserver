@@ -53,7 +53,6 @@ acce(void)
     struct natstr *np;
     natid cn;
     natid as;
-    int n;
 
     if (player->argp[1] == 0) {
 	natp = getnatp(player->cnum);
