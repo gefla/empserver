@@ -368,6 +368,19 @@ xuloadrow(int type, int row, struct value values[])
 			((long *)row_ref)[k] = (long)
 			    values[j].v_field.v_double;
 		    break;
+		case NSC_SHORT:
+		    if (ca[i].ca_flags & NSC_CONST) {
+			if (((short *)row_ref)[k] !=
+			     (short)values[j].v_field.v_double)
+			    gripe("Field %s must be same, "
+				"read %d != expected %d",
+				ca[i].ca_name,
+				((short *)row_ref)[k],
+				(short)values[j].v_field.v_double);
+		    } else
+			((short *)row_ref)[k] = (short)
+			    values[j].v_field.v_double;
+		    break;
 		case NSC_USHORT:
 		    if (ca[i].ca_flags & NSC_CONST) {
 			if (((unsigned short *)row_ref)[k] !=
@@ -433,6 +446,7 @@ xuloadrow(int type, int row, struct value values[])
 		    break;
 		case NSC_INT:
 		case NSC_LONG:
+		case NSC_SHORT:
 		case NSC_USHORT:
 		case NSC_UCHAR:
 		case NSC_FLOAT:
