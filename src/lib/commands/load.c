@@ -821,7 +821,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     s_char prompt[512];
     s_char buf[1024];
 
-    if (!(lchr[(int)lp->lnd_type].l_flags & L_XLIGHT)) {
+    if (!lp->lnd_maxlight) {
 	if (noisy)
 	    pr("%s cannot carry extra-light planes.\n", prland(lp));
 	return 0;

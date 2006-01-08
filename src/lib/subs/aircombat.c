@@ -1112,7 +1112,6 @@ can_fly(int p)
     struct lndstr land;
     struct plchrstr *pcp;
     struct mchrstr *scp;
-    struct lchrstr *lcp;
 
     getplane(p, &plane);
     pcp = &plchr[(int)plane.pln_type];
@@ -1149,9 +1148,8 @@ can_fly(int p)
 	    return 0;
 
 	getland(plane.pln_land, &land);
-	lcp = &lchr[(int)land.lnd_type];
 
-	if ((pcp->pl_flags & P_E) && (lcp->l_flags & L_XLIGHT)) {
+	if ((pcp->pl_flags & P_E) && land.lnd_maxlight) {
 	    return 1;
 	}
     }

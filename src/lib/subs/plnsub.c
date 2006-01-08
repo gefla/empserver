@@ -922,14 +922,11 @@ int
 take_plane_off_land(struct plnstr *plane, struct lndstr *land)
 {
     struct plchrstr *pcp;
-    struct lchrstr *lcp;
 
     pcp = &plchr[(int)plane->pln_type];
-    lcp = &lchr[(int)land->lnd_type];
 
     /* Try to take off ship as an xlight plane */
-    if ((pcp->pl_flags & P_E) &&
-	(lcp->l_flags & L_XLIGHT) && (land->lnd_nxlight)) {
+    if ((pcp->pl_flags & P_E) && land->lnd_nxlight) {
 
 	land->lnd_nxlight--;
 	plane->pln_land = -1;
@@ -1106,18 +1103,15 @@ int
 put_plane_on_land(struct plnstr *plane, struct lndstr *land)
 {
     struct plchrstr *pcp;
-    struct lchrstr *lcp;
 
     pcp = &plchr[(int)plane->pln_type];
-    lcp = &lchr[(int)land->lnd_type];
 
     if (((int)plane->pln_land) == ((int)land->lnd_uid))
 	return 1;		/* Already on unit */
 
     /* Try to put on unit as an xlight plane */
     if ((pcp->pl_flags & P_E) &&
-	(lcp->l_flags & L_XLIGHT) &&
-	(land->lnd_nxlight < lcp->l_nxlight)) {
+	(land->lnd_nxlight < land->lnd_maxlight)) {
 
 	land->lnd_nxlight++;
 	plane->pln_x = land->lnd_x;

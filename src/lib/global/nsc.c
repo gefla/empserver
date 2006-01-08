@@ -580,7 +580,6 @@ struct symbol ship_chr_flags[] = {
 };
 
 struct symbol land_chr_flags[] = {
-    {L_XLIGHT, "xlight"},
     {L_ENGINEER, "engineer"},
     {L_SUPPLY, "supply"},
     {L_SECURITY, "security"},

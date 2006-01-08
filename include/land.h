@@ -128,7 +128,6 @@ struct lchrstr {
 };
 
 /* Land unit ability flags */
-#define	L_XLIGHT	bit(0)	/* Hold xlight planes */
 #define	L_ENGINEER	bit(1)	/* Do engineering things */
 #define	L_SUPPLY	bit(2)	/* supply other units/sects */
 #define	L_SECURITY	bit(3)	/* anti-terrorist troops */

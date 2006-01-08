@@ -100,7 +100,7 @@ struct lchrstr lchr[] = {
      "tra  train",
      100, 50, 0, 0, 0, 40, 3500,
      0.0, 0.0, 120, 10, 25, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 12,
-     L_XLIGHT | L_TRAIN | L_HEAVY | L_SUPPLY,
+     L_TRAIN | L_HEAVY | L_SUPPLY,
      },
 
     {{0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0},
@@ -198,7 +198,7 @@ struct lchrstr lchr[] = {
      "rad  radar unit",
      10, 5, 0, 0, 0, 270, 1000,
      0.0, 0.0, 50, 33, 15, 3, 0, 0, 0, 0, 0, 2, 25, 2, 1, 0,
-     L_XLIGHT | L_RADAR | L_LIGHT,
+     L_RADAR | L_LIGHT,
      },
 
 /* name
