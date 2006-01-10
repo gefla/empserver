@@ -95,55 +95,57 @@ struct empfile {
  * These are really table IDs.  Some tables are backed by files, some
  * are compiled into the server.
  */
-/* Error value */
-#define EF_BAD		-1
-/* Dynamic game data tables */
-#define EF_SECTOR	0
-#define EF_SHIP		1
-#define EF_PLANE	2
-#define	EF_LAND		3
-#define EF_NUKE		4
-#define EF_NEWS		5
-#define EF_TREATY	6
-#define EF_TRADE	7
-#define EF_POWER	8
-#define EF_NATION	9
-#define EF_LOAN		10
-#define	EF_MAP		11
-#define EF_BMAP		12
-#define EF_COMM         13
-#define EF_LOST         14
-/* Static game data (configuration) */
-#define EF_SECTOR_CHR	15
-#define EF_SHIP_CHR	16
-#define EF_PLANE_CHR	17
-#define EF_LAND_CHR	18
-#define EF_NUKE_CHR	19
-#define EF_NEWS_CHR	20
-#define EF_TREATY_FLAGS	21
-#define EF_ITEM		22
-#define EF_INFRASTRUCTURE   23
-#define EF_PRODUCT	24
-#define EF_TABLE	25
-#define EF_SHIP_CHR_FLAGS	26
-#define EF_PLANE_CHR_FLAGS	27
-#define EF_LAND_CHR_FLAGS	28
-#define EF_NUKE_CHR_FLAGS	29
-#define EF_META		30
-#define EF_META_TYPE	31
-#define EF_META_FLAGS	32
-#define EF_MISSIONS	33
-#define EF_PLANE_FLAGS	34
-#define EF_RETREAT_FLAGS	35
-#define EF_NATION_FLAGS	36
-#define EF_NATION_RELATIONS 37
-#define EF_LEVEL	38
-#define EF_AGREEMENT_STATUS	39
-#define EF_PLAGUE_STAGES	40
-#define EF_PACKING	41
-#define EF_RESOURCES	42
-#define EF_NATION_STATUS	43
-#define EF_MAX		44
+enum {
+    /* Error value */
+    EF_BAD = -1,
+    /* Dynamic game data tables */
+    EF_SECTOR,
+    EF_SHIP,
+    EF_PLANE,
+    EF_LAND,
+    EF_NUKE,
+    EF_NEWS,
+    EF_TREATY,
+    EF_TRADE,
+    EF_POWER,
+    EF_NATION,
+    EF_LOAN,
+    EF_MAP,
+    EF_BMAP,
+    EF_COMM,
+    EF_LOST,
+    /* Static game data (configuration) */
+    EF_SECTOR_CHR,
+    EF_SHIP_CHR,
+    EF_PLANE_CHR,
+    EF_LAND_CHR,
+    EF_NUKE_CHR,
+    EF_NEWS_CHR,
+    EF_TREATY_FLAGS,
+    EF_ITEM,
+    EF_INFRASTRUCTURE,
+    EF_PRODUCT,
+    EF_TABLE,
+    EF_SHIP_CHR_FLAGS,
+    EF_PLANE_CHR_FLAGS,
+    EF_LAND_CHR_FLAGS,
+    EF_NUKE_CHR_FLAGS,
+    EF_META,
+    EF_META_TYPE,
+    EF_META_FLAGS,
+    EF_MISSIONS,
+    EF_PLANE_FLAGS,
+    EF_RETREAT_FLAGS,
+    EF_NATION_FLAGS,
+    EF_NATION_RELATIONS,
+    EF_LEVEL,
+    EF_AGREEMENT_STATUS,
+    EF_PLAGUE_STAGES,
+    EF_PACKING,
+    EF_RESOURCES,
+    EF_NATION_STATUS,
+    EF_MAX
+};
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
 
