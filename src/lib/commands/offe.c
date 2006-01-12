@@ -231,8 +231,8 @@ do_loan(void)
     loan.l_loner = player->cnum;
     loan.l_lonee = recipient;
     loan.l_status = LS_PROPOSED;
-    loan.l_irate = min(irate, 127);
-    loan.l_ldur = min(dur, 127);
+    loan.l_irate = MIN(irate, 127);
+    loan.l_ldur = MIN(dur, 127);
     loan.l_amtpaid = 0;
     loan.l_amtdue = amt;
     (void)time(&loan.l_lastpay);

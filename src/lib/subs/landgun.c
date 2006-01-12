@@ -40,7 +40,7 @@ double
 landgun(int effic, int guns)
 {
     double d;
-    double g = (double)min(guns, 7);
+    double g = (double)MIN(guns, 7);
 
     d = ((double)(random() % 30) + 20.0) * ((double)g / 7.0);
     d *= (double)effic;
@@ -65,7 +65,7 @@ landunitgun(int effic, int shots, int guns, int ammo, int shells)
 {
     double d = 0.0;
 
-    shots = min(shots, guns);
+    shots = MIN(shots, guns);
     while (shots-- > 0)
 	d += 5.0 + (double)(random() % 6);
     d *= (double)effic * 0.01;

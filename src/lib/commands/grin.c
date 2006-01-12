@@ -82,7 +82,7 @@ grin(void)
 	    if (CANT_HAPPEN(pchr[P_BAR].p_ctype[i] <= I_NONE ||
 			    pchr[P_BAR].p_ctype[i] > I_MAX))
 		continue;
-	    n = min(n,
+	    n = MIN(n,
 		    (double)(ITEM_MAX - sect.sct_item[pchr[P_BAR].p_ctype[i]])
 		    / (pchr[P_BAR].p_camt[i] * grind_eff));
 	}

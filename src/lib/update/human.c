@@ -146,7 +146,7 @@ int
 new_work(struct sctstr *sp, int delta)
 {
     if (sp->sct_type == sp->sct_newtype)
-	return min(rollover_avail_max, sp->sct_avail) + delta;
+	return MIN(rollover_avail_max, sp->sct_avail) + delta;
 
     return delta;
 }
@@ -161,7 +161,7 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
 
     food_workers = work * fcrate;
     food_fertil = etu * sp->sct_fertil * fgrate;
-    food = min(food_workers, food_fertil);
+    food = MIN(food_workers, food_fertil);
     if (food > ITEM_MAX - vec[I_FOOD])
 	food = ITEM_MAX - vec[I_FOOD];
     /*

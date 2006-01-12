@@ -113,7 +113,7 @@ load_it(struct shpstr *sp, struct sctstr *psect, int i)
     if (!abs_max)
 	return 0;		/* can't load the ship, skip to the end. */
 
-    max_amt = min(sect_amt, max_amt - ship_amt);
+    max_amt = MIN(sect_amt, max_amt - ship_amt);
     if (max_amt <= 0 && (ship_amt != abs_max)) {
 	sp->shp_autonav |= AN_LOADING;
 	return 0;
@@ -199,7 +199,7 @@ unload_it(struct shpstr *sp)
 	if (comm == I_CIVIL)
 	    ship_amt--;		/* This leaves 1 civs on board the ship */
 
-	max_amt = min(ship_amt, ITEM_MAX - sect_amt);
+	max_amt = MIN(ship_amt, ITEM_MAX - sect_amt);
 	if (max_amt <= 0)
 	    continue;
 

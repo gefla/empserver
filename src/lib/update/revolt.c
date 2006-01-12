@@ -218,7 +218,7 @@ guerrilla(struct sctstr *sp)
 	logerror("%d Che targeted at country %d retiring", che, target);
 	sp->sct_che = 0;
 	sp->sct_che_target = 0;
-	sp->sct_item[I_CIVIL] = min(civ + che, ITEM_MAX);
+	sp->sct_item[I_CIVIL] = MIN(civ + che, ITEM_MAX);
 	return;
     }
 

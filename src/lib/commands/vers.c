@@ -134,9 +134,9 @@ vers(void)
        (int)(plane_mob_scale * (float)etu_per_update),
        (int)(land_mob_scale * (float)etu_per_update));
     pr("Max eff gain per update\t\t--\t%d\t%d\t%d\n",
-       min((int)(ship_grow_scale * (float)etu_per_update), 100),
-       min((int)(plane_grow_scale * (float)etu_per_update), 100),
-       min((int)(land_grow_scale * (float)etu_per_update), 100));
+       MIN((int)(ship_grow_scale * (float)etu_per_update), 100),
+       MIN((int)(plane_grow_scale * (float)etu_per_update), 100),
+       MIN((int)(land_grow_scale * (float)etu_per_update), 100));
     pr("\n");
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {

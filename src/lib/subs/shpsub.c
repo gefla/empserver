@@ -257,7 +257,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 	    if (chance(0.66)) {
 		mpr(actor, "Sweep...\n");
 		mines--;
-		shells = min(max, shells + 1);
+		shells = MIN(max, shells + 1);
 		changed |= map_set(actor, sect.sct_x, sect.sct_y, 'X', 0);
 	    }
 	}
@@ -661,7 +661,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, (double)min(gun, 7));
+	range = tfactfire(fsect.sct_own, (double)MIN(gun, 7));
 	if (fsect.sct_effic > 59)
 	    range++;
 	range2 = roundrange(range);
@@ -950,7 +950,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    continue;
 
 	/* now calculate the odds */
-	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
+	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
 	eff = (double)ship.shp_effic / 100.0;
 	teff =
 	    (((double)ship.shp_tech) / (((double)ship.shp_tech) + 200.0));

@@ -113,7 +113,7 @@ detonate(struct plnstr *pp, int x, int y)
 		fallout += damage * 30;
 	    else
 		fallout += damage * 3;
-	    sect.sct_fallout = min(fallout, FALLOUT_MAX);
+	    sect.sct_fallout = MIN(fallout, FALLOUT_MAX);
 	}
 	if (damage > 100) {
 	    makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);

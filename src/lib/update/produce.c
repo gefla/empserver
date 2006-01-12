@@ -169,9 +169,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	}
     }
 
-    /* The min() here is to take care of integer rounding errors */
+    /* The MIN() here is to take care of integer rounding errors */
     if (p_e > 0.0) {
-	return min(work, (int)(unit_work * material_consume / p_e));
+	return MIN(work, (int)(unit_work * material_consume / p_e));
     }
     return 0;
 }

@@ -55,10 +55,6 @@
 
 int mil_dbl_pay;
 
-#ifndef MIN
-#define MIN(x,y)       ((x) > (y) ? (y) : (x))
-#endif
-
 static int landrepair(struct lndstr *, struct natstr *,
 		      int *, int);
 static void upd_land(struct lndstr *lp, int etus,
@@ -144,8 +140,8 @@ upd_land(struct lndstr *lp, int etus,
 	    mult = 2;
 	if (lcp->l_flags & L_ENGINEER)
 	    mult *= 3;
-/*		cost = -(mult * etus * dmin(0.0, money_land * LND_COST(lcp->l_cost, lp->lnd_tech - lcp->l_tech)));*/
-	cost = -(mult * etus * dmin(0.0, money_land * lcp->l_cost));
+/*		cost = -(mult * etus * MIN(0.0, money_land * LND_COST(lcp->l_cost, lp->lnd_tech - lcp->l_tech)));*/
+	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
 	if ((np->nat_priorities[PRI_LMAINT] == 0 || np->nat_money < cost)
 	    && !player->simulation) {
 	    if ((eff = lp->lnd_effic - etus / 5) < LAND_MINEFF) {

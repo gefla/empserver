@@ -114,7 +114,7 @@ ef_open(int type, int how)
 	if (how & EFF_MEM)
 	    ep->csize = ep->fids;
 	else
-	    ep->csize = max(1, blksize(fd) / ep->size);
+	    ep->csize = MAX(1, blksize(fd) / ep->size);
 	size = ep->csize * ep->size;
 	if (CANT_HAPPEN(ep->cache))
 	    free(ep->cache);

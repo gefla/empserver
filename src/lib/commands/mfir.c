@@ -208,7 +208,7 @@ multifire(void)
 		continue;
 	    }
 	    gun = item.ship.shp_item[I_GUN];
-	    gun = min(gun, item.ship.shp_glim);
+	    gun = MIN(gun, item.ship.shp_glim);
 	    if (item.ship.shp_frnge == 0) {
 		pr("Ships %d cannot fire guns!\n", item.ship.shp_uid);
 		continue;
@@ -327,7 +327,7 @@ multifire(void)
 		continue;
 	    }
 	    gun = fship.shp_item[I_GUN];
-	    gun = min(gun, fship.shp_glim);
+	    gun = MIN(gun, fship.shp_glim);
 	    if (fship.shp_frnge == 0 || gun == 0) {
 		pr("Insufficient arms.\n");
 		continue;
@@ -358,16 +358,16 @@ multifire(void)
 		    continue;
 		}
 	    }
-	    gun = min(gun, shell * 2);
-	    gun = min(gun, mil / 2);
-	    gun = max(gun, 1);
+	    gun = MIN(gun, shell * 2);
+	    gun = MIN(gun, mil / 2);
+	    gun = MAX(gun, 1);
 	    shots = gun;
 	    guneff = seagun(fship.shp_effic, shots);
 	    dam = (int)guneff;
 	    shell -= ldround(((double)shots) / 2.0, 1);
 	    fship.shp_item[I_SHELL] = shell;
 	    if (opt_NOMOBCOST == 0)
-		fship.shp_mobil = max(fship.shp_mobil - 15, -100);
+		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
 	    putship(fship.shp_uid, &fship);
 	} else if (attacker == targ_unit) {
 	    if (fland.lnd_own != player->cnum) {
@@ -840,8 +840,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    /* only need 1 shell, so don't check that */
 	    if (shell < 1)
 		continue;
-	    nshot = min(gun, ship.shp_item[I_MILIT]);
-	    nshot = min(nshot, ship.shp_glim);
+	    nshot = MIN(gun, ship.shp_item[I_MILIT]);
+	    nshot = MIN(nshot, ship.shp_glim);
 	    if (nshot == 0)
 		continue;
 	    (*nfiring)++;

@@ -39,6 +39,9 @@
 #include <string.h>
 #include <sys/types.h>
 
+#define MAX(a,b) (a > b ? a : b)
+#define MIN(a,b) (a < b ? a : b)
+
 #if defined(_WIN32)
 typedef unsigned char u_char;
 typedef unsigned short u_short;
@@ -48,9 +51,6 @@ typedef long ssize_t;
 /* integral mismatch, due to misuse of sector short */
 #ifndef __GNUC__
 #pragma warning (disable : 4761 )
-#else
-#define max(a,b) ((a)>(b)?(a):(b))
-#define min(a,b) ((a)<(b)?(a):(b))
 #endif
 
 #include <io.h>
@@ -135,9 +135,6 @@ extern int oops(char *, char *, int);
 #define	RET_FAIL	1	/* command completed unsucessfully [?] */
 #define	RET_SYN		2	/* syntax error in command */
 #define	RET_SYS		3	/* system error (missing file, etc) */
-
-double dmax(double n1, double n2);
-double dmin(double n1, double n2);
 
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);

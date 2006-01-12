@@ -41,10 +41,6 @@
 #include "common.h"
 #include "subs.h"
 
-#ifndef MIN
-#define MIN(x,y)        ((x) > (y) ? (y) : (x))
-#endif
-
 void
 get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
 	       /* only check if found=0, remove them=1 */

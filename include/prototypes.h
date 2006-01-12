@@ -382,10 +382,6 @@ extern int diffy(int, int);
 extern int deltax(int, int);
 extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
-#if !defined(_WIN32)
-extern int max(int, int);
-extern int min(int, int);
-#endif
 extern s_char *effadv(int);
 extern int onearg(s_char *, s_char *);
 extern int parse(char *, char **, char **, char *, char **);

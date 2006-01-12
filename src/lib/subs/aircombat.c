@@ -744,7 +744,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     }
 
     pp->pln_effic = eff;
-    pp->pln_mobil -= min(32 + pp->pln_mobil, dam / 2);
+    pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
     if (disp == 1) {
 	if (from != 0 && (plp->pcp->pl_flags & P_M) == 0)
 	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
@@ -839,7 +839,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	if (rel > HOSTILE)
 	    continue;
 	shell = gun = 0;
-	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
+	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
 	if (gun) {
 	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0) {

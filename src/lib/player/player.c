@@ -134,7 +134,7 @@ player_main(struct player *p)
      * charging at least 15 seconds.
      */
     time(&natp->nat_last_logout);
-    secs = max(natp->nat_last_logout - player->lasttime, 15);
+    secs = MAX(natp->nat_last_logout - player->lasttime, 15);
     natp->nat_minused += secs / 60;
     secs = secs % 60;
     if (chance(secs / 60.0))

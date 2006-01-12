@@ -286,7 +286,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {
 		    mines--;
-		    shells = min(max, shells + 1);
+		    shells = MIN(max, shells + 1);
 		    changed |= map_set(sp->shp_own, sp->shp_x, sp->shp_y,
 			'X', 0);
 		}
@@ -514,7 +514,7 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
 	    for (m = 0; mines > 0 && m < 5; m++) {
 		if (chance(0.66)) {
 		    mines--;
-		    shells = min(max, shells + 1);
+		    shells = MIN(max, shells + 1);
 		}
 	    }
 	    sect.sct_mines = mines;

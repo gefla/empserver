@@ -49,10 +49,6 @@
 #include "common.h"
 #include "gen.h"
 
-#ifndef MIN
-#define MIN(x,y)        ((x) > (y) ? (y) : (x))
-#endif
-
 int
 prod_plane(int etus, int natnum, int *bp, int buildem)
 
@@ -133,7 +129,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	if (buildem == 0) {
 	    /* flight pay is 5x the pay received by other military */
 	    start_money = np->nat_money;
-	    cost = -(mult * etus * dmin(0.0, desc->pl_cost * money_plane));
+	    cost = -(mult * etus * MIN(0.0, desc->pl_cost * money_plane));
 	    if ((np->nat_priorities[PRI_PMAINT] == 0 ||
 		 np->nat_money < cost) && !player->simulation) {
 		if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {

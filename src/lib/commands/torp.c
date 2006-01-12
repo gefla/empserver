@@ -349,14 +349,14 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 
     shells = sp->shp_item[I_SHELL];
     gun = sp->shp_item[I_GUN];
-    gun = min(gun, sp->shp_glim);
-    gun = min(gun, sp->shp_item[I_MILIT] / 2);
+    gun = MIN(gun, sp->shp_glim);
+    gun = MIN(gun, sp->shp_item[I_MILIT] / 2);
 
     shells +=
 	supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
 		      (gun + 1) / 2 - shells);
 
-    gun = min(gun, shells * 2);
+    gun = MIN(gun, shells * 2);
     if (gun == 0)
 	return;
 

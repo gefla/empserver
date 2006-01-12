@@ -131,7 +131,7 @@ look_ship(struct shpstr *lookship)
     range = range * (lookship->shp_effic / 100.0);
     smcp = &mchr[(int)lookship->shp_type];
     if (smcp->m_flags & M_SUB)
-	range = min(range, 1);
+	range = MIN(range, 1);
     for (i = 0; NULL != (sp = getshipp(i)); i++) {
 	if (sp->shp_own == player->cnum || sp->shp_own == 0)
 	    continue;
@@ -146,7 +146,7 @@ look_ship(struct shpstr *lookship)
 	    vrange = (int)(sp->shp_visib * range / 20.0);
 	getsect(sp->shp_x, sp->shp_y, &sect);
 	if (sect.sct_type != SCT_WATER)
-	    vrange = max(1, vrange);
+	    vrange = MAX(1, vrange);
 	if (dist > vrange)
 	    continue;
 	if (smcp->m_flags & M_SUB) {

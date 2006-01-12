@@ -107,8 +107,8 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	if (shell < ship.shp_glim)
 	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
 				   I_SHELL, shell - ship.shp_glim);
-	nshot = min(min(ship.shp_item[I_GUN], shell), ship.shp_item[I_MILIT]);
-	nshot = min(nshot, ship.shp_glim);
+	nshot = MIN(MIN(ship.shp_item[I_GUN], shell), ship.shp_item[I_MILIT]);
+	nshot = MIN(nshot, ship.shp_glim);
 	if (nshot <= 0)
 	    continue;
 	ship.shp_item[I_SHELL] = shell - nshot;

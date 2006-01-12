@@ -122,7 +122,7 @@ sona(void)
 	if (sect.sct_type != SCT_WATER)
 	    continue;
 	range = (int)techfact(ship.shp_tech, (double)mcp->m_vrnge);
-	srange = min(7, 7 * range * ship.shp_effic / 200);
+	srange = MIN(7, 7 * range * ship.shp_effic / 200);
 	pr("%s at %s efficiency %d%%, max range %d\n",
 	   prship(&ship),
 	   xyas(ship.shp_x, ship.shp_y, player->cnum),
@@ -162,10 +162,10 @@ sona(void)
 	    if (targ.shp_own == player->cnum || targ.shp_own == 0)
 		continue;
 	    tmcp = &mchr[(int)targ.shp_type];
-	    pingrange = min(7, max(targ.shp_visib, 10) * range / 10);
+	    pingrange = MIN(7, MAX(targ.shp_visib, 10) * range / 10);
 	    vrange = pingrange * ship.shp_effic / 200;
 	    dist = mapdist(targ.shp_x, targ.shp_y, ship.shp_x, ship.shp_y);
-	    pingrange = (max(pingrange, 2) * targ.shp_effic) / 100;
+	    pingrange = (MAX(pingrange, 2) * targ.shp_effic) / 100;
 	    if (dist > pingrange)
 		continue;
 	    if (tmcp->m_flags & M_SONAR && targ.shp_own) {
@@ -272,10 +272,10 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	    if (roll(100) >
 		pln_identchance(pp, shp_hardtarget(targ), EF_SHIP))
 		continue;
-	    pingrange = max(targ->shp_visib, 10) * range / 10;
+	    pingrange = MAX(targ->shp_visib, 10) * range / 10;
 	    vrange = ((float)pingrange) * ((float)pp->pln_effic / 200.0);
 	    dist = mapdist(targ->shp_x, targ->shp_y, x, y);
-	    pingrange = (max(pingrange, 2) * targ->shp_effic);
+	    pingrange = (MAX(pingrange, 2) * targ->shp_effic);
 	    pingrange = roundavg(pingrange / 100.0);
 	    if (dist > pingrange)
 		continue;

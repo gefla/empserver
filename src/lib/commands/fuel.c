@@ -174,8 +174,8 @@ fuel(void)
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		    continue;
 		}
-		move_amt = min(tot_fuel, fuel_amt);
-		move_amt = min(move_amt, max_amt);
+		move_amt = MIN(tot_fuel, fuel_amt);
+		move_amt = MIN(move_amt, max_amt);
 
 		if (move_amt == 0)
 		    continue;
@@ -187,21 +187,21 @@ fuel(void)
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
 			sect.sct_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5) - 1, 0);
+			    = MAX((pet_amt - move_amt / 5) - 1, 0);
 		    else
 			sect.sct_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5), 0);
+			    = MAX((pet_amt - move_amt / 5), 0);
 		} else {
 		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    sect.sct_item[I_OIL] = max(oil_amt - move_amt / 50, 0);
+		    sect.sct_item[I_OIL] = MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
 			sect.sct_item[I_OIL]
-			    = max((oil_amt - move_amt / 50) - 1, 0);
+			    = MAX((oil_amt - move_amt / 50) - 1, 0);
 		    else
 			sect.sct_item[I_OIL]
-			    = max((oil_amt - move_amt / 50), 0);
+			    = MAX((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
@@ -250,8 +250,8 @@ fuel(void)
 		    continue;
 		}
 		tot_fuel = oil_amt * 50 + pet_amt * 5;
-		move_amt = min(tot_fuel, fuel_amt);
-		move_amt = min(move_amt, max_amt);
+		move_amt = MIN(tot_fuel, fuel_amt);
+		move_amt = MIN(move_amt, max_amt);
 
 		if (move_amt == 0)
 		    continue;
@@ -263,22 +263,22 @@ fuel(void)
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
 			item2.ship.shp_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5) - 1, 0);
+			    = MAX((pet_amt - move_amt / 5) - 1, 0);
 		    else
 			item2.ship.shp_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5), 0);
+			    = MAX((pet_amt - move_amt / 5), 0);
 		} else {
 		    item2.ship.shp_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
 		    item2.ship.shp_item[I_OIL]
-			= max(oil_amt - (move_amt / 50), 0);
+			= MAX(oil_amt - (move_amt / 50), 0);
 		    if (extra > 0.0)
 			item2.ship.shp_item[I_OIL]
-			    = max((oil_amt - move_amt / 50) - 1, 0);
+			    = MAX((oil_amt - move_amt / 50) - 1, 0);
 		    else
 			item2.ship.shp_item[I_OIL]
-			    = max((oil_amt - move_amt / 50), 0);
+			    = MAX((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
@@ -335,8 +335,8 @@ fuel(void)
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		    continue;
 		}
-		move_amt = min(tot_fuel, fuel_amt);
-		move_amt = min(move_amt, max_amt);
+		move_amt = MIN(tot_fuel, fuel_amt);
+		move_amt = MIN(move_amt, max_amt);
 
 		if (move_amt == 0)
 		    continue;
@@ -348,21 +348,21 @@ fuel(void)
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
 			sect.sct_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5) - 1, 0);
+			    = MAX((pet_amt - move_amt / 5) - 1, 0);
 		    else
 			sect.sct_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5), 0);
+			    = MAX((pet_amt - move_amt / 5), 0);
 		} else {
 		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
-		    sect.sct_item[I_OIL] = max(oil_amt - move_amt / 50, 0);
+		    sect.sct_item[I_OIL] = MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
 			sect.sct_item[I_OIL]
-			    = max((oil_amt - move_amt / 50) - 1, 0);
+			    = MAX((oil_amt - move_amt / 50) - 1, 0);
 		    else
 			sect.sct_item[I_OIL]
-			    = max((oil_amt - move_amt / 50), 0);
+			    = MAX((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */
@@ -412,8 +412,8 @@ fuel(void)
 		    continue;
 		}
 		tot_fuel = oil_amt * 50 + pet_amt * 5;
-		move_amt = min(tot_fuel, fuel_amt);
-		move_amt = min(move_amt, max_amt);
+		move_amt = MIN(tot_fuel, fuel_amt);
+		move_amt = MIN(move_amt, max_amt);
 
 		if (move_amt == 0)
 		    continue;
@@ -425,22 +425,22 @@ fuel(void)
 		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
 		    if (extra > 0.0)
 			item2.land.lnd_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5) - 1, 0);
+			    = MAX((pet_amt - move_amt / 5) - 1, 0);
 		    else
 			item2.land.lnd_item[I_PETROL]
-			    = max((pet_amt - move_amt / 5), 0);
+			    = MAX((pet_amt - move_amt / 5), 0);
 		} else {
 		    item2.land.lnd_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
 		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
 		    item2.land.lnd_item[I_OIL]
-			= max(oil_amt - move_amt / 50, 0);
+			= MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
 			item2.land.lnd_item[I_OIL]
-			    = max((oil_amt - move_amt / 50) - 1, 0);
+			    = MAX((oil_amt - move_amt / 50) - 1, 0);
 		    else
 			item2.land.lnd_item[I_OIL]
-			    = max((oil_amt - move_amt / 50), 0);
+			    = MAX((oil_amt - move_amt / 50), 0);
 		}
 
 		/* load plague */

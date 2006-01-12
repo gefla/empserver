@@ -72,13 +72,13 @@ mine(void)
 	    continue;
 	if ((shells = ship.shp_item[I_SHELL]) == 0)
 	    continue;
-	mines_avail = min(shells, mines);
+	mines_avail = MIN(shells, mines);
 	if (getsect(ship.shp_x, ship.shp_y, &sect) == 0 ||
 	    (sect.sct_type != SCT_WATER && sect.sct_type != SCT_BSPAN)) {
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
-	sect.sct_mines = min(sect.sct_mines + mines_avail, MINES_MAX);
+	sect.sct_mines = MIN(sect.sct_mines + mines_avail, MINES_MAX);
 	ship.shp_item[I_SHELL] = shells - mines_avail;
 	putsect(&sect);
 	ship.shp_mission = 0;
@@ -123,7 +123,7 @@ landmine(void)
 	putland(land.lnd_uid, &land);
 	if (!(shells = land.lnd_item[I_SHELL]))
 	    continue;
-	shells = min(shells, land.lnd_mobil);
+	shells = MIN(shells, land.lnd_mobil);
 	if (!getsect(land.lnd_x, land.lnd_y, &sect) ||
 	    sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN) {
 	    pr("You can't lay mines there!!\n");
@@ -141,7 +141,7 @@ landmine(void)
 	land.lnd_mission = 0;
 	total_mines_laid = 0;
 	while (shells > 0 && total_mines_laid < mines_wanted) {
-	    mines_laid = min(shells, mines_wanted - total_mines_laid);
+	    mines_laid = MIN(shells, mines_wanted - total_mines_laid);
 	    land.lnd_item[I_SHELL] = shells - mines_laid;
 	    land.lnd_mobil -= mines_laid;
 	    putland(land.lnd_uid, &land);
@@ -149,10 +149,10 @@ landmine(void)
 	    putland(land.lnd_uid, &land);
 	    total_mines_laid += mines_laid;
 	    shells = land.lnd_item[I_SHELL];
-	    shells = min(shells, land.lnd_mobil);
+	    shells = MIN(shells, land.lnd_mobil);
 	}
 	getsect(sect.sct_x, sect.sct_y, &sect);
-	sect.sct_mines = min(sect.sct_mines + total_mines_laid, MINES_MAX);
+	sect.sct_mines = MIN(sect.sct_mines + total_mines_laid, MINES_MAX);
 	putsect(&sect);
 	if (total_mines_laid == mines_wanted) {
 	    pr("%s laid a total of %d mines in %s",

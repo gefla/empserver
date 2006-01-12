@@ -136,7 +136,7 @@ sell(void)
 	return RET_FAIL;
     }
     if (number_set >= 0)
-	com = min(number_set, amt);
+	com = MIN(number_set, amt);
     else
 	com = amt + number_set;
     if (com <= 0)

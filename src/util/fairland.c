@@ -124,9 +124,6 @@ static char *program_name;
 
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
-#if !defined(_WIN32)
-#define max(a,b) (a>b?a:b)
-#endif
 #define rnd(x) (random() % (x))
 
 int secs;			/* number of sectors grown */
@@ -459,9 +456,9 @@ allocate_memory(void)
     secty = calloc(nc + ni, sizeof(int *));
     sectc = calloc(nc + ni, sizeof(int *));
     isecs = calloc(nc + ni, sizeof(int));
-    weight = calloc(max(sc, is * 2), sizeof(int));
-    dsea = calloc(max(sc, is * 2), sizeof(int));
-    dmoun = calloc(max(sc, is * 2), sizeof(int));
+    weight = calloc(MAX(sc, is * 2), sizeof(int));
+    dsea = calloc(MAX(sc, is * 2), sizeof(int));
+    dmoun = calloc(MAX(sc, is * 2), sizeof(int));
     for (i = 0; i < nc; ++i) {
 	sectx[i] = calloc(sc, sizeof(int));
 	secty[i] = calloc(sc, sizeof(int));

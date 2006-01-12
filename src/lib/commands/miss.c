@@ -188,8 +188,8 @@ mission(void)
 	desired_radius = 9999;
     }
 
-    size = max(sizeof(struct lndstr), sizeof(struct plnstr));
-    size = max(size, sizeof(struct shpstr));
+    size = MAX(sizeof(struct lndstr), sizeof(struct plnstr));
+    size = MAX(size, sizeof(struct shpstr));
     block = malloc(size);
     switch (type) {
     case EF_SHIP:

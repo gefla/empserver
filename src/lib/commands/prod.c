@@ -147,7 +147,7 @@ prod(void)
 				total_work(sect.sct_work, etu_per_update,
 					   civs, sect.sct_item[I_MILIT],
 					   uws, maxpop));
-		bwork = min(work / 2, bwork);
+		bwork = MIN(work / 2, bwork);
 	    }
 	    twork = 100 - eff;
 	    if (twork > bwork) {
@@ -215,7 +215,7 @@ prod(void)
 		continue;
 	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
 		continue;
-	    used = min(used, sect.sct_item[it] / pp->p_camt[j]);
+	    used = MIN(used, sect.sct_item[it] / pp->p_camt[j]);
 	    unit_work += pp->p_camt[j];
 	}
 	if (unit_work == 0)
@@ -229,17 +229,17 @@ prod(void)
 	    if (*resource * 100 < pp->p_nrdep * max)
 		max = *resource * 100 / pp->p_nrdep;
 	}
-	act = min(used, max);
+	act = MIN(used, max);
 
-	real = dmin(999.0, (double)act * prodeff);
-	maxr = dmin(999.0, (double)max * prodeff);
+	real = MIN(999.0, (double)act * prodeff);
+	maxr = MIN(999.0, (double)max * prodeff);
 
 	if (vtype != I_NONE) {
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
-	    there = min(ITEM_MAX, sect.sct_item[vtype]);
-	    real = dmin(real, ITEM_MAX - there);
+	    there = MIN(ITEM_MAX, sect.sct_item[vtype]);
+	    real = MIN(real, ITEM_MAX - there);
 	}
 
 	if (prodeff != 0) {
@@ -315,7 +315,7 @@ prod(void)
 	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
 	    natp = getnatp(sect.sct_own);
 	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
-	    civs = min(civs, maxpop);
+	    civs = MIN(civs, maxpop);
 	    /* This isn't quite right, since research might
 	       rise/fall during the update, but it's the best
 	       we can really do  */
@@ -354,7 +354,7 @@ prod(void)
 	}
 	if (vtype != I_NONE || pp->p_level == NAT_ELEV
 	    || pp->p_level == NAT_HLEV)
-	    pr(" %5d\n", min(999, (int)(max * prodeff + 0.5)));
+	    pr(" %5d\n", MIN(999, (int)(max * prodeff + 0.5)));
 	else
 	    pr(" %5.2f\n", maxr);
     }

@@ -392,7 +392,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 	    if (chance((double)(spy + lp->lnd_vis) / 20.0)) {
 		int t;
 		t = lp->lnd_tech - 20 + roll(40);
-		t = max(t, 0);
+		t = MAX(t, 0);
 		if (destination == player->cnum)
 		    pr(", tech %d)\n", t);
 		else
@@ -938,7 +938,7 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, (double)min(gun, 7));
+	range = tfactfire(fsect.sct_own, (double)MIN(gun, 7));
 	if (fsect.sct_effic > 59)
 	    range++;
 	range2 = roundrange(range);
@@ -1378,7 +1378,7 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
     if ((lp->lnd_ship >= 0) || lp->lnd_land >= 0)
 	return 0;
 
-    hard_amt = min(lp->lnd_mobil, hard_amt);
+    hard_amt = MIN(lp->lnd_mobil, hard_amt);
 
     if ((lp->lnd_harden + hard_amt) > land_mob_max)
 	hard_amt = land_mob_max - lp->lnd_harden;
@@ -1409,7 +1409,7 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
 	lp->lnd_mobil = 0;
 
     lp->lnd_harden += hard_amt;
-    lp->lnd_harden = min(lp->lnd_harden, land_mob_max);
+    lp->lnd_harden = MIN(lp->lnd_harden, land_mob_max);
 
     return hard_amt;
 }

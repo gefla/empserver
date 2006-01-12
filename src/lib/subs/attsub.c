@@ -262,7 +262,7 @@ att_get_combat(struct combat *com, int isdef)
 	    else if (mil == 1)
 		pr("Only 1 mil %s\n", prcom(1, com));
 	    /* don't abandon attacking sectors or ships */
-	    com->troops = max(0, mil - 1);
+	    com->troops = MAX(0, mil - 1);
 	}
 	com->plague = pstage == PLG_INFECT;
     } else {			/* not first time */
@@ -297,8 +297,8 @@ att_get_combat(struct combat *com, int isdef)
 	    }
 	    if (com->troops && com->troops + 1 > mil) {
 		if (com->own == owner && player->cnum == owner)	/* not a takeover */
-		    pr("WARNING: Your mil %s has been reduced from %d to %d!\n", prcom(1, com), com->troops, max(0, mil - 1));
-		com->troops = max(0, mil - 1);
+		    pr("WARNING: Your mil %s has been reduced from %d to %d!\n", prcom(1, com), com->troops, MAX(0, mil - 1));
+		com->troops = MAX(0, mil - 1);
 	    }
 	}
     }
@@ -847,17 +847,17 @@ calc_mobcost(int combat_mode, struct combat *off, struct combat *def,
     switch (combat_mode) {
     case A_ATTACK:
 	off->mobcost +=
-	    max(1,
+	    MAX(1,
 		(int)(attacking_mil *
 		      sector_mcost(getsectp(def->x, def->y), MOB_ROAD)));
 	break;
     case A_LBOARD:
-	off->mobcost += max(1, attacking_mil / 5);
+	off->mobcost += MAX(1, attacking_mil / 5);
 	break;
     case A_BOARD:
 	switch (off->type) {
 	case EF_SECTOR:
-	    off->mobcost += max(1, attacking_mil / 5);
+	    off->mobcost += MAX(1, attacking_mil / 5);
 	    break;
 	case EF_SHIP:
 	    /* the 2 in the formula below is a fudge factor */
@@ -899,7 +899,7 @@ ask_off(int combat_mode, struct combat *off, struct combat *def)
     if (att_get_combat(off, 0) <= 0)
 	return 0;
     if ((attacking_mil =
-	 min(attacking_mil, min(mob_support, off->troops))) <= 0)
+	 MIN(attacking_mil, MIN(mob_support, off->troops))) <= 0)
 	return 0;
 
     calc_mobcost(combat_mode, off, def, attacking_mil);
@@ -1680,7 +1680,7 @@ get_mine_dsupport(struct combat *def, int a_engineer)
     getsect(def->x, def->y, &sect);
 
     if (sect.sct_oldown != player->cnum) {
-	mines = min(sect.sct_mines, 20);
+	mines = MIN(sect.sct_mines, 20);
 	if (a_engineer)
 	    mines = ldround(((double)mines / 2.0), 1);
 	if (mines > 0) {
@@ -1906,7 +1906,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    /* Make sure we use a positive mobility here */
 	    tmob = ((def->mob < 0) ? -(def->mob) : (def->mob));
 	    def->mobcost =
-		min(20, min(1, tmob - damage(tmob, 100 * d_cas / d_mil)));
+		MIN(20, MIN(1, tmob - damage(tmob, 100 * d_cas / d_mil)));
 	}
 	def->mil = def->troops;
     }
@@ -1916,7 +1916,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	if (off[n].type != EF_BAD && off[n].troops < a_troops[n]) {
 	    if (off[n].type == EF_SECTOR && off[n].mil)
 		off[n].mobcost +=
-		    min(20,
+		    MIN(20,
 			off[n].mob - damage(off[n].mob,
 					    100 * (a_troops[n] - off[n].troops)
 					    / off[n].mil));
@@ -2455,7 +2455,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
     if (off->own != player->cnum)
 	return;
     d = sector_mcost(getsectp(def->x, def->y), MOB_ROAD);
-    if ((mob_support = min(off->troops, (int)(off->mob / d))) <= 0)
+    if ((mob_support = MIN(off->troops, (int)(off->mob / d))) <= 0)
 	return;
     sprintf(prompt, "How many mil to move in from %s (%d max)? ",
 	    xyas(off->x, off->y, player->cnum), mob_support);
@@ -2470,13 +2470,13 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	return;
     if (att_get_combat(def, 0) < 0)
 	return;
-    if ((num_mil = min(off->troops, num_mil)) <= 0) {
+    if ((num_mil = MIN(off->troops, num_mil)) <= 0) {
 	pr("No mil moved in from %s\n",
 	   xyas(off->x, off->y, player->cnum));
 	return;
     }
-    mob_support = max(1, (int)(num_mil * d));
-    off->mob -= min(off->mob, mob_support);
+    mob_support = MAX(1, (int)(num_mil * d));
+    off->mob -= MIN(off->mob, mob_support);
     off->mil -= num_mil;
     off->troops -= num_mil;
     put_combat(off);

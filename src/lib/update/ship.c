@@ -54,10 +54,6 @@
 #include "lost.h"
 #include "budg.h"
 
-#ifndef MIN
-#define MIN(x,y)        ((x) > (y) ? (y) : (x))
-#endif
-
 static int shiprepair(struct shpstr *, struct natstr *,
 		      int *, int);
 static void upd_ship(struct shpstr *, int,
@@ -144,7 +140,7 @@ upd_ship(struct shpstr *sp, int etus,
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
-	cost = -(mult * etus * dmin(0.0, money_ship * mp->m_cost));
+	cost = -(mult * etus * MIN(0.0, money_ship * mp->m_cost));
 	if ((np->nat_priorities[PRI_SMAINT] == 0 || np->nat_money < cost)
 	    && !player->simulation) {
 	    if ((eff = sp->shp_effic - etus / 5) < SHIP_MINEFF) {

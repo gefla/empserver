@@ -558,7 +558,7 @@ use_supply(struct lndstr *lp)
 	lp->lnd_item[I_SHELL] = shells;
     }
 
-    lp->lnd_item[I_SHELL] = max(lp->lnd_item[I_SHELL] - shells_needed, 0);
+    lp->lnd_item[I_SHELL] = MAX(lp->lnd_item[I_SHELL] - shells_needed, 0);
 
     if (lp->lnd_frg)		/* artillery */
 	goto done;
@@ -574,7 +574,7 @@ use_supply(struct lndstr *lp)
 	lp->lnd_item[I_FOOD] = food;
     }
 
-    lp->lnd_item[I_FOOD] = max(lp->lnd_item[I_FOOD] - food_needed, 0);
+    lp->lnd_item[I_FOOD] = MAX(lp->lnd_item[I_FOOD] - food_needed, 0);
 
     if (opt_FUEL) {
 	fuel_needed = lp->lnd_fuelu;
@@ -600,7 +600,7 @@ use_supply(struct lndstr *lp)
 	if (petrol_needed) {
 	    if (petrol >= petrol_needed) {
 		lp->lnd_item[I_PETROL]
-		    = max(lp->lnd_item[I_PETROL] - petrol_needed, 0);
+		    = MAX(lp->lnd_item[I_PETROL] - petrol_needed, 0);
 		lp->lnd_fuel += petrol_needed * 10;
 	    } else {
 		lp->lnd_fuel += lp->lnd_item[I_PETROL] * 10;
@@ -608,7 +608,7 @@ use_supply(struct lndstr *lp)
 	    }
 	}
 
-	lp->lnd_fuel = max(lp->lnd_fuel - fuel_needed, 0);
+	lp->lnd_fuel = MAX(lp->lnd_fuel - fuel_needed, 0);
     }
     /* end opt_FUEL */
   done:

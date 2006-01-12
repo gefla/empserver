@@ -365,7 +365,7 @@ do_mob_ship(struct shpstr *sp, int etus)
 	d *= (double)mchr[(int)sp->shp_type].m_fuelu;
 	d /= (double)fuel_mult;
 	sp->shp_fuel -= (u_char)ldround(d, 1);
-	sp->shp_fuel = (u_char)min(sp->shp_fuel,
+	sp->shp_fuel = (u_char)MIN(sp->shp_fuel,
 				   mchr[(int)sp->shp_type].m_fuelc);
 	sp->shp_mobil += (s_char)total_add;
     }
@@ -478,7 +478,7 @@ do_mob_land(struct lndstr *lp, int etus)
 	d *= (double)lp->lnd_fuelu;
 	d /= (double)fuel_mult;
 	lp->lnd_fuel -= (u_char)ldround(d, 1);
-	lp->lnd_fuel = (u_char)min(lp->lnd_fuel, lp->lnd_fuelc);
+	lp->lnd_fuel = (u_char)MIN(lp->lnd_fuel, lp->lnd_fuelc);
 	if (total_add + lp->lnd_mobil > land_mob_max) {
 	    total_add = land_mob_max - lp->lnd_mobil;
 	}

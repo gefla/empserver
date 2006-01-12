@@ -124,8 +124,8 @@ ltend(void)
 		    amt = 0;
 
 		/* take from target and give to tender */
-		transfer = min(ontarget, -amt);
-		transfer = min(maxtender - ontender, transfer);
+		transfer = MIN(ontarget, -amt);
+		transfer = MIN(maxtender - ontender, transfer);
 		if (transfer == 0)
 		    continue;
 		target.lnd_item[ip->i_vtype] = ontarget - transfer;
@@ -133,8 +133,8 @@ ltend(void)
 		total += transfer;
 	    } else {
 		/* give to target from tender */
-		transfer = min(ontender, amt);
-		transfer = min(transfer, maxtarget - ontarget);
+		transfer = MIN(ontender, amt);
+		transfer = MIN(transfer, maxtarget - ontarget);
 		if (transfer == 0)
 		    continue;
 		target.lnd_item[ip->i_vtype] = ontarget + transfer;

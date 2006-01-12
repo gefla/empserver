@@ -308,8 +308,8 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
     struct sctstr sect;
 
 /*
-        size = max(sizeof(struct shpstr),sizeof(struct lndstr));
-        size = max(size,sizeof(struct plnstr));
+        size = MAX(sizeof(struct shpstr),sizeof(struct lndstr));
+        size = MAX(size,sizeof(struct plnstr));
         block = malloc(size);
  */
     size = sizeof(u_block);
@@ -615,17 +615,17 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (md > range2)
 		    continue;
 		gun = sp->shp_item[I_GUN];
-		gun = min(gun, sp->shp_glim);
+		gun = MIN(gun, sp->shp_glim);
 		shell = sp->shp_item[I_SHELL];
 		if (shell < gun)
 		    shell += supply_commod(sp->shp_own,
 					   sp->shp_x, sp->shp_y, I_SHELL,
 					   gun - shell);
-		gun = min(gun, shell);
-		gun = min(gun, sp->shp_item[I_MILIT] / 2.0);
+		gun = MIN(gun, shell);
+		gun = MIN(gun, sp->shp_item[I_MILIT] / 2.0);
 		if (gun == 0)
 		    continue;
-		gun = max(gun, 1);
+		gun = MAX(gun, 1);
 		dam2 = seagun(sp->shp_effic, gun);
 		if (range2 == 0.0)
 		    prb = 1.0;
@@ -880,8 +880,8 @@ show_mission(int type, struct nstr_item *np)
     s_char *block;
     struct genitem *gp;
 
-    size = max(sizeof(struct lndstr), sizeof(struct plnstr));
-    size = max(size, sizeof(struct shpstr));
+    size = MAX(sizeof(struct lndstr), sizeof(struct plnstr));
+    size = MAX(size, sizeof(struct shpstr));
     block = malloc(size);
 
     while (nxtitem(np, block)) {

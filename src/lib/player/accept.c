@@ -240,7 +240,7 @@ player_accept(void *unused)
 #endif /* RESOLVE_IPADDRESS */
 	/* XXX may not be big enough */
 	stacksize = 100000
-/* budget */  + max(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,
+/* budget */  + MAX(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,
 /* power */ MAXNOC * sizeof(struct powstr));
 	sprintf(buf, "Player (fd #%d)", ns);
 	empth_create(PP_PLAYER, player_login, stacksize,

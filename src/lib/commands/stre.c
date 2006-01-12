@@ -99,7 +99,7 @@ stre(void)
 		pr("%7d", sect.sct_mines);
 	    else
 		pr("%7s", "");
-	    eff *= (1.0 + min(sect.sct_mines, 20) * 0.02);
+	    eff *= (1.0 + MIN(sect.sct_mines, 20) * 0.02);
 	} else {
 	    pr("%7s", "?");
 	}

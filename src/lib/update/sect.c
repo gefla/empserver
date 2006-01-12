@@ -97,7 +97,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 		+ (vec[I_MILIT] * 2 / 5.0) + vec[I_UW];
 	    *workp = roundavg((etu * (*workp)) / 100.0);
 
-	    buildeff_work = min((int)(*workp / 2), buildeff_work);
+	    buildeff_work = MIN((int)(*workp / 2), buildeff_work);
 	}
     }
     if (np->nat_priorities[*desig]) {
@@ -247,7 +247,7 @@ spread_fallout(struct sctstr *sp, int etus)
 	inc = roundavg(etus * fallout_spread * (sp->sct_fallout)) - 1;
 	if (inc < 0)
 	    inc = 0;
-	ap->sct_fallout = min(ap->sct_fallout + inc, FALLOUT_MAX);
+	ap->sct_fallout = MIN(ap->sct_fallout + inc, FALLOUT_MAX);
     }
 }
 

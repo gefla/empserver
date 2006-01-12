@@ -542,7 +542,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 
 	shell = gun = 0;
-	gun = min(ship.shp_item[I_GUN], ship.shp_glim);
+	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
 	if (gun > 0) {
 	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0)

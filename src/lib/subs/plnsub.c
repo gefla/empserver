@@ -361,7 +361,7 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
 	    pr("Your seamines have no effect here.\n");
 	    return;
 	}
-	sectp->sct_mines = min(sectp->sct_mines + amt, MINES_MAX);
+	sectp->sct_mines = MIN(sectp->sct_mines + amt, MINES_MAX);
 	pr("%d mines laid in %s.\n", amt,
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
 	if (map_set(player->cnum, sectp->sct_x, sectp->sct_y, 'X', 0))
@@ -1245,7 +1245,7 @@ pln_mobcost(int dist, struct plnstr *pp, int flags)
 
     cost = ldround((double)cost * dist / pp->pln_range_max, 1);
 
-    return min(32 + pp->pln_mobil, cost + 5);
+    return MIN(32 + pp->pln_mobil, cost + 5);
 }
 
 /*

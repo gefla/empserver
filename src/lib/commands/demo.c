@@ -101,7 +101,7 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
 	if (sect.sct_own != sect.sct_oldown)
 	    continue;
 	civ = sect.sct_item[I_CIVIL];
-	deltamil = number < 0 ? mil + number : min(mil, number);
+	deltamil = number < 0 ? mil + number : MIN(mil, number);
 	if (deltamil <= 0)
 	    continue;
 	if (deltamil > ITEM_MAX - civ)
