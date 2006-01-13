@@ -86,7 +86,7 @@ sona(void)
     if (!visbuf)
 	visbuf = malloc((WORLD_Y * (WORLD_X + 1)));
     if (!rad) {
-	rad = malloc(WORLD_Y);
+	rad = malloc(WORLD_Y * sizeof(char *));
 	if (rad && radbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		rad[x] = &radbuf[(WORLD_X + 1) * x];
@@ -97,7 +97,7 @@ sona(void)
 	}
     }
     if (!vis) {
-	vis = malloc(WORLD_Y);
+	vis = malloc(WORLD_Y * sizeof(char *));
 	if (vis && visbuf) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		vis[x] = &visbuf[(WORLD_X + 1) * x];
