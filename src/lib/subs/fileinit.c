@@ -106,6 +106,7 @@ ef_open_srv(void)
     failed |= !ef_open(EF_BMAP, EFF_MEM);
     failed |= !ef_open(EF_COMM, 0);
     failed |= !ef_open(EF_LOST, 0);
+    failed |= !ef_open(EF_REALM, EFF_MEM);
     if (failed) {
 	logerror("Missing files, giving up");
 	exit(EXIT_FAILURE);
@@ -130,4 +131,5 @@ ef_close_srv(void)
     ef_close(EF_COMM);
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
+    ef_close(EF_REALM);
 }

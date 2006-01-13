@@ -66,6 +66,8 @@ add(void)
     int stat;
     struct nstr_item ni;
     struct lndstr land;
+    struct realmstr realm;
+    time_t current_time = time(NULL);
 
     for (freecn = 0; NULL != (natp = getnatp(freecn)); freecn++) {
 	if (natp->nat_stat == STAT_UNUSED)
@@ -202,7 +204,12 @@ add(void)
 	natp->nat_xorg = 0;
 	natp->nat_dayno = 0;
 	natp->nat_minused = 0;
-	memset(natp->nat_b, 0, sizeof(natp->nat_b));
+	for (i = 0; i < MAXNOR; i++) {
+	    getrealm(i, coun, &realm);
+	    realm.r_xl = realm.r_xh = realm.r_yl = realm.r_yh = 0;
+	    realm.r_timestamp = current_time;
+	    putrealm(&realm);
+	}
 	natp->nat_last_login = natp->nat_last_login = 0;
 	natp->nat_money = 0;
 	natp->nat_level[NAT_TLEV] = start_technology;

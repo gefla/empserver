@@ -114,6 +114,7 @@ enum {
     EF_BMAP,
     EF_COMM,
     EF_LOST,
+    EF_REALM,
     /* Static game data (configuration) */
     EF_SECTOR_CHR,
     EF_SHIP_CHR,
@@ -147,7 +148,7 @@ enum {
     EF_MAX
 };
 
-#define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_LOST)
+#define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_REALM)
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);

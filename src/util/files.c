@@ -79,8 +79,9 @@ main(int argc, char *argv[])
     s_char *filename;
     int x, y;
     struct natstr nat;
+    struct realmstr realm;
     struct sctstr sct;
-    int i;
+    int i, j;
     s_char *map;
     int opt;
     char *config_file = NULL;
@@ -150,6 +151,17 @@ main(int argc, char *argv[])
 	nat.ef_type = EF_NATION;
 	nat.nat_cnum = i;
 	putnat((&nat));
+    }
+    memset(&realm, 0, sizeof(realm));
+    realm.ef_type = EF_REALM;
+    for (i = 0; i < MAXNOC; i++) {
+	realm.r_cnum = i;
+	for (j = 0; j < MAXNOR; j++) {
+	    realm.r_realm = j;
+	    realm.r_uid = (i * MAXNOR) + j;
+	    realm.r_timestamp = current_time;
+	    putrealm(&realm);
+	}
     }
     if (access(teldir, F_OK) < 0 && mkdir(teldir, 0750) < 0) {
 	perror(teldir);

@@ -42,19 +42,19 @@
 #include "commands.h"
 
 static void
-list_realm(int curr, struct natstr *natp)
+list_realm(natid curr, struct natstr *natp)
 {
-    struct boundstr *b;
+    struct realmstr realm;
     struct range abs;
     struct range rel;
 
     abs.width = 0;
     abs.height = 0;
-    b = &natp->nat_b[curr];
-    abs.lx = b->b_xl;
-    abs.hx = b->b_xh;
-    abs.ly = b->b_yl;
-    abs.hy = b->b_yh;
+    getrealm(curr, natp->nat_cnum, &realm);
+    abs.lx = realm.r_xl;
+    abs.hx = realm.r_xh;
+    abs.ly = realm.r_yl;
+    abs.hy = realm.r_yh;
     xyrelrange(natp, &abs, &rel);
     pr("Realm #%d is %d:%d,%d:%d\n", curr, rel.lx, rel.hx, rel.ly, rel.hy);
 
@@ -63,7 +63,7 @@ list_realm(int curr, struct natstr *natp)
 int
 real(void)
 {
-    register struct boundstr *rp;
+    struct realmstr realm;
     struct natstr *natp;
     int curr;
     int lastr;
@@ -97,14 +97,14 @@ real(void)
 	abs.height = 0;
 	if (!sarg_area(player->argp[2], &abs))
 	    return RET_SYN;
-	rp = &natp->nat_b[curr];
-	rp->b_xl = abs.lx;
-	rp->b_xh = abs.hx - 1;
-	rp->b_yl = abs.ly;
-	rp->b_yh = abs.hy - 1;
-	natp->nat_b[curr] = *rp;
+	getrealm(curr, natp->nat_cnum, &realm);
+	realm.r_xl = abs.lx;
+	realm.r_xh = abs.hx - 1;
+	realm.r_yl = abs.ly;
+	realm.r_yh = abs.hy - 1;
 	list_realm(curr, natp);
-	putnat(natp);
+	realm.r_timestamp = time(NULL);
+	putrealm(&realm);
     }
     return RET_OK;
 }

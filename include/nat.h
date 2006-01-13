@@ -65,9 +65,24 @@ enum {				/* Priorities */
     PRI_MAX = PRI_LBUILD
 };
 
-struct boundstr {
-    short b_xl, b_xh;		/* horizontal bounds */
-    short b_yl, b_yh;		/* vertical bounds */
+
+/*
+ * TODO
+ *
+ * One of (r_cnum, r_realm) and r_uid is redundant, provided MAXNOR is known.
+ *
+ * The only user of b_cnum and b_realm appears to be xdump.
+ * If we had working virtual selectors, we could remove b_cnum and b_realm.
+ *
+ */
+struct realmstr {
+    short ef_type;
+    natid r_cnum;		/* country number */
+    short r_uid;		/* realm table index */
+    unsigned short r_realm;	/* realm number */
+    short r_xl, r_xh;		/* horizontal bounds */
+    short r_yl, r_yh;		/* vertical bounds */
+    time_t r_timestamp;	/* Last time this realm was touched */
 };
 
 struct natstr {
@@ -97,7 +112,6 @@ struct natstr {
     time_t nat_newstim;		/* date news last read */
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
-    struct boundstr nat_b[MAXNOR];	/* realm bounds */
     short nat_relate[MAXNOC];
     unsigned char nat_contact[MAXNOC];
     short nat_rejects[(MAXNOC + 3) / 4]; /* four bits for each country */
@@ -161,6 +175,11 @@ extern char *relates[];
 	ef_write(EF_NATION, n->nat_cnum, n)
 #define getnatp(n) \
 	(struct natstr *) ef_ptr(EF_NATION, (int)n)
+
+#define putrealm(p) \
+	ef_write(EF_REALM, (int)(p)->r_uid, p)
+#define getrealm(r, n, p) \
+	ef_read(EF_REALM, (int)(r + (n * MAXNOR)), p)
 
 extern double tfact(natid cn, double mult);
 extern double tfactfire(natid cn, double mult);

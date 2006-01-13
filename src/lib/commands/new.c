@@ -60,13 +60,14 @@ new(void)
 {
     struct sctstr sect;
     struct natstr *natp;
-    struct boundstr newrealms;
+    struct realmstr newrealm;
     struct range absrealm;
     natid num;
     coord x, y;
     int i;
     char *p;
     char buf[1024];
+    time_t current_time = time(NULL);
 
     natp = getnatp(player->cnum);
     if (natp->nat_xorg != 0 || natp->nat_yorg != 0) {
@@ -182,10 +183,15 @@ new(void)
     natp->nat_xorg = x;
     natp->nat_yorg = y;
     xyabsrange(natp, &defrealm, &absrealm);
-    newrealms.b_xl = absrealm.lx;
-    newrealms.b_xh = absrealm.hx;
-    newrealms.b_yl = absrealm.ly;
-    newrealms.b_yh = absrealm.hy;
+    for (i = 0; i < MAXNOR; i++) {
+	getrealm(i, num, &newrealm);
+	newrealm.r_xl = absrealm.lx;
+	newrealm.r_xh = absrealm.hx;
+	newrealm.r_yl = absrealm.ly;
+	newrealm.r_yh = absrealm.hy;
+	newrealm.r_timestamp = current_time;
+	putrealm(&newrealm);
+    }
     if (players_at_00) {
 	natp->nat_xorg = 0;
 	natp->nat_yorg = 0;
@@ -195,8 +201,6 @@ new(void)
     natp->nat_level[NAT_RLEV] = start_research;
     natp->nat_level[NAT_TLEV] = start_technology;
     natp->nat_level[NAT_ELEV] = start_education;
-    for (i = 0; i < MAXNOR; i++)
-	natp->nat_b[i] = newrealms;
     natp->nat_tgms = 0;
     (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT, 0660));
     putnat(natp);

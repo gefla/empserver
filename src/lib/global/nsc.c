@@ -526,6 +526,17 @@ struct castr nat_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
+struct castr realm_ca[] = {
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_uid), "uid", EF_REALM},
+    {NSC_NATID, 0, 0, fldoff(realmstr, r_cnum), "cnum", EF_NATION},
+    {NSC_USHORT, 0, 0, fldoff(realmstr, r_realm), "realm"},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xl), "xl"},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xh), "xh"},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yl), "yl"},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yh), "yh"},
+    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
+};
+
 struct castr intrchr_ca[] = {
     {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name",
      EF_BAD},

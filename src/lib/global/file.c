@@ -141,6 +141,8 @@ struct empfile empfile[] = {
      UNMAPPED_CACHE(struct comstr, 0)},
     {EF_LOST, "lost", "lostitems", lost_ca,
      UNMAPPED_CACHE(struct loststr, EFF_OWNER)},
+    {EF_REALM, "realm", "realms", realm_ca,
+     UNMAPPED_CACHE(struct realmstr, EFF_OWNER)},
 
     /* Static game data (configuration) */
     {EF_SECTOR_CHR, "sect-chr", "sect_def", dchr_ca, ARRAY_TABLE(dchr, EFF_CFG)},

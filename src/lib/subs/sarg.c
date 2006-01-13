@@ -100,6 +100,7 @@ sarg_getrange(char *str, struct range *rp)
 {
     long rlm;
     struct natstr *np;
+    struct realmstr realm;
     char *end;
 
     if (*str == '#') {
@@ -114,11 +115,11 @@ sarg_getrange(char *str, struct range *rp)
 		return 0;
 	} else 
 	    rlm = 0;
-	np = getnatp(player->cnum);
-	rp->lx = np->nat_b[rlm].b_xl;
-	rp->hx = np->nat_b[rlm].b_xh;
-	rp->ly = np->nat_b[rlm].b_yl;
-	rp->hy = np->nat_b[rlm].b_yh;
+	getrealm(rlm, player->cnum, &realm);
+	rp->lx = realm.r_xl;
+	rp->hx = realm.r_xh;
+	rp->ly = realm.r_yl;
+	rp->hy = realm.r_yh;
     } else {
 	/*
 	 * full map specification
