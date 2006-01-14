@@ -63,7 +63,7 @@ carg(void)
 	pr("%4d ", ni.cur);
 	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-	pr(" %1c", ship.shp_fleet);
+	pr(" %c", ship.shp_fleet);
 	pr("%4d%%", ship.shp_effic);
 	pr("%4d", ship.shp_item[I_SHELL]);
 	pr("%4d", ship.shp_item[I_GUN]);
@@ -109,7 +109,7 @@ lcarg(void)
 	pr("%4d ", ni.cur);
 	pr("%-16.16s ", lchr[(int)land.lnd_type].l_name);
 	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
-	pr(" %1c", land.lnd_army);
+	pr(" %c", land.lnd_army);
 	pr("%4d%%", land.lnd_effic);
 	pr("%4d", land.lnd_item[I_SHELL]);
 	pr("%4d", land.lnd_item[I_GUN]);

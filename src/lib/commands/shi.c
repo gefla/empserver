@@ -76,7 +76,7 @@ shi(void)
 	pr("%4d ", ni.cur);
 	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-	pr("%1c", ship.shp_fleet);
+	pr("%c", ship.shp_fleet);
 	pr("%4d%%", ship.shp_effic);
 
 	pr("%4d", ship.shp_item[I_CIVIL]);

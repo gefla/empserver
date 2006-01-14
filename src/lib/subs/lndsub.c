@@ -791,7 +791,7 @@ lnd_list(struct emp_qelem *land_list)
 	pr("%4d ", lnd->lnd_uid);
 	pr("%-16.16s ", llp->lcp->l_name);
 	prxy("%4d,%-4d ", lnd->lnd_x, lnd->lnd_y, llp->land.lnd_own);
-	pr("%1c", lnd->lnd_army);
+	pr("%c", lnd->lnd_army);
 	pr("%4d%%", lnd->lnd_effic);
 	pr("%4d", lnd->lnd_item[I_SHELL]);
 	pr("%4d", lnd->lnd_item[I_GUN]);
