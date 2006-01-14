@@ -102,9 +102,9 @@ real(void)
 	realm.r_xh = abs.hx - 1;
 	realm.r_yl = abs.ly;
 	realm.r_yh = abs.hy - 1;
-	list_realm(curr, natp);
 	realm.r_timestamp = time(NULL);
 	putrealm(&realm);
+	list_realm(curr, natp);
     }
     return RET_OK;
 }
