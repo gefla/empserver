@@ -42,22 +42,14 @@
 #include "commands.h"
 
 static void
-list_realm(natid curr, struct natstr *natp)
+list_realm(int curr, struct natstr *natp)
 {
     struct realmstr realm;
-    struct range abs;
-    struct range rel;
 
-    abs.width = 0;
-    abs.height = 0;
     getrealm(curr, natp->nat_cnum, &realm);
-    abs.lx = realm.r_xl;
-    abs.hx = realm.r_xh;
-    abs.ly = realm.r_yl;
-    abs.hy = realm.r_yh;
-    xyrelrange(natp, &abs, &rel);
-    pr("Realm #%d is %d:%d,%d:%d\n", curr, rel.lx, rel.hx, rel.ly, rel.hy);
-
+    pr("Realm #%d is %d:%d,%d:%d\n", curr,
+       xrel(natp, realm.r_xl), xrel(natp, realm.r_xh),
+       yrel(natp, realm.r_yl), yrel(natp, realm.r_yh));
 }
 
 int
