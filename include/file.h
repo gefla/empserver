@@ -145,6 +145,9 @@ enum {
     EF_PACKING,
     EF_RESOURCES,
     EF_NATION_STATUS,
+    /* Views */
+    EF_COUNTRY,
+    /* Number of types: */
     EF_MAX
 };
 

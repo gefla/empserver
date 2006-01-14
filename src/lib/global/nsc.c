@@ -400,7 +400,6 @@ struct castr nchr_ca[] = {
 };
 
 struct castr treaty_ca[] = {
-    /* FIXME disclose only to cna, cnb */
     {NSC_SHORT, 0, 0, fldoff(trtstr, trt_uid), "uid", EF_TREATY},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cna), "cna", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(trtstr, trt_cnb), "cnb", EF_NATION},
@@ -415,7 +414,6 @@ struct castr treaty_ca[] = {
 };
 
 struct castr loan_ca[] = {
-    /* FIXME disclose only to loaner, loanee and partially to all if signed */
     {NSC_SHORT, 0, 0, fldoff(lonstr, l_uid), "uid", EF_LOAN},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_loner), "loaner", EF_NATION},
     {NSC_NATID, 0, 0, fldoff(lonstr, l_lonee), "loanee", EF_NATION},
@@ -431,7 +429,6 @@ struct castr loan_ca[] = {
 };
 
 struct castr news_ca[] = {
-    /* FIXME if HIDDEN disclose requires contact with actor and victim, and new */
     {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid", EF_NEWS},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
@@ -515,7 +512,6 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    /* FIXME nat_b[] */
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
@@ -523,6 +519,14 @@ struct castr nat_ca[] = {
     /* FIXME nat_rejects[], nat_priorities[] */
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
      EF_NATION_FLAGS},
+    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
+};
+
+struct castr cou_ca[] = {
+    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
+    {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat",
+     EF_NATION_STATUS},
+    {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 

@@ -190,6 +190,9 @@ struct empfile empfile[] = {
     {EF_NATION_STATUS, "nation-status", NULL, symbol_ca,
      PTR_CACHE(nation_status, EFF_CFG)},
 
+    /* Views */
+    {EF_COUNTRY, "country", NULL, cou_ca, UNMAPPED_CACHE(struct natstr, 0)},
+
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
 };

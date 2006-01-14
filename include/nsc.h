@@ -212,6 +212,7 @@ extern struct castr lost_ca[];
 extern struct castr commodity_ca[];
 extern struct castr trade_ca[];
 extern struct castr nat_ca[];
+extern struct castr cou_ca[];
 extern struct castr realm_ca[];
 extern struct castr intrchr_ca[];
 extern struct castr rpt_ca[];
