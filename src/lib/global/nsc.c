@@ -529,11 +529,11 @@ struct castr nat_ca[] = {
 struct castr realm_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_uid), "uid", EF_REALM},
     {NSC_NATID, 0, 0, fldoff(realmstr, r_cnum), "cnum", EF_NATION},
-    {NSC_USHORT, 0, 0, fldoff(realmstr, r_realm), "realm"},
-    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xl), "xl"},
-    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xh), "xh"},
-    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yl), "yl"},
-    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yh), "yh"},
+    {NSC_USHORT, 0, 0, fldoff(realmstr, r_realm), "realm", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xl), "xl", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_xh), "xh", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yl), "yl", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(realmstr, r_yh), "yh", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
