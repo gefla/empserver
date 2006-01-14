@@ -85,26 +85,20 @@ sona(void)
 	radbuf = malloc((WORLD_Y * (WORLD_X + 1)));
     if (!visbuf)
 	visbuf = malloc((WORLD_Y * (WORLD_X + 1)));
-    if (!rad) {
+    if (!rad && radbuf) {
 	rad = malloc(WORLD_Y * sizeof(char *));
-	if (rad && radbuf) {
+	if (rad) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		rad[x] = &radbuf[(WORLD_X + 1) * x];
 	    }
-	} else if (rad) {
-	    free(rad);
-	    rad = NULL;
 	}
     }
-    if (!vis) {
+    if (!vis && visbuf) {
 	vis = malloc(WORLD_Y * sizeof(char *));
-	if (vis && visbuf) {
+	if (vis) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		vis[x] = &visbuf[(WORLD_X + 1) * x];
 	    }
-	} else if (vis) {
-	    free(vis);
-	    vis = NULL;
 	}
     }
     if (!radbuf || !visbuf || !rad || !vis) {
