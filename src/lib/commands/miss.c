@@ -61,7 +61,8 @@ mission(void)
     int type;
     int mission;
     coord x, y;
-    int size, desired_radius, radius;
+    size_t size;
+    int desired_radius, radius;
     struct sctstr opsect;
     s_char *block;
     struct genitem *gp;

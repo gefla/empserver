@@ -876,7 +876,8 @@ mission_name(short int mission)
 void
 show_mission(int type, struct nstr_item *np)
 {
-    int size, first = 1, radius;
+    size_t size;
+    int first = 1, radius;
     s_char *block;
     struct genitem *gp;
 
