@@ -90,8 +90,10 @@ for my $t (keys %subjfil) {
     unless (grep(/^$t$/, @Subjects)) {
 	print STDERR "WARNING: $t is a NEW subject\n";
 	my $fname = "info/$t.t";
-	print STDERR "File $fname exists\n" if -e $fname;
-	exit 1;
+	if (-e $fname) {
+	    print STDERR "File $fname exists\n";
+	    exit 1;
+	}
     }
 }
 @Subjects = sort keys %subjfil;
