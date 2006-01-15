@@ -94,8 +94,8 @@ endif
 scripts = $(srcdir)/src/scripts
 depcomp = $(SHELL) $(srcdir)/depcomp
 clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
-$(info.nr) $(info.html)
-distclean := $(ac) $(ttop)
+$(ttop) $(info.nr) $(info.html)
+distclean := $(ac)
 econfig := $(sysconfdir)/empire/econfig
 edatadir := $(localstatedir)/empire
 einfodir := $(datadir)/empire/info.nr
