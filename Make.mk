@@ -95,7 +95,7 @@ scripts = $(srcdir)/src/scripts
 depcomp = $(SHELL) $(srcdir)/depcomp
 clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
 $(info.nr) $(info.html)
-distclean := $(ac) info/stamp $(ttop)
+distclean := $(ac) $(ttop)
 econfig := $(sysconfdir)/empire/econfig
 edatadir := $(localstatedir)/empire
 einfodir := $(datadir)/empire/info.nr
