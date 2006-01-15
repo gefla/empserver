@@ -78,8 +78,8 @@ subst.in = sed \
 
 # Generated files
 mk := sources.mk subjects.mk
-ac := autom4te.cache config.h config.status config.log stamp-h	\
-$(basename $(filter %.in, $(src)))
+ac := $(srcdir)/autom4te.cache config.h config.log config.status	\
+stamp-h $(basename $(filter %.in, $(src)))
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # TODO AIX needs lwpInit.o lwpRestore.o lwpSave.o unless UCONTEXT
 deps := $(obj:.o=.d)
@@ -105,8 +105,10 @@ empth_obj := src/lib/empthread/ntthread.o
 empth_lib :=
 endif
 
-clean := $(obj) $(deps) $(libs) $(util) $(client) $(server)	\
-$(empth_lib) $(tsubj) $(ttop) $(info.nr) $(info.html)
+# Removed by clean:
+clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
+$(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
+# Removed by distclean:
 distclean := $(ac)
 
 # Compiler flags
