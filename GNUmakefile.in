@@ -52,6 +52,10 @@ termlibs := @termlibs@
 CCDEPMODE := @CCDEPMODE@
 @am__fastdepCC_TRUE@how_to_dep := fast
 @am__fastdepCC_FALSE@@AMDEP_TRUE@how_to_dep := depcomp
+EXEEXT := @EXEEXT@
+ifneq (@OBJEXT@,o)
+$(error This makefile can't cope with your compiler's object file names)
+endif
 
 AWK := @AWK@
 INSTALL := @INSTALL@

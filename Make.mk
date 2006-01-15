@@ -66,9 +66,9 @@ obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # TODO AIX needs lwpInit.o lwpRestore.o lwpSave.o unless UCONTEXT
 deps := $(obj:.o=.d)
 libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
-util := $(addprefix src/util/, fairland files pconfig)
-client := src/client/empire
-server := src/server/emp_server
+util := $(addprefix src/util/, $(addsuffix $(EXEEXT), fairland files pconfig))
+client := src/client/empire$(EXEEXT)
+server := src/server/emp_server$(EXEEXT)
 progs := $(util) $(client) $(server)
 tsubj := $(addprefix info/, $(addsuffix .t, $(subjects)))
 ttop := info/TOP.t
