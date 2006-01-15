@@ -240,7 +240,7 @@ info.html/all.html: $(filter-out info.html/all.html, $(info.html)) info/ls2html.
 
 $(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk | info.nr
 
-$(subjects.html): info/subj2html.pl | info.html
+$(subjects.html) info.html/TOP.html: info/subj2html.pl | info.html
 $(topics.html): info/emp2html.pl | info.html
 
 info.nr info.html lib:
