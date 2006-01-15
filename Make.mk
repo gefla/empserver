@@ -55,8 +55,26 @@ man6 := $(filter man/%.6, $(src))
 
 # Info topics and subjects
 -include subjects.mk
+
+# Abbreviations
 topics := $(patsubst %.t,%,$(notdir $(tsrc)))
 info := $(topics) $(subjects) all TOP
+subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
+topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
+scripts = $(srcdir)/src/scripts
+depcomp = $(SHELL) $(srcdir)/depcomp
+econfig := $(sysconfdir)/empire/econfig
+edatadir := $(localstatedir)/empire
+einfodir := $(datadir)/empire/info.nr
+ehtmldir := $(datadir)/empire/info.html
+# Recursively expanded so that $@ and $< work.
+subst.in = sed \
+	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
+	-e 's?@econfig\@?$(econfig)?g' \
+	-e 's?@edatadir\@?$(edatadir)?g' \
+	-e 's?@einfodir\@?$(einfodir)?g' \
+	-e 's/@EMPIREHOST\@/$(EMPIREHOST)/g' \
+	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
 # Generated files
 mk := sources.mk subjects.mk
@@ -69,12 +87,9 @@ libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
 util := $(addprefix src/util/, $(addsuffix $(EXEEXT), fairland files pconfig))
 client := src/client/empire$(EXEEXT)
 server := src/server/emp_server$(EXEEXT)
-progs := $(util) $(client) $(server)
 tsubj := $(addprefix info/, $(addsuffix .t, $(subjects)))
 ttop := info/TOP.t
 info.nr := $(addprefix info.nr/, $(info))
-subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
-topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 
 ifeq ($(empthread),LWP)
@@ -90,24 +105,9 @@ empth_obj := src/lib/empthread/ntthread.o
 empth_lib :=
 endif
 
-# Abbreviations
-scripts = $(srcdir)/src/scripts
-depcomp = $(SHELL) $(srcdir)/depcomp
-clean := $(obj) $(deps) $(libs) $(progs) $(empth_lib) $(tsubj)	\
-$(ttop) $(info.nr) $(info.html)
+clean := $(obj) $(deps) $(libs) $(util) $(client) $(server)	\
+$(empth_lib) $(tsubj) $(ttop) $(info.nr) $(info.html)
 distclean := $(ac)
-econfig := $(sysconfdir)/empire/econfig
-edatadir := $(localstatedir)/empire
-einfodir := $(datadir)/empire/info.nr
-ehtmldir := $(datadir)/empire/info.html
-# Recursively expanded so that $@ and $< work.
-subst.in = sed \
-	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
-	-e 's?@econfig\@?$(econfig)?g' \
-	-e 's?@edatadir\@?$(edatadir)?g' \
-	-e 's?@einfodir\@?$(einfodir)?g' \
-	-e 's/@EMPIREHOST\@/$(EMPIREHOST)/g' \
-	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
@@ -121,7 +121,7 @@ LDLIBS += -lm
 ### Advertized goals
 
 .PHONY: all
-all: $(progs) info
+all: $(util) $(client) $(server) info
 
 .PHONY: info html
 info: $(info.nr)
