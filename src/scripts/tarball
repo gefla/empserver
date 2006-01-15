@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+if [ $# = 0 ]; then
+    echo "Usage: $0 NAME (FILE | -C DIR)..."
+    exit 1
+fi
+
+name=$1; shift
+
+# arrange cleanup
+trap 'rm -rf "$name"' 0
+
+mkdir -p $name
+
+dir=.
+until [ $# = 0 ]; do
+    if [ "$1" = -C ]; then
+	dir="$2"
+	if shift 2; then continue; fi
+	echo "-C requires an argument" >&2
+	exit 1
+    fi
+    mkdir -p `dirname "$name/$1"`
+    ln "$dir/$1" "$name/$1"
+    shift
+done
+
+tar -czf $name.tar.gz --owner=0 --group=0 --mode=ug+w,a+rX $name

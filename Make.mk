@@ -63,10 +63,13 @@ subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
 topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
 scripts = $(srcdir)/src/scripts
 depcomp = $(SHELL) $(srcdir)/depcomp
+tarball = $(SHELL) $(scripts)/tarball
 econfig := $(sysconfdir)/empire/econfig
 edatadir := $(localstatedir)/empire
 einfodir := $(datadir)/empire/info.nr
 ehtmldir := $(datadir)/empire/info.html
+
+# How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.
 subst.in = sed \
 	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
@@ -77,9 +80,11 @@ subst.in = sed \
 	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
 # Generated files
+# See `Cleanliness' below
 mk := sources.mk subjects.mk
 ac := $(srcdir)/autom4te.cache config.h config.log config.status	\
 stamp-h $(basename $(filter %.in, $(src)))
+acdist := aclocal.m4 config.h.in configure stamp-h.in
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # TODO AIX needs lwpInit.o lwpRestore.o lwpSave.o unless UCONTEXT
 deps := $(obj:.o=.d)
@@ -105,11 +110,17 @@ empth_obj := src/lib/empthread/ntthread.o
 empth_lib :=
 endif
 
+# Cleanliness
+# Each generated file should be in one of the following sets.
 # Removed by clean:
 clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
 $(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
 # Removed by distclean:
 distclean := $(ac)
+# Distributed by dist from $(srcdir)
+src_distgen := $(acdist)
+# Distributed by dist from .
+bld_distgen := $(mk)
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
@@ -171,8 +182,7 @@ uninstall:
 	false # FIXME
 
 .PHONY: dist
-dist:
-	false # FIXME
+dist: dist-source dist-client dist-info
 
 
 ### Implicit rules
@@ -253,6 +263,24 @@ ifeq ($(cvs_controlled),yes)
 sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))
 	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk` >$@
 endif
+
+.PHONY: dist-source
+dist-source: check-version
+	$(tarball) $(TARNAME)-$(VERSION) $(bld_distgen) -C $(srcdir) $(src_distgen) $(src)
+
+.PHONY: dist-client
+dist-client:
+	$(tarball) $(TARNAME)-client-$(VERSION) -C $(srcdir) $(filter src/client/%, $(src))
+
+.PHONY: dist-info
+dist-info: info html
+	$(tarball) $(TARNAME)-info-text-$(VERSION) -C info.nr $(info)
+	$(tarball) $(TARNAME)-info-html-$(VERSION) -C info.html $(addsuffix .html, $(info))
+
+check-version:
+	if [ $(VERSION) != `sed -n '/EMP_VERS_/s/#define EMP_VERS_\([A-Z]*\)[ \t]*//p' <include/version.h | tr '\012' . | sed 's/\.$$//'` ]; \
+	then echo version.h does not match configure.ac >&2; false; \
+	fi
 
 ifneq ($(deps),)
 -include $(deps)

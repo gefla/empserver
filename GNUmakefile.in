@@ -34,6 +34,9 @@
 
 # The real meat is in Make.mk, which see.
 
+TARNAME := @PACKAGE_TARNAME@
+VERSION := @PACKAGE_VERSION@
+
 CC := @CC@
 have_gcc := @GCC@
 CFLAGS := @CFLAGS@
