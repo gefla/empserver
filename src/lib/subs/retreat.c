@@ -188,7 +188,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     }
 
     getsect(sp->shp_x, sp->shp_y, &sect);
-    switch (check_nav(&sect)) {
+    switch (shp_check_nav(&sect)) {
     case CN_CONSTRUCTION:
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was caught in a construction zone, and couldn't retreat!\n",
@@ -262,7 +262,7 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 	mobcost = 480.0 / (mobcost + techfact(sp->shp_tech, mobcost));
 
 	getsect(newx, newy, &sect);
-	if (check_nav(&sect) != CN_NAVIGABLE ||
+	if (shp_check_nav(&sect) != CN_NAVIGABLE ||
 	    (sect.sct_own && !player->owner &&
 	     getrel(getnatp(sect.sct_own), sp->shp_own) < FRIENDLY)) {
 	    wu(0, sp->shp_own, "%s %s,\nbut could not retreat to %s!\n",

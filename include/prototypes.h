@@ -684,6 +684,7 @@ extern int shp_sweep(struct emp_qelem *, int, natid);
 extern s_char *shp_path(int, struct shpstr *, s_char *);
 extern void shp_put(struct emp_qelem *, natid);
 extern void shp_list(struct emp_qelem *);
+extern int shp_check_nav(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
 extern void shp_view(struct emp_qelem *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);
@@ -762,7 +763,6 @@ extern void prod_nat(int);
 /* nav_ship.c */
 extern int nav_ship(register struct shpstr *);
 /* nav_util.c */
-extern int check_nav(struct sctstr *);
 extern int load_it(struct shpstr *, struct sctstr *,
 		   int);
 extern void unload_it(struct shpstr *);

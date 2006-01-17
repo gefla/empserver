@@ -55,7 +55,6 @@
 #include "server.h"
 #include "prototypes.h"
 
-static int shp_check_nav(struct sctstr *);
 static int shp_check_one_mines(struct mlist *);
 static int shp_hit_mine(struct shpstr *, struct mchrstr *);
 static void shp_mess(s_char *, struct mlist *);
@@ -368,7 +367,7 @@ shp_mess(s_char *str, struct mlist *mlp)
     free(mlp);
 }
 
-static int
+int
 shp_check_nav(struct sctstr *sect)
 {
     switch (dchr[sect->sct_type].d_flg & 03) {

@@ -239,7 +239,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     wu(0, fltp->own, "\n");
 #endif
     sectp = getsectp(fltp->x, fltp->y);
-    switch (check_nav(sectp)) {
+    switch (shp_check_nav(sectp)) {
     case CN_NAVIGABLE:
 	break;
     case CN_CONSTRUCTION:

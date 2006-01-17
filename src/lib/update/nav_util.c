@@ -54,28 +54,6 @@
 #include "common.h"
 #include "gen.h"
 
-/* Format a ship name */
-int
-check_nav(struct sctstr *sect)
-{
-    switch (dchr[sect->sct_type].d_flg & 03) {
-    case NAVOK:
-	break;
-
-    case NAV_02:
-	if (sect->sct_effic < 2)
-	    return CN_CONSTRUCTION;
-	break;
-    case NAV_60:
-	if (sect->sct_effic < 60)
-	    return CN_CONSTRUCTION;
-	break;
-    default:
-	return CN_LANDLOCKED;
-    }
-    return CN_NAVIGABLE;
-}
-
 /* load a specific ship given its 
  * location and what field to modify.
  * new autonav code
