@@ -370,7 +370,7 @@ shp_mess(s_char *str, struct mlist *mlp)
 int
 shp_check_nav(struct sctstr *sect)
 {
-    switch (dchr[sect->sct_type].d_flg & 03) {
+    switch (dchr[sect->sct_type].d_nav & 03) {
     case NAVOK:
 	break;
 

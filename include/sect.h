@@ -94,7 +94,7 @@ struct dchrstr {
     int d_mnem;			/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
-    int d_flg;			/* movement flags */
+    int d_nav;			/* navigation capability */
     i_packing d_pkg;		/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
@@ -107,7 +107,7 @@ struct dchrstr {
     char *d_name;		/* full name of sector type */
 };
 
-/* for d_flg */
+/* for d_nav */
 #define	NAVOK	1		/* ships can always navigate */
 #define	NAV_02	2		/* requires 2% effic to navigate */
 #define	NAV_60	3		/* requires 60% effic to navigate */
