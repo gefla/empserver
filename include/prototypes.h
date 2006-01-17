@@ -685,6 +685,7 @@ extern s_char *shp_path(int, struct shpstr *, s_char *);
 extern void shp_put(struct emp_qelem *, natid);
 extern void shp_list(struct emp_qelem *);
 extern int shp_check_nav(struct sctstr *);
+extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
 extern void shp_view(struct emp_qelem *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);

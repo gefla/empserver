@@ -139,8 +139,7 @@ load(void)
 	    (ship.shp_own != player->cnum))
 	    continue;
 	if (!player->owner &&
-	    sect.sct_type != SCT_HARBR &&
-	    !IS_BIG_CITY(sect.sct_type))
+	    !sect_has_dock(&sect))
 	    continue;
 	if (!sect.sct_own)
 	    continue;
@@ -150,8 +149,7 @@ load(void)
 		   xyas(ship.shp_x, ship.shp_y, player->cnum));
 	    continue;
 	}
-	if (sect.sct_type != SCT_HARBR &&
-	    !IS_BIG_CITY(sect.sct_type)) {
+	if (!sect_has_dock(&sect)) {
 	    if (noisy)
 		pr("Sector %s is not a harbor%s%s.\n",
 		   xyas(ship.shp_x, ship.shp_y, player->cnum),

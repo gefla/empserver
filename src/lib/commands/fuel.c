@@ -134,8 +134,7 @@ fuel(void)
 	    mp = &mchr[(int)item.ship.shp_type];
 
 	    harbor = 0;
-	    if (sect.sct_type == SCT_HARBR
-		|| IS_BIG_CITY(sect.sct_type)) {
+	    if (sect_has_dock(&sect)) {
 		harbor = 1;
 		oil_amt = sect.sct_item[I_OIL];
 		pet_amt = sect.sct_item[I_PETROL];

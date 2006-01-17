@@ -388,6 +388,17 @@ shp_check_nav(struct sctstr *sect)
     return CN_NAVIGABLE;
 }
 
+int
+sect_has_dock(struct sctstr *sect)
+{
+    switch (dchr[sect->sct_type].d_nav) {
+    case NAV_02:
+	return 1;
+    default:
+	return 0;
+    }
+}
+
 static int
 shp_count(struct emp_qelem *list, int wantflags, int nowantflags, int x,
 	  int y)

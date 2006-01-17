@@ -193,8 +193,7 @@ nav_loadship(struct shpstr *sp, natid cnum)
 	    didsomething[i] = 1;
 	    continue;
 	}
-	if (sectp->sct_type != SCT_HARBR &&
-	    !IS_BIG_CITY(sectp->sct_type)) {
+	if (!sect_has_dock(sectp)) {
 	    /* we can only load in harbors */
 	    didsomething[i] = 1;
 	    continue;
