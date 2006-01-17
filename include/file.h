@@ -145,6 +145,7 @@ enum {
     EF_PACKING,
     EF_RESOURCES,
     EF_NATION_STATUS,
+    EF_SECTOR_NAVIGATION,
     /* Views */
     EF_COUNTRY,
     /* Number of types: */

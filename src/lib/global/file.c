@@ -189,6 +189,8 @@ struct empfile empfile[] = {
     {EF_RESOURCES, "resources", NULL, symbol_ca, PTR_CACHE(resources, EFF_CFG)},
     {EF_NATION_STATUS, "nation-status", NULL, symbol_ca,
      PTR_CACHE(nation_status, EFF_CFG)},
+    {EF_SECTOR_NAVIGATION, "sector-navigation", NULL, symbol_ca,
+     PTR_CACHE(sector_navigation, EFF_CFG)},
 
     /* Views */
     {EF_COUNTRY, "country", NULL, cou_ca, UNMAPPED_CACHE(struct natstr, 0)},

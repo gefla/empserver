@@ -108,6 +108,7 @@ struct dchrstr {
 };
 
 /* for d_nav */
+#define	NAV_NONE    0		/* ships can't navigate */
 #define	NAVOK	1		/* ships can always navigate */
 #define	NAV_02	2		/* requires 2% effic to navigate */
 #define	NAV_60	3		/* requires 60% effic to navigate */

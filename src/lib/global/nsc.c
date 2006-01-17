@@ -167,7 +167,8 @@ struct castr dchr_ca[] = {
     {NSC_INT, NSC_CONST, 0, offsetof(struct dchrstr, d_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_nav), "nav", EF_BAD /* FIXME */},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_nav), "nav",
+     EF_SECTOR_NAVIGATION},
     {NSC_SITYPE(i_packing), 0, 0, offsetof(struct dchrstr, d_pkg), "pkg",
      EF_PACKING},
     {NSC_FLOAT, 0, 0, offsetof(struct dchrstr, d_ostr), "ostr", EF_BAD},
@@ -779,5 +780,13 @@ struct symbol resources[] = {
     {offsetof(struct sctstr, sct_fertil), "fert"},
     {offsetof(struct sctstr, sct_oil), "ocontent"},
     {offsetof(struct sctstr, sct_uran), "uran"},
+    {0, NULL}
+};
+
+struct symbol sector_navigation[] = { /* for d_nav */
+    {NAV_NONE, "land"},
+    {NAVOK, "sea"},
+    {NAV_02, "harbor"},
+    {NAV_60, "bridge"},
     {0, NULL}
 };
