@@ -89,12 +89,19 @@ struct sctstr {
     time_t sct_timestamp;	/* Last time this sector was written to */
 };
 
+typedef enum {
+    NAV_NONE,	/* ships can't navigate */
+    NAVOK,	/* ships can always navigate */
+    NAV_02,	/* requires 2% effic to navigate */
+    NAV_60	/* requires 60% effic to navigate */
+} d_navigation;
+
 struct dchrstr {
     unsigned char d_uid;
     int d_mnem;			/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
-    int d_nav;			/* navigation capability */
+    d_navigation d_nav;			/* navigation capability */
     i_packing d_pkg;		/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
@@ -106,12 +113,6 @@ struct dchrstr {
     int d_maxpop;		/* maximum population */
     char *d_name;		/* full name of sector type */
 };
-
-/* for d_nav */
-#define	NAV_NONE    0		/* ships can't navigate */
-#define	NAVOK	1		/* ships can always navigate */
-#define	NAV_02	2		/* requires 2% effic to navigate */
-#define	NAV_60	3		/* requires 60% effic to navigate */
 
 	/* sector types (must agree with order in dchr, empglb.c) */
 
