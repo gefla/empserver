@@ -155,9 +155,9 @@ load(void)
 	    if (noisy)
 		pr("Sector %s is not a harbor%s%s.\n",
 		   xyas(ship.shp_x, ship.shp_y, player->cnum),
-		   IS_BIG_CITY(sect.sct_type) ? " or a " : "",
-		   IS_BIG_CITY(sect.sct_type) ?
-		    dchr[sect.sct_type].d_name : "");
+		   dchr[SCT_CAPIT].d_nav == NAV_02 ? " or a " : "",
+		   dchr[SCT_CAPIT].d_nav == NAV_02 ?
+		    dchr[SCT_CAPIT].d_name : "");
 	    continue;
 	}
 	if (sect.sct_own != player->cnum && load_unload == UNLOAD
