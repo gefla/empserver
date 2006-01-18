@@ -316,9 +316,9 @@ sail_ship(natid cn)
 
     /* see what the fleets fall out into */
     for (fltp = head; fltp; fltp = fltp->next) {
-	sail_nav_fleet(fltp);
-	wu(0, fltp->own, "Your fleet lead by ship #%d has reached %s.\n",
-	   fltp->leader, xyas(fltp->x, fltp->y, fltp->own));
+	if (sail_nav_fleet(fltp))
+	    wu(0, fltp->own, "Your fleet lead by ship #%d has reached %s.\n",
+	       fltp->leader, xyas(fltp->x, fltp->y, fltp->own));
     }
 
     /* Free up the memory, 'cause I want to. */
