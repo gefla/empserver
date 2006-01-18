@@ -216,6 +216,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     natid own;
     struct emp_qelem ship_list;
     int dir;
+    int canal = 1;
 
 #ifdef SAILDEBUG
     switch (fltp->real_q) {
@@ -238,9 +239,27 @@ sail_nav_fleet(struct fltheadstr *fltp)
 	wu(0, fltp->own, " %d", fe->num);
     wu(0, fltp->own, "\n");
 #endif
+    for (fe = fltp->head; fe; fe = fe->next) {
+	sp = getshipp(fe->num);
+	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
+	    wu(0, fltp->own,
+	       "   ship #%d (%s) is crewless and can't go on\n",
+	       fe->num, cname(fe->own));
+	    error = 1;
+	} else if (!(mchr[sp->shp_type].m_flags & M_CANAL))
+	    canal = 0;
+    }
+    if (error)
+	return 0;
     sectp = getsectp(fltp->x, fltp->y);
     switch (shp_check_nav(sectp)) {
     case CN_NAVIGABLE:
+	if (IS_BIG_CITY(sectp->sct_type) && !canal) {
+	    wu(0, fltp->own,
+	       "Your fleet lead by %d is too big to fit through the canal.\n",
+	       fltp->leader);
+	    return 0;
+	}
 	break;
     case CN_CONSTRUCTION:
     case CN_LANDLOCKED:
@@ -249,17 +268,6 @@ sail_nav_fleet(struct fltheadstr *fltp)
 	   fltp->leader);
 	return 0;
     }
-    for (fe = fltp->head; fe; fe = fe->next) {
-	sp = getshipp(fe->num);
-	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
-	    wu(0, fltp->own,
-	       "   ship #%d (%s) is crewless and can't go on\n",
-	       fe->num, cname(fe->own));
-	    error = 1;
-	}
-    }
-    if (error)
-	return 0;
     sp = getshipp(fltp->leader);
     own = sp->shp_own;
     fltp_to_list(fltp, &ship_list);	/* hack -KHS 1995 */
