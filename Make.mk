@@ -202,6 +202,11 @@ endif
 # automatic dependency generation
 %: %.c
 
+# Work around MinGW Make's broken built-in link rule:
+%$(EXEEXT): %.o
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+
 info.nr/%: info/%.t
 	$(NROFF) -I $(srcdir)/info $(filter %/CRT.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@
 # FIXME AT&T nroff doesn't grok -I
