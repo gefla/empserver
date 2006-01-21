@@ -125,6 +125,7 @@ bld_distgen := $(mk)
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
 ifeq ($(have_gcc),yes)
+CFLAGS += -fno-builtin-carg	# conflicts with our carg()
 CFLAGS += -fno-common
 CFLAGS += -Wall -W -Wno-unused -Wpointer-arith -Wstrict-prototypes	\
 -Wmissing-prototypes -Wnested-externs -Wredundant-decls
