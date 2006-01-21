@@ -93,6 +93,7 @@ typedef enum {
     NAV_NONE,	/* ships can't navigate */
     NAVOK,	/* ships can always navigate */
     NAV_02,	/* requires 2% effic to navigate */
+    NAV_CANAL,	/* requires 2% effic to navigate and M_CANAL capability */
     NAV_60	/* requires 60% effic to navigate */
 } d_navigation;
 

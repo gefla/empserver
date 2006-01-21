@@ -44,7 +44,7 @@
 #include "product.h"
 
 struct dchrstr bigcity_dchr = {
-    SCT_CAPIT,   'c',       0, 2,  NAV_02,   UPKG, 1.0, 2.0,   30, 0, 10, 1, 2, 999, "city"
+    SCT_CAPIT,   'c',       0, 2, NAV_CANAL, UPKG, 1.0, 2.0,   30, 0, 10, 1, 2, 999, "city"
 };
 
 struct dchrstr dchr[] = {

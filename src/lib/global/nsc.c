@@ -787,6 +787,7 @@ struct symbol sector_navigation[] = { /* for d_nav */
     {NAV_NONE, "land"},
     {NAVOK, "sea"},
     {NAV_02, "harbor"},
+    {NAV_CANAL, "canal"},
     {NAV_60, "bridge"},
     {0, NULL}
 };

@@ -121,13 +121,9 @@ fuel(void)
 	    if (!item.ship.shp_own)
 		continue;
 
-	    if ((sect.sct_type != SCT_HARBR)
-		&& (sect.sct_type != SCT_WATER)
-		&& (sect.sct_type != SCT_BSPAN)
-		&& (!IS_BIG_CITY(sect.sct_type))) {
-		pr("Sector %s is not a harbor, bridge span, or sea.\n",
-		   xyas(item.ship.shp_x, item.ship.shp_y,
-			item.ship.shp_own));
+	    if (shp_check_nav(&sect, &item.ship) == CN_LANDLOCKED) {
+		pr("%s is landlocked and cannot be fueled.\n",
+		   prship(&item.ship));
 		continue;
 	    }
 

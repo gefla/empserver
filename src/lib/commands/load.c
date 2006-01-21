@@ -153,8 +153,8 @@ load(void)
 	    if (noisy)
 		pr("Sector %s is not a harbor%s%s.\n",
 		   xyas(ship.shp_x, ship.shp_y, player->cnum),
-		   dchr[SCT_CAPIT].d_nav == NAV_02 ? " or a " : "",
-		   dchr[SCT_CAPIT].d_nav == NAV_02 ?
+		   dchr[SCT_CAPIT].d_nav == NAV_CANAL ? " or a " : "",
+		   dchr[SCT_CAPIT].d_nav == NAV_CANAL ?
 		    dchr[SCT_CAPIT].d_name : "");
 	    continue;
 	}

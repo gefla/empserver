@@ -156,7 +156,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    shp_mess("was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
 	    continue;
 	}
-	switch (shp_check_nav(&sect)) {
+	switch (shp_check_nav(&sect, &ship)) {
 	case CN_CONSTRUCTION:
 	    shp_mess("is caught in a construction zone", mlp);
 	    continue;
@@ -368,12 +368,18 @@ shp_mess(s_char *str, struct mlist *mlp)
 }
 
 int
-shp_check_nav(struct sctstr *sect)
+shp_check_nav(struct sctstr *sect, struct shpstr *shp)
 {
     switch (dchr[sect->sct_type].d_nav) {
     case NAVOK:
 	break;
-
+    case NAV_CANAL:
+	if (mchr[(int)shp->shp_type].m_flags & M_CANAL == M_CANAL) {
+	    if (sect->sct_effic < 2)
+		return CN_CONSTRUCTION;
+	} else
+	    return CN_LANDLOCKED;
+	break;
     case NAV_02:
 	if (sect->sct_effic < 2)
 	    return CN_CONSTRUCTION;
@@ -821,6 +827,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     double tech;		/* for mapping */
     double tf;			/* for mapping */
     s_char dp[80];
+    int navigate;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
 	shp_put(list, actor);
@@ -834,27 +841,27 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newx = xnorm(mlp->ship.shp_x + dx);
 	newy = ynorm(mlp->ship.shp_y + dy);
 	getsect(newx, newy, &sect);
-	if (shp_check_nav(&sect) != CN_NAVIGABLE ||
+	navigate = shp_check_nav(&sect, &mlp->ship);
+	if (navigate != CN_NAVIGABLE ||
 	    (sect.sct_own && actor != sect.sct_own &&
 	     getrel(getnatp(sect.sct_own), actor) < FRIENDLY)) {
-	    if (together) {
-		mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
-		return 2;
-	    } else {
-		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-		shp_mess(dp, mlp);
-		continue;
-	    }
-	}
-	if (IS_BIG_CITY(sect.sct_type)) {
-	    if (!(mlp->mcp->m_flags & M_CANAL)) {
+	    if (dchr[sect.sct_type].d_nav == NAV_CANAL &&
+		!(mlp->mcp->m_flags & M_CANAL) &&
+		navigate == CN_LANDLOCKED)
 		sprintf(dp,
 			"is too large to fit into the canal system at %s",
 			xyas(newx, newy, actor));
+	    else
+		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
+	    if (together) {
+		mpr(actor, "%s\n", dp);
+		return 2;
+	    } else {
 		shp_mess(dp, mlp);
 		continue;
 	    }
 	}
+
 	if (mlp->mobil <= 0.0) {
 	    shp_mess("is out of mobility", mlp);
 	    continue;
