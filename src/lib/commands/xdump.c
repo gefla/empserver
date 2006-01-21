@@ -239,12 +239,13 @@ xdvisible(int type, void *p)
 	return player->god || tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
     case EF_NUKE_CHR:
 	tlev = ((struct nchrstr *)p)->n_tech;
-	natp = getnatp(player->cnum);
-	if (opt_DRNUKE)
+	if (opt_DRNUKE) {
+	    natp = getnatp(player->cnum);
 	    if (tlev > (int)((int)(1.25 * natp->nat_level[NAT_RLEV])
 			     / drnuke_const))
-		return 0;
-	return tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
+		return player->god;
+	}
+	goto tech;
     case EF_NEWS_CHR:
 	return ((struct rptstr *)p)->r_newspage != 0;
     case EF_TABLE:
