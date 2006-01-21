@@ -108,7 +108,7 @@ struct castr pchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrndx), "nrndx", EF_RESOURCES},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nrdep), "nrdep", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx", EF_LEVEL},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlmin), "nlmin", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nllag), "nllag", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_effic), "effic", EF_BAD},
