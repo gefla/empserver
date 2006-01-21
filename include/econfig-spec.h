@@ -29,6 +29,15 @@
  */
 
 /*
+ * This file declares econfig keys.  It expand into the corresponding
+ * variable declarations if defined(EMP_CONFIG_H_OUTPUT), and into
+ * struct keymatch[] initializers if defined(EMP_CONFIG_C_OUTPUT).
+ *
+ * EMPCFBOTH() defines econfig keys.  EMPCF_OPT() is a convenience
+ * wrapper for options.  EMPCF_COMMENT() defines comments.
+ */
+
+/*
  * Preprocessor of MSC C++ 6.0 (VC98) is broken and chokes on empty
  * macro arguments.  Fixed in MSC C++ 7.0.  Work around: pass
  * useless token `unused'.
@@ -55,16 +64,17 @@ EMPCFONLYC("", emp_config_dummy, unused , NSC_NOTYPE, 0, (comment))
 #define EMPCF_OPT(fvname, vname, descr) \
 EMPCFBOTH((fvname), (vname), int, NSC_INT, KM_OPTION, (descr))
 
-/* things that can be changed */
+/* econfig key definitions: */
+
 EMPCF_COMMENT("\n### Server configuration and information")
 EMPCFBOTH("data", datadir, char *, NSC_STRING, KM_INTERNAL,
-    "Directory the data is stored in")
+    "Directory where this game's data is stored")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
-    "Directory the info pages are stored in")
+    "Directory where info pages are stored, can be shared among games")
 EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
-	  "Local address the server should listen on.  \"\" listens on all.")
+    "Local IP address the server should listen on.  \"\" listens on all.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
-    "TCP/IP port the server will start up on")
+    "TCP port the server will bind")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,
     "Name of the deity")
 EMPCFBOTH("privlog", privlog, char *, NSC_STRING, 0,
@@ -376,6 +386,7 @@ EMPCFBOTH("fuel_mult", fuel_mult, int, NSC_INT, 0,
 EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, NSC_INT, KM_INTERNAL,
     "Seconds before a lost item is timed out of the database")
 
+/* Sentinel */
 EMPCFONLYC(NULL, emp_config_dummy, NULL, NSC_NOTYPE, 0, NULL)
 
 #undef	EMPCFONLYC
