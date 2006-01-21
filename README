@@ -1,76 +1,89 @@
-Welcome to Empire 4, codenamed Wolfpack.  Congratulations on your choice!
+Welcome to Empire 4, code-named Wolfpack.
 
-See files README, COPYING and CREDITS in the root of the source
-tree for related information and legal notices.  It is expected
-that future projects/authors will amend these files as needed.
+Empire is a multi-player, client/server Internet based war game.
+Copyright (C) 1986-2006, Dave Pare, Jeff Bailey, Thomas Ruschak, Ken
+Stevens, Steve McClure
 
-For questions and comments, please contact "wolfpack@wolfpackempire.com".
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License (in file
+`COPYING'), or (at your option) any later version.
 
-If you want to build the server, follow the few simple steps below.  If
-you are looking for more information on the files here, options for
-the server, etc. take a look in the "doc" directory, then follow the steps
-below to build and start the server.
+See file `CREDITS' for a list of contributors.
 
-(1) Unpacking the server
-  If you're building from a tarball, unpack it.
-  If you're building from CVS, check out and run bootstrap.  This
-  requires Autoconf and Automake to be installed.
+Directory `doc' has additional information.  File `doc/README'
+describes the files there and what they talk about.
+
+To build the server and set up a game, follow the steps below.
+
+(1) Unpacking the source tree
+
+    If you downloaded a tarball, unpack it.
+
+    If you're pulling from CVS, check out and run bootstrap.  This
+    requires Autoconf and Automake to be installed.
 
 (2) Building a server
-  Note that you may not have to build a server.  If you received the
-  server in binary format, go to the next step, "Creating the world."
 
-  To build the server, you need to do the following steps:
-FIXME needs work
+    Requirements: GNU make and GNU troff (`groff'), ANSI C, Perl,
+    Bourne Shell and the common utilities.
 
-  1) Get a copy of the source.  Since you're reading this, we assume
-     you have done that. 
-  2) Gunzip the source.  Again, since you're reading this . . . ;-)
-  3) Run configure.
-  4) Run make.  You need GNU make.
+    See file `INSTALL' for detailed compilation and installation
+    instructions.  Quick guide for the impatient: run configure; make;
+    make install.  The last step is optional; everything runs fine
+    right from the build tree.
 
-(3) Creating the world
-  (NOTE: If you received a binary, you must edit the included data/econfig
-   file to represent the paths where your data and info directories are.)
-  1) First, pick the world size you want to use.  Once you have chosen
-     a world size, edit the "data/econfig" file (it was either created
-     at build time, or shipped with the binary) and change the WORLD_X
-     and WORLD_Y to be the sizes you want. The default world size is 64x32.
-     IMPORTANT: WORLD_X *MUST* be divisible by 2.  In addition, if you
-     change the world size later, you *MUST* re-create the world by
-     running "bin/files" again.
-  2) Go into the "bin" directory, and run "./files".
-  3) If you want to create a new world, run "./fairland 10 30" to create
-     a sample world (read the documentation for fairland for more info on
-     it's arguments.)
-  Note that "files" and "fairland" use the world size in the econfig file
-  if it exists in the data directory.  If this file doesn't exist, and you
-  don't specify one, it will use the default world size the server was
-  compiled with (Wolfpack binaries ship with a 64x32 world size)  You can
-  create an econfig file with default values using the "bin/pconfig"
-  executable.
+(3) Creating a game
 
-(4) Running the server
-  1) Run the bin/emp_server executable to start the server.
+    * Create a configuration for your game.  make install installs one
+      in $prefix/etc/empire/econfig ($prefix is /usr/local unless you
+      chose something else with configure).  You can use pconfig to
+      create another one.
 
-That's it.  Once running, you can log on to the server using the emp_client
-program found in the "bin" directory.  The initial deity country name/password
-is POGO/peter.
+    * Edit your configuration file.  See doc/econfig for more
+      information.
 
-If you get a "You're not a deity!" message and logged off, check the
-"data/server.log" file and look at the end for a "NON-AUTH" entry.
-There should be a "user@host" message in there that failed to log in.
-Enter this user and host in the auth file, and you should be able to
-log into the server as a deity now.
+      Unless you put your configuration file in the default location
+      (where make install installs it), you have to use -e with all
+      programs to make them use your configuration.
 
-For more information on options, programs, files and other general hints
-look in the "doc" directory.  The README there describes the files there and
-what they talk about.
+    * Run files to set up your data directory.
 
-For more information or help, send e-mail to "wolfpack@wolfpackempire.com" and
-we'll try to answer if we can.  Also check out our web site at
-"http://www.wolfpackempire.com"
+    * Run fairland to create a world.  For a sample world, try
+      `fairland 10 30'.  This creates file ./newcap_script, which will
+      be used below.  You can edit it to change country names and
+      passwords.
+
+      Check out fairland's manual page for more information.
+
+    * Start the server.  For development, you want to run it with -d
+      in a debugger, see doc/debugging.  Do not use -d for a real
+      game!
+
+    * Log in as deity POGO with password peter.  This guide assumes
+      you use the included client `empire', but other clients should
+      work as well.
+
+      For help, try `info'.
+
+      To change the deity password, use `change re <password>'.
+
+      FIXME auth
+
+    * Create countries with `exec newcap_script'.
+
+    Your game is now up!
+
+Naturally, there's more to running a real game than that, but that's
+beyond the scope of this file.
+
+Please report bugs to <wolfpack@wolfpackempire.com> or via SourceForge
+http://sourceforge.net/projects/empserver (registration required).
+
+For more information or help, try rec.games.empire on Usenet, or send
+e-mail to <wolfpack@wolfpackempire.com> and we'll try to answer if we
+can.  Also check out our web site at "http://www.wolfpackempire.com".
 
 Have fun!
 
- -- The Wolfpack development team...
+Wolfpack!
