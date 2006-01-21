@@ -77,7 +77,7 @@ external encoding into internal encoding.  We call this input
 filtering.  Since highlighting is not supported on input, the result
 is always valid UTF-8.  Commands retrieve input that is player-player
 communication directly as UTF-8.  Other input is retrieved as ASCII,
-which replaces non-ASCII characters by '?'[1].
+with non-ASCII characters replaced by '?'.
 
 Input filtering from UTF-8 drops ASCII control characters except
 '\t' and '\n'.
