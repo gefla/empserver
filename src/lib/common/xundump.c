@@ -258,8 +258,12 @@ xunsymbol(struct castr *ca, struct value *vp, int n)
     int value;
     char *token;
 
+    if (ca->ca_table == EF_BAD || ef_cadef(ca->ca_table) != symbol_ca)
+	return gripe("%s doesn't take a symbol or symbol set in field %d",
+		     ca->ca_name, n);
+
     if (vp->v_type == VAL_SYMBOL_SET) {
-	if (!(ca->ca_flags & NSC_BITS) || ca->ca_table == EF_BAD)
+	if (!(ca->ca_flags & NSC_BITS))
 	    return gripe("%s doesn't take a symbol set in field %d",
 			 ca->ca_name, n);
 	value = 0;
@@ -270,7 +274,7 @@ xunsymbol(struct castr *ca, struct value *vp, int n)
 	    value |= symtab[i].value;
 	}
     } else if (vp->v_type == VAL_SYMBOL) {
-	if ((ca->ca_flags & NSC_BITS) || ca->ca_table == EF_BAD)
+	if (ca->ca_flags & NSC_BITS)
 	    return gripe("%s doesn't take a symbol in field %d",
 			 ca->ca_name, n);
 	i = xunsymbol1(buf, symtab, ca, n);
