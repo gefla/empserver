@@ -1,10 +1,10 @@
-This is a short note on the empire configuration stuff. Some of this
-is for deities to enable them to configure things, some of it is for
-coders to see how this stuff works.
+This is a short note on the Empire run-time configuration stuff.  Some
+of this is for deities to enable them to configure things, some of it
+is for coders to see how this stuff works.
 
 Julian Onions <j.onions@nexor.co.uk>  15/7/95
 
--- 
+--
 Also, the Empire config files are now self-documenting (to a point.)
 Each option/variable now has a comment associated with it to hopefully
 make life easier on deities wanting to change things.
@@ -15,57 +15,34 @@ make life easier on deities wanting to change things.
 Deity Notes
 -----------
 
-To find out the current configuration, the simplest method is to
-compile up util/pconfig and the run it. It can be run either with no
+To find out the compiled-in configuration, the simplest method is to
+compile up util/pconfig and the run it.  It can be run either with no
 arguments, in which case it will print in config format the current
-compiled in options. Otherwise with a file containing a configuration
-it will first read in this file, and override any compiled in
-variables and then print the merged options. 
+compiled-in configuration.  Otherwise, with a file containing a
+configuration, it will first read in this file, and override any
+compiled in variables, and then print the merged configuration.
 
-So the first method shows you what's compiled in, the 2nd how a config
-file would modify this.
+So the first method shows you what's compiled in, the second how a
+config file would modify this.
 
 Blank lines are ignored, as are lines starting with a # character.
 
-Most of the options are straight forward, they take either a string
-(quote using " to get spaces in it) or a number - integer or floating
-point depending on the option. 
+A line of the form KEY VALUE configures an econfig key to a value.  A
+value is either a string (quote using " to get spaces in it), an
+integer or a floating-point number, depending on the key.
 
-For instance
-  privname "The Deity"
-sets the internal privname variable to that string, and 
-  port "7777" 
-sets the empire port to 7777.
-  btu_build_rate 0.0004 
-sets the internal floating point number for btu building rate,
-and so on.
+For instance,
+    data "/empire/data"
+configures the data directory to that place, and
+    port "7777"
+configures the empire port to 7777,
+  btu_build_rate 0.0004
+configures the BTU build rate, and so on.
 
-The only other type of variable currently defined are the
-options. These may be specified as one or more lines starting
-"option" and turned off with the keyword "nooption".
-
-So, for instance
-
-    option FUEL ORBIT
-and 
-    option FUEL
-    option ORBIT
-
-are equivalent
-
-To turn off an option that is compiled in, you can similarly have
-
-    nooption FUEL
-    nooption ORBIT
-or
-    nooption FUEL ORBIT
-
-The server can take a -e config file as a command line option so that
-it will read a specific config file. If not, it will default to
-looking for a file econfig in the built in data directory, but it
-won't mind if one is absent. Similarly, util/files and util/fairland
-et al all take a -e config file to run from a different config.
-Thus, to start two games on the same host, you might have
+The programs look for a config file in a compiled-in location, which
+is shown by emp_server -h.  Use -e to make the programs use another
+config file instead.  Thus, to start two games on the same host, you
+might have
 
 Game1:
 files -e econfig1
@@ -91,50 +68,44 @@ port "7778"
 
 You only need the lines in that file that you require to override the
 compiled in definitions, however having all the definitions may help
-you to understand what is on and off. You could do this with
+you to understand what is on and off.  You could do this with
 
 pconfig econfig1 > e1 && mv e1 econfig1
 pconfig econfig2 > e2 && mv e2 econfig2
 
-which will fill in all the missing options and values with their defaults.
+which will fill in all the missing keys and values with their defaults.
 
 
 
 Coder information
 -----------------
 
-The simplest way to describe this is to step through how a new option
-would be added.
+The simplest way to describe this is perhaps to step through how a new
+key would be added.  Let's do this for a new option "DUMB".
 
-1. Think of the option name, say, "DUMB".
-2. In src/lib/global/options.c define an integer and set it to 1 or 0
-as appropriate. This is usually done as 
+1. Define the variable for the key.  Options go into
+src/lib/global/options.c, like this:
 
-#ifdef DUMB
 int opt_DUMB = 1;
-#else
-int opt_DUMB = 0;
-#endif
 
-3. At the end of that file, add an entry into the table so it is
-configurable. This is done with a line like
+The initializer provides the compiled-in value.
 
-    { "DUMB", &opt_DUMB },
+Other keys go into src/lib/global/constants.c.
 
-Make sure the table is still terminated by two NULL values!
+2. Declare the econfig key in include/econfig-spec.h:
 
-4. In include/optlist.h add an external definition of this variable
+EMPCF_OPT("DUMP", opt_DUMP, "Enable additional dumbness")
 
-extern int opt_DUMB;
+For a non-option key, you'd use EMPCFBOTH() there.
 
-5. Now the variable is defined, and configurable through the option
-keyword in the config file. So you can go ahead and make changes
-elsewhere in the code. This normally looks like
+The declaration is visible both in include/optlist.h as an external
+variable, and in struct keymatch configkeys[], which is used by the
+econfig parser.
+
+3. Use the variable in your code.  This normally looks like
 
 	  if (opt_DUMB) {
 	     pr("You're being dumb\n");
 	  } else {
 	     pr ("You're being really dumb\n");
 	  }
-
-but it may call subroutines, return early from functions or whatever.
