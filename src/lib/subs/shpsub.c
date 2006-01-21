@@ -162,7 +162,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    continue;
 	case CN_LANDLOCKED:
 	    shp_mess("is landlocked", mlp);
-	    break;
+	    continue;
 	case CN_NAVIGABLE:
 	    break;
 	case CN_ERROR:
