@@ -39,7 +39,7 @@ headers) has been fixed.
 Empire source code has always been freely available, with the intent
 of it always being freely available, it was just never properly
 copyrighted or licensed until the first release under the GNU GPL
-(4.2.0) It is our goal to keep Empire source free and available at all
+(4.2.0).  It is our goal to keep Empire source free and available at all
 times.
 
 Also see the "History" info file for a more detailed listing of
@@ -104,6 +104,7 @@ Beorn Johnson
 William S. Kaster
 Jeremy Kennebel
 Kevin Klemmick
+Ron Koenderink
 Ron Kuris (rk@unify.com)
 Nick Lai (lai@cs.ucla.edu)
 Phil Lapsley
@@ -124,6 +125,7 @@ Chuck Musciano (chuck@trantor.harris-atd.com)
 Dave Nye
 Kevin O'Connor
 Jeff Okamoto (okamoto%hpccc@hplabs.hp.com)
+Marc Olzheim
 Julian Onions (jpo@computer-science.nottingham.ac.uk)
 Jim Ortlieb
 Dave Pare (mr-frog@smarttouch.com)
@@ -151,4 +153,3 @@ Sverker Wiberg
 Mike Wise
 John Yockey (johny@verinet.com)
 Chad Zabel
-
