@@ -19,9 +19,9 @@
 # 
 #   ---
 # 
-#   See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all the
-#   related information and legal notices. It is expected that any future
-#   projects/authors will amend these files as needed.
+#   See files README, COPYING and CREDITS in the root of the source
+#   tree for related information and legal notices.  It is expected
+#   that future projects/authors will amend these files as needed.
 # 
 #   ---
 # 

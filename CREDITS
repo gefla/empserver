@@ -30,11 +30,11 @@ It is due to these above people pulling projects together that the
 Empire server has gotten to where it is today. 
 
 Empire is copyrighted and released by the 5 people above under the GNU
-GPL.  See the "LEGAL", "LICENSE", "CREDITS" and "README" files for all
-the related information and legal notices. It is expected that any
-future projects/authors will amend these files as needed.  The source
-files have been updated to reflect this license, and much erroneous
-data (such as bogus file headers) has been fixed.
+GPL.  See files README, COPYING and CREDITS for related information
+and legal notices.  It is expected that future projects/authors will
+amend these files as needed.  The source files have been updated to
+reflect this license, and much erroneous data (such as bogus file
+headers) has been fixed.
 
 Empire source code has always been freely available, with the intent
 of it always being freely available, it was just never properly
