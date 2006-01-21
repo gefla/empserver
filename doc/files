@@ -1,33 +1,44 @@
+Source tree layout:
+
 doc/
 	Deity Documentation.
-
-man/
-	Man pages.
-
-scripts/
-	Scripts to help you run a game.
-
-bin/
-data/
-info.nr/
-	Game binaries, data, and compiled info pages.
-
-info/
-	Nroff source for the Empire info pages.
 
 include/
 	Empire include files (headers, .h files)
 
-src/doconfig/
-	Self-compiling and configuring program for building the server.
+info/
+	troff source for the Empire info pages.
+
+m4/
+	Autoconf macros.
+
+man/
+	Manual pages.
+
+scripts/
+	Scripts to help you run a game.
 
 src/client/
 	Source code for the Empire client program.
 
-src/server/
 src/lib/
+src/server/
 	Source code for the Empire server.
 
 src/util/
 	Programs used to generate Empire data files.
 
+src/scripts/
+	Scripts for development
+
+
+Building additionally creates:
+
+info.html/
+	HTML Empire info pages
+
+info.nr/
+	Plain text Empire info pages
+
+lib/
+	Link libraries (.a files)
