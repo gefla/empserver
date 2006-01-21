@@ -1,12 +1,16 @@
-emp_server will only dump core if you run with the -d flag.
+The most recent player commands are kept in the global array
+player_commands[], which is indexed by player_commands_index.  Array
+elements are strings of the form:
 
-If you decide not to dump core, then the most recent player commands
-should be listed in data/server.log.  Each command will be preceeded
-by the country number of the player which issued it.   When the player
-is prompted, then [prompt] is printed.
-
-If you decide to dump core, then the most recent player commands will
-be in the global array called player_commands which is indexed by
-player_commands_index.  The array will contain strings of the form:
   "%3d %3d %s", index, player->cnum, command
 
+When the player is prompted, then [prompt] is inserted as command.
+
+The server tries to log the most recent player commands when it
+crashes.
+
+When the server detects a problem, it logs it and tries to recover.
+The code is being converted to call oops() for this purpose, commonly
+through CANT_HAPPEN().  When you run the server with -d, oops()
+crashes by calling abort() before the recovery.  This is what you want
+when you run it in a debugger.
