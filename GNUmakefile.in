@@ -51,6 +51,9 @@ CFLAGS := $(CFLAGS) @PTHREAD_CFLAGS@
 LDFLAGS := $(LDFLAGS) @PTHREAD_CFLAGS@
 LDLIBS := @PTHREAD_LIBS@ $(LDLIBS)
 endif
+ifeq ($(empthread),Windows)
+CFLAGS := $(CFLAGS) -mthreads
+endif
 termlibs := @termlibs@
 CCDEPMODE := @CCDEPMODE@
 @am__fastdepCC_TRUE@how_to_dep := fast

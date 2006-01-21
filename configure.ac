@@ -62,6 +62,11 @@ AC_SUBST(cvs_controlled,$cvs_controlled)
 ### Checks for libraries
 ACX_PTHREAD
 LIB_SOCKET_NSL
+# TODO merge this into LIB_SOCKET_NSL?
+case "$host_os" in
+*mingw32)
+    LIBS="-lws2_32 $LIBS" ;;
+esac
 
 # TODO turn this into a macro?
 save_LIBS=$LIBS
@@ -102,22 +107,24 @@ AC_ARG_WITH([pthread],
 			   [use POSIX threads]))
 
 # Select thread package
-# TODO Windows
-case "$ac_cv_func_makecontext$acx_pthread_ok" in
-yesyes)
-    if test -z "$with_pthread" || test "$with_pthread" = no; then
-        empthread=LWP
-    else
-        empthread=POSIX
+empthread=
+if test "$with_pthread" != no; then
+    if test "$acx_pthread_ok" = yes; then
+	empthread=POSIX
     fi
-    ;;
-yes*)
-    empthread=LWP ;;
-*yes)
-    empthread=POSIX ;;
-*)
+fi
+if test -z "$with_pthread" || test "$with_pthread" = no; then
+    if test "$ac_cv_func_makecontext" = yes; then
+	empthread=LWP
+    fi
+    case "$host_os" in
+    *mingw32)
+	empthread=Windows ;;
+    esac
+fi
+if test -z "$empthread"; then
     AC_MSG_ERROR([No usable thread package found])
-esac
+fi
 AC_SUBST(empthread)
 AC_MSG_NOTICE([Using $empthread threads])
 case $empthread in
@@ -126,16 +133,6 @@ LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads])
 POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
 Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
 esac
-
-op=
-if test "$with_pthread" = no; then
-    op='=='
-elif test "$with_pthread"; then
-    op='!='
-fi
-if test "$op" && test "$empthread" $op POSIX; then
-    AC_MSG_WARN([Ignoring --with-pthread=$with_pthread])
-fi
 
 
 ### Output
