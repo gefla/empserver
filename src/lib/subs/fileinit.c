@@ -109,7 +109,8 @@ ef_open_srv(void)
     failed |= !ef_open(EF_COMM, 0);
     failed |= !ef_open(EF_LOST, 0);
     failed |= !ef_open(EF_REALM, EFF_MEM);
-    failed |= ef_init_view(EF_COUNTRY, EF_NATION);
+    if (!failed)
+	failed |= ef_init_view(EF_COUNTRY, EF_NATION);
     if (failed) {
 	logerror("Missing files, giving up");
 	exit(EXIT_FAILURE);
