@@ -23,6 +23,9 @@ The client connects to the Changeling blitz by default.  Use
 environment variables EMPIREHOST and EMPIREPORT to connect to another
 game (see manual page for details).
 
+The client tarball is not meant for development.  Use the complete
+source for that.
+
 Please report bugs to <wolfpack@wolfpackempire.com> or via SourceForge
 http://sourceforge.net/projects/empserver (registration required).
 
