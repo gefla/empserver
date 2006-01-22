@@ -276,7 +276,10 @@ dist-source: check-version
 
 .PHONY: dist-client
 dist-client:
-	$(tarball) $(TARNAME)-client-$(VERSION) -C $(srcdir) $(filter src/client/%, $(src))
+	$(tarball) $(TARNAME)-client-$(VERSION)					\
+	-C $(srcdir)/src/client $(notdir $(filter src/client/%, $(src)))	\
+	-C $(srcdir)/include proto.h						\
+	-C $(srcdir)/man empire.6
 
 .PHONY: dist-info
 dist-info: info html
