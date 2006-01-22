@@ -55,7 +55,7 @@ show(void)
     int rlev;
 
     if (!(p = getstarg(player->argp[1],
-		       "Describe what (plane, nuke, bridge, ship, sect, land unit, tower)? ",
+		       "Describe what (plane, nuke, bridge, ship, sect, land unit, tower, item)? ",
 		       buf))
 	|| !*p)
 	return RET_SYN;
@@ -81,6 +81,9 @@ show(void)
 	return RET_OK;
     case 't':
 	show_tower(99999);
+	return RET_OK;
+    case 'i':
+	show_item(99999);
 	return RET_OK;
     case 'n':
 	if (opt_DRNUKE)

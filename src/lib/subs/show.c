@@ -608,3 +608,20 @@ show_sect_capab(int foo)
 	pr("\n");
     }
 }
+
+void
+show_item(int tlev)
+{
+    struct ichrstr *ip;
+
+    pr("item value sell lbs    packing     melt  item\n");
+    pr("mnem                in rg wh ur bk deno  name\n");
+
+    for (ip = ichr; ip->i_name; ip++) {
+	pr("   %c %5d %4s %3d %2d %2d %2d %2d %2d %4d  %s\n",
+	   ip->i_mnem, ip->i_value, ip->i_sell ? "yes" : "no", ip->i_lbs,
+	   ip->i_pkg[IPKG], ip->i_pkg[NPKG], ip->i_pkg[WPKG],
+	   ip->i_pkg[UPKG], ip->i_pkg[BPKG],
+	   ip->i_melt_denom, ip->i_name);
+    }
+}
