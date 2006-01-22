@@ -143,7 +143,7 @@ AC_CONFIG_COMMANDS([stamp-h],
 	    mkdir -p `cd $srcdir && $AWK -f src/scripts/cvsfiles.awk \
 		| sed -n '/\//s,/@<:@^/@:>@*$,,gp'| uniq`
 	elif test -f $srcdir/sources.mk; then
-	    mkdir -p `sed s/.*=// <$srcdir/sources.mk \
+	    mkdir -p `sed s/.*=// <$srcdir/sources.mk | tr ' ' '\012' \
 		| sed -n '/\//s,/@<:@^/@:>@*$,,gp'| uniq`
 	fi
 	>stamp-h],
