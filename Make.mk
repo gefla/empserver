@@ -85,6 +85,7 @@ mk := sources.mk subjects.mk
 ac := $(srcdir)/autom4te.cache config.h config.log config.status	\
 stamp-h $(basename $(filter %.in, $(src)))
 acdist := aclocal.m4 config.h.in configure stamp-h.in
+acdistcli := $(addprefix src/client/, aclocal.m4 config.h.in configure)
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # TODO AIX needs lwpInit.o lwpRestore.o lwpSave.o unless UCONTEXT
 deps := $(obj:.o=.d)
@@ -117,10 +118,12 @@ clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
 $(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
 # Removed by distclean:
 distclean := $(ac)
-# Distributed by dist from $(srcdir)
+# Distributed by dist-source from $(srcdir)
 src_distgen := $(acdist)
-# Distributed by dist from .
+# Distributed by dist-source from .
 bld_distgen := $(mk)
+# Distributed by dist-client from $(srcdir)/src/client
+cli_distgen := $(acdistcli)
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
@@ -218,6 +221,8 @@ info.html/%.html: info/%.t
 
 ### Explicit rules
 
+# Compilation
+
 $(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
@@ -234,6 +239,8 @@ lib/liblwp.a: $(filter src/lib/lwp/%, $(obj))
 $(libs) $(empth_lib): | lib
 	$(AR) rc $@ $?
 	$(RANLIB) $@
+
+# Info formatting
 
 subjects.mk: $(tsrc) info/findsubj.pl sources.mk
 	perl $(srcdir)/info/findsubj.pl
@@ -270,16 +277,19 @@ sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entr
 	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk` >$@
 endif
 
+# 
 .PHONY: dist-source
-dist-source: check-version
+dist-source: check-version $(src_distgen) $(bld_distgen)
 	$(tarball) $(TARNAME)-$(VERSION) $(bld_distgen) -C $(srcdir) $(src_distgen) $(src)
 
 .PHONY: dist-client
-dist-client:
-	$(tarball) $(TARNAME)-client-$(VERSION)					\
-	-C $(srcdir)/src/client $(notdir $(filter src/client/%, $(src)))	\
-	-C $(srcdir)/include proto.h						\
-	-C $(srcdir)/man empire.6
+dist-client: $(cli_distgen)
+	$(tarball) $(TARNAME)-client-$(VERSION)				\
+	-C $(srcdir)/src/client						\
+		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
+	-C $(srcdir)/include proto.h					\
+	-C $(srcdir)/man empire.6					\
+	-C $(srcdir) COPYING INSTALL install-sh
 
 .PHONY: dist-info
 dist-info: info html
@@ -294,6 +304,7 @@ check-version:
 ifneq ($(deps),)
 -include $(deps)
 endif
+
 
 # Automatic remake of configuration
 # See (autoconf)Automatic Remaking.
@@ -324,3 +335,16 @@ config.status: configure
 
 src/lib/global/path.c src/client/ipglob.c: %: %.in GNUmakefile
 	$(subst.in) <$< >$@
+
+
+# Make files for standalone client distribution
+
+$(srcdir)/src/client/configure: src/client/configure.ac src/client/aclocal.m4
+	cd $(dir $@) && autoconf
+
+$(srcdir)/src/client/config.h.in: src/client/configure.ac src/client/aclocal.m4
+	cd $(dir $@) && autoheader
+	touch $@
+
+$(srcdir)/src/client/aclocal.m4: m4/lib_socket_nsl.m4
+	cp -f $< $@
