@@ -297,7 +297,7 @@ dist-info: info html
 	$(tarball) $(TARNAME)-info-html-$(VERSION) -C info.html $(addsuffix .html, $(info))
 
 check-version:
-	if [ $(VERSION) != `sed -n '/EMP_VERS_/s/#define EMP_VERS_\([A-Z]*\)[ \t]*//p' <include/version.h | tr '\012' . | sed 's/\.$$//'` ]; \
+	if [ $(VERSION) != `sed -n '/EMP_VERS_/s/#define EMP_VERS_\([A-Z]*\)[ \t]*//p' <$(srcdir)/include/version.h | tr '\012' . | sed 's/\.$$//'` ]; \
 	then echo version.h does not match configure.ac >&2; false; \
 	fi
 
