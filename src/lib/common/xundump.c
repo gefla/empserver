@@ -221,8 +221,10 @@ xuflds(FILE *fp, struct value values[])
 	ch = getc(fp);
 	if (ch == '\n')
 	    ungetc(ch, fp);
-	else if (ch != ' ' && ch != '\t')
+	else if (ch != ' ' && ch != '\t') {
+	    values[i].v_type = VAL_NOTUSED;
 	    return gripe("Bad field separator after field %d", i + 1);
+	}
     }
 }
 
