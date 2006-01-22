@@ -1,45 +1,35 @@
 This is the basic Empire Client.
 
-See files README, COPYING and CREDITS in the root of the source
-tree for related information and legal notices.  It is expected
-that future projects/authors will amend these files as needed.
+Empire is a multi-player, client/server Internet based war game.
+Copyright (C) 1986-2006, Dave Pare, Jeff Bailey, Thomas Ruschak, Ken
+Stevens, Steve McClure
 
-For questions and comments, please contact "wolfpack@wolfpackempire.com".
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License (in file
+`COPYING'), or (at your option) any later version.
 
-Note that this client is the same client that is shipped with the
-server.  The only difference is the Makefile is copied from the
-"Makefile.standalone" for the standalone distributions, and
-from the "Makefile.server" for the server distributions.
+The client is distributed as part of the complete source tarball and
+as a standalone client tarball.  The instructions below apply to the
+client tarball.  If you got the complete source, as tarball or from
+CVS, refer to ../../README instead.
 
-If you are building this with the server, it is built automatically.
+See file `INSTALL' for detailed compilation and installation
+instructions.  Quick guide for the impatient: run configure; make;
+make install.  The last step is optional; everything runs fine right
+from the build tree.
 
-If you are building this standalone, continue reading to see how
-to build the client.
+The client connects to the Changeling blitz by default.  Use
+environment variables EMPIREHOST and EMPIREPORT to connect to another
+game (see manual page for details).
 
-To make the program, edit ipglob.c and change empirehost[] to
-point at the machine where the game is running (although this is
-not necessary.)
+Please report bugs to <wolfpack@wolfpackempire.com> or via SourceForge
+http://sourceforge.net/projects/empserver (registration required).
 
-Also, if you are going to use "gcc", you need to change the Makefile
-line "CC=cc" to "CC=gcc".
+For more information or help, try rec.games.empire on Usenet, or send
+e-mail to <wolfpack@wolfpackempire.com> and we'll try to answer if we
+can.  Also check out our web site at "http://www.wolfpackempire.com".
 
-To build for a Linux macihne, type "make linux".
+Have fun!
 
-To build for a HP/UX machine, type "make hpux".
-
-To build for a DG/UX machine, type "make dgux".
-
-To build for a Solaris machine, type "make solaris".
-
-To build for a Windows machine, type "nmake nt".
-  (Note that the Windows port was built with MSVC 6.0)
-
-For other machines, type "make".
-
-You can change hosts on-the-fly by using environment variables -- see
-the man page for details.  But, for a short version, you can set the
-EMPIREHOST and EMPIREPORT environment variables to the host and
-port of the server you wish to connect to, and the client will
-automatically use them instead of the built in ones.
-
-Also note that pipes do not work on the Windows versions.
+Wolfpack!

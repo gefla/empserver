@@ -1,0 +1,95 @@
+# 
+#   Empire - A multi-player, client/server Internet based war game.
+#   Copyright (C) 1986-2006, Dave Pare, Jeff Bailey, Thomas Ruschak,
+#                            Ken Stevens, Steve McClure
+# 
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+# 
+#   ---
+# 
+#   See files README, COPYING and CREDITS in the root of the source
+#   tree for related information and legal notices.  It is expected
+#   that future projects/authors will amend these files as needed.
+# 
+#   ---
+# 
+#   @configure_input@
+#   Makefile.in: Makefile template for configure
+#  
+#   Known contributors to this file:
+#      Markus Armbruster, 2005-2006
+# 
+
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPPFLAGS = @CPPFLAGS@ @DEFS@ -I.
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+E = @EXEEXT@
+O = @OBJEXT@
+
+INSTALL = @INSTALL@
+INSTALL_DATA := @INSTALL_DATA@
+INSTALL_PROGRAM := @INSTALL_PROGRAM@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+mandir = @mandir@
+
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+prog = empire$E
+obj = expect.$O host.$O ioqueue.$O ipglob.$O login.$O main.$O queue.$O	\
+saveargv.$O servcmd.$O serverio.$O tags.$O termio.$O termlib.$O
+
+all: $(prog)
+
+$(prog): $(obj)
+	$(CC) $(LDFLAGS) -o empire $(obj) $(LIBS)
+
+clean:
+	rm -f $(obj) $(prog)
+
+distclean: clean
+	rm -rf autom4te.cache config.status config.log Makefile
+
+install: all installdirs
+	$(INSTALL_PROGRAM) empire $(bindir)/empire
+	$(INSTALL_DATA) $(srcdir)/empire.6 $(mandir)/man6/empire.6
+
+installdirs:
+	$(INSTALL) -d $(bindir) $(mandir)/man6
+
+uninstall:
+	rm $(bindir)/empire
+	rm $(mandir)/man6/empire.6
+
+# FIXME generate from .d
+expect.$O: misc.h
+handle.$O: misc.h
+host.$O: misc.h
+ioqueue.$O: misc.h queue.h ioqueue.h
+login.$O: misc.h proto.h
+main.$O: misc.h proto.h queue.h ioqueue.h tags.h
+queue.$O: misc.h queue.h
+saveargv.$O: misc.h
+servcmd.$O: misc.h proto.h queue.h ioqueue.h tags.h
+serverio.$O: misc.h queue.h ioqueue.h
+tags.$O: misc.h tags.h
+termio.$O: misc.h tags.h
+termlib.$O: misc.h
+$(obj): config.h
