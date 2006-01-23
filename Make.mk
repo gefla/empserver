@@ -82,8 +82,9 @@ subst.in = sed \
 # Generated files
 # See `Cleanliness' below
 mk := sources.mk subjects.mk
-ac := $(srcdir)/autom4te.cache config.h config.log config.status	\
-stamp-h $(basename $(filter %.in, $(src)))
+ac := config.h config.log config.status stamp-h
+ac += $(basename $(filter %.in, $(src)))
+ac += $(srcdir)/autom4te.cache $(srcdir)/src/client/autom4te.cache
 acdist := aclocal.m4 config.h.in configure stamp-h.in
 acdistcli := $(addprefix src/client/, aclocal.m4 config.h.in configure)
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
