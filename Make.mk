@@ -118,11 +118,11 @@ endif
 clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
 $(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
 # Removed by distclean:
-distclean := $(ac)
+distclean := $(ac) subjects.mk
 # Distributed by dist-source from $(srcdir)
 src_distgen := $(acdist)
 # Distributed by dist-source from .
-bld_distgen := $(mk)
+bld_distgen := sources.mk
 # Distributed by dist-client from $(srcdir)/src/client
 cli_distgen := $(acdistcli)
 
@@ -276,6 +276,9 @@ ifeq ($(cvs_controlled),yes)
 # Find files and directories under CVS control
 sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))
 	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk` >$@
+else
+sources.mk: $(srcdir)/sources.mk
+	cp -f $^ $@
 endif
 
 # 
