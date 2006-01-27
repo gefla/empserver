@@ -61,6 +61,7 @@
 #include "tel.h"
 #include "prototypes.h"
 #include "optlist.h"
+#include "version.h"
 
 static void file_sct_init(coord x, coord y, s_char *ptr,
 			  time_t timestamp);
@@ -68,8 +69,13 @@ static void file_sct_init(coord x, coord y, s_char *ptr,
 static void
 print_usage(char *program_name)
 {
-    printf("Usage: %s -f -e econfig_file\n", program_name);
-    printf("-f force mode\n");
+    printf("Usage: %s [OPTION]...\n"
+	   "  -e CONFIG-FILE  configuration file\n"
+	   "                  (default %s)\n"
+	   "  -f              force overwrite of existing game\n"
+	   "  -h              display this help and exit\n"
+	   "  -v              display version information and exit\n",
+	   program_name, dflt_econfig);
 }
 
 int
@@ -88,7 +94,7 @@ main(int argc, char *argv[])
     int force = 0;
     time_t current_time = time(NULL);
 
-    while ((opt = getopt(argc, argv, "e:f")) != EOF) {
+    while ((opt = getopt(argc, argv, "e:fhv")) != EOF) {
 	switch (opt) {
 	case 'e':
 	    config_file = optarg;
@@ -96,9 +102,15 @@ main(int argc, char *argv[])
 	case 'f':
 	    force = 1;
 	    break;
+	case 'h':
+	    print_usage(argv[0]);
+	    exit(0);
+	case 'v':
+	    printf("%s\n\n%s", version, legal);
+	    exit(0);
 	default:
 	    print_usage(argv[0]);
-	    exit(-1);
+	    exit(1);
 	}
     }
 
