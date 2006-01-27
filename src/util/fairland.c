@@ -83,6 +83,7 @@ static int quiet = 0;
 #include "xy.h"
 #include "optlist.h"
 #include "prototypes.h"
+#include "version.h"
 
 /* do not change these 4 defines */
 #define LANDMIN		1	/* plate altitude for normal land */
@@ -197,16 +198,16 @@ main(int argc, char *argv[])
     program_name = argv[0];
     rnd_seed = time(NULL);
 
-    while ((opt = getopt(argc, argv, "ae:hioqs:R:")) != EOF) {
+    while ((opt = getopt(argc, argv, "ae:hioqR:s:v")) != EOF) {
 	switch (opt) {
 	case 'a':
 	    AIRPORT_MARKER = 1;
 	    break;
-	case 'i':
-	    DISTINCT_ISLANDS = 0;
-	    break;
 	case 'e':
 	    config_file = optarg;
+	    break;
+	case 'i':
+	    DISTINCT_ISLANDS = 0;
 	    break;
 	case 'o':
 	    ORE = 0;
@@ -214,15 +215,18 @@ main(int argc, char *argv[])
 	case 'q':
 	    quiet = 1;
 	    break;
-	case 's':
-	    outfile = optarg;
-	    break;
 	case 'R':
 	    rnd_seed = strtoul(optarg, NULL, 10);
 	    break;
+	case 's':
+	    outfile = optarg;
+	    break;
 	case 'h':
 	    usage();
-	    return 0;
+	    exit(0);
+	case 'v':
+	    printf("%s\n\n%s", version, legal);
+	    exit(0);
 	default:
 	    help(NULL);
 	    exit(1);
@@ -314,24 +318,25 @@ help(char *complaint)
 static void
 usage(void)
 {
-    printf("Usage: %s [-e CONFIG] [-aiqo] [-s SCRIPT] [-R SEED] NC SC [NI] [IS] [SP] [PM] [DI] [ID]\n"
-	   "  -q            quiet\n"
-	   "  -o            don't set resources\n"
-	   "  -a            airport marker for continents\n"
-	   "  -i            islands may merge\n"
-	   "  -R SEED       seed for random number generator\n"
-	   "  -e CONFIG     configuration file\n"
-	   "  -s SCRIPT     name of script to create (default %s)\n"
-	   "  NC            number of continents\n"
-	   "  SC            continent size\n"
-	   "  NI            number of islands (default NC)\n"
-	   "  IS            average island size (default SC/2)\n"
-	   "  SP            spike percentage: 0 = round, 100 = snake\n"
-	   "                (default = %d)\n"
-	   "  PM            percentage of land that is mountain (default %d)\n"
-	   "  DI            minimum distance between continents (default %d)\n"
-	   "  ID            minimum distance from islands to continents (default %d)\n",
-	   program_name, DEFAULT_OUTFILE_NAME,
+    printf("Usage: %s [OPTION]... NC SC [NI] [IS] [SP] [PM] [DI] [ID]\n"
+	   "  -a              airport marker for continents\n"
+	   "  -e CONFIG-FILE  configuration file\n"
+	   "                  (default %s)\n"
+	   "  -h              display this help and exit\n"
+	   "  -i              islands may merge\n"
+	   "  -o              don't set resources\n"
+	   "  -q              quiet\n"
+	   "  -R SEED         seed for random number generator\n"
+	   "  -s SCRIPT       name of script to create (default %s)\n"
+	   "  NC              number of continents\n"
+	   "  SC              continent size\n"
+	   "  NI              number of islands (default NC)\n"
+	   "  IS              average island size (default SC/2)\n"
+	   "  SP              spike percentage: 0 = round, 100 = snake (default %d)\n"
+	   "  PM              percentage of land that is mountain (default %d)\n"
+	   "  DI              minimum distance between continents (default %d)\n"
+	   "  ID              minimum distance from islands to continents (default %d)\n",
+	   program_name, dflt_econfig, DEFAULT_OUTFILE_NAME,
 	   DEFAULT_SPIKE, DEFAULT_MOUNTAIN, DEFAULT_CONTDIST, DEFAULT_ISLDIST);
 }
 
