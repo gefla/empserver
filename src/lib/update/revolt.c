@@ -422,13 +422,19 @@ guerrilla(struct sctstr *sp)
 	sp->sct_che_target = 0;
     }
     if (mc > 0 || cc > 0) {
-	/* don't tell who won just to be mean */
 	wu(0, target,
 	   "Guerrilla warfare in %s\n",
 	   xyas(sp->sct_x, sp->sct_y, target));
-	wu(0, target, "  body count: troops: %d, rebels: %d\n", mc, cc);
+	if (sp->sct_own == target)
+	    wu(0, target, "  body count: troops: %d, rebels: %d\n", mc, cc);
+	else
+	    wu(0, target,
+	       "  rebels murder %d military\n", mc);
 	nreport(actor, N_FREEDOM_FIGHT, victim, 1);
     }
+    if (sp->sct_own != victim)
+	wu(0, victim, "Partisans take over %s!\n",
+	   xyas(sp->sct_x, sp->sct_y, victim));
 }
 
 static void
