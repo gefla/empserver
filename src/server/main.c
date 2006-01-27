@@ -159,8 +159,7 @@ main(int argc, char **argv)
 	    flags |= EMPTH_STACKCHECK;
 	    break;
 	case 'v':
-	    printf("Wolfpack Empire %d.%d.%d\n",
-		   EMP_VERS_MAJOR, EMP_VERS_MINOR, EMP_VERS_PATCH);
+	    printf("%s\n\n%s", version, legal);
 	    return EXIT_SUCCESS;
 	case 'h':
 	    print_usage(argv[0]);

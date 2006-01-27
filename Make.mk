@@ -293,7 +293,7 @@ endif
 
 # 
 .PHONY: dist-source
-dist-source: check-version $(src_distgen) $(bld_distgen)
+dist-source: $(src_distgen) $(bld_distgen)
 	$(tarball) $(TARNAME)-$(VERSION) $(bld_distgen) -C $(srcdir) $(src_distgen) $(src)
 
 .PHONY: dist-client
@@ -309,11 +309,6 @@ dist-client: $(cli_distgen)
 dist-info: info html
 	$(tarball) $(TARNAME)-info-text-$(VERSION) -C info.nr $(info)
 	$(tarball) $(TARNAME)-info-html-$(VERSION) -C info.html $(addsuffix .html, $(info))
-
-check-version:
-	if [ $(VERSION) != `sed -n '/EMP_VERS_/s/#define EMP_VERS_\([A-Z]*\)[ \t]*//p' <$(srcdir)/include/version.h | tr '\012' . | sed 's/\.$$//'` ]; \
-	then echo version.h does not match configure.ac >&2; false; \
-	fi
 
 ifneq ($(deps),)
 -include $(deps)

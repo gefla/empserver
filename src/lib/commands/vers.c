@@ -55,7 +55,7 @@ vers(void)
     time_t now;
 
     (void)time(&now);
-    pr("Empire %d.%d.%d\n(KSU distribution %2.2f, Chainsaw version %2.2f, Wolfpack version %2.2f)\n\n", EMP_VERS_MAJOR, EMP_VERS_MINOR, EMP_VERS_PATCH, (float)KSU_DIST, (float)CHAINSAW_DIST, (float)WOLFPACK_DIST);
+    pr("%s\n\n", version);
     pr("The following parameters have been set for this game:\n");
     pr("World size is %d by %d.\n", WORLD_X, WORLD_Y);
     pr("There can be up to %d countries.\n", MAXNOC);
@@ -166,10 +166,11 @@ vers(void)
     show_opts(0);
     pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.");
     pr("\n\n");
-    pr("The person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n",
+    pr("The person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n\n",
        privname, privlog);
     pr("You can get your own copy of the source from "
-       "http://www.wolfpackempire.com/\n");
+       "http://www.wolfpackempire.com/\n\n");
+    pr("%s", legal);
     return RET_OK;
 }
 

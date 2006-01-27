@@ -25,19 +25,17 @@
  *
  *  ---
  *
- *  version.h: Version information
+ *  version.c: 
  * 
  *  Known contributors to this file:
- *     Thomas Ruschak, 1992
- *     Ken Stevens, 1995
- *     Steve McClure, 1998, 1999
  *     Markus Armbruster, 2006
  */
 
-#ifndef VERSION_H
-#define VERSION_H
+#include <config.h>
 
-extern char version[];
-extern char legal[];
-
-#endif
+char version[] = PACKAGE_STRING;
+char legal[] =
+"Copyright (C) 1986-2006, Dave Pare, Jeff Bailey, Thomas Ruschak,\n"
+"                         Ken Stevens, Steve McClure\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
