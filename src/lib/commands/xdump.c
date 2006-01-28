@@ -40,6 +40,7 @@
 #include "news.h"
 #include "nsc.h"
 #include "optlist.h"
+#include "version.h"
 #include "commands.h"
 
 /*
@@ -313,8 +314,8 @@ xdmeta(int type)
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	xdflds(mdchr_ca, &ca[i]);
-	n++;
 	pr("\n");
+	n++;
     }
 
     xdftr(n);
@@ -329,6 +330,9 @@ xdmeta(int type)
 static int
 xdver(int meta)
 {
+    static struct castr vers_ca = {
+	NSC_STRINGY, 0, sizeof(PACKAGE_STRING), 0, "version", EF_BAD
+    };
     struct keymatch *kp;
     char *sep;
     int n;
@@ -339,6 +343,9 @@ xdver(int meta)
 
     if (meta) {
 	n = 0;
+	xdflds(mdchr_ca, &vers_ca);
+	pr("\n");
+	n++;
 	for (kp = configkeys; kp->km_key; ++kp) {
 	    if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
 		ca.ca_type = kp->km_type;
@@ -356,7 +363,8 @@ xdver(int meta)
 	return RET_OK;
     }
 
-    sep = "";
+    xdeval(&val, vers_ca.ca_type, version, 0, 0);
+    sep = xdprval(&val, "");
     for (kp = configkeys; kp->km_key; ++kp) {
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
 	    xdeval(&val, kp->km_type, kp->km_data, 0, 0);
