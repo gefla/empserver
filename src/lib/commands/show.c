@@ -86,6 +86,10 @@ show(void)
 	show_item(99999);
 	return RET_OK;
     case 'n':
+	if (*(p + 1) == 'e') {
+	    show_news(99999);
+	    return RET_OK;
+	}
 	if (opt_DRNUKE)
 	    tlev = ((rlev / drnuke_const) > tlev ? tlev :
 		    (rlev / drnuke_const));

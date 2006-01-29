@@ -57,6 +57,7 @@
 #include "nat.h"
 #include "prototypes.h"
 #include "nsc.h"
+#include "news.h"
 
 struct look_list {
     union {
@@ -623,5 +624,22 @@ show_item(int tlev)
 	   ip->i_pkg[IPKG], ip->i_pkg[NPKG], ip->i_pkg[WPKG],
 	   ip->i_pkg[UPKG], ip->i_pkg[BPKG],
 	   ip->i_melt_denom, ip->i_name);
+    }
+}
+
+void
+show_news(int tlev)
+{
+    int i, j;
+    
+    pr("id category           good will\n");
+    pr("    messsages\n");
+
+    for (i = 1; i < N_MAX_VERB + 1; i++) {
+	pr("%-2d %-20.20s %4d\n", rpt[i].r_uid,
+	    page_headings[rpt[i].r_newspage], rpt[i].r_good_will);
+
+	for (j = 0; j < NUM_RPTS; j++)
+	    pr("    %s\n", rpt[i].r_newstory[j]);
     }
 }
