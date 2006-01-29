@@ -57,7 +57,7 @@
  * - Ship characteristics: mchr[]
  * Less important:
  * - News item characteristics: rpt[]
- * - News page headings: page_headings[] (TODO)
+ * - News page headings: page_headings[]
  * - Commands: player_coms[] (TODO)
  * - Configuration: configkeys[]
  *
