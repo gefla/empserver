@@ -496,7 +496,7 @@ xuloadrow(int type, int row, struct value values[])
 }
 
 static int
-xuheader(FILE *fp, int expected_table, struct value values[])
+xuheader(FILE *fp, int expected_table)
 {
     char name[64];
     struct empfile *ep;
@@ -601,7 +601,7 @@ xundump(FILE *fp, char *file, int expected_table)
     } else
 	lineno++;
 
-    if ((type = xuheader(fp, expected_table, values)) == -1)
+    if ((type = xuheader(fp, expected_table)) == -1)
 	return -1;
     
     ep = &empfile[type];
