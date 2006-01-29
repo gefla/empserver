@@ -668,9 +668,9 @@ ac_dog(struct plist *ap, struct plist *dp)
 
     PR(att_own, "%3d/%-3d", adam, ddam);
     PR(def_own, "%3d/%-3d", ddam, adam);
-    ac_planedamage(ap, dp->plane.pln_own, adam, def_own, 1, 0, mesg);
+    ac_planedamage(ap, def_own, adam, def_own, 1, 0, mesg);
     strncpy(temp, mesg, 14);
-    ac_planedamage(dp, ap->plane.pln_own, ddam, att_own, 1, 0, mesg);
+    ac_planedamage(dp, att_own, ddam, att_own, 1, 0, mesg);
     PR(att_own, "%-13.13s %-13.13s\n", temp, mesg);
     PR(def_own, "%-13.13s %-13.13s\n", mesg, temp);
 
