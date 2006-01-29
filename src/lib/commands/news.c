@@ -71,7 +71,6 @@ news(void)
     	return RET_SYN;
     memset(page_has_news, 0, sizeof(page_has_news));
     memset(sectors_taken, 0, sizeof(sectors_taken));
-    (void)head();
     (void)time(&now);
     natp = getnatp(player->cnum);
     then = natp->nat_newstim;
@@ -89,6 +88,7 @@ news(void)
 	then = now - delta;
     }
     natp->nat_newstim = now;
+    head();
     pr("\nThe details of Empire news since %s", ctime(&then));
     while (nxtitem(&nstr, &nws)) {
 	if (nws.nws_when < then)
