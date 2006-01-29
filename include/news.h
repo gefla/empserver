@@ -145,6 +145,7 @@ struct rptstr {
 #define N_BOARD_LAND    82
 #define	N_MAX_VERB	82
 
+#define N_NOTUSED        0
 #define N_FOR            1
 #define N_FRONT          2
 #define N_SEA            3

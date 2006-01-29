@@ -45,7 +45,7 @@
 #include "news.h"
 
 char *page_headings[] = {
-/* not used */ "Comics",
+/* N_NOTUSED*/ "Comics",
 /* N_FOR    */ "Foreign Affairs",
 /* N_FRONT  */ "The Front Line",
 /* N_SEA    */ "The High Seas",

@@ -146,6 +146,7 @@ enum {
     EF_RESOURCES,
     EF_NATION_STATUS,
     EF_SECTOR_NAVIGATION,
+    EF_PAGE_HEADINGS,
     /* Views */
     EF_COUNTRY,
     /* Number of types: */
