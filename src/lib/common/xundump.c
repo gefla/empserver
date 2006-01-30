@@ -61,10 +61,12 @@ static int human;
  */
 enum enum_value {
     VAL_NOTUSED,
-    VAL_STRING,
-    VAL_SYMBOL,
-    VAL_SYMBOL_SET,
-    VAL_DOUBLE
+    VAL_STRING,		/* uses v_string */
+    VAL_SYMBOL,		/* uses v_string */
+    VAL_SYMBOL_SET,	/* uses v_string */
+    VAL_INDEX_ID,	/* uses v_index_name and v_int */
+    VAL_INDEX_SYMBOL,	/* uses v_index_name and v_string */
+    VAL_DOUBLE		/* uses v_double */
 };
 
 struct value {
@@ -72,7 +74,9 @@ struct value {
     union {
 	char *v_string;
 	double v_double;
+	int v_int;
     } v_field;
+    char *v_index_name;
 };
 
 static int gripe(char *fmt, ...) ATTRIBUTE((format (printf, 1, 2)));
@@ -209,11 +213,41 @@ xuflds(FILE *fp, struct value values[])
 	    if (getid(fp, buf) < 0) {
 		return gripe("Junk in field %d", i + 1);
 	    }
-	    if (!strcmp(buf, "nil")) {
+	    ch = getc(fp);
+	    ungetc(ch, fp);
+	    if (ch == '(') {
+		ch = getc(fp);
+		ch = getc(fp);
+		ungetc(ch, fp);
+		if (isdigit(ch) || ch == '-') {
+		    if (fscanf(fp, "%d", &values[i].v_field.v_int) != 1) {
+			return gripe("Malformed number in index field %d", i + 1);
+		    }
+		    values[i].v_index_name = strdup(buf);
+		    values[i].v_type = VAL_INDEX_ID;
+		} else {
+		    values[i].v_index_name = strdup(buf);
+		    if (getid(fp, buf) < 0) {
+			free(values[i].v_index_name);
+			values[i].v_index_name = NULL;
+			return gripe("Malformed string in index field %d", i + 1);
+		    }
+		    values[i].v_field.v_string = strdup(buf);
+		    values[i].v_type = VAL_INDEX_SYMBOL;
+		}
+		ch = getc(fp);
+		if (ch != ')') {
+		    free(values[i].v_index_name);
+		    values[i].v_index_name = NULL;
+		    if (values[i].v_type == VAL_INDEX_SYMBOL)
+			free(values[i].v_field.v_string);
+		    values[i].v_type = VAL_NOTUSED;
+		    return gripe("Malformed index field %d", i + 1);
+		}
+	    } else if (!strcmp(buf, "nil")) {
 		values[i].v_type = VAL_STRING;
 		values[i].v_field.v_string = NULL;
-	    }
-	    else {
+	    } else {
 		values[i].v_type = VAL_SYMBOL;
 		values[i].v_field.v_string = strdup(buf);
 	    }
@@ -234,9 +268,11 @@ freeflds(struct value values[])
     struct value *vp;
 
     for (vp = values; vp->v_type != VAL_NOTUSED; vp++) {
-	if (vp->v_type != VAL_DOUBLE)
+	if (vp->v_type != VAL_DOUBLE && vp->v_type != VAL_INDEX_ID)
 	    free(vp->v_field.v_string);
     }
+    free(vp->v_index_name);
+    vp->v_index_name = NULL;
 }
 
 static int
@@ -467,6 +503,10 @@ xuloadrow(int type, int row, struct value values[])
 		break;
 	    case VAL_NOTUSED:
 		return gripe("Missing column %s in file", ca[i].ca_name);
+	    case VAL_INDEX_ID:
+	    case VAL_INDEX_SYMBOL:
+		return gripe("Index fields not supported in data rows in %s file",
+		    ca[i].ca_name);
 	    default:
 		return gripe("Unknown value type %d", values[j].v_type);
 	    }
@@ -534,9 +574,12 @@ xuheader(FILE *fp, int expected_table)
 }
 
 static int
-xucolumnheader(FILE *fp, int type)
+xucolumnheader(FILE *fp, int type, struct value values[])
 {
     char ch;
+    struct empfile *ep = &empfile[type];
+    struct castr *ca = ep->cadef;
+    int i, j, k;
 
     if (!human)
 	return 0;
@@ -545,11 +588,77 @@ xucolumnheader(FILE *fp, int type)
     ungetc(ch, fp);
 
     /* FIXME parse column header */
-    if (fscanf(fp, "%*[^\n]\n") == -1)
+    if (xuflds(fp, values) <= 0) {
+	freeflds(values);
 	return gripe("Invalid Column Header for table %s",
 	    ef_nameof(type));
-    lineno++;
+    }
+    /* TODO
+     * check column count form xuflds()
+     */
 
+    j = 0;
+    for (i = 0; ca[i].ca_name; i++) {
+	if (ca[i].ca_flags & NSC_EXTRA)
+	    continue;
+	k = 0;
+	do {
+	    if (values[j].v_type == VAL_NOTUSED) {
+		freeflds(values);
+		return gripe("Not enough columns in the header for table %s",
+			     ef_nameof(type));
+	    }
+	    switch(values[j].v_type) {
+	    case VAL_SYMBOL:
+		if (ca[i].ca_len != 0) {
+		    freeflds(values);
+		    return gripe("Column %s is a not index format for table %s",
+			ca[i].ca_name, ef_nameof(type));
+		}
+		if (strcmp(values[j].v_field.v_string, ca[i].ca_name) != 0) {
+		    gripe("Column name (%s) does not match header name (%s)",
+			ca[i].ca_name, values[j].v_field.v_string);
+		    freeflds(values);
+		    return -1;
+		}
+		break;
+	    case VAL_INDEX_SYMBOL:
+		    return gripe("Column %s is does not currently support index symbol format for table %s",
+			ca[i].ca_name, ef_nameof(type));
+	    case VAL_INDEX_ID:
+		if (ca[i].ca_len == 0) {
+		    freeflds(values);
+		    return gripe("Column %s is in index format and should not be for table %s",
+			ca[i].ca_name, ef_nameof(type));
+		}
+		if (values[j].v_field.v_int != k) {
+		    freeflds(values);
+		    return gripe("Column Array index %d does not match %d",
+			values[j].v_field.v_int, k);
+		}
+		if (strcmp(values[j].v_index_name, ca[i].ca_name) != 0) {
+		    gripe("Column name (%s) does not match header name (%s)",
+			ca[i].ca_name, values[j].v_field.v_string);
+		    freeflds(values);
+		    return -1;
+		}
+		break;
+	    default:
+		freeflds(values);
+		return gripe("Column %s is a not string for table %s",
+		    ca[i].ca_name, ef_nameof(type));
+	    }
+	    j++;
+	    k++;
+	} while (k < ca[i].ca_len);
+    }
+    if (values[j].v_type != VAL_NOTUSED) {
+        freeflds(values);
+	return gripe("Too many columns in the header for table %s",
+	    ef_nameof(type));
+    }
+    lineno++;
+    freeflds(values);
     return 0;
 }
 
@@ -595,6 +704,8 @@ xundump(FILE *fp, char *file, int expected_table)
     int type;
     int fixed_rows;
 
+    memset(values, 0, sizeof(values));
+
     if (strcmp(fname, file) != 0) {
         fname = file;
 	lineno = 1;
@@ -608,7 +719,7 @@ xundump(FILE *fp, char *file, int expected_table)
     fixed_rows = has_const(ef_cadef(type));
     need_sentinel = !fixed_rows; /* FIXME only approximation */
 
-    if (xucolumnheader(fp, type) == -1)
+    if (xucolumnheader(fp, type, values) == -1)
 	return -1;
 
     row = 0;
