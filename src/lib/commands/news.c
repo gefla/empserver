@@ -105,7 +105,7 @@ news(void)
     for (page = 1; page <= N_MAX_PAGE; page++) {
 	if (!page_has_news[page])
 	    continue;
-	pr("\n\t ===  %s  ===\n", page_headings[page]);
+	pr("\n\t ===  %s  ===\n", page_headings[page].name);
 	snxtitem_rewind(&nstr);
 	while (nxtitem(&nstr, &nws)) {
 	    if (rpt[(int)nws.nws_vrb].r_newspage != page)

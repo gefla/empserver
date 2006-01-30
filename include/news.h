@@ -167,6 +167,6 @@ struct rptstr {
 	(struct nwsstr *) ef_ptr(EF_NEWS, n)
 
 extern struct rptstr rpt[N_MAX_VERB + 2];
-extern char *page_headings[N_MAX_PAGE + 1];
+extern struct symbol page_headings[N_MAX_PAGE + 2];
 
 #endif

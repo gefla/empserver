@@ -192,7 +192,7 @@ struct empfile empfile[] = {
     {EF_SECTOR_NAVIGATION, "sector-navigation", NULL, symbol_ca,
      PTR_CACHE(sector_navigation, EFF_CFG)},
     {EF_PAGE_HEADINGS, "page-headings", NULL, symbol_ca,
-     PTR_CACHE(page_headings_symbols, EFF_CFG)},
+     PTR_CACHE(page_headings, EFF_CFG)},
 
     /* Views */
     {EF_COUNTRY, "country", NULL, cou_ca, UNMAPPED_CACHE(struct natstr, 0)},

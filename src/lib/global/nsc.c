@@ -792,19 +792,3 @@ struct symbol sector_navigation[] = { /* for d_nav */
     {NAV_60, "bridge"},
     {0, NULL}
 };
-
-struct symbol page_headings_symbols[] = {
-    {N_NOTUSED, "Not Used"},
-    {N_FOR, "Foreign Affairs"},
-    {N_FRONT, "The Front Line"},
-    {N_SEA, "The High Seas"},
-    {N_SKY, "Sky Watch"},
-    {N_MISS, "Guidance Systems"},
-    {N_ARTY, "Firestorms"},
-    {N_ECON, "Business & Economics"},
-    {N_COLONY, "The Frontier"},
-    {N_HOME, "The Home Front"},
-    {N_SPY, "Espionage"},
-    {N_TELE, "Telecommunications"},
-    {0, NULL}
-};

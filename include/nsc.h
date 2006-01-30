@@ -238,7 +238,6 @@ extern struct symbol plague_stages[];
 extern struct symbol packing[];
 extern struct symbol resources[];
 extern struct symbol sector_navigation[];
-extern struct symbol page_headings_symbols[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);

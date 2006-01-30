@@ -43,20 +43,22 @@
 
 #include "misc.h"
 #include "news.h"
+#include "nsc.h"
 
-char *page_headings[] = {
-/* N_NOTUSED*/ "Comics",
-/* N_FOR    */ "Foreign Affairs",
-/* N_FRONT  */ "The Front Line",
-/* N_SEA    */ "The High Seas",
-/* N_SKY    */ "Sky Watch",
-/* N_MISS   */ "Guidance Systems",
-/* N_ARTY   */ "Firestorms",
-/* N_ECON   */ "Business & Economics",
-/* N_COLONY */ "The Frontier",
-/* N_HOME   */ "The Home Front",
-/* N_SPY    */ "Espionage",
-/* N_TELE   */ "Telecommunications"
+struct symbol page_headings[] = {
+    {N_NOTUSED, "Comics"},
+    {N_FOR, "Foreign Affairs"},
+    {N_FRONT, "The Front Line"},
+    {N_SEA, "The High Seas"},
+    {N_SKY, "Sky Watch"},
+    {N_MISS, "Guidance Systems"},
+    {N_ARTY, "Firestorms"},
+    {N_ECON, "Business & Economics"},
+    {N_COLONY, "The Frontier"},
+    {N_HOME, "The Home Front"},
+    {N_SPY, "Espionage"},
+    {N_TELE, "Telecommunications"},
+    {0, NULL}
 };
 
 static char no_news[] = "does nothing in particular to %s";
