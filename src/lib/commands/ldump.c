@@ -62,7 +62,7 @@ ldump(void)
     nunits = 0;
 
     if (!player->argp[2]) {
-	for (n = 1; n <= 39; n++)
+	for (n = 1; n <= 41; n++)
 	    field[n - 1] = n;
 	field[n - 1] = 0;
     } else {
@@ -147,6 +147,10 @@ ldump(void)
 		field[i++] = 38;
 	    } else if (!strcmp("aaf", player->argp[n])) {
 		field[i++] = 39;
+	    } else if (!strcmp("uw", player->argp[n])) {
+		field[i++] = 40;
+	    } else if (!strcmp("civ", player->argp[n])) {
+		field[i++] = 41;
 	    } else {
 		pr("Unrecognized field %s\n", player->argp[n]);
 	    }
@@ -284,6 +288,12 @@ ldump(void)
 	    break;
 	case 39:
 	    pr(" aaf");
+	    break;
+	case 40:
+	    pr(" uw");
+	    break;
+	case 41:
+	    pr(" civ");
 	    break;
 	}
 	n++;
@@ -428,6 +438,12 @@ ldump(void)
 		break;
 	    case 39:
 		pr(" %d", land.lnd_aaf);
+		break;
+	    case 40:
+		pr(" %d", land.lnd_item[I_UW]);
+		break;
+	    case 41:
+		pr(" %d", land.lnd_item[I_CIVIL]);
 		break;
 	    }
 	}
