@@ -59,12 +59,15 @@ carg(void)
 	if ((player->cnum != ship.shp_own) && !player->god)
 	    continue;
 	if (nships++ == 0)
-	    pr("shp# ship type           x,y   flt  eff  sh gun pet irn dst bar oil lcm hcm rad\n");
+	    pr("shp#         x,y   flt eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad\n");
 	pr("%4d ", ni.cur);
-	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
+	pr("%-4.4s ", mchr[(int)ship.shp_type].m_name);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-	pr(" %c", ship.shp_fleet);
+	pr("%c ", ship.shp_fleet);
 	pr("%4d%%", ship.shp_effic);
+	pr("%4d", ship.shp_item[I_CIVIL]);
+	pr("%4d", ship.shp_item[I_MILIT]);
+	pr("%4d", ship.shp_item[I_UW]);
 	pr("%4d", ship.shp_item[I_SHELL]);
 	pr("%4d", ship.shp_item[I_GUN]);
 	pr("%4d", ship.shp_item[I_PETROL]);
@@ -105,11 +108,11 @@ lcarg(void)
 	if ((player->cnum != land.lnd_own) && !player->god)
 	    continue;
 	if (nunits++ == 0)
-	    pr("lnd# unit    x,y     a  eff civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad\n");
+	    pr("lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad\n");
 	pr("%4d ", ni.cur);
 	pr("%-4.4s ", lchr[(int)land.lnd_type].l_name);
 	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
-	pr(" %c", land.lnd_army);
+	pr("%c ", land.lnd_army);
 	pr("%4d%%", land.lnd_effic);
 	pr("%4d", land.lnd_item[I_CIVIL]);
 	pr("%4d", land.lnd_item[I_MILIT]);

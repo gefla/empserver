@@ -18,15 +18,21 @@ the ship number, or
 .L lnd#
 the unit number,
 .L "ship type"
-the type of ship; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc, or
+the type of ship; \*Qpt\*U, \*Qfb\*U, etc, or
 .L "unit type"
-the type of unit; \*Qwar band\*U, \*Qengineer\*U, etc,
+the type of unit; \*Qart\*U, \*Qeng\*U, etc,
 .L x,y
-the ship/unit's current location (relative to your capital),
+the ship/unit's current location,
 .L flt
 the fleet/army designation letter (set by \*Qfleetadd/army\*U command),
 .L eff
 the ship/unit's efficiency,
+.L civ
+the number of civilians on board,
+.L mil
+the number of military on board,
+.L uw
+the number of uncompensated workers on board,
 .L sh
 the number of shells on board,
 .L gun
@@ -50,15 +56,15 @@ the amount of radioactive material on board
 .in
 .s1
 For example:
-.EX cargo K
+.EX cargo F
 .NF
-shp#     ship type      x,y   flt eff   sh gun pet irn dst bar oil lcm hcm rad
-  86 aircraft carrier -29,-51  K  100% 298   4   0   0   0   0   0   0   0   0
- 110 battleship       -29,-51  K  100% 100   8   0   0   0   0   0   0   0   0
- 115 battleship       -29,-51  K  100%  60   8   0   0   0   0   0   0   0   0
- 181 destroyer        -27,-35  K  100%  40   4   0   0   0   0   0   0   0   0
- 182 destroyer        -27,-35  K  100%  40   4   0   0   0   0   0   0   0   0
- 183 destroyer        -27,-35  K  100%  40   4   0   0   0   0   0   0   0   0
+shp#         x,y   flt eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
+   3 dd      8,-14  F   86%   0   2   0  34   4   0   0   0   0   0   0   0   0
+   4 fb     -2,14   F  100%  10  10   0   0   0  10   0   0   0  10   0   0   0
+   7 dd      8,-14  F  100%   0  60   0  40   4   0   0   0   0   0   0   0   0
+  10 fb      5,-15  F  100%   1   0   0   0   0   0   0   0   0   0   0   0   0
+  11 fb      3,-15  F   20%   0   0   0   0   0   0   0   0   0   0   0   0   0
+  13 bb      4,-16  F   80%   0  10   0 100   4   0   0   0   0   0   0   0   0
 6 ships
 .FI
 .s1
