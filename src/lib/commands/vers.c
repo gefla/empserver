@@ -133,10 +133,26 @@ vers(void)
        (int)(ship_mob_scale * (float)etu_per_update),
        (int)(plane_mob_scale * (float)etu_per_update),
        (int)(land_mob_scale * (float)etu_per_update));
+    pr("Mission mobility cost\t\t--\t%d\t%d\t%d\n",
+       ldround((mission_mob_cost * (double)ship_mob_max), 1),
+       ldround((mission_mob_cost * (double)plane_mob_max), 1),
+       ldround((mission_mob_cost * (double)land_mob_max), 1));
     pr("Max eff gain per update\t\t--\t%d\t%d\t%d\n",
        MIN((int)(ship_grow_scale * (float)etu_per_update), 100),
        MIN((int)(plane_grow_scale * (float)etu_per_update), 100),
        MIN((int)(land_grow_scale * (float)etu_per_update), 100));
+    pr("Maintenance cost per update\t--\t%0.2f%%\t%0.2f%%\t%0.2f%%\n",
+       money_ship * -100.0, money_plane * -100.0, money_land * -100.0);
+    pr("Max interdiction range\t\t%d\t%d\t--\t%d\n",
+       fort_max_interdiction_range,
+       ship_max_interdiction_range,
+       land_max_interdiction_range);
+    pr("\n");
+    pr("The maximum amount of mobility used for land unit combat is %0.2f.\n",
+       combat_mob);
+    if (opt_MOB_ACCESS)
+        pr("The starting mobility when acquiring a sector or unit is %d.\n",
+	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {
@@ -148,7 +164,9 @@ vers(void)
     }
     if (opt_MARKET) {
 	pr("The tax you pay on selling things on the trading block is %.1f%%\n", (1.00 - tradetax) * 100.0);
-	pr("The tax you pay on buying commodities on the market is %.1f%%\n\n", (buytax - 1.00) * 100.0);
+	pr("The tax you pay on buying commodities on the market is %.1f%%\n", (buytax - 1.00) * 100.0);
+	pr("The amount of time to bid on commodities is %d seconds.\n", MARK_DELAY);
+	pr("The amount of time to bid on a unit is %d seconds.\n\n", TRADE_DELAY);
     }
 
     if (!ef_nelem(EF_NUKE_CHR))
