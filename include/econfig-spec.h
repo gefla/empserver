@@ -101,7 +101,7 @@ EMPCFBOTH("hourslop", hourslop, int, NSC_INT, KM_INTERNAL,
     "Number of minutes update check can slip to match update_times")
 EMPCFBOTH("blitz_time", blitz_time, int, NSC_INT, 0,
     "Number of minutes between updates under policy #2.")
-EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, 0,
+EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, KM_INTERNAL,
     "Shell command run right before the update.")
 
 EMPCF_COMMENT("\n\n### Demand update policy")
@@ -201,7 +201,7 @@ EMPCFBOTH("players_at_00", players_at_00, int, NSC_INT, 0,
     "Players have their coordinate system at deity 0,0 (0 - no, 1 - yes)")
 EMPCFBOTH("at_least_one_100", at_least_one_100, int, NSC_INT, KM_INTERNAL,
     "Initialize new countries with at least one sector with 100 of all resource")
-EMPCFBOTH("start_cash", start_cash, long, NSC_LONG, 0,
+EMPCFBOTH("start_cash", start_cash, long, NSC_LONG, KM_INTERNAL,
     "Starting cash for new countries")
 EMPCFBOTH("war_cost", War_Cost, int, NSC_INT, 0,
     "Cost to declare war (if SLOW_WAR is on)")
