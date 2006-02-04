@@ -203,8 +203,6 @@ EMPCFBOTH("at_least_one_100", at_least_one_100, int, NSC_INT, KM_INTERNAL,
     "Initialize new countries with at least one sector with 100 of all resource")
 EMPCFBOTH("start_cash", start_cash, long, NSC_LONG, 0,
     "Starting cash for new countries")
-EMPCFBOTH("powe_cost", powe_cost, double, NSC_DOUBLE, 0,
-    "Number of BTUs needed to generate a new power report")
 EMPCFBOTH("war_cost", War_Cost, int, NSC_INT, 0,
     "Cost to declare war (if SLOW_WAR is on)")
 

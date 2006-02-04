@@ -187,7 +187,6 @@ int at_least_one_100 = 1;	/* init player with 100/100/100/100 sector? */
 float btu_build_rate = 0.0012;	/* etu * civ * eff * btu_build_rate */
 				/* 8 * 999 * 100 * 0.0004 = 319 */
 int max_btus = 640;		/* maximum # of btu's */
-double powe_cost = 10.0;	/* btu cost to gen a power report */
 
 double buil_bt = 10.0;		/* tech level required to build a bridge */
 int buil_bh = 100;		/* hcm required to build a bridge */

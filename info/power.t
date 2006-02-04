@@ -17,7 +17,7 @@ not be displayed.
 If the optional \*Qnew\*U argument is given,
 the program will take several minutes to gather information
 and generate a power report based on that up-to-date information.
-This costs several BTU's (typically 10).
+This costs 10 BTU's.
 .s1
 If the optional \*Qnew\*U argument is not given,
 the program will shown you the report generated

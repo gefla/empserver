@@ -241,7 +241,7 @@ gen_power(void)
     struct natstr *natp;
     float f;
 
-    player->btused += powe_cost;
+    player->btused += 10;
     memset(powbuf, 0, sizeof(powbuf));
     snxtsct_all(&ns);
     while (nxtsct(&ns, &sect)) {
