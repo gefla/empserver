@@ -29,7 +29,6 @@
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *  
  */
 
 #include <config.h>
@@ -65,65 +64,65 @@ verify_row(int type, int row)
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    if (ca[i].ca_table != EF_BAD && ca[i].ca_table != type) {
-		val.val_type = ca[i].ca_type;
-		val.val_cat = NSC_OFF;
-		val.val_as.sym.off = ca[i].ca_off;
-		val.val_as.sym.idx = j;
-		nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
-		if (val.val_type != NSC_LONG && val.val_type != NSC_TYPEID)
-		    continue;
-
-		ca_sym = ef_cadef(ca[i].ca_table);
-		if (ca[i].ca_flags & NSC_BITS) {
-		    if (ca_sym != symbol_ca) {
-			fprintf(stderr,
+	    if (ca[i].ca_table == EF_BAD || ca[i].ca_table == type)
+		continue;
+	    val.val_type = ca[i].ca_type;
+	    val.val_cat = NSC_OFF;
+	    val.val_as.sym.off = ca[i].ca_off;
+	    val.val_as.sym.idx = j;
+	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
+	    if (val.val_type != NSC_LONG && val.val_type != NSC_TYPEID)
+		continue;
+	    ca_sym = ef_cadef(ca[i].ca_table);
+	    if (ca[i].ca_flags & NSC_BITS) {
+		/* symbol set */
+		if (ca_sym != symbol_ca) {
+		    fprintf(stderr,
 			    "Unable to verify symbol set as the "
 			    "table %s is not created as symbol table "
 			    "for table %s row %d field %s\n",
 			    ef_nameof(ca[i].ca_table), ef_nameof(type),
 			    row + 1, ca[i].ca_name
-			    );
-			continue;
-		    }
-		    for (k = 0; k < (int)sizeof(long) * 8; k++) {
-			if (val.val_as.lng & (1L << k))
-			    if (!symbol_by_value(1L << k, ef_ptr(ca[i].ca_table, 0))) {
-				fprintf(stderr,
+			);
+		    continue;
+		}
+		for (k = 0; k < (int)sizeof(long) * 8; k++) {
+		    if (val.val_as.lng & (1L << k))
+			if (!symbol_by_value(1L << k, ef_ptr(ca[i].ca_table, 0))) {
+			    fprintf(stderr,
 				    "bit %d not found in symbol table %s "
 				    "when verify table %s row %d field %s\n",
 				    k, ef_nameof(ca[i].ca_table),
 				    ef_nameof(type), row + 1, ca[i].ca_name);
-				ret_val = -1;
-			    }
-		    }
-		} else {
-		    if (ca_sym != symbol_ca) {
-			if (val.val_as.lng >= ef_nelem(ca[i].ca_table) ||
-			    val.val_as.lng < -2) {
-			    fprintf(stderr, "Table index %ld to table %s "
-				"out of range, nelements %d for table %s "
-				"row %d field %s\n",
-				val.val_as.lng, ef_nameof(ca[i].ca_table),
-				ef_nelem(ca[i].ca_table), ef_nameof(type), 
-				row + 1, ca[i].ca_name);
 			    ret_val = -1;
 			}
-		    } else {
-			if (val.val_as.lng > -1) {
-			    if (!symbol_by_value(val.val_as.lng,
-				       ef_ptr(ca[i].ca_table,0))) {
-				fprintf(stderr, "value %ld not found in "
-				    "symbol table %s when verify table %s "
-				    "row %d field %s\n",
-				    val.val_as.lng,
-				    ef_nameof(ca[i].ca_table),
-				    ef_nameof(type), row + 1,
-				    ca[i].ca_name);
-				ret_val = -1;
-			    }
-			}
+		}
+	    } else if (ca_sym == symbol_ca) {
+		/* symbol */
+		if (val.val_as.lng > -1) {
+		    if (!symbol_by_value(val.val_as.lng,
+					 ef_ptr(ca[i].ca_table,0))) {
+			fprintf(stderr, "value %ld not found in "
+				"symbol table %s when verify table %s "
+				"row %d field %s\n",
+				val.val_as.lng,
+				ef_nameof(ca[i].ca_table),
+				ef_nameof(type), row + 1,
+				ca[i].ca_name);
+			ret_val = -1;
 		    }
+		}
+	    } else {
+		/* table index */
+		if (val.val_as.lng >= ef_nelem(ca[i].ca_table) ||
+		    val.val_as.lng < -2) {
+		    fprintf(stderr, "Table index %ld to table %s "
+			    "out of range, nelements %d for table %s "
+			    "row %d field %s\n",
+			    val.val_as.lng, ef_nameof(ca[i].ca_table),
+			    ef_nelem(ca[i].ca_table), ef_nameof(type), 
+			    row + 1, ca[i].ca_name);
+		    ret_val = -1;
 		}
 	    }
 	} while (++j < n);
