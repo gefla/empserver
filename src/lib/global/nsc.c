@@ -116,6 +116,7 @@ struct castr pchr_ca[] = {
 };
 
 struct castr sect_ca[] = {
+    /* uid is encoded in x, y */
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_NATION},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
@@ -240,6 +241,7 @@ struct castr ship_ca[] = {
 };
 
 struct castr mchr_ca[] = {
+    /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct mchrstr, m_item), ""),
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "lcm", EF_BAD},
@@ -284,6 +286,7 @@ struct castr plane_ca[] = {
 };
 
 struct castr plchr_ca[] = {
+    /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "lcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "hcm", EF_BAD},
@@ -343,6 +346,7 @@ struct castr land_ca[] = {
 };
 
 struct castr lchr_ca[] = {
+    /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct lchrstr, l_item), ""),
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "lcm", EF_BAD},
@@ -385,6 +389,7 @@ struct castr nuke_ca[] = {
 };
 
 struct castr nchr_ca[] = {
+    /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct nchrstr, n_name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "lcm", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "hcm", EF_BAD},
@@ -430,7 +435,7 @@ struct castr loan_ca[] = {
 };
 
 struct castr news_ca[] = {
-    {NSC_SHORT, 0, 0, fldoff(nwsstr, nws_uid), "uid", EF_NEWS},
+    /* no need for uid as long as it's not referenced from other tables */
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim", EF_NATION},
@@ -440,7 +445,7 @@ struct castr news_ca[] = {
 };
 
 struct castr lost_ca[] = {
-    {NSC_INT, 0, 0, fldoff(loststr, lost_uid), "uid", EF_LOST},
+    /* no need for uid as long as it's not referenced from other tables */
     {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(loststr, lost_id), "id", EF_BAD},
@@ -532,7 +537,7 @@ struct castr cou_ca[] = {
 };
 
 struct castr realm_ca[] = {
-    {NSC_SHORT, 0, 0, fldoff(realmstr, r_uid), "uid", EF_REALM},
+    /* uid is encoded in cnum, realm */
     {NSC_NATID, 0, 0, fldoff(realmstr, r_cnum), "cnum", EF_NATION},
     {NSC_USHORT, 0, 0, fldoff(realmstr, r_realm), "realm", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_xl), "xl", EF_BAD},
@@ -543,6 +548,7 @@ struct castr realm_ca[] = {
 };
 
 struct castr intrchr_ca[] = {
+    /* no need for uid as long as it's not referenced from other tables */
     {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name",
      EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_lcms), "lcms", EF_BAD},
@@ -643,6 +649,7 @@ struct symbol nuke_chr_flags[] = {
 };
 
 struct castr mdchr_ca[] = {
+    /* no need for uid */
     {NSC_STRING, 0, 0, offsetof(struct castr, ca_name), "name", EF_BAD},
     {NSC_CHAR, 0, 0, offsetof(struct castr, ca_type), "type", EF_META_TYPE},
     {NSC_UCHAR, NSC_BITS, 0, offsetof(struct castr, ca_flags), "flags",
