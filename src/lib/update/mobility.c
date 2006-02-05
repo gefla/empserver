@@ -316,8 +316,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	if (can_add > ((float)etus * ship_mob_scale))
 	    can_add = ((float)etus * ship_mob_scale);
 	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].
-				  m_fuelu) * (double)fuel_mult), 1);
+				  (double)mchr[(int)sp->shp_type].m_fuelu)
+				 * (double)fuel_mult), 1);
 
 	if (can_add > have_fuel_for) {
 	    int need;
@@ -335,8 +335,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	}
 
 	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].
-				  m_fuelu) * (double)fuel_mult), 1);
+				  (double)mchr[(int)sp->shp_type].m_fuelu)
+				 * (double)fuel_mult), 1);
 
 	if (can_add > have_fuel_for) {
 	    int need;
@@ -354,8 +354,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	}
 
 	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].
-				  m_fuelu) * (double)fuel_mult), 1);
+				  (double)mchr[(int)sp->shp_type].m_fuelu)
+				 * (double)fuel_mult), 1);
 
 	if (can_add > have_fuel_for)
 	    total_add = have_fuel_for;
