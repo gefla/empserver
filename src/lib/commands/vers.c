@@ -179,8 +179,6 @@ vers(void)
     }
 
     pr("Fire ranges are scaled by %.2f.\n", fire_range_factor);
-    pr("Damage to people (civ, uw and mil) is scaled by %0.2f.\n",
-       people_damage);
     pr("Flak damage is scaled by %0.2f.\n", flakscale);
     pr("Torpedo damage is 2d%d+%d.\n", torpedo_damage, torpedo_damage - 2);
     pr("The attack factor for para & assault troops is %0.2f.\n",
@@ -189,6 +187,23 @@ vers(void)
        fallout_spread * 100.0);
     pr("Fallout decays by %.0f%% per update\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
+    pr("\n");
+    pr ("Initial Damage\t\t\tCollateral Damage\n");
+    pr("\t\tSector\tPeople\tMater.\tEffic.\tShips\tPlanes\tLand Units\n");
+    pr("Sector\t\t --\t%3.0f%%\t100%%\t100%%\t  0%%\t%3.0f%%\t%3.0f%%\n",
+       people_damage * 100.0, unit_damage / 0.07, unit_damage * 100.0);
+    pr("People\t\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+       collateral_dam * 100.0);
+    pr("Materials\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+       collateral_dam * 100.0);
+    pr("Efficiency\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+       collateral_dam * 100.0);
+    pr("Ships\t\t%3.0f%%\t100%%\t100%%\t100%%\t --\t  0%%\t  0%%\n",
+       collateral_dam * 100.0);
+    pr("Planes\t\t%3.0f%%\t  0%%\t  0%%\t  0%%\t --\t --\t --\n",
+       collateral_dam * 100.0);
+    pr("Land units\t%3.0f%%\t  0%%\t  0%%\t  0%%\t --\t  0%%\t  0%%\n",
+       collateral_dam * 100.0);
     pr("\n");
     pr("You can have at most %d BTUs.\n", max_btus);
     pr("You are disconnected after %d minutes of idle time.\n", max_idle);
