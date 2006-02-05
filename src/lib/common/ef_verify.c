@@ -52,12 +52,12 @@ verify_row(int type, int row)
     int ret_val = 0; 
     int in_mem = (ef_flags(type) & EFF_MEM) != 0; 
  
- 
-    if (!in_mem) { 
-	row_ref = malloc(empfile[type].size); 
-	ef_read(type, row, row_ref); 
-    } else 
+    if (in_mem)
 	row_ref = ef_ptr(type, row); 
+    else {
+	row_ref = malloc(empfile[type].size); 
+	ef_read(type, row, row_ref);
+    }
 
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_EXTRA)
