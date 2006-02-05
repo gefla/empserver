@@ -87,8 +87,8 @@ verify_row(int type, int row)
 			continue;
 		    }
 		    for (k = 0; k < (int)sizeof(long) * 8; k++) {
-			if (val.val_as.lng & (1 << k))
-			    if (!symbol_by_value(1 << k, ef_ptr(ca[i].ca_table, 0))) {
+			if (val.val_as.lng & (1L << k))
+			    if (!symbol_by_value(1L << k, ef_ptr(ca[i].ca_table, 0))) {
 				fprintf(stderr,
 				    "bit %d not found in symbol table %s "
 				    "when verify table %s row %d field %s\n",
