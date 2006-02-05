@@ -684,7 +684,7 @@ struct symbol meta_type[]  = {
     {NSC_INT, "d"},
     {NSC_XCOORD, "d"},
     {NSC_YCOORD, "d"},
-    {NSC_TIME, "t"},
+    {NSC_TIME, "d"},
     {NSC_FLOAT, "g"},
     {NSC_STRINGY,"c"},
     {NSC_NOTYPE, NULL}
