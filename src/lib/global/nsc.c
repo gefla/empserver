@@ -28,8 +28,13 @@
  *  nsc.c: Empire selection global structures
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004
+ *     Markus Armbruster, 2004-2006
  *  
+ */
+
+/*
+ * Convention: uid selector comes first.  Table TYPE has an uid
+ * selector if empfile[TYPE].cadef[0].ca_table == TYPE.
  */
 
 #include <config.h>
