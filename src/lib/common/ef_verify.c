@@ -76,14 +76,8 @@ verify_row(int type, int row)
 	    ca_sym = ef_cadef(ca[i].ca_table);
 	    if (ca[i].ca_flags & NSC_BITS) {
 		/* symbol set */
-		if (ca_sym != symbol_ca) {
-		    fprintf(stderr,
-			    "Unable to verify symbol set as the "
-			    "table %s is not created as symbol table "
-			    "for table %s row %d field %s\n",
-			    ef_nameof(ca[i].ca_table), ef_nameof(type),
-			    row + 1, ca[i].ca_name
-			);
+		if (CANT_HAPPEN(ca_sym != symbol_ca)) {
+		    ret_val = -1;
 		    continue;
 		}
 		for (k = 0; k < (int)sizeof(long) * 8; k++) {
