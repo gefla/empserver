@@ -43,7 +43,6 @@
 #if !defined(_WIN32)
 #include <unistd.h>
 #else
-#include <winsock.h>
 #include <io.h>
 #endif
 

@@ -56,7 +56,6 @@
 #include <unistd.h>
 #else
 #include <windows.h>
-#include <winsock.h>
 #include <conio.h>
 #include <io.h>
 #endif
@@ -78,6 +77,7 @@ int
 main(int ac, char **av)
 {
 #ifdef _WIN32
+    WORD wVersionRequested;
     WSADATA WsaData;
     int err;
     fd_set readfds;
@@ -117,9 +117,10 @@ main(int ac, char **av)
      * after each prompt is required.
      */
     setvbuf(stdout, NULL, _IOLBF, 4096);
-    err = WSAStartup(0x0101, &WsaData);
-    if (err == SOCKET_ERROR) {
-	printf("WSAStartup Failed\n");
+    wVersionRequested = MAKEWORD(2, 0);
+    err = WSAStartup(wVersionRequested, &WsaData);
+    if (err != 0) {
+	printf("WSAStartup Failed, error code %d\n", err);
 	return FALSE;
     }
 #else

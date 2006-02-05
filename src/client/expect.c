@@ -42,8 +42,6 @@
 #ifndef _WIN32
 #include <sys/socket.h>
 #include <unistd.h>
-#else
-#include <winsock.h>
 #endif
 
 int
