@@ -45,7 +45,7 @@ static int
 verify_row(int type, int row)
 {
     struct castr *ca = ef_cadef(type);
-    void *row_ref = malloc(empfile[type].size);
+    void *row_ref;
     int i, j, k, n;
     struct castr *ca_sym;
     struct valstr val;
