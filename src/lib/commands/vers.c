@@ -154,6 +154,8 @@ vers(void)
         pr("The starting mobility when acquiring a sector or unit is %d.\n",
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
+    if (opt_FUEL)
+	pr("For ships and land units, fuelu makes %d mobility.\n\n", fuel_mult);
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n", trade_1_dist, (float)(trade_1 * 100.0));
@@ -176,8 +178,20 @@ vers(void)
 	pr("\tExample: In order to build a 300 tech nuke, you need %d research\n\n", (int)(300.0 * drnuke_const));
     }
 
-    pr("Fire ranges are scaled by %.2f\n", fire_range_factor);
-
+    pr("Fire ranges are scaled by %.2f.\n", fire_range_factor);
+    pr("Damage to people (civ, uw and mil) is scaled by %0.2f.\n",
+       people_damage);
+    pr("Flak damage is scaled by %0.2f.\n", flakscale);
+    pr("Torpedo damage is 2d%d+%d.\n", torpedo_damage, torpedo_damage - 2);
+    pr("The attack factor for para & assault troops is %0.2f.\n",
+       assault_penalty);
+    pr("The amount of fallout that leaks into each surrounding sector is %0.2f%%.\n",
+       fallout_spread * 100.0);
+    pr("Fallout decays by %.0f%% per update\n",
+       100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
+    pr("\n");
+    pr("You can have at most %d BTUs.\n", max_btus);
+    pr("You are disconnected after %d minutes of idle time.\n", max_idle);
     pr("\nOptions enabled in this game:\n        ");
     show_opts(1);
     pr("\n\nOptions disabled in this game:\n        ");
