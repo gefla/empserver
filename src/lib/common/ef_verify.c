@@ -91,6 +91,16 @@ verify_row(int type, int row)
 			    ret_val = -1;
 			}
 		}
+	    } else if (ca[i].ca_table == type && i == 0) {
+		/* uid */
+		if (val.val_as.lng != row) {
+		    fprintf(stderr,
+			    "table %s row %d field %s is %ld instead of %d\n",
+			    ef_nameof(type), row + 1, ca[i].ca_name,
+			    val.val_as.lng, row);
+		    ret_val = -1;
+		}
+
 	    } else if (ca_sym == symbol_ca) {
 		/* symbol */
 		if (val.val_as.lng > -1) {
