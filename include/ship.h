@@ -168,9 +168,9 @@ struct mchrstr {
 #define M_SUBT		bit(12)	/* allows torping of other subs */
 #define M_TRADE		bit(13)	/* is a trade ship */
 #define M_SEMILAND	bit(14)	/* can land 1/4 */
-/* M_XLIGHT will be automatically set in init_global() if m_nxlight > 0 */
+/* M_XLIGHT will be automatically set in init_mchr() if m_nxlight > 0 */
 #define	M_XLIGHT	bit(15)	/* can hold xlight planes */
-/* M_CHOPPER will be automatically set in init_global() if m_nchoppers > 0 */
+/* M_CHOPPER will be automatically set in init_mchr() if m_nchoppers > 0 */
 #define M_CHOPPER	bit(16)	/* can hold choppers */
 #define M_OILER		bit(17)	/* can re-fuel ships */
 #define M_SUPPLY	bit(18)	/* Can supply units/sects/ships */
