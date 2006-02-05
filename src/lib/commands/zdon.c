@@ -109,12 +109,12 @@ zdon(void)
 	}
     }
 
+    if (!(natp = getnatp(whichcnum))) {
+	pr("Unable to find country. %d\n", whichcnum);
+	pr("Notify the Deity.\n");
+	return RET_FAIL;
+    }
     if (!checking) {
-	if (!(natp = getnatp(whichcnum))) {
-	    pr("Unable to find country. %d\n", whichcnum);
-	    pr("Notify the Deity.\n");
-	    return RET_FAIL;
-	}
 	if (wantupd) {
 	    if (influx(natp)) {
 		pr("Unable to request an update as the country is in flux\n");
@@ -137,6 +137,10 @@ zdon(void)
 	    pr("You want an update.\n");
 	} else
 	    pr("You DON'T want an update, yet.\n");
+	pr("You have missed requesting an demand update %d times.\n",
+	   natp->nat_missed);
+	pr("It takes %d misses to veto an demand update.\n",
+	   update_missed);
     }
 
     pr("%d of a total of %d lunatics want an update.\n", totwant, totpop);
