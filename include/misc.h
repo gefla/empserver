@@ -39,8 +39,8 @@
 #include <string.h>
 #include <sys/types.h>
 
-#define MAX(a,b) (a > b ? a : b)
-#define MIN(a,b) (a < b ? a : b)
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #if defined(_WIN32)
 typedef unsigned char u_char;
