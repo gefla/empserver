@@ -103,23 +103,21 @@ verify_row(int type, int row)
 
 	    } else if (ca_sym == symbol_ca) {
 		/* symbol */
-		if (val.val_as.lng > -1) {
-		    if (!symbol_by_value(val.val_as.lng,
-					 ef_ptr(ca[i].ca_table,0))) {
-			fprintf(stderr, "value %ld not found in "
-				"symbol table %s when verify table %s "
-				"row %d field %s\n",
-				val.val_as.lng,
-				ef_nameof(ca[i].ca_table),
-				ef_nameof(type), row + 1,
-				ca[i].ca_name);
-			ret_val = -1;
-		    }
+		if (!symbol_by_value(val.val_as.lng,
+				     ef_ptr(ca[i].ca_table, 0))) {
+		    fprintf(stderr, "value %ld not found in "
+			    "symbol table %s when verify table %s "
+			    "row %d field %s\n",
+			    val.val_as.lng,
+			    ef_nameof(ca[i].ca_table),
+			    ef_nameof(type), row + 1,
+			    ca[i].ca_name);
+		    ret_val = -1;
 		}
 	    } else {
 		/* table index */
-		if (val.val_as.lng >= ef_nelem(ca[i].ca_table) ||
-		    val.val_as.lng < -2) {
+		if (val.val_as.lng >= ef_nelem(ca[i].ca_table)
+		    || val.val_as.lng < -1) {
 		    fprintf(stderr, "Table index %ld to table %s "
 			    "out of range, nelements %d for table %s "
 			    "row %d field %s\n",
