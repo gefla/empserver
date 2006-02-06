@@ -64,7 +64,7 @@ verify_row(int type, int row)
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    if (ca[i].ca_table == EF_BAD || ca[i].ca_table == type)
+	    if (ca[i].ca_table == EF_BAD)
 		continue;
 	    val.val_type = ca[i].ca_type;
 	    val.val_cat = NSC_OFF;
