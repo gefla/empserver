@@ -249,8 +249,8 @@ struct castr mchr_ca[] = {
     /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct mchrstr, m_item), ""),
-    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "lcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_hcm), "hcm", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "l_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct mchrstr, m_hcm), "h_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_armor), "armor", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_speed), "speed", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_visib), "visib", EF_BAD},
@@ -293,8 +293,8 @@ struct castr plane_ca[] = {
 struct castr plchr_ca[] = {
     /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "lcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "hcm", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "l_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "h_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_cost), "cost", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_tech), "tech", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_acc), "acc", EF_BAD},
@@ -354,10 +354,10 @@ struct castr lchr_ca[] = {
     /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct lchrstr, l_item), ""),
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "lcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "hcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "gun", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_shell), "shell", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "l_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "h_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "g_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_shell), "s_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_tech), "tech", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_cost), "cost", EF_BAD},
     {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_att), "att", EF_BAD},
@@ -396,10 +396,10 @@ struct castr nuke_ca[] = {
 struct castr nchr_ca[] = {
     /* FIXME uid */
     {NSC_STRING, 0, 0, offsetof(struct nchrstr, n_name), "name", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "lcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "hcm", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_oil), "oil", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_rad), "rad", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "l_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "h_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_oil), "o_build", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct nchrstr, n_rad), "r_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_blast), "blast", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_dam), "dam", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_cost), "cost", EF_BAD},
@@ -753,6 +753,7 @@ struct symbol nation_relations[] = {
 };
 
 struct symbol level[] = {
+    {-1, "none"},
     {NAT_TLEV, "technology"},
     {NAT_RLEV, "research"},
     {NAT_ELEV, "education"},
