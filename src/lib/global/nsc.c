@@ -727,7 +727,8 @@ struct symbol nation_status[] = {
     {STAT_VIS, "visitor"},
     {STAT_SANCT, "sanctuary"},
     {STAT_ACTIVE, "active"},
-    {STAT_GOD, "deity"}
+    {STAT_GOD, "deity"},
+    {0, NULL}
 };
 
 struct symbol nation_flags[] = {
