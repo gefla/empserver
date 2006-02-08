@@ -693,16 +693,9 @@ xutrailer(FILE *fp, int type, int row)
 
     res = -1;
     if (human) {
-	if (fscanf(fp, "config%n",  &res) != 0) {
-	    return gripe("Malformed table footer");
-	}
-    }
-    ch = skipfs(fp);
-    if (!isdigit(ch)) {
-        if (ch != '\n' || !human)
+	if (fscanf(fp, "config%n",  &res) != 0 || res < 0)
 	    return gripe("Malformed table footer");
     } else {
-        ungetc(ch, fp);
 	if (fscanf(fp, "%d", &rows) != 1)
 	    return gripe("Malformed table footer");
 	if (row != rows)
@@ -711,9 +704,7 @@ xutrailer(FILE *fp, int type, int row)
     }
     if (skipfs(fp) != '\n')
 	return gripe("Junk after table footer");
-
-    while ((ch = skipfs(fp)) == '\n') ;
-    ungetc(ch, fp);
+    lineno++;
 
     return 0;
 }
