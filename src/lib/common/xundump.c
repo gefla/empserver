@@ -732,7 +732,7 @@ xundump(FILE *fp, char *file, int expected_table)
     
     ep = &empfile[type];
     fixed_rows = has_const(ef_cadef(type));
-    need_sentinel = !fixed_rows; /* FIXME only approximation */
+    need_sentinel = !EF_IS_GAME_STATE(type);
 
     if (xucolumnheader(fp, type, values) == -1)
 	return -1;
