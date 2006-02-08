@@ -144,121 +144,147 @@ xuesc(char *buf)
 }
 
 static int
-xuflds(FILE *fp, struct value values[])
+xufldname(FILE *fp, struct value values[], int i)
 {
-    int i, ch;
+    int ch;
+    char buf[1024];
+
+    values[i].v_type = VAL_NOTUSED;
+
+    ch = skipfs(fp);
+    switch (ch) {
+    case EOF:
+	return gripe("Unexpected EOF");
+    case '\n':
+	return 0;
+    default:
+	ungetc(ch, fp);
+	if (getid(fp, buf) < 0)
+	    return gripe("Junk in field %d", i + 1);
+	ch = getc(fp);
+	if (ch != '(') {
+	    ungetc(ch, fp);
+	    values[i].v_type = VAL_SYMBOL;
+	    values[i].v_field.v_string = strdup(buf);
+	    return 1;
+	}
+	ch = getc(fp);
+	ungetc(ch, fp);
+	if (isdigit(ch) || ch == '-' || ch == '+') {
+	    if (fscanf(fp, "%d", &values[i].v_field.v_int) != 1) {
+		return gripe("Malformed number in index field %d", i + 1);
+	    }
+	} else {
+	    if (getid(fp, buf) < 0)
+		return gripe("Malformed string in index field %d", i + 1);
+	    return gripe("Symbolic index in field %d not yet implemented",
+			 i + 1);
+	}
+	ch = getc(fp);
+	if (ch != ')')
+	    return gripe("Malformed index field %d", i + 1);
+	values[i].v_index_name = strdup(buf);
+	values[i].v_type = VAL_INDEX_ID;
+	return 1;
+    }
+}
+
+static int
+xufld(FILE *fp, struct value values[], int i)
+{
+    int ch;
     char buf[1024];
     char *p;
     int len, l1;
 
+    values[i].v_type = VAL_NOTUSED;
+
+    ch = skipfs(fp);
+    switch (ch) {
+    case EOF:
+	return gripe("Unexpected EOF");
+    case '\n':
+	return 0;
+    case '+': case '-': case '.':
+    case '0': case '1': case '2': case '3': case '4':
+    case '5': case '6': case '7': case '8': case '9':
+	ungetc(ch, fp);
+	if (fscanf(fp, "%lg", &values[i].v_field.v_double) != 1)
+	    return gripe("Malformed number in field %d", i + 1);
+	values[i].v_type = VAL_DOUBLE;
+	return 1;
+    case '"':
+	ch = getc(fp);
+	if (ch == '"')
+	    buf[0] = 0;
+	else {
+	    ungetc(ch, fp);
+	    if (fscanf(fp, "%1023[^\"\n]", buf) != 1 || getc(fp) != '"')
+		return gripe("Malformed string in field %d", i + 1);
+	    if (!xuesc(buf))
+		return gripe("Invalid escape sequence in field %d",
+			     i + 1);
+	}
+	values[i].v_type = VAL_STRING;
+	values[i].v_field.v_string = strdup(buf);
+	return 1;
+    case '(':
+	p = strdup("");
+	len = 0;
+	for (;;) {
+	    ch = skipfs(fp);
+	    if (ch == EOF || ch == '\n')
+		return gripe("Unmatched '(' in field %d", i + 1);
+	    if (ch == ')')
+		break;
+	    ungetc(ch, fp);
+	    l1 = getid(fp, buf);
+	    if (l1 < 0)
+		return gripe("Junk in field %d", i + 1);
+	    p = realloc(p, len + l1 + 2);
+	    strcpy(p + len, buf);
+	    strcpy(p + len + l1, " ");
+	    len += l1 + 1;
+	}
+	if (len)
+	    p[len - 1] = 0;
+	values[i].v_type = VAL_SYMBOL_SET;
+	values[i].v_field.v_string = p;
+	return 1;
+    default:
+	ungetc(ch, fp);
+	if (getid(fp, buf) < 0)
+	    return gripe("Junk in field %d", i + 1);
+	if (!strcmp(buf, "nil")) {
+	    values[i].v_type = VAL_STRING;
+	    values[i].v_field.v_string = NULL;
+	} else {
+	    values[i].v_type = VAL_SYMBOL;
+	    values[i].v_field.v_string = strdup(buf);
+	}
+	return 1;
+    }
+}
+
+static int
+xuflds(FILE *fp, struct value values[],
+       int (*parse)(FILE *, struct value values[], int))
+{
+    int i, ch, res;
+
     for (i = 0; ; i++) {
-	values[i].v_type = VAL_NOTUSED;
 	if (i >= MAX_NUM_COLUMNS)
 	    return gripe("Too many columns");
-
-	ch = skipfs(fp);
-	switch (ch) {
-	case EOF:
-	    return gripe("Unexpected EOF");
-	case '\n':
+	res = parse(fp, values, i);
+	if (res < 0)
+	    return -1;
+	if (res == 0)
 	    return i;
-	case '+': case '-': case '.':
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	    ungetc(ch, fp);
-	    if (fscanf(fp, "%lg", &values[i].v_field.v_double) != 1)
-		return gripe("Malformed number in field %d", i + 1);
-	    values[i].v_type = VAL_DOUBLE;
-	    break;
-	case '"':
-	    ch = getc(fp);
-	    if (ch == '"')
-		buf[0] = 0;
-	    else {
-		ungetc(ch, fp);
-		if (fscanf(fp, "%1023[^\"\n]", buf) != 1 || getc(fp) != '"')
-		    return gripe("Malformed string in field %d", i + 1);
-		if (!xuesc(buf))
-		    return gripe("Invalid escape sequence in field %d",
-				 i + 1);
-	    }
-	    values[i].v_type = VAL_STRING;
-	    values[i].v_field.v_string = strdup(buf);
-	    break;
-	case '(':
-	    p = strdup("");
-	    len = 0;
-	    for (;;) {
-		ch = skipfs(fp);
-		if (ch == EOF || ch == '\n')
-		    return gripe("Unmatched '(' in field %d", i + 1);
-		if (ch == ')')
-		    break;
-		ungetc(ch, fp);
-		l1 = getid(fp, buf);
-		if (l1 < 0)
-		    return gripe("Junk in field %d", i + 1);
-		p = realloc(p, len + l1 + 2);
-		strcpy(p + len, buf);
-		strcpy(p + len + l1, " ");
-		len += l1 + 1;
-	    }
-	    if (len)
-		p[len - 1] = 0;
-	    values[i].v_type = VAL_SYMBOL_SET;
-	    values[i].v_field.v_string = p;
-	    break;
-	default:
-	    ungetc(ch, fp);
-	    if (getid(fp, buf) < 0) {
-		return gripe("Junk in field %d", i + 1);
-	    }
-	    ch = getc(fp);
-	    ungetc(ch, fp);
-	    if (ch == '(') {
-		ch = getc(fp);
-		ch = getc(fp);
-		ungetc(ch, fp);
-		if (isdigit(ch) || ch == '-') {
-		    if (fscanf(fp, "%d", &values[i].v_field.v_int) != 1) {
-			return gripe("Malformed number in index field %d", i + 1);
-		    }
-		    values[i].v_index_name = strdup(buf);
-		    values[i].v_type = VAL_INDEX_ID;
-		} else {
-		    values[i].v_index_name = strdup(buf);
-		    if (getid(fp, buf) < 0) {
-			free(values[i].v_index_name);
-			values[i].v_index_name = NULL;
-			return gripe("Malformed string in index field %d", i + 1);
-		    }
-		    values[i].v_field.v_string = strdup(buf);
-		    values[i].v_type = VAL_INDEX_SYMBOL;
-		}
-		ch = getc(fp);
-		if (ch != ')') {
-		    free(values[i].v_index_name);
-		    values[i].v_index_name = NULL;
-		    if (values[i].v_type == VAL_INDEX_SYMBOL)
-			free(values[i].v_field.v_string);
-		    values[i].v_type = VAL_NOTUSED;
-		    return gripe("Malformed index field %d", i + 1);
-		}
-	    } else if (!strcmp(buf, "nil")) {
-		values[i].v_type = VAL_STRING;
-		values[i].v_field.v_string = NULL;
-	    } else {
-		values[i].v_type = VAL_SYMBOL;
-		values[i].v_field.v_string = strdup(buf);
-	    }
-	}
 	ch = getc(fp);
 	if (ch == '\n')
 	    ungetc(ch, fp);
-	else if (ch != ' ' && ch != '\t') {
-	    values[i].v_type = VAL_NOTUSED;
+	else if (ch != ' ' && ch != '\t')
 	    return gripe("Bad field separator after field %d", i + 1);
-	}
     }
 }
 
@@ -588,7 +614,7 @@ xucolumnheader(FILE *fp, int type, struct value values[])
     ungetc(ch, fp);
 
     /* FIXME parse column header */
-    if (xuflds(fp, values) <= 0) {
+    if (xuflds(fp, values, xufldname) <= 0) {
 	freeflds(values);
 	return -1;
     }
@@ -732,7 +758,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	 * TODO
 	 * Add column count check to the return value of xuflds()
 	 */
-	res = xuflds(fp, values);
+	res = xuflds(fp, values, xufld);
 	if (res > 0 && row >= ep->csize - 1) {
 	    /* TODO grow cache unless EFF_STATIC */
 	    gripe("Too many rows for table %s", ef_nameof(type));
