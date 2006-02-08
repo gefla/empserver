@@ -55,11 +55,13 @@ static int lineno;
 static int human;
 static int cur_type;
 static void *cur_obj;
-static int nxt_sel, nxt_idx;
+static int nflds;
+static struct castr **fldca;
+static int *fldidx;
+static int *caflds;
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
-static void nxtfld(void);
 static int setnum(int, double);
 static int setstr(int, char *);
 static int xunsymbol1(char *, struct symbol *, struct castr *, int);
@@ -67,6 +69,7 @@ static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
 static struct symbol *get_symtab(struct castr *);
+static int xundump1(FILE *, int, struct castr *);
 
 static int
 gripe(char *fmt, ...)
@@ -141,7 +144,7 @@ xufldname(FILE *fp, int i)
     case EOF:
 	return gripe("Unexpected EOF");
     case '\n':
-	if (nxt_sel >= 0)
+	if (i != nflds)
 	    return gripe("Header fields missing"); /* TODO which? */
 	lineno++;
 	return 0;
@@ -157,10 +160,12 @@ xufldname(FILE *fp, int i)
 	ch = getc(fp);
 	ungetc(ch, fp);
 	if (isdigit(ch) || ch == '-' || ch == '+') {
-	    if (fscanf(fp, "%d", &idx) != 1) {
+	    if (fscanf(fp, "%d", &idx) != 1)
 		return gripe("Malformed number in index of header field %d",
 			     i + 1);
-	    }
+	    if (idx < 0)
+		return gripe("Index must not be negative in header field %d",
+			     i + 1);
 	} else {
 	    if (getid(fp, buf) < 0)
 		return gripe("Malformed index in header field %d", i + 1);
@@ -187,8 +192,8 @@ xufld(FILE *fp, int i)
     case EOF:
 	return gripe("Unexpected EOF");
     case '\n':
-	if (nxt_sel >= 0)
-	    return gripe("Fields missing");
+	if (i != nflds)
+	    return gripe("Field %s missing", fldca[i]->ca_name);
 	lineno++;
 	return 0;
     case '+': case '-': case '.':
@@ -258,71 +263,67 @@ xuflds(FILE *fp, int (*parse)(FILE *, int))
 }
 
 static int
-deffld(int fldidx, char *name, int idx)
+deffld(int fldno, char *name, int idx)
 {
     struct castr *ca = ef_cadef(cur_type);
     int res;
 
-    if (nxt_sel < 0)
-	return gripe("Too many fields, expected only %d", fldidx);
-
     res = stmtch(name, ca, offsetof(struct castr, ca_name),
 		     sizeof(struct castr));
-    if (ca[nxt_sel].ca_type != NSC_STRINGY && ca[nxt_sel].ca_len != 0) {
-	if (res != nxt_sel || idx != nxt_idx)
-	    return gripe("Expected %s(%d) in field %d",
-			 ca[nxt_sel].ca_name, nxt_idx, fldidx + 1);
+    if (res < 0)
+	return gripe("Header %s of field %d is %s", name, fldno + 1,
+		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
+    if (ca[res].ca_type != NSC_STRINGY && ca[res].ca_len != 0) {
+	if (idx < 0)
+	    return gripe("Header %s requires an index in field %d",
+			 ca[res].ca_name, fldno + 1);
+	if (idx >= ca[res].ca_len)
+	    return gripe("Header %s(%d) index out of bounds in field %d",
+			 ca[res].ca_name, idx, fldno + 1);
+	if (idx < caflds[res])
+	    return gripe("Duplicate header %s(%d) in field %d",
+			 ca[res].ca_name, idx, fldno + 1);
+	if (idx > caflds[res])
+	    return gripe("Expected header %s(%d) in field %d",
+			 ca[res].ca_name, caflds[res], fldno + 1);
     } else {
-	if (res != nxt_sel || idx >= 0)
-	    return gripe("Expected %s in field %d",
-			 ca[nxt_sel].ca_name, fldidx + 1);
+	if (idx >= 0)
+	    return gripe("Header %s doesn't take an index in field %d",
+			 ca[res].ca_name, fldno + 1);
+	idx = 0;
+	if (caflds[res])
+	    return gripe("Duplicate header %s in field %d",
+			 ca[res].ca_name, fldno + 1);
     }
-
-    nxtfld();
+    fldca[fldno] = &ca[res];
+    fldidx[fldno] = idx;
+    caflds[res]++;
     return 1;
 }
 
-static void
-nxtfld(void)
-{
-    struct castr *ca = ef_cadef(cur_type);
-    unsigned len = ca[nxt_sel].ca_type == NSC_STRINGY ? 0 : ca[nxt_sel].ca_len;	/* FIXME ugly */
-
-    nxt_idx++;
-    if ((unsigned)nxt_idx >= len) {
-	nxt_idx = 0;
-	for (;;) {
-	    nxt_sel++;
-	    if (!ca[nxt_sel].ca_name) {
-		nxt_sel = -1;
-		break;
-	    }
-	    if (!(ca[nxt_sel].ca_flags & NSC_EXTRA))
-		break;
-	}
-    }
-}
-
 static struct castr *
-ca4fld(int fldidx)
+getfld(int fldno, int *idx)
 {
-    struct castr *ca = ef_cadef(cur_type);
-    unsigned len = ca[nxt_sel].ca_type == NSC_STRINGY ? 0 : ca[nxt_sel].ca_len;	/* FIXME ugly */
-
-    if (nxt_sel < 0 || CANT_HAPPEN(nxt_idx && (unsigned)nxt_idx >= len)) {
-	gripe("Too many fields, expected only %d", fldidx);
+    if (fldno >= nflds) {
+	gripe("Too many fields, expected only %d", nflds);
 	return NULL;
     }
-    return &ca[nxt_sel];
+    if (CANT_HAPPEN(fldno < 0))
+	return NULL;
+    if (idx)
+	*idx = fldidx[fldno];
+    return fldca[fldno];
 }
 
 static int
-setnum(int fldidx, double dbl)
+setnum(int fldno, double dbl)
 {
-    struct castr *ca = ca4fld(fldidx);
+    struct castr *ca;
+    int idx;
     char *memb_ptr;
     double old;
 
+    ca = getfld(fldno, &idx);
     if (!ca)
 	return -1;
 
@@ -331,66 +332,67 @@ setnum(int fldidx, double dbl)
     switch (ca->ca_type) {
     case NSC_CHAR:
     case NSC_TYPEID:
-	old = ((signed char *)memb_ptr)[nxt_idx];
-	((signed char *)memb_ptr)[nxt_idx] = (signed char)dbl;
+	old = ((signed char *)memb_ptr)[idx];
+	((signed char *)memb_ptr)[idx] = (signed char)dbl;
 	break;
     case NSC_UCHAR:
-	old = ((unsigned char *)memb_ptr)[nxt_idx];
-	((unsigned char *)memb_ptr)[nxt_idx] = (unsigned char)dbl;
+	old = ((unsigned char *)memb_ptr)[idx];
+	((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
 	break;
     case NSC_SHORT:
-	old = ((short *)memb_ptr)[nxt_idx];
-	((short *)memb_ptr)[nxt_idx] = (short)dbl;
+	old = ((short *)memb_ptr)[idx];
+	((short *)memb_ptr)[idx] = (short)dbl;
 	break;
     case NSC_USHORT:
-	old = ((unsigned short *)memb_ptr)[nxt_idx];
-	((unsigned short *)memb_ptr)[nxt_idx] = (unsigned short)dbl;
+	old = ((unsigned short *)memb_ptr)[idx];
+	((unsigned short *)memb_ptr)[idx] = (unsigned short)dbl;
 	break;
     case NSC_INT:
-	old = ((int *)memb_ptr)[nxt_idx];
-	((int *)memb_ptr)[nxt_idx] = (int)dbl;
+	old = ((int *)memb_ptr)[idx];
+	((int *)memb_ptr)[idx] = (int)dbl;
 	break;
     case NSC_LONG:
-	old = ((long *)memb_ptr)[nxt_idx];
-	((long *)memb_ptr)[nxt_idx] = (long)dbl;
+	old = ((long *)memb_ptr)[idx];
+	((long *)memb_ptr)[idx] = (long)dbl;
 	break;
     case NSC_XCOORD:
-	old = ((coord *)memb_ptr)[nxt_idx];
-	((coord *)memb_ptr)[nxt_idx] = XNORM((coord)dbl);
+	old = ((coord *)memb_ptr)[idx];
+	((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
 	break;
     case NSC_YCOORD:
-	old = ((coord *)memb_ptr)[nxt_idx];
-	((coord *)memb_ptr)[nxt_idx] = YNORM((coord)dbl);
+	old = ((coord *)memb_ptr)[idx];
+	((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
 	break;
     case NSC_FLOAT:
-	old = ((float *)memb_ptr)[nxt_idx];
-	((float *)memb_ptr)[nxt_idx] = (float)dbl;
+	old = ((float *)memb_ptr)[idx];
+	((float *)memb_ptr)[idx] = (float)dbl;
 	break;
     case NSC_DOUBLE:
-	old = ((double *)memb_ptr)[nxt_idx];
-	((double *)memb_ptr)[nxt_idx] = dbl;
+	old = ((double *)memb_ptr)[idx];
+	((double *)memb_ptr)[idx] = dbl;
 	break;
     case NSC_TIME:
-	old = ((time_t *)memb_ptr)[nxt_idx];
-	((time_t *)memb_ptr)[nxt_idx] = (time_t)dbl;
+	old = ((time_t *)memb_ptr)[idx];
+	((time_t *)memb_ptr)[idx] = (time_t)dbl;
 	break;
     default:
-	return gripe("Field %d doesn't take numbers", fldidx + 1);
+	return gripe("Field %d doesn't take numbers", fldno + 1);
     }
 
     if ((ca->ca_flags & NSC_CONST) && old != dbl)
-	return gripe("Value for field %d must be %g", fldidx + 1, old);
+	return gripe("Value for field %d must be %g", fldno + 1, old);
 
-    nxtfld();
     return 1;
 }
 
 static int
-setstr(int fldidx, char *str)
+setstr(int fldno, char *str)
 {
-    struct castr *ca = ca4fld(fldidx);
+    struct castr *ca;
+    int idx;
     char *memb_ptr, *old;
 
+    ca = getfld(fldno, &idx);
     if (!ca)
 	return -1;
 
@@ -398,29 +400,33 @@ setstr(int fldidx, char *str)
     memb_ptr += ca->ca_off;
     switch (ca->ca_type) {
     case NSC_STRING:
-	old = ((char **)memb_ptr)[nxt_idx];
+	old = ((char **)memb_ptr)[idx];
 	if (!(ca->ca_flags & NSC_CONST))
-	    ((char **)memb_ptr)[nxt_idx] = str ? strdup(str) : NULL;
+	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
 	break;
     case NSC_STRINGY:
-	CANT_HAPPEN(nxt_idx);
+	if (CANT_HAPPEN(idx))
+	    return -1;
 	if (!str)
 	    return gripe("Field doesn't take nil");
 	if (strlen(str) > ca->ca_len)
 	    return gripe("Field %d takes at most %d characters",
-			 fldidx + 1, ca->ca_len);
+			 fldno + 1, ca->ca_len);
 	old = memb_ptr;
 	if (!(ca->ca_flags & NSC_CONST))
 	    strncpy(memb_ptr, str, ca->ca_len);
 	break;
     default:
-	return gripe("Field %d doesn't take strings", fldidx + 1);
+	return gripe("Field %d doesn't take strings", fldno + 1);
     }
 
-    if ((ca->ca_flags & NSC_CONST) && strcmp(old, str))
-	    return gripe("Value for field %d must be \"%s\"", fldidx + 1, old);
+    if (ca->ca_flags & NSC_CONST) {
+	if (old && (!str || strcmp(old, str)))
+	    return gripe("Value for field %d must be \"%s\"", fldno + 1, old);
+	if (!old && str)
+	    return gripe("Value for field %d must be nil", fldno + 1);
+    }
 
-    nxtfld();
     return 1;
 }
 
@@ -437,23 +443,24 @@ xunsymbol1(char *id, struct symbol *symtab, struct castr *ca, int n)
 }
 
 static int
-setsym(int fldidx, char *sym)
+setsym(int fldno, char *sym)
 {
-    struct castr *ca = ca4fld(fldidx);
+    struct castr *ca;
     struct symbol *symtab;
     int i;
 
+    ca = getfld(fldno, NULL);
     if (!ca)
 	return -1;
 
     symtab = get_symtab(ca);
     if (!symtab || (ca->ca_flags & NSC_BITS))
-	return gripe("Field %d doesn't take symbols", fldidx + 1);
+	return gripe("Field %d doesn't take symbols", fldno + 1);
 
-    i = xunsymbol1(sym, symtab, ca, fldidx);
+    i = xunsymbol1(sym, symtab, ca, fldno);
     if (i < 0)
 	return -1;
-    return setnum(fldidx, symtab[i].value);
+    return setnum(fldno, symtab[i].value);
 }
 
 static int
@@ -469,35 +476,37 @@ has_const(struct castr ca[])
 }
 
 static int
-mtsymset(int fldidx, long *set)
+mtsymset(int fldno, long *set)
 {
-    struct castr *ca = ca4fld(fldidx);
+    struct castr *ca;
     struct symbol *symtab;
     int i;
 
+    ca = getfld(fldno, NULL);
     if (!ca)
 	return -1;
 
     symtab = get_symtab(ca);
     if (!symtab || !(ca->ca_flags & NSC_BITS)) {
-	return gripe("Field %d doesn't take symbol sets", fldidx + 1);
+	return gripe("Field %d doesn't take symbol sets", fldno + 1);
     }
     *set = 0;
     return 0;
 }
 
 static int
-add2symset(int fldidx, long *set, char *sym)
+add2symset(int fldno, long *set, char *sym)
 {
-    struct castr *ca = ca4fld(fldidx);
+    struct castr *ca;
     struct symbol *symtab;
     int i;
 
+    ca = getfld(fldno, NULL);
     if (!ca)
 	return -1;
 
     symtab = get_symtab(ca);
-    i = xunsymbol1(sym, symtab, ca, fldidx);
+    i = xunsymbol1(sym, symtab, ca, fldno);
     if (i < 0)
 	return -1;
     *set |= symtab[i].value;
@@ -546,8 +555,10 @@ xuheader(FILE *fp, int expected_table)
 	return gripe("Expected table `%s', not `%s'",
 		     ef_nameof(expected_table), name);
 
-    if (CANT_HAPPEN(!(ef_flags(type) & EFF_MEM)))
-	return -1;
+    if (!ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
+	CANT_HAPPEN(expected_table != EF_BAD);
+	return gripe("Undumping of table `%s' not implemented", name);
+    }
 
     if (skipfs(fp) != '\n')
 	return gripe("Junk after xdump header");
@@ -582,9 +593,8 @@ xutrailer(FILE *fp, int type, int row)
 int
 xundump(FILE *fp, char *file, int expected_table)
 {
-    struct empfile *ep;
-    int type, fixed_rows, need_sentinel;
-    int row, res, ch;
+    struct castr *ca;
+    int type, nca, i;
 
     if (fname != file) {
         fname = file;
@@ -594,16 +604,57 @@ xundump(FILE *fp, char *file, int expected_table)
     if ((type = xuheader(fp, expected_table)) < 0)
 	return -1;
 
-    ep = &empfile[type];
-    fixed_rows = has_const(ef_cadef(type));
-    need_sentinel = !EF_IS_GAME_STATE(type);
+    ca = ef_cadef(type);
+    if (CANT_HAPPEN(!ca))
+	return -1;
+
+    nca = nflds = 0;
+    for (i = 0; ca[i].ca_name; i++) {
+	nca++;
+	if (!(ca[i].ca_flags & NSC_EXTRA))
+	    nflds += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
+    }
+    fldca = calloc(nflds, sizeof(*fldca));
+    fldidx = calloc(nflds, sizeof(*fldidx));
+    caflds = calloc(nca, sizeof(*caflds));
 
     cur_type = type;
     if (human) {
-	nxt_sel = nxt_idx = 0;
 	if (xuflds(fp, xufldname) < 0)
-	    return -1;
+	    type = EF_BAD;
+    } else {
+	struct castr **fca = fldca;
+	int *fidx = fldidx;
+	int i, j, n;
+	for (i = 0; ca[i].ca_name; i++) {
+	    if ((ca[i].ca_flags & NSC_EXTRA))
+		continue;
+	    n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	    j = 0;
+	    do {
+		*fca++ = &ca[i];
+		*fidx++ = j;
+	    } while (++j < n);
+	}
     }
+
+    if (type >= 0 && xundump1(fp, type, ca) < 0)
+	type = EF_BAD;
+
+    free(caflds);
+    free(fldidx);
+    free(fldca);
+
+    return type;
+}
+
+static int
+xundump1(FILE *fp, int type, struct castr *ca)
+{
+    struct empfile *ep = &empfile[type];
+    int fixed_rows = has_const(ca);
+    int need_sentinel = !EF_IS_GAME_STATE(type);
+    int row, res, ch;
 
     for (row = 0;; ++row) {
 	ch = skipfs(fp);
@@ -622,9 +673,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	cur_obj = ef_ptr(type, row);
 	if (!cur_obj)
 	    return gripe("Too many rows for table %s", ef_nameof(type));
-	nxt_sel = nxt_idx = 0;
-	res = xuflds(fp, xufld);
-	if (res < 0)
+	if (xuflds(fp, xufld) < 0)
 	    return -1;
     }
     if (row != ep->fids) {
@@ -648,6 +697,6 @@ xundump(FILE *fp, char *file, int expected_table)
 
     if (xutrailer(fp, type, row) < 0)
 	return -1;
-    
-    return type;
+
+    return 0;
 }
