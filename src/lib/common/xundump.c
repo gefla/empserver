@@ -565,7 +565,6 @@ static int
 xuheader(FILE *fp, int expected_table)
 {
     char name[64];
-    struct empfile *ep;
     int res, ch;
     int type;
 
@@ -589,13 +588,13 @@ xuheader(FILE *fp, int expected_table)
     type = ef_byname(name);
     if (type < 0)
 	return gripe("Unknown table `%s'", name);
-    ep = &empfile[type];
-    if (CANT_HAPPEN(!(ep->flags & EFF_MEM)))
-	return -1;		/* not implemented */
-
     if (expected_table != EF_BAD && expected_table != type)
 	return gripe("Expected table `%s', not `%s'",
 		     ef_nameof(expected_table), name);
+
+    if (CANT_HAPPEN(!(ef_flags(type) & EFF_MEM)))
+	return -1;
+
     return type;
 }
 
