@@ -142,13 +142,13 @@ xufldname(FILE *fp, int i)
 	return gripe("Unexpected EOF");
     case '\n':
 	if (nxt_sel >= 0)
-	    return gripe("Fields missing");
+	    return gripe("Header fields missing"); /* TODO which? */
 	lineno++;
 	return 0;
     default:
 	ungetc(ch, fp);
 	if (getid(fp, buf) < 0)
-	    return gripe("Junk in field %d", i + 1);
+	    return gripe("Junk in header field %d", i + 1);
 	ch = getc(fp);
 	if (ch != '(') {
 	    ungetc(ch, fp);
@@ -158,17 +158,18 @@ xufldname(FILE *fp, int i)
 	ungetc(ch, fp);
 	if (isdigit(ch) || ch == '-' || ch == '+') {
 	    if (fscanf(fp, "%d", &idx) != 1) {
-		return gripe("Malformed number in index field %d", i + 1);
+		return gripe("Malformed number in index of header field %d",
+			     i + 1);
 	    }
 	} else {
 	    if (getid(fp, buf) < 0)
-		return gripe("Malformed string in index field %d", i + 1);
-	    return gripe("Symbolic index in field %d not yet implemented",
+		return gripe("Malformed index in header field %d", i + 1);
+	    return gripe("Symbolic index in header field %d not yet implemented",
 			 i + 1);
 	}
 	ch = getc(fp);
 	if (ch != ')')
-	    return gripe("Malformed index field %d", i + 1);
+	    return gripe("Malformed index in header field %d", i + 1);
 	return deffld(i, buf, idx);
     }
 }
@@ -417,7 +418,7 @@ setstr(int fldidx, char *str)
     }
 
     if ((ca->ca_flags & NSC_CONST) && strcmp(old, str))
-	return gripe("Value for field %d must be %s", fldidx + 1, old);
+	    return gripe("Value for field %d must be \"%s\"", fldidx + 1, old);
 
     nxtfld();
     return 1;
