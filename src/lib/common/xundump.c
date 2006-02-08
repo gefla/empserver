@@ -590,8 +590,7 @@ xucolumnheader(FILE *fp, int type, struct value values[])
     /* FIXME parse column header */
     if (xuflds(fp, values) <= 0) {
 	freeflds(values);
-	return gripe("Invalid Column Header for table %s",
-	    ef_nameof(type));
+	return -1;
     }
     /* TODO
      * check column count form xuflds()
