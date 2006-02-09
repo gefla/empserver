@@ -593,7 +593,7 @@ int
 xundump(FILE *fp, char *file, int expected_table)
 {
     struct castr *ca;
-    int type, nca, i;
+    int type, nca, i, ch;
 
     if (fname != file) {
         fname = file;
@@ -619,6 +619,9 @@ xundump(FILE *fp, char *file, int expected_table)
 
     cur_type = type;
     if (human) {
+	while ((ch = skipfs(fp)) == '\n')
+	    lineno++;
+	ungetc(ch, fp);
 	if (xuflds(fp, xufldname) < 0)
 	    type = EF_BAD;
     } else {
@@ -656,7 +659,8 @@ xundump1(FILE *fp, int type, struct castr *ca)
     int row, ch;
 
     for (row = 0;; ++row) {
-	ch = skipfs(fp);
+	while ((ch = skipfs(fp)) == '\n')
+	    lineno++;
 	if (ch == '/')
 	    break;
 	ungetc(ch, fp);
