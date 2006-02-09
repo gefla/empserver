@@ -647,6 +647,11 @@ xundump(FILE *fp, char *file, int expected_table)
     free(fldidx);
     free(fldca);
 
+    /* Skip empty lines so that callers can easily check for EOF */
+    while ((ch = skipfs(fp)) == '\n')
+	lineno++;
+    ungetc(ch, fp);
+
     return type;
 }
 
