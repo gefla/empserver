@@ -480,7 +480,6 @@ mtsymset(int fldno, long *set)
 {
     struct castr *ca;
     struct symbol *symtab;
-    int i;
 
     ca = getfld(fldno, NULL);
     if (!ca)
@@ -570,7 +569,7 @@ xuheader(FILE *fp, int expected_table)
 static int
 xutrailer(FILE *fp, int type, int row)
 {
-    int rows, ch, res;
+    int rows, res;
 
     res = -1;
     if (human) {
@@ -654,7 +653,7 @@ xundump1(FILE *fp, int type, struct castr *ca)
     struct empfile *ep = &empfile[type];
     int fixed_rows = has_const(ca);
     int need_sentinel = !EF_IS_GAME_STATE(type);
-    int row, res, ch;
+    int row, ch;
 
     for (row = 0;; ++row) {
 	ch = skipfs(fp);
