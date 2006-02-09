@@ -55,31 +55,30 @@
  * - Sector designation characteristics: dchr[]
  * - Sector infrastructure characteristics: intrchr[]
  * - Ship characteristics: mchr[]
- * Less important:
  * - News item characteristics: rpt[]
  * - News page headings: page_headings[]
  * - Commands: player_coms[] (TODO)
  * - Configuration: configkeys[]
  *
  * Dynamic game data:
- * - Sectors: EF_SECTOR, sect_ca[] (already have dump)
- * - Land units: EF_LAND, land_ca[] (already have ldump)
- * - Lost: EF_LOST, lost_ca[] (already have lost)
- * - Nukes: EF_NUKE, nuke_ca[] (already have ndump)
- * - Planes: EF_PLANE, plane_ca[] (already have pdump)
- * - Ships: EF_SHIP, ship_ca[] (already have sdump)
- * - News: EF_NEWS, news_ca[]
- * - Treaties: EF_TREATY, treaty_ca[]
- * - Power: EF_POWER
- * - Nations: EF_NATION, nat_ca[]
- * - Loans: EF_LOAN, loan_ca[]
+ * - Sectors: EF_SECTOR (superseding dump)
+ * - Land units: EF_LAND (superseding ldump)
+ * - Lost: EF_LOST (superseding lost)
+ * - Nukes: EF_NUKE (superseding ndump)
+ * - Planes: EF_PLANE (superseding pdump)
+ * - Ships: EF_SHIP (superseding sdump)
+ * - News: EF_NEWS
+ * - Treaties: EF_TREATY
+ * - Power: EF_POWER (TODO)
+ * - Nations: EF_NATION
+ * - Loans: EF_LOAN
  * - Map: EF_MAP (TODO)
  * - Bmap: EF_BMAP (TODO)
- * - Market: EF_COMM, commodity_ca[]
+ * - Market: EF_COMM
  */
 
 /* FIXME document dump format */
-/* FIXME don't dump stuff that's useless due to options */
+/* TODO don't dump stuff that's useless due to options */
 
 /*
  * Evaluate a attribute of an object into VAL, return VAL.
