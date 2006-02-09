@@ -366,7 +366,7 @@ struct castr lchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spd), "spd", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_vis), "vis", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_spy), "spy", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_rad), "rad", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_rad), "rmax", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_frg), "frg", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_acc), "acc", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_dam), "dam", EF_BAD},
