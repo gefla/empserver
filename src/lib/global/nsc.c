@@ -535,7 +535,7 @@ struct castr nat_ca[] = {
 
 struct castr cou_ca[] = {
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(natstr, nat_stat), "stat",
+    {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
      EF_NATION_STATUS},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
