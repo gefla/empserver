@@ -228,10 +228,11 @@ options_cmd(void)
 
     if (!player->argp[1]) {
 	for (i = 0; i < sizeof(login_opts) / sizeof(*login_opts); ++i)
-	    pr_id(player, C_DATA, "%s=%d",
+	    pr_id(player, C_DATA, "%s=%d\n",
 		  login_opts[i].name,
 		  (player->flags & login_opts[i].val) != 0);
 	pr_id(player, C_CMDOK, "\n");
+	return RET_OK;
     }
 
     for (ap = player->argp+1; *ap; ++ap) {
