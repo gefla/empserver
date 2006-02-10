@@ -534,10 +534,10 @@ struct castr nat_ca[] = {
 };
 
 struct castr cou_ca[] = {
-    {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
+    {NSC_NATID, NSC_CONST, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
+    {NSC_SITYPE(nat_status), NSC_CONST, 0, fldoff(natstr, nat_stat), "stat",
      EF_NATION_STATUS},
-    {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
+    {NSC_STRINGY, NSC_CONST, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -575,13 +575,17 @@ struct castr rpt_ca[] = {
 
 struct castr empfile_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct empfile, uid), "uid", EF_TABLE},
-    {NSC_STRING, 0, 0, offsetof(struct empfile, name), "name", EF_BAD},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct empfile, name), "name", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
 struct castr symbol_ca[] = {
-    {NSC_INT, 0, 0, offsetof(struct symbol, value), "value", EF_BAD},
-    {NSC_STRING, 0, 0, offsetof(struct symbol, name), "name", EF_BAD},
+    /*
+     * value is is const because it has to match what is compiled into
+     * the server.  name is const because clients key on it.
+     */
+    {NSC_INT, NSC_CONST, 0, offsetof(struct symbol, value), "value", EF_BAD},
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct symbol, name), "name", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -655,12 +659,17 @@ struct symbol nuke_chr_flags[] = {
 
 struct castr mdchr_ca[] = {
     /* no need for uid */
-    {NSC_STRING, 0, 0, offsetof(struct castr, ca_name), "name", EF_BAD},
-    {NSC_CHAR, 0, 0, offsetof(struct castr, ca_type), "type", EF_META_TYPE},
-    {NSC_UCHAR, NSC_BITS, 0, offsetof(struct castr, ca_flags), "flags",
-     EF_META_FLAGS},
-    {NSC_USHORT, 0, 0, offsetof(struct castr, ca_len), "len", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct castr, ca_table), "table", EF_BAD},
+    /* name must come first, clients may rely on it */
+    {NSC_STRING, NSC_CONST, 0, offsetof(struct castr, ca_name), "name",
+     EF_BAD},
+    {NSC_CHAR, NSC_CONST, 0, offsetof(struct castr, ca_type), "type",
+     EF_META_TYPE},
+    {NSC_UCHAR, NSC_CONST | NSC_BITS, 0, offsetof(struct castr, ca_flags),
+     "flags", EF_META_FLAGS},
+    {NSC_USHORT, NSC_CONST, 0, offsetof(struct castr, ca_len), "len",
+     EF_BAD},
+    {NSC_INT, NSC_CONST, 0, offsetof(struct castr, ca_table), "table",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -798,7 +807,7 @@ struct symbol resources[] = {
     {0, NULL}
 };
 
-struct symbol sector_navigation[] = { /* for d_nav */
+struct symbol sector_navigation[] = {
     {NAV_NONE, "land"},
     {NAVOK, "sea"},
     {NAV_02, "harbor"},
