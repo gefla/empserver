@@ -68,7 +68,7 @@ typedef enum {
 } ATTRIBUTE((packed)) i_type;
 
 struct ichrstr {
-    int i_mnem;			/* usually the initial letter */
+    char i_mnem;		/* usually the initial letter */
     i_type i_vtype;		/* var type */
     int i_value;		/* mortgage value */
     int i_sell;			/* can this be sold? */

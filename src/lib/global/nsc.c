@@ -88,7 +88,7 @@ struct castr ichr_ca[] = {
     {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype",
      EF_ITEM},
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name", EF_BAD},
-    {NSC_INT, NSC_CONST, 0, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
+    {NSC_STRINGY, NSC_CONST, 1, offsetof(struct ichrstr, i_mnem), "mnem", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_value), "value", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_sell), "sell", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct ichrstr, i_lbs), "lbs", EF_BAD},
