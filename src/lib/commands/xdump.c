@@ -86,13 +86,16 @@
  * PTR points to the context object.
  * The attribute is stored there at offset OFF + IDX * S, where S is
  * its size.
+ * LEN is the #array elements if it is an array, else zero.
  */
 static struct valstr *
-xdeval(struct valstr *val, nsc_type type, void *ptr, ptrdiff_t off, int idx)
+xdeval(struct valstr *val,
+       nsc_type type, void *ptr, ptrdiff_t off, int idx, int len)
 {
     val->val_type = type;
     val->val_cat = NSC_OFF;
     val->val_as.sym.off = off;
+    val->val_as.sym.len = len;
     val->val_as.sym.idx = idx;
     nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
     return val;			/* FIXME nstr_exec_val() should return VAL */
@@ -158,7 +161,7 @@ xdflds(struct castr ca[], void *ptr)
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j);
+	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j, ca[i].ca_len);
 	    sep = xdprval(&val, sep);
 	} while (++j < n);
     }
@@ -362,11 +365,11 @@ xdver(int meta)
 	return RET_OK;
     }
 
-    xdeval(&val, vers_ca.ca_type, version, 0, 0);
+    xdeval(&val, vers_ca.ca_type, version, vers_ca.ca_off, 0, vers_ca.ca_len);
     sep = xdprval(&val, "");
     for (kp = configkeys; kp->km_key; ++kp) {
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
-	    xdeval(&val, kp->km_type, kp->km_data, 0, 0);
+	    xdeval(&val, kp->km_type, kp->km_data, 0, 0, 0);
 	    sep = xdprval(&val, sep);
 	}
     }
