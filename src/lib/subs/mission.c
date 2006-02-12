@@ -477,6 +477,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if (md > (lp->lnd_frg / 2))
 		continue;
 
+	    if ((lp->lnd_ship != -1) || (lp->lnd_land != -1))
+		continue;
+
 	    if (lnd_getmil(lp) < 1)
 		continue;
 
