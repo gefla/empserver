@@ -137,9 +137,9 @@ zdon(void)
 	    pr("You want an update.\n");
 	} else
 	    pr("You DON'T want an update, yet.\n");
-	pr("You have missed requesting an demand update %d times.\n",
+	pr("You have missed the vote on a demand update %d times.\n",
 	   natp->nat_missed);
-	pr("It takes %d misses to veto an demand update.\n",
+	pr("It takes %d misses to veto a demand update.\n",
 	   update_missed);
     }
 
