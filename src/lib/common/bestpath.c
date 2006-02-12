@@ -34,7 +34,6 @@
 /* 
  * IMPORTANT: These routines are very selectively used in the server.
  *
- * "bestpath" is now obsolete (and removed)
  * "bestownedpath" is only used to determine paths for ships and planes.
  * 
  * Callers should not be calling these directly anymore. They should use
@@ -117,9 +116,6 @@ int dy[6] = { 0, -1, -1, 0, 1, 1 };
  * but we don't want to allocate each and every time, since that
  * would be slow.  And, since world size only changes at init
  * time, we can do this safely.
- * We also share these buffers between "bestpath" and "bestownedpath"
- * since you can never be in both functions at the same time.  If that
- * did happen, we'd already be so broken that it won't matter.
  */
 static unsigned int *mapbuf = (unsigned int *)0;
 static unsigned int **mapindex = (unsigned int **)0;

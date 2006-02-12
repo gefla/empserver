@@ -101,7 +101,7 @@ ef_open(int type, int how)
 
     /* allocate cache */
     if (ep->flags & EFF_STATIC) {
-	/* ep->cache already points to space for e->csize elements */
+	/* ep->cache already points to space for ep->csize elements */
 	if (how & EFF_MEM) {
 	    if (ep->fids > ep->csize) {
 		logerror("Can't open %s: file larger than %d bytes",

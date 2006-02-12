@@ -114,8 +114,7 @@ uprnf(char *buf)
  * arguments.  It is assumed to be already user text.  Plain ASCII and
  * text received from the same player are fine, for anything else the
  * caller has to deal with output filtering.
- * If a partial line with different id is buffered, terminate it with
- * a newline first.
+ * If a partial line is buffered, terminate it with a newline first.
  */
 void
 pr_id(struct player *p, int id, char *format, ...)
