@@ -567,6 +567,40 @@ xuheader(FILE *fp, int expected_table)
 }
 
 static int
+xuheader1(FILE *fp, int type, struct castr ca[])
+{
+    struct castr **fca;
+    int *fidx;
+    int ch, i, j, n;
+
+    cur_type = type;
+
+    if (human) {
+	while ((ch = skipfs(fp)) == '\n')
+	    lineno++;
+	ungetc(ch, fp);
+	if (xuflds(fp, xufldname) < 0)
+	    return -1;
+    } else {
+	fca = fldca;
+	fidx = fldidx;
+
+	for (i = 0; ca[i].ca_name; i++) {
+	    if ((ca[i].ca_flags & NSC_EXTRA))
+		continue;
+	    n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	    j = 0;
+	    do {
+		*fca++ = &ca[i];
+		*fidx++ = j;
+	    } while (++j < n);
+	}
+    }
+
+    return 0;
+}
+
+static int
 xutrailer(FILE *fp, int type, int row)
 {
     int rows, res;
@@ -617,30 +651,7 @@ xundump(FILE *fp, char *file, int expected_table)
     fldidx = calloc(nflds, sizeof(*fldidx));
     caflds = calloc(nca, sizeof(*caflds));
 
-    cur_type = type;
-    if (human) {
-	while ((ch = skipfs(fp)) == '\n')
-	    lineno++;
-	ungetc(ch, fp);
-	if (xuflds(fp, xufldname) < 0)
-	    type = EF_BAD;
-    } else {
-	struct castr **fca = fldca;
-	int *fidx = fldidx;
-	int i, j, n;
-	for (i = 0; ca[i].ca_name; i++) {
-	    if ((ca[i].ca_flags & NSC_EXTRA))
-		continue;
-	    n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
-	    j = 0;
-	    do {
-		*fca++ = &ca[i];
-		*fidx++ = j;
-	    } while (++j < n);
-	}
-    }
-
-    if (type >= 0 && xundump1(fp, type, ca) < 0)
+    if (xuheader1(fp, type, ca) < 0 || xundump1(fp, type, ca) < 0)
 	type = EF_BAD;
 
     free(caflds);
@@ -663,6 +674,8 @@ xundump1(FILE *fp, int type, struct castr *ca)
     int need_sentinel = !EF_IS_GAME_STATE(type);
     int row, ch;
 
+    cur_type = type;
+
     for (row = 0;; ++row) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
@@ -684,6 +697,7 @@ xundump1(FILE *fp, int type, struct castr *ca)
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
     }
+
     if (row != ep->fids) {
 	if (fixed_rows)
 	    return gripe("Table %s requires %d rows, got %d",
