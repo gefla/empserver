@@ -99,7 +99,7 @@ typedef enum {
 
 struct dchrstr {
     unsigned char d_uid;
-    int d_mnem;			/* map symbol */
+    char d_mnem;		/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
     d_navigation d_nav;			/* navigation capability */
