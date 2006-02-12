@@ -139,7 +139,7 @@ struct castr sect_ca[] = {
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work", EF_BAD},
-    {NSC_UCHAR, NSC_EXTRA, 0, fldoff(sctstr, sct_coastal), "coastal", EF_BAD},
+    {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_coastal), "coastal", EF_BAD},
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_newtype), "newdes", EF_SECTOR_CHR},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_min), "min", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_gmin), "gold", EF_BAD},
