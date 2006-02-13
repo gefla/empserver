@@ -357,10 +357,16 @@ setnum(int fldno, double dbl)
 	break;
     case NSC_XCOORD:
 	old = ((coord *)memb_ptr)[idx];
+	/* FIXME use variant of xrel() that takes orig instead of nation */
+	if (old >= WORLD_X / 2)
+	    old -= WORLD_X;
 	((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
 	break;
     case NSC_YCOORD:
 	old = ((coord *)memb_ptr)[idx];
+	/* FIXME use variant of xrel() that takes orig instead of nation */
+	if (old >= WORLD_Y / 2)
+	    old -= WORLD_Y;
 	((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
 	break;
     case NSC_FLOAT:
