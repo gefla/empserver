@@ -124,8 +124,8 @@ struct castr pchr_ca[] = {
 struct castr sect_ca[] = {
     /* uid is encoded in x, y */
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_NATION},
-    {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
-    {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
+    {NSC_XCOORD, NSC_CONST, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
+    {NSC_YCOORD, NSC_CONST, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
     {NSC_TYPEID, 0, 0, fldoff(sctstr, sct_type), "des", EF_SECTOR_CHR},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_effic), "effic", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_mobil), "mobil", EF_BAD},
@@ -545,8 +545,8 @@ struct castr cou_ca[] = {
 
 struct castr realm_ca[] = {
     /* uid is encoded in cnum, realm */
-    {NSC_NATID, 0, 0, fldoff(realmstr, r_cnum), "cnum", EF_NATION},
-    {NSC_USHORT, 0, 0, fldoff(realmstr, r_realm), "realm", EF_BAD},
+    {NSC_NATID, NSC_CONST, 0, fldoff(realmstr, r_cnum), "cnum", EF_NATION},
+    {NSC_USHORT, NSC_CONST, 0, fldoff(realmstr, r_realm), "realm", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_xl), "xl", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_xh), "xh", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_yl), "yl", EF_BAD},
