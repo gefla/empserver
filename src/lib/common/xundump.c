@@ -540,7 +540,7 @@ xuheader(FILE *fp, int expected_table)
     while ((ch = skipfs(fp)) == '\n')
 	lineno++;
     if (ch == EOF && expected_table == EF_BAD)
-	return -1;
+	return -2;
     ungetc(ch, fp);
 
     human = ch == 'c';
@@ -639,7 +639,7 @@ xundump(FILE *fp, char *file, int expected_table)
     }
 
     if ((type = xuheader(fp, expected_table)) < 0)
-	return -1;
+	return type;
 
     ca = ef_cadef(type);
     if (CANT_HAPPEN(!ca))
