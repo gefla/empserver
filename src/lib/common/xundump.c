@@ -390,6 +390,7 @@ setstr(int fldno, char *str)
 {
     struct castr *ca;
     int idx;
+    size_t len;
     char *memb_ptr, *old;
 
     ca = getfld(fldno, &idx);
@@ -403,26 +404,29 @@ setstr(int fldno, char *str)
 	old = ((char **)memb_ptr)[idx];
 	if (!(ca->ca_flags & NSC_CONST))
 	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
+	len = 65535;		/* really SIZE_MAX, but it's C99 */
 	break;
     case NSC_STRINGY:
 	if (CANT_HAPPEN(idx))
 	    return -1;
 	if (!str)
 	    return gripe("Field doesn't take nil");
-	if (strlen(str) > ca->ca_len)
+	len = ca->ca_len;
+	if (strlen(str) > len)
 	    return gripe("Field %d takes at most %d characters",
-			 fldno + 1, ca->ca_len);
+			 fldno + 1, len);
 	old = memb_ptr;
 	if (!(ca->ca_flags & NSC_CONST))
-	    strncpy(memb_ptr, str, ca->ca_len);
+	    strncpy(memb_ptr, str, len);
 	break;
     default:
 	return gripe("Field %d doesn't take strings", fldno + 1);
     }
 
     if (ca->ca_flags & NSC_CONST) {
-	if (old && (!str || strcmp(old, str)))
-	    return gripe("Value for field %d must be \"%s\"", fldno + 1, old);
+	if (old && (!str || strncmp(old, str, len)))
+	    return gripe("Value for field %d must be \"%.*s\"",
+			 fldno + 1, len, old);
 	if (!old && str)
 	    return gripe("Value for field %d must be nil", fldno + 1);
     }
