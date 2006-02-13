@@ -364,7 +364,7 @@ setnum(int fldno, double dbl)
 	break;
     case NSC_YCOORD:
 	old = ((coord *)memb_ptr)[idx];
-	/* FIXME use variant of xrel() that takes orig instead of nation */
+	/* FIXME use variant of yrel() that takes orig instead of nation */
 	if (old >= WORLD_Y / 2)
 	    old -= WORLD_Y;
 	((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
@@ -471,18 +471,6 @@ setsym(int fldno, char *sym)
     if (i < 0)
 	return -1;
     return setnum(fldno, symtab[i].value);
-}
-
-static int
-has_const(struct castr ca[])
-{
-    int i;
-
-    for (i = 0; ca[i].ca_name; i++) {
-	if (ca[i].ca_flags & NSC_CONST)
-	    return 1;
-    }
-    return 0;
 }
 
 static int
@@ -680,7 +668,6 @@ static int
 xundump1(FILE *fp, int type, struct castr *ca)
 {
     struct empfile *ep = &empfile[type];
-    int fixed_rows = has_const(ca);
     int need_sentinel = !EF_IS_GAME_STATE(type);
     int row, ch;
 
@@ -693,13 +680,11 @@ xundump1(FILE *fp, int type, struct castr *ca)
 	    break;
 	ungetc(ch, fp);
 	/* TODO ability to skip records */
-	if (!fixed_rows) {
-	    if (row >= ep->csize - !!need_sentinel)
-		/* TODO grow cache unless EFF_STATIC */
-		return gripe("Too many rows for table %s", ef_nameof(type));
-	    if (row >= ep->cids)
-		/* TODO grow file */
+	if (row >= ep->fids) {
+	    /* TODO grow cache (and posssibly file) unless EFF_STATIC */
+	    if (row < ep->csize - !!need_sentinel)
 		ep->cids = ep->fids = row + 1;
+	    /* else: ef_ptr() will fail */
 	}
 	cur_obj = ef_ptr(type, row);
 	if (!cur_obj)
@@ -708,17 +693,18 @@ xundump1(FILE *fp, int type, struct castr *ca)
 	    return -1;
     }
 
-    if (row != ep->fids) {
-	if (fixed_rows)
+    if (CANT_HAPPEN(row > ep->fids))
+	row = ep->fids;
+    if (row < ep->fids) {
+	if (EF_IS_GAME_STATE(type) && row != ep->csize)
+	    /* TODO truncate file */
+	    gripe("Warning: should resize table %s from %d to %d, not implemented",
+		  ef_nameof(type), ep->csize, row);
+	else if (type >= EF_SHIP_CHR && type <= EF_NUKE_CHR)
+	    ;			/* shrinking these is okay */
+	else
 	    return gripe("Table %s requires %d rows, got %d",
 			 ef_nameof(type), ep->fids, row);
-	else {
-	    ep->cids = ep->fids = row;
-	    if (EF_IS_GAME_STATE(type) && row != ep->csize)
-		/* TODO truncate file */
-		gripe("Warning: should resize table %s from %d to %d, not implemented",
-		      ef_nameof(type), ep->csize, row);
-	}
     }
 
     if (need_sentinel) {
