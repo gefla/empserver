@@ -53,7 +53,7 @@
 static char *fname;
 static int lineno;
 static int human;
-static int cur_type;
+static int cur_type, cur_id;
 static void *cur_obj;
 static int nflds;
 static struct castr **fldca;
@@ -315,6 +315,30 @@ getfld(int fldno, int *idx)
     return fldca[fldno];
 }
 
+static void *
+getobj(struct castr *ca, int altid)
+{
+    struct empfile *ep = &empfile[cur_type];
+    int need_sentinel = !EF_IS_GAME_STATE(cur_type);
+
+    if (!cur_obj) {
+	if (ca->ca_table == cur_type)
+	    cur_id = altid;
+	if (cur_id >= ep->fids) {
+	    /* TODO grow cache (and posssibly file) unless EFF_STATIC */
+	    if (cur_id < ep->csize - !!need_sentinel)
+		ep->cids = ep->fids = cur_id + 1;
+	    /* else: ef_ptr() will fail */
+	}
+	cur_obj = ef_ptr(cur_type, cur_id);
+    	if (!cur_obj)
+	    gripe("Can't put ID %d into table %s, it holds only 0..%d.",
+		  cur_id, ep->name, ep->fids - 1);
+    }
+
+    return cur_obj;
+}
+
 static int
 setnum(int fldno, double dbl)
 {
@@ -327,8 +351,11 @@ setnum(int fldno, double dbl)
     if (!ca)
 	return -1;
 
-    memb_ptr = cur_obj;
+    memb_ptr = getobj(ca, (int)dbl);
+    if (!memb_ptr)
+	return -1;
     memb_ptr += ca->ca_off;
+
     switch (ca->ca_type) {
     case NSC_CHAR:
     case NSC_TYPEID:
@@ -403,8 +430,11 @@ setstr(int fldno, char *str)
     if (!ca)
 	return -1;
 
-    memb_ptr = cur_obj;
+    memb_ptr = getobj(ca, cur_id);
+    if (!memb_ptr)
+	return -1;
     memb_ptr += ca->ca_off;
+
     switch (ca->ca_type) {
     case NSC_STRING:
 	old = ((char **)memb_ptr)[idx];
@@ -571,8 +601,6 @@ xuheader1(FILE *fp, int type, struct castr ca[])
     int *fidx;
     int ch, i, j, n;
 
-    cur_type = type;
-
     if (human) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
@@ -648,6 +676,7 @@ xundump(FILE *fp, char *file, int expected_table)
     fldca = calloc(nflds, sizeof(*fldca));
     fldidx = calloc(nflds, sizeof(*fldidx));
     caflds = calloc(nca, sizeof(*caflds));
+    cur_type = type;
 
     if (xuheader1(fp, type, ca) < 0 || xundump1(fp, type, ca) < 0)
 	type = EF_BAD;
@@ -669,48 +698,40 @@ xundump1(FILE *fp, int type, struct castr *ca)
 {
     struct empfile *ep = &empfile[type];
     int need_sentinel = !EF_IS_GAME_STATE(type);
-    int row, ch;
+    int row, n, ch;
 
-    cur_type = type;
-
+    n = 0;
     for (row = 0;; ++row) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
 	if (ch == '/')
 	    break;
 	ungetc(ch, fp);
-	/* TODO ability to skip records */
-	if (row >= ep->fids) {
-	    /* TODO grow cache (and posssibly file) unless EFF_STATIC */
-	    if (row < ep->csize - !!need_sentinel)
-		ep->cids = ep->fids = row + 1;
-	    /* else: ef_ptr() will fail */
-	}
-	cur_obj = ef_ptr(type, row);
-	if (!cur_obj)
-	    return gripe("Too many rows for table %s", ef_nameof(type));
+	cur_obj = NULL;
+	cur_id = row;
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
+	n = MAX(n, cur_id + 1);
     }
 
-    if (CANT_HAPPEN(row > ep->fids))
-	row = ep->fids;
-    if (row < ep->fids) {
-	if (EF_IS_GAME_STATE(type) && row != ep->csize)
+    if (CANT_HAPPEN(n > ep->fids))
+	n = ep->fids;
+    if (n < ep->fids) {
+	if (EF_IS_GAME_STATE(type) && n != ep->csize)
 	    /* TODO truncate file */
 	    gripe("Warning: should resize table %s from %d to %d, not implemented",
-		  ef_nameof(type), ep->csize, row);
+		  ef_nameof(type), ep->csize, n);
 	else if (type >= EF_SHIP_CHR && type <= EF_NUKE_CHR)
 	    ;			/* shrinking these is okay */
 	else
 	    return gripe("Table %s requires %d rows, got %d",
-			 ef_nameof(type), ep->fids, row);
+			 ef_nameof(type), ep->fids, n);
     }
 
     if (need_sentinel) {
-	if (CANT_HAPPEN(row >= ep->csize))
+	if (CANT_HAPPEN(n >= ep->csize))
 	    return gripe("No space for sentinel");
-	memset(ep->cache + ep->size * row, 0, ep->size);
+	memset(ep->cache + ep->size * n, 0, ep->size);
     }
 
     if (xutrailer(fp, type, row) < 0)
