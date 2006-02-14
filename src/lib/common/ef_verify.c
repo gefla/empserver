@@ -66,9 +66,11 @@ verify_row(int type, int row)
 	do {
 	    if (ca[i].ca_table == EF_BAD)
 		continue;
+	    /* FIXME use xdeval() */
 	    val.val_type = ca[i].ca_type;
 	    val.val_cat = NSC_OFF;
 	    val.val_as.sym.off = ca[i].ca_off;
+	    val.val_as.sym.len = ca[i].ca_len;
 	    val.val_as.sym.idx = j;
 	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
 	    if (val.val_type != NSC_LONG && val.val_type != NSC_TYPEID)
