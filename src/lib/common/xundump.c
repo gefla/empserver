@@ -53,6 +53,7 @@
 static char *fname;
 static int lineno;
 static int human;
+static int ellipsis;
 static int cur_type, cur_id;
 static void *cur_obj;
 static int nflds;
@@ -62,6 +63,8 @@ static int *caflds;
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
+static int defellipsis(int fldno);
+static int chkflds(void);
 static int setnum(int, double);
 static int setstr(int, char *);
 static int xunsymbol1(char *, struct symbol *, struct castr *, int);
@@ -70,6 +73,7 @@ static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
 static struct symbol *get_symtab(struct castr *);
 static int xundump1(FILE *, int, struct castr *);
+static int xundump2(FILE *, int, struct castr *);
 
 static int
 gripe(char *fmt, ...)
@@ -144,10 +148,22 @@ xufldname(FILE *fp, int i)
     case EOF:
 	return gripe("Unexpected EOF");
     case '\n':
-	if (i != nflds)
-	    return gripe("Header fields missing"); /* TODO which? */
+	if (chkflds() < 0)
+	    return -1;
 	lineno++;
 	return 0;
+    case '.':
+	if (getc(fp) != '.' || getc(fp) != '.')
+	    return gripe("Junk in header field %d", i + 1);
+	if (i == 0)
+	    return gripe("... not allowed in field 1");
+	if (defellipsis(i) < 0)
+	    return -1;
+	ch = skipfs(fp);
+	if (ch != EOF && ch != '\n')
+	    return gripe("Junk after ...");
+	ungetc(ch, fp);
+	return 1;
     default:
 	ungetc(ch, fp);
 	if (getid(fp, buf) < 0)
@@ -299,6 +315,46 @@ deffld(int fldno, char *name, int idx)
     fldidx[fldno] = idx;
     caflds[res]++;
     return 1;
+}
+
+static int
+defellipsis(int fldno)
+{
+    struct castr *ca = ef_cadef(cur_type);
+
+    if (ca[0].ca_table != cur_type)
+	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
+    ellipsis = fldno;
+    return 0;
+}
+
+static int
+chkflds(void)
+{
+    struct castr *ca = ef_cadef(cur_type);
+    int i, len, res = 0;
+
+    if (ellipsis) {
+	if (!caflds[0])
+	    return gripe("Header field %s required with ...", ca[0].ca_name);
+	return 0;
+    }
+
+    for (i = 0; ca[i].ca_name; i++) {
+	if (ca[i].ca_flags & NSC_EXTRA)
+	    continue;
+	len = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	if (!len && !caflds[i])
+	    res = gripe("Header field %s missing", ca[i].ca_name);
+	else if (len && caflds[i] == len - 1)
+	    res = gripe("Header field %s(%d) missing",
+			ca[i].ca_name, len - 1);
+	else if (len && caflds[i] < len - 1)
+	    res = gripe("Header fields %s(%d) ... %s(%d) missing",
+			ca[i].ca_name, caflds[i], ca[i].ca_name, len - 1);
+    }
+
+    return res;
 }
 
 static struct castr *
@@ -602,11 +658,16 @@ xuheader1(FILE *fp, int type, struct castr ca[])
     int ch, i, j, n;
 
     if (human) {
+	/* Allow repetition of the index field in continued table: */
+	caflds[0] = 0;
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
 	ungetc(ch, fp);
-	if (xuflds(fp, xufldname) < 0)
+	ellipsis = 0;
+	nflds = xuflds(fp, xufldname);
+	if (nflds < 0)
 	    return -1;
+	nflds -= ellipsis != 0;
     } else {
 	fca = fldca;
 	fidx = fldidx;
@@ -621,6 +682,8 @@ xuheader1(FILE *fp, int type, struct castr ca[])
 		*fidx++ = j;
 	    } while (++j < n);
 	}
+
+	nflds = fidx - fldidx;
     }
 
     return 0;
@@ -653,7 +716,7 @@ int
 xundump(FILE *fp, char *file, int expected_table)
 {
     struct castr *ca;
-    int type, nca, i, ch;
+    int type, nca, nf, i, ch;
 
     if (fname != file) {
         fname = file;
@@ -667,18 +730,18 @@ xundump(FILE *fp, char *file, int expected_table)
     if (CANT_HAPPEN(!ca))
 	return -1;
 
-    nca = nflds = 0;
+    nca = nf = 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
 	if (!(ca[i].ca_flags & NSC_EXTRA))
-	    nflds += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
+	    nf += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
     }
-    fldca = calloc(nflds, sizeof(*fldca));
-    fldidx = calloc(nflds, sizeof(*fldidx));
+    fldca = calloc(nf, sizeof(*fldca));
+    fldidx = calloc(nf, sizeof(*fldidx));
     caflds = calloc(nca, sizeof(*caflds));
     cur_type = type;
 
-    if (xuheader1(fp, type, ca) < 0 || xundump1(fp, type, ca) < 0)
+    if (xundump2(fp, type, ca) < 0)
 	type = EF_BAD;
 
     free(caflds);
@@ -691,6 +754,21 @@ xundump(FILE *fp, char *file, int expected_table)
     ungetc(ch, fp);
 
     return type;
+}
+
+static int
+xundump2(FILE *fp, int type, struct castr *ca)
+{
+    for (;;) {
+	if (xuheader1(fp, type, ca) < 0)
+	    return -1;
+	if (xundump1(fp, type, ca) < 0)
+	    return -1;
+	if (!ellipsis)
+	    return 0;
+	if (xuheader(fp, type) < 0)
+	    return -1;
+    }
 }
 
 static int
