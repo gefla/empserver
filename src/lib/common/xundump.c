@@ -53,7 +53,7 @@
 static char *fname;
 static int lineno;
 static int human;
-static int ellipsis;
+static int ellipsis, need_uid;
 static int cur_type, cur_id;
 static void *cur_obj;
 static int nflds;
@@ -325,6 +325,7 @@ defellipsis(int fldno)
     if (ca[0].ca_table != cur_type)
 	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
     ellipsis = fldno;
+    need_uid = 1;
     return 0;
 }
 
@@ -334,7 +335,7 @@ chkflds(void)
     struct castr *ca = ef_cadef(cur_type);
     int i, len, res = 0;
 
-    if (ellipsis) {
+    if (need_uid) {
 	if (!caflds[0])
 	    return gripe("Header field %s required with ...", ca[0].ca_name);
 	return 0;
@@ -759,6 +760,8 @@ xundump(FILE *fp, char *file, int expected_table)
 static int
 xundump2(FILE *fp, int type, struct castr *ca)
 {
+    need_uid = 0;
+
     for (;;) {
 	if (xuheader1(fp, type, ca) < 0)
 	    return -1;
