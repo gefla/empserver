@@ -204,7 +204,7 @@ buil(void)
 		    tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
 			  (int)(rlev / drnuke_const));
 		pr("You can't build that!\n");
-		pr("Use `show nuke build %d' to show types you can build.\n", tlev);
+		pr("Use `show nuke build %d' to show types you can build.\n", tt);
 		return RET_FAIL;
 	    }
 	    break;
