@@ -42,7 +42,6 @@ int opt_BLITZ = 1;
 int opt_BRIDGETOWERS = 1;
 int opt_DEFENSE_INFRA = 0;
 int opt_DEMANDUPDATE = 1;
-int opt_DRNUKE = 0;
 int opt_EASY_BRIDGES = 1;
 int opt_FALLOUT = 1;
 int opt_FUEL = 0;

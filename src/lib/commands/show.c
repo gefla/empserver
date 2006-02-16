@@ -90,7 +90,7 @@ show(void)
 	    show_news(99999);
 	    return RET_OK;
 	}
-	if (opt_DRNUKE)
+	if (drnuke_const > MIN_DRNUKE_CONST)
 	    tlev = ((rlev / drnuke_const) > tlev ? tlev :
 		    (rlev / drnuke_const));
 	bfunc = show_nuke_build;

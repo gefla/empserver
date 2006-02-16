@@ -11,6 +11,10 @@ also used to build bridges.
 To build stuff, you generally need available work, raw materials
 (e.g. light and heavy construction materials, oil, radioactive
 materials), cash, and technology, depending on the thing being built.
+For nukes, you may also need research, depending on game
+configuration.
+Try commands \*Qversion\*U and \*Qshow\*U to learn
+how your game is configured.
 .s1
 A sector's available work is work not used up by the update (building
 efficiency, working on things, etc).  It is shown in the output of the
@@ -117,11 +121,6 @@ NUCLEAR PLANT SECTORS & BUILDING NUKES
 Nuclear devices are built in nuclear plants.  All of the materials
 listed by \*Qshow\*U must be available at the time of building.  New nukes
 appear fully operational.
-.s1
-Note: If the DRNUKE option is enabled, you will need a certain amount
-of research to make nukes. At the present time, it is 1/3 the amount of 
-tech needed to make the nuke. See the \*Qshow\*U command, which lists 
-this if applicable.
 .s1
 BUILDING BRIDGES
 .s1

@@ -173,10 +173,11 @@ show_nuke_build(int tlev)
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	if (np->n_tech > tlev)
 	    continue;
-	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3d $%6d\n",
+	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3.0f $%6d\n",
 	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
 	   np->n_rad, avail, np->n_tech,
-	   opt_DRNUKE ? (int)(np->n_tech * drnuke_const) + 1 : 0,
+	   drnuke_const > MIN_DRNUKE_CONST ?
+	   	(np->n_tech * drnuke_const) + 1.0 : 0.0,
 	   np->n_cost);
     }
 }
@@ -193,10 +194,11 @@ show_nuke_capab(int tlev)
     for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
 	    continue;
-	pr("%-13.13s %4d %3d %3d %4d %3d $%7d ",
+	pr("%-13.13s %4d %3d %3d %4d %3.0f $%7d ",
 	   np->n_name, np->n_blast, np->n_dam,
 	   np->n_weight, np->n_tech,
-	   opt_DRNUKE ? (int)(np->n_tech * drnuke_const) + 1 : 0,
+	   drnuke_const > MIN_DRNUKE_CONST ?
+	   	(np->n_tech * drnuke_const) + 1.0 : 0.0,
 	   np->n_cost);
 	for (i = j = 0; i < 32; i++) {
 	    if (!(np->n_flags & bit(i)))

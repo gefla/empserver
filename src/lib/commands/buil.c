@@ -195,12 +195,13 @@ buil(void)
 		np = &nchr[type];
 		rqtech = np->n_tech;
 		if (rqtech > tlev
-		    || (opt_DRNUKE && np->n_tech * drnuke_const > rlev))
+		    || (drnuke_const > MIN_DRNUKE_CONST &&
+			np->n_tech * drnuke_const > rlev))
 		    type = -1;
 	    }
 	    if (type < 0) {
 		int tt = tlev;
-		if (opt_DRNUKE)
+		if (drnuke_const > MIN_DRNUKE_CONST)
 		    tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
 			  (int)(rlev / drnuke_const));
 		pr("You can't build that!\n");

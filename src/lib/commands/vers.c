@@ -173,7 +173,7 @@ vers(void)
 
     if (!ef_nelem(EF_NUKE_CHR))
 	pr("Nukes are disabled.\n");
-    else if (opt_DRNUKE) {	/* NUKES && DRNUKE enabled */
+    else if (drnuke_const > MIN_DRNUKE_CONST) {
 	pr("In order to build a nuke, you need %1.2f times the tech level in research\n", drnuke_const);
 	pr("\tExample: In order to build a 300 tech nuke, you need %d research\n\n", (int)(300.0 * drnuke_const));
     }

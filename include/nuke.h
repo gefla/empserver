@@ -35,6 +35,7 @@
 #define NUKE_H
 
 #define	N_MAXNUKE	20
+#define	MIN_DRNUKE_CONST	0.001
 
 struct nukstr {
     /* initial part must match struct genitem */

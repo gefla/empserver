@@ -242,7 +242,7 @@ xdvisible(int type, void *p)
 	return player->god || tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
     case EF_NUKE_CHR:
 	tlev = ((struct nchrstr *)p)->n_tech;
-	if (opt_DRNUKE) {
+	if (drnuke_const > MIN_DRNUKE_CONST) {
 	    natp = getnatp(player->cnum);
 	    if (tlev > (int)((int)(1.25 * natp->nat_level[NAT_RLEV])
 			     / drnuke_const))

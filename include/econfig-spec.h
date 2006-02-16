@@ -133,8 +133,6 @@ EMPCF_OPT("DEFENSE_INFRA", opt_DEFENSE_INFRA,
     "Allow the improvement of defensive infrastructure")
 EMPCF_OPT("DEMANDUPDATE", opt_DEMANDUPDATE,
     "Allow demand updates")
-EMPCF_OPT("DRNUKE", opt_DRNUKE,
-    "Require research for nuke building")
 EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
     "Allow bridge building without bridge heads")
 EMPCF_OPT("FALLOUT", opt_FALLOUT,
@@ -344,7 +342,7 @@ EMPCFBOTH("decay_per_etu", decay_per_etu, double, NSC_DOUBLE, 0,
 EMPCFBOTH("fallout_spread", fallout_spread, double, NSC_DOUBLE, 0,
     "Amount of fallout that leaks into surrounding sectors")
 EMPCFBOTH("drnuke_const", drnuke_const, float, NSC_FLOAT, 0,
-    "Amount of research to tech needed to build a nuke (if DRNUKE is on)")
+    "Amount of research to tech needed to build a nuke, a common value is 0.33")
 
 EMPCF_COMMENT("\n\n### Market/Trade")
 EMPCFBOTH("MARK_DELAY", MARK_DELAY, int, NSC_INT, 0,
