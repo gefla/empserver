@@ -141,8 +141,10 @@ vers(void)
        MIN((int)(ship_grow_scale * (float)etu_per_update), 100),
        MIN((int)(plane_grow_scale * (float)etu_per_update), 100),
        MIN((int)(land_grow_scale * (float)etu_per_update), 100));
-    pr("Maintenance cost per update\t--\t%0.2f%%\t%0.2f%%\t%0.2f%%\n",
-       money_ship * -100.0, money_plane * -100.0, money_land * -100.0);
+    pr("Maintenance cost per update\t--\t%0.1f%%\t%0.1f%%\t%0.1f%%\n",
+       money_ship * -100.0 * etu_per_update,
+       money_plane * -100.0 * etu_per_update,
+       money_land * -100.0 * etu_per_update);
     pr("Max interdiction range\t\t%d\t%d\t--\t%d\n",
        fort_max_interdiction_range,
        ship_max_interdiction_range,
@@ -183,13 +185,13 @@ vers(void)
     pr("Torpedo damage is 2d%d+%d.\n", torpedo_damage, torpedo_damage - 2);
     pr("The attack factor for para & assault troops is %0.2f.\n",
        assault_penalty);
-    pr("The amount of fallout that leaks into each surrounding sector is %0.2f%%.\n",
-       fallout_spread * 100.0);
+    pr("%0.f%% of fallout leaks into each surrounding sector.\n",
+       fallout_spread * 100.0 * MIN(24, etu_per_update));
     pr("Fallout decays by %.0f%% per update\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
     pr("\n");
     pr ("Initial Damage\t\t\tCollateral Damage\n");
-    pr("\t\tSector\tPeople\tMater.\tEffic.\tShips\tPlanes\tLand Units\n");
+    pr("\t      Sector  People  Mater.  Effic.   Ships  Planes  LandU.\n");
     pr("Sector\t\t --\t%3.0f%%\t100%%\t100%%\t  0%%\t%3.0f%%\t%3.0f%%\n",
        people_damage * 100.0, unit_damage / 0.07, unit_damage * 100.0);
     pr("People\t\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
