@@ -77,6 +77,13 @@ ef_init_srv(void)
 	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
+
+    for (i = 0; nat_ca[i].ca_name; i++) {
+	cou_ca[i] = nat_ca[i];
+	cou_ca[i].ca_flags |= NSC_CONST | (i < 3 ? 0 : NSC_DEITY);
+    }
+    cou_ca[i] = nat_ca[i];
+
     ef_open_srv();
     if (ef_verify() < 0)
 	exit(EXIT_FAILURE);

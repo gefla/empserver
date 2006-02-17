@@ -494,6 +494,11 @@ struct castr trade_ca[] = {
 };
 
 struct castr nat_ca[] = {
+    /*
+     * Keep selectors cnum, stat and cname at the beginning.
+     * ef_init_srv() makes their copies in cou_ca[] accessible for
+     * mortals.
+     */
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
     {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
      EF_NATION_STATUS},
@@ -535,13 +540,8 @@ struct castr nat_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct castr cou_ca[] = {
-    {NSC_NATID, NSC_CONST, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_SITYPE(nat_status), NSC_CONST, 0, fldoff(natstr, nat_stat), "stat",
-     EF_NATION_STATUS},
-    {NSC_STRINGY, NSC_CONST, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
-    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
-};
+struct castr cou_ca[sizeof(nat_ca) / sizeof(*nat_ca)];
+/* initialized in ef_init_srv() */
 
 struct castr realm_ca[] = {
     /* uid is encoded in cnum, realm */
