@@ -454,7 +454,7 @@ struct castr news_ca[] = {
 struct castr lost_ca[] = {
     /* no need for uid as long as it's not referenced from other tables */
     {NSC_NATID, 0, 0, fldoff(loststr, lost_owner), "owner", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type", EF_BAD},
+    {NSC_CHAR, 0, 0, fldoff(loststr, lost_type), "type", EF_TABLE},
     {NSC_SHORT, 0, 0, fldoff(loststr, lost_id), "id", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(loststr, lost_x), "x", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(loststr, lost_y), "y", EF_BAD},
@@ -482,7 +482,7 @@ struct castr commodity_ca[] = {
 struct castr trade_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(trdstr, trd_uid), "uid", EF_TRADE},
     {NSC_NATID, 0, 0, fldoff(trdstr, trd_owner), "owner", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(trdstr, trd_type), "type", EF_BAD},
+    {NSC_CHAR, 0, 0, fldoff(trdstr, trd_type), "type", EF_TABLE},
     {NSC_SHORT, 0, 0, fldoff(trdstr, trd_unitid), "unitid", EF_BAD},
     {NSC_LONG, 0, 0, fldoff(trdstr, trd_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder", EF_NATION},
