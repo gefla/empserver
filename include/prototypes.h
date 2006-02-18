@@ -283,8 +283,8 @@ extern int check_plane_ok(struct plnstr *);
 extern int check_comm_ok(struct comstr *);
 extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
-/* ef_load.c */
-/* in file.h */
+/* conftab.c */
+extern int read_config_tables(void);
 /* ef_verify.c */
 /* in file.h */
 /* fsize.c */

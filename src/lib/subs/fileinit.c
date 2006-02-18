@@ -59,18 +59,12 @@ static void ef_fina_view(int);
 
 /*
  * Initialize empfile for full server operations.
- * Like ef_init(), but additionally installs the server's callbacks.
- * This is separate from ef_init(), so that utility programs like
- * files can use empfile.
+ * ef_init() must be called first.
  */
 void
 ef_init_srv(void)
 {
     unsigned i;
-
-    ef_init();
-    if (ef_load() < 0)
-	exit(EXIT_FAILURE);
 
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
 	empfile[fileinit[i].ef_type].init = fileinit[i].init;

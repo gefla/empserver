@@ -67,6 +67,8 @@ EMPCFBOTH((fvname), (vname), int, NSC_INT, KM_OPTION, (descr))
 /* econfig key definitions: */
 
 EMPCF_COMMENT("\n### Server configuration and information")
+EMPCFBOTH("config_tables", config_tables, char *, NSC_STRING, KM_INTERNAL,
+    "Configuration table files, separated by space, relative to econfig's directory")
 EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,

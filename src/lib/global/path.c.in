@@ -43,6 +43,9 @@ char dflt_econfig[] = "@econfig@";
 /* Where to find configuration, which is wherever econfig is looked for */
 char *configdir;
 
+/* User configuration tables to load, relative to configdir */
+char *config_tables = "";
+
 /* Where to find info pages */
 char *infodir	= "@einfodir@";
 
