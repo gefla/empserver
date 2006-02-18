@@ -180,7 +180,7 @@ print_config(FILE *fp)
     fprintf(fp, "# Empire Configuration File:\n");
     for (kp = configkeys; kp->km_key; kp++) {
 	if (kp->km_comment) {
-	    if (kp->km_comment[0] != '\n')
+	    if (kp->km_comment[0] != '\n' && kp->km_comment[0] != '#')
 		fprintf(fp, "\n# ");
 	    fprintf(fp, "%s\n", kp->km_comment);
 	}
