@@ -37,7 +37,6 @@
 
 #include "nsc.h"
 
-/* Default econfig file */
 extern char dflt_econfig[];
 
 /* Game parameters, can be set in econfig */
@@ -45,7 +44,8 @@ extern char dflt_econfig[];
 #include "econfig-spec.h"
 #undef	EMP_CONFIG_H_OUTPUT
 
-/* Variables that get values derived from econfig */
+extern char *configdir;
+
 extern char *motdfil;
 extern char *downfil;
 extern char *disablefil;

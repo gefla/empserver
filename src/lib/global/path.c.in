@@ -37,8 +37,16 @@
 
 #include "optlist.h"
 
+/* econfig file to try when user doesn't specify one */
 char dflt_econfig[] = "@econfig@";
+
+/* Where to find configuration, which is wherever econfig is looked for */
+char *configdir;
+
+/* Where to find info pages */
 char *infodir	= "@einfodir@";
+
+/* Where this game's data is stored */
 char *gamedir	= "@gamedir@";
 
 /* relative to DATADIR */

@@ -78,6 +78,7 @@ emp_config(char *file)
     char scanspace[1024];
     char *av[128];
     char buf[1024];
+    char *slash;
     struct keymatch *kp;
     int lno = 0;
     int errors = 0;
@@ -93,6 +94,11 @@ emp_config(char *file)
 		file, strerror(errno));
 	return -1;
     }
+
+    if ((slash = strrchr(file, '/')))
+	configdir = strndup(file, slash + 1 - file);
+    else
+	configdir = NULL;
 
     while (fgets(buf, sizeof buf, fp) != NULL) {
 	++lno;
