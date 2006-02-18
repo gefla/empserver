@@ -435,8 +435,8 @@ allocate_memory(void)
     int i;
     char *fname;
 
-    fname = malloc(strlen(datadir) + 1 + strlen(empfile[EF_SECTOR].file) + 1);
-    sprintf(fname, "%s/%s", datadir, empfile[EF_SECTOR].file);
+    fname = malloc(strlen(gamedir) + 1 + strlen(empfile[EF_SECTOR].file) + 1);
+    sprintf(fname, "%s/%s", gamedir, empfile[EF_SECTOR].file);
     sect_fptr = fopen(fname, "wb");
     if (sect_fptr == NULL) {
 	perror(fname);

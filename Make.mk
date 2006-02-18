@@ -65,7 +65,7 @@ scripts = $(srcdir)/src/scripts
 depcomp = $(SHELL) $(srcdir)/depcomp
 tarball = $(SHELL) $(scripts)/tarball
 econfig := $(sysconfdir)/empire/econfig
-edatadir := $(localstatedir)/empire
+gamedir := $(localstatedir)/empire
 einfodir := $(datadir)/empire/info.nr
 ehtmldir := $(datadir)/empire/info.html
 
@@ -74,7 +74,7 @@ ehtmldir := $(datadir)/empire/info.html
 subst.in = sed \
 	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
 	-e 's?@econfig\@?$(econfig)?g'		\
-	-e 's?@edatadir\@?$(edatadir)?g'	\
+	-e 's?@gamedir\@?$(gamedir)?g'	\
 	-e 's?@einfodir\@?$(einfodir)?g'	\
 	-e 's/@EMPIREHOST\@/$(EMPIREHOST)/g'	\
 	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
@@ -186,7 +186,7 @@ install: all installdirs
 
 .PHONY: installdirs
 installdirs:
-	mkdir -p $(bindir) $(sbindir) $(edatadir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig))
+	mkdir -p $(bindir) $(sbindir) $(gamedir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig))
 
 .PHONY: install-html
 install-html: html | $(ehtmldir)

@@ -39,7 +39,7 @@
 
 char dflt_econfig[] = "@econfig@";
 char *infodir	= "@einfodir@";
-char *datadir	= "@edatadir@";
+char *gamedir	= "@gamedir@";
 
 /* relative to DATADIR */
 char *teldir	= "tel";

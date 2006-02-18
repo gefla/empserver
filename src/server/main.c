@@ -202,8 +202,8 @@ main(int argc, char **argv)
 
     if (emp_config(config_file) < 0)
 	exit(EXIT_FAILURE);
-    if (chdir(datadir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+    if (chdir(gamedir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
 

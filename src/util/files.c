@@ -119,19 +119,19 @@ main(int argc, char *argv[])
 
     ef_init();
 
-    if (access(datadir, F_OK) < 0 && mkdir(datadir, 0750) < 0) {
-	perror(datadir);
+    if (access(gamedir, F_OK) < 0 && mkdir(gamedir, 0750) < 0) {
+	perror(gamedir);
 	printf("Can't make game directory\n");
 	exit(1);
     }
-    if (chdir(datadir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", datadir, strerror(errno));
+    if (chdir(gamedir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
 
     if (!force) {
     	printf("WARNING: this blasts the existing game in %s (if any)\n",
-	   datadir);
+	       gamedir);
     	printf("continue? ");
     	fgets(buf, sizeof(buf), stdin);
     	if (*buf != 'y' && *buf != 'Y')
@@ -188,7 +188,7 @@ main(int argc, char *argv[])
     close(creat(timestampfil, 0600));
     close(creat(annfil, 0600));
     chmod(infodir, 0750);
-    chmod(datadir, 0770);
+    chmod(gamedir, 0770);
     chmod(teldir, 0770);
 
     /* create a zero-filled sector file */
