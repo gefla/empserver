@@ -95,9 +95,11 @@ emp_config(char *file)
 	return -1;
     }
 
-    if ((slash = strrchr(file, '/')))
-	configdir = strndup(file, slash + 1 - file);
-    else
+    if ((slash = strrchr(file, '/'))) {
+	configdir = malloc(slash - file + 1);
+	memcpy(configdir, file, slash - file);
+	configdir[slash - file] = 0;
+    } else
 	configdir = NULL;
 
     while (fgets(buf, sizeof buf, fp) != NULL) {
