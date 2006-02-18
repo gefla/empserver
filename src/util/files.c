@@ -119,7 +119,7 @@ main(int argc, char *argv[])
 
     ef_init();
 
-    if (access(gamedir, F_OK) < 0 && mkdir(gamedir, 0750) < 0) {
+    if (mkdir(gamedir, 0750) < 0 && errno != EEXIST) {
 	perror(gamedir);
 	printf("Can't make game directory\n");
 	exit(1);
@@ -175,7 +175,7 @@ main(int argc, char *argv[])
 	    putrealm(&realm);
 	}
     }
-    if (access(teldir, F_OK) < 0 && mkdir(teldir, 0750) < 0) {
+    if (mkdir(teldir, 0750) < 0 && errno != EEXIST) {
 	perror(teldir);
 	printf("Can't make telegram directory\n");
 	exit(1);
