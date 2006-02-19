@@ -669,7 +669,7 @@ xuheader(FILE *fp, int expected_table)
 
     if (!ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
 	CANT_HAPPEN(expected_table != EF_BAD);
-	return gripe("Undumping of table `%s' not implemented", name);
+	return gripe("Table `%s' is not permitted here", name);
     }
 
     if (skipfs(fp) != '\n')
@@ -834,7 +834,7 @@ xundump1(FILE *fp, int type, struct castr *ca)
 	    gripe("Warning: should resize table %s from %d to %d, not implemented",
 		  ef_nameof(type), ep->csize, n);
 	else if (type >= EF_SHIP_CHR && type <= EF_NUKE_CHR)
-	    ;			/* shrinking these is okay */
+	    ep->cids = ep->fids = n;
 	else
 	    return gripe("Table %s requires %d rows, got %d",
 			 ef_nameof(type), ep->fids, n);
