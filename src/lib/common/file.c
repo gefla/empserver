@@ -523,16 +523,6 @@ ef_fix_size(struct empfile *ep, int n)
     ep->csize = n + 1;
 }
 
-static void
-ef_init_chr(int type, size_t size, ptrdiff_t name_offs)
-{
-    struct empfile *ep = &empfile[type];
-    char *p;
-
-    for (p = ep->cache; *((char **)(p + name_offs)); p += size) ;
-    ep->cids = ep->fids = (p - ep->cache) / size;
-}
-
 /*
  * Initialize Empire tables.
  * Must be called once, before using anything else from this module.
@@ -546,15 +536,6 @@ ef_init(void)
     int i;
 
     empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
-
-    ef_init_chr(EF_SHIP_CHR,
-		sizeof(struct mchrstr), offsetof(struct mchrstr, m_name));
-    ef_init_chr(EF_PLANE_CHR,
-		sizeof(struct plchrstr), offsetof(struct plchrstr, pl_name));
-    ef_init_chr(EF_LAND_CHR,
-		sizeof(struct lchrstr), offsetof(struct lchrstr, l_name));
-    ef_init_chr(EF_NUKE_CHR,
-		sizeof(struct nchrstr), offsetof(struct nchrstr, n_name));
 
     ca = (struct castr *)empfile[EF_META].cache;
     for (i = 0; ca[i].ca_name; i++) ;
