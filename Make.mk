@@ -170,7 +170,7 @@ distclean: clean
 install: all installdirs
 	$(INSTALL_PROGRAM) $(util) $(server) $(sbindir)
 	$(INSTALL_PROGRAM) $(client) $(bindir)
-	$(INSTALL) -m 444 $(builtins) $(builtindir)
+	$(INSTALL) -m 444 $(addprefix $(srcdir)/, $(builtins)) $(builtindir)
 	$(INSTALL_DATA) $(info.nr) $(einfodir)
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man1)) $(mandir)/man1
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
