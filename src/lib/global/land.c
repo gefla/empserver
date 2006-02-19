@@ -42,4 +42,4 @@
  * Table of land unit types
  * Initialized on startup from land.config and deity custom config (if any).
  */
-struct lchrstr lchr[];
+struct lchrstr lchr[N_MAXLAND + 1];

@@ -40,4 +40,4 @@
  * Table of nuke types
  * Initialized on startup from nuke.config and deity custom config (if any).
  */
-struct nchrstr nchr[];
+struct nchrstr nchr[N_MAXNUKE + 1];

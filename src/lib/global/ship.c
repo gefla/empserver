@@ -44,4 +44,4 @@
  * Table of ship types
  * Initialized on startup from ship.config and deity custom config (if any).
  */
-struct mchrstr mchr[];
+struct mchrstr mchr[N_MAXSHIPS + 1];
