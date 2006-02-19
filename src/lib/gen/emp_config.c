@@ -65,6 +65,7 @@ struct keymatch configkeys[] = {
 };
 
 static struct keymatch *keylookup(s_char *key, struct keymatch tbl[]);
+static void set_dirs(char *);
 
 /*
  * read in empire configuration
@@ -76,7 +77,6 @@ emp_config(char *file)
     char scanspace[1024];
     char *av[128];
     char buf[1024];
-    char *slash;
     struct keymatch *kp;
     int lno = 0;
     int errors = 0;
@@ -92,13 +92,6 @@ emp_config(char *file)
 		file, strerror(errno));
 	return -1;
     }
-
-    if ((slash = strrchr(file, '/'))) {
-	configdir = malloc(slash - file + 1);
-	memcpy(configdir, file, slash - file);
-	configdir[slash - file] = 0;
-    } else
-	configdir = NULL;
 
     while (fgets(buf, sizeof buf, fp) != NULL) {
 	++lno;
@@ -151,8 +144,11 @@ emp_config(char *file)
 	    errors = 1;
 	}
     }
+
     fclose(fp);
-    WORLD_X &= ~1;		/* make even */
+
+    WORLD_X &= ~1;		/* force even */
+    set_dirs(file);
 
     return -errors;
 }
@@ -170,6 +166,31 @@ keylookup(register s_char *command, struct keymatch *tbl)
 	    return kp;
     }
     return NULL;
+}
+
+static void
+set_dirs(char *econfig)
+{
+    char *slash;
+    char *cwd = getcwd(NULL, 0);
+
+    if ((slash = strrchr(econfig, '/'))) {
+	configdir = malloc(slash - econfig + 1);
+	memcpy(configdir, econfig, slash - econfig);
+	configdir[slash - econfig] = 0;
+    } else
+	configdir = strdup(cwd);
+
+    if (configdir[0] != '/') {
+	char *tmp = configdir;
+	size_t len = strlen(cwd);
+
+	configdir = malloc(len + 1 + strlen(tmp) + 1);
+	sprintf(configdir, "%s/%s", cwd, tmp);
+	free(tmp);
+    }
+
+    free(cwd);
 }
 
 void
