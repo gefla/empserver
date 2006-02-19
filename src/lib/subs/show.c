@@ -488,7 +488,7 @@ show_land_stats(int tlev)
 	   (int)LND_FC(lcp->l_fuelc, ourtlev),
 	   (int)LND_FU(lcp->l_fuelu, ourtlev),
 	   (int)LND_XPL(lcp->l_nxlight, ourtlev),
-	   (int)LND_MXL(lcp->l_mxland, ourtlev));
+	   (int)LND_MXL(lcp->l_nland, ourtlev));
 
 	pr("\n");
     }

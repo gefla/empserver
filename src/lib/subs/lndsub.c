@@ -1444,5 +1444,5 @@ lnd_set_tech(struct lndstr *lp, int tlev)
     lp->lnd_fuelc = (int)LND_FC(lcp->l_fuelc, tech_diff);
     lp->lnd_fuelu = (int)LND_FU(lcp->l_fuelu, tech_diff);
     lp->lnd_maxlight = (int)LND_XPL(lcp->l_nxlight, tech_diff);
-    lp->lnd_maxland = (int)LND_MXL(lcp->l_mxland, tech_diff);
+    lp->lnd_maxland = (int)LND_MXL(lcp->l_nland, tech_diff);
 }

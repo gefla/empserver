@@ -375,7 +375,7 @@ struct castr lchr_ca[] = {
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelc), "fuelc", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_fuelu), "fuelu", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nxlight), "nxlight", EF_BAD},
-    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_mxland), "mxland", EF_BAD},
+    {NSC_UCHAR, 0, 0, offsetof(struct lchrstr, l_nland), "nland", EF_BAD},
     {NSC_LONG, NSC_BITS, 0, offsetof(struct lchrstr, l_flags), "flags",
      EF_LAND_CHR_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
