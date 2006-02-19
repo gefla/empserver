@@ -198,7 +198,13 @@ install-html: html | $(ehtmldir)
 
 .PHONY: uninstall
 uninstall:
-	false # FIXME
+	rm -f $(addprefix $(sbindir)/, $(notdir $(util) $(server)))
+	rm -f $(addprefix $(bindir)/, $(notdir $(client)))
+	rm -rf $(builtindir) $(einfodir)
+	rm -f $(addprefix $(mandir)/man1/, $(notdir $(man1)))
+	rm -f $(addprefix $(mandir)/man6/, $(notdir $(man6)))
+	@[ -e $(gamedir) ] && echo "$(gamedir) not removed, you may wish to remove it manually."
+	@[ -e $(econfig) ] && echo "$(econfig) not removed, you may wish to remove it manually."
 
 .PHONY: dist
 dist: dist-source dist-client dist-info
