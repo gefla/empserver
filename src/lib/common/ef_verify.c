@@ -33,12 +33,33 @@
 
 #include <config.h>
 
+#include <stdarg.h>
 #include <stdio.h>
-#include <time.h>
 
 #include "prototypes.h"
 #include "file.h"
 #include "nsc.h"
+
+static void verify_fail(int, int, struct castr *, char *, ...)
+    ATTRIBUTE((format (printf, 4, 5)));
+
+static void
+verify_fail(int type, int row, struct castr *ca, char *fmt, ...)
+{
+    int i;
+    va_list ap;
+
+    /* Find base table of view, if any */
+    for (i = 0; empfile[i].cache == empfile[type].cache; i++) ;
+
+    fprintf(stderr, "%s %s uid %d field %s: ",
+	    EF_IS_GAME_STATE(i) ? "File" : "Config",
+	    ef_nameof(type), row, ca->ca_name);
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
+    putc('\n', stderr);
+}
 
 static int
 verify_row(int type, int row)
@@ -84,22 +105,20 @@ verify_row(int type, int row)
 		}
 		for (k = 0; k < (int)sizeof(long) * 8; k++) {
 		    if (val.val_as.lng & (1L << k))
-			if (!symbol_by_value(1L << k, ef_ptr(ca[i].ca_table, 0))) {
-			    fprintf(stderr,
-				    "bit %d not found in symbol table %s "
-				    "when verify table %s row %d field %s\n",
-				    k, ef_nameof(ca[i].ca_table),
-				    ef_nameof(type), row + 1, ca[i].ca_name);
+			if (!symbol_by_value(1L << k,
+					     ef_ptr(ca[i].ca_table, 0))) {
+			    verify_fail(type, row, &ca[i],
+					"bit %d is not in symbol table %s",
+					k, ef_nameof(ca[i].ca_table));
 			    ret_val = -1;
 			}
 		}
 	    } else if (ca[i].ca_table == type && i == 0) {
 		/* uid */
 		if (val.val_as.lng != row) {
-		    fprintf(stderr,
-			    "table %s row %d field %s is %ld instead of %d\n",
-			    ef_nameof(type), row + 1, ca[i].ca_name,
-			    val.val_as.lng, row);
+		    verify_fail(type, row, &ca[i],
+				"value is %ld instead of %d",
+				val.val_as.lng, row);
 		    ret_val = -1;
 		}
 
@@ -107,25 +126,19 @@ verify_row(int type, int row)
 		/* symbol */
 		if (!symbol_by_value(val.val_as.lng,
 				     ef_ptr(ca[i].ca_table, 0))) {
-		    fprintf(stderr, "value %ld not found in "
-			    "symbol table %s when verify table %s "
-			    "row %d field %s\n",
-			    val.val_as.lng,
-			    ef_nameof(ca[i].ca_table),
-			    ef_nameof(type), row + 1,
-			    ca[i].ca_name);
+		    verify_fail(type, row, &ca[i],
+				"value %ld is not in symbol table %s",
+				val.val_as.lng, ef_nameof(ca[i].ca_table));
 		    ret_val = -1;
 		}
 	    } else {
 		/* table index */
 		if (val.val_as.lng >= ef_nelem(ca[i].ca_table)
 		    || val.val_as.lng < -1) {
-		    fprintf(stderr, "Table index %ld to table %s "
-			    "out of range, nelements %d for table %s "
-			    "row %d field %s\n",
-			    val.val_as.lng, ef_nameof(ca[i].ca_table),
-			    ef_nelem(ca[i].ca_table), ef_nameof(type), 
-			    row + 1, ca[i].ca_name);
+		    verify_fail(type, row, &ca[i],
+			"value %ld indexes table %s out of bounds 0..%d",
+			val.val_as.lng, ef_nameof(ca[i].ca_table),
+			ef_nelem(ca[i].ca_table));
 		    ret_val = -1;
 		}
 	    }
