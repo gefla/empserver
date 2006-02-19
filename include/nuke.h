@@ -64,6 +64,7 @@ struct nchrstr {
     int n_tech;			/* tech needed to build */
     int n_weight;
     int n_flags;		/* description of capability */
+    signed char n_type;		/* index in nchr[] */
 };
 
 #define	N_NEUT	bit(0)		/* Neutron bomb (low damage, high fallout) */

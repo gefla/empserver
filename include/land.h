@@ -124,6 +124,7 @@ struct lchrstr {
     u_char l_fuelu;		/* fuel used per 10 mob */
     u_char l_nxlight;		/* maximum number of xlight planes */
     u_char l_nland;		/* maximum number of units */
+    signed char l_type;		/* index in lchr[] */
     long l_flags;		/* what special things can this unit do */
 };
 

@@ -149,6 +149,7 @@ struct mchrstr {
     long m_flags;		/* what special things can this ship do */
     u_char m_nplanes;		/* maximum number of planes this ship holds */
     u_char m_nland;		/* maximum number of units this ship holds */
+    signed char m_type;		/* index in mchr[] */
 };
 
 #define M_FOOD		bit(0)	/* catch that fish! */

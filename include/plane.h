@@ -99,6 +99,7 @@ struct plchrstr {
     int pl_fuel;		/* fuel consumption */
     int pl_stealth;		/* how stealthy is it? */
     int pl_flags;		/* description of capability */
+    signed char pl_type;	/* index in plchr[] */
 };
 
 #define P_B	bit(0)		/* bombing factor only for bombing */

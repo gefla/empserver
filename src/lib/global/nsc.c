@@ -246,7 +246,7 @@ struct castr ship_ca[] = {
 };
 
 struct castr mchr_ca[] = {
-    /* FIXME uid */
+    {NSC_CHAR, 0, 0, offsetof(struct mchrstr, m_type), "type", EF_SHIP_CHR},
     {NSC_STRING, 0, 0, offsetof(struct mchrstr, m_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct mchrstr, m_item), ""),
     {NSC_INT, 0, 0, offsetof(struct mchrstr, m_lcm), "l_build", EF_BAD},
@@ -291,7 +291,7 @@ struct castr plane_ca[] = {
 };
 
 struct castr plchr_ca[] = {
-    /* FIXME uid */
+    {NSC_CHAR, 0, 0, offsetof(struct plchrstr, pl_type), "type", EF_PLANE_CHR},
     {NSC_STRING, 0, 0, offsetof(struct plchrstr, pl_name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_lcm), "l_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct plchrstr, pl_hcm), "h_build", EF_BAD},
@@ -351,7 +351,7 @@ struct castr land_ca[] = {
 };
 
 struct castr lchr_ca[] = {
-    /* FIXME uid */
+    {NSC_CHAR, 0, 0, offsetof(struct lchrstr, l_type), "type", EF_LAND_CHR},
     {NSC_STRING, 0, 0, offsetof(struct lchrstr, l_name), "name", EF_BAD},
     NSC_IVEC(offsetof(struct lchrstr, l_item), ""),
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "l_build", EF_BAD},
@@ -394,7 +394,7 @@ struct castr nuke_ca[] = {
 };
 
 struct castr nchr_ca[] = {
-    /* FIXME uid */
+    {NSC_CHAR, 0, 0, offsetof(struct nchrstr, n_type), "type", EF_NUKE_CHR},
     {NSC_STRING, 0, 0, offsetof(struct nchrstr, n_name), "name", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_lcm), "l_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct nchrstr, n_hcm), "h_build", EF_BAD},
