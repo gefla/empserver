@@ -73,6 +73,10 @@ EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where info pages are stored, can be shared among games")
+EMPCFBOTH("builtin", builtindir, char *, NSC_STRING, KM_INTERNAL,
+    "Directory where builtin files are stored")
+EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server\n"
+	      "# without installing it, else leave it alone.")
 EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
     "Local IP address the server should listen on.  \"\" listens on all.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,

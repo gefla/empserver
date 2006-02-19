@@ -203,6 +203,12 @@ main(int argc, char **argv)
     if (emp_config(config_file) < 0)
 	exit(EXIT_FAILURE);
     ef_init();
+    if (chdir(builtindir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", builtindir, strerror(errno));
+	exit(EXIT_FAILURE);
+    }
+    if (read_builtin_tables() < 0)
+	exit(EXIT_FAILURE);
     if (chdir(configdir)) {
 	fprintf(stderr, "Can't chdir to %s (%s)\n", configdir, strerror(errno));
 	exit(EXIT_FAILURE);

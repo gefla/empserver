@@ -46,6 +46,9 @@ char *configdir;
 /* User configuration tables to load, relative to configdir */
 char *config_tables = "";
 
+/* Where to find built-in configuration tables */
+char *builtindir = "@builtindir@";
+
 /* Where to find info pages */
 char *infodir	= "@einfodir@";
 

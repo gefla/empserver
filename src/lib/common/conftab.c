@@ -44,6 +44,35 @@
 
 static int read_config_table_file(char *);
 
+int
+read_builtin_tables(void)
+{
+    struct empfile *ep;
+    FILE *fp;
+    int res;
+    
+    for (ep = empfile; ep->name; ep++) {
+	if (!EF_IS_GAME_STATE(ep->uid) && ep->file) {
+	    if ((fp = fopen(ep->file, "r")) == NULL) {
+		fprintf(stderr, "Can't open %s for reading (%s)\n",
+			ep->file, strerror(errno));
+		return -1;
+	    }
+	    res = xundump(fp, ep->name, ep->uid);
+	    if (res >= 0 && getc(fp) != EOF) {
+		fprintf(stderr, "%s: Junk after the table\n",
+			ep->file);
+		res = EF_BAD;
+	    }
+	    fclose(fp);
+	    if (res < 0)
+		return -1;
+	}
+    }
+
+    return 0;
+}
+
 /*
  * Read user configuration tables.
  * Return 0 on success, -1 on failure.

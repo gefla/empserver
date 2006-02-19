@@ -66,6 +66,7 @@ depcomp = $(SHELL) $(srcdir)/depcomp
 tarball = $(SHELL) $(scripts)/tarball
 econfig := $(sysconfdir)/empire/econfig
 gamedir := $(localstatedir)/empire
+builtindir := $(datadir)/empire/builtin
 einfodir := $(datadir)/empire/info.nr
 ehtmldir := $(datadir)/empire/info.html
 
@@ -73,9 +74,10 @@ ehtmldir := $(datadir)/empire/info.html
 # Recursively expanded so that $@ and $< work.
 subst.in = sed \
 	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
+	-e 's?@builtindir\@?$(builtindir)?g'	\
 	-e 's?@econfig\@?$(econfig)?g'		\
-	-e 's?@gamedir\@?$(gamedir)?g'	\
 	-e 's?@einfodir\@?$(einfodir)?g'	\
+	-e 's?@gamedir\@?$(gamedir)?g'		\
 	-e 's/@EMPIREHOST\@/$(EMPIREHOST)/g'	\
 	-e 's/@EMPIREPORT\@/$(EMPIREPORT)/g'
 
@@ -291,7 +293,8 @@ sources.mk: $(srcdir)/sources.mk
 	cp -f $^ $@
 endif
 
-# 
+# Distributing
+
 .PHONY: dist-source
 dist-source: $(src_distgen) $(bld_distgen)
 	$(tarball) $(TARNAME)-$(VERSION) $(bld_distgen) -C $(srcdir) $(src_distgen) $(src)
@@ -342,7 +345,7 @@ GNUmakefile: GNUmakefile.in config.status
 config.status: configure
 	./config.status --recheck
 
-src/lib/global/path.c src/client/ipglob.c: %: %.in GNUmakefile
+src/lib/global/path.c src/client/ipglob.c: %: %.in GNUmakefile Make.mk
 	$(subst.in) <$< >$@
 
 
