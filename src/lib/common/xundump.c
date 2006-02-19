@@ -32,7 +32,19 @@
  *     Markus Armbruster, 2005
  */
 
-/* FIXME normalize terminology: table/rows/columns or file/records/fields */
+/*
+ * FIXME:
+ * - Normalize terminology: table/rows/columns or file/records/fields
+ * - Loading tables with NSC_STRING elements more than once leaks memory
+ * TODO:
+ * - Check each partial table supplies the same rows
+ * - Check EFF_CFG tables are dense
+ * - Symbolic references to non-symbol tables
+ * - Symbolic array indexes
+ * TODO, but hardly worth the effort:
+ * - Permit reordering of array elements
+ * - Permit repetition of array elements in split tables
+ */
 
 #include <config.h>
 
@@ -60,6 +72,7 @@ static int nflds;
 static struct castr **fldca;
 static int *fldidx;
 static int *caflds;
+static unsigned char *caseen;
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
@@ -307,13 +320,15 @@ deffld(int fldno, char *name, int idx)
 	    return gripe("Header %s doesn't take an index in field %d",
 			 ca[res].ca_name, fldno + 1);
 	idx = 0;
-	if (caflds[res])
+	if (caflds[res] && !caseen[res])
+	    /* FIXME doesn't catch dupes within table part when caseen[res] */
 	    return gripe("Duplicate header %s in field %d",
 			 ca[res].ca_name, fldno + 1);
     }
     fldca[fldno] = &ca[res];
     fldidx[fldno] = idx;
-    caflds[res]++;
+    if (!caseen[res])
+	caflds[res]++;
     return 1;
 }
 
@@ -373,6 +388,15 @@ getfld(int fldno, int *idx)
     if (idx)
 	*idx = fldidx[fldno];
     return fldca[fldno];
+}
+
+static int
+fldval_must_match(int fldno)
+{
+    struct castr *ca = ef_cadef(cur_type);
+    int i = fldca[fldno] - ca;
+
+    return (fldca[fldno]->ca_flags & NSC_CONST) || caseen[i];
 }
 
 static void *
@@ -472,7 +496,7 @@ setnum(int fldno, double dbl)
 	return gripe("Field %d doesn't take numbers", fldno + 1);
     }
 
-    if ((ca->ca_flags & NSC_CONST) && old != dbl)
+    if (fldval_must_match(fldno) && old != dbl)
 	return gripe("Value for field %d must be %g", fldno + 1, old);
 
     return 1;
@@ -482,13 +506,14 @@ static int
 setstr(int fldno, char *str)
 {
     struct castr *ca;
-    int idx;
+    int must_match, idx;
     size_t len;
     char *memb_ptr, *old;
 
     ca = getfld(fldno, &idx);
     if (!ca)
 	return -1;
+    must_match = fldval_must_match(fldno);
 
     memb_ptr = getobj(ca, cur_id);
     if (!memb_ptr)
@@ -498,9 +523,9 @@ setstr(int fldno, char *str)
     switch (ca->ca_type) {
     case NSC_STRING:
 	old = ((char **)memb_ptr)[idx];
-	if (!(ca->ca_flags & NSC_CONST))
+	if (!must_match)
 	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
-	len = 65535;		/* really SIZE_MAX, but it's C99 */
+	len = 65535;		/* really SIZE_MAX, but that's C99 */
 	break;
     case NSC_STRINGY:
 	if (CANT_HAPPEN(idx))
@@ -512,14 +537,14 @@ setstr(int fldno, char *str)
 	    return gripe("Field %d takes at most %d characters",
 			 fldno + 1, len);
 	old = memb_ptr;
-	if (!(ca->ca_flags & NSC_CONST))
+	if (!must_match)
 	    strncpy(memb_ptr, str, len);
 	break;
     default:
 	return gripe("Field %d doesn't take strings", fldno + 1);
     }
 
-    if (ca->ca_flags & NSC_CONST) {
+    if (must_match) {
 	if (old && (!str || strncmp(old, str, len)))
 	    return gripe("Value for field %d must be \"%.*s\"",
 			 fldno + 1, len, old);
@@ -741,11 +766,13 @@ xundump(FILE *fp, char *file, int expected_table)
     fldca = calloc(nf, sizeof(*fldca));
     fldidx = calloc(nf, sizeof(*fldidx));
     caflds = calloc(nca, sizeof(*caflds));
+    caseen = calloc(nca, sizeof(*caseen));
     cur_type = type;
 
     if (xundump2(fp, type, ca) < 0)
 	type = EF_BAD;
 
+    free(caseen);
     free(caflds);
     free(fldidx);
     free(fldca);
@@ -761,8 +788,9 @@ xundump(FILE *fp, char *file, int expected_table)
 static int
 xundump2(FILE *fp, int type, struct castr *ca)
 {
-    is_partial = 0;
+    int i;
 
+    is_partial = 0;
     for (;;) {
 	if (xuheader1(fp, type, ca) < 0)
 	    return -1;
@@ -770,6 +798,8 @@ xundump2(FILE *fp, int type, struct castr *ca)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
+	for (i = 0; ca[i].ca_name; i++)
+	    caseen[i] = caflds[i] != 0;
 	if (xuheader(fp, type) < 0)
 	    return -1;
     }
