@@ -387,11 +387,6 @@ xdump(void)
     int type;
     int meta = 0;
 
-    if (!opt_GUINEA_PIGS) {
-	pr("You are not a guinea pig!\n");
-	return RET_FAIL;
-    }
-
     p = getstarg(player->argp[1], "What? ", buf);
     if (p && strcmp(p, "meta") == 0) {
 	meta = 1;
