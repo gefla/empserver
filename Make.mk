@@ -52,6 +52,7 @@ csrc := $(filter %.c, $(src))
 tsrc := $(filter %.t, $(src))
 man1 := $(filter man/%.1, $(src))
 man6 := $(filter man/%.6, $(src))
+builtins := $(filter src/lib/global/%.config, $(src))
 
 # Info topics and subjects
 -include subjects.mk
@@ -169,6 +170,7 @@ distclean: clean
 install: all installdirs
 	$(INSTALL_PROGRAM) $(util) $(server) $(sbindir)
 	$(INSTALL_PROGRAM) $(client) $(bindir)
+	$(INSTALL) -m 444 $(builtins) $(builtindir)
 	$(INSTALL_DATA) $(info.nr) $(einfodir)
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man1)) $(mandir)/man1
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
@@ -188,7 +190,7 @@ install: all installdirs
 
 .PHONY: installdirs
 installdirs:
-	mkdir -p $(bindir) $(sbindir) $(gamedir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig))
+	mkdir -p $(sbindir) $(bindir) $(builtindir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig)) $(gamedir)
 
 .PHONY: install-html
 install-html: html | $(ehtmldir)

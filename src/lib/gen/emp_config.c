@@ -35,12 +35,10 @@
 /*
  * STILL TO DO
  *
- * 1. Change other constants - such as Num Countries etc.
- *    Just requires variables to be assigned, then dynamic allocation in
- *    a few places. Some checks needed in the server to check the world
- *    hasn't changed size etc.
- * 2. Could look at loading in planes, units etc. Should be easy enough.
- *
+ * Change other constants - such as MAXNOC etc.
+ * Just requires variables to be assigned, then dynamic allocation in
+ * a few places.  Some checks needed in the server to check the world
+ * hasn't changed size etc.
  */
 
 #include <config.h>
@@ -48,13 +46,13 @@
 #include <assert.h>
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>		/* atoi free atol */
+#include <stdlib.h>
 #include <string.h>
 
 #include "misc.h"
 #include "file.h"
 #include "optlist.h"
-#include "gen.h"		/* parse */
+#include "gen.h"
 
 /* Dummy one */
 static int emp_config_dummy;
