@@ -356,8 +356,6 @@ struct castr lchr_ca[] = {
     NSC_IVEC(offsetof(struct lchrstr, l_item), ""),
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_lcm), "l_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_hcm), "h_build", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_gun), "g_build", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct lchrstr, l_shell), "s_build", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_tech), "tech", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct lchrstr, l_cost), "cost", EF_BAD},
     {NSC_FLOAT, 0, 0, offsetof(struct lchrstr, l_att), "att", EF_BAD},

@@ -104,8 +104,8 @@ struct lchrstr {
     int l_lcm;			/* units of lcm to build */
     int l_hcm;			/* units of hcm to build */
     int l_mil;			/* how many mil it takes to build */
-    int l_gun;			/* how many guns it takes to build */
-    int l_shell;		/* how many shells it takes to build */
+    int l_gun;			/* how many guns it takes to build (unused) */
+    int l_shell;		/* #shells it takes to build (unused) */
     int l_tech;			/* tech required to build */
     int l_cost;			/* how much it costs to build */
     float l_att;		/* attack multiplier */
