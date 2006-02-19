@@ -73,6 +73,8 @@ EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where info pages are stored, can be shared among games")
+EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relative\n"
+	      "# name may change.")
 EMPCFBOTH("builtin", builtindir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where builtin files are stored")
 EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server\n"

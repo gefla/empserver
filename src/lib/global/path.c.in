@@ -40,22 +40,26 @@
 /* econfig file to try when user doesn't specify one */
 char dflt_econfig[] = "@econfig@";
 
-/* Where to find configuration, which is wherever econfig is looked for */
+/*
+ * Where to find configuration (absolute file name)
+ * This is wherever econfig is actually looked for.
+ */
 char *configdir;
 
-/* User configuration tables to load, relative to configdir */
+/* User configuration tables to load (relative to configdir) */
 char *config_tables = "";
 
-/* Where to find built-in configuration tables */
+/* Where to find built-in configuration tables  (relative to configdir) */
 char *builtindir = "@builtindir@";
 
-/* Where to find info pages */
+/* Where to find info pages (relative to gamedir) */
+/* TODO UI wart, make it relative to configdir */
 char *infodir	= "@einfodir@";
 
-/* Where this game's data is stored */
+/* Where this game's data is stored (relative to configdir) */
 char *gamedir	= "@gamedir@";
 
-/* relative to DATADIR */
+/* These are relative to gamedir: */
 char *teldir	= "tel";
 char *motdfil	= "motd";
 char *downfil	= "down";
