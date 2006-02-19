@@ -58,7 +58,7 @@ read_builtin_tables(void)
 			ep->file, strerror(errno));
 		return -1;
 	    }
-	    res = xundump(fp, ep->name, ep->uid);
+	    res = xundump(fp, ep->file, ep->uid);
 	    if (res >= 0 && getc(fp) != EOF) {
 		fprintf(stderr, "%s: Junk after the table\n",
 			ep->file);
