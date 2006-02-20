@@ -103,7 +103,7 @@ fly(void)
 	dst_type = EF_SHIP;
     }
 
-    if (ip && ip->i_vtype == I_CIVIL && target.sct_own != target.sct_oldown) {
+    if (ip && ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
 	pr("Can't fly civilians into occupied sectors.\n");
 	return RET_FAIL;
     }

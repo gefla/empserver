@@ -303,18 +303,18 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	       xyas(tx, ty, player->cnum));
 	    return;
 	}
-	if (ip->i_vtype == I_CIVIL && sectp->sct_own != sectp->sct_oldown) {
+	if (ip->i_uid == I_CIVIL && sectp->sct_own != sectp->sct_oldown) {
 	    pr("%s is occupied.  Your civilians suffer from identity crisis and die.\n",
 	       xyas(tx, ty, player->cnum));
 	    return;
 	}
-	there = sectp->sct_item[ip->i_vtype];
+	there = sectp->sct_item[ip->i_uid];
 	max = ITEM_MAX;
     } else {
 	sp = ptr;
-	there = sp->shp_item[ip->i_vtype];
+	there = sp->shp_item[ip->i_uid];
 	mp = &mchr[(int)sp->shp_type];
-	max = mp->m_item[ip->i_vtype];
+	max = mp->m_item[ip->i_uid];
     }
     there += amt;
     if (there > max) {
@@ -325,7 +325,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     pr("%d %s landed safely", amt, ip->i_name);
     if (type == EF_SECTOR) {
 	sectp = ptr;
-	sectp->sct_item[ip->i_vtype] = there;
+	sectp->sct_item[ip->i_uid] = there;
 	if (sectp->sct_own != player->cnum)
 	    wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
 	       cname(player->cnum), amt, ip->i_name,
@@ -334,7 +334,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	putsect((struct sctstr *)ptr);
     } else {
 	struct shpstr *sp = (struct shpstr *)ptr;
-	sp->shp_item[ip->i_vtype] = there;
+	sp->shp_item[ip->i_uid] = there;
 	if (sp->shp_own != player->cnum)
 	    wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
 	       cname(player->cnum), amt, ip->i_name, sp->shp_uid);
@@ -632,7 +632,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	own = sect.sct_oldown;
     }
     if (ip) {
-	if (ip->i_vtype == I_CIVIL) {
+	if (ip->i_uid == I_CIVIL) {
 	    if (pp->pln_own != own) {
 		pr("You don't control those civilians!\n");
 		return -1;
@@ -660,7 +660,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
 	case 'd':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
-	    itype = ip->i_vtype;
+	    itype = ip->i_uid;
 	    needed = (pp->pln_load * 2) / ip->i_lbs;
 	    break;
 	case 'm':

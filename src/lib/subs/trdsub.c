@@ -253,9 +253,9 @@ get_couval(int cnum)
 	secttot += (long)(dchr[sp->sct_type].d_value *
 			  ((float)sp->sct_effic + 100.0));
 	for (k = 0; ichr[k].i_name; k++) {
-	    if (ichr[k].i_value == 0 || ichr[k].i_vtype == I_NONE)
+	    if (ichr[k].i_value == 0 || ichr[k].i_uid == I_NONE)
 		continue;
-	    val = sp->sct_item[ichr[k].i_vtype];
+	    val = sp->sct_item[ichr[k].i_uid];
 	    secttot += val * ichr[k].i_value;
 	}
     }

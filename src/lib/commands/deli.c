@@ -60,7 +60,7 @@ deli(void)
     if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
 	return RET_SYN;
     /*
-       if (ich->i_vtype == I_CIVIL || ich->i_vtype == I_MILIT) {
+       if (ich->i_uid == I_CIVIL || ich->i_uid == I_MILIT) {
        pr("You cannot deliver people!\n");
        return RET_FAIL;
        }
@@ -72,7 +72,7 @@ deli(void)
 	if (!player->owner)
 	    continue;
 
-	del = sect.sct_del[ich->i_vtype];
+	del = sect.sct_del[ich->i_uid];
 	thresh = del & ~0x7;
 	dir = del & 0x7;
 
@@ -107,7 +107,7 @@ deli(void)
 
 	    thresh = MIN(thresh, ITEM_MAX) & ~7;
 	    del = thresh | dir;
-	    sect.sct_del[ich->i_vtype] = del;
+	    sect.sct_del[ich->i_uid] = del;
 	    putsect(&sect);
 	}
 

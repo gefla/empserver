@@ -74,7 +74,7 @@ rout(void)
 
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
 	return RET_SYN;
-    i_del = ip->i_vtype;;
+    i_del = ip->i_uid;;
     if (player->argp[2] == NULL) {
 	if ((str = getstring("(sects)? ", buf1)) == 0)
 	    return RET_SYN;

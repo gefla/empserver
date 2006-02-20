@@ -85,7 +85,7 @@ buy(void)
     ip = whatitem(player->argp[1], "Commodity you want to buy: ");
     if (!ip)
 	return RET_SYN;
-    display_mark(ip->i_vtype, 0);
+    display_mark(ip->i_uid, 0);
     pr("\n");
     p = getstarg(player->argp[2], "Which lot are you bidding on: ", buf);
     if (p == 0)
@@ -99,7 +99,7 @@ buy(void)
 	pr("Invalid lot number.\n");
 	return RET_OK;
     }
-    if (comm.com_type != ip->i_vtype) {
+    if (comm.com_type != ip->i_uid) {
 	pr("That lot is not of the type you specified.\n");
 	return RET_OK;
     }
@@ -158,7 +158,7 @@ buy(void)
 	pr("That sector is under construction.\n");
 	return RET_FAIL;
     }
-    n = sect.sct_item[ip->i_vtype];
+    n = sect.sct_item[ip->i_uid];
     qty = comm.com_amount;
     if (qty + n > ITEM_MAX) {
 	pr("That sector cannot hold %d more %s. It currently holds %d.\n",

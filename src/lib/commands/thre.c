@@ -64,7 +64,7 @@ thre(void)
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    type = ip->i_vtype;
+    type = ip->i_uid;
     if (player->argp[3] && *player->argp[3] &&
 	(*player->argp[3] < '0' || *player->argp[3] > '9')) {
 	pr("Threshold must be a number\n");

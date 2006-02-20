@@ -80,7 +80,7 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
 	return 0;
     }
     dp = &dchr[from->sct_type];
-    vtype = ip->i_vtype;
+    vtype = ip->i_uid;
     mobility = from->sct_mobil / 2;
     if (vtype == I_CIVIL) {
 	if (from->sct_own != from->sct_oldown) {

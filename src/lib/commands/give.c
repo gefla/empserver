@@ -70,14 +70,14 @@ give(void)
 	    return RET_SYN;
 	if ((amt = atoi(p)) == 0)
 	    return RET_SYN;
-	n = sect.sct_item[ip->i_vtype];
+	n = sect.sct_item[ip->i_uid];
 	if (amt < 0 && -amt > n) {
 	    m = 0;
 	} else if (amt > 0 && amt + n > ITEM_MAX) {
 	    m = ITEM_MAX;
 	} else
 	    m = n + amt;
-	sect.sct_item[ip->i_vtype] = m;
+	sect.sct_item[ip->i_uid] = m;
 	putsect(&sect);
 	if (sect.sct_own != 0 && m != n) {
 	    if (m > n) {

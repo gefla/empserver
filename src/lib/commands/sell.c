@@ -131,7 +131,7 @@ sell(void)
 	pr("Military control required to sell goods.\n");
 	return RET_FAIL;
     }
-    if ((amt = sect.sct_item[ip->i_vtype]) == 0) {
+    if ((amt = sect.sct_item[ip->i_uid]) == 0) {
 	pr("You don't have any %s to sell there.\n", ip->i_name);
 	return RET_FAIL;
     }
@@ -145,7 +145,7 @@ sell(void)
     amt -= com;
     pr("Sold %d %s at %s (%d left)\n", com, ip->i_name,
        xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
-    sect.sct_item[ip->i_vtype] = amt;
+    sect.sct_item[ip->i_uid] = amt;
     putsect(&sect);
     if (totalcom > 0) {
 	for (ii = 0; getcomm(ii, &comm); ii++) {
@@ -155,7 +155,7 @@ sell(void)
 	if (getcomm(ii, &comm) == 0)
 	    ef_extend(EF_COMM, 1);
 	(void)time(&now);
-	comm.com_type = ip->i_vtype;
+	comm.com_type = ip->i_uid;
 	comm.com_owner = player->cnum;
 	comm.com_price = price;
 	comm.com_maxbidder = player->cnum;

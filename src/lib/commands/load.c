@@ -725,7 +725,7 @@ static int
 load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	       struct ichrstr *ich, int load_unload, int *nshipsp)
 {
-    i_type item = ich->i_vtype;
+    i_type item = ich->i_uid;
     struct mchrstr *mcp = &mchr[(int)sp->shp_type];
     int ship_amt, ship_max, sect_amt, move_amt;
     int amount;
@@ -928,7 +928,7 @@ static int
 load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	       struct ichrstr *ich, int load_unload, int *nunitsp)
 {
-    i_type item = ich->i_vtype;
+    i_type item = ich->i_uid;
     struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
     int land_amt, land_max, sect_amt, move_amt;
     int amount;

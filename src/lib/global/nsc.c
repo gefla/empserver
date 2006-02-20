@@ -83,7 +83,7 @@ NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
 
 struct castr ichr_ca[] = {
-    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_vtype), "vtype",
+    {NSC_SITYPE(i_type), 0, 0, offsetof(struct ichrstr, i_uid), "uid",
      EF_ITEM},
     {NSC_STRING, 0, 0, offsetof(struct ichrstr, i_name), "name", EF_BAD},
     {NSC_STRINGY, NSC_CONST, 1, offsetof(struct ichrstr, i_mnem), "mnem",

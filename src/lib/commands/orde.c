@@ -233,7 +233,7 @@ orde(void)
 			    level = 0;	/* prevent negatives. */
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tstart[sub] = i1->i_vtype;
+			ship.shp_tstart[sub] = i1->i_uid;
 			ship.shp_lstart[sub] = level;
 			pr("Order Set \n");
 			break;
@@ -253,7 +253,7 @@ orde(void)
 			    level = 0;
 			    pr("You must use positive number! Level set to 0.\n");
 			}
-			ship.shp_tend[sub] = i1->i_vtype;
+			ship.shp_tend[sub] = i1->i_uid;
 			ship.shp_lend[sub] = level;
 			pr("Order Set \n");
 			break;

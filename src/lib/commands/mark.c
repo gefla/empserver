@@ -65,7 +65,7 @@ mark(void)
 	    ip = item_by_name(p);
 	    if (!ip)
 		return RET_SYN;
-	    return display_mark(ip->i_vtype, 0);
+	    return display_mark(ip->i_uid, 0);
 	}
     }
     return display_mark(I_NONE, 1);

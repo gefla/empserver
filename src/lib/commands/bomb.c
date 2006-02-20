@@ -449,8 +449,8 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
-    before = amt = target->sct_item[ip->i_vtype];
-    target->sct_item[ip->i_vtype] = amt = commdamage(amt, dam, ip->i_vtype);
+    before = amt = target->sct_item[ip->i_uid];
+    target->sct_item[ip->i_uid] = amt = commdamage(amt, dam, ip->i_uid);
     if (before > 0.0)
 	b = 100.0 * (1.0 - ((float)amt / (float)before));
     else

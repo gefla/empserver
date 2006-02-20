@@ -69,7 +69,7 @@ typedef enum {
 
 struct ichrstr {
     char i_mnem;		/* usually the initial letter */
-    i_type i_vtype;		/* var type */
+    i_type i_uid;		/* index in ichr[] */
     int i_value;		/* mortgage value */
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */

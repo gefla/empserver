@@ -101,9 +101,9 @@ coll(void)
     }
     pay = dchr[sect.sct_type].d_value * ((float)sect.sct_effic + 100.0);
     for (i = 0; ichr[i].i_name; i++) {
-	if (ichr[i].i_value == 0 || ichr[i].i_vtype == I_NONE)
+	if (ichr[i].i_value == 0 || ichr[i].i_uid == I_NONE)
 	    continue;
-	val = sect.sct_item[ichr[i].i_vtype];
+	val = sect.sct_item[ichr[i].i_uid];
 	pay += val * ichr[i].i_value;
     }
     pr("That sector (and its contents) is valued at $%.2f\n", pay);

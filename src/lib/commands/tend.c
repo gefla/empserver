@@ -116,13 +116,13 @@ tend(void)
 	    pr("Amount must be non-zero!\n");
 	    return RET_SYN;
 	}
-	ontender = tender.shp_item[ip->i_vtype];
+	ontender = tender.shp_item[ip->i_uid];
 	if (ontender == 0 && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));
 	    return RET_FAIL;
 	}
 	vbase = &mchr[(int)tender.shp_type];
-	maxtender = vbase->m_item[ip->i_vtype];
+	maxtender = vbase->m_item[ip->i_uid];
 	if (maxtender == 0) {
 	    pr("A %s cannot hold any %s\n",
 	       mchr[(int)tender.shp_type].m_name, ip->i_name);
@@ -144,13 +144,13 @@ tend(void)
 	    if (tender.shp_x != target.shp_x ||
 		tender.shp_y != target.shp_y)
 		continue;
-	    ontarget = target.shp_item[ip->i_vtype];
+	    ontarget = target.shp_item[ip->i_uid];
 	    if (ontarget == 0 && amt < 0) {
 		pr("No %s on %s\n", ip->i_name, prship(&target));
 		continue;
 	    }
 	    vbase = &mchr[(int)target.shp_type];
-	    maxtarget = vbase->m_item[ip->i_vtype];
+	    maxtarget = vbase->m_item[ip->i_uid];
 	    if (amt < 0) {
 		if (!player->owner)
 		    amt = 0;
@@ -160,7 +160,7 @@ tend(void)
 		transfer = MIN(maxtender - ontender, transfer);
 		if (transfer == 0)
 		    continue;
-		target.shp_item[ip->i_vtype] = ontarget - transfer;
+		target.shp_item[ip->i_uid] = ontarget - transfer;
 		ontender += transfer;
 		total += transfer;
 	    } else {
@@ -169,7 +169,7 @@ tend(void)
 		transfer = MIN(transfer, maxtarget - ontarget);
 		if (transfer == 0)
 		    continue;
-		target.shp_item[ip->i_vtype] = ontarget + transfer;
+		target.shp_item[ip->i_uid] = ontarget + transfer;
 		ontender -= transfer;
 		total += transfer;
 	    }
@@ -187,7 +187,7 @@ tend(void)
 	    wu(0, target.shp_own, "%s tended %d %s to %s\n",
 	       cname(player->cnum), total, ip->i_name, prship(&target));
 	}
-	tender.shp_item[ip->i_vtype] = ontender;
+	tender.shp_item[ip->i_uid] = ontender;
 	tender.shp_mission = 0;
 	putship(tender.shp_uid, &tender);
     }

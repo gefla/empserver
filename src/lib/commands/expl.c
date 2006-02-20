@@ -75,7 +75,7 @@ explore(void)
 
     if (!(ip = whatitem(player->argp[1], "explore with what? (civ/mil) ")))
 	return RET_SYN;
-    vtype = ip->i_vtype;
+    vtype = ip->i_uid;
     if ((vtype != I_CIVIL) && (vtype != I_MILIT)) {
 	pr("You can only explore with civs and mil.\n");
 	return RET_FAIL;

@@ -80,7 +80,7 @@ move(void)
     istest = *player->argp[0] == 't';
     if ((ip = whatitem(player->argp[1], "move what? ")) == 0)
 	return RET_SYN;
-    vtype = ip->i_vtype;
+    vtype = ip->i_uid;
     if (!(p = getstarg(player->argp[2], "from sector : ", buf)))
 	return RET_SYN;
     if (!sarg_xy(p, &x, &y))
@@ -193,7 +193,7 @@ move(void)
 			cmd_move_map, 0, &dam);
 
     if (dam) {
-	left = commdamage(amount, dam, ip->i_vtype);
+	left = commdamage(amount, dam, ip->i_uid);
 	if (left < amount) {
 	    if (left) {
 		pr("%d of the %s you were moving were destroyed!\n"
