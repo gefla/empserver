@@ -34,3 +34,10 @@
 
 char empirehost[] = "@EMPIREHOST@";
 char empireport[] = "@EMPIREPORT@";
+
+/*
+ * Emacs magic:
+ * Local Variables:
+ * mode: C
+ * End:
+ */

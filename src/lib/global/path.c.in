@@ -72,3 +72,10 @@ char *timestampfil = "timestamp";
 
 char *listen_addr = "";
 char *loginport = "@EMPIREPORT@";
+
+/*
+ * Emacs magic:
+ * Local Variables:
+ * mode: C
+ * End:
+ */
