@@ -48,6 +48,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
+#include <direct.h>
+#endif
 
 #include "misc.h"
 #include "file.h"
@@ -174,6 +177,13 @@ set_dirs(char *econfig)
     char *slash;
     char *cwd = getcwd(NULL, 0);
 
+#ifdef _WIN32
+    econfig = _fullpath(NULL, econfig, 0);
+    slash = strrchr(econfig, '\\');
+    configdir = malloc(slash - econfig + 1);
+    memcpy(configdir, econfig, slash - econfig);
+    configdir[slash - econfig] = 0;
+#else
     if ((slash = strrchr(econfig, '/'))) {
 	configdir = malloc(slash - econfig + 1);
 	memcpy(configdir, econfig, slash - econfig);
@@ -189,6 +199,7 @@ set_dirs(char *econfig)
 	sprintf(configdir, "%s/%s", cwd, tmp);
 	free(tmp);
     }
+#endif /* !_WIN32 */
 
     free(cwd);
 }
