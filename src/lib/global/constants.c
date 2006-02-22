@@ -25,8 +25,7 @@
  *
  *  ---
  *
- *  constants.c: Global constants file.  Note that the "hours" file can
- *               override these, as does the global "econfig" file.
+ *  constants.c: Global constants
  * 
  *  Known contributors to this file:
  *     Ken Stevens, 1995
@@ -40,6 +39,7 @@
 
 char *privname = "Deity forgot to edit econfig"; /* name of priv user */
 char *privlog = "careless@invalid"; /* logname of priv user */
+char *privip = "127.0.0.1 ::1";	/* divine hosts and networks */
 
 int WORLD_X = 64;		/* World size - x */
 int WORLD_Y = 32;		/* World size - y */
