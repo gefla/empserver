@@ -89,7 +89,7 @@ EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,
 EMPCFBOTH("privlog", privlog, char *, NSC_STRING, 0,
     "E-mail of the deity")
 EMPCFBOTH("privip", privip, char *, NSC_STRING, KM_INTERNAL,
-    "Deities may connect from these IPs or networks")
+    "Deities may connect from these IPs or networks, \"\" allows all")
 EMPCFBOTH("WORLD_X", WORLD_X, int, NSC_INT, 0,
     "World size X dimension (enforced to be even by subtracting 1 if necessary)")
 EMPCFBOTH("WORLD_Y", WORLD_Y, int, NSC_INT, 0,
