@@ -49,8 +49,6 @@ extern char *configdir;
 extern char *motdfil;
 extern char *downfil;
 extern char *disablefil;
-extern char *banfil;
-extern char *authfil;
 extern char *annfil;
 extern char *timestampfil;
 extern char *teldir;

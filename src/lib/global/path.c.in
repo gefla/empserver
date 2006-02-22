@@ -66,8 +66,6 @@ char *downfil	= "down";
 char *disablefil = "disable";
 char *telfil	= "tel/tel";
 char *annfil	= "ann";
-char *banfil	= "ban";
-char *authfil	= "auth";
 char *timestampfil = "timestamp";
 
 char *listen_addr = "";

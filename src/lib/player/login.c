@@ -266,15 +266,12 @@ may_play(void)
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return 0;
     }
-    if (match_user(banfil, player)) {
-	logerror("Attempted login by BANNED host %s", praddr(player));
-	pr_id(player, C_EXIT, "Your login has been banned from this game\n");
-	io_shutdown(player->iop, IO_READ);
-	return 0;
-    }
+    /* TODO strstr() cheesy, compare IP against IP/BITS ... */
     np = getnatp(player->cnum);
-    if (np->nat_stat == STAT_GOD && !match_user(authfil, player)) {
-	logerror("NON-AUTHed Login attempted by %s", praddr(player));
+    if (np->nat_stat == STAT_GOD && *privip
+	&& !strstr(privip, player->hostaddr)) {
+	logerror("Deity login from untrusted host attempted by %s",
+		 praddr(player));
 	pr_id(player, C_EXIT, "You're not a deity!\n");
 	return 0;
     }

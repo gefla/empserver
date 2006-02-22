@@ -361,37 +361,6 @@ show_motd(void)
 }
 
 int
-match_user(char *file, struct player *p)
-{
-    FILE *fp;
-    int match = 0;
-    char host[256];
-    char user[256];
-
-    if ((fp = fopen(file, "r")) == NULL) {
-	/*logerror("Cannot find file %s", file); */
-	return 0;
-    }
-    match = 0;
-    while (!feof(fp) && !match) {
-	if (fgets(host, sizeof(host), fp) == NULL)
-	    break;
-	if (host[0] == '#')
-	    continue;
-	if (fgets(user, sizeof(user), fp) == NULL)
-	    break;
-	host[strlen(host) - 1] = '\0';
-	user[strlen(user) - 1] = '\0';
-	if (strstr(p->userid, user) &&
-	    (strstr(p->hostaddr, host) ||
-	     strstr(p->hostname, host)))
-	    ++match;
-    }
-    fclose(fp);
-    return match;
-}
-
-int
 quit(void)
 {
     player->state = PS_SHUTDOWN;

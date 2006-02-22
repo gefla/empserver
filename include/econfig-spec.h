@@ -68,7 +68,7 @@ EMPCFBOTH((fvname), (vname), int, NSC_INT, KM_OPTION, (descr))
 
 EMPCF_COMMENT("\n### Server configuration and information")
 EMPCFBOTH("config_tables", config_tables, char *, NSC_STRING, KM_INTERNAL,
-    "Configuration table files, separated by space, relative to econfig's directory")
+    "Configuration table files, separated by space")
 EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
@@ -80,13 +80,16 @@ EMPCFBOTH("builtin", builtindir, char *, NSC_STRING, KM_INTERNAL,
 EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server\n"
 	      "# without installing it, else leave it alone.")
 EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
-    "Local IP address the server should listen on.  \"\" listens on all.")
+    "Local IP address the server should listen on.")
+EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,
     "Name of the deity")
 EMPCFBOTH("privlog", privlog, char *, NSC_STRING, 0,
     "E-mail of the deity")
+EMPCFBOTH("privip", privip, char *, NSC_STRING, KM_INTERNAL,
+    "Deities may connect from these IPs or networks")
 EMPCFBOTH("WORLD_X", WORLD_X, int, NSC_INT, 0,
     "World size X dimension (enforced to be even by subtracting 1 if necessary)")
 EMPCFBOTH("WORLD_Y", WORLD_Y, int, NSC_INT, 0,
