@@ -180,7 +180,7 @@ coun_cmd(void)
 	return RET_FAIL;
     }
     player->cnum = cnum;
-    player->validated = 0;
+    player->authenticated = 0;
     pr_id(player, C_CMDOK, "country name %s\n", player->argp[1]);
     return 0;
 }
@@ -200,7 +200,7 @@ pass_cmd(void)
 		 praddr(player), player->cnum, player->argp[1]);
 	return RET_FAIL;
     }
-    player->validated++;
+    player->authenticated = 1;
     pr_id(player, C_CMDOK, "password ok\n");
     logerror("%s using country #%d", praddr(player), player->cnum);
     return RET_OK;
@@ -269,7 +269,7 @@ play_cmd(void)
     if (*++ap) {
 	strncpy(player->userid, *ap, sizeof(player->userid) - 1);
 	player->userid[sizeof(player->userid) - 1] = '\0';
-	player->validated = 0;
+	player->authenticated = 0;
     }
     if (*++ap) {
 	if (natbyname(*ap, &cnum) < 0) {
@@ -285,9 +285,9 @@ play_cmd(void)
 	    return RET_FAIL;
 	}
 	player->cnum = cnum;
-	player->validated++;
+	player->authenticated = 1;
     }
-    if (player->cnum == 255 || !player->validated) {
+    if (player->cnum == 255 || !player->authenticated) {
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return RET_FAIL;
     }
@@ -321,7 +321,7 @@ kill_cmd(void)
     struct player *other;
     struct natstr *np;
 
-    if (player->cnum == 255 || !player->validated) {
+    if (player->cnum == 255 || !player->authenticated) {
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return RET_FAIL;
     }

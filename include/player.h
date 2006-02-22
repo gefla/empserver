@@ -51,7 +51,7 @@ struct player {
     char hostname[512];		/* may be empty */
     char client[128];		/* may be empty */
     char userid[32];		/* may be empty */
-    int validated;
+    int authenticated;
     natid cnum;
     int state;
     int flags;
