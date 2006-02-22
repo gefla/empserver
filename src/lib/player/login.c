@@ -272,7 +272,8 @@ may_play(void)
 	&& !strstr(privip, player->hostaddr)) {
 	logerror("Deity login from untrusted host attempted by %s",
 		 praddr(player));
-	pr_id(player, C_EXIT, "You're not a deity!\n");
+	pr_id(player, C_EXIT,
+	      "Deity login only from IPs in econfig key privip!\n");
 	return 0;
     }
     return 1;
