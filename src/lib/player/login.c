@@ -258,6 +258,30 @@ options_cmd(void)
 }
 
 static int
+may_play(void)
+{
+    struct natstr *np;
+
+    if (player->cnum == 255 || !player->authenticated) {
+	pr_id(player, C_CMDERR, "need country and password\n");
+	return 0;
+    }
+    if (match_user(banfil, player)) {
+	logerror("Attempted login by BANNED host %s", praddr(player));
+	pr_id(player, C_EXIT, "Your login has been banned from this game\n");
+	io_shutdown(player->iop, IO_READ);
+	return 0;
+    }
+    np = getnatp(player->cnum);
+    if (np->nat_stat == STAT_GOD && !match_user(authfil, player)) {
+	logerror("NON-AUTHed Login attempted by %s", praddr(player));
+	pr_id(player, C_EXIT, "You're not a deity!\n");
+	return 0;
+    }
+    return 1;
+}
+
+static int
 play_cmd(void)
 {
     struct player *other;
@@ -287,10 +311,8 @@ play_cmd(void)
 	player->cnum = cnum;
 	player->authenticated = 1;
     }
-    if (player->cnum == 255 || !player->authenticated) {
-	pr_id(player, C_CMDERR, "need country and password\n");
+    if (!may_play())
 	return RET_FAIL;
-    }
     other = getplayer((natid)player->cnum);
     if (other) {
 	natp = getnatp(player->cnum);
@@ -299,12 +321,6 @@ play_cmd(void)
 	} else {
 	    pr_id(player, C_EXIT, "country in use\n");
 	}
-	return RET_FAIL;
-    }
-    if (match_user(banfil, player)) {
-	logerror("Attempted login by BANNED host %s", praddr(player));
-	pr("Your login has been banned from this game\n");
-	io_shutdown(player->iop, IO_READ);
 	return RET_FAIL;
     }
     logerror("%s logged in as country #%d", praddr(player), player->cnum);
@@ -319,24 +335,9 @@ static int
 kill_cmd(void)
 {
     struct player *other;
-    struct natstr *np;
 
-    if (player->cnum == 255 || !player->authenticated) {
-	pr_id(player, C_CMDERR, "need country and password\n");
+    if (!may_play())
 	return RET_FAIL;
-    }
-    if (match_user(banfil, player)) {
-	logerror("Attempted login by BANNED host %s", praddr(player));
-	pr_id(player, C_EXIT, "Your login has been banned from this game\n");
-	io_shutdown(player->iop, IO_READ);
-	return RET_FAIL;
-    }
-    np = getnatp(player->cnum);
-    if (np->nat_stat == STAT_GOD && !match_user(authfil, player)) {
-	logerror("NON-AUTHed Login attempted by %s", praddr(player));
-	pr_id(player, C_EXIT, "You're not a deity!\n");
-	return RET_FAIL;
-    }
     other = getplayer(player->cnum);
     if (!other) {
 	pr_id(player, C_EXIT, "country not in use\n");

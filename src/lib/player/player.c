@@ -79,11 +79,6 @@ player_main(struct player *p)
     if (init_nats() < 0)
 	return;
     natp = getnatp(player->cnum);
-    if (player->god && !match_user(authfil, player)) {
-	logerror("NON-AUTHed Login attempted by %s", praddr(player));
-	pr("You're not a deity!\n");
-	return;
-    }
     if (!gamehours(player->curup)) {
 	pr("Empire hours restriction in force\n");
 	if (natp->nat_stat != STAT_GOD)
