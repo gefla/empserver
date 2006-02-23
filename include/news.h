@@ -44,7 +44,7 @@
 struct nwsstr {
     short ef_type;
     natid nws_ano;		/* "actor" country # */
-    short nws_uid;
+    short nws_uid;		/* unused */
     s_char nws_vrb;		/* action (verb) */
     natid nws_vno;		/* "victim" country # */
     s_char nws_ntm;		/* number of times */

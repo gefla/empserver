@@ -39,7 +39,7 @@ struct loststr {
     short ef_type;
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct genitem */
-    int lost_uid;		/* lost ID */
+    int lost_uid;		/* lost ID (assigned, otherwise unused) */
     char lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
     short lost_id;		/* ID of lost thing */
     coord lost_x;
