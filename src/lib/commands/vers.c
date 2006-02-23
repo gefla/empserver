@@ -108,7 +108,7 @@ vers(void)
     pr("Education is averaged over %d time units.\n", (int)edu_avg);
     if (opt_ALL_BLEED == 0)
 	pr("The technology/research boost you get from your allies is %.2f%%.\n", 100.0 / ally_factor);
-    else			/* ! ALL_BLEED */
+    else
 	pr("The technology/research boost you get from the world is %.2f%%.\n", 100.0 / ally_factor);
 
     pr("Nation levels (tech etc.) decline 1%% every %d time units.\n",
@@ -191,33 +191,32 @@ vers(void)
     pr("Fallout decays by %.0f%% per update\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
     pr("\n");
-    pr ("Initial Damage\t\t\tCollateral Damage\n");
-    pr("\t      Sector  People  Mater.  Effic.   Ships  Planes  LandU.\n");
-    pr("Sector\t\t --\t%3.0f%%\t100%%\t100%%\t  0%%\t%3.0f%%\t%3.0f%%\n",
+    pr ("Damage to\t\t\tSpills to\n");
+    pr("\t      Sector  People  Mater.   Ships  Planes  LandU.\n");
+    pr("Sector\t\t --\t%3.0f%%\t100%%\t  0%%\t%3.0f%%\t%3.0f%%\n",
        people_damage * 100.0, unit_damage / 0.07, unit_damage * 100.0);
-    pr("People\t\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+    pr("People\t\t%3.0f%%\t --\t --\t --\t --\t --\n",
        collateral_dam * 100.0);
-    pr("Materials\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+    pr("Materials\t%3.0f%%\t --\t --\t --\t --\t --\n",
        collateral_dam * 100.0);
-    pr("Efficiency\t%3.0f%%\t --\t --\t --\t --\t --\t --\n",
+    pr("Efficiency\t%3.0f%%\t --\t --\t --\t --\t --\n",
        collateral_dam * 100.0);
-    pr("Ships\t\t%3.0f%%\t100%%\t100%%\t100%%\t --\t  0%%\t  0%%\n",
+    pr("Ships\t\t%3.0f%%\t100%%\t100%%\t --\t  0%%\t  0%%\n",
        collateral_dam * 100.0);
-    pr("Planes\t\t%3.0f%%\t  0%%\t  0%%\t  0%%\t --\t --\t --\n",
+    pr("Planes\t\t%3.0f%%\t  0%%\t  0%%\t --\t --\t --\n",
        collateral_dam * 100.0);
-    pr("Land units\t%3.0f%%\t  0%%\t  0%%\t  0%%\t --\t  0%%\t  0%%\n",
+    pr("Land units\t%3.0f%%\t  0%%\t100%%\t --\t  0%%\t  0%%\n",
        collateral_dam * 100.0);
     pr("\n");
     pr("You can have at most %d BTUs.\n", max_btus);
     pr("You are disconnected after %d minutes of idle time.\n", max_idle);
-    show_custom();
     pr("\nOptions enabled in this game:\n        ");
     show_opts(1);
     pr("\n\nOptions disabled in this game:\n        ");
     show_opts(0);
-    pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.");
-    pr("\n\n");
-    pr("The person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n\n",
+    pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n\n");
+    show_custom();
+    pr("\nThe person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n\n",
        privname, privlog);
     pr("You can get your own copy of the source from "
        "http://www.wolfpackempire.com/\n\n");
@@ -228,7 +227,7 @@ vers(void)
 static void
 show_custom(void)
 {
-    char *sep = "\nCustom characteristics in this game:\n        ";
+    char *sep = "Customized in this game:\n        ";
     int i;
 
     /* TODO wrap long lines */
@@ -239,7 +238,7 @@ show_custom(void)
 	}
     }
     if (*sep == ',')
-	pr("\n");
+	pr("\nCheck \"show\" for details.\n");
 }
 
 static void
