@@ -109,7 +109,8 @@ read_config_table_file(char *fname)
 	return -1;
     }
 
-    for (n = 0; (res = xundump(fp, fname, EF_BAD)) >= 0; n++) ;
+    for (n = 0; (res = xundump(fp, fname, EF_BAD)) >= 0; n++)
+	empfile[res].flags |= EFF_CUSTOM;
     if (res != EF_BAD && n == 0)
 	fprintf(stderr, "Warning: configuration file %s is empty\n", fname);
 

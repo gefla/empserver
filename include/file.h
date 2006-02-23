@@ -86,9 +86,11 @@ struct empfile {
 #define EFF_MEM		bit(8)
 /* Table is read-only */
 #define EFF_RDONLY	bit(9)
+/* Table is customized (configuration tables only) */
+#define EFF_CUSTOM	bit(10)
 /* Transient flags, only occur in argument of ef_open() */
 /* Create table file, clobbering any existing file */
-#define EFF_CREATE	bit(10)
+#define EFF_CREATE	bit(11)
 
 /*
  * Empire `file types'

@@ -47,6 +47,7 @@
 #include "commands.h"
 #include "file.h"
 
+static void show_custom(void);
 static void show_opts(int val);
 
 int
@@ -209,6 +210,7 @@ vers(void)
     pr("\n");
     pr("You can have at most %d BTUs.\n", max_btus);
     pr("You are disconnected after %d minutes of idle time.\n", max_idle);
+    show_custom();
     pr("\nOptions enabled in this game:\n        ");
     show_opts(1);
     pr("\n\nOptions disabled in this game:\n        ");
@@ -223,6 +225,22 @@ vers(void)
     return RET_OK;
 }
 
+static void
+show_custom(void)
+{
+    char *sep = "\nCustom characteristics in this game:\n        ";
+    int i;
+
+    /* TODO wrap long lines */
+    for (i = 0; i < EF_MAX; i++) {
+	if (ef_flags(i) & EFF_CUSTOM) {
+	    pr("%s%s", sep, ef_nameof(i));
+	    sep = ", ";
+	}
+    }
+    if (*sep == ',')
+	pr("\n");
+}
 
 static void
 show_opts(int val)
