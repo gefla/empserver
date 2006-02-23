@@ -90,10 +90,10 @@ Login commands are:
 
 * kill
 
-  Country must be logged in.
-
   If another connection is open for this country, forcibly close it,
-  else do nothing.  Reply is C_EXIT in either case.
+  else do nothing.  Country must be authenticated.
+
+  Reply is C_EXIT regardless of success.
 
 * options OPTION[=VALUE]...
 
@@ -105,7 +105,7 @@ Login commands are:
   The server accepts the request by sending C_CMDOK.  If the server
   encounters an unknown option, it rejects the request by sending
   C_BADCMD.  It rejects unsupported values by sending C_CMDERR.  It
-  may or may not process valid parts of such a rejected request.
+  may or may not process valid parts of rejected requests.
 
   If there are no arguments, the server lists its options.  For each
   option, it sends a C_DATA line with OPTION=VALUE as text.
@@ -114,19 +114,21 @@ Login commands are:
 
 * pass PASSWORD
 
-  Log in.  Country name must be set already.
+  Authenticate.  Country name must be set already.
 
 * play [USER [COUNTRY [PASSWORD]]]
+
+  Start playing.
 
   Optional argument USER sets the user name.
 
   Optional argument COUNTRY sets the country name.
 
-  Optional argument PASSWORD logs in.  If it isn't present, the
-  country must be logged in already.
+  Optional argument PASSWORD authenticates.  If it isn't present, the
+  country must be authenticated already.
 
-  If another connection is open for this country, the server replies
-  C_EXIT.
+  Some error conditions result in a C_EXIT reply.  Clients should
+  treat it just like C_CMDERR.
 
   On success, the server sends C_INIT.  The text is the protocol
   version number in decimal, currently 2.  The client should terminate
