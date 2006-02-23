@@ -285,7 +285,7 @@ extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
 /* conftab.c */
 extern int read_builtin_tables(void);
-extern int read_config_tables(void);
+extern int read_custom_tables(void);
 /* ef_verify.c */
 /* in file.h */
 /* fsize.c */

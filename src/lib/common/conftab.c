@@ -42,7 +42,7 @@
 #include "optlist.h"
 #include "file.h"
 
-static int read_config_table_file(char *);
+static int read_custom_table_file(char *);
 
 int
 read_builtin_tables(void)
@@ -78,14 +78,14 @@ read_builtin_tables(void)
  * Return 0 on success, -1 on failure.
  */
 int
-read_config_tables(void)
+read_custom_tables(void)
 {
-    char *tmp = strdup(config_tables);
+    char *tmp = strdup(custom_tables);
     char *fname;
     int res = 0;
 
     for (fname = strtok(tmp, " \t"); fname; fname = strtok(NULL, " \t")) {
-	if (read_config_table_file(fname) < 0)
+	if (read_custom_table_file(fname) < 0)
 	    res = -1;
     }
 
@@ -98,7 +98,7 @@ read_config_tables(void)
  * Return 0 on success, -1 on error.
  */
 static int
-read_config_table_file(char *fname)
+read_custom_table_file(char *fname)
 {
     int res, n;
     FILE *fp;

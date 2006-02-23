@@ -217,7 +217,7 @@ main(int argc, char **argv)
 	fprintf(stderr, "Can't chdir to %s (%s)\n", configdir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
-    if (read_config_tables() < 0)
+    if (read_custom_tables() < 0)
 	exit(EXIT_FAILURE);
     if (chdir(gamedir)) {
 	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
