@@ -76,8 +76,10 @@ player_main(struct player *p)
     time(&player->lasttime);
     time(&player->curup);
     show_motd();
-    if (init_nats() < 0)
+    if (init_nats() < 0) {
+	pr("Server confused, try again later\n");
 	return;
+    }
     natp = getnatp(player->cnum);
     if (!gamehours(player->curup)) {
 	pr("Empire hours restriction in force\n");
