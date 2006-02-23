@@ -55,7 +55,8 @@ init_nats(void)
     };
     struct natstr *np;
 
-    if ((np = getnatp(player->cnum)) == 0)
+    np = getnatp(player->cnum);
+    if (CANT_HAPPEN(!np))
 	return -1;
     player->nstat = nstat[np->nat_stat];
     player->god = np->nat_stat == STAT_GOD;
@@ -86,8 +87,7 @@ nat_cap(int btu)
 
     np = getnatp(player->cnum);
     if (!getsect(np->nat_xcap, np->nat_ycap, &sect)) {
-	logerror("can't read %s's cap @ %d,%d",
-		 np->nat_cnam, np->nat_xcap, np->nat_ycap);
+	CANT_HAPPEN("read cap");
 	return -1;
     }
     if (np->nat_stat >= STAT_ACTIVE) {
