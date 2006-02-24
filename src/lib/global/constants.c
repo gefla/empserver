@@ -35,7 +35,7 @@
 
 #include <config.h>
 
-#include "misc.h"
+#include "wantupd.h"
 
 char *privname = "Deity forgot to edit econfig"; /* name of priv user */
 char *privlog = "careless@invalid"; /* logname of priv user */
@@ -48,18 +48,18 @@ int MARK_DELAY = 7200;		/* Seconds to bid on commodities */
 int TRADE_DELAY = 7200;		/* Seconds to bid on units */
 
 int m_m_p_d = 1440;		/* max mins of play per day (per country) */
-int s_p_etu = 10;		/* seconds per Empire time unit */
+int s_p_etu = 10;		/* seconds per Empire Time Unit */
 int etu_per_update = 60;	/* # of etu's per update */
-int adj_update = 0;		/* update time adjustment */
-int update_window = 0;		/* update window adjustment */
-int hourslop = 5;		/* amount of slop to match update times */
-char *update_times = "";	/* times regular update is allowed */
-int update_policy = 0;		/* update policy for regular updates */
-int update_demandpolicy = 2;	/* update policy for demand updates */
+int adj_update = 0;		/* update time adjustment, in seconds */
+int update_window = 0;		/* update window adjustment, in seconds */
+int hourslop = 5;		/* update_times matching fuzz, in minutes */
+char *update_times = "";	/* update times for policy UDP_TIMES */
+int update_policy = UDP_DEFAULT; /* update policy for regular updates */
+int update_demandpolicy = UDDEM_DEFAULT; /* update policy for demand updates */
 int update_missed = 999;	/* demand updates missed before veto */
-int update_wantmin = 0;		/* number of votes required for demand update */
+int update_wantmin = 0;		/* votes required for demand update */
 int blitz_time = 10;		/* number of minutes between blitz updates */
-char *update_demandtimes = "";	/* times demand update is allowed */
+char *update_demandtimes = "";	/* demand update time ranges */
 char *game_days = "";		/* days game is running */
 char *game_hours = "";		/* hours game is running */
 char *pre_update_hook = "";

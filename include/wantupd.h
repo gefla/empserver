@@ -32,54 +32,10 @@
  *     Doug Hay, 1991
  */
 
-/*
- * In the "hours" file,
- *
- * update_policy: N
- *      0 - normal policy, update each time.
- *	1 - update at times specified by keyword "update_times".
- *      2 - blitz updates
- *      3 - no regular updates.  (Only demand ones.)
- *      default: 0.
- *
- * update_times:  1:00 3:00 8:00
- *      Sets the times when updates occur under policy #1.
- *      NOTE that the schedual times should coincide.
- *
- * update_timeslop: N
- *      The number of minutes that the update check is allowed to slip
- *      to match one of the update times shown.
- *      default 5.
- *
- * update_wantmin: N
- *      0 - disabled, no requests.
- *      >0 - minimum number of requests before an update.
- *            Setting it to more than num of coun will max at num of coun.
- *	defaults to MAXNOC.
- *
- * update_abswantmin: N
- *      N - absolute minimum number of requests for an update.
- *          Prevents quick breaks and updates.
- *	defaults to 1.
- *
- * update_demandtimes:  1:00-3:00  5:00-6:00
- *      Time intervals when update requests are allowed.
- *      NOTE that time ranges CANNOT cross midnight.
- *      They must go like:  20:00-24:00 0:00-3:00
- *
- * update_demandpolicy: N
- *      0 - demand updates occur only emp_tm checks.
- *      1 - demand updates occur right after setting command.
- *      2 - demand updates disabled.
- *      defaults to 0.
- *
- * update_demandmaxperday: N
- *      Not implemented yet.
- */
-
 #ifndef WANTUPD_H
 #define WANTUPD_H
 
+/* Update policies */
 #define  UDP_NORMAL	0
 #define  UDP_TIMES	1
 #define	 UDP_NOREG	3
@@ -87,10 +43,11 @@
 #define  UDP_MAX	3
 #define  UDP_DEFAULT	UDP_NORMAL
 
+/* Demand update policies */
 #define  UDDEM_TMCHECK	0
 #define  UDDEM_COMSET	1
 #define  UDDEM_DISABLE	2
 #define  UDDEM_MAX	2
-#define  UDDEM_DEFAULT	UDDEM_TMCHECK
+#define  UDDEM_DEFAULT	UDDEM_DISABLE
 
 #endif

@@ -97,33 +97,44 @@ EMPCFBOTH("WORLD_Y", WORLD_Y, int, NSC_INT, 0,
 
 EMPCF_COMMENT("\n\n### Update policy")
 EMPCFBOTH("update_policy", update_policy, int, NSC_INT, 0,
-    "0 - normal, 1 - update_times, 2 - blitz, 3 - demand only")
+    "Update policy")
+EMPCF_COMMENT("# 0 - Schedule updates according to etu_per_update, s_p_etu, adj_update\n"
+	      "# 1 - Update at times specified by key \"update_times\"\n"
+	      "# 2 - Blitz update every blitz_time minute\n"
+	      "# 3 - No regular updates, only demand ones")
 EMPCFBOTH("etu_per_update", etu_per_update, int, NSC_INT, 0,
     "Number of ETUs per update")
 EMPCFBOTH("s_p_etu", s_p_etu, int, NSC_INT, 0,
-    "Seconds per etu, updates will occur every s_p_etu * etu_per_update seconds")
+    "Seconds per etu, updates under policy 0 every s_p_etu * etu_per_update seconds")
 EMPCFBOTH("adj_update", adj_update, int, NSC_INT, KM_INTERNAL,
     "Move the update forward or backward (in seconds)")
 EMPCFBOTH("update_window", update_window, int, NSC_INT, 0,
     "Window the update will occur in (in seconds) before and after the update time")
 EMPCFBOTH("update_times", update_times, char *, NSC_STRING, 0,
-    "Times when updates occur under policy #1.  Must coincide with schedule.")
+    "Times of day when updates may occur under policy 1, separated by space.")
+EMPCF_COMMENT("# Give time of day as HOUR:MINUTE, e.g. 20:00\n"
+    "# Times must coincide with updates under policy 0.")
 EMPCFBOTH("hourslop", hourslop, int, NSC_INT, KM_INTERNAL,
     "Number of minutes update check can slip to match update_times")
 EMPCFBOTH("blitz_time", blitz_time, int, NSC_INT, 0,
-    "Number of minutes between updates under policy #2.")
+    "Number of minutes between updates under policy 2.")
 EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, KM_INTERNAL,
     "Shell command run right before the update.")
 
 EMPCF_COMMENT("\n\n### Demand update policy")
 EMPCFBOTH("update_demandpolicy", update_demandpolicy, int, NSC_INT, 0,
-    "0 - emp_tm checks, 1 - after setting, 2 - demand updates disabled")
+    "Demand update policy")
+EMPCF_COMMENT("# 0 - Votes tallied at update times under policy 0\n"
+	      "# 1 - Votes tallies right after a vote\n"
+	      "# 2 - Demand updates disabled")
 EMPCFBOTH("update_wantmin", update_wantmin, int, NSC_INT, 0,
-    "number of requests needed for demand update")
+    "Number of votes required for a demand update")
 EMPCFBOTH("update_missed", update_missed, int, NSC_INT, 0,
-    "number of demand updates country can miss before veto update")
+    "A country vetoes further demand updates after missing that many votes")
 EMPCFBOTH("update_demandtimes", update_demandtimes, char *, NSC_STRING, 0,
-    "Times when demand updates can occur.  Ranges CANNOT cross midnight.")
+    "Time of day ranges when demand updates can occur, separated by space.")
+EMPCF_COMMENT("# Give range HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
+	      "# Ranges CANNOT cross midnight.")
 
 EMPCF_COMMENT("\n\n### Game hours restrictions")
 EMPCFBOTH("game_days", game_days, char *, NSC_STRING, 0,
