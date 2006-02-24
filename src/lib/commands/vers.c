@@ -214,7 +214,7 @@ vers(void)
     show_opts(1);
     pr("\n\nOptions disabled in this game:\n        ");
     show_opts(0);
-    pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n\n");
+    pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n");
     show_custom();
     pr("\nThe person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n\n",
        privname, privlog);
@@ -227,7 +227,7 @@ vers(void)
 static void
 show_custom(void)
 {
-    char *sep = "Customized in this game:\n        ";
+    char *sep = "\nCustomized in this game:\n        ";
     int i;
 
     /* TODO wrap long lines */
