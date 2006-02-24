@@ -59,12 +59,12 @@ update_policy_check(void)
 	update_demandpolicy = UDDEM_DEFAULT;
     if (update_demandpolicy > UDDEM_MAX)
 	update_demandpolicy = UDDEM_DEFAULT;
-    if (update_wantmin < 0)
-	update_wantmin = 0;
+    if (update_wantmin < 1)
+	update_wantmin = 1;
     if (update_wantmin > MAXNOC)
 	update_wantmin = MAXNOC;
-    if (blitz_time < 0)
-	blitz_time = 0;
+    if (blitz_time < 1)
+	blitz_time = 1;
 }
 
 static int
@@ -152,11 +152,6 @@ demand_check(void)
     time_t cur;
 
     time(&cur);
-
-    if (0 == update_wantmin) {
-	logerror("no demand update allowed, wantmin = 0");
-	return 0;
-    }
 
     demand_update_want(&want, &pop, 0);
     if (want < update_wantmin) {

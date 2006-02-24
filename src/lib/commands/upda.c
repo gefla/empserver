@@ -135,11 +135,7 @@ upda(void)
 	    if (*update_demandtimes != 0)
 		pr("Demand updates are allowed during: %s\n",
 		   update_demandtimes);
-	    if (update_wantmin == 0) {
-		pr("Demand updates are disabled by a mininum of 0\n");
-	    } else {
-		pr("Demand updates require %d country(s) to want one.\n", update_wantmin);
-	    }
+	    pr("Demand updates require %d country(s) to want one.\n", update_wantmin);
 	}
     }
     if (*game_days != 0)

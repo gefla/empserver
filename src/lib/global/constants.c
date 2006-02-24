@@ -30,7 +30,6 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     
  */
 
 #include <config.h>
@@ -57,7 +56,7 @@ char *update_times = "";	/* update times for policy UDP_TIMES */
 int update_policy = UDP_DEFAULT; /* update policy for regular updates */
 int update_demandpolicy = UDDEM_DEFAULT; /* update policy for demand updates */
 int update_missed = 999;	/* demand updates missed before veto */
-int update_wantmin = 0;		/* votes required for demand update */
+int update_wantmin = 1;		/* votes required for demand update */
 int blitz_time = 10;		/* number of minutes between blitz updates */
 char *update_demandtimes = "";	/* demand update time ranges */
 char *game_days = "";		/* days game is running */
