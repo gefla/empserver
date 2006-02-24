@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
+ *     Markus Armbruster, 2004-2005
  */
 
 #include <config.h>
@@ -590,10 +591,12 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
 	if (!(plp->pcp->pl_flags & P_A)) {
 	    /* no asw on this mission */
 	    mission_flags &= ~P_A;
+	    /* FIXME escorts turn ASW patrol into ordinary recon */
 	}
 	if (!(plp->pcp->pl_flags & P_MINE)) {
 	    /* no asw on this mission */
 	    mission_flags &= ~P_MINE;
+	    /* FIXME no effect */
 	}
 	plp->plane.pln_mobil -= pln_mobcost(dist, &plp->plane, flags);
 	pr("%s equipped\n", prplane(&plp->plane));

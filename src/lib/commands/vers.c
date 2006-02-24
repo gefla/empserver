@@ -33,6 +33,8 @@
  *     Thomas Ruschak
  *     Ken Stevens
  *     Steve McClure
+ *     Ron Koenderink, 2005
+ *     Markus Armbruster, 2005
  */
 
 #include <config.h>

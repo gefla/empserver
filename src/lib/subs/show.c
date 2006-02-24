@@ -31,14 +31,7 @@
  *     Julian Onions, 1988
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
- */
-
-/*
- * general routines that are callable to give info on things.
- * currently, planes, ships, nukes and bridges. Tanks & regiments one day?
- *
- * Added nuke_flags to be consistent. Jeff Bailey 12/15/90
- *                                    (bailey@mcs.kent.edu)
+ *     Ron Koenderink, 2005
  */
 
 #include <config.h>

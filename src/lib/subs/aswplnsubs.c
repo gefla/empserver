@@ -29,7 +29,6 @@
  * 
  *  Known contributors to this file:
  *  Ron Koenderink, 2004
- *     
  */
 
 #include <config.h>

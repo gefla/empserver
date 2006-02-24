@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Doug Hay, 1998
  *     Steve McClure, 1998
+ *     Ron Koenderink, 2004-2005
  */
 
 /*

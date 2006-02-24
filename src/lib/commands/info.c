@@ -32,6 +32,7 @@
  *     Mike Wise, 1997 - added apropos and case insensitivity
  *     Doug Hay, 1998
  *     Steve McClure, 1998-2000
+ *     Ron Koenderink, 2004
  */
 
 #include <config.h>

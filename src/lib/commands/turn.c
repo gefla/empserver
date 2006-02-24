@@ -28,7 +28,7 @@
  *  turn.c: Turn the game on, off, or set the login message.
  * 
  *  Known contributors to this file:
- *    
+ *     Marc Olzheim, 2004
  */
 
 #include <config.h>

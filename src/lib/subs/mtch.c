@@ -28,7 +28,7 @@
  *  mtch.c: Matching operations on structures and commands.
  * 
  *  Known contributors to this file:
- *     (List known contributors to this file)
+ *     
  */
 
 #include <config.h>

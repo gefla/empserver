@@ -31,6 +31,7 @@
  *     Ken Stevens, 1995
  *     Doug Hay, 1998
  *     Steve McClure, 2000
+ *     Ron Koenderink, 2004
  */
 
 #include <config.h>
