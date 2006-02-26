@@ -297,8 +297,10 @@ ifeq ($(cvs_controlled),yes)
 sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))
 	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk` >$@
 else
+ifneq ($(srcdir),.)
 sources.mk: $(srcdir)/sources.mk
 	cp -f $^ $@
+endif
 endif
 
 # Distributing
