@@ -387,10 +387,10 @@ xdump(void)
     int type;
     int meta = 0;
 
-    p = getstarg(player->argp[1], "What? ", buf);
+    p = getstarg(player->argp[1], "Table name, or meta? ", buf);
     if (p && strcmp(p, "meta") == 0) {
 	meta = 1;
-	p = getstarg(player->argp[2], "What? ", buf);
+	p = getstarg(player->argp[2], "Table name? ", buf);
     }
     if (!p)
 	return RET_SYN;
