@@ -148,6 +148,7 @@ struct castr sect_ca[] = {
     NSC_IVEC(fldoff(sctstr, sct_item), ""),
     NSC_IVEC(fldoff(sctstr, sct_dist), "_dist"),
     NSC_IVEC(fldoff(sctstr, sct_del), "_del"),
+    /* should let old owner access mines, but can't express that: */
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_mines), "mines", EF_BAD},
     {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_pstage), "pstage",
      EF_PLAGUE_STAGES},
@@ -233,7 +234,7 @@ struct castr ship_ca[] = {
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nchoppers), "nchoppers",
      EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nxlight), "nxlight", EF_BAD},
-    /* could let builder access these, but we can't express that yet: */
+    /* should let builder access xbuilt, ybuilt, but can't express that: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_x), "xbuilt", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(shpstr, shp_orig_y), "ybuilt", EF_BAD},
     {NSC_NATID, NSC_DEITY, 0, fldoff(shpstr, shp_orig_own), "builder",
@@ -465,10 +466,10 @@ struct castr commodity_ca[] = {
     {NSC_FLOAT, 0, 0, fldoff(comstr, com_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(comstr, com_markettime), "markettime", EF_BAD},
-    /* could let maxbidder access these, but we can't express that yet: */
+    /* should let maxbidder access xbuy, ybuilt, but can't express that: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_x), "xbuy", EF_BAD},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_y), "ybuy", EF_BAD},
-    /* could let the owner access these, but we can't express that yet: */
+    /* should let owner access xsell, ysell, but can't express that: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, sell_x), "xsell", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(comstr, sell_y), "ysell", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -482,7 +483,7 @@ struct castr trade_ca[] = {
     {NSC_LONG, 0, 0, fldoff(trdstr, trd_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(trdstr, trd_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(trdstr, trd_markettime), "markettime", EF_BAD},
-    /* could let the maxbidder access these, but we can't express that yet: */
+    /* should let maxbidder access xloc, yloc, but can't express that: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(trdstr, trd_x), "xloc", EF_BAD},
     {NSC_YCOORD, NSC_DEITY, 0, fldoff(trdstr, trd_y), "yloc", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
@@ -493,6 +494,11 @@ struct castr nat_ca[] = {
      * Keep selectors cnum, stat and cname at the beginning.
      * ef_init_srv() makes their copies in cou_ca[] accessible for
      * mortals.
+     * It should also make tech, research, education and happiness
+     * available, but can't express the obfuscation necessary for
+     * foreign levels.
+     * It should also make relations available, but can't express how
+     * to obey HIDDEN.
      */
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
     {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
@@ -527,6 +533,7 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
+    /* should show mortals whether there's contact */
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
      EF_BAD},
     /* FIXME nat_rejects[], nat_priorities[] */
