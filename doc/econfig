@@ -5,22 +5,16 @@ is for coders to see how this stuff works.
 Julian Onions <j.onions@nexor.co.uk>  15/7/95
 
 --
-Also, the Empire config files are now self-documenting (to a point.)
-Each option/variable now has a comment associated with it to hopefully
-make life easier on deities wanting to change things.
 
--- Steve McClure, 10/21/1998
---
-
-Deity Notes
------------
+Deity Information
+-----------------
 
 To find out the compiled-in configuration, the simplest method is to
-compile up util/pconfig and the run it.  It can be run either with no
-arguments, in which case it will print in config format the current
-compiled-in configuration.  Otherwise, with a file containing a
-configuration, it will first read in this file, and override any
-compiled in variables, and then print the merged configuration.
+run pconfig.  It can be run either with no arguments, in which case it
+will print the current compiled-in configuration in econfig format.
+Otherwise, with a file name argument, it will first read in this file,
+and override any compiled in variables, and then print the merged
+configuration.
 
 So the first method shows you what's compiled in, the second how a
 config file would modify this.
@@ -39,7 +33,7 @@ configures the empire port to 7777,
   btu_build_rate 0.0004
 configures the BTU build rate, and so on.
 
-The programs look for a config file in a compiled-in location, which
+The programs look for the config file in a compiled-in location, which
 is shown by emp_server -h.  Use -e to make the programs use another
 config file instead.  Thus, to start two games on the same host, you
 might have
@@ -67,7 +61,7 @@ info "/empire/info.nr"
 port "7778"
 
 You only need the lines in that file that you require to override the
-compiled in definitions, however having all the definitions may help
+compiled-in definitions, however having all the definitions may help
 you to understand what is on and off.  You could do this with
 
 pconfig econfig1 > e1 && mv e1 econfig1
@@ -75,6 +69,18 @@ pconfig econfig2 > e2 && mv e2 econfig2
 
 which will fill in all the missing keys and values with their defaults.
 
+Additional customization is possible through key custom_tables, which
+is a list of files containing tables in xdump format (see doc/xdump
+for technical information on xdump).  To customize a table, copy the
+default table from the directory given by econfig key builtindir to a
+file next to your econfig, then add the file to custom_keys.  Do *not*
+edit the default table in-place!
+
+The server lets you customize more tables than the ones in builtindir.
+This is not recommended at this time.  You can use the xdump command
+to dump the default table to a file.  The resulting table is in
+machine-readable form, and may not be portable between different
+server versions.
 
 
 Coder information
@@ -107,5 +113,5 @@ econfig parser.
 	  if (opt_DUMB) {
 	     pr("You're being dumb\n");
 	  } else {
-	     pr ("You're being really dumb\n");
+	     pr("You're being really dumb\n");
 	  }
