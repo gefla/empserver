@@ -71,8 +71,8 @@ enum {				/* Priorities */
  *
  * One of (r_cnum, r_realm) and r_uid is redundant, provided MAXNOR is known.
  *
- * The only user of b_cnum and b_realm appears to be xdump.
- * If we had working virtual selectors, we could remove b_cnum and b_realm.
+ * The only user of r_cnum and r_realm appears to be xdump.
+ * If we had working virtual selectors, we could remove r_cnum and r_realm.
  *
  */
 struct realmstr {
