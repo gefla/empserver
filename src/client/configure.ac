@@ -49,14 +49,20 @@ AC_PROG_INSTALL
 
 
 ### Checks for libraries.
-LIB_SOCKET_NSL
 AC_SEARCH_LIBS([setupterm], [termlib termcap])
+LIB_SOCKET_NSL
 # TODO merge this into LIB_SOCKET_NSL?
-case "$host_os" in
-*mingw32)
-    LIBS="-lws2_32 $LIBS" ;;
-esac
-
+if test "$ac_cv_search_gethostbyname" = no; then
+    dnl Can't search ws2_32 for gethostbyname using AC_SEARCH_LIBS, because
+    dnl it requires #include <winsocks2.h> to work.
+    AC_MSG_CHECKING([for gethostbyname in -lws2_32])
+    save_LIBS=$LIBS
+    LIBS="-lws2_32 $LIBS"
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <winsock2.h>]],
+				    [[gethostbyname ("");]])],
+		   [ws2_res=yes], [LIBS=save_LIBS ws2_res=no])
+    AC_MSG_RESULT([$ws2_res])
+fi
 
 ### Checks for header files.
 
