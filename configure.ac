@@ -146,6 +146,7 @@ AC_CONFIG_COMMANDS([stamp-h],
 	    mkdir -p `sed s/.*=// <$srcdir/sources.mk | tr ' ' '\012' \
 		| sed -n '/\//s,/@<:@^/@:>@*$,,gp'| uniq`
 	fi
+	mkdir -p info.html info.nr lib
 	>stamp-h],
 	[cvs_controlled=$cvs_controlled; AWK=$AWK])
 AC_OUTPUT
