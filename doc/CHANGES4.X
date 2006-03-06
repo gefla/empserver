@@ -1,3 +1,160 @@
+Changes to Empire 4.3.0 - Mon Mar  6 19:32:06 UTC 2006
+ * version no longer pretends option SHIPNAMES still exists.
+ * Remove files auth and ban.  They could be used to restrict client
+   address and user.  Restricting user is useless, because players can
+   send whatever they want.  Banning IPs is better done with a packet
+   filter.  That leaves restricting deity IPs.  Provide new econfig
+   key privip for that.  Apply it to session kill as well as login.
+ * xdump leaves GUINEA_PIGS:
+   - xdump is now enabled unconditionally.
+   - xdump sect now dumps selector coastal, because it can't be
+     reliably computed from other xdump information.
+   - New xdump realm and country.  Realm information is now stored in
+     a separate file, with appropriate selectors.
+   - Review for completeness and information leaks.  See info xdump
+     for remaining issues.  New treaty selector uid, nat selectors
+     relations, contacts.  Removed useless selectors: news and lost
+     uid, nat dayno.
+   - Command syntax changed.
+   - xdump opt is no more, option information is now in xdump ver.
+   - xdump can now dump meta-data.
+   - Header and footer changed to be more compact.  You now need
+     meta-data to identify fields.
+   - Bug fixes.
+   - Documentation in doc/xdump
+ * New econfig key builtindir.
+ * New econfig key custom_tables lets you customize configuration
+   tables without recompiling.  Customizing tables other than unit
+   tables is not recommended for now.  See doc/econfig for
+   instructions.
+ * Check configuration and game state are sane on server startup.
+ * Remove option NONUKES and NEUTRON.  Deities can load a suitable
+   nuke table to get the same effect.
+ * Remove option DRNUKE.  Use econfig key drnuke_const to control
+   whether nukes need research.
+ * Disqualify land units from performing missions while loaded on
+   ships or trains.
+ * Fix dump for strings without terminating zero.
+ * Fix login command option not to send an extra prompt.
+ * zdone now displays information about demand update vetoing.
+ * The Windows port now requires Winsock version 2.
+ * Remove econfig key powe_cost.
+ * version report now shows all the configurable settings of interest
+   to players.
+ * carg and lcarg now display people as well.
+ * ldump now dumps civ and uw as well.
+ * Fix dangling pointer dereference in dogfighting code.
+ * Tell sector owner when partisans take over.  But don't disclose che
+   casualties then.
+ * emp_server, files, fairland now support options -h and -v.
+ * Simplify baroque version numbering to a single version number.
+   This affects output of version.
+ * New show item and show news.
+ * New build process:
+   - Follow the usual steps: configure; make; make install.  The
+     to avoid breaking clients.latter is optional.  The only file
+     to avoid breaking clients.deities still have to edit is econfig.
+   - Use GNU Autoconf for system configuration.
+   - Use GNU Make for portability and features.
+   - Support separate build trees.
+   - Remake out-of-date dependencies automatically.
+   - Remake out-of-date info files automatically.
+   - Flatten info directory.
+   - Formatted info files are no longer distributed in source tarball.
+   - Use LWP only with UCONTEXT.  Autoconfiguring the other LWP
+     low-level options doesn't seem to be worth the effort, as
+     UCONTEXT should be pretty portable.
+ * Fix use of freed memory in sail.
+ * sail could let large ships enter big cities.
+ * Fix reject and accept not to require contact.
+ * Fix sharebmap and telegram to prompt for a missing first argument.
+ * Fix report to align column research correctly for deities.
+ * When the optional newspaper argument doesn't work because HIDDEN is
+   enabled, complain instead of ignoring it silently.
+ * When BLITZ is enabled, fairland no longer permutes country numbers
+   in newcap_script so that start islands are ordered from top left to
+   bottom right.
+ * Minimize output format differences between options:
+   - census shows column fall regardless of FALLOUT.
+   - show nuke now shows column res regardless of DRNUKE.
+   - report no longer suppress column status when HIDDEN is enabled.
+     HIDDEN limits status information like for the country command.
+   - relations column width differed depending on option SLOW_WAR.
+     Always use the wider format.
+ * Fix a bug in edit that suppressed the player notification telex on
+   military reserve change.
+ * Fix command dispatch not to let deities use commands that are
+   declared not to be available to them.  The only command affected is
+   break.
+ * Fix the list command for visitor.
+ * econfig key m_m_p_d no longer applies to deities.
+ * Fix the origin command for country #0.  Allow moving origin to
+   another country's origin.  Allow deities to reset origin to
+   absolute 0,0.  This turns origin into a superset of the offset
+   command.  Remove offset command.
+ * Fix a bug that caused unpredictable flak damage when it should have
+   been maximum damage (was broken in 4.2.19).
+ * Don't store initial capital location, remove the associated nat
+   selectors xstart, ystart.
+ * Fix production command to consider resource depletion.
+ * Fix justification of coordinate output in cutoff and mission.
+ * Option UPDATESCHED is no longer optional.  Disabling it didn't
+   work anyway.
+ * Support IPv6.
+ * Turn options into ordinary econfig keys.
+ * New econfig key start_cash.
+ * BTU regeneration now depends on the capital's work percentage.
+ * nation now supports an optional argument that lets deities ask for
+   somebody else's nation report.
+ * Fix nation to display SANCTUARY instead of VISITOR for countries in
+   sanctuary.
+ * Fix capital to let you use a regained sacked capital without
+   activating another one in between.
+ * Don't move capital when it is sacked.
+ * New ship capability canal.
+ * You now need a capital to request a demand update.
+ * power now ignores landspies.
+ * Fix LWP stack checking.
+ * Clean up LWP, drop dead machine-specific code, fix portability bugs
+   in UCONTEXT code.
+ * census now shows the old owner instead of `*'.  dump is unchanged
+   to avoid breaking clients.
+ * peek no longer prints the old owner.
+ * When a bombed land unit retreated, collateral damage was applied to
+   the wrong sector.
+ * paradrop, drop and fly can no longer abandon the base sector.
+ * Tending foreign ships now sends a bulletin to the owner.
+ * Fix bug that permitted login for inactive countries, including ""
+ * Fix tend for spies
+ * Change launch to fire all missiles selected at the same target.
+   Previously, it prompted for a new target after each missile.
+ * add, consider, build, launch and fire no longer re-prompt when
+   supplied with a bad argument, they just fail.  Consequently, the
+   build command no longer lets you lists types you can build.  It
+   points to the show command instead.
+ * Fix add not to truncate country number.
+ * Fix selector coastal to be accurate at all times.
+ * Fix obscure bug in fairland: the sector added last to an island
+   wasn't considered coastal.  Affected resource computation.
+ * Fix sector wiping in add command.
+ * Remove options NO_LCMS, NO_HCMS, NO_OIL.  They were broken in many
+   ways.  Custom configuration tables should become a serviceable
+   replacement eventually.
+ * Client no longer freezes on long lines of server output.
+ * Fix uninitialized signal mask bugs.
+ * Fix Windows service code's treatment of -e.
+ * Sub interdiction disclosed sub owner through news' actor selector.
+ * country reports on all countries, but carefully limits information
+   disclosed to mortals.  Output format changed.
+ * Market no longer forces sellers to grant loans.
+ * Fix potential crash bug in set command.  Friendlier prompt and
+   diagnostics.
+ * Substantial code cleanup and portability fixes.
+ * Extend empfile abstraction to cover game configuration.
+ * Overhaul of game state storage.
+ * The above includes major contributions from Ron Koenderink.  Many
+   thanks!
+
 Changes to Empire 4.2.23 - Sun Oct 23 09:28:26 UTC 2005
  * Make version pretend option SHIPNAMES still exists, for the benefit
    of clients that still depend on it.
