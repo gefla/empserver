@@ -361,21 +361,17 @@ change between a dump and the next timestamp increase.
 Timestamp values are currently seconds since the epoch, but this might
 change, and clients are advised not to rely on it.
 
-Experimental extended dump
---------------------------
+Extended dump
+-------------
 
 Traditional dumps have a number of shortcomings.  They cover only the
-most important part of the game state: sectors, ships, planes, land
-units, nukes, but not game configuration, loans, news, and so forth.
+most important part of the game state (sectors, ships, planes, land
+units, nukes), but not game configuration, loans, news, and so forth.
 They are not quite complete even for what they attempt to cover.
 Finally, their output is harder to parse than necessary.
 
 The new `xdump' command is designed to overcome these deficiencies.
-It still needs significant work, and is subject to change in
-incompatible ways.  To protect real games from known and unknown flaws
-in xdump, it is only accessible when option GUINEA_PIGS is enabled.
-
-Technical xdump documentation to be written.
+See doc/xdump for the full story.
 
 
 Advice on parsing human-readable command output
