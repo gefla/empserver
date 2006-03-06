@@ -114,12 +114,15 @@ ef_open(int type, int how)
 	if (how & EFF_MEM)
 	    ep->csize = ep->fids;
 	else
-	    ep->csize = MAX(1, blksize(fd) / ep->size);
+	    ep->csize = blksize(fd) / ep->size;
+	/* 0 could lead to null cache, which confuses assertions */
+	if (!ep->csize)
+	    ep->csize++;
 	size = ep->csize * ep->size;
 	if (CANT_HAPPEN(ep->cache))
 	    free(ep->cache);
 	ep->cache = malloc(size);
-	if (ep->cache == NULL && size) {
+	if (ep->cache == NULL) {
 	    logerror("Can't open %s: out of memory", ep->file);
 	    close(fd);
 	    return 0;
