@@ -72,12 +72,12 @@ address if you'd like it included.
 
 James Anderson (jwa@k.cs.cmu.edu)
 Jeff Anton (anton@postgres.berkeley.edu)
-Markus Armbruster
+Markus Armbruster (armbru@pond.sub.org)
 Jeff Bailey (bailey@mcs.kent.edu)
 Mark Ballinger
 Jan van Beethoven
 Paul Byrne
-Geoff Cashman (cashman@sherrill.kiva.net)
+Geoff Cashman
 Bill Canning
 Trannie Carter
 Sean Casey
@@ -98,13 +98,14 @@ Steven Grimm (koreth@ucscb.UCSC.EDU)
 Karl Hagen
 Doug Hay (Doug_Hay@tsb.ca)
 Ken Huisman
+Ray Hyatt (Ray.Hyatt@gmail.com)   
 Lewis R. Jansen (lrj@helios.tn.cornell.edu)
 Mike St. Johns (stjohns@edn-vax.arpa)
 Beorn Johnson
 William S. Kaster
 Jeremy Kennebel
 Kevin Klemmick
-Ron Koenderink
+Ron Koenderink (rkoenderink@yahoo.ca)
 Ron Kuris (rk@unify.com)
 Nick Lai (lai@cs.ucla.edu)
 Phil Lapsley
@@ -113,9 +114,9 @@ Robert A. Larson (blarson@skat.usc.edu)
 Jonathan Lee
 Craig Leres
 Dan Logcher (dan@i-kinetics.com)
-Pat Loney (overlord@empire.cx)
+Pat Loney (overlord@multi.usr.ch)
 Shelley Louie (slouie@cory.berekely.edu)
-Steve McClure (ionica@empire.cx)
+Steve McClure
 Chris Metcalf (metcalf-christopher@yale.arpa)
 Sasha Mikheev
 Kevin Morgan
@@ -134,7 +135,7 @@ Kurt Pires (kjpires@ic.berkeley.edu)
 Brett Reid
 Bernhard Reiter (breiter@mathematik.Uni-Osnabrueck.DE)
 Jim Reuter (reuter@decwrl.dec.com)
-James Risner (risner@akira.stdio.com)
+James Risner (risemp@openworldinc.com)
 Thomas Ruschak (ts@ecn.purdue.edu)
 Edward M. Rynes
 David Muir Sharnoff (muir@cogsci.berkeley.edu)
