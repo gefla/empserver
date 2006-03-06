@@ -31,18 +31,6 @@
  *     Markus Armbruster, 2004-2006
  */
 
-#include <config.h>
-
-#include <stddef.h>
-#include "misc.h"
-#include "file.h"
-#include "match.h"
-#include "news.h"
-#include "nsc.h"
-#include "optlist.h"
-#include "version.h"
-#include "commands.h"
-
 /*
  * Dump everything under the sun
  *
@@ -77,8 +65,24 @@
  * - Market: EF_COMM
  */
 
-/* FIXME document dump format */
+/*
+ * See doc/xdump for motivation, syntax, semantics, and rationale.
+ * Make sure to keep it up-to-date!
+ */
+
 /* TODO don't dump stuff that's useless due to options */
+
+#include <config.h>
+
+#include <stddef.h>
+#include "misc.h"
+#include "file.h"
+#include "match.h"
+#include "news.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "version.h"
+#include "commands.h"
 
 /*
  * Evaluate a attribute of an object into VAL, return VAL.

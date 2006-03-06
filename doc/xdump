@@ -1,0 +1,776 @@
+Introduction
+
+Empire is designed as a smart server with dumb clients.  An Empire
+client need to know nothing about the game.  Even telnet would do.  In
+fact, emp_client is just as a slightly specialized telnet.
+
+In such a design, presentation is in the server, and it is designed
+for human consumption.  Ideally, presentation and logic are cleanly
+separated, for easy selection between different presentations.
+There's no such separation in the Empire server, and separating them
+now would be a herculean effort.
+
+Thus, smart clients have to work with output designed for humans.
+That's not especially hard, just an awful lot of tedious work, and the
+result gets easily broken by minor changes in output format, which
+humans hardly notice.
+
+Instead of making smart clients parse output of commands designed for
+humans, one can add commands designed for machines.  Such commands can
+share the code implementing game rules with their counterparts for
+humans.  To do that cleanly means separating logic and presentation.
+Implementing them with their own copy of the code is no good --- how
+would you ensure that the two copies implement precisely the same game
+rules?
+
+Except for commands that actually don't do anything.  There's a useful
+class of such commands: commands to show game configuration and state
+without altering it.  The only game rules involved are those that
+govern who gets to see what.  Ensuring that those are satisfied is
+tractable.
+
+Empire has had one such command since the beginning: dump.  Empire
+4.0.6 added more: sdump, ldump, pdump and ndump.  4.0.7 added lost and
+support for incremental dumps.  These commands have served smart
+clients well.  However, they cover just the most important part of the
+game state (sectors, ships, planes, land units, nukes), and no game
+configuration.  They are not quite complete even for what they attempt
+to cover.  Finally, their output is harder to parse than necessary.
+
+The xdump command is designed to be the dump to end all dumps.
+
+Like many good ideas, xdump has secondary uses.  Dumping game state as
+text can be one half of a game export/import facility.  Useful to
+migrate games to different machines or even, with some text mangling
+perhaps, different server versions.  We will see below that xdump
+isn't quite sufficient for that, but it's a start.
+
+If you can import game state, you can import game configuration, or in
+other words: customize your game.  As we will see, configuration files
+have different requirements, which xdump doesn't satisfy without some
+extensions.
+
+If game import code can edit everything, then a deity command capable
+of editing everything is possible.  Proof-of-concept code exists (not
+in the tree yet).
+
+
+Analysis of the data to dump
+
+Game state consists of a fixed set of table files (sector, ship, ...),
+telegram files, and a few miscellaneous files.  Game configuration
+consists of a fixed set of configuration tables and scalar parameters.
+
+A table is an ordered set of records (table rows).  All records have
+the same fields (table columns), which are statically typed.
+
+Fields may be integers, floating-point numbers, x- or y-coordinates,
+symbols and symbol sets encoded as integers in a way specific to the
+server version, and character arrays.  Configuration table fields may
+be pointers to zero-terminated strings, null pointers allowed.  No
+other pointers occur.  Unions do not occur.
+
+
+Requirements analysis
+
+Requirements:
+
+* Capable to dump all tables.
+
+* Can do incremental dumps.
+
+* Output is text.
+
+* Output is reasonably compact.
+
+* Output is trivial to parse.  Triviality test: if it's easy in AWK, C
+  (no lex & yacc, just stdio), Lisp (just reader) and Perl (base
+  language, no modules), then it's trivial enough.
+
+* Output identifies itself.
+
+* Output is self-contained; symbol encoding is explicit.
+
+* KISS: keep it simple, keep it stupid.
+
+Non-requirements:
+
+* Generality.  We're not trying to design a general mechanism for
+  dumping C data.
+
+* Completeness.  We're not trying to dump stuff other than tables.
+
+* Abstraction.  We're not trying to hide how things are stored in the
+  server.  When storage changes, xdump output will change as well, and
+  consumers need to be updated.  This is not because abstraction
+  wouldn't be nice to have, just because we don't feel up to the task
+  of designing one.
+
+
+Principles of Design
+
+Traditional dumps have a dump function for every table.  These
+functions are simple, but exceedingly dull and repetitive.
+
+The selector code works differently.  Each table has a descriptor,
+which among other things defines a dictionary of selector descriptors.
+A selector descriptor describes a field (table column) visible to
+players.  This is what we call meta-data (data about data).  The
+selector code knows nothing about the individual tables, it just
+interprets meta-data.  That's smart, as it keeps the dull, repetitive
+parts in more easily maintainable meta-data rather than code.
+
+xdump follows the selector design, and uses the existing selector
+meta-data.  This requires extending the meta-data to configuration
+tables, which weren't previously covered.  It also requires some
+generalization of selector descriptors, so that all fields can be
+covered.
+
+To sum up, meta-data consists of a table of tables, and for each table
+a table of selectors (table of columns, so to speak).  It is specific
+to the server version and how it is compiled on the host.
+
+To interpret a table xdump, you need its meta-data, because without it
+you have no idea what the columns mean.  As meta-data is just a bunch
+of tables, xdump can dump it.  But now you need meta-meta-data to make
+sense of the meta-data.  Fortunately, meta-meta-data is the same for
+all xdumps, and therefore the recursion terminates with a single
+meta-meta-table.
+
+xdump dumps symbols and symbol sets as integers.  To decode them, you
+need to know what the symbol numbers and symbol set bits mean.  For
+this purpose, field meta-data includes the table ID of a symbol table.
+A symbol table is a table of value-name pairs, with the value in the
+leftmost column.  You decode a symbol value by looking it up in the
+symbol table.  You decode a symbol set value by looking up its bits
+(powers of two) in the symbol table.
+
+Some integer fields are actually keys in other tables.  For instance,
+ship field type is a key in the table of ship types ship-chr, and
+plane field ship is a key in the ship table.  Key value -1 is special:
+it's a null key.  Meta-data encodes these table reference just like
+for symbols: the meta-data has the ID of the referenced table, and
+that table has the key in the leftmost column.  Obviously, that
+leftmost column is a table key as well, referencing the table itself.
+
+A table with its key in the leftmost column can be dumped partially.
+Without such a key, you need to count records to find the record
+index, and that works only if you can see a prefix of the complete
+table.
+
+The special table "ver" collects all scalar configuration parameters
+in a single record.  It does not occur in the table of tables.
+
+
+Syntax of xdump command
+
+See info xdump.
+
+
+The xdump output Language
+
+Because the output is to be parsed by machines, it needs to be
+precisely specified.  We use EBNF (ISO 14977) for syntax, except we
+use '-' in meta-identifiers and omit the concatenation symbol ','.
+
+    table = header { record } footer ;
+    header = "XDUMP" space [ "meta" space ] name space timestamp newline ;
+    name = name-chr { name-chr } ;
+    name-chr = ? ASCII characters 33..126 ? ;
+    timestamp = intnum ;
+    footer = "/" number newline ;
+    record = [ fields ] newline ;
+    fields = field { space field } ;
+    field = intnum | flonum | string ;
+    intnum = ? integer in printf %d format ? ;
+    flonum = ? floating-point in printf %g format ? ;
+    string = "nil"
+           | '"' { str-char } '"' ;
+    str-char = "\\" octal-digit octal-digit octal-digit
+             | ? ASCII characters 33..126 except '"' and '\\' ? ;
+    octal-digit = ? '0'..'7' ? ;
+    space = ' ' ;
+    newline = ? ASCII character 10 ? ;
+
+Notes:
+
+* The syntax for flonum is debatable.  Precise conversion between
+  floating-point and decimal is hard, and C libraries are not required
+  to be precise.  Using C99's %a format for flonum would avoid the
+  issue, but some programming environments may have trouble converting
+  that back to floating-point.  We may change to %a anyway in the
+  future.  Clients are advised to accept both.
+
+* Strings syntax could perhaps profit from the remaining C escape
+  sequences.  Except for '\"': adding that would complicate regular
+  expressions matching the string, and thus violate the `trivial to
+  parse' requirement
+
+* Space is to be taken literally: a single space character.  Not a
+  non-empty sequence of whitespace.
+
+Semantics:
+
+* The table name in the header is one of the names in xdump table.
+
+* The timestamp increases monotonically.  It has a noticeable
+  granularity: game state may change between an xdump and the next
+  timestamp increase.  If the table has a timestamp field, clients can
+  xdump incrementally by using a conditional ?timestamp>T, where T is
+  one less than the timestamp received with the last xdump of that
+  table.
+
+  Timestamp values are currently seconds since the epoch, but this
+  might change, and clients are advised not to rely on it.
+
+* The number in the footer matches the number of records.
+
+* Fields match their meta-data (see Meta-Data below).
+
+* "nil" represents a null string (which is not the same as an empty
+  string).  Otherwise, fields are to be interpreted just like C
+  literals.
+
+
+Meta-Data
+
+Table meta-data is in xdump table.  Fields:
+
+* uid: The table ID, key for xdump table.  IDs depend on the server
+  version; clients should not hard-code them.  This is the leftmost
+  field.
+
+* name: The table name.  Clients may identify tables by name.
+
+Field meta-data for table T is in xdump meta T.  The order of fields
+in the xdump T matches the order of records in xdump meta T.  Fields
+of xdump meta T are:
+
+* name: The field name.  Matches the selector name.  Clients may
+  identify fields by name.  This is the leftmost field.
+
+* type: The field's data type, a symbol.  Clients should use this only
+  as key for the symbol table.  Symbols are:
+  - "d", field uses intnum syntax
+  - "g", field uses flonum syntax
+  - "s", field uses string syntax
+  - "c", field uses string syntax
+
+* flags: The field's flags, a symbol set.  Flags are:
+  - "deity", field visible only to deities
+  - "extra", field not to be dumped
+  - "const", field cannot be changed (see xundump below)
+  - "bits", field is a symbol set, field type must encode symbol "d",
+    field table must not be -1.
+
+* len: If non-zero, then the record encodes an array with that many
+  elements.  If field type encodes symbol "c", it is a character
+  array, which is dumped as a single string field.  Else, the array is
+  dumped as len fields.
+
+* table: Key for xdump table.  Unless -1, it defines the table
+  referenced by the field value.  Field type must encode symbol "d"
+  then.
+
+Symbol table fields:
+
+* value: The symbol's encoding as integer.  If the symbol can be
+  element of a symbol set, this is a power of two.
+
+* name: The symbol's name.
+
+
+Notes on xdump Implementation
+
+Overall impact on the server code is low.
+
+To keeps xdump simple, storage of game state and game configuration
+tables has been unified under the common empfile abstraction, making
+nxtitem-iterators and selectors equally applicable to all tables.
+
+xdump required a few extensions to meta-data, which may become useful
+in other places as well:
+
+* Selectors can now deal with arrays (revived struct castr member
+  ca_len).  Not yet available on the Empire command line.
+
+* Selector meta-data can now express that a selector value is a key
+  for another table (new struct castr member ca_table).  The selector
+  code doesn't use that, yet.
+
+* Selector flag NSC_EXTRA to flag redundant selectors, so that xdump
+  can ignore them.
+
+Meta-data is in empfile[] (table meta-data), src/lib/global/nsc.c
+(selector meta-data), src/lib/global/symbol.c (symbol tables).  The
+command is in src/lib/commands/xdump.c, unsurprisingly.
+
+
+Hints on Using xdump in Clients
+
+Let's explore how to dump a game.  To make sense of a table, we need
+its meta-data, and to make sense of that table, we need meta-meta
+data.  So we start with that:
+
+    [14:640] Command : xdump meta meta
+    XDUMP meta meta 1139555204
+    "name" 3 4 0 -1
+    "type" 5 4 0 32
+    "flags" 6 12 0 33
+    "len" 8 4 0 -1
+    "table" 9 4 0 -1
+    /5
+
+To interpret this table, we have to know the field names and their
+meanings.  Clients hard-code them.  They should be prepared to accept
+and ignore additional fields, and to cope with changes in field order,
+except they may rely on "name" coming first.
+
+A word on hard-coding.  Clients hard-code *names*.  The numbers used
+for table IDs and to encode symbols are none of the client's business.
+
+The encoding doesn't normally change within a game.  Except when the
+game is migrated to a sufficiently different server.  That's a
+difficult and risky thing to do, especially as there are no tools to
+help with migrating (yet).  Clients may wish to provide for such
+changes anyway, by decoupling the client's encoding from the server's,
+and dumping fresh meta-data on login.  Incremental meta-data dump
+would be nice to have.
+
+So we don't know how symbol type and symbol set flags are encoded.  To
+decode them, we need their symbol tables.  However, we need flags and
+type only for tables we don't know, and there's one more table we do
+know, namely the table of tables.  Let's dump that next, starting with
+its meta-data:
+
+    [31:640] Command : xdump meta table
+    XDUMP meta table 1139556230
+    "uid" 9 0 0 26
+    "name" 3 4 0 -1
+    /2
+
+Because xdump table is referenced from elsewhere (xdump meta meta
+field table), the leftmost field must contain the key.  Thus, the
+leftmost field's meta-data field table must be the table ID of xdump
+table itself.  Let's try it:
+
+    [30:640] Command : xdump 26 *
+    XDUMP table 1139556210
+    0 "sect"
+    1 "ship"
+[...]
+    9 "nat"
+[...]
+    16 "sect-chr"
+    17 "ship-chr"
+[...]
+    26 "table"
+[...]
+    /45
+
+It worked!  Mind that the special table "ver" is not in the table of
+tables.
+
+Now dump the two symbol tables we postponed.  Because xdump accepts
+table IDs as well as names, we don't have to know their names:
+
+    [14:640] Command : xdump meta 32
+    XDUMP meta meta-type 1139555298
+    "value" 9 4 0 -1
+    "name" 3 0 0 -1
+    /2
+
+    [15:640] Command : xdump 32 *
+    XDUMP meta-type 1139555826
+    1 "d"
+    2 "g"
+    3 "s"
+    4 "d"
+    5 "d"
+    6 "d"
+    7 "d"
+    8 "d"
+    9 "d"
+    10 "d"
+    11 "d"
+    12 "d"
+    13 "g"
+    14 "c"
+    /14
+
+    [15:640] Command : xdump meta 33
+    XDUMP meta meta-flags 1139555303
+    "value" 9 4 0 -1
+    "name" 3 0 0 -1
+    /2
+
+    [24:640] Command : xdump 33 *
+    XDUMP meta-flags 1139555829
+    1 "deity"
+    2 "extra"
+    4 "const"
+    8 "bits"
+    /4
+
+We now have complete meta-meta information:
+
+    name  type         flags  len  table
+    -----------------------------------------
+    name     s       (const)    0
+    type     d       (const)    0  meta-type
+    flags    d  (bits const)    0  meta-flags
+    len      d       (const)    0
+    table    d       (const)    0
+
+Dumping the remaining tables is easy: just walk the table of tables.
+Here's the first one:
+
+    [36:640] Command : xdump meta 0
+    XDUMP meta sect 1139556498
+    "owner" 6 0 0 9
+    "xloc" 10 0 0 -1
+    "yloc" 11 0 0 -1
+    "des" 4 0 0 16
+[...]
+    /69
+
+A whole load of tables referenced!  Only one of them (not shown above)
+is a symbol table.
+
+owner references table nat.  No surprise.
+
+xloc and yloc together reference the sector table, but that's not
+expressed in meta-data (yet).
+
+Let's stop here before this gets too long and boring.  Experiment
+yourself!  Check out example Perl code src/xdump.pl.
+
+
+Analysis of xdump as Configuration File Format
+
+xdump makes a lousy configuration format because it is unwieldy to
+edit for humans.  That's because configuration files have different
+requirements than dumps:
+
+* Can be edited by humans with common tools, including text editors
+  and spreadsheets.
+
+  Using text editors requires a nice fixed-width table layout.
+  Spreadsheet import requires trivial field separation.  Tab character
+  field separator or fixed width columns should do.  The syntax should
+  allow all that, but not require it.
+
+  Trouble spots:
+
+  - xdump's rigid horizontal and vertical spacing makes it impossible
+    to align things visually.
+
+  - xdump uses one line per record, which can lead to excessively long
+    lines.
+
+  - xdump's string syntax requires octal escape for space.
+
+  - No comment syntax.
+
+* Each table is self-contained.  You don't have to look into other
+  tables to make sense of it.  
+
+  This conflicts with xdump's separation of data and meta-data.  You
+  need the table's meta-data to identify fields, and the referenced
+  symbol tables to decode symbols.
+
+* Easy to parse.  Don't compromise legibility just to please some dumb
+  tool, though.
+
+Since we're trying to apply xdump to the configuration file problem,
+we get an additional requirement:
+
+* Reasonably close to xdump.  Translation between machine-readable and
+  human-readable should be straightforward, if meta-data is available.
+
+This leads to a human-readable dialect of the xdump language.
+
+
+Human-Readable xdump Language
+
+Fundamental difference to basic, machine-readable xdump: the rigid
+single space between fields is replaced by the rule known from
+programming languages: whitespace (space and tab) separates tokens and
+is otherwise ignored.  The space non-terminal is no longer needed.
+
+Rationale: This allows visual alignment of columns and free mixing of
+space and tab characters.
+
+Comments start with "#" and extend to the end of the line.  They are
+equivalent to a newline.
+
+Rationale: Follow econfig syntax.
+
+Tables with a record uid in the leftmost field can be `split
+vertically' into multiple parts.  Each part must contain the same set
+of records.  The leftmost field must be repeated in each part.  Other
+fields may be repeated.  Repeated fields must be the same in all
+parts.  Naturally, the parts together must provide the same fields as
+a table that is not split.
+
+Rationale: This is the cure for long lines.  Line continuation would
+be simpler, but turns out to be illegible.  Requiring record uid is
+not technically necessary, as counting records works the same whether
+a table is split or not.  Except humans can't count.  Perhaps this
+should be a recommendation for use rather than part of the language.
+
+EBNF changes:
+
+* Header and footer:
+
+    header = "config" name newline { colhdr } newline ;
+    colhdr = identifier [ "(" ( intnum | identifier ) ")" ] [ "..." ] ;
+    footer = "/config" newline ;
+
+  If colhdr ends with "...", the table is continued in another part,
+  which shall follow immediately.
+
+  Rationale:
+
+  - The xdump needs to identify itself as human-readable, hence change
+    from "XDUMP" to "config".
+
+  - The timestamp in the header is useless for the applications we
+    have in mind for human-readable xdumps.  The number of records in
+    the footer is of marginal value at best, and a pain for humans to
+    update.
+
+  - The column header is due to the self-containedness requirement.
+    It contains just the essential bit of meta-data: the column name.
+
+* Symbolic fields:
+
+    field = intnum | flonum | string | symbol | symset ;
+
+  Rationale:
+
+  - Syntax for symbols and sets of symbols is due to the
+    self-containedness requirement.  Machine-readable xdump gets away
+    with just numbers, which have to be decoded using meta-data.
+
+* Friendlier numbers and strings:
+
+    flonum = ? floating-point in scanf %g format ? ;
+    str-char = "\\" octal-digit octal-digit octal-digit
+             | ? ASCII characters 32..126 except '"' and '\\' ? ;
+
+  Rationale:
+
+  - Machine-readable floating-point syntax is too rigid.  Accept
+    everything that scanf does.  Could also change intnum to %i
+    format, which accepts octal and hexadecimal in C syntax, but that
+    seems not worth the documentation bother.
+
+  - Machine-readable syntax requires \040 instead of space in strings
+    to allow trivial splitting into fields.  This is unacceptable here
+    due to the legibility requirement, hence the change to str-char.
+
+* Parse nil as symbol:
+
+    string = '"' { str-char } '"' ;
+
+  Rationale: This is a technicality required to keep the parse
+  unambiguous.
+
+* Symbols:
+
+    symbol = identifier ;
+    symset = "(" { symbol } ")" ;
+
+  The special symbol "nil" is to be interpreted as null string.
+
+  Rationale:
+
+  - The symbol set syntax is the simplest that could work.  We need to
+    allow space between the symbols for legibility anyway, so why not
+    make it the delimiter.  A stop token is required to find the end
+    of the field, and a start token is useful for distinguishing
+    between symbol and symset.  Bracketing with some kind of
+    parenthesis is an obvious solution.
+
+The resulting sub-language for records is a superset of
+machine-readable sub-language for records.
+
+
+See src/lib/global/*.config for examples.
+
+Human-readable xdump still has its shortcomings:
+
+* Symbolic references work only with symbol tables.  Consider sect-chr
+  selector prd, which is a key for table product.  xdump should
+  support use of product selector sname values as keys.  Same for
+  product selectors ctype and type, which should support item selector
+  mnem values as keys.
+
+* item selector pkg is an array indexed by values in symbol table
+  packing.  The column header should support symbolic index values
+  rather than numbers.
+
+
+Notes on Table Configuration Implementation
+
+econfig key custom_tables lists table configuration files.  At this
+time, reading a custom table merges it with the built-in table, then
+truncates the result after the last record read from the custom table.
+
+Some of the tables are rather ugly in C, and cumbersome to edit.  We
+thus moved them to configuration files (src/lib/global/*.config).  The
+server reads them from builtindir before reading custom tables.
+
+The code dealing with these files is in src/lib/common/conftab.c.
+
+Actual work is done by src/lib/common/xundump.c, which accepts both
+human-readable and machine-readable input.  The parser is not precise;
+it accepts human-readable syntax even within tables whose header marks
+them machine-readable.
+
+Configuration tables contain values that are not meant to be
+customized.  For instance, meta-data and symbol tables reflect the
+encoding of C language constructs in the server.  Selector flag
+NSC_CONST marks them, so that the code can prohibit changes.
+
+All tables are checked against meta-data on server startup by
+ef_verify().  More elaborate checking would be nice, and probably
+requires additional meta-data.
+
+
+Appendix: Empire 3 C_SYNC --- A Cautionary Tale
+
+Clients are just as important as the server, and it's too darn hard to
+write a good client.  In 1995, Ken Stevens decided to do something
+about it.
+
+Ken cast the problem as a data synchronization problem.  Quote C_SYNC
+RFC 5.1, section `Abstract':
+
+  This is a specification for a new method of synchronizing game data
+  in the Empire client with data in the server.
+
+and section `Objectives':
+
+  This new mode of communication between the server and the client will
+  be called C_SYNC communication and will satisfy the following 6
+  criterea:
+
+  (1) Output format will be version independent.  So if someone is
+  using an old EmpireToolkit, then it will still work with a newer
+  version of the server.
+
+  (2) Every C_SYNC message will be a self-contained packet.  i.e. the
+  client will not need to depend on previous messages (header messages)
+  to determine the meaning of a C_SYNC message.
+
+  (3) A C_SYNC message will be able to represent any of the
+  player-accessible data that is contained in the server database (e.g.
+  enemy ships, nations).
+
+  (4) Bandwidth will be minimized (i.e. the format will be as
+  concise as possible) while remaining human readable (i.e. no
+  binary messages).  [Note that data compression may be added at a later
+  date, but if it is added, it will be added on a separate port to
+  maintain backwards compatability.]
+
+  (5) The client will be able to tell the server whether it wants
+  to receive C_SYNC messages and whether these messages can be sent
+  asynchroniously (via "toggle sync" and "toggle async" respectively).
+
+  (6) A portable ANSI C EmpireToolkit will be made available for
+  parsing C_SYNC messages and managing the data they contain.
+
+C_SYNC worked by hooking into ef_write() & friends so it could
+`synchronize' the client on game state changes.
+
+Sounds jolly good, doesn't it?
+
+Well, it was a failure, and Wolfpack ripped it out right away.  Quote
+the change log:
+
+  Changes to Empire 4.0.0 - Initial release
+   * Initial Wolfpack release - Long live the Wolfpack!!!!
+[...]
+   * Removed C_SYNC.  This is done for 2 reasons.  1) None of us like it or
+      wish to support it.  2) We envision a better scheme for doing similar
+      things will come along.
+
+But *why* did it fail?  Just because Steve McClure hated it?  Nope.
+C_SYNC failed for several different reasons, each of them bad, but
+only the last one is truly fundamental.
+
+a. Lack of a rigorous and complete definition.  The RFC is long on
+   syntax, but short on semantics.  For instance, the unit type was
+   encoded as a number.  Unit characteristics happened to be dumped in
+   an order that matched these numbers, but that wasn't defined
+   anywhere.
+
+b. Overly complicated syntax.  Trouble with encoding of strings.
+
+c. Buggy implementation.  Malformed C_SYNC messages, duplicate
+   messages, missing messages, semantically incorrect messages, you
+   name it.
+
+d. Change of crew before it was finished.  Wolfpack took over and
+   understandable wasn't interested in this half-finished mess.
+
+None of the above is a fundamental, inherent flaw of the idea.  The
+next one is more serious:
+
+e. It failed to achieve objective (4), and therefore slowed down
+   clients too much to be of use in real-time combat.  When you fired
+   from a bunch of ships, C_SYNC would push complete records for all
+   the ships and the target to you.  Most of that data is redundant.
+
+   That's because C_SYNC didn't transmit state changes, it
+   resynchronized state, and the pieces of state it could transmit
+   were too large.
+
+   The network was slower then.  But let's not be complacent.  I/O is
+   slow.  Always was, most likely ever will be.
+
+   Maybe sending the messages out of band (separate TCP stream) would
+   help.  Maybe not.
+
+And here comes the killer:
+
+f. The data to sync is not readily available the server.
+
+   Yup.  Think about it.  The game state on the server is *not* the
+   same as on the client.  The server grants the client a carefully
+   limited view on certain parts of server game state on certain
+   events.
+
+   To be complete, a machine readable protocol must disclose as much
+   information as the human readable output.  Tracking server game
+   state changes cannot do that alone.  For instance, lookout tells
+   you ship#, owner and location.  That event does not trigger any
+   state change on the server!
+
+   To be correct, a machine readable protocol must disclose no more
+   information than the human readable output.  When you observe a
+   server game state change, you can only guess what event triggered
+   it, and what it disclosed to which player.  You're stuck with
+   conservative assumptions.  That's the death knell for completeness.
+   Correct assumptions will be non-obvious, so correctness is
+   non-obvious, too, hence hard to achieve and maintain.
+
+   Bottom line: tracking server state change cannot support a complete
+   client protocol for hard theoretical reasons, and I believe it
+   cannot support a correct one for practical reasons.
+
+Oddly enough, people criticized C_SYNC for all the flaws it had (and
+some it hadn't), except for f.
+
+What now?  Throw up our hands in despair and give up?  Nah.  Ken tried
+a shortcut, and it didn't work.  That doesn't mean there's no way at
+all.  I believe the only way to get this done right is by tracking
+*events*.  Whenever something is printed to a player, be it live
+connection or telegram, we need to transmit precisely the same
+information in machine readable form.  Much more work.
+
+xdump shares valuable ideas with C_SYNC, e.g. using selector
+meta-data.  It is, however, much more modest in scope.  We're pretty
+sure we can get it right and get it done in a reasonable time frame.
