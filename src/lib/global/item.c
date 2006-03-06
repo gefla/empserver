@@ -37,7 +37,7 @@
 #include "item.h"
 
 struct ichrstr ichr[] = {
-/*  mnem  vtype   val sell lbs {in rg wh  ur bnk} melt  name */
+/*  mnem  uid     val sell lbs {in rg wh  ur bnk} melt  name */
     {'c', I_CIVIL,  1, 0,  1, {1, 10, 10, 10, 10},   4, "civilians"},
     {'m', I_MILIT,  0, 0,  1, {1,  1,  1,  1,  1},  20, "military"},
     {'s', I_SHELL,  5, 1,  1, {1,  1, 10,  1,  1},  80, "shells"},
