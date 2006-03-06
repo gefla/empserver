@@ -38,13 +38,13 @@ scripts/backup.
 
 You define the command in econfig, like this:
 
-  pre_update_hook "../scripts/backup"
+  pre_update_hook "/wherever/backup"
 
 
 Restoring from backup
 ---------------------
 
-The server must not run when you restore a backup.
+The server must not be running when you restore a backup.
 
 Always restore the complete data directory.  Restoring individual
 files from backups can lead to inconsistencies.  Some of the known
