@@ -1,0 +1,8 @@
+#!/bin/sh -e
+# Push revision BASE to Changeling blitz
+echo Moving tag prev-changeling...
+cvs "$@" rtag -r changeling -a -F prev-changeling empserver
+echo Deleting tag changeling
+cvs "$@" rtag -d changeling empserver
+echo Tagging changeling...
+cvs "$@" tag changeling
