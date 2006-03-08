@@ -107,7 +107,7 @@ termio(int fd, int sock, FILE *auxfi)
 
 	if (c == 13)
 	    c = 10;
-	n = 1;
+	records = 1;
 	p[0] = c;
 	p[1] = '\0';
 	if (c != 10) {
@@ -120,11 +120,11 @@ termio(int fd, int sock, FILE *auxfi)
 	} else
 	    putchar(c);
 /* Strip off the CRLF to just LF */
-	if (n > 1) {
-	    if (p[n - 2] == 13 && p[n - 1] == 10) {
-		p[n - 2] = 10;
-		p[n - 1] = 0;
-		n--;
+	if (records > 1) {
+	    if (p[records - 2] == 13 && p[records - 1] == 10) {
+		p[records - 2] = 10;
+		p[records - 1] = 0;
+		records--;
 	    }
 	}
 	FlushConsoleInputBuffer(hStdIn);
