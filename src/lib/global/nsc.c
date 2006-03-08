@@ -466,7 +466,7 @@ struct castr commodity_ca[] = {
     {NSC_FLOAT, 0, 0, fldoff(comstr, com_price), "price", EF_BAD},
     {NSC_INT, 0, 0, fldoff(comstr, com_maxbidder), "maxbidder", EF_NATION},
     {NSC_TIME, 0, 0, fldoff(comstr, com_markettime), "markettime", EF_BAD},
-    /* should let maxbidder access xbuy, ybuilt, but can't express that: */
+    /* should let maxbidder access xbuy, ybuy, but can't express that: */
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_x), "xbuy", EF_BAD},
     {NSC_XCOORD, NSC_DEITY, 0, fldoff(comstr, com_y), "ybuy", EF_BAD},
     /* should let owner access xsell, ysell, but can't express that: */
@@ -533,7 +533,7 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
-    /* should show mortals whether there's contact */
+    /* should show mortals whether there's contact (obvious from relations?) */
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
      EF_BAD},
     /* FIXME nat_rejects[], nat_priorities[] */
