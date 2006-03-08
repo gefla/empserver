@@ -7,20 +7,20 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.0 - Mon Mar  6 19:32:06 UTC 2006
+Changes to Empire 4.3.0 - Wed Mar  8 20:17:06 UTC 2006
  * version no longer pretends option SHIPNAMES still exists.
  * Remove files auth and ban.  They could be used to restrict client
    address and user.  Restricting user is useless, because players can
    send whatever they want.  Banning IPs is better done with a packet
    filter.  That leaves restricting deity IPs.  Provide new econfig
    key privip for that.  Apply it to session kill as well as login.
- * xdump leaves GUINEA_PIGS:
+ * xdump escapes GUINEA_PIGS status:
    - xdump is now enabled unconditionally.
    - xdump sect now dumps selector coastal, because it can't be
      reliably computed from other xdump information.
    - New xdump realm and country.  Realm information is now stored in
      a separate file, with appropriate selectors.
-   - Review for completeness and information leaks.  See info xdump
+   - Reviewed for completeness and information leaks.  See info xdump
      for remaining issues.  New treaty selector uid, nat selectors
      relations, contacts.  Removed useless selectors: news and lost
      uid, nat dayno.
@@ -30,7 +30,7 @@ Changes to Empire 4.3.0 - Mon Mar  6 19:32:06 UTC 2006
    - Header and footer changed to be more compact.  You now need
      meta-data to identify fields.
    - Bug fixes.
-   - Documentation in doc/xdump
+   - Documentation in doc/xdump.
  * New econfig key builtindir.
  * New econfig key custom_tables lets you customize configuration
    tables without recompiling.  Customizing tables other than unit
