@@ -36,9 +36,12 @@
 
 #include "wantupd.h"
 
-char *privname = "Deity forgot to edit econfig"; /* name of priv user */
-char *privlog = "careless@invalid"; /* logname of priv user */
-char *privip = "127.0.0.1 ::1";	/* divine hosts and networks */
+/* Name of the deity */
+char *privname = "Deity forgot to edit econfig";
+/* E-mail of the deity */
+char *privlog = "careless@invalid";
+/* Divine hosts and networks */
+char *privip = "127.0.0.1 ::1 ::ffff:127.0.0.1";
 
 int WORLD_X = 64;		/* World size - x */
 int WORLD_Y = 32;		/* World size - y */
