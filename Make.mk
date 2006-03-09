@@ -338,7 +338,7 @@ $(srcdir)/configure: configure.ac aclocal.m4
 $(srcdir)/config.h.in: stamp-h.in
 $(srcdir)/stamp-h.in: configure.ac aclocal.m4
 	cd $(srcdir) && autoheader
-	>$@
+	touch $@
 
 $(srcdir)/aclocal.m4: $(filter m4/%.m4, $(src))
 	cd $(srcdir) && aclocal -I m4

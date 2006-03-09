@@ -4,4 +4,4 @@
 aclocal -I m4
 autoconf
 autoheader
->stamp-h.in
+touch stamp-h.in
