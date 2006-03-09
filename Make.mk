@@ -148,6 +148,7 @@ CFLAGS += -Wall -W -Wno-unused -Wpointer-arith -Wstrict-prototypes	\
 -Wmissing-prototypes -Wnested-externs -Wredundant-decls
 endif
 LDLIBS += -lm
+$(client): LDLIBS += $(termlibs)
 
 ### Advertized goals
 
@@ -248,7 +249,7 @@ info.html/%.html: info/%.t
 $(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-$(client): $(filter src/client/%, $(obj)) $(termlibs)
+$(client): $(filter src/client/%, $(obj))
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(util): $(libs)
