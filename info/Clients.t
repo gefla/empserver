@@ -31,6 +31,7 @@ recommend you type "toggle flash" to turn flash mode off.
 In addition, there are a list of commands which have been added to the
 server to help the development of clients.  They are:
 .NF
+   xdump - Dump everything, designed to replace the following
    dump - Dump sector information
    ldump - Dump land unit information
    sdump - Dump ship information
@@ -48,4 +49,4 @@ compare against to keep data between clients and the database in sync with
 each other.  These timestamps are kept in systems seconds, so they should
 be accurate down to 1 second.  Every time an object is changed, it's
 timestamp is updated.
-.SA "toggle, dump, ldump, sdump, pdump, ndump, lost, Empire4, Communication, Introduction"
+.SA "toggle, xdump, dump, ldump, sdump, pdump, ndump, lost, Empire4, Communication, Introduction"

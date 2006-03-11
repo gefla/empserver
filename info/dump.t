@@ -121,4 +121,4 @@ A dump lists each of your sectors in the specified area.
 The header line is a list of fields that correspond
 to the order that dump prints the sector info.
 .s1
-.SA "census, commodity, cutoff, level, Clients, Sectors"
+.SA "census, commodity, cutoff, level, xdump, Clients, Sectors"

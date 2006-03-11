@@ -82,4 +82,4 @@ A ldump lists each of your land units in the specified area.
 The header line is a list of fields that correspond
 to the order that ldump prints the land unit info.
 .s1
-.SA "land, lcargo, lstat, Clients, LandUnits"
+.SA "land, lcargo, lstat, xdump, Clients, LandUnits"

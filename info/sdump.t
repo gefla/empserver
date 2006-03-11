@@ -77,4 +77,4 @@ A sdump lists each of your ships in the specified area.
 The header line is a list of fields that correspond
 to the order that sdump prints the ship info.
 .s1
-.SA "ship, cargo, sstat, Clients, Ships"
+.SA "ship, cargo, sstat, xdump, Clients, Ships"
