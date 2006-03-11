@@ -7,8 +7,8 @@
 .SY "xdump meta ver"
 The xdump command displays information on game configuration and state
 in machine readable format.  It is intended for use by clients and
-tools.  This info page explains little more than command syntax; see
-doc/xdump in the source distribution for complete documentation.
+tools.  This info page gives an overview; see doc/xdump in the source
+distribution for complete documentation.
 .s1
 Game configuration and state consists of a a number of tables or
 files.  xdump shows only things that are \fIcertainly\fP visible to
