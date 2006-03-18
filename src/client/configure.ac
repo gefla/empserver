@@ -49,7 +49,7 @@ AC_PROG_INSTALL
 
 
 ### Checks for libraries.
-AC_SEARCH_LIBS([setupterm], [termlib termcap])
+AC_SEARCH_LIBS([setupterm], [termlib termcap curses])
 LIB_SOCKET_NSL
 # TODO merge this into LIB_SOCKET_NSL?
 if test "$ac_cv_search_gethostbyname" = no; then
