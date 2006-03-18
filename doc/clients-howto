@@ -242,7 +242,7 @@ The following ids occur:
   Asynchronous message.  The client should display the text
   immediately.
 
-  emp_client prints the text verbatim, prepended by a newline.  This
+  emp_client prints the text verbatim, prepended by a line feed.  This
   is clearly sub-optimal, because it can be inserted in the middle of
   user input.  Clients wishing to to display asynchronous messages
   together with normal I/O should insert them before the current
