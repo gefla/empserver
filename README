@@ -33,6 +33,9 @@ To build the server and set up a game, follow the steps below.
     make install.  The last step is optional; everything runs fine
     right from the build tree.
 
+    If make fails without doing anything, you're probably not using
+    GNU make.  Some systems have it installed as `gmake'.
+
 (3) Creating a game
 
     * Create a configuration for your game.  make install installs one
