@@ -33,8 +33,7 @@
 # 
 
 CC = @CC@
-CFLAGS = @CFLAGS@
-CPPFLAGS = @CPPFLAGS@ @DEFS@ -I.
+CFLAGS = @CFLAGS@ @CPPFLAGS@ @DEFS@ -I.
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 E = @EXEEXT@
@@ -59,7 +58,7 @@ saveargv.$O servcmd.$O serverio.$O tags.$O termio.$O termlib.$O
 all: $(prog)
 
 $(prog): $(obj)
-	$(CC) $(LDFLAGS) -o empire $(obj) $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o empire $(obj) $(LIBS)
 
 clean:
 	rm -f $(obj) $(prog)
