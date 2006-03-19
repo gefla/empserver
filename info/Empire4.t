@@ -7,7 +7,7 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.0 - Wed Mar  8 20:17:06 UTC 2006
+Changes to Empire 4.3.0 - Sun Mar 19 08:13:10 UTC 2006
  * version no longer pretends option SHIPNAMES still exists.
  * Remove files auth and ban.  They could be used to restrict client
    address and user.  Restricting user is useless, because players can
