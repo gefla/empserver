@@ -52,8 +52,8 @@ Changes to Empire 4.3.0 - Sun Mar 19 08:13:10 UTC 2006
  * New show item and show news.
  * New build process:
    - Follow the usual steps: configure; make; make install.  The
-     to avoid breaking clients.latter is optional.  The only file
-     to avoid breaking clients.deities still have to edit is econfig.
+     latter is optional.  The only file deities still have to edit is
+     econfig.
    - Use GNU Autoconf for system configuration.
    - Use GNU Make for portability and features.
    - Support separate build trees.
@@ -111,7 +111,8 @@ Changes to Empire 4.3.0 - Sun Mar 19 08:13:10 UTC 2006
  * Fix capital to let you use a regained sacked capital without
    activating another one in between.
  * Don't move capital when it is sacked.
- * New ship capability canal.
+ * New ship capability canal, replacing obscure formula based on build
+   materials.
  * You now need a capital to request a demand update.
  * power now ignores landspies.
  * Fix LWP stack checking.
@@ -125,12 +126,12 @@ Changes to Empire 4.3.0 - Sun Mar 19 08:13:10 UTC 2006
  * paradrop, drop and fly can no longer abandon the base sector.
  * Tending foreign ships now sends a bulletin to the owner.
  * Fix bug that permitted login for inactive countries, including ""
- * Fix tend for spies
+ * Fix tend for spies.
  * Change launch to fire all missiles selected at the same target.
    Previously, it prompted for a new target after each missile.
  * add, consider, build, launch and fire no longer re-prompt when
    supplied with a bad argument, they just fail.  Consequently, the
-   build command no longer lets you lists types you can build.  It
+   build command no longer lets you list types you can build.  It
    points to the show command instead.
  * Fix add not to truncate country number.
  * Fix selector coastal to be accurate at all times.
