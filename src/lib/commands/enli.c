@@ -117,10 +117,8 @@ enli(void)
 	sect.sct_item[I_CIVIL] = civ - newmil;
 	pr("%3d enlisted in %s (%d)\n", newmil,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum), mil + newmil);
-	if (sect.sct_mobil > 0) {
-	    sect.sct_mobil = (u_char)((float)sect.sct_mobil *
-				      (1.0 - (float)newmil / (float)civ));
-	}
+	if (sect.sct_mobil > 0)
+	    sect.sct_mobil *= 1.0 - (double)newmil / (double)civ;
 	putsect(&sect);
 	if (totalmil >= 10000) {
 	    pr("Rioting in induction center interrupts enlistment\n");

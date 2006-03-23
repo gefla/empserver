@@ -236,7 +236,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 		n = 0;
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
-	    sect.sct_mobil -= (u_char)n;
+	    sect.sct_mobil -= n;
 
 	    if (actually_doit)
 		putsect(&sect);
@@ -254,7 +254,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 		n = 0;
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
-	    sect.sct_mobil -= (u_char)n;
+	    sect.sct_mobil -= n;
 
 	    if (actually_doit)
 		putsect(&sect);
@@ -308,7 +308,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 		n = 0;
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
-	    sect.sct_mobil -= (u_char)n;
+	    sect.sct_mobil -= n;
 	    if (actually_doit) {
 		putship(ship.shp_uid, &ship);
 		putsect(&sect);
@@ -325,7 +325,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 		n = 0;
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
-	    sect.sct_mobil -= (u_char)n;
+	    sect.sct_mobil -= n;
 
 	    if (actually_doit) {
 		putship(ship.shp_uid, &ship);

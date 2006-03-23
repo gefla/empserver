@@ -159,7 +159,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	mob = roundavg(mob * 0.2);
 	if (mob > sect.sct_mobil)
 	    mob = sect.sct_mobil;
-	sect.sct_mobil -= (u_char)mob;
+	sect.sct_mobil -= mob;
 	pr("%3d conquered civilians converted in %s (%d)\n",
 	   newuw, xyas(sect.sct_x, sect.sct_y, player->cnum), uw + newuw);
 	if (civ == 0) {

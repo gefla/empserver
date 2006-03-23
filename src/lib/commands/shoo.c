@@ -53,7 +53,6 @@ shoo(void)
     struct nstr_sect nstr;
     struct nstr_item ni;
     int nshot;
-    int mob_cost;
     double m;
     i_type item;
     struct ichrstr *ip;
@@ -109,8 +108,7 @@ shoo(void)
 	    m = 0;
 	if (m > sect.sct_mobil)
 	    m = sect.sct_mobil;
-	mob_cost = roundavg(m);
-	sect.sct_mobil -= (u_char)mob_cost;
+	sect.sct_mobil -= roundavg(m);
 	sect.sct_item[item] -= nshot;
 	pr("BANG!! (thump) %d %s shot in %s!\n",
 	   nshot, ip->i_name, xyas(sect.sct_x, sect.sct_y, player->cnum));

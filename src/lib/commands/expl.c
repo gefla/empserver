@@ -95,7 +95,7 @@ explore(void)
 	return RET_SYN;
     }
     own = sect.sct_own;
-    mob = (int)sect.sct_mobil;
+    mob = sect.sct_mobil;
     if (vtype == I_CIVIL && sect.sct_oldown != own) {
 	pr("You can't explore with conquered populace!\n");
 	return RET_SYN;
@@ -172,14 +172,14 @@ explore(void)
     if (mcost < 0) {
 	pr("\nExplore aborted");
 	getsect(start.sct_x, start.sct_y, &sect);
-	sect.sct_mobil = (u_char)mob;
+	sect.sct_mobil = mob;
     } else {
 	/* Charge mobility */
 	getsect(sect.sct_x, sect.sct_y, &sect);
 	n = sect.sct_mobil - mcost;
 	if (n < 0)
 	    n = 0;
-	sect.sct_mobil = (u_char)n;
+	sect.sct_mobil = n;
 	pr(", %d mob left in %s", sect.sct_mobil,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	putsect(&sect);

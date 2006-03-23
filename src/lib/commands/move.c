@@ -107,7 +107,7 @@ move(void)
 	return RET_FAIL;
     }
     own = sect.sct_own;
-    mob = (int)sect.sct_mobil;
+    mob = sect.sct_mobil;
     if (!istest && vtype == I_CIVIL && sect.sct_oldown != own) {
 	pr("You can't move conquered populace!\n");
 	return RET_FAIL;
@@ -217,7 +217,7 @@ move(void)
     if (mcost < 0) {
 	pr("Move aborted\n");
 	getsect(x, y, &sect);
-	sect.sct_mobil = (u_char)mob;
+	sect.sct_mobil = mob;
 	left = mob;
     } else {
 	if (!istest) {
@@ -231,7 +231,7 @@ move(void)
 		    mob = 0;
 	    } else
 		mob -= mcost;
-	    start.sct_mobil = (u_char)mob;
+	    start.sct_mobil = mob;
 	    left = start.sct_mobil;
 	    putsect(&start);
 	}
