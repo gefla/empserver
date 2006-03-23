@@ -331,7 +331,7 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    need = (int)d;
 	    newfuel = supply_commod(sp->shp_own, sp->shp_x,
 				    sp->shp_y, I_PETROL, need);
-	    sp->shp_fuel += (u_char)(newfuel * 5);
+	    sp->shp_fuel += newfuel * 5;
 	}
 
 	have_fuel_for = ldround((((double)sp->shp_fuel /
@@ -350,7 +350,7 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    need = (int)d;
 	    newfuel = supply_commod(sp->shp_own, sp->shp_x,
 				    sp->shp_y, I_OIL, need);
-	    sp->shp_fuel += (u_char)(newfuel * 50);
+	    sp->shp_fuel += newfuel * 50;
 	}
 
 	have_fuel_for = ldround((((double)sp->shp_fuel /
@@ -364,10 +364,9 @@ do_mob_ship(struct shpstr *sp, int etus)
 	d = (double)total_add;
 	d *= (double)mchr[(int)sp->shp_type].m_fuelu;
 	d /= (double)fuel_mult;
-	sp->shp_fuel -= (u_char)ldround(d, 1);
-	sp->shp_fuel = (u_char)MIN(sp->shp_fuel,
-				   mchr[(int)sp->shp_type].m_fuelc);
-	sp->shp_mobil += (s_char)total_add;
+	sp->shp_fuel -= ldround(d, 1);
+	sp->shp_fuel = MIN(sp->shp_fuel, mchr[(int)sp->shp_type].m_fuelc);
+	sp->shp_mobil += total_add;
     }
 }
 
@@ -448,7 +447,7 @@ do_mob_land(struct lndstr *lp, int etus)
 	    need = (int)d;
 	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x,
 				    lp->lnd_y, I_PETROL, need);
-	    lp->lnd_fuel += (u_char)(newfuel * 5);
+	    lp->lnd_fuel += newfuel * 5;
 	}
 
 	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
@@ -465,7 +464,7 @@ do_mob_land(struct lndstr *lp, int etus)
 	    need = (int)d;
 	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x,
 				    lp->lnd_y, I_OIL, need);
-	    lp->lnd_fuel += (u_char)(newfuel * 50);
+	    lp->lnd_fuel += newfuel * 50;
 	}
 
 	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
@@ -477,14 +476,10 @@ do_mob_land(struct lndstr *lp, int etus)
 	d = (double)total_add;
 	d *= (double)lp->lnd_fuelu;
 	d /= (double)fuel_mult;
-	lp->lnd_fuel -= (u_char)ldround(d, 1);
-	lp->lnd_fuel = (u_char)MIN(lp->lnd_fuel, lp->lnd_fuelc);
-	if (total_add + lp->lnd_mobil > land_mob_max) {
-	    total_add = land_mob_max - lp->lnd_mobil;
-	}
-	/* no automatic fortification here, as it would cost fuel */
-
-	lp->lnd_mobil += (s_char)total_add;
+	lp->lnd_fuel -= ldround(d, 1);
+	lp->lnd_fuel = MIN(lp->lnd_fuel, lp->lnd_fuelc);
+	lp->lnd_mobil += total_add;
+	/* No excess mobility here, hence no automatic fortification */
     }
 }
 
