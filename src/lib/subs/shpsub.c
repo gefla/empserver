@@ -374,7 +374,7 @@ shp_check_nav(struct sctstr *sect, struct shpstr *shp)
     case NAVOK:
 	break;
     case NAV_CANAL:
-	if (mchr[(int)shp->shp_type].m_flags & M_CANAL == M_CANAL) {
+	if (mchr[(int)shp->shp_type].m_flags & M_CANAL) {
 	    if (sect->sct_effic < 2)
 		return CN_CONSTRUCTION;
 	} else
