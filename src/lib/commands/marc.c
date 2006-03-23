@@ -80,7 +80,7 @@ march(void)
     }
 
     while (!QEMPTY(&land_list)) {
-	s_char *bp, dp[80];
+	char *bp, dp[80];
 
 	if (cp == 0 || *cp == '\0' || stopping) {
 	    stopping = 0;
@@ -140,18 +140,15 @@ march(void)
 	    }
 	    continue;
 	} else if (*cp == 'r' || *cp == 'l') {
-	    bp = ++cp;
-	    while ((*bp != ' ') && (*bp))
-		bp++;
-	    while ((*bp == ' ') && (*bp))
-		bp++;
-	    if ((bp != (s_char *)0) && (*bp))
+	    for (bp = cp + 1; *bp && !isspace(bp); bp++) ;
+	    for (; *bp && isspace(bp); bp++) ;
+	    if (*bp)
 		player->argp[1] = bp;
 	    else {
 		sprintf(dp, "%d", lnd->lnd_uid);
 		player->argp[1] = dp;
 	    }
-	    if (cp[-1] == 'r') {
+	    if (*cp++ == 'r') {
 		player->argp[0] = "lradar";
 		rada();
 		skip = 1;
