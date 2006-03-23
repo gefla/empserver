@@ -65,7 +65,7 @@ best(void)
 	    if (s2.sct_own != player->cnum)
 		continue;
 	    s = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
-	    if (s != (s_char *)0)
+	    if (s)
 		pr("Best path from %s to %s is %s (cost %1.3f)\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
 		   xyas(s2.sct_x, s2.sct_y, player->cnum), s, cost);

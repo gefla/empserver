@@ -67,9 +67,9 @@ retr(void)
     if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
-	pq = (s_char *)0;
+	pq = NULL;
 
-    if (pq != (s_char *)0) {
+    if (pq != NULL) {
 	fl = getstarg(player->argp[3],
 		      "Retreat conditions [i|t|s|h|b|d|u|c]? ", buf2);
 	if (!fl)
@@ -129,7 +129,7 @@ retr(void)
     }
 
     if (rflags == -1)
-	pq = (s_char *)0;
+	pq = NULL;
 
     zero = (rflags == -1);
     if (zero)
@@ -141,7 +141,7 @@ retr(void)
 	if (zero)
 	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 
-	if (pq != (s_char *)0) {
+	if (pq != NULL) {
 	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath));
 	    putship(ship.shp_uid, &ship);
 	}
@@ -215,8 +215,8 @@ lretr(void)
     if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
-	pq = (s_char *)0;
-    if (pq != (s_char *)0) {
+	pq = NULL;
+    if (pq != NULL) {
 	fl = getstarg(player->argp[3], "Retreat conditions [i|h|b|c]? ",
 		      buf2);
 	if (!fl)
@@ -256,7 +256,7 @@ lretr(void)
     }
 
     if (rflags == -1)
-	pq = (s_char *)0;
+	pq = NULL;
 
     zero = (rflags == -1);
     if (zero)
@@ -268,7 +268,7 @@ lretr(void)
 	if (zero)
 	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 
-	if (pq != (s_char *)0) {
+	if (pq != NULL) {
 	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath));
 	    putland(land.lnd_uid, &land);
 	}

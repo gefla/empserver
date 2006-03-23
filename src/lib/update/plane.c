@@ -103,7 +103,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	}
 
 	onship = 0;
-	shp = (struct shpstr *)0;
+	shp = NULL;
 	if (pp->pln_ship >= 0 && (buildem == 1)) {
 	    if (pp->pln_effic >= 80)
 		continue;

@@ -63,7 +63,7 @@ nxtitemp(struct nstr_item *np)
 	    np->cur++;
 	}
 	gp = ef_ptr(np->type, np->cur);
-	if (gp == (struct genitem *)0)
+	if (!gp)
 	    return 0;
 
 	selected = 1;

@@ -62,8 +62,8 @@ sct(void)
     s_char buf[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = (s_char *)0;
-    static s_char **map = (s_char **)0;
+    static s_char *mapbuf = NULL;
+    static s_char **map = NULL;
 
     nsect = 0;
     if (player->argp[1] == NULL) {
@@ -90,7 +90,7 @@ sct(void)
 		map[i] = &mapbuf[MAPWIDTH(1) * i];
 	} else if (map) {
 	    free(map);
-	    map = (s_char **)0;
+	    map = NULL;
 	}
     }
     if (!mapbuf || !map) {

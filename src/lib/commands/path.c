@@ -61,8 +61,8 @@ path(void)
     s_char *pp, *p;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = (s_char *)0;
-    static s_char **map = (s_char **)0;
+    static s_char *mapbuf = NULL;
+    static s_char **map = NULL;
     double move_cost;
     s_char buf[1024];
 
@@ -75,7 +75,7 @@ path(void)
     }
     getsect(sect.sct_dist_x, sect.sct_dist_y, &dsect);
     pp = BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD);
-    if (pp == (s_char *)0) {
+    if (!pp) {
 	pr("No path possible from %s to distribution sector %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),
 	   xyas(dsect.sct_x, dsect.sct_y, player->cnum));
@@ -90,7 +90,7 @@ path(void)
 		map[i] = &mapbuf[MAPWIDTH(3) * i];
 	} else if (map) {
 	    free(map);
-	    map = (s_char **)0;
+	    map = NULL;
 	}
     }
     if (!mapbuf || !map) {

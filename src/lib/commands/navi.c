@@ -224,9 +224,9 @@ nav_map(int x, int y, int show_designations)
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static u_char *bitmap = (u_char *)0;
-    static s_char *wmapbuf = (s_char *)0;
-    static s_char **wmap = (s_char **)0;
+    static u_char *bitmap = NULL;
+    static s_char *wmapbuf = NULL;
+    static s_char **wmap = NULL;
     s_char what[64];
     int changed = 0;
 
@@ -244,7 +244,7 @@ nav_map(int x, int y, int show_designations)
 		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];
 	} else if (wmap) {
 	    free(wmap);
-	    wmap = (s_char **)0;
+	    wmap = NULL;
 	}
     }
     if (!bitmap)

@@ -66,9 +66,9 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static u_char *bitmap = (u_char *)0;
-    static s_char *wmapbuf = (s_char *)0;
-    static s_char **wmap = (s_char **)0;
+    static u_char *bitmap = NULL;
+    static s_char *wmapbuf = NULL;
+    static s_char **wmap = NULL;
 
     if (!wmapbuf)
 	wmapbuf = malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
@@ -79,7 +79,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];
 	} else if (wmap) {
 	    free(wmap);
-	    wmap = (s_char **)0;
+	    wmap = NULL;
 	}
     }
     if (!bitmap)

@@ -67,9 +67,9 @@ rout(void)
     s_char buf1[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = (s_char *)0;
-    static s_char **map = (s_char **)0;
-    static s_char *buf = (s_char *)0;
+    static s_char *mapbuf = NULL;
+    static s_char **map = NULL;
+    static s_char *buf = NULL;
     int i;
 
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
@@ -98,7 +98,7 @@ rout(void)
 		map[i] = &mapbuf[MAPWIDTH(3) * i];
 	} else if (map) {
 	    free(map);
-	    map = (s_char **)0;
+	    map = NULL;
 	}
     }
     if (!buf)

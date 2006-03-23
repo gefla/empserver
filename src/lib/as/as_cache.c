@@ -85,9 +85,9 @@ as_add_cachepath(struct as_data *adp)
     /* Note we will only allocate this once.  Afterwards, we just keep
      * zeroing it since it's rather small and we don't need to re-allocate
      * each time. */
-    if (fromhead == (struct as_frompath **)0) {
+    if (fromhead == NULL) {
 	fromhead = calloc(1, sizeof(struct as_frompath *) * WORLD_Y);
-	if (fromhead == (struct as_frompath **)0)
+	if (fromhead == NULL)
 	    return;
     }
 
@@ -143,7 +143,7 @@ as_clear_cachepath(void)
     int i, j;
 
     /* Cache not used yet :) */
-    if (fromhead == (struct as_frompath **)0)
+    if (fromhead == NULL)
 	return;
 
     for (j = 0; j < WORLD_Y; j++) {
@@ -181,7 +181,7 @@ as_find_cachepath(coord fx, coord fy, coord tx, coord ty)
 	return NULL;
 
     /* Do we have any cached? */
-    if (fromhead == (struct as_frompath **)0)
+    if (fromhead == NULL)
 	return NULL;
 
     /* Yes! */

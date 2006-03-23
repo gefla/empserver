@@ -102,7 +102,7 @@ update_main(void *unused)
     bp = calloc(WORLD_X * WORLD_Y * 7, sizeof(int));
     for (n = 0; n < MAXNOC; n++) {
 	money[n] = 0;
-	if ((np = getnatp(n)) == (struct natstr *)0)
+	if (!(np = getnatp(n)))
 	    continue;
 	money[n] = np->nat_money;
 	tpops[n] = count_pop(n);
@@ -118,7 +118,7 @@ update_main(void *unused)
 
 	memset(p_sect, 0, sizeof(p_sect));
 	mil_dbl_pay = 0;
-	if ((np = getnatp(x)) == (struct natstr *)0)
+	if (!(np = getnatp(x)))
 	    continue;
 	if (np->nat_stat == STAT_SANCT) {
 #ifdef DEBUG

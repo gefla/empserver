@@ -413,7 +413,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	pr("some %s\n", ip->i_name);
     }
     for (;;) {
-	ip = whatitem((s_char *)0, "commodity to bomb? ");
+	ip = whatitem(NULL, "commodity to bomb? ");
 	if (player->aborted)
 	    return;
 	if (!ip)

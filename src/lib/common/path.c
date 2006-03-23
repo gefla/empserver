@@ -88,7 +88,7 @@ bp_init(void)
     if (bp->adp == NULL)
 	return NULL;
 
-    if (neighsects == (struct sctstr **)0)
+    if (neighsects == NULL)
 	neighsects = calloc(((WORLD_X * WORLD_Y) / 2) * 6,
 			    sizeof(struct sctstr *));
 
@@ -201,12 +201,12 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
     offset = (sy * WORLD_X + sx) / 2;
     from = &sectp[offset];
 
-    if (neighsects == (struct sctstr **)0)
+    if (neighsects == NULL)
 	ssp = (struct sctstr **)&tsp[0];
     else
 	ssp = (struct sctstr **)&neighsects[offset * 6];
     for (q = 1; q <= 6; q++, ssp++) {
-	if (*ssp == (struct sctstr *)0) {
+	if (*ssp == NULL) {
 	    /* We haven't cached this neighbor yet */
 	    nx = x + diroff[q][0];
 	    ny = y + diroff[q][1];
@@ -360,7 +360,7 @@ BestLandPath(s_char *path,
     *path = 0;
     *cost = 0.0;
     if (best_path(from, to, path, mob_type) < 0)
-	return (s_char *)0;
+	return NULL;
     *cost = pathcost(from, path, mob_type);
     length = strlen(path);
     path[length] = 'h';

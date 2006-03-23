@@ -102,7 +102,7 @@ dist(void)
 
 	path = BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD);
 
-	if (path == (s_char *)0) {
+	if (!path) {
 	    pr("No owned path from %s to %s.\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum),
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));

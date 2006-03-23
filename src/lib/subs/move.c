@@ -85,9 +85,9 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	pr("Looking for best path to %s\n", path);
 	path = BestLandPath(buf2, start, &ending_sect, &total_mcost,
 			    MOB_ROAD);
-	if (exploring && (path != (s_char *)0))	/* take off the 'h' */
-	    *(path + strlen(path) - 1) = '\0';
-	if (path == (s_char *)0)
+	if (exploring && path)	/* take off the 'h' */
+	    path[strlen(path) - 1] = '\0';
+	if (!path)
 	    pr("No owned path exists!\n");
 	else {
 	    pr("Using best path '%s', movement cost %1.3f\n",
@@ -111,11 +111,11 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     for (;;) {
 	oldx = curx;
 	oldy = cury;
-	if (movstr == 0 || *movstr == 0) {
+	if (!movstr || *movstr == 0) {
 	    if (exploring) {
-		map(what, curx, cury, (s_char *)0);
+		map(what, curx, cury, NULL);
 	    } else {
-		move_map(what, curx, cury, (s_char *)0);
+		move_map(what, curx, cury, NULL);
 	    }
 	    sprintf(prompt, "<%.1f: %c %s> ", mobility,
 		    dchr[sect.sct_type].d_mnem,
@@ -128,17 +128,16 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 				      MOB_ROAD);
 	    } else {
 		pr("Invalid destination sector!\n");
-		movstr = (s_char *)0;
+		movstr = NULL;
 	    }
 
-	    if (movstr == (s_char *)0) {
+	    if (movstr == NULL) {
 		pr("Can't get to %s from here!\n",
 		   xyas(dx, dy, player->cnum));
-		movstr = (s_char *)0;
 	    } else {
 		if ((mv_cost * weight) > mobility) {
 		    pr("Not enough mobility to go all the way. Nothing moved.\n");
-		    movstr = (s_char *)0;
+		    movstr = NULL;
 		} else {
 		    pr("Using best path '%s', movement cost %1.3f\n",
 		       movstr, mv_cost);
@@ -147,7 +146,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 		}
 	    }
 	}
-	if (movstr == 0 || *movstr == 0) {
+	if (!movstr || *movstr == 0) {
 	    buf2[0] = dirch[DIR_STOP];
 	    buf2[1] = 0;
 	    movstr = buf2;

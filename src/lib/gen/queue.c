@@ -50,11 +50,11 @@ emp_insque(struct emp_qelem *elem, struct emp_qelem *queue)
 void
 emp_remque(struct emp_qelem *elem)
 {
-    if (elem == (struct emp_qelem *)0)
+    if (!elem)
 	return;
-    if (elem->q_forw != (struct emp_qelem *)0)
+    if (elem->q_forw)
 	elem->q_forw->q_back = elem->q_back;
-    if (elem->q_back != (struct emp_qelem *)0)
+    if (elem->q_back)
 	elem->q_back->q_forw = elem->q_forw;
 }
 

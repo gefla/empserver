@@ -199,8 +199,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    continue;
 	if (sect.sct_effic < 60)
 	    continue;
-	if (BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD) ==
-	    (s_char *)0)
+	if (!BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD))
 	    continue;
 	if (!opt_NOFOOD && type == I_FOOD) {
 	    minimum = 2 + ((etu_per_update * eatrate)
@@ -275,8 +274,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    continue;
 	if (sect.sct_effic < 2)
 	    continue;
-	if (BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD) ==
-	    (s_char *)0)
+	if (!BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD))
 	    continue;
 	if (!opt_NOFOOD && type == I_FOOD)
 	    minimum = 2 + ((etu_per_update * eatrate)
@@ -351,8 +349,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    continue;
 
 	getsect(land.lnd_x, land.lnd_y, &sect);
-	if (BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD) ==
-	    (s_char *)0)
+	if (!BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD))
 	    continue;
 
 	if ((land.lnd_ship >= 0) && (sect.sct_type != SCT_HARBR))

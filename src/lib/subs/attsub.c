@@ -2123,7 +2123,7 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
      *  Procedure: find the biggest unit remaining (in
      *  terms of mil) and give it the casualties.
      */
-    biggest = (struct emp_qelem *)0;
+    biggest = NULL;
     biggest_mil = -1;
     for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
 	llp = (struct llist *)qp;
@@ -2133,7 +2133,7 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
 	    biggest = qp;
 	}
     }
-    if (biggest == (struct emp_qelem *)0)
+    if (biggest == NULL)
 	return CASUALTY_LUMP - to_take;
 
     llp = (struct llist *)biggest;

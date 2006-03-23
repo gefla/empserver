@@ -80,12 +80,12 @@ finish_sects(int etu)
     int n;
     struct distinfo *infptr;
 
-    if (g_distptrs == (struct distinfo *)0) {
+    if (g_distptrs == NULL) {
 	logerror("First update since reboot, allocating buffer\n");
 	/* Allocate the information buffer */
 	g_distptrs = (struct distinfo *)(malloc((WORLD_X * WORLD_Y) *
 						sizeof(struct distinfo)));
-	if (g_distptrs == (struct distinfo *)0) {
+	if (g_distptrs == NULL) {
 	    logerror("malloc failed in finish_sects.\n");
 	    return;
 	}
@@ -191,7 +191,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	infptr = &distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
 	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
-	if (dist == (struct sctstr *)0) {
+	if (dist == NULL) {
 	    logerror("Bad dist sect %d,%d for %d,%d !\n", sp->sct_dist_x,
 		     sp->sct_dist_y, sp->sct_x, sp->sct_y);
 	    continue;
@@ -202,13 +202,13 @@ assemble_dist_paths(struct distinfo *distptrs)
 	path = BestDistPath(buf, dist, sp, &d, MOB_ROAD);
 
 	/* Now, we have a path */
-	if (path != (s_char *)0) {
+	if (path != NULL) {
 #ifdef SAVE_FINISH_PATHS
 	    int len;
 	    /* Here we malloc a buffer and save it */
 	    len = strlen(path);
 	    infptr->path = malloc(len);
-	    if (infptr->path == (s_char *)0) {
+	    if (infptr->path == NULL) {
 		logerror("malloc failed in assemble_dist_path!\n");
 		return;
 	    }
@@ -236,12 +236,12 @@ ReversePath(s_char *path)
     static s_char new_path[512];
     int ind;
 
-    if (path == (s_char *)0)
-	return (s_char *)0;
+    if (path == NULL)
+	return NULL;
 
     ind = strlen(path);
     if (ind == 0)
-	return (s_char *)0;
+	return NULL;
 
     if (path[ind - 1] == 'h')
 	ind--;

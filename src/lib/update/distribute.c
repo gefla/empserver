@@ -79,7 +79,7 @@ dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	return 0;
 
-    if (path == (s_char *)0) {
+    if (!path) {
 	if (sp->sct_own != 0) {
 	    if (imex == EXPORT)	/* only want this once */
 		wu(0, sp->sct_own, "No path to dist sector for %s\n",

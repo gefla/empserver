@@ -117,8 +117,8 @@ int dy[6] = { 0, -1, -1, 0, 1, 1 };
  * would be slow.  And, since world size only changes at init
  * time, we can do this safely.
  */
-static unsigned int *mapbuf = (unsigned int *)0;
-static unsigned int **mapindex = (unsigned int **)0;
+static unsigned int *mapbuf;
+static unsigned int **mapindex;
 
 s_char *
 bestownedpath(s_char *bpath,
