@@ -72,8 +72,8 @@ static void share_incr(double *, double *);
  * They are changed later in the limit_level routine.
  */
 			/*tech   res   edu   hap */
-float level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
-float level_log[4] = { 1.75, 2.00, 4.00, 6.00 };
+static float level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
+static float level_log[4] = { 1.75, 2.00, 4.00, 6.00 };
 
 float levels[MAXNOC][4];
 

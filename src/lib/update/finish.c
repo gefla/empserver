@@ -56,7 +56,7 @@ struct distinfo {
 /* This is our global buffer of distribution pointers.  Note that
  * We only malloc this once, and never again (until reboot time
  * of course :) ) We do clear it each and every time. */
-struct distinfo *g_distptrs = (struct distinfo *)0;
+static struct distinfo *g_distptrs;
 
 /* Note that even though we malloc and save the path, it is never
  * used.  Thus, this option.  If you want to malloc and save every

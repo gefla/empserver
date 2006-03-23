@@ -72,7 +72,7 @@ static int bp_coord_hash(struct as_coord c);
 
 /* We use this for caching neighbors.  It never changes except
  * at reboot time (maybe) so we never need to free it */
-struct sctstr **neighsects = (struct sctstr **)0;
+static struct sctstr **neighsects;
 
 static s_char *
 bp_init(void)

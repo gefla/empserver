@@ -105,7 +105,7 @@ static int owned_and_navigable(s_char *, int, int, s_char *, int);
 ** ________________________________________________________________
 */
 
-s_char *dirchar = "juygbn";
+static char *dirchar = "juygbn";
 int dx[6] = { 2, 1, -1, -2, -1, 1 };
 int dy[6] = { 0, -1, -1, 0, 1, 1 };
 

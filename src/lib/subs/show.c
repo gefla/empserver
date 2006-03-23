@@ -59,8 +59,13 @@ struct look_list {
 	struct mchrstr *mp;
     } l_u;
     int tech;
-} lookup_list[200];		/* Change this if there are ever more than 200 planes, ships
-				   or land units. */
+};
+
+/*
+ * Change this if there are ever more than 200 ships, plane or land
+ * unit types.
+ */
+static struct look_list lookup_list[200];
 static int lookup_list_cnt = 0;
 
 static void

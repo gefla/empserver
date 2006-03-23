@@ -49,8 +49,9 @@
 static void materials_charge(struct pchrstr *, short *, int);
 static int materials_cost(struct pchrstr *, short *, int *);
 
-s_char *levelnames[] =
-    { "Technology", "Research", "Education", "Happiness" };
+static char *levelnames[] = {
+    "Technology", "Research", "Education", "Happiness"
+};
 
 int
 produce(struct natstr *np, struct sctstr *sp, short *vec, int work,

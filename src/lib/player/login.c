@@ -359,7 +359,7 @@ quit_cmd(void)
     return RET_OK;
 }
 
-struct cmndstr login_coms[] = {
+static struct cmndstr login_coms[] = {
     {"client client-id...", 0, client_cmd, 0, 0},
     {"coun country", 0, coun_cmd, 0, 0},
     {"kill", 0, kill_cmd, 0, 0},
