@@ -101,8 +101,7 @@ map(void)
 	if (unit_map(unit_type, i, &ns, &origin))
 	    return RET_FAIL;
     }
-    b = player->argp[2];
-    while (b != (s_char *)0 && (*b)) {
+    for (b = player->argp[2]; b && *b; b++) {
 	switch (*b) {
 	case 's':
 	case 'S':
@@ -140,7 +139,6 @@ map(void)
 	    pr("Bad flag %c!\n", *b);
 	    break;
 	}
-	b++;
     }
 
     return draw_map(bmap, origin, map_flags, &ns);
