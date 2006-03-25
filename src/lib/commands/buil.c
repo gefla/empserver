@@ -66,8 +66,7 @@ static int build_tower(struct sctstr *sp, short *vec);
 static int build_plane(struct sctstr *sp,
 		       struct plchrstr *pp, short *vec,
 		       int tlev);
-
-static int cash;		/* static ok */
+static int build_can_afford(double, char *);
 
 /*
  * build <WHAT> <SECTS> <TYPE|DIR|MEG> [NUMBER]
@@ -245,7 +244,6 @@ buil(void)
 	    } else
 		tlev = (int)natp->nat_level[NAT_TLEV];
 	}
-	cash = natp->nat_money;
 	while (nxtsct(&nstr, &sect)) {
 	    gotsect++;
 	    if (!player->owner)
@@ -320,17 +318,14 @@ build_ship(struct sctstr *sp, struct mchrstr *mp,
 	return 0;
     }
     cost = mp->m_cost * SHIP_MINEFF / 100;
-    if (cash < cost) {
-	pr("Not enough money left to build a %s\n", mp->m_name);
+    if (!build_can_afford(cost, mp->m_name))
 	return 0;
-    }
     if (!trechk(player->cnum, 0, NEWSHP))
 	return 0;
     if (!check_sect_ok(sp))
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    cash -= cost;
     snxtitem_all(&nstr, EF_SHIP);
     while (nxtitem(&nstr, &ship)) {
 	if (ship.shp_own == 0) {
@@ -464,13 +459,10 @@ build_land(struct sctstr *sp, struct lchrstr *lp,
 	return 0;
     }
     cost = lp->l_cost * LAND_MINEFF / 100;
-    if (cash < cost) {
-	pr("Not enough money left to build a %s\n", lp->l_name);
+    if (!build_can_afford(cost, lp->l_name))
 	return 0;
-    }
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    cash -= cost;
     snxtitem_all(&nstr, EF_LAND);
     while (nxtitem(&nstr, &land)) {
 	if (land.lnd_own == 0) {
@@ -562,11 +554,8 @@ build_bridge(struct sctstr *sp, short *vec)
 	return 0;
     }
 
-    if (cash < buil_bc) {
-	pr("A span costs $%.2f to build; ", buil_bc);
-	pr("you only have %d.\n", cash);
+    if (!build_can_afford(buil_bc, dchr[SCT_BSPAN].d_name))
 	return 0;
-    }
     avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
     if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a bridge\n",
@@ -617,7 +606,6 @@ build_bridge(struct sctstr *sp, short *vec)
     }				/* end EASY_BRIDGES */
     sp->sct_avail -= avail;
     player->dolcost += buil_bc;
-    cash -= buil_bc;
     sect.sct_type = SCT_BSPAN;
     sect.sct_newtype = SCT_BSPAN;
     sect.sct_effic = SCT_MINEFF;
@@ -665,10 +653,8 @@ build_nuke(struct sctstr *sp, struct nchrstr *np,
 	   np->n_hcm, np->n_lcm, np->n_oil, np->n_rad);
 	return 0;
     }
-    if (cash < np->n_cost) {
-	pr("You need $%d, you only have %d.\n", np->n_cost, cash);
+    if (!build_can_afford(np->n_cost, np->n_name))
 	return 0;
-    }
     avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
     /*
      * XXX when nukes turn into units (or whatever), then
@@ -687,7 +673,6 @@ build_nuke(struct sctstr *sp, struct nchrstr *np,
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
-    cash -= np->n_cost;
     nuk_add(sp->sct_x, sp->sct_y, np - nchr, 1);
     vec[I_HCM] -= np->n_hcm;
     vec[I_LCM] -= np->n_lcm;
@@ -737,10 +722,8 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
 	return 0;
     }
     cost = pp->pl_cost * PLANE_MINEFF / 100;
-    if (cash < cost) {
-	pr("Not enough money left to build a %s\n", pp->pl_name);
+    if (!build_can_afford(cost, pp->pl_name))
 	return 0;
-    }
     if (vec[I_MILIT] < mil || (vec[I_MILIT] == 0 && pp->pl_crew > 0)) {
 	pr("Not enough military for crew in %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -752,7 +735,6 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    cash -= cost;
     snxtitem_all(&nstr, EF_PLANE);
     freeplane = 0;
     while (nxtitem(&nstr, &plane)) {
@@ -836,11 +818,8 @@ build_tower(struct sctstr *sp, short *vec)
 	return 0;
     }
 
-    if (cash < buil_tower_bc) {
-	pr("A bridge tower costs $%.2f to build; ", buil_tower_bc);
-	pr("you only have %d.\n", cash);
+    if (!build_can_afford(buil_tower_bc, dchr[SCT_BTOWER].d_name))
 	return 0;
-    }
     avail = (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100;
     if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a bridge tower\n",
@@ -894,7 +873,6 @@ build_tower(struct sctstr *sp, short *vec)
 
     sp->sct_avail -= avail;
     player->dolcost += buil_tower_bc;
-    cash -= buil_tower_bc;
     sect.sct_type = SCT_BTOWER;
     sect.sct_newtype = SCT_BTOWER;
     sect.sct_effic = SCT_MINEFF;
@@ -916,5 +894,16 @@ build_tower(struct sctstr *sp, short *vec)
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
     vec[I_HCM] -= buil_tower_bh;
+    return 1;
+}
+
+static int
+build_can_afford(double cost, char *what)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    if (natp->nat_money < player->dolcost + cost) {
+	pr("Not enough money left to build a %s\n", what);
+	return 0;
+    }
     return 1;
 }
