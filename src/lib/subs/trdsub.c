@@ -55,22 +55,22 @@
 int
 trade_check_ok(struct trdstr *tp, union trdgenstr *tgp)
 {
-    union trdgenstr check;
+    return check_trade_ok(tp) && trade_check_item_ok(tgp);
+}
 
-    if (!check_trade_ok(tp))
-	return 0;
-
-    trade_getitem(tp, &check);
-    if (tp->trd_type == EF_LAND)
+int
+trade_check_item_ok(union trdgenstr *tgp)
+{
+    if (tgp->gen.ef_type == EF_LAND)
 	return check_land_ok(&tgp->lnd);
-    if (tp->trd_type == EF_PLANE)
+    if (tgp->gen.ef_type == EF_PLANE)
 	return check_plane_ok(&tgp->pln);
-    if (tp->trd_type == EF_SHIP)
+    if (tgp->gen.ef_type == EF_SHIP)
 	return check_ship_ok(&tgp->shp);
-    if (tp->trd_type == EF_NUKE)
+    if (tgp->gen.ef_type == EF_NUKE)
 	return check_nuke_ok(&tgp->nuk);
-    CANT_HAPPEN("Bad TRD_TYPE");
-    pr("Trade lot #%d went bad!\n", tp->trd_uid);
+    CANT_HAPPEN("Bad EF_TYPE");
+    pr("Trade lot went bad!\n");
     return 0;
 }
 

@@ -64,7 +64,6 @@ set(void)
     struct nstr_item ni;
     struct nstr_item ni_trade;
     union trdgenstr item;
-    union trdgenstr check;
     struct sctstr sect;
     int freeslot;
     int foundslot;
@@ -98,13 +97,10 @@ set(void)
 	trade.trd_type = type;
 	sprintf(prompt, "%s #%d; Price? ",
 		trade_nameof(&trade, &item), ni.cur);
-	memcpy(&check, &item, sizeof(union trdgenstr));
 	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
 	    break;
-	if (memcmp(&check, &item, sizeof(union trdgenstr))) {
-	    pr("That item has changed!\n");
+	if (!trade_check_item_ok(&item))
 	    return RET_FAIL;
-	}
 	if ((price = atoi(p)) < 0)
 	    continue;
 	foundslot = -1;
