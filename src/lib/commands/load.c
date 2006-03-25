@@ -121,7 +121,7 @@ load(void)
 	    continue;
 	}
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_SHIP, (int *)&ship)) {
+	    if (ontradingblock(EF_SHIP, &ship)) {
 		pr("You cannot load/unload an item on the trading block!\n");
 		continue;
 	    }
@@ -266,7 +266,7 @@ lload(void)
 	if (sect.sct_own != player->cnum && land.lnd_own != player->cnum)
 	    continue;
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_LAND, (int *)&land)) {
+	    if (ontradingblock(EF_LAND, &land)) {
 		pr("You cannot load/unload an item on the trading block!\n");
 		continue;
 	    }

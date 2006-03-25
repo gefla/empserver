@@ -77,8 +77,8 @@ extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern s_char *prsub(struct shpstr *);
 extern int check_trade(void);
-extern int ontradingblock(int, int *);
-extern void trdswitchown(int, int *, int);
+extern int ontradingblock(int, void *);
+extern void trdswitchown(int, void *, int);
 /* Commands */
 int acce(void);
 int add(void);

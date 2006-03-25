@@ -94,7 +94,7 @@ laun(void)
 	    continue;
 	}
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_PLANE, (int *)&plane)) {
+	    if (ontradingblock(EF_PLANE, &plane)) {
 		pr("plane #%d inelligible - it's for sale.\n",
 		   plane.pln_uid);
 		continue;

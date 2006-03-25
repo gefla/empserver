@@ -495,8 +495,7 @@ check_trade(void)
 }
 
 int
-ontradingblock(int type, int *ptr)
-	  /* Generic pointer */
+ontradingblock(int type, void *ptr)
 {
     struct trdstr trade;
     union trdgenstr tg;
@@ -516,8 +515,7 @@ ontradingblock(int type, int *ptr)
 }
 
 void
-trdswitchown(int type, int *ptr, int newown)
-	  /* Generic pointer */
+trdswitchown(int type, void *ptr, int newown)
 {
     struct trdstr trade;
     union trdgenstr tg;

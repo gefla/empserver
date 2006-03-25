@@ -219,7 +219,7 @@ att_get_combat(struct combat *com, int isdef)
 	}
 	if (opt_MARKET) {
 	    if (isdef && player->owner &&
-		ontradingblock(EF_SHIP, (int *)&ship)) {
+		ontradingblock(EF_SHIP, &ship)) {
 		pr("%s is on the trading block.\n", prcom(0, com));
 		return att_combat_init(com, EF_BAD);
 	    }
@@ -983,7 +983,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	}
 
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_LAND, (int *)&land)) {
+	    if (ontradingblock(EF_LAND, &land)) {
 		pr("%s is on the trading block, and cannot %s\n",
 		   prland(&land), att_mode[combat_mode]);
 		continue;

@@ -142,7 +142,7 @@ scra(void)
 	    continue;
 
 	if (opt_MARKET) {
-	    if (ontradingblock(type, (int *)&item.ship)) {
+	    if (ontradingblock(type, &item.ship)) {
 		pr("You cannot scrap an item on the trading block!\n");
 		continue;
 	    }

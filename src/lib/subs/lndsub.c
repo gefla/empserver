@@ -514,7 +514,7 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	if (!player->owner)
 	    continue;
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_LAND, (int *)&land)) {
+	    if (ontradingblock(EF_LAND, &land)) {
 		pr("unit #%d inelligible - it's for sale.\n",
 		   land.lnd_uid);
 		continue;

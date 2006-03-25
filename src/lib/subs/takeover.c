@@ -199,7 +199,7 @@ takeover_plane(struct plnstr *pp, natid newown)
 	   cname(newown), xyas(pp->pln_x, pp->pln_y, pp->pln_own));
     }
     if (opt_MARKET)
-	trdswitchown(EF_PLANE, (int *)pp, newown);
+	trdswitchown(EF_PLANE, pp, newown);
     if (pp->pln_mobil > 0)
 	pp->pln_mobil = 0;
     makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
@@ -219,7 +219,7 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     struct lndstr llp;
 
     if (opt_MARKET)
-	trdswitchown(EF_SHIP, (int *)sp, newown);
+	trdswitchown(EF_SHIP, sp, newown);
     makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
     sp->shp_own = newown;
     makenotlost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
@@ -246,7 +246,7 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
 	/* Keep track of when this was taken over */
 	time(&pp->pln_access);
 	if (opt_MARKET)
-	    trdswitchown(EF_PLANE, (int *)pp, newown);
+	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;
 	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = newown;
@@ -285,7 +285,7 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     /* Keep track of when this was taken over */
     time(&landp->lnd_access);
     if (opt_MARKET)
-	trdswitchown(EF_LAND, (int *)landp, newown);
+	trdswitchown(EF_LAND, landp, newown);
     landp->lnd_mission = 0;
     makelost(EF_LAND, landp->lnd_own, landp->lnd_uid, landp->lnd_x,
 	     landp->lnd_y);
@@ -309,7 +309,7 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
 	/* Keep track of when this was taken over */
 	time(&pp->pln_access);
 	if (opt_MARKET)
-	    trdswitchown(EF_PLANE, (int *)pp, newown);
+	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;
 	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = newown;

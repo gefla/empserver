@@ -82,7 +82,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	   continue;
 	 */
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_SHIP, (int *)&ship)) {
+	    if (ontradingblock(EF_SHIP, &ship)) {
 		pr("ship #%d inelligible - it's for sale.\n",
 		   ship.shp_uid);
 		continue;

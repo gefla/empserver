@@ -209,7 +209,7 @@ scut(void)
 	if (!player->owner)
 	    continue;
 	if (opt_MARKET) {
-	    if (ontradingblock(type, (int *)&item.ship)) {
+	    if (ontradingblock(type, &item.ship)) {
 		pr("You cannot scuttle an item on the trading block!\n");
 		continue;
 	    }

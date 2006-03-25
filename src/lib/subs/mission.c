@@ -1009,7 +1009,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	}
 
 	if (opt_MARKET) {
-	    if (ontradingblock(EF_PLANE, (int *)pp)) {
+	    if (ontradingblock(EF_PLANE, pp)) {
 		emp_remque(qp);
 		free(qp);
 		continue;

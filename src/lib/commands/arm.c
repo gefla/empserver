@@ -75,7 +75,7 @@ arm(void)
 	return RET_FAIL;
     }
     if (opt_MARKET) {
-	if (ontradingblock(EF_PLANE, (int *)&pl)) {
+	if (ontradingblock(EF_PLANE, &pl)) {
 	    pr("You cannot arm/disarm an item on the trading block!\n");
 	    return RET_FAIL;
 	}
