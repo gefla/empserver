@@ -168,7 +168,7 @@ buil(void)
 	case 'b':
 	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
 		pr("Building a span requires a tech of %.0f\n", buil_bt);
-		return 2;
+		return RET_FAIL;
 	    }
 	    break;
 	case 't':
@@ -179,7 +179,7 @@ buil(void)
 	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
 		pr("Building a tower requires a tech of %.0f\n",
 		   buil_tower_bt);
-		return 2;
+		return RET_FAIL;
 	    }
 	    break;
 	case 'n':
@@ -211,7 +211,7 @@ buil(void)
 	    break;
 	default:
 	    pr("You can't build that!\n");
-	    return RET_FAIL;
+	    return RET_SYN;
 	}
 	if (what != 'b' && what != 't') {
 	    if (player->argp[4]) {
