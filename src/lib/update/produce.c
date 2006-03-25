@@ -60,7 +60,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     struct pchrstr *product;
     double p_e;
     double prodeff;
-    u_char *resource;
+    unsigned char *resource;
     double output;
     int actual;
     int unit_work;
@@ -85,7 +85,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     p_e = neweff / 100.0;
     if (product->p_nrndx != 0) {
 	unit_work++;
-	resource = (u_char *)sp + product->p_nrndx;
+	resource = (unsigned char *)sp + product->p_nrndx;
 	p_e = (*resource * p_e) / 100.0;
     }
     /*

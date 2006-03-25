@@ -61,8 +61,8 @@
 
 #define fldoff(str, fld) offsetof(struct str, fld)
 
-#define NSC_IELT(name, pfx, sfx, base, itype)		\
-{NSC_SHORT, 0, 0, ((base) + (itype)*sizeof(u_short)),	\
+#define NSC_IELT(name, pfx, sfx, base, itype)			\
+{NSC_SHORT, 0, 0, ((base) + (itype)*sizeof(unsigned short)),	\
 sizeof(sfx) == 1 ? name : pfx sfx, EF_BAD}
 
 #define NSC_IVEC(base, sfx)		\

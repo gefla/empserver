@@ -49,43 +49,43 @@ struct sctstr {
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
     /* end of part matching struct genitem */
-    u_char sct_type;		/* sector type */
-    u_char sct_effic;		/* 0% to 100% */
+    unsigned char sct_type;	/* sector type */
+    unsigned char sct_effic;	/* 0% to 100% */
     short sct_mobil;		/* mobility units */
-    u_char sct_loyal;		/* updates until civilans "converted" */
-    u_char sct_terr;		/* territory 0 id # of sector */
-    u_char sct_terr1;		/* territory 1 id # of sector */
-    u_char sct_terr2;		/* territory 2 id # of sector */
-    u_char sct_terr3;		/* territory 3 id # of sector */
+    unsigned char sct_loyal;	/* updates until civilans "converted" */
+    unsigned char sct_terr;	/* territory 0 id # of sector */
+    unsigned char sct_terr1;	/* territory 1 id # of sector */
+    unsigned char sct_terr2;	/* territory 2 id # of sector */
+    unsigned char sct_terr3;	/* territory 3 id # of sector */
     coord sct_dist_x;		/* Dist sector */
     coord sct_dist_y;
     short sct_avail;		/* available workforce for "other things" */
     short sct_flags;		/* temporary flags */
     short sct_fill;		/* gunk */
-    u_char sct_work;		/* pct of civ actually working */
-    u_char sct_coastal;		/* is this a coastal sector? */
-    u_char sct_newtype;		/* for changing designations */
-    u_char sct_min;		/* ease of mining ore */
-    u_char sct_gmin;		/* amount of gold ore */
-    u_char sct_fertil;		/* fertility of soil */
-    u_char sct_oil;		/* oil content */
-    u_char sct_uran;		/* uranium ore content */
+    unsigned char sct_work;	/* pct of civ actually working */
+    unsigned char sct_coastal;	/* is this a coastal sector? */
+    unsigned char sct_newtype;	/* for changing designations */
+    unsigned char sct_min;	/* ease of mining ore */
+    unsigned char sct_gmin;	/* amount of gold ore */
+    unsigned char sct_fertil;	/* fertility of soil */
+    unsigned char sct_oil;	/* oil content */
+    unsigned char sct_uran;	/* uranium ore content */
     natid sct_oldown;		/* old owner of sector (for liberation) */
-    u_char sct_updated;		/* Has this sect been updated? */
-    u_char sct_off;		/* Should this sector produce? */
+    unsigned char sct_updated;	/* Has this sect been updated? */
+    unsigned char sct_off;	/* Should this sector produce? */
     short sct_item[I_MAX+1];	/* amount of items stored here */
     short sct_del[I_MAX+1];	/* delivieries */
     short sct_dist[I_MAX+1];	/* distribution thresholds */
     short sct_mines;		/* number of mines */
     short sct_pstage;		/* plague stage */
     short sct_ptime;		/* how many etus remain in this stage */
-    u_char sct_che;		/* number of guerrillas */
+    unsigned char sct_che;	/* number of guerrillas */
     natid sct_che_target;	/* nation targeted by che */
-    u_short sct_fallout;
+    unsigned short sct_fallout;
     time_t sct_access;		/* Last time mob was updated (MOB_ACCESS) */
-    u_char sct_road;		/* Road value of a sector */
-    u_char sct_rail;		/* Rail value of a sector */
-    u_char sct_defense;		/* Defensive value of a sector */
+    unsigned char sct_road;	/* Road value of a sector */
+    unsigned char sct_rail;	/* Rail value of a sector */
+    unsigned char sct_defense;	/* Defensive value of a sector */
     time_t sct_timestamp;	/* Last time this sector was written to */
 };
 
@@ -102,7 +102,7 @@ struct dchrstr {
     char d_mnem;		/* map symbol */
     int d_prd;			/* product type */
     int d_mcst;			/* movement cost */
-    d_navigation d_nav;			/* navigation capability */
+    d_navigation d_nav;		/* navigation capability */
     i_packing d_pkg;		/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
@@ -203,10 +203,10 @@ extern struct dchrstr bigcity_dchr;
 /* Each cost is per point of efficency */
 struct sctintrins {
     char *in_name;
-    u_char in_lcms;
-    u_char in_hcms;
-    u_char in_dcost;
-    u_char in_mcost;
+    unsigned char in_lcms;
+    unsigned char in_hcms;
+    unsigned char in_dcost;
+    unsigned char in_mcost;
 };
 
 extern struct sctintrins intrchr[INT_DEF + 2];

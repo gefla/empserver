@@ -63,8 +63,8 @@ struct plnstr {
     short pln_mission;		/* mission code */
     short pln_radius;		/* mission radius */
     /* end of part matching struct genitem */
-    u_char pln_range;		/* total distance, not radius */
-    u_char pln_range_max;	/* max range for this plane */
+    unsigned char pln_range;	/* total distance, not radius */
+    unsigned char pln_range_max; /* max range for this plane */
     short pln_ship;		/* pointer to carrier */
     short pln_land;		/* pointer to carrier */
     int pln_att;		/* plane air-air attack/defense values */

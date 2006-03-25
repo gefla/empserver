@@ -232,7 +232,7 @@ multifire(void)
 		continue;
 	    if (item.sect.sct_type != SCT_FORTR)
 		continue;
-	    if (item.sect.sct_effic < ((u_char)FORTEFF)) {
+	    if (item.sect.sct_effic < FORTEFF) {
 		pr("Fort not efficient enough to fire!\n");
 		continue;
 	    }

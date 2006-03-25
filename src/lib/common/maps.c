@@ -51,7 +51,7 @@
 #include "optlist.h"
 
 static int bmnxtsct(struct nstr_sect *);
-static s_char map_char(u_char type, natid own, int owner_or_god);
+static s_char map_char(unsigned char type, natid own, int owner_or_god);
 
 int
 draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
@@ -66,7 +66,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static u_char *bitmap = NULL;
+    static unsigned char *bitmap = NULL;
     static s_char *wmapbuf = NULL;
     static s_char **wmap = NULL;
 
@@ -288,7 +288,7 @@ bmnxtsct(struct nstr_sect *np)
  * If OWNER_OR_GOD, the map is for the sector's owner or a deity.
  */
 static s_char
-map_char(u_char type, natid own, int owner_or_god)
+map_char(unsigned char type, natid own, int owner_or_god)
 {
     if (type > SCT_MAXDEF) {
 	logerror("bad sector type %d\n", type);

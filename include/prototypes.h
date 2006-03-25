@@ -390,8 +390,8 @@ extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(register int, register int, int);
 extern int tcp_listen(char *, char *, size_t *);
-/* plur.c */
 extern s_char *numstr(s_char buf[], int n);
+/* plur.c */
 extern s_char *esplur(int n);
 extern s_char *splur(int n);
 extern s_char *iesplur(int n);
@@ -482,10 +482,10 @@ extern int dd(natid, natid, coord, coord, int, int);
 extern int sb(natid, natid, struct sctstr *, coord, coord, int, int);
 extern int shipdef(natid, natid, coord, coord);
 /* getbit.c */
-extern int emp_getbit(int, int, u_char *);
-extern void emp_setbit(int, int, u_char *);
-extern void emp_setbitmap(int, int, u_char *, int *);
-extern void bitinit2(struct nstr_sect *, u_char *, int);
+extern int emp_getbit(int, int, unsigned char *);
+extern void emp_setbit(int, int, unsigned char *);
+extern void emp_setbitmap(int, int, unsigned char *, int *);
+extern void bitinit2(struct nstr_sect *, unsigned char *, int);
 /* getele.c */
 extern int getele(char *, char *);
 /* land.c */

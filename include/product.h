@@ -45,7 +45,7 @@ enum { MAXPRCON = 3 };
 struct pchrstr {
     int p_uid;
     i_type p_ctype[MAXPRCON];	/* constituent types */
-    u_short p_camt[MAXPRCON];	/* constituent amounts */
+    unsigned short p_camt[MAXPRCON]; /* constituent amounts */
     i_type p_type;		/* product item type, or I_NONE if level */
     int p_level;		/* level index (NAT_?LEV), or -1 if item */
     int p_cost;			/* dollars / product unit */

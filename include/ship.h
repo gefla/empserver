@@ -75,8 +75,8 @@ struct shpstr {
     short shp_mission;		/* mission code */
     short shp_radius;		/* mission radius */
     /* end of part matching struct genitem */
-    u_char shp_nplane;		/* number of planes on board */
-    u_char shp_nland;		/* number of land units on board */
+    unsigned char shp_nplane;	/* number of planes on board */
+    unsigned char shp_nland;	/* number of land units on board */
     short shp_armor;
     short shp_speed;
     short shp_visib;
@@ -88,19 +88,19 @@ struct shpstr {
     i_type shp_tend[TMAX];	/* what goods to pick up at end point   */
     short shp_lstart[TMAX];	/* How much do we pick up at the start  */
     short shp_lend[TMAX];	/* How much do we pick up at the end    */
-    u_char shp_autonav;		/* autonavigation flags */
+    unsigned char shp_autonav;	/* autonavigation flags */
     short shp_item[I_MAX+1];	/* amount of items on board */
     short shp_pstage;		/* plague stage */
     short shp_ptime;		/* how many etus remain in this stage */
     time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
-    u_char shp_mobquota;	/* mobility quota */
+    unsigned char shp_mobquota;	/* mobility quota */
     char shp_path[MAXSHPPATH];
     short shp_follow;
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
-    u_char shp_fuel;		/* How much fuel do we have */
-    u_char shp_nchoppers;	/* How many choppers on board? */
-    u_char shp_nxlight;		/* How many xlight planes on board? */
+    unsigned char shp_fuel;	/* How much fuel do we have */
+    unsigned char shp_nchoppers; /* How many choppers on board? */
+    unsigned char shp_nxlight;	/* How many xlight planes on board? */
     coord shp_orig_x;
     coord shp_orig_y;		/* Where we were built */
     natid shp_orig_own;		/* Who built us */
@@ -139,16 +139,16 @@ struct mchrstr {
     int m_vrnge;		/* how well it can see */
     int m_frnge;		/* how far it can fire */
     int m_glim;			/* how many guns it can fire */
-    u_char m_nxlight;		/* maximum number of xlight planes */
-    u_char m_nchoppers;		/* maximum number of choppers */
-    u_char m_fuelc;		/* fuel capacity */
-    u_char m_fuelu;		/* fuel used per 10 mob */
+    unsigned char m_nxlight;	/* maximum number of xlight planes */
+    unsigned char m_nchoppers;	/* maximum number of choppers */
+    unsigned char m_fuelc;	/* fuel capacity */
+    unsigned char m_fuelu;	/* fuel used per 10 mob */
     char *m_name;		/* full name of type of ship */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */
     long m_flags;		/* what special things can this ship do */
-    u_char m_nplanes;		/* maximum number of planes this ship holds */
-    u_char m_nland;		/* maximum number of units this ship holds */
+    unsigned char m_nplanes;	/* maximum number of planes this ship holds */
+    unsigned char m_nland;	/* maximum number of units this ship holds */
     signed char m_type;		/* index in mchr[] */
 };
 

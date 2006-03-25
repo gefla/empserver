@@ -538,7 +538,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
     case 'e':
 	new = errcheck(arg, 0, 100);
 	noise(sect, 1, "Efficiency", (int)sect->sct_effic, new);
-	sect->sct_effic = (u_char)new;
+	sect->sct_effic = (unsigned char)new;
 	break;
     case 'm':
 	new = errcheck(arg, -127, 255);
@@ -548,39 +548,39 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
     case 'i':
 	new = errcheck(arg, 0, 127);
 	noise(sect, 1, "Iron ore content", (int)sect->sct_min, new);
-	sect->sct_min = (u_char)new;
+	sect->sct_min = (unsigned char)new;
 	break;
     case 'g':
 	new = errcheck(arg, 0, 127);
 	noise(sect, 1, "Gold content", (int)sect->sct_gmin, new);
-	sect->sct_gmin = (u_char)new;
+	sect->sct_gmin = (unsigned char)new;
 	break;
     case 'f':
 	new = errcheck(arg, 0, 127);
 	noise(sect, 1, "Fertility", (int)sect->sct_fertil, new);
-	sect->sct_fertil = (u_char)new;
+	sect->sct_fertil = (unsigned char)new;
 	break;
     case 'c':
 	new = errcheck(arg, 0, 127);
 	noise(sect, 1, "Oil content", (int)sect->sct_oil, new);
-	sect->sct_oil = (u_char)new;
+	sect->sct_oil = (unsigned char)new;
 	break;
     case 'u':
 	new = errcheck(arg, 0, 127);
 	noise(sect, 1, "Uranium content", (int)sect->sct_uran, new);
-	sect->sct_uran = (u_char)new;
+	sect->sct_uran = (unsigned char)new;
 	break;
     case 'w':
 	new = errcheck(arg, 0, 100);
 	noise(sect, 1, "Workforce percentage", (int)sect->sct_work, new);
-	sect->sct_work = (u_char)new;
+	sect->sct_work = (unsigned char)new;
 	break;
     case 'l':
 	new = errcheck(arg, 0, 127);
 	pr("Loyalty of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   sect->sct_loyal, new);
-	sect->sct_loyal = (u_char)new;
+	sect->sct_loyal = (unsigned char)new;
 	break;
     case 'x':
 	old = sect->sct_che;
@@ -1136,7 +1136,7 @@ doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
 	plane->pln_def = (s_char)arg;
 	break;
     case 'r':
-	plane->pln_range = (u_char)arg;
+	plane->pln_range = (unsigned char)arg;
 	break;
     case 's':
 	plane->pln_ship = arg;

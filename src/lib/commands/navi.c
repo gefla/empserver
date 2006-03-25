@@ -224,7 +224,7 @@ nav_map(int x, int y, int show_designations)
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static u_char *bitmap = NULL;
+    static unsigned char *bitmap = NULL;
     static s_char *wmapbuf = NULL;
     static s_char **wmap = NULL;
     s_char what[64];

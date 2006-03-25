@@ -89,7 +89,7 @@ prod(void)
     int used;			/* production w/infinite workforce */
     i_type it;
     i_type vtype;
-    u_char *resource;
+    unsigned char *resource;
     s_char maxc[MAXPRCON][10];
     s_char use[MAXPRCON][10];
     int lcms, hcms;
@@ -100,7 +100,7 @@ prod(void)
     int type;
     int eff;
     int maxpop;
-    u_char otype;
+    int otype;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -199,7 +199,7 @@ prod(void)
 	    goto is_enlist;
 	if (pp->p_nrndx != 0) {
 	    unit_work++;
-	    resource = (u_char *)&sect + pp->p_nrndx;
+	    resource = (unsigned char *)&sect + pp->p_nrndx;
 	    p_e = (*resource * p_e) / 100.0;
 	}
 	/*

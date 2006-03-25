@@ -87,7 +87,7 @@ setsector(void)
 	    if (sect.sct_own != 0)
 		resnoise(&sect, 1, "Iron ore content",
 			 (int)sect.sct_min, current);
-	    sect.sct_min = (u_char)current;
+	    sect.sct_min = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;
@@ -108,7 +108,7 @@ setsector(void)
 	    if (sect.sct_own != 0)
 		resnoise(&sect, 1, "Gold content",
 			 (int)sect.sct_gmin, current);
-	    sect.sct_gmin = (u_char)current;
+	    sect.sct_gmin = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;
@@ -131,7 +131,7 @@ setsector(void)
 		if (sect.sct_own != 0)
 		    resnoise(&sect, 1, "Oil content",
 			     (int)sect.sct_oil, current);
-		sect.sct_oil = (u_char)current;
+		sect.sct_oil = (unsigned char)current;
 		putsect(&sect);
 	    }
 	    break;
@@ -204,7 +204,7 @@ setsector(void)
 		current = 100;
 	    pr("Efficiency in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
-	    sect.sct_effic = (u_char)current;
+	    sect.sct_effic = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;
@@ -291,7 +291,7 @@ setsector(void)
 		current = 100;
 	    pr("Work in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
-	    sect.sct_work = (u_char)current;
+	    sect.sct_work = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;
@@ -312,7 +312,7 @@ setsector(void)
 	    if (sect.sct_own != 0)
 		resnoise(&sect, 1, "Fertility content",
 			 (int)sect.sct_fertil, current);
-	    sect.sct_fertil = (u_char)current;
+	    sect.sct_fertil = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;
@@ -333,7 +333,7 @@ setsector(void)
 	    if (sect.sct_own != 0)
 		resnoise(&sect, 1, "Uranium content",
 			 (int)sect.sct_uran, current);
-	    sect.sct_uran = (u_char)current;
+	    sect.sct_uran = (unsigned char)current;
 	    putsect(&sect);
 	}
 	break;

@@ -61,7 +61,7 @@ look(void)
     int x, y;
     int civ;
     int mil;
-    u_char *bitmap;
+    unsigned char *bitmap;
     int changed = 0;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
@@ -186,7 +186,7 @@ llook(void)
     int x, y;
     int civ;
     int mil;
-    u_char *bitmap;
+    unsigned char *bitmap;
     int changed = 0;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))

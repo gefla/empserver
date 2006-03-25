@@ -43,9 +43,6 @@
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #if defined(_WIN32)
-typedef unsigned char u_char;
-typedef unsigned short u_short;
-typedef unsigned int u_int;
 typedef long ssize_t;
 
 /* integral mismatch, due to misuse of sector short */
@@ -88,7 +85,7 @@ struct mob_acc_globals {
 #define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
 #endif
 
-typedef u_char natid;		/* NSC_NATID must match this */
+typedef unsigned char natid;	/* NSC_NATID must match this */
 
 /*
  * TODO s_char has to go.  Use plain char for characters and strings,

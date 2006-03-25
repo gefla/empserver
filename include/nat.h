@@ -100,10 +100,10 @@ struct natstr {
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
     s_char nat_dayno;		/* day of the year mod 128 */
     s_char nat_update;		/* Want an update or not. */
-    u_char nat_missed;		/* How many updates missed */
-    u_short nat_tgms;		/* # of telegrams to be announced */
-    u_short nat_ann;		/* # of annos pending */
-    u_short nat_minused;	/* number of minutes used today */
+    unsigned char nat_missed;	/* How many updates missed */
+    unsigned short nat_tgms;	/* # of telegrams to be announced */
+    unsigned short nat_ann;	/* # of annos pending */
+    unsigned short nat_minused;	/* number of minutes used today */
     short nat_btu;		/* bureaucratic time units */
     long nat_reserve;		/* military reserves */
     long nat_money;		/* moola */

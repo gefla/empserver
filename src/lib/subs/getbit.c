@@ -125,7 +125,7 @@ static int *bitmaps[5] = {
 #define GCFy(y) ((y + WORLD_Y) % WORLD_Y)
 
 int
-emp_getbit(int x, int y, u_char *bitmap)
+emp_getbit(int x, int y, unsigned char *bitmap)
 {
     int id;
 
@@ -134,7 +134,7 @@ emp_getbit(int x, int y, u_char *bitmap)
 }
 
 void
-emp_setbit(int x, int y, u_char *bitmap)
+emp_setbit(int x, int y, unsigned char *bitmap)
 {
     register int id;
 
@@ -143,8 +143,7 @@ emp_setbit(int x, int y, u_char *bitmap)
 }
 
 void
-emp_setbitmap(register int x, register int y, register u_char *bitmap,
-	      int *bitmaps)
+emp_setbitmap(int x, int y, unsigned char *bitmap, int *bitmaps)
 {
     register int *mp;
     register int id;
@@ -159,7 +158,7 @@ emp_setbitmap(register int x, register int y, register u_char *bitmap,
 }
 
 void
-bitinit2(struct nstr_sect *np, u_char *bitmap, int country)
+bitinit2(struct nstr_sect *np, unsigned char *bitmap, int country)
 {
     struct sctstr sect;
     int eff;

@@ -67,17 +67,17 @@ struct lndstr {
     short lnd_ship;		/* pointer to transporting ship */
     s_char lnd_harden;		/* for missiles */
     short lnd_retreat;		/* retreat percentage */
-    u_char lnd_fuel;		/* How much fuel do we have */
-    u_char lnd_nxlight;		/* How many xlight planes on board? */
+    unsigned char lnd_fuel;	/* How much fuel do we have */
+    unsigned char lnd_nxlight;	/* How many xlight planes on board? */
     int lnd_rflags;		/* When do I retreat? */
     char lnd_rpath[RET_LEN];	/* retreat path */
-    u_char lnd_rad_max;		/* max radius for this unit */
-    u_char lnd_scar;		/* how experienced the unit is (not used) */
+    unsigned char lnd_rad_max;	/* max radius for this unit */
+    unsigned char lnd_scar;	/* how experienced the unit is (not used) */
     short lnd_item[I_MAX+1];	/* amount of items on board */
     short lnd_pstage;		/* plague stage */
     short lnd_ptime;		/* how many etus remain in this stage */
     short lnd_land;		/* pointer to transporting unit */
-    u_char lnd_nland;
+    unsigned char lnd_nland;
     time_t lnd_access;		/* Last time mob was updated (MOB_ACCESS) */
     float lnd_att;		/* attack multiplier */
     float lnd_def;		/* defense multiplier */
@@ -91,10 +91,10 @@ struct lndstr {
     int lnd_dam;		/* # of guns firing */
     int lnd_ammo;		/* firing ammu used per shot */
     int lnd_aaf;		/* aa fire */
-    u_char lnd_fuelc;		/* fuel capacity */
-    u_char lnd_fuelu;		/* fuel used per 10 mob */
-    u_char lnd_maxlight;	/* maximum number of xlight planes */
-    u_char lnd_maxland;		/* maximum number of units */
+    unsigned char lnd_fuelc;	/* fuel capacity */
+    unsigned char lnd_fuelu;	/* fuel used per 10 mob */
+    unsigned char lnd_maxlight;	/* maximum number of xlight planes */
+    unsigned char lnd_maxland;	/* maximum number of units */
     time_t lnd_timestamp;	/* Last time this unit was touched */
 };
 
@@ -120,10 +120,10 @@ struct lchrstr {
     int l_dam;			/* # of guns firing */
     int l_ammo;			/* firing ammu used per shot */
     int l_aaf;			/* aa fire */
-    u_char l_fuelc;		/* fuel capacity */
-    u_char l_fuelu;		/* fuel used per 10 mob */
-    u_char l_nxlight;		/* maximum number of xlight planes */
-    u_char l_nland;		/* maximum number of units */
+    unsigned char l_fuelc;	/* fuel capacity */
+    unsigned char l_fuelu;	/* fuel used per 10 mob */
+    unsigned char l_nxlight;	/* maximum number of xlight planes */
+    unsigned char l_nland;	/* maximum number of units */
     signed char l_type;		/* index in lchr[] */
     long l_flags;		/* what special things can this unit do */
 };

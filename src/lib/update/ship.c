@@ -119,7 +119,7 @@ upd_ship(struct shpstr *sp, int etus,
     int max_oil;
     int max_food;
     struct pchrstr *product;
-    u_char *resource;
+    unsigned char *resource;
     int dep;
     int n;
     int mult;
@@ -180,7 +180,7 @@ upd_ship(struct shpstr *sp, int etus,
 		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
 		    oil_gained = max_oil - sp->shp_item[I_OIL];
 		if (product->p_nrdep != 0 && oil_gained > 0) {
-		    resource = (u_char *)sectp + product->p_nrndx;
+		    resource = (unsigned char *)sectp + product->p_nrndx;
 		    if (*resource * 100 < product->p_nrdep * oil_gained)
 			oil_gained = *resource * 100 / product->p_nrdep;
 		    dep = roundavg(oil_gained * product->p_nrdep / 100.0);

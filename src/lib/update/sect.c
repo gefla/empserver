@@ -65,7 +65,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
     int work_cost = 0;
     int buildeff_work = *workp / 2;
     int n, hcms, lcms, neweff;
-    u_char old_type = *desig;
+    unsigned char old_type = *desig;
 
     *cost = 0;
     neweff = sp->sct_effic;
