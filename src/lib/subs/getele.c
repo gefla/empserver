@@ -57,6 +57,7 @@ getele(char *recipient, char *buf)
     pr("Enter telegram for %s\n", recipient);
     pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
     bp = buf;
+    *bp = 0;
     while (!player->aborted) {
 	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
 	if (uprmptrd(left, buffer, sizeof(buffer) - 2) <= 0)
