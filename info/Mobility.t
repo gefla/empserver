@@ -63,7 +63,11 @@ command.
 8. Marching, reacting or retreating
 The mobility cost for a land unit to march, react or retreat is:
   (path cost) * 5 * 480 / (unit speed)
-See "Path Cost" below for the path cost formula.  Note that reactung
+where
+  unit speed = speed * (1 + (tech factor))
+  tech factor = (50 + tech) / (200 + tech)
+
+See "Path Cost" below for the path cost formula.  Note that reacting
 land units only pay mobility to move "to" the attacked sector; they
 return to their start sector for free.  Land units on "reserve"
 mission only pay half the mobility cost to react.
@@ -93,13 +97,13 @@ over in its launch trajectory.
 The mobility cost for a plane to fly is:
   5 + (flight cost) * (distance flown) / (max distance plane can fly)
 
-For excorts and interceptors, the flight cost is:
+For escorts and interceptors, the flight cost is:
   10 / (plane efficiency)
 For all other flights, the flight cost is:
-  20 / (plane effciiency)
+  20 / (plane efficiency)
 For planes flying on an air defense mission, this cost is cut in half.
 
-4. Land mine, pinbombing, a-sat, and nuclear damage
+4. Land mine, pin-bombing, a-sat, and nuclear damage
 A land mine, pinpoint bomb, anti-sat missile or nuclear detonation
 will damage the mobility of the plane in exactly the same way that the
 efficiency of the plane is damaged (see "info Damage").
@@ -145,7 +149,7 @@ The mobility cost to shoot civs or uws is
 3. Enlisting mil
 The mobility cost for enlisting mil depends on what fraction of the
 civs present you are enlisting:
-  (new mobility) = (old mobility) * (1 - newmil / (starv civs))
+  (new mobility) = (old mobility) * (1 - newmil / civs)
 
 4. Fighting
 See "info Attacking" for the mobility cost of attacking.
