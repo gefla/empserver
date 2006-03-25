@@ -288,7 +288,8 @@ build_ship(struct sctstr *sp, struct mchrstr *mp,
 {
     struct shpstr ship;
     struct nstr_item nstr;
-    int avail, cost, i;
+    int avail, i;
+    double cost;
     float eff = SHIP_MINEFF / 100.0;
     int lcm, hcm;
     int freeship = 0;
@@ -317,7 +318,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp,
 	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = mp->m_cost * SHIP_MINEFF / 100;
+    cost = mp->m_cost * SHIP_MINEFF / 100.0;
     if (!build_can_afford(cost, mp->m_name))
 	return 0;
     if (!trechk(player->cnum, 0, NEWSHP))
@@ -401,7 +402,8 @@ build_land(struct sctstr *sp, struct lchrstr *lp,
 {
     struct lndstr land;
     struct nstr_item nstr;
-    int avail, cost;
+    int avail;
+    double cost;
     float eff = LAND_MINEFF / 100.0;
     int mil, lcm, hcm, gun, shell;
     int freeland = 0;
@@ -458,7 +460,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp,
 	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = lp->l_cost * LAND_MINEFF / 100;
+    cost = lp->l_cost * LAND_MINEFF / 100.0;
     if (!build_can_afford(cost, lp->l_name))
 	return 0;
     sp->sct_avail -= avail;
@@ -688,8 +690,9 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
 	    short *vec, int tlev)
 {
     struct plnstr plane;
-    int avail, cost;
     struct nstr_item nstr;
+    int avail;
+    double cost;
     float eff = PLANE_MINEFF / 100.0;
     int hcm, lcm, mil;
     int freeplane = 0;
@@ -721,7 +724,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
 	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    cost = pp->pl_cost * PLANE_MINEFF / 100;
+    cost = pp->pl_cost * PLANE_MINEFF / 100.0;
     if (!build_can_afford(cost, pp->pl_name))
 	return 0;
     if (vec[I_MILIT] < mil || (vec[I_MILIT] == 0 && pp->pl_crew > 0)) {
