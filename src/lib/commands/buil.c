@@ -89,8 +89,7 @@ buil(void)
     s_char *p;
     int gotsect = 0;
     int built;
-    int number = 1, x;
-    int asked = 0;
+    int number;
     s_char buf[1024];
 
     natp = getnatp(player->cnum);
@@ -101,149 +100,151 @@ buil(void)
 	return RET_SYN;
     what = *p;
 
-    for (x = 0; x < number; x++) {
-	if (!snxtsct(&nstr, player->argp[2])) {
-	    pr("Bad sector specification.\n");
-	    return RET_SYN;
-	}
-	tlev = (int)natp->nat_level[NAT_TLEV];
-	rlev = (int)natp->nat_level[NAT_RLEV];
+    if (!snxtsct(&nstr, player->argp[2])) {
+	pr("Bad sector specification.\n");
+	return RET_SYN;
+    }
+    tlev = (int)natp->nat_level[NAT_TLEV];
+    rlev = (int)natp->nat_level[NAT_RLEV];
 
-	switch (what) {
-	case 'p':
-	    p = getstarg(player->argp[3], "Plane type? ", buf);
-	    if (p == 0 || *p == 0)
-		return RET_SYN;
-	    type = typematch(p, EF_PLANE);
-	    if (type >= 0) {
-		pp = &plchr[type];
-		rqtech = pp->pl_tech;
-		if (rqtech > tlev)
-		    type = -1;
-	    }
-	    if (type < 0) {
-		pr("You can't build that!\n");
-		pr("Use `show plane build %d' to show types you can build.\n", tlev);
-		return RET_FAIL;
-	    }
-	    break;
-	case 's':
-	    p = getstarg(player->argp[3], "Ship type? ", buf);
-	    if (p == 0 || *p == 0)
-		return RET_SYN;
-	    type = typematch(p, EF_SHIP);
-	    if (type >= 0) {
-		mp = &mchr[type];
-		rqtech = mp->m_tech;
-		if (rqtech > tlev)
-		    type = -1;
-		if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
-		    type = -1;
-	    }
-	    if (type < 0) {
-		pr("You can't build that!\n");
-		pr("Use `show ship build %d' to show types you can build.\n", tlev);
-		return RET_FAIL;
-	    }
-	    break;
-	case 'l':
-	    p = getstarg(player->argp[3], "Land unit type? ", buf);
-	    if (p == 0 || *p == 0)
-		return RET_SYN;
-	    type = typematch(p, EF_LAND);
-	    if (type >= 0) {
-		lp = &lchr[type];
-		rqtech = lp->l_tech;
-		if (rqtech > tlev)
-		    type = -1;
-		if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
-		    type = -1;
-	    }
-	    if (type < 0) {
-		pr("You can't build that!\n");
-		pr("Use `show land build %d' to show types you can build.\n", tlev);
-		return RET_FAIL;
-	    }
-	    break;
-	case 'b':
-	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
-		pr("Building a span requires a tech of %.0f\n", buil_bt);
-		return RET_FAIL;
-	    }
-	    break;
-	case 't':
-	    if (!opt_BRIDGETOWERS) {
-		pr("Bridge tower building is disabled.\n");
-		return RET_FAIL;
-	    }
-	    if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
-		pr("Building a tower requires a tech of %.0f\n",
-		   buil_tower_bt);
-		return RET_FAIL;
-	    }
-	    break;
-	case 'n':
-	    if (!ef_nelem(EF_NUKE_CHR)) {
-		pr("There are no nukes in this game.\n");
-		return RET_FAIL;
-	    }
-	    p = getstarg(player->argp[3], "Nuke type? ", buf);
-	    if (p == 0 || *p == 0)
-		return RET_SYN;
-	    type = typematch(p, EF_NUKE);
-	    if (type >= 0) {
-		np = &nchr[type];
-		rqtech = np->n_tech;
-		if (rqtech > tlev
-		    || (drnuke_const > MIN_DRNUKE_CONST &&
-			np->n_tech * drnuke_const > rlev))
-		    type = -1;
-	    }
-	    if (type < 0) {
-		int tt = tlev;
-		if (drnuke_const > MIN_DRNUKE_CONST)
-		    tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
-			  (int)(rlev / drnuke_const));
-		pr("You can't build that!\n");
-		pr("Use `show nuke build %d' to show types you can build.\n", tt);
-		return RET_FAIL;
-	    }
-	    break;
-	default:
-	    pr("You can't build that!\n");
+    switch (what) {
+    case 'p':
+	p = getstarg(player->argp[3], "Plane type? ", buf);
+	if (p == 0 || *p == 0)
 	    return RET_SYN;
+	type = typematch(p, EF_PLANE);
+	if (type >= 0) {
+	    pp = &plchr[type];
+	    rqtech = pp->pl_tech;
+	    if (rqtech > tlev)
+		type = -1;
 	}
-	if (what != 'b' && what != 't') {
-	    if (player->argp[4]) {
-		if (atoi(player->argp[4]) > 20 && !asked) {
-		    s_char bstr[80];
-		    asked = 1;
-		    (void)sprintf(bstr,
-				  "Are you sure that you want to build %s of them? ",
-				  player->argp[4]);
-		    p = getstarg(player->argp[6], bstr, buf);
-		    if (p == 0 || *p != 'y')
-			return RET_SYN;
-		}
-		number = atoi(player->argp[4]);
+	if (type < 0) {
+	    pr("You can't build that!\n");
+	    pr("Use `show plane build %d' to show types you can build.\n", tlev);
+	    return RET_FAIL;
+	}
+	break;
+    case 's':
+	p = getstarg(player->argp[3], "Ship type? ", buf);
+	if (p == 0 || *p == 0)
+	    return RET_SYN;
+	type = typematch(p, EF_SHIP);
+	if (type >= 0) {
+	    mp = &mchr[type];
+	    rqtech = mp->m_tech;
+	    if (rqtech > tlev)
+		type = -1;
+	    if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
+		type = -1;
+	}
+	if (type < 0) {
+	    pr("You can't build that!\n");
+	    pr("Use `show ship build %d' to show types you can build.\n", tlev);
+	    return RET_FAIL;
+	}
+	break;
+    case 'l':
+	p = getstarg(player->argp[3], "Land unit type? ", buf);
+	if (p == 0 || *p == 0)
+	    return RET_SYN;
+	type = typematch(p, EF_LAND);
+	if (type >= 0) {
+	    lp = &lchr[type];
+	    rqtech = lp->l_tech;
+	    if (rqtech > tlev)
+		type = -1;
+	    if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
+		type = -1;
+	}
+	if (type < 0) {
+	    pr("You can't build that!\n");
+	    pr("Use `show land build %d' to show types you can build.\n", tlev);
+	    return RET_FAIL;
+	}
+	break;
+    case 'b':
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
+	    pr("Building a span requires a tech of %.0f\n", buil_bt);
+	    return RET_FAIL;
+	}
+	break;
+    case 't':
+	if (!opt_BRIDGETOWERS) {
+	    pr("Bridge tower building is disabled.\n");
+	    return RET_FAIL;
+	}
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
+	    pr("Building a tower requires a tech of %.0f\n",
+	       buil_tower_bt);
+	    return RET_FAIL;
+	}
+	break;
+    case 'n':
+	if (!ef_nelem(EF_NUKE_CHR)) {
+	    pr("There are no nukes in this game.\n");
+	    return RET_FAIL;
+	}
+	p = getstarg(player->argp[3], "Nuke type? ", buf);
+	if (p == 0 || *p == 0)
+	    return RET_SYN;
+	type = typematch(p, EF_NUKE);
+	if (type >= 0) {
+	    np = &nchr[type];
+	    rqtech = np->n_tech;
+	    if (rqtech > tlev
+		|| (drnuke_const > MIN_DRNUKE_CONST &&
+		    np->n_tech * drnuke_const > rlev))
+		type = -1;
+	}
+	if (type < 0) {
+	    int tt = tlev;
+	    if (drnuke_const > MIN_DRNUKE_CONST)
+		tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
+		      (int)(rlev / drnuke_const));
+	    pr("You can't build that!\n");
+	    pr("Use `show nuke build %d' to show types you can build.\n", tt);
+	    return RET_FAIL;
+	}
+	break;
+    default:
+	pr("You can't build that!\n");
+	return RET_SYN;
+    }
+
+    number = 1;
+    if (what != 'b' && what != 't') {
+	if (player->argp[4]) {
+	    number = atoi(player->argp[4]);
+	    if (number > 20) {
+		s_char bstr[80];
+		sprintf(bstr,
+			"Are you sure that you want to build %s of them? ",
+			player->argp[4]);
+		p = getstarg(player->argp[6], bstr, buf);
+		if (p == 0 || *p != 'y')
+		    return RET_SYN;
 	    }
 	}
-	if (what != 'b' && what != 'n' && what != 't') {
-	    if (player->argp[5]) {
-		tlev = atoi(player->argp[5]);
-		if (tlev > natp->nat_level[NAT_TLEV] && !player->god) {
-		    pr("Your tech level is only %d.\n",
-		       (int)natp->nat_level[NAT_TLEV]);
-		    return RET_FAIL;
-		}
-		if (rqtech > tlev) {
-		    pr("Required tech is %d.\n", rqtech);
-		    return RET_FAIL;
-		}
-		pr("building with tech level %d.\n", tlev);
-	    } else
-		tlev = (int)natp->nat_level[NAT_TLEV];
+    }
+
+    if (what != 'b' && what != 'n' && what != 't') {
+	if (player->argp[5]) {
+	    tlev = atoi(player->argp[5]);
+	    if (tlev > natp->nat_level[NAT_TLEV] && !player->god) {
+		pr("Your tech level is only %d.\n",
+		   (int)natp->nat_level[NAT_TLEV]);
+		return RET_FAIL;
+	    }
+	    if (rqtech > tlev) {
+		pr("Required tech is %d.\n", rqtech);
+		return RET_FAIL;
+	    }
+	    pr("building with tech level %d.\n", tlev);
 	}
+    }
+
+    while (number-- > 0) {
 	while (nxtsct(&nstr, &sect)) {
 	    gotsect++;
 	    if (!player->owner)
@@ -275,6 +276,7 @@ buil(void)
 		putsect(&sect);
 	    }
 	}
+	snxtsct_rewind(&nstr);
     }
     if (!gotsect) {
 	pr("Bad sector specification.\n");
