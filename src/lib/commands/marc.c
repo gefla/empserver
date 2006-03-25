@@ -140,8 +140,8 @@ march(void)
 	    }
 	    continue;
 	} else if (*cp == 'r' || *cp == 'l') {
-	    for (bp = cp + 1; *bp && !isspace(bp); bp++) ;
-	    for (; *bp && isspace(bp); bp++) ;
+	    for (bp = cp + 1; *bp && !isspace(*bp); bp++) ;
+	    for (; *bp && isspace(*bp); bp++) ;
 	    if (*bp)
 		player->argp[1] = bp;
 	    else {
