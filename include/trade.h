@@ -56,17 +56,8 @@ struct trdstr {
     coord trd_y;
 };
 
-struct genstr {
-    short trg_ef_type;
-    natid trg_own;
-    short trg_uid;
-    coord trg_x;
-    coord trg_y;
-    s_char trg_type;
-};
-
 union trdgenstr {
-    struct genstr gen;
+    struct genitem gen;
     struct nukstr nuk;
     struct plnstr pln;
     struct lndstr lnd;

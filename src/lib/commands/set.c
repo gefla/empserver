@@ -90,7 +90,7 @@ set(void)
     while (nxtitem(&ni, &item)) {
 	if (!player->owner && !player->god)
 	    continue;
-	getsect(item.gen.trg_x, item.gen.trg_y, &sect);
+	getsect(item.gen.x, item.gen.y, &sect);
 	if (!military_control(&sect)) {
 	    pr("Military control required to sell goods.\n");
 	    return RET_FAIL;
@@ -134,8 +134,8 @@ set(void)
 		ef_extend(EF_TRADE, 1);
 		id = ni_trade.cur;
 	    }
-	    trade.trd_x = item.gen.trg_x;
-	    trade.trd_y = item.gen.trg_y;
+	    trade.trd_x = item.gen.x;
+	    trade.trd_y = item.gen.y;
 	    trade.trd_type = type;
 	    trade.trd_owner = player->cnum;
 	    trade.trd_uid = id;

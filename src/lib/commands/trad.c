@@ -104,7 +104,7 @@ trad(void)
 	    continue;
 	};
 	/* fix up database if things get weird */
-	/*if (trade.trd_owner != tg.gen.trg_own) {
+	/*if (trade.trd_owner != tg.gen.own) {
 	   trade.trd_unitid = -1;
 	   (void) puttrade(ni.cur, &trade);
 	   continue;
@@ -314,13 +314,13 @@ check_trade(void)
 	    continue;
 	if (!trade_getitem(&trade, &tg))
 	    continue;
-	if (tg.gen.trg_own == 0) {
+	if (tg.gen.own == 0) {
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
 	}
-	if (tg.gen.trg_own != trade.trd_owner) {
-	    logerror("Something weird, tg.gen.trg_own != trade.trd_owner!\n");
+	if (tg.gen.own != trade.trd_owner) {
+	    logerror("Something weird, tg.gen.own != trade.trd_owner!\n");
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
@@ -509,7 +509,7 @@ ontradingblock(int type, int *ptr)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-	if (tg.gen.trg_uid == ((struct genstr *)ptr)->trg_uid)
+	if (tg.gen.uid == ((struct genitem *)ptr)->uid)
 	    return 1;
     }
     return 0;
@@ -530,7 +530,7 @@ trdswitchown(int type, int *ptr, int newown)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-	if (tg.gen.trg_uid != ((struct genstr *)ptr)->trg_uid)
+	if (tg.gen.uid != ((struct genitem *)ptr)->uid)
 	    continue;
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    trade.trd_maxbidder = newown;
