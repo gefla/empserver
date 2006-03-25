@@ -236,6 +236,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 	goto bad;
     }
     empth_status("new thread id is %ld", (long)t);
+    empth_yield();
     return ctx;
 
   bad:

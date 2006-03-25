@@ -463,6 +463,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     }
 
     loc_debug("new thread id is %ld", pThread->ulThreadID);
+    empth_yield();
     return pThread;
 
   bad:

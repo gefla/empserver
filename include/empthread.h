@@ -131,6 +131,7 @@ int empth_init(void **ctx, int flags);
  * UD is the value to pass to ENTRY.  It is also assigned to the
  * context variable defined with empth_init() whenever the thread gets
  * scheduled.
+ * Yield the processor.
  * Return the thread, or NULL on error.
  */
 empth_t *empth_create(int prio, void (*entry)(void *),
