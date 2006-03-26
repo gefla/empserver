@@ -90,19 +90,15 @@ check_retreat_and_do_shipdamage(struct shpstr *sp, int dam)
 }
 
 void
-retreat_ship(struct shpstr *sp, s_char code)
+retreat_ship(struct shpstr *sp, char code)
 {
     struct nstr_item ni;
     struct shpstr ship;
-    s_char buf[2];
 
     if (sp->shp_rflags & RET_GROUP) {
-	buf[0] = sp->shp_fleet;
-	buf[1] = 0;
-	snxtitem(&ni, EF_SHIP, buf);
+	snxtitem_group(&ni, EF_SHIP, sp->shp_fleet);
 	while (nxtitem(&ni, &ship))
-	    if ((ship.shp_fleet == buf[0]) &&
-		(ship.shp_own == sp->shp_own)) {
+	    if (ship.shp_own == sp->shp_own) {
 		if (ship.shp_uid == sp->shp_uid) {
 		    retreat_ship1(sp, code, 1);
 		    if (sp->shp_rpath[0] == 0)
@@ -124,7 +120,7 @@ retreat_ship(struct shpstr *sp, s_char code)
 }
 
 static int
-retreat_ship1(struct shpstr *sp, s_char code, int orig)
+retreat_ship1(struct shpstr *sp, char code, int orig)
 
 
 			/* Is this the originally scared ship, or a follower */
@@ -359,18 +355,15 @@ check_retreat_and_do_landdamage(struct lndstr *lp, int dam)
 }
 
 void
-retreat_land(struct lndstr *lp, s_char code)
+retreat_land(struct lndstr *lp, char code)
 {
     struct nstr_item ni;
     struct lndstr land;
-    s_char buf[2];
 
     if (lp->lnd_rflags & RET_GROUP) {
-	buf[0] = lp->lnd_army;
-	buf[1] = 0;
-	snxtitem(&ni, EF_SHIP, buf);
+	snxtitem_group(&ni, EF_SHIP, lp->lnd_army);
 	while (nxtitem(&ni, &land))
-	    if ((land.lnd_army == buf[0]) && (land.lnd_own == lp->lnd_own)) {
+	    if (land.lnd_own == lp->lnd_own) {
 		if (land.lnd_uid == lp->lnd_uid) {
 		    retreat_land1(lp, code, 1);
 		    if (lp->lnd_rpath[0] == 0)
@@ -392,7 +385,7 @@ retreat_land(struct lndstr *lp, s_char code)
 }
 
 static int
-retreat_land1(struct lndstr *lp, s_char code, int orig)
+retreat_land1(struct lndstr *lp, char code, int orig)
 
 
 			/* Is this the originally scared unit, or a follower */
