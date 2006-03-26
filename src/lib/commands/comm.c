@@ -42,7 +42,7 @@
 #include "nat.h"
 #include "commands.h"
 
-static void prthresh(s_char *format, int val);
+static void prthresh(int val);
 
 int
 comm(void)
@@ -85,17 +85,17 @@ comm(void)
 	pr("%c", dirstr[sect.sct_del[I_OIL] & 0x7]);
 	pr("%c", dirstr[sect.sct_del[I_LCM] & 0x7]);
 	pr("%c", dirstr[sect.sct_del[I_HCM] & 0x7]);
-	pr("%c", dirstr[sect.sct_del[I_RAD] & 0x7]);
-	prthresh(" %c", sect.sct_dist[I_SHELL]);
-	prthresh("%c", sect.sct_dist[I_GUN]);
-	prthresh("%c", sect.sct_dist[I_PETROL]);
-	prthresh("%c", sect.sct_dist[I_IRON]);
-	prthresh("%c", sect.sct_dist[I_DUST]);
-	prthresh("%c", sect.sct_dist[I_BAR]);
-	prthresh("%c", sect.sct_dist[I_OIL]);
-	prthresh("%c", sect.sct_dist[I_LCM]);
-	prthresh("%c", sect.sct_dist[I_HCM]);
-	prthresh("%c", sect.sct_dist[I_RAD]);
+	pr("%c ", dirstr[sect.sct_del[I_RAD] & 0x7]);
+	prthresh(sect.sct_dist[I_SHELL]);
+	prthresh(sect.sct_dist[I_GUN]);
+	prthresh(sect.sct_dist[I_PETROL]);
+	prthresh(sect.sct_dist[I_IRON]);
+	prthresh(sect.sct_dist[I_DUST]);
+	prthresh(sect.sct_dist[I_BAR]);
+	prthresh(sect.sct_dist[I_OIL]);
+	prthresh(sect.sct_dist[I_LCM]);
+	prthresh(sect.sct_dist[I_HCM]);
+	prthresh(sect.sct_dist[I_RAD]);
 	pr("%4d", sect.sct_item[I_SHELL]);
 	pr("%4d", sect.sct_item[I_GUN]);
 	pr("%5d", sect.sct_item[I_PETROL]);
@@ -120,7 +120,7 @@ comm(void)
 }
 
 static void
-prthresh(s_char *format, int val)
+prthresh(int val)
 {
     if (val >= 1000)
 	val = 'a';
@@ -128,5 +128,5 @@ prthresh(s_char *format, int val)
 	val = val / 100 + '0';
     else
 	val = '.';
-    pr(format, val);
+    pr("%c", val);
 }
