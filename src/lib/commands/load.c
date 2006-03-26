@@ -319,22 +319,22 @@ lload(void)
 }
 
 void
-gift(int givee, int giver, s_char *ptr, int type, s_char *mesg)
+gift(natid givee, natid giver, void *ptr, int type, char *mesg)
 {
-    s_char *p;
+    char *p;
 
     if (giver == givee)
 	return;
 
     switch (type) {
     case EF_SHIP:
-	p = prship((struct shpstr *)ptr);
+	p = prship(ptr);
 	break;
     case EF_PLANE:
-	p = prplane((struct plnstr *)ptr);
+	p = prplane(ptr);
 	break;
     case EF_LAND:
-	p = prland((struct lndstr *)ptr);
+	p = prland(ptr);
 	break;
     default:
 	CANT_HAPPEN("bad TYPE");

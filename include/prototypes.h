@@ -63,7 +63,7 @@ extern void finish_server(void);
  */
 extern int check_market(void);
 extern int sendmessage(struct natstr *, struct natstr *, char *message, int);
-extern void gift(int, int, s_char *, int, s_char *);
+extern void gift(natid, natid, void *, int, char *);
 extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
