@@ -88,14 +88,14 @@ shut(void)
     if (msgbuf[0]) {
 	sendmessage(us, 0, msgbuf, 1);
 	pr("%s\n", msgbuf + 2);
-	logerror(msgbuf + 2);
+	logerror("%s", msgbuf + 2);
     }
     if (shutdown_minutes) {
 	sprintf(msgbuf, ": The server will shut down in %d minutes!",
 		shutdown_minutes);
 	sendmessage(us, 0, msgbuf, 1);
 	pr("%s\n", msgbuf + 2);
-	logerror(msgbuf + 2);
+	logerror("%s", msgbuf + 2);
     }
     return RET_OK;
 }
