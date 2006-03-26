@@ -50,33 +50,31 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static int findcondition(s_char);
-static int retreat_land1(struct lndstr *, s_char, int);
-static int retreat_ship1(struct shpstr *, s_char, int);
+static int findcondition(char);
+static int retreat_land1(struct lndstr *, char, int);
+static int retreat_ship1(struct shpstr *, char, int);
 
 struct ccode {
-    s_char code;
-    s_char *desc[2];
-} conditions[] = {
-    {
-	'i', {
-    "retreated with a damaged friend", "was damaged",},}, {
-	't', {
-    "retreated with a torpedoed ship", "was hit by a torpedo",},}, {
-	's', {
-    "retreated with a ship scared by sonar",
-		"detected a sonar ping",},}, {
-	'h', {
-    "retreated with a helpless ship",
-		"was fired upon with no one able to defend it",},}, {
-	'b', {
-    "retreated with a bombed friend", "was bombed",},}, {
-	'd', {
-    "retreated with a depth-charged ship", "was depth-charged",},}, {
-	'u', {
-    "retreated with a boarded ship", "was boarded",},}, {
-	0, {
-"", ""}},};
+    char code;
+    char *desc[2];
+};
+
+struct ccode conditions[] = {
+    { 'i', { "retreated with a damaged friend",
+	     "was damaged" } },
+    { 't', { "retreated with a torpedoed ship",
+	     "was hit by a torpedo" } },
+    { 's', { "retreated with a ship scared by sonar",
+	     "detected a sonar ping" } },
+    { 'h', { "retreated with a helpless ship",
+	     "was fired upon with no one able to defend it" } },
+    { 'b', { "retreated with a bombed friend",
+	     "was bombed" } },
+    { 'd', { "retreated with a depth-charged ship",
+	     "was depth-charged" } },
+    { 'u', { "retreated with a boarded ship", "was boarded" } },
+    { 0,   { "panicked", "panicked"} }
+};
 
 int
 check_retreat_and_do_shipdamage(struct shpstr *sp, int dam)
@@ -151,9 +149,6 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
     sp->shp_mission = 0;
     if (sp->shp_own == 0)
 	return 0;
-
-    if (isupper(code))
-	code = tolower(code);
 
     n = 0;
     if (sp->shp_effic < SHIP_MINEFF) {
@@ -341,18 +336,13 @@ retreat_ship1(struct shpstr *sp, s_char code, int orig)
 }
 
 static int
-findcondition(s_char code)
+findcondition(char code)
 {
-    int x;
+    int i;
 
-    x = 0;
-    while (conditions[x].code) {
-	if (conditions[x].code == code)
-	    return x;
-	x++;
-    }
-
-    return x;
+    for (i = 0; conditions[i].code && conditions[i].code != code; i++) ;
+    CANT_HAPPEN(!conditions[i].code);
+    return i;
 }
 
 int
@@ -426,9 +416,6 @@ retreat_land1(struct lndstr *lp, s_char code, int orig)
     lp->lnd_mission = 0;
     if (lp->lnd_own == 0)
 	return 0;
-
-    if (isupper(code))
-	code = tolower(code);
 
     n = 0;
     if (lp->lnd_effic < LAND_MINEFF) {
