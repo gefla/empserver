@@ -296,7 +296,7 @@ prunits(int x, int y)
 {
     struct lndstr land;
     struct nstr_item ni;
-    s_char report[128];
+    char report[128];
 
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, &land)) {
@@ -311,16 +311,17 @@ prunits(int x, int y)
 	}
 	if ((land.lnd_own != player->cnum) && land.lnd_own) {
 	    int rel;
-	    s_char *format;
+	    char *relstr;
 
 	    rel = getrel(getnatp(player->cnum), land.lnd_own);
 	    if (rel == ALLIED)
-		format = "Allied (%s) unit in %s: ";
+		relstr = "Allied";
 	    else if (rel == FRIENDLY || rel == NEUTRAL)
-		format = "Neutral (%s) unit in %s: ";
+		relstr = "Neutral";
 	    else
-		format = "Enemy (%s) unit in %s: ";
-	    sprintf(report, format, cname(land.lnd_own),
+		relstr = "Enemy";
+	    sprintf(report, "%s (%s) unit in %s: ",
+		    relstr, cname(land.lnd_own),
 		    xyas(land.lnd_x, land.lnd_y, player->cnum));
 	    intelligence_report(player->cnum, &land, 3, report);
 	}
@@ -332,7 +333,6 @@ prplanes(int x, int y)
 {
     struct plnstr plane;
     struct nstr_item ni;
-    s_char report[128];
 
     snxtitem_xy(&ni, EF_PLANE, x, y);
     while (nxtitem(&ni, &plane)) {
@@ -344,19 +344,19 @@ prplanes(int x, int y)
 	    continue;
 	if ((plane.pln_own != player->cnum) && plane.pln_own) {
 	    int rel;
-	    s_char *format;
+	    char *relstr;
 
 	    rel = getrel(getnatp(player->cnum), plane.pln_own);
 	    if (rel == ALLIED)
-		format = "Allied (%s) plane in %s: %s\n";
+		relstr = "Allied";
 	    else if (rel == FRIENDLY || rel == NEUTRAL)
-		format = "Neutral (%s) plane in %s: %s\n";
+		relstr = "Neutral";
 	    else
-		format = "Enemy (%s) plane in %s: %s\n";
-	    sprintf(report, format, cname(plane.pln_own),
-		    xyas(plane.pln_x, plane.pln_y, player->cnum),
-		    prplane(&plane));
-	    pr(report);
+		relstr = "Enemy";
+	    pr("%s (%s) plane in %s: %s\n",
+	       relstr, cname(plane.pln_own),
+	       xyas(plane.pln_x, plane.pln_y, player->cnum),
+	       prplane(&plane));
 	}
     }
 }
