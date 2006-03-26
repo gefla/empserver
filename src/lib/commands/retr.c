@@ -142,7 +142,7 @@ retr(void)
 	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 
 	if (pq != NULL) {
-	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath));
+	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath) - 1);
 	    putship(ship.shp_uid, &ship);
 	}
 	if (rflags >= 0) {
@@ -269,7 +269,7 @@ lretr(void)
 	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 
 	if (pq != NULL) {
-	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath));
+	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath) - 1);
 	    putland(land.lnd_uid, &land);
 	}
 	if (rflags >= 0) {

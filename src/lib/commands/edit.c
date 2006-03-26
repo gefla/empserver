@@ -808,7 +808,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 	ship->shp_ptime = arg;
 	break;
     case 'R':
-	memcpy(ship->shp_rpath, p, sizeof(ship->shp_rpath));
+	strncpy(ship->shp_rpath, p, sizeof(ship->shp_rpath) - 1);
 	break;
     case 'W':
 	ship->shp_rflags = arg;
@@ -1006,7 +1006,7 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 	land->lnd_retreat = arg;
 	break;
     case 'R':
-	memcpy(land->lnd_rpath, p, sizeof(land->lnd_rpath));
+	strncpy(land->lnd_rpath, p, sizeof(land->lnd_rpath) - 1);
 	break;
     case 'W':
 	land->lnd_rflags = arg;
