@@ -227,7 +227,7 @@ spyline(struct sctstr *sp)
     prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
     pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n",
        dchr[sp->sct_type].d_mnem,
-       (sp->sct_newtype == sp->sct_type) ? ' ' : dchr[sp->sct_newtype].d_mnem,
+       sp->sct_newtype == sp->sct_type ? ' ' : dchr[sp->sct_newtype].d_mnem,
        sp->sct_own,
        sp->sct_oldown,
        roundintby((int)sp->sct_effic, 10),
@@ -253,8 +253,8 @@ static void
 insert(coord *table, int *len, coord x, coord y)
 {
     if (!check(table, len, x, y)) {
-	table[(*len)++] = x;
-	table[(*len)++] = y;
+	table[*len++] = x;
+	table[*len++] = y;
     }
 }
 

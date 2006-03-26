@@ -808,7 +808,7 @@ place_island(int c, int *xp, int *yp)
 	for (*yp = sy; *xp != sx || *yp != sy; *xp += 2) {
 	    if (*xp >= WORLD_X) {
 		*yp = new_y(*yp + 1);
-		*xp = (*yp) % 2;
+		*xp = *yp % 2;
 		if (*xp == sx && *yp == sy)
 		    break;
 	    }

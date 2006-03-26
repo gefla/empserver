@@ -165,15 +165,14 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
 	return 0;
 
     /* Find the fleet structure we belong to. */
-    for (fltp = (*head); (fltp && fltp->leader != follow);
-	 fltp = fltp->next) ;
+    for (fltp = *head; fltp && fltp->leader != follow; fltp = fltp->next) ;
 
     if (!fltp) {
 	fltp = malloc(sizeof(*fltp));
 	memset(fltp, 0, sizeof(*fltp));
 
 	/* Fix the links. */
-	fltp->next = (*head);
+	fltp->next = *head;
 	*head = fltp;
 
 	/* Set the leader. */
@@ -265,7 +264,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     sp = getshipp(fltp->leader);
     own = sp->shp_own;
     fltp_to_list(fltp, &ship_list);	/* hack -KHS 1995 */
-    for (s = sp->shp_path; (*s) && (fltp->maxmoves > 0); s++) {
+    for (s = sp->shp_path; *s && fltp->maxmoves > 0; s++) {
 	dir = diridx(*s);
 	if (0 != shp_nav_one_sector(&ship_list, dir, own, 0))
 	    fltp->maxmoves = 1;

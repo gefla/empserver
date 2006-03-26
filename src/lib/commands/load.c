@@ -804,7 +804,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	    wu(0, sectp->sct_own, buf);
 	}
     }
-    ++(*nshipsp);
+    ++*nshipsp;
     return 0;
 }
 
@@ -1011,7 +1011,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	    wu(0, sectp->sct_own, buf);
 	}
     }
-    ++(*nunitsp);
+    ++*nunitsp;
     return 0;
 }
 

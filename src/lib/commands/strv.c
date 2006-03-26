@@ -126,7 +126,7 @@ starv_sects(s_char *range)
 	    pr("%3d ", sect.sct_own);
 	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
 	pr(" %c", dchr[sect.sct_type].d_mnem);
-	pr(" %c", (sect.sct_own != sect.sct_oldown ? '*' : ' '));
+	pr(" %c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
 	if (sect.sct_newtype != sect.sct_type)
 	    pr("%c", dchr[sect.sct_newtype].d_mnem);
 	else

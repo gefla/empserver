@@ -966,7 +966,7 @@ oprange(struct genitem *gp, int type, int *radius)
 	break;
     }
 
-    if ((*radius) > range)
+    if (*radius > range)
 	*radius = range;
 
     return range;

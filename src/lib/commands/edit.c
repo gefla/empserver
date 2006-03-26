@@ -464,13 +464,13 @@ getin(s_char **what, s_char **p, int *arg, s_char *buf)
     if (**what == '\0')
 	return END;
     while (**what && isspace(**what))
-	(*what)++;
+	*what++;
     if (**what == '\0')
 	return RET_SYN;
-    for (*p = *what; **p && !isspace(**p); (*p)++)	/* skip non spaces */
+    for (*p = *what; **p && !isspace(**p); *p++)	/* skip non spaces */
 	continue;
     while (**p && isspace(**p))
-	(*p)++;
+	*p++;
     if (**p == '\0')
 	return RET_SYN;
     *arg = atoi(*p);

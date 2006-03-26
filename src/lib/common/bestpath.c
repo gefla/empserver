@@ -246,7 +246,7 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
 
     /* No terrain to check?  Everything is navigable! (this
        probably means we are flying) */
-    if (!(*terrain))
+    if (!*terrain)
 	return 1;
 
     /* Are we checking this map? */

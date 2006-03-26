@@ -46,9 +46,9 @@ int
 show(void)
 {
     s_char *p;
-    void (*cfunc) (int);
-    void (*sfunc) (int);
-    void (*bfunc) (int);
+    void (*cfunc)(int);
+    void (*sfunc)(int);
+    void (*bfunc)(int);
     struct natstr *natp;
     int tlev;
     s_char buf[1024];
@@ -126,11 +126,11 @@ show(void)
 	|| !*p)
 	return RET_SYN;
     if (*p == 'B' || *p == 'b')
-	(*bfunc) (tlev);
+	bfunc(tlev);
     else if (*p == 'C' || *p == 'c')
-	(*cfunc) (tlev);
+	cfunc(tlev);
     else if (*p == 'S' || *p == 's')
-	(*sfunc) (tlev);
+	sfunc(tlev);
     else
 	return RET_SYN;
     return RET_OK;

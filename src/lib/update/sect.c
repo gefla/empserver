@@ -95,7 +95,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 		vec[I_UW] = maxpop;
 	    *workp = (vec[I_CIVIL] * sctwork) / 100.0
 		+ (vec[I_MILIT] * 2 / 5.0) + vec[I_UW];
-	    *workp = roundavg((etu * (*workp)) / 100.0);
+	    *workp = roundavg((etu * *workp) / 100.0);
 
 	    buildeff_work = MIN((int)(*workp / 2), buildeff_work);
 	}

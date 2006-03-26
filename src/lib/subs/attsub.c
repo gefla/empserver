@@ -1065,7 +1065,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	if (lnd_spyval(&land) > *a_spyp)
 	    *a_spyp = lnd_spyval(&land);
 	if (llp->lcp->l_flags & L_ENGINEER)
-	    ++(*a_engineerp);
+	    ++*a_engineerp;
 	if (def->type == EF_SHIP && ++count >= maxland)
 	    break;
     }
