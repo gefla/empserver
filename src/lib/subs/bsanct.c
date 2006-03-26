@@ -54,7 +54,7 @@ bsanct(void)
     if (player->god)
 	return;
     count = 0;
-    snxtsct(&nstr, "*");
+    snxtsct_all(&nstr);
     while (nxtsct(&nstr, &s)) {
 	if (!player->owner)
 	    continue;
