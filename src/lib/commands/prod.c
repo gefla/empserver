@@ -79,7 +79,7 @@ prod(void)
     int totpop;
     int act;			/* actual production */
     int cost;
-    int i, j;
+    int i;
     int max;			/* production w/infinite materials */
     int nsect;
     double take;
@@ -90,8 +90,8 @@ prod(void)
     i_type it;
     i_type vtype;
     unsigned char *resource;
-    s_char maxc[MAXPRCON][10];
-    s_char use[MAXPRCON][10];
+    char cmnem[MAXPRCON];
+    int cuse[MAXPRCON], cmax[MAXPRCON];
     int lcms, hcms;
     int civs = 0;
     int uws = 0;
@@ -210,14 +210,14 @@ prod(void)
 	 * raw material limit
 	 */
 	used = 9999;
-	for (j = 0; j < MAXPRCON; ++j) {
-	    it = pp->p_ctype[j];
-	    if (!pp->p_camt[j])
+	for (i = 0; i < MAXPRCON; ++i) {
+	    it = pp->p_ctype[i];
+	    if (!pp->p_camt[i])
 		continue;
 	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
 		continue;
-	    used = MIN(used, sect.sct_item[it] / pp->p_camt[j]);
-	    unit_work += pp->p_camt[j];
+	    used = MIN(used, sect.sct_item[it] / pp->p_camt[i]);
+	    unit_work += pp->p_camt[i];
 	}
 	if (unit_work == 0)
 	    unit_work = 1;
@@ -258,25 +258,16 @@ prod(void)
 	    }
 	}
 
-	i = 0;
-	for (j = 0; j < MAXPRCON; ++j) {
-	    it = pp->p_ctype[j];
-	    if (it > I_NONE && it <= I_MAX && ichr[it].i_mnem != 0) {
-		if (CANT_HAPPEN(i >= 3))
-		    break;
-		sprintf(use[i], "%4d%c",
-			(int)((take * (double)pp->p_camt[j]) + 0.5),
-			ichr[it].i_mnem);
-		sprintf(maxc[i], "%4d%c",
-			(int)((mtake * (double)pp->p_camt[j]) + 0.5),
-			ichr[it].i_mnem);
-		++i;
-	    }
-	}
-	while (i < 3) {
-	    strcpy(use[i], "     ");
-	    strcpy(maxc[i], "     ");
-	    ++i;
+	for (i = 0; i < MAXPRCON; ++i) {
+	    cmnem[i] = cuse[i] = cmax[i] = 0;
+	    if (!pp->p_camt[i])
+		continue;
+	    it = pp->p_ctype[i];
+	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
+		continue;
+	    cmnem[i] = ichr[it].i_mnem;
+	    cuse[i] = (int)(take * pp->p_camt[i] + 0.5);
+	    cmax[i] = (int)(mtake * pp->p_camt[i] + 0.5);
 	}
 
       is_enlist:
@@ -343,11 +334,17 @@ prod(void)
 	pr(" %.2f", prodeff);
 	pr(" $%-5d", cost);
 	for (i = 0; i < 3; i++) {
-	    pr(use[i]);
+	    if (i < MAXPRCON && cmnem[i])
+		pr("%4d%c", cuse[i], cmnem[i]);
+	    else
+		pr("     ");
 	}
 	pr(" ");
 	for (i = 0; i < 3; i++) {
-	    pr(maxc[i]);
+	    if (i < MAXPRCON && cmnem[i])
+		pr("%4d%c", cmax[i], cmnem[i]);
+	    else
+		pr("     ");
 	}
 	if (natp->nat_priorities[type] == 0) {
 	    max = 0;
