@@ -340,7 +340,7 @@ eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
 	    i--;
 	} else {
 	    mobil += (ship_mob_scale * (float)etu_per_update);
-	    *nupdates++;
+	    (*nupdates)++;
 	}
     }
 }

@@ -812,7 +812,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    if (!line_of_sight(NULL, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
 
-	    *nfiring++;
+	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
@@ -843,7 +843,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    nshot = MIN(nshot, ship.shp_glim);
 	    if (nshot == 0)
 		continue;
-	    *nfiring++;
+	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
@@ -896,7 +896,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	dam2 = (int)landunitgun(land.lnd_effic, land.lnd_dam, gun,
 				land.lnd_ammo, shell);
 
-	*nfiring++;
+	(*nfiring)++;
 	fp = malloc(sizeof(struct flist));
 	memset(fp, 0, sizeof(struct flist));
 	fp->type = targ_unit;
@@ -949,7 +949,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 				       I_SHELL, 1);
 	    if (gun == 0 || firing.sct_item[I_MILIT] < 5 || shell == 0)
 		continue;
-	    *nfiring++;
+	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->x = firing.sct_x;
