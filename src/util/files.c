@@ -63,7 +63,7 @@
 #include "optlist.h"
 #include "version.h"
 
-static void file_sct_init(coord x, coord y, s_char *ptr,
+static void file_sct_init(coord, coord, struct sctstr *ptr,
 			  time_t timestamp);
 
 static void
@@ -195,8 +195,7 @@ main(int argc, char *argv[])
     memset(&sct, 0, sizeof(sct));
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = 0; x < WORLD_X / 2; x++) {
-	    file_sct_init(x * 2 + (y & 01), y, (s_char *)&sct,
-		current_time);
+	    file_sct_init(x * 2 + (y & 1), y, &sct, current_time);
 	    putsect(&sct);
 	}
     }
@@ -218,7 +217,7 @@ main(int argc, char *argv[])
 }
 
 static void
-file_sct_init(coord x, coord y, s_char *ptr, time_t timestamp)
+file_sct_init(coord x, coord y, struct sctstr *ptr, time_t timestamp)
 {
     struct sctstr *sp = (struct sctstr *)ptr;
 
