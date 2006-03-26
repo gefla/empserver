@@ -253,8 +253,8 @@ static void
 insert(coord *table, int *len, coord x, coord y)
 {
     if (!check(table, len, x, y)) {
-	table[*len++] = x;
-	table[*len++] = y;
+	table[(*len)++] = x;
+	table[(*len)++] = y;
     }
 }
 
