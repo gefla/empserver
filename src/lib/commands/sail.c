@@ -68,7 +68,7 @@ show_sail(struct nstr_item *nstr)
 	pr("   %3d     ", ship.shp_mobquota);
 	pr("   %3d   ", ship.shp_follow);
 	if (ship.shp_path[0]) {
-	    pr(ship.shp_path);
+	    pr("%s", ship.shp_path);
 	} else if ((ship.shp_autonav & AN_AUTONAV)) {
 	    pr("Has orders");
 	}
