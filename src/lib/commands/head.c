@@ -47,8 +47,8 @@ struct histstr {
     int h_recent;
 };
 
-static s_char *head_meanwhile(int val);
-static s_char *head_describe(struct histstr *hp, int what);
+static char *head_meanwhile(int val);
+static void head_describe(struct histstr *, int, char *, char *);
 static int head_printscoop(struct histstr (*hist)[MAXNOC], natid ano,
 			   natid vno);
 static int head_findscoop(struct histstr (*hist)[MAXNOC],
@@ -80,11 +80,6 @@ head(void)
 	if (news_per > days(3))
 	    news_per = days(3);
     } else
-	/* replaced the following line with the one under it to
-	 * fix headlines which never change.
-	 * 3/3/90 bailey@math-cs.kent.edu
-	 */
-/*		news_per = natp->nat_newstim; */
 	news_per = now - natp->nat_newstim;
     pr("\n        -=[  EMPIRE NEWS  ]=-\n");
     pr("::::::::::::::::::::::::::::::::::::::::::::::::::\n");
@@ -103,7 +98,7 @@ head(void)
 	    continue;
 	if ((i = rpt[(int)news.nws_vrb].r_good_will) == 0)
 	    continue;
-	if (news_age > (news_per / 2))
+	if (news_age > news_per / 2)
 	    hist[news.nws_ano][news.nws_vno].h_past += i;
 	else
 	    hist[news.nws_ano][news.nws_vno].h_recent += i;
@@ -138,14 +133,14 @@ head_printscoop(struct histstr (*hist)[MAXNOC], natid ano, natid vno)
     severity = abs(hp->h_past) > abs(hp->h_recent) ? 1 : 0;
     severity += (hp->h_past >= 0) ? 2 : 0;
     severity += (hp->h_recent >= 0) ? 4 : 0;
-    pr(head_describe(hp, severity), cname(ano), cname(vno));
+    head_describe(hp, severity, cname(ano), cname(vno));
     pr("\n");
     hp->h_past = 0;
     hp->h_recent = 0;
     return severity;
 }
 
-static s_char *
+static char *
 head_meanwhile(int val)
 {
     switch (val & 03) {
@@ -162,59 +157,62 @@ head_meanwhile(int val)
     return "";
 }
 
-static s_char *
-head_describe(struct histstr *hp, int what)
+static void
+head_describe(struct histstr *hp, int what, char *aname, char *vname)
 {
-    s_char *cp;
-
-    cp = 0;
     switch (what) {
     case 0:
 	if (hp->h_recent > hp->h_past / 2)
-	    cp = "Bad relations between %s and %s worsen!";
+	    pr("Bad relations between %s and %s worsen!", aname, vname);
 	else
-	    cp = "Carnage wrought by %s on %s continues unabated!";
+	    pr("Carnage wrought by %s on %s continues unabated!",
+	       aname, vname);
 	break;
     case 1:
 	if (hp->h_recent < -16)
-	    cp = "%s agression against %s has lessened slightly";
+	    pr("%s agression against %s has lessened slightly",
+	       aname, vname);
 	else
-	    cp = "Peace talks may occur between %s & %s";
+	    pr("Peace talks may occur between %s & %s", aname, vname);
 	break;
     case 2:
 	if (hp->h_recent < -16) {
 	    if (hp->h_past > 0)
-		cp = " ! WAR !  Reversal of prior %s -- %s relations";
+		pr(" ! WAR !  Reversal of prior %s -- %s relations",
+		   aname, vname);
 	    else if (hp->h_recent >= -25)
-		cp = "VIOLENCE ERUPTS! -- %s wages war on %s";
+		pr("VIOLENCE ERUPTS! -- %s wages war on %s", aname, vname);
 	    else
-		cp = "%s wreaks havoc on %s!";
+		pr("%s wreaks havoc on %s!", aname, vname);
 	} else
-	    cp = "Breakdown in communication between %s & %s";
+	    pr("Breakdown in communication between %s & %s", aname, vname);
 	break;
     case 3:
-	cp = "FLASH!    %s turns on former ally, %s!";
+	pr("FLASH!    %s turns on former ally, %s!", aname, vname);
 	break;
     case 4:
-	cp = "%s \"makes friends\" with %s";
+	pr("%s \"makes friends\" with %s", aname, vname);
 	break;
     case 5:
 	if (hp->h_past >= -25)
-	    cp = "%s seems to have forgotten earlier disagreement with %s";
+	    pr("%s seems to have forgotten earlier disagreement with %s",
+	       aname, vname);
 	else
-	    cp = "Tensions ease as %s attacks on %s seem at an end";
+	    pr("Tensions ease as %s attacks on %s seem at an end",
+	       aname, vname);
 	break;
     case 6:
-	cp = "%s good deeds further growing alliance with %s";
+	pr("%s good deeds further growing alliance with %s", aname, vname);
 	break;
     case 7:
 	if (hp->h_recent - hp->h_past < 12)
-	    cp = "Honeymoon appears to be over between %s & %s";
+	    pr("Honeymoon appears to be over between %s & %s",
+	       aname, vname);
 	else
-	    cp = "Friendly relations between %s & %s have cooled";
+	    pr("Friendly relations between %s & %s have cooled",
+	       aname, vname);
 	break;
     }
-    return cp;
 }
 
 /*
