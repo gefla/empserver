@@ -197,15 +197,8 @@ unit_interdict(coord x, coord y, natid victim, s_char *s, int hardtarget,
 	if (newdam) {
 	    /* If only subs responded, then we don't know who's
 	       subs they are */
-	    if (osubs) {
-		mpr(victim,
-		    "Enemy interdiction mission does %d damage!\n",
-		    newdam);
-	    } else {
-		mpr(victim,
-		    "%s interdiction mission does %d damage!\n",
-		    cname(cn), newdam);
-	    }
+	    mpr(victim, "%s interdiction mission does %d damage!\n",
+		osubs ? "Enemy" : cname(cn), newdam);
 	}
     }
     if (dam) {
@@ -1458,8 +1451,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 		    "RUMBLE... your sub in %s hears a depth-charge explode nearby\n",
 		    xyas(x, y, victim));
 	    } else if (*s == 's') {
-		mpr(victim,
-		    "SPLASH!  Bombs miss your %s in %s\n",
+		mpr(victim, "SPLASH!  Bombs miss your %s in %s\n",
 		    s, xyas(x, y, victim));
 	    } else {
 		mpr(victim, "SPLAT!  Bombs miss your %s in %s\n",

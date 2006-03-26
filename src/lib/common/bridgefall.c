@@ -101,14 +101,10 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     struct nstr_item ni;
     struct natstr *np;
 
-    if (sp->sct_type == SCT_BTOWER)
-	mpr(sp->sct_own,
-	    "Crumble... SCREEEECH!  Splash! Bridge tower falls at %s!\n",
-	    xyas(sp->sct_x, sp->sct_y, sp->sct_own));
-    else
-	mpr(sp->sct_own,
-	    "Crumble... SCREEEECH!  Splash! Bridge falls at %s!\n",
-	    xyas(sp->sct_x, sp->sct_y, sp->sct_own));
+    mpr(sp->sct_own,
+	"Crumble... SCREEEECH!  Splash! Bridge%s falls at %s!\n",
+	sp->sct_type == SCT_BTOWER ? " tower" : "",
+	xyas(sp->sct_x, sp->sct_y, sp->sct_own));
     sp->sct_type = SCT_WATER;
     sp->sct_newtype = SCT_WATER;
     makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
