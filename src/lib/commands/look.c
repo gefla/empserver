@@ -89,7 +89,7 @@ look(void)
 		pr("Your ");
 	    else
 		pr("%s (#%d) ", cname(sect.sct_own), sect.sct_own);
-	    pr(dchr[sect.sct_type].d_name);
+	    pr("%s", dchr[sect.sct_type].d_name);
 	    changed += map_set(player->cnum, x, y,
 			       dchr[sect.sct_type].d_mnem, 0);
 	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :
@@ -223,7 +223,7 @@ llook(void)
 		pr("Your ");
 	    else
 		pr("%s (#%d) ", cname(sect.sct_own), sect.sct_own);
-	    pr(dchr[sect.sct_type].d_name);
+	    pr("%s", dchr[sect.sct_type].d_name);
 	    changed += map_set(player->cnum, x, y,
 			       dchr[sect.sct_type].d_mnem, 0);
 	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :

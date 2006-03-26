@@ -53,11 +53,11 @@ border(struct range *rp, s_char *prefstr, s_char *sep)
 	    /*
 	     * hundreds
 	     */
-	    pr(prefstr);
+	    pr("%s", prefstr);
 	    for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
 		if (x >= WORLD_X / 2)
 		    x -= WORLD_X;
-		pr(sep);
+		pr("%s", sep);
 		if (x < 0 && x > -100) {
 		    pr("-");
 		} else {
@@ -71,11 +71,11 @@ border(struct range *rp, s_char *prefstr, s_char *sep)
     /*
      * tens
      */
-    pr(prefstr);
+    pr("%s", prefstr);
     for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
 	if (x >= WORLD_X / 2)
 	    x -= WORLD_X;
-	pr(sep);
+	pr("%s", sep);
 	if (x < 0 && x > -10) {
 	    pr("-");
 	} else {
@@ -87,7 +87,7 @@ border(struct range *rp, s_char *prefstr, s_char *sep)
     /*
      * units...
      */
-    pr(prefstr);
+    pr("%s", prefstr);
     for (x = rp->lx, n = 0; n < rp->width; n++, x++) {
 	if (x >= WORLD_X / 2)
 	    x -= WORLD_X;

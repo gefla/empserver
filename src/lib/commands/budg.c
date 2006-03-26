@@ -183,9 +183,9 @@ budg(void)
 	expenses -= mil;
     }
     if (p_sect[SCT_CAPIT][0]) {
-	sprintf(in, "%s maintenance\t\t", dchr[SCT_CAPIT].d_name);
-	in[0] = toupper(in[0]);
-	pr(in);
+	pr("%c%s maintenance\t\t",
+	   toupper(dchr[SCT_CAPIT].d_name[0]),
+	   dchr[SCT_CAPIT].d_name + 1);
 	n = p_sect[SCT_CAPIT][0];
 	sprintf(in, "%d %s", n, dchr[SCT_CAPIT].d_name);
 	plurize(in, sizeof(in), n);

@@ -427,12 +427,10 @@ prdate(void)
 void
 prxy(char *format, coord x, coord y, natid country)
 {
-    char buf[255];
     struct natstr *np;
 
     np = getnatp(country);
-    sprintf(buf, format, xrel(np, x), yrel(np, y));
-    pr(buf);
+    pr(format, xrel(np, x), yrel(np, y));
 }
 
 /*

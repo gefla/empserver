@@ -160,9 +160,9 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		if (sect.sct_own == plane_owner)
 		    PR(plane_owner, "Your ");
 		else
-		    PR(plane_owner,
-		       "%s (#%d) ", cname(sect.sct_own), sect.sct_own);
-		PR(plane_owner, dchr[sect.sct_type].d_name);
+		    PR(plane_owner, "%s (#%d) ",
+		       cname(sect.sct_own), sect.sct_own);
+		PR(plane_owner, "%s", dchr[sect.sct_type].d_name);
 		changed += map_set(plane_owner,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);

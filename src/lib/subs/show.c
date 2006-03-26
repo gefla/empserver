@@ -204,7 +204,7 @@ show_nuke_capab(int tlev)
 	    if (NULL != (p = symbol_by_value(bit(i), nuke_chr_flags))) {
 		if (j++ > 0)
 		    pr(" ");
-		pr(p);
+		pr("%s", p);
 	    }
 	}
 	pr("\n");
@@ -318,7 +318,7 @@ show_ship_capab(int tlev)
 	    if (NULL != (p = symbol_by_value(bit(j), ship_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
-		pr(p);
+		pr("%s", p);
 	    }
 	}
 	pr("\n");
@@ -369,7 +369,7 @@ show_plane_capab(int tlev)
 	    if (NULL != (p = symbol_by_value(bit(i), plane_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
-		pr(p);
+		pr("%s", p);
 	    }
 	}
 	pr("\n");
@@ -442,7 +442,7 @@ show_land_capab(int tlev)
 	    if (NULL != (p = symbol_by_value(bit(j), land_chr_flags))) {
 		if (n++ > 0)
 		    pr(" ");
-		pr(p);
+		pr("%s", p);
 	    }
 	}
 	pr("\n");
