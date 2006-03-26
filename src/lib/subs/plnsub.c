@@ -762,7 +762,8 @@ pln_put(struct emp_qelem *list)
 	       not sunk. */
 	    if (ship.shp_effic < SHIP_MINEFF) {
 		mpr(pp->pln_own,
-		    "Ship #%d has been sunk, plane #%d has nowhere to land, and\nsplashes into the sea.\n",
+		    "Ship #%d has been sunk, plane #%d has nowhere to land, and\n"
+		    "splashes into the sea.\n",
 		    pp->pln_ship, pp->pln_uid);
 		pp->pln_effic = 0;
 	    }

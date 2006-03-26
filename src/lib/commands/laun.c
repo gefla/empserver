@@ -221,8 +221,7 @@ launch_as(struct plnstr *pp)
 	oldown = plane.pln_own;
 	planedamage(&plane, dam);
 	pr("Hit satellite for %d%% damage!\n", dam);
-	mpr(oldown,
-	    "%s anti-sat did %d%% damage to %s over %s\n",
+	mpr(oldown, "%s anti-sat did %d%% damage to %s over %s\n",
 	    cname(player->cnum), dam, prplane(&plane),
 	    xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 	putplane(plane.pln_uid, &plane);

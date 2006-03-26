@@ -190,8 +190,7 @@ detonate(struct plnstr *pp, int x, int y)
 		xyas(plane.pln_x, plane.pln_y, own), damage);
 	} else {
 	    if (own != 0)
-		mpr(own,
-		    "%s nuclear device did %d%% damage to %s at %s\n",
+		mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
 		    cname(bombown), damage,
 		    prplane(&plane), xyas(plane.pln_x, plane.pln_y, own));
 	}

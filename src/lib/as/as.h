@@ -129,7 +129,7 @@ struct as_frompath {
  * Some cheezy allocation macros.
  */
 #define	AS_NEW_ARRAY(p, type, n, err) \
-	(p) = (type *)calloc((n), sizeof (*(p))); \
+	(p) = (type *)calloc((n), sizeof(*(p))); \
 	if ((p) == NULL) \
 		return err; \
 

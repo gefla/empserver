@@ -81,7 +81,6 @@ trad(void)
     int q;
     s_char buf[1024];
 
-
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");
 	return RET_FAIL;

@@ -296,13 +296,11 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		    mpr(pp->pln_own, "sub #%d %s\n", targ->shp_uid,
 			xyas(targ->shp_x, targ->shp_y, pp->pln_own));
 		else
-		    mpr(pp->pln_own,
-			"%s %s\n",
+		    mpr(pp->pln_own, "%s %s\n",
 			prship(targ),
 			xyas(targ->shp_x, targ->shp_y, pp->pln_own));
 	    else
-		mpr(pp->pln_own,
-		    "%s %s @ %s\n", cname(targ->shp_own),
+		mpr(pp->pln_own, "%s %s @ %s\n", cname(targ->shp_own),
 		    prship(targ),
 		    xyas(targ->shp_x, targ->shp_y, pp->pln_own));
 	}

@@ -126,7 +126,10 @@ xdprval(struct valstr *val, char *sep)
 	    l = s + val->val_as.str.maxsz;
 	    /* FIXME maxsz == INT_MAX ! */
 	    for (;;) {
-		for (e=s; e<l && *e != '"' && *e != '\\' && isgraph(*e); ++e) ;
+		for (e = s;
+		     e < l && *e != '"' && *e != '\\' && isgraph(*e);
+		     ++e)
+		    ;
 		pr("%.*s", (int)(e-s), s);
 		if (e < l && *e)
 		    pr("\\%03o", *e++);
