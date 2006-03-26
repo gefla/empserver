@@ -321,11 +321,10 @@ lload(void)
 void
 gift(int givee, int giver, s_char *ptr, int type, s_char *mesg)
 {
-    s_char *p, line[256];
+    s_char *p;
 
     if (giver == givee)
 	return;
-
 
     switch (type) {
     case EF_SHIP:
@@ -342,8 +341,7 @@ gift(int givee, int giver, s_char *ptr, int type, s_char *mesg)
 	p = "a red herring";
     }
 
-    sprintf(line, "%s %s %s\n", cname(giver), p, mesg);
-    wu(0, givee, line);
+    wu(0, givee, "%s %s %s\n", cname(giver), p, mesg);
 }
 
 static int
@@ -778,30 +776,21 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
     sp->shp_item[item] = ship_amt + move_amt;
     if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
-	   move_amt,
-	   ich->i_name,
+	   move_amt, ich->i_name,
 	   prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
 	if (sp->shp_own != player->cnum) {
-	    sprintf(buf, "%s loaded %d %s onto %s at %s\n",
-		    cname(player->cnum),
-		    move_amt,
-		    ich->i_name,
-		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-	    wu(0, sp->shp_own, buf);
+	    wu(0, sp->shp_own, "%s loaded %d %s onto %s at %s\n",
+	       cname(player->cnum), move_amt, ich->i_name,
+	       prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
 	}
     } else {
 	pr("%d %s unloaded from %s at %s\n",
-	   -move_amt,
-	   ich->i_name,
+	   -move_amt, ich->i_name,
 	   prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
 	if (sectp->sct_own != player->cnum) {
-	    sprintf(buf, "%s unloaded %d %s from %s at %s\n",
-		    cname(player->cnum),
-		    -move_amt,
-		    ich->i_name,
-		    prship(sp),
-		    xyas(sp->shp_x, sp->shp_y, sectp->sct_own));
-	    wu(0, sectp->sct_own, buf);
+	    wu(0, sectp->sct_own, "%s unloaded %d %s from %s at %s\n",
+	       cname(player->cnum), -move_amt, ich->i_name,
+	       prship(sp), xyas(sp->shp_x, sp->shp_y, sectp->sct_own));
 	}
     }
     ++*nshipsp;
@@ -985,30 +974,21 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	lp->lnd_harden = 0;
     if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
-	   move_amt,
-	   ich->i_name,
+	   move_amt, ich->i_name,
 	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	if (lp->lnd_own != player->cnum) {
-	    sprintf(buf, "%s loaded %d %s onto %s at %s\n",
-		    cname(player->cnum),
-		    move_amt,
-		    ich->i_name,
-		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	    wu(0, lp->lnd_own, buf);
+	    wu(0, lp->lnd_own, "%s loaded %d %s onto %s at %s\n",
+	       cname(player->cnum), move_amt, ich->i_name,
+	       prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
 	}
     } else {
 	pr("%d %s unloaded from %s at %s\n",
-	   -move_amt,
-	   ich->i_name,
+	   -move_amt, ich->i_name,
 	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	if (sectp->sct_own != player->cnum) {
-	    sprintf(buf, "%s unloaded %d %s from %s at %s\n",
-		    cname(player->cnum),
-		    -move_amt,
-		    ich->i_name,
-		    prland(lp),
-		    xyas(lp->lnd_x, lp->lnd_y, sectp->sct_own));
-	    wu(0, sectp->sct_own, buf);
+	    wu(0, sectp->sct_own, "%s unloaded %d %s from %s at %s\n",
+	       cname(player->cnum), -move_amt, ich->i_name,
+	       prland(lp), xyas(lp->lnd_x, lp->lnd_y, sectp->sct_own));
 	}
     }
     ++*nunitsp;
