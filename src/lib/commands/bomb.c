@@ -430,8 +430,8 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	    for (i = 0; i < nbomb; i++) {
 		if (opt_SUPER_BARS && bombcomm[i] == I_BAR)
 		    continue;
-		pr(i == 0 ? "Bombable: " : ", ");
-		pr(ichr[bombcomm[i]].i_name);
+		pr("%s%s", i == 0 ? "Bombable: " : ", ",
+		   ichr[bombcomm[i]].i_name);
 	    }
 	    pr("\n");
 	} else
@@ -483,7 +483,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     struct shiplist *head = NULL;
     s_char buf[1024];
     s_char prompt[128];
-    s_char msg[128];
     int hitchance;
     int nukedam;
     int flak;
@@ -554,9 +553,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    flak = (int)(techfact(ship.shp_tech, (double)gun) * 2.0);
 	    ship.shp_item[I_SHELL] = shell;
 	    putship(ship.shp_uid, &ship);
-	    sprintf(msg, "Flak! Firing %d guns from ship %s\n",
-		    flak, prship(&ship));
-	    PR(ship.shp_own, msg);
+	    PR(ship.shp_own, "Flak! Firing %d guns from ship %s\n",
+	       flak, prship(&ship));
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, ship.shp_own, flak))
 		continue;
 	}
@@ -731,7 +729,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     natid own;
     s_char prompt[128];
     s_char buf[1024];
-    s_char msg[128];
     struct lndstr land;
     struct emp_qelem *qp;
     int unitno;
@@ -780,10 +777,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 
 	flak = (int)(techfact(land.lnd_tech, (double)land.lnd_aaf) * 3.0);
 	if (flak) {
-	    sprintf(msg,
-		    "Flak! Firing flak guns from unit %s (aa rating %d)\n",
-		    prland(&land), land.lnd_aaf);
-	    PR(land.lnd_own, msg);
+	    PR(land.lnd_own,
+	       "Flak! Firing flak guns from unit %s (aa rating %d)\n",
+	       prland(&land), land.lnd_aaf);
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, land.lnd_own, flak))
 		continue;
 	}
@@ -813,8 +809,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    dam = 100;
 	own = land.lnd_own;
 	if (own != 0)
-	    mpr(own,
-		"%s pinpoint bombing raid did %d damage to %s\n",
+	    mpr(own, "%s pinpoint bombing raid did %d damage to %s\n",
 		cname(player->cnum), dam, prland(&land));
 	check_retreat_and_do_landdamage(&land, dam);
 
@@ -869,7 +864,6 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     int disp;
     s_char dmess[255];
     int eff;
-    s_char mesg[128];
     struct shpstr ship;
     struct lndstr land;
     natid plane_owner;
@@ -897,9 +891,8 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 	sprintf(dmess, " -- aborted with %d%%%% damage", 100 - eff);
 	disp = 2;
     }
-    sprintf(mesg, "    Flak! %s %s takes %d%s.\n",
-	    cname(pp->pln_own), prplane(pp), dam, dmess);
-    PR(plane_owner, mesg);
+    PR(plane_owner, "    Flak! %s %s takes %d%s.\n",
+       cname(pp->pln_own), prplane(pp), dam, dmess);
 
     pp->pln_effic = eff;
     if (disp == 1) {
