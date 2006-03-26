@@ -90,7 +90,7 @@ rout(void)
     } else if (!snxtsct(&ns, str))
 	return RET_FAIL;
     if (!mapbuf)
-	mapbuf = malloc((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char));
+	mapbuf = malloc(WORLD_Y * MAPWIDTH(3));
     if (!map) {
 	map = malloc(WORLD_Y * sizeof(s_char *));
 	if (map && mapbuf) {
@@ -102,7 +102,7 @@ rout(void)
 	}
     }
     if (!buf)
-	buf = malloc((MAPWIDTH(3) + 12) * sizeof(s_char));
+	buf = malloc(MAPWIDTH(3) + 12);
     if (!mapbuf || !map || !buf) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in rout\n");

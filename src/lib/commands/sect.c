@@ -82,7 +82,7 @@ sct(void)
     } else if (!snxtsct(&ns, str))
 	return RET_SYN;
     if (!mapbuf)
-	mapbuf = malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+	mapbuf = malloc(WORLD_Y * MAPWIDTH(1));
     if (!map) {
 	map = malloc(WORLD_Y * sizeof(s_char *));
 	if (map && mapbuf) {

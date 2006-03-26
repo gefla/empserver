@@ -147,14 +147,14 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 	    ++saved;
 	} else
 	    ++deleted;
-	if (fread(message, sizeof(char), tgm.tel_length, annfp) !=
+	if (fread(message, 1, tgm.tel_length, annfp) !=
 	    (size_t)tgm.tel_length) {
 	    logerror("error reading body from telegram file %s",
 		     annfil);
 	    return 0;
 	}
 	if (writeit) {
-	    if (fwrite(message, sizeof(char), tgm.tel_length, tmpfp) !=
+	    if (fwrite(message, 1, tgm.tel_length, tmpfp) !=
 		(size_t)tgm.tel_length) {
 		logerror("error writing body to temporary telegram "
 			 "file %s", tmp_filename);

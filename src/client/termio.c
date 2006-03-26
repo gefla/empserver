@@ -164,7 +164,7 @@ termio(int fd, int sock, FILE *auxfi)
 	if (*p == '\n') {
 	    if (tagging) {
 		tag = malloc(sizeof(struct tagstruct));
-		tag->item = malloc((1 + p - s) * sizeof(char));
+		tag->item = malloc(1 + p - s);
 		tag->next = taglist;
 		taglist = tag;
 		t = tag->item;

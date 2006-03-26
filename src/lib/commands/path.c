@@ -82,7 +82,7 @@ path(void)
 	return RET_FAIL;
     }
     if (!mapbuf)
-	mapbuf = malloc((WORLD_Y * MAPWIDTH(3)) * sizeof(s_char));
+	mapbuf = malloc(WORLD_Y * MAPWIDTH(3));
     if (!map) {
 	map = malloc(WORLD_Y * sizeof(s_char *));
 	if (map && mapbuf) {

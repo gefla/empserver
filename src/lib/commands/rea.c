@@ -168,7 +168,7 @@ rea(void)
 	    nbytes = tgm.tel_length;
 	    if (nbytes > sizeof(msgbuf) - 1)
 		nbytes = sizeof(msgbuf) - 1;
-	    (void)fread(msgbuf, sizeof(s_char), nbytes, telfp);
+	    fread(msgbuf, 1, nbytes, telfp);
 	    msgbuf[nbytes] = 0;
 	    if (readit)
 		uprnf(msgbuf);

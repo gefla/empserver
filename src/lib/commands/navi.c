@@ -236,7 +236,7 @@ nav_map(int x, int y, int show_designations)
     if (!snxtsct(&ns, what))
 	return RET_FAIL;
     if (!wmapbuf)
-	wmapbuf = malloc((WORLD_Y * MAPWIDTH(1)) * sizeof(s_char));
+	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
     if (!wmap) {
 	wmap = malloc(WORLD_Y * sizeof(s_char *));
 	if (wmap && wmapbuf) {

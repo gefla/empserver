@@ -89,11 +89,9 @@ radmap2(int owner,
     int changed = 0;
 
     if (!radbuf)
-	radbuf = malloc((WORLD_Y * (WORLD_X + 1)) *
-				  sizeof(s_char));
+	radbuf = malloc(WORLD_Y * (WORLD_X + 1));
     if (!visbuf)
-	visbuf = malloc((WORLD_Y * (WORLD_X + 1)) *
-				  sizeof(s_char));
+	visbuf = malloc(WORLD_Y * (WORLD_X + 1));
     if (!rad) {
 	rad = malloc(WORLD_Y * sizeof(s_char *));
 	if (rad && radbuf) {
