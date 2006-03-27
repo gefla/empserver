@@ -302,7 +302,7 @@ map_char(unsigned char type, natid own, int owner_or_god)
 }
 
 int
-unit_map(int unit_type, int i, struct nstr_sect *nsp, s_char *originp)
+unit_map(int unit_type, int uid, struct nstr_sect *nsp, s_char *originp)
 {
     struct shpstr origs;
     struct lndstr origl;
@@ -312,27 +312,21 @@ unit_map(int unit_type, int i, struct nstr_sect *nsp, s_char *originp)
 
     np = getnatp(player->cnum);
     if (unit_type == EF_LAND) {
-	if (!getland(i, &origl) ||
-	    (origl.lnd_own != player->cnum && !player->god) ||
-	    (origl.lnd_own == 0))
+	if (!getland(uid, &origl) || !player->owner || origl.lnd_own == 0)
 	    return RET_FAIL;
 	sprintf(what, "%d:%d,%d:%d", xrel(np, origl.lnd_x - 10),
 		xrel(np, origl.lnd_x + 10),
 		yrel(np, origl.lnd_y - 5), yrel(np, origl.lnd_y + 5));
 	*originp = *lchr[(int)origl.lnd_type].l_name;
     } else if (unit_type == EF_PLANE) {
-	if (!getplane(i, &origp) ||
-	    (origp.pln_own != player->cnum && !player->god) ||
-	    (origp.pln_own == 0))
+	if (!getplane(uid, &origp) || !player->owner || origp.pln_own == 0)
 	    return RET_FAIL;
 	sprintf(what, "%d:%d,%d:%d", xrel(np, origp.pln_x - 10),
 		xrel(np, origp.pln_x + 10),
 		yrel(np, origp.pln_y - 5), yrel(np, origp.pln_y + 5));
 	*originp = *plchr[(int)origp.pln_type].pl_name;
     } else {
-	if (!getship(i, &origs) ||
-	    (origs.shp_own != player->cnum && !player->god) ||
-	    (origs.shp_own == 0))
+	if (!getship(uid, &origs) || !player->owner || origs.shp_own == 0)
 	    return RET_FAIL;
 	sprintf(what, "%d:%d,%d:%d", xrel(np, origs.shp_x - 10),
 		xrel(np, origs.shp_x + 10),
