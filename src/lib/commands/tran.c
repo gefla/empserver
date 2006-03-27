@@ -283,12 +283,13 @@ tran_plane(void)
  * If more commands start doing this, then
  * rewrite map to do the right thing.
  */
-/* I think this is no longer used, check subs/move.c:move_ground() */
 /*ARGSUSED*/
 static int
 tran_map(s_char *what, coord curx, coord cury, s_char *arg)
 {
+    player->argp[0] = "map";
     player->argp[1] = arg;
-    player->condarg = 0;
+    player->argp[2] = NULL;
+    player->condarg = NULL;
     return map();
 }
