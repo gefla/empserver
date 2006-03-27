@@ -307,35 +307,32 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, s_char *originp)
     struct shpstr origs;
     struct lndstr origl;
     struct plnstr origp;
-    s_char what[64];
-    struct natstr *np;
+    struct genitem *gp;
+    struct range range;
 
-    np = getnatp(player->cnum);
     if (unit_type == EF_LAND) {
 	if (!getland(uid, &origl) || !player->owner || origl.lnd_own == 0)
 	    return RET_FAIL;
-	sprintf(what, "%d:%d,%d:%d", xrel(np, origl.lnd_x - 10),
-		xrel(np, origl.lnd_x + 10),
-		yrel(np, origl.lnd_y - 5), yrel(np, origl.lnd_y + 5));
+	gp = (struct genitem *)&origl;
 	*originp = *lchr[(int)origl.lnd_type].l_name;
     } else if (unit_type == EF_PLANE) {
 	if (!getplane(uid, &origp) || !player->owner || origp.pln_own == 0)
 	    return RET_FAIL;
-	sprintf(what, "%d:%d,%d:%d", xrel(np, origp.pln_x - 10),
-		xrel(np, origp.pln_x + 10),
-		yrel(np, origp.pln_y - 5), yrel(np, origp.pln_y + 5));
+	gp = (struct genitem *)&origp;
 	*originp = *plchr[(int)origp.pln_type].pl_name;
     } else {
 	if (!getship(uid, &origs) || !player->owner || origs.shp_own == 0)
 	    return RET_FAIL;
-	sprintf(what, "%d:%d,%d:%d", xrel(np, origs.shp_x - 10),
-		xrel(np, origs.shp_x + 10),
-		yrel(np, origs.shp_y - 5), yrel(np, origs.shp_y + 5));
-	unit_type = EF_SHIP;
+	gp = (struct genitem *)&origs;
 	*originp = *mchr[(int)origs.shp_type].m_name;
     }
-    if (!snxtsct(nsp, what))
-	return RET_FAIL;
+
+    range.lx = xnorm(gp->x - 10);
+    range.hx = xnorm(gp->x + 11);
+    range.ly = ynorm(gp->y - 5);
+    range.hy = ynorm(gp->y + 6);
+    xysize_range(&range);
+    snxtsct_area(nsp, &range);
     return RET_OK;
 }
 
