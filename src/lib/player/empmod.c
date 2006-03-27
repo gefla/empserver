@@ -246,7 +246,7 @@ struct cmndstr player_coms[] = {
      tend, C_MOD, NORM + CAP},
     {"territory <SECTS> <NUMBER> [<FIELD>]", 0, terr, C_MOD, NORM},
     {"test <COMM> <SECT> <NUM> <PATH|DESTINATION>", 1,
-     move, 0, NORM + CAP},
+     move, C_MOD, NORM + CAP},
     {"threshold <COMM> <SECTS> <THRESH>", 1, thre, C_MOD, NORM},
     {"toggle [inform|flash|beep|coastwatch|sonar|techlists] [on|off]", 0,
      togg, C_MOD, VIS},
