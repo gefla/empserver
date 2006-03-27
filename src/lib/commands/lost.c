@@ -47,13 +47,8 @@ lost(void)
     struct loststr lost;
     time_t now;
 
-    if (!player->argp[1]) {
-	if (!snxtitem(&ni, EF_LOST, "*"))
-	    return RET_SYN;
-    } else {
-	if (!snxtitem(&ni, EF_LOST, player->argp[1]))
-	    return RET_SYN;
-    }
+    if (!snxtitem(&ni, EF_LOST, player->argp[1] ? player->argp[1] : "*"))
+	return RET_SYN;
 
     prdate();
     nlost = 0;
