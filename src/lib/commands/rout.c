@@ -62,8 +62,6 @@ rout(void)
     i_type i_del;
     int dir;
     s_char *p;
-    s_char what[64];
-    s_char *str;
     s_char buf1[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
@@ -75,19 +73,7 @@ rout(void)
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
 	return RET_SYN;
     i_del = ip->i_uid;;
-    if (player->argp[2] == NULL) {
-	if ((str = getstring("(sects)? ", buf1)) == 0)
-	    return RET_SYN;
-    } else {
-	str = player->argp[2];
-    }
-    if (*str == '*') {
-	sprintf(what, "%d:%d,%d:%d",
-		-WORLD_X / 2, WORLD_X / 2 - 1,
-		-WORLD_Y / 2, WORLD_Y / 2 - 1);
-	if (!snxtsct(&ns, what))
-	    return RET_FAIL;
-    } else if (!snxtsct(&ns, str))
+    if (!snxtsct(&ns, player->argp[2]))
 	return RET_FAIL;
     if (!mapbuf)
 	mapbuf = malloc(WORLD_Y * MAPWIDTH(3));

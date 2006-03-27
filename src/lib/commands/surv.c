@@ -65,9 +65,7 @@ surv(void)
     struct nscstr cond[NS_NCOND];
     int ncond;
     int i;
-    s_char what[64];
     s_char buf[1024];
-    s_char *str;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static s_char *mapbuf = NULL;
@@ -86,19 +84,7 @@ surv(void)
     for (; isspace(*ptr); ++ptr) ;
     if (*ptr)
 	return RET_SYN;
-    if (player->argp[2] == NULL) {
-	if ((str = getstring("(sects)? ", buf)) == 0)
-	    return RET_SYN;
-    } else {
-	str = player->argp[2];
-    }
-    if (*str == '*') {
-	sprintf(what, "%d:%d,%d:%d",
-		-WORLD_X / 2, WORLD_X / 2 - 1,
-		-WORLD_Y / 2, WORLD_Y / 2 - 1);
-	if (!snxtsct(&nstr, what))
-	    return RET_FAIL;
-    } else if (!snxtsct(&nstr, str))
+    if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
     if (!mapbuf)
 	mapbuf = malloc(WORLD_Y * MAPWIDTH(1));

@@ -52,12 +52,9 @@ map(void)
     register s_char *b;
     int unit_type = 0;
     int bmap = 0;
-    struct natstr *np;
-    s_char *str;
     struct nstr_sect ns;
     s_char origin = '\0';
     int map_flags = 0;
-    s_char what[64];
     s_char buf[1024];
 
     if (**player->argp != 'm') {
@@ -81,22 +78,8 @@ map(void)
 	}
     }
 
-    if (player->argp[1] == NULL) {
-	if ((str = getstring("(sects)? ", buf)) == 0)
-	    return RET_SYN;
-    } else {
-	str = player->argp[1];
-    }
-
-    np = getnatp(player->cnum);
-    if (*str == '*') {
-	sprintf(what, "%d:%d,%d:%d",
-		-WORLD_X / 2, WORLD_X / 2 - 1,
-		-WORLD_Y / 2, WORLD_Y / 2 - 1);
-	if (!snxtsct(&ns, what))
-	    return RET_FAIL;
-    } else if (!snxtsct(&ns, str)) {
-	if (unit_map(unit_type, atoi(str), &ns, &origin))
+    if (!snxtsct(&ns, player->argp[1])) {
+	if (unit_map(unit_type, atoi(player->argp[1]), &ns, &origin))
 	    return RET_FAIL;
     }
     for (b = player->argp[2]; b && *b; b++) {

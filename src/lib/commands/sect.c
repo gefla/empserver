@@ -57,8 +57,6 @@ sct(void)
     s_char *ptr;
     coord y, yval;
     int i;
-    s_char what[64];
-    s_char *str;
     s_char buf[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
@@ -66,20 +64,7 @@ sct(void)
     static s_char **map = NULL;
 
     nsect = 0;
-    if (player->argp[1] == NULL) {
-	if ((str = getstring("(sects)? ", buf)) == 0)
-	    return RET_SYN;
-    } else {
-	str = player->argp[1];
-    }
-
-    if (*str == '*') {
-	sprintf(what, "%d:%d,%d:%d",
-		-WORLD_X / 2, WORLD_X / 2 - 1,
-		-WORLD_Y / 2, WORLD_Y / 2 - 1);
-	if (!snxtsct(&ns, what))
-	    return RET_FAIL;
-    } else if (!snxtsct(&ns, str))
+    if (!snxtsct(&ns, player->argp[1]))
 	return RET_SYN;
     if (!mapbuf)
 	mapbuf = malloc(WORLD_Y * MAPWIDTH(1));
