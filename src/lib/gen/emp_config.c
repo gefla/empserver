@@ -96,7 +96,7 @@ emp_config(char *file)
 	return -1;
     }
 
-    while (fgets(buf, sizeof buf, fp) != NULL) {
+    while (fgets(buf, sizeof(buf), fp) != NULL) {
 	++lno;
 	for (i = 0; buf[i] && isspace(buf[i]); ++i) ;
 	if (!buf[i] || buf[i] == '#')

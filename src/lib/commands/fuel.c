@@ -210,8 +210,8 @@ fuel(void)
 		if (!player->argp[4])
 		    pr("%s is not in a supplied, efficient harbor\n",
 		       prship(&item.ship));
-		if (!snxtitem (&tender, EF_SHIP,
-			       getstarg(player->argp[4], "Oiler? ", buf)))
+		if (!snxtitem(&tender, EF_SHIP,
+			      getstarg(player->argp[4], "Oiler? ", buf)))
 		    continue;
 
 		if (!check_ship_ok(&item.ship))

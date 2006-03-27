@@ -74,7 +74,7 @@ coas(void)
     float tech;
     struct nstr_item ni;
 
-    if (snxtsct(&nstr, player->argp[1]) == 0)
+    if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     for (i = 0; i < TSIZE; i++)
 	list[i] = 0;
