@@ -279,7 +279,6 @@ static int
 shp_check_one_mines(struct mlist *mlp)
 {
     struct sctstr sect;
-    int changed = 0;
     int actor;
 
     getsect(mlp->ship.shp_x, mlp->ship.shp_y, &sect);
@@ -291,8 +290,7 @@ shp_check_one_mines(struct mlist *mlp)
 	actor = mlp->ship.shp_own;
 	shp_hit_mine(&mlp->ship, mlp->mcp);
 	sect.sct_mines--;
-	changed |= map_set(actor, sect.sct_x, sect.sct_y, 'X', 0);
-	if (changed)
+	if (map_set(actor, sect.sct_x, sect.sct_y, 'X', 0))
 	    writemap(actor);
 	putsect(&sect);
 	putship(mlp->ship.shp_uid, &mlp->ship);
