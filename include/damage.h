@@ -40,7 +40,7 @@
 #define DMINE_HITCHANCE(x) ((double) ( (x) / ((x)+20.0) ) )
 #define DMINE_LHITCHANCE(x) ((double) ( (x) / ((x)+35.0) ) )
 #define MINE_DAMAGE() (22 + random()%21)
-#define MINE_LDAMAGE() (10 + random()%11)
+#define MINE_LDAMAGE() (11 + random()%20)
 #define DTORP_HITCHANCE(range, vis) ((double)(0.9/((range)+1)+(((vis)<6)?(5-(vis))*0.03:0)))
 #define TORP_DAMAGE() (torpedo_damage + (random() % torpedo_damage) + \
 		       (random() % torpedo_damage))

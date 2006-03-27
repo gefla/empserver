@@ -775,7 +775,7 @@ shp_hit_mine(struct shpstr *sp, struct mchrstr *mcp)
 
     nreport(sp->shp_own, N_HIT_MINE, 0, 1);
 
-    m = 22.0 + (double)(random() % 21);
+    m = MINE_DAMAGE();
     if (mcp->m_flags & M_SWEEP)
 	m /= 2.0;
 

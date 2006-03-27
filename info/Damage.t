@@ -32,11 +32,11 @@ Whether you get a blam, Blam, or a BLAM depends on the accuracy of the
 plane and the difficulty of the target (see info bomb).
 
 Land mines
-Land mines damage commodities by random(20) and land units by 10 + random(10).
+Land mines damage commodities by random(20) and land units by 10 + random(20).
 If the land unit is an engineer, then the damags is cut in half.
 
 Sea mines
-Sea mines damage ships 22 + random(20).  If the ship can sweep, then
+Sea mines damage ships 21 + random(21).  If the ship can sweep, then
 the damage is cut in half.
 
 Nuclear Detonation

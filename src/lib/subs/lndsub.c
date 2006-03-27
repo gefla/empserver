@@ -1019,7 +1019,7 @@ lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 
     nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
 
-    m = roll(20) + 10;
+    m = MINE_LDAMAGE();
     if (lcp->l_flags & L_ENGINEER)
 	m /= 2.0;
 
