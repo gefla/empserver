@@ -72,7 +72,6 @@ navi(void)
 	return RET_SYN;
     shp_sel(&ni_ship, &ship_list);
     shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
-    player->condarg = 0;	/* conditions don't apply to nav_map() */
     if (QEMPTY(&ship_list)) {
 	pr("No ships\n");
 	return RET_FAIL;
@@ -216,7 +215,7 @@ navi(void)
 int
 nav_map(int x, int y, int show_designations)
 {
-    s_char *ptr;
+    char *ptr;
     struct nstr_sect ns;
     struct natstr *np;
     struct sctstr sect;
@@ -225,20 +224,14 @@ nav_map(int x, int y, int show_designations)
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static unsigned char *bitmap = NULL;
-    static s_char *wmapbuf = NULL;
-    static s_char **wmap = NULL;
-    s_char what[64];
+    static char *wmapbuf = NULL;
+    static char **wmap = NULL;
     int changed = 0;
 
-    np = getnatp(player->cnum);
-    sprintf(what, "%d:%d,%d:%d", xrel(np, x - 2), xrel(np, x + 2),
-	    yrel(np, y - 1), yrel(np, y + 1));
-    if (!snxtsct(&ns, what))
-	return RET_FAIL;
     if (!wmapbuf)
 	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
     if (!wmap) {
-	wmap = malloc(WORLD_Y * sizeof(s_char *));
+	wmap = malloc(WORLD_Y * sizeof(*wmap));
 	if (wmap && wmapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];
@@ -255,10 +248,10 @@ nav_map(int x, int y, int show_designations)
 	return RET_FAIL;
     }
     memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-    /* zap any conditionals */
-    ns.ncond = 0;
+    snxtsct_dist(&ns, x, y, 1);
+    np = getnatp(player->cnum);
     xyrelrange(np, &ns.range, &range);
-    blankfill((s_char *)wmapbuf, &ns.range, 1);
+    blankfill(wmapbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
 	ptr = &wmap[ns.dy][ns.dx];
 	*ptr = dchr[sect.sct_type].d_mnem;

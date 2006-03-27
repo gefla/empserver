@@ -280,23 +280,15 @@ static int
 explore_map(s_char *what, coord curx, coord cury, s_char *arg)
 {
     struct nstr_sect ns;
-    struct natstr *np;
     struct sctstr sect;
-    coord rel_x, rel_y;
-    s_char range[128];
-    s_char view[7];
+    char view[7];
     int i;
     int changed = 0;
 
-    np = getnatp(player->cnum);
-    rel_x = xrel(np, curx);
-    rel_y = yrel(np, cury);
-    sprintf(range, "%d:%d,%d:%d", rel_x - 2, rel_x + 2, rel_y - 1,
-	    rel_y + 1);
-    if (!snxtsct(&ns, range))
-	return RET_FAIL;
+    snxtsct_dist(&ns, curx, cury, 1);
     i = 0;
     while (i < 7 && nxtsct(&ns, &sect)) {
+	/* Nasty: this relies on the iteration order */
 	view[i] = dchr[sect.sct_type].d_mnem;
 	switch (sect.sct_type) {
 	case SCT_WATER:

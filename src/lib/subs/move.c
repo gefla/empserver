@@ -253,28 +253,15 @@ static int
 move_map(s_char *what, coord curx, coord cury, s_char *arg)
 {
     struct nstr_sect ns;
-    struct natstr *np;
     struct sctstr sect;
-    coord rel_x, rel_y;
-    s_char range[128];
-    s_char view[7];
+    char view[7];
     int i;
     int changed = 0;
 
-    np = getnatp(player->cnum);
-    rel_x = xrel(np, curx);
-    rel_y = yrel(np, cury);
-    sprintf(range, "%d:%d,%d:%d", rel_x - 2, rel_x + 2, rel_y - 1,
-	    rel_y + 1);
-    player->condarg = 0;
-    /* This is necessary, otherwise move_map would attempt to pay */
-    /* attention to the conditional arguments left behind by such */
-    /* a command as "tran p -1,-1 ?eff=100".. It'd then only see  */
-    /* 100% efficienct sects, and get all screwed up         --ts */
-    if (!snxtsct(&ns, range))
-	return RET_FAIL;
+    snxtsct_dist(&ns, curx, cury, 1);
     i = 0;
     while (i < 7 && nxtsct(&ns, &sect)) {
+	/* Nasty: this relies on the iteration order */
 	view[i] = dchr[sect.sct_type].d_mnem;
 	switch (sect.sct_type) {
 	case SCT_WATER:
@@ -310,28 +297,14 @@ int
 fly_map(coord curx, coord cury)
 {
     struct nstr_sect ns;
-    struct natstr *np;
     struct sctstr sect;
-    coord rel_x, rel_y;
-    s_char view[7];
+    char view[7];
     int i;
-    s_char range[128];
 
-    np = getnatp(player->cnum);
-    rel_x = xrel(np, curx);
-    rel_y = yrel(np, cury);
-    sprintf(range, "%d:%d,%d:%d", rel_x - 2, rel_x + 2, rel_y - 1,
-	    rel_y + 1);
-    player->condarg = 0;
-    /* This is necessary, otherwise move_map would attempt to pay */
-    /* attention to the conditional arguments left behind by such */
-    /* a command as "tran p -1,-1 ?eff=100".. It'd then only see  */
-    /* 100% efficienct sects, and get all screwed up         --ts */
-
-    if (!snxtsct(&ns, range))
-	return RET_FAIL;
+    snxtsct_dist(&ns, curx, cury, 1);
     i = 0;
     while (i < 7 && nxtsct(&ns, &sect)) {
+	/* Nasty: this relies on the iteration order */
 	if (!(view[i] = player->bmap[sctoff(ns.x, ns.y)]))
 	    view[i] = ' ';
 	i++;
