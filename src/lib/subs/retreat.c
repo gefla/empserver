@@ -139,7 +139,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     int shells;
     double mobcost;
     struct mchrstr *mcp;
-    int time_to_stop;
     int changed;
 
     sp->shp_mission = 0;
@@ -218,7 +217,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 
     n = (-1 * MAX_RETREAT);
     stopping = 0;
-    time_to_stop = 0;
     while (!stopping && n) {
 	dx = dy = 0;
 	if (sp->shp_rpath[0] == 0) {
@@ -306,14 +304,10 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 		writemap(sp->shp_own);
 	    sect.sct_mines = mines;
 	    putsect(&sect);
-	    if (sp->shp_effic < SHIP_MINEFF)
-		time_to_stop = 1;
 	    if (!orig)
 		putship(sp->shp_uid, sp);
 	    return 0;
 	}
-	if (time_to_stop)
-	    stopping = 1;
     }
 
     if (orig) {
@@ -404,7 +398,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     int shells;
     double mobcost;
     struct lchrstr *lcp;
-    int time_to_stop;
 
     lp->lnd_mission = 0;
     if (lp->lnd_own == 0)
@@ -433,7 +426,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 
     n = (-1 * MAX_RETREAT);
     stopping = 0;
-    time_to_stop = 0;
     while (!stopping && n) {
 	dx = dy = 0;
 	if (lp->lnd_rpath[0] == 0) {
@@ -513,14 +505,10 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	    mines--;
 	    sect.sct_mines = mines;
 	    putsect(&sect);
-	    if (lp->lnd_effic < LAND_MINEFF)
-		time_to_stop = 1;
 	    if (!orig)
 		putland(lp->lnd_uid, lp);
 	    return 0;
 	}
-	if (time_to_stop)
-	    stopping = 1;
     }
 
     if (orig) {
