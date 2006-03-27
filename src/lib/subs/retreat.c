@@ -501,7 +501,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	    putsect(&sect);
 	}
 	if (mines > 0 && (sect.sct_oldown != lp->lnd_own) &&
-	    chance(DMINE_HITCHANCE(mines))) {
+	    chance(DMINE_LHITCHANCE(mines))) {
 	    wu(0, lp->lnd_own,
 	       "%s %s,\nand hit a mine in %s while retreating!\n",
 	       prland(lp),
