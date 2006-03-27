@@ -57,7 +57,6 @@ map(void)
     struct nstr_sect ns;
     s_char origin = '\0';
     int map_flags = 0;
-    int i;
     s_char what[64];
     s_char buf[1024];
 
@@ -97,8 +96,7 @@ map(void)
 	if (!snxtsct(&ns, what))
 	    return RET_FAIL;
     } else if (!snxtsct(&ns, str)) {
-	i = atoi(str);
-	if (unit_map(unit_type, i, &ns, &origin))
+	if (unit_map(unit_type, atoi(str), &ns, &origin))
 	    return RET_FAIL;
     }
     for (b = player->argp[2]; b && *b; b++) {
