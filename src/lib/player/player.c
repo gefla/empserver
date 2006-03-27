@@ -142,7 +142,7 @@ player_main(struct player *p)
 int
 command(void)
 {
-    unsigned int x;
+    unsigned int i;
     char *redir;		/* UTF-8 */
     char scanspace[1024];
 
@@ -157,10 +157,8 @@ command(void)
 	   together -- Sasha */
 	/* alarm((unsigned int)60*60); 1 hour */
 	if (player->condarg != NULL)
-	    for (x = 0; x < strlen(player->condarg); x++)
-		if (isupper(*(player->condarg + x)))
-		    *(player->condarg + x) =
-			tolower(*(player->condarg + x));
+	    for (i = 0; i < strlen(player->condarg); i++)
+		player->condarg[i] = tolower(player->condarg[i]);
 	if (dispatch(player->combuf, redir) < 0)
 	    pr("Try \"list of commands\" or \"info\"\n");
     }
