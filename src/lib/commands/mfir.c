@@ -623,7 +623,7 @@ multifire(void)
 	    break;
 	}
 	if ((totaldefdam == 0) && (target == targ_ship))
-	    if (vship.shp_rflags & RET_INJURED)
+	    if (vship.shp_rflags & RET_HELPLESS)
 		retreat_ship(&vship, 'h');
 	switch (attacker) {
 	case targ_land:
