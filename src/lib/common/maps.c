@@ -104,7 +104,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     nsp->ncond = 0;
     xyrelrange(np, &nsp->range, &range);
     border(&range, "     ", "");
-    blankfill((s_char *)wmapbuf, &nsp->range, 1);
+    blankfill(wmapbuf, &nsp->range, 1);
     if (bmap) {
 	int c;
 	switch (bmap) {

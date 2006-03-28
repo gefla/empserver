@@ -102,7 +102,7 @@ path(void)
     snxtsct_area(&ns, &absrange);
     natp = getnatp(player->cnum);
     xyrelrange(natp, &absrange, &relrange);
-    blankfill((s_char *)mapbuf, &ns.range, 3);
+    blankfill(mapbuf, &ns.range, 3);
     for (; *pp; ++pp) {
 	i = diridx(*pp);
 	if (i == DIR_STOP)

@@ -109,7 +109,7 @@ surv(void)
     np = getnatp(player->cnum);
     xyrelrange(np, &nstr.range, &range);
     border(&range, "     ", "");
-    blankfill((s_char *)mapbuf, &nstr.range, 1);
+    blankfill(mapbuf, &nstr.range, 1);
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;

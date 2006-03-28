@@ -89,7 +89,7 @@ sct(void)
     ns.ncond = 0;
     xyrelrange(getnatp(player->cnum), &ns.range, &range);
     border(&range, "    ", "");
-    blankfill((s_char *)mapbuf, &ns.range, 1);
+    blankfill(mapbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
 	if (!player->owner)
 	    continue;

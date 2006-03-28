@@ -64,7 +64,7 @@ wing(void)
     if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
 	return RET_SYN;
     count = 0;
-    while (nxtitem(&nstr, (s_char *)&plane)) {
+    while (nxtitem(&nstr, &plane)) {
 	if (plane.pln_own != player->cnum)
 	    continue;
 	if (plane.pln_wing == c)

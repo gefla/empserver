@@ -105,7 +105,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	else
 	    snxtsct_dist(&ns, x, y, range);
 
-	blankfill((s_char *)radbuf, &ns.range, 1);
+	blankfill(radbuf, &ns.range, 1);
 	if (flags & P_S) {
 	    pr("Satellite sector report\n");
 	    prdate();

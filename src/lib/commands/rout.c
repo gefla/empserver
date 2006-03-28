@@ -101,7 +101,7 @@ rout(void)
     natp = getnatp(player->cnum);
     xyrelrange(natp, &ns.range, &relrange);
     memset(mapbuf, 0, ((WORLD_Y * MAPWIDTH(3))));
-    blankfill((s_char *)mapbuf, &ns.range, 3);
+    blankfill(mapbuf, &ns.range, 3);
     border(&relrange, "     ", " ");
 
     while (nxtsct(&ns, &sect)) {

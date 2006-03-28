@@ -119,7 +119,7 @@ radmap2(int owner,
 	pr("%s efficiency %d%%, max range %d\n",
 	   xyas(cx, cy, owner), eff, range);
     snxtsct_dist(&ns, cx, cy, range);
-    blankfill((s_char *)radbuf, &ns.range, 1);
+    blankfill(radbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == owner
 	    || sect.sct_type == SCT_WATER
