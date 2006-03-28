@@ -459,7 +459,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-	    gift(sp->shp_own, player->cnum, (s_char *)&pln, EF_PLANE, buf);
+	    gift(sp->shp_own, player->cnum, &pln, EF_PLANE, buf);
 	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
 		     pln.pln_y);
 	    pln.pln_own = sp->shp_own;
@@ -477,8 +477,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, (s_char *)&pln,
-		 EF_PLANE, buf);
+	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
 	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
 		     pln.pln_y);
 	    pln.pln_own = sectp->sct_own;
@@ -630,7 +629,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-	    gift(sp->shp_own, player->cnum, (s_char *)&land, EF_LAND, buf);
+	    gift(sp->shp_own, player->cnum, &land, EF_LAND, buf);
 	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		     land.lnd_y);
 	    land.lnd_own = sp->shp_own;
@@ -652,8 +651,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prship(sp));
-		gift(sp->shp_own, player->cnum, (s_char *)&plane,
-		     EF_PLANE, buf);
+		gift(sp->shp_own, player->cnum, &plane, EF_PLANE, buf);
 		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
 			 plane.pln_x, plane.pln_y);
 		plane.pln_own = sp->shp_own;
@@ -669,8 +667,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 
 	    /* Spies are unloaded quietly, others aren't */
 	    if (!(lchr[(int)land.lnd_type].l_flags & L_SPY)) {
-		gift(sectp->sct_own, player->cnum, (s_char *)&land,
-		     EF_LAND, buf);
+		gift(sectp->sct_own, player->cnum, &land, EF_LAND, buf);
 		makelost(EF_LAND, land.lnd_own, land.lnd_uid,
 			 land.lnd_x, land.lnd_y);
 		land.lnd_own = sectp->sct_own;
@@ -696,8 +693,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		    sprintf(buf, "unloaded at %s",
 			    xyas(plane.pln_x, plane.pln_y,
 				 sectp->sct_own));
-		    gift(sectp->sct_own, player->cnum, (s_char *)&plane,
-			 EF_PLANE, buf);
+		    gift(sectp->sct_own, player->cnum, &plane, EF_PLANE, buf);
 		    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
 			     plane.pln_x, plane.pln_y);
 		    plane.pln_own = sectp->sct_own;
@@ -877,7 +873,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "loaded on %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	    gift(lp->lnd_own, player->cnum, (s_char *)&pln, EF_PLANE, buf);
+	    gift(lp->lnd_own, player->cnum, &pln, EF_PLANE, buf);
 	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
 		     pln.pln_y);
 	    pln.pln_own = lp->lnd_own;
@@ -893,8 +889,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "unloaded at your sector at %s",
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, (s_char *)&pln,
-		 EF_PLANE, buf);
+	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
 	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
 		     pln.pln_y);
 	    pln.pln_own = sectp->sct_own;
@@ -1092,7 +1087,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	    gift(lp->lnd_own, player->cnum, (s_char *)&land, EF_LAND, buf);
+	    gift(lp->lnd_own, player->cnum, &land, EF_LAND, buf);
 	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		     land.lnd_y);
 	    land.lnd_own = lp->lnd_own;
@@ -1114,8 +1109,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prland(lp));
-		gift(lp->lnd_own, player->cnum, (s_char *)&plane,
-		     EF_PLANE, buf);
+		gift(lp->lnd_own, player->cnum, &plane, EF_PLANE, buf);
 		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
 			 plane.pln_x, plane.pln_y);
 		plane.pln_own = lp->lnd_own;
@@ -1128,8 +1122,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, (s_char *)&land,
-		 EF_LAND, buf);
+	    gift(sectp->sct_own, player->cnum, &land, EF_LAND, buf);
 	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		     land.lnd_y);
 	    land.lnd_own = sectp->sct_own;
@@ -1147,8 +1140,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		    continue;
 		sprintf(buf, "unloaded at %s",
 			xyas(plane.pln_x, plane.pln_y, sectp->sct_own));
-		gift(sectp->sct_own, player->cnum, (s_char *)&plane,
-		     EF_PLANE, buf);
+		gift(sectp->sct_own, player->cnum, &plane, EF_PLANE, buf);
 		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
 			 plane.pln_x, plane.pln_y);
 		plane.pln_own = sectp->sct_own;

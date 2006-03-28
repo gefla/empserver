@@ -269,8 +269,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(&target), xyas(target.shp_x, target.shp_y,
 					  target.shp_own));
-	    gift(target.shp_own, player->cnum, (s_char *)&land,
-		 EF_LAND, buf);
+	    gift(target.shp_own, player->cnum, &land, EF_LAND, buf);
 	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		     land.lnd_y);
 	    land.lnd_own = target.shp_own;
@@ -292,8 +291,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prship(&target));
-		gift(target.shp_own, player->cnum, (s_char *)&plane,
-		     EF_PLANE, buf);
+		gift(target.shp_own, player->cnum, &plane, EF_PLANE, buf);
 		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
 			 plane.pln_x, plane.pln_y);
 		plane.pln_own = target.shp_own;
