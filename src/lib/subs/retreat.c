@@ -268,7 +268,8 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 
 	mines = sect.sct_mines;
 	changed = 0;
-	if ((mcp->m_flags & M_SWEEP) && mines > 0 && !player->owner) {
+	if ((mcp->m_flags & M_SWEEP) && sect.sct_type == SCT_WATER) {
+	    sp->shp_mobil -= mobcost;
 	    max = mcp->m_item[I_SHELL];
 	    shells = sp->shp_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
@@ -276,7 +277,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 		    mines--;
 		    shells = MIN(max, shells + 1);
 		    changed |= map_set(sp->shp_own, sp->shp_x, sp->shp_y,
-			'X', 0);
+				       'X', 0);
 		}
 	    }
 	    if (sect.sct_mines != mines) {
@@ -284,14 +285,15 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 		   "%s cleared %d mine%s in %s while retreating\n",
 		   prship(sp), sect.sct_mines-mines, splur(sect.sct_mines-mines),
 		   xyas(newx, newy, sp->shp_own));
+		sect.sct_mines = mines;
+		sp->shp_item[I_SHELL] = shells;
+		putsect(&sect);
 	    }
-	    sect.sct_mines = mines;
-	    sect.sct_item[I_SHELL] = shells;
-	    putsect(&sect);
 	    if (changed)
 		writemap(sp->shp_own);
 	}
-	if (mines > 0 && !player->owner && chance(DMINE_HITCHANCE(mines))) {
+	if (sect.sct_type == SCT_WATER && mines > 0
+	    && chance(DMINE_HITCHANCE(mines))) {
 	    wu(0, sp->shp_own,
 	       "%s %s,\nand hit a mine in %s while retreating!\n",
 	       prship(sp), conditions[findcondition(code)].desc[orig],
