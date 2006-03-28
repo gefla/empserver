@@ -45,7 +45,7 @@
 #include "optlist.h"
 #include "commands.h"
 
-static int explore_map(s_char *what, coord curx, coord cury, s_char *arg);
+static int explore_map(coord curx, coord cury, char *arg);
 
 int
 explore(void)
@@ -67,11 +67,11 @@ explore(void)
     int own, mob;
     int justtook;
     coord x, y;
-    s_char *p;
+    char *p;
     int n;
     int left;
-    s_char buf[1024];
-    s_char prompt[128];
+    char buf[1024];
+    char prompt[128];
 
     if (!(ip = whatitem(player->argp[1], "explore with what? (civ/mil) ")))
 	return RET_SYN;
@@ -149,15 +149,17 @@ explore(void)
      * Now parse the path and return ending sector.
      */
     dam = 1;
-    mcost = move_ground((s_char *)ip, &sect, &endsect,
-			weight, player->argp[4],
+    mcost = move_ground(&sect, &endsect, weight, player->argp[4],
 			explore_map, 1, &dam);
 
     if (dam) {
 	left = effdamage(amount, dam);
 	if (left < amount) {
 	    if (left) {
-		pr("%d of the %s you were exploring with were destroyed!\nOnly %d %s made it to %s\n", amount - left, ip->i_name, left, ip->i_name, xyas(endsect.sct_x, endsect.sct_y, player->cnum));
+		pr("%d of the %s you were exploring with were destroyed!\n"
+		   "Only %d %s made it to %s\n",
+		   amount - left, ip->i_name, left, ip->i_name,
+		   xyas(endsect.sct_x, endsect.sct_y, player->cnum));
 	    } else {
 		pr("All of the %s you were exploring with were destroyed!\n", ip->i_name);
 	    }
@@ -277,7 +279,7 @@ explore(void)
 
 /*ARGSUSED*/
 static int
-explore_map(s_char *what, coord curx, coord cury, s_char *arg)
+explore_map(coord curx, coord cury, char *arg)
 {
     struct nstr_sect ns;
     struct sctstr sect;

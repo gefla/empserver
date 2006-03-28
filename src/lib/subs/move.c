@@ -46,12 +46,12 @@
 #include "damage.h"
 #include "prototypes.h"
 
-static int move_map(s_char *what, coord curx, coord cury, s_char *arg);
+static int move_map(coord curx, coord cury, char *arg);
 
 int
-move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
-	    double weight, s_char *path,
-	    int (*map)(s_char *, coord, coord, s_char *), int exploring,
+move_ground(struct sctstr *start, struct sctstr *end,
+	    double weight, char *path,
+	    int (*map)(coord, coord, char *), int exploring,
 	    int *dam)
 {
     struct sctstr sect, ending_sect;
@@ -59,7 +59,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     coord curx, cury, oldx, oldy;
     coord tmpx, tmpy;
     coord dx, dy;
-    s_char *movstr;
+    char *movstr;
     double sect_mcost;
     double total_mcost;
     double mv_cost;
@@ -68,10 +68,10 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
     int intcost;
     int takedam = *dam;
     int out = 0;
-    s_char bpath[512];
-    s_char buf2[512];
-    s_char prompt[128];
-    s_char buf[1024];
+    char bpath[512];
+    char buf2[512];
+    char prompt[128];
+    char buf[1024];
 
     *end = *start;
     if (mobility <= 0.0)
@@ -114,9 +114,9 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	oldy = cury;
 	if (!movstr || *movstr == 0) {
 	    if (exploring) {
-		map(what, curx, cury, NULL);
+		map(curx, cury, NULL);
 	    } else {
-		move_map(what, curx, cury, NULL);
+		move_map(curx, cury, NULL);
 	    }
 	    sprintf(prompt, "<%.1f: %c %s> ", mobility,
 		    dchr[sect.sct_type].d_mnem,
@@ -161,7 +161,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 	movstr++;
 	if (dir == DIR_MAP) {
 	    if (!exploring)
-		map(what, curx, cury, movstr + 1);
+		map(curx, cury, movstr + 1);
 	    *movstr = 0;
 	    continue;
 	} else if (dir == DIR_STOP)
@@ -250,7 +250,7 @@ move_ground(s_char *what, struct sctstr *start, struct sctstr *end,
 
 /*ARGSUSED*/
 static int
-move_map(s_char *what, coord curx, coord cury, s_char *arg)
+move_map(coord curx, coord cury, char *arg)
 {
     struct nstr_sect ns;
     struct sctstr sect;

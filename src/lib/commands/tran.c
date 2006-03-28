@@ -48,18 +48,18 @@
 #include "land.h"
 #include "commands.h"
 
-static int tran_map(s_char *what, coord curx, coord cury, s_char *arg);
+static int tran_map(coord curx, coord cury, char *arg);
 static int tran_nuke(void);
 static int tran_plane(void);
 
 int
 tran(void)
 {
-    s_char *what;
-    s_char buf[1024];
+    char *what;
+    char buf[1024];
 
-    what =
-	getstarg(player->argp[1], "transport what (nuke or plane): ", buf);
+    what = getstarg(player->argp[1], "transport what (nuke or plane): ",
+		    buf);
     if (what == 0)
 	return RET_SYN;
     if (*what == 'n')
@@ -80,7 +80,7 @@ tran_nuke(void)
     coord x, y;
     coord dstx, dsty;
     int found;
-    s_char *p;
+    char *p;
     int nuketype;
     int moving;
     struct nukstr nuke;
@@ -88,7 +88,7 @@ tran_nuke(void)
     struct sctstr endsect;
     int mcost, dam;
     struct nstr_item nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[2], "from sector : ", buf)))
 	return RET_SYN;
@@ -143,8 +143,7 @@ tran_nuke(void)
 	return RET_FAIL;
     }
     dam = 0;
-    mcost = move_ground((s_char *)&nuke, &sect, &endsect,
-			(double)ncp->n_weight * moving,
+    mcost = move_ground(&sect, &endsect, (double)ncp->n_weight * moving,
 			player->argp[5], tran_map, 0, &dam);
 
     if (mcost < 0)
@@ -246,8 +245,7 @@ tran_plane(void)
 	return RET_FAIL;
     }
     dam = 1;
-    mcost = move_ground((s_char *)&plane, &sect, &endsect,
-			(double)weight,
+    mcost = move_ground(&sect, &endsect, (double)weight,
 			player->argp[3], tran_map, 0, &dam);
     dam /= count;
     if (mcost < 0)
@@ -285,7 +283,7 @@ tran_plane(void)
  */
 /*ARGSUSED*/
 static int
-tran_map(s_char *what, coord curx, coord cury, s_char *arg)
+tran_map(coord curx, coord cury, char *arg)
 {
     player->argp[0] = "map";
     player->argp[1] = arg;

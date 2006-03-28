@@ -47,7 +47,7 @@
 #include "commands.h"
 
 
-static int cmd_move_map(s_char *what, coord curx, coord cury, s_char *arg);
+static int cmd_move_map(coord curx, coord cury, char *arg);
 
 int
 move(void)
@@ -72,9 +72,9 @@ move(void)
     int istest = 0;
     int n;
     coord x, y;
-    s_char *p;
-    s_char prompt[1024];
-    s_char buf[1024];
+    char *p;
+    char prompt[1024];
+    char buf[1024];
 
 
     istest = *player->argp[0] == 't';
@@ -188,8 +188,7 @@ move(void)
     dam = (istest ? 0 : 1);
     if (dam && !chance(weight / 200.0))
 	dam = 0;
-    mcost = move_ground((s_char *)ip, &sect, &endsect,
-			weight, player->argp[4],
+    mcost = move_ground(&sect, &endsect, weight, player->argp[4],
 			cmd_move_map, 0, &dam);
 
     if (dam) {
@@ -347,7 +346,7 @@ move(void)
  */
 /*ARGSUSED*/
 static int
-cmd_move_map(s_char *what, coord curx, coord cury, s_char *arg)
+cmd_move_map(coord curx, coord cury, char *arg)
 {
     player->argp[0] = "map";
     player->argp[1] = arg;
