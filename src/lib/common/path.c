@@ -74,7 +74,7 @@ static int bp_coord_hash(struct as_coord c);
  * at reboot time (maybe) so we never need to free it */
 static struct sctstr **neighsects;
 
-static s_char *
+static struct bestp *
 bp_init(void)
 {
     struct bestp *bp;
@@ -92,7 +92,7 @@ bp_init(void)
 	neighsects = calloc(((WORLD_X * WORLD_Y) / 2) * 6,
 			    sizeof(struct sctstr *));
 
-    return (s_char *)bp;
+    return bp;
 }
 
 /*
@@ -108,7 +108,7 @@ best_path(struct sctstr *from, struct sctstr *to, s_char *path,
     struct as_path *ap;
 
     if (mybestpath == 0)
-	mybestpath = (struct bestp *)bp_init();
+	mybestpath = bp_init();
     adp = mybestpath->adp;
     ap = as_find_cachepath(from->sct_x, from->sct_y, to->sct_x, to->sct_y);
     if (ap == NULL) {
