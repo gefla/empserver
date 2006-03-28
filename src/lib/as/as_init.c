@@ -31,13 +31,12 @@
 struct as_data *
 as_init(int maxneighbors,
 	int hashsize,
-	int (*hashfunc) (struct as_coord),
-	int (*neighborfunc) (struct as_coord, struct as_coord *, s_char *),
-	double (*lbcostfunc) (struct as_coord, struct as_coord, s_char *),
-	double (*realcostfunc) (struct as_coord, struct as_coord,
-				s_char *),
-	double (*seccostfunc) (struct as_coord, struct as_coord, s_char *),
-	s_char *userdata)
+	int (*hashfunc)(struct as_coord),
+	int (*neighborfunc)(struct as_coord, struct as_coord *, void *),
+	double (*lbcostfunc)(struct as_coord, struct as_coord, void *),
+	double (*realcostfunc)(struct as_coord, struct as_coord, void *),
+	double (*seccostfunc)(struct as_coord, struct as_coord, void *),
+	void *userdata)
 {
     struct as_data *adp;
 

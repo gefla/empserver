@@ -30,8 +30,8 @@
 #ifndef AS_H
 #define AS_H
 
-#include <stdio.h>		/* for FILE */
-#include "misc.h"		/* for s_char */
+#include <stdio.h>
+#include "misc.h"
 
 /*
  * Coordinate.
@@ -90,12 +90,17 @@ struct as_data {
     int maxneighbors;		/* max # of neighbors a cell can have */
     int hashsize;		/* size of internal hash table */
 
-    int (*hash) (struct as_coord);	/* hash function (coord -> int) */
-    int (*neighbor) (struct as_coord, struct as_coord *, s_char *);	/* function to find neighbors */
-    double (*lbcost) (struct as_coord, struct as_coord, s_char *);	/* function to give lower bound cost */
-    double (*realcost) (struct as_coord, struct as_coord, s_char *);	/* function to give real cost */
-    double (*seccost) (struct as_coord, struct as_coord, s_char *);	/* function to secondary cost */
-    char *userdata;		/* user's data, passed to callbacks */
+    /* hash function (coord -> int) */
+    int (*hash)(struct as_coord);
+    /* function to find neighbors */
+    int (*neighbor)(struct as_coord, struct as_coord *, void *);
+    /* function to give lower bound cost */
+    double (*lbcost)(struct as_coord, struct as_coord, void *);
+    /* function to give real cost */
+    double (*realcost)(struct as_coord, struct as_coord, void *);
+    /* function to secondary cost */
+    double (*seccost)(struct as_coord, struct as_coord, void *);
+    void *userdata;		/* user's data, passed to callbacks */
     struct as_coord from;	/* from coordinate */
     struct as_coord to;		/* to coordinate */
     struct as_path *path;	/* solution */
@@ -144,20 +149,20 @@ struct as_frompath {
 /* Functions that the user can call.  */
 
 extern struct as_data *as_init(int maxneighbors, int hashsize,
-			       int (*hashfunc) (struct as_coord),
-			       int (*neighborfunc) (struct as_coord,
-						    struct as_coord *,
-						    s_char *),
-			       double (*lbcostfunc) (struct as_coord,
-						     struct as_coord,
-						     s_char *),
-			       double (*realcostfunc) (struct as_coord,
-						       struct as_coord,
-						       s_char *),
-			       double (*seccostfunc) (struct as_coord,
+			       int (*hashfunc)(struct as_coord),
+			       int (*neighborfunc)(struct as_coord,
+						   struct as_coord *,
+						   void *),
+			       double (*lbcostfunc)(struct as_coord,
+						    struct as_coord,
+						    void *),
+			       double (*realcostfunc)(struct as_coord,
 						      struct as_coord,
-						      s_char *),
-			       s_char *userdata);
+						      void *),
+			       double (*seccostfunc)(struct as_coord,
+						     struct as_coord,
+						     void *),
+			       void *userdata);
 extern int as_search(struct as_data *adp);
 extern void as_delete(struct as_data *adp);
 extern void as_reset(struct as_data *adp);

@@ -60,14 +60,10 @@ struct bestp {
 };
 
 static int bp_path(struct as_path *pp, s_char *buf);
-static int bp_neighbors(struct as_coord c, struct as_coord *cp,
-			s_char *pp);
-static double bp_lbcost(struct as_coord from, struct as_coord to,
-			s_char *pp);
-static double bp_realcost(struct as_coord from, struct as_coord to,
-			  s_char *pp);
-static double bp_seccost(struct as_coord from, struct as_coord to,
-			 s_char *pp);
+static int bp_neighbors(struct as_coord c, struct as_coord *cp, void *);
+static double bp_lbcost(struct as_coord from, struct as_coord to, void *);
+static double bp_realcost(struct as_coord from, struct as_coord to, void *);
+static double bp_seccost(struct as_coord from, struct as_coord to, void *);
 static int bp_coord_hash(struct as_coord c);
 
 /* We use this for caching neighbors.  It never changes except
@@ -83,7 +79,7 @@ bp_init(void)
     memset(bp, 0, sizeof(*bp));
     bp->adp = as_init(BP_NEIGHBORS, BP_ASHASHSIZE, bp_coord_hash,
 		      bp_neighbors, bp_lbcost, bp_realcost,
-		      bp_seccost, (s_char *)bp);
+		      bp_seccost, bp);
 
     if (bp->adp == NULL)
 	return NULL;
@@ -183,7 +179,7 @@ bp_path(struct as_path *pp, s_char *buf)
  * XXX need to check ownership, sector types, etc.
  */
 static int
-bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
+bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 {
     struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     coord x, y;
@@ -238,7 +234,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, s_char *pp)
  */
 /*ARGSUSED*/
 static double
-bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
+bp_lbcost(struct as_coord from, struct as_coord to, void *pp)
 {
     struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     struct bestp *bp = (struct bestp *)pp;
@@ -260,7 +256,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, s_char *pp)
  * Compute the real cost to move from "from" to "to".
  */
 static double
-bp_realcost(struct as_coord from, struct as_coord to, s_char *pp)
+bp_realcost(struct as_coord from, struct as_coord to, void *pp)
 {
     return bp_lbcost(from, to, pp);
 }
@@ -271,7 +267,7 @@ bp_realcost(struct as_coord from, struct as_coord to, s_char *pp)
  */
 /*ARGSUSED*/
 static double
-bp_seccost(struct as_coord from, struct as_coord to, s_char *pp)
+bp_seccost(struct as_coord from, struct as_coord to, void *pp)
 {
     return (double)mapdist((coord)from.x, (coord)from.y,
 			   (coord)to.x, (coord)to.y);
