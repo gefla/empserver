@@ -68,6 +68,12 @@ struct airport {
     natid own;
 };
 
+union item_u {
+    struct shpstr ship;
+    struct plnstr plane;
+    struct lndstr land;
+};
+
 static void add_airport(struct emp_qelem *, coord, coord);
 static int air_damage(struct emp_qelem *, coord, coord, int, natid,
 		      s_char *, int);
@@ -297,28 +303,15 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
     struct nstr_item ni;
     struct genlist *glp;
     struct genitem *gp;
-    union {
-	struct shpstr u_sp;
-	struct lndstr u_lp;
-	struct plnstr u_pp;
-    } u_block;
-    s_char *block;
-    int dist, size;
+    union item_u item;
+    int dist;
     int radius;
     int relat;
     struct sctstr sect;
 
-/*
-        size = MAX(sizeof(struct shpstr),sizeof(struct lndstr));
-        size = MAX(size,sizeof(struct plnstr));
-        block = malloc(size);
- */
-    size = sizeof(u_block);
-    block = (s_char *)&u_block;
-
     snxtitem_all(&ni, type);
-    while (nxtitem(&ni, block)) {
-	gp = (struct genitem *)block;
+    while (nxtitem(&ni, &item)) {
+	gp = (struct genitem *)&item;
 
 	if (gp->own == 0)
 	    continue;
@@ -393,8 +386,8 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	    glp->cp = &plchr[(int)gp->type];
 	    break;
 	}
-	glp->thing = malloc(size);
-	memcpy(glp->thing, block, size);
+	glp->thing = malloc(sizeof(item));
+	memcpy(glp->thing, &item, sizeof(item));
 	emp_insque(&glp->queue, &mi[gp->own].queue);
     }
 }
@@ -878,17 +871,12 @@ mission_name(short int mission)
 void
 show_mission(int type, struct nstr_item *np)
 {
-    size_t size;
     int first = 1, radius;
-    s_char *block;
+    union item_u item;
     struct genitem *gp;
 
-    size = MAX(sizeof(struct lndstr), sizeof(struct plnstr));
-    size = MAX(size, sizeof(struct shpstr));
-    block = malloc(size);
-
-    while (nxtitem(np, block)) {
-	gp = (struct genitem *)block;
+    while (nxtitem(np, &item)) {
+	gp = (struct genitem *)&item;
 	if (!player->owner || gp->own == 0)
 	    continue;
 
@@ -916,17 +904,15 @@ show_mission(int type, struct nstr_item *np)
 	    if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
 		plus++;
 
-	    if (((struct lndstr *)block)->lnd_rad_max == 0)
+	    if (item.land.lnd_rad_max == 0)
 		plus = 0;
 	    else
-		plus += ((struct lndstr *)block)->lnd_rad_max;
+		plus += item.land.lnd_rad_max;
 	    prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
 	    pr("  %4d", plus);
 	} else if (gp->mission == MI_ESCORT) {
 	    pr("        ");
-	    pr("  %4d", (int)
-	       ((float)((struct plnstr *)block)->pln_range / 2.0)
-		);
+	    pr("  %4d", (int)(item.plane.pln_range / 2.0));
 	} else
 	    pr("              ");
 	if (gp->mission)
