@@ -50,6 +50,12 @@
 #include "commands.h"
 #include "optlist.h"
 
+union item_u {
+    struct shpstr ship;
+    struct plnstr plane;
+    struct lndstr land;
+};
+
 /*
  *  mission <type> <planes/ships/units> <mission type> <op sector> [<radius>]
  */
@@ -57,19 +63,18 @@ int
 mission(void)
 {
     static int ef_with_missions[] = { EF_SHIP, EF_LAND, EF_PLANE, EF_BAD };
-    s_char *p;
+    char *p;
     int type;
     int mission;
     coord x, y;
-    size_t size;
     int desired_radius, radius;
     struct sctstr opsect;
-    s_char *block;
+    union item_u item;
     struct genitem *gp;
     int num = 0, mobmax, mobused, dist;
     struct nstr_item ni;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     if ((p =
 	 getstarg(player->argp[1], "Ship, plane or land unit (p,sh,la)? ",
@@ -189,9 +194,6 @@ mission(void)
 	desired_radius = 9999;
     }
 
-    size = MAX(sizeof(struct lndstr), sizeof(struct plnstr));
-    size = MAX(size, sizeof(struct shpstr));
-    block = malloc(size);
     switch (type) {
     case EF_SHIP:
 	mobmax = ship_mob_max;
@@ -206,8 +208,8 @@ mission(void)
 
     mobused = ldround((mission_mob_cost * (double)mobmax), 1);
 
-    while (nxtitem(&ni, block)) {
-	gp = (struct genitem *)block;
+    while (nxtitem(&ni, &item)) {
+	gp = (struct genitem *)&item;
 
 	if (!player->owner || gp->own == 0)
 	    continue;
@@ -348,13 +350,13 @@ mission(void)
 	gp->opy = y;
 	switch (type) {
 	case EF_SHIP:
-	    putship(gp->uid, block);
+	    putship(gp->uid, &item.ship);
 	    break;
 	case EF_LAND:
-	    putland(gp->uid, block);
+	    putland(gp->uid, &item.land);
 	    break;
 	case EF_PLANE:
-	    putplane(gp->uid, block);
+	    putplane(gp->uid, &item.plane);
 	    break;
 	}
     }
