@@ -237,12 +237,9 @@ bestownedpath(s_char *bpath,
 static int
 owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
 {
-    s_char c;
     s_char *t;
     s_char mapspot;		/* What this spot on the bmap is */
     int negate;
-    struct sctstr *sect;
-    int rel;
 
     /* No terrain to check?  Everything is navigable! (this
        probably means we are flying) */
@@ -287,28 +284,6 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
 	return 0;
     }
 
-    /* According to our bmap, this sector is ok so far. */
-
-    /* Ok, we made it this far.  Now get the sector */
-    sect = getsectp(x, y);
-    c = dchr[sect->sct_type].d_mnem;
-    /* Ok, now, check the owner if needed */
-    if (own >= 0) {
-	if (sect->sct_own != own) {
-	    rel = getrel(getnatp(sect->sct_own), own);
-	    /* We can't sail through deity sectors, but we can sail
-	       through any ocean */
-	    if (rel < FRIENDLY && sect->sct_type != SCT_WATER)
-		return 0;
-	}
-    }
-    /* Ok, now, check these two sector types */
-    /* check for bad harbors. */
-    if (c == 'h' && sect->sct_effic < 2)
-	return 0;
-    /* check for bad bridges  */
-    if (c == '=' && sect->sct_effic < 60)
-	return 0;
-    /* Woo-hoo, it's ok! */
+    /* According to our bmap, this sector is ok. */
     return 1;
 }
