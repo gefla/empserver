@@ -73,9 +73,7 @@ struct iop {
     struct ioqueue *input;
     struct ioqueue *output;
     int flags;
-    s_char *assoc;
     int bufsize;
-    int (*notify)(void);
 };
 
 void
@@ -84,8 +82,7 @@ io_init(void)
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize, int (*notify)(void),
-	s_char *assoc)
+io_open(int fd, int flags, int bufsize)
 {
     struct iop *iop;
 
@@ -107,8 +104,6 @@ io_open(int fd, int flags, int bufsize, int (*notify)(void),
     if (flags & IO_NBLOCK)
 	io_noblocking(iop, 1);	/* FIXME check success */
     iop->flags = flags;
-    iop->assoc = assoc;
-    iop->notify = notify;
     return iop;
 }
 

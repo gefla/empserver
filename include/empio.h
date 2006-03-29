@@ -46,7 +46,7 @@
 #define IO_NOWAIT	0
 #define IO_WAIT		1
 
-extern struct iop *io_open(int, int, int, int (*)(void), s_char *);
+extern struct iop *io_open(int, int, int);
 extern void io_init(void);
 extern int io_noblocking(struct iop *, int);
 extern void io_close(struct iop *);

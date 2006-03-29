@@ -91,9 +91,7 @@ player_new(int s)
     memset(lp, 0, sizeof(struct player));
     if (s >= 0) {
 	/* real player, not dummy created by update and market update */
-	lp->iop = io_open(s,
-			  IO_READ | IO_WRITE | IO_NBLOCK,
-			  IO_BUFSIZE, 0, 0);
+	lp->iop = io_open(s, IO_READ | IO_WRITE | IO_NBLOCK, IO_BUFSIZE);
 	if (!lp->iop) {
 	    free(lp);
 	    return NULL;
