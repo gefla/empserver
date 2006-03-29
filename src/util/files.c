@@ -81,14 +81,14 @@ print_usage(char *program_name)
 int
 main(int argc, char *argv[])
 {
-    s_char buf[255];
-    s_char *filename;
+    char buf[255];
+    char *filename;
     int x, y;
     struct natstr nat;
     struct realmstr realm;
     struct sctstr sct;
     int i, j;
-    s_char *map;
+    char *map;
     int opt;
     char *config_file = NULL;
     int force = 0;
@@ -203,7 +203,6 @@ main(int argc, char *argv[])
     for (i = 0; i < MAXNOC; i++) {
 	ef_write(EF_MAP, i, map);
     }
-    map = calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
     for (i = 0; i < MAXNOC; i++) {
 	ef_write(EF_BMAP, i, map);
     }
