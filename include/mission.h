@@ -34,8 +34,6 @@
 #ifndef MISSION_H
 #define MISSION_H
 
-#include "queue.h"
-
 #define	MI_NONE		0
 #define	MI_INTERDICT	1
 #define	MI_SUPPORT	2
@@ -45,14 +43,6 @@
 #define MI_AIR_DEFENSE	6
 #define MI_DSUPPORT	7
 #define MI_OSUPPORT	8
-
-struct genlist {
-    struct emp_qelem queue;	/* list of units */
-    int type;			/* type of unit */
-    int x, y;			/* x,y it came from */
-    s_char *cp;			/* pointer to desc of thing */
-    s_char *thing;		/* thing's struct */
-};
 
 #define SECT_HARDTARGET (-92917)	/* a very low number that no-one might pick */
 

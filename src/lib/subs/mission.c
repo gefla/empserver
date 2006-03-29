@@ -51,8 +51,16 @@
 #include "item.h"
 #include <fcntl.h>
 #include "damage.h"
+#include "queue.h"
 #include "prototypes.h"
 #include "optlist.h"
+
+struct genlist {
+    struct emp_qelem queue;	/* list of units */
+    int type;			/* unit type: EF_SHIP, EF_PLANE, EF_LAND */
+    void *cp;			/* pointer to desc of thing */
+    void *thing;		/* thing's struct */
+};
 
 struct airport {
     struct emp_qelem queue;
@@ -148,7 +156,7 @@ only_subs(struct emp_qelem *list)
 
 	if (glp->type != EF_SHIP)
 	    return 0;
-	mcp = (struct mchrstr *)glp->cp;
+	mcp = glp->cp;
 	if (!(mcp->m_flags & M_SUB))
 	    return 0;
 	/* It's a sub! */
@@ -373,18 +381,16 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));
-	glp->x = gp->x;
-	glp->y = gp->y;
 	glp->type = type;
 	switch (type) {
 	case EF_LAND:
-	    glp->cp = (s_char *)&lchr[(int)gp->type];
+	    glp->cp = &lchr[(int)gp->type];
 	    break;
 	case EF_SHIP:
-	    glp->cp = (s_char *)&mchr[(int)gp->type];
+	    glp->cp = &mchr[(int)gp->type];
 	    break;
 	case EF_PLANE:
-	    glp->cp = (s_char *)&plchr[(int)gp->type];
+	    glp->cp = &plchr[(int)gp->type];
 	    break;
 	}
 	glp->thing = malloc(size);
@@ -450,12 +456,12 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
-	gp = (struct genitem *)glp->thing;
+	gp = glp->thing;
 
 	md = mapdist(x, y, gp->x, gp->y);
 
 	if (glp->type == EF_LAND) {
-	    lp = (struct lndstr *)glp->thing;
+	    lp = glp->thing;
 
 	    if (lp->lnd_effic < LAND_MINFIREEFF)
 		continue;
@@ -510,8 +516,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
 	    }
 	} else if (glp->type == EF_SHIP) {
-	    sp = (struct shpstr *)glp->thing;
-	    mcp = (struct mchrstr *)glp->cp;
+	    sp = glp->thing;
+	    mcp = glp->cp;
 
 	    if (sp->shp_effic < 60)
 		continue;
@@ -646,7 +652,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		putship(sp->shp_uid, sp);
 	    }
 	} else if (glp->type == EF_PLANE) {
-	    pcp = (struct plchrstr *)glp->cp;
+	    pcp = glp->cp;
 	    if (pcp->pl_flags & P_M)
 		/* units have their own missile interdiction */
 		if (hardtarget != SECT_HARDTARGET || pcp->pl_flags & P_MAR)
@@ -957,6 +963,9 @@ oprange(struct genitem *gp, int type, int *radius)
 	else
 	    range = ldround((double)plane.pln_range / 2.0, 1);;
 	break;
+    default:
+	CANT_HAPPEN("bad TYPE");
+	range = -1;
     }
 
     if (*radius > range)
@@ -1520,16 +1529,14 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	emp_initque(&interceptors);
 	for (qp = mi[cn].queue.q_forw; qp != (&mi[cn].queue); qp = next) {
 	    next = qp->q_forw;
-
 	    glp = (struct genlist *)qp;
-	    gp = (struct genitem *)glp->thing;
-	    plp = (struct plist *)qp;
+	    gp = glp->thing;
 
 	    dist = mapdist(x, y, gp->x, gp->y);
 
 	    plp = malloc(sizeof(struct plist));
 	    memset(plp, 0, sizeof(struct plist));
-	    plp->pcp = (struct plchrstr *)glp->cp;
+	    plp->pcp = glp->cp;
 	    memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
 
 	    /* missiles go one way, so we can use all the range */
