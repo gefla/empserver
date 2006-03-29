@@ -164,7 +164,7 @@ bestownedpath(s_char *bpath,
 	return NULL;
 
     if (restr2 && (!owned_and_navigable(bigmap, x, y, terrain, own) ||
-		   !owned_and_navigable(bigmap, x, y, terrain, own)))
+		   !owned_and_navigable(bigmap, ex, ey, terrain, own)))
 	return NULL;
 
     for (i = 0; i < WORLD_X; i++)
