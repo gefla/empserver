@@ -90,7 +90,7 @@ emp_config(char *file)
     errno = 0;
     if ((fp = fopen(file, "r")) == NULL) {
 	if (file == dflt_econfig && errno == ENOENT)
-	    return 0;
+	    goto done;
 	fprintf(stderr, "Can't open %s for reading (%s)\n",
 		file, strerror(errno));
 	return -1;
@@ -150,6 +150,7 @@ emp_config(char *file)
 
     fclose(fp);
 
+done:
     WORLD_X &= ~1;		/* force even */
     set_dirs(file);
 
