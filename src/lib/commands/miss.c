@@ -204,6 +204,9 @@ mission(void)
     case EF_PLANE:
 	mobmax = plane_mob_max;
 	break;
+    default:
+	CANT_HAPPEN("bad TYPE");
+	return RET_FAIL;
     }
 
     mobused = ldround((mission_mob_cost * (double)mobmax), 1);
