@@ -43,9 +43,9 @@
 #include "prototypes.h"
 
 int
-chkdir(s_char dir_char, int min_dir, int max_dir)
+chkdir(char dir_char, int min_dir, int max_dir)
 {
-    register int i;
+    int i;
 
     for (i = min_dir; i <= max_dir; i++)
 	if (dir_char == dirch[i])
@@ -54,7 +54,7 @@ chkdir(s_char dir_char, int min_dir, int max_dir)
 }
 
 void
-direrr(s_char *stop_msg, s_char *view_msg, s_char *map_msg)
+direrr(char *stop_msg, char *view_msg, char *map_msg)
 {
     pr("Legal directions are:\n");
     pr(" %c %c\n", dirch[DIR_UL], dirch[DIR_UR]);
@@ -92,7 +92,7 @@ diridx(char dir)
  */
 char *
 getpath(char *buf, char *arg, coord x, coord y, int onlyown,
-	int showdes, int destinations)
+	int showdes, enum p_mode destinations)
 {
     char buf2[1024];
     char *p = buf;
@@ -213,11 +213,11 @@ ncost(struct sctstr *sp, natid own)
  * movement cost it takes to get there.
  */
 double
-pathtoxy(s_char *path, coord *xp, coord *yp,
-	 double (*cost) (struct sctstr *, natid))
+pathtoxy(char *path, coord *xp, coord *yp,
+	 double (*cost)(struct sctstr *, natid))
 {
     struct sctstr s;
-    s_char *pp;
+    char *pp;
     coord x;
     coord y;
     int val;
@@ -241,7 +241,7 @@ pathtoxy(s_char *path, coord *xp, coord *yp,
 }
 
 void
-pathrange(coord cx, coord cy, s_char *pp, int border, struct range *range)
+pathrange(coord cx, coord cy, char *pp, int border, struct range *range)
 {
     int dir;
 
