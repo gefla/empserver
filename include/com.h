@@ -46,7 +46,7 @@ struct cmndstr {
 enum {
     /*
      * Command modifies database.
-     * This also makes printing functions not to block.  In fact,
+     * This also prevents print functions from blocking.  In fact,
      * that's the effective meaning of this flag.  Nothing stops a
      * command without C_MOD modifying whatever it wants.
      */
