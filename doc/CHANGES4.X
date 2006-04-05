@@ -1,3 +1,40 @@
+Changes to Empire 4.3.1 - Wed Apr  5 18:51:49 UTC 2006
+ * Fix check of game state on server startup (was new in 4.3.0).
+ * sail now accepts a destination sector.
+ * Tend could send bogus bulletins (broken in 4.3.0).
+ * Plug memory leaks in mission command.
+ * Close loophole in navigate that allowed players to find all sectors
+   that are unfriendly or inefficient harbors or bridges.
+ * Server didn't start when default econfig was missing and user
+   didn't supply one with -e (broken in 4.3.0).
+ * Retreat condition 'h' (helpless) never worked, fix.
+ * Fix retreating mine sweepers to use mobility for sweeping.
+ * Fix retreating land units to hit mines with the same probability
+   and to take the same damage as in normal movement.  Before,
+   probability was higher, damage was lower.
+ * Ships could retreat into sectors owned by whoever made them
+   retreat, but not in their owner's sectors.
+ * Fix 'm' at the movement prompt of transport and test.
+ * Fix march and test not to apply conditionals to sectors mapped,
+   which lead to spurious error messages.
+ * Fix break not to respect conditionals.  The bug let players keep
+   sanctuaries.
+ * Fix retreat code not to respect conditionals.  Attackers could
+   abuse this to suppress fleet and army retreat orders.
+ * Fix retreat and edit to zero-terminate retreat paths.
+   Theoretically abusable for gaining information.
+ * Fix format string crash bugs in load, spy and bomb.
+ * Fix telegram editor: empty telegrams were broken in 4.2.21. ~p
+   before the first line of text never worked.
+ * Fix ancient bridge building race condition that could break the
+   test whether the player can afford the bridge.
+ * Fix trade lot change detection in set command.  Probably abusable.
+ * The pthread code now compiles under Solaris.
+ * navigate and march now permit any whitespace between route and
+   optional argument for radar, lookout, sonar, not just spaces.
+ * Fix canal navigation (was broken in 4.3.0).
+ * Info file fixes.
+
 Changes to Empire 4.3.0 - Sun Mar 19 08:13:10 UTC 2006
  * version no longer pretends option SHIPNAMES still exists.
  * Remove files auth and ban.  They could be used to restrict client
