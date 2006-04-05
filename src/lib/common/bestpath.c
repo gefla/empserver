@@ -52,7 +52,7 @@
 #include "common.h"
 #include "optlist.h"
 
-static int owned_and_navigable(s_char *, int, int, s_char *, int);
+static int owned_and_navigable(char *, int, int, char *, int);
 
 #define MAXROUTE	100	/* return '?' if path longer than this */
 #define valid(x,y)	(((x^y)&1)==0)
@@ -235,10 +235,11 @@ bestownedpath(s_char *bpath,
 
 /* return TRUE if sector is passable */
 static int
-owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
+owned_and_navigable(char *bigmap, int x, int y, char *terrain, int own)
 {
-    s_char *t;
-    s_char mapspot;		/* What this spot on the bmap is */
+    char *t;
+    char mapspot;		/* What this spot on the bmap is */
+    struct sctstr sect;
     int negate;
 
     /* No terrain to check?  Everything is navigable! (this
@@ -246,11 +247,31 @@ owned_and_navigable(s_char *map, int x, int y, s_char *terrain, int own)
     if (!*terrain)
 	return 1;
 
-    /* Are we checking this map? */
-    if (map) {
+    /* Owned or allied sector?  Check the real sector.  */
+    getsect(x, y, &sect);
+    if (sect.sct_own == own
+	|| (sect.sct_own && getrel(getnatp(sect.sct_own), own) == ALLIED)) {
+	/* FIXME duplicates shp_check_nav() logic */
+	switch (dchr[sect.sct_type].d_nav) {
+	case NAVOK:
+	    return 1;
+	case NAV_CANAL:
+	    /* FIXME return 1 when all ships have M_CANAL */
+	    return 0;
+	case NAV_02:
+	    return sect.sct_effic >= 2;
+	case NAV_60:
+	    return sect.sct_effic >= 60;
+	default:
+	    return 0;
+	}
+    }
+
+    /* Can only check bigmap */
+    if (bigmap) {
 	/* Do we know what this sector is?  If not, we assume it's ok,
 	   since otherwise we'll never venture anywhere */
-	mapspot = map[sctoff(x, y)];
+	mapspot = bigmap[sctoff(x, y)];
 	if (mapspot == ' ' || mapspot == 0)
 	    return 1;
 
