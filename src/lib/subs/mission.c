@@ -712,7 +712,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
     for (qp = airp.q_forw; qp != (&airp); qp = qp->q_forw) {
 	struct airport *air;
-	s_char pp[512];
+	char buf[512];
+	char *pp;
 
 	air = (struct airport *)qp;
 	md = mapdist(x, y, air->x, air->y);
@@ -734,14 +735,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	mission_flags = mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', 0,
 					0, mission_flags, &tech);
 
-	if (QEMPTY(&b)) {
+	if (QEMPTY(&b))
 	    continue;
-	}
 
 	mission_flags = mission_pln_arm(&e, air->x, air->y, 2 * md, 'p', 0,
 					P_F | P_ESC, mission_flags, &tech);
 
-	BestAirPath(pp, air->x, air->y, x, y);
+	pp = BestAirPath(buf, air->x, air->y, x, y);
+	if (CANT_HAPPEN(!pp))
+	    continue;
 	wu(0, plane_owner, "Flying %s mission from %s\n",
 	   mission_name(mission), xyas(air->x, air->y, plane_owner));
 	if (air->own && (air->own != plane_owner)) {
@@ -1484,7 +1486,8 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
     struct genlist *glp;
     struct genitem *gp;
     struct genlist mi[MAXNOC];
-    s_char path[512];
+    char buf[512];
+    char *path;
     int count;
     int tcount;
 
@@ -1618,7 +1621,9 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 		continue;
 	    }
 
-	    BestAirPath(path, air->x, air->y, x, y);
+	    path = BestAirPath(buf, air->x, air->y, x, y);
+	    if (CANT_HAPPEN(!path))
+		continue;
 	    wu(0, cn, "Flying %s mission from %s\n",
 	       mission_name(MI_AIR_DEFENSE), xyas(air->x, air->y, cn));
 	    if (air->own && (air->own != cn)) {

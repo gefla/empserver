@@ -145,7 +145,6 @@ bestownedpath(s_char *bpath,
     if (!mapindex)
 	return NULL;
 
-    bpath[0] = 0;
     if (0 != (restr2 = (*terrain == 'R')))
 	terrain++;
 
@@ -154,11 +153,8 @@ bestownedpath(s_char *bpath,
     ex = XNORM(ex);
     ey = YNORM(ey);
 
-    if (x == ex && y == ey) {
-	bpath[0] = 'h';
-	bpath[1] = 0;
-	return bpath;
-    }
+    if (x == ex && y == ey)
+	return "h";
 
     if (!valid(x, y) || !valid(ex, ey))
 	return NULL;
@@ -180,11 +176,8 @@ bestownedpath(s_char *bpath,
     maxy = y + 1;
 
     do {
-	if (++routelen == MAXROUTE) {
-	    bpath[0] = '?';
-	    bpath[1] = 0;
-	    return bpath;
-	}
+	if (++routelen == MAXROUTE)
+	    return "?";
 	markedsectors = 0;
 	for (scanx = minx; scanx <= maxx; scanx++) {
 	    x = XNORM(scanx);
@@ -229,7 +222,6 @@ bestownedpath(s_char *bpath,
 	maxx += 2;
     } while (markedsectors);
 
-    bpath[0] = 0;
     return NULL;		/* no route possible    */
 }
 
