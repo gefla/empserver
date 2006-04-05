@@ -52,58 +52,10 @@
 #include "common.h"
 #include "optlist.h"
 
-static int owned_and_navigable(char *, int, int, char *, int);
+static int owned_and_navigable(char *, int, int, int);
 
-#define MAXROUTE	100	/* return '?' if path longer than this */
+#define MAXROUTE	100
 #define valid(x,y)	(((x^y)&1)==0)
-
-/* ________________________________________________________________
-**
-**  bestpath(x1,y1,x2,y2,(s_char *)terrain);
-**
-**  Calculate routing string to get from sector [x1,y1] to sector [x2,y2]
-**  via a specified type of terrain.
-**
-**  Specify:
-**
-**	x1,y1	     starting coordinates
-**
-**	x2,y2	     destination coordinates
-**
-**	terrain	     ptr to string showing the types of sectors that
-**		     we're allowed to pass through:
-**
-**		     A null string enables routing through any kind of
-**		     sector (useful for airplanes).
-**
-**		     A string that begins with an 'R' ensures that
-**		     the source and destination sectors also match
-**		     the specified type of terrain.
-**
-**		     A string that begins with a '~' (after the 'R',
-**		     if necessary) specifies that we can pass through
-**		     any kind of sector EXCEPT those in the remainder
-**                   of the string.
-**
-**		     Examples:
-**
-**			"R~.^"	all sectors along route must be
-**				non-ocean, non-mountain
-**
-**			"+"	all sectors between start and end
-**				must be highway
-**
-**			"h. "	all sectors along route must be
-**				harbor, water, or unmapped
-**
-**  'bestpath' returns a pointer to a route string containing either:
-**
-**     yugjbn - string of normal routing characters if route possible
-**     ?      - if route is longer than MAXROUTE characters
-**     \0     - (null string) if no route possible
-**     h      - if start and end points are the same sector
-** ________________________________________________________________
-*/
 
 static char *dirchar = "juygbn";
 int dx[6] = { 2, 1, -1, -2, -1, 1 };
@@ -120,18 +72,27 @@ int dy[6] = { 0, -1, -1, 0, 1, 1 };
 static unsigned int *mapbuf;
 static unsigned int **mapindex;
 
-s_char *
-bestownedpath(s_char *bpath,
-	      s_char *bigmap,
-	      int x, int y, int ex, int ey, s_char *terrain, int own)
+/*
+ * Find passable path from X, Y to EX, EY for nation OWN.
+ * BPATH is a buffer capable of holding at least MAXROUTE characters.
+ * If BIGMAP is null, all sectors are passable (useful for flying).
+ * Else it is taken to be a bmap.
+ * Sectors owned by or allied to OWN are checked according to the
+ * usual rules, and the result is correct.
+ * Other sectors are assumed to be passable when BIGMAP shows '.' or
+ * nothing.
+ * Return path or a null pointer.
+ */
+char *
+bestownedpath(char *bpath, char *bigmap,
+	      int x, int y, int ex, int ey, int own)
 {
-    int i, j, tx, ty, markedsectors, restr2;
+    int i, j, tx, ty, markedsectors;
     int minx, maxx, miny, maxy, scanx, scany;
     unsigned int routelen;
 
     if (!mapbuf)
-	mapbuf = malloc((WORLD_X * WORLD_Y) *
-					sizeof(unsigned int));
+	mapbuf = malloc(WORLD_X * WORLD_Y * sizeof(unsigned int));
     if (!mapbuf)
 	return NULL;
     if (!mapindex) {
@@ -145,9 +106,6 @@ bestownedpath(s_char *bpath,
     if (!mapindex)
 	return NULL;
 
-    if (0 != (restr2 = (*terrain == 'R')))
-	terrain++;
-
     x = XNORM(x);
     y = YNORM(y);
     ex = XNORM(ex);
@@ -157,10 +115,6 @@ bestownedpath(s_char *bpath,
 	return "h";
 
     if (!valid(x, y) || !valid(ex, ey))
-	return NULL;
-
-    if (restr2 && (!owned_and_navigable(bigmap, x, y, terrain, own) ||
-		   !owned_and_navigable(bigmap, ex, ey, terrain, own)))
 	return NULL;
 
     for (i = 0; i < WORLD_X; i++)
@@ -183,21 +137,19 @@ bestownedpath(s_char *bpath,
 	    x = XNORM(scanx);
 	    for (scany = miny; scany <= maxy; scany++) {
 		y = YNORM(scany);
-		if (valid(x, y)) {
-		    if ((((mapindex[x][y]) & 0x1FFF) == (routelen - 1))) {
-			for (i = 0; i < 6; i++) {
-			    tx = x + dx[i];
-			    ty = y + dy[i];
-			    tx = XNORM(tx);
-			    ty = YNORM(ty);
-			    if (mapindex[tx][ty] == 0xFFFF) {
-				if (owned_and_navigable(bigmap, tx, ty,
-							terrain, own)
-				    || (tx == ex && ty == ey && !restr2)) {
-				    mapindex[tx][ty] =
-					((i + 1) << 13) + routelen;
-				    markedsectors++;
-				}
+		if (!valid(x, y))
+		    continue;
+		if (((mapindex[x][y] & 0x1FFF) == routelen - 1)) {
+		    for (i = 0; i < 6; i++) {
+			tx = x + dx[i];
+			ty = y + dy[i];
+			tx = XNORM(tx);
+			ty = YNORM(ty);
+			if (mapindex[tx][ty] == 0xFFFF) {
+			    if (owned_and_navigable(bigmap, tx, ty, own)) {
+				mapindex[tx][ty] =
+				    ((i + 1) << 13) + routelen;
+				markedsectors++;
 			    }
 			    if (tx == ex && ty == ey) {
 				bpath[routelen] = 'h';
@@ -226,18 +178,22 @@ bestownedpath(s_char *bpath,
     return NULL;		/* no route possible    */
 }
 
-/* return TRUE if sector is passable */
+/*
+ * Return non-zero if sector X, Y is passable.
+ * If BIGMAP is null, all sectors are passable (useful for flying).
+ * Else it is taken to be a bmap.
+ * Sectors owned by or allied to OWN are checked according to the
+ * usual rules, and the result is correct.
+ * Other sectors are assumed to be passable when BIGMAP shows '.' or
+ * nothing.
+ */
 static int
-owned_and_navigable(char *bigmap, int x, int y, char *terrain, int own)
+owned_and_navigable(char *bigmap, int x, int y, int own)
 {
-    char *t;
-    char mapspot;		/* What this spot on the bmap is */
+    char mapspot;
     struct sctstr sect;
-    int negate;
 
-    /* No terrain to check?  Everything is navigable! (this
-       probably means we are flying) */
-    if (!*terrain)
+    if (!bigmap)
 	return 1;
 
     /* Owned or allied sector?  Check the real sector.  */
@@ -261,43 +217,6 @@ owned_and_navigable(char *bigmap, int x, int y, char *terrain, int own)
     }
 
     /* Can only check bigmap */
-    if (bigmap) {
-	/* Do we know what this sector is?  If not, we assume it's ok,
-	   since otherwise we'll never venture anywhere */
-	mapspot = bigmap[sctoff(x, y)];
-	if (mapspot == ' ' || mapspot == 0)
-	    return 1;
-
-	/* Now, is it marked with a 'x' or 'X'? If so, avoid it! */
-	if (mapspot == 'x' || mapspot == 'X')
-	    return 0;
-    } else {
-	/* We don't know what it is since we have no map, so return ok! */
-	return 1;
-    }
-
-    /* Now, check this bmap entry to see if it is one of the
-       terrain types. */
-    t = terrain;
-    if (*t == '~') {
-	negate = 1;
-	t++;
-    } else
-	negate = 0;
-
-    while (*t) {
-	if (*t == mapspot)
-	    break;
-	t++;
-    }
-    if (negate && *t) {
-	/* We found it, so we say it's bad since we are negating */
-	return 0;
-    } else if (!negate && !*t) {
-	/* We didn't find it, so we say it's bad since we aren't negating */
-	return 0;
-    }
-
-    /* According to our bmap, this sector is ok. */
-    return 1;
+    mapspot = bigmap[sctoff(x, y)];
+    return mapspot == '.' || mapspot == ' ' || mapspot == 0;
 }

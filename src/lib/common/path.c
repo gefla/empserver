@@ -367,17 +367,17 @@ BestLandPath(s_char *path,
 s_char *
 BestShipPath(s_char *path, int fx, int fy, int tx, int ty, int owner)
 {
-    s_char *map;
+    char *map;
 
     /* need to make sector database available to bestpath */
     map = ef_ptr(EF_BMAP, owner);
-
-    return bestownedpath(path, map, fx, fy, tx, ty, ".=h", owner);
+    if (!map)
+	return NULL;
+    return bestownedpath(path, map, fx, fy, tx, ty, owner);
 }
 
 s_char *
 BestAirPath(s_char *path, int fx, int fy, int tx, int ty)
 {
-    return bestownedpath(path, 0, fx, fy, tx, ty, "", -1);
-    /*    return (bestpath(path, fx, fy, tx, ty, "")); */
+    return bestownedpath(path, 0, fx, fy, tx, ty, -1);
 }

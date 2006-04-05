@@ -258,8 +258,7 @@ int zdon(void);
  * src/lib/common/ *.c 
  */
 /* bestpath.c */
-extern s_char *bestownedpath(s_char *, s_char *, int, int, int,
-			     int, s_char *, int);
+extern char *bestownedpath(char *, char *, int, int, int, int, int);
 /* bridgefall.c */
 extern void bridgefall(struct sctstr *, struct emp_qelem *);
 extern void knockdown(struct sctstr *, struct emp_qelem *);
