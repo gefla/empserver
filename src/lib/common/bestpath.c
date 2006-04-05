@@ -151,19 +151,19 @@ bestownedpath(char *bpath, char *bigmap,
 				    ((i + 1) << 13) + routelen;
 				markedsectors++;
 			    }
-			    if (tx == ex && ty == ey) {
-				bpath[routelen] = 'h';
-				bpath[routelen + 1] = 0;
-				while (routelen--) {
-				    i = ((mapindex[tx][ty]) >> 13) - 1;
-				    bpath[routelen] = dirchar[i];
-				    tx = tx - dx[i];
-				    ty = ty - dy[i];
-				    tx = XNORM(tx);
-				    ty = YNORM(ty);
-				}
-				return bpath;
+			}
+			if (tx == ex && ty == ey) {
+			    bpath[routelen] = 'h';
+			    bpath[routelen + 1] = 0;
+			    while (routelen--) {
+				i = (mapindex[tx][ty] >> 13) - 1;
+				bpath[routelen] = dirchar[i];
+				tx = tx - dx[i];
+				ty = ty - dy[i];
+				tx = XNORM(tx);
+				ty = YNORM(ty);
 			    }
+			    return bpath;
 			}
 		    }
 		}
