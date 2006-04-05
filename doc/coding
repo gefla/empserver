@@ -282,6 +282,12 @@ Please don't hide away pointers with typedefs, like this:
 When I see `foo *', I *know* what it is.  When I see `foop', I have to
 look it up.
 
+Booleans
+
+Do not use increment operators to set a variable to logical true!  It
+obfuscates the purpose, and narrow variables could even overflow.
+Just assign 1.  A lot of cleanup remains to be done there.
+
 Type casts
 
 Casting pointers to and from `void *' clutters the code and serves no
@@ -347,18 +353,25 @@ FIXME
 
 Thread safety
 
+Thread stacks cannot grow.  If you use too much automatic storage, you
+can overrun the stack with disastrous consequences.  FIXME elaborate
+
 Empire uses non-preemptive threads: a thread runs until it yields the
 processor.  This simplifies programming, but there are still traps to
-avoid.  Empire threads may yield the processor whenever they do I/O or
-FIXME elaborate
+avoid.  Yielding the processor is an explicit thread operation, and
+whether a thread operation yields is documented in empthread.h.
+However, the operation may be buried in library code.
+
+In particular, player input may yield.  Player output may yield only
+if it goes to the current player, and his last command doesn't have
+the C_MOD flag.  You can use this to simplify command code: set C_MOD
+if you don't want to worry about yield on output.  This is commonly
+done for commands that modify game state.
 
 Be careful with static storage.  Read-only data is fine.  More than
 one thread writing static data is problematic, but there are safe
 uses.  For instance, a static scratch buffer that is never used across
 `yields' is safe.
-
-Thread stacks cannot grow.  If you use too much automatic storage, you
-can overrun the stack with disastrous consequences.  FIXME elaborate
 
 Yielding the processor invalidates *all* the game state you copied
 into variables.  You have to reread and possibly recheck.  See below.
@@ -400,8 +413,8 @@ There are several ways to access an object in set FOO:
 
 * Bmaps have special access functions.
 
-  Each country has to bmaps: the working bmap and the true bmap.
-  Unfortunately, the bmap code called the former `bmap' and the latter
+  Each country has two bmaps: the working bmap and the true bmap.
+  Unfortunately, the bmap code calls the former `bmap' and the latter
   `map'.
 
   You update bmaps with map_set().  This doesn't write through to the
