@@ -119,18 +119,21 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
     while (*p) {
 	if (sarg_xy(p, &dx, &dy)) {
 	    bp = NULL;
-	    if (destinations == P_NONE) {
+	    switch (destinations) {
+	    case P_NONE:
 		pr("Destination sectors not allowed here!\n");
-	    }
-	    if (getsect(dx, dy, &dsect)) {
-		if (destinations == P_WALKING) {
+		break;
+	    case P_WALKING:
+		if (getsect(dx, dy, &dsect))
 		    bp = BestLandPath(buf2, &sect, &dsect,
 				      &mv_cost, MOB_ROAD);
-		} else if (destinations == P_FLYING) {
-		    bp = BestAirPath(buf2, nx, ny, dx, dy);
-		}
-	    } else {
-		pr("Invalid destination sector!\n");
+		break;
+	    case P_FLYING:
+		bp = BestAirPath(buf2, nx, ny, dx, dy);
+		break;
+	    case P_SAILING:
+		bp = BestShipPath(buf2, nx, ny, dx, dy, player->cnum);
+		break;
 	    }
 	    if (bp && p + strlen(bp) + 1 < buf + MAX_PATH_LEN) {
 		strcpy(p, bp);
