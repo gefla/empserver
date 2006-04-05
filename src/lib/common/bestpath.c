@@ -176,8 +176,8 @@ bestownedpath(s_char *bpath,
     maxy = y + 1;
 
     do {
-	if (++routelen == MAXROUTE)
-	    return "?";
+	if (++routelen == MAXROUTE - 1)
+	    return NULL;
 	markedsectors = 0;
 	for (scanx = minx; scanx <= maxx; scanx++) {
 	    x = XNORM(scanx);
@@ -200,7 +200,8 @@ bestownedpath(s_char *bpath,
 				}
 			    }
 			    if (tx == ex && ty == ey) {
-				bpath[routelen] = 0;
+				bpath[routelen] = 'h';
+				bpath[routelen + 1] = 0;
 				while (routelen--) {
 				    i = ((mapindex[tx][ty]) >> 13) - 1;
 				    bpath[routelen] = dirchar[i];

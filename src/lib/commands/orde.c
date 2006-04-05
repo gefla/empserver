@@ -474,12 +474,10 @@ sorde(void)
 		c = BestShipPath(buf, ship.shp_x,
 				 ship.shp_y, ship.shp_destx[0],
 				 ship.shp_desty[0], ship.shp_own);
-		if (!c || !*c)
+		if (!c)
 		    pr(" no route possible");
 		else if (*c == 'h')
 		    pr(" has arrived");
-		else if (*c == '?')
-		    pr(" route too long");
 		else {
 		    /* distance to destination */
 		    eta_calc(&ship, c, &len, &updates);

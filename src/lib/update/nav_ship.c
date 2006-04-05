@@ -285,7 +285,7 @@ nav_ship(struct shpstr *sp)
 	    cp = BestShipPath(buf, sp->shp_x, sp->shp_y,
 			      sp->shp_destx[0], sp->shp_desty[0],
 			      sp->shp_own);
-	    if (cp == 0 || (*cp == '\0') || (*cp == '?')) {
+	    if (cp == 0) {
 		wu(0, cnum,
 		   "%s bad path, ship put on standby\n", prship(sp));
 		sp->shp_autonav |= AN_STANDBY;
