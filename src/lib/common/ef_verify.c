@@ -115,6 +115,10 @@ verify_row(int type, int row)
 		}
 	    } else if (ca[i].ca_table == type && i == 0) {
 		/* uid */
+		/* Some files contain zeroed records, cope */
+		/* TODO tighten this check */
+		if (val.val_as.lng == 0)
+		    continue;
 		if (val.val_as.lng != row) {
 		    verify_fail(type, row, &ca[i],
 				"value is %ld instead of %d",
