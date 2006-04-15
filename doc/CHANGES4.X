@@ -1,5 +1,5 @@
-Changes to Empire 4.3.1 - Wed Apr  5 18:51:49 UTC 2006
- * Fix check of game state on server startup (was new in 4.3.0).
+Changes to Empire 4.3.1 - Sat Apr 15 11:40:47 UTC 2006
+ * Fix check of game state on server startup (new in 4.3.0).
  * sail now accepts a destination sector.
  * Tend could send bogus bulletins (broken in 4.3.0).
  * Plug memory leaks in mission command.
@@ -11,12 +11,12 @@ Changes to Empire 4.3.1 - Wed Apr  5 18:51:49 UTC 2006
  * Fix retreating mine sweepers to use mobility for sweeping.
  * Fix retreating land units to hit mines with the same probability
    and to take the same damage as in normal movement.  Before,
-   probability was higher, damage was lower.
+   hit probability was higher, and damage was lower.
  * Ships could retreat into sectors owned by whoever made them
    retreat, but not in their owner's sectors.
  * Fix 'm' at the movement prompt of transport and test.
  * Fix march and test not to apply conditionals to sectors mapped,
-   which lead to spurious error messages.
+   which led to spurious error messages.
  * Fix break not to respect conditionals.  The bug let players keep
    sanctuaries.
  * Fix retreat code not to respect conditionals.  Attackers could
@@ -24,8 +24,8 @@ Changes to Empire 4.3.1 - Wed Apr  5 18:51:49 UTC 2006
  * Fix retreat and edit to zero-terminate retreat paths.
    Theoretically abusable for gaining information.
  * Fix format string crash bugs in load, spy and bomb.
- * Fix telegram editor: empty telegrams were broken in 4.2.21. ~p
-   before the first line of text never worked.
+ * Fix the telegram editor: empty telegrams were broken in 4.2.21, and
+   ~p before the first line of text never worked.
  * Fix ancient bridge building race condition that could break the
    test whether the player can afford the bridge.
  * Fix trade lot change detection in set command.  Probably abusable.
