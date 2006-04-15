@@ -112,7 +112,7 @@ cmd_unsail_ship(struct nstr_item *nstr)
 static int
 cmd_sail_ship(struct nstr_item *nstr)
 {
-    s_char *cp;
+    char *cp;
     struct shpstr ship;
     char navpath[MAX_PATH_LEN];
 
@@ -143,7 +143,7 @@ cmd_sail_ship(struct nstr_item *nstr)
 int
 sail(void)
 {
-    s_char *cp;
+    char *cp;
     struct nstr_item nstr;
 
     if (!opt_SAIL) {
@@ -153,11 +153,9 @@ sail(void)
     if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     cp = player->argp[2];
-    if ((*player->argp[0] == 'q') /*qsail command */ ||(cp && *cp == 'q')) {
-	return show_sail(&nstr);
-    } else if (*player->argp[0] == 'u'	/*unsail command */
-	       || (cp && *cp == '-')) {
+    if (*player->argp[0] == 'u' || (cp && *cp == '-'))
 	return cmd_unsail_ship(&nstr);
-    } else
-	return cmd_sail_ship(&nstr);
+    if (cp && *cp == 'q')
+	return show_sail(&nstr);
+    return cmd_sail_ship(&nstr);
 }
