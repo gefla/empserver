@@ -59,8 +59,7 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
 
     for (cp = coords, end = coords + ncoords; cp < end; cp++) {
 	fix_pointer = 0;
-	incknowncost = (*adp->realcost) (adp->head->np->c, *cp,
-					 adp->userdata);
+	incknowncost = adp->realcost(adp->head->np->c, *cp, adp->userdata);
 	knowncost = adp->head->np->knowncost + incknowncost;
 	/*
 	 * If this neighbor is already in the queue, we can
@@ -68,7 +67,7 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
 	 */
 	qp = as_iscinq(adp, *cp);
 	inclbcost = qp ? qp->np->inclbcost :
-	    (*adp->lbcost) (*cp, adp->to, adp->userdata);
+	    adp->lbcost(*cp, adp->to, adp->userdata);
 	if (inclbcost < 0.0)	/* skip bad cases */
 	    continue;
 	lbcost = knowncost + inclbcost;
@@ -133,8 +132,8 @@ as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)
 	if (qp)
 	    seccost = qp->np->seccost;
 	else
-	    seccost = (adp->seccost) ?
-		(*adp->seccost) (*cp, adp->to, adp->userdata) : 0.0;
+	    seccost = adp->seccost ?
+		adp->seccost(*cp, adp->to, adp->userdata) : 0.0;
 	np = as_newnode(adp->head->np, *cp, inclbcost, lbcost,
 			knowncost, seccost);
 	if (np == NULL)

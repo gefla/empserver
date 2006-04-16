@@ -34,7 +34,7 @@ as_iscinq(struct as_data *adp, struct as_coord c)
     int hashval;
     struct as_hash *hp;
 
-    hashval = (*adp->hash) (c) % adp->hashsize;
+    hashval = adp->hash(c) % adp->hashsize;
 
     for (hp = adp->hashtab[hashval]; hp; hp = hp->next)
 	if (hp->c.x == c.x && hp->c.y == c.y)
@@ -57,7 +57,7 @@ as_setcinq(struct as_data *adp, struct as_coord c, struct as_queue *qp)
     new->c = c;
     new->qp = qp;
 
-    hashval = (*adp->hash) (c) % adp->hashsize;
+    hashval = adp->hash(c) % adp->hashsize;
     hp = adp->hashtab[hashval];
 
     new->next = (hp) ? hp : NULL;

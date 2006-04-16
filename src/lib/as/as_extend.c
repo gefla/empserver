@@ -40,8 +40,7 @@ as_extend(struct as_data *adp)
     head = adp->head;
 
     /* Find the neighboring coordinates. */
-    i = (*adp->neighbor) (head->np->c, adp->neighbor_coords,
-			  adp->userdata);
+    i = adp->neighbor(head->np->c, adp->neighbor_coords, adp->userdata);
     if (i == 0)
 	return NULL;
     /*
