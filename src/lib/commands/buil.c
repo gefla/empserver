@@ -121,7 +121,8 @@ buil(void)
 	}
 	if (type < 0) {
 	    pr("You can't build that!\n");
-	    pr("Use `show plane build %d' to show types you can build.\n", tlev);
+	    pr("Use `show plane build %d' to show types you can build.\n",
+	       tlev);
 	    return RET_FAIL;
 	}
 	break;
@@ -140,7 +141,8 @@ buil(void)
 	}
 	if (type < 0) {
 	    pr("You can't build that!\n");
-	    pr("Use `show ship build %d' to show types you can build.\n", tlev);
+	    pr("Use `show ship build %d' to show types you can build.\n",
+	       tlev);
 	    return RET_FAIL;
 	}
 	break;
@@ -159,7 +161,8 @@ buil(void)
 	}
 	if (type < 0) {
 	    pr("You can't build that!\n");
-	    pr("Use `show land build %d' to show types you can build.\n", tlev);
+	    pr("Use `show land build %d' to show types you can build.\n",
+	       tlev);
 	    return RET_FAIL;
 	}
 	break;
@@ -203,7 +206,8 @@ buil(void)
 		tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
 		      (int)(rlev / drnuke_const));
 	    pr("You can't build that!\n");
-	    pr("Use `show nuke build %d' to show types you can build.\n", tt);
+	    pr("Use `show nuke build %d' to show types you can build.\n",
+	       tt);
 	    return RET_FAIL;
 	}
 	break;
@@ -572,8 +576,8 @@ build_bridge(struct sctstr *sp, short *vec)
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!(p = getstarg(player->argp[3], "build span in what direction? ", buf))
-	|| !*p) {
+    p = getstarg(player->argp[3], "build span in what direction? ", buf);
+    if (!p || !*p) {
 	return 0;
     }
     /* Sanity check time */
@@ -836,8 +840,8 @@ build_tower(struct sctstr *sp, short *vec)
 	pr("Building from %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
     }
-    if (!(p = getstarg(player->argp[3], "build tower in what direction? ", buf))
-	|| !*p) {
+    p = getstarg(player->argp[3], "build tower in what direction? ", buf);
+    if (!p || !*p) {
 	return 0;
     }
     /* Sanity check time */

@@ -95,11 +95,13 @@ vers(void)
 
     pr("Banks pay $%.2f in interest per 1000 gold bars per etu.\n",
        bankint * 1000.0);
-    pr("1000 civilians generate $%.2f, uncompensated workers $%.2f each time unit.\n", 1000.0 * money_civ, 1000.0 * money_uw);
+    pr("1000 civilians generate $%.2f, uncompensated workers $%.2f each time unit.\n",
+       1000.0 * money_civ, 1000.0 * money_uw);
     pr("1000 active military cost $%.2f, reserves cost $%.2f.\n",
        -money_mil * 1000.0, -money_res * 1000.0);
     if (rollover_avail_max)
-	pr("Up to %d avail can roll over an update.\n", rollover_avail_max);
+	pr("Up to %d avail can roll over an update.\n",
+	   rollover_avail_max);
     if (opt_SLOW_WAR)
 	pr("Declaring war will cost you $%i\n\n", War_Cost);
     pr("Happiness p.e. requires 1 happy stroller per %d civ.\n",
@@ -109,9 +111,11 @@ vers(void)
     pr("Happiness is averaged over %d time units.\n", (int)hap_avg);
     pr("Education is averaged over %d time units.\n", (int)edu_avg);
     if (opt_ALL_BLEED == 0)
-	pr("The technology/research boost you get from your allies is %.2f%%.\n", 100.0 / ally_factor);
+	pr("The technology/research boost you get from your allies is %.2f%%.\n",
+	   100.0 / ally_factor);
     else
-	pr("The technology/research boost you get from the world is %.2f%%.\n", 100.0 / ally_factor);
+	pr("The technology/research boost you get from the world is %.2f%%.\n",
+	   100.0 / ally_factor);
 
     pr("Nation levels (tech etc.) decline 1%% every %d time units.\n",
        (int)(level_age_rate));
@@ -160,27 +164,39 @@ vers(void)
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
     if (opt_FUEL)
-	pr("For ships and land units, fuelu makes %d mobility.\n\n", fuel_mult);
+	pr("For ships and land units, fuelu makes %d mobility.\n\n",
+	   fuel_mult);
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {
-	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n", trade_1_dist, (float)(trade_1 * 100.0));
-	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n", trade_2_dist, (float)(trade_2 * 100.0));
-	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n", trade_3_dist, (float)(trade_3 * 100.0));
-	pr("Cashing in trade-ships with an ally nets you a %.1f%% bonus.\n", trade_ally_bonus * 100.0);
-	pr("Cashing in trade-ships with an ally nets your ally a %.1f%% bonus.\n\n", trade_ally_cut * 100.0);
+	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
+	   trade_1_dist, (float)(trade_1 * 100.0));
+	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
+	   trade_2_dist, (float)(trade_2 * 100.0));
+	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
+	   trade_3_dist, (float)(trade_3 * 100.0));
+	pr("Cashing in trade-ships with an ally nets you a %.1f%% bonus.\n",
+	   trade_ally_bonus * 100.0);
+	pr("Cashing in trade-ships with an ally nets your ally a %.1f%% bonus.\n\n",
+	   trade_ally_cut * 100.0);
     }
     if (opt_MARKET) {
-	pr("The tax you pay on selling things on the trading block is %.1f%%\n", (1.00 - tradetax) * 100.0);
-	pr("The tax you pay on buying commodities on the market is %.1f%%\n", (buytax - 1.00) * 100.0);
-	pr("The amount of time to bid on commodities is %d seconds.\n", MARK_DELAY);
-	pr("The amount of time to bid on a unit is %d seconds.\n\n", TRADE_DELAY);
+	pr("The tax you pay on selling things on the trading block is %.1f%%\n",
+	   (1.00 - tradetax) * 100.0);
+	pr("The tax you pay on buying commodities on the market is %.1f%%\n",
+	   (buytax - 1.00) * 100.0);
+	pr("The amount of time to bid on commodities is %d seconds.\n",
+	   MARK_DELAY);
+	pr("The amount of time to bid on a unit is %d seconds.\n\n",
+	   TRADE_DELAY);
     }
 
     if (!ef_nelem(EF_NUKE_CHR))
 	pr("Nukes are disabled.\n");
     else if (drnuke_const > MIN_DRNUKE_CONST) {
-	pr("In order to build a nuke, you need %1.2f times the tech level in research\n", drnuke_const);
-	pr("\tExample: In order to build a 300 tech nuke, you need %d research\n\n", (int)(300.0 * drnuke_const));
+	pr("In order to build a nuke, you need %1.2f times the tech level in research\n",
+	   drnuke_const);
+	pr("\tExample: In order to build a 300 tech nuke, you need %d research\n\n",
+	   (int)(300.0 * drnuke_const));
     }
 
     pr("Fire ranges are scaled by %.2f.\n", fire_range_factor);
@@ -218,9 +234,9 @@ vers(void)
     show_opts(0);
     pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n");
     show_custom();
-    pr("\nThe person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n\n",
+    pr("\nThe person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n",
        privname, privlog);
-    pr("You can get your own copy of the source from "
+    pr("\nYou can get your own copy of the source from "
        "http://www.wolfpackempire.com/\n\n");
     pr("%s", legal);
     return RET_OK;

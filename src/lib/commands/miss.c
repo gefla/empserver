@@ -275,7 +275,9 @@ mission(void)
 
 	    pcp = &plchr[(int)gp->type];
 	    if (!(pcp->pl_flags & P_T)) {
-		pr("Only planes with the tactical ability can interdict.\n%s #%d is ineligible\n", pcp->pl_name, gp->uid);
+		pr("Only planes with the tactical ability can interdict.\n"
+		   "%s #%d is ineligible\n",
+		   pcp->pl_name, gp->uid);
 		continue;
 	    }
 	}
@@ -285,7 +287,9 @@ mission(void)
 
 	    pcp = &plchr[(int)gp->type];
 	    if (!(pcp->pl_flags & P_F)) {
-		pr("Only planes with the intercept abilities can perform air defense.\n%s #%d is ineligible\n", pcp->pl_name, gp->uid);
+		pr("Only planes with the intercept abilities can perform air defense.\n"
+		   "%s #%d is ineligible\n",
+		   pcp->pl_name, gp->uid);
 		continue;
 	    }
 	}
@@ -295,7 +299,9 @@ mission(void)
 
 	    pcp = &plchr[(int)gp->type];
 	    if (!(pcp->pl_flags & P_ESC) && !(pcp->pl_flags & P_F)) {
-		pr("Only planes with the escort or intercept abilities can escort.\n%s #%d is ineligible\n", pcp->pl_name, gp->uid);
+		pr("Only planes with the escort or intercept abilities can escort.\n"
+		   "%s #%d is ineligible\n",
+		   pcp->pl_name, gp->uid);
 		continue;
 	    }
 	}
@@ -306,7 +312,9 @@ mission(void)
 
 	    pcp = &plchr[(int)gp->type];
 	    if (!(pcp->pl_flags & P_T)) {
-		pr("Only planes with the tactical ability can support.\n%s #%d is ineligible\n", pcp->pl_name, gp->uid);
+		pr("Only planes with the tactical ability can support.\n"
+		   "%s #%d is ineligible\n",
+		   pcp->pl_name, gp->uid);
 		continue;
 	    }
 	}

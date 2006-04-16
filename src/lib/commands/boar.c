@@ -109,7 +109,8 @@ boar(void)
 		foundland = 1;
 	    }
 	    if (!foundland) {
-		pr("You don't have any mobility (sector or land units) in %s!\n", xyas(off->x, off->y, player->cnum));
+		pr("You don't have any mobility (sector or land units) in %s!\n",
+		   xyas(off->x, off->y, player->cnum));
 		return RET_SYN;
 	    }
 	}

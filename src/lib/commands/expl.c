@@ -161,7 +161,8 @@ explore(void)
 		   amount - left, ip->i_name, left, ip->i_name,
 		   xyas(endsect.sct_x, endsect.sct_y, player->cnum));
 	    } else {
-		pr("All of the %s you were exploring with were destroyed!\n", ip->i_name);
+		pr("All of the %s you were exploring with were destroyed!\n",
+		   ip->i_name);
 	    }
 	    amount = left;
 	}

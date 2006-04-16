@@ -163,7 +163,12 @@ landmine(void)
 	    else
 		pr("\n");
 	} else
-	    pr("%s ran out of %s before it could finish the job\nOnly %d mines were laid in %s\n", prland(&land), land.lnd_mobil > 0 ? "supply" : "mobility", total_mines_laid, xyas(sect.sct_x, sect.sct_y, land.lnd_own));
+	    pr("%s ran out of %s before it could finish the job\n"
+	       "Only %d mines were laid in %s\n",
+	       prland(&land),
+	       land.lnd_mobil > 0 ? "supply" : "mobility",
+	       total_mines_laid,
+	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
     }
     return RET_OK;
 }

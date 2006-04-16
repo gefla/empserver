@@ -237,10 +237,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	news_item = N_SAT_KILL;
 	if (sect.sct_own) {
 	    mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
-		sublaunch ? (s_char *)"someone" : cname(bombown), xyas(x,
-								       y,
-								       sect.
-								       sct_own));
+		sublaunch ? "someone" : cname(bombown),
+		xyas(x, y, sect.sct_own));
 	}
     } else if (wantflags == P_N && nowantflags == P_O) {
 	att_name = "warhead";

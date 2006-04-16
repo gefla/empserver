@@ -206,23 +206,27 @@ main(int argc, char **argv)
 	exit(EXIT_FAILURE);
     ef_init();
     if (chdir(configdir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", configdir, strerror(errno));
+	fprintf(stderr, "Can't chdir to %s (%s)\n",
+		configdir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
     if (chdir(builtindir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", builtindir, strerror(errno));
+	fprintf(stderr, "Can't chdir to %s (%s)\n",
+		builtindir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
     if (read_builtin_tables() < 0)
 	exit(EXIT_FAILURE);
     if (chdir(configdir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", configdir, strerror(errno));
+	fprintf(stderr, "Can't chdir to %s (%s)\n",
+		configdir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
     if (read_custom_tables() < 0)
 	exit(EXIT_FAILURE);
     if (chdir(gamedir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
+	fprintf(stderr, "Can't chdir to %s (%s)\n",
+		gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
 
@@ -235,7 +239,10 @@ main(int argc, char **argv)
 
 #if defined(_WIN32)
     if (daemonize != 0) {
-	SERVICE_TABLE_ENTRY DispatchTable[]={{"Empire Server", service_main},{NULL, NULL}};
+	SERVICE_TABLE_ENTRY DispatchTable[]={
+	    {"Empire Server", service_main},
+	    {NULL, NULL}
+	};
 	if (StartServiceCtrlDispatcher(DispatchTable))
 	    return 0;
 	else {
@@ -244,7 +251,8 @@ main(int argc, char **argv)
 	     * start server in the foreground
 	     */
 	    if (GetLastError() != ERROR_FAILED_SERVICE_CONTROLLER_CONNECT) {
-		logerror("Failed to dispatch service (%lu)", GetLastError());
+		logerror("Failed to dispatch service (%lu)",
+			 GetLastError());
 		finish_server();
 		exit(EXIT_FAILURE);
 	    }

@@ -46,7 +46,8 @@
 #endif
 
 int
-login(int s, char *uname, char *cname, char *cpass, int kill_proc, int utf8)
+login(int s, char *uname, char *cname, char *cpass,
+      int kill_proc, int utf8)
 {
     char tmp[128];
     char buf[1024];

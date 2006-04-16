@@ -162,7 +162,8 @@ cede_sect(struct nstr_sect *ns, natid to)
 		bad = 0;
 	}
 	if (bad) {
-	    pr("%s has no sector with mobility adjacent to or ship in %s!\n", cname(to), xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    pr("%s has no sector with mobility adjacent to or ship in %s!\n",
+	       cname(to), xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
 

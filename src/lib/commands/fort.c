@@ -71,7 +71,8 @@ fort(void)
 	    continue;
 	}
 	if (land.lnd_land >= 0) {
-	    pr("%s is on a land unit and can't be fortified\n", prland(&land));
+	    pr("%s is on a land unit and can't be fortified\n",
+	       prland(&land));
 	    continue;
 	}
 

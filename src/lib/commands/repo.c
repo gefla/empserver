@@ -117,7 +117,8 @@ printdiff(struct natstr *plnatp, struct natstr *natp, int what)
     int tolerance;
 
     if (ours
-	&& plnatp->nat_stat >= STAT_ACTIVE && natp->nat_stat >= STAT_ACTIVE) {
+	&& plnatp->nat_stat >= STAT_ACTIVE
+	&& natp->nat_stat >= STAT_ACTIVE) {
 	theirs = natp->nat_level[what];
 	if ((shift = MIN((int)theirs, (int)ours) - 100) > 0) {
 	    ours -= shift;

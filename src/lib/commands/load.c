@@ -621,7 +621,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		(sp->shp_nland >= mchr[(int)sp->shp_type].m_nland)) {
 		if (noisy) {
 		    if (mchr[(int)sp->shp_type].m_nland)
-			pr("%s doesn't have room for any more land units!\n", prship(sp));
+			pr("%s doesn't have room for any more land units!\n",
+			   prship(sp));
 		    else
 			pr("%s cannot carry land units!\n", prship(sp));
 		}
@@ -1079,7 +1080,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    if (lp->lnd_nland >= lp->lnd_maxland) {
 		if (noisy) {
 		    if (lp->lnd_nland)
-			pr("%s doesn't have room for any more land units!\n", prland(lp));
+			pr("%s doesn't have room for any more land units!\n",
+			   prland(lp));
 		    else
 			pr("%s cannot carry land units!\n", prland(lp));
 		}

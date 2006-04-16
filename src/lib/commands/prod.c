@@ -120,7 +120,8 @@ prod(void)
 	/* during the update, but it's the best we can really do  */
 	work = new_work(&sect,
 			total_work(sect.sct_work, etu_per_update,
-				   civs, sect.sct_item[I_MILIT], uws, maxpop));
+				   civs, sect.sct_item[I_MILIT], uws,
+				   maxpop));
 	bwork = work / 2;
 
 	if (sect.sct_off)

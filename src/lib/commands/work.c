@@ -92,7 +92,8 @@ work(void)
 	eff_amt = MIN(land.lnd_mobil, work_amt);
 	w = ldround(((double)eff_amt * land.lnd_effic / 600.0), 1);
 	if (w < 1) {
-	    pr("%s doesn't work enough to change efficiency (try increasing amount)\n", prland(&land));
+	    pr("%s doesn't work enough to change efficiency (try increasing amount)\n",
+	       prland(&land));
 	    continue;
 	}
 	nunits++;

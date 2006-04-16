@@ -574,8 +574,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else {
 	    pr("splash\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			     &nukedam, 0);
+	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			     'p', &nukedam, 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam, list);
 	    dam = 0;
 	}
@@ -798,8 +798,8 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y, 'p',
-			     &nukedam, 0);
+	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			     'p', &nukedam, 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam, list);
 	    dam = 0;
 	}
@@ -838,8 +838,8 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || plp->plane.pln_nuketype != -1)
-	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y, 's',
-			      &nukedam, 1);
+	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			      's', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;

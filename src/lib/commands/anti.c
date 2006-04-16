@@ -86,7 +86,8 @@ anti(void)
 	    pr("No available mil or mob in sector.\n");
 	    continue;
 	}
-	pr("Sector mobility/troop strength will allow %d troops to engage.\n", avail_mil);
+	pr("Sector mobility/troop strength will allow %d troops to engage.\n",
+	   avail_mil);
 
 	if (target == player->cnum) {
 	    amil = mil;

@@ -188,7 +188,8 @@ multifire(void)
 		continue;
 	    }
 	    if (fland.lnd_effic < LAND_MINFIREEFF) {
-		pr("Unit %d cannot fire because it is less than %d%% efficient\n", fland.lnd_uid, LAND_MINFIREEFF);
+		pr("Unit %d cannot fire because it is less than %d%% efficient\n",
+		   fland.lnd_uid, LAND_MINFIREEFF);
 		continue;
 	    }
 	    resupply_commod(&fland, I_SHELL);	/* Get more shells */

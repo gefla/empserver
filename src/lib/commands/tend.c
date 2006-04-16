@@ -226,7 +226,8 @@ tend_land(struct shpstr *tenderp, s_char *units)
 	    continue;
 	}
 	if (!(lchr[(int)land.lnd_type].l_flags & L_ASSAULT)) {
-	    pr("%s does not have \"assault\" capability and can't be tended\n", prland(&land));
+	    pr("%s does not have \"assault\" capability and can't be tended\n",
+	       prland(&land));
 	    continue;
 	}
 	if (!snxtitem(&targets, EF_SHIP,

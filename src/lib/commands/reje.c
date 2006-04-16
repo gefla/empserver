@@ -90,7 +90,9 @@ reje(void)
 	return RET_SYN;
     while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat == STAT_GOD) {
-	    pr("You may not reject/accept stuff from %s\nbecause they are a deity.\n", nat.nat_cnam);
+	    pr("You may not reject/accept stuff from %s\n"
+	       "because they are a deity.\n",
+	       nat.nat_cnam);
 	    continue;
 	}
 	if (nat.nat_stat == STAT_UNUSED)

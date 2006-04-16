@@ -126,7 +126,8 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
 	    }
 	    if (dchr[des].d_cost < 0) {
 		if (for_real)
-		    pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
+		    pr("Only %s can make a %s!\n",
+		       cname(0), dchr[des].d_name);
 		continue;
 	    }
 	}

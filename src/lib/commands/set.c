@@ -78,7 +78,8 @@ set(void)
     check_market();
     check_trade();
 
-    if ((p = getstarg(player->argp[1], "Ship, plane, land unit or nuke? ", buf)) == 0)
+    p = getstarg(player->argp[1], "Ship, plane, land unit or nuke? ", buf);
+    if (p == 0)
 	return RET_SYN;
     if ((type = ef_byname_from(p, ef_saleable)) < 0) {
 	pr("You can sell only ships, planes, land units or nukes\n");

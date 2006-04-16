@@ -54,7 +54,8 @@ getsose(void)
 	return;
 
     if (setupterm(NULL, fileno(stdout), &err) != OK) {
-	fprintf(stderr, "Can't setup terminal, check environment variable TERM\n");
+	fprintf(stderr,
+		"Can't setup terminal, check environment variable TERM\n");
 	return;
     }
 
