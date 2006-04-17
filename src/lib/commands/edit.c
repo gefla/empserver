@@ -65,7 +65,7 @@ static int doplane(char, int, char *, struct plnstr *);
 static int doship(char, int, char *, struct shpstr *);
 static int dounit(char, int, char *, float, struct lndstr *);
 static int getin(char *, char **);
-static void noise(struct sctstr *, int, char *, int, int);
+static void noise(struct sctstr *, char *, int, int);
 static void pr_land(struct lndstr *);
 static void pr_plane(struct plnstr *);
 static void pr_ship(struct shpstr *);
@@ -253,21 +253,15 @@ benefit(natid who, int good)
 }
 
 static void
-noise(struct sctstr *sptr, int public_amt, char *name, int old, int new)
+noise(struct sctstr *sptr, char *name, int old, int new)
 {
-    char p[100];
-
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (public_amt)
-	(void)sprintf(p, "changed from %d to %d", old, new);
-    else
-	(void)sprintf(p, "%s", (old < new ? "increased" : "decreased"));
     if (sptr->sct_own)
 	wu(player->cnum, sptr->sct_own,
-	   "%s in %s was %s by an act of %s\n",
+	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
-	   p, cname(player->cnum));
+	   old, new, cname(player->cnum));
     benefit(sptr->sct_own, (old < new));
 }
 
@@ -528,42 +522,42 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'e':
 	new = errcheck(arg, 0, 100);
-	noise(sect, 1, "Efficiency", (int)sect->sct_effic, new);
+	noise(sect, "Efficiency", (int)sect->sct_effic, new);
 	sect->sct_effic = (unsigned char)new;
 	break;
     case 'm':
 	new = errcheck(arg, -127, 255);
-	noise(sect, 1, "Mobility", (int)sect->sct_mobil, new);
+	noise(sect, "Mobility", (int)sect->sct_mobil, new);
 	sect->sct_mobil = new;
 	break;
     case 'i':
 	new = errcheck(arg, 0, 127);
-	noise(sect, 1, "Iron ore content", (int)sect->sct_min, new);
+	noise(sect, "Iron ore content", (int)sect->sct_min, new);
 	sect->sct_min = (unsigned char)new;
 	break;
     case 'g':
 	new = errcheck(arg, 0, 127);
-	noise(sect, 1, "Gold content", (int)sect->sct_gmin, new);
+	noise(sect, "Gold content", (int)sect->sct_gmin, new);
 	sect->sct_gmin = (unsigned char)new;
 	break;
     case 'f':
 	new = errcheck(arg, 0, 127);
-	noise(sect, 1, "Fertility", (int)sect->sct_fertil, new);
+	noise(sect, "Fertility", (int)sect->sct_fertil, new);
 	sect->sct_fertil = (unsigned char)new;
 	break;
     case 'c':
 	new = errcheck(arg, 0, 127);
-	noise(sect, 1, "Oil content", (int)sect->sct_oil, new);
+	noise(sect, "Oil content", (int)sect->sct_oil, new);
 	sect->sct_oil = (unsigned char)new;
 	break;
     case 'u':
 	new = errcheck(arg, 0, 127);
-	noise(sect, 1, "Uranium content", (int)sect->sct_uran, new);
+	noise(sect, "Uranium content", (int)sect->sct_uran, new);
 	sect->sct_uran = (unsigned char)new;
 	break;
     case 'w':
 	new = errcheck(arg, 0, 100);
-	noise(sect, 1, "Workforce percentage", (int)sect->sct_work, new);
+	noise(sect, "Workforce percentage", (int)sect->sct_work, new);
 	sect->sct_work = (unsigned char)new;
 	break;
     case 'l':
@@ -611,7 +605,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'a':
 	new = errcheck(arg, 0, 9999);
-	noise(sect, 1, "Available workforce", (int)sect->sct_avail, new);
+	noise(sect, "Available workforce", (int)sect->sct_avail, new);
 	sect->sct_avail = new;
 	break;
     case 'M':
@@ -659,7 +653,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, 1, "Road percentage", (int)sect->sct_road, arg);
+	noise(sect, "Road percentage", (int)sect->sct_road, arg);
 	sect->sct_road = arg;
 	break;
     case 'r':
@@ -667,7 +661,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, 1, "Rail percentage", (int)sect->sct_rail, arg);
+	noise(sect, "Rail percentage", (int)sect->sct_rail, arg);
 	sect->sct_rail = arg;
 	break;
     case 'd':
@@ -675,7 +669,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, 1, "Defense percentage", (int)sect->sct_defense, arg);
+	noise(sect, "Defense percentage", (int)sect->sct_defense, arg);
 	sect->sct_defense = arg;
 	break;
     default:
