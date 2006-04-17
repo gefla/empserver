@@ -58,21 +58,19 @@
 
 #define END -1
 
-static void benefit(natid who, int good);
-static int docountry(s_char op, int arg, s_char *p, float farg,
-		     struct natstr *np);
-static int doland(s_char op, int arg, s_char *p, struct sctstr *sect);
-static int doplane(s_char op, int arg, s_char *p, struct plnstr *plane);
-static int doship(s_char op, int arg, s_char *p, struct shpstr *ship);
-static int dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land);
-static int getin(s_char **, s_char **, int *, s_char *);
-static void noise(struct sctstr *sptr, int public_amt, s_char *name,
-		  int old, int new);
-static void pr_land(struct lndstr *land);
-static void pr_plane(struct plnstr *plane);
-static void pr_ship(struct shpstr *ship);
+static void benefit(natid, int);
+static int docountry(char, int, char *, float, struct natstr *);
+static int doland(char, int, char *, struct sctstr *);
+static int doplane(char, int, char *, struct plnstr *);
+static int doship(char, int, char *, struct shpstr *);
+static int dounit(char, int, char *, float, struct lndstr *);
+static int getin(char **, char **, int *, char *);
+static void noise(struct sctstr *, int, char *, int, int);
+static void pr_land(struct lndstr *);
+static void pr_plane(struct plnstr *);
+static void pr_ship(struct shpstr *);
 static void prnat(struct natstr *);
-static void prsect(struct sctstr *sect);
+static void prsect(struct sctstr *);
 
 
 int
@@ -82,9 +80,9 @@ edit(void)
     struct plnstr plane;
     struct shpstr ship;
     struct lndstr land;
-    s_char *what;
-    s_char *ptr;
-    s_char *thing;
+    char *what;
+    char *ptr;
+    char *thing;
     int num;
     int arg;
     int err;
@@ -92,9 +90,8 @@ edit(void)
     coord x, y;
     float farg;
     struct natstr *np;
-    s_char buf[1024];
-    s_char ewhat;		/* saves information from the command line
-				   for use later on.                         */
+    char buf[1024];
+    char ewhat;
 
     if ((what = getstarg(player->argp[1],
 			 "Edit What (country, land, ship, plane, nuke, unit)? ",
@@ -263,9 +260,9 @@ benefit(natid who, int good)
 }
 
 static void
-noise(struct sctstr *sptr, int public_amt, s_char *name, int old, int new)
+noise(struct sctstr *sptr, int public_amt, char *name, int old, int new)
 {
-    s_char p[100];
+    char p[100];
 
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
@@ -456,7 +453,7 @@ errcheck(int num, int min, int max)
 }
 
 static int
-getin(s_char **what, s_char **p, int *arg, s_char *buf)
+getin(char **what, char **p, int *arg, char *buf)
 {
     if (!(*what = getstarg(*p, "%c xxxxx -- thing value : ", buf))) {
 	return RET_SYN;
@@ -484,7 +481,7 @@ warn_deprecated(char key)
 }
 
 static int
-doland(s_char op, int arg, s_char *p, struct sctstr *sect)
+doland(char op, int arg, char *p, struct sctstr *sect)
 {
     natid newown, oldown;
     coord newx, newy;
@@ -696,7 +693,7 @@ doland(s_char op, int arg, s_char *p, struct sctstr *sect)
 
 
 static int
-docountry(s_char op, int arg, s_char *p, float farg, struct natstr *np)
+docountry(char op, int arg, char *p, float farg, struct natstr *np)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
@@ -795,7 +792,7 @@ docountry(s_char op, int arg, s_char *p, float farg, struct natstr *np)
 
 
 static int
-doship(s_char op, int arg, s_char *p, struct shpstr *ship)
+doship(char op, int arg, char *p, struct shpstr *ship)
 {
     coord newx, newy;
 
@@ -928,7 +925,7 @@ doship(s_char op, int arg, s_char *p, struct shpstr *ship)
 }
 
 static int
-dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
+dounit(char op, int arg, char *p, float farg, struct lndstr *land)
 {
     coord newx, newy;
 
@@ -1071,7 +1068,7 @@ dounit(s_char op, int arg, s_char *p, float farg, struct lndstr *land)
 
 
 int
-doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
+doplane(char op, int arg, char *p, struct plnstr *plane)
 {
     coord newx, newy;
 
@@ -1130,10 +1127,10 @@ doplane(s_char op, int arg, s_char *p, struct plnstr *plane)
 	}
 	break;
     case 'a':
-	plane->pln_att = (s_char)errcheck(arg, 0, 127);
+	plane->pln_att = arg;
 	break;
     case 'd':
-	plane->pln_def = (s_char)arg;
+	plane->pln_def = arg;
 	break;
     case 'r':
 	plane->pln_range = (unsigned char)arg;
