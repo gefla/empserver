@@ -64,7 +64,7 @@ static int doland(char, int, char *, struct sctstr *);
 static int doplane(char, int, char *, struct plnstr *);
 static int doship(char, int, char *, struct shpstr *);
 static int dounit(char, int, char *, float, struct lndstr *);
-static int getin(char **, char **, int *, char *);
+static int getin(char *, char **);
 static void noise(struct sctstr *, int, char *, int, int);
 static void pr_land(struct lndstr *);
 static void pr_plane(struct plnstr *);
@@ -82,7 +82,7 @@ edit(void)
     struct lndstr land;
     char *what;
     char *ptr;
-    char *thing;
+    char thing;
     int num;
     int arg;
     int err;
@@ -159,57 +159,57 @@ edit(void)
 	    break;
 	}
     }
-    ptr = &buf[0];
-    *ptr = 0;
     for (;;) {
 	if (player->argp[arg_index] != 0) {
 	    if (player->argp[arg_index+1] != 0) {
-		thing = player->argp[arg_index++];
+		thing = player->argp[arg_index++][0];
 		ptr = player->argp[arg_index++];
 		arg = atoi(ptr);
 	    } else
 		return RET_SYN;
 	} else if (arg_index == 3) {
-	    if ((err = getin(&thing, &ptr, &arg, buf)) != RET_OK) {
-		if (err == END) {
-		    switch (ewhat) {
-		    case 'c':
-			prnat(np);
-			break;
-		    case 'l':
-			prsect(&sect);
-			break;
-		    case 's':
-			pr_ship(&ship);
-			break;
-		    case 'u':
-			pr_land(&land);
-			break;
-		    case 'p':
-			pr_plane(&plane);
-			break;
-		    }
+	    err = getin(buf, &ptr);
+	    if (err < 0)
+		return RET_SYN;
+	    if (err == 0) {
+		switch (ewhat) {
+		case 'c':
+		    prnat(np);
 		    break;
-		} else
-		    return err;
+		case 'l':
+		    prsect(&sect);
+		    break;
+		case 's':
+		    pr_ship(&ship);
+		    break;
+		case 'u':
+		    pr_land(&land);
+		    break;
+		case 'p':
+		    pr_plane(&plane);
+		    break;
+		}
+		return RET_OK;
 	    }
+	    thing = err;
+	    arg = atoi(ptr);
 	} else
-	    break;
+	    return RET_OK;
+
 	switch (ewhat) {
 	case 'c':
 	    farg = (float)atof(ptr);
-	    if ((err = docountry(thing[0], arg, ptr, farg, np))
-		!= RET_OK)
+	    if ((err = docountry(thing, arg, ptr, farg, np)) != RET_OK)
 		return err;
 	    break;
 	case 'l':
-	    if ((err = doland(thing[0], arg, ptr, &sect)) != RET_OK)
+	    if ((err = doland(thing, arg, ptr, &sect)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
 	    break;
 	case 's':
-	    if ((err = doship(thing[0], arg, ptr, &ship)) != RET_OK)
+	    if ((err = doship(thing, arg, ptr, &ship)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
 		return RET_FAIL;
@@ -218,8 +218,7 @@ edit(void)
 	    break;
 	case 'u':
 	    farg = (float)atof(ptr);
-	    if ((err = dounit(thing[0], arg, ptr, farg, &land))
-		!= RET_OK)
+	    if ((err = dounit(thing, arg, ptr, farg, &land)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
 		return RET_FAIL;
@@ -227,8 +226,7 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'p':
-	    if ((err = doplane(thing[0], arg, ptr, &plane))
-		!= RET_OK)
+	    if ((err = doplane(thing, arg, ptr, &plane)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
 		return RET_FAIL;
@@ -236,12 +234,7 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	}
-	if (err != RET_OK)
-	    break;
-	else
-	    ptr = 0;
     }
-    return RET_OK;
 }
 
 static void
@@ -453,25 +446,26 @@ errcheck(int num, int min, int max)
 }
 
 static int
-getin(char **what, char **p, int *arg, char *buf)
+getin(char *buf, char **valp)
 {
-    if (!(*what = getstarg(*p, "%c xxxxx -- thing value : ", buf))) {
-	return RET_SYN;
-    }
-    if (**what == '\0')
-	return END;
-    while (**what && isspace(**what))
-	(*what)++;
-    if (**what == '\0')
-	return RET_SYN;
-    for (*p = *what; **p && !isspace(**p); (*p)++)	/* skip non spaces */
-	continue;
-    while (**p && isspace(**p))
-	(*p)++;
-    if (**p == '\0')
-	return RET_SYN;
-    *arg = atoi(*p);
-    return RET_OK;
+    char *p;
+    unsigned char thing;
+
+    p = getstarg(NULL, "%c xxxxx -- thing value : ", buf);
+    if (!p)
+	return -1;
+    if (!*p)
+	return 0;
+    for (; isspace(*p); p++) ;
+    if (!*p)
+	return -1;
+    thing = *p;
+    for (; *p && !isspace(*p); p++) ;
+    for (; isspace(*p); p++) ;
+    if (!*p)
+	return -1;
+    *valp = p;
+    return thing;
 }
 
 static void
@@ -634,7 +628,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Distribtion Location for sector %s changed from %s to %s\n",
+	pr("Distribution Location for sector %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
 	   xyas(newx, newy, player->cnum));
