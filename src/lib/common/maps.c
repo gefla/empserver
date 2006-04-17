@@ -109,7 +109,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 	int c;
 	switch (bmap) {
 	default:
-	    CANT_HAPPEN("bad BMAP");
+	    CANT_REACH();
 	    bmap = 'b';
 	    /* fall through */
 	case 'b':

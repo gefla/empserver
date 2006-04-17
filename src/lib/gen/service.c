@@ -204,7 +204,7 @@ service_main(DWORD argc, LPTSTR *argv)
 
     empth_exit();
 
-    CANT_HAPPEN("main thread terminated");
+    CANT_REACH();
     finish_server();
 }
 

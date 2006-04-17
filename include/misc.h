@@ -113,9 +113,16 @@ extern int daemonize;
 /*
  * If EXPR is true, an internal error occured.
  * Return EXPR != 0.
- * Usage: if (CANT_HAPPEN(...)) recovery_code();
+ * Usage: if (CANT_HAPPEN(...)) <recovery code>;
  */
 #define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__) : 0)
+
+/*
+ * Report internal error.
+ * Usage: CANT_REACH(); <recovery code>;
+ */
+#define CANT_REACH() (void)oops(NULL, __FILE__, __LINE__)
+
 extern int oops(char *, char *, int);
 
 	/* return codes from command routines */

@@ -271,7 +271,7 @@ main(int argc, char **argv)
 
     empth_exit();
 
-    CANT_HAPPEN("main thread terminated");
+    CANT_REACH();
     finish_server();
     return EXIT_SUCCESS;
 }

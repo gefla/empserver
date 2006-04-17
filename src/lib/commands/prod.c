@@ -296,7 +296,7 @@ prod(void)
 		pr(" %4.0f ", real);
 		break;
 	    default:
-		CANT_HAPPEN("bad TYPE");
+		CANT_REACH();
 		pr("  ??? ");
 		break;
 	    }

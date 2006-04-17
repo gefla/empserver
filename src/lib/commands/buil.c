@@ -273,7 +273,7 @@ buil(void)
 		built = build_plane(&sect, pp, sect.sct_item, tlev);
 		break;
 	    default:
-		CANT_HAPPEN("Bad WHAT");
+		CANT_REACH();
 		return RET_FAIL;
 	    }
 	    if (built) {

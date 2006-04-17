@@ -105,7 +105,7 @@ logerror(char *format, ...)
 int
 oops(char *msg, char *file, int line)
 {
-  logerror("Oops: %s in %s:%d", msg, file, line);
+  logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
   if (debug) abort();
   return 1;
 }

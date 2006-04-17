@@ -242,7 +242,7 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 		return 0;
 	    break;
 	default:
-	    CANT_HAPPEN("bad OPTYPE");
+	    CANT_REACH();
 	    return 0;
 	}
     }
@@ -510,7 +510,7 @@ nstr_promote(int valtype)
 	valtype = NSC_STRING;
 	break;
     default:
-	CANT_HAPPEN("bad VALTYPE");
+	CANT_REACH();
 	valtype = NSC_NOTYPE;
     }
     return valtype;
@@ -556,7 +556,7 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
 	case NSC_LONG:
 	    return cond_type_mismatch(str);
 	default:
-	    CANT_HAPPEN("bad TO argument");
+	    CANT_REACH();
 	    to = from;
 	}
     }
@@ -590,7 +590,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 
     switch (val->val_cat) {
     default:
-	CANT_HAPPEN("Bad VAL category");
+	CANT_REACH();
 	/* fall through */
     case NSC_VAL:
 	valtype = val->val_type;
@@ -652,7 +652,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    valtype = NSC_TYPEID;
 	    break;
 	default:
-	    CANT_HAPPEN("Bad VAL type");
+	    CANT_REACH();
 	    val->val_as.lng = 0;
 	}
 	val->val_cat = NSC_VAL;
@@ -666,7 +666,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    val->val_as.dbl = val->val_as.lng;
 	}
     } else if (want == NSC_STRING)
-	CANT_HAPPEN("unimplemented WANT"); /* FIXME */
+	CANT_REACH();		/* FIXME implement */
 
     if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
 	valtype = want;
@@ -676,7 +676,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
 	case NSC_STRING: val->val_as.str.base = NULL; break;
 	default:
-	    CANT_HAPPEN("bad WANT argument");
+	    CANT_REACH();
 	}
     }
 

@@ -337,7 +337,7 @@ gift(natid givee, natid giver, void *ptr, int type, char *mesg)
 	p = prland(ptr);
 	break;
     default:
-	CANT_HAPPEN("bad TYPE");
+	CANT_REACH();
 	p = "a red herring";
     }
 

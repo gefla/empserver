@@ -97,7 +97,7 @@ nxtitemp(struct nstr_item *np)
 		selected = 0;
 	    break;
 	default:
-	    CANT_HAPPEN("bad np->sel");
+	    CANT_REACH();
 	    return 0;
 	}
 	if (selected && np->ncond) {

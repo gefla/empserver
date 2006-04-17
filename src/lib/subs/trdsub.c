@@ -69,7 +69,7 @@ trade_check_item_ok(union trdgenstr *tgp)
 	return check_ship_ok(&tgp->shp);
     if (tgp->gen.ef_type == EF_NUKE)
 	return check_nuke_ok(&tgp->nuk);
-    CANT_HAPPEN("Bad EF_TYPE");
+    CANT_REACH();
     pr("Trade lot went bad!\n");
     return 0;
 }

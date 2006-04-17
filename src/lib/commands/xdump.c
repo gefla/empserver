@@ -142,7 +142,7 @@ xdprval(struct valstr *val, char *sep)
 	    pr("%snil", sep);
 	break;
     default:
-	CANT_HAPPEN("Bad VAL type");
+	CANT_REACH();
 	pr("0");
     }
     return " ";
