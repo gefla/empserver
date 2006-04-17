@@ -262,7 +262,7 @@ noise(struct sctstr *sptr, char *name, int old, int new)
 	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
 	   old, new, cname(player->cnum));
-    benefit(sptr->sct_own, (old < new));
+    benefit(sptr->sct_own, old < new);
 }
 
 static void
@@ -328,12 +328,12 @@ prnat(struct natstr *np)
 static void
 pr_plane(struct plnstr *plane)
 {
-    pr("UID <U>: %d\t\t", (int)plane->pln_uid);
-    pr("Owner <O>: %d\t\t", (int)plane->pln_own);
+    pr("UID <U>: %d\t\t", plane->pln_uid);
+    pr("Owner <O>: %d\t\t", plane->pln_own);
     pr("Location <l>: %s\n",
        xyas(plane->pln_x, plane->pln_y, player->cnum));
-    pr("Efficiency <e>: %d\t", (int)plane->pln_effic);
-    pr("Mobility <m>: %d\n", (int)plane->pln_mobil);
+    pr("Efficiency <e>: %d\t", plane->pln_effic);
+    pr("Mobility <m>: %d\n", plane->pln_mobil);
     pr("Tech <t>: %d\t\t", plane->pln_tech);
     pr("Wing <w>: %c\n", plane->pln_wing);
     pr("Attack <a>: %d\t\t", plane->pln_att);
@@ -348,11 +348,11 @@ pr_plane(struct plnstr *plane)
 static void
 pr_land(struct lndstr *land)
 {
-    pr("UID <U>: %d\n", (int)land->lnd_uid);
-    pr("Owner <O>: %d\n", (int)land->lnd_own);
+    pr("UID <U>: %d\n", land->lnd_uid);
+    pr("Owner <O>: %d\n", land->lnd_own);
     pr("Location <L>: %s\n", xyas(land->lnd_x, land->lnd_y, player->cnum));
-    pr("Efficiency <e>: %d\t", (int)land->lnd_effic);
-    pr("Mobility <M>: %d\n", (int)land->lnd_mobil);
+    pr("Efficiency <e>: %d\t", land->lnd_effic);
+    pr("Mobility <M>: %d\n", land->lnd_mobil);
     pr("Tech <t>: %d\t\t", land->lnd_tech);
     pr("Army <a>: %c\n", land->lnd_army);
     pr("Fortification <F>: %d\t", land->lnd_harden);
@@ -362,9 +362,9 @@ pr_land(struct lndstr *land)
     pr("Land unit <Y>: %d\n", land->lnd_land);
     pr("Ship <S>: %d\t\t", land->lnd_ship);
     pr("Radius <P>: %d\n", land->lnd_rad_max);
-    pr("Retreat percentage <Z>: %d\n", (int)land->lnd_retreat);
+    pr("Retreat percentage <Z>: %d\n", land->lnd_retreat);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
-       land->lnd_rpath, (int)land->lnd_rflags);
+       land->lnd_rpath, land->lnd_rflags);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
     pr("%3d", land->lnd_item[I_CIVIL]);
@@ -390,25 +390,25 @@ pr_ship(struct shpstr *ship)
 
     if ((natp = getnatp(ship->shp_own)) == 0)
 	return;
-    pr("%s (#%d) %s\n", natp->nat_cnam, (int)ship->shp_own, prship(ship));
-    pr("UID <U>: %d\n", (int)ship->shp_uid);
-    pr("Owner <O>: %d\t\t\t", (int)ship->shp_own);
+    pr("%s (#%d) %s\n", natp->nat_cnam, ship->shp_own, prship(ship));
+    pr("UID <U>: %d\n", ship->shp_uid);
+    pr("Owner <O>: %d\t\t\t", ship->shp_own);
     pr("Location <L>: %s\n", xyas(ship->shp_x, ship->shp_y, player->cnum));
     pr("Tech <T>: %d\t\t\t", ship->shp_tech);
-    pr("Efficiency <E>: %d\n", (int)ship->shp_effic);
-    pr("Mobility <M>: %d\t\t", (int)ship->shp_mobil);
+    pr("Efficiency <E>: %d\n", ship->shp_effic);
+    pr("Mobility <M>: %d\t\t", ship->shp_mobil);
     pr("Fleet <F>: %c\n", ship->shp_fleet);
     count_planes(ship);
-    pr("Xlight planes <X>: %d\t\t", (int)ship->shp_nxlight);
-    pr("Planes <P>: %d\n", (int)ship->shp_nplane);
-    pr("Helos <H>: %d\t\t\t", (int)ship->shp_nchoppers);
+    pr("Xlight planes <X>: %d\t\t", ship->shp_nxlight);
+    pr("Planes <P>: %d\n", ship->shp_nplane);
+    pr("Helos <H>: %d\t\t\t", ship->shp_nchoppers);
     count_units(ship);
-    pr("Units <Y>: %d\n", (int)ship->shp_nland);
+    pr("Units <Y>: %d\n", ship->shp_nland);
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
-    pr("Fuel <B>: %d\t\t\t", (int)ship->shp_fuel);
+    pr("Fuel <B>: %d\t\t\t", ship->shp_fuel);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
-       ship->shp_rpath, (int)ship->shp_rflags);
+       ship->shp_rpath, ship->shp_rflags);
     pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
     pr("Plague Time <b>: %d\n", ship->shp_ptime);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
@@ -522,42 +522,42 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'e':
 	new = errcheck(arg, 0, 100);
-	noise(sect, "Efficiency", (int)sect->sct_effic, new);
+	noise(sect, "Efficiency", sect->sct_effic, new);
 	sect->sct_effic = (unsigned char)new;
 	break;
     case 'm':
 	new = errcheck(arg, -127, 255);
-	noise(sect, "Mobility", (int)sect->sct_mobil, new);
+	noise(sect, "Mobility", sect->sct_mobil, new);
 	sect->sct_mobil = new;
 	break;
     case 'i':
 	new = errcheck(arg, 0, 127);
-	noise(sect, "Iron ore content", (int)sect->sct_min, new);
+	noise(sect, "Iron ore content", sect->sct_min, new);
 	sect->sct_min = (unsigned char)new;
 	break;
     case 'g':
 	new = errcheck(arg, 0, 127);
-	noise(sect, "Gold content", (int)sect->sct_gmin, new);
+	noise(sect, "Gold content", sect->sct_gmin, new);
 	sect->sct_gmin = (unsigned char)new;
 	break;
     case 'f':
 	new = errcheck(arg, 0, 127);
-	noise(sect, "Fertility", (int)sect->sct_fertil, new);
+	noise(sect, "Fertility", sect->sct_fertil, new);
 	sect->sct_fertil = (unsigned char)new;
 	break;
     case 'c':
 	new = errcheck(arg, 0, 127);
-	noise(sect, "Oil content", (int)sect->sct_oil, new);
+	noise(sect, "Oil content", sect->sct_oil, new);
 	sect->sct_oil = (unsigned char)new;
 	break;
     case 'u':
 	new = errcheck(arg, 0, 127);
-	noise(sect, "Uranium content", (int)sect->sct_uran, new);
+	noise(sect, "Uranium content", sect->sct_uran, new);
 	sect->sct_uran = (unsigned char)new;
 	break;
     case 'w':
 	new = errcheck(arg, 0, 100);
-	noise(sect, "Workforce percentage", (int)sect->sct_work, new);
+	noise(sect, "Workforce percentage", sect->sct_work, new);
 	sect->sct_work = (unsigned char)new;
 	break;
     case 'l':
@@ -605,7 +605,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'a':
 	new = errcheck(arg, 0, 9999);
-	noise(sect, "Available workforce", (int)sect->sct_avail, new);
+	noise(sect, "Available workforce", sect->sct_avail, new);
 	sect->sct_avail = new;
 	break;
     case 'M':
@@ -653,7 +653,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, "Road percentage", (int)sect->sct_road, arg);
+	noise(sect, "Road percentage", sect->sct_road, arg);
 	sect->sct_road = arg;
 	break;
     case 'r':
@@ -661,7 +661,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, "Rail percentage", (int)sect->sct_rail, arg);
+	noise(sect, "Rail percentage", sect->sct_rail, arg);
 	sect->sct_rail = arg;
 	break;
     case 'd':
@@ -669,7 +669,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    arg = 100;
 	if (arg < 0)
 	    arg = 0;
-	noise(sect, "Defense percentage", (int)sect->sct_defense, arg);
+	noise(sect, "Defense percentage", sect->sct_defense, arg);
 	sect->sct_defense = arg;
 	break;
     default:
