@@ -273,11 +273,12 @@ att_get_combat(struct combat *com, int isdef)
 	    }
 	    if (owner != com->own) {
 		if (owner) {
-		    pr("WARNING: The ownership of %s just changed from %s to %s!\n", prcom(0, com), cname(com->own), cname(owner));
+		    pr("WARNING: The ownership of %s just changed from %s to %s!\n",
+		       prcom(0, com), cname(com->own), cname(owner));
 		} else if (com->type == EF_SECTOR) {
 		    pr("WARNING: %s just abandoned sector %s!\n",
-		       cname(com->own), xyas(com->x, com->y,
-					     player->cnum));
+		       cname(com->own),
+		       xyas(com->x, com->y, player->cnum));
 		}
 	    }
 	    if (com->mil != mil)
@@ -287,17 +288,22 @@ att_get_combat(struct combat *com, int isdef)
 		   mil);
 	    com->troops = mil;
 	} else {		/* attacker */
-	    if (owner != player->cnum && getrel(getnatp(owner), player->cnum) != ALLIED) {	/* must be EF_SECTOR */
+	    if (owner != player->cnum && getrel(getnatp(owner), player->cnum) != ALLIED) {
+		/* must be EF_SECTOR */
 		if (com->mil)
-		    pr("WARNING: Your %d mil in %s were destroyed because %s just took the sector!\n", com->mil, xyas(com->x, com->y, player->cnum), cname(owner));
+		    pr("WARNING: Your %d mil in %s were destroyed because %s just took the sector!\n",
+		       com->mil, xyas(com->x, com->y, player->cnum),
+		       cname(owner));
 		else
 		    pr("You no longer own %s\n",
 		       xyas(com->x, com->y, player->cnum));
 		return att_combat_init(com, EF_BAD);
 	    }
 	    if (com->troops && com->troops + 1 > mil) {
-		if (com->own == owner && player->cnum == owner)	/* not a takeover */
-		    pr("WARNING: Your mil %s has been reduced from %d to %d!\n", prcom(1, com), com->troops, MAX(0, mil - 1));
+		if (com->own == owner && player->cnum == owner)
+		    /* not a takeover */
+		    pr("WARNING: Your mil %s has been reduced from %d to %d!\n",
+		       prcom(1, com), com->troops, MAX(0, mil - 1));
 		com->troops = MAX(0, mil - 1);
 	    }
 	}
@@ -927,7 +933,13 @@ att_prompt(s_char *prompt, s_char army)
 	if (!p || !*p)
 	    return 'n';
 	if (p && *p != -2)
-	    pr("y - yes this unit\nn - no this unit\nY - yes to all units in army '%c'\nN - no to all units in army '%c'\nq - quit\n? - this help message\n\n", army, army);
+	    pr("y - yes this unit\n"
+	       "n - no this unit\n"
+	       "Y - yes to all units in army '%c'\n"
+	       "N - no to all units in army '%c'\n"
+	       "q - quit\n"
+	       "? - this help message\n\n",
+	       army, army);
 	p = getstring(prompt, buf);
 	if (player->aborted) {
 	    buf[0] = 'N';
