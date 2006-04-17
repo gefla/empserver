@@ -39,10 +39,12 @@
 
 /* Used to calculate an offset into an array.  Used for
    dynamically sizing the world. */
-#define XYOFFSET(x, y) ((y * WORLD_X) + x)
+#define XYOFFSET(x, y) (((y) * WORLD_X) + (x))
 
-#define XNORM(x) (((x)<0) ? ((WORLD_X-(-(x)%WORLD_X))%WORLD_X) : ((x)%WORLD_X))
-#define YNORM(y) (((y)<0) ? ((WORLD_Y-(-(y)%WORLD_Y))%WORLD_Y) : ((y)%WORLD_Y))
+#define XNORM(x) \
+    (((x) < 0) ? ((WORLD_X - (-(x) % WORLD_X)) % WORLD_X) : ((x) % WORLD_X))
+#define YNORM(y) \
+    (((y) < 0) ? ((WORLD_Y - (-(y) % WORLD_Y)) % WORLD_Y) : ((y) % WORLD_Y))
 
 struct range {
     coord lx;			/* low-range x,y */
