@@ -38,7 +38,7 @@
 # whether it's worth fixing.
 
 AC_PREREQ(2.59)
-AC_INIT([Wolfpack Empire], [4.3.1], [wolfpack@wolfpackempire.com], [empire])
+AC_INIT([Wolfpack Empire], [4.3.2], [wolfpack@wolfpackempire.com], [empire])
 AC_CONFIG_SRCDIR([include/combat.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])

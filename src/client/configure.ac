@@ -38,7 +38,7 @@
 # whether it's worth fixing.
 
 AC_PREREQ(2.59)
-AC_INIT([Empire Client], [4.3.1], [wolfpack@wolfpackempire.com])
+AC_INIT([Empire Client], [4.3.2], [wolfpack@wolfpackempire.com])
 AC_CONFIG_SRCDIR([empire.6])
 AC_CONFIG_HEADERS([config.h])
 
