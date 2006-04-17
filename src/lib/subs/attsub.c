@@ -916,37 +916,31 @@ ask_off(int combat_mode, struct combat *off, struct combat *def)
  * Which units would you like to attack with or move in with [ynYNq?]
  */
 
-static s_char
-att_prompt(s_char *prompt, s_char army)
+static char
+att_prompt(char *prompt, char army)
 {
-    s_char buf[1024];
-    s_char *p = buf;
+    char buf[1024];
+    char *p = buf;
 
     if (army == ' ')
 	army = '~';
-    *buf = -2;
-    while (!p || (*p != 'y' && *p != 'n' && *p != 'Y' && *p != 'N')) {
-	if (p && *p == 'q') {
+    for (;;) {
+	p = getstring(prompt, buf);
+	if (player->aborted || (p && *p == 'q')) {
 	    abort_attack();
 	    return 'N';
 	}
 	if (!p || !*p)
 	    return 'n';
-	if (p && *p != -2)
-	    pr("y - yes this unit\n"
-	       "n - no this unit\n"
-	       "Y - yes to all units in army '%c'\n"
-	       "N - no to all units in army '%c'\n"
-	       "q - quit\n"
-	       "? - this help message\n\n",
-	       army, army);
-	p = getstring(prompt, buf);
-	if (player->aborted) {
-	    buf[0] = 'N';
-	    p = buf;
-	}
+	if (tolower(*p) == 'y' || tolower(*p) == 'n')
+	    return *p;
+	pr("y - yes this unit\n"
+	   "n - no this unit\n"
+	   "Y - yes to all units in army '%c'\n"
+	   "N - no to all units in army '%c'\n"
+	   "q - quit\n? - this help message\n\n",
+	   army, army);
     }
-    return *p;
 }
 
 /* Ask the attacker which units they want to attack/assault/board with */
