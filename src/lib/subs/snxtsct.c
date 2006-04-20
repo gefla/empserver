@@ -46,25 +46,23 @@
  * can select on either NS_ALL, NS_AREA, or NS_RANGE
  * iterate thru the "condarg" string looking
  * for arguments to compile into the nstr.
+ * Using this function for anything but command arguments is usually
+ * incorrect, because it respects conditionals.  Use the snxtsct_FOO()
+ * instead.
  */
 int
-snxtsct(struct nstr_sect *np, s_char *str)
+snxtsct(struct nstr_sect *np, char *str)
 {
     struct range range;
+    struct natstr *natp;
     coord cx, cy;
     int dist, n;
-    s_char buf[1024];
-    struct range wr;
+    char buf[1024];
 
     if (str == 0 || *str == 0) {
 	if ((str = getstring("(sects)? ", buf)) == 0)
 	    return 0;
     }
-    wr.lx = -WORLD_X / 2;
-    wr.ly = -WORLD_Y / 2;
-    wr.hx = WORLD_X / 2;
-    wr.hy = WORLD_Y / 2;
-    wr.width = wr.height = 0;
     switch (sarg_type(str)) {
     case NS_AREA:
 	if (!sarg_area(str, &range))
@@ -77,8 +75,17 @@ snxtsct(struct nstr_sect *np, s_char *str)
 	snxtsct_dist(np, cx, cy, dist);
 	break;
     case NS_ALL:
-	/* fake "all" by doing a world-sized area query */
-	snxtsct_area(np, &wr);
+	/*
+	 * Can't use snxtsct_all(), as it would disclose the real
+	 * origin.  Use a world-sized area instead.
+	 */
+	natp = getnatp(player->cnum);
+	range.lx = xabs(natp, -WORLD_X / 2);
+	range.ly = yabs(natp, -WORLD_Y / 2);
+	range.hx = xabs(natp, WORLD_X / 2);
+	range.hy = yabs(natp, WORLD_Y / 2);
+	range.width = range.height = 0;
+	snxtsct_area(np, &range);
 	break;
     default:
 	return 0;
