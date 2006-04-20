@@ -41,6 +41,8 @@
 #ifndef NEWS_H
 #define NEWS_H
 
+#include "nsc.h"
+
 struct nwsstr {
     short ef_type;
     natid nws_ano;		/* "actor" country # */
