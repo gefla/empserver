@@ -55,7 +55,6 @@ map(void)
     struct nstr_sect ns;
     s_char origin = '\0';
     int map_flags = 0;
-    s_char buf[1024];
 
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')

@@ -62,7 +62,6 @@ rout(void)
     i_type i_del;
     int dir;
     s_char *p;
-    s_char buf1[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static s_char *mapbuf = NULL;

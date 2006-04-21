@@ -57,7 +57,6 @@ sct(void)
     s_char *ptr;
     coord y, yval;
     int i;
-    s_char buf[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static s_char *mapbuf = NULL;
