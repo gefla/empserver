@@ -57,8 +57,29 @@
 #endif
 #include <errno.h>
 
-static struct cmndstr login_coms[];
+static int client_cmd(void);
+static int user_cmd(void);
+static int sanc_cmd(void);
+static int coun_cmd(void);
+static int pass_cmd(void);
+static int options_cmd(void);
+static int may_play(void);
+static int play_cmd(void);
+static int kill_cmd(void);
+static int quit_cmd(void);
 
+static struct cmndstr login_coms[] = {
+    {"client client-id...", 0, client_cmd, 0, 0},
+    {"coun country", 0, coun_cmd, 0, 0},
+    {"kill", 0, kill_cmd, 0, 0},
+    {"options option=value...", 0, options_cmd, 0, 0},
+    {"pass password", 0, pass_cmd, 0, 0},
+    {"play [user [country [password]]]", 0, play_cmd, 0, 0},
+    {"quit", 0, quit_cmd, 0, 0},
+    {"sanc", 0, sanc_cmd, 0, 0},
+    {"user name", 0, user_cmd, 0, 0},
+    {0, 0, 0, 0, 0}
+};
 
 /*ARGSUSED*/
 void
@@ -358,16 +379,3 @@ quit_cmd(void)
     io_shutdown(player->iop, IO_READ);
     return RET_OK;
 }
-
-static struct cmndstr login_coms[] = {
-    {"client client-id...", 0, client_cmd, 0, 0},
-    {"coun country", 0, coun_cmd, 0, 0},
-    {"kill", 0, kill_cmd, 0, 0},
-    {"options option=value...", 0, options_cmd, 0, 0},
-    {"pass password", 0, pass_cmd, 0, 0},
-    {"play [user [country [password]]]", 0, play_cmd, 0, 0},
-    {"quit", 0, quit_cmd, 0, 0},
-    {"sanc", 0, sanc_cmd, 0, 0},
-    {"user name", 0, user_cmd, 0, 0},
-    {0, 0, 0, 0, 0}
-};
