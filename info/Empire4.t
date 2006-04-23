@@ -7,6 +7,14 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.2 - Sun Apr 23 12:59:18 UTC 2006
+ * Fix xdump not to disclose other countries' realms (new in 4.3.0).
+ * The order in which sectors were visited for `*' arguments disclosed
+   the real origin, fix.  Mapping commands used to work around this
+   bug, until 4.3.1 exposed it there as well.
+ * Some picky compilers refused to compile the code, fix.
+ * Fix edit plane not to truncate large values for keys 'a' and 'd'.
+
 Changes to Empire 4.3.1 - Sat Apr 15 11:40:47 UTC 2006
  * Fix check of game state on server startup (new in 4.3.0).
  * sail now accepts a destination sector.
