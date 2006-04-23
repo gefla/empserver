@@ -206,6 +206,7 @@ xdvisible(int type, void *p)
 
     switch (type) {
     case EF_SECTOR:
+    case EF_REALM:
 	return gp->own == player->cnum || player->god;
     case EF_SHIP:
     case EF_PLANE:
