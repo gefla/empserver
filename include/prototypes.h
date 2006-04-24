@@ -694,7 +694,7 @@ extern int shp_missile_defense(coord, coord, natid, int);
 extern void shp_missdef(struct shpstr *, natid);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
-extern int snxtitem(struct nstr_item *, int, s_char *);
+extern int snxtitem(struct nstr_item *, int, char *);
 /* snxtsct.c */
 extern int snxtsct(register struct nstr_sect *, char *);
 /* supply.c */

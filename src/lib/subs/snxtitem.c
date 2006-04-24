@@ -47,7 +47,7 @@
  * for arguments to compile into the nstr.
  */
 int
-snxtitem(struct nstr_item *np, int type, s_char *str)
+snxtitem(struct nstr_item *np, int type, char *str)
 {
     struct range range;
     int list[NS_LSIZE];
@@ -55,9 +55,9 @@ snxtitem(struct nstr_item *np, int type, s_char *str)
     coord cx, cy;
     int dist;
     int flags;
-    s_char natnumber[16];
-    s_char prompt[128];
-    s_char buf[1024];
+    char natnumber[16];
+    char prompt[128];
+    char buf[1024];
 
     np->type = EF_BAD;
     np->sel = NS_UNDEF;
