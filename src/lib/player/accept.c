@@ -68,7 +68,7 @@
 
 static struct emp_qelem Players;
 static int player_socket;
-static int player_addrlen;
+static size_t player_addrlen;
 
 void
 player_init(void)
