@@ -524,7 +524,7 @@ extern int air_defense(coord, coord, natid, struct emp_qelem *,
 /* move.c */
 extern int check_lmines(coord, coord, double);
 extern int move_ground(struct sctstr *, struct sctstr *,
-		       double, s_char *,
+		       double, char *,
 		       int (*)(coord, coord, char *),
 		       int, int *);
 extern int fly_map(coord, coord);
@@ -634,8 +634,8 @@ extern int setrel(natid, natid, int);
 extern int setcont(natid, natid, int);
 extern int setrej(natid, natid, int, int);
 /* retreat.c */
-extern void retreat_ship(struct shpstr *, s_char);
-extern void retreat_land(struct lndstr *, s_char);
+extern void retreat_ship(struct shpstr *, char);
+extern void retreat_land(struct lndstr *, char);
 extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
 extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 /* sarg.c */
@@ -696,7 +696,7 @@ extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
 extern int snxtitem(struct nstr_item *, int, s_char *);
 /* snxtsct.c */
-extern int snxtsct(register struct nstr_sect *, s_char *);
+extern int snxtsct(register struct nstr_sect *, char *);
 /* supply.c */
 extern void resupply_all(struct lndstr *);
 extern void resupply_commod(struct lndstr *, i_type);
