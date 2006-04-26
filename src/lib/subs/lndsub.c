@@ -1353,11 +1353,6 @@ lnd_can_attack(struct lndstr *lp)
 {
     struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
 
-/*	if (lcp->l_flags & L_SUPPLY ||
-	    lcp->l_flags & L_SECURITY ||
-	    lcp->l_flags & L_FLAK ||
-	    lcp->l_frg)
-		return 0; */
     if (lcp->l_flags & L_SUPPLY)
 	return 0;
 

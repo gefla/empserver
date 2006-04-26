@@ -77,9 +77,8 @@ Board:   When boarding from a sector, the sector must have mob.  When
 
 The following restrictions apply to the aggressor's land units:
 A land unit must have mobility and be in supply (see info supply) in
-order to be able to enter the combat.  Land units with "security",
-"supply" or "flak" capability may not attack.  Also, you may not
-attack with artillery units (i.e. if frg > 0).  Only land units with "assault"
+order to be able to enter the combat.  Land units with "supply"
+capability may not attack.  Only land units with "assault"
 capability may assault or board.
 Attack:  The land unit must have at least as much mobility that it
          would cost for it to march into the sector.
