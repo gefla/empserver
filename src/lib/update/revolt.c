@@ -180,9 +180,7 @@ guerrilla(struct sctstr *sp)
 	   update, before doing anything else. */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
 	    int che_kill, r;
-	    struct lchrstr *lcp;
 
-	    lcp = &lchr[(int)lp->lnd_type];
 	    mil += lnd_getmil(lp);
 	    r = (lnd_getmil(lp) * lp->lnd_effic) / 500;
 	    che_kill = r < 1 ? 0 : roll(r);
