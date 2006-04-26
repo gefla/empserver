@@ -30,7 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2005
+ *     Markus Armbruster, 2004-2006
  */
 
 #include <config.h>
@@ -58,15 +58,14 @@
 #include <errno.h>
 
 static int client_cmd(void);
-static int user_cmd(void);
-static int sanc_cmd(void);
 static int coun_cmd(void);
-static int pass_cmd(void);
-static int options_cmd(void);
-static int may_play(void);
-static int play_cmd(void);
 static int kill_cmd(void);
+static int options_cmd(void);
+static int pass_cmd(void);
+static int play_cmd(void);
 static int quit_cmd(void);
+static int sanc_cmd(void);
+static int user_cmd(void);
 
 static struct cmndstr login_coms[] = {
     {"client client-id...", 0, client_cmd, 0, 0},
