@@ -184,11 +184,10 @@ guerrilla(struct sctstr *sp)
 
 	    lcp = &lchr[(int)lp->lnd_type];
 	    mil += lnd_getmil(lp);
-	    r = (((float)(lp->lnd_effic / 100) * (float)(lnd_getmil(lp))) /
-		 2);
-	    if (r < 2)
-		r = 2;
-	    che_kill = (roll(r) - 1);
+	    r = (lnd_getmil(lp) * lp->lnd_effic) / 500;
+	    if (r < 1)
+		r = 1;
+	    che_kill = roll(r);
 	    if (che_kill > che)
 		che_kill = che;
 	    if (che_kill) {
