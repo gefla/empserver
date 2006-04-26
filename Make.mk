@@ -294,7 +294,7 @@ $(topics.html): info/emp2html.pl
 ifeq ($(cvs_controlled),yes)
 # Find files and directories under CVS control
 sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))
-	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk` >$@
+	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk | sort` >$@
 else
 ifneq ($(srcdir),.)
 sources.mk: $(srcdir)/sources.mk
