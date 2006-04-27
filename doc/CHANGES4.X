@@ -1,4 +1,7 @@
-Changes to Empire 4.3.2 - Mon Apr 24 18:46:45 UTC 2006
+Changes to Empire 4.3.2 - Thu Apr 27 17:59:58 UTC 2006
+ * Fix security units' raid at the update (broken in 4.0.0, fixed only
+   for 100% units in 4.2.7).  Back out 4.2.7's 2.5x deadliness
+   increase.  Make sure empty units don't kill anyone.
  * Fix bug in player_init(), which was most likely fatal on 64 bit
    hosts.  Broken in 4.3.0.
  * Fix xdump not to disclose other countries' realms (new in 4.3.0).
