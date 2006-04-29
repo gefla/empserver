@@ -76,8 +76,8 @@ sona(void)
     /* Where these are used are non-re-entrant, so we keep 'em around */
     static char **rad = NULL;
     static char *radbuf = NULL;
-    static char **vis = NULL;
-    static char *visbuf = NULL;
+    static signed char **vis = NULL;
+    static signed char *visbuf = NULL;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -94,7 +94,7 @@ sona(void)
 	}
     }
     if (!vis && visbuf) {
-	vis = malloc(WORLD_Y * sizeof(char *));
+	vis = malloc(WORLD_Y * sizeof(signed char *));
 	if (vis) {
 	    for (x = 0; x < WORLD_Y; x++) {
 		vis[x] = &visbuf[(WORLD_X + 1) * x];
