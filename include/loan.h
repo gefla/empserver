@@ -42,7 +42,7 @@ struct lonstr {
     natid l_loner;		/* loan shark */
     short l_uid;
     natid l_lonee;		/* sucker */
-    s_char l_status;		/* loan status */
+    signed char l_status;	/* loan status */
     short l_sell;		/* pointer to trade file (unused) */
     int l_irate;		/* interest rate */
     int l_ldur;			/* intended duration */

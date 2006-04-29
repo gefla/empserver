@@ -636,7 +636,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     int shell, gun;
     int dam;
     int totdam = 0;
-    s_char notified[MAXNOC];
+    signed char notified[MAXNOC];
     int i;
 
     /* Inform neutral and worse */

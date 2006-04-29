@@ -46,7 +46,7 @@
 
 struct telstr {
     natid tel_from;		/* sender */
-    s_char tel_type;
+    signed char tel_type;
     long tel_length;		/* how long */
     time_t tel_date;		/* when sent */
 };

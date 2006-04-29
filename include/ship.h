@@ -66,11 +66,11 @@ struct shpstr {
     short shp_uid;		/* unit id (ship #) */
     coord shp_x;		/* x location in abs coords */
     coord shp_y;		/* y location in abs coords */
-    s_char shp_type;		/* index in mchr[] */
-    s_char shp_effic;		/* 0% to 100% */
-    s_char shp_mobil;		/* mobility units */
+    signed char shp_type;	/* index in mchr[] */
+    signed char shp_effic;	/* 0% to 100% */
+    signed char shp_mobil;	/* mobility units */
     short shp_tech;		/* tech level ship was built at */
-    s_char shp_fleet;		/* group membership */
+    char shp_fleet;		/* group membership */
     coord shp_opx, shp_opy;	/* Op sector coords */
     short shp_mission;		/* mission code */
     short shp_radius;		/* mission radius */
@@ -117,7 +117,7 @@ struct fltelemstr {
 
 struct fltheadstr {
     int leader;
-    s_char real_q;
+    signed char real_q;
 /* defines for the real_q member */
 #define	LEADER_VIRTUAL	0
 #define	LEADER_REAL	1

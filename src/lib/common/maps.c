@@ -54,7 +54,7 @@ static int bmnxtsct(struct nstr_sect *);
 static char map_char(unsigned char type, natid own, int owner_or_god);
 
 int
-draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
+draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 {
     struct natstr *np;
     struct range range;
@@ -302,7 +302,7 @@ map_char(unsigned char type, natid own, int owner_or_god)
 }
 
 int
-unit_map(int unit_type, int uid, struct nstr_sect *nsp, s_char *originp)
+unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 {
     struct shpstr origs;
     struct lndstr origl;
@@ -339,8 +339,8 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, s_char *originp)
 int
 bmaps_intersect(natid a, natid b)
 {
-    s_char *mapa = ef_ptr(EF_MAP, a);
-    s_char *mapb = ef_ptr(EF_MAP, b);
+    char *mapa = ef_ptr(EF_MAP, a);
+    char *mapb = ef_ptr(EF_MAP, b);
     int i;
 
     for (i = 0; i < WORLD_X * WORLD_Y / 2; ++i, ++mapa, ++mapb)

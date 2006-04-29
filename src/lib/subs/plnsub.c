@@ -52,7 +52,7 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static int pln_equip(struct plist *, struct ichrstr *, int, s_char);
+static int pln_equip(struct plist *, struct ichrstr *, int, char);
 
 /*
  * Get assembly point argument.
@@ -605,7 +605,7 @@ pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
 }
 
 static int
-pln_equip(struct plist *plp, struct ichrstr *ip, int flags, s_char mission)
+pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 {
     struct plchrstr *pcp;
     struct plnstr *pp;
@@ -1159,7 +1159,7 @@ pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 /* return 0 if there was a nuclear detonation */
 
 int
-pln_damage(struct plnstr *pp, coord x, coord y, s_char type, int *nukedamp,
+pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
 	   int noisy)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;

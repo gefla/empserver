@@ -57,7 +57,7 @@ march(void)
     char *cp = 0;
     struct lndstr *lnd = 0;	/* leader */
     struct nstr_sect ns;
-    s_char origin;
+    char origin;
     int dir;
     int stopping = 0;
     int skip = 0;

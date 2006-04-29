@@ -340,7 +340,7 @@ landrepair(struct lndstr *land, struct natstr *np,
 	logerror("land unit %d building %d ! \n", land->lnd_uid, build);
     np->nat_money -= mult * lp->l_cost * build / 100.0;
     if (!player->simulation) {
-	land->lnd_effic += (s_char)build;
+	land->lnd_effic += (signed char)build;
 
 	putsect(sp);
     }

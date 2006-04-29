@@ -87,16 +87,6 @@ struct mob_acc_globals {
 
 typedef unsigned char natid;	/* NSC_NATID must match this */
 
-/*
- * TODO s_char has to go.  Use plain char for characters and strings,
- * signed char for small integers.
- */
-#ifdef __CHAR_UNSIGNED__
-typedef signed char s_char;
-#else
-typedef char s_char;
-#endif
-
 typedef short coord;
 
 #ifndef bit

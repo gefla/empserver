@@ -45,7 +45,7 @@ struct nukstr {
     coord nuk_x;		/* current loc of device */
     coord nuk_y;
     /* end of part matching struct genitem */
-    s_char nuk_n;		/* number of nukes in list */
+    signed char nuk_n;		/* number of nukes in list */
     short nuk_ship;		/* currently aboard ship (unused) */
     short nuk_trade;		/* index into trade file (unused) */
     short nuk_types[N_MAXNUKE];	/* # of nukes in sector of given type */

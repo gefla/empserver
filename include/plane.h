@@ -53,11 +53,11 @@ struct plnstr {
     short pln_uid;		/* plane unit id */
     coord pln_x;		/* plane x-y */
     coord pln_y;
-    s_char pln_type;		/* index in plchr[] */
-    s_char pln_effic;		/* actually "training" */
-    s_char pln_mobil;		/* plane mobility */
+    signed char pln_type;	/* index in plchr[] */
+    signed char pln_effic;	/* actually "training" */
+    signed char pln_mobil;	/* plane mobility */
     short pln_tech;		/* plane's tech level */
-    s_char pln_wing;		/* like fleet */
+    char pln_wing;		/* like fleet */
     coord pln_opx;		/* Op sector coords */
     coord pln_opy;		/* Op sector coords */
     short pln_mission;		/* mission code */
@@ -72,9 +72,9 @@ struct plnstr {
     int pln_acc;
     int pln_load;
     int pln_fuel;		/* (unused) */
-    s_char pln_harden;		/* for missiles */
-    s_char pln_nuketype;	/* type of nuclear armament (if any) */
-    s_char pln_flags;		/* State of the plane */
+    signed char pln_harden;	/* for missiles */
+    signed char pln_nuketype;	/* type of nuclear armament (if any) */
+    signed char pln_flags;	/* State of the plane */
     time_t pln_access;		/* Last time mob was updated (MOB_ACCESS) */
     time_t pln_timestamp;	/* Last time this plane was touched */
     float pln_theta;		/* position in orbital sine wave */

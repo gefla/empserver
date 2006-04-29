@@ -257,7 +257,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    air_money[pp->pln_own] += np->nat_money - start_money;
 
 	    if (!player->simulation)
-		pp->pln_effic += (s_char)build;
+		pp->pln_effic += (signed char)build;
 	    else
 		np->nat_money = start_money;
 	    k++;

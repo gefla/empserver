@@ -56,7 +56,7 @@ struct ltcomstr {
     natid proposer;		/* country offering */
     natid proposee;		/* country offered to */
     natid mailee;		/* who gets mail about it */
-    s_char op;			/* 'a', 'd', or 'p' */
+    char op;			/* 'a', 'd', or 'p' */
     union {
 	struct lonstr l;	/* the loan */
 	struct trtstr t;	/* the treaty */

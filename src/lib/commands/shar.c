@@ -45,7 +45,7 @@ shar(void)
 {
     int to;
     struct nstr_sect ns;
-    s_char des = 0;
+    char des = 0;
     int n;
 
     to = natarg(player->argp[1], "Share bmap with which country? ");

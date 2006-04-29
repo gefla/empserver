@@ -35,7 +35,7 @@
 #define GEN_H
 
 #include <stdlib.h>		/* atoi etc. */
-#include "misc.h"		/* s_char etc */
+#include "misc.h"
 #include "xy.h"			/* struct range */
 #include "prototypes.h"		/* must come at end, after defines and typedefs */
 

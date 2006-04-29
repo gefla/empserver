@@ -64,7 +64,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     int n;
     int changed = 0;
     long crackle;
-    s_char noise[100];
+    signed char noise[100];
     char selection[1024];
 
     if (!eff)

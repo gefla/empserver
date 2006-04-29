@@ -41,7 +41,7 @@
 
 extern void blankfill(char *, struct range *, int);
 /* src/lib/subs/border.c */
-extern int map_set(natid, coord, coord, s_char, int);
+extern int map_set(natid, coord, coord, char, int);
 extern void writebmap(natid);
 extern void writemap(natid);
 /* src/lib/subs/border.c */

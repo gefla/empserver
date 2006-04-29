@@ -59,7 +59,7 @@ navi(void)
     char *cp = 0;
     struct shpstr *shp = 0;	/* flagship */
     struct nstr_sect ns;
-    s_char origin;
+    char origin;
     int dir;
     int stopping = 0;
     int skip = 0;

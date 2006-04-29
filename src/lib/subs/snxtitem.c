@@ -192,7 +192,7 @@ snxtitem_all(struct nstr_item *np, int type)
 }
 
 void
-snxtitem_group(struct nstr_item *np, int type, s_char group)
+snxtitem_group(struct nstr_item *np, int type, char group)
 {
     if (group == '~')
 	group = ' ';

@@ -47,11 +47,11 @@ struct genitem {
     short uid;
     coord x;
     coord y;
-    s_char type;
-    s_char effic;
-    s_char mobil;
+    signed char type;
+    signed char effic;
+    signed char mobil;
     short tech;
-    s_char group;
+    char group;
     coord opx, opy;
     short mission;
     short radius;

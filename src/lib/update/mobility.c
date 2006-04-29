@@ -310,7 +310,7 @@ do_mob_ship(struct shpstr *sp, int etus)
 	value = sp->shp_mobil + ((float)etus * ship_mob_scale);
 	if (value > ship_mob_max)
 	    value = ship_mob_max;
-	sp->shp_mobil = (s_char)value;
+	sp->shp_mobil = (signed char)value;
     } else {
 	can_add = ship_mob_max - sp->shp_mobil;
 	if (can_add > ((float)etus * ship_mob_scale))

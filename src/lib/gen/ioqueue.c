@@ -225,9 +225,9 @@ ioqtobuf(struct ioqueue *ioq, char *buf, int cc)
 static int
 ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, register int stopc)
 {
-    register int nbytes;
-    register s_char *p;
-    register int n;
+    int nbytes;
+    char *p;
+    int n;
     struct io *io;
     struct emp_qelem *qp;
     struct emp_qelem *head;
@@ -298,7 +298,7 @@ appendcc(struct ioqueue *ioq, char *buf, int cc)
 {
     struct io *io;
     int len;
-    s_char *ptr;
+    char *ptr;
     int avail;
 
     /* determine if any space is left */
@@ -389,7 +389,7 @@ ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen)
     int nbytes;
     int nleft;
     int ncopied;
-    s_char *offset;
+    char *offset;
 
     ncopied = 0;
     nleft = nBufLen;

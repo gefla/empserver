@@ -53,7 +53,7 @@ map(void)
     int unit_type = 0;
     int bmap = 0;
     struct nstr_sect ns;
-    s_char origin = '\0';
+    char origin = '\0';
     int map_flags = 0;
 
     if (**player->argp != 'm') {

@@ -187,7 +187,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     int nowhere_to_go = 0;
     struct sctstr rsect;
     double mobcost;
-    s_char orig;
+    signed char orig;
     int mob;
 
     taken = lnd_getmil(&llp->land);
@@ -272,7 +272,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		if (mob < -127)
 		    mob = -127;
 		orig = llp->land.lnd_mobil;
-		llp->land.lnd_mobil = (s_char)mob;
+		llp->land.lnd_mobil = (signed char)mob;
 		if (llp->land.lnd_mobil > orig)
 		    llp->land.lnd_mobil = -127;
 		sprintf(buf, "retreats at %d%% efficiency to %s!",
@@ -326,7 +326,7 @@ lnd_takemob(struct emp_qelem *list, double loss)
 	new = llp->land.lnd_mobil - mcost;
 	if (new < -127)
 	    new = -127;
-	llp->land.lnd_mobil = (s_char)new;
+	llp->land.lnd_mobil = (signed char)new;
     }
 }
 int

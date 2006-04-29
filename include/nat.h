@@ -98,8 +98,8 @@ struct natstr {
     char nat_userid[32];	/* userid of last user, may be empty */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
-    s_char nat_dayno;		/* day of the year mod 128 */
-    s_char nat_update;		/* Want an update or not. */
+    signed char nat_dayno;	/* day of the year mod 128 */
+    signed char nat_update;	/* Want an update or not. */
     unsigned char nat_missed;	/* How many updates missed */
     unsigned short nat_tgms;	/* # of telegrams to be announced */
     unsigned short nat_ann;	/* # of annos pending */
@@ -115,7 +115,7 @@ struct natstr {
     short nat_relate[MAXNOC];
     unsigned char nat_contact[MAXNOC];
     short nat_rejects[(MAXNOC + 3) / 4]; /* four bits for each country */
-    s_char nat_priorities[PRI_MAX+1]; /* budget priority */
+    signed char nat_priorities[PRI_MAX+1]; /* budget priority */
     long nat_flags;		/* nation flags */
     char nat_spare[15];
 };

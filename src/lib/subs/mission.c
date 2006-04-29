@@ -1219,7 +1219,7 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 
 int
 mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
-		  s_char mission)
+		  char mission)
 {
     struct plchrstr *pcp;
     struct plnstr *pp;

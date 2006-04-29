@@ -58,7 +58,7 @@
 
 static void ask_olist(int combat_mode, struct combat *off,
 		      struct combat *def, struct emp_qelem *olist,
-		      s_char *land_answer, int *a_spyp, int *a_engineerp);
+		      char *land_answer, int *a_spyp, int *a_engineerp);
 static void take_move_in_mob(int combat_mode, struct llist *llp,
 			     struct combat *off, struct combat *def);
 static void move_in_land(int combat_mode, struct combat *off,
@@ -382,7 +382,7 @@ put_combat(struct combat *com)
 	    if (com->mob - com->mobcost < -127)
 		land.lnd_mobil = -127;
 	    else
-		land.lnd_mobil = (s_char)(com->mob - com->mobcost);
+		land.lnd_mobil = (signed char)(com->mob - com->mobcost);
 	}
 	makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
 		 land.lnd_y);
@@ -410,7 +410,7 @@ put_combat(struct combat *com)
 	    if (com->mob - com->mobcost < -127)
 		ship.shp_mobil = -127;
 	    else
-		ship.shp_mobil = (s_char)(com->mob - com->mobcost);
+		ship.shp_mobil = (signed char)(com->mob - com->mobcost);
 	}
 	makelost(EF_SHIP, ship.shp_own, ship.shp_uid, ship.shp_x,
 		 ship.shp_y);
@@ -766,7 +766,7 @@ att_ask_offense(int combat_mode, struct combat *off, struct combat *def,
 		struct emp_qelem *olist, int *a_spyp, int *a_engineerp)
 {
     int n;
-    s_char land_answer[1024];
+    char land_answer[1024];
 
     emp_initque(olist);
     if (att_abort(combat_mode, off, def))
@@ -947,7 +947,7 @@ att_prompt(char *prompt, char army)
 
 static void
 ask_olist(int combat_mode, struct combat *off, struct combat *def,
-	  struct emp_qelem *olist, s_char *land_answer, int *a_spyp,
+	  struct emp_qelem *olist, char *land_answer, int *a_spyp,
 	  int *a_engineerp)
 {
     struct nstr_item ni;
@@ -2283,8 +2283,8 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     struct llist *llp;
     char buf[512];
     char prompt[512];
-    s_char land_answer[1024];
-    s_char *answerp;
+    char land_answer[1024];
+    char *answerp;
 
     for (n = 0; n <= off->last; ++n)
 	if (off[n].type != EF_BAD && off[n].troops > 0)

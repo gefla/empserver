@@ -39,8 +39,8 @@ struct trtstr {
     natid trt_cna;		/* proposer */
     short trt_uid;
     natid trt_cnb;		/* acceptor */
-    s_char trt_status;		/* treaty status */
-    s_char trt_fill;
+    signed char trt_status;	/* treaty status */
+    char trt_fill;
     short trt_acond;		/* conditions for proposer */
     short trt_bcond;		/* conditions for accepter */
     float trt_bond;		/* amount of bond involved (unused) */

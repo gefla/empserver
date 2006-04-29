@@ -159,7 +159,7 @@ update_wait(void *unused)
 	}
 	stacksize = 100000 +
 /* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
-					sizeof(s_char *));
+					sizeof(char *));
 
 	empth_create(PP_UPDATE, update_main, stacksize, 0,
 		     "UpdateRun", "Updates the world", dp);

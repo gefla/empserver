@@ -702,7 +702,6 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     int eff;
     struct shpstr ship;
     struct lndstr land;
-    /* s_char *sprintf();           already in misc.h [JFW] */
     natid plane_owner;
 
     disp = 0;

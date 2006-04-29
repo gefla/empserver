@@ -54,18 +54,18 @@ struct lndstr {
     short lnd_uid;		/* unit id (land unit) */
     coord lnd_x;		/* x location in abs coords */
     coord lnd_y;		/* y location in abs coords */
-    s_char lnd_type;		/* index in lchr[] */
-    s_char lnd_effic;		/* 0% to 100% */
-    s_char lnd_mobil;		/* mobility units made int for RS/6000 */
+    signed char lnd_type;	/* index in lchr[] */
+    signed char lnd_effic;	/* 0% to 100% */
+    signed char lnd_mobil;	/* mobility units */
     short lnd_tech;		/* tech level ship was built at */
-    s_char lnd_army;		/* group membership */
+    char lnd_army;		/* group membership */
     coord lnd_opx, lnd_opy;	/* Op sector coords */
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
     /* end of part matching struct genitem */
-    s_char lnd_flags;		/* unit flags (unused) */
+    signed char lnd_flags;	/* unit flags (unused) */
     short lnd_ship;		/* pointer to transporting ship */
-    s_char lnd_harden;		/* for missiles */
+    signed char lnd_harden;	/* fortification */
     short lnd_retreat;		/* retreat percentage */
     unsigned char lnd_fuel;	/* How much fuel do we have */
     unsigned char lnd_nxlight;	/* How many xlight planes on board? */

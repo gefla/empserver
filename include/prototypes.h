@@ -309,8 +309,8 @@ extern void loginit(char *);
 extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* more in misc.h */
 /* maps.c */
-extern int draw_map(int, s_char, int, struct nstr_sect *);
-extern int unit_map(int, int, struct nstr_sect *, s_char *);
+extern int draw_map(int, char, int, struct nstr_sect *);
+extern int unit_map(int, int, struct nstr_sect *, char *);
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* move.c */
@@ -340,7 +340,7 @@ extern void snxtitem_area(struct nstr_item *, int,
 extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
 extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
 extern void snxtitem_all(struct nstr_item *, int);
-extern void snxtitem_group(struct nstr_item *, int, s_char);
+extern void snxtitem_group(struct nstr_item *, int, char);
 extern void snxtitem_rewind(struct nstr_item *);
 extern int snxtitem_list(struct nstr_item *, int, int *, int);
 /* snxtsect_subs.c */
@@ -510,8 +510,7 @@ extern int islist(char *);
 extern char *mission_name(short);
 extern char *nameofitem(struct genitem *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
-extern int mission_pln_equip(struct plist *, struct ichrstr *, int,
-			     s_char);
+extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
 extern int ground_interdict(coord, coord, natid, char *);
 extern int unit_interdict(coord, coord, natid, char *, int, int);
 extern int off_support(coord, coord, natid, natid);
@@ -589,7 +588,7 @@ extern void count_land_planes(struct lndstr *);
 extern int count_sect_planes(struct sctstr *);
 extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
-extern int pln_damage(struct plnstr *, coord, coord, s_char, int *, int);
+extern int pln_damage(struct plnstr *, coord, coord, char, int *, int);
 extern int pln_identchance(struct plnstr *, int, int);
 extern void pln_set_tech(struct plnstr *, int);
 /* pr.c */

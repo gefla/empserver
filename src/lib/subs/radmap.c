@@ -70,8 +70,8 @@ radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
  * want to do this in other places too where it doesn't matter. */
 static char **rad;
 static char *radbuf;
-static s_char **vis;
-static s_char *visbuf;
+static signed char **vis;
+static signed char *visbuf;
 
 static void
 radmap2(int owner,
@@ -100,7 +100,7 @@ radmap2(int owner,
 	}
     }
     if (!vis) {
-	vis = malloc(WORLD_Y * sizeof(s_char *));
+	vis = malloc(WORLD_Y * sizeof(signed char *));
 	if (vis && visbuf) {
 	    for (x = 0; x < WORLD_Y; x++)
 		vis[x] = &visbuf[(WORLD_X + 1) * x];

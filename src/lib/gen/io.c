@@ -194,7 +194,7 @@ io_output(struct iop *iop, int waitforoutput)
 #if !defined(_WIN32)
     struct iovec iov[16];
 #else
-    s_char buf[IO_BUFSIZE];
+    char buf[IO_BUFSIZE];
 #endif
     int cc;
     int n;

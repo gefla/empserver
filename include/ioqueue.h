@@ -39,7 +39,7 @@ struct io {
     int size;
     int nbytes;
     int offset;
-    s_char *data;
+    char *data;
 };
 
 struct ioqueue {
