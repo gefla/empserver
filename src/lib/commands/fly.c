@@ -66,7 +66,7 @@ fly(void)
     int wantflags;
     struct sctstr ap_sect;
     int dst_type;
-    s_char *dst_ptr;
+    void *dst_ptr;
     char buf[1024];
 
     wantflags = 0;
@@ -95,11 +95,11 @@ fly(void)
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
     if (cno < 0) {
-	dst_ptr = (s_char *)&target;
+	dst_ptr = &target;
 	dst_type = EF_SECTOR;
     } else {
 	getship(cno, &ship);
-	dst_ptr = (s_char *)&ship;
+	dst_ptr = &ship;
 	dst_type = EF_SHIP;
     }
 
