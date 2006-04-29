@@ -37,10 +37,10 @@
 #include "gen.h"
 
 int
-onearg(s_char *arg, s_char *prompt)
+onearg(char *arg, char *prompt)
 {
     int n;
-    s_char buf[1024];
+    char buf[1024];
 
     if (arg == 0 || *arg == 0) {
 	if ((arg = getstring(prompt, buf)) == 0)

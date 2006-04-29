@@ -55,10 +55,10 @@ enli(void)
     int milwant;
     int totalmil;
     long reserve;
-    s_char *p;
+    char *p;
     int quota;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

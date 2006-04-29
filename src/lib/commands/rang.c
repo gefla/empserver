@@ -47,8 +47,8 @@ range(void)
     struct nstr_item np;
     struct plnstr plane;
     int i;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;

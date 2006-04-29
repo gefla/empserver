@@ -84,8 +84,8 @@ load(void)
     struct sctstr sect;
     struct shpstr ship;
     int retval;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1],
 		       "What commodity (or 'plane' or 'land')? ", buf))
@@ -223,8 +223,8 @@ lload(void)
     struct sctstr sect;
     struct lndstr land;
     int retval;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1],
 		       "What commodity (or 'plane' or 'land')? ", buf))
@@ -371,9 +371,9 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     struct nstr_item ni;
     struct plnstr pln;
     int loaded = 0;
-    s_char buf[1024];
-    s_char *p;
-    s_char prompt[512];
+    char buf[1024];
+    char *p;
+    char prompt[512];
     struct mchrstr *mcp = mchr + sp->shp_type;
 
     if (!(mcp->m_flags & (M_CHOPPER | M_XLIGHT | M_FLY | M_MSL))) {
@@ -504,9 +504,9 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     struct lndstr land;
     struct plnstr plane;
     int loaded = 0;
-    s_char *p;
-    s_char prompt[512];
-    s_char buf[1024];
+    char *p;
+    char prompt[512];
+    char buf[1024];
     int load_spy = 0;
 
     count_units(sp);
@@ -724,9 +724,9 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
     struct mchrstr *mcp = &mchr[(int)sp->shp_type];
     int ship_amt, ship_max, sect_amt, move_amt;
     int amount;
-    s_char prompt[512];
-    s_char *p;
-    s_char buf[1024];
+    char prompt[512];
+    char *p;
+    char buf[1024];
 
     sprintf(prompt, "Number of %s to %s %s at %s? ",
 	    ich->i_name,
@@ -801,9 +801,9 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     struct nstr_item ni;
     struct plnstr pln;
     int loaded = 0;
-    s_char *p;
-    s_char prompt[512];
-    s_char buf[1024];
+    char *p;
+    char prompt[512];
+    char buf[1024];
 
     if (!lp->lnd_maxlight) {
 	if (noisy)
@@ -917,9 +917,9 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
     struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
     int land_amt, land_max, sect_amt, move_amt;
     int amount;
-    s_char prompt[512];
-    s_char *p;
-    s_char buf[1024];
+    char prompt[512];
+    char *p;
+    char buf[1024];
 
     sprintf(prompt, "Number of %s to %s %s at %s? ",
 	    ich->i_name,
@@ -999,9 +999,9 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     struct lndstr land;
     struct plnstr plane;
     int loaded = 0;
-    s_char *p;
-    s_char prompt[512];
-    s_char buf[1024];
+    char *p;
+    char prompt[512];
+    char buf[1024];
 
     lnd_count_units(lp);
 

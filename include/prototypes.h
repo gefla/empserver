@@ -71,11 +71,11 @@ extern int nav_map(int, int, int);
 extern int count_pop(int);
 extern int scuttle_tradeship(struct shpstr *, int);
 extern void scuttle_ship(struct shpstr *);
-extern void resnoise(struct sctstr *sptr, int public_amt, s_char *name,
+extern void resnoise(struct sctstr *sptr, int public_amt, char *name,
 		     int old, int new);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
-extern s_char *prsub(struct shpstr *);
+extern char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, void *);
 extern void trdswitchown(int, void *, int);
@@ -312,7 +312,7 @@ extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 extern int draw_map(int, s_char, int, struct nstr_sect *);
 extern int unit_map(int, int, struct nstr_sect *, s_char *);
 extern int bmaps_intersect(natid, natid);
-extern int share_bmap(natid, natid, struct nstr_sect *, s_char, s_char *);
+extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* move.c */
 /* in path.h */
 /* nstr_subs.c */
@@ -321,13 +321,13 @@ extern int share_bmap(natid, natid, struct nstr_sect *, s_char, s_char *);
 extern void bp_enable_cachepath(void);
 extern void bp_disable_cachepath(void);
 extern void bp_clear_cachepath(void);
-extern s_char *BestDistPath(s_char *, struct sctstr *, struct sctstr *,
-			    double *, int);
-extern s_char *BestLandPath(s_char *, struct sctstr *, struct sctstr *,
-			    double *, int);
-extern s_char *BestShipPath(s_char *, int, int, int, int, int);
-extern s_char *BestAirPath(s_char *, int, int, int, int);
-extern double pathcost(struct sctstr *, s_char *, int);
+extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
+			  double *, int);
+extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
+			  double *, int);
+extern char *BestShipPath(char *, int, int, int, int, int);
+extern char *BestAirPath(char *, int, int, int, int);
+extern double pathcost(struct sctstr *, char *, int);
 /* res_pop.c */
 extern int max_population(float, int, int);
 extern int max_pop(float, struct sctstr *);
@@ -382,18 +382,18 @@ extern int diffy(int, int);
 extern int deltax(int, int);
 extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
-extern s_char *effadv(int);
-extern int onearg(s_char *, s_char *);
+extern char *effadv(int);
+extern int onearg(char *, char *);
 extern int parse(char *, char **, char **, char *, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(register int, register int, int);
 extern int tcp_listen(char *, char *, size_t *);
-extern s_char *numstr(s_char buf[], int n);
+extern char *numstr(char buf[], int n);
 /* plur.c */
-extern s_char *esplur(int n);
-extern s_char *splur(int n);
-extern s_char *iesplur(int n);
+extern char *esplur(int n);
+extern char *splur(int n);
+extern char *iesplur(int n);
 extern char *plurize(char *buf, int max_len, int n);
 /* more in misc.h */
 
@@ -432,8 +432,8 @@ extern int init_nats(void);
 /* login.c */
 extern void player_login(void *);
 /* nat.c */
-extern int natbyname(s_char *, natid *);
-extern int natpass(int, s_char *);
+extern int natbyname(char *, natid *);
+extern int natpass(int, char *);
 /* player.c */
 extern struct player *player;	/* current player's context */
 extern char *praddr(struct player *);
@@ -451,15 +451,15 @@ extern void stop_service(void);
  * src/lib/subs/ *.c 
  */
 /* askyn.c */
-extern int confirm(s_char *);
-extern int askyn(s_char *);
+extern int confirm(char *);
+extern int askyn(char *);
 /* bsanct.c */
 extern void bsanct(void);
 /* caploss.c */
-extern void caploss(struct sctstr *, natid, s_char *);
+extern void caploss(struct sctstr *, natid, char *);
 /* chkmoney.c */
-extern int chkmoney(long, long, s_char *);
-extern int check_cost(int, int, long, int *, s_char *);
+extern int chkmoney(long, long, char *);
+extern int check_cost(int, int, long, int *, char *);
 /* cnumb.c */
 extern int cnumb(char *);
 /* coastal.c */
@@ -488,7 +488,7 @@ extern void bitinit2(struct nstr_sect *, unsigned char *, int);
 /* getele.c */
 extern int getele(char *, char *);
 /* land.c */
-extern s_char *prland(struct lndstr *);
+extern char *prland(struct lndstr *);
 extern int lnd_postread(int, void *);
 extern int lnd_prewrite(int, void *);
 extern void lnd_init(int, void *);
@@ -505,15 +505,15 @@ extern int planesatxy(coord, coord, int, int, struct emp_qelem *);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 			 struct shiplist **);
 extern int num_shipsatxy(coord, coord, int, int);
-extern int islist(s_char *);
+extern int islist(char *);
 /* src/lib/subs/mission.c */
-extern s_char *mission_name(short);
-extern s_char *nameofitem(struct genitem *, int);
+extern char *mission_name(short);
+extern char *nameofitem(struct genitem *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int,
 			     s_char);
-extern int ground_interdict(coord, coord, natid, s_char *);
-extern int unit_interdict(coord, coord, natid, s_char *, int, int);
+extern int ground_interdict(coord, coord, natid, char *);
+extern int unit_interdict(coord, coord, natid, char *, int, int);
 extern int off_support(coord, coord, natid, natid);
 extern int def_support(coord, coord, natid, natid);
 extern int oprange(struct genitem *, int, int *);
@@ -531,14 +531,14 @@ extern int fly_map(coord, coord);
 /* mslsub.c */
 extern int msl_intercept(coord, coord, natid, int, int, int, int);
 extern int msl_equip(struct plnstr *);
-extern int msl_hit(struct plnstr *, int, int, int, int, s_char *,
+extern int msl_hit(struct plnstr *, int, int, int, int, char *,
 		   coord, coord, int);
 extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,
 		    int, int);
 extern int msl_launch_mindam(struct emp_qelem *, coord, coord, int,
-			     int, int, s_char *, int, int);
+			     int, int, char *, int, int);
 /* mtch.c */
-extern int comtch(register s_char *, struct cmndstr *, int);
+extern int comtch(char *, struct cmndstr *, int);
 /* natarg.c */
 extern struct natstr *natargp(char *, char *);
 extern int natarg(char *, char *);
@@ -559,7 +559,7 @@ extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */
 extern int nxtsct(struct nstr_sect *, struct sctstr *);
 /* plane.c */
-extern s_char *prplane(struct plnstr *);
+extern char *prplane(struct plnstr *);
 extern int pln_postread(int, void *);
 extern int pln_prewrite(int, void *);
 extern void pln_init(int, void *);
@@ -652,9 +652,9 @@ extern void sathead(void);
 extern int sct_postread(int, void *);
 extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
-extern int issector(s_char *);
+extern int issector(char *);
 /* ship.c */
-extern s_char *prship(struct shpstr *);
+extern char *prship(struct shpstr *);
 extern int shp_postread(int, void *);
 extern int shp_prewrite(int, void *);
 extern void shp_init(int, void *);
@@ -682,7 +682,7 @@ extern void show_news(int);
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
 extern int shp_sweep(struct emp_qelem *, int, natid);
-extern s_char *shp_path(int, struct shpstr *, s_char *);
+extern char *shp_path(int, struct shpstr *, char *);
 extern void shp_put(struct emp_qelem *, natid);
 extern void shp_list(struct emp_qelem *);
 extern int shp_check_nav(struct sctstr *, struct shpstr *);
@@ -731,7 +731,7 @@ extern void delete_old_announcements(void);
 /* deliver.c */
 extern void dodeliver(struct sctstr *);
 /* distribute.c */
-extern int dodistribute(struct sctstr *, int, s_char *, double, double);
+extern int dodistribute(struct sctstr *, int, char *, double, double);
 /* finish.c */
 extern void finish_sects(int);
 /* human.c */

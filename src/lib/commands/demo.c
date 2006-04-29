@@ -48,7 +48,7 @@
  */
 
 static long do_demo(struct natstr *natp, struct nstr_sect nstr, int number,
-		    s_char *p, int for_real);
+		    char *p, int for_real);
 
 int
 demo(void)
@@ -57,8 +57,8 @@ demo(void)
     long cash;
     long cost;
     int number;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
     struct nstr_sect nstr;
 
     natp = getnatp(player->cnum);
@@ -80,7 +80,7 @@ demo(void)
 }
 
 static long
-do_demo(struct natstr *natp, struct nstr_sect nstr, int number, s_char *p,
+do_demo(struct natstr *natp, struct nstr_sect nstr, int number, char *p,
 	int for_real)
 {
     struct sctstr sect;

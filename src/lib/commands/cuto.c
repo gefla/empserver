@@ -49,7 +49,7 @@ cuto(void)
     int nsect;
     int n;
     struct nstr_sect nstr;
-    s_char dirstr[12];
+    char dirstr[12];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

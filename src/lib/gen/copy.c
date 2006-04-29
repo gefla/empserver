@@ -44,11 +44,11 @@
  * null terminate
  */
 void
-blankfill(s_char *ptr, register struct range *range, int size)
+blankfill(char *ptr, struct range *range, int size)
 {
-    register s_char *p;
-    register int row;
-    register int col;
+    char *p;
+    int row;
+    int col;
 
     for (row = 0; row < range->height; row++) {
 	col = (range->width + 1) * (size + 1) / 2 - 1;

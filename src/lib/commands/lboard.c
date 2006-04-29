@@ -59,8 +59,8 @@ lboa(void)
     int a_spy = 0;		/* the best boarder scout */
     struct sctstr sect;
     struct lndstr land;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     att_combat_init(def, EF_LAND);
     /*

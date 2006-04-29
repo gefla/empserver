@@ -45,7 +45,7 @@ togg(void)
 {
     int flag = 0;
     int pos;
-    s_char *name;
+    char *name;
     struct natstr *np;
 
     np = getnatp(player->cnum);

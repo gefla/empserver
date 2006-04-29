@@ -37,16 +37,16 @@
 #include "misc.h"
 #include "gen.h"
 
-s_char *
-numstr(s_char *buf, int n)
+char *
+numstr(char *buf, int n)
 {
-    static s_char *numnames[] = {
+    static char *numnames[] = {
 	"zero", "one", "two", "three", "four", "five", "six",
 	"seven", "eight", "nine", "ten", "eleven", "twelve",
 	"thirteen", "fourteen", "fifteen", "sixteen",
 	"seventeen", "eighteen", "nineteen",
     };
-    static s_char *tennames[] = {
+    static char *tennames[] = {
 	"", "", "twenty", "thirty", "forty", "fifty",
 	"sixty", "seventy", "eighty", "ninety",
 	"hundred", "hundred ten", "hundred twenty",
@@ -71,10 +71,10 @@ numstr(s_char *buf, int n)
     return buf;
 }
 
-s_char *
+char *
 effadv(int n)
 {
-    static s_char *effadv_list[] = {
+    static char *effadv_list[] = {
 	"minimally", "partially", "moderately", "completely",
     };
 

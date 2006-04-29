@@ -49,14 +49,14 @@
 #include "queue.h"
 #include "ioqueue.h"
 
-static int ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc,
+static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc,
 		     register int stopc);
 #if !defined(_WIN32)
 static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov,
 		    register int max);
 #endif
-static int ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc);
-static int appendcc(struct ioqueue *ioq, s_char *buf, int cc);
+static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);
+static int appendcc(struct ioqueue *ioq, char *buf, int cc);
 static int removecc(struct ioqueue *ioq, register int cc);
 
 #if defined(_WIN32)
@@ -123,7 +123,7 @@ ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc)
  * number of bytes actually found.
  */
 int
-ioq_peek(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_peek(struct ioqueue *ioq, char *buf, int cc)
 {
     return ioqtobuf(ioq, buf, cc);
 }
@@ -135,7 +135,7 @@ ioq_dequeue(struct ioqueue *ioq, int cc)
 }
 
 void
-ioq_append(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_append(struct ioqueue *ioq, char *buf, int cc)
 {
     appendcc(ioq, buf, cc);
 }
@@ -152,7 +152,7 @@ ioq_qsize(struct ioqueue *ioq)
  * no input is available
  */
 int
-ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
+ioq_gets(struct ioqueue *ioq, char *buf, int cc)
 {
     int nbytes;
     int actual;
@@ -173,7 +173,7 @@ ioq_gets(struct ioqueue *ioq, s_char *buf, int cc)
 }
 
 int
-ioq_puts(struct ioqueue *ioq, s_char *buf)
+ioq_puts(struct ioqueue *ioq, char *buf)
 {
     return appendcc(ioq, buf, strlen(buf));
 }
@@ -189,14 +189,14 @@ ioq_puts(struct ioqueue *ioq, s_char *buf)
  * left for a higher level.
  */
 static int
-ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
+ioqtobuf(struct ioqueue *ioq, char *buf, int cc)
 {
     struct io *io;
     struct emp_qelem *qp;
     struct emp_qelem *head;
     register int nbytes;
     register int nleft;
-    register s_char *offset;
+    char *offset;
 
     nleft = cc;
     offset = buf;
@@ -223,7 +223,7 @@ ioqtobuf(struct ioqueue *ioq, s_char *buf, int cc)
  * terminating on the stop character.
  */
 static int
-ioqtocbuf(struct ioqueue *ioq, s_char *buf, int cc, register int stopc)
+ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, register int stopc)
 {
     register int nbytes;
     register s_char *p;
@@ -294,7 +294,7 @@ ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
  * append a buffer to the end of the ioq.
  */
 static int
-appendcc(struct ioqueue *ioq, s_char *buf, int cc)
+appendcc(struct ioqueue *ioq, char *buf, int cc)
 {
     struct io *io;
     int len;

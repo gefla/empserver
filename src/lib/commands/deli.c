@@ -53,9 +53,9 @@ deli(void)
     int thresh;
     int sx, sy;
     struct nstr_sect nstr;
-    s_char buf[1024];
-    s_char prompt[128];
-    s_char *p;
+    char buf[1024];
+    char prompt[128];
+    char *p;
 
     if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
 	return RET_SYN;

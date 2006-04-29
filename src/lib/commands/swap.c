@@ -54,8 +54,8 @@ swaps(void)
 {
     struct sctstr secta, sectb;
     coord x, y;
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
 
     if (!(p = getstarg(player->argp[1], "First sector : ", buf)) ||
 	!sarg_xy(p, &secta.sct_x, &secta.sct_y) ||

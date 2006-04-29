@@ -64,7 +64,7 @@ msl_equip(struct plnstr *pp)
 
 int
 msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
-	int snews_item, s_char *what, coord x, coord y, int victim)
+	int snews_item, char *what, coord x, coord y, int victim)
 {
     int hit;
     struct shpstr ship;
@@ -72,7 +72,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     int sublaunch = 0;
     struct plchrstr *pcp = plchr + pp->pln_type;
     int hitchance = pln_hitchance(pp, hardtarget, type);
-    s_char *from;
+    char *from;
     int dam, dummyi;
 
     mpr(pp->pln_own, "Preparing to launch %s at %s %s %s%s\n",
@@ -155,7 +155,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     mpr(pp->pln_own, hit ? "HIT!\n" : "miss\n");
     if (pcp->pl_flags & P_T)
 	mpr(victim, "...Incoming %s missile %s\n",
-	    sublaunch ? (s_char *)"" : cname(pp->pln_own),
+	    sublaunch ? "" : cname(pp->pln_own),
 	    hit ? "HIT!\n" : "missed\n");
     if (hit && news_item) {
 	if (sublaunch)
@@ -225,10 +225,10 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     struct plist *ip;
     int icount = 0;
     short destroyed = 0;
-    s_char *att_name;
-    s_char *def_name;
+    char *att_name;
+    char *def_name;
     int news_item;
-    s_char *who = sublaunch ? (s_char *)"" : cname(bombown);
+    char *who = sublaunch ? "" : cname(bombown);
 
     getsect(x, y, &sect);
     if (wantflags == P_O && !nowantflags) {
@@ -372,7 +372,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 /* Keep launching missiles on list until mindam damage has been done */
 int
 msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
-		  int type, int mindam, s_char *whatp, int victim,
+		  int type, int mindam, char *whatp, int victim,
 		  int mission)
 {
     struct emp_qelem *qp;

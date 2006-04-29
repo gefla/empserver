@@ -50,9 +50,9 @@ morale(void)
     struct lndstr land;
     struct natstr *natp;
     int i, min;
-    s_char *p;
-    s_char mess[128];
-    s_char buf[1024];
+    char *p;
+    char mess[128];
+    char buf[1024];
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))
 	return RET_SYN;

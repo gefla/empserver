@@ -74,7 +74,7 @@ trade_check_item_ok(union trdgenstr *tgp)
     return 0;
 }
 
-s_char *
+char *
 trade_nameof(struct trdstr *tp, union trdgenstr *tgp)
 {
     switch (tp->trd_type) {

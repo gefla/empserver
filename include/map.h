@@ -39,13 +39,13 @@
 
 #define	MAPWIDTH(persec) ((WORLD_X/2)*(persec + 1)+1)
 
-extern void blankfill(s_char *, register struct range *, int);
+extern void blankfill(char *, struct range *, int);
 /* src/lib/subs/border.c */
 extern int map_set(natid, coord, coord, s_char, int);
 extern void writebmap(natid);
 extern void writemap(natid);
 /* src/lib/subs/border.c */
-extern void border(struct range *, s_char *, s_char *);
+extern void border(struct range *, char *, char *);
 
 #define MAP_SHIP	bit(0)
 #define MAP_LAND	bit(1)

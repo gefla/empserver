@@ -48,10 +48,10 @@ int
 mobq(void)
 {
     struct shpstr ship;
-    s_char *cp, *oldmq;
+    char *cp, *oldmq;
     int good, mobquota, count = 0;
     struct nstr_item nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_SAIL) {
 	pr("The SAIL option is not enabled, so this command is not valid.\n");

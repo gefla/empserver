@@ -38,8 +38,8 @@
 #include "optlist.h"
 #include <stdio.h>
 
-s_char *
-mailbox(s_char *buf, natid cn)
+char *
+mailbox(char *buf, natid cn)
 {
     (void)sprintf(buf, "%s%d", telfil, cn);
     return buf;

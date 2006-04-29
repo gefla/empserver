@@ -177,7 +177,7 @@ static int
 launch_as(struct plnstr *pp)
 {
     coord sx, sy;
-    s_char *cp, buf[1024];
+    char *cp, buf[1024];
     struct plnstr plane;
     struct nstr_item ni;
     int goodtarget;
@@ -243,14 +243,14 @@ launch_missile(struct plnstr *pp, int sublaunch)
     struct plchrstr *pcp = plchr + pp->pln_type;
     coord sx, sy;
     int n, dam;
-    s_char *cp;
+    char *cp;
     struct mchrstr *mcp;
     struct shpstr target_ship;
     struct sctstr sect;
     int nukedam;
     int rel;
     struct natstr *natp;
-    s_char buf[1024];
+    char buf[1024];
 
     if (pcp->pl_flags & P_MAR)
 	cp = getstarg(player->argp[2], "Target ship? ", buf);
@@ -380,9 +380,9 @@ launch_sat(struct plnstr *pp, int sublaunch)
     int i;
     int dist;
     int dir;
-    s_char *cp;
-    s_char *p;
-    s_char buf[1024];
+    char *cp;
+    char *p;
+    char buf[1024];
 
     pr("\n");
     cp = getstarg(player->argp[2], "Target sector? ", buf);

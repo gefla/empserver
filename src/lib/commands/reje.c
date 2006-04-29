@@ -45,12 +45,12 @@
 int
 reje(void)
 {
-    register s_char *p;
+    char *p;
     int rel;
     int do_undo;
     struct natstr nat;
     struct nstr_item ni;
-    s_char buf[1024];
+    char buf[1024];
 
     if ((p = getstarg(player->argp[1], "reject or accept? ", buf)) == 0)
 	return RET_SYN;

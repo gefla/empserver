@@ -126,7 +126,7 @@ io_close(struct iop *iop)
 int
 io_input(struct iop *iop, int waitforinput)
 {
-    s_char buf[IO_BUFSIZE];
+    char buf[IO_BUFSIZE];
     int cc;
 
     /* Not a read IOP */
@@ -278,7 +278,7 @@ io_output(struct iop *iop, int waitforoutput)
 }
 
 int
-io_peek(struct iop *iop, s_char *buf, int nbytes)
+io_peek(struct iop *iop, char *buf, int nbytes)
 {
     if ((iop->flags & IO_READ) == 0)
 	return -1;
@@ -286,7 +286,7 @@ io_peek(struct iop *iop, s_char *buf, int nbytes)
 }
 
 int
-io_read(struct iop *iop, s_char *buf, int nbytes)
+io_read(struct iop *iop, char *buf, int nbytes)
 {
     int cc;
 
@@ -299,7 +299,7 @@ io_read(struct iop *iop, s_char *buf, int nbytes)
 }
 
 int
-io_write(struct iop *iop, s_char *buf, int nbytes, int doWait)
+io_write(struct iop *iop, char *buf, int nbytes, int doWait)
 {
     int len;
 
@@ -335,7 +335,7 @@ io_output_all(struct iop *iop)
 }
 
 int
-io_gets(struct iop *iop, s_char *buf, int nbytes)
+io_gets(struct iop *iop, char *buf, int nbytes)
 {
     if ((iop->flags & IO_READ) == 0)
 	return -1;
@@ -343,7 +343,7 @@ io_gets(struct iop *iop, s_char *buf, int nbytes)
 }
 
 int
-io_puts(struct iop *iop, s_char *buf)
+io_puts(struct iop *iop, char *buf)
 {
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;

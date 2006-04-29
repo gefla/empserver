@@ -46,12 +46,12 @@ army(void)
 {
     struct lndstr land;
     int count;
-    s_char *cp;
-    s_char c;
+    char *cp;
+    char c;
     struct nstr_item nstr;
     struct nstr_item ni;
     struct lndstr land2;
-    s_char buf[1024];
+    char buf[1024];
 
     cp = getstarg(player->argp[1], "army? ", buf);
     if (cp == 0)

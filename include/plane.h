@@ -162,7 +162,7 @@ struct shiplist {
 
 /* src/lib/subs/aircombat.c */
 extern void ac_planedamage(struct plist *, natid, int, natid, int,
-			   int, s_char *);
+			   int, char *);
 extern void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 			 struct emp_qelem *, natid, coord, coord);
 extern void ac_combat_headers(natid, natid);
@@ -173,7 +173,7 @@ extern void ac_landflak(struct emp_qelem *, coord, coord);
 extern void ac_fireflak(struct emp_qelem *, natid, natid, int);
 extern int ac_flak_dam(int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
-			 coord, s_char *, int, int,
+			 coord, char *, int, int,
 			 struct emp_qelem *, struct emp_qelem *);
 extern int ac_isflying(struct plnstr *, struct emp_qelem *);
 extern int do_evade(struct emp_qelem *, struct emp_qelem *);

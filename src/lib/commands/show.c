@@ -45,13 +45,13 @@
 int
 show(void)
 {
-    s_char *p;
+    char *p;
     void (*cfunc)(int);
     void (*sfunc)(int);
     void (*bfunc)(int);
     struct natstr *natp;
     int tlev;
-    s_char buf[1024];
+    char buf[1024];
     int rlev;
 
     if (!(p = getstarg(player->argp[1],

@@ -88,8 +88,8 @@ int
 multifire(void)
 {
     static int ef_with_guns[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
-    s_char vbuf[20];
-    s_char *ptr;
+    char vbuf[20];
+    char *ptr;
     double range2, range;
     int trange;
     coord fx;
@@ -117,13 +117,13 @@ multifire(void)
     struct natstr *natp;
     struct nstr_item nbst;
     int type;
-    s_char *p;
+    char *p;
     int nfiring = 0;
     int ndefending = 0;
     union item_u item;
     struct emp_qelem fired, defended;
     double odds;
-    s_char buf[1024];
+    char buf[1024];
 
     emp_initque(&fired);
     emp_initque(&defended);

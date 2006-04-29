@@ -48,11 +48,11 @@ int
 foll(void)
 {
     struct shpstr ship;
-    s_char *cp;
+    char *cp;
     int good, leader, count = 0;
     coord x, y;
     struct nstr_item nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_SAIL) {
 	pr("The SAIL option is not enabled, so this command is not valid.\n");

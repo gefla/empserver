@@ -53,11 +53,11 @@ int
 setres(void)
 {
     struct sctstr sect;
-    s_char *what;
+    char *what;
     int amt;
-    s_char *p;
+    char *p;
     struct nstr_sect nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if ((what = getstarg(player->argp[1],
 			 "Set What (iron, gold, oil, uranium, fertility)? ",

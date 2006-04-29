@@ -51,8 +51,8 @@ static int do_loan(void);
 int
 offe(void)
 {
-    register s_char *cp;
-    s_char buf[1024];
+    char *cp;
+    char buf[1024];
 
     if (!(cp = getstarg(player->argp[1], "loan or treaty? ", buf)) || !*cp)
 	return RET_SYN;
@@ -79,7 +79,7 @@ offe(void)
 static int
 do_treaty(void)
 {
-    register s_char *cp;
+    char *cp;
     register int ourcond;
     register int theircond;
     register int j;
@@ -90,8 +90,8 @@ do_treaty(void)
     time_t now;
     int n;
     struct natstr *natp;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     if ((n = natarg(player->argp[2], "Treaty offered to? ")) < 0)
 	return RET_SYN;
@@ -169,7 +169,7 @@ do_loan(void)
     struct lonstr loan;
     natid recipient;
     int n;
-    s_char prompt[128];
+    char prompt[128];
 
     if ((n = natarg(player->argp[2], "Lend to? ")) < 0)
 	return RET_SYN;

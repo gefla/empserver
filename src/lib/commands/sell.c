@@ -75,7 +75,7 @@ sell(void)
     time_t now;
     int ii = 0;
     coord x, y;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");

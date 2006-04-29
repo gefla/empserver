@@ -48,7 +48,7 @@
 
 /* Used for building up distribution info */
 struct distinfo {
-    s_char *path;		/* path to take */
+    char *path;			/* path to take */
     double imcost;		/* import cost */
     double excost;		/* export cost */
 };
@@ -66,11 +66,11 @@ static struct distinfo *g_distptrs;
 /* #define SAVE_FINISH_PATHS */
 
 #ifndef SAVE_FINISH_PATHS
-static s_char *finish_path = "h";	/* Placeholder indicating path exists */
+static char *finish_path = "h";	/* Placeholder indicating path exists */
 #endif /* SAVE_FINISH_PATHS */
 
 static void assemble_dist_paths(struct distinfo *distptrs);
-static s_char *ReversePath(s_char *path);
+static char *ReversePath(char *path);
 
 void
 finish_sects(int etu)
@@ -176,13 +176,13 @@ finish_sects(int etu)
 static void
 assemble_dist_paths(struct distinfo *distptrs)
 {
-    s_char *path, *p;
+    char *path, *p;
     double d;
     struct sctstr *sp;
     struct sctstr *dist;
     struct distinfo *infptr;
     int n;
-    s_char buf[512];
+    char buf[512];
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
@@ -229,11 +229,11 @@ assemble_dist_paths(struct distinfo *distptrs)
     }
 }
 
-static s_char *
-ReversePath(s_char *path)
+static char *
+ReversePath(char *path)
 {
-    s_char *patharray = "aucdefjhigklmyopqrstbvwxnz";
-    static s_char new_path[512];
+    char *patharray = "aucdefjhigklmyopqrstbvwxnz";
+    static char new_path[512];
     int ind;
 
     if (path == NULL)

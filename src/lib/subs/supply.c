@@ -165,7 +165,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     int packing;
     struct dchrstr *dp;
     struct ichrstr *ip;
-    s_char buf[1024];
+    char buf[1024];
 
     /* try to get it from sector we're in */
     getsect(x, y, &dest);

@@ -55,12 +55,12 @@ int
 setsector(void)
 {
     struct sctstr sect;
-    s_char *what;
+    char *what;
     int amt, current;
-    s_char *p;
+    char *p;
     struct nstr_sect nstr;
-    s_char buf[1024];
-    s_char char0, char1;
+    char buf[1024];
+    char char0, char1;
 
     if ((what = getstarg(player->argp[1],
 			 "Give What (iron, gold, oil, uranium, fertility, owner, eff., mob., work, avail., oldown, mines)? ",
@@ -360,10 +360,10 @@ resbenefit(natid who, int good)
 }
 
 void
-resnoise(struct sctstr *sptr, int public_amt, s_char *name, int old,
+resnoise(struct sctstr *sptr, int public_amt, char *name, int old,
 	 int new)
 {
-    s_char p[100];
+    char p[100];
 
     pr("%s of %s changed from %d to %d%%\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);

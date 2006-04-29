@@ -54,7 +54,7 @@ drop(void)
     coord ax, ay;
     int ap_to_target;
     struct ichrstr *ip;
-    s_char flightpath[MAX_PATH_LEN];
+    char flightpath[MAX_PATH_LEN];
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
     struct sctstr target;
@@ -62,7 +62,7 @@ drop(void)
     struct emp_qelem esc_list;
     int wantflags;
     struct sctstr ap_sect;
-    s_char buf[1024];
+    char buf[1024];
 
     wantflags = 0;
     if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))

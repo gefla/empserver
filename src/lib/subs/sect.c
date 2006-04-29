@@ -138,9 +138,9 @@ checksect(struct sctstr *sp)
 }
 
 int
-issector(s_char *arg)
+issector(char *arg)
 {
-    s_char c;
+    char c;
 
     while (0 != (c = *arg++))
 	if (!isdigit(c) && !isspace(c) && (c != '/'))

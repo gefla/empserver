@@ -35,19 +35,19 @@
 
 #include "prototypes.h"
 
-s_char *
+char *
 splur(int n)
 {
     return n == 1 ? "" : "s";
 }
 
-s_char *
+char *
 esplur(int n)
 {
     return n == 1 ? "" : "es";
 }
 
-s_char *
+char *
 iesplur(int n)
 {
     return n == 1 ? "y" : "ies";

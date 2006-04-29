@@ -62,7 +62,7 @@ fuel(void)
     int type;
     struct mchrstr *mp;
     struct lchrstr *lcp;
-    s_char *p;
+    char *p;
     int fueled;
     int land_fuel, ship_fuel;
     int oil_amt, pet_amt, fuel_amt, tot_fuel, max_amt;
@@ -73,8 +73,8 @@ fuel(void)
     int harbor, sector;
     int fuelled_ship = -1;
     struct nstr_item tender, ltender;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     if (opt_FUEL == 0) {
 	pr("Option 'FUEL' not enabled\n");

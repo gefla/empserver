@@ -49,7 +49,7 @@
 int
 rada(void)
 {
-    s_char *cp;
+    char *cp;
     double tf;
     double tech;
     struct nstr_item ni;
@@ -58,7 +58,7 @@ rada(void)
     struct lndstr land;
     struct sctstr sect;
     int from_unit;
-    s_char buf[1024];
+    char buf[1024];
 
     from_unit = (**player->argp == 'l');
 

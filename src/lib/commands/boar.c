@@ -63,8 +63,8 @@ boar(void)
     struct lndstr land;
     struct nstr_item ni;
     int foundland;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     att_combat_init(def, EF_SHIP);
     /*

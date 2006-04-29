@@ -150,7 +150,7 @@ total_mil(struct lndstr *lp)
 }
 
 void
-lnd_print(struct llist *llp, s_char *s)
+lnd_print(struct llist *llp, char *s)
 {
     if (llp->land.lnd_own == player->cnum)
 	pr("%s %s\n", prland(&llp->land), s);
@@ -159,7 +159,7 @@ lnd_print(struct llist *llp, s_char *s)
 }
 
 void
-lnd_delete(struct llist *llp, s_char *s)
+lnd_delete(struct llist *llp, char *s)
 {
     if (s)
 	lnd_print(llp, s);
@@ -182,7 +182,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     coord bx, by;
     struct sctstr sect;
     int ret_chance;
-    s_char buf[1024];
+    char buf[1024];
     int taken;
     int nowhere_to_go = 0;
     struct sctstr rsect;
@@ -353,10 +353,10 @@ lnd_spyval(struct lndstr *lp)
 
 int
 intelligence_report(int destination, struct lndstr *lp, int spy,
-		    s_char *mess)
+		    char *mess)
 {
     struct lchrstr *lcp;
-    s_char buf1[80], buf2[80], buf3[80];
+    char buf1[80], buf2[80], buf3[80];
     double estimate = 0.0;	/* estimated defense value */
 
     if (destination == 0)
@@ -566,7 +566,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     coord allx;
     coord ally;
     int first = 1;
-    s_char mess[128];
+    char mess[128];
     int rel;
 
     *minmobp = 9876.0;
@@ -805,7 +805,7 @@ lnd_list(struct emp_qelem *land_list)
 }
 
 void
-lnd_mess(s_char *str, struct llist *llp)
+lnd_mess(char *str, struct llist *llp)
 {
     mpr(llp->land.lnd_own, "%s %s & stays in %s\n",
 	prland(&llp->land),
@@ -1082,7 +1082,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     int stopping = 0;
     int visible;
     int stop;
-    s_char dp[80];
+    char dp[80];
     int rel;
     int oldown;
 
@@ -1314,13 +1314,13 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     return (int)dam;
 }
 
-s_char *
-lnd_path(int together, struct lndstr *lp, s_char *buf)
+char *
+lnd_path(int together, struct lndstr *lp, char *buf)
 {
     coord destx;
     coord desty;
     struct sctstr d_sect, sect;
-    s_char *cp;
+    char *cp;
     double dummy;
 
     if (!sarg_xy(buf, &destx, &desty))

@@ -41,7 +41,7 @@
 #include <fcntl.h>
 
 int
-natbyname(s_char *name, natid *result)
+natbyname(char *name, natid *result)
 {
     struct natstr *np;
     int i;
@@ -57,7 +57,7 @@ natbyname(s_char *name, natid *result)
 }
 
 int
-natpass(int cn, s_char *pass)
+natpass(int cn, char *pass)
 {
     struct natstr *np;
 

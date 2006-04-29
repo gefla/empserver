@@ -60,8 +60,8 @@ assa(void)
     int a_spy = 0;		/* the best assaulter scout */
     double osupport = 1.0;	/* assault support */
     double dsupport = 1.0;	/* defense support */
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
     int n;
     int ourtotal;
     struct emp_qelem *qp, *next;

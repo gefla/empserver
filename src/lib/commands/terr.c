@@ -46,12 +46,12 @@ int
 terr(void)
 {
     struct sctstr sect;
-    s_char *p;
+    char *p;
     int terr_n;
     int field;
     struct nstr_sect nstr;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

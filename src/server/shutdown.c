@@ -57,7 +57,7 @@ shutdown_sequence(void *unused)
     struct natstr *god;
     struct tm *tm;
     time_t now;
-    s_char header[100];
+    char header[100];
 
     if (shutdown_pending <= 0) {
 	shutdown_pending = 0;

@@ -46,10 +46,10 @@ int
 best(void)
 {
     double cost;
-    s_char *s;
+    char *s;
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

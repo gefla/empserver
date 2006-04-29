@@ -46,12 +46,12 @@ flee(void)
 {
     struct shpstr ship;
     int count;
-    s_char *cp;
-    s_char c;
+    char *cp;
+    char c;
     struct nstr_item nstr;
     struct nstr_item ni;
     struct shpstr ship2;
-    s_char buf[1024];
+    char buf[1024];
 
     cp = getstarg(player->argp[1], "fleet? ", buf);
     if (cp == 0)

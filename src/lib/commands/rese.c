@@ -60,7 +60,7 @@ rese(void)
     char *p;
     float price;
     time_t now;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");

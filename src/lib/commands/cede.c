@@ -61,11 +61,11 @@ cede(void)
     natid to;
     int n;
     int is_sector = 0, is_ship = 0;
-    s_char *p;
+    char *p;
     struct nstr_sect ns;
     struct nstr_item ni;
     struct natstr *natp;
-    s_char buf[1024];
+    char buf[1024];
 
     if ((p = getstarg(player->argp[1], "Cede what? ", buf)) == 0)
 	return RET_SYN;

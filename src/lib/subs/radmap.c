@@ -68,8 +68,8 @@ radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
 /* More dynamic world sized buffers.  We create 'em once, and then
  * never again.  No need to keep creating/tearing apart.  We may
  * want to do this in other places too where it doesn't matter. */
-static s_char **rad;
-static s_char *radbuf;
+static char **rad;
+static char *radbuf;
 static s_char **vis;
 static s_char *visbuf;
 

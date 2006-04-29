@@ -54,12 +54,12 @@ hard(void)
     struct plchrstr *pcp;
     struct plnstr pln;
     int level;
-    s_char *p;
+    char *p;
     int hcm;
     int n;
     struct nstr_item ni;
     struct sctstr sect;
-    s_char buf[1024];
+    char buf[1024];
     long cash;
     struct natstr *natp;
 

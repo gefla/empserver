@@ -64,7 +64,7 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
     struct sctstr sect;
     struct mchrstr *mp;
     struct natstr *np;
-    s_char buf[512];
+    char buf[512];
     struct natstr *natp;
 
     mp = &mchr[(int)sp->shp_type];
@@ -138,9 +138,9 @@ scut(void)
     union item_u item;
     int type;
     struct mchrstr *mp;
-    s_char *p;
-    s_char prompt[128];
-    s_char buf[1024];
+    char *p;
+    char prompt[128];
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1], "Ship, land, or plane? ", buf)))
 	return RET_SYN;
@@ -165,7 +165,7 @@ scut(void)
 	return RET_SYN;
     if (p && (isalpha(*p) || (*p == '*') || (*p == '~') || issector(p)
 	      || islist(p))) {
-	s_char y_or_n[80], bbuf[80];
+	char y_or_n[80], bbuf[80];
 
 	if (type == EF_SHIP) {
 	    if (*p == '*')

@@ -64,8 +64,8 @@ news(void)
     short k;
     int sectors_were_taken = 0;
     natid i, j;
-    s_char num[128];
-    s_char *verb;
+    char num[128];
+    char *verb;
 
     if (!snxtitem(&nstr, EF_NEWS, "*"))
     	return RET_SYN;
@@ -176,11 +176,11 @@ news(void)
 static void
 preport(register struct nwsstr *np)
 {
-    register s_char *cp;
+    char *cp;
     register int i;
-    s_char buf[255];
-    s_char num[128];
-    s_char *ptr;
+    char buf[255];
+    char num[128];
+    char *ptr;
 
     cp = buf;
     sprintf(buf, "%-16.16s  ", ctime(&np->nws_when));

@@ -75,7 +75,7 @@ buy(void)
     time_t now;
     double tally;
     double canspend;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_MARKET) {
 	pr("The market is disabled.\n");

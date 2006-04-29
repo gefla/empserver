@@ -58,8 +58,8 @@ static int supgr(void);
 int
 upgr(void)
 {
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1], "Ship, land, or plane? ", buf)))
 	return RET_SYN;

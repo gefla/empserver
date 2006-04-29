@@ -48,8 +48,8 @@ fort(void)
     struct nstr_item ni;
     struct lndstr land;
     int fort_amt, hard_amt;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;

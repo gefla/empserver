@@ -51,8 +51,8 @@
 struct ltcomstr {
     int type;			/* EF_LOAN or EF_TREATY */
     int num;			/* number */
-    s_char *name;		/* "loan" or "treaty" */
-    s_char *Name;		/* "Loan" or "Treaty" */
+    char *name;			/* "loan" or "treaty" */
+    char *Name;			/* "Loan" or "Treaty" */
     natid proposer;		/* country offering */
     natid proposee;		/* country offered to */
     natid mailee;		/* who gets mail about it */
@@ -113,11 +113,11 @@ static int
 cons_choose(struct ltcomstr *ltcp)
 {
     static int lon_or_trt[] = { EF_LOAN, EF_TREATY, EF_BAD };
-    s_char *p;
+    char *p;
     struct lonstr *lp;
     struct trtstr *tp;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
 
     memset(ltcp, 0, sizeof(*ltcp));
     if (getstarg(player->argp[1], "loan or treaty? ", buf) == 0)

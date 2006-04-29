@@ -54,15 +54,15 @@ march(void)
     struct emp_qelem land_list;
     double minmob, maxmob;
     int together;
-    s_char *cp = 0;
+    char *cp = 0;
     struct lndstr *lnd = 0;	/* leader */
     struct nstr_sect ns;
     s_char origin;
     int dir;
     int stopping = 0;
     int skip = 0;
-    s_char buf[1024];
-    s_char prompt[128];
+    char buf[1024];
+    char prompt[128];
 
     if (!snxtitem(&ni_land, EF_LAND, player->argp[1]))
 	return RET_SYN;

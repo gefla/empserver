@@ -67,8 +67,8 @@ ltend(void)
     int maxtarget;
     int transfer;
     int total;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (!(ip = whatitem(player->argp[1], "Transfer what commodity? ")))
 	return RET_SYN;

@@ -53,13 +53,13 @@
 int
 rea(void)
 {
-    static s_char *telnames[] = {
+    static char *telnames[] = {
 	/* must follow TEL_ defines in tel.h */
 	"Telegram", "Announcement", "BULLETIN", "Production Report"
     };
-    register s_char *p;
-    register s_char *mbox;
-    s_char mbox_buf[256];	/* Maximum path length */
+    char *p;
+    char *mbox;
+    char mbox_buf[256];		/* Maximum path length */
     struct telstr tgm;
     FILE *telfp;
     int teles;
@@ -72,7 +72,7 @@ rea(void)
     time_t lastdate;
     int header;
     int filelen;
-    s_char kind[80];
+    char kind[80];
     int n;
     int num = player->cnum;
     struct natstr *np = getnatp(player->cnum);

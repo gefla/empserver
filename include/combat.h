@@ -56,7 +56,7 @@ struct combat {
     struct dchrstr *sct_dcp;
     struct mchrstr *shp_mcp;
     struct lchrstr *lnd_lcp;
-    s_char shp_name[MAXSHPNAMLEN];
+    char shp_name[MAXSHPNAMLEN];
     int relations_checked;
 };
 

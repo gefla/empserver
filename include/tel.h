@@ -51,6 +51,6 @@ struct telstr {
     time_t tel_date;		/* when sent */
 };
 
-extern s_char *mailbox(s_char *buf, natid cn);
+extern char *mailbox(char *buf, natid cn);
 
 #endif

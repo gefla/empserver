@@ -65,7 +65,7 @@ static void ac_dog(struct plist *ap, struct plist *dp);
 
 void
 ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
-	     coord x, coord y, s_char *path, int mission_flags,
+	     coord x, coord y, char *path, int mission_flags,
 	     int no_air_defense, struct emp_qelem *obomb,
 	     struct emp_qelem *oesc)
 {
@@ -78,7 +78,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int unfriendly[MAXNOC];
     int overfly[MAXNOC];
     struct emp_qelem ilist[MAXNOC], *qp;
-    s_char mypath[1024];
+    char mypath[1024];
     int myp;
     int civ, mil;
     natid plane_owner;
@@ -602,8 +602,8 @@ ac_dog(struct plist *ap, struct plist *dp)
     int intensity;
     natid att_own, def_own;
     int adam, ddam;
-    s_char mesg[1024];
-    s_char temp[14];
+    char mesg[1024];
+    char temp[14];
 
     att_own = ap->plane.pln_own;
     def_own = dp->plane.pln_own;
@@ -694,11 +694,11 @@ ac_dog(struct plist *ap, struct plist *dp)
  */
 void
 ac_planedamage(struct plist *plp, natid from, int dam, natid other,
-	       int checkabort, int show, s_char *mesg)
+	       int checkabort, int show, char *mesg)
 {
     struct plnstr *pp;
     int disp;
-    s_char dmess[255];
+    char dmess[255];
     int eff;
     struct shpstr ship;
     struct lndstr land;
@@ -953,7 +953,7 @@ ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
     int diff;
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    s_char msg[255];
+    char msg[255];
 
     plp = (struct plist *)list->q_forw;
 

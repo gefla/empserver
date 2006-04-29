@@ -54,14 +54,14 @@ arm(void)
     struct plnstr pl;
     struct plnstr start;	/* Used for sanity checking */
     struct nukstr nuke;
-    s_char *p;
+    char *p;
     int pno;
     int nuketype;
     int found;
     struct nstr_item ni;
-    s_char buf[1024];
+    char buf[1024];
     int disarm = **player->argp == 'd';
-    s_char *prompt = disarm ? "Disarm plane: " : "Arm plane: ";
+    char *prompt = disarm ? "Disarm plane: " : "Arm plane: ";
 
     if (!(p = getstarg(player->argp[1], prompt, buf)) || !*p)
 	return RET_SYN;

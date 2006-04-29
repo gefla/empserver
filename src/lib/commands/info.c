@@ -52,14 +52,14 @@
 #include "commands.h"
 #include "optlist.h"
 
-static s_char *
-lowerit(s_char *buf, int n, s_char *orig)
+static char *
+lowerit(char *buf, int n, char *orig)
 {				/* converts a string to lower case */
     /* lower case output buffer */
     /* size of output buffer */
     /* input strig */
     int i;
-    s_char *tmp;
+    char *tmp;
     tmp = buf;
     memset(buf, 0, n);
     for (i = 0; i < n && *orig; i++) {
@@ -73,14 +73,14 @@ lowerit(s_char *buf, int n, s_char *orig)
 int
 info(void)
 {
-    s_char buf[255];
+    char buf[255];
     FILE *fp;
-    s_char *name;
-    s_char *tmp_name;
+    char *name;
+    char *tmp_name;
     struct stat statb;
     struct dirent *dp;
-    s_char filename[1024];
-    s_char last[256];
+    char filename[1024];
+    char last[256];
     DIR *info_dp;
     int nmatch = 0;
     int width = 0;
@@ -172,11 +172,11 @@ int
 apro(void)
 {
     FILE *fp;
-    s_char *name, *lbp;
-    s_char *fbuf;
-    s_char *lbuf;
+    char *name, *lbp;
+    char *fbuf;
+    char *lbuf;
     struct dirent *dp;
-    s_char filename[1024];
+    char filename[1024];
     DIR *info_dp;
     long nf, nhf, nl, nlhl, nhl, nll;
     int alreadyhit;
@@ -277,17 +277,17 @@ apro(void)
     return RET_OK;
 }
 
-#else
+#else  /* _WIN32 */
 
 int
 info(void)
 {
-    s_char buf[255];
+    char buf[255];
     FILE *fp;
-    s_char *name;
-    s_char *tmp_name;
-    s_char filename[1024];
-    s_char last[256];
+    char *name;
+    char *tmp_name;
+    char filename[1024];
+    char last[256];
     int nmatch = 0;
     int width = 0;
     char sep;
@@ -402,10 +402,10 @@ apro(void)
     HANDLE hDir;
     WIN32_FIND_DATA fData;
     FILE *fp;
-    s_char *name, *lbp;
-    s_char *fbuf;
-    s_char *lbuf;
-    s_char filename[1024];
+    char *name, *lbp;
+    char *fbuf;
+    char *lbuf;
+    char filename[1024];
     long nf, nhf, nl, nlhl, nhl, nll;
     int alreadyhit;
     int lhitlim;
@@ -504,4 +504,4 @@ apro(void)
     return RET_OK;
 }
 
-#endif
+#endif	/* _WIN32 */

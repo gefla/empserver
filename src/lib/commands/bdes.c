@@ -45,11 +45,11 @@
 int
 bdes(void)
 {
-    s_char *p, d;
+    char *p, d;
     struct nstr_sect nstr;
     struct sctstr sect;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
     int changed = 0;
 
     if (!snxtsct(&nstr, player->argp[1]))

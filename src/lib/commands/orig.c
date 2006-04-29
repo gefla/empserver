@@ -45,9 +45,9 @@
 int
 orig(void)
 {
-    s_char *p;
+    char *p;
     coord x, y;
-    s_char buf[1024];
+    char buf[1024];
     natid cnum;
     struct natstr *np;
 

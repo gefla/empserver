@@ -59,7 +59,7 @@ struct bestp {
     struct as_data *adp;
 };
 
-static int bp_path(struct as_path *pp, s_char *buf);
+static int bp_path(struct as_path *pp, char *buf);
 static int bp_neighbors(struct as_coord c, struct as_coord *cp, void *);
 static double bp_lbcost(struct as_coord from, struct as_coord to, void *);
 static double bp_realcost(struct as_coord from, struct as_coord to, void *);
@@ -96,7 +96,7 @@ bp_init(void)
  * string in path.  Return 0 on success, -1 on error.
  */
 static int
-best_path(struct sctstr *from, struct sctstr *to, s_char *path,
+best_path(struct sctstr *from, struct sctstr *to, char *path,
 	  int mob_type)
 {
     static struct bestp *mybestpath;
@@ -138,10 +138,10 @@ best_path(struct sctstr *from, struct sctstr *to, s_char *path,
  * success, -1 on failure.
  */
 static int
-bp_path(struct as_path *pp, s_char *buf)
+bp_path(struct as_path *pp, char *buf)
 {
     struct as_path *np;
-    s_char *cp = buf;
+    char *cp = buf;
     int dx, dy;
     int n;
 
@@ -301,7 +301,7 @@ bp_clear_cachepath(void)
 }
 
 double
-pathcost(struct sctstr *start, s_char *path, int mob_type)
+pathcost(struct sctstr *start, char *path, int mob_type)
 {
     struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
     unsigned i;
@@ -338,16 +338,16 @@ pathcost(struct sctstr *start, s_char *path, int mob_type)
     return cost;
 }
 
-s_char *
-BestDistPath(s_char *path,
+char *
+BestDistPath(char *path,
 	     struct sctstr *from,
 	     struct sctstr *to, double *cost, int mob_type)
 {
     return BestLandPath(path, from, to, cost, mob_type);
 }
 
-s_char *
-BestLandPath(s_char *path,
+char *
+BestLandPath(char *path,
 	     struct sctstr *from,
 	     struct sctstr *to, double *cost, int mob_type)
 {
@@ -364,8 +364,8 @@ BestLandPath(s_char *path,
     return path;
 }
 
-s_char *
-BestShipPath(s_char *path, int fx, int fy, int tx, int ty, int owner)
+char *
+BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
 {
     char *map;
 
@@ -376,8 +376,8 @@ BestShipPath(s_char *path, int fx, int fy, int tx, int ty, int owner)
     return bestownedpath(path, map, fx, fy, tx, ty, owner);
 }
 
-s_char *
-BestAirPath(s_char *path, int fx, int fy, int tx, int ty)
+char *
+BestAirPath(char *path, int fx, int fy, int tx, int ty)
 {
     return bestownedpath(path, 0, fx, fy, tx, ty, -1);
 }

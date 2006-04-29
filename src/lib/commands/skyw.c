@@ -141,7 +141,7 @@ showsat(struct sky **skypp, int x, int y)
     struct sky *todelete = 0;
     struct sky **prev;
     struct plchrstr *pcp;
-    s_char *name;
+    char *name;
     int nsat = 0;
 
     prev = 0;

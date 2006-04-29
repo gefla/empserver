@@ -127,7 +127,7 @@ att_combat_init(struct combat *com, int type)
 
 /* print a combat object with optional preposition */
 
-static s_char *
+static char *
 pr_com(int inon, struct combat *com, natid who)
 {
     if (com->type == EF_SECTOR) {
@@ -148,7 +148,7 @@ pr_com(int inon, struct combat *com, natid who)
     }
 }
 
-static s_char *
+static char *
 prcom(int inon, struct combat *com)
 {
     return pr_com(inon, com, player->cnum);
@@ -452,7 +452,7 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
 {
     struct sctstr sect;
     int rel;
-    s_char y_or_n[512];
+    char y_or_n[512];
     struct natstr *natp;
 
     if (player->aborted)
@@ -708,8 +708,8 @@ int
 att_ask_support(int offset, int *fortp, int *shipp, int *landp,
 		int *planep)
 {
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
     *fortp = *shipp = *landp = *planep = 1;
 
     if (player->argp[offset] != NULL) {
@@ -880,7 +880,7 @@ ask_off(int combat_mode, struct combat *off, struct combat *def)
 {
     int attacking_mil;
     int mob_support;
-    s_char prompt[512];
+    char prompt[512];
 
     if (att_get_combat(off, 0) <= 0)
 	return 0;
@@ -959,7 +959,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
     int count = 0;
     int maxland = 0;
     int first_time = 1;
-    s_char prompt[512];
+    char prompt[512];
 
     if (def->type == EF_LAND)
 	return;
@@ -1342,7 +1342,7 @@ get_land(int combat_mode, struct combat *def, int uid, struct llist *llp,
 	 int victim_land)
 {
     struct lndstr *lp = &llp->land;
-    s_char buf[512];
+    char buf[512];
 
     getland(uid, lp);
 
@@ -1473,8 +1473,8 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     int radius;
     int origx, origy;
     double eff = att_combat_eff(def);
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     /*
      *
@@ -1580,7 +1580,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 /* Pop off shells and fly bombing missions to get your attack multiplier up */
 
 static double
-get_osupport(s_char *outs, struct combat *def, int fort_sup, int ship_sup,
+get_osupport(char *outs, struct combat *def, int fort_sup, int ship_sup,
 	     int land_sup, int plane_sup)
 {
     double osupport = 1.0;
@@ -1619,7 +1619,7 @@ get_osupport(s_char *outs, struct combat *def, int fort_sup, int ship_sup,
 /* Pop off shells and fly bombing missions to get your defense multiplier up */
 
 static double
-get_dsupport(s_char *outs, struct emp_qelem *list, struct combat *def,
+get_dsupport(char *outs, struct emp_qelem *list, struct combat *def,
 	     int ototal, int dtotal)
 {
     double dsupport = 1.0;
@@ -1708,8 +1708,8 @@ att_get_support(int combat_mode, int ofort, int oship, int oland,
 		double *osupportp, double *dsupportp, int a_engineer)
 {
     int ototal, dtotal;
-    s_char osupports[512];
-    s_char dsupports[512];
+    char osupports[512];
+    char dsupports[512];
 
     if (combat_mode == A_PARA)
 	*osupports = '\0';
@@ -1801,7 +1801,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     int news_item;
     int recalctime;
     double odds;
-    s_char *action;
+    char *action;
 
     ototal = get_ototal(combat_mode, off, olist, osupport,
 			combat_mode != A_PARA);
@@ -2154,7 +2154,7 @@ send_reacting_units_home(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
     struct llist *llp;
-    s_char buf[1024];
+    char buf[1024];
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
@@ -2199,7 +2199,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
     int n;
     int occuppied = 0;
     struct llist *llp, *delete_me = 0;
-    s_char buf[1024];
+    char buf[1024];
     struct sctstr sect;
     struct shpstr ship;
     struct lndstr land;
@@ -2281,8 +2281,8 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     int n;
     struct emp_qelem *qp, *next;
     struct llist *llp;
-    s_char buf[512];
-    s_char prompt[512];
+    char buf[512];
+    char prompt[512];
     s_char land_answer[1024];
     s_char *answerp;
 
@@ -2351,7 +2351,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 {
     struct emp_qelem *qp, *next;
     struct llist *llp;
-    s_char buf[512];
+    char buf[512];
 
     if (QEMPTY(olist))
 	return;
@@ -2450,9 +2450,9 @@ ask_move_in_off(struct combat *off, struct combat *def)
     int mob_support;
     int num_mil, dam = 0, left;
     double d, weight;
-    s_char prompt[512];
-    s_char buf[1024];
-    s_char *p;
+    char prompt[512];
+    char buf[1024];
+    char *p;
 
     if (att_get_combat(off, 0) <= 0)
 	return;

@@ -105,7 +105,7 @@ landmine(void)
     int mines_wanted;
     int mines_laid;
     int total_mines_laid;
-    s_char prompt[128];
+    char prompt[128];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;

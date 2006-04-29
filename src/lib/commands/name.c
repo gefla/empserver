@@ -49,9 +49,9 @@ int
 name(void)
 {
     struct shpstr ship;
-    s_char *p;
+    char *p;
     struct nstr_item nb;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;

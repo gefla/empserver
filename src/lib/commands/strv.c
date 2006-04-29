@@ -47,9 +47,9 @@
 #include "land.h"
 #include "commands.h"
 
-static void starv_sects(s_char *range);
-static void starv_ships(s_char *range);
-static void starv_units(s_char *range);
+static void starv_sects(char *range);
+static void starv_ships(char *range);
+static void starv_units(char *range);
 static void sect_hdr(void);
 static void ship_hdr(void);
 static void unit_hdr(void);
@@ -61,7 +61,7 @@ starve(void)
     int do_sects = 0;
     int do_ships = 0;
     int do_units = 0;
-    s_char range[1024];
+    char range[1024];
 
     if (opt_NOFOOD) {		/* no food - no work! */
 	pr("No food is required in this game\n");
@@ -98,7 +98,7 @@ starve(void)
 }
 
 static void
-starv_sects(s_char *range)
+starv_sects(char *range)
 {
     struct nstr_sect nstr;
     struct sctstr sect;
@@ -158,7 +158,7 @@ sect_hdr(void)
 }
 
 static void
-starv_ships(s_char *range)
+starv_ships(char *range)
 {
     struct nstr_item ni;
     struct shpstr ship;
@@ -206,7 +206,7 @@ ship_hdr(void)
 }
 
 static void
-starv_units(s_char *range)
+starv_units(char *range)
 {
     struct nstr_item ni;
     struct lndstr land;

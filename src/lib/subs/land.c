@@ -171,7 +171,7 @@ lnd_init(int n, void *ptr)
     lp->lnd_own = 0;
 }
 
-s_char *
+char *
 prland(struct lndstr *lp)
 {
     return prbuf("%s #%d", lchr[(int)lp->lnd_type].l_name, lp->lnd_uid);

@@ -57,7 +57,7 @@
 
 static int shp_check_one_mines(struct mlist *);
 static int shp_hit_mine(struct shpstr *, struct mchrstr *);
-static void shp_mess(s_char *, struct mlist *);
+static void shp_mess(char *, struct mlist *);
 
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
@@ -354,7 +354,7 @@ shp_list(struct emp_qelem *ship_list)
 }
 
 static void
-shp_mess(s_char *str, struct mlist *mlp)
+shp_mess(char *str, struct mlist *mlp)
 {
     mpr(mlp->ship.shp_own, "%s %s & stays in %s\n",
 	prship(&mlp->ship),
@@ -551,7 +551,7 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
     int stopping = 0;
     struct emp_qelem msl_list, *qp, *newqp;
     struct mlist *mvs;
-    s_char what[512];
+    char what[512];
 
     msl_sel(&msl_list, newx, newy, victim, P_T | P_MAR, 0, MI_INTERDICT);
 
@@ -824,7 +824,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     double mobcost;
     double tech;		/* for mapping */
     double tf;			/* for mapping */
-    s_char dp[80];
+    char dp[80];
     int navigate;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
@@ -999,13 +999,13 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
     return 0;			/* all attempts failed */
 }
 
-s_char *
-shp_path(int together, struct shpstr *shp, s_char *buf)
+char *
+shp_path(int together, struct shpstr *shp, char *buf)
 {
     coord destx;
     coord desty;
     struct sctstr d_sect;
-    s_char *cp;
+    char *cp;
 
     if (!sarg_xy(buf, &destx, &desty))
 	return 0;
@@ -1036,7 +1036,7 @@ shp_missdef(struct shpstr *sp, natid victim)
     struct emp_qelem list;
     struct mlist *mlp;
     int eff;
-    s_char buf[512];
+    char buf[512];
 
     emp_initque(&list);
 

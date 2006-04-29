@@ -67,7 +67,7 @@ struct keymatch configkeys[] = {
 #undef	EMP_CONFIG_C_OUTPUT
 };
 
-static struct keymatch *keylookup(s_char *key, struct keymatch tbl[]);
+static struct keymatch *keylookup(char *key, struct keymatch tbl[]);
 static void set_dirs(char *);
 
 /*
@@ -159,9 +159,9 @@ done:
 
 /* find the key in the table */
 static struct keymatch *
-keylookup(register s_char *command, struct keymatch *tbl)
+keylookup(char *command, struct keymatch *tbl)
 {
-    register struct keymatch *kp;
+    struct keymatch *kp;
 
     if (command == 0 || *command == 0)
 	return 0;

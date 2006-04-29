@@ -44,7 +44,7 @@
 #include "optlist.h"
 #include "commands.h"
 
-static long do_desi(struct natstr *natp, s_char *sects, s_char *deschar,
+static long do_desi(struct natstr *natp, char *sects, char *deschar,
 		    long int cash, int for_real);
 
 int
@@ -67,11 +67,11 @@ desi(void)
 }
 
 static long
-do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
+do_desi(struct natstr *natp, char *sects, char *deschar, long int cash,
 	int for_real)
 {
     int n;
-    s_char *p;
+    char *p;
     int breaksanct;
     int cap_x;
     int cap_y;
@@ -79,8 +79,8 @@ do_desi(struct natstr *natp, s_char *sects, s_char *deschar, long int cash,
     struct nstr_sect nstr;
     struct sctstr sect;
     struct sctstr check;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
     long cost = 0;
     int changed = 0;
     int warned = 0;

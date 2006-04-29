@@ -76,7 +76,7 @@ union item_u {
 
 static void add_airport(struct emp_qelem *, coord, coord);
 static int air_damage(struct emp_qelem *, coord, coord, int, natid,
-		      s_char *, int);
+		      char *, int);
 static void build_mission_list(struct genlist *, coord, coord, int, natid);
 static void build_mission_list_type(struct genlist *, coord, coord, int,
 				    int, natid);
@@ -87,13 +87,13 @@ static int mission_pln_arm(struct emp_qelem *, coord, coord, int,
 			   int, struct ichrstr *, int, int, int *);
 static void mission_pln_sel(struct emp_qelem *, int, int, int);
 static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
-			   s_char *, int);
+			   char *, int);
 
 /*
  * Interdict commodities & transported planes
  */
 int
-ground_interdict(coord x, coord y, natid victim, s_char *s)
+ground_interdict(coord x, coord y, natid victim, char *s)
 {
     int cn;
     int dam = 0, newdam, rel;
@@ -177,7 +177,7 @@ only_subs(struct emp_qelem *list)
  *
  */
 int
-unit_interdict(coord x, coord y, natid victim, s_char *s, int hardtarget,
+unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	       int mission)
 {
     int cn;
@@ -423,7 +423,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 
 static int
 perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
-		int mission, s_char *s, int hardtarget)
+		int mission, char *s, int hardtarget)
 {
     struct emp_qelem *qp, missiles, bombers, escorts, airp, b, e;
     struct emp_qelem *newqp;
@@ -832,7 +832,7 @@ cando(int mission, int type)
     return 0;
 }
 
-s_char *
+char *
 nameofitem(struct genitem *gp, int type)
 {
     switch (type) {
@@ -846,7 +846,7 @@ nameofitem(struct genitem *gp, int type)
     return NULL;
 }
 
-s_char *
+char *
 mission_name(short int mission)
 {
     switch (mission) {
@@ -1378,7 +1378,7 @@ divide(struct emp_qelem *l1, struct emp_qelem *l2, coord x, coord y)
 
 static int
 air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
-	   natid victim, s_char *s, int hardtarget)
+	   natid victim, char *s, int hardtarget)
 {
     struct emp_qelem *qp;
     struct plist *plp;

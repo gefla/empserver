@@ -53,10 +53,10 @@ dist(void)
 {
     struct sctstr sect, dsect, tsect;
     struct nstr_sect nstr;
-    s_char *path, *p;
+    char *path, *p;
     double move_cost = 0.0;
     coord dstx, dsty;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;

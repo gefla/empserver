@@ -61,15 +61,15 @@ surv(void)
     struct natstr *np;
     struct sctstr sect;
     struct range range;
-    s_char *ptr;
+    char *ptr;
     struct nscstr cond[NS_NCOND];
     int ncond;
     int i;
-    s_char buf[1024];
+    char buf[1024];
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = NULL;
-    static s_char **map = NULL;
+    static char *mapbuf = NULL;
+    static char **map = NULL;
 
     nsect = 0;
     ptr = getstarg(player->argp[1], "commodity or variable? ", buf);

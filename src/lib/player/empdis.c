@@ -124,8 +124,8 @@ log_last_commands(void)
 int
 explain(void)
 {
-    register s_char *format;
-    register int i;
+    char *format;
+    int i;
 
     pr("\t\tCurrent EMPIRE Command List\n"
        "\t\t------- ------ ------- ----\n"

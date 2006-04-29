@@ -201,22 +201,22 @@ enum {
 extern void lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
-extern void lnd_mess(s_char *, struct llist *);
+extern void lnd_mess(char *, struct llist *);
 extern int lnd_check_mines(struct emp_qelem *);
 extern double lnd_mobcost(struct lndstr *, struct sctstr *, int);
-extern s_char *lnd_path(int, struct lndstr *, s_char *);
+extern char *lnd_path(int, struct lndstr *, char *);
 
 extern int attack_val(int, struct lndstr *);
 extern int total_mil(struct lndstr *);
 extern int defense_val(struct lndstr *);
 extern int lnd_getmil(struct lndstr *);
-extern void lnd_print(struct llist *, s_char *);
-extern void lnd_delete(struct llist *, s_char *);
+extern void lnd_print(struct llist *, char *);
+extern void lnd_delete(struct llist *, char *);
 extern int lnd_take_casualty(int, struct llist *, int);
 extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
-extern int intelligence_report(int, struct lndstr *, int, s_char *);
+extern int intelligence_report(int, struct lndstr *, int, char *);
 extern int count_sect_units(struct sctstr *);
 extern void count_units(struct shpstr *);
 extern void lnd_count_units(struct lndstr *);

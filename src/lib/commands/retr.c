@@ -47,7 +47,7 @@
 int
 retr(void)
 {
-    s_char *pq, *fl;
+    char *pq, *fl;
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
@@ -55,8 +55,8 @@ retr(void)
     int rflags = -2;
     int zero;
     unsigned int x;
-    s_char buf1[1024];
-    s_char buf2[1024];
+    char buf1[1024];
+    char buf2[1024];
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -195,15 +195,15 @@ retr(void)
 int
 lretr(void)
 {
-    s_char *pq, *fl;
+    char *pq, *fl;
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
     int isarmy = 0;
     int rflags = -2;
     int zero;
-    s_char buf1[1024];
-    s_char buf2[1024];
+    char buf1[1024];
+    char buf2[1024];
     unsigned int x;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))

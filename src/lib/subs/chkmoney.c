@@ -38,10 +38,10 @@
 #include "prototypes.h"
 
 int
-chkmoney(long int cost, long int cash, s_char *argp)
+chkmoney(long int cost, long int cash, char *argp)
 {
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
 
     if (cash > 0 && cost > cash / 2) {
 	pr("This operation will cost you $%ld, and you only have $%ld.\n",
@@ -58,10 +58,10 @@ chkmoney(long int cost, long int cash, s_char *argp)
 
 int
 check_cost(int looping, int cost, long int cash, int *warnedp,
-	   s_char *argp)
+	   char *argp)
 {
-    s_char buf[1024];
-    s_char *p;
+    char buf[1024];
+    char *p;
 
     if (looping && cash > 0 && player->dolcost + cost > cash
 	&& *warnedp < 2) {

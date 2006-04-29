@@ -58,13 +58,13 @@ path(void)
     coord cx, cy;
     int i;
     int y;
-    s_char *pp, *p;
+    char *pp, *p;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = NULL;
-    static s_char **map = NULL;
+    static char *mapbuf = NULL;
+    static char **map = NULL;
     double move_cost;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1], "from sector : ", buf)) ||
 	!sarg_xy(p, &cx, &cy) || !getsect(cx, cy, &sect))

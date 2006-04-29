@@ -70,14 +70,14 @@ torp(void)
     double hitchance;
     struct shpstr vship;
     struct shpstr sub;
-    s_char *ptr;
+    char *ptr;
     double mobcost;
     struct mchrstr *mcp;
     struct nstr_item nbst;
-    s_char buf[1024];
-    s_char *sav;
+    char buf[1024];
+    char *sav;
     int ntorping = 0;
-    s_char prompt[128];
+    char prompt[128];
 
     if (!(sav = getstarg(player->argp[1], "From ship(s)? ", buf)))
 	return RET_SYN;
@@ -470,7 +470,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     return 1;
 }
 
-s_char *
+char *
 prsub(struct shpstr *sp)
 {
     if (mchr[(int)sp->shp_type].m_flags & M_SUB)

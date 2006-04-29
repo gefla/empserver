@@ -80,7 +80,7 @@ powe(void)
     int use_targets = 0;
     int got_targets = 0;
     int no_numbers = 0;
-    s_char *p;
+    char *p;
 
     memset(targets, 0, sizeof(targets));
     natp = getnatp(player->cnum);

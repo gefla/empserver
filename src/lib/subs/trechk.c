@@ -55,7 +55,7 @@ int
 trechk(register natid actor, register natid victim, int provision)
 {
     register natid cn;
-    s_char buf[1024];
+    char buf[1024];
     int news_verb;
     int involved[MAXNOC];
     struct trtstr treaty;

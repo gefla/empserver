@@ -46,7 +46,7 @@
  * Ignore commands that require more permissions than COMSTAT.
  */
 int
-comtch(register s_char *command, struct cmndstr *coms, int comstat)
+comtch(char *command, struct cmndstr *coms, int comstat)
 {
     register struct cmndstr *com;
     register int status;

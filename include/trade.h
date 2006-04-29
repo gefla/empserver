@@ -66,7 +66,7 @@ union trdgenstr {
 
 extern int trade_check_ok(struct trdstr *, union trdgenstr *);
 extern int trade_check_item_ok(union trdgenstr *);
-extern s_char *trade_nameof(struct trdstr *, union trdgenstr *);
+extern char *trade_nameof(struct trdstr *, union trdgenstr *);
 extern int trade_desc(struct trdstr *, union trdgenstr *);
 extern int trade_getitem(struct trdstr *, union trdgenstr *);
 extern long get_couval(int);

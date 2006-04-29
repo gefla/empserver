@@ -54,13 +54,13 @@ sct(void)
     struct natstr *np;
     int ncond;
     int nsect;
-    s_char *ptr;
+    char *ptr;
     coord y, yval;
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = NULL;
-    static s_char **map = NULL;
+    static char *mapbuf = NULL;
+    static char **map = NULL;
 
     nsect = 0;
     if (!snxtsct(&ns, player->argp[1]))

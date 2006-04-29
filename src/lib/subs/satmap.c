@@ -46,8 +46,8 @@
 #include "prototypes.h"
 #include "optlist.h"
 
-static s_char **rad;
-static s_char *radbuf;
+static char **rad;
+static char *radbuf;
 
 void
 satmap(int x, int y, int eff, int range, int flags, int type)
@@ -65,7 +65,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     int changed = 0;
     long crackle;
     s_char noise[100];
-    s_char selection[1024];
+    char selection[1024];
 
     if (!eff)
 	return;

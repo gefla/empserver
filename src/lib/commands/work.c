@@ -54,9 +54,9 @@ work(void)
     struct sctstr sect;
     struct lndstr land;
     int work_amt, eff_amt, w;
-    s_char *p;
+    char *p;
     coord donex = 0, doney = 1;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;

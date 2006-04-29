@@ -54,11 +54,11 @@ thre(void)
     struct nstr_sect nstr;
     int val;
     struct ichrstr *ip;
-    s_char *p;
+    char *p;
     int thresh;
     i_type type;
-    s_char prompt[128];
-    s_char buf[128];
+    char prompt[128];
+    char buf[128];
 
     if ((ip = whatitem(player->argp[1], "What commodity? ")) == 0)
 	return RET_SYN;

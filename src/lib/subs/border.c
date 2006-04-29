@@ -39,7 +39,7 @@
 #include "optlist.h"
 
 void
-border(struct range *rp, s_char *prefstr, s_char *sep)
+border(struct range *rp, char *prefstr, char *sep)
 
 				/* prefixes each line */
 				/* separates the numbers */

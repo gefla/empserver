@@ -286,7 +286,7 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
  */
 
 int
-islist(s_char *p)
+islist(char *p)
 {
     int x;
 

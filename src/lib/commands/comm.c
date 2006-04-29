@@ -48,7 +48,7 @@ int
 comm(void)
 {
     struct sctstr sect;
-    s_char dirstr[12];
+    char dirstr[12];
     int nsect;
     int n;
     struct nstr_sect nstr;

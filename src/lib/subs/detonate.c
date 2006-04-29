@@ -62,9 +62,9 @@ detonate(struct plnstr *pp, int x, int y)
     struct shpstr ship;
     struct lndstr land;
     struct nukstr nuke;
-    s_char *bp;
-    s_char buf[128];
-    s_char buf2[128];
+    char *bp;
+    char buf[128];
+    char buf2[128];
     natid own;
     int type;
     int damage;

@@ -42,9 +42,9 @@
  * If they don't answer 'y' or 'Y', return 0
  */
 int
-confirm(s_char *promptstring)
+confirm(char *promptstring)
 {
-    s_char y_or_n[1024];
+    char y_or_n[1024];
     char c;
 
     if (getstring(promptstring, y_or_n) == 0)
@@ -60,9 +60,9 @@ confirm(s_char *promptstring)
  * return 1 for y or Y, and 0 for n or N
  */
 int
-askyn(s_char *promptstring)
+askyn(char *promptstring)
 {
-    s_char y_or_n[1024];
+    char y_or_n[1024];
     char c;
 
     while (getstring(promptstring, y_or_n)) {

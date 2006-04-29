@@ -56,9 +56,9 @@ give(void)
     int amt;
     struct ichrstr *ip;
     int m, n;
-    s_char *p;
+    char *p;
     struct nstr_sect nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!(ip = whatitem(player->argp[1], "which commodity? ")))
 	return RET_SYN;

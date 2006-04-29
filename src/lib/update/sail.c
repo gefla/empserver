@@ -98,7 +98,7 @@ sail_find_fleet(struct fltheadstr **head, struct shpstr *sp)
     int len = 0;
     int follow = -1;
     int stop;
-    s_char *cp;
+    char *cp;
 
     if (sp->shp_own == 0)
 	return 0;
@@ -211,7 +211,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
     struct shpstr *sp, ship;
     struct sctstr *sectp;
     int error = 0;
-    s_char *s, *p;
+    char *s, *p;
     natid own;
     struct emp_qelem ship_list;
     int dir;

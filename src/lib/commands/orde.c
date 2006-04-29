@@ -78,10 +78,10 @@ orde(void)
     struct ichrstr *i1;
     coord p0x, p0y, p1x, p1y;
     int i;
-    s_char *p, *p1, *dest;
-    s_char buf1[128];
-    s_char buf[1024];
-    s_char prompt[128];
+    char *p, *p1, *dest;
+    char buf1[128];
+    char buf[1024];
+    char prompt[128];
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -322,7 +322,7 @@ orde(void)
 }
 
 static void
-eta_calc(struct shpstr *sp, s_char *path, int *len, int *nupdates)
+eta_calc(struct shpstr *sp, char *path, int *len, int *nupdates)
 {
     double mobcost, mobil;
     int i;
@@ -423,10 +423,10 @@ sorde(void)
 {
     int nships = 0;
     int len, updates;
-    s_char *c;
+    char *c;
     struct nstr_item nb;
     struct shpstr ship;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
 	return RET_SYN;

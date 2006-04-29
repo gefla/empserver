@@ -124,7 +124,7 @@ shp_init(int n, void *ptr)
     sp->shp_own = 0;
 }
 
-s_char *
+char *
 prship(struct shpstr *sp)
 {
     return prbuf("%s %s(#%d)",

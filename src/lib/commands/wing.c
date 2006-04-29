@@ -47,10 +47,10 @@ wing(void)
 
     struct plnstr plane;
     int count;
-    s_char *cp;
-    s_char c;
+    char *cp;
+    char c;
     struct nstr_item nstr;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!(cp = getstarg(player->argp[1], "wing? ", buf)))
 	return RET_SYN;

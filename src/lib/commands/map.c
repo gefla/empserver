@@ -49,7 +49,7 @@
 int
 map(void)
 {
-    register s_char *b;
+    char *b;
     int unit_type = 0;
     int bmap = 0;
     struct nstr_sect ns;

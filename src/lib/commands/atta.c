@@ -65,8 +65,8 @@ atta(void)
     double osupport = 1.0;	/* attack support */
     double dsupport = 1.0;	/* defense support */
     int last, n;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
     int rel;
 
     att_combat_init(def, EF_SECTOR);

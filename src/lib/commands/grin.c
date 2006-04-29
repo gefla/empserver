@@ -48,10 +48,10 @@ grin(void)
 {
     struct nstr_sect nstr;
     struct sctstr sect;
-    s_char *p;
+    char *p;
     int i, n, qty;
     int avail;
-    s_char buf[1024];
+    char buf[1024];
     double grind_eff = 0.8;
 
     if ((p = getstarg(player->argp[1], "Sectors? ", buf)) == 0)

@@ -57,7 +57,7 @@
 #endif
 
 int
-dodistribute(struct sctstr *sp, int imex, s_char *path, double dist_i_cost,
+dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
 	     double dist_e_cost)
 	  /* import or export? */
 {

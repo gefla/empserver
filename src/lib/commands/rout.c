@@ -61,12 +61,12 @@ rout(void)
     int ry;
     i_type i_del;
     int dir;
-    s_char *p;
+    char *p;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static s_char *mapbuf = NULL;
-    static s_char **map = NULL;
-    static s_char *buf = NULL;
+    static char *mapbuf = NULL;
+    static char **map = NULL;
+    static char *buf = NULL;
     int i;
 
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)

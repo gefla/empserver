@@ -86,11 +86,11 @@ buil(void)
     struct mchrstr *mp;
     struct plchrstr *pp;
     struct nchrstr *np;
-    s_char *p;
+    char *p;
     int gotsect = 0;
     int built;
     int number;
-    s_char buf[1024];
+    char buf[1024];
 
     natp = getnatp(player->cnum);
     if ((p =
@@ -221,7 +221,7 @@ buil(void)
 	if (player->argp[4]) {
 	    number = atoi(player->argp[4]);
 	    if (number > 20) {
-		s_char bstr[80];
+		char bstr[80];
 		sprintf(bstr,
 			"Are you sure that you want to build %s of them? ",
 			player->argp[4]);
@@ -536,8 +536,8 @@ build_bridge(struct sctstr *sp, short *vec)
     int newx, newy;
     int avail;
     int nx, ny, i, good = 0;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
 
     if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
 	if (sp->sct_type != SCT_BTOWER) {
@@ -801,8 +801,8 @@ build_tower(struct sctstr *sp, short *vec)
     int val;
     int newx, newy;
     int avail;
-    s_char *p;
-    s_char buf[1024];
+    char *p;
+    char buf[1024];
     int good;
     int i;
     int nx;

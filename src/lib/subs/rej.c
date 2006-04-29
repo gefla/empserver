@@ -47,13 +47,13 @@ setrel(natid us, natid them, int rel)
 {
     struct natstr *mynp;
     struct natstr *themnp;
-    s_char *myname = cname(us);
-    s_char *themname;
+    char *myname = cname(us);
+    char *themname;
     int oldrel;
-    s_char *whichway;
+    char *whichway;
     int n_up = 0;
     int n_down = 0;
-    s_char *addendum = 0;
+    char *addendum = 0;
     int theirrel;
 
     if (rel < AT_WAR)

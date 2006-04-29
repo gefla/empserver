@@ -45,14 +45,14 @@
 int
 chan(void)
 {
-    s_char *temp;
+    char *temp;
     struct natstr *natp;
-    register s_char *p;
+    char *p;
     natid cn;
     int charge;
     int nonb;
     int btucost;
-    s_char buf[1024];
+    char buf[1024];
     struct natstr *us;
 
     if ((p =

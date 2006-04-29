@@ -86,13 +86,13 @@ static int nbomb = sizeof(bombcomm) / sizeof(*bombcomm);
 int
 bomb(void)
 {
-    s_char *p;
+    char *p;
     int mission_flags;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
     struct ichrstr *ip;
-    s_char flightpath[MAX_PATH_LEN];
+    char flightpath[MAX_PATH_LEN];
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
     struct sctstr target;
@@ -100,10 +100,10 @@ bomb(void)
     struct emp_qelem esc_list;
     int wantflags;
     struct sctstr ap_sect;
-    s_char mission;
+    char mission;
     int rel;
     struct natstr *natp;
-    s_char buf[1024];
+    char buf[1024];
 
     wantflags = 0;
     if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))
@@ -202,13 +202,13 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     int nships;
     int type;
     int bad;
-    s_char *p;
+    char *p;
     struct plist *plp;
     int nsubs;
     int nunits;
     struct natstr *natp;
     int rel;
-    s_char buf[1024];
+    char buf[1024];
     int i;
 
     bad = 0;
@@ -473,7 +473,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     struct plist *plp;
     struct mchrstr *mcp;
     int dam;
-    s_char *q;
+    char *q;
     int n;
     struct emp_qelem *qp;
     int shipno;
@@ -481,8 +481,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     struct shpstr ship;
     int nships = 0;
     struct shiplist *head = NULL;
-    s_char buf[1024];
-    s_char prompt[128];
+    char buf[1024];
+    char prompt[128];
     int hitchance;
     int nukedam;
     int flak;
@@ -614,7 +614,7 @@ static void
 plane_bomb(struct emp_qelem *list, struct sctstr *target)
 {
     int dam;
-    s_char *q;
+    char *q;
     int n;
     natid own;
     struct plnstr plane;
@@ -622,8 +622,8 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
     int planeno;
     int ignore;
     struct plist *plp;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
     int hitchance;
     int nukedam;
     int nplanes;
@@ -724,11 +724,11 @@ static void
 land_bomb(struct emp_qelem *list, struct sctstr *target)
 {
     int dam;
-    s_char *q;
+    char *q;
     int n;
     natid own;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
     struct lndstr land;
     struct emp_qelem *qp;
     int unitno;
@@ -862,7 +862,7 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 		    int flak)
 {
     int disp;
-    s_char dmess[255];
+    char dmess[255];
     int eff;
     struct shpstr ship;
     struct lndstr land;

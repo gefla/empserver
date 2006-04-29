@@ -51,7 +51,7 @@
 #include "commands.h"
 
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);
-static int tend_land(struct shpstr *tenderp, s_char *units);
+static int tend_land(struct shpstr *tenderp, char *units);
 
 int
 tend(void)
@@ -71,9 +71,9 @@ tend(void)
     int transfer;
     int total;
     int type;
-    s_char *p;
-    s_char prompt[512];
-    s_char buf[1024];
+    char *p;
+    char prompt[512];
+    char buf[1024];
 
     if (!(p = getstarg(player->argp[1],
 		       "Tend what commodity (or 'land')? ", buf)) || !*p)
@@ -205,7 +205,7 @@ expose_ship(struct shpstr *s1, struct shpstr *s2)
 }
 
 static int
-tend_land(struct shpstr *tenderp, s_char *units)
+tend_land(struct shpstr *tenderp, char *units)
 {
     struct nstr_item lni;
     struct nstr_item targets;
@@ -213,7 +213,7 @@ tend_land(struct shpstr *tenderp, s_char *units)
     struct lndstr land;
     struct plnstr plane;
     struct nstr_item pni;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!snxtitem(&lni, EF_LAND, units))
 	return RET_SYN;

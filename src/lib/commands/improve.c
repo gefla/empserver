@@ -56,9 +56,9 @@ improve(void)
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
-    s_char *p;
-    s_char buf[1024];
-    s_char inbuf[128];
+    char *p;
+    char buf[1024];
+    char inbuf[128];
     int type;
     int value;
     int ovalue;

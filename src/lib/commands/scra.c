@@ -62,14 +62,14 @@ scra(void)
     struct mchrstr *mp;
     struct plchrstr *pp;
     struct lchrstr *lp;
-    s_char *p;
+    char *p;
     i_type i;
     struct nstr_item ni2;
     struct plnstr plane;
     struct lndstr land;
     struct sctstr sect2;
-    s_char prompt[128];
-    s_char buf[1024];
+    char prompt[128];
+    char buf[1024];
     float eff;
 
     if (!(p = getstarg(player->argp[1], "Ship, land, or plane? ", buf)))
@@ -95,7 +95,7 @@ scra(void)
 	return RET_SYN;
     if (p && (isalpha(*p) || (*p == '*') || (*p == '~') || issector(p)
 	      || islist(p))) {
-	s_char y_or_n[80], bbuf[80];
+	char y_or_n[80], bbuf[80];
 
 	memset(y_or_n, 0, sizeof(y_or_n));
 	if (type == EF_SHIP) {

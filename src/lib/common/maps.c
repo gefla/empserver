@@ -51,7 +51,7 @@
 #include "optlist.h"
 
 static int bmnxtsct(struct nstr_sect *);
-static s_char map_char(unsigned char type, natid own, int owner_or_god);
+static char map_char(unsigned char type, natid own, int owner_or_god);
 
 int
 draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
@@ -67,8 +67,8 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static unsigned char *bitmap = NULL;
-    static s_char *wmapbuf = NULL;
-    static s_char **wmap = NULL;
+    static char *wmapbuf = NULL;
+    static char **wmap = NULL;
 
     if (!wmapbuf)
 	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
@@ -153,7 +153,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 	}
     } else {
 	struct sctstr sect;
-	s_char mapch;
+	char mapch;
 	int changed = 0;
 
 	if (!player->god) {
@@ -218,7 +218,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
 	}
     }
     if (map_flags & MAP_HIGH) {
-	s_char *ptr;
+	char *ptr;
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
@@ -287,7 +287,7 @@ bmnxtsct(struct nstr_sect *np)
  * Return character to use in maps for sector type TYPE owned by OWN.
  * If OWNER_OR_GOD, the map is for the sector's owner or a deity.
  */
-static s_char
+static char
 map_char(unsigned char type, natid own, int owner_or_god)
 {
     if (type > SCT_MAXDEF) {
@@ -352,16 +352,16 @@ bmaps_intersect(natid a, natid b)
 /* Note that this requires that the BMAP is mapped into memory */
 
 int
-share_bmap(natid from, natid to, struct nstr_sect *ns, s_char des,
-	   s_char *from_name)
+share_bmap(natid from, natid to, struct nstr_sect *ns, char des,
+	   char *from_name)
 {
-    s_char *from_bmap = ef_ptr(EF_BMAP, from);
-    s_char *to_bmap = ef_ptr(EF_BMAP, to);
+    char *from_bmap = ef_ptr(EF_BMAP, from);
+    char *to_bmap = ef_ptr(EF_BMAP, to);
     int n = 0;
     struct sctstr sect;
-    s_char fromdes;
-    s_char todes;
-    s_char from_des = *from_name;
+    char fromdes;
+    char todes;
+    char from_des = *from_name;
 
     if (isalpha(from_des))
 	from_des &= ~0x20;

@@ -56,17 +56,17 @@ navi(void)
     struct emp_qelem ship_list;
     double minmob, maxmob;
     int together;
-    s_char *cp = 0;
+    char *cp = 0;
     struct shpstr *shp = 0;	/* flagship */
     struct nstr_sect ns;
     s_char origin;
     int dir;
     int stopping = 0;
     int skip = 0;
-    s_char buf[1024];
-    s_char prompt[128];
-    s_char pathtaken[1024];	/* Doubtful we'll have a path longer than this */
-    s_char *pt = pathtaken;
+    char buf[1024];
+    char prompt[128];
+    char pathtaken[1024];	/* Doubtful we'll have a path longer than this */
+    char *pt = pathtaken;
 
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1]))
 	return RET_SYN;

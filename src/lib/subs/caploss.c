@@ -42,7 +42,7 @@
 #include "optlist.h"
 
 void
-caploss(struct sctstr *sp, natid coun, s_char *msg)
+caploss(struct sctstr *sp, natid coun, char *msg)
 {
     struct natstr *natp;
     struct lonstr loan;

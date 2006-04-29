@@ -49,7 +49,7 @@ int
 dump(void)
 {
     struct sctstr sect;
-    s_char dirstr[20];
+    char dirstr[20];
     int nsect;
     int n, i;
     struct nstr_sect nstr;

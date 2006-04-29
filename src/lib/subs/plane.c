@@ -139,7 +139,7 @@ pln_init(int n, void *ptr)
     pp->pln_own = 0;
 }
 
-s_char *
+char *
 prplane(struct plnstr *pp)
 {
     return prbuf("%s #%d", plchr[(int)pp->pln_type].pl_name, pp->pln_uid);

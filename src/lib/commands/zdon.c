@@ -66,7 +66,7 @@ zdon(void)
 {
     natid whichcnum;
     struct natstr *natp;
-    register s_char *p;
+    char *p;
 
     int update;
     int checking;
@@ -74,7 +74,7 @@ zdon(void)
     int totpop;
     int totwant;
     int dowant;
-    s_char buf[1024];
+    char buf[1024];
 
     if (!opt_DEMANDUPDATE) {
 	pr("Demand updates are not enabled.\n");
