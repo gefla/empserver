@@ -73,7 +73,7 @@ draw_map(int bmap, s_char origin, int map_flags, struct nstr_sect *nsp)
     if (!wmapbuf)
 	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
     if (!wmap) {
-	wmap = malloc(WORLD_Y * sizeof(s_char *));
+	wmap = malloc(WORLD_Y * sizeof(char *));
 	if (wmap && wmapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];

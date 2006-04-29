@@ -93,7 +93,7 @@ radmap2(int owner,
     if (!visbuf)
 	visbuf = malloc(WORLD_Y * (WORLD_X + 1));
     if (!rad) {
-	rad = malloc(WORLD_Y * sizeof(s_char *));
+	rad = malloc(WORLD_Y * sizeof(char *));
 	if (rad && radbuf) {
 	    for (x = 0; x < WORLD_Y; x++)
 		rad[x] = &radbuf[(WORLD_X + 1) * x];

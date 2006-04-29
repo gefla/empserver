@@ -73,7 +73,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     if (!radbuf)
 	radbuf = malloc(WORLD_Y * (WORLD_X + 1));
     if (!rad) {
-	rad = malloc(WORLD_Y * sizeof(s_char *));
+	rad = malloc(WORLD_Y * sizeof(char *));
 	if (rad && radbuf) {
 	    for (rx = 0; rx < WORLD_Y; rx++)
 		rad[rx] = &radbuf[(WORLD_X + 1) * rx];

@@ -84,7 +84,7 @@ path(void)
     if (!mapbuf)
 	mapbuf = malloc(WORLD_Y * MAPWIDTH(3));
     if (!map) {
-	map = malloc(WORLD_Y * sizeof(s_char *));
+	map = malloc(WORLD_Y * sizeof(char *));
 	if (map && mapbuf) {
 	    for (i = 0; i < WORLD_Y; i++)
 		map[i] = &mapbuf[MAPWIDTH(3) * i];
