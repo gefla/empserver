@@ -121,17 +121,11 @@ cede_sect(struct nstr_sect *ns, natid to)
     struct sctstr sect, osect;
     int nsect;
     int n, bad;
-    s_char dirstr[20];
     int off_x, off_y;
     struct nstr_item ni;
     struct shpstr ship;
 
     prdate();
-    for (n = 1; n <= 6; n++)
-	dirstr[n] = dirch[n];
-    dirstr[0] = '.';
-    dirstr[7] = '$';
-    dirstr[8] = '\0';
     nsect = 0;
     while (nxtsct(ns, &sect)) {
 	if (!player->owner)
