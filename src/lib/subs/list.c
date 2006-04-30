@@ -288,16 +288,9 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 int
 islist(char *p)
 {
-    int x;
-
-    x = 0;
-
-    while (*(p + x)) {
-	if (!isdigit(*(p + x)) && (*(p + x) != '/'))
+    for (; *p; p++) {
+	if (!isdigit(*p) && *p != '/')
 	    return 0;
-
-	x++;
     }
-
     return 1;
 }
