@@ -60,11 +60,11 @@
 #define END -1
 
 static void benefit(natid, int);
-static int docountry(char, int, char *, float, struct natstr *);
+static int docountry(char, int, char *, struct natstr *);
 static int doland(char, int, char *, struct sctstr *);
 static int doplane(char, int, char *, struct plnstr *);
 static int doship(char, int, char *, struct shpstr *);
-static int dounit(char, int, char *, float, struct lndstr *);
+static int dounit(char, int, char *, struct lndstr *);
 static int getin(char *, char **);
 static void noise(struct sctstr *, char *, int, int);
 static void pr_land(struct lndstr *);
@@ -89,7 +89,6 @@ edit(void)
     int err;
     int arg_index = 3;
     coord x, y;
-    float farg;
     struct natstr *np;
     char buf[1024];
     char ewhat;
@@ -199,8 +198,7 @@ edit(void)
 
 	switch (ewhat) {
 	case 'c':
-	    farg = (float)atof(ptr);
-	    if ((err = docountry(thing, arg, ptr, farg, np)) != RET_OK)
+	    if ((err = docountry(thing, arg, ptr, np)) != RET_OK)
 		return err;
 	    break;
 	case 'l':
@@ -218,8 +216,7 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'u':
-	    farg = (float)atof(ptr);
-	    if ((err = dounit(thing, arg, ptr, farg, &land)) != RET_OK)
+	    if ((err = dounit(thing, arg, ptr, &land)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
 		return RET_FAIL;
@@ -285,7 +282,6 @@ prsect(struct sctstr *sect)
        sect->sct_fallout, sect->sct_avail);
 
     pr("Mines <M>: %d\t", sect->sct_mines);
-    pr("Coastal <C>: %d\n", sect->sct_coastal);
     pr("Road %% <R>: %d\t", sect->sct_road);
     pr("Rail %% <r>: %d\t", sect->sct_rail);
     pr("Defense %% <d>: %d\n", sect->sct_defense);
@@ -337,8 +333,6 @@ pr_plane(struct plnstr *plane)
     pr("Mobility <m>: %d\n", plane->pln_mobil);
     pr("Tech <t>: %d\t\t", plane->pln_tech);
     pr("Wing <w>: %c\n", plane->pln_wing);
-    pr("Attack <a>: %d\t\t", plane->pln_att);
-    pr("Defense <d>: %d\n", plane->pln_def);
     pr("Range <r>: %d\t\t", plane->pln_range);
     pr("Flags <f>: %d\n", plane->pln_flags);
     pr("Ship <s>: %d\t\t", plane->pln_ship);
@@ -359,7 +353,6 @@ pr_land(struct lndstr *land)
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Fuel <B>: %d\n", land->lnd_fuel);
     count_land_planes(land);
-    pr("Xlight planes <X>: %d\n", land->lnd_nxlight);
     pr("Land unit <Y>: %d\n", land->lnd_land);
     pr("Ship <S>: %d\t\t", land->lnd_ship);
     pr("Radius <P>: %d\n", land->lnd_rad_max);
@@ -400,11 +393,7 @@ pr_ship(struct shpstr *ship)
     pr("Mobility <M>: %d\t\t", ship->shp_mobil);
     pr("Fleet <F>: %c\n", ship->shp_fleet);
     count_planes(ship);
-    pr("Xlight planes <X>: %d\t\t", ship->shp_nxlight);
-    pr("Planes <P>: %d\n", ship->shp_nplane);
-    pr("Helos <H>: %d\t\t\t", ship->shp_nchoppers);
     count_units(ship);
-    pr("Units <Y>: %d\n", ship->shp_nland);
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
     pr("Fuel <B>: %d\t\t\t", ship->shp_fuel);
@@ -478,6 +467,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     int des;
     switch (op) {
     case 'C':
+	warn_deprecated(op);
 	if (arg < 0)
 	    return RET_SYN;
 	sect->sct_coastal = (arg ? 1 : 0);
@@ -682,10 +672,11 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 
 
 static int
-docountry(char op, int arg, char *p, float farg, struct natstr *np)
+docountry(char op, int arg, char *p, struct natstr *np)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
+    float farg = (float)atof(p);
 
     switch (op) {
     case 'n':
@@ -800,9 +791,11 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	ship->shp_rflags = arg;
 	break;
     case 'H':
+	warn_deprecated(op);
 	ship->shp_nchoppers = arg;
 	break;
     case 'X':
+	warn_deprecated(op);
 	ship->shp_nxlight = arg;
 	break;
     case 'U':
@@ -858,9 +851,11 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	}
 	break;
     case 'Y':
+	warn_deprecated(op);
 	ship->shp_nland = errcheck(arg, 0, 100);
 	break;
     case 'P':
+	warn_deprecated(op);
 	ship->shp_nplane = errcheck(arg, 0, 100);
 	break;
     case 'c':
@@ -902,10 +897,6 @@ doship(char op, int arg, char *p, struct shpstr *ship)
     case 'r':
 	ship->shp_item[I_RAD] = arg;
 	break;
-    case 'D':
-	warn_deprecated(op);
-	ship->shp_armor = errcheck(arg, 0, SHRT_MAX);
-	break;
     default:
 	pr("huh? (%c)\n", op);
 	return RET_FAIL;
@@ -914,7 +905,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 }
 
 static int
-dounit(char op, int arg, char *p, float farg, struct lndstr *land)
+dounit(char op, int arg, char *p, struct lndstr *land)
 {
     coord newx, newy;
 
@@ -980,6 +971,7 @@ dounit(char op, int arg, char *p, float farg, struct lndstr *land)
 	land->lnd_fuel = errcheck(arg, 0, 255);
 	break;
     case 'X':
+	warn_deprecated(op);
 	land->lnd_nxlight = arg;
 	break;
     case 'S':
@@ -1035,18 +1027,6 @@ dounit(char op, int arg, char *p, float farg, struct lndstr *land)
 	break;
     case 'r':
 	land->lnd_item[I_RAD] = arg;
-	break;
-    case 'A':
-	warn_deprecated(op);
-	pr("Attack changed from %1.2f to %1.2f.\n",
-	   land->lnd_att, farg);
-	land->lnd_att = farg;
-	break;
-    case 'D':
-	warn_deprecated(op);
-	pr("Defense changed from %1.2f to %1.2f.\n",
-	   land->lnd_def, farg);
-	land->lnd_def = farg;
 	break;
     default:
 	pr("huh? (%c)\n", op);
@@ -1116,9 +1096,11 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	}
 	break;
     case 'a':
+	warn_deprecated(op);
 	plane->pln_att = arg;
 	break;
     case 'd':
+	warn_deprecated(op);
 	plane->pln_def = arg;
 	break;
     case 'r':
