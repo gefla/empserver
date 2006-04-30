@@ -52,10 +52,6 @@
 #define EXPORT_BONUS 10.0
 #define IMPORT_BONUS 10.0
 
-#ifndef MAX
-#define MAX(x,y) ((x) < (y) ? (y) : (x))
-#endif
-
 int
 dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
 	     double dist_e_cost)

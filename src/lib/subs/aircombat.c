@@ -53,11 +53,6 @@
 #include "optlist.h"
 #include "server.h"
 
-
-#ifndef MAX
-#define MAX(x,y) ((x) < (y) ? (y) : (x))
-#endif
-
 static void getilist(struct emp_qelem *list, natid own,
 		     struct emp_qelem *a, struct emp_qelem *b,
 		     struct emp_qelem *c, struct emp_qelem *d);
