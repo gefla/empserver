@@ -409,8 +409,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 	    continue;
 
 	dist = mapdist(x, y, plane.pln_x, plane.pln_y);
-
-	if (dist > ((int)((float)plane.pln_range / 2.0)))
+	if (dist > plane.pln_range / 2)
 	    continue;
 
 	plp = malloc(sizeof(struct plist));
@@ -628,7 +627,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    prb = ((double)md) / range2;
 		prb *= prb;
 		if (chance(prb))
-		    dam2 = (int)((float)dam2 / 2.0);
+		    dam2 /= 2;
 		dam += dam2;
 		if (sect.sct_type == SCT_WATER)
 		    nreport(sp->shp_own, N_SHP_SHELL, victim, 1);
