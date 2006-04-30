@@ -1023,6 +1023,9 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    mobcost = 0;
 	    if (!(lcp->l_flags & L_ASSAULT))
 		continue;
+	default:
+	    CANT_REACH();
+	    return;
 	}
 	att_val = attack_val(combat_mode, &land);
 	if (!att_val) {
@@ -1969,6 +1972,10 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    pr("We have boarded %s, sir!\n", prcom(0, def));
 	    action = "boarding";
 	    break;
+	default:
+	    CANT_REACH();
+	    news_item = 0;
+	    action = "defeating";
 	}
     } else {
 	switch (combat_mode) {
@@ -2000,6 +2007,10 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    kill_land(olist);
 	    action = "trying to board";
 	    break;
+	default:
+	    CANT_REACH();
+	    news_item = 0;
+	    action = "fighting";
 	}
     }
     nreport(player->cnum, news_item, def->own, 1);
