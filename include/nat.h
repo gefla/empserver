@@ -76,8 +76,10 @@ enum {				/* Priorities */
  *
  */
 struct realmstr {
+    /* initial part must match struct genitem */
     short ef_type;
     natid r_cnum;		/* country number */
+    /* end of part matching struct genitem */
     short r_uid;		/* realm table index */
     unsigned short r_realm;	/* realm number */
     short r_xl, r_xh;		/* horizontal bounds */

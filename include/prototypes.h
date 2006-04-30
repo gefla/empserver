@@ -51,10 +51,6 @@ extern void init_server(void);
 extern void start_server(int);
 extern void finish_server(void);
 
-/*****************************************************************************
- * src/lib/ * / *.c 
- *****************************************************************************/
-
 /* src/lib/empthread/lwp.c */
 /* in empthread.h */
 
@@ -62,7 +58,7 @@ extern void finish_server(void);
  * src/lib/commands/ *.c 
  */
 extern int check_market(void);
-extern int sendmessage(struct natstr *, struct natstr *, char *message, int);
+extern int sendmessage(struct natstr *, struct natstr *, char *, int);
 extern void gift(natid, natid, void *, int, char *);
 extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
@@ -334,22 +330,6 @@ extern int max_pop(float, struct sctstr *);
 /* sectdamage.c */
 extern int sect_damage(struct sctstr *, int, struct emp_qelem *);
 extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
-/* snxtit_subs.c */
-extern void snxtitem_area(struct nstr_item *, int,
-			  struct range *);
-extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
-extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
-extern void snxtitem_all(struct nstr_item *, int);
-extern void snxtitem_group(struct nstr_item *, int, char);
-extern void snxtitem_rewind(struct nstr_item *);
-extern int snxtitem_list(struct nstr_item *, int, int *, int);
-/* snxtsect_subs.c */
-extern void snxtsct_area(struct nstr_sect *, struct range *);
-extern void xydist_range(coord, coord, int, struct range *);
-extern void xysize_range(struct range *);
-extern void snxtsct_all(struct nstr_sect *);
-extern void snxtsct_rewind(struct nstr_sect *);
-extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
 /* stmtch.c */
 /* in match.h */
 /* type.c */
@@ -694,8 +674,22 @@ extern void shp_missdef(struct shpstr *, natid);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
 extern int snxtitem(struct nstr_item *, int, char *);
+extern void snxtitem_area(struct nstr_item *, int,
+			  struct range *);
+extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
+extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
+extern void snxtitem_all(struct nstr_item *, int);
+extern void snxtitem_group(struct nstr_item *, int, char);
+extern void snxtitem_rewind(struct nstr_item *);
+extern int snxtitem_list(struct nstr_item *, int, int *, int);
 /* snxtsct.c */
 extern int snxtsct(register struct nstr_sect *, char *);
+extern void snxtsct_area(struct nstr_sect *, struct range *);
+extern void xydist_range(coord, coord, int, struct range *);
+extern void xysize_range(struct range *);
+extern void snxtsct_all(struct nstr_sect *);
+extern void snxtsct_rewind(struct nstr_sect *);
+extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
 /* supply.c */
 extern void resupply_all(struct lndstr *);
 extern void resupply_commod(struct lndstr *, i_type);

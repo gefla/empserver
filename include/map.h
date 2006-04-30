@@ -40,7 +40,7 @@
 #define	MAPWIDTH(persec) ((WORLD_X/2)*(persec + 1)+1)
 
 extern void blankfill(char *, struct range *, int);
-/* src/lib/subs/border.c */
+/* src/lib/subs/bigmap.c */
 extern int map_set(natid, coord, coord, char, int);
 extern void writebmap(natid);
 extern void writemap(natid);
