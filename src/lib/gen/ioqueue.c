@@ -40,7 +40,7 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <stdlib.h>		/* malloc free */
+#include <stdlib.h>
 #include <sys/types.h>
 #if !defined(_WIN32)
 #include <sys/uio.h>
@@ -49,19 +49,13 @@
 #include "queue.h"
 #include "ioqueue.h"
 
-static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc,
-		     register int stopc);
+static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc);
 #if !defined(_WIN32)
-static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov,
-		    register int max);
+static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max);
 #endif
 static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);
 static int appendcc(struct ioqueue *ioq, char *buf, int cc);
-static int removecc(struct ioqueue *ioq, register int cc);
-
-#if defined(_WIN32)
-static void loc_StripDels(char *pBuf);
-#endif
+static int removecc(struct ioqueue *ioq, int cc);
 
 struct ioqueue *
 ioq_create(int size)
@@ -179,11 +173,6 @@ ioq_puts(struct ioqueue *ioq, char *buf)
 }
 
 /*
- * all the rest are local to this module
- */
-
-
-/*
  * copy cc bytes from ioq to buf.
  * this routine doesn't free memory; this is
  * left for a higher level.
@@ -194,8 +183,7 @@ ioqtobuf(struct ioqueue *ioq, char *buf, int cc)
     struct io *io;
     struct emp_qelem *qp;
     struct emp_qelem *head;
-    register int nbytes;
-    register int nleft;
+    int nbytes, nleft;
     char *offset;
 
     nleft = cc;
@@ -223,7 +211,7 @@ ioqtobuf(struct ioqueue *ioq, char *buf, int cc)
  * terminating on the stop character.
  */
 static int
-ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, register int stopc)
+ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc)
 {
     int nbytes;
     char *p;
@@ -261,12 +249,10 @@ ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, register int stopc)
  */
 #if !defined(_WIN32)
 static int
-ioqtoiov(struct ioqueue *ioq, struct iovec *iov, register int max)
+ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max)
 {
     struct io *io;
-    register int cc;
-    register int niov;
-    register int len;
+    int cc, niov, len;
     struct emp_qelem *qp;
 
     cc = max;
@@ -334,13 +320,11 @@ appendcc(struct ioqueue *ioq, char *buf, int cc)
  * which are no longer used.
  */
 static int
-removecc(struct ioqueue *ioq, register int cc)
+removecc(struct ioqueue *ioq, int cc)
 {
     struct io *io;
     struct emp_qelem *qp;
-    register int nbytes;
-    register int there;
-    register int remain;
+    int nbytes, there, remain;
 
     nbytes = 0;
     remain = cc;
