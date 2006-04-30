@@ -64,7 +64,7 @@ update_coastal_flag(struct sctstr *sp, struct sctstr *sectp)
 }
 
 static void
-coastal_sea_to_land(struct sctstr *sp, int des)
+coastal_sea_to_land(struct sctstr *sp)
 {
     int n;
     struct sctstr sect;
@@ -78,7 +78,7 @@ coastal_sea_to_land(struct sctstr *sp, int des)
 }
 
 static void
-coastal_land_to_sea(struct sctstr *sp, int des)
+coastal_land_to_sea(struct sctstr *sp)
 {
     int n;
     struct sctstr sect;
@@ -111,7 +111,7 @@ set_coastal(struct sctstr *sp, int des)
     if (new_water == old_water)
 	return;
     else if (new_water)
-	coastal_land_to_sea(sp, des);
+	coastal_land_to_sea(sp);
     else
-	coastal_sea_to_land(sp, des);
+	coastal_sea_to_land(sp);
 }
