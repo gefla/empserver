@@ -766,7 +766,7 @@ att_ask_offense(int combat_mode, struct combat *off, struct combat *def,
 		struct emp_qelem *olist, int *a_spyp, int *a_engineerp)
 {
     int n;
-    char land_answer[1024];
+    char land_answer[256];
 
     emp_initque(olist);
     if (att_abort(combat_mode, off, def))
@@ -920,7 +920,7 @@ static char
 att_prompt(char *prompt, char army)
 {
     char buf[1024];
-    char *p = buf;
+    char *p;
 
     if (army == ' ')
 	army = '~';
@@ -1473,7 +1473,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     int radius;
     int origx, origy;
     double eff = att_combat_eff(def);
-    char *p;
     char buf[1024];
 
     /*
@@ -1531,7 +1530,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	getsect(def->x, def->y, &dsect);
-	if (!(p = BestLandPath(buf, &sect, &dsect, &move_cost, MOB_ROAD)))
+	if (!BestLandPath(buf, &sect, &dsect, &move_cost, MOB_ROAD))
 	    continue;
 
 	mobcost = land.lnd_effic * 0.01 * lchr[(int)land.lnd_type].l_spd;
@@ -2283,7 +2282,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     struct llist *llp;
     char buf[512];
     char prompt[512];
-    char land_answer[1024];
+    char land_answer[256];
     char *answerp;
 
     for (n = 0; n <= off->last; ++n)
@@ -2465,10 +2464,8 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	return;
     sprintf(prompt, "How many mil to move in from %s (%d max)? ",
 	    xyas(off->x, off->y, player->cnum), mob_support);
-    if (!(p = getstring(prompt, buf)) || !*p || (num_mil = atoi(p)) <= 0) {
-	num_mil = 0;
+    if (!(p = getstring(prompt, buf)) || !*p || (num_mil = atoi(p)) <= 0)
 	return;
-    }
 /* Make sure we don't move in more than we can support mobility-wise */
     if (num_mil > mob_support)
 	num_mil = mob_support;
