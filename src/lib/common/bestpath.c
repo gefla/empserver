@@ -70,8 +70,8 @@ int dy[6] = { 0, -1, -1, 0, 1, 1 };
  * would be slow.  And, since world size only changes at init
  * time, we can do this safely.
  */
-static unsigned int *mapbuf;
-static unsigned int **mapindex;
+static unsigned *mapbuf;
+static unsigned **mapindex;
 
 /*
  * Find passable path from X, Y to EX, EY for nation OWN.
@@ -90,14 +90,14 @@ bestownedpath(char *bpath, char *bigmap,
 {
     int i, j, tx, ty, markedsectors;
     int minx, maxx, miny, maxy, scanx, scany;
-    unsigned int routelen;
+    unsigned routelen;
 
     if (!mapbuf)
-	mapbuf = malloc(WORLD_X * WORLD_Y * sizeof(unsigned int));
+	mapbuf = malloc(WORLD_X * WORLD_Y * sizeof(unsigned));
     if (!mapbuf)
 	return NULL;
     if (!mapindex) {
-	mapindex = malloc(WORLD_X * sizeof(unsigned int *));
+	mapindex = malloc(WORLD_X * sizeof(unsigned *));
 	if (mapindex) {
 	    /* Setup the map pointers */
 	    for (i = 0; i < WORLD_X; i++)

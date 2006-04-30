@@ -142,7 +142,7 @@ player_main(struct player *p)
 int
 command(void)
 {
-    unsigned int i;
+    unsigned i;
     char *redir;		/* UTF-8 */
     char scanspace[1024];
 
@@ -152,10 +152,6 @@ command(void)
 	      scanspace, &redir) < 0) {
 	pr("See \"info Syntax\"?\n");
     } else {
-	/* XXX don't use alarm; use a scavenger thread */
-	/* DONT USE IT!!!! alarm and sleep may and dont work
-	   together -- Sasha */
-	/* alarm((unsigned int)60*60); 1 hour */
 	if (player->condarg != NULL)
 	    for (i = 0; i < strlen(player->condarg); i++)
 		player->condarg[i] = tolower(player->condarg[i]);

@@ -384,7 +384,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
     struct plist *plp;
     int y;
     int bad, bad1;
-    unsigned int x;
+    unsigned x;
 
     emp_initque(list);
     while (nxtitem(ni, &plane)) {

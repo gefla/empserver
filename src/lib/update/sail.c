@@ -82,7 +82,7 @@ and therefore cannot be less than 0.
        "Ship #%d can move %d spaces on mobility %d (cost/sect %f)\n",
        sp->shp_uid, howfar, sp->shp_mobil, mobcost);
 #endif
-    if ((unsigned int)howfar < fp->maxmoves)
+    if ((unsigned)howfar < fp->maxmoves)
 	fp->maxmoves = howfar;
 
     ep->mobil = sp->shp_mobil;

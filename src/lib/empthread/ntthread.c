@@ -332,7 +332,7 @@ empth_threadMain(void *pvData)
 
     /* seed the rand() function */
     time(&now);
-    srand(now ^ (unsigned int)pThread);
+    srand(now ^ (unsigned)pThread);
 
     /* Switch to this thread context */
     loc_RunThisThread();

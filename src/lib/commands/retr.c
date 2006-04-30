@@ -54,7 +54,7 @@ retr(void)
     int isfleet = 0;
     int rflags = -2;
     int zero;
-    unsigned int x;
+    unsigned x;
     char buf1[1024];
     char buf2[1024];
 
@@ -204,7 +204,7 @@ lretr(void)
     int zero;
     char buf1[1024];
     char buf2[1024];
-    unsigned int x;
+    unsigned x;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
