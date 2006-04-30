@@ -46,7 +46,7 @@ int
 best(void)
 {
     double cost;
-    char *s;
+    char *path;
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
     char buf[1024];
@@ -64,11 +64,11 @@ best(void)
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (s2.sct_own != player->cnum)
 		continue;
-	    s = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
-	    if (s)
+	    path = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
+	    if (path)
 		pr("Best path from %s to %s is %s (cost %1.3f)\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
-		   xyas(s2.sct_x, s2.sct_y, player->cnum), s, cost);
+		   xyas(s2.sct_x, s2.sct_y, player->cnum), path, cost);
 	    else
 		pr("No owned path from %s to %s exists!\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
