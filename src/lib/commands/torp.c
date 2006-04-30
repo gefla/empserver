@@ -367,6 +367,8 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 
     guneff = seagun(sp->shp_effic, gun);
     dam = (int)guneff;
+    if (ntargets > 2)
+	dam /= ntargets / 2;
 
     if ((mchr[(int)targ->shp_type].m_flags & M_SUB) == 0) {
 	pr_beep();
@@ -374,9 +376,6 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own,
 	       "%s fired at %s\n", prship(sp), prship(targ));
-
-	if (ntargets > 2)
-	    dam /= ((float)ntargets / 2.0);
 	pr_beep();
 	pr("BLAM! %d damage!\n", dam);
 	shipdamage(targ, dam);
@@ -386,10 +385,6 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own,
 	       "%s depth charged %s\n", prship(sp), prsub(targ));
-
-	if (ntargets > 2)
-	    dam /= ((float)ntargets / 2.0);
-
 	pr("click...WHAM!  %d damage!\n", dam);
 	shipdamage(targ, dam);
 	putship(targ->shp_uid, targ);
@@ -447,9 +442,8 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 	       prship(sp),
 	       xyas(sp->shp_x, sp->shp_y, sp->shp_own), prsub(targ));
 	dam = TORP_DAMAGE();
-
 	if (ntargets > 2)
-	    dam /= ((float)ntargets / 2.0);
+	    dam /= ntargets / 2;
 
 	shipdamage(targ, dam);
 	putship(targ->shp_uid, targ);
