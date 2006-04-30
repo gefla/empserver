@@ -53,6 +53,8 @@
 #include "optlist.h"
 #include "prototypes.h"
 
+static void lnd_mess(char *, struct llist *);
+
 int
 attack_val(int combat_mode, struct lndstr *lp)
 {
@@ -804,7 +806,7 @@ lnd_list(struct emp_qelem *land_list)
     }
 }
 
-void
+static void
 lnd_mess(char *str, struct llist *llp)
 {
     mpr(llp->land.lnd_own, "%s %s & stays in %s\n",
