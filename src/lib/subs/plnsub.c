@@ -561,7 +561,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 }
 
 int
-pln_arm(struct emp_qelem *list, int dist, int mission, struct ichrstr *ip,
+pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	int flags, int mission_flags)
 {
     struct emp_qelem *qp;

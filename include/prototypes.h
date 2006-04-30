@@ -556,7 +556,7 @@ extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
 extern void pln_mine(struct emp_qelem *list, struct sctstr *sectp);
 extern void pln_sel(struct nstr_item *, struct emp_qelem *,
 		    struct sctstr *, int, int, int, int);
-extern int pln_arm(struct emp_qelem *, int, int, struct ichrstr *,
+extern int pln_arm(struct emp_qelem *, int, char, struct ichrstr *,
 		   int, int);
 extern int pln_mobcost(int, struct plnstr *, int);
 extern void pln_put(struct emp_qelem *);
