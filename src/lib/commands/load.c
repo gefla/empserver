@@ -249,7 +249,7 @@ lload(void)
     if (!snxtitem(&nbst, EF_LAND, p))
 	return RET_SYN;
 
-    load_unload = *(*player->argp + 1) == 'l' ? LOAD : UNLOAD;
+    load_unload = player->argp[0][1] == 'l' ? LOAD : UNLOAD;
 
     nunits = 0;
     while (nxtitem(&nbst, &land)) {
