@@ -53,7 +53,7 @@ dist(void)
 {
     struct sctstr sect, dsect, tsect;
     struct nstr_sect nstr;
-    char *path, *p;
+    char *p;
     double move_cost = 0.0;
     coord dstx, dsty;
     char buf[1024];
@@ -100,9 +100,7 @@ dist(void)
 	    pr("Warning: you don't own %s!\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum));
 
-	path = BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD);
-
-	if (!path) {
+	if (!BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD)) {
 	    pr("No owned path from %s to %s.\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum),
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
