@@ -48,6 +48,7 @@
 int
 sate(void)
 {
+    static int sct_shp_or_lnd[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
     double tech;
     int pln_uid;
     struct plnstr plane;
@@ -79,17 +80,8 @@ sate(void)
 	return RET_FAIL;
     }
     if (player->argp[2]) {
-	switch (*player->argp[2]) {
-	case 'l':
-	    type = EF_LAND;
-	    break;
-	case 's':
-	    if (*(player->argp[2] + 1) == 'e')
-		type = EF_SECTOR;
-	    else
-		type = EF_SHIP;
-	    break;
-	default:
+	type = ef_byname_from(player->argp[2], sct_shp_or_lnd);
+	if (type < 0) {
 	    return RET_SYN;
 	}
     }
