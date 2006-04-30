@@ -271,7 +271,6 @@ xdvisible(int type, void *p)
 static int
 xditem(int type, char *arg)
 {
-    int check_owner = !player->god && (ef_flags(type) & EFF_OWNER) != 0;
     struct castr *ca;
     struct nstr_item ni;
     int n;

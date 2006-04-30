@@ -66,7 +66,6 @@ static int
 do_map_set(char *map, coord x, coord y, char t, int force)
 {
     int id;
-    char ot;
 
     if ((id = sctoff(x, y)) < 0)
 	return 0;
@@ -74,7 +73,6 @@ do_map_set(char *map, coord x, coord y, char t, int force)
     if (((map[id] == 'x') || (map[id] == 'X')) && !force)
 	return 0;
 
-    ot = map[id];
     if (t == '?') {
 	switch (map[id]) {
 	case '.':

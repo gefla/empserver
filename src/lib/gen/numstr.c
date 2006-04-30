@@ -48,9 +48,7 @@ numstr(char *buf, int n)
     };
     static char *tennames[] = {
 	"", "", "twenty", "thirty", "forty", "fifty",
-	"sixty", "seventy", "eighty", "ninety",
-	"hundred", "hundred ten", "hundred twenty",
-	"hundred thirty", 0,
+	"sixty", "seventy", "eighty", "ninety", "hundred"
     };
 
     if (n > 100) {
