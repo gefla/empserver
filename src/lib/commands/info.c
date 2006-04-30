@@ -59,12 +59,9 @@ lowerit(char *buf, int n, char *orig)
     /* size of output buffer */
     /* input strig */
     int i;
-    char *tmp;
-    tmp = buf;
-    memset(buf, 0, n);
-    for (i = 0; i < n && *orig; i++) {
-	*tmp++ = tolower(*orig++);
-    }
+    for (i = 0; i < n - 1 && orig[i]; i++)
+	buf[i] = tolower(orig[i]);
+    buf[i] = 0;
     return buf;
 }
 
