@@ -38,7 +38,7 @@
 #include "prototypes.h"
 
 int
-chkmoney(long int cost, long int cash, char *argp)
+chkmoney(long cost, long cash, char *argp)
 {
     char buf[1024];
     char *p;
@@ -57,7 +57,7 @@ chkmoney(long int cost, long int cash, char *argp)
 }
 
 int
-check_cost(int looping, int cost, long int cash, int *warnedp,
+check_cost(int looping, int cost, long cash, int *warnedp,
 	   char *argp)
 {
     char buf[1024];

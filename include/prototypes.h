@@ -794,7 +794,7 @@ extern void do_fallout(register struct sctstr *, register int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(int natnum, int etu, int *bp,
-			 long int (*p_sect)[2], int sector_type);
+			 long (*p_sect)[2], int sector_type);
 /* ship.c */
 extern int prod_ship(int, int, int *, int);
 extern int feed_ship(struct shpstr *, int, int *, int);

@@ -270,7 +270,7 @@ decay_fallout(struct sctstr *sp, int etus)
  *
  */
 void
-produce_sect(int natnum, int etu, int *bp, long int (*p_sect)[2],
+produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 	     int sector_type)
 {
     struct sctstr *sp;

@@ -45,7 +45,7 @@
 #include "commands.h"
 
 static long do_desi(struct natstr *natp, char *sects, char *deschar,
-		    long int cash, int for_real);
+		    long cash, int for_real);
 
 int
 desi(void)
@@ -67,7 +67,7 @@ desi(void)
 }
 
 static long
-do_desi(struct natstr *natp, char *sects, char *deschar, long int cash,
+do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 	int for_real)
 {
     int n;

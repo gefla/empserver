@@ -847,7 +847,7 @@ nameofitem(struct genitem *gp, int type)
 }
 
 char *
-mission_name(short int mission)
+mission_name(short mission)
 {
     switch (mission) {
     case MI_INTERDICT:

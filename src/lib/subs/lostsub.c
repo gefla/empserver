@@ -45,7 +45,7 @@
 static int findlost(char, natid, short, coord, coord, int);
 
 void
-makelost(char type, natid owner, short int id, coord x, coord y)
+makelost(char type, natid owner, short id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -70,7 +70,7 @@ makelost(char type, natid owner, short int id, coord x, coord y)
 }
 
 void
-makenotlost(char type, natid owner, short int id, coord x, coord y)
+makenotlost(char type, natid owner, short id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -93,7 +93,7 @@ makenotlost(char type, natid owner, short int id, coord x, coord y)
  * Else return -1.
  */
 static int
-findlost(char type, natid owner, short int id, coord x, coord y, int free)
+findlost(char type, natid owner, short id, coord x, coord y, int free)
 {
     struct loststr lost;
     int n;

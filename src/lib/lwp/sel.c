@@ -118,7 +118,7 @@ lwpWakeupFd(struct lwpProc *proc)
 }
 
 void
-lwpSleepUntil(long int until)
+lwpSleepUntil(long until)
 {
     lwpStatus(LwpCurrent, "sleeping for %ld sec", until - time(0));
     LwpCurrent->runtime = until;

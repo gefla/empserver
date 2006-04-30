@@ -52,14 +52,14 @@
 #include "budg.h"
 #include "commands.h"
 
-static void calc_all(long int (*p_sect)[2], int *taxes, int *Ncivs,
+static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
 static int change_prio(struct natstr *np, char code, char *newval);
 static char *dotsprintf(char *buf, char *format, int data);
-static void prexpense(long int cash, int *expensesp, int priority, int amount);
+static void prexpense(long cash, int *expensesp, int priority, int amount);
 
 int
 budg(void)
@@ -418,7 +418,7 @@ dotsprintf(char *buf, char *format, int data)
 }
 
 static void
-prexpense(long int cash, int *expensesp, int priority, int amount)
+prexpense(long cash, int *expensesp, int priority, int amount)
 {
     if (cash > *expensesp) {
 	if (priority) {
