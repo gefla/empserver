@@ -90,7 +90,8 @@ turn(void)
 	    pr("Removing exsting motd.\n");
 	    if ((unlink(msgfilepath) == -1) && (errno != ENOENT)) {
 		pr("Could not remove motd.\n");
-		logerror("Could not remove motd file (%s).\n", msgfilepath);
+		logerror("Could not remove motd file (%s).\n",
+			 msgfilepath);
 		return RET_SYS;
 	    }
 	    return RET_OK;
