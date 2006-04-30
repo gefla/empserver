@@ -72,7 +72,7 @@ rea(void)
     time_t lastdate;
     int header;
     int filelen;
-    char kind[80];
+    char *kind;
     int n;
     int num = player->cnum;
     struct natstr *np = getnatp(player->cnum);
@@ -83,11 +83,10 @@ rea(void)
     int readit;
     int may_delete = 1; /* may messages be deleted? */
 
-    memset(kind, 0, sizeof(kind));
     now = time(NULL);
 
     if (*player->argp[0] == 'w') {
-	strcpy(kind, "announcement");
+	kind = "announcement";
 	if (player->argp[1] && isdigit(*player->argp[1])) {
 	    delta = days(atoi(player->argp[1]));
 	    then = now - delta;
@@ -96,7 +95,7 @@ rea(void)
 	    then = np->nat_annotim;
 	mbox = annfil;
     } else {
-	strcpy(kind, "telegram");
+	kind = "telegram";
 	if (player->god && player->argp[1] &&
 	    (mineq(player->argp[1], "yes") == ME_MISMATCH) &&
 	    (mineq(player->argp[1], "no") == ME_MISMATCH)) {
@@ -175,7 +174,6 @@ rea(void)
 	    tgm.tel_length -= nbytes;
 	}
     }
-    p = NULL;
     if (teles > 0 && player->cnum == num && may_delete) {
 	pr("\n");
 	if (teles == 1) {
@@ -207,7 +205,7 @@ rea(void)
 		/* Here, we just re-open the file for "w" only,
 		   and that will wipe the file clean automatically */
 		(void)fclose(telfp);
-		telfp = fopen((char *)mbox, "wb");
+		telfp = fopen(mbox, "wb");
 	    }
 	}
     }
