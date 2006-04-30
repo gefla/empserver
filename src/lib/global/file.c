@@ -61,7 +61,7 @@
 /* Initializers for members flags... */
 /* Unmapped cache */
 #define UNMAPPED_CACHE(type, flags) \
-    sizeof(type), flags, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL
+    sizeof(type), (flags), NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL
 /*
  * Mapped cache, array with known size.
  * Members cids, fids are not set.
