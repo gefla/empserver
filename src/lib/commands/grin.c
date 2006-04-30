@@ -53,6 +53,8 @@ grin(void)
     int avail;
     char buf[1024];
     double grind_eff = 0.8;
+    i_type *ctype = pchr[P_BAR].p_ctype;
+    unsigned short *camt = pchr[P_BAR].p_camt;
 
     if ((p = getstarg(player->argp[1], "Sectors? ", buf)) == 0)
 	return RET_SYN;
@@ -77,14 +79,13 @@ grin(void)
 	}
 	/* space limit */
 	for (i = 0; i < MAXPRCON; i++) {
-	    if (!pchr[P_BAR].p_camt[i])
+	    if (!camt[i])
 		continue;
-	    if (CANT_HAPPEN(pchr[P_BAR].p_ctype[i] <= I_NONE ||
-			    pchr[P_BAR].p_ctype[i] > I_MAX))
+	    if (CANT_HAPPEN(ctype[i] <= I_NONE || ctype[i] > I_MAX))
 		continue;
 	    n = MIN(n,
-		    (double)(ITEM_MAX - sect.sct_item[pchr[P_BAR].p_ctype[i]])
-		    / (pchr[P_BAR].p_camt[i] * grind_eff));
+		    (double)(ITEM_MAX - sect.sct_item[ctype[i]])
+		    / (camt[i] * grind_eff));
 	}
 
 	if (n > 0) {
@@ -92,13 +93,11 @@ grin(void)
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    sect.sct_item[I_BAR] -= n;
 	    for (i = 0; i < MAXPRCON; i++) {
-		if (!pchr[P_BAR].p_camt[i])
+		if (!camt[i])
 		    continue;
-		if (CANT_HAPPEN(pchr[P_BAR].p_ctype[i] <= I_NONE ||
-				pchr[P_BAR].p_ctype[i] > I_MAX))
+		if (CANT_HAPPEN(ctype[i] <= I_NONE || ctype[i] > I_MAX))
 		    continue;
-		sect.sct_item[pchr[P_BAR].p_ctype[i]]
-		    += n * pchr[P_BAR].p_camt[i] * grind_eff;
+		sect.sct_item[ctype[i]] += n * camt[i] * grind_eff;
 	    }
 	    sect.sct_avail -= avail;
 	    putsect(&sect);
