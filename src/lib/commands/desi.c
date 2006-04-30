@@ -111,7 +111,8 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long int cash,
 	des = sct_typematch(p);
 	if (des < 0 || (((des == SCT_BSPAN) || (des == SCT_BTOWER)) &&
 			!player->god)) {
-	    pr("See \"info Sector-types\"\n");
+	    pr("No such designation\n"
+	       "See \"info Sector-types\" for possible designations\n");
 	    if (for_real)
 		return (long)RET_FAIL;
 	    else
