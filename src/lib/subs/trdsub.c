@@ -240,44 +240,6 @@ trade_getitem(struct trdstr *tp, union trdgenstr *tgp)
     return 1;
 }
 
-long
-get_couval(int cnum)
-{
-    struct sctstr *sp;
-    int j, k, val;
-    long secttot = 0;
-
-    for (j = 0; NULL != (sp = getsectid(j)); j++) {
-	if (sp->sct_own != cnum)
-	    continue;
-	secttot += (long)(dchr[sp->sct_type].d_value *
-			  ((float)sp->sct_effic + 100.0));
-	for (k = 0; ichr[k].i_name; k++) {
-	    if (ichr[k].i_value == 0 || ichr[k].i_uid == I_NONE)
-		continue;
-	    val = sp->sct_item[ichr[k].i_uid];
-	    secttot += val * ichr[k].i_value;
-	}
-    }
-    return secttot;
-}
-
-long
-get_outstand(int cnum)
-{
-    struct lonstr loan;
-    int j;
-    long loantot = 0;
-
-    for (j = 0; getloan(j, &loan); j++) {
-	if (loan.l_status == LS_FREE)
-	    continue;
-	if (loan.l_lonee == cnum)
-	    loantot += loan.l_amtdue;
-    }
-    return loantot;
-}
-
 /*
  * Return amount due for LOAN at time PAYTIME.
  */
