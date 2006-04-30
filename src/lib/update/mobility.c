@@ -79,8 +79,8 @@ increase_mob(time_t *counter, float mult)
 	return 0;
     left = (secs % s_p_etu);
     do {
-	newmob = (float)(newetus * mult);
-	inewmob = (int)(newetus * mult);
+	newmob = newetus * mult;
+	inewmob = (int)newmob;
 	if (newmob == inewmob || newetus > 7)
 	    break;
 	newetus--;
@@ -89,8 +89,7 @@ increase_mob(time_t *counter, float mult)
     if (newetus <= 0)
 	return 0;
 
-    time(counter);
-    *counter = *counter - left;
+    *counter = now - left;
 
     if (updating_mob)
 	return newetus;
