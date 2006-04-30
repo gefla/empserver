@@ -81,7 +81,7 @@ buil(void)
     int tlev;
     int rlev;
     int type;
-    int what;
+    char what;
     struct lchrstr *lp;
     struct mchrstr *mp;
     struct plchrstr *pp;
