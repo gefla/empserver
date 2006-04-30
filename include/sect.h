@@ -199,6 +199,8 @@ extern struct dchrstr bigcity_dchr;
 #define CHE_MAX 255
 /* maximum fallout, must fit into struct sctstr member sct_fallout */
 #define FALLOUT_MAX 9999
+/* maximum territory, must fit into struct sctstr members sct_terr etc */
+#define TERR_MAX 99
 
 /* Each cost is per point of efficency */
 struct sctintrins {

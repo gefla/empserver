@@ -68,26 +68,15 @@ terr(void)
 		sect.sct_effic, dchr[sect.sct_type].d_name);
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	    return RET_FAIL;
-	if (!check_sect_ok(&sect))
-	    return RET_FAIL;
 	if (*p == 0)
 	    continue;
 	terr_n = atoi(p);
-	while (terr_n < 0 || terr_n > 99 || *p < '0' || *p > '9') {
-	    pr("Enter a number between 0 and 99!\n");
-	    sprintf(prompt, "%s %d%% %s  territory? ",
-		    xyas(nstr.x, nstr.y, player->cnum),
-		    sect.sct_effic, dchr[sect.sct_type].d_name);
-	    if ((p = getstarg(NULL, prompt, buf)) == 0)
-		return RET_FAIL;
-	    if (!check_sect_ok(&sect))
-		return RET_FAIL;
-	    if (*p == 0)
-		break;
-	    terr_n = atoi(p);
+	if (terr_n < 0 || terr_n > TERR_MAX) {
+	    pr("Territory number must be between 0 and %d\n", TERR_MAX);
+	    return RET_FAIL;
 	}
-	if (*p == 0)
-	    continue;
+	if (!check_sect_ok(&sect))
+	    return RET_FAIL;
 	switch (field) {
 	case 1:
 	    sect.sct_terr1 = terr_n;
