@@ -54,7 +54,7 @@ retr(void)
     int isfleet = 0;
     int rflags = -2;
     int zero;
-    unsigned x;
+    unsigned i;
     char buf1[1024];
     char buf2[1024];
 
@@ -76,8 +76,8 @@ retr(void)
 	    return RET_SYN;
 	rflags = 0 | isfleet;
 
-	for (x = 0; x < strlen(fl); x++)
-	    switch (*(fl + x)) {
+	for (i = 0; i < strlen(fl); i++) {
+	    switch (fl[i]) {
 	    case 'I':
 	    case 'i':
 		rflags |= RET_INJURED;
@@ -122,6 +122,7 @@ retr(void)
 		pr("d\tretreat when depth-charged\n");
 		pr("u\tretreat when boarded\n");
 	    }
+	}
 	if (rflags == isfleet) {
 	    pr("Must give retreat conditions!\n");
 	    return RET_FAIL;
@@ -204,7 +205,7 @@ lretr(void)
     int zero;
     char buf1[1024];
     char buf2[1024];
-    unsigned x;
+    unsigned i;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
@@ -223,8 +224,8 @@ lretr(void)
 	    return RET_SYN;
 	rflags = 0 | isarmy;
 
-	for (x = 0; x < strlen(fl); x++)
-	    switch (*(fl + x)) {
+	for (i = 0; i < strlen(fl); i++) {
+	    switch (fl[i]) {
 	    case 'I':
 	    case 'i':
 		rflags |= RET_INJURED;
@@ -249,6 +250,7 @@ lretr(void)
 		pr("h\tretreat when helpless\n");
 		pr("b\tretreat when bombed\n");
 	    }
+	}
 	if (rflags == isarmy) {
 	    pr("Must give retreat conditions!\n");
 	    return RET_FAIL;
