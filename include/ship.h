@@ -178,12 +178,9 @@ struct mchrstr {
 #define M_CANAL		bit(19) /* Can navigate a canal (BIG CITY) */
 #define M_ANTIMISSILE   bit(20)	/* Shoot down missile */
 
-#define getship(n, p) \
-	ef_read(EF_SHIP, n, p)
-#define putship(n, p) \
-	ef_write(EF_SHIP, n, p)
-#define getshipp(n) \
-	(struct shpstr *) ef_ptr(EF_SHIP, n)
+#define getship(n, p) ef_read(EF_SHIP, (n), (p))
+#define putship(n, p) ef_write(EF_SHIP, (n), (p))
+#define getshipp(n) (struct shpstr *)ef_ptr(EF_SHIP, (n))
 
 extern struct mchrstr mchr[N_MAXSHIPS + 1];
 

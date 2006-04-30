@@ -55,7 +55,7 @@ typedef long ssize_t;
 #define random rand
 #define srandom srand
 
-#define strncasecmp(s1, s2, s3) _strnicmp(s1, s2, s3)
+#define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
 #define mkdir(dir,perm) _mkdir((dir))
 
 typedef int pid_t;

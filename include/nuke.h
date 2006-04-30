@@ -69,12 +69,9 @@ struct nchrstr {
 
 #define	N_NEUT	bit(0)		/* Neutron bomb (low damage, high fallout) */
 
-#define getnuke(n, p) \
-	ef_read(EF_NUKE, n, p)
-#define putnuke(n, p) \
-	ef_write(EF_NUKE, n, p)
-#define getnukep(n) \
-	(struct nukstr *) ef_ptr(EF_NUKE, n)
+#define getnuke(n, p) ef_read(EF_NUKE, (n), (p))
+#define putnuke(n, p) ef_write(EF_NUKE, (n), (p))
+#define getnukep(n) (struct nukstr *)ef_ptr(EF_NUKE, (n))
 
 /* Work required for building */
 #define NUK_BLD_WORK(lcm, hcm, oil, rad) \

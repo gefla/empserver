@@ -174,12 +174,9 @@ struct lchrstr {
 /* Chance to detect L_SPY unit (percent) */
 #define LND_SPY_DETECT_CHANCE(eff) ((110-(eff))/100.0)
 
-#define getland(n, p) \
-	ef_read(EF_LAND, n, p)
-#define putland(n, p) \
-	ef_write(EF_LAND, n, p)
-#define getlandp(n) \
-	(struct lndstr *) ef_ptr(EF_LAND, n)
+#define getland(n, p) ef_read(EF_LAND, (n), (p))
+#define putland(n, p) ef_write(EF_LAND, (n), (p))
+#define getlandp(n) (struct lndstr *)ef_ptr(EF_LAND, (n))
 
 extern struct lchrstr lchr[N_MAXLAND + 1];
 

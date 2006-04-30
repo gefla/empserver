@@ -56,7 +56,7 @@
 static int owned_and_navigable(char *, int, int, int);
 
 #define MAXROUTE	100
-#define valid(x,y)	(((x^y)&1)==0)
+#define valid(x,y)	((((x) ^ (y)) & 1) == 0)
 
 static char *dirchar = "juygbn";
 int dx[6] = { 2, 1, -1, -2, -1, 1 };

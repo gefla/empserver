@@ -64,11 +64,8 @@ struct trtstr {
 #define	TRTENL	bit(9)		/* no enlistment */
 #define SUBFIR  bit(10)		/* no depth-charging submarines */
 
-#define gettre(n, p) \
-	ef_read(EF_TREATY, n, p)
-#define puttre(n, p) \
-	ef_write(EF_TREATY, n, p)
-#define gettrep(n) \
-	(struct trtstr *) ef_ptr(EF_TREATY, n)
+#define gettre(n, p) ef_read(EF_TREATY, (n), (p))
+#define puttre(n, p) ef_write(EF_TREATY, (n), (p))
+#define gettrep(n) (struct trtstr *)ef_ptr(EF_TREATY, (n))
 
 #endif

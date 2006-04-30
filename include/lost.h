@@ -47,8 +47,8 @@ struct loststr {
     time_t lost_timestamp;	/* When it was lost */
 };
 
-#define getlost(n, p) ef_read(EF_LOST, n, p)
-#define putlost(n, p) ef_write(EF_LOST, n, p)
+#define getlost(n, p) ef_read(EF_LOST, (n), (p))
+#define putlost(n, p) ef_write(EF_LOST, (n), (p))
 
 /* src/lib/subs/lostsub.c */
 extern void makelost(char, natid, short, coord, coord);

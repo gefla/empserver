@@ -137,12 +137,9 @@ struct plist {
     struct plnstr plane;	/* struct plane */
 };
 
-#define getplane(n, p) \
-	ef_read(EF_PLANE, n, p)
-#define putplane(n, p) \
-	ef_write(EF_PLANE, n, p)
-#define getplanep(n) \
-	(struct plnstr *) ef_ptr(EF_PLANE, n)
+#define getplane(n, p) ef_read(EF_PLANE, (n), (p))
+#define putplane(n, p) ef_write(EF_PLANE, (n), (p))
+#define getplanep(n) (struct plnstr *)ef_ptr(EF_PLANE, (n))
 
 extern struct plchrstr plchr[N_MAXPLANE + 1];
 

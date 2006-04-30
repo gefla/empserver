@@ -173,15 +173,11 @@ extern char *relates[];
 
 /* procedures relating to nation stuff */
 
-#define putnat(n) \
-	ef_write(EF_NATION, n->nat_cnum, n)
-#define getnatp(n) \
-	(struct natstr *) ef_ptr(EF_NATION, (int)n)
+#define putnat(p) ef_write(EF_NATION, n->nat_cnum, (p))
+#define getnatp(n) (struct natstr *)ef_ptr(EF_NATION, (n))
 
-#define putrealm(p) \
-	ef_write(EF_REALM, (int)(p)->r_uid, p)
-#define getrealm(r, n, p) \
-	ef_read(EF_REALM, (int)(r + (n * MAXNOR)), p)
+#define getrealm(r, n, p) ef_read(EF_REALM, ((r) + ((n) * MAXNOR)), (p))
+#define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))
 
 extern double tfact(natid cn, double mult);
 extern double tfactfire(natid cn, double mult);

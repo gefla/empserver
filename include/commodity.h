@@ -51,9 +51,7 @@ struct comstr {
     coord sell_y;
 };
 
-#define getcomm(n, p) \
-	ef_read(EF_COMM, n, p)
-#define putcomm(n, p) \
-	ef_write(EF_COMM, n, p)
+#define getcomm(n, p) ef_read(EF_COMM, (n), (p))
+#define putcomm(n, p) ef_write(EF_COMM, (n), (p))
 
 #endif

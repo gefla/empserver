@@ -71,11 +71,8 @@ extern int trade_desc(struct trdstr *, union trdgenstr *);
 extern int trade_getitem(struct trdstr *, union trdgenstr *);
 extern long get_couval(int);
 
-#define gettrade(n, p) \
-	ef_read(EF_TRADE, n, p)
-#define puttrade(n, p) \
-	ef_write(EF_TRADE, n, p)
-#define gettradep(n) \
-	(struct trdstr *) ef_ptr(EF_TRADE, n)
+#define gettrade(n, p) ef_read(EF_TRADE, (n), (p))
+#define puttrade(n, p) ef_write(EF_TRADE, (n), (p))
+#define gettradep(n) (struct trdstr *)ef_ptr(EF_TRADE, (n))
 
 #endif
