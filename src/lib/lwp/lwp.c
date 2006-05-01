@@ -90,10 +90,8 @@ lwpReschedule(void)
     /* destroy dead threads */
     lwpStatus(LwpCurrent, "Cleaning dead queue");
     while (NULL != (nextp = lwpGetFirst(&LwpDeadQ))) {
-	if (nextp == LwpCurrent) {
-	    lwpStatus(nextp, "OOOPS, we are running already dead thread");
-	    exit(1);
-	}
+	if (CANT_HAPPEN(nextp == LwpCurrent))
+	    abort();
 	lwpDestroy(nextp);
 	lwpStatus(LwpCurrent, "Destroying done");
     }
@@ -115,10 +113,8 @@ lwpReschedule(void)
 	if (nextp)
 	    break;
     }
-    if (LwpCurrent == 0 && nextp == 0) {
-	fprintf(stderr, "No processes to run!\n");
-	exit(1);
-    }
+    if (CANT_HAPPEN(LwpCurrent == 0 && nextp == 0))
+	abort();
     if (LwpCurrent != nextp) {
 	struct lwpProc *oldp = LwpCurrent;
 	if (oldp)
