@@ -44,6 +44,7 @@
 #include <unistd.h>
 #include "lwp.h"
 #include "lwpint.h"
+#include "prototypes.h"
 
 struct lwpSelect {
     int maxfd;
@@ -176,18 +177,16 @@ lwpSelect(void *arg)
 
 	memcpy(&readmask, &LwpSelect.readmask, sizeof(fd_set));
 	memcpy(&writemask, &LwpSelect.writemask, sizeof(fd_set));
-	n = select(LwpSelect.maxfd + 1, &readmask, &writemask,
-		   (fd_set *) 0, &tv);
-
+	n = select(LwpSelect.maxfd + 1, &readmask, &writemask, NULL, &tv);
 	if (n < 0) {
-	    if (errno == EINTR) {
-		/* go handle the signal */
-		lwpReady(us);
-		lwpReschedule();
-		continue;
+	    if (errno != EINTR) {
+		logerror("select failed (%s)", strerror(errno));
+		exit(1);
 	    }
-	    lwpStatus(us, "select failed (bad file descriptor?)");
-	    exit(-1);
+	    /* go handle the signal */
+	    lwpReady(us);
+	    lwpReschedule();
+	    continue;
 	}
 
 	if (LwpSelect.delayq.head) {
