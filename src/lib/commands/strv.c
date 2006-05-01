@@ -61,29 +61,27 @@ starve(void)
     int do_sects = 0;
     int do_ships = 0;
     int do_units = 0;
-    char range[1024];
+    char *range;
 
     if (opt_NOFOOD) {		/* no food - no work! */
 	pr("No food is required in this game\n");
 	return RET_OK;
     }
 
-    strcpy(range, "*");
+    range = "*";
     if (!player->argp[1]) {
 	do_sects = do_ships = do_units = 1;
     } else if (*(player->argp[1]) == 's') {
 	do_ships = 1;
 	if (player->argp[2])
-	    strcpy(range, player->argp[2]);
+	    range = player->argp[2];
     } else if (*(player->argp[1]) == 'l') {
 	do_units = 1;
 	if (player->argp[2])
-	    strcpy(range, player->argp[2]);
+	    range = player->argp[2];
     } else {
-	if (!snxtsct(&nstr, player->argp[1]))
-	    return RET_SYN;
 	do_sects = 1;
-	strcpy(range, player->argp[1]);
+	range = player->argp[1];
     }
     player->simulation = 1;
     prdate();
