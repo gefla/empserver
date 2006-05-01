@@ -127,7 +127,7 @@ look_ship(struct shpstr *lookship)
     int dist;
 
     range = (int)techfact(lookship->shp_tech,
-			  (double)mchr[(int)lookship->shp_type].m_vrnge);
+			  mchr[(int)lookship->shp_type].m_vrnge);
     range = range * (lookship->shp_effic / 100.0);
     smcp = &mchr[(int)lookship->shp_type];
     if (smcp->m_flags & M_SUB)
@@ -259,7 +259,7 @@ look_land(struct lndstr *lookland)
     int i;
     int dist;
 
-    drange = techfact(lookland->lnd_tech, (double)lookland->lnd_spy);
+    drange = techfact(lookland->lnd_tech, lookland->lnd_spy);
     drange = (drange * ((double)lookland->lnd_effic / 100.0));
     range = ldround(drange, 1);
 
@@ -280,7 +280,7 @@ look_land(struct lndstr *lookland)
 	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
-	vrange = ldround((double)((lp->lnd_vis * range) / 20.0), 1);
+	vrange = ldround((lp->lnd_vis * range) / 20.0, 1);
 	dist = mapdist(lp->lnd_x, lp->lnd_y,
 		       lookland->lnd_x, lookland->lnd_y);
 	if (dist > vrange)
@@ -288,7 +288,7 @@ look_land(struct lndstr *lookland)
 
 	pr("%s (#%d) %s (approx %d mil) @ %s\n",
 	   cname(lp->lnd_own), lp->lnd_own,
-	   prland(lp), ldround((double)total_mil(lp), 20),
+	   prland(lp), ldround(total_mil(lp), 20),
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	if (opt_HIDDEN)
 	    setcont(player->cnum, lp->lnd_own, FOUND_LOOK);
@@ -300,7 +300,7 @@ look_land(struct lndstr *lookland)
 	    continue;
 	if (pp->pln_flags & PLN_LAUNCHED)
 	    continue;
-	vrange = ldround((double)((10 * range) / 20.0), 1);
+	vrange = ldround((10 * range) / 20.0, 1);
 	dist = mapdist(pp->pln_x, pp->pln_y,
 		       lookland->lnd_x, lookland->lnd_y);
 	if (dist > vrange)

@@ -803,9 +803,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
   if (ship.shp_mobil <= 0)
   continue;
 */
-	    erange = ship.shp_effic *
-		techfact(ship.shp_tech, ((double)ship.shp_frnge))
-		/ 100.0;
+	    erange = ship.shp_effic
+		* techfact(ship.shp_tech, ship.shp_frnge) / 100.0;
 	    erange = (double)roundrange(erange);
 	    range = mapdist(ship.shp_x, ship.shp_y, ax, ay);
 	    if (range > erange)

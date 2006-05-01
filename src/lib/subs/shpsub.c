@@ -675,7 +675,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, (double)MIN(gun, 7));
+	range = tfactfire(fsect.sct_own, MIN(gun, 7));
 	if (fsect.sct_effic > 59)
 	    range++;
 	range2 = roundrange(range);
@@ -878,7 +878,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	putship(mlp->ship.shp_uid, &mlp->ship);
 
 	/* Now update the map for this ship */
-	tech = techfact(mlp->ship.shp_tech, (double)mlp->mcp->m_vrnge);
+	tech = techfact(mlp->ship.shp_tech, mlp->mcp->m_vrnge);
 	if (mlp->mcp->m_flags & M_SONAR)
 	    tf = techfact(mlp->ship.shp_tech, 1.0);
 	else

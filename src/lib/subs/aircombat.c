@@ -845,7 +845,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	}
 	if (gun == 0 || shell == 0)
 	    continue;
-	firing = (int)(techfact(ship.shp_tech, (double)gun) * 2.0);
+	firing = (int)(techfact(ship.shp_tech, gun) * 2.0);
 	guns += firing;
 
 	if (!nats[ship.shp_own]) {
@@ -863,7 +863,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     if (guns > 0) {
 	if (guns > 14)
 	    guns = 14;
-	guns = 2.0 * tfact(from, (double)guns);
+	guns = 2.0 * tfact(from, guns);
 	PR(plane_owner, "Flak!  Ships firing %d flak guns...\n", guns);
 	ac_fireflak(list, from, 0, guns);
     }
@@ -908,8 +908,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	rel = getrel(getnatp(land.lnd_own), plane_owner);
 	if (rel > HOSTILE)
 	    continue;
-	firing =
-	    (int)(techfact(land.lnd_tech, (double)land.lnd_aaf) * 3.0);
+	firing = (int)(techfact(land.lnd_tech, land.lnd_aaf) * 3.0);
 	guns += firing;
 
 	if (!nats[land.lnd_own]) {
@@ -928,7 +927,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     if (guns > 0) {
 	if (guns > 14)
 	    guns = 14;
-	guns = 2.0 * tfact(from, (double)guns);
+	guns = 2.0 * tfact(from, guns);
 	PR(plane_owner, "Flak!  Land units firing %d flak guns...\n",
 	   guns);
 	ac_fireflak(list, from, 0, guns);

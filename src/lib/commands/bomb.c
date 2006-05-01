@@ -550,7 +550,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	mcp = &mchr[(int)ship.shp_type];
 	if (gun > 0 && shell > 0 && !(mcp->m_flags & M_SUB)) {
-	    flak = (int)(techfact(ship.shp_tech, (double)gun) * 2.0);
+	    flak = (int)(techfact(ship.shp_tech, gun) * 2.0);
 	    ship.shp_item[I_SHELL] = shell;
 	    putship(ship.shp_uid, &ship);
 	    PR(ship.shp_own, "Flak! Firing %d guns from ship %s\n",
@@ -775,7 +775,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (unitno < 0)
 	    continue;
 
-	flak = (int)(techfact(land.lnd_tech, (double)land.lnd_aaf) * 3.0);
+	flak = (int)(techfact(land.lnd_tech, land.lnd_aaf) * 3.0);
 	if (flak) {
 	    PR(land.lnd_own,
 	       "Flak! Firing flak guns from unit %s (aa rating %d)\n",

@@ -149,10 +149,10 @@ struct shiplist {
 };
 
 #define PLN_ATTDEF(b, t) (b + ((b?1:0) * ((t/20)>10?10:(t/20))))
-#define PLN_ACC(b, t) (b * (1.0 - (sqrt((double)t) / 50.)))
-#define PLN_RAN(b, t) (t ? (b + (logx((double)t, (double)2.0))) : b)
-#define PLN_LOAD(b, t) (t ? (b * (logx((double)t, (double)50.0) < 1.0 ? 1.0 : \
-				  logx((double)t, (double)50.0))) : b)
+#define PLN_ACC(b, t) (b * (1.0 - (sqrt(t) / 50.)))
+#define PLN_RAN(b, t) (t ? (b + (logx(t, 2.0))) : b)
+#define PLN_LOAD(b, t) (t ? (b * (logx(t, 50.0) < 1.0 ? 1.0 : \
+				  logx(t, 50.0))) : b)
 
 /* Work required for building 100% */
 #define PLN_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))

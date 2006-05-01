@@ -531,7 +531,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 		if (!(mcp->m_flags & M_DCH) && !(mcp->m_flags & M_SUBT))
 		    continue;
-		range2 = techfact(sp->shp_tech, (double)mcp->m_vrnge);
+		range2 = techfact(sp->shp_tech, mcp->m_vrnge);
 		range2 *= (double)sp->shp_effic / 200.0;
 		if (md > range2)
 		    continue;
@@ -557,9 +557,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (shell < SHP_TORP_SHELLS)
 		    continue;
 
-		range = sp->shp_effic * techfact(sp->shp_tech,
-						 ((double)sp->shp_frnge)) /
-		    100.0;
+		range = sp->shp_effic
+		    * techfact(sp->shp_tech, sp->shp_frnge) / 100.0;
 
 		range2 = (double)roundrange(range);
 		if (md > range)

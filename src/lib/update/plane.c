@@ -193,12 +193,9 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 	    leftp = ((float)left / 100.0);
 	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed =
-		ldround((double)(plp->pl_crew * leftp), 1);
-	    mvec[I_LCM] = lcm_needed =
-		ldround((double)(plp->pl_lcm * leftp), 1);
-	    mvec[I_HCM] = hcm_needed =
-		ldround((double)(plp->pl_hcm * leftp), 1);
+	    mvec[I_MILIT] = mil_needed = ldround(plp->pl_crew * leftp, 1);
+	    mvec[I_LCM] = lcm_needed = ldround(plp->pl_lcm * leftp, 1);
+	    mvec[I_HCM] = hcm_needed = ldround(plp->pl_hcm * leftp, 1);
 
 	    get_materials(sp, bp, mvec, 0);
 
@@ -215,14 +212,11 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		buildp = MIN(buildp, ((float)mvec[I_HCM] /
 				      (float)plp->pl_hcm));
 
-	    build = ldround((double)(buildp * 100.0), 1);
+	    build = ldround(buildp * 100.0, 1);
 	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed =
-		roundavg((double)(plp->pl_crew * buildp));
-	    mvec[I_LCM] = lcm_needed =
-		roundavg((double)(plp->pl_lcm * buildp));
-	    mvec[I_HCM] = hcm_needed =
-		roundavg((double)(plp->pl_hcm * buildp));
+	    mvec[I_MILIT] = mil_needed = roundavg(plp->pl_crew * buildp);
+	    mvec[I_LCM] = lcm_needed = roundavg(plp->pl_lcm * buildp);
+	    mvec[I_HCM] = hcm_needed = roundavg(plp->pl_hcm * buildp);
 
 	    get_materials(sp, bp, mvec, 1);
 

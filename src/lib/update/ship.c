@@ -347,8 +347,8 @@ shiprepair(struct shpstr *ship, struct natstr *np,
 
     leftp = ((float)left / 100.0);
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = ldround((double)(mp->m_lcm * leftp), 1);
-    mvec[I_HCM] = hcm_needed = ldround((double)(mp->m_hcm * leftp), 1);
+    mvec[I_LCM] = lcm_needed = ldround(mp->m_lcm * leftp, 1);
+    mvec[I_HCM] = hcm_needed = ldround(mp->m_hcm * leftp, 1);
 
     get_materials(sp, bp, mvec, 0);
 
@@ -359,10 +359,10 @@ shiprepair(struct shpstr *ship, struct natstr *np,
     if (mvec[I_HCM] < hcm_needed)
 	buildp = MIN(buildp, ((float)mvec[I_HCM] / (float)mp->m_hcm));
 
-    build = ldround((double)(buildp * 100.0), 1);
+    build = ldround(buildp * 100.0, 1);
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = roundavg((double)(mp->m_lcm * buildp));
-    mvec[I_HCM] = hcm_needed = roundavg((double)(mp->m_hcm * buildp));
+    mvec[I_LCM] = lcm_needed = roundavg(mp->m_lcm * buildp);
+    mvec[I_HCM] = hcm_needed = roundavg(mp->m_hcm * buildp);
 
     get_materials(sp, bp, mvec, 1);
 

@@ -165,7 +165,7 @@ torp(void)
 	    continue;
 	}
 	erange = ((double)sub.shp_effic / 100.0) *
-	    techfact(sub.shp_tech, ((double)sub.shp_frnge));
+	    techfact(sub.shp_tech, sub.shp_frnge);
 	erange = (double)roundrange(erange);
 	pr("Effective torpedo range is %.1f\n", erange);
 	shells -= SHP_TORP_SHELLS;
@@ -263,7 +263,7 @@ anti_torp(int f, int ntorping, int vshipown)
 	if (!canshoot(&dd, &sub))
 	    continue;
 
-	erange = techfact(dd.shp_tech, ((double)dd.shp_frnge)) / 2.0;
+	erange = techfact(dd.shp_tech, dd.shp_frnge) / 2.0;
 
 	erange = (double)roundrange(erange);
 

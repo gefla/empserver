@@ -132,7 +132,7 @@ rada(void)
 		}
 		tf = 0.0;
 		pr("%s at ", prland(&land));
-		tech = techfact(land.lnd_tech, (double)land.lnd_spy);
+		tech = techfact(land.lnd_tech, land.lnd_spy);
 		if (tech > ((double)WORLD_Y / 2.0))
 		    tech = ((double)WORLD_Y / 2.0);
 		if (tech > ((double)WORLD_X / 4.0))

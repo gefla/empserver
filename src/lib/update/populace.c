@@ -78,7 +78,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
     tech = np->nat_level[NAT_TLEV];
     pct = (double)((tech - 40) / 40.0 + edu / 3.0);
     if (sp->sct_own == sp->sct_oldown && hap < pct &&
-	chance((double)(((double)pct - (double)hap) / (double)5.0))) {
+	chance(((double)pct - (double)hap) / (double)5.0)) {
 	/*
 	 * zap the loyalty of unhappy civilians.
 	 * there is a 20% chance per hap point below the

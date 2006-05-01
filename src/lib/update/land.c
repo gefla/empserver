@@ -279,12 +279,12 @@ landrepair(struct lndstr *land, struct natstr *np,
     leftp = ((float)left / 100.0);
 
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = ldround((double)(lp->l_lcm * leftp), 1);
-    mvec[I_HCM] = hcm_needed = ldround((double)(lp->l_hcm * leftp), 1);
+    mvec[I_LCM] = lcm_needed = ldround(lp->l_lcm * leftp, 1);
+    mvec[I_HCM] = hcm_needed = ldround(lp->l_hcm * leftp, 1);
 /*
-        mvec[I_GUN] = gun_needed = ldround((double)(lp->l_gun * leftp),1);
-        mvec[I_MILIT] = mil_needed = ldround((double)(lp->l_mil * leftp),1);
-        mvec[I_SHELL] = shell_needed = ldround((double)(lp->l_shell *leftp),1);
+        mvec[I_GUN] = gun_needed = ldround(lp->l_gun * leftp, 1);
+        mvec[I_MILIT] = mil_needed = ldround(lp->l_mil * leftp, 1);
+        mvec[I_SHELL] = shell_needed = ldround(lp->l_shell *leftp, 1);
  */
     mvec[I_GUN] = gun_needed = 0;
     mvec[I_MILIT] = mil_needed = 0;
@@ -305,15 +305,15 @@ landrepair(struct lndstr *land, struct natstr *np,
     if (mvec[I_SHELL] < shell_needed)
 	buildp = MIN(buildp, ((float)mvec[I_SHELL] / (float)lp->l_shell));
 
-    build = ldround((double)(buildp * 100.0), 1);
+    build = ldround(buildp * 100.0, 1);
 
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = roundavg((double)(lp->l_lcm * buildp));
-    mvec[I_HCM] = hcm_needed = roundavg((double)(lp->l_hcm * buildp));
+    mvec[I_LCM] = lcm_needed = roundavg(lp->l_lcm * buildp);
+    mvec[I_HCM] = hcm_needed = roundavg(lp->l_hcm * buildp);
 /*
-        mvec[I_GUN] = gun_needed = roundavg((double)(lp->l_gun * buildp));
-        mvec[I_MILIT] = mil_needed = roundavg((double)(lp->l_mil * buildp));
-        mvec[I_SHELL] = shell_needed = roundavg((double)(lp->l_shell *buildp));
+        mvec[I_GUN] = gun_needed = roundavg(lp->l_gun * buildp);
+        mvec[I_MILIT] = mil_needed = roundavg(lp->l_mil * buildp);
+        mvec[I_SHELL] = shell_needed = roundavg(lp->l_shell *buildp);
  */
     mvec[I_GUN] = gun_needed = 0;
     mvec[I_MILIT] = mil_needed = 0;

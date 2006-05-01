@@ -191,15 +191,15 @@ struct mlist {
     double mobil;		/* how much mobility the ship has left */
 };
 
-#define SHP_DEF(b, t) (t ? (b * (logx((double)t, (double)40.0) < 1.0 ? 1.0 : \
-			     logx((double)t, (double)40.0))) : b)
-#define SHP_SPD(b, t) (t ? (b * (logx((double)t, (double)35.0) < 1.0 ? 1.0 : \
-			     logx((double)t, (double)35.0))) : b)
-#define SHP_VIS(b, t) (b * (1 - (sqrt((double)t) / 50)))
-#define SHP_RNG(b, t) (t ? (b * (logx((double)t, (double)35.0) < 1.0 ? 1.0 : \
-			     logx((double)t, (double)35.0))) : b)
-#define SHP_FIR(b, t) (t ? (b * (logx((double)t, (double)60.0) < 1.0 ? 1.0 : \
-			     logx((double)t, (double)60.0))) : b)
+#define SHP_DEF(b, t) (t ? (b * (logx(t, 40.0) < 1.0 ? 1.0 : \
+				 logx(t, 40.0))) : b)
+#define SHP_SPD(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
+				 logx(t, 35.0))) : b)
+#define SHP_VIS(b, t) (b * (1 - (sqrt(t) / 50)))
+#define SHP_RNG(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
+				 logx(t, 35.0))) : b)
+#define SHP_FIR(b, t) (t ? (b * (logx(t, 60.0) < 1.0 ? 1.0 : \
+				 logx(t, 60.0))) : b)
 
 /* Work required for building 100% */
 #define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))

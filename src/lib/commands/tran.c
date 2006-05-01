@@ -245,7 +245,7 @@ tran_plane(void)
 	return RET_FAIL;
     }
     dam = 1;
-    mcost = move_ground(&sect, &endsect, (double)weight,
+    mcost = move_ground(&sect, &endsect, weight,
 			player->argp[3], tran_map, 0, &dam);
     dam /= count;
     if (mcost < 0)

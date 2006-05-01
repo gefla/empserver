@@ -131,9 +131,9 @@ navi(void)
 	}
 	radmapnopr(shp->shp_x, shp->shp_y, (int)shp->shp_effic,
 		   (int)techfact(shp->shp_tech,
-				 (double)mchr[(int)shp->shp_type].m_vrnge),
-		   (double)((mchr[(int)shp->shp_type].m_flags & M_SONAR)
-			    ? techfact(shp->shp_tech, 1.0) : 0.0));
+				 mchr[(int)shp->shp_type].m_vrnge),
+		   (mchr[(int)shp->shp_type].m_flags & M_SONAR)
+		   ? techfact(shp->shp_tech, 1.0) : 0.0);
 	if (cp == 0 || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
 	if (*cp == 'M' ||

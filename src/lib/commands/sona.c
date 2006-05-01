@@ -115,7 +115,7 @@ sona(void)
 	getsect(ship.shp_x, ship.shp_y, &sect);
 	if (sect.sct_type != SCT_WATER)
 	    continue;
-	range = (int)techfact(ship.shp_tech, (double)mcp->m_vrnge);
+	range = (int)techfact(ship.shp_tech, mcp->m_vrnge);
 	srange = MIN(7, 7 * range * ship.shp_effic / 200);
 	pr("%s at %s efficiency %d%%, max range %d\n",
 	   prship(&ship),
@@ -248,9 +248,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	pcp = ip->pcp;
 	if (!(pcp->pl_flags & P_A))	/* if it isn't an ASW plane */
 	    continue;
-	range =
-	    (int)techfact(pp->pln_tech,
-			  (double)((100 - pp->pln_acc) / 10));
+	range = (int)techfact(pp->pln_tech, (100 - pp->pln_acc) / 10);
 /*
 		for (i=0; targ = getshipp(i); i++) {
 */

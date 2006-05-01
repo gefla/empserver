@@ -940,7 +940,7 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, (double)MIN(gun, 7));
+	range = tfactfire(fsect.sct_own, MIN(gun, 7));
 	if (fsect.sct_effic > 59)
 	    range++;
 	range2 = roundrange(range);
