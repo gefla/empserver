@@ -191,7 +191,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    if (left > delta)
 		left = delta;
 
-	    leftp = ((float)left / 100.0);
+	    leftp = left / 100.0;
 	    memset(mvec, 0, sizeof(mvec));
 	    mvec[I_MILIT] = mil_needed = ldround(plp->pl_crew * leftp, 1);
 	    mvec[I_LCM] = lcm_needed = ldround(plp->pl_lcm * leftp, 1);

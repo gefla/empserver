@@ -1493,7 +1493,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	dtotal = 0;
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land) &&
-	   (dtotal + new_land * eff < (int)(1.2 * (float)ototal))) {
+	   (dtotal + new_land * eff < (int)(1.2 * ototal))) {
 	if (!land.lnd_own)
 	    continue;
 	if (!land.lnd_rad_max)

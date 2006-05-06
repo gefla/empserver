@@ -625,8 +625,8 @@ ac_dog(struct plist *ap, struct plist *dp)
 	att -= 2;
     if ((dp->pcp->pl_flags & P_F) && dp->bombs != 0)
 	def -= 2;
-    att += ((float)ap->pcp->pl_stealth / 25.0);
-    def += ((float)dp->pcp->pl_stealth / 25.0);
+    att += ap->pcp->pl_stealth / 25.0;
+    def += dp->pcp->pl_stealth / 25.0;
     if (att < 1) {
 	def += 1 - att;
 	att = 1;
@@ -1073,7 +1073,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 		&& (pcp->pl_flags & P_V) == 0)
 		continue;
 	}
-	if ((float)petrol < (float)pcp->pl_fuel / 2.0)
+	if (petrol <= pcp->pl_fuel / 2)
 	    continue;
 	/* Finally, is it in the list of planes already in
 	   flight? */
@@ -1160,13 +1160,13 @@ do_evade(struct emp_qelem *bomb_list, struct emp_qelem *esc_list)
     evade = 100.0;
     for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	if (evade > ((float)plp->pcp->pl_stealth / 100.0))
-	    evade = (plp->pcp->pl_stealth / 100.0);
+	if (evade > plp->pcp->pl_stealth / 100.0)
+	    evade = plp->pcp->pl_stealth / 100.0;
     }
     for (qp = esc_list->q_forw; qp != esc_list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
 	if (evade > plp->pcp->pl_stealth / 100.0)
-	    evade = (plp->pcp->pl_stealth / 100.0);
+	    evade = plp->pcp->pl_stealth / 100.0;
     }
 
     if (chance(evade))

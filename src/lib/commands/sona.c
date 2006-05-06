@@ -265,7 +265,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		pln_identchance(pp, shp_hardtarget(targ), EF_SHIP))
 		continue;
 	    pingrange = MAX(targ->shp_visib, 10) * range / 10;
-	    vrange = ((float)pingrange) * ((float)pp->pln_effic / 200.0);
+	    vrange = pingrange * (pp->pln_effic / 200.0);
 	    dist = mapdist(targ->shp_x, targ->shp_y, x, y);
 	    pingrange = (MAX(pingrange, 2) * targ->shp_effic);
 	    pingrange = roundavg(pingrange / 100.0);

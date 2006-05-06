@@ -276,7 +276,7 @@ landrepair(struct lndstr *land, struct natstr *np,
     if (left > delta)
 	left = delta;
 
-    leftp = ((float)left / 100.0);
+    leftp = left / 100.0;
 
     memset(mvec, 0, sizeof(mvec));
     mvec[I_LCM] = lcm_needed = ldround(lp->l_lcm * leftp, 1);

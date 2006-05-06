@@ -1383,7 +1383,7 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
     eng = has_helpful_engineer(lp->lnd_x, lp->lnd_y, lp->lnd_own);
 
     if (eng)
-	hard_amt = ((float)hard_amt * 1.5);
+	hard_amt *= 1.5;
 
     if ((lp->lnd_harden + hard_amt) > land_mob_max)
 	hard_amt = land_mob_max - lp->lnd_harden;
@@ -1394,7 +1394,7 @@ lnd_fortify (struct lndstr *lp, int hard_amt)
     /* Now, if an engineer helped, it's really only 2/3rds of
        that */
     if (eng)
-	mob_used = (int)((float)mob_used / 1.5);
+	mob_used /= 1.5;
 
     /* If we increased it, but not much, we gotta take at least 1
        mob point. */

@@ -179,7 +179,7 @@ fuel(void)
 
 		fueled = 1;
 		if ((pet_amt * 5) >= move_amt) {
-		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
+		    extra = move_amt / 5.0 - move_amt / 5;
 		    if (extra > 0.0)
 			sect.sct_item[I_PETROL]
 			    = MAX((pet_amt - move_amt / 5) - 1, 0);
@@ -189,7 +189,7 @@ fuel(void)
 		} else {
 		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
-		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
+		    extra = move_amt / 50.0 - move_amt / 50;
 		    sect.sct_item[I_OIL] = MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
 			sect.sct_item[I_OIL]
@@ -255,7 +255,7 @@ fuel(void)
 
 		fueled = 1;
 		if ((pet_amt * 5) >= move_amt) {
-		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
+		    extra = move_amt / 5.0 - move_amt / 5;
 		    if (extra > 0.0)
 			item2.ship.shp_item[I_PETROL]
 			    = MAX((pet_amt - move_amt / 5) - 1, 0);
@@ -265,7 +265,7 @@ fuel(void)
 		} else {
 		    item2.ship.shp_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
-		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
+		    extra = move_amt / 50.0 - move_amt / 50;
 		    item2.ship.shp_item[I_OIL]
 			= MAX(oil_amt - (move_amt / 50), 0);
 		    if (extra > 0.0)
@@ -340,7 +340,7 @@ fuel(void)
 
 		fueled = 1;
 		if ((pet_amt * 5) >= move_amt) {
-		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
+		    extra = move_amt / 5.0 - move_amt / 5;
 		    if (extra > 0.0)
 			sect.sct_item[I_PETROL]
 			    = MAX((pet_amt - move_amt / 5) - 1, 0);
@@ -350,7 +350,7 @@ fuel(void)
 		} else {
 		    sect.sct_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
-		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
+		    extra = move_amt / 50.0 - move_amt / 50;
 		    sect.sct_item[I_OIL] = MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)
 			sect.sct_item[I_OIL]
@@ -417,7 +417,7 @@ fuel(void)
 
 		fueled = 1;
 		if ((pet_amt * 5) >= move_amt) {
-		    extra = ((float)move_amt / 5.0) - (move_amt / 5);
+		    extra = move_amt / 5.0 - move_amt / 5;
 		    if (extra > 0.0)
 			item2.land.lnd_item[I_PETROL]
 			    = MAX((pet_amt - move_amt / 5) - 1, 0);
@@ -427,7 +427,7 @@ fuel(void)
 		} else {
 		    item2.land.lnd_item[I_PETROL] = 0;
 		    move_amt -= pet_amt * 5;
-		    extra = ((float)move_amt / 50.0) - (move_amt / 50);
+		    extra = move_amt / 50.0 - move_amt / 50;
 		    item2.land.lnd_item[I_OIL]
 			= MAX(oil_amt - move_amt / 50, 0);
 		    if (extra > 0.0)

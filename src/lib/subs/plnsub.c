@@ -1146,7 +1146,7 @@ pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 	    acc += 35;
     }
     hitchance = (int)(pp->pln_effic * (1.0 - 0.1 * tfact) *
-		      (1.0 - (float)acc / 100.0)) - hardtarget;
+		      (1.0 - acc / 100.0)) - hardtarget;
 
     /* smooth out the bottom of the graph with asymtote at 5 -KHS */
     if (hitchance < 20)

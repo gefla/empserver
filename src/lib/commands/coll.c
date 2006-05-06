@@ -99,7 +99,7 @@ coll(void)
 	   xyas(x, y, player->cnum), cname(loan.l_lonee));
 	return RET_FAIL;
     }
-    pay = dchr[sect.sct_type].d_value * ((float)sect.sct_effic + 100.0);
+    pay = dchr[sect.sct_type].d_value * (sect.sct_effic + 100.0);
     for (i = 0; ichr[i].i_name; i++) {
 	if (ichr[i].i_value == 0 || ichr[i].i_uid == I_NONE)
 	    continue;

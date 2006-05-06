@@ -99,14 +99,14 @@ payo(void)
 	if (dist < trade_1_dist)
 	    cash = 0;
 	else if (dist < trade_2_dist)
-	    cash = (1.0 + trade_1 * ((float)dist));
+	    cash = 1.0 + trade_1 * dist;
 	else if (dist < trade_3_dist)
-	    cash = (1.0 + trade_2 * ((float)dist));
+	    cash = 1.0 + trade_2 * dist;
 	else
-	    cash = (1.0 + trade_3 * ((float)dist));
+	    cash = 1.0 + trade_3 * dist;
 
 	cash *= mp->m_cost;
-	cash *= (((float)ship.shp_effic) / 100.0);
+	cash *= ship.shp_effic / 100.0;
 
 	if (sect.sct_own && (sect.sct_own != ship.shp_own))
 	    cash *= (1.0 + trade_ally_bonus);

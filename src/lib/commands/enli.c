@@ -135,7 +135,7 @@ enli(void)
 	natp->nat_reserve -= totalmil;
 	putnat(natp);
     }
-    if ((player->btused += roundavg((float)totalmil * 0.02)) > 0)
+    if ((player->btused += roundavg(totalmil * 0.02)) > 0)
 	pr("Paperwork at recruiting stations ... %d\n", player->btused);
     return RET_OK;
 }

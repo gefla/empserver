@@ -171,7 +171,7 @@ scra(void)
 		continue;
 	}
 	if (type == EF_SHIP) {
-	    eff = ((float)item.ship.shp_effic / 100.0);
+	    eff = item.ship.shp_effic / 100.0;
 	    mp = &mchr[(int)item.ship.shp_type];
 	    if (opt_TRADESHIPS) {
 		if (mp->m_flags & M_TRADE) {
@@ -249,7 +249,7 @@ scra(void)
 	    item.ship.shp_own = 0;
 	    putship(item.ship.shp_uid, &item.ship);
 	} else if (type == EF_LAND) {
-	    eff = ((float)item.land.lnd_effic / 100.0);
+	    eff = item.land.lnd_effic / 100.0;
 	    lp = &lchr[(int)item.land.lnd_type];
 	    pr("%s", prland(&item.land));
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
@@ -317,7 +317,7 @@ scra(void)
 	    item.land.lnd_own = 0;
 	    putland(item.land.lnd_uid, &item.land);
 	} else {
-	    eff = ((float)item.land.lnd_effic / 100.0);
+	    eff = item.land.lnd_effic / 100.0;
 	    pp = &plchr[(int)item.plane.pln_type];
 	    pr("%s", prplane(&item.plane));
 	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
