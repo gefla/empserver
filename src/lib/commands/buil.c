@@ -54,18 +54,15 @@
 #include "commands.h"
 
 static int build_nuke(struct sctstr *sp,
-		      struct nchrstr *np, short *vec);
+		      struct nchrstr *np, short *vec, int tlev);
 static int build_ship(struct sctstr *sp,
-		      struct mchrstr *mp, short *vec,
-		      int tlev);
+		      struct mchrstr *mp, short *vec, int tlev);
 static int build_land(struct sctstr *sp,
-		      struct lchrstr *lp, short *vec,
-		      int tlev);
+		      struct lchrstr *lp, short *vec, int tlev);
 static int build_bridge(struct sctstr *sp, short *vec);
 static int build_tower(struct sctstr *sp, short *vec);
 static int build_plane(struct sctstr *sp,
-		       struct plchrstr *pp, short *vec,
-		       int tlev);
+		       struct plchrstr *pp, short *vec, int tlev);
 static int build_can_afford(double, char *);
 
 /*
@@ -267,7 +264,7 @@ buil(void)
 		built = build_tower(&sect, sect.sct_item);
 		break;
 	    case 'n':
-		built = build_nuke(&sect, np, sect.sct_item);
+		built = build_nuke(&sect, np, sect.sct_item, tlev);
 		break;
 	    case 'p':
 		built = build_plane(&sect, pp, sect.sct_item, tlev);
@@ -289,8 +286,7 @@ buil(void)
 }
 
 static int
-build_ship(struct sctstr *sp, struct mchrstr *mp,
-	   short *vec, int tlev)
+build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
 {
     struct shpstr ship;
     struct nstr_item nstr;
@@ -403,8 +399,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp,
 }
 
 static int
-build_land(struct sctstr *sp, struct lchrstr *lp,
-	   short *vec, int tlev)
+build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
 {
     struct lndstr land;
     struct nstr_item nstr;
@@ -639,7 +634,7 @@ build_bridge(struct sctstr *sp, short *vec)
 }
 
 static int
-build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec)
+build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
 {
     struct nukstr nuke;
     struct nstr_item nstr;
@@ -699,8 +694,11 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec)
     nuke.nuk_y = sp->sct_y;
     nuke.nuk_own = sp->sct_own;
     nuke.nuk_type = np - nchr;
+    nuke.nuk_effic = 100;
+    nuke.nuk_stockpile = ' ';
     nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
     nuke.nuk_uid = nstr.cur;
+    nuke.nuk_tech = tlev;
 
     vec[I_HCM] -= np->n_hcm;
     vec[I_LCM] -= np->n_lcm;
@@ -716,8 +714,7 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec)
 }
 
 static int
-build_plane(struct sctstr *sp, struct plchrstr *pp,
-	    short *vec, int tlev)
+build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
 {
     struct plnstr plane;
     struct nstr_item nstr;

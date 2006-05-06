@@ -133,6 +133,7 @@ tran_nuke(void)
 	/* TODO apply dam */
 	nuke.nuk_x = dstx;
 	nuke.nuk_y = dsty;
+	nuke.nuk_mission = 0;
 	putnuke(nuke.nuk_uid, &nuke);
     }
     if (mcost > 0)

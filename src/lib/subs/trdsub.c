@@ -114,8 +114,8 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
     case EF_NUKE:
 	np = &tgp->nuk;
 	tp->trd_owner = np->nuk_own;
-	pr("(%3d)  %s #%d",
-	   tp->trd_owner,
+	pr("(%3d)  tech %d %d%% %s #%d",
+	   tp->trd_owner, np->nuk_tech, np->nuk_effic,
 	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
 	break;
     case EF_SHIP:

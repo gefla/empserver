@@ -380,11 +380,7 @@ struct castr lchr_ca[] = {
 };
 
 struct castr nuke_ca[] = {
-    {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_uid), "uid", EF_NUKE},
-    {NSC_NATID, 0, 0, fldoff(nukstr, nuk_own), "owner", EF_NATION},
-    {NSC_XCOORD, 0, 0, fldoff(nukstr, nuk_x), "xloc", EF_BAD},
-    {NSC_YCOORD, 0, 0, fldoff(nukstr, nuk_y), "yloc", EF_BAD},
-    {NSC_TYPEID, 0, 0, fldoff(nukstr, nuk_type), "type", EF_NUKE_CHR},
+    NSC_GENITEM(EF_NUKE, EF_NUKE_CHR),
     {NSC_SHORT, 0, 0, fldoff(nukstr, nuk_plane), "plane", EF_BAD},
     {NSC_TIME, NSC_EXTRA, 0, fldoff(nukstr, nuk_timestamp), "timestamp",
      EF_BAD},
