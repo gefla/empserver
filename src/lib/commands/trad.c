@@ -364,14 +364,14 @@ check_trade(void)
 	    wu(0, trade.trd_owner,
 	       "%s tried to buy a %s #%d from you for $%.2f\n",
 	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
-	       saveid, (float)(price * tradetax));
+	       saveid, price * tradetax);
 	    wu(0, trade.trd_owner, "   but couldn't afford it.\n");
 	    wu(0, trade.trd_owner,
 	       "   Your item was taken off the market.\n");
 	    wu(0, trade.trd_maxbidder,
 	       "You tried to buy %s #%d from %s for $%.2f\n",
 	       trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
-	       (float)(price * tradetax));
+	       price * tradetax);
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
 	    continue;
 	}
@@ -483,11 +483,11 @@ check_trade(void)
 	nreport(trade.trd_owner, N_MAKE_SALE, trade.trd_maxbidder, 1);
 	wu(0, trade.trd_owner, "%s bought a %s #%d from you for $%.2f\n",
 	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
-	   saveid, (float)(price * tradetax));
+	   saveid, price * tradetax);
 	wu(0, trade.trd_maxbidder,
 	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
 	   trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
-	   (float)price);
+	   price);
     }
 /*    logerror("Done checking the trades.\n");*/
     return RET_OK;

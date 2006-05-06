@@ -64,9 +64,8 @@ lsta(void)
 	pr("%4d %-16.16s ", land.lnd_uid, lchr[(int)land.lnd_type].l_name);
 	prxy("%4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
 	pr(" %3d%% %3d %1.1f %1.1f %3d ",
-	   land.lnd_effic,
-	   land.lnd_tech,
-	   (float)land.lnd_att, (float)land.lnd_def, land.lnd_vul);
+	   land.lnd_effic, land.lnd_tech, land.lnd_att, land.lnd_def,
+	   land.lnd_vul);
 	pr("%2d %2d %2d %2d ",
 	   land.lnd_spd, land.lnd_vis, land.lnd_spy, land.lnd_rad);
 	pr("%2d %2d %2d %2d %2d ",

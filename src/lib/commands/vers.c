@@ -169,11 +169,11 @@ vers(void)
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
-	   trade_1_dist, (float)(trade_1 * 100.0));
+	   trade_1_dist, trade_1 * 100.0);
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
-	   trade_2_dist, (float)(trade_2 * 100.0));
+	   trade_2_dist, trade_2 * 100.0);
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
-	   trade_3_dist, (float)(trade_3 * 100.0));
+	   trade_3_dist, trade_3 * 100.0);
 	pr("Cashing in trade-ships with an ally nets you a %.1f%% bonus.\n",
 	   trade_ally_bonus * 100.0);
 	pr("Cashing in trade-ships with an ally nets your ally a %.1f%% bonus.\n\n",

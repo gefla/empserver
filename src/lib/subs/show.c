@@ -468,8 +468,9 @@ show_land_stats(int tlev)
 
 	ourtlev = (int)(tlev - lcp->l_tech);
 	pr("%-25s %1.1f %1.1f %3d ",
-	   lcp->l_name, (float)LND_ATTDEF(lcp->l_att, ourtlev),
-	   (float)LND_ATTDEF(lcp->l_def, ourtlev),
+	   lcp->l_name,
+	   LND_ATTDEF(lcp->l_att, ourtlev),
+	   LND_ATTDEF(lcp->l_def, ourtlev),
 	   (int)LND_VUL(lcp->l_vul, ourtlev));
 	pr("%2d %2d %2d %2d ",
 	   (int)LND_SPD(lcp->l_spd, ourtlev),
