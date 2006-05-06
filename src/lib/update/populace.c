@@ -49,10 +49,7 @@
 void
 populace(struct natstr *np, struct sctstr *sp, int etu)
 {
-    float hap;
-    float tech;
-    float edu;
-    float pct;
+    double hap, pct;
     int n;
     int civ = sp->sct_item[I_CIVIL];
     int mil = sp->sct_item[I_MILIT];
@@ -74,11 +71,9 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
     }
 
     hap = np->nat_level[NAT_HLEV];
-    edu = np->nat_level[NAT_ELEV];
-    tech = np->nat_level[NAT_TLEV];
-    pct = (double)((tech - 40) / 40.0 + edu / 3.0);
+    pct = hap_req(np);
     if (sp->sct_own == sp->sct_oldown && hap < pct &&
-	chance(((double)pct - (double)hap) / (double)5.0)) {
+	chance((pct - hap) / 5.0)) {
 	/*
 	 * zap the loyalty of unhappy civilians.
 	 * there is a 20% chance per hap point below the

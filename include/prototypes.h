@@ -290,6 +290,7 @@ extern int blksize(int);
 extern time_t fdate(int);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
+extern double hap_req(struct natstr *np);
 /* hours.c */
 extern int is_wday_allowed(int, char *);
 extern int is_daytime_allowed(int, char *);

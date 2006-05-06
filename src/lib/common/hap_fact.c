@@ -62,3 +62,11 @@ hap_fact(struct natstr *tnat, struct natstr *vnat)
 	hap_fact = 0.8;
     return hap_fact;
 }
+
+/* Return happiness required to keep NP's citizens happy.  */
+double
+hap_req(struct natstr *np)
+{
+    return (np->nat_level[NAT_TLEV] - 40.0) / 40.0
+	+ np->nat_level[NAT_ELEV] / 3.0;
+}

@@ -47,7 +47,7 @@ nati(void)
 {
     struct natstr *natp;
     struct sctstr sect;
-    float hap;
+    double hap;
     int mil;
     int civ;
     int cnum;
@@ -122,11 +122,9 @@ nati(void)
 
     pr("Max safe population for civs/uws: %d/%d\n", safepop, uwpop);
 
-    hap = ((natp->nat_level[NAT_TLEV] - 40) / 40.0 +
-	   natp->nat_level[NAT_ELEV] / 3.0);
-
+    hap = hap_req(natp);
     if (hap > 0.0)
-	pr("Happiness needed is %f\n", hap);
+	pr("Happiness needed is %.2f\n", hap);
     else
 	pr("No happiness needed\n");
 
