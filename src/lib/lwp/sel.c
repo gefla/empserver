@@ -46,29 +46,35 @@
 #include "lwpint.h"
 #include "prototypes.h"
 
-struct lwpSelect {
-    int maxfd;
-    int nfds;
-    fd_set readmask;
-    fd_set writemask;
-    struct lwpProc **wait;
-    struct lwpQueue delayq;
-    struct lwpProc *proc;
-};
+/* Largest fd in LwpReadfds, LwpWritefds */
+static int LwpMaxfd;
 
-struct lwpSelect LwpSelect;
+/* Number of file descriptors in LwpReadfds, LwpWritefds */
+static int LwpNfds;
+
+/* File descriptors waited for in lwpSleepFd() */
+static fd_set LwpReadfds, LwpWritefds;
+
+/* Map file descriptor to thread sleeping in lwpSleepFd() */
+static struct lwpProc **LwpFdwait;
+
+/* Threads sleeping in lwpSleepUntil(), in no particular order */
+static struct lwpQueue LwpDelayq;
+
+/* The thread executing lwpSelect() */
+static struct lwpProc *LwpSelProc;	
 
 void
 lwpInitSelect(struct lwpProc *proc)
 {
-    LwpSelect.maxfd = 0;
-    LwpSelect.nfds = 0;
-    FD_ZERO(&LwpSelect.readmask);
-    FD_ZERO(&LwpSelect.writemask);
-    LwpSelect.wait = calloc(FD_SETSIZE, sizeof(struct lwpProc *));
-    LwpSelect.delayq.head = 0;
-    LwpSelect.delayq.tail = 0;
-    LwpSelect.proc = proc;
+    LwpMaxfd = 0;
+    LwpNfds = 0;
+    FD_ZERO(&LwpReadfds);
+    FD_ZERO(&LwpWritefds);
+    LwpFdwait = calloc(FD_SETSIZE, sizeof(struct lwpProc *));
+    LwpDelayq.head = 0;
+    LwpDelayq.tail = 0;
+    LwpSelProc = proc;
 }
 
 void
@@ -78,27 +84,27 @@ lwpSleepFd(int fd, int mask)
 
     if (CANT_HAPPEN(fd > FD_SETSIZE))
 	return;
-    if (LwpSelect.wait[fd] != 0) {
+    if (LwpFdwait[fd] != 0) {
 	lwpStatus(LwpCurrent,
 		  "multiple sleeps attempted on file descriptor %d", fd);
 	return;
     }
     if (mask & LWP_FD_READ)
-	FD_SET(fd, &LwpSelect.readmask);
+	FD_SET(fd, &LwpReadfds);
     if (mask & LWP_FD_WRITE)
-	FD_SET(fd, &LwpSelect.writemask);
+	FD_SET(fd, &LwpWritefds);
 
-    LwpSelect.nfds++;
+    LwpNfds++;
 
-    if (LwpSelect.maxfd == 0 && LwpSelect.delayq.head == 0) {
+    if (LwpMaxfd == 0 && LwpDelayq.head == 0) {
 	/* select process is sleeping until first waiter arrives */
 	lwpStatus(LwpCurrent, "going to resched fd %d", fd);
-	lwpReady(LwpSelect.proc);
+	lwpReady(LwpSelProc);
     }
     lwpStatus(LwpCurrent, "going to wait on fd %d", fd);
-    if (fd > LwpSelect.maxfd)
-	LwpSelect.maxfd = fd;
-    LwpSelect.wait[fd] = LwpCurrent;
+    if (fd > LwpMaxfd)
+	LwpMaxfd = fd;
+    LwpFdwait[fd] = LwpCurrent;
     LwpCurrent->fd = fd;
     lwpReschedule();
 }
@@ -110,10 +116,10 @@ lwpWakeupFd(struct lwpProc *proc)
 	return;
 
     lwpStatus(proc, "awakening; was sleeping on fd %d", proc->fd);
-    FD_CLR(proc->fd, &LwpSelect.readmask);
-    FD_CLR(proc->fd, &LwpSelect.writemask);
-    LwpSelect.nfds--;
-    LwpSelect.wait[proc->fd] = 0;
+    FD_CLR(proc->fd, &LwpReadfds);
+    FD_CLR(proc->fd, &LwpWritefds);
+    LwpNfds--;
+    LwpFdwait[proc->fd] = 0;
     proc->fd = -1;
     lwpReady(proc);
 }
@@ -123,11 +129,11 @@ lwpSleepUntil(long until)
 {
     lwpStatus(LwpCurrent, "sleeping for %ld sec", until - time(0));
     LwpCurrent->runtime = until;
-    if (LwpSelect.maxfd == 0 && LwpSelect.delayq.head == 0) {
+    if (LwpMaxfd == 0 && LwpDelayq.head == 0) {
 	/* select process is sleeping until first waiter arrives */
-	lwpReady(LwpSelect.proc);
+	lwpReady(LwpSelProc);
     }
-    lwpAddTail(&LwpSelect.delayq, LwpCurrent);
+    lwpAddTail(&LwpDelayq, LwpCurrent);
     lwpReschedule();
 }
 
@@ -151,20 +157,20 @@ lwpSelect(void *arg)
     FD_ZERO(&writemask);
     while (1) {
 	while (1) {
-	    if (LwpSelect.nfds)
+	    if (LwpNfds)
 		break;
-	    if (LwpSelect.delayq.head)
+	    if (LwpDelayq.head)
 		break;
 	    /* wait for someone to lwpSleepFd or lwpSleepUntil */
-	    LwpSelect.maxfd = 0;
+	    LwpMaxfd = 0;
 	    lwpStatus(us, "no fds or sleepers, waiting");
 	    lwpReschedule();
 	}
 	tv.tv_sec = 1000000;
 	tv.tv_usec = 0;
-	if (LwpSelect.delayq.head) {
+	if (LwpDelayq.head) {
 	    time(&now);
-	    proc = LwpSelect.delayq.head;
+	    proc = LwpDelayq.head;
 	    for (; proc != 0; proc = proc->next) {
 		delta = proc->runtime - now;
 		if (delta < tv.tv_sec)
@@ -175,9 +181,9 @@ lwpSelect(void *arg)
 	}
 	lwpStatus(us, "selecting; sleep %ld secs", tv.tv_sec);
 
-	memcpy(&readmask, &LwpSelect.readmask, sizeof(fd_set));
-	memcpy(&writemask, &LwpSelect.writemask, sizeof(fd_set));
-	n = select(LwpSelect.maxfd + 1, &readmask, &writemask, NULL, &tv);
+	memcpy(&readmask, &LwpReadfds, sizeof(fd_set));
+	memcpy(&writemask, &LwpWritefds, sizeof(fd_set));
+	n = select(LwpMaxfd + 1, &readmask, &writemask, NULL, &tv);
 	if (n < 0) {
 	    if (errno != EINTR) {
 		logerror("select failed (%s)", strerror(errno));
@@ -189,11 +195,11 @@ lwpSelect(void *arg)
 	    continue;
 	}
 
-	if (LwpSelect.delayq.head) {
+	if (LwpDelayq.head) {
 	    /* sleeping proecss activity */
 	    time(&now);
 	    save.tail = save.head = 0;
-	    while (NULL != (proc = lwpGetFirst(&LwpSelect.delayq))) {
+	    while (NULL != (proc = lwpGetFirst(&LwpDelayq))) {
 		if (now >= proc->runtime) {
 		    lwpStatus(proc, "sleep done");
 		    lwpReady(proc);
@@ -201,21 +207,21 @@ lwpSelect(void *arg)
 		    lwpAddTail(&save, proc);
 		}
 	    }
-	    LwpSelect.delayq = save;
+	    LwpDelayq = save;
 	}
 	if (n > 0) {
 	    /* file descriptor activity */
-	    for (fd = 0; fd <= LwpSelect.maxfd; fd++) {
-		if (LwpSelect.wait[fd] == 0)
+	    for (fd = 0; fd <= LwpMaxfd; fd++) {
+		if (LwpFdwait[fd] == 0)
 		    continue;
 		if (FD_ISSET(fd, &readmask)) {
-		    lwpStatus(LwpSelect.wait[fd], "input ready");
-		    lwpWakeupFd(LwpSelect.wait[fd]);
+		    lwpStatus(LwpFdwait[fd], "input ready");
+		    lwpWakeupFd(LwpFdwait[fd]);
 		    continue;
 		}
 		if (FD_ISSET(fd, &writemask)) {
-		    lwpStatus(LwpSelect.wait[fd], "output ready");
-		    lwpWakeupFd(LwpSelect.wait[fd]);
+		    lwpStatus(LwpFdwait[fd], "output ready");
+		    lwpWakeupFd(LwpFdwait[fd]);
 		    continue;
 		}
 	    }
