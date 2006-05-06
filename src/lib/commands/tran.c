@@ -69,122 +69,89 @@ tran(void)
     return RET_SYN;
 }
 
-/*
- * Kinda silly; only moves the first nuke.
- * Maybe nukes should be made into commodities?
- */
 static int
 tran_nuke(void)
 {
-    struct nchrstr *ncp;
-    coord x, y;
+    coord srcx, srcy;
     coord dstx, dsty;
-    int found;
-    char *p;
-    int nuketype;
-    int moving;
+    int mcost;
+    int weight, count;
+    int type, dam;
+    struct nstr_item nstr;
     struct nukstr nuke;
     struct sctstr sect;
     struct sctstr endsect;
-    int mcost, dam;
-    struct nstr_item nstr;
-    char buf[1024];
 
-    if (!(p = getstarg(player->argp[2], "from sector : ", buf)))
+    weight = 0;
+    count = 0;
+    if (!snxtitem(&nstr, EF_NUKE, player->argp[2]))
 	return RET_SYN;
-    if (!sarg_xy(p, &x, &y))
-	return RET_SYN;
-    if (!getsect(x, y, &sect) || !player->owner) {
-	pr("Not yours\n");
-	return RET_FAIL;
-    }
-    snxtitem_xy(&nstr, EF_NUKE, sect.sct_x, sect.sct_y);
-    found = 0;
     while (nxtitem(&nstr, &nuke)) {
-	if (player->owner) {
-	    found = 1;
-	    break;
-	}
-    }
-    if (!found) {
-	pr("There are no nukes in %s\n",
-	   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return RET_FAIL;
-    }
-    if (!(p = getstarg(player->argp[3], "warhead type : ", buf)))
-	return RET_SYN;
-    if (!check_sect_ok(&sect))
-	return RET_FAIL;
-    nuketype = typematch(p, EF_NUKE);
-    if (nuketype < 0) {
-	pr("No such nuke type!\n");
-	return RET_SYN;
-    }
-    ncp = &nchr[nuketype];
-    if (!nuke.nuk_types[nuketype]) {
-	pr("No %s nukes in %s\n",
-	   ncp->n_name, xyas(sect.sct_x, sect.sct_y, player->cnum));
-	return RET_FAIL;
-    }
-    p = getstarg(player->argp[4], "number of warheads : ", buf);
-    if (!check_sect_ok(&sect))
-	return RET_FAIL;
-    if (p == 0 || *p == 0 || (moving = atoi(p)) < 0)
-	return RET_FAIL;
-    if (moving > nuke.nuk_types[nuketype]) {
-	moving = nuke.nuk_types[nuketype];
-	if (moving)
-	    pr("only moving %d\n", moving);
-	else
+	if (!player->owner)
+	    continue;
+	type = nuke.nuk_type;
+	if (nuke.nuk_plane >= 0) {
+	    pr("%s is armed and can't be transported\n", prnuke(&nuke));
 	    return RET_FAIL;
+	}
+	if (count == 0) {
+	    srcx = nuke.nuk_x;
+	    srcy = nuke.nuk_y;
+	} else {
+	    if (nuke.nuk_x != srcx || nuke.nuk_y != srcy) {
+		pr("All nukes must be in the same sector.\n");
+		return RET_FAIL;
+	    }
+	}
+	weight += nchr[type].n_weight;
+	++count;
+    }
+    if (count == 0) {
+	pr("No planes\n");
+	return RET_FAIL;
+    }
+    if (!getsect(srcx, srcy, &sect) || !player->owner) {
+	pr("You don't own %s\n", xyas(srcx, srcy, player->cnum));
+	return RET_FAIL;
     }
     if (!military_control(&sect)) {
 	pr("Military control required to move nukes.\n");
 	return RET_FAIL;
     }
     dam = 0;
-    mcost = move_ground(&sect, &endsect, (double)ncp->n_weight * moving,
-			player->argp[5], tran_map, 0, &dam);
-
+    mcost = move_ground(&sect, &endsect, weight,
+			player->argp[3], tran_map, 0, &dam);
     if (mcost < 0)
 	return 0;
 
+    dstx = endsect.sct_x;
+    dsty = endsect.sct_y;
+    snxtitem_rewind(&nstr);
+    while (nxtitem(&nstr, &nuke)) {
+	if (!player->owner)
+	    continue;
+	/* TODO apply dam */
+	nuke.nuk_x = dstx;
+	nuke.nuk_y = dsty;
+	putnuke(nuke.nuk_uid, &nuke);
+    }
     if (mcost > 0)
 	pr("Total movement cost = %d\n", mcost);
     else
 	pr("No mobility used\n");
-
-    dstx = endsect.sct_x;
-    dsty = endsect.sct_y;
-    /*
-     * decrement mobility from src sector
-     */
-    getsect(nuke.nuk_x, nuke.nuk_y, &sect);
+    getsect(srcx, srcy, &sect);
     sect.sct_mobil -= mcost;
     if (sect.sct_mobil < 0)
 	sect.sct_mobil = 0;
     putsect(&sect);
-    /*
-     * update old nuke
-     */
-    if (!getnuke(nuke.nuk_uid, &nuke)) {
-	pr("Could not find that stockpile again.\n");
-	return RET_FAIL;
-    }
-    if (nuke.nuk_types[nuketype] < moving || nuke.nuk_own != player->cnum) {
-	pr("Stockpile changed!\n");
-	return RET_FAIL;
-    }
-    nuk_delete(&nuke, nuketype, moving);
-    nuk_add(dstx, dsty, nuketype, moving);
     return RET_OK;
 }
 
 static int
 tran_plane(void)
 {
-    int srcx, srcy;
-    int dstx, dsty;
+    coord srcx, srcy;
+    coord dstx, dsty;
     int mcost;
     int weight, count;
     int type, dam;

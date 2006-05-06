@@ -1,7 +1,7 @@
 .TH Command ARM
 .NA arm "Load nuclear weapons onto planes or missiles"
 .LV Expert
-.SY "arm <PLANE> <NUKETYPE> <airburst?>"
+.SY "arm <PLANE> <NUKE> <airburst?>"
 The \*Qarm\*U command loads nuclear devices
 aboard delivery systems such as planes or missiles.
 .s1

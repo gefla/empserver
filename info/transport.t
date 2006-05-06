@@ -2,7 +2,7 @@
 .NA transport "Move planes or nuclear devices around"
 .LV Basic
 .SY "transport plane <PLANES> <ROUTE|DESTINATION>"
-.SY "transport nuke <SECT> <NUKETYPE> <number> <ROUTE|DESTINATION>"
+.SY "transport nuke <NUKES> <ROUTE|DESTINATION>"
 The transport command is used to move planes and nuclear devices from
 one sector to another, along the ground.
 .s1
@@ -11,8 +11,8 @@ one sector to another, along the ground.
 the route, and empire will use the cheapest path (in terms of mobility)
 from the current sector to the destination sector.
 .s1
-You would move 5 small nukes from 2,0 to 8,0 as follows:
-.EX transport nuke 2,0 small 5 8,0
+You would move nuke #666 to 8,0 as follows:
+.EX transport nuke 666 8,0
 .s1
 You could move all planes in wing d to -6,0 as follows:
 .EX transport plane d -6,0

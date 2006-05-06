@@ -301,12 +301,12 @@ detonate(struct plnstr *pp, int x, int y)
 		 nuke.nuk_y);
 	nuke.nuk_own = 0;
 	if (own == bombown) {
-	    mpr(bombown, "nuclear stockpile #%d at %s destroyed\n",
-		ni.cur, xyas(nuke.nuk_x, nuke.nuk_y, own));
+	    mpr(bombown, "%s at %s destroyed\n",
+		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	} else {
 	    if (own != 0)
-		mpr(own, "nuclear stockpile #%d at %s destroyed\n",
-		    ni.cur, xyas(nuke.nuk_x, nuke.nuk_y, own));
+		mpr(own, "%s at %s destroyed\n",
+		    prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	}
 	putnuke(ni.cur, &nuke);
     }

@@ -639,10 +639,12 @@ build_bridge(struct sctstr *sp, short *vec)
 }
 
 static int
-build_nuke(struct sctstr *sp, struct nchrstr *np,
-	   short *vec)
+build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec)
 {
+    struct nukstr nuke;
+    struct nstr_item nstr;
     int avail;
+    int freenuke;
 
     if (sp->sct_type != SCT_NUKE && !player->god) {
 	pr("Nuclear weapons must be built in nuclear plants.\n");
@@ -681,12 +683,34 @@ build_nuke(struct sctstr *sp, struct nchrstr *np,
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
-    nuk_add(sp->sct_x, sp->sct_y, np - nchr, 1);
+    snxtitem_all(&nstr, EF_NUKE);
+    freenuke = 0;
+    while (nxtitem(&nstr, &nuke)) {
+	if (nuke.nuk_own == 0) {
+	    freenuke++;
+	    break;
+	}
+    }
+    if (freenuke == 0) {
+	ef_extend(EF_NUKE, 50);
+    }
+    memset(&nuke, 0, sizeof(struct nukstr));
+    nuke.nuk_x = sp->sct_x;
+    nuke.nuk_y = sp->sct_y;
+    nuke.nuk_own = sp->sct_own;
+    nuke.nuk_type = np - nchr;
+    nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
+    nuke.nuk_uid = nstr.cur;
+
     vec[I_HCM] -= np->n_hcm;
     vec[I_LCM] -= np->n_lcm;
     vec[I_OIL] -= np->n_oil;
     vec[I_RAD] -= np->n_rad;
-    pr("%s warhead created in %s\n", np->n_name,
+
+    makenotlost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid,
+		nuke.nuk_x, nuke.nuk_y);
+    putnuke(nuke.nuk_uid, &nuke);
+    pr("%s created in %s\n", prnuke(&nuke),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
 }
@@ -701,7 +725,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp,
     double cost;
     float eff = PLANE_MINEFF / 100.0;
     int hcm, lcm, mil;
-    int freeplane = 0;
+    int freeplane;
 
     mil = roundavg(((double)pp->pl_crew * eff));
     /* Always use at least 1 mil to build a plane */

@@ -79,7 +79,7 @@ trade_nameof(struct trdstr *tp, union trdgenstr *tgp)
 {
     switch (tp->trd_type) {
     case EF_NUKE:
-	return "nuclear stockpile";
+	return nchr[(int)tgp->nuk.nuk_type].n_name;
     case EF_PLANE:
 	return plchr[(int)tgp->pln.pln_type].pl_name;
     case EF_SHIP:
@@ -105,7 +105,6 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
     struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
-    struct natstr *natp;
     int needcomma;
     struct nstr_item ni;
     struct plnstr plane;
@@ -114,20 +113,10 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
     switch (tp->trd_type) {
     case EF_NUKE:
 	np = &tgp->nuk;
-	if (!getsect(np->nuk_x, np->nuk_y, &sect))
-	    return 0;
-	tp->trd_owner = sect.sct_own;
-	natp = getnatp(tp->trd_owner);
-	pr("(%3d)  ", sect.sct_own);
-	needcomma = 0;
-	for (i = 0; i < N_MAXNUKE; i++) {
-	    if (np->nuk_types[i]) {
-		if (needcomma)
-		    pr(",");
-		pr("%dx%s", np->nuk_types[i], nchr[i].n_name);
-		needcomma = 1;
-	    }
-	}
+	tp->trd_owner = np->nuk_own;
+	pr("(%3d)  %s #%d",
+	   tp->trd_owner,
+	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
 	break;
     case EF_SHIP:
 	sp = &tgp->shp;

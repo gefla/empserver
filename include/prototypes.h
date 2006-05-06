@@ -109,6 +109,7 @@ int deli(void);
 int demo(void);
 int desi(void);
 int disa(void);
+int disarm(void);
 int dist(void);
 int drop(void);
 int dump(void);
@@ -528,11 +529,11 @@ extern void delete_old_news(void);
 extern void init_nreport(void);
 extern void nreport(natid, int, natid, int);
 /* nuke.c */
+extern char *prnuke(struct nukstr *);
 extern int nuk_postread(int, void *);
 extern int nuk_prewrite(int, void *);
 extern void nuk_init(int, void *);
-extern void nuk_add(coord, coord, int, int);
-extern void nuk_delete(struct nukstr *, int, int);
+extern int nuk_on_plane(struct nukstr *, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */

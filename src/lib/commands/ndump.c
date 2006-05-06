@@ -67,17 +67,13 @@ ndump(void)
 	if (nuk.nuk_own == 0)
 	    continue;
 	nnukes++;
-	for (i = 0; i < N_MAXNUKE; i++) {
-	    if (nuk.nuk_types[i] > 0) {
-		if (player->god)
-		    pr("%d ", nuk.nuk_own);
-		pr("%d ", nuk.nuk_uid);
-		prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
-		pr(" %d", nuk.nuk_types[i]);
-		pr(" %.5s", nchr[i].n_name);
-		pr("\n");
-	    }
-	}
+	if (player->god)
+	    pr("%d ", nuk.nuk_own);
+	pr("%d ", nuk.nuk_uid);
+	prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
+	pr(" %d", 1);
+	pr(" %.5s", nchr[(int)nuk.nuk_type].n_name);
+	pr("\n");
     }
     if (nnukes == 0) {
 	if (player->argp[1])

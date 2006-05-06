@@ -129,7 +129,7 @@ check_nuke_ok(struct nukstr *nukep)
     memcpy(&tnuke, nukep, sizeof(struct nukstr));
     tnuke.nuk_timestamp = chknuke.nuk_timestamp = 0;
     if (memcmp(&tnuke, &chknuke, sizeof(struct nukstr))) {
-	pr("Nuclear stockpile %d has changed!\n", nukep->nuk_uid);
+	pr("Nuke %d has changed!\n", nukep->nuk_uid);
 	return 0;
     }
     return 1;

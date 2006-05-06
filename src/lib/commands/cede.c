@@ -231,8 +231,8 @@ grab_sect(struct sctstr *sp, natid to)
 	if (np->nuk_own == 0)
 	    continue;
 
-	wu(0, to, "\tnuclear stockpile #%d ceded to you by %s\n",
-	   np->nuk_uid, cname(player->cnum));
+	wu(0, to, "\t%s ceded to you by %s\n",
+	   prnuke(np), cname(player->cnum));
 	makelost(EF_NUKE, np->nuk_own, np->nuk_uid, np->nuk_x, np->nuk_y);
 	np->nuk_own = to;
 	makenotlost(EF_NUKE, np->nuk_own, np->nuk_uid, np->nuk_x,

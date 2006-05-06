@@ -47,7 +47,6 @@ int
 nuke(void)
 {
     int first_line = 0;
-    int first_nuke;
     int show_comm;
     int i;
     struct nstr_item nstr;
@@ -68,41 +67,31 @@ nuke(void)
 	    pr("  sect        eff num nuke-type         lcm   hcm   oil   rad avail\n");
 	}
 	getsect(nuk.nuk_x, nuk.nuk_y, &sect);
-	first_nuke = 1;
 	show_comm = 0;
 	if (sect.sct_type == SCT_NUKE && sect.sct_effic >= 60)
 	    show_comm = 1;
-	for (i = 0; i < N_MAXNUKE; i++) {
-	    if (nuk.nuk_types[i] > 0) {
-		if (first_nuke) {
-		    if (player->god)
-			pr("%-3d ", nuk.nuk_own);
-		    prxy("%4d,%-4d", sect.sct_x, sect.sct_y, player->cnum);
-		    pr(" %c", dchr[sect.sct_type].d_mnem);
-		    if (sect.sct_newtype != sect.sct_type)
-			pr("%c", dchr[sect.sct_newtype].d_mnem);
-		    else
-			pr(" ");
-		    pr("%4d%%", sect.sct_effic);
-		    first_nuke = 0;
-		} else {
-		    pr("                 ");
-		}
+	if (player->god)
+	    pr("%-3d ", nuk.nuk_own);
+	prxy("%4d,%-4d", sect.sct_x, sect.sct_y, player->cnum);
+	pr(" %c", dchr[sect.sct_type].d_mnem);
+	if (sect.sct_newtype != sect.sct_type)
+	    pr("%c", dchr[sect.sct_newtype].d_mnem);
+	else
+	    pr(" ");
+	pr("%4d%%", sect.sct_effic);
 
-		pr("%3d ", nuk.nuk_types[i]);
-		pr("%-16.16s ", nchr[i].n_name);
+	pr("%3d ", 1);
+	pr("%-16.16s ", nchr[(int)nuk.nuk_type].n_name);
 
-		if (show_comm) {
-		    pr("%5d ", sect.sct_item[I_LCM]);
-		    pr("%5d ", sect.sct_item[I_HCM]);
-		    pr("%5d ", sect.sct_item[I_OIL]);
-		    pr("%5d ", sect.sct_item[I_RAD]);
-		    pr("%5d", sect.sct_avail);
-		    show_comm = 0;
-		}
-		pr("\n");
-	    }
+	if (show_comm) {
+	    pr("%5d ", sect.sct_item[I_LCM]);
+	    pr("%5d ", sect.sct_item[I_HCM]);
+	    pr("%5d ", sect.sct_item[I_OIL]);
+	    pr("%5d ", sect.sct_item[I_RAD]);
+	    pr("%5d", sect.sct_avail);
+	    show_comm = 0;
 	}
+	pr("\n");
     }
     return RET_OK;
 }

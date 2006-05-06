@@ -42,13 +42,12 @@ struct nukstr {
     short ef_type;
     natid nuk_own;
     short nuk_uid;
-    coord nuk_x;		/* current loc of device */
-    coord nuk_y;
+    coord nuk_x, nuk_y;		/* current loc of device */
+    signed char nuk_type;	/* index in plchr[] */
     /* end of part matching struct genitem */
-    signed char nuk_n;		/* number of nukes in list */
     short nuk_ship;		/* currently aboard ship (unused) */
-    short nuk_trade;		/* index into trade file (unused) */
-    short nuk_types[N_MAXNUKE];	/* # of nukes in sector of given type */
+    short nuk_plane;		/* currently aboard plane */
+    short nuk_land;		/* currently aboard land (unused) */
     time_t nuk_timestamp;	/* Last time this nuke was touched */
 };
 
