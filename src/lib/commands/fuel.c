@@ -67,7 +67,7 @@ fuel(void)
     int land_fuel, ship_fuel;
     int oil_amt, pet_amt, fuel_amt, tot_fuel, max_amt;
     int move_amt;
-    float extra;
+    double extra;
     struct sctstr sect;
     struct natstr *natp;
     int harbor, sector;
