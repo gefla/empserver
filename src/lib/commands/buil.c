@@ -292,12 +292,12 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     struct nstr_item nstr;
     int avail, i;
     double cost;
-    float eff = SHIP_MINEFF / 100.0;
+    double eff = SHIP_MINEFF / 100.0;
     int lcm, hcm;
     int freeship = 0;
 
-    hcm = roundavg((double)mp->m_hcm * eff);
-    lcm = roundavg((double)mp->m_lcm * eff);
+    hcm = roundavg(mp->m_hcm * eff);
+    lcm = roundavg(mp->m_lcm * eff);
 
     if (sp->sct_type != SCT_HARBR) {
 	pr("Ships must be built in harbours.\n");
@@ -405,19 +405,19 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     struct nstr_item nstr;
     int avail;
     double cost;
-    float eff = LAND_MINEFF / 100.0;
+    double eff = LAND_MINEFF / 100.0;
     int mil, lcm, hcm, gun, shell;
     int freeland = 0;
 
 #if 0
-    mil = roundavg(((double)lp->l_mil * eff));
-    shell = roundavg(((double)lp->l_shell * eff));
-    gun = roundavg(((double)lp->l_gun * eff));
+    mil = roundavg(lp->l_mil * eff);
+    shell = roundavg(lp->l_shell * eff);
+    gun = roundavg(lp->l_gun * eff);
 #else
     mil = shell = gun = 0;
 #endif
-    hcm = roundavg(((double)lp->l_hcm * eff));
-    lcm = roundavg(((double)lp->l_lcm * eff));
+    hcm = roundavg(lp->l_hcm * eff);
+    lcm = roundavg(lp->l_lcm * eff);
 
     if (sp->sct_type != SCT_HEADQ) {
 	pr("Land Units must be built in headquarters.\n");
@@ -720,16 +720,16 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     struct nstr_item nstr;
     int avail;
     double cost;
-    float eff = PLANE_MINEFF / 100.0;
+    double eff = PLANE_MINEFF / 100.0;
     int hcm, lcm, mil;
     int freeplane;
 
-    mil = roundavg(((double)pp->pl_crew * eff));
+    mil = roundavg(pp->pl_crew * eff);
     /* Always use at least 1 mil to build a plane */
     if (mil == 0 && pp->pl_crew > 0)
 	mil = 1;
-    hcm = roundavg(((double)pp->pl_hcm * eff));
-    lcm = roundavg(((double)pp->pl_lcm * eff));
+    hcm = roundavg(pp->pl_hcm * eff);
+    lcm = roundavg(pp->pl_lcm * eff);
     if (sp->sct_type != SCT_AIRPT && !player->god) {
 	pr("Planes must be built in airports.\n");
 	return 0;
