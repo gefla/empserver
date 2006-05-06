@@ -395,7 +395,7 @@ static void
 comm_bomb(struct emp_qelem *list, struct sctstr *target)
 {
     struct plist *plp;
-    float b;
+    double b;
     int i;
     int amt, before;
     struct ichrstr *ip;
@@ -449,10 +449,10 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
-    before = amt = target->sct_item[ip->i_uid];
-    target->sct_item[ip->i_uid] = amt = commdamage(amt, dam, ip->i_uid);
+    before = target->sct_item[ip->i_uid];
+    target->sct_item[ip->i_uid] = amt = commdamage(before, dam, ip->i_uid);
     if (before > 0.0)
-	b = 100.0 * (1.0 - ((float)amt / (float)before));
+	b = 100.0 * (1.0 - (double)amt / (double)before);
     else
 	b = 0.0;
     pr("did %.2f%% damage to %s in %s\n",
