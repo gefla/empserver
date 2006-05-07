@@ -237,9 +237,7 @@ static double
 bp_lbcost(struct as_coord from, struct as_coord to, void *pp)
 {
     struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
-    struct bestp *bp = (struct bestp *)pp;
-    struct sctstr *ts;
-    float cost;
+    struct bestp *bp = pp;
     int x, y, sx, sy, offset;
 
     x = to.x;
@@ -247,9 +245,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, void *pp)
     sx = XNORM(x);
     sy = YNORM(y);
     offset = (sy * WORLD_X + sx) / 2;
-    ts = &sectp[offset];
-    cost = sector_mcost(ts, bp->bp_mobtype);
-    return cost;
+    return sector_mcost(&sectp[offset], bp->bp_mobtype);
 }
 
 /*
@@ -369,7 +365,6 @@ BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
 {
     char *map;
 
-    /* need to make sector database available to bestpath */
     map = ef_ptr(EF_BMAP, owner);
     if (!map)
 	return NULL;
@@ -379,5 +374,5 @@ BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
 char *
 BestAirPath(char *path, int fx, int fy, int tx, int ty)
 {
-    return bestownedpath(path, 0, fx, fy, tx, ty, -1);
+    return bestownedpath(path, NULL, fx, fy, tx, ty, -1);
 }
