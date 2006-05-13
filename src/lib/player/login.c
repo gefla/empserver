@@ -133,17 +133,23 @@ player_login(void *ud)
 static int
 client_cmd(void)
 {
-    int i;
+    int i, sz;
+    char *p, *end;
 
     if (!player->argp[1])
 	return RET_SYN;
 
+    p = player->client;
+    end = player->client + sizeof(player->client) - 1;
     for (i = 1; player->argp[i]; ++i) {
 	if (i > 1)
-	    strncat(player->client, " ", sizeof(player->client) - 1);
-	strncat(player->client, player->argp[i], sizeof(player->client) - 1);
+	    *p++ = ' ';
+	sz = strlen(player->argp[i]);
+	sz = MIN(sz, end - p);
+	memcpy(p, player->argp[i], sz);
+	p += sz;
     }
-    player->client[sizeof(player->client) - 1] = '\0';
+    *p = 0;
     pr_id(player, C_CMDOK, "talking to %s\n", player->client);
     return RET_OK;
 }
