@@ -46,51 +46,45 @@
 int
 nuke(void)
 {
-    int first_line = 0;
+    int nnukes;
     int show_comm;
     struct nstr_item nstr;
     struct nukstr nuk;
-    struct sctstr sect;
+    struct plnstr plane;
 
     if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
 	return RET_SYN;
-
+    nnukes = 0;
     while (nxtitem(&nstr, &nuk)) {
-	if (!player->god && !player->owner)
+	if (!player->owner || nuk.nuk_own == 0)
 	    continue;
-	if (nuk.nuk_own == 0)
-	    continue;
-	if (first_line++ == 0) {
+	if (nnukes++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("  sect        eff num nuke-type         lcm   hcm   oil   rad avail\n");
+	    pr("   # nuke type              x,y    s  eff tech carry burst\n");
 	}
-	getsect(nuk.nuk_x, nuk.nuk_y, &sect);
-	show_comm = 0;
-	if (sect.sct_type == SCT_NUKE && sect.sct_effic >= 60)
-	    show_comm = 1;
 	if (player->god)
 	    pr("%-3d ", nuk.nuk_own);
-	prxy("%4d,%-4d", sect.sct_x, sect.sct_y, player->cnum);
-	pr(" %c", dchr[sect.sct_type].d_mnem);
-	if (sect.sct_newtype != sect.sct_type)
-	    pr("%c", dchr[sect.sct_newtype].d_mnem);
-	else
-	    pr(" ");
-	pr("%4d%%", sect.sct_effic);
-
-	pr("%3d ", 1);
-	pr("%-16.16s ", nchr[(int)nuk.nuk_type].n_name);
-
-	if (show_comm) {
-	    pr("%5d ", sect.sct_item[I_LCM]);
-	    pr("%5d ", sect.sct_item[I_HCM]);
-	    pr("%5d ", sect.sct_item[I_OIL]);
-	    pr("%5d ", sect.sct_item[I_RAD]);
-	    pr("%5d", sect.sct_avail);
-	    show_comm = 0;
+	pr("%4d %-19.19s ", nstr.cur, nchr[(int)nuk.nuk_type].n_name);
+	prxy("%4d,%-4d", nuk.nuk_x, nuk.nuk_y, player->cnum);
+	pr(" %c %3d%% %4d", nuk.nuk_stockpile, nuk.nuk_effic, nuk.nuk_tech);
+	if (nuk.nuk_plane >= 0) {
+	    getplane(nuk.nuk_plane, &plane);
+	    pr("%5dP %s",
+	       nuk.nuk_plane,
+	       plane.pln_flags & PLN_AIRBURST ? "  air" : "ground");
 	}
 	pr("\n");
     }
+
+    if (nnukes == 0) {
+	if (player->argp[1])
+	    pr("%s: No nuke(s)\n", player->argp[1]);
+	else
+	    pr("%s: No nuke(s)\n", "");
+	return RET_FAIL;
+    } else
+	pr("%d nuke%s\n", nnukes, splur(nnukes));
+
     return RET_OK;
 }
