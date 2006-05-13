@@ -98,6 +98,7 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 {
     struct lndstr land;
     struct plnstr plane;
+    struct nukstr nuke;
     struct nstr_item ni;
     struct natstr *np;
 
@@ -118,8 +119,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
-	if (land.lnd_x != sp->sct_x || land.lnd_y != sp->sct_y)
-	    continue;
 	if (land.lnd_ship >= 0)
 	    continue;
 	np = getnatp(land.lnd_own);
@@ -138,8 +137,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
     while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
-	if (plane.pln_x != sp->sct_x || plane.pln_y != sp->sct_y)
-	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	if (plane.pln_ship >= 0)
@@ -157,6 +154,24 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	plane.pln_own = 0;
 	plane.pln_effic = 0;
 	putplane(plane.pln_uid, &plane);
+    }
+    /* Sink all the nukes */
+    snxtitem_xy(&ni, EF_NUKE, sp->sct_x, sp->sct_y);
+    while (nxtitem(&ni, &nuke)) {
+	if (nuke.nuk_own == 0)
+	    continue;
+	if (nuke.nuk_plane >= 0)
+	    continue;
+	np = getnatp(nuke.nuk_own);
+	if (np->nat_flags & NF_BEEP)
+	    mpr(nuke.nuk_own, "\07");
+	mpr(nuke.nuk_own, "     %s sinks to the bottom of the sea!\n",
+	    prnuke(&nuke));
+	makelost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid, nuke.nuk_x,
+		 nuke.nuk_y);
+	nuke.nuk_own = 0;
+	nuke.nuk_effic = 0;
+	putnuke(nuke.nuk_uid, &nuke);
     }
     memset(sp->sct_item, 0, sizeof(sp->sct_item));
     memset(sp->sct_del, 0, sizeof(sp->sct_del));
