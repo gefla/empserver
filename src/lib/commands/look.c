@@ -288,7 +288,7 @@ look_land(struct lndstr *lookland)
 
 	pr("%s (#%d) %s (approx %d mil) @ %s\n",
 	   cname(lp->lnd_own), lp->lnd_own,
-	   prland(lp), ldround(total_mil(lp), 20),
+	   prland(lp), roundintby(total_mil(lp), 20),
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	if (opt_HIDDEN)
 	    setcont(player->cnum, lp->lnd_own, FOUND_LOOK);
