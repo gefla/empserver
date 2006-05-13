@@ -111,6 +111,8 @@ pln_prewrite(int n, void *ptr)
 {
     struct plnstr *pp = ptr;
     struct plnstr plane;
+    struct nukstr *np;
+    int i;
 
     if (pp->pln_effic < PLANE_MINEFF) {
 	if (pp->pln_own)
@@ -118,6 +120,17 @@ pln_prewrite(int n, void *ptr)
 		     pp->pln_y);
 	pp->pln_own = 0;
 	pp->pln_effic = 0;
+	for (i = 0; NULL != (np = getnukep(i)); i++) {
+	    if (np->nuk_own && np->nuk_plane == n) {
+		mpr(np->nuk_own, "%s lost!\n", prnuke(np));
+		makelost(EF_NUKE, np->nuk_own, np->nuk_uid,
+			 np->nuk_x, np->nuk_y);
+		np->nuk_own = 0;
+		np->nuk_effic = 0;
+		np->nuk_plane = -1;
+		putnuke(np->nuk_uid, np);
+	    }
+	}
     }
     pp->ef_type = EF_PLANE;
     pp->pln_uid = n;
