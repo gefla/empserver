@@ -44,7 +44,6 @@
 int
 ndump(void)
 {
-    int i;
     struct nstr_item nstr;
     struct nukstr nuk;
     time_t now;

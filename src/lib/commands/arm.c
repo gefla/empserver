@@ -54,7 +54,7 @@ arm(void)
     struct plnstr pl;
     struct nukstr nuke;
     char *p;
-    int pno, nukno;
+    int nukno;
     struct nstr_item ni;
     char buf[1024];
     char prompt[128];

@@ -57,7 +57,6 @@ static void unit_hdr(void);
 int
 starve(void)
 {
-    struct nstr_sect nstr;
     int do_sects = 0;
     int do_ships = 0;
     int do_units = 0;

@@ -48,7 +48,6 @@ nuke(void)
 {
     int first_line = 0;
     int show_comm;
-    int i;
     struct nstr_item nstr;
     struct nukstr nuk;
     struct sctstr sect;

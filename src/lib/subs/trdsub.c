@@ -98,14 +98,12 @@ trade_nameof(struct trdstr *tp, union trdgenstr *tgp)
 int
 trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 {
-    int i;
     i_type it;
     struct sctstr sect;
     struct nukstr *np;
     struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
-    int needcomma;
     struct nstr_item ni;
     struct plnstr plane;
     struct lndstr land;
