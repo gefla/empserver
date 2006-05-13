@@ -36,12 +36,13 @@
 #define DAMAGE_H
 
 #define PERCENT_DAMAGE(x) (100 * (x) / ((x) + 100))
-#define DPERCENT_DAMAGE(x) ((double)(100.0 * (x) / ((x) + 100.0)))
-#define DMINE_HITCHANCE(x) ((double) ( (x) / ((x)+20.0) ) )
-#define DMINE_LHITCHANCE(x) ((double) ( (x) / ((x)+35.0) ) )
+#define DPERCENT_DAMAGE(x) (100.0 * (x) / ((x) + 100.0))
+#define DMINE_HITCHANCE(x) ((x) / ((x) + 20.0))
+#define DMINE_LHITCHANCE(x) ((x) / ((x) + 35.0))
 #define MINE_DAMAGE() (22 + random()%21)
 #define MINE_LDAMAGE() (11 + random()%20)
-#define DTORP_HITCHANCE(range, vis) ((double)(0.9/((range)+1)+(((vis)<6)?(5-(vis))*0.03:0)))
+#define DTORP_HITCHANCE(range, vis) \
+    (0.9 / ((range)+1) + (((vis) < 6) ? (5-(vis)) * 0.03 : 0.0))
 #define TORP_DAMAGE() (torpedo_damage + (random() % torpedo_damage) + \
 		       (random() % torpedo_damage))
 
