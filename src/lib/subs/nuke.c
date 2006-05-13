@@ -48,12 +48,25 @@ int
 nuk_postread(int n, void *ptr)
 {
     struct nukstr *np = ptr;
+    struct plnstr plane;
 
     if (np->nuk_uid != n) {
 	logerror("nuk_postread: Error - %d != %d, zeroing.\n", np->nuk_uid,
 		 n);
 	memset(np, 0, sizeof(struct nukstr));
     }
+
+    if (np->nuk_plane >= 0 && np->nuk_own && np->nuk_effic >= 0) {
+	if (getplane(np->nuk_plane, &plane)
+	    && plane.pln_effic >= PLANE_MINEFF) {
+	    if (np->nuk_x != plane.pln_x || np->nuk_y != plane.pln_y) {
+		time(&np->nuk_timestamp);
+		np->nuk_x = plane.pln_x;
+		np->nuk_y = plane.pln_y;
+	    }
+	}
+    }
+
     player->owner = (player->god || np->nuk_own == player->cnum);
     return 1;
 }
@@ -63,6 +76,14 @@ nuk_prewrite(int n, void *ptr)
 {
     struct nukstr *np = ptr;
     struct nukstr nuke;
+
+    if (np->nuk_effic == 0) {
+	if (np->nuk_own)
+	    makelost(EF_NUKE, np->nuk_own, np->nuk_uid,
+		     np->nuk_x, np->nuk_y);
+	np->nuk_own = 0;
+	np->nuk_effic = 0;
+    }
 
     np->ef_type = EF_NUKE;
     np->nuk_uid = n;
