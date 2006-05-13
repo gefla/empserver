@@ -449,7 +449,7 @@ extern void set_coastal(struct sctstr *sp, int des);
 /* control.c */
 extern int military_control(struct sctstr *);
 /* detonate.c */
-extern int detonate(struct plnstr *, int, int);
+extern int detonate(struct nukstr *, coord, coord, int);
 /* disloan.c */
 extern int disloan(int, register struct lonstr *);
 /* distrea.c */

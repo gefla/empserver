@@ -1162,6 +1162,7 @@ int
 pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
 	   int noisy)
 {
+    struct nukstr nuke;
     struct plchrstr *pcp = plchr + pp->pln_type;
     int i;
     int hitroll;
@@ -1171,12 +1172,17 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     int pinbomber = 0;
 
     if (pp->pln_nuketype != -1) {
-	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
-	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
-	*nukedamp = detonate(pp, x, y);
-	return 0;
-    } else
-	*nukedamp = 0;
+	if (nuk_on_plane(&nuke, pp->pln_uid) >= 0) {
+	    mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
+		pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
+	    pp->pln_nuketype = -1;
+	    *nukedamp = detonate(&nuke, x, y,
+				 pp->pln_flags & PLN_AIRBURST);
+	    return 0;
+	}
+	CANT_REACH();
+    }
+    *nukedamp = 0;
 
     if (!pp->pln_load)		/* e.g. ab, blowing up on launch pad */
 	return 0;

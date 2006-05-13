@@ -51,11 +51,10 @@
 static void kaboom(int x, int y, int rad, natid cn);
 
 int
-detonate(struct plnstr *pp, int x, int y)
+detonate(struct nukstr *np, coord x, coord y, int airburst)
 {
-    int nuketype = pp->pln_nuketype;
-    natid bombown = pp->pln_own;
-    int airburst = (pp->pln_flags & PLN_AIRBURST);
+    int nuketype = np->nuk_type;
+    natid bombown = np->nuk_own;
     struct nchrstr *ncp;
     struct plnstr plane;
     struct sctstr sect;
@@ -72,18 +71,19 @@ detonate(struct plnstr *pp, int x, int y)
     int rad;
     struct nstr_sect ns;
     struct nstr_item ni;
-    int issea = 0;
+    int issea;
     int retval;
 
-    pp->pln_nuketype = -1;
     getsect(x, y, &sect);
-    if (sect.sct_type == SCT_WATER)
-	issea = 1;
+    issea = sect.sct_type == SCT_WATER;
     ncp = &nchr[nuketype];
     kaboom(x, y, ncp->n_blast, bombown);
     rad = ncp->n_blast;
     if (!airburst)
 	rad = rad * 2 / 3;
+    np->nuk_effic = 0;
+    putnuke(np->nuk_uid, np);
+
     snxtsct_dist(&ns, x, y, rad);
     while (nxtsct(&ns, &sect)) {
 	/* Nukes falling on water affect only 1 sector */
@@ -146,6 +146,7 @@ detonate(struct plnstr *pp, int x, int y)
 	    mpr(own, "%s nuclear device %s\n", cname(bombown), buf2);
 	}
     }
+
     snxtitem_dist(&ni, EF_PLANE, x, y, rad);
     while (nxtitem(&ni, &plane)) {
 	/* Nukes falling on water affect only 1 sector */
@@ -196,6 +197,7 @@ detonate(struct plnstr *pp, int x, int y)
 	}
 	putplane(ni.cur, &plane);
     }
+
     snxtitem_dist(&ni, EF_LAND, x, y, rad);
     while (nxtitem(&ni, &land)) {
 	/* Nukes falling on water affect only 1 sector */
@@ -243,6 +245,7 @@ detonate(struct plnstr *pp, int x, int y)
 	}
 	putland(land.lnd_uid, &land);
     }
+
     snxtitem_dist(&ni, EF_SHIP, x, y, rad);
     while (nxtitem(&ni, &ship)) {
 	/* Nukes falling on water affect only 1 sector */
@@ -284,6 +287,7 @@ detonate(struct plnstr *pp, int x, int y)
 	}
 	putship(ship.shp_uid, &ship);
     }
+
     snxtitem_dist(&ni, EF_NUKE, x, y, rad);
     while (nxtitem(&ni, &nuke)) {
 	/* Nukes falling on water affect only 1 sector */
@@ -310,6 +314,7 @@ detonate(struct plnstr *pp, int x, int y)
 	}
 	putnuke(ni.cur, &nuke);
     }
+
     return retval;
 }
 
