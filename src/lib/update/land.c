@@ -283,37 +283,33 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
     mvec[I_GUN] = gun_needed = 0;
     mvec[I_MILIT] = mil_needed = 0;
     mvec[I_SHELL] = shell_needed = 0;
-
     get_materials(sp, bp, mvec, 0);
 
-    if (mvec[I_MILIT] >= mil_needed)
-	buildp = leftp;
-    else
-	buildp = ((float)mvec[I_MILIT] / (float)lp->l_mil);
+    buildp = leftp;
+    if (mvec[I_MILIT] < mil_needed)
+	buildp = MIN(buildp, (float)mvec[I_MILIT] / (float)lp->l_mil);
     if (mvec[I_LCM] < lcm_needed)
-	buildp = MIN(buildp, ((float)mvec[I_LCM] / (float)lp->l_lcm));
+	buildp = MIN(buildp, (float)mvec[I_LCM] / (float)lp->l_lcm);
     if (mvec[I_HCM] < hcm_needed)
-	buildp = MIN(buildp, ((float)mvec[I_HCM] / (float)lp->l_hcm));
+	buildp = MIN(buildp, (float)mvec[I_HCM] / (float)lp->l_hcm);
     if (mvec[I_GUN] < gun_needed)
-	buildp = MIN(buildp, ((float)mvec[I_GUN] / (float)lp->l_gun));
+	buildp = MIN(buildp, (float)mvec[I_GUN] / (float)lp->l_gun);
     if (mvec[I_SHELL] < shell_needed)
-	buildp = MIN(buildp, ((float)mvec[I_SHELL] / (float)lp->l_shell));
+	buildp = MIN(buildp, (float)mvec[I_SHELL] / (float)lp->l_shell);
 
     build = ldround(buildp * 100.0, 1);
-
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = roundavg(lp->l_lcm * buildp);
-    mvec[I_HCM] = hcm_needed = roundavg(lp->l_hcm * buildp);
+    mvec[I_LCM] = roundavg(lp->l_lcm * buildp);
+    mvec[I_HCM] = roundavg(lp->l_hcm * buildp);
 /*
-        mvec[I_GUN] = gun_needed = roundavg(lp->l_gun * buildp);
-        mvec[I_MILIT] = mil_needed = roundavg(lp->l_mil * buildp);
-        mvec[I_SHELL] = shell_needed = roundavg(lp->l_shell *buildp);
+        mvec[I_GUN] = roundavg(lp->l_gun * buildp);
+        mvec[I_MILIT] = roundavg(lp->l_mil * buildp);
+        mvec[I_SHELL] = roundavg(lp->l_shell *buildp);
  */
-    mvec[I_GUN] = gun_needed = 0;
-    mvec[I_MILIT] = mil_needed = 0;
-    mvec[I_SHELL] = shell_needed = 0;
-    mil_dbl_pay += mil_needed;
-
+    mvec[I_GUN] = 0;
+    mvec[I_MILIT] = 0;
+    mvec[I_SHELL] = 0;
+    mil_dbl_pay += mvec[I_MILIT];
     get_materials(sp, bp, mvec, 1);
 
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))

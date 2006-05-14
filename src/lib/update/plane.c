@@ -190,24 +190,21 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
     mvec[I_MILIT] = mil_needed = ldround(pcp->pl_crew * leftp, 1);
     mvec[I_LCM] = lcm_needed = ldround(pcp->pl_lcm * leftp, 1);
     mvec[I_HCM] = hcm_needed = ldround(pcp->pl_hcm * leftp, 1);
-
     get_materials(sp, bp, mvec, 0);
 
-    if (mvec[I_MILIT] >= mil_needed)
-	buildp = leftp;
-    else
-	buildp = ((float)mvec[I_MILIT] / (float)pcp->pl_crew);
+    buildp = leftp;
+    if (mvec[I_MILIT] < mil_needed)
+	buildp = MIN(buildp, (float)mvec[I_MILIT] / (float)pcp->pl_crew);
     if (mvec[I_LCM] < lcm_needed)
-	buildp = MIN(buildp, ((float)mvec[I_LCM] / (float)pcp->pl_lcm));
+	buildp = MIN(buildp, (float)mvec[I_LCM] / (float)pcp->pl_lcm);
     if (mvec[I_HCM] < hcm_needed)
-	buildp = MIN(buildp, ((float)mvec[I_HCM] / (float)pcp->pl_hcm));
+	buildp = MIN(buildp, (float)mvec[I_HCM] / (float)pcp->pl_hcm);
 
     build = ldround(buildp * 100.0, 1);
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_MILIT] = mil_needed = roundavg(pcp->pl_crew * buildp);
-    mvec[I_LCM] = lcm_needed = roundavg(pcp->pl_lcm * buildp);
-    mvec[I_HCM] = hcm_needed = roundavg(pcp->pl_hcm * buildp);
-
+    mvec[I_MILIT] = roundavg(pcp->pl_crew * buildp);
+    mvec[I_LCM] = roundavg(pcp->pl_lcm * buildp);
+    mvec[I_HCM] = roundavg(pcp->pl_hcm * buildp);
     get_materials(sp, bp, mvec, 1);
 
     if (carrier)
