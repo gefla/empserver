@@ -3,18 +3,25 @@
 .LV Expert
 .SY "nuke <NUKES>"
 The nuke report command is a census of your nuke and lists all the
-info available in readable format.
+info available in readable format.  For example:
+.EX nuke *
+.NF
+   # nuke type              x,y    s  eff tech carry burst
+   0 10kt  fission        -24,-4     100%  296   19P   air
+   2 15kt  fission        -19,-1     100%  296
+2 nukes
+.FI
 .s1
 The report format contains the following fields:
 .s1
 .in +1i
 .L #
 the nuke number
-.L type
+.L nuke type
 the type of nuke; \*Q10kt fission\*U, \*Q1mt fusion\*U, etc.,
 .L x,y
 the nuke's current location,
-.L w
+.L s
 the \*Qstockpile\*U designation letter,
 .L eff
 the nuke's efficiency,
