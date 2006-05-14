@@ -53,6 +53,8 @@
 
 #define	NOISY	1
 
+static int sb(natid, natid, struct sctstr *, coord, coord, int, int);
+
 /*
  * See if any nearby ships will open up on the attacker
  * Return damage done to attacker, if any.
@@ -70,7 +72,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
    int usesubs)
 {
     int nshot;
-    double range;
+    int range;
     double eff;
     struct shpstr ship;
     struct nstr_item ni;
@@ -97,9 +99,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	    continue;
 	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && !usesubs)
 	    continue;
-	range = techfact(ship.shp_tech,
-			 ship.shp_frnge * ship.shp_effic / 200.0);
-	range = (double)roundrange(range);
+	range = roundrange(effrange(ship.shp_frnge, ship.shp_tech));
 	if (range < ni.curdist)
 	    continue;
 	/* must have gun, shell, and milit to fire */
@@ -149,8 +149,6 @@ int
 dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 {
     int dam, rel, rel2;
-    double tech;
-    double range;
     struct sctstr firing;
     struct nstr_sect ns;
 
@@ -160,7 +158,6 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 	return 0;
     if (att == def_own)
 	return 0;
-    tech = tfactfire(def_own, 1.0);
     dam = 0;
     snxtsct_dist(&ns, ax, ay, 8);
     while (nxtsct(&ns, &firing) && dam < 80) {
@@ -168,23 +165,9 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 	    continue;
 	if (firing.sct_own == 0)
 	    continue;
-	if (firing.sct_effic < FORTEFF)
-	    continue;
 	rel = getrel(getnatp(firing.sct_own), def_own);
 	rel2 = getrel(getnatp(firing.sct_own), att);
-	if ((firing.sct_own != def_own) &&
-	    ((rel != ALLIED) || (rel2 != AT_WAR)))
-	    continue;
-
-	range = tfactfire(def_own, 7.0);
-	if (firing.sct_effic > 59)
-	    range++;
-	/* Here we round down the range, and then add 1 to it
-	   to determine if we could possibly hit the sector.  If
-	   we do, we call sb where the range is re-calculated and
-	   the percentages are checked. */
-	range = (double)((int)(range) + 1);
-	if (range < ns.curdist)
+	if (firing.sct_own != def_own && (rel != ALLIED || rel2 != AT_WAR))
 	    continue;
 	/* XXX defdef damage is additive, but ship or land unit damage isn't */
 	dam += sb(att, def_own, &firing, ax, ay, noisy, defending);
@@ -196,34 +179,23 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
  *
  * See if the sector being fired at will defend itself.
  */
-int
+static int
 sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
    int defending)
 {
     int damage;
     natid own;
     int shell;
-    double range;
+    int range;
     int range2, gun;
-
-    if (sp->sct_type != SCT_FORTR) {
-	/* XXX I don't like this restriction */
-	return 0;
-    }
-
-    if (sp->sct_effic < FORTEFF)
-	return 0;
 
     own = sp->sct_own;
     if (own == 0)
 	return 0;
     if (att == own)
 	return 0;
-    range = tfactfire(own, 7.0);
-    if (sp->sct_effic > 59)
-	range++;
-    range = (double)roundrange(range);
-    range2 = mapdist((int)sp->sct_x, (int)sp->sct_y, tx, ty);
+    range = roundrange(fortrange(sp));
+    range2 = mapdist(sp->sct_x, sp->sct_y, tx, ty);
     if (range < range2)
 	return 0;
     gun = sp->sct_item[I_GUN];

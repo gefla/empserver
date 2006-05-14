@@ -920,8 +920,8 @@ lnd_fort_interdiction(struct emp_qelem *list,
 {
     struct nstr_sect ns;
     struct sctstr fsect;
-    int trange;
-    double range, range2, guneff;
+    int trange, range;
+    double guneff;
     int shell, gun;
     int dam;
     int totdam = 0;
@@ -933,19 +933,14 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	    continue;
 	if (fsect.sct_own == victim)
 	    continue;
-	if (fsect.sct_type != SCT_FORTR)
-	    continue;
 	if (getrel(getnatp(fsect.sct_own), victim) >= NEUTRAL)
 	    continue;
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, MIN(gun, 7));
-	if (fsect.sct_effic > 59)
-	    range++;
-	range2 = roundrange(range);
+	range = roundrange(fortrange(&fsect));
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
-	if (trange > range2)
+	if (trange > range)
 	    continue;
 	if (fsect.sct_item[I_MILIT] < 5)
 	    continue;
@@ -1252,7 +1247,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     int dist;
     int shell;
     int gun;
-    double range, range2;
+    int range;
 
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
@@ -1284,10 +1279,8 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	/* are we in range? */
 	dist = mapdist(land.lnd_x, land.lnd_y, x, y);
 
-	range = techfact((int)land.lnd_tech, (double)land.lnd_frg / 2.0);
-
-	range2 = roundrange(range);
-	if (dist > range2)
+	range = roundrange(effrange(land.lnd_frg, land.lnd_tech));
+	if (dist > range)
 	    continue;
 
 	shell = land.lnd_item[I_SHELL];

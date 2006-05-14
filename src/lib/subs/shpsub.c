@@ -631,8 +631,8 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 {
     struct nstr_sect ns;
     struct sctstr fsect;
-    int trange;
-    double range, range2, guneff;
+    int trange, range;
+    double guneff;
     int shell, gun;
     int dam;
     int totdam = 0;
@@ -670,17 +670,12 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     while (nxtsct(&ns, &fsect)) {
 	if (!notified[fsect.sct_own])
 	    continue;
-	if (fsect.sct_type != SCT_FORTR)
-	    continue;
 	gun = fsect.sct_item[I_GUN];
 	if (gun < 1)
 	    continue;
-	range = tfactfire(fsect.sct_own, MIN(gun, 7));
-	if (fsect.sct_effic > 59)
-	    range++;
-	range2 = roundrange(range);
+	range = roundrange(fortrange(&fsect));
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
-	if (trange > range2)
+	if (trange > range)
 	    continue;
 	if (fsect.sct_item[I_MILIT] < 5)
 	    continue;

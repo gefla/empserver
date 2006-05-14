@@ -66,7 +66,7 @@ torp(void)
     int shells;
     int subno;
     int victno;
-    double erange;
+    int erange;
     double hitchance;
     struct shpstr vship;
     struct shpstr sub;
@@ -164,10 +164,8 @@ torp(void)
 	if (sub.shp_own == 0) {
 	    continue;
 	}
-	erange = ((double)sub.shp_effic / 100.0) *
-	    techfact(sub.shp_tech, sub.shp_frnge);
-	erange = (double)roundrange(erange);
-	pr("Effective torpedo range is %.1f\n", erange);
+	erange = roundrange(torprange(&sub));
+	pr("Effective torpedo range is %d.0\n", erange);
 	shells -= SHP_TORP_SHELLS;
 	sub.shp_item[I_SHELL] = shells;
 	putship(sub.shp_uid, &sub);
@@ -237,8 +235,7 @@ torp(void)
 static void
 anti_torp(int f, int ntorping, int vshipown)
 {
-    int range;
-    double erange;
+    int range, erange;
     struct shpstr sub;
     struct shpstr dd;
     int x;
@@ -263,12 +260,8 @@ anti_torp(int f, int ntorping, int vshipown)
 	if (!canshoot(&dd, &sub))
 	    continue;
 
-	erange = techfact(dd.shp_tech, dd.shp_frnge) / 2.0;
-
-	erange = (double)roundrange(erange);
-
+	erange = roundrange(effrange(dd.shp_frnge, dd.shp_tech));
 	range = mapdist(sub.shp_x, sub.shp_y, dd.shp_x, dd.shp_y);
-
 	if (range > erange)
 	    continue;
 

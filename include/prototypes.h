@@ -460,7 +460,6 @@ extern void ef_fin_srv(void);
 /* fortdef.c */
 extern int sd(natid, natid, coord, coord, int, int, int);
 extern int dd(natid, natid, coord, coord, int, int);
-extern int sb(natid, natid, struct sctstr *, coord, coord, int, int);
 extern int shipdef(natid, natid, coord, coord);
 /* getbit.c */
 extern int emp_getbit(int, int, unsigned char *);
@@ -478,6 +477,9 @@ extern void lnd_init(int, void *);
 extern double seagun(int, int);
 extern double landgun(int, int);
 extern double landunitgun(int, int, int, int, int);
+extern double effrange(int, double);
+extern double torprange(struct shpstr *);
+extern double fortrange(struct sctstr *);
 extern int roundrange(double);
 /* list.c */
 extern int shipsatxy(coord, coord, int, int);

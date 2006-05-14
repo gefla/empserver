@@ -436,8 +436,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct plchrstr *pcp;
     int dam = 0, dam2, mission_flags, tech;
     natid plane_owner = 0;
-    int gun, shell, md, air_dam = 0;
-    double range2, prb, range, mobcost, hitchance;
+    int gun, shell, md, range, air_dam = 0;
+    double prb, mobcost, hitchance, vrange;
 
     getsect(x, y, &sect);
 
@@ -465,19 +465,14 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		(md > land_max_interdiction_range))
 		continue;
 
-	    if (md > (lp->lnd_frg / 2))
-		continue;
-
 	    if ((lp->lnd_ship != -1) || (lp->lnd_land != -1))
 		continue;
 
 	    if (lnd_getmil(lp) < 1)
 		continue;
 
-	    range = techfact((int)lp->lnd_tech, (double)lp->lnd_frg / 2.0);
-	    range2 = (double)roundrange(range);
-
-	    if (md > range2)
+	    range = roundrange(effrange(lp->lnd_frg, lp->lnd_tech));
+	    if (md > range)
 		continue;
 
 	    shell = lp->lnd_item[I_SHELL];
@@ -531,9 +526,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 		if (!(mcp->m_flags & M_DCH) && !(mcp->m_flags & M_SUBT))
 		    continue;
-		range2 = techfact(sp->shp_tech, mcp->m_vrnge);
-		range2 *= (double)sp->shp_effic / 200.0;
-		if (md > range2)
+		vrange = techfact(sp->shp_tech, mcp->m_vrnge);
+		vrange *= (double)sp->shp_effic / 200.0;
+		if (md > vrange)
 		    continue;
 		/* can't look all the time */
 		if (chance(0.5))
@@ -557,10 +552,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (shell < SHP_TORP_SHELLS)
 		    continue;
 
-		range = sp->shp_effic
-		    * techfact(sp->shp_tech, sp->shp_frnge) / 100.0;
-
-		range2 = (double)roundrange(range);
+		range = roundrange(torprange(sp));
 		if (md > range)
 		    continue;
 
@@ -578,7 +570,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		   "%s locking on %s %s in %s\n",
 		   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
 		wu(0, sp->shp_own,
-		   "\tEffective torpedo range is %.1f\n", range);
+		   "\tEffective torpedo range is %d.0\n", range);
 		wu(0, sp->shp_own,
 		   "\tWhooosh... Hitchance = %d%%\n",
 		   (int)(hitchance * 100));
@@ -603,9 +595,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    "Incoming torpedo sighted @ %s hits and does %d damage!\n",
 		    xyas(x, y, victim), dam2);
 	    } else {
-		range = techfact(sp->shp_tech, (double)mcp->m_frnge / 2.0);
-		range2 = (double)roundrange(range);
-		if (md > range2)
+		range = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
+		if (md > range)
 		    continue;
 		gun = sp->shp_item[I_GUN];
 		gun = MIN(gun, sp->shp_glim);
@@ -620,10 +611,10 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 		gun = MAX(gun, 1);
 		dam2 = seagun(sp->shp_effic, gun);
-		if (range2 == 0.0)
+		if (range == 0.0)
 		    prb = 1.0;
 		else
-		    prb = ((double)md) / range2;
+		    prb = (double)md / range;
 		prb *= prb;
 		if (chance(prb))
 		    dam2 /= 2;
@@ -933,13 +924,11 @@ oprange(struct genitem *gp, int type, int *radius)
     switch (type) {
     case EF_SHIP:
 	getship(gp->uid, &ship);
-	range = ldround(techfact(gp->tech,
-				 (double)ship.shp_frnge / 2.0), 1);
+	range = ldround(effrange(ship.shp_frnge, ship.shp_tech), 1);
 	break;
     case EF_LAND:
 	getland(gp->uid, &land);
-	range = ldround(techfact((int)land.lnd_tech,
-				 (double)land.lnd_frg / 2.0), 1);
+	range = ldround(effrange(land.lnd_frg, land.lnd_tech), 1);
 	break;
     case EF_PLANE:
 	getplane(gp->uid, &plane);

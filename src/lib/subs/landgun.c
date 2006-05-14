@@ -34,6 +34,9 @@
 #include <config.h>
 
 #include "misc.h"
+#include "file.h"
+#include "nat.h"
+#include "optlist.h"
 #include "prototypes.h"
 
 double
@@ -72,6 +75,44 @@ landunitgun(int effic, int shots, int guns, int ammo, int shells)
     if (shells < ammo && ammo != 0)
 	d *= (double)shells / (double)ammo;
     return d;
+}
+
+/*
+ * Return effective firing range for range factor RNG at tech TLEV.
+ */
+double
+effrange(int rng, double tlev)
+{
+    /* FIXME don't truncate TLEV */
+    return techfact((int)tlev, rng / 2.0);
+}
+
+/*
+ * Return torpedo range for ship SP.
+ */
+double
+torprange(struct shpstr *sp)
+{
+    return effrange(sp->shp_frnge * 2, sp->shp_tech)
+	* sp->shp_effic / 100.0;
+}
+
+/*
+ * Return firing range for sector SP.
+ */
+double
+fortrange(struct sctstr *sp)
+{
+    struct natstr *np = getnatp(sp->sct_own);
+    double rng;
+
+    if (sp->sct_type != SCT_FORTR || sp->sct_effic < FORTEFF)
+	return -1.0;
+
+    rng = effrange(14.0 * fire_range_factor, np->nat_level[NAT_TLEV]);
+    if (sp->sct_effic > 59)
+	rng++;
+    return rng;
 }
 
 int

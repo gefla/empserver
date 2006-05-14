@@ -90,8 +90,8 @@ multifire(void)
     static int ef_with_guns[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
     char vbuf[20];
     char *ptr;
-    double range2, range;
-    int trange;
+    double range;
+    int trange, range2;
     coord fx;
     coord fy;
     coord x;
@@ -346,10 +346,9 @@ multifire(void)
 		   fship.shp_effic);
 		continue;
 	    }
-	    range = techfact(fship.shp_tech,
-			     (double)fship.shp_frnge / 2.0);
-	    range2 = (double)roundrange(range);
-	    pr("range is %.2f (%.2f)\n", range2, range);
+	    range = effrange(fship.shp_frnge, fship.shp_tech);
+	    range2 = roundrange(range);
+	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
 		if ((mchr[(int)fship.shp_type].m_flags & M_DCH) == 0) {
 		    /* Don't tell it's a sub */
@@ -398,10 +397,9 @@ multifire(void)
 
 	    shell = fland.lnd_item[I_SHELL];
 
-	    range = techfact((int)fland.lnd_tech,
-			     (double)fland.lnd_frg / 2.0);
-	    range2 = (double)roundrange(range);
-	    pr("range is %.2f (%.2f)\n", range2, range);
+	    range = effrange(fland.lnd_frg, fland.lnd_tech);
+	    range2 = roundrange(range);
+	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
 		/* Don't tell it's a sub */
 		range2 = -1;
@@ -458,11 +456,9 @@ multifire(void)
 	    }
 	    if (gun > 7)
 		gun = 7;
-	    range = tfactfire(player->cnum, 7.0);
-	    if (fsect.sct_effic > 59)
-		range++;
-	    range2 = (double)roundrange(range);
-	    pr("range is %.2f (%.2f)\n", range2, range);
+	    range = fortrange(&fsect);
+	    range2 = roundrange(range);
+	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
 		/* Don't tell it's a sub */
 		range2 = -1;
@@ -554,15 +550,12 @@ multifire(void)
 	default:
 	    pr_beep();
 	    pr("Kaboom!!!\n");
-	    prb = (double)(range2 ? (trange / range2) : 1.0);
+	    prb = range2 ? (double)trange / range2 : 1.0;
 	    prb *= prb;
 	    if (chance(prb)) {
 		pr("Wind deflects shell%s.\n", splur(shots));
 /*			dam = (int)((double)dam / 2.0);*/
-		dam =
-		    (int)((double)dam *
-			  (double)((double)(90 - (random() % 11)) /
-				   100.0));
+		dam *= (90 - (random() % 11)) / 100.0;
 		if (dam < 0)
 		    dam = 0;
 	    }
@@ -753,13 +746,12 @@ static int
 quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	     coord ax, coord ay, int *nfiring)
 {
-    int nshot;
-    double range, erange, hitchance;
+    int nshot, range;
+    double erange, hitchance;
     struct shpstr ship;
     struct lndstr land;
     struct nstr_item ni;
     int dam, dam2, rel, rel2;
-    double tech;
     struct sctstr firing;
     struct nstr_sect ns;
     struct flist *fp;
@@ -806,11 +798,9 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
   if (ship.shp_mobil <= 0)
   continue;
 */
-	    erange = ship.shp_effic
-		* techfact(ship.shp_tech, ship.shp_frnge) / 100.0;
-	    erange = (double)roundrange(erange);
+	    erange = torprange(&ship);
 	    range = mapdist(ship.shp_x, ship.shp_y, ax, ay);
-	    if (range > erange)
+	    if (range > roundrange(erange))
 		continue;
 	    if (!line_of_sight(NULL, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
@@ -830,10 +820,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 
 	    dam += TORP_DAMAGE();
 	} else {
-	    range = techfact(ship.shp_tech,
-			     ship.shp_frnge * ship.shp_effic / 200.0);
-	    range = (double)roundrange(range);
-	    if (range < ni.curdist)
+	    erange = effrange(ship.shp_frnge, ship.shp_tech);
+	    if (roundrange(erange) < ni.curdist)
 		continue;
 	    /* must have gun, shell, and milit to fire */
 	    if (shell < 1)
@@ -880,10 +868,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if ((land.lnd_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
 	    continue;
 
-
-	range = techfact((int)land.lnd_tech, (double)land.lnd_frg / 2.0);
-	range = (double)roundrange(range);
-	if (range < ni.curdist)
+	erange = effrange(land.lnd_frg, land.lnd_tech);
+	if (roundrange(erange) < ni.curdist)
 	    continue;
 
 	resupply_all(&land);
@@ -921,9 +907,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     if (!opt_NO_FORT_FIRE) {
 	snxtsct_dist(&ns, ax, ay, 8);
 	while (nxtsct(&ns, &firing)) {
-
-	    if (firing.sct_type != SCT_FORTR)
-		continue;
 	    if (firing.sct_own == 0)
 		continue;
 	    rel = getrel(getnatp(firing.sct_own), own);
@@ -935,12 +918,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    /* Don't shoot yourself */
 	    if (firing.sct_own == aown)
 		continue;
-	    tech = tfactfire(firing.sct_own, 1.0);
-	    range = tech * 7.0;
-	    if (firing.sct_effic > 59)	/* fort bonus */
-		range++;
-	    range = (double)roundrange(range);
-	    if (range < ns.curdist)
+	    erange = fortrange(&firing);
+	    if (roundrange(erange) < ns.curdist)
 		continue;
 
 	    gun = firing.sct_item[I_GUN];
