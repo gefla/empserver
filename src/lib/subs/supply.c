@@ -90,7 +90,8 @@ resupply_commod(struct lndstr *lp, i_type type)
     /* Ok, do we now have enough? */
     amt = get_minimum(lp, type) - lp->lnd_item[type];
     if (amt > 0) {
-	lp->lnd_item[type] += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+	lp->lnd_item[type] += supply_commod(lp->lnd_own,
+					    lp->lnd_x, lp->lnd_y,
 					    type, amt);
 	amt = get_minimum(lp, type) - lp->lnd_item[type];
     }
@@ -550,8 +551,8 @@ use_supply(struct lndstr *lp)
     if (shells < shells_needed) {
 	lp->lnd_item[I_SHELL] = 0;
 	putland(lp->lnd_uid, lp);
-	shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_SHELL,
-				(shells_needed - shells));
+	shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+				I_SHELL, shells_needed - shells);
 	lp->lnd_item[I_SHELL] = shells;
     }
 
@@ -566,8 +567,8 @@ use_supply(struct lndstr *lp)
     if (food < food_needed) {
 	lp->lnd_item[I_FOOD] = 0;
 	putland(lp->lnd_uid, lp);
-	food += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y, I_FOOD,
-			      (food_needed - food));
+	food += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+			      I_FOOD, food_needed - food);
 	lp->lnd_item[I_FOOD] = food;
     }
 
@@ -588,9 +589,8 @@ use_supply(struct lndstr *lp)
 	if (petrol < petrol_needed) {
 	    lp->lnd_item[I_PETROL] = 0;
 	    putland(lp->lnd_uid, lp);
-	    petrol += supply_commod(lp->lnd_own,
-				    lp->lnd_x, lp->lnd_y,
-				    I_PETROL, (petrol_needed - petrol));
+	    petrol += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+				    I_PETROL, petrol_needed - petrol);
 	    lp->lnd_item[I_PETROL] = petrol;
 	}
 

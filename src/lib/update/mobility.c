@@ -328,8 +328,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    if ((d - (int)d) > 0.0)
 		d++;
 	    need = (int)d;
-	    newfuel = supply_commod(sp->shp_own, sp->shp_x,
-				    sp->shp_y, I_PETROL, need);
+	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+				    I_PETROL, need);
 	    sp->shp_fuel += newfuel * 5;
 	}
 
@@ -347,8 +347,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    if ((d - (int)d) > 0.0)
 		d++;
 	    need = (int)d;
-	    newfuel = supply_commod(sp->shp_own, sp->shp_x,
-				    sp->shp_y, I_OIL, need);
+	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+				    I_OIL, need);
 	    sp->shp_fuel += newfuel * 50;
 	}
 
@@ -444,8 +444,8 @@ do_mob_land(struct lndstr *lp, int etus)
 	    if ((d - (int)d) > 0.0)
 		d++;
 	    need = (int)d;
-	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x,
-				    lp->lnd_y, I_PETROL, need);
+	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+				    I_PETROL, need);
 	    lp->lnd_fuel += newfuel * 5;
 	}
 
@@ -461,8 +461,8 @@ do_mob_land(struct lndstr *lp, int etus)
 	    if ((d - (int)d) > 0.0)
 		d++;
 	    need = (int)d;
-	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x,
-				    lp->lnd_y, I_OIL, need);
+	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+				    I_OIL, need);
 	    lp->lnd_fuel += newfuel * 50;
 	}
 

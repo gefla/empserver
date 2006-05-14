@@ -183,8 +183,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	} else {
 	    PR(plane_owner, "flying over %s at %s\n",
 	       dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
-	    changed += map_set(plane_owner, sect.sct_x,
-			       sect.sct_y, dchr[sect.sct_type].d_mnem, 0);
+	    changed += map_set(plane_owner, sect.sct_x, sect.sct_y,
+			       dchr[sect.sct_type].d_mnem, 0);
 	}
 	if ((rel = getrel(over, plane_owner)) == ALLIED)
 	    continue;
@@ -310,8 +310,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		    /* Flag that we intercepted */
 		    intown = 1;
 		    /* And now intercept again */
-		    ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x,
-				 y);
+		    ac_intercept(bomb_list, esc_list, &ilist[cn],
+				 cn, x, y);
 		}
 	    }
 	}
@@ -336,8 +336,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		if (!evaded) {
 		    if (intown == -1) {
 			/* We haven't intercepted yet, so intercept */
-			ac_intercept(bomb_list, esc_list, &ilist[cn], cn,
-				     x, y);
+			ac_intercept(bomb_list, esc_list, &ilist[cn],
+				     cn, x, y);
 		    }
 		}
 	    }
@@ -837,8 +837,8 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	if (gun) {
 	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0) {
-		shell = supply_commod(ship.shp_own, ship.shp_x,
-				      ship.shp_y, I_SHELL, 1);
+		shell = supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+				      I_SHELL, 1);
 		ship.shp_item[I_SHELL] = shell;
 		putship(ship.shp_uid, &ship);
 	    }

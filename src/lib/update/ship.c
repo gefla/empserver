@@ -132,8 +132,8 @@ upd_ship(struct shpstr *sp, int etus,
 	if (np->nat_priorities[PRI_SBUILD] == 0 || np->nat_money < 0)
 	    return;
 	if (sp->shp_effic < SHIP_MINEFF || !shiprepair(sp, np, bp, etus)) {
-	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x,
-		     sp->shp_y);
+	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
+		     sp->shp_x, sp->shp_y);
 	    sp->shp_own = 0;
 	    return;
 	}
@@ -147,8 +147,8 @@ upd_ship(struct shpstr *sp, int etus,
 	    if ((eff = sp->shp_effic - etus / 5) < SHIP_MINEFF) {
 		wu(0, sp->shp_own,
 		   "%s lost to lack of maintenance\n", prship(sp));
-		makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x,
-			 sp->shp_y);
+		makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
+			 sp->shp_x, sp->shp_y);
 		sp->shp_own = 0;
 		return;
 	    }

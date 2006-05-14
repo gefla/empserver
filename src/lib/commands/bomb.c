@@ -545,8 +545,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (gun > 0) {
 	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0)
-		shell = supply_commod(ship.shp_own, ship.shp_x,
-				      ship.shp_y, I_SHELL, 1);
+		shell = supply_commod(ship.shp_own,
+				      ship.shp_x, ship.shp_y, I_SHELL, 1);
 	}
 	mcp = &mchr[(int)ship.shp_type];
 	if (gun > 0 && shell > 0 && !(mcp->m_flags & M_SUB)) {
@@ -694,8 +694,8 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	own = plane.pln_own;
 	if (dam > plane.pln_effic) {
 	    plane.pln_effic = 0;
-	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
-		     plane.pln_y);
+	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
+		     plane.pln_x, plane.pln_y);
 	    plane.pln_own = 0;
 	} else
 	    plane.pln_effic -= dam;

@@ -192,8 +192,9 @@ assemble_dist_paths(struct distinfo *distptrs)
 	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (dist == NULL) {
-	    logerror("Bad dist sect %d,%d for %d,%d !\n", sp->sct_dist_x,
-		     sp->sct_dist_y, sp->sct_x, sp->sct_y);
+	    logerror("Bad dist sect %d,%d for %d,%d !\n",
+		     sp->sct_dist_x, sp->sct_dist_y,
+		     sp->sct_x, sp->sct_y);
 	    continue;
 	}
 	/* Now, get the best distribution path over roads */

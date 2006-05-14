@@ -460,11 +460,11 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
 	    gift(sp->shp_own, player->cnum, &pln, EF_PLANE, buf);
-	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-		     pln.pln_y);
+	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid,
+		     pln.pln_x, pln.pln_y);
 	    pln.pln_own = sp->shp_own;
-	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-			pln.pln_y);
+	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid,
+			pln.pln_x, pln.pln_y);
 	    pln.pln_mission = 0;
 	    putplane(pln.pln_uid, &pln);
 	} else {
@@ -478,11 +478,11 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
-	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-		     pln.pln_y);
+	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid,
+		     pln.pln_x, pln.pln_y);
 	    pln.pln_own = sectp->sct_own;
-	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-			pln.pln_y);
+	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid,
+			pln.pln_x, pln.pln_y);
 	    putplane(pln.pln_uid, &pln);
 	}
 	pr("%s %s %s at %s.\n",
@@ -631,11 +631,11 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
 	    gift(sp->shp_own, player->cnum, &land, EF_LAND, buf);
-	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-		     land.lnd_y);
+	    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
+		     land.lnd_x, land.lnd_y);
 	    land.lnd_own = sp->shp_own;
-	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-			land.lnd_y);
+	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
+			land.lnd_x, land.lnd_y);
 	    land.lnd_ship = sp->shp_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
@@ -875,11 +875,11 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    sprintf(buf, "loaded on %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
 	    gift(lp->lnd_own, player->cnum, &pln, EF_PLANE, buf);
-	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-		     pln.pln_y);
+	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid,
+		     pln.pln_x, pln.pln_y);
 	    pln.pln_own = lp->lnd_own;
-	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-			pln.pln_y);
+	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid,
+			pln.pln_x, pln.pln_y);
 	    putplane(pln.pln_uid, &pln);
 	} else {
 	    if (!take_plane_off_land(&pln, lp)) {
@@ -891,11 +891,11 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    sprintf(buf, "unloaded at your sector at %s",
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
-	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-		     pln.pln_y);
+	    makelost(EF_PLANE, pln.pln_own, pln.pln_uid,
+		     pln.pln_x, pln.pln_y);
 	    pln.pln_own = sectp->sct_own;
-	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid, pln.pln_x,
-			pln.pln_y);
+	    makenotlost(EF_PLANE, pln.pln_own, pln.pln_uid,
+			pln.pln_x, pln.pln_y);
 	    putplane(pln.pln_uid, &pln);
 	}
 	pr("%s %s %s at %s.\n",
@@ -1090,11 +1090,11 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    sprintf(buf, "loaded on your %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
 	    gift(lp->lnd_own, player->cnum, &land, EF_LAND, buf);
-	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-		     land.lnd_y);
+	    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
+		     land.lnd_x, land.lnd_y);
 	    land.lnd_own = lp->lnd_own;
-	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-			land.lnd_y);
+	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
+			land.lnd_x, land.lnd_y);
 	    land.lnd_land = lp->lnd_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
@@ -1125,11 +1125,11 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &land, EF_LAND, buf);
-	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-		     land.lnd_y);
+	    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
+		     land.lnd_x, land.lnd_y);
 	    land.lnd_own = sectp->sct_own;
-	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-			land.lnd_y);
+	    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
+			land.lnd_x, land.lnd_y);
 	    land.lnd_land = -1;
 	    lp->lnd_nland--;
 	    putland(land.lnd_uid, &land);

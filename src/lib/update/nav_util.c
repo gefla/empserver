@@ -219,8 +219,8 @@ auto_fuel_ship(struct shpstr *sp)
 	d++;
     need = (int)d;
 
-    newfuel = supply_commod(sp->shp_own, sp->shp_x,
-			    sp->shp_y, I_PETROL, need);
+    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+			    I_PETROL, need);
     add_fuel += newfuel * 5;
     if (add_fuel > maxfuel)
 	add_fuel = maxfuel;
@@ -238,8 +238,8 @@ auto_fuel_ship(struct shpstr *sp)
 	d++;
     need = (int)d;
 
-    newfuel = supply_commod(sp->shp_own, sp->shp_x,
-			    sp->shp_y, I_OIL, need);
+    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+			    I_OIL, need);
     add_fuel = newfuel * 50;
     if (add_fuel > maxfuel)
 	add_fuel = maxfuel;

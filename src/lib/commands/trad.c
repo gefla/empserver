@@ -389,8 +389,8 @@ check_trade(void)
 	case EF_NUKE:
 	    tg.nuk.nuk_x = trade.trd_x;
 	    tg.nuk.nuk_y = trade.trd_y;
-	    makelost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid, tg.nuk.nuk_x,
-		     tg.nuk.nuk_y);
+	    makelost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid,
+		     tg.nuk.nuk_x, tg.nuk.nuk_y);
 	    tg.nuk.nuk_own = trade.trd_maxbidder;
 	    makenotlost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid,
 			tg.nuk.nuk_x, tg.nuk.nuk_y);
@@ -430,8 +430,8 @@ check_trade(void)
 		ship.shp_nland--;
 		putship(ship.shp_uid, &ship);
 	    }
-	    makelost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid, tg.lnd.lnd_x,
-		     tg.lnd.lnd_y);
+	    makelost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
+		     tg.lnd.lnd_x, tg.lnd.lnd_y);
 	    tg.lnd.lnd_own = trade.trd_maxbidder;
 	    makenotlost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
 			tg.lnd.lnd_x, tg.lnd.lnd_y);

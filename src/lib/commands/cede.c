@@ -218,8 +218,8 @@ grab_sect(struct sctstr *sp, natid to)
 	   prplane(pp), cname(player->cnum));
 	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = to;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-		    pp->pln_y);
+	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
+		    pp->pln_x, pp->pln_y);
 	pp->pln_mobil = 0;
 	pp->pln_mission = 0;
 	putplane(pp->pln_uid, pp);
@@ -235,8 +235,8 @@ grab_sect(struct sctstr *sp, natid to)
 	   prnuke(np), cname(player->cnum));
 	makelost(EF_NUKE, np->nuk_own, np->nuk_uid, np->nuk_x, np->nuk_y);
 	np->nuk_own = to;
-	makenotlost(EF_NUKE, np->nuk_own, np->nuk_uid, np->nuk_x,
-		    np->nuk_y);
+	makenotlost(EF_NUKE, np->nuk_own, np->nuk_uid,
+		    np->nuk_x, np->nuk_y);
 	putnuke(ni.cur, np);
     }
 
@@ -347,8 +347,8 @@ grab_ship(struct shpstr *sp, natid to)
 	   prplane(pp), cname(player->cnum));
 	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = to;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-		    pp->pln_y);
+	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
+		    pp->pln_x, pp->pln_y);
 	pp->pln_mobil = 0;
 	pp->pln_mission = 0;
 	putplane(pp->pln_uid, pp);

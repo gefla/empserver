@@ -50,20 +50,19 @@
 #include "optlist.h"
 
 /*
-**  Command syntax:
-**
-**  ORDER <ship>				  Show orders
-**  ORDER <ship> c[ancel]			  Cancel orders
-**  ORDER <ship> s[top]				  Suspend orders
-**  ORDER <ship> r[esume]			  Resume orders
-**  ORDER <ship> d[eclare] <dest1>		  Set destination
-**		 d[eclare] <dest1> <dest2>
-**  ORDER <ship> l[evel]   <field> <start/end> <comm> <level>
-**
-**
-** New syntax:
-**  qorder <ship>    display cargo levels     
-**  sorder <ship>    display statistical info 
+ *  Command syntax:
+ *
+ *  ORDER <ship>				  Show orders
+ *  ORDER <ship> c[ancel]			  Cancel orders
+ *  ORDER <ship> s[top]				  Suspend orders
+ *  ORDER <ship> r[esume]			  Resume orders
+ *  ORDER <ship> d[eclare] <dest1>		  Set destination
+ *		 d[eclare] <dest1> <dest2>
+ *  ORDER <ship> l[evel]   <field> <start/end> <comm> <level>
+ *
+ * New syntax:
+ *  qorder <ship>    display cargo levels     
+ *  sorder <ship>    display statistical info 
  */
 
 int
@@ -471,9 +470,9 @@ sorde(void)
 	    else {
 		/* ETA calculation */
 
-		c = BestShipPath(buf, ship.shp_x,
-				 ship.shp_y, ship.shp_destx[0],
-				 ship.shp_desty[0], ship.shp_own);
+		c = BestShipPath(buf, ship.shp_x, ship.shp_y,
+				 ship.shp_destx[0], ship.shp_desty[0],
+				 ship.shp_own);
 		if (!c)
 		    pr(" no route possible");
 		else if (*c == 'h')

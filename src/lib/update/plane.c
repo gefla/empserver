@@ -113,8 +113,8 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		/* nplane is unsigned... */
 		if (shp->shp_nplane > 0)
 		    shp->shp_nplane--;
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-			 pp->pln_y);
+		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+			 pp->pln_x, pp->pln_y);
 		pp->pln_own = 0;
 		continue;
 	    }
@@ -135,8 +135,8 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
 		    wu(0, pp->pln_own,
 		       "%s lost to lack of maintenance\n", prplane(pp));
-		    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-			     pp->pln_y);
+		    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+			     pp->pln_x, pp->pln_y);
 		    pp->pln_own = 0;
 		    continue;
 		}

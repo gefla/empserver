@@ -1459,8 +1459,8 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 
 	/* use up missiles */
 	if (plp->pcp->pl_flags & P_M) {
-	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-		     pp->pln_y);
+	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+		     pp->pln_x, pp->pln_y);
 	    pp->pln_own = 0;
 	}
     }

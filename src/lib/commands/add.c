@@ -137,8 +137,8 @@ add(void)
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == coun) {
-	    makelost(EF_LAND, land.lnd_own, land.lnd_uid, land.lnd_x,
-		     land.lnd_y);
+	    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
+		     land.lnd_x, land.lnd_y);
 	    land.lnd_own = 0;
 	    pr("Land unit %d wiped\n", land.lnd_uid);
 	    putland(land.lnd_uid, &land);

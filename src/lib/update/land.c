@@ -129,8 +129,8 @@ upd_land(struct lndstr *lp, int etus,
 	if (np->nat_priorities[PRI_LBUILD] == 0 || np->nat_money < 0)
 	    return;
 	if (lp->lnd_effic < LAND_MINEFF || !landrepair(lp, np, bp, etus)) {
-	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x,
-		     lp->lnd_y);
+	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
+		     lp->lnd_x, lp->lnd_y);
 	    lp->lnd_own = 0;
 	    return;
 	}
@@ -147,8 +147,8 @@ upd_land(struct lndstr *lp, int etus,
 	    if ((eff = lp->lnd_effic - etus / 5) < LAND_MINEFF) {
 		wu(0, lp->lnd_own,
 		   "%s lost to lack of maintenance\n", prland(lp));
-		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x,
-			 lp->lnd_y);
+		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
+			 lp->lnd_x, lp->lnd_y);
 		lp->lnd_own = 0;
 		return;
 	    }

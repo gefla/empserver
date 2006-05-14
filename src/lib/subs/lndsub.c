@@ -951,8 +951,8 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	    continue;
 	shell = fsect.sct_item[I_SHELL];
 	if (shell < 1)
-	    shell += supply_commod(fsect.sct_own,
-				   fsect.sct_x, fsect.sct_y, I_SHELL, 1);
+	    shell += supply_commod(fsect.sct_own, fsect.sct_x, fsect.sct_y,
+				   I_SHELL, 1);
 	if (shell < 1)
 	    continue;
 	shell--;

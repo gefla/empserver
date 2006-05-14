@@ -146,10 +146,10 @@ anti(void)
 		sect.sct_item[I_MILIT] = ache;
 		if (sect.sct_own == sect.sct_oldown)
 		    sect.sct_oldown = 0;
-		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x,
-			 sect.sct_y);
-		makenotlost(EF_SECTOR, sect.sct_oldown, 0, sect.sct_x,
-			    sect.sct_y);
+		makelost(EF_SECTOR, sect.sct_own, 0,
+			 sect.sct_x, sect.sct_y);
+		makenotlost(EF_SECTOR, sect.sct_oldown, 0,
+			    sect.sct_x, sect.sct_y);
 		sect.sct_own = sect.sct_oldown;
 		sect.sct_off = 1;	/* Turn the sector off */
 		putsect(&sect);

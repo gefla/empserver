@@ -334,8 +334,9 @@ multifire(void)
 	    }
 	    shell = fship.shp_item[I_SHELL];
 	    if (shell < 2)
-		shell += supply_commod(fship.shp_own, fship.shp_x,
-				       fship.shp_y, I_SHELL, 2 - shell);
+		shell += supply_commod(fship.shp_own,
+				       fship.shp_x, fship.shp_y,
+				       I_SHELL, 2 - shell);
 	    if (shell <= 0) {
 		pr("Klick!     ...\n");
 		continue;
@@ -426,8 +427,8 @@ multifire(void)
 	    fy = fsect.sct_y;
 	    if (fsect.sct_own != player->cnum ||
 		fsect.sct_type != SCT_FORTR) {
-		pr("No fortress at %s\n", xyas(fsect.sct_x,
-					       fsect.sct_y, player->cnum));
+		pr("No fortress at %s\n",
+		   xyas(fsect.sct_x, fsect.sct_y, player->cnum));
 		continue;
 	    }
 	    if (target == targ_land) {
@@ -444,8 +445,9 @@ multifire(void)
 	    }
 	    shell = fsect.sct_item[I_SHELL];
 	    if (shell <= 0)
-		shell += supply_commod(fsect.sct_own, fsect.sct_x,
-				       fsect.sct_y, I_SHELL, 1);
+		shell += supply_commod(fsect.sct_own,
+				       fsect.sct_x, fsect.sct_y,
+				       I_SHELL, 1);
 	    if (shell <= 0) {
 		pr("Klick!     ...\n");
 		continue;
@@ -793,7 +795,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
 	    if (shell < SHP_TORP_SHELLS)
-		shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
+		shell += supply_commod(ship.shp_own,
+				       ship.shp_x, ship.shp_y,
 				       I_SHELL, SHP_TORP_SHELLS - shell);
 	    if (shell < SHP_TORP_SHELLS)
 		continue;
@@ -834,8 +837,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 		continue;
 	    /* must have gun, shell, and milit to fire */
 	    if (shell < 1)
-		shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
-				       I_SHELL, 1);
+		shell += supply_commod(ship.shp_own,
+				       ship.shp_x, ship.shp_y, I_SHELL, 1);
 	    /* only need 1 shell, so don't check that */
 	    if (shell < 1)
 		continue;

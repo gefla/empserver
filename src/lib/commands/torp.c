@@ -352,9 +352,8 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
     gun = MIN(gun, sp->shp_glim);
     gun = MIN(gun, sp->shp_item[I_MILIT] / 2);
 
-    shells +=
-	supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
-		      (gun + 1) / 2 - shells);
+    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+			    I_SHELL, (gun + 1) / 2 - shells);
 
     gun = MIN(gun, shells * 2);
     if (gun == 0)
@@ -403,8 +402,8 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     shells = sp->shp_item[I_SHELL];
 
     if (shells < SHP_TORP_SHELLS)
-	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y, I_SHELL,
-				SHP_TORP_SHELLS - shells);
+	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+				I_SHELL, SHP_TORP_SHELLS - shells);
 
     if (sp->shp_item[I_GUN] == 0 || shells < SHP_TORP_SHELLS)
 	return 0;

@@ -133,8 +133,8 @@ vers(void)
     }
     pr("\n");
     pr("\t\t\t\tSectors\tShips\tPlanes\tUnits\n");
-    pr("Maximum mobility\t\t%d\t%d\t%d\t%d\n", sect_mob_max,
-       ship_mob_max, plane_mob_max, land_mob_max);
+    pr("Maximum mobility\t\t%d\t%d\t%d\t%d\n",
+       sect_mob_max, ship_mob_max, plane_mob_max, land_mob_max);
     pr("Max mob gain per update\t\t%d\t%d\t%d\t%d\n",
        (int)(sect_mob_scale * (float)etu_per_update),
        (int)(ship_mob_scale * (float)etu_per_update),

@@ -180,8 +180,7 @@ spy(void)
 	    } else {
 		insert(table, &t_len, nx, ny);
 		spyline(&dsect);
-		changed += map_set(player->cnum, dsect.sct_x,
-				   dsect.sct_y,
+		changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
 				   dchr[dsect.sct_type].d_mnem, 0);
 		prunits(dsect.sct_x, dsect.sct_y);
 		prplanes(dsect.sct_x, dsect.sct_y);
@@ -195,8 +194,7 @@ spy(void)
 	    if (nrecon && caught) {
 		insert(table, &t_len, nx, ny);
 		spyline(&dsect);
-		changed += map_set(player->cnum, dsect.sct_x,
-				   dsect.sct_y,
+		changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
 				   dchr[dsect.sct_type].d_mnem, 0);
 		prunits(dsect.sct_x, dsect.sct_y);
 		prplanes(dsect.sct_x, dsect.sct_y);

@@ -137,10 +137,8 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 		else
 		    wu(0, ship.shp_own,
 		       "%s supported %s attacks against %s at %s, doing %d damage.\n",
-		       prship(&ship), cname(own), cname(att), xyas(x, y,
-								   ship.
-								   shp_own),
-		       dam);
+		       prship(&ship), cname(own), cname(att),
+		       xyas(x, y, ship.shp_own), dam);
 	    }
 	}
     }
@@ -233,8 +231,8 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
 	return 0;
     shell = sp->sct_item[I_SHELL];
     if (shell <= 0)
-	shell += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y, I_SHELL,
-			       1);
+	shell += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y,
+			       I_SHELL, 1);
     if (shell <= 0)
 	return 0;
     sp->sct_item[I_SHELL] = shell - 1;
@@ -243,11 +241,8 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
     if (sp->sct_own != def)
 	wu(0, sp->sct_own,
 	   "%s fired on %s in %s in defense of %s, doing %d damage!\n",
-	   xyas(sp->sct_x, sp->sct_y, sp->sct_own), cname(att), xyas(tx,
-								     ty,
-								     sp->
-								     sct_own),
-	   cname(def), damage);
+	   xyas(sp->sct_x, sp->sct_y, sp->sct_own), cname(att),
+	   xyas(tx, ty, sp->sct_own), cname(def), damage);
     if (defending)
 	nreport(sp->sct_own, N_FIRE_BACK, att, 1);
     else

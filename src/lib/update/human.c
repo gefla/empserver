@@ -102,9 +102,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		needed = ldround((double)(1 + etu * people * eatrate), 1);
 
 		/* Now, find some food */
-		vec[I_FOOD] = supply_commod(sp->sct_own, sp->sct_x,
-					    sp->sct_y, I_FOOD, needed);
-
+		vec[I_FOOD] = supply_commod(sp->sct_own,
+					    sp->sct_x, sp->sct_y,
+					    I_FOOD, needed);
 	    }
 	}
 	starved = feed_people(vec, etu, &needed);

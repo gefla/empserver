@@ -167,8 +167,8 @@ extern int as_search(struct as_data *adp);
 extern void as_delete(struct as_data *adp);
 extern void as_reset(struct as_data *adp);
 extern void as_stats(struct as_data *adp, FILE * fp);
-extern struct as_path *as_find_cachepath(coord fx,
-					 coord fy, coord tx, coord ty);
+extern struct as_path *as_find_cachepath(coord fx, coord fy,
+					 coord tx, coord ty);
 
 /* Functions that are "private" to algorithm */
 

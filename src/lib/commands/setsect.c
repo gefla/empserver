@@ -157,10 +157,9 @@ setsector(void)
 		    wu(player->cnum, amt,
 		       "Sector %s gained from deity intervention\n",
 		       xyas(sect.sct_x, sect.sct_y, amt));
-		makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x,
-			 sect.sct_y);
+		makelost(EF_SECTOR, sect.sct_own, 0,
+			 sect.sct_x, sect.sct_y);
 		makenotlost(EF_SECTOR, amt, 0, sect.sct_x, sect.sct_y);
-
 		sect.sct_own = (natid)amt;
 		putsect(&sect);
 	    }

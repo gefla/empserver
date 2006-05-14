@@ -139,8 +139,8 @@ fuel(void)
 
 		if (sect.sct_effic < 2) {
 		    pr("The harbor at %s is not 2%% efficient yet.\n",
-		       xyas(item.ship.shp_x,
-			    item.ship.shp_y, player->cnum));
+		       xyas(item.ship.shp_x, item.ship.shp_y,
+			    player->cnum));
 		    harbor = 0;
 		}
 		if ((sect.sct_own != player->cnum) && sect.sct_own)

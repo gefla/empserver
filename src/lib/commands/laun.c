@@ -159,8 +159,8 @@ laun(void)
 	if (retval != RET_OK)
 	    return retval;
 	if (gone) {
-	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid, plane.pln_x,
-		     plane.pln_y);
+	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
+		     plane.pln_x, plane.pln_y);
 	    plane.pln_own = 0;
 	    putplane(plane.pln_uid, &plane);
 	}

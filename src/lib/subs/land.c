@@ -123,8 +123,8 @@ lnd_prewrite(int n, void *ptr)
     time(&llp->lnd_timestamp);
 
     if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
-	makelost(EF_LAND, llp->lnd_own, llp->lnd_uid, llp->lnd_x,
-		 llp->lnd_y);
+	makelost(EF_LAND, llp->lnd_own, llp->lnd_uid,
+		 llp->lnd_x, llp->lnd_y);
 	llp->lnd_own = 0;
 
 	getland(n, &land);
@@ -132,8 +132,8 @@ lnd_prewrite(int n, void *ptr)
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_land == n) {
 		mpr(lp->lnd_own, "%s MIA!\n", prland(lp));
-		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x,
-			 lp->lnd_y);
+		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
+			 lp->lnd_x, lp->lnd_y);
 		lp->lnd_own = 0;
 		lp->lnd_effic = 0;
 		lp->lnd_ship = -1;
@@ -144,8 +144,8 @@ lnd_prewrite(int n, void *ptr)
 	for (i = 0; NULL != (pp = getplanep(i)); i++) {
 	    if (pp->pln_own && pp->pln_land == n) {
 		mpr(pp->pln_own, "%s MIA!\n", prplane(pp));
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-			 pp->pln_y);
+		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+			 pp->pln_x, pp->pln_y);
 		pp->pln_own = 0;
 		pp->pln_effic = 0;
 		pp->pln_ship = -1;

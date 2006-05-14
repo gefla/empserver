@@ -727,9 +727,8 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
     } else {
 	if (pp->pln_own != sect.sct_own) {
 	    wu(0, sect.sct_own, "%s %s prepares for takeoff from %s\n",
-	       cname(pp->pln_own), prplane(pp), xyas(sect.sct_x,
-						     sect.sct_y,
-						     sect.sct_own));
+	       cname(pp->pln_own), prplane(pp),
+	       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	}
 	putsect(&sect);
     }

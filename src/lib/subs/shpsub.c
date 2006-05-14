@@ -404,8 +404,8 @@ sect_has_dock(struct sctstr *sect)
 }
 
 static int
-shp_count(struct emp_qelem *list, int wantflags, int nowantflags, int x,
-	  int y)
+shp_count(struct emp_qelem *list, int wantflags, int nowantflags,
+	  int x, int y)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -686,8 +686,8 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    continue;
 	shell = fsect.sct_item[I_SHELL];
 	if (shell < 1)
-	    shell += supply_commod(fsect.sct_own,
-				   fsect.sct_x, fsect.sct_y, I_SHELL, 1);
+	    shell += supply_commod(fsect.sct_own, fsect.sct_x, fsect.sct_y,
+				   I_SHELL, 1);
 	if (shell < 1)
 	    continue;
 	shell--;

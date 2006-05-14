@@ -116,8 +116,8 @@ pln_prewrite(int n, void *ptr)
 
     if (pp->pln_effic < PLANE_MINEFF) {
 	if (pp->pln_own)
-	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x,
-		     pp->pln_y);
+	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+		     pp->pln_x, pp->pln_y);
 	pp->pln_own = 0;
 	pp->pln_effic = 0;
 	for (i = 0; NULL != (np = getnukep(i)); i++) {
