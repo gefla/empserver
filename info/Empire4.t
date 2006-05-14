@@ -7,6 +7,36 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.3 - Sun May 14 19:23:01 UTC 2006
+ * Fortresses now require 5% efficiency to return fire and interdict.
+ * Range of ship return fire and support fire no longer depends on
+   efficiency.
+ * Fix heap smash in login command client.  Remote hole!
+ * Properly destroy nukes on collapsing bridges.  Before, you could
+   rescue them by building a new bridge or arming them on naval
+   planes.
+ * Nukes are now numbered like other units:
+   - New selector type replaces selectors number and types.
+   - New selector plane points to plane armed with this nuke.
+   - New selectors effic, mobil, tech, group, opx, opy, mission,
+     radius.  Provided because all units have them; values are
+     currently not interesting.
+   - nuke command output redesigned.
+   - ndump output changed subtly: nukes are no longer sorted by
+     location, nukes in the same location no longer share id, and
+     nukes on planes are shown.
+   - transport nuke now works like transport plane.
+ * arm and disarm now accept the common plane syntax, not just plane
+   numbers.
+ * Fix arm to let you change an armed plane's air-burst/ground-burst
+   (broken in 4.2.6).
+ * territory no longer re-prompts when supplied with a bad argument,
+   it just fails.
+ * edit lets you edit stuff that is actually computed from other
+   state, like sector's coastal flag.  This makes no sense and is now
+   deprecated.  Stuff deprecated since 4.2.15 is now gone.
+ * Code cleanup.
+
 Changes to Empire 4.3.2 - Thu Apr 27 17:59:58 UTC 2006
  * Fix security units' raid at the update (broken in 4.0.0, fixed only
    for 100% units in 4.2.7).  Back out 4.2.7's 2.5x deadliness
