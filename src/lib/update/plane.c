@@ -49,31 +49,16 @@
 #include "common.h"
 #include "gen.h"
 
+static void planerepair(struct plnstr *, struct natstr *, int *, int);
+static void upd_plane(struct plnstr *, int, struct natstr *, int *, int);
+
 int
 prod_plane(int etus, int natnum, int *bp, int buildem)
-
-
-
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
-    struct plchrstr *pcp;
     struct natstr *np;
-    float leftp, buildp;
-    int left, build;
-    int lcm_needed, hcm_needed;
-    int mil_needed;
-    int mvec[I_MAX + 1];
     int n, k = 0;
-    struct shpstr *carrier;
-    struct sctstr *sp;
-    int delta;
-    int mult;
-    int cost;
-    int eff;
-    int avail;
-    int w_p_eff;
-    int used;
     int start_money;
 
     for (n = 0; NULL != (pp = getplanep(n)); n++) {
@@ -95,148 +80,165 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    continue;
 	}
 
-	carrier = NULL;
-	if (pp->pln_ship >= 0 && (buildem == 1)) {
-	    if (pp->pln_effic >= 80)
-		continue;
-	    carrier = getshipp(pp->pln_ship);
-	    if (CANT_HAPPEN(!carrier || carrier->shp_own != pp->pln_own))
-		continue;
-	}
 	np = getnatp(pp->pln_own);
-	pcp = &plchr[(int)pp->pln_type];
-	sp = getsectp(pp->pln_x, pp->pln_y);
+	start_money = np->nat_money;
+	upd_plane(pp, etus, np, bp, buildem);
+	air_money[pp->pln_own] += np->nat_money - start_money;
+	if (buildem == 0)
+	    k++;
+	if (player->simulation)
+	    np->nat_money = start_money;
+    }
+
+    return k;
+}
+
+static void
+upd_plane(struct plnstr *pp, int etus,
+	  struct natstr *np, int *bp, int build)
+{
+    struct plchrstr *pcp = &plchr[(int)pp->pln_type];
+    int mult, cost, eff;
+
+    if (build == 1) {
+	if (np->nat_priorities[PRI_PBUILD] == 0 || np->nat_money < 0)
+	    return;
+	planerepair(pp, np, bp, etus);
+    } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	    mult = 2;
-
-	if (buildem == 0) {
-	    /* flight pay is 5x the pay received by other military */
-	    start_money = np->nat_money;
-	    cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
-	    if ((np->nat_priorities[PRI_PMAINT] == 0 ||
-		 np->nat_money < cost) && !player->simulation) {
-		if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
-		    wu(0, pp->pln_own,
-		       "%s lost to lack of maintenance\n", prplane(pp));
-		    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-			     pp->pln_x, pp->pln_y);
-		    pp->pln_own = 0;
-		    continue;
-		}
+	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
+	if ((np->nat_priorities[PRI_PMAINT] == 0 || np->nat_money < cost)
+	    && !player->simulation) {
+	    if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
 		wu(0, pp->pln_own,
-		   "%s lost %d%% to lack of maintenance\n",
-		   prplane(pp), pp->pln_effic - eff);
-		pp->pln_effic = eff;
-	    } else {
-		np->nat_money -= cost;
+		   "%s lost to lack of maintenance\n", prplane(pp));
+		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
+			 pp->pln_x, pp->pln_y);
+		pp->pln_own = 0;
+		return;
 	    }
-
-	    np->nat_money += (etus * pcp->pl_crew * money_mil * 5);
-
-	    air_money[pp->pln_own] += np->nat_money - start_money;
-	    k++;
-	    if (player->simulation)
-		np->nat_money = start_money;
-	    if ((pp->pln_flags & PLN_LAUNCHED) == PLN_LAUNCHED)
-		continue;
+	    wu(0, pp->pln_own,
+	       "%s lost %d%% to lack of maintenance\n",
+	       prplane(pp), pp->pln_effic - eff);
+	    pp->pln_effic = eff;
 	} else {
-	    if (sp->sct_off)
-		continue;
-	    if (np->nat_priorities[PRI_PBUILD] == 0 || np->nat_money < 0)
-		continue;
-
-	    start_money = np->nat_money;
-	    left = 100 - pp->pln_effic;
-	    if (left <= 0)
-		continue;
-
-	    if (!player->simulation)
-		avail = sp->sct_avail * 100;
-	    else
-		avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
-
-	    if (carrier)
-		avail += etus * carrier->shp_item[I_MILIT] / 2;
-	    w_p_eff = PLN_BLD_WORK(pcp->pl_lcm, pcp->pl_hcm);
-	    delta = roundavg((double)avail / w_p_eff);
-	    if (delta <= 0)
-		continue;
-	    if (delta > (int)((float)etus * plane_grow_scale))
-		delta = (int)((float)etus * plane_grow_scale);
-	    if (delta > left)
-		delta = left;
-
-	    /* delta is the max amount we can grow */
-
-	    left = 100 - pp->pln_effic;
-	    if (left > delta)
-		left = delta;
-
-	    leftp = left / 100.0;
-	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed = ldround(pcp->pl_crew * leftp, 1);
-	    mvec[I_LCM] = lcm_needed = ldround(pcp->pl_lcm * leftp, 1);
-	    mvec[I_HCM] = hcm_needed = ldround(pcp->pl_hcm * leftp, 1);
-
-	    get_materials(sp, bp, mvec, 0);
-
-	    if (mvec[I_MILIT] >= mil_needed)
-		buildp = leftp;
-	    else
-		buildp = ((float)mvec[I_MILIT] / (float)pcp->pl_crew);
-
-	    if (mvec[I_LCM] < lcm_needed)
-		buildp = MIN(buildp, ((float)mvec[I_LCM] /
-				      (float)pcp->pl_lcm));
-
-	    if (mvec[I_HCM] < hcm_needed)
-		buildp = MIN(buildp, ((float)mvec[I_HCM] /
-				      (float)pcp->pl_hcm));
-
-	    build = ldround(buildp * 100.0, 1);
-	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed = roundavg(pcp->pl_crew * buildp);
-	    mvec[I_LCM] = lcm_needed = roundavg(pcp->pl_lcm * buildp);
-	    mvec[I_HCM] = hcm_needed = roundavg(pcp->pl_hcm * buildp);
-
-	    get_materials(sp, bp, mvec, 1);
-
-	    if (carrier)
-		build = delta;
-	    used = build * w_p_eff;
-
-	    /*
-	     * I didn't use roundavg here, because I want to
-	     * penalize the player with a large number of planes.
-	     */
-	    if (!player->simulation)
-		avail = (sp->sct_avail * 100 - used) / 100;
-	    else
-		avail = (gt_bg_nmbr(bp, sp, I_MAX + 1) * 100 - used) / 100;
-
-	    if (avail < 0)
-		avail = 0;
-	    if (!player->simulation)
-		sp->sct_avail = avail;
-	    else
-		pt_bg_nmbr(bp, sp, I_MAX + 1, avail);
-
-	    if (sp->sct_type != SCT_AIRPT)
-		build /= 3;
-	    if (carrier) {
-		if ((pp->pln_effic + build) > 80)
-		    build = 80 - pp->pln_effic;
-	    }
-	    np->nat_money -= mult * build * pcp->pl_cost / 100.0;
-	    air_money[pp->pln_own] += np->nat_money - start_money;
-
-	    if (!player->simulation)
-		pp->pln_effic += (signed char)build;
-	    else
-		np->nat_money = start_money;
-	    k++;
+	    np->nat_money -= cost;
 	}
+	/* flight pay is 5x the pay received by other military */
+	np->nat_money += etus * pcp->pl_crew * money_mil * 5;
     }
-    return k;
+}
+
+static void
+planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
+{
+    float leftp, buildp;
+    int left, build;
+    int mil_needed, lcm_needed, hcm_needed;
+    int mvec[I_MAX + 1];
+    struct shpstr *carrier;
+    struct plchrstr *pcp = &plchr[(int)pp->pln_type];
+    struct sctstr *sp = getsectp(pp->pln_x, pp->pln_y);
+    int delta;
+    int mult;
+    int avail;
+    int w_p_eff;
+    int used;
+
+    carrier = NULL;
+    if (pp->pln_ship >= 0) {
+	if (pp->pln_effic >= 80)
+	    return;
+	carrier = getshipp(pp->pln_ship);
+	if (CANT_HAPPEN(!carrier || carrier->shp_own != pp->pln_own))
+	    return;
+    }
+
+    if (sp->sct_off)
+	return;
+    mult = 1;
+    if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
+	mult = 2;
+
+    if (pp->pln_effic == 100)
+	return;
+
+    if (!player->simulation)
+	avail = sp->sct_avail * 100;
+    else
+	avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
+    if (carrier)
+	avail += etus * carrier->shp_item[I_MILIT] / 2;
+
+    w_p_eff = PLN_BLD_WORK(pcp->pl_lcm, pcp->pl_hcm);
+    delta = roundavg((double)avail / w_p_eff);
+    if (delta <= 0)
+	return;
+    if (delta > (int)((float)etus * plane_grow_scale))
+	delta = (int)((float)etus * plane_grow_scale);
+
+    /* delta is the max amount we can grow */
+
+    left = 100 - pp->pln_effic;
+    if (left > delta)
+	left = delta;
+
+    leftp = left / 100.0;
+    memset(mvec, 0, sizeof(mvec));
+    mvec[I_MILIT] = mil_needed = ldround(pcp->pl_crew * leftp, 1);
+    mvec[I_LCM] = lcm_needed = ldround(pcp->pl_lcm * leftp, 1);
+    mvec[I_HCM] = hcm_needed = ldround(pcp->pl_hcm * leftp, 1);
+
+    get_materials(sp, bp, mvec, 0);
+
+    if (mvec[I_MILIT] >= mil_needed)
+	buildp = leftp;
+    else
+	buildp = ((float)mvec[I_MILIT] / (float)pcp->pl_crew);
+    if (mvec[I_LCM] < lcm_needed)
+	buildp = MIN(buildp, ((float)mvec[I_LCM] / (float)pcp->pl_lcm));
+    if (mvec[I_HCM] < hcm_needed)
+	buildp = MIN(buildp, ((float)mvec[I_HCM] / (float)pcp->pl_hcm));
+
+    build = ldround(buildp * 100.0, 1);
+    memset(mvec, 0, sizeof(mvec));
+    mvec[I_MILIT] = mil_needed = roundavg(pcp->pl_crew * buildp);
+    mvec[I_LCM] = lcm_needed = roundavg(pcp->pl_lcm * buildp);
+    mvec[I_HCM] = hcm_needed = roundavg(pcp->pl_hcm * buildp);
+
+    get_materials(sp, bp, mvec, 1);
+
+    if (carrier)
+	build = delta;
+
+    used = build * w_p_eff;
+    /*
+     * I didn't use roundavg here, because I want to
+     * penalize the player with a large number of planes.
+     */
+    if (!player->simulation)
+	avail = (sp->sct_avail * 100 - used) / 100;
+    else
+	avail = (gt_bg_nmbr(bp, sp, I_MAX + 1) * 100 - used) / 100;
+
+    if (avail < 0)
+	avail = 0;
+    if (!player->simulation)
+	sp->sct_avail = avail;
+    else
+	pt_bg_nmbr(bp, sp, I_MAX + 1, avail);
+
+    if (sp->sct_type != SCT_AIRPT)
+	build /= 3;
+    if (carrier) {
+	if ((pp->pln_effic + build) > 80)
+	    build = 80 - pp->pln_effic;
+    }
+
+    np->nat_money -= mult * build * pcp->pl_cost / 100.0;
+
+    if (!player->simulation)
+	pp->pln_effic += (signed char)build;
 }
