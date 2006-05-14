@@ -57,7 +57,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
-    struct plchrstr *plp;
+    struct plchrstr *pcp;
     struct natstr *np;
     float leftp, buildp;
     int left, build;
@@ -66,7 +66,6 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
     int mvec[I_MAX + 1];
     int n, k = 0;
     struct shpstr *shp;
-    struct plchrstr *desc;
     struct sctstr *sp;
     int delta;
     int mult;
@@ -88,8 +87,6 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    pp->pln_own = 0;
 	    continue;
 	}
-
-	plp = &plchr[(int)pp->pln_type];
 
 	if (pp->pln_flags & PLN_LAUNCHED) {
 	    if (!player->simulation && buildem == 0
@@ -116,7 +113,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    }
 	}
 	np = getnatp(pp->pln_own);
-	desc = &plchr[(int)pp->pln_type];
+	pcp = &plchr[(int)pp->pln_type];
 	sp = getsectp(pp->pln_x, pp->pln_y);
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
@@ -125,7 +122,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	if (buildem == 0) {
 	    /* flight pay is 5x the pay received by other military */
 	    start_money = np->nat_money;
-	    cost = -(mult * etus * MIN(0.0, desc->pl_cost * money_plane));
+	    cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
 	    if ((np->nat_priorities[PRI_PMAINT] == 0 ||
 		 np->nat_money < cost) && !player->simulation) {
 		if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
@@ -144,7 +141,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		np->nat_money -= cost;
 	    }
 
-	    np->nat_money += (etus * plp->pl_crew * money_mil * 5);
+	    np->nat_money += (etus * pcp->pl_crew * money_mil * 5);
 
 	    air_money[pp->pln_own] += np->nat_money - start_money;
 	    k++;
@@ -172,7 +169,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		shp = getshipp(pp->pln_ship);
 		avail += (etus * shp->shp_item[I_MILIT] / 2);
 	    }
-	    w_p_eff = PLN_BLD_WORK(desc->pl_lcm, desc->pl_hcm);
+	    w_p_eff = PLN_BLD_WORK(pcp->pl_lcm, pcp->pl_hcm);
 	    delta = roundavg((double)avail / w_p_eff);
 	    if (delta <= 0)
 		continue;
@@ -189,30 +186,30 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 	    leftp = left / 100.0;
 	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed = ldround(plp->pl_crew * leftp, 1);
-	    mvec[I_LCM] = lcm_needed = ldround(plp->pl_lcm * leftp, 1);
-	    mvec[I_HCM] = hcm_needed = ldround(plp->pl_hcm * leftp, 1);
+	    mvec[I_MILIT] = mil_needed = ldround(pcp->pl_crew * leftp, 1);
+	    mvec[I_LCM] = lcm_needed = ldround(pcp->pl_lcm * leftp, 1);
+	    mvec[I_HCM] = hcm_needed = ldround(pcp->pl_hcm * leftp, 1);
 
 	    get_materials(sp, bp, mvec, 0);
 
 	    if (mvec[I_MILIT] >= mil_needed)
 		buildp = leftp;
 	    else
-		buildp = ((float)mvec[I_MILIT] / (float)plp->pl_crew);
+		buildp = ((float)mvec[I_MILIT] / (float)pcp->pl_crew);
 
 	    if (mvec[I_LCM] < lcm_needed)
 		buildp = MIN(buildp, ((float)mvec[I_LCM] /
-				      (float)plp->pl_lcm));
+				      (float)pcp->pl_lcm));
 
 	    if (mvec[I_HCM] < hcm_needed)
 		buildp = MIN(buildp, ((float)mvec[I_HCM] /
-				      (float)plp->pl_hcm));
+				      (float)pcp->pl_hcm));
 
 	    build = ldround(buildp * 100.0, 1);
 	    memset(mvec, 0, sizeof(mvec));
-	    mvec[I_MILIT] = mil_needed = roundavg(plp->pl_crew * buildp);
-	    mvec[I_LCM] = lcm_needed = roundavg(plp->pl_lcm * buildp);
-	    mvec[I_HCM] = hcm_needed = roundavg(plp->pl_hcm * buildp);
+	    mvec[I_MILIT] = mil_needed = roundavg(pcp->pl_crew * buildp);
+	    mvec[I_LCM] = lcm_needed = roundavg(pcp->pl_lcm * buildp);
+	    mvec[I_HCM] = hcm_needed = roundavg(pcp->pl_hcm * buildp);
 
 	    get_materials(sp, bp, mvec, 1);
 
@@ -242,8 +239,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 		if ((pp->pln_effic + build) > 80)
 		    build = 80 - pp->pln_effic;
 	    }
-	    np->nat_money -= roundavg(mult * build *
-				      desc->pl_cost / 100.0);
+	    np->nat_money -= mult * build * pcp->pl_cost / 100.0;
 	    air_money[pp->pln_own] += np->nat_money - start_money;
 
 	    if (!player->simulation)
