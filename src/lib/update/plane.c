@@ -90,15 +90,11 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	}
 
 	plp = &plchr[(int)pp->pln_type];
+
 	if (pp->pln_flags & PLN_LAUNCHED) {
-	    if (buildem == 0) {
-		if ((!player->simulation) &&
-		    (plp->pl_flags & P_O) &&
-		    (pp->pln_flags & PLN_LAUNCHED) &&
-		    !(plp->pl_flags & P_M) &&
-		    !(pp->pln_flags & PLN_SYNCHRONOUS))
-		    move_sat(pp);
-	    }
+	    if (!player->simulation && buildem == 0
+		&& !(pp->pln_flags & PLN_SYNCHRONOUS))
+		move_sat(pp);
 	    continue;
 	}
 
