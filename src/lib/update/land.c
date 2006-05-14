@@ -55,10 +55,8 @@
 
 int mil_dbl_pay;
 
-static int landrepair(struct lndstr *, struct natstr *,
-		      int *, int);
-static void upd_land(struct lndstr *lp, int etus,
-		     struct natstr *np, int *bp, int build);
+static void landrepair(struct lndstr *, struct natstr *, int *, int);
+static void upd_land(struct lndstr *, int, struct natstr *, int *, int);
 
 int
 prod_land(int etus, int natnum, int *bp, int build)
@@ -77,6 +75,12 @@ prod_land(int etus, int natnum, int *bp, int build)
 	    continue;
 	if (lp->lnd_own != natnum)
 	    continue;
+	if (lp->lnd_effic < LAND_MINEFF) {
+	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
+		     lp->lnd_x, lp->lnd_y);
+	    lp->lnd_own = 0;
+	    continue;
+	}
 
 	sp = getsectp(lp->lnd_x, lp->lnd_y);
 	if (sp->sct_type == SCT_SANCT)
@@ -128,19 +132,13 @@ upd_land(struct lndstr *lp, int etus,
     if (build == 1) {
 	if (np->nat_priorities[PRI_LBUILD] == 0 || np->nat_money < 0)
 	    return;
-	if (lp->lnd_effic < LAND_MINEFF || !landrepair(lp, np, bp, etus)) {
-	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
-		     lp->lnd_x, lp->lnd_y);
-	    lp->lnd_own = 0;
-	    return;
-	}
+	landrepair(lp, np, bp, etus);
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < lp->lnd_tech * 0.85)
 	    mult = 2;
 	if (lcp->l_flags & L_ENGINEER)
 	    mult *= 3;
-/*		cost = -(mult * etus * MIN(0.0, money_land * LND_COST(lcp->l_cost, lp->lnd_tech - lcp->l_tech)));*/
 	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
 	if ((np->nat_priorities[PRI_LMAINT] == 0 || np->nat_money < cost)
 	    && !player->simulation) {
@@ -160,11 +158,8 @@ upd_land(struct lndstr *lp, int etus,
 	    np->nat_money -= cost;
 	}
 
-	/* Grab more stuff */
-	if ((opt_NOFOOD == 0) && !player->simulation)
-	    resupply_commod(lp, I_FOOD);
-
 	if (!player->simulation) {
+	    /* feed */
 	    if ((n = feed_land(lp, etus, &needed, 1)) > 0) {
 		wu(0, lp->lnd_own, "%d starved in %s%s\n",
 		   n, prland(lp),
@@ -228,9 +223,8 @@ upd_land(struct lndstr *lp, int etus,
 }
 
 /*ARGSUSED*/
-static int
-landrepair(struct lndstr *land, struct natstr *np,
-	   int *bp, int etus)
+static void
+landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 {
     int delta;
     struct sctstr *sp;
@@ -246,17 +240,17 @@ landrepair(struct lndstr *land, struct natstr *np,
     lp = &lchr[(int)land->lnd_type];
     sp = getsectp(land->lnd_x, land->lnd_y);
     if (sp->sct_off)
-	return 1;
+	return;
     mult = 1;
     if (np->nat_level[NAT_TLEV] < land->lnd_tech * 0.85)
 	mult = 2;
 
     if (land->lnd_effic == 100) {
 	/* land is ok; no repairs needed */
-	return 1;
+	return;
     }
     if (sp->sct_own != land->lnd_own)
-	return 1;
+	return;
 
     if (!player->simulation)
 	avail = sp->sct_avail * 100;
@@ -266,7 +260,7 @@ landrepair(struct lndstr *land, struct natstr *np,
     w_p_eff = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
-	return 1;
+	return;
     if (delta > (int)((float)etus * land_grow_scale))
 	delta = (int)((float)etus * land_grow_scale);
 
@@ -341,10 +335,7 @@ landrepair(struct lndstr *land, struct natstr *np,
     np->nat_money -= mult * lp->l_cost * build / 100.0;
     if (!player->simulation) {
 	land->lnd_effic += (signed char)build;
-
-	putsect(sp);
     }
-    return 1;
 }
 
 /*
@@ -372,6 +363,8 @@ feed_land(struct lndstr *lp, int etus, int *needed, int doit)
     starved = 0;
     *needed = 0;
 
+    if (doit)
+	resupply_commod(lp, I_FOOD);
     /*
      * If we're on a ship, and we don't have enough food,
      * get some food off the carrying ship. (Don't starve

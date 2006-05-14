@@ -55,10 +55,8 @@
 #include "lost.h"
 #include "budg.h"
 
-static int shiprepair(struct shpstr *, struct natstr *,
-		      int *, int);
-static void upd_ship(struct shpstr *, int,
-		     struct natstr *, int *, int);
+static void shiprepair(struct shpstr *, struct natstr *, int *, int);
+static void upd_ship(struct shpstr *, int, struct natstr *, int *, int);
 
 int
 prod_ship(int etus, int natnum, int *bp, int build)
@@ -76,8 +74,14 @@ prod_ship(int etus, int natnum, int *bp, int build)
 	    continue;
 	if (sp->shp_own != natnum)
 	    continue;
+	if (sp->shp_effic < SHIP_MINEFF) {
+	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
+		     sp->shp_x, sp->shp_y);
+	    sp->shp_own = 0;
+	    continue;
+	}
+
 	np = getnatp(sp->shp_own);
-	start_money = np->nat_money;
 	if (lastx == 9999 || lasty == 9999) {
 	    lastx = sp->shp_x;
 	    lasty = sp->shp_y;
@@ -88,6 +92,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
 	    bp_clear_cachepath();
 	    bp_enable_cachepath();
 	}
+	start_money = np->nat_money;
 	upd_ship(sp, etus, np, bp, build);
 	if (build && !player->simulation)	/* make sure to only autonav once */
 	    nav_ship(sp);	/* autonav the ship */
@@ -131,12 +136,7 @@ upd_ship(struct shpstr *sp, int etus,
     if (build == 1) {
 	if (np->nat_priorities[PRI_SBUILD] == 0 || np->nat_money < 0)
 	    return;
-	if (sp->shp_effic < SHIP_MINEFF || !shiprepair(sp, np, bp, etus)) {
-	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
-		     sp->shp_x, sp->shp_y);
-	    sp->shp_own = 0;
-	    return;
-	}
+	shiprepair(sp, np, bp, etus);
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
@@ -163,10 +163,8 @@ upd_ship(struct shpstr *sp, int etus,
 	if (!player->simulation) {
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
+	    /* produce oil */
 	    if ((mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
-		/*
-		 * take care of oil production
-		 */
 		product = &pchr[P_OIL];
 		oil_gained = roundavg(total_work(100, etus,
 						 sp->shp_item[I_CIVIL],
@@ -190,6 +188,7 @@ upd_ship(struct shpstr *sp, int etus,
 		}
 		sp->shp_item[I_OIL] += oil_gained;
 	    }
+	    /* produce fish */
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
 		product = &pchr[P_FOOD];
 		sp->shp_item[I_FOOD]
@@ -202,6 +201,7 @@ upd_ship(struct shpstr *sp, int etus,
 				* sectp->sct_fertil / 100.0
 				* prod_eff(product, sp->shp_tech));
 	    }
+	    /* feed */
 	    if ((n = feed_ship(sp, etus, &needed, 1)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
 		if (n > 10)
@@ -272,9 +272,8 @@ upd_ship(struct shpstr *sp, int etus,
  * battleships +8 % eff each etu.  This will cost around
  * 8 * 8 * $40 = $2560!
  */
-static int
-shiprepair(struct shpstr *ship, struct natstr *np,
-	   int *bp, int etus)
+static void
+shiprepair(struct shpstr *ship, struct natstr *np, int *bp, int etus)
 {
     int delta;
     struct sctstr *sp;
@@ -296,7 +295,7 @@ shiprepair(struct shpstr *ship, struct natstr *np,
 	rel = getrel(getnatp(sp->sct_own), ship->shp_own);
 
 	if (rel < FRIENDLY)
-	    return 1;
+	    return;
     }
 
     wf = 0;
@@ -319,7 +318,7 @@ shiprepair(struct shpstr *ship, struct natstr *np,
     w_p_eff = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
     if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
-	return 1;
+	return;
 
     mult = 1;
     if (np->nat_level[NAT_TLEV] < ship->shp_tech * 0.85)
@@ -327,13 +326,13 @@ shiprepair(struct shpstr *ship, struct natstr *np,
 
     if (ship->shp_effic == 100) {
 	/* ship is ok; no repairs needed */
-	return 1;
+	return;
     }
 
     left = 100 - ship->shp_effic;
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
-	return 1;
+	return;
     if (delta > (int)((float)etus * ship_grow_scale))
 	delta = (int)((float)etus * ship_grow_scale);
     if (delta > left)
@@ -394,8 +393,7 @@ shiprepair(struct shpstr *ship, struct natstr *np,
 
     np->nat_money -= mult * mp->m_cost * build / 100.0;
     if (!player->simulation)
-	ship->shp_effic += build;
-    return 1;
+	ship->shp_effic += (signed char)build;
 }
 
 /*
