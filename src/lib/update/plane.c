@@ -65,7 +65,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
     int mil_needed;
     int mvec[I_MAX + 1];
     int n, k = 0;
-    struct shpstr *shp;
+    struct shpstr *carrier;
     struct sctstr *sp;
     int delta;
     int mult;
@@ -74,7 +74,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
     int avail;
     int w_p_eff;
     int used;
-    int start_money, onship;
+    int start_money;
 
     for (n = 0; NULL != (pp = getplanep(n)); n++) {
 	if (pp->pln_own == 0)
@@ -95,22 +95,13 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    continue;
 	}
 
-	onship = 0;
-	shp = NULL;
+	carrier = NULL;
 	if (pp->pln_ship >= 0 && (buildem == 1)) {
 	    if (pp->pln_effic >= 80)
 		continue;
-	    onship = 1;
-	    shp = getshipp(pp->pln_ship);
-	    if (shp == 0 || shp->shp_own != pp->pln_own) {
-		/* nplane is unsigned... */
-		if (shp->shp_nplane > 0)
-		    shp->shp_nplane--;
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-			 pp->pln_x, pp->pln_y);
-		pp->pln_own = 0;
+	    carrier = getshipp(pp->pln_ship);
+	    if (CANT_HAPPEN(!carrier || carrier->shp_own != pp->pln_own))
 		continue;
-	    }
 	}
 	np = getnatp(pp->pln_own);
 	pcp = &plchr[(int)pp->pln_type];
@@ -165,10 +156,8 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	    else
 		avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
 
-	    if (pp->pln_ship >= 0) {
-		shp = getshipp(pp->pln_ship);
-		avail += (etus * shp->shp_item[I_MILIT] / 2);
-	    }
+	    if (carrier)
+		avail += etus * carrier->shp_item[I_MILIT] / 2;
 	    w_p_eff = PLN_BLD_WORK(pcp->pl_lcm, pcp->pl_hcm);
 	    delta = roundavg((double)avail / w_p_eff);
 	    if (delta <= 0)
@@ -213,7 +202,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 	    get_materials(sp, bp, mvec, 1);
 
-	    if (onship)
+	    if (carrier)
 		build = delta;
 	    used = build * w_p_eff;
 
@@ -235,7 +224,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 	    if (sp->sct_type != SCT_AIRPT)
 		build /= 3;
-	    if (onship) {
+	    if (carrier) {
 		if ((pp->pln_effic + build) > 80)
 		    build = 80 - pp->pln_effic;
 	    }
