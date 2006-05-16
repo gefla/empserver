@@ -14,10 +14,10 @@ info available in readable format.  For example:
 .s1
 The report format contains the following fields:
 .s1
-.in +1i
+.in \w'nuke type\0\0'u
 .L #
 the nuke number
-.L nuke type
+.L "nuke type"
 the type of nuke; \*Q10kt fission\*U, \*Q1mt fusion\*U, etc.,
 .L x,y
 the nuke's current location,
