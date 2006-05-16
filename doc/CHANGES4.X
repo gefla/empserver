@@ -1,4 +1,5 @@
-Changes to Empire 4.3.3 - Sun May 14 19:23:01 UTC 2006
+Changes to Empire 4.3.3 - Tue May 16 21:35:47 UTC 2006
+ * power c can now show powerless countries.  power c * works.
  * Fortresses now require 5% efficiency to return fire and interdict.
  * Range of ship return fire and support fire no longer depends on
    efficiency.
@@ -2010,7 +2011,7 @@ Changes to Empire 4.0.1 - Wed Aug 28 11:35:40 EDT 1996
  * Fixed bug with scuttling a ship with units on it not scuttling the units
     too.
 
-Changes to Empire 4.0.0 - Initial release
+Changes to Empire 4.0.0 - Wed Aug 21 1996
  * Initial Wolfpack release - Long live the Wolfpack!!!!
  * Cleaned up the build environment.  Now all that is needed is to edit the
     build.conf file, answer the questions there and type "make <arch>" to
