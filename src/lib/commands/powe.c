@@ -68,7 +68,6 @@ int
 powe(void)
 {
     struct natstr *natp;
-    struct natstr *natp2;
     int round_flag;
     time_t pow_time;
     struct nstr_item ni;
@@ -79,7 +78,6 @@ powe(void)
     int targets[MAXNOC];
     int use_targets = 0;
     int no_numbers = 0;
-    char *p;
 
     memset(targets, 0, sizeof(targets));
     natp = getnatp(player->cnum);
@@ -90,13 +88,8 @@ powe(void)
 	else {
 	    gen_power();
 	    power_generated = 1;
-	    if (player->argp[2] && (num = atoi(player->argp[2])) < 0) {
-		num = MAXNOC;
-		if (player->god)
-		    no_numbers = 1;
-		else
-		    return RET_SYN;
-	    }
+	    if (player->argp[2])
+		num = atoi(player->argp[2]);
 	}
     } else if (player->argp[1] && player->argp[1][0] == 'c') {
 	snxtitem(&ni, EF_NATION, player->argp[2]);
@@ -106,14 +99,14 @@ powe(void)
 	    targets[nat.nat_cnum] = 1;
 	}
 	use_targets = 1;
-    } else if (player->argp[1] && (num = atoi(player->argp[1])) < 0) {
-	num = -(num);
-	if (num > MAXNOC || num < 0)
-	    num = MAXNOC;
-	if (player->god)
-	    no_numbers = 1;
-	else
+    } else if (player->argp[1])
+	num = atoi(player->argp[1]);
+
+    if (num < 0) {
+	if (!player->god)
 	    return RET_SYN;
+	num = -num;
+	no_numbers = 1;
     }
 
     if (!power_generated) {
@@ -123,6 +116,7 @@ powe(void)
 	    return RET_FAIL;
 	}
     }
+
     pr("     - = [   Empire Power Report   ] = -\n");
     pow_time = ef_mtime(EF_POWER);
     pr("      as of %s\n         sects  eff civ", ctime(&pow_time));
@@ -135,18 +129,11 @@ powe(void)
 	    if (!player->god && pow.p_nation != player->cnum)
 		continue;
 	}
-	natp2 = getnatp(pow.p_nation);
-	if (natp2->nat_stat == STAT_GOD)
-	    continue;
 	if (use_targets && !targets[pow.p_nation])
 	    continue;
 	if (!use_targets && pow.p_power <= 0.0)
 	    continue;
-	if (pow.p_nation != player->cnum && !player->god)
-	    round_flag = 1;
-	else
-	    round_flag = 0;
-	num--;
+	round_flag = pow.p_nation != player->cnum && !player->god;
 	pr("%9.9s", cname(pow.p_nation));
 	out5(pow.p_sects, 5, round_flag);
 	if (pow.p_sects)
@@ -168,6 +155,7 @@ powe(void)
 	pr("\n");
 	if (player->god && !no_numbers)
 	    pr("%9.2f\n", pow.p_power);
+	num--;
     }
     if (!opt_HIDDEN || player->god) {
 	pr("          ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n");
@@ -297,8 +285,8 @@ gen_power(void)
 	pow->p_power += pow->p_dust / 5 + pow->p_oil / 10 + pow->p_bars;
 	pow->p_power += pow->p_guns / 2.5;
 	if (pow->p_sects > 0)
-	    pow->p_power += (pow->p_sects
-			     * ((pow->p_effic / pow->p_sects) / 100.0))
+	    pow->p_power += pow->p_sects
+		* (pow->p_effic / pow->p_sects / 100.0)
 		* 10.0;
 	pow->p_power *= MAX(1.0, natp->nat_level[NAT_TLEV] / 500.0);
 	/* ack.  add this vec to the "world power" element */
