@@ -1,5 +1,5 @@
 .TH Command POWER
-.NA power "Display arbitrarily measured strengths of all countries"
+.NA power "Display arbitrarily measured strengths of countries"
 .LV Basic
 .SY "power [num]"
 .SY "power new [num]"
@@ -15,52 +15,54 @@ the power chart will be displayed, and the power number rating will
 not be displayed.
 .s1
 If the optional \*Qnew\*U argument is given,
-the program will take several minutes to gather information
-and generate a power report based on that up-to-date information.
-This costs 10 BTU's.
+the program will generate a new power report based on up-to-date
+information.
+This costs 10 BTUs.
 .s1
 If the optional \*Qnew\*U argument is not given,
-the program will shown you the report generated
+the program will show you the report generated
 the last time someone asked for new data.
 .s1
 If the optional \*Qcountry\*U argument is given, then the information
-is only given for those particular countries.  Countries are
-separated by the "/" character as in:
-.EX power c Fodder/19/Mirky
-Note that countries may be specified as either names or numbers.
+is given for those particular countries.
 .s1
 In the power report the countries are listed
-in order of decreasing \*Qpower factor\*U,
-each being represented by a line in the following format:
+in order of decreasing \*Qpower factor\*U.
+Powerless countries are not shown unless explicitly requested with the
+\*Qcountry\*U argument.
 .s1
-.NF
-sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-.FI
-
-Each column represents a different commodity or aspect for that country.
-The columns and values used in computing the \*Qpower factor\*U are:
-.NF
-a	# of sectors
-b	average sector efficiency
-c	# of civilians
-d	# of military
-e	# of shells
-f	# of guns
-h	tons of iron ore (not displayed)
-i	tons of gold dust
-j	# of gold bars
-k	tons of food (not displayed)
-l	tanks of oil
-g	# of planes
-m	# of ships
-mm	tons of ships (not displayed)
-r	# of land units
-n	# of dollars
-oo	units of light construction materials (not displayed)
-pp	units of heavy construction materials (not displayed)
-qq	megatons of nuclear weaponry (not displayed)
-bb	gold bars
-.FI
+The power report shows the following columns:
+.s1
+.in \w'money\0\0'u
+.L sects
+number of sectors
+.L eff
+average sector efficiency
+.L civ
+number of civilians
+.L mil
+number of military
+.L shell
+number of shells
+.L gun
+number of guns
+.L pet
+amount of petrol
+.L iron
+amount of iron
+.L dust
+amount of dust
+.L oil
+amount of oil
+.L pln
+number of planes
+.L ship
+number of ships
+.L unit
+number of land units
+.L money
+cash on hand
+.in
 .s1
 The \*Qpower factor\*U is determined by the following equation:
 .s1
@@ -80,7 +82,6 @@ power factor += ((nation money / 100) + (petrol / 500) +
 power factor += ((number of sectors * (average sector effic / 100)) * 10)
 power factor = ((power factor) * (nation tech level / 500))
 power factor = ((power factor) * (research factor))
-
 .FI
 .s1
 The research factor is either 1, if RES_POP is not being used, or 1+(max 
