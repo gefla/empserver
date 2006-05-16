@@ -63,7 +63,6 @@ static void addtopow(short *vec, struct powstr *pow);
 static void gen_power(void);
 static void out5(double value, int round_val, int round_flag);
 static int powcmp(const void *, const void *);
-static int set_target(char *, int *);
 
 int
 powe(void)
@@ -76,9 +75,9 @@ powe(void)
     struct powstr pow;
     int num;
     int power_generated = 0;
+    struct natstr nat;
     int targets[MAXNOC];
     int use_targets = 0;
-    int got_targets = 0;
     int no_numbers = 0;
     char *p;
 
@@ -100,15 +99,11 @@ powe(void)
 	    }
 	}
     } else if (player->argp[1] && player->argp[1][0] == 'c') {
-	if (!player->argp[2])
-	    return RET_SYN;
-	if (strchr(player->argp[2], '/')) {
-	    p = strtok(player->argp[2], "/");
-	    do {
-		got_targets |= set_target(p, targets);
-	    } while (NULL != (p = strtok(0, "/")));
-	} else {
-	    got_targets |= set_target(player->argp[2], targets);
+	snxtitem(&ni, EF_NATION, player->argp[2]);
+	while (nxtitem(&ni, &nat)) {
+	    if (nat.nat_stat != STAT_ACTIVE)
+		continue;
+	    targets[nat.nat_cnum] = 1;
 	}
 	use_targets = 1;
     } else if (player->argp[1] && (num = atoi(player->argp[1])) < 0) {
@@ -120,9 +115,6 @@ powe(void)
 	else
 	    return RET_SYN;
     }
-
-    if (use_targets && !got_targets)
-	return RET_FAIL;
 
     if (!power_generated) {
 	snxtitem_all(&ni, EF_POWER);
@@ -137,7 +129,7 @@ powe(void)
     pr("  mil  shell gun pet  iron dust oil  pln ship unit money\n");
     snxtitem_all(&ni, EF_POWER);
     while ((nxtitem(&ni, &pow)) && num > 0) {
-	if (pow.p_nation == 0 || pow.p_power <= 0.0)
+	if (pow.p_nation == 0)
 	    continue;
 	if (opt_HIDDEN) {
 	    if (!player->god && pow.p_nation != player->cnum)
@@ -147,6 +139,8 @@ powe(void)
 	if (natp2->nat_stat == STAT_GOD)
 	    continue;
 	if (use_targets && !targets[pow.p_nation])
+	    continue;
+	if (!use_targets && pow.p_power <= 0.0)
 	    continue;
 	if (pow.p_nation != player->cnum && !player->god)
 	    round_flag = 1;
@@ -371,25 +365,4 @@ addtopow(short *vec, struct powstr *pow)
     pow->p_bars += vec[I_BAR];
     pow->p_power += vec[I_LCM] / 10.0;
     pow->p_power += vec[I_HCM] / 5.0;
-}
-
-static int
-set_target(char *p, int *targets)
-{
-    int target;
-    struct natstr *natp;
-
-    if (!p)
-	return 0;
-    target = natarg(p, NULL);
-    if (target < 0)
-	return 0;
-    natp = getnatp(target);
-    if (natp->nat_stat != STAT_ACTIVE) {
-	pr("Country '%s' is not a normal country\n", p);
-	return 0;
-    }
-
-    targets[target] = 1;
-    return 1;
 }
