@@ -300,7 +300,7 @@ gen_power(void)
 	    pow->p_power += (pow->p_sects
 			     * ((pow->p_effic / pow->p_sects) / 100.0))
 		* 10.0;
-	pow->p_power *= MIN(1.0, natp->nat_level[NAT_TLEV]) / 500.0;
+	pow->p_power *= MAX(1.0, natp->nat_level[NAT_TLEV] / 500.0);
 	/* ack.  add this vec to the "world power" element */
 	f_pt2 = &powbuf[0].p_sects;
 	f_ptr = &pow->p_sects;
