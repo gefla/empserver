@@ -233,6 +233,7 @@ extern struct symbol plane_flags[];
 extern struct symbol retreat_flags[];
 extern struct symbol nation_status[];
 extern struct symbol nation_flags[];
+extern struct symbol nation_rejects[];
 extern struct symbol nation_relations[];
 extern struct symbol level[];
 extern struct symbol agreement_statuses[];

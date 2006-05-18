@@ -124,6 +124,14 @@ struct symbol nation_flags[] = {
     {0, NULL}
 };
 
+struct symbol nation_rejects[] = {
+    {REJ_TELE, "telegrams"},
+    {REJ_TREA, "treaties"},
+    {REJ_ANNO, "announcements"},
+    {REJ_LOAN, "loans"},
+    {0, NULL}
+};
+
 struct symbol nation_relations[] = {
     {-1, "unknown"},
     {AT_WAR, "at-war"},

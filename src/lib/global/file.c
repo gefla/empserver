@@ -178,6 +178,7 @@ struct empfile empfile[] = {
     SYMTAB(EF_META_TYPE, "meta-type", meta_type),
     SYMTAB(EF_MISSIONS, "missions", missions),
     SYMTAB(EF_NATION_FLAGS, "nation-flags", nation_flags),
+    SYMTAB(EF_NATION_REJECTS, "nation-rejects", nation_rejects),
     SYMTAB(EF_NATION_RELATIONS, "nation-relationships", nation_relations),
     SYMTAB(EF_NATION_STATUS, "nation-status", nation_status),
     SYMTAB(EF_NUKE_CHR_FLAGS, "nuke-chr-flags", nuke_chr_flags),
