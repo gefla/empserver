@@ -73,7 +73,7 @@ ef_init_srv(void)
 
     for (i = 0; nat_ca[i].ca_name; i++) {
 	cou_ca[i] = nat_ca[i];
-	cou_ca[i].ca_flags |= NSC_CONST | (i < 3 ? 0 : NSC_DEITY);
+	cou_ca[i].ca_flags |= NSC_CONST | (i < 5 ? 0 : NSC_DEITY);
     }
     cou_ca[i] = nat_ca[i];
 

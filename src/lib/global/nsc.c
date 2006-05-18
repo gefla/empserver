@@ -487,19 +487,21 @@ struct castr trade_ca[] = {
 
 struct castr nat_ca[] = {
     /*
-     * Keep selectors cnum, stat and cname at the beginning.
-     * ef_init_srv() makes their copies in cou_ca[] accessible for
-     * mortals.
+     * Keep selectors cnum, stat, cname, relations and rejects at the
+     * beginning.  ef_init_srv() makes their copies in cou_ca[]
+     * accessible for mortals.
      * It should also make tech, research, education and happiness
      * available, but can't express the obfuscation necessary for
      * foreign levels.
-     * It should also make relations available, but can't express how
-     * to obey HIDDEN.
      */
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
     {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
      EF_NATION_STATUS},
     {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
+    {NSC_HIDDEN, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
+     EF_NATION_RELATIONS},
+    {NSC_UCHAR, 0, MAXNOC, fldoff(natstr, nat_rejects), "rejects",
+     EF_BAD},
     {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
     {NSC_STRINGY, 0, 512, fldoff(natstr, nat_hostname), "hostname", EF_BAD},
@@ -527,12 +529,8 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    {NSC_HIDDEN, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
-     EF_NATION_RELATIONS},
-    /* should show mortals whether there's contact (obvious from relations?) */
+    /* mortals know there's contact (relations show), but not how strong */
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
-     EF_BAD},
-    {NSC_UCHAR, 0, MAXNOC, fldoff(natstr, nat_rejects), "rejects",
      EF_BAD},
     /* FIXME nat_priorities[] */
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
