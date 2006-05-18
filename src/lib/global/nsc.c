@@ -532,7 +532,9 @@ struct castr nat_ca[] = {
     /* should show mortals whether there's contact (obvious from relations?) */
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
      EF_BAD},
-    /* FIXME nat_rejects[], nat_priorities[] */
+    {NSC_UCHAR, 0, MAXNOC, fldoff(natstr, nat_rejects), "rejects",
+     EF_BAD},
+    /* FIXME nat_priorities[] */
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
      EF_NATION_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}

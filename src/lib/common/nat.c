@@ -107,14 +107,7 @@ getrel(struct natstr *np, natid them)
 int
 getrejects(natid them, struct natstr *np)
 {
-    int ind;
-    int shift;
-    int reject;
-
-    ind = them / 4;
-    shift = 12 - ((them - ((them / 4) << 2)) * 4);
-    reject = (np->nat_rejects[ind] >> shift) & 0x0f;
-    return reject;
+    return np->nat_rejects[them];
 }
 
 void
@@ -144,19 +137,10 @@ putrel(struct natstr *np, natid them, int relate)
 void
 putreject(struct natstr *np, natid them, int how, int what)
 {
-    int shift;
-    int newrej;
-    int ind;
-
-    what &= 0x0f;
-    ind = them / 4;
-    shift = 12 - ((them - ((them / 4) << 2)) * 4);
-    newrej = np->nat_rejects[ind];
     if (how)
-	newrej |= (what << shift);
+	np->nat_rejects[them] |= what;
     else
-	newrej &= ~(what << shift);
-    np->nat_rejects[ind] = newrej;
+	np->nat_rejects[them] &= what;
 }
 
 void

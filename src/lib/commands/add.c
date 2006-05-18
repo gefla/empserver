@@ -215,7 +215,7 @@ add(void)
 	natp->nat_level[NAT_RLEV] = start_research;
 	natp->nat_level[NAT_ELEV] = start_education;
 	natp->nat_level[NAT_HLEV] = start_happiness;
-	for (i = 0; i < MAXNOC / 4; i++)
+	for (i = 0; i < MAXNOC; i++)
 	    natp->nat_rejects[i] = 0;
 	natp->nat_newstim = 0;
 	natp->nat_annotim = 0;
