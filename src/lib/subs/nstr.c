@@ -40,6 +40,7 @@
 #include "file.h"
 #include "match.h"
 #include "nsc.h"
+#include "optlist.h"
 #include "prototypes.h"
 
 static char *nstr_parse_val(char *, struct valstr *);
@@ -500,6 +501,7 @@ nstr_promote(int valtype)
     case NSC_INT:
     case NSC_XCOORD:
     case NSC_YCOORD:
+    case NSC_HIDDEN:
     case NSC_TIME:
 	valtype = NSC_LONG;
 	break;
@@ -562,9 +564,10 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
     }
 
     if (val->val_cat == NSC_VAL) {
-	/* coord literals don't occur, conversion not implemented */
+	/* unimplemented conversions; don't currently occur here */
 	CANT_HAPPEN(val->val_type == NSC_XCOORD
-		    || val->val_type == NSC_YCOORD);
+		    || val->val_type == NSC_YCOORD
+		    || val->val_type == NSC_HIDDEN);
 	val->val_type = to;
     }
 
@@ -587,6 +590,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
     char *memb_ptr;
     nsc_type valtype;
     int idx;
+    struct natstr *natp;
 
     switch (val->val_cat) {
     default:
@@ -624,6 +628,16 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    break;
 	case NSC_YCOORD:
 	    val->val_as.lng = yrel(getnatp(cnum), ((short *)memb_ptr)[idx]);
+	    break;
+	case NSC_HIDDEN:
+	    val->val_as.lng = -1;
+	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
+		break;
+	    natp = getnatp(cnum);
+	    if (!opt_HIDDEN
+		|| natp->nat_stat == STAT_GOD
+		|| (getcontact(natp, idx) && getcontact(ptr, idx)))
+		val->val_as.lng = ((unsigned char *)memb_ptr)[idx];
 	    break;
 	case NSC_FLOAT:
 	    val->val_as.dbl = ((float *)memb_ptr)[idx];

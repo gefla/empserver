@@ -527,7 +527,7 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
-    {NSC_SHORT, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
+    {NSC_HIDDEN, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
      EF_NATION_RELATIONS},
     /* should show mortals whether there's contact (obvious from relations?) */
     {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",

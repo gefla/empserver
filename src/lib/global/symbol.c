@@ -94,6 +94,7 @@ struct symbol meta_type[]  = {
     {NSC_INT, "d"},
     {NSC_XCOORD, "d"},
     {NSC_YCOORD, "d"},
+    {NSC_HIDDEN, "d"},
     {NSC_TIME, "d"},
     {NSC_FLOAT, "g"},
     {NSC_STRINGY,"c"},
@@ -124,6 +125,7 @@ struct symbol nation_flags[] = {
 };
 
 struct symbol nation_relations[] = {
+    {-1, "unknown"},
     {AT_WAR, "at-war"},
     {SITZKRIEG, "sitzkrieg"},
     {MOBILIZATION, "mobilization"},

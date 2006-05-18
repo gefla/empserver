@@ -114,7 +114,7 @@ struct natstr {
     time_t nat_newstim;		/* date news last read */
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
-    short nat_relate[MAXNOC];
+    unsigned char nat_relate[MAXNOC];
     unsigned char nat_contact[MAXNOC];
     unsigned char nat_rejects[MAXNOC];
     signed char nat_priorities[PRI_MAX+1]; /* budget priority */
