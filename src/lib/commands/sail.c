@@ -153,7 +153,7 @@ sail(void)
     if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     cp = player->argp[2];
-    if (*player->argp[0] == 'u' || (cp && *cp == '-'))
+    if (*player->argp[0] == 'u' || (cp && !strcmp(cp, "-")))
 	return cmd_unsail_ship(&nstr);
     if (cp && *cp == 'q')
 	return show_sail(&nstr);
