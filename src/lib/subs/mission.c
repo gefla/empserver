@@ -468,7 +468,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if ((lp->lnd_ship != -1) || (lp->lnd_land != -1))
 		continue;
 
-	    if (lnd_getmil(lp) < 1)
+	    if (lp->lnd_item[I_MILIT] < 1)
 		continue;
 
 	    range = roundrange(effrange(lp->lnd_frg, lp->lnd_tech));

@@ -172,7 +172,7 @@ multifire(void)
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
-	    if (lnd_getmil(&fland) < 1) {
+	    if (fland.lnd_item[I_MILIT] < 1) {
 		pr("Unit %d cannot fire because it has no military!\n",
 		   fland.lnd_uid);
 		continue;
@@ -856,7 +856,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if (land.lnd_land >= 0)
 	    continue;
 	/* Gotta have military */
-	if (lnd_getmil(&land) < 1)
+	if (land.lnd_item[I_MILIT] < 1)
 	    continue;
 	/* Don't shoot yourself */
 	if (land.lnd_own == aown)

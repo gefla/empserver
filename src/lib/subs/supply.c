@@ -439,7 +439,7 @@ get_minimum(struct lndstr *lp, i_type type)
 	if (opt_NOFOOD)
 	    return 0;		/* no food reqd, get out */
 	want = (((double)etu_per_update * eatrate) *
-		(double)total_mil(lp)) + 1;
+		(double)lp->lnd_item[I_MILIT]) + 1;
 	break;
     case I_SHELL:
 	want = lp->lnd_ammo;

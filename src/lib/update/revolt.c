@@ -174,15 +174,15 @@ guerrilla(struct sctstr *sp)
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
 
-	mil += lnd_getmil(lp);
+	mil += lp->lnd_item[I_MILIT];
 
 	/* Security troops can now kill up to 1/2 their complement each
 	   update, before doing anything else. */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
 	    int che_kill, r;
 
-	    mil += lnd_getmil(lp);
-	    r = (lnd_getmil(lp) * lp->lnd_effic) / 500;
+	    mil += lp->lnd_item[I_MILIT];
+	    r = (lp->lnd_item[I_MILIT] * lp->lnd_effic) / 500;
 	    che_kill = r < 1 ? 0 : roll(r);
 	    if (che_kill > che)
 		che_kill = che;
@@ -477,14 +477,15 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	cantake = ((lp->lnd_effic - 40) / 100.0) * lnd_getmil(lp) * 2.0;
+	cantake = ((lp->lnd_effic - 40) / 100.0)
+	    * lp->lnd_item[I_MILIT] * 2.0;
 
 	if (cantake >= each) {
-	    deq = ((double)each / (lnd_getmil(lp) * 2.0)) * 100.0;
+	    deq = (each / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
 	    mc -= each;
 	} else if (cantake > 0) {
-	    deq = ((double)cantake / (lnd_getmil(lp) * 2.0)) * 100.0;
-	    mc -= (deq / 100.0) * lnd_getmil(lp) * 2.0;
+	    deq = (cantake / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
+	    mc -= (deq / 100.0) * lp->lnd_item[I_MILIT] * 2.0;
 	} else
 	    deq = 0;
 
@@ -502,14 +503,14 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	cantake = ((lp->lnd_effic - 40) / 100.0) * lnd_getmil(lp);
+	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
 
 	if (cantake >= each) {
-	    deq = ((double)each / (lnd_getmil(lp) * 2.0)) * 100.0;
+	    deq = ((double)each / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
 	    mc -= each;
 	} else if (cantake > 0) {
-	    deq = ((double)cantake / lnd_getmil(lp)) * 100.0;
-	    mc -= (deq / 100.0) * lnd_getmil(lp);
+	    deq = ((double)cantake / lp->lnd_item[I_MILIT]) * 100.0;
+	    mc -= (deq / 100.0) * lp->lnd_item[I_MILIT];
 	} else
 	    deq = 0;
 
@@ -528,7 +529,7 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	mc -= (lp->lnd_effic / 100.0) * lnd_getmil(lp);
+	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT];
 	lp->lnd_effic = 0;
 	lnd_submil(lp, 1000);	/* Remove 'em all */
 	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
@@ -546,7 +547,7 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	mc -= (lp->lnd_effic / 100.0) * lnd_getmil(lp) * 2.0;
+	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT] * 2.0;
 	lp->lnd_effic = 0;
 	lnd_submil(lp, 1000);	/* Kill 'em all */
 	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",

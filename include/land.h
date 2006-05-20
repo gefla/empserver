@@ -203,9 +203,7 @@ extern double lnd_mobcost(struct lndstr *, struct sctstr *, int);
 extern char *lnd_path(int, struct lndstr *, char *);
 
 extern int attack_val(int, struct lndstr *);
-extern int total_mil(struct lndstr *);
 extern int defense_val(struct lndstr *);
-extern int lnd_getmil(struct lndstr *);
 extern void lnd_print(struct llist *, char *);
 extern void lnd_delete(struct llist *, char *);
 extern int lnd_take_casualty(int, struct llist *, int);

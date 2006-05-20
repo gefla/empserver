@@ -335,7 +335,7 @@ ldump(void)
 		pr(" %d", land.lnd_effic);
 		break;
 	    case 6:
-		pr(" %d", lnd_getmil(&land));
+		pr(" %d", land.lnd_item[I_MILIT]);
 		break;
 	    case 7:
 		pr(" %d", land.lnd_harden);

@@ -431,7 +431,7 @@ feed_ship(struct shpstr *sp, int etus, int *needed, int doit)
 	    if (lp->lnd_ship != sp->shp_uid)
 		continue;
 	    need = ifood_eaten - sp->shp_item[I_FOOD];
-	    land_eaten = etus * eatrate * lnd_getmil(lp);
+	    land_eaten = etus * eatrate * lp->lnd_item[I_MILIT];
 	    if (lp->lnd_item[I_FOOD] - need > land_eaten) {
 		sp->shp_item[I_FOOD] += need;
 		lp->lnd_item[I_FOOD] -= need;

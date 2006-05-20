@@ -1751,7 +1751,7 @@ count_bodies(struct combat *off, struct emp_qelem *list)
 	bodies += off[n].troops;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	llp = (struct llist *)qp;
-	bodies += total_mil(&llp->land);
+	bodies += llp->land.lnd_item[I_MILIT];
     }
     return bodies;
 }
@@ -2117,8 +2117,8 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
     for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
 	llp = (struct llist *)qp;
 
-	if (total_mil(&llp->land) > biggest_mil) {
-	    biggest_mil = total_mil(&llp->land);
+	if (llp->land.lnd_item[I_MILIT] > biggest_mil) {
+	    biggest_mil = llp->land.lnd_item[I_MILIT];
 	    biggest = qp;
 	}
     }

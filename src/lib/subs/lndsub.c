@@ -78,7 +78,7 @@ attack_val(int combat_mode, struct lndstr *lp)
     if (lcp->l_flags & L_SPY && combat_mode == A_ASSAULT)
 	return 1;
 
-    men = total_mil(lp);
+    men = lp->lnd_item[I_MILIT];
 
     value = ldround(((double)men * (double)lp->lnd_att), 1);
 
@@ -115,7 +115,7 @@ defense_val(struct lndstr *lp)
 
     lcp = &lchr[(int)lp->lnd_type];
 
-    men = total_mil(lp);
+    men = lp->lnd_item[I_MILIT];
 
     if (men < 0)
 	men = 0;
@@ -136,20 +136,6 @@ defense_val(struct lndstr *lp)
 	return 1;
 
     return (int)value;
-}
-
-int
-total_mil(struct lndstr *lp)
-{
-    struct lchrstr *lcp;
-    double men;
-
-    lcp = &lchr[(int)lp->lnd_type];
-
-    men = lnd_getmil(lp);
-/*	men *= ((double)lp->lnd_effic)/100.0;*/
-
-    return ldround(men, 1);
 }
 
 void
@@ -193,7 +179,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     signed char orig;
     int mob;
 
-    taken = lnd_getmil(&llp->land);
+    taken = llp->land.lnd_item[I_MILIT];
     /* Spies always die */
     if (llp->lcp->l_flags & L_SPY) {
 	eff_eq = 100;
@@ -214,7 +200,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 	return taken;
     } else {
 	/* Ok, now, how many did we take off? (sould be the diff) */
-	taken = taken - lnd_getmil(&llp->land);
+	taken = taken - llp->land.lnd_item[I_MILIT];
     }
 
     if (llp->land.lnd_effic >= llp->land.lnd_retreat)
@@ -332,11 +318,6 @@ lnd_takemob(struct emp_qelem *list, double loss)
 	llp->land.lnd_mobil = (signed char)new;
     }
 }
-int
-lnd_getmil(struct lndstr *lp)
-{
-    return lp->lnd_item[I_MILIT];
-}
 
 void
 lnd_submil(struct lndstr *lp, int num)
@@ -379,18 +360,19 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 	else
 	    sprintf(buf1, "%s %s", mess, prland(lp));
 
-	estimate = lnd_getmil(lp);
+	estimate = lp->lnd_item[I_MILIT];
 
 	if (chance((double)(spy + lp->lnd_vis) / 20.0)) {
 
 	    if (destination == player->cnum)
-		pr(" (eff %d, mil %d", roundintby(lp->lnd_effic, 5),
-		   roundintby(lnd_getmil(lp), 10));
+		pr(" (eff %d, mil %d",
+		   roundintby(lp->lnd_effic, 5),
+		   roundintby(lp->lnd_item[I_MILIT], 10));
 	    else
 		sprintf(buf2, " (eff %d, mil %d",
 			roundintby(lp->lnd_effic, 5),
-			roundintby(lnd_getmil(lp), 10));
-	    estimate = lnd_getmil(lp) * lp->lnd_effic / 100.0;
+			roundintby(lp->lnd_item[I_MILIT], 10));
+	    estimate = lp->lnd_item[I_MILIT] * lp->lnd_effic / 100.0;
 
 	    if (chance((double)(spy + lp->lnd_vis) / 20.0)) {
 		int t;
@@ -600,7 +582,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	}
 	if (!(lchr[(int)llp->land.lnd_type].l_flags & L_SPY) &&
 	    !(lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) &&
-	    lnd_getmil(&llp->land) == 0) {
+	    llp->land.lnd_item[I_MILIT] == 0) {
 	    lnd_mess("has no mil on it to guide it", llp);
 	    continue;
 	}

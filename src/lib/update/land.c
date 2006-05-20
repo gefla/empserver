@@ -351,7 +351,7 @@ feed_land(struct lndstr *lp, int etus, int *needed, int doit)
     if (opt_NOFOOD)
 	return 0;		/* no food no work to be done */
 
-    total_people = total_mil(lp);
+    total_people = lp->lnd_item[I_MILIT];
     food_eaten = etus * eatrate * total_people;
     ifood_eaten = (int)food_eaten;
     if (food_eaten - ifood_eaten > 0)

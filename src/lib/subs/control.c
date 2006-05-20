@@ -60,7 +60,7 @@ military_control(struct sctstr *sp)
 	snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
 	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == sp->sct_own)
-		tot_mil += total_mil(&land);
+		tot_mil += land.lnd_item[I_MILIT];
 	}
 	if ((sp->sct_item[I_MILIT] + tot_mil) * 10 < sp->sct_item[I_CIVIL])
 	    return 0;

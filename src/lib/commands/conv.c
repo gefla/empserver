@@ -101,7 +101,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	 */
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
 	while (nxtitem(&ni, &land)) {
-	    mil += lnd_getmil(&land);
+	    mil += land.lnd_item[I_MILIT];
 
 	    /* Anti-terrorist units count double */
 	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {
@@ -115,7 +115,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 		land.lnd_mobil -= 10;
 		if (for_real)
 		    putland(land.lnd_uid, &land);
-		mil += lnd_getmil(&land);
+		mil += land.lnd_item[I_MILIT];
 	    }
 	}
 	/*
