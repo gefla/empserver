@@ -51,18 +51,6 @@ tfact(natid cn, double mult)
 }
 
 double
-tfactfire(natid cn, double mult)
-{
-    double tlev;
-    struct natstr *np;
-
-    np = getnatp(cn);
-    tlev = np->nat_level[NAT_TLEV];
-    tlev = (50.0 + tlev) / (200.0 + tlev);
-    return mult * tlev * fire_range_factor;
-}
-
-double
 techfact(int level, double mult)
 {
     return mult * ((50.0 + level) / (200.0 + level));

@@ -180,7 +180,6 @@ extern char *relates[];
 #define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))
 
 extern double tfact(natid cn, double mult);
-extern double tfactfire(natid cn, double mult);
 extern double techfact(int level, double mult);
 
 extern char *cname(natid n);
