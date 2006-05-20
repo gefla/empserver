@@ -89,37 +89,24 @@ nati(void)
     pr(" The treasury has $%.2f", (double)natp->nat_money);
     pr("     Military reserves: %ld\n", natp->nat_reserve);
     pr("Education..........%6.2f       Happiness.......%6.2f\n",
-       (double)natp->nat_level[NAT_ELEV],
-       (double)natp->nat_level[NAT_HLEV]);
+       natp->nat_level[NAT_ELEV], natp->nat_level[NAT_HLEV]);
     pr("Technology.........%6.2f       Research........%6.2f\n",
-       (double)natp->nat_level[NAT_TLEV],
-       (double)natp->nat_level[NAT_RLEV]);
+       natp->nat_level[NAT_TLEV], natp->nat_level[NAT_RLEV]);
     pr("Technology factor :%6.2f%%", tfact(cnum, 100.));
 
     if (opt_NO_PLAGUE)
 	pfac = 0.0;
     else
-	pfac = ((double)natp->nat_level[NAT_TLEV] + 100.) /
-	    ((double)natp->nat_level[NAT_RLEV] + 100.);
+	pfac = (natp->nat_level[NAT_TLEV] + 100.0) /
+	    (natp->nat_level[NAT_RLEV] + 100.0);
     pr("     Plague factor : %6.2f%%\n", pfac);
     pr("\n");
 
     poplimit = max_population(natp->nat_level[NAT_RLEV], SCT_MINE, 0);
     pr("Max population : %d\n", poplimit);
 
-    safepop =
-	(int)((double)poplimit / (1.0 + obrate * (double)etu_per_update));
-    uwpop =
-	(int)((double)poplimit / (1.0 + uwbrate * (double)etu_per_update));
-    safepop++;
-    if (((double)safepop * (1.0 + obrate * (double)etu_per_update)) >
-	((double)poplimit + 0.0000001))
-	safepop--;
-    uwpop++;
-    if (((double)uwpop * (1.0 + uwbrate * (double)etu_per_update)) >
-	((double)poplimit + 0.0000001))
-	uwpop--;
-
+    safepop = (int)(poplimit / (1.0 + obrate * (double)etu_per_update));
+    uwpop = (int)(poplimit / (1.0 + uwbrate * (double)etu_per_update));
     pr("Max safe population for civs/uws: %d/%d\n", safepop, uwpop);
 
     hap = hap_req(natp);
