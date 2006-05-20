@@ -59,6 +59,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
+static int command(void);
 static int status(void);
 
 struct player *player;
@@ -139,7 +140,7 @@ player_main(struct player *p)
     pr("Bye-bye\n");
 }
 
-int
+static int
 command(void)
 {
     unsigned i;

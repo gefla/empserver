@@ -52,14 +52,14 @@
 #include <io.h>
 #endif
 
-char num_teles[64];
+static char num_teles[64];
 static char the_prompt[1024];
 static int mode;
 static int nbtu;
 static int nmin;
-FILE *redir_fp;
-FILE *pipe_fp;
-int exec_fd;
+static FILE *redir_fp;
+static FILE *pipe_fp;
+static int exec_fd;
 
 static void prompt(FILE *auxfi);
 static void doredir(char *p);

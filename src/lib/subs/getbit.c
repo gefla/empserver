@@ -142,7 +142,7 @@ emp_setbit(int x, int y, unsigned char *bitmap)
     bitmap[id / 8] |= bit(id & 07);
 }
 
-void
+static void
 emp_setbitmap(int x, int y, unsigned char *bitmap, int *bitmaps)
 {
     register int *mp;

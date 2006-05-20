@@ -54,6 +54,7 @@
 #include "prototypes.h"
 
 static void lnd_mess(char *, struct llist *);
+static int lnd_hit_mine(struct lndstr *, struct lchrstr *);
 
 int
 attack_val(int combat_mode, struct lndstr *lp)
@@ -1006,7 +1007,7 @@ lnd_hardtarget(struct lndstr *lp)
 		  (double)lp->lnd_spd / 2.0 - lp->lnd_vis));
 }
 
-int
+static int
 lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 {
     double m;

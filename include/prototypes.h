@@ -420,7 +420,6 @@ extern int natpass(int, char *);
 extern struct player *player;	/* current player's context */
 extern char *praddr(struct player *);
 extern void player_main(struct player *);
-extern int command(void);
 /* more under Commands */
 /* recvclient.c */
 extern int recvclient(char *, int);
@@ -464,7 +463,6 @@ extern int shipdef(natid, natid, coord, coord);
 /* getbit.c */
 extern int emp_getbit(int, int, unsigned char *);
 extern void emp_setbit(int, int, unsigned char *);
-extern void emp_setbitmap(int, int, unsigned char *, int *);
 extern void bitinit2(struct nstr_sect *, unsigned char *, int);
 /* getele.c */
 extern int getele(char *, char *);

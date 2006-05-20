@@ -35,7 +35,6 @@
 #define BUDG_H
 
 void fill_update_array(int *bp, struct sctstr *sp);
-int *get_wp(int *bp, struct sctstr *sp, int cm);
 int gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm);
 void pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount);
 void get_materials(struct sctstr *sp, int *bp, int *mvec, int check);

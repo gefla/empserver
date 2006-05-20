@@ -45,7 +45,7 @@
 #include "optlist.h"
 #include "commands.h"
 
-char *prompt[] = {
+static char *prompt[] = {
     "Improve what ('road' or 'rail')? ",
     "Improve what ('road', 'rail' or 'defense')? "
 };

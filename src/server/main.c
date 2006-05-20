@@ -81,7 +81,7 @@ static void loc_NTTerm(void);
 static char pidfname[] = "server.pid";
 
 /* Run as daemon?  If yes, detach from controlling terminal etc. */
-int daemonize = 1;
+static int daemonize = 1;
 
 static void
 print_usage(char *program_name)

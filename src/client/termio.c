@@ -45,6 +45,8 @@
 #include "misc.h"
 #include "tags.h"
 
+static int sendeof(int sock);
+
 int
 termio(int fd, int sock, FILE *auxfi)
 {
@@ -243,7 +245,7 @@ termio(int fd, int sock, FILE *auxfi)
     return 1;
 }
 
-int
+static int
 sendeof(int sock)
 {
 #ifndef _WIN32

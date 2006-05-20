@@ -69,7 +69,6 @@ struct combat {
 #define A_LBOARD        5
 
 /* src/lib/subs/attsub.c */
-extern double att_calcodds(int, int);
 extern double att_combat_eff(struct combat *);
 extern void att_move_in_off(int, struct combat *, struct emp_qelem *,
 			    struct combat *);

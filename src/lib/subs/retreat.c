@@ -59,7 +59,7 @@ struct ccode {
     char *desc[2];
 };
 
-struct ccode conditions[] = {
+static struct ccode conditions[] = {
     { 'i', { "retreated with a damaged friend",
 	     "was damaged" } },
     { 't', { "retreated with a torpedoed ship",

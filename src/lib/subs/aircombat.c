@@ -53,10 +53,21 @@
 #include "optlist.h"
 #include "server.h"
 
-static void getilist(struct emp_qelem *list, natid own,
-		     struct emp_qelem *a, struct emp_qelem *b,
-		     struct emp_qelem *c, struct emp_qelem *d);
-static void ac_dog(struct plist *ap, struct plist *dp);
+static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
+			 struct emp_qelem *, natid, coord, coord);
+static int all_missiles(struct emp_qelem *);
+static void ac_dog(struct plist *, struct plist *);
+static void ac_planedamage(struct plist *, natid, int, natid, int,
+			   int, char *);
+static void ac_doflak(struct emp_qelem *, struct sctstr *);
+static void ac_landflak(struct emp_qelem *, coord, coord);
+static void ac_shipflak(struct emp_qelem *, coord, coord);
+static void ac_fireflak(struct emp_qelem *, natid, natid, int);
+static void getilist(struct emp_qelem *, natid,
+		     struct emp_qelem *, struct emp_qelem *,
+		     struct emp_qelem *, struct emp_qelem *);
+static int can_fly(int);
+static int do_evade(struct emp_qelem *, struct emp_qelem *);
 
 void
 ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
@@ -431,7 +442,7 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
     }
 }
 
-void
+static void
 ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     struct emp_qelem *def_list, natid def_own, coord x, coord y)
 {
@@ -572,7 +583,7 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
     }
 }
 
-int
+static int
 all_missiles(struct emp_qelem *att_list)
 {
     struct emp_qelem *qp;
@@ -687,7 +698,7 @@ ac_dog(struct plist *ap, struct plist *dp)
  * that the current queue pointer is invalid on return from the ac_planedamage
  * call.  (this has caused bugs in the past)
  */
-void
+static void
 ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 	       int checkabort, int show, char *mesg)
 {
@@ -764,7 +775,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     strcpy(mesg, dmess);
 }
 
-void
+static void
 ac_doflak(struct emp_qelem *list, struct sctstr *from)
 {
     int shell;
@@ -799,7 +810,7 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
     }
 }
 
-void
+static void
 ac_shipflak(struct emp_qelem *list, coord x, coord y)
 {
     struct nstr_item ni;
@@ -869,7 +880,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     }
 }
 
-void
+static void
 ac_landflak(struct emp_qelem *list, coord x, coord y)
 {
     struct nstr_item ni;
@@ -937,7 +948,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 /*
  * Called from shipflak, landflak, and doflak.
  */
-void
+static void
 ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
 {
     struct plnstr *pp;
@@ -1097,7 +1108,7 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 
 
 
-int
+static int
 can_fly(int p)
 {				/* Can this plane fly from the ship or land unit it is on? */
     struct plnstr plane;
@@ -1150,7 +1161,7 @@ can_fly(int p)
     return 0;
 }
 
-int
+static int
 do_evade(struct emp_qelem *bomb_list, struct emp_qelem *esc_list)
 {
     struct emp_qelem *qp;

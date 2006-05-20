@@ -77,6 +77,7 @@ static int get_ototal(int combat_mode, struct combat *off,
 		      struct emp_qelem *olist, double osupport, int check);
 static int get_dtotal(struct combat *def, struct emp_qelem *list,
 		      double dsupport, int check);
+static double att_calcodds(int, int);
 static int take_casualty(int combat_mode, struct combat *off,
 			 struct emp_qelem *olist);
 

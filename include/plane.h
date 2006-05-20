@@ -158,26 +158,15 @@ struct shiplist {
 #define PLN_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 /* src/lib/subs/aircombat.c */
-extern void ac_planedamage(struct plist *, natid, int, natid, int,
-			   int, char *);
-extern void ac_intercept(struct emp_qelem *, struct emp_qelem *,
-			 struct emp_qelem *, natid, coord, coord);
 extern void ac_combat_headers(natid, natid);
 extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
-extern void ac_doflak(struct emp_qelem *, struct sctstr *);
-extern void ac_shipflak(struct emp_qelem *, coord, coord);
-extern void ac_landflak(struct emp_qelem *, coord, coord);
-extern void ac_fireflak(struct emp_qelem *, natid, natid, int);
 extern int ac_flak_dam(int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
 			 coord, char *, int, int,
 			 struct emp_qelem *, struct emp_qelem *);
 extern int ac_isflying(struct plnstr *, struct emp_qelem *);
-extern int do_evade(struct emp_qelem *, struct emp_qelem *);
 extern void sam_intercept(struct emp_qelem *, struct emp_qelem *,
 			  natid, natid, coord, coord, int);
-extern int all_missiles(struct emp_qelem *);
-extern int can_fly(int);
 
 /* src/lib/subs/aswplnsubs.c */
 extern int on_shiplist(short, struct shiplist *);
