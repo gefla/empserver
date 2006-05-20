@@ -71,8 +71,6 @@ torp(void)
     struct shpstr vship;
     struct shpstr sub;
     char *ptr;
-    double mobcost;
-    struct mchrstr *mcp;
     struct nstr_item nbst;
     char buf[1024];
     char *sav;
@@ -169,13 +167,8 @@ torp(void)
 	shells -= SHP_TORP_SHELLS;
 	sub.shp_item[I_SHELL] = shells;
 	putship(sub.shp_uid, &sub);
-	mcp = &mchr[(int)sub.shp_type];
-	mobcost = sub.shp_effic * 0.01 * sub.shp_speed;
-	mobcost = (480.0 / (mobcost + techfact(sub.shp_tech, mobcost)));
-
 	/* Mob cost for a torp is equal to the cost of 1/2 sector of movement */
-	mobcost /= 2.0;
-	sub.shp_mobil -= mobcost;
+	sub.shp_mobil -= shp_mobcost(&sub) / 2.0;
 	pr("Whooosh... ");
 	getship(victno, &vship);
 	vshipown = vship.shp_own;
@@ -389,8 +382,6 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     int dam;
     int shells;
     double hitchance;
-    double mobcost;
-    struct mchrstr *mcp;
 
     shells = sp->shp_item[I_SHELL];
 
@@ -415,13 +406,8 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
     sp->shp_item[I_SHELL] = shells;
     putship(sp->shp_uid, sp);
 
-    mcp = &mchr[(int)sp->shp_type];
-    mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
-    mobcost = (480.0 / (mobcost + techfact(sp->shp_tech, mobcost)));
-
     /* Mob cost for a torp is equal to the cost of 1/2 sector of movement */
-    mobcost /= 2.0;
-    sp->shp_mobil -= mobcost;
+    sp->shp_mobil -= shp_mobcost(sp) / 2.0;
 
     hitchance = DTORP_HITCHANCE(range, sp->shp_visib);
 

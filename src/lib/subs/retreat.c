@@ -246,8 +246,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	mcp = &mchr[(int)sp->shp_type];
 	newx = xnorm(sp->shp_x + dx);
 	newy = ynorm(sp->shp_y + dy);
-	mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
-	mobcost = 480.0 / (mobcost + techfact(sp->shp_tech, mobcost));
+	mobcost = shp_mobcost(sp);
 
 	getsect(newx, newy, &sect);
 	if (shp_check_nav(&sect, sp) != CN_NAVIGABLE ||

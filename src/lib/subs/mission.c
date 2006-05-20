@@ -437,7 +437,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     int dam = 0, dam2, mission_flags, tech;
     natid plane_owner = 0;
     int gun, shell, md, range, air_dam = 0;
-    double prb, mobcost, hitchance, vrange;
+    double prb, hitchance, vrange;
 
     getsect(x, y, &sect);
 
@@ -559,10 +559,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (!line_of_sight(NULL, x, y, gp->x, gp->y))
 		    continue;
 		sp->shp_item[I_SHELL] = shell - SHP_TORP_SHELLS;
-		mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
-		mobcost = (480.0 / (mobcost +
-				    techfact(sp->shp_tech, mobcost)));
-		sp->shp_mobil -= mobcost;
+		sp->shp_mobil -= shp_mobcost(sp) / 2.0;
 		putship(sp->shp_uid, sp);
 		hitchance = DTORP_HITCHANCE(md, sp->shp_visib);
 

@@ -219,7 +219,6 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
     int mines, m, max, shells;
     int changed = 0;
     int stopping = 0;
-    double mobcost;
 
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
@@ -242,10 +241,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 		    prship(&mlp->ship));
 	    continue;
 	}
-	mobcost = mlp->ship.shp_effic * 0.01 * mlp->ship.shp_speed;
-	mobcost = 480.0 / (mobcost +
-			   techfact(mlp->ship.shp_tech, mobcost));
-	mlp->mobil -= mobcost;
+	mlp->mobil -= shp_mobcost(&mlp->ship);
 	mlp->ship.shp_mobil = (int)mlp->mobil;
 	putship(mlp->ship.shp_uid, &mlp->ship);
 	if (!(mines = sect.sct_mines))
@@ -859,9 +855,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    shp_mess("is out of mobility", mlp);
 	    continue;
 	}
-	mobcost = mlp->ship.shp_effic * 0.01 * mlp->ship.shp_speed;
-	mobcost = 480.0 /
-	    (mobcost + techfact(mlp->ship.shp_tech, mobcost));
+	mobcost = shp_mobcost(&mlp->ship);
 	mlp->ship.shp_x = newx;
 	mlp->ship.shp_y = newy;
 	if (mlp->mobil - mobcost < -127) {
@@ -1060,6 +1054,13 @@ shp_missdef(struct shpstr *sp, natid victim)
     }
     if (!QEMPTY(&list))
 	free(mlp);
+}
+
+double
+shp_mobcost(struct shpstr *sp)
+{
+    double effspd = sp->shp_effic * 0.01 * sp->shp_speed;
+    return 480.0 / (effspd + techfact(sp->shp_tech, effspd));
 }
 
 /*

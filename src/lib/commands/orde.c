@@ -330,8 +330,7 @@ eta_calc(struct shpstr *sp, char *path, int *len, int *nupdates)
     *len = i;
     *nupdates = 1;
 
-    mobcost = sp->shp_effic * 0.01 * sp->shp_speed;
-    mobcost = 480.0 / (mobcost + techfact(sp->shp_tech, mobcost));
+    mobcost = shp_mobcost(sp);
     mobil = sp->shp_mobil;
     while (i) {
 	if (mobil > 0) {

@@ -958,8 +958,6 @@ use_ammo(struct emp_qelem *list)
     struct sctstr sect;
     int shell;
     short *item;
-    double mobcost;
-    struct mchrstr *mcp;
 
     /* use 1 shell from everyone */
     for (qp = list->q_forw; qp != list; qp = next) {
@@ -975,13 +973,8 @@ use_ammo(struct emp_qelem *list)
 		    shell = 0;
 		item[I_SHELL] = shell;
 		putship(ship.shp_uid, &ship);
-		mcp = &mchr[(int)ship.shp_type];
-		mobcost = ship.shp_effic * 0.01 * ship.shp_speed;
-		mobcost = (480.0 / (mobcost +
-				    techfact(ship.shp_tech, mobcost)));
 		/* mob cost = 1/2 a sect's mob */
-		mobcost /= 2.0;
-		ship.shp_mobil -= mobcost;
+		ship.shp_mobil -= shp_mobcost(&ship) / 2.0;
 	    }
 	} else if (fp->type == targ_land) {
 	    getsect(fp->x, fp->y, &sect);

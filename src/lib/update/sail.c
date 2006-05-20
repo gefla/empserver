@@ -55,20 +55,8 @@ static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 static void
 cost_ship(struct shpstr *sp, struct fltelemstr *ep, struct fltheadstr *fp)
 {
-    double mobcost;
+    double mobcost = shp_mobcost(sp);
     int howfar;
-
-    mobcost = 0.0;
-    if (sp->shp_effic > 0) {
-	mobcost = sp->shp_effic * sp->shp_speed * 0.01;
-	mobcost = 480.0 / (mobcost * (1 + (50 + sp->shp_tech) /
-				      (double)(200 + sp->shp_tech)));
-    }
-/* the next two lines are not necessary since shp_mobquota is unsigned
-and therefore cannot be less than 0. 
-	if (sp->shp_mobquota<0)
-		sp->shp_mobquota=0;
-*/
 
     howfar = 0;
     if (mobcost > 0) {
