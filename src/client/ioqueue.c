@@ -52,7 +52,6 @@ ioq_init(struct ioqueue *ioq, int bsize)
     initque(&ioq->queue);
     ioq->cc = 0;
     ioq->bsize = bsize;
-    *num_teles = '\0';
 }
 
 /*
