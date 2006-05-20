@@ -936,7 +936,7 @@ oprange(struct genitem *gp, int type, int *radius)
 	if (plchr[(int)plane.pln_type].pl_flags & P_M)
 	    range = plane.pln_range;
 	else
-	    range = ldround((double)plane.pln_range / 2.0, 1);;
+	    range = plane.pln_range / 2;
 	break;
     default:
 	CANT_HAPPEN("bad TYPE");
