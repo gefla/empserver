@@ -39,6 +39,7 @@
 #include "sect.h"
 #include "nsc.h"
 #include "nat.h"
+#include "optlist.h"
 #include "path.h"
 #include "commands.h"
 #include "combat.h"
@@ -78,7 +79,7 @@ sinfra(void)
 	pr("%4.3f ", sector_mcost(&sect, MOB_ROAD));
 	pr("%4d%% ", sect.sct_rail);
 	pr("%4.3f ", sector_mcost(&sect, MOB_RAIL));
-	pr("%4d%% ", sect.sct_defense);
+	pr("%4d%% ", SCT_DEFENSE(&sect));
 	pr("%5.2f\n", sector_strength(&sect));
     }
     if (nsect == 0) {

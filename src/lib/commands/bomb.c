@@ -369,8 +369,6 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
     target->sct_road = effdamage(target->sct_road, dam);
     target->sct_rail = effdamage(target->sct_rail, dam);
     target->sct_defense = effdamage(target->sct_defense, dam);
-    if (!opt_DEFENSE_INFRA)
-	target->sct_defense = target->sct_effic;
     pr("did %d%% damage to efficiency in %s\n",
        oldeff - target->sct_effic,
        xyas(target->sct_x, target->sct_y, player->cnum));

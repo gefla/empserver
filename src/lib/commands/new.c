@@ -134,8 +134,6 @@ new(void)
     sect.sct_road = 0;
     sect.sct_rail = 0;
     sect.sct_defense = 0;
-    if (!opt_DEFENSE_INFRA)
-	sect.sct_defense = sect.sct_effic;
     sect.sct_mobil = startmob;
     sect.sct_work = 100;
     sect.sct_oldown = num;
@@ -159,8 +157,6 @@ new(void)
     sect.sct_road = 0;
     sect.sct_rail = 0;
     sect.sct_defense = 0;
-    if (!opt_DEFENSE_INFRA)
-	sect.sct_defense = sect.sct_effic;
     sect.sct_work = 100;
     sect.sct_oldown = num;
     sect.sct_mobil = startmob;

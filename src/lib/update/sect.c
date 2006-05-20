@@ -362,8 +362,6 @@ produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 		np->nat_money -= cost;
 		sp->sct_type = desig;
 		sp->sct_effic = neweff;
-		if (!opt_DEFENSE_INFRA)
-		    sp->sct_defense = sp->sct_effic;
 	    }
 	}
 

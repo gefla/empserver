@@ -733,7 +733,7 @@ dump(void)
 		pr("%d", sect.sct_rail);
 		break;
 	    case 71:
-		pr("%d", sect.sct_defense);
+		pr("%d", SCT_DEFENSE(&sect));
 		break;
 	    case 72:
 		if (opt_FALLOUT)

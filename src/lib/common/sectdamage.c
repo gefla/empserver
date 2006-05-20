@@ -65,8 +65,6 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
     sp->sct_road = damage(sp->sct_road, dam);
     sp->sct_rail = damage(sp->sct_rail, dam);
     sp->sct_defense = damage(sp->sct_defense, dam);
-    if (!opt_DEFENSE_INFRA)
-	sp->sct_defense = sp->sct_effic;
 
     eff = dam;
 

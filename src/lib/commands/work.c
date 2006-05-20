@@ -142,8 +142,6 @@ buildeff(struct sctstr *sp, int work, double *money)
 	    sp->sct_type = sp->sct_newtype;
 	}
 	sp->sct_effic = n;
-	if (!opt_DEFENSE_INFRA)
-	    sp->sct_defense = sp->sct_effic;
 	work -= work_cost;
 	*money += work_cost;
 	effdone += work_cost;

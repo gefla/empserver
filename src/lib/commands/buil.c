@@ -615,8 +615,6 @@ build_bridge(struct sctstr *sp, short *vec)
     sect.sct_road = 0;
     sect.sct_rail = 0;
     sect.sct_defense = 0;
-    if (!opt_DEFENSE_INFRA)
-	sect.sct_defense = sect.sct_effic;
     if (opt_MOB_ACCESS) {
 	time(&sect.sct_access);
 	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
@@ -915,8 +913,6 @@ build_tower(struct sctstr *sp, short *vec)
     } else {
 	sect.sct_mobil = 0;
     }
-    if (!opt_DEFENSE_INFRA)
-	sect.sct_defense = sect.sct_effic;
     sect.sct_mines = 0;
     map_set(player->cnum, sect.sct_x, sect.sct_y, dchr[SCT_BTOWER].d_mnem, 2);
     writemap(player->cnum);

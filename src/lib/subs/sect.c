@@ -132,8 +132,6 @@ checksect(struct sctstr *sp)
 	    sp->sct_mobil = 0;
 	}
     }
-    if (!opt_DEFENSE_INFRA)
-	sp->sct_defense = sp->sct_effic;
     return 1;
 }
 

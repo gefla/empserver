@@ -349,8 +349,6 @@ put_combat(struct combat *com)
 		sect.sct_defense = 0;
 	}
 	sect.sct_effic = com->eff;
-	if (!opt_DEFENSE_INFRA)
-	    sect.sct_defense = sect.sct_effic;
 	if (com->mobcost) {
 	    if (opt_MOB_ACCESS) {
 		if ((com->mob - com->mobcost) < -127)
@@ -2606,7 +2604,7 @@ sector_strength(struct sctstr *sp)
 	d = 2.0;
 
     d = d + ((double)(dchr[sp->sct_type].d_dstr - d) *
-	     ((double)sp->sct_defense / 100.0));
+	     ((double)SCT_DEFENSE(sp) / 100.0));
 
     if (d > dchr[sp->sct_type].d_dstr)
 	d = dchr[sp->sct_type].d_dstr;
