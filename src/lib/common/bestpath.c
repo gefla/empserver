@@ -50,6 +50,7 @@
 #include "sect.h"
 #include "file.h"
 #include "nat.h"
+#include "path.h"
 #include "common.h"
 #include "optlist.h"
 
@@ -57,10 +58,6 @@ static int owned_and_navigable(char *, int, int, int);
 
 #define MAXROUTE	100
 #define valid(x,y)	((((x) ^ (y)) & 1) == 0)
-
-static char *dirchar = "juygbn";
-int dx[6] = { 2, 1, -1, -2, -1, 1 };
-int dy[6] = { 0, -1, -1, 0, 1, 1 };
 
 /*
  * Ok, note that here we malloc some buffers.  BUT, we never
@@ -70,16 +67,16 @@ int dy[6] = { 0, -1, -1, 0, 1, 1 };
  * would be slow.  And, since world size only changes at init
  * time, we can do this safely.
  */
-static unsigned *mapbuf;
-static unsigned **mapindex;
+static unsigned short *mapbuf;
+static unsigned short **mapindex;
 
 /*
  * Find passable path from X, Y to EX, EY for nation OWN.
  * BPATH is a buffer capable of holding at least MAXROUTE characters.
  * If BIGMAP is null, all sectors are passable (useful for flying).
  * Else it is taken to be a bmap.
- * Sectors owned by or allied to OWN are checked according to the
- * usual rules, and the result is correct.
+ * Sectors owned by or allied to OWN are then passable according to
+ * the usual rules.
  * Other sectors are assumed to be passable when BIGMAP shows '.' or
  * nothing.
  * Return path or a null pointer.
@@ -93,11 +90,11 @@ bestownedpath(char *bpath, char *bigmap,
     unsigned routelen;
 
     if (!mapbuf)
-	mapbuf = malloc(WORLD_X * WORLD_Y * sizeof(unsigned));
+	mapbuf = malloc(WORLD_X * WORLD_Y * sizeof(*mapbuf));
     if (!mapbuf)
 	return NULL;
     if (!mapindex) {
-	mapindex = malloc(WORLD_X * sizeof(unsigned *));
+	mapindex = malloc(WORLD_X * sizeof(*mapindex));
 	if (mapindex) {
 	    /* Setup the map pointers */
 	    for (i = 0; i < WORLD_X; i++)
@@ -141,15 +138,15 @@ bestownedpath(char *bpath, char *bigmap,
 		if (!valid(x, y))
 		    continue;
 		if (((mapindex[x][y] & 0x1FFF) == routelen - 1)) {
-		    for (i = 0; i < 6; i++) {
-			tx = x + dx[i];
-			ty = y + dy[i];
+		    for (i = DIR_FIRST; i < DIR_LAST; i++) {
+			tx = x + diroff[i][0];
+			ty = y + diroff[i][1];
 			tx = XNORM(tx);
 			ty = YNORM(ty);
 			if (mapindex[tx][ty] == 0xFFFF) {
 			    if (owned_and_navigable(bigmap, tx, ty, own)) {
 				mapindex[tx][ty] =
-				    ((i + 1) << 13) + routelen;
+				    ((i - DIR_FIRST + 1) << 13) + routelen;
 				markedsectors++;
 			    }
 			}
@@ -157,10 +154,11 @@ bestownedpath(char *bpath, char *bigmap,
 			    bpath[routelen] = 'h';
 			    bpath[routelen + 1] = 0;
 			    while (routelen--) {
-				i = (mapindex[tx][ty] >> 13) - 1;
-				bpath[routelen] = dirchar[i];
-				tx = tx - dx[i];
-				ty = ty - dy[i];
+				i = (mapindex[tx][ty] >> 13)
+				    - 1 + DIR_FIRST;
+				bpath[routelen] = dirch[i];
+				tx = tx - diroff[i][0];
+				ty = ty - diroff[i][1];
 				tx = XNORM(tx);
 				ty = YNORM(ty);
 			    }
