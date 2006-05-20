@@ -168,9 +168,7 @@ paradrop(struct emp_qelem *list, coord x, coord y)
 	return RET_OK;
     }
 
-    /* Get ototal */
-
-    ototal = att_estimate_defense(A_PARA, off, &olist, def, a_spy);
+    ototal = att_get_offense(A_PARA, off, &olist, def);
     if (att_abort(A_PARA, off, def)) {
 	pr("Air-assault aborted\n");
 	return RET_OK;

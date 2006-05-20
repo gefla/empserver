@@ -129,11 +129,7 @@ assa(void)
 	return RET_OK;
     }
 
-    /*
-     * Estimate the defense strength and give the player a chance to abort
-     */
-
-    ototal = att_estimate_defense(A_ASSAULT, off, &olist, def, a_spy);
+    ototal = att_get_offense(A_ASSAULT, off, &olist, def);
     if (att_abort(A_ASSAULT, off, def)) {
 	pr("Assault aborted\n");
 	att_empty_attack(A_ASSAULT, 0, def);

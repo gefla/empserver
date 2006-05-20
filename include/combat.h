@@ -81,8 +81,8 @@ extern int att_ask_support(int, int *, int *, int *, int *);
 extern int att_ask_offense(int, struct combat *, struct combat *,
 			   struct emp_qelem *, int *, int *);
 extern double sector_strength(struct sctstr *);
-extern int att_estimate_defense(int, struct combat *, struct emp_qelem *,
-				struct combat *, int);
+extern int att_get_offense(int, struct combat *, struct emp_qelem *,
+			   struct combat *);
 extern int att_empty_attack(int, int, struct combat *);
 extern int att_get_defense(struct emp_qelem *, struct combat *,
 			   struct emp_qelem *, int, int);

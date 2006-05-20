@@ -1107,11 +1107,9 @@ att_combat_eff(struct combat *com)
  * Estimate the defense strength and give the attacker a chance to abort
  * if the odds are less than 50%
  */
-
 int
-att_estimate_defense(int combat_mode, struct combat *off,
-		     struct emp_qelem *olist, struct combat *def,
-		     int a_spy)
+att_get_offense(int combat_mode, struct combat *off,
+		struct emp_qelem *olist, struct combat *def)
 {
     int ototal;
     int estimate;
@@ -1128,30 +1126,6 @@ att_estimate_defense(int combat_mode, struct combat *off,
     if (combat_mode == A_PARA)
 	return ototal;
     pr("\n             Initial attack strength: %8d\n", ototal);
-
-    estimate = att_combat_eff(def) * roundintby(def->troops, 10);
-    estimate += att_combat_eff(def) * get_dlist(def, 0, a_spy, 0);
-
-    /*
-     * Calculate the initial (pre-support) attack odds.  If they're less
-     * than 50%, ask for a confirmation.
-     */
-
-    odds = (int)(att_calcodds(ototal, estimate) * 100);
-
-/*
-	if (odds < 50) {
-		pr("          Estimated defense strength: %8d\n", estimate);
-		pr("                      Estimated odds: %8d%%\n\n",odds);
-		sprintf(prompt, "Are you sure you want to %s [yn]? ",
-			att_mode[combat_mode]);
-		if (!confirm(prompt))
-			return abort_attack();
-		ototal = get_ototal(combat_mode, off, olist,1.0,1);
-		if (att_empty_attack(combat_mode, ototal, def))
-			return abort_attack();
-	}
- */
     return ototal;
 }
 

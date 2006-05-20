@@ -120,11 +120,7 @@ atta(void)
 	return att_free_lists(&olist, 0);
     }
 
-    /*
-     * Estimate the defense strength and give the player a chance to abort
-     */
-
-    ototal = att_estimate_defense(A_ATTACK, off, &olist, def, a_spy);
+    ototal = att_get_offense(A_ATTACK, off, &olist, def);
     if (att_abort(A_ATTACK, off, def)) {
 	pr("Attack aborted\n");
 	att_empty_attack(A_ATTACK, 0, def);
