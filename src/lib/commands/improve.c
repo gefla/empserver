@@ -71,7 +71,7 @@ improve(void)
     int wanted;
 
     if (!(p = getstarg(player->argp[1],
-		       prompt[opt_DEFENSE_INFRA], buf)) || !*p)
+		       prompt[!!opt_DEFENSE_INFRA], buf)) || !*p)
 	return RET_SYN;
     if (!strncmp(p, "ro", 2))
 	type = INT_ROAD;
