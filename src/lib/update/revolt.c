@@ -477,26 +477,20 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	cantake = (((float)(lp->lnd_effic - 40) / 100.0) *
-		   (float)lnd_getmil(lp)) * 2;
-	/*                              (float)lchr[lp->lnd_type].l_mil)*2; */
+	cantake = ((lp->lnd_effic - 40) / 100.0) * lnd_getmil(lp) * 2.0;
 
 	if (cantake >= each) {
-	    /*                  deq = (((float)each/(float)(lchr[lp->lnd_type].l_mil*2)) */
-	    deq = (((float)each / (float)(lnd_getmil(lp) * 2))
-		   * 100.0);
+	    deq = ((double)each / (lnd_getmil(lp) * 2.0)) * 100.0;
 	    mc -= each;
 	} else if (cantake > 0) {
-	    deq = (((float)cantake / (float)(lnd_getmil(lp) * 2)) * 100.0);
-	    /*                          (float)(lchr[lp->lnd_type].l_mil*2)) * 100.0); */
-	    mc -= (((float)deq / 100.0) * (float)lnd_getmil(lp)) * 2;
-	    /*                          (float)lchr[lp->lnd_type].l_mil)*2; */
+	    deq = ((double)cantake / (lnd_getmil(lp) * 2.0)) * 100.0;
+	    mc -= (deq / 100.0) * lnd_getmil(lp) * 2.0;
 	} else
 	    deq = 0;
 
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
-	deq = (double)lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
+	deq = lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
 	    return;
@@ -508,22 +502,20 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	cantake = (((float)(lp->lnd_effic - 40) / 100.0) *
-		   (float)lnd_getmil(lp));
+	cantake = ((lp->lnd_effic - 40) / 100.0) * lnd_getmil(lp);
 
 	if (cantake >= each) {
-	    deq = (((float)each / (float)(lnd_getmil(lp) * 2))
-		   * 100.0);
+	    deq = ((double)each / (lnd_getmil(lp) * 2.0)) * 100.0;
 	    mc -= each;
 	} else if (cantake > 0) {
-	    deq = (((float)cantake / (float)lnd_getmil(lp))
-		   * 100.0);
-	    mc -= (((float)deq / 100.0) * (float)lnd_getmil(lp));
+	    deq = ((double)cantake / lnd_getmil(lp)) * 100.0;
+	    mc -= (deq / 100.0) * lnd_getmil(lp);
 	} else
 	    deq = 0;
+
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
-	deq = (double)lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
+	deq = lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
 	    return;
@@ -536,7 +528,7 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	mc -= (((float)lp->lnd_effic / 100.0) * (float)lnd_getmil(lp));
+	mc -= (lp->lnd_effic / 100.0) * lnd_getmil(lp);
 	lp->lnd_effic = 0;
 	lnd_submil(lp, 1000);	/* Remove 'em all */
 	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
@@ -554,7 +546,7 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	mc -= (((float)lp->lnd_effic / 100.0) * (float)lnd_getmil(lp)) * 2;
+	mc -= (lp->lnd_effic / 100.0) * lnd_getmil(lp) * 2.0;
 	lp->lnd_effic = 0;
 	lnd_submil(lp, 1000);	/* Kill 'em all */
 	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
