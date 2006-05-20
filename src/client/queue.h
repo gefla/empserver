@@ -44,6 +44,5 @@ struct qelem {
 void insque(struct qelem *p, struct qelem *q);
 void remque(struct qelem *p);
 void initque(struct qelem *p);
-struct qelem *makeqt(int nelem);
 
 #endif

@@ -62,16 +62,3 @@ initque(struct qelem *p)
     p->q_forw = p;
     p->q_back = p;
 }
-
-struct qelem *
-makeqt(int nelem)
-{
-    struct qelem *table;
-    struct qelem *qp;
-    int i;
-
-    table = malloc(sizeof(*table) * nelem);
-    for (i = 0, qp = table; i < nelem; i++, qp++)
-	initque(qp);
-    return table;
-}
