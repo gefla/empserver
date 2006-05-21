@@ -389,22 +389,23 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx, int string_ok)
     if (val->val_cat != NSC_ID)
 	return val;
 
-    if (idx == M_NOTUNIQUE) {
+    if (idx == M_NOTUNIQUE && !string_ok) {
 	pr("%.*s -- ambiguous name\n",
 	   (int)val->val_as.str.maxsz, val->val_as.str.base);
 	val->val_cat = NSC_NOCAT;
 	return NULL;
     }
 
+    if (idx == M_NOTFOUND && !string_ok) {
+	pr("%.*s -- unknown name\n",
+	   (int)val->val_as.str.maxsz, val->val_as.str.base);
+	val->val_cat = NSC_NOCAT;
+	return NULL;
+    }
+
     if (idx < 0) {
-	CANT_HAPPEN(idx != M_NOTFOUND);
-	if (!string_ok) {
-	    pr("%.*s -- unknown name\n",
-	       (int)val->val_as.str.maxsz, val->val_as.str.base);
-	    val->val_cat = NSC_NOCAT;
-	    return NULL;
-	}
-	/* interpret unbound identifier as string */
+	CANT_HAPPEN(!string_ok);
+	/* interpret unresolvable identifier as string */
 	val->val_type = NSC_STRING;
 	val->val_cat = NSC_VAL;
 	return val;
@@ -473,7 +474,9 @@ nstr_comp_val(char *str, struct valstr *val, int type)
 {
     struct castr *ca = ef_cadef(type);
     char *tail = nstr_parse_val(str, val);
-    return nstr_resolve_id(val, ca, nstr_match_ca(val, ca), 0) ? tail : NULL;
+    if (!nstr_resolve_id(val, ca, nstr_match_ca(val, ca), 0))
+	return NULL;
+    return tail;
 }
 
 
