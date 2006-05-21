@@ -1299,7 +1299,7 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
 	    continue;
 	d_unit = defense_val(&llp->land);
 	if (!llp->supplied)
-	    d_unit = ((double)defense_val(&llp->land) / 2.0);
+	    d_unit /= 2.0;
 	dtotal += d_unit * eff;
     }
 
@@ -1444,7 +1444,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     int new_land = 0;
     double mobcost;
     double move_cost;
-    int supply_state;
     int dist;
     int radius;
     int origx, origy;
@@ -1487,7 +1486,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	/* Only supplied units can react */
-	if (!(supply_state = has_supply(&land)))
+	if (!has_supply(&land))
 	    continue;
 
 	dist = mapdist(land.lnd_x, land.lnd_y, def->x, def->y);
@@ -1513,7 +1512,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (mobcost < 0.01)
 	    mobcost = 0.01;
 	mobcost = 480.0 / (mobcost + techfact(land.lnd_tech, mobcost));
-	mobcost *= (move_cost * 5.0);
+	mobcost *= move_cost * 5.0;
 
 	if (land.lnd_mobil < mobcost)
 	    continue;
@@ -1537,7 +1536,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    malloc(sizeof(struct llist));
 
 	memset(llp, 0, sizeof(struct llist));
-	llp->supplied = supply_state;
+	llp->supplied = 1;
 	llp->x = origx;
 	llp->y = origy;
 	llp->lcp = &lchr[(int)land.lnd_type];
@@ -1565,25 +1564,25 @@ get_osupport(char *outs, struct combat *def, int fort_sup, int ship_sup,
     af = as = au = ap = 0.0;
     if (fort_sup) {
 	dam = dd(def->own, player->cnum, def->x, def->y, 0, 0);
-	af = ((double)dam / 100.0);
+	af = dam / 100.0;
 	osupport += af;
     }
     if (ship_sup) {
 	dam = sd(def->own, player->cnum, def->x, def->y, 0, 0, 0);
 
-	as = ((double)dam / 100.0);
+	as = dam / 100.0;
 	osupport += as;
     }
 
     if (land_sup) {
 	dam = lnd_support(def->own, player->cnum, def->x, def->y, 0);
-	au = ((double)dam / 100.0);
+	au = dam / 100.0;
 	osupport += au;
     }
 
     if (plane_sup) {
 	dam = off_support(def->x, def->y, def->own, player->cnum);
-	ap = (((double)dam) / 100.0);
+	ap = dam / 100.0;
 	osupport += ap;
     }
     sprintf(outs, "attacker\t%1.2f\t%1.2f\t%1.2f\t%1.2f\n", af, as, au,
@@ -1609,25 +1608,25 @@ get_dsupport(char *outs, struct emp_qelem *list, struct combat *def,
 	good = 1;
     } else {
 	dam = dd(player->cnum, def->own, def->x, def->y, 0, 1);
-	df = ((double)dam / 100.0);
+	df = dam / 100.0;
 	dsupport += df;
 
 	dtotal = get_dtotal(def, list, dsupport, 0);
 	if (dtotal < 1.2 * ototal) {
 	    dam = sd(player->cnum, def->own, def->x, def->y, 0, 1, 0);
-	    ds = ((double)dam / 100.0);
+	    ds = dam / 100.0;
 	    dsupport += ds;
 	    dtotal = get_dtotal(def, list, dsupport, 0);
 	}
 	if (dtotal < 1.2 * ototal) {
 	    dam = lnd_support(player->cnum, def->own, def->x, def->y, 1);
-	    du = ((double)dam / 100.0);
+	    du = dam / 100.0;
 	    dsupport += du;
 	    dtotal = get_dtotal(def, list, dsupport, 1);
 	}
 	if (dtotal < 1.2 * ototal) {
 	    dam = def_support(def->x, def->y, player->cnum, def->own);
-	    dp = (((double)dam) / 100.0);
+	    dp = dam / 100.0;
 	    dsupport += dp;
 	}
     }
@@ -1663,7 +1662,7 @@ get_mine_dsupport(struct combat *def, int a_engineer)
     if (sect.sct_oldown != player->cnum) {
 	mines = MIN(sect.sct_mines, 20);
 	if (a_engineer)
-	    mines = ldround(((double)mines / 2.0), 1);
+	    mines = ldround(mines / 2.0, 1);
 	if (mines > 0) {
 	    if (def->own)
 		wu(0, def->own, "Defending mines add %1.2f\n",
@@ -1837,7 +1836,8 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     att_infect_units(olist, off->plague);
     att_infect_units(dlist, def->plague);
 
-    /* Fighting is slightly random.  There is always that last little 
+    /*
+     * Fighting is slightly random.  There is always that last little 
      * effort you see people put in.  Or the stray bullet that takes out
      * an officer and the rest go into chaos.  Things like that.
      * Thus, we have added a very slight random factor that will sometimes
@@ -1845,8 +1845,9 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
      * (either +- 5%) to account for this randomness.  We also only
      * recalculate the odds every 8-50 casualties, not every cacsualty,
      * since a single dead guy normally wouldn't cause a commander to
-     * rethink his strategies, but 50 dead guys might. */
-    odds = odds + (double)((double)((random() % 11) - 5) / 100.0);
+     * rethink his strategies, but 50 dead guys might.
+     */
+    odds += (random() % 11 - 5) / 100.0;
     if (odds < 0.0)
 	odds = 0.1;
     if (odds > 1.0)
@@ -1869,7 +1870,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	if (recalctime-- <= 0) {
 	    recalctime = 8 + (random() % 43);
 	    odds = att_calcodds(ototal, dtotal);
-	    odds = odds + (double)((double)((random() % 11) - 5) / 100.0);
+	    odds += (random() % 11 - 5) / 100.0;
 	    if (odds < 0.0)
 		odds = 0.1;
 	    if (odds > 1.0)
@@ -2033,7 +2034,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 
 /* What percentage of the combat forces going head-to-head are we? */
 
-double
+static double
 att_calcodds(int ototal, int dtotal)
 {
     double odds;
@@ -2044,7 +2045,7 @@ att_calcodds(int ototal, int dtotal)
     else if (dtotal <= 0)
 	odds = 1.0;
     else
-	odds = ((double)ototal) / (dtotal + ototal);
+	odds = (double)ototal / (dtotal + ototal);
 
     return odds;
 }
@@ -2571,19 +2572,13 @@ att_free_lists(struct emp_qelem *olist, struct emp_qelem *dlist)
 double
 sector_strength(struct sctstr *sp)
 {
-    double d;
+    double def = SCT_DEFENSE(sp) / 100.0;
+    double base = sp->sct_type == SCT_MOUNT ? 2.0 : 1.0;
+    double d = base + (dchr[sp->sct_type].d_dstr - base) * def;
 
-    d = 1.0;
-
-    if (sp->sct_type == SCT_MOUNT)
-	d = 2.0;
-
-    d = d + ((double)(dchr[sp->sct_type].d_dstr - d) *
-	     ((double)SCT_DEFENSE(sp) / 100.0));
-
-    if (d > dchr[sp->sct_type].d_dstr)
+    if (CANT_HAPPEN(d > dchr[sp->sct_type].d_dstr))
 	d = dchr[sp->sct_type].d_dstr;
-    if (d < 0.1)
-	d = 0.1;
+    if (CANT_HAPPEN(d < base))
+	d = base;
     return d;
 }
