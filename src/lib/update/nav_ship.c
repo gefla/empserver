@@ -262,7 +262,7 @@ nav_ship(struct shpstr *sp)
     mlp = malloc(sizeof(struct mlist));
     mlp->mcp = mchr + sp->shp_type;
     mlp->ship = *sp;
-    mlp->mobil = (double)sp->shp_mobil;
+    mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &ship_list);
 
     quit = 1;			/* setup loop, we want to check it 1 time. */

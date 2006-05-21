@@ -486,9 +486,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		dam2 = ldround(landunitgun(lp->lnd_effic, lp->lnd_dam, gun,
 					   lp->lnd_ammo, shell), 1);
 		if (sect.sct_type == SCT_WATER) {
-		    double dam3 = (double)dam2;
-		    if (chance(((double)lp->lnd_acc) / 100.0))
-			dam2 = ldround((dam3 / 2.0), 1);
+		    if (chance(lp->lnd_acc / 100.0))
+			dam2 = ldround(dam2 / 2.0, 1);
 		}
 		dam += dam2;
 		if (sect.sct_type == SCT_WATER)
@@ -527,7 +526,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (!(mcp->m_flags & M_DCH) && !(mcp->m_flags & M_SUBT))
 		    continue;
 		vrange = techfact(sp->shp_tech, mcp->m_vrnge);
-		vrange *= (double)sp->shp_effic / 200.0;
+		vrange *= sp->shp_effic / 200.0;
 		if (md > vrange)
 		    continue;
 		/* can't look all the time */
@@ -900,7 +899,7 @@ show_mission(int type, struct nstr_item *np)
 	    pr("  %4d", plus);
 	} else if (gp->mission == MI_ESCORT) {
 	    pr("        ");
-	    pr("  %4d", (int)(item.plane.pln_range / 2.0));
+	    pr("  %4d", item.plane.pln_range / 2);
 	} else
 	    pr("              ");
 	if (gp->mission)
@@ -1536,7 +1535,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	for (qp = interceptors.q_forw; qp != (&interceptors);
 	     qp = qp->q_forw)
 	    tcount++;
-	tcount -= (count * 2);
+	tcount -= count * 2;
 	/* Just in case there are more incoming than we have */
 	if (tcount < 0)
 	    tcount = 0;

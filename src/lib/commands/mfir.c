@@ -364,7 +364,7 @@ multifire(void)
 	    shots = gun;
 	    guneff = seagun(fship.shp_effic, shots);
 	    dam = (int)guneff;
-	    shell -= ldround(((double)shots) / 2.0, 1);
+	    shell -= ldround(shots / 2.0, 1);
 	    fship.shp_item[I_SHELL] = shell;
 	    if (opt_NOMOBCOST == 0)
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
@@ -414,8 +414,8 @@ multifire(void)
 	    dam = (int)landunitgun(fland.lnd_effic, fland.lnd_dam, gun,
 				   fland.lnd_ammo, shell);
 	    if (target == targ_ship) {
-		if (chance(((double)fland.lnd_acc) / 100.0))
-		    dam = ldround(((double)dam / 2.0), 1);
+		if (chance(fland.lnd_acc / 100.0))
+		    dam = ldround(dam / 2.0, 1);
 	    }
 	    use_supply(&fland);
 	    resupply_commod(&fland, I_SHELL);	/* Get more shells */
@@ -554,7 +554,7 @@ multifire(void)
 	    prb *= prb;
 	    if (chance(prb)) {
 		pr("Wind deflects shell%s.\n", splur(shots));
-/*			dam = (int)((double)dam / 2.0);*/
+/*			dam = (int)(dam / 2.0);*/
 		dam *= (90 - (random() % 11)) / 100.0;
 		if (dam < 0)
 		    dam = 0;
@@ -713,7 +713,7 @@ do_defdam(struct emp_qelem *list, double odds)
 	    pr("\nDefenders fire back!\n");
 	    first = 0;
 	}
-	dam = (odds * (double)fp->defdam);
+	dam = odds * fp->defdam;
 
 	if (fp->type == targ_ship) {
 	    vict = fp->victim;

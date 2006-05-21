@@ -208,7 +208,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == 0)
 		continue;
-	    if (!chance((double)land.lnd_effic / 20.0))
+	    if (!chance(land.lnd_effic / 20.0))
 		continue;
 	    if (++crackle == 100)
 		crackle = 0;
@@ -326,7 +326,7 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
-	if (!chance((double)land.lnd_effic / 20.0))
+	if (!chance(land.lnd_effic / 20.0))
 	    continue;
 
 	if (first) {

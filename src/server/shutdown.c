@@ -87,7 +87,7 @@ shutdown_sequence(void *unused)
 			header, shutdown_pending);
 	    } else if (shutdown_pending % 60 == 0) {
 		pr_wall("%sThe server will be shutting down %d hours from now.\n",
-			header, (int)(shutdown_pending / 60));
+			header, shutdown_pending / 60);
 	    }
 	}
 	empth_sleep(now + 60);

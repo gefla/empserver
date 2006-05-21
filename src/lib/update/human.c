@@ -99,7 +99,7 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		   supply ships in port, or supply units */
 		int needed;
 
-		needed = ldround((double)(1 + etu * people * eatrate), 1);
+		needed = ldround(1.0 + etu * people * eatrate, 1);
 
 		/* Now, find some food */
 		vec[I_FOOD] = supply_commod(sp->sct_own,

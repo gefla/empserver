@@ -258,7 +258,7 @@ decay_fallout(struct sctstr *sp, int etus)
 
     if (etus > 24)
 	etus = 24;
-    decay = roundavg(((decay_per_etu + 6.0) * fallout_spread) *
+    decay = roundavg((decay_per_etu + 6.0) * fallout_spread *
 		     (double)etus * (double)sp->sct_fallout);
 
     sp->sct_fallout = decay < sp->sct_fallout ? sp->sct_fallout - decay : 0;

@@ -176,8 +176,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 	eff_eq = 100;
 	llp->land.lnd_effic = 0;
     } else {
-	eff_eq =
-	    ldround((((double)cas * 100.0) / (double)llp->lcp->l_mil), 1);
+	eff_eq = ldround(cas * 100.0 / llp->lcp->l_mil, 1);
 	llp->land.lnd_effic -= eff_eq;
 	lnd_submil(&llp->land, cas);
     }
@@ -345,7 +344,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     memset(buf1, 0, sizeof(buf1));
     memset(buf2, 0, sizeof(buf2));
     memset(buf3, 0, sizeof(buf3));
-    if (chance((double)(spy + lp->lnd_vis) / 10.0)) {
+    if (chance((spy + lp->lnd_vis) / 10.0)) {
 	if (destination == player->cnum)
 	    pr("%s %s", mess, prland(lp));
 	else
@@ -353,8 +352,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 
 	estimate = lp->lnd_item[I_MILIT];
 
-	if (chance((double)(spy + lp->lnd_vis) / 20.0)) {
-
+	if (chance((spy + lp->lnd_vis) / 20.0)) {
 	    if (destination == player->cnum)
 		pr(" (eff %d, mil %d",
 		   roundintby(lp->lnd_effic, 5),
@@ -365,7 +363,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 			roundintby(lp->lnd_item[I_MILIT], 10));
 	    estimate = lp->lnd_item[I_MILIT] * lp->lnd_effic / 100.0;
 
-	    if (chance((double)(spy + lp->lnd_vis) / 20.0)) {
+	    if (chance((spy + lp->lnd_vis) / 20.0)) {
 		int t;
 		t = lp->lnd_tech - 20 + roll(40);
 		t = MAX(t, 0);
@@ -524,7 +522,7 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	llp = malloc(sizeof(struct llist));
 	llp->lcp = lcp;
 	llp->land = land;
-	llp->mobil = (double)land.lnd_mobil;
+	llp->mobil = land.lnd_mobil;
 	emp_insque(&llp->queue, list);
     }
 }
@@ -593,7 +591,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (land.lnd_x != allx || land.lnd_y != ally)
 	    *togetherp = 0;
 	if (land.lnd_mobil + 1 < (int)llp->mobil) {
-	    llp->mobil = (double)land.lnd_mobil;
+	    llp->mobil = land.lnd_mobil;
 	}
 	if (llp->mobil < *minmobp)
 	    *minmobp = llp->mobil;
@@ -821,7 +819,7 @@ lnd_damage(struct emp_qelem *list, int totdam)
 
     if (!totdam || !(count = lnd_count(list)))
 	return 0;
-    dam = ldround(((double)totdam / (double)count), 1);
+    dam = ldround((double)totdam / count, 1);
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct llist *)qp;
@@ -975,9 +973,9 @@ lnd_hardtarget(struct lndstr *lp)
     struct sctstr sect;
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
-    return (int)(((double)lp->lnd_effic / 100.0) *
-		 (10 + dchr[sect.sct_type].d_dstr * 2 +
-		  (double)lp->lnd_spd / 2.0 - lp->lnd_vis));
+    return (int)((lp->lnd_effic / 100.0) *
+		 (10 + dchr[sect.sct_type].d_dstr * 2 + lp->lnd_spd / 2.0
+		  - lp->lnd_vis));
 }
 
 static int
@@ -1019,7 +1017,7 @@ lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
    bridge heads, bridges and highways have built-in highways bonus
    because they are a 1, and this will discount that. */
 
-    smobcost = (double)sector_mcost(sp, mobtype);
+    smobcost = sector_mcost(sp, mobtype);
     if (smobcost < 0.01)
 	smobcost = 0.01;
 

@@ -112,7 +112,7 @@ buy(void)
     bid = atof(p);
     if (bid <= 0)
 	return RET_FAIL;
-    if (natp->nat_money < (bid * comm.com_amount * buytax)) {
+    if (natp->nat_money < bid * comm.com_amount * buytax) {
 	pr("This purchase would cost %.2f, %.2f more than you have.\n",
 	   bid * comm.com_amount * buytax,
 	   bid * comm.com_amount * buytax - natp->nat_money);
@@ -131,12 +131,12 @@ buy(void)
     for (q = 0; getcomm(q, &comt); q++) {
 	if (comt.com_maxbidder == player->cnum &&
 	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
-	    tally += (comt.com_price * comt.com_amount) * buytax;
+	    tally += comt.com_price * comt.com_amount * buytax;
 	}
     }
     canspend = natp->nat_money - tally;
     getcomm(o, &comm);
-    if ((bid * comm.com_amount * buytax) > canspend) {
+    if (bid * comm.com_amount * buytax > canspend) {
 	pr("You have overextended yourself in the market\n");
 	pr("You can not bid on the current items at that price.\n");
 	return RET_OK;
@@ -165,7 +165,7 @@ buy(void)
 	   qty, ip->i_name, n);
 	return RET_FAIL;
     }
-    if ((bid * comm.com_amount) > natp->nat_money) {
+    if (bid * comm.com_amount > natp->nat_money) {
 	pr("You don't have that much to spend!\n");
 	return RET_FAIL;
     }

@@ -63,7 +63,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
     double sect_mcost;
     double total_mcost;
     double mv_cost;
-    double mobility = (double)start->sct_mobil;
+    double mobility = start->sct_mobil;
     int dir;
     int intcost;
     int takedam = *dam;
@@ -230,7 +230,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	if (takedam && chance(weight / 100.0) &&
 	    ((curx != oldx) || (cury != oldy)))
 	    *dam += ground_interdict(curx, cury, player->cnum,
-				       "commodities");
+				     "commodities");
 	if (*dam >= 100)
 	    break;
     }

@@ -107,7 +107,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	mlp = malloc(sizeof(struct mlist));
 	mlp->mcp = mcp;
 	mlp->ship = ship;
-	mlp->mobil = (double)ship.shp_mobil;
+	mlp->mobil = ship.shp_mobil;
 	emp_insque(&mlp->queue, list);
     }
 }
@@ -178,7 +178,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (ship.shp_x != allx || ship.shp_y != ally)
 	    *togetherp = 0;
 	if (ship.shp_mobil + 1 < (int)mlp->mobil) {
-	    mlp->mobil = (double)ship.shp_mobil;
+	    mlp->mobil = ship.shp_mobil;
 	}
 	if (mlp->mobil < *minmobp)
 	    *minmobp = mlp->mobil;
@@ -446,7 +446,7 @@ shp_damage(struct emp_qelem *list, int totdam, int wantflags,
     if (!totdam
 	|| !(count = shp_count(list, wantflags, nowantflags, x, y)))
 	return 0;
-    dam = ldround(((double)totdam / (double)count), 1);
+    dam = ldround((double)totdam / count, 1);
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct mlist *)qp;
@@ -749,11 +749,11 @@ shp_hardtarget(struct shpstr *sp)
 
     vis = sp->shp_visib;
     getsect(sp->shp_x, sp->shp_y, &sect);
-    onsea = (sect.sct_type == SCT_WATER);
+    onsea = sect.sct_type == SCT_WATER;
     if (mcp->m_flags & M_SUB)
 	vis *= 4;
-    return (int)(((double)sp->shp_effic / 100.0) *
-		 (20 + (double)sp->shp_speed * onsea / 2.0 - vis));
+    return (int)((sp->shp_effic / 100.0) *
+		 (20 + sp->shp_speed * onsea / 2.0 - vis));
 }
 
 static int
@@ -955,9 +955,8 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 
 	/* now calculate the odds */
 	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
-	eff = (double)ship.shp_effic / 100.0;
-	teff =
-	    (((double)ship.shp_tech) / (((double)ship.shp_tech) + 200.0));
+	eff = ship.shp_effic / 100.0;
+	teff = ship.shp_tech / (ship.shp_tech + 200.0);
 	/* raise 4.5 for better interception -KHS */
 	hitchance = (int)(gun * eff * teff * 4.5) - hardtarget;
 	if (hitchance < 0)
@@ -1032,7 +1031,7 @@ shp_missdef(struct shpstr *sp, natid victim)
     mlp = malloc(sizeof(struct mlist));
     mlp->mcp = &mchr[(int)sp->shp_type];
     mlp->ship = *sp;
-    mlp->mobil = (double)sp->shp_mobil;
+    mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &list);
     sprintf(buf, "%s", prship(&mlp->ship));
 

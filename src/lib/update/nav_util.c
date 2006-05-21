@@ -212,10 +212,10 @@ auto_fuel_ship(struct shpstr *sp)
     if (opt_FUEL == 0)
 	return;
     getship(sp->shp_uid, sp);	/* refresh */
-    /* fill with petro */
+    /* fill with petrol */
     maxfuel = mchr[(int)sp->shp_type].m_fuelc;
-    d = (double)maxfuel / 5.0;
-    if ((d - (int)d > 0.0))
+    d = maxfuel / 5.0;
+    if (d - (int)d > 0.0)
 	d++;
     need = (int)d;
 
@@ -233,8 +233,8 @@ auto_fuel_ship(struct shpstr *sp)
     }
     add_fuel = 0;
     /* fill with oil */
-    d = (double)(maxfuel - totalfuel) / 50.0;
-    if ((d - (int)d > 0.0))
+    d = (maxfuel - totalfuel) / 50.0;
+    if (d - (int)d > 0.0)
 	d++;
     need = (int)d;
 

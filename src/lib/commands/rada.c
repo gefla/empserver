@@ -75,10 +75,10 @@ rada(void)
 	if (!snxtsct(&ns, cp))
 	    return RET_SYN;
 	tech = tfact(player->cnum, 8.0);
-	if (tech > ((double)WORLD_Y / 4.0))
-	    tech = ((double)WORLD_Y / 4.0);
-	if (tech > ((double)WORLD_X / 8.0))
-	    tech = ((double)WORLD_X / 8.0);
+	if (tech > WORLD_Y / 4.0)
+	    tech = WORLD_Y / 4.0;
+	if (tech > WORLD_X / 8.0)
+	    tech = WORLD_X / 8.0;
 	while (nxtsct(&ns, &sect)) {
 	    if (sect.sct_type != SCT_RADAR)
 		continue;
@@ -105,11 +105,11 @@ rada(void)
 		    tf = 0.0;
 		pr("%s at ", prship(&ship));
 		tech = techfact(ship.shp_tech,
-				(double)mchr[(int)ship.shp_type].m_vrnge);
-		if (tech > ((double)WORLD_Y / 2.0))
-		    tech = ((double)WORLD_Y / 2.0);
-		if (tech > ((double)WORLD_X / 4.0))
-		    tech = ((double)WORLD_X / 4.0);
+				mchr[(int)ship.shp_type].m_vrnge);
+		if (tech > WORLD_Y / 2.0)
+		    tech = WORLD_Y / 2.0;
+		if (tech > WORLD_X / 4.0)
+		    tech = WORLD_X / 4.0;
 		radmap(ship.shp_x, ship.shp_y, ship.shp_effic,
 		       (int)tech, tf);
 	    }
@@ -133,10 +133,10 @@ rada(void)
 		tf = 0.0;
 		pr("%s at ", prland(&land));
 		tech = techfact(land.lnd_tech, land.lnd_spy);
-		if (tech > ((double)WORLD_Y / 2.0))
-		    tech = ((double)WORLD_Y / 2.0);
-		if (tech > ((double)WORLD_X / 4.0))
-		    tech = ((double)WORLD_X / 4.0);
+		if (tech > WORLD_Y / 2.0)
+		    tech = WORLD_Y / 2.0;
+		if (tech > WORLD_X / 4.0)
+		    tech = WORLD_X / 4.0;
 		radmap(land.lnd_x, land.lnd_y, land.lnd_effic,
 		       (int)tech, tf);
 	    }

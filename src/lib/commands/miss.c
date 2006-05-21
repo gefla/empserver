@@ -209,7 +209,7 @@ mission(void)
 	return RET_FAIL;
     }
 
-    mobused = ldround((mission_mob_cost * (double)mobmax), 1);
+    mobused = ldround(mission_mob_cost * (double)mobmax, 1);
 
     while (nxtitem(&ni, &item)) {
 	gp = (struct genitem *)&item;

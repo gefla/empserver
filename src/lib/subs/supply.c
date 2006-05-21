@@ -111,8 +111,8 @@ resupply_commod(struct lndstr *lp, i_type type)
     }
 
     if (opt_FUEL && type == I_PETROL) {
-	int fuel_needed = (lp->lnd_fuelu * (((float)etu_per_update
-					     * land_mob_scale)) / 10.0);
+	int fuel_needed = lp->lnd_fuelu
+	    * ((float)etu_per_update * land_mob_scale) / 10.0;
 
 	while ((lp->lnd_fuel < fuel_needed) && lp->lnd_item[I_PETROL]) {
 	    lp->lnd_fuel += 10;
@@ -216,10 +216,10 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	packing = ip->i_pkg[dp->d_pkg];
 	if (packing > 1 && sect.sct_effic < 60)
 	    packing = 1;
-	weight = ((double)ip->i_lbs / (double)packing);
+	weight = (double)ip->i_lbs / packing;
 	mobcost = move_cost * weight;
 	if (mobcost > 0)
-	    can_move = ((double)sect.sct_mobil / mobcost);
+	    can_move = (double)sect.sct_mobil / mobcost;
 	else
 	    can_move = sect.sct_item[type] - minimum;
 	if (can_move > sect.sct_item[type] - minimum)
@@ -290,10 +290,10 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	packing = ip->i_pkg[dp->d_pkg];
 	if (packing > 1 && sect.sct_effic < 60)
 	    packing = 1;
-	weight = ((double)ip->i_lbs / (double)packing);
+	weight = (double)ip->i_lbs / packing;
 	mobcost = move_cost * weight;
 	if (mobcost > 0)
-	    can_move = ((double)sect.sct_mobil / mobcost);
+	    can_move = (double)sect.sct_mobil / mobcost;
 	else
 	    can_move = ship.shp_item[type] - minimum;
 	if (can_move > ship.shp_item[type] - minimum)
@@ -381,10 +381,10 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 
 	min = get_minimum(&land, type);
 	ip = &ichr[type];
-	weight = ((double)ip->i_lbs);
+	weight = ip->i_lbs;
 	mobcost = move_cost * weight;
 	if (mobcost > 0)
-	    can_move = ((double)land.lnd_mobil / mobcost);
+	    can_move = (double)land.lnd_mobil / mobcost;
 	else
 	    can_move = land.lnd_item[type] - min;
 	if (can_move > land.lnd_item[type] - min)
@@ -438,8 +438,7 @@ get_minimum(struct lndstr *lp, i_type type)
     case I_FOOD:
 	if (opt_NOFOOD)
 	    return 0;		/* no food reqd, get out */
-	want = (((double)etu_per_update * eatrate) *
-		(double)lp->lnd_item[I_MILIT]) + 1;
+	want = (double)etu_per_update * eatrate * lp->lnd_item[I_MILIT] + 1;
 	break;
     case I_SHELL:
 	want = lp->lnd_ammo;
@@ -448,18 +447,15 @@ get_minimum(struct lndstr *lp, i_type type)
 	/*
 	 * return the amount of pet we'd need to get to 
 	 * enough fuel for 1 update
-	 *
 	 */
     case I_PETROL:
 	if (opt_FUEL == 0)
 	    return 0;
-	want = (lp->lnd_fuelu * (((float)etu_per_update *
-				  land_mob_scale)) / 10.0);
+	want = lp->lnd_fuelu * ((float)etu_per_update * land_mob_scale)
+	    / 10.0;
 	want -= lp->lnd_fuel;
 	if (want > 0) {
-	    double d;
-	    d = (double)want / 10.0;
-	    want = (int)d;
+	    want = want / 10;
 	    if (want == 0)
 		want++;
 	}
@@ -518,7 +514,7 @@ has_supply(struct lndstr *lp)
 	fuel = lp->lnd_fuel;
 	if (fuel < fuel_needed) {
 	    petrol_needed =
-		ldround(((double)(fuel_needed - fuel) / 10.0), 1);
+		ldround((fuel_needed - fuel) / 10.0, 1);
 	    petrol = keeppetrol = lp->lnd_item[I_PETROL];
 	    if (petrol < petrol_needed) {
 		lp->lnd_item[I_PETROL] = 0;
@@ -582,7 +578,7 @@ use_supply(struct lndstr *lp)
 
 	if (fuel < fuel_needed) {
 	    petrol_needed =
-		ldround(((double)(fuel_needed - fuel) / 10.0), 1);
+		ldround((fuel_needed - fuel) / 10.0, 1);
 	    petrol = lp->lnd_item[I_PETROL];
 	}
 

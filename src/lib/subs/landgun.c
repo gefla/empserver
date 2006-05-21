@@ -43,11 +43,10 @@ double
 landgun(int effic, int guns)
 {
     double d;
-    double g = (double)MIN(guns, 7);
+    double g = MIN(guns, 7);
 
-    d = ((double)(random() % 30) + 20.0) * ((double)g / 7.0);
-    d *= (double)effic;
-    d /= 100.0;
+    d = (random() % 30 + 20.0) * (g / 7.0);
+    d *= effic / 100.0;
     return d;
 }
 
@@ -58,8 +57,8 @@ seagun(int effic, int guns)
 
     d = 0.0;
     while (guns--)
-	d += 10.0 + (double)(random() % 6);
-    d *= (double)effic * 0.01;
+	d += 10.0 + random() % 6;
+    d *= effic * 0.01;
     return d;
 }
 
@@ -70,8 +69,8 @@ landunitgun(int effic, int shots, int guns, int ammo, int shells)
 
     shots = MIN(shots, guns);
     while (shots-- > 0)
-	d += 5.0 + (double)(random() % 6);
-    d *= (double)effic * 0.01;
+	d += 5.0 + random() % 6;
+    d *= effic * 0.01;
     if (shells < ammo && ammo != 0)
 	d *= (double)shells / (double)ammo;
     return d;

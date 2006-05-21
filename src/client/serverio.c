@@ -76,7 +76,7 @@ serverio(int s, struct ioqueue *ioq)
 	return 0;
     }
     if (n != ioq->bsize)
-	buf = (char *)realloc(buf, n);
+	buf = realloc(buf, n);
     ioq_write(ioq, buf, n);
     return 1;
 }

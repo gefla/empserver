@@ -152,7 +152,7 @@ spy(void)
 		continue;
 	    }
 	    /* catch spy N/200 chance, N = # military */
-	    caught = chance((double)dsect.sct_item[I_MILIT] / 200.0);
+	    caught = chance(dsect.sct_item[I_MILIT] / 200.0);
 	    own = dsect.sct_own;
 	    /* determine spyee relations with spyer */
 	    relat = getrel(getnatp(own), player->cnum);

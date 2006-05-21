@@ -170,7 +170,7 @@ plague_people(struct natstr *np, short *vec,
 	plg_num = 100.0 * etus;
 	plg_denom = (np->nat_level[NAT_RLEV] + 100.0) *
 	    (*ptime + etus + 1.0);
-	pct_left = 1.0 - (double)(plg_num / plg_denom);
+	pct_left = 1.0 - plg_num / plg_denom;
 	if (pct_left < 0.2)
 	    pct_left = 0.2;
 	vec[I_CIVIL] = vec[I_CIVIL] * pct_left;

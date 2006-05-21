@@ -171,8 +171,8 @@ upd_ship(struct shpstr *sp, int etus,
 					         sp->shp_item[I_MILIT],
 						 sp->shp_item[I_UW],
 						 ITEM_MAX)
-				      * (double)sp->shp_effic / 100.0
-				      * (double)sectp->sct_oil / 100.0
+				      * sp->shp_effic / 100.0
+				      * sectp->sct_oil / 100.0
 				      * prod_eff(product, sp->shp_tech));
 		max_oil = mp->m_item[I_OIL];
 		if (sp->shp_item[I_OIL] + oil_gained > max_oil)

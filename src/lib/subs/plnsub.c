@@ -1005,7 +1005,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 	if (!(pcp->pl_flags & P_SWEEP))	/* if it isn't an sweep plane */
 	    continue;
 
-	if (chance(((double)(100 - pp->pln_acc)) / 100.0)) {
+	if (chance((100.0 - pp->pln_acc) / 100.0)) {
 	    pr("Sweep! in %s\n",
 	       xyas(sect.sct_x, sect.sct_y, pp->pln_own));
 	    mines_there--;

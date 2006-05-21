@@ -51,9 +51,9 @@ sector_mcost(struct sctstr *sp, int do_bonus)
 /* Note, the best you can get is a 1.0 here. */
 
     if (do_bonus == MOB_ROAD) {
-	d = d / (1.0 + ((double)sp->sct_road / 122.0));
+	d = d / (1.0 + sp->sct_road / 122.0);
     } else if (do_bonus == MOB_RAIL) {
-	d = d / (1.0 + ((double)sp->sct_rail / 100.0));
+	d = d / (1.0 + sp->sct_rail / 100.0);
     } else {
 	if (d < 2.0)
 	    d = 2.0;
@@ -61,10 +61,10 @@ sector_mcost(struct sctstr *sp, int do_bonus)
     if (d < 1.0)
 	d = 1.0;
     if (dchr[sp->sct_type].d_mcst < 25)
-	d = (d * 100.0 - (double)sp->sct_effic) / 500.0;
-/*	d = (200.0 + (d - 3.0) * (double)sp->sct_effic) / 500.0;*/
+	d = (d * 100.0 - sp->sct_effic) / 500.0;
+/*	d = (200.0 + (d - 3.0) * sp->sct_effic) / 500.0;*/
     else
-	d = (d * 10.0 - (double)sp->sct_effic) / 115;
+	d = (d * 10.0 - sp->sct_effic) / 115;
 
     if (d <= 0.0 || d < MIN_MOBCOST)
 	return MIN_MOBCOST;

@@ -95,7 +95,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
 	if (n < 0)
 	    n = 0;
 	sp->sct_work = n;
-	if (chance((double)work_red / 1000.0)) {
+	if (chance(work_red / 1000.0)) {
 	    /*
 	     * small chance of rebellion...
 	     * if work_red is (max) 67,

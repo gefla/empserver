@@ -346,7 +346,7 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	return;
 
     /* ok, all set.. now, we shoot */
-    shells -= ldround(((double)gun) / 2.0, 1);
+    shells -= ldround(gun / 2.0, 1);
     sp->shp_item[I_SHELL] = shells;
     putship(sp->shp_uid, sp);
 

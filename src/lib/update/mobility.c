@@ -306,26 +306,26 @@ do_mob_ship(struct shpstr *sp, int etus)
 
     /* opt_FUEL in force */
     if (mchr[(int)sp->shp_type].m_fuelu == 0) {
-	value = sp->shp_mobil + ((float)etus * ship_mob_scale);
+	value = sp->shp_mobil + (float)etus * ship_mob_scale;
 	if (value > ship_mob_max)
 	    value = ship_mob_max;
 	sp->shp_mobil = (signed char)value;
     } else {
 	can_add = ship_mob_max - sp->shp_mobil;
-	if (can_add > ((float)etus * ship_mob_scale))
-	    can_add = ((float)etus * ship_mob_scale);
-	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].m_fuelu)
-				 * (double)fuel_mult), 1);
+	if (can_add > (float)etus * ship_mob_scale)
+	    can_add = (float)etus * ship_mob_scale;
+	have_fuel_for = ldround(((double)sp->shp_fuel /
+				 (double)mchr[(int)sp->shp_type].m_fuelu)
+				* (double)fuel_mult, 1);
 
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
-	    d = (double)need;
-	    d *= (double)mchr[(int)sp->shp_type].m_fuelu;
-	    d /= (double)fuel_mult;
+	    d = need;
+	    d *= mchr[(int)sp->shp_type].m_fuelu;
+	    d /= fuel_mult;
 	    d /= 5.0;
-	    if ((d - (int)d) > 0.0)
+	    if (d - (int)d > 0.0)
 		d++;
 	    need = (int)d;
 	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
@@ -333,18 +333,18 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    sp->shp_fuel += newfuel * 5;
 	}
 
-	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].m_fuelu)
-				 * (double)fuel_mult), 1);
+	have_fuel_for = ldround(((double)sp->shp_fuel /
+				 (double)mchr[(int)sp->shp_type].m_fuelu)
+				* (double)fuel_mult, 1);
 
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
-	    d = (double)need;
-	    d *= (double)mchr[(int)sp->shp_type].m_fuelu;
-	    d /= (double)fuel_mult;
+	    d = need;
+	    d *= mchr[(int)sp->shp_type].m_fuelu;
+	    d /= fuel_mult;
 	    d /= 50.0;
-	    if ((d - (int)d) > 0.0)
+	    if (d - (int)d > 0.0)
 		d++;
 	    need = (int)d;
 	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
@@ -352,17 +352,17 @@ do_mob_ship(struct shpstr *sp, int etus)
 	    sp->shp_fuel += newfuel * 50;
 	}
 
-	have_fuel_for = ldround((((double)sp->shp_fuel /
-				  (double)mchr[(int)sp->shp_type].m_fuelu)
-				 * (double)fuel_mult), 1);
+	have_fuel_for = ldround(((double)sp->shp_fuel /
+				 (double)mchr[(int)sp->shp_type].m_fuelu)
+				* (double)fuel_mult, 1);
 
 	if (can_add > have_fuel_for)
 	    total_add = have_fuel_for;
 	else
 	    total_add = can_add;
-	d = (double)total_add;
-	d *= (double)mchr[(int)sp->shp_type].m_fuelu;
-	d /= (double)fuel_mult;
+	d = total_add;
+	d *= mchr[(int)sp->shp_type].m_fuelu;
+	d /= fuel_mult;
 	sp->shp_fuel -= ldround(d, 1);
 	sp->shp_fuel = MIN(sp->shp_fuel, mchr[(int)sp->shp_type].m_fuelc);
 	sp->shp_mobil += total_add;
@@ -429,19 +429,19 @@ do_mob_land(struct lndstr *lp, int etus)
 
 	can_add = land_mob_max - lp->lnd_mobil;
 
-	if (can_add > ((float)etus * land_mob_scale))
-	    can_add = ((float)etus * land_mob_scale);
+	if (can_add > (float)etus * land_mob_scale)
+	    can_add = (float)etus * land_mob_scale;
 
 	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
 
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
-	    d = (double)need;
-	    d *= (double)lp->lnd_fuelu;
-	    d /= (double)fuel_mult;
+	    d = need;
+	    d *= lp->lnd_fuelu;
+	    d /= fuel_mult;
 	    d /= 5.0;
-	    if ((d - (int)d) > 0.0)
+	    if (d - (int)d > 0.0)
 		d++;
 	    need = (int)d;
 	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
@@ -454,11 +454,11 @@ do_mob_land(struct lndstr *lp, int etus)
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
-	    d = (double)need;
-	    d *= (double)lp->lnd_fuelu;
-	    d /= (double)fuel_mult;
+	    d = need;
+	    d *= lp->lnd_fuelu;
+	    d /= fuel_mult;
 	    d /= 50.0;
-	    if ((d - (int)d) > 0.0)
+	    if (d - (int)d > 0.0)
 		d++;
 	    need = (int)d;
 	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
@@ -472,9 +472,9 @@ do_mob_land(struct lndstr *lp, int etus)
 	    total_add = have_fuel_for;
 	} else
 	    total_add = can_add;
-	d = (double)total_add;
-	d *= (double)lp->lnd_fuelu;
-	d /= (double)fuel_mult;
+	d = total_add;
+	d *= lp->lnd_fuelu;
+	d /= fuel_mult;
 	lp->lnd_fuel -= ldround(d, 1);
 	lp->lnd_fuel = MIN(lp->lnd_fuel, lp->lnd_fuelc);
 	lp->lnd_mobil += total_add;

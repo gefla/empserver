@@ -40,7 +40,7 @@ chance(double d)
 {
     double roll;
 
-    roll = (random() & 0x7fff);
+    roll = random() & 0x7fff;
 
     if (d > roll / 32768.0)
 	return 1;
@@ -50,7 +50,7 @@ chance(double d)
 int
 roll(int n)
 {
-    return (random() % n) + 1;
+    return 1 + random() % n;
 }
 
 /*
