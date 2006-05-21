@@ -55,7 +55,7 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
     int amt_moved;
     int amt_dst;
     int mobility;
-    float mcost;
+    double mcost;
     struct dchrstr *dp;
     int n;
 
