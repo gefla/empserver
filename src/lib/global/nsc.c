@@ -197,7 +197,7 @@ struct castr dchr_ca[] = {
 { NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic", EF_BAD},		\
 { NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil", EF_BAD},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech", EF_BAD},		\
-{ NSC_CHAR, NSC_EXTRA, 0, fldoff(genitem, group), "group", EF_BAD},	\
+{ NSC_STRINGY, NSC_EXTRA, 1, fldoff(genitem, group), "group", EF_BAD},	\
 { NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx", EF_BAD},		\
 { NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy", EF_BAD},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission", EF_MISSIONS},	\
@@ -205,7 +205,7 @@ struct castr dchr_ca[] = {
 
 struct castr ship_ca[] = {
     NSC_GENITEM(EF_SHIP, EF_SHIP_CHR),
-    {NSC_CHAR, 0, 0, fldoff(shpstr, shp_fleet), "fleet", EF_BAD},
+    {NSC_STRINGY, 0, 1, fldoff(shpstr, shp_fleet), "fleet", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nplane), "nplane", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA, 0, fldoff(shpstr, shp_nland), "nland", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(shpstr, shp_destx[0]), "xstart", EF_BAD},
@@ -273,7 +273,7 @@ struct castr mchr_ca[] = {
 
 struct castr plane_ca[] = {
     NSC_GENITEM(EF_PLANE, EF_PLANE_CHR),
-    {NSC_CHAR, 0, 0, fldoff(plnstr, pln_wing), "wing", EF_BAD},
+    {NSC_STRINGY, 0, 1, fldoff(plnstr, pln_wing), "wing", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(plnstr, pln_range), "range", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_ship), "ship", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(plnstr, pln_land), "land", EF_BAD},
@@ -312,7 +312,7 @@ struct castr plchr_ca[] = {
 
 struct castr land_ca[] = {
     NSC_GENITEM(EF_LAND, EF_LAND_CHR),
-    {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_army), "army", EF_BAD},
+    {NSC_STRINGY, 0, 1, fldoff(lndstr, lnd_army), "army", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_ship), "ship", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(lndstr, lnd_harden), "harden", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(lndstr, lnd_retreat), "retreat", EF_BAD},
