@@ -52,14 +52,13 @@ static void head_describe(struct histstr *, int, char *, char *);
 static int head_printscoop(struct histstr (*hist)[MAXNOC], natid ano,
 			   natid vno);
 static int head_findscoop(struct histstr (*hist)[MAXNOC],
-			  register natid maxcnum, natid *ano, natid *vno);
+			  natid maxcnum, natid *ano, natid *vno);
 
 int
 head(void)
 {
-    register int i;
-    register struct histstr *hp;
-    register natid maxcnum;
+    struct histstr *hp;
+    natid maxcnum;
     time_t now;
     int severity;
     int scoop;
@@ -71,7 +70,7 @@ head(void)
     natid actor;
     natid victim;
     struct nstr_item nstr;
-    int n;
+    int i, n;
 
     (void)time(&now);
     natp = getnatp(player->cnum);
@@ -126,7 +125,7 @@ head(void)
 static int
 head_printscoop(struct histstr (*hist)[MAXNOC], natid ano, natid vno)
 {
-    register struct histstr *hp;
+    struct histstr *hp;
     int severity;
 
     hp = &hist[ano][vno];
@@ -220,16 +219,12 @@ head_describe(struct histstr *hp, int what, char *aname, char *vname)
  * Pretty strange.
  */
 static int
-head_findscoop(struct histstr (*hist)[MAXNOC], register natid maxcnum,
+head_findscoop(struct histstr (*hist)[MAXNOC], natid maxcnum,
 	       natid *ano, natid *vno)
 {
-    register struct histstr *hp;
-    register int i;
-    register int j;
-    register int k;
-    int scoop;
-    natid actor;
-    natid victim;
+    struct histstr *hp;
+    int i, j, k, scoop;
+    natid actor, victim;
 
     scoop = 9;
     actor = 0;

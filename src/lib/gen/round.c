@@ -38,7 +38,7 @@
 int
 roundintby(int n, int m)
 {
-    register int r11;
+    int r11;
 
     r11 = (m >> 1) + n;
     return r11 / m * m;

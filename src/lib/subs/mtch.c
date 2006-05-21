@@ -48,8 +48,8 @@
 int
 comtch(char *command, struct cmndstr *coms, int comstat)
 {
-    register struct cmndstr *com;
-    register int status;
+    struct cmndstr *com;
+    int status;
 
     if (command == 0 || *command == 0)
 	return M_IGNORE;

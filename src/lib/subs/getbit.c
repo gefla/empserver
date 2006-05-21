@@ -136,7 +136,7 @@ emp_getbit(int x, int y, unsigned char *bitmap)
 void
 emp_setbit(int x, int y, unsigned char *bitmap)
 {
-    register int id;
+    int id;
 
     id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
     bitmap[id / 8] |= bit(id & 07);
@@ -145,9 +145,9 @@ emp_setbit(int x, int y, unsigned char *bitmap)
 static void
 emp_setbitmap(int x, int y, unsigned char *bitmap, int *bitmaps)
 {
-    register int *mp;
-    register int id;
-    register int dx, dy;
+    int *mp;
+    int id;
+    int dx, dy;
 
     for (mp = bitmaps; *mp != 9999;) {
 	dx = x + *mp++;

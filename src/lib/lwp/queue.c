@@ -48,7 +48,7 @@ lwpGetFirst(struct lwpQueue *q)
 }
 
 void
-lwpAddTail(register struct lwpQueue *q, register struct lwpProc *p)
+lwpAddTail(struct lwpQueue *q, struct lwpProc *p)
 {
     if (!q->tail)
 	q->head = p;

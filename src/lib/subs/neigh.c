@@ -43,7 +43,7 @@
 int
 neigh(coord x, coord y, natid own)
 {
-    register int i;
+    int i;
     struct sctstr sect;
 
     for (i = DIR_FIRST; i <= DIR_LAST; i++) {

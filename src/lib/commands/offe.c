@@ -80,15 +80,13 @@ static int
 do_treaty(void)
 {
     char *cp;
-    register int ourcond;
-    register int theircond;
-    register int j;
+    int ourcond, theircond;
     struct symbol *tfp;
     struct trtstr trty;
     struct nstr_item nstr;
     natid recipient;
     time_t now;
-    int n;
+    int j, n;
     struct natstr *natp;
     char prompt[128];
     char buf[1024];
@@ -163,7 +161,7 @@ do_treaty(void)
 static int
 do_loan(void)
 {
-    register int amt, irate, dur, maxloan;
+    int amt, irate, dur, maxloan;
     struct nstr_item nstr;
     struct natstr *natp;
     struct lonstr loan;

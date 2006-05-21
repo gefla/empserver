@@ -43,7 +43,7 @@
 #include "commands.h"
 #include "optlist.h"
 
-static void preport(register struct nwsstr *np);
+static void preport(struct nwsstr *np);
 
 int
 news(void)
@@ -174,10 +174,10 @@ news(void)
 }
 
 static void
-preport(register struct nwsstr *np)
+preport(struct nwsstr *np)
 {
     char *cp;
-    register int i;
+    int i;
     char buf[255];
     char num[128];
     char *ptr;

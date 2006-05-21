@@ -154,7 +154,7 @@ init_nreport(void)
 static struct newscache *
 ncache(int actor, int event, int victim, int times)
 {
-    register struct newscache *np;
+    struct newscache *np;
     int i;
     int oldslot;
     time_t oldtime;

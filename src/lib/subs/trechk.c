@@ -52,9 +52,9 @@
 #include "optlist.h"
 
 int
-trechk(register natid actor, register natid victim, int provision)
+trechk(natid actor, natid victim, int provision)
 {
-    register natid cn;
+    natid cn;
     char buf[1024];
     int news_verb;
     int involved[MAXNOC];

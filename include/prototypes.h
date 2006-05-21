@@ -369,7 +369,7 @@ extern int onearg(char *, char *);
 extern int parse(char *, char **, char **, char *, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
-extern int scthash(register int, register int, int);
+extern int scthash(int, int, int);
 extern int tcp_listen(char *, char *, size_t *);
 extern char *numstr(char buf[], int n);
 /* plur.c */
@@ -450,9 +450,9 @@ extern int military_control(struct sctstr *);
 /* detonate.c */
 extern int detonate(struct nukstr *, coord, coord, int);
 /* disloan.c */
-extern int disloan(int, register struct lonstr *);
+extern int disloan(int, struct lonstr *);
 /* distrea.c */
-extern int distrea(int, register struct trtstr *);
+extern int distrea(int, struct trtstr *);
 /* fileinit.c */
 extern void ef_init_srv(void);
 extern void ef_fin_srv(void);
@@ -618,9 +618,9 @@ extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 /* sarg.c */
 extern ns_seltype sarg_type(char *);
 extern int sarg_xy(char *, coord *, coord *);
-extern int sarg_area(char *, register struct range *);
+extern int sarg_area(char *, struct range *);
 extern int sarg_range(char *, coord *, coord *, int *);
-extern int sarg_list(char *, register int *, int);
+extern int sarg_list(char *, int *, int);
 /* satmap.c */
 extern void satdisp(struct sctstr *, int, int);
 extern void satmap(int, int, int, int, int, int);
@@ -682,7 +682,7 @@ extern void snxtitem_group(struct nstr_item *, int, char);
 extern void snxtitem_rewind(struct nstr_item *);
 extern int snxtitem_list(struct nstr_item *, int, int *, int);
 /* snxtsct.c */
-extern int snxtsct(register struct nstr_sect *, char *);
+extern int snxtsct(struct nstr_sect *, char *);
 extern void snxtsct_area(struct nstr_sect *, struct range *);
 extern void xydist_range(coord, coord, int, struct range *);
 extern void xysize_range(struct range *);
@@ -703,7 +703,7 @@ extern void takeover_ship(struct shpstr *, natid, int);
 extern void takeover_plane(struct plnstr *, natid);
 /* trdsub.c */
 /* trechk.c */
-extern int trechk(register natid, register natid, int);
+extern int trechk(natid, natid, int);
 /* whatitem.c */
 /* in item.h */
 /* wu.c */
@@ -728,7 +728,7 @@ extern int dodistribute(struct sctstr *, int, char *, double, double);
 extern void finish_sects(int);
 /* human.c */
 extern int new_work(struct sctstr *, int);
-extern int do_feed(register struct sctstr *, register struct natstr *,
+extern int do_feed(struct sctstr *, struct natstr *,
 		   short *, int *, int *, int);
 extern int feed_people(short *, int, int *);
 /* land.c */
@@ -755,7 +755,7 @@ extern void move_sat(struct plnstr *);
 extern double logx(double, double);
 extern void prod_nat(int);
 /* nav_ship.c */
-extern int nav_ship(register struct shpstr *);
+extern int nav_ship(struct shpstr *);
 /* nav_util.c */
 extern int load_it(struct shpstr *, struct sctstr *,
 		   int);
@@ -769,7 +769,7 @@ extern int plague_people(struct natstr *, short *, int *, int *, int);
 /* plane.c */
 extern int prod_plane(int, int, int *, int);
 /* populace.c */
-extern void populace(struct natstr *, register struct sctstr *, int);
+extern void populace(struct natstr *, struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void tax(struct sctstr *, struct natstr *, int, long *, int *,
@@ -789,7 +789,7 @@ extern void guerrilla(struct sctstr *);
 /* sail.c */
 extern void sail_ship(natid);
 /* sect.c */
-extern void do_fallout(register struct sctstr *, register int);
+extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(int natnum, int etu, int *bp,

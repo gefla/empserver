@@ -43,9 +43,8 @@
 void
 age_levels(int etu)
 {
-    register float best_tech;
-    register float best_res;
-    register struct natstr *np;
+    float best_tech, best_res;
+    struct natstr *np;
     int i;
     double level;
     double delta;

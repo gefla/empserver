@@ -41,12 +41,10 @@
 #include "prototypes.h"
 
 int
-distrea(int n, register struct trtstr *tp)
+distrea(int n, struct trtstr *tp)
 {
-    register int i;
-    int acond;
-    int bcond;
-    int cond;
+    int i;
+    int acond, bcond, cond;
     time_t now;
 
     if (tp->trt_status == TS_FREE)

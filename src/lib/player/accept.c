@@ -167,7 +167,7 @@ getplayer(natid cnum)
 void
 player_wakeup_all(natid cnum)
 {
-    register struct player *lp;
+    struct player *lp;
 
     if (NULL != (lp = getplayer(cnum)))
 	player_wakeup(lp);

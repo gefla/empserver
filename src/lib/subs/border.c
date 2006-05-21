@@ -44,9 +44,7 @@ border(struct range *rp, char *prefstr, char *sep)
 				/* prefixes each line */
 				/* separates the numbers */
 {
-    register int posi;
-    register int n;
-    register int x;
+    int posi, n, x;
 
     if ((WORLD_X / 2) >= 100) {
 	if (rp->lx + rp->width > 99 || rp->hx - rp->width < -99) {
