@@ -115,12 +115,10 @@ landdamage(struct lndstr *lp, int dam)
 {
     double damage_factor, m;
 
-    m = (double)land_mob_max;
+    m = land_mob_max;
 
     /* fortification reduces damage */
-    damage_factor = m / (m + ((double)lp->lnd_harden));
-    if (damage_factor == 0.0)
-	damage_factor = 1.0;
+    damage_factor = m / (m + lp->lnd_harden);
 
     /* vulnerable units take more damage */
     damage_factor *= lp->lnd_vul / 100.0;
