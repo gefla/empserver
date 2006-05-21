@@ -518,8 +518,8 @@ show_sect_build(int foo)
     pr("Infrastructure building - adding 1 point of efficiency costs:\n");
     pr("       type          lcms    hcms    mobility    $$$$\n");
     for (x = 0; intrchr[x].in_name; x++) {
-	pr("%-20s %4d    %4d    %8d    %4d\n", intrchr[x].in_name,
-	   intrchr[x].in_lcms, intrchr[x].in_hcms,
+	pr("%-20s %4d    %4d    %8d    %4d\n",
+	   intrchr[x].in_name, intrchr[x].in_lcms, intrchr[x].in_hcms,
 	   intrchr[x].in_mcost, intrchr[x].in_dcost);
     }
 }
@@ -569,8 +569,8 @@ show_sect_capab(int foo)
 
 	j = dchr[x].d_prd;
 
-	pr("%c %-23s %-7s ", dchr[x].d_mnem, dchr[x].d_name,
-	   pchr[j].p_sname);
+	pr("%c %-23s %-7s ",
+	   dchr[x].d_mnem, dchr[x].d_name, pchr[j].p_sname);
 	(void)CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
 	for (i = 0; i < 3; i++) {
 	    if (i < MAXPRCON

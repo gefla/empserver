@@ -109,8 +109,8 @@ torp(void)
 	    continue;
 	}
 	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0) {
-	    pr("Ship # %d: A %s can't fire torpedoes!\n", sub.shp_uid,
-	       mchr[(int)sub.shp_type].m_name);
+	    pr("Ship # %d: A %s can't fire torpedoes!\n",
+	       sub.shp_uid, mchr[(int)sub.shp_type].m_name);
 	    continue;
 	}
 	shells = sub.shp_item[I_SHELL];

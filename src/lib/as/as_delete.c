@@ -32,7 +32,6 @@ static void as_free_queue(struct as_queue *queue);
 void
 as_reset(struct as_data *adp)
 {
-
     as_free_queue(adp->head);
     adp->head = NULL;
     as_free_queue(adp->tried);

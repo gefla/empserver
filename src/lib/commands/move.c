@@ -170,8 +170,9 @@ move(void)
 	}
 	amt_src = start.sct_item[vtype];
 	if (amt_src < amount) {
-	    pr("Only %d %s left in %s!\n", amt_src,
-	       ip->i_name, xyas(start.sct_x, start.sct_y, player->cnum));
+	    pr("Only %d %s left in %s!\n",
+	       amt_src, ip->i_name,
+	       xyas(start.sct_x, start.sct_y, player->cnum));
 	    amount = amt_src;
 	    amt_src = 0;
 	} else

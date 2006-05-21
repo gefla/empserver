@@ -79,8 +79,8 @@ shutdown_sequence(void *unused)
 	    } else if (shutdown_pending == 1) {
 		pr_wall("%sServer shutting down in 1 minute!\n", header);
 	    } else if (shutdown_pending <= 5) {
-		pr_wall("%sServer shutting down in %d minutes!\n", header,
-			shutdown_pending);
+		pr_wall("%sServer shutting down in %d minutes!\n",
+			header, shutdown_pending);
 	    } else if (shutdown_pending <= 60
 		       && shutdown_pending % 10 == 0) {
 		pr_wall("%sThe server will be shutting down in %d minutes!\n",

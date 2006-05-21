@@ -515,8 +515,8 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
     }
 
     if (off && def->sct_dcp->d_mcst <= 0) {
-	pr("You can't %s a %s sector!\n", att_mode[combat_mode],
-	   def->sct_dcp->d_name);
+	pr("You can't %s a %s sector!\n",
+	   att_mode[combat_mode], def->sct_dcp->d_name);
 	return abort_attack();
     }
     if (!off || off->relations_checked)

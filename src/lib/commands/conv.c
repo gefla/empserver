@@ -96,7 +96,7 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 
 	/*
 	 * Military units count according to the number of
-	 * mil in them. (i.e. attack/defense modified don't
+	 * mil in them. (i.e. attack/defense modifier don't
 	 * count.
 	 */
 	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);

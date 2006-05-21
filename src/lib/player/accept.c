@@ -204,7 +204,7 @@ player_accept(void *unused)
 	empth_select(s, EMPTH_FD_READ);
 	len = player_addrlen;
 	ns = accept(s, sap, &len);
-	/* FIXME accept() can block on some systems (RST after select() reported s ready) */
+	/* FIXME accept() can block on some systems (RST after select() reports ready) */
 	if (ns < 0) {
 	    logerror("new socket accept");
 	    continue;

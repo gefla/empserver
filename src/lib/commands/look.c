@@ -97,10 +97,12 @@ look(void)
 	    civ = sect.sct_item[I_CIVIL];
 	    mil = sect.sct_item[I_MILIT];
 	    if (civ)
-		pr("with %s%d civ ", player->owner ? "" : "approx ",
+		pr("with %s%d civ ",
+		   player->owner ? "" : "approx ",
 		   player->owner ? civ : roundintby(civ, 10));
 	    if (mil)
-		pr("with %s%d mil ", player->owner ? "" : "approx ",
+		pr("with %s%d mil ",
+		   player->owner ? "" : "approx ",
 		   player->owner ? mil : roundintby(mil, 10));
 	    pr("@ %s\n", xyas(x, y, player->cnum));
 	    if (opt_HIDDEN) {

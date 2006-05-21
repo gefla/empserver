@@ -184,7 +184,8 @@ demand_check(void)
     return 1;
 }
 
-/* Check if enough countries want an update,
+/*
+ * Check if enough countries want an update,
  * and if demand updates are allowed now.
  */
 int
@@ -198,7 +199,8 @@ demandupdatecheck(void)
     return demand_check();
 }
 
-/* Is it time for a regular or scheduled update?
+/*
+ * Is it time for a regular or scheduled update?
  * As well, if none of the above, check to see if
  * a demand update can occur.
  */
@@ -230,7 +232,8 @@ updatetime(time_t *now)
     return 0;
 }
 
-/* Return the time, and delta seconds, of the next update.
+/*
+ * Return the time, and delta seconds, of the next update.
  * If the policy is no regular updates, return the time of
  * the next possible check.
  */

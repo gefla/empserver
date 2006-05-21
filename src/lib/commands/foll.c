@@ -78,8 +78,8 @@ foll(void)
 	if (!player->owner)
 	    continue;
 	if (ship.shp_x != x || ship.shp_y != y) {
-	    pr("Ship #%d not in same sector as #%d\n", ship.shp_uid,
-	       leader);
+	    pr("Ship #%d not in same sector as #%d\n",
+	       ship.shp_uid, leader);
 	    continue;
 	}
 	if (ship.shp_uid == leader) {

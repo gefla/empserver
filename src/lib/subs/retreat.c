@@ -312,8 +312,8 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     }
 
     if (orig) {
-	wu(0, sp->shp_own, "%s %s, and retreated to %s\n", prship(sp),
-	   conditions[findcondition(code)].desc[orig],
+	wu(0, sp->shp_own, "%s %s, and retreated to %s\n",
+	   prship(sp), conditions[findcondition(code)].desc[orig],
 	   xyas(sp->shp_x, sp->shp_y, sp->shp_own));
     } else {
 	wu(0, sp->shp_own, "%s %s, and ended up at %s\n",

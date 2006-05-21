@@ -61,8 +61,8 @@ scuttle_it(struct shpstr *sp)
 
     sp->shp_autonav &= ~AN_SCUTTLE;
     if (!(sectp = getsectp(sp->shp_x, sp->shp_y))) {
-	wu(0, 0, "bad sector (%d,%d) ship %d\n", sp->shp_x, sp->shp_y,
-	   sp->shp_uid);
+	wu(0, 0, "bad sector (%d,%d) ship %d\n",
+	   sp->shp_x, sp->shp_y, sp->shp_uid);
 	return;
     }
     if (sectp->sct_type != SCT_HARBR || sectp->sct_effic < 2) {

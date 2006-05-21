@@ -114,8 +114,8 @@ trad(void)
 	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
 	if (tleft < 0.0)
 	    tleft = 0.0;
-	pr("$%7ld  %2d %5.2f hrs ", trade.trd_price,
-	   trade.trd_maxbidder, tleft);
+	pr("$%7ld  %2d %5.2f hrs ",
+	   trade.trd_price, trade.trd_maxbidder, tleft);
 	(void)trade_desc(&trade, &tg);	/* XXX */
 	pr("\n");
 	if (trade.trd_owner == player->cnum && !player->god)

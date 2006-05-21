@@ -86,8 +86,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     }
 
     range = range * (eff / 100.0);
-    pr("%s efficiency %d%%, max range %d\n", xyas(x, y, player->cnum),
-       eff, range);
+    pr("%s efficiency %d%%, max range %d\n",
+       xyas(x, y, player->cnum), eff, range);
     memset(noise, 0, sizeof(noise));
     if (eff < 100) {
 	pr("Some noise on the transmission...\n");
@@ -334,8 +334,8 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
 	    first = 0;
 	}
 
-	pr("\t%4d %4d %-16.16s ", land.lnd_own, land.lnd_uid,
-	   lchr[(int)land.lnd_type].l_name);
+	pr("\t%4d %4d %-16.16s ",
+	   land.lnd_own, land.lnd_uid, lchr[(int)land.lnd_type].l_name);
 	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
 	pr("%3d%%\n", land.lnd_effic);
     }

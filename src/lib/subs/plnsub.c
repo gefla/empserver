@@ -240,15 +240,14 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		pr("\t%s cannot land on ship #%d! %s aborts!\n",
 		   prplane(&plp->plane), cno, prplane(&plp->plane));
 	    else if (!put_plane_on_ship(&plp->plane, &ship))
-		pr("\tNo room on ship #%d! %s aborts!\n", cno,
-		   prplane(&plp->plane));
+		pr("\tNo room on ship #%d! %s aborts!\n",
+		   cno, prplane(&plp->plane));
 	    else {
 		if (plp->plane.pln_own != ship.shp_own) {
 /*					plp->plane.pln_own = ship.shp_own;*/
-		    wu(0, ship.shp_own,
-		       "%s %s lands on your %s\n",
-		       cname(player->cnum),
-		       prplane(&plp->plane), prship(&ship));
+		    wu(0, ship.shp_own, "%s %s lands on your %s\n",
+		       cname(player->cnum), prplane(&plp->plane),
+		       prship(&ship));
 		}
 	    }
 	} else {

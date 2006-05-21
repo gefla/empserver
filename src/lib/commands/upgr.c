@@ -128,8 +128,8 @@ lupgr(void)
 	    continue;
 	}
 	if (land.lnd_tech >= tlev) {
-	    pr("%s tech: %d, yours is only %d\n", prland(&land),
-	       land.lnd_tech, tlev);
+	    pr("%s tech: %d, yours is only %d\n",
+	       prland(&land), land.lnd_tech, tlev);
 	    continue;
 	}
 	cost = lp->l_cost * UPGR_COST / 100;
@@ -149,8 +149,8 @@ lupgr(void)
 	putland(land.lnd_uid, &land);
 	putsect(&sect);
 	player->dolcost += cost;
-	pr("%s upgraded to tech %d, at a cost of %d\n", prland(&land),
-	   land.lnd_tech, cost);
+	pr("%s upgraded to tech %d, at a cost of %d\n",
+	   prland(&land), land.lnd_tech, cost);
 	if (land.lnd_own != player->cnum)
 	    wu(0, land.lnd_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
@@ -212,8 +212,8 @@ supgr(void)
 	    continue;
 	}
 	if (ship.shp_tech >= tlev) {
-	    pr("%s tech: %d, yours is only %d\n", prship(&ship),
-	       ship.shp_tech, tlev);
+	    pr("%s tech: %d, yours is only %d\n",
+	       prship(&ship), ship.shp_tech, tlev);
 	    continue;
 	}
 	cost = mp->m_cost * UPGR_COST / 100;
@@ -232,8 +232,8 @@ supgr(void)
 	putship(ship.shp_uid, &ship);
 	putsect(&sect);
 	player->dolcost += cost;
-	pr("%s upgraded to tech %d, at a cost of %d\n", prship(&ship),
-	   ship.shp_tech, cost);
+	pr("%s upgraded to tech %d, at a cost of %d\n",
+	   prship(&ship), ship.shp_tech, cost);
 	if (ship.shp_own != player->cnum)
 	    wu(0, ship.shp_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
@@ -295,8 +295,8 @@ pupgr(void)
 	    continue;
 	}
 	if (plane.pln_tech >= tlev) {
-	    pr("%s tech: %d, yours is only %d\n", prplane(&plane),
-	       plane.pln_tech, tlev);
+	    pr("%s tech: %d, yours is only %d\n",
+	       prplane(&plane), plane.pln_tech, tlev);
 	    continue;
 	}
 	cost = pp->pl_cost * UPGR_COST / 100;
@@ -320,8 +320,8 @@ pupgr(void)
 	putplane(plane.pln_uid, &plane);
 	putsect(&sect);
 	player->dolcost += cost;
-	pr("%s upgraded to tech %d, at a cost of %d\n", prplane(&plane),
-	   plane.pln_tech, cost);
+	pr("%s upgraded to tech %d, at a cost of %d\n",
+	   prplane(&plane), plane.pln_tech, cost);
 	if (plane.pln_own != player->cnum)
 	    wu(0, plane.pln_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",

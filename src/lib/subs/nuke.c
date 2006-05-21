@@ -51,8 +51,8 @@ nuk_postread(int n, void *ptr)
     struct plnstr plane;
 
     if (np->nuk_uid != n) {
-	logerror("nuk_postread: Error - %d != %d, zeroing.\n", np->nuk_uid,
-		 n);
+	logerror("nuk_postread: Error - %d != %d, zeroing.\n",
+		 np->nuk_uid, n);
 	memset(np, 0, sizeof(struct nukstr));
     }
 

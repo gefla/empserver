@@ -342,8 +342,8 @@ multifire(void)
 		continue;
 	    }
 	    if (fship.shp_effic < 60) {
-		pr("Ship #%d is crippled (%d%%)\n", fshipno,
-		   fship.shp_effic);
+		pr("Ship #%d is crippled (%d%%)\n",
+		   fshipno, fship.shp_effic);
 		continue;
 	    }
 	    range = effrange(fship.shp_frnge, fship.shp_tech);

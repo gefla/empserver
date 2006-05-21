@@ -313,8 +313,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 			     oesc);
 		    gotilist[cn]++;
 		}
-		PR(plane_owner, "Flying over %s ships in %s\n", cname(cn),
-		   xyas(x, y, plane_owner));
+		PR(plane_owner, "Flying over %s ships in %s\n",
+		   cname(cn), xyas(x, y, plane_owner));
 		/* This makes going for ships in harbors tough */
 		if (!evaded) {
 		    /* We already fired flak up above.  Now we intercept again if we haven't already */
@@ -494,10 +494,10 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     }
     if (icount == 0)
 	return;
-    PR(plane_owner, "%d %s fighter%s rising to intercept!\n", icount,
-       cname(def_own), icount == 1 ? " is" : "s are");
-    PR(def_own, "%d fighter%s intercepting %s planes!\n", icount,
-       icount == 1 ? " is" : "s are", cname(plane_owner));
+    PR(plane_owner, "%d %s fighter%s rising to intercept!\n",
+       icount, cname(def_own), icount == 1 ? " is" : "s are");
+    PR(def_own, "%d fighter%s intercepting %s planes!\n",
+       icount, icount == 1 ? " is" : "s are", cname(plane_owner));
     ac_combat_headers(plane_owner, def_own);
     ac_airtoair(esc_list, &int_list);
     ac_airtoair(bomb_list, &int_list);

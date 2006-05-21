@@ -437,8 +437,8 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     pThread = malloc(sizeof(*pThread));
     if (!pThread) {
-	logerror("not enough memory to create thread: %s (%s)", name,
-		 desc);
+	logerror("not enough memory to create thread: %s (%s)",
+		 name, desc);
 	return NULL;
     }
     memset(pThread, 0, sizeof(*pThread));
@@ -457,8 +457,8 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     pThread->ulThreadID = _beginthread(empth_threadMain, size, pThread);
     if (pThread->ulThreadID == -1) {
-	logerror("can not create thread: %s (%s): %s", name, desc,
-		 strerror(errno));
+	logerror("can not create thread: %s (%s): %s",
+		 name, desc, strerror(errno));
 	goto bad;
     }
 

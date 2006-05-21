@@ -168,8 +168,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    break;
 	else if (dir == DIR_VIEW) {
 	    pr("%d%% %s with %d civilians.\n", sect.sct_effic,
-	       dchr[sect.sct_type].d_name,
-	       sect.sct_item[I_CIVIL]);
+	       dchr[sect.sct_type].d_name, sect.sct_item[I_CIVIL]);
 	    continue;
 	}
 	/*

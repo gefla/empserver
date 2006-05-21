@@ -62,8 +62,8 @@ range(void)
 	    continue;
 	plane.pln_range = (plane.pln_range_max < i) ?
 	    plane.pln_range_max : i;
-	pr("Plane %d range changed to %d\n", plane.pln_uid,
-	   plane.pln_range);
+	pr("Plane %d range changed to %d\n",
+	   plane.pln_uid, plane.pln_range);
 
 	putplane(plane.pln_uid, &plane);
     }
@@ -96,8 +96,8 @@ lrange(void)
 	if ((i = atoi(p)) < 0)
 	    continue;
 	land.lnd_rad_max = (i < land.lnd_rad) ? i : land.lnd_rad;
-	pr("%s reaction radius changed to %d\n", prland(&land),
-	   land.lnd_rad_max);
+	pr("%s reaction radius changed to %d\n",
+	   prland(&land), land.lnd_rad_max);
 	putland(land.lnd_uid, &land);
     }
 

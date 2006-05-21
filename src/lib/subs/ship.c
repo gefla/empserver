@@ -50,8 +50,8 @@ shp_postread(int n, void *ptr)
     struct shpstr *sp = ptr;
 
     if (sp->shp_uid != n) {
-	logerror("shp_postread: Error - %d != %d, zeroing.\n", sp->shp_uid,
-		 n);
+	logerror("shp_postread: Error - %d != %d, zeroing.\n",
+		 sp->shp_uid, n);
 	memset(sp, 0, sizeof(struct shpstr));
     }
 

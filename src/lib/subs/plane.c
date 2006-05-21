@@ -51,8 +51,8 @@ pln_postread(int n, void *ptr)
     struct lndstr theland;
 
     if (pp->pln_uid != n) {
-	logerror("pln_postread: Error - %d != %d, zeroing.\n", pp->pln_uid,
-		 n);
+	logerror("pln_postread: Error - %d != %d, zeroing.\n",
+		 pp->pln_uid, n);
 	memset(pp, 0, sizeof(struct plnstr));
     }
 

@@ -168,8 +168,8 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	}
 	getsect(sp->shp_x, sp->shp_y, &sect);
 	if (sect.sct_type != SCT_WATER)
-	    pr(" in a %s %s", cname(sect.sct_own),
-	       dchr[sect.sct_type].d_name);
+	    pr(" in a %s %s",
+	       cname(sect.sct_own), dchr[sect.sct_type].d_name);
 	else
 	    pr(" at sea");
 	break;

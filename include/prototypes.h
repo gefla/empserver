@@ -602,11 +602,7 @@ extern int ufindpfx(char *, int);
 
 /* radmap.c */
 extern int deltx(struct range *, coord);
-		/* Prototype include a typedef name.
-		   It should be moved after the typedef declaration */
 extern int delty(struct range *, coord);
-		/* Prototype include a typedef name.
-		   It should be moved after the typedef declaration */
 extern void radmap(int, int, int, int, double);
 extern void radmapnopr(int, int, int, int, double);
 extern void radmapupd(int, int, int, int, int, double);

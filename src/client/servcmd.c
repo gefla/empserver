@@ -282,11 +282,12 @@ doexecute(char *p, FILE *auxfi)
     /* copies 4k at a time to the socket */
     while (termio(fd, sock, auxfi))	/*do copy */
 	;
-    /* Some platforms don't send the eof (cntl-D) at the end of
-       copying a file.  If emp_client hangs at the end of an
-       execute, include the following line and notify wolfpack
-       of the platform you are using.
-       sendeof(sock);
+    /*
+     * Some platforms don't send the eof (cntl-D) at the end of
+     * copying a file.  If emp_client hangs at the end of an
+     * execute, include the following line and notify wolfpack
+     * of the platform you are using.
+     * sendeof(sock);
      */
     close(fd);
     free(tag);

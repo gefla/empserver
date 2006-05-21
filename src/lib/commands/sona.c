@@ -191,12 +191,12 @@ sona(void)
 		       prship(&targ),
 		       xyas(targ.shp_x, targ.shp_y, player->cnum));
 		else
-		    pr("Sonar detects %s %s @ %s\n", cname(targ.shp_own),
-		       prship(&targ),
+		    pr("Sonar detects %s %s @ %s\n",
+		       cname(targ.shp_own), prship(&targ),
 		       xyas(targ.shp_x, targ.shp_y, player->cnum));
 	    } else
-		pr("Sonar detects %s %s @ %s\n", cname(targ.shp_own),
-		   prship(&targ),
+		pr("Sonar detects %s %s @ %s\n",
+		   cname(targ.shp_own), prship(&targ),
 		   xyas(targ.shp_x, targ.shp_y, player->cnum));
 
 	    if (targ.shp_visib > vis[y][x]) {
@@ -295,8 +295,8 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 			prship(targ),
 			xyas(targ->shp_x, targ->shp_y, pp->pln_own));
 	    else
-		mpr(pp->pln_own, "%s %s @ %s\n", cname(targ->shp_own),
-		    prship(targ),
+		mpr(pp->pln_own, "%s %s @ %s\n",
+		    cname(targ->shp_own), prship(targ),
 		    xyas(targ->shp_x, targ->shp_y, pp->pln_own));
 	}
     }

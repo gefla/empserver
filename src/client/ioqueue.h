@@ -45,7 +45,7 @@ struct io {
     struct qelem queue;		/* list of ioqueue elements */
     int nbytes;			/* number of data bytes present */
     int offset;			/* offset into current entry */
-    char *data;		/* pointer to start */
+    char *data;			/* pointer to start */
 };
 
 void ioq_init(struct ioqueue *ioq, int bsize);

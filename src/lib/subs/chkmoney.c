@@ -75,8 +75,8 @@ check_cost(int looping, int cost, long cash, int *warnedp,
     if (looping && cash > 0 && player->dolcost > cash / 2 && *warnedp < 1) {
 	*warnedp = 1;
 	pr("WARNING.  You have just spent over half of your money.\n");
-	pr("You started with $%ld and now you only have $%ld left\n", cash,
-	   cash - (long)player->dolcost);
+	pr("You started with $%ld and now you only have $%ld left\n",
+	   cash, cash - (long)player->dolcost);
     }
     return 0;
 }

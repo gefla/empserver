@@ -334,8 +334,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	if (!destroyed &&
 	    msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item,
 		    att_name, x, y, bombown)) {
-	    mpr(bombown, "%s destroyed by %s %s!\n", att_name,
-		cname(pp->pln_own), def_name);
+	    mpr(bombown, "%s destroyed by %s %s!\n",
+		att_name, cname(pp->pln_own), def_name);
 	    if (sect.sct_own)
 		mpr(sect.sct_own, "%s %s intercepted!\n", who, att_name);
 	    if (sect.sct_own != pp->pln_own)
@@ -360,8 +360,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     if (destroyed)
 	return destroyed;
     if (icount) {
-	mpr(bombown, "%s made it through %s defenses!\n", att_name,
-	    def_name);
+	mpr(bombown, "%s made it through %s defenses!\n",
+	    att_name, def_name);
 	if (sect.sct_own)
 	    mpr(sect.sct_own, "%s made it through %s defenses!\n",
 		att_name, def_name);

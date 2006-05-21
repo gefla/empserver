@@ -91,7 +91,8 @@ static void **udata;
  */
 static pthread_mutex_t mtx_ctxsw;
 
-static void empth_status(char *format, ...) ATTRIBUTE((format (printf, 1, 2)));
+static void empth_status(char *format, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
 static void empth_alarm(int sig);
 
 static void *
@@ -163,7 +164,6 @@ empth_init(void **ctx_ptr, int flags)
     empth_t *ctx;
     struct sigaction act;
 
-
     pthread_key_create(&ctx_key, NULL);
     pthread_mutex_init(&mtx_ctxsw, NULL);
 
@@ -211,8 +211,8 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     ctx = malloc(sizeof(empth_t));
     if (!ctx) {
-	logerror("not enough memory to create thread: %s (%s)", name,
-		 desc);
+	logerror("not enough memory to create thread: %s (%s)",
+		 name, desc);
 	return NULL;
     }
     ctx->name = strdup(name);
@@ -223,8 +223,8 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     eno = pthread_attr_init(&attr);
     if (eno) {
-	logerror("can not create thread attribute %s (%s): %s", name, desc,
-		 strerror(eno));
+	logerror("can not create thread attribute %s (%s): %s",
+		 name, desc, strerror(eno));
 	goto bad;
     }
     if (size < PTHREAD_STACK_MIN)
@@ -234,8 +234,8 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     eno = pthread_create(&t, &attr, empth_start, ctx);
     if (eno) {
-	logerror("can not create thread: %s (%s): %s", name, desc,
-		 strerror(eno));
+	logerror("can not create thread: %s (%s): %s",
+		 name, desc, strerror(eno));
 	goto bad;
     }
     empth_status("new thread id is %ld", (long)t);

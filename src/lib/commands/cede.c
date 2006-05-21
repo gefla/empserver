@@ -250,8 +250,8 @@ grab_sect(struct sctstr *sp, natid to)
 	if (lp->lnd_own != player->cnum)
 	    continue;
 
-	wu(0, to, "\t%s ceded to you by %s\n", prland(lp),
-	   cname(player->cnum));
+	wu(0, to, "\t%s ceded to you by %s\n",
+	   prland(lp), cname(player->cnum));
 	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	makenotlost(EF_LAND, to, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	lp->lnd_own = to;

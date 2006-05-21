@@ -451,14 +451,14 @@ sorde(void)
 
 	if (ship.shp_autonav & AN_AUTONAV) {
 	    /* Destination 1 */
-	    prxy(" %3d,%-3d", ship.shp_destx[1],
-		 ship.shp_desty[1], player->cnum);
+	    prxy(" %3d,%-3d",
+		 ship.shp_destx[1], ship.shp_desty[1], player->cnum);
 
 	    /* Destination 2 */
 	    if ((ship.shp_destx[1] != ship.shp_destx[0])
 		|| (ship.shp_desty[1] != ship.shp_desty[0])) {
-		prxy(" %3d,%-3d", ship.shp_destx[0],
-		     ship.shp_desty[0], player->cnum);
+		prxy(" %3d,%-3d",
+		     ship.shp_destx[0], ship.shp_desty[0], player->cnum);
 	    } else
 		pr("        ");
 
