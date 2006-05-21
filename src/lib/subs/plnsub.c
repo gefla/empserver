@@ -1133,7 +1133,7 @@ int
 pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
-    float tfact = (float)(pp->pln_tech - pcp->pl_tech) /
+    double tfact = (double)(pp->pln_tech - pcp->pl_tech) /
 	(pp->pln_tech - pcp->pl_tech / 2);
     int acc = pp->pln_acc;
     int hitchance;
