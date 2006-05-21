@@ -411,6 +411,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	    continue;
 	}
 	range += ap_to_target;
+	range *= rangemult;
 	pcp = &plchr[(int)plane.pln_type];
 	bad = 0;
 	bad1 = 0;
@@ -463,10 +464,9 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	    if (bad)
 		continue;
 	}
-	range *= rangemult;
 	if (plane.pln_range < range) {
-	    pr("%s out of range (%d:%d)\n", prplane(&plane),
-	       plane.pln_range, range);
+	    pr("%s out of range (%d:%d)\n",
+	       prplane(&plane), plane.pln_range, range);
 	    continue;
 	}
 	if (plane.pln_ship >= 0) {
@@ -1245,16 +1245,13 @@ pln_identchance(struct plnstr *pp, int hardtarget, int type)
 int
 pln_mobcost(int dist, struct plnstr *pp, int flags)
 {
-    int cost;
+    double cost;
 
+    cost = 20.0 / (pp->pln_effic / 100.0);
     if ((flags & P_F) || (flags & P_ESC))
-	cost = 10 * 100 / pp->pln_effic;
-    else
-	cost = 20 * 100 / pp->pln_effic;
+	cost /= 2;
 
-    cost = ldround((double)cost * dist / pp->pln_range_max, 1);
-
-    return MIN(32 + pp->pln_mobil, cost + 5);
+    return ldround(cost * dist / pp->pln_range_max + 5, 1);
 }
 
 /*
