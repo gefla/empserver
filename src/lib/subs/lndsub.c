@@ -60,10 +60,10 @@ int
 attack_val(int combat_mode, struct lndstr *lp)
 {
     int men;
-    int value;
+    double value;
     struct lchrstr *lcp;
 
-    if (((int)lp->lnd_effic) < LAND_MINEFF) {
+    if (lp->lnd_effic < LAND_MINEFF) {
 	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	lp->lnd_own = 0;
 	putland(lp->lnd_uid, lp);
@@ -79,14 +79,11 @@ attack_val(int combat_mode, struct lndstr *lp)
 	return 1;
 
     men = lp->lnd_item[I_MILIT];
-
-    value = ldround(((double)men * (double)lp->lnd_att), 1);
-
-    value = (int)((double)value * ((double)lp->lnd_effic / 100.0));
+    value = men * lp->lnd_att * lp->lnd_effic / 100.0;
 
     switch (combat_mode) {
     case A_ATTACK:
-	return value;
+	return (int)value;
     case A_ASSAULT:
 	if (!(lcp->l_flags & L_MARINE))
 	    return (int)(assault_penalty * value);
@@ -96,7 +93,7 @@ attack_val(int combat_mode, struct lndstr *lp)
 	    return (int)(assault_penalty * men);
     }
 
-    return value;
+    return (int)value;
 }
 
 int
@@ -106,7 +103,7 @@ defense_val(struct lndstr *lp)
     double value;
     struct lchrstr *lcp;
 
-    if (((int)lp->lnd_effic) < LAND_MINEFF) {
+    if (lp->lnd_effic < LAND_MINEFF) {
 	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	lp->lnd_own = 0;
 	putland(lp->lnd_uid, lp);
@@ -117,18 +114,12 @@ defense_val(struct lndstr *lp)
 
     men = lp->lnd_item[I_MILIT];
 
-    if (men < 0)
-	men = 0;
     if ((lp->lnd_ship >= 0 || lp->lnd_land >= 0) &&
 	!(lcp->l_flags & L_MARINE))
 	return men;
 
-    value = men * lp->lnd_def;
-
-    value *=
-	((double)land_mob_max + lp->lnd_harden) / (double)land_mob_max;
-    value = (int)((double)value * ((double)lp->lnd_effic / 100.0));
-    value = (int)ldround(value, 1);
+    value = men * lp->lnd_def * lp->lnd_effic / 100.0;
+    value *= ((double)land_mob_max + lp->lnd_harden) / land_mob_max;
 
     /* If there are military on the unit, you get at least a 1
        man defensive unit, except for spies */
