@@ -84,7 +84,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 	start_money = np->nat_money;
 	upd_plane(pp, etus, np, bp, buildem);
 	air_money[pp->pln_own] += np->nat_money - start_money;
-	if (buildem == 0)
+	if (buildem == 0 || np->nat_money != start_money)
 	    k++;
 	if (player->simulation)
 	    np->nat_money = start_money;
