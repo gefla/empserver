@@ -165,8 +165,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     if (opt_TECH_POP) {
 	if (product->p_level == NAT_TLEV) {
 	    if (tpops[sp->sct_own] > 50000)
-		*cost =
-		    (double)*cost * (double)tpops[sp->sct_own] / 50000.0;
+		*cost *= tpops[sp->sct_own] / 50000.0;
 	}
     }
 

@@ -78,7 +78,7 @@ prod(void)
     int work;
     int totpop;
     int act;			/* actual production */
-    int cost;
+    double cost;
     int i;
     int max;			/* production w/infinite materials */
     int nsect;
@@ -250,12 +250,12 @@ prod(void)
 	} else
 	    mtake = take = 0.0;
 
-	cost = (int)(take * (double)pp->p_cost);
+	cost = take * pp->p_cost;
 	if (opt_TECH_POP) {
 	    if (pp->p_level == NAT_TLEV) {
 		totpop = count_pop(sect.sct_own);
 		if (totpop > 50000)
-		    cost = (int)((double)cost * (double)totpop / 50000.0);
+		    cost *= totpop / 50000.0;
 	    }
 	}
 
@@ -333,7 +333,7 @@ prod(void)
 	}
 
 	pr(" %.2f", prodeff);
-	pr(" $%-5d", cost);
+	pr(" $%-5.0f", cost);
 	for (i = 0; i < 3; i++) {
 	    if (i < MAXPRCON && cmnem[i])
 		pr("%4d%c", cuse[i], cmnem[i]);
