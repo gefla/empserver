@@ -2468,7 +2468,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
     off->troops -= num_mil;
     put_combat(off);
     left = num_mil;
-    weight = num_mil * ichr[I_MILIT].i_lbs;
+    weight = (double)num_mil * ichr[I_MILIT].i_lbs;
     if (opt_INTERDICT_ATT && chance(weight / 200.0)) {
 	if (chance(weight / 100.0))
 	    dam +=

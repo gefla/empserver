@@ -132,7 +132,7 @@ explore(void)
 
     if (amount <= 0)
 	return RET_SYN;
-    weight = amount * ip->i_lbs;
+    weight = (double)amount * ip->i_lbs;
     /* remove commodities from source sector */
     getsect(x, y, &start);
     amt_src = start.sct_item[vtype];
