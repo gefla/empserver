@@ -88,16 +88,12 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
     struct nstr_item ni;
     struct lndstr land;
     struct plnstr plane;
-    double real_dam;
     int eff;
 
     /* Some sectors are harder/easier to kill..   */
     /* Average sector has a dstr of 1, so adjust  */
     /* the damage accordingly. Makes forts a pain */
-
-/*	real_dam = (double)dam * (1.0/((((double)(dchr[sp->sct_type].d_dstr - 1))*(sp->sct_effic/100.0)) + 1.0));*/
-    real_dam = (double)dam *(1.0 / sector_strength(sp));
-    dam = ldround(real_dam, 1);
+    dam = ldround(dam / sector_strength(sp), 1);
 
     eff = sect_damage(sp, PERCENT_DAMAGE(dam), list);
 
