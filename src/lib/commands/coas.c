@@ -71,7 +71,7 @@ coas(void)
     int x, y;
     int mink, minj, maxk, maxj;
     int nship = 0;
-    float tech;
+    double tech;
     struct nstr_item ni;
 
     if (!snxtsct(&nstr, player->argp[1]))

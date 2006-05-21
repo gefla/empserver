@@ -69,7 +69,7 @@ skyw(void)
     int x, y;
     int mink, minj, maxk, maxj;
     int nsat = 0;
-    float tech;
+    double tech;
     struct nstr_item ni;
 
     if (!snxtsct(&nstr, player->argp[1]))
