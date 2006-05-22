@@ -143,7 +143,6 @@ player_main(struct player *p)
 static int
 command(void)
 {
-    unsigned i;
     char *redir;		/* UTF-8 */
     char scanspace[1024];
 
