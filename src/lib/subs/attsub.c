@@ -1112,8 +1112,6 @@ att_get_offense(int combat_mode, struct combat *off,
 		struct emp_qelem *olist, struct combat *def)
 {
     int ototal;
-    int estimate;
-    int odds;
 
     /*
      * Get the attacker units & mil again in case they changed while the
