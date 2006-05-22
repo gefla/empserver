@@ -108,12 +108,9 @@ edit(void)
 	    return RET_FAIL;
 	break;
     case 'c':
-	if (!(ptr = getstarg(player->argp[2], "Country number? ", buf)))
+	np = natargp(player->argp[2], "Country? ");
+	if (!np)
 	    return RET_SYN;
-	if (isdigit(*ptr))
-	    np = getnatp(atoi(ptr));
-	else
-	    np = natargp(ptr, NULL);
 	break;
     case 'p':
 	if ((num = onearg(player->argp[2], "Plane number? ")) < 0)
