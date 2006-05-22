@@ -485,14 +485,14 @@ struct castr trade_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct castr nat_ca[] = {
+struct castr cou_ca[] = {
     /*
      * This is the owner's view, i.e. it applies only to the own
-     * nation.  The public view cou_ca[], which applies to all
+     * nation.  The public view nat_ca[], which applies to all
      * nations, has the same selectors with different flags: NSC_DEITY
      * is set except for cnum (which must come first) and all
      * NSC_EXTRA selectors, NSC_EXTRA is cleared.
-     * cou_ca[] should also make tech, research, education and
+     * nat_ca[] should also make tech, research, education and
      * happiness available, but we can't express the obfuscation
      * necessary for foreign levels.
      */
@@ -543,7 +543,7 @@ struct castr nat_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
-struct castr cou_ca[sizeof(nat_ca) / sizeof(*nat_ca)];
+struct castr nat_ca[sizeof(cou_ca) / sizeof(*cou_ca)];
 /* initialized in ef_init_srv() */
 
 struct castr realm_ca[] = {

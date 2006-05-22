@@ -71,16 +71,16 @@ ef_init_srv(void)
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
 
-    for (i = 0; nat_ca[i].ca_name; i++) {
-	cou_ca[i] = nat_ca[i];
-	flags = cou_ca[i].ca_flags | NSC_CONST;
+    for (i = 0; cou_ca[i].ca_name; i++) {
+	nat_ca[i] = cou_ca[i];
+	flags = nat_ca[i].ca_flags | NSC_CONST;
 	if (flags & NSC_EXTRA)
 	    flags &= ~NSC_EXTRA;
 	else if (i != 0)
 	    flags |= NSC_DEITY;
-	cou_ca[i].ca_flags = flags;
+	nat_ca[i].ca_flags = flags;
     }
-    cou_ca[i] = nat_ca[i];
+    nat_ca[i] = cou_ca[i];
 
     ef_open_srv();
     if (ef_verify() < 0)
