@@ -47,7 +47,6 @@ int
 nuke(void)
 {
     int nnukes;
-    int show_comm;
     struct nstr_item nstr;
     struct nukstr nuk;
     struct plnstr plane;
