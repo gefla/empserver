@@ -487,29 +487,30 @@ struct castr trade_ca[] = {
 
 struct castr nat_ca[] = {
     /*
-     * Keep selectors cnum, stat, cname, relations and rejects at the
-     * beginning.  ef_init_srv() makes their copies in cou_ca[]
-     * accessible for mortals.
-     * It should also make tech, research, education and happiness
-     * available, but can't express the obfuscation necessary for
-     * foreign levels.
+     * This is the owner's view, i.e. it applies only to the own
+     * nation.  The public view cou_ca[], which applies to all
+     * nations, has the same selectors with different flags: NSC_DEITY
+     * is set except for cnum (which must come first) and all
+     * NSC_EXTRA selectors, NSC_EXTRA is cleared.
+     * cou_ca[] should also make tech, research, education and
+     * happiness available, but we can't express the obfuscation
+     * necessary for foreign levels.
      */
     {NSC_NATID, 0, 0, fldoff(natstr, nat_cnum), "cnum", EF_NATION},
-    {NSC_SITYPE(nat_status), 0, 0, fldoff(natstr, nat_stat), "stat",
-     EF_NATION_STATUS},
-    {NSC_STRINGY, 0, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
-    {NSC_HIDDEN, 0, MAXNOC, fldoff(natstr, nat_relate), "relations",
-     EF_NATION_RELATIONS},
-    {NSC_UCHAR, NSC_BITS, MAXNOC, fldoff(natstr, nat_rejects), "rejects",
-     EF_NATION_REJECTS},
-    {NSC_STRINGY, NSC_DEITY, 20, fldoff(natstr, nat_pnam), "passwd", EF_BAD},
+    {NSC_SITYPE(nat_status), NSC_EXTRA, 0, fldoff(natstr, nat_stat),
+     "stat", EF_NATION_STATUS},
+    {NSC_STRINGY, NSC_EXTRA, 20, fldoff(natstr, nat_cnam), "cname", EF_BAD},
+    {NSC_STRINGY, NSC_DEITY | NSC_EXTRA, 20, fldoff(natstr, nat_pnam),
+     "passwd", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_hostaddr), "ip", EF_BAD},
     {NSC_STRINGY, 0, 512, fldoff(natstr, nat_hostname), "hostname", EF_BAD},
     {NSC_STRINGY, 0, 32, fldoff(natstr, nat_userid), "userid", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(natstr, nat_xcap), "xcap", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(natstr, nat_ycap), "ycap", EF_BAD},
-    {NSC_XCOORD, NSC_DEITY, 0, fldoff(natstr, nat_xorg), "xorg", EF_BAD},
-    {NSC_YCOORD, NSC_DEITY, 0, fldoff(natstr, nat_yorg), "yorg", EF_BAD},
+    {NSC_XCOORD, NSC_DEITY | NSC_EXTRA, 0, fldoff(natstr, nat_xorg),
+     "xorg", EF_BAD},
+    {NSC_YCOORD, NSC_DEITY | NSC_EXTRA, 0, fldoff(natstr, nat_yorg),
+     "yorg", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_dayno), "dayno", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_update), "update", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(natstr, nat_missed), "missed", EF_BAD},
@@ -529,9 +530,13 @@ struct castr nat_ca[] = {
      EF_BAD},
     {NSC_FLOAT, 0, 0, fldoff(natstr, nat_level[NAT_HLEV]), "happiness",
      EF_BAD},
+    {NSC_HIDDEN, NSC_EXTRA, MAXNOC, fldoff(natstr, nat_relate), "relations",
+     EF_NATION_RELATIONS},
     /* mortals know there's contact (relations show), but not how strong */
-    {NSC_UCHAR, NSC_DEITY, MAXNOC, fldoff(natstr, nat_contact), "contacts",
-     EF_BAD},
+    {NSC_UCHAR, NSC_DEITY | NSC_EXTRA, MAXNOC, fldoff(natstr, nat_contact),
+     "contacts", EF_BAD},
+    {NSC_UCHAR, NSC_EXTRA | NSC_BITS, MAXNOC, fldoff(natstr, nat_rejects),
+     "rejects", EF_NATION_REJECTS},
     /* FIXME nat_priorities[] */
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
      EF_NATION_FLAGS},
