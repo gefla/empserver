@@ -153,9 +153,6 @@ command(void)
 	      scanspace, &redir) < 0) {
 	pr("See \"info Syntax\"?\n");
     } else {
-	if (player->condarg != NULL)
-	    for (i = 0; i < strlen(player->condarg); i++)
-		player->condarg[i] = tolower(player->condarg[i]);
 	if (dispatch(player->combuf, redir) < 0)
 	    pr("Try \"list of commands\" or \"info\"\n");
     }
