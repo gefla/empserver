@@ -7,6 +7,34 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.4 - Tue May 23 18:13:11 UTC 2006
+ * Work around crash bug in command argument access.
+ * Plug major information leak through nation selectors (broken in
+   4.2.21).  The fix unfortunately exchanges the meaning of xdump
+   nation and xdump country.  Sorry about that.
+ * Minimize redundancy between (mortal's) xdump nation and xdump
+   country.
+ * New nation selector rejects.
+ * xdump nation now shows foreign relations and no longer discloses
+   hidden relations.
+ * Fix crash bug in edit.
+ * Fix number of planes building in budget command (broken in 4.3.3).
+ * Selectors group, fleet, wing and army are now strings, and obvious
+   syntax like fleet#a works.  xdump also shows the strings now.
+   Units not assigned to a group currently have group string " ", but
+   that may still change.
+ * Don't fold conditionals to lower case, because it breaks valid
+   conditionals like fleet#A.
+ * Mobility cost of a plane sortie is no longer limited to current
+   mobility + 32.
+ * Various formulas no longer truncate or round intermediate results.
+ * Interdiction mission charged twice the normal mobility cost for
+   torpedoes.
+ * Fix sail not to interpret negative x-coordinates as unsail
+   argument.
+ * Improved configure script.
+ * Code cleanup.
+
 Changes to Empire 4.3.3 - Tue May 16 21:35:47 UTC 2006
  * power c can now show powerless countries.  power c * works.
  * Fortresses now require 5% efficiency to return fire and interdict.
