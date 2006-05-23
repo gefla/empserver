@@ -367,6 +367,9 @@ prmptrd(char *prompt, char *buf, int size)
      */
     CANT_HAPPEN(player->aborted);
 
+    if (CANT_HAPPEN(!prompt))
+	prompt = "? ";
+
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(buf, size)) < 0)
 	return r;
@@ -395,6 +398,9 @@ uprmptrd(char *prompt, char *buf, int size)
 
     /* See prmptrd() */
     CANT_HAPPEN(player->aborted);
+
+    if (CANT_HAPPEN(!prompt))
+	prompt = "? ";
 
     pr_id(player, C_FLUSH, "%s\n", prompt);
     if ((r = recvclient(buf, size)) < 0)
