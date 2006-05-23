@@ -25,8 +25,8 @@ To build the server and set up a game, follow the steps below.
 
 (2) Building a server
 
-    Requirements: GNU make and GNU troff (`groff'), ANSI C, Perl,
-    Bourne Shell and the common utilities.
+    Requirements: GNU make and GNU troff (`groff'), ANSI C, a curses
+    library, Perl, Bourne Shell and the common utilities.
 
     See file `INSTALL' for detailed compilation and installation
     instructions.  Quick guide for the impatient: run configure; make;
