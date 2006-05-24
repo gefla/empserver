@@ -49,12 +49,12 @@ AC_PROG_INSTALL
 
 
 ### Checks for libraries.
-AC_SEARCH_LIBS([setupterm], [termlib termcap curses])
+AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
 LIB_SOCKET_NSL
 # TODO merge this into LIB_SOCKET_NSL?
 if test "$ac_cv_search_gethostbyname" = no; then
     dnl Can't search ws2_32 for gethostbyname using AC_SEARCH_LIBS, because
-    dnl it requires #include <winsocks2.h> to work.
+    dnl it requires #include <winsock2.h> to work.
     AC_MSG_CHECKING([for gethostbyname in -lws2_32])
     save_LIBS=$LIBS
     LIBS="-lws2_32 $LIBS"
