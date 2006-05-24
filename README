@@ -25,8 +25,8 @@ To build the server and set up a game, follow the steps below.
 
 (2) Building a server
 
-    Requirements: GNU make and GNU troff (`groff'), ANSI C, a curses
-    library, Perl, Bourne Shell and the common utilities.
+    Requirements: GNU make and, ANSI C, a curses library, Perl, nroff
+    or GNU troff (`groff'), Bourne Shell and the common utilities.
 
     See file `INSTALL' for detailed compilation and installation
     instructions.  Quick guide for the impatient: run configure; make;
@@ -70,8 +70,6 @@ To build the server and set up a game, follow the steps below.
       For help, try `info'.
 
       To change the deity password, use `change re <password>'.
-
-      FIXME auth
 
     * Create countries with `exec newcap_script'.
 

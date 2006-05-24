@@ -67,8 +67,7 @@ AWK := @AWK@
 INSTALL := @INSTALL@
 INSTALL_DATA := @INSTALL_DATA@
 INSTALL_PROGRAM := @INSTALL_PROGRAM@
-# TODO autoconf NROFF
-NROFF := groff -Tascii -P-c -U
+NROFF := @NROFF@
 RANLIB := @RANLIB@
 
 prefix := @prefix@

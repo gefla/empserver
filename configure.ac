@@ -54,6 +54,9 @@ AM_PROG_CC_C_O
 # Private automake macro, tsk, tsk, tsk...
 _AM_DEPENDENCIES(CC)
 
+AC_ARG_VAR(NROFF, [nroff command])
+AC_CHECK_PROG(NROFF, groff, [groff -Tascii -P-c -U], nroff)
+
 # not really a check for a program, but close enough
 if test -d $srcdir/CVS; then cvs_controlled=yes; else cvs_controlled=no; fi
 AC_SUBST(cvs_controlled,$cvs_controlled)
