@@ -235,8 +235,7 @@ endif
 
 
 info.nr/%: info/%.t
-	$(NROFF) -I $(srcdir)/info $(filter %/CRT.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@
-# FIXME AT&T nroff doesn't grok -I
+	(cd $(srcdir)/info && $(NROFF) CRT.MAC $(notdir $< )) | $(AWK) -f $(filter %/Blank.awk, $^) >$@
 
 info.html/%.html: info/%.t
 	perl $(filter %.pl, $^) $< >$@
