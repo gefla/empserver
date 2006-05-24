@@ -119,7 +119,6 @@ struct natstr {
     unsigned char nat_rejects[MAXNOC];
     signed char nat_priorities[PRI_MAX+1]; /* budget priority */
     long nat_flags;		/* nation flags */
-    char nat_spare[15];
 };
 
 	/* Update fields. */
