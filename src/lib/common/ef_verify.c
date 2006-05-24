@@ -40,11 +40,11 @@
 #include "file.h"
 #include "nsc.h"
 
-static void verify_fail(int, int, struct castr *, char *, ...)
-    ATTRIBUTE((format (printf, 4, 5)));
+static void verify_fail(int, int, struct castr *, int, char *, ...)
+    ATTRIBUTE((format (printf, 5, 6)));
 
 static void
-verify_fail(int type, int row, struct castr *ca, char *fmt, ...)
+verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
 {
     int i;
     va_list ap;
@@ -52,9 +52,12 @@ verify_fail(int type, int row, struct castr *ca, char *fmt, ...)
     /* Find base table of view, if any */
     for (i = 0; empfile[i].cache == empfile[type].cache; i++) ;
 
-    fprintf(stderr, "%s %s uid %d field %s: ",
+    fprintf(stderr, "%s %s uid %d field %s",
 	    EF_IS_GAME_STATE(i) ? "File" : "Config",
 	    ef_nameof(type), row, ca->ca_name);
+    if (ca->ca_type != NSC_STRINGY && ca->ca_len != 0)
+	fprintf(stderr, " index %d", idx);
+    fprintf(stderr, ": ");
     va_start(ap, fmt);
     vfprintf(stderr, fmt, ap);
     va_end(ap);
@@ -107,7 +110,7 @@ verify_row(int type, int row)
 		    if (val.val_as.lng & (1L << k))
 			if (!symbol_by_value(1L << k,
 					     ef_ptr(ca[i].ca_table, 0))) {
-			    verify_fail(type, row, &ca[i],
+			    verify_fail(type, row, &ca[i], j,
 					"bit %d is not in symbol table %s",
 					k, ef_nameof(ca[i].ca_table));
 			    ret_val = -1;
@@ -120,7 +123,7 @@ verify_row(int type, int row)
 		if (val.val_as.lng == 0)
 		    continue;
 		if (val.val_as.lng != row) {
-		    verify_fail(type, row, &ca[i],
+		    verify_fail(type, row, &ca[i], j,
 				"value is %ld instead of %d",
 				val.val_as.lng, row);
 		    ret_val = -1;
@@ -130,7 +133,7 @@ verify_row(int type, int row)
 		/* symbol */
 		if (!symbol_by_value(val.val_as.lng,
 				     ef_ptr(ca[i].ca_table, 0))) {
-		    verify_fail(type, row, &ca[i],
+		    verify_fail(type, row, &ca[i], j,
 				"value %ld is not in symbol table %s",
 				val.val_as.lng, ef_nameof(ca[i].ca_table));
 		    ret_val = -1;
@@ -139,7 +142,7 @@ verify_row(int type, int row)
 		/* table index */
 		if (val.val_as.lng >= ef_nelem(ca[i].ca_table)
 		    || val.val_as.lng < -1) {
-		    verify_fail(type, row, &ca[i],
+		    verify_fail(type, row, &ca[i], j,
 			"value %ld indexes table %s out of bounds 0..%d",
 			val.val_as.lng, ef_nameof(ca[i].ca_table),
 			ef_nelem(ca[i].ca_table));
