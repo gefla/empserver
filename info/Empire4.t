@@ -7,8 +7,9 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.4 - Tue May 23 18:13:11 UTC 2006
- * Work around crash bug in command argument access.
+Changes to Empire 4.3.4 - Thu May 25 05:46:10 UTC 2006
+ * Don't use non-portable groff features (broken in 4.3.0).
+ * Work around potential crash bugs in command argument access.
  * Plug major information leak through nation selectors (broken in
    4.2.21).  The fix unfortunately exchanges the meaning of xdump
    nation and xdump country.  Sorry about that.
