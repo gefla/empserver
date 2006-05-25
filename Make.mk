@@ -235,7 +235,9 @@ endif
 
 
 info.nr/%: info/%.t
-	(cd $(srcdir)/info && $(NROFF) CRT.MAC $(notdir $< )) | $(AWK) -f $(filter %/Blank.awk, $^) >$@
+	$(NROFF) $(filter %.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@
+# Pipes in make are a pain.  Catch obvious errors:
+	@test -s $@
 
 info.html/%.html: info/%.t
 	perl $(filter %.pl, $^) $< >$@
