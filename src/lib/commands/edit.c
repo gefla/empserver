@@ -266,7 +266,7 @@ prsect(struct sctstr *sect)
     pr("Location <L>: %s\t", xyas(sect->sct_x, sect->sct_y, player->cnum));
     pr("Distribution sector <D>: %s\n",
        xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum));
-    pr("Designation <s>: %c\t New designation <S>: %c\n",
+    pr("Designation <s>: %c\tNew designation <S>: %c\n",
        dchr[sect->sct_type].d_mnem, dchr[sect->sct_newtype].d_mnem);
     pr("own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail\n");
     pr("  o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a\n");
@@ -278,7 +278,7 @@ prsect(struct sctstr *sect)
        sect->sct_pstage, sect->sct_ptime,
        sect->sct_fallout, sect->sct_avail);
 
-    pr("Mines <M>: %d\t", sect->sct_mines);
+    pr("Mines <M>: %d\n", sect->sct_mines);
     pr("Road %% <R>: %d\t", sect->sct_road);
     pr("Rail %% <r>: %d\t", sect->sct_rail);
     pr("Defense %% <d>: %d\n", sect->sct_defense);
@@ -349,7 +349,6 @@ pr_land(struct lndstr *land)
     pr("Army <a>: %c\n", land->lnd_army);
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Fuel <B>: %d\n", land->lnd_fuel);
-    count_land_planes(land);
     pr("Land unit <Y>: %d\n", land->lnd_land);
     pr("Ship <S>: %d\t\t", land->lnd_ship);
     pr("Radius <P>: %d\n", land->lnd_rad_max);
@@ -389,11 +388,9 @@ pr_ship(struct shpstr *ship)
     pr("Efficiency <E>: %d\n", ship->shp_effic);
     pr("Mobility <M>: %d\t\t", ship->shp_mobil);
     pr("Fleet <F>: %c\n", ship->shp_fleet);
-    count_planes(ship);
-    count_units(ship);
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
-    pr("Fuel <B>: %d\t\t\t", ship->shp_fuel);
+    pr("Fuel <B>: %d\n", ship->shp_fuel);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, ship->shp_rflags);
     pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
