@@ -1022,6 +1022,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    mobcost = 0;
 	    if (!(lcp->l_flags & L_ASSAULT))
 		continue;
+	    break;
 	default:
 	    CANT_REACH();
 	    return;
