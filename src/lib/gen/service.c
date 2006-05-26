@@ -139,8 +139,7 @@ static SERVICE_STATUS_HANDLE	service_status_handle;
 static void WINAPI
 service_ctrl_handler(DWORD Opcode) 
 { 
-    switch(Opcode) 
-    { 
+    switch(Opcode) { 
         case SERVICE_CONTROL_PAUSE: 
             service_status.dwCurrentState = SERVICE_PAUSED;
 	    logerror("Pausing the service not supported");

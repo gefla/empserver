@@ -112,9 +112,7 @@ float plane_grow_scale = 2.0;	/* how fast eff grows for planes (xETUS) */
 double fgrate = 0.0012;		/* food growth rate (dt * fert) */
 double fcrate = 0.0013;		/* food cultivate rate (dt * workforce) */
 double eatrate = 0.0005;	/* food eating rate (dt * people) */
-/*double   eatrate     = 0.0001;*//* food eating rate (dt * people) */
 double babyeat = 0.0060;	/* food to mature 1 baby into a civilian */
-/*double   babyeat     = 0.0000;*//* food to mature 1 baby into a civilian */
 
 double obrate = 0.005;		/* other sectors birth rate */
 double uwbrate = 0.0025;	/* uncompensated worker birth rate */

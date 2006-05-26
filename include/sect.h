@@ -39,8 +39,6 @@
 
 #include "item.h"
 
-/* The order of the following elements is there to match up with genitem */
-
 struct sctstr {
     /* initial part must match struct genitem */
     short ef_type;

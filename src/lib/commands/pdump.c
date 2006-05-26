@@ -289,7 +289,6 @@ pdump(void)
 		} else
 		    pr(" N/A");
 		break;
-
 	    case 21:
 		pr(" %c", plane.pln_flags & PLN_AIRBURST ? 'A' : 'G');
 		break;

@@ -4,7 +4,7 @@ Why backups
 Running a game without regular backups is irresponsible.  A bug, a
 system crash or a deity error can destroy the game, leaving you no way
 to recover except restoring from backup.  If you foolishly neglected
-to make regular, working backups, players, who likely invested
+to make regular, working backups, then players, who likely invested
 substantial time in your game, will have every reason to be very angry
 with you.
 
@@ -28,7 +28,7 @@ Automatic backups
 -----------------
 
 The server lets you run an arbitrary command right before the update,
-with players locked out.  You can use this feature to make a back up
+with players locked out.  You can use this feature to make a backup
 on each update automatically.
 
 The command runs in the data directory.  stdin, stdout, stderr are

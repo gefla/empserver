@@ -154,13 +154,6 @@ trad(void)
     }
     switch (trade.trd_type) {
     case EF_NUKE:
-	/*
-	   if (!getsect(tg.gen.trg_x, tg.gen.trg_y, &sect)) {
-	   return RET_FAIL;
-	   }
-	   trade.trd_owner = sect.sct_own;
-	   break;
-	 */
     case EF_PLANE:
     case EF_SHIP:
     case EF_LAND:

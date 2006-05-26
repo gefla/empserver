@@ -62,7 +62,7 @@ getele(char *recipient, char *buf)
 	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
 	if (uprmptrd(left, buffer, sizeof(buffer) - 2) <= 0)
 	    return -1;
-	switch(tilde_escape(buffer)) {
+	switch (tilde_escape(buffer)) {
 	case 'q':
 	    return -1;
 	case 'u':

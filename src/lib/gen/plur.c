@@ -67,7 +67,7 @@ plurize(char *buf, int size, int n)
     if (!len || n <= 1)
 	return buf;
 
-    switch(buf[len - 1]) {
+    switch (buf[len - 1]) {
     case 'y':
 	buf[len - 1] = '\0';
 	strncat(buf, "ies", size - len);
