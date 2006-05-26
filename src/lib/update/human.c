@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "misc.h"
 #include "sect.h"
 #include "nat.h"
@@ -48,23 +49,20 @@
 #include "gen.h"
 #include "subs.h"
 
-static int grow_people(struct sctstr *, int,
-		       struct natstr *, int *, int,
+static int growfood(struct sctstr *, short *, int, int);
+static int starve_some(short *, i_type, int);
+static void trunc_people(struct sctstr *, struct natstr *, short *);
+static int grow_people(struct sctstr *, int, struct natstr *, int *, int,
 		       short *);
 static int babies(int, int, double, int, int);
-static int growfood(struct sctstr *, short *, int, int);
-static void trunc_people(struct sctstr *, struct natstr *,
-			 short *);
 
 /*
  * feed the individual sector
- *
  */
 int
 do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	int *workp, int *bp, int etu)
 {
-    int people;
     int work_avail;
     int starved, sctwork;
     int needed;
@@ -79,35 +77,26 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 				     vec[I_CIVIL], vec[I_MILIT], vec[I_UW],
 				     maxpop));
 
-    people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
     if (sp->sct_type != SCT_SANCT) {
 	if (opt_NOFOOD == 0) {
-	    if (vec[I_FOOD] < 1 + etu * people * eatrate) {
+	    needed = (int)ceil(food_needed(vec, etu));
+	    if (vec[I_FOOD] < needed) {
 		/* need to grow "emergency rations" */
-		work_avail -= (2 *
-			       growfood(sp, vec, (int)(work_avail / 2),
-					etu));
+		work_avail -= 2 * growfood(sp, vec, work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
 		pt_bg_nmbr(bp, sp, I_MAX + 1, work_avail);
 		if (!player->simulation)
 		    sp->sct_avail = work_avail;
 	    }
-	    if ((vec[I_FOOD] < 1 + etu * people * eatrate) &&
-		(sp->sct_own == sp->sct_oldown)) {
-
+	    if (vec[I_FOOD] < needed && sp->sct_own == sp->sct_oldown) {
 		/* steal food from warehouses, headquarters,
 		   supply ships in port, or supply units */
-		int needed;
-
-		needed = ldround(1.0 + etu * people * eatrate, 1);
-
-		/* Now, find some food */
 		vec[I_FOOD] = supply_commod(sp->sct_own,
 					    sp->sct_x, sp->sct_y,
 					    I_FOOD, needed);
 	    }
 	}
-	starved = feed_people(vec, etu, &needed);
+	starved = feed_people(vec, etu);
 	if (starved > 0) {
 	    if (!player->simulation) {
 		/* don't report POGO starvation */
@@ -179,56 +168,59 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
  * returns the number who starved, if any.
  */
 int
-feed_people(short *vec, int etu, int *needed)
+feed_people(short *vec, int etu)
 {
-    double food_eaten;
-    int ifood_eaten;
-    int can_eat;
-    int total_people;
-    int to_starve;
-    int starved;
+    int to_starve, starved;
 
     if (opt_NOFOOD)
 	return 0;
 
-    total_people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-    food_eaten = etu * eatrate * total_people;
-    ifood_eaten = (int)food_eaten;
-    if (food_eaten - ifood_eaten > 0)
-	ifood_eaten++;
-    if (ifood_eaten <= 1)
-	return 0;
-    starved = 0;
-    *needed = 0;
-    if (ifood_eaten > vec[I_FOOD]) {
-	*needed = ifood_eaten - vec[I_FOOD];
-	can_eat = vec[I_FOOD] / (etu * eatrate);
-	/* only want to starve off at most 1/2 the populace. */
-	if (can_eat < total_people / 2)
-	    can_eat = total_people / 2;
-
-	to_starve = total_people - can_eat;
-	while (to_starve && vec[I_UW]) {
-	    to_starve--;
-	    starved++;
-	    vec[I_UW]--;
-	}
-	while (to_starve && vec[I_CIVIL]) {
-	    to_starve--;
-	    starved++;
-	    vec[I_CIVIL]--;
-	}
-	while (to_starve && vec[I_MILIT]) {
-	    to_starve--;
-	    starved++;
-	    vec[I_MILIT]--;
-	}
-
+    to_starve = famine_victims(vec, etu);
+    starved = starve_some(vec, I_UW, to_starve);
+    starved += starve_some(vec, I_CIVIL, to_starve - starved);
+    starved += starve_some(vec, I_MILIT, to_starve - starved);
+    vec[I_FOOD] -= roundavg(food_needed(vec, etu));
+    if (vec[I_FOOD] < 0)
 	vec[I_FOOD] = 0;
-    } else {
-	vec[I_FOOD] -= roundavg(food_eaten);
-    }
     return starved;
+}
+
+/*
+ * Return food eaten by people in VEC[] in ETU ETUs.
+ */
+double
+food_needed(short *vec, int etu)
+{
+    int people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+    double need = etu * eatrate * people;
+    return need;
+}
+
+/*
+ * Return number of famine victims in VEC[] for ETU ETUs.
+ */
+int
+famine_victims(short *vec, int etu)
+{
+    double can_eat = vec[I_FOOD] / (etu * eatrate);
+    int people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
+    if (people < can_eat)
+	return 0;
+    if (can_eat < people / 2)
+	return people / 2;
+    return (int)(people - can_eat);
+}
+
+/*
+ * Starve up to NUM people of VEC[WHOM].
+ * Return the number of actually starved.
+ */
+static int
+starve_some(short *vec, i_type whom, int num)
+{
+    int retval = MIN(num, vec[whom]);
+    vec[whom] -= retval;
+    return retval;
 }
 
 /*

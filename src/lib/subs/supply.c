@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "misc.h"
 #include "nat.h"
 #include "ship.h"
@@ -202,11 +203,9 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    continue;
 	if (!BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD))
 	    continue;
-	if (!opt_NOFOOD && type == I_FOOD) {
-	    minimum = 2 + ((etu_per_update * eatrate)
-			   * (sect.sct_item[I_CIVIL] + sect.sct_item[I_MILIT]
-			      + sect.sct_item[I_UW]));
-	}
+	if (!opt_NOFOOD && type == I_FOOD)
+	    minimum = 1 + (int)ceil(food_needed(sect.sct_item,
+						etu_per_update));
 	if (sect.sct_item[type] <= minimum) {
 	    /* Don't bother... */
 	    continue;
@@ -278,9 +277,8 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	if (!BestLandPath(buf, &dest, &sect, &move_cost, MOB_ROAD))
 	    continue;
 	if (!opt_NOFOOD && type == I_FOOD)
-	    minimum = 2 + ((etu_per_update * eatrate)
-			   * (ship.shp_item[I_CIVIL] + ship.shp_item[I_MILIT]
-			      + ship.shp_item[I_UW]));
+	    minimum = 1 + (int)ceil(food_needed(ship.shp_item,
+						etu_per_update));
 	if (ship.shp_item[type] <= minimum) {
 	    /* Don't bother... */
 	    continue;
@@ -438,7 +436,7 @@ get_minimum(struct lndstr *lp, i_type type)
     case I_FOOD:
 	if (opt_NOFOOD)
 	    return 0;		/* no food reqd, get out */
-	want = (double)etu_per_update * eatrate * lp->lnd_item[I_MILIT] + 1;
+	want = (int)ceil(food_needed(lp->lnd_item, etu_per_update));
 	break;
     case I_SHELL:
 	want = lp->lnd_ammo;

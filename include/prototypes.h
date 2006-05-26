@@ -730,10 +730,11 @@ extern void finish_sects(int);
 extern int new_work(struct sctstr *, int);
 extern int do_feed(struct sctstr *, struct natstr *,
 		   short *, int *, int *, int);
-extern int feed_people(short *, int, int *);
+extern int feed_people(short *, int);
+extern double food_needed(short *, int);
+extern int famine_victims(short *, int);
 /* land.c */
 extern int prod_land(int, int, int *, int);
-extern int feed_land(struct lndstr *, int, int *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
@@ -796,7 +797,6 @@ extern void produce_sect(int natnum, int etu, int *bp,
 			 long (*p_sect)[2], int sector_type);
 /* ship.c */
 extern int prod_ship(int, int, int *, int);
-extern int feed_ship(struct shpstr *, int, int *, int);
 
 /*
  * src/server

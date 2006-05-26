@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "misc.h"
 #include "plague.h"
 #include "sect.h"
@@ -57,6 +58,7 @@
 
 static void shiprepair(struct shpstr *, struct natstr *, int *, int);
 static void upd_ship(struct shpstr *, int, struct natstr *, int *, int);
+static int feed_ship(struct shpstr *, int);
 
 int
 prod_ship(int etus, int natnum, int *bp, int build)
@@ -128,7 +130,6 @@ upd_ship(struct shpstr *sp, int etus,
     int dep;
     int n;
     int mult;
-    int needed;
     int cost;
     int eff;
 
@@ -202,7 +203,7 @@ upd_ship(struct shpstr *sp, int etus,
 				* prod_eff(product, sp->shp_tech));
 	    }
 	    /* feed */
-	    if ((n = feed_ship(sp, etus, &needed, 1)) > 0) {
+	    if ((n = feed_ship(sp, etus)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
 		if (n > 10)
 		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
@@ -396,79 +397,38 @@ shiprepair(struct shpstr *ship, struct natstr *np, int *bp, int etus)
 /*
  * returns the number who starved, if any.
  */
-int
-feed_ship(struct shpstr *sp, int etus, int *needed, int doit)
+static int
+feed_ship(struct shpstr *sp, int etus)
 {
-    double food_eaten, land_eaten;
-    int ifood_eaten;
-    int can_eat, need;
-    int total_people;
-    int to_starve;
-    int starved;
+    int needed, take;
+    double give;
     struct nstr_item ni;
     struct lndstr *lp;
 
     if (opt_NOFOOD)
-	return 0;		/* no food no work to do */
+	return 0;
 
-    total_people
-	= sp->shp_item[I_CIVIL] + sp->shp_item[I_MILIT] + sp->shp_item[I_UW];
-    food_eaten = etus * eatrate * total_people;
-    ifood_eaten = (int)food_eaten;
-    if (food_eaten - ifood_eaten > 0)
-	ifood_eaten++;
-    starved = 0;
-    *needed = 0;
-    if (!player->simulation && ifood_eaten > sp->shp_item[I_FOOD])
-	sp->shp_item[I_FOOD]
-	    += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-			     I_FOOD, ifood_eaten - sp->shp_item[I_FOOD]);
+    needed = (int)ceil(food_needed(sp->shp_item, etus));
 
-/* doit - only steal food from land units during the update */
-    if (ifood_eaten > sp->shp_item[I_FOOD] && sp->shp_nland > 0 && doit) {
+    /* scrounge */
+    if (needed > sp->shp_item[I_FOOD])
+	sp->shp_item[I_FOOD] += supply_commod(sp->shp_own,
+					sp->shp_x, sp->shp_y, I_FOOD,
+					needed - sp->shp_item[I_FOOD]);
+    if (needed > sp->shp_item[I_FOOD]) {
+	/* take from embarked land units, but don't starve them */
 	snxtitem_all(&ni, EF_LAND);
-	while ((lp = nxtitemp(&ni)) && ifood_eaten > sp->shp_item[I_FOOD]) {
+	while ((lp = nxtitemp(&ni)) && needed > sp->shp_item[I_FOOD]) {
 	    if (lp->lnd_ship != sp->shp_uid)
 		continue;
-	    need = ifood_eaten - sp->shp_item[I_FOOD];
-	    land_eaten = etus * eatrate * lp->lnd_item[I_MILIT];
-	    if (lp->lnd_item[I_FOOD] - need > land_eaten) {
-		sp->shp_item[I_FOOD] += need;
-		lp->lnd_item[I_FOOD] -= need;
-	    } else if (lp->lnd_item[I_FOOD] - land_eaten > 0) {
-		sp->shp_item[I_FOOD] += lp->lnd_item[I_FOOD] - land_eaten;
-		lp->lnd_item[I_FOOD] -= lp->lnd_item[I_FOOD] - land_eaten;
-	    }
+	    give = lp->lnd_item[I_FOOD] - food_needed(lp->lnd_item, etus);
+	    if (give < 1.0)
+		continue;
+	    take = MIN((int)give, needed - sp->shp_item[I_FOOD]);
+	    sp->shp_item[I_FOOD] += take;
+	    lp->lnd_item[I_FOOD] -= take;
 	}
     }
 
-    if (ifood_eaten > sp->shp_item[I_FOOD]) {
-	*needed = ifood_eaten - sp->shp_item[I_FOOD];
-	can_eat = sp->shp_item[I_FOOD] / (etus * eatrate);
-	/* only want to starve off at most 1/2 the populace. */
-	if (can_eat < total_people / 2)
-	    can_eat = total_people / 2;
-
-	to_starve = total_people - can_eat;
-	while (to_starve && sp->shp_item[I_UW]) {
-	    to_starve--;
-	    starved++;
-	    sp->shp_item[I_UW]--;
-	}
-	while (to_starve && sp->shp_item[I_CIVIL]) {
-	    to_starve--;
-	    starved++;
-	    sp->shp_item[I_CIVIL]--;
-	}
-	while (to_starve && sp->shp_item[I_MILIT]) {
-	    to_starve--;
-	    starved++;
-	    sp->shp_item[I_MILIT]--;
-	}
-
-	sp->shp_item[I_FOOD] = 0;
-    } else {
-	sp->shp_item[I_FOOD] -= (int)food_eaten;
-    }
-    return starved;
+    return feed_people(sp->shp_item, etus);
 }

@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "misc.h"
 #include "plague.h"
 #include "sect.h"
@@ -57,6 +58,7 @@ int mil_dbl_pay;
 
 static void landrepair(struct lndstr *, struct natstr *, int *, int);
 static void upd_land(struct lndstr *, int, struct natstr *, int *, int);
+static int feed_land(struct lndstr *, int);
 
 int
 prod_land(int etus, int natnum, int *bp, int build)
@@ -120,7 +122,6 @@ upd_land(struct lndstr *lp, int etus,
     int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int mult;
-    int needed;
     int cost;
     int eff;
 
@@ -160,7 +161,7 @@ upd_land(struct lndstr *lp, int etus,
 
 	if (!player->simulation) {
 	    /* feed */
-	    if ((n = feed_land(lp, etus, &needed, 1)) > 0) {
+	    if ((n = feed_land(lp, etus)) > 0) {
 		wu(0, lp->lnd_own, "%d starved in %s%s\n",
 		   n, prland(lp),
 		   (lp->lnd_effic < LAND_MINEFF ? ", killing it" : ""));
@@ -337,62 +338,20 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 /*
  * returns the number who starved, if any.
  */
-int
-feed_land(struct lndstr *lp, int etus, int *needed, int doit)
+static int
+feed_land(struct lndstr *lp, int etus)
 {
-    double food_eaten, ship_eaten;
-    int ifood_eaten;
-    double people_left;
-    int need;
-    int total_people;
-    int starved;
+    int needed, give, take;
     struct shpstr *sp;
 
     if (opt_NOFOOD)
-	return 0;		/* no food no work to be done */
+	return 0;
 
-    total_people = lp->lnd_item[I_MILIT];
-    food_eaten = etus * eatrate * total_people;
-    ifood_eaten = (int)food_eaten;
-    if (food_eaten - ifood_eaten > 0)
-	ifood_eaten++;
-    starved = 0;
-    *needed = 0;
+    needed = (int)ceil(food_needed(lp->lnd_item, etus));
 
-    if (doit)
+    /* scrounge */
+    if (needed > lp->lnd_item[I_FOOD])
 	resupply_commod(lp, I_FOOD);
-    /*
-     * If we're on a ship, and we don't have enough food,
-     * get some food off the carrying ship. (Don't starve
-     * the ship, tho...
-     */
-/* doit - Only try to take food off the ship during the update */
-    if (ifood_eaten > lp->lnd_item[I_FOOD] && lp->lnd_ship >= 0 && doit) {
-	need = ifood_eaten - lp->lnd_item[I_FOOD];
-	sp = getshipp(lp->lnd_ship);
-	ship_eaten = etus * eatrate * (sp->shp_item[I_CIVIL]
-				       + sp->shp_item[I_MILIT]
-				       + sp->shp_item[I_UW]);
-	if (sp->shp_item[I_FOOD] - need > ship_eaten) {
-	    lp->lnd_item[I_FOOD] += need;
-	    sp->shp_item[I_FOOD] -= need;
-	} else if (sp->shp_item[I_FOOD] - ship_eaten > 0) {
-	    lp->lnd_item[I_FOOD] += sp->shp_item[I_FOOD] - ship_eaten;
-	    sp->shp_item[I_FOOD] -= sp->shp_item[I_FOOD] - ship_eaten;
-	}
-    }
 
-    if (ifood_eaten > lp->lnd_item[I_FOOD]) {
-	*needed = ifood_eaten - lp->lnd_item[I_FOOD];
-	people_left = (lp->lnd_item[I_FOOD] + 0.01) / (food_eaten + 0.01);
-	/* only want to starve off at most 1/2 the populace. */
-	if (people_left < 0.5)
-	    people_left = 0.5;
-	starved = total_people * (1 - people_left);
-	lp->lnd_item[I_MILIT] -= starved;
-	lp->lnd_item[I_FOOD] = 0;
-    } else {
-	lp->lnd_item[I_FOOD] -= (int)food_eaten;
-    }
-    return starved;
+    return feed_people(lp->lnd_item, etus);
 }

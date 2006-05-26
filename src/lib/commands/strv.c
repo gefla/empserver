@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
@@ -95,12 +96,19 @@ starve(void)
 }
 
 static void
+starv_people(short *vec, int victims)
+{
+    pr(" will starve %d people. %.0f more food needed\n", victims,
+       ceil(food_needed(vec, etu_per_update) - vec[I_FOOD]));
+}
+
+static void
 starv_sects(char *range)
 {
     struct nstr_sect nstr;
     struct sctstr sect;
     int nsect = 0;
-    int s, needed;
+    int s;
 
     if (!snxtsct(&nstr, range))
 	return;
@@ -110,10 +118,9 @@ starv_sects(char *range)
 	if (sect.sct_type == SCT_SANCT)
 	    continue;
 
-/* This next 2 lines were added to overcompensate for the needy */
-	if (sect.sct_item[I_FOOD])
-	    sect.sct_item[I_FOOD]--;
-	s = feed_people(sect.sct_item, etu_per_update, &needed);
+	if (sect.sct_item[I_FOOD] == 0)
+	    sect.sct_item[I_FOOD] = 1; /* see growfood() */
+	s = famine_victims(sect.sct_item, etu_per_update);
 
 	if (s == 0)
 	    continue;
@@ -129,7 +136,7 @@ starv_sects(char *range)
 	else
 	    pr(" ");
 	pr("%4d%%", sect.sct_effic);
-	pr(" will starve %d people. %d more food needed\n", s, needed);
+	starv_people(sect.sct_item, s);
     }
     if (nsect == 0) {
 	if (player->argp[1])
@@ -160,7 +167,7 @@ starv_ships(char *range)
     struct nstr_item ni;
     struct shpstr ship;
     int nship = 0;
-    int s, needed;
+    int s;
 
     if (!snxtitem(&ni, EF_SHIP, range))
 	return;
@@ -169,7 +176,7 @@ starv_ships(char *range)
 	if (!player->owner || !ship.shp_own)
 	    continue;
 
-	s = feed_ship(&ship, etu_per_update, &needed, 0);
+	s = famine_victims(ship.shp_item, etu_per_update);
 	if (s == 0)
 	    continue;
 	if (nship++ == 0)
@@ -178,7 +185,7 @@ starv_ships(char *range)
 	    pr("%3d ", ship.shp_own);
 	pr("%5d ", ship.shp_uid);
 	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
-	pr(" will starve %d people. %d more food needed\n", s, needed);
+	starv_people(ship.shp_item, s);
     }
     if (nship == 0) {
 	if (range)
@@ -217,7 +224,7 @@ starv_units(char *range)
 	if (!player->owner || !land.lnd_own)
 	    continue;
 
-	s = feed_land(&land, etu_per_update, &needed, 0);
+	s = famine_victims(land.lnd_item, etu_per_update);
 	if (s == 0)
 	    continue;
 	if (nunit++ == 0)
@@ -226,7 +233,7 @@ starv_units(char *range)
 	    pr("%3d ", land.lnd_own);
 	pr("%5d ", land.lnd_uid);
 	pr("%-16.16s ", lchr[(int)land.lnd_type].l_name);
-	pr(" will starve %d mil. %d more food needed\n", s, needed);
+	starv_people(land.lnd_item, s);
     }
     if (nunit == 0) {
 	if (range)
