@@ -45,6 +45,9 @@
  * can select on NS_ALL, NS_AREA, NS_DIST, and NS_LIST.
  * iterate thru the "condarg" string looking
  * for arguments to compile into the nstr.
+ * Using this function for anything but command arguments is usually
+ * incorrect, because it respects conditionals.  Use the snxtitem_FOO()
+ * instead.
  */
 int
 snxtitem(struct nstr_item *np, int type, char *str)
@@ -195,7 +198,7 @@ void
 snxtitem_group(struct nstr_item *np, int type, char group)
 {
     if (group == '~')
-	group = ' ';
+	group = 0;
     memset(np, 0, sizeof(*np));
     np->cur = -1;
     np->sel = NS_GROUP;

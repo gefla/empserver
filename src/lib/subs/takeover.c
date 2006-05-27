@@ -206,6 +206,7 @@ takeover_plane(struct plnstr *pp, natid newown)
     pp->pln_own = newown;
     makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
     pp->pln_mission = 0;
+    pp->pln_wing = 0;
     putplane(pp->pln_uid, pp);
 }
 
@@ -224,7 +225,7 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     sp->shp_own = newown;
     makenotlost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
     sp->shp_mission = 0;
-    sp->shp_fleet = ' ';
+    sp->shp_fleet = 0;
     sp->shp_rflags = 0;
     /* Keep track of when this was taken over */
     time(&sp->shp_access);
@@ -279,7 +280,7 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
 	putland(landp->lnd_uid, landp);
 	return;
     }
-    landp->lnd_army = ' ';
+    landp->lnd_army = 0;
     landp->lnd_mobil = 0;
     landp->lnd_harden = 0;
     /* Keep track of when this was taken over */

@@ -398,7 +398,7 @@ check_trade(void)
 	    tg.pln.pln_own = trade.trd_maxbidder;
 	    makenotlost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid,
 			tg.pln.pln_x, tg.pln.pln_y);
-	    tg.pln.pln_wing = ' ';
+	    tg.pln.pln_wing = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.pln.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
@@ -428,7 +428,7 @@ check_trade(void)
 	    tg.lnd.lnd_own = trade.trd_maxbidder;
 	    makenotlost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
 			tg.lnd.lnd_x, tg.lnd.lnd_y);
-	    tg.lnd.lnd_army = ' ';
+	    tg.lnd.lnd_army = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.lnd.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);

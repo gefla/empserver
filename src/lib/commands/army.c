@@ -62,7 +62,7 @@ army(void)
 	return RET_SYN;
     }
     if (c == '~')
-	c = ' ';
+	c = 0;
     if (!snxtitem(&nstr, EF_LAND, player->argp[2]))
 	return RET_SYN;
     count = 0;

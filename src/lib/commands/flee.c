@@ -62,7 +62,7 @@ flee(void)
 	return RET_SYN;
     }
     if (c == '~')
-	c = ' ';
+	c = 0;
     if (!snxtitem(&nstr, EF_SHIP, player->argp[2]))
 	return RET_SYN;
     count = 0;

@@ -369,7 +369,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     ship.shp_nland = 0;
     ship.shp_nxlight = 0;
     ship.shp_nchoppers = 0;
-    ship.shp_fleet = ' ';
+    ship.shp_fleet = 0;
     memset(ship.shp_item, 0, sizeof(ship.shp_item));
     ship.shp_pstage = PLG_HEALTHY;
     ship.shp_ptime = 0;
@@ -490,7 +490,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
 	land.lnd_mobil = 0;
     }
     land.lnd_uid = nstr.cur;
-    land.lnd_army = ' ';
+    land.lnd_army = 0;
     land.lnd_flags = 0;
     land.lnd_ship = -1;
     land.lnd_land = -1;
@@ -792,7 +792,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     plane.pln_radius = 0;
     plane.pln_range = UCHAR_MAX; /* will be adjusted by pln_set_tech() */
     plane.pln_range_max = plane.pln_range;
-    plane.pln_wing = ' ';
+    plane.pln_wing = 0;
     plane.pln_ship = -1;
     plane.pln_land = -1;
     plane.pln_uid = nstr.cur;

@@ -921,7 +921,7 @@ att_prompt(char *prompt, char army)
     char buf[1024];
     char *p;
 
-    if (army == ' ')
+    if (!army)
 	army = '~';
     for (;;) {
 	p = getstring(prompt, buf);
@@ -1051,7 +1051,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		    att_mode[combat_mode],
 		    prland(&land),
 		    prcom(1, off),
-		    land.lnd_army == ' ' ? '~' : land.lnd_army,
+		    land.lnd_army ? land.lnd_army : '~',
 		    land.lnd_effic);
 	    land_answer[(int)land.lnd_army] =
 		att_prompt(prompt, land.lnd_army);
@@ -2293,7 +2293,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 		continue;
 	    sprintf(prompt, "Move in with %s (%c %d%%) [ynYNq?] ",
 		    prland(&llp->land),
-		    llp->land.lnd_army == ' ' ? '~' : llp->land.lnd_army,
+		    llp->land.lnd_army ? llp->land.lnd_army :  '~',
 		    llp->land.lnd_effic);
 	    *answerp = att_prompt(prompt, llp->land.lnd_army);
 	    if (player->aborted || att_get_combat(def, 0) < 0)

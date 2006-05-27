@@ -333,7 +333,7 @@ shp_list(struct emp_qelem *ship_list)
 	pr("%4d ", shp->shp_uid);
 	pr("%-16.16s ", mlp->mcp->m_name);
 	prxy("%4d,%-4d ", shp->shp_x, shp->shp_y, mlp->ship.shp_own);
-	pr("%c", shp->shp_fleet);
+	pr("%1.1s", &shp->shp_fleet);
 	pr("%4d%%", shp->shp_effic);
 	pr("%4d", shp->shp_item[I_MILIT]);
 	pr("%4d", shp->shp_item[I_SHELL]);

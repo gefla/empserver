@@ -288,10 +288,7 @@ sdump(void)
 		pr(" %d", yrel(np, ship.shp_y));
 		break;
 	    case 4:
-		if (ship.shp_fleet == ' ')
-		    pr(" ~");
-		else
-		    pr(" %c", ship.shp_fleet);
+		pr(" %c ", ship.shp_fleet ? ship.shp_fleet : '~');
 		break;
 	    case 5:
 		pr(" %d", ship.shp_effic);

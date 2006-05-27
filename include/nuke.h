@@ -47,7 +47,7 @@ struct nukstr {
     signed char nuk_effic;	/* unused, always 100% */
     signed char nuk_mobil;	/* unused, always 0 */
     short nuk_tech;		/* nuke's tech level */
-    char nuk_stockpile;		/* group membership, unused, always ' ' */
+    char nuk_stockpile;		/* group membership, unused */
     coord nuk_opx, nuk_opy;	/* Op sector coords, unused */
     short nuk_mission;		/* mission code, unused */
     short nuk_radius;		/* mission radius, unused */

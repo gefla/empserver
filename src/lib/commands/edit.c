@@ -329,7 +329,7 @@ pr_plane(struct plnstr *plane)
     pr("Efficiency <e>: %d\t", plane->pln_effic);
     pr("Mobility <m>: %d\n", plane->pln_mobil);
     pr("Tech <t>: %d\t\t", plane->pln_tech);
-    pr("Wing <w>: %c\n", plane->pln_wing);
+    pr("Wing <w>: %.1s\n", &plane->pln_wing);
     pr("Range <r>: %d\t\t", plane->pln_range);
     pr("Flags <f>: %d\n", plane->pln_flags);
     pr("Ship <s>: %d\t\t", plane->pln_ship);
@@ -346,7 +346,7 @@ pr_land(struct lndstr *land)
     pr("Efficiency <e>: %d\t", land->lnd_effic);
     pr("Mobility <M>: %d\n", land->lnd_mobil);
     pr("Tech <t>: %d\t\t", land->lnd_tech);
-    pr("Army <a>: %c\n", land->lnd_army);
+    pr("Army <a>: %.1s\n", &land->lnd_army);
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Fuel <B>: %d\n", land->lnd_fuel);
     pr("Land unit <Y>: %d\n", land->lnd_land);
@@ -387,7 +387,7 @@ pr_ship(struct shpstr *ship)
     pr("Tech <T>: %d\t\t\t", ship->shp_tech);
     pr("Efficiency <E>: %d\n", ship->shp_effic);
     pr("Mobility <M>: %d\t\t", ship->shp_mobil);
-    pr("Fleet <F>: %c\n", ship->shp_fleet);
+    pr("Fleet <F>: %.1s\n", &ship->shp_fleet);
     /* could depend on opt_FUEL - but a deity might want to set this
        up before enabling the option */
     pr("Fuel <B>: %d\n", ship->shp_fuel);
@@ -834,7 +834,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	break;
     case 'F':
 	if (p[0] == '~')
-	    ship->shp_fleet = ' ';
+	    ship->shp_fleet = 0;
 	else if (isalpha(p[0]))
 	    ship->shp_fleet = p[0];
 	else {
@@ -948,7 +948,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	break;
     case 'a':
 	if (p[0] == '~')
-	    land->lnd_army = ' ';
+	    land->lnd_army = 0;
 	else if (isalpha(p[0]))
 	    land->lnd_army = p[0];
 	else {
@@ -1079,7 +1079,7 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	break;
     case 'w':
 	if (p[0] == '~')
-	    plane->pln_wing = ' ';
+	    plane->pln_wing = 0;
 	else if (isalpha(p[0]))
 	    plane->pln_wing = p[0];
 	else {
