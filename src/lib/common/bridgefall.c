@@ -126,9 +126,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	    mpr(land.lnd_own, "\07");
 	mpr(land.lnd_own, "     AARGH! %s tumbles to its doom!\n",
 	    prland(&land));
-	makelost(EF_LAND, land.lnd_own, land.lnd_uid,
-		 land.lnd_x, land.lnd_y);
-	land.lnd_own = 0;
 	land.lnd_effic = 0;
 	putland(land.lnd_uid, &land);
     }
@@ -149,9 +146,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	    mpr(plane.pln_own, "\07");
 	mpr(plane.pln_own, "     AARGH! %s tumbles to its doom!\n",
 	    prplane(&plane));
-	makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-		 plane.pln_x, plane.pln_y);
-	plane.pln_own = 0;
 	plane.pln_effic = 0;
 	putplane(plane.pln_uid, &plane);
     }
@@ -167,9 +161,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	    mpr(nuke.nuk_own, "\07");
 	mpr(nuke.nuk_own, "     %s sinks to the bottom of the sea!\n",
 	    prnuke(&nuke));
-	makelost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid,
-		 nuke.nuk_x, nuke.nuk_y);
-	nuke.nuk_own = 0;
 	nuke.nuk_effic = 0;
 	putnuke(nuke.nuk_uid, &nuke);
     }

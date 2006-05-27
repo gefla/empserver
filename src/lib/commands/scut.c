@@ -164,9 +164,7 @@ scut(void)
 		getship(item.plane.pln_ship, &ship);
 		take_plane_off_ship(&item.plane, &ship);
 	    }
-	    makelost(EF_PLANE, item.plane.pln_own, item.plane.pln_uid,
-		     item.plane.pln_x, item.plane.pln_y);
-	    item.plane.pln_own = 0;
+	    item.plane.pln_effic = 0;
 	    putplane(item.plane.pln_uid, &item.plane);
 	}
 	pr(" scuttled in %s\n",
@@ -271,9 +269,7 @@ scuttle_ship(struct shpstr *sp)
 		wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
 		   plane.pln_uid,
 		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			 plane.pln_x, plane.pln_y);
-		plane.pln_own = 0;
+		plane.pln_effic = 0;
 	    } else {
 		wu(0, plane.pln_own,
 		   "Plane %d transferred off ship %d to %s\n",
@@ -299,8 +295,7 @@ scuttle_ship(struct shpstr *sp)
 		scuttle_land(&land);
 	}
     }
-    makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
-    sp->shp_own = 0;
+    sp->shp_effic = 0;
     putship(sp->shp_uid, sp);
 }
 
@@ -323,9 +318,7 @@ scuttle_land(struct lndstr *lp)
 		wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
 		   plane.pln_uid,
 		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			 plane.pln_x, plane.pln_y);
-		plane.pln_own = 0;
+		plane.pln_effic = 0;
 	    } else {
 		wu(0, plane.pln_own,
 		   "Plane %d transferred off unit %d to %s\n",
@@ -351,7 +344,6 @@ scuttle_land(struct lndstr *lp)
 		scuttle_land(&land);
 	}
     }
-    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-    lp->lnd_own = 0;
+    lp->lnd_effic = 0;
     putland(lp->lnd_uid, lp);
 }

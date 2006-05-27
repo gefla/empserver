@@ -805,12 +805,8 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	    ship->shp_own = (natid)arg;
 	    makenotlost(EF_SHIP, ship->shp_own, ship->shp_uid,
 			ship->shp_x, ship->shp_y);
-	} else if (!arg) {
+	} else if (!arg)
 	    ship->shp_effic = 0;
-	    makelost(EF_SHIP, ship->shp_own, ship->shp_uid,
-		     ship->shp_x, ship->shp_y);
-	    ship->shp_own = (natid)0;
-	}
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
@@ -922,12 +918,8 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	    land->lnd_own = (natid)arg;
 	    makenotlost(EF_LAND, land->lnd_own, land->lnd_uid,
 			land->lnd_x, land->lnd_y);
-	} else if (!arg) {
-	    makelost(EF_LAND, land->lnd_own, land->lnd_uid,
-		     land->lnd_x, land->lnd_y);
+	} else if (!arg)
 	    land->lnd_effic = 0;
-	    land->lnd_own = (natid)0;
-	}
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
@@ -1059,12 +1051,8 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 			plane->pln_x, plane->pln_y);
 	    wu(player->cnum, plane->pln_own,
 	       "%s given to you by deity intervention!\n", prplane(plane));
-	} else if (!arg) {
+	} else if (!arg)
 	    plane->pln_effic = 0;
-	    makelost(EF_PLANE, plane->pln_own, plane->pln_uid,
-		     plane->pln_x, plane->pln_y);
-	    plane->pln_own = (natid)0;
-	}
 	break;
     case 'e':
 	plane->pln_effic = errcheck(arg, PLANE_MINEFF, 100);

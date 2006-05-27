@@ -761,8 +761,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 	    getland(pp->pln_land, &land);
 	    take_plane_off_land(pp, &land);
 	}
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-	pp->pln_own = 0;
+	pp->pln_effic = 0;
 	putplane(pp->pln_uid, pp);
 	emp_remque(&plp->queue);
 	free(plp);

@@ -85,9 +85,6 @@ shp_prewrite(int n, void *ptr)
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_ship == n) {
 		mpr(lp->lnd_own, "%s sunk!\n", prland(lp));
-		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
-			 lp->lnd_x, lp->lnd_y);
-		lp->lnd_own = 0;
 		lp->lnd_effic = 0;
 		lp->lnd_ship = -1;
 		lp->lnd_land = -1;
@@ -97,9 +94,6 @@ shp_prewrite(int n, void *ptr)
 	for (i = 0; NULL != (pp = getplanep(i)); i++) {
 	    if (pp->pln_own && pp->pln_ship == n) {
 		mpr(pp->pln_own, "%s sunk!\n", prplane(pp));
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-			 pp->pln_x, pp->pln_y);
-		pp->pln_own = 0;
 		pp->pln_effic = 0;
 		pp->pln_ship = -1;
 		pp->pln_land = -1;

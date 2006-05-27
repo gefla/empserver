@@ -107,9 +107,7 @@ laun(void)
 	    if (!ship.shp_own) {
 		pr("%s: ship #%d was sunk!\n",
 		   prplane(&plane), ship.shp_uid);
-		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			 plane.pln_x, plane.pln_y);
-		plane.pln_own = 0;
+		plane.pln_effic = 0;
 		putplane(plane.pln_uid, &plane);
 		continue;
 	    }
@@ -118,9 +116,7 @@ laun(void)
 	    if (ship.shp_own != player->cnum && rel != ALLIED) {
 		pr("%s: you or an ally do not own ship #%d\n",
 		   prplane(&plane), ship.shp_uid);
-		makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			 plane.pln_x, plane.pln_y);
-		plane.pln_own = 0;
+		plane.pln_effic = 0;
 		putplane(plane.pln_uid, &plane);
 		continue;
 	    }
@@ -159,9 +155,7 @@ laun(void)
 	if (retval != RET_OK)
 	    return retval;
 	if (gone) {
-	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-		     plane.pln_x, plane.pln_y);
-	    plane.pln_own = 0;
+	    plane.pln_effic = 0;
 	    putplane(plane.pln_uid, &plane);
 	}
     }
@@ -410,8 +404,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
     pr("3... 2... 1... Blastoff!!!\n");
     if (chance(0.07 + (100 - pp->pln_effic) / 100.0)) {
 	pr("KABOOOOM!  Range safety officer detonates booster!\n");
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-	pp->pln_own = 0;
+	pp->pln_effic = 0;
 	return RET_OK;
     }
     i = pp->pln_tech + pp->pln_effic;

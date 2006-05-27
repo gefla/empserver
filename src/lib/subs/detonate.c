@@ -301,9 +301,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    continue;
 	if (roll(100) >= damage)
 	    continue;
-	makelost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid,
-		 nuke.nuk_x, nuke.nuk_y);
-	nuke.nuk_own = 0;
+	nuke.nuk_effic = 0;
 	if (own == bombown) {
 	    mpr(bombown, "%s at %s destroyed\n",
 		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));

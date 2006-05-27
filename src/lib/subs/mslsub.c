@@ -343,8 +343,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	    destroyed = 1;
 	}
 	/* zap the missile */
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-	pp->pln_own = 0;
+	pp->pln_effic = 0;
 	putplane(pp->pln_uid, pp);
 	emp_remque(qp);
 	free(qp);
@@ -414,9 +413,7 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 		newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 0);
 		collateral_damage(x, y, newdam, 0);
 	    }
-	    makelost(EF_PLANE, plp->plane.pln_own, plp->plane.pln_uid,
-		     plp->plane.pln_x, plp->plane.pln_y);
-	    plp->plane.pln_own = 0;
+	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
 	    emp_remque(qp);
 	    free(qp);

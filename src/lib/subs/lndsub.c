@@ -64,8 +64,6 @@ attack_val(int combat_mode, struct lndstr *lp)
     struct lchrstr *lcp;
 
     if (lp->lnd_effic < LAND_MINEFF) {
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
 	putland(lp->lnd_uid, lp);
 	return 0;
     }
@@ -104,8 +102,6 @@ defense_val(struct lndstr *lp)
     struct lchrstr *lcp;
 
     if (lp->lnd_effic < LAND_MINEFF) {
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
 	putland(lp->lnd_uid, lp);
 	return 0;
     }

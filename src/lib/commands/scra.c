@@ -244,9 +244,7 @@ scra(void)
 		    putland(land.lnd_uid, &land);
 		}
 	    }
-	    makelost(EF_SHIP, item.ship.shp_own, item.ship.shp_uid,
-		     item.ship.shp_x, item.ship.shp_y);
-	    item.ship.shp_own = 0;
+	    item.ship.shp_effic = 0;
 	    putship(item.ship.shp_uid, &item.ship);
 	} else if (type == EF_LAND) {
 	    eff = item.land.lnd_effic / 100.0;
@@ -312,9 +310,7 @@ scra(void)
 		    putplane(plane.pln_uid, &plane);
 		}
 	    }
-	    makelost(EF_LAND, item.land.lnd_own, item.land.lnd_uid,
-		     item.land.lnd_x, item.land.lnd_y);
-	    item.land.lnd_own = 0;
+	    item.land.lnd_effic = 0;
 	    putland(item.land.lnd_uid, &item.land);
 	} else {
 	    eff = item.land.lnd_effic / 100.0;
@@ -323,9 +319,7 @@ scra(void)
 	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
 	    sect.sct_item[I_MILIT] += pp->pl_crew;
-	    makelost(EF_PLANE, item.plane.pln_own, item.plane.pln_uid,
-		     item.plane.pln_x, item.plane.pln_y);
-	    item.plane.pln_own = 0;
+	    item.plane.pln_effic = 0;
 	    putplane(item.plane.pln_uid, &item.plane);
 	}
 	pr(" scrapped in %s\n",

@@ -123,9 +123,6 @@ pln_prewrite(int n, void *ptr)
 	for (i = 0; NULL != (np = getnukep(i)); i++) {
 	    if (np->nuk_own && np->nuk_plane == n) {
 		mpr(np->nuk_own, "%s lost!\n", prnuke(np));
-		makelost(EF_NUKE, np->nuk_own, np->nuk_uid,
-			 np->nuk_x, np->nuk_y);
-		np->nuk_own = 0;
 		np->nuk_effic = 0;
 		np->nuk_plane = -1;
 		putnuke(np->nuk_uid, np);

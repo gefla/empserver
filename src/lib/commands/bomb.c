@@ -690,12 +690,9 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (dam > 100)
 	    dam = 100;
 	own = plane.pln_own;
-	if (dam > plane.pln_effic) {
+	if (dam > plane.pln_effic)
 	    plane.pln_effic = 0;
-	    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-		     plane.pln_x, plane.pln_y);
-	    plane.pln_own = 0;
-	} else
+	else
 	    plane.pln_effic -= dam;
 	plane.pln_mobil = (dam * plane.pln_mobil / 100.0);
 	if (own == player->cnum) {
@@ -904,11 +901,8 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 	    getland(pp->pln_land, &land);
 	    take_plane_off_land(pp, &land);
 	}
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
-	pp->pln_own = 0;
-	putplane(pp->pln_uid, pp);
-    } else
-	putplane(pp->pln_uid, pp);
+    }
+    putplane(pp->pln_uid, pp);
 
     if (disp > 0)
 	return 1;
