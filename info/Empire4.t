@@ -7,6 +7,20 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.5 - Sun May 28 07:49:54 UTC 2006
+ * In conditionals, ~ compared to a string selector now stands for an
+   empty string.
+ * Change encoding of `not in any group' from " " to "".  This makes
+   fleet=~ work.  It also affects xdump.
+ * Fix plane capture code to clear wing.
+ * People now eat and starve exactly the same in sectors, ships and
+   land units.  There used to be small differences, and civilians and
+   uw loaded on land units didn't eat at all.  The starvation command
+   has been updated accordingly.
+ * Fix bug that makes it impossible to assault or board with land
+   units (broken in 4.3.4).
+ * Code cleanup.
+
 Changes to Empire 4.3.4 - Thu May 25 05:46:10 UTC 2006
  * Don't use non-portable groff features (broken in 4.3.0).
  * Work around potential crash bugs in command argument access.
