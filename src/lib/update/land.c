@@ -317,15 +317,12 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 	build /= 3;
 
     avail -= build * w_p_eff;
-    if (!player->simulation) {
+    if (avail < 0)
+	avail = 0;
+    if (!player->simulation)
 	sp->sct_avail = avail / 100;
-	if (sp->sct_avail < 0)
-	    sp->sct_avail = 0;
-    } else {
+    else
 	pt_bg_nmbr(bp, sp, I_MAX + 1, avail / 100);
-	if (gt_bg_nmbr(bp, sp, I_MAX + 1) < 0)
-	    pt_bg_nmbr(bp, sp, I_MAX + 1, 0);
-    }
 
     if (build < 0)
 	logerror("land unit %d building %d ! \n", land->lnd_uid, build);
