@@ -408,6 +408,9 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx, int string_ok)
 	/* interpret unresolvable identifier as string */
 	val->val_type = NSC_STRING;
 	val->val_cat = NSC_VAL;
+	/* map identifier ~ to empty string, like some commands do */
+	if (val->val_as.str.maxsz == 1 && val->val_as.str.base[0] == '~')
+	    val->val_as.str.maxsz = 0;
 	return val;
     }
 
