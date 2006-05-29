@@ -61,9 +61,6 @@ long tpops[MAXNOC];
 
 int update_pending = 0;
 
-static void do_prod(int, int, int, int *, long (*)[2], int *, int *,
-		    int *, int *, int *, int *);
-
 /*ARGSUSED*/
 void
 update_main(void *unused)
@@ -113,7 +110,7 @@ update_main(void *unused)
     logerror("done preparing sectors.");
     logerror("producing for countries...");
     for (x = 0; x < MAXNOC; x++) {
-	int y, z, sb = 0, sm = 0, pb = 0, pm = 0, lm = 0, lb = 0;
+	int y, z;
 	long p_sect[SCT_MAXDEF+1][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
@@ -128,30 +125,16 @@ update_main(void *unused)
 	}
 	np->nat_money += (int)(np->nat_reserve * money_res * etu);
 
-	for (y = 1; y <= PRI_MAX; y++) {
-	    for (z = 0; z <= PRI_MAX; z++) {
-		if (np->nat_priorities[z] == y) {
-		    do_prod(z, etu, x, bp, p_sect,
-			    &sb, &sm, &pb, &pm, &lb, &lm);
-		}
-	    }
-	}
 	/* 0 is maintain, 1 is build */
-	if (!sm)
-	    prod_ship(etu, x, bp, 0);
-	if (!sb)
-	    prod_ship(etu, x, bp, 1);
-	if (!pm)
-	    prod_plane(etu, x, bp, 0);
-	if (!pb)
-	    prod_plane(etu, x, bp, 1);
-	if (!lm)
-	    prod_land(etu, x, bp, 0);
-	if (!lb)
-	    prod_land(etu, x, bp, 1);
+	prod_ship(etu, x, bp, 0);
+	prod_ship(etu, x, bp, 1);
+	prod_plane(etu, x, bp, 0);
+	prod_plane(etu, x, bp, 1);
+	prod_land(etu, x, bp, 0);
+	prod_land(etu, x, bp, 1);
 
 	/* produce all sects that haven't produced yet */
-	produce_sect(x, etu, bp, p_sect, -1);
+	produce_sect(x, etu, bp, p_sect);
 	np->nat_money -= p_sect[SCT_CAPIT][1];
     }
     logerror("done producing for countries.");
@@ -207,38 +190,4 @@ update_main(void *unused)
     player_delete(player);
     empth_exit();
     /*NOTREACHED*/
-}
-
-static void
-do_prod(int sector_type, int etu, int n, int *bp, long (*p_sect)[2],
-	int *ship_build, int *ship_maint, int *plane_build,
-	int *plane_maint, int *land_build, int *land_maint)
-{
-    struct natstr *np;
-
-    np = getnatp(n);
-
-    if (sector_type == PRI_SMAINT) {
-	prod_ship(etu, n, bp, 0);
-	*ship_maint = 1;
-    } else if (sector_type == PRI_SBUILD) {
-	prod_ship(etu, n, bp, 1);
-	*ship_build = 1;
-    } else if (sector_type == PRI_PMAINT) {
-	prod_plane(etu, n, bp, 0);
-	*plane_maint = 1;
-    } else if (sector_type == PRI_PBUILD) {
-	prod_plane(etu, n, bp, 1);
-	*plane_build = 1;
-    } else if (sector_type == PRI_LMAINT) {
-	if (*land_build)
-	    np->nat_money -= (int)(money_mil * etu * mil_dbl_pay);
-	prod_land(etu, n, bp, 0);
-	*land_maint = 1;
-    } else if (sector_type == PRI_LBUILD) {
-	prod_land(etu, n, bp, 1);
-	*land_build = 1;
-    } else {
-	produce_sect(n, etu, bp, p_sect, sector_type);
-    }
 }

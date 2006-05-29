@@ -54,17 +54,6 @@ typedef enum {
     STAT_GOD			/* deity powers */
 } nat_status;
 
-enum {				/* Priorities */
-    /* sector types are also priorities */
-    PRI_SMAINT = SCT_MAXDEF+1,	/* ship maintenance */
-    PRI_PMAINT,			/* plane maintenance */
-    PRI_LMAINT,			/* land unit maintenance */
-    PRI_SBUILD,			/* ship building */
-    PRI_PBUILD,			/* plane building */
-    PRI_LBUILD,			/* land building */
-    PRI_MAX = PRI_LBUILD
-};
-
 
 /*
  * TODO
@@ -73,7 +62,6 @@ enum {				/* Priorities */
  *
  * The only user of r_cnum and r_realm appears to be xdump.
  * If we had working virtual selectors, we could remove r_cnum and r_realm.
- *
  */
 struct realmstr {
     /* initial part must match struct genitem */
@@ -117,7 +105,6 @@ struct natstr {
     unsigned char nat_relate[MAXNOC];
     unsigned char nat_contact[MAXNOC];
     unsigned char nat_rejects[MAXNOC];
-    signed char nat_priorities[PRI_MAX+1]; /* budget priority */
     long nat_flags;		/* nation flags */
 };
 

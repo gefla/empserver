@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1996
  *     Ron Koenderink, 2004
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -135,16 +136,14 @@ upd_ship(struct shpstr *sp, int etus,
 
     mp = &mchr[(int)sp->shp_type];
     if (build == 1) {
-	if (np->nat_priorities[PRI_SBUILD] == 0 || np->nat_money < 0)
-	    return;
-	shiprepair(sp, np, bp, etus);
+	if (np->nat_money >= 0)
+	    shiprepair(sp, np, bp, etus);
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
 	cost = -(mult * etus * MIN(0.0, money_ship * mp->m_cost));
-	if ((np->nat_priorities[PRI_SMAINT] == 0 || np->nat_money < cost)
-	    && !player->simulation) {
+	if (np->nat_money < cost && !player->simulation) {
 	    if ((eff = sp->shp_effic - etus / 5) < SHIP_MINEFF) {
 		wu(0, sp->shp_own,
 		   "%s lost to lack of maintenance\n", prship(sp));

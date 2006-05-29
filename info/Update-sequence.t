@@ -13,27 +13,27 @@ This document gives a rough order of events during the update.
 	c) if the sector doesn't have the plague, see if it catches it
 		otherwise plague the people
 	d) if there are no civs or mil in the sector, it reverts to the deity
-	e) taxes are collected from civs & uws. Mil are paid.
+	e) taxes are collected from civs & uws; mil are paid.
 	f) if the sector is a bank it makes $$ proportional to its efficiency
 
 2) Then, in order of country #, deal with each country:
 	a) pay for military reserves.
-	b) in order of set priorities, 1-39, 1 going first, then 2, etc.
-		produce for owned sectors, maintain and build ships,
-		planes and units; see below for details
-	c) If ship maintenance is not yet done, do it now
+	c) ship maintenance
 		pay maintenance, produce, then feed and plague people on board
-	d) If ship building is not yet done, do it now
+	d) ship building
+		ships that are stopped are skipped (see info stop)
 		ships execute their orders right after building
 		finally, if option SAIL is enabled, follow sail paths
-	e) If plane maintenance is not yet done, do it now
-	f) If plane building is not yet done, do it now
-	g) If unit maintenance is not yet done, do it now
+	e) plane maintenance
+	f) plane building
+		planes that are stopped are skipped (see info stop)
+	g) land unit maintenance
 		pay maintenance, then feed and plague people on board
-	h) If unit building is not yet done, do it now
-	i) produce for all sectors that have not yet produced
-                a) if the sector is a cap, it costs $$ equal to
-                   the # of etus: np->nat_money -= etus;
+	h) land unit building
+		land units that are stopped are skipped (see info stop)
+	i) produce for all sectors
+                a) if the sector is a cap, it costs $1 per etu since
+			the last update
                 b) people in non-sanctuary sectors eat
                         1) If not enough is available, the sector
                                 uses the supply routines to draw more.

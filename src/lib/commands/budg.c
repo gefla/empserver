@@ -31,6 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
  *     Steve McClure, 1997-2000
+ *     Markus Armbruster, 2004-2006
  */
 
 #include <config.h>
@@ -57,9 +58,8 @@ static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
-static int change_prio(struct natstr *np, char code, char *newval);
 static char *dotsprintf(char *buf, char *format, int data);
-static void prexpense(long cash, int *expensesp, int priority, int amount);
+static void prexpense(long cash, int *expensesp, int amount);
 
 int
 budg(void)
@@ -79,13 +79,6 @@ budg(void)
     etu = etu_per_update;
 
     np = getnatp(player->cnum);
-    if (player->argp[1]) {
-	res = change_prio(np, player->argp[1][0], player->argp[2]);
-	if (res != RET_OK) {
-	    putnat(np);
-	    return res;
-	}
-    }
 
     player->simulation = 1;
     calc_all(p_sect,
@@ -93,84 +86,59 @@ budg(void)
 	     &ships, &sbuild, &nsbuild, &smaint,
 	     &units, &lbuild, &nlbuild, &lmaint,
 	     &planes, &pbuild, &npbuild, &pmaint);
+    player->simulation = 0;
 
     income = taxes + bars;
     expenses = 0;
-    pr("Sector Type\t\tAbbr\tProduction\tPriority\t    Cost\n");
+    pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
     for (i = 0; i <= SCT_MAXDEF; i++) {
-	if (!p_sect[i][1] && np->nat_priorities[i] == -1)
+	if (!p_sect[i][1] || i == SCT_CAPIT)
 	    continue;
-	if (!pchr[dchr[i].d_prd].p_cost &&
-	    np->nat_priorities[i] == -1 && i != SCT_ENLIST)
-	    continue;
-
-	pr("%-17s\t%c\t", dchr[i].d_name, dchr[i].d_mnem);
+	pr("%-17s\t\t", dchr[i].d_name);
 	if (i == SCT_ENLIST)
 	    pr("%ld mil    \t", p_sect[i][0]);
 	else if (pchr[dchr[i].d_prd].p_cost != 0)
 	    pr("%ld %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
-
-	if (np->nat_priorities[i] != -1)
-	    pr("%d", np->nat_priorities[i]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[i], p_sect[i][1]);
-    }
-
-    if (lbuild) {
-	sprintf(buf, "%d unit%s", nlbuild, splur(nlbuild));
-	pr("Unit building\t\tL\t%-16s", buf);
-	if (np->nat_priorities[PRI_LBUILD] != -1)
-	    pr("%d", np->nat_priorities[PRI_LBUILD]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_LBUILD], -1 * lbuild);
-    }
-
-    if (lmaint) {
-	sprintf(buf, "%d unit%s", units, splur(units));
-	pr("Unit maintenance\tA\t%-16s", buf);
-	if (np->nat_priorities[PRI_LMAINT] != -1)
-	    pr("%d", np->nat_priorities[PRI_LMAINT]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_LMAINT], -1 * lmaint);
+	prexpense(np->nat_money + income, &expenses, p_sect[i][1]);
     }
 
     if (sbuild) {
 	sprintf(buf, "%d ship%s", nsbuild, splur(nsbuild));
-	pr("Ship building\t\tS\t%-16s", buf);
-	if (np->nat_priorities[PRI_SBUILD] != -1)
-	    pr("%d", np->nat_priorities[PRI_SBUILD]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_SBUILD], -1 * sbuild);
+	pr("Ship building\t\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -sbuild);
     }
 
     if (smaint) {
 	sprintf(buf, "%d ship%s", ships, splur(ships));
-	pr("Ship maintenance\tM\t%-16s", buf);
-	if (np->nat_priorities[PRI_SMAINT] != -1)
-	    pr("%d", np->nat_priorities[PRI_SMAINT]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_SMAINT], -1 * smaint);
+	pr("Ship maintenance\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -smaint);
     }
 
     if (pbuild) {
 	sprintf(buf, "%d plane%s", npbuild, splur(npbuild));
-	pr("Plane building\t\tP\t%-16s", buf);
-	if (np->nat_priorities[PRI_PBUILD] != -1)
-	    pr("%d", np->nat_priorities[PRI_PBUILD]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_PBUILD], -1 * pbuild);
+	pr("Plane building\t\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -pbuild);
     }
 
     if (pmaint) {
 	sprintf(buf, "%d plane%s", planes, splur(planes));
-	pr("Plane maintenance\tN\t%-16s", buf);
-	if (np->nat_priorities[PRI_PMAINT] != -1)
-	    pr("%d", np->nat_priorities[PRI_PMAINT]);
-	prexpense(np->nat_money + income, &expenses,
-		  np->nat_priorities[PRI_PMAINT], -1 * pmaint);
+	pr("Plane maintenance\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -pmaint);
     }
+    if (lbuild) {
+	sprintf(buf, "%d unit%s", nlbuild, splur(nlbuild));
+	pr("Unit building\t\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -lbuild);
+    }
+
+    if (lmaint) {
+	sprintf(buf, "%d unit%s", units, splur(units));
+	pr("Unit maintenance\t\t%-16s", buf);
+	prexpense(np->nat_money + income, &expenses, -lmaint);
+    }
+
     if (p_sect[SCT_EFFIC][1]) {
 	pr("Sector building\t\t\t\t%8ld sct(s)\t\t%8ld\n",
 	   p_sect[SCT_EFFIC][0], p_sect[SCT_EFFIC][1]);
@@ -212,7 +180,6 @@ budg(void)
 	pr("Sectors will not produce, distribute, or deliver!\n\n");
     }
 
-    player->simulation = 0;
     return RET_OK;
 }
 
@@ -225,16 +192,12 @@ calc_all(long p_sect[][2],
 {
     int y, z;
     struct natstr *np;
-    int sm = 0, sb = 0, pm = 0, pb = 0, lm = 0, lb = 0;
     int *bp;
     long pop = 0;
     int n, civ_tax, uw_tax, mil_pay;
     struct sctstr *sp;
     int etu = etu_per_update;
-    long tmp_money;
 
-    lnd_money[player->cnum] = sea_money[player->cnum] = 0;
-    air_money[player->cnum] = 0;
     mil_dbl_pay = 0;
     memset(p_sect, 0, sizeof(**p_sect) * (SCT_MAXDEF+1) * 2);
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
@@ -262,153 +225,40 @@ calc_all(long p_sect[][2],
     tpops[player->cnum] = pop;
     *mil += (int)(np->nat_reserve * money_res * etu);
 
-    *mil += (int)upd_slmilcosts(np->nat_cnum, etu);
+    *mil += upd_slmilcosts(np->nat_cnum, etu);
 
-    for (y = 1; y <= PRI_MAX; y++) {
-	for (z = 0; z <= PRI_MAX; z++)
-	    if (np->nat_priorities[z] == y)
-		switch (z) {
-		case PRI_SMAINT:
-		    tmp_money = lnd_money[player->cnum];
-		    *ships = prod_ship(etu, player->cnum, bp, 0);
-		    *smaint = lnd_money[player->cnum] - tmp_money;
-		    sm = 1;
-		    break;
-		case PRI_SBUILD:
-		    tmp_money = sea_money[player->cnum];
-		    *nsbuild = prod_ship(etu, player->cnum, bp, 1);
-		    *sbuild = sea_money[player->cnum] - tmp_money;
-		    sb = 1;
-		    break;
-		case PRI_LMAINT:
-		    tmp_money = lnd_money[player->cnum];
-		    *units = prod_land(etu, player->cnum, bp, 0);
-		    *lmaint = lnd_money[player->cnum] - tmp_money;
-		    lm = 1;
-		    break;
-		case PRI_LBUILD:
-		    tmp_money = lnd_money[player->cnum];
-		    *nlbuild = prod_land(etu, player->cnum, bp, 1);
-		    *lbuild = lnd_money[player->cnum] - tmp_money;
-		    lb = 1;
-		    break;
-		case PRI_PMAINT:
-		    tmp_money = air_money[player->cnum];
-		    *planes = prod_plane(etu, player->cnum, bp, 0);
-		    *pmaint = air_money[player->cnum] - tmp_money;
-		    pm = 1;
-		    break;
-		case PRI_PBUILD:
-		    tmp_money = air_money[player->cnum];
-		    *npbuild = prod_plane(etu, player->cnum, bp, 1);
-		    *pbuild = air_money[player->cnum] - tmp_money;
-		    pb = 1;
-		    break;
-		default:
-		    produce_sect(player->cnum, etu, bp, p_sect, z);
-		    break;
-		}
-    }
-    /* 0 is maintain, 1 is build */
-    if (!sm) {
-	tmp_money = sea_money[player->cnum];
-	*ships = prod_ship(etu, player->cnum, bp, 0);
-	*smaint = sea_money[player->cnum] - tmp_money;
-    }
-    if (!sb) {
-	tmp_money = sea_money[player->cnum];
-	*nsbuild = prod_ship(etu, player->cnum, bp, 1);
-	*sbuild = sea_money[player->cnum] - tmp_money;
-    }
-    if (!lm) {
-	tmp_money = lnd_money[player->cnum];
-	*units = prod_land(etu, player->cnum, bp, 0);
-	*lmaint = lnd_money[player->cnum] - tmp_money;
-    }
-    if (!lb) {
-	tmp_money = lnd_money[player->cnum];
-	*nlbuild = prod_land(etu, player->cnum, bp, 1);
-	*lbuild = lnd_money[player->cnum] - tmp_money;
-    }
-    if (!pm) {
-	tmp_money = air_money[player->cnum];
-	*planes = prod_plane(etu, player->cnum, bp, 0);
-	*pmaint = air_money[player->cnum] - tmp_money;
-    }
-    if (!pb) {
-	tmp_money = air_money[player->cnum];
-	*npbuild = prod_plane(etu, player->cnum, bp, 1);
-	*pbuild = air_money[player->cnum] - tmp_money;
-    }
+    /* Maintain and build ships */
+    sea_money[player->cnum] = 0;
+    *ships = prod_ship(etu, player->cnum, bp, 0);
+    *smaint = sea_money[player->cnum];
+    sea_money[player->cnum] = 0;
+    *nsbuild = prod_ship(etu, player->cnum, bp, 1);
+    *sbuild = sea_money[player->cnum];
+    sea_money[player->cnum] = 0;
 
-    /* produce all sects that haven't produced yet */
-    produce_sect(player->cnum, etu, bp, p_sect, -1);
-
-    lnd_money[player->cnum] = sea_money[player->cnum] = 0;
+    /* Maintain and build planes */
     air_money[player->cnum] = 0;
+    *planes = prod_plane(etu, player->cnum, bp, 0);
+    *pmaint = air_money[player->cnum];
+    air_money[player->cnum] = 0;
+    *npbuild = prod_plane(etu, player->cnum, bp, 1);
+    *pbuild = air_money[player->cnum];
+    air_money[player->cnum] = 0;
+
+    /* Maintain and build land units */
+    lnd_money[player->cnum] = 0;
+    *units = prod_land(etu, player->cnum, bp, 0);
+    *lmaint = lnd_money[player->cnum];
+    lnd_money[player->cnum] = 0;
+    *nlbuild = prod_land(etu, player->cnum, bp, 1);
+    *lbuild = lnd_money[player->cnum];
+    lnd_money[player->cnum] = 0;
+
+    /* Produce */
+    produce_sect(player->cnum, etu, bp, p_sect);
+
     free(bp);
 }
-
-static int
-change_prio(struct natstr *np, char code, char *newval)
-{
-    int idx, i, prio;
-    char *p;
-    char buf[1024];
-
-    switch (code) {
-    case 'P':
-	idx = PRI_PBUILD;
-	break;
-    case 'S':
-	idx = PRI_SBUILD;
-	break;
-    case 'L':
-	idx = PRI_LBUILD;
-	break;
-    case 'A':
-	idx = PRI_LMAINT;
-	break;
-    case 'M':
-	idx = PRI_SMAINT;
-	break;
-    case 'N':
-	idx = PRI_PMAINT;
-	break;
-    case 'C':
-	for (i = 0; i <= PRI_MAX; ++i)
-	    np->nat_priorities[i] = -1;
-	return RET_OK;
-    default:
-	idx = sct_typematch(player->argp[1]);
-	if (idx < 0 || idx == SCT_CAPIT)
-	    return RET_SYN;
-    }
-
-    if (!(p = getstarg(newval, "Priority? ", buf)))
-	return RET_SYN;
-    if (isdigit(p[0])) {
-	prio = atoi(p);
-	if (prio < 0 || PRI_MAX < prio) {
-	    pr("Priorities must be between 0 and %d!\n", PRI_MAX);
-	    return RET_FAIL;
-	}
-	for (i = 0; i <= PRI_MAX; i++) {
-	    if (i != idx && prio && np->nat_priorities[i] == prio) {
-		pr("Priorities must be unique!\n");
-		return RET_FAIL;
-	    }
-	}
-    } else if (p[0] == '~')
-	prio = -1;
-    else
-	return RET_SYN;
-
-    np->nat_priorities[idx] = prio;
-
-    return RET_OK;
-}
-
 
 static char *
 dotsprintf(char *buf, char *format, int data)
@@ -418,19 +268,13 @@ dotsprintf(char *buf, char *format, int data)
 }
 
 static void
-prexpense(long cash, int *expensesp, int priority, int amount)
+prexpense(long cash, int *expensesp, int amount)
 {
     if (cash > *expensesp) {
-	if (priority) {
-	    pr("\t\t%8d\n", amount);
-	    *expensesp += amount;
-	} else
-	    pr("\t\t(%7d)\n", amount);
+	pr("\t\t%8d\n", amount);
+	*expensesp += amount;
     } else {
-	if (priority) {
-	    pr("\t\t[%7d]\n", amount);
-	    *expensesp += amount;
-	} else
-	    pr("\t\t[(%6d)]\n", amount);
+	pr("\t\t[%7d]\n", amount);
+	*expensesp += amount;
     }
 }

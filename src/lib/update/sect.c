@@ -100,33 +100,31 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	    buildeff_work = MIN((int)(*workp / 2), buildeff_work);
 	}
     }
-    if (np->nat_priorities[*desig]) {
-	if (*desig == sp->sct_newtype) {
-	    work_cost = 100 - neweff;
-	    if (work_cost > buildeff_work)
-		work_cost = buildeff_work;
+    if (*desig == sp->sct_newtype) {
+	work_cost = 100 - neweff;
+	if (work_cost > buildeff_work)
+	    work_cost = buildeff_work;
 
-	    if (dchr[*desig].d_lcms > 0) {
-		lcms = vec[I_LCM];
-		lcms /= dchr[*desig].d_lcms;
-		if (work_cost > lcms)
-		    work_cost = lcms;
-	    }
-	    if (dchr[*desig].d_hcms > 0) {
-		hcms = vec[I_HCM];
-		hcms /= dchr[*desig].d_hcms;
-		if (work_cost > hcms)
-		    work_cost = hcms;
-	    }
+	if (dchr[*desig].d_lcms > 0) {
+	    lcms = vec[I_LCM];
+	    lcms /= dchr[*desig].d_lcms;
+	    if (work_cost > lcms)
+		work_cost = lcms;
+	}
+	if (dchr[*desig].d_hcms > 0) {
+	    hcms = vec[I_HCM];
+	    hcms /= dchr[*desig].d_hcms;
+	    if (work_cost > hcms)
+		work_cost = hcms;
+	}
 
-	    neweff += work_cost;
-	    *cost += work_cost * dchr[*desig].d_build;
-	    buildeff_work -= work_cost;
+	neweff += work_cost;
+	*cost += work_cost * dchr[*desig].d_build;
+	buildeff_work -= work_cost;
 
-	    if ((dchr[*desig].d_lcms > 0) || (dchr[*desig].d_hcms > 0)) {
-		vec[I_LCM] -= work_cost * dchr[*desig].d_lcms;
-		vec[I_HCM] -= work_cost * dchr[*desig].d_hcms;
-	    }
+	if ((dchr[*desig].d_lcms > 0) || (dchr[*desig].d_hcms > 0)) {
+	    vec[I_LCM] -= work_cost * dchr[*desig].d_lcms;
+	    vec[I_HCM] -= work_cost * dchr[*desig].d_hcms;
 	}
     }
     *workp = (*workp + 1) / 2 + buildeff_work;
@@ -266,12 +264,9 @@ decay_fallout(struct sctstr *sp, int etus)
 
 /*
  * Produce only a set sector type for a specific nation
- * (or all, if sector_type == -1)
- *
  */
 void
-produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
-	     int sector_type)
+produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 {
     struct sctstr *sp;
     struct natstr *np;
@@ -286,8 +281,6 @@ produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 	if (sp->sct_own != natnum)
 	    continue;
 	if (sp->sct_updated != 0)
-	    continue;
-	if (sp->sct_type != sector_type && sector_type != -1)
 	    continue;
 
 	if ((sp->sct_type == SCT_CAPIT) && (sp->sct_effic > 60)) {
@@ -333,16 +326,6 @@ produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 		sp->sct_off = 0;
 	    continue;
 	}
-	if ((np->nat_priorities[sp->sct_type] == 0) &&
-	    (sp->sct_type == sp->sct_newtype) &&
-	    ((pchr[dchr[sp->sct_type].d_prd].p_cost != 0) ||
-	     (sp->sct_type == SCT_ENLIST))) {
-	    if (!player->simulation) {
-		logerror("Skipping %s production for country %s\n",
-			 dchr[sp->sct_type].d_name, np->nat_cnam);
-	    }
-	    continue;
-	}
 
 	neweff = sp->sct_effic;
 	amount = 0;
@@ -365,16 +348,6 @@ produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 	    }
 	}
 
-	if ((np->nat_priorities[desig] == 0) &&
-	    ((pchr[dchr[desig].d_prd].p_cost != 0) ||
-	     (desig == SCT_ENLIST))) {
-	    if (!player->simulation) {
-		logerror("Skipping %s production for country %s\n",
-			 dchr[sp->sct_type].d_name, np->nat_cnam);
-	    }
-	    continue;
-	}
-
 	if (desig == SCT_ENLIST && neweff >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
 	    p_sect[desig][0] += enlist(vec, etu, &ecost);
@@ -389,8 +362,8 @@ produce_sect(int natnum, int etu, int *bp, long (*p_sect)[2],
 
 	if (neweff >= 60) {
 	    if (np->nat_money > 0 && dchr[desig].d_prd)
-		work -=
-		    produce(np, sp, vec, work, desig, neweff, &pcost, &amount);
+		work -= produce(np, sp, vec, work, desig, neweff,
+				&pcost, &amount);
 	}
 
 	pt_bg_nmbr(bp, sp, I_MAX + 1, work);

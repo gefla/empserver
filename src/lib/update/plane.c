@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -101,16 +102,14 @@ upd_plane(struct plnstr *pp, int etus,
     int mult, cost, eff;
 
     if (build == 1) {
-	if (np->nat_priorities[PRI_PBUILD] == 0 || np->nat_money < 0)
-	    return;
-	planerepair(pp, np, bp, etus);
+	if (np->nat_money >= 0)
+	    planerepair(pp, np, bp, etus);
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	    mult = 2;
 	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
-	if ((np->nat_priorities[PRI_PMAINT] == 0 || np->nat_money < cost)
-	    && !player->simulation) {
+	if (np->nat_money < cost && !player->simulation) {
 	    if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
 		wu(0, pp->pln_own,
 		   "%s lost to lack of maintenance\n", prplane(pp));

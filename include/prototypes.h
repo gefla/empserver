@@ -793,8 +793,7 @@ extern void sail_ship(natid);
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
-extern void produce_sect(int natnum, int etu, int *bp,
-			 long (*p_sect)[2], int sector_type);
+extern void produce_sect(int, int, int *, long [][2]);
 /* ship.c */
 extern int prod_ship(int, int, int *, int);
 

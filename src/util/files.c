@@ -154,8 +154,6 @@ main(int argc, char *argv[])
     nat.nat_money = 123456789;
     nat.nat_cnum = 0;
     nat.nat_flags |= NF_FLASH;
-    for (i = 0; i <= PRI_MAX; i++)
-	nat.nat_priorities[i] = -1;
     putnat((&nat));
     printf("All praise to %s!\n", nat.nat_cnam);
     memset(&nat, 0, sizeof(nat));

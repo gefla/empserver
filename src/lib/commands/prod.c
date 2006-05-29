@@ -323,9 +323,6 @@ prod(void)
 	    }
 	    if (enlisted < 0)
 		enlisted = 0;
-	    if (natp->nat_priorities[type] == 0) {
-		maxmil = 0;
-	    }
 	    pr(" %4d%c 1.00 $%-5d%4dc           %4dc           %5d\n",
 	       enlisted, ichr[I_MILIT].i_mnem, enlisted * 3,
 	       enlisted, enlisted, maxmil);
@@ -346,10 +343,6 @@ prod(void)
 		pr("%4d%c", cmax[i], cmnem[i]);
 	    else
 		pr("     ");
-	}
-	if (natp->nat_priorities[type] == 0) {
-	    max = 0;
-	    maxr = 0;
 	}
 	if (vtype != I_NONE || pp->p_level == NAT_ELEV
 	    || pp->p_level == NAT_HLEV)

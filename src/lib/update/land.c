@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -131,9 +132,8 @@ upd_land(struct lndstr *lp, int etus,
 
     lcp = &lchr[(int)lp->lnd_type];
     if (build == 1) {
-	if (np->nat_priorities[PRI_LBUILD] == 0 || np->nat_money < 0)
-	    return;
-	landrepair(lp, np, bp, etus);
+	if (np->nat_money >= 0)
+	    landrepair(lp, np, bp, etus);
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < lp->lnd_tech * 0.85)
@@ -141,8 +141,7 @@ upd_land(struct lndstr *lp, int etus,
 	if (lcp->l_flags & L_ENGINEER)
 	    mult *= 3;
 	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
-	if ((np->nat_priorities[PRI_LMAINT] == 0 || np->nat_money < cost)
-	    && !player->simulation) {
+	if (np->nat_money < cost && !player->simulation) {
 	    if ((eff = lp->lnd_effic - etus / 5) < LAND_MINEFF) {
 		wu(0, lp->lnd_own,
 		   "%s lost to lack of maintenance\n", prland(lp));
