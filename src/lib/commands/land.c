@@ -67,10 +67,7 @@ land(void)
 	    pr("   # unit type          x,y   a  eff mil frt  mu  fd");
 	    if (opt_FUEL)
 		pr(" fl");
-	    pr(" tch retr rd");
-	    pr(" xl");
-	    pr(" ln");
-	    pr(" l/s\n");
+	    pr(" tch retr rd xl ln carry\n");
 	}
 	if (player->god)
 	    pr("%3d ", land.lnd_own);
@@ -91,9 +88,9 @@ land(void)
 	pr("%3d", land.lnd_nxlight);
 	pr("%3d", land.lnd_nland);
 	if (land.lnd_ship >= 0)
-	    pr(" S%4d", land.lnd_ship);
+	    pr(" %4dS", land.lnd_ship);
 	else if (land.lnd_land >= 0)
-	    pr(" L%4d", land.lnd_land);
+	    pr(" %4dL", land.lnd_land);
 	pr("\n");
     }
     if (nunits == 0) {
