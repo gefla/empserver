@@ -134,7 +134,8 @@ upd_land(struct lndstr *lp, int etus,
     if (build == 1) {
 	if (!lp->lnd_off && np->nat_money >= 0)
 	    landrepair(lp, np, bp, etus);
-	lp->lnd_off = 0;
+	if (!player->simulation)
+	    lp->lnd_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < lp->lnd_tech * 0.85)

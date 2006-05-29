@@ -104,7 +104,8 @@ upd_plane(struct plnstr *pp, int etus,
     if (build == 1) {
 	if (!pp->pln_off && np->nat_money >= 0)
 	    planerepair(pp, np, bp, etus);
-	pp->pln_off = 0;
+	if (!player->simulation)
+	    pp->pln_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
