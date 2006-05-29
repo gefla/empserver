@@ -693,7 +693,7 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     nuke.nuk_own = sp->sct_own;
     nuke.nuk_type = np - nchr;
     nuke.nuk_effic = 100;
-    nuke.nuk_stockpile = ' ';
+    nuke.nuk_stockpile = 0;
     nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
     nuke.nuk_uid = nstr.cur;
     nuke.nuk_tech = tlev;
