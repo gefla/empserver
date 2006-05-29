@@ -50,6 +50,7 @@ struct genitem {
     signed char type;
     signed char effic;
     signed char mobil;
+    unsigned char off;
     short tech;
     char group;
     coord opx, opy;

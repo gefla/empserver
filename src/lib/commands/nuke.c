@@ -61,14 +61,15 @@ nuke(void)
 	if (nnukes++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("   # nuke type              x,y    s  eff tech carry burst\n");
+	    pr("   # nuke type              x,y    s   eff tech carry burst\n");
 	}
 	if (player->god)
 	    pr("%-3d ", nuk.nuk_own);
 	pr("%4d %-19.19s ", nstr.cur, nchr[(int)nuk.nuk_type].n_name);
 	prxy("%4d,%-4d", nuk.nuk_x, nuk.nuk_y, player->cnum);
-	pr(" %1.1s %3d%% %4d",
-	   &nuk.nuk_stockpile, nuk.nuk_effic, nuk.nuk_tech);
+	pr(" %1.1s %c%3d%% %4d",
+	   &nuk.nuk_stockpile, nuk.nuk_off ? '=' : ' ', nuk.nuk_effic,
+	   nuk.nuk_tech);
 	if (nuk.nuk_plane >= 0) {
 	    getplane(nuk.nuk_plane, &plane);
 	    pr("%5dP %s",

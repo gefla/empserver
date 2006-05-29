@@ -5,9 +5,9 @@
 The ship report command is a census of your ships.  For example:
 .EX ship *
 .NF
-shp#     ship type       x,y   fl  eff civ mil  uw  fd pn he xl ln mob tech
-   0 dd  destroyer       1,1      100%   0   0   0   0  0  0  0  0 127  140
-   1 bb  battleship      1,1      100%   0   0   0   0  0  0  0  0 120  200
+shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+   0 dd  destroyer       1,1       100%   0   0   0   0  0  0  0  0 127  140
+   1 bb  battleship      1,1       100%   0   0   0   0  0  0  0  0 120  200
 2 ships
 .FI
 .s1
@@ -23,7 +23,7 @@ the ship's current location,
 .L flt
 the fleet designation letter (set by \*Qfleetadd\*U command),
 .L eff
-the ship's efficiency,
+the ship's efficiency, prefixed by \*Q=\*U if stopped,
 .L civ
 the number of civilians on board,
 .L mil

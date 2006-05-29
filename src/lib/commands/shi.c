@@ -61,11 +61,8 @@ shi(void)
 	if (nships++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("shp#     ship type       x,y   fl  eff civ mil  uw  fd pn");
-	    pr(" he");
-	    pr(" xl");
-	    pr(" ln");
-	    pr(" mob");
+	    pr("shp#     ship type       x,y   fl   eff civ mil  uw  fd pn"
+	       " he xl ln mob");
 	    if (opt_FUEL)
 		pr(" fuel");
 	    pr(" tech\n");
@@ -76,7 +73,7 @@ shi(void)
 	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
 	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
 	pr("%1.1s", &ship.shp_fleet);
-	pr("%4d%%", ship.shp_effic);
+	pr(" %c%3d%%", ship.shp_off ? '=' : ' ', ship.shp_effic);
 
 	pr("%4d", ship.shp_item[I_CIVIL]);
 	pr("%4d", ship.shp_item[I_MILIT]);

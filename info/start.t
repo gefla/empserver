@@ -1,11 +1,10 @@
 .TH Command START
-.NA start "Turn sector production on"
+.NA start "Resume production and repairs"
 .LV Basic
-.SY "start <SECTS>"
-The start command orders a sector to start producing for an update.
-This counteracts the stop command.
+.SY "start <TYPE> <SECTS|SHIPS|PLANES|UNITS|NUKES>"
+The start command orders stopped production and repairs to resume.
 .s1
-.EX start 2,0
+.EX start se 2,0
 .NF
 Wed Jan 20 21:37:22 1993
 PRODUCTION STARTING

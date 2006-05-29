@@ -196,6 +196,7 @@ struct castr dchr_ca[] = {
 { NSC_TYPEID, 0, 0, fldoff(genitem, type), "type", ef_chr},		\
 { NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic", EF_BAD},		\
 { NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil", EF_BAD},		\
+{ NSC_UCHAR , 0, 0, fldoff(genitem, off), "off", EF_BAD},		\
 { NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech", EF_BAD},		\
 { NSC_STRINGY, NSC_EXTRA, 1, fldoff(genitem, group), "group", EF_BAD},	\
 { NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx", EF_BAD},		\

@@ -42,10 +42,6 @@
 #define N_MAXPLANE	40
 #define	PLANE_MINEFF	10
 
-/*
- * some routines assume that from pln_x to pln_wing remains
- * exactly equivalent with shp_x to shp_fleet
- */
 struct plnstr {
     /* initial part must match struct genitem */
     short ef_type;
@@ -56,6 +52,7 @@ struct plnstr {
     signed char pln_type;	/* index in plchr[] */
     signed char pln_effic;	/* actually "training" */
     signed char pln_mobil;	/* plane mobility */
+    unsigned char pln_off;	/* repairs stopped? */
     short pln_tech;		/* plane's tech level */
     char pln_wing;		/* like fleet */
     coord pln_opx;		/* Op sector coords */

@@ -46,6 +46,7 @@ struct nukstr {
     signed char nuk_type;	/* index in plchr[] */
     signed char nuk_effic;	/* unused, always 100% */
     signed char nuk_mobil;	/* unused, always 0 */
+    unsigned char nuk_off;	/* repairs stopped? (unused) */
     short nuk_tech;		/* nuke's tech level */
     char nuk_stockpile;		/* group membership, unused */
     coord nuk_opx, nuk_opy;	/* Op sector coords, unused */

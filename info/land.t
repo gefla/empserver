@@ -6,10 +6,10 @@ The land unit report command is a census of your land units.  For
 example:
 .EX land *
 .NF
-   # unit type          x,y   a  eff mil frt  mu  fd tch retr rd xl ln carry
-   0 cav   cavalry      1,-1    100%  10   0 127  12 992  75%  3  0  0
-   1 cav   cavalry      0,0     100%   0   0 127  12 968  75%  3  0  0
-   2 cav   cavalry      0,0     100%  10   0 127  12  40  75%  3  0  0
+   # unit type          x,y   a   eff mil frt  mu  fd tch retr rd xl ln carry
+   0 cav   cavalry      1,-1     100%  10   0 127  12 992  75%  3  0  0
+   1 cav   cavalry      0,0      100%   0   0 127  12 968  75%  3  0  0
+   2 cav   cavalry      0,0      100%  10   0 127  12  40  75%  3  0  0
 3 units
 .FI
 .s1
@@ -25,7 +25,7 @@ the land unit's current location,
 .L a
 the army designation letter (set by \*Qarmy\*U command),
 .L eff
-the land unit's efficiency,
+the land unit's efficiency, prefixed by \*Q=\*U if stopped,
 .L mil
 the number of mil currently in the land unit,
 .L frt

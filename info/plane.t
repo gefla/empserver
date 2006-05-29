@@ -2,14 +2,14 @@
 .NA plane "Report status of planes"
 .LV Basic
 .SY "plane <PLANES>"
-The plane report command is a census of your planes and lists all the
-information available in readable format.  For example:
+The plane report command is a census of your planes and lists.  For
+example:
 .EX plane *
 .NF
-   #    type                x,y    w  eff  mu def tech ran hard carry special
-   0 f2  P-51 Mustang       1,-1     100%  90   5  110  11    0
-   1 f2  P-51 Mustang       1,-1     100%  90   5  110  11    0
-   3 lb  TBD-1 Devastato    1,-1     100%  90   4  120  11    0
+   #    type                x,y    w   eff  mu def tech ran hard carry special
+   0 f2  P-51 Mustang       1,-1      100%  90   5  110  11    0
+   1 f2  P-51 Mustang       1,-1      100%  90   5  110  11    0
+   3 lb  TBD-1 Devastato    1,-1      100%  90   4  120  11    0
 3 planes
 .FI
 .s1
@@ -21,11 +21,11 @@ the plane number
 .L type
 the type of plane; \*Qfighter 1\*U, \*Qjet hvy bomber\*U, etc.,
 .L x,y
-the plane's current location
+the plane's current location,
 .L w
 the \*Qair wing\*U designation letter (set by \*Qwingadd\*U command),
 .L eff
-the plane's efficiency,
+the plane's efficiency, prefixed by \*Q=\*U if stopped,
 .L mu
 the number of mobility points the plane has,
 .L def
@@ -35,7 +35,7 @@ the tech level at which it was created,
 .L range
 and the range (in sectors) it can fly in one sortie,
 .L carry
-the ship or land unit the plane is on
+the ship or land unit the carrying the plane, if any,
 .L special
 shows \*Qorbit\*U or \*Qgeosync\*U for satellites in (geo-synchronous)
 orbit, else nuclear armament type and programming (\*QA\*U for

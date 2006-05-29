@@ -102,8 +102,9 @@ upd_plane(struct plnstr *pp, int etus,
     int mult, cost, eff;
 
     if (build == 1) {
-	if (np->nat_money >= 0)
+	if (!pp->pln_off && np->nat_money >= 0)
 	    planerepair(pp, np, bp, etus);
+	pp->pln_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
@@ -151,6 +152,8 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 	if (pp->pln_effic >= 80)
 	    return;
 	carrier = getshipp(pp->pln_ship);
+	if (carrier->shp_off)
+	    return;
 	if (CANT_HAPPEN(!carrier || carrier->shp_own != pp->pln_own))
 	    return;
     }

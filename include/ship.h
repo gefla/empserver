@@ -69,6 +69,7 @@ struct shpstr {
     signed char shp_type;	/* index in mchr[] */
     signed char shp_effic;	/* 0% to 100% */
     signed char shp_mobil;	/* mobility units */
+    unsigned char shp_off;	/* repairs stopped? */
     short shp_tech;		/* tech level ship was built at */
     char shp_fleet;		/* group membership */
     coord shp_opx, shp_opy;	/* Op sector coords */

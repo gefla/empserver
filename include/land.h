@@ -57,6 +57,7 @@ struct lndstr {
     signed char lnd_type;	/* index in lchr[] */
     signed char lnd_effic;	/* 0% to 100% */
     signed char lnd_mobil;	/* mobility units */
+    unsigned char lnd_off;	/* repairs stopped? */
     short lnd_tech;		/* tech level ship was built at */
     char lnd_army;		/* group membership */
     coord lnd_opx, lnd_opy;	/* Op sector coords */

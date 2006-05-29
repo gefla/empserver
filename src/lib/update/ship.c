@@ -136,8 +136,9 @@ upd_ship(struct shpstr *sp, int etus,
 
     mp = &mchr[(int)sp->shp_type];
     if (build == 1) {
-	if (np->nat_money >= 0)
+	if (!sp->shp_off && np->nat_money >= 0)
 	    shiprepair(sp, np, bp, etus);
+	sp->shp_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
