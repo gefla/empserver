@@ -1,19 +1,12 @@
 .TH Command PLANE
-.NA plane "Report status of plane, wing or planes in a give area"
+.NA plane "Report status of planes"
 .LV Basic
-.SY "plane [<PLANE> | <SECTS>]"
-The plane report command is a census of your planes
-and lists all the information available in readable format.
-.s1
-The <PLANE> and <SECTS> arguments are provided in case you only
-wish to look at one plane
-or all planes within a given area.
-.s1
-Plane expects some argument.  To see all planes, use the
-argument '*', or enter "plane *".
+.SY "plane <PLANES>"
+The plane report command is a census of your planes and lists all the
+information available in readable format.  For example:
 .EX plane *
 .NF
-   #    type                x,y    w  eff  mu def tech ran hard   s/l LSB nuke
+   #    type                x,y    w  eff  mu def tech ran hard carry special
    0 f2  P-51 Mustang       1,-1     100%  90   5  110  11    0
    1 f2  P-51 Mustang       1,-1     100%  90   5  110  11    0
    3 lb  TBD-1 Devastato    1,-1     100%  90   4  120  11    0
@@ -26,29 +19,27 @@ The report format contains the following fields:
 .L #
 the plane number
 .L type
-the type of plane; \*Qfighter 1\*U, \*Qjet hvy bomber\*U, etc,
+the type of plane; \*Qfighter 1\*U, \*Qjet hvy bomber\*U, etc.,
 .L x,y
-the plane's current location (relative to your capital),
+the plane's current location
 .L w
-the \*Qair wing\*U designation letter,
+the \*Qair wing\*U designation letter (set by \*Qwingadd\*U command),
 .L eff
 the plane's efficiency,
 .L mu
 the number of mobility points the plane has,
-.L att
-the attack value of the plane (for air-to-air combat)
+.L def
+the defense value of the plane (for air-to-air combat)
 .L tech
 the tech level at which it was created,
 .L range
-and the range (in sectors) it can fly on a given mission.
-.L s/l
+and the range (in sectors) it can fly in one sortie,
+.L carry
 the ship or land unit the plane is on
-.L LSB
-For satellites, LS stands for "launched?" and "Geo-synchroneous orbit?".
-For planes or missiles armed with nukes, B will either have the value 
-"A" for airburst, or "G" for groundburst (see info arm).
-.L nuke
-the type of nuke carried
+.L special
+shows \*Qorbit\*U or \*Qgeosync\*U for satellites in (geo-synchronous)
+orbit, else nuclear armament type and programming (\*QA\*U for
+air burst, \*QG\*U for ground burst; see info \*Qarm\*U).
 .in
 .s1
 .SA "pstat, upgrade, arm, bomb, build, drop, fly, launch, paradrop, recon, satellite, scrap, wingadd, Planes"

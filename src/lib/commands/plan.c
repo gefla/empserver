@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -59,7 +60,7 @@ plan(void)
 	if (nplanes++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("   #    type                x,y    w  eff  mu def tech ran hard   s/l LSB nuke\n");
+	    pr("   #    type                x,y    w  eff  mu def tech ran hard carry special\n");
 	}
 	if (player->god)
 	    pr("%3d ", plane.pln_own);
@@ -75,15 +76,14 @@ plan(void)
 	    pr("%5dL", plane.pln_land);
 	else
 	    pr("      ");
-	if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) == P_O) {
-	    pr(" %c", (plane.pln_flags & PLN_LAUNCHED) ? 'Y' : 'N');
-	    pr("%c", (plane.pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N');
-	} else
-	    pr("  ");
-	if (plane.pln_nuketype != -1)
-	    pr(" %c %-5.5s",
-	       plane.pln_flags & PLN_AIRBURST ? 'A' : 'G',
-	       nchr[(int)plane.pln_nuketype].n_name);
+	if (plane.pln_flags & PLN_SYNCHRONOUS)
+	    pr(" geosync");
+	else if (plane.pln_flags & PLN_LAUNCHED)
+	    pr(" orbit");
+	else if (plane.pln_nuketype >= 0)
+	    pr(" %-5.5s %c",
+	       nchr[(int)plane.pln_nuketype].n_name,
+	       plane.pln_flags & PLN_AIRBURST ? 'A' : 'G');
 	pr("\n");
     }
 
