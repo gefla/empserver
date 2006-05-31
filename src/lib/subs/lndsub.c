@@ -1203,7 +1203,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
  * find all artillery units belonging
  * to the attacker or defender that can fire.
  * Each arty unit adds +1%/damage point
- *
  */
 int
 lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
@@ -1226,8 +1225,6 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	if (land.lnd_ship >= 0)
 	    continue;
 	if (land.lnd_land >= 0)
-	    continue;
-	if (land.lnd_mission > 0)
 	    continue;
 	if (land.lnd_effic < LAND_MINFIREEFF)
 	    continue;
