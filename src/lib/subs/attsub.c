@@ -1475,6 +1475,8 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 	if (land.lnd_ship >= 0)
 	    continue;
+	if (land.lnd_land >= 0)
+	    continue;
 	if (!defense_val(&land))
 	    continue;
 /*
