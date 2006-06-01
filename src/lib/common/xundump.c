@@ -124,7 +124,8 @@ static int
 getid(FILE *fp, char *buf)
 {
     int n;
-    if (fscanf(fp, "%1023[^#() \t\n]%n", buf, &n) != 1 || !isalpha(buf[0]))
+    if (fscanf(fp, "%1023[^#()<>=#\" \t\n]%n", buf, &n) != 1
+	|| !isalpha(buf[0]))
 	return -1;
     return n;
 }
