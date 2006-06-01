@@ -80,11 +80,10 @@ static int defellipsis(int fldno);
 static int chkflds(void);
 static int setnum(int, double);
 static int setstr(int, char *);
-static int xunsymbol1(char *, struct symbol *, struct castr *, int);
+static int xunsymbol(char *, struct castr *, int);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
-static struct symbol *get_symtab(struct castr *);
 static int xundump1(FILE *, int, struct castr *);
 static int xundump2(FILE *, int, struct castr *);
 
@@ -445,6 +444,7 @@ setnum(int fldno, double dbl)
 	return -1;
     memb_ptr += ca->ca_off;
 
+    /* FIXME check assignment preserves value */
     switch (ca->ca_type) {
     case NSC_CHAR:
 	old = ((signed char *)memb_ptr)[idx];
@@ -561,10 +561,9 @@ setstr(int fldno, char *str)
 }
 
 static int
-xunsymbol1(char *id, struct symbol *symtab, struct castr *ca, int n)
+xunsymbol(char *id, struct castr *ca, int n)
 {
-    int i = stmtch(id, symtab, offsetof(struct symbol, name),
-		   sizeof(struct symbol));
+    int i = ef_elt_byname(ca->ca_table, id);
     if (i < 0)
 	return gripe("%s %s symbol `%s' in field %d",
 		     i == M_NOTUNIQUE ? "Ambiguous" : "Unknown",
@@ -573,24 +572,36 @@ xunsymbol1(char *id, struct symbol *symtab, struct castr *ca, int n)
 }
 
 static int
+symval(struct castr *ca, int i)
+{
+    int type = ca->ca_table;
+
+    if (ef_check(type) < 0)
+	return -1;
+    if (ef_cadef(type) == symbol_ca)
+	/* symbol table, value is in the table */
+	return ((struct symbol *)ef_ptr(type, i))->value;
+    /* value is the table index */
+    return i;
+}
+
+static int
 setsym(int fldno, char *sym)
 {
     struct castr *ca;
-    struct symbol *symtab;
     int i;
 
     ca = getfld(fldno, NULL);
     if (!ca)
 	return -1;
 
-    symtab = get_symtab(ca);
-    if (!symtab || (ca->ca_flags & NSC_BITS))
+    if (ca->ca_table == EF_BAD || (ca->ca_flags & NSC_BITS))
 	return gripe("Field %d doesn't take symbols", fldno + 1);
 
-    i = xunsymbol1(sym, symtab, ca, fldno);
+    i = xunsymbol(sym, ca, fldno);
     if (i < 0)
 	return -1;
-    return setnum(fldno, symtab[i].value);
+    return setnum(fldno, symval(ca, i));
 }
 
 static int
@@ -603,10 +614,9 @@ mtsymset(int fldno, long *set)
     if (!ca)
 	return -1;
 
-    symtab = get_symtab(ca);
-    if (!symtab || !(ca->ca_flags & NSC_BITS)) {
+    if (ca->ca_table == EF_BAD || ef_cadef(ca->ca_table) != symbol_ca
+	|| !(ca->ca_flags & NSC_BITS))
 	return gripe("Field %d doesn't take symbol sets", fldno + 1);
-    }
     *set = 0;
     return 0;
 }
@@ -622,26 +632,11 @@ add2symset(int fldno, long *set, char *sym)
     if (!ca)
 	return -1;
 
-    symtab = get_symtab(ca);
-    i = xunsymbol1(sym, symtab, ca, fldno);
+    i = xunsymbol(sym, ca, fldno);
     if (i < 0)
 	return -1;
-    *set |= symtab[i].value;
+    *set |= symval(ca, i);
     return 0;
-}
-
-static struct symbol *
-get_symtab(struct castr *ca)
-{
-    int symtype = ca->ca_table;
-    struct symbol *symtab;
-
-    if (symtype == EF_BAD || ef_cadef(symtype) != symbol_ca)
-	return NULL;
-
-    symtab = ef_ptr(symtype, 0);
-    CANT_HAPPEN(!symtab);
-    return symtab;
 }
 
 static int
