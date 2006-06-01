@@ -48,7 +48,6 @@ typedef enum {
     NSC_LONG,			/* long */
     NSC_DOUBLE,			/* double */
     NSC_STRING,			/* char *, zero-terminated string */
-    NSC_TYPEID,			/* signed char, index into chr table */
     /* unpromoted types */
     NSC_CHAR,			/* signed char */
     NSC_UCHAR,			/* unsigned char */
@@ -116,7 +115,7 @@ struct valstr {
 	    char *base;
 	    size_t maxsz;
 	} str;
-	long lng;		/* cat NSC_VAL, type NSC_LONG, NSC_TYPEID */
+	long lng;		/* cat NSC_VAL, type NSC_LONG */
     } val_as;
 };
 

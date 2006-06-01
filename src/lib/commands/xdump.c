@@ -112,7 +112,6 @@ xdprval(struct valstr *val, char *sep)
     unsigned char *s, *e, *l;
 
     switch (val->val_type) {
-    case NSC_TYPEID:
     case NSC_LONG:
 	pr("%s%ld", sep, val->val_as.lng);
 	break;

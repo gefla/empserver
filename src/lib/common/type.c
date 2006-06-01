@@ -98,3 +98,53 @@ typematch(char *name, int type)
     }
     return M_NOTFOUND;
 }
+
+/*
+ * Search table TYPE for an element matching NAME, return its index.
+ * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
+ * several.
+ */
+int
+ef_elt_byname(int type, char *name)
+{
+    switch (type) {
+    case EF_NATION:
+	return cnumb(name);
+    case EF_SECTOR_CHR:
+	return sct_typematch(name);
+    case EF_SHIP_CHR:
+	return stmtch(name, mchr,
+		      offsetof(struct mchrstr, m_name),
+		      sizeof(mchr[0]));
+    case EF_LAND_CHR:
+	return stmtch(name, lchr,
+		      offsetof(struct lchrstr, l_name),
+		      sizeof(lchr[0]));
+    case EF_PLANE_CHR:
+	return stmtch(name, plchr,
+		      offsetof(struct plchrstr, pl_name),
+		      sizeof(plchr[0]));
+    case EF_NUKE_CHR:
+	return stmtch(name, nchr,
+		      offsetof(struct nchrstr, n_name),
+		      sizeof(nchr[0]));
+    case EF_ITEM:
+	return stmtch(name, ichr,
+		      offsetof(struct ichrstr, i_name),
+		      sizeof(ichr[0]));
+    case EF_PRODUCT:
+	return stmtch(name, pchr + 1,
+		      offsetof(struct pchrstr, p_sname),
+		      sizeof(pchr[0]));
+    case EF_TABLE:
+	return stmtch(name, empfile,
+		      offsetof(struct empfile, name),
+		      sizeof(empfile[0]));
+    default:
+	if (ef_cadef(type) == symbol_ca)
+	    return stmtch(name, ef_ptr(type, 0),
+			  offsetof(struct symbol, name),
+			  sizeof(struct symbol));
+    }
+    return M_NOTFOUND;
+}

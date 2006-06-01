@@ -97,7 +97,7 @@ verify_row(int type, int row)
 	    val.val_as.sym.len = ca[i].ca_len;
 	    val.val_as.sym.idx = j;
 	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
-	    if (val.val_type != NSC_LONG && val.val_type != NSC_TYPEID)
+	    if (val.val_type != NSC_LONG)
 		continue;
 	    ca_sym = ef_cadef(ca[i].ca_table);
 	    if (ca[i].ca_flags & NSC_BITS) {

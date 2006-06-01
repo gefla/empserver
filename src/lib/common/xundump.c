@@ -447,7 +447,6 @@ setnum(int fldno, double dbl)
 
     switch (ca->ca_type) {
     case NSC_CHAR:
-    case NSC_TYPEID:
 	old = ((signed char *)memb_ptr)[idx];
 	((signed char *)memb_ptr)[idx] = (signed char)dbl;
 	break;

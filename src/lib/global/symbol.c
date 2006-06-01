@@ -86,7 +86,6 @@ struct symbol meta_type[]  = {
     {NSC_LONG, "d"},
     {NSC_DOUBLE, "g"},
     {NSC_STRING, "s"},
-    {NSC_TYPEID, "d"},
     {NSC_CHAR, "d"},
     {NSC_UCHAR, "d"},
     {NSC_SHORT, "d"},

@@ -45,7 +45,7 @@
 
 static char *nstr_parse_val(char *, struct valstr *);
 static int nstr_match_ca(struct valstr *, struct castr *);
-static int nstr_match_val(struct valstr *, int, struct castr *, int);
+static int nstr_match_val(struct valstr *, struct castr *, int);
 static int nstr_string_ok(struct castr *ca, int idx);
 static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
@@ -106,8 +106,8 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	 * possible.  Example: n<n for sectors could mean newdes<n or
 	 * n<newdes.
 	 */
-	lft_val = nstr_match_val(&np->lft, type, ca, rgt_caidx);
-	rgt_val = nstr_match_val(&np->rgt, type, ca, lft_caidx);
+	lft_val = nstr_match_val(&np->lft, ca, rgt_caidx);
+	rgt_val = nstr_match_val(&np->rgt, ca, lft_caidx);
 	/*
 	 * if lft_val >= 0, then rhs names a selector and lhs names
 	 * one of its values.  Likewise for rgt_val.
@@ -142,13 +142,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	lft_type = nstr_promote(np->lft.val_type);
 	rgt_type = nstr_promote(np->rgt.val_type);
 	np->optype = NSC_NOTYPE;
-	if (lft_type == NSC_TYPEID) {
-	    if (!nstr_coerce_val(&np->rgt, NSC_TYPEID, str))
-		np->optype = NSC_TYPEID;
-	} else if (rgt_type == NSC_TYPEID) {
-	    if (!nstr_coerce_val(&np->lft, NSC_TYPEID, str))
-		np->optype = NSC_TYPEID;
-	} else if (lft_type == NSC_STRING) {
+	if (lft_type == NSC_STRING) {
 	    if (!nstr_coerce_val(&np->rgt, NSC_STRING, str))
 		np->optype = NSC_STRING;
 	} else if (rgt_type == NSC_STRING) {
@@ -227,7 +221,6 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 	rgt = np[i].rgt;
 	nstr_exec_val(&rgt, player->cnum, ptr, optype);
 	switch (optype) {
-	case NSC_TYPEID:
 	case NSC_LONG:
 	    if (!EVAL(op, lft.val_as.lng, rgt.val_as.lng))
 		return 0;
@@ -254,7 +247,8 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 /*
  * Parse a value in STR into VAL.
  * Return a pointer to the first character after the value.
- * Value is either evaluated (but not NSC_TYPEID) or an identifier.
+ * Value is either evaluated into NSC_STRING, NSC_DOUBLE or NSC_LONG,
+ * or an identifier.
  */
 static char *
 nstr_parse_val(char *str, struct valstr *val)
@@ -272,6 +266,7 @@ nstr_parse_val(char *str, struct valstr *val)
 	val->val_as.str.base = str + 1;
 	val->val_as.str.maxsz = tail - (str + 1);
 	if (*tail) ++tail;
+	/* FIXME else unclosed string */
 	return tail;
     }
 
@@ -337,31 +332,28 @@ nstr_match_ca(struct valstr *val, struct castr *ca)
 
 /*
  * Match VAL in a selector's values, return its (non-negative) value.
- * TYPE is the context type, a file type.
- * CA is ef_cadef(TYPE).  If it is null, then IDX must be negative.
  * Match values of selector descriptor CA[IDX], provided IDX is not
- * negative.
+ * negative.  CA may be null when IDX is negative.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
- * TODO: This is just a stub and works only for NSC_TYPEID.
- * Generalize: give struct castr enough info to find values, remove
- * parameter `type'.
  */
 static int
-nstr_match_val(struct valstr *val, int type, struct castr *ca, int idx)
+nstr_match_val(struct valstr *val, struct castr *ca, int idx)
 {
     char id[32];
 
     if (val->val_cat != NSC_ID || val->val_as.str.maxsz >= sizeof(id))
 	return M_NOTFOUND;
 
-    if (idx < 0 || ca[idx].ca_type != NSC_TYPEID)
+    if (idx < 0 || ca[idx].ca_table == EF_BAD)
+	return M_NOTFOUND;
+    if (CANT_HAPPEN(nstr_promote(ca[idx].ca_type) != NSC_LONG))
 	return M_NOTFOUND;
 
     memcpy(id, val->val_as.str.base, val->val_as.str.maxsz);
     id[val->val_as.str.maxsz] = 0;
 
-    return typematch(id, type);
+    return ef_elt_byname(ca[idx].ca_table, id);
 }
 
 /*
@@ -452,7 +444,8 @@ nstr_resolve_sel(struct valstr *val, struct castr *ca)
 static struct valstr *
 nstr_mkselval(struct valstr *val, int selval, struct castr *ca)
 {
-    if (CANT_HAPPEN(ca->ca_type != NSC_TYPEID)) {
+    if (CANT_HAPPEN(nstr_promote(ca->ca_type) != NSC_LONG
+		    || ca->ca_table == EF_BAD)) {
 	val->val_type = NSC_NOTYPE;
 	val->val_cat = NSC_NOCAT;
 	return val;
@@ -487,18 +480,15 @@ nstr_comp_val(char *str, struct valstr *val, int type)
  * Promote VALTYPE.
  * If VALTYPE is an integer type, return NSC_LONG.
  * If VALTYPE is a floating-point type, return NSC_DOUBLE.
- * If VALTYPE is NSC_STRINGY, return NSC_STRING.
- * If VALTYPE is NSC_NOTYPE, NSC_STRING or NSC_TYPEID, return VALTYPE.
+ * If VALTYPE is a string type, return NSC_STRING.
  */
 static int
 nstr_promote(int valtype)
 {
     switch (valtype) {
-    case NSC_NOTYPE:
     case NSC_LONG:
     case NSC_DOUBLE:
     case NSC_STRING:
-    case NSC_TYPEID:
 	break;
     case NSC_CHAR:
     case NSC_UCHAR:
@@ -550,8 +540,6 @@ nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
 
     if (from != to) {
 	switch (to) {
-	case NSC_TYPEID:
-	    return cond_type_mismatch(str);
 	case NSC_STRING:
 	    return cond_type_mismatch(str); /* FIXME implement */
 	case NSC_DOUBLE:
@@ -667,10 +655,6 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	case NSC_TIME:
 	    val->val_as.lng = ((time_t *)memb_ptr)[idx];
 	    break;
-	case NSC_TYPEID:
-	    val->val_as.lng = ((signed char *)memb_ptr)[idx];
-	    valtype = NSC_TYPEID;
-	    break;
 	default:
 	    CANT_REACH();
 	    val->val_as.lng = 0;
@@ -691,7 +675,6 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
     if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
 	valtype = want;
 	switch (want) {
-	case NSC_TYPEID:
 	case NSC_LONG: val->val_as.lng = 0; break;
 	case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
 	case NSC_STRING: val->val_as.str.base = NULL; break;

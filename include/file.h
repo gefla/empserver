@@ -177,6 +177,7 @@ extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
 extern void ef_init(void);
 extern int ef_verify(void);
+extern int ef_elt_byname(int, char *);
 
 extern struct empfile empfile[EF_MAX + 1];
 
