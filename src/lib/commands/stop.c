@@ -94,7 +94,7 @@ start_stop(int off)
 	    return RET_SYN;
 	type = ef_byname_from(p, sct_or_unit);
 	if (type < 0) {
-	    pr("Sectors, ships, planes, land units or nukes only!");
+	    pr("Sectors, ships, planes, land units or nukes only!\n");
 	    return RET_SYN;
 	}
 	arg = player->argp[2];
