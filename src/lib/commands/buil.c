@@ -109,7 +109,7 @@ buil(void)
 	p = getstarg(player->argp[3], "Plane type? ", buf);
 	if (p == 0 || *p == 0)
 	    return RET_SYN;
-	type = typematch(p, EF_PLANE);
+	type = ef_elt_byname(EF_PLANE_CHR, p);
 	if (type >= 0) {
 	    pp = &plchr[type];
 	    rqtech = pp->pl_tech;
@@ -127,7 +127,7 @@ buil(void)
 	p = getstarg(player->argp[3], "Ship type? ", buf);
 	if (p == 0 || *p == 0)
 	    return RET_SYN;
-	type = typematch(p, EF_SHIP);
+	type = ef_elt_byname(EF_SHIP_CHR, p);
 	if (type >= 0) {
 	    mp = &mchr[type];
 	    rqtech = mp->m_tech;
@@ -147,7 +147,7 @@ buil(void)
 	p = getstarg(player->argp[3], "Land unit type? ", buf);
 	if (p == 0 || *p == 0)
 	    return RET_SYN;
-	type = typematch(p, EF_LAND);
+	type = ef_elt_byname(EF_LAND_CHR, p);
 	if (type >= 0) {
 	    lp = &lchr[type];
 	    rqtech = lp->l_tech;
@@ -188,7 +188,7 @@ buil(void)
 	p = getstarg(player->argp[3], "Nuke type? ", buf);
 	if (p == 0 || *p == 0)
 	    return RET_SYN;
-	type = typematch(p, EF_NUKE);
+	type = ef_elt_byname(EF_NUKE_CHR, p);
 	if (type >= 0) {
 	    np = &nchr[type];
 	    rqtech = np->n_tech;

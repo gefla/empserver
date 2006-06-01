@@ -336,7 +336,6 @@ extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 /* in match.h */
 /* type.c */
 extern int sct_typematch(char *);
-extern int typematch(char *, int);
 /* wantupd.c */
 extern void update_policy_check(void);
 extern int demand_update_want(int *, int *, int);

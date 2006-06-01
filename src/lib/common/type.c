@@ -62,44 +62,6 @@ sct_typematch(char *name)
 }
 
 /*
- * Search for NAME in the characteristics table for TYPE, return index.
- * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
- * several.
- * If TYPE is EF_SECTOR, search dchr[]
- * If TYPE is EF_SHIP, search mchr[].
- * If TYPE is EF_PLANE, search plchr[].
- * If TYPE is EF_LAND, search lchr[].
- * If TYPE is EF_NUKE, search nchr[].
- */
-int
-typematch(char *name, int type)
-{
-    switch (type) {
-    case EF_SECTOR:
-	return sct_typematch(name);
-    case EF_SHIP:
-	return stmtch(name, mchr,
-		      offsetof(struct mchrstr, m_name),
-		      sizeof(mchr[0]));
-    case EF_LAND:
-	return stmtch(name, lchr,
-		      offsetof(struct lchrstr, l_name),
-		      sizeof(lchr[0]));
-    case EF_PLANE:
-	return stmtch(name, plchr,
-		      offsetof(struct plchrstr, pl_name),
-		      sizeof(plchr[0]));
-    case EF_NUKE:
-	return stmtch(name, nchr,
-		      offsetof(struct nchrstr, n_name),
-		      sizeof(nchr[0]));
-    default:
-	break;
-    }
-    return M_NOTFOUND;
-}
-
-/*
  * Search table TYPE for an element matching NAME, return its index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
