@@ -45,14 +45,14 @@
 int
 land(void)
 {
-    int nunits;
+    int nunits, noff;
     struct nstr_item ni;
     struct lndstr land;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
 
-    nunits = 0;
+    nunits = noff = 0;
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
@@ -69,13 +69,15 @@ land(void)
 		pr(" fl");
 	    pr(" tch retr rd xl ln carry\n");
 	}
+	if (land.lnd_off)
+	    noff++;
 	if (player->god)
 	    pr("%3d ", land.lnd_own);
 	pr("%4d ", ni.cur);
 	pr("%-15.15s", lchr[(int)land.lnd_type].l_name);
 	prxy(" %4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
 	pr("%1.1s", &land.lnd_army);
-	pr(" %c%3d%%", land.lnd_off ? '=' : ' ', land.lnd_effic);
+	pr(" %c%3d%%", land.lnd_off ? '!' : ' ', land.lnd_effic);
 	pr("%4d", land.lnd_item[I_MILIT]);
 	pr("%4d", land.lnd_harden);
 	pr("%4d", land.lnd_mobil);
@@ -99,7 +101,11 @@ land(void)
 	else
 	    pr("%s: No unit(s)\n", "");
 	return RET_FAIL;
-    } else
-	pr("%d unit%s\n", nunits, splur(nunits));
+    } else {
+	pr("%d unit%s", nunits, splur(nunits));
+	if (noff)
+	    pr(", %d stopped (eff marked with !)", noff);
+	pr("\n");
+    }
     return RET_OK;
 }

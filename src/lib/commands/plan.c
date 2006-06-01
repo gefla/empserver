@@ -47,13 +47,13 @@
 int
 plan(void)
 {
-    int nplanes;
+    int nplanes, noff;
     struct nstr_item np;
     struct plnstr plane;
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1]))
 	return RET_SYN;
-    nplanes = 0;
+    nplanes = noff = 0;
     while (nxtitem(&np, &plane)) {
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
@@ -62,12 +62,14 @@ plan(void)
 		pr("own ");
 	    pr("   #    type                x,y    w   eff  mu def tech ran hard carry special\n");
 	}
+	if (plane.pln_off)
+	    noff++;
 	if (player->god)
 	    pr("%3d ", plane.pln_own);
 	pr("%4d %-19.19s ", np.cur, plchr[(int)plane.pln_type].pl_name);
 	prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
 	pr(" %1.1s %c%3d%% %3d %3d %4d %3d  %3d",
-	   &plane.pln_wing, plane.pln_off ? '=' : ' ', plane.pln_effic,
+	   &plane.pln_wing, plane.pln_off ? '!' : ' ', plane.pln_effic,
 	   plane.pln_mobil, plane.pln_def, plane.pln_tech,
 	   plane.pln_range, plane.pln_harden);
 	if (plane.pln_ship >= 0)
@@ -93,8 +95,12 @@ plan(void)
 	else
 	    pr("%s: No plane(s)\n", "");
 	return RET_FAIL;
-    } else
-	pr("%d plane%s\n", nplanes, splur(nplanes));
+    } else {
+	pr("%d plane%s", nplanes, splur(nplanes));
+	if (noff)
+	    pr(", %d stopped (eff marked with !)", noff);
+	pr("\n");
+    }
 
     return RET_OK;
 }
