@@ -42,9 +42,6 @@ only show you how much you'll pay for work that will actually get done
 in cases where your headquarters/airports/harbors will not have enough avail
 or materials to work on all units/planes/ships.
 .s1
-If a cost is in [brackets], then that means that you will not pay it
-because you will not have enough money.
-.s1
 .L "Going broke"
 .s1
 The first thing you need to know about going broke: don't!  Stuff you

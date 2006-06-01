@@ -59,7 +59,6 @@ static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
 static char *dotsprintf(char *buf, char *format, int data);
-static void prexpense(long cash, int *expensesp, int amount);
 
 int
 budg(void)
@@ -101,42 +100,43 @@ budg(void)
 	    pr("%ld %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
-	prexpense(np->nat_money + income, &expenses, p_sect[i][1]);
+	pr("\t\t%8ld\n", p_sect[i][1]);
+	expenses += p_sect[i][1];
     }
 
     if (sbuild) {
 	sprintf(buf, "%d ship%s", nsbuild, splur(nsbuild));
-	pr("Ship building\t\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -sbuild);
+	pr("Ship building\t\t\t%-16s\t\t%8d\n", buf, -sbuild);
+	expenses += -sbuild;
     }
 
     if (smaint) {
 	sprintf(buf, "%d ship%s", ships, splur(ships));
-	pr("Ship maintenance\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -smaint);
+	pr("Ship maintenance\t\t%-16s\t\t%8d\n", buf, -smaint);
+	expenses += -smaint;
     }
 
     if (pbuild) {
 	sprintf(buf, "%d plane%s", npbuild, splur(npbuild));
-	pr("Plane building\t\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -pbuild);
+	pr("Plane building\t\t\t%-16s\t\t%8d\n", buf, -pbuild);
+	expenses += -pbuild;
     }
 
     if (pmaint) {
 	sprintf(buf, "%d plane%s", planes, splur(planes));
-	pr("Plane maintenance\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -pmaint);
+	pr("Plane maintenance\t\t%-16s\t\t%8d\n", buf, -pmaint);
+	expenses += -pmaint;
     }
     if (lbuild) {
 	sprintf(buf, "%d unit%s", nlbuild, splur(nlbuild));
-	pr("Unit building\t\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -lbuild);
+	pr("Unit building\t\t\t%-16s\t\t%8d\n", buf, -lbuild);
+	expenses += -lbuild;
     }
 
     if (lmaint) {
 	sprintf(buf, "%d unit%s", units, splur(units));
-	pr("Unit maintenance\t\t%-16s", buf);
-	prexpense(np->nat_money + income, &expenses, -lmaint);
+	pr("Unit maintenance\t\t%-16s\t\t%8d\n", buf, -lmaint);
+	expenses += -lmaint;
     }
 
     if (p_sect[SCT_EFFIC][1]) {
@@ -265,16 +265,4 @@ dotsprintf(char *buf, char *format, int data)
 {
     sprintf(buf, format, data);
     return memset(buf, '.', strspn(buf, " "));
-}
-
-static void
-prexpense(long cash, int *expensesp, int amount)
-{
-    if (cash > *expensesp) {
-	pr("\t\t%8d\n", amount);
-	*expensesp += amount;
-    } else {
-	pr("\t\t[%7d]\n", amount);
-	*expensesp += amount;
-    }
 }
