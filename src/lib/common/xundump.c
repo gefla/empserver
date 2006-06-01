@@ -568,7 +568,7 @@ xunsymbol1(char *id, struct symbol *symtab, struct castr *ca, int n)
     if (i < 0)
 	return gripe("%s %s symbol `%s' in field %d",
 		     i == M_NOTUNIQUE ? "Ambiguous" : "Unknown",
-		     ca->ca_name, id, n);
+		     ca->ca_name, id, n + 1);
     return i;
 }
 
