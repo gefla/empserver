@@ -125,17 +125,19 @@ update_main(void *unused)
 	}
 	np->nat_money += (int)(np->nat_reserve * money_res * etu);
 
-	/* 0 is maintain, 1 is build */
+	/* maintain units */
 	prod_ship(etu, x, bp, 0);
-	prod_ship(etu, x, bp, 1);
 	prod_plane(etu, x, bp, 0);
-	prod_plane(etu, x, bp, 1);
 	prod_land(etu, x, bp, 0);
-	prod_land(etu, x, bp, 1);
 
-	/* produce all sects that haven't produced yet */
+	/* produce all sects */
 	produce_sect(x, etu, bp, p_sect);
 	np->nat_money -= p_sect[SCT_CAPIT][1];
+
+	/* build units */
+	prod_ship(etu, x, bp, 1);
+	prod_plane(etu, x, bp, 1);
+	prod_land(etu, x, bp, 1);
     }
     logerror("done producing for countries.");
 

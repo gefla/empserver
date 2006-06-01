@@ -18,20 +18,12 @@ This document gives a rough order of events during the update.
 
 2) Then, in order of country #, deal with each country:
 	a) pay for military reserves.
-	c) ship maintenance
+	b) ship maintenance
 		pay maintenance, produce, then feed and plague people on board
-	d) ship building
-		ships that are stopped are skipped (see info stop)
-		ships execute their orders right after building
-		finally, if option SAIL is enabled, follow sail paths
-	e) plane maintenance
-	f) plane building
-		planes that are stopped are skipped (see info stop)
-	g) land unit maintenance
+	c) plane maintenance
+	d) land unit maintenance
 		pay maintenance, then feed and plague people on board
-	h) land unit building
-		land units that are stopped are skipped (see info stop)
-	i) produce for all sectors
+	e) produce for all sectors
                 a) if the sector is a cap, it costs $1 per etu since
 			the last update
                 b) people in non-sanctuary sectors eat
@@ -50,6 +42,14 @@ This document gives a rough order of events during the update.
                 e) sectors that are stopped are skipped (see info stop)
                 f) first increase eff
                 g) then make things
+	f) ship building
+		ships that are stopped are skipped (see info stop)
+		ships execute their orders right after building
+		finally, if option SAIL is enabled, follow sail paths
+	g) plane building
+		planes that are stopped are skipped (see info stop)
+	h) land unit building
+		land units that are stopped are skipped (see info stop)
 
 3) Then, do deliveries for all sectors in the world, row by row, going from
 	top to bottom, left to right
