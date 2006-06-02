@@ -51,7 +51,7 @@ struct dchrstr dchr[] = {
     /*          mnem  prd peffic mcst  flg       pkg  ostr dstr value  $ bld lcm hcm maxpop name */
     {SCT_WATER,  '.',       0,   0, 0, NAVOK,    NPKG, 0.0,  0.0,   0, -1, 0, 0, 0,   0, "sea"},
     {SCT_MOUNT,  '^', P_DUST,   75, 25, NAV_NONE, NPKG, 1.0,  4.0,   5, -1, 1, 0, 0,  99, "mountain"},
-    {SCT_SANCT,  's',       0, 100, 0, NAV_NONE, NPKG, 0.0, 99.0, 127, -1, 0, 0, 0, 999, "sanctuary"},
+    {SCT_SANCT,  's',       0,   0, 0, NAV_NONE, NPKG, 0.0, 99.0, 127, -1, 0, 0, 0, 999, "sanctuary"},
     {SCT_WASTE,  '\\',      0,   0, 0, NAV_NONE, NPKG, 0.0, 99.0,   0, -1, 0, 0, 0,   0, "wasteland"},
     {SCT_RURAL,  '-',       0,   0, 3, NAV_NONE, NPKG, 1.0,  2.0,   1,  0, 0, 0, 0, 999, "wilderness"},
     {SCT_CAPIT,  'c',       0,   0, 2, NAV_NONE, NPKG, 1.0,  2.0,  30,  0, 1, 0, 0, 999, "capital"},

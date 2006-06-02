@@ -171,7 +171,7 @@ struct castr dchr_ca[] = {
     {NSC_STRINGY, NSC_CONST, 1, offsetof(struct dchrstr, d_mnem), "mnem",
      EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
-    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_peffic), "effic", EF_BAD},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_peffic), "peffic", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_SITYPE(d_navigation), 0, 0, offsetof(struct dchrstr, d_nav), "nav",
      EF_SECTOR_NAVIGATION},
