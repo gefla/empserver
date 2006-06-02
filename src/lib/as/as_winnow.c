@@ -40,7 +40,6 @@ static struct as_node *as_newnode(struct as_node *backp, struct as_coord c,
  *			old node to the subsumed list.
  *			If not, ignore this neighbor.
  *		If this neighbor isn't in the queue, add it.
- *
  */
 int
 as_winnow(struct as_data *adp, struct as_coord *coords, int ncoords)

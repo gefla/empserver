@@ -282,7 +282,6 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 
 /*
  * is p a list of ships/planes/units?
- *
  */
 
 int

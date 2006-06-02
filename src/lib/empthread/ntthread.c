@@ -42,7 +42,6 @@
  * WIN32 has a full pre-emptive threading environment.  But Empire can
  * not handle pre-emptive threading.  Thus, we will use the threads,
  * but limit the preemption using a Mutex semaphore.
- *
  */
 
 #include <config.h>
@@ -184,7 +183,6 @@ loc_debug(const char *pszFmt, ...)
 
 /************************
  * loc_FreeThreadInfo
- *
  */
 static void
 loc_FreeThreadInfo(empth_t *pThread)

@@ -64,7 +64,6 @@ static int s_commod(int, int, int, i_type, int, int);
  * 		 unit will then call resupply, taking more time)
  *
  * May want to put code to resupply with SAMs here, later --ts
- *
  */
 
 void

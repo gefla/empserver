@@ -50,7 +50,6 @@
 
 /*
  * format:  spy <SECTS>
- *
  */
 
 static int check(coord *table, int *len, coord x, coord y);

@@ -47,7 +47,6 @@
 
 /*
  * Does the player->owner have military control of this sector?
- *
  */
 int
 military_control(struct sctstr *sp)

@@ -107,7 +107,7 @@ struct empfile empfile[] = {
 
     /*
      * Keep in mind that player command arguments are matched against
-     * member name; no whitespace please.
+     * values of member name: no whitespace there, please.
      */
 
     /* Dynamic game data */

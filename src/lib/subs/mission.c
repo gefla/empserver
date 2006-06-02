@@ -174,7 +174,6 @@ only_subs(struct emp_qelem *list)
 
 /*
  *  Interdict ships & land units
- *
  */
 int
 unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
@@ -1139,7 +1138,6 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 
 /*
  * Arm only the planes at x,y
- *
  */
 static int
 mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,

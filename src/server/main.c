@@ -142,17 +142,13 @@ main(int argc, char **argv)
 #if defined(_WIN32)
 	case 'I':
 	    service_name = optarg;
-	    /*
-	     * fall out
-	     */
+	    /* fall through */
 	case 'i':
 	    install_service_set++;
 	    break;
 	case 'R':
 	    service_name = optarg;
-	    /*
-	     * fall out
-	     */
+	    /* fall through */
 	case 'r':
 	    remove_service_set++;
 	    break;

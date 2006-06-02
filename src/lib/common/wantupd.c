@@ -257,7 +257,6 @@ next_update_time(time_t *now, time_t *tim, time_t *delta)
 	*delta = (blitz_time * 60) - (*now % (blitz_time * 60));
 	*tim = *now + *delta;
 	break;
-
     case UDP_NOREG:
     default:
 	regular_update_time(now, tim, delta);
