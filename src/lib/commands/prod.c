@@ -206,7 +206,7 @@ prod(void)
 	/*
 	 * production effic.
 	 */
-	prodeff = prod_eff(pp, natp->nat_level[pp->p_nlndx]);
+	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);
 	/*
 	 * raw material limit
 	 */

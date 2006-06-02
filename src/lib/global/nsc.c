@@ -114,7 +114,6 @@ struct castr pchr_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlndx), "nlndx", EF_LEVEL},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nlmin), "nlmin", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct pchrstr, p_nllag), "nllag", EF_BAD},
-    {NSC_INT, 0, 0, offsetof(struct pchrstr, p_effic), "effic", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
@@ -172,6 +171,7 @@ struct castr dchr_ca[] = {
     {NSC_STRINGY, NSC_CONST, 1, offsetof(struct dchrstr, d_mnem), "mnem",
      EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_prd), "prd", EF_PRODUCT},
+    {NSC_INT, 0, 0, offsetof(struct dchrstr, d_peffic), "effic", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct dchrstr, d_mcst), "mcst", EF_BAD},
     {NSC_SITYPE(d_navigation), 0, 0, offsetof(struct dchrstr, d_nav), "nav",
      EF_SECTOR_NAVIGATION},

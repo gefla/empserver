@@ -780,7 +780,7 @@ extern int bank_income(struct sctstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, short *, int, int,
 		   int, int *, int *);
-extern double prod_eff(struct pchrstr *, float);
+extern double prod_eff(int, float);
 /* removewants.c */
 extern int update_removewants(void);
 /* revolt.c */

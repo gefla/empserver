@@ -54,7 +54,6 @@ struct pchrstr {
     int p_nlndx;		/* index (NAT_?LEV) affecting production */
     int p_nlmin;		/* minimum lvl required */
     int p_nllag;		/* lag, mul by (lvl-nlmin)/(lvl-nlmin+nllag) */
-    int p_effic;		/* process efficiency, mult by p_effic/100 */
     char *p_name;		/* name of product */
     char *p_sname;		/* short (7 char or less) name of product */
 };
@@ -74,8 +73,7 @@ struct pchrstr {
 #define	P_ELEV	13
 #define	P_HLEV	14
 #define P_URAN	15
-#define P_MDUST	16
 
-extern struct pchrstr pchr[P_MDUST + 2];
+extern struct pchrstr pchr[P_URAN + 2];
 
 #endif

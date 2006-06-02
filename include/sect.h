@@ -99,6 +99,7 @@ struct dchrstr {
     unsigned char d_uid;
     char d_mnem;		/* map symbol */
     int d_prd;			/* product type */
+    int d_peffic;		/* process efficiency, in percent */
     int d_mcst;			/* movement cost */
     d_navigation d_nav;		/* navigation capability */
     i_packing d_pkg;		/* type of packaging in these sects */

@@ -167,7 +167,7 @@ upd_ship(struct shpstr *sp, int etus,
 
 	    /* produce oil */
 	    if ((mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
-		product = &pchr[P_OIL];
+		product = &pchr[dchr[SCT_OIL].d_prd];
 		oil_gained = roundavg(total_work(100, etus,
 						 sp->shp_item[I_CIVIL],
 					         sp->shp_item[I_MILIT],
@@ -175,7 +175,7 @@ upd_ship(struct shpstr *sp, int etus,
 						 ITEM_MAX)
 				      * sp->shp_effic / 100.0
 				      * sectp->sct_oil / 100.0
-				      * prod_eff(product, sp->shp_tech));
+				      * prod_eff(SCT_OIL, sp->shp_tech));
 		max_oil = mp->m_item[I_OIL];
 		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
 		    oil_gained = max_oil - sp->shp_item[I_OIL];
@@ -192,7 +192,6 @@ upd_ship(struct shpstr *sp, int etus,
 	    }
 	    /* produce fish */
 	    if ((mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
-		product = &pchr[P_FOOD];
 		sp->shp_item[I_FOOD]
 		    += roundavg(total_work(100, etus,
 					   sp->shp_item[I_CIVIL],
@@ -201,7 +200,7 @@ upd_ship(struct shpstr *sp, int etus,
 					   ITEM_MAX)
 				* sp->shp_effic / 100.0
 				* sectp->sct_fertil / 100.0
-				* prod_eff(product, sp->shp_tech));
+				* prod_eff(SCT_AGRI, sp->shp_tech));
 	    }
 	    /* feed */
 	    if ((n = feed_ship(sp, etus)) > 0) {

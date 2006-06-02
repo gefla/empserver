@@ -100,7 +100,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	material_consume = worker_limit;
     if (material_consume == 0)
 	return 0;
-    prodeff = prod_eff(product, np->nat_level[product->p_nlndx]);
+    prodeff = prod_eff(desig, np->nat_level[product->p_nlndx]);
     if (prodeff <= 0.0 && !player->simulation) {
 	wu(0, sp->sct_own,
 	   "%s level too low to produce in %s (need %d)\n",
@@ -219,14 +219,16 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
 }
 
 /*
- * Return level p.e. for product PP.
+ * Return level p.e. for sector type TYPE.
  * Zero means level is too low for production.
  * LEVEL is the affecting production of PP; it must match PP->p_nlndx.
  */
 double
-prod_eff(struct pchrstr *pp, float level)
+prod_eff(int type, float level)
 {
     double level_p_e;
+    struct dchrstr *dp = &dchr[type];
+    struct pchrstr *pp = &pchr[dp->d_prd];
 
     if (pp->p_nlndx < 0)
 	level_p_e = 1.0;
@@ -240,5 +242,5 @@ prod_eff(struct pchrstr *pp, float level)
 	level_p_e = delta / (delta + pp->p_nllag);
     }
 
-    return level_p_e * pp->p_effic * 0.01;
+    return level_p_e * dp->d_peffic * 0.01;
 }
