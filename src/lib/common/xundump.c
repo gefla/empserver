@@ -759,6 +759,9 @@ xundump(FILE *fp, char *file, int expected_table)
     if (CANT_HAPPEN(!ca))
 	return -1;
 
+    if (!EF_IS_GAME_STATE(type) && !empfile[type].file)
+	initialized[type] = 1;
+
     nca = nf = 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
