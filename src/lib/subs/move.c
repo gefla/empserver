@@ -85,7 +85,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	}
 	pr("Looking for best path to %s\n", path);
 	path = BestLandPath(buf2, start, &ending_sect, &total_mcost,
-			    MOB_ROAD);
+			    MOB_MOVE);
 	if (exploring && path)	/* take off the 'h' */
 	    path[strlen(path) - 1] = '\0';
 	if (!path)
@@ -126,7 +126,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	if (movstr && sarg_xy(movstr, &dx, &dy)) {
 	    if (getsect(dx, dy, &dsect)) {
 		movstr = BestLandPath(buf2, &sect, &dsect, &mv_cost,
-				      MOB_ROAD);
+				      MOB_MOVE);
 	    } else {
 		pr("Invalid destination sector!\n");
 		movstr = NULL;
@@ -190,7 +190,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 		*movstr = 0;
 		continue;
 	    }
-	    sect_mcost = sector_mcost(&next, MOB_ROAD);
+	    sect_mcost = sector_mcost(&next, MOB_MOVE);
 	    if ((!player->owner && (!exploring
 				    || next.sct_item[I_MILIT]
 				    || next.sct_item[I_CIVIL]))

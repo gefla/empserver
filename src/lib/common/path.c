@@ -342,7 +342,7 @@ BestDistPath(char *path,
 	     struct sctstr *from,
 	     struct sctstr *to, double *cost)
 {
-    return BestLandPath(path, from, to, cost, MOB_ROAD);
+    return BestLandPath(path, from, to, cost, MOB_MOVE);
 }
 
 char *

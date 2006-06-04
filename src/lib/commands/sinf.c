@@ -76,7 +76,7 @@ sinfra(void)
 	    pr(" ");
 	pr("%4d%% ", sect.sct_effic);
 	pr("%4d%% ", sect.sct_road);
-	pr("%4.3f ", sector_mcost(&sect, MOB_ROAD));
+	pr("%4.3f ", sector_mcost(&sect, MOB_MOVE));
 	pr("%4d%% ", sect.sct_rail);
 	pr("%4.3f ", sector_mcost(&sect, MOB_RAIL));
 	pr("%4d%% ", SCT_DEFENSE(&sect));

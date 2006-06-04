@@ -100,7 +100,7 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
      * calculate unit movement cost; decrease amount if
      * there isn't enough mobility.
      */
-    mcost = sector_mcost(to, MOB_ROAD) * ip->i_lbs / ip->i_pkg[packing];
+    mcost = sector_mcost(to, MOB_MOVE) * ip->i_lbs / ip->i_pkg[packing];
     mcost /= DELIVER_BONUS;
 
     if (mobility < mcost * amt_moved) {

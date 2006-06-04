@@ -471,7 +471,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 		putland(lp->lnd_uid, lp);
 	    return 0;
 	}
-	mobcost = lnd_mobcost(lp, &sect, MOB_ROAD);
+	mobcost = lnd_mobcost(lp, &sect, MOB_MARCH);
 	lp->lnd_x = newx;
 	lp->lnd_y = newy;
 	lp->lnd_mobil -= mobcost;

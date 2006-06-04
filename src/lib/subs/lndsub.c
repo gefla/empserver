@@ -242,7 +242,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		llp->land.lnd_x = bx;
 		llp->land.lnd_y = by;
 		getsect(bx, by, &rsect);
-		mobcost = lnd_mobcost(&llp->land, &rsect, MOB_ROAD);
+		mobcost = lnd_mobcost(&llp->land, &rsect, MOB_MARCH);
 		mob = llp->land.lnd_mobil - (int)mobcost;
 		if (mob < -127)
 		    mob = -127;
@@ -996,38 +996,20 @@ lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 double
 lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
 {
-    double mobcost;
-    double smobcost;
+    double effspd;
 
-    /* supply unit's speed depends on their eff, since
-       that is their purpose */
+    effspd = lp->lnd_spd;
     if (lchr[(int)lp->lnd_type].l_flags & L_SUPPLY)
-	mobcost = lp->lnd_effic * 0.01 * lp->lnd_spd;
-    else
-	mobcost = lp->lnd_spd;
-    if (mobcost < 0.01)
-	mobcost = 0.01;
+	effspd *= lp->lnd_effic * 0.01;
 
-/* sector_mcost now takes 2 different arguments, a sector pointer, and
-   whether or not to figure in the highway bonus, rail bonus or none.
-   bridge heads, bridges and highways have built-in highways bonus
-   because they are a 1, and this will discount that. */
-
-    smobcost = sector_mcost(sp, mobtype);
-    if (smobcost < 0.01)
-	smobcost = 0.01;
-
-/* marching through 0 mobility conquered sectors takes lots of mobility,
-   unless you are a train.  Capturing railways is a good thing. */
-
-    if (sp->sct_own != sp->sct_oldown && sp->sct_mobil <= 0 &&
-	smobcost < LND_MINMOBCOST && mobtype != MOB_RAIL)
-	smobcost = LND_MINMOBCOST;
-
-    mobcost = smobcost * 5.0 * 480.0 /
-	(mobcost + techfact(lp->lnd_tech, mobcost));
-
-    return mobcost;
+    /*
+     * The return value must be sector_mcost(...) times a factor that
+     * depends only on the land unit.  Anything else breaks path
+     * finding.  In particular, you can't add or enforce a minimum
+     * cost here.  Do it in sector_mcost().
+     */
+    return sector_mcost(sp, mobtype) * 5.0 * 480.0
+	/ (effspd + techfact(lp->lnd_tech, effspd));
 }
 
 int
@@ -1122,7 +1104,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	if (lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) {
 	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_RAIL);
 	} else {
-	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_ROAD);
+	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_MARCH);
 	}
 	llp->land.lnd_mobil = (int)llp->mobil;
 	llp->land.lnd_harden = 0;
@@ -1282,6 +1264,7 @@ lnd_path(int together, struct lndstr *lp, char *buf)
     struct sctstr d_sect, sect;
     char *cp;
     double dummy;
+    int mtype;
 
     if (!sarg_xy(buf, &destx, &desty))
 	return 0;
@@ -1295,11 +1278,13 @@ lnd_path(int together, struct lndstr *lp, char *buf)
     }
     getsect(lp->lnd_x, lp->lnd_y, &sect);
     if (lchr[(int)lp->lnd_type].l_flags & L_TRAIN)
-	cp = BestLandPath(buf, &sect, &d_sect, &dummy, MOB_RAIL);
+	mtype = MOB_RAIL;
     else
-	cp = BestLandPath(buf, &sect, &d_sect, &dummy, MOB_ROAD);
+	mtype = MOB_MARCH;
+    cp = BestLandPath(buf, &sect, &d_sect, &dummy, mtype);
     if (!cp) {
-	pr("No owned path from %s to %s!\n",
+	pr("No owned %s from %s to %s!\n",
+	   mtype == MOB_RAIL ? "railway" : "path",
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum),
 	   xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
 	return 0;

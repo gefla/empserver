@@ -220,7 +220,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	    p = ReversePath(path);
 	    /* And walk the path back to the dist center to get the export
 	       cost */
-	    infptr->excost = pathcost(sp, p, MOB_ROAD);
+	    infptr->excost = pathcost(sp, p, MOB_MOVE);
 #ifdef SAVE_FINISH_PATHS
 	    memcpy(infptr->path, p, len);
 #else

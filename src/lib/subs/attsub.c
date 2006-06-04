@@ -793,7 +793,7 @@ get_mob_support(int combat_mode, struct combat *off, struct combat *def)
     switch (combat_mode) {
     case A_ATTACK:
 	mob_support = off->mob / sector_mcost(getsectp(def->x, def->y),
-					      MOB_ROAD);
+					      MOB_MOVE);
 	if (mob_support < 0)
 	    mob_support = 0;
 /*		mob_support = off->mob / sector_mcost(def->sct_type, def->eff);*/
@@ -854,7 +854,7 @@ calc_mobcost(int combat_mode, struct combat *off, struct combat *def,
 	off->mobcost +=
 	    MAX(1,
 		(int)(attacking_mil *
-		      sector_mcost(getsectp(def->x, def->y), MOB_ROAD)));
+		      sector_mcost(getsectp(def->x, def->y), MOB_MOVE)));
 	break;
     case A_LBOARD:
 	off->mobcost += MAX(1, attacking_mil / 5);
@@ -1506,7 +1506,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	getsect(def->x, def->y, &dsect);
-	if (!BestLandPath(buf, &sect, &dsect, &move_cost, MOB_ROAD))
+	if (!BestLandPath(buf, &sect, &dsect, &move_cost, MOB_MARCH))
 	    continue;
 
 	mobcost = land.lnd_effic * 0.01 * lchr[(int)land.lnd_type].l_spd;
@@ -2445,7 +2445,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	return;
     if (off->own != player->cnum)
 	return;
-    d = sector_mcost(getsectp(def->x, def->y), MOB_ROAD);
+    d = sector_mcost(getsectp(def->x, def->y), MOB_MOVE);
     if ((mob_support = MIN(off->troops, (int)(off->mob / d))) <= 0)
 	return;
     sprintf(prompt, "How many mil to move in from %s (%d max)? ",

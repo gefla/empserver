@@ -179,8 +179,9 @@ extern struct dchrstr bigcity_dchr;
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
 #define MOB_NONE    0
-#define MOB_ROAD    1
-#define MOB_RAIL    2
+#define MOB_MOVE    1
+#define MOB_MARCH   2
+#define MOB_RAIL    3
 
 #define INT_ROAD    0
 #define INT_RAIL    1
