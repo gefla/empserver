@@ -53,7 +53,6 @@
 
 enum p_mode {			/* How to find path to destination */
     P_NONE,			/* don't */
-    P_WALKING,			/* use BestLandPath() */
     P_FLYING,			/* use BestAirPath() */
     P_SAILING			/* use BestShipPath() */
 };

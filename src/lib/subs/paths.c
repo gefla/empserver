@@ -123,11 +123,6 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	    case P_NONE:
 		pr("Destination sectors not allowed here!\n");
 		break;
-	    case P_WALKING:
-		if (getsect(dx, dy, &dsect))
-		    bp = BestLandPath(buf2, &sect, &dsect,
-				      &mv_cost, MOB_ROAD);
-		break;
 	    case P_FLYING:
 		bp = BestAirPath(buf2, nx, ny, dx, dy);
 		break;
