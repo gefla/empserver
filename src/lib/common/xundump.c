@@ -62,6 +62,7 @@
 #include "optlist.h"
 #include "prototypes.h"
 
+static unsigned char initialized[EF_MAX];
 static char *fname;
 static int lineno;
 static int human;
@@ -400,7 +401,8 @@ fldval_must_match(int fldno)
     struct castr *ca = ef_cadef(cur_type);
     int i = fldca[fldno] - ca;
 
-    return (fldca[fldno]->ca_flags & NSC_CONST) || caseen[i];
+    return (initialized[cur_type] && (fldca[fldno]->ca_flags & NSC_CONST))
+	|| caseen[i];
 }
 
 static void *
@@ -782,6 +784,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	lineno++;
     ungetc(ch, fp);
 
+    initialized[type] = 1;
     return type;
 }
 
