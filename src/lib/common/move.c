@@ -53,6 +53,8 @@ sector_mcost(struct sctstr *sp, int do_bonus)
     if (do_bonus == MOB_ROAD) {
 	d = d / (1.0 + sp->sct_road / 122.0);
     } else if (do_bonus == MOB_RAIL) {
+	if (sp->sct_rail <= 0)
+	    return -1.0;
 	d = d / (1.0 + sp->sct_rail / 100.0);
     } else {
 	if (d < 2.0)

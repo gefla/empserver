@@ -182,6 +182,7 @@ static int
 bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 {
     struct sctstr *sectp = (void *)empfile[EF_SECTOR].cache;
+    struct bestp *bp = pp;
     coord x, y;
     coord nx, ny;
     int n = 0, q;
@@ -219,6 +220,8 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	/* No need to calculate cost each time, just make sure we can
 	   move through it.  We calculate it later. */
 	if (dchr[sp->sct_type].d_mcst == 0)
+	    continue;
+	if (bp->bp_mobtype == MOB_RAIL && sp->sct_rail == 0)
 	    continue;
 	if (sp->sct_own != from->sct_own)
 	    continue;
