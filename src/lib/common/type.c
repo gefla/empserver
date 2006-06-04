@@ -95,9 +95,9 @@ ef_elt_byname(int type, char *name)
 		      offsetof(struct ichrstr, i_name),
 		      sizeof(ichr[0]));
     case EF_PRODUCT:
-	return stmtch(name, pchr + 1,
-		      offsetof(struct pchrstr, p_sname),
-		      sizeof(pchr[0]));
+	return 1 + stmtch(name, pchr + 1,
+			  offsetof(struct pchrstr, p_sname),
+			  sizeof(pchr[0]));
     case EF_TABLE:
 	return stmtch(name, empfile,
 		      offsetof(struct empfile, name),
