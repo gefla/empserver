@@ -337,9 +337,9 @@ pathcost(struct sctstr *start, char *path, int mob_type)
 char *
 BestDistPath(char *path,
 	     struct sctstr *from,
-	     struct sctstr *to, double *cost, int mob_type)
+	     struct sctstr *to, double *cost)
 {
-    return BestLandPath(path, from, to, cost, mob_type);
+    return BestLandPath(path, from, to, cost, MOB_ROAD);
 }
 
 char *

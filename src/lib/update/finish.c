@@ -200,7 +200,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	/* Now, get the best distribution path over roads */
 	/* Note we go from the dist center to the sector.  This gives
 	   us the import path for that sector. */
-	path = BestDistPath(buf, dist, sp, &d, MOB_ROAD);
+	path = BestDistPath(buf, dist, sp, &d);
 
 	/* Now, we have a path */
 	if (path != NULL) {

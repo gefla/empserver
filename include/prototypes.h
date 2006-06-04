@@ -320,7 +320,7 @@ extern void bp_enable_cachepath(void);
 extern void bp_disable_cachepath(void);
 extern void bp_clear_cachepath(void);
 extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
-			  double *, int);
+			  double *);
 extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
 			  double *, int);
 extern char *BestShipPath(char *, int, int, int, int, int);

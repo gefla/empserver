@@ -74,7 +74,7 @@ path(void)
 	return RET_FAIL;
     }
     getsect(sect.sct_dist_x, sect.sct_dist_y, &dsect);
-    pp = BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD);
+    pp = BestDistPath(buf, &sect, &dsect, &move_cost);
     if (!pp) {
 	pr("No path possible from %s to distribution sector %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),

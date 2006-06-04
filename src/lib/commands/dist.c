@@ -100,7 +100,7 @@ dist(void)
 	    pr("Warning: you don't own %s!\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum));
 
-	if (!BestDistPath(buf, &sect, &dsect, &move_cost, MOB_ROAD)) {
+	if (!BestDistPath(buf, &sect, &dsect, &move_cost)) {
 	    pr("No owned path from %s to %s.\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum),
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
