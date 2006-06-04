@@ -37,7 +37,6 @@
 #include "optlist.h"
 
 int opt_ALL_BLEED = 1;
-int opt_BIG_CITY = 0;
 int opt_BLITZ = 1;
 int opt_BRIDGETOWERS = 1;
 int opt_DEFENSE_INFRA = 0;

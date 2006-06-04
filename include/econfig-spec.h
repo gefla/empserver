@@ -149,8 +149,6 @@ EMPCFBOTH("game_hours", game_hours, char *, NSC_STRING, 0,
 EMPCF_COMMENT("\n\n### Options")
 EMPCF_OPT("ALL_BLEED", opt_ALL_BLEED,
     "Let tech bleed to everyone, not just allies")
-EMPCF_OPT("BIG_CITY", opt_BIG_CITY,
-    "Allow 10x civs in 'c' sectors")
 EMPCF_OPT("BLITZ", opt_BLITZ,
     "Enable blitz mode")
 EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,

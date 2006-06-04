@@ -33,63 +33,11 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include "misc.h"
 #include "product.h"
-#include "sect.h"
-#include "nat.h"
 
-
-struct pchrstr pchr[] = {
-/*       level      cost    nrndx nrdep nlndx   nlmin nllag effic  sname name */
-    {0, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_NONE, 0, 0, 0, 0, 0, 0, 0,
-     "unused", "",},
-    {P_SHELL, {I_LCM, I_HCM, I_NONE}, {2, 1, 0},
-     I_SHELL, -1, 3, 0, 0, NAT_TLEV, 20, 10,
-     "shells", "shells",},
-    {P_GUN, {I_OIL, I_LCM, I_HCM}, {1, 5, 10},
-     I_GUN, -1, 30, 0, 0, NAT_TLEV, 20, 10,
-     "guns", "guns",},
-    {P_PETROL, {I_OIL, I_NONE, I_NONE}, {1, 0, 0},
-     I_PETROL, -1, 1, 0, 0, NAT_TLEV, 20, 10,
-     "petrol", "petrol",},
-    {P_IRON, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_IRON, -1, 0, offsetof(struct sctstr, sct_min), 0, -1, 0, 0,
-     "iron ore", "iron",},
-    {P_DUST, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_DUST, -1, 0, offsetof(struct sctstr, sct_gmin), 20, -1, 0, 0,
-     "gold dust", "dust",},
-    {P_BAR, {I_DUST, I_NONE, I_NONE}, {5, 0, 0},
-     I_BAR, -1, 10, 0, 0, -1, 0, 0,
-     "gold bars", "bars",},
-    {P_FOOD, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_FOOD, -1, 0, offsetof(struct sctstr, sct_fertil), 0, NAT_TLEV, -10, 10,
-     "food", "food",},
-    {P_OIL, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_OIL, -1, 0, offsetof(struct sctstr, sct_oil), 10, NAT_TLEV, -10, 10,
-     "oil", "oil",},
-    {P_LCM, {I_IRON, I_NONE, I_NONE}, {1, 0, 0},
-     I_LCM, -1, 0, 0, 0, NAT_TLEV, -10, 10,
-     "light construction materials", "lcm",},
-    {P_HCM, {I_IRON, I_NONE, I_NONE}, {2, 0, 0},
-     I_HCM, -1, 0, 0, 0, NAT_TLEV, -10, 10,
-     "heavy construction materials", "hcm",},
-    {P_TLEV, {I_DUST, I_OIL, I_LCM}, {1, 5, 10},
-     I_NONE, NAT_TLEV, 300, 0, 0, NAT_ELEV, 5, 10,
-     "technological breakthroughs", "tech",},
-    {P_RLEV, {I_DUST, I_OIL, I_LCM}, {1, 5, 10},
-     I_NONE, NAT_RLEV, 90, 0, 0, NAT_ELEV, 5, 10,
-     "medical discoveries", "medical",},
-    {P_ELEV, {I_LCM, I_NONE, I_NONE}, {1, 0, 0},
-     I_NONE, NAT_ELEV, 9, 0, 0, -1, 0, 0,
-     "a class of graduates", "edu",},
-    {P_HLEV, {I_LCM, I_NONE, I_NONE}, {1, 0, 0},
-     I_NONE, NAT_HLEV, 9, 0, 0, -1, 0, 0,
-     "happy strollers", "happy",},
-    {P_URAN, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_RAD, -1, 2, offsetof(struct sctstr, sct_uran), 35, NAT_TLEV, 40, 10,
-     "radioactive materials", "rad",},
-    {0, {I_NONE, I_NONE, I_NONE}, {0, 0, 0},
-     I_NONE, 0, 0, 0, 0, 0, 0, 0, NULL, NULL,}
-};
+/*
+ * Table of product types
+ * Initialized on startup from product.config and deity custom config (if any).
+ */
+struct pchrstr pchr[P_URAN + 2];

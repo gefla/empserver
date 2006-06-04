@@ -118,15 +118,16 @@ enum {
     EF_LOST,
     EF_REALM,
     /* Static game data (configuration) */
+    /* Order is relevant; see read_builtin_tables() */
+    EF_ITEM,
+    EF_PRODUCT,
     EF_SECTOR_CHR,
     EF_SHIP_CHR,
     EF_PLANE_CHR,
     EF_LAND_CHR,
     EF_NUKE_CHR,
     EF_NEWS_CHR,
-    EF_ITEM,
     EF_INFRASTRUCTURE,
-    EF_PRODUCT,
     EF_TABLE,
     EF_META,
     /* Symbol tables */

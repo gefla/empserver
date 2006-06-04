@@ -44,7 +44,6 @@
 static void init_mchr(void);
 static void init_pchr(void);
 static void init_plchr(void);
-static void init_dchr(void);
 static void init_lchr(void);
 
 void
@@ -53,7 +52,6 @@ global_init(void)
     init_pchr();
     init_mchr();
     init_plchr();
-    init_dchr();
     init_lchr();
 }
 
@@ -94,13 +92,6 @@ init_pchr(void)
 		p->p_nrdep = 0;
 	}
     }
-}
-
-static void
-init_dchr()
-{
-    if (opt_BIG_CITY)
-	dchr[SCT_CAPIT] = bigcity_dchr;
 }
 
 static void

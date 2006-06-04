@@ -49,7 +49,12 @@ read_builtin_tables(void)
     struct empfile *ep;
     FILE *fp;
     int res;
-    
+
+    /*
+     * Need to read config files for tables referenced through
+     * ep->cadef[].ca_table before those for ep.  empfile[] is ordered
+     * that way.
+     */
     for (ep = empfile; ep->name; ep++) {
 	if (!EF_IS_GAME_STATE(ep->uid) && ep->file) {
 	    if ((fp = fopen(ep->file, "r")) == NULL) {
