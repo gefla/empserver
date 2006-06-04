@@ -73,8 +73,9 @@ Additional customization is possible through key custom_tables, which
 is a list of files containing tables in xdump format (see doc/xdump
 for technical information on xdump).  To customize a table, copy the
 default table from the directory given by econfig key builtindir to a
-file next to your econfig, then add the file to custom_keys.  Do *not*
-edit the default table in-place!
+file next to your econfig, then name the file in custom_tables.  Do
+*not* edit the default table in-place!  That bypasses important
+consistency checks.
 
 The server lets you customize more tables than the ones in builtindir.
 This is not recommended at this time.  You can use the xdump command
