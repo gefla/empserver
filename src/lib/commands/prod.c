@@ -213,7 +213,7 @@ prod(void)
 	    continue;
 	}
 
-	if (dchr[type].d_prd == 0)
+	if (dchr[type].d_prd < 0)
 	    continue;
 	unit_work = 0;
 	pp = &pchr[dchr[type].d_prd];

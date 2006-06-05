@@ -96,7 +96,7 @@ budg(void)
 	pr("%-17s\t\t", dchr[i].d_name);
 	if (i == SCT_ENLIST)
 	    pr("%ld mil    \t", p_sect[i][0]);
-	else if (pchr[dchr[i].d_prd].p_cost != 0)
+	else if (dchr[i].d_prd >= 0)
 	    pr("%ld %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");

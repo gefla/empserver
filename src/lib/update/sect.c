@@ -361,7 +361,7 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 	 */
 
 	if (neweff >= 60) {
-	    if (np->nat_money > 0 && dchr[desig].d_prd)
+	    if (np->nat_money > 0 && dchr[desig].d_prd >= 0)
 		work -= produce(np, sp, vec, work, desig, neweff,
 				&pcost, &amount);
 	}

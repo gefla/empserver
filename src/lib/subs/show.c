@@ -559,7 +559,7 @@ show_sect_capab(int foo)
     char *tmpstr;
 
     for (x = 0; x <= SCT_MAXDEF; x++) {
-	if ((dchr[x].d_mnem == 0) || (dchr[x].d_prd == 0))
+	if (dchr[x].d_mnem == 0 || dchr[x].d_prd < 0)
 	    continue;
 	if (first) {
 	    pr("                                                 --- level ---          reso \n");

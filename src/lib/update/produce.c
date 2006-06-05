@@ -70,9 +70,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     int material_consume;
     int val;
 
-    product = &pchr[dchr[desig].d_prd];
-    if (product == &pchr[0])
+    if (dchr[desig].d_prd < 0)
 	return 0;
+    product = &pchr[dchr[desig].d_prd];
     item = product->p_type;
     *amount = 0;
     *cost = 0;
@@ -229,6 +229,9 @@ prod_eff(int type, float level)
     double level_p_e;
     struct dchrstr *dp = &dchr[type];
     struct pchrstr *pp = &pchr[dp->d_prd];
+
+    if (CANT_HAPPEN(dp->d_prd < 0))
+	return 0.0;
 
     if (pp->p_nlndx < 0)
 	level_p_e = 1.0;
