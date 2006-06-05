@@ -64,7 +64,7 @@ best(void)
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (s2.sct_own != player->cnum)
 		continue;
-	    path = BestLandPath(buf, &s1, &s2, &cost, MOB_ROAD);
+	    path = BestLandPath(buf, &s1, &s2, &cost, MOB_MOVE);
 	    if (path)
 		pr("Best path from %s to %s is %s (cost %1.3f)\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
