@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  main.c: Thread and signal initialization for Empire Server
+ *  main.c: Empire Server main, startup and shutdown
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1994
@@ -37,7 +37,6 @@
 
 #include <config.h>
 
-#include <signal.h>
 #if !defined(_WIN32)
 #include <sys/ioctl.h>
 #endif
@@ -152,7 +151,7 @@ main(int argc, char **argv)
 	case 'r':
 	    remove_service_set++;
 	    break;
-#endif
+#endif	/* _WIN32 */
 	case 's':
 	    flags |= EMPTH_STACKCHECK;
 	    break;
@@ -185,10 +184,7 @@ main(int argc, char **argv)
 	    "options\n");
 	exit(EXIT_FAILURE);
     }
-#endif	/* _WIN32 */
 
-
-#if defined(_WIN32)
     if (remove_service_set)
         return remove_service(service_name);
     if (install_service_set) {
@@ -305,31 +301,11 @@ void
 start_server(int flags)
 {
     pid_t pid;
-#if !defined(_WIN32)
-    struct sigaction act;
-#endif
 
     pid = getpid();
     create_pidfile(pidfname, pid);
     logerror("------------------------------------------------------");
     logerror("Empire server (pid %d) started", (int)pid);
-
-#if !defined(_WIN32)
-    /* signal() should not be used with mit pthreads. Anyway if u
-       have a posix threads u definitly have posix signals -- Sasha */
-    act.sa_flags = 0;
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = shutdwn;
-    sigaction(SIGTERM, &act, NULL);
-    sigaction(SIGINT, &act, NULL);
-    act.sa_handler = panic;
-    sigaction(SIGBUS, &act, NULL);
-    sigaction(SIGSEGV, &act, NULL);
-    sigaction(SIGILL, &act, NULL);
-    sigaction(SIGFPE, &act, NULL);
-    act.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &act, NULL);
-#endif /* !_WIN32 */
 
     empth_init((void **)&player, flags);
 
@@ -377,31 +353,6 @@ create_pidfile(char *fname, pid_t pid)
 	exit(1);
     }
 }
-
-/* we're going down.  try to close the files at least */
-#if !defined(_WIN32)
-void
-panic(int sig)
-{
-    struct sigaction act;
-
-    act.sa_flags = 0;
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = SIG_DFL;
-    sigaction(SIGBUS, &act, NULL);
-    sigaction(SIGSEGV, &act, NULL);
-    sigaction(SIGILL, &act, NULL);
-    sigaction(SIGFPE, &act, NULL);
-    logerror("server received fatal signal %d", sig);
-    log_last_commands();
-    ef_fin_srv();
-    if (CANT_HAPPEN(sig != SIGBUS && sig != SIGSEGV
-		    && sig != SIGILL && sig != SIGFPE))
-	_exit(1);
-    if (raise(sig))
-	_exit(1);
-}
-#endif /* _WIN32 */
 
 void
 shutdwn(int sig)

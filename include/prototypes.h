@@ -45,7 +45,6 @@
 #include "commodity.h"
 
 /* src/server/main.c */
-extern void panic(int sig);
 extern void shutdwn(int sig);
 extern void init_server(void);
 extern void start_server(int);

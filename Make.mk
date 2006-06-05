@@ -113,11 +113,11 @@ info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 
 # Conditionally generated files:
 ifeq ($(empthread),LWP)
-empth_obj := src/lib/empthread/lwp.o
+empth_obj := src/lib/empthread/lwp.o src/lib/empthread/posix.o
 empth_lib := lib/liblwp.a
 endif
 ifeq ($(empthread),POSIX)
-empth_obj := src/lib/empthread/pthread.o
+empth_obj := src/lib/empthread/pthread.o src/lib/empthread/posix.o
 empth_lib :=
 endif
 ifeq ($(empthread),Windows)

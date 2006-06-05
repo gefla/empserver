@@ -99,24 +99,6 @@ static void *
 empth_start(void *arg)
 {
     empth_t *ctx = arg;
-    struct sigaction act;
-
-    /* actually it should inherit all this from main but... */
-    act.sa_flags = 0;
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = shutdwn;
-    sigaction(SIGTERM, &act, NULL);
-    sigaction(SIGINT, &act, NULL);
-    act.sa_handler = panic;
-    sigaction(SIGBUS, &act, NULL);
-    sigaction(SIGSEGV, &act, NULL);
-    sigaction(SIGILL, &act, NULL);
-    sigaction(SIGFPE, &act, NULL);
-    act.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &act, NULL);
-
-    act.sa_handler = empth_alarm;
-    sigaction(SIGALRM, &act, NULL);
 
     ctx->id = pthread_self();
     pthread_setspecific(ctx_key, ctx);
@@ -164,15 +146,18 @@ empth_init(void **ctx_ptr, int flags)
     empth_t *ctx;
     struct sigaction act;
 
-    pthread_key_create(&ctx_key, NULL);
-    pthread_mutex_init(&mtx_ctxsw, NULL);
+    empth_flags = flags;
+    udata = ctx_ptr;
 
+    empth_init_signals();
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
     act.sa_handler = empth_alarm;
     sigaction(SIGALRM, &act, NULL);
 
-    udata = ctx_ptr;
+    pthread_key_create(&ctx_key, NULL);
+    pthread_mutex_init(&mtx_ctxsw, NULL);
+
     ctx = malloc(sizeof(empth_t));
     if (!ctx) {
 	logerror("pthread init failed: not enough memory");
@@ -186,7 +171,6 @@ empth_init(void **ctx_ptr, int flags)
     ctx->state = 0;
     pthread_setspecific(ctx_key, ctx);
     pthread_mutex_lock(&mtx_ctxsw);
-    empth_flags = flags;
     logerror("pthreads initialized");
     return 0;
 }
@@ -371,14 +355,11 @@ empth_select(int fd, int flags)
 static void
 empth_alarm(int sig)
 {
-    struct sigaction act;
+    /*
+     * Nothing to do --- we handle this signal just to let
+     * empth_wakeup() interrupt system calls.
+     */
     empth_status("got alarm signal");
-#ifdef SA_RESTART
-    act.sa_flags &= ~SA_RESTART;
-#endif
-    sigemptyset(&act.sa_mask);
-    act.sa_handler = empth_alarm;
-    sigaction(SIGALRM, &act, NULL);
 }
 
 void
@@ -386,7 +367,6 @@ empth_wakeup(empth_t *a)
 {
     empth_status("waking up thread %s", a->name);
     pthread_kill(a->id, SIGALRM);
-    empth_status("waiting for it to run");
 }
 
 void

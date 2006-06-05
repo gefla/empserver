@@ -211,4 +211,11 @@ void empth_sem_signal(empth_sem_t *sem);
  */
 void empth_sem_wait(empth_sem_t *sem);
 
+
+/*
+ * Stuff for implementations, not for clients.
+ */
+
+void empth_init_signals(void);
+
 #endif

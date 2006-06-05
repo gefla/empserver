@@ -47,6 +47,7 @@ int
 empth_init(void **ctx, int flags)
 {
     empth_flags = flags;
+    empth_init_signals();
     empth_main = lwpInitSystem(PP_MAIN, (char **)ctx, flags);
     return 0;
 }
