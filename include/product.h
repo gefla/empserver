@@ -58,22 +58,8 @@ struct pchrstr {
     char *p_sname;		/* short (7 char or less) name of product */
 };
 
-#define	P_SHELL	0
-#define	P_GUN	1
-#define	P_PETROL	2
-#define	P_IRON	3
-#define	P_DUST	4 
-#define	P_BAR	5 
-#define	P_FOOD	6 
-#define	P_OIL	7 
-#define	P_LCM	8 
-#define	P_HCM	9 
-#define	P_TLEV	10
-#define	P_RLEV	11
-#define	P_ELEV	12
-#define	P_HLEV	13
-#define P_URAN	14
+#define P_MAX 14
 
-extern struct pchrstr pchr[P_URAN + 2];
+extern struct pchrstr pchr[P_MAX + 2];
 
 #endif
