@@ -120,7 +120,6 @@ lwpReschedule(void)
 void
 lwpEntryPoint(void)
 {
-    *LwpContextPtr = LwpCurrent->ud;
     lwpStatus(LwpCurrent, "starting at entry point");
     (*LwpCurrent->entry)(LwpCurrent->ud);
     lwpExit();
