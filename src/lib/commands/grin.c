@@ -49,12 +49,19 @@ grin(void)
     struct nstr_sect nstr;
     struct sctstr sect;
     char *p;
-    int i, n, qty;
-    int avail;
+    int prd, i, n, qty;
     char buf[1024];
     double grind_eff = 0.8;
-    i_type *ctype = pchr[P_BAR].p_ctype;
-    unsigned short *camt = pchr[P_BAR].p_camt;
+    struct pchrstr *pp;
+    i_type ctype;
+    unsigned camt;
+
+    prd = dchr[SCT_BANK].d_prd;
+    if (prd < 0 || pchr[prd].p_type < 0) {
+	pr("Grinding is disabled.\n");
+	return RET_FAIL;
+    }
+    pp = &pchr[prd];
 
     if ((p = getstarg(player->argp[1], "Sectors? ", buf)) == 0)
 	return RET_SYN;
@@ -65,27 +72,28 @@ grin(void)
     qty = atoi(p);
     if (qty < 0)
 	return RET_SYN;
+
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	if (sect.sct_effic < 60 || sect.sct_own != player->cnum)
 	    continue;
-	n = sect.sct_item[I_BAR] >= qty ? qty : sect.sct_item[I_BAR];
+
+	/* materials limit */
+	n = MIN(qty, sect.sct_item[pp->p_type]);
 	/* work limit */
-	avail = n * 5;
-	if (avail > sect.sct_avail) {
-	    n = sect.sct_avail / 5;
-	    avail = sect.sct_avail;
-	}
+	n = MIN(n, sect.sct_avail / 5);
 	/* space limit */
 	for (i = 0; i < MAXPRCON; i++) {
-	    if (!camt[i])
+	    ctype = pp->p_ctype[i];
+	    camt = pp->p_camt[i];
+	    if (!camt)
 		continue;
-	    if (CANT_HAPPEN(ctype[i] <= I_NONE || ctype[i] > I_MAX))
+	    if (CANT_HAPPEN(ctype <= I_NONE || ctype > I_MAX))
 		continue;
 	    n = MIN(n,
-		    (double)(ITEM_MAX - sect.sct_item[ctype[i]])
-		    / (camt[i] * grind_eff));
+		    (double)(ITEM_MAX - sect.sct_item[ctype])
+		    / (camt * grind_eff));
 	}
 
 	if (n > 0) {
@@ -93,13 +101,15 @@ grin(void)
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    sect.sct_item[I_BAR] -= n;
 	    for (i = 0; i < MAXPRCON; i++) {
-		if (!camt[i])
+		ctype = pp->p_ctype[i];
+		camt = pp->p_camt[i];
+		if (!camt)
 		    continue;
-		if (CANT_HAPPEN(ctype[i] <= I_NONE || ctype[i] > I_MAX))
+		if (CANT_HAPPEN(ctype <= I_NONE || ctype > I_MAX))
 		    continue;
-		sect.sct_item[ctype[i]] += n * camt[i] * grind_eff;
+		sect.sct_item[ctype] += n * camt * grind_eff;
 	    }
-	    sect.sct_avail -= avail;
+	    sect.sct_avail -= n * 5;
 	    putsect(&sect);
 	}
     }
