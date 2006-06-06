@@ -41,11 +41,6 @@
 #include <setjmp.h>
 #endif /* !UCONTEXT */
 
-/* `liveness' counter: check signals every `n' visits to the scheduler */
-/* note: the lower this value, the more responsive the system but the */
-/* more inefficient the context switch time */
-#define LCOUNT	-1
-
 /* process control block.  do *not* change the position of context */
 struct lwpProc {
 #ifdef UCONTEXT

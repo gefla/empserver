@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <signal.h>
 #include <stdlib.h>
 #include <string.h>
 #include "lwp.h"
@@ -48,8 +47,6 @@ struct lwpProc *LwpCurrent = NULL;
 char **LwpContextPtr;
 int LwpMaxpri = 0;		/* maximum priority so far */
 int LwpStackGrowsDown;
-
-static sigset_t oldmask;
 
 static void lwpStackCheckInit(struct lwpProc *newp);
 static void lwpStackCheck(struct lwpProc *newp);
@@ -71,20 +68,11 @@ growsdown(void *x)
 void
 lwpReschedule(void)
 {
-    static int lcount = LCOUNT;
     static struct lwpProc *nextp;
     static int i;
-    static sigset_t tmask;
 
     if (LwpCurrent && (LwpCurrent->flags & LWP_STACKCHECK)) {
 	lwpStackCheck(LwpCurrent);
-    }
-    if (!--lcount) {
-	int p = lwpSetPriority(LWP_MAX_PRIO - 1);
-	lcount = LCOUNT;
-	sigprocmask(SIG_SETMASK, &oldmask, &tmask);
-	sigprocmask(SIG_SETMASK, &tmask, &oldmask);
-	LwpCurrent->pri = p;
     }
 
     /* destroy dead threads */
@@ -132,13 +120,7 @@ lwpReschedule(void)
 void
 lwpEntryPoint(void)
 {
-    sigset_t set;
-
-    sigemptyset(&set);
-    sigaddset(&set, SIGALRM);
-    sigprocmask(SIG_SETMASK, &set, &oldmask);
     *LwpContextPtr = LwpCurrent->ud;
-
     lwpStatus(LwpCurrent, "starting at entry point");
     (*LwpCurrent->entry)(LwpCurrent->ud);
     lwpExit();
