@@ -76,6 +76,8 @@ lwpReschedule(void)
 	lwpStackCheck(LwpCurrent);
     }
 
+    lwpSigWakeup();
+
     /* destroy dead threads */
     lwpStatus(LwpCurrent, "Cleaning dead queue");
     while (NULL != (nextp = lwpGetFirst(&LwpDeadQ))) {
@@ -285,7 +287,7 @@ lwpSetPriority(int new)
  * initialise the coroutine structures
  */
 struct lwpProc *
-lwpInitSystem(int pri, char **ctxptr, int flags)
+lwpInitSystem(int pri, char **ctxptr, int flags, sigset_t *waitset)
 {
     struct lwpQueue *q;
     int i, *stack, marker;
@@ -313,6 +315,7 @@ lwpInitSystem(int pri, char **ctxptr, int flags)
     for (i = LWP_MAX_PRIO, q = LwpSchedQ; i--; q++)
 	q->head = q->tail = 0;
     LwpDeadQ.head = LwpDeadQ.tail = 0;
+    lwpInitSigWait(waitset);
     /* must be lower in priority than us for this to work right */
     sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler",
 		    "Select (main loop) Event Handler", 0, 0, 0);

@@ -144,12 +144,17 @@ int
 empth_init(void **ctx_ptr, int flags)
 {
     empth_t *ctx;
+    sigset_t set;
     struct sigaction act;
 
     empth_flags = flags;
     udata = ctx_ptr;
 
     empth_init_signals();
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    sigaddset(&set, SIGTERM);
+    pthread_sigmask(SIG_BLOCK, &set, NULL);
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
     act.sa_handler = empth_alarm;
@@ -256,20 +261,9 @@ empth_self(void)
 void
 empth_exit(void)
 {
-    empth_t *ctx_ptr;
-
-    pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("empth_exit");
-    ctx_ptr = pthread_getspecific(ctx_key);
-    /* We want to leave the main thread around forever, until it's time
-       for it to die for real (in a shutdown) */
-    if (!strcmp(ctx_ptr->name, "Main")) {
-	while (1) {
-	    sleep(60);
-	}
-    }
-
-    free(ctx_ptr);
+    pthread_mutex_unlock(&mtx_ctxsw);
+    free(pthread_getspecific(ctx_key));
     pthread_exit(0);
 }
 
@@ -351,7 +345,6 @@ empth_select(int fd, int flags)
 
 }
 
-
 static void
 empth_alarm(int sig)
 {
@@ -386,6 +379,26 @@ empth_sleep(time_t until)
     empth_restorectx();
 }
 
+int
+empth_wait_for_shutdown(void)
+{
+    sigset_t set;
+    int sig, err;
+
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    sigaddset(&set, SIGTERM);
+    for (;;) {
+	empth_status("waiting for signals");
+	err = sigwait(&set, &sig);
+	if (CANT_HAPPEN(err)) {
+	    sleep(60);
+	    continue;
+	}
+	empth_status("got awaited signal %d", sig);
+	return sig;
+    }
+}
 
 empth_sem_t *
 empth_sem_create(char *name, int cnt)

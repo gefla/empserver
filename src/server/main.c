@@ -261,7 +261,7 @@ main(int argc, char **argv)
 #endif /* !_WIN32 */
     start_server(flags);
 
-    empth_exit();
+    shutdwn(empth_wait_for_shutdown());
 
     CANT_REACH();
     finish_server();

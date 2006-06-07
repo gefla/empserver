@@ -144,6 +144,9 @@ empth_t *empth_self(void);
 
 /*
  * Terminate the current thread.
+ * The current thread should not be the thread that executed main().
+ * If it is, implementations may terminate the process rather than the
+ * thread.
  * Never returns.
  */
 void empth_exit(void);
@@ -183,6 +186,12 @@ void empth_wakeup(empth_t *thread);
  * May sleep somehwat longer, but never shorter.
  */
 void empth_sleep(time_t until);
+
+/*
+ * Wait for some implementation-defined external shutdown signal.
+ * Return a non-negative number identifying the signal.
+ */
+int empth_wait_for_shutdown(void);
 
 /*
  * Create a semaphore.

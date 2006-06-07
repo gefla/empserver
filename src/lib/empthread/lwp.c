@@ -33,11 +33,9 @@
 
 #include <config.h>
 
+#include <signal.h>
 #include <time.h>
 #include "empthread.h"
-
-/* The thread `created' by lwpInitSystem() */
-static empth_t *empth_main;
 
 /* Flags that were passed to empth_init() */
 static int empth_flags;
@@ -46,9 +44,14 @@ static int empth_flags;
 int
 empth_init(void **ctx, int flags)
 {
+    sigset_t set;
+
     empth_flags = flags;
     empth_init_signals();
-    empth_main = lwpInitSystem(PP_MAIN, (char **)ctx, flags);
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    sigaddset(&set, SIGTERM);
+    lwpInitSystem(PP_MAIN, (char **)ctx, flags, &set);
     return 0;
 }
 
@@ -71,16 +74,6 @@ empth_self(void)
 void
 empth_exit(void)
 {
-    time_t now;
-
-    /* We want to leave the main thread around forever, until it's time
-       for it to die for real (in a shutdown) */
-    if (LwpCurrent == empth_main) {
-	while (1) {
-	    time(&now);
-	    lwpSleepUntil(now + 60);
-	}
-    }
     lwpExit();
 }
 
@@ -114,6 +107,26 @@ empth_sleep(time_t until)
     lwpSleepUntil(until);
 }
 
+int
+empth_wait_for_shutdown(void)
+{
+    sigset_t set;
+    int sig, err;
+    time_t now;
+
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    sigaddset(&set, SIGTERM);
+    for (;;) {
+	err = lwpSigWait(&set, &sig);
+	if (CANT_HAPPEN(err)) {
+	    time(&now);
+	    lwpSleepUntil(now + 60);
+	    continue;
+	}
+	return sig;
+    }
+}
 
 empth_sem_t *
 empth_sem_create(char *name, int cnt)

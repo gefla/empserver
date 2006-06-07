@@ -95,7 +95,9 @@ void lwpReschedule(void);
 void lwpEntryPoint(void);
 void lwpInitSelect(struct lwpProc *);
 void lwpSelect(void *);
-void lwpStatus(struct lwpProc *proc, char *format, ...)
+void lwpInitSigWait(sigset_t *);
+void lwpSigWakeup(void);
+void lwpStatus(struct lwpProc *, char *, ...)
     ATTRIBUTE((format (printf, 2, 3)));
 
 #endif

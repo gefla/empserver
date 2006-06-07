@@ -46,9 +46,6 @@ empth_init_signals(void)
 
     act.sa_flags = 0;
     sigemptyset(&act.sa_mask);
-    act.sa_handler = shutdwn;
-    sigaction(SIGTERM, &act, NULL);
-    sigaction(SIGINT, &act, NULL);
     act.sa_handler = panic;
     sigaction(SIGBUS, &act, NULL);
     sigaction(SIGSEGV, &act, NULL);

@@ -277,31 +277,6 @@ loc_Exit_Handler(DWORD fdwCtrlType)
 }
 
 /************************
- * empth_request_shutdown
- *
- * This wakes up the main thread so shutdown can proceed.
- * This is done by signalling hShutdownEvent.
- */
-void
-empth_request_shutdown(void)
-{
-    SetEvent(hShutdownEvent);
-}
-
-/************************
- * loc_BlockMainThread
- *
- * This blocks up the main thread.  loc_WakeupMainThread() is used
- * wakeup the main so shutdown can proceed.
- */
-static void
-loc_BlockMainThread(void)
-{
-    /* Get the MUTEX semaphore, wait the number of MS */
-    WaitForSingleObject(hShutdownEvent, INFINITE);
-}
-
-/************************
  * empth_threadMain
  *
  * This is the main line of each thread.
@@ -490,19 +465,12 @@ empth_exit(void)
 {
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
+    loc_debug("empth_exit");
     loc_BlockThisThread();
 
-    loc_debug("empth_exit");
-
-    if (pThread->bMainThread) {
-	loc_BlockMainThread();
-	loc_RunThisThread();
-	shutdwn(0);
-    } else {
-	TlsSetValue(dwTLSIndex, NULL);
-	loc_FreeThreadInfo(pThread);
-	_endthread();
-    }
+    TlsSetValue(dwTLSIndex, NULL);
+    loc_FreeThreadInfo(pThread);
+    _endthread();
 }
 
 /************************
@@ -606,6 +574,27 @@ empth_sleep(time_t until)
     loc_RunThisThread();
 }
 
+/************************
+ * empth_request_shutdown
+ *
+ * This wakes up empth_wait_for_shutdown() so shutdown can proceed.
+ * This is done by signalling hShutdownEvent.
+ */
+void
+empth_request_shutdown(void)
+{
+    SetEvent(hShutdownEvent);
+}
+
+int
+empth_wait_for_shutdown(void)
+{
+    /* Get the MUTEX semaphore, wait the number of MS */
+    WaitForSingleObject(hShutdownEvent, INFINITE);
+
+    loc_RunThisThread();
+    return 0;
+}
 
 /************************
  * empth_sem_create
