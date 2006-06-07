@@ -48,6 +48,7 @@ char **LwpContextPtr;
 int LwpMaxpri = 0;		/* maximum priority so far */
 int LwpStackGrowsDown;
 
+static void lwpDestroy(struct lwpProc *proc);
 static void lwpStackCheckInit(struct lwpProc *newp);
 static void lwpStackCheck(struct lwpProc *newp);
 static void lwpStackCheckUsed(struct lwpProc *newp);

@@ -93,7 +93,9 @@ struct lwpProc *lwpGetFirst(struct lwpQueue *);
 void lwpReady(struct lwpProc *);
 void lwpReschedule(void);
 void lwpEntryPoint(void);
-void lwpInitSelect(struct lwpProc * self);
-void lwpDestroy(struct lwpProc * proc);
+void lwpInitSelect(struct lwpProc *);
+void lwpSelect(void *);
+void lwpStatus(struct lwpProc *proc, char *format, ...)
+    ATTRIBUTE((format (printf, 2, 3)));
 
 #endif

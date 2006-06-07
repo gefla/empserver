@@ -47,6 +47,7 @@ void lwpYield(void);
 void lwpSleepFd(int fd, int flags);
 void lwpSleepUntil(long until);
 void lwpWakeupFd(struct lwpProc * p);
+int lwpSigWait(sigset_t *set, int *sig);
 void *lwpGetUD(struct lwpProc * p);
 void lwpSetUD(struct lwpProc * p, char *ud);
 void lwpSetDesc(struct lwpProc * p, char *name, char *desc);
@@ -55,9 +56,6 @@ int lwpSetPriority(int prio);
 struct lwpSem *lwpCreateSem(char *name, int count);
 void lwpSignal(struct lwpSem *);
 void lwpWait(struct lwpSem *);
-void lwpSelect(void *);
-void lwpStatus(struct lwpProc *proc, char *format, ...)
-    ATTRIBUTE((format (printf, 2, 3)));
 
 extern struct lwpProc *LwpCurrent;
 
