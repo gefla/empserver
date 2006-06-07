@@ -374,14 +374,8 @@ shutdwn(int sig)
 	empth_wakeup(p->proc);
     }
 
-    if (!sig) {
-	/* Sleep and let some cleanup happen - note this doesn't work
-	   when called from a signal handler, since we may or may not
-	   be in the right thread.  So we just pass by and kill 'em
-	   all. */
-	time(&now);
-	empth_sleep(now + 1);
-    }
+    time(&now);
+    empth_sleep(now + 1);
 
     for (p = player_next(0); p != 0; p = player_next(p)) {
 	p->state = PS_KILL;
