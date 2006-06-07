@@ -342,7 +342,6 @@ empth_select(int fd, int flags)
   done:
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
-
 }
 
 static void
@@ -388,6 +387,7 @@ empth_wait_for_shutdown(void)
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
+    pthread_mutex_unlock(&mtx_ctxsw);
     for (;;) {
 	empth_status("waiting for signals");
 	err = sigwait(&set, &sig);
@@ -396,6 +396,8 @@ empth_wait_for_shutdown(void)
 	    continue;
 	}
 	empth_status("got awaited signal %d", sig);
+	pthread_mutex_lock(&mtx_ctxsw);
+	empth_restorectx();
 	return sig;
     }
 }
