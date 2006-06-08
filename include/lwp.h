@@ -38,7 +38,7 @@ struct lwpSem;
 
 #define LWP_MAX_PRIO	8
 
-struct lwpProc *lwpInitSystem(int prio, char **ctxp, int flags, sigset_t *);
+struct lwpProc *lwpInitSystem(int prio, void **ctxp, int flags, sigset_t *);
 struct lwpProc *lwpCreate(int prio, void (*)(void *), int size,
 			  int flags, char *name, char *desc,
 			  int argc, char **argv, void *ud);

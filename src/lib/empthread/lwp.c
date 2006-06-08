@@ -51,7 +51,7 @@ empth_init(void **ctx, int flags)
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
-    lwpInitSystem(PP_MAIN, (char **)ctx, flags, &set);
+    lwpInitSystem(PP_MAIN, ctx, flags, &set);
     return 0;
 }
 

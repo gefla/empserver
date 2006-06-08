@@ -44,7 +44,7 @@
 struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 
 struct lwpProc *LwpCurrent = NULL;
-char **LwpContextPtr;
+void **LwpContextPtr;
 int LwpMaxpri = 0;		/* maximum priority so far */
 int LwpStackGrowsDown;
 
@@ -287,7 +287,7 @@ lwpSetPriority(int new)
  * initialise the coroutine structures
  */
 struct lwpProc *
-lwpInitSystem(int pri, char **ctxptr, int flags, sigset_t *waitset)
+lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
 {
     struct lwpQueue *q;
     int i, *stack, marker;
@@ -296,7 +296,6 @@ lwpInitSystem(int pri, char **ctxptr, int flags, sigset_t *waitset)
     LwpContextPtr = ctxptr;
     if (pri < 1)
 	pri = 1;
-    /* *LwpContextPtr = 0; */
     LwpStackGrowsDown = growsdown(&marker);
     if (!(LwpCurrent = calloc(1, sizeof(struct lwpProc))))
 	return NULL;
