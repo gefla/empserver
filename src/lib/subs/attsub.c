@@ -1442,7 +1442,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     int dtotal;
     int new_land = 0;
     double mobcost;
-    double move_cost;
+    double pathcost;
     int dist;
     int radius;
     int origx, origy;
@@ -1506,15 +1506,10 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	getsect(def->x, def->y, &dsect);
-	if (!BestLandPath(buf, &sect, &dsect, &move_cost, MOB_MARCH))
+	if (!BestLandPath(buf, &sect, &dsect, &pathcost, MOB_MARCH))
 	    continue;
 
-	mobcost = land.lnd_effic * 0.01 * lchr[(int)land.lnd_type].l_spd;
-	if (mobcost < 0.01)
-	    mobcost = 0.01;
-	mobcost = 480.0 / (mobcost + techfact(land.lnd_tech, mobcost));
-	mobcost *= move_cost * 5.0;
-
+	mobcost = lnd_pathcost(&land, pathcost);
 	if (land.lnd_mobil < mobcost)
 	    continue;
 

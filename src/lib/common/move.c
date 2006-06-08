@@ -73,3 +73,9 @@ sector_mcost(struct sctstr *sp, int do_bonus)
 	return MAX(d, LND_MINMOBCOST);
     return MAX(d, 0.01);
 }
+
+double
+speed_factor(double effspd, int tech)
+{
+    return 480.0 / (effspd + techfact(tech, effspd));
+}

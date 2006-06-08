@@ -73,7 +73,8 @@ extern int diridx(char);
 extern void direrr(char *, char *, char *);
 extern void pathrange(coord, coord, char *, int, struct range *);
 
-extern double sector_mcost(struct sctstr *sp, int do_bonus);
+extern double sector_mcost(struct sctstr *, int);
+extern double speed_factor(double, int);
 
 #define MAX_PATH_LEN 1024
 

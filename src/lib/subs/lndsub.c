@@ -631,7 +631,6 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
     struct llist *llp;
     struct sctstr sect;
     int mines, m, max, sshells, lshells;
-    double mobcost;
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
@@ -661,11 +660,7 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	    continue;
 	}
 	if (takemob) {
-/*			mobcost = llp->land.lnd_effic * 0.01 * llp->lcp->l_spd;*/
-	    mobcost = llp->land.lnd_spd;
-	    mobcost = 480.0 / (mobcost +
-			       techfact(llp->land.lnd_tech, mobcost));
-	    llp->mobil -= mobcost;
+	    llp->mobil -= lnd_pathcost(&llp->land, 0.2);
 	    llp->land.lnd_mobil = (int)llp->mobil;
 	    llp->land.lnd_harden = 0;
 	}
@@ -994,7 +989,7 @@ lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 }
 
 double
-lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
+lnd_pathcost(struct lndstr *lp, double pathcost)
 {
     double effspd;
 
@@ -1003,13 +998,18 @@ lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
 	effspd *= lp->lnd_effic * 0.01;
 
     /*
-     * The return value must be sector_mcost(...) times a factor that
-     * depends only on the land unit.  Anything else breaks path
-     * finding.  In particular, you can't add or enforce a minimum
-     * cost here.  Do it in sector_mcost().
+     * The return value must be pathcost times a factor that depends
+     * only on the land unit.  Anything else breaks path finding.  In
+     * particular, you can't add or enforce a minimum cost here.  Do
+     * it in sector_mcost().
      */
-    return sector_mcost(sp, mobtype) * 5.0 * 480.0
-	/ (effspd + techfact(lp->lnd_tech, effspd));
+    return pathcost * 5.0 * speed_factor(effspd, lp->lnd_tech);
+}
+
+double
+lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
+{
+    return lnd_pathcost(lp, sector_mcost(sp, mobtype));
 }
 
 int

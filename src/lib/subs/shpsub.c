@@ -1058,8 +1058,8 @@ shp_missdef(struct shpstr *sp, natid victim)
 double
 shp_mobcost(struct shpstr *sp)
 {
-    double effspd = sp->shp_effic * 0.01 * sp->shp_speed;
-    return 480.0 / (effspd + techfact(sp->shp_tech, effspd));
+    return speed_factor(sp->shp_effic * 0.01 * sp->shp_speed,
+			sp->shp_tech);
 }
 
 /*

@@ -200,6 +200,7 @@ extern void lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
 extern int lnd_check_mines(struct emp_qelem *);
+extern double lnd_pathcost(struct lndstr *, double);
 extern double lnd_mobcost(struct lndstr *, struct sctstr *, int);
 extern char *lnd_path(int, struct lndstr *, char *);
 
