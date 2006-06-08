@@ -170,5 +170,16 @@ ef_verify()
 	    retval += verify_row(ep->uid, i);
 	}
     }
+
+    /* Special checks */
+    for (i = 0; pchr[i].p_sname; i++) {
+	if ((pchr[i].p_type >= 0) == (pchr[i].p_level >= 0)) {
+	    fprintf(stderr,
+		"Config %s uid %d field level doesn't match field type\n",
+		ef_nameof(EF_PRODUCT), i);
+	    retval = -1;
+	}
+    }
+
     return retval;
 }
