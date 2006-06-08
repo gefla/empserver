@@ -46,13 +46,13 @@ extern char dflt_econfig[];
 
 extern char *configdir;
 
-extern char *motdfil;
-extern char *downfil;
-extern char *disablefil;
-extern char *annfil;
-extern char *timestampfil;
-extern char *teldir;
-extern char *telfil;
+extern char motdfil[];
+extern char downfil[];
+extern char disablefil[];
+extern char annfil[];
+extern char timestampfil[];
+extern char teldir[];
+extern char telfil[];
 
 enum {
     KM_ALLOC = 1,		/* memory allocated */
