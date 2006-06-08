@@ -188,10 +188,9 @@ void empth_wakeup(empth_t *thread);
 void empth_sleep(time_t until);
 
 /*
- * Wait for some implementation-defined external shutdown signal.
- * Return a non-negative number identifying the signal.
+ * Wait for signal, return the signal number
  */
-int empth_wait_for_shutdown(void);
+int empth_wait_for_signal(void);
 
 /*
  * Create a semaphore.

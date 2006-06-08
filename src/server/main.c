@@ -41,6 +41,7 @@
 #include <sys/ioctl.h>
 #endif
 #include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -57,6 +58,7 @@
 #include "misc.h"
 #include "nat.h"
 #include "file.h"
+#include "journal.h"
 #include "player.h"
 #include "empthread.h"
 #include "plane.h"
@@ -119,7 +121,7 @@ main(int argc, char **argv)
     int remove_service_set = 0;
 #endif
     char *config_file = NULL;
-    int op;
+    int op, sig;
 
 #ifdef _WIN32
 # define XOPTS "iI:rR:"
@@ -261,8 +263,19 @@ main(int argc, char **argv)
 #endif /* !_WIN32 */
     start_server(flags);
 
-    shutdwn(empth_wait_for_shutdown());
+    for (;;) {
+	sig = empth_wait_for_signal();
+#ifdef SIGHUP
+	if (sig == SIGHUP) {
+	    journal_close();
+	    journal_open();
+	    continue;
+	}
+#endif
+	break;
+    }
 
+    shutdwn(sig);
     CANT_REACH();
     finish_server();
     return EXIT_SUCCESS;

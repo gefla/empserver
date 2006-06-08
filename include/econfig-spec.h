@@ -88,6 +88,8 @@ EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
 EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
+EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,
+    "Enable journal log file")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,
     "Name of the deity")
 EMPCFBOTH("privlog", privlog, char *, NSC_STRING, 0,

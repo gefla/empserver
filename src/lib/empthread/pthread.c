@@ -152,6 +152,7 @@ empth_init(void **ctx_ptr, int flags)
 
     empth_init_signals();
     sigemptyset(&set);
+    sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
     pthread_sigmask(SIG_BLOCK, &set, NULL);
@@ -379,12 +380,13 @@ empth_sleep(time_t until)
 }
 
 int
-empth_wait_for_shutdown(void)
+empth_wait_for_signal(void)
 {
     sigset_t set;
     int sig, err;
 
     sigemptyset(&set);
+    sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
     pthread_mutex_unlock(&mtx_ctxsw);

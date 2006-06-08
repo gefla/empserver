@@ -50,6 +50,7 @@
 #include "subs.h"
 #include "common.h"
 #include "optlist.h"
+#include "journal.h"
 
 #if !defined(_WIN32)
 #include <unistd.h>
@@ -75,6 +76,7 @@ player_main(struct player *p)
     player = p;
     time(&player->lasttime);
     time(&player->curup);
+    journal_login();
     show_motd();
     if (init_nats() < 0) {
 	pr("Server confused, try again later\n");
@@ -138,6 +140,7 @@ player_main(struct player *p)
 	natp->nat_minused += 1;
     putnat(natp);
     pr("Bye-bye\n");
+    journal_logout();
 }
 
 static int

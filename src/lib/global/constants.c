@@ -43,6 +43,8 @@ char *privlog = "careless@invalid";
 /* Divine hosts and networks */
 char *privip = "127.0.0.1 ::1 ::ffff:127.0.0.1";
 
+int keep_journal = 0;
+
 int WORLD_X = 64;		/* World size - x */
 int WORLD_Y = 32;		/* World size - y */
 

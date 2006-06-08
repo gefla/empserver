@@ -46,6 +46,7 @@
 #include "update.h"
 #include "common.h"
 #include "optlist.h"
+#include "journal.h"
 #include "server.h"
 #include <stdlib.h>
 #if !defined(_WIN32)
@@ -92,6 +93,7 @@ update_main(void *unused)
      * happiness, and printing out the state of the nation)
      */
     logerror("production update (%d etus)", etu);
+    journal_update(etu);
     memset(pops, 0, sizeof(pops));
     memset(air_money, 0, sizeof(air_money));
     memset(sea_money, 0, sizeof(sea_money));

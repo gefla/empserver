@@ -37,6 +37,7 @@
 #include <stdio.h>
 #include "misc.h"
 #include "empio.h"
+#include "journal.h"
 #include "player.h"
 #include "empthread.h"
 
@@ -80,5 +81,6 @@ recvclient(char *cmd, int size)
     }
     if (player->aborted)
 	return -2;
+    journal_input(cmd);
     return count;
 }

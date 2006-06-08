@@ -49,6 +49,7 @@ empth_init(void **ctx, int flags)
     empth_flags = flags;
     empth_init_signals();
     sigemptyset(&set);
+    sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
     lwpInitSystem(PP_MAIN, ctx, flags, &set);
@@ -108,13 +109,14 @@ empth_sleep(time_t until)
 }
 
 int
-empth_wait_for_shutdown(void)
+empth_wait_for_signal(void)
 {
     sigset_t set;
     int sig, err;
     time_t now;
 
     sigemptyset(&set);
+    sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
     for (;;) {

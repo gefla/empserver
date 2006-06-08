@@ -577,7 +577,7 @@ empth_sleep(time_t until)
 /************************
  * empth_request_shutdown
  *
- * This wakes up empth_wait_for_shutdown() so shutdown can proceed.
+ * This wakes up empth_wait_for_signal() so shutdown can proceed.
  * This is done by signalling hShutdownEvent.
  */
 void
@@ -587,7 +587,7 @@ empth_request_shutdown(void)
 }
 
 int
-empth_wait_for_shutdown(void)
+empth_wait_for_signal(void)
 {
     /* Get the MUTEX semaphore, wait the number of MS */
     WaitForSingleObject(hShutdownEvent, INFINITE);
