@@ -403,10 +403,8 @@ shutdwn(int sig)
     finish_server();
 
 #if defined(_WIN32)
-    if (daemonize) {
+    if (daemonize)
         stop_service();
-	return;
-    }
 #endif
     _exit(0);
 }
