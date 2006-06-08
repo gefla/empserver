@@ -160,6 +160,6 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 static int
 cant_listen(char *host, char *serv, const char *err)
 {
-    fprintf(stderr, "Can't listen on %s:%s: %s", host, serv, err);
+    fprintf(stderr, "Can't listen on %s:%s: %s\n", host, serv, err);
     exit(1);
 }
