@@ -99,10 +99,9 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
     char *bp;
     char prompt[128];
     coord dx, dy;
-    struct sctstr sect, dsect;
+    struct sctstr sect;
     coord nx, ny;
     int dir;
-    double mv_cost;
 
     if (arg) {
 	strncpy(buf, arg, MAX_PATH_LEN - 1);
