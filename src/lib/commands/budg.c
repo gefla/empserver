@@ -63,7 +63,7 @@ static char *dotsprintf(char *buf, char *format, int data);
 int
 budg(void)
 {
-    int i, res;
+    int i;
     long p_sect[SCT_MAXDEF+1][2];
     int taxes, Ncivs, Nuws, bars, Nbars, mil;
     int ships, sbuild, nsbuild, smaint;
@@ -190,7 +190,6 @@ calc_all(long p_sect[][2],
 	 int *units, int *lbuild, int *nlbuild, int *lmaint,
 	 int *planes, int *pbuild, int *npbuild, int *pmaint)
 {
-    int y, z;
     struct natstr *np;
     int *bp;
     long pop = 0;
