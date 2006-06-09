@@ -610,7 +610,6 @@ static int
 mtsymset(int fldno, long *set)
 {
     struct castr *ca;
-    struct symbol *symtab;
 
     ca = getfld(fldno, NULL);
     if (!ca)
@@ -627,7 +626,6 @@ static int
 add2symset(int fldno, long *set, char *sym)
 {
     struct castr *ca;
-    struct symbol *symtab;
     int i;
 
     ca = getfld(fldno, NULL);
