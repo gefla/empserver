@@ -85,7 +85,7 @@ journal_entry(char *fmt, ...)
     static char buf[1024];
     va_list ap;
     time_t now;
-    int n, i, olderr;
+    int n, i;
 
     if (journal) {
 	time(&now);
