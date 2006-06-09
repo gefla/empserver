@@ -339,8 +339,7 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 static int
 feed_land(struct lndstr *lp, int etus)
 {
-    int needed, give, take;
-    struct shpstr *sp;
+    int needed;
 
     if (opt_NOFOOD)
 	return 0;
