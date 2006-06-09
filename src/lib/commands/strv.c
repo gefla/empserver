@@ -215,7 +215,7 @@ starv_units(char *range)
     struct nstr_item ni;
     struct lndstr land;
     int nunit = 0;
-    int s, needed;
+    int s;
 
     if (!snxtitem(&ni, EF_LAND, range))
 	return;
