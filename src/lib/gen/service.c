@@ -173,6 +173,8 @@ service_ctrl_handler(DWORD Opcode)
 void WINAPI
 service_main(DWORD argc, LPTSTR *argv)
 {
+    int sig;
+    
     service_status.dwServiceType        = SERVICE_WIN32; 
     service_status.dwCurrentState       = SERVICE_START_PENDING; 
     service_status.dwControlsAccepted   = SERVICE_ACCEPT_STOP; 
@@ -201,7 +203,9 @@ service_main(DWORD argc, LPTSTR *argv)
         logerror("SetServiceStatus error %ld\n", GetLastError());
     }
 
-    empth_exit();
+    sig = empth_wait_for_signal();
+
+    shutdwn(sig);
 
     CANT_REACH();
     finish_server();
