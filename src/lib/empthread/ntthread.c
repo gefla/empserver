@@ -589,6 +589,8 @@ empth_request_shutdown(void)
 int
 empth_wait_for_signal(void)
 {
+    loc_BlockThisThread();
+
     /* Get the MUTEX semaphore, wait the number of MS */
     WaitForSingleObject(hShutdownEvent, INFINITE);
 
