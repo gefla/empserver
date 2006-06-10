@@ -62,7 +62,7 @@ static void ac_planedamage(struct plist *, natid, int, natid, int,
 static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
-static void ac_fireflak(struct emp_qelem *, natid, natid, int);
+static void ac_fireflak(struct emp_qelem *, natid, int);
 static void getilist(struct emp_qelem *, natid,
 		     struct emp_qelem *, struct emp_qelem *,
 		     struct emp_qelem *, struct emp_qelem *);
@@ -805,7 +805,7 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
 	if (from->sct_own != 0)
 	    PR(from->sct_own, "firing %d flak guns in %s...\n",
 	       gun, xyas(from->sct_x, from->sct_y, from->sct_own));
-	ac_fireflak(list, from->sct_own, 0, gun);
+	ac_fireflak(list, from->sct_own, gun);
     }
 }
 
@@ -875,7 +875,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	    guns = 14;
 	guns = 2.0 * tfact(from, guns);
 	PR(plane_owner, "Flak!  Ships firing %d flak guns...\n", guns);
-	ac_fireflak(list, from, 0, guns);
+	ac_fireflak(list, from, guns);
     }
 }
 
@@ -940,7 +940,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	guns = 2.0 * tfact(from, guns);
 	PR(plane_owner, "Flak!  Land units firing %d flak guns...\n",
 	   guns);
-	ac_fireflak(list, from, 0, guns);
+	ac_fireflak(list, from, guns);
     }
 }
 
@@ -948,7 +948,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
  * Called from shipflak, landflak, and doflak.
  */
 static void
-ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
+ac_fireflak(struct emp_qelem *list, natid from, int guns)
 {
     struct plnstr *pp;
     struct plist *plp;
@@ -977,7 +977,7 @@ ac_fireflak(struct emp_qelem *list, natid from, natid other, int guns)
 	if (plp->pcp->pl_flags & P_H)
 	    diff -= 1;
 	n = ac_flak_dam(diff);
-	ac_planedamage(plp, from, n, other, 2, 1, msg);
+	ac_planedamage(plp, from, n, 0, 2, 1, msg);
     }
 }
 
