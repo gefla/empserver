@@ -226,35 +226,41 @@ calc_all(long p_sect[][2],
 
     *mil += upd_slmilcosts(np->nat_cnum, etu);
 
-    /* Maintain and build ships */
+    /* Maintain ships */
     sea_money[player->cnum] = 0;
     *ships = prod_ship(etu, player->cnum, bp, 0);
     *smaint = sea_money[player->cnum];
+
+    /* Maintain planes */
+    air_money[player->cnum] = 0;
+    *planes = prod_plane(etu, player->cnum, bp, 0);
+    *pmaint = air_money[player->cnum];
+
+    /* Maintain land units */
+    lnd_money[player->cnum] = 0;
+    *units = prod_land(etu, player->cnum, bp, 0);
+    *lmaint = lnd_money[player->cnum];
+
+    /* Produce */
+    produce_sect(player->cnum, etu, bp, p_sect);
+
+    /* Build ships */
     sea_money[player->cnum] = 0;
     *nsbuild = prod_ship(etu, player->cnum, bp, 1);
     *sbuild = sea_money[player->cnum];
     sea_money[player->cnum] = 0;
 
-    /* Maintain and build planes */
-    air_money[player->cnum] = 0;
-    *planes = prod_plane(etu, player->cnum, bp, 0);
-    *pmaint = air_money[player->cnum];
+    /* Build planes */
     air_money[player->cnum] = 0;
     *npbuild = prod_plane(etu, player->cnum, bp, 1);
     *pbuild = air_money[player->cnum];
     air_money[player->cnum] = 0;
 
-    /* Maintain and build land units */
-    lnd_money[player->cnum] = 0;
-    *units = prod_land(etu, player->cnum, bp, 0);
-    *lmaint = lnd_money[player->cnum];
+    /* Build land units */
     lnd_money[player->cnum] = 0;
     *nlbuild = prod_land(etu, player->cnum, bp, 1);
     *lbuild = lnd_money[player->cnum];
     lnd_money[player->cnum] = 0;
-
-    /* Produce */
-    produce_sect(player->cnum, etu, bp, p_sect);
 
     free(bp);
 }
