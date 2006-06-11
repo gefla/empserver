@@ -815,7 +815,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     struct nstr_item ni;
     struct shpstr ship;
     struct mchrstr *mcp;
-    double aaf, total;
+    double flak, total, ngun;
     int gun, shell;
     int rel;
     struct plist *plp;
@@ -827,7 +827,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     plane_owner = plp->plane.pln_own;
 
     memset(nats, 0, sizeof(nats));
-    aaf = total = 0;
+    total = ngun = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0 || ship.shp_own == plane_owner)
@@ -851,8 +851,9 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	}
 	if (gun == 0 || shell == 0)
 	    continue;
-	total += gun;
-	aaf += techfact(ship.shp_tech, gun * 2.0);
+	flak = gun * (ship.shp_effic / 100.0);
+	ngun += flak;
+	total += techfact(ship.shp_tech, flak * 2.0);
 
 	if (!nats[ship.shp_own]) {
 	    /* First time here, print the message */
@@ -863,15 +864,15 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	    nats[ship.shp_own] = 1;
 	}
 	PR(ship.shp_own, "firing %.0f flak guns from %s...\n",
-	   aaf, prship(&ship));
+	   flak, prship(&ship));
 	from = ship.shp_own;
     }
 
     /* Limit to FLAK_GUN_MAX guns of average tech factor */
-    if (total > FLAK_GUN_MAX)
-	aaf *= FLAK_GUN_MAX / total;
+    if (ngun > FLAK_GUN_MAX)
+	total *= FLAK_GUN_MAX / ngun;
 
-    gun = roundavg(aaf);
+    gun = roundavg(total);
     if (gun > 0) {
 	PR(plane_owner, "Flak!  Ships firing %d flak guns...\n", gun);
 	ac_fireflak(list, from, gun);
@@ -884,19 +885,19 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     struct nstr_item ni;
     struct lndstr land;
     struct lchrstr *lcp;
-    double aaf, total;
+    double flak, total, ngun;
     int gun;
     int rel;
-    natid from;
     struct plist *plp;
     natid plane_owner;
+    natid from;
     int nats[MAXNOC];
 
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
     memset(nats, 0, sizeof(nats));
-    aaf = total = 0;
+    total = ngun = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0 || land.lnd_own == plane_owner)
@@ -909,8 +910,9 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	rel = getrel(getnatp(land.lnd_own), plane_owner);
 	if (rel > HOSTILE)
 	    continue;
-	total += land.lnd_aaf * 1.5;
-	aaf += techfact(land.lnd_tech, land.lnd_aaf * 1.5 * 2.0);
+	flak = land.lnd_aaf * 1.5 * land.lnd_effic / 100.0;
+	ngun += flak;
+	total += techfact(land.lnd_tech, flak * 2.0);
 
 	if (!nats[land.lnd_own]) {
 	    /* First time here, print the message */
@@ -926,10 +928,10 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     }
 
     /* Limit to FLAK_GUN_MAX guns of average tech factor */
-    if (total > FLAK_GUN_MAX)
-	aaf *= FLAK_GUN_MAX / total;
+    if (ngun > FLAK_GUN_MAX)
+	total *= FLAK_GUN_MAX / ngun;
 
-    gun = roundavg(aaf);
+    gun = roundavg(total);
     if (gun > 0) {
 	PR(plane_owner, "Flak!  Land units firing %d flak guns...\n", gun);
 	ac_fireflak(list, from, gun);
