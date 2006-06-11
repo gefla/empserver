@@ -656,7 +656,7 @@ extern void show_news(int);
 /* shpsub.c */
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
-extern int shp_sweep(struct emp_qelem *, int, natid);
+extern int shp_sweep(struct emp_qelem *, int, int, natid);
 extern char *shp_path(int, struct shpstr *, char *);
 extern void shp_put(struct emp_qelem *, natid);
 extern void shp_list(struct emp_qelem *);

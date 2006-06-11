@@ -210,7 +210,7 @@ shp_put(struct emp_qelem *list, natid actor)
 }
 
 int
-shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
+shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -229,7 +229,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 		    prship(&mlp->ship));
 	    continue;
 	}
-	if (mlp->mobil <= 0.0) {
+	if (takemob && mlp->mobil <= 0.0) {
 	    if (verbose)
 		mpr(actor, "%s is out of mobility!\n", prship(&mlp->ship));
 	    continue;
@@ -241,8 +241,10 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, natid actor)
 		    prship(&mlp->ship));
 	    continue;
 	}
-	mlp->mobil -= shp_mobcost(&mlp->ship);
-	mlp->ship.shp_mobil = (int)mlp->mobil;
+	if (takemob) {
+	    mlp->mobil -= shp_mobcost(&mlp->ship);
+	    mlp->ship.shp_mobil = (int)mlp->mobil;
+	}
 	putship(mlp->ship.shp_uid, &mlp->ship);
 	if (!(mines = sect.sct_mines))
 	    continue;
@@ -877,7 +879,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     }
     if (QEMPTY(list))
 	return stopping;
-    stopping |= shp_sweep(list, 0, actor);
+    stopping |= shp_sweep(list, 0, 0, actor);
     if (QEMPTY(list))
 	return stopping;
     stopping |= shp_check_mines(list);

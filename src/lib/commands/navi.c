@@ -156,7 +156,7 @@ navi(void)
 	    } else if (cp[-1] == 'i') {
 		shp_list(&ship_list);
 	    } else {
-		stopping |= shp_sweep(&ship_list, 1, player->cnum);
+		stopping |= shp_sweep(&ship_list, 1, 0, player->cnum);
 	    }
 	    continue;
 	} else if (*cp == 'r' || *cp == 'l' || *cp == 's') {
