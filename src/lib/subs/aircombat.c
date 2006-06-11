@@ -728,7 +728,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     if (eff < PLANE_MINEFF) {
 	sprintf(dmess, " shot down");
 	disp = 1;
-    } else if (eff < 80 && chance((100 - eff) / 100.0) && checkabort) {
+    } else if (eff < 80 && chance((80 - eff) / 100.0) && checkabort) {
 	sprintf(dmess, " aborted @%2d%%", eff);
 	disp = 2;
     } else if (show == 0) {
