@@ -94,8 +94,8 @@ The formula for the movement cost for 1 sector is:
 
 .FI
 .s1
-Moving a ship through a sector that has been mined
-introduces a chance of mines/(mines + 50) of hitting a mine.
+Moving a ship through a sector that has been mined risks hitting a
+mine (see \*Qinfo Hitchance\*U).
 Minesweeps can remove up to five mines per pass through a
 sector (indicated by the message \*QSweep...\*U).
 Minesweeps also take 1/2 normal damage from mines.
