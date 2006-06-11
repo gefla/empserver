@@ -73,8 +73,8 @@ takes a casualty, otherwise the attacker takes a casualty.
 .s1
 Once all combat rolls have been made, the attacker and defender are
 checked for aborting. If a plane is damaged below 80%, then it will
-have a chance of aborting.  The chance to abort is (100-plane eff). (Example: a
-plane at 70% has a 30% chance to abort.
+have a chance of aborting.  The chance to abort is (80-plane eff). (Example: a
+plane at 70% has a 10% chance to abort.
 .s1
 Missiles intercepting die after the combat is done.
 .L Example
@@ -103,13 +103,11 @@ The intensity is randomly determined to be 30. A d100 is rolled 30 times.
 Each time that is 43 or less, the defender takes a hit. Each time it is
 44 or more, the attacker takes a hit.
 .s1
-In our example, the attacker takes 17, the defender 13, leaving them at
-13% and 87% efficiency, respectively. The attacker has an 87% chance to
-abort, and the defender a 13%. If neither aborts, the attacker flies on. If
-both abort, the mission is over. If only the defender aborts, the attacker
-will fly on to the next sector in his flight path (perhaps to have combat
-again) If only the attacker aborts, the defender flies home with the
-knowledge of a job well done.
+In our example, the attacker takes 17, the defender 13, leaving them
+at 13% and 87% efficiency, respectively. The attacker has an 67%
+chance to abort, and the defender won't.  If the attacker aborts, the
+mission is over.  Else, the attacker flies on to the next sector in
+his flight path, perhaps to have combat again.
 .s1
 .L ABM's
 ABM's do not use the normal combat procedure. They simply have a %

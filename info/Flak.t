@@ -122,7 +122,7 @@ flak, the following formula's are used:
     plane's eff = (plane's eff) - dam;
     if (plane's eff < 10%)
         plane is shot down
-    else if (chance((100 - (plane's eff)) / 100))
+    else if (chance((80 - (plane's eff)) / 100))
         plane aborts mission
     otherwise the plane continues on it's mission
 
