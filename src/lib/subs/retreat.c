@@ -458,11 +458,10 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	newy = ynorm(lp->lnd_y + dy);
 
 	getsect(newx, newy, &sect);
-	if ((sect.sct_type == SCT_WATER) ||
-	    (sect.sct_type == SCT_MOUNT) ||
-	    (sect.sct_type == SCT_SANCT) ||
-	    (sect.sct_type == SCT_WASTE) ||
-	    (sect.sct_own != lp->lnd_own)) {
+	mobcost = lnd_mobcost(lp, &sect);
+	if (mobcost < 0
+	    || sect.sct_type == SCT_MOUNT
+	    || sect.sct_own != lp->lnd_own) {
 	    wu(0, lp->lnd_own, "%s %s,\nbut could not retreat to %s!\n",
 	       prland(lp),
 	       conditions[findcondition(code)].desc[orig],
@@ -471,7 +470,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 		putland(lp->lnd_uid, lp);
 	    return 0;
 	}
-	mobcost = lnd_mobcost(lp, &sect, MOB_MARCH);
 	lp->lnd_x = newx;
 	lp->lnd_y = newy;
 	lp->lnd_mobil -= mobcost;

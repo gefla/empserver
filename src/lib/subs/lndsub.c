@@ -162,7 +162,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
     int taken;
     int nowhere_to_go = 0;
     struct sctstr rsect;
-    double mobcost;
+    double mobcost, bmcost;
     signed char orig;
     int mob;
 
@@ -227,12 +227,16 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		    continue;
 		if (sect.sct_type == SCT_MOUNT)
 		    continue;
+		mobcost = lnd_mobcost(&llp->land, &rsect);
+		if (mobcost < 0)
+		    continue;
 		++nowned;
 		civs = sect.sct_item[I_CIVIL];
 		if (civs > biggest) {
 		    biggest = civs;
 		    bx = sect.sct_x;
 		    by = sect.sct_y;
+		    bmcost = mobcost;
 		}
 	    }
 	    if (!nowned)
@@ -242,8 +246,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		llp->land.lnd_x = bx;
 		llp->land.lnd_y = by;
 		getsect(bx, by, &rsect);
-		mobcost = lnd_mobcost(&llp->land, &rsect, MOB_MARCH);
-		mob = llp->land.lnd_mobil - (int)mobcost;
+		mob = llp->land.lnd_mobil - (int)bmcost;
 		if (mob < -127)
 		    mob = -127;
 		orig = llp->land.lnd_mobil;
@@ -998,7 +1001,7 @@ lnd_pathcost(struct lndstr *lp, double pathcost)
 	effspd *= lp->lnd_effic * 0.01;
 
     /*
-     * The return value must be pathcost times a factor that depends
+     * The return value must be PATHCOST times a factor that depends
      * only on the land unit.  Anything else breaks path finding.  In
      * particular, you can't add or enforce a minimum cost here.  Do
      * it in sector_mcost().
@@ -1006,10 +1009,17 @@ lnd_pathcost(struct lndstr *lp, double pathcost)
     return pathcost * 5.0 * speed_factor(effspd, lp->lnd_tech);
 }
 
-double
-lnd_mobcost(struct lndstr *lp, struct sctstr *sp, int mobtype)
+int
+lnd_mobtype(struct lndstr *lp)
 {
-    return lnd_pathcost(lp, sector_mcost(sp, mobtype));
+    return (lchr[(int)lp->lnd_type].l_flags & L_TRAIN)
+	? MOB_RAIL : MOB_MARCH;
+}
+
+double
+lnd_mobcost(struct lndstr *lp, struct sctstr *sp)
+{
+    return lnd_pathcost(lp, sector_mcost(sp, lnd_mobtype(lp)));
 }
 
 int
@@ -1101,11 +1111,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	}
 	llp->land.lnd_x = newx;
 	llp->land.lnd_y = newy;
-	if (lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) {
-	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_RAIL);
-	} else {
-	    llp->mobil -= lnd_mobcost(&llp->land, &sect, MOB_MARCH);
-	}
+	llp->mobil -= lnd_mobcost(&llp->land, &sect);
 	llp->land.lnd_mobil = (int)llp->mobil;
 	llp->land.lnd_harden = 0;
 	putland(llp->land.lnd_uid, &llp->land);
@@ -1277,10 +1283,7 @@ lnd_path(int together, struct lndstr *lp, char *buf)
 	return 0;
     }
     getsect(lp->lnd_x, lp->lnd_y, &sect);
-    if (lchr[(int)lp->lnd_type].l_flags & L_TRAIN)
-	mtype = MOB_RAIL;
-    else
-	mtype = MOB_MARCH;
+    mtype = lnd_mobtype(lp);
     cp = BestLandPath(buf, &sect, &d_sect, &dummy, mtype);
     if (!cp) {
 	pr("No owned %s from %s to %s!\n",

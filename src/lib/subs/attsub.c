@@ -1038,7 +1038,8 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	switch (combat_mode) {
 	case A_ATTACK:
 	    mobcost = lnd_pathcost(&land,
-				   att_mobcost(off->own, def, MOB_MARCH));
+				   att_mobcost(off->own, def,
+					       lnd_mobtype(&land)));
 	    if (land.lnd_mobil < mobcost) {
 		pr("%s does not have enough mobility (%d needed)\n",
 		   prland(&land), (int)ceil(mobcost));
@@ -1530,7 +1531,8 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	getsect(def->x, def->y, &dsect);
-	if (!BestLandPath(buf, &sect, &dsect, &pathcost, MOB_MARCH))
+	if (!BestLandPath(buf, &sect, &dsect, &pathcost,
+			  lnd_mobtype(&land)))
 	    continue;
 
 	mobcost = lnd_pathcost(&land, pathcost);
@@ -2529,7 +2531,8 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
     switch (combat_mode) {
     case A_ATTACK:
 	mobcost = lnd_pathcost(&llp->land,
-			       att_mobcost(off->own, def, MOB_MARCH));
+			       att_mobcost(off->own, def,
+					   lnd_mobtype(&llp->land)));
 	new = llp->land.lnd_mobil - mobcost;
 	if (new < -127)
 	    new = -127;

@@ -201,7 +201,8 @@ extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
 extern int lnd_check_mines(struct emp_qelem *);
 extern double lnd_pathcost(struct lndstr *, double);
-extern double lnd_mobcost(struct lndstr *, struct sctstr *, int);
+extern int lnd_mobtype(struct lndstr *);
+extern double lnd_mobcost(struct lndstr *, struct sctstr *);
 extern char *lnd_path(int, struct lndstr *, char *);
 
 extern int attack_val(int, struct lndstr *);
