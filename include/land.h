@@ -45,7 +45,6 @@
 #define N_MAXLAND	30
 #define LAND_MINEFF	10
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */
-#define LND_MINMOBCOST  0.200
 
 struct lndstr {
     /* initial part must match struct genitem */

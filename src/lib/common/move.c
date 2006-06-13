@@ -66,10 +66,10 @@ sector_mcost(struct sctstr *sp, int mobtype)
 	d = (d * 10.0 - sp->sct_effic) / 115;
 
     if (mobtype == MOB_MOVE)
-	return MAX(d, MIN_MOBCOST);
+	return MAX(d, 0.001);
     if (sp->sct_own != sp->sct_oldown && sp->sct_mobil <= 0
 	&& mobtype != MOB_RAIL)
-	return MAX(d, LND_MINMOBCOST);
+	return MAX(d, 0.2);
     return MAX(d, 0.01);
 }
 

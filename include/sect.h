@@ -175,7 +175,6 @@ extern struct dchrstr bigcity_dchr;
 #define SCT_DEFENSE(sp) \
     (opt_DEFENSE_INFRA ? (sp)->sct_defense : (sp)->sct_effic)
 
-#define MIN_MOBCOST  0.001	/* lowest cost a sector can have to move into */
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
 #define MOB_MOVE    0
