@@ -103,7 +103,7 @@ char *att_mode[] = {
  * the type of the object is determined by combat->type which can take the
  * values EF_SECTOR, EF_SHIP, EF_PLANE, or EF_BAD.  Another important parameter
  * which is often passed to these functions is combat_mode.  This can take
- * the value A_DEFENSE, A_ATTACK, A_ASSAULT, A_PARA, A_BOARD and A_LBOARD.
+ * the value A_DEFEND, A_ATTACK, A_ASSAULT, A_PARA, A_BOARD and A_LBOARD.
  * As these six modes of being in combat affect things like mobcost and combat
  * value, there are often switches made on combat_mode.  Note that in all cases
  * no mobility is taken from sectors, ships, or land units until the player
@@ -339,9 +339,9 @@ put_combat(struct combat *com)
 	sect.sct_type = com->sct_type;
 	deff = sect.sct_effic - com->eff;
 	if (deff > 0) {
-	    sect.sct_road -= (sect.sct_road * deff / 100.0);
-	    sect.sct_rail -= (sect.sct_rail * deff / 100.0);
-	    sect.sct_defense -= (sect.sct_defense * deff / 100.0);
+	    sect.sct_road -= sect.sct_road * deff / 100.0;
+	    sect.sct_rail -= sect.sct_rail * deff / 100.0;
+	    sect.sct_defense -= sect.sct_defense * deff / 100.0;
 	    if (sect.sct_road <= 0)
 		sect.sct_road = 0;
 	    if (sect.sct_rail <= 0)
@@ -796,7 +796,6 @@ get_mob_support(int combat_mode, struct combat *off, struct combat *def)
 					      MOB_MOVE);
 	if (mob_support < 0)
 	    mob_support = 0;
-/*		mob_support = off->mob / sector_mcost(def->sct_type, def->eff);*/
 	if (mob_support < off->troops)
 	    pr("Sector %s has %d mobility which can only support %d mil,\n", xyas(off->x, off->y, player->cnum), off->mob, mob_support);
 	else
@@ -1099,7 +1098,7 @@ att_combat_eff(struct combat *com)
 /*			str = com->sct_dcp->d_dstr;*/
     } else if (com->type == EF_SHIP && com->own != player->cnum) {
 	getship(com->shp_uid, &ship);
-	eff = (1.0 + ship.shp_armor / 100.0);
+	eff = 1.0 + ship.shp_armor / 100.0;
     }
     return eff;
 }
@@ -1528,8 +1527,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	wu(0, land.lnd_own, "%s reacts to %s.\n",
 	   prland(&land), xyas(land.lnd_x, land.lnd_y, land.lnd_own));
 
-	llp = (struct llist *)
-	    malloc(sizeof(struct llist));
+	llp = malloc(sizeof(struct llist));
 
 	memset(llp, 0, sizeof(struct llist));
 	llp->supplied = 1;
@@ -1771,6 +1769,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     int news_item;
     int recalctime;
     double odds;
+    int newmob;
     char *action;
 
     ototal = get_ototal(combat_mode, off, olist, osupport,
@@ -1879,12 +1878,12 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	def->mil = 0;
     else {
 	if (def->type == EF_SECTOR && d_mil && d_cas) {
-	    int tmob;
-
-	    /* Make sure we use a positive mobility here */
-	    tmob = ((def->mob < 0) ? -(def->mob) : (def->mob));
-	    def->mobcost =
-		MIN(20, MIN(1, tmob - damage(tmob, 100 * d_cas / d_mil)));
+	    if (def->mob < 0)
+		def->mobcost = 0;
+	    else {
+		newmob = damage(def->mob, 100 * d_cas / d_mil);
+		def->mobcost = MIN(20, def->mob - newmob);
+	    }
 	}
 	def->mil = def->troops;
     }
@@ -1892,12 +1891,14 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     /* update attack mobility & mil */
     for (n = 0; n <= off->last; ++n)
 	if (off[n].type != EF_BAD && off[n].troops < a_troops[n]) {
-	    if (off[n].type == EF_SECTOR && off[n].mil)
-		off[n].mobcost +=
-		    MIN(20,
-			off[n].mob - damage(off[n].mob,
-					    100 * (a_troops[n] - off[n].troops)
-					    / off[n].mil));
+	    if (off[n].type == EF_SECTOR && off[n].mil) {
+		if (!CANT_HAPPEN(off[n].mob < 0)) {
+		    newmob = damage(off[n].mob,
+				    100 * (a_troops[n] - off[n].troops)
+				    / off[n].mil);
+		    off[n].mobcost += MIN(20, off[n].mob - newmob);
+		}
+	    }
 	    off[n].mil -= a_troops[n] - off[n].troops;
 	}
 
