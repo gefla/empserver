@@ -783,21 +783,51 @@ att_ask_offense(int combat_mode, struct combat *off, struct combat *def,
     return 0;
 }
 
+/*
+ * Return path cost for ATTACKER to enter sector given by DEF.
+ * MOBTYPE is a mobility type accepted by sector_mcost().
+ */
+static double
+att_mobcost(natid attacker, struct combat *def, int mobtype)
+{
+    struct sctstr sect;
+    int ok;
+
+    if (CANT_HAPPEN(def->type != EF_SECTOR))
+	return -1.0;
+    ok = getsect(def->x, def->y, &sect);
+    if (CANT_HAPPEN(!ok))
+	return -1.0;
+
+    /*
+     * We want the cost to move/march into the sector.  If we just
+     * called sector_mcost(), we'd get the defender's cost.  The
+     * attacker's cost is higher unless he's the old-owner.  Note: if
+     * there are no civilians, a victorious attacker will become the
+     * old-owner.  But he isn't now.
+     */
+    sect.sct_own = attacker;
+    sect.sct_mobil = 0;
+    return sector_mcost(&sect, mobtype);
+}
+
 /* How many mil is off allowed to attack with when it attacks def? */
 
 static int
 get_mob_support(int combat_mode, struct combat *off, struct combat *def)
 {
     int mob_support;
+    double mobcost;
 
     switch (combat_mode) {
     case A_ATTACK:
-	mob_support = off->mob / sector_mcost(getsectp(def->x, def->y),
-					      MOB_MOVE);
-	if (mob_support < 0)
-	    mob_support = 0;
+	mobcost = att_mobcost(off->own, def, MOB_MOVE);
+	if (mobcost < 0 || off->mob <= 0)
+	    return 0;
+	mob_support = off->mob / mobcost;
 	if (mob_support < off->troops)
-	    pr("Sector %s has %d mobility which can only support %d mil,\n", xyas(off->x, off->y, player->cnum), off->mob, mob_support);
+	    pr("Sector %s has %d mobility which can only support %d mil,\n",
+	       xyas(off->x, off->y, player->cnum), off->mob, mob_support);
 	else
 	    mob_support = off->troops;
 	return mob_support;
@@ -850,10 +880,9 @@ calc_mobcost(int combat_mode, struct combat *off, struct combat *def,
 	return;
     switch (combat_mode) {
     case A_ATTACK:
-	off->mobcost +=
-	    MAX(1,
-		(int)(attacking_mil *
-		      sector_mcost(getsectp(def->x, def->y), MOB_MOVE)));
+	off->mobcost += MAX(1,
+			    (int)(attacking_mil
+				  * att_mobcost(off->own, def, MOB_MOVE)));
 	break;
     case A_LBOARD:
 	off->mobcost += MAX(1, attacking_mil / 5);
@@ -1008,8 +1037,8 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	}
 	switch (combat_mode) {
 	case A_ATTACK:
-	    mobcost =
-		lnd_mobcost(&land, getsectp(def->x, def->y), MOB_NONE);
+	    mobcost = lnd_pathcost(&land,
+				   att_mobcost(off->own, def, MOB_MARCH));
 	    if (land.lnd_mobil < mobcost) {
 		pr("%s does not have enough mobility (%d needed)\n",
 		   prland(&land), (int)ceil(mobcost));
@@ -1103,10 +1132,6 @@ att_combat_eff(struct combat *com)
     return eff;
 }
 
-/*
- * Estimate the defense strength and give the attacker a chance to abort
- * if the odds are less than 50%
- */
 int
 att_get_offense(int combat_mode, struct combat *off,
 		struct emp_qelem *olist, struct combat *def)
@@ -2441,7 +2466,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	return;
     if (off->own != player->cnum)
 	return;
-    d = sector_mcost(getsectp(def->x, def->y), MOB_MOVE);
+    d = att_mobcost(off->own, def, MOB_MOVE);
     if ((mob_support = MIN(off->troops, (int)(off->mob / d))) <= 0)
 	return;
     sprintf(prompt, "How many mil to move in from %s (%d max)? ",
@@ -2503,8 +2528,8 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 
     switch (combat_mode) {
     case A_ATTACK:
-	mobcost =
-	    lnd_mobcost(&llp->land, getsectp(def->x, def->y), MOB_NONE);
+	mobcost = lnd_pathcost(&llp->land,
+			       att_mobcost(off->own, def, MOB_MARCH));
 	new = llp->land.lnd_mobil - mobcost;
 	if (new < -127)
 	    new = -127;

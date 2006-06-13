@@ -41,7 +41,7 @@
 #include "common.h"
 
 double
-sector_mcost(struct sctstr *sp, int do_bonus)
+sector_mcost(struct sctstr *sp, int mobtype)
 {
     double d;
 
@@ -49,16 +49,15 @@ sector_mcost(struct sctstr *sp, int do_bonus)
     if (d <= 0)
 	return -1.0;
 
-    if (do_bonus == MOB_MOVE || do_bonus == MOB_MARCH) {
+    if (mobtype == MOB_MOVE || mobtype == MOB_MARCH) {
 	d = d / (1.0 + sp->sct_road / 122.0);
-    } else if (do_bonus == MOB_RAIL) {
+    } else if (mobtype == MOB_RAIL) {
 	if (sp->sct_rail <= 0)
 	    return -1.0;
 	d = d / (1.0 + sp->sct_rail / 100.0);
-    } else {
-	if (d < 2.0)
-	    d = 2.0;
-    }
+    } else
+	CANT_REACH();
+
     if (d < 1.0)
 	d = 1.0;
     if (dchr[sp->sct_type].d_mcst < 25)
@@ -66,10 +65,10 @@ sector_mcost(struct sctstr *sp, int do_bonus)
     else
 	d = (d * 10.0 - sp->sct_effic) / 115;
 
-    if (do_bonus == MOB_MOVE)
+    if (mobtype == MOB_MOVE)
 	return MAX(d, MIN_MOBCOST);
     if (sp->sct_own != sp->sct_oldown && sp->sct_mobil <= 0
-	&& do_bonus != MOB_RAIL)
+	&& mobtype != MOB_RAIL)
 	return MAX(d, LND_MINMOBCOST);
     return MAX(d, 0.01);
 }

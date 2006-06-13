@@ -164,7 +164,7 @@ extern int sctoff(coord x, coord y);
 
 extern struct dchrstr dchr[SCT_MAXDEF + 1];
 extern struct dchrstr bigcity_dchr;
-#define IS_BIG_CITY(sect) (dchr[(sect)].d_pkg == UPKG)
+#define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
 
 /* Minimal efficiency of sectors that can be knocked down (bridges) */
 #define SCT_MINEFF 20
@@ -178,10 +178,9 @@ extern struct dchrstr bigcity_dchr;
 #define MIN_MOBCOST  0.001	/* lowest cost a sector can have to move into */
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
-#define MOB_NONE    0
-#define MOB_MOVE    1
-#define MOB_MARCH   2
-#define MOB_RAIL    3
+#define MOB_MOVE    0
+#define MOB_MARCH   1
+#define MOB_RAIL    2
 
 #define INT_ROAD    0
 #define INT_RAIL    1
