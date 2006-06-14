@@ -78,6 +78,19 @@ Print version information and exit.
 .SH OPERANDS
 Operands are ignored for backward compatibility.  Their use is
 deprecated.
+.if !\nw \{
+.SH SIGNALS
+.TP
+.B SIGHUP
+Request
+.I emp_server
+to reopen log files.  This allows proper log rotation.
+.TP
+.BR SIGINT ", " SIGTERM
+Request
+.I emp_server
+to shut down immediately.
+\}
 .if \nw \{
 .SH RESTRICTIONS
 When using the service control manager (Services Window), the start
