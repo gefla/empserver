@@ -73,8 +73,6 @@ newe(void)
 	    uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	    natp = getnatp(sect.sct_own);
 	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
-	    /* This isn't quite right, since research might rise/fall */
-	    /* during the update, but it's the best we can really do  */
 	    work = new_work(&sect,
 			    total_work(sect.sct_work, etu_per_update,
 				       civs, sect.sct_item[I_MILIT], uws,

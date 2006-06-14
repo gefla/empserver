@@ -263,7 +263,7 @@ decay_fallout(struct sctstr *sp, int etus)
 }
 
 /*
- * Produce only a set sector type for a specific nation
+ * Produce for a specific nation
  */
 void
 produce_sect(int natnum, int etu, int *bp, long p_sect[][2])

@@ -37,7 +37,7 @@
 #include "match.h"
 
 /*
- * Find NEEDLE in array HAYSTACK[], return its index.
+ * Find element named NEEDLE in array HAYSTACK[], return its index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  * Each array element has a pointer to its name stored at offset OFFS.
