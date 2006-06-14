@@ -1,3 +1,52 @@
+Changes to Empire 4.3.6 - Wed Jun 14 18:18:34 UTC 2006
+ * Spy planes and satellites can no longer spot landspies.
+ * Spy planes can now spot surface ships at sea.  They can no longer
+   spot land units loaded on ships or land units.
+ * Fix train retreat mobility cost, and don't permit retreat off rail.
+ * Change maximum population to 100 for plains (was 49), mountains
+   (was 99), bridge spans and bridge towers (was 999), and to 1000 for
+   the other habitable sector types (was 999).
+ * Let minesweepers navigate at the speed their stats indicate by
+   letting them sweep on the move at no extra mobility charge.
+ * Reduce chance for planes to abort from 100-eff (if eff<80) to
+   80-eff.  This should make it easier to punch through air defense,
+   flak in particular, and increase the risk of getting shot down.
+ * Ship and land unit flak intensity is now proportional to efficiency.
+ * Ship and land unit flak intensity is no longer scaled by the tech
+   of the owner of the last thing firing.  It's still scaled by each
+   thing's tech.
+ * All ships and land units firing flak now spot the plane and are
+   spotted by the plane.  Previously, spotting stopped as soon as flak
+   maxed out.
+ * Inefficient land units were overcharged mobility when reacting.
+   Broken when Empire3 changed land unit mobility use not to depend on
+   efficiency, except for supply units.
+ * New journal file to log complete player input plus selected
+   important events.  Controlled by new econfig key keep_journal, off
+   by default.
+ * Fix unsafe shutdown on SIGINT and SIGTERM.
+ * Fix land unit path finding: paths weren't always cheapest (broken
+   in 4.0.2), and trains could be sent down paths without rail (never
+   worked).  Also fixes unit reaction path cost.
+ * Improved custom table reader can now deal with sector, item,
+   product and infrastructure tables more comfortably.
+ * Remove option BIG_CITY.  Deities can load a suitable sect table to
+   get the same effect.
+ * Many more selectors can now be compared with names, not just
+   numbers.  This includes nations, e.g. census ?old=Mirkwood.  Does
+   not fully work for queer names like &&&.
+ * Let land units on missions support, just like ships.
+ * Don't let units loaded on a train react.
+ * Change update sequence to repair ships, planes and land units after
+   sectors produce.  This makes repairs use new avail instead of old.
+ * Let players stop and start units.
+ * Remove budget priorities.
+ * Make plane report easier to understand.
+ * Change land report to show carriers in the same format as plane and
+   nuke report do.
+ * Code cleanup.
+ * Minor info file and manual page fixes.
+
 Changes to Empire 4.3.5 - Sun May 28 07:49:54 UTC 2006
  * In conditionals, ~ compared to a string selector now stands for an
    empty string.
