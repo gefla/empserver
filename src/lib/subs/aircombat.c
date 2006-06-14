@@ -162,7 +162,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
 	    } else if (mission_flags & P_S) {
-		satdisp(&sect, (mission_flags & P_I) ? 10 : 50, 1);
+		satdisp_sect(&sect, (mission_flags & P_I) ? 10 : 50);
 	    } else {
 		/* This is borrowed from lookout */
 		if (sect.sct_own == plane_owner)
@@ -193,6 +193,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		       mil : roundintby(mil, 25));
 		PR(plane_owner, "@ %s\n", xyas(x, y, plane_owner));
 	    }
+	    if (mission_flags & P_S)
+		satdisp_units(sect.sct_x, sect.sct_y);
 	} else {
 	    PR(plane_owner, "flying over %s at %s\n",
 	       dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));

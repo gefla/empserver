@@ -120,7 +120,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		continue;
 	    if (flags & P_S) {
 		if (sect.sct_own && sect.sct_own != player->cnum) {
-		    satdisp(&sect, acc, 0);
+		    satdisp_sect(&sect, acc);
 		    ++count;
 		    if (opt_HIDDEN)
 			setcont(player->cnum, sect.sct_own, FOUND_FLY);
@@ -274,13 +274,8 @@ sathead(void)
 }
 
 void
-satdisp(struct sctstr *sp, int acc, int showstuff)
+satdisp_sect(struct sctstr *sp, int acc)
 {
-    int first;
-    struct nstr_item ni;
-    struct shpstr ship;
-    struct lndstr land;
-
     prxy("%4d,%-4d   ", sp->sct_x, sp->sct_y, player->cnum);
     pr("%c  %3d  %3d %3d %3d %3d %4d %4d %4d %4d %4d %4d %5d\n",
        dchr[sp->sct_type].d_mnem,
@@ -297,9 +292,17 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
        roundintby(sp->sct_item[I_FOOD], acc));
     map_set(player->cnum, sp->sct_x, sp->sct_y, dchr[sp->sct_type].d_mnem,
 	    0);
-    if (!showstuff)
-	return;
-    snxtitem_xy(&ni, EF_SHIP, sp->sct_x, sp->sct_y);
+}
+
+void
+satdisp_units(coord x, coord y)
+{
+    int first;
+    struct nstr_item ni;
+    struct shpstr ship;
+    struct lndstr land;
+
+    snxtitem_xy(&ni, EF_SHIP, x, y);
     first = 1;
     while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
@@ -320,7 +323,7 @@ satdisp(struct sctstr *sp, int acc, int showstuff)
     if (!first)
 	pr("\n");
 
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    snxtitem_xy(&ni, EF_LAND, x, y);
     first = 1;
 
     while (nxtitem(&ni, &land)) {
