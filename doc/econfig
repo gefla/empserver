@@ -77,11 +77,8 @@ file next to your econfig, then name the file in custom_tables.  Do
 *not* edit the default table in-place!  That bypasses important
 consistency checks.
 
-The server lets you customize more tables than the ones in builtindir.
-This is not recommended at this time.  You can use the xdump command
-to dump the default table to a file.  The resulting table is in
-machine-readable form, and may not be portable between different
-server versions.
+Be careful not to put `holes' into tables, e.g. by commenting out
+entries.  That doesn't work yet.
 
 A word of caution: Just because you can customize something doesn't
 mean you should!  The server makes an effort to catch mistakes that

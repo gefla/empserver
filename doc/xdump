@@ -2,7 +2,7 @@ Introduction
 
 Empire is designed as a smart server with dumb clients.  An Empire
 client need to know nothing about the game.  Even telnet would do.  In
-fact, emp_client is just as a slightly specialized telnet.
+fact, emp_client is litte more than a slightly specialized telnet.
 
 In such a design, presentation is in the server, and it is designed
 for human consumption.  Ideally, presentation and logic are cleanly
@@ -26,7 +26,7 @@ rules?
 Except for commands that actually don't do anything.  There's a useful
 class of such commands: commands to show game configuration and state
 without altering it.  The only game rules involved are those that
-govern who gets to see what.  Ensuring that those are satisfied is
+govern who gets to see what.  Ensuring that those are obeyed is
 tractable.
 
 Empire has had one such command since the beginning: dump.  Empire
@@ -45,9 +45,9 @@ migrate games to different machines or even, with some text mangling
 perhaps, different server versions.  We will see below that xdump
 isn't quite sufficient for that, but it's a start.
 
-If you can import game state, you can import game configuration, or in
-other words: customize your game.  As we will see, configuration files
-have different requirements, which xdump doesn't satisfy without some
+Means to import game configuration let you customize your game without
+recompiling the server.  As we will see, configuration files have
+different requirements, which xdump doesn't satisfy without some
 extensions.
 
 If game import code can edit everything, then a deity command capable
@@ -147,11 +147,11 @@ symbol table.  You decode a symbol set value by looking up its bits
 
 Some integer fields are actually keys in other tables.  For instance,
 ship field type is a key in the table of ship types ship-chr, and
-plane field ship is a key in the ship table.  Key value -1 is special:
-it's a null key.  Meta-data encodes these table reference just like
-for symbols: the meta-data has the ID of the referenced table, and
-that table has the key in the leftmost column.  Obviously, that
-leftmost column is a table key as well, referencing the table itself.
+plane field ship is a key in the ship table.  Key -1 is special: it's
+a null key.  Meta-data encodes these table reference just like for
+symbols: the meta-data has the ID of the referenced table, and that
+table has the key in the leftmost column.  Obviously, that leftmost
+column is a table key as well, referencing the table itself.
 
 A table with its key in the leftmost column can be dumped partially.
 Without such a key, you need to count records to find the record
@@ -259,7 +259,7 @@ of xdump meta T are:
 * flags: The field's flags, a symbol set.  Flags are:
   - "deity", field visible only to deities
   - "extra", field not to be dumped
-  - "const", field cannot be changed (see xundump below)
+  - "const", field cannot be changed
   - "bits", field is a symbol set, field type must encode symbol "d",
     field table must not be -1.
 
@@ -513,11 +513,12 @@ fields may be repeated.  Repeated fields must be the same in all
 parts.  Naturally, the parts together must provide the same fields as
 a table that is not split.
 
-Rationale: This is the cure for long lines.  Line continuation would
-be simpler, but turns out to be illegible.  Requiring record uid is
-not technically necessary, as counting records works the same whether
-a table is split or not.  Except humans can't count.  Perhaps this
-should be a recommendation for use rather than part of the language.
+Rationale: This is to let you avoid long lines.  Line continuation
+syntax would be simpler, but turns out to be illegible.  Requiring
+record uid is not technically necessary, as counting records works the
+same whether a table is split or not.  Except humans can't count.
+Perhaps this should be a recommendation for use rather than part of
+the language.
 
 EBNF changes:
 
@@ -600,12 +601,6 @@ machine-readable sub-language for records.
 See src/lib/global/*.config for examples.
 
 Human-readable xdump still has its shortcomings:
-
-* Symbolic references work only with symbol tables.  Consider sect-chr
-  selector prd, which is a key for table product.  xdump should
-  support use of product selector sname values as keys.  Same for
-  product selectors ctype and type, which should support item selector
-  mnem values as keys.
 
 * item selector pkg is an array indexed by values in symbol table
   packing.  The column header should support symbolic index values
