@@ -246,7 +246,8 @@ options_cmd(void)
 	int val;
     };
     static struct logoptstr login_opts[] = {
-	{ "utf-8", PF_UTF8 }
+	{ "utf-8", PF_UTF8 },
+	{ NULL, 0 }
     };
     char **ap;
     char *p;
@@ -254,7 +255,7 @@ options_cmd(void)
     unsigned i;
 
     if (!player->argp[1]) {
-	for (i = 0; i < sizeof(login_opts) / sizeof(*login_opts); ++i)
+	for (i = 0; login_opts[i].name; ++i)
 	    pr_id(player, C_DATA, "%s=%d\n",
 		  login_opts[i].name,
 		  (player->flags & login_opts[i].val) != 0);
