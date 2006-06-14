@@ -208,6 +208,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == 0)
 		continue;
+	    if (lchr[(int)land.lnd_type].l_flags & L_SPY)
+		continue;
 	    if (!chance(land.lnd_effic / 20.0))
 		continue;
 	    if (++crackle == 100)
@@ -329,11 +331,15 @@ satdisp_units(coord x, coord y)
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    continue;
+	if (lchr[(int)land.lnd_type].l_flags & L_SPY)
+	    continue;
 	if (!chance(land.lnd_effic / 20.0))
 	    continue;
 
 	if (first) {
-	    pr("\t own  lnd# unit type         sector   eff\n");
+	    pr("\t own  lnd# unit type       sector   eff\n");
 	    first = 0;
 	}
 
