@@ -63,14 +63,14 @@ as_search(struct as_data *adp)
 
     for (;;) {
 	iter++;
+	/* see if we're done, one way or another */
+	if (head == NULL)
+	    break;
+
 #ifdef DEBUG
 	fprintf(stderr, "Iteration %d, head at %d, %d\n", iter,
 		head->np->c.x, head->np->c.y);
 #endif /* DEBUG */
-
-	/* see if we're done, one way or another */
-	if (head == NULL)
-	    break;
 
 	/* Add it to the cache */
 	as_add_cachepath(adp);
