@@ -2582,9 +2582,9 @@ sector_strength(struct sctstr *sp)
     double base = sp->sct_type == SCT_MOUNT ? 2.0 : 1.0;
     double d = base + (dchr[sp->sct_type].d_dstr - base) * def;
 
-    if (CANT_HAPPEN(d > dchr[sp->sct_type].d_dstr))
+    if (d > dchr[sp->sct_type].d_dstr)
 	d = dchr[sp->sct_type].d_dstr;
-    if (CANT_HAPPEN(d < base))
+    if (d < base)
 	d = base;
     return d;
 }
