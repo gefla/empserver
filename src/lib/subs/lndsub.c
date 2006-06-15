@@ -60,7 +60,7 @@ double
 attack_val(int combat_mode, struct lndstr *lp)
 {
     int men;
-    double value;
+    double mult;
     struct lchrstr *lcp;
 
     if (lp->lnd_effic < LAND_MINEFF) {
@@ -77,28 +77,28 @@ attack_val(int combat_mode, struct lndstr *lp)
 	return 1;
 
     men = lp->lnd_item[I_MILIT];
-    value = men * lp->lnd_att * lp->lnd_effic / 100.0;
+    mult = lp->lnd_att * lp->lnd_effic / 100.0;
 
     switch (combat_mode) {
     case A_ATTACK:
-	return value;
+	break;
     case A_ASSAULT:
 	if (!(lcp->l_flags & L_MARINE))
-	    return assault_penalty * value;
+	    mult *= assault_penalty;
 	break;
     case A_BOARD:
 	if (!(lcp->l_flags & L_MARINE))
-	    return assault_penalty * men;
+	    mult = assault_penalty;
     }
 
-    return value;
+    return men * sqrt(mult);
 }
 
 double
 defense_val(struct lndstr *lp)
 {
     int men;
-    double value;
+    double mult;
     struct lchrstr *lcp;
 
     if (lp->lnd_effic < LAND_MINEFF) {
@@ -114,15 +114,15 @@ defense_val(struct lndstr *lp)
 	!(lcp->l_flags & L_MARINE))
 	return men;
 
-    value = men * lp->lnd_def * lp->lnd_effic / 100.0;
-    value *= ((double)land_mob_max + lp->lnd_harden) / land_mob_max;
+    mult = lp->lnd_def * lp->lnd_effic / 100.0;
+    mult *= ((double)land_mob_max + lp->lnd_harden) / land_mob_max;
 
     /* If there are military on the unit, you get at least a 1
        man defensive unit, except for spies */
-    if (value < 1.0 && men > 0 && !(lcp->l_flags & L_SPY))
-	return 1;
+    if (men > 0 && !(lcp->l_flags & L_SPY))
+	return MAX(1, men * sqrt(mult));
 
-    return value;
+    return men * sqrt(mult);
 }
 
 void
