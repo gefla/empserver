@@ -52,9 +52,11 @@ map(void)
     char *b;
     int unit_type = 0;
     int bmap = 0;
+    char *str;
     struct nstr_sect ns;
     char origin = '\0';
     int map_flags = 0;
+    char buf[1024];
 
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')
@@ -77,8 +79,15 @@ map(void)
 	}
     }
 
-    if (!snxtsct(&ns, player->argp[1])) {
-	if (unit_map(unit_type, atoi(player->argp[1]), &ns, &origin))
+    if (player->argp[1] == NULL) {
+	str = getstring("(sects)? ", buf);
+	if (!str || !*str)
+	    return RET_SYN;
+    } else
+	str = player->argp[1];
+
+    if (!snxtsct(&ns, str)) {
+	if (unit_map(unit_type, atoi(str), &ns, &origin))
 	    return RET_FAIL;
     }
     for (b = player->argp[2]; b && *b; b++) {
