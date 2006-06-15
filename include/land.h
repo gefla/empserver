@@ -204,15 +204,15 @@ extern int lnd_mobtype(struct lndstr *);
 extern double lnd_mobcost(struct lndstr *, struct sctstr *);
 extern char *lnd_path(int, struct lndstr *, char *);
 
-extern int attack_val(int, struct lndstr *);
-extern int defense_val(struct lndstr *);
+extern double attack_val(int, struct lndstr *);
+extern double defense_val(struct lndstr *);
 extern void lnd_print(struct llist *, char *);
 extern void lnd_delete(struct llist *, char *);
 extern int lnd_take_casualty(int, struct llist *, int);
 extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
-extern int intelligence_report(int, struct lndstr *, int, char *);
+extern double intelligence_report(int, struct lndstr *, int, char *);
 extern int count_sect_units(struct sctstr *);
 extern void count_units(struct shpstr *);
 extern void lnd_count_units(struct lndstr *);

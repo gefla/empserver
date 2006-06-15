@@ -86,8 +86,8 @@ extern int att_get_offense(int, struct combat *, struct emp_qelem *,
 extern int att_empty_attack(int, int, struct combat *);
 extern int att_get_defense(struct emp_qelem *, struct combat *,
 			   struct emp_qelem *, int, int);
-extern int att_reacting_units(struct combat *, struct emp_qelem *, int,
-			      int *, int);
+extern double att_reacting_units(struct combat *, struct emp_qelem *, int,
+				 int *, int);
 extern int att_get_support(int, int, int, int, int, struct emp_qelem *,
 			   struct combat *, struct emp_qelem *,
 			   struct combat *, double *, double *, int);

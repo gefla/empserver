@@ -56,7 +56,7 @@
 static void lnd_mess(char *, struct llist *);
 static int lnd_hit_mine(struct lndstr *, struct lchrstr *);
 
-int
+double
 attack_val(int combat_mode, struct lndstr *lp)
 {
     int men;
@@ -81,20 +81,20 @@ attack_val(int combat_mode, struct lndstr *lp)
 
     switch (combat_mode) {
     case A_ATTACK:
-	return (int)value;
+	return value;
     case A_ASSAULT:
 	if (!(lcp->l_flags & L_MARINE))
-	    return (int)(assault_penalty * value);
+	    return assault_penalty * value;
 	break;
     case A_BOARD:
 	if (!(lcp->l_flags & L_MARINE))
-	    return (int)(assault_penalty * men);
+	    return assault_penalty * men;
     }
 
-    return (int)value;
+    return value;
 }
 
-int
+double
 defense_val(struct lndstr *lp)
 {
     int men;
@@ -122,7 +122,7 @@ defense_val(struct lndstr *lp)
     if (value < 1.0 && men > 0 && !(lcp->l_flags & L_SPY))
 	return 1;
 
-    return (int)value;
+    return value;
 }
 
 void
@@ -245,6 +245,7 @@ lnd_take_casualty(int combat_mode, struct llist *llp, int cas)
 		/* retreat to bx,by */
 		llp->land.lnd_x = bx;
 		llp->land.lnd_y = by;
+		/* FIXME landmines */
 		getsect(bx, by, &rsect);
 		mob = llp->land.lnd_mobil - (int)bmcost;
 		if (mob < -127)
@@ -324,7 +325,7 @@ lnd_spyval(struct lndstr *lp)
 	return lp->lnd_spy * (lp->lnd_effic / 100.0);
 }
 
-int
+double
 intelligence_report(int destination, struct lndstr *lp, int spy,
 		    char *mess)
 {
@@ -391,7 +392,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     if (lp->lnd_ship < 0 || lcp->l_flags & L_MARINE)
 	estimate *= lp->lnd_def;
 
-    return (int)estimate;
+    return estimate;
 }
 
 /* Used by the spy command to count land units in a sector.  If used

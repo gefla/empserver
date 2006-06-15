@@ -71,8 +71,8 @@ static int board_abort(struct combat *off, struct combat *def);
 static int land_board_abort(struct combat *off, struct combat *def);
 static int ask_off(int combat_mode, struct combat *off,
 		   struct combat *def);
-static int get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
-		     int *d_spyp);
+static void get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
+		      int *d_spyp);
 static int get_ototal(int combat_mode, struct combat *off,
 		      struct emp_qelem *olist, double osupport, int check);
 static int get_dtotal(struct combat *def, struct emp_qelem *list,
@@ -982,7 +982,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
     double mobcost;
     struct llist *llp;
     struct lchrstr *lcp;
-    int att_val;
+    double att_val;
     int count = 0;
     int maxland = 0;
     int first_time = 1;
@@ -1057,7 +1057,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    return;
 	}
 	att_val = attack_val(combat_mode, &land);
-	if (!att_val) {
+	if (att_val < 1.0) {
 	    pr("%s has no offensive strength\n", prland(&land));
 	    continue;
 	}
@@ -1072,7 +1072,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    first_time = 0;
 	    pr("You may board with a maximum of %d land units\n", maxland);
 	}
-	pr("%s has a base %s value of %d\n",
+	pr("%s has a base %s value of %.0f\n",
 	   prland(&land), att_mode[combat_mode], att_val);
 	if (land_answer[(int)land.lnd_army] != 'Y') {
 	    sprintf(prompt,
@@ -1125,7 +1125,6 @@ att_combat_eff(struct combat *com)
 	    eff = 1.0 + ((str - 1.0) * eff);
 	} else
 	    eff = sector_strength(getsectp(com->x, com->y));
-/*			str = com->sct_dcp->d_dstr;*/
     } else if (com->type == EF_SHIP && com->own != player->cnum) {
 	getship(com->shp_uid, &ship);
 	eff = 1.0 + ship.shp_armor / 100.0;
@@ -1191,14 +1190,13 @@ att_get_defense(struct emp_qelem *olist, struct combat *def,
 
 /* Get the defensive land units in the sector or on the ship */
 
-static int
+static void
 get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	  int *d_spyp)
 {
     struct nstr_item ni;
     struct llist *llp;
     struct lndstr land;
-    int estimate = 0;
 
 /* In here is where you need to take out spies and trains from the defending
    lists.  Spies try to hide, trains get trapped and can be boarded. */
@@ -1218,15 +1216,14 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (def->type == EF_LAND && land.lnd_land != def->lnd_uid)
 	    continue;
 	if (!list) {		/* Just estimating the enemy strength */
-	    estimate += intelligence_report(player->cnum,
-					    &land, a_spy,
-					    "Scouts report defending unit:");
+	    intelligence_report(player->cnum, &land, a_spy,
+				"Scouts report defending unit:");
 	    continue;
 	}
 	if (!(llp = malloc(sizeof(struct llist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
-	    return 0;
+	    return;
 	}
 	memset(llp, 0, sizeof(struct llist));
 	emp_insque(&llp->queue, list);
@@ -1236,7 +1233,6 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
     }
-    return estimate;
 }
 
 /* Calculate the total offensive strength */
@@ -1318,7 +1314,6 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	llp = (struct llist *)qp;
-	d_unit = 0.0;
 	if (check && !get_land(A_DEFEND, def, llp->land.lnd_uid, llp, 1))
 	    continue;
 	d_unit = defense_val(&llp->land);
@@ -1456,7 +1451,7 @@ put_land(struct emp_qelem *list)
  * Note that the "strength" command also calls this routine.
  */
 
-int
+double
 att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 		   int *d_spyp, int ototal)
 {
@@ -1465,7 +1460,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     struct sctstr sect, dsect;
     struct llist *llp;
     int dtotal;
-    int new_land = 0;
+    double new_land = 0;
     double mobcost;
     double pathcost;
     int dist;
@@ -1474,22 +1469,12 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     double eff = att_combat_eff(def);
     char buf[1024];
 
-    /*
-     *
-     * All units that are within their reaction radius and not damaged
-     * below their morale value now get to react to the threatened sect.
-     * Once we've sent enough to counter the threat, stop sending them.
-     *
-     * Not anymore.  All units get to react. :)
-     */
-
     if (list)
 	dtotal = get_dtotal(def, list, 1.0, 1);
     else
 	dtotal = 0;
     snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, &land) &&
-	   (dtotal + new_land * eff < (int)(1.2 * ototal))) {
+    while (nxtitem(&ni, &land) && dtotal + new_land * eff < 1.2 * ototal) {
 	if (!land.lnd_own)
 	    continue;
 	if (!land.lnd_rad_max)
@@ -1502,12 +1487,8 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 	if (land.lnd_land >= 0)
 	    continue;
-	if (!defense_val(&land))
+	if (defense_val(&land) < 1.0)
 	    continue;
-/*
-		if (land.lnd_effic <= land.lnd_retreat)
-			continue;
- */
 	if (!lnd_can_attack(&land))
 	    continue;
 
