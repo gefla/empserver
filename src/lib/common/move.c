@@ -43,34 +43,37 @@
 double
 sector_mcost(struct sctstr *sp, int mobtype)
 {
-    double d;
+    double base, cost;
 
-    d = dchr[sp->sct_type].d_mcst;
-    if (d <= 0)
+    base = dchr[sp->sct_type].d_mcst;
+    if (base <= 0)
 	return -1.0;
 
+    /* linear function in eff, d_mcst at 0%, d_emcst at 100% */
+    base += (dchr[sp->sct_type].d_emcst - base) * sp->sct_effic / 100;
+    base /= 5;
+    if (CANT_HAPPEN(base < 0))
+	base = 0;
+
     if (mobtype == MOB_MOVE || mobtype == MOB_MARCH) {
-	d = d / (1.0 + sp->sct_road / 122.0);
+	/* linear function in road, base at 0%, base/10 at 100% */
+	cost = base * (1.0 - 0.009 * sp->sct_road);
     } else if (mobtype == MOB_RAIL) {
 	if (sp->sct_rail <= 0)
 	    return -1.0;
-	d = d / (1.0 + sp->sct_rail / 100.0);
+	/* linear function in rail, base at 0%, base/100 at 100% */
+	cost = base * (1.0 - 0.0099 * sp->sct_rail);
     } else
 	CANT_REACH();
-
-    if (d < 1.0)
-	d = 1.0;
-    if (dchr[sp->sct_type].d_mcst < 25)
-	d = (d * 100.0 - sp->sct_effic) / 500.0;
-    else
-	d = (d * 10.0 - sp->sct_effic) / 115;
+    if (CANT_HAPPEN(cost < 0))
+	cost = 0;
 
     if (mobtype == MOB_MOVE)
-	return MAX(d, 0.001);
-    if (sp->sct_own != sp->sct_oldown && sp->sct_mobil <= 0
-	&& mobtype != MOB_RAIL)
-	return MAX(d, 0.2);
-    return MAX(d, 0.01);
+	return MAX(cost, 0.001);
+    if (sp->sct_own != sp->sct_oldown && sp->sct_mobil <= 0)
+	/* slow down land units in newly taken sectors */
+	return cost + 0.2;
+    return MAX(cost, 0.02);
 }
 
 double

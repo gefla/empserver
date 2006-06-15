@@ -535,14 +535,14 @@ show_sect_stats(int foo)
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (first) {
-	    pr("                        base     max   max   --  packing bonus  --   max\n");
-	    pr("  sector type           mcost    off   def   mil  uw civ bar other   pop\n");
+	    pr("                        mob.cost   max   max   --  packing bonus  --   max\n");
+	    pr("  sector type           base min   off   def   mil  uw civ bar other   pop\n");
 	    first = 0;
 	}
-	pr("%c %-23s %3d  %5.2f %5.2f   %3d %3d %3d %3d %5d %5d\n",
+	pr("%c %-23s %2d  %2d  %5.2f %5.2f   %3d %3d %3d %3d %5d %5d\n",
 	   dchr[x].d_mnem, dchr[x].d_name,
-	   dchr[x].d_mcst, dchr[x].d_ostr,
-	   dchr[x].d_dstr,
+	   dchr[x].d_mcst, dchr[x].d_emcst,
+	   dchr[x].d_ostr, dchr[x].d_dstr,
 	   ichr[I_MILIT].i_pkg[dchr[x].d_pkg],
 	   ichr[I_UW].i_pkg[dchr[x].d_pkg],
 	   ichr[I_CIVIL].i_pkg[dchr[x].d_pkg],
