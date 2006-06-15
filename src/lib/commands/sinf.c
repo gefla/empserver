@@ -44,6 +44,8 @@
 #include "commands.h"
 #include "combat.h"
 
+static void prmobcost(struct sctstr *, int);
+
 int
 sinfra(void)
 {
@@ -76,9 +78,9 @@ sinfra(void)
 	    pr(" ");
 	pr("%4d%% ", sect.sct_effic);
 	pr("%4d%% ", sect.sct_road);
-	pr("%4.3f ", sector_mcost(&sect, MOB_MOVE));
+	prmobcost(&sect, MOB_MOVE);
 	pr("%4d%% ", sect.sct_rail);
-	pr("%4.3f ", sector_mcost(&sect, MOB_RAIL));
+	prmobcost(&sect, MOB_RAIL);
 	pr("%4d%% ", SCT_DEFENSE(&sect));
 	pr("%5.2f\n", sector_strength(&sect));
     }
@@ -91,4 +93,15 @@ sinfra(void)
     } else
 	pr("%d sector%s\n", nsect, splur(nsect));
     return 0;
+}
+
+static void
+prmobcost(struct sctstr *sp, int mobtype)
+{
+    double cost = sector_mcost(sp, mobtype);
+
+    if (cost < 0)
+	pr(" N/A  ");
+    else
+	pr("%5.3f ", cost);
 }
