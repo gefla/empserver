@@ -976,7 +976,7 @@ lnd_hardtarget(struct lndstr *lp)
 static int
 lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 {
-    double m;
+    int m;
 
     mpr(lp->lnd_own, "Blammo! Landmines detected in %s! ",
 	xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
@@ -985,11 +985,10 @@ lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
 
     m = MINE_LDAMAGE();
     if (lcp->l_flags & L_ENGINEER)
-	m /= 2.0;
+	m /= 2;
 
-    landdamage(lp, ldround(m, 1));
-
-    return (int)m;
+    landdamage(lp, m);
+    return m;
 }
 
 double

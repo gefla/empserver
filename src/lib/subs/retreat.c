@@ -500,6 +500,8 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	       xyas(newx, newy, lp->lnd_own));
 	    nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
 	    m = MINE_LDAMAGE();
+	    if (lcp->l_flags & L_ENGINEER)
+		m /= 2;
 	    landdamage(lp, m);
 	    mines--;
 	    sect.sct_mines = mines;
