@@ -45,11 +45,6 @@
 #include "optlist.h"
 #include "commands.h"
 
-static char *prompt[] = {
-    "Improve what ('road' or 'rail')? ",
-    "Improve what ('road', 'rail' or 'defense')? "
-};
-
 int
 improve(void)
 {
@@ -58,7 +53,7 @@ improve(void)
     struct nstr_sect nstr;
     char *p;
     char buf[1024];
-    char inbuf[128];
+    char prompt[128];
     int type;
     int value;
     int ovalue;
@@ -70,21 +65,25 @@ improve(void)
     int dneeded;
     int wanted;
 
-    if (!(p = getstarg(player->argp[1],
-		       prompt[!!opt_DEFENSE_INFRA], buf)) || !*p)
+    p = getstarg(player->argp[1],
+		 "Improve what ('road', 'rail' or 'defense')? ",
+		 buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (!strncmp(p, "ro", 2))
 	type = INT_ROAD;
     else if (!strncmp(p, "ra", 2))
 	type = INT_RAIL;
     else if (!strncmp(p, "de", 2)) {
-	if (!opt_DEFENSE_INFRA) {
-	    pr("Defense infrastructure is disabled.\n");
-	    return RET_FAIL;
-	}
 	type = INT_DEF;
     } else
 	return RET_SYN;
+
+    if (!intrchr[type].in_enable) {
+	pr("%s improvement is disabled.\n", intrchr[type].in_name);
+	return RET_FAIL;
+    }
+
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
     prdate();
@@ -98,10 +97,10 @@ improve(void)
 	    value = sect.sct_rail;
 	else /* type == INT_DEF */
 	    value = sect.sct_defense;
-	sprintf(inbuf, "Sector %s has a %s of %d%%.  Improve how much? ",
+	sprintf(prompt, "Sector %s has a %s of %d%%.  Improve how much? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		intrchr[type].in_name, value);
-	if (!(p = getstarg(player->argp[3], inbuf, buf)) || !*p)
+	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
 	    continue;
 	if (!check_sect_ok(&sect))
 	    continue;

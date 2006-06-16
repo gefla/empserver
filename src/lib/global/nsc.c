@@ -567,6 +567,8 @@ struct castr intrchr_ca[] = {
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_hcms), "hcms", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_dcost), "dcost", EF_BAD},
     {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_mcost), "mcost", EF_BAD},
+    {NSC_UCHAR, 0, 0, offsetof(struct sctintrins, in_enable), "enable",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 

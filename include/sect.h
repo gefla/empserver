@@ -172,8 +172,9 @@ extern struct dchrstr bigcity_dchr;
 /* Work required for building */
 #define SCT_BLD_WORK(lcm, hcm) ((lcm) + 2 * (hcm))
 
+/* Return SP's defense efficiency */
 #define SCT_DEFENSE(sp) \
-    (opt_DEFENSE_INFRA ? (sp)->sct_defense : (sp)->sct_effic)
+    (intrchr[INT_DEF].in_enable ? (sp)->sct_defense : (sp)->sct_effic)
 
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
@@ -202,10 +203,11 @@ extern struct dchrstr bigcity_dchr;
 /* Each cost is per point of efficency */
 struct sctintrins {
     char *in_name;
-    unsigned char in_lcms;
+    unsigned char in_lcms;	/* construction materials */
     unsigned char in_hcms;
-    unsigned char in_dcost;
-    unsigned char in_mcost;
+    unsigned char in_dcost;	/* dollars */
+    unsigned char in_mcost;	/* mobility */
+    unsigned char in_enable;	/* enabled iff non-zero */
 };
 
 extern struct sctintrins intrchr[INT_DEF + 2];

@@ -496,8 +496,9 @@ show_land_stats(int tlev)
 void
 show_sect_build(int foo)
 {
-    int x, first = 1;
+    int x, first;
 
+    first = 1;
     for (x = 0; x <= SCT_MAXDEF; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
@@ -514,13 +515,18 @@ show_sect_build(int foo)
 	       dchr[x].d_lcms, dchr[x].d_hcms);
 	}
     }
-    pr("\n");
-    pr("Infrastructure building - adding 1 point of efficiency costs:\n");
-    pr("       type          lcms    hcms    mobility    $$$$\n");
+
+    first = 1;
     for (x = 0; intrchr[x].in_name; x++) {
+	if (!intrchr[x].in_enable)
+	    continue;
+	if (first)
+	    pr("\nInfrastructure building - adding 1 point of efficiency costs:\n"
+	       "       type          lcms    hcms    mobility    $$$$\n");
 	pr("%-20s %4d    %4d    %8d    %4d\n",
 	   intrchr[x].in_name, intrchr[x].in_lcms, intrchr[x].in_hcms,
 	   intrchr[x].in_mcost, intrchr[x].in_dcost);
+	first = 0;
     }
 }
 

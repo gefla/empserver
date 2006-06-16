@@ -39,7 +39,6 @@
 int opt_ALL_BLEED = 1;
 int opt_BLITZ = 1;
 int opt_BRIDGETOWERS = 1;
-int opt_DEFENSE_INFRA = 0;
 int opt_DEMANDUPDATE = 1;
 int opt_EASY_BRIDGES = 1;
 int opt_FALLOUT = 1;
