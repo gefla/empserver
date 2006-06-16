@@ -141,6 +141,8 @@ takeover(struct sctstr *sp, natid newown)
     sp->sct_che = che_count;
     if (newown != sp->sct_oldown)
 	sp->sct_che_target = newown;
+    if (sp->sct_che_target == 0)
+	sp->sct_che = 0;
     sp->sct_item[I_CIVIL] = civ;
     if (sp->sct_oldown == newown || civ == 0) {
 	/*

@@ -560,10 +560,12 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'X':
 	old = sect->sct_che_target;
 	new = errcheck(arg, 0, MAXNOC - 1);
-	pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
+	pr("Che target of %s changed from %s (#%d) to %s (#%d).\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(old), old, cname(new), new);
 	sect->sct_che_target = new;
+	if (new == 0)
+	    sect->sct_che = 0;
 	break;
     case 'p':
 	old = sect->sct_pstage;

@@ -203,10 +203,8 @@ guerrilla(struct sctstr *sp)
     }
 
     target = sp->sct_che_target;
-    if (target == 0) {
-	/* the deity can't be a target! */
+    if (CANT_HAPPEN(target == 0))
 	return;
-    }
     tnat = getnatp(target);
     if (tnat->nat_stat == STAT_UNUSED) {
 	/* target nation has dissolved: che's retire.  */
@@ -296,11 +294,6 @@ guerrilla(struct sctstr *sp)
 	 */
 	if (chance(ratio * 0.10)) {
 	    n = (mil / 5) + 1;
-	    if ((n + che) == 0) {
-		logerror("n=%d che=%d\n", n, che);
-		if (che == 0)
-		    return;
-	    }
 	    odds = (double)che / (n + che);
 	    odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
 	    while (che > 0 && n > 0) {
