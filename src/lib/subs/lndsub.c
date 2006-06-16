@@ -1072,7 +1072,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		continue;
 	    }
 	}
-	if (sect.sct_rail == 0 &&
+	if ((!intrchr[INT_RAIL].in_enable || sect.sct_rail == 0) &&
 	    lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) {
 	    if (together) {
 		pr("no rail system in %s\n", xyas(newx, newy, actor));

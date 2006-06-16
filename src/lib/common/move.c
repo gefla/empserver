@@ -57,12 +57,14 @@ sector_mcost(struct sctstr *sp, int mobtype)
 
     if (mobtype == MOB_MOVE || mobtype == MOB_MARCH) {
 	/* linear function in road, base at 0%, base/10 at 100% */
-	cost = base * (1.0 - 0.009 * sp->sct_road);
+	cost = base;
+	if (intrchr[INT_ROAD].in_enable)
+	    cost -= base * 0.009 * sp->sct_road;
     } else if (mobtype == MOB_RAIL) {
-	if (sp->sct_rail <= 0)
+	if (!intrchr[INT_RAIL].in_enable || sp->sct_rail <= 0)
 	    return -1.0;
 	/* linear function in rail, base at 0%, base/100 at 100% */
-	cost = base * (1.0 - 0.0099 * sp->sct_rail);
+	cost = base - base * 0.0099 * sp->sct_rail;
     } else {
 	CANT_REACH();
 	cost = base;
