@@ -63,8 +63,10 @@ sector_mcost(struct sctstr *sp, int mobtype)
 	    return -1.0;
 	/* linear function in rail, base at 0%, base/100 at 100% */
 	cost = base * (1.0 - 0.0099 * sp->sct_rail);
-    } else
+    } else {
 	CANT_REACH();
+	cost = base;
+    }
     if (CANT_HAPPEN(cost < 0))
 	cost = 0;
 
