@@ -30,29 +30,21 @@
 
 User's Guide to Empire							 1
 
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-\&  .   .   .   .  ---------------------------------------------.   .   .   .   .
-\&.   .   .   .   .|                                           |  .   .   .   .  
-\&  .   .   .   .  |  This work copyright 1991, Geoff Cashman  |.   .   .   .   .
-\&.   .   .   .   .|  All rights reserved except you may copy  |  .   .   .   .
-\&  .   .   .   .  |  this work using electronic methods. Non  |.   .   .   .   .
-\&.   .   .   .   .|  electronic copying, hard copies for the  |  .   .   .   .
-\&  .   .   .   .  |  purpose of distribution and/or selling,  |.   .   .   .   .
-\&.   .   .   .   .|  is strictly prohibited without author's  |  .   .   .   .
-\&  .   .   .   .  |  express written consent. No changes may  |.   .   .   .   .
-\&.   .   .   .   .|  be made to the content of this edition.  |  .   .   .   .
-\&  .   .   .   .  |                                           |.   .   .   .   .
-\&.   .   .   .   .---------------------------------------------  .   .   .   . 
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-\&.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   
-\&  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
+                    Preface to the Wolfpack Edition
+
+This is Geoff Cashman's venerable User's Guide to Empire.  It was written
+in 1991, and Empire has evolved quite a bit since then.  Nevertheless, many
+players have found it useful through the years, so here it is.  We
+reproduce it verbatim except for this preface and corrections of a few
+editing mistakes.
+
+
+			       Copyright
+
+Copyright (C) 1991-2006 Geoff Cashman.  This is free documentation; see the
+source for copying conditions.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.\" See COPYING in the root of the source tree for details.
 
 
 User's Guide to Empire							 2
@@ -74,7 +66,7 @@ This publication is current to Berkeley version 1.1 patch level 5
 
 User's Guide to Empire							 3
 
-				Foreward
+				Foreword
 
 It has been over a year now since I first sat down and thought in a serious
 way about writing this guide.  It has been a long trip with many interesting
@@ -149,7 +141,7 @@ User's Guide to Empire							 5
 	       		   *** Contents ***
 
 Preface
-Foreward
+Foreword
 1.  What is Empire? . . . . . . . . . . . . . . . . . . . . . . .  6
 2.  How to get into a game of Empire. . . . . . . . . . . . . . .  8
 3.  The primitive basics. . . . . . . . . . . . . . . . . . . . . 16
@@ -274,7 +266,7 @@ Chapter 2 :-: How to get into a game of Empire.
 	usually a game is better with more people in it.  If you do not know
 	how to use your local news reading program, ask a local site consultant
 	or find a brochure about the news programs available.  One of the most
-	common newsreaders can be reached by typing 'rn' from your unix
+	common newsreaders can be reached by typing 'rn' from your Unix
 	prompt.  If you have VMS for an operating system this may not be true.
 	To go directly to the rec.games.empire newsgroup you could type in
 	'rn rec.games.empire'.  
@@ -346,8 +338,8 @@ User's Guide to Empire							 9
 	source, compiles the source and establishes the appropriate
 	environment variables to connect to a game.  
 
-	Note that the following example will work ONLY on a unix,
-	ultrix, or other flavor of unix operating system.  This will
+	Note that the following example will work ONLY on a Unix,
+	Ultrix, or other flavor of Unix operating system.  This will
 	not work for the VMS client. 
 
 -----------------------------<begin sample>---------------------------------
@@ -462,7 +454,7 @@ You can change hosts on-the-fly by using environment variables -- see
 the man page for details.
 
 [** Simple enough.  I don't bother modifying globals.c since I can modify
-    the environment variables using the unix command 'setenv'.  So now,
+    the environment variables using the Unix command 'setenv'.  So now,
     I just type 'make' and hope everything goes ok.  NOTE: This was done
     on a sun4.  Your results may vary slightly. **]
 autarch{client}!>make
@@ -557,10 +549,10 @@ connect: Connection timed out
 
 Problem   This generally means that there is a network outage somewhere
 	  along the network.  
-Solution  (1) You can monitor the network by using two unix commands located in
-	  /usr/etc on most unix systems.  These are 'ping' and 'traceroute'.
+Solution  (1) You can monitor the network by using two Unix commands located in
+	  /usr/etc on most Unix systems.  These are 'ping' and 'traceroute'.
 	  /usr/etc/ping 128.205.7.3 for instance will send a ping at the
-	  host with ip address 128.205.7.3.  If that machine can be reached
+	  host with IP address 128.205.7.3.  If that machine can be reached
 	  from your machine across the network it will return:
 	  128.205.7.3 is alive
 	  traceroute 128.205.7.3 will request responses from each site along
@@ -1179,7 +1171,7 @@ battle in winning Empire is population explosion at the beginning of the
 game...ESPECIALLY if you get involved in a low tech war with a neighbor
 early on.  More population means more resources mined, more supportable
 military, and more taxpayers.  If you are going to be a tech producer then
-it may be desireable to limit population, but early on I do not recommend
+it may be desirable to limit population, but early on I do not recommend
 it.  So, with 999 civs in your 0,0 sector you need to be able to move out
 many civs (depends on the number of ETUs per update (see the version command)
 as to how many you should move out, see number of births per 1,000 civs per
@@ -1719,7 +1711,7 @@ User's Guide to Empire							 36
 	be taken by airborne paratroopers.  Neither can mountains. 
 
 	Lastly, should sectors of yours be taken, the enemy will have to deal
-	with your patriotic guerillas.  Guerillas will attempt to retake 
+	with your patriotic guerrillas.  Guerrillas will attempt to retake 
 	sectors from the enemy every update until they are defeated (which 
 	takes some time).  They are large in numbers, but have been known to 
 	reach strengths of a hundred or more soldiers, though this is rare.  
@@ -1728,16 +1720,16 @@ User's Guide to Empire							 36
 	efficiency to the sector as well as reduction in the work capability 
 	of the sector. 
 
-	You have *no* control over your guerillas whatsoever.  They are 
-	completely automatic.  Should guerillas win a sector back from your
-	enemy then the surviving guerillas become members of your regular
+	You have *no* control over your guerrillas whatsoever.  They are 
+	completely automatic.  Should guerrillas win a sector back from your
+	enemy then the surviving guerrillas become members of your regular
 
 
 User's Guide to Empire							 37
 
 	military, and you can use them as such. 
 
-	If your guerillas manage to take a sector back behind enemy lines
+	If your guerrillas manage to take a sector back behind enemy lines
 	it is possible for you to enlist reservists in that sector.  In
 	so doing, you may throw a major thorn into the side of your attacker.
 	This is a major reason for maintaining a large amount of reserves.
@@ -2131,7 +2123,7 @@ Chapter 10 :-: The economy.
 	15. Technology (1,2,8,13) 19. Bridges (9)
 	16. Money (6 or 7 or 10)  20. Nuclear weapons (2,4,8,9) ????
 
-	Special items:  Beaurocratic Time Units (BTUs), Available work (Avail)
+	Special items:  Bureaucratic Time Units (BTUs), Available work (Avail)
 
 
 				Figure 13
@@ -2139,7 +2131,7 @@ Chapter 10 :-: The economy.
 
 --------------------------------------------------------------------------------
 
-	Beaurocratic Time Units (BTUs) are used when executing a command, such 
+	Bureaucratic Time Units (BTUs) are used when executing a command, such 
 	as "build" for example.  They are also used to shuffle paperwork 
 	around, say for soldiers killed in combat. 
 
@@ -2852,7 +2844,7 @@ Chapter 13 :-: Some tricks and subtle tactics
 	  take an opponent's warehouses or distribution points and sell off 
 	  everything that is in the sector to the market.  You don't need a 
 	  buyer immediately, just sell everything off.  If you want the items 
-	  for yourself, sell them to the market at an exhorbinately high price 
+	  for yourself, sell them to the market at an exorbitantly high price 
 	  and wait for a friend to buy them and sell them back.
 	- Tracking an airbase.  This is a less known trick.  Non-VTOL planes
 	  intercept from airbases.  They also intercept from airbases in a hex 
@@ -3055,7 +3047,7 @@ Chapter 14 :-: Tools
 	hindrance without the use of a tool other than the basic client itself. 
 
 	What follows is a list of tools that are most commonly found
-	among players of the game.  Most of these are publically available at
+	among players of the game.  Most of these are publicly available at
 	an FTP site listed in Appendix C. 
 
 Tool		Purpose
@@ -3067,7 +3059,7 @@ pmvr,civmvr	Automatically redistributes your population so that sectors
 		out at the limit of 999 civilians.
 econ		Provides an analysis of your country's economic progress
 		at the next update.  
-GEET		Gnu-Emacs Empire Tool.  An emacs interface for Empire that
+GEET		Gnu-Emacs Empire Tool.  An Emacs interface for Empire that
 		has a great many capabilities and functions.  Provides for
 		better automatic defenses as well.
 EIF		A more advanced client than the basic client.  Allows
@@ -3119,7 +3111,7 @@ read >>old.tele
 
 	Lastly, remember to exercise wisdom in the use of tools.  It is 
 	possible that the execution of a simple tool can damage your country 
-	irrepairably.  Use tools, especially those written by others, with 
+	irreparably.  Use tools, especially those written by others, with 
 	caution.  Try them out on small sections of your country first.  Look 
 	at the source code prior to running it if you have access to the 
 	source code.  It is theoretically possible for someone to write
@@ -3154,7 +3146,7 @@ Blitz game  - An implementation of an Empire game that is very fast paced.
 BSD 	    - Berkeley Standard Distribution.  A term borrowed from Unix.  
 	      It indicates that the version is a release version from Berkeley,
 	      ie Dave Pare. 
-BTU 	    - Beaurocratic Time Unit.  A unit of government activity.  Used 
+BTU 	    - Bureaucratic Time Unit.  A unit of government activity.  Used 
 	      by various commands as cost for executing that command.
 Capital     - The government center of a country.  BTUs are produced by
 	      only one capital in a country, regardless of how many are
@@ -3184,11 +3176,11 @@ FTP 	    - "File Transfer Program".  This is a means of transferring
 	      files over the computer networks.  Most computers are capable
 	      of using FTP.  For more information you may refer to your 
 	      host computer's help.  For example, "man ftp" or "help ftp".
-GEET	    - Gnu-Emacs Empire Tool.  An emacs based client, also known 
+GEET	    - Gnu-Emacs Empire Tool.  An Emacs based client, also known 
 	      (to the chagrin of the author of GEET) as GEEK.
-Geurilla    - A patriot behind enemy lines.  They will attempt to do damage
+Guerrilla   - A patriot behind enemy lines.  They will attempt to do damage
 	      to the enemy's military or the sector the enemy is occupying.
-	      You can not control guerilla actions. 
+	      You can not control guerrilla actions. 
 HCM         - Heavy construction material.  A unit of material used in
               Empire economies for bridges, planes, etc.
 KSU, Kent State code - refers to the version of Empire based on the Berkeley
