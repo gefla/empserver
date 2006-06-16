@@ -218,8 +218,8 @@ mission(void)
 	    continue;
 
 	if ((mission && (gp->mobil < mobused)) && mission_mob_cost) {
-	    pr("%s #%d: not enough mobility! (needs %d)\n",
-	       ef_nameof(type), gp->uid, mobused);
+	    pr("%s: not enough mobility! (needs %d)\n",
+	       nameofitem(gp, type), mobused);
 	    continue;
 	}
 	if (mission == MI_RESERVE && !lnd_can_attack((struct lndstr *)gp)) {
@@ -240,33 +240,23 @@ mission(void)
 	     mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
 	     mission == MI_AIR_DEFENSE) &&
 	    (oprange(gp, type, &radius) < dist)) {
-	    pr("%s #%d: out of range! (range %d)\n",
-	       ef_nameof(type), gp->uid, oprange(gp, type, &radius));
+	    pr("%s: out of range! (range %d)\n",
+	       nameofitem(gp, type), oprange(gp, type, &radius));
 	    continue;
 	}
 
 	if (radius > desired_radius)
 	    radius = desired_radius;
 
-/*
-		if (mission && (gp->effic < 60)){
-			pr("%s #%d: not efficient enough! (must be>=60%)\n",
-				ef_nameof(type), gp->uid);
-			continue;
-		}
- */
-
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
 	    if (mchr[(int)gp->type].m_frnge < 1) {
-		pr("%s #%d: cannot fire at range!\n",
-		   ef_nameof(type), gp->uid);
+		pr("%s: cannot fire at range!\n", nameofitem(gp, type));
 		continue;
 	    }
 
 	if ((mission == MI_INTERDICT) && (type == EF_LAND))
 	    if (lchr[(int)gp->type].l_frg < 1) {
-		pr("%s #%d: cannot fire at range!\n",
-		   ef_nameof(type), gp->uid);
+		pr("%s: cannot fire at range!\n", nameofitem(gp, type));
 		continue;
 	    }
 
