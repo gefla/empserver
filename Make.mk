@@ -292,6 +292,11 @@ $(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk
 $(subjects.html) info.html/TOP.html: info/subj2html.pl
 $(topics.html): info/emp2html.pl
 
+info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
+	groff $^ >$@
+
+# List of source files
+
 ifeq ($(cvs_controlled),yes)
 # Find files and directories under CVS control
 sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))

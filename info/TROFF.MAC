@@ -36,4 +36,5 @@
 .lt 5i                  \" Title length
 .po 0.9i                \" Page offset
 .ev
-.so INFO.MAC            \" Read in INFO.MAC macros
+\" .so INFO.MAC 	\" Read in INFO.MAC macros
+\" except that's done by make now
