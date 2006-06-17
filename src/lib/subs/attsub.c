@@ -1037,13 +1037,29 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	}
 	switch (combat_mode) {
 	case A_ATTACK:
-	    mobcost = lnd_pathcost(&land,
-				   att_mobcost(off->own, def,
-					       lnd_mobtype(&land)));
-	    if (land.lnd_mobil < mobcost) {
-		pr("%s does not have enough mobility (%d needed)\n",
-		   prland(&land), (int)ceil(mobcost));
-		continue;
+	    /*
+	     * We used to let land units attack only if they have the
+	     * mobility consumed by the attack, not counting combat
+	     * and moving in to occupy.  Making sure your land units
+	     * reach attack positions with enough mobility left is a
+	     * pain in the neck.  We now require positive mobility,
+	     * just like for marching.  Except we don't allow rushing
+	     * of high-mobility sectors (mountains): for those we
+	     * still require attack mobility.
+	     */
+	    mobcost = att_mobcost(off->own, def, lnd_mobtype(&land));
+	    if (mobcost < 1.0) {
+		if (land.lnd_mobil <= 0) {
+		    pr("%s is out of mobility\n", prland(&land));
+		    continue;
+		}
+	    } else {
+		mobcost = lnd_pathcost(&land, mobcost);
+		if (land.lnd_mobil < mobcost) {
+		    pr("%s does not have enough mobility (%d needed)\n",
+		       prland(&land), (int)ceil(mobcost));
+		    continue;
+		}
 	    }
 	    break;
 	case A_ASSAULT:
