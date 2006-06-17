@@ -1322,6 +1322,9 @@ lnd_fortify(struct lndstr *lp, int mob)
 	return 0;
 
     mob_used = MIN(lp->lnd_mobil, mob);
+    if (mob_used < 0)
+	return 0;
+
     mult = has_helpful_engineer(lp->lnd_x, lp->lnd_y, lp->lnd_own)
 	? 1.5 : 1.0;
 
