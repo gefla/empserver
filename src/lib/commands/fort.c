@@ -82,9 +82,9 @@ fort(void)
 	   use all mobility down to leaving 67 left. */
 	if (hard_amt < 0) {
 	    hard_amt = land.lnd_mobil + hard_amt;
-	    if (hard_amt < 0)
-		continue;
 	}
+	if (hard_amt <= 0)
+	    continue;
 
 	if (lnd_fortify (&land, hard_amt) <= 0) {
 	    pr("%s can't be fortified%s\n", prland(&land),
