@@ -55,6 +55,7 @@ struct sctstr {
     unsigned char sct_terr1;	/* territory 1 id # of sector */
     unsigned char sct_terr2;	/* territory 2 id # of sector */
     unsigned char sct_terr3;	/* territory 3 id # of sector */
+    unsigned char sct_dterr;	/* deity's territory # */
     coord sct_dist_x;		/* Dist sector */
     coord sct_dist_y;
     short sct_avail;		/* available workforce for "other things" */

@@ -12,12 +12,15 @@ In this sense it is essentially an extended \*Qrealm\*U.
 However, you are not limited to rectangular regions and you have 
 99 values to choose from.
 .s1
-There are four independent territory fields.  If the optional field
-argument is empty, field 0 is used.
+There are four independent territory fields terr, terr1, terr2, terr3
+selected by field arguments 0, 1, 2, 3, respectively.  Deities can use
+an additional territory field dterr, selected by -1.  If the optional
+field argument is empty, terr is assumed for mortals and dterr for
+deities.
 .s1
 .EX territory #1 5 1
 .s1
-Would set terr1 field to 5 for all sectors in realm 1.
+Would set terr1 to 5 for all sectors in realm 1.
 .s1
 .EX sect * ?terr1=6&terr2=12
 .s1

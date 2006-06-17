@@ -55,10 +55,10 @@ terr(void)
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    if (player->argp[3] && isdigit(*(player->argp[3]))) {
+    if (player->argp[3]) {
 	field = atoi(player->argp[3]);
     } else {
-	field = 0;
+	field = player->god ? -1 : 0;
     }
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
@@ -87,6 +87,12 @@ terr(void)
 	case 3:
 	    sect.sct_terr3 = terr_n;
 	    break;
+	case -1:
+	    if (player->god) {
+		sect.sct_dterr = terr_n;
+		break;
+	    }
+	    /* fall through */
 	default:
 	    sect.sct_terr = terr_n;
 	}

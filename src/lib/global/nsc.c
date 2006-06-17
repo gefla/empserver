@@ -131,6 +131,7 @@ struct castr sect_ca[] = {
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr1), "terr1", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr2), "terr2", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_terr3), "terr3", EF_BAD},
+    {NSC_UCHAR, NSC_DEITY, 0, fldoff(sctstr, sct_dterr), "dterr", EF_BAD},
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail", EF_BAD},
