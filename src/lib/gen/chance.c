@@ -33,18 +33,13 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "gen.h"
 
 int
 chance(double d)
 {
-    double roll;
-
-    roll = random() & 0x7fff;
-
-    if (d > roll / 32768.0)
-	return 1;
-    return 0;
+    return d > (random() % 32768) / 32768.0;
 }
 
 int
@@ -60,12 +55,6 @@ roll(int n)
 int
 roundavg(double val)
 {
-    int flr;
-
-    flr = (int)val;
-    if (val < 0)
-	flr -= chance(flr - val);
-    else
-	flr += chance(val - flr);
-    return flr;
+    double flr = floor(val);
+    return (int)(flr + chance(val - flr));
 }
