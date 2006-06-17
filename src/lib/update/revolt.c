@@ -374,7 +374,7 @@ guerrilla(struct sctstr *sp)
 	for (n = 1; n <= 6; n++) {
 	    nsp = getsectp(sp->sct_x + diroff[n][0],
 			   sp->sct_y + diroff[n][1]);
-	    if (dchr[nsp->sct_type].d_mcst == 0)
+	    if (dchr[nsp->sct_type].d_mob0 < 0)
 		continue;
 	    if (nsp->sct_own != target)
 		continue;

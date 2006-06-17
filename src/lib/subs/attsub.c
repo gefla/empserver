@@ -514,7 +514,7 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
 	return land_board_abort(off, def);
     }
 
-    if (off && def->sct_dcp->d_mcst <= 0) {
+    if (off && def->sct_dcp->d_mob0 < 0) {
 	pr("You can't %s a %s sector!\n",
 	   att_mode[combat_mode], def->sct_dcp->d_name);
 	return abort_attack();
@@ -1695,8 +1695,8 @@ att_get_support(int combat_mode, int ofort, int oship, int oland,
 
     /*
      * I need to put a 1 at the end of the next four total_stren calls
-     * becauase units & mil may have been damaged by collateral damage or
-     * neclear warheads from the offensive & defensive support.
+     * because units & mil may have been damaged by collateral damage or
+     * nuclear warheads from the offensive & defensive support.
      */
 
     ototal = get_ototal(combat_mode, off, olist, *osupportp, 1);

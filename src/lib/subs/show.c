@@ -542,14 +542,14 @@ show_sect_stats(int foo)
 	    continue;
 	if (first) {
 	    pr("                        mob cost   max   max   --  packing bonus  --   max\n");
-	    pr("  sector type           base eff   off   def   mil  uw civ bar other   pop\n");
+	    pr("  sector type            0%% 100%%   off   def   mil  uw civ bar other   pop\n");
 	    first = 0;
 	}
-	pr("%c %-23s", dchr[x].d_mnem, dchr[x].d_name);
-	if (dchr[x].d_mcst <= 0)
-	    pr(" no way");
+	pr("%c %-21.21s", dchr[x].d_mnem, dchr[x].d_name);
+	if (dchr[x].d_mob0 < 0)
+	    pr("  no way ");
 	else
-	    pr(" %2d  %2d", dchr[x].d_mcst, dchr[x].d_emcst);
+	    pr(" %3.1f  %3.1f", dchr[x].d_mob0, dchr[x].d_mob1);
 	pr("  %5.2f %5.2f   %3d %3d %3d %3d %5d %5d\n",
 	   dchr[x].d_ostr, dchr[x].d_dstr,
 	   ichr[I_MILIT].i_pkg[dchr[x].d_pkg],
