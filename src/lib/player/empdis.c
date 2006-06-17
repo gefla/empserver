@@ -44,6 +44,7 @@
 #include "com.h"
 #include "file.h"
 #include "empio.h"
+#include "match.h"
 #include "subs.h"
 #include "common.h"
 #include "optlist.h"
@@ -62,6 +63,8 @@ static char player_commands[KEEP_COMMANDS][1024 + 8];
 
 /* the slot holding the most recent command in player_commands[] */
 static int player_commands_index = 0;
+
+static void disable_coms(void);
 
 /*
  * Get a command from the current player into COMBUFP[1024], in UTF-8.
@@ -105,6 +108,8 @@ init_player_commands(void)
 
     for (i = 0; i < KEEP_COMMANDS; ++i)
 	*player_commands[i] = 0;
+
+    disable_coms();
 }
 
 void
@@ -156,6 +161,26 @@ explain(void)
     }
     pr("For further info on command syntax see \"info Syntax\".\n");
     return RET_OK;
+}
+
+static void
+disable_coms(void)
+{
+    char *tmp = strdup(disabled_commands);
+    char *name;
+    int cmd;
+
+    for (name = strtok(tmp, " \t"); name; name = strtok(NULL, " \t")) {
+	cmd = comtch(name, player_coms, -1);
+	if (cmd < 0) {
+	    logerror("Warning: not disabling %s command %s\n",
+		    cmd == M_NOTUNIQUE ? "ambiguous" : "unknown", name);
+	    continue;
+	}
+	player_coms[cmd].c_permit |= GOD;
+    }
+
+    free(tmp);
 }
 
 /*

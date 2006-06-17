@@ -397,6 +397,8 @@ EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, NSC_FLOAT, 0,
     "Bonus your ally gets for you cashing in with them")
 
 EMPCF_COMMENT("\n\n### Misc.")
+EMPCFBOTH("disabled_commands", disabled_commands, char *, NSC_STRING, KM_INTERNAL,
+	  "Disabled commands, separated by space")
 EMPCFBOTH("anno_keep_days", anno_keep_days, int, NSC_INT, KM_INTERNAL,
 	  "How long until announcements expire (<0 means never)")
 EMPCFBOTH("news_keep_days", news_keep_days, int, NSC_INT, KM_INTERNAL,
