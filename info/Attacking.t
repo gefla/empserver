@@ -80,8 +80,11 @@ A land unit must have mobility and be in supply (see info supply) in
 order to be able to enter the combat.  Land units with "supply"
 capability may not attack.  Only land units with "assault"
 capability may assault or board.
-Attack:  The land unit must have at least as much mobility that it
-         would cost for it to march into the sector.
+Attack:  The land unit will be charged as much mobility as it would
+         spend marching into the sector.  If that is at least as much
+         as for a path cost of 1.0 (typically mountains only), it must
+         have that much mobility, else positive mobility is
+         sufficient.
 Board:   You may only board with as many land units as the target ship
          can hold.  You cannot board a land unit with other land units.
 .FI
@@ -128,7 +131,7 @@ sector stats).  Ships have a defense value of 1 + def/100 (see show
 ship stats).  You can use the "strength" command to see the defense
 strength of your sectors.
 .s1
-Now, When your scouts estimate the defense strength, they only count
+Now, when your scouts estimate the defense strength, they only count
 land units and mil that they see.  If your scouts didn't notice the
 efficiency of the defending units, then they assume that they are at
 100% efficiency.  Your scouts also assume that none of the enemy units
