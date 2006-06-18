@@ -50,13 +50,14 @@ int
 map(void)
 {
     char *b;
-    int unit_type = 0;
+    int unit_type = EF_BAD;
     int bmap = 0;
     char *str;
     struct nstr_sect ns;
     char origin = '\0';
     int map_flags = 0;
     char buf[1024];
+    char prompt[128];
 
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')
@@ -80,7 +81,13 @@ map(void)
     }
 
     if (player->argp[1] == NULL) {
-	str = getstring("(sects)? ", buf);
+	if (unit_type == EF_BAD) {
+	    str = getstring("(sects)? ", buf);
+	} else {
+	    sprintf(prompt, "(sects, %s)? ", ef_nameof(unit_type));
+	    str = getstring(prompt, buf);
+	}
+
 	if (!str || !*str)
 	    return RET_SYN;
     } else
