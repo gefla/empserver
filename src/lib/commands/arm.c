@@ -63,7 +63,8 @@ arm(void)
     if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
 	return RET_SYN;
     while (nxtitem(&ni, &pl)) {
-	if (!player->owner)
+	if (!player->owner
+	    && getrel(getnatp(pl.pln_own), player->cnum) != ALLIED)
 	    continue;
 	plc = &plchr[(int)pl.pln_type];
 	if ((plc->pl_flags & (P_O | P_M)) == (P_O | P_M)) {
@@ -109,6 +110,9 @@ arm(void)
 	else
 	    pl.pln_flags &= ~PLN_AIRBURST;
 
+	snprintf(buf, sizeof(buf), "armed on your %s in %s",
+		 prplane(&pl), xyas(pl.pln_x, pl.pln_y, pl.pln_own));
+	gift(pl.pln_own, player->cnum, &nuke, EF_NUKE, buf);
 	pl.pln_nuketype = nuke.nuk_type;
 	nuke.nuk_plane = pl.pln_uid;
 	putplane(pl.pln_uid, &pl);
