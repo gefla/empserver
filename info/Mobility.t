@@ -40,8 +40,8 @@ Fortifying a land unit ("dig in") costs one point of mobility per
 point of fortification.  An engineer cuts the mobility cost by one
 third.  See "info fortify".
 
-4. Converting civs
-Security units are charged 10 mobility every time civs are converted
+4. Converting civilians
+Security units are charged 10 mobility every time civilians are converted
 in a sector they are in.
 
 5. Laying mines
@@ -71,6 +71,9 @@ See "Path Cost" below for the path cost formula.  Note that reacting
 land units only pay mobility to move "to" the attacked sector; they
 return to their start sector for free.  Land units on "reserve"
 mission only pay half the mobility cost to react.
+
+Marching through newly taken sectors (not old-owned, no mobility)
+costs extra mobility equivalent to a path cost of 0.2.
 
 Note that the efficiency of a land unit does not affect the mobility
 costs it pays to march, unless the unit is a supply unit.  Then the
@@ -125,7 +128,7 @@ See "info Attacking" for the mobility cost to board a ship from a ship.
 
 4. Navigating and retreating
 The mobility cost for a ship to navigate or retreat is:
-  (sectors travelled) * 480 / (ship speed)
+  (sectors traveled) * 480 / (ship speed)
 where
   ship speed = (base speed) * (1 + (tech factor))
   base speed = max(0.01, efficiency * speed)
@@ -139,16 +142,16 @@ that its efficiency goes down (see "info Damage").
 -- Sectors --
 Sectors are charged mobility for the following actions:
 
-1. Converting civs
-Each civ converted costs 0.2 mobility.
+1. Converting civilians
+Each civilian converted costs 0.2 mobility.
 
-2. Shooting civs & uws
-The mobility cost to shoot civs or uws is
+2. Shooting civilians & uws
+The mobility cost to shoot civilians or uws is
   (number shot + 4) / 5
 
-3. Enlisting mil
-The mobility cost for enlisting mil depends on what fraction of the
-civs present you are enlisting:
+3. Enlisting military
+The mobility cost for enlisting military depends on what fraction of the
+civilians present you are enlisting:
   (new mobility) = (old mobility) * (1 - newmil / civs)
 
 4. Fighting
@@ -168,10 +171,6 @@ mobility left in the sector.
 
 The exact formula is:
   mob cost = (amount) * (weight) * (path cost) / (source packing bonus)
-
-If the movement happened at the update, then the cost is:
-  delivery cost = (mob cost) / 4
-  distribute cost = (mob cost) / (10 * (destination packing bonus))
 
 Weight
 Each commodity has a weight:
@@ -198,20 +197,27 @@ other         10             1       1
 Path Cost
 The path cost is the cumulative mobility cost of moving through each
 sector in the path. The cost to enter a sector is based on the
-sector's type and efficiency. All sectors cost 0.4 to move into when
-they have a 0% road factor, except for mountains which cost 5.0 at 0%.
-The mobility cost to move into a sector goes down linearly as the
-road efficiency increases.  This represents the construction of roads.
+sector's type and efficiency.
 
-You can also build railways to make the moving of trains faster.  When
-marching trains about, the rail factor is used.  Otherwise, the road
-factor is used.
+Sectors typically cost 0.4 at 0% efficiency, and 0.2 at 100%.
+Efficient highways cost less, and mountains cost much more.  See "show
+sect stats" for the exact numbers.
 
-See "info improve" for more information on improving the efficiency
-ratings of your sectors, and see "info sinfrastructure" for information
-on showing the infrastructure of your sectors.
+Road infrastructure, if enabled, allows you to construct roads in
+sectors and thus decrease their mobility cost by up to 90%.
+
+Railway infrastructure, if enabled, decreases mobility cost by up to
+99%, but only for marching trains.
+
+See "info improve" for more information on improving the
+infrastructure efficiency ratings of your sectors, and see "info
+sinfrastructure" for information on showing the infrastructure of your
+sectors.
 
 See "info Infrastructure" for more general information on Infrastructure.
+
+In any case, the sector mobility cost is at least 0.001, except for
+marching land units, where it is at least 0.02.
 
 Update mobility bonus
 Commodities get moved at the update through delivery and distribution.
@@ -232,4 +238,4 @@ When a sector is shelled, its mobility goes down in exactly the same
 way that efficiency goes down (see "info Damage").
 
 .fi
-.SA "Sectors, Ships, LandUnits, Planes, Transportation"
+.SA "Sectors, Infrastructure, Ships, LandUnits, Planes, Transportation"
