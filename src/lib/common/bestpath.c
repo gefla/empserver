@@ -79,7 +79,9 @@ static unsigned short **mapindex;
  * the usual rules.
  * Other sectors are assumed to be passable when BIGMAP shows '.' or
  * nothing.
- * Return path or a null pointer.
+ * Return a path if found, else a null pointer.
+ * Wart: the path isn't terminated with 'h', except when if X,Y equals
+ * EX,EY.
  */
 char *
 bestownedpath(char *bpath, char *bigmap,
@@ -130,7 +132,7 @@ bestownedpath(char *bpath, char *bigmap,
     maxy = y + 1;
 
     do {
-	if (++routelen == MAXROUTE - 1)
+	if (++routelen == MAXROUTE)
 	    return NULL;
 	markedsectors = 0;
 	for (scanx = minx; scanx <= maxx; scanx++) {
@@ -155,8 +157,7 @@ bestownedpath(char *bpath, char *bigmap,
 			    }
 			}
 			if (tx == ex && ty == ey) {
-			    bpath[routelen] = 'h';
-			    bpath[routelen + 1] = 0;
+			    bpath[routelen] = 0;
 			    while (routelen--) {
 				i = (mapindex[tx][ty] >> 13)
 				    - 1 + DIR_FIRST;
