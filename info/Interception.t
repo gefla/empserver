@@ -1,5 +1,5 @@
 .TH Concept Interception
-.NA Interception "How plane interdiction works"
+.NA Interception "How plane interception works"
 .LV Expert
 .s1
 Each time an enemy plane (i.e. a plane owned by a country that your are
@@ -9,7 +9,7 @@ have with the intercept ability will intercept them if:
 .NF
 a) The incoming plane is not stealthy, or is detected.
 b) The sector is within 1/2 the interceptor's range (as modified
-by rangeedit)
+   by the range command)
 b) They have mobility
 c) Their efficiency is 40 or more
 d) They are at an appropriate place:
@@ -23,7 +23,9 @@ e) There is petrol there equal to 1/2 the plane's fuel rating.
 	(rounded down)
 .FI
 .s1
-Before planes scramble to intercept incoming planes, any SAMs in range
+Before planes scramble to intercept incoming planes, flak fires (see
+info Flak), air defense missions are executed (see info mission), and
+any SAMs in range
 will be launched.  One SAM is launched at each incoming plane that
 cost at least $1000 to build.  See below for the damage that the SAM
 does to the plane it hits.
@@ -34,7 +36,7 @@ i.e. 1 plane will be intercepted by 2 (if available), 2 by 3,
 numbered planes intercept first. Incoming missiles will only be intercepted
 by ABM's
 .s1
-Once the roster of attackers & intercepters is determined, attackers
+Once the roster of attackers & interceptors is determined, attackers
 and interceptors dogfight. First escorts & interceptors fight,
 then planes being escorted & surviving non-aborted interceptors.
 .s1
@@ -121,4 +123,4 @@ intercept them a total of three times in that sector. Note that a 'target
 sector' is a sector that is the target of a bombing or para mission. Merely
 having ships in a sector will not cause interception of planes flying over.
 .s1
-.SA "Plane-types, plane, fly, recon, bomb, range, Planes, Missions"
+.SA "Plane-types, plane, fly, recon, bomb, range, mission, Flak, Planes"
