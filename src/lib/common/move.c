@@ -49,7 +49,7 @@ sector_mcost(struct sctstr *sp, int mobtype)
     if (base < 0)
 	return -1.0;
 
-    /* linear function in eff, d_mcst at 0%, d_emcst at 100% */
+    /* linear function in eff, d_mob0 at 0%, d_mob1 at 100% */
     base += (dchr[sp->sct_type].d_mob1 - base) * sp->sct_effic / 100;
     if (CANT_HAPPEN(base < 0))
 	base = 0;
