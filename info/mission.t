@@ -66,10 +66,10 @@ on a sector until 100 damage is done.
 OPERATIONS SECTORS
 .s1
 Some missions require the designation of an 'op sector', short for operations
-sector. This is the center of an area that the mission is focussed on.
+sector. This is the center of an area that the mission is focused on.
 The op sector may be any sector that is within the unit's range.
-(Firing range,
-for ships & land units, flying range for planes, changeable with rangeedit).
+(Firing range, for ships & land units, flying range for planes,
+changeable with range command).
 The unit will exert influence in a radius around the op sector.
 By default, the radius will be as large as possible, i.e. the biggest range
 so that the unit/ship/plane could legally act there.)
@@ -168,7 +168,7 @@ in, it would be shelled/bombed. This happens as long as the interdicting units
 have mobility left.
 .s1
 Damage done is divided amongst all units/ships/commodities moving. For
-example, if 6 ships were moving, and the interdiction mission did 18 pts of
+example, if 6 ships were moving, and the interdiction mission did 18 points of
 damage, each ship would take 3. 
 .s1
 Note that only ships with sonar and ASW planes can interdict subs. Also, the
@@ -179,7 +179,7 @@ Only planes with the 'tactical' ability can fly interdiction missions.
 Only planes with 'ASW' ability will fly vs. subs. Planes with 'ASW'
 ability will not fly interdiction vs. other types of
 ships/planes/units/commods.  Subs have a chance of sneaking through
-ASW aircover unnoticed, and ASW planes will respond to any
+ASW air cover unnoticed, and ASW planes will respond to any
 non-Friendly sub movement.  Depending on the visibility of the sub,
 the ASW plane may or may not identify the type and/or owner of the
 sub.
@@ -307,7 +307,7 @@ retreat from the combat (see land combat for details), it WOULD lose its status.
 When a unit with a reserve mission is listed, the op sector is the sector
 the unit is in, and the radius is the units maximum reaction radius, including
 the bonus for the reserve mission and HQ (if applicable). Note that the unit's
-actual radius might be different if it was changed by lrangeedit.
+actual radius might be different if it was changed by lrange command.
 .s1
 Note: information gained from planes flying missions is automatically
 added to your bmap.
