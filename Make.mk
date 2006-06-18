@@ -184,7 +184,7 @@ install: all installdirs
 		echo "Your $(econfig) doesn't work";			\
 		src/util/pconfig >$(econfig).new;			\
 	    fi;								\
-	    if [ -e $(econfig) ]; then					\
+	    if [ -e $(econfig).new ]; then				\
 		echo "Check out $(econfig).new";			\
 	    fi;								\
 	else								\
