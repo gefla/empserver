@@ -73,7 +73,7 @@ arm(void)
 	}
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &pl)) {
-		pr("You cannot disarm %s while it is on the trading block!\n",
+		pr("You cannot arm %s while it is on the trading block!\n",
 		   prplane(&pl));
 		return RET_FAIL;
 	    }
@@ -154,6 +154,12 @@ disarm(void)
 	    continue;
 	}
 	getsect(nuke.nuk_x, nuke.nuk_y, &sect);
+	if (!player->owner
+	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+	    pr("Disarming %s in sector %s requires an alliance!\n",
+	       prplane(&pl), xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    continue;
+	}
 	snprintf(buf, sizeof(buf), "unloaded in your %s at %s",
 		 dchr[sect.sct_type].d_name,
 		 xyas(sect.sct_x, sect.sct_y, sect.sct_own));
