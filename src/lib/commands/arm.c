@@ -128,6 +128,8 @@ disarm(void)
     struct plnstr pl;
     struct nukstr nuke;
     struct nstr_item ni;
+    struct sctstr sect;
+    char buf[128];
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
 	return RET_SYN;
@@ -147,6 +149,11 @@ disarm(void)
 	    CANT_REACH();
 	    continue;
 	}
+	getsect(nuke.nuk_x, nuke.nuk_y, &sect);
+	snprintf(buf, sizeof(buf), "unloaded in your %s at %s",
+		 dchr[sect.sct_type].d_name,
+		 xyas(sect.sct_x, sect.sct_y, sect.sct_own));
+	gift(sect.sct_own, player->cnum, &nuke, EF_NUKE, buf);
 	nuke.nuk_plane = -1;
 	pl.pln_nuketype = -1;
 	pl.pln_flags &= ~PLN_AIRBURST;

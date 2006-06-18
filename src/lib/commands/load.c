@@ -335,6 +335,9 @@ gift(natid givee, natid giver, void *ptr, int type, char *mesg)
 	case EF_LAND:
 	    p = prland(ptr);
 	    break;
+	case EF_NUKE:
+	    p = prnuke(ptr);
+	    break;
 	default:
 	    CANT_REACH();
 	    p = "a red herring";
