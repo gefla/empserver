@@ -179,11 +179,13 @@ install: all installdirs
 	    if src/util/pconfig $(econfig) >$(econfig).new; then	\
 	        if cmp -s $(econfig) $(econfig).new; then		\
 		    rm $(econfig).new;					\
-		else							\
-		    echo "Check out $(econfig).new";			\
 		fi							\
 	    else							\
 		echo "Your $(econfig) doesn't work";			\
+		src/util/pconfig >$(econfig).new			\
+	    fi								\
+	    if [ -e $(econfig); then					\
+		echo "Check out $(econfig).new";			\
 	    fi								\
 	else								\
 	    src/util/pconfig >$(econfig);				\
