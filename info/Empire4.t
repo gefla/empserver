@@ -7,7 +7,55 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.6 - Wed Jun 14 18:18:34 UTC 2006
+Changes to Empire 4.3.6 - Sun Jun 18 19:07:37 UTC 2006
+ * You can now allied planes with nukes.
+ * Taking a nuke off a plane gives it to the sector owner again.
+   Feature was accidentally dropped in 4.3.3.  Recipient must be
+   allied.
+ * Naval path went bananas for impassable end sectors (broken in
+   4.3.1).
+ * New econfig key disabled_commands.
+ * New territory selector dterr, restricted to deities.  The territory
+   command defaults to it for deities.
+ * Let land units attack as long as they have positive mobility,
+   except for high-mobility terrain (mountains), where the rules
+   remain as they were: land units need to have all the mobility
+   charged for the attack, not counting combat and moving in to
+   occupy.  Rationale: Making sure your land units reach attack
+   positions with enough mobility left is a pain in the neck.
+   Requiring only positive mobility is friendlier, but allowed rushing
+   of mountains, so we make an exception there.
+ * Can typeset info pages as PostScript.  Result isn't exactly pretty.
+ * Support disabling of infrastructure in infra custom table.  Remove
+   redundant option DEFENSE_INFRA.  show command now shows only enabled
+   infrastructure.
+ * Fix crash on empty argument in bmap, lbmap, lmap, map, nmap, pbmap,
+   pmap sbmap, smap (broken in 4.3.1).
+ * New, simpler sector mobility cost formula:
+   - The basic cost is still a linear function of sector efficiency,
+     with customizable cost at 0% and at 100%.  The latter used to be
+     derived from the former.  The show command shows both parameters
+     now.
+   - Mountains are no longer a special case.
+   - Tweak costs: mountains now range from 2.4 to 1.2 instead of 2.174
+     to 1.304, highway, bridge head, bridge span and bridge tower
+     range from 0.4 to 0.001 instead of 0.2 to 0.001, and wilderness
+     is 0.4 flat instead of 0.6 to 0.4.  All sector types mortal
+     players can designate now cost the same at 0%.  That's a feature.
+   - Road infrastructure now reduces cost up to 90%, linear in road
+     efficiency (used to be close to that, but non-linear).  Same for
+     rail infrastructure, but 99%.  Adapted from Ice World V.
+   - Double land unit minimum cost to 0.02, to slow them down on
+     highways.
+   - Change land unit cost penalty in newly taken land to an extra 0.2
+     instead of a minimum of 0.2, to reduce penetration depth.
+ * Reduce bridge head defense and collect value to match highway's.
+ * sinfrastructure displayed bogus rail mobility costs when there was
+   no rail.
+ * Retreating engineers took full landmine damage instead of half.
+ * Fix socket creation code not to print a null pointer.
+ * Fix login option code not to search beyond end of table (broken in
+   4.2.21).
  * Spy planes and satellites can no longer spot landspies.
  * Spy planes can now spot surface ships at sea.  They can no longer
    spot land units loaded on ships or land units.
@@ -37,9 +85,9 @@ Changes to Empire 4.3.6 - Wed Jun 14 18:18:34 UTC 2006
  * Fix land unit path finding: paths weren't always cheapest (broken
    in 4.0.2), and trains could be sent down paths without rail (never
    worked).  Also fixes unit reaction path cost.
- * Improved custom table reader can now deal with sector, item,
-   product and infrastructure tables more comfortably.
- * Remove option BIG_CITY.  Deities can load a suitable sect table to
+ * The custom table reader can now deal with sector, item, product and
+   infra tables more comfortably.  
+ * Remove option BIG_CITY.  Deities can customize the sect table to
    get the same effect.
  * Many more selectors can now be compared with names, not just
    numbers.  This includes nations, e.g. census ?old=Mirkwood.  Does
@@ -54,7 +102,7 @@ Changes to Empire 4.3.6 - Wed Jun 14 18:18:34 UTC 2006
  * Change land report to show carriers in the same format as plane and
    nuke report do.
  * Code cleanup.
- * Minor info file and manual page fixes.
+ * Info file and manual page fixes.
 
 Changes to Empire 4.3.5 - Sun May 28 07:49:54 UTC 2006
  * In conditionals, ~ compared to a string selector now stands for an
