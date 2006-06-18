@@ -128,6 +128,8 @@ navi(void)
 		stopping = 1;
 		continue;
 	    }
+	    if (cp && !(cp = shp_path(together, shp, buf)))
+		cp = buf;
 	}
 	radmapnopr(shp->shp_x, shp->shp_y, (int)shp->shp_effic,
 		   (int)techfact(shp->shp_tech,
@@ -184,8 +186,6 @@ navi(void)
 	} else {
 	    dir = chkdir(*cp++, DIR_STOP, DIR_VIEW);
 	    if (dir < 0) {
-		if (NULL != (cp = shp_path(together, shp, buf)))
-		    continue;
 		direrr("`%c' to stop", ", `%c' to view, ", 0);
 		pr("`i' to list ships, `f' to change flagship,\n");
 		pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");

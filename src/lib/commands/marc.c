@@ -112,6 +112,8 @@ march(void)
 		stopping = 1;
 		continue;
 	    }
+	    if (cp && !(cp = lnd_path(together, lnd, buf)))
+		cp = buf;
 	}
 	if (cp == 0 || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
@@ -160,8 +162,6 @@ march(void)
 	} else {
 	    dir = chkdir(*cp++, DIR_STOP, DIR_LAST);
 	    if (dir < 0) {
-		if (NULL != (cp = lnd_path(together, lnd, buf)))
-		    continue;
 		direrr("`%c' to stop", 0, 0);
 		pr(", `i' to list units, `f' to change leader,\n");
 		pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
