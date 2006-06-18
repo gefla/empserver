@@ -114,6 +114,8 @@ bestownedpath(char *bpath, char *bigmap,
 
     if (!valid(x, y) || !valid(ex, ey))
 	return NULL;
+    if (!owned_and_navigable(bigmap, ex, ey, own))
+	return NULL;
 
     for (i = 0; i < WORLD_X; i++)
 	for (j = 0; j < WORLD_Y; j++)
@@ -145,6 +147,8 @@ bestownedpath(char *bpath, char *bigmap,
 			ty = YNORM(ty);
 			if (mapindex[tx][ty] == 0xFFFF) {
 			    if (owned_and_navigable(bigmap, tx, ty, own)) {
+				if (CANT_HAPPEN(i < DIR_FIRST || i > DIR_LAST))
+				    i = DIR_STOP;
 				mapindex[tx][ty] =
 				    ((i - DIR_FIRST + 1) << 13) + routelen;
 				markedsectors++;
