@@ -43,7 +43,7 @@ struct nukstr {
     natid nuk_own;
     short nuk_uid;
     coord nuk_x, nuk_y;		/* current loc of device */
-    signed char nuk_type;	/* index in plchr[] */
+    signed char nuk_type;	/* index in nchr[] */
     signed char nuk_effic;	/* unused, always 100% */
     signed char nuk_mobil;	/* unused, always 0 */
     unsigned char nuk_off;	/* repairs stopped? (unused) */
