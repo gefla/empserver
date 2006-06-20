@@ -60,7 +60,7 @@ struct cmndstr player_coms[] = {
      3, boar, C_MOD, NORM + MONEY + CAP},
     {"bomb <bomber-PLANES> <fighter-PLANES> <pin|strat> <ap-SECT> <PATH|DESTINATION>",
      2, bomb, C_MOD, NORM + MONEY + CAP},
-    {"break {sanctuary}", 1, brea, C_MOD, SANCT},
+    {"break {sanctuary}", 0, brea, C_MOD, SANCT},
     {"budget", 1, budg, 0, NORM},
     {"build <s|l|b|p|n|t> <SECTS> <type|dir> [<number> <tech> <sure?>]",
      1, buil, C_MOD, NORM + MONEY + CAP},
