@@ -21,12 +21,13 @@ To build the server and set up a game, follow the steps below.
     If you downloaded a tarball, unpack it.
 
     If you're pulling from CVS, check out and run bootstrap.  This
-    requires Autoconf and Automake to be installed.
+    requires recent versions of Autoconf and Automake to be installed.
 
 (2) Building a server
 
-    Requirements: GNU make and, ANSI C, a curses library, Perl, nroff
-    or GNU troff (`groff'), Bourne Shell and the common utilities.
+    Prerequisites: GNU make and, ANSI C, a curses library, Perl, nroff
+    or GNU troff (`groff'), Bourne Shell and the common utilities,
+    conforming to the Single UNIX Specification Version 2.
 
     See file `INSTALL' for detailed compilation and installation
     instructions.  Quick guide for the impatient: run configure; make;
@@ -35,6 +36,11 @@ To build the server and set up a game, follow the steps below.
 
     If make fails without doing anything, you're probably not using
     GNU make.  Some systems have it installed as `gmake'.
+
+    Solaris supports SUSv2, but you need to set up your environment
+    for that.  Try passing
+        SHELL=/usr/xpg4/bin/sh PATH=/usr/xpg4/bin:$PATH
+    to make.  See standards(5) for details.
 
 (3) Creating a game
 
