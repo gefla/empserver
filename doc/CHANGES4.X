@@ -1,5 +1,8 @@
-Changes to Empire 4.3.6 - Sun Jun 18 19:07:37 UTC 2006
- * You can now allied planes with nukes.
+Changes to Empire 4.3.6 - Tue Jun 20 18:46:18 UTC 2006
+ * The shutdown command now terminates the server process correctly
+   even with LinuxThreads pthreads under Linux 2.4 and earlier.
+ * Cope with old versions of groff (broken in 4.3.0).
+ * You can now arm allied planes with nukes.
  * Taking a nuke off a plane gives it to the sector owner again.
    Feature was accidentally dropped in 4.3.3.  Recipient must be
    allied.
