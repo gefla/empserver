@@ -257,7 +257,7 @@ main(int argc, char **argv)
     if (daemonize) {
 	if (disassoc() < 0) {
 	    logerror("Can't become daemon (%s)", strerror(errno));
-	    _exit(1);
+	    exit(1);
 	}
     }
 #endif /* !_WIN32 */
@@ -406,7 +406,7 @@ shutdwn(int sig)
     if (daemonize)
         stop_service();
 #endif
-    _exit(0);
+    exit(0);
 }
 
 #if defined(_WIN32)
@@ -421,7 +421,7 @@ loc_NTInit(void)
     rc = WSAStartup(wVersionRequested, &wsaData);
     if (rc != 0) {
 	logerror("WSAStartup failed.  %d", rc);
-	_exit(1);
+	exit(1);
     }
 }
 
