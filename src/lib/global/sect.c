@@ -44,7 +44,7 @@
  * Table of sector designations
  * Initialized on startup from sect.config and deity custom config (if any).
  */
-struct dchrstr dchr[SCT_MAXDEF + 1];
+struct dchrstr dchr[SCT_MAXDEF + 2];
 
 /*
  * Table of infrastructure types
