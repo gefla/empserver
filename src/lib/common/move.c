@@ -28,7 +28,7 @@
  *  move.c: Misc. move routines
  * 
  *  Known contributors to this file:
- *     
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
