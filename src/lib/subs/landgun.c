@@ -117,11 +117,5 @@ fortrange(struct sctstr *sp)
 int
 roundrange(double r)
 {
-    double f;
-
-    f = r - (int)r;
-    if (chance(f))
-	return (int)r + 1;
-    else
-	return (int)r;
+    return roundavg(r);
 }
