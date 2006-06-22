@@ -146,11 +146,11 @@ struct empfile empfile[] = {
 
     /* Static game data (configuration) */
     {EF_ITEM, "item", "item.config", ichr_ca,
-     ARRAY_TABLE(ichr, EFF_CFG)},
+     ARRAY_CACHE(ichr, EFF_CFG)},
     {EF_PRODUCT, "product", "product.config", pchr_ca,
-     ARRAY_TABLE(pchr, EFF_CFG)},
+     ARRAY_CACHE(pchr, EFF_CFG)},
     {EF_SECTOR_CHR, "sect-chr", "sect.config", dchr_ca,
-     ARRAY_TABLE(dchr, EFF_CFG)},
+     ARRAY_CACHE(dchr, EFF_CFG)},
     {EF_SHIP_CHR, "ship-chr", "ship.config", mchr_ca,
      ARRAY_CACHE(mchr, EFF_CFG)},
     {EF_PLANE_CHR, "plane-chr", "plane.config", plchr_ca,
@@ -162,7 +162,7 @@ struct empfile empfile[] = {
     {EF_NEWS_CHR, "news-chr", NULL, rpt_ca,
      ARRAY_TABLE(rpt, EFF_CFG)},
     {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca,
-     ARRAY_TABLE(intrchr, EFF_CFG)},
+     ARRAY_CACHE(intrchr, EFF_CFG)},
     {EF_TABLE, "table", NULL, empfile_ca,
      ARRAY_TABLE(empfile, EFF_CFG)},
     {EF_META, "meta", NULL, mdchr_ca,
