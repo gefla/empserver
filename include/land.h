@@ -42,7 +42,7 @@
 #include "nsc.h"
 #include "retreat.h"
 
-#define N_MAXLAND	30
+#define LND_TYPE_MAX	30
 #define LAND_MINEFF	10
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */
 
@@ -178,7 +178,7 @@ struct lchrstr {
 #define putland(n, p) ef_write(EF_LAND, (n), (p))
 #define getlandp(n) (struct lndstr *)ef_ptr(EF_LAND, (n))
 
-extern struct lchrstr lchr[N_MAXLAND + 1];
+extern struct lchrstr lchr[LND_TYPE_MAX + 2];
 
 struct llist {
     struct emp_qelem queue;	/* list of units */

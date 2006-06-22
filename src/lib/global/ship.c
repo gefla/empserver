@@ -43,5 +43,6 @@
 /*
  * Table of ship types
  * Initialized on startup from ship.config and deity custom config (if any).
+ * Terminated by a sentinel with null m_name.
  */
-struct mchrstr mchr[N_MAXSHIPS + 1];
+struct mchrstr mchr[SHP_TYPE_MAX + 2];

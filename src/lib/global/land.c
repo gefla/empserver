@@ -41,5 +41,6 @@
 /*
  * Table of land unit types
  * Initialized on startup from land.config and deity custom config (if any).
+ * Terminated by a sentinel with null l_name.
  */
-struct lchrstr lchr[N_MAXLAND + 1];
+struct lchrstr lchr[LND_TYPE_MAX + 2];

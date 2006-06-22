@@ -42,7 +42,7 @@
 #include "misc.h"
 #include "retreat.h"
 
-#define N_MAXSHIPS	40
+#define SHP_TYPE_MAX	46
 #define	SHIP_MINEFF	20
 
 /* bit masks for the autonav mode flags */
@@ -183,7 +183,7 @@ struct mchrstr {
 #define putship(n, p) ef_write(EF_SHIP, (n), (p))
 #define getshipp(n) (struct shpstr *)ef_ptr(EF_SHIP, (n))
 
-extern struct mchrstr mchr[N_MAXSHIPS + 1];
+extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
 
 struct mlist {
     struct emp_qelem queue;	/* list of ships */

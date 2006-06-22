@@ -39,7 +39,7 @@
 #include "queue.h"
 #include "sect.h"
 
-#define N_MAXPLANE	40
+#define PLN_TYPE_MAX	46
 #define	PLANE_MINEFF	10
 
 struct plnstr {
@@ -138,7 +138,7 @@ struct plist {
 #define putplane(n, p) ef_write(EF_PLANE, (n), (p))
 #define getplanep(n) (struct plnstr *)ef_ptr(EF_PLANE, (n))
 
-extern struct plchrstr plchr[N_MAXPLANE + 1];
+extern struct plchrstr plchr[PLN_TYPE_MAX + 2];
 
 struct shiplist {
     short uid;

@@ -43,5 +43,6 @@
 /*
  * Table of plane types
  * Initialized on startup from plane.config and deity custom config (if any).
+ * Terminated by a sentinel with null pl_name.
  */
-struct plchrstr plchr[N_MAXPLANE + 1];
+struct plchrstr plchr[PLN_TYPE_MAX + 2];
