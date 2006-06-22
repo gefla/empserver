@@ -290,10 +290,8 @@ bmnxtsct(struct nstr_sect *np)
 static char
 map_char(unsigned char type, natid own, int owner_or_god)
 {
-    if (type > SCT_MAXDEF) {
-	logerror("bad sector type %d\n", type);
+    if (CANT_HAPPEN(type > SCT_TYPE_MAX || !dchr[type].d_mnem))
 	return '?';
-    }
     if (owner_or_god
 	|| type == SCT_WATER || type == SCT_MOUNT || type == SCT_WASTE
 	|| (!own && (type == SCT_RURAL || type == SCT_PLAINS)))

@@ -32,6 +32,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005
+ *     Markus Armbruster, 2006
  */
 
 #include <config.h>
@@ -499,7 +500,7 @@ show_sect_build(int foo)
     int x, first;
 
     first = 1;
-    for (x = 0; x <= SCT_MAXDEF; x++) {
+    for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (dchr[x].d_cost < 0)
@@ -537,7 +538,7 @@ show_sect_stats(int foo)
     struct natstr *natp;
 
     natp = getnatp(player->cnum);
-    for (x = 0; x <= SCT_MAXDEF; x++) {
+    for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (first) {
@@ -567,7 +568,7 @@ show_sect_capab(int foo)
     int x, first = 1, i, j;
     char *tmpstr;
 
-    for (x = 0; x <= SCT_MAXDEF; x++) {
+    for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0 || dchr[x].d_prd < 0)
 	    continue;
 	if (first) {

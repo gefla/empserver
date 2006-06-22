@@ -64,7 +64,7 @@ int
 budg(void)
 {
     int i;
-    long p_sect[SCT_MAXDEF+2][2];
+    long p_sect[SCT_TYPE_MAX+2][2];
     int taxes, Ncivs, Nuws, bars, Nbars, mil;
     int ships, sbuild, nsbuild, smaint;
     int units, lbuild, nlbuild, lmaint;
@@ -90,7 +90,7 @@ budg(void)
     income = taxes + bars;
     expenses = 0;
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
-    for (i = 0; i <= SCT_MAXDEF; i++) {
+    for (i = 0; i <= SCT_TYPE_MAX; i++) {
 	if (!p_sect[i][1] || i == SCT_CAPIT)
 	    continue;
 	pr("%-17s\t\t", dchr[i].d_name);
@@ -198,7 +198,7 @@ calc_all(long p_sect[][2],
     int etu = etu_per_update;
 
     mil_dbl_pay = 0;
-    memset(p_sect, 0, sizeof(**p_sect) * (SCT_MAXDEF+2) * 2);
+    memset(p_sect, 0, sizeof(**p_sect) * (SCT_TYPE_MAX+2) * 2);
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
     *ships = *sbuild = *nsbuild = *smaint = 0;
     *units = *lbuild = *nlbuild = *lmaint = 0;

@@ -112,7 +112,7 @@ update_main(void *unused)
     logerror("done preparing sectors.");
     logerror("producing for countries...");
     for (x = 0; x < MAXNOC; x++) {
-	long p_sect[SCT_MAXDEF+2][2];
+	long p_sect[SCT_TYPE_MAX+2][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
 	mil_dbl_pay = 0;
