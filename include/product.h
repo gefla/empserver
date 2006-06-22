@@ -58,7 +58,7 @@ struct pchrstr {
     char *p_sname;		/* short (7 char or less) name of product */
 };
 
-#define P_MAX 14
+#define P_MAX 22
 
 extern struct pchrstr pchr[P_MAX + 2];
 
