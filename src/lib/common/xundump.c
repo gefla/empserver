@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005
+ *     Markus Armbruster, 2005-2006
  */
 
 /*
@@ -62,13 +62,13 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-static unsigned char initialized[EF_MAX];
 static char *fname;
 static int lineno;
 static int human;
 static int ellipsis, is_partial;
 static int cur_type, cur_id;
 static void *cur_obj;
+static int cur_obj_is_blank;
 static int nflds;
 static struct castr **fldca;
 static int *fldidx;
@@ -401,7 +401,7 @@ fldval_must_match(int fldno)
     struct castr *ca = ef_cadef(cur_type);
     int i = fldca[fldno] - ca;
 
-    return (initialized[cur_type] && (fldca[fldno]->ca_flags & NSC_CONST))
+    return (!cur_obj_is_blank && (fldca[fldno]->ca_flags & NSC_CONST))
 	|| caseen[i];
 }
 
@@ -414,7 +414,8 @@ getobj(struct castr *ca, int altid)
     if (!cur_obj) {
 	if (ca->ca_table == cur_type)
 	    cur_id = altid;
-	if (cur_id >= ep->fids) {
+	cur_obj_is_blank = cur_id >= ep->fids;
+	if (cur_obj_is_blank) {
 	    /* TODO grow cache (and posssibly file) unless EFF_STATIC */
 	    if (cur_id < ep->csize - !!need_sentinel)
 		ep->cids = ep->fids = cur_id + 1;
@@ -520,12 +521,12 @@ setstr(int fldno, char *str)
     ca = getfld(fldno, &idx);
     if (!ca)
 	return -1;
-    must_match = fldval_must_match(fldno);
 
     memb_ptr = getobj(ca, cur_id);
     if (!memb_ptr)
 	return -1;
     memb_ptr += ca->ca_off;
+    must_match = fldval_must_match(fldno);
 
     switch (ca->ca_type) {
     case NSC_STRING:
@@ -757,9 +758,6 @@ xundump(FILE *fp, char *file, int expected_table)
     if (CANT_HAPPEN(!ca))
 	return -1;
 
-    if (!EF_IS_GAME_STATE(type) && !empfile[type].file)
-	initialized[type] = 1;
-
     nca = nf = 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
@@ -785,7 +783,6 @@ xundump(FILE *fp, char *file, int expected_table)
 	lineno++;
     ungetc(ch, fp);
 
-    initialized[type] = 1;
     return type;
 }
 
