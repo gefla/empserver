@@ -43,8 +43,9 @@
 /*
  * Table of sector designations
  * Initialized on startup from sect.config and deity custom config (if any).
+ * Terminated by a sentinel with null d_name.
  */
-struct dchrstr dchr[SCT_MAXDEF + 2];
+struct dchrstr dchr[SCT_TYPE_MAX + 1];
 
 /*
  * Table of infrastructure types

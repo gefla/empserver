@@ -153,7 +153,7 @@ struct dchrstr {
 #define SCT_BTOWER      33	/* Bridge tower */
 #define	SCT_MAXDEF	33	/* highest sector type in header files */
 
-#define SCT_EFFIC       34	/* used in update & budget */
+#define SCT_TYPE_MAX    39
 
 #define getsect(x, y, p) ef_read(EF_SECTOR, sctoff((x), (y)), (p))
 #define putsect(p) ef_write(EF_SECTOR, sctoff((p)->sct_x, (p)->sct_y), (p))
@@ -163,7 +163,7 @@ struct dchrstr {
 /* things relating to sectors */
 extern int sctoff(coord x, coord y);
 
-extern struct dchrstr dchr[SCT_MAXDEF + 2];
+extern struct dchrstr dchr[SCT_TYPE_MAX + 1];
 extern struct dchrstr bigcity_dchr;
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
 

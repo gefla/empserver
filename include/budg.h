@@ -34,6 +34,8 @@
 #ifndef BUDG_H
 #define BUDG_H
 
+#define SCT_EFFIC (SCT_TYPE_MAX + 1)
+
 void fill_update_array(int *bp, struct sctstr *sp);
 int gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm);
 void pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount);
