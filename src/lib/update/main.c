@@ -133,7 +133,6 @@ update_main(void *unused)
 
 	/* produce all sects */
 	produce_sect(x, etu, bp, p_sect);
-	np->nat_money -= p_sect[SCT_CAPIT][1];
 
 	/* build units */
 	prod_ship(etu, x, bp, 1);

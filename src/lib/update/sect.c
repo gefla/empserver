@@ -286,6 +286,8 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 	if ((sp->sct_type == SCT_CAPIT) && (sp->sct_effic > 60)) {
 	    p_sect[SCT_CAPIT][0]++;
 	    p_sect[SCT_CAPIT][1] += etu;
+	    if (!player->simulation)
+		np->nat_money -= etu;
 	}
 
 	if (player->simulation) {
