@@ -177,7 +177,7 @@ damage(int amt, int pct)
 	return 0;
     tmp = amt * pct;
     lost = tmp / 100;
-    if ((random() % 100) < (tmp % 100))
+    if (random() % 100 < tmp % 100)
 	lost++;
     return amt - lost;
 }
