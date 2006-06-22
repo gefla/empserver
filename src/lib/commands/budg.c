@@ -197,7 +197,6 @@ calc_all(long p_sect[][2],
     struct sctstr *sp;
     int etu = etu_per_update;
 
-    mil_dbl_pay = 0;
     memset(p_sect, 0, sizeof(**p_sect) * (SCT_TYPE_MAX+2) * 2);
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
     *ships = *sbuild = *nsbuild = *smaint = 0;

@@ -115,7 +115,6 @@ update_main(void *unused)
 	long p_sect[SCT_TYPE_MAX+2][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
-	mil_dbl_pay = 0;
 	if (!(np = getnatp(x)))
 	    continue;
 	if (np->nat_stat == STAT_SANCT) {

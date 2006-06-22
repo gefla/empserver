@@ -49,6 +49,4 @@ extern long air_money[MAXNOC];
 extern long tpops[MAXNOC];
 extern float levels[MAXNOC][4];
 
-extern int mil_dbl_pay;
-
 #endif

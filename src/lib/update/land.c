@@ -55,8 +55,6 @@
 #include "common.h"
 #include "gen.h"
 
-int mil_dbl_pay;
-
 static void landrepair(struct lndstr *, struct natstr *, int *, int);
 static void upd_land(struct lndstr *, int, struct natstr *, int *, int);
 static int feed_land(struct lndstr *, int);
@@ -311,7 +309,6 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
     mvec[I_GUN] = 0;
     mvec[I_MILIT] = 0;
     mvec[I_SHELL] = 0;
-    mil_dbl_pay += mvec[I_MILIT];
     get_materials(sp, bp, mvec, 1);
 
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
