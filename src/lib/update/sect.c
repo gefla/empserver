@@ -283,6 +283,8 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 	if (sp->sct_updated != 0)
 	    continue;
 
+	np = getnatp(natnum);
+
 	if ((sp->sct_type == SCT_CAPIT) && (sp->sct_effic > 60)) {
 	    p_sect[SCT_CAPIT][0]++;
 	    p_sect[SCT_CAPIT][1] += etu;
@@ -311,8 +313,6 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 
 	sp->sct_updated = 1;
 	work = 0;
-
-	np = getnatp(natnum);
 
 	/* do_feed trys to supply.  So, we need to enable cacheing
 	   here */
