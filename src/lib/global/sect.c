@@ -45,7 +45,7 @@
  * Initialized on startup from sect.config and deity custom config (if any).
  * Terminated by a sentinel with null d_name.
  */
-struct dchrstr dchr[SCT_TYPE_MAX + 1];
+struct dchrstr dchr[SCT_TYPE_MAX + 2];
 
 /*
  * Table of infrastructure types
