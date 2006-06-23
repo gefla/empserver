@@ -304,7 +304,7 @@ info(void)
     if (!name || !*name)
 	name = "TOP";
 
-    _snprintf(filename, sizeof(filename) - 1, "%s\\%s", infodir, name);
+    snprintf(filename, sizeof(filename) - 1, "%s\\%s", infodir, name);
     fp = fopen(filename, "rb");
     if (fp == NULL) {
 	/* may be a "partial" request.  */
@@ -337,7 +337,7 @@ info(void)
 		(strncasecmp(name, fData.cFileName, strlen(name)) == 0)) {
 		nmatch++;
 		if (nmatch == 1) {
-		    _snprintf(last, sizeof(last), "%s", fData.cFileName);
+		    snprintf(last, sizeof(last), "%s", fData.cFileName);
 		} else {
 		    if (nmatch == 2) {
 			pr("`%s' is ambiguous.  The following topics match:\n%s",
@@ -362,7 +362,7 @@ info(void)
 	    pr(".\n");
 	    return RET_FAIL;
 	}
-	_snprintf(filename, sizeof(filename), "%s/%s",
+	snprintf(filename, sizeof(filename), "%s/%s",
 		  infodir, last);
 	fp = fopen(filename, "rb");
 	if (fp == NULL) {
@@ -419,7 +419,7 @@ apro(void)
 	    lhitlim = 100;
     }
 
-    _snprintf(filename, sizeof(filename), "%s\\*",infodir);
+    snprintf(filename, sizeof(filename), "%s\\*",infodir);
     hDir = FindFirstFile(filename, &fData);
     if (hDir == INVALID_HANDLE_VALUE) {
 	if (GetLastError() == ERROR_PATH_NOT_FOUND) {
@@ -452,7 +452,7 @@ apro(void)
 	    ((fData.dwFileAttributes == FILE_ATTRIBUTE_NORMAL) ||
 	     (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
 	     (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY))) {
-	    _snprintf(filename, sizeof(filename), "%s\\%s", infodir,
+	    snprintf(filename, sizeof(filename), "%s\\%s", infodir,
 		      fData.cFileName);
 	    fp = fopen(filename, "rb");
 	    alreadyhit = 0;

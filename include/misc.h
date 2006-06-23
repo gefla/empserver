@@ -60,6 +60,7 @@ typedef long ssize_t;
 
 typedef int pid_t;
 #define vsnprintf _vsnprintf
+#define snprintf _snprintf
 
 #endif /* _WIN32 */
 
