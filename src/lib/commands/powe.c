@@ -186,7 +186,7 @@ out5(double value, int round_val, int round_flag)
 {
     if (value > round_val && round_flag)
 	value = (int)(value / round_val + 0.5) * round_val;
-    if (value < -995000.)
+    if (value < -9999.5e3)
 	pr("%4.0fM", value / 1e6);
     else if (value < -9950.)
 	pr("%4.0fK", value / 1000.);
@@ -194,16 +194,16 @@ out5(double value, int round_val, int round_flag)
 	pr("%4.1fK", value / 1000.);
     else if (value < 1000.)
 	pr("%4.0f ", value);
-    else if (value < 10000.)
+    else if (value < 9.95e3)
 	pr("%4.1fK", value / 1000.);
-    else if (value < 1e6)
+    else if (value < 9999.5e3)
 	pr("%4.0fK", value / 1000.);
-    else if (value < 1e7)
+    else if (value < 9.95e6)
 	pr("%4.1fM", value / 1e6);
-    else if (value >= 1e9)
-	pr("%4.0fG", value / 1e9);
-    else
+    else if (value < 9999.5e6)
 	pr("%4.0fM", value / 1e6);
+    else
+	pr("%4.0fG", value / 1e9);
 }
 
 static void
