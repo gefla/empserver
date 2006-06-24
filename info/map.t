@@ -57,9 +57,9 @@ If you use smap, you can get a map around a ship.
 .s1
 .L "MAP FLAGS"
 .s1
-If you specify an 's' flag, bmap will put your ships on the map.
-If you specify an 'l' flag, bmap will put your land units on the map.
-If you specify an 'p' flag, bmap will put your planes on the map.
+If you specify an 's' flag, map will put your ships on the map.
+If you specify an 'l' flag, map will put your land units on the map.
+If you specify an 'p' flag, map will put your planes on the map.
 A '*' will put all on the map.
 When multiple unit types are selected they are displayed
 in the following priority order: land units, ships, planes.
