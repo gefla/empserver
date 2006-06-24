@@ -157,7 +157,7 @@ struct shiplist {
 /* src/lib/subs/aircombat.c */
 extern void ac_combat_headers(natid, natid);
 extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
-extern int ac_flak_dam(int);
+extern int ac_flak_dam(int, int, int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
 			 coord, char *, int, int,
 			 struct emp_qelem *, struct emp_qelem *);

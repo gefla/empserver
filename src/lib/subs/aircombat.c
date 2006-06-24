@@ -958,22 +958,9 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
     plp = (struct plist *)list->q_forw;
 
     for (qp = list->q_forw; qp != list; qp = next) {
-	/*
-	 * fighters don't get shot at by flak
-	 * non-tactical bombers are harder to hit with flak.
-	 * ('Cause they're not dive-bombing?)
-	 */
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
-	pp = &plp->plane;
-	diff = guns - pp->pln_def;
-	if ((plp->pcp->pl_flags & P_T) == 0)
-	    diff--;
-	if (plp->pcp->pl_flags & P_X)
-	    diff -= 2;
-	if (plp->pcp->pl_flags & P_H)
-	    diff -= 1;
-	n = ac_flak_dam(diff);
+	n = ac_flak_dam(guns, plp->plane.pln_def, plp->pcp->pl_flags);
 	ac_planedamage(plp, from, n, 0, 2, 1, msg);
     }
 }
@@ -982,9 +969,9 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
  * Calculate flak damage
  */
 int
-ac_flak_dam(int flak)
+ac_flak_dam(int guns, int def, int pl_flags)
 {
-    int dam;
+    int flak, dam;
     float mult;
     /*				   <-7      -7     -6     -5     -4 */
     static float flaktable[18] = { 0.132f, 0.20f, 0.20f, 0.25f, 0.30f,
@@ -993,6 +980,14 @@ ac_flak_dam(int flak)
     /*    +5    +6     +7     +8    >+8 */
 	 0.70f,0.75f, 0.80f, 0.85f, 1.1305f };
     enum { FLAK_MAX = sizeof(flaktable)/sizeof(flaktable[0]) - 1 };
+
+    flak = guns - def;
+    if ((pl_flags & P_T) == 0)
+	flak--;
+    if (pl_flags & P_X)
+	flak -= 2;
+    if (pl_flags & P_H)
+	flak -= 1;
 
     if (flak > 8)
 	mult = flaktable[FLAK_MAX];
