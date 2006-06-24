@@ -62,9 +62,13 @@ map(void)
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')
 	    bmap = 'b';
-	else if (**player->argp == 'n')
-	    bmap = 'n';
-	else {
+	else if (**player->argp == 'n') {
+	    unit_type = EF_NUKE;
+	    if (player->argp[0][1] == 'b')
+		bmap = 'b';
+	    else
+		bmap = 'n';
+	} else {
 	    if (**player->argp == 'l')
 		unit_type = EF_LAND;
 	    else if (**player->argp == 'p')
@@ -110,6 +114,10 @@ map(void)
 	case 'p':
 	case 'P':
 	    map_flags |= MAP_PLANE;
+	    break;
+	case 'n':
+	case 'N':
+	    map_flags |= MAP_NUKE;
 	    break;
 	case 'h':
 	case 'H':

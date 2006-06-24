@@ -62,6 +62,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     struct shpstr ship;
     struct lndstr land;
     struct plnstr plane;
+    struct nukstr nuke;
     coord x, y;
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
@@ -217,6 +218,21 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	    wmap[y][x] = (*lchr[(int)land.lnd_type].l_name) & ~0x20;
 	}
     }
+    if (map_flags & MAP_NUKE) {
+	snxtitem_all(&ni, EF_NUKE);
+	while (nxtitem(&ni, &nuke)) {
+	    if (nuke.nuk_own == 0)
+		continue;
+	    if (nuke.nuk_own != player->cnum && !player->god)
+		continue;
+	    if (!xyinrange(nuke.nuk_x, nuke.nuk_y, &nsp->range))
+		continue;
+
+	    x = xnorm(nuke.nuk_x - nsp->range.lx);
+	    y = ynorm(nuke.nuk_y - nsp->range.ly);
+	    wmap[y][x] = 'N';
+	}
+    }
     if (map_flags & MAP_HIGH) {
 	char *ptr;
 	struct sctstr sect;
@@ -305,6 +321,7 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     struct shpstr origs;
     struct lndstr origl;
     struct plnstr origp;
+    struct nukstr orign;
     struct genitem *gp;
     struct range range;
 
@@ -318,6 +335,11 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 	    return RET_FAIL;
 	gp = (struct genitem *)&origp;
 	*originp = *plchr[(int)origp.pln_type].pl_name;
+    } else if (unit_type == EF_NUKE) {
+	if (!getnuke(uid, &orign) || !player->owner || orign.nuk_own == 0)
+	    return RET_FAIL;
+	gp = (struct genitem *)&orign;
+	*originp = 'n';
     } else {
 	if (!getship(uid, &origs) || !player->owner || origs.shp_own == 0)
 	    return RET_FAIL;

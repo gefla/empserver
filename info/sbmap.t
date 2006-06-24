@@ -1,10 +1,11 @@
 .TH Command SBMAP
 .NA sbmap "Big map of all your worldly knowledge around a ship"
 .LV Basic
-.SY "bmap [<SECTS> | <SHIP>] <s|p|l|r|t|*|h>"
-.SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|*|h>"
-.SY "pbmap [<SECTS> | <PLANE>] <s|p|l|*|h>"
-.SY "sbmap [<SECTS> | <SHIP>] <s|p|l|*|h>"
+.SY "bmap [<SECTS> | <SHIP>] <s|p|l|n|r|t|*|h>"
+.SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|n|*|h>"
+.SY "nbmap [<SECTS> | <NUKE>] <s|p|l|n|*|h>"
+.SY "pbmap [<SECTS> | <PLANE>] <s|p|l|n|*|h>"
+.SY "sbmap [<SECTS> | <SHIP>] <s|p|l|n|*|h>"
 A bmap gives you a graphic representation of all or part of your country.
 .s1
 Bmap differs from map in that it reflects everything you've learned
@@ -69,15 +70,17 @@ bmap centered on the location of that ship, provided you own it.
 If you use lbmap, you can get a bmap around a land unit. 
 If you use pbmap, you can get a bmap around a plane.
 If you use sbmap, you can get a bmap around a ship.
+If you use nbmap, you can get a bmap around a nuke.
 .s1
 .L "BMAP FLAGS"
 .s1
 If you specify an 's' flag, bmap will put your ships on the map.
 If you specify an 'l' flag, bmap will put your land units on the map.
 If you specify an 'p' flag, bmap will put your planes on the map.
+If you specify an 'n' flag, bmap will put your nukes on the map.
 A '*' will put all on the map.
 When multiple unit types are selected they are displayed
-in the following priority order: land units, ships, planes.
+in the following priority order: nukes, land units, ships, planes.
 To highlight sectors you own, specify the 'h' flag.
 .s1
 You actually have two bmaps.  One which is created by the server; this

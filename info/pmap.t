@@ -1,11 +1,11 @@
 .TH Command PMAP
 .NA pmap "Get a map around a plane"
 .LV Expert
-.SY "map <SECTS | SHIP> <s|p|l|*|h>"
-.SY "nmap <SECTS | SHIP> <s|p|l|*|h>"
-.SY "smap <SECTS | SHIP> <s|p|l|*|h>"
-.SY "lmap <SECTS | LAND UNIT> <s|p|l|*|h>"
-.SY "pmap <SECTS | PLANE> <s|p|l|*|h>"
+.SY "map <SECTS | SHIP> <s|p|l|n|*|h>"
+.SY "nmap <SECTS | NUKE> <s|p|l|n|*|h>"
+.SY "smap <SECTS | SHIP> <s|p|l|n|*|h>"
+.SY "lmap <SECTS | LAND UNIT> <s|p|l|n|*|h>"
+.SY "pmap <SECTS | PLANE> <s|p|l|n|*|h>"
 A map gives you a graphic representation of all or part of your country.
 .s1
 Your own sectors as well as sea, mountains, wasteland and unowned
@@ -54,15 +54,17 @@ instead of old sector designations of your own country.
 If you use lmap, you can get a map around a land unit. 
 If you use pmap, you can get a map around a plane.
 If you use smap, you can get a map around a ship.
+If you use nmap, you can get a map around a nuke.
 .s1
 .L "MAP FLAGS"
 .s1
 If you specify an 's' flag, map will put your ships on the map.
 If you specify an 'l' flag, map will put your land units on the map.
 If you specify an 'p' flag, map will put your planes on the map.
+If you specify an 'n' flag, map will put your nukes on the map.
 A '*' will put all on the map.
 When multiple unit types are selected they are displayed
-in the following priority order: land units, ships, planes.
+in the following priority order: nukes, land units, ships, planes.
 To highlight sectors you own, specifiy the 'h' flag.
 .s1
 .SA "census, commodity, radar, realm, route, update, Planes, Maps"
