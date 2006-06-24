@@ -1,6 +1,6 @@
 .TH Command PMAP
 .NA pmap "Get a map around a plane"
-.LV Expert
+.LV Basic
 .SY "map <SECTS | SHIP> <s|p|l|n|*|h>"
 .SY "nmap <SECTS | NUKE> <s|p|l|n|*|h>"
 .SY "smap <SECTS | SHIP> <s|p|l|n|*|h>"

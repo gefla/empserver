@@ -1,6 +1,6 @@
 .TH Command LBMAP
 .NA lbmap "Big map of all your worldly knowledge around a land unit"
-.LV Expert
+.LV Basic
 .SY "bmap [<SECTS> | <SHIP>] <s|p|l|n|r|t|*|h>"
 .SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|n|*|h>"
 .SY "nbmap [<SECTS> | <NUKE>] <s|p|l|n|*|h>"

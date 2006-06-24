@@ -1,6 +1,6 @@
 .TH Command LMAP
 .NA lmap "Map around a land unit"
-.LV Expert
+.LV Basic
 .SY "map <SECTS | SHIP> <s|p|l|n|*|h>"
 .SY "nmap <SECTS | NUKE> <s|p|l|n|*|h>"
 .SY "smap <SECTS | SHIP> <s|p|l|n|*|h>"
