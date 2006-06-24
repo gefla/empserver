@@ -47,7 +47,7 @@
 #include "optlist.h"
 #include "commands.h"
 
-static void prprod(struct sctstr *, double, double, int, char,
+static void prprod(coord, coord, int, double, double, int, char,
 		   double, double, double, char[], int[], int[], int);
 
 int
@@ -207,7 +207,7 @@ prod(void)
 	    }
 	    if (enlisted < 0)
 		enlisted = 0;
-	    prprod(&sect, p_e, 1.0, work,
+	    prprod(sect.sct_x, sect.sct_y, type, p_e, 1.0, work,
 		   ichr[I_MILIT].i_mnem, enlisted, maxmil, enlisted * 3,
 		   "c\0\0", &enlisted, &enlisted, nsect++);
 	    continue;
@@ -301,7 +301,7 @@ prod(void)
 	    mnem = '.';
 	else
 	    mnem = 0;
-	prprod(&sect, p_e, prodeff, work,
+	prprod(sect.sct_x, sect.sct_y, type, p_e, prodeff, work,
 	       mnem, real, maxr, cost,
 	       cmnem, cuse, cmax, nsect++);
     }
@@ -317,8 +317,8 @@ prod(void)
     return RET_OK;
 }
 
-void
-prprod(struct sctstr *sp, double p_e, double prodeff, int work,
+static void
+prprod(coord x, coord y, int type, double p_e, double prodeff, int work,
        char mnem, double make, double max, double cost,
        char cmnem[], int cuse[], int cmax[], int nsect)
 {
@@ -329,8 +329,8 @@ prprod(struct sctstr *sp, double p_e, double prodeff, int work,
 	pr("   sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
     }
 
-    prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
-    pr(" %c %3.0f%% %5d", dchr[sp->sct_type].d_mnem, p_e * 100.0, work);
+    prxy("%4d,%-4d", x, y, player->cnum);
+    pr(" %c %3.0f%% %5d", dchr[type].d_mnem, p_e * 100.0, work);
     if (mnem == '.')
 	pr(" %5.2f", make);
     else
