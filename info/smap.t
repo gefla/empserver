@@ -4,8 +4,8 @@
 .SY "map <SECTS | SHIP> <s|p|l|*|h>"
 .SY "nmap <SECTS | SHIP> <s|p|l|*|h>"
 .SY "smap <SECTS | SHIP> <s|p|l|*|h>"
-.SY "lmap <SECTS | SHIP> <s|p|l|*|h>"
-.SY "pmap <SECTS | SHIP> <s|p|l|*|h>"
+.SY "lmap <SECTS | LAND UNIT> <s|p|l|*|h>"
+.SY "pmap <SECTS | PLANE> <s|p|l|*|h>"
 A map gives you a graphic representation of all or part of your country.
 .s1
 Your own sectors as well as sea, mountains, wasteland and unowned
