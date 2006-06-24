@@ -864,7 +864,9 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     natid plane_owner;
     int dam;
 
-    flak -= (pp->pln_def + 1);
+    flak -= pp->pln_def;
+    if ((pcp->pl_flags & P_T) == 0)
+	flak--;
     if (pcp->pl_flags & P_X)
 	flak -= 2;
     if (pcp->pl_flags & P_H)
