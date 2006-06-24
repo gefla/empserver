@@ -71,7 +71,9 @@ that land unit. The pmap command does the same for planes.
 If you specify an 's' flag, bmap will put your ships on the map.
 If you specify an 'l' flag, bmap will put your land units on the map.
 If you specify an 'p' flag, bmap will put your planes on the map.
-A '*' will put all on the map, in this order: land units, ships, planes.
+A '*' will put all on the map.
+When multiple unit types are selected they are displayed
+in the following priority order: land units, ships, planes.
 To highlight sectors you own, specify the 'h' flag.
 .s1
 You actually have two bmaps.  One which is created by the server; this
