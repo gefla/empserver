@@ -1,5 +1,5 @@
 .TH Command NBMAP
-.NA sbmap "Big map of all your worldly knowledge around a nuke"
+.NA nbmap "Big map of all your worldly knowledge around a nuke"
 .LV Basic
 .SY "bmap [<SECTS> | <SHIP>] <s|p|l|n|r|t|*|h>"
 .SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|n|*|h>"
