@@ -51,9 +51,9 @@ own it).
 If you use nmap, you can get a map that shows new sector designations
 instead of old sector designations of your own country.
 .s1
-If you use lmap, you can get a map around a land unit, 
-instead. Pmap does the same for a plane. Smap does
-the same for a ship.
+If you use lmap, you can get a map around a land unit. 
+If you use pmap, you can get a map around a plane.
+If you use smap, you can get a map around a ship.
 .s1
 .L "MAP FLAGS"
 .s1
