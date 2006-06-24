@@ -63,8 +63,10 @@ and also put the bmap in the file called \*Qmapfil\*U.
 .s1
 You can also give the number of a ship, and bmap will give you a small
 bmap centered on the location of that ship, provided you own it.
-If you use lmap, the number of a land unit will give you a map around
-that land unit. The pmap command does the same for planes.
+.s1
+If you use lbmap, you can get a bmap around a land unit. 
+If you use pbmap, you can get a bmap around a plane.
+If you use sbmap, you can get a bmap around a ship.
 .s1
 .L "BMAP FLAGS"
 .s1
