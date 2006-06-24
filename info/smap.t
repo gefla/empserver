@@ -59,9 +59,10 @@ the same for a ship.
 .s1
 .L "MAP FLAGS"
 .s1
-If you give an 's' flag, all your ships will be shown on the map.
-An 'l' flag does the same for land units, and a 'p' for planes.
-\&'*' shows all units.
+If you specify an 's' flag, bmap will put your ships on the map.
+If you specify an 'l' flag, bmap will put your land units on the map.
+If you specify an 'p' flag, bmap will put your planes on the map.
+A '*' will put all on the map.
 When multiple unit types are selected they are displayed
 in the following priority order: land units, ships, planes.
 To highlight sectors you own, specifiy the 'h' flag.
