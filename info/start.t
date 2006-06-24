@@ -13,4 +13,4 @@ PRODUCTION STARTING
     1 sector
 .FI
 .s1
-.SA "stop, census, Producing, Updates"
+.SA "stop, census, Producing, Updates, Nukes"

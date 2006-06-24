@@ -70,4 +70,4 @@ by experimentation,
 although research suggests that radioactivity left behind by nuclear
 detonations may have lasting effects.
 .s1
-.SA "launch, fly, build, transport, show, Planes"
+.SA "launch, fly, build, transport, show, Planes, Nukes"

@@ -173,4 +173,4 @@ When a bridge falls, all mines in the sector are cleared.
 .s1
 Ships can navigate under bridge spans that are at least 60% efficient.
 .s1
-.SA "Unit-types, Ship-types, Plane-types, Nuke-types, Bridges, show, upgrade, Maintenance, Ships, Planes, LandUnits, Sectors"
+.SA "Unit-types, Ship-types, Plane-types, Nuke-types, Bridges, show, upgrade, Maintenance, Ships, Planes, LandUnits, Nukes, Sectors"

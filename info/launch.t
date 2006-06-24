@@ -124,4 +124,4 @@ If a foreign satellite moves over your territory durring an update, then you
 will get a message like "Fodderland satellite spotted over 12,24" as a
 part of your update BULLETIN.
 .s1
-.SA "build, plane, satellite, Nuke-types, relations, Planes"
+.SA "build, plane, satellite, Nuke-types, relations, Planes, Nukes"

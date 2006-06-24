@@ -32,4 +32,4 @@ the plane the nuke is on, if any,
 whether the nuke is programmed for air or ground burst.
 .in
 .s1
-.SA "arm, build, launch, transport, Planes"
+.SA "arm, build, launch, transport, Planes, Nukes"

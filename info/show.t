@@ -36,4 +36,4 @@ will give something like
 3mt fusion       7 210  10  325 $19000
 .FI
 .s1
-.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Products, newspaper"
+.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Products, newspaper"

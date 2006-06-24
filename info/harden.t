@@ -16,4 +16,4 @@ Once a missile has been placed in a silo
 (hardened to a level greater than 0)
 it can no longer be moved.
 .s1
-.SA "launch, Nuke-types, Plane-types, Planes"
+.SA "launch, Nuke-types, Plane-types, Planes, Nukes"

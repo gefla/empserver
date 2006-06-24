@@ -238,4 +238,4 @@ When a sector is shelled, its mobility goes down in exactly the same
 way that efficiency goes down (see "info Damage").
 
 .fi
-.SA "Sectors, Infrastructure, Ships, LandUnits, Planes, Transportation"
+.SA "Sectors, Infrastructure, Ships, LandUnits, Planes, Nukes, Transportation"

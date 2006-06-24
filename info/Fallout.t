@@ -32,4 +32,4 @@ you are trying to figure out what fallout is going to do to your
 country.  Well, good luck, so are we. :)
 
 .fi
-.SA "launch, nuke, Diplomacy, Damage, Combat"
+.SA "launch, nuke, Diplomacy, Damage, Combat, Nukes"

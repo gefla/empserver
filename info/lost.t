@@ -57,4 +57,4 @@ The y coordinate of the lost item when it was lost.
 The timestamp of when the item was lost.
 .in
 .s1
-.SA "xdump, dump, ldump, sdump, ndump, pdump, Ships, Planes, LandUnits, Sectors, Clients"
+.SA "xdump, dump, ldump, sdump, ndump, pdump, Ships, Planes, Nukes, LandUnits, Sectors, Clients"
