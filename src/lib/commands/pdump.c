@@ -222,7 +222,7 @@ pdump(void)
 		pr(" %d", yrel(natp, plane.pln_y));
 		break;
 	    case 4:
-		pr(" %c ", plane.pln_wing ? plane.pln_wing : '~');
+		pr(" %c", plane.pln_wing ? plane.pln_wing : '~');
 		break;
 	    case 5:
 		pr(" %d", plane.pln_effic);

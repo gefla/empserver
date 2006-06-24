@@ -326,7 +326,7 @@ ldump(void)
 		pr(" %d", yrel(np, land.lnd_y));
 		break;
 	    case 4:
-		pr(" %c ", land.lnd_army ? land.lnd_army : '~');
+		pr(" %c", land.lnd_army ? land.lnd_army : '~');
 		break;
 	    case 5:
 		pr(" %d", land.lnd_effic);
