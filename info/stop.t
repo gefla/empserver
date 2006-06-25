@@ -26,4 +26,4 @@ PRODUCTION STOPPAGE
     1 sector
 .FI
 .s1
-.SA "start, census, Producing, Updates, Nukes"
+.SA "start, census, Producing, Updates, Planes, Ships, LandUnits, Nukes"
