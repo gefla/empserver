@@ -54,7 +54,7 @@ the percentage of civilians working in the sector
 (based on the local sector happiness).
 .L avail
 the quantity of workforce available for construction
-or maintenance of planes, ships, or nukes.
+or maintenance of land units, planes, ships, or nukes.
 .L ter
 This is a territory for the sector that you can specify using the
 \*Qterritory\*U command.
