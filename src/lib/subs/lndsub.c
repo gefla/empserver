@@ -474,15 +474,12 @@ lnd_count_units(struct lndstr *lp)
 
 void
 lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
-
-
-/*	int	wantflags;
-	int	nowantflags;
-*/
 {
     struct lndstr land;
     struct lchrstr *lcp;
     struct llist *llp;
+    int this_mot;
+    int mobtype = MOB_MOVE;	/* indeterminate */
 
     emp_initque(list);
     while (nxtitem(ni, &land)) {
@@ -495,26 +492,26 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 		continue;
 	    }
 	}
+	/*
+	 * The marching code gets confused when trains and non-trains
+	 * march together.  Disallow for now.
+	 */
+	this_mot = lnd_mobtype(&land);
+	if (this_mot != mobtype) {
+	    if (mobtype == MOB_MOVE)
+		mobtype = this_mot;
+	    else if (mobtype == MOB_MARCH) {
+		pr("%s is a train and can't march with the leader.\n",
+		   prland(&land));
+		continue;
+	    } else {
+		pr("%s can't rail-march with the leading train.\n",
+		   prland(&land));
+		continue;
+	    }
+	}
+
 	lcp = &lchr[(int)land.lnd_type];
-/*		if (wantflags && (lcp->m_flags & wantflags) != wantflags)
-			continue;
-		if (nowantflags && lcp->m_flags & nowantflags)
-			continue;
-*/
-	/* This abuse is better fixed by building a unit with the normal negative
-	   mobility that everything else is built with */
-/* Just so that the player can't build a bunch of land units, and them
-   march them a few minutes later... */
-/*
-		if (opt_MOB_ACCESS) {
-		  if (land.lnd_effic < 11 &&
-		    land.lnd_mobil < etu_per_update) {
-		    pr("Land unit #%d needs at least %d mob to march.\n",
-			land.lnd_uid, etu_per_update);
-		    continue;
-		  }
-		}
-*/
 	land.lnd_mission = 0;
 	land.lnd_rflags = 0;
 	land.lnd_harden = 0;
@@ -1073,8 +1070,8 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		continue;
 	    }
 	}
-	if ((!intrchr[INT_RAIL].in_enable || sect.sct_rail == 0) &&
-	    lchr[(int)llp->land.lnd_type].l_flags & L_TRAIN) {
+	if ((!intrchr[INT_RAIL].in_enable || sect.sct_rail == 0)
+	    && lnd_mobtype(&llp->land) == MOB_RAIL) {
 	    if (together) {
 		pr("no rail system in %s\n", xyas(newx, newy, actor));
 		return 1;
