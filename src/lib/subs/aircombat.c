@@ -947,10 +947,8 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 static void
 ac_fireflak(struct emp_qelem *list, natid from, int guns)
 {
-    struct plnstr *pp;
     struct plist *plp;
     int n;
-    int diff;
     struct emp_qelem *qp;
     struct emp_qelem *next;
     char msg[255];
