@@ -268,7 +268,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	mines = sect.sct_mines;
 	changed = 0;
 	if ((mcp->m_flags & M_SWEEP) && sect.sct_type == SCT_WATER) {
-	    sp->shp_mobil -= mobcost;
 	    max = mcp->m_item[I_SHELL];
 	    shells = sp->shp_item[I_SHELL];
 	    for (m = 0; mines > 0 && m < 5; m++) {
