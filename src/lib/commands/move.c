@@ -44,6 +44,7 @@
 #include "nsc.h"
 #include "land.h"
 #include "path.h"
+#include "optlist.h"
 #include "commands.h"
 
 
@@ -186,7 +187,7 @@ move(void)
     /*
      * Now parse the path and return ending sector.
      */
-    dam = (istest ? 0 : 1);
+    dam = !istest && !(opt_SUPER_BARS && vtype == I_BAR);
     if (dam && !chance(weight / 200.0))
 	dam = 0;
     mcost = move_ground(&sect, &endsect, weight, player->argp[4],
