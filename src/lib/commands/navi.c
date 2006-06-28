@@ -56,8 +56,8 @@ navi(void)
     struct emp_qelem ship_list;
     double minmob, maxmob;
     int together;
-    char *cp = 0;
-    struct shpstr *shp = 0;	/* flagship */
+    char *cp = NULL;
+    struct shpstr *shp = NULL;	/* flagship */
     struct nstr_sect ns;
     char origin;
     int dir;
@@ -65,8 +65,11 @@ navi(void)
     int skip = 0;
     char buf[1024];
     char prompt[128];
+    char scanspace[1024];
     char pathtaken[1024];	/* Doubtful we'll have a path longer than this */
     char *pt = pathtaken;
+    char bmap_flag;
+    int ac;
 
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1]))
 	return RET_SYN;
@@ -85,9 +88,9 @@ navi(void)
 
     *pt = '\0';
     while (!QEMPTY(&ship_list)) {
-	char *bp, dp[80];
+	char dp[80];
 
-	if (cp == 0 || *cp == '\0' || stopping) {
+	if (cp == NULL || *cp == '\0' || stopping) {
 	    stopping = 0;
 	    shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
 	    if (QEMPTY(&ship_list)) {
@@ -111,8 +114,8 @@ navi(void)
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", maxmob,
 		    minmob, xyas(shp->shp_x, shp->shp_y, player->cnum));
 	    cp = getstring(prompt, buf);
-	    /* Just in case any of our ships were shelled while we were at the
-	     * prompt, we call shp_nav() again.
+	    /* Just in case any of our ships were shelled while we were
+	     * at the prompt, we call shp_nav() again.
 	     */
 	    shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
 	    if (QEMPTY(&ship_list)) {
@@ -136,72 +139,79 @@ navi(void)
 				 mchr[(int)shp->shp_type].m_vrnge),
 		   (mchr[(int)shp->shp_type].m_flags & M_SONAR)
 		   ? techfact(shp->shp_tech, 1.0) : 0.0);
-	if (cp == 0 || *cp == '\0')
+	if (cp == NULL || *cp == '\0') {
 	    cp = &dirch[DIR_STOP];
-	if (*cp == 'M' ||
-	    *cp == 'B' || *cp == 'f' || *cp == 'i' || *cp == 'm') {
-	    ++cp;
-	    if (cp[-1] == 'M') {
-		unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
-		draw_map(0, origin, MAP_SHIP, &ns);
-		skip = 1;
-	    } else if (cp[-1] == 'B') {
-		unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
-		draw_map('b', origin, MAP_SHIP, &ns);
-		skip = 1;
-	    } else if (cp[-1] == 'f') {
+	}
+	dir = chkdir(*cp, DIR_STOP, DIR_VIEW);
+	if (dir >= 0) {
+	    if (dir == DIR_VIEW)
+		shp_view(&ship_list);
+	    else {
+		stopping |= shp_nav_one_sector(&ship_list, dir, player->cnum, together);
+		if (stopping != 2) {
+		    *pt++ = dirch[dir];
+		    *pt = '\0';
+		}
+	    }
+	    cp++;
+	    continue;
+	}
+	ac = parse(cp, player->argp, NULL, scanspace, NULL);
+	if (ac <= 1) {
+	    sprintf(dp, "%d", shp->shp_uid);
+	    player->argp[1] = dp;
+	    cp++;
+	} else
+	    cp = NULL;
+	bmap_flag = 0;
+	switch (*player->argp[0]) {
+	case 'B':
+	    bmap_flag = 'b';
+	    /*
+	     * fall through
+	     */
+	case 'M':
+	    unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
+	    draw_map(bmap_flag, origin, MAP_SHIP, &ns);
+	    skip = 1;
+	    break;
+	case 'f':
+	    {
 		struct emp_qelem *qp;
+
 		qp = ship_list.q_back;
 		emp_remque(ship_list.q_back);
 		emp_insque(qp, &ship_list);
 		set_flagship(&ship_list, &shp);
-	    } else if (cp[-1] == 'i') {
-		shp_list(&ship_list);
-	    } else {
-		stopping |= shp_sweep(&ship_list, 1, 0, player->cnum);
 	    }
-	    continue;
-	} else if (*cp == 'r' || *cp == 'l' || *cp == 's') {
-	    for (bp = cp + 1; *bp && !isspace(*bp); bp++) ;
-	    for (; *bp && isspace(*bp); bp++) ;
-	    if (*bp)
-		player->argp[1] = bp;
-	    else {
-		sprintf(dp, "%d", shp->shp_uid);
-		player->argp[1] = dp;
-	    }
-	    if (*cp++ == 'r') {
-		rada();
-		skip = 1;
-	    } else if (cp[-1] == 'l')
-		look();
-	    else {
-		player->argp[2] = 0;
-		sona();
-		skip = 1;
-	    }
-	    *cp = 0;
+	    break;
+	case 'i':
+	    shp_list(&ship_list);
+	    skip = 1;
+	    break;
+	case 'm':
+	    stopping |= shp_sweep(&ship_list, 1, 0, player->cnum);
+	    break;
+	case 'r':
+	    rada();
+	    skip = 1;
 	    player->btused++;
-	    continue;
-	} else {
-	    dir = chkdir(*cp++, DIR_STOP, DIR_VIEW);
-	    if (dir < 0) {
-		direrr("`%c' to stop", ", `%c' to view, ", 0);
-		pr("`i' to list ships, `f' to change flagship,\n");
-		pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");
-		pr("and `m' to minesweep\n");
-		stopping = 1;
-		continue;
-	    } else if (dir == DIR_VIEW) {
-		shp_view(&ship_list);
-		continue;
-	    }
-	}
-	stopping |=
-	    shp_nav_one_sector(&ship_list, dir, player->cnum, together);
-	if (stopping != 2) {
-	    *pt++ = dirch[dir];
-	    *pt = '\0';
+	    break;
+	case 'l':
+	    look();
+	    player->btused++;
+	    break;
+	case 's':
+	    sona();
+	    player->btused++;
+	    skip = 1;
+	    break;
+	default:
+	    direrr("`%c' to stop", ", `%c' to view, ", 0);
+	    pr("`i' to list ships, `f' to change flagship,\n");
+	    pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");
+	    pr("and `m' to minesweep\n");
+	    stopping = 1;
 	}
     }
     if (strlen(pathtaken) > 0) {
