@@ -206,11 +206,21 @@ navi(void)
 	    player->btused++;
 	    skip = 1;
 	    break;
+	case 'd':
+	    if (ac == 2) {
+		player->argp[2] = player->argp[1];
+		sprintf(dp, "%d", shp->shp_uid);
+		player->argp[1] = dp;
+	    }
+	    mine();
+	    skip = 1;
+	    player->btused++;
+	    break;
 	default:
 	    direrr("`%c' to stop", ", `%c' to view, ", 0);
 	    pr("`i' to list ships, `f' to change flagship,\n");
 	    pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");
-	    pr("and `m' to minesweep\n");
+	    pr("`d' to drop mines, and `m' to minesweep\n");
 	    stopping = 1;
 	}
     }
