@@ -139,9 +139,8 @@ navi(void)
 				 mchr[(int)shp->shp_type].m_vrnge),
 		   (mchr[(int)shp->shp_type].m_flags & M_SONAR)
 		   ? techfact(shp->shp_tech, 1.0) : 0.0);
-	if (cp == NULL || *cp == '\0') {
+	if (cp == NULL || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
-	}
 	dir = chkdir(*cp, DIR_STOP, DIR_VIEW);
 	if (dir >= 0) {
 	    if (dir == DIR_VIEW)
@@ -187,7 +186,6 @@ navi(void)
 	    break;
 	case 'i':
 	    shp_list(&ship_list);
-	    skip = 1;
 	    break;
 	case 'm':
 	    stopping |= shp_sweep(&ship_list, 1, 0, player->cnum);
