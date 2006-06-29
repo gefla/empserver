@@ -170,7 +170,7 @@ navi(void)
 	     * fall through
 	     */
 	case 'M':
-	    unit_map(EF_SHIP, shp->shp_uid, &ns, &origin);
+	    unit_map(EF_SHIP, atoi(player->argp[1]), &ns, &origin);
 	    draw_map(bmap_flag, origin, MAP_SHIP, &ns);
 	    skip = 1;
 	    break;
