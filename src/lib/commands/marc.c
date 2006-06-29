@@ -173,11 +173,21 @@ march(void)
 	    llook();
 	    player->btused++;
 	    break;
+	case 'd':
+	    if (ac == 2) {
+		player->argp[2] = player->argp[1];
+		sprintf(dp, "%d", lnd->lnd_uid);
+		player->argp[1] = dp;
+	    }
+	    landmine();
+	    skip = 1;
+	    player->btused++;
+	    break;
 	default:
 	    direrr("`%c' to stop", 0, 0);
 	    pr(", `i' to list units, `f' to change leader,\n");
 	    pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
-	    pr("and `m' to minesweep\n");
+	    pr("`d' to drop mines, and `m' to minesweep\n");
 	    stopping = 1;
 	}
     }
