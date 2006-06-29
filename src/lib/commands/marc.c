@@ -54,8 +54,8 @@ march(void)
     struct emp_qelem land_list;
     double minmob, maxmob;
     int together;
-    char *cp = 0;
-    struct lndstr *lnd = 0;	/* leader */
+    char *cp = NULL;
+    struct lndstr *lnd = NULL;	/* leader */
     struct nstr_sect ns;
     char origin;
     int dir;
@@ -63,6 +63,9 @@ march(void)
     int skip = 0;
     char buf[1024];
     char prompt[128];
+    char scanspace[1024];
+    char bmap_flag;
+    int ac;
 
     if (!snxtitem(&ni_land, EF_LAND, player->argp[1]))
 	return RET_SYN;
@@ -80,9 +83,9 @@ march(void)
     }
 
     while (!QEMPTY(&land_list)) {
-	char *bp, dp[80];
+	char dp[80];
 
-	if (cp == 0 || *cp == '\0' || stopping) {
+	if (cp == NULL || *cp == '\0' || stopping) {
 	    stopping = 0;
 	    lnd_mar(&land_list, &minmob, &maxmob, &together, player->cnum);
 	    if (QEMPTY(&land_list)) {
@@ -115,63 +118,68 @@ march(void)
 	    if (cp && !(cp = lnd_path(together, lnd, buf)))
 		cp = buf;
 	}
-	if (cp == 0 || *cp == '\0')
+	if (cp == NULL || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
-	if (*cp == 'M' ||
-	    *cp == 'B' || *cp == 'f' || *cp == 'i' || *cp == 'm') {
-	    ++cp;
-	    if (cp[-1] == 'M') {
-		unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
-		draw_map(0, origin, 0, &ns);
-		skip = 1;
-	    } else if (cp[-1] == 'B') {
-		unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
-		draw_map('b', origin, 0, &ns);
-		skip = 1;
-	    } else if (cp[-1] == 'f') {
+	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
+	if (dir >= 0) {
+	    stopping |=
+		lnd_mar_one_sector(&land_list, dir, player->cnum, together);
+	    cp++;
+	    continue;
+	}
+	ac = parse(cp, player->argp, NULL, scanspace, NULL);
+	if (ac <= 1) {
+	    sprintf(dp, "%d", lnd->lnd_uid);
+	    player->argp[1] = dp;
+	    cp++;
+	} else
+	    cp = NULL;
+	bmap_flag = 0;
+	switch (*player->argp[0]) {
+	case 'B':
+	    bmap_flag = 'b';
+	    /*
+	     * fall through
+	     */
+	case 'M':
+	    unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
+	    draw_map(bmap_flag, origin, 0, &ns);
+	    skip = 1;
+	    break;
+	case 'f':
+	    {
 		struct emp_qelem *qp;
+
 		qp = land_list.q_back;
 		emp_remque(land_list.q_back);
 		emp_insque(qp, &land_list);
 		set_leader(&land_list, &lnd);
-	    } else if (cp[-1] == 'i') {
-		lnd_list(&land_list);
-	    } else {
-		lnd_sweep(&land_list, 1, 1, player->cnum);
-		stopping |= lnd_check_mines(&land_list);
 	    }
-	    continue;
-	} else if (*cp == 'r' || *cp == 'l') {
-	    for (bp = cp + 1; *bp && !isspace(*bp); bp++) ;
-	    for (; *bp && isspace(*bp); bp++) ;
-	    if (*bp)
-		player->argp[1] = bp;
-	    else {
-		sprintf(dp, "%d", lnd->lnd_uid);
-		player->argp[1] = dp;
-	    }
-	    if (*cp++ == 'r') {
-		player->argp[0] = "lradar";
-		rada();
-		skip = 1;
-	    } else
-		llook();
-	    *cp = 0;
+	    break;
+	case 'i':
+	    lnd_list(&land_list);
+	    break;
+	case 'm':
+	    lnd_sweep(&land_list, 1, 1, player->cnum);
+	    stopping |= lnd_check_mines(&land_list);
+	    break;
+	case 'r':
+	    player->argp[0] = "lradar";
+	    rada();
+	    skip = 1;
 	    player->btused++;
-	    continue;
-	} else {
-	    dir = chkdir(*cp++, DIR_STOP, DIR_LAST);
-	    if (dir < 0) {
-		direrr("`%c' to stop", 0, 0);
-		pr(", `i' to list units, `f' to change leader,\n");
-		pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
-		pr("and `m' to minesweep\n");
-		stopping = 1;
-		continue;
-	    }
+	    break;
+	case 'l':
+	    llook();
+	    player->btused++;
+	    break;
+	default:
+	    direrr("`%c' to stop", 0, 0);
+	    pr(", `i' to list units, `f' to change leader,\n");
+	    pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
+	    pr("and `m' to minesweep\n");
+	    stopping = 1;
 	}
-	stopping |=
-	    lnd_mar_one_sector(&land_list, dir, player->cnum, together);
     }
     return RET_OK;
 }
