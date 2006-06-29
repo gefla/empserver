@@ -142,7 +142,7 @@ march(void)
 	     * fall through
 	     */
 	case 'M':
-	    unit_map(EF_LAND, lnd->lnd_uid, &ns, &origin);
+	    unit_map(EF_LAND, atoi(player->argp[1]), &ns, &origin);
 	    draw_map(bmap_flag, origin, 0, &ns);
 	    skip = 1;
 	    break;
