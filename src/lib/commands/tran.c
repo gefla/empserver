@@ -107,7 +107,7 @@ tran_nuke(void)
 	++count;
     }
     if (count == 0) {
-	pr("No planes\n");
+	pr("No nukes\n");
 	return RET_FAIL;
     }
     if (!getsect(srcx, srcy, &sect) || !player->owner) {
