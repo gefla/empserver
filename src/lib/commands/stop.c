@@ -38,20 +38,10 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
 #include "path.h"
 #include "file.h"
 #include "commands.h"
-
-union item_u {
-    struct genitem gen;
-    struct shpstr ship;
-    struct plnstr plane;
-    struct lndstr land;
-    struct nukstr nuke;
-};
+#include "empobj.h"
 
 static int start_stop(int);
 static int start_stop_sector(char *, int);
@@ -59,7 +49,7 @@ static void start_stop_hdr(int);
 static void proff(int);
 static int start_stop_unit(int, char *, int);
 static void start_stop_unit_hdr(int);
-static char *unit_type_name(union item_u *);
+static char *unit_type_name(union empobj_storage *);
 
 int
 start(void)
@@ -167,7 +157,7 @@ proff(int off)
 static int
 start_stop_unit(int type, char *arg, int off)
 {
-    union item_u unit;
+    union empobj_storage unit;
     int nunit;
     struct nstr_item nstr;
 
@@ -211,7 +201,7 @@ start_stop_unit_hdr(int off)
 }
 
 static char *
-unit_type_name(union item_u *unit)
+unit_type_name(union empobj_storage *unit)
 {
     int type = unit->gen.type;
 

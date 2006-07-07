@@ -36,27 +36,17 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
-#include "ship.h"
-#include "plane.h"
-#include "land.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"
-
-union item_u {
-    struct shpstr ship;
-    struct plnstr plane;
-    struct lndstr land;
-};
+#include "empobj.h"
 
 int
 scra(void)
 {
     struct nstr_item ni;
-    union item_u item;
+    union empobj_storage item;
     int type;
     struct sctstr sect;
     struct mchrstr *mp;

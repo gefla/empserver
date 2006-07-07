@@ -197,7 +197,7 @@ xdftr(int n)
 static int
 xdvisible(int type, void *p)
 {
-    struct genitem *gp = p;
+    struct empobj *gp = p;
     struct trtstr *tp = p;
     struct lonstr *lp = p;
     struct natstr *natp;

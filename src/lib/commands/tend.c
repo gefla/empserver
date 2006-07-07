@@ -47,7 +47,6 @@
 #include "nat.h"
 #include "land.h"
 #include "plane.h"
-#include "genitem.h"
 #include "commands.h"
 
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);

@@ -41,21 +41,8 @@
 #include <stddef.h>
 #include "misc.h"
 #include "xy.h"
-#include "loan.h"
 #include "nsc.h"
-#include "news.h"
-#include "nuke.h"
-#include "plane.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
-#include "trade.h"
-#include "treaty.h"
-#include "genitem.h"
-#include "nat.h"
-#include "map.h"
-#include "commodity.h"
-#include "lost.h"
+#include "empobj.h"
 #include "product.h"
 #include "file.h"
 
@@ -191,20 +178,20 @@ struct castr dchr_ca[] = {
 };
 
 #define NSC_GENITEM(ef_type, ef_chr)					\
-{ NSC_SHORT, 0, 0, fldoff(genitem, uid), "uid", ef_type},		\
-{ NSC_NATID, 0, 0, fldoff(genitem, own), "owner", EF_NATION},		\
-{ NSC_XCOORD, 0, 0, fldoff(genitem, x), "xloc", EF_BAD},		\
-{ NSC_YCOORD, 0, 0, fldoff(genitem, y), "yloc", EF_BAD},		\
-{ NSC_CHAR, 0, 0, fldoff(genitem, type), "type", ef_chr},		\
-{ NSC_CHAR, 0, 0, fldoff(genitem, effic), "effic", EF_BAD},		\
-{ NSC_CHAR , 0, 0, fldoff(genitem, mobil), "mobil", EF_BAD},		\
-{ NSC_UCHAR , 0, 0, fldoff(genitem, off), "off", EF_BAD},		\
-{ NSC_SHORT, 0, 0, fldoff(genitem, tech), "tech", EF_BAD},		\
-{ NSC_STRINGY, NSC_EXTRA, 1, fldoff(genitem, group), "group", EF_BAD},	\
-{ NSC_XCOORD, 0, 0, fldoff(genitem, opx), "opx", EF_BAD},		\
-{ NSC_YCOORD, 0, 0, fldoff(genitem, opy), "opy", EF_BAD},		\
-{ NSC_SHORT, 0, 0, fldoff(genitem, mission), "mission", EF_MISSIONS},	\
-{ NSC_SHORT, 0, 0, fldoff(genitem, radius), "radius", EF_BAD}
+{ NSC_SHORT, 0, 0, fldoff(empobj, uid), "uid", ef_type},		\
+{ NSC_NATID, 0, 0, fldoff(empobj, own), "owner", EF_NATION},		\
+{ NSC_XCOORD, 0, 0, fldoff(empobj, x), "xloc", EF_BAD},		\
+{ NSC_YCOORD, 0, 0, fldoff(empobj, y), "yloc", EF_BAD},		\
+{ NSC_CHAR, 0, 0, fldoff(empobj, type), "type", ef_chr},		\
+{ NSC_CHAR, 0, 0, fldoff(empobj, effic), "effic", EF_BAD},		\
+{ NSC_CHAR , 0, 0, fldoff(empobj, mobil), "mobil", EF_BAD},		\
+{ NSC_UCHAR , 0, 0, fldoff(empobj, off), "off", EF_BAD},		\
+{ NSC_SHORT, 0, 0, fldoff(empobj, tech), "tech", EF_BAD},		\
+{ NSC_STRINGY, NSC_EXTRA, 1, fldoff(empobj, group), "group", EF_BAD},	\
+{ NSC_XCOORD, 0, 0, fldoff(empobj, opx), "opx", EF_BAD},		\
+{ NSC_YCOORD, 0, 0, fldoff(empobj, opy), "opy", EF_BAD},		\
+{ NSC_SHORT, 0, 0, fldoff(empobj, mission), "mission", EF_MISSIONS},	\
+{ NSC_SHORT, 0, 0, fldoff(empobj, radius), "radius", EF_BAD}
 
 struct castr ship_ca[] = {
     NSC_GENITEM(EF_SHIP, EF_SHIP_CHR),

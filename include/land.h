@@ -47,7 +47,7 @@
 #define LAND_MINFIREEFF 40	/* arty must be this effic to fire */
 
 struct lndstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid lnd_own;		/* owner's country num */
     short lnd_uid;		/* unit id (land unit) */
@@ -62,7 +62,7 @@ struct lndstr {
     coord lnd_opx, lnd_opy;	/* Op sector coords */
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     signed char lnd_flags;	/* unit flags (unused) */
     short lnd_ship;		/* pointer to transporting ship */
     signed char lnd_harden;	/* fortification */

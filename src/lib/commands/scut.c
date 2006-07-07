@@ -35,31 +35,20 @@
 
 #include "misc.h"
 #include "player.h"
-#include "sect.h"
-#include "news.h"
 #include "xy.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
 #include "commands.h"
 #include "optlist.h"
+#include "empobj.h"
 
 static void scuttle_land(struct lndstr *);
-
-union item_u {
-    struct shpstr ship;
-    struct plnstr plane;
-    struct lndstr land;
-};
 
 int
 scut(void)
 {
     struct nstr_item ni;
-    union item_u item;
+    union empobj_storage item;
     int type;
     struct mchrstr *mp;
     char *p;

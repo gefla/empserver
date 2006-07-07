@@ -37,12 +37,6 @@
 #ifndef TRADE_H
 #define TRADE_H
 
-#include "genitem.h"
-#include "nuke.h"
-#include "plane.h"
-#include "land.h"
-#include "ship.h"
-
 struct trdstr {
     short ef_type;
     natid trd_owner;
@@ -56,19 +50,11 @@ struct trdstr {
     coord trd_y;
 };
 
-union trdgenstr {
-    struct genitem gen;
-    struct nukstr nuk;
-    struct plnstr pln;
-    struct lndstr lnd;
-    struct shpstr shp;
-};
-
-extern int trade_check_ok(struct trdstr *, union trdgenstr *);
-extern int trade_check_item_ok(union trdgenstr *);
-extern char *trade_nameof(struct trdstr *, union trdgenstr *);
-extern int trade_desc(struct trdstr *, union trdgenstr *);
-extern int trade_getitem(struct trdstr *, union trdgenstr *);
+extern int trade_check_ok(struct trdstr *, union empobj_storage *);
+extern int trade_check_item_ok(union empobj_storage *);
+extern char *trade_nameof(struct trdstr *, union empobj_storage *);
+extern int trade_desc(struct trdstr *, union empobj_storage *);
+extern int trade_getitem(struct trdstr *, union empobj_storage *);
 
 #define gettrade(n, p) ef_read(EF_TRADE, (n), (p))
 #define puttrade(n, p) ef_write(EF_TRADE, (n), (p))

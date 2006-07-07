@@ -321,7 +321,7 @@ lload(void)
 void
 gift(natid givee, natid giver, void *ptr, int type, char *mesg)
 {
-    struct genitem *gen = ptr;
+    struct empobj *gen = ptr;
     char *p;
 
     if (giver != givee) {

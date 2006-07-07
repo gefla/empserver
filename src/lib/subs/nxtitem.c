@@ -40,18 +40,17 @@
 #include "land.h"
 #include "nsc.h"
 #include "file.h"
-#include "genitem.h"
 #include "prototypes.h"
 
 int
 nxtitem(struct nstr_item *np, void *ptr)
 {
-    struct genitem *gp;
+    struct empobj *gp;
     int selected;
 
     if (np->sel == NS_UNDEF)
 	return 0;
-    gp = (struct genitem *)ptr;
+    gp = (struct empobj *)ptr;
     do {
 	if (np->sel == NS_LIST) {
 	    np->index++;

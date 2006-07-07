@@ -322,28 +322,28 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     struct lndstr origl;
     struct plnstr origp;
     struct nukstr orign;
-    struct genitem *gp;
+    struct empobj *gp;
     struct range range;
 
     if (unit_type == EF_LAND) {
 	if (!getland(uid, &origl) || !player->owner || origl.lnd_own == 0)
 	    return RET_FAIL;
-	gp = (struct genitem *)&origl;
+	gp = (struct empobj *)&origl;
 	*originp = *lchr[(int)origl.lnd_type].l_name;
     } else if (unit_type == EF_PLANE) {
 	if (!getplane(uid, &origp) || !player->owner || origp.pln_own == 0)
 	    return RET_FAIL;
-	gp = (struct genitem *)&origp;
+	gp = (struct empobj *)&origp;
 	*originp = *plchr[(int)origp.pln_type].pl_name;
     } else if (unit_type == EF_NUKE) {
 	if (!getnuke(uid, &orign) || !player->owner || orign.nuk_own == 0)
 	    return RET_FAIL;
-	gp = (struct genitem *)&orign;
+	gp = (struct empobj *)&orign;
 	*originp = 'n';
     } else {
 	if (!getship(uid, &origs) || !player->owner || origs.shp_own == 0)
 	    return RET_FAIL;
-	gp = (struct genitem *)&origs;
+	gp = (struct empobj *)&origs;
 	*originp = *mchr[(int)origs.shp_type].m_name;
     }
 

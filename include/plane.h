@@ -43,7 +43,7 @@
 #define	PLANE_MINEFF	10
 
 struct plnstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid pln_own;		/* owning country */
     short pln_uid;		/* plane unit id */
@@ -59,7 +59,7 @@ struct plnstr {
     coord pln_opy;		/* Op sector coords */
     short pln_mission;		/* mission code */
     short pln_radius;		/* mission radius */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     unsigned char pln_range;	/* total distance, not radius */
     unsigned char pln_range_max; /* max range for this plane */
     short pln_ship;		/* pointer to carrier */

@@ -71,7 +71,7 @@ trad(void)
     struct nstr_item ni;
     struct trdstr trade;
     struct trdstr tmpt;
-    union trdgenstr tg;
+    union empobj_storage tg;
     int plflags;
     double canspend;
     time_t now;
@@ -193,8 +193,8 @@ trad(void)
      */
     if (((trade.trd_type == EF_PLANE) || (trade.trd_type == EF_NUKE))
 	&& ((trade.trd_type == EF_NUKE) ||
-	    !(tg.pln.pln_flags & PLN_LAUNCHED))) {
-	plflags = plchr[(int)tg.pln.pln_type].pl_flags;
+	    !(tg.plane.pln_flags & PLN_LAUNCHED))) {
+	plflags = plchr[(int)tg.plane.pln_type].pl_flags;
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(&trade, &tg))
@@ -292,7 +292,7 @@ check_trade(void)
     struct lndstr land;
     struct natstr *natp;
     struct trdstr trade;
-    union trdgenstr tg;
+    union empobj_storage tg;
     time_t now;
     double subleft;
     double monleft;
@@ -380,68 +380,68 @@ check_trade(void)
 	putnat(natp);
 	switch (trade.trd_type) {
 	case EF_NUKE:
-	    tg.nuk.nuk_x = trade.trd_x;
-	    tg.nuk.nuk_y = trade.trd_y;
-	    makelost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid,
-		     tg.nuk.nuk_x, tg.nuk.nuk_y);
-	    tg.nuk.nuk_own = trade.trd_maxbidder;
-	    makenotlost(EF_NUKE, tg.nuk.nuk_own, tg.nuk.nuk_uid,
-			tg.nuk.nuk_x, tg.nuk.nuk_y);
+	    tg.nuke.nuk_x = trade.trd_x;
+	    tg.nuke.nuk_y = trade.trd_y;
+	    makelost(EF_NUKE, tg.nuke.nuk_own, tg.nuke.nuk_uid,
+		     tg.nuke.nuk_x, tg.nuke.nuk_y);
+	    tg.nuke.nuk_own = trade.trd_maxbidder;
+	    makenotlost(EF_NUKE, tg.nuke.nuk_own, tg.nuke.nuk_uid,
+			tg.nuke.nuk_x, tg.nuke.nuk_y);
 	    break;
 	case EF_PLANE:
-	    if ((tg.pln.pln_flags & PLN_LAUNCHED) == 0) {
-		tg.pln.pln_x = trade.trd_x;
-		tg.pln.pln_y = trade.trd_y;
+	    if ((tg.plane.pln_flags & PLN_LAUNCHED) == 0) {
+		tg.plane.pln_x = trade.trd_x;
+		tg.plane.pln_y = trade.trd_y;
 	    }
-	    makelost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid,
-		     tg.pln.pln_x, tg.pln.pln_y);
-	    tg.pln.pln_own = trade.trd_maxbidder;
-	    makenotlost(EF_PLANE, tg.pln.pln_own, tg.pln.pln_uid,
-			tg.pln.pln_x, tg.pln.pln_y);
-	    tg.pln.pln_wing = 0;
+	    makelost(EF_PLANE, tg.plane.pln_own, tg.plane.pln_uid,
+		     tg.plane.pln_x, tg.plane.pln_y);
+	    tg.plane.pln_own = trade.trd_maxbidder;
+	    makenotlost(EF_PLANE, tg.plane.pln_own, tg.plane.pln_uid,
+			tg.plane.pln_x, tg.plane.pln_y);
+	    tg.plane.pln_wing = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
-		tg.pln.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
+		tg.plane.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
 	    } else {
-		tg.pln.pln_mobil = 0;
+		tg.plane.pln_mobil = 0;
 	    }
-	    tg.pln.pln_mission = 0;
-	    tg.pln.pln_harden = 0;
-	    time(&tg.pln.pln_access);
-	    tg.pln.pln_ship = -1;
-	    tg.pln.pln_land = -1;
+	    tg.plane.pln_mission = 0;
+	    tg.plane.pln_harden = 0;
+	    time(&tg.plane.pln_access);
+	    tg.plane.pln_ship = -1;
+	    tg.plane.pln_land = -1;
 	    break;
 	case EF_SHIP:
-	    takeover_ship(&tg.shp, trade.trd_maxbidder, 0);
+	    takeover_ship(&tg.ship, trade.trd_maxbidder, 0);
 	    break;
 	case EF_LAND:
-	    tg.lnd.lnd_x = trade.trd_x;
-	    tg.lnd.lnd_y = trade.trd_y;
-	    if (tg.lnd.lnd_ship >= 0) {
+	    tg.land.lnd_x = trade.trd_x;
+	    tg.land.lnd_y = trade.trd_y;
+	    if (tg.land.lnd_ship >= 0) {
 		struct shpstr ship;
-		getship(tg.lnd.lnd_ship, &ship);
+		getship(tg.land.lnd_ship, &ship);
 		ship.shp_nland--;
 		putship(ship.shp_uid, &ship);
 	    }
-	    makelost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
-		     tg.lnd.lnd_x, tg.lnd.lnd_y);
-	    tg.lnd.lnd_own = trade.trd_maxbidder;
-	    makenotlost(EF_LAND, tg.lnd.lnd_own, tg.lnd.lnd_uid,
-			tg.lnd.lnd_x, tg.lnd.lnd_y);
-	    tg.lnd.lnd_army = 0;
+	    makelost(EF_LAND, tg.land.lnd_own, tg.land.lnd_uid,
+		     tg.land.lnd_x, tg.land.lnd_y);
+	    tg.land.lnd_own = trade.trd_maxbidder;
+	    makenotlost(EF_LAND, tg.land.lnd_own, tg.land.lnd_uid,
+			tg.land.lnd_x, tg.land.lnd_y);
+	    tg.land.lnd_army = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
-		tg.lnd.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
+		tg.land.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
 	    } else {
-		tg.lnd.lnd_mobil = 0;
+		tg.land.lnd_mobil = 0;
 	    }
-	    tg.lnd.lnd_harden = 0;
-	    time(&tg.lnd.lnd_access);
-	    tg.lnd.lnd_mission = 0;
+	    tg.land.lnd_harden = 0;
+	    time(&tg.land.lnd_access);
+	    tg.land.lnd_mission = 0;
 	    /* Drop any land units this unit was carrying */
-	    snxtitem_xy(&ni, EF_LAND, tg.lnd.lnd_x, tg.lnd.lnd_y);
+	    snxtitem_xy(&ni, EF_LAND, tg.land.lnd_x, tg.land.lnd_y);
 	    while (nxtitem(&ni, &land)) {
-		if (land.lnd_land != tg.lnd.lnd_uid)
+		if (land.lnd_land != tg.land.lnd_uid)
 		    continue;
 		land.lnd_land = -1;
 		wu(0, land.lnd_own, "unit #%d dropped in %s\n",
@@ -450,7 +450,7 @@ check_trade(void)
 		putland(land.lnd_uid, &land);
 	    }
 	    /* Drop any planes this unit was carrying */
-	    snxtitem_xy(&ni, EF_PLANE, tg.lnd.lnd_x, tg.lnd.lnd_y);
+	    snxtitem_xy(&ni, EF_PLANE, tg.land.lnd_x, tg.land.lnd_y);
 	    while (nxtitem(&ni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
 		    continue;
@@ -462,8 +462,8 @@ check_trade(void)
 		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 		putplane(plane.pln_uid, &plane);
 	    }
-	    tg.lnd.lnd_ship = -1;
-	    tg.lnd.lnd_land = -1;
+	    tg.land.lnd_ship = -1;
+	    tg.land.lnd_land = -1;
 	    break;
 	default:
 	    logerror("Bad trade type %d in trade\n", trade.trd_type);
@@ -490,7 +490,7 @@ int
 ontradingblock(int type, void *ptr)
 {
     struct trdstr trade;
-    union trdgenstr tg;
+    union empobj_storage tg;
     int n;
 
     for (n = 0; gettrade(n, &trade); n++) {
@@ -500,7 +500,7 @@ ontradingblock(int type, void *ptr)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-	if (tg.gen.uid == ((struct genitem *)ptr)->uid)
+	if (tg.gen.uid == ((struct empobj *)ptr)->uid)
 	    return 1;
     }
     return 0;
@@ -510,7 +510,7 @@ void
 trdswitchown(int type, void *ptr, int newown)
 {
     struct trdstr trade;
-    union trdgenstr tg;
+    union empobj_storage tg;
     int n;
 
     for (n = 0; gettrade(n, &trade); n++) {
@@ -520,7 +520,7 @@ trdswitchown(int type, void *ptr, int newown)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-	if (tg.gen.uid != ((struct genitem *)ptr)->uid)
+	if (tg.gen.uid != ((struct empobj *)ptr)->uid)
 	    continue;
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    trade.trd_maxbidder = newown;

@@ -488,14 +488,14 @@ extern int num_shipsatxy(coord, coord, int, int);
 extern int islist(char *);
 /* src/lib/subs/mission.c */
 extern char *mission_name(short);
-extern char *nameofitem(struct genitem *, int);
+extern char *nameofitem(struct empobj *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
 extern int ground_interdict(coord, coord, natid, char *);
 extern int unit_interdict(coord, coord, natid, char *, int, int);
 extern int off_support(coord, coord, natid, natid);
 extern int def_support(coord, coord, natid, natid);
-extern int oprange(struct genitem *, int, int *);
+extern int oprange(struct empobj *, int, int *);
 extern int cando(int, int);
 extern void show_mission(int, struct nstr_item *);
 extern int air_defense(coord, coord, natid, struct emp_qelem *,

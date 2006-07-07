@@ -38,7 +38,7 @@
 #define	MIN_DRNUKE_CONST	0.001
 
 struct nukstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid nuk_own;
     short nuk_uid;
@@ -52,7 +52,7 @@ struct nukstr {
     coord nuk_opx, nuk_opy;	/* Op sector coords, unused */
     short nuk_mission;		/* mission code, unused */
     short nuk_radius;		/* mission radius, unused */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     short nuk_ship;		/* currently aboard ship (unused) */
     short nuk_plane;		/* currently aboard plane */
     short nuk_land;		/* currently aboard land (unused) */

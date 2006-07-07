@@ -47,7 +47,7 @@
 #include "ship.h"
 #include "queue.h"
 #include "xy.h"
-#include "genitem.h"
+#include "empobj.h"
 #include "trade.h"
 #include "player.h"
 #include "prototypes.h"		/* must come at end, after defines and typedefs */

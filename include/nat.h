@@ -64,10 +64,10 @@ typedef enum {
  * If we had working virtual selectors, we could remove r_cnum and r_realm.
  */
 struct realmstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid r_cnum;		/* country number */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     short r_uid;		/* realm table index */
     unsigned short r_realm;	/* realm number */
     short r_xl, r_xh;		/* horizontal bounds */
@@ -76,10 +76,10 @@ struct realmstr {
 };
 
 struct natstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid nat_cnum;		/* our country number */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     nat_status nat_stat;
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */

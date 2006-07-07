@@ -53,39 +53,39 @@
 #include "optlist.h"
 
 int
-trade_check_ok(struct trdstr *tp, union trdgenstr *tgp)
+trade_check_ok(struct trdstr *tp, union empobj_storage *tgp)
 {
     return check_trade_ok(tp) && trade_check_item_ok(tgp);
 }
 
 int
-trade_check_item_ok(union trdgenstr *tgp)
+trade_check_item_ok(union empobj_storage *tgp)
 {
     if (tgp->gen.ef_type == EF_LAND)
-	return check_land_ok(&tgp->lnd);
+	return check_land_ok(&tgp->land);
     if (tgp->gen.ef_type == EF_PLANE)
-	return check_plane_ok(&tgp->pln);
+	return check_plane_ok(&tgp->plane);
     if (tgp->gen.ef_type == EF_SHIP)
-	return check_ship_ok(&tgp->shp);
+	return check_ship_ok(&tgp->ship);
     if (tgp->gen.ef_type == EF_NUKE)
-	return check_nuke_ok(&tgp->nuk);
+	return check_nuke_ok(&tgp->nuke);
     CANT_REACH();
     pr("Trade lot went bad!\n");
     return 0;
 }
 
 char *
-trade_nameof(struct trdstr *tp, union trdgenstr *tgp)
+trade_nameof(struct trdstr *tp, union empobj_storage *tgp)
 {
     switch (tp->trd_type) {
     case EF_NUKE:
-	return nchr[(int)tgp->nuk.nuk_type].n_name;
+	return nchr[(int)tgp->nuke.nuk_type].n_name;
     case EF_PLANE:
-	return plchr[(int)tgp->pln.pln_type].pl_name;
+	return plchr[(int)tgp->plane.pln_type].pl_name;
     case EF_SHIP:
-	return mchr[(int)tgp->shp.shp_type].m_name;
+	return mchr[(int)tgp->ship.shp_type].m_name;
     case EF_LAND:
-	return lchr[(int)tgp->lnd.lnd_type].l_name;
+	return lchr[(int)tgp->land.lnd_type].l_name;
     }
     return "Bad trade type, get help";
 }
@@ -96,7 +96,7 @@ trade_nameof(struct trdstr *tp, union trdgenstr *tgp)
  * Return 1 on success, 0 on error
  */
 int
-trade_desc(struct trdstr *tp, union trdgenstr *tgp)
+trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 {
     i_type it;
     struct sctstr sect;
@@ -110,14 +110,14 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 
     switch (tp->trd_type) {
     case EF_NUKE:
-	np = &tgp->nuk;
+	np = &tgp->nuke;
 	tp->trd_owner = np->nuk_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
 	   tp->trd_owner, np->nuk_tech, np->nuk_effic,
 	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
 	break;
     case EF_SHIP:
-	sp = &tgp->shp;
+	sp = &tgp->ship;
 	tp->trd_owner = sp->shp_own;
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
@@ -174,7 +174,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	    pr(" at sea");
 	break;
     case EF_LAND:
-	lp = &tgp->lnd;
+	lp = &tgp->land;
 	tp->trd_owner = lp->lnd_own;
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner,
@@ -201,7 +201,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 	getsect(lp->lnd_x, lp->lnd_y, &sect);
 	break;
     case EF_PLANE:
-	pp = &tgp->pln;
+	pp = &tgp->plane;
 	tp->trd_owner = pp->pln_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
 	   tp->trd_owner,
@@ -220,7 +220,7 @@ trade_desc(struct trdstr *tp, union trdgenstr *tgp)
 }
 
 int
-trade_getitem(struct trdstr *tp, union trdgenstr *tgp)
+trade_getitem(struct trdstr *tp, union empobj_storage *tgp)
 {
     if (!ef_read(tp->trd_type, tp->trd_unitid, tgp))
 	return 0;

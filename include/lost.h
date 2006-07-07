@@ -35,10 +35,10 @@
 #define LOST_H
 
 struct loststr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid lost_owner;		/* Who lost it */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     int lost_uid;		/* lost ID (assigned, otherwise unused) */
     char lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
     short lost_id;		/* ID of lost thing */

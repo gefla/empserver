@@ -39,7 +39,6 @@
 #include "land.h"
 #include "nsc.h"
 #include "file.h"
-#include "genitem.h"
 #include "player.h"
 #include "update.h"
 #include "gen.h"
@@ -48,7 +47,7 @@
 void *
 nxtitemp(struct nstr_item *np)
 {
-    struct genitem *gp;
+    struct empobj *gp;
     int selected;
 
     if (np->sel == NS_UNDEF)

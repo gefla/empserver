@@ -72,7 +72,7 @@ struct empfile {
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
  * group of such a table's entries can be safely obtained by
- * dereferencing entry address cast to struct genitem *.
+ * dereferencing entry address cast to struct empobj *.
  */
 #define EFF_XY		bit(0)
 #define EFF_OWNER	bit(1)

@@ -37,28 +37,18 @@
 #include "player.h"
 #include "plague.h"
 #include "xy.h"
-#include "ship.h"
-#include "plane.h"
-#include "land.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
-#include "sect.h"
 #include "optlist.h"
 #include "commands.h"
-
-
-union item_u {
-    struct shpstr ship;
-    struct lndstr land;
-};
+#include "empobj.h"
 
 int
 fuel(void)
 {
     static int shp_or_lnd[] = { EF_SHIP, EF_LAND, EF_BAD };
     struct nstr_item ni;
-    union item_u item, item2;
+    union empobj_storage item, item2;
     int type;
     struct mchrstr *mp;
     struct lchrstr *lcp;

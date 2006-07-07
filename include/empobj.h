@@ -25,37 +25,63 @@
  *
  *  ---
  *
- *  genitem.h: Definition for generic items
+ *  genobj.h: General empire objects.
  * 
  *  Known contributors to this file:
- * 
- */
-/*
- * XXX cheap hack; this depends on the fact
- * that units are all the same starting from the top.
- * If you change the units, DON'T CHANGE the tops to
- * be non-identical. Also, if you change types of
- * parts of the tops, be sure to change this file!
+ *     Ron Koenderink, 2006
+ *     Markus Armbruster, 2006
  */
 
-#ifndef GENITEM_H
-#define GENITEM_H
+#ifndef EMPOBJ_H
+#define EMPOBJ_H
 
-struct genitem {
-    short ef_type;
-    natid own;
+#include "commodity.h"
+#include "land.h"
+#include "loan.h"
+#include "lost.h"
+#include "plane.h"
+#include "nat.h"
+#include "news.h"
+#include "nuke.h"
+#include "sect.h"
+#include "ship.h"
+#include "trade.h"
+#include "treaty.h"
+
+struct empobj {
+    short ef_type;	/* is always valid */
+    natid own;		/* is valid if EFF_OWNER   is set in table def. */
     short uid;
-    coord x;
-    coord y;
+    coord x;		/* is valid if EFF_XY      is set in table def. */
+    coord y;		/* is valid if EFF_XY      is set in table def. */
     signed char type;
     signed char effic;
     signed char mobil;
     unsigned char off;
-    short tech;
-    char group;
+    short tech;	
+    char group;		/* is valid if EFF_GROUP   is set in table def. */
     coord opx, opy;
     short mission;
     short radius;
 };
 
+union empobj_storage {
+    short ef_type;
+    struct empobj gen;
+    struct comstr comm;
+    struct lndstr land;
+    struct lonstr loan;
+    struct loststr lost;
+    struct natstr nat; 
+    struct nwsstr news;
+    struct nukstr nuke;
+    struct plnstr plane;
+    struct realmstr realm;
+    struct sctstr sect;
+    struct shpstr ship;
+    struct trdstr trade;
+    struct trtstr treaty;
+};
+
 #endif
+

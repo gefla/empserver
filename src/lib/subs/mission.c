@@ -37,23 +37,17 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
 #include "path.h"
 #include "mission.h"
-#include "genitem.h"
-#include "news.h"
 #include "item.h"
 #include <fcntl.h>
 #include "damage.h"
 #include "queue.h"
 #include "prototypes.h"
 #include "optlist.h"
+#include "empobj.h"
 
 struct genlist {
     struct emp_qelem queue;	/* list of units */
@@ -66,12 +60,6 @@ struct airport {
     struct emp_qelem queue;
     coord x, y;
     natid own;
-};
-
-union item_u {
-    struct shpstr ship;
-    struct plnstr plane;
-    struct lndstr land;
 };
 
 static void add_airport(struct emp_qelem *, coord, coord);
@@ -301,8 +289,8 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 {
     struct nstr_item ni;
     struct genlist *glp;
-    struct genitem *gp;
-    union item_u item;
+    struct empobj *gp;
+    union empobj_storage item;
     int dist;
     int radius;
     int relat;
@@ -310,7 +298,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
     snxtitem_all(&ni, type);
     while (nxtitem(&ni, &item)) {
-	gp = (struct genitem *)&item;
+	gp = (struct empobj *)&item;
 
 	if (gp->own == 0)
 	    continue;
@@ -427,7 +415,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct emp_qelem *newqp;
     struct genlist *glp;
     struct plist *plp;
-    struct genitem *gp;
+    struct empobj *gp;
     struct lndstr *lp;
     struct shpstr *sp;
     struct sctstr sect;
@@ -817,7 +805,7 @@ cando(int mission, int type)
 }
 
 char *
-nameofitem(struct genitem *gp, int type)
+nameofitem(struct empobj *gp, int type)
 {
     switch (type) {
     case EF_SHIP:
@@ -858,11 +846,11 @@ void
 show_mission(int type, struct nstr_item *np)
 {
     int first = 1, radius;
-    union item_u item;
-    struct genitem *gp;
+    union empobj_storage item;
+    struct empobj *gp;
 
     while (nxtitem(np, &item)) {
-	gp = (struct genitem *)&item;
+	gp = (struct empobj *)&item;
 	if (!player->owner || gp->own == 0)
 	    continue;
 
@@ -909,7 +897,7 @@ show_mission(int type, struct nstr_item *np)
 }
 
 int
-oprange(struct genitem *gp, int type, int *radius)
+oprange(struct empobj *gp, int type, int *radius)
 {
     int range;
     struct shpstr ship;
@@ -1462,7 +1450,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
     struct emp_qelem *qp, interceptors, airp, i, empty, *next;
     struct plist *plp;
     struct genlist *glp;
-    struct genitem *gp;
+    struct empobj *gp;
     struct genlist mi[MAXNOC];
     char buf[512];
     char *path;

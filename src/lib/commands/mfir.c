@@ -36,13 +36,7 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "treaty.h"
-#include "nat.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
 #include "retreat.h"
-#include "news.h"
 #include "nsc.h"
 #include "file.h"
 #include "queue.h"
@@ -50,6 +44,7 @@
 #include "optlist.h"
 #include "damage.h"
 #include "commands.h"
+#include "empobj.h"
 
 enum targ_type {
     targ_land, targ_ship, targ_sub, targ_unit, targ_bogus
@@ -62,12 +57,6 @@ struct flist {
     coord x, y;			/* sector coords */
     int defdam;			/* damage defenders did */
     int victim;			/* who I was shooting at */
-};
-
-union item_u {
-    struct shpstr ship;
-    struct sctstr sect;
-    struct lndstr land;
 };
 
 static void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
@@ -120,7 +109,7 @@ multifire(void)
     char *p;
     int nfiring = 0;
     int ndefending = 0;
-    union item_u item;
+    union empobj_storage item;
     struct emp_qelem fired, defended;
     double odds;
     char buf[1024];

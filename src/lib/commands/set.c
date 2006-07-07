@@ -63,7 +63,7 @@ set(void)
     struct trdstr trade;
     struct nstr_item ni;
     struct nstr_item ni_trade;
-    union trdgenstr item;
+    union empobj_storage item;
     struct sctstr sect;
     int freeslot;
     int foundslot;

@@ -60,7 +60,7 @@
 #define	MAXSHPNAMLEN	24
 
 struct shpstr {
-    /* initial part must match struct genitem */
+    /* initial part must match struct empobj */
     short ef_type;
     natid shp_own;		/* owner's country num */
     short shp_uid;		/* unit id (ship #) */
@@ -75,7 +75,7 @@ struct shpstr {
     coord shp_opx, shp_opy;	/* Op sector coords */
     short shp_mission;		/* mission code */
     short shp_radius;		/* mission radius */
-    /* end of part matching struct genitem */
+    /* end of part matching struct empobj */
     unsigned char shp_nplane;	/* number of planes on board */
     unsigned char shp_nland;	/* number of land units on board */
     short shp_armor;

@@ -37,24 +37,13 @@
 #include "misc.h"
 #include "player.h"
 #include "xy.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nat.h"
 #include "nsc.h"
 #include "file.h"
 #include "path.h"
 #include "mission.h"
-#include "genitem.h"
 #include "commands.h"
 #include "optlist.h"
-
-union item_u {
-    struct shpstr ship;
-    struct plnstr plane;
-    struct lndstr land;
-};
+#include "empobj.h"
 
 /*
  *  mission <type> <planes/ships/units> <mission type> <op sector> [<radius>]
@@ -69,8 +58,8 @@ mission(void)
     coord x, y;
     int desired_radius, radius;
     struct sctstr opsect;
-    union item_u item;
-    struct genitem *gp;
+    union empobj_storage item;
+    struct empobj *gp;
     int num = 0, mobmax, mobused, dist;
     struct nstr_item ni;
     char prompt[128];
@@ -212,7 +201,7 @@ mission(void)
     mobused = ldround(mission_mob_cost * (double)mobmax, 1);
 
     while (nxtitem(&ni, &item)) {
-	gp = (struct genitem *)&item;
+	gp = (struct empobj *)&item;
 
 	if (!player->owner || gp->own == 0)
 	    continue;
