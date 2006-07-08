@@ -108,7 +108,7 @@ starv_sects(char *range)
     struct nstr_sect nstr;
     struct sctstr sect;
     int nsect = 0;
-    int s;
+    int s, save;
 
     if (!snxtsct(&nstr, range))
 	return;
@@ -118,12 +118,20 @@ starv_sects(char *range)
 	if (sect.sct_type == SCT_SANCT)
 	    continue;
 
+	/*
+	 * Check for starvation.  Suppress complaints about tiny
+	 * population without food by adding 1f just for the check.
+	 * That's okay because growfood() will grow at least that much
+	 * anyway.
+	 */
+	save = sect.sct_item[I_FOOD];
 	if (sect.sct_item[I_FOOD] == 0)
-	    sect.sct_item[I_FOOD] = 1; /* see growfood() */
+	    sect.sct_item[I_FOOD] = 1;
 	s = famine_victims(sect.sct_item, etu_per_update);
-
+	sect.sct_item[I_FOOD] = save;
 	if (s == 0)
 	    continue;
+
 	if (nsect++ == 0)
 	    sect_hdr();
 	if (player->god)
