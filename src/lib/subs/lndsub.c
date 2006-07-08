@@ -1364,7 +1364,7 @@ lnd_set_tech(struct lndstr *lp, int tlev)
     lp->lnd_frg = (int)LND_FRG(lcp->l_frg, tech_diff);
     lp->lnd_acc = (int)LND_ACC(lcp->l_acc, tech_diff);
     lp->lnd_dam = (int)LND_DAM(lcp->l_dam, tech_diff);
-    lp->lnd_ammo = (int)LND_AMM(lcp->l_ammo, lcp->l_dam, tech_diff);
+    lp->lnd_ammo = (int)LND_AMM(lcp->l_ammo, tech_diff);
     lp->lnd_aaf = (int)LND_AAF(lcp->l_aaf, tech_diff);
     lp->lnd_fuelc = (int)LND_FC(lcp->l_fuelc, tech_diff);
     lp->lnd_fuelu = (int)LND_FU(lcp->l_fuelu, tech_diff);

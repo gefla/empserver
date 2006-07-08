@@ -160,7 +160,7 @@ struct lchrstr {
 			       logx((t), 60.0))) : (b))
 #define LND_ACC(b, t) ((b * (1.0 - ((sqrt(t) / 100.0) * 1.1))) < 0	\
 		       ? 0 : (b * (1.0 - ((sqrt(t) / 100.0) * 1.1))))
-#define LND_AMM(b, d, t) ((b) ? ((LND_DAM((d), (t)) / 2) + 1) : 0)
+#define LND_AMM(b, t) (b)
 #define LND_AAF(b, t) ((b * (1.0 + ((sqrt(t) / 100.0) * 3.0))) > 127	\
 		       ? 127 : (b * (1.0 + ((sqrt(t) / 100.0) * 3.0))))
 #define LND_FC(b, t)  (b)

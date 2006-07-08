@@ -482,7 +482,7 @@ show_land_stats(int tlev)
 	   (int)LND_FRG(lcp->l_frg, ourtlev),
 	   (int)LND_ACC(lcp->l_acc, ourtlev),
 	   (int)LND_DAM(lcp->l_dam, ourtlev),
-	   (int)LND_AMM(lcp->l_ammo, lcp->l_dam, ourtlev),
+	   (int)LND_AMM(lcp->l_ammo, ourtlev),
 	   (int)LND_AAF(lcp->l_aaf, ourtlev));
 	pr("%2d %2d %2d %2d ",
 	   (int)LND_FC(lcp->l_fuelc, ourtlev),
