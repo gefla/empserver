@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  genobj.h: General empire objects.
+ *  empobj.h: General empire objects.
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2006
@@ -35,18 +35,21 @@
 #ifndef EMPOBJ_H
 #define EMPOBJ_H
 
+#include "config.h"
+#include "file.h"
+#include "nat.h"
 #include "commodity.h"
 #include "land.h"
 #include "loan.h"
 #include "lost.h"
 #include "plane.h"
-#include "nat.h"
 #include "news.h"
 #include "nuke.h"
 #include "sect.h"
 #include "ship.h"
 #include "trade.h"
 #include "treaty.h"
+#include "prototypes.h"
 
 struct empobj {
     short ef_type;	/* is always valid */
@@ -83,5 +86,6 @@ union empobj_storage {
     struct trtstr treaty;
 };
 
+extern char * probjname(union empobj_storage *gp);
 #endif
 
