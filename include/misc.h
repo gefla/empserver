@@ -134,4 +134,7 @@ extern char *prbuf(char *format, ...)
 #define AGREE_PROPOSED	1
 #define AGREE_SIGNED	2
 
+struct empobj;
+union empobj_storage;
+
 #endif
