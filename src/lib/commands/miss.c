@@ -228,9 +228,9 @@ mission(void)
 	if ((mission == MI_INTERDICT || mission == MI_SUPPORT ||
 	     mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
 	     mission == MI_AIR_DEFENSE) &&
-	    (oprange(gp, type, &radius) < dist)) {
+	    (oprange(gp, &radius) < dist)) {
 	    pr("%s: out of range! (range %d)\n",
-	       nameofitem(gp, type), oprange(gp, type, &radius));
+	       nameofitem(gp, type), oprange(gp, &radius));
 	    continue;
 	}
 

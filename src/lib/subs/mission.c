@@ -326,7 +326,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	radius = gp->radius;
 	if (mission != MI_RESERVE)	/* XXX */
-	    oprange(gp, type, &radius);
+	    oprange(gp, &radius);
 
 	if (dist > radius)
 	    continue;
@@ -335,7 +335,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	/* Now check from where the object actually is */
 	dist = mapdist(x, y, gp->x, gp->y);
 	radius = 999;
-	oprange(gp, type, &radius);
+	oprange(gp, &radius);
 	if (dist > radius)
 	    continue;
 	/* Ok, the object can get to where the x,y is */
@@ -864,7 +864,7 @@ show_mission(int type, struct nstr_item *np)
 	    gp->mission == MI_OSUPPORT ||
 	    gp->mission == MI_DSUPPORT || gp->mission == MI_AIR_DEFENSE) {
 	    radius = 999;
-	    oprange(gp, type, &radius);
+	    oprange(gp, &radius);
 	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
 	    if (radius < gp->radius)
 		pr("  %4d", radius);
@@ -897,29 +897,25 @@ show_mission(int type, struct nstr_item *np)
 }
 
 int
-oprange(struct empobj *gp, int type, int *radius)
+oprange(struct empobj *gp, int *radius)
 {
     int range;
-    struct shpstr ship;
-    struct lndstr land;
-    struct plnstr plane;
 
-    switch (type) {
+    switch (gp->ef_type) {
     case EF_SHIP:
-	getship(gp->uid, &ship);
-	range = ldround(effrange(ship.shp_frnge, ship.shp_tech), 1);
+	range = ldround(effrange(((struct shpstr *)gp)->shp_frnge,
+				 ((struct shpstr *)gp)->shp_tech), 1);
 	break;
     case EF_LAND:
-	getland(gp->uid, &land);
-	range = ldround(effrange(land.lnd_frg, land.lnd_tech), 1);
+	range = ldround(effrange(((struct lndstr *)gp)->lnd_frg,
+				 ((struct lndstr *)gp)->lnd_tech), 1);
 	break;
     case EF_PLANE:
-	getplane(gp->uid, &plane);
 	/* missiles go one way, so we can use all the range */
-	if (plchr[(int)plane.pln_type].pl_flags & P_M)
-	    range = plane.pln_range;
+	if (plchr[(int)gp->type].pl_flags & P_M)
+	    range = ((struct plnstr *)gp)->pln_range;
 	else
-	    range = plane.pln_range / 2;
+	    range = ((struct plnstr *)gp)->pln_range / 2;
 	break;
     default:
 	CANT_HAPPEN("bad TYPE");
