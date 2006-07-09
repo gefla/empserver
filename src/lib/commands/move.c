@@ -350,11 +350,7 @@ move(void)
 static int
 cmd_move_map(coord curx, coord cury, char *arg)
 {
-    player->argp[0] = "map";
-    player->argp[1] = arg;
-    player->argp[2] = NULL;
-    player->condarg = NULL;
-    return map();
+    return display_region_map("map", curx, cury, arg);
 }
 
 int

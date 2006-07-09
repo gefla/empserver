@@ -308,6 +308,7 @@ extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* maps.c */
 extern int draw_map(int, char, int, struct nstr_sect *);
 extern int unit_map(int, int, struct nstr_sect *, char *);
+extern int display_region_map(char *cmd, coord curx, coord cury, char *arg);
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* move.c */

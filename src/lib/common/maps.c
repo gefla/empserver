@@ -357,6 +357,35 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 }
 
 int
+display_region_map(char *cmd, coord curx, coord cury, char *arg)
+{
+    char coordinates[80], *cp;
+
+    player->argp[0] = cmd;
+    if (!arg || !*arg) {
+	struct natstr *np;
+
+	np = getnatp(player->cnum);
+	sprintf(coordinates, "%d:%d,%d:%d",
+	    xrel(np, curx - 10), xrel(np, curx + 11),
+	    yrel(np, cury - 5), yrel(np, cury + 6));
+	player->argp[1] = coordinates;
+	player->argp[2] = NULL;
+    } else {
+	player->argp[1] = arg;
+	cp = strchr(arg, ' ');
+	if (cp != NULL) {
+	    *cp++  = '\0';
+	    while (isspace(*cp)) cp++;
+	    player->argp[2] = cp;
+	} else
+	    player->argp[2] = NULL;
+    }
+    player->condarg = NULL;
+    return map();
+}
+
+int
 bmaps_intersect(natid a, natid b)
 {
     char *mapa = ef_ptr(EF_MAP, a);

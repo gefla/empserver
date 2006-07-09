@@ -48,7 +48,8 @@
 #include "land.h"
 #include "commands.h"
 
-static int tran_map(coord curx, coord cury, char *arg);
+static int tran_pmap(coord curx, coord cury, char *arg);
+static int tran_nmap(coord curx, coord cury, char *arg);
 static int tran_nuke(void);
 static int tran_plane(void);
 
@@ -120,7 +121,7 @@ tran_nuke(void)
     }
     dam = 0;
     mcost = move_ground(&sect, &endsect, weight,
-			player->argp[3], tran_map, 0, &dam);
+			player->argp[3], tran_nmap, 0, &dam);
     if (mcost < 0)
 	return 0;
 
@@ -214,7 +215,7 @@ tran_plane(void)
     }
     dam = 1;
     mcost = move_ground(&sect, &endsect, weight,
-			player->argp[3], tran_map, 0, &dam);
+			player->argp[3], tran_pmap, 0, &dam);
     dam /= count;
     if (mcost < 0)
 	return 0;
@@ -251,11 +252,14 @@ tran_plane(void)
  */
 /*ARGSUSED*/
 static int
-tran_map(coord curx, coord cury, char *arg)
+tran_pmap(coord curx, coord cury, char *arg)
 {
-    player->argp[0] = "map";
-    player->argp[1] = arg;
-    player->argp[2] = NULL;
-    player->condarg = NULL;
-    return map();
+    return display_region_map("pmap", curx, cury, arg);
 }
+
+static int
+tran_nmap(coord curx, coord cury, char *arg)
+{
+    return display_region_map("nmap", curx, cury, arg);
+}
+
