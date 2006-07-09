@@ -56,7 +56,7 @@ Note: the lookout and radar commands use BTU's, just as if you'd typed them
 separately from the command line.
 .s1
 You may also use the 'm' command to have engineers in the marching
-group search for mines in the current sector a entering a 'm'.
+group search for mines in the current sector.
 .s1
 Since the <ROUTE> can be specified in the command line,
 simple unit movements are often typed as a single line, such as:
