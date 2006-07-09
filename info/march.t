@@ -32,6 +32,13 @@ g  for left                    \e  /
 j  for right               g  --  --  j
 b  for down-left               /  \e
 n  for down-right             b    n
+.FI
+Other commands you may type while navigating are:
+.NF
+M  for map
+B  for bmap
+f  to change the leader
+i  to list land units you are marching
 r  for radar
 l  for lookout
 m  to sweep landmines
@@ -49,7 +56,7 @@ Note: the lookout and radar commands use BTU's, just as if you'd typed them
 separately from the command line.
 .s1
 You may also use the 'm' command to have engineers in the marching
-group search for mines in the current sector. Example: "m 12"
+group search for mines in the current sector a entering a 'm'.
 .s1
 Since the <ROUTE> can be specified in the command line,
 simple unit movements are often typed as a single line, such as:
