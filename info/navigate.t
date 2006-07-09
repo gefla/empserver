@@ -45,15 +45,15 @@ m  to sweep mines
 h  for end of movement
 .FI
 .s1
-While navigating you may also use radar, sonar, or lookout.
-(by entering r, s, or l) By default it will radar, sonar, or 
+While navigating you may also use radar, sonar, or lookout
+(by entering r, s, or l). By default, it will radar, sonar, or 
 lookout from the flagship. You may also
 give a ship number or fleet or group of ships on the same
 line: "r 12/13/14/73"
 .s1
 You may also use minesweepers in the currently navigating group to
-sweep mines. This costs them the equivalent of 1 sector's mobility.
-For example: "m 12/13"
+sweep mines by entering a 'm'.
+This costs them the equivalent of 1 sector's mobility.
 .s1
 Since the <ROUTE> can be specified in the command line,
 simple ship movements are often typed as a single line, such as:
