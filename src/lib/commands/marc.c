@@ -46,6 +46,7 @@
 #include "commands.h"
 
 static int set_leader(struct emp_qelem *list, struct lndstr **leaderp);
+static void switch_leader(struct emp_qelem *list, int land_uid);
 
 int
 march(void)
@@ -147,14 +148,11 @@ march(void)
 	    skip = 1;
 	    break;
 	case 'f':
-	    {
-		struct emp_qelem *qp;
-
-		qp = land_list.q_back;
-		emp_remque(land_list.q_back);
-		emp_insque(qp, &land_list);
-		set_leader(&land_list, &lnd);
-	    }
+	    if (ac <= 1)
+		switch_leader(&land_list, -1);
+	    else
+		switch_leader(&land_list, atoi(player->argp[1]));
+	    set_leader(&land_list, &lnd);
 	    break;
 	case 'i':
 	    lnd_list(&land_list);
@@ -209,3 +207,24 @@ set_leader(struct emp_qelem *list, struct lndstr **leaderp)
     pr("%s\n", prland(&llp->land));
     return 1;
 }
+
+static void
+switch_leader(struct emp_qelem *list, int land_uid)
+{
+    struct emp_qelem *qp, *save;
+    struct llist *llp;
+
+    if (QEMPTY(list))
+	return;
+
+    save = qp = list->q_back;
+    do {
+        emp_remque(qp);
+        emp_insque(qp, list);
+        qp = list->q_back;
+        llp = (struct llist *)qp;
+        if (llp->land.lnd_uid == land_uid || land_uid == -1)
+            break;
+    } while (list->q_back != save);
+}
+
