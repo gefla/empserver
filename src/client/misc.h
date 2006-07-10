@@ -43,8 +43,6 @@
 #include <netinet/in.h>
 #endif
 
-typedef short coord;		/* also change NSC_COORD in nsc.h */
-
 struct ioqueue;
 
 extern char empirehost[];
