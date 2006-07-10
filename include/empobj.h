@@ -84,6 +84,6 @@ union empobj_storage {
     struct trtstr treaty;
 };
 
-extern char * probjname(union empobj_storage *gp);
-#endif
+extern char *obj_nameof(struct empobj *gp);
 
+#endif

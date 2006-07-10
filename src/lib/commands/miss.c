@@ -203,12 +203,12 @@ mission(void)
 
 	if ((mission && (gp->mobil < mobused)) && mission_mob_cost) {
 	    pr("%s: not enough mobility! (needs %d)\n",
-	       nameofitem(gp, type), mobused);
+	       obj_nameof(gp), mobused);
 	    continue;
 	}
 	if (mission == MI_RESERVE && !lnd_can_attack((struct lndstr *)gp)) {
 	    pr("%s is not designed to fight ground troops\n",
-	       prland((struct lndstr *)gp));
+	       obj_nameof(gp));
 	    continue;
 	}
 	if (*p == '.') {
@@ -225,7 +225,7 @@ mission(void)
 	     mission == MI_AIR_DEFENSE) &&
 	    (oprange(gp, &radius) < dist)) {
 	    pr("%s: out of range! (range %d)\n",
-	       nameofitem(gp, type), oprange(gp, &radius));
+	       obj_nameof(gp), oprange(gp, &radius));
 	    continue;
 	}
 
@@ -234,13 +234,13 @@ mission(void)
 
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
 	    if (mchr[(int)gp->type].m_frnge < 1) {
-		pr("%s: cannot fire at range!\n", nameofitem(gp, type));
+		pr("%s: cannot fire at range!\n", obj_nameof(gp));
 		continue;
 	    }
 
 	if ((mission == MI_INTERDICT) && (type == EF_LAND))
 	    if (lchr[(int)gp->type].l_frg < 1) {
-		pr("%s: cannot fire at range!\n", nameofitem(gp, type));
+		pr("%s: cannot fire at range!\n", obj_nameof(gp));
 		continue;
 	    }
 
@@ -306,7 +306,7 @@ mission(void)
 	    mission == MI_DSUPPORT || mission == MI_INTERDICT ||
 	    mission == MI_AIR_DEFENSE) {
 	    pr("%s on %s mission, centered on %s, radius %d\n",
-	       nameofitem(gp, type), mission_name(mission),
+	       obj_nameof(gp), mission_name(mission),
 	       xyas(x, y, player->cnum), gp->radius);
 	} else if (mission == MI_RESERVE) {
 	    int plus = 2;
@@ -322,9 +322,9 @@ mission(void)
 	    }
 
 	    pr("%s on %s mission with maximum reaction radius %d\n",
-	       nameofitem(gp, type), mission_name(mission), plus);
+	       obj_nameof(gp), mission_name(mission), plus);
 	} else if (mission) {
-	    pr("%s on %s mission\n", nameofitem(gp, type),
+	    pr("%s on %s mission\n", obj_nameof(gp),
 	       mission_name(mission));
 	}
 

@@ -805,20 +805,6 @@ cando(int mission, int type)
 }
 
 char *
-nameofitem(struct empobj *gp, int type)
-{
-    switch (type) {
-    case EF_SHIP:
-	return prship((struct shpstr *)gp);
-    case EF_PLANE:
-	return prplane((struct plnstr *)gp);
-    case EF_LAND:
-	return prland((struct lndstr *)gp);
-    }
-    return NULL;
-}
-
-char *
 mission_name(short mission)
 {
     switch (mission) {
@@ -858,7 +844,7 @@ show_mission(int type, struct nstr_item *np)
 	    pr("Thing                         x,y   op-sect rad mission\n");
 	    first = 0;
 	}
-	pr("%-25s", nameofitem(gp, type));
+	pr("%-25s", obj_nameof(gp));
 	prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
 	if (gp->mission == MI_INTERDICT || gp->mission == MI_SUPPORT ||
 	    gp->mission == MI_OSUPPORT ||

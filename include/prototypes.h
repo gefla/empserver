@@ -488,7 +488,6 @@ extern int num_shipsatxy(coord, coord, int, int);
 extern int islist(char *);
 /* src/lib/subs/mission.c */
 extern char *mission_name(short);
-extern char *nameofitem(struct empobj *, int);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
 extern int ground_interdict(coord, coord, natid, char *);
