@@ -33,6 +33,8 @@
 
 #include <config.h>
 
+#include "version.h"
+
 char version[] = PACKAGE_STRING;
 char legal[] =
 "Copyright (C) 1986-2006, Dave Pare, Jeff Bailey, Thomas Ruschak,\n"
