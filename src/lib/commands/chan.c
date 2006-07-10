@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
+#include "commands.h"
 #include "news.h"
 #include "optlist.h"
-#include "commands.h"
+#include <ctype.h>
 
 int
 chan(void)

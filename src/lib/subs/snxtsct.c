@@ -33,13 +33,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
 #include "file.h"
-#include "prototypes.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
+#include "xy.h"
 
 /*
  * setup the nstr_sect structure for sector selection.

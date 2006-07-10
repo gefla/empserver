@@ -33,14 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "ship.h"
-#include "land.h"
-#include "nsc.h"
+#include "empobj.h"
 #include "file.h"
+#include "land.h"
+#include "misc.h"
+#include "nsc.h"
+#include "player.h"
 #include "prototypes.h"
+#include "ship.h"
+#include "xy.h"
 
 int
 nxtitem(struct nstr_item *np, void *ptr)

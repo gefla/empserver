@@ -33,15 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "treaty.h"
-#include "file.h"
 #include "commands.h"
+#include "treaty.h"
 
 int
 enli(void)

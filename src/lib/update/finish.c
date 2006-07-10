@@ -35,16 +35,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "file.h"
-#include "xy.h"
-#include "path.h"
 #include "distribute.h"
+#include "path.h"
 #include "update.h"
-#include "common.h"
-#include "optlist.h"
+#include <stdlib.h>
 
 /* Used for building up distribution info */
 struct distinfo {

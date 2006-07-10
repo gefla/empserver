@@ -33,15 +33,9 @@
 
 #include <config.h>
 
-#include <sys/types.h>
-#include "misc.h"
-#include "player.h"
-#include "empthread.h"
-#include "nat.h"
-#include "file.h"
 #include "commands.h"
+#include "empthread.h"
 #include "server.h"
-#include "prototypes.h"
 
 int
 shut(void)

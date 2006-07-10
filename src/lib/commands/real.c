@@ -33,12 +33,7 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "xy.h"
-#include "file.h"
-#include "nsc.h"
+#include <ctype.h>
 #include "commands.h"
 
 static void

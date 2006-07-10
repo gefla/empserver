@@ -33,11 +33,12 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "file.h"
 #include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 
 double
 landgun(int effic, int guns)

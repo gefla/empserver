@@ -34,26 +34,22 @@
 #include <config.h>
 
 #include <stddef.h>
-#include "misc.h"
-#include "xy.h"
+#include "commodity.h"
+#include "file.h"
+#include "land.h"
 #include "loan.h"
+#include "lost.h"
+#include "nat.h"
+#include "news.h"
 #include "nsc.h"
 #include "nuke.h"
 #include "plane.h"
-#include "ship.h"
-#include "land.h"
+#include "power.h"
+#include "product.h"
 #include "sect.h"
+#include "ship.h"
 #include "trade.h"
 #include "treaty.h"
-#include "file.h"
-#include "power.h"
-#include "news.h"
-#include "nat.h"
-#include "lost.h"
-#include "product.h"
-
-#include "commodity.h"
-#include "nsc.h"
 
 /* Number of elements in ARRAY.  */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))

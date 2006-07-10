@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "xy.h"
-#include "path.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "optlist.h"
 #include "commands.h"
+#include "map.h"
+#include "optlist.h"
+#include "path.h"
 
 static long do_desi(struct natstr *natp, char *sects, char *deschar,
 		    long cash, int for_real);

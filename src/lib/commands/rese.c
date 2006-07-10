@@ -35,20 +35,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "file.h"
-#include "sect.h"
+#include "commands.h"
+#include "commodity.h"
 #include "item.h"
-#include "nsc.h"
-#include "nat.h"
 #include "land.h"
+#include "optlist.h"
 #include "plane.h"
 #include "ship.h"
-#include "commodity.h"
-#include "player.h"
-#include "commands.h"
-#include "optlist.h"
 
 int
 rese(void)

@@ -35,16 +35,9 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "item.h"
-#include "file.h"
-#include "xy.h"
-#include "optlist.h"
-#include "update.h"
-#include "subs.h"
 #include "budg.h"
+#include "item.h"
+#include "update.h"
 
 /*
  * hap and edu avg mean that the weight on current happiness is

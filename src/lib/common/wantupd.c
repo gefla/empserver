@@ -33,20 +33,18 @@
 
 #include <config.h>
 
+#include <fcntl.h>
 #include <stdio.h>
+#include <time.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
+#include "file.h"
 #include "misc.h"
 #include "nat.h"
-#include "file.h"
-#include "wantupd.h"
 #include "optlist.h"
-#include "common.h"
-
-#include <sys/types.h>
-#include <fcntl.h>
-#include <time.h>
+#include "prototypes.h"
+#include "wantupd.h"
 
 void
 update_policy_check(void)

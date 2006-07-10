@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "xy.h"
-#include "path.h"
-#include "nsc.h"
-#include "nat.h"
+#include <ctype.h>
 #include "commands.h"
+#include "map.h"
+#include "path.h"
 
 int
 bdes(void)

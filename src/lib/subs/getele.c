@@ -33,11 +33,9 @@
 
 #include <config.h>
 
-#include <ctype.h>
-#include "misc.h"
 #include "player.h"
-#include "tel.h"
 #include "prototypes.h"
+#include "tel.h"
 
 static int tilde_escape(char *s);
 

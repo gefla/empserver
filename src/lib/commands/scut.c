@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
+#include <ctype.h>
 #include "commands.h"
-#include "optlist.h"
 #include "empobj.h"
+#include "optlist.h"
 
 static void scuttle_land(struct lndstr *);
 

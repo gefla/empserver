@@ -35,15 +35,17 @@
 
 #include <config.h>
 
+#include "file.h"
+#include "lost.h"
 #include "misc.h"
-#include "player.h"
+#include "nat.h"
+#include "nsc.h"
 #include "nuke.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "prototypes.h"
 
 int
 nuk_postread(int n, void *ptr)

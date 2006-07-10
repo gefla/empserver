@@ -34,16 +34,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "ship.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
 #include "optlist.h"
+#include "ship.h"
 
 #define	TSIZE	200
 

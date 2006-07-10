@@ -36,23 +36,22 @@
 
 #include <config.h>
 
-#include <string.h>
-
-#include "misc.h"
-#include "player.h"
-#include "news.h"
-#include "land.h"
-#include "sect.h"
-#include "plane.h"
-#include "ship.h"
-#include "nat.h"
 #include "file.h"
-#include "xy.h"
+#include "land.h"
+#include "map.h"
+#include "misc.h"
+#include "nat.h"
+#include "news.h"
 #include "nsc.h"
-#include "path.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "path.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "sect.h"
 #include "server.h"
+#include "ship.h"
+#include "xy.h"
 
 #define FLAK_GUN_MAX 14
 

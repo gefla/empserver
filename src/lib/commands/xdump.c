@@ -74,15 +74,15 @@
 
 #include <config.h>
 
+#include <ctype.h>
 #include <stddef.h>
-#include "misc.h"
-#include "file.h"
+#include "commands.h"
+#include "empobj.h"
 #include "match.h"
 #include "news.h"
-#include "nsc.h"
 #include "optlist.h"
+#include "treaty.h"
 #include "version.h"
-#include "commands.h"
 
 /*
  * Evaluate a attribute of an object into VAL, return VAL.

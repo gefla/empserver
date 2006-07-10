@@ -34,20 +34,12 @@
 
 #include <config.h>
 
-#include <stdlib.h>
-#include "misc.h"
-#include "plague.h"
-#include "nat.h"
-#include "sect.h"
-#include "item.h"
-#include "xy.h"
-#include "path.h"
-#include "file.h"
 #include "distribute.h"
-#include "update.h"
-#include "subs.h"
-#include "common.h"
+#include "item.h"
+#include "path.h"
+#include "plague.h"
 #include "prototypes.h"
+#include "update.h"
 
 #define EXPORT_BONUS 10.0
 #define IMPORT_BONUS 10.0

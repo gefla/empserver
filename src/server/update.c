@@ -36,16 +36,15 @@
 #include <config.h>
 
 #include <errno.h>
-#include <stdlib.h>
 #ifndef _WIN32
 #include <sys/wait.h>
 #endif
 #include <time.h>
-#include "misc.h"
-#include "player.h"
 #include "empthread.h"
-#include "prototypes.h"
+#include "misc.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
 #include "server.h"
 
 empth_sem_t *update_sem;

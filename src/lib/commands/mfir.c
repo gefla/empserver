@@ -33,18 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "retreat.h"
-#include "nsc.h"
-#include "file.h"
-#include "queue.h"
-#include <ctype.h>
-#include "optlist.h"
-#include "damage.h"
 #include "commands.h"
+#include "damage.h"
 #include "empobj.h"
+#include "optlist.h"
+#include "retreat.h"
 
 enum targ_type {
     targ_land, targ_ship, targ_sub, targ_unit, targ_bogus

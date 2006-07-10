@@ -39,12 +39,10 @@
 #include <config.h>
 
 #include <stddef.h>
-#include "misc.h"
-#include "xy.h"
-#include "nsc.h"
 #include "empobj.h"
-#include "product.h"
 #include "file.h"
+#include "nsc.h"
+#include "product.h"
 
 #define fldoff(str, fld) offsetof(struct str, fld)
 

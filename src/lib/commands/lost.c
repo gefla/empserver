@@ -33,11 +33,8 @@
 
 #include <config.h>
 
-#include "player.h"
-#include "nsc.h"
-#include "file.h"
-#include "lost.h"
 #include "commands.h"
+#include "lost.h"
 
 int
 lost(void)

@@ -39,8 +39,8 @@
 
 #include "item.h"
 #include "queue.h"
-#include "misc.h"
 #include "retreat.h"
+#include "types.h"
 
 #define SHP_TYPE_MAX	46
 #define	SHIP_MINEFF	20

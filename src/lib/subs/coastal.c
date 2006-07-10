@@ -33,9 +33,10 @@
 
 #include <config.h>
 
-#include "prototypes.h"
 #include "file.h"
 #include "path.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static void
 update_coastal_flag(struct sctstr *sp, struct sctstr *sectp)

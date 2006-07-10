@@ -33,13 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "plane.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "plane.h"
 
 int
 pstat(void)

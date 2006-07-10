@@ -34,12 +34,8 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "plane.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "plane.h"
 
 int
 wing(void)

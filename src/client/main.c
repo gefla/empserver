@@ -36,31 +36,24 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "proto.h"
-#include "queue.h"
-#include "ioqueue.h"
-#include "tags.h"
-
+#include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
-#ifndef _WIN32
-#include <pwd.h>
-#endif
-#include <signal.h>
-#include <errno.h>
-#ifndef _WIN32
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#else
+#ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
 #include <io.h>
+#else
+#include <pwd.h>
+#include <unistd.h>
 #endif
+
+#include "ioqueue.h"
+#include "misc.h"
+#include "proto.h"
+#include "tags.h"
 
 #ifdef _WIN32
 HANDLE hStdIn;

@@ -33,7 +33,7 @@
 
 #include <config.h>
 
-#include "gen.h"
+#include "prototypes.h"
 
 int
 roundintby(int n, int m)

@@ -33,17 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "item.h"
-#include "file.h"
-#include "nat.h"
-#include "optlist.h"
 #include "commands.h"
+#include "item.h"
+#include "map.h"
+#include "optlist.h"
+#include "plague.h"
 
 static int explore_map(coord curx, coord cury, char *arg);
 

@@ -36,24 +36,15 @@
 
 #include <config.h>
 
-#include <math.h>
-#include "misc.h"
-#include "plague.h"
-#include "sect.h"
-#include "nat.h"
-#include "land.h"
-#include "ship.h"
-#include "news.h"
-#include "file.h"
-#include "optlist.h"
 #include "budg.h"
-#include "player.h"
-#include "update.h"
+#include "land.h"
 #include "lost.h"
-#include "common.h"
-#include "subs.h"
-#include "common.h"
-#include "gen.h"
+#include "news.h"
+#include "plague.h"
+#include "player.h"
+#include "ship.h"
+#include "update.h"
+#include <math.h>
 
 static void landrepair(struct lndstr *, struct natstr *, int *, int);
 static void upd_land(struct lndstr *, int, struct natstr *, int *, int);

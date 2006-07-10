@@ -34,6 +34,9 @@
 #ifndef NUKE_H
 #define NUKE_H
 
+#include <time.h>
+#include "types.h"
+
 #define	N_MAXNUKE	20
 #define	MIN_DRNUKE_CONST	0.001
 

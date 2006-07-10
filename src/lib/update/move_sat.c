@@ -34,17 +34,10 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "plane.h"
-#include "sect.h"
-#include "xy.h"
 #include "nsc.h"
-#include "nat.h"
 #include "path.h"
-#include "file.h"
+#include "plane.h"
 #include "update.h"
-#include "subs.h"
-#include "optlist.h"
 
 #ifndef PI
 #define	PI	3.14159265358979323846

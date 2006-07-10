@@ -36,18 +36,16 @@
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/types.h>
 #ifdef _WIN32
 #define WIN32
 #include "winsock2.h"
 #undef NS_ALL
 #else
-#include <sys/socket.h>
-#include <netdb.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <netinet/in.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #endif
 #include "prototypes.h"

@@ -25,31 +25,39 @@
  *
  *  ---
  *
- *  subs.h: Headers for things having to do with subs.
+ *  types.h: Empire types
  * 
  *  Known contributors to this file:
- *     
+ *     Markus Armbruster, 2006
  */
 
-#ifndef SUBS_H
-#define SUBS_H
+#ifndef TYPES_H
+#define TYPES_H
 
-#include "misc.h"
-#include "sect.h"
-#include "plane.h"
-#include "loan.h"
-#include "treaty.h"
-#include "nsc.h"
-#include "land.h"
-#include "com.h"
-#include "nuke.h"
-#include "item.h"
-#include "ship.h"
-#include "queue.h"
-#include "xy.h"
-#include "empobj.h"
-#include "trade.h"
-#include "player.h"
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
+typedef unsigned char natid;	/* NSC_NATID must match this */
+typedef short coord;
+
+struct emp_qelem;
+struct empobj;
+struct lndstr;
+struct lndstr;
+struct lonstr;
+struct natstr;
+struct nchrstr;
+struct nstr_item;
+struct nstr_sect;
+struct nukstr;
+struct plist;
+struct plnstr;
+struct range;
+struct sctstr;
+struct shiplist;
+struct shpstr;
+struct trdstr;
+struct trtstr;
+struct comstr;
+struct cmndstr;
+
+union empobj_storage;
 
 #endif

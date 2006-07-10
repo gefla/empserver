@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include <stdio.h>
-#include "optlist.h"
 #include "prototypes.h"
 
 int

@@ -34,13 +34,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
-#include "optlist.h"
-#include "subs.h"
 #include "commands.h"
+#include "nuke.h"
+#include "optlist.h"
 
 int
 show(void)

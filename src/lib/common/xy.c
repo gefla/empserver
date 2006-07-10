@@ -37,13 +37,13 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include "misc.h"
-#include "xy.h"
-#include "nat.h"
-#include "sect.h"
 #include "file.h"
-#include "common.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
 
 /*
  * return pointer to a string containing the x,y

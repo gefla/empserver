@@ -38,20 +38,19 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "player.h"
-#include "nuke.h"
-#include "ship.h"
-#include "land.h"
-#include "item.h"
-#include "plane.h"
-#include "sect.h"
-#include "optlist.h"
 #include "file.h"
+#include "item.h"
+#include "land.h"
 #include "nat.h"
-#include "prototypes.h"
-#include "nsc.h"
 #include "news.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "product.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 
 struct look_list {
     union {

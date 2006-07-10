@@ -34,6 +34,9 @@
 #ifndef TREATY_H
 #define TREATY_H
 
+#include <time.h>
+#include "types.h"
+
 struct trtstr {
     short ef_type;
     natid trt_cna;		/* proposer */

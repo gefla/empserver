@@ -38,18 +38,16 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <stdlib.h>
-#include <string.h>
 #if !defined(_WIN32)
+#include <sys/types.h>
 #include <unistd.h>
 #endif
-#include "common.h"
 #include "file.h"
-#include "gen.h"
 #include "match.h"
 #include "misc.h"
 #include "nsc.h"
 #include "optlist.h"
+#include "prototypes.h"
 
 static int fillcache(struct empfile *, int);
 static int do_write(struct empfile *, void *, int, int);

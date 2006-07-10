@@ -33,12 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "land.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "land.h"
 #include "optlist.h"
 
 int

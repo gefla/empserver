@@ -37,20 +37,23 @@
 #include <config.h>
 
 #include <math.h>
+#include "file.h"
+#include "item.h"
+#include "land.h"
+#include "lost.h"
+#include "map.h"
 #include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "path.h"
+#include "plane.h"
 #include "player.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "land.h"
-#include "item.h"
-#include "plane.h"
 #include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "path.h"
-#include "prototypes.h"
-#include "optlist.h"
 
 static int pln_equip(struct plist *, struct ichrstr *, int, char);
 

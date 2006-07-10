@@ -34,17 +34,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
-#include "sect.h"
-#include "path.h"
-#include "map.h"
 #include "commands.h"
+#include "map.h"
 #include "optlist.h"
+#include "path.h"
 
 int
 path(void)

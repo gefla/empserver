@@ -34,12 +34,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nuke.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "nuke.h"
 
 int
 ndump(void)

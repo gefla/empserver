@@ -33,20 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "plague.h"
-#include "sect.h"
-#include "nat.h"
 #include "item.h"
-#include "news.h"
-#include "file.h"
-#include "xy.h"
-#include "optlist.h"
-#include "update.h"
-#include "common.h"
-#include "subs.h"
 #include "lost.h"
-#include "gen.h"
+#include "news.h"
+#include "plague.h"
+#include "update.h"
 
 static int infect_people(struct natstr *, struct sctstr *);
 

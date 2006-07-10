@@ -35,14 +35,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <sys/types.h>
-#if !defined(_WIN32)
-#include <netinet/in.h>
-#endif
-#include "queue.h"
-#include "misc.h"
-#include "com.h"
+#include <time.h>
 #include "empthread.h"
+#include "misc.h"
+#include "queue.h"
+#include "types.h"
 
 struct player {
     struct emp_qelem queue;

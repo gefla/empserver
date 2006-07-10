@@ -37,17 +37,15 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "../as/as.h"
-#include "misc.h"
-#include "path.h"
-#include "xy.h"
-#include "sect.h"
 #include "file.h"
-#include "common.h"
-#include "gen.h"
+#include "misc.h"
 #include "optlist.h"
+#include "path.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
+#include <stdio.h>
 
 #define	BP_ASHASHSIZE	128	/* A* queue hash table size */
 #define	BP_NEIGHBORS	6	/* max number of neighbors */

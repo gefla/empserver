@@ -34,10 +34,9 @@
 #include <config.h>
 
 #include <errno.h>
-#include <fcntl.h>
-#include <time.h>
-#include "misc.h"
-#include "player.h"
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
 #include "tel.h"
 #include "commands.h"
 #include "optlist.h"

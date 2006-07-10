@@ -34,19 +34,17 @@
 
 #include <config.h>
 
+#include <fcntl.h>
+#include "damage.h"
+#include "land.h"
 #include "misc.h"
+#include "nsc.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "plane.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nuke.h"
-#include "nsc.h"
-#include <fcntl.h>
-#include "optlist.h"
-#include "damage.h"
-#include "common.h"
-#include "gen.h"
-#include "subs.h"
 
 void
 item_damage(int pct, short *item)

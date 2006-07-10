@@ -33,15 +33,7 @@
 
 #include <config.h>
 
-#include <stdio.h>
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nat.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
 
 static void print_res(struct sctstr *);

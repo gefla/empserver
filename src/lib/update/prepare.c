@@ -35,21 +35,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "item.h"
-#include "file.h"
-#include "xy.h"
-#include "path.h"
-#include "optlist.h"
 #include "budg.h"
+#include "item.h"
+#include "land.h"
+#include "path.h"
 #include "player.h"
 #include "ship.h"
-#include "land.h"
 #include "update.h"
-#include "gen.h"
-#include "common.h"
 
 void
 prepare_sects(int etu, int *bp)

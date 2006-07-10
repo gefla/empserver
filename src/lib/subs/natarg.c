@@ -34,13 +34,14 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "nat.h"
-#include "player.h"
+#include <stdlib.h>
 #include "file.h"
 #include "match.h"
-#include "prototypes.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
 
 /*
  * Get nation argument.

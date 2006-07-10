@@ -34,11 +34,10 @@
 #include <config.h>
 
 #include "misc.h"
-#include "xy.h"
-#include "sect.h"
-#include "path.h"
 #include "nat.h"
-#include "common.h"
+#include "path.h"
+#include "sect.h"
+#include "xy.h"
 
 double
 sector_mcost(struct sctstr *sp, int mobtype)

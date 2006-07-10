@@ -33,11 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "land.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "land.h"
 
 int
 sabo(void)

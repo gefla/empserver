@@ -33,12 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "empthread.h"
 #include "file.h"
 #include "lost.h"
-#include "prototypes.h"
 #include "optlist.h"
 #include "server.h"
 

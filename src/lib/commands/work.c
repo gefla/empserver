@@ -33,16 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "land.h"
-#include "nat.h"
-#include "nsc.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
+#include "land.h"
+#include "optlist.h"
 
 static int buildeff(struct sctstr *, int, double *);
 

@@ -34,8 +34,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include <fcntl.h>
 #include "prototypes.h"
 
 /*

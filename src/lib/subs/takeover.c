@@ -34,17 +34,19 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "plane.h"
-#include "land.h"
-#include "ship.h"
+#include <stdlib.h>
 #include "file.h"
-#include "prototypes.h"
+#include "land.h"
+#include "lost.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
 #include "optlist.h"
+#include "plane.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
+#include "xy.h"
 
 void
 takeover(struct sctstr *sp, natid newown)

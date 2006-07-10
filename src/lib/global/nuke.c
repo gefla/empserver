@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "nuke.h"
 
 /*

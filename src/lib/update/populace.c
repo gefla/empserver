@@ -33,18 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "file.h"
-#include "path.h"
-#include "xy.h"
 #include "land.h"
-#include "update.h"
-#include "subs.h"
-#include "gen.h"
-#include "common.h"
 #include "lost.h"
+#include "path.h"
+#include "update.h"
 
 void
 populace(struct natstr *np, struct sctstr *sp, int etu)

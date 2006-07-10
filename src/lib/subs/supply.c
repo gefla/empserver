@@ -34,19 +34,14 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "nat.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "path.h"
-#include "item.h"
 #include "file.h"
+#include "land.h"
+#include "nat.h"
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 
 static int get_minimum(struct lndstr *, i_type);
 static int s_commod(int, int, int, i_type, int, int);

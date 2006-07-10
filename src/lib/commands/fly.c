@@ -34,18 +34,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "ship.h"
-#include "item.h"
-#include "plane.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "path.h"
 #include "commands.h"
+#include "item.h"
+#include "path.h"
+#include "plane.h"
+#include "ship.h"
 
 int
 fly(void)

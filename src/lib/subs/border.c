@@ -33,10 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "prototypes.h"
+#include "map.h"
 #include "optlist.h"
+#include "prototypes.h"
+#include "xy.h"
 
 void
 border(struct range *rp, char *prefstr, char *sep)

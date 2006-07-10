@@ -33,20 +33,12 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "sect.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "tel.h"
-#include "land.h"
+#include <fcntl.h>
 #include "commands.h"
+#include "land.h"
 #include "optlist.h"
+#include "plague.h"
+#include "tel.h"
 
 int
 add(void)

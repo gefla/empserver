@@ -34,23 +34,13 @@
 
 #include <config.h>
 
-#include "misc.h"
 
 #include <ctype.h>
-#include "ship.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
 #include "item.h"
-#include "optlist.h"
-#include "player.h"
+#include "nsc.h"
+#include "path.h"
+#include "ship.h"
 #include "update.h"
-#include "subs.h"
-#include "common.h"
-#include <stdlib.h>
 
 static void swap(struct shpstr *);
 

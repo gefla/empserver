@@ -36,23 +36,17 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "news.h"
-#include "ship.h"
-#include "nuke.h"
-#include "land.h"
-#include "plane.h"
-#include "trade.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "player.h"
-#include "commodity.h"
-#include "loan.h"
 #include "commands.h"
+#include "commodity.h"
+#include "empobj.h"
+#include "land.h"
+#include "loan.h"
+#include "news.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
+#include "ship.h"
+#include "trade.h"
 
 /*
  * format: trade

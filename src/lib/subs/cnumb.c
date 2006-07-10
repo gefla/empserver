@@ -33,11 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
 #include "file.h"
 #include "match.h"
+#include "nat.h"
 #include "prototypes.h"
 
 /*

@@ -34,12 +34,13 @@
 
 #include <config.h>
 
+#include "land.h"
 #include "misc.h"
-#include "ship.h"
+#include "optlist.h"
 #include "plane.h"
 #include "product.h"
-#include "optlist.h"
 #include "prototypes.h"
+#include "ship.h"
 
 static void init_mchr(void);
 static void init_pchr(void);

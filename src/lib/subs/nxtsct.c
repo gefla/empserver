@@ -33,13 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
 #include "file.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "prototypes.h"
+#include "sect.h"
 
 /*
  * get the next sector in the range

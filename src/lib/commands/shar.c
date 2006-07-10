@@ -33,11 +33,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nsc.h"
-#include "nat.h"
-#include "player.h"
-#include "file.h"
 #include "commands.h"
 
 int

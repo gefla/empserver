@@ -34,21 +34,23 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
+#include <ctype.h>
+#include "com.h"
+#include "empobj.h"
 #include "file.h"
-#include "nat.h"
-#include "map.h"
-#include "ship.h"
 #include "land.h"
-#include "plane.h"
-#include "common.h"
-#include "gen.h"
-#include "subs.h"
+#include "map.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
+#include "xy.h"
 
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(unsigned char type, natid own, int owner_or_god);

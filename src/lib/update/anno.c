@@ -36,17 +36,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "tel.h"
-#include <fcntl.h>
 #include <stdio.h>
 #include <time.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
+#include "tel.h"
 #include "update.h"
-#include "optlist.h"
-#include "common.h"
 
 static int copy_and_expire(FILE *annfp, FILE *tmpfp,
 			   char *tmp_filename, time_t expiry_time);

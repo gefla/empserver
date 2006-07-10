@@ -37,15 +37,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "land.h"
 #include "commands.h"
+#include "land.h"
 
 static long do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real);
 

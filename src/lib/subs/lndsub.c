@@ -36,23 +36,24 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "player.h"
-#include "file.h"
-#include "sect.h"
-#include "path.h"
-#include "news.h"
-#include "nat.h"
-#include "xy.h"
-#include "land.h"
-#include "ship.h"
-#include "nsc.h"
-#include "mission.h"
-#include "plane.h"
+#include <stdlib.h>
 #include "combat.h"
 #include "damage.h"
+#include "file.h"
+#include "land.h"
+#include "misc.h"
+#include "mission.h"
+#include "nat.h"
+#include "news.h"
+#include "nsc.h"
 #include "optlist.h"
+#include "path.h"
+#include "plane.h"
+#include "player.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
+#include "xy.h"
 
 static void lnd_mess(char *, struct llist *);
 static int lnd_hit_mine(struct lndstr *, struct lchrstr *);

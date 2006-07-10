@@ -34,22 +34,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
+#include "commands.h"
+#include "map.h"
+#include "optlist.h"
+#include "path.h"
+#include "plane.h"
 #include "retreat.h"
 #include "ship.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
-#include "queue.h"
-#include "plane.h"
-#include <fcntl.h>
-#include <ctype.h>
-#include "commands.h"
-#include "optlist.h"
 
 static int blankrow(char *);
 

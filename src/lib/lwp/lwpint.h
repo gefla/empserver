@@ -35,11 +35,14 @@
 #ifndef LWPINT_H
 #define LWPINT_H
 
+#include <signal.h>
 #ifdef UCONTEXT
 #include <ucontext.h>
 #else  /* !UCONTEXT */
 #include <setjmp.h>
 #endif /* !UCONTEXT */
+
+#include "misc.h"
 
 /* process control block.  do *not* change the position of context */
 struct lwpProc {

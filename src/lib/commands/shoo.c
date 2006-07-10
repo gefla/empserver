@@ -33,18 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "news.h"
-#include "item.h"
-#include "path.h"
-#include "nat.h"
-#include "file.h"
-#include "nsc.h"
-#include "land.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "news.h"
+#include "path.h"
 
 int
 shoo(void)

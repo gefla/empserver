@@ -33,16 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "sect.h"
-#include "nat.h"
-#include "prototypes.h"
 #include "optlist.h"
-
-
+#include "prototypes.h"
+#include "sect.h"
 
 /*
  *

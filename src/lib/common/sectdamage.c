@@ -34,21 +34,19 @@
 
 #include <config.h>
 
+#include "combat.h"
+#include "damage.h"
+#include "file.h"
+#include "land.h"
 #include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "plane.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "land.h"
-#include "plane.h"
 #include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "optlist.h"
-#include "damage.h"
-#include "common.h"
-#include "gen.h"
-#include "subs.h"
-#include "combat.h"
 
 int
 sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)

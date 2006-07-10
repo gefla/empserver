@@ -44,18 +44,20 @@
 #include <config.h>
 
 #include <assert.h>
+#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #ifdef _WIN32
 #include <direct.h>
+#else
+#include <unistd.h>
 #endif
 
-#include "misc.h"
 #include "file.h"
+#include "misc.h"
 #include "optlist.h"
-#include "gen.h"
+#include "prototypes.h"
 
 /* Dummy one */
 static int emp_config_dummy;

@@ -36,24 +36,13 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
-#include "ship.h"
-#include "land.h"
-#include "power.h"
-#include "item.h"
-#include "plane.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
-
-
-#include <fcntl.h>
+#include "item.h"
+#include "land.h"
+#include "optlist.h"
+#include "plane.h"
+#include "power.h"
+#include "ship.h"
 
 struct powsort {
     float powval;

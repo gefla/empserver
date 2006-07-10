@@ -35,21 +35,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "plane.h"
-#include "news.h"
-#include "mission.h"
-#include "ship.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
-#include "optlist.h"
-#include "damage.h"
 #include "commands.h"
+#include "damage.h"
+#include "mission.h"
+#include "news.h"
+#include "optlist.h"
+#include "path.h"
+#include "plane.h"
+#include "ship.h"
 
 static int launch_as(struct plnstr *pp);
 static int launch_missile(struct plnstr *pp, int sublaunch);

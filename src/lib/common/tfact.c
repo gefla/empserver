@@ -33,10 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
 #include "file.h"
-#include "optlist.h"
+#include "nat.h"
 
 double
 tfact(natid cn, double mult)

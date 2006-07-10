@@ -33,28 +33,23 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "proto.h"
 #include "com.h"
-#include "nat.h"
-#include "sect.h"
-#include "file.h"
-#include "proto.h"
 #include "empio.h"
 #include "empthread.h"
-#include "tel.h"
-#include "gen.h"
-#include "subs.h"
-#include "common.h"
-#include "optlist.h"
+#include "file.h"
 #include "journal.h"
+#include "misc.h"
+#include "nat.h"
+#include "optlist.h"
+#include "player.h"
+#include "proto.h"
+#include "proto.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "tel.h"
 
 #if !defined(_WIN32)
 #include <unistd.h>
-#include <sys/time.h>
 #endif
 #include <stdio.h>
 #include <errno.h>

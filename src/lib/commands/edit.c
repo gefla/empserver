@@ -39,23 +39,15 @@
 
 #include <ctype.h>
 #include <limits.h>
-#include <stdio.h>
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "xy.h"
-#include "sect.h"
-#include "nat.h"
-#include "news.h"
-#include "nsc.h"
+#include "commands.h"
 #include "item.h"
-#include "file.h"
+#include "land.h"
+#include "lost.h"
+#include "news.h"
+#include "optlist.h"
+#include "plague.h"
 #include "plane.h"
 #include "ship.h"
-#include "land.h"
-#include "optlist.h"
-#include "commands.h"
 
 #define END -1
 

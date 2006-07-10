@@ -33,18 +33,20 @@
 
 #include <config.h>
 
+#include <stdlib.h>
+#include "file.h"
+#include "land.h"
+#include "map.h"
 #include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "plane.h"
 #include "player.h"
-#include "xy.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
-#include "prototypes.h"
-#include "optlist.h"
+#include "xy.h"
 
 static char **rad;
 static char *radbuf;

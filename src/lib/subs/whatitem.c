@@ -33,8 +33,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "item.h"
 #include "prototypes.h"
 
 /*

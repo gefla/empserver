@@ -33,14 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "file.h"
-#include "land.h"
-#include "ship.h"
-#include "nsc.h"
 #include "lost.h"
-#include "prototypes.h"
 
 static int findlost(char, natid, short, coord, coord, int);
 

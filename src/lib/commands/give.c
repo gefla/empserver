@@ -34,16 +34,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
-#include "news.h"
-#include "xy.h"
-#include "nsc.h"
-#include "item.h"
-#include "file.h"
 #include "commands.h"
+#include "item.h"
+#include "news.h"
 #include "optlist.h"
 
 /*

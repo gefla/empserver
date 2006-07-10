@@ -33,7 +33,7 @@
 
 #include <config.h>
 
-#include "gen.h"
+#include "prototypes.h"
 
 int
 scthash(int x, int y, int tsize)

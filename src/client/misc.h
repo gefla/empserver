@@ -34,13 +34,9 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <ctype.h>
 #include <stdio.h>
-#include <sys/types.h>
 #ifdef _WIN32
 #include <windows.h>
-#else
-#include <netinet/in.h>
 #endif
 
 struct ioqueue;

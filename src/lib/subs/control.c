@@ -33,17 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
 #include "file.h"
-#include "path.h"
-#include "xy.h"
 #include "land.h"
-#include "nsc.h"
-#include "item.h"
 #include "prototypes.h"
+#include "sect.h"
 
 /*
  * Does the player->owner have military control of this sector?

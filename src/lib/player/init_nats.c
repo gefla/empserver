@@ -34,15 +34,13 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
 #include "file.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
-#include "common.h"
-#include "gen.h"
+#include "player.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static int nat_cap(int);
 

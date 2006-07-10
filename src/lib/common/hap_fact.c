@@ -33,14 +33,14 @@
 
 #include <config.h>
 
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 #include "misc.h"
-#include "player.h"
-#include "xy.h"
 #include "nat.h"
 #include "nsc.h"
-#include "common.h"
+#include "player.h"
+#include "prototypes.h"
+#include "xy.h"
 
 double
 hap_fact(struct natstr *tnat, struct natstr *vnat)

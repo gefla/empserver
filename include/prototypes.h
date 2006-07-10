@@ -36,13 +36,12 @@
 #define PROTOTYPES_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "item.h"
+#include "nsc.h"
 #include "misc.h"
-#include "empthread.h"
-#include "player.h"
-#include "commands.h"
-#include "product.h"
-#include "empio.h"
-#include "commodity.h"
+#include "types.h"
 
 /* src/server/main.c */
 extern void shutdwn(int sig);

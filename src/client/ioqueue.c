@@ -36,10 +36,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
+#include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
-#include "ioqueue.h"
 
 static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);
 static void enqueuecc(struct ioqueue *ioq, char *buf, int cc);

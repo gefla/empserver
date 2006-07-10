@@ -34,17 +34,10 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
 #include "commands.h"
+#include "land.h"
 #include "optlist.h"
+#include "ship.h"
 
 int
 rada(void)

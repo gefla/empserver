@@ -34,12 +34,10 @@
 #include <config.h>
 
 #include <time.h>
-#include "misc.h"
-#include "player.h"
-#include "empio.h"
 #include "empthread.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
 #include "server.h"
 
 /*ARGSUSED*/

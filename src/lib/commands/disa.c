@@ -34,7 +34,9 @@
 #include <config.h>
 
 #include <fcntl.h>
-#include "misc.h"
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
 #include "commands.h"
 #include "optlist.h"
 

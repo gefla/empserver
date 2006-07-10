@@ -35,19 +35,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "trade.h"
-#include "file.h"
-#include "player.h"
 #include "commands.h"
+#include "empobj.h"
+#include "land.h"
 #include "optlist.h"
+#include "plane.h"
+#include "ship.h"
+#include "trade.h"
 
 /*
  * format: set <type> <SHIP/NUKE> <PRICE>

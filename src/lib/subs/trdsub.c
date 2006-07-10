@@ -35,22 +35,23 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "nat.h"
+#include "empobj.h"
+#include "file.h"
 #include "item.h"
-#include "ship.h"
 #include "land.h"
+#include "loan.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
 #include "nuke.h"
+#include "optlist.h"
 #include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 #include "trade.h"
 #include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "loan.h"
-#include "prototypes.h"
-#include "optlist.h"
 
 int
 trade_check_ok(struct trdstr *tp, union empobj_storage *tgp)

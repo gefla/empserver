@@ -36,6 +36,9 @@
 #ifndef COMMODITY_H
 #define COMMODITY_H
 
+#include "types.h"
+#include "item.h"
+
 struct comstr {
     short ef_type;
     natid com_owner;

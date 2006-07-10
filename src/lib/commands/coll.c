@@ -34,16 +34,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "file.h"
-#include "sect.h"
+#include "commands.h"
 #include "item.h"
 #include "loan.h"
+#include "lost.h"
 #include "news.h"
-#include "nat.h"
-#include "xy.h"
-#include "commands.h"
 #include "optlist.h"
 
 int

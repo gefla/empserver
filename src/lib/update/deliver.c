@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "plague.h"
-#include "sect.h"
 #include "item.h"
 #include "path.h"
-#include "file.h"
-#include "xy.h"
+#include "plague.h"
 #include "update.h"
-#include "subs.h"
-#include "common.h"
 
 #define DELIVER_BONUS 4.0
 

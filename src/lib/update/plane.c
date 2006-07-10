@@ -35,20 +35,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "plane.h"
-#include "ship.h"
-#include "nat.h"
-#include "file.h"
-#include "optlist.h"
 #include "budg.h"
-#include "player.h"
-#include "update.h"
 #include "lost.h"
-#include "subs.h"
-#include "common.h"
-#include "gen.h"
+#include "plane.h"
+#include "player.h"
+#include "ship.h"
+#include "update.h"
 
 static void planerepair(struct plnstr *, struct natstr *, int *, int);
 static void upd_plane(struct plnstr *, int, struct natstr *, int *, int);

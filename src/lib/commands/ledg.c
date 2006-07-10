@@ -33,14 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "loan.h"
-#include "file.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
 #include "commands.h"
+#include "loan.h"
 #include "optlist.h"
 
 int

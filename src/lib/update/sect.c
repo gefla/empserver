@@ -34,24 +34,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "item.h"
-#include "file.h"
-#include "xy.h"
-#include "path.h"
-#include "product.h"
-#include "optlist.h"
 #include "budg.h"
-#include "player.h"
+#include "item.h"
 #include "land.h"
+#include "lost.h"
+#include "path.h"
+#include "player.h"
+#include "product.h"
 #include "ship.h"
 #include "update.h"
-#include "subs.h"
-#include "common.h"
-#include "lost.h"
-#include "gen.h"
 
 /*
  * Increase sector efficiency if old type == new type.

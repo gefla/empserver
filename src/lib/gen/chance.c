@@ -34,7 +34,7 @@
 #include <config.h>
 
 #include <math.h>
-#include "gen.h"
+#include "prototypes.h"
 
 int
 chance(double d)

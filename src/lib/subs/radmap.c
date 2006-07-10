@@ -33,17 +33,19 @@
 
 #include <config.h>
 
+#include <stdlib.h>
+#include "file.h"
+#include "map.h"
 #include "misc.h"
-#include "player.h"
-#include "xy.h"
 #include "nat.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "plane.h"
-#include "file.h"
-#include "nsc.h"
-#include "prototypes.h"
-#include "optlist.h"
+#include "xy.h"
 
 static void radmap2(int, int, int, int, int, double, int);
 

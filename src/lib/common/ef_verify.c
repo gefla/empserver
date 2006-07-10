@@ -35,10 +35,11 @@
 
 #include <stdarg.h>
 #include <stdio.h>
-
-#include "prototypes.h"
+#include <stdlib.h>
 #include "file.h"
+#include "misc.h"
 #include "nsc.h"
+#include "product.h"
 
 static void verify_fail(int, int, struct castr *, int, char *, ...)
     ATTRIBUTE((format (printf, 5, 6)));

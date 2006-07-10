@@ -34,19 +34,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "item.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "news.h"
-#include "path.h"
-#include "file.h"
-#include "land.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "map.h"
+#include "news.h"
 #include "optlist.h"
+#include "path.h"
+#include "plane.h"
 
 /*
  * format:  spy <SECTS>

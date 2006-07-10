@@ -35,27 +35,18 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "prototypes.h"
-#include "misc.h"
-#include "proto.h"
-#include "player.h"
 #include "com.h"
-#include "empthread.h"
 #include "empio.h"
-#include "match.h"
-#include "nsc.h"
-#include "nat.h"
-#include "optlist.h"
+#include "empthread.h"
 #include "file.h"
-#include "subs.h"
-#include "common.h"
-#include "gen.h"
-
-#if !defined(_WIN32)
-#include <netinet/in.h>
-#endif
-#include <errno.h>
+#include "match.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "player.h"
+#include "proto.h"
+#include "prototypes.h"
 
 static int client_cmd(void);
 static int coun_cmd(void);

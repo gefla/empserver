@@ -33,16 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "news.h"
-#include "path.h"
 #include "file.h"
+#include "news.h"
+#include "player.h"
 #include "prototypes.h"
+#include "sect.h"
 
 void
 bsanct(void)

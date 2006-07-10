@@ -31,7 +31,7 @@
 #define AS_H
 
 #include <stdio.h>
-#include "misc.h"
+#include "types.h"
 
 /*
  * Coordinate.

@@ -34,15 +34,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
+#include <ctype.h>
+#include "commands.h"
+#include "land.h"
+#include "path.h"
 #include "retreat.h"
 #include "ship.h"
-#include "land.h"
-#include "nsc.h"
-#include "file.h"
-#include "path.h"
-#include "commands.h"
 
 int
 retr(void)

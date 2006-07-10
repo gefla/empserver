@@ -35,12 +35,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "item.h"
-#include "commodity.h"
-#include "player.h"
-#include "file.h"
 #include "commands.h"
+#include "commodity.h"
+#include "item.h"
 #include "optlist.h"
 
 int

@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
 #include "commands.h"
 #include "optlist.h"
+#include "ship.h"
+#include <ctype.h>
 
 int
 foll(void)

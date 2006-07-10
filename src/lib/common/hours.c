@@ -36,6 +36,7 @@
 
 #include <config.h>
 
+#include <ctype.h>
 #include <limits.h>
 #include <time.h>
 #include "misc.h"

@@ -34,6 +34,11 @@
 #ifndef IOQUEUE_H
 #define IOQUEUE_H
 
+#ifndef _WIN32
+#include <sys/uio.h>
+#endif
+#include "queue.h"
+
 struct io {
     struct emp_qelem queue;
     int size;

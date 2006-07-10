@@ -33,18 +33,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "item.h"
-#include "file.h"
-#include "xy.h"
-#include "path.h"
-#include "nat.h"
-#include "map.h"
-#include "nsc.h"
+#include <ctype.h>
 #include "damage.h"
+#include "file.h"
+#include "map.h"
+#include "path.h"
+#include "player.h"
 #include "prototypes.h"
+#include "sect.h"
 
 static int move_map(coord curx, coord cury, char *arg);
 

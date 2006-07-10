@@ -34,6 +34,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "empthread.h"
+
 extern int shutdown_pending;
 extern int update_pending;
 extern empth_sem_t *update_sem;

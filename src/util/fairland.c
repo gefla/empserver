@@ -68,22 +68,23 @@ static int quiet = 0;
 
 #if defined(_WIN32)
 #include "../lib/gen/getopt.h"
+#else
+#include <unistd.h>
 #endif
 
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
-#include "misc.h"
-#include "power.h"
-#include "nat.h"
-#include "sect.h"
 #include "file.h"
-#include "xy.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "power.h"
 #include "prototypes.h"
+#include "sect.h"
 #include "version.h"
+#include "xy.h"
 
 /* do not change these 4 defines */
 #define LANDMIN		1	/* plate altitude for normal land */

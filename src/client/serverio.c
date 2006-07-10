@@ -33,19 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "queue.h"
-#include "ioqueue.h"
-
 #include <stdio.h>
 #include <stdlib.h>
-
-#if !defined(_WIN32)
-#include <unistd.h>
-#else
+#ifdef _WIN32
 #include <io.h>
+#else
+#include <unistd.h>
 #endif
-
+#include "misc.h"
+#include "ioqueue.h"
 
 int
 serverio(int s, struct ioqueue *ioq)

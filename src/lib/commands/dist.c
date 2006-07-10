@@ -35,15 +35,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
-#include "path.h"
 #include "commands.h"
+#include "path.h"
 
 /*
  * distribute <SECT> <DISTSECT|.|h>

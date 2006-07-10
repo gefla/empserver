@@ -34,18 +34,16 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include "misc.h"
-#include "player.h"
 #include "com.h"
-#include "match.h"
-#include "nat.h"
-#include "file.h"
-#include "proto.h"
 #include "empio.h"
+#include "file.h"
+#include "match.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
-#include "subs.h"
-#include "common.h"
+#include "player.h"
+#include "proto.h"
+#include "prototypes.h"
 #include "server.h"
 
 /*

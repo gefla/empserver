@@ -33,12 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "empthread.h"
 #include "file.h"
-#include "server.h"
+#include "player.h"
 #include "prototypes.h"
+#include "server.h"
 
 /*ARGSUSED*/
 static void

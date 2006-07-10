@@ -33,11 +33,8 @@
 
 #include <config.h>
 
-#include <sys/types.h>
-#include "misc.h"
-#include "player.h"
-#include "empthread.h"
 #include "commands.h"
+#include "empthread.h"
 #include "server.h"
 
 int

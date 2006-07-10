@@ -36,11 +36,10 @@
 #ifndef LAND_H
 #define LAND_H
 
-#include "sect.h"
-#include "ship.h"
+#include "item.h"
 #include "queue.h"
-#include "nsc.h"
 #include "retreat.h"
+#include "types.h"
 
 #define LND_TYPE_MAX	30
 #define LAND_MINEFF	10

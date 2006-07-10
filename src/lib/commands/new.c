@@ -33,20 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "sect.h"
-#include "path.h"
-#include "file.h"
-#include "xy.h"
-#include "tel.h"
-#include "land.h"
-#include "nsc.h"
-#include "optlist.h"
-#include "commands.h"
-
 #include <fcntl.h>
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+#include "commands.h"
+#include "land.h"
+#include "optlist.h"
+#include "path.h"
+#include "tel.h"
 
 static int isok(int x, int y);
 static void ok(signed char *map, int x, int y);

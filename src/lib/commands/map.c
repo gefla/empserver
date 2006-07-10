@@ -34,17 +34,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
-#include "file.h"
-#include "player.h"
-#include "map.h"
-#include "ship.h"
-#include "land.h"
-#include "xy.h"
-#include "nsc.h"
 #include "commands.h"
+#include "land.h"
+#include "map.h"
 #include "optlist.h"
+#include "ship.h"
 
 int
 map(void)

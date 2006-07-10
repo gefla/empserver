@@ -33,19 +33,20 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "plague.h"
-#include "sect.h"
-#include "path.h"
 #include "file.h"
-#include "xy.h"
-#include "plane.h"
 #include "land.h"
-#include "nsc.h"
-#include "common.h"
-#include "subs.h"
 #include "lost.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "path.h"
+#include "plague.h"
+#include "plane.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
 
 void
 bridgefall(struct sctstr *sp, struct emp_qelem *list)

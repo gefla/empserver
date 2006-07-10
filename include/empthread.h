@@ -49,6 +49,8 @@
 #ifndef EMPTHREAD_H
 #define EMPTHREAD_H
 
+#include <time.h>
+
 /* thread priorities */
 enum {
     PP_MAIN	 = 7,

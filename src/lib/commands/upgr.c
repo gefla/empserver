@@ -34,17 +34,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "ship.h"
+#include "commands.h"
 #include "land.h"
 #include "plane.h"
-#include "sect.h"
-#include "nat.h"
-#include "nsc.h"
-#include "file.h"
-#include "commands.h"
+#include "ship.h"
 
 enum {
   UPGR_COST = 15,		/* how much avail and money to charge */

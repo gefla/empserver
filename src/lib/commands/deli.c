@@ -33,16 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "item.h"
-#include "file.h"
-#include "path.h"
-#include "nsc.h"
-#include "nat.h"
 #include "commands.h"
+#include "item.h"
+#include "path.h"
 
 int
 deli(void)

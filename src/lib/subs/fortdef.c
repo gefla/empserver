@@ -39,17 +39,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "nat.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
-#include "news.h"
-#include "nsc.h"
 #include "file.h"
+#include "nat.h"
+#include "news.h"
 #include "optlist.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 
 #define	NOISY	1
 

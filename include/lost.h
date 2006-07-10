@@ -34,6 +34,9 @@
 #ifndef LOST_H
 #define LOST_H
 
+#include <time.h>
+#include "types.h"
+
 struct loststr {
     /* initial part must match struct empobj */
     short ef_type;

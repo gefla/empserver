@@ -34,21 +34,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "news.h"
-#include "file.h"
-#include "path.h"
-#include "xy.h"
 #include "land.h"
+#include "lost.h"
+#include "news.h"
 #include "nsc.h"
+#include "path.h"
 #include "plane.h"
 #include "update.h"
-#include "common.h"
-#include "gen.h"
-#include "lost.h"
-#include "subs.h"
 
 static void take_casualties(struct sctstr *, int);
 

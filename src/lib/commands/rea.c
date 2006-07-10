@@ -35,20 +35,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
-#include "tel.h"
+#include <ctype.h>
 #include "commands.h"
-#include "optlist.h"
 #include "match.h"
-
-#include <stdio.h>
-#include <fcntl.h>
-#if !defined(_WIN32)
-#include <sys/file.h>
-#endif
+#include "optlist.h"
+#include "tel.h"
 
 int
 rea(void)

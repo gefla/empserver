@@ -33,18 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nat.h"
-#include "nsc.h"
-#include "sect.h"
-#include "item.h"
-#include "path.h"
-#include "file.h"
-#include "map.h"
 #include "commands.h"
+#include "item.h"
+#include "map.h"
 #include "optlist.h"
+#include "path.h"
 
 int
 rout(void)

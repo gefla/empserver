@@ -33,11 +33,6 @@
 
 #include <config.h>
 
-#include <stdlib.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-#include "misc.h"
 #include "queue.h"
 
 void

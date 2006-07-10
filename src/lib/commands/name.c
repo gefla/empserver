@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "nsc.h"
-#include "file.h"
-#include "path.h"
 #include "commands.h"
 #include "optlist.h"
+#include "path.h"
+#include "ship.h"
 
 /*
  * name <SHIP> <NAME>

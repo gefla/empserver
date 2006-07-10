@@ -33,8 +33,8 @@
 
 #include <config.h>
 
+#include <string.h>
 #include "misc.h"
-#include "gen.h"
 
 /*
  * Get string argument.

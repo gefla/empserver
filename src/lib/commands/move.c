@@ -33,19 +33,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "sect.h"
-#include "item.h"
-#include "file.h"
-#include "xy.h"
-#include "nat.h"
-#include "nsc.h"
-#include "land.h"
-#include "path.h"
-#include "optlist.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "optlist.h"
+#include "path.h"
+#include "plague.h"
 
 
 static int cmd_move_map(coord curx, coord cury, char *arg);

@@ -33,9 +33,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
-#include "file.h"
 #include "update.h"
 
 int

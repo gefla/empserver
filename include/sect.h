@@ -38,6 +38,7 @@
 #define SECT_H
 
 #include "item.h"
+#include "types.h"
 
 struct sctstr {
     /* initial part must match struct empobj */

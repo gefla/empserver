@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "tel.h"
-#include "news.h"
-#include "file.h"
 #include "commands.h"
+#include "news.h"
 #include "optlist.h"
+#include "tel.h"
 
 int
 tele(void)

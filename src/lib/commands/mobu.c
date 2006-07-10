@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <time.h>
-#include "misc.h"
-#include "player.h"
-#include "nsc.h"
-#include "path.h"
 #include "commands.h"
 #include "optlist.h"
+#include "path.h"
 #include "server.h"
-#include "prototypes.h"
 
 int
 mobupdate(void)

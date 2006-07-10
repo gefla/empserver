@@ -34,15 +34,8 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "map.h"
 #include "commands.h"
+#include "map.h"
 #include "optlist.h"
 
 static char code_char(struct valstr, struct sctstr *sp);

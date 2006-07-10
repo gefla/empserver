@@ -37,6 +37,9 @@
 #ifndef TRADE_H
 #define TRADE_H
 
+#include <time.h>
+#include "types.h"
+
 struct trdstr {
     short ef_type;
     natid trd_owner;

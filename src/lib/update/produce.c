@@ -33,18 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "product.h"
-#include "nat.h"
-#include "xy.h"
-#include "player.h"
-#include "update.h"
-#include "gen.h"
-#include "subs.h"
-#include "common.h"
-#include "optlist.h"
 #include "budg.h"
+#include "player.h"
+#include "product.h"
+#include "update.h"
 
 static void materials_charge(struct pchrstr *, short *, int);
 static int materials_cost(struct pchrstr *, short *, int *);

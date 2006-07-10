@@ -34,13 +34,9 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
+#include "commands.h"
 #include "loan.h"
 #include "news.h"
-#include "file.h"
-#include "commands.h"
 #include "optlist.h"
 
 int

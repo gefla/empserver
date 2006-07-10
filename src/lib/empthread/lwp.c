@@ -37,6 +37,7 @@
 #include <signal.h>
 #include <time.h>
 #include "empthread.h"
+#include "misc.h"
 
 /* Flags that were passed to empth_init() */
 static int empth_flags;

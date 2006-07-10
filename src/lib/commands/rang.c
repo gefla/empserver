@@ -33,13 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plane.h"
-#include "land.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "land.h"
+#include "plane.h"
 
 int
 range(void)

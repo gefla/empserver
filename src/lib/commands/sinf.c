@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
+#include "combat.h"
+#include "commands.h"
 #include "optlist.h"
 #include "path.h"
-#include "commands.h"
-#include "combat.h"
 
 static void prmobcost(struct sctstr *, int);
 

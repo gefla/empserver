@@ -35,25 +35,28 @@
 
 #include <config.h>
 
+#include <ctype.h>
 #include <math.h>
-#include "misc.h"
-#include "player.h"
+#include "combat.h"
 #include "file.h"
+#include "item.h"
+#include "land.h"
+#include "lost.h"
+#include "map.h"
+#include "misc.h"
+#include "mission.h"
+#include "nat.h"
+#include "news.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "path.h"
 #include "plague.h"
+#include "player.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "path.h"
-#include "news.h"
 #include "treaty.h"
-#include "nat.h"
 #include "xy.h"
-#include "land.h"
-#include "nsc.h"
-#include "mission.h"
-#include "combat.h"
-#include "item.h"
-#include "optlist.h"
-#include "prototypes.h"
 
 #define CASUALTY_LUMP	1	/* How big casualty chunks should be */
 

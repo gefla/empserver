@@ -34,6 +34,9 @@
 #ifndef TEL_H
 #define TEL_H
 
+#include <time.h>
+#include "types.h"
+
 #define	MAXTELSIZE	1024	/* doesn't apply to TEL_UPDATE */
 
 #define TEL_NORM	0	/* normal */

@@ -33,26 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-
 #include <ctype.h>
-#include "plague.h"
-#include "ship.h"
-#include "plane.h"
-#include "land.h"
-#include "sect.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
 #include "item.h"
-#include "optlist.h"
-#include "player.h"
+#include "land.h"
+#include "nsc.h"
+#include "path.h"
+#include "plague.h"
+#include "plane.h"
+#include "ship.h"
 #include "update.h"
-#include "subs.h"
-#include "common.h"
-#include "gen.h"
 
 /* load a specific ship given its 
  * location and what field to modify.

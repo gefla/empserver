@@ -35,10 +35,11 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include "news.h"
 #include "file.h"
+#include "nat.h"
+#include "news.h"
 #include "optlist.h"
+#include "prototypes.h"
 
 #define SLOTS	5
 

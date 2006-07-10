@@ -48,14 +48,10 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <ctype.h>
-#include <string.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <time.h>
-
 #include "file.h"
 #include "match.h"
 #include "nsc.h"

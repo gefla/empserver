@@ -35,14 +35,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plane.h"
-#include "nsc.h"
-#include "nuke.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "plane.h"
 
 int
 plan(void)

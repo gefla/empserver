@@ -35,19 +35,12 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "xy.h"
-#include "file.h"
-#include "ship.h"
-#include "item.h"
-#include "nsc.h"
-#include "nat.h"
-#include "land.h"
-#include "plane.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "plague.h"
+#include "plane.h"
+#include "ship.h"
 
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);
 static int tend_land(struct shpstr *tenderp, char *units);

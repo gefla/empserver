@@ -34,27 +34,13 @@
 
 #include <config.h>
 
-#if defined(_WIN32)
+#ifdef _WIN32
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
-#endif
-
-#include "prototypes.h"
-#include "misc.h"
-#include "proto.h"
-#include "empthread.h"
-#include "player.h"
-#include "file.h"
-#include "empio.h"
-#include "power.h"
-#include "gen.h"
-#include "optlist.h"
-
-#if !defined(_WIN32)
+#else
 #include <arpa/inet.h>
 #include <sys/socket.h>
-#include <sys/time.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
@@ -63,8 +49,17 @@
 #include <signal.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <stdlib.h>
 #include <stdio.h>
+
+#include "empio.h"
+#include "empthread.h"
+#include "file.h"
+#include "misc.h"
+#include "optlist.h"
+#include "player.h"
+#include "power.h"
+#include "proto.h"
+#include "prototypes.h"
 
 static struct emp_qelem Players;
 static int player_socket;

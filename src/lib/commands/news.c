@@ -33,14 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "news.h"
-#include "file.h"
-#include "xy.h"
-#include "nsc.h"
 #include "commands.h"
+#include "news.h"
 #include "optlist.h"
 
 static void preport(struct nwsstr *np);

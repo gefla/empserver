@@ -35,15 +35,11 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "land.h"
-#include "xy.h"
-#include "nsc.h"
-#include "path.h"
-#include "file.h"
-#include "map.h"
 #include "commands.h"
+#include "file.h"
+#include "land.h"
+#include "map.h"
+#include "path.h"
 
 static int set_leader(struct emp_qelem *list, struct lndstr **leaderp);
 static void switch_leader(struct emp_qelem *list, int land_uid);

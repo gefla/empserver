@@ -36,10 +36,10 @@
 #include <errno.h>
 #include <stdio.h>
 #include <time.h>
-
-#include "prototypes.h"
-#include "optlist.h"
 #include "file.h"
+#include "optlist.h"
+#include "product.h"
+#include "prototypes.h"
 
 static int read_custom_table_file(char *);
 

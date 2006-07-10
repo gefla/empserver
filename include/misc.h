@@ -35,9 +35,7 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <ctype.h>
-#include <string.h>
-#include <sys/types.h>
+#include <time.h>
 
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -88,10 +86,6 @@ struct mob_acc_globals {
 #define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
 #endif
 
-typedef unsigned char natid;	/* NSC_NATID must match this */
-
-typedef short coord;
-
 #ifndef bit
 #define	bit(x)		(1<<(x))
 #endif
@@ -133,8 +127,5 @@ extern char *prbuf(char *format, ...)
 #define AGREE_FREE	0
 #define AGREE_PROPOSED	1
 #define AGREE_SIGNED	2
-
-struct empobj;
-union empobj_storage;
 
 #endif

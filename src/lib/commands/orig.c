@@ -34,12 +34,7 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "xy.h"
-#include "nat.h"
-#include "file.h"
+#include <ctype.h>
 #include "commands.h"
 
 int

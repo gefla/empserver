@@ -35,32 +35,29 @@
 
 #include <config.h>
 
-#include <sys/types.h>
 #include <fcntl.h>
-#if !defined(_WIN32)
-#include <sys/uio.h>
-#include <sys/file.h>
-#else
+#include <errno.h>
+#if defined(_WIN32)
 #include <direct.h>
 #include "../lib/gen/getopt.h"
+#else
+#include <sys/stat.h>
+#include <unistd.h>
 #endif
-#include <errno.h>
-#include <stdarg.h>
-#include <stdio.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nuke.h"
-#include "power.h"
-#include "trade.h"
 #include "file.h"
-#include "tel.h"
-#include "prototypes.h"
+#include "land.h"
+#include "misc.h"
+#include "nat.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
+#include "power.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
+#include "tel.h"
+#include "trade.h"
 #include "version.h"
 
 static void file_sct_init(coord, coord, struct sctstr *ptr,

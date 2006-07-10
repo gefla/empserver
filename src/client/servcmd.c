@@ -35,22 +35,21 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "proto.h"
-#include "queue.h"
-#include "ioqueue.h"
-#include "tags.h"
-
+#include <ctype.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include <fcntl.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#else
+#ifdef _WIN32
 #include <io.h>
+#else
+#include <unistd.h>
 #endif
+
+#include "ioqueue.h"
+#include "misc.h"
+#include "proto.h"
+#include "tags.h"
 
 static char num_teles[64];
 static char the_prompt[1024];

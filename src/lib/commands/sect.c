@@ -33,15 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
-#include "map.h"
 #include "commands.h"
+#include "map.h"
 #include "optlist.h"
 
 int

@@ -36,24 +36,16 @@
 #include <config.h>
 
 #include <ctype.h>
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
+#include "commands.h"
+#include "damage.h"
 #include "item.h"
+#include "land.h"
+#include "news.h"
+#include "optlist.h"
+#include "path.h"
 #include "plane.h"
 #include "retreat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "news.h"
-#include "file.h"
-#include "nat.h"
-#include "path.h"
-#include "optlist.h"
-#include "damage.h"
-#include "commands.h"
+#include "ship.h"
 
 static void pin_bomb(struct emp_qelem *list, struct sctstr *target);
 static void strat_bomb(struct emp_qelem *list, struct sctstr *target);

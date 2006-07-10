@@ -34,19 +34,12 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
-#include "item.h"
-#include "ship.h"
-#include "optlist.h"
-#include "land.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "optlist.h"
+#include "path.h"
+#include "ship.h"
 
 static void starv_sects(char *range);
 static void starv_ships(char *range);

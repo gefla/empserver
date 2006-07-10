@@ -34,11 +34,6 @@
 
 #include <config.h>
 
-#include <time.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
 #include "commands.h"
 
 int

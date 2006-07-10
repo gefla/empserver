@@ -34,8 +34,7 @@
 #ifndef XY_H
 #define XY_H
 
-#include "sect.h"
-#include "nat.h"
+#include "types.h"
 
 /* Used to calculate an offset into an array.  Used for
    dynamically sizing the world. */

@@ -33,10 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "tel.h"
-#include "optlist.h"
 #include <stdio.h>
+#include "optlist.h"
+#include "tel.h"
 
 char *
 mailbox(char *buf, natid cn)

@@ -33,12 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "path.h"
 #include "file.h"
-#include "nat.h"
+#include "path.h"
 #include "prototypes.h"
+#include "sect.h"
 
 int
 neigh(coord x, coord y, natid own)

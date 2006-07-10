@@ -33,14 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "path.h"
-#include "nat.h"
-#include "sect.h"
 #include "file.h"
+#include "path.h"
+#include "player.h"
 #include "prototypes.h"
+#include "sect.h"
 
 int
 chkdir(char dir_char, int min_dir, int max_dir)

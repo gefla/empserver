@@ -36,19 +36,12 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "file.h"
-#include "xy.h"
-#include "nat.h"
-#include "nsc.h"
-#include "news.h"
-#include "retreat.h"
-#include "damage.h"
 #include "commands.h"
+#include "damage.h"
+#include "news.h"
 #include "optlist.h"
+#include "retreat.h"
+#include "ship.h"
 
 static void anti_torp(int f, int ntorping, int vshipown);
 static int candchrg(struct shpstr *, struct shpstr *);

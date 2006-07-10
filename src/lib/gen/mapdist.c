@@ -38,8 +38,8 @@
 #include <config.h>
 
 #include "misc.h"
-#include "gen.h"
 #include "optlist.h"
+#include "prototypes.h"
 
 int
 diffx(int x1, int x2)

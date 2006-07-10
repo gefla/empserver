@@ -33,13 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
 #include "budg.h"
 #include "player.h"
 #include "update.h"
-#include "common.h"
-#include "subs.h"
 
 void
 get_materials(struct sctstr *sp, int *bp, int *mvec, int check)

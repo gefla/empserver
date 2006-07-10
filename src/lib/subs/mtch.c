@@ -33,8 +33,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "com.h"
 #include "match.h"
 #include "prototypes.h"

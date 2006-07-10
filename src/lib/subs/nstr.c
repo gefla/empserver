@@ -35,12 +35,13 @@
 
 #include <config.h>
 
+#include <ctype.h>
 #include <limits.h>
-#include "misc.h"
 #include "file.h"
 #include "match.h"
-#include "nsc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "player.h"
 #include "prototypes.h"
 
 static char *nstr_parse_val(char *, struct valstr *);

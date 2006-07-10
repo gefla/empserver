@@ -35,17 +35,16 @@
 
 #include <config.h>
 
-#include <stddef.h>
-#include <string.h>
-#include "misc.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "sect.h"
-#include "nuke.h"
 #include "file.h"
-#include "common.h"
+#include "item.h"
+#include "land.h"
 #include "match.h"
+#include "nuke.h"
+#include "plane.h"
+#include "product.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
 
 /*
  * Return index of sector called NAME in dchr[], or M_NOTFOUND.

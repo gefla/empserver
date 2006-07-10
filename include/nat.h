@@ -36,7 +36,8 @@
 #ifndef NAT_H
 #define NAT_H
 
-#include "sect.h"
+#include <time.h>
+#include "types.h"
 
 #define	MAXNOR		50	/* max # realms */
 

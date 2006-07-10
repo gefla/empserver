@@ -34,8 +34,8 @@
 #ifndef COMBAT_H
 #define COMBAT_H
 
-#include "sect.h"
-#include "queue.h"
+#include "types.h"
+#include "ship.h"
 
 struct combat {
     int type;			/* EF_BAD, EF_SECTOR, EF_SHIP, or EF_PLANE */
@@ -56,7 +56,7 @@ struct combat {
     struct dchrstr *sct_dcp;
     struct mchrstr *shp_mcp;
     struct lchrstr *lnd_lcp;
-    char shp_name[MAXSHPNAMLEN];
+    char shp_name[MAXSHPNAMLEN]; /* FIXME huh? pulls in ship.h */
     int relations_checked;
 };
 

@@ -33,10 +33,9 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include "path.h"
 #include "commands.h"
 #include "optlist.h"
+#include "path.h"
 
 static void cens_hdr(void);
 

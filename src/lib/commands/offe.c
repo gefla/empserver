@@ -34,16 +34,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "loan.h"
-#include "treaty.h"
-#include "file.h"
 #include "commands.h"
+#include "loan.h"
 #include "optlist.h"
+#include "treaty.h"
 
 static int do_treaty(void);
 static int do_loan(void);

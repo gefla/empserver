@@ -35,6 +35,8 @@
 #ifndef IOQUEUE_H
 #define IOQUEUE_H
 
+#include "queue.h"
+
 struct ioqueue {
     struct qelem queue;		/* queue fwd/back */
     int bsize;			/* basic block size */

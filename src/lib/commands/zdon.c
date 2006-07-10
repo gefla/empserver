@@ -51,13 +51,8 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
-#include "empthread.h"
 #include "commands.h"
+#include "empthread.h"
 #include "optlist.h"
 #include "server.h"
 

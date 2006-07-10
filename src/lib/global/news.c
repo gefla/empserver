@@ -41,9 +41,7 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "news.h"
-#include "nsc.h"
 
 static char no_news[] = "does nothing in particular to %s";
 

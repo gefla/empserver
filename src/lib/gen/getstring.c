@@ -33,9 +33,7 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "gen.h"
-#include "subs.h"
+#include "prototypes.h"
 
 /*
  * Print sub-prompt PROMPT, receive a line of input into BUF[1024].

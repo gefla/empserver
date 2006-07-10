@@ -35,23 +35,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
-#include "file.h"
-#include "sect.h"
-#include "player.h"
-#include "empthread.h"
 #include "budg.h"
-#include "player.h"
-#include "update.h"
-#include "common.h"
-#include "optlist.h"
+#include "empthread.h"
 #include "journal.h"
+#include "player.h"
 #include "server.h"
-#include <stdlib.h>
-#if !defined(_WIN32)
-#include <sys/time.h>
-#endif
+#include "update.h"
 
 long money[MAXNOC];
 long pops[MAXNOC];

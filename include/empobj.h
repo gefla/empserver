@@ -35,21 +35,19 @@
 #ifndef EMPOBJ_H
 #define EMPOBJ_H
 
-#include "config.h"
-#include "file.h"
-#include "nat.h"
 #include "commodity.h"
 #include "land.h"
 #include "loan.h"
 #include "lost.h"
-#include "plane.h"
+#include "nat.h"
 #include "news.h"
 #include "nuke.h"
+#include "plane.h"
 #include "sect.h"
 #include "ship.h"
 #include "trade.h"
 #include "treaty.h"
-#include "prototypes.h"
+#include "types.h"
 
 struct empobj {
     short ef_type;	/* is always valid */

@@ -33,13 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
-#include "sect.h"
 #include "budg.h"
 #include "update.h"
-#include "common.h"
-#include "optlist.h"
 
 static int bud_key[I_MAX + 2] =
     { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };

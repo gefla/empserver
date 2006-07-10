@@ -34,21 +34,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "ship.h"
-#include "item.h"
-#include "plane.h"
-#include "land.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "path.h"
-#include "mission.h"
 #include "combat.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "mission.h"
+#include "path.h"
+#include "plane.h"
+#include "ship.h"
 
 static int paradrop(struct emp_qelem *list, coord x, coord y);
 

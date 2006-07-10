@@ -33,16 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "land.h"
+#include "map.h"
+#include "ship.h"
 
 /*
  * format: mine <SHIPS> <NUMBER MINES>

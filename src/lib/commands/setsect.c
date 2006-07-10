@@ -34,17 +34,10 @@
 
 #include <config.h>
 
-#include <stdio.h>
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nat.h"
-#include "news.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "lost.h"
+#include "news.h"
 #include "optlist.h"
 
 

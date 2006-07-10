@@ -34,6 +34,9 @@
 #ifndef BUDG_H
 #define BUDG_H
 
+#include "types.h"
+#include "item.h"
+
 #define SCT_EFFIC (SCT_TYPE_MAX + 1)
 
 void fill_update_array(int *bp, struct sctstr *sp);

@@ -35,7 +35,6 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "land.h"
 
 /*

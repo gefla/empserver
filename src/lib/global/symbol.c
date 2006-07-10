@@ -34,11 +34,16 @@
 #include <config.h>
 
 #include "land.h"
+#include "misc.h"
 #include "mission.h"
+#include "nat.h"
 #include "news.h"
+#include "nsc.h"
 #include "nuke.h"
 #include "plague.h"
 #include "plane.h"
+#include "retreat.h"
+#include "sect.h"
 #include "ship.h"
 #include "treaty.h"
 

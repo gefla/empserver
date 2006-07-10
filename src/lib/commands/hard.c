@@ -33,17 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
+#include "commands.h"
 #include "item.h"
 #include "plane.h"
 #include "ship.h"
-#include "xy.h"
-#include "nsc.h"
-#include "nat.h"
-#include "file.h"
-#include "commands.h"
 
 /*
  * harden <PLANE> <LEVEL>

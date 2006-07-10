@@ -34,19 +34,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
-#include "plane.h"
-#include "land.h"
-#include "ship.h"
-#include "nuke.h"
 #include "commands.h"
+#include "land.h"
+#include "lost.h"
+#include "nuke.h"
+#include "path.h"
+#include "plane.h"
+#include "ship.h"
 
 static void cede_hdr(void);
 static int cede_sect(struct nstr_sect *, natid);

@@ -35,14 +35,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "common.h"
-
 #include <fcntl.h>
 #include <sys/stat.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
+
+#include "prototypes.h"
 
 /*
  * return the size of the file in bytes.

@@ -33,16 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
 #include "file.h"
-#include "path.h"
-#include "xy.h"
 #include "land.h"
+#include "misc.h"
+#include "nat.h"
 #include "nsc.h"
-#include "common.h"
-#include "subs.h"
+#include "path.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
 
 int
 adj_units(coord x, coord y, natid own)

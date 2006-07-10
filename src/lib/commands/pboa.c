@@ -33,11 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "file.h"
-#include "sect.h"
-#include "plane.h"
 #include "commands.h"
+#include "plane.h"
 
 int
 pboa(void)

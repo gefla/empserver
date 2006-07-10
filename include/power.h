@@ -34,6 +34,8 @@
 #ifndef POWER_H
 #define POWER_H
 
+#include "types.h"
+
 struct powstr {
     natid p_nation;
     float p_sects;

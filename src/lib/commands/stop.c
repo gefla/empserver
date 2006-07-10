@@ -35,13 +35,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "path.h"
-#include "file.h"
+#include <ctype.h>
 #include "commands.h"
 #include "empobj.h"
+#include "path.h"
 
 static int start_stop(int);
 static int start_stop_sector(char *, int);

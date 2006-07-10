@@ -42,28 +42,25 @@
 #include <config.h>
 
 #include <errno.h>
-#include <sys/types.h>
-#if !defined(_WIN32)
-#include <sys/uio.h>
-#include <sys/file.h>
-#include <unistd.h>		/* close read shutdown select */
-#include <sys/socket.h>
-#endif
-#include <time.h>
 #include <fcntl.h>
-#include <stdlib.h>		/* malloc calloc free */
-
-#if defined(_WIN32)
+#include <stdlib.h>
+#include <sys/types.h>
+#ifdef _WIN32
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
+#else
+#include <sys/uio.h>
+#include <sys/file.h>
+#include <sys/socket.h>
+#include <unistd.h>
 #endif
+#include <time.h>
 
+#include "empio.h"
+#include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
-#include "ioqueue.h"
-#include "empio.h"
-#include "gen.h"		/* getfdtablesize */
 #include "server.h"
 
 #include "empthread.h"

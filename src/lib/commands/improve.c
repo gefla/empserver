@@ -33,17 +33,9 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "sect.h"
-#include "nsc.h"
-#include "nat.h"
-#include "path.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
+#include "optlist.h"
+#include "path.h"
 
 int
 improve(void)

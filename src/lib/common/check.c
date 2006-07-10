@@ -33,21 +33,21 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
+#include "commodity.h"
 #include "file.h"
+#include "land.h"
+#include "loan.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "nuke.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
-#include "plane.h"
-#include "nuke.h"
-#include "land.h"
-#include "nsc.h"
-#include "nat.h"
-#include "commodity.h"
-#include "loan.h"
-#include "commands.h"
 #include "trade.h"
+#include "xy.h"
 
 /* Note that timestamps make things tricky.  And, we don't
  * really care about the timestamp, we just care about the rest

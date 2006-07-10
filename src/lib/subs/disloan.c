@@ -46,11 +46,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
+#include "file.h"
 #include "loan.h"
 #include "nat.h"
-#include "file.h"
+#include "player.h"
 #include "prototypes.h"
 
 int

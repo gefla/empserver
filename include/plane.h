@@ -36,8 +36,9 @@
 #ifndef PLANE_H
 #define PLANE_H
 
+#include <time.h>
 #include "queue.h"
-#include "sect.h"
+#include "types.h"
 
 #define PLN_TYPE_MAX	46
 #define	PLANE_MINEFF	10

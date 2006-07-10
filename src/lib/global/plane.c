@@ -37,7 +37,6 @@
 
 #include <config.h>
 
-#include "misc.h"
 #include "plane.h"
 
 /*

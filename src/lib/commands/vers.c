@@ -39,15 +39,11 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <time.h>
-#include "misc.h"
-#include "player.h"
-#include "version.h"
-#include "ship.h"
-#include "optlist.h"
 #include "commands.h"
-#include "file.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "ship.h"
+#include "version.h"
 
 static void show_custom(void);
 static void show_opts(int val);

@@ -33,9 +33,7 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "gen.h"
+#include "prototypes.h"
 
 char *
 numstr(char *buf, int n)

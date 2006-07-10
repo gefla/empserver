@@ -35,20 +35,18 @@
 
 #include <config.h>
 
-#include "prototypes.h"
 #include <stdio.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "tel.h"
-#include "proto.h"
 #include "com.h"
-#include "file.h"
 #include "empio.h"
+#include "file.h"
 #include "match.h"
-#include "subs.h"
-#include "common.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "player.h"
+#include "proto.h"
+#include "prototypes.h"
+#include "tel.h"
 
 #include <fcntl.h>
 #include <time.h>

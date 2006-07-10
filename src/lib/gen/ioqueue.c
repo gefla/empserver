@@ -41,13 +41,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
+#include <string.h>
 #if !defined(_WIN32)
 #include <sys/uio.h>
 #endif
+#include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
-#include "ioqueue.h"
 
 static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc);
 #if !defined(_WIN32)

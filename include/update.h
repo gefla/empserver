@@ -34,16 +34,10 @@
 #ifndef UPDATE_H
 #define UPDATE_H
 
-#include "misc.h"
-#include "queue.h"
-#include "sect.h"
-#include "item.h"
-#include "land.h"
-#include "plane.h"
-#include "ship.h"
+#include "file.h"
 #include "nat.h"
-#include "nsc.h"
-#include "product.h"
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
+#include "optlist.h"
+#include "prototypes.h"
+#include "sect.h"
 
 #endif

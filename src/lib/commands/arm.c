@@ -36,16 +36,10 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "nuke.h"
-#include "plane.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
 
 int
 arm(void)

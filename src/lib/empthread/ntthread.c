@@ -46,20 +46,18 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <signal.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <signal.h>
-#include <errno.h>
 #include <time.h>
-#include "misc.h"
-#include "empthread.h"
-#include "prototypes.h"
-
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
 #include <windows.h>
 #include <process.h>
+#include "misc.h"
+#include "empthread.h"
 
 #define loc_MIN_THREAD_STACK  16384
 

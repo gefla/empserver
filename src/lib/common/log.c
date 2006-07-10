@@ -34,18 +34,16 @@
 #include <config.h>
 
 #include "misc.h"
-#include <stdlib.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <string.h>
 #include <time.h>
-#include "player.h"
-#include "common.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
 
 /* Debugging?  If yes call abort() on internal error.  */
 int debug = 0;

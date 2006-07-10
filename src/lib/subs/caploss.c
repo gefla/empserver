@@ -33,13 +33,15 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
+#include "commodity.h"
 #include "file.h"
+#include "loan.h"
+#include "nat.h"
 #include "news.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "player.h"
+#include "prototypes.h"
+#include "sect.h"
 
 void
 caploss(struct sctstr *sp, natid coun, char *msg)

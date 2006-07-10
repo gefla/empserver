@@ -34,9 +34,7 @@
 #ifndef PATH_H
 #define PATH_H
 
-#include "misc.h"
-#include "sect.h"
-#include "xy.h"
+#include "types.h"
 
 	/* direction indices */
 #define	DIR_STOP	0

@@ -34,8 +34,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "misc.h"
-#include "xy.h"
+#include "types.h"
 
 #define	MAPWIDTH(persec) ((WORLD_X/2) * ((persec) + 1) + 1)
 

@@ -34,14 +34,16 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plane.h"
-#include "ship.h"
-#include "land.h"
 #include "file.h"
-#include "prototypes.h"
+#include "land.h"
+#include "lost.h"
+#include "misc.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "ship.h"
 
 int
 pln_postread(int n, void *ptr)

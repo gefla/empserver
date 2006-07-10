@@ -33,16 +33,17 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
+#include <ctype.h>
 #include "file.h"
+#include "land.h"
+#include "misc.h"
+#include "nat.h"
+#include "nsc.h"
+#include "plane.h"
+#include "player.h"
 #include "prototypes.h"
+#include "ship.h"
+#include "xy.h"
 
 int
 shipsatxy(coord x, coord y, int wantflags, int nowantflags)

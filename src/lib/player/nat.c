@@ -33,12 +33,9 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include "misc.h"
-#include "nat.h"
 #include "file.h"
-#include "player.h"
-#include <fcntl.h>
+#include "nat.h"
+#include "prototypes.h"
 
 int
 natbyname(char *name, natid *result)

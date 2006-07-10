@@ -36,6 +36,7 @@
 #define NSC_H
 
 #include <stddef.h>
+#include "misc.h"
 #include "xy.h"
 
 #define NS_LSIZE	128

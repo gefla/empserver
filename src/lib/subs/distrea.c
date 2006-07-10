@@ -33,12 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "treaty.h"
-#include "nat.h"
 #include "file.h"
+#include "nat.h"
+#include "player.h"
 #include "prototypes.h"
+#include "treaty.h"
 
 int
 distrea(int n, struct trtstr *tp)

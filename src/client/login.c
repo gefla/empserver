@@ -34,9 +34,6 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "proto.h"
-
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,6 +41,8 @@
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
+#include "misc.h"
+#include "proto.h"
 
 int
 login(int s, char *uname, char *cname, char *cpass,

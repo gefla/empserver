@@ -33,20 +33,21 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nat.h"
 #include "file.h"
-#include "sect.h"
-#include "nuke.h"
-#include "ship.h"
 #include "land.h"
+#include "lost.h"
+#include "misc.h"
+#include "nat.h"
 #include "news.h"
-#include "plane.h"
 #include "nsc.h"
+#include "nuke.h"
 #include "optlist.h"
+#include "plane.h"
+#include "player.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "ship.h"
+#include "xy.h"
 
 static void kaboom(int x, int y, int rad, natid cn);
 

@@ -33,16 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "ship.h"
+#include "empobj.h"
 #include "land.h"
 #include "nsc.h"
-#include "file.h"
-#include "player.h"
+#include "ship.h"
 #include "update.h"
-#include "gen.h"
-#include "common.h"
 
 void *
 nxtitemp(struct nstr_item *np)

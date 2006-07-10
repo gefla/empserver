@@ -33,17 +33,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "loan.h"
-#include "nat.h"
-#include "treaty.h"
-#include "news.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
+#include "loan.h"
+#include "news.h"
 #include "optlist.h"
+#include "treaty.h"
 
 /*
  * Things common to a loan or treaty.

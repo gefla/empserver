@@ -35,23 +35,17 @@
 #include <config.h>
 
 #include <limits.h>
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "sect.h"
-#include "nat.h"
-#include "ship.h"
-#include "land.h"
-#include "nuke.h"
-#include "plane.h"
-#include "xy.h"
-#include "nsc.h"
-#include "treaty.h"
-#include "file.h"
-#include "path.h"
-#include "optlist.h"
 #include "commands.h"
+#include "land.h"
+#include "lost.h"
+#include "map.h"
+#include "nuke.h"
+#include "optlist.h"
+#include "path.h"
+#include "plague.h"
+#include "plane.h"
+#include "ship.h"
+#include "treaty.h"
 
 static int build_nuke(struct sctstr *sp,
 		      struct nchrstr *np, short *vec, int tlev);

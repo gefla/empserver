@@ -34,10 +34,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "file.h"
-#include "prototypes.h"
+#include "map.h"
+#include "sect.h"
 
 /* values of only_bmap:
  * 0 = update both maps

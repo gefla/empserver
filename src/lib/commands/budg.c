@@ -36,22 +36,15 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "sect.h"
-#include "product.h"
-#include "nat.h"
-#include "item.h"
-#include "file.h"
-#include "ship.h"
-#include "land.h"
-#include "plane.h"
-#include "optlist.h"
+#include <ctype.h>
 #include "budg.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "optlist.h"
+#include "plane.h"
+#include "product.h"
+#include "ship.h"
 
 static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,

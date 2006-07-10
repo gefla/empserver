@@ -33,22 +33,23 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "retreat.h"
-#include "ship.h"
-#include "land.h"
-#include "sect.h"
-#include "news.h"
-#include "xy.h"
-#include "nsc.h"
-#include "path.h"
-#include "file.h"
+#include <stdlib.h>
 #include "damage.h"
-#include "prototypes.h"
+#include "file.h"
+#include "land.h"
+#include "map.h"
+#include "misc.h"
+#include "nat.h"
+#include "news.h"
+#include "nsc.h"
 #include "optlist.h"
+#include "path.h"
+#include "player.h"
+#include "prototypes.h"
+#include "retreat.h"
+#include "sect.h"
+#include "ship.h"
+#include "xy.h"
 
 static int findcondition(char);
 static int retreat_land1(struct lndstr *, char, int);

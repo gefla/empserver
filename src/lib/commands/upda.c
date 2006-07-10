@@ -33,15 +33,10 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <time.h>
-#include "misc.h"
-#include "player.h"
 #include "commands.h"
 #include "optlist.h"
-#include "wantupd.h"
 #include "server.h"
+#include "wantupd.h"
 
 /*
  * Tell what the update policy is, and when the next update

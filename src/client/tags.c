@@ -34,15 +34,10 @@
 
 #include <config.h>
 
+#include <stdlib.h>
+#include <string.h>
 #include "misc.h"
 #include "tags.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
 
 struct tagstruct *taglist;
 

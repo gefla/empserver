@@ -33,12 +33,8 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
-#include "file.h"
-#include "empio.h"
 #include "commands.h"
+#include "empio.h"
 
 int
 wai(void)

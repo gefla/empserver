@@ -33,20 +33,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "file.h"
-#include "sect.h"
-#include "path.h"
-#include "nat.h"
-#include "xy.h"
-#include "land.h"
-#include "nsc.h"
-#include "mission.h"
-#include "ship.h"
 #include "combat.h"
-#include "retreat.h"
 #include "commands.h"
+#include "land.h"
+#include "mission.h"
+#include "path.h"
+#include "retreat.h"
+#include "ship.h"
 
 int
 boar(void)

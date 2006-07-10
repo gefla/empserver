@@ -34,27 +34,10 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-#include "misc.h"
-#include "plane.h"
-#include "sect.h"
-#include "ship.h"
-#include "land.h"
-#include "nsc.h"
+#include "file.h"
 #include "nat.h"
-#include "queue.h"
-#include "subs.h"
-#include "gen.h"
-#include "common.h"
-#include "lost.h"
-#include "map.h"
-#include "update.h"
-
-#include "prototypes.h"		/* must come at end, after defines and typedefs */
+#include "player.h"
+#include "sect.h"
+#include "prototypes.h"
 
 #endif

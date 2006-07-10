@@ -34,19 +34,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "ship.h"
 #include "land.h"
 #include "plane.h"
-#include "nat.h"
-#include "file.h"
-#include "optlist.h"
-#include "update.h"
-#include "gen.h"
-#include "subs.h"
-#include "optlist.h"
 #include "server.h"
+#include "ship.h"
+#include "update.h"
 
 
 int updating_mob = 1;

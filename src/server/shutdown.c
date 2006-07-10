@@ -33,15 +33,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "empio.h"
-#include "empthread.h"
-#include "nat.h"
-#include "file.h"
 #include <time.h>
-#include "server.h"
+#include "empthread.h"
+#include "file.h"
+#include "nat.h"
 #include "prototypes.h"
+#include "server.h"
 
 int shutdown_pending;
 

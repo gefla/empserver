@@ -45,14 +45,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
-#include "sect.h"
 #include "file.h"
+#include "misc.h"
 #include "nat.h"
-#include "path.h"
-#include "common.h"
 #include "optlist.h"
+#include "path.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
 
 static int owned_and_navigable(char *, int, int, int);
 

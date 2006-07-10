@@ -33,11 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "xy.h"
 #include "map.h"
-#include "gen.h"
+#include "misc.h"
 #include "optlist.h"
+#include "xy.h"
 
 /*
  * space-fill a map or radar scan;

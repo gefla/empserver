@@ -33,13 +33,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
 #include "file.h"
+#include "nat.h"
 #include "news.h"
+#include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "optlist.h"
 #include "server.h"
 
 int

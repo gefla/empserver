@@ -33,16 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "plane.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
 #include "optlist.h"
+#include "plane.h"
 
 #define	TSIZE	200
 

@@ -33,8 +33,7 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "gen.h"
+#include "prototypes.h"
 
 int
 onearg(char *arg, char *prompt)

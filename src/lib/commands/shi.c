@@ -33,14 +33,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "sect.h"
-#include "ship.h"
-#include "nsc.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
+#include "land.h"
+#include "optlist.h"
+#include "ship.h"
 
 int
 shi(void)

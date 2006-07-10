@@ -33,11 +33,10 @@
 
 #include <config.h>
 
-#include "prototypes.h"
+#include "file.h"
 #include "misc.h"
 #include "nat.h"
-#include "file.h"
-#include "optlist.h"
+#include "sect.h"
 
 char *relates[] = {
     /* must follow nation relation defines in nat.h */

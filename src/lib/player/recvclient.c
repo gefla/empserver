@@ -33,13 +33,10 @@
 
 #include <config.h>
 
-#include "prototypes.h"
-#include <stdio.h>
-#include "misc.h"
 #include "empio.h"
 #include "journal.h"
 #include "player.h"
-#include "empthread.h"
+#include "prototypes.h"
 
 /*
  * Receive a line of input from the current player.

@@ -34,15 +34,10 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "player.h"
-#include "ship.h"
-#include "path.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
 #include "commands.h"
 #include "optlist.h"
+#include "path.h"
+#include "ship.h"
 
 static int
 show_sail(struct nstr_item *nstr)

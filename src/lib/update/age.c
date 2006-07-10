@@ -33,12 +33,7 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "nat.h"
-#include "file.h"
 #include "update.h"
-#include "gen.h"
-#include "optlist.h"
 
 void
 age_levels(int etu)

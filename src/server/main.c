@@ -37,40 +37,40 @@
 
 #include <config.h>
 
-#if !defined(_WIN32)
-#include <sys/ioctl.h>
-#endif
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
-#include <string.h>
 
 #if defined(_WIN32)
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
 #include <process.h>
-#include "../lib/gen/getopt.h"
+#include <direct.h>
 #include "service.h"
-#include "direct.h"
+#include "../lib/gen/getopt.h"
+#else
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 
-#include "misc.h"
-#include "nat.h"
+#include "empio.h"
+#include "empthread.h"
 #include "file.h"
 #include "journal.h"
-#include "player.h"
-#include "empthread.h"
-#include "plane.h"
-#include "nuke.h"
 #include "land.h"
-#include "ship.h"
-#include "sect.h"
-#include "product.h"
+#include "misc.h"
+#include "nat.h"
+#include "nuke.h"
 #include "optlist.h"
-#include "server.h"
-#include "version.h"
+#include "plane.h"
+#include "player.h"
+#include "product.h"
 #include "prototypes.h"
+#include "sect.h"
+#include "server.h"
+#include "ship.h"
+#include "version.h"
 
 static void create_pidfile(char *, pid_t);
 

@@ -52,7 +52,6 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include "misc.h"
 #include "empthread.h"

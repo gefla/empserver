@@ -29,24 +29,25 @@
  * 
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     
  */
 
 #include <config.h>
 
-#include <stdarg.h>
-#include "misc.h"
 #include <fcntl.h>
+#include <stdarg.h>
+#include <stdlib.h>
 #if !defined(_WIN32)
+#include <unistd.h>
 #include <sys/uio.h>
 #endif
-#include "nat.h"
-#include "tel.h"
 #include "file.h"
-#include "player.h"
-#include "server.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
+#include "player.h"
 #include "prototypes.h"
+#include "server.h"
+#include "tel.h"
 
 static struct telstr last_tel[MAXNOC];
 

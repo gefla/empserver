@@ -35,17 +35,10 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "sect.h"
-#include "product.h"
-#include "nat.h"
-#include "item.h"
-#include "file.h"
-#include "optlist.h"
 #include "commands.h"
+#include "item.h"
+#include "optlist.h"
+#include "product.h"
 
 static void prprod(coord, coord, int, double, double, int, char,
 		   double, double, double, char[], int[], int[], int);

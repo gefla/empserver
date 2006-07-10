@@ -38,22 +38,20 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <limits.h>
+#include <signal.h>
+#include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
 #if !defined(_WIN32)
 #include <sys/time.h>
 #include <unistd.h>
 #endif
-#include <sys/types.h>
-#include <signal.h>
-#include <errno.h>
-#include <string.h>
-#include <limits.h>
 
 #include "misc.h"
 #include "empthread.h"
-#include "prototypes.h"
-
-#include <stdarg.h>
 
 #define EMPTH_KILLED  1
 

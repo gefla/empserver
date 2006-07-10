@@ -34,22 +34,23 @@
 
 #include <config.h>
 
+#include <stdlib.h>
+#include "file.h"
+#include "land.h"
 #include "misc.h"
-#include "queue.h"
+#include "mission.h"
+#include "nat.h"
+#include "news.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "path.h"
+#include "plane.h"
 #include "player.h"
+#include "prototypes.h"
+#include "queue.h"
 #include "sect.h"
 #include "ship.h"
-#include "optlist.h"
-#include "plane.h"
-#include "land.h"
-#include "news.h"
 #include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "nat.h"
-#include "path.h"
-#include "mission.h"
-#include "prototypes.h"
 
 int
 msl_equip(struct plnstr *pp)

@@ -37,25 +37,15 @@
 #include <config.h>
 
 #include <math.h>
-#include "misc.h"
-#include "plague.h"
-#include "sect.h"
-#include "nat.h"
-#include "ship.h"
-#include "news.h"
-#include "file.h"
-#include "product.h"
-#include "land.h"
-#include "xy.h"
-#include "nsc.h"
-#include "optlist.h"
-#include "player.h"
-#include "update.h"
-#include "common.h"
-#include "subs.h"
-#include "gen.h"
-#include "lost.h"
 #include "budg.h"
+#include "land.h"
+#include "lost.h"
+#include "news.h"
+#include "plague.h"
+#include "player.h"
+#include "product.h"
+#include "ship.h"
+#include "update.h"
 
 static void shiprepair(struct shpstr *, struct natstr *, int *, int);
 static void upd_ship(struct shpstr *, int, struct natstr *, int *, int);

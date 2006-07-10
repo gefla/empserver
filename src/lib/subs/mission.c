@@ -34,20 +34,20 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "nsc.h"
-#include "file.h"
-#include "path.h"
-#include "mission.h"
-#include "item.h"
-#include <fcntl.h>
+#include <stdlib.h>
 #include "damage.h"
-#include "queue.h"
-#include "prototypes.h"
-#include "optlist.h"
 #include "empobj.h"
+#include "file.h"
+#include "item.h"
+#include "misc.h"
+#include "mission.h"
+#include "nsc.h"
+#include "optlist.h"
+#include "path.h"
+#include "player.h"
+#include "prototypes.h"
+#include "queue.h"
+#include "xy.h"
 
 struct genlist {
     struct emp_qelem queue;	/* list of units */

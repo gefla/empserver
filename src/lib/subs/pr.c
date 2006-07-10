@@ -51,20 +51,20 @@
 
 #include <config.h>
 
-#include <string.h>
 #include <fcntl.h>
 #include <ctype.h>
 #include <stdarg.h>
-#include "proto.h"
-#include "misc.h"
-#include "player.h"
-#include "nat.h"
+#include <stdlib.h>
+#include "com.h"
 #include "empio.h"
 #include "file.h"
-#include "com.h"
-#include "tel.h"
-#include "server.h"
+#include "misc.h"
+#include "nat.h"
+#include "player.h"
+#include "proto.h"
 #include "prototypes.h"
+#include "server.h"
+#include "tel.h"
 
 static void pr_player(struct player *pl, int id, char *buf);
 static void upr_player(struct player *pl, int id, char *buf);

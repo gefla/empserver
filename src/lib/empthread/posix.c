@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <signal.h>
+#include <unistd.h>
 #include "empthread.h"
 #include "prototypes.h"
 

@@ -33,15 +33,16 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "file.h"
 #include "land.h"
-#include "ship.h"
+#include "lost.h"
+#include "misc.h"
 #include "nsc.h"
-#include "plane.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "ship.h"
 
 int
 lnd_postread(int n, void *ptr)

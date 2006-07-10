@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <string.h>
 #include "as.h"
 #include "optlist.h"
 

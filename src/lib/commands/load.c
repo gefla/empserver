@@ -35,21 +35,15 @@
 
 #include <config.h>
 
-#include <string.h>
-#include "misc.h"
-#include "player.h"
-#include "xy.h"
-#include "file.h"
-#include "plague.h"
-#include "sect.h"
-#include "ship.h"
-#include "plane.h"
-#include "land.h"
-#include "item.h"
-#include "nsc.h"
-#include "nat.h"
-#include "optlist.h"
+#include <ctype.h>
 #include "commands.h"
+#include "empobj.h"
+#include "item.h"
+#include "land.h"
+#include "optlist.h"
+#include "plague.h"
+#include "plane.h"
+#include "ship.h"
 
 /*
  * The values 1 and -1 are important below, don't change them.

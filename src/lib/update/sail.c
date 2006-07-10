@@ -36,19 +36,11 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
+#include <math.h>
+#include "nsc.h"
 #include "path.h"
 #include "ship.h"
-#include "file.h"
-#include "nat.h"
-#include "xy.h"
-#include "nsc.h"
 #include "update.h"
-#include "subs.h"
-#include "common.h"
-#include <math.h>
-#include <stdlib.h>
 
 static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 

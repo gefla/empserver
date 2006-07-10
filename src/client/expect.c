@@ -33,16 +33,14 @@
 
 #include <config.h>
 
-#include "misc.h"
-
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
-#include <sys/types.h>
 #ifndef _WIN32
 #include <sys/socket.h>
 #include <unistd.h>
 #endif
+#include "misc.h"
 
 int
 recvline(int s, char *buf)

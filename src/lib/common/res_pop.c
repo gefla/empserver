@@ -34,13 +34,13 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "sect.h"
-#include "nat.h"
 #include "item.h"
-#include "xy.h"
+#include "misc.h"
+#include "nat.h"
 #include "optlist.h"
-#include "common.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "xy.h"
 
 int
 max_population(float research, int desig, int eff)

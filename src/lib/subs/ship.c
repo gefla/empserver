@@ -34,15 +34,16 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
 #include "file.h"
-#include "ship.h"
 #include "land.h"
-#include "plane.h"
+#include "lost.h"
+#include "misc.h"
 #include "nsc.h"
-#include "prototypes.h"
 #include "optlist.h"
+#include "plane.h"
+#include "player.h"
+#include "prototypes.h"
+#include "ship.h"
 
 int
 shp_postread(int n, void *ptr)

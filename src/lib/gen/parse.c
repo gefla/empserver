@@ -34,8 +34,7 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "misc.h"
-#include "gen.h"
+#include "prototypes.h"
 
 /*
  * Parse user command in BUF.

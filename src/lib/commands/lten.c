@@ -37,16 +37,12 @@
 
 #include <config.h>
 
-#include "misc.h"
-#include "player.h"
-#include "plague.h"
-#include "file.h"
-#include "ship.h"
-#include "item.h"
-#include "nsc.h"
-#include "plane.h"
-#include "land.h"
 #include "commands.h"
+#include "item.h"
+#include "land.h"
+#include "plague.h"
+#include "plane.h"
+#include "ship.h"
 
 static void expose_land(struct shpstr *s1, struct lndstr *l1);
 
