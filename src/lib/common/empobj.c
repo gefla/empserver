@@ -32,8 +32,11 @@
  *     Ron Koenderink, 2006
  *     Markus Armbruster, 2006
  */
-#include "empobj.h"
 
+#include "config.h"
+#include "prototypes.h"
+#include "file.h"
+#include "empobj.h"
 
 char *
 obj_nameof(struct empobj *gp)
