@@ -10,7 +10,7 @@ which produce other products.
 .s1
 This table gives the constituents and costs for each type of product.
 .s1
-NOTE: All costs given in the table are for 100% production efficiency.
+All costs given in the table are for 100% production efficiency.
 Many processes depend on technology level
 or educational level of the country;
 a note like \*Qp.e.=(tlev+10)/(tlev+20)\*U means
@@ -26,9 +26,9 @@ and some produce much better than others.  Use the "show sector capabilities"
 command to see production efficiencies and other useful information on
 producing sectors.
 .s1
-The rate at which constituents are turned into products
-is governed by the \*Qwork\*U accrued to a sector
-(see \*Qinfo Innards\*U) divided by the units of constituents
+The rate at which constituents can be turned into products
+is governed by the amount of \*Qwork\*U performed by its populace,
+divided by the units of constituents
 per unit of product.
 E.g., it takes 3 units of \*Qwork\*U to produce 1 shell;
 2 units to incorporate the light construction materials
@@ -54,41 +54,33 @@ Each requires 5 units of light construction materials,
 and 1 unit of oil.
 You must have a minimum technology of 20 to produce guns.
 .L iron
-Iron ore production depends on mineral content in mines.
+Iron ore production depends on the mine's mineral richness.
 Extracting iron ore is free,
-and the mineral content of the sector is not depleted
-by mining iron.
+and doesn't deplete the sector's mineral richness.
 .L dust
-Gold dust production depends on gold mineral content in gold mines.
+Gold dust production depends on the mine's gold richness.
 Extracting gold dust is free,
-but the gold mineral content of the sector is depleted
-by mining gold dust.  In addition, mountains may sometimes produce
-gold dust as well.  The efficiency of mountains producing gold dust
-may not be as good as gold mines.  Use the "show sector capabilities" 
-command to see the production efficiency of sectors.
+but depletes the sector's gold richness.
 .L bars
-Gold bars are produced in banks.
-Gold bar production depends on gold dust in gold mines.
 Gold bars cost $10 to produce and require 5 units of gold dust each.
 .L food
 Food production efficiency depends on technology level
 and the fertility of the sector;
 p.e.=(tlev+10)/(tlev+20).
 Growing food is free,
-and the fertility of the sector is not depleted by growing food.
+and doesn't deplete the sector's fertility.
 .L oil
 Oil production efficiency depends on technology level
 and the oil content of the sector;
 p.e.=(tlev+10)/(tlev+20).
 Pumping oil is free,
-but the oil content of the sector is depleted
-by extracting and refining oil.
-.L petroleum
-Petroleum production depends on technology level;
+but depletes the sector's oil content.
+.L petrol
+Petrol production depends on technology level;
 p.e.=(tlev-20)/(tlev-10).
-A unit of petroleum costs $1 to manufacture.
-Every 10 units of petroleum require 1 unit of oil to produce.
-You must have a minimum technology of 20 to produce petroleum.
+A unit of petrol costs $1 to manufacture.
+Every 10 units of petrol require 1 unit of oil to produce.
+You must have a minimum technology of 20 to produce petrol.
 .L lcm
 Light construction material production efficiency
 depends on technology level;
@@ -129,5 +121,8 @@ A unit of research (a \*Qmedical discovery\*U),
 costs $90 to produce and requires 10 units
 of light construction materials,
 5 units of oil and 1 unit of gold dust (see "info Research").
+.s1
+Note that the resource depletion documented above can be customized by
+the deity.
 .in
 .SA "Producing, Updates"
