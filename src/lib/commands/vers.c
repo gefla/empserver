@@ -200,7 +200,7 @@ vers(void)
     pr("Torpedo damage is 2d%d+%d.\n", torpedo_damage, torpedo_damage - 2);
     pr("The attack factor for para & assault troops is %0.2f.\n",
        assault_penalty);
-    pr("%0.f%% of fallout leaks into each surrounding sector.\n",
+    pr("%.0f%% of fallout leaks into each surrounding sector.\n",
        fallout_spread * 100.0 * MIN(24, etu_per_update));
     pr("Fallout decays by %.0f%% per update\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
