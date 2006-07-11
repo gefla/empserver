@@ -36,9 +36,9 @@
 #ifdef _WIN32
 #include <windows.h>
 
-#include "optlist.h"
-#include "prototypes.h"
 #include "service.h"
+#include "empthread.h"
+#include "prototypes.h"
 
 int
 install_service(char *program_name, char *service_name, char *config_file)
