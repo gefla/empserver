@@ -58,6 +58,7 @@
 #include <process.h>
 #include "misc.h"
 #include "empthread.h"
+#include "prototypes.h"
 
 #define loc_MIN_THREAD_STACK  16384
 
