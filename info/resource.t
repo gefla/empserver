@@ -29,20 +29,15 @@ the x and y coordinates of the sector
 the efficiency of the sector (affects all benefits
 of a designated sector except mobility units)
 .L min
-the percentage richness of non-gold minerals,
-(range is 0-100, not used up, i.e. a renewable resource)
+the relative richness in non-gold minerals,
 .L gold
-the amount of gold ore,
-(range is 0-100, in absolute tons, i.e. non-renewable)
+the relative richness in gold ore,
 .L fert
 the fertility of the soil in relative terms,
-(range is 0-100, not used up, i.e. a renewable resource)
 .L oil
-the petroleum content of the soil in relative terms,
-(range is 0-100, in absolute tons, i.e. non-renewable)
+the oil content in relative terms,
 .L uran
 the uranium (radioactive materials) content in relative terms,
-(non-renewable)
 .L ter
 the territory number.
 .in
