@@ -86,9 +86,6 @@ max (0, -------------- * ------------------------------------------- - 1)
             max_pop             r_level + effic + mobil + 100
 .FI
 .s1
-Later formulations of this relationship show great similarity
-to his statement (see \*Qinfo Innards\*U).
-.s1
 Many researchers have commented on the surprising lack of correlation
 between food supply and plague outbreak.
 .s1
