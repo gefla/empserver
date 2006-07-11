@@ -7,6 +7,10 @@ takes time for their orders to reach those who execute them.
 The potential of your government to process new information is
 measured in Bureaucratic Time Units (BTU).
 .s1
+Most commands consume BTUs.  The \*Qlist\*U command shows how many.
+Some commands consume additional BTUs, depending on what they actually
+do.
+.s1
 BTUs are generated in real-time based on the number of civilians that
 are in your capital.  Every time you log out and in again, the server
 calculates how long you've been away, and based on that time awards
