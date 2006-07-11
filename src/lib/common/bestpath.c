@@ -142,7 +142,7 @@ bestownedpath(char *bpath, char *bigmap,
 		if (!valid(x, y))
 		    continue;
 		if (((mapindex[x][y] & 0x1FFF) == routelen - 1)) {
-		    for (i = DIR_FIRST; i < DIR_LAST; i++) {
+		    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
 			tx = x + diroff[i][0];
 			ty = y + diroff[i][1];
 			tx = XNORM(tx);
