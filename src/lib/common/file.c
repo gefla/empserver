@@ -38,8 +38,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
-#if !defined(_WIN32)
 #include <sys/types.h>
+#if !defined(_WIN32)
 #include <unistd.h>
 #endif
 #include "file.h"
