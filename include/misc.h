@@ -53,7 +53,11 @@ typedef long ssize_t;
 #define random rand
 #define srandom srand
 
+#ifdef __GNUC__
+#include <string.h>
+#else
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
+#endif
 #define mkdir(dir,perm) _mkdir((dir))
 
 typedef int pid_t;
