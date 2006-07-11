@@ -147,6 +147,6 @@ sub parse_file {
 sub error {
     my ($error) = @_;
 
-    print STDERR "info.pl:$filename:$.: $error\n";
+    print STDERR "mksubj.pl:$filename:$.: $error\n";
     exit 1;
 }

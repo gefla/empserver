@@ -199,6 +199,6 @@ sub parse_see_also {
 sub error {
     my ($error) = @_;
 
-    print STDERR "info.pl:$filename:$.: $error\n";
+    print STDERR "findsubj.pl:$filename:$.: $error\n";
     exit 1;
 }
