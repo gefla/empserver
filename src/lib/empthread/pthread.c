@@ -53,6 +53,7 @@
 
 #include "misc.h"
 #include "empthread.h"
+#include "prototypes.h"
 
 #define EMPTH_KILLED  1
 
