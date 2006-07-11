@@ -46,16 +46,14 @@ partitioned into a rectangular grid of \*(iFM\*(pF\ \(mu\ \*(iFN\*(pF
 sectors (where \*(iFM\*(pF and \*(iFN\*(pF are typically,
 but not necessarily,
 powers of two, usually 64, 128, or 256).
-The world is made up of approximately
-50% sea, 45% habitable land and 5% uninhabitable mountains.
+The world could be made up of approximately
+50% sea, 45% habitable land and 5% mountains.
 .s1
 Sectors can be assigned a specific sector type.
 These types range from banks to nuclear fuel processing plants.
 See ``info Sector-types'' for more detail.
 .s1
-Your personal coordinate system is based on your capital,
-which is a type of sector.
-Your capital is generally marked by the coordinates 0,\ 0.
+Your personal coordinate system is initially centered on your capital.
 .in
 .s1
 The Empire Time Scale
