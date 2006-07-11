@@ -551,7 +551,7 @@ setstr(int fldno, char *str)
     if (must_match) {
 	if (old && (!str || strncmp(old, str, len)))
 	    return gripe("Value for field %d must be \"%.*s\"",
-			 fldno + 1, len, old);
+			 fldno + 1, (int)len, old);
 	if (!old && str)
 	    return gripe("Value for field %d must be nil", fldno + 1);
     }
