@@ -83,7 +83,16 @@ For example,
 Sector -4,0 is now yours.
 .FI
 .s1
-See 'info Mobility' for a description of how much mobility it costs to
+The \*Qmap\*U command will give you a
+map surrounding the current position.
+You can also supply additional parameters:
+.EX <32.3: g 6,2> m # ls
+.s1
+is equivalent to a \*Qmap\*U command, like
+this:
+.EX map # ls
+.s1
+See \*Qinfo Mobility\*U for a description of how much mobility it costs to
 explore into sectors.
 .s1
 Note that while exploring, you might hit mines. The more civs or

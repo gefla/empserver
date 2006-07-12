@@ -73,6 +73,14 @@ if such a path exists.
 For example,
 .EX move c 2,2 18 6,2
 .s1
+The \*Qmap\*U command will give you a
+map surrounding the current position.
+You can also supply additional parameters:
+.EX <32.3: g 6,2> m # ls
+.s1
+is equivalent to a \*Qmap\*U command, like
+this:
+.EX map # ls
 .L "Military control"
 .s1
 In order to move something (other than mil) out of a sector, you must have
@@ -82,7 +90,7 @@ Units count as if they were straight mil, i.e. a 100% unit that contained 50
 mil would count as 50 mil for the purposes of control)
 .s1
 .L Mobility
-See 'info Mobility' for a description of how much mobility it costs to
+See \*Qinfo Mobility\*U for a description of how much mobility it costs to
 move something.
 .s1
 .L Mines

@@ -17,6 +17,20 @@ You would move nuke #666 to 8,0 as follows:
 You could move all planes in wing d to -6,0 as follows:
 .EX transport plane d -6,0
 .s1
+The \*Qmap\*U command will give you a
+map surrounding the current position.
+You can also supply additional parameters:
+.EX <32.3: g 6,2> m 3 ls
+.s1
+is equivalent to a \*Qpmap\*U command when transporting planes, like
+this:
+.EX pmap 3 ls
+.s1
+or it is equivalent to a \*Qnmap\*U command when transporting nukes.
+.s1
+If the optional argument selects sectors rather than nukes or planes,
+it is equivalent to a \*Qmap\*U command.
+.s1
 Note that while transporting, you may run into any landmines the
 enemy has left in your sectors. In that case, the planes being
 transported will take damage. See info \*Qlmine\*U for details.
