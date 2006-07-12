@@ -42,18 +42,49 @@ r  for radar
 l  to look at land and nearby ships
 s  for sonar
 m  to sweep mines
+d  to drop mines
 h  for end of movement
 .FI
 .s1
-While navigating you may also use radar, sonar, or lookout
-(by entering r, s, or l). By default, it will radar, sonar, or 
-lookout from the flagship. You may also
-give a ship number or fleet or group of ships on the same
-line: "r 12/13/14/73"
 .s1
-You may also use minesweepers in the currently navigating group to
-sweep mines by entering a 'm'.
+The \*Qradar\*U command will cause the flagship to use it's radar, if any.
+You may also give a ship number or fleet or group of ships on the same
+line: \*Qr 12/13/14/73\*U
+.s1
+The \*Qlookout\*U and \*Qsonar\*U commands works in the same way as radar.
+.s1
+The \*Qmap\*U command will give you a
+map surrounding the current position.
+By default, it will be around the flagship,  but you may also
+specify a ship number.
+.EX <32.3: g 6,2> m 3
+.s1
+is equivalent to a \*Qmap\*U command. like
+this:
+.EX map 3 ls
+The \*Qmap\*U command works in the same way,
+you get a bmap instead.
+.s1
+The \*Qflagship\*U command will the change the flagship.
+By default, it will select next ship in the list, but you may also
+specify a flagship.
+.s1
+The \*Qdrop\*U command will drop mines using ships
+with mine capability.
+You can specify the ship number or fleet or groups of ships
+and the number of land mines on the same line: \*Qd 12/13 10\*U.
+An omitted unit number defaults to the flagship,
+for example \*Qd 10\*U drops ten land mines from the flagship.
+If you omit the number of land mines as well, the flagship will drop one
+mine.
+.s1
+The \*Qsweep\*U command will have the minesweepers in the navigating
+group search for mines in the current sector.
 This costs them the equivalent of 1 sector's mobility.
+.s1
+Note: the lookout, radar, sonar, drop and sweep commands use BTU's,
+just as if you'd typed them
+separately from the command line.
 .s1
 Since the <ROUTE> can be specified in the command line,
 simple ship movements are often typed as a single line, such as:
@@ -107,7 +138,7 @@ on interdiction missions (see info mission).  If your enemy has a
 stack of missiles on interdiction mission, then they will
 automatically fire one after another until all of your ships are sunk.
 The chance of missiles and planes hitting your ships is determined by
-the "worst" ship in your fleet (see \*Qbomb\*U for the chance of
+the \*Qworst\*U ship in your fleet (see \*Qbomb\*U for the chance of
 hitting).  Any damage incurred by the fleet is divided evenly among
 all the ships in the fleet which are in the same sector.
 .s1

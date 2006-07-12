@@ -7,7 +7,7 @@ You can control one unit or an entire army with it.
 .s1
 Land units may only move into sectors you own, sectors of countries
 you are allied with or deity-owned sectors with 1 exception.  Spies.  Spies
-may move anywhere, with a chance of getting caught.  See "info Spies" for
+may move anywhere, with a chance of getting caught.  See \*Qinfo Spies\*U for
 more information.
 .s1
 If you are moving an army and the lead unit stops, the army stops;
@@ -42,21 +42,48 @@ i  to list land units you are marching
 r  for radar
 l  for lookout
 m  to sweep landmines
+d  to drop landmines
 h  for end of movement
 .FI
 .s1
-The radar option will cause the lead unit to use it's radar, if any.
+The \*Qradar\*U command will cause the lead unit to use it's radar, if any.
 You may also give a unit number or army or group of units on the same
-line: "r 12/13/14/73"
+line: \*Qr 12/13/14/73\*U
 .s1
-The lookout option works in the same way as radar, i.e. it will cause the
-lead unit to do a lookout.
+The lookout command works in the same way as radar.
 .s1
-Note: the lookout and radar commands use BTU's, just as if you'd typed them
-separately from the command line.
+The \*Qmap\*U command will give you a
+map surrounding the current position.
+By default, it will be around the leader,  but you may also
+specify a unit number.
+.EX <32.3: g 6,2> m 3
 .s1
-You may also use the 'm' command to have engineers in the marching
+is equivalent to a \*Qlmap\*U command. like
+this:
+.EX lmap 3 ls
+The \*Qmap\*U command works in the same way,
+you get a bmap instead.
+.s1
+The \*Qleader\*U command will the change the leader.
+By default, it will select next unit in the list, but you may also
+specify a land unit.
+.s1
+The \*Qdrop\*U command will lay land mines using engineers.
+You can specify the unit number or army or groups of units
+and the number of land mines on the same line: \*Qd 12/13 10\*U.
+An omitted unit number defaults to the leader,
+for example \*Qd 10\*U lays ten land mines from the leader.
+If you omit the number of land mines as well, the leader will lay one
+mine.
+.s1
+The \*Qsweep\*U command will have the engineers in the marching
 group search for mines in the current sector.
+This costs as much mobility as entering a sector with mobility cost
+of 0.2.
+.s1
+Note: the lookout, radar, drop and sweep commands use BTU's,
+just as if you'd typed them
+separately from the command line.
 .s1
 Since the <ROUTE> can be specified in the command line,
 simple unit movements are often typed as a single line, such as:
@@ -92,7 +119,7 @@ Note that if you are marching multiple units, you may only specify a
 destination sector on the command line if all the units start in the
 same sector.
 .s1
-See "info Mobility" for the mobility cost to march land units.
+See \*Qinfo Mobility\*U for the mobility cost to march land units.
 .s1
 Moving a unit through a sector that has been mined
 introduces a chance of mines/(mines + 50) that you will be damaged.
