@@ -43,13 +43,9 @@
 int
 map(void)
 {
-    char *b;
     int unit_type = EF_BAD;
     int bmap = 0;
     char *str;
-    struct nstr_sect ns;
-    char origin = '\0';
-    int map_flags = 0;
     char buf[1024];
     char prompt[128];
 
@@ -91,53 +87,5 @@ map(void)
     } else
 	str = player->argp[1];
 
-    if (!snxtsct(&ns, str)) {
-	if (unit_map(unit_type, atoi(str), &ns, &origin))
-	    return RET_FAIL;
-    }
-    for (b = player->argp[2]; b && *b; b++) {
-	switch (*b) {
-	case 's':
-	case 'S':
-	    map_flags |= MAP_SHIP;
-	    break;
-	case 'l':
-	case 'L':
-	    map_flags |= MAP_LAND;
-	    break;
-	case 'p':
-	case 'P':
-	    map_flags |= MAP_PLANE;
-	    break;
-	case 'n':
-	case 'N':
-	    map_flags |= MAP_NUKE;
-	    break;
-	case 'h':
-	case 'H':
-	    map_flags |= MAP_HIGH;
-	    break;
-	case '*':
-	    map_flags |= MAP_ALL;
-	    break;
-	case 't':
-	    if (bmap != 'b')
-		goto bad_flag;
-	    bmap = 't';
-	    *(b + 1) = 0;
-	    break;
-	case 'r':
-	    if (bmap != 'b')
-		goto bad_flag;
-	    bmap = 'r';
-	    *(b + 1) = 0;
-	    break;
-	default:
-	bad_flag:
-	    pr("Bad flag %c!\n", *b);
-	    break;
-	}
-    }
-
-    return draw_map(bmap, origin, map_flags, &ns);
+    return do_map(bmap, unit_type, str, player->argp[2]);
 }

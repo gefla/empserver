@@ -56,6 +56,64 @@ static int bmnxtsct(struct nstr_sect *);
 static char map_char(unsigned char type, natid own, int owner_or_god);
 
 int
+do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
+{
+    struct nstr_sect ns;
+    char origin = '\0';
+    char *b;
+    int map_flags = 0;
+
+    if (!snxtsct(&ns, arg)) {
+	if (unit_map(unit_type, atoi(arg), &ns, &origin))
+	    return RET_FAIL;
+    }
+    for (b = map_flags_arg; b && *b; b++) {
+	switch (*b) {
+	case 's':
+	case 'S':
+	    map_flags |= MAP_SHIP;
+	    break;
+	case 'l':
+	case 'L':
+	    map_flags |= MAP_LAND;
+	    break;
+	case 'p':
+	case 'P':
+	    map_flags |= MAP_PLANE;
+	    break;
+	case 'n':
+	case 'N':
+	    map_flags |= MAP_NUKE;
+	    break;
+	case 'h':
+	case 'H':
+	    map_flags |= MAP_HIGH;
+	    break;
+	case '*':
+	    map_flags |= MAP_ALL;
+	    break;
+	case 't':
+	    if (bmap != 'b')
+		goto bad_flag;
+	    bmap = 't';
+	    *(b + 1) = 0;
+	    break;
+	case 'r':
+	    if (bmap != 'b')
+		goto bad_flag;
+	    bmap = 'r';
+	    *(b + 1) = 0;
+	    break;
+	default:
+	bad_flag:
+	    pr("Bad flag %c!\n", *b);
+	    break;
+	}
+    }
+    return draw_map(bmap, origin, map_flags, &ns);
+}
+
+int
 draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 {
     struct natstr *np;
@@ -359,11 +417,12 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 }
 
 int
-display_region_map(char *cmd, coord curx, coord cury, char *arg)
+display_region_map(int bmap, int unit_type, coord curx, coord cury,
+		   char *arg)
 {
     char coordinates[80], *cp;
+    char *map_flag_arg;
 
-    player->argp[0] = cmd;
     if (!arg || !*arg) {
 	struct natstr *np;
 
@@ -371,20 +430,17 @@ display_region_map(char *cmd, coord curx, coord cury, char *arg)
 	sprintf(coordinates, "%d:%d,%d:%d",
 	    xrel(np, curx - 10), xrel(np, curx + 11),
 	    yrel(np, cury - 5), yrel(np, cury + 6));
-	player->argp[1] = coordinates;
-	player->argp[2] = NULL;
+	arg = coordinates;
+	map_flag_arg = NULL;
     } else {
-	player->argp[1] = arg;
-	cp = strchr(arg, ' ');
-	if (cp != NULL) {
-	    *cp++  = '\0';
-	    while (isspace(*cp)) cp++;
-	    player->argp[2] = cp;
-	} else
-	    player->argp[2] = NULL;
+	map_flag_arg = strchr(arg, ' ');
+	if (map_flag_arg != NULL) {
+	    *map_flag_arg++  = '\0';
+	    while (isspace(*map_flag_arg)) map_flag_arg++;
+	}
     }
     player->condarg = NULL;
-    return map();
+    return do_map(bmap, unit_type, arg, map_flag_arg);
 }
 
 int

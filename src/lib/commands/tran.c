@@ -246,12 +246,12 @@ tran_plane(void)
 static int
 tran_pmap(coord curx, coord cury, char *arg)
 {
-    return display_region_map("pmap", curx, cury, arg);
+    return display_region_map(0, EF_PLANE, curx, cury, arg);
 }
 
 static int
 tran_nmap(coord curx, coord cury, char *arg)
 {
-    return display_region_map("nmap", curx, cury, arg);
+    return display_region_map(0, EF_NUKE, curx, cury, arg);
 }
 
