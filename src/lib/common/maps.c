@@ -420,7 +420,7 @@ int
 display_region_map(int bmap, int unit_type, coord curx, coord cury,
 		   char *arg)
 {
-    char coordinates[80], *cp;
+    char coordinates[80];
     char *map_flag_arg;
 
     if (!arg || !*arg) {
