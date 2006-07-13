@@ -81,7 +81,7 @@ group search for mines in the current sector.
 This costs as much mobility as entering a sector with mobility cost
 of 0.2.
 .s1
-Note: the lookout, radar, drop and sweep commands use BTU's,
+Note: the lookout, radar, drop and sweep commands use BTUs,
 just as if you'd typed them
 separately from the command line.
 .s1
@@ -132,7 +132,7 @@ Hostile land/sea/air units may fire at/bomb your units, if they're
 on interdiction missions (see info mission).  If your enemy has a
 stack of missiles on interdiction mission, then they will
 automatically fire one after another until 100 damage has been done.
-Missiles and pinbombers have a 100% chance of hitting their target
+Missiles and pin-bombers have a 100% chance of hitting their target
 (provided they make it through plane/missile defenses).  Collateral
 damage will be done to the sector that the units were marching into.
 .SA "Unit-types, lmine, LandUnits, Transportation, Spies, Moving"

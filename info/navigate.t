@@ -51,7 +51,7 @@ The \*Qradar\*U command will cause the flagship to use it's radar, if any.
 You may also give a ship number or fleet or group of ships on the same
 line: \*Qr 12/13/14/73\*U
 .s1
-The \*Qlookout\*U and \*Qsonar\*U commands works in the same way as radar.
+The \*Qlookout\*U and \*Qsonar\*U commands work in the same way as radar.
 .s1
 The \*Qmap\*U command will give you a
 map surrounding the current position.
@@ -82,7 +82,7 @@ The \*Qsweep\*U command will have the minesweepers in the navigating
 group search for mines in the current sector.
 This costs them the equivalent of 1 sector's mobility.
 .s1
-Note: the lookout, radar, sonar, drop and sweep commands use BTU's,
+Note: the lookout, radar, sonar, drop and sweep commands use BTUs,
 just as if you'd typed them
 separately from the command line.
 .s1
@@ -114,7 +114,7 @@ For example,
 patrol boat #18 stopped at -6,-2
 .FI
 .s1
-Note that if you are naving multiple ships, you may only specify a
+Note that if you are navigating multiple ships, you may only specify a
 destination sector on the command line if all the ships start in the
 same sector.
 .s1
@@ -127,9 +127,9 @@ The formula for the movement cost for 1 sector is:
 .s1
 Moving a ship through a sector that has been mined risks hitting a
 mine (see \*Qinfo Hitchance\*U).
-Minesweeps can remove up to five mines per pass through a
+Minesweepers can remove up to five mines per pass through a
 sector (indicated by the message \*QSweep...\*U).
-Minesweeps also take 1/2 normal damage from mines.
+Minesweepers also take 1/2 normal damage from mines.
 .s1
 Also, note that some things may affect you while you are moving. Forts
 belonging to hostile countries will fire at you when you come within
