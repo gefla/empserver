@@ -34,13 +34,14 @@
 #include <config.h>
 
 #include <fcntl.h>
-#if !defined(_WIN32)
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include "commands.h"
 #include "land.h"
 #include "optlist.h"
 #include "path.h"
+#include "prototypes.h"
 #include "tel.h"
 
 static int isok(int x, int y);
@@ -159,7 +160,6 @@ static void
 init_sanct(struct natstr *natp, coord x, coord y)
 {
     struct sctstr sect;
-    int is_cap = natp->nat_xcap == x && natp->nat_ycap == y;
 
     getsect(x, y, &sect);
     sect.sct_own = natp->nat_cnum;
@@ -179,9 +179,9 @@ init_sanct(struct natstr *natp, coord x, coord y)
 	sect.sct_min = 100;
 	sect.sct_gmin = 100;
     }
-    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
+    sect.sct_item[I_CIVIL] = max_pop(start_research, &sect);
     sect.sct_item[I_MILIT] = 55;
-    sect.sct_item[I_FOOD] = is_cap ? 1000 : 100;
+    sect.sct_item[I_FOOD] = opt_NOFOOD ? 0 : 550;
     sect.sct_item[I_UW] = 75;
     putsect(&sect);
 }
