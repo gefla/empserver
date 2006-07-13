@@ -45,6 +45,7 @@
 
 static int isok(int x, int y);
 static void ok(signed char *map, int x, int y);
+static void init_sanct(struct natstr *, coord, coord);
 
 static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
 
@@ -121,52 +122,6 @@ new(void)
     if (player->aborted)
 	return RET_FAIL;
     pr("added country %d at %s\n", num, xyas(x, y, player->cnum));
-    getsect(x, y, &sect);
-    sect.sct_own = num;
-    sect.sct_type = SCT_SANCT;
-    sect.sct_newtype = SCT_SANCT;
-    sect.sct_effic = 100;
-    sect.sct_road = 0;
-    sect.sct_rail = 0;
-    sect.sct_defense = 0;
-    sect.sct_mobil = startmob;
-    sect.sct_work = 100;
-    sect.sct_oldown = num;
-    if (at_least_one_100) {
-	sect.sct_oil = 100;
-	sect.sct_fertil = 100;
-	sect.sct_uran = 100;
-	sect.sct_min = 100;
-	sect.sct_gmin = 100;
-    }
-    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
-    sect.sct_item[I_MILIT] = 55;
-    sect.sct_item[I_FOOD] = 1000;
-    sect.sct_item[I_UW] = 75;
-    putsect(&sect);
-    getsect(x + 2, y, &sect);
-    sect.sct_own = num;
-    sect.sct_type = SCT_SANCT;
-    sect.sct_newtype = SCT_SANCT;
-    sect.sct_effic = 100;
-    sect.sct_road = 0;
-    sect.sct_rail = 0;
-    sect.sct_defense = 0;
-    sect.sct_work = 100;
-    sect.sct_oldown = num;
-    sect.sct_mobil = startmob;
-    if (at_least_one_100) {
-	sect.sct_oil = 100;
-	sect.sct_fertil = 100;
-	sect.sct_uran = 100;
-	sect.sct_min = 100;
-	sect.sct_gmin = 100;
-    }
-    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
-    sect.sct_item[I_MILIT] = 55;
-    sect.sct_item[I_FOOD] = 100;
-    sect.sct_item[I_UW] = 75;
-    putsect(&sect);
     natp->nat_btu = max_btus;
     natp->nat_stat = STAT_SANCT;
     natp->nat_xcap = x;
@@ -194,8 +149,41 @@ new(void)
     natp->nat_level[NAT_ELEV] = start_education;
     natp->nat_tgms = 0;
     (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT, 0660));
+    init_sanct(natp, x, y);
+    init_sanct(natp, x + 2, y);
     putnat(natp);
     return RET_OK;
+}
+
+static void
+init_sanct(struct natstr *natp, coord x, coord y)
+{
+    struct sctstr sect;
+    int is_cap = natp->nat_xcap == x && natp->nat_ycap == y;
+
+    getsect(x, y, &sect);
+    sect.sct_own = natp->nat_cnum;
+    sect.sct_type = SCT_SANCT;
+    sect.sct_newtype = SCT_SANCT;
+    sect.sct_effic = 100;
+    sect.sct_road = 0;
+    sect.sct_rail = 0;
+    sect.sct_defense = 0;
+    sect.sct_mobil = startmob;
+    sect.sct_work = 100;
+    sect.sct_oldown = natp->nat_cnum;
+    if (at_least_one_100) {
+	sect.sct_oil = 100;
+	sect.sct_fertil = 100;
+	sect.sct_uran = 100;
+	sect.sct_min = 100;
+	sect.sct_gmin = 100;
+    }
+    sect.sct_item[I_CIVIL] = opt_RES_POP ? 550 : 999;
+    sect.sct_item[I_MILIT] = 55;
+    sect.sct_item[I_FOOD] = is_cap ? 1000 : 100;
+    sect.sct_item[I_UW] = 75;
+    putsect(&sect);
 }
 
 static int nmin, ngold, noil, nur;
