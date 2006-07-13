@@ -63,7 +63,6 @@ int
 powe(void)
 {
     struct natstr *natp;
-    int round_flag;
     time_t pow_time;
     struct nstr_item ni;
     struct powstr pow;
