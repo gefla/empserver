@@ -73,25 +73,28 @@ powe(void)
     memset(targets, 0, sizeof(targets));
     natp = getnatp(player->cnum);
     num = MAXNOC;
-    if (player->argp[1] && player->argp[1][0] == 'n') {
-	if (natp->nat_btu < 1)
-	    pr("\n  Insufficient BTUs, using the last report.\n\n");
-	else {
-	    gen_power();
-	    power_generated = 1;
-	    if (player->argp[2])
-		num = atoi(player->argp[2]);
-	}
-    } else if (player->argp[1] && player->argp[1][0] == 'c') {
-	snxtitem(&ni, EF_NATION, player->argp[2]);
-	while (nxtitem(&ni, &nat)) {
-	    if (nat.nat_stat != STAT_ACTIVE)
-		continue;
-	    targets[nat.nat_cnum] = 1;
-	}
-	use_targets = 1;
-    } else if (player->argp[1])
-	num = atoi(player->argp[1]);
+
+    if (player->argp[1]) {
+	if (player->argp[1][0] == 'n') {
+	    if (natp->nat_btu < 1)
+		pr("\n  Insufficient BTUs, using the last report.\n\n");
+	    else {
+		gen_power();
+		power_generated = 1;
+		if (player->argp[2])
+		    num = atoi(player->argp[2]);
+	    }
+	} else if (player->argp[1][0] == 'c') {
+	    snxtitem(&ni, EF_NATION, player->argp[2]);
+	    while (nxtitem(&ni, &nat)) {
+		if (nat.nat_stat != STAT_ACTIVE)
+		    continue;
+		targets[nat.nat_cnum] = 1;
+	    }
+	    use_targets = 1;
+	} else
+	    num = atoi(player->argp[1]);
+    }
 
     if (num < 0) {
 	if (!player->god)
