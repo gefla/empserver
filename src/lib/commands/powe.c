@@ -49,10 +49,11 @@ struct powsort {
     natid cnum;
 };
 
-static void addtopow(short *vec, struct powstr *pow);
+static void prpower(char *, struct powstr *, int);
+static void out5(double, int, int);
 static void gen_power(void);
-static void out5(double value, int round_val, int round_flag);
 static int powcmp(const void *, const void *);
+static void addtopow(short *, struct powstr *);
 
 int
 powe(void)
@@ -123,26 +124,8 @@ powe(void)
 	    continue;
 	if (!use_targets && pow.p_power <= 0.0)
 	    continue;
-	round_flag = pow.p_nation != player->cnum && !player->god;
-	pr("%9.9s", cname(pow.p_nation));
-	out5(pow.p_sects, 5, round_flag);
-	if (pow.p_sects)
-	    pr("%4.0f%%", pow.p_effic / pow.p_sects);
-	else
-	    pr("   0%%");
-	out5(pow.p_civil, 50, round_flag);
-	out5(pow.p_milit, 50, round_flag);
-	out5(pow.p_shell, 25, round_flag);
-	out5(pow.p_guns, 5, round_flag);
-	out5(pow.p_petrol, 50, round_flag);
-	out5(pow.p_iron, 50, round_flag);
-	out5(pow.p_dust, 50, round_flag);
-	out5(pow.p_oil, 50, round_flag);
-	out5(pow.p_planes, 10, round_flag);
-	out5(pow.p_ships, 10, round_flag);
-	out5(pow.p_units, 10, round_flag);
-	out5(pow.p_money, 5000, round_flag);
-	pr("\n");
+	prpower(cname(pow.p_nation), &pow,
+		pow.p_nation != player->cnum && !player->god);
 	if (player->god && !no_numbers)
 	    pr("%9.2f\n", pow.p_power);
 	num--;
@@ -150,24 +133,34 @@ powe(void)
     if (!opt_HIDDEN || player->god) {
 	pr("          ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n");
 	getpower(0, &pow);
-	pr("worldwide");
-	out5(pow.p_sects, 5, !player->god);
-	pr("%4.0f%%", pow.p_effic / (pow.p_sects + 0.1));
-	out5(pow.p_civil, 50, !player->god);
-	out5(pow.p_milit, 50, !player->god);
-	out5(pow.p_shell, 25, !player->god);
-	out5(pow.p_guns, 5, !player->god);
-	out5(pow.p_petrol, 50, !player->god);
-	out5(pow.p_iron, 50, !player->god);
-	out5(pow.p_dust, 50, !player->god);
-	out5(pow.p_oil, 50, !player->god);
-	out5(pow.p_planes, 10, !player->god);
-	out5(pow.p_ships, 10, !player->god);
-	out5(pow.p_units, 10, !player->god);
-	out5(pow.p_money, 5000, !player->god);
+	prpower("worldwide", &pow, !player->god);
 	pr("\n");
     }
     return RET_OK;
+}
+
+static void
+prpower(char *name, struct powstr *pow, int round_flag)
+{
+    pr("%9.9s", name);
+    out5(pow->p_sects, 5, round_flag);
+    if (pow->p_sects)
+	pr("%4.0f%%", pow->p_effic / pow->p_sects);
+    else
+	pr("   0%%");
+    out5(pow->p_civil, 50, round_flag);
+    out5(pow->p_milit, 50, round_flag);
+    out5(pow->p_shell, 25, round_flag);
+    out5(pow->p_guns, 5, round_flag);
+    out5(pow->p_petrol, 50, round_flag);
+    out5(pow->p_iron, 50, round_flag);
+    out5(pow->p_dust, 50, round_flag);
+    out5(pow->p_oil, 50, round_flag);
+    out5(pow->p_planes, 10, round_flag);
+    out5(pow->p_ships, 10, round_flag);
+    out5(pow->p_units, 10, round_flag);
+    out5(pow->p_money, 5000, round_flag);
+    pr("\n");
 }
 
 static void
