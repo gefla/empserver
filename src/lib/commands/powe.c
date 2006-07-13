@@ -81,9 +81,9 @@ powe(void)
 	    else {
 		gen_power();
 		power_generated = 1;
-		if (player->argp[2])
-		    num = atoi(player->argp[2]);
 	    }
+	    if (player->argp[2])
+		num = atoi(player->argp[2]);
 	} else if (player->argp[1][0] == 'c') {
 	    snxtitem(&ni, EF_NATION, player->argp[2]);
 	    while (nxtitem(&ni, &nat)) {
