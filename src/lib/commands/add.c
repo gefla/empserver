@@ -34,6 +34,10 @@
 #include <config.h>
 
 #include <fcntl.h>
+#if defined(_WIN32) && !defined(__GNUC__)
+#include <io.h>
+#endif
+
 #include "commands.h"
 #include "land.h"
 #include "optlist.h"

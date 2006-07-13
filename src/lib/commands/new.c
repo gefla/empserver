@@ -34,7 +34,10 @@
 #include <config.h>
 
 #include <fcntl.h>
-#ifndef _WIN32
+#if defined(_WIN32) && !defined(__GNUC__)
+#include <io.h>
+#endif
+#if !defined(_WIN32)
 #include <unistd.h>
 #endif
 #include "commands.h"

@@ -32,6 +32,12 @@
  */
 
 #include <config.h>
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+#include <stdio.h>
+#include <errno.h>
+#include <fcntl.h>
 
 #include "com.h"
 #include "empio.h"
@@ -48,12 +54,6 @@
 #include "sect.h"
 #include "tel.h"
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-#include <stdio.h>
-#include <errno.h>
-#include <fcntl.h>
 
 static int command(void);
 static int status(void);

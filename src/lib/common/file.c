@@ -36,6 +36,9 @@
 #include <config.h>
 
 #include <errno.h>
+#if defined(_WIN32) && !defined(__GNUC__)
+#include <io.h>
+#endif
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/types.h>

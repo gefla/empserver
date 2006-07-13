@@ -36,6 +36,13 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <fcntl.h>
+#include <time.h>
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+#include <signal.h>
+
 #include "com.h"
 #include "empio.h"
 #include "file.h"
@@ -48,12 +55,6 @@
 #include "prototypes.h"
 #include "tel.h"
 
-#include <fcntl.h>
-#include <time.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-#include <signal.h>
 
 #define KEEP_COMMANDS 50
 

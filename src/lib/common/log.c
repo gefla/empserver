@@ -33,7 +33,9 @@
 
 #include <config.h>
 
-#include "misc.h"
+#if defined(_WIN32) && !defined(__GNUC__)
+#include <io.h>
+#endif
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -41,6 +43,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
+#include "misc.h"
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"

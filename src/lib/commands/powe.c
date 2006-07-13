@@ -36,6 +36,10 @@
 
 #include <config.h>
 
+#ifdef _WIN32
+#include <io.h>
+#endif
+
 #include "commands.h"
 #include "item.h"
 #include "land.h"

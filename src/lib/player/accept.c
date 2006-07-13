@@ -38,6 +38,9 @@
 #define WIN32
 #include <winsock2.h>
 #undef NS_ALL
+#ifndef __GNUC__
+#include <io.h>
+#endif
 #else
 #include <sys/types.h>
 #include <sys/socket.h>

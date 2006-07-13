@@ -40,29 +40,25 @@
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
-#if defined(_WIN32)
+#ifdef _WIN32
+#ifndef __GNUC__
+
 typedef long ssize_t;
 
 /* integral mismatch, due to misuse of sector short */
-#ifndef __GNUC__
 #pragma warning (disable : 4761 )
-#endif
 
-#include <io.h>
-
-#define random rand
-#define srandom srand
-
-#ifdef __GNUC__
-#include <string.h>
-#else
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
-#endif
-#define mkdir(dir,perm) _mkdir((dir))
 
 typedef int pid_t;
 #define vsnprintf _vsnprintf
 #define snprintf _snprintf
+
+#endif /* !__GNUC__ */
+
+#define mkdir(dir,perm) _mkdir((dir))
+#define random rand
+#define srandom srand
 
 #endif /* _WIN32 */
 

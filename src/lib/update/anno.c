@@ -36,6 +36,9 @@
 
 #include <config.h>
 
+#if defined(_WIN32) && defined(__GNUC__)
+#include <io.h>
+#endif
 #include <stdio.h>
 #include <time.h>
 #include "tel.h"
