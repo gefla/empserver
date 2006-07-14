@@ -294,7 +294,6 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	}
     }
     if (map_flags & MAP_HIGH) {
-	char *ptr;
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
@@ -305,9 +304,8 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	while (nxtsct(nsp, &sect) && !player->aborted) {
 	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
 		continue;
-	    ptr = &wmap[nsp->dy][nsp->dx];
 	    if (sect.sct_own == player->cnum)
-		 *ptr |= 0x80;
+		 wmap[nsp->dy][nsp->dx] |= 0x80;
 	}
     }
     if (origin)
