@@ -1,6 +1,6 @@
 .TH Command START
 .NA start "Resume production and repairs"
-.LV Basic
+.LV Expert
 .SY "start <TYPE> <SECTS|SHIPS|PLANES|UNITS|NUKES>"
 The start command orders stopped production and repairs to resume.
 .s1
