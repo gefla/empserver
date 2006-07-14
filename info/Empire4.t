@@ -7,6 +7,48 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.7 - Fri Jul 14 23:05:19 UTC 2006
+ * Sanctuaries are again fully populated with civilians (4.3.6 changed
+   the limit, but not the population).  Food is now spread evenly
+   among them.
+ * Fix path finder to find shortest naval and aerial paths again
+   (broken in 4.3.4).
+ * transport's map sub-command now does the right thing for a unit
+   number argument.
+ * Fix bug in map sub-command of move, explore and transport that
+   passed junk to map command.  Could theoretically crash.
+ * Food need reported by starvation was one short for sectors without
+   food.
+ * Change land unit ammunition use back to what it was before 4.2.3.
+   This lets deities customize ammunition use independent of damage.
+   It also substantially reduces ammunition consumption at high tech.
+ * navigation and march enhancements:
+   - Sub-command 'f' now takes an optional ship / land unit number.
+   - Mapping sub-commands now take an optional ship / land unit
+     number.
+   - New sub-command 'd' to drop mines.
+ * Let minesweepers retreat at their full speed (missed in 4.3.6).
+ * SUPER_BARS cannot be harmed, so don't interdict them.
+ * Don't let trains and non-trains march together for now, because it
+   the march code isn't prepared for that.
+ * New mapping flag 'n' to show nukes.
+ * Mapping flag '*' now shows nukes as well.
+ * New command nbmap to bmap around a nuke.  Overload command nmap to
+   map around a nuke when given a nuke argument.
+ * Fix an inconsistency that gave tactical bombers a small bonus
+   vs. flak when pin-bombing.
+ * Fix production to show the designation that actually produces, not
+   the designation as it is now (broken in 4.3.6).
+ * Fix accidental whitespace change in output of sdump, pdump and
+   ldump that crept into 4.3.5.
+ * Support user-defined sector types and products in custom tables,
+   not just customization of existing ones.
+ * Fix off-by-one bug in budget that used to be masked by budget
+   priorities until their demise in 4.3.6.  The bug could crash the
+   game on certain systems.
+ * Code cleanup.
+ * Info file fixes.
+
 Changes to Empire 4.3.6 - Tue Jun 20 18:46:18 UTC 2006
  * The shutdown command now terminates the server process correctly
    even with LinuxThreads pthreads under Linux 2.4 and earlier.
