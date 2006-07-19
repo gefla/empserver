@@ -39,6 +39,7 @@
 #include <errno.h>
 #if defined(_WIN32)
 #include <direct.h>
+#include <io.h>
 #include "../lib/gen/getopt.h"
 #else
 #include <sys/stat.h>
