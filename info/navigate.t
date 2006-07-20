@@ -55,14 +55,14 @@ The \*Qlookout\*U and \*Qsonar\*U commands work in the same way as radar.
 .s1
 The \*Qmap\*U command will give you a
 map surrounding the current position.
-By default, it will be around the flagship,  but you may also
-specify a ship number.
-.EX <32.3: g 6,2> m 3
+By default, it will be around the flagship.
+You can also supply additional parameters:
+.EX <32.3: g 6,2>M 3 ls
 .s1
 is equivalent to a \*Qmap\*U command. like
 this:
 .EX map 3 ls
-The \*Qmap\*U command works in the same way,
+The \*Qbmap\*U command works in the same way,
 you get a bmap instead.
 .s1
 The \*Qflagship\*U command will the change the flagship.

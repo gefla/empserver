@@ -52,8 +52,6 @@ navi(void)
     int together;
     char *cp = NULL;
     struct shpstr *shp = NULL;	/* flagship */
-    struct nstr_sect ns;
-    char origin;
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -164,8 +162,7 @@ navi(void)
 	     * fall through
 	     */
 	case 'M':
-	    unit_map(EF_SHIP, atoi(player->argp[1]), &ns, &origin);
-	    draw_map(bmap_flag, origin, MAP_SHIP, &ns);
+	    do_map(bmap_flag, EF_SHIP, player->argp[1], player->argp[2]);
 	    skip = 1;
 	    break;
 	case 'f':

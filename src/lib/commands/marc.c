@@ -53,8 +53,6 @@ march(void)
     int together;
     char *cp = NULL;
     struct lndstr *lnd = NULL;	/* leader */
-    struct nstr_sect ns;
-    char origin;
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -139,8 +137,7 @@ march(void)
 	     * fall through
 	     */
 	case 'M':
-	    unit_map(EF_LAND, atoi(player->argp[1]), &ns, &origin);
-	    draw_map(bmap_flag, origin, 0, &ns);
+	    do_map(bmap_flag, EF_LAND, player->argp[1], player->argp[2]);
 	    skip = 1;
 	    break;
 	case 'f':

@@ -54,14 +54,14 @@ The lookout command works in the same way as radar.
 .s1
 The \*Qmap\*U command will give you a
 map surrounding the current position.
-By default, it will be around the leader,  but you may also
-specify a unit number.
-.EX <32.3: g 6,2> m 3
+By default, it will be around the leader.
+You can also supply additional parameters:
+.EX <32.3: g 6,2> M 3 ls
 .s1
 is equivalent to a \*Qlmap\*U command. like
 this:
 .EX lmap 3 ls
-The \*Qmap\*U command works in the same way,
+The \*Qbmap\*U command works in the same way,
 you get a bmap instead.
 .s1
 The \*Qleader\*U command will the change the leader.
