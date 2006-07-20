@@ -173,7 +173,7 @@ prod_nat(int etu)
 	levels[n][NAT_RLEV] =
 	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
 	wu((natid)0, n,
-	   "total pop is %ld, yielding %4.2f hap, %4.2f edu\n",
+	   "total pop was %ld, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
     if (ally_factor > 0.0)
