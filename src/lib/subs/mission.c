@@ -362,17 +362,7 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));
 	glp->type = type;
-	switch (type) {
-	case EF_LAND:
-	    glp->cp = &lchr[(int)gp->type];
-	    break;
-	case EF_SHIP:
-	    glp->cp = &mchr[(int)gp->type];
-	    break;
-	case EF_PLANE:
-	    glp->cp = &plchr[(int)gp->type];
-	    break;
-	}
+	glp->cp = get_empobj_chr(gp);
 	glp->thing = malloc(sizeof(item));
 	memcpy(glp->thing, &item, sizeof(item));
 	emp_insque(&glp->queue, &mi[gp->own].queue);

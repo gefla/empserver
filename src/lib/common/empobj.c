@@ -55,3 +55,49 @@ obj_nameof(struct empobj *gp)
     CANT_HAPPEN("unsupported TYPE");
     return "";
 }
+
+
+int
+put_empobj(struct empobj *gp)
+{
+    switch (gp->ef_type)
+    {
+    case EF_SECTOR:
+        return ef_write(gp->ef_type, sctoff(gp->x, gp->y), gp);
+    case EF_NATION:
+    case EF_BMAP:
+    case EF_MAP:
+	return ef_write(gp->ef_type, gp->own, gp);
+    default:
+	return ef_write(gp->ef_type, gp->uid, gp);
+    }
+}
+
+void *
+get_empobj_chr(struct empobj *gp)
+{
+    void *cp;
+
+    switch (gp->ef_type) {
+    case EF_LAND:
+	cp = &lchr[(int)gp->type];
+	break;
+    case EF_SHIP:
+	cp = &mchr[(int)gp->type];
+	break;
+    case EF_PLANE:
+	cp = &plchr[(int)gp->type];
+	break;
+    case EF_NUKE:
+	cp = &nchr[(int)gp->type];
+	break;
+    case EF_SECTOR:
+	cp = &dchr[(int)gp->type];
+	break;
+    default:
+        CANT_HAPPEN("unsupported TYPE");
+        cp = NULL;
+	break;
+    }
+    return cp;
+}

@@ -85,5 +85,7 @@ union empobj_storage {
 };
 
 extern char *obj_nameof(struct empobj *gp);
+extern int put_empobj(struct empobj *gp);
+extern void *get_empobj_chr(struct empobj *gp);
 
 #endif

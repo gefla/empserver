@@ -333,17 +333,7 @@ mission(void)
 	gp->mission = mission;
 	gp->opx = x;
 	gp->opy = y;
-	switch (type) {
-	case EF_SHIP:
-	    putship(gp->uid, &item.ship);
-	    break;
-	case EF_LAND:
-	    putland(gp->uid, &item.land);
-	    break;
-	case EF_PLANE:
-	    putplane(gp->uid, &item.plane);
-	    break;
-	}
+	put_empobj(gp);
     }
     if (num == 0) {
 	pr("No %s%s\n", ef_nameof(type), splur(num));
