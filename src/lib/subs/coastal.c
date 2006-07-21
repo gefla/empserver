@@ -38,81 +38,69 @@
 #include "prototypes.h"
 #include "sect.h"
 
-static void
-update_coastal_flag(struct sctstr *sp, struct sctstr *sectp)
+static int
+update_coastal_flag(coord x, coord y, coord ign_x, coord ign_y)
 {
     int n;
     struct sctstr sect;
 
     for (n = 1; n <= 6; n++) {	/* Directions */
-	getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
-	if (sectp && sectp->sct_x == sect.sct_x &&
-	    sectp->sct_y == sect.sct_y)
+	getsect(x + diroff[n][0], y + diroff[n][1], &sect);
+	if (sect.sct_x == ign_x && sect.sct_y == ign_y)
 	    continue;
 	if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_BTOWER ||
-	    sect.sct_type == SCT_BSPAN) {
-	    if (!sp->sct_coastal) {
-		sp->sct_coastal = 1;
-		putsect(sp);
-	    }
-	    return;
-	}
+	    sect.sct_type == SCT_BSPAN)
+	    return 1;
     }
-    if (sp->sct_coastal) {
-        sp->sct_coastal = 0;
-	putsect(sp);
-    }
+
+    return 0;
 }
 
-static void
-coastal_sea_to_land(struct sctstr *sp)
+static int
+coastal_sea_to_land(coord x, coord y)
 {
-    int n;
+    int n, c;
     struct sctstr sect;
-
-    update_coastal_flag(sp, NULL);
 
     for (n = 1; n <= 6; n++) {	/* Directions */
-	getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
-	update_coastal_flag(&sect, sp);
+	getsect(x + diroff[n][0], y + diroff[n][1], &sect);
+	c = update_coastal_flag(sect.sct_x, sect.sct_y, x, y);
+	if (!sect.sct_coastal != !c) {
+	    sect.sct_coastal = c;
+	    putsect(&sect);
+	}
     }
+
+    return update_coastal_flag(x, y, x, y);
 }
 
-static void
-coastal_land_to_sea(struct sctstr *sp)
+static int
+coastal_land_to_sea(coord x, coord y)
 {
     int n;
     struct sctstr sect;
 
-    sp->sct_coastal = 1;
-    putsect(sp);
-
     for (n = 1; n <= 6; ++n) {	/* Directions */
-	getsect(sp->sct_x + diroff[n][0], sp->sct_y + diroff[n][1], &sect);
+	getsect(x + diroff[n][0], y + diroff[n][1], &sect);
 	if (!sect.sct_coastal) {
 	    sect.sct_coastal = 1;
 	    putsect(&sect);
 	}
     }
+
+    return 1;
 }
 
 void
 set_coastal(struct sctstr *sp, int des)
 {
-    int old_water = 0;
-    int new_water = 0;
+    int old_water = sp->sct_type == SCT_WATER
+	|| sp->sct_type == SCT_BTOWER || sp->sct_type == SCT_BSPAN;
+    int new_water = des == SCT_WATER
+	|| des == SCT_BTOWER || des == SCT_BSPAN;
 
-    if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_BTOWER ||
-	sp->sct_type == SCT_BSPAN)
-	old_water = 1;
-
-    if (des == SCT_WATER || des == SCT_BTOWER || des== SCT_BSPAN)
-	new_water = 1;
-
-    if (new_water == old_water)
-	return;
-    else if (new_water)
-	coastal_land_to_sea(sp);
-    else
-	coastal_sea_to_land(sp);
+    if (new_water != old_water)
+	sp->sct_coastal = new_water
+	    ? coastal_land_to_sea(sp->sct_x, sp->sct_y)
+	    : coastal_sea_to_land(sp->sct_x, sp->sct_y);
 }
