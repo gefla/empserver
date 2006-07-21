@@ -91,13 +91,18 @@ coastal_land_to_sea(coord x, coord y)
     return 1;
 }
 
+/*
+ * Compute coastal flags for a change of SP from OLDDES to NEWDES.
+ * Update adjacent sectors, but don't touch SP.
+ * Return new coastal flag for SP.
+ */
 void
-set_coastal(struct sctstr *sp, int des)
+set_coastal(struct sctstr *sp, int olddes, int newdes)
 {
-    int old_water = sp->sct_type == SCT_WATER
-	|| sp->sct_type == SCT_BTOWER || sp->sct_type == SCT_BSPAN;
-    int new_water = des == SCT_WATER
-	|| des == SCT_BTOWER || des == SCT_BSPAN;
+    int old_water = olddes == SCT_WATER
+	|| olddes == SCT_BTOWER || olddes == SCT_BSPAN;
+    int new_water = newdes == SCT_WATER
+	|| newdes == SCT_BTOWER || newdes == SCT_BSPAN;
 
     if (new_water != old_water)
 	sp->sct_coastal = new_water

@@ -44,8 +44,7 @@ static void print_res(struct sctstr *);
 int
 swaps(void)
 {
-    struct sctstr secta, sectb;
-    coord x, y;
+    struct sctstr secta, sectb, tmp;
     char buf[1024];
     char *p;
 
@@ -61,20 +60,25 @@ swaps(void)
     print_res(&sectb);
     if (!confirm ("Are you sure these are the two sectors you wish to swap? "))
 	return RET_FAIL;
-    /* save x and y from secta */
-    x = secta.sct_x;
-    y = secta.sct_y;
+    tmp = secta;
     /* change the location of secta to that of sectb */
     secta.sct_x = sectb.sct_x;
     secta.sct_y = sectb.sct_y;
     secta.sct_dist_x = sectb.sct_x;
     secta.sct_dist_y = sectb.sct_y;
+    secta.sct_coastal = sectb.sct_coastal;
     /* change the location of sectb to where secta was */
-    sectb.sct_x = x;
-    sectb.sct_y = y;
-    sectb.sct_dist_x = x;
-    sectb.sct_dist_y = y;
+    sectb.sct_x = tmp.sct_x;
+    sectb.sct_y = tmp.sct_y;
+    sectb.sct_dist_x = tmp.sct_x;
+    sectb.sct_dist_y = tmp.sct_y;
+    sectb.sct_coastal = tmp.sct_coastal;
+    /* update coastal flag & put sectors */
+    putsect(&sectb);
+    set_coastal(&secta, sectb.sct_type, secta.sct_type);
     putsect(&secta);
+    getsect(sectb.sct_x, sectb.sct_y, &sectb);
+    set_coastal(&sectb, secta.sct_type, sectb.sct_type);
     putsect(&sectb);
     pr("done\n");
     return RET_OK;

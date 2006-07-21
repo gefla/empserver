@@ -444,7 +444,7 @@ extern int check_cost(int, int, long, int *, char *);
 /* cnumb.c */
 extern int cnumb(char *);
 /* coastal.c */
-extern void set_coastal(struct sctstr *sp, int des);
+extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
 extern int military_control(struct sctstr *);
 /* detonate.c */
