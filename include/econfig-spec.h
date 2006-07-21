@@ -111,7 +111,8 @@ EMPCF_COMMENT("# 0 - Schedule updates according to etu_per_update, s_p_etu, adj_
 EMPCFBOTH("etu_per_update", etu_per_update, int, NSC_INT, 0,
     "Number of ETUs per update")
 EMPCFBOTH("s_p_etu", s_p_etu, int, NSC_INT, 0,
-    "Seconds per etu, updates under policy 0 every s_p_etu * etu_per_update seconds")
+    "Seconds per ETU")
+EMPCF_COMMENT("# updates under policy 0 occur every s_p_etu * etu_per_update seconds")
 EMPCFBOTH("adj_update", adj_update, int, NSC_INT, KM_INTERNAL,
     "Move the update forward or backward (in seconds)")
 EMPCFBOTH("update_window", update_window, int, NSC_INT, 0,
@@ -144,9 +145,12 @@ EMPCF_COMMENT("# Give range HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
 
 EMPCF_COMMENT("\n\n### Game hours restrictions")
 EMPCFBOTH("game_days", game_days, char *, NSC_STRING, 0,
-    "Days game is up and running (Su Mo Tu We Th Fr Sa)")
+    "Days of week the game is up and running, separated by space")
+EMPCF_COMMENT("# Give days as Su Mo Tu We Th Fr Sa.")
 EMPCFBOTH("game_hours", game_hours, char *, NSC_STRING, 0,
-    "Hours game is up and running (6:00-18:00)")
+    "Time of day ranges when the game is open, separated by space.")
+EMPCF_COMMENT("# Give range HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
+	      "# Ranges CANNOT cross midnight.")
 
 EMPCF_COMMENT("\n\n### Options")
 EMPCF_OPT("ALL_BLEED", opt_ALL_BLEED,
@@ -258,7 +262,7 @@ EMPCF_COMMENT("\n\n### Sectors")
 EMPCFBOTH("startmob", startmob, int, NSC_INT, KM_INTERNAL,
     "Starting mobility for sanctuaries")
 EMPCFBOTH("sect_mob_scale", sect_mob_scale, float, NSC_FLOAT, 0,
-    "Sector mobility accumulation (sect_mob_scale * ETUs per update)")
+    "Sector mobility accumulation per ETU")
 EMPCFBOTH("sect_mob_max", sect_mob_max, int, NSC_INT, 0,
     "Maximum mobility for sectors")
 EMPCFBOTH("buil_bh", buil_bh, int, NSC_INT, 0,
@@ -276,9 +280,9 @@ EMPCFBOTH("buil_tower_bt", buil_tower_bt, double, NSC_DOUBLE, 0,
 
 EMPCF_COMMENT("\n\n### Land Units")
 EMPCFBOTH("land_mob_scale", land_mob_scale, float, NSC_FLOAT, 0,
-    "Land unit mobility accumulation (land_mob_scale * ETUs per update)")
+    "Land unit mobility accumulation per ETU")
 EMPCFBOTH("land_grow_scale", land_grow_scale, float, NSC_FLOAT, 0,
-    "How fast efficiency grows for land units each update (* ETUs)")
+    "How fast efficiency grows for land units, per ETU")
 EMPCFBOTH("land_mob_max", land_mob_max, int, NSC_INT, 0,
     "Maximum mobility for land units")
 EMPCFBOTH("money_land", money_land, double, NSC_DOUBLE, 0,
@@ -288,9 +292,9 @@ EMPCFBOTH("morale_base", morale_base, int, NSC_INT, KM_INTERNAL,
 
 EMPCF_COMMENT("\n\n### Planes")
 EMPCFBOTH("plane_mob_scale", plane_mob_scale, float, NSC_FLOAT, 0,
-    "Plane mobility accumulation (plane_mob_scale * ETUs per update)")
+    "Plane mobility accumulation per ETU")
 EMPCFBOTH("plane_grow_scale", plane_grow_scale, float, NSC_FLOAT, 0,
-    "How fast efficiency grows for planes each update (* ETUs)")
+    "How fast efficiency grows for planes each update, per ETU")
 EMPCFBOTH("plane_mob_max", plane_mob_max, int, NSC_INT, 0,
     "Maximum mobility for planes")
 EMPCFBOTH("money_plane", money_plane, double, NSC_DOUBLE, 0,
@@ -298,9 +302,9 @@ EMPCFBOTH("money_plane", money_plane, double, NSC_DOUBLE, 0,
 
 EMPCF_COMMENT("\n\n### Ships")
 EMPCFBOTH("ship_mob_scale", ship_mob_scale, float, NSC_FLOAT, 0,
-    "Ship mobility accumulation (ship_mob_scale * ETUs per update)")
+    "Ship mobility accumulation per ETU")
 EMPCFBOTH("ship_grow_scale", ship_grow_scale, float, NSC_FLOAT, 0,
-    "How fast efficiency grows for ships each update (* ETUs)")
+    "How fast efficiency grows for ships each update, per ETU")
 EMPCFBOTH("ship_mob_max", ship_mob_max, int, NSC_INT, 0,
     "Maximum mobility for ships")
 EMPCFBOTH("money_ship", money_ship, double, NSC_DOUBLE, 0,
@@ -330,7 +334,8 @@ EMPCFBOTH("assault_penalty", assault_penalty, double, NSC_DOUBLE, 0,
 EMPCFBOTH("fire_range_factor", fire_range_factor, float, NSC_FLOAT, 0,
     "Scale normal firing ranges by this amount")
 EMPCFBOTH("sect_mob_neg_factor", sect_mob_neg_factor, int, NSC_INT, 0,
-    "Amount of negative mobility a sector has after takeover (ETU / x) (MOB_ACCESS)")
+    "Initial mobility for MOB_ACCESS (etu_per_update / sect_mob_neg_factor)")
+EMPCF_COMMENT("# Applies to sector takeover, ship build, plane or land unit build or trade")
 EMPCFBOTH("mission_mob_cost", mission_mob_cost, double, NSC_DOUBLE, 0,
     "Cost to put something on a mission (percentage of max mob)")
 
@@ -411,6 +416,6 @@ EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, NSC_INT, KM_INTERNAL,
 /* Sentinel */
 EMPCFONLYC(NULL, emp_config_dummy, NULL, NSC_NOTYPE, 0, NULL)
 
-#undef	EMPCFONLYC
-#undef	EMPCFBOTH
+#undef EMPCFONLYC
+#undef EMPCFBOTH
 #undef EMPCF_COMMENT
