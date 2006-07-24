@@ -178,20 +178,8 @@ mission(void)
 	desired_radius = 9999;
     }
 
-    switch (type) {
-    case EF_SHIP:
-	mobmax = ship_mob_max;
-	break;
-    case EF_LAND:
-	mobmax = land_mob_max;
-	break;
-    case EF_PLANE:
-	mobmax = plane_mob_max;
-	break;
-    default:
-	CANT_HAPPEN("bad TYPE");
+    if ((mobmax = get_empobj_mob_max(type)) == -1)
 	return RET_FAIL;
-    }
 
     mobused = ldround(mission_mob_cost * (double)mobmax, 1);
 

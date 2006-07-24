@@ -37,6 +37,7 @@
 
 #include "empobj.h"
 #include "file.h"
+#include "optlist.h"
 #include "prototypes.h"
 
 char *
@@ -100,4 +101,22 @@ get_empobj_chr(struct empobj *gp)
 	break;
     }
     return cp;
+}
+
+int
+get_empobj_mob_max(int ef_type)
+{
+    switch (ef_type) {
+    case EF_SHIP:
+	return ship_mob_max;
+    case EF_LAND:
+	return land_mob_max;
+    case EF_PLANE:
+	return plane_mob_max;
+    case EF_SECTOR:
+	return sect_mob_max;
+    default:
+	CANT_REACH();
+	return -1;
+    }
 }
