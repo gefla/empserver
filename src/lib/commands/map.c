@@ -43,7 +43,7 @@
 int
 map(void)
 {
-    int unit_type = EF_SHIP;
+    int unit_type = EF_BAD;
     int bmap = 0;
     char *str;
     char buf[1024];
@@ -86,6 +86,9 @@ map(void)
 	    return RET_SYN;
     } else
 	str = player->argp[1];
+
+    if (unit_type == EF_BAD)
+	unit_type = EF_SHIP;
 
     return do_map(bmap, unit_type, str, player->argp[2]);
 }
