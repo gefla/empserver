@@ -85,30 +85,21 @@ put_empobj(struct empobj *gp)
 void *
 get_empobj_chr(struct empobj *gp)
 {
-    void *cp;
-
     switch (gp->ef_type) {
     case EF_LAND:
-	cp = &lchr[(int)gp->type];
-	break;
+	return &lchr[(int)gp->type];
     case EF_SHIP:
-	cp = &mchr[(int)gp->type];
-	break;
+	return &mchr[(int)gp->type];
     case EF_PLANE:
-	cp = &plchr[(int)gp->type];
-	break;
+	return &plchr[(int)gp->type];
     case EF_NUKE:
-	cp = &nchr[(int)gp->type];
-	break;
+	return &nchr[(int)gp->type];
     case EF_SECTOR:
-	cp = &dchr[(int)gp->type];
-	break;
+	return &dchr[(int)gp->type];
     default:
         CANT_HAPPEN("unsupported TYPE");
-        cp = NULL;
-	break;
     }
-    return cp;
+    return NULL;
 }
 
 char *
