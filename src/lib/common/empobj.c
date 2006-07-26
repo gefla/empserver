@@ -136,6 +136,6 @@ get_empobj_mob_max(int type)
 	return sect_mob_max;
     default:
 	CANT_REACH();
-	return -1;
     }
+    return -1;
 }
