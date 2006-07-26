@@ -118,8 +118,8 @@ emp_obj_chr_name(struct empobj *gp)
 	return dchr[(int)gp->type].d_name;
     default:
 	CANT_REACH();
-	return NULL;
     }
+    return NULL;
 }
 
 int
