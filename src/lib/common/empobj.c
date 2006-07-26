@@ -53,7 +53,7 @@ obj_nameof(struct empobj *gp)
     case EF_NUKE:
 	return prnuke((struct nukstr *)gp);
     }
-    CANT_HAPPEN("unsupported TYPE");
+    CANT_REACH();
     return "";
 }
 
@@ -97,7 +97,7 @@ get_empobj_chr(struct empobj *gp)
     case EF_SECTOR:
 	return &dchr[(int)gp->type];
     default:
-        CANT_HAPPEN("unsupported TYPE");
+        CANT_REACH();
     }
     return NULL;
 }
