@@ -132,9 +132,9 @@ emp_obj_chr_name(struct empobj *gp)
 }
 
 int
-get_empobj_mob_max(int ef_type)
+get_empobj_mob_max(int type)
 {
-    switch (ef_type) {
+    switch (type) {
     case EF_SHIP:
 	return ship_mob_max;
     case EF_LAND:

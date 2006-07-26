@@ -89,6 +89,6 @@ extern struct empobj *get_empobjp(int type, int id);
 extern int put_empobj(struct empobj *gp);
 extern void *get_empobj_chr(struct empobj *gp);
 extern char *emp_obj_chr_name(struct empobj *gp);
-extern int get_empobj_mob_max(int ef_type);
+extern int get_empobj_mob_max(int type);
 
 #endif
