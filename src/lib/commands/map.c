@@ -43,7 +43,7 @@
 int
 map(void)
 {
-    int unit_type = EF_BAD;
+    int unit_type = EF_SHIP;
     int bmap = 0;
     char *str;
     char buf[1024];

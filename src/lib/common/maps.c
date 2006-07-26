@@ -376,33 +376,20 @@ map_char(unsigned char type, natid own, int owner_or_god)
 int
 unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 {
-    struct shpstr origs;
-    struct lndstr origl;
-    struct plnstr origp;
-    struct nukstr orign;
     struct empobj *gp;
     struct range range;
+    char *name;
 
-    if (unit_type == EF_LAND) {
-	if (!getland(uid, &origl) || !player->owner || origl.lnd_own == 0)
-	    return RET_FAIL;
-	gp = (struct empobj *)&origl;
-	*originp = *lchr[(int)origl.lnd_type].l_name;
-    } else if (unit_type == EF_PLANE) {
-	if (!getplane(uid, &origp) || !player->owner || origp.pln_own == 0)
-	    return RET_FAIL;
-	gp = (struct empobj *)&origp;
-	*originp = *plchr[(int)origp.pln_type].pl_name;
-    } else if (unit_type == EF_NUKE) {
-	if (!getnuke(uid, &orign) || !player->owner || orign.nuk_own == 0)
-	    return RET_FAIL;
-	gp = (struct empobj *)&orign;
+    gp = get_empobjp(unit_type, uid);
+    if (!gp || !player->owner || gp->own == 0)
+	return RET_FAIL;
+
+    if (unit_type == EF_NUKE)
 	*originp = 'n';
-    } else {
-	if (!getship(uid, &origs) || !player->owner || origs.shp_own == 0)
+    else {
+	if ((name = emp_obj_chr_name(gp)) == NULL)
 	    return RET_FAIL;
-	gp = (struct empobj *)&origs;
-	*originp = *mchr[(int)origs.shp_type].m_name;
+	*originp = *name;
     }
 
     range.lx = xnorm(gp->x - 10);

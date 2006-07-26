@@ -57,6 +57,14 @@ obj_nameof(struct empobj *gp)
     return "";
 }
 
+struct empobj *
+get_empobjp(int type, int id)
+{
+    if (CANT_HAPPEN(type == EF_SECTOR || type == EF_BAD))
+	return NULL;
+    else
+	return (struct empobj *)ef_ptr(type, id);
+}
 
 int
 put_empobj(struct empobj *gp)
@@ -101,6 +109,26 @@ get_empobj_chr(struct empobj *gp)
 	break;
     }
     return cp;
+}
+
+char *
+emp_obj_chr_name(struct empobj *gp)
+{
+    switch (gp->ef_type) {
+    case EF_LAND:
+	return lchr[(int)gp->type].l_name;
+    case EF_SHIP:
+	return mchr[(int)gp->type].m_name;
+    case EF_PLANE:
+	return plchr[(int)gp->type].pl_name;
+    case EF_NUKE:
+	return nchr[(int)gp->type].n_name;
+    case EF_SECTOR:
+	return dchr[(int)gp->type].d_name;
+    default:
+	CANT_REACH();
+	return NULL;
+    }
 }
 
 int

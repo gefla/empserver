@@ -343,7 +343,7 @@ move(void)
 static int
 cmd_move_map(coord curx, coord cury, char *arg)
 {
-    return display_region_map(0, EF_BAD, curx, cury, arg);
+    return display_region_map(0, EF_SHIP, curx, cury, arg);
 }
 
 int
