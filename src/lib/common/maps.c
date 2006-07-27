@@ -119,10 +119,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     struct natstr *np;
     struct range range;
     struct nstr_item ni;
-    struct shpstr ship;
-    struct lndstr land;
-    struct plnstr plane;
-    struct nukstr nuke;
+    union empobj_storage unit;
     coord x, y;
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
@@ -130,6 +127,9 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     static unsigned char *bitmap = NULL;
     static char *wmapbuf = NULL;
     static char **wmap = NULL;
+    static int ef_mappable[] = { EF_PLANE, EF_SHIP, EF_LAND, EF_NUKE, EF_BAD };
+    static int ef_unit_map[] = { MAP_PLANE, MAP_SHIP, MAP_LAND, MAP_NUKE };
+    char *name;
 
     if (!wmapbuf)
 	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
@@ -233,65 +233,32 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     }
     if (player->aborted)
 	return RET_OK;
-    if (map_flags & MAP_PLANE) {
-	snxtitem_all(&ni, EF_PLANE);
-	while (nxtitem(&ni, &plane)) {
-	    if (plane.pln_own == 0)
-		continue;
-	    if (plane.pln_own != player->cnum && !player->god)
-		continue;
-	    if (!xyinrange(plane.pln_x, plane.pln_y, &nsp->range))
-		continue;
 
-	    x = xnorm(plane.pln_x - nsp->range.lx);
-	    y = ynorm(plane.pln_y - nsp->range.ly);
-	    wmap[y][x] = (*plchr[(int)plane.pln_type].pl_name) & ~0x20;
-	}
-    }
-    if (map_flags & MAP_SHIP) {
-	snxtitem_all(&ni, EF_SHIP);
-	while (nxtitem(&ni, &ship)) {
-	    if (ship.shp_own == 0)
-		continue;
-	    if (ship.shp_own != player->cnum && !player->god)
-		continue;
-	    if (!xyinrange(ship.shp_x, ship.shp_y, &nsp->range))
-		continue;
+    i = 0;
+    while (ef_mappable[i] != EF_BAD) {
+	if (map_flags & ef_unit_map[i]) {
+	    snxtitem_all(&ni, ef_mappable[i]);
+	    while (nxtitem(&ni, &unit)) {
+		if (unit.gen.own == 0)
+		    continue;
+		if (unit.gen.own != player->cnum && !player->god)
+		    continue;
+		if (!xyinrange(unit.gen.x, unit.gen.y, &nsp->range))
+		    continue;
 
-	    x = xnorm(ship.shp_x - nsp->range.lx);
-	    y = ynorm(ship.shp_y - nsp->range.ly);
-	    wmap[y][x] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
-	}
-    }
-    if (map_flags & MAP_LAND) {
-	snxtitem_all(&ni, EF_LAND);
-	while (nxtitem(&ni, &land)) {
-	    if (land.lnd_own == 0)
-		continue;
-	    if (land.lnd_own != player->cnum && !player->god)
-		continue;
-	    if (!xyinrange(land.lnd_x, land.lnd_y, &nsp->range))
-		continue;
+		x = xnorm(unit.gen.x - nsp->range.lx);
+		y = ynorm(unit.gen.y - nsp->range.ly);
 
-	    x = xnorm(land.lnd_x - nsp->range.lx);
-	    y = ynorm(land.lnd_y - nsp->range.ly);
-	    wmap[y][x] = (*lchr[(int)land.lnd_type].l_name) & ~0x20;
+		if (ef_mappable[i] == EF_NUKE)
+		    wmap[y][x] = 'N';
+		else {
+		    if ((name = emp_obj_chr_name(&unit.gen)) == NULL)
+			return RET_FAIL;
+		    wmap[y][x] = *name & ~0x20;
+		}
+	    }
 	}
-    }
-    if (map_flags & MAP_NUKE) {
-	snxtitem_all(&ni, EF_NUKE);
-	while (nxtitem(&ni, &nuke)) {
-	    if (nuke.nuk_own == 0)
-		continue;
-	    if (nuke.nuk_own != player->cnum && !player->god)
-		continue;
-	    if (!xyinrange(nuke.nuk_x, nuke.nuk_y, &nsp->range))
-		continue;
-
-	    x = xnorm(nuke.nuk_x - nsp->range.lx);
-	    y = ynorm(nuke.nuk_y - nsp->range.ly);
-	    wmap[y][x] = 'N';
-	}
+	i++;
     }
     if (map_flags & MAP_HIGH) {
 	struct sctstr sect;
