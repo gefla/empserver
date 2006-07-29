@@ -151,7 +151,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	       xyas(nx, ny, player->cnum));
 	    break;
 	}
-	if (dir == DIR_STOP || dir == DIR_MAP) {
+	if (dir == DIR_STOP) {
 	    p[1] = 0;
 	    return buf;
 	}
