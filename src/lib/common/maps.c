@@ -348,7 +348,7 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     char *name;
 
     gp = get_empobjp(unit_type, uid);
-    if (!gp || !player->owner || gp->own == 0)
+    if (!gp || gp->own != player->cnum || gp->own == 0)
 	return RET_FAIL;
 
     if (unit_type == EF_NUKE)
