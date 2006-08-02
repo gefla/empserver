@@ -66,6 +66,7 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
+    struct flock lock;
     int oflags, fd, fsiz, size;
 
     if (ef_check(type) < 0)
@@ -87,6 +88,14 @@ ef_open(int type, int how)
 #endif
     if ((fd = open(ep->file, oflags, 0660)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
+	return 0;
+    }
+
+    lock.l_type = how & EFF_RDONLY ? F_RDLCK : F_WRLCK;
+    lock.l_whence = SEEK_SET;
+    lock.l_start = lock.l_len = 0;
+    if (fcntl(fd, F_SETLK, &lock) == -1) {
+	logerror("Can't lock %s (%s)", ep->file, strerror(errno));
 	return 0;
     }
 
