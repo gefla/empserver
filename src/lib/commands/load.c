@@ -313,36 +313,16 @@ lload(void)
 }
 
 void
-gift(natid givee, natid giver, void *ptr, int type, char *mesg)
+gift(natid givee, natid giver, void *ptr, char *mesg)
 {
     struct empobj *gen = ptr;
-    char *p;
 
-    if (giver != givee) {
-	switch (type) {
-	case EF_SHIP:
-	    p = prship(ptr);
-	    break;
-	case EF_PLANE:
-	    p = prplane(ptr);
-	    break;
-	case EF_LAND:
-	    p = prland(ptr);
-	    break;
-	case EF_NUKE:
-	    p = prnuke(ptr);
-	    break;
-	default:
-	    CANT_REACH();
-	    p = "a red herring";
-	}
+    if (giver != givee)
+	wu(0, givee, "%s %s %s\n", cname(giver), obj_nameof(gen), mesg);
 
-	wu(0, givee, "%s %s %s\n", cname(giver), p, mesg);
-    }
-
-    makelost(type, gen->own, gen->uid, gen->x, gen->y);
+    makelost(gen->ef_type, gen->own, gen->uid, gen->x, gen->y);
     gen->own = givee;
-    makenotlost(type, gen->own, gen->uid, gen->x, gen->y);
+    makenotlost(gen->ef_type, gen->own, gen->uid, gen->x, gen->y);
 }
 
 static int
@@ -460,7 +440,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-	    gift(sp->shp_own, player->cnum, &pln, EF_PLANE, buf);
+	    gift(sp->shp_own, player->cnum, &pln, buf);
 	    pln.pln_mission = 0;
 	    putplane(pln.pln_uid, &pln);
 	} else {
@@ -473,7 +453,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
+	    gift(sectp->sct_own, player->cnum, &pln, buf);
 	    putplane(pln.pln_uid, &pln);
 	}
 	pr("%s %s %s at %s.\n",
@@ -621,7 +601,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-	    gift(sp->shp_own, player->cnum, &land, EF_LAND, buf);
+	    gift(sp->shp_own, player->cnum, &land, buf);
 	    land.lnd_ship = sp->shp_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
@@ -638,7 +618,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prship(sp));
-		gift(sp->shp_own, player->cnum, &plane, EF_PLANE, buf);
+		gift(sp->shp_own, player->cnum, &plane, buf);
 		plane.pln_mission = 0;
 		putplane(plane.pln_uid, &plane);
 	    }
@@ -649,7 +629,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 
 	    /* Spies are unloaded quietly, others aren't */
 	    if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
-		gift(sectp->sct_own, player->cnum, &land, EF_LAND, buf);
+		gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_ship = -1;
 	    sp->shp_nland--;
 	    putland(land.lnd_uid, &land);
@@ -668,7 +648,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		    sprintf(buf, "unloaded at %s",
 			    xyas(plane.pln_x, plane.pln_y,
 				 sectp->sct_own));
-		    gift(sectp->sct_own, player->cnum, &plane, EF_PLANE, buf);
+		    gift(sectp->sct_own, player->cnum, &plane, buf);
 		    plane.pln_mission = 0;
 		    putplane(plane.pln_uid, &plane);
 		}
@@ -843,7 +823,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "loaded on %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	    gift(lp->lnd_own, player->cnum, &pln, EF_PLANE, buf);
+	    gift(lp->lnd_own, player->cnum, &pln, buf);
 	    putplane(pln.pln_uid, &pln);
 	} else {
 	    if (!take_plane_off_land(&pln, lp)) {
@@ -854,7 +834,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "unloaded at your sector at %s",
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, &pln, EF_PLANE, buf);
+	    gift(sectp->sct_own, player->cnum, &pln, buf);
 	    putplane(pln.pln_uid, &pln);
 	}
 	pr("%s %s %s at %s.\n",
@@ -1048,7 +1028,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	    gift(lp->lnd_own, player->cnum, &land, EF_LAND, buf);
+	    gift(lp->lnd_own, player->cnum, &land, buf);
 	    land.lnd_land = lp->lnd_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
@@ -1065,7 +1045,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prland(lp));
-		gift(lp->lnd_own, player->cnum, &plane, EF_PLANE, buf);
+		gift(lp->lnd_own, player->cnum, &plane, buf);
 		plane.pln_mission = 0;
 		putplane(plane.pln_uid, &plane);
 	    }
@@ -1073,7 +1053,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
-	    gift(sectp->sct_own, player->cnum, &land, EF_LAND, buf);
+	    gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_land = -1;
 	    lp->lnd_nland--;
 	    putland(land.lnd_uid, &land);
@@ -1086,7 +1066,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		    continue;
 		sprintf(buf, "unloaded at %s",
 			xyas(plane.pln_x, plane.pln_y, sectp->sct_own));
-		gift(sectp->sct_own, player->cnum, &plane, EF_PLANE, buf);
+		gift(sectp->sct_own, player->cnum, &plane, buf);
 		plane.pln_mission = 0;
 		putplane(plane.pln_uid, &plane);
 	    }

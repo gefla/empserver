@@ -263,7 +263,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(&target), xyas(target.shp_x, target.shp_y,
 					  target.shp_own));
-	    gift(target.shp_own, player->cnum, &land, EF_LAND, buf);
+	    gift(target.shp_own, player->cnum, &land, buf);
 	    land.lnd_ship = target.shp_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
@@ -280,7 +280,7 @@ tend_land(struct shpstr *tenderp, char *units)
 		if (plane.pln_land != land.lnd_uid)
 		    continue;
 		sprintf(buf, "loaded on %s", prship(&target));
-		gift(target.shp_own, player->cnum, &plane, EF_PLANE, buf);
+		gift(target.shp_own, player->cnum, &plane, buf);
 		plane.pln_mission = 0;
 		putplane(plane.pln_uid, &plane);
 	    }

@@ -106,7 +106,7 @@ arm(void)
 
 	snprintf(buf, sizeof(buf), "armed on your %s in %s",
 		 prplane(&pl), xyas(pl.pln_x, pl.pln_y, pl.pln_own));
-	gift(pl.pln_own, player->cnum, &nuke, EF_NUKE, buf);
+	gift(pl.pln_own, player->cnum, &nuke, buf);
 	pl.pln_nuketype = nuke.nuk_type;
 	nuke.nuk_plane = pl.pln_uid;
 	putplane(pl.pln_uid, &pl);
@@ -157,7 +157,7 @@ disarm(void)
 	snprintf(buf, sizeof(buf), "unloaded in your %s at %s",
 		 dchr[sect.sct_type].d_name,
 		 xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-	gift(sect.sct_own, player->cnum, &nuke, EF_NUKE, buf);
+	gift(sect.sct_own, player->cnum, &nuke, buf);
 	nuke.nuk_plane = -1;
 	pl.pln_nuketype = -1;
 	pl.pln_flags &= ~PLN_AIRBURST;
