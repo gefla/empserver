@@ -35,9 +35,8 @@
 
 #include <ctype.h>
 #include "commands.h"
-#include "land.h"
 #include "optlist.h"
-#include "ship.h"
+#include "empobj.h"
 
 int
 rada(void)
@@ -47,20 +46,16 @@ rada(void)
     double tech;
     struct nstr_item ni;
     struct nstr_sect ns;
-    struct shpstr ship;
-    struct lndstr land;
-    struct sctstr sect;
-    int from_unit;
+    union empobj_storage item;
     char buf[1024];
+    short type;
 
-    from_unit = (**player->argp == 'l');
+    type = player->argp[0][0] == 'l' ? EF_LAND : EF_SHIP;
 
-    if (!from_unit)
-	cp = getstarg(player->argp[1],
-		      "Radar from (ship # or sector(s)) : ", buf);
-    else
-	cp = getstarg(player->argp[1],
-		      "Radar from (unit # or sector(s)) : ", buf);
+    cp = getstarg(player->argp[1],
+	type == EF_SHIP ? "Radar from (ship # or sector(s)) : " :
+	"Radar from (unit # or sector(s)) : ", buf);
+		      
     if (cp == 0)
 	return RET_SYN;
     switch (sarg_type(cp)) {
@@ -72,74 +67,56 @@ rada(void)
 	    tech = WORLD_Y / 4.0;
 	if (tech > WORLD_X / 8.0)
 	    tech = WORLD_X / 8.0;
-	while (nxtsct(&ns, &sect)) {
-	    if (sect.sct_type != SCT_RADAR)
+	while (nxtsct(&ns, &item.sect)) {
+	    if (item.sect.sct_type != SCT_RADAR)
 		continue;
 	    if (!player->owner)
 		continue;
-	    radmap(sect.sct_x, sect.sct_y, (int)sect.sct_effic,
+	    radmap(item.sect.sct_x, item.sect.sct_y, item.sect.sct_effic,
 		   (int)(tech * 2.0), 0.0);
 	}
 	break;
     case NS_LIST:
     case NS_GROUP:
-	if (!from_unit) {
-	    /* assumes a NS_LIST return is a shipno */
-	    if (!snxtitem(&ni, EF_SHIP, cp)) {
-		pr("Specify at least one ship\n");
-		return RET_SYN;
-	    }
-	    while (nxtitem(&ni, &ship)) {
-		if (!player->owner)
-		    continue;
-		if (mchr[(int)ship.shp_type].m_flags & M_SONAR)
-		    tf = techfact(ship.shp_tech, 1.0);
-		else
-		    tf = 0.0;
-		pr("%s at ", prship(&ship));
-		tech = techfact(ship.shp_tech,
-				mchr[(int)ship.shp_type].m_vrnge);
-		if (tech > WORLD_Y / 2.0)
-		    tech = WORLD_Y / 2.0;
-		if (tech > WORLD_X / 4.0)
-		    tech = WORLD_X / 4.0;
-		radmap(ship.shp_x, ship.shp_y, ship.shp_effic,
-		       (int)tech, tf);
-	    }
-	} else {
-	    /* from a land unit */
-	    if (!snxtitem(&ni, EF_LAND, cp)) {
-		pr("Specify at least one unit\n");
-		return RET_SYN;
-	    }
-	    while (nxtitem(&ni, &land)) {
-		if (!player->owner)
-		    continue;
-		if (!(lchr[(int)land.lnd_type].l_flags & L_RADAR)) {
-		    pr("%s can't use radar!\n", prland(&land));
+	/* assumes a NS_LIST return is a unit no */
+	if (!snxtitem(&ni, type, cp)) {
+	    pr("Specify at least one %s\n",
+		type == EF_SHIP ? "ship" : "unit");
+	    return RET_SYN;
+	}
+	while (nxtitem(&ni, &item)) {
+	    if (!player->owner)
+		continue;
+	    tf = 0.0;
+	    if (type == EF_SHIP) {
+		if (mchr[(int)item.ship.shp_type].m_flags & M_SONAR)
+		    tf = techfact(item.ship.shp_tech, 1.0);
+		tech = techfact(item.ship.shp_tech,
+		    mchr[(int)item.ship.shp_type].m_vrnge);
+	    } else {
+		if (!(lchr[(int)item.land.lnd_type].l_flags & L_RADAR)) {
+		    pr("%s can't use radar!\n", prland(&item.land));
 		    continue;
 		}
-		if (land.lnd_ship >= 0) {
+		if (item.land.lnd_ship >= 0) {
 		    pr("Units on ships can't use radar!\n");
 		    continue;
 		}
-		tf = 0.0;
-		pr("%s at ", prland(&land));
-		tech = techfact(land.lnd_tech, land.lnd_spy);
-		if (tech > WORLD_Y / 2.0)
-		    tech = WORLD_Y / 2.0;
-		if (tech > WORLD_X / 4.0)
-		    tech = WORLD_X / 4.0;
-		radmap(land.lnd_x, land.lnd_y, land.lnd_effic,
-		       (int)tech, tf);
+		tech = techfact(item.land.lnd_tech, item.land.lnd_spy);
 	    }
+
+	    pr("%s at ", obj_nameof(&item.gen));
+	    if (tech > WORLD_Y / 2.0)
+		tech = WORLD_Y / 2.0;
+	    if (tech > WORLD_X / 4.0)
+		tech = WORLD_X / 4.0;
+	    radmap(item.gen.x, item.gen.y, item.gen.effic,
+		   (int)tech, tf);
 	}
 	break;
     default:
-	if (!from_unit)
-	    pr("Must use a ship or sector specifier\n");
-	else
-	    pr("Must use a unit or sector specifier\n");
+	pr("Must use a %s or sector specifier\n",
+	    type == EF_SHIP ? "ship" : "unit");
 	return RET_SYN;
     }
     return RET_OK;
