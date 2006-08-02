@@ -36,10 +36,10 @@
 #include "file.h"
 #include "lost.h"
 
-static int findlost(char, natid, short, coord, coord, int);
+static int findlost(short, natid, short, coord, coord, int);
 
 void
-makelost(char type, natid owner, short id, coord x, coord y)
+makelost(short type, natid owner, short id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -64,7 +64,7 @@ makelost(char type, natid owner, short id, coord x, coord y)
 }
 
 void
-makenotlost(char type, natid owner, short id, coord x, coord y)
+makenotlost(short type, natid owner, short id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -87,7 +87,7 @@ makenotlost(char type, natid owner, short id, coord x, coord y)
  * Else return -1.
  */
 static int
-findlost(char type, natid owner, short id, coord x, coord y, int free)
+findlost(short type, natid owner, short id, coord x, coord y, int free)
 {
     struct loststr lost;
     int n;

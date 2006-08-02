@@ -43,7 +43,7 @@ struct loststr {
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct empobj */
     int lost_uid;		/* lost ID (assigned, otherwise unused) */
-    char lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
+    short lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
     short lost_id;		/* ID of lost thing */
     coord lost_x;
     coord lost_y;
@@ -54,7 +54,7 @@ struct loststr {
 #define putlost(n, p) ef_write(EF_LOST, (n), (p))
 
 /* src/lib/subs/lostsub.c */
-extern void makelost(char, natid, short, coord, coord);
-extern void makenotlost(char, natid, short, coord, coord);
+extern void makelost(short, natid, short, coord, coord);
+extern void makenotlost(short, natid, short, coord, coord);
 
 #endif
