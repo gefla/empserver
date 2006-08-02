@@ -126,13 +126,13 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 					* material_consume / actual);
 	    if (material_consume < 0)
 		material_consume = 0;
-	    vec[item] = ITEM_MAX;
+	    actual = ITEM_MAX - vec[item];
 	    if (sp->sct_own && !player->simulation)
 		wu(0, sp->sct_own,
 		   "%s production backlog in %s\n",
 		   product->p_name, ownxy(sp));
-	} else
-	    vec[item] += actual;
+	}
+	vec[item] += actual;
     }
     /*
      * Reset produced amount by commodity production ratio
