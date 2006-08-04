@@ -49,12 +49,12 @@ rada(void)
     union empobj_storage item;
     char buf[1024];
     short type;
+    char prompt[80];
 
     type = player->argp[0][0] == 'l' ? EF_LAND : EF_SHIP;
 
-    cp = getstarg(player->argp[1],
-	type == EF_SHIP ? "Radar from (ship # or sector(s)) : " :
-	"Radar from (unit # or sector(s)) : ", buf);
+    sprintf(prompt, "Radar from (%s # or sector(s)) : ", ef_nameof(type));
+    cp = getstarg(player->argp[1], prompt, buf);
 		      
     if (cp == 0)
 	return RET_SYN;
@@ -80,8 +80,7 @@ rada(void)
     case NS_GROUP:
 	/* assumes a NS_LIST return is a unit no */
 	if (!snxtitem(&ni, type, cp)) {
-	    pr("Specify at least one %s\n",
-		type == EF_SHIP ? "ship" : "unit");
+	    pr("Specify at least one %s\n", ef_nameof(type));
 	    return RET_SYN;
 	}
 	while (nxtitem(&ni, &item)) {
@@ -115,8 +114,7 @@ rada(void)
 	}
 	break;
     default:
-	pr("Must use a %s or sector specifier\n",
-	    type == EF_SHIP ? "ship" : "unit");
+	pr("Must use a %s or sector specifier\n", ef_nameof(type));
 	return RET_SYN;
     }
     return RET_OK;
