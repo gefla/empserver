@@ -38,6 +38,7 @@
 #include <errno.h>
 #if defined(_WIN32) && !defined(__GNUC__)
 #include <io.h>
+#include <share.h>
 #endif
 #include <fcntl.h>
 #include <signal.h>
@@ -66,7 +67,9 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
+#if !defined(_WIN32)
     struct flock lock;
+#endif
     int oflags, fd, fsiz, size;
 
     if (ef_check(type) < 0)
@@ -85,7 +88,13 @@ ef_open(int type, int how)
 	oflags |= O_CREAT | O_TRUNC;
 #if defined(_WIN32)
     oflags |= O_BINARY;
-#endif
+    if ((fd = sopen(ep->file, oflags,
+	how & EFF_RDONLY ? SH_DENYWR : SH_DENYRW,
+	0660)) < 0) {
+	logerror("Can't open %s (%s)", ep->file, strerror(errno));
+	return 0;
+    }
+#else
     if ((fd = open(ep->file, oflags, 0660)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
@@ -98,6 +107,7 @@ ef_open(int type, int how)
 	logerror("Can't lock %s (%s)", ep->file, strerror(errno));
 	return 0;
     }
+#endif
 
     /* get file size */
     fsiz = fsize(fd);
