@@ -36,8 +36,10 @@
 #include <config.h>
 
 #include <errno.h>
-#if defined(_WIN32) && !defined(__GNUC__)
+#if defined(_WIN32)
+#if !defined(__GNUC__)
 #include <io.h>
+#endif
 #include <share.h>
 #endif
 #include <fcntl.h>
