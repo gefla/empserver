@@ -398,14 +398,18 @@ xdump(void)
 	meta = 1;
 	p = getstarg(player->argp[2], "Table name? ", buf);
     }
-    if (!p)
+    if (!p || !*p)
 	return RET_SYN;
 
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type >= 0 && type < EF_MAX) {
 	if (meta)
 	    return xdmeta(type);
-	else
+	else if (EF_IS_GAME_STATE(type)
+		 && (player->ncomstat & NORM) != NORM) {
+	    pr("Access to table %s denied\n", ef_nameof(type));
+	    return RET_FAIL;
+	} else
 	    return xditem(type, player->argp[2]);
     } else if (!strncmp(p, "ver", strlen(p))) {
 	return xdver(meta);
