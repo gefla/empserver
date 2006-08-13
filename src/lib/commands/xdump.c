@@ -405,7 +405,7 @@ xdump(void)
     if (type >= 0 && type < EF_MAX) {
 	if (meta)
 	    return xdmeta(type);
-	else if (EF_IS_GAME_STATE(type)
+	else if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
 		 && (player->ncomstat & NORM) != NORM) {
 	    pr("Access to table %s denied\n", ef_nameof(type));
 	    return RET_FAIL;

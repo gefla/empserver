@@ -158,6 +158,7 @@ enum {
 };
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_REALM)
+#define EF_IS_VIEW(type) (EF_COUNTRY <= (type) && (type) < EF_MAX)
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
