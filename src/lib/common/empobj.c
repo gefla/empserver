@@ -54,7 +54,7 @@ obj_nameof(struct empobj *gp)
 	return prnuke((struct nukstr *)gp);
     }
     CANT_REACH();
-    return "";
+    return "The Beast #666";
 }
 
 struct empobj *
@@ -62,8 +62,7 @@ get_empobjp(int type, int id)
 {
     if (CANT_HAPPEN(type == EF_SECTOR || type == EF_BAD))
 	return NULL;
-    else
-	return (struct empobj *)ef_ptr(type, id);
+    return ef_ptr(type, id);
 }
 
 int
@@ -96,9 +95,8 @@ get_empobj_chr(struct empobj *gp)
 	return &nchr[(int)gp->type];
     case EF_SECTOR:
 	return &dchr[(int)gp->type];
-    default:
-        CANT_REACH();
     }
+    CANT_REACH();
     return NULL;
 }
 
@@ -116,9 +114,8 @@ emp_obj_chr_name(struct empobj *gp)
 	return nchr[(int)gp->type].n_name;
     case EF_SECTOR:
 	return dchr[(int)gp->type].d_name;
-    default:
-	CANT_REACH();
     }
+    CANT_REACH();
     return NULL;
 }
 
@@ -134,8 +131,7 @@ get_empobj_mob_max(int type)
 	return plane_mob_max;
     case EF_SECTOR:
 	return sect_mob_max;
-    default:
-	CANT_REACH();
     }
+    CANT_REACH();
     return -1;
 }
