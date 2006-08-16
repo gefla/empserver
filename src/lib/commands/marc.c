@@ -156,7 +156,7 @@ march(void)
 	    break;
 	case 'r':
 	    player->argp[0] = "lradar";
-	    rada();
+	    radar(EF_LAND);
 	    skip = 1;
 	    player->btused++;
 	    break;

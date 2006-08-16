@@ -38,8 +38,18 @@
 #include "optlist.h"
 #include "empobj.h"
 
+int rada(void)
+{
+    return radar(EF_SHIP);
+}
+
+int lrad(void)
+{
+    return radar(EF_LAND);
+}
+
 int
-rada(void)
+radar(short type)
 {
     char *cp;
     double tf;
@@ -48,10 +58,7 @@ rada(void)
     struct nstr_sect ns;
     union empobj_storage item;
     char buf[1024];
-    short type;
     char prompt[80];
-
-    type = player->argp[0][0] == 'l' ? EF_LAND : EF_SHIP;
 
     sprintf(prompt, "Radar from (%s # or sector(s)) : ", ef_nameof(type));
     cp = getstarg(player->argp[1], prompt, buf);

@@ -73,6 +73,7 @@ extern char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, void *);
 extern void trdswitchown(int, void *, int);
+extern int radar(short);
 /* Commands */
 int acce(void);
 int add(void);
@@ -145,6 +146,7 @@ int llook(void);
 int load(void);
 int look(void);
 int lost(void);
+int lrad(void);
 int lrange(void);
 int lretr(void);
 int lsta(void);
