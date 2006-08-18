@@ -84,10 +84,12 @@ union empobj_storage {
     struct trtstr treaty;
 };
 
+struct empobj_chr;
+
 extern char *obj_nameof(struct empobj *gp);
 extern struct empobj *get_empobjp(int type, int id);
 extern int put_empobj(struct empobj *gp);
-extern void *get_empobj_chr(struct empobj *gp);
+extern struct empobj_chr *get_empobj_chr(struct empobj *gp);
 extern char *emp_obj_chr_name(struct empobj *gp);
 extern int get_empobj_mob_max(int type);
 

@@ -81,20 +81,20 @@ put_empobj(struct empobj *gp)
     }
 }
 
-void *
+struct empobj_chr *
 get_empobj_chr(struct empobj *gp)
 {
     switch (gp->ef_type) {
     case EF_LAND:
-	return &lchr[(int)gp->type];
+	return (struct empobj_chr *)&lchr[(int)gp->type];
     case EF_SHIP:
-	return &mchr[(int)gp->type];
+	return (struct empobj_chr *)&mchr[(int)gp->type];
     case EF_PLANE:
-	return &plchr[(int)gp->type];
+	return (struct empobj_chr *)&plchr[(int)gp->type];
     case EF_NUKE:
-	return &nchr[(int)gp->type];
+	return (struct empobj_chr *)&nchr[(int)gp->type];
     case EF_SECTOR:
-	return &dchr[(int)gp->type];
+	return (struct empobj_chr *)&dchr[(int)gp->type];
     }
     CANT_REACH();
     return NULL;
