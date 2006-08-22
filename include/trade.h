@@ -44,7 +44,7 @@ struct trdstr {
     short ef_type;
     natid trd_owner;
     short trd_uid;
-    char trd_type;
+    short trd_type;
     short trd_unitid;
     long trd_price;
     int trd_maxbidder;
