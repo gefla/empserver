@@ -51,9 +51,8 @@
 
 struct genlist {
     struct emp_qelem queue;	/* list of units */
-    int type;			/* unit type: EF_SHIP, EF_PLANE, EF_LAND */
     void *cp;			/* pointer to desc of thing */
-    void *thing;		/* thing's struct */
+    struct empobj *thing;	/* thing's struct */
 };
 
 struct airport {
@@ -148,7 +147,7 @@ only_subs(struct emp_qelem *list)
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
 
-	if (glp->type != EF_SHIP)
+	if (glp->thing->ef_type != EF_SHIP)
 	    return 0;
 	mcp = glp->cp;
 	if (!(mcp->m_flags & M_SUB))
@@ -361,7 +360,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));
-	glp->type = type;
 	glp->cp = get_empobj_chr(gp);
 	glp->thing = malloc(sizeof(item));
 	memcpy(glp->thing, &item, sizeof(item));
@@ -429,8 +427,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 	md = mapdist(x, y, gp->x, gp->y);
 
-	if (glp->type == EF_LAND) {
-	    lp = glp->thing;
+	if (glp->thing->ef_type == EF_LAND) {
+	    lp = (struct lndstr *)glp->thing;
 
 	    if (lp->lnd_effic < LAND_MINFIREEFF)
 		continue;
@@ -478,8 +476,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		mpr(victim, "%s %s fires at you at %s\n",
 		    cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
 	    }
-	} else if (glp->type == EF_SHIP) {
-	    sp = glp->thing;
+	} else if (glp->thing->ef_type == EF_SHIP) {
+	    sp = (struct shpstr *)glp->thing;
 	    mcp = glp->cp;
 
 	    if (sp->shp_effic < 60)
@@ -606,7 +604,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		sp->shp_item[I_SHELL] = shell - gun;
 		putship(sp->shp_uid, sp);
 	    }
-	} else if (glp->type == EF_PLANE) {
+	} else if (glp->thing->ef_type == EF_PLANE) {
 	    pcp = glp->cp;
 	    if (pcp->pl_flags & P_M)
 		/* units have their own missile interdiction */
