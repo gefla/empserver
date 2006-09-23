@@ -242,6 +242,15 @@ tend_land(struct shpstr *tenderp, char *units)
 	    count_units(&target);
 	    getship(target.shp_uid, &target);
 
+	    if ((!(lchr[(int)land.lnd_type].l_flags & L_LIGHT)) &&
+		(!((mchr[(int)target.shp_type].m_flags & M_SUPPLY) &&
+		   (!(mchr[(int)target.shp_type].m_flags & M_SUB))))) {
+		pr("You can only load light units onto ships,\n"
+		   "unless the ship is a non-sub supply ship\n"
+		   "%s not tended\n", prland(&land));
+		continue;
+	    }
+
 	    if ((mchr[(int)target.shp_type].m_flags & M_SUB) &&
 		(lchr[(int)land.lnd_type].l_flags & L_SPY) &&
 		!mchr[(int)target.shp_type].m_nland) {
