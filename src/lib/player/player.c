@@ -71,7 +71,6 @@ player_main(struct player *p)
     player = p;
     time(&player->lasttime);
     time(&player->curup);
-    journal_login();
     show_motd();
     if (init_nats() < 0) {
 	pr("Server confused, try again later\n");
@@ -106,6 +105,7 @@ player_main(struct player *p)
 
     time(&natp->nat_last_login);
     putnat(natp);
+    journal_login();
     if (natp->nat_flags & NF_INFORM && natp->nat_tgms > 0) {
 	if (natp->nat_tgms == 1)
 	    pr("You have a new telegram waiting ...\n");
