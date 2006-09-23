@@ -4,22 +4,21 @@
 .sp
 .s1
 If the RES_POP option is in use, 
-the research level of a country determines the maximum number of civilians,
-mil, and uw's
+the research level of a country determines the maximum number of civilians
+and uw's
 that can live in a sector. For ordinary sectors, the maximum is:
 .s1
 .ti 3
-min(999, 400 + 600 * ((research*4 + 50)/(research*3 + 200)))
+min(1000, 400 + 600 * ((research*4 + 50)/(research*3 + 200)))
 .s1
 So, for example, at 0 research, after an update, the max you
-could have in a sector would be 550 civs, 550 uws, and 550 mil.
+could have in a sector would be 550 civs and 550 uws.
 Note that in the case of captured sectors,
 the research level of the current owner governs, even if the old
 owner of the sector had a higher/lower research.
 .s1
 If, after population growth, there are more civs than the limit, the
-excess are lost. Uw's & mil work the same way, each being individually
-limited.
+excess are lost.  Uw's work the same way.
 .s1
 The research level also affects the likelihood of plague outbreaks.
 (Unless the NO_PLAGUE option is used, of course)
