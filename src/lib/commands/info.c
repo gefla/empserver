@@ -210,8 +210,10 @@ apro(void)
      */
     nf = nhf = nl = nhl = 0;
     while ((dp = readdir(info_dp)) != 0) {
+	if (dp->d_name[0] == '.')
+	    continue;
 	snprintf(filename, sizeof(filename), "%s/%s", infodir,
-	    dp->d_name);
+		 dp->d_name);
 	fp = fopen(filename, "r");
 	alreadyhit = 0;
 	nll = nlhl = 0;
