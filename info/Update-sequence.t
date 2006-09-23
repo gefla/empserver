@@ -43,13 +43,13 @@ This document gives a rough order of events during the update.
                 f) first increase eff
                 g) then make things
 	f) ship building
-		ships that are stopped are skipped (see info stop)
+                stopped ships are started, but not built (see info stop)
 		ships execute their orders right after building
 		finally, if option SAIL is enabled, follow sail paths
 	g) plane building
-		planes that are stopped are skipped (see info stop)
+                stopped planes are started, but not built (see info stop)
 	h) land unit building
-		land units that are stopped are skipped (see info stop)
+                stopped land units are started, but not built (see info stop)
 
 3) Then, do deliveries for all sectors in the world, row by row, going from
 	top to bottom, left to right
@@ -59,6 +59,7 @@ This document gives a rough order of events during the update.
 
 5) Then, do importing via distribution for all sectors in the world, row by
 	row, going from top to bottom, left to right
+   Also start sectors that are stopped
 
 6) modify tech/res/hap/edu levels & do tech bleed
 7) decrease levels due to passing of time
