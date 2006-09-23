@@ -26,16 +26,8 @@ Max safe population for civs/uws: 427/483
 Happiness needed is 4.385283
 .FI
 .s1
-If the RES_POP option is in use, there will be a line that
-tells you the maximum number of civs you can have in a sector
-without losing them (999 without this option), and the maximum
-number of civs you can have in a sector without losing population
-growth.
-.s1
-If the NO_PLAGUE option is not used, you'll also see a line
-that has the plague chance for your nation.
-.s1
-The max safe population is the highest population in a sector
+The max safe population is the highest population in an ordinary
+sector such as a mine
 that will NOT forfeit some population growth during an update.
 In the example above, if you have 427 civs in a sector, you are
 guaranteed not to have more than 556 after population growth.
