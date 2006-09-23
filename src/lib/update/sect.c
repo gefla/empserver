@@ -291,14 +291,16 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 	    vec = sp->sct_item;
 
 	/* If everybody is dead, the sector reverts to unowned. 
-	   * This is also checked at the end of the production in
-	   * they all starved or were plagued off.
+	 * This is also checked at the end of the production in
+	 * they all starved or were plagued off.
 	 */
 	if (vec[I_CIVIL] == 0 && vec[I_MILIT] == 0 &&
 	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
-	    makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-	    sp->sct_own = 0;
-	    sp->sct_oldown = 0;
+	    if (!player->simulation) {
+		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
+		sp->sct_own = 0;
+		sp->sct_oldown = 0;
+	    }
 	    continue;
 	}
 
