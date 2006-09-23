@@ -314,11 +314,8 @@ produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
 	bp_disable_cachepath();
 	bp_clear_cachepath();
 
-	if (sp->sct_off || np->nat_money < 0) {
-	    if (!player->simulation)
-		sp->sct_off = 0;
+	if (sp->sct_off || np->nat_money < 0)
 	    continue;
-	}
 
 	neweff = sp->sct_effic;
 	amount = 0;

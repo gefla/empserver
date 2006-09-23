@@ -162,6 +162,8 @@ finish_sects(int etu)
 	if (infptr->path)
 	    free(infptr->path);
 #endif /* SAVE_FINISH_PATHS */
+
+	sp->sct_off = 0;
     }
     logerror("done importing\n");
 
