@@ -398,6 +398,7 @@ sect_has_dock(struct sctstr *sect)
 {
     switch (dchr[sect->sct_type].d_nav) {
     case NAV_02:
+    case NAV_CANAL:
 	return 1;
     default:
 	return 0;
