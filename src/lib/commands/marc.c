@@ -155,7 +155,6 @@ march(void)
 	    stopping |= lnd_check_mines(&land_list);
 	    break;
 	case 'r':
-	    player->argp[0] = "lradar";
 	    radar(EF_LAND);
 	    skip = 1;
 	    player->btused++;

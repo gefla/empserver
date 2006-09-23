@@ -38,12 +38,14 @@
 #include "optlist.h"
 #include "empobj.h"
 
-int rada(void)
+int
+rada(void)
 {
     return radar(EF_SHIP);
 }
 
-int lrad(void)
+int
+lrad(void)
 {
     return radar(EF_LAND);
 }
