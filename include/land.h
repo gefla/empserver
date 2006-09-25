@@ -179,16 +179,6 @@ struct lchrstr {
 
 extern struct lchrstr lchr[LND_TYPE_MAX + 2];
 
-struct llist {
-    struct emp_qelem queue;	/* list of units */
-    coord x, y;			/* x,y it came from */
-    struct lchrstr *lcp;	/* pointer to desc of land unit */
-    struct lndstr land;		/* struct land unit */
-    int eff;
-    double mobil;
-    int supplied;
-};
-
 enum {
     LND_AIROPS_EFF = 50		/* min. efficiency for air ops */
 };
@@ -205,9 +195,9 @@ extern char *lnd_path(int, struct lndstr *, char *);
 
 extern double attack_val(int, struct lndstr *);
 extern double defense_val(struct lndstr *);
-extern void lnd_print(struct llist *, char *);
-extern void lnd_delete(struct llist *, char *);
-extern int lnd_take_casualty(int, struct llist *, int);
+extern void lnd_print(struct ulist *, char *);
+extern void lnd_delete(struct ulist *, char *);
+extern int lnd_take_casualty(int, struct ulist *, int);
 extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);

@@ -37,9 +37,10 @@
 #include <ctype.h>
 #include "commands.h"
 #include "file.h"
-#include "land.h"
 #include "map.h"
 #include "path.h"
+#include "empobj.h"
+#include "unit.h"
 
 static int set_leader(struct emp_qelem *list, struct lndstr **leaderp);
 static void switch_leader(struct emp_qelem *list, int land_uid);
@@ -187,16 +188,16 @@ march(void)
 static int
 set_leader(struct emp_qelem *list, struct lndstr **leaderp)
 {
-    struct llist *llp = (struct llist *)(list->q_back);
+    struct ulist *llp = (struct ulist *)(list->q_back);
 
     if (!*leaderp)
 	pr("Leader is ");
-    else if ((*leaderp)->lnd_uid != llp->land.lnd_uid)
+    else if ((*leaderp)->lnd_uid != llp->unit.land.lnd_uid)
 	pr("Changing leader to ");
     else
 	return 0;
-    *leaderp = &llp->land;
-    pr("%s\n", prland(&llp->land));
+    *leaderp = &llp->unit.land;
+    pr("%s\n", prland(&llp->unit.land));
     return 1;
 }
 
@@ -204,7 +205,7 @@ static void
 switch_leader(struct emp_qelem *list, int land_uid)
 {
     struct emp_qelem *qp, *save;
-    struct llist *llp;
+    struct ulist *llp;
 
     if (QEMPTY(list))
 	return;
@@ -214,8 +215,8 @@ switch_leader(struct emp_qelem *list, int land_uid)
         emp_remque(qp);
         emp_insque(qp, list);
         qp = list->q_back;
-        llp = (struct llist *)qp;
-        if (llp->land.lnd_uid == land_uid || land_uid == -1)
+        llp = (struct ulist *)qp;
+        if (llp->unit.land.lnd_uid == land_uid || land_uid == -1)
             break;
     } while (list->q_back != save);
 }

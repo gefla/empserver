@@ -38,7 +38,8 @@
 #include "map.h"
 #include "optlist.h"
 #include "path.h"
-#include "ship.h"
+#include "empobj.h"
+#include "unit.h"
 
 static int set_flagship(struct emp_qelem *list, struct shpstr **flagshipp);
 static void switch_flagship(struct emp_qelem *list, int ship_uid);
@@ -288,16 +289,16 @@ nav_map(int x, int y, int show_designations)
 static int
 set_flagship(struct emp_qelem *list, struct shpstr **flagshipp)
 {
-    struct mlist *mlp = (struct mlist *)(list->q_back);
+    struct ulist *mlp = (struct ulist *)(list->q_back);
 
     if (!*flagshipp)
 	pr("Flagship is ");
-    else if ((*flagshipp)->shp_uid != mlp->ship.shp_uid)
+    else if ((*flagshipp)->shp_uid != mlp->unit.ship.shp_uid)
 	pr("Changing flagship to ");
     else
 	return 0;
-    *flagshipp = &mlp->ship;
-    pr("%s\n", prship(&mlp->ship));
+    *flagshipp = &mlp->unit.ship;
+    pr("%s\n", prship(&mlp->unit.ship));
     return 1;
 }
 
@@ -305,7 +306,7 @@ static void
 switch_flagship(struct emp_qelem *list, int ship_uid)
 {
     struct emp_qelem *qp, *save;
-    struct mlist *mlp;
+    struct ulist *mlp;
 
     if (QEMPTY(list))
 	return;
@@ -315,8 +316,8 @@ switch_flagship(struct emp_qelem *list, int ship_uid)
         emp_remque(qp);
         emp_insque(qp, list);
         qp = list->q_back;
-        mlp = (struct mlist *)qp;
-        if (mlp->ship.shp_uid == ship_uid || ship_uid == -1)
+        mlp = (struct ulist *)qp;
+        if (mlp->unit.ship.shp_uid == ship_uid || ship_uid == -1)
             break;
     } while (list->q_back != save);
 }

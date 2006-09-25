@@ -39,8 +39,9 @@
 #include <math.h>
 #include "nsc.h"
 #include "path.h"
-#include "ship.h"
 #include "update.h"
+#include "empobj.h"
+#include "unit.h"
 
 static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 
@@ -316,15 +317,15 @@ static void
 fltp_to_list(struct fltheadstr *fltp, struct emp_qelem *list)
 {
     struct fltelemstr *fe;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct shpstr *sp;
 
     emp_initque(list);
     for (fe = fltp->head; fe; fe = fe->next) {
-	mlp = malloc(sizeof(struct mlist));
+	mlp = malloc(sizeof(struct ulist));
 	sp = getshipp(fe->num);
-	mlp->mcp = mchr + sp->shp_type;
-	mlp->ship = *sp;
+	mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
+	mlp->unit.ship = *sp;
 	mlp->mobil = fe->mobil;
 	emp_insque(&mlp->queue, list);
     }

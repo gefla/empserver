@@ -39,28 +39,23 @@
 #include <stdlib.h>
 #include "damage.h"
 #include "file.h"
-#include "item.h"
-#include "land.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"
-#include "nat.h"
-#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
 #include "queue.h"
-#include "sect.h"
 #include "server.h"
-#include "ship.h"
 #include "xy.h"
+#include "empobj.h"
+#include "unit.h"
 
-static int shp_check_one_mines(struct mlist *);
+static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *, struct mchrstr *);
-static void shp_mess(char *, struct mlist *);
+static void shp_mess(char *, struct ulist *);
 
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
@@ -72,7 +67,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
     struct shpstr ship;
     struct mchrstr *mcp;
-    struct mlist *mlp;
+    struct ulist *mlp;
 
     emp_initque(list);
     while (nxtitem(ni, &ship)) {
@@ -107,9 +102,9 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	ship.shp_rflags = 0;
 	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	putship(ship.shp_uid, &ship);
-	mlp = malloc(sizeof(struct mlist));
-	mlp->mcp = mcp;
-	mlp->ship = ship;
+	mlp = malloc(sizeof(struct ulist));
+	mlp->chrp = (struct empobj_chr *)mcp;
+	mlp->unit.ship = ship;
 	mlp->mobil = ship.shp_mobil;
 	emp_insque(&mlp->queue, list);
     }
@@ -122,7 +117,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct sctstr sect;
     struct shpstr ship;
     coord allx;
@@ -134,8 +129,8 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     *togetherp = 1;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	getship(mlp->ship.shp_uid, &ship);
+	mlp = (struct ulist *)qp;
+	getship(mlp->unit.ship.shp_uid, &ship);
 	if (ship.shp_own != actor) {
 	    mpr(actor, "%s was sunk at %s\n",
 		prship(&ship), xyas(ship.shp_x, ship.shp_y, actor));
@@ -187,7 +182,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    *minmobp = mlp->mobil;
 	if (mlp->mobil > *maxmobp)
 	    *maxmobp = mlp->mobil;
-	mlp->ship = ship;
+	mlp->unit.ship = ship;
     }
 }
 
@@ -196,15 +191,16 @@ shp_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *newqp;
-    struct mlist *mlp;
+    struct ulist *mlp;
 
     qp = list->q_back;
     while (qp != list) {
-	mlp = (struct mlist *)qp;
-	mpr(actor, "%s stopped at %s\n", prship(&mlp->ship),
-	    xyas(mlp->ship.shp_x, mlp->ship.shp_y, mlp->ship.shp_own));
-	mlp->ship.shp_mobil = (int)mlp->mobil;
-	putship(mlp->ship.shp_uid, &mlp->ship);
+	mlp = (struct ulist *)qp;
+	mpr(actor, "%s stopped at %s\n", prship(&mlp->unit.ship),
+	    xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
+	    mlp->unit.ship.shp_own));
+	mlp->unit.ship.shp_mobil = (int)mlp->mobil;
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 	newqp = qp->q_back;
 	emp_remque(qp);
 	free(qp);
@@ -217,7 +213,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct sctstr sect;
     int mines, m, max, shells;
     int changed = 0;
@@ -225,34 +221,35 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (!(mlp->mcp->m_flags & M_SWEEP)) {
+	mlp = (struct ulist *)qp;
+	if (!(((struct mchrstr *)mlp->chrp)->m_flags & M_SWEEP)) {
 	    if (verbose)
 		mpr(actor, "%s doesn't have minesweeping capability!\n",
-		    prship(&mlp->ship));
+		    prship(&mlp->unit.ship));
 	    continue;
 	}
 	if (takemob && mlp->mobil <= 0.0) {
 	    if (verbose)
-		mpr(actor, "%s is out of mobility!\n", prship(&mlp->ship));
+		mpr(actor, "%s is out of mobility!\n",
+		    prship(&mlp->unit.ship));
 	    continue;
 	}
-	getsect(mlp->ship.shp_x, mlp->ship.shp_y, &sect);
+	getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
 	if (sect.sct_type != SCT_WATER) {
 	    if (verbose)
 		mpr(actor, "%s is not at sea.  No mines there!\n",
-		    prship(&mlp->ship));
+		    prship(&mlp->unit.ship));
 	    continue;
 	}
 	if (takemob) {
-	    mlp->mobil -= shp_mobcost(&mlp->ship);
-	    mlp->ship.shp_mobil = (int)mlp->mobil;
+	    mlp->mobil -= shp_mobcost(&mlp->unit.ship);
+	    mlp->unit.ship.shp_mobil = (int)mlp->mobil;
 	}
-	putship(mlp->ship.shp_uid, &mlp->ship);
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 	if (!(mines = sect.sct_mines))
 	    continue;
-	max = mlp->mcp->m_item[I_SHELL];
-	shells = mlp->ship.shp_item[I_SHELL];
+	max = ((struct mchrstr *)mlp->chrp)->m_item[I_SHELL];
+	shells = mlp->unit.ship.shp_item[I_SHELL];
 	for (m = 0; mines > 0 && m < 5; m++) {
 	    if (chance(0.66)) {
 		mpr(actor, "Sweep...\n");
@@ -262,13 +259,13 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 	    }
 	}
 	sect.sct_mines = mines;
-	mlp->ship.shp_item[I_SHELL] = shells;
+	mlp->unit.ship.shp_item[I_SHELL] = shells;
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
 	    free(qp);
 	}
-	putship(mlp->ship.shp_uid, &mlp->ship);
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 	putsect(&sect);
     }
     if (changed)
@@ -277,25 +274,25 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 }
 
 static int
-shp_check_one_mines(struct mlist *mlp)
+shp_check_one_mines(struct ulist *mlp)
 {
     struct sctstr sect;
     int actor;
 
-    getsect(mlp->ship.shp_x, mlp->ship.shp_y, &sect);
+    getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
     if (sect.sct_type != SCT_WATER)
 	return 0;
     if (!sect.sct_mines)
 	return 0;
     if (chance(DMINE_HITCHANCE(sect.sct_mines))) {
-	actor = mlp->ship.shp_own;
-	shp_hit_mine(&mlp->ship, mlp->mcp);
+	actor = mlp->unit.ship.shp_own;
+	shp_hit_mine(&mlp->unit.ship, ((struct mchrstr *)mlp->chrp));
 	sect.sct_mines--;
 	if (map_set(actor, sect.sct_x, sect.sct_y, 'X', 0))
 	    writemap(actor);
 	putsect(&sect);
-	putship(mlp->ship.shp_uid, &mlp->ship);
-	if (!mlp->ship.shp_own)
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
+	if (!mlp->unit.ship.shp_own)
 	    return 1;
     }
     return 0;
@@ -306,12 +303,12 @@ shp_check_mines(struct emp_qelem *ship_list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int stopping = 0;
 
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
+	mlp = (struct ulist *)qp;
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
@@ -326,18 +323,18 @@ shp_list(struct emp_qelem *ship_list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct shpstr *shp;
 
     pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
 
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	shp = &mlp->ship;
+	mlp = (struct ulist *)qp;
+	shp = &mlp->unit.ship;
 	pr("%4d ", shp->shp_uid);
-	pr("%-16.16s ", mlp->mcp->m_name);
-	prxy("%4d,%-4d ", shp->shp_x, shp->shp_y, mlp->ship.shp_own);
+	pr("%-16.16s ", ((struct mchrstr *)mlp->chrp)->m_name);
+	prxy("%4d,%-4d ", shp->shp_x, shp->shp_y, mlp->unit.ship.shp_own);
 	pr("%1.1s", &shp->shp_fleet);
 	pr("%4d%%", shp->shp_effic);
 	pr("%4d", shp->shp_item[I_MILIT]);
@@ -355,13 +352,14 @@ shp_list(struct emp_qelem *ship_list)
 }
 
 static void
-shp_mess(char *str, struct mlist *mlp)
+shp_mess(char *str, struct ulist *mlp)
 {
-    mpr(mlp->ship.shp_own, "%s %s & stays in %s\n",
-	prship(&mlp->ship),
-	str, xyas(mlp->ship.shp_x, mlp->ship.shp_y, mlp->ship.shp_own));
-    mlp->ship.shp_mobil = (int)mlp->mobil;
-    putship(mlp->ship.shp_uid, &mlp->ship);
+    mpr(mlp->unit.ship.shp_own, "%s %s & stays in %s\n",
+	prship(&mlp->unit.ship),
+	str, xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
+		  mlp->unit.ship.shp_own));
+    mlp->unit.ship.shp_mobil = (int)mlp->mobil;
+    putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     emp_remque((struct emp_qelem *)mlp);
     free(mlp);
 }
@@ -411,17 +409,19 @@ shp_count(struct emp_qelem *list, int wantflags, int nowantflags,
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int count = 0;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (mlp->ship.shp_x != x || mlp->ship.shp_y != y)
+	mlp = (struct ulist *)qp;
+	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
 	    continue;
-	if (wantflags && (mlp->mcp->m_flags & wantflags) != wantflags)
+	if (wantflags &&
+	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
 	    continue;
-	if (nowantflags && mlp->mcp->m_flags & nowantflags)
+	if (nowantflags &&
+	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
 	    continue;
 	++count;
     }
@@ -429,11 +429,11 @@ shp_count(struct emp_qelem *list, int wantflags, int nowantflags,
 }
 
 static void
-shp_damage_one(struct mlist *mlp, int dam)
+shp_damage_one(struct ulist *mlp, int dam)
 {
-    shipdamage(&mlp->ship, dam);
-    putship(mlp->ship.shp_uid, &mlp->ship);
-    if (!mlp->ship.shp_own) {
+    shipdamage(&mlp->unit.ship, dam);
+    putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
+    if (!mlp->unit.ship.shp_own) {
 	emp_remque((struct emp_qelem *)mlp);
 	free(mlp);
     }
@@ -445,7 +445,7 @@ shp_damage(struct emp_qelem *list, int totdam, int wantflags,
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int dam;
     int count;
 
@@ -455,12 +455,14 @@ shp_damage(struct emp_qelem *list, int totdam, int wantflags,
     dam = ldround((double)totdam / count, 1);
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (mlp->ship.shp_x != x || mlp->ship.shp_y != y)
+	mlp = (struct ulist *)qp;
+	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
 	    continue;
-	if (wantflags && (mlp->mcp->m_flags & wantflags) != wantflags)
+	if (wantflags &&
+	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
 	    continue;
-	if (nowantflags && mlp->mcp->m_flags & nowantflags)
+	if (nowantflags &&
+	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
 	    continue;
 	shp_damage_one(mlp, dam);
     }
@@ -473,47 +475,50 @@ shp_contains(struct emp_qelem *list, int newx, int newy, int wantflags,
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
+	mlp = (struct ulist *)qp;
 /* If the ship isn't in the requested sector, then continue */
-	if (newx != mlp->ship.shp_x || newy != mlp->ship.shp_y)
+	if (newx != mlp->unit.ship.shp_x || newy != mlp->unit.ship.shp_y)
 	    continue;
-	if (wantflags && (mlp->mcp->m_flags & wantflags) != wantflags)
+	if (wantflags &&
+	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
 	    continue;
-	if (nowantflags && mlp->mcp->m_flags & nowantflags)
+	if (nowantflags &&
+	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
 	    continue;
 	return 1;
     }
     return 0;
 }
 
-static struct mlist *
+static struct ulist *
 most_valuable_ship(struct emp_qelem *list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
-    struct mlist *mvs = 0;
+    struct ulist *mlp;
+    struct ulist *mvs = 0;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (mlp->mcp->m_flags & M_SUB)
+	mlp = (struct ulist *)qp;
+	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SUB)
 	    continue;
-	if (!mlp->mcp->m_nxlight &&
-	    !mlp->mcp->m_nchoppers &&
-	    mlp->mcp->m_cost < 1000 &&
-	    !mlp->mcp->m_nplanes && !mlp->mcp->m_nland)
+	if (!((struct mchrstr *)mlp->chrp)->m_nxlight &&
+	    !((struct mchrstr *)mlp->chrp)->m_nchoppers &&
+	    ((struct mchrstr *)mlp->chrp)->m_cost < 1000 &&
+	    !((struct mchrstr *)mlp->chrp)->m_nplanes &&
+	    !((struct mchrstr *)mlp->chrp)->m_nland)
 	    continue;
 	if (!mvs) {
 	    mvs = mlp;
 	    continue;
 	}
-	if (mlp->mcp->m_cost * mlp->ship.shp_effic >
-	    mvs->mcp->m_cost * mvs->ship.shp_effic)
+	if (((struct mchrstr *)mlp->chrp)->m_cost * mlp->unit.ship.shp_effic >
+	    ((struct mchrstr *)mlp->chrp)->m_cost * mvs->unit.ship.shp_effic)
 	    mvs = mlp;
     }
     return mvs;
@@ -524,19 +529,21 @@ shp_easiest_target(struct emp_qelem *list, int wantflags, int nowantflags)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int hard;
     int easiest = 9876;		/* things start great for victim */
     int count = 0;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (wantflags && (mlp->mcp->m_flags & wantflags) != wantflags)
+	mlp = (struct ulist *)qp;
+	if (wantflags &&
+	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
 	    continue;
-	if (nowantflags && mlp->mcp->m_flags & nowantflags)
+	if (nowantflags &&
+	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
 	    continue;
-	hard = shp_hardtarget(&mlp->ship);
+	hard = shp_hardtarget(&mlp->unit.ship);
 	if (hard < easiest)
 	    easiest = hard;	/* things get worse for victim */
 	++count;
@@ -552,16 +559,16 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
     int twotries;
     int stopping = 0;
     struct emp_qelem msl_list, *qp, *newqp;
-    struct mlist *mvs;
+    struct ulist *mvs;
     char what[512];
 
     msl_sel(&msl_list, newx, newy, victim, P_T | P_MAR, 0, MI_INTERDICT);
 
     twotries = 0;
     while (!QEMPTY(&msl_list) && (mvs = most_valuable_ship(list))) {
-	sprintf(what, "%s", prship(&mvs->ship));
+	sprintf(what, "%s", prship(&mvs->unit.ship));
 	dam = msl_launch_mindam(&msl_list, newx, newy,
-				shp_hardtarget(&mvs->ship),
+				shp_hardtarget(&mvs->unit.ship),
 				EF_SHIP, 1, what, victim, MI_INTERDICT);
 	if (dam) {
 	    mpr(victim,
@@ -594,7 +601,7 @@ notify_coastguard(struct emp_qelem *list, int trange, struct sctstr *sectp)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct natstr *natp;
     int vrange;
 
@@ -611,17 +618,18 @@ notify_coastguard(struct emp_qelem *list, int trange, struct sctstr *sectp)
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	if (mlp->mcp->m_flags & M_SUB)
+	mlp = (struct ulist *)qp;
+	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SUB)
 	    continue;
 	if (natp->nat_flags & NF_COASTWATCH)
 	    wu(0, sectp->sct_own,
 	       "%s %s sighted at %s\n",
-	       cname(mlp->ship.shp_own),
-	       prship(&mlp->ship),
-	       xyas(mlp->ship.shp_x, mlp->ship.shp_y, sectp->sct_own));
+	       cname(mlp->unit.ship.shp_own),
+	       prship(&mlp->unit.ship),
+	       xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
+		    sectp->sct_own));
 	if (opt_HIDDEN)
-	    setcont(sectp->sct_own, mlp->ship.shp_own, FOUND_COAST);
+	    setcont(sectp->sct_own, mlp->unit.ship.shp_own, FOUND_COAST);
     }
 
     return 1;
@@ -787,19 +795,19 @@ shp_view(struct emp_qelem *list)
     struct sctstr sect;
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	getsect(mlp->ship.shp_x, mlp->ship.shp_y, &sect);
-	if (mlp->mcp->m_flags & M_FOOD)
-	    mpr(mlp->ship.shp_own, "[fert:%d] ", sect.sct_fertil);
-	if (mlp->mcp->m_flags & M_OIL)
-	    mpr(mlp->ship.shp_own, "[oil:%d] ", sect.sct_oil);
-	mpr(mlp->ship.shp_own, "%s @ %s %d%% %s\n",
-	    prship(&mlp->ship),
-	    xyas(mlp->ship.shp_x, mlp->ship.shp_y, player->cnum),
+	mlp = (struct ulist *)qp;
+	getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
+	if (((struct mchrstr *)mlp->chrp)->m_flags & M_FOOD)
+	    mpr(mlp->unit.ship.shp_own, "[fert:%d] ", sect.sct_fertil);
+	if (((struct mchrstr *)mlp->chrp)->m_flags & M_OIL)
+	    mpr(mlp->unit.ship.shp_own, "[oil:%d] ", sect.sct_oil);
+	mpr(mlp->unit.ship.shp_own, "%s @ %s %d%% %s\n",
+	    prship(&mlp->unit.ship),
+	    xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, player->cnum),
 	    sect.sct_effic, dchr[sect.sct_type].d_name);
     }
 }
@@ -811,7 +819,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     struct sctstr sect;
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct mlist *mlp;
+    struct ulist *mlp;
     struct emp_qelem done;
     coord dx;
     coord dy;
@@ -832,16 +840,16 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     dy = diroff[dir][1];
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct mlist *)qp;
-	newx = xnorm(mlp->ship.shp_x + dx);
-	newy = ynorm(mlp->ship.shp_y + dy);
+	mlp = (struct ulist *)qp;
+	newx = xnorm(mlp->unit.ship.shp_x + dx);
+	newy = ynorm(mlp->unit.ship.shp_y + dy);
 	getsect(newx, newy, &sect);
-	navigate = shp_check_nav(&sect, &mlp->ship);
+	navigate = shp_check_nav(&sect, &mlp->unit.ship);
 	if (navigate != CN_NAVIGABLE ||
 	    (sect.sct_own && actor != sect.sct_own &&
 	     getrel(getnatp(sect.sct_own), actor) < FRIENDLY)) {
 	    if (dchr[sect.sct_type].d_nav == NAV_CANAL &&
-		!(mlp->mcp->m_flags & M_CANAL) &&
+		!(((struct mchrstr *)mlp->chrp)->m_flags & M_CANAL) &&
 		navigate == CN_LANDLOCKED)
 		sprintf(dp,
 			"is too large to fit into the canal system at %s",
@@ -861,25 +869,27 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    shp_mess("is out of mobility", mlp);
 	    continue;
 	}
-	mobcost = shp_mobcost(&mlp->ship);
-	mlp->ship.shp_x = newx;
-	mlp->ship.shp_y = newy;
+	mobcost = shp_mobcost(&mlp->unit.ship);
+	mlp->unit.ship.shp_x = newx;
+	mlp->unit.ship.shp_y = newy;
 	if (mlp->mobil - mobcost < -127) {
 	    mlp->mobil = -127;
 	} else {
 	    mlp->mobil -= mobcost;
 	}
-	mlp->ship.shp_mobil = (int)mlp->mobil;
-	putship(mlp->ship.shp_uid, &mlp->ship);
+	mlp->unit.ship.shp_mobil = (int)mlp->mobil;
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 
 	/* Now update the map for this ship */
-	tech = techfact(mlp->ship.shp_tech, mlp->mcp->m_vrnge);
-	if (mlp->mcp->m_flags & M_SONAR)
-	    tf = techfact(mlp->ship.shp_tech, 1.0);
+	tech = techfact(mlp->unit.ship.shp_tech,
+			((struct mchrstr *)mlp->chrp)->m_vrnge);
+	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SONAR)
+	    tf = techfact(mlp->unit.ship.shp_tech, 1.0);
 	else
 	    tf = 0.0;
-	radmapupd(mlp->ship.shp_own, mlp->ship.shp_x, mlp->ship.shp_y,
-		  (int)mlp->ship.shp_effic, (int)tech, tf);
+	radmapupd(mlp->unit.ship.shp_own,
+		  mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
+		  (int)mlp->unit.ship.shp_effic, (int)tech, tf);
     }
     if (QEMPTY(list))
 	return stopping;
@@ -893,15 +903,16 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     /* interdict ships sector by sector */
     emp_initque(&done);
     while (!QEMPTY(list)) {
-	mlp = (struct mlist *)list->q_back;
-	newx = mlp->ship.shp_x;
-	newy = mlp->ship.shp_y;
+	mlp = (struct ulist *)list->q_back;
+	newx = mlp->unit.ship.shp_x;
+	newy = mlp->unit.ship.shp_y;
 	stopping |= shp_interdict(list, newx, newy, actor);
 	/* move survivors in this sector to done */
 	for (qp = list->q_back; qp != list; qp = next) {
 	    next = qp->q_back;
-	    mlp = (struct mlist *)qp;
-	    if (mlp->ship.shp_x == newx && mlp->ship.shp_y == newy) {
+	    mlp = (struct ulist *)qp;
+	    if (mlp->unit.ship.shp_x == newx &&
+		mlp->unit.ship.shp_y == newy) {
 		emp_remque(qp);
 		emp_insque(qp, &done);
 	    }
@@ -1028,18 +1039,18 @@ void
 shp_missdef(struct shpstr *sp, natid victim)
 {
     struct emp_qelem list;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int eff;
     char buf[512];
 
     emp_initque(&list);
 
-    mlp = malloc(sizeof(struct mlist));
-    mlp->mcp = &mchr[(int)sp->shp_type];
-    mlp->ship = *sp;
+    mlp = malloc(sizeof(struct ulist));
+    mlp->chrp = (struct empobj_chr *)&mchr[(int)sp->shp_type];
+    mlp->unit.ship = *sp;
     mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &list);
-    sprintf(buf, "%s", prship(&mlp->ship));
+    sprintf(buf, "%s", prship(&mlp->unit.ship));
 
     eff = sp->shp_effic;
     if (most_valuable_ship(&list)) {

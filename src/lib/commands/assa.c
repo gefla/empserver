@@ -36,10 +36,10 @@
 
 #include "combat.h"
 #include "commands.h"
-#include "land.h"
 #include "mission.h"
 #include "path.h"
-#include "ship.h"
+#include "empobj.h"
+#include "unit.h"
 
 int
 assa(void)
@@ -59,7 +59,7 @@ assa(void)
     int n;
     int ourtotal;
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
     int rel;
 
     att_combat_init(off, EF_SHIP);
@@ -149,8 +149,8 @@ assa(void)
     }
     for (qp = olist.q_forw; qp != &olist; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (lchr[(int)llp->land.lnd_type].l_flags & L_SPY)
+	llp = (struct ulist *)qp;
+	if (lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY)
 	    continue;
 	ourtotal++;
     }
@@ -163,34 +163,34 @@ assa(void)
 
 	for (qp = olist.q_forw; qp != &olist; qp = next) {
 	    next = qp->q_forw;
-	    llp = (struct llist *)qp;
+	    llp = (struct ulist *)qp;
 	    rel = getrel(getnatp(def->own), player->cnum);
 	    if (chance(0.10) || rel == ALLIED || !def->own) {
-		pr("%s made it on shore safely.\n", prland(&llp->land));
-		llp->land.lnd_x = def->x;
-		llp->land.lnd_y = def->y;
-		llp->land.lnd_ship = -1;
-		putland(llp->land.lnd_uid, &llp->land);
+		pr("%s made it on shore safely.\n", prland(&llp->unit.land));
+		llp->unit.land.lnd_x = def->x;
+		llp->unit.land.lnd_y = def->y;
+		llp->unit.land.lnd_ship = -1;
+		putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	    } else {
-		pr("%s was spotted", prland(&llp->land));
+		pr("%s was spotted", prland(&llp->unit.land));
 		if (rel == HOSTILE || rel == AT_WAR || rel == SITZKRIEG ||
 		    rel == MOBILIZATION) {
 		    wu(0, def->own, "%s spy shot and killed in %s.\n",
 		       cname(player->cnum), xyas(def->x, def->y,
 						 def->own));
 		    pr(" and was killed in the attempt.\n");
-		    llp->land.lnd_effic = 0;
-		    putland(llp->land.lnd_uid, &llp->land);
+		    llp->unit.land.lnd_effic = 0;
+		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
 		    lnd_delete(llp, "");
 		} else {
 		    wu(0, def->own, "%s spy spotted in %s.\n",
 		       cname(player->cnum), xyas(def->x, def->y,
 						 def->own));
 		    pr(" but made it ok.\n");
-		    llp->land.lnd_x = def->x;
-		    llp->land.lnd_y = def->y;
-		    llp->land.lnd_ship = -1;
-		    putland(llp->land.lnd_uid, &llp->land);
+		    llp->unit.land.lnd_x = def->x;
+		    llp->unit.land.lnd_y = def->y;
+		    llp->unit.land.lnd_ship = -1;
+		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
 		}
 	    }
 	}

@@ -36,11 +36,11 @@
 
 
 #include <ctype.h>
-#include "item.h"
 #include "nsc.h"
 #include "path.h"
-#include "ship.h"
 #include "update.h"
+#include "empobj.h"
+#include "unit.h"
 
 static void swap(struct shpstr *);
 
@@ -233,7 +233,7 @@ nav_ship(struct shpstr *sp)
     char buf[1024];
     struct emp_qelem ship_list;
     struct emp_qelem *qp, *newqp;
-    struct mlist *mlp;
+    struct ulist *mlp;
     int dummyint;
     double dummydouble;
     int dir;
@@ -249,9 +249,9 @@ nav_ship(struct shpstr *sp)
 
     /* Make a list of one ships so we can use the navi.c code */
     emp_initque(&ship_list);
-    mlp = malloc(sizeof(struct mlist));
-    mlp->mcp = mchr + sp->shp_type;
-    mlp->ship = *sp;
+    mlp = malloc(sizeof(struct ulist));
+    mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
+    mlp->unit.ship = *sp;
     mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &ship_list);
 
@@ -268,9 +268,10 @@ nav_ship(struct shpstr *sp)
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 	    if (opt_FUEL &&
 		sectp->sct_own != 0 &&
-		sp->shp_fuel <= 0 && mlp->mcp->m_fuelu != 0)
+		sp->shp_fuel <= 0 &&
+		((struct mchrstr *)mlp->chrp)->m_fuelu != 0)
 		auto_fuel_ship(sp);
-	    mlp->ship.shp_fuel = sp->shp_fuel;
+	    mlp->unit.ship.shp_fuel = sp->shp_fuel;
 
 	    cp = BestShipPath(buf, sp->shp_x, sp->shp_y,
 			      sp->shp_destx[0], sp->shp_desty[0],

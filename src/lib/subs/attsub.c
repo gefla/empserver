@@ -39,31 +39,25 @@
 #include <math.h>
 #include "combat.h"
 #include "file.h"
-#include "item.h"
-#include "land.h"
-#include "lost.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"
-#include "nat.h"
-#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
 #include "plague.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
-#include "ship.h"
-#include "treaty.h"
 #include "xy.h"
+#include "empobj.h"
+#include "unit.h"
 
 #define CASUALTY_LUMP	1	/* How big casualty chunks should be */
 
 static void ask_olist(int combat_mode, struct combat *off,
 		      struct combat *def, struct emp_qelem *olist,
 		      char *land_answer, int *a_spyp, int *a_engineerp);
-static void take_move_in_mob(int combat_mode, struct llist *llp,
+static void take_move_in_mob(int combat_mode, struct ulist *llp,
 			     struct combat *off, struct combat *def);
 static void move_in_land(int combat_mode, struct combat *off,
 			 struct emp_qelem *olist, struct combat *def);
@@ -90,7 +84,7 @@ static int take_def(int combat_mode, struct emp_qelem *list,
 		    struct combat *off, struct combat *def);
 
 static int get_land(int combat_mode, struct combat *def, int uid,
-		    struct llist *llp, int victim_land);
+		    struct ulist *llp, int victim_land);
 
 char *att_mode[] = {
     /* must match combat types in combat.h */
@@ -984,7 +978,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
     struct nstr_item ni;
     struct lndstr land;
     double mobcost;
-    struct llist *llp;
+    struct ulist *llp;
     struct lchrstr *lcp;
     double att_val;
     int count = 0;
@@ -1110,19 +1104,19 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		land_answer[(int)land.lnd_army] != 'Y')
 		continue;
 	}
-	if (!(llp = malloc(sizeof(struct llist)))) {
+	if (!(llp = malloc(sizeof(struct ulist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
 	    return;
 	}
-	memset(llp, 0, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, olist);
 	llp->mobil = mobcost;
 	if (!get_land(combat_mode, def, land.lnd_uid, llp, 0))
 	    continue;
 	if (lnd_spyval(&land) > *a_spyp)
 	    *a_spyp = lnd_spyval(&land);
-	if (llp->lcp->l_flags & L_ENGINEER)
+	if (((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)
 	    ++*a_engineerp;
 	if (def->type == EF_SHIP && ++count >= maxland)
 	    break;
@@ -1179,7 +1173,7 @@ att_get_defense(struct emp_qelem *olist, struct combat *def,
 {
     int d_spy = 0;
     struct emp_qelem *qp;
-    struct llist *llp;
+    struct ulist *llp;
     int dtotal;
     int old_dtotal;
 
@@ -1195,8 +1189,8 @@ att_get_defense(struct emp_qelem *olist, struct combat *def,
 	att_reacting_units(def, dlist, a_spy, &d_spy, ototal);
 
     for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
-	llp = (struct llist *)qp;
-	intelligence_report(def->own, &llp->land, d_spy,
+	llp = (struct ulist *)qp;
+	intelligence_report(def->own, &llp->unit.land, d_spy,
 			    "Scouts report attacking unit:");
     }
 
@@ -1215,7 +1209,7 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	  int *d_spyp)
 {
     struct nstr_item ni;
-    struct llist *llp;
+    struct ulist *llp;
     struct lndstr land;
 
 /* In here is where you need to take out spies and trains from the defending
@@ -1240,12 +1234,12 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 				"Scouts report defending unit:");
 	    continue;
 	}
-	if (!(llp = malloc(sizeof(struct llist)))) {
+	if (!(llp = malloc(sizeof(struct ulist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
 	    return;
 	}
-	memset(llp, 0, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, list);
 	llp->supplied = has_supply(&land);
 	if (!get_land(A_DEFEND, def, land.lnd_uid, llp, 1))
@@ -1263,7 +1257,7 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 {
     double ototal = 0.0;
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
     int n, w;
 
     /*
@@ -1284,26 +1278,26 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (check && !get_land(combat_mode, 0, llp->land.lnd_uid, llp, 0))
+	llp = (struct ulist *)qp;
+	if (check && !get_land(combat_mode, 0, llp->unit.land.lnd_uid, llp, 0))
 	    continue;
 	if (combat_mode == A_ATTACK) {
 	    w = -1;
 	    for (n = 0; n <= off->last; ++n) {
 		if (off[n].type == EF_BAD)
 		    continue;
-		if ((off[n].x == llp->land.lnd_x) &&
-		    (off[n].y == llp->land.lnd_y))
+		if ((off[n].x == llp->unit.land.lnd_x) &&
+		    (off[n].y == llp->unit.land.lnd_y))
 		    w = n;
 	    }
 	    if (w < 0) {
 		lnd_delete(llp, "is in a sector not owned by you");
 		continue;
 	    }
-	    ototal += attack_val(combat_mode, &llp->land) *
+	    ototal += attack_val(combat_mode, &llp->unit.land) *
 		att_combat_eff(off + w);
 	} else {
-	    ototal += attack_val(combat_mode, &llp->land);
+	    ototal += attack_val(combat_mode, &llp->unit.land);
 	}
     }
     ototal *= osupport;
@@ -1319,7 +1313,7 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
 {
     double dtotal = 0.0, eff = 1.0, d_unit;
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
 
     if (check && att_get_combat(def, 1) < 0)
 	return 0;
@@ -1333,10 +1327,10 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (check && !get_land(A_DEFEND, def, llp->land.lnd_uid, llp, 1))
+	llp = (struct ulist *)qp;
+	if (check && !get_land(A_DEFEND, def, llp->unit.land.lnd_uid, llp, 1))
 	    continue;
-	d_unit = defense_val(&llp->land);
+	d_unit = defense_val(&llp->unit.land);
 	if (!llp->supplied)
 	    d_unit /= 2.0;
 	dtotal += d_unit * eff;
@@ -1353,18 +1347,18 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
  */
 
 static int
-get_land(int combat_mode, struct combat *def, int uid, struct llist *llp,
+get_land(int combat_mode, struct combat *def, int uid, struct ulist *llp,
 	 int victim_land)
 {
-    struct lndstr *lp = &llp->land;
+    struct lndstr *lp = &llp->unit.land;
     char buf[512];
 
     getland(uid, lp);
 
-    if (!llp->lcp) {		/* first time */
-	llp->x = llp->land.lnd_x;
-	llp->y = llp->land.lnd_y;
-	llp->lcp = &lchr[(int)llp->land.lnd_type];
+    if (!llp->chrp) {		/* first time */
+	llp->x = llp->unit.land.lnd_x;
+	llp->y = llp->unit.land.lnd_y;
+	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
     } else {			/* not first time */
 	if (lp->lnd_effic < LAND_MINEFF) {
 	    sprintf(buf, "was destroyed and is no longer a part of the %s",
@@ -1400,7 +1394,7 @@ get_land(int combat_mode, struct combat *def, int uid, struct llist *llp,
 	    }
 	}
     }
-    llp->eff = llp->land.lnd_effic;
+    llp->eff = llp->unit.land.lnd_effic;
 
     return 1;
 }
@@ -1416,13 +1410,13 @@ static void
 kill_land(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (llp->land.lnd_ship >= 0) {
-	    llp->land.lnd_effic = 0;
+	llp = (struct ulist *)qp;
+	if (llp->unit.land.lnd_ship >= 0) {
+	    llp->unit.land.lnd_effic = 0;
 	    lnd_delete(llp, "cannot return to the ship, and dies!");
 	}
     }
@@ -1432,15 +1426,15 @@ static void
 att_infect_units(struct emp_qelem *list, int plague)
 {
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
 
     if (!plague)
 	return;
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (llp->land.lnd_pstage == PLG_HEALTHY)
-	    llp->land.lnd_pstage = PLG_EXPOSED;
+	llp = (struct ulist *)qp;
+	if (llp->unit.land.lnd_pstage == PLG_HEALTHY)
+	    llp->unit.land.lnd_pstage = PLG_EXPOSED;
     }
 }
 
@@ -1448,21 +1442,21 @@ static void
 put_land(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	llp->land.lnd_mission = 0;
-	llp->land.lnd_harden = 0;
-	llp->land.lnd_mobil -= (int)llp->mobil;
+	llp = (struct ulist *)qp;
+	llp->unit.land.lnd_mission = 0;
+	llp->unit.land.lnd_harden = 0;
+	llp->unit.land.lnd_mobil -= (int)llp->mobil;
 	llp->mobil = 0.0;
-	putland(llp->land.lnd_uid, &llp->land);
-	if (llp->land.lnd_own != player->cnum) {
+	putland(llp->unit.land.lnd_uid, &llp->unit.land);
+	if (llp->unit.land.lnd_own != player->cnum) {
 	    emp_remque((struct emp_qelem *)llp);
 	    free(llp);
 	} else
-	    get_land(A_ATTACK, 0, llp->land.lnd_uid, llp, 0);
+	    get_land(A_ATTACK, 0, llp->unit.land.lnd_uid, llp, 0);
     }
 }
 
@@ -1478,7 +1472,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     struct nstr_item ni;
     struct lndstr land;
     struct sctstr sect, dsect;
-    struct llist *llp;
+    struct ulist *llp;
     int dtotal;
     double new_land = 0;
     double mobcost;
@@ -1555,14 +1549,14 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	wu(0, land.lnd_own, "%s reacts to %s.\n",
 	   prland(&land), xyas(land.lnd_x, land.lnd_y, land.lnd_own));
 
-	llp = malloc(sizeof(struct llist));
+	llp = malloc(sizeof(struct ulist));
 
-	memset(llp, 0, sizeof(struct llist));
+	memset(llp, 0, sizeof(struct ulist));
 	llp->supplied = 1;
 	llp->x = origx;
 	llp->y = origy;
-	llp->lcp = &lchr[(int)land.lnd_type];
-	llp->land = land;
+	llp->chrp = (struct empobj_chr *)&lchr[(int)land.lnd_type];
+	llp->unit.land = land;
 	emp_insque(&llp->queue, list);
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
@@ -1766,13 +1760,13 @@ count_bodies(struct combat *off, struct emp_qelem *list)
     int n;
     int bodies = 0;
     struct emp_qelem *qp;
-    struct llist *llp;
+    struct ulist *llp;
 
     for (n = 0; n <= off->last; ++n)
 	bodies += off[n].troops;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-	llp = (struct llist *)qp;
-	bodies += llp->land.lnd_item[I_MILIT];
+	llp = (struct ulist *)qp;
+	bodies += llp->unit.land.lnd_item[I_MILIT];
     }
     return bodies;
 }
@@ -2084,7 +2078,7 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
     int biggest_troops = 0, index = -1;
     int n, tot_troops = 0, biggest_mil, cas;
     struct emp_qelem *qp, *biggest;
-    struct llist *llp;
+    struct ulist *llp;
 
     for (n = 0; n <= off->last; ++n) {
 	if (off[n].type != EF_BAD) {
@@ -2141,17 +2135,17 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
     biggest = NULL;
     biggest_mil = -1;
     for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
-	llp = (struct llist *)qp;
+	llp = (struct ulist *)qp;
 
-	if (llp->land.lnd_item[I_MILIT] > biggest_mil) {
-	    biggest_mil = llp->land.lnd_item[I_MILIT];
+	if (llp->unit.land.lnd_item[I_MILIT] > biggest_mil) {
+	    biggest_mil = llp->unit.land.lnd_item[I_MILIT];
 	    biggest = qp;
 	}
     }
     if (biggest == NULL)
 	return CASUALTY_LUMP - to_take;
 
-    llp = (struct llist *)biggest;
+    llp = (struct ulist *)biggest;
     cas = lnd_take_casualty(combat_mode, llp, to_take);
     return CASUALTY_LUMP - (to_take - cas);
 }
@@ -2162,17 +2156,18 @@ static void
 send_reacting_units_home(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
     char buf[1024];
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if ((llp->land.lnd_x != llp->x) || (llp->land.lnd_y != llp->y)) {
+	llp = (struct ulist *)qp;
+	if ((llp->unit.land.lnd_x != llp->x) ||
+	    (llp->unit.land.lnd_y != llp->y)) {
 	    sprintf(buf, "returns to %s",
-		    xyas(llp->x, llp->y, llp->land.lnd_own));
-	    llp->land.lnd_x = llp->x;
-	    llp->land.lnd_y = llp->y;
+		    xyas(llp->x, llp->y, llp->unit.land.lnd_own));
+	    llp->unit.land.lnd_x = llp->x;
+	    llp->unit.land.lnd_y = llp->y;
 	    lnd_delete(llp, buf);
 	}
     }
@@ -2207,7 +2202,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 {
     int n;
     int occuppied = 0;
-    struct llist *llp, *delete_me = 0;
+    struct ulist *llp, *delete_me = 0;
     char buf[1024];
     struct sctstr sect;
     struct shpstr ship;
@@ -2239,16 +2234,16 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 		   pr_com(2, def, def->own));
 	    return 0;
 	} else {
-	    llp = (struct llist *)list->q_forw;
-	    llp->land.lnd_x = def->x;
-	    llp->land.lnd_y = def->y;
+	    llp = (struct ulist *)list->q_forw;
+	    llp->unit.land.lnd_x = def->x;
+	    llp->unit.land.lnd_y = def->y;
 	    take_move_in_mob(combat_mode, llp, off, def);
 	    if (def->type == EF_SHIP) {
-		llp->land.lnd_ship = def->shp_uid;
+		llp->unit.land.lnd_ship = def->shp_uid;
 		sprintf(buf, "boards %s", prcom(0, def));
 		delete_me = llp;
 	    } else {
-		llp->land.lnd_ship = -1;
+		llp->unit.land.lnd_ship = -1;
 		sprintf(buf, "moves in to occupy %s",
 			xyas(def->x, def->y, player->cnum));
 		lnd_delete(llp, buf);
@@ -2289,7 +2284,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 {
     int n;
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
     char buf[512];
     char prompt[512];
     char land_answer[256];
@@ -2308,29 +2303,30 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     memset(land_answer, 0, sizeof(land_answer));
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	answerp = &land_answer[(int)llp->land.lnd_army];
+	llp = (struct ulist *)qp;
+	answerp = &land_answer[(int)llp->unit.land.lnd_army];
 	if (player->aborted || att_get_combat(def, 0) < 0)
 	    *answerp = 'N';
 	if (*answerp == 'Y')
 	    continue;
 	if (*answerp != 'N') {
-	    if (!get_land(A_ATTACK, def, llp->land.lnd_uid, llp, 0))
+	    if (!get_land(A_ATTACK, def, llp->unit.land.lnd_uid, llp, 0))
 		continue;
 	    sprintf(prompt, "Move in with %s (%c %d%%) [ynYNq?] ",
-		    prland(&llp->land),
-		    llp->land.lnd_army ? llp->land.lnd_army :  '~',
-		    llp->land.lnd_effic);
-	    *answerp = att_prompt(prompt, llp->land.lnd_army);
+		    prland(&llp->unit.land),
+		    llp->unit.land.lnd_army ? llp->unit.land.lnd_army :  '~',
+		    llp->unit.land.lnd_effic);
+	    *answerp = att_prompt(prompt, llp->unit.land.lnd_army);
 	    if (player->aborted || att_get_combat(def, 0) < 0)
 		*answerp = 'N';
-	    if (!get_land(A_ATTACK, def, llp->land.lnd_uid, llp, 0))
+	    if (!get_land(A_ATTACK, def, llp->unit.land.lnd_uid, llp, 0))
 		continue;
 	}
 	if (*answerp == 'y' || *answerp == 'Y')
 	    continue;
 	sprintf(buf, "stays in %s",
-		xyas(llp->land.lnd_x, llp->land.lnd_y, player->cnum));
+		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
+		     player->cnum));
 	lnd_delete(llp, buf);
     }
     if (QEMPTY(olist))
@@ -2338,11 +2334,12 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     if (att_get_combat(def, 0) < 0) {
 	for (qp = olist->q_forw; qp != olist; qp = next) {
 	    next = qp->q_forw;
-	    llp = (struct llist *)qp;
-	    if (!get_land(A_ATTACK, def, llp->land.lnd_uid, llp, 0))
+	    llp = (struct ulist *)qp;
+	    if (!get_land(A_ATTACK, def, llp->unit.land.lnd_uid, llp, 0))
 		continue;
 	    sprintf(buf, "stays in %s",
-		    xyas(llp->land.lnd_x, llp->land.lnd_y, player->cnum));
+		    xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
+			 player->cnum));
 	    lnd_delete(llp, buf);
 	}
 	return;
@@ -2359,23 +2356,23 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	     struct combat *def)
 {
     struct emp_qelem *qp, *next;
-    struct llist *llp;
+    struct ulist *llp;
     char buf[512];
 
     if (QEMPTY(olist))
 	return;
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
-	if (!get_land(combat_mode, def, llp->land.lnd_uid, llp, 0))
+	llp = (struct ulist *)qp;
+	if (!get_land(combat_mode, def, llp->unit.land.lnd_uid, llp, 0))
 	    continue;
 	take_move_in_mob(combat_mode, llp, off, def);
-	llp->land.lnd_x = def->x;
-	llp->land.lnd_y = def->y;
+	llp->unit.land.lnd_x = def->x;
+	llp->unit.land.lnd_y = def->y;
 	if (def->type == EF_SHIP)
-	    llp->land.lnd_ship = def->shp_uid;
+	    llp->unit.land.lnd_ship = def->shp_uid;
 	else
-	    llp->land.lnd_ship = -1;
+	    llp->unit.land.lnd_ship = -1;
     }
     if (QEMPTY(olist))
 	return;
@@ -2392,7 +2389,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	return;
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
-	llp = (struct llist *)qp;
+	llp = (struct ulist *)qp;
 	lnd_print(llp, buf);
     }
     if (QEMPTY(olist))
@@ -2523,7 +2520,7 @@ ask_move_in_off(struct combat *off, struct combat *def)
 /* Charge land units for moving into a sector or onto a ship */
 
 static void
-take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
+take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 		 struct combat *def)
 {
     int mobcost;
@@ -2531,37 +2528,39 @@ take_move_in_mob(int combat_mode, struct llist *llp, struct combat *off,
 
     switch (combat_mode) {
     case A_ATTACK:
-	mobcost = lnd_pathcost(&llp->land,
+	mobcost = lnd_pathcost(&llp->unit.land,
 			       att_mobcost(off->own, def,
-					   lnd_mobtype(&llp->land)));
-	new = llp->land.lnd_mobil - mobcost;
+					   lnd_mobtype(&llp->unit.land)));
+	new = llp->unit.land.lnd_mobil - mobcost;
 	if (new < -127)
 	    new = -127;
-	llp->land.lnd_mobil = new;
+	llp->unit.land.lnd_mobil = new;
 	break;
     case A_ASSAULT:
 	if (off->shp_mcp->m_flags & M_LAND) {
-	    if (llp->lcp->l_flags & L_MARINE)
-		llp->land.lnd_mobil -=
+	    if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
+		llp->unit.land.lnd_mobil -=
 		    (float)etu_per_update * land_mob_scale * 0.5;
 	    else
-		llp->land.lnd_mobil -= (float)etu_per_update * land_mob_scale;
+		llp->unit.land.lnd_mobil -= (float)etu_per_update *
+		    land_mob_scale;
 	} else {
-	    if (llp->lcp->l_flags & L_MARINE)
-		llp->land.lnd_mobil = 0;
+	    if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
+		llp->unit.land.lnd_mobil = 0;
 	    else
-		llp->land.lnd_mobil = -(float)etu_per_update * land_mob_scale;
+		llp->unit.land.lnd_mobil = -(float)etu_per_update *
+		    land_mob_scale;
 	}
 	break;
     case A_BOARD:
 	/* I arbitrarily chose the numbers 10 and 40 below -KHS */
-	if (llp->lcp->l_flags & L_MARINE)
-	    llp->land.lnd_mobil -= 10;
+	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
+	    llp->unit.land.lnd_mobil -= 10;
 	else
-	    llp->land.lnd_mobil -= 40;
+	    llp->unit.land.lnd_mobil -= 40;
 	break;
     }
-    llp->land.lnd_harden = 0;
+    llp->unit.land.lnd_harden = 0;
 }
 
 static void

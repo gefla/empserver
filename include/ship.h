@@ -185,13 +185,6 @@ struct mchrstr {
 
 extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
 
-struct mlist {
-    struct emp_qelem queue;	/* list of ships */
-    struct mchrstr *mcp;	/* pointer to desc of ship */
-    struct shpstr ship;		/* struct ship */
-    double mobil;		/* how much mobility the ship has left */
-};
-
 #define SHP_DEF(b, t) (t ? (b * (logx(t, 40.0) < 1.0 ? 1.0 : \
 				 logx(t, 40.0))) : b)
 #define SHP_SPD(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
