@@ -57,6 +57,7 @@ struct trdstr;
 struct trtstr;
 struct comstr;
 struct cmndstr;
+struct ulist;
 
 union empobj_storage;
 
