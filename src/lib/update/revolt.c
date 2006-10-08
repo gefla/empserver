@@ -168,7 +168,10 @@ guerrilla(struct sctstr *sp)
 
 	mil += lp->lnd_item[I_MILIT];
 
-	/* Security troops can now kill up to 1/2 their complement each
+	if (sp->sct_che_target != sp->sct_own)
+	    continue;
+
+	/* Security troops can now kill up to 1/5 their complement each
 	   update, before doing anything else. */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
 	    int che_kill, r;
