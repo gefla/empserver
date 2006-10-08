@@ -465,15 +465,14 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	cantake = ((lp->lnd_effic - 40) / 100.0)
-	    * lp->lnd_item[I_MILIT] * 2.0;
+	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
 
 	if (cantake >= each) {
-	    deq = (each / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
-	    mc -= each;
+	    deq = ((double)each / lp->lnd_item[I_MILIT]) * 100.0;
+	    mc -= 2 * each;
 	} else if (cantake > 0) {
-	    deq = (cantake / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
-	    mc -= (deq / 100.0) * lp->lnd_item[I_MILIT] * 2.0;
+	    deq = ((double)cantake / lp->lnd_item[I_MILIT]) * 100.0;
+	    mc -= 2 * cantake;
 	} else
 	    deq = 0;
 
@@ -494,11 +493,11 @@ take_casualties(struct sctstr *sp, int mc)
 	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
 
 	if (cantake >= each) {
-	    deq = ((double)each / (lp->lnd_item[I_MILIT] * 2.0)) * 100.0;
+	    deq = ((double)each / lp->lnd_item[I_MILIT]) * 100.0;
 	    mc -= each;
 	} else if (cantake > 0) {
 	    deq = ((double)cantake / lp->lnd_item[I_MILIT]) * 100.0;
-	    mc -= (deq / 100.0) * lp->lnd_item[I_MILIT];
+	    mc -= cantake;
 	} else
 	    deq = 0;
 
