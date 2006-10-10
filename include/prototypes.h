@@ -62,6 +62,7 @@ extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
+extern void switch_leader(struct emp_qelem *list, int uid);
 extern int count_pop(int);
 extern int scuttle_tradeship(struct shpstr *, int);
 extern void scuttle_ship(struct shpstr *);

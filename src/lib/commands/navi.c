@@ -42,7 +42,6 @@
 #include "unit.h"
 
 static int set_flagship(struct emp_qelem *list, struct shpstr **flagshipp);
-static void switch_flagship(struct emp_qelem *list, int ship_uid);
 
 int
 navi(void)
@@ -168,9 +167,9 @@ navi(void)
 	    break;
 	case 'f':
 	    if (ac <= 1) 
-		switch_flagship(&ship_list, -1);
+		switch_leader(&ship_list, -1);
 	    else
-		switch_flagship(&ship_list, atoi(player->argp[1]));
+		switch_leader(&ship_list, atoi(player->argp[1]));
 	    set_flagship(&ship_list, &shp);
 	    break;
 	case 'i':
@@ -301,24 +300,3 @@ set_flagship(struct emp_qelem *list, struct shpstr **flagshipp)
     pr("%s\n", prship(&mlp->unit.ship));
     return 1;
 }
-
-static void
-switch_flagship(struct emp_qelem *list, int ship_uid)
-{
-    struct emp_qelem *qp, *save;
-    struct ulist *mlp;
-
-    if (QEMPTY(list))
-	return;
-
-    save = qp = list->q_back;
-    do {
-        emp_remque(qp);
-        emp_insque(qp, list);
-        qp = list->q_back;
-        mlp = (struct ulist *)qp;
-        if (mlp->unit.ship.shp_uid == ship_uid || ship_uid == -1)
-            break;
-    } while (list->q_back != save);
-}
-

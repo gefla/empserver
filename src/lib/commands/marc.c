@@ -43,7 +43,6 @@
 #include "unit.h"
 
 static int set_leader(struct emp_qelem *list, struct lndstr **leaderp);
-static void switch_leader(struct emp_qelem *list, int land_uid);
 
 int
 march(void)
@@ -201,11 +200,11 @@ set_leader(struct emp_qelem *list, struct lndstr **leaderp)
     return 1;
 }
 
-static void
-switch_leader(struct emp_qelem *list, int land_uid)
+void
+switch_leader(struct emp_qelem *list, int uid)
 {
     struct emp_qelem *qp, *save;
-    struct ulist *llp;
+    struct ulist *ulp;
 
     if (QEMPTY(list))
 	return;
@@ -215,8 +214,8 @@ switch_leader(struct emp_qelem *list, int land_uid)
         emp_remque(qp);
         emp_insque(qp, list);
         qp = list->q_back;
-        llp = (struct ulist *)qp;
-        if (llp->unit.land.lnd_uid == land_uid || land_uid == -1)
+        ulp = (struct ulist *)qp;
+        if (ulp->unit.gen.uid == uid || uid == -1)
             break;
     } while (list->q_back != save);
 }
