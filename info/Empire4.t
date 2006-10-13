@@ -7,6 +7,24 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.8 - Fri Oct 13 18:22:42 UTC 2006
+ * Fix land unit casualties in revolts.
+ * Fix security units not to raid friendly che.
+ * Fix update sequence to ensure stopped sectors don't work on the
+   ships, planes and land units in the sector.  Before 4.3.6, this bug
+   bit only when you fooled around with budget priorities.
+ * Fix canal loading (was broken in 4.3.0).
+ * Fix tend not to tend land units that could not be loaded.
+ * Make xdump command available before break, but deny access to game
+   state.
+ * Lock game files to prevent concurrent access by multiple programs.
+   fairland does not yet obey the lock.
+ * Fix production to consider sector item limit.
+ * Fix swapsector to update coastal flag correctly (broken in 4.3.0).
+ * Enhanced mapping sub-commands in move, test, explore and transport.
+ * Code cleanup.
+ * Info file fixes.
+
 Changes to Empire 4.3.7 - Fri Jul 14 23:05:19 UTC 2006
  * Sanctuaries are again fully populated with civilians (4.3.6 changed
    the limit, but not the population).  Food is now spread evenly
