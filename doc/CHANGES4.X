@@ -1,4 +1,5 @@
-Changes to Empire 4.3.8 - Fri Oct 13 18:22:42 UTC 2006
+Changes to Empire 4.3.8 - Fri Oct 20 18:30:28 UTC 2006
+ * Ships no longer produce stuff when the government is broke.
  * Fix land unit casualties in revolts.
  * Fix security units not to raid friendly che.
  * Fix update sequence to ensure stopped sectors don't work on the
