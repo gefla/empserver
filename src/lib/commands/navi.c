@@ -176,7 +176,7 @@ navi(void)
 	    shp_list(&ship_list);
 	    break;
 	case 'm':
-	    stopping |= shp_sweep(&ship_list, 1, 0, player->cnum);
+	    stopping |= shp_sweep(&ship_list, 1, 1, player->cnum);
 	    break;
 	case 'r':
 	    radar(EF_SHIP);
