@@ -91,7 +91,7 @@ ef_open(int type, int how)
 #if defined(_WIN32)
     oflags |= O_BINARY;
     if ((fd = sopen(ep->file, oflags,
-	how & EFF_RDONLY ? SH_DENYWR : SH_DENYRW,
+	how & EFF_RDONLY ? SH_DENYNO : SH_DENYWR,
 	0660)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
