@@ -400,7 +400,8 @@ do_mob_land(struct lndstr *lp, int etus)
     if (opt_FUEL == 0) {	/* just some bits and pieces */
 	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
-	    lnd_fortify(lp, value - land_mob_max);
+	    if (!opt_MOB_ACCESS)
+		lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
 	}
 	lp->lnd_mobil = value;
@@ -412,7 +413,8 @@ do_mob_land(struct lndstr *lp, int etus)
     if (lp->lnd_fuelu == 0) {
 	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
-	    lnd_fortify(lp, value - land_mob_max);
+	    if (!opt_MOB_ACCESS)
+		lnd_fortify(lp, value - land_mob_max);
 	    value = land_mob_max;
 	}
 	lp->lnd_mobil = value;
