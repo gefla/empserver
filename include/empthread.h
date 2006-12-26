@@ -87,7 +87,6 @@ typedef struct lwpSem empth_sem_t;
 #endif /* EMPTH_LWP */
 
 #ifdef EMPTH_POSIX
-#include <pthread.h>
 #define EMPTH_FD_READ   0x1
 #define EMPTH_FD_WRITE  0x2
 
