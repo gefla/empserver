@@ -145,9 +145,11 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 	if (pp->pln_effic >= 80)
 	    return;
 	carrier = getshipp(pp->pln_ship);
+	if (CANT_HAPPEN(!carrier))
+	    return;
 	if (carrier->shp_off)
 	    return;
-	if (CANT_HAPPEN(!carrier || carrier->shp_own != pp->pln_own))
+	if (CANT_HAPPEN(carrier->shp_own != pp->pln_own))
 	    return;
     }
 
