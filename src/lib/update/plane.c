@@ -149,8 +149,6 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 	    return;
 	if (carrier->shp_off)
 	    return;
-	if (CANT_HAPPEN(carrier->shp_own != pp->pln_own))
-	    return;
     }
 
     if (sp->sct_off)
