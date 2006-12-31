@@ -41,8 +41,6 @@
 #include "empobj.h"
 #include "unit.h"
 
-static int set_flagship(struct emp_qelem *list, struct shpstr **flagshipp);
-
 int
 navi(void)
 {
@@ -51,7 +49,8 @@ navi(void)
     double minmob, maxmob;
     int together;
     char *cp = NULL;
-    struct shpstr *shp = NULL;	/* flagship */
+    int leader_uid;
+    struct shpstr *shp;	/* flagship */
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -71,7 +70,9 @@ navi(void)
 	pr("No ships\n");
 	return RET_FAIL;
     }
-    set_flagship(&ship_list, &shp);
+    shp = (struct shpstr *)get_leader(&ship_list);
+    leader_uid = shp->shp_uid;
+    pr("Flagship is %s\n", prship(shp));
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
 	if (!(cp = shp_path(together, shp, buf)))
@@ -94,7 +95,10 @@ navi(void)
 		}
 		return RET_OK;
 	    }
-	    if (set_flagship(&ship_list, &shp)) {
+	    shp = (struct shpstr *)get_leader(&ship_list);
+	    if (shp->shp_uid != leader_uid) {
+		leader_uid = shp->shp_uid;
+		pr_leader_change((struct empobj *)shp);
 		stopping = 1;
 		continue;
 	    }
@@ -119,7 +123,10 @@ navi(void)
 		}
 		return RET_OK;
 	    }
-	    if (set_flagship(&ship_list, &shp)) {
+	    shp = (struct shpstr *)get_leader(&ship_list);
+	    if (shp->shp_uid != leader_uid) {
+		leader_uid = shp->shp_uid;
+		pr_leader_change((struct empobj *)shp);
 		stopping = 1;
 		continue;
 	    }
@@ -170,7 +177,11 @@ navi(void)
 		switch_leader(&ship_list, -1);
 	    else
 		switch_leader(&ship_list, atoi(player->argp[1]));
-	    set_flagship(&ship_list, &shp);
+	    shp = (struct shpstr *)get_leader(&ship_list);
+	    if (shp->shp_uid != leader_uid) {
+		leader_uid = shp->shp_uid;
+		pr_leader_change((struct empobj *)shp);
+	    }
 	    break;
 	case 'i':
 	    shp_list(&ship_list);
@@ -283,20 +294,4 @@ nav_map(int x, int y, int show_designations)
     for (i = 0; i < ns.range.height; i++)
 	pr("%s\n", wmap[i]);
     return RET_OK;
-}
-
-static int
-set_flagship(struct emp_qelem *list, struct shpstr **flagshipp)
-{
-    struct ulist *mlp = (struct ulist *)(list->q_back);
-
-    if (!*flagshipp)
-	pr("Flagship is ");
-    else if ((*flagshipp)->shp_uid != mlp->unit.ship.shp_uid)
-	pr("Changing flagship to ");
-    else
-	return 0;
-    *flagshipp = &mlp->unit.ship;
-    pr("%s\n", prship(&mlp->unit.ship));
-    return 1;
 }

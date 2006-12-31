@@ -42,8 +42,6 @@
 #include "empobj.h"
 #include "unit.h"
 
-static int set_leader(struct emp_qelem *list, struct lndstr **leaderp);
-
 int
 march(void)
 {
@@ -52,7 +50,8 @@ march(void)
     double minmob, maxmob;
     int together;
     char *cp = NULL;
-    struct lndstr *lnd = NULL;	/* leader */
+    int leader_uid;
+    struct lndstr *lnd;	/* leader */
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -70,7 +69,9 @@ march(void)
 	pr("No lands\n");
 	return RET_FAIL;
     }
-    set_leader(&land_list, &lnd);
+    lnd = (struct lndstr *)get_leader(&land_list);
+    leader_uid = lnd->lnd_uid;
+    pr("Leader is %s\n", prland(lnd));
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
 	if (!(cp = lnd_path(together, lnd, buf)))
@@ -87,7 +88,10 @@ march(void)
 		pr("No lands left\n");
 		return RET_OK;
 	    }
-	    if (set_leader(&land_list, &lnd)) {
+	    lnd = (struct lndstr *)get_leader(&land_list);
+	    if (lnd->lnd_uid != leader_uid) {
+		leader_uid = lnd->lnd_uid;
+		pr_leader_change((struct empobj *)lnd);
 		stopping = 1;
 		continue;
 	    }
@@ -106,7 +110,10 @@ march(void)
 		pr("No lands left\n");
 		return RET_OK;
 	    }
-	    if (set_leader(&land_list, &lnd)) {
+	    lnd = (struct lndstr *)get_leader(&land_list);
+	    if (lnd->lnd_uid != leader_uid) {
+		leader_uid = lnd->lnd_uid;
+		pr_leader_change((struct empobj *)lnd);
 		stopping = 1;
 		continue;
 	    }
@@ -145,7 +152,11 @@ march(void)
 		switch_leader(&land_list, -1);
 	    else
 		switch_leader(&land_list, atoi(player->argp[1]));
-	    set_leader(&land_list, &lnd);
+	    lnd = (struct lndstr *)get_leader(&land_list);
+	    if (lnd->lnd_uid != leader_uid) {
+		leader_uid = lnd->lnd_uid;
+		pr_leader_change((struct empobj *)lnd);
+	    }
 	    break;
 	case 'i':
 	    lnd_list(&land_list);
@@ -184,20 +195,18 @@ march(void)
     return RET_OK;
 }
 
-static int
-set_leader(struct emp_qelem *list, struct lndstr **leaderp)
+void
+pr_leader_change(struct empobj *leader)
 {
-    struct ulist *llp = (struct ulist *)(list->q_back);
+    pr("Changing %s to %s\n",
+	leader->ef_type == EF_SHIP ? "flagship" : "leader",
+	obj_nameof(leader));
+}
 
-    if (!*leaderp)
-	pr("Leader is ");
-    else if ((*leaderp)->lnd_uid != llp->unit.land.lnd_uid)
-	pr("Changing leader to ");
-    else
-	return 0;
-    *leaderp = &llp->unit.land;
-    pr("%s\n", prland(&llp->unit.land));
-    return 1;
+struct empobj *
+get_leader(struct emp_qelem *list)
+{
+    return &((struct ulist *)(list->q_back))->unit.gen;
 }
 
 void
