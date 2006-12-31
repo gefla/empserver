@@ -66,6 +66,9 @@ update_main(void *unused)
     if (CANT_HAPPEN(!update_pending))
         update_pending = 1;
 
+    logerror("production update (%d etus)", etu);
+    journal_update(etu);
+
     /* First, make sure all mobility is updated correctly. */
     if (opt_MOB_ACCESS) {
 	mob_ship(etu);
@@ -81,8 +84,6 @@ update_main(void *unused)
      * sector production routine (for producing education,
      * happiness, and printing out the state of the nation)
      */
-    logerror("production update (%d etus)", etu);
-    journal_update(etu);
     memset(pops, 0, sizeof(pops));
     memset(air_money, 0, sizeof(air_money));
     memset(sea_money, 0, sizeof(sea_money));
