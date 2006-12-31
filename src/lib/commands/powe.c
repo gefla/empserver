@@ -49,11 +49,6 @@
 #include "power.h"
 #include "ship.h"
 
-struct powsort {
-    float powval;
-    natid cnum;
-};
-
 static void prpower(char *, struct powstr *, int);
 static void out5(double, int, int);
 static void gen_power(void);
@@ -206,7 +201,6 @@ gen_power(void)
     struct powstr powbuf[MAXNOC];
     struct nstr_item ni;
     struct nstr_sect ns;
-    struct powsort order[MAXNOC];
     struct natstr *natp;
     float f;
 
@@ -294,14 +288,10 @@ gen_power(void)
 	    maxpop = max_population(np->nat_level[NAT_RLEV], SCT_MINE, 0);
 	    powbuf[i].p_power *= 1.0 + maxpop / 10000.0;
 	}
-	order[i].powval = powbuf[i].p_power;
-	order[i].cnum = i;
     }
-    qsort(&order[1], MAXNOC - 1, sizeof(*order), powcmp);
-    putpower(0, &powbuf[0]);
-    for (i = 1; i < MAXNOC; i++) {
-	putpower(i, &powbuf[order[i].cnum]);
-    }
+    qsort(&powbuf[1], MAXNOC - 1, sizeof(*powbuf), powcmp);
+    for (i = 0; i < MAXNOC; i++)
+	putpower(i, &powbuf[i]);
 #ifdef _WIN32
     /*
      * At least some versions of Windows fail to update mtime on
@@ -315,12 +305,12 @@ gen_power(void)
 static int
 powcmp(const void *a, const void *b)
 {
-    const struct powsort *p1 = a;
-    const struct powsort *p2 = b;
+    const struct powstr *p1 = a;
+    const struct powstr *p2 = b;
 
-    if (p1->powval > p2->powval)
+    if (p1->p_power > p2->p_power)
 	return -1;
-    if (p1->powval < p2->powval)
+    if (p1->p_power < p2->p_power)
 	return 1;
     return 0;
 }
