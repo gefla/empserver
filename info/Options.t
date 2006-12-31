@@ -31,6 +31,7 @@ LOSE_CONTACT:	In HIDDEN, lose contact after a few updates
 INTERDICT_ATT:	Interdict units & mil as they move in after an attack
 
 The following options were introduced in the Empire4 Server:
+AUTO_POWER:     Power report is only updated automatically, at the update
 BRIDGETOWERS:   You can build bridge towers, which allow you to build
                  bridges from them.
 GODNEWS:        The world is told via news when deities are giving or taking

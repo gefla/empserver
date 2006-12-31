@@ -79,6 +79,10 @@ update_main(void *unused)
     player->proc = empth_self();
     player->cnum = 0;
     player->god = 1;
+
+    if (opt_AUTO_POWER)
+	update_power();
+
     /*
      * set up all the variables which get used in the
      * sector production routine (for producing education,

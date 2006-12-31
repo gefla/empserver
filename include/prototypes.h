@@ -77,6 +77,7 @@ extern int check_trade(void);
 extern int ontradingblock(int, void *);
 extern void trdswitchown(int, void *, int);
 extern int radar(short);
+extern void update_power(void);
 /* Commands */
 int acce(void);
 int add(void);

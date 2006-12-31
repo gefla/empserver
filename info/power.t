@@ -1,27 +1,28 @@
 .TH Command POWER
 .NA power "Display arbitrarily measured strengths of countries"
 .LV Basic
-.SY "power [num]"
-.SY "power new [num]"
-.SY "power country <NATS>"
+.SY "power [new|update] [<NUM>|country <NATS>]"
 The power report provides one view of national strengths.
 It can be particularly helpful in planning defense strategies
 and treaty voting.
 .s1
-If the optional \*Qnum\*U argument is given, only the
-top num entries in the power chart will be displayed.  Note that for
-deities, if you give a negative number, only the top num entries in
+Normally, the last saved power report is shown.
+The optional arguments \*Qnew\*U and \*Qupdate\*U request a new power
+report based on up-to-date information.
+This costs 10 BTUs.
+The new report is saved for use by future power commands, except when
+a deity uses \*Qupdate\*U.  This lets deities examine up-to-date power
+reports without affecting what players get to see.
+.s1
+If option AUTO_POWER is enabled, the command doesn't let you save new
+power reports.  Instead, the power report is updated automatically
+right before the update.
+.s1
+If the optional \*QNUM\*U argument is given, only the
+top NUM entries in the power chart will be displayed.  Note that for
+deities, if you give a negative number, only the top NUM entries in
 the power chart will be displayed, and the power number rating will
 not be displayed.
-.s1
-If the optional \*Qnew\*U argument is given,
-the program will generate a new power report based on up-to-date
-information.
-This costs 10 BTUs.
-.s1
-If the optional \*Qnew\*U argument is not given,
-the program will show you the report generated
-the last time someone asked for new data.
 .s1
 If the optional \*Qcountry\*U argument is given, then the information
 is given for those particular countries.

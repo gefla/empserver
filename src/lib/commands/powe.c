@@ -51,7 +51,7 @@
 
 static void prpower(char *, struct powstr *, int);
 static void out5(double, int, int);
-static void gen_power(void);
+static void gen_power(struct powstr *, int);
 static int powcmp(const void *, const void *);
 static void addtopow(short *, struct powstr *);
 
@@ -59,32 +59,45 @@ int
 powe(void)
 {
     struct natstr *natp;
+    int i;
     time_t pow_time;
     struct nstr_item ni;
-    struct powstr pow;
-    int num;
+    int save = 1;
+    int num = MAXNOC;
     int power_generated = 0;
     struct natstr nat;
+    struct powstr powbuf[MAXNOC];
     int targets[MAXNOC];
     int use_targets = 0;
     int no_numbers = 0;
 
     memset(targets, 0, sizeof(targets));
-    natp = getnatp(player->cnum);
-    num = MAXNOC;
 
+    i = 1;
     if (player->argp[1]) {
-	if (player->argp[1][0] == 'n') {
+	switch (player->argp[1][0]) {
+	case 'u':
+	    if (player->god)
+		save = 0;
+	    /* fall through */
+	case 'n':
+	    i++;
+	    natp = getnatp(player->cnum);
 	    if (natp->nat_btu < 1)
 		pr("\n  Insufficient BTUs, using the last report.\n\n");
+	    else if (opt_AUTO_POWER && save)
+		pr("\n  power new is disabled, using the last report.\n\n");
 	    else {
-		gen_power();
+		gen_power(powbuf, save);
+		pow_time = time(NULL);
 		power_generated = 1;
 	    }
-	    if (player->argp[2])
-		num = atoi(player->argp[2]);
-	} else if (player->argp[1][0] == 'c') {
-	    snxtitem(&ni, EF_NATION, player->argp[2]);
+	}
+    }
+
+    if (player->argp[i]) {
+	if (player->argp[i][0] == 'c') {
+	    snxtitem(&ni, EF_NATION, player->argp[i + 1]);
 	    while (nxtitem(&ni, &nat)) {
 		if (nat.nat_stat != STAT_ACTIVE)
 		    continue;
@@ -92,7 +105,7 @@ powe(void)
 	    }
 	    use_targets = 1;
 	} else
-	    num = atoi(player->argp[1]);
+	    num = atoi(player->argp[i]);
     }
 
     if (num < 0) {
@@ -103,39 +116,41 @@ powe(void)
     }
 
     if (!power_generated) {
+	pow_time = ef_mtime(EF_POWER);
 	snxtitem_all(&ni, EF_POWER);
-	if (!nxtitem(&ni, &pow)) {
+	if (!nxtitem(&ni, &powbuf[0])) {
 	    pr("Power for this game has not been built yet.  Type 'power new' to build it.\n");
 	    return RET_FAIL;
+	}
+	for (i = 1; i < MAXNOC; i++) {
+	    if (!nxtitem(&ni, &powbuf[i])) {
+		CANT_REACH();
+		memset(&powbuf[i], 0, sizeof(powbuf[i]));
+	    }
 	}
     }
 
     pr("     - = [   Empire Power Report   ] = -\n");
-    pow_time = ef_mtime(EF_POWER);
     pr("      as of %s\n         sects  eff civ", ctime(&pow_time));
     pr("  mil  shell gun pet  iron dust oil  pln ship unit money\n");
-    snxtitem_all(&ni, EF_POWER);
-    while ((nxtitem(&ni, &pow)) && num > 0) {
-	if (pow.p_nation == 0)
-	    continue;
+    for (i = 1; i < MAXNOC && num > 0; i++) {
 	if (opt_HIDDEN) {
-	    if (!player->god && pow.p_nation != player->cnum)
+	    if (!player->god && powbuf[i].p_nation != player->cnum)
 		continue;
 	}
-	if (use_targets && !targets[pow.p_nation])
+	if (use_targets && !targets[powbuf[i].p_nation])
 	    continue;
-	if (!use_targets && pow.p_power <= 0.0)
+	if (!use_targets && powbuf[i].p_power <= 0.0)
 	    continue;
-	prpower(cname(pow.p_nation), &pow,
-		pow.p_nation != player->cnum && !player->god);
+	prpower(cname(powbuf[i].p_nation), &powbuf[i],
+		powbuf[i].p_nation != player->cnum && !player->god);
 	if (player->god && !no_numbers)
-	    pr("%9.2f\n", pow.p_power);
+	    pr("%9.2f\n", powbuf[i].p_power);
 	num--;
     }
     if (!opt_HIDDEN || player->god) {
 	pr("          ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n");
-	getpower(0, &pow);
-	prpower("worldwide", &pow, !player->god);
+	prpower("worldwide", &powbuf[0], !player->god);
 	pr("\n");
     }
     return RET_OK;
@@ -187,8 +202,16 @@ out5(double value, int round_val, int round_flag)
 	pr("%4.0fG", value / 1e9);
 }
 
+void
+update_power(void)
+{
+    struct powstr powbuf[MAXNOC];
+
+    gen_power(powbuf, 1);
+}
+
 static void
-gen_power(void)
+gen_power(struct powstr *powbuf, int save)
 {
     float *f_ptr;
     float *f_pt2;
@@ -198,14 +221,13 @@ gen_power(void)
     struct plnstr plane;
     struct shpstr ship;
     struct lndstr land;
-    struct powstr powbuf[MAXNOC];
     struct nstr_item ni;
     struct nstr_sect ns;
     struct natstr *natp;
     float f;
 
     player->btused += 10;
-    memset(powbuf, 0, sizeof(powbuf));
+    memset(powbuf, 0, MAXNOC * sizeof(*powbuf));
     snxtsct_all(&ns);
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == 0)
@@ -290,6 +312,8 @@ gen_power(void)
 	}
     }
     qsort(&powbuf[1], MAXNOC - 1, sizeof(*powbuf), powcmp);
+    if (!save)
+	return;
     for (i = 0; i < MAXNOC; i++)
 	putpower(i, &powbuf[i]);
 #ifdef _WIN32

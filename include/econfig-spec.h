@@ -155,6 +155,8 @@ EMPCF_COMMENT("# Give range HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
 EMPCF_COMMENT("\n\n### Options")
 EMPCF_OPT("ALL_BLEED", opt_ALL_BLEED,
     "Let tech bleed to everyone, not just allies")
+EMPCF_OPT("AUTO_POWER", opt_AUTO_POWER,
+    "Power report is updated only automatically, at the update")
 EMPCF_OPT("BLITZ", opt_BLITZ,
     "Enable blitz mode")
 EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,

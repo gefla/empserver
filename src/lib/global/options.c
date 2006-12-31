@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *       Steve McClure, 1998
- *       Markus Armbruster, 2005
+ *       Markus Armbruster, 2005-2006
  */
 
 #include <config.h>
@@ -37,6 +37,7 @@
 #include "optlist.h"
 
 int opt_ALL_BLEED = 1;
+int opt_AUTO_POWER = 0;
 int opt_BLITZ = 1;
 int opt_BRIDGETOWERS = 1;
 int opt_DEMANDUPDATE = 1;

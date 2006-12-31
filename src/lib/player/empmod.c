@@ -188,7 +188,7 @@ struct cmndstr player_coms[] = {
     {"plane <SECTS>", 0, plan, 0, NORM},
     {"players", 0, play, 0, VIS},
     {"pmap <SECTS|PLANE> [s|l|n|p|*|h]", 0, map, C_MOD, NORM},
-    {"power [\"new\"] [<NUMBER OF COUNTRIES>] | \"country\" <NATS>",
+    {"power [\"new\"|\"update\"] [<NUMBER OF COUNTRIES> | \"country\" <NATS>]",
      0, powe, C_MOD, VIS},
     {"pray", 0, tele, C_MOD, NORM},
     {"production <SECTS>", 0, prod, 0, NORM},
