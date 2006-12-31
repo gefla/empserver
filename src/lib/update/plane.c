@@ -149,6 +149,13 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 	    return;
 	if (carrier->shp_off)
 	    return;
+	if ((carrier->shp_own != pp->pln_own) &&
+	    (getrel(getnatp(carrier->shp_own), pp->pln_own) != ALLIED))
+	    return;
+    } else {
+	if ((sp->sct_own != pp->pln_own) &&
+	    (getrel(getnatp(sp->sct_own), pp->pln_own) != ALLIED))
+	    return;
     }
 
     if (sp->sct_off)
