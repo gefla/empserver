@@ -539,7 +539,7 @@ setstr(int fldno, char *str)
 	len = ca->ca_len;
 	if (strlen(str) > len)
 	    return gripe("Field %d takes at most %d characters",
-			 fldno + 1, len);
+			 fldno + 1, (int)len);
 	old = memb_ptr;
 	if (!must_match)
 	    strncpy(memb_ptr, str, len);
