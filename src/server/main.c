@@ -293,7 +293,6 @@ init_server(void)
     loc_NTInit();
 #endif
     update_policy_check();
-    shutdown_init();
     player_init();
     ef_init_srv();
     io_init();

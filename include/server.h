@@ -43,7 +43,6 @@ extern time_t update_time;
 extern int updating_mob;
 
 void mobility_init(void);
-void shutdown_init(void);
 
 /* thread entry points */
 void delete_lostitems(void *);

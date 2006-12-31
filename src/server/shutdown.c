@@ -43,12 +43,6 @@
 int shutdown_pending;
 
 void
-shutdown_init(void)
-{
-    shutdown_pending = 0;
-}
-
-void
 shutdown_sequence(void *unused)
 {
     struct natstr *god;
