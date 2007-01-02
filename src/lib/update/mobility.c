@@ -397,25 +397,7 @@ do_mob_land(struct lndstr *lp, int etus)
 	}
     }
 
-    if (opt_FUEL == 0) {	/* just some bits and pieces */
-	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	if (value > land_mob_max) {
-	    /*
-	     * provide mobility to be used in lnd_fortify()
-	     * without overflowing lnd_mobil
-	     */
-	    lp->lnd_mobil = land_mob_max;
-	    if (!opt_MOB_ACCESS)
-		lnd_fortify(lp, value - land_mob_max);
-	    lp->lnd_mobil = land_mob_max;
-	} else
-	    lp->lnd_mobil = value;
-
-	return;			/* Done! */
-    }
-
-    /* opt_FUEL in force ... */
-    if (lp->lnd_fuelu == 0) {
+    if (opt_FUEL == 0 || lp->lnd_fuelu == 0) {
 	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
 	    /*
