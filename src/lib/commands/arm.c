@@ -99,6 +99,12 @@ arm(void)
 	if (!check_plane_ok(&pl) || !check_nuke_ok(&nuke))
 	    return RET_FAIL;
 
+	if (nuke.nuk_plane >= 0 && nuke.nuk_plane != pl.pln_uid) {
+	    pr("%s is already armed on plane #%d!\n",
+	       prnuke(&nuke), nuke.nuk_plane);
+	    return RET_FAIL;
+	}
+
 	if (p && (*p == 'y' || *p == 'Y'))
 	    pl.pln_flags |= PLN_AIRBURST;
 	else
