@@ -51,7 +51,7 @@ march(void)
     int together;
     char *cp = NULL;
     int leader_uid;
-    struct lndstr *lnd;	/* leader */
+    struct empobj *leader;
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -69,12 +69,12 @@ march(void)
 	pr("No lands\n");
 	return RET_FAIL;
     }
-    lnd = (struct lndstr *)get_leader(&land_list);
-    leader_uid = lnd->lnd_uid;
-    pr("Leader is %s\n", prland(lnd));
+    leader = get_leader(&land_list);
+    leader_uid = leader->uid;
+    pr("Leader is %s\n", obj_nameof(leader));
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	if (!(cp = lnd_path(together, lnd, buf)))
+	if (!(cp = lnd_path(together, (struct lndstr *)leader, buf)))
 	    cp = player->argp[2];
     }
 
@@ -88,19 +88,19 @@ march(void)
 		pr("No lands left\n");
 		return RET_OK;
 	    }
-	    lnd = (struct lndstr *)get_leader(&land_list);
-	    if (lnd->lnd_uid != leader_uid) {
-		leader_uid = lnd->lnd_uid;
-		pr_leader_change((struct empobj *)lnd);
+	    leader = get_leader(&land_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 		stopping = 1;
 		continue;
 	    }
 	    if (!skip)
-		nav_map(lnd->lnd_x, lnd->lnd_y, 1);
+		nav_map(leader->x, leader->y, 1);
 	    else
 		skip = 0;
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", maxmob,
-		    minmob, xyas(lnd->lnd_x, lnd->lnd_y, player->cnum));
+		    minmob, xyas(leader->x, leader->y, player->cnum));
 	    cp = getstring(prompt, buf);
 /* Just in case any of our lands were shelled while we were at the
  * prompt, we call lnd_mar() again.
@@ -110,14 +110,14 @@ march(void)
 		pr("No lands left\n");
 		return RET_OK;
 	    }
-	    lnd = (struct lndstr *)get_leader(&land_list);
-	    if (lnd->lnd_uid != leader_uid) {
-		leader_uid = lnd->lnd_uid;
-		pr_leader_change((struct empobj *)lnd);
+	    leader = get_leader(&land_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 		stopping = 1;
 		continue;
 	    }
-	    if (cp && !(cp = lnd_path(together, lnd, buf)))
+	    if (cp && !(cp = lnd_path(together, (struct lndstr *)leader, buf)))
 		cp = buf;
 	}
 	if (cp == NULL || *cp == '\0')
@@ -131,7 +131,7 @@ march(void)
 	}
 	ac = parse(cp, player->argp, NULL, scanspace, NULL);
 	if (ac <= 1) {
-	    sprintf(dp, "%d", lnd->lnd_uid);
+	    sprintf(dp, "%d", leader->uid);
 	    player->argp[1] = dp;
 	    cp++;
 	} else
@@ -152,10 +152,10 @@ march(void)
 		switch_leader(&land_list, -1);
 	    else
 		switch_leader(&land_list, atoi(player->argp[1]));
-	    lnd = (struct lndstr *)get_leader(&land_list);
-	    if (lnd->lnd_uid != leader_uid) {
-		leader_uid = lnd->lnd_uid;
-		pr_leader_change((struct empobj *)lnd);
+	    leader = get_leader(&land_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 	    }
 	    break;
 	case 'i':
@@ -177,7 +177,7 @@ march(void)
 	case 'd':
 	    if (ac == 2) {
 		player->argp[2] = player->argp[1];
-		sprintf(dp, "%d", lnd->lnd_uid);
+		sprintf(dp, "%d", leader->uid);
 		player->argp[1] = dp;
 	    }
 	    landmine();

@@ -50,7 +50,7 @@ navi(void)
     int together;
     char *cp = NULL;
     int leader_uid;
-    struct shpstr *shp;	/* flagship */
+    struct empobj *leader;
     int dir;
     int stopping = 0;
     int skip = 0;
@@ -70,12 +70,12 @@ navi(void)
 	pr("No ships\n");
 	return RET_FAIL;
     }
-    shp = (struct shpstr *)get_leader(&ship_list);
-    leader_uid = shp->shp_uid;
-    pr("Flagship is %s\n", prship(shp));
+    leader = get_leader(&ship_list);
+    leader_uid = leader->uid;
+    pr("Flagship is %s\n", obj_nameof(leader));
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	if (!(cp = shp_path(together, shp, buf)))
+	if (!(cp = shp_path(together, (struct shpstr *)leader, buf)))
 	    cp = player->argp[2];
     }
 
@@ -95,20 +95,20 @@ navi(void)
 		}
 		return RET_OK;
 	    }
-	    shp = (struct shpstr *)get_leader(&ship_list);
-	    if (shp->shp_uid != leader_uid) {
-		leader_uid = shp->shp_uid;
-		pr_leader_change((struct empobj *)shp);
+	    leader = get_leader(&ship_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 		stopping = 1;
 		continue;
 	    }
 	    if (!skip)
-		nav_map(shp->shp_x, shp->shp_y,
-			!(mchr[(int)shp->shp_type].m_flags & M_SUB));
+		nav_map(leader->x, leader->y,
+			!(mchr[(int)leader->type].m_flags & M_SUB));
 	    else
 		skip = 0;
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", maxmob,
-		    minmob, xyas(shp->shp_x, shp->shp_y, player->cnum));
+		    minmob, xyas(leader->x, leader->y, player->cnum));
 	    cp = getstring(prompt, buf);
 	    /* Just in case any of our ships were shelled while we were
 	     * at the prompt, we call shp_nav() again.
@@ -123,21 +123,21 @@ navi(void)
 		}
 		return RET_OK;
 	    }
-	    shp = (struct shpstr *)get_leader(&ship_list);
-	    if (shp->shp_uid != leader_uid) {
-		leader_uid = shp->shp_uid;
-		pr_leader_change((struct empobj *)shp);
+	    leader = get_leader(&ship_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 		stopping = 1;
 		continue;
 	    }
-	    if (cp && !(cp = shp_path(together, shp, buf)))
+	    if (cp && !(cp = shp_path(together, (struct shpstr *)leader, buf)))
 		cp = buf;
 	}
-	radmapnopr(shp->shp_x, shp->shp_y, (int)shp->shp_effic,
-		   (int)techfact(shp->shp_tech,
-				 mchr[(int)shp->shp_type].m_vrnge),
-		   (mchr[(int)shp->shp_type].m_flags & M_SONAR)
-		   ? techfact(shp->shp_tech, 1.0) : 0.0);
+	radmapnopr(leader->x, leader->y, (int)leader->effic,
+		   (int)techfact(leader->tech,
+				 mchr[(int)leader->type].m_vrnge),
+		   (mchr[(int)leader->type].m_flags & M_SONAR)
+		   ? techfact(leader->tech, 1.0) : 0.0);
 	if (cp == NULL || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
 	dir = chkdir(*cp, DIR_STOP, DIR_VIEW);
@@ -156,7 +156,7 @@ navi(void)
 	}
 	ac = parse(cp, player->argp, NULL, scanspace, NULL);
 	if (ac <= 1) {
-	    sprintf(dp, "%d", shp->shp_uid);
+	    sprintf(dp, "%d", leader->uid);
 	    player->argp[1] = dp;
 	    cp++;
 	} else
@@ -177,10 +177,10 @@ navi(void)
 		switch_leader(&ship_list, -1);
 	    else
 		switch_leader(&ship_list, atoi(player->argp[1]));
-	    shp = (struct shpstr *)get_leader(&ship_list);
-	    if (shp->shp_uid != leader_uid) {
-		leader_uid = shp->shp_uid;
-		pr_leader_change((struct empobj *)shp);
+	    leader = get_leader(&ship_list);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
 	    }
 	    break;
 	case 'i':
@@ -206,7 +206,7 @@ navi(void)
 	case 'd':
 	    if (ac == 2) {
 		player->argp[2] = player->argp[1];
-		sprintf(dp, "%d", shp->shp_uid);
+		sprintf(dp, "%d", leader->uid);
 		player->argp[1] = dp;
 	    }
 	    mine();
