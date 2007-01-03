@@ -98,7 +98,7 @@ decl(void)
     while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
-	if (player->cnum == (natid)ni.cur)
+	if (who == (natid)ni.cur)
 	    continue;
 	if (opt_HIDDEN) {
 	    if (!player->god && !getcontact(natp, ni.cur)) {
