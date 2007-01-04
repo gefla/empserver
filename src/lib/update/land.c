@@ -240,7 +240,8 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 	/* land is ok; no repairs needed */
 	return;
     }
-    if (sp->sct_own != land->lnd_own)
+    if ((sp->sct_own != land->lnd_own) &&
+	(getrel(getnatp(sp->sct_own), land->lnd_own) != ALLIED))
 	return;
 
     if (!player->simulation)
