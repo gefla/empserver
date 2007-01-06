@@ -1,3 +1,29 @@
+Changes to Empire 4.3.9 - Sat Jan  6 12:42:19 UTC 2007
+ * Fix declare to prevent the deity from changing relations for a
+   player to self.  Allow the deity to set the relations of a player
+   towards the deity.
+ * Fix arm not to put the same nuke on multiple planes (broken in
+   4.3.3).
+ * New option AUTO_POWER.
+ * Repair allied land units.
+ * Only repair owned and allied planes.
+ * Fix repair of planes on foreign carriers: repair allied planes,
+   ignore the others.  Before 4.3.3, carriers destroyed rather than
+   repaired foreign planes.  Since 4.3.3, foreign planes were treated
+   as recoverable error.
+ * Fix automatic fortification of land units to use all excess
+   mobility even when mobility delta exceeds mobility maximum.
+ * Disable automatic fortification of land units when MOB_ACCESS is
+   on, because it is prohibitively slow then (broken in 4.2.13).
+ * Budget now shows level production (tech, education, research and
+   happiness) rounded instead of randomly rounded.
+ * Fix update not to randomly flush small level production to zero.
+ * Fix overly restrictive game file locking under Windows (broken in
+   4.3.8).
+ * Fix navigate to charge mobility for sweeping mines without moving
+   (broken in 4.3.6).
+ * Code cleanup.
+
 Changes to Empire 4.3.8 - Fri Oct 20 18:30:28 UTC 2006
  * Ships no longer produce stuff when the government is broke.
  * Fix land unit casualties in revolts.
@@ -39,8 +65,8 @@ Changes to Empire 4.3.7 - Fri Jul 14 23:05:19 UTC 2006
    - New sub-command 'd' to drop mines.
  * Let minesweepers retreat at their full speed (missed in 4.3.6).
  * SUPER_BARS cannot be harmed, so don't interdict them.
- * Don't let trains and non-trains march together for now, because it
-   the march code isn't prepared for that.
+ * Don't let trains and non-trains march together for now, because the
+   march code isn't prepared for that.
  * New mapping flag 'n' to show nukes.
  * Mapping flag '*' now shows nukes as well.
  * New command nbmap to bmap around a nuke.  Overload command nmap to
@@ -1033,8 +1059,8 @@ Changes to Empire 4.2.13 - Fri Feb 13 22:12:36 UTC 2004
  * Fixed `sabo' reporting damage to player in deity coordinates.
  * New option ROLLOVER_AVAIL.  Contributed by Drake Diedrich.
  * Fix Windows server shutdown on reading "quit" from stdin.
- * Land units now fortify automatically at the update using excess
-   mobility.  With code from Marc Olzheim.
+ * Land units now fortify automatically when mobility plus growth
+   exceeds the maximum.  With code from Marc Olzheim.
  * Wandering che are less predictable.
  * Land units no longer regenerate mobility faster while it is
    negative.
