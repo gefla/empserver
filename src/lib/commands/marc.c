@@ -146,7 +146,7 @@ march(void)
 	case 'M':
 	    do_map(bmap_flag, EF_LAND, player->argp[1], player->argp[2]);
 	    skip = 1;
-	    break;
+	    continue;
 	case 'f':
 	    if (ac <= 1)
 		switch_leader(&land_list, -1);
@@ -157,23 +157,23 @@ march(void)
 		leader_uid = leader->uid;
 		pr_leader_change(leader);
 	    }
-	    break;
+	    continue;
 	case 'i':
 	    lnd_list(&land_list);
-	    break;
+	    continue;
 	case 'm':
 	    lnd_sweep(&land_list, 1, 1, player->cnum);
 	    stopping |= lnd_check_mines(&land_list);
-	    break;
+	    continue;
 	case 'r':
 	    radar(EF_LAND);
 	    skip = 1;
 	    player->btused++;
-	    break;
+	    continue;
 	case 'l':
 	    llook();
 	    player->btused++;
-	    break;
+	    continue;
 	case 'd':
 	    if (ac == 2) {
 		player->argp[2] = player->argp[1];
@@ -183,14 +183,13 @@ march(void)
 	    landmine();
 	    skip = 1;
 	    player->btused++;
-	    break;
-	default:
-	    direrr("`%c' to stop", 0, 0);
-	    pr(", `i' to list units, `f' to change leader,\n");
-	    pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
-	    pr("`d' to drop mines, and `m' to minesweep\n");
-	    stopping = 1;
+	    continue;
 	}
+	direrr("`%c' to stop", 0, 0);
+	pr(", `i' to list units, `f' to change leader,\n");
+	pr("`r' to radar, `l' to look, `M' to map, `B' to bmap,\n");
+	pr("`d' to drop mines, and `m' to minesweep\n");
+	stopping = 1;
     }
     return RET_OK;
 }

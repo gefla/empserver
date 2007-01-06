@@ -171,7 +171,7 @@ navi(void)
 	case 'M':
 	    do_map(bmap_flag, EF_SHIP, player->argp[1], player->argp[2]);
 	    skip = 1;
-	    break;
+	    continue;
 	case 'f':
 	    if (ac <= 1) 
 		switch_leader(&ship_list, -1);
@@ -182,27 +182,27 @@ navi(void)
 		leader_uid = leader->uid;
 		pr_leader_change(leader);
 	    }
-	    break;
+	    continue;
 	case 'i':
 	    shp_list(&ship_list);
-	    break;
+	    continue;
 	case 'm':
 	    stopping |= shp_sweep(&ship_list, 1, 1, player->cnum);
-	    break;
+	    continue;
 	case 'r':
 	    radar(EF_SHIP);
 	    skip = 1;
 	    player->btused++;
-	    break;
+	    continue;
 	case 'l':
 	    look();
 	    player->btused++;
-	    break;
+	    continue;
 	case 's':
 	    sona();
 	    player->btused++;
 	    skip = 1;
-	    break;
+	    continue;
 	case 'd':
 	    if (ac == 2) {
 		player->argp[2] = player->argp[1];
@@ -212,14 +212,13 @@ navi(void)
 	    mine();
 	    skip = 1;
 	    player->btused++;
-	    break;
-	default:
-	    direrr("`%c' to stop", ", `%c' to view, ", 0);
-	    pr("`i' to list ships, `f' to change flagship,\n");
-	    pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");
-	    pr("`d' to drop mines, and `m' to minesweep\n");
-	    stopping = 1;
+	    continue;
 	}
+	direrr("`%c' to stop", ", `%c' to view, ", 0);
+	pr("`i' to list ships, `f' to change flagship,\n");
+	pr("`r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,\n");
+	pr("`d' to drop mines, and `m' to minesweep\n");
+	stopping = 1;
     }
     if (strlen(pathtaken) > 0) {
 	pathtaken[strlen(pathtaken) - 1] = '\0';
