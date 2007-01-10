@@ -42,7 +42,7 @@
 void fill_update_array(int *bp, struct sctstr *sp);
 int gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm);
 void pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount);
-void get_materials(struct sctstr *sp, int *bp, int *mvec, int check);
+int get_materials(struct sctstr *, int *, int *, int);
 
 extern long money[MAXNOC];
 extern long pops[MAXNOC];

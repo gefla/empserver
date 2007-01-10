@@ -127,9 +127,7 @@ upd_plane(struct plnstr *pp, int etus,
 static void
 planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 {
-    float leftp, buildp;
-    int left, build;
-    int mil_needed, lcm_needed, hcm_needed;
+    int build;
     int mvec[I_MAX + 1];
     struct shpstr *carrier;
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
@@ -180,34 +178,14 @@ planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
 	return;
     if (delta > (int)((float)etus * plane_grow_scale))
 	delta = (int)((float)etus * plane_grow_scale);
+    if (delta > 100 - pp->pln_effic)
+	delta = 100 - pp->pln_effic;
 
-    /* delta is the max amount we can grow */
-
-    left = 100 - pp->pln_effic;
-    if (left > delta)
-	left = delta;
-
-    leftp = left / 100.0;
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_MILIT] = mil_needed = ldround(pcp->pl_crew * leftp, 1);
-    mvec[I_LCM] = lcm_needed = ldround(pcp->pl_lcm * leftp, 1);
-    mvec[I_HCM] = hcm_needed = ldround(pcp->pl_hcm * leftp, 1);
-    get_materials(sp, bp, mvec, 0);
-
-    buildp = leftp;
-    if (mvec[I_MILIT] < mil_needed)
-	buildp = MIN(buildp, (float)mvec[I_MILIT] / (float)pcp->pl_crew);
-    if (mvec[I_LCM] < lcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_LCM] / (float)pcp->pl_lcm);
-    if (mvec[I_HCM] < hcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_HCM] / (float)pcp->pl_hcm);
-
-    build = ldround(buildp * 100.0, 1);
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_MILIT] = roundavg(pcp->pl_crew * buildp);
-    mvec[I_LCM] = roundavg(pcp->pl_lcm * buildp);
-    mvec[I_HCM] = roundavg(pcp->pl_hcm * buildp);
-    get_materials(sp, bp, mvec, 1);
+    mvec[I_MILIT] =  pcp->pl_crew;
+    mvec[I_LCM] =  pcp->pl_lcm;
+    mvec[I_HCM] = pcp->pl_hcm;
+    build = get_materials(sp, bp, mvec, delta);
 
     if (carrier)
 	build = delta;

@@ -271,9 +271,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, int *bp, int etus)
     int delta;
     struct sctstr *sp;
     struct mchrstr *mp;
-    float leftp, buildp;
-    int left, build;
-    int lcm_needed, hcm_needed;
+    int build;
     int wf;
     int avail;
     int w_p_eff;
@@ -322,41 +320,22 @@ shiprepair(struct shpstr *ship, struct natstr *np, int *bp, int etus)
 	return;
     }
 
-    left = 100 - ship->shp_effic;
     delta = roundavg((double)avail / w_p_eff);
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * ship_grow_scale))
 	delta = (int)((float)etus * ship_grow_scale);
-    if (delta > left)
-	delta = left;
+    if (delta > 100 - ship->shp_effic)
+	delta = 100 - ship->shp_effic;
 
-    /* delta is the max amount we can grow */
-
-    left = 100 - ship->shp_effic;
-    if (left > delta)
-	left = delta;
-
-    leftp = left / 100.0;
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = ldround(mp->m_lcm * leftp, 1);
-    mvec[I_HCM] = hcm_needed = ldround(mp->m_hcm * leftp, 1);
-    get_materials(sp, bp, mvec, 0);
-
-    buildp = leftp;
-    if (mvec[I_LCM] < lcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_LCM] / (float)mp->m_lcm);
-    if (mvec[I_HCM] < hcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_HCM] / (float)mp->m_hcm);
-
-    build = ldround(buildp * 100.0, 1);
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = roundavg(mp->m_lcm * buildp);
-    mvec[I_HCM] = roundavg(mp->m_hcm * buildp);
-    get_materials(sp, bp, mvec, 1);
+    mvec[I_LCM] = mp->m_lcm;
+    mvec[I_HCM] = mp->m_hcm;
+    build = get_materials(sp, bp, mvec, delta);
 
     if (sp->sct_type != SCT_HARBR)
 	build = delta;
+
     wf -= build * w_p_eff;
     if (wf < 0) {
 	/*

@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Ville Virrankoski, 1996
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -37,30 +38,39 @@
 #include "player.h"
 #include "update.h"
 
-void
-get_materials(struct sctstr *sp, int *bp, int *mvec, int check)
-	       /* only check if found=0, remove them=1 */
+/*
+ * Get build materials from sector SP.
+ * BP is the sector's build pointer.
+ * MVEC[] defines the materials needed to build 100%.
+ * PCT is the percentage to build.
+ * Adjust build percentage downwards so that available materials
+ * suffice.  Remove the materials.
+ * Return adjusted build percentage.
+ */
+int
+get_materials(struct sctstr *sp, int *bp, int *mvec, int pct)
 {
-    i_type i;
-    int still_left;
+    int i, amt;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
-
-	if (check) {
-	    still_left = gt_bg_nmbr(bp, sp, i);
-	    if ((still_left - mvec[i]) < 0)
-		still_left = 0;
-	    else
-		still_left -= mvec[i];
-	    pt_bg_nmbr(bp, sp, i, still_left);
-	    if (!player->simulation)
-		sp->sct_item[i] = still_left;
-
-	} else {
-	    still_left = gt_bg_nmbr(bp, sp, i);
-	    mvec[i] = MIN(mvec[i], still_left);
-	}
+	amt = gt_bg_nmbr(bp, sp, i);
+	if (amt * 100 < mvec[i] * pct)
+	    pct = amt * 100 / mvec[i];
     }
+
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	if (mvec[i] == 0)
+	    continue;
+	amt = gt_bg_nmbr(bp, sp, i);
+	amt -= roundavg(mvec[i] * pct / 100.0);
+	if (CANT_HAPPEN(amt < 0))
+	    amt = 0;
+	pt_bg_nmbr(bp, sp, i, amt);
+	if (!player->simulation)
+	    sp->sct_item[i] = amt;
+    }
+
+    return pct;
 }

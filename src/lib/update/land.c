@@ -213,16 +213,13 @@ upd_land(struct lndstr *lp, int etus,
     }
 }
 
-/*ARGSUSED*/
 static void
 landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 {
     int delta;
     struct sctstr *sp;
     struct lchrstr *lp;
-    float leftp, buildp;
-    int left, build;
-    int mil_needed, lcm_needed, hcm_needed, gun_needed, shell_needed;
+    int build;
     int avail;
     int w_p_eff;
     int mult;
@@ -255,53 +252,13 @@ landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
 	return;
     if (delta > (int)((float)etus * land_grow_scale))
 	delta = (int)((float)etus * land_grow_scale);
-
-    /* delta is the max amount we can grow */
-
-    left = 100 - land->lnd_effic;
-    if (left > delta)
-	left = delta;
-
-    leftp = left / 100.0;
+    if (delta > 100 - land->lnd_effic)
+	delta = 100 - land->lnd_effic;
 
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lcm_needed = ldround(lp->l_lcm * leftp, 1);
-    mvec[I_HCM] = hcm_needed = ldround(lp->l_hcm * leftp, 1);
-/*
-        mvec[I_GUN] = gun_needed = ldround(lp->l_gun * leftp, 1);
-        mvec[I_MILIT] = mil_needed = ldround(lp->l_mil * leftp, 1);
-        mvec[I_SHELL] = shell_needed = ldround(lp->l_shell *leftp, 1);
- */
-    mvec[I_GUN] = gun_needed = 0;
-    mvec[I_MILIT] = mil_needed = 0;
-    mvec[I_SHELL] = shell_needed = 0;
-    get_materials(sp, bp, mvec, 0);
-
-    buildp = leftp;
-    if (mvec[I_MILIT] < mil_needed)
-	buildp = MIN(buildp, (float)mvec[I_MILIT] / (float)lp->l_mil);
-    if (mvec[I_LCM] < lcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_LCM] / (float)lp->l_lcm);
-    if (mvec[I_HCM] < hcm_needed)
-	buildp = MIN(buildp, (float)mvec[I_HCM] / (float)lp->l_hcm);
-    if (mvec[I_GUN] < gun_needed)
-	buildp = MIN(buildp, (float)mvec[I_GUN] / (float)lp->l_gun);
-    if (mvec[I_SHELL] < shell_needed)
-	buildp = MIN(buildp, (float)mvec[I_SHELL] / (float)lp->l_shell);
-
-    build = ldround(buildp * 100.0, 1);
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = roundavg(lp->l_lcm * buildp);
-    mvec[I_HCM] = roundavg(lp->l_hcm * buildp);
-/*
-        mvec[I_GUN] = roundavg(lp->l_gun * buildp);
-        mvec[I_MILIT] = roundavg(lp->l_mil * buildp);
-        mvec[I_SHELL] = roundavg(lp->l_shell *buildp);
- */
-    mvec[I_GUN] = 0;
-    mvec[I_MILIT] = 0;
-    mvec[I_SHELL] = 0;
-    get_materials(sp, bp, mvec, 1);
+    mvec[I_LCM] = lp->l_lcm;
+    mvec[I_HCM] = lp->l_hcm;
+    build = get_materials(sp, bp, mvec, delta);
 
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
 	build /= 3;
