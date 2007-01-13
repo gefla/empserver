@@ -78,7 +78,7 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		/* need to grow "emergency rations" */
 		work_avail -= 2 * growfood(sp, vec, work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
-		pt_bg_nmbr(bp, sp, I_MAX + 1, work_avail);
+		bp_put_avail(bp, sp, work_avail);
 		if (!player->simulation)
 		    sp->sct_avail = work_avail;
 	    }
@@ -118,9 +118,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     /* Here is where we truncate extra people, always */
     trunc_people(sp, np, vec);
 
-    pt_bg_nmbr(bp, sp, I_CIVIL, vec[I_CIVIL]);
-    pt_bg_nmbr(bp, sp, I_UW, vec[I_UW]);
-    pt_bg_nmbr(bp, sp, I_MILIT, vec[I_MILIT]);
+    bp_put_item(bp, sp, I_CIVIL, vec[I_CIVIL]);
+    bp_put_item(bp, sp, I_UW, vec[I_UW]);
+    bp_put_item(bp, sp, I_MILIT, vec[I_MILIT]);
     *workp = work_avail;
     return sctwork;
 }

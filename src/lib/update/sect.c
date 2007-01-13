@@ -329,8 +329,8 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	    np->nat_money > 0) {
 	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
 				  &cost);
-	    pt_bg_nmbr(bp, sp, I_LCM, vec[I_LCM]);
-	    pt_bg_nmbr(bp, sp, I_HCM, vec[I_HCM]);
+	    bp_put_item(bp, sp, I_LCM, vec[I_LCM]);
+	    bp_put_item(bp, sp, I_HCM, vec[I_HCM]);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
@@ -358,7 +358,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 				&pcost, &amount);
 	}
 
-	pt_bg_nmbr(bp, sp, I_MAX + 1, work);
+	bp_put_avail(bp, sp, work);
 	p_sect[desig][0] += amount;
 	p_sect[desig][1] += pcost;
 	if (!player->simulation) {

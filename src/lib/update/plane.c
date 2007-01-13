@@ -168,7 +168,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (!player->simulation)
 	avail = sp->sct_avail * 100;
     else
-	avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
+	avail = bp_get_avail(bp, sp) * 100;
     if (carrier)
 	avail += etus * carrier->shp_item[I_MILIT] / 2;
 
@@ -198,14 +198,14 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (!player->simulation)
 	avail = (sp->sct_avail * 100 - used) / 100;
     else
-	avail = (gt_bg_nmbr(bp, sp, I_MAX + 1) * 100 - used) / 100;
+	avail = (bp_get_avail(bp, sp) * 100 - used) / 100;
 
     if (avail < 0)
 	avail = 0;
     if (!player->simulation)
 	sp->sct_avail = avail;
     else
-	pt_bg_nmbr(bp, sp, I_MAX + 1, avail);
+	bp_put_avail(bp, sp, avail);
 
     if (sp->sct_type != SCT_AIRPT)
 	build /= 3;

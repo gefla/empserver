@@ -55,7 +55,7 @@ get_materials(struct sctstr *sp, struct bp *bp, int *mvec, int pct)
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
-	amt = gt_bg_nmbr(bp, sp, i);
+	amt = bp_get_item(bp, sp, i);
 	if (amt * 100 < mvec[i] * pct)
 	    pct = amt * 100 / mvec[i];
     }
@@ -63,11 +63,11 @@ get_materials(struct sctstr *sp, struct bp *bp, int *mvec, int pct)
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
-	amt = gt_bg_nmbr(bp, sp, i);
+	amt = bp_get_item(bp, sp, i);
 	amt -= roundavg(mvec[i] * pct / 100.0);
 	if (CANT_HAPPEN(amt < 0))
 	    amt = 0;
-	pt_bg_nmbr(bp, sp, i, amt);
+	bp_put_item(bp, sp, i, amt);
 	if (!player->simulation)
 	    sp->sct_item[i] = amt;
     }

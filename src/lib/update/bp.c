@@ -38,11 +38,12 @@
 #include "update.h"
 
 struct bp {
-    int val[7];
+    int val[6];
+    int avail;
 };
 
-static int bud_key[I_MAX + 2] =
-    { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
+static int bud_key[I_MAX + 1] =
+    { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0 };
 
 static struct bp *
 bp_ref(struct bp *bp, struct sctstr *sp)
@@ -51,7 +52,7 @@ bp_ref(struct bp *bp, struct sctstr *sp)
 }
 
 int
-gt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm)
+bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
 {
     int cm;
 
@@ -61,7 +62,7 @@ gt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm)
 }
 
 void
-pt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
+bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
     int cm;
 
@@ -69,8 +70,20 @@ pt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 	bp_ref(bp, sp)->val[cm - 1] = amount;
 }
 
+int
+bp_get_avail(struct bp *bp, struct sctstr *sp)
+{
+    return bp_ref(bp, sp)->avail;
+}
+
 void
-fill_update_array(struct bp *bp, struct sctstr *sp)
+bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
+{
+    bp_ref(bp, sp)->avail = amount;
+}
+
+void
+bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {
     int k;
     struct bp *p = bp_ref(bp, sp);
@@ -80,11 +93,11 @@ fill_update_array(struct bp *bp, struct sctstr *sp)
 	if ((k = bud_key[i]) != 0)
 	    p->val[k - 1] = sp->sct_item[i];
     }
-    p->val[bud_key[I_MAX + 1] - 1] = sp->sct_avail;
+    p->avail = sp->sct_avail;
 }
 
 struct bp *
-alloc_bp(void)
+bp_alloc(void)
 {
     return calloc(WORLD_X * WORLD_Y, sizeof(struct bp));
 }

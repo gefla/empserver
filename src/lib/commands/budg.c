@@ -197,9 +197,9 @@ calc_all(long p_sect[][2],
     *planes = *pbuild = *npbuild = *pmaint = 0;
     
     np = getnatp(player->cnum);
-    bp = alloc_bp();
+    bp = bp_alloc();
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	fill_update_array(bp, sp);
+	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
 	    tax(sp, np, etu, &pop, &civ_tax, &uw_tax, &mil_pay);

@@ -77,7 +77,7 @@ prepare_sects(int etu, struct bp *bp)
 
 	if (sp->sct_type == SCT_WATER)
 	    continue;
-	fill_update_array(bp, sp);
+	bp_set_from_sect(bp, sp);
 	np = getnatp(sp->sct_own);
 
 #ifdef DEBUG

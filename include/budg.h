@@ -39,10 +39,13 @@
 
 #define SCT_EFFIC (SCT_TYPE_MAX + 1)
 
-struct bp *alloc_bp(void);
-void fill_update_array(struct bp *, struct sctstr *);
-int gt_bg_nmbr(struct bp *, struct sctstr *, i_type);
-void pt_bg_nmbr(struct bp *, struct sctstr *, i_type, int);
+struct bp *bp_alloc(void);
+void bp_set_from_sect(struct bp *, struct sctstr *);
+int bp_get_item(struct bp *, struct sctstr *, i_type);
+void bp_put_item(struct bp *, struct sctstr *, i_type, int);
+int bp_get_avail(struct bp *, struct sctstr *);
+void bp_put_avail(struct bp *, struct sctstr *, int);
+
 int get_materials(struct sctstr *, struct bp *, int *, int);
 
 extern long money[MAXNOC];

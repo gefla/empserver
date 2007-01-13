@@ -303,7 +303,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	if (!player->simulation)
 	    avail = wf + sp->sct_avail * 100;
 	else
-	    avail = wf + gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
+	    avail = wf + bp_get_avail(bp, sp) * 100;
     }
 
     w_p_eff = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
@@ -345,13 +345,13 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	if (!player->simulation)
 	    avail = (sp->sct_avail * 100 + wf) / 100;
 	else
-	    avail = (gt_bg_nmbr(bp, sp, I_MAX + 1) * 100 + wf) / 100;
+	    avail = (bp_get_avail(bp, sp) * 100 + wf) / 100;
 	if (avail < 0)
 	    avail = 0;
 	if (!player->simulation)
 	    sp->sct_avail = avail;
 	else
-	    pt_bg_nmbr(bp, sp, I_MAX + 1, avail);
+	    bp_put_avail(bp, sp, avail);
     }
     if (sp->sct_type != SCT_HARBR)
 	if ((build + ship->shp_effic) > 80) {

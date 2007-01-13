@@ -244,7 +244,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if (!player->simulation)
 	avail = sp->sct_avail * 100;
     else
-	avail = gt_bg_nmbr(bp, sp, I_MAX + 1) * 100;
+	avail = bp_get_avail(bp, sp) * 100;
 
     w_p_eff = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
     delta = roundavg((double)avail / w_p_eff);
@@ -269,7 +269,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if (!player->simulation)
 	sp->sct_avail = avail / 100;
     else
-	pt_bg_nmbr(bp, sp, I_MAX + 1, avail / 100);
+	bp_put_avail(bp, sp, avail / 100);
 
     if (build < 0)
 	logerror("land unit %d building %d ! \n", land->lnd_uid, build);
