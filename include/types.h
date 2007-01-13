@@ -28,7 +28,7 @@
  *  types.h: Empire types
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2007
  */
 
 #ifndef TYPES_H

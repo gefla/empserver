@@ -28,7 +28,7 @@
  *  rada.c: Do radar from a ship/unit/sector
  * 
  *  Known contributors to this file:
- *     
+ *     Ron Koenderink, 2006
  */
 
 #include <config.h>
