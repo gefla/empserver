@@ -37,13 +37,22 @@
 #include "budg.h"
 #include "update.h"
 
-struct bp {
-    int val[6];
-    int avail;
+enum {
+    BP_NONE = -1,
+    BP_CIVIL, BP_MILIT, BP_SHELL, BP_GUN, BP_LCM, BP_HCM,
+    BP_MAX = BP_HCM
 };
 
-static int bud_key[I_MAX + 1] =
-    { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0 };
+struct bp {
+    short bp_item[BP_MAX + 1];
+    short bp_avail;
+};
+
+static int bud_key[I_MAX + 1] = {
+    BP_CIVIL, BP_MILIT, BP_SHELL, BP_GUN,
+    BP_NONE, BP_NONE, BP_NONE, BP_NONE, BP_NONE, BP_NONE,
+    BP_LCM, BP_HCM, BP_NONE, BP_NONE
+};
 
 static struct bp *
 bp_ref(struct bp *bp, struct sctstr *sp)
@@ -54,46 +63,47 @@ bp_ref(struct bp *bp, struct sctstr *sp)
 int
 bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
 {
-    int cm;
+    int idx = bud_key[comm];
 
-    if ((cm = bud_key[comm]) == 0)
+    if (idx < 0)
 	return sp->sct_item[comm];
-    return bp_ref(bp, sp)->val[cm - 1];
+    return bp_ref(bp, sp)->bp_item[idx];
 }
 
 void
 bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
-    int cm;
+    int idx = bud_key[comm];
 
-    if ((cm = bud_key[comm]) != 0)
-	bp_ref(bp, sp)->val[cm - 1] = amount;
+    if (idx >= 0)
+	bp_ref(bp, sp)->bp_item[idx] = amount;
 }
 
 int
 bp_get_avail(struct bp *bp, struct sctstr *sp)
 {
-    return bp_ref(bp, sp)->avail;
+    return bp_ref(bp, sp)->bp_avail;
 }
 
 void
 bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 {
-    bp_ref(bp, sp)->avail = amount;
+    bp_ref(bp, sp)->bp_avail = amount;
 }
 
 void
 bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {
-    int k;
+    int idx;
     struct bp *p = bp_ref(bp, sp);
     i_type i;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
-	if ((k = bud_key[i]) != 0)
-	    p->val[k - 1] = sp->sct_item[i];
+	idx = bud_key[i];
+	if (idx >= 0)
+	    p->bp_item[idx] = sp->sct_item[i];
     }
-    p->avail = sp->sct_avail;
+    p->bp_avail = sp->sct_avail;
 }
 
 struct bp *
