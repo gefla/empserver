@@ -44,52 +44,43 @@ struct bp {
 static int bud_key[I_MAX + 2] =
     { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
 
-static int *
-get_wp(struct bp *bp, struct sctstr *sp, int cm)
+static struct bp *
+bp_ref(struct bp *bp, struct sctstr *sp)
 {
-    return &bp[sp->sct_x + sp->sct_y * WORLD_X].val[cm - 1];
+    return &bp[sp->sct_x + sp->sct_y * WORLD_X];
 }
 
 int
 gt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm)
 {
-    int *wp;
     int cm;
 
-    if ((cm = bud_key[comm]) == 0) {
+    if ((cm = bud_key[comm]) == 0)
 	return sp->sct_item[comm];
-    } else {
-	wp = get_wp(bp, sp, cm);
-	return *wp;
-    }
+    return bp_ref(bp, sp)->val[cm - 1];
 }
 
 void
 pt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
-    int *wp;
     int cm;
 
-    if ((cm = bud_key[comm]) != 0) {
-	wp = get_wp(bp, sp, cm);
-	*wp = amount;
-    }
+    if ((cm = bud_key[comm]) != 0)
+	bp_ref(bp, sp)->val[cm - 1] = amount;
 }
 
 void
 fill_update_array(struct bp *bp, struct sctstr *sp)
 {
     int k;
-    int *wp;
+    struct bp *p = bp_ref(bp, sp);
     i_type i;
 
-    for (i = I_NONE + 1; i <= I_MAX; i++)
-	if ((k = bud_key[i]) != 0) {
-	    wp = get_wp(bp, sp, k);
-	    *wp = sp->sct_item[i];
-	}
-    wp = get_wp(bp, sp, bud_key[I_MAX + 1]);
-    *wp = sp->sct_avail;
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	if ((k = bud_key[i]) != 0)
+	    p->val[k - 1] = sp->sct_item[i];
+    }
+    p->val[bud_key[I_MAX + 1] - 1] = sp->sct_avail;
 }
 
 struct bp *
