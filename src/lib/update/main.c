@@ -58,7 +58,7 @@ update_main(void *unused)
     int etu = etu_per_update;
     int n;
     int x;
-    int *bp;
+    struct bp *bp;
     int cn, cn2, rel;
     struct natstr *cnp;
     struct natstr *np;
@@ -92,7 +92,7 @@ update_main(void *unused)
     memset(air_money, 0, sizeof(air_money));
     memset(sea_money, 0, sizeof(sea_money));
     memset(lnd_money, 0, sizeof(lnd_money));
-    bp = calloc(WORLD_X * WORLD_Y * 7, sizeof(int));
+    bp = alloc_bp();
     for (n = 0; n < MAXNOC; n++) {
 	money[n] = 0;
 	if (!(np = getnatp(n)))

@@ -46,12 +46,12 @@
 #include "update.h"
 #include <math.h>
 
-static void landrepair(struct lndstr *, struct natstr *, int *, int);
-static void upd_land(struct lndstr *, int, struct natstr *, int *, int);
+static void landrepair(struct lndstr *, struct natstr *, struct bp *, int);
+static void upd_land(struct lndstr *, int, struct natstr *, struct bp *, int);
 static int feed_land(struct lndstr *, int);
 
 int
-prod_land(int etus, int natnum, int *bp, int build)
+prod_land(int etus, int natnum, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct lndstr *lp;
@@ -104,7 +104,7 @@ prod_land(int etus, int natnum, int *bp, int build)
 
 static void
 upd_land(struct lndstr *lp, int etus,
-	 struct natstr *np, int *bp, int build)
+	 struct natstr *np, struct bp *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
     struct lchrstr *lcp;
@@ -214,7 +214,7 @@ upd_land(struct lndstr *lp, int etus,
 }
 
 static void
-landrepair(struct lndstr *land, struct natstr *np, int *bp, int etus)
+landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
 {
     int delta;
     struct sctstr *sp;

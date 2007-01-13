@@ -47,12 +47,12 @@
 #include "ship.h"
 #include "update.h"
 
-static void shiprepair(struct shpstr *, struct natstr *, int *, int);
-static void upd_ship(struct shpstr *, int, struct natstr *, int *, int);
+static void shiprepair(struct shpstr *, struct natstr *, struct bp *, int);
+static void upd_ship(struct shpstr *, int, struct natstr *, struct bp *, int);
 static int feed_ship(struct shpstr *, int);
 
 int
-prod_ship(int etus, int natnum, int *bp, int build)
+prod_ship(int etus, int natnum, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct shpstr *sp;
@@ -107,7 +107,7 @@ prod_ship(int etus, int natnum, int *bp, int build)
 
 static void
 upd_ship(struct shpstr *sp, int etus,
-	 struct natstr *np, int *bp, int build)
+	 struct natstr *np, struct bp *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
     struct sctstr *sectp;
@@ -266,7 +266,7 @@ upd_ship(struct shpstr *sp, int etus,
  * 8 * 8 * $40 = $2560!
  */
 static void
-shiprepair(struct shpstr *ship, struct natstr *np, int *bp, int etus)
+shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 {
     int delta;
     struct sctstr *sp;

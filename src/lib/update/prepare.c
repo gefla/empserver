@@ -44,7 +44,7 @@
 #include "update.h"
 
 void
-prepare_sects(int etu, int *bp)
+prepare_sects(int etu, struct bp *bp)
 {
     struct sctstr *sp;
     struct natstr *np;

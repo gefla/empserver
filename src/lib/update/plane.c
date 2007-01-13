@@ -42,11 +42,11 @@
 #include "ship.h"
 #include "update.h"
 
-static void planerepair(struct plnstr *, struct natstr *, int *, int);
-static void upd_plane(struct plnstr *, int, struct natstr *, int *, int);
+static void planerepair(struct plnstr *, struct natstr *, struct bp *, int);
+static void upd_plane(struct plnstr *, int, struct natstr *, struct bp *, int);
 
 int
-prod_plane(int etus, int natnum, int *bp, int buildem)
+prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
@@ -88,7 +88,7 @@ prod_plane(int etus, int natnum, int *bp, int buildem)
 
 static void
 upd_plane(struct plnstr *pp, int etus,
-	  struct natstr *np, int *bp, int build)
+	  struct natstr *np, struct bp *bp, int build)
 {
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     int mult, cost, eff;
@@ -125,7 +125,7 @@ upd_plane(struct plnstr *pp, int etus,
 }
 
 static void
-planerepair(struct plnstr *pp, struct natstr *np, int *bp, int etus)
+planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 {
     int build;
     int mvec[I_MAX + 1];

@@ -184,7 +184,7 @@ calc_all(long p_sect[][2],
 	 int *planes, int *pbuild, int *npbuild, int *pmaint)
 {
     struct natstr *np;
-    int *bp;
+    struct bp *bp;
     long pop = 0;
     int n, civ_tax, uw_tax, mil_pay;
     struct sctstr *sp;
@@ -197,7 +197,7 @@ calc_all(long p_sect[][2],
     *planes = *pbuild = *npbuild = *pmaint = 0;
     
     np = getnatp(player->cnum);
-    bp = calloc(WORLD_X * WORLD_Y * 8, sizeof(int));
+    bp = alloc_bp();
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	fill_update_array(bp, sp);
 	if (sp->sct_own == player->cnum) {

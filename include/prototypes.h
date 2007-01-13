@@ -735,12 +735,12 @@ extern void finish_sects(int);
 /* human.c */
 extern int new_work(struct sctstr *, int);
 extern int do_feed(struct sctstr *, struct natstr *,
-		   short *, int *, int *, int);
+		   short *, int *, struct bp *, int);
 extern int feed_people(short *, int);
 extern double food_needed(short *, int);
 extern int famine_victims(short *, int);
 /* land.c */
-extern int prod_land(int, int, int *, int);
+extern int prod_land(int, int, struct bp *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
@@ -774,7 +774,7 @@ extern void *nxtitemp(struct nstr_item *);
 extern void do_plague(struct sctstr *, struct natstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
 /* plane.c */
-extern int prod_plane(int, int, int *, int);
+extern int prod_plane(int, int, struct bp *, int);
 /* populace.c */
 extern void populace(struct natstr *, struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
@@ -782,7 +782,7 @@ extern int total_work(int, int, int, int, int, int);
 extern void tax(struct sctstr *, struct natstr *, int, long *, int *,
 		int *, int *);
 extern int upd_slmilcosts(natid, int);
-extern void prepare_sects(int, int *);
+extern void prepare_sects(int, struct bp *);
 extern int bank_income(struct sctstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, short *, int, int,
@@ -799,9 +799,9 @@ extern void sail_ship(natid);
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
-extern void produce_sect(int, int, int *, long [][2]);
+extern void produce_sect(int, int, struct bp *, long [][2]);
 /* ship.c */
-extern int prod_ship(int, int, int *, int);
+extern int prod_ship(int, int, struct bp *, int);
 
 /*
  * src/server

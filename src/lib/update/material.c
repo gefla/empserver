@@ -48,7 +48,7 @@
  * Return adjusted build percentage.
  */
 int
-get_materials(struct sctstr *sp, int *bp, int *mvec, int pct)
+get_materials(struct sctstr *sp, struct bp *bp, int *mvec, int pct)
 {
     int i, amt;
 

@@ -37,6 +37,7 @@
 typedef unsigned char natid;	/* NSC_NATID must match this */
 typedef short coord;
 
+struct bp;
 struct emp_qelem;
 struct empobj;
 struct lndstr;

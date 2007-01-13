@@ -257,7 +257,7 @@ decay_fallout(struct sctstr *sp, int etus)
  * Produce for a specific nation
  */
 void
-produce_sect(int natnum, int etu, int *bp, long p_sect[][2])
+produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 {
     struct sctstr *sp;
     struct natstr *np;

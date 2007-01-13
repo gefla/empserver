@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Ville Virrankoski, 1996
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -36,18 +37,21 @@
 #include "budg.h"
 #include "update.h"
 
+struct bp {
+    int val[7];
+};
+
 static int bud_key[I_MAX + 2] =
     { 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 5, 6, 0, 0, 7 };
 
 static int *
-get_wp(int *bp, struct sctstr *sp, int cm)
+get_wp(struct bp *bp, struct sctstr *sp, int cm)
 {
-    return (bp + (sp->sct_x + (sp->sct_y * WORLD_X)) +
-	    WORLD_X * WORLD_Y * (cm - 1));
+    return &bp[sp->sct_x + sp->sct_y * WORLD_X].val[cm - 1];
 }
 
 int
-gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm)
+gt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm)
 {
     int *wp;
     int cm;
@@ -61,7 +65,7 @@ gt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm)
 }
 
 void
-pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount)
+pt_bg_nmbr(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
     int *wp;
     int cm;
@@ -73,7 +77,7 @@ pt_bg_nmbr(int *bp, struct sctstr *sp, i_type comm, int amount)
 }
 
 void
-fill_update_array(int *bp, struct sctstr *sp)
+fill_update_array(struct bp *bp, struct sctstr *sp)
 {
     int k;
     int *wp;
@@ -86,4 +90,10 @@ fill_update_array(int *bp, struct sctstr *sp)
 	}
     wp = get_wp(bp, sp, bud_key[I_MAX + 1]);
     *wp = sp->sct_avail;
+}
+
+struct bp *
+alloc_bp(void)
+{
+    return calloc(WORLD_X * WORLD_Y, sizeof(struct bp));
 }

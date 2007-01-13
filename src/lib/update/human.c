@@ -55,7 +55,7 @@ static int babies(int, int, double, int, int);
  */
 int
 do_feed(struct sctstr *sp, struct natstr *np, short *vec,
-	int *workp, int *bp, int etu)
+	int *workp, struct bp *bp, int etu)
 {
     int work_avail;
     int starved, sctwork;
