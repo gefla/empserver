@@ -312,9 +312,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	bp_enable_cachepath();
 
 	sctwork = do_feed(sp, np, vec, &work, etu);
-	bp_put_item(bp, sp, I_CIVIL, vec[I_CIVIL]);
-	bp_put_item(bp, sp, I_UW, vec[I_UW]);
-	bp_put_item(bp, sp, I_MILIT, vec[I_MILIT]);
+	bp_put_items(bp, sp, vec);
 
 	bp_disable_cachepath();
 	bp_clear_cachepath();
@@ -332,8 +330,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	    np->nat_money > 0) {
 	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
 				  &cost);
-	    bp_put_item(bp, sp, I_LCM, vec[I_LCM]);
-	    bp_put_item(bp, sp, I_HCM, vec[I_HCM]);
+	    bp_put_items(bp, sp, vec);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
@@ -349,6 +346,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	    p_sect[desig][1] += ecost;
 	    if (!player->simulation)
 		np->nat_money -= ecost;
+	    bp_put_items(bp, sp, vec);
 	}
 
 	/*
@@ -359,6 +357,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	    if (np->nat_money > 0 && dchr[desig].d_prd >= 0)
 		work -= produce(np, sp, vec, work, desig, neweff,
 				&pcost, &amount);
+	    bp_put_items(bp, sp, vec);
 	}
 
 	bp_put_avail(bp, sp, work);
