@@ -98,6 +98,21 @@ bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 	bp_ref(bp, sp)->bp_item[idx] = amount;
 }
 
+/* Set the item values tracked in BP for sector SP from VEC.  */
+void
+bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
+{
+    enum bp_item_idx idx;
+    struct bp *p = bp_ref(bp, sp);
+    i_type i;
+
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	idx = bud_key[i];
+	if (idx >= 0)
+	    p->bp_item[idx] = sp->sct_item[i];
+    }
+}
+
 /* Return avail tracked in BP for sector SP.  */
 int
 bp_get_avail(struct bp *bp, struct sctstr *sp)
@@ -116,16 +131,8 @@ bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 void
 bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {
-    enum bp_item_idx idx;
-    struct bp *p = bp_ref(bp, sp);
-    i_type i;
-
-    for (i = I_NONE + 1; i <= I_MAX; i++) {
-	idx = bud_key[i];
-	if (idx >= 0)
-	    p->bp_item[idx] = sp->sct_item[i];
-    }
-    p->bp_avail = sp->sct_avail;
+    bp_put_items(bp, sp, sp->sct_item);
+    bp_put_avail(bp, sp, sp->sct_avail);
 }
 
 /*

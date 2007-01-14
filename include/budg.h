@@ -43,6 +43,7 @@ struct bp *bp_alloc(void);
 void bp_set_from_sect(struct bp *, struct sctstr *);
 int bp_get_item(struct bp *, struct sctstr *, i_type);
 void bp_put_item(struct bp *, struct sctstr *, i_type, int);
+void bp_put_items(struct bp *, struct sctstr *, short *);
 int bp_get_avail(struct bp *, struct sctstr *);
 void bp_put_avail(struct bp *, struct sctstr *, int);
 
