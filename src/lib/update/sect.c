@@ -264,7 +264,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
     short buf[I_MAX + 1];
     short *vec;
     int work, cost, ecost, pcost, sctwork;
-    int n, desig, maxpop, neweff, amount;
+    int n, desig, neweff, amount;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
@@ -362,11 +362,6 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	p_sect[desig][0] += amount;
 	p_sect[desig][1] += pcost;
 	if (!player->simulation) {
-	    maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
-	    if (vec[I_CIVIL] > maxpop)
-		vec[I_CIVIL] = maxpop;
-	    if (vec[I_UW] > maxpop)
-		vec[I_UW] = maxpop;
 	    sp->sct_avail = work;
 	    np->nat_money -= pcost;
 	}
