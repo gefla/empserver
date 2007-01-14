@@ -109,7 +109,7 @@ bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	idx = bud_key[i];
 	if (idx >= 0)
-	    p->bp_item[idx] = sp->sct_item[i];
+	    p->bp_item[idx] = vec[i];
     }
 }
 
