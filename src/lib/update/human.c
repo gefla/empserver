@@ -78,9 +78,6 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		/* need to grow "emergency rations" */
 		work_avail -= 2 * growfood(sp, vec, work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
-		bp_put_avail(bp, sp, work_avail);
-		if (!player->simulation)
-		    sp->sct_avail = work_avail;
 	    }
 	    if (vec[I_FOOD] < needed && sp->sct_own == sp->sct_oldown) {
 		/* steal food from warehouses, headquarters,
