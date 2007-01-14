@@ -55,7 +55,7 @@ static int babies(int, int, double, int, int);
  */
 int
 do_feed(struct sctstr *sp, struct natstr *np, short *vec,
-	int *workp, struct bp *bp, int etu)
+	int *workp, int etu)
 {
     int work_avail;
     int starved, sctwork;
@@ -115,9 +115,6 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     /* Here is where we truncate extra people, always */
     trunc_people(sp, np, vec);
 
-    bp_put_item(bp, sp, I_CIVIL, vec[I_CIVIL]);
-    bp_put_item(bp, sp, I_UW, vec[I_UW]);
-    bp_put_item(bp, sp, I_MILIT, vec[I_MILIT]);
     *workp = work_avail;
     return sctwork;
 }

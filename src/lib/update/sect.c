@@ -311,7 +311,10 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	   here */
 	bp_enable_cachepath();
 
-	sctwork = do_feed(sp, np, vec, &work, bp, etu);
+	sctwork = do_feed(sp, np, vec, &work, etu);
+	bp_put_item(bp, sp, I_CIVIL, vec[I_CIVIL]);
+	bp_put_item(bp, sp, I_UW, vec[I_UW]);
+	bp_put_item(bp, sp, I_MILIT, vec[I_MILIT]);
 
 	bp_disable_cachepath();
 	bp_clear_cachepath();
