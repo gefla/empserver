@@ -31,7 +31,7 @@
  *     Sasha Mikheev
  *     Doug Hay, 1998
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2006
+ *     Markus Armbruster, 2005-2007
  */
 
 /*
@@ -74,6 +74,9 @@ typedef struct lwpProc empth_t;
 /* empth_sem_t * represents a semaphore */
 typedef struct lwpSem empth_sem_t;
 
+/* empth_rwlock_t * represents a read-write lock */
+typedef struct lwp_rwlock empth_rwlock_t;
+
 /* Flags for empth_select(): whether to sleep on input or output */
 #define EMPTH_FD_READ     LWP_FD_READ
 #define EMPTH_FD_WRITE    LWP_FD_WRITE
@@ -95,6 +98,7 @@ typedef struct lwpSem empth_sem_t;
 
 typedef struct empth_t empth_t;
 typedef struct empth_sem_t empth_sem_t;
+typedef struct empth_rwlock_t empth_rwlock_t;
 
 #endif /* EMPTH_POSIX */
 
@@ -108,6 +112,7 @@ typedef struct empth_sem_t empth_sem_t;
 
 typedef struct loc_Thread_t empth_t;
 typedef struct loc_Sem_t empth_sem_t;
+typedef struct loc_RWLock_t empth_rwlock_t;
 
 void empth_request_shutdown(void);
 #endif /* EMPTH_W32 */
@@ -219,6 +224,42 @@ void empth_sem_signal(empth_sem_t *sem);
  * This semaphore operation is often called `up' or `P' otherwhere.
  */
 void empth_sem_wait(empth_sem_t *sem);
+
+/*
+ * Create a read-write lock.
+ * NAME is its name, it is used for debugging.
+ * Return the reade-write lock, or NULL on error.
+ */
+empth_rwlock_t *empth_rwlock_create(char *name);
+
+/*
+ * Destroy RWLOCK.
+ */
+void empth_rwlock_destroy(empth_rwlock_t *rwlock);
+
+/*
+ * Lock RWLOCK for writing.
+ * A read-write lock can be locked for writing only when it is
+ * unlocked.  If this is not the case, put the current thread to sleep
+ * until it is.
+ */
+void empth_rwlock_wrlock(empth_rwlock_t *rwlock);
+
+/*
+ * Lock RWLOCK for reading.
+ * A read-write lock can be locked for reading only when it is not
+ * locked for writing.  If this is not the case, put the current
+ * thread to sleep until it is.  Must not starve writers, and may
+ * sleep to avoid that.
+ */
+void empth_rwlock_rdlock(empth_rwlock_t *rwlock);
+
+/*
+ * Unlock read-write lock RWLOCK.
+ * The current thread must hold RWLOCK.
+ * Wake up threads that can now lock it.
+ */
+void empth_rwlock_unlock(empth_rwlock_t *rwlock);
 
 
 /*

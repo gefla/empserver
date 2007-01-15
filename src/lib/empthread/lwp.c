@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Sasha Mikheev
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2007
  */
 
 #include <config.h>
@@ -148,4 +148,34 @@ void
 empth_sem_wait(empth_sem_t *sm)
 {
     lwpWait(sm);
+}
+
+empth_rwlock_t *
+empth_rwlock_create(char *name)
+{
+    return lwp_rwlock_create(name);
+}
+
+void
+empth_rwlock_destroy(empth_rwlock_t *rwlock)
+{
+    lwp_rwlock_destroy(rwlock);
+}
+
+void
+empth_rwlock_wrlock(empth_rwlock_t *rwlock)
+{
+    lwp_rwlock_wrlock(rwlock);
+}
+
+void
+empth_rwlock_rdlock(empth_rwlock_t *rwlock)
+{
+    lwp_rwlock_rdlock(rwlock);
+}
+
+void
+empth_rwlock_unlock(empth_rwlock_t *rwlock)
+{
+    lwp_rwlock_unlock(rwlock);
 }

@@ -31,6 +31,7 @@
 
 struct lwpProc;
 struct lwpSem;
+struct lwp_rwlock;
 
 #define LWP_FD_READ	0x1
 #define LWP_FD_WRITE	0x2
@@ -56,6 +57,12 @@ int lwpSetPriority(int prio);
 struct lwpSem *lwpCreateSem(char *name, int count);
 void lwpSignal(struct lwpSem *);
 void lwpWait(struct lwpSem *);
+
+struct lwp_rwlock *lwp_rwlock_create(char *);
+void lwp_rwlock_destroy(struct lwp_rwlock *);
+void lwp_rwlock_wrlock(struct lwp_rwlock *);
+void lwp_rwlock_rdlock(struct lwp_rwlock *);
+void lwp_rwlock_unlock(struct lwp_rwlock *);
 
 extern struct lwpProc *LwpCurrent;
 

@@ -30,7 +30,7 @@
  *  Known contributors to this file:
  *     Doug Hay, 1998
  *     Steve McClure, 1998
- *     Ron Koenderink, 2004-2005
+ *     Ron Koenderink, 2004-2007
  */
 
 /*
@@ -106,6 +106,53 @@ struct loc_Sem_t {
     HANDLE hEvent;
     /* The count variable */
     int count;
+};
+
+/************************
+ * loc_RWLock_t
+ *
+ * Invariants
+ *	must hold at function call, return, sleep
+ *	and resume from sleep.
+ *
+ * any state:
+ *	nwrite >= 0
+ *	nread >= 0
+
+ * if unlocked:
+ *	can_read set
+ *	can_write set
+ *	nwrite == 0
+ *	nread == 0
+ *
+ * if read-locked without writers contending:
+ *	can_read set
+ *	can_write clear
+ *	nwrite == 0
+ *	nread > 0
+ *
+ * if read-locked with writers contending:
+ *	can_read clear
+ *	can_write clear
+ *	nwrite > 0    #writers blocked
+ *	nread > 0
+ *
+ * if write-locked:
+ *	can_read clear
+ *	can_write clear
+ *	nwrite > 0    #writers blocked + 1
+ *	nread == 0
+ *
+ * To ensure consistency, state normally changes only while the
+ * thread changing it holds hThreadMutex.
+ *
+ */
+struct loc_RWLock_t {
+    char name[17];	/* The thread name, passed in at create time. */
+    HANDLE can_read;	/* Manual event -- allows read locks */
+    HANDLE can_write;	/* Auto-reset event -- allows write locks */
+    int nread;		/* number of active readers */
+    int nwrite;		/* total number of writers (active and waiting) */
 };
 
 /* This is the thread exclusion/non-premption mutex. */
@@ -202,8 +249,10 @@ loc_FreeThreadInfo(empth_t *pThread)
  * info, and the thread owns the MUTEX sem.
  */
 static void
-loc_RunThisThread(void)
+loc_RunThisThread(HANDLE hWaitObject)
 {
+    HANDLE hWaitObjects[2];
+
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
     if (pThread->bKilled) {
@@ -214,8 +263,11 @@ loc_RunThisThread(void)
 	}
     }
 
-    /* Get the MUTEX semaphore, wait forever. */
-    WaitForSingleObject(hThreadMutex, INFINITE);
+    hWaitObjects[0] = hThreadMutex;
+    hWaitObjects[1] = hWaitObject;
+
+    WaitForMultipleObjects(hWaitObject ? 2 : 1, hWaitObjects,
+			   TRUE, INFINITE);
 
     if (!pCurThread) {
 	/* Set the globals to this thread. */
@@ -306,7 +358,7 @@ empth_threadMain(void *pvData)
     srand(now ^ (unsigned)pThread);
 
     /* Switch to this thread context */
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
 
     /* Run the thread. */
     if (pThread->pfnEntry)
@@ -375,7 +427,7 @@ empth_init(void **ctx_ptr, int flags)
     TlsSetValue(dwTLSIndex, pThread);
 
     /* Make this the running thread. */
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
 
     logerror("NT pthreads initialized");
     return 0;
@@ -481,7 +533,7 @@ void
 empth_yield(void)
 {
     loc_BlockThisThread();
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
 }
 
 /************************
@@ -534,7 +586,7 @@ empth_select(int fd, int flags)
 
     WSACloseEvent(hEventObject[0]);
 
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
 }
 
 /************************
@@ -570,7 +622,7 @@ empth_sleep(time_t until)
 
     loc_debug("sleep done. Waiting to run.");
 
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
 }
 
 /************************
@@ -593,7 +645,7 @@ empth_wait_for_signal(void)
     /* Get the MUTEX semaphore, wait the number of MS */
     WaitForSingleObject(hShutdownEvent, INFINITE);
 
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
     return 0;
 }
 
@@ -670,5 +722,81 @@ empth_sem_wait(empth_sem_t *pSem)
     } else
 	ReleaseMutex(pSem->hMutex);
 
-    loc_RunThisThread();
+    loc_RunThisThread(NULL);
+}
+
+empth_rwlock_t *
+empth_rwlock_create(char *name)
+{
+    empth_rwlock_t *rwlock;
+
+    rwlock = malloc(sizeof(*rwlock));
+    if (!rwlock)
+	return NULL;
+
+    memset(rwlock, 0, sizeof(*rwlock));
+    strncpy(rwlock->name, name, sizeof(rwlock->name) - 1);
+
+    if ((rwlock->can_read = CreateEvent(NULL, TRUE, TRUE, NULL)) == NULL) {
+	logerror("rwlock_create: failed to create reader event %s at %s:%d",
+	    name, __FILE__, __LINE__);
+	free(rwlock);
+	return NULL;
+    }
+
+    if ((rwlock->can_write = CreateEvent(NULL, FALSE, TRUE, NULL)) == NULL) {
+	logerror("rwlock_create: failed to create writer event %s at %s:%d",
+	    name, __FILE__, __LINE__);
+	CloseHandle(rwlock->can_read);
+	free(rwlock);
+	return NULL;
+    }
+    return rwlock;
+}
+
+void
+empth_rwlock_destroy(empth_rwlock_t *rwlock)
+{
+    if (CANT_HAPPEN(rwlock->nread || rwlock->nwrite))
+	return;
+    CloseHandle(rwlock->can_read);
+    CloseHandle(rwlock->can_write);
+    free(rwlock);
+}
+
+void
+empth_rwlock_wrlock(empth_rwlock_t *rwlock)
+{
+    /* block any new readers */
+    ResetEvent(rwlock->can_read);
+    rwlock->nwrite++;
+    loc_BlockThisThread();
+    loc_RunThisThread(rwlock->can_write);
+    CANT_HAPPEN(rwlock->nread != 0);
+}
+
+void
+empth_rwlock_rdlock(empth_rwlock_t *rwlock)
+{
+    loc_BlockThisThread();
+    loc_RunThisThread(rwlock->can_read);
+    ResetEvent(rwlock->can_write);
+    rwlock->nread++;
+}
+
+void
+empth_rwlock_unlock(empth_rwlock_t *rwlock)
+{
+    if (CANT_HAPPEN(!rwlock->nread && !rwlock->nwrite))
+	return;
+   if (rwlock->nread) { /* holding read lock */
+	rwlock->nread--;
+	if (rwlock->nread == 0)
+	    SetEvent(rwlock->can_write);
+    } else {
+	rwlock->nwrite--;
+	SetEvent(rwlock->can_write);
+    }
+    if (rwlock->nwrite == 0)
+	SetEvent(rwlock->can_read);
 }

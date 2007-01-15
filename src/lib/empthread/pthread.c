@@ -30,7 +30,8 @@
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2006
+ *     Markus Armbruster, 2005-2007
+ *     Ron Koenderink, 2007
  */
 
 /* Required for PTHREAD_STACK_MIN on some systems, e.g. Solaris: */
@@ -73,6 +74,11 @@ struct empth_sem_t {
     char name[80];
     pthread_mutex_t mtx_sem;
     pthread_cond_t cnd_sem;
+};
+
+struct empth_rwlock_t {
+    char *name;
+    pthread_rwlock_t lock;
 };
 
 /* Thread-specific data key */
@@ -454,4 +460,53 @@ empth_sem_wait(empth_sem_t *sm)
 	empth_restorectx();
     } else
 	pthread_mutex_unlock(&sm->mtx_update);
+}
+
+empth_rwlock_t *
+empth_rwlock_create(char *name)
+{
+    empth_rwlock_t *rwlock;
+
+    rwlock = malloc(sizeof(*rwlock));
+    if (!rwlock)
+	return NULL;
+
+    if (pthread_rwlock_init(&rwlock->lock, NULL) != 0) {
+	free(rwlock);
+	return NULL;
+    }
+
+    rwlock->name = strdup(name);
+    return rwlock;
+}
+
+void
+empth_rwlock_destroy(empth_rwlock_t *rwlock)
+{
+    pthread_rwlock_destroy(&rwlock->lock);
+    free(rwlock);
+}
+
+void
+empth_rwlock_wrlock(empth_rwlock_t *rwlock)
+{
+    pthread_mutex_unlock(&mtx_ctxsw);
+    pthread_rwlock_wrlock(&rwlock->lock);
+    pthread_mutex_lock(&mtx_ctxsw);
+    empth_restorectx();
+}
+
+void
+empth_rwlock_rdlock(empth_rwlock_t *rwlock)
+{
+    pthread_mutex_unlock(&mtx_ctxsw);
+    pthread_rwlock_rdlock(&rwlock->lock);
+    pthread_mutex_lock(&mtx_ctxsw);
+    empth_restorectx();
+}
+
+void
+empth_rwlock_unlock(empth_rwlock_t *rwlock)
+{
+    pthread_rwlock_unlock(&rwlock->lock);
 }
