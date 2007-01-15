@@ -41,7 +41,7 @@
  *
  * WIN32 has a full pre-emptive threading environment.  But Empire can
  * not handle pre-emptive threading.  Thus, we will use the threads,
- * but limit the preemption using a Mutex semaphore.
+ * but limit the preemption using a Mutex.
  */
 
 #include <config.h>
@@ -87,7 +87,7 @@ struct loc_Thread_t {
     /* The system thread ID. */
     unsigned long ulThreadID;
 
-    /* An Event sem that the thread will wait/sleep on. */
+    /* An Mutex that the thread will wait/sleep on. */
     HANDLE hThreadEvent;
 };
 
@@ -101,7 +101,7 @@ struct loc_Sem_t {
 
     /* An exclusion semaphore for this sem. */
     HANDLE hMutex;
-    /* An Event sem that the thread(s) will sleep on. */
+    /* An Event that the thread(s) will sleep on. */
 
     HANDLE hEvent;
     /* The count variable */
@@ -160,7 +160,7 @@ struct loc_RWLock_t {
 /* either blocked on it, or waiting for some OS response. */
 static HANDLE hThreadMutex;
 
-/* This is the thread startup event sem. */
+/* This is the thread startup event. */
 /* We use this to lockstep when we are starting up threads. */
 static HANDLE hThreadStartEvent;
 
@@ -246,7 +246,7 @@ loc_FreeThreadInfo(empth_t *pThread)
  *
  * This thread wants to run.
  * When this function returns, the globals are set to this thread
- * info, and the thread owns the MUTEX sem.
+ * info, and the thread owns the MUTEX.
  */
 static void
 loc_RunThisThread(HANDLE hWaitObject)
@@ -385,7 +385,7 @@ empth_init(void **ctx_ptr, int flags)
     global_flags = flags;
     dwTLSIndex = TlsAlloc();
 
-    /* Create the thread mutex sem. */
+    /* Create the thread mutex. */
     /* Initally unowned. */
     hThreadMutex = CreateMutex(NULL, FALSE, NULL);
     if (!hThreadMutex) {
@@ -393,7 +393,7 @@ empth_init(void **ctx_ptr, int flags)
 	return 0;
     }
 
-    /* Create the thread start event sem. */
+    /* Create the thread start event. */
     /* Automatic state reset. */
     hThreadStartEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (!hThreadStartEvent) {
@@ -472,7 +472,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
     pThread->pfnEntry = entry;
     pThread->bMainThread = FALSE;
 
-    /* Create thread event sem, auto reset. */
+    /* Create thread event, auto reset. */
     pThread->hThreadEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
     if (size < loc_MIN_THREAD_STACK)
@@ -642,7 +642,6 @@ empth_wait_for_signal(void)
 {
     loc_BlockThisThread();
 
-    /* Get the MUTEX semaphore, wait the number of MS */
     WaitForSingleObject(hShutdownEvent, INFINITE);
 
     loc_RunThisThread(NULL);
