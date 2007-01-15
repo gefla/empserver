@@ -39,6 +39,7 @@
 extern int shutdown_pending;
 extern int update_pending;
 extern empth_sem_t *update_sem;
+extern empth_rwlock_t *update_lock;
 extern time_t update_time;
 extern int updating_mob;
 

@@ -48,6 +48,7 @@
 #include "server.h"
 
 empth_sem_t *update_sem;
+empth_rwlock_t *update_lock;
 time_t update_time;
 
 static void update_wait(void *unused);
@@ -61,9 +62,9 @@ update_sched(void *unused)
     time_t now, delta;
 
     update_sem = empth_sem_create("Update", 0);
+    update_lock = empth_rwlock_create("Update");
     empth_create(PP_SCHED, update_wait, (50 * 1024), 0, "UpdateWait",
 		 "Waits until players idle", 0);
-    time(&now);
     if (s_p_etu <= 0) {
 	logerror("bad value for s_p_etu (%d)", s_p_etu);
 	s_p_etu = 2 * 60;
@@ -116,15 +117,12 @@ static void
 update_wait(void *unused)
 {
     struct player *p;
-    int running;
-    time_t now;
     int stacksize;
     struct player *dp;
 
     while (1) {
 	empth_sem_wait(update_sem);
 	update_pending = 1;
-	running = 0;
 	for (p = player_next(0); p != 0; p = player_next(p)) {
 	    if (p->state != PS_PLAYING)
 		continue;
@@ -132,17 +130,13 @@ update_wait(void *unused)
 		pr_flash(p, "Update aborting command\n");
 		p->aborted = 1;
 		empth_wakeup(p->proc);
-		running++;
 	    }
 	}
-	time(&now);
-	if (running) {
-	    /* sleep a few, wait for aborts to take effect */
-	    empth_sleep(now + 2);
-	}
+	empth_rwlock_wrlock(update_lock);
 	if (*pre_update_hook) {
 	    if (run_hook(pre_update_hook, "pre-update")) {
 		update_pending = 0;
+		empth_rwlock_unlock(update_lock);
 		continue;
 	    }
 	}
@@ -154,6 +148,7 @@ update_wait(void *unused)
 	if (!dp) {
 	    logerror("can't create dummy player for update");
 	    update_pending = 0;
+	    empth_rwlock_unlock(update_lock);
 	    continue;
 	}
 	stacksize = 100000 +
@@ -162,6 +157,11 @@ update_wait(void *unused)
 
 	empth_create(PP_UPDATE, update_main, stacksize, 0,
 		     "UpdateRun", "Updates the world", dp);
+
+	while (update_pending)
+	    empth_yield();	/* FIXME cheesy! */
+	update_pending = 0;
+	empth_rwlock_unlock(update_lock);
     }
     /*NOTREACHED*/
 }

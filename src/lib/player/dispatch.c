@@ -88,10 +88,7 @@ dispatch(char *buf, char *redir)
 	pr("Command not implemented\n");
 	return 0;
     }
-    if (update_pending) {
-	pr("Update in progress...command failed\n");
-	return 0;
-    }
+    empth_rwlock_rdlock(update_lock);
     if (redir) {
 	prredir(redir);
 	uprnf(buf);
@@ -113,6 +110,7 @@ dispatch(char *buf, char *redir)
 	logerror("%s: returned bad value", command->c_form);
 	break;
     }
+    empth_rwlock_unlock(update_lock);
     player->command = 0;
     return 0;
 }
