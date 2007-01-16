@@ -64,7 +64,7 @@ update_init(void)
 	exit_nomem();
 
     if (!empth_create(PP_SCHED, update_wait, 50 * 1024, 0,
-		      "Update", "Updates the world", NULL))
+		      "UpdateWait", "Waits until players idle", NULL))
 	exit_nomem();
 
     if (!empth_create(PP_SCHED, update_sched, 50 * 1024, 0,
