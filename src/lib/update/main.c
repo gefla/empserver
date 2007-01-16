@@ -49,11 +49,8 @@ long lnd_money[MAXNOC];
 long air_money[MAXNOC];
 long tpops[MAXNOC];
 
-int update_pending = 0;
-
-/*ARGSUSED*/
 void
-update_main(void *unused)
+update_main(void)
 {
     int etu = etu_per_update;
     int n;
@@ -62,9 +59,6 @@ update_main(void *unused)
     int cn, cn2, rel;
     struct natstr *cnp;
     struct natstr *np;
-
-    if (CANT_HAPPEN(!update_pending))
-        update_pending = 1;
 
     logerror("production update (%d etus)", etu);
     journal_update(etu);
@@ -76,9 +70,6 @@ update_main(void *unused)
 	mob_plane(etu);
 	mob_land(etu);
     }
-    player->proc = empth_self();
-    player->cnum = 0;
-    player->god = 1;
 
     if (opt_AUTO_POWER)
 	update_power();
@@ -180,9 +171,5 @@ update_main(void *unused)
     /* Clear all the telegram flags */
     for (cn = 0; cn < MAXNOC; cn++)
 	clear_telegram_is_new(cn);
-    update_pending = 0;
     logerror("End update");
-    player_delete(player);
-    empth_exit();
-    /*NOTREACHED*/
 }

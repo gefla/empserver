@@ -50,7 +50,7 @@ void delete_lostitems(void *);
 void market_update(void *);
 void mobility_check(void *);
 void player_kill_idle(void *);
-void update_main(void *);
+void update_main(void);
 void update_init(void);
 void shutdown_sequence(void *);
 void update_force(void *);

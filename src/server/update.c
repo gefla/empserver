@@ -49,6 +49,7 @@
 
 empth_sem_t *update_sem;
 empth_rwlock_t *update_lock;
+int update_pending;
 time_t update_time;
 
 static void update_sched(void *);
@@ -58,13 +59,23 @@ static int run_hook(char *cmd, char *name);
 void
 update_init(void)
 {
+    struct player *dp;
+    int stacksize;
+
     update_sem = empth_sem_create("Update", 0);
     update_lock = empth_rwlock_create("Update");
     if (!update_sem || !update_lock)
 	exit_nomem();
 
-    if (!empth_create(PP_SCHED, update_wait, 50 * 1024, 0,
-		      "UpdateWait", "Waits until players idle", NULL))
+    dp = player_new(-1);
+    if (!dp)
+	exit_nomem();
+    /* FIXME ancient black magic; figure out true stack need */
+    stacksize = 100000 +
+/* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
+					sizeof(char *));
+    if (!empth_create(PP_UPDATE, update_wait, stacksize, 0,
+		      "Update", "Updates the world", dp))
 	exit_nomem();
 
     if (!empth_create(PP_SCHED, update_sched, 50 * 1024, 0,
@@ -131,8 +142,10 @@ static void
 update_wait(void *unused)
 {
     struct player *p;
-    int stacksize;
-    struct player *dp;
+
+    player->proc = empth_self();
+    player->cnum = 0;
+    player->god = 1;
 
     while (1) {
 	empth_sem_wait(update_sem);
@@ -154,26 +167,7 @@ update_wait(void *unused)
 		continue;
 	    }
 	}
-	/* 
-	 * we rely on the fact that update's priority is the highest
-	 * in the land so it can finish before it yields.
-	 */
-	dp = player_new(-1);
-	if (!dp) {
-	    logerror("can't create dummy player for update");
-	    update_pending = 0;
-	    empth_rwlock_unlock(update_lock);
-	    continue;
-	}
-	stacksize = 100000 +
-/* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
-					sizeof(char *));
-
-	empth_create(PP_UPDATE, update_main, stacksize, 0,
-		     "UpdateRun", "Updates the world", dp);
-
-	while (update_pending)
-	    empth_yield();	/* FIXME cheesy! */
+	update_main();
 	update_pending = 0;
 	empth_rwlock_unlock(update_lock);
     }
