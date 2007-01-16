@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -40,21 +41,6 @@
 #include "prototypes.h"
 #include "server.h"
 
-static void
-check_all_markets(void)
-{
-    check_market();
-    check_trade();
-
-    ef_flush(EF_NATION);
-    ef_flush(EF_SECTOR);
-    ef_flush(EF_PLANE);
-    ef_flush(EF_SHIP);
-    ef_flush(EF_LAND);
-    ef_flush(EF_COMM);
-    ef_flush(EF_TRADE);
-}
-
 /*ARGSUSED*/
 static void
 market_update(void *unused)
@@ -65,9 +51,10 @@ market_update(void *unused)
     player->cnum = 0;
     player->god = 1;
 
-    while (1) {
+    for (;;) {
 	time(&now);
-	check_all_markets();
+	check_market();
+	check_trade();
 	now += 300;		/* Every 5 minutes */
 	empth_sleep(now);
     }
