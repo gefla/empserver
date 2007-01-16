@@ -40,14 +40,9 @@
 #include "prototypes.h"
 #include "server.h"
 
-/*ARGSUSED*/
 static void
-check_all_markets(void *unused)
+check_all_markets(void)
 {
-    player->proc = empth_self();
-    player->cnum = 0;
-    player->god = 1;
-
     check_market();
     check_trade();
 
@@ -58,10 +53,6 @@ check_all_markets(void *unused)
     ef_flush(EF_LAND);
     ef_flush(EF_COMM);
     ef_flush(EF_TRADE);
-
-    player_delete(player);
-    empth_exit();
-    /*NOTREACHED*/
 }
 
 /*ARGSUSED*/
@@ -69,19 +60,15 @@ static void
 market_update(void *unused)
 {
     time_t now;
-    struct player *dp;
+
+    player->proc = empth_self();
+    player->cnum = 0;
+    player->god = 1;
 
     while (1) {
 	time(&now);
-/*	logerror("Checking the world markets at %s", ctime(&now));*/
-	dp = player_new(-1);
-	if (dp) {
-	    empth_create(PP_UPDATE, check_all_markets, (50 * 1024), 0,
-			 "MarketCheck", "Checks the world markets", dp);
-	} else {
-	    logerror("can't create dummy player for market update");
-	}
-	now = now + 300;	/* Every 5 minutes */
+	check_all_markets();
+	now += 300;		/* Every 5 minutes */
 	empth_sleep(now);
     }
     /*NOTREACHED*/
@@ -90,9 +77,14 @@ market_update(void *unused)
 void
 market_init(void)
 {
+    struct player *dp;
+
     if (!opt_MARKET)
 	return;
-    if (!empth_create(PP_TIMESTAMP, market_update, 50 * 1024, 0,
-		      "MarketUpdate", "Updates the market", NULL))
+    dp = player_new(-1);
+    if (!dp)
+	exit_nomem();
+    if (!empth_create(PP_UPDATE, market_update, 50 * 1024, 0,
+		      "MarketUpdate", "Updates the market", dp))
 	exit_nomem();
 }
