@@ -106,7 +106,20 @@ logerror(char *format, ...)
 int
 oops(char *msg, char *file, int line)
 {
-  logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
-  if (debug) abort();
-  return 1;
+    logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
+    if (debug) abort();
+    return 1;
+}
+
+/*
+ * Report out-of-memory condition and terminate the program.
+ * Use this with restraint!  Clean error recovery is preferable, but
+ * not always feasible (e.g. halfway through the update) or worthwhile
+ * (during server startup).
+ */
+void
+exit_nomem(void)
+{
+    logerror("Memory exhausted");
+    exit(1);
 }

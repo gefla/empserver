@@ -325,8 +325,6 @@ start_server(int flags)
 		 "AcceptPlayers", "Accept network connections", 0);
     empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,
 		 "KillIdle", "Kills idle player connections", 0);
-    empth_create(PP_SCHED, update_sched, (50 * 1024), flags, "UpdateSched",
-		 "Schedules updates to occur", 0);
     empth_create(PP_TIMESTAMP, delete_lostitems, (50 * 1024), flags,
 		 "DeleteItems", "Deletes old lost items", 0);
     if (opt_MOB_ACCESS) {
@@ -339,6 +337,8 @@ start_server(int flags)
 	empth_create(PP_TIMESTAMP, market_update, (50 * 1024), flags,
 		     "MarketUpdate", "Updates the market", 0);
     }
+
+    update_init();
 }
 
 /*

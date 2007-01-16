@@ -51,20 +51,34 @@ empth_sem_t *update_sem;
 empth_rwlock_t *update_lock;
 time_t update_time;
 
+static void update_sched(void *);
 static void update_wait(void *unused);
 static int run_hook(char *cmd, char *name);
 
-/*ARGSUSED*/
 void
+update_init(void)
+{
+    update_sem = empth_sem_create("Update", 0);
+    update_lock = empth_rwlock_create("Update");
+    if (!update_sem || !update_lock)
+	exit_nomem();
+
+    if (!empth_create(PP_SCHED, update_wait, 50 * 1024, 0,
+		      "Update", "Updates the world", NULL))
+	exit_nomem();
+
+    if (!empth_create(PP_SCHED, update_sched, 50 * 1024, 0,
+		      "UpdateSched", "Schedules updates to occur", NULL))
+	exit_nomem();
+}
+
+/*ARGSUSED*/
+static void
 update_sched(void *unused)
 {
     int wind;
     time_t now, delta;
 
-    update_sem = empth_sem_create("Update", 0);
-    update_lock = empth_rwlock_create("Update");
-    empth_create(PP_SCHED, update_wait, (50 * 1024), 0, "UpdateWait",
-		 "Waits until players idle", 0);
     if (s_p_etu <= 0) {
 	logerror("bad value for s_p_etu (%d)", s_p_etu);
 	s_p_etu = 2 * 60;

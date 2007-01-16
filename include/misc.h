@@ -111,6 +111,8 @@ extern int debug;
 
 extern int oops(char *, char *, int);
 
+void exit_nomem(void) ATTRIBUTE((noreturn));
+
 	/* return codes from command routines */
 #define	RET_OK		0	/* command completed sucessfully */
 #define	RET_FAIL	1	/* command completed unsucessfully [?] */
