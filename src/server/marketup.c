@@ -35,6 +35,7 @@
 
 #include "empthread.h"
 #include "file.h"
+#include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
 #include "server.h"
@@ -64,7 +65,7 @@ check_all_markets(void *unused)
 }
 
 /*ARGSUSED*/
-void
+static void
 market_update(void *unused)
 {
     time_t now;
@@ -84,4 +85,14 @@ market_update(void *unused)
 	empth_sleep(now);
     }
     /*NOTREACHED*/
+}
+
+void
+market_init(void)
+{
+    if (!opt_MARKET)
+	return;
+    if (!empth_create(PP_TIMESTAMP, market_update, 50 * 1024, 0,
+		      "MarketUpdate", "Updates the market", NULL))
+	exit_nomem();
 }

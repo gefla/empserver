@@ -333,11 +333,7 @@ start_server(int flags)
 		     "MobilityCheck", "Writes the timestamp file", 0);
     }
 
-    if (opt_MARKET) {
-	empth_create(PP_TIMESTAMP, market_update, (50 * 1024), flags,
-		     "MarketUpdate", "Updates the market", 0);
-    }
-
+    market_init();
     update_init();
 }
 
