@@ -62,6 +62,8 @@ recvclient(char *cmd, int size)
     count = io_gets(player->iop, cmd, size);
     while (!player->aborted && count < 0) {
 	io_output_all(player->iop);
+	if (player->aborted)
+	    return -2;
 	io_input(player->iop, IO_WAIT);
 	if (io_error(player->iop))
 	    player->aborted++;
