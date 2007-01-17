@@ -52,7 +52,7 @@
 #endif
 #include "prototypes.h"
 
-static int cant_listen(char *, char *, const char *);
+static void cant_listen(char *, char *, const char *);
 
 int
 tcp_listen(char *host, char *serv, size_t *addrlenp)
@@ -156,8 +156,7 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
     return fd;
 }
 
-
-static int
+static void
 cant_listen(char *host, char *serv, const char *err)
 {
     fprintf(stderr, "Can't listen on %s%s%s: %s\n",
