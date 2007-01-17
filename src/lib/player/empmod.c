@@ -271,7 +271,6 @@ struct cmndstr player_coms[] = {
     {"upgrade <s|p|l> <SHIPS|PLANES|UNITS>",
      1, upgr, C_MOD, NORM + MONEY + CAP},
     {"version", 0, vers, 0, VIS},
-    {"wait", 0, wai, C_MOD, GOD},
     {"wall [<message>]", 0, wall, C_MOD, NORM},
     {"wingadd <WING> <PLANES>", 1, wing, C_MOD, NORM},
     {"wipe <SECTS>", 1, wipe, C_MOD, NORM},

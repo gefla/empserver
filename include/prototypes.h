@@ -246,7 +246,6 @@ int turn(void);
 int upda(void);
 int upgr(void);
 int vers(void);
-int wai(void);
 int wall(void);
 int wing(void);
 int wipe(void);
