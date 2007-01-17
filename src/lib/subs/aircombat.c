@@ -269,8 +269,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     }
     /* If the map changed, update it */
     if (changed)
-	if (!update_pending && plane_owner == player->cnum)
-	    writemap(player->cnum);
+	writemap(player->cnum);
     /* Now, if the bomber and escort lists are empty, we are done */
     if (QEMPTY(bomb_list) && QEMPTY(esc_list)) {
 	if (mission_flags & P_A)
