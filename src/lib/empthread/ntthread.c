@@ -641,10 +641,7 @@ int
 empth_wait_for_signal(void)
 {
     loc_BlockThisThread();
-
-    WaitForSingleObject(hShutdownEvent, INFINITE);
-
-    loc_RunThisThread(NULL);
+    loc_RunThisThread(hShutdownEvent);
     return 0;
 }
 
