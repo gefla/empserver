@@ -93,9 +93,9 @@ struct loc_Thread {
 
 
 /************************
- * loc_Sem_t
+ * loc_Sem
  */
-struct loc_Sem_t {
+struct loc_Sem {
 
     char szName[17];
 

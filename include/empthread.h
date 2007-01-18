@@ -111,7 +111,7 @@ typedef struct empth_rwlock_t empth_rwlock_t;
 #define EMPTH_STACKCHECK  0x2
 
 typedef struct loc_Thread empth_t;
-typedef struct loc_Sem_t empth_sem_t;
+typedef struct loc_Sem empth_sem_t;
 typedef struct loc_RWLock_t empth_rwlock_t;
 
 void empth_request_shutdown(void);
