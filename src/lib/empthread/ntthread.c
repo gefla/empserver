@@ -63,9 +63,9 @@
 #define loc_MIN_THREAD_STACK  16384
 
 /************************
- * loc_Thread_t
+ * loc_Thread
  */
-struct loc_Thread_t {
+struct loc_Thread {
 
     /* The thread name, passed in at create time. */
     char szName[17];
