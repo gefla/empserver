@@ -97,13 +97,12 @@ struct loc_Thread {
  */
 struct loc_Sem {
 
+    /* The semaphore name, passed in at create time. */
     char szName[17];
 
-    /* An exclusion semaphore for this sem. */
-    HANDLE hMutex;
     /* An Event that the thread(s) will sleep on. */
-
     HANDLE hEvent;
+
     /* The count variable */
     int count;
 };
@@ -664,7 +663,6 @@ empth_sem_create(char *name, int cnt)
     memset(pSem, 0, sizeof(pSem));
     strncpy(pSem->szName, name, sizeof(pSem->szName) - 1);
 
-    pSem->hMutex = CreateMutex(NULL, FALSE, NULL);
     pSem->hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     pSem->count = cnt;
 
@@ -681,14 +679,9 @@ empth_sem_signal(empth_sem_t *pSem)
 {
     loc_debug("signal on semaphore %s:%d", pSem->szName, pSem->count);
 
-    /* Wait for the Semaphore */
-    WaitForSingleObject(pSem->hMutex, INFINITE);
-
     if (pSem->count++ < 0) {
 	SetEvent(pSem->hEvent);
     }
-
-    ReleaseMutex(pSem->hMutex);
 }
 
 /************************
@@ -702,23 +695,13 @@ empth_sem_wait(empth_sem_t *pSem)
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
     loc_debug("wait on semaphore %s:%d", pSem->szName, pSem->count);
-
-    /* Remove the thread from the running state. */
-    loc_BlockThisThread();
-
-    /* Wait for the Semaphore */
-    WaitForSingleObject(pSem->hMutex, INFINITE);
     if (--pSem->count < 0) {
+	/* Remove the thread from the running state. */
+	loc_BlockThisThread();
 	loc_debug("blocking");
-	ReleaseMutex(pSem->hMutex);
-
-	WaitForSingleObject(pSem->hEvent, INFINITE);
-
+	loc_RunThisThread(pSem->hEvent);
 	loc_debug("waking up");
-    } else
-	ReleaseMutex(pSem->hMutex);
-
-    loc_RunThisThread(NULL);
+    }
 }
 
 empth_rwlock_t *
