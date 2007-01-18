@@ -109,7 +109,7 @@ struct loc_Sem {
 };
 
 /************************
- * loc_RWLock_t
+ * loc_RWLock
  *
  * Invariants
  *	must hold at function call, return, sleep
@@ -147,7 +147,7 @@ struct loc_Sem {
  * thread changing it holds hThreadMutex.
  *
  */
-struct loc_RWLock_t {
+struct loc_RWLock {
     char name[17];	/* The thread name, passed in at create time. */
     HANDLE can_read;	/* Manual event -- allows read locks */
     HANDLE can_write;	/* Auto-reset event -- allows write locks */
