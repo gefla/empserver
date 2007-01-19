@@ -31,6 +31,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -53,6 +54,7 @@ int update_pending;
 time_t update_time;
 
 static void update_sched(void *);
+static void update_force(void *);
 static void update_wait(void *unused);
 static int run_hook(char *cmd, char *name);
 
@@ -126,14 +128,43 @@ update_sched(void *unused)
     /*NOTREACHED*/
 }
 
-void
+/*
+ * Trigger an update SECS_FROM_NOW seconds from now.
+ * Return 0 on success, -1 on failure.
+ */
+int
+update_trigger(time_t secs_from_now)
+{
+    static time_t *secp;
+
+    if (secs_from_now < 0)
+	return -1;
+
+    if (secs_from_now == 0) {
+	empth_sem_signal(update_sem);
+	return 0;
+    }
+
+    /* FIXME make triggers overwrite, not accumulate */
+    secp = malloc(sizeof(time_t));
+    if (!secp)
+	return -1;
+    *secp = secs_from_now;
+    if (!empth_create(PP_SCHED, update_force, 50 * 1024, 0, "forceUpdate",
+		      "Schedules an update", secp))
+	return -1;
+    return 0;
+}
+
+static void
 update_force(void *seconds)
 {
     time_t now;
 
     time(&now);
-    empth_sleep(now + *(int *)seconds);
+    empth_sleep(now + *(time_t *)seconds);
     empth_sem_signal(update_sem);
+    free(seconds);
     empth_exit();
 }
 

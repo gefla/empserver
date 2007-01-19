@@ -38,7 +38,6 @@
 
 extern int shutdown_pending;
 extern int update_pending;
-extern empth_sem_t *update_sem;
 extern empth_rwlock_t *update_lock;
 extern time_t update_time;
 extern int updating_mob;
@@ -52,7 +51,7 @@ void mobility_check(void *);
 void player_kill_idle(void *);
 void update_main(void);
 void update_init(void);
+int update_trigger(time_t);
 void shutdown_sequence(void *);
-void update_force(void *);
 
 #endif

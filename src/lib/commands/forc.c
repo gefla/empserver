@@ -34,13 +34,12 @@
 #include <config.h>
 
 #include "commands.h"
-#include "empthread.h"
 #include "server.h"
 
 int
 force(void)
 {
-    static int seconds;
+    int seconds;
 
     if (update_pending) {
 	pr("Update is pending\n");
@@ -59,7 +58,7 @@ force(void)
 	return RET_FAIL;
 
     pr("Scheduling update in %d second(s)\n", seconds);
-    empth_create(PP_SCHED, update_force, (50 * 1024), 0, "forceUpdate",
-	"Schedules an update", &seconds);
+    if (update_trigger(seconds) < 0)
+	return RET_FAIL;
     return RET_OK;
 }

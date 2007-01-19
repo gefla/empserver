@@ -52,7 +52,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "empthread.h"
 #include "optlist.h"
 #include "server.h"
 
@@ -142,7 +141,7 @@ zdon(void)
 
     if (!checking && wantupd && demandupdatecheck()) {
 	pr("Here goes...\n");
-	empth_sem_signal(update_sem);
+	update_trigger(0);
     }
     return RET_OK;
 }
