@@ -49,7 +49,6 @@
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"
-#include "server.h"
 #include "ship.h"
 #include "xy.h"
 
