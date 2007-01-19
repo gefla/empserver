@@ -41,10 +41,6 @@ force(void)
 {
     int seconds;
 
-    if (update_pending) {
-	pr("Update is pending\n");
-	return RET_FAIL;
-    }
     if (shutdown_pending) {
 	pr("Shutdown is pending\n");
 	return RET_FAIL;

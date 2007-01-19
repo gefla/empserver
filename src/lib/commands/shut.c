@@ -47,10 +47,6 @@ shut(void)
     struct natstr *us;
     char *p;
 
-    if (update_pending) {
-	pr("Update is pending\n");
-	return RET_FAIL;
-    }
     shutdown_minutes =
 	onearg(player->argp[1],
 	       "Time until shutdown in minutes (0 to abort shutdown sequence)? ");
