@@ -135,7 +135,7 @@ update_sched(void *unused)
 int
 update_trigger(time_t secs_from_now)
 {
-    static time_t *secp;
+    time_t *secp;
 
     if (secs_from_now < 0)
 	return -1;
