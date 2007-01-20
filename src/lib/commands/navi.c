@@ -180,19 +180,14 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	}
 	if (cp == NULL || *cp == '\0')
 	    cp = &dirch[DIR_STOP];
-	dir = chkdir(*cp, DIR_STOP, leader->ef_type == EF_SHIP ?
-					DIR_VIEW : DIR_LAST);
+	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
 	if (dir >= 0) {
 	    if (leader->ef_type == EF_SHIP) {
-		if (dir == DIR_VIEW)
-		    shp_view(unit_list);
-		else {
-		    stopping |= shp_nav_one_sector(unit_list, dir,
-			player->cnum, *together);
-		    if (stopping != 2) {
-			*pt++ = dirch[dir];
-			*pt = '\0';
-		    }
+		stopping |= shp_nav_one_sector(unit_list, dir,
+		    player->cnum, *together);
+		if (stopping != 2) {
+		    *pt++ = dirch[dir];
+		    *pt = '\0';
 		}
 	    } else
 		stopping |=
@@ -276,6 +271,11 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		landmine();
 	    skip = 1;
 	    player->btused++;
+	    continue;
+	case 'v':
+	    if (leader->ef_type != EF_SHIP)
+		break;
+	    shp_view(unit_list);
 	    continue;
 	}
 	direrr("`%c' to stop",
