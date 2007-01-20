@@ -158,6 +158,4 @@ Unicode:
   ugetstring() patterned after existing getstring() takes care of
   that.
 
-  Output filtering is handled by pr_flash().  However, flash and wall
-  break long lines, and that required some changes for UTF-8.
-  Breaking long lines there is probably a bad idea.
+  Output filtering is handled by pr_flash().
