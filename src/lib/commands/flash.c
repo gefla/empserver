@@ -117,25 +117,19 @@ wall(void)
 
 /*
  * Send flash message MESSAGE from US to TO.
- * MESSAGE is UTF-8.  Long messages are broken into several parts.
- * A header identifying US is prepended to each part.  The first
- * header is more verbose if ONESHOT.
+ * MESSAGE is UTF-8.
+ * Null TO broadcasts to all.
+ * A header identifying US is prepended to the message.  It is more
+ * verbose if VERBOSE.
  */
 int
-sendmessage(struct natstr *us, struct natstr *to, char *message, int oneshot)
+sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 {
     struct player *other;
     struct tm *tm;
     time_t now;
     int sent = 0;
     struct natstr *wto;
-    char c;
-    int pos;
-
-    pos = ufindpfx(message, 60);
-    c = message[pos];
-    if (c)
-        message[pos] = '\0';
 
     time(&now);
     tm = localtime(&now);
@@ -152,7 +146,7 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int oneshot)
 	    continue;
 	if (player == other)
 	    continue;
-	if (oneshot)
+	if (verbose)
 	    if (to)
 		pr_flash(other, "FLASH from %s (#%d) @ %02d:%02d%s\n",
 			 us->nat_cnam, us->nat_cnum, tm->tm_hour,
@@ -188,10 +182,6 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int oneshot)
 	    else
 		pr("%s is not accepting flashes\n", to->nat_cnam);
 	}
-    }
-    if (c) {
-	message[pos] = c;
-	sendmessage(us, to, &message[pos], 0);
     }
     return 0;
 }

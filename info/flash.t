@@ -20,7 +20,6 @@ Or you can send a multi-line message:
 .FI
 Note that you can end a multi-line flash with either a '.' (period)
 on a line all by itself, or by hitting ^D on a line by itself.
-Note also that all messages are truncated to 60 characters long!
 .s1
 If you do not wish to receive any flash messages from your friends,
 then you can temporarily turn the feature off by typing "toggle flash".
