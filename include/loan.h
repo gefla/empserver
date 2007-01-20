@@ -63,6 +63,6 @@ extern double loan_owed(struct lonstr *loan, time_t paytime);
 
 #define getloan(n, p) ef_read(EF_LOAN, (n), (p))
 #define putloan(n, p) ef_write(EF_LOAN, (n), (p))
-#define getloanp(n) (struct lonstr *)ef_ptr(EF_LOAN, (n))
+#define getloanp(n) ((struct lonstr *)ef_ptr(EF_LOAN, (n)))
 
 #endif

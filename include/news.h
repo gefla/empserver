@@ -163,7 +163,7 @@ struct rptstr {
 
 #define getnews(n, p) ef_read(EF_NEWS, (n), (p))
 #define putnews(n, p) ef_write(EF_NEWS, (n), (p))
-#define getnewsp(n) (struct nwsstr *)ef_ptr(EF_NEWS, (n))
+#define getnewsp(n) ((struct nwsstr *)ef_ptr(EF_NEWS, (n)))
 
 extern struct rptstr rpt[N_MAX_VERB + 2];
 extern struct symbol page_headings[N_MAX_PAGE + 2];

@@ -161,7 +161,7 @@ extern char *relates[];
 /* procedures relating to nation stuff */
 
 #define putnat(p) ef_write(EF_NATION, (p)->nat_cnum, (p))
-#define getnatp(n) (struct natstr *)ef_ptr(EF_NATION, (n))
+#define getnatp(n) ((struct natstr *)ef_ptr(EF_NATION, (n)))
 
 #define getrealm(r, n, p) ef_read(EF_REALM, ((r) + ((n) * MAXNOR)), (p))
 #define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))

@@ -61,6 +61,6 @@ extern int trade_getitem(struct trdstr *, union empobj_storage *);
 
 #define gettrade(n, p) ef_read(EF_TRADE, (n), (p))
 #define puttrade(n, p) ef_write(EF_TRADE, (n), (p))
-#define gettradep(n) (struct trdstr *)ef_ptr(EF_TRADE, (n))
+#define gettradep(n) ((struct trdstr *)ef_ptr(EF_TRADE, (n)))
 
 #endif

@@ -59,6 +59,6 @@ struct powstr {
 
 #define getpower(n, p) ef_read(EF_POWER, (n), (p))
 #define putpower(n, p) ef_write(EF_POWER, (n), (p))
-#define getpowerp(n) (struct powstr *)ef_ptr(EF_POWER, (n))
+#define getpowerp(n) ((struct powstr *)ef_ptr(EF_POWER, (n)))
 
 #endif

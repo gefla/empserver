@@ -181,7 +181,7 @@ struct mchrstr {
 
 #define getship(n, p) ef_read(EF_SHIP, (n), (p))
 #define putship(n, p) ef_write(EF_SHIP, (n), (p))
-#define getshipp(n) (struct shpstr *)ef_ptr(EF_SHIP, (n))
+#define getshipp(n) ((struct shpstr *)ef_ptr(EF_SHIP, (n)))
 
 extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
 

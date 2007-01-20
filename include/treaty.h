@@ -69,6 +69,6 @@ struct trtstr {
 
 #define gettre(n, p) ef_read(EF_TREATY, (n), (p))
 #define puttre(n, p) ef_write(EF_TREATY, (n), (p))
-#define gettrep(n) (struct trtstr *)ef_ptr(EF_TREATY, (n))
+#define gettrep(n) ((struct trtstr *)ef_ptr(EF_TREATY, (n)))
 
 #endif

@@ -175,7 +175,7 @@ struct lchrstr {
 
 #define getland(n, p) ef_read(EF_LAND, (n), (p))
 #define putland(n, p) ef_write(EF_LAND, (n), (p))
-#define getlandp(n) (struct lndstr *)ef_ptr(EF_LAND, (n))
+#define getlandp(n) ((struct lndstr *)ef_ptr(EF_LAND, (n)))
 
 extern struct lchrstr lchr[LND_TYPE_MAX + 2];
 
