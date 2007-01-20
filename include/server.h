@@ -43,15 +43,15 @@ extern time_t update_time;
 extern int updating_mob;
 
 void mobility_init(void);
-
-/* thread entry points */
-void delete_lostitems(void *);
 void market_init(void);
-void mobility_check(void *);
-void player_kill_idle(void *);
 void update_main(void);
 void update_init(void);
 int update_trigger(time_t);
-void shutdown_sequence(void *);
+int shutdown_initiate(int);
+
+/* thread entry points */
+void delete_lostitems(void *);
+void mobility_check(void *);
+void player_kill_idle(void *);
 
 #endif

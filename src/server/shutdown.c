@@ -42,46 +42,66 @@
 
 int shutdown_pending;
 
-void
+static void shutdown_sequence(void *unused);
+
+int
+shutdown_initiate(int mins_from_now)
+{
+    int old_pending = shutdown_pending;
+
+    if (mins_from_now < 0) {
+	if (shutdown_pending) {
+	    shutdown_pending = 0;
+	    pr_wall("The server shutdown has been cancelled!\n");
+	}
+	return old_pending;
+    }
+
+    shutdown_pending = mins_from_now + 1;
+
+    if (old_pending) {
+	pr_wall("The shutdown time has been changed to %d minutes!\n",
+		mins_from_now);
+	/* FIXME wake up shutdown_sequence() */
+    } else {
+	if (!empth_create(PP_SHUTDOWN, shutdown_sequence, 50 * 1024,
+			  0, "shutdownSeq", "Counts down server shutdown",
+			  NULL))
+	    return -1;
+    }
+
+    return old_pending;
+}
+
+static void
 shutdown_sequence(void *unused)
 {
-    struct natstr *god;
-    struct tm *tm;
     time_t now;
-    char header[100];
 
-    if (shutdown_pending <= 0) {
-	shutdown_pending = 0;
-	logerror("shutdown called with 0 shutdown_pending");
-	empth_exit();
-	return;
-    }
-    god = getnatp(0);
+    pr_wall("The server will shut down in %d minutes!\n",
+	    shutdown_pending - 1);
+
     while (shutdown_pending > 0) {
 	--shutdown_pending;
 	time(&now);
 	if (shutdown_pending <= 1440) {	/* one day */
-	    tm = localtime(&now);
-	    sprintf(header, "BROADCAST from %s @ %02d:%02d: ",
-		    god->nat_cnam, tm->tm_hour, tm->tm_min);
-	    if (!shutdown_pending) {
-		pr_wall("%sServer shutting down NOW!\n", header);
+	    if (shutdown_pending == 0) {
 		shutdwn(0);
 	    } else if (shutdown_pending == 1) {
-		pr_wall("%sServer shutting down in 1 minute!\n", header);
+		pr_wall("Server shutting down in 1 minute!\n");
 	    } else if (shutdown_pending <= 5) {
-		pr_wall("%sServer shutting down in %d minutes!\n",
-			header, shutdown_pending);
+		pr_wall("Server shutting down in %d minutes!\n",
+			shutdown_pending);
 	    } else if (shutdown_pending <= 60
 		       && shutdown_pending % 10 == 0) {
-		pr_wall("%sThe server will be shutting down in %d minutes!\n",
-			header, shutdown_pending);
+		pr_wall("The server will be shutting down in %d minutes!\n",
+			shutdown_pending);
 	    } else if (shutdown_pending % 60 == 0) {
-		pr_wall("%sThe server will be shutting down %d hours from now.\n",
-			header, shutdown_pending / 60);
+		pr_wall("The server will be shutting down %d hours from now.\n",
+			shutdown_pending / 60);
 	    }
 	}
+	/* FIXME error due to late wakeup accumulates */
 	empth_sleep(now + 60);
     }
-    empth_exit();
 }

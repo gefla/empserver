@@ -2,7 +2,7 @@
 .NA shutdown "Shut down the server"
 .LV Expert
 .SY "shutdown <minutes> <disable update?>"
-Shutdown the server in <minutes> minutes.  If <minutes> is 0,
+Shutdown the server in <minutes> minutes.  If <minutes> is negative,
 then any previous shutdown request will be canceled.  If
 the second argument is a "n" then updates will not be disabled
 (otherwise they will be).

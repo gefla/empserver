@@ -182,17 +182,26 @@ pr_inform(struct player *pl, char *format, ...)
  * Send C_FLASH text to everyone.
  * Format text to send using printf-style FORMAT and optional
  * arguments.  It is assumed to be plain ASCII.
+ * Prefix text it with a header suitable for broadcast from deity.
  * Initiate an output queue flush, but do not wait for it to complete.
  */
 void
 pr_wall(char *format, ...)
 {
+    time_t now;
+    struct tm *tm;
     char buf[4096];		/* UTF-8 */
+    int n;
     struct player *p;
     va_list ap;
 
+    time(&now);
+    tm = localtime(&now);
+    n = sprintf(buf, "BROADCAST from %s @ %02d:%02d: ",
+		getnatp(0)->nat_cnam, tm->tm_hour, tm->tm_min);
+
     va_start(ap, format);
-    (void)vsprintf(buf, format, ap);
+    (void)vsprintf(buf + n, format, ap);
     va_end(ap);
     for (p = player_next(0); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
