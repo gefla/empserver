@@ -194,38 +194,3 @@ march(void)
     }
     return RET_OK;
 }
-
-void
-pr_leader_change(struct empobj *leader)
-{
-    pr("Changing %s to %s\n",
-	leader->ef_type == EF_SHIP ? "flagship" : "leader",
-	obj_nameof(leader));
-}
-
-struct empobj *
-get_leader(struct emp_qelem *list)
-{
-    return &((struct ulist *)(list->q_back))->unit.gen;
-}
-
-void
-switch_leader(struct emp_qelem *list, int uid)
-{
-    struct emp_qelem *qp, *save;
-    struct ulist *ulp;
-
-    if (QEMPTY(list))
-	return;
-
-    save = qp = list->q_back;
-    do {
-        emp_remque(qp);
-        emp_insque(qp, list);
-        qp = list->q_back;
-        ulp = (struct ulist *)qp;
-        if (ulp->unit.gen.uid == uid || uid == -1)
-            break;
-    } while (list->q_back != save);
-}
-
