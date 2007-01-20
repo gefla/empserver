@@ -231,7 +231,7 @@ struct cmndstr player_coms[] = {
     {"shoot <c|u> <SECTS> <NUMBER>", 3, shoo, C_MOD, NORM + MONEY + CAP},
     {"show <TYPE|\"bridge\"|\"tower\"> <\"build\"|\"stats\"|\"cap\"> [<tech>]",
      0, show, 0, VIS},
-    {"shutdown [<minutes>] <disable update?>", 0, shut, 0, GOD},
+    {"shutdown <minutes> <disable update?>", 0, shut, 0, GOD},
     {"sinfrastructure <SECTS>", 0, sinfra, 0, VIS},
     {"skywatch <SECTS>", 1, skyw, C_MOD, NORM + CAP},
     {"smap <SECTS|SHIP> [s|l|n|p|*|h]", 0, map, C_MOD, NORM},

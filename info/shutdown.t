@@ -1,9 +1,9 @@
 .TH Command SHUTDOWN
 .NA shutdown "Shut down the server"
 .LV Expert
-.SY "shutdown [<minutes>] <disable update?>"
-Shutdown the server in <minutes> minutes.  If <minutes> is 0 or not
-specified, then any previous shutdown request will be canceled.  If
+.SY "shutdown <minutes> <disable update?>"
+Shutdown the server in <minutes> minutes.  If <minutes> is 0,
+then any previous shutdown request will be canceled.  If
 the second argument is a "n" then updates will not be disabled
 (otherwise they will be).
 .s1
