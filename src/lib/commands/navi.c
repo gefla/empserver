@@ -83,16 +83,18 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
     char *pt = pathtaken;
     char bmap_flag;
     int ac;
+    short type;
 
     leader = get_leader(unit_list);
     leader_uid = leader->uid;
+    type = leader->ef_type;
     pr("%s is %s\n",
-	leader->ef_type == EF_SHIP ? "Flagship" : "Leader",
+	type == EF_SHIP ? "Flagship" : "Leader",
 	obj_nameof(leader));
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	if (leader->ef_type == EF_SHIP) {
+	if (type == EF_SHIP) {
 	    if (!(cp = shp_path(*together, (struct shpstr *)leader, buf)))
 		cp = player->argp[2];
 	} else {
@@ -107,16 +109,16 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 
 	if (cp == NULL || *cp == '\0' || stopping) {
 	    stopping = 0;
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		shp_nav(unit_list, minmob, maxmob, together, player->cnum);
 	    else
 		lnd_mar(unit_list, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(unit_list)) {
 		pr("No %s left\n",
-		    leader->ef_type == EF_SHIP ? "ships" : "lands");
+		    type == EF_SHIP ? "ships" : "lands");
 		if (strlen(pathtaken) > 0) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    if (leader->ef_type == EF_SHIP && strlen(pathtaken) > 0)
+		    if (type == EF_SHIP && strlen(pathtaken) > 0)
 			pr("Path taken: %s\n", pathtaken);
 		}
 		return RET_OK;
@@ -130,7 +132,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    }
 	    if (!skip)
 		nav_map(leader->x, leader->y,
-			leader->ef_type == EF_SHIP ?
+			type == EF_SHIP ?
 			    !(mchr[(int)leader->type].m_flags & M_SUB) : 1);
 	    else
 		skip = 0;
@@ -140,16 +142,16 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    /* Just in case any of our units were shelled while we were
 	     * at the prompt, we call shp_nav() or lnd_mar() again.
 	     */
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		shp_nav(unit_list, minmob, maxmob, together, player->cnum);
 	    else
 		lnd_mar(unit_list, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(unit_list)) {
 		pr("No %s left\n",
-		    leader->ef_type == EF_SHIP ? "ships" : "lands");
+		    type == EF_SHIP ? "ships" : "lands");
 		if (strlen(pathtaken) > 0) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    if (leader->ef_type == EF_SHIP && strlen(pathtaken) > 0)
+		    if (type == EF_SHIP && strlen(pathtaken) > 0)
 			pr("Path taken: %s\n", pathtaken);
 		}
 		return RET_OK;
@@ -161,7 +163,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		stopping = 1;
 		continue;
 	    }
-	    if (leader->ef_type == EF_SHIP) {
+	    if (type == EF_SHIP) {
 		if (!(cp = shp_path(*together, (struct shpstr *)leader,
 				    buf)))
 		    cp = buf;
@@ -171,7 +173,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		    cp = buf;
 	    }
 	}
-	if (leader->ef_type == EF_SHIP) {
+	if (type == EF_SHIP) {
 	    radmapnopr(leader->x, leader->y, (int)leader->effic,
 		       (int)techfact(leader->tech,
 				     mchr[(int)leader->type].m_vrnge),
@@ -182,7 +184,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    cp = &dirch[DIR_STOP];
 	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
 	if (dir >= 0) {
-	    if (leader->ef_type == EF_SHIP) {
+	    if (type == EF_SHIP) {
 		stopping |= shp_nav_one_sector(unit_list, dir,
 		    player->cnum, *together);
 		if (stopping != 2) {
@@ -227,13 +229,13 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    }
 	    continue;
 	case 'i':
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		shp_list(unit_list);
 	    else
 		lnd_list(unit_list);
 	    continue;
 	case 'm':
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		stopping |= shp_sweep(unit_list, 1, 1, player->cnum);
 	    else {
 		lnd_sweep(unit_list, 1, 1, player->cnum);
@@ -246,7 +248,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    player->btused++;
 	    continue;
 	case 'l':
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		look();
 	    else
 		llook();
@@ -265,7 +267,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		sprintf(dp, "%d", leader->uid);
 		player->argp[1] = dp;
 	    }
-	    if (leader->ef_type == EF_SHIP)
+	    if (type == EF_SHIP)
 		mine();
 	    else
 		landmine();
@@ -279,18 +281,18 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    continue;
 	}
 	direrr("`%c' to stop",
-	    leader->ef_type == EF_SHIP ? ", `%c' to view" : NULL, NULL);
+	    type == EF_SHIP ? ", `%c' to view" : NULL, NULL);
 	pr(", `i' to list %s, `f' to change %s,\n",
-	    leader->ef_type == EF_SHIP ? "ships" : "units",
-	    leader->ef_type == EF_SHIP ? "flagship" : "leader");
+	    type == EF_SHIP ? "ships" : "units",
+	    type == EF_SHIP ? "flagship" : "leader");
 	pr("`r' to radar, %s`l' to look, `M' to map, `B' to bmap,\n",
-	    leader->ef_type == EF_SHIP ? "`s' to sonar, " : "");
+	    type == EF_SHIP ? "`s' to sonar, " : "");
 	pr("`d' to drop mines, and `m' to minesweep\n");
 	stopping = 1;
     }
     if (strlen(pathtaken) > 0) {
 	pathtaken[strlen(pathtaken) - 1] = '\0';
-	if (leader->ef_type == EF_SHIP && strlen(pathtaken) > 0)
+	if (type == EF_SHIP && strlen(pathtaken) > 0)
 	    pr("Path taken: %s\n", pathtaken);
     }
     return RET_OK;
