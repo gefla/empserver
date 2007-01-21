@@ -67,7 +67,7 @@ navi(void)
 }
 
 int
-do_unit_move(struct emp_qelem *unit_list, int *together,
+do_unit_move(struct emp_qelem *ulist, int *together,
 	     double *minmob, double *maxmob)
 {
     char *cp = NULL;
@@ -85,7 +85,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
     int ac;
     short type;
 
-    leader = get_leader(unit_list);
+    leader = get_leader(ulist);
     leader_uid = leader->uid;
     type = leader->ef_type;
     pr("%s is %s\n",
@@ -104,16 +104,16 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
     }
 
     *pt = '\0';
-    while (!QEMPTY(unit_list)) {
+    while (!QEMPTY(ulist)) {
 	char dp[80];
 
 	if (cp == NULL || *cp == '\0' || stopping) {
 	    stopping = 0;
 	    if (type == EF_SHIP)
-		shp_nav(unit_list, minmob, maxmob, together, player->cnum);
+		shp_nav(ulist, minmob, maxmob, together, player->cnum);
 	    else
-		lnd_mar(unit_list, minmob, maxmob, together, player->cnum);
-	    if (QEMPTY(unit_list)) {
+		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
+	    if (QEMPTY(ulist)) {
 		pr("No %s left\n",
 		    type == EF_SHIP ? "ships" : "lands");
 		if (type == EF_SHIP && strlen(pathtaken) > 1) {
@@ -122,7 +122,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		}
 		return RET_OK;
 	    }
-	    leader = get_leader(unit_list);
+	    leader = get_leader(ulist);
 	    if (leader->uid != leader_uid) {
 		leader_uid = leader->uid;
 		pr_leader_change(leader);
@@ -142,10 +142,10 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	     * at the prompt, we call shp_nav() or lnd_mar() again.
 	     */
 	    if (type == EF_SHIP)
-		shp_nav(unit_list, minmob, maxmob, together, player->cnum);
+		shp_nav(ulist, minmob, maxmob, together, player->cnum);
 	    else
-		lnd_mar(unit_list, minmob, maxmob, together, player->cnum);
-	    if (QEMPTY(unit_list)) {
+		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
+	    if (QEMPTY(ulist)) {
 		pr("No %s left\n",
 		    type == EF_SHIP ? "ships" : "lands");
 		if (type == EF_SHIP && strlen(pathtaken) > 1) {
@@ -154,7 +154,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		}
 		return RET_OK;
 	    }
-	    leader = get_leader(unit_list);
+	    leader = get_leader(ulist);
 	    if (leader->uid != leader_uid) {
 		leader_uid = leader->uid;
 		pr_leader_change(leader);
@@ -183,7 +183,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
 	if (dir >= 0) {
 	    if (type == EF_SHIP) {
-		stopping |= shp_nav_one_sector(unit_list, dir,
+		stopping |= shp_nav_one_sector(ulist, dir,
 		    player->cnum, *together);
 		if (stopping != 2) {
 		    *pt++ = dirch[dir];
@@ -191,7 +191,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 		}
 	    } else
 		stopping |=
-		    lnd_mar_one_sector(unit_list, dir, player->cnum,
+		    lnd_mar_one_sector(ulist, dir, player->cnum,
 			*together);
 	    cp++;
 	    continue;
@@ -217,10 +217,10 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    continue;
 	case 'f':
 	    if (ac <= 1)
-		switch_leader(unit_list, -1);
+		switch_leader(ulist, -1);
 	    else
-		switch_leader(unit_list, atoi(player->argp[1]));
-	    leader = get_leader(unit_list);
+		switch_leader(ulist, atoi(player->argp[1]));
+	    leader = get_leader(ulist);
 	    if (leader->uid != leader_uid) {
 		leader_uid = leader->uid;
 		pr_leader_change(leader);
@@ -228,16 +228,16 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    continue;
 	case 'i':
 	    if (type == EF_SHIP)
-		shp_list(unit_list);
+		shp_list(ulist);
 	    else
-		lnd_list(unit_list);
+		lnd_list(ulist);
 	    continue;
 	case 'm':
 	    if (type == EF_SHIP)
-		stopping |= shp_sweep(unit_list, 1, 1, player->cnum);
+		stopping |= shp_sweep(ulist, 1, 1, player->cnum);
 	    else {
-		lnd_sweep(unit_list, 1, 1, player->cnum);
-		stopping |= lnd_check_mines(unit_list);
+		lnd_sweep(ulist, 1, 1, player->cnum);
+		stopping |= lnd_check_mines(ulist);
 	    }
 	    continue;
 	case 'r':
@@ -272,7 +272,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	case 'v':
 	    if (leader->ef_type != EF_SHIP)
 		break;
-	    shp_view(unit_list);
+	    shp_view(ulist);
 	    continue;
 	}
 	direrr("`%c' to stop",
