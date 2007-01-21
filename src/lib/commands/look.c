@@ -34,22 +34,33 @@
 #include <config.h>
 
 #include "commands.h"
-#include "land.h"
+#include "empobj.h"
 #include "map.h"
 #include "optlist.h"
 #include "path.h"
-#include "plane.h"
-#include "ship.h"
 
+static int do_look(short type);
 static void look_ship(struct shpstr *lookship);
 static void look_land(struct lndstr *lookland);
 
 int
 look(void)
 {
+    return do_look(EF_SHIP);
+}
+
+int
+llook(void)
+{
+    return do_look(EF_LAND);
+}
+
+static int
+do_look(short type)
+{
     int i;
     struct nstr_item ni;
-    struct shpstr myship;
+    union empobj_storage unit;
     struct sctstr sect;
     int x, y;
     int civ;
@@ -57,21 +68,33 @@ look(void)
     unsigned char *bitmap;
     int changed = 0;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, type, player->argp[1]))
 	return RET_SYN;
     if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
-	logerror("malloc failed in look\n");
+	logerror("malloc failed in do_look\n");
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
     memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-    while (nxtitem(&ni, &myship)) {
+    while (nxtitem(&ni, &unit)) {
 	if (!player->owner)
 	    continue;
-	look_ship(&myship);
+	if (type == EF_LAND) {
+	    if (unit.land.lnd_ship >= 0)
+		continue;
+	    if (unit.land.lnd_land >= 0)
+		continue;
+	    /* Spies don't need military to do a "llook".  Other
+	       units do */
+	    if ((unit.land.lnd_item[I_MILIT] <= 0) &&
+		!(lchr[(int)unit.land.lnd_type].l_flags & L_SPY))
+		continue;
+	    look_land(&unit.land);
+	} else
+	    look_ship(&unit.ship);
 	for (i = 0; i <= 6; i++) {
-	    x = diroff[i][0] + myship.shp_x;
-	    y = diroff[i][1] + myship.shp_y;
+	    x = diroff[i][0] + unit.gen.x;
+	    y = diroff[i][1] + unit.gen.y;
 	    if (emp_getbit(x, y, bitmap))
 		continue;
 	    emp_setbit(x, y, bitmap);
@@ -169,78 +192,6 @@ look_ship(struct shpstr *lookship)
 	if (opt_HIDDEN)
 	    setcont(player->cnum, sp->shp_own, FOUND_LOOK);
     }
-}
-
-int
-llook(void)
-{
-    int i;
-    struct nstr_item ni;
-    struct lndstr myland;
-    struct sctstr sect;
-    int x, y;
-    int civ;
-    int mil;
-    unsigned char *bitmap;
-    int changed = 0;
-
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
-	return RET_SYN;
-    if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
-	logerror("malloc failed in llook\n");
-	pr("Memory error.  Tell the deity.\n");
-	return RET_FAIL;
-    }
-    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
-    while (nxtitem(&ni, &myland)) {
-	if (!player->owner)
-	    continue;
-	if (myland.lnd_ship >= 0)
-	    continue;
-	if (myland.lnd_land >= 0)
-	    continue;
-	/* Spies don't need military to do a "llook".  Other
-	   units do */
-	if ((myland.lnd_item[I_MILIT] <= 0) &&
-	    !(lchr[(int)myland.lnd_type].l_flags & L_SPY))
-	    continue;
-	look_land(&myland);
-	for (i = 0; i <= 6; i++) {
-	    x = diroff[i][0] + myland.lnd_x;
-	    y = diroff[i][1] + myland.lnd_y;
-	    if (emp_getbit(x, y, bitmap))
-		continue;
-	    emp_setbit(x, y, bitmap);
-	    getsect(x, y, &sect);
-	    if (sect.sct_type == SCT_WATER)
-		continue;
-	    if (player->owner)
-		pr("Your ");
-	    else
-		pr("%s (#%d) ", cname(sect.sct_own), sect.sct_own);
-	    pr("%s", dchr[sect.sct_type].d_name);
-	    changed += map_set(player->cnum, x, y,
-			       dchr[sect.sct_type].d_mnem, 0);
-	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :
-	       roundintby((int)sect.sct_effic, 10));
-	    civ = sect.sct_item[I_CIVIL];
-	    mil = sect.sct_item[I_MILIT];
-	    if (civ)
-		pr("with %s%d civ ", player->owner ? "" :
-		   "approx ", player->owner ? civ : roundintby(civ, 10));
-	    if (mil)
-		pr("with %s%d mil ", player->owner ? "" :
-		   "approx ", player->owner ? mil : roundintby(mil, 10));
-	    pr("@ %s\n", xyas(x, y, player->cnum));
-	    if (opt_HIDDEN) {
-		setcont(player->cnum, sect.sct_own, FOUND_LOOK);
-	    }
-	}
-    }
-    if (changed)
-	writemap(player->cnum);
-    free(bitmap);
-    return RET_OK;
 }
 
 static void
