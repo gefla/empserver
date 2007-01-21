@@ -39,7 +39,6 @@
 #include "optlist.h"
 #include "path.h"
 
-static int do_look(short type);
 static void look_ship(struct shpstr *lookship);
 static void look_land(struct lndstr *lookland);
 
@@ -55,7 +54,7 @@ llook(void)
     return do_look(EF_LAND);
 }
 
-static int
+int
 do_look(short type)
 {
     int i;

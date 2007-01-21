@@ -248,10 +248,7 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    player->btused++;
 	    continue;
 	case 'l':
-	    if (type == EF_SHIP)
-		look();
-	    else
-		llook();
+	    do_look(type);
 	    player->btused++;
 	    continue;
 	case 's':
