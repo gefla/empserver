@@ -267,8 +267,7 @@ main(int argc, char **argv)
 	sig = empth_wait_for_signal();
 #ifdef SIGHUP
 	if (sig == SIGHUP) {
-	    journal_close();
-	    journal_open();
+	    journal_reopen();
 	    continue;
 	}
 #endif

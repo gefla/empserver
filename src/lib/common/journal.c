@@ -63,22 +63,13 @@
 static char journal_fname[] = "journal.log";
 static FILE *journal;
 
-int
+static FILE *
 journal_open(void)
 {
-    journal = fopen(journal_fname, "a+");
-    return journal ? 0 : -1;
+    return fopen(journal_fname, "a+");
 }
 
-int
-journal_close(void)
-{
-    FILE *j = journal;
-    journal = NULL;
-    return j ? fclose(j) : 0;
-}
-
-void
+static void
 journal_entry(char *fmt, ...)
 {
     static char buf[1024];
@@ -109,7 +100,8 @@ journal_startup(void)
 {
     if (!keep_journal)
 	return 0;
-    if (journal_open() < 0) {
+    journal = journal_open();
+    if (!journal) {
 	logerror("Can't open %s (%s)", journal_fname, strerror(errno));
 	return -1;
     }
@@ -121,7 +113,28 @@ void
 journal_shutdown(void)
 {
     journal_entry("shutdown");
-    journal_close();
+    if (journal) {
+	fclose(journal);
+	journal = NULL;
+    }
+}
+
+int
+journal_reopen(void)
+{
+    FILE *j;
+
+    if (!keep_journal)
+	return 0;
+    j = journal_open();
+    if (!j) {
+	logerror("Can't open %s (%s)", journal_fname, strerror(errno));
+	return -1;
+    }
+    if (journal)
+	fclose(journal);
+    journal = j;
+    return 0;
 }
 
 void
