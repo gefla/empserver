@@ -366,7 +366,6 @@ void
 shutdwn(int sig)
 {
     struct player *p;
-    time_t now;
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
@@ -381,16 +380,8 @@ shutdwn(int sig)
 	}
 	empth_wakeup(p->proc);
     }
-
-    time(&now);
-    empth_sleep(now + 1);
-
-    for (p = player_next(0); p != 0; p = player_next(p)) {
-	p->state = PS_KILL;
-	p->aborted++;
-	empth_terminate(p->proc);
-	p = player_delete(p);
-    }
+    empth_rwlock_wrlock(update_lock);
+    /* rely on player_kill_idle() for killing hung player threads */
     if (sig)
 	logerror("Server shutting down on signal %d", sig);
     else
