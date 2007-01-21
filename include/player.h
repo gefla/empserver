@@ -81,7 +81,6 @@ struct player {
 #define PS_LOGIN	1
 #define PS_PLAYING	2
 #define PS_SHUTDOWN	3
-#define PS_KILL		4
 
 /* player flags */
 enum {

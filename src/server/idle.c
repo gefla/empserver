@@ -55,9 +55,9 @@ player_kill_idle(void *unused)
 	/*continue; */
 	for (p = player_next(0); p != 0; p = player_next(p)) {
 	    if (p->state == PS_SHUTDOWN) {
-		/* no more mr. nice guy */
-		p->state = PS_KILL;
-		p->aborted++;
+		/* player thread hung */
+		/* FIXME but for how long?  unknown if shut down elsewhere! */
+		/* FIXME this can leave stale update_lock behind! */
 		empth_terminate(p->proc);
 		p = player_delete(p);
 		continue;

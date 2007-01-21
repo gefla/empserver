@@ -84,7 +84,8 @@ player_login(void *ud)
 
     pr_id(player, C_INIT, "Empire server ready\n");
 
-    while (!io_eof(player->iop) && !io_error(player->iop)) {
+    while (!io_eof(player->iop) && !io_error(player->iop)
+	   && player->state != PS_SHUTDOWN) {
 	io_output(player->iop, IO_WAIT);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
 	    io_input(player->iop, IO_WAIT);
@@ -107,8 +108,6 @@ player_login(void *ud)
 	default:
 	    break;
 	}
-	if (player->state >= PS_SHUTDOWN)
-	    break;
     }
     player->state = PS_SHUTDOWN;
     if (!io_eof(player->iop)) {
