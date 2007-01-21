@@ -116,10 +116,9 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    if (QEMPTY(unit_list)) {
 		pr("No %s left\n",
 		    type == EF_SHIP ? "ships" : "lands");
-		if (strlen(pathtaken) > 0) {
+		if (type == EF_SHIP && strlen(pathtaken) > 1) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    if (type == EF_SHIP && strlen(pathtaken) > 0)
-			pr("Path taken: %s\n", pathtaken);
+		    pr("Path taken: %s\n", pathtaken);
 		}
 		return RET_OK;
 	    }
@@ -149,10 +148,9 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	    if (QEMPTY(unit_list)) {
 		pr("No %s left\n",
 		    type == EF_SHIP ? "ships" : "lands");
-		if (strlen(pathtaken) > 0) {
+		if (type == EF_SHIP && strlen(pathtaken) > 1) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    if (type == EF_SHIP && strlen(pathtaken) > 0)
-			pr("Path taken: %s\n", pathtaken);
+		    pr("Path taken: %s\n", pathtaken);
 		}
 		return RET_OK;
 	    }
@@ -287,10 +285,9 @@ do_unit_move(struct emp_qelem *unit_list, int *together,
 	pr("`d' to drop mines, and `m' to minesweep\n");
 	stopping = 1;
     }
-    if (strlen(pathtaken) > 0) {
+    if (type == EF_SHIP && strlen(pathtaken) > 1) {
 	pathtaken[strlen(pathtaken) - 1] = '\0';
-	if (type == EF_SHIP && strlen(pathtaken) > 0)
-	    pr("Path taken: %s\n", pathtaken);
+	pr("Path taken: %s\n", pathtaken);
     }
     return RET_OK;
 }
