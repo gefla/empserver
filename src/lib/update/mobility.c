@@ -288,16 +288,8 @@ do_mob_ship(struct shpstr *sp, int etus)
 	return;
     }
 
-    if (opt_FUEL == 0) {	/* only a bit to do ... */
-	value = sp->shp_mobil + ((float)etus * ship_mob_scale);
-	if (value > ship_mob_max)
-	    value = ship_mob_max;
-	sp->shp_mobil = value;
-	return;			/* so we ship the FUEL stuff */
-    }
-
     /* opt_FUEL in force */
-    if (mchr[(int)sp->shp_type].m_fuelu == 0) {
+    if (opt_FUEL == 0 || mchr[(int)sp->shp_type].m_fuelu == 0) {
 	value = sp->shp_mobil + (float)etus * ship_mob_scale;
 	if (value > ship_mob_max)
 	    value = ship_mob_max;
