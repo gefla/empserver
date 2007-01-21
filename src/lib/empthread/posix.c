@@ -36,6 +36,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include "empthread.h"
+#include "journal.h"
 #include "prototypes.h"
 
 static void panic(int sig);
@@ -80,6 +81,7 @@ panic(int sig)
     logerror("server received fatal signal %d", sig);
     log_last_commands();
     ef_fin_srv();
+    journal_shutdown();
     /* End of unsafe code */
 
     if (CANT_HAPPEN(sig != SIGBUS && sig != SIGSEGV

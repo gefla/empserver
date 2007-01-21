@@ -320,6 +320,9 @@ start_server(int flags)
 
     empth_init((void **)&player, flags);
 
+    if (journal_startup() < 0)
+	exit(1);
+
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
 		 "AcceptPlayers", "Accept network connections", 0);
     empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,
@@ -346,6 +349,7 @@ finish_server(void)
 #if defined(_WIN32)
     loc_NTTerm();
 #endif
+    journal_shutdown();
     remove(pidfname);
 }
 

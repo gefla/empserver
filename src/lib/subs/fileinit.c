@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include "file.h"
-#include "journal.h"
 #include "prototypes.h"
 
 struct fileinit {
@@ -100,7 +99,6 @@ ef_open_srv(void)
 {
     int failed = 0;
 
-    failed |= journal_startup() < 0;
     failed |= !ef_open(EF_NATION, EFF_MEM);
     failed |= !ef_open(EF_SECTOR, EFF_MEM);
     failed |= !ef_open(EF_SHIP, EFF_MEM);
@@ -145,7 +143,6 @@ ef_close_srv(void)
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
     ef_close(EF_REALM);
-    journal_shutdown();
 }
 
 static int
