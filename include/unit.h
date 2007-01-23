@@ -42,4 +42,4 @@ struct ulist {
     int supplied;		/* LAND only */
 };
 
-
+extern void unit_list(struct emp_qelem *);

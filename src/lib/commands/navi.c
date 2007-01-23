@@ -227,10 +227,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    }
 	    continue;
 	case 'i':
-	    if (type == EF_SHIP)
-		shp_list(ulist);
-	    else
-		lnd_list(ulist);
+	    unit_list(ulist);
 	    continue;
 	case 'm':
 	    if (type == EF_SHIP)

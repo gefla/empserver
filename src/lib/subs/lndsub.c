@@ -742,36 +742,6 @@ lnd_check_mines(struct emp_qelem *land_list)
     return stopping;
 }
 
-void
-lnd_list(struct emp_qelem *land_list)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    struct ulist *llp;
-    struct lndstr *lnd;
-
-    pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr fuel\n");
-
-    for (qp = land_list->q_back; qp != land_list; qp = next) {
-	next = qp->q_back;
-	llp = (struct ulist *)qp;
-	lnd = &llp->unit.land;
-	pr("%4d ", lnd->lnd_uid);
-	pr("%-16.16s ", ((struct lchrstr *)llp->chrp)->l_name);
-	prxy("%4d,%-4d ", lnd->lnd_x, lnd->lnd_y, llp->unit.land.lnd_own);
-	pr("%1.1s", &lnd->lnd_army);
-	pr("%4d%%", lnd->lnd_effic);
-	pr("%4d", lnd->lnd_item[I_SHELL]);
-	pr("%4d", lnd->lnd_item[I_GUN]);
-	count_land_planes(lnd);
-	pr("%3d", lnd->lnd_nxlight);
-	pr("%4d", lnd->lnd_mobil);
-	pr("%4d", lnd->lnd_tech);
-	pr("%4d%%", lnd->lnd_retreat);
-	pr("%5d\n", lnd->lnd_fuel);
-    }
-}
-
 static void
 lnd_mess(char *str, struct ulist *llp)
 {

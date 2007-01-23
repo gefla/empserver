@@ -318,38 +318,6 @@ shp_check_mines(struct emp_qelem *ship_list)
     return stopping;
 }
 
-void
-shp_list(struct emp_qelem *ship_list)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    struct ulist *mlp;
-    struct shpstr *shp;
-
-    pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
-
-    for (qp = ship_list->q_back; qp != ship_list; qp = next) {
-	next = qp->q_back;
-	mlp = (struct ulist *)qp;
-	shp = &mlp->unit.ship;
-	pr("%4d ", shp->shp_uid);
-	pr("%-16.16s ", ((struct mchrstr *)mlp->chrp)->m_name);
-	prxy("%4d,%-4d ", shp->shp_x, shp->shp_y, mlp->unit.ship.shp_own);
-	pr("%1.1s", &shp->shp_fleet);
-	pr("%4d%%", shp->shp_effic);
-	pr("%4d", shp->shp_item[I_MILIT]);
-	pr("%4d", shp->shp_item[I_SHELL]);
-	pr("%4d", shp->shp_item[I_GUN]);
-	count_planes(shp);
-	pr("%3d", shp->shp_nplane);
-	pr("%3d", shp->shp_nchoppers);
-	pr("%3d", shp->shp_nxlight);
-	count_units(shp);
-	pr("%3d", shp->shp_nland);
-	pr("%4d", shp->shp_mobil);
-	pr("%4d\n", shp->shp_tech);
-    }
-}
 
 static void
 shp_mess(char *str, struct ulist *mlp)
