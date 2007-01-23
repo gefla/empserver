@@ -599,32 +599,6 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 }
 
 void
-lnd_put(struct emp_qelem *list, natid actor)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *newqp;
-    struct ulist *llp;
-
-    qp = list->q_back;
-    while (qp != list) {
-	llp = (struct ulist *)qp;
-	if (actor) {
-	    mpr(actor, "%s stopped at %s\n", prland(&llp->unit.land),
-		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
-		     llp->unit.land.lnd_own));
-	    if (llp->mobil < -127)
-		llp->mobil = -127;
-	    llp->unit.land.lnd_mobil = llp->mobil;
-	}
-	putland(llp->unit.land.lnd_uid, &llp->unit.land);
-	newqp = qp->q_back;
-	emp_remque(qp);
-	free(qp);
-	qp = newqp;
-    }
-}
-
-void
 lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	  natid actor)
 {
@@ -1014,7 +988,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     int oldown;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
-	lnd_put(list, actor);
+	unit_put(list, actor);
 	return 1;
     }
     dx = diroff[dir][0];

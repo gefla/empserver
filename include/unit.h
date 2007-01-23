@@ -28,7 +28,7 @@
  *  unit.h: Generalize unit data structures and functions.
  * 
  *  Known contributors to this file:
- *     Ron Koenderink, 2006
+ *     Ron Koenderink, 2006-2007
  *     Markus Armbruster, 2006
  */
  
@@ -43,3 +43,4 @@ struct ulist {
 };
 
 extern void unit_list(struct emp_qelem *);
+extern void unit_put(struct emp_qelem *list, natid actor);

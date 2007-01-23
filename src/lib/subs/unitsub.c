@@ -94,3 +94,35 @@ unit_list(struct emp_qelem *unit_list)
 	pr("\n");
     }
 }
+
+void
+unit_put(struct emp_qelem *list, natid actor)
+{
+    struct emp_qelem *qp;
+    struct emp_qelem *newqp;
+    struct ulist *ulp;
+
+    qp = list->q_back;
+    while (qp != list) {
+	ulp = (struct ulist *)qp;
+	if (actor) {
+	    mpr(actor, "%s stopped at %s\n", obj_nameof(&ulp->unit.gen),
+		xyas(ulp->unit.gen.x, ulp->unit.gen.y,
+		     ulp->unit.gen.own));
+	    if (ulp->unit.ef_type == EF_LAND) {
+		if (ulp->mobil < -127)
+		    ulp->mobil = -127;
+		ulp->unit.land.lnd_mobil = ulp->mobil;
+	    }
+	}
+	if (ulp->unit.ef_type == EF_SHIP)
+	    ulp->unit.ship.shp_mobil = (int)ulp->mobil;
+	put_empobj(&ulp->unit.gen);
+	newqp = qp->q_back;
+	emp_remque(qp);
+	free(qp);
+	qp = newqp;
+    }
+}
+
+

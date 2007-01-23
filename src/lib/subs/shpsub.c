@@ -186,28 +186,6 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     }
 }
 
-void
-shp_put(struct emp_qelem *list, natid actor)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *newqp;
-    struct ulist *mlp;
-
-    qp = list->q_back;
-    while (qp != list) {
-	mlp = (struct ulist *)qp;
-	mpr(actor, "%s stopped at %s\n", prship(&mlp->unit.ship),
-	    xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
-	    mlp->unit.ship.shp_own));
-	mlp->unit.ship.shp_mobil = (int)mlp->mobil;
-	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-	newqp = qp->q_back;
-	emp_remque(qp);
-	free(qp);
-	qp = newqp;
-    }
-}
-
 int
 shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 {
@@ -801,7 +779,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     int navigate;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
-	shp_put(list, actor);
+	unit_put(list, actor);
 	return 1;
     }
     dx = diroff[dir][0];
