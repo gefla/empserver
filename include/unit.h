@@ -44,3 +44,4 @@ struct ulist {
 
 extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);
+extern char *unit_path(int, struct empobj *, char *);

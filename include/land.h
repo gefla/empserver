@@ -191,7 +191,6 @@ extern int lnd_check_mines(struct emp_qelem *);
 extern double lnd_pathcost(struct lndstr *, double);
 extern int lnd_mobtype(struct lndstr *);
 extern double lnd_mobcost(struct lndstr *, struct sctstr *);
-extern char *lnd_path(int, struct lndstr *, char *);
 
 extern double attack_val(int, struct lndstr *);
 extern double defense_val(struct lndstr *);

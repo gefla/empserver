@@ -94,13 +94,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	if (type == EF_SHIP) {
-	    if (!(cp = shp_path(*together, (struct shpstr *)leader, buf)))
-		cp = player->argp[2];
-	} else {
-	    if (!(cp = lnd_path(*together, (struct lndstr *)leader, buf)))
-		cp = player->argp[2];
-	}
+	if (!(cp = unit_path(*together, leader, buf)))
+	    cp = player->argp[2];
     }
 
     *pt = '\0';
@@ -161,15 +156,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		stopping = 1;
 		continue;
 	    }
-	    if (type == EF_SHIP) {
-		if (!(cp = shp_path(*together, (struct shpstr *)leader,
-				    buf)))
-		    cp = buf;
-	    } else {
-		if (!(cp = lnd_path(*together, (struct lndstr *)leader,
-				    buf)))
-		    cp = buf;
-	    }
+	    if (!(cp = unit_path(*together, leader, buf)))
+		cp = buf;
 	}
 	if (type == EF_SHIP) {
 	    radmapnopr(leader->x, leader->y, (int)leader->effic,

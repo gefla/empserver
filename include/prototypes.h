@@ -664,7 +664,6 @@ extern void show_news(int);
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
 extern int shp_sweep(struct emp_qelem *, int, int, natid);
-extern char *shp_path(int, struct shpstr *, char *);
 extern int shp_check_nav(struct sctstr *, struct shpstr *);
 extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);

@@ -950,35 +950,6 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
     return 0;			/* all attempts failed */
 }
 
-char *
-shp_path(int together, struct shpstr *shp, char *buf)
-{
-    coord destx;
-    coord desty;
-    struct sctstr d_sect;
-    char *cp;
-
-    if (!sarg_xy(buf, &destx, &desty))
-	return 0;
-    if (!together) {
-	mpr(shp->shp_own,
-	    "Cannot go to a destination sector if not all starting in the same sector\n");
-	return 0;
-    }
-    if (!getsect(destx, desty, &d_sect)) {
-	mpr(shp->shp_own, "%d,%d is not a sector\n", destx, desty);
-	return 0;
-    }
-
-    cp = BestShipPath(buf, shp->shp_x, shp->shp_y,
-		      d_sect.sct_x, d_sect.sct_y, player->cnum);
-    if (!cp || shp->shp_mobil <= 0) {
-	mpr(shp->shp_own, "Can't get to '%s' right now.\n",
-	    xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
-	return 0;
-    }
-    return cp;
-}
 
 /* Fire missiles at a ship which has fired shells */
 void

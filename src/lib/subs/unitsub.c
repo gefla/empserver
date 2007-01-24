@@ -35,6 +35,7 @@
 
 #include "empobj.h"
 #include "file.h"
+#include "player.h"
 #include "prototypes.h"
 #include "unit.h"
 
@@ -125,4 +126,53 @@ unit_put(struct emp_qelem *list, natid actor)
     }
 }
 
+char *
+unit_path(int together, struct empobj *unit, char *buf)
+{
+    coord destx;
+    coord desty;
+    struct sctstr d_sect, sect;
+    char *cp;
+    double dummy;
+    int mtype;
 
+    if (!sarg_xy(buf, &destx, &desty))
+	return 0;
+    if (!together) {
+	if (unit->ef_type == EF_SHIP)
+	    mpr(unit->own,
+		"Cannot go to a destination sector if not all starting in the same sector\n");
+	else
+	    pr("Cannot go to a destination sector if not all starting in the same sector\n");
+	return 0;
+    }
+    if (!getsect(destx, desty, &d_sect)) {
+	if (unit->ef_type == EF_SHIP)
+	    mpr(unit->own, "%d,%d is not a sector\n", destx, desty);
+	else
+	    pr("%d,%d is not a sector\n", destx, desty);
+	return 0;
+    }
+    if (unit->ef_type == EF_SHIP) {
+	cp = BestShipPath(buf, unit->x, unit->y,
+			  d_sect.sct_x, d_sect.sct_y, player->cnum);
+	if (!cp || unit->mobil <= 0) {
+	    mpr(unit->own, "Can't get to '%s' right now.\n",
+		xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
+	    return 0;
+	}
+    } else {
+	getsect(unit->x, unit->y, &sect);
+	mtype = lnd_mobtype((struct lndstr *)unit);
+	cp = BestLandPath(buf, &sect, &d_sect, &dummy, mtype);
+	if (!cp) {
+	    pr("No owned %s from %s to %s!\n",
+	       mtype == MOB_RAIL ? "railway" : "path",
+	       xyas(unit->x, unit->y, player->cnum),
+	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
+	    return 0;
+	}
+	pr("Using path '%s'\n", cp);
+    }
+    return cp;
+}

@@ -1205,41 +1205,6 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     }
     return (int)dam;
 }
-
-char *
-lnd_path(int together, struct lndstr *lp, char *buf)
-{
-    coord destx;
-    coord desty;
-    struct sctstr d_sect, sect;
-    char *cp;
-    double dummy;
-    int mtype;
-
-    if (!sarg_xy(buf, &destx, &desty))
-	return 0;
-    if (!together) {
-	pr("Cannot go to a destination sector if not all starting in the same sector\n");
-	return 0;
-    }
-    if (!getsect(destx, desty, &d_sect)) {
-	pr("%d,%d is not a sector\n", destx, desty);
-	return 0;
-    }
-    getsect(lp->lnd_x, lp->lnd_y, &sect);
-    mtype = lnd_mobtype(lp);
-    cp = BestLandPath(buf, &sect, &d_sect, &dummy, mtype);
-    if (!cp) {
-	pr("No owned %s from %s to %s!\n",
-	   mtype == MOB_RAIL ? "railway" : "path",
-	   xyas(lp->lnd_x, lp->lnd_y, player->cnum),
-	   xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
-	return 0;
-    }
-    pr("Using path '%s'\n", cp);
-    return cp;
-}
-
 int
 lnd_can_attack(struct lndstr *lp)
 {
