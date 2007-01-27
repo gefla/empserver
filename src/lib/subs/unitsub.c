@@ -191,12 +191,11 @@ unit_view(struct emp_qelem *list)
 	getsect(ulp->unit.gen.x, ulp->unit.gen.y, &sect);
 	if (ulp->unit.ef_type == EF_SHIP) {
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_FOOD)
-		mpr(ulp->unit.gen.own, "[fert:%d] ", sect.sct_fertil);
+		pr("[fert:%d] ", sect.sct_fertil);
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_OIL)
-		mpr(ulp->unit.gen.own, "[oil:%d] ", sect.sct_oil);
+		pr("[oil:%d] ", sect.sct_oil);
 	}
-	mpr(ulp->unit.gen.own, "%s @ %s %d%% %s\n",
-	    obj_nameof(&ulp->unit.gen),
+	pr("%s @ %s %d%% %s\n", obj_nameof(&ulp->unit.gen),
 	    xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
 	    sect.sct_effic, dchr[sect.sct_type].d_name);
     }
