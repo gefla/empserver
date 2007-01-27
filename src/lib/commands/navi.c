@@ -255,13 +255,10 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    player->btused++;
 	    continue;
 	case 'v':
-	    if (leader->ef_type != EF_SHIP)
-		break;
-	    shp_view(ulist);
+	    unit_view(ulist);
 	    continue;
 	}
-	direrr("`%c' to stop",
-	    type == EF_SHIP ? ", `%c' to view" : NULL, NULL);
+	direrr("`%c' to stop", ", `%c' to view", NULL);
 	pr(", `i' to list %s, `f' to change %s,\n",
 	    type == EF_SHIP ? "ships" : "units",
 	    type == EF_SHIP ? "flagship" : "leader");

@@ -667,7 +667,6 @@ extern int shp_sweep(struct emp_qelem *, int, int, natid);
 extern int shp_check_nav(struct sctstr *, struct shpstr *);
 extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
-extern void shp_view(struct emp_qelem *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);
 extern int shp_missile_defense(coord, coord, natid, int);
 extern void shp_missdef(struct shpstr *, natid);

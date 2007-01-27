@@ -735,29 +735,6 @@ shp_hit_mine(struct shpstr *sp, struct mchrstr *mcp)
     return (int)m;
 }
 
-void
-shp_view(struct emp_qelem *list)
-{
-    struct sctstr sect;
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    struct ulist *mlp;
-
-    for (qp = list->q_back; qp != list; qp = next) {
-	next = qp->q_back;
-	mlp = (struct ulist *)qp;
-	getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
-	if (((struct mchrstr *)mlp->chrp)->m_flags & M_FOOD)
-	    mpr(mlp->unit.ship.shp_own, "[fert:%d] ", sect.sct_fertil);
-	if (((struct mchrstr *)mlp->chrp)->m_flags & M_OIL)
-	    mpr(mlp->unit.ship.shp_own, "[oil:%d] ", sect.sct_oil);
-	mpr(mlp->unit.ship.shp_own, "%s @ %s %d%% %s\n",
-	    prship(&mlp->unit.ship),
-	    xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, player->cnum),
-	    sect.sct_effic, dchr[sect.sct_type].d_name);
-    }
-}
-
 int
 shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 		   int together)

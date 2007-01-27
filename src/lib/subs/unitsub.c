@@ -176,3 +176,28 @@ unit_path(int together, struct empobj *unit, char *buf)
     }
     return cp;
 }
+
+void
+unit_view(struct emp_qelem *list)
+{
+    struct sctstr sect;
+    struct emp_qelem *qp;
+    struct emp_qelem *next;
+    struct ulist *ulp;
+
+    for (qp = list->q_back; qp != list; qp = next) {
+	next = qp->q_back;
+	ulp = (struct ulist *)qp;
+	getsect(ulp->unit.gen.x, ulp->unit.gen.y, &sect);
+	if (ulp->unit.ef_type == EF_SHIP) {
+	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_FOOD)
+		mpr(ulp->unit.gen.own, "[fert:%d] ", sect.sct_fertil);
+	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_OIL)
+		mpr(ulp->unit.gen.own, "[oil:%d] ", sect.sct_oil);
+	}
+	mpr(ulp->unit.gen.own, "%s @ %s %d%% %s\n",
+	    obj_nameof(&ulp->unit.gen),
+	    xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
+	    sect.sct_effic, dchr[sect.sct_type].d_name);
+    }
+}
