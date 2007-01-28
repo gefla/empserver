@@ -242,6 +242,6 @@ player_accept(void *unused)
 /* power */ MAXNOC * sizeof(struct powstr));
 	sprintf(buf, "Player (fd #%d)", ns);
 	empth_create(PP_PLAYER, player_login, stacksize,
-		     0, buf, "Empire player", np);
+		     0, buf, np);
     }
 }

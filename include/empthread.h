@@ -132,8 +132,7 @@ int empth_init(void **ctx, int flags);
  * ENTRY is the entry point.  It will be called with argument UD.
  * Thread stack is at least SIZE bytes.
  * FLAGS should be the same as were passed to empth_init(), or zero.
- * NAME is the threads name, and DESC its description.  These are used
- * for logging and debugging.
+ * NAME is the thread's name, it is used for logging and debugging.
  * UD is the value to pass to ENTRY.  It is also assigned to the
  * context variable defined with empth_init() whenever the thread gets
  * scheduled.
@@ -141,7 +140,7 @@ int empth_init(void **ctx, int flags);
  * Return the thread, or NULL on error.
  */
 empth_t *empth_create(int prio, void (*entry)(void *),
-		      int size, int flags, char *name, char *desc, void *ud);
+		      int size, int flags, char *name, void *ud);
 
 /*
  * Return the current thread.
@@ -184,6 +183,7 @@ void empth_select(int fd, int flags);
 /*
  * Awaken THREAD if it is sleeping in empth_select().
  * Note: This must not awaken threads sleeping in other functions.
+ * Does not yield the processor.
  */
 void empth_wakeup(empth_t *thread);
 
@@ -194,7 +194,7 @@ void empth_wakeup(empth_t *thread);
 void empth_sleep(time_t until);
 
 /*
- * Wait for signal, return the signal number
+ * Wait for signal, return the signal number.
  */
 int empth_wait_for_signal(void);
 

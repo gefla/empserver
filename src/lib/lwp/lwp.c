@@ -131,7 +131,8 @@ lwpEntryPoint(void)
  * lwpCreate -- create a process.
  */
 struct lwpProc *
-lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *name, char *desc, int argc, char **argv, void *ud)
+lwpCreate(int priority, void (*entry)(void *), int stacksz,
+	  int flags, char *name, int argc, char **argv, void *ud)
 {
     struct lwpProc *newp;
 
@@ -139,7 +140,6 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
 	return NULL;
     newp->flags = flags;
     newp->name = strdup(name);
-    newp->desc = strdup(desc);
     newp->entry = entry;
     newp->argc = argc;
     newp->argv = argv;
@@ -153,7 +153,6 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
 	LwpMaxpri = priority;
     if (lwpNewContext(newp, stacksz) < 0) {
 	free(newp->name);
-	free(newp->desc);
 	free(newp);
 	return NULL;
     }
@@ -177,7 +176,6 @@ lwpDestroy(struct lwpProc *proc)
     lwpStatus(proc, "destroying sbtm: %p", proc->sbtm);
     free(proc->sbtm);
     free(proc->name);
-    free(proc->desc);
     free(proc);
 }
 
@@ -213,20 +211,6 @@ lwpSetUD(struct lwpProc *p, char *ud)
     if (!p)
 	p = LwpCurrent;
     p->ud = ud;
-}
-
-/*
- * set name & desc
- */
-void
-lwpSetDesc(struct lwpProc *p, char *name, char *desc)
-{
-    if (!p)
-	p = LwpCurrent;
-    free(p->name);
-    free(p->desc);
-    p->name = strdup(name);
-    p->desc = strdup(desc);
 }
 
 /*
@@ -317,8 +301,7 @@ lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
     LwpDeadQ.head = LwpDeadQ.tail = 0;
     lwpInitSigWait(waitset);
     /* must be lower in priority than us for this to work right */
-    sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler",
-		    "Select (main loop) Event Handler", 0, 0, 0);
+    sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler", 0, 0, 0);
     lwpInitSelect(sel);
     return LwpCurrent;
 }

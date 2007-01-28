@@ -63,8 +63,7 @@ struct lwpProc {
     int argc;			/* initial arguments */
     char **argv;
     void *ud;			/* user data */
-    char *name;			/* process name and description */
-    char *desc;
+    char *name;			/* process name, for debugging */
     int flags;
     struct lwpProc *next;
 };

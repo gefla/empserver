@@ -324,15 +324,14 @@ start_server(int flags)
 	exit(1);
 
     empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
-		 "AcceptPlayers", "Accept network connections", 0);
+		 "AcceptPlayers", 0);
     empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,
-		 "KillIdle", "Kills idle player connections", 0);
+		 "KillIdle", 0);
     empth_create(PP_TIMESTAMP, delete_lostitems, (50 * 1024), flags,
-		 "DeleteItems", "Deletes old lost items", 0);
+		 "DeleteItems", 0);
     if (opt_MOB_ACCESS) {
-	/* Start the mobility access check thread */
 	empth_create(PP_TIMESTAMP, mobility_check, (50 * 1024), flags,
-		     "MobilityCheck", "Writes the timestamp file", 0);
+		     "MobilityCheck", 0);
     }
 
     market_init();

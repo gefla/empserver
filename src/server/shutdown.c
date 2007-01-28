@@ -65,9 +65,8 @@ shutdown_initiate(int mins_from_now)
 		mins_from_now);
 	/* FIXME wake up shutdown_sequence() */
     } else {
-	if (!empth_create(PP_SHUTDOWN, shutdown_sequence, 50 * 1024,
-			  0, "shutdownSeq", "Counts down server shutdown",
-			  NULL))
+	if (!empth_create(PP_SHUTDOWN, shutdown_sequence, 50 * 1024, 0,
+			  "shutdownSeq", NULL))
 	    return -1;
     }
 

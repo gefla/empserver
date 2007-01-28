@@ -77,11 +77,11 @@ update_init(void)
 /* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
 					sizeof(char *));
     if (!empth_create(PP_UPDATE, update_wait, stacksize, 0,
-		      "Update", "Updates the world", dp))
+		      "Update", dp))
 	exit_nomem();
 
     if (!empth_create(PP_SCHED, update_sched, 50 * 1024, 0,
-		      "UpdateSched", "Schedules updates to occur", NULL))
+		      "UpdateSched", NULL))
 	exit_nomem();
 }
 
@@ -150,8 +150,8 @@ update_trigger(time_t secs_from_now)
     if (!secp)
 	return -1;
     *secp = secs_from_now;
-    if (!empth_create(PP_SCHED, update_force, 50 * 1024, 0, "forceUpdate",
-		      "Schedules an update", secp))
+    if (!empth_create(PP_SCHED, update_force, 50 * 1024, 0,
+		      "forceUpdate", secp))
 	return -1;
     return 0;
 }

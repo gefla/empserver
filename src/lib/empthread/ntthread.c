@@ -69,8 +69,6 @@ struct loc_Thread {
 
     /* The thread name, passed in at create time. */
     char szName[17];
-    /* The thread description, passed in at create time. */
-    char szDesc[80];
 
     /* True if this is the main line, and not a real thread. */
     BOOL bMainThread;
@@ -418,8 +416,6 @@ empth_init(void **ctx_ptr, int flags)
     memset(pThread, 0, sizeof(*pThread));
 
     strncpy(pThread->szName, "Main", sizeof(pThread->szName) - 1);
-    strncpy(pThread->szDesc, "The main process",
-	    sizeof(pThread->szDesc) - 1);
     pThread->ulThreadID = GetCurrentThreadId();
     pThread->bMainThread = TRUE;
 
@@ -444,29 +440,26 @@ empth_init(void **ctx_ptr, int flags)
  * flags - debug control.
  *           LWP_STACKCHECK  - not needed
  * name  - name of the thread, for debug.
- * desc  - description of thread, for debug.
  * ud    - "user data".  The "ctx_ptr" gets this value
  *         when the thread is active.
  *         It is also passed to the entry function...
  */
 empth_t *
 empth_create(int prio, void (*entry)(void *), int size, int flags,
-	     char *name, char *desc, void *ud)
+	     char *name, void *ud)
 {
     empth_t *pThread = NULL;
 
-    loc_debug("creating new thread %s:%s", name, desc);
+    loc_debug("creating new thread %s", name);
 
     pThread = malloc(sizeof(*pThread));
     if (!pThread) {
-	logerror("not enough memory to create thread: %s (%s)",
-		 name, desc);
+	logerror("not enough memory to create thread %s", name);
 	return NULL;
     }
     memset(pThread, 0, sizeof(*pThread));
 
     strncpy(pThread->szName, name, sizeof(pThread->szName) - 1);
-    strncpy(pThread->szDesc, desc, sizeof(pThread->szDesc) - 1);
     pThread->pvUserData = ud;
     pThread->pfnEntry = entry;
     pThread->bMainThread = FALSE;
@@ -479,8 +472,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     pThread->ulThreadID = _beginthread(empth_threadMain, size, pThread);
     if (pThread->ulThreadID == -1) {
-	logerror("can not create thread: %s (%s): %s",
-		 name, desc, strerror(errno));
+	logerror("can not create thread: %s: %s", name, strerror(errno));
 	goto bad;
     }
 

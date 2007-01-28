@@ -61,7 +61,6 @@
 
 struct empth_t {
     char *name;			/* thread name */
-    char *desc;			/* description */
     void *ud;			/* user data */
     int state;			/* my state */
     void (*ep)(void *);		/* entry point */
@@ -177,7 +176,6 @@ empth_init(void **ctx_ptr, int flags)
 	exit(1);
     }
     ctx->name = "Main";
-    ctx->desc = "empire main";
     ctx->ep = 0;
     ctx->ud = 0;
     ctx->id = pthread_self();
@@ -197,31 +195,29 @@ empth_init(void **ctx_ptr, int flags)
  */
 empth_t *
 empth_create(int prio, void (*entry)(void *), int size, int flags,
-	     char *name, char *desc, void *ud)
+	     char *name, void *ud)
 {
     pthread_t t;
     pthread_attr_t attr;
     empth_t *ctx;
     int eno;
 
-    empth_status("creating new thread %s:%s", name, desc);
+    empth_status("creating new thread %s", name);
 
     ctx = malloc(sizeof(empth_t));
     if (!ctx) {
-	logerror("not enough memory to create thread: %s (%s)",
-		 name, desc);
+	logerror("not enough memory to create thread %s", name);
 	return NULL;
     }
     ctx->name = strdup(name);
-    ctx->desc = strdup(desc);
     ctx->ud = ud;
     ctx->state = 0;
     ctx->ep = entry;
 
     eno = pthread_attr_init(&attr);
     if (eno) {
-	logerror("can not create thread attribute %s (%s): %s",
-		 name, desc, strerror(eno));
+	logerror("can not create thread attribute %s: %s",
+		 name, strerror(eno));
 	goto bad;
     }
     if (size < PTHREAD_STACK_MIN)
@@ -231,8 +227,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 
     eno = pthread_create(&t, &attr, empth_start, ctx);
     if (eno) {
-	logerror("can not create thread: %s (%s): %s",
-		 name, desc, strerror(eno));
+	logerror("can not create thread: %s: %s", name, strerror(eno));
 	goto bad;
     }
     empth_status("new thread id is %ld", (long)t);

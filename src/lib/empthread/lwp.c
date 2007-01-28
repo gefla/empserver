@@ -61,11 +61,11 @@ empth_init(void **ctx, int flags)
 
 empth_t *
 empth_create(int prio, void (*entry)(void *), int size, int flags,
-	     char *name, char *desc, void *ud)
+	     char *name, void *ud)
 {
     if (!flags)
 	flags = empth_flags;
-    return lwpCreate(prio, entry, size, flags, name, desc, 0, 0, ud);
+    return lwpCreate(prio, entry, size, flags, name, 0, 0, ud);
 }
 
 empth_t *

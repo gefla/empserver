@@ -72,6 +72,6 @@ market_init(void)
     if (!dp)
 	exit_nomem();
     if (!empth_create(PP_UPDATE, market_update, 50 * 1024, 0,
-		      "MarketUpdate", "Updates the market", dp))
+		      "MarketUpdate", dp))
 	exit_nomem();
 }
