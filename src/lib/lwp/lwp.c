@@ -145,6 +145,8 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz, int flags, char *nam
     newp->argv = argv;
     newp->ud = ud;
     newp->dead = 0;
+    newp->runtime = -1;
+    newp->fd = -1;
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
