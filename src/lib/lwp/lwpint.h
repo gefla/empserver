@@ -58,7 +58,7 @@ struct lwpProc {
     void (*entry)(void *);	/* entry point */
     int dead;			/* whether the process can be rescheduled */
     int pri;			/* which scheduling queue we're on */
-    long runtime;		/* time at which process is restarted */
+    time_t runtime;		/* time at which process is restarted */
     int fd;			/* fd we're blocking on */
     int argc;			/* initial arguments */
     char **argv;

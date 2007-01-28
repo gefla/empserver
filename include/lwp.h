@@ -25,6 +25,7 @@
 #define LWP_H
 
 #include <signal.h>
+#include <time.h>
 
 #define LWP_STACKCHECK	0x1
 #define LWP_PRINT	0x2
@@ -46,7 +47,7 @@ void lwpExit(void);
 void lwpTerminate(struct lwpProc * p);
 void lwpYield(void);
 void lwpSleepFd(int fd, int flags);
-void lwpSleepUntil(long until);
+void lwpSleepUntil(time_t until);
 void lwpWakeupFd(struct lwpProc * p);
 int lwpSigWait(sigset_t *set, int *sig);
 void *lwpGetUD(struct lwpProc * p);
