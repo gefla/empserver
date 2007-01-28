@@ -84,8 +84,8 @@ struct lwpSem {
 
 #define LWP_REDZONE	1024	/* make this a multiple of 1024 */
 
-/* XXX Note that this assumes sizeof(long) == 4 */
-#define LWP_CHECKMARK	0x5a5a5a5aL
+/* XXX Note that this assumes sizeof(int) == 4 */
+#define LWP_CHECKMARK	0x5a5a5a5a
 
 extern int LwpStackGrowsDown;
 
