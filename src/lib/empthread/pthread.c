@@ -264,9 +264,12 @@ empth_self(void)
 void
 empth_exit(void)
 {
+    empth_t *ctx = pthread_getspecific(ctx_key);
+
     empth_status("empth_exit");
     pthread_mutex_unlock(&mtx_ctxsw);
-    free(pthread_getspecific(ctx_key));
+    free(ctx->name);
+    free(ctx);
     pthread_exit(0);
 }
 
@@ -479,6 +482,7 @@ void
 empth_rwlock_destroy(empth_rwlock_t *rwlock)
 {
     pthread_rwlock_destroy(&rwlock->lock);
+    free(rwlock->name);
     free(rwlock);
 }
 
