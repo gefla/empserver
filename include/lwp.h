@@ -25,7 +25,7 @@
 #define LWP_H
 
 #include <signal.h>
-#include <time.h>
+#include <sys/types.h>
 
 #define LWP_STACKCHECK	0x1
 #define LWP_PRINT	0x2
