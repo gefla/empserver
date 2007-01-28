@@ -73,6 +73,7 @@ lwp_rwlock_destroy(struct lwp_rwlock *rwlock)
 {
     if (CANT_HAPPEN(rwlock->count))
 	return;
+    free(rwlock->name);
     free(rwlock);
 }
 
