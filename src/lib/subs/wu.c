@@ -129,7 +129,6 @@ typed_wu(natid from, natid to, char *message, int type)
 #endif
     int fd;
     char box[1024];
-    int notify = 0;
     int write_ok = 0;
     int new_tele = 0;
     struct player *other;
@@ -181,16 +180,12 @@ typed_wu(natid from, natid to, char *message, int type)
 		continue;
 	    if (!player->god && (getrejects(from, np) & REJ_ANNO))
 		continue;
-	    notify = (np->nat_ann == 0);
 	    np->nat_ann++;
 	    putnat(np);
-	    if (notify)
-		player_wakeup_all(to);
 	}
     } else if (write_ok) {
-	notify = (np->nat_tgms == 0);
 	new_tele = telegram_is_new(to, &tel);
-	np->nat_tgms += new_tele || notify;
+	np->nat_tgms += new_tele || np->nat_tgms == 0;
 	putnat(np);
 
 	if (new_tele && np->nat_flags & NF_INFORM) {
@@ -199,10 +194,8 @@ typed_wu(natid from, natid to, char *message, int type)
 		    pr_inform(other, "[new tele]\n");
 		else
 		    pr_inform(other, "[%d new teles]\n", np->nat_tgms);
-		player_wakeup_all(to);
 	    }
-	} else if (notify)
-	    player_wakeup_all(to);
+	}
     }
 
     return 0;

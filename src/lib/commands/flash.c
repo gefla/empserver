@@ -159,7 +159,6 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 	else
 	    pr_flash(other, "%s (#%d): %s\n",
 		     us->nat_cnam, us->nat_cnum, message);
-	player_wakeup(other);
 	sent++;
     }
     if (player->god) {

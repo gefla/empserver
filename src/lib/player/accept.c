@@ -163,22 +163,6 @@ getplayer(natid cnum)
     return NULL;
 }
 
-void
-player_wakeup_all(natid cnum)
-{
-    struct player *lp;
-
-    if (NULL != (lp = getplayer(cnum)))
-	player_wakeup(lp);
-}
-
-void
-player_wakeup(struct player *pl)
-{
-    if (pl->waiting)
-	empth_wakeup(pl->proc);
-}
-
 /*ARGSUSED*/
 void
 player_accept(void *unused)

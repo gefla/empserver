@@ -65,7 +65,6 @@ struct player {
     int god;
     int owner;
     int nstat;
-    int waiting;
     int simulation;		/* e.g. budget command */
     double dolcost;
     int broke;

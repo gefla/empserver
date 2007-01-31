@@ -400,8 +400,6 @@ extern struct player *player_delete(struct player *);
 extern struct player *player_next(struct player *);
 extern struct player *player_prev(struct player *);
 extern struct player *getplayer(natid);
-extern void player_wakeup_all(natid);
-extern void player_wakeup(struct player *);
 extern void player_accept(void *);
 /* dispatch.c */
 extern int dispatch(char *, char *);
