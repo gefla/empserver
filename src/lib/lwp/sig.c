@@ -28,7 +28,7 @@
  *  sig.c: Wait for signals
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2007
  */
 
 #include <config.h>
@@ -38,20 +38,19 @@
 #include "lwp.h"
 #include "lwpint.h"
 
-/* Signals awaited by lwpSigWait() */
-static sigset_t *LwpSigAwaited;
-
 /*
- * Signals from LwpSigAwaited catched so far
+ * Signals catched so far.
  * Access only with signals blocked!
  */
 static sigset_t LwpSigCatched;
 
+/*
+ * LwpSigCatched changed since last 
+ */
+static sig_atomic_t LwpSigCheck;
+
 /* The thread waiting for signals in lwpSigWait() */
 static struct lwpProc *LwpSigWaiter;
-
-/* Where to return the signal number to the thread in lwpSigWait() */
-static int *LwpSigPtr;
 
 static void lwpCatchAwaitedSig(int);
 
@@ -80,6 +79,7 @@ static void
 lwpCatchAwaitedSig(int sig)
 {
     sigaddset(&LwpSigCatched, sig);
+    LwpSigCheck = 1;
 }
 
 /*
@@ -119,14 +119,14 @@ lwpSigWait(sigset_t *set, int *sig)
 
     if (CANT_HAPPEN(LwpSigWaiter))
 	return EBUSY;
-    res = lwpGetSig(set);
-    if (res <= 0) {
+    for (;;) {
+	LwpSigCheck = 0;
+	res = lwpGetSig(set);
+	if (res > 0)
+	    break;
 	lwpStatus(LwpCurrent, "Waiting for signals");
-	LwpSigAwaited = set;
-	LwpSigPtr = sig;
 	LwpSigWaiter = LwpCurrent;
 	lwpReschedule();
-	return 0;
     }
     *sig = res;
     return 0;
@@ -139,13 +139,7 @@ lwpSigWait(sigset_t *set, int *sig)
 void
 lwpSigWakeup(void)
 {
-    int res;
-
-    if (!LwpSigWaiter)
-	return;
-    res = lwpGetSig(LwpSigAwaited);
-    if (res > 0) {
-	*LwpSigPtr = res;
+    if (LwpSigWaiter && LwpSigCheck) {
 	lwpReady(LwpSigWaiter);
 	LwpSigWaiter = NULL;
     }
