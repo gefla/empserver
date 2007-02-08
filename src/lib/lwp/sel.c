@@ -30,6 +30,7 @@
  * 
  *  Known contributors to this file:
  *     Dave Pare, 1994
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -107,7 +108,7 @@ lwpSleepFd(int fd, int mask)
     lwpReschedule();
 }
 
-void
+static void
 lwpWakeupFd(struct lwpProc *proc)
 {
     if (proc->fd < 0)
@@ -122,9 +123,44 @@ lwpWakeupFd(struct lwpProc *proc)
     lwpReady(proc);
 }
 
+static void
+lwpWakeupSleep(void)
+{
+    time_t now;
+    struct lwpQueue save;
+    struct lwpProc *proc;
+
+    if (LwpDelayq.head) {
+	now = time(NULL);
+	save.tail = save.head = 0;
+	while (NULL != (proc = lwpGetFirst(&LwpDelayq))) {
+	    if (now >= proc->runtime) {
+		lwpStatus(proc, "sleep done");
+		lwpReady(proc);
+	    } else {
+		lwpAddTail(&save, proc);
+	    }
+	}
+	LwpDelayq = save;
+    }
+}
+
 void
+lwpWakeup(struct lwpProc *proc)
+{
+    if (proc->fd >= 0)
+	lwpWakeupFd(proc);
+    else if (proc->runtime != (time_t)-1) {
+	proc->runtime = 0;
+	lwpWakeupSleep();
+    }
+}
+
+int
 lwpSleepUntil(time_t until)
 {
+    int res;
+
     lwpStatus(LwpCurrent, "sleeping for %ld sec",
 	      (long)(until - time(NULL)));
     LwpCurrent->runtime = until;
@@ -134,6 +170,9 @@ lwpSleepUntil(time_t until)
     }
     lwpAddTail(&LwpDelayq, LwpCurrent);
     lwpReschedule();
+    res = LwpCurrent->runtime ? 0 : -1;
+    LwpCurrent->runtime = (time_t)-1;
+    return res;
 }
 
 /*ARGSUSED*/
@@ -149,7 +188,6 @@ lwpSelect(void *arg)
     time_t delta;
     struct lwpProc *proc;
     struct timeval tv;
-    struct lwpQueue save;
 
     lwpStatus(us, "starting select loop");
     FD_ZERO(&readmask);
@@ -194,20 +232,7 @@ lwpSelect(void *arg)
 	    continue;
 	}
 
-	if (LwpDelayq.head) {
-	    /* sleeping proecss activity */
-	    time(&now);
-	    save.tail = save.head = 0;
-	    while (NULL != (proc = lwpGetFirst(&LwpDelayq))) {
-		if (now >= proc->runtime) {
-		    lwpStatus(proc, "sleep done");
-		    lwpReady(proc);
-		} else {
-		    lwpAddTail(&save, proc);
-		}
-	    }
-	    LwpDelayq = save;
-	}
+	lwpWakeupSleep();
 	if (n > 0) {
 	    /* file descriptor activity */
 	    for (fd = 0; fd <= LwpMaxfd; fd++) {

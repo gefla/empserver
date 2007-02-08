@@ -181,7 +181,7 @@ void empth_terminate(empth_t *thread);
 void empth_select(int fd, int flags);
 
 /*
- * Awaken THREAD if it is sleeping in empth_select().
+ * Awaken THREAD if it is sleeping in empth_select() or empth_sleep().
  * Note: This must not awaken threads sleeping in other functions.
  * Does not yield the processor.
  */
@@ -189,9 +189,10 @@ void empth_wakeup(empth_t *thread);
 
 /*
  * Put current thread to sleep until the time is UNTIL.
- * May sleep somehwat longer, but never shorter.
+ * Return 0 if it slept until that time.
+ * Return -1 if woken up early, by empth_wakeup().
  */
-void empth_sleep(time_t until);
+int empth_sleep(time_t until);
 
 /*
  * Wait for signal, return the signal number.

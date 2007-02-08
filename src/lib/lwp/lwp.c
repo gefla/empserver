@@ -29,7 +29,7 @@
  *  lwp.c: lightweight process creation, destruction and manipulation
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2007
  */
 
 #include <config.h>
@@ -145,7 +145,7 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz,
     newp->argv = argv;
     newp->ud = ud;
     newp->dead = 0;
-    newp->runtime = -1;
+    newp->runtime = (time_t)-1;
     newp->fd = -1;
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
@@ -166,7 +166,7 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz,
     return newp;
 }
 
-void
+static void
 lwpDestroy(struct lwpProc *proc)
 {
     if (proc->flags & LWP_STACKCHECK) {
@@ -244,8 +244,7 @@ lwpTerminate(struct lwpProc *p)
 {
     lwpStatus(p, "terminating process");
     p->dead = 1;
-    if (p->fd >= 0)
-	lwpWakeupFd(p);
+    lwpWakeup(p);
 }
 
 /*

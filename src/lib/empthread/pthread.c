@@ -58,6 +58,7 @@
 #include "prototypes.h"
 
 #define EMPTH_KILLED  1
+#define EMPTH_INTR 2
 
 struct empth_t {
     char *name;			/* thread name */
@@ -252,6 +253,7 @@ empth_restorectx(void)
 	empth_status("i am dead");
 	empth_exit();
     }
+    ctx_ptr->state = 0;
     empth_status("context restored");
 }
 
@@ -355,33 +357,37 @@ empth_alarm(int sig)
 {
     /*
      * Nothing to do --- we handle this signal just to let
-     * empth_wakeup() interrupt system calls.
+     * empth_wakeup() and empth_terminate() interrupt system calls.
      */
-    empth_status("got alarm signal");
 }
 
 void
 empth_wakeup(empth_t *a)
 {
     empth_status("waking up thread %s", a->name);
+    if (a->state == 0)
+	a->state = EMPTH_INTR;
     pthread_kill(a->id, SIGALRM);
 }
 
-void
+int
 empth_sleep(time_t until)
 {
+    empth_t *ctx = pthread_getspecific(ctx_key);
     struct timeval tv;
+    int res;
 
     empth_status("going to sleep %ld sec", until - time(0));
     pthread_mutex_unlock(&mtx_ctxsw);
-    tv.tv_sec = until - time(NULL);
-    tv.tv_usec = 0;
     do {
-	select(0, NULL, NULL, NULL, &tv);
-    } while ((tv.tv_sec = until - time(NULL)) > 0);
+	tv.tv_sec = until - time(NULL);
+	tv.tv_usec = 0;
+	res = select(0, NULL, NULL, NULL, &tv);
+    } while (res < 0 && ctx->state == 0);
     empth_status("sleep done. Waiting for lock");
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
+    return res;
 }
 
 int

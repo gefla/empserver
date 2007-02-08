@@ -101,13 +101,13 @@ empth_select(int fd, int flags)
 void
 empth_wakeup(empth_t *a)
 {
-    lwpWakeupFd(a);
+    lwpWakeup(a);
 }
 
-void
+int
 empth_sleep(time_t until)
 {
-    lwpSleepUntil(until);
+    return lwpSleepUntil(until);
 }
 
 int

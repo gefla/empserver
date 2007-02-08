@@ -599,21 +599,25 @@ empth_wakeup(empth_t *pThread)
  *
  * Put the given thread to sleep...
  */
-void
+int
 empth_sleep(time_t until)
 {
     long lSec;
+    empth_t *pThread = TlsGetValue(dwTLSIndex);
+    int iReturn = 0;
 
-    loc_BlockThisThread();
+    if ((lSec = until - time(0)) > 0) {
+	loc_BlockThisThread();
+	loc_debug("going to sleep %ld sec", lSec);
 
-    while ((lSec = until - time(0)) > 0) {
-        loc_debug("going to sleep %ld sec", lSec);
-	Sleep(lSec * 1000L);
+	if (WaitForSingleObject(pThread->hThreadEvent, lSec * 1000L) !=
+	    WAIT_TIMEOUT)
+	    iReturn = -1;
+
+	loc_debug("sleep done. Waiting to run.");
+	loc_RunThisThread(NULL);
     }
-
-    loc_debug("sleep done. Waiting to run.");
-
-    loc_RunThisThread(NULL);
+    return iReturn;
 }
 
 /************************
