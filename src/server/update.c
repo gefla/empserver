@@ -48,14 +48,15 @@
 #include "prototypes.h"
 #include "server.h"
 
-empth_sem_t *update_sem;
+static empth_t *update_thread;
 empth_rwlock_t *update_lock;
 int update_pending;
 time_t update_time;
+static int update_forced;
 
 static void update_sched(void *);
 static void update_force(void *);
-static void update_wait(void *unused);
+static void update_run(void);
 static int run_hook(char *cmd, char *name);
 
 void
@@ -64,9 +65,14 @@ update_init(void)
     struct player *dp;
     int stacksize;
 
-    update_sem = empth_sem_create("Update", 0);
+    if (s_p_etu <= 0) {
+	logerror("bad value for s_p_etu (%d)", s_p_etu);
+	s_p_etu = 2 * 60;
+	logerror("setting s_p_etu to %d", s_p_etu);
+    }
+
     update_lock = empth_rwlock_create("Update");
-    if (!update_sem || !update_lock)
+    if (!update_lock)
 	exit_nomem();
 
     dp = player_new(-1);
@@ -76,12 +82,9 @@ update_init(void)
     stacksize = 100000 +
 /* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
 					sizeof(char *));
-    if (!empth_create(PP_UPDATE, update_wait, stacksize, 0,
-		      "Update", dp))
-	exit_nomem();
-
-    if (!empth_create(PP_SCHED, update_sched, 50 * 1024, 0,
-		      "UpdateSched", NULL))
+    update_thread = empth_create(PP_UPDATE, update_sched, stacksize, 0,
+				 "Update", dp);
+    if (!update_thread)
 	exit_nomem();
 }
 
@@ -92,12 +95,11 @@ update_sched(void *unused)
     int wind;
     time_t now, delta;
 
-    if (s_p_etu <= 0) {
-	logerror("bad value for s_p_etu (%d)", s_p_etu);
-	s_p_etu = 2 * 60;
-	logerror("setting s_p_etu to %d", s_p_etu);
-    }
-    while (1) {
+    player->proc = empth_self();
+    player->cnum = 0;
+    player->god = 1;
+
+    for (;;) {
 	time(&now);
 	next_update_time(&now, &update_time, &delta);
 	if (update_window > 0) {
@@ -108,22 +110,25 @@ update_sched(void *unused)
 	logerror("Next update at %s", ctime(&update_time));
 	logerror("Next update in %ld seconds", (long)delta);
 	/* sleep until update is scheduled to go off */
+	update_forced = 0;
 	empth_sleep(update_time);
-	time(&now);
-	now += adj_update;
-	if (!gamehours(now)) {
-	    logerror("No update permitted (hours restriction)");
-	    continue;
+	if (!update_forced) {
+	    time(&now);
+	    now += adj_update;
+	    if (!gamehours(now)) {
+		logerror("No update permitted (hours restriction)");
+		continue;
+	    }
+	    if (!updatetime(&now)) {
+		logerror("No update wanted");
+		continue;
+	    }
+	    if (updates_disabled()) {
+		logerror("Updates disabled...skipping update");
+		continue;
+	    }
 	}
-	if (!updatetime(&now)) {
-	    logerror("No update wanted");
-	    continue;
-	}
-	if (updates_disabled()) {
-	    logerror("Updates disabled...skipping update");
-	    continue;
-	}
-	empth_sem_signal(update_sem);
+	update_run();
     }
     /*NOTREACHED*/
 }
@@ -141,7 +146,8 @@ update_trigger(time_t secs_from_now)
 	return -1;
 
     if (secs_from_now == 0) {
-	empth_sem_signal(update_sem);
+	update_forced = 1;
+	empth_wakeup(update_thread);
 	return 0;
     }
 
@@ -163,46 +169,38 @@ update_force(void *seconds)
 
     time(&now);
     empth_sleep(now + *(time_t *)seconds);
-    empth_sem_signal(update_sem);
+    update_forced = 1;
+    empth_wakeup(update_thread);
     free(seconds);
     empth_exit();
 }
 
-/*ARGSUSED*/
 static void
-update_wait(void *unused)
+update_run(void)
 {
     struct player *p;
 
-    player->proc = empth_self();
-    player->cnum = 0;
-    player->god = 1;
-
-    while (1) {
-	empth_sem_wait(update_sem);
-	update_pending = 1;
-	for (p = player_next(0); p != 0; p = player_next(p)) {
-	    if (p->state != PS_PLAYING)
-		continue;
-	    if (p->command) {
-		pr_flash(p, "Update aborting command\n");
-		p->aborted = 1;
-		empth_wakeup(p->proc);
-	    }
+    update_pending = 1;
+    for (p = player_next(0); p != 0; p = player_next(p)) {
+	if (p->state != PS_PLAYING)
+	    continue;
+	if (p->command) {
+	    pr_flash(p, "Update aborting command\n");
+	    p->aborted = 1;
+	    empth_wakeup(p->proc);
 	}
-	empth_rwlock_wrlock(update_lock);
-	if (*pre_update_hook) {
-	    if (run_hook(pre_update_hook, "pre-update")) {
-		update_pending = 0;
-		empth_rwlock_unlock(update_lock);
-		continue;
-	    }
-	}
-	update_main();
-	update_pending = 0;
-	empth_rwlock_unlock(update_lock);
     }
-    /*NOTREACHED*/
+    empth_rwlock_wrlock(update_lock);
+    if (*pre_update_hook) {
+	if (run_hook(pre_update_hook, "pre-update")) {
+	    update_pending = 0;
+	    empth_rwlock_unlock(update_lock);
+	    return;
+	}
+    }
+    update_main();
+    update_pending = 0;
+    empth_rwlock_unlock(update_lock);
 }
 
 static int
