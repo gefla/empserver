@@ -74,13 +74,6 @@ struct lwpQueue {
     struct lwpProc *tail;
 };
 
-/* semaphore */
-struct lwpSem {
-    int count;
-    struct lwpQueue q;
-    char *name;
-};
-
 #define LWP_REDZONE	1024	/* make this a multiple of 1024 */
 
 /* XXX Note that this assumes sizeof(int) == 4 */

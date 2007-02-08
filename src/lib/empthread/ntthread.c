@@ -91,21 +91,6 @@ struct loc_Thread {
 
 
 /************************
- * loc_Sem
- */
-struct loc_Sem {
-
-    /* The semaphore name, passed in at create time. */
-    char szName[17];
-
-    /* An Event that the thread(s) will sleep on. */
-    HANDLE hEvent;
-
-    /* The count variable */
-    int count;
-};
-
-/************************
  * loc_RWLock
  *
  * Invariants
@@ -638,66 +623,6 @@ empth_wait_for_signal(void)
     loc_BlockThisThread();
     loc_RunThisThread(hShutdownEvent);
     return 0;
-}
-
-/************************
- * empth_sem_create
- *
- * Create a signalling semaphore.
- */
-empth_sem_t *
-empth_sem_create(char *name, int cnt)
-{
-    empth_sem_t *pSem;
-
-    pSem = malloc(sizeof(*pSem));
-    if (!pSem) {
-	logerror("out of memory at %s:%d", __FILE__, __LINE__);
-	return NULL;
-    }
-
-    memset(pSem, 0, sizeof(pSem));
-    strncpy(pSem->szName, name, sizeof(pSem->szName) - 1);
-
-    pSem->hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-    pSem->count = cnt;
-
-    return pSem;
-}
-
-/************************
- * empth_sem_signal
- *
- * Hit/signal the specified semaphore.
- */
-void
-empth_sem_signal(empth_sem_t *pSem)
-{
-    loc_debug("signal on semaphore %s:%d", pSem->szName, pSem->count);
-
-    if (pSem->count++ < 0) {
-	SetEvent(pSem->hEvent);
-    }
-}
-
-/************************
- * empth_sem_wait
- *
- * Wait for the specified signal semaphore to be signaled.
- */
-void
-empth_sem_wait(empth_sem_t *pSem)
-{
-    empth_t *pThread = TlsGetValue(dwTLSIndex);
-
-    loc_debug("wait on semaphore %s:%d", pSem->szName, pSem->count);
-    if (--pSem->count < 0) {
-	/* Remove the thread from the running state. */
-	loc_BlockThisThread();
-	loc_debug("blocking");
-	loc_RunThisThread(pSem->hEvent);
-	loc_debug("waking up");
-    }
 }
 
 empth_rwlock_t *

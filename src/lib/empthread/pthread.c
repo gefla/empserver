@@ -68,14 +68,6 @@ struct empth_t {
     pthread_t id;		/* thread id */
 };
 
-struct empth_sem_t {
-    pthread_mutex_t mtx_update;	/* use it to update count */
-    int count;
-    char name[80];
-    pthread_mutex_t mtx_sem;
-    pthread_cond_t cnd_sem;
-};
-
 struct empth_rwlock_t {
     char *name;
     pthread_rwlock_t lock;
@@ -413,57 +405,6 @@ empth_wait_for_signal(void)
 	empth_restorectx();
 	return sig;
     }
-}
-
-empth_sem_t *
-empth_sem_create(char *name, int cnt)
-{
-    empth_sem_t *sm;
-
-    sm = malloc(sizeof(empth_sem_t));
-    if (!sm) {
-	logerror("out of memory at %s:%d", __FILE__, __LINE__);
-	return NULL;
-    }
-    strncpy(sm->name, name, sizeof(sm->name) - 1);
-    sm->count = cnt;
-    pthread_mutex_init(&sm->mtx_update, NULL);
-    pthread_mutex_init(&sm->mtx_sem, NULL);
-    pthread_cond_init(&sm->cnd_sem, NULL);
-    return sm;
-}
-
-void
-empth_sem_signal(empth_sem_t *sm)
-{
-    empth_status("signal on semaphore %s:%d", sm->name, sm->count);
-    pthread_mutex_lock(&sm->mtx_update);
-    if (sm->count++ < 0) {
-	pthread_mutex_unlock(&sm->mtx_update);
-	pthread_mutex_lock(&sm->mtx_sem);
-	pthread_cond_signal(&sm->cnd_sem);
-	pthread_mutex_unlock(&sm->mtx_sem);
-    } else
-	pthread_mutex_unlock(&sm->mtx_update);
-}
-
-void
-empth_sem_wait(empth_sem_t *sm)
-{
-    empth_status("wait on semaphore %s:%d", sm->name, sm->count);
-    pthread_mutex_lock(&sm->mtx_update);
-    if (--sm->count < 0) {
-	pthread_mutex_unlock(&sm->mtx_update);
-	empth_status("blocking");
-	pthread_mutex_unlock(&mtx_ctxsw);
-	pthread_mutex_lock(&sm->mtx_sem);
-	pthread_cond_wait(&sm->cnd_sem, &sm->mtx_sem);
-	empth_status("waking up");
-	pthread_mutex_unlock(&sm->mtx_sem);
-	pthread_mutex_lock(&mtx_ctxsw);
-	empth_restorectx();
-    } else
-	pthread_mutex_unlock(&sm->mtx_update);
 }
 
 empth_rwlock_t *

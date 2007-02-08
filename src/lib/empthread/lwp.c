@@ -132,24 +132,6 @@ empth_wait_for_signal(void)
     }
 }
 
-empth_sem_t *
-empth_sem_create(char *name, int cnt)
-{
-    return lwpCreateSem(name, cnt);
-}
-
-void
-empth_sem_signal(empth_sem_t *sm)
-{
-    lwpSignal(sm);
-}
-
-void
-empth_sem_wait(empth_sem_t *sm)
-{
-    lwpWait(sm);
-}
-
 empth_rwlock_t *
 empth_rwlock_create(char *name)
 {

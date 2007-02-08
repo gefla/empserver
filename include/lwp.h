@@ -31,7 +31,6 @@
 #define LWP_PRINT	0x2
 
 struct lwpProc;
-struct lwpSem;
 struct lwp_rwlock;
 
 #define LWP_FD_READ	0x1
@@ -53,10 +52,6 @@ int lwpSigWait(sigset_t *set, int *sig);
 void *lwpGetUD(struct lwpProc * p);
 void lwpSetUD(struct lwpProc * p, char *ud);
 int lwpSetPriority(int prio);
-
-struct lwpSem *lwpCreateSem(char *name, int count);
-void lwpSignal(struct lwpSem *);
-void lwpWait(struct lwpSem *);
 
 struct lwp_rwlock *lwp_rwlock_create(char *);
 void lwp_rwlock_destroy(struct lwp_rwlock *);

@@ -71,9 +71,6 @@ enum {
 /* empth_t * represents a thread.  */
 typedef struct lwpProc empth_t;
 
-/* empth_sem_t * represents a semaphore */
-typedef struct lwpSem empth_sem_t;
-
 /* empth_rwlock_t * represents a read-write lock */
 typedef struct lwp_rwlock empth_rwlock_t;
 
@@ -97,7 +94,6 @@ typedef struct lwp_rwlock empth_rwlock_t;
 #define EMPTH_STACKCHECK  0x2
 
 typedef struct empth_t empth_t;
-typedef struct empth_sem_t empth_sem_t;
 typedef struct empth_rwlock_t empth_rwlock_t;
 
 #endif /* EMPTH_POSIX */
@@ -111,7 +107,6 @@ typedef struct empth_rwlock_t empth_rwlock_t;
 #define EMPTH_STACKCHECK  0x2
 
 typedef struct loc_Thread empth_t;
-typedef struct loc_Sem empth_sem_t;
 typedef struct loc_RWLock empth_rwlock_t;
 
 void empth_request_shutdown(void);
@@ -198,33 +193,6 @@ int empth_sleep(time_t until);
  * Wait for signal, return the signal number.
  */
 int empth_wait_for_signal(void);
-
-/*
- * Create a semaphore.
- * NAME is its name, it is used for debugging.
- * COUNT is the initial count value of the semaphore, it must not be
- * negative.
- * Return the semaphore, or NULL on error.
- */
-empth_sem_t *empth_sem_create(char *name, int count);
-
-/*
- * Signal SEM.
- * Increase SEM's count.  If threads are sleeping on it, wake up
- * exactly one of them.  If that thread has a higher priority, yield
- * the processor.
- * This semaphore operation is often called `down' or `V' otherwhere.
- */
-void empth_sem_signal(empth_sem_t *sem);
-
-/*
- * Wait for SEM.
- * If SEM has a zero count, put current thread to sleep until
- * empth_sem_signal() awakens it.  SEM will have non-zero value then.
- * Decrement SEM's count.
- * This semaphore operation is often called `up' or `P' otherwhere.
- */
-void empth_sem_wait(empth_sem_t *sem);
 
 /*
  * Create a read-write lock.
