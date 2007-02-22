@@ -44,8 +44,6 @@ shut(void)
     int shutdown_minutes;
     int shutdown_was_pending;
     char buf[1024];
-    char msgbuf[100];
-    struct natstr *us;
     char *p;
 
     shutdown_minutes =
