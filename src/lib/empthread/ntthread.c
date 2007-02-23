@@ -51,7 +51,6 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <time.h>
-#define WIN32
 #include <winsock2.h>
 #undef NS_ALL
 #include <windows.h>
