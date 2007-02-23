@@ -34,7 +34,7 @@
 #include <config.h>
 
 #include <fcntl.h>
-#if defined(_WIN32) && !defined(__GNUC__)
+#if defined(_WIN32)
 #include <io.h>
 #endif
 

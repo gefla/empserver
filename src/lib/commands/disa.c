@@ -33,7 +33,7 @@
 
 #include <config.h>
 
-#if defined(_WIN32) && !defined(__GNUC__)
+#if defined(_WIN32)
 #include <io.h>
 #endif
 #include <fcntl.h>

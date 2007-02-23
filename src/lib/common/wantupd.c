@@ -35,7 +35,7 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#if defined(_WIN32) && !defined(__GNUC__)
+#if defined(_WIN32)
 #include <io.h>
 #endif
 #include <time.h>
