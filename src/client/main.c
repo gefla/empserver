@@ -189,7 +189,11 @@ main(int ac, char **av)
 #endif
     }
     if (!login(sock, uname, cname, pname, send_kill, utf8)) {
+#ifdef _WIN32
+	closesocket(sock);
+#else
 	close(sock);
+#endif
 	exit(1);
     }
     ioq_init(&server, 2048);
@@ -243,7 +247,7 @@ main(int ac, char **av)
     tm.tv_sec = 0;
     tm.tv_usec = 1000;
 
-    if (!_isatty(_fileno(stdin)))
+    if (!isatty(fileno(stdin)))
 	bRedirected = 1;
     else {
 	security.nLength = sizeof(SECURITY_ATTRIBUTES);
@@ -288,7 +292,7 @@ main(int ac, char **av)
 	    if (errno == EINTR) {
 		errno = WSAGetLastError();
 		perror("select");
-		(void)close(sock);
+		(void)closesocket(sock);
 		break;
 	    }
 	} else {
@@ -313,7 +317,11 @@ main(int ac, char **av)
 	CloseHandle(hStdIn);
 #endif /* _WIN32 */
     ioq_drain(&server);
+#ifdef _WIN32
+    (void)closesocket(sock);
+#else
     (void)close(sock);
+#endif
     return 0;			/* Shut the compiler up */
 }
 
