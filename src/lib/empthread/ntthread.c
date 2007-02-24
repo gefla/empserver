@@ -455,7 +455,7 @@ empth_create(int prio, void (*entry)(void *), int size, int flags,
 	size = loc_MIN_THREAD_STACK;
 
     pThread->ulThreadID = _beginthread(empth_threadMain, size, pThread);
-    if (pThread->ulThreadID == -1) {
+    if (pThread->ulThreadID == 1L) {
 	logerror("can not create thread: %s: %s", name, strerror(errno));
 	goto bad;
     }
