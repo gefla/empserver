@@ -324,8 +324,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 static void
 kaboom(int x, int y, int rad, natid cn)
 {
-    mpr(cn, "\n\nK A B ");
-    while (rad-- > 0)
+    mpr(cn, "\n\nK A B O O ");
+    while (rad-- > 1)
 	mpr(cn, "O O ");
     mpr(cn, "M ! in %s\n\n", xyas(x, y, cn));
 }
