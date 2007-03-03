@@ -89,13 +89,15 @@ logerror(char *format, ...)
     p = strchr(msg, '\n');
     p[1] = 0;
     fputs(msg, stderr);
-    time(&now);
-    memcpy(buf, ctime(&now), ctime_len);
-    buf[ctime_len] = ' ';
-    if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
-	return;
-    write(logf, buf, strlen(buf));
-    close(logf);
+    if (logfile[0] != '\0') {
+	time(&now);
+	memcpy(buf, ctime(&now), ctime_len);
+	buf[ctime_len] = ' ';
+	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
+	    return;
+	write(logf, buf, strlen(buf));
+	close(logf);
+    }
     va_end(list);
 }
 
