@@ -115,6 +115,8 @@ nuk_on_plane(struct nukstr *np, int pluid)
 
     snxtitem_all(&ni, EF_NUKE);
     while (nxtitem(&ni, np)) {
+	if (np->nuk_own == 0)
+	    continue;
 	if (np->nuk_plane == pluid)
 	    return np->nuk_uid;
     }
