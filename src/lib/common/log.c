@@ -93,7 +93,7 @@ logerror(char *format, ...)
 	time(&now);
 	memcpy(buf, ctime(&now), ctime_len);
 	buf[ctime_len] = ' ';
-	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0)
+	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0660)) < 0)
 	    return;
 	write(logf, buf, strlen(buf));
 	close(logf);
