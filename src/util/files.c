@@ -179,13 +179,9 @@ main(int argc, char *argv[])
     for (x = MAXNOC - 1; x >= 0; x--) {
 	filename = mailbox(buf, x);
 	close(creat(filename, 0600));
-	chmod(filename, 0600);
     }
     close(creat(timestampfil, 0600));
     close(creat(annfil, 0600));
-    chmod(infodir, 0750);
-    chmod(gamedir, 0770);
-    chmod(teldir, 0770);
 
     /* create a zero-filled sector file */
     memset(&sct, 0, sizeof(sct));
