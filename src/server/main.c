@@ -297,12 +297,12 @@ init_server(void)
     io_init();
     init_nreport();
 
+    loginit("server");
+
     if (opt_MOB_ACCESS) {
 	/* This fixes up mobility upon restart */
 	mobility_init();
     }
-
-    loginit("server");
 }
 
 /*
