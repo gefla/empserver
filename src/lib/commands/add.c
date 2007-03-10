@@ -37,6 +37,7 @@
 #if defined(_WIN32)
 #include <io.h>
 #endif
+#include <sys/stat.h>
 
 #include "commands.h"
 #include "land.h"
@@ -213,7 +214,7 @@ add(void)
 	    natp->nat_rejects[i] = 0;
 	natp->nat_newstim = 0;
 	natp->nat_annotim = 0;
-	(void)creat(mailbox(buf, coun), 0660);
+	(void)creat(mailbox(buf, coun), S_IRWUG);
     } else
 	pr("No special initializations done...\n");
 

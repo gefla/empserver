@@ -59,8 +59,23 @@ typedef int pid_t;
 #define mkdir(dir,perm) _mkdir((dir))
 #define random rand
 #define srandom srand
-
+#define S_IRUSR	    _S_IREAD
+#define S_IWUSR	    _S_IWRITE
+#define S_IXUSR	    _S_IREAD
+#define S_IRGRP	    _S_IREAD
+#define S_IWGRP	    _S_IWRITE
+#define S_IXGRP	    _S_IREAD
+#define S_IROTH	    _S_IREAD
+#define S_IWOTH	    _S_IWRITE
+#define S_IXOTH	    _S_IREAD
+#define S_IRWXU	    S_IRUSR | S_IWUSR | S_IXUSR
+#define S_IRWXG	    S_IRGRP | S_IWGRP | S_IXGRP
+#define S_IRWXO	    S_IROTH | S_IWOTH | S_IXOTH
 #endif /* _WIN32 */
+
+#ifndef S_IRWUG
+#define S_IRWUG	    S_IRGRP | S_IWGRP | S_IRUSR | S_IWUSR
+#endif
 
 /* This is the structure we use to keep track of the global mobility
    things, such as when the server is supposed to start/stop updating

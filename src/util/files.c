@@ -36,13 +36,13 @@
 #include <config.h>
 
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <errno.h>
 #if defined(_WIN32)
 #include <direct.h>
 #include <io.h>
 #include "../lib/gen/getopt.h"
 #else
-#include <sys/stat.h>
 #include <unistd.h>
 #endif
 
@@ -117,7 +117,7 @@ main(int argc, char *argv[])
 
     ef_init();
 
-    if (mkdir(gamedir, 0770) < 0 && errno != EEXIST) {
+    if (mkdir(gamedir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	perror(gamedir);
 	printf("Can't make game directory\n");
 	exit(1);
@@ -171,17 +171,17 @@ main(int argc, char *argv[])
 	    putrealm(&realm);
 	}
     }
-    if (mkdir(teldir, 0770) < 0 && errno != EEXIST) {
+    if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	perror(teldir);
 	printf("Can't make telegram directory\n");
 	exit(1);
     }
     for (x = MAXNOC - 1; x >= 0; x--) {
 	filename = mailbox(buf, x);
-	close(creat(filename, 0660));
+	close(creat(filename, S_IRWUG));
     }
-    close(creat(timestampfil, 0660));
-    close(creat(annfil, 0660));
+    close(creat(timestampfil, S_IRWUG));
+    close(creat(annfil, S_IRWUG));
 
     /* create a zero-filled sector file */
     memset(&sct, 0, sizeof(sct));

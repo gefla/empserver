@@ -37,6 +37,7 @@
 #include <io.h>
 #endif
 #include <fcntl.h>
+#include <sys/stat.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -48,7 +49,7 @@ disa(void)
 {
     int fd;
 
-    if ((fd = open(disablefil, O_RDWR | O_CREAT | O_TRUNC, 0660)) < 0)
+    if ((fd = open(disablefil, O_RDWR | O_CREAT | O_TRUNC, S_IRWUG)) < 0)
 	return RET_FAIL;
     close(fd);
     pr("Updates are disabled\n");

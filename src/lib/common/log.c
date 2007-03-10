@@ -40,6 +40,7 @@
 #include <unistd.h>
 #endif
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
@@ -93,7 +94,8 @@ logerror(char *format, ...)
 	time(&now);
 	memcpy(buf, ctime(&now), ctime_len);
 	buf[ctime_len] = ' ';
-	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND, 0660)) < 0)
+	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND,
+			 S_IRWUG)) < 0)
 	    return;
 	write(logf, buf, strlen(buf));
 	close(logf);

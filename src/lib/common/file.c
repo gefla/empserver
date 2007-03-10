@@ -41,6 +41,7 @@
 #include <share.h>
 #endif
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <signal.h>
 #include <sys/types.h>
 #if !defined(_WIN32)
@@ -90,12 +91,12 @@ ef_open(int type, int how)
     oflags |= O_BINARY;
     if ((fd = sopen(ep->file, oflags,
 	how & EFF_RDONLY ? SH_DENYNO : SH_DENYWR,
-	0660)) < 0) {
+	S_IRWUG)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
     }
 #else
-    if ((fd = open(ep->file, oflags, 0660)) < 0) {
+    if ((fd = open(ep->file, oflags, S_IRWUG)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
     }
