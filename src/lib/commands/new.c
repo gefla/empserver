@@ -37,6 +37,7 @@
 #if defined(_WIN32)
 #include <io.h>
 #endif
+#include <sys/stat.h>
 #if !defined(_WIN32)
 #include <unistd.h>
 #endif
@@ -152,7 +153,8 @@ new(void)
     natp->nat_level[NAT_TLEV] = start_technology;
     natp->nat_level[NAT_ELEV] = start_education;
     natp->nat_tgms = 0;
-    (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT, 0660));
+    (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT,
+		S_IRWUG));
     init_sanct(natp, x, y);
     init_sanct(natp, x + 2, y);
     putnat(natp);
