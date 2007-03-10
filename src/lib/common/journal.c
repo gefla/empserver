@@ -85,7 +85,7 @@ journal_entry(char *fmt, ...)
 	va_end(ap);
 
 	for (i = n; buf[i]; ++i) {
-	    if (!isprint(buf[i]))
+	    if (!isprint((unsigned char)buf[i]))
 		buf[i] = '?';	/* FIXME replace by escape */
 	}
 	buf[i++] = '\n';

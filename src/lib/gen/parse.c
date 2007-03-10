@@ -64,7 +64,7 @@ parse(char *buf, char **arg, char **condp, char *space, char **redir)
     if (condp != NULL)
 	*condp = NULL;
     for (argnum = 0; *buf && argnum < 127;) {
-	while (isspace(*buf))
+	while (isspace((unsigned char)*buf))
 	    buf++;
 	if (!*buf)
 	    break;
@@ -74,7 +74,7 @@ parse(char *buf, char **arg, char **condp, char *space, char **redir)
 	}
 	quoted = 0;
 	for (bp2 = bp1; *buf;) {
-	    if (!quoted && isspace(*buf)) {
+	    if (!quoted && isspace((unsigned char)*buf)) {
 		buf++;
 		break;
 	    }
