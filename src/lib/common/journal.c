@@ -75,23 +75,27 @@ journal_entry(char *fmt, ...)
     static char buf[1024];
     va_list ap;
     time_t now;
-    int n, i;
+    unsigned char *p;
 
     if (journal) {
 	time(&now);
-	n = sprintf(buf, "%.24s %p ", ctime(&now), empth_self());
+	fprintf(journal, "%.24s %p ", ctime(&now), empth_self());
+	
 	va_start(ap, fmt);
-	vsnprintf(buf + n, sizeof(buf) - n - 1, fmt, ap);
+	vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
 	va_end(ap);
 
-	for (i = n; buf[i]; ++i) {
-	    if (!isprint((unsigned char)buf[i]))
-		buf[i] = '?';	/* FIXME replace by escape */
+	for (p = buf; *p; p++) {
+	    if (isprint(*p))
+		 putc(*p, journal);
+	    else
+		fprintf(journal, "\\%03o", *p);
 	}
-	buf[i++] = '\n';
-	buf[i] = 0;
-	if (fputs(buf, journal) == EOF)
+	fputs("\n", journal);
+	if (ferror(journal)) {
 	    logerror("Error writing journal (%s)", strerror(errno));
+	    clearerr(journal);
+	}
     }
 }
 
