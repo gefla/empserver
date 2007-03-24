@@ -119,7 +119,8 @@ powe(void)
 	pow_time = ef_mtime(EF_POWER);
 	snxtitem_all(&ni, EF_POWER);
 	if (!nxtitem(&ni, &powbuf[0])) {
-	    pr("Power for this game has not been built yet.  Type 'power new' to build it.\n");
+	    pr("Power for this game has not been built yet.%s\n",
+	       opt_AUTO_POWER ? "" : "Type 'power new' to build it.");
 	    return RET_FAIL;
 	}
 	for (i = 1; i < MAXNOC; i++) {
