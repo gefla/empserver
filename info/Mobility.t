@@ -32,8 +32,8 @@ Land units are charged mobility for the following actions:
 See "info Attacking" for the mobility cost to attack.
 
 2. Fighting rebels
-For each 2 points of efficiency a land unit looses fighting rebels at
-the update, it looses one point of mobility.
+For each 2 points of efficiency a land unit loses fighting rebels at
+the update, it loses one point of mobility.
 
 3. Fortification
 Fortifying a land unit ("dig in") costs one point of mobility per
@@ -90,7 +90,7 @@ for the following:
 
 1. Air combat
 For every two points of damage the plane takes from air combat, the
-plane looses one point of mobility.
+plane loses one point of mobility.
 
 2. Launching satellites
 A satellite is charged one point of mobility for each sector it passes

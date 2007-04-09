@@ -25,7 +25,7 @@ sectors which would be sent as is.
 Note that the destination bmap will only be changed if in that
 location there was a '?', a '.', a ' ', or the first letter
 of your country name (capitalized).  Thus, the receiving country will
-not loose any information in this exchange.
+not lose any information in this exchange.
 .s1
 Note that the sharebmap command only changes your 'working' bmap and
 so you can delete sharebmap information from your bmap by typing:
