@@ -175,7 +175,7 @@ show_nuke_build(int tlev)
 	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
 	   np->n_rad, avail, np->n_tech,
 	   drnuke_const > MIN_DRNUKE_CONST ?
-	   	(np->n_tech * drnuke_const) + 1.0 : 0.0,
+		ceil(np->n_tech * drnuke_const) : 0.0,
 	   np->n_cost);
     }
 }
@@ -196,7 +196,7 @@ show_nuke_capab(int tlev)
 	   np->n_name, np->n_blast, np->n_dam,
 	   np->n_weight, np->n_tech,
 	   drnuke_const > MIN_DRNUKE_CONST ?
-	   	(np->n_tech * drnuke_const) + 1.0 : 0.0,
+		ceil(np->n_tech * drnuke_const) : 0.0,
 	   np->n_cost);
 	for (i = j = 0; i < 32; i++) {
 	    if (!(np->n_flags & bit(i)))
