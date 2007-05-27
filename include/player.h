@@ -71,7 +71,6 @@ struct player {
     time_t curup;		/* used in calc of minutes used */
     int aborted;
     int curid;			/* for pr, cur. line's id, -1 none */
-    int blitz_time;
     char *map;			/* pointer to in-mem map */
     char *bmap;			/* pointer to in-mem bmap */
 };
