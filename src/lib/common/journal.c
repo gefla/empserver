@@ -85,7 +85,7 @@ journal_entry(char *fmt, ...)
 	vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
 	va_end(ap);
 
-	for (p = buf; *p; p++) {
+	for (p = (unsigned char *)buf; *p; p++) {
 	    if (isprint(*p))
 		 putc(*p, journal);
 	    else
