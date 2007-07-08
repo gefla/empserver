@@ -161,8 +161,6 @@ EMPCF_OPT("BLITZ", opt_BLITZ,
     "Enable blitz mode")
 EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,
     "Allow bridge towers")
-EMPCF_OPT("DEMANDUPDATE", opt_DEMANDUPDATE,
-    "Allow demand updates")
 EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
     "Allow bridge building without bridge heads")
 EMPCF_OPT("FALLOUT", opt_FALLOUT,

@@ -102,38 +102,38 @@ upda(void)
 	next += update_window;
 	pr("The next update window stops at %19.19s.\n", ctime(&next));
     }
-    if (opt_DEMANDUPDATE) {
-	if (update_demandpolicy != UDDEM_DISABLE) {
-	    switch (update_demandpolicy) {
-	    case UDDEM_TMCHECK:
-		next_update_check_time(&now, &next, &delta);
-		pr("Demand updates occur at update CHECK times.\n");
-		pr("The next update check is at %19.19s.\n",
-		   ctime(&next));
-		break;
-	    case UDDEM_COMSET:
-		pr("Demand updates occur right after the demand is set.\n");
-		break;
-	    default:
-		pr("Update demand policy is inconsistent.\n");
-	    }
-	}
+
+    switch (update_demandpolicy) {
+    case UDDEM_TMCHECK:
+	next_update_check_time(&now, &next, &delta);
+	pr("Demand updates occur at update CHECK times.\n");
+	pr("The next update check is at %19.19s.\n",
+	   ctime(&next));
+	break;
+    case UDDEM_COMSET:
+	pr("Demand updates occur right after the demand is set.\n");
+	break;
+    case UDDEM_DISABLE:
+	break;
+    default:
+	CANT_REACH();
+	pr("Update demand policy is inconsistent.\n");
     }
 
     if ((update_policy == UDP_TIMES) ||
-	((update_demandpolicy == UDDEM_TMCHECK) && opt_DEMANDUPDATE)) {
+	(update_demandpolicy == UDDEM_TMCHECK)) {
 	if (*update_times != 0)
 	    pr("The update schedule is: %s\n", update_times);
     }
-    if (opt_DEMANDUPDATE) {
-	if (update_demandpolicy != UDDEM_DISABLE) {
-	    if (*update_demandtimes != 0)
-		pr("Demand updates are allowed during: %s\n",
-		   update_demandtimes);
-	    pr("Demand updates require %d country(s) to want one.\n",
-	       update_wantmin);
-	}
+
+    if (update_demandpolicy != UDDEM_DISABLE) {
+	if (*update_demandtimes != 0)
+	    pr("Demand updates are allowed during: %s\n",
+	       update_demandtimes);
+	pr("Demand updates require %d country(s) to want one.\n",
+	   update_wantmin);
     }
+
     if (*game_days != 0)
 	pr("Game days are: %s\n", game_days);
     if (*game_hours != 0)

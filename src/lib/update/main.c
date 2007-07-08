@@ -41,6 +41,7 @@
 #include "player.h"
 #include "server.h"
 #include "update.h"
+#include "wantupd.h"
 
 long money[MAXNOC];
 long pops[MAXNOC];
@@ -158,7 +159,7 @@ update_main(void)
 	mob_plane(etu);
 	mob_land(etu);
     }
-    if (opt_DEMANDUPDATE)
+    if (update_demandpolicy != UDDEM_DISABLE)
 	update_removewants();
     /* flush all mem file objects to disk */
     ef_flush(EF_NATION);

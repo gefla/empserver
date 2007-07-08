@@ -224,7 +224,7 @@ updatetime(time_t *now)
 	    return 1;
 	}
     }
-    if (opt_DEMANDUPDATE) {
+    if (UDDEM_DISABLE != update_demandpolicy) {
 	if (demand_check()) {
 	    logerror("Demand update, at check time.");
 	    return 1;
