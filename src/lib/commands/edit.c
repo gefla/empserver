@@ -299,8 +299,7 @@ prnat(struct natstr *np)
     pr("Happiness <H>: %.2f\n", np->nat_level[NAT_HLEV]);
     pr("Money <M>: $%6ld\n", np->nat_money);
     pr("Telegrams <t>: %6d\n", np->nat_tgms);
-    if (opt_DEMANDUPDATE)
-	pr("Updates missed <U>: %d\n", np->nat_missed);
+    pr("Updates missed <U>: %d\n", np->nat_missed);
     if (opt_HIDDEN) {
 	pr("Countries contacted: ");
 	for (i = 0; i < MAXNOC; i++) {
