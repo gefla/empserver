@@ -96,8 +96,9 @@ and what news to see with the ?action selector.  Actions are:
      75) Paradrop into unoccuppied land
      76) Failed assault
      77) Failed paradrop
-     80) Failed boarding of a land unit
-     81) Successful boarding of a land unit
+     80) Insufficient funds to pay market
+     81) Failed boarding of a land unit
+     82) Successful boarding of a land unit
 .fi
 .s1
 .SA "headlines, Communication"
