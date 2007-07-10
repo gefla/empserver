@@ -132,7 +132,7 @@ demand_update_want(int *want, int *pop, int which)
 	/* Should probably include sanctuaries ..... */
 	if (natp->nat_stat == STAT_ACTIVE) {
 	    totpop++;
-	    if ((natp->nat_update & WUPD_WANT) == WUPD_WANT) {
+	    if (natp->nat_update) {
 		totwant++;
 		if (which == cn)
 		    whichwants++;

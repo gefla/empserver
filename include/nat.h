@@ -109,9 +109,6 @@ struct natstr {
     long nat_flags;		/* nation flags */
 };
 
-	/* Update fields. */
-#define	WUPD_WANT	bit(0)
-
 	/* nstat values */
 #define VIS		bit(0)
 #define SANCT		(bit(1) | VIS)

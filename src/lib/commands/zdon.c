@@ -63,7 +63,6 @@ zdon(void)
     struct natstr *natp;
     char *p;
 
-    int update;
     int checking;
     int wantupd;
     int totpop;
@@ -112,14 +111,12 @@ zdon(void)
 		pr("Unable to request an update as the country is in flux\n");
 		return RET_FAIL;
 	    }
-	    update = natp->nat_update | WUPD_WANT;
 	    natp->nat_missed = 0;
 	    pr("You (%d) now want an update.\n", whichcnum);
 	} else {
-	    update = natp->nat_update & ~WUPD_WANT;
 	    pr("You (%d) now DON'T want an update.\n", whichcnum);
 	}
-	natp->nat_update = update;
+	natp->nat_update = wantupd;
 	putnat(natp);
     }
 
