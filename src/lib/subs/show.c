@@ -646,9 +646,10 @@ show_news(int tlev)
     pr("    messsages\n");
 
     for (i = 1; i < N_MAX_VERB + 1; i++) {
+	if (rpt[i].r_newspage == N_NOTUSED)
+	    continue;
 	pr("%-2d %-20.20s %4d\n", rpt[i].r_uid,
 	    page_headings[rpt[i].r_newspage].name, rpt[i].r_good_will);
-
 	for (j = 0; j < NUM_RPTS; j++)
 	    pr("    %s\n", rpt[i].r_newstory[j]);
     }
