@@ -71,7 +71,7 @@ zdon(void)
     int dowant;
     char buf[1024];
 
-    if (update_demandpolicy != UDDEM_DISABLE) {
+    if (update_demandpolicy == UDDEM_DISABLE) {
 	pr("Demand updates are not enabled.\n");
 	return RET_FAIL;
     }
