@@ -1,26 +1,25 @@
 .TH Command SHOW
-.NA show "Characteristics of bridges, units, products, news or sectors"
+.NA show "Characteristics of sectors, units, bridges, items and news"
 .LV Basic
 .SY "show <land|nuke|plane|sector|ship> [b|s|c] [tech]"
 .SY "show <bridge|item|news|tower>"
-The show command describes the characteristics of bridge spans, bridge
-towers, planes, ships, land units, nukes, items, news and sectors for a
-given technology level.
+The show command shows characteristics of sectors, units (ships,
+planes, land units and nukes), bridges (spans and towers), items and
+news.
 .s1
 The format of each output is more fully described in separate info
 pages (Ship-types, Nuke-types, etc.).
 .s1
-Except for bridge (bridge span), items, news and tower (bridge tower), a
+For sectors and units, a
 further parameter is required to indicate whether you wish information
 about building (b), statistics (s) or capabilities (c) of the selected
 type.
 .s1
-The tech parameter defaults to 1.25 times your current technology
-level.
-.s1
-You can only get information on ships, planes, land units and
-nukes that you are `almost' capable of building (within 1.25 times of
-your current technology level).
+By default, unit characteristics are shown at 1.25 times your current
+technology level.  You can ask for a lower level with the optional
+tech parameter.  Units beyond that level are not shown; you can only
+get information on units that you are already or almost capable of
+building.
 .s1
 So, for example
 .EX show nuke capabilities
@@ -36,4 +35,4 @@ will give something like
 3mt fusion       7 210  10  325 $19000
 .FI
 .s1
-.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Products, newspaper"
+.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Bridges, Item-types, newspaper"
