@@ -89,18 +89,15 @@ zdon(void)
     if (player->aborted)
 	return RET_FAIL;
 
-    if (!p) {
-	/* Default response is checking only */
-	checking = 1;
-    } else {
-	checking = 0;
-	if (*p == 'n' || *p == 'N') {
-	    wantupd = 0;
-	} else if (*p == 'y' || *p == 'Y') {
+    checking = 1;
+    wantupd = 0;
+    if (p) {
+	if (*p == 'y' || *p == 'Y') {
+	    checking = 0;
 	    wantupd = 1;
-	} else {
-	    /* Default response is checking only */
-	    checking = 1;
+	} else if  (*p == 'n' || *p == 'N') {
+	    checking = 0;
+	    wantupd = 0;
 	}
     }
 
