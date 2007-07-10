@@ -69,4 +69,4 @@ When multiple unit types are selected they are displayed
 in the following priority order: nukes, land units, ships, planes.
 To highlight sectors you own, specifiy the 'h' flag.
 .s1
-.SA "census, commodity, radar, realm, route, update, LandUnits, Maps"
+.SA "census, commodity, radar, realm, route, LandUnits, Maps"

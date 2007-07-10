@@ -37,4 +37,4 @@ in the area specified.
 .FI
 .s1
 .s1
-.SA "census, commodity, radar, realm, route, update, map, Maps"
+.SA "census, commodity, radar, realm, route, map, Maps"
