@@ -12,8 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Empire 4.2.23
-(KSU distribution 1.04, Chainsaw version 4.00, Wolfpack version 2.23)
+Wolfpack Empire 4.3.10
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -22,7 +21,7 @@ By default, countries use their own coordinate system.
 
 An Empire time unit is 10 seconds long.
 Use the 'update' command to find out the time of the next update.
-The current time is Sun Oct 23 10:16:35.
+The current time is Tue Jul 10 23:09:03.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -48,28 +47,59 @@ Tech Buildup is limited to logarithmic growth (base 2.00) after 1.00.
                                 Sectors Ships   Planes  Units
 Maximum mobility                127     127     127     127
 Max mob gain per update         60      90      60      60
+Mission mobility cost           --      0       0       0
 Max eff gain per update         --      100     100     100
+Maintenance cost per update     --      6.0%    6.0%    6.0%
+Max interdiction range          8       8       --      8
+
+The maximum amount of mobility used for land unit combat is 5.00.
 
 Ships on autonavigation may use 6 cargo holds per ship.
-Fire ranges are scaled by 1.00
+In order to build a nuke, you need 0.33 times the tech level in research
+        Example: In order to build a 300 tech nuke, you need 99 research
+
+Fire ranges are scaled by 1.00.
+Flak damage is scaled by 1.75.
+Torpedo damage is 2d40+38.
+The attack factor for para & assault troops is 0.50.
+12% of fallout leaks into each surrounding sector.
+Fallout decays by 28% per update
+
+Damage to                       Spills to
+              Sector  People  Mater.   Ships  Planes  LandU.
+Sector           --     100%    100%      0%      4%     30%
+People           10%     --      --      --      --      --
+Materials        10%     --      --      --      --      --
+Efficiency       10%     --      --      --      --      --
+Ships            10%    100%    100%     --       0%      0%
+Planes           10%      0%      0%     --      --      --
+Land units       10%      0%    100%     --       0%      0%
+
+You can have at most 640 BTUs.
+You are disconnected after 15 minutes of idle time.
 
 Options enabled in this game:
-        ALL_BLEED, BLITZ, BRIDGETOWERS, DEMANDUPDATE, EASY_BRIDGES, FALLOUT,
-        GODNEWS, INTERDICT_ATT, LANDSPIES, LOANS, NEUTRON, NO_PLAGUE, NOFOOD,
-        NOMOBCOST, PINPOINTMISSILE, SAIL, SHOWPLANE, TREATIES, UPDATESCHED
+        ALL_BLEED, BLITZ, BRIDGETOWERS, EASY_BRIDGES, FALLOUT, GODNEWS,
+        INTERDICT_ATT, LANDSPIES, LOANS, NOFOOD, NOMOBCOST, NO_PLAGUE,
+        PINPOINTMISSILE, SAIL, SHOWPLANE, TREATIES
 
 Options disabled in this game:
-        BIG_CITY, DEFENSE_INFRA, DRNUKE, FUEL, GO_RENEW, GUINEA_PIGS, HIDDEN,
-        LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, NO_HCMS, NO_LCMS,
-        NO_OIL, NONUKES, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP, TRADESHIPS
+        AUTO_POWER, FUEL, GO_RENEW, GUINEA_PIGS, HIDDEN, LOSE_CONTACT, MARKET,
+        MOB_ACCESS, NO_FORT_FIRE, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP,
+        TRADESHIPS
 
 See "info Options" for a detailed list of options and descriptions.
 
 The person to annoy if something goes wrong is:
         John Doe
         (johndoe@bar.edu).
-You can get your own copy of the source using:
-    http://www.wolfpackempire.com/
+
+You can get your own copy of the source from http://www.wolfpackempire.com/
+
+Copyright (C) 1986-2007, Dave Pare, Jeff Bailey, Thomas Ruschak,
+                         Ken Stevens, Steve McClure
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 .FI
 .s1
 .SA "Innards, Basics, Playing"
