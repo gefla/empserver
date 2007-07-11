@@ -150,9 +150,6 @@ demand_check(void)
     struct natstr *natp;
     int want, pop, cn, veto;
     time_t now;
-    time_t cur;
-
-    time(&cur);
 
     demand_update_want(&want, &pop, 0);
     if (want < update_wantmin) {
