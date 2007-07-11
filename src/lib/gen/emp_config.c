@@ -70,7 +70,7 @@ struct keymatch configkeys[] = {
 };
 
 static struct keymatch *keylookup(char *key, struct keymatch tbl[]);
-static void set_dirs(char *);
+static void set_paths(char *);
 
 /*
  * read in empire configuration
@@ -154,7 +154,7 @@ emp_config(char *file)
 
 done:
     WORLD_X &= ~1;		/* force even */
-    set_dirs(file);
+    set_paths(file);
 
     return -errors;
 }
@@ -175,7 +175,7 @@ keylookup(char *command, struct keymatch *tbl)
 }
 
 static void
-set_dirs(char *econfig)
+set_paths(char *econfig)
 {
     char *slash;
     char *cwd = getcwd(NULL, 0);
@@ -203,6 +203,9 @@ set_dirs(char *econfig)
 	free(tmp);
     }
 #endif /* !_WIN32 */
+
+    schedulefil = malloc(strlen(configdir) + 10);
+    sprintf(schedulefil, "%s/schedule", configdir);
 
     free(cwd);
 }

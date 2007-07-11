@@ -34,7 +34,7 @@
 
 #include <config.h>
 
-#include "wantupd.h"
+#include "optlist.h"
 
 /* Name of the deity */
 char *privname = "Deity forgot to edit econfig";
@@ -56,15 +56,10 @@ int TRADE_DELAY = 7200;		/* Seconds to bid on units */
 int m_m_p_d = 1440;		/* max mins of play per day (per country) */
 int s_p_etu = 10;		/* seconds per Empire Time Unit */
 int etu_per_update = 60;	/* # of etu's per update */
-int adj_update = 0;		/* update time adjustment, in seconds */
 int update_window = 0;		/* update window adjustment, in seconds */
-int hourslop = 5;		/* update_times matching fuzz, in minutes */
-char *update_times = "";	/* update times for policy UDP_TIMES */
-int update_policy = UDP_DEFAULT; /* update policy for regular updates */
-int update_demandpolicy = UDDEM_DEFAULT; /* update policy for demand updates */
+int update_demand = UPD_DEMAND_NONE;
 int update_missed = 999;	/* demand updates missed before veto */
 int update_wantmin = 1;		/* votes required for demand update */
-int blitz_time = 10;		/* number of minutes between blitz updates */
 char *update_demandtimes = "";	/* demand update time ranges */
 char *game_days = "";		/* days game is running */
 char *game_hours = "";		/* hours game is running */

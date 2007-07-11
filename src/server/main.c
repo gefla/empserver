@@ -267,6 +267,7 @@ main(int argc, char **argv)
 #ifdef SIGHUP
 	if (sig == SIGHUP) {
 	    journal_reopen();
+	    update_reschedule();
 	    continue;
 	}
 #endif
@@ -290,7 +291,6 @@ init_server(void)
 #if defined(_WIN32)
     loc_NTInit();
 #endif
-    update_policy_check();
     player_init();
     ef_init_srv();
     io_init();

@@ -54,7 +54,6 @@
 #include "commands.h"
 #include "optlist.h"
 #include "server.h"
-#include "wantupd.h"
 
 int
 zdon(void)
@@ -70,7 +69,8 @@ zdon(void)
     int dowant;
     char buf[1024];
 
-    if (update_demandpolicy == UDDEM_DISABLE) {
+    if (update_demand != UPD_DEMAND_SCHED
+	&& update_demand != UPD_DEMAND_ASYNC) {
 	pr("Demand updates are not enabled.\n");
 	return RET_FAIL;
     }
@@ -136,7 +136,7 @@ zdon(void)
 
     if (!checking && wantupd && demandupdatecheck()) {
 	pr("Here goes...\n");
-	update_trigger(0);
+	update_trigger();
     }
     return RET_OK;
 }

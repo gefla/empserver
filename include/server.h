@@ -39,14 +39,15 @@
 extern int shutdown_pending;
 extern int update_pending;
 extern empth_rwlock_t *update_lock;
-extern time_t update_time;
+extern time_t update_time[];
 extern int updating_mob;
 
 void mobility_init(void);
 void market_init(void);
 void update_main(void);
 void update_init(void);
-int update_trigger(time_t);
+int update_trigger(void);
+int update_reschedule(void);
 int shutdown_initiate(int);
 
 /* thread entry points */

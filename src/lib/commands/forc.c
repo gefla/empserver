@@ -49,12 +49,7 @@ force(void)
 	pr("Updates are disabled\n");
 	return RET_FAIL;
     }
-    seconds = onearg(player->argp[1], "Time until update [in seconds]? ");
-    if (seconds < 0)
-	return RET_FAIL;
-
-    pr("Scheduling update in %d second(s)\n", seconds);
-    if (update_trigger(seconds) < 0)
+    if (update_trigger() < 0)
 	return RET_FAIL;
     return RET_OK;
 }

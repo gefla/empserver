@@ -48,14 +48,18 @@
 #include "prototypes.h"
 #include "server.h"
 
-static empth_t *update_thread;
-empth_rwlock_t *update_lock;
-int update_pending;
-time_t update_time;
-static int update_forced;
+#define UPDATES 16
 
+empth_rwlock_t *update_lock;
+static empth_t *update_thread;
+int update_pending;
+
+time_t update_time[UPDATES];
+static time_t update_schedule_anchor;
+static int update_wanted;
+
+static int update_get_schedule(void);
 static void update_sched(void *);
-static void update_force(void *);
 static void update_run(void);
 static int run_hook(char *cmd, char *name);
 
@@ -70,6 +74,10 @@ update_init(void)
 	s_p_etu = 2 * 60;
 	logerror("setting s_p_etu to %d", s_p_etu);
     }
+
+    update_schedule_anchor = (time(NULL) + 59) / 60 * 60;
+    if (update_get_schedule() < 0)
+	exit(1);
 
     update_lock = empth_rwlock_create("Update");
     if (!update_lock)
@@ -88,91 +96,100 @@ update_init(void)
 	exit_nomem();
 }
 
+/*
+ * Get the schedule for future updates into update_time[].
+ * Return 0 on success, -1 on failure.
+ */
+static int
+update_get_schedule(void)
+{
+    time_t now = time(NULL);
+
+    if (read_schedule(schedulefil, update_time, UPDATES,
+		      now + 30, update_schedule_anchor) < 0) {
+	logerror("No update schedule!");
+	update_time[0] = 0;
+	return -1;
+    }
+    logerror("Update schedule read");
+    return 0;
+}
+
 /*ARGSUSED*/
 static void
 update_sched(void *unused)
 {
-    int wind;
-    time_t now, delta;
+    time_t next_update, now;
 
     player->proc = empth_self();
     player->cnum = 0;
     player->god = 1;
 
     for (;;) {
-	time(&now);
-	next_update_time(&now, &update_time, &delta);
-	if (update_window > 0) {
-	    wind = (random() % update_window);
-	    update_time += wind;
-	    delta += wind;
+	/*
+	 * Sleep until the next scheduled update or an unscheduled
+	 * wakeup.
+	 */
+	next_update = update_time[0];
+	if (next_update) {
+	    if (update_window > 0)
+		next_update += random() % update_window;
+	    logerror("Next update at %s", ctime(&next_update));
+	    /* sleep until update is scheduled to go off */
+	    empth_sleep(next_update);
+	} else {
+	    logerror("No update scheduled");
+	    /* want to sleep forever, but empthread doesn't provide that */
+	    while (empth_sleep(60 * 60 * 24) >= 0) ;
 	}
-	logerror("Next update at %s", ctime(&update_time));
-	logerror("Next update in %ld seconds", (long)delta);
-	/* sleep until update is scheduled to go off */
-	update_forced = 0;
-	empth_sleep(update_time);
-	if (!update_forced) {
-	    time(&now);
-	    now += adj_update;
-	    if (!gamehours(now)) {
-		logerror("No update permitted (hours restriction)");
-		continue;
-	    }
-	    if (!updatetime(&now)) {
-		logerror("No update wanted");
-		continue;
-	    }
-	    if (updates_disabled()) {
+
+	now = time(NULL);
+	if (next_update != 0 && now >= next_update) {
+	    /* scheduled update time reached */
+	    if (now >= next_update + 60)
+		logerror("Missed the update!");
+	    else if (update_demand == UPD_DEMAND_SCHED && !demand_check())
+		;
+	    else if (updates_disabled())
 		logerror("Updates disabled...skipping update");
-		continue;
-	    }
+	    else
+		update_wanted = 1;
+	    update_schedule_anchor = update_time[0];
 	}
-	update_run();
+	/* else unscheduled update if update_wanted is set */
+
+	if (update_wanted) {
+	    update_wanted = 0;
+	    update_run();
+	}
+
+	update_get_schedule();
     }
     /*NOTREACHED*/
 }
 
 /*
- * Trigger an update SECS_FROM_NOW seconds from now.
+ * Trigger an update.
  * Return 0 on success, -1 on failure.
  */
 int
-update_trigger(time_t secs_from_now)
+update_trigger(void)
 {
-    time_t *secp;
-
-    if (secs_from_now < 0)
-	return -1;
-
-    if (secs_from_now == 0) {
-	update_forced = 1;
-	empth_wakeup(update_thread);
-	return 0;
-    }
-
-    /* FIXME make triggers overwrite, not accumulate */
-    secp = malloc(sizeof(time_t));
-    if (!secp)
-	return -1;
-    *secp = secs_from_now;
-    if (!empth_create(PP_SCHED, update_force, 50 * 1024, 0,
-		      "forceUpdate", secp))
-	return -1;
+    logerror("Triggering unscheduled update");
+    update_wanted = 1;
+    empth_wakeup(update_thread);
     return 0;
 }
 
-static void
-update_force(void *seconds)
+/*
+ * Reload the update schedule.
+ * Return 0 on success, -1 on failure.
+ */
+int
+update_reschedule(void)
 {
-    time_t now;
-
-    time(&now);
-    empth_sleep(now + *(time_t *)seconds);
-    update_forced = 1;
     empth_wakeup(update_thread);
-    free(seconds);
-    empth_exit();
+    return 0;
 }
 
 static void

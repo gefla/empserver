@@ -81,7 +81,8 @@ deprecated.
 .B SIGHUP
 Request
 .B emp_server
-to reopen log files.  This allows proper log rotation.
+to reopen log files and reload its configuration.  This allows proper
+log rotation.  Only the update schedule is reloaded at this time.
 .TP
 .BR SIGINT ", " SIGTERM
 Request

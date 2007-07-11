@@ -298,8 +298,6 @@ extern double hap_req(struct natstr *np);
 extern int is_wday_allowed(int, char *);
 extern int is_daytime_allowed(int, char *);
 extern int gamehours(time_t);
-extern int is_daytime_near(int, char *, int);
-extern int min_to_next_daytime(int, char *);
 /* land.c */
 extern int has_units(coord, coord, natid, struct lndstr *);
 extern int has_units_with_mob(coord, coord, natid);
@@ -332,6 +330,8 @@ extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
 extern char *BestShipPath(char *, int, int, int, int, int);
 extern char *BestAirPath(char *, int, int, int, int);
 extern double pathcost(struct sctstr *, char *, int);
+/* rdsched.c */
+extern int read_schedule(char *, time_t[], int, time_t, time_t);
 /* res_pop.c */
 extern int max_population(float, int, int);
 extern int max_pop(float, struct sctstr *);
@@ -343,12 +343,9 @@ extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 /* type.c */
 extern int sct_typematch(char *);
 /* wantupd.c */
-extern void update_policy_check(void);
 extern int demand_update_want(int *, int *, int);
+extern int demand_check(void);
 extern int demandupdatecheck(void);
-extern int updatetime(time_t *);
-extern void next_update_time(time_t *, time_t *, time_t *);
-extern void next_update_check_time(time_t *, time_t *, time_t *);
 extern int updates_disabled(void);
 /* xundump.c */
 extern int xundump(FILE *, char *, int);

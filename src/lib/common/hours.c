@@ -102,50 +102,6 @@ gamehours(time_t t)
 }
 
 /*
- * Is day time DTIME (minutes since midnight) near a time in TIMES?
- * TIMES is a list of day times.  See daytime() for syntax.
- * DTIME is near a listed time T if its within T and T + SLOP minutes.
- */
-int
-is_daytime_near(int dtime, char *times, int slop)
-{
-    int dt;
-
-    if (times)
-	while (NULL != (times = daytime(times, &dt)))
-	    if (dt <= dtime && dtime < dt + slop)
-		return 1;
-
-    return 0;
-}
-
-/*
- * Return time in minutes between DTIME and next time in TIMES.
- * If TIMES doesn't give a time, return -1.
- * DTIME is day time in minutes since midnight.
- * TIMES is a list of day times.  See daytime() for syntax.
- */
-int
-min_to_next_daytime(int dtime, char *times)
-{
-    int mindt = INT_MAX;
-    int dt;
-
-    if (times) {
-	while (NULL != (times = daytime(times, &dt))) {
-	    if (dt <= dtime)
-		dt += 24 * 60;	/* tomorrow */
-	    if (dt < mindt)
-		mindt = dt;
-	}
-    }
-
-    if (mindt == INT_MAX)
-	return -1;
-    return mindt - dtime;
-}
-
-/*
  * Parse weekday name in STR.
  * On success assign day number (Sunday is 0) to *WDAY and return
  * pointer to first character not parsed.

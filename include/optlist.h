@@ -45,6 +45,7 @@ extern char dflt_econfig[];
 #undef	EMP_CONFIG_H_OUTPUT
 
 extern char *configdir;
+extern char *schedulefil;
 
 extern char motdfil[];
 extern char downfil[];
@@ -58,6 +59,12 @@ enum {
     KM_ALLOC = 1,		/* memory allocated */
     KM_INTERNAL = 2,		/* not to be disclosed to players */
     KM_OPTION = 4		/* historically an option */
+};
+
+enum {
+    UPD_DEMAND_NONE,		/* no demand updates */
+    UPD_DEMAND_SCHED,		/* scheduled updates are demand updates */
+    UPD_DEMAND_ASYNC,		/* zdone triggers unscheduled update */
 };
 
 struct keymatch {

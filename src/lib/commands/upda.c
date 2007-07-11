@@ -28,7 +28,7 @@
  *  upda.c: Give the time of the next update
  * 
  *  Known contributors to this file:
- *  
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -36,7 +36,6 @@
 #include "commands.h"
 #include "optlist.h"
 #include "server.h"
-#include "wantupd.h"
 
 /*
  * Tell what the update policy is, and when the next update
@@ -47,7 +46,7 @@ upda(void)
 {
     FILE *fp;
     struct mob_acc_globals timestamps;
-    time_t now, next, delta;
+    time_t now, next, stop;
 
     if (opt_MOB_ACCESS) {
 	if ((fp = fopen(timestampfil, "rb")) == NULL)
@@ -70,66 +69,41 @@ upda(void)
 	pr("UPDATES ARE DISABLED!\n");
 
     (void)time(&now);
-    switch (update_policy) {
-    case UDP_NORMAL:
-	next_update_time(&now, &next, &delta);
+    next = update_time[0];
+    if (next) {
 	pr("\nUpdates occur at times specified by the ETU rates.\n\n");
 	pr("The next update is at %19.19s.\n", ctime(&next));
-	break;
-    case UDP_TIMES:
-	next_update_time(&now, &next, &delta);
-	pr("\nUpdates occur at scheduled times.\n\n");
-	pr("The next update is at %19.19s.\n", ctime(&next));
-	break;
-    case UDP_BLITZ:
-	next_update_time(&now, &next, &delta);
-	pr("\nBlitz Updates occur every %d minutes. \n\n", blitz_time);
-	pr("The next update is at %19.19s.\n", ctime(&next));
-	break;
-    case UDP_NOREG:
+    } else {
 	pr("There are no regularly scheduled updates.\n");
-	break;
-    default:
-	pr("Update policy is inconsistent.\n");
     }
     pr("The current time is   %19.19s.\n\n", ctime(&now));
 
-    if (update_window) {
-	now = update_time - update_window;
-	next_update_time(&now, &next, &delta);
+    if (next && update_window) {
 	pr("The next update window starts at %19.19s.\n",
 	   ctime(&next));
-	next += update_window;
-	pr("The next update window stops at %19.19s.\n", ctime(&next));
+	stop = next + update_window;
+	pr("The next update window stops at %19.19s.\n", ctime(&stop));
     }
 
-    switch (update_demandpolicy) {
-    case UDDEM_TMCHECK:
-	next_update_check_time(&now, &next, &delta);
-	pr("Demand updates occur at update CHECK times.\n");
-	pr("The next update check is at %19.19s.\n",
-	   ctime(&next));
-	break;
-    case UDDEM_COMSET:
-	pr("Demand updates occur right after the demand is set.\n");
-	break;
-    case UDDEM_DISABLE:
-	break;
+    switch (update_demand) {
+    case UPD_DEMAND_NONE:
     default:
-	CANT_REACH();
-	pr("Update demand policy is inconsistent.\n");
-    }
-
-    if ((update_policy == UDP_TIMES) ||
-	(update_demandpolicy == UDDEM_TMCHECK)) {
-	if (*update_times != 0)
-	    pr("The update schedule is: %s\n", update_times);
-    }
-
-    if (update_demandpolicy != UDDEM_DISABLE) {
-	if (*update_demandtimes != 0)
+	break;
+    case UPD_DEMAND_SCHED:
+	pr("Demand updates occur at update CHECK times.\n");
+	if (next) {
+	    pr("The next update check is at %19.19s.\n",
+	       ctime(&next));
+	}
+	pr("Demand updates require %d country(s) to want one.\n",
+	   update_wantmin);
+	break;
+    case UPD_DEMAND_ASYNC:
+	pr("Demand updates occur right after the demand is set.\n");
+	if (*update_demandtimes != 0) {
 	    pr("Demand updates are allowed during: %s\n",
 	       update_demandtimes);
+	}
 	pr("Demand updates require %d country(s) to want one.\n",
 	   update_wantmin);
     }

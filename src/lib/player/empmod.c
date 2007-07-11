@@ -111,7 +111,7 @@ struct cmndstr player_coms[] = {
     {"fly <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION> <COM>",
      2, fly, C_MOD, NORM + MONEY + CAP},
     {"follow <leader> <SHIPS>", 1, foll, C_MOD, NORM + CAP},
-    {"force <delay time>", 0, force, C_MOD, GOD},
+    {"force", 0, force, C_MOD, GOD},
     {"fortify <UNITS> <MOB>", 1, fort, C_MOD, NORM},
     {"fuel <s|l> <SHIP/FLEET | UNIT/ARMY> <AMOUNT> [<OILER>]",
      1, fuel, C_MOD, NORM},

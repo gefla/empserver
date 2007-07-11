@@ -49,6 +49,9 @@ char *configdir;
 /* User configuration tables to load (relative to configdir) */
 char *custom_tables = "";
 
+/* Update schedule (absolute file name) */
+char *schedulefil;
+
 /* Where to find built-in configuration tables  (relative to configdir) */
 char *builtindir = "@builtindir@";
 
