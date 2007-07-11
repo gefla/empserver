@@ -69,6 +69,9 @@ pconfig econfig2 > e2 && mv e2 econfig2
 
 which will fill in all the missing keys and values with their defaults.
 
+You define your update schedule in the schedule file, in the same
+directory as your econfig.  See doc/schedule for details.
+
 Additional customization is possible through key custom_tables, which
 is a list of files containing tables in xdump format (see doc/xdump
 for technical information on xdump).  To customize a table, copy the

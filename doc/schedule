@@ -1,0 +1,51 @@
+This file documents how to configure update schedules.  The server
+reads its update schedule from the file schedule in the same directory
+as its econfig.
+
+Comments start with # and extend to the end of the line.
+
+Each non-blank line contains a directive.  Directives are:
+
+* Single update: a time.
+
+  Time can be specified in a number of formats:
+
+  - ISO 8601: 2007-05-28 16:13
+
+  - Like ctime: Dec 22 15:35 2006
+
+  - Like RFC 2822: 22 Dec 2006 15:35
+
+  - Relative to anchor: next Fri 15:35
+
+    The time of day is optional.  The anchor is the last update
+    defined by single update directives.  It defaults to the current
+    time rounded up to the next minute.
+
+* Repeating updates after anchor: every 24 hours, every 10 minutes
+
+  Does not change the anchor.
+
+  Optionally followed by a limit: until T, where T specifies a time.
+  An update precisely at T is within the limit.
+
+* Skip update: skip T, where T specifies a time.
+
+A blitz schedule can be defined with a single line:
+
+    every 10 minutes
+
+Here's how to schedule updates Monday, Wednesday and Friday at 20:00,
+starting June 1st 2007, skipping July 4th:
+
+    2007-06-01 20:00    # a Friday
+    every 168 hours
+    next mon
+    every 168 hours
+    next wed
+    every 168 hours
+    skip 2007-07-04 20:00
+
+The server reads the schedule file on startup, after an update, and on
+catching SIGHUP.  You can use the utility program prsched to test a
+schedule before you install it.
