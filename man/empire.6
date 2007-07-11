@@ -4,23 +4,23 @@ empire \- Empire client
 .SH SYNOPSIS
 .B empire
 [
-.BI \-k
+.B \-k
 ]
 [
-.BI \-u
+.B \-u
 ]
 [
 .BI \-2 " outfile"
 ]
 [
-.IR country
+.I country
 [
-.IR password
+.I password
 ]
 ]
 .br
 .SH DESCRIPTION
-.I empire
+.B empire
 is a bare bones client to connect to the Empire server.  Empire is a
 global economic/political/military simulation game wherein players,
 representing national governments, make "real-time" decisions
@@ -31,24 +31,24 @@ WARNING -- This game is not only addictive but often peels back
 the thin veneer of civilization that hides the maniac within.
 .SH OPTIONS
 .TP
-.IR country
-the name of your country in the game
+.B \-k
+If someone else is connected to your country, kill their connection.
 .TP
-.IR password
-the password for your country in the game
-.TP
-.BI \-k
-if someone else is connected to your country, kill their connection
-.TP
-.BI \-u
-use UTF-8 rather than ASCII character set
+.B \-u
+Use UTF-8 rather than ASCII character set.
 .IP
 This requires server version 4.2.21 or later, and a terminal that
 understands UTF-8.
 .TP
 .BI \-2 " outfile"
-redirect output to 
-.I outfile
+Copy output to \fIoutfile\fR.
+.SH OPERANDS
+.TP
+.I country
+The name of your country in the game.
+.TP
+.I password
+The password for your country in the game.
 .SH ENVIRONMENT VARIABLES
 The following environment variables affect the execution of the
 client:
@@ -68,6 +68,8 @@ representative.
 .TP
 .I LOGNAME
 Your user name.
+.SH "SEE ALSO"
+\fIemp_server\fR(6).
 .SH AUTHORS
 .nf
 Primary Author is Dave Pare (mr-frog@scam.berkeley.edu)

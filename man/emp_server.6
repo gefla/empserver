@@ -7,7 +7,7 @@ emp_server \- Empire server
 .SH SYNOPSIS
 .B emp_server
 [
-.BI \-dhpsv
+.B \-dhpsv
 ]
 [
 .BI \-e " configfile"
@@ -16,7 +16,7 @@ emp_server \- Empire server
 .br
 .B emp_server
 [
-.BI \-i
+.B \-i
 |
 .BI \-I " service-name"
 ]
@@ -26,12 +26,12 @@ emp_server \- Empire server
 .br
 .B emp_server
 [
-.BI \-r
+.B \-r
 |
 .BI \-R " service-name"
 ]\}
 .SH DESCRIPTION
-.I emp_server
+.B emp_server
 is a daemon which listens to the Empire port for players connecting to
 the game.  For more information on the game of Empire, see the info
 pages within the game.
@@ -41,14 +41,11 @@ pages within the game.
 Debug mode.  This will prevent the server from forking itself into the
 background.  It will also make it abort when it detects an internal
 error.  You normally want to use this flag if you are running
-.I emp_server
+.B emp_server
 from within a debugger.
 .TP
 .BI \-e " configfile"
-Use game configuration specification in 
-.I configfile
-\&.  By default, the file "econfig" in the compiled-in data directory
-is used.
+Use game configuration in \fIconfigfile\fR.
 .TP
 .B \-h 
 Help.  Print brief usage information and exit.
@@ -61,7 +58,7 @@ Install as a Windows Service called "Empire Server".
 Install as a Windows Service with the specified name.\}
 .TP
 .B \-p
-Threading debug mode.  Implies -d.
+Threading debug mode.  Implies \fB-d\fR.
 .if \nw \{\
 .TP
 .B \-r
@@ -83,12 +80,12 @@ deprecated.
 .TP
 .B SIGHUP
 Request
-.I emp_server
+.B emp_server
 to reopen log files.  This allows proper log rotation.
 .TP
 .BR SIGINT ", " SIGTERM
 Request
-.I emp_server
+.B emp_server
 to shut down immediately.
 \}
 .if \nw \{
@@ -99,7 +96,9 @@ ones supplied during service installation.  To modify the startup
 parameters, you must remove the service and reinstall the service.\}
 .SH BUGS
 Please report all bugs to the Wolfpack <wolfpack@wolfpackempire.com>
+.SH "SEE ALSO"
+\fIempire\fR(6), \fIfairland\fR(6), \fIfiles\fR(6), \fIpconfig\fR(6).
 .SH AUTHORS
 Dave Pare, Jeff Bailey, Thomas Ruschak, Ken Stevens and Steve McClure
 are principal authors.  The full list of authors is too long to
-mention here.
+include here.

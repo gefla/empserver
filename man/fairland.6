@@ -4,40 +4,40 @@ fairland \- Empire land generator
 .SH SYNOPSIS
 .B fairland
 [
-.BI \-aioq
+.B \-ahioqv
 ]
 [
-.BI \-s\ scriptout
+.BI \-e " configfile"
 ]
 [
-.BI \-e\ configfile
+.BI \-R " seed"
 ]
 [
-.BI \-R\ seed
+.BI \-s " scriptout"
 ]
-.IR nc
-.IR sc
+.I nc
+.I sc
 [
-.IR ni
+.I ni
+[
+.I is
+[
+.I sp
+[
+.I pm
+[
+.I di
+[
+.I id
 ]
-[
-.IR is
 ]
-[
-.IR sp
 ]
-[
-.IR pm
 ]
-[
-.IR di
 ]
-[
-.IR id
 ]
 .br
 .SH DESCRIPTION
-.I fairland
+.B fairland
 is a program which creates land and ore for Empire.  It
 should be run after 
 .I files 
@@ -54,6 +54,12 @@ get nearly any kind of map you want by choosing the right arguments.
 .B \-a 
 mark the continents with a * so that you can tell them from the islands
 .TP
+.BI \-e " configfile"
+Use game configuration in \fIconfigfile\fR.
+.TP
+.B \-h 
+Help.  Print brief usage information and exit.
+.TP
 .B \-i
 islands will crash into each other and merge
 .TP
@@ -66,20 +72,7 @@ program) to set the resources.
 .B \-q
 run quietly without printing anything to the terminal
 .TP
-.BI \-s\ scriptout
-writes a script for placing capitol to the file
-.I scriptout
-(If you don't specify this argument, then the script will be written
-to "newcap_script".)
-.TP
-.BI \-e\ configfile
-causes
-.I fairland
-to use the game configuration specified in 
-.I configfile
-(by default, the file "econfig" in the data directory is used)
-.TP
-.BI \-R\ seed
+.BI \-R " seed"
 Use
 .I seed
 as seed for the pseudo-random number generator. This can be used to reproduce
@@ -87,30 +80,38 @@ a previously created world. (by default the current time and process id of
 the server are used as seed.) The seed used to generate a world is printed
 along with the map.
 .TP
-.IR nc 
+.BI \-s " scriptout"
+writes a script for placing capitol to the file
+.I scriptout
+(If you don't specify this argument, then the script will be written
+to "newcap_script".)
+.TP
+.B \-v
+Print version information and exit.
+.SH OPERANDS
+.TP
+.I nc 
 number of continents
 .TP
-.IR sc 
+.I sc 
 continent size
 .TP
-.IR ni 
+.I ni 
 number of islands (optional, default = nc)
 .TP
-.IR is 
+.I is 
 average size of islands (optional, default = sc/2)
 .TP
-.IR sp 
+.I sp 
 spike percentage: 0 = round, 100 = snake (default = 10)
 .TP
-.IR pm 
+.I pm 
 the percentage of land that is mountain (default = 0)
 .TP
-.IR di 
+.I di 
 the minimum distance between continents (default = 2)
 .TP
-.IR id 
+.I id 
 minimum distance from islands to continents (default = 1)
-
 .SH AUTHOR
 Ken Stevens <chidren@empire.net>
-

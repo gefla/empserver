@@ -4,26 +4,30 @@ files \- Empire file initialization
 .SH SYNOPSIS
 .B files
 [
-.BI \-e\ configfile
+.B \-fhv
 ]
 [
-.BI \-f
+.BI \-e " configfile"
 ]
 .br
 .SH DESCRIPTION
-.I files
+.B files
 creates all of the files which are required by 
-.I emp_server
+.B emp_server
 to run a game.  It will destroy all previous game data, so excercise
 caution when running this program.
 .SH OPTIONS
 .TP
-.BI \-e\ configfile
-causes
-.I files
-to use the game configuration specified in 
-.I configfile
-(by default, the file "econfig" in the data directory is used)
+.BI \-e " configfile"
+Use game configuration in \fIconfigfile\fR.
 .TP
-.BI \-f
+.B \-f
 Clobber existing game data without asking for confirmation.
+.TP
+.B \-h 
+Help.  Print brief usage information and exit.
+.TP
+.B \-v
+Print version information and exit.
+.SH "SEE ALSO"
+\fIemp_server\fR(6).
