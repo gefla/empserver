@@ -50,7 +50,6 @@ all:
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
 tsrc := $(filter %.t, $(src))
-man1 := $(filter man/%.1, $(src))
 man6 := $(filter man/%.6, $(src))
 builtins := $(filter src/lib/global/%.config, $(src))
 
@@ -173,7 +172,6 @@ install: all installdirs
 	$(INSTALL_PROGRAM) $(client) $(bindir)
 	$(INSTALL) -m 444 $(addprefix $(srcdir)/, $(builtins)) $(builtindir)
 	$(INSTALL_DATA) $(info.nr) $(einfodir)
-	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man1)) $(mandir)/man1
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
 	if [ -e $(econfig) ]; then					\
 	    if src/util/pconfig $(econfig) >$(econfig).new; then	\
@@ -193,7 +191,7 @@ install: all installdirs
 
 .PHONY: installdirs
 installdirs:
-	mkdir -p $(sbindir) $(bindir) $(builtindir) $(einfodir) $(mandir)/man1 $(mandir)/man6 $(dir $(econfig)) $(gamedir)
+	mkdir -p $(sbindir) $(bindir) $(builtindir) $(einfodir) $(mandir)/man6 $(dir $(econfig)) $(gamedir)
 
 .PHONY: install-html
 install-html: html
@@ -205,7 +203,6 @@ uninstall:
 	rm -f $(addprefix $(sbindir)/, $(notdir $(util) $(server)))
 	rm -f $(addprefix $(bindir)/, $(notdir $(client)))
 	rm -rf $(builtindir) $(einfodir)
-	rm -f $(addprefix $(mandir)/man1/, $(notdir $(man1)))
 	rm -f $(addprefix $(mandir)/man6/, $(notdir $(man6)))
 	@[ -e $(gamedir) ] && echo "$(gamedir) not removed, you may wish to remove it manually."
 	@[ -e $(econfig) ] && echo "$(econfig) not removed, you may wish to remove it manually."
