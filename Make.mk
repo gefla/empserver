@@ -65,6 +65,7 @@ scripts := $(srcdir)/src/scripts
 depcomp := $(SHELL) $(srcdir)/depcomp
 tarball := $(SHELL) $(scripts)/tarball
 econfig := $(sysconfdir)/empire/econfig
+schedule := $(sysconfdir)/empire/schedule
 gamedir := $(localstatedir)/empire
 builtindir := $(datadir)/empire/builtin
 einfodir := $(datadir)/empire/info.nr
@@ -173,17 +174,21 @@ install: all installdirs
 	$(INSTALL) -m 444 $(addprefix $(srcdir)/, $(builtins)) $(builtindir)
 	$(INSTALL_DATA) $(info.nr) $(einfodir)
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
+	sed -e '1,/^$$/d' -e 's/^/# /g' <$(srcdir)/doc/schedule >$(schedule).dist
+	echo >>$(schedule).dist
+	echo 'every 10 minutes' >>$(schedule).dist
+	[ -e $(schedule) ] || mv $(schedule).dist $(schedule)
 	if [ -e $(econfig) ]; then					\
-	    if src/util/pconfig $(econfig) >$(econfig).new; then	\
-	        if cmp -s $(econfig) $(econfig).new; then		\
-		    rm $(econfig).new;					\
+	    if src/util/pconfig $(econfig) >$(econfig).dist; then	\
+	        if cmp -s $(econfig) $(econfig).dist; then		\
+		    rm $(econfig).dist;					\
 		fi;							\
 	    else							\
 		echo "Your $(econfig) doesn't work";			\
-		src/util/pconfig >$(econfig).new;			\
+		src/util/pconfig >$(econfig).dist;			\
 	    fi;								\
-	    if [ -e $(econfig).new ]; then				\
-		echo "Check out $(econfig).new";			\
+	    if [ -e $(econfig).dist ]; then				\
+		echo "Check out $(econfig).dist";			\
 	    fi;								\
 	else								\
 	    src/util/pconfig >$(econfig);				\
