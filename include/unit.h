@@ -32,6 +32,8 @@
  *     Markus Armbruster, 2006
  */
  
+#include "empobj.h"
+
 struct ulist {
     struct emp_qelem queue;	/* list of units */
     double mobil;		/* how much mobility the unit has left */
