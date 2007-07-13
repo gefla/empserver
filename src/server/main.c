@@ -32,7 +32,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2005
- *     Markus Armbruster, 2005-2006
+ *     Markus Armbruster, 2005-2007
  */
 
 #include <config.h>
@@ -266,6 +266,7 @@ main(int argc, char **argv)
 	sig = empth_wait_for_signal();
 #ifdef SIGHUP
 	if (sig == SIGHUP) {
+	    /* if you make changes here, also update relo() */
 	    journal_reopen();
 	    update_reschedule();
 	    continue;
