@@ -47,4 +47,5 @@ starting June 1st 2007, skipping July 4th:
     skip 2007-07-04 20:00
 
 The server reads the schedule file on startup, after an update, on the
-reload command, and on catching SIGHUP.
+reload command, and on catching SIGHUP.  You can use the utility
+program empsched to test a schedule before you install it.
