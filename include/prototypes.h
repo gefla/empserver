@@ -196,6 +196,7 @@ int real(void);
 int reco(void);
 int reje(void);
 int rela(void);
+int relo(void);
 int repa(void);
 int repo(void);
 int rese(void);

@@ -204,6 +204,7 @@ struct cmndstr player_coms[] = {
     {"reject <reject|accept> <announcements|mail|treaties|loans> <NAT>",
      2, reje, C_MOD, NORM},
     {"relations  [as-COUNTRY]", 0, rela, 0, VIS},
+    {"reload", 0, relo, C_MOD, GOD},
     {"repay <LOAN> <NUM>", 1, repa, C_MOD, NORM + MONEY + CAP},
     {"report <NATS>", 0, repo, 0, VIS},
     {"reset <lot #> <0|price>", 1, rese, C_MOD, NORM + CAP},
