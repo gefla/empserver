@@ -47,6 +47,7 @@
 #endif
 
 #include "file.h"
+#include "game.h"
 #include "land.h"
 #include "misc.h"
 #include "nat.h"
@@ -82,6 +83,7 @@ main(int argc, char *argv[])
     char buf[255];
     char *filename;
     int x, y;
+    struct gamestr *game;
     struct natstr nat;
     struct realmstr realm;
     struct sctstr sct;
@@ -143,6 +145,10 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
+    game = getgamep();
+    memset(game, 0, sizeof(*game));
+    game->ef_type = EF_GAME;
+    putgame();
     memset(&nat, 0, sizeof(nat));
     nat.ef_type = EF_NATION;
     strcpy(nat.nat_cnam, "POGO");

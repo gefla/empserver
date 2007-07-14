@@ -36,6 +36,7 @@
 #include <stddef.h>
 #include "commodity.h"
 #include "file.h"
+#include "game.h"
 #include "land.h"
 #include "loan.h"
 #include "lost.h"
@@ -139,6 +140,8 @@ struct empfile empfile[] = {
      UNMAPPED_CACHE(struct loststr, EFF_OWNER)},
     {EF_REALM, "realm", "realms", realm_ca,
      UNMAPPED_CACHE(struct realmstr, EFF_OWNER)},
+    {EF_GAME, "game", "game", game_ca,
+     UNMAPPED_CACHE(struct gamestr, 0)},
 
     /* Static game data (configuration) */
     {EF_ITEM, "item", "item.config", ichr_ca,

@@ -116,6 +116,8 @@ enum {
     EF_COMM,
     EF_LOST,
     EF_REALM,
+    EF_GAME,
+    EF_DYNMAX = EF_GAME,
     /* Static game data (configuration) */
     /* Order is relevant; see read_builtin_tables() */
     EF_ITEM,
@@ -157,7 +159,7 @@ enum {
     EF_MAX
 };
 
-#define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_REALM)
+#define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_DYNMAX)
 #define EF_IS_VIEW(type) (EF_COUNTRY <= (type) && (type) < EF_MAX)
 
 extern struct castr *ef_cadef(int);

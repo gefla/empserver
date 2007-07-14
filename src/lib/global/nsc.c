@@ -544,6 +544,10 @@ struct castr realm_ca[] = {
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
+struct castr game_ca[] = {
+    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
+};
+
 struct castr intrchr_ca[] = {
     /* no need for uid as long as it's not referenced from other tables */
     {NSC_STRING, NSC_CONST, 0, offsetof(struct sctintrins, in_name), "name",

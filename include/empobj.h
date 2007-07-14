@@ -36,6 +36,7 @@
 #define EMPOBJ_H
 
 #include "commodity.h"
+#include "game.h"
 #include "land.h"
 #include "loan.h"
 #include "lost.h"
@@ -70,6 +71,7 @@ union empobj_storage {
     short ef_type;
     struct empobj gen;
     struct comstr comm;
+    struct gamestr game;
     struct lndstr land;
     struct lonstr loan;
     struct loststr lost;

@@ -104,6 +104,7 @@ ef_open_srv(void)
     failed |= !ef_open(EF_SHIP, EFF_MEM);
     failed |= !ef_open(EF_PLANE, EFF_MEM);
     failed |= !ef_open(EF_LAND, EFF_MEM);
+    failed |= !ef_open(EF_GAME, EFF_MEM);
     failed |= !ef_open(EF_NEWS, 0);
     failed |= !ef_open(EF_LOAN, 0);
     failed |= !ef_open(EF_TREATY, 0);
@@ -132,6 +133,7 @@ ef_close_srv(void)
     ef_close(EF_SHIP);
     ef_close(EF_PLANE);
     ef_close(EF_LAND);
+    ef_close(EF_GAME);
     ef_close(EF_NEWS);
     ef_close(EF_LOAN);
     ef_close(EF_TREATY);

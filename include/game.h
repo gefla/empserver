@@ -25,42 +25,22 @@
  *
  *  ---
  *
- *  types.h: Empire types
+ *  game.h: The game file
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2007
+ *       Markus Armbruster, 2007
  */
 
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef GAME_H
+#define GAME_H
 
-typedef unsigned char natid;	/* NSC_NATID must match this */
-typedef short coord;
+struct gamestr {
+    /* initial part must match struct empobj */
+    short ef_type;
+    /* end of part matching struct empobj */
+};
 
-struct bp;
-struct emp_qelem;
-struct empobj;
-struct gamestr;
-struct lndstr;
-struct lndstr;
-struct lonstr;
-struct natstr;
-struct nchrstr;
-struct nstr_item;
-struct nstr_sect;
-struct nukstr;
-struct plist;
-struct plnstr;
-struct range;
-struct sctstr;
-struct shiplist;
-struct shpstr;
-struct trdstr;
-struct trtstr;
-struct comstr;
-struct cmndstr;
-struct ulist;
-
-union empobj_storage;
+#define putgame() ef_write(EF_GAME, 0, ef_ptr(EF_GAME, 0))
+#define getgamep() ((struct gamestr *)ef_ptr(EF_GAME, 0))
 
 #endif
