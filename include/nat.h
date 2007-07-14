@@ -95,6 +95,7 @@ struct natstr {
     unsigned short nat_ann;	/* # of annos pending */
     unsigned short nat_minused;	/* number of minutes used today */
     short nat_btu;		/* bureaucratic time units */
+    short nat_access;		/* The tick when BTUs were last updated */
     long nat_reserve;		/* military reserves */
     long nat_money;		/* moola */
     time_t nat_last_login;	/* time of last login, 0 menas never */
@@ -177,6 +178,8 @@ extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
 extern int influx(struct natstr *np);
+
+extern int grant_btus(struct natstr *, int );
 
 /* nation flags */
 #define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */

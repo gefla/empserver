@@ -505,6 +505,7 @@ struct castr cou_ca[] = {
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_ann), "ann", EF_BAD},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_minused), "minused", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(natstr, nat_btu), "btu", EF_BAD},
+    {NSC_SHORT, 0, 0, fldoff(natstr, nat_access), "access", EF_BAD},
     {NSC_LONG, 0, 0, fldoff(natstr, nat_reserve), "milreserve", EF_BAD},
     {NSC_LONG, 0, 0, fldoff(natstr, nat_money), "money", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(natstr, nat_last_login), "login", EF_BAD},

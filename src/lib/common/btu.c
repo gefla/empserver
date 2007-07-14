@@ -25,52 +25,73 @@
  *
  *  ---
  *
- *  init_nats.c: Initialize country and nation file stuff
+ *  btu.c: Dealing with BTUs
  * 
  *  Known contributors to this file:
- *     Dave Pare, 1994
- *     Steve McClure, 2000
  *     Markus Armbruster, 2007
  */
 
 #include <config.h>
 
 #include "file.h"
-#include "game.h"
-#include "misc.h"
 #include "nat.h"
 #include "optlist.h"
-#include "player.h"
 #include "prototypes.h"
 #include "sect.h"
 
-int
-init_nats(void)
+/*
+ * Return BTUs produced by CAP in ETU ETUs.
+ */
+static int
+accrued_btus(struct sctstr *cap, int etu)
 {
-    static int nstat[] = {
-	/* must match nat_status */
-	0, VIS, VIS, SANCT, NORM, GOD
-    };
-    struct natstr *np;
+    double eff, civ;
 
-    np = getnatp(player->cnum);
-    if (CANT_HAPPEN(!np))
-	return -1;
-    player->nstat = nstat[np->nat_stat];
-    player->god = np->nat_stat == STAT_GOD;
-    player->map = ef_ptr(EF_MAP, player->cnum);
-    player->bmap = ef_ptr(EF_BMAP, player->cnum);
-    if (opt_HIDDEN) {
-	putcontact(np, player->cnum, FOUND_SPY);
+    switch (cap->sct_type) {
+    case SCT_CAPIT:
+    case SCT_SANCT:
+	eff = cap->sct_effic;
+	break;
+    case SCT_MOUNT:
+	eff = 0;
+	break;
+    default:
+	return 0;
     }
-    if (np->nat_money <= 0)
-	player->broke = 1;
-    else {
-	player->nstat |= MONEY;
-	player->broke = 0;
+
+    eff *= cap->sct_work / 100.0;
+    if (eff < 0.5)
+	eff = 0.5;
+
+    civ = cap->sct_item[I_CIVIL];
+    if (civ > 999)
+	civ = 999;
+
+    return roundavg(etu * civ * eff * btu_build_rate);
+}
+
+/*
+ * Grant nation NP the BTUs produced by its capital in ETU ETUs.
+ * Return whether it has a capital.
+ */
+int
+grant_btus(struct natstr *np, int etu)
+{
+    int has_cap, delta;
+    struct sctstr sect;
+
+    getsect(np->nat_xcap, np->nat_ycap, &sect);
+    has_cap = np->nat_stat >= STAT_ACTIVE && !influx(np);
+
+    if (has_cap) {
+	delta = accrued_btus(&sect, etu);
+	if (delta + np->nat_btu > max_btus)
+	    np->nat_btu = max_btus;
+	else
+	    np->nat_btu += delta;
     }
-    if (grant_btus(np, game_tick_to_now(&np->nat_access)))
-	player->nstat |= CAP;
-    putnat(np);
-    return 0;
+    if (np->nat_stat == STAT_VIS || np->nat_stat == STAT_GOD)
+	np->nat_btu = max_btus;
+
+    return has_cap;
 }
