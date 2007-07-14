@@ -124,8 +124,6 @@ EMPCF_COMMENT("# 0 - No demand updates\n"
     "#     in addition to (non-demand) scheduled updates\n")
 EMPCFBOTH("update_wantmin", update_wantmin, int, NSC_INT, 0,
     "Number of votes required for a demand update")
-EMPCFBOTH("update_missed", update_missed, int, NSC_INT, 0,
-    "A country vetoes further demand updates after missing that many votes")
 EMPCFBOTH("update_demandtimes", update_demandtimes, char *, NSC_STRING, 0,
     "Times when unscheduled demand updates can occur, separated by space.")
 EMPCF_COMMENT("# Give time ranges as HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"

@@ -501,7 +501,6 @@ struct castr cou_ca[] = {
      "yorg", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_dayno), "dayno", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(natstr, nat_update), "update", EF_BAD},
-    {NSC_UCHAR, 0, 0, fldoff(natstr, nat_missed), "missed", EF_BAD},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_tgms), "tgms", EF_BAD},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_ann), "ann", EF_BAD},
     {NSC_USHORT, 0, 0, fldoff(natstr, nat_minused), "minused", EF_BAD},

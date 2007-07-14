@@ -41,10 +41,7 @@ update_removewants(void)
     natid cn;
     struct natstr *natp;
 
-    for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
-	if (natp->nat_stat != STAT_UNUSED && !natp->nat_update)
-	    natp->nat_missed++;
+    for (cn = 0; NULL != (natp = getnatp(cn)); cn++)
 	natp->nat_update = 0;
-    }
     return 0;
 }

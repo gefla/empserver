@@ -299,7 +299,6 @@ prnat(struct natstr *np)
     pr("Happiness <H>: %.2f\n", np->nat_level[NAT_HLEV]);
     pr("Money <M>: $%6ld\n", np->nat_money);
     pr("Telegrams <t>: %6d\n", np->nat_tgms);
-    pr("Updates missed <U>: %d\n", np->nat_missed);
     if (opt_HIDDEN) {
 	pr("Countries contacted: ");
 	for (i = 0; i < MAXNOC; i++) {
@@ -745,7 +744,7 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_level[NAT_HLEV] = farg;
 	break;
     case 'U':
-	np->nat_missed = arg;
+	warn_deprecated(op);
 	break;
     default:
 	pr("huh? (%c)\n", op);

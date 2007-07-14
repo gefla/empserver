@@ -58,7 +58,6 @@ int s_p_etu = 10;		/* seconds per Empire Time Unit */
 int etu_per_update = 60;	/* # of etu's per update */
 int update_window = 0;		/* update window adjustment, in seconds */
 int update_demand = UPD_DEMAND_NONE;
-int update_missed = 999;	/* demand updates missed before veto */
 int update_wantmin = 1;		/* votes required for demand update */
 char *update_demandtimes = "";	/* demand update time ranges */
 char *game_days = "";		/* days game is running */

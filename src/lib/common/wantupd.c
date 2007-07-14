@@ -91,27 +91,12 @@ demand_update_want(int *want, int *pop, int which)
 int
 demand_check(void)
 {
-    struct natstr *natp;
-    int want, pop, cn, veto;
+    int want, pop;
 
     demand_update_want(&want, &pop, 0);
     if (want < update_wantmin) {
 	logerror("no demand update, want = %d, min = %d",
 		 want, update_wantmin);
-	return 0;
-    }
-
-    veto = 0;
-    for (cn = 1; 0 != (natp = getnatp(cn)); cn++) {
-	if (natp->nat_stat == STAT_ACTIVE) {
-	    if (natp->nat_missed >= update_missed)
-		veto = cn;
-	}
-    }
-
-    if (veto) {
-	logerror("no demand update, %d has missed more than %d updates",
-		 veto, update_missed);
 	return 0;
     }
 

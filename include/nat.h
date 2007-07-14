@@ -91,7 +91,6 @@ struct natstr {
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
     signed char nat_dayno;	/* day of the year mod 128 */
     signed char nat_update;	/* Want an update or not. */
-    unsigned char nat_missed;	/* How many updates missed */
     unsigned short nat_tgms;	/* # of telegrams to be announced */
     unsigned short nat_ann;	/* # of annos pending */
     unsigned short nat_minused;	/* number of minutes used today */

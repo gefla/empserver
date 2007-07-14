@@ -111,7 +111,6 @@ zdon(void)
 		pr("Unable to request an update as the country is in flux\n");
 		return RET_FAIL;
 	    }
-	    natp->nat_missed = 0;
 	    pr("You (%d) now want an update.\n", whichcnum);
 	} else {
 	    pr("You (%d) now DON'T want an update.\n", whichcnum);
@@ -126,10 +125,6 @@ zdon(void)
 	    pr("You want an update.\n");
 	} else
 	    pr("You DON'T want an update, yet.\n");
-	pr("You have missed the vote on a demand update %d times.\n",
-	   natp->nat_missed);
-	pr("It takes %d misses to veto a demand update.\n",
-	   update_missed);
     }
 
     pr("%d of a total of %d lunatics want an update.\n", totwant, totpop);
