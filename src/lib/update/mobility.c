@@ -240,12 +240,7 @@ do_mob_sect(struct sctstr *sp, int etus)
 	return;
     if (sp->sct_type == SCT_SANCT)
 	return;
-    /* Do we have to even bother? */
-    if (sp->sct_mobil >= sect_mob_max) {
-	/* No, so set just in case and then return */
-	sp->sct_mobil = sect_mob_max;
-	return;
-    }
+
     value = sp->sct_mobil + ((float)etus * sect_mob_scale);
     if (value > sect_mob_max)
 	value = sect_mob_max;
@@ -280,21 +275,16 @@ do_mob_ship(struct shpstr *sp, int etus)
     if (sp->shp_own == 0)
 	return;
 
-    /* Do we even have to bother updating this mobility? */
-    if (sp->shp_mobil >= ship_mob_max) {
-	/* No, so don't.  Just set it to max (just in case) and
-	   return. */
-	sp->shp_mobil = ship_mob_max;
-	return;
-    }
-
-    /* opt_FUEL in force */
     if (opt_FUEL == 0 || mchr[(int)sp->shp_type].m_fuelu == 0) {
 	value = sp->shp_mobil + (float)etus * ship_mob_scale;
 	if (value > ship_mob_max)
 	    value = ship_mob_max;
 	sp->shp_mobil = (signed char)value;
     } else {
+	if (sp->shp_mobil >= ship_mob_max) {
+	    sp->shp_mobil = ship_mob_max;
+	    return;
+	}
 	can_add = ship_mob_max - sp->shp_mobil;
 	if (can_add > (float)etus * ship_mob_scale)
 	    can_add = (float)etus * ship_mob_scale;
@@ -381,19 +371,16 @@ do_mob_land(struct lndstr *lp, int etus)
     if (lp->lnd_own == 0)
 	return;
 
-    if (lp->lnd_mobil >= land_mob_max) {
-	lp->lnd_mobil = land_mob_max;
-	if (lp->lnd_harden >= land_mob_max) {
-	    lp->lnd_harden = land_mob_max;
-	    return;
-	}
-    }
-
     if (opt_FUEL == 0 || lp->lnd_fuelu == 0) {
 	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
-	    if (!opt_MOB_ACCESS) {
+	    if (lp->lnd_harden < land_mob_max && !opt_MOB_ACCESS) {
 		/*
+		 * Automatic fortification on excess mobility.
+		 * Disabled for MOB_ACCESS, because it leads to
+		 * excessively deep recursion and thus miserable
+		 * performance as the number of land units grows.
+		 *
 		 * Provide mobility to be used in lnd_fortify()
 		 * without overflowing lnd_mobil.
 		 */
@@ -405,6 +392,10 @@ do_mob_land(struct lndstr *lp, int etus)
 	lp->lnd_mobil = value;
 
     } else {
+	if (lp->lnd_mobil >= land_mob_max) {
+	    lp->lnd_mobil = land_mob_max;
+	    return;
+	}
 
 	can_add = land_mob_max - lp->lnd_mobil;
 
@@ -485,10 +476,6 @@ do_mob_plane(struct plnstr *pp, int etus)
 
     if (pp->pln_own == 0)
 	return;
-    if (pp->pln_mobil >= plane_mob_max) {
-	pp->pln_mobil = plane_mob_max;
-	return;
-    }
 
     value = pp->pln_mobil + ((float)etus * plane_mob_scale);
     if (value > plane_mob_max)
