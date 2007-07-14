@@ -37,6 +37,7 @@
 
 #include "budg.h"
 #include "empthread.h"
+#include "game.h"
 #include "journal.h"
 #include "player.h"
 #include "server.h"
@@ -61,6 +62,7 @@ update_main(void)
     struct natstr *np;
 
     logerror("production update (%d etus)", etu);
+    game_record_update(time(NULL));
     journal_update(etu);
 
     /* First, make sure all mobility is updated correctly. */

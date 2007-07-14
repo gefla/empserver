@@ -545,6 +545,10 @@ struct castr realm_ca[] = {
 };
 
 struct castr game_ca[] = {
+    {NSC_SHORT, 0, 0, offsetof(struct gamestr, game_turn), "turn", EF_BAD},
+    {NSC_SHORT, NSC_DEITY, 0, offsetof(struct gamestr, game_tick), "tick",
+     EF_BAD},
+    {NSC_TIME, NSC_DEITY, 0, offsetof(struct gamestr, game_rt), "rt", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 

@@ -34,13 +34,27 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <time.h>
+
 struct gamestr {
     /* initial part must match struct empobj */
     short ef_type;
     /* end of part matching struct empobj */
+    /*
+     * The Empire clock.
+     * Access it through game_tick_tick(), or else it'll be late.
+     */
+    short game_turn;		/* turn number */
+    short game_tick;		/* elapsed etus in this turn */
+    time_t game_rt;		/* when game_tick last ticked */
 };
 
 #define putgame() ef_write(EF_GAME, 0, ef_ptr(EF_GAME, 0))
 #define getgamep() ((struct gamestr *)ef_ptr(EF_GAME, 0))
+
+extern void game_record_update(time_t);
+extern struct gamestr *game_tick_tick(void);
+extern int game_tick_to_now(short *);
+extern int game_step_a_tick(struct gamestr *, short *);
 
 #endif
