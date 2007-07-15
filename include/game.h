@@ -56,5 +56,6 @@ extern void game_record_update(time_t);
 extern struct gamestr *game_tick_tick(void);
 extern int game_tick_to_now(short *);
 extern int game_step_a_tick(struct gamestr *, short *);
+extern int game_reset_tick(short *);
 
 #endif

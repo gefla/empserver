@@ -36,6 +36,7 @@
 
 #include <math.h>
 #include "budg.h"
+#include "game.h"
 #include "item.h"
 #include "update.h"
 
@@ -133,8 +134,7 @@ prod_nat(int etu)
     struct natstr *cnp;
 
     for (n = 0; NULL != (np = getnatp(n)); n++) {
-	grant_btus(np, etu_per_update - np->nat_access);
-	np->nat_access = 0;
+	grant_btus(np, game_reset_tick(&np->nat_access));
 	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
 	/*

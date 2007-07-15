@@ -34,10 +34,10 @@
 /*
  * On Empire Time:
  *
- * A turn is terminated by an update and consists of etu_per_update
- * ETUs.  The Empire clock counts turns and ETUs.  When updates move
- * around in real time (schedule change, downtime, etc.), the Empire
- * clock automatically adapts the length of an ETU in seconds
+ * An Empire turn is terminated by an update.  The Empire clock counts
+ * turns and ETUs, i.e. it ticks etu_per_update times per turn.  When
+ * updates move around in real time (schedule change, downtime, etc.),
+ * the Empire clock automatically adapts the duration of an ETU
  * accordingly.
  */
 
@@ -127,11 +127,27 @@ game_tick_to_now(short *tick)
 int
 game_step_a_tick(struct gamestr *game, short *tick)
 {
-    int d;
+    int etu;
 
-    d = game->game_tick - *tick;
-    if (CANT_HAPPEN(d < 0))
-	d = 0;
+    etu = game->game_tick - *tick;
+    if (CANT_HAPPEN(etu < 0))
+	etu = 0;
     *tick = game->game_tick;
-    return d;
+    return etu;
+}
+
+/*
+ * Reset ETU timestamp *TICK to zero.
+ * Return how many ETUs it had left until etu_per_update.
+ */
+int
+game_reset_tick(short *tick)
+{
+    int etu;
+
+    etu = etu_per_update - *tick;
+    if (CANT_HAPPEN(etu < 0))
+	etu = 0;
+    *tick = 0;
+    return etu;
 }
