@@ -15,4 +15,4 @@ You should not use this command as a tool for implementing your update
 schedule!  Enabling and disabling updates by hand is far too error
 prone, and your players can't trust the update command to find out
 when the next update really is.  Use the update schedule file instead.
-.SA "update, enable, Time, Deity"
+.SA "update, disable, Time, Deity"
