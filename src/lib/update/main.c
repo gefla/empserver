@@ -67,10 +67,10 @@ update_main(void)
 
     /* First, make sure all mobility is updated correctly. */
     if (opt_MOB_ACCESS) {
-	mob_ship(etu);
-	mob_sect(etu);
-	mob_plane(etu);
-	mob_land(etu);
+	mob_ship();
+	mob_sect();
+	mob_plane();
+	mob_land();
     }
 
     if (opt_AUTO_POWER)
@@ -155,10 +155,10 @@ update_main(void)
     /* Only update mobility for non-MOB_ACCESS here, since it doesn't
        get done for MOB_ACCESS anyway during the update */
     if (!opt_MOB_ACCESS) {
-	mob_ship(etu);
-	mob_sect(etu);
-	mob_plane(etu);
-	mob_land(etu);
+	mob_ship();
+	mob_sect();
+	mob_plane();
+	mob_land();
     }
     if (update_demand == UPD_DEMAND_SCHED
 	|| update_demand == UPD_DEMAND_ASYNC)

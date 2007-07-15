@@ -93,7 +93,7 @@ struct shpstr {
     short shp_item[I_MAX+1];	/* amount of items on board */
     short shp_pstage;		/* plague stage */
     short shp_ptime;		/* how many etus remain in this stage */
-    time_t shp_access;		/* Last time mob was updated (MOB_ACCESS) */
+    short shp_access;		/* Last tick mob was updated (MOB_ACCESS) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
     unsigned char shp_mobquota;	/* mobility quota */
     char shp_path[MAXSHPPATH];

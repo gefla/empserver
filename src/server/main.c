@@ -298,11 +298,6 @@ init_server(void)
     init_nreport();
 
     loginit("server");
-
-    if (opt_MOB_ACCESS) {
-	/* This fixes up mobility upon restart */
-	mobility_init();
-    }
 }
 
 /*
@@ -329,10 +324,6 @@ start_server(int flags)
 		 "KillIdle", 0);
     empth_create(PP_TIMESTAMP, delete_lostitems, (50 * 1024), flags,
 		 "DeleteItems", 0);
-    if (opt_MOB_ACCESS) {
-	empth_create(PP_TIMESTAMP, mobility_check, (50 * 1024), flags,
-		     "MobilityCheck", 0);
-    }
 
     market_init();
     update_init();

@@ -34,133 +34,37 @@
 
 #include <config.h>
 
+#include "game.h"
 #include "land.h"
 #include "plane.h"
 #include "server.h"
 #include "ship.h"
 #include "update.h"
 
-
-int updating_mob = 1;
-
-static int timestamp_fixing;
-static int do_upd_checking = 0;
+static int do_upd_checking;
 
 static void do_mob_land(struct lndstr *, int);
 static void do_mob_plane(struct plnstr *, int);
 static void do_mob_sect(struct sctstr *sp, int etus);
 static void do_mob_ship(struct shpstr *, int);
 
-static int
-increase_mob(time_t *counter, float mult)
-{
-    time_t secs;
-    time_t now;
-    time_t left;
-    int newetus;
-    float newmob;
-    int inewmob;
-
-    time(&now);
-
-    secs = now - *counter;
-    if (secs < 1 || secs < s_p_etu)
-	return 0;
-    newetus = (int)(secs / s_p_etu);
-    if (newetus < 1)
-	return 0;
-    left = (secs % s_p_etu);
-    do {
-	newmob = newetus * mult;
-	inewmob = (int)newmob;
-	if (newmob == inewmob || newetus > 7)
-	    break;
-	newetus--;
-	left += s_p_etu;
-    } while (newetus > 0);
-    if (newetus <= 0)
-	return 0;
-
-    *counter = now - left;
-
-    if (updating_mob)
-	return newetus;
-    return 0;
-}
-
-void
-update_timestamps(time_t lastsavedtime)
-{
-    struct shpstr *shipp;
-    struct sctstr *sectp;
-    struct lndstr *landp;
-    struct plnstr *planep;
-    int n;
-    time_t now;
-    time_t delta;
-
-    timestamp_fixing = 1;
-    time(&now);
-    delta = now - lastsavedtime;
-    for (n = 0; (shipp = getshipp(n)); n++)
-	shipp->shp_access += delta;
-    for (n = 0; (sectp = getsectid(n)); n++)
-	sectp->sct_access += delta;
-    for (n = 0; (landp = getlandp(n)); n++)
-	landp->lnd_access += delta;
-    for (n = 0; (planep = getplanep(n)); n++)
-	planep->pln_access += delta;
-    timestamp_fixing = 0;
-}
-
-void
-update_all_mob(void)
-{
-    struct shpstr *shipp;
-    struct sctstr *sectp;
-    struct lndstr *landp;
-    struct plnstr *planep;
-    int n;
-
-    n = 0;
-    while (1) {
-	do_upd_checking = 1;
-	shipp = getshipp(n);
-	sectp = getsectid(n);
-	landp = getlandp(n);
-	planep = getplanep(n);
-	do_upd_checking = 0;
-	if (shipp)
-	    shp_do_upd_mob(shipp);
-	if (sectp)
-	    sct_do_upd_mob(sectp);
-	if (landp)
-	    lnd_do_upd_mob(landp);
-	if (planep)
-	    pln_do_upd_mob(planep);
-	if (!shipp && !sectp && !landp && !planep)
-	    break;
-	n++;
-    }
-    do_upd_checking = 0;
-}
-
 void
 sct_do_upd_mob(struct sctstr *sp)
 {
     int etus;
 
-    if (do_upd_checking || timestamp_fixing || update_pending)
+    if (do_upd_checking || update_pending)
 	return;
     if (sp->sct_own == 0)
 	return;
     if (sp->sct_type == SCT_SANCT)
 	return;
-    if ((etus = increase_mob(&sp->sct_access, sect_mob_scale)) == 0)
+    etus = game_tick_to_now(&sp->sct_access);
+    if (etus == 0)
 	return;
-    do_upd_checking = 1;
+
+    do_upd_checking = 1;	/* avoid recursion */
     do_mob_sect(sp, etus);
-/*    putsect(sp);*/
     do_upd_checking = 0;
 }
 
@@ -169,13 +73,15 @@ shp_do_upd_mob(struct shpstr *sp)
 {
     int etus;
 
-    if (do_upd_checking || timestamp_fixing || update_pending)
+    if (do_upd_checking || update_pending)
 	return;
     if (sp->shp_own == 0)
 	return;
-    if ((etus = increase_mob(&sp->shp_access, ship_mob_scale)) == 0)
+    etus = game_tick_to_now(&sp->shp_access);
+    if (etus == 0)
 	return;
-    do_upd_checking = 1;
+
+    do_upd_checking = 1;	/* avoid recursion */
     do_mob_ship(sp, etus);
     do_upd_checking = 0;
 }
@@ -185,14 +91,15 @@ lnd_do_upd_mob(struct lndstr *lp)
 {
     int etus;
 
-    if (do_upd_checking || timestamp_fixing || update_pending)
+    if (do_upd_checking || update_pending)
 	return;
     if (lp->lnd_own == 0)
 	return;
-    if ((etus = increase_mob(&lp->lnd_access, land_mob_scale)) == 0)
+    etus = game_tick_to_now(&lp->lnd_access);
+    if (etus == 0)
 	return;
 
-    do_upd_checking = 1;
+    do_upd_checking = 1;	/* avoid recursion */
     do_mob_land(lp, etus);
     do_upd_checking = 0;
 }
@@ -202,32 +109,34 @@ pln_do_upd_mob(struct plnstr *pp)
 {
     int etus;
 
-    if (do_upd_checking || timestamp_fixing || update_pending)
+    if (do_upd_checking || update_pending)
 	return;
     if (pp->pln_own == 0)
 	return;
-    if ((etus = increase_mob(&pp->pln_access, plane_mob_scale)) == 0)
+    etus = game_tick_to_now(&pp->pln_access);
+    if (etus == 0)
 	return;
 
-    do_upd_checking = 1;
+    do_upd_checking = 1;	/* avoid recursion */
     do_mob_plane(pp, etus);
     do_upd_checking = 0;
 }
 
 void
-mob_sect(int etus)
+mob_sect(void)
 {
     struct sctstr *sp;
-    int n;
+    int n, etus;
     time_t now;
 
     time(&now);
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	sp->sct_timestamp = now;
 	if (opt_MOB_ACCESS)
-	    sct_do_upd_mob(sp);
+	    etus = game_reset_tick(&sp->sct_access);
 	else
-	    do_mob_sect(sp, etus);
+	    etus = etu_per_update;
+	do_mob_sect(sp, etus);
     }
 }
 
@@ -235,6 +144,9 @@ static void
 do_mob_sect(struct sctstr *sp, int etus)
 {
     int value;
+
+    if (CANT_HAPPEN(etus < 0))
+	etus = 0;
 
     if (sp->sct_own == 0)
 	return;
@@ -248,19 +160,20 @@ do_mob_sect(struct sctstr *sp, int etus)
 }
 
 void
-mob_ship(int etus)
+mob_ship(void)
 {
     struct shpstr *sp;
-    int n;
+    int n, etus;
     time_t now;
 
     time(&now);
     for (n = 0; NULL != (sp = getshipp(n)); n++) {
 	sp->shp_timestamp = now;
 	if (opt_MOB_ACCESS)
-	    shp_do_upd_mob(sp);
+	    etus = game_reset_tick(&sp->shp_access);
 	else
-	    do_mob_ship(sp, etus);
+	    etus = etu_per_update;
+	do_mob_ship(sp, etus);
     }
 }
 
@@ -271,6 +184,9 @@ do_mob_ship(struct shpstr *sp, int etus)
     int value;
     int can_add, have_fuel_for, total_add;
     double d;
+
+    if (CANT_HAPPEN(etus < 0))
+	etus = 0;
 
     if (sp->shp_own == 0)
 	return;
@@ -344,19 +260,20 @@ do_mob_ship(struct shpstr *sp, int etus)
 }
 
 void
-mob_land(int etus)
+mob_land(void)
 {
     struct lndstr *lp;
-    int n;
+    int n, etus;
     time_t now;
 
     time(&now);
     for (n = 0; NULL != (lp = getlandp(n)); n++) {
 	lp->lnd_timestamp = now;
 	if (opt_MOB_ACCESS)
-	    lnd_do_upd_mob(lp);
+	    etus = game_reset_tick(&lp->lnd_access);
 	else
-	    do_mob_land(lp, etus);
+	    etus = etu_per_update;
+	do_mob_land(lp, etus);
     }
 }
 
@@ -367,6 +284,9 @@ do_mob_land(struct lndstr *lp, int etus)
     int value;
     int can_add, have_fuel_for, total_add;
     double d;
+
+    if (CANT_HAPPEN(etus < 0))
+	etus = 0;
 
     if (lp->lnd_own == 0)
 	return;
@@ -453,19 +373,20 @@ do_mob_land(struct lndstr *lp, int etus)
 }
 
 void
-mob_plane(int etus)
+mob_plane(void)
 {
     struct plnstr *pp;
-    int n;
+    int n, etus;
     time_t now;
 
     time(&now);
     for (n = 0; NULL != (pp = getplanep(n)); n++) {
 	pp->pln_timestamp = now;
 	if (opt_MOB_ACCESS)
-	    pln_do_upd_mob(pp);
+	    etus = game_reset_tick(&pp->pln_access);
 	else
-	    do_mob_plane(pp, etus);
+	    etus = etu_per_update;
+	do_mob_plane(pp, etus);
     }
 }
 
@@ -473,6 +394,9 @@ static void
 do_mob_plane(struct plnstr *pp, int etus)
 {
     int value;
+
+    if (CANT_HAPPEN(etus < 0))
+	etus = 0;
 
     if (pp->pln_own == 0)
 	return;

@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include "commands.h"
+#include "game.h"
 #include "item.h"
 #include "map.h"
 #include "optlist.h"
@@ -251,7 +252,7 @@ explore(void)
 	pr("Sector %s is now yours.\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	if (opt_MOB_ACCESS) {
-	    time(&sect.sct_access);
+	    game_tick_to_now(&sect.sct_access);
 	    sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
 	} else {
 	    sect.sct_mobil = 0;

@@ -396,12 +396,12 @@ check_trade(void)
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.plane.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
+		game_tick_to_now(&tg.plane.pln_access);
 	    } else {
 		tg.plane.pln_mobil = 0;
 	    }
 	    tg.plane.pln_mission = 0;
 	    tg.plane.pln_harden = 0;
-	    time(&tg.plane.pln_access);
 	    tg.plane.pln_ship = -1;
 	    tg.plane.pln_land = -1;
 	    break;
@@ -426,11 +426,11 @@ check_trade(void)
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.land.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
+		game_tick_to_now(&tg.land.lnd_access);
 	    } else {
 		tg.land.lnd_mobil = 0;
 	    }
 	    tg.land.lnd_harden = 0;
-	    time(&tg.land.lnd_access);
 	    tg.land.lnd_mission = 0;
 	    /* Drop any land units this unit was carrying */
 	    snxtitem_xy(&ni, EF_LAND, tg.land.lnd_x, tg.land.lnd_y);

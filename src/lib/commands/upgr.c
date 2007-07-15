@@ -137,7 +137,6 @@ lupgr(void)
 	lnd_set_tech(&land, tlev);
 	land.lnd_harden = 0;
 	land.lnd_mission = 0;
-	time(&land.lnd_access);
 
 	putland(land.lnd_uid, &land);
 	putsect(&sect);
@@ -220,7 +219,6 @@ supgr(void)
 	ship.shp_effic -= UPGR_EFF;
 	shp_set_tech(&ship, tlev);
 	ship.shp_mission = 0;
-	time(&ship.shp_access);
 
 	putship(ship.shp_uid, &ship);
 	putsect(&sect);
@@ -308,7 +306,6 @@ pupgr(void)
 	pln_set_tech(&plane, tlev);
 	plane.pln_harden = 0;
 	plane.pln_mission = 0;
-	time(&plane.pln_access);
 
 	putplane(plane.pln_uid, &plane);
 	putsect(&sect);

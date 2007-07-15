@@ -157,7 +157,6 @@ struct cmndstr player_coms[] = {
     {"mine <SHIPS>", 2, mine, C_MOD, NORM + MONEY + CAP},
     {"mission <TYPE> <PLANES|SHIPS|UNITS> <mission type> <op sect> [<radius>]",
      2, mission, C_MOD, NORM + CAP},
-    {"mobupdate <MINUTES|check>", 0, mobupdate, C_MOD, GOD},
     {"morale <UNITS> <retreat%>", 1, morale, C_MOD, NORM + CAP},
     {"motd", 0, show_motd, C_MOD, VIS},
     {"move <COMM> <SECT> <NUM> <PATH|DESTINATION>",

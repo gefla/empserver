@@ -82,7 +82,7 @@ struct sctstr {
     unsigned char sct_che;	/* number of guerrillas */
     natid sct_che_target;	/* nation targeted by che */
     unsigned short sct_fallout;
-    time_t sct_access;		/* Last time mob was updated (MOB_ACCESS) */
+    short sct_access;		/* Last tick mob was updated (MOB_ACCESS) */
     unsigned char sct_road;	/* Road value of a sector */
     unsigned char sct_rail;	/* Rail value of a sector */
     unsigned char sct_defense;	/* Defensive value of a sector */

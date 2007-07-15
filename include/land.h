@@ -77,7 +77,7 @@ struct lndstr {
     short lnd_ptime;		/* how many etus remain in this stage */
     short lnd_land;		/* pointer to transporting unit */
     unsigned char lnd_nland;
-    time_t lnd_access;		/* Last time mob was updated (MOB_ACCESS) */
+    short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
     float lnd_att;		/* attack multiplier */
     float lnd_def;		/* defense multiplier */
     int lnd_vul;		/* vulnerability (0-100) */

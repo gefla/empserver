@@ -186,7 +186,6 @@ main(int argc, char *argv[])
 	filename = mailbox(buf, x);
 	close(creat(filename, S_IRWUG));
     }
-    close(creat(timestampfil, S_IRWUG));
     close(creat(annfil, S_IRWUG));
 
     /* create a zero-filled sector file */

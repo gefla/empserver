@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include "file.h"
+#include "game.h"
 #include "news.h"
 #include "player.h"
 #include "prototypes.h"
@@ -64,7 +65,7 @@ bsanct(void)
 	    s.sct_type = SCT_HIWAY;
 	    s.sct_newtype = SCT_HIWAY;
 	}
-	time(&s.sct_access);
+	game_tick_to_now(&s.sct_access);
 	(void)putsect(&s);
 	count++;
     }

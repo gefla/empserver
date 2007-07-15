@@ -69,7 +69,6 @@ char downfil[]	= "down";
 char disablefil[] = "disable";
 char telfil[]	= "tel/tel";
 char annfil[]	= "ann";
-char timestampfil[] = "timestamp";
 
 char *listen_addr = "";
 char *loginport = "@EMPIREPORT@";

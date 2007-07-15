@@ -36,6 +36,7 @@
 
 #include <stdlib.h>
 #include "file.h"
+#include "game.h"
 #include "land.h"
 #include "lost.h"
 #include "misc.h"
@@ -162,7 +163,7 @@ takeover(struct sctstr *sp, natid newown)
     makenotlost(EF_SECTOR, newown, 0, sp->sct_x, sp->sct_y);
     sp->sct_own = newown;
     if (opt_MOB_ACCESS) {
-	time(&sp->sct_access);
+	game_tick_to_now(&sp->sct_access);
 	sp->sct_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	sp->sct_mobil = 0;
@@ -231,8 +232,6 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     sp->shp_mission = 0;
     sp->shp_fleet = 0;
     sp->shp_rflags = 0;
-    /* Keep track of when this was taken over */
-    time(&sp->shp_access);
     memset(sp->shp_rpath, 0, sizeof(sp->shp_rpath));
     pp = &p;
     lp = &llp;
@@ -248,8 +247,8 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
 		pp->pln_effic = PLANE_MINEFF;
 	}
 	pp->pln_mobil = 0;
-	/* Keep track of when this was taken over */
-	time(&pp->pln_access);
+	if (opt_MOB_ACCESS)
+	    game_tick_to_now(&pp->pln_access);
 	if (opt_MARKET)
 	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;
@@ -286,9 +285,9 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     }
     landp->lnd_army = 0;
     landp->lnd_mobil = 0;
+    if (opt_MOB_ACCESS)
+	game_tick_to_now(&landp->lnd_access);
     landp->lnd_harden = 0;
-    /* Keep track of when this was taken over */
-    time(&landp->lnd_access);
     if (opt_MARKET)
 	trdswitchown(EF_LAND, landp, newown);
     landp->lnd_mission = 0;
@@ -311,8 +310,8 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
 		pp->pln_effic = PLANE_MINEFF;
 	}
 	pp->pln_mobil = 0;
-	/* Keep track of when this was taken over */
-	time(&pp->pln_access);
+	if (opt_MOB_ACCESS)
+	    game_tick_to_now(&pp->pln_access);
 	if (opt_MARKET)
 	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;

@@ -36,6 +36,7 @@
 
 #include <limits.h>
 #include "commands.h"
+#include "game.h"
 #include "land.h"
 #include "lost.h"
 #include "map.h"
@@ -353,7 +354,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     ship.shp_type = mp - mchr;
     ship.shp_effic = SHIP_MINEFF;
     if (opt_MOB_ACCESS) {
-	time(&ship.shp_access);
+	game_tick_to_now(&ship.shp_access);
 	ship.shp_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	ship.shp_mobil = 0;
@@ -478,7 +479,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     land.lnd_type = lp - lchr;
     land.lnd_effic = LAND_MINEFF;
     if (opt_MOB_ACCESS) {
-	time(&land.lnd_access);
+	game_tick_to_now(&land.lnd_access);
 	land.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	land.lnd_mobil = 0;
@@ -610,7 +611,7 @@ build_bridge(struct sctstr *sp, short *vec)
     sect.sct_rail = 0;
     sect.sct_defense = 0;
     if (opt_MOB_ACCESS) {
-	time(&sect.sct_access);
+	game_tick_to_now(&sect.sct_access);
 	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	sect.sct_mobil = 0;
@@ -775,7 +776,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     plane.pln_type = pp - plchr;
     plane.pln_effic = PLANE_MINEFF;
     if (opt_MOB_ACCESS) {
-	time(&plane.pln_access);
+	game_tick_to_now(&plane.pln_access);
 	plane.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	plane.pln_mobil = 0;
@@ -902,7 +903,7 @@ build_tower(struct sctstr *sp, short *vec)
     sect.sct_rail = 0;
     sect.sct_defense = 0;
     if (opt_MOB_ACCESS) {
-	time(&sect.sct_access);
+	game_tick_to_now(&sect.sct_access);
 	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
     } else {
 	sect.sct_mobil = 0;

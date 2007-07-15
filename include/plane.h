@@ -73,7 +73,7 @@ struct plnstr {
     signed char pln_harden;	/* for missiles */
     signed char pln_nuketype;	/* type of nuclear armament (if any) */
     signed char pln_flags;	/* State of the plane */
-    time_t pln_access;		/* Last time mob was updated (MOB_ACCESS) */
+    short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
     time_t pln_timestamp;	/* Last time this plane was touched */
     float pln_theta;		/* position in orbital sine wave */
 };

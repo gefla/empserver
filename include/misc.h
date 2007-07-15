@@ -83,15 +83,6 @@ typedef int pid_t;
 #define S_IRWUG	    S_IRGRP | S_IWGRP | S_IRUSR | S_IWUSR
 #endif
 
-/* This is the structure we use to keep track of the global mobility
-   things, such as when the server is supposed to start/stop updating
-   mobility and the timestamp of when the game was last up.  These
-   times are in seconds. */
-struct mob_acc_globals {
-    time_t timestamp;		/* Last timestamp of when the game was up */
-    time_t starttime;		/* When we should start updating mobility again. */
-};
-
 #ifdef __GNUC__
 #define ATTRIBUTE(attrs) __attribute__ (attrs)
 #else

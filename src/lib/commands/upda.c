@@ -45,25 +45,7 @@ int
 upda(void)
 {
     FILE *fp;
-    struct mob_acc_globals timestamps;
     time_t now, next, stop;
-
-    if (opt_MOB_ACCESS) {
-	if ((fp = fopen(timestampfil, "rb")) == NULL)
-	    logerror("Unable to open timestamp file.");
-	else {
-	    rewind(fp);
-	    fread(&timestamps, sizeof(timestamps), 1, fp);
-	    fclose(fp);
-	    if (updating_mob)
-		pr("Mobility updating is enabled.\n\n");
-	    else {
-		pr("Mobility updating will come back on around %s",
-		   ctime(&timestamps.starttime));
-		pr("game time, within 3 minutes, depending on when the server checks.\n\n");
-	    }
-	}
-    }
 
     if (updates_disabled())
 	pr("UPDATES ARE DISABLED!\n");

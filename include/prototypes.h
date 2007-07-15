@@ -161,7 +161,6 @@ int mark(void);
 int mine(void);
 int mission(void);
 int mobq(void);
-int mobupdate(void);
 int morale(void);
 int move(void);
 int multifire(void);
@@ -736,12 +735,10 @@ extern int prod_land(int, int, struct bp *, int);
 /* material.c */
 /* in budg.h */
 /* mobility.c */
-extern void mob_sect(int);
-extern void mob_ship(int);
-extern void mob_land(int);
-extern void mob_plane(int);
-extern void update_all_mob(void);
-extern void update_timestamps(time_t offset);
+extern void mob_sect(void);
+extern void mob_ship(void);
+extern void mob_land(void);
+extern void mob_plane(void);
 extern void sct_do_upd_mob(struct sctstr *sp);
 extern void shp_do_upd_mob(struct shpstr *sp);
 extern void lnd_do_upd_mob(struct lndstr *lp);
