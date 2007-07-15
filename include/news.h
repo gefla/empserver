@@ -41,6 +41,7 @@
 #ifndef NEWS_H
 #define NEWS_H
 
+#include <time.h>
 #include "nsc.h"
 
 struct nwsstr {

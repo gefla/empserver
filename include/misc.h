@@ -35,8 +35,6 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <time.h>
-
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 

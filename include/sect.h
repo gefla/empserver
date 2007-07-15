@@ -37,6 +37,7 @@
 #ifndef SECT_H
 #define SECT_H
 
+#include <time.h>
 #include "item.h"
 #include "types.h"
 

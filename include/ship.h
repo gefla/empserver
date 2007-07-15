@@ -37,6 +37,7 @@
 #ifndef SHIP_H
 #define SHIP_H
 
+#include <time.h>
 #include "item.h"
 #include "queue.h"
 #include "retreat.h"

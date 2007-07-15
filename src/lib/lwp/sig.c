@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <errno.h>
+#include <stddef.h>
 #include <signal.h>
 #include "lwp.h"
 #include "lwpint.h"
