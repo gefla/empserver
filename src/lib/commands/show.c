@@ -70,7 +70,6 @@ show(void)
     }
     if (player->god)
 	rlev = 1000;
-    pr("Printing for tech level '%d'\n", tlev);
     switch (*p) {
     case 'b':
 	show_bridge(99999);
@@ -121,6 +120,7 @@ show(void)
 		       "Build, stats, or capability data (b,s,c)? ", buf))
 	|| !*p)
 	return RET_SYN;
+    pr("Printing for tech level '%d'\n", tlev);
     if (*p == 'B' || *p == 'b')
 	bfunc(tlev);
     else if (*p == 'C' || *p == 'c')
