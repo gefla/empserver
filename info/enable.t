@@ -3,4 +3,4 @@
 .LV Expert
 .SY "enable"
 If updates have been disabled, then this will enable them again.
-.SA "update, enable, force, Deity"
+.SA "disable, show, force, Deity"

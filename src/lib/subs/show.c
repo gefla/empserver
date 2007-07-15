@@ -32,13 +32,14 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2007
  */
 
 #include <config.h>
 
 #include <math.h>
 #include "file.h"
+#include "game.h"
 #include "item.h"
 #include "land.h"
 #include "nat.h"
@@ -50,7 +51,10 @@
 #include "product.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "server.h"
 #include "ship.h"
+
+static char *fmttime2822(time_t);
 
 struct look_list {
     union {
@@ -653,4 +657,67 @@ show_news(int tlev)
 	for (j = 0; j < NUM_RPTS; j++)
 	    pr("    %s\n", rpt[i].r_newstory[j]);
     }
+}
+
+/*
+ * Show update policy and up to N scheduled updates.
+ */
+void
+show_updates(int n)
+{
+    struct gamestr *game = game_tick_tick();
+    int demand = 0;
+    int i;
+
+    pr("%s, Turn %d, ETU %d\n", fmttime2822(time(NULL)),
+       game->game_turn, game->game_tick);
+
+    if (update_time[0]) {
+	if (update_demand == UPD_DEMAND_SCHED) {
+	    pr("Demand updates occur according to schedule:\n");
+	    demand = 1;
+	} else
+	    pr("Updates occur according to schedule:\n");
+	for (i = 0; i < n && update_time[i]; i++)
+	    pr("%3d.  %s\n", game->game_turn + i,
+	       fmttime2822(update_time[i]));
+	if (update_window) {
+	    pr("Updates occur within %d seconds after the scheduled time\n",
+	       update_window);
+	}
+    } else
+	pr("There are no updates scheduled.\n");
+
+    if (update_demand == UPD_DEMAND_ASYNC) {
+	pr("Demand updates occur right after the demand is set.\n");
+	if (*update_demandtimes != 0) {
+	    pr("Demand updates are allowed during: %s\n",
+	       update_demandtimes);
+	}
+	demand = 1;
+    }
+
+    if (demand) {
+	pr("Demand updates require %d country(s) to want one.\n",
+	   update_wantmin);
+    }
+
+    if (updates_disabled())
+	pr("\nUPDATES ARE DISABLED!\n");
+}
+
+/*
+ * Return T formatted according to RFC 2822.
+ * The return value is statically allocated and overwritten on
+ * subsequent calls.
+ */
+static char *
+fmttime2822(time_t t)
+{
+    static char buf[32];
+    int n = strftime(buf, sizeof(buf), "%a, %d %b %Y %T %z",
+		     localtime(&t));
+    if (CANT_HAPPEN(n == 0))
+	buf[0] = 0;
+    return buf;
 }

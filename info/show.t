@@ -3,11 +3,12 @@
 .LV Basic
 .SY "show <land|nuke|plane|sector|ship> [b|s|c] [tech]"
 .SY "show <bridge|item|news|tower>"
+.SY "show <updates> [number]"
 The show command shows characteristics of sectors, units (ships,
 planes, land units and nukes), bridges (spans and towers), items and
-news.
+news, as well as information on updates.
 .s1
-The format of each output is more fully described in separate info
+Characteristics are more fully described in separate info
 pages (Ship-types, Nuke-types, etc.).
 .s1
 For sectors and units, a
@@ -35,4 +36,4 @@ Printing for tech level '325'
 75kt  fusion     3  90   3  320 106 $  20000 
 .FI
 .s1
-.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Bridges, Item-types, newspaper"
+.SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Bridges, Item-types, newspaper, Updates"

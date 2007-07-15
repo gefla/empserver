@@ -229,7 +229,9 @@ struct cmndstr player_coms[] = {
     {"shark <LOAN>", 25, shark, C_MOD, NORM + MONEY + CAP},
     {"ship <SHIPS>", 0, shi, 0, NORM},
     {"shoot <c|u> <SECTS> <NUMBER>", 3, shoo, C_MOD, NORM + MONEY + CAP},
-    {"show <TYPE|\"bridge\"|\"tower\"> <\"build\"|\"stats\"|\"cap\"> [<tech>]",
+    {"show <TYPE> <\"build\"|\"stats\"|\"cap\"> [<tech>]\n"
+     "\tshow <bridge|tower>\n"
+     "\tshow updates [<NUM>]>",
      0, show, 0, VIS},
     {"shutdown <minutes> <disable update?>", 0, shut, 0, GOD},
     {"sinfrastructure <SECTS>", 0, sinfra, 0, VIS},

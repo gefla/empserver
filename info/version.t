@@ -19,8 +19,7 @@ World size is 64 by 32.
 There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
-An Empire time unit is 10 seconds long.
-Use the 'update' command to find out the time of the next update.
+Use the 'show' command to find out the time of the next update.
 The current time is Tue Jul 10 23:09:03.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.

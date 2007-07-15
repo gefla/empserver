@@ -61,11 +61,15 @@ vers(void)
     pr("By default, countries use %s coordinate system.\n",
        (players_at_00) ? "the deity's" : "their own");
     pr("\n");
-    pr("Use the 'update' command to find out the time of the next update.\n");
+    pr("Use the 'show' command to find out the time of the next update.\n");
     pr("The current time is %19.19s.\n", ctime(&now));
     pr("An update consists of %d empire time units.\n", etu_per_update);
     pr("Each country is allowed to be logged in %d minutes a day.\n",
        m_m_p_d);
+    if (*game_days != 0)
+	pr("Game days are %s\n", game_days);
+    if (*game_hours != 0)
+	pr("Game hours are %s\n", game_hours);
     pr("It takes %.2f civilians to produce a BTU in one time unit.\n",
        (1.0 / (btu_build_rate * 100.0)));
     pr("\n");

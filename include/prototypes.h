@@ -655,6 +655,7 @@ extern void show_sect_stats(int);
 extern void show_sect_capab(int);
 extern void show_item(int);
 extern void show_news(int);
+extern void show_updates(int);
 /* shpsub.c */
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);

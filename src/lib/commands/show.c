@@ -51,7 +51,7 @@ show(void)
     int rlev;
 
     if (!(p = getstarg(player->argp[1],
-		       "Describe what (plane, nuke, bridge, ship, sect, land unit, tower, item)? ",
+		       "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)?",
 		       buf))
 	|| !*p)
 	return RET_SYN;
@@ -113,9 +113,13 @@ show(void)
 	    cfunc = show_ship_capab;
 	}
 	break;
+    case 'u':
+	show_updates(player->argp[2] ? atoi(player->argp[2]) : 8);
+	return RET_OK;
     default:
 	return RET_SYN;
     }
+
     if (!(p = getstarg(player->argp[2],
 		       "Build, stats, or capability data (b,s,c)? ", buf))
 	|| !*p)

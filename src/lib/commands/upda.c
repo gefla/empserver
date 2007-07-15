@@ -95,5 +95,7 @@ upda(void)
     if (*game_hours != 0)
 	pr("Game hours are: %s\n", game_hours);
 
+    pr("\nThis command is obsolete and will go away in a future version.\n"
+       "Please use \"show updates\".");
     return 0;
 }
