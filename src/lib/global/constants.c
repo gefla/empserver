@@ -54,7 +54,6 @@ int MARK_DELAY = 7200;		/* Seconds to bid on commodities */
 int TRADE_DELAY = 7200;		/* Seconds to bid on units */
 
 int m_m_p_d = 1440;		/* max mins of play per day (per country) */
-int s_p_etu = 10;		/* seconds per Empire Time Unit */
 int etu_per_update = 60;	/* # of etu's per update */
 int update_window = 0;		/* update window adjustment, in seconds */
 int update_demand = UPD_DEMAND_NONE;

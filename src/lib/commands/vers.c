@@ -61,8 +61,6 @@ vers(void)
     pr("By default, countries use %s coordinate system.\n",
        (players_at_00) ? "the deity's" : "their own");
     pr("\n");
-    pr("An Empire time unit is %d second%s long.\n",
-       s_p_etu, s_p_etu != 1 ? "s" : "");
     pr("Use the 'update' command to find out the time of the next update.\n");
     pr("The current time is %19.19s.\n", ctime(&now));
     pr("An update consists of %d empire time units.\n", etu_per_update);

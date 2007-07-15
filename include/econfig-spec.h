@@ -106,11 +106,6 @@ EMPCF_COMMENT("\n\n### Update policy\n\n"
     "# same directory as this file.")
 EMPCFBOTH("etu_per_update", etu_per_update, int, NSC_INT, 0,
     "Number of ETUs per update")
-EMPCFBOTH("s_p_etu", s_p_etu, int, NSC_INT, 0,
-    "Seconds per ETU")
-EMPCF_COMMENT("# FIXME get rid of this!\n"
-    "# Until then, set it so that s_p_etu * etu_per_update seconds equals\n"
-    "# the time between scheduled updates.")
 EMPCFBOTH("update_window", update_window, int, NSC_INT, 0,
     "Time window the update will occur in after the update time, in seconds")
 EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, KM_INTERNAL,

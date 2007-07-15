@@ -69,12 +69,6 @@ update_init(void)
     struct player *dp;
     int stacksize;
 
-    if (s_p_etu <= 0) {
-	logerror("bad value for s_p_etu (%d)", s_p_etu);
-	s_p_etu = 2 * 60;
-	logerror("setting s_p_etu to %d", s_p_etu);
-    }
-
     update_schedule_anchor = (time(NULL) + 59) / 60 * 60;
     if (update_get_schedule() < 0)
 	exit(1);
