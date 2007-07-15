@@ -1,6 +1,14 @@
 .TH Concept Time
-.NA Time "Definitions of BTU and ETL"
+.NA Time "ETUs, BTUs and ETL"
 .LV Expert
+.s1
+The Empire clock counts Empire Time Units (ETUs), just like an
+ordinary clock counts seconds.
+.s1
+There's always the same number of ETUs between updates (the
+\*Qversion\*U command shows how many).  ETUs automatically stretch or
+contract to maintain that when updates move around for some reason,
+say a change of schedule, or unplanned downtime.
 .s1
 Because of the unique nature of Empire governments,
 (i.e. the decision makers spend most of their time on vacation.
