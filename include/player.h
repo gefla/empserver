@@ -61,7 +61,6 @@ struct player {
     int ncomstat;
     int minleft;
     int btused;
-    int visitor;
     int god;
     int owner;
     int nstat;

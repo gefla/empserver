@@ -171,7 +171,6 @@ status(void)
 	putnat(natp);
 	return 0;
     }
-    player->visitor = natp->nat_stat < STAT_SANCT;
     if (player->dolcost != 0.0) {
 	if (player->dolcost > 100.0)
 	    pr("That just cost you $%.2f\n", player->dolcost);
@@ -256,7 +255,7 @@ status(void)
 	       numstr(buf, natp->nat_ann));
 	natp->nat_ann = 0;
     }
-    if (!player->visitor && !player->god && (player->nstat & CAP) == 0)
+    if (natp->nat_stat == STAT_ACTIVE && (player->nstat & CAP) == 0)
 	pr("You lost your capital... better designate one\n");
     putnat(natp);
     if (gamedown() && !player->god) {
