@@ -71,8 +71,6 @@ the amount of work done in the sector
 .s1
 Parameters used are (see the \*Qversion\*U command for actual values):
 .in \w'uwbrate\0\0'u
-.L s_p_etu
-seconds per Empire time unit
 .L fgrate
 the food growth rate
 .L fcrate

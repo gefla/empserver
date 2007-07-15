@@ -9,8 +9,7 @@ Execute the \*Qversion\*U command to get some of this information.
 Ask the deity for the rest.
 .s1
 Each civilian or military eats 0.0005 units of food per time unit,
-(i.e. 0.024 units of food a \*Qday\*U in non-Blitz Empire).
-.\" eatrate * 86400 / s_p_etu
+(i.e. 1000 people eat 24 units of food per 48-ETU update).
 .s1
 The ability of a sector to grow food is indicated by its \*Qfertility\*U.
 Fertility values range from 0 to 100.
