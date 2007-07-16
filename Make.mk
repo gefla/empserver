@@ -101,7 +101,7 @@ deps := $(obj:.o=.d)
 # Library archives:
 libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
 # Programs:
-util := $(addprefix src/util/, $(addsuffix $(EXEEXT), fairland files pconfig))
+util := $(addprefix src/util/, $(addsuffix $(EXEEXT), empsched fairland files pconfig))
 client := src/client/empire$(EXEEXT)
 server := src/server/emp_server$(EXEEXT)
 # Info subjects:
