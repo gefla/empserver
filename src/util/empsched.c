@@ -39,6 +39,7 @@
 #include <unistd.h>
 #endif
 #include <stdio.h>
+#include <time.h>
 #include "optlist.h"
 #include "prototypes.h"
 #include "version.h"
