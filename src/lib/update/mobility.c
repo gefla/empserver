@@ -53,7 +53,7 @@ sct_do_upd_mob(struct sctstr *sp)
 {
     int etus;
 
-    if (do_upd_checking || update_pending)
+    if (do_upd_checking || update_running)
 	return;
     if (sp->sct_own == 0)
 	return;
@@ -73,7 +73,7 @@ shp_do_upd_mob(struct shpstr *sp)
 {
     int etus;
 
-    if (do_upd_checking || update_pending)
+    if (do_upd_checking || update_running)
 	return;
     if (sp->shp_own == 0)
 	return;
@@ -91,7 +91,7 @@ lnd_do_upd_mob(struct lndstr *lp)
 {
     int etus;
 
-    if (do_upd_checking || update_pending)
+    if (do_upd_checking || update_running)
 	return;
     if (lp->lnd_own == 0)
 	return;
@@ -109,7 +109,7 @@ pln_do_upd_mob(struct plnstr *pp)
 {
     int etus;
 
-    if (do_upd_checking || update_pending)
+    if (do_upd_checking || update_running)
 	return;
     if (pp->pln_own == 0)
 	return;

@@ -139,7 +139,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    continue;
 	}
 	if (opt_SAIL) {
-	    if (*ship.shp_path && !update_pending) {
+	    if (*ship.shp_path && !update_running) {
 		shp_mess("has a sail path", mlp);
 		mpr(actor, "Use `sail <#> -' to reset\n");
 		continue;

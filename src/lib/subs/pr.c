@@ -472,7 +472,7 @@ PR(int cn, char *format, ...)
     newline = strrchr(buf, '\n') ? 1 : 0;
     strcat(longline[cn], buf);
     if (newline) {
-	if (update_pending || (cn && cn != player->cnum))
+	if (update_running || (cn && cn != player->cnum))
 	    typed_wu(0, cn, longline[cn], TEL_BULLETIN);
 	else
 	    pr_player(player, C_DATA, longline[cn]);
@@ -524,7 +524,7 @@ mpr(int cn, char *format, ...)
     (void)vsprintf(buf, format, ap);
     va_end(ap);
     if (cn) {
-	if (update_pending || cn != player->cnum)
+	if (update_running || cn != player->cnum)
 	    typed_wu(0, cn, buf, TEL_BULLETIN);
 	else
 	    pr_player(player, C_DATA, buf);

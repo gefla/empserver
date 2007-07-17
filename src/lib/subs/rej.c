@@ -94,7 +94,7 @@ setrel(natid us, natid them, int rel)
 		if (theirrel <= MOBILIZATION) {
 		    rel = theirrel;
 		    cost = 0;
-		} else if (us == player->cnum && !update_pending) {
+		} else if (us == player->cnum && !update_running) {
 		    if (mynp->nat_money < War_Cost) {
 			mpr(us, "You don't have the money!\n");
 			return RET_FAIL;
@@ -105,7 +105,7 @@ setrel(natid us, natid them, int rel)
 		    return RET_FAIL;
 		}
 		if (rel >= oldrel) {
-		    if (us == player->cnum && !update_pending)
+		    if (us == player->cnum && !update_running)
 			mpr(us, "No change required for that!\n");
 		    return RET_FAIL;
 		}
@@ -116,7 +116,7 @@ setrel(natid us, natid them, int rel)
 	n_down = N_DECL_WAR;
     }
 
-    if (addendum && us == player->cnum && !update_pending)
+    if (addendum && us == player->cnum && !update_running)
 	pr("%s\n", addendum);
     mpr(us, "Diplomatic relations with %s %s to \"%s\".\n",
 	themname, whichway, relates[rel]);

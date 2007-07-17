@@ -50,13 +50,30 @@
 
 #define UPDATES 16
 
+/*
+ * Lock to synchronize player threads with the update.
+ * Update takes it exclusive, commands take it shared.
+ */
 empth_rwlock_t *update_lock;
-static empth_t *update_thread;
+
+/*
+ * Update is pending, player threads must give up update_lock ASAP.
+ * This means they must not block while update_pending.
+ */
 int update_pending;
 
+/*
+ * Update is running.
+ * Can be used to suppress messages, or direct them to bulletins.
+ */
+int update_running;
+
 time_t update_time[UPDATES];
+
 static time_t update_schedule_anchor;
 static int update_wanted;
+
+static empth_t *update_thread;
 
 static int update_get_schedule(void);
 static void update_sched(void *);
@@ -209,8 +226,9 @@ update_run(void)
 	    return;
 	}
     }
+    update_running = 1;
     update_main();
-    update_pending = 0;
+    update_pending = update_running = 0;
     empth_rwlock_unlock(update_lock);
 }
 
