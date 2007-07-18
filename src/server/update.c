@@ -48,8 +48,6 @@
 #include "prototypes.h"
 #include "server.h"
 
-#define UPDATES 16
-
 /*
  * Lock to synchronize player threads with the update.
  * Update takes it exclusive, commands take it shared.
@@ -67,8 +65,6 @@ int update_pending;
  * Can be used to suppress messages, or direct them to bulletins.
  */
 int update_running;
-
-time_t update_time[UPDATES];
 
 static time_t update_schedule_anchor;
 static int update_wanted;
@@ -116,7 +112,8 @@ update_get_schedule(void)
 {
     time_t now = time(NULL);
 
-    if (read_schedule(schedulefil, update_time, UPDATES,
+    if (read_schedule(schedulefil, update_time,
+		      sizeof(update_time) / sizeof(*update_time),
 		      now + 30, update_schedule_anchor) < 0) {
 	logerror("No update schedule!");
 	update_time[0] = 0;

@@ -219,6 +219,7 @@ extern struct castr realm_ca[];
 extern struct castr game_ca[];
 extern struct castr intrchr_ca[];
 extern struct castr rpt_ca[];
+extern struct castr update_ca[];
 extern struct castr empfile_ca[];
 extern struct castr symbol_ca[];
 extern struct symbol ship_chr_flags[];

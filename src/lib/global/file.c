@@ -28,7 +28,7 @@
  *  file.c: Empire game data file descriptions.
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2005
+ *     Markus Armbruster, 2005-2007
  */
 
 #include <config.h>
@@ -49,6 +49,7 @@
 #include "product.h"
 #include "sect.h"
 #include "ship.h"
+#include "server.h"
 #include "trade.h"
 #include "treaty.h"
 
@@ -162,6 +163,8 @@ struct empfile empfile[] = {
      ARRAY_TABLE(rpt, EFF_CFG)},
     {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca,
      ARRAY_CACHE(intrchr, EFF_CFG)},
+    {EF_UPDATES, "updates", NULL, update_ca,
+     ARRAY_TABLE(update_time, EFF_CFG)},
     {EF_TABLE, "table", NULL, empfile_ca,
      ARRAY_TABLE(empfile, EFF_CFG)},
     {EF_META, "meta", NULL, mdchr_ca,

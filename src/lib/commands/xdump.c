@@ -28,7 +28,7 @@
  *  xdump.c: Experimental extended dump
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2007
  */
 
 /*
@@ -46,6 +46,7 @@
  * - News item characteristics: rpt[]
  * - News page headings: page_headings[]
  * - Commands: player_coms[] (TODO)
+ * - Update schedule: update_time[] (not really static)
  * - Configuration: configkeys[]
  *
  * Dynamic game data:

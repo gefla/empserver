@@ -25,32 +25,14 @@
  *
  *  ---
  *
- *  server.h: Server startup, control and shutdown
+ *  updtime.c: Scheduled update times
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004
+ *       Markus Armbruster, 2007
  */
 
-#ifndef SERVER_H
-#define SERVER_H
+#include <config.h>
 
-#include "empthread.h"
+#include "server.h"
 
-extern int shutdown_pending;
-extern int update_pending;
-extern int update_running;
-extern empth_rwlock_t *update_lock;
-extern time_t update_time[16];
-
-void market_init(void);
-void update_main(void);
-void update_init(void);
-int update_trigger(void);
-int update_reschedule(void);
-int shutdown_initiate(int);
-
-/* thread entry points */
-void delete_lostitems(void *);
-void player_kill_idle(void *);
-
-#endif
+time_t update_time[];

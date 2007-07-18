@@ -28,7 +28,7 @@
  *  nsc.c: Empire selection global structures
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2007
  */
 
 /*
@@ -573,6 +573,11 @@ struct castr rpt_ca[] = {
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_good_will), "good_will", EF_BAD},
     {NSC_INT, 0, 0, offsetof(struct rptstr, r_newspage), "newspage",
      EF_PAGE_HEADINGS},
+    {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
+};
+
+struct castr update_ca[] = {
+    {NSC_TIME, 0, 0, 0, "time", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
