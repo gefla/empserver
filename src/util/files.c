@@ -145,10 +145,7 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
-    game = getgamep();
-    memset(game, 0, sizeof(*game));
-    game->ef_type = EF_GAME;
-    putgame();
+    ef_extend(EF_GAME, 1);
     memset(&nat, 0, sizeof(nat));
     nat.ef_type = EF_NATION;
     strcpy(nat.nat_cnam, "POGO");
