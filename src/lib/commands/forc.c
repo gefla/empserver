@@ -39,8 +39,6 @@
 int
 force(void)
 {
-    int seconds;
-
     if (shutdown_pending) {
 	pr("Shutdown is pending\n");
 	return RET_FAIL;
