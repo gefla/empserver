@@ -35,4 +35,4 @@
 
 #include "server.h"
 
-time_t update_time[];
+time_t update_time[UPDATE_TIME_LEN];
