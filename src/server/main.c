@@ -375,6 +375,7 @@ shutdwn(int sig)
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
+    play_wrlock_wanted = 1;
     for (p = player_next(0); p != 0; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
