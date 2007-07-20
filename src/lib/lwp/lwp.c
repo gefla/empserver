@@ -76,6 +76,7 @@ lwpReschedule(void)
     }
 
     lwpSigWakeup();
+    lwpWakeupSleep();
 
     /* destroy dead threads */
     lwpStatus(LwpCurrent, "Cleaning dead queue");

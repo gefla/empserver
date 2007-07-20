@@ -89,6 +89,7 @@ void lwpReady(struct lwpProc *);
 void lwpReschedule(void);
 void lwpEntryPoint(void);
 void lwpInitSelect(struct lwpProc *);
+void lwpWakeupSleep(void);
 void lwpSelect(void *);
 void lwpInitSigWait(sigset_t *);
 void lwpSigWakeup(void);

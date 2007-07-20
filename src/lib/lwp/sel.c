@@ -123,7 +123,7 @@ lwpWakeupFd(struct lwpProc *proc)
     lwpReady(proc);
 }
 
-static void
+void
 lwpWakeupSleep(void)
 {
     time_t now;
