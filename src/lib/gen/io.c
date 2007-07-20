@@ -324,9 +324,9 @@ io_output_all(struct iop *iop)
      * Mustn't block a player thread while update is pending, or else
      * a malicous player could delay the update indefinitely
      */
-    while (((n = io_output(iop, IO_NOWAIT)) > 0) && !update_pending) {
+    while ((n = io_output(iop, IO_NOWAIT)) > 0 && !play_wrlock_wanted)
 	empth_select(iop->fd, EMPTH_FD_WRITE);
-    }
+
     return n;
 }
 

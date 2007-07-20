@@ -36,11 +36,12 @@
 
 #include "empthread.h"
 
-extern int shutdown_pending;
-extern int update_pending;
-extern int update_running;
-extern empth_rwlock_t *update_lock;
 #define UPDATE_TIME_LEN 16
+
+extern int shutdown_pending;
+extern empth_rwlock_t *play_lock;
+extern int play_wrlock_wanted;
+extern int update_running;
 extern time_t update_time[UPDATE_TIME_LEN];
 
 void market_init(void);

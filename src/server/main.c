@@ -78,6 +78,19 @@ static void loc_NTInit(void);
 static void loc_NTTerm(void);
 #endif
 
+/*
+ * Lock to synchronize player threads with update and shutdown.
+ * Update and shutdown takes it exclusive, commands take it shared.
+ */
+empth_rwlock_t *play_lock;
+
+/*
+ * Is a thread attempting to take an exclusive play_lock?
+ * Threads holding a shared play_lock must not sleep while this is
+ * true.
+ */
+int play_wrlock_wanted;
+
 static char pidfname[] = "server.pid";
 
 /* Run as daemon?  If yes, detach from controlling terminal etc. */
@@ -373,7 +386,7 @@ shutdwn(int sig)
 	}
 	empth_wakeup(p->proc);
     }
-    empth_rwlock_wrlock(update_lock);
+    empth_rwlock_wrlock(play_lock);
     /* rely on player_kill_idle() for killing hung player threads */
     if (sig)
 	logerror("Server shutting down on signal %d", sig);

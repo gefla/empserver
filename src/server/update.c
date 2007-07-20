@@ -49,18 +49,6 @@
 #include "server.h"
 
 /*
- * Lock to synchronize player threads with the update.
- * Update takes it exclusive, commands take it shared.
- */
-empth_rwlock_t *update_lock;
-
-/*
- * Update is pending, player threads must give up update_lock ASAP.
- * This means they must not block while update_pending.
- */
-int update_pending;
-
-/*
  * Update is running.
  * Can be used to suppress messages, or direct them to bulletins.
  */
@@ -86,8 +74,8 @@ update_init(void)
     if (update_get_schedule() < 0)
 	exit(1);
 
-    update_lock = empth_rwlock_create("Update");
-    if (!update_lock)
+    play_lock = empth_rwlock_create("Update");
+    if (!play_lock)
 	exit_nomem();
 
     dp = player_new(-1);
@@ -205,7 +193,7 @@ update_run(void)
 {
     struct player *p;
 
-    update_pending = 1;
+    play_wrlock_wanted = 1;
     for (p = player_next(0); p != 0; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
@@ -215,18 +203,18 @@ update_run(void)
 	    empth_wakeup(p->proc);
 	}
     }
-    empth_rwlock_wrlock(update_lock);
+    empth_rwlock_wrlock(play_lock);
     if (*pre_update_hook) {
 	if (run_hook(pre_update_hook, "pre-update")) {
-	    update_pending = 0;
-	    empth_rwlock_unlock(update_lock);
+	    play_wrlock_wanted = 0;
+	    empth_rwlock_unlock(play_lock);
 	    return;
 	}
     }
     update_running = 1;
     update_main();
-    update_pending = update_running = 0;
-    empth_rwlock_unlock(update_lock);
+    play_wrlock_wanted = update_running = 0;
+    empth_rwlock_unlock(play_lock);
 }
 
 static int
