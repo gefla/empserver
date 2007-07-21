@@ -181,6 +181,7 @@ set_paths(char *econfig)
     char *cwd = getcwd(NULL, 0);
 
 #ifdef _WIN32
+    /* normalize path separator to '\\', for easier searching: */
     econfig = _fullpath(NULL, econfig, 0);
     slash = strrchr(econfig, '\\');
     configdir = malloc(slash - econfig + 1);
