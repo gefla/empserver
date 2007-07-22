@@ -98,13 +98,13 @@ dispatch(char *buf, char *redir)
      */
     while (play_wrlock_wanted)
 	empth_yield();
+    player->command = command;
     empth_rwlock_rdlock(play_lock);
     if (redir) {
 	prredir(redir);
 	uprnf(buf);
 	pr("\n");
     }
-    player->command = command;
     switch (command->c_addr()) {
     case RET_OK:
 	player->btused += command->c_cost;
@@ -121,6 +121,6 @@ dispatch(char *buf, char *redir)
 	break;
     }
     empth_rwlock_unlock(play_lock);
-    player->command = 0;
+    player->command = NULL;
     return 0;
 }
