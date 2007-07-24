@@ -129,7 +129,7 @@ enum {
     EF_NUKE_CHR,
     EF_NEWS_CHR,
     EF_INFRASTRUCTURE,
-    EF_UPDATES,
+    EF_UPDATES,			/* not actually static */
     EF_TABLE,
     EF_META,
     /* Symbol tables */
