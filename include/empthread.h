@@ -51,18 +51,6 @@
 
 #include <time.h>
 
-/* thread priorities */
-enum {
-    PP_MAIN	 = 7,
-    PP_UPDATE	 = 6,
-    PP_SHUTDOWN	 = 5,
-    PP_SCHED	 = 4,
-    PP_TIMESTAMP = 2,
-    PP_PLAYER	 = 3,
-    PP_ACCEPT	 = 3,
-    PP_KILLIDLE	 = 2
-};
-
 #ifdef EMPTH_LWP
 #include "lwp.h"
 
@@ -123,7 +111,6 @@ int empth_init(void **ctx, int flags);
 
 /*
  * Create a new thread.
- * PRIO is the scheduling priority.
  * ENTRY is the entry point.  It will be called with argument UD.
  * Thread stack is at least SIZE bytes.
  * FLAGS should be the same as were passed to empth_init(), or zero.
@@ -134,7 +121,7 @@ int empth_init(void **ctx, int flags);
  * Yield the processor.
  * Return the thread, or NULL on error.
  */
-empth_t *empth_create(int prio, void (*entry)(void *),
+empth_t *empth_create(void (*entry)(void *),
 		      int size, int flags, char *name, void *ud);
 
 /*

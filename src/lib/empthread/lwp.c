@@ -54,18 +54,18 @@ empth_init(void **ctx, int flags)
     sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
     sigaddset(&set, SIGTERM);
-    lwpInitSystem(PP_MAIN, ctx, flags, &set);
+    lwpInitSystem(1, ctx, flags, &set);
     return 0;
 }
 
 
 empth_t *
-empth_create(int prio, void (*entry)(void *), int size, int flags,
+empth_create(void (*entry)(void *), int size, int flags,
 	     char *name, void *ud)
 {
     if (!flags)
 	flags = empth_flags;
-    return lwpCreate(prio, entry, size, flags, name, 0, 0, ud);
+    return lwpCreate(1, entry, size, flags, name, 0, 0, ud);
 }
 
 empth_t *

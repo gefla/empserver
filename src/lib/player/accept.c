@@ -224,7 +224,6 @@ player_accept(void *unused)
 /* budget */  + MAX(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,
 /* power */ MAXNOC * sizeof(struct powstr));
 	sprintf(buf, "Player (fd #%d)", ns);
-	empth_create(PP_PLAYER, player_login, stacksize,
-		     0, buf, np);
+	empth_create(player_login, stacksize, 0, buf, np);
     }
 }

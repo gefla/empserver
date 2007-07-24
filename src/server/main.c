@@ -331,12 +331,9 @@ start_server(int flags)
     if (journal_startup() < 0)
 	exit(1);
 
-    empth_create(PP_ACCEPT, player_accept, (50 * 1024), flags,
-		 "AcceptPlayers", 0);
-    empth_create(PP_KILLIDLE, player_kill_idle, (50 * 1024), flags,
-		 "KillIdle", 0);
-    empth_create(PP_TIMESTAMP, delete_lostitems, (50 * 1024), flags,
-		 "DeleteItems", 0);
+    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", 0);
+    empth_create(player_kill_idle, 50 * 1024, flags, "KillIdle", 0);
+    empth_create(delete_lostitems, 50 * 1024, flags, "DeleteItems", 0);
 
     market_init();
     update_init();

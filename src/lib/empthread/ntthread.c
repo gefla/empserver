@@ -418,7 +418,6 @@ empth_init(void **ctx_ptr, int flags)
  *
  * Create a new thread.
  *
- * prio  - priority, not particularly useful in our context.
  * entry - entry point function for thread.
  * size  - stack size.
  * flags - debug control.
@@ -429,7 +428,7 @@ empth_init(void **ctx_ptr, int flags)
  *         It is also passed to the entry function...
  */
 empth_t *
-empth_create(int prio, void (*entry)(void *), int size, int flags,
+empth_create(void (*entry)(void *), int size, int flags,
 	     char *name, void *ud)
 {
     empth_t *pThread = NULL;

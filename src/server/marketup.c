@@ -71,7 +71,6 @@ market_init(void)
     dp = player_new(-1);
     if (!dp)
 	exit_nomem();
-    if (!empth_create(PP_UPDATE, market_update, 50 * 1024, 0,
-		      "MarketUpdate", dp))
+    if (!empth_create(market_update, 50 * 1024, 0, "MarketUpdate", dp))
 	exit_nomem();
 }

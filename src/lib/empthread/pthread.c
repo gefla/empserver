@@ -180,14 +180,8 @@ empth_init(void **ctx_ptr, int flags)
 }
 
 
-/*
- * prio can be used for setting scheeduling policy but...
- * it seems to be optional in POSIX threads and Solaris
- * for example just ignores it.
- * More then that priority is not needed even in lwp threads.
- */
 empth_t *
-empth_create(int prio, void (*entry)(void *), int size, int flags,
+empth_create(void (*entry)(void *), int size, int flags,
 	     char *name, void *ud)
 {
     pthread_t t;

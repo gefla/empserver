@@ -85,7 +85,7 @@ update_init(void)
     stacksize = 100000 +
 /* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
 					sizeof(char *));
-    update_thread = empth_create(PP_UPDATE, update_sched, stacksize, 0,
+    update_thread = empth_create(update_sched, stacksize, 0,
 				 "Update", dp);
     if (!update_thread)
 	exit_nomem();
