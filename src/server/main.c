@@ -385,7 +385,6 @@ shutdwn(int sig)
 	empth_wakeup(p->proc);
     }
     empth_rwlock_wrlock(play_lock);
-    /* rely on player_kill_idle() for killing hung player threads */
     if (sig)
 	logerror("Server shutting down on signal %d", sig);
     else

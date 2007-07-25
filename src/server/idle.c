@@ -51,29 +51,19 @@ player_kill_idle(void *unused)
     while (1) {
 	empth_sleep(now + 60);
 	time(&now);
-	/*if (update_pending) */
-	/*continue; */
 	for (p = player_next(0); p != 0; p = player_next(p)) {
 	    if (p->state == PS_SHUTDOWN) {
-		/* player thread hung */
-		/* FIXME but for how long?  unknown if shut down elsewhere! */
-		/* FIXME this can leave stale update_lock behind! */
-		empth_terminate(p->proc);
-		p = player_delete(p);
+		/*
+		 * Player thread hung or just aborted by update or
+		 * shutdown, we can't tell.
+		 */
 		continue;
 	    }
 	    if (p->curup + max_idle * 60 < now) {
 		p->state = PS_SHUTDOWN;
-		/* giving control to another thread while
-		 * in the middle of walking player list is
-		 * not a good idea at all. Sasha */
 		p->aborted++;
 		pr_flash(p, "idle connection terminated\n");
 		empth_wakeup(p->proc);
-		/* go to sleep because player thread
-		   could vandalize a player list */
-
-		break;
 	    }
 	}
     }
