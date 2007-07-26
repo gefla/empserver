@@ -742,7 +742,7 @@ fmttime2822(time_t t)
     if (CANT_HAPPEN(nn <= 0))
 	buf[0] = 0;
 #else
-    size_t int n = strftime(buf, sizeof(buf), "%a, %d %b %Y %T %z",
+    size_t n = strftime(buf, sizeof(buf), "%a, %d %b %Y %T %z",
 		     localtime(&t));
     if (CANT_HAPPEN(n == 0))
 	buf[0] = 0;
