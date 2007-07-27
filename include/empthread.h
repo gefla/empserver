@@ -149,6 +149,8 @@ void empth_yield(void);
  * if it executed empth_exit().  It is unspecified when exactly that
  * happens.
  * THREAD must not be the current thread.
+ * Naive use of this function almost always leads to resource leaks.
+ * Terminating a thread that may hold locks is not a good idea.
  */
 void empth_terminate(empth_t *thread);
 
