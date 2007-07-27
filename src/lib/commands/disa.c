@@ -33,25 +33,13 @@
 
 #include <config.h>
 
-#if defined(_WIN32)
-#include <io.h>
-#endif
-#include <fcntl.h>
-#include <sys/stat.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
 #include "commands.h"
-#include "optlist.h"
+#include "game.h"
 
 int
 disa(void)
 {
-    int fd;
-
-    if ((fd = open(disablefil, O_RDWR | O_CREAT | O_TRUNC, S_IRWUG)) < 0)
-	return RET_FAIL;
-    close(fd);
+    game_ctrl_update(0);
     pr("Updates are disabled\n");
     return RET_OK;
 }

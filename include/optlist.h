@@ -49,7 +49,6 @@ extern char *schedulefil;
 
 extern char motdfil[];
 extern char downfil[];
-extern char disablefil[];
 extern char annfil[];
 extern char teldir[];
 extern char telfil[];

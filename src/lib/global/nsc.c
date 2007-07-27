@@ -546,6 +546,9 @@ struct castr realm_ca[] = {
 };
 
 struct castr game_ca[] = {
+    /* no need for uid */
+    {NSC_CHAR, 0, 0, offsetof(struct gamestr, game_upd_disable),
+     "upd_disable", EF_BAD},
     {NSC_SHORT, 0, 0, offsetof(struct gamestr, game_turn), "turn", EF_BAD},
     {NSC_SHORT, NSC_DEITY, 0, offsetof(struct gamestr, game_tick), "tick",
      EF_BAD},

@@ -40,6 +40,7 @@ struct gamestr {
     /* initial part must match struct empobj */
     short ef_type;
     /* end of part matching struct empobj */
+    char game_upd_disable;	/* updates disabled? */
     /*
      * The Empire clock.
      * Access it through game_tick_tick(), or else it'll be late.
@@ -52,6 +53,8 @@ struct gamestr {
 #define putgame() ef_write(EF_GAME, 0, ef_ptr(EF_GAME, 0))
 #define getgamep() ((struct gamestr *)ef_ptr(EF_GAME, 0))
 
+extern void game_ctrl_update(int);
+extern int updates_disabled(void);
 extern void game_record_update(time_t);
 extern struct gamestr *game_tick_tick(void);
 extern int game_tick_to_now(short *);

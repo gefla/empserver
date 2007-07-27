@@ -116,14 +116,3 @@ demandupdatecheck(void)
 	&& demand_update_time(&now)
 	&& demand_check();
 }
-
-int
-updates_disabled(void)
-{
-    int fd;
-
-    if ((fd = open(disablefil, O_RDONLY, 0)) < 0)
-	return 0;
-    close(fd);
-    return 1;
-}

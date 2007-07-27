@@ -33,18 +33,13 @@
 
 #include <config.h>
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#elif defined(__GNUC__)
-#include <io.h>
-#endif
 #include "commands.h"
-#include "optlist.h"
+#include "game.h"
 
 int
 enab(void)
 {
-    (void)unlink(disablefil);
+    game_ctrl_update(1);
     pr("Updates are enabled\n");
     return RET_OK;
 }

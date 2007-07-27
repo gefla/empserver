@@ -51,6 +51,27 @@
 #include "server.h"
 
 /*
+ * Disable updates 
+ */
+void
+game_ctrl_update(int enable)
+{
+    struct gamestr *game = getgamep();
+
+    game->game_upd_disable = !enable;
+    putgame();
+}
+
+/*
+ * Are updates disabled?
+ */
+int
+updates_disabled(void)
+{
+    return getgamep()->game_upd_disable;
+}
+
+/*
  * Record an update in the game file, the current time is NOW.
  */
 void
