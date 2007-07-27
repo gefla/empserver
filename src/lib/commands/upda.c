@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include "commands.h"
+#include "game.h"
 #include "optlist.h"
 #include "server.h"
 

@@ -42,6 +42,7 @@
 #endif
 #include <time.h>
 #include "empthread.h"
+#include "game.h"
 #include "misc.h"
 #include "optlist.h"
 #include "player.h"

@@ -36,6 +36,7 @@
 
 #include "commands.h"
 #include "empthread.h"
+#include "game.h"
 #include "server.h"
 
 int
