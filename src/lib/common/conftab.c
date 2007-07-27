@@ -98,7 +98,7 @@ read_custom_tables(void)
 }
 
 /*
- * Read configuaration table file FNAME.
+ * Read configuration table file FNAME.
  * Return 0 on success, -1 on error.
  */
 static int
