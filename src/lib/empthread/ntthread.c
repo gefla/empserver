@@ -620,7 +620,7 @@ empth_wait_for_signal(void)
 {
     loc_BlockThisThread();
     loc_RunThisThread(hShutdownEvent);
-    return 0;
+    return SIGTERM;
 }
 
 empth_rwlock_t *
