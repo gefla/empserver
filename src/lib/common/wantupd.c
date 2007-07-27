@@ -43,6 +43,7 @@
 #include <unistd.h>
 #endif
 #include "file.h"
+#include "game.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
