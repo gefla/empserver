@@ -38,7 +38,7 @@
 #include <config.h>
 
 #include "com.h"
-#include "nat.h"
+#include "player.h"
 #include "prototypes.h"
 
 struct cmndstr player_coms[] = {

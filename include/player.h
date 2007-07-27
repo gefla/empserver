@@ -41,6 +41,14 @@
 #include "queue.h"
 #include "types.h"
 
+	/* nstat values */
+#define VIS		bit(0)
+#define SANCT		(bit(1) | VIS)
+#define NORM		(bit(2) | VIS)
+#define GOD		(bit(3) | NORM | VIS)
+#define	CAP		bit(6)
+#define	MONEY		bit(7)
+
 struct player {
     struct emp_qelem queue;
     empth_t *proc;
@@ -57,7 +65,7 @@ struct player {
     char combuf[1024];		/* command input buffer, UTF-8 */
     char *argp[128];		/* arguments, ASCII */
     char *condarg;		/* conditional, ASCII */
-    time_t lasttime;
+    time_t lasttime;		/* when to debit minleft again */
     int ncomstat;
     int minleft;
     int btused;
@@ -67,7 +75,7 @@ struct player {
     int simulation;		/* e.g. budget command */
     double dolcost;
     int broke;
-    time_t curup;		/* used in calc of minutes used */
+    time_t curup;		/* when last input was received */
     int aborted;
     int curid;			/* for pr, cur. line's id, -1 none */
     char *map;			/* pointer to in-mem map */
@@ -75,9 +83,8 @@ struct player {
 };
 
 #define PS_INIT		0
-#define PS_LOGIN	1
-#define PS_PLAYING	2
-#define PS_SHUTDOWN	3
+#define PS_PLAYING	1
+#define PS_SHUTDOWN	2
 
 /* player flags */
 enum {

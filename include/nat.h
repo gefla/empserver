@@ -109,14 +109,6 @@ struct natstr {
     long nat_flags;		/* nation flags */
 };
 
-	/* nstat values */
-#define VIS		bit(0)
-#define SANCT		(bit(1) | VIS)
-#define NORM		(bit(2) | VIS)
-#define GOD		(bit(3) | NORM | VIS)
-#define	CAP		bit(6)
-#define	MONEY		bit(7)
-
 	/* nation relation codes */
 #define	AT_WAR		0
 #define SITZKRIEG       1
