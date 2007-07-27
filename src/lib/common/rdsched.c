@@ -208,6 +208,7 @@ parse_time(time_t *t, char *s, time_t *anchor)
 	tm = nexttm;
     }
 
+    tm.tm_isdst = -1;
     *t = mktime(&tm);
     return endp;
 }
