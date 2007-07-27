@@ -28,7 +28,7 @@
  *  look.c: Lookout from a ship or land unit
  * 
  *  Known contributors to this file:
- *     
+ *     Ron Koenderink, 2006-2007
  */
 
 #include <config.h>

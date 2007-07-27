@@ -28,7 +28,7 @@
  *  disa.c: Disable updates (deity)
  * 
  *  Known contributors to this file:
- *     
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>

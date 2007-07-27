@@ -28,7 +28,7 @@
 #   Make.mk: 
 #  
 #   Known contributors to this file:
-#      Markus Armbruster, 2005
+#      Markus Armbruster, 2005-2007
 # 
 
 # This makefile was inspired by `Recursive Make Considered Harmful',

@@ -31,7 +31,7 @@
  *     Dave Pare, 1986, 1989 
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005
+ *     Markus Armbruster, 2005-2007
  */
 
 /*

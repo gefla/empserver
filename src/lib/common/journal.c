@@ -28,7 +28,7 @@
  *  journal.c: Log a journal of events to a file
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2007
  */
 
 /*
