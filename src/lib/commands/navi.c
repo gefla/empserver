@@ -285,7 +285,6 @@ nav_map(int x, int y, int show_designations)
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
-    static unsigned char *bitmap = NULL;
     static char *wmapbuf = NULL;
     static char **wmap = NULL;
     int changed = 0;
@@ -302,14 +301,11 @@ nav_map(int x, int y, int show_designations)
 	    wmap = NULL;
 	}
     }
-    if (!bitmap)
-	bitmap = malloc((WORLD_X * WORLD_Y) / 8);
-    if (!wmapbuf || !wmap || !bitmap) {
+    if (!wmapbuf || !wmap) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in navi\n");
 	return RET_FAIL;
     }
-    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
     snxtsct_dist(&ns, x, y, 1);
     np = getnatp(player->cnum);
     xyrelrange(np, &ns.range, &range);
