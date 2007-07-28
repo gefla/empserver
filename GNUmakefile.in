@@ -74,6 +74,7 @@ prefix := @prefix@
 exec_prefix := @exec_prefix@
 bindir := @bindir@
 sbindir := @sbindir@
+datarootdir := @datarootdir@
 datadir := @datadir@
 localstatedir := @localstatedir@
 mandir := @mandir@
