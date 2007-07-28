@@ -26,8 +26,8 @@
  *  ---
  *
  *  @configure_input@
- *  path.c: Path initializations needed outside of the file initialization
- *          tables
+ *  path.c.in: Path initializations needed outside of the file
+ *	       initialization tables
  * 
  *  Known contributors to this file:
  *     Markus Armbruster, 2005
@@ -66,7 +66,6 @@ char *gamedir	= "@gamedir@";
 char teldir[]	= "tel";
 char motdfil[]	= "motd";
 char downfil[]	= "down";
-char disablefil[] = "disable";
 char telfil[]	= "tel/tel";
 char annfil[]	= "ann";
 
