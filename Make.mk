@@ -95,7 +95,6 @@ acdist := aclocal.m4 config.h.in configure stamp-h.in
 acdistcli := $(addprefix src/client/, aclocal.m4 config.h.in configure)
 # Object files:
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
-# TODO AIX needs lwpInit.o lwpRestore.o lwpSave.o unless UCONTEXT
 # Dependencies:
 deps := $(obj:.o=.d)
 # Library archives:

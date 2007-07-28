@@ -36,21 +36,13 @@
 #define LWPINT_H
 
 #include <signal.h>
-#ifdef UCONTEXT
 #include <ucontext.h>
-#else  /* !UCONTEXT */
-#include <setjmp.h>
-#endif /* !UCONTEXT */
 
 #include "misc.h"
 
 /* process control block.  do *not* change the position of context */
 struct lwpProc {
-#ifdef UCONTEXT
     ucontext_t context;		/* context structure */
-#else  /* !UCONTEXT */
-    jmp_buf context;		/* processor context area */
-#endif /* !UCONTEXT */
     void *sbtm;			/* stack buffer attached to it */
     int size;			/* size of stack buffer */
     char *ustack;		/* lowest usable stack address */
