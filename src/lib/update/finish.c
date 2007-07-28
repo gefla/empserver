@@ -77,20 +77,15 @@ finish_sects(int etu)
     if (g_distptrs == NULL) {
 	logerror("First update since reboot, allocating buffer\n");
 	/* Allocate the information buffer */
-	g_distptrs = (struct distinfo *)(malloc((WORLD_X * WORLD_Y) *
-						sizeof(struct distinfo)));
+	g_distptrs = malloc((WORLD_X * WORLD_Y / 2) * sizeof(*g_distptrs));
 	if (g_distptrs == NULL) {
 	    logerror("malloc failed in finish_sects.\n");
 	    return;
 	}
-
-	logerror("Allocated '%lu' bytes '%d' indices\n",
-		 (unsigned long)(WORLD_X * WORLD_Y * sizeof(struct distinfo)),
-		 WORLD_X * WORLD_Y);
     }
 
     /* Wipe it clean */
-    memset(g_distptrs, 0, ((WORLD_X * WORLD_Y) * sizeof(struct distinfo)));
+    memset(g_distptrs, 0, (WORLD_X * WORLD_Y / 2) * sizeof(*g_distptrs));
 
     logerror("delivering...\n");
     /* Do deliveries */

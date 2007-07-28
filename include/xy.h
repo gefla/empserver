@@ -36,9 +36,8 @@
 
 #include "types.h"
 
-/* Used to calculate an offset into an array.  Used for
-   dynamically sizing the world. */
-#define XYOFFSET(x, y) (((y) * WORLD_X) + (x))
+/* Fast version of sctoff() for normalized arguments: */
+#define XYOFFSET(x, y) (((y) * WORLD_X + (x)) / 2)
 
 #define XNORM(x) \
     (((x) < 0) ? ((WORLD_X - (-(x) % WORLD_X)) % WORLD_X) : ((x) % WORLD_X))
