@@ -71,7 +71,7 @@ static enum bp_item_idx bud_key[I_MAX + 1] = {
 static struct bp *
 bp_ref(struct bp *bp, struct sctstr *sp)
 {
-    return &bp[sp->sct_x + sp->sct_y * WORLD_X];
+    return &bp[XYOFFSET(sp->sct_x, sp->sct_y)];
 }
 
 /*
@@ -142,5 +142,5 @@ bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 struct bp *
 bp_alloc(void)
 {
-    return calloc(WORLD_X * WORLD_Y, sizeof(struct bp));
+    return calloc(WORLD_SZ(), sizeof(struct bp));
 }
