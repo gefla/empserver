@@ -167,11 +167,9 @@ yabs(struct natstr *np, coord rely)
 int
 sctoff(coord x, coord y)
 {
-    if ((x + y) & 01) {
-	logerror("%d,%d is an invalid sector specification!\n", x, y);
+    if (CANT_HAPPEN((x + y) & 1))
 	return -1;
-    }
-    return (YNORM(y) * WORLD_X + XNORM(x)) / 2;
+    return XYOFFSET(XNORM(x), YNORM(y));
 }
 
 coord
