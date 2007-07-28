@@ -219,9 +219,9 @@ player_accept(void *unused)
 	if (NULL != hostp)
 	    strcpy(np->hostname, hostp->h_name);
 #endif /* RESOLVE_IPADDRESS */
-	/* XXX may not be big enough */
+	/* FIXME ancient black magic; figure out true stack need */
 	stacksize = 100000
-/* budget */  + MAX(WORLD_X * WORLD_Y / 2 * sizeof(int) * 7,
+/* budget */  + MAX(WORLD_SZ() * sizeof(int) * 7,
 /* power */ MAXNOC * sizeof(struct powstr));
 	sprintf(buf, "Player (fd #%d)", ns);
 	empth_create(player_login, stacksize, 0, buf, np);

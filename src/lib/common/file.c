@@ -559,7 +559,7 @@ ef_init(void)
     struct symbol *lup;
     int i;
 
-    empfile[EF_MAP].size = empfile[EF_BMAP].size = (WORLD_X * WORLD_Y) / 2;
+    empfile[EF_MAP].size = empfile[EF_BMAP].size = WORLD_SZ();
 
     ca = (struct castr *)empfile[EF_META].cache;
     for (i = 0; ca[i].ca_name; i++) ;

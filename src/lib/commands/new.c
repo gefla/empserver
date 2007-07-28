@@ -203,12 +203,12 @@ isok(int x, int y)
 
     nmin = ngold = noil = nur = 0;
     navail = nfree = nowned = 0;
-    if ((map = malloc((WORLD_X * WORLD_Y) / 2)) == 0) {
+    if (!(map = malloc(WORLD_SZ()))) {
 	logerror("malloc failed in isok\n");
 	pr("Memory error.  Tell the deity.\n");
 	return 0;
     }
-    memset(map, 0, (WORLD_X * WORLD_Y) / 2);
+    memset(map, 0, WORLD_SZ());
     ok(map, x, y);
     free(map);
     if (nfree < 5)

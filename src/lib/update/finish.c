@@ -77,7 +77,7 @@ finish_sects(int etu)
     if (g_distptrs == NULL) {
 	logerror("First update since reboot, allocating buffer\n");
 	/* Allocate the information buffer */
-	g_distptrs = malloc((WORLD_X * WORLD_Y / 2) * sizeof(*g_distptrs));
+	g_distptrs = malloc(WORLD_SZ() * sizeof(*g_distptrs));
 	if (g_distptrs == NULL) {
 	    logerror("malloc failed in finish_sects.\n");
 	    return;
@@ -85,7 +85,7 @@ finish_sects(int etu)
     }
 
     /* Wipe it clean */
-    memset(g_distptrs, 0, (WORLD_X * WORLD_Y / 2) * sizeof(*g_distptrs));
+    memset(g_distptrs, 0, WORLD_SZ() * sizeof(*g_distptrs));
 
     logerror("delivering...\n");
     /* Do deliveries */

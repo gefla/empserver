@@ -196,7 +196,7 @@ main(int argc, char *argv[])
 	    putsect(&sct);
 	}
     }
-    map = calloc(WORLD_X * WORLD_Y / 2, sizeof(*map));
+    map = calloc(WORLD_SZ(), sizeof(*map));
     for (i = 0; i < MAXNOC; i++) {
 	ef_write(EF_MAP, i, map);
     }

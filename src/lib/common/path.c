@@ -83,8 +83,7 @@ bp_init(void)
 	return NULL;
 
     if (neighsects == NULL)
-	neighsects = calloc(((WORLD_X * WORLD_Y) / 2) * 6,
-			    sizeof(struct sctstr *));
+	neighsects = calloc(WORLD_SZ() * 6, sizeof(struct sctstr *));
 
     return bp;
 }
@@ -193,7 +192,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
     y = c.y;
     sx = XNORM(x);
     sy = YNORM(y);
-    offset = (sy * WORLD_X + sx) / 2;
+    offset = XYOFFSET(sx, sy);
     from = &sectp[offset];
 
     if (neighsects == NULL)
@@ -207,7 +206,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	    ny = y + diroff[q][1];
 	    sx = XNORM(nx);
 	    sy = YNORM(ny);
-	    offset = (sy * WORLD_X + sx) / 2;
+	    offset = XYOFFSET(sx, sy);
 	    sp = &sectp[offset];
 	    *ssp = sp;
 	} else {
@@ -246,7 +245,7 @@ bp_lbcost(struct as_coord from, struct as_coord to, void *pp)
     y = to.y;
     sx = XNORM(x);
     sy = YNORM(y);
-    offset = (sy * WORLD_X + sx) / 2;
+    offset = XYOFFSET(sx, sy);
     return sector_mcost(&sectp[offset], bp->bp_mobtype);
 }
 
@@ -327,7 +326,7 @@ pathcost(struct sctstr *start, char *path, int mob_type)
 	cy += diroff[o][1];
 	sx = XNORM(cx);
 	sy = YNORM(cy);
-	offset = (sy * WORLD_X + sx) / 2;
+	offset = XYOFFSET(sx, sy);
 	sp = &sectp[offset];
 	cost += sector_mcost(sp, mob_type);
 	path++;

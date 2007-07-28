@@ -36,7 +36,10 @@
 
 #include "types.h"
 
-/* Fast version of sctoff() for normalized arguments: */
+/* Return the number of sectors in the world */
+#define WORLD_SZ() (WORLD_X * WORLD_Y / 2)
+
+/* Fast version of sctoff() for normalized arguments */
 #define XYOFFSET(x, y) (((y) * WORLD_X + (x)) / 2)
 
 #define XNORM(x) \
