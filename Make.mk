@@ -74,7 +74,7 @@ ehtmldir := $(datadir)/empire/info.html
 # How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.
 subst.in = sed \
-	-e 's?@configure_input\@?$(notdir $@).  Generated from $(notdir $<) by GNUmakefile.?g' \
+	-e 's?@configure_input\@?$(notdir $@): Generated from $(notdir $<) by make.?g' \
 	-e 's?@builtindir\@?$(builtindir)?g'	\
 	-e 's?@econfig\@?$(econfig)?g'		\
 	-e 's?@einfodir\@?$(einfodir)?g'	\
