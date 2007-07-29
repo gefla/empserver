@@ -176,7 +176,7 @@ static int stable(void);
 static void elevate_land(void);
 static void elevate_sea(void);
 static int map_symbol(int x, int y);
-static void fl_sct_init(coord, coord, struct sctstr *, time_t timestamp);
+static void fl_sct_init(coord, coord, struct sctstr *);
 static void set_coastal_flags(void);
 
 static void print_vars(void);
@@ -1085,13 +1085,12 @@ write_sects(void)
 {
     struct sctstr *sct;
     int c, x, y, total;
-    time_t current_time = time(NULL);
 
     /*  sct = &sects[0][0]; */
     sct = sectsbuf;
     for (y = 0; y < YSIZE; y++) {
 	for (x = 0; x < XSIZE; x++, sct++) {
-	    fl_sct_init(x * 2 + (y & 1), y, sct, current_time);
+	    fl_sct_init(x * 2 + (y & 1), y, sct);
 	    total = elev[sct->sct_x][y];
 	    if (total < LANDMIN) {
 		sct->sct_type = SCT_WATER;
@@ -1219,7 +1218,7 @@ qprint(const char * const fmt, ...)
 }
 
 static void
-fl_sct_init(coord x, coord y, struct sctstr *sp, time_t timestamp)
+fl_sct_init(coord x, coord y, struct sctstr *sp)
 {
     sp->ef_type = EF_SECTOR;
     sp->sct_x = x;
@@ -1229,7 +1228,6 @@ fl_sct_init(coord x, coord y, struct sctstr *sp, time_t timestamp)
     sp->sct_road = 0;
     sp->sct_rail = 0;
     sp->sct_defense = 0;
-    sp->sct_timestamp = timestamp;
     sp->sct_coastal = 1;
 }
 

@@ -62,8 +62,7 @@
 #include "trade.h"
 #include "version.h"
 
-static void file_sct_init(coord, coord, struct sctstr *ptr,
-			  time_t timestamp);
+static void file_sct_init(coord, coord, struct sctstr *ptr);
 
 static void
 print_usage(char *program_name)
@@ -92,7 +91,6 @@ main(int argc, char *argv[])
     int opt;
     char *config_file = NULL;
     int force = 0;
-    time_t current_time = time(NULL);
 
     while ((opt = getopt(argc, argv, "e:fhv")) != EOF) {
 	switch (opt) {
@@ -173,7 +171,6 @@ main(int argc, char *argv[])
 	for (j = 0; j < MAXNOR; j++) {
 	    realm.r_realm = j;
 	    realm.r_uid = (i * MAXNOR) + j;
-	    realm.r_timestamp = current_time;
 	    putrealm(&realm);
 	}
     }
@@ -192,7 +189,7 @@ main(int argc, char *argv[])
     memset(&sct, 0, sizeof(sct));
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = 0; x < WORLD_X / 2; x++) {
-	    file_sct_init(x * 2 + (y & 1), y, &sct, current_time);
+	    file_sct_init(x * 2 + (y & 1), y, &sct);
 	    putsect(&sct);
 	}
     }
@@ -213,7 +210,7 @@ main(int argc, char *argv[])
 }
 
 static void
-file_sct_init(coord x, coord y, struct sctstr *ptr, time_t timestamp)
+file_sct_init(coord x, coord y, struct sctstr *ptr)
 {
     struct sctstr *sp = (struct sctstr *)ptr;
 
@@ -222,7 +219,6 @@ file_sct_init(coord x, coord y, struct sctstr *ptr, time_t timestamp)
     sp->sct_y = y;
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
-    sp->sct_timestamp = timestamp;
     sp->sct_newtype = sp->sct_type = SCT_WATER;
     sp->sct_coastal = 1;
 }
