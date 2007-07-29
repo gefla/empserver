@@ -45,7 +45,6 @@
 int
 upda(void)
 {
-    FILE *fp;
     time_t now, next, stop;
 
     if (updates_disabled())
