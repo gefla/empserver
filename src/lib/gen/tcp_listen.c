@@ -86,8 +86,8 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	 * port is still in state TIME_WAIT.  Windows' SO_REUSEADDR is
 	 * broken: it makes bind() succeed no matter what, even if
 	 * there's another server running on the same port.  Luckily,
-	 * bind() seems to be broken as well: it seems to suceed while
-	 * the port in state TIME_WAIT by default; thus we get the
+	 * bind() seems to be broken as well: it seems to succeed while
+	 * the port is in state TIME_WAIT by default; thus we get the
 	 * behavior we want by not setting SO_REUSEADDR.
 	 */
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
