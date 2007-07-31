@@ -106,6 +106,7 @@ ef_open(int type, int how)
     lock.l_start = lock.l_len = 0;
     if (fcntl(fd, F_SETLK, &lock) == -1) {
 	logerror("Can't lock %s (%s)", ep->file, strerror(errno));
+	close(fd);
 	return 0;
     }
 #endif
