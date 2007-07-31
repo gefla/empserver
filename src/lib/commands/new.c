@@ -153,8 +153,7 @@ new(void)
     natp->nat_level[NAT_TLEV] = start_technology;
     natp->nat_level[NAT_ELEV] = start_education;
     natp->nat_tgms = 0;
-    (void)close(open(mailbox(buf, num), O_RDWR | O_TRUNC | O_CREAT,
-		S_IRWUG));
+    close(creat(mailbox(buf, num), S_IRWUG));
     init_sanct(natp, x, y);
     init_sanct(natp, x + 2, y);
     putnat(natp);
