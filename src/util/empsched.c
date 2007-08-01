@@ -68,7 +68,7 @@ main(int argc, char *argv[])
     char *config_file = NULL;
     char *in_file;
     unsigned long n = DFLT_N;
-    time_t sched[MAX_N + 1];
+    time_t sched[MAX_N + 1], anchor;
     int opt, i;
 
     while ((opt = getopt(argc, argv, "e:n:hv")) != EOF) {
@@ -106,7 +106,9 @@ main(int argc, char *argv[])
     else
 	in_file = argv[optind];
 
-    read_schedule(in_file, sched, n + 1, 0, 0/* FIXME */);
+    anchor = (time(NULL) + 59) / 60 * 60;
+    if (read_schedule(in_file, sched, n + 1, 0, anchor) < 0)
+	exit(1);
 
     for (i = 0; sched[i]; i++)
 	printf("%s", ctime(&sched[i]));
