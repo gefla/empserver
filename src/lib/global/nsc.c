@@ -525,7 +525,6 @@ struct castr cou_ca[] = {
      "contacts", EF_BAD},
     {NSC_UCHAR, NSC_EXTRA | NSC_BITS, MAXNOC, fldoff(natstr, nat_rejects),
      "rejects", EF_NATION_REJECTS},
-    /* FIXME nat_priorities[] */
     {NSC_LONG, NSC_BITS, 0, fldoff(natstr, nat_flags), "flags",
      EF_NATION_FLAGS},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
