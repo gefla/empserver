@@ -403,8 +403,8 @@ bmaps_intersect(natid a, natid b)
     char *mapb = ef_ptr(EF_MAP, b);
     int i;
 
-    for (i = 0; i < WORLD_SZ(); ++i, ++mapa, ++mapb)
-	if (*mapa && *mapa != ' ' && *mapb && *mapb != ' ')
+    for (i = 0; i < WORLD_SZ(); i++)
+	if (mapa[i] && mapa[i] != ' ' && mapb[i] && mapb[i] != ' ')
 	    return 1;
     return 0;
 }
