@@ -75,6 +75,8 @@ EMPCFBOTH("custom_tables", custom_tables, char *, NSC_STRING, KM_INTERNAL,
     "Custom configuration table files, separated by space")
 EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
+EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relative\n"
+	      "# name may change.")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where info pages are stored, can be shared among games")
 EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relative\n"
@@ -110,7 +112,6 @@ EMPCFBOTH("update_window", update_window, int, NSC_INT, 0,
     "Time window the update will occur in after the update time, in seconds")
 EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, KM_INTERNAL,
     "Shell command run right before the update.")
-
 EMPCFBOTH("update_demand", update_demand, int, NSC_INT, 0,
     "Demand update policy")
 EMPCF_COMMENT("# 0 - No demand updates\n"

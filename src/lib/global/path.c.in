@@ -52,7 +52,7 @@ char *custom_tables = "";
 /* Update schedule (absolute file name) */
 char *schedulefil;
 
-/* Where to find built-in configuration tables  (relative to configdir) */
+/* Where to find built-in configuration tables (relative to configdir) */
 char *builtindir = "@builtindir@";
 
 /* Where to find info pages (relative to gamedir) */
@@ -60,6 +60,7 @@ char *builtindir = "@builtindir@";
 char *infodir	= "@einfodir@";
 
 /* Where this game's data is stored (relative to configdir) */
+/* FIXME relative broken in utility programs */
 char *gamedir	= "@gamedir@";
 
 /* These are relative to gamedir: */
