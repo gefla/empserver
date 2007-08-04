@@ -124,6 +124,10 @@ empth_obj := src/lib/empthread/ntthread.o
 empth_lib :=
 endif
 
+ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
+libs += lib/libw32.a
+endif
+
 # Cleanliness
 # Each generated file should be in one of the following sets.
 # Removed by clean:
@@ -262,6 +266,7 @@ lib/libcommon.a: $(filter src/lib/common/%, $(obj))
 lib/libgen.a: $(filter src/lib/gen/%, $(obj))
 lib/libglobal.a: $(filter src/lib/global/%, $(obj))
 lib/liblwp.a: $(filter src/lib/lwp/%, $(obj))
+lib/libw32.a: $(filter src/lib/w32/%, $(obj))
 
 $(libs) $(empth_lib):
 	$(AR) rc $@ $?
