@@ -81,7 +81,7 @@ static int xunsymbol(char *, struct castr *, int);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
-static int xundump1(FILE *, int);
+static int xundump1(FILE *);
 static int xundump2(FILE *, int, struct castr *);
 
 static int
@@ -790,7 +790,7 @@ xundump2(FILE *fp, int type, struct castr *ca)
     for (;;) {
 	if (xuheader1(fp, ca) < 0)
 	    return -1;
-	if (xundump1(fp, type) < 0)
+	if (xundump1(fp) < 0)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
@@ -802,10 +802,10 @@ xundump2(FILE *fp, int type, struct castr *ca)
 }
 
 static int
-xundump1(FILE *fp, int type)
+xundump1(FILE *fp)
 {
-    struct empfile *ep = &empfile[type];
-    int need_sentinel = !EF_IS_GAME_STATE(type);
+    struct empfile *ep = &empfile[cur_type];
+    int need_sentinel = !EF_IS_GAME_STATE(cur_type);
     int row, n, ch;
 
     n = 0;
@@ -825,15 +825,15 @@ xundump1(FILE *fp, int type)
     if (CANT_HAPPEN(n > ep->fids))
 	n = ep->fids;
     if (n < ep->fids) {
-	if (EF_IS_GAME_STATE(type) && n != ep->csize)
+	if (EF_IS_GAME_STATE(cur_type) && n != ep->csize)
 	    /* TODO truncate file */
 	    gripe("Warning: should resize table %s from %d to %d, not implemented",
-		  ef_nameof(type), ep->csize, n);
-	else if (type >= EF_SHIP_CHR && type <= EF_NUKE_CHR)
+		  ef_nameof(cur_type), ep->csize, n);
+	else if (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR)
 	    ep->cids = ep->fids = n;
 	else
 	    return gripe("Table %s requires %d rows, got %d",
-			 ef_nameof(type), ep->fids, n);
+			 ef_nameof(cur_type), ep->fids, n);
     }
 
     if (need_sentinel) {
