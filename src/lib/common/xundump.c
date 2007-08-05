@@ -72,7 +72,7 @@ static int *cafldspp;		/* ditto, in previous parts */
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
-static int defellipsis(int fldno);
+static int defellipsis(void);
 static int chkflds(void);
 static int setnum(int, double);
 static int setstr(int, char *);
@@ -166,7 +166,7 @@ xufldname(FILE *fp, int i)
 	    return gripe("Junk in header field %d", i + 1);
 	if (i == 0)
 	    return gripe("... not allowed in field 1");
-	if (defellipsis(i) < 0)
+	if (defellipsis() < 0)
 	    return -1;
 	ch = skipfs(fp);
 	if (ch != EOF && ch != '\n')
@@ -331,14 +331,13 @@ deffld(int fldno, char *name, int idx)
 }
 
 static int
-defellipsis(int fldno)
+defellipsis(void)
 {
     struct castr *ca = ef_cadef(cur_type);
 
     if (ca[0].ca_table != cur_type)
 	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
-    ellipsis = fldno;
-    is_partial = 1;
+    ellipsis = is_partial = 1;
     return 0;
 }
 
