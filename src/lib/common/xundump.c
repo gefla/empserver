@@ -81,8 +81,8 @@ static int xunsymbol(char *, struct castr *, int);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
-static int xundump1(FILE *);
-static int xundump2(FILE *, int, struct castr *);
+static int xubody(FILE *);
+static int xutail(FILE *, int, struct castr *);
 
 static int
 gripe(char *fmt, ...)
@@ -677,7 +677,7 @@ xuheader(FILE *fp, int expected_table)
 }
 
 static int
-xuheader1(FILE *fp, struct castr ca[])
+xufldhdr(FILE *fp, struct castr ca[])
 {
     struct castr **fca;
     int *fidx;
@@ -714,7 +714,7 @@ xuheader1(FILE *fp, struct castr ca[])
 }
 
 static int
-xutrailer(FILE *fp, int row)
+xufooter(FILE *fp, int row)
 {
     int rows, res;
 
@@ -764,7 +764,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     caseen = calloc(nca, sizeof(*caseen));
     cur_type = type;
 
-    if (xundump2(fp, type, ca) < 0)
+    if (xutail(fp, type, ca) < 0)
 	type = EF_BAD;
 
     free(caseen);
@@ -782,17 +782,17 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 }
 
 static int
-xundump2(FILE *fp, int type, struct castr *ca)
+xutail(FILE *fp, int type, struct castr *ca)
 {
     int recs, i;
 
     is_partial = 0;
     for (;;) {
-	if (xuheader1(fp, ca) < 0)
+	if (xufldhdr(fp, ca) < 0)
 	    return -1;
-	if ((recs = xundump1(fp)) < 0)
+	if ((recs = xubody(fp)) < 0)
 	    return -1;
-	if (xutrailer(fp, recs) < 0)
+	if (xufooter(fp, recs) < 0)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
@@ -804,7 +804,7 @@ xundump2(FILE *fp, int type, struct castr *ca)
 }
 
 static int
-xundump1(FILE *fp)
+xubody(FILE *fp)
 {
     struct empfile *ep = &empfile[cur_type];
     int need_sentinel = !EF_IS_GAME_STATE(cur_type);
