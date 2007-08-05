@@ -81,7 +81,7 @@ static int xunsymbol(char *, struct castr *, int);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
-static int xundump1(FILE *, int, struct castr *);
+static int xundump1(FILE *, int);
 static int xundump2(FILE *, int, struct castr *);
 
 static int
@@ -677,7 +677,7 @@ xuheader(FILE *fp, int expected_table)
 }
 
 static int
-xuheader1(FILE *fp, int type, struct castr ca[])
+xuheader1(FILE *fp, struct castr ca[])
 {
     struct castr **fca;
     int *fidx;
@@ -714,7 +714,7 @@ xuheader1(FILE *fp, int type, struct castr ca[])
 }
 
 static int
-xutrailer(FILE *fp, int type, int row)
+xutrailer(FILE *fp, int row)
 {
     int rows, res;
 
@@ -788,9 +788,9 @@ xundump2(FILE *fp, int type, struct castr *ca)
 
     is_partial = 0;
     for (;;) {
-	if (xuheader1(fp, type, ca) < 0)
+	if (xuheader1(fp, ca) < 0)
 	    return -1;
-	if (xundump1(fp, type, ca) < 0)
+	if (xundump1(fp, type) < 0)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
@@ -802,7 +802,7 @@ xundump2(FILE *fp, int type, struct castr *ca)
 }
 
 static int
-xundump1(FILE *fp, int type, struct castr *ca)
+xundump1(FILE *fp, int type)
 {
     struct empfile *ep = &empfile[type];
     int need_sentinel = !EF_IS_GAME_STATE(type);
@@ -842,7 +842,7 @@ xundump1(FILE *fp, int type, struct castr *ca)
 	memset(ep->cache + ep->size * n, 0, ep->size);
     }
 
-    if (xutrailer(fp, type, row) < 0)
+    if (xutrailer(fp, row) < 0)
 	return -1;
 
     return 0;
