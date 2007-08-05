@@ -402,14 +402,12 @@ fldval_must_match(int fldno)
 }
 
 static void *
-getobj(struct castr *ca, int altid)
+getobj(void)
 {
     struct empfile *ep = &empfile[cur_type];
     int need_sentinel = !EF_IS_GAME_STATE(cur_type);
 
     if (!cur_obj) {
-	if (ca->ca_table == cur_type)
-	    cur_id = altid;
 	cur_obj_is_blank = cur_id >= ep->fids;
 	if (cur_obj_is_blank) {
 	    /* TODO grow cache (and posssibly file) unless EFF_STATIC */
@@ -438,7 +436,13 @@ setnum(int fldno, double dbl)
     if (!ca)
 	return -1;
 
-    memb_ptr = getobj(ca, (int)dbl);
+    /*
+     * If this is the record index, put it into cur_id.
+     */
+    if (fldno == 0 && ca->ca_table == cur_type)
+	cur_id = (int)dbl;
+
+    memb_ptr = getobj();
     if (!memb_ptr)
 	return -1;
     memb_ptr += ca->ca_off;
@@ -518,7 +522,7 @@ setstr(int fldno, char *str)
     if (!ca)
 	return -1;
 
-    memb_ptr = getobj(ca, cur_id);
+    memb_ptr = getobj();
     if (!memb_ptr)
 	return -1;
     memb_ptr += ca->ca_off;
