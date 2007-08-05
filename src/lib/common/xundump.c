@@ -722,20 +722,20 @@ xufldhdr(FILE *fp, struct castr ca[])
 }
 
 static int
-xufooter(FILE *fp, struct castr ca[], int row)
+xufooter(FILE *fp, struct castr ca[], int recs)
 {
-    int res, rows, i;
+    int res, n, i;
 
     res = -1;
     if (human) {
 	if (fscanf(fp, "config%n",  &res) != 0 || res < 0)
 	    return gripe("Malformed table footer");
     } else {
-	if (fscanf(fp, "%d", &rows) != 1)
+	if (fscanf(fp, "%d", &n) != 1)
 	    return gripe("Malformed table footer");
-	if (row != rows)
+	if (recs != n)
 	    return gripe("Read %d rows, which doesn't match footer "
-			 "%d rows", row, rows);
+			 "%d rows", recs, n);
     }
     if (skipfs(fp) != '\n')
 	return gripe("Junk after table footer");
@@ -819,41 +819,41 @@ xubody(FILE *fp)
 {
     struct empfile *ep = &empfile[cur_type];
     int need_sentinel = !EF_IS_GAME_STATE(cur_type);
-    int row, n, ch;
+    int i, maxid, ch;
 
-    n = 0;
-    for (row = 0;; ++row) {
+    maxid = 0;
+    for (i = 0;; ++i) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
 	if (ch == '/')
 	    break;
 	ungetc(ch, fp);
 	cur_obj = NULL;
-	cur_id = row;
+	cur_id = i;
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
-	n = MAX(n, cur_id + 1);
+	maxid = MAX(maxid, cur_id + 1);
     }
 
-    if (CANT_HAPPEN(n > ep->fids))
-	n = ep->fids;
-    if (n < ep->fids) {
-	if (EF_IS_GAME_STATE(cur_type) && n != ep->csize)
+    if (CANT_HAPPEN(maxid > ep->fids))
+	maxid = ep->fids;
+    if (maxid < ep->fids) {
+	if (EF_IS_GAME_STATE(cur_type) && maxid != ep->csize)
 	    /* TODO truncate file */
 	    gripe("Warning: should resize table %s from %d to %d, not implemented",
-		  ef_nameof(cur_type), ep->csize, n);
+		  ef_nameof(cur_type), ep->csize, maxid);
 	else if (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR)
-	    ep->cids = ep->fids = n;
+	    ep->cids = ep->fids = maxid;
 	else
 	    return gripe("Table %s requires %d rows, got %d",
-			 ef_nameof(cur_type), ep->fids, n);
+			 ef_nameof(cur_type), ep->fids, maxid);
     }
 
     if (need_sentinel) {
-	if (CANT_HAPPEN(n >= ep->csize))
+	if (CANT_HAPPEN(maxid >= ep->csize))
 	    return gripe("No space for sentinel");
-	memset(ep->cache + ep->size * n, 0, ep->size);
+	memset(ep->cache + ep->size * maxid, 0, ep->size);
     }
 
-    return row;
+    return i;
 }
