@@ -687,11 +687,12 @@ xufldhdr(FILE *fp, struct castr ca[])
     int *fidx;
     int ch, i, j, n;
 
+    ellipsis = 0;
+
     if (human) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
 	ungetc(ch, fp);
-	ellipsis = 0;
 	nflds = xuflds(fp, xufldname);
 	if (nflds < 0)
 	    return -1;
