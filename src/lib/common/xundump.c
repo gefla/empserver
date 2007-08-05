@@ -164,8 +164,6 @@ xufldname(FILE *fp, int i)
     case '.':
 	if (getc(fp) != '.' || getc(fp) != '.')
 	    return gripe("Junk in header field %d", i + 1);
-	if (i == 0)
-	    return gripe("... not allowed in field 1");
 	if (defellipsis() < 0)
 	    return -1;
 	ch = skipfs(fp);
