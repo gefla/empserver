@@ -43,7 +43,6 @@
  * - Symbolic array indexes
  * TODO, but hardly worth the effort:
  * - Permit reordering of array elements
- * - Permit repetition of array elements in split tables
  */
 
 #include <config.h>
@@ -68,8 +67,8 @@ static int cur_obj_is_blank;
 static int nflds;
 static struct castr **fldca;
 static int *fldidx;
-static int *caflds;
-static unsigned char *caseen;
+static int *caflds;		/* Map selector number to #fields seen */
+static int *cafldspp;		/* ditto, in previous parts */
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
@@ -321,15 +320,13 @@ deffld(int fldno, char *name, int idx)
 	    return gripe("Header %s doesn't take an index in field %d",
 			 ca[res].ca_name, fldno + 1);
 	idx = 0;
-	if (caflds[res] && !caseen[res])
-	    /* FIXME doesn't catch dupes within table part when caseen[res] */
+	if (caflds[res])
 	    return gripe("Duplicate header %s in field %d",
 			 ca[res].ca_name, fldno + 1);
     }
     fldca[fldno] = &ca[res];
     fldidx[fldno] = idx;
-    if (!caseen[res])
-	caflds[res]++;
+    caflds[res]++;
     return 1;
 }
 
@@ -349,29 +346,30 @@ static int
 chkflds(void)
 {
     struct castr *ca = ef_cadef(cur_type);
-    int i, len, res = 0;
+    int i, len, cafldsmax, res = 0;
 
     if (is_partial) {
-	/* Require index field */
+	/* Need a join field, use 0-th selector */
 	if (!caflds[0])
 	    return gripe("Header field %s required with ...", ca[0].ca_name);
-	/* Want the index field again in continued table: */
-	caflds[0] = 0;
-	return 0;
     }
 
+    if (ellipsis)
+	return 0;
+
     for (i = 0; ca[i].ca_name; i++) {
+	cafldsmax = MAX(caflds[i], cafldspp[i]);
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	len = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
-	if (!len && !caflds[i])
+	if (!len && !cafldsmax)
 	    res = gripe("Header field %s missing", ca[i].ca_name);
-	else if (len && caflds[i] == len - 1)
+	else if (len && cafldsmax == len - 1)
 	    res = gripe("Header field %s(%d) missing",
 			ca[i].ca_name, len - 1);
-	else if (len && caflds[i] < len - 1)
+	else if (len && cafldsmax < len - 1)
 	    res = gripe("Header fields %s(%d) ... %s(%d) missing",
-			ca[i].ca_name, caflds[i], ca[i].ca_name, len - 1);
+			ca[i].ca_name, cafldsmax, ca[i].ca_name, len - 1);
     }
 
     return res;
@@ -397,8 +395,13 @@ fldval_must_match(int fldno)
     struct castr *ca = ef_cadef(cur_type);
     int i = fldca[fldno] - ca;
 
+    /*
+     * Value must match if:
+     * it's for a const selector, unless the object is still blank, or
+     * it was already given in a previous part of a split table.
+     */
     return (!cur_obj_is_blank && (fldca[fldno]->ca_flags & NSC_CONST))
-	|| caseen[i];
+	|| fldidx[fldno] < cafldspp[i];
 }
 
 static void *
@@ -687,6 +690,8 @@ xufldhdr(FILE *fp, struct castr ca[])
     int *fidx;
     int ch, i, j, n;
 
+    for (i = 0; ca[i].ca_name; i++)
+	caflds[i] = 0;
     ellipsis = 0;
 
     if (human) {
@@ -719,9 +724,9 @@ xufldhdr(FILE *fp, struct castr ca[])
 }
 
 static int
-xufooter(FILE *fp, int row)
+xufooter(FILE *fp, struct castr ca[], int row)
 {
-    int rows, res;
+    int res, rows, i;
 
     res = -1;
     if (human) {
@@ -737,6 +742,11 @@ xufooter(FILE *fp, int row)
     if (skipfs(fp) != '\n')
 	return gripe("Junk after table footer");
     lineno++;
+
+    for (i = 0; ca[i].ca_name; i++) {
+	if (cafldspp[i] < caflds[i])
+	    cafldspp[i] = caflds[i];
+    }
 
     return 0;
 }
@@ -765,14 +775,14 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     }
     fldca = calloc(nf, sizeof(*fldca));
     fldidx = calloc(nf, sizeof(*fldidx));
-    caflds = calloc(nca, sizeof(*caflds));
-    caseen = calloc(nca, sizeof(*caseen));
+    caflds = malloc(nca * sizeof(*caflds));
+    cafldspp = calloc(nca, sizeof(*cafldspp));
     cur_type = type;
 
     if (xutail(fp, ca) < 0)
 	type = EF_BAD;
 
-    free(caseen);
+    free(cafldspp);
     free(caflds);
     free(fldidx);
     free(fldca);
@@ -789,7 +799,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 static int
 xutail(FILE *fp, struct castr *ca)
 {
-    int recs, i;
+    int recs;
 
     is_partial = 0;
     for (;;) {
@@ -797,12 +807,10 @@ xutail(FILE *fp, struct castr *ca)
 	    return -1;
 	if ((recs = xubody(fp)) < 0)
 	    return -1;
-	if (xufooter(fp, recs) < 0)
+	if (xufooter(fp, ca, recs) < 0)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
-	for (i = 0; ca[i].ca_name; i++)
-	    caseen[i] = caflds[i] != 0;
 	if (xuheader(fp, cur_type) < 0)
 	    return -1;
     }
