@@ -215,7 +215,8 @@ xufld(FILE *fp, int i)
     case EOF:
 	return gripe("Unexpected EOF");
     case '\n':
-	if (i != nflds) {
+	CANT_HAPPEN(i > nflds);
+	if (i < nflds) {
 	    if (fldca[i]->ca_type != NSC_STRINGY && fldca[i]->ca_len)
 		return gripe("Field %s(%d) missing",
 			     fldca[i]->ca_name, fldidx[i]);
