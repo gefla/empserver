@@ -82,7 +82,7 @@ static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
 static int xubody(FILE *);
-static int xutail(FILE *, int, struct castr *);
+static int xutail(FILE *, struct castr *);
 
 static int
 gripe(char *fmt, ...)
@@ -768,7 +768,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     caseen = calloc(nca, sizeof(*caseen));
     cur_type = type;
 
-    if (xutail(fp, type, ca) < 0)
+    if (xutail(fp, ca) < 0)
 	type = EF_BAD;
 
     free(caseen);
@@ -786,7 +786,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 }
 
 static int
-xutail(FILE *fp, int type, struct castr *ca)
+xutail(FILE *fp, struct castr *ca)
 {
     int recs, i;
 
@@ -802,7 +802,7 @@ xutail(FILE *fp, int type, struct castr *ca)
 	    return 0;
 	for (i = 0; ca[i].ca_name; i++)
 	    caseen[i] = caflds[i] != 0;
-	if (xuheader(fp, type) < 0)
+	if (xuheader(fp, cur_type) < 0)
 	    return -1;
     }
 }
