@@ -784,13 +784,15 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 static int
 xundump2(FILE *fp, int type, struct castr *ca)
 {
-    int i;
+    int recs, i;
 
     is_partial = 0;
     for (;;) {
 	if (xuheader1(fp, ca) < 0)
 	    return -1;
-	if (xundump1(fp) < 0)
+	if ((recs = xundump1(fp)) < 0)
+	    return -1;
+	if (xutrailer(fp, recs) < 0)
 	    return -1;
 	if (!ellipsis)
 	    return 0;
@@ -842,8 +844,5 @@ xundump1(FILE *fp)
 	memset(ep->cache + ep->size * n, 0, ep->size);
     }
 
-    if (xutrailer(fp, row) < 0)
-	return -1;
-
-    return 0;
+    return row;
 }
