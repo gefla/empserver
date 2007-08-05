@@ -771,8 +771,8 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 	if (!(ca[i].ca_flags & NSC_EXTRA))
 	    nf += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
     }
-    fldca = calloc(nf, sizeof(*fldca));
-    fldidx = calloc(nf, sizeof(*fldidx));
+    fldca = malloc(nf * sizeof(*fldca));
+    fldidx = malloc(nf * sizeof(*fldidx));
     caflds = malloc(nca * sizeof(*caflds));
     cafldspp = calloc(nca, sizeof(*cafldspp));
     cur_type = type;
