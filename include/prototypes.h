@@ -348,7 +348,7 @@ extern int demand_update_want(int *, int *, int);
 extern int demand_check(void);
 extern int demandupdatecheck(void);
 /* xundump.c */
-extern int xundump(FILE *, char *, int);
+extern int xundump(FILE *, char *, int *, int);
 
 /*
  * src/lib/gen/ *.c 

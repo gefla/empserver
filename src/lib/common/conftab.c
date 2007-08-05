@@ -48,7 +48,7 @@ read_builtin_tables(void)
 {
     struct empfile *ep;
     FILE *fp;
-    int res;
+    int lineno, res;
 
     /*
      * Need to read config files for tables referenced through
@@ -62,7 +62,8 @@ read_builtin_tables(void)
 			ep->file, strerror(errno));
 		return -1;
 	    }
-	    res = xundump(fp, ep->file, ep->uid);
+	    lineno = 1;
+	    res = xundump(fp, ep->file, &lineno, ep->uid);
 	    if (res >= 0 && getc(fp) != EOF) {
 		fprintf(stderr, "%s: Junk after the table\n",
 			ep->file);
@@ -104,7 +105,7 @@ read_custom_tables(void)
 static int
 read_custom_table_file(char *fname)
 {
-    int res, n;
+    int lineno, res, n;
     FILE *fp;
 
     if (!(fp = fopen(fname, "r"))) {
@@ -113,7 +114,8 @@ read_custom_table_file(char *fname)
 	return -1;
     }
 
-    for (n = 0; (res = xundump(fp, fname, EF_BAD)) >= 0; n++)
+    lineno = 1;
+    for (n = 0; (res = xundump(fp, fname, &lineno, EF_BAD)) >= 0; n++)
 	empfile[res].flags |= EFF_CUSTOM;
     if (res != EF_BAD && n == 0)
 	fprintf(stderr, "Warning: configuration file %s is empty\n", fname);

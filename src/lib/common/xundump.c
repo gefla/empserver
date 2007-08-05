@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2006
+ *     Markus Armbruster, 2005-2007
  */
 
 /*
@@ -737,15 +737,13 @@ xutrailer(FILE *fp, int type, int row)
 }
 
 int
-xundump(FILE *fp, char *file, int expected_table)
+xundump(FILE *fp, char *file, int *plno, int expected_table)
 {
     struct castr *ca;
     int type, nca, nf, i, ch;
 
-    if (fname != file) {
-        fname = file;
-	lineno = 1;
-    }
+    fname = file;
+    lineno = *plno;
 
     if ((type = xuheader(fp, expected_table)) < 0)
 	return type;
@@ -779,6 +777,7 @@ xundump(FILE *fp, char *file, int expected_table)
 	lineno++;
     ungetc(ch, fp);
 
+    *plno = lineno;
     return type;
 }
 
