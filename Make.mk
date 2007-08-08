@@ -291,12 +291,11 @@ $(ttop): $(tsubj)
 	perl $(srcdir)/info/mktop.pl $@ $(filter %.t, $^)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))
-	(cd info.nr && LC_ALL=C ls -C $(info)) >$@
-# FIXME shouldn't use ls
+	>$@
+	(cd info.nr && LC_ALL=C ls -C $(info)) >>$@
 
-info.html/all.html: $(filter-out info.html/all.html, $(info.html)) info/ls2html.pl
-	(cd info.html && LC_ALL=C ls -C $(notdir $(info.html))) | expand | perl $(filter %.pl, $^) >$@
-# FIXME shouldn't use ls
+info.html/all.html: info.nr/all info/ls2html.pl
+	expand $< | perl $(srcdir)/info/ls2html.pl >$@
 
 $(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk
 
