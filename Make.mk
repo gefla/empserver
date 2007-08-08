@@ -144,6 +144,9 @@ cli_distgen := $(acdistcli)
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
+ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
+CPPFLAGS += -I$(srcdir)/src/lib/w32
+endif
 ifeq ($(have_gcc),yes)
 CFLAGS += -fno-builtin-carg	# conflicts with our carg()
 CFLAGS += -fno-common

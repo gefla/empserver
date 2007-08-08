@@ -67,7 +67,7 @@ static int quiet = 0;
 #define URAN_MIN   56
 
 #if defined(_WIN32)
-#include "../lib/gen/getopt.h"
+#include <getopt.h>
 #else
 #include <unistd.h>
 #endif

@@ -44,10 +44,10 @@
 #if defined(_WIN32)
 #include <winsock2.h>
 #undef NS_ALL
-#include <process.h>
 #include <direct.h>
+#include <getopt.h>
+#include <process.h>
 #include "service.h"
-#include "../lib/gen/getopt.h"
 #else
 #include <sys/types.h>
 #include <unistd.h>

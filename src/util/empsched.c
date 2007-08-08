@@ -34,7 +34,7 @@
 #include <config.h>
 
 #if defined(_WIN32)
-#include "../lib/gen/getopt.h"
+#include <getopt.h>
 #else
 #include <unistd.h>
 #endif
