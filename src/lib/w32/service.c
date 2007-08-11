@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#ifdef _WIN32
 #include <windows.h>
 
 #include "service.h"
@@ -224,5 +223,3 @@ stop_service(void)
 	logerror("Error while stopping service SetServiceStatus"
 	    " error %ld", GetLastError()); 
 }
-
-#endif /* _WIN32 */

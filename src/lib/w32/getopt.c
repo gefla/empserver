@@ -1,4 +1,3 @@
-#if defined(_WIN32)
 /* Getopt for GNU.
    NOTE: getopt is now part of the C library, so if you don't know what
    "Keep this file name-space clean" means, talk to drepper@gnu.org
@@ -986,4 +985,3 @@ getopt (argc, argv, optstring)
 }
 
 #endif	/* Not ELIDE_CODE.  */
-#endif	/* _WIN32 */
