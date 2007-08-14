@@ -54,7 +54,6 @@ typedef int pid_t;
 
 #endif /* !__GNUC__ */
 
-#define mkdir(dir,perm) _mkdir((dir))
 #define random rand
 #define srandom srand
 #ifndef S_IRUSR

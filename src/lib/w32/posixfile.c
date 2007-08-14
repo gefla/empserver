@@ -25,22 +25,22 @@
  *
  *  ---
  *
- *  unistd.h: POSIX emulation for WIN32
+ *  posixfile.c: POSIX equivalents for file operations
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */
+#include <direct.h>
+#include <io.h>
+#include "unistd.h"
 
-#ifndef UNISTD_H
-#define UNISTD_H
+int
+posix_mkdir(const char *dirname, int perm)
+{
+    int result;
 
-#include "getopt.h"
-
-/*
- * posixfile.c
- */
-#define mkdir(dir, perm)    posix_mkdir((dir), (perm))
-
-extern int posix_mkdir(const char *dirname, int perm);
-
-#endif /* UNISTD_H */
+    result = _mkdir(dirname);
+    if (result < 0)
+	return -1;
+    return _chmod(dirname, perm);
+}
