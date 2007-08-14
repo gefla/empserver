@@ -34,11 +34,7 @@
 #include <config.h>
 
 #include <errno.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#elif defined(__GNUC__)
-#include <io.h>
-#endif
 #include "tel.h"
 #include "commands.h"
 #include "optlist.h"

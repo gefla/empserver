@@ -47,13 +47,12 @@
 #include <sys/types.h>
 #ifdef _WIN32
 #include <winsock2.h>
-#undef NS_ALL
 #else
 #include <sys/uio.h>
 #include <sys/file.h>
 #include <sys/socket.h>
-#include <unistd.h>
 #endif
+#include <unistd.h>
 #include <time.h>
 
 #include "empio.h"
@@ -111,11 +110,7 @@ io_close(struct iop *iop)
 	ioq_destroy(iop->input);
     if (iop->output != 0)
 	ioq_destroy(iop->output);
-#if !defined(_WIN32)
     (void)close(iop->fd);
-#else
-    closesocket(iop->fd);
-#endif
     free(iop);
 }
 
@@ -135,7 +130,6 @@ io_input(struct iop *iop, int waitforinput)
     if (waitforinput) {
 	empth_select(iop->fd, EMPTH_FD_READ);
     }
-#if !defined(_WIN32)
     /* Do the actual read. */
     cc = read(iop->fd, buf, sizeof(buf));
     if (cc < 0) {
@@ -147,19 +141,6 @@ io_input(struct iop *iop, int waitforinput)
 	iop->flags |= IO_ERROR;
 	return -1;
     }
-#else
-    cc = recv(iop->fd, buf, sizeof(buf), 0);
-    if (cc == SOCKET_ERROR) {
-	int err = WSAGetLastError();
-	/* Hmm, it would block.  file is opened noblock, soooooo.. */
-	if (err == WSAEWOULDBLOCK)
-	    return 0;
-
-	/* Some form of file error occurred... */
-	iop->flags |= IO_ERROR;
-	return -1;
-    }
-#endif
 
     /* We eof'd */
     if (cc == 0) {
@@ -232,6 +213,9 @@ io_output(struct iop *iop, int waitforoutput)
     /* Do the actual write. */
 #if !defined(_WIN32)
     cc = writev(iop->fd, iov, n);
+#else
+    cc = write(iop->fd, buf, n);
+#endif
 
     /* if it failed.... */
     if (cc < 0) {
@@ -244,22 +228,6 @@ io_output(struct iop *iop, int waitforoutput)
 	iop->flags |= IO_ERROR;
 	return -1;
     }
-#else
-    cc = send(iop->fd, buf, n, 0);
-
-    /* if it failed.... */
-    if (cc == SOCKET_ERROR) {
-	int err = WSAGetLastError();
-	/* Hmm, it would block.  file is opened noblock, soooooo.. */
-	if (err == WSAEWOULDBLOCK) {
-	    /* If there are remaining bytes, set the IO as remaining.. */
-	    remain = ioq_qsize(iop->output);
-	    return remain;
-	}
-	iop->flags |= IO_ERROR;
-	return -1;
-    }
-#endif
 
     /* If no bytes were written, something happened..  Like an EOF. */
     if (cc == 0) {
@@ -366,7 +334,6 @@ io_shutdown(struct iop *iop, int flags)
 int
 io_noblocking(struct iop *iop, int value)
 {
-#if !defined(_WIN32)
     int flags;
 
     flags = fcntl(iop->fd, F_GETFL, 0);
@@ -378,10 +345,6 @@ io_noblocking(struct iop *iop, int value)
 	flags |= O_NONBLOCK;
     if (fcntl(iop->fd, F_SETFL, flags) < 0)
 	return -1;
-#else
-    u_long arg = value;
-    ioctlsocket(iop->fd, FIONBIO, &arg);
-#endif
     if (value == 0)
 	iop->flags &= ~IO_NBLOCK;
     else

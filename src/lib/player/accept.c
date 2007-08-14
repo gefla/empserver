@@ -47,8 +47,8 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/ioctl.h>
-#include <unistd.h>
 #endif
+#include <unistd.h>
 #include <signal.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -170,7 +170,7 @@ player_accept(void *unused)
     void *inaddr;
     int s = player_socket;
     struct player *np;
-    int len;
+    socklen_t len;
     int ns;
     int set = 1;
     int stacksize;

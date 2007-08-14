@@ -35,13 +35,8 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#if defined(_WIN32)
-#include <io.h>
-#endif
 #include <time.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#endif
 #include "file.h"
 #include "game.h"
 #include "misc.h"

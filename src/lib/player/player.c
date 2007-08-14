@@ -32,9 +32,7 @@
  */
 
 #include <config.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#endif
 #include <stdio.h>
 #include <errno.h>
 #include <fcntl.h>

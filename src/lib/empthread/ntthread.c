@@ -55,6 +55,10 @@
 #undef NS_ALL
 #include <windows.h>
 #include <process.h>
+/* Note: unistd.h(posixio.c) is not thread-safe.
+ * It may be used *only* while holding hThreadMutex.
+ */
+#include "unistd.h"
 #include "misc.h"
 #include "empthread.h"
 #include "prototypes.h"
@@ -313,6 +317,9 @@ loc_Exit_Handler(DWORD fdwCtrlType)
  *
  * This is the main line of each thread.
  * This is really a static local func....
+ * Note: As the POSIX compatibility layer is not thread safe
+ * this function can not open or create any files or sockets until
+ * loc_RunThisThread() is called
  */
 static void
 empth_threadMain(void *pvData)
@@ -535,6 +542,7 @@ empth_terminate(empth_t *pThread)
 void
 empth_select(int fd, int flags)
 {
+    int handle;
     WSAEVENT hEventObject[2];
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
@@ -545,10 +553,13 @@ empth_select(int fd, int flags)
     hEventObject[0] = WSACreateEvent();
     hEventObject[1] = pThread->hThreadEvent;
 
+    handle = posix_fd2socket(fd);
+    CANT_HAPPEN(handle < 0);
+
     if (flags == EMPTH_FD_READ)
-	WSAEventSelect(fd, hEventObject[0], FD_READ | FD_ACCEPT | FD_CLOSE);
+	WSAEventSelect(handle, hEventObject[0], FD_READ | FD_ACCEPT | FD_CLOSE);
     else if (flags == EMPTH_FD_WRITE)
-	WSAEventSelect(fd, hEventObject[0], FD_WRITE | FD_CLOSE);
+	WSAEventSelect(handle, hEventObject[0], FD_WRITE | FD_CLOSE);
     else {
 	logerror("bad flag %d passed to empth_select", flags);
 	empth_exit();
@@ -556,7 +567,7 @@ empth_select(int fd, int flags)
 
     WSAWaitForMultipleEvents(2, hEventObject, FALSE, WSA_INFINITE, FALSE);
 
-    WSAEventSelect(fd, hEventObject[0], 0);
+    WSAEventSelect(handle, hEventObject[0], 0);
 
     WSACloseEvent(hEventObject[0]);
 

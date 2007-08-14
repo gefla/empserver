@@ -38,9 +38,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <time.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#endif
 #include <signal.h>
 
 #include "com.h"

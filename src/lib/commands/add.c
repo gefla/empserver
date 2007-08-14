@@ -34,11 +34,7 @@
 #include <config.h>
 
 #include <fcntl.h>
-#if defined(_WIN32)
-#include <io.h>
-#else
 #include <unistd.h>
-#endif
 #include <sys/stat.h>
 
 #include "commands.h"

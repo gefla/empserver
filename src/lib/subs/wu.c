@@ -33,14 +33,11 @@
 
 #include <config.h>
 
-#if defined(_WIN32)
-#include <io.h>
-#endif
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#if !defined(_WIN32)
 #include <unistd.h>
+#if !defined(_WIN32)
 #include <sys/uio.h>
 #endif
 #include "file.h"

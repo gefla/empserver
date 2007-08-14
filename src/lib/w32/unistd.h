@@ -34,7 +34,9 @@
 #ifndef UNISTD_H
 #define UNISTD_H
 
+#include <stdio.h>
 #include "getopt.h"
+#include <sys/stat.h>
 
 /*
  * posixfile.c
@@ -43,4 +45,78 @@
 
 extern int posix_mkdir(const char *dirname, int perm);
 
+/*
+ * posixio.c
+ */
+
+typedef int socklen_t;
+
+#define accept(fd, addr, addrlen) \
+    posix_accept((fd), (addr), (addrlen))
+#define bind(fd, name, namelen) \
+    posix_bind((fd), (name), (namelen))
+#define listen(fd, backlog) \
+    posix_listen((fd), (backlog))
+#define setsockopt(fd, level, optname, optval, optlen) \
+    posix_setsockopt((fd), (level), (optname), (optval), (optlen))
+#define shutdown(fd, how) \
+    posix_shutdown((fd), (how))
+#define socket(domain, type, protocol) \
+    posix_socket((domain), (type), (protocol))
+
+#define close(fd) \
+    posix_close((fd))
+#define creat(fname, pmode) \
+    posix_open((fname), _O_WRONLY | _O_CREAT |_O_TRUNC, (pmode))
+#define fstat(fd, buffer) \
+    posix_fstat((fd), (buffer))
+#define lseek(fd, offset, origin) \
+    posix_lseek((fd), (offset), (origin))
+#define open(fname, oflag, ...) \
+    posix_open((fname), (oflag), __VA_ARGS__)
+#define read	posix_read
+#define write(fd, buffer, count) \
+    posix_write((fd), (buffer), (count))
+#define fileno(stream) \
+    posix_fileno((stream))
+#define fsync(fd) \
+    posix_fsync((fd))
+
+#define O_NONBLOCK  1
+#define F_RDLCK	    0
+#define F_WRLCK	    1
+#define F_GETFL	    1
+#define F_SETFL	    2
+#define F_SETLK	    3
+#define EWOULDBLOCK WSAEWOULDBLOCK
+#define ENOTSOCK    WSAENOTSOCK
+
+struct flock
+{
+    int l_type;
+    int l_whence;
+    int l_start;
+    int l_len;
+};
+
+extern int posix_fd2socket(int fd);
+
+extern int posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
+extern int posix_bind(int fd, const struct sockaddr *name, int namelen);
+extern int posix_listen(int fd, int backlog);
+extern int posix_setsockopt(int fd, int level, int optname,
+		      const char *optval, int optlen);
+extern int posix_shutdown(int fd, int how);
+extern int posix_socket(int domain, int type, int protocol);
+
+extern int posix_close(int fd);
+extern int posix_fstat(int fd, struct stat *buffer);
+extern int posix_lseek(int fd, long offset, int origin);
+extern int posix_open(const char *fname, int oflag, ...);
+extern int posix_read(int fd, void *buffer, unsigned int count);
+extern int posix_write(int fd, const void *buffer, unsigned int count);
+
+extern int posix_fileno(FILE *stream);
+extern int posix_fsync(int fd);
+extern int fcntl(int fd, int cmd, ...);
 #endif /* UNISTD_H */

@@ -34,13 +34,8 @@
 #include <config.h>
 
 #include <fcntl.h>
-#if defined(_WIN32)
-#include <io.h>
-#endif
 #include <sys/stat.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#endif
 #include "commands.h"
 #include "land.h"
 #include "optlist.h"

@@ -36,17 +36,11 @@
 #include <config.h>
 
 #include <errno.h>
-#if defined(_WIN32)
-#include <io.h>
-#include <share.h>
-#endif
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <signal.h>
 #include <sys/types.h>
-#if !defined(_WIN32)
 #include <unistd.h>
-#endif
 #include "file.h"
 #include "match.h"
 #include "misc.h"
@@ -68,9 +62,7 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
-#if !defined(_WIN32)
     struct flock lock;
-#endif
     int oflags, fd, fsiz, size;
 
     if (ef_check(type) < 0)
@@ -89,13 +81,7 @@ ef_open(int type, int how)
 	oflags |= O_CREAT | O_TRUNC;
 #if defined(_WIN32)
     oflags |= O_BINARY;
-    if ((fd = sopen(ep->file, oflags,
-	how & EFF_RDONLY ? SH_DENYNO : SH_DENYWR,
-	S_IRWUG)) < 0) {
-	logerror("Can't open %s (%s)", ep->file, strerror(errno));
-	return 0;
-    }
-#else
+#endif
     if ((fd = open(ep->file, oflags, S_IRWUG)) < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
@@ -109,7 +95,6 @@ ef_open(int type, int how)
 	close(fd);
 	return 0;
     }
-#endif
 
     /* get file size */
     fsiz = fsize(fd);
