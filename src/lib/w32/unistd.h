@@ -48,6 +48,24 @@ extern int posix_mkdir(const char *dirname, int perm);
 /*
  * posixio.c
  */
+#ifndef S_IRUSR
+#define S_IRUSR	    _S_IREAD
+#define S_IWUSR	    _S_IWRITE
+#define S_IXUSR	    _S_IEXEC
+#define S_IRWXU	    S_IRUSR | S_IWUSR | S_IXUSR
+#endif
+#ifndef S_IRGRP
+#define S_IRGRP	    0
+#define S_IWGRP	    0
+#define S_IXGRP	    0
+#define S_IRWXG	    S_IRGRP | S_IWGRP | S_IXGRP
+#endif
+#ifndef S_IROTH
+#define S_IROTH	    0
+#define S_IWOTH	    0
+#define S_IXOTH	    0
+#define S_IRWXO	    S_IROTH | S_IWOTH | S_IXOTH
+#endif
 
 typedef int socklen_t;
 
