@@ -45,13 +45,12 @@
 #include <winsock2.h>
 #undef NS_ALL
 #include <direct.h>
-#include <getopt.h>
 #include <process.h>
 #include "service.h"
 #else
 #include <sys/types.h>
-#include <unistd.h>
 #endif
+#include <unistd.h>
 
 #include "empio.h"
 #include "empthread.h"

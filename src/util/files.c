@@ -40,11 +40,8 @@
 #include <errno.h>
 #if defined(_WIN32)
 #include <direct.h>
-#include <getopt.h>
-#include <io.h>
-#else
-#include <unistd.h>
 #endif
+#include <unistd.h>
 
 #include "file.h"
 #include "game.h"

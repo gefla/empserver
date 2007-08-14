@@ -33,11 +33,7 @@
 
 #include <config.h>
 
-#if defined(_WIN32)
-#include <getopt.h>
-#else
 #include <unistd.h>
-#endif
 #include <stdio.h>
 #include <time.h>
 #include "optlist.h"

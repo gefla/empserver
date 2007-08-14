@@ -66,11 +66,7 @@ static int quiet = 0;
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
-#if defined(_WIN32)
-#include <getopt.h>
-#else
 #include <unistd.h>
-#endif
 
 #include <errno.h>
 #include <stdarg.h>
