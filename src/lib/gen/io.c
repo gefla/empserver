@@ -45,13 +45,11 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#ifdef _WIN32
-#include <winsock2.h>
-#else
+#if !defined(_WIN32)
 #include <sys/uio.h>
 #include <sys/file.h>
-#include <sys/socket.h>
 #endif
+#include <sys/socket.h>
 #include <unistd.h>
 #include <time.h>
 
