@@ -39,21 +39,7 @@
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #ifdef _WIN32
-#ifndef __GNUC__
-
-/* integral mismatch, due to misuse of sector short */
-#pragma warning (disable : 4761 )
-
-#define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
-
-#define vsnprintf _vsnprintf
-#define snprintf _snprintf
-
-#endif /* !__GNUC__ */
-
 #include "w32misc.h"
-#define random rand
-#define srandom srand
 #endif /* _WIN32 */
 
 #ifndef S_IRWUG

@@ -35,6 +35,18 @@
 #ifndef W32MISC_H
 #define W32MISC_H
 
+#ifndef __GNUC__
+/* integral mismatch, due to misuse of sector short */
+#pragma warning (disable : 4761 )
+
+#define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
+#endif /* !__GNUC__ */
+
+#define vsnprintf _vsnprintf
+#define snprintf _snprintf
+#define random rand
+#define srandom srand
+
 /*
  * strptime.c
  */
