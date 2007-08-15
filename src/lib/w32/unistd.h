@@ -38,6 +38,9 @@
 #include "getopt.h"
 #include <sys/stat.h>
 
+typedef long ssize_t;
+typedef int pid_t;
+
 /*
  * posixfile.c
  */
