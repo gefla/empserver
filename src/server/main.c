@@ -47,9 +47,8 @@
 #include <direct.h>
 #include <process.h>
 #include "service.h"
-#else
-#include <sys/types.h>
 #endif
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "empio.h"
