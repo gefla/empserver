@@ -54,6 +54,7 @@ typedef int pid_t;
 
 #endif /* !__GNUC__ */
 
+#include "w32misc.h"
 #define random rand
 #define srandom srand
 #endif /* _WIN32 */
