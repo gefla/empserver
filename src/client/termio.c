@@ -254,7 +254,11 @@ sendeof(int sock)
     if (send(sock, "ctld\n", 5, 0) < 5) {
 #endif
 	fprintf(stderr, "sendeof: EOF send failed\n");
+#ifdef _WIN32
+	closesocket(sock);
+#else
 	close(sock);
+#endif
 	return 0;
     }
     return 1;

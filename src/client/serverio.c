@@ -68,7 +68,11 @@ serverio(int s, struct ioqueue *ioq)
     }
     if (n == 0) {
 	fprintf(stderr, "Server EOF\n");
+#ifdef WIN32
+	(void)closesocket(s);
+#else
 	(void)close(s);
+#endif
 	return 0;
     }
     if (n != ioq->bsize)
