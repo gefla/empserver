@@ -25,43 +25,27 @@
  *
  *  ---
  *
- *  ioqueue.h: Stores and frees data associated with a file descriptor.
- *             uses writev to write, and read to read
- *  Known contributors to this file:
+ *  sys/socket.h: POSIX io vector emulation for WIN32
  * 
+ *  Known contributors to this file:
+ *     Ron Koenderink, 2007
  */
 
-#ifndef IOQUEUE_H
-#define IOQUEUE_H
+#ifndef SYS_UIO_H
+#define SYS_UIO_H
 
-#ifndef _WIN32
-#include <sys/uio.h>
-#endif
-#include "queue.h"
+#include <sys/types.h>
+#include "w32misc.h"
 
-struct io {
-    struct emp_qelem queue;
-    int size;
-    int nbytes;
-    int offset;
-    char *data;
+struct iovec {
+    /*Base address of a memory region for input or output. */
+    void   *iov_base;
+
+    /* The size of the memory pointed to by iov_base. */
+    size_t  iov_len;
 };
 
-struct ioqueue {
-    struct io list;
-    int bufsize;
-    int cc;
-};
+extern ssize_t readv(int fd, const struct iovec *iov, int iovcnt);
+extern ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
 
-extern struct ioqueue *ioq_create(int size);
-extern void ioq_destroy(struct ioqueue *ioq);
-extern void ioq_drain(struct ioqueue *ioq);
-extern int ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc);
-extern int ioq_peek(struct ioqueue *ioq, char *buf, int cc);
-extern int ioq_dequeue(struct ioqueue *ioq, int cc);
-extern void ioq_append(struct ioqueue *ioq, char *buf, int cc);
-extern int ioq_qsize(struct ioqueue *ioq);
-extern int ioq_gets(struct ioqueue *ioq, char *buf, int cc);
-extern int ioq_puts(struct ioqueue *ioq, char *buf);
-
-#endif
+#endif /* SYS_UIO_H */

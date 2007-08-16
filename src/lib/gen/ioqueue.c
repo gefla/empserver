@@ -42,17 +42,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#if !defined(_WIN32)
 #include <sys/uio.h>
-#endif
 #include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
 
 static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc);
-#if !defined(_WIN32)
 static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max);
-#endif
 static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);
 static int appendcc(struct ioqueue *ioq, char *buf, int cc);
 static int removecc(struct ioqueue *ioq, int cc);
@@ -101,7 +97,6 @@ ioq_drain(struct ioqueue *ioq)
  * iovec, but don't actually dequeue the data.
  * return # of iovec initialized.
  */
-#if !defined(_WIN32)
 int
 ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc)
 {
@@ -109,7 +104,6 @@ ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc)
 	return 0;
     return ioqtoiov(ioq, iov, cc);
 }
-#endif
 
 /*
  * Copy the specified number of characters into the buffer
@@ -247,7 +241,6 @@ ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc)
  * initialize an iovec to point at max bytes worth
  * of data from the ioqueue.
  */
-#if !defined(_WIN32)
 static int
 ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max)
 {
@@ -274,7 +267,6 @@ ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max)
     }
     return niov;
 }
-#endif
 
 /*
  * append a buffer to the end of the ioq.
@@ -356,47 +348,3 @@ removecc(struct ioqueue *ioq, int cc)
     ioq->cc -= nbytes;
     return nbytes;
 }
-
-#if defined(_WIN32)
-/*
- * Make an (output) buffer up to the
- * maximum size of the buffer.
- *
- * We don't free the bytes...
- */
-int
-ioq_makebuf(struct ioqueue *ioq, char *pBuf, int nBufLen)
-{
-    struct io *io;
-    struct emp_qelem *qp;
-    struct emp_qelem *head;
-    int nbytes;
-    int nleft;
-    int ncopied;
-    char *offset;
-
-    ncopied = 0;
-    nleft = nBufLen;
-    offset = pBuf;
-    head = &ioq->list.queue;
-
-    for (qp = head->q_forw; (qp != head) && (nleft > 0); qp = qp->q_forw) {
-	io = (struct io *)qp;
-	nbytes = io->nbytes - io->offset;
-	if (nbytes < 0) {
-	    /* Paranoid check for bad buffer. */
-	    continue;
-	}
-
-	/* too many bytes, wait till next time. */
-	if (nbytes > nleft)
-	    break;
-
-	memcpy(offset, io->data + io->offset, nbytes);
-	offset += nbytes;
-	nleft -= nbytes;
-	ncopied += nbytes;
-    }
-    return ncopied;
-}
-#endif /* _WIN32 */

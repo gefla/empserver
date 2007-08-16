@@ -54,6 +54,7 @@
 #include <errno.h>
 
 #include "unistd.h"
+#include "sys/uio.h"
 #include "empio.h"
 #include "prototypes.h"
 
@@ -446,6 +447,51 @@ posix_read(int fd, void *buffer, unsigned int count)
 }
 
 /*
+ * POSIX equivalent for readv
+ * Modelled after the GNU's libc/sysdeps/posix/readv.c
+ */
+ssize_t
+readv(int fd, const struct iovec *iov, int iovcnt)
+{
+    int i;
+    unsigned char *buffer, *buffer_location;
+    size_t total_bytes = 0;
+    int bytes_read;
+    size_t bytes_left;
+
+    for (i = 0; i < iovcnt; i++) {
+	total_bytes += iov[i].iov_len;
+    }
+
+    buffer = malloc(total_bytes);
+    if (buffer == NULL)
+	return -1;
+
+    bytes_read = posix_read(fd, buffer, total_bytes);
+    if (bytes_read <= 0) {
+	free(buffer);
+	return -1;
+    }
+
+    bytes_left = bytes_read;
+    buffer_location = buffer;
+    for (i = 0; i < iovcnt; i++) {
+	size_t copy = MIN(iov[i].iov_len, bytes_left);
+
+	memcpy(iov[i].iov_base, buffer_location, copy);
+
+	buffer_location += copy;
+	bytes_left -= copy;
+	if (bytes_left == 0)
+	    break;
+    }
+
+    free(buffer);
+
+    return bytes_read;
+}
+
+/*
  * POSIX equivalent for write().
  */
 int
@@ -453,6 +499,43 @@ posix_write(int fd, const void *buffer, unsigned int count)
 {
     SHARED_FUNCTION(send(handle, buffer, count, 0),
 	_write(handle, buffer, count))
+}
+
+/*
+ * POSIX equivalent for writev
+ * Modelled after the GNU's libc/sysdeps/posix/writev.c
+ */
+ssize_t
+writev(int fd, const struct iovec *iov, int iovcnt)
+{
+    int i;
+    unsigned char *buffer, *buffer_location;
+    size_t total_bytes = 0;
+    int bytes_written;
+
+    for (i = 0; i < iovcnt; i++)
+	total_bytes += iov[i].iov_len;
+
+    if (total_bytes == 0)
+	return 0;
+
+    buffer = malloc(total_bytes);
+    if (buffer == NULL)
+	return -1;
+
+    buffer_location = buffer;
+    for (i = 0; i < iovcnt; i++) {
+	memcpy(buffer_location, iov[i].iov_base, iov[i].iov_len);
+	buffer_location += iov[i].iov_len;
+    }
+
+    bytes_written = posix_write(fd, buffer, total_bytes);
+
+    free(buffer);
+
+    if (bytes_written <= 0)
+	return -1;
+    return bytes_written;
 }
 
 /*

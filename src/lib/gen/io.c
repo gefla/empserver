@@ -45,8 +45,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#if !defined(_WIN32)
 #include <sys/uio.h>
+#if !defined(_WIN32)
 #include <sys/file.h>
 #endif
 #include <sys/socket.h>
@@ -166,11 +166,7 @@ io_outputwaiting(struct iop *iop)
 int
 io_output(struct iop *iop, int waitforoutput)
 {
-#if !defined(_WIN32)
     struct iovec iov[16];
-#else
-    char buf[IO_BUFSIZE];
-#endif
     int cc;
     int n;
     int remain;
@@ -187,15 +183,10 @@ io_output(struct iop *iop, int waitforoutput)
     if (iop->flags & IO_ERROR)
 	return -1;
 
-#if !defined(_WIN32)
     /* make the iov point to the data in the queue. */
     /* I.E., each of the elements in the queue. */
     /* returns the number of elements in the iov. */
     n = ioq_makeiov(iop->output, iov, IO_BUFSIZE);
-#else
-    /* Make a buffer containing the output to write. */
-    n = ioq_makebuf(iop->output, buf, sizeof(buf));
-#endif
 
     if (n <= 0) {
 	return 0;
@@ -209,11 +200,7 @@ io_output(struct iop *iop, int waitforoutput)
     }
 
     /* Do the actual write. */
-#if !defined(_WIN32)
     cc = writev(iop->fd, iov, n);
-#else
-    cc = write(iop->fd, buf, n);
-#endif
 
     /* if it failed.... */
     if (cc < 0) {
