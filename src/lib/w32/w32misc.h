@@ -39,19 +39,22 @@
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
+/* string.h */
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
 #endif /* !__GNUC__ */
 
+/* stdio.h */
 #define vsnprintf _vsnprintf
 #define snprintf _snprintf
+
+/* stdlib.h */
 #define random rand
 #define srandom srand
 
+/* sys/types.h */
 typedef long ssize_t;
 typedef int pid_t;
 
-/*
- * strptime.c
- */
+/* time.h */
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif /* W32MISC_H */
