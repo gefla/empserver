@@ -47,6 +47,9 @@
 #define random rand
 #define srandom srand
 
+typedef long ssize_t;
+typedef int pid_t;
+
 /*
  * strptime.c
  */
