@@ -35,13 +35,13 @@
 #ifndef W32MISC_H
 #define W32MISC_H
 
-#ifndef __GNUC__
+#ifdef _MSC_VER
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
 /* string.h */
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
-#endif /* !__GNUC__ */
+#endif /* _MSC_VER */
 
 /* stdio.h */
 #define vsnprintf _vsnprintf
@@ -56,5 +56,6 @@ typedef long ssize_t;
 typedef int pid_t;
 
 /* time.h */
+#include <time.h>
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif /* W32MISC_H */
