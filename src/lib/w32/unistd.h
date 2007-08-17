@@ -34,7 +34,12 @@
 #ifndef UNISTD_H
 #define UNISTD_H
 
+#include <io.h>
 #include <stdio.h>
+#ifdef fileno
+#undef fileno
+#endif
+#include "sys/socket.h"
 #include "getopt.h"
 #include <sys/stat.h>
 
