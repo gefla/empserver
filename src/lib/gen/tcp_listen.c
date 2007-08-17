@@ -77,19 +77,8 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	if (fd < 0)
 	    continue;		/* error, try next one */
 
-#ifndef _WIN32
-	/*
-	 * SO_REUSEADDR requests to permit another bind even when the
-	 * port is still in state TIME_WAIT.  Windows' SO_REUSEADDR is
-	 * broken: it makes bind() succeed no matter what, even if
-	 * there's another server running on the same port.  Luckily,
-	 * bind() seems to be broken as well: it seems to succeed while
-	 * the port is in state TIME_WAIT by default; thus we get the
-	 * behavior we want by not setting SO_REUSEADDR.
-	 */
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
 	    cant_listen(host, serv, strerror(errno));
-#endif
 	if (bind(fd, res->ai_addr, res->ai_addrlen) == 0)
 	    break;		/* success */
 
@@ -134,11 +123,8 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
     }
     if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	cant_listen(host, serv, strerror(errno));
-#ifndef _WIN32
-    /* see comment on setsockopt() above */
     if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
 	cant_listen(host, serv, strerror(errno));
-#endif
     if (bind(fd, (struct sockaddr *)&sin, sizeof(sin)) < 0)
 	cant_listen(host, serv, strerror(errno));
     if (listen(fd, SOMAXCONN) < 0)

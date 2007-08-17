@@ -193,7 +193,7 @@ int
 posix_fd2socket(int fd)
 {
     int handle;
-    enum dmap_io_type type;
+    enum fdmap_io_type type;
 
     if (!lookup_handle(fd, FDMAP_IO_SOCKET, WSAENOTSOCK,
 	&type, &handle))
@@ -271,8 +271,22 @@ int
 posix_setsockopt(int fd, int level, int optname,
 		      const char *optval, int optlen)
 {
-    SOCKET_FUNCTION(setsockopt(handle, level, optname,
-		    optval, optlen))
+    /*
+     * SO_REUSEADDR requests from tcp_listen.c
+     * to permit another bind even when the
+     * port is still in state TIME_WAIT.  Windows' SO_REUSEADDR is
+     * broken: it makes bind() succeed no matter what, even if
+     * there's another server running on the same port.  Luckily,
+     * bind() seems to be broken as well: it seems to succeed while
+     * the port is in state TIME_WAIT by default; thus we get the
+     * behavior we want by not setting SO_REUSEADDR.
+     */
+    if (level == SOL_SOCKET && optname == SO_REUSEADDR)
+	return 0;
+    {
+	SOCKET_FUNCTION(setsockopt(handle, level, optname,
+			optval, optlen))
+    }
 }
 
 /*
@@ -404,7 +418,7 @@ posix_open(const char *fname, int oflag, ...)
      * We don't implement fcntl() for F_SETLK.  Instead, we lock *all*
      * files we open.  Not ideal, but it works for Empire.
      */
-    _sopen_s(&handle, fname, oflag,
+    handle = _sopen(fname, oflag,
 	oflag & O_RDONLY ? SH_DENYNO : SH_DENYWR, pmode);
     if (handle == -1) {
 	free_fd(new_fd);
