@@ -269,7 +269,7 @@ posix_listen(int fd, int backlog)
 #undef setsockopt
 int
 posix_setsockopt(int fd, int level, int optname,
-		      const char *optval, int optlen)
+		      const void *optval, int optlen)
 {
     /*
      * SO_REUSEADDR requests from tcp_listen.c

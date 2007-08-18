@@ -128,7 +128,7 @@ extern int posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
 extern int posix_bind(int fd, const struct sockaddr *name, int namelen);
 extern int posix_listen(int fd, int backlog);
 extern int posix_setsockopt(int fd, int level, int optname,
-		      const char *optval, int optlen);
+		      const void *optval, int optlen);
 extern int posix_shutdown(int fd, int how);
 extern int posix_socket(int domain, int type, int protocol);
 
