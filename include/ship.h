@@ -110,27 +110,6 @@ struct shpstr {
     char shp_rpath[RET_LEN];	/* retreat path */
 };
 
-struct fltelemstr {
-    int num;
-    int own;
-    double mobil, mobcost;
-    struct fltelemstr *next;
-};
-
-struct fltheadstr {
-    int leader;
-    signed char real_q;
-/* defines for the real_q member */
-#define	LEADER_VIRTUAL	0
-#define	LEADER_REAL	1
-#define	LEADER_WRONGSECT	2
-    coord x, y;
-    natid own;
-    unsigned maxmoves;
-    struct fltelemstr *head;
-    struct fltheadstr *next;
-};
-
 struct mchrstr {
     short m_item[I_MAX+1];	/* load limit */
     int m_lcm;			/* units of lcm to build */

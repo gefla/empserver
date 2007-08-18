@@ -43,6 +43,27 @@
 #include "empobj.h"
 #include "unit.h"
 
+struct fltelemstr {
+    int num;
+    int own;
+    double mobil, mobcost;
+    struct fltelemstr *next;
+};
+
+struct fltheadstr {
+    int leader;
+    signed char real_q;
+/* defines for the real_q member */
+#define	LEADER_VIRTUAL	0
+#define	LEADER_REAL	1
+#define	LEADER_WRONGSECT	2
+    coord x, y;
+    natid own;
+    unsigned maxmoves;
+    struct fltelemstr *head;
+    struct fltheadstr *next;
+};
+
 static void fltp_to_list(struct fltheadstr *, struct emp_qelem *);
 
 static void
