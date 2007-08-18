@@ -47,6 +47,8 @@
 #include <io.h>
 #else
 #include <pwd.h>
+#include <sys/time.h>
+#include <sys/types.h>
 #include <unistd.h>
 #endif
 
