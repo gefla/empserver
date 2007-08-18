@@ -35,7 +35,6 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include <time.h>
 #include "file.h"
 #include "optlist.h"
 #include "product.h"

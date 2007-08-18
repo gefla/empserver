@@ -36,11 +36,7 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <fcntl.h>
 #include <time.h>
-#include <unistd.h>
-#include <signal.h>
-
 #include "com.h"
 #include "empio.h"
 #include "file.h"

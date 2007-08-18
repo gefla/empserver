@@ -35,14 +35,10 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <errno.h>
-#if defined(_WIN32)
-#include <direct.h>
-#endif
 #include <unistd.h>
-
 #include "file.h"
 #include "game.h"
 #include "land.h"

@@ -34,8 +34,6 @@
 
 #include <config.h>
 
-
-#include <ctype.h>
 #include "nsc.h"
 #include "path.h"
 #include "update.h"

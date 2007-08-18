@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "item.h"
 #include "land.h"
 #include "nsc.h"

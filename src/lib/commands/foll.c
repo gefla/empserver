@@ -36,7 +36,6 @@
 #include "commands.h"
 #include "optlist.h"
 #include "ship.h"
-#include <ctype.h>
 
 int
 foll(void)

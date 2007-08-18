@@ -36,8 +36,6 @@
 #include <config.h>
 
 #include <errno.h>
-#include <sys/uio.h>
-#include <sys/file.h>
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>

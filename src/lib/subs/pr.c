@@ -51,8 +51,6 @@
 
 #include <config.h>
 
-#include <fcntl.h>
-#include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include "com.h"

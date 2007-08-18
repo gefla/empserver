@@ -34,19 +34,16 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #if !defined(_WIN32)
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include <sys/ioctl.h>
 #endif
 #include <unistd.h>
-#include <signal.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
 
 #include "empio.h"
 #include "empthread.h"

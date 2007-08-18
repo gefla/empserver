@@ -35,11 +35,10 @@
 
 #include <fcntl.h>
 #include <stdarg.h>
-#include <stdlib.h>
-#include <unistd.h>
 #if !defined(_WIN32)
 #include <sys/uio.h>
 #endif
+#include <unistd.h>
 #include "file.h"
 #include "misc.h"
 #include "nat.h"

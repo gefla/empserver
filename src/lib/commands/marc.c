@@ -35,7 +35,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "commands.h"
 #include "file.h"
 #include "map.h"

@@ -44,22 +44,16 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/uio.h>
-#if !defined(_WIN32)
-#include <sys/file.h>
-#endif
-#include <sys/socket.h>
 #include <unistd.h>
-#include <time.h>
-
 #include "empio.h"
+#include "empthread.h"
 #include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
 #include "server.h"
-
-#include "empthread.h"
 
 struct iop {
     int fd;

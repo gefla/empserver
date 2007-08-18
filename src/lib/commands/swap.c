@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "commands.h"
 
 static void print_res(struct sctstr *);

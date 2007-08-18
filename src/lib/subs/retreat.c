@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include <stdlib.h>
 #include "damage.h"
 #include "file.h"
 #include "land.h"

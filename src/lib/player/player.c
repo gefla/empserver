@@ -32,11 +32,9 @@
  */
 
 #include <config.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <fcntl.h>
 
+#include <errno.h>
+#include <stdio.h>
 #include "com.h"
 #include "empio.h"
 #include "empthread.h"
@@ -46,7 +44,6 @@
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
-#include "proto.h"
 #include "proto.h"
 #include "prototypes.h"
 #include "sect.h"

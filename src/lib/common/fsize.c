@@ -35,10 +35,8 @@
 
 #include <config.h>
 
-#include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
 #include "prototypes.h"
 
 /*

@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include <fcntl.h>
 #include "damage.h"
 #include "land.h"
 #include "misc.h"

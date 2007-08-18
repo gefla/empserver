@@ -38,7 +38,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include "file.h"

@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "commands.h"
 #include "lost.h"
 #include "news.h"

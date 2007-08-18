@@ -33,10 +33,7 @@
 
 #include <config.h>
 
-#include <fcntl.h>
-#include <stdio.h>
 #include <time.h>
-#include <unistd.h>
 #include "file.h"
 #include "game.h"
 #include "misc.h"

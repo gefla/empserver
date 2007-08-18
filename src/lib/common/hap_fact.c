@@ -33,8 +33,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
-#include <stdio.h>
 #include "misc.h"
 #include "nat.h"
 #include "nsc.h"

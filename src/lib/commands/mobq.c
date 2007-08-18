@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "commands.h"
 #include "optlist.h"
 #include "ship.h"
