@@ -58,7 +58,6 @@ static int nbtu;
 static int nmin;
 static FILE *redir_fp;
 static FILE *pipe_fp;
-static int exec_fd;
 
 static void prompt(FILE *auxfi);
 static void doredir(char *p);
@@ -128,7 +127,7 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 	    if (*p) {
 		p[strlen(p) - 1] = '\0';
 		sprintf(num_teles, "(%s) ", p + 1);
-		if (!redir_fp && !pipe_fp && !exec_fd) {
+		if (!redir_fp && !pipe_fp) {
 		    putchar('\07');
 		    prompt(NULL);
 		}
@@ -154,11 +153,6 @@ prompt(FILE *auxfi)
 	} else if (pipe_fp) {
 	    (void)pclose(pipe_fp);
 	    pipe_fp = NULL;
-	} else if (exec_fd > 0) {
-	    close(exec_fd);
-	    close(0);
-	    exec_fd = -1;
-	    open("/dev/tty", O_RDONLY, 0);
 	}
     }
     if (mode == C_PROMPT)
