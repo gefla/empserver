@@ -30,6 +30,8 @@
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */
+
+#include <config.h>
 #include <direct.h>
 #include <io.h>
 #include "unistd.h"
