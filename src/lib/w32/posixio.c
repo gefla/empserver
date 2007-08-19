@@ -249,7 +249,7 @@ posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
  */
 #undef bind
 int
-posix_bind(int fd, const struct sockaddr *name, int namelen)
+posix_bind(int fd, const struct sockaddr *name, socklen_t namelen)
 {
     SOCKET_FUNCTION(bind(handle, name, namelen))
 }
@@ -270,7 +270,7 @@ posix_listen(int fd, int backlog)
 #undef setsockopt
 int
 posix_setsockopt(int fd, int level, int optname,
-		      const void *optval, int optlen)
+		      const void *optval, socklen_t optlen)
 {
     /*
      * SO_REUSEADDR requests from tcp_listen.c
@@ -388,8 +388,8 @@ posix_fstat(int fd, struct stat *buffer)
 /*
  * POSIX equivalent for lseek().
  */
-int
-posix_lseek(int fd, long offset, int origin)
+off_t
+posix_lseek(int fd, off_t offset, int origin)
 {
     FILE_FUNCTION(FDMAP_IO_FILE, _lseek(handle, offset, origin))
 }
@@ -454,8 +454,8 @@ posix_open(const char *fname, int oflag, ...)
 /*
  * POSIX equivalent for read().
  */
-int
-posix_read(int fd, void *buffer, unsigned int count)
+ssize_t
+posix_read(int fd, void *buffer, size_t count)
 {
     SHARED_FUNCTION(recv(handle, buffer, count, 0),
 	_read(handle, buffer, count))
@@ -509,8 +509,8 @@ readv(int fd, const struct iovec *iov, int iovcnt)
 /*
  * POSIX equivalent for write().
  */
-int
-posix_write(int fd, const void *buffer, unsigned int count)
+ssize_t
+posix_write(int fd, const void *buffer, size_t count)
 {
     SHARED_FUNCTION(send(handle, buffer, count, 0),
 	_write(handle, buffer, count))

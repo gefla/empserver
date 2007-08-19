@@ -40,6 +40,7 @@
 #include <direct.h>
 #include "sys/socket.h"
 #include <sys/stat.h>
+#include "w32misc.h"
 
 /*
  * getopt.c
@@ -53,7 +54,7 @@ extern int optind, opterr, optopt;
  */
 #define mkdir(dir, perm)    posix_mkdir((dir), (perm))
 
-extern int posix_mkdir(const char *dirname, int perm);
+extern int posix_mkdir(const char *dirname, mode_t perm);
 
 /*
  * posixio.c
@@ -130,19 +131,19 @@ struct flock
 extern int posix_fd2socket(int fd);
 
 extern int posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
-extern int posix_bind(int fd, const struct sockaddr *name, int namelen);
+extern int posix_bind(int fd, const struct sockaddr *name, socklen_t namelen);
 extern int posix_listen(int fd, int backlog);
 extern int posix_setsockopt(int fd, int level, int optname,
-		      const void *optval, int optlen);
+		      const void *optval, socklen_t optlen);
 extern int posix_shutdown(int fd, int how);
 extern int posix_socket(int domain, int type, int protocol);
 
 extern int posix_close(int fd);
 extern int posix_fstat(int fd, struct stat *buffer);
-extern int posix_lseek(int fd, long offset, int origin);
+extern off_t posix_lseek(int fd, off_t offset, int origin);
 extern int posix_open(const char *fname, int oflag, ...);
-extern int posix_read(int fd, void *buffer, unsigned int count);
-extern int posix_write(int fd, const void *buffer, unsigned int count);
+extern ssize_t posix_read(int fd, void *buffer, size_t count);
+extern ssize_t posix_write(int fd, const void *buffer, size_t count);
 
 extern int posix_fileno(FILE *stream);
 extern int posix_fsync(int fd);

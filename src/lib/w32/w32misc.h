@@ -52,8 +52,10 @@
 #define srandom srand
 
 /* sys/types.h */
-typedef long ssize_t;
+typedef int mode_t;
+typedef long off_t;
 typedef int pid_t;
+typedef long ssize_t;
 
 /* time.h */
 struct tm;

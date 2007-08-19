@@ -37,7 +37,7 @@
 #include "unistd.h"
 
 int
-posix_mkdir(const char *dirname, int perm)
+posix_mkdir(const char *dirname, mode_t perm)
 {
     int result;
 
