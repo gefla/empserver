@@ -37,6 +37,7 @@
 #include <io.h>
 #include <stdio.h>
 #undef fileno
+#include <direct.h>
 #include "sys/socket.h"
 #include <sys/stat.h>
 
