@@ -46,7 +46,6 @@
 #include <winsock2.h>
 #undef NS_ALL
 #include <io.h>
-#include <direct.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <share.h>
