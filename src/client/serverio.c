@@ -35,9 +35,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _WIN32
-#include <io.h>
-#else
+#if !defined(_WIN32)
 #include <unistd.h>
 #endif
 #include "misc.h"

@@ -41,11 +41,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _WIN32
-#include <windows.h>
-#include <conio.h>
-#include <io.h>
-#else
+#if !defined(_WIN32)
 #include <pwd.h>
 #include <sys/time.h>
 #include <sys/types.h>
