@@ -38,8 +38,14 @@
 #include <stdio.h>
 #undef fileno
 #include "sys/socket.h"
-#include "getopt.h"
 #include <sys/stat.h>
+
+/*
+ * getopt.c
+ */
+extern int getopt(int, char * const[], const char *);
+extern char *optarg;
+extern int optind, opterr, optopt;
 
 /*
  * posixfile.c
