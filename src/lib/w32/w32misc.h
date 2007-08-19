@@ -56,6 +56,6 @@ typedef long ssize_t;
 typedef int pid_t;
 
 /* time.h */
-#include <time.h>
+struct tm;
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif /* W32MISC_H */
