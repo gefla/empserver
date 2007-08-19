@@ -49,6 +49,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <sys/types.h>
 #include <time.h>
 #include <winsock2.h>
