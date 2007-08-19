@@ -122,10 +122,11 @@ typedef int socklen_t;
 
 struct flock
 {
-    int l_type;
-    int l_whence;
-    int l_start;
-    int l_len;
+    short l_type;
+    short l_whence;
+    off_t l_start;
+    off_t l_len;
+    /* intentionally missing: pid_t l_pid */
 };
 
 extern int posix_fd2socket(int fd);
