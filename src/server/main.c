@@ -44,7 +44,6 @@
 #if defined(_WIN32)
 #include <winsock2.h>
 #undef NS_ALL
-#include <direct.h>
 #include <process.h>
 #include "service.h"
 #endif
