@@ -43,8 +43,6 @@
  */
 
 #include <config.h>
-#include <winsock2.h>
-#undef NS_ALL
 #include <io.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -55,6 +53,7 @@
 #include <errno.h>
 
 #include "unistd.h"
+#include "sys/socket.h"
 #include "sys/uio.h"
 #include "misc.h"
 
