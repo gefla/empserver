@@ -43,19 +43,19 @@
  */
 
 #include <config.h>
-#include <io.h>
-#include <sys/stat.h>
+
+#include <errno.h>
 #include <fcntl.h>
+#include <io.h>
 #include <share.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <sys/stat.h>
 
-#include <errno.h>
-
-#include "unistd.h"
+#include "misc.h"
 #include "sys/socket.h"
 #include "sys/uio.h"
-#include "misc.h"
+#include "unistd.h"
 
 /*
  * FD_SETSIZE is the size for the maximum number of sockets.
