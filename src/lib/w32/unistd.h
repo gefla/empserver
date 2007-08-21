@@ -40,6 +40,8 @@
 #include <direct.h>
 #include "sys/socket.h"
 #include <sys/stat.h>
+#include <ws2tcpip.h>
+
 #include "w32misc.h"
 
 /*
@@ -138,6 +140,8 @@ extern int posix_setsockopt(int fd, int level, int optname,
 		      const void *optval, socklen_t optlen);
 extern int posix_shutdown(int fd, int how);
 extern int posix_socket(int domain, int type, int protocol);
+extern const char *inet_ntop(int af, const void *src, char *dst,
+			     socklen_t cnt);
 
 extern int posix_close(int fd);
 extern int posix_fstat(int fd, struct stat *buffer);
