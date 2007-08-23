@@ -321,6 +321,7 @@ posix_socket(int domain, int type, int protocol)
     return new_fd;
 }
 
+#ifdef HAVE_GETADDRINFO
 const char *
 inet_ntop(int af, const void *source, char *dest, socklen_t len)
 {
@@ -348,6 +349,7 @@ inet_ntop(int af, const void *source, char *dest, socklen_t len)
     }
     return NULL;
 }
+#endif
 
 #define FILE_FUNCTION(type, expr)				\
     int handle;							\
