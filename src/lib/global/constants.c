@@ -187,11 +187,11 @@ int max_btus = 640;		/* maximum # of btu's */
 
 double buil_bt = 10.0;		/* tech level required to build a bridge */
 int buil_bh = 100;		/* hcm required to build a bridge */
-double buil_bc = 2000.0;	/* cash required to build a bridge */
+double buil_bc = 1000.0;	/* cash required to build a bridge */
 
 double buil_tower_bt = 100.0;	/* tech level required to build a tower */
 int buil_tower_bh = 400;	/* hcm required to build a bridge tower */
-double buil_tower_bc = 7500.0;	/* cash required to build a bridge tower */
+double buil_tower_bc = 3000.0;	/* cash required to build a bridge tower */
 
 /* opt_SLOW_WAR */
 int War_Cost = 1000;		/* Cost to declare war */
