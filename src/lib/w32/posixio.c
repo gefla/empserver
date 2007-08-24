@@ -271,8 +271,7 @@ posix_setsockopt(int fd, int level, int optname,
 		      const void *optval, socklen_t optlen)
 {
     /*
-     * SO_REUSEADDR requests from tcp_listen.c
-     * to permit another bind even when the
+     * SO_REUSEADDR requests to permit another bind even when the
      * port is still in state TIME_WAIT.  Windows' SO_REUSEADDR is
      * broken: it makes bind() succeed no matter what, even if
      * there's another server running on the same port.  Luckily,
@@ -507,7 +506,7 @@ readv(int fd, const struct iovec *iov, int iovcnt)
     }
 
     buffer = malloc(total_bytes);
-    if (buffer == NULL)
+    if (buffer == NULL && total_bytes != 0)
 	return -1;
 
     bytes_read = posix_read(fd, buffer, total_bytes);
@@ -559,11 +558,8 @@ writev(int fd, const struct iovec *iov, int iovcnt)
     for (i = 0; i < iovcnt; i++)
 	total_bytes += iov[i].iov_len;
 
-    if (total_bytes == 0)
-	return 0;
-
     buffer = malloc(total_bytes);
-    if (buffer == NULL)
+    if (buffer == NULL && total_bytes != 0)
 	return -1;
 
     buffer_location = buffer;
