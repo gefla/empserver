@@ -7,6 +7,131 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.10 - Fri Aug 24 17:26:56 UTC 2007
+ * The custom table reader detects more errors.
+ * Do not leak world creation time in files and fairland, because
+   that facilitates attacks against the PRNG.  This misfeature crept
+   into 4.3.0.
+ * Remove the ancient, crufty non-UCONTEXT system-dependent LWP code.
+   Using it required manual hackery since 4.3.0, and it hasn't been
+   missed.
+ * Plug file descriptor leak in add command.
+ * Don't kill player connections violently when their thread appears
+   to be hung.  Threads being aborted by update or shutdown could be
+   misidentified as hung, and the violence could lead to resource
+   leaks, locked out updates, and corrupted game state.
+ * Fix LWP to wake up threads sleeping for a time reliably.  Before,
+   players with a sufficiently fast connection could starve out
+   threads system threads, including the update.
+ * Fix a class of bugs that made commands behave differently while the
+   update is attempting to take control:
+   - No MOB_ACCESS mobility was gained.
+   - Telegrams were miscounted.
+   - Bulletins got misfiled as production reports.
+   - The navigate command ignored sail paths.
+   - The declare command was more quiet, and declarations of war
+     failed silently when SLOW_WAR was enabled.
+   - Many messages got misdirected to bulletins.
+   Some of these bugs go back all the way to Empire 2, ca 1995.
+ * New deity command reload, effect similar to SIGHUP.
+ * Not voting for a demand update no longer lets you veto further
+   demand updates.  This feature was flawed (it encourages players to
+   vote late so that they can tactically vote no and thus build up
+   veto rights), virtually unused, and buggy.
+ * Fix zdone not to claim to have triggered an update when they're
+   disabled.
+ * New update scheduler and ETU clock:
+   - New schedule file.  See doc/schedule for how to use it.  Replaces
+     econfig keys update_policy, adj_update, update_times, hourslop,
+     blitz_time.  A change of schedule does not require a server
+     restart.
+   - The force command can no longer force updates in the future.
+     Edit the schedule file for that.
+   - New command show updates to show the update schedule.  Obsoletes
+     the update command.
+   - New xdump game and xdump updates.
+   - New utility program empsched to help test update schedules.
+   - Replace option DEMANDUPDATE and econfig key update_demandpolicy
+     by econfig key update_demand.
+   - econfig key update_demandtimes no longer applies to scheduled
+     demand updates.
+   - You now receive new BTUs at the update in addition to login.
+   - You now always gain the same BTUs and MOB_ACCESS mobility per
+     turn, even when the update schedule changes, updates get missed,
+     or unscheduled demand updates run.
+   - Remove the mobupdate command, because porting it to the new ETU
+     clock is not worth it.
+ * Redesign of synchronization between commands, update and shutdown,
+   and how updates are triggered:
+   - Simplify update to a single thread waiting for the trigger.
+     Before, three update threads had to perform a carefully
+     choreographed dance to make updates happen.  The dance relied on
+     thread priorities for correctness, but they're only implemented
+     by LWP.  With pthreads and under windows, demand updates were
+     prone to two update threads starting up concurrently.  Even with
+     LWP, forced and demand updates could lead to double updates.
+   - Use a lock for synchronization: commands take it shared, update
+     and shutdown take it exclusive.  This makes update and shutdown
+     block until all aborted commands terminated and gave up their
+     lock.  Before, they proceeded blindly after waiting two or one
+     seconds respectively, which was cheesy and unsafe.
+   - New commands no longer fail while the update is pending, they are
+     delayed until after the update.
+   - New commands can no longer start during shutdown.  Before, they
+     could, but risked getting killed violently, corrupting the game
+     state.
+   - Fix command execution so that commands blocked in writing
+     redirections are abortable.  The bug allowed players to delay
+     update and shutdown indefinitely.
+   - Fix shutdown not to let player threads block on output.  This
+     let players delay shutdown indefinitely.
+   - Fix reading of player input not to block again after update or
+     shutdown aborted it.  The bug allowed players to delay update and
+     shutdown indefinitely.
+ * Thread priorities are only implemented by LWP and no longer used.
+   With LWP, they let players with a sufficiently fast connection 
+   starve out the threads that clean the lost file and kill idle
+   connections.  Drop them.
+ * Show nuke rounded required research incorrectly.
+ * Log unprintable characters as octal escapes rather than question
+   marks in the journal file.
+ * The files program no longer changes permissions of existing files.
+ * The files program now creates all files with permissions ug=rw and
+   all directories ug=rwx, modified by umask.
+ * Fix a bug that could make arm, disarm and nuke detonation work with
+   a used-up nuke instead of the armed one.  This could be abused to
+   detonate nukes multiple times.  Broken in 4.3.3.
+ * Fix nuke detonation output for zero blast radius.
+ * Plug memory leaks in thread code.
+ * Fix a bug that made LWP I/O wakeup unreliable.
+ * New march sub-command v for view.
+ * Journal was initialized before threads were, which was wrong.
+ * Fix server not to create a journal on SIGHUP when it is disabled.
+ * shutdown 0 now requests immediate shutdown instead of cancellation
+   of a pending shutdown.  shutdown -1 now cancels.
+ * flash and wall no longer split long message lines.
+ * Fix a bug in collect that screwed up a fully collected loan instead
+   of deleting it.  The screwed up loan could not be sharked or
+   collected, but it could be repaid.
+ * Remove the wait command, it's been broken and restricted to deity
+   since Empire 2, ca. 1995.
+ * Budget failed to take sector production into account for predicting
+   unit repairs.  Before 4.3.6, this bug bit only when you fooled
+   around with budget priorities.
+ * When unit repairs is limited by materials, the efficiency gain is
+   now rounded down.
+ * Ship repairs outside harbors and plane repairs by carriers used to
+   consume commodities when and as far as available.  Now, they
+   consume the same fraction of the real cost of each commodity,
+   i.e. commodity use is limited by the most scarce commodity.
+   Neither old nor new behavior make much sense, but the new code is
+   simpler.
+ * Code refactoring and cleanup, in particular to make the Windows
+   port less ugly.
+ * Portability fixes.
+ * Info file and manual page updates.  All manual pages are now
+   installed in section 6.
+
 Changes to Empire 4.3.9 - Sat Jan  6 12:42:19 UTC 2007
  * Fix declare to prevent the deity from changing relations for a
    player to self.  Allow the deity to set the relations of a player
@@ -14,8 +139,8 @@ Changes to Empire 4.3.9 - Sat Jan  6 12:42:19 UTC 2007
  * Fix arm not to put the same nuke on multiple planes (broken in
    4.3.3).
  * New option AUTO_POWER.
- * Repair allied land units.
- * Only repair owned and allied planes.
+ * Sectors now repair allied land units.
+ * Sectors now repair only own and allied planes.
  * Fix repair of planes on foreign carriers: repair allied planes,
    ignore the others.  Before 4.3.3, carriers destroyed rather than
    repaired foreign planes.  Since 4.3.3, foreign planes were treated
