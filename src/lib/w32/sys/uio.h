@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  sys/socket.h: POSIX io vector emulation for WIN32
+ *  sys/uio.h: POSIX emulation for WIN32
  * 
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
@@ -38,9 +38,8 @@
 #include "w32misc.h"
 
 struct iovec {
-    /*Base address of a memory region for input or output. */
+    /* Base address of a memory region for input or output. */
     void   *iov_base;
-
     /* The size of the memory pointed to by iov_base. */
     size_t  iov_len;
 };
