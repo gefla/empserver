@@ -314,13 +314,14 @@ gen_power(struct powstr *powbuf, int save)
 	return;
     for (i = 0; i < MAXNOC; i++)
 	putpower(i, &powbuf[i]);
+#ifdef _WIN32
     /*
-     * At least some versions of Windows fail to update st_mtime on
-     * write(), the st_mtime is not until the file is written to the
-     * disk.  Bad, because `power' displays that time.
-     * Force a sync to ensure the st_time is correct.
+     * At least some versions of Windows fail to update mtime on
+     * write(), they delay it until the write actually hits the disk.
+     * Bad, because `power' displays that time.  Force it.
      */
     fsync(empfile[EF_POWER].fd);
+#endif
 }
 
 static int
