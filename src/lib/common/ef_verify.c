@@ -57,7 +57,7 @@ verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
 	    EF_IS_GAME_STATE(i) ? "File" : "Config",
 	    ef_nameof(type), row, ca->ca_name);
     if (ca->ca_type != NSC_STRINGY && ca->ca_len != 0)
-	fprintf(stderr, " index %d", idx);
+	fprintf(stderr, "(%d)", idx);
     fprintf(stderr, ": ");
     va_start(ap, fmt);
     vfprintf(stderr, fmt, ap);
