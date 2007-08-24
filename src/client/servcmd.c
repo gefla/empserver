@@ -63,7 +63,7 @@ static void prompt(FILE *auxfi);
 static void doredir(char *p);
 static void dopipe(char *p);
 static void doexecute(char *p, FILE *auxfi);
-static void output(int code, char *buf, FILE *auxfi, int eol);
+static void output(int code, char *buf, FILE *auxfi);
 static void screen(char *buf);
 
 void
@@ -135,7 +135,7 @@ servercmd(struct ioqueue *ioq, FILE *auxfi)
 		*num_teles = '\0';
 	    break;
 	default:
-	    output(code, p, auxfi, eol);
+	    output(code, p, auxfi);
 	    break;
 	}
 	if (eol)
@@ -287,11 +287,11 @@ doexecute(char *p, FILE *auxfi)
 }
 
 static void
-output(int code, char *buf, FILE *auxfi, int eol)
+output(int code, char *buf, FILE *auxfi)
 {
     switch (code) {
     case C_NOECHO:
-	/* not implemented; serve doesn't send it */
+	/* not implemented; server doesn't send it */
 	break;
     case C_ABORT:
 	printf("Aborted\n");
