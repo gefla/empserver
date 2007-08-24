@@ -55,7 +55,9 @@
 typedef unsigned short mode_t;
 typedef long off_t;
 typedef int pid_t;
-typedef __W64 int ssize_t;
+#ifdef _MSC_VER
+typedef int __w64 ssize_t;
+#endif
 
 /* time.h */
 struct tm;
