@@ -39,7 +39,7 @@
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
-/* string.h */
+/* strings.h (POSIX) or string.h (GNU) */
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
 #endif /* _MSC_VER */
 
@@ -55,9 +55,10 @@
 typedef unsigned short mode_t;
 typedef long off_t;
 typedef int pid_t;
-typedef long ssize_t;
+typedef __W64 int ssize_t;
 
 /* time.h */
 struct tm;
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);
+
 #endif /* W32MISC_H */
