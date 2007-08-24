@@ -91,7 +91,7 @@ Requirements:
 
 * Output is self-contained; symbol encoding is explicit.
 
-* KISS: keep it simple, keep it stupid.
+* KISS: Keep it simple, stupid.
 
 Non-requirements:
 
@@ -524,8 +524,8 @@ EBNF changes:
 
 * Header and footer:
 
-    header = "config" name newline { colhdr } newline ;
-    colhdr = identifier [ "(" ( intnum | identifier ) ")" ] [ "..." ] ;
+    header = "config" name newline colhdr newline ;
+    colhdr = { identifier [ "(" ( intnum | identifier ) ")" ] } [ "..." ] ;
     footer = "/config" newline ;
 
   If colhdr ends with "...", the table is continued in another part,
@@ -597,14 +597,7 @@ EBNF changes:
 The resulting sub-language for records is a superset of
 machine-readable sub-language for records.
 
-
 See src/lib/global/*.config for examples.
-
-Human-readable xdump still has its shortcomings:
-
-* item selector pkg is an array indexed by values in symbol table
-  packing.  The column header should support symbolic index values
-  rather than numbers.
 
 
 Notes on Table Configuration Implementation
@@ -623,6 +616,10 @@ Actual work is done by src/lib/common/xundump.c, which accepts both
 human-readable and machine-readable input.  The parser is not precise;
 it accepts human-readable syntax even within tables whose header marks
 them machine-readable.
+
+Symbolic index values in column headers are not implemented.  They
+occur in item selector pkg, which is an array indexed by values in
+symbol table packing.
 
 Configuration tables contain values that are not meant to be
 customized.  For instance, meta-data and symbol tables reflect the
