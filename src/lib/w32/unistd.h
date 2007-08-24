@@ -118,6 +118,7 @@ typedef int socklen_t;
 #define F_SETLK	    3
 #define EWOULDBLOCK WSAEWOULDBLOCK
 #define ENOTSOCK    WSAENOTSOCK
+#define EAFNOSUPPORT	WSAEAFNOSUPPORT
 
 struct flock
 {

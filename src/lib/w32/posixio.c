@@ -322,31 +322,36 @@ posix_socket(int domain, int type, int protocol)
 
 #ifdef HAVE_GETADDRINFO
 const char *
-inet_ntop(int af, const void *source, char *dest, socklen_t len)
+inet_ntop(int af, const void *src, char *dst, socklen_t len)
 {
-    if (af == AF_INET)
-    {
-	struct sockaddr_in in;
-	memset(&in, 0, sizeof(in));
-	in.sin_family = AF_INET;
-	memcpy(&in.sin_addr, source, sizeof(struct in_addr));
-	getnameinfo((struct sockaddr *)&in,
-		    sizeof(struct sockaddr_in), dest, len,
-		    NULL, 0, NI_NUMERICHOST);
-	return dest;
+    struct sockaddr *sa;
+    struct sockaddr_in sin;
+    struct sockaddr_in6 sin6;
+    size_t salen;
+
+    if (af == AF_INET) {
+	memset(&sin, 0, sizeof(sin));
+	sin.sin_family = af;
+	memcpy(&sin.sin_addr, src, sizeof(sin.sin_addr));
+	sa = (struct sockaddr *)&sin;
+	salen = sizeof(sin);
+    } else if (af == AF_INET6) {
+	memset(&sin6, 0, sizeof(sin6));
+	sin6.sin6_family = af;
+	memcpy(&sin6.sin6_addr, src, sizeof(sin6.sin6_addr));
+	sa = (struct sockaddr *)&sin6;
+	salen = sizeof(sin6);
+    } else {
+	errno = EAFNOSUPPORT;
+	return NULL;
     }
-    else if (af == AF_INET6)
-    {
-	struct sockaddr_in6 in;
-	memset(&in, 0, sizeof(in));
-	in.sin6_family = AF_INET6;
-	memcpy(&in.sin6_addr, source, sizeof(struct in_addr6));
-	getnameinfo((struct sockaddr *)&in,
-		    sizeof(struct sockaddr_in6), dest, len,
-		    NULL, 0, NI_NUMERICHOST);
-	return dest;
+
+    if (getnameinfo(sa, salen, dst, len, NULL, 0, NI_NUMERICHOST)) {
+	errno = EAFNOSUPPORT;
+	return NULL;
     }
-    return NULL;
+
+    return dst;
 }
 #endif
 
