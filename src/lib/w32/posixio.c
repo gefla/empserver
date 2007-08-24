@@ -129,7 +129,7 @@ set_fd(int fd, enum fdmap_io_type type, int handle)
     fdmap[fd].type = type;
 
     /*
-     * Garbage collection for posix_fileno(), currently not
+     * Garbage collection for fileno(), currently not
      * replacing fclose() and fcloseall() so do not know when
      * a stream is closed.
      */
@@ -586,7 +586,7 @@ writev(int fd, const struct iovec *iov, int iovcnt)
  * handle is reused.
  */
 int
-posix_fileno(FILE *stream)
+fileno(FILE *stream)
 {
     int fd;
     int handle;

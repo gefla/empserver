@@ -36,8 +36,10 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <stdio.h>
 #include "commands.h"
 #include "match.h"
+#include "misc.h"
 #include "optlist.h"
 #include "tel.h"
 

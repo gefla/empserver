@@ -36,7 +36,6 @@
 
 #include <io.h>
 #include <stdio.h>
-#undef fileno
 #include <direct.h>
 #include "sys/socket.h"
 #include <sys/stat.h>
@@ -108,8 +107,6 @@ typedef int socklen_t;
 #define read	posix_read
 #define write(fd, buffer, count) \
     posix_write((fd), (buffer), (count))
-#define fileno(stream) \
-    posix_fileno((stream))
 #define fsync(fd) \
     posix_fsync((fd))
 

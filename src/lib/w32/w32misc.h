@@ -46,6 +46,7 @@
 /* stdio.h */
 #define vsnprintf _vsnprintf
 #define snprintf _snprintf
+#undef fileno
 
 /* stdlib.h */
 #define random rand
