@@ -36,6 +36,7 @@
 
 #include <config.h>
 
+#include <stdio.h>
 #include "commands.h"
 #include "nuke.h"
 #include "optlist.h"

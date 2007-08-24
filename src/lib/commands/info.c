@@ -40,6 +40,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <stdio.h>
 #if !defined(_WIN32)
 #include <dirent.h>
 #else
