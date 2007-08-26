@@ -223,7 +223,8 @@ int
 posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 {
     int new_fd;
-    int handle, new_handle;
+    int handle;
+    SOCKET new_handle;
 
     if (!lookup_handle(fd, FDMAP_IO_SOCKET, ENOTSOCK, NULL, &handle))
 	return -1;
@@ -238,7 +239,7 @@ posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 	errno = WSAGetLastError();
 	return -1;
     }
-    set_fd(new_fd, FDMAP_IO_SOCKET, new_handle);
+    set_fd(new_fd, FDMAP_IO_SOCKET, (int)new_handle);
     return new_fd;
 }
 
@@ -304,7 +305,7 @@ posix_shutdown(int fd, int how)
 int
 posix_socket(int domain, int type, int protocol)
 {
-    int handle;
+    SOCKET handle;
     int new_fd;
     
     if ((new_fd = get_fd()) < 0)
@@ -316,7 +317,7 @@ posix_socket(int domain, int type, int protocol)
 	errno = WSAGetLastError();
 	return -1;
     }
-    set_fd(new_fd, FDMAP_IO_SOCKET, handle);
+    set_fd(new_fd, FDMAP_IO_SOCKET, (int)handle);
     return new_fd;
 }
 
@@ -387,9 +388,10 @@ posix_close(int fd)
 	return result;
     case FDMAP_IO_FILE:
        return _close(handle);
+    default:
+	CANT_REACH();
+	return -1;
     }
-    CANT_REACH();
-    return -1;
 }
 
 /*
@@ -479,9 +481,10 @@ posix_open(const char *fname, int oflag, ...)
 	return result;						    \
     case FDMAP_IO_FILE:						    \
 	return (file_expr);					    \
-    }								    \
-    CANT_REACH();						    \
-    return -1;
+    default:							    \
+	CANT_REACH();						    \
+	return -1;						    \
+    }
 
 /*
  * POSIX equivalent for read().
