@@ -73,23 +73,23 @@ __weak_alias(strptime,_strptime)
 #define	_ctloc(x)		(_CurrentTimeLocale->x)
 #else
 #define _ctloc(x)   (x)
-char *abday[] = {
+const char *abday[] = {
 	"Sun", "Mon", "Tue", "Wed",
 	"Thu", "Fri", "Sat"
 };
-char *day[] = {
+const char *day[] = {
 	"Sunday", "Monday", "Tuesday", "Wednesday",
 	"Thursday", "Friday", "Saturday"
 };
-char *abmon[] =	{
+const char *abmon[] =	{
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
-char *mon[] = {
+const char *mon[] = {
 	"January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"
 };
-char *am_pm[] = {
+const char *am_pm[] = {
 	"AM", "PM"
 };
 char *d_t_fmt = "%a %Ef %T %Y";
