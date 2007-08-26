@@ -36,6 +36,10 @@
 #include <io.h>
 #include "unistd.h"
 
+/*
+ * POSIX equivalent for mkdir().
+ * Windows does not set the permission directly with mkdir().
+ */
 int
 posix_mkdir(const char *dirname, mode_t perm)
 {
