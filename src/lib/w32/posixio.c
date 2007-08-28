@@ -50,10 +50,11 @@
 #include <share.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "sys/socket.h"
 #include <sys/stat.h>
+#include <ws2tcpip.h>
 
 #include "misc.h"
-#include "sys/socket.h"
 #include "sys/uio.h"
 #include "unistd.h"
 

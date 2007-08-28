@@ -37,4 +37,31 @@
 #include <winsock2.h>
 #undef NS_ALL
 
+#define EWOULDBLOCK WSAEWOULDBLOCK
+#define ENOTSOCK    WSAENOTSOCK
+#define EAFNOSUPPORT	WSAEAFNOSUPPORT
+
+typedef int socklen_t;
+
+#define accept(fd, addr, addrlen) \
+    posix_accept((fd), (addr), (addrlen))
+#define bind(fd, name, namelen) \
+    posix_bind((fd), (name), (namelen))
+#define listen(fd, backlog) \
+    posix_listen((fd), (backlog))
+#define setsockopt(fd, level, optname, optval, optlen) \
+    posix_setsockopt((fd), (level), (optname), (optval), (optlen))
+#define shutdown(fd, how) \
+    posix_shutdown((fd), (how))
+#define socket(domain, type, protocol) \
+    posix_socket((domain), (type), (protocol))
+
+extern int posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
+extern int posix_bind(int fd, const struct sockaddr *name, socklen_t namelen);
+extern int posix_listen(int fd, int backlog);
+extern int posix_setsockopt(int fd, int level, int optname,
+		      const void *optval, socklen_t optlen);
+extern int posix_shutdown(int fd, int how);
+extern int posix_socket(int domain, int type, int protocol);
+
 #endif /* SYS_SOCKET_H */

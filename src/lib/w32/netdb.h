@@ -34,6 +34,6 @@
 #ifndef NETDB_H
 #define NETDB_H
 
-#include <sys/socket.h>
+#include "sys/socket.h"
 #include <ws2tcpip.h>
 #endif /* NETDB_H */

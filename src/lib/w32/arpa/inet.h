@@ -35,4 +35,8 @@
 #define ARPA_INET_H
 
 #include <sys/socket.h>
+
+extern const char *inet_ntop(int af, const void *src, char *dst,
+			     socklen_t cnt);
+
 #endif /* ARPA_INET_H */
