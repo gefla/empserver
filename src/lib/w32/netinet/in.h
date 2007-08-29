@@ -34,5 +34,5 @@
 #ifndef NETINET_IN_H
 #define NETINET_IN_H
 
-#include <sys/socket.h>
+#include "sys/socket.h"
 #endif /* NETINET_IN_H */
