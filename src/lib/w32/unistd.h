@@ -109,13 +109,15 @@ struct flock
     off_t l_len;
     /* intentionally missing: pid_t l_pid */
 };
+
 #define creat(fname, pmode) \
     posix_open((fname), _O_WRONLY | _O_CREAT |_O_TRUNC, (pmode))
 #define open(fname, oflag, ...) \
     posix_open((fname), (oflag), __VA_ARGS__)
 extern int posix_open(const char *fname, int oflag, ...);
+extern int fcntl(int fd, int cmd, ...);
 
-/* Stuff that belongs here */
+/* Stuff that actually belongs here */
 #define close(fd) \
     posix_close((fd))
 #define lseek(fd, offset, origin) \
@@ -130,10 +132,8 @@ extern off_t posix_lseek(int fd, off_t offset, int origin);
 extern ssize_t posix_read(int fd, void *buffer, size_t count);
 extern ssize_t posix_write(int fd, const void *buffer, size_t count);
 extern int posix_fsync(int fd);
-extern int fcntl(int fd, int cmd, ...);
 
 /* Low-level stuff specific to the emulation */
 extern int posix_fd2socket(int fd);
 
 #endif /* UNISTD_H */
-extern int posix_fileno(FILE *stream);
