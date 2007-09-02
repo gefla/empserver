@@ -99,6 +99,9 @@ delete_old_announcements(void)
 	if (rename(tmp_filename, annfil) != 0)
 	    logerror("can't move temporary telegram file %s "
 		     "to telegram file %s", tmp_filename, annfil);
+    } else {
+	if (remove(tmp_filename) < 0)
+	    logerror("can't delete telegram file %s", tmp_filename);
     }
 }
 
