@@ -137,7 +137,7 @@ update_sched(void *unused)
 	} else {
 	    logerror("No update scheduled");
 	    /* want to sleep forever, but empthread doesn't provide that */
-	    while (empth_sleep(60 * 60 * 24) >= 0) ;
+	    while (empth_sleep(time(NULL) + (60 * 60 * 24)) >= 0) ;
 	}
 
 	now = time(NULL);
