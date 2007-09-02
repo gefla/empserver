@@ -1,4 +1,8 @@
-Changes to Empire 4.3.10 - Fri Aug 24 17:26:56 UTC 2007
+Changes to Empire 4.3.10 - Sun Sep  2 18:01:17 UTC 2007
+ * Bridge spans now cost $1000 instead of $2000, and bridge towers
+   $3000 instead of $7500.
+ * The Windows port now supports IPv6, but it still needs to be
+   enabled manually at compile-time.
  * The custom table reader detects more errors.
  * Do not leak world creation time in files and fairland, because
    that facilitates attacks against the PRNG.  This misfeature crept
@@ -58,7 +62,7 @@ Changes to Empire 4.3.10 - Fri Aug 24 17:26:56 UTC 2007
      Before, three update threads had to perform a carefully
      choreographed dance to make updates happen.  The dance relied on
      thread priorities for correctness, but they're only implemented
-     by LWP.  With pthreads and under windows, demand updates were
+     by LWP.  With pthreads and under Windows, demand updates were
      prone to two update threads starting up concurrently.  Even with
      LWP, forced and demand updates could lead to double updates.
    - Use a lock for synchronization: commands take it shared, update
@@ -109,7 +113,7 @@ Changes to Empire 4.3.10 - Fri Aug 24 17:26:56 UTC 2007
  * Budget failed to take sector production into account for predicting
    unit repairs.  Before 4.3.6, this bug bit only when you fooled
    around with budget priorities.
- * When unit repairs is limited by materials, the efficiency gain is
+ * When unit repairs are limited by materials, the efficiency gain is
    now rounded down.
  * Ship repairs outside harbors and plane repairs by carriers used to
    consume commodities when and as far as available.  Now, they
