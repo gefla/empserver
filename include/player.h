@@ -65,7 +65,7 @@ struct player {
     char combuf[1024];		/* command input buffer, UTF-8 */
     char *argp[128];		/* arguments, ASCII */
     char *condarg;		/* conditional, ASCII */
-    time_t lasttime;		/* when to debit minleft again */
+    time_t lasttime;		/* when minleft was last debited */
     int ncomstat;
     int minleft;
     int btused;
