@@ -1,4 +1,4 @@
-Changes to Empire 4.3.10 - Sun Sep  2 18:01:17 UTC 2007
+Changes to Empire 4.3.10 - Thu Sep  6 17:59:53 UTC 2007
  * Bridge spans now cost $1000 instead of $2000, and bridge towers
    $3000 instead of $7500.
  * The Windows port now supports IPv6, but it still needs to be
@@ -8,16 +8,15 @@ Changes to Empire 4.3.10 - Sun Sep  2 18:01:17 UTC 2007
    that facilitates attacks against the PRNG.  This misfeature crept
    into 4.3.0.
  * Remove the ancient, crufty non-UCONTEXT system-dependent LWP code.
-   Using it required manual hackery since 4.3.0, and it hasn't been
-   missed.
+   Using it required manual hackery since 4.3.0.
  * Plug file descriptor leak in add command.
  * Don't kill player connections violently when their thread appears
    to be hung.  Threads being aborted by update or shutdown could be
    misidentified as hung, and the violence could lead to resource
    leaks, locked out updates, and corrupted game state.
- * Fix LWP to wake up threads sleeping for a time reliably.  Before,
-   players with a sufficiently fast connection could starve out
-   threads system threads, including the update.
+ * Fix LWP to reliably wake up threads sleeping for a time.  Before,
+   players with a sufficiently fast connection could starve out system
+   threads, including the update.
  * Fix a class of bugs that made commands behave differently while the
    update is attempting to take control:
    - No MOB_ACCESS mobility was gained.
@@ -61,10 +60,10 @@ Changes to Empire 4.3.10 - Sun Sep  2 18:01:17 UTC 2007
    - Simplify update to a single thread waiting for the trigger.
      Before, three update threads had to perform a carefully
      choreographed dance to make updates happen.  The dance relied on
-     thread priorities for correctness, but they're only implemented
-     by LWP.  With pthreads and under Windows, demand updates were
-     prone to two update threads starting up concurrently.  Even with
-     LWP, forced and demand updates could lead to double updates.
+     thread priorities for correctness, which are only implemented by
+     LWP.  With pthreads and under Windows, demand updates were prone
+     to two update threads starting up concurrently.  Even with LWP,
+     forced and demand updates could lead to double updates.
    - Use a lock for synchronization: commands take it shared, update
      and shutdown take it exclusive.  This makes update and shutdown
      block until all aborted commands terminated and gave up their
@@ -73,8 +72,8 @@ Changes to Empire 4.3.10 - Sun Sep  2 18:01:17 UTC 2007
    - New commands no longer fail while the update is pending, they are
      delayed until after the update.
    - New commands can no longer start during shutdown.  Before, they
-     could, but risked getting killed violently, corrupting the game
-     state.
+     could, but risked getting killed violently, possibly corrupting
+     game state.
    - Fix command execution so that commands blocked in writing
      redirections are abortable.  The bug allowed players to delay
      update and shutdown indefinitely.
