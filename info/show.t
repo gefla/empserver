@@ -1,5 +1,5 @@
 .TH Command SHOW
-.NA show "Characteristics of sectors, units, bridges, items and news"
+.NA show "Characteristics of sectors, units, updates and more"
 .LV Basic
 .SY "show <land|nuke|plane|sector|ship> [b|s|c] [tech]"
 .SY "show <bridge|item|news|tower>"
