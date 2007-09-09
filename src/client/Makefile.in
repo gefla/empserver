@@ -65,7 +65,7 @@ clean:
 	rm -f $(obj) $(prog)
 
 distclean: clean
-	rm -rf autom4te.cache config.status config.log Makefile
+	rm -rf autom4te.cache config.h config.log config.status Makefile ipglob.c
 
 install: all installdirs
 	$(INSTALL_PROGRAM) empire $(bindir)/empire
