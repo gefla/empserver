@@ -601,7 +601,7 @@ empth_sleep(time_t until)
     empth_t *pThread = TlsGetValue(dwTLSIndex);
     int iReturn = 0;
 
-    if ((lSec = until - time(0)) > 0) {
+    while (!iReturn && ((lSec = until - time(0)) > 0)) {
 	loc_BlockThisThread();
 	loc_debug("going to sleep %ld sec", lSec);
 
