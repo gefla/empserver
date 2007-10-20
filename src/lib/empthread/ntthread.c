@@ -348,7 +348,7 @@ empth_threadMain(void *pvData)
      * In WIN32, each thread has seed
      */
     time(&now);
-    srand( ^ (unsigned)pThread);
+    srandom(now ^ (unsigned)pThread);
 
     /* Switch to this thread context */
     loc_RunThisThread(NULL);
