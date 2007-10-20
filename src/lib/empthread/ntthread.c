@@ -63,6 +63,7 @@
 #include "misc.h"
 #include "empthread.h"
 #include "prototypes.h"
+#include "server.h"
 
 #define loc_MIN_THREAD_STACK  16384
 
@@ -325,8 +326,6 @@ loc_Exit_Handler(DWORD fdwCtrlType)
 static void
 empth_threadMain(void *pvData)
 {
-    time_t now;
-
     empth_t *pThread = pvData;
 
     /* Out of here... */
@@ -342,9 +341,14 @@ empth_threadMain(void *pvData)
     /* Signal that the thread has started. */
     SetEvent(hThreadStartEvent);
 
-    /* seed the rand() function */
-    time(&now);
-    srand(now ^ (unsigned)pThread);
+    /*
+     * seed the rand() function
+     * In WIN32, each thread has seed
+     */
+    if (rnd_seed.set)
+	srand(rnd_seed.seed);
+    else
+	srand(time(NULL) ^ (unsigned)pThread);
 
     /* Switch to this thread context */
     loc_RunThisThread(NULL);
