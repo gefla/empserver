@@ -326,8 +326,6 @@ loc_Exit_Handler(DWORD fdwCtrlType)
 static void
 empth_threadMain(void *pvData)
 {
-    time_t now;
-
     empth_t *pThread = pvData;
 
     /* Out of here... */
@@ -342,13 +340,6 @@ empth_threadMain(void *pvData)
 
     /* Signal that the thread has started. */
     SetEvent(hThreadStartEvent);
-
-    /*
-     * seed the rand() function
-     * In WIN32, each thread has seed
-     */
-    time(&now);
-    srandom(now ^ (unsigned)pThread);
 
     /* Switch to this thread context */
     loc_RunThisThread(NULL);
