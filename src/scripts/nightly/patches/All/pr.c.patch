@@ -1,7 +1,7 @@
 Index: empserver/src/lib/subs/pr.c
---- empserver/src/lib/subs/pr.c	24 Jul 2005 17:26:21 -0000	1.27
-+++ empserver/src/lib/subs/pr.c	11 Aug 2005 09:14:25 -0000
-@@ -66,6 +66,13 @@
+--- empserver/src/lib/subs/pr.c	18 Aug 2007 17:03:13 -0000	1.41
++++ empserver/src/lib/subs/pr.c	9 Sep 2007 02:42:51 -0000
+@@ -68,6 +68,13 @@
  static void upr_player(struct player *pl, int id, char *buf);
  static void outid(struct player *pl, int n);
  
@@ -15,7 +15,7 @@ Index: empserver/src/lib/subs/pr.c
  /*
   * Print to current player similar to printf().
   * Use printf-style FORMAT with the optional arguments.
-@@ -341,7 +348,7 @@
+@@ -351,7 +358,7 @@
  void
  prprompt(int min, int btu)
  {
