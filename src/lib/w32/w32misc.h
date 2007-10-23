@@ -58,7 +58,7 @@
 
 extern char *__initstate(unsigned seed, char *state, size_t size);
 extern long __random(void);
-extern char *__setstate(const char *state);
+extern char *__setstate(char *state);
 extern void __srandom(unsigned seed);
 
 /* sys/types.h */
