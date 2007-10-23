@@ -26,10 +26,13 @@ emp_server \- Empire server
 .br
 .B emp_server
 [
-.B \-r
+.B \-u
 |
-.BI \-R " service-name"
+.BI \-U " service-name"
 ]\}
+[
+.BI \-R " random-seed"
+]
 .SH DESCRIPTION
 .B emp_server
 is a daemon which listens to the Empire port for players connecting to
@@ -61,14 +64,17 @@ Install as a Windows Service with the specified name.\}
 Threading debug mode.  Implies \fB-d\fR.
 .if \nw \{\
 .TP
-.B \-r
-Remove the Windows Service called "Empire Server".
+.B \-u
+Uninstall the Windows Service called "Empire Server".
 .TP
-.BI \-R " service-name"
-Remove the Windows Service with the specified name.\}
+.BI \-U " service-name"
+Uninstall the Windows Service with the specified name.\}
 .TP
 .B \-s
 Enable thread stack checking.
+.TP
+.B \-R " random-seed"
+Set the seed for random function.
 .TP
 .B \-v
 Print version information and exit.

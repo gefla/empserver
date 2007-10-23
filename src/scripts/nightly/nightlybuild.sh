@@ -259,7 +259,7 @@ do
 
 	echo "Running files and fairland"
 	echo y | ./files || warn "Error running files"
-	./fairland -R 0 10 30 >/dev/null || { warn "Error running fairland" ; break ; }
+	./fairland -R 1 10 30 >/dev/null || { warn "Error running fairland" ; break ; }
 	[ -s "newcap_script" ] || { warn "fairland did not produce newcap_script" ; break ; }
 	echo "Done (files & fairland)."
 	echo ""
@@ -279,7 +279,7 @@ do
 		*)
 
 	echo "Starting server with -d in the background"
-	./emp_server -d &
+	./emp_server -R 1 -d &
 	PID="$!"
 	sleep 1
 	kill -0 "${PID}" || { warn "emp_server not running ?" ; break ; }

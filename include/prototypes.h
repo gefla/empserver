@@ -46,7 +46,7 @@
 
 /* src/server/main.c */
 extern void shutdwn(int sig);
-extern void init_server(void);
+extern void init_server(unsigned);
 extern void start_server(int);
 extern void finish_server(void);
 

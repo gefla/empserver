@@ -106,10 +106,11 @@ print_usage(char *program_name)
 #endif
 	   "  -p              threading debug mode, implies -d\n"
 #ifdef _WIN32
-	   "  -r              remove service `%s'\n"
-	   "  -R NAME         remove service NAME\n"
+	   "  -u              uninstall service `%s'\n"
+	   "  -U NAME         uninstall service NAME\n"
 #endif
 	   "  -s              enable stack checking\n"
+	   "  -R RANDOM-SEED  random seed\n"
 	   "  -v              display version information and exit\n",
 	   program_name, dflt_econfig
 #ifdef _WIN32
@@ -130,13 +131,14 @@ main(int argc, char **argv)
 #endif
     char *config_file = NULL;
     int op, sig;
+    unsigned seed = time(NULL);
 
 #ifdef _WIN32
-# define XOPTS "iI:rR:"
+# define XOPTS "iI:uU:"
 #else
 # define XOPTS
 #endif
-    while ((op = getopt(argc, argv, "de:hpsv" XOPTS)) != EOF) {
+    while ((op = getopt(argc, argv, "de:hpsR:v" XOPTS)) != EOF) {
 	switch (op) {
 	case 'p':
 	    flags |= EMPTH_PRINT;
@@ -155,15 +157,18 @@ main(int argc, char **argv)
 	case 'i':
 	    install_service_set++;
 	    break;
-	case 'R':
+	case 'U':
 	    service_name = optarg;
 	    /* fall through */
-	case 'r':
+	case 'u':
 	    remove_service_set++;
 	    break;
 #endif	/* _WIN32 */
 	case 's':
 	    flags |= EMPTH_STACKCHECK;
+	    break;
+	case 'R':
+	    seed = strtoul(optarg, NULL, 10);
 	    break;
 	case 'v':
 	    printf("%s\n\n%s", version, legal);
@@ -181,7 +186,7 @@ main(int argc, char **argv)
     if ((debug || flags || config_file != NULL) &&
 	remove_service_set) {
 	fprintf(stderr, "Can't use -p, -s, -d or -e with either "
-	    "-r or -R options\n");
+	    "-u or -U options\n");
 	exit(EXIT_FAILURE);
     }
     if ((debug || flags) && install_service_set) {
@@ -190,7 +195,7 @@ main(int argc, char **argv)
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
-	fprintf(stderr, "Can't use both -r or -R and -i or -I "
+	fprintf(stderr, "Can't use both -u or -U and -i or -I "
 	    "options\n");
 	exit(EXIT_FAILURE);
     }
@@ -237,7 +242,7 @@ main(int argc, char **argv)
 	return install_service(program_name, service_name, config_file);
 #endif	/* _WIN32 */
 
-    init_server();
+    init_server(seed);
 
 #if defined(_WIN32)
     if (daemonize != 0) {
@@ -295,9 +300,9 @@ main(int argc, char **argv)
  * Initialize for serving, acquire resources.
  */
 void
-init_server(void)
+init_server(unsigned seed)
 {
-    srandom(time(NULL));
+    srandom(seed);
 #if defined(_WIN32)
     loc_NTInit();
 #endif
