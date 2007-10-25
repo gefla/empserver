@@ -22,7 +22,11 @@ struct random_data
 #define __libc_lock_unlock(lock)
 #define __libc_lock_define_initialized(static1, lock)
 
-#define __set_errno(error) _set_errno((error))
+#ifdef HAVE__SET_ERRNO
+#define __set_errno(val) _set_errno((val))
+#else
+#define __set_errno(val) (errno = (val))
+#endif
 
 #define weak_alias(arg1, arg2)
 #define srandom_r(seed, buf) __srandom_r((seed), (buf))
