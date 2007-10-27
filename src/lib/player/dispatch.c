@@ -117,8 +117,11 @@ dispatch(char *buf, char *redir)
     case RET_SYN:
 	pr("Usage: %s\n", command->c_form);
 	break;
+    case RET_SYS:
+	logerror("System error, command failed: %s", command->c_form);
+	break;
     default:
-	logerror("%s: returned bad value", command->c_form);
+	CANT_REACH();
 	break;
     }
     empth_rwlock_unlock(play_lock);
