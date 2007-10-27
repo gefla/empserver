@@ -305,7 +305,8 @@ extern int has_units_with_mob(coord, coord, natid);
 extern int adj_units(coord, coord, natid);
 extern int has_helpful_engineer(coord x, coord y, natid cn);
 /* log.c */
-extern void loginit(char *);
+extern int loginit(char *);
+extern int logreopen(void);
 extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* more in misc.h */
 /* maps.c */

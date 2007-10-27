@@ -283,6 +283,7 @@ main(int argc, char **argv)
 	    /* if you make changes here, also update relo() */
 	    journal_reopen();
 	    update_reschedule();
+	    logreopen();
 	    continue;
 	}
 #endif

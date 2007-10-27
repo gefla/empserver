@@ -33,12 +33,13 @@
 
 #include <config.h>
 
-#include <unistd.h>
+#include <errno.h>
 #include <fcntl.h>
-#include <sys/stat.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <time.h>
+#include <unistd.h>
 #include "misc.h"
 #include "optlist.h"
 #include "player.h"
@@ -48,14 +49,44 @@
 int debug = 0;
 
 static char logfile[32];
+static int logfd = -1;
+
+static int logopen(void);
 
 /*
  * Points log file at PROGRAM.log
  */
-void
+int
 loginit(char *program)
 {
     sprintf(logfile, "%.*s.log", (int)sizeof(logfile) - 5, program);
+    logfd = logopen();
+    return logfd;
+}
+
+static int
+logopen(void)
+{
+    int fd;
+
+    fd = open(logfile, O_WRONLY | O_CREAT | O_APPEND, S_IRWUG);
+    if (fd < 0)
+	logerror("Can't open %s (%s)", logfile, strerror(errno));
+    return fd;
+}
+
+int
+logreopen(void)
+{
+    int newfd, res;
+
+    if ((newfd = logopen()) < 0)
+	return -1;
+    res = close(logfd);
+    logfd = newfd;
+    if (res < 0)
+	logerror("Can't close %s (%s)", logfile, strerror(errno));
+    return res;
 }
 
 /*
@@ -72,7 +103,6 @@ logerror(char *format, ...)
     va_list list;
     time_t now;
     char buf[ctime_len + 1 + msg_space + 2];
-    int logf;
     char *msg, *p;
 
     va_start(list, format);
@@ -85,15 +115,11 @@ logerror(char *format, ...)
     p = strchr(msg, '\n');
     p[1] = 0;
     fputs(msg, stderr);
-    if (logfile[0] != '\0') {
+    if (logfd >= 0) {
 	time(&now);
 	memcpy(buf, ctime(&now), ctime_len);
 	buf[ctime_len] = ' ';
-	if ((logf = open(logfile, O_WRONLY | O_CREAT | O_APPEND,
-			 S_IRWUG)) < 0)
-	    return;
-	write(logf, buf, strlen(buf));
-	close(logf);
+	write(logfd, buf, strlen(buf));
     }
     va_end(list);
 }

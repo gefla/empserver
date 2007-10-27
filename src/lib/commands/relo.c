@@ -54,5 +54,11 @@ relo(void)
     update_reschedule();
     pr("Reload of update schedule requested.\n");
 
+    if (logreopen() < 0) {
+	pr("Can't reopen log");
+	return RET_SYS;
+    }
+    pr("Log reopened.\n");
+
     return RET_OK;
 }
