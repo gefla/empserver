@@ -35,9 +35,7 @@
 
 #include <fcntl.h>
 #include <stdarg.h>
-#if !defined(_WIN32)
 #include <sys/uio.h>
-#endif
 #include <unistd.h>
 #include "file.h"
 #include "misc.h"
@@ -120,9 +118,7 @@ typed_wu(natid from, natid to, char *message, int type)
     int len;
     struct telstr tel;
     struct natstr *np;
-#if !defined(_WIN32)
     struct iovec iov[2];
-#endif
     int fd;
     char box[1024];
     int write_ok = 0;
@@ -154,16 +150,11 @@ typed_wu(natid from, natid to, char *message, int type)
     }
     tel.tel_length = len;
     tel.tel_type = type;
-#if !defined(_WIN32)
     iov[0].iov_base = &tel;
     iov[0].iov_len = sizeof(tel);
     iov[1].iov_base = message;
     iov[1].iov_len = len;
     if (writev(fd, iov, 2) < (int)(iov[0].iov_len + iov[1].iov_len)) {
-#else
-    if ((write(fd, &tel, sizeof(tel)) != sizeof(tel)) ||
-	(write(fd, message, len) != len)) {
-#endif
 	logerror("telegram 'write' to #%d failed", to);
     } else
     	write_ok = 1;
