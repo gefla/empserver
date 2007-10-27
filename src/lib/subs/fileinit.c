@@ -73,7 +73,7 @@ ef_init_srv(void)
 
     for (i = 0; cou_ca[i].ca_name; i++) {
 	nat_ca[i] = cou_ca[i];
-	flags = nat_ca[i].ca_flags | NSC_CONST;
+	flags = nat_ca[i].ca_flags;
 	if (flags & NSC_EXTRA)
 	    flags &= ~NSC_EXTRA;
 	else if (i != 0)
