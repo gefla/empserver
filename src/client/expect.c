@@ -35,6 +35,7 @@
 
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #ifndef _WIN32
 #include <sys/types.h>
@@ -49,7 +50,6 @@ recvline(int s, char *buf)
     int size;
     char *p;
     int n;
-    int code;
     int newline;
     char *ptr;
     int cc;
@@ -123,18 +123,11 @@ recvline(int s, char *buf)
 #ifndef _WIN32
     (void)alarm(0);
 #endif
-    if (!isxdigit(*buf)) {
+    if (!isxdigit(buf[0]) || buf[1] != ' ') {
 	fprintf(stderr, "Malformed line %s\n", buf);
 	return 0;
     }
-    if (isdigit(*buf))
-	code = *buf - '0';
-    else {
-	if (isupper(*buf))
-	    *buf = tolower(*buf);
-	code = 10 + *buf - 'a';
-    }
-    return code;
+    return strtol(buf, NULL, 16);
 }
 
 int
