@@ -140,9 +140,8 @@ show_bridge(int tlev)
 {
     if (tlev < buil_bt)
 	return;
-    pr("Bridges require %g tech,", buil_bt);
-    pr(" %d hcm,", buil_bh);
-    pr(" %d workers,\n", 0);
+    pr("Bridges require %g tech, %d hcm, 0 workers,\n",
+       buil_bt, buil_bh);
     pr("%d available workforce, and cost $%g\n",
        (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100,
        buil_bc);
@@ -153,9 +152,8 @@ show_tower(int tlev)
 {
     if (tlev < buil_tower_bt)
 	return;
-    pr("Bridge Towers require %g tech,", buil_tower_bt);
-    pr(" %d hcm,", buil_tower_bh);
-    pr(" %d workers,\n", 0);
+    pr("Bridge Towers require %g tech, %d hcm, 0 workers,\n",
+       buil_tower_bt, buil_tower_bh);
     pr("%d available workforce, and cost $%g\n",
        (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100,
        buil_tower_bc);
@@ -246,23 +244,17 @@ show_ship_stats(int tlev)
     int scount;
     int techdiff;
 
-    pr("%25s      s  v  s  r  f  l  p", "");
-    pr("  h");
-    pr("  x");
+    pr("%25s      s  v  s  r  f  l  p  h  x", "");
     if (opt_FUEL)
 	pr("  fuel");
     pr("\n");
 
-    pr("%25s      p  i  p  n  i  n  l", "");
-    pr("  e");
-    pr("  p");
+    pr("%25s      p  i  p  n  i  n  l  e  p", "");
     if (opt_FUEL)
 	pr("   c/u");
     pr("\n");
 
-    pr("%25s def  d  s  y  g  r  d  n", "");
-    pr("  l");
-    pr("  l");
+    pr("%25s def  d  s  y  g  r  d  n  l  l", "");
     if (opt_FUEL)
 	pr("      ");
     pr("\n");
