@@ -1,7 +1,6 @@
 #include <io.h>
 
 typedef int int32_t;
-//#define int32_t int
 #define NULL    ((void *)0)
 struct random_data
 {
@@ -22,7 +21,7 @@ struct random_data
 #define __libc_lock_unlock(lock)
 #define __libc_lock_define_initialized(static1, lock)
 
-#ifdef HAVE__SET_ERRNO
+#ifdef _MSC_VER
 #define __set_errno(val) _set_errno((val))
 #else
 #define __set_errno(val) (errno = (val))
