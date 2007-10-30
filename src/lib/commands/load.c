@@ -441,12 +441,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    pln.pln_mission = 0;
 	    putplane(pln.pln_uid, &pln);
 	} else {
-	    if (!take_plane_off_ship(&pln, sp)) {
-		pr("Unable to take plane off ship!\n");
-		logerror("load: plane %d could not be taken off ship %d\n",
-			 pln.pln_uid, sp->shp_uid);
-		continue;
-	    }
+	    take_plane_off_ship(&pln, sp);
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
@@ -823,12 +818,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    gift(lp->lnd_own, player->cnum, &pln, buf);
 	    putplane(pln.pln_uid, &pln);
 	} else {
-	    if (!take_plane_off_land(&pln, lp)) {
-		pr("Unable to take plane off unit!\n");
-		logerror("load: plane %d could not be taken off unit %d\n",
-			 pln.pln_uid, lp->lnd_uid);
-		continue;
-	    }
+	    take_plane_off_land(&pln, lp);
 	    sprintf(buf, "unloaded at your sector at %s",
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &pln, buf);

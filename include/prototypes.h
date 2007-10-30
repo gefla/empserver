@@ -563,8 +563,8 @@ extern int pln_arm(struct emp_qelem *, int, char, struct ichrstr *,
 extern int pln_mobcost(int, struct plnstr *, int);
 extern void pln_put(struct emp_qelem *);
 extern void pln_removedupes(struct emp_qelem *, struct emp_qelem *);
-extern int take_plane_off_ship(struct plnstr *, struct shpstr *);
-extern int take_plane_off_land(struct plnstr *, struct lndstr *);
+extern void take_plane_off_ship(struct plnstr *, struct shpstr *);
+extern void take_plane_off_land(struct plnstr *, struct lndstr *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
 extern void count_land_planes(struct lndstr *);
 extern int count_sect_planes(struct sctstr *);
