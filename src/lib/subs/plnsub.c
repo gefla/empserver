@@ -217,7 +217,7 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 	plp = (struct plist *)qp;
 	if (cno >= 0) {
 	    count_planes(&ship);
-	    if (!can_be_on_ship(plp->plane.pln_uid, ship.shp_uid))
+	    if (!could_be_on_ship(&plp->plane, &ship))
 		pr("\t%s cannot land on ship #%d! %s aborts!\n",
 		   prplane(&plp->plane), cno, prplane(&plp->plane));
 	    else if (!put_plane_on_ship(&plp->plane, &ship))
@@ -458,7 +458,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 		putplane(plane.pln_uid, &plane);
 		continue;
 	    }
-	    if (!can_be_on_ship(plane.pln_uid, ship.shp_uid))
+	    if (!could_be_on_ship(&plane, &ship))
 		goto shipsunk;
 	    if (ship.shp_effic < SHIP_MINEFF)
 		goto shipsunk;
@@ -951,19 +951,14 @@ take_plane_off_land(struct plnstr *plane, struct lndstr *land)
     putplane(plane->pln_uid, plane);
 }
 
+/*
+ * Could a plane of PP's type be on on a ship of SP's type?
+ */
 int
-can_be_on_ship(int p, int s)
+could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
 {
-    struct plnstr plane;
-    struct shpstr ship;
-    struct plchrstr *pcp;
-    struct mchrstr *mcp;
-
-    getplane(p, &plane);
-    getship(s, &ship);
-
-    pcp = &plchr[(int)plane.pln_type];
-    mcp = &mchr[(int)ship.shp_type];
+    struct plchrstr *pcp = plchr + pp->pln_type;
+    struct mchrstr *mcp = mchr + sp->shp_type;
 
     if (pcp->pl_flags & P_L)
 	if (mcp->m_flags & M_FLY)

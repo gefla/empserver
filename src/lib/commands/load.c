@@ -414,7 +414,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 
 	/* ship to (plane or missle) sanity */
-	if (!can_be_on_ship(pln.pln_uid, sp->shp_uid)) {
+	if (!could_be_on_ship(&pln, sp)) {
 	    if (plchr[(int)pln.pln_type].pl_flags & P_L) {
 		strcpy(buf, "planes");
 	    } else if (plchr[(int)pln.pln_type].pl_flags & P_K) {

@@ -1012,7 +1012,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 		free(qp);
 		continue;
 	    }
-	    if (!can_be_on_ship(pp->pln_uid, ship.shp_uid)) {
+	    if (!could_be_on_ship(pp, &ship)) {
 		goto shipsunk;
 	    }
 	    if (ship.shp_effic < SHIP_MINEFF) {
