@@ -354,7 +354,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     char prompt[512];
     struct mchrstr *mcp = mchr + sp->shp_type;
 
-    if (!(mcp->m_flags & (M_CHOPPER | M_XLIGHT | M_FLY | M_MSL))) {
+    if (mcp->m_nplanes + mcp->m_nchoppers + mcp->m_nxlight == 0) {
 	if (noisy)
 	    pr("%s cannot carry planes\n", prship(sp));
 	return 0;
