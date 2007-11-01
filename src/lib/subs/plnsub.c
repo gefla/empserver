@@ -359,7 +359,7 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
  * - it lacks any of the other flags in wantflags, or
  * - it has any of the flags in nowantflags.
  */
-static int
+int
 pln_wanted(struct plnstr *pp, int wantflags, int nowantflags)
 {
     int flags = plchr[(int)pp->pln_type].pl_flags;
