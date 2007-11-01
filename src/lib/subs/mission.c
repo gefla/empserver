@@ -902,6 +902,67 @@ oprange(struct empobj *gp, int *radius)
     return range;
 }
 
+static int
+mission_pln_wanted(struct plnstr *pp, int wantflags, int nowantflags)
+{
+    int y, bad, bad1;
+    unsigned x;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+
+    bad = 0;
+    bad1 = 0;
+    if (wantflags) {
+	for (x = 0; x < sizeof(wantflags) * 8; x++) {
+	    y = (1 << x);
+	    if ((wantflags & y) == y)
+		if ((pcp->pl_flags & y) != y) {
+		    switch (y) {
+		    case P_F:
+		    case P_ESC:
+			bad1 = 2;
+			break;
+		    case P_E:
+		    case P_L:
+		    case P_K:
+			bad1 = 1;
+			break;
+		    default:
+			bad = 1;
+		    }
+		}
+	}
+	if (bad) {
+	    return 0;
+	}
+	if (bad1 == 2) {
+	    if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
+		bad1 = 0;
+	}
+	if (bad1 == 1) {
+	    if ((pcp->pl_flags & P_E) ||
+		(pcp->pl_flags & P_K) || (pcp->pl_flags & P_L))
+		bad1 = 0;
+	}
+	if (bad1) {
+	    return 0;
+	}
+    }
+    bad = 0;
+    bad1 = 0;
+    if (nowantflags) {
+	for (x = 0; x < sizeof(nowantflags) * 8; x++) {
+	    y = (1 << x);
+	    if ((nowantflags & y) == y)
+		if ((pcp->pl_flags & y) == y)
+		    bad = 1;
+	}
+	if (bad) {
+	    return 0;
+	}
+    }
+    return 1;
+}
+
 /*
  *  Remove all planes who cannot go on
  *  the mission from the plane list.
@@ -946,63 +1007,12 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    }
 	}
 
-	bad = 0;
-	bad1 = 0;
-	if (wantflags) {
-	    for (x = 0; x < sizeof(wantflags) * 8; x++) {
-		y = (1 << x);
-		if ((wantflags & y) == y)
-		    if ((pcp->pl_flags & y) != y) {
-			switch (y) {
-			case P_F:
-			case P_ESC:
-			    bad1 = 2;
-			    break;
-			case P_E:
-			case P_L:
-			case P_K:
-			    bad1 = 1;
-			    break;
-			default:
-			    bad = 1;
-			}
-		    }
-	    }
-	    if (bad) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	    if (bad1 == 2) {
-		if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
-		    bad1 = 0;
-	    }
-	    if (bad1 == 1) {
-		if ((pcp->pl_flags & P_E) ||
-		    (pcp->pl_flags & P_K) || (pcp->pl_flags & P_L))
-		    bad1 = 0;
-	    }
-	    if (bad1) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
+	if (!mission_pln_wanted(pp, wantflags, nowantflags)) {
+	    emp_remque(qp);
+	    free(qp);
+	    continue;
 	}
-	bad = 0;
-	bad1 = 0;
-	if (nowantflags) {
-	    for (x = 0; x < sizeof(nowantflags) * 8; x++) {
-		y = (1 << x);
-		if ((nowantflags & y) == y)
-		    if ((pcp->pl_flags & y) == y)
-			bad = 1;
-	    }
-	    if (bad) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	}
+
 	if (pp->pln_ship >= 0) {
 	    if (!getship(pp->pln_ship, &ship)) {
 	      shipsunk:
