@@ -806,19 +806,35 @@ fit_plane_on_ship(struct plnstr *pp, struct shpstr *sp)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
     struct mchrstr *mcp = mchr + sp->shp_type;
+    int wanted;
 
-    if ((pcp->pl_flags & P_K) && sp->shp_nchoppers < mcp->m_nchoppers)
-	return ++sp->shp_nchoppers;
+    if (pcp->pl_flags & P_K) {
+	/* chopper, try chopper slot first */
+	if (sp->shp_nchoppers < mcp->m_nchoppers)
+	    return ++sp->shp_nchoppers;
+	/* else try plane slot */
+	wanted = M_FLY;
+    } else if (pcp->pl_flags & P_E) {
+	/* x-light, try x-light slot first */
+	if (sp->shp_nxlight < mcp->m_nxlight)
+	    return ++sp->shp_nxlight;
+	/* else try plane slot */
+	wanted = M_MSL | M_FLY;
+    } else if (!(pcp->pl_flags & P_L)) {
+	/* not light, no go */
+	wanted = 0;
+    } else if (pcp->pl_flags & P_M) {
+	/* missile, use plane slot */
+	wanted = M_MSL | M_FLY;
+    } else {
+	/* fixed-wing plane, use plane slot */
+	wanted = M_FLY;
+    }
 
-    if ((pcp->pl_flags & P_E) && sp->shp_nxlight < mcp->m_nxlight)
-	return ++sp->shp_nxlight;
+    if ((mcp->m_flags & wanted) == 0)
+	return 0;		/* ship not capable */
 
-    if (!(pcp->pl_flags & P_L))
-	return 0;
-
-    if (((mcp->m_flags & M_FLY)
-	 || ((mcp->m_flags & M_MSL) && (pcp->pl_flags & P_M)))
-	&& sp->shp_nplane < mcp->m_nplanes)
+    if (sp->shp_nplane < mcp->m_nplanes)
 	return ++sp->shp_nplane;
 
     return 0;
@@ -839,20 +855,21 @@ fit_plane_off_ship(struct plnstr *pp, struct shpstr *sp)
      */
     struct plchrstr *pcp = plchr + pp->pln_type;
 
-    if ((pcp->pl_flags & P_K) && sp->shp_nchoppers) {
-	sp->shp_nchoppers--;
-	return;
-    }
-
-    if ((pcp->pl_flags & P_E) && sp->shp_nxlight) {
-	sp->shp_nxlight--;
-	return;
+    if (pcp->pl_flags & P_K) {
+	if (sp->shp_nchoppers) {
+	    sp->shp_nchoppers--;
+	    return;
+	}
+    } else if (pcp->pl_flags & P_E) {
+	if (sp->shp_nxlight) {
+	    sp->shp_nxlight--;
+	    return;
+	}
     }
 
     if (CANT_HAPPEN(sp->shp_nplane == 0))
 	sp->shp_nplane = 1;
     sp->shp_nplane--;
-    return;
 }
 
 int
