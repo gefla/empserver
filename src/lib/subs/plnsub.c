@@ -351,64 +351,37 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
     }
 }
 
+/*
+ * Is a plane of PP's type wanted?
+ * A plane type is wanted unless
+ * - it lacks all of the P_F, P_ESC in wantflags, or
+ * - it lacks all of the P_E, P_L, P_K in wantflags, or
+ * - it lacks any of the other flags in wantflags, or
+ * - it has any of the flags in nowantflags.
+ */
 static int
 pln_wanted(struct plnstr *pp, int wantflags, int nowantflags)
 {
-    int y, bad, bad1;
-    unsigned x;
-    struct plchrstr *pcp = plchr + pp->pln_type;
+    int flags = plchr[(int)pp->pln_type].pl_flags;
 
-    bad = 0;
-    bad1 = 0;
-    if (wantflags) {
-	for (x = 0; x < sizeof(wantflags) * 8; x++) {
-	    y = (1 << x);
-	    if ((wantflags & y) == y)
-		if ((pcp->pl_flags & y) != y) {
-		    switch (y) {
-		    case P_F:
-		    case P_ESC:
-			bad1 = 2;
-			break;
-		    case P_E:
-		    case P_L:
-		    case P_K:
-			bad1 = 1;
-			break;
-		    default:
-			bad = 1;
-		    }
-		}
-	}
-	if (bad)
+    if (wantflags & (P_F | P_ESC)) {
+	if ((flags & wantflags & (P_F | P_ESC)) == 0)
 	    return 0;
-	if (bad1 == 2) {
-	    if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
-		bad1 = 0;
-	}
-	if (bad1 == 1) {
-	    if ((wantflags & P_L) && (pcp->pl_flags & P_L))
-		bad1 = 0;
-	    if ((wantflags & P_K) && (pcp->pl_flags & P_K))
-		bad1 = 0;
-	    if ((wantflags & P_E) && (pcp->pl_flags & P_E))
-		bad1 = 0;
-	}
-	if (bad1)
-	    return 0;
+	wantflags &= ~(P_F | P_ESC);
     }
-    bad = 0;
-    bad1 = 0;
-    if (nowantflags) {
-	for (x = 0; x < sizeof(nowantflags) * 8; x++) {
-	    y = (1 << x);
-	    if ((nowantflags & y) == y)
-		if ((pcp->pl_flags & y) == y)
-		    bad = 1;
-	}
-	if (bad)
+
+    if (wantflags & (P_E | P_L | P_K)) {
+	if ((flags & wantflags & (P_E | P_L | P_K)) == 0)
 	    return 0;
+	wantflags &= ~(P_E | P_L | P_K);
     }
+
+    if ((flags & wantflags) != wantflags)
+	return 0;
+
+    if (flags & nowantflags)
+	return 0;
+
     return 1;
 }
 
