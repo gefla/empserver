@@ -351,6 +351,67 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
     }
 }
 
+static int
+pln_wanted(struct plnstr *pp, int wantflags, int nowantflags)
+{
+    int y, bad, bad1;
+    unsigned x;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+
+    bad = 0;
+    bad1 = 0;
+    if (wantflags) {
+	for (x = 0; x < sizeof(wantflags) * 8; x++) {
+	    y = (1 << x);
+	    if ((wantflags & y) == y)
+		if ((pcp->pl_flags & y) != y) {
+		    switch (y) {
+		    case P_F:
+		    case P_ESC:
+			bad1 = 2;
+			break;
+		    case P_E:
+		    case P_L:
+		    case P_K:
+			bad1 = 1;
+			break;
+		    default:
+			bad = 1;
+		    }
+		}
+	}
+	if (bad)
+	    return 0;
+	if (bad1 == 2) {
+	    if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
+		bad1 = 0;
+	}
+	if (bad1 == 1) {
+	    if ((wantflags & P_L) && (pcp->pl_flags & P_L))
+		bad1 = 0;
+	    if ((wantflags & P_K) && (pcp->pl_flags & P_K))
+		bad1 = 0;
+	    if ((wantflags & P_E) && (pcp->pl_flags & P_E))
+		bad1 = 0;
+	}
+	if (bad1)
+	    return 0;
+    }
+    bad = 0;
+    bad1 = 0;
+    if (nowantflags) {
+	for (x = 0; x < sizeof(nowantflags) * 8; x++) {
+	    y = (1 << x);
+	    if ((nowantflags & y) == y)
+		if ((pcp->pl_flags & y) == y)
+		    bad = 1;
+	}
+	if (bad)
+	    return 0;
+    }
+    return 1;
+}
+
 void
 pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	int ap_to_target, int rangemult, int wantflags, int nowantflags)
@@ -393,57 +454,8 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	range += ap_to_target;
 	range *= rangemult;
 	pcp = &plchr[(int)plane.pln_type];
-	bad = 0;
-	bad1 = 0;
-	if (wantflags) {
-	    for (x = 0; x < sizeof(wantflags) * 8; x++) {
-		y = (1 << x);
-		if ((wantflags & y) == y)
-		    if ((pcp->pl_flags & y) != y) {
-			switch (y) {
-			case P_F:
-			case P_ESC:
-			    bad1 = 2;
-			    break;
-			case P_E:
-			case P_L:
-			case P_K:
-			    bad1 = 1;
-			    break;
-			default:
-			    bad = 1;
-			}
-		    }
-	    }
-	    if (bad)
-		continue;
-	    if (bad1 == 2) {
-		if ((pcp->pl_flags & P_ESC) || (pcp->pl_flags & P_F))
-		    bad1 = 0;
-	    }
-	    if (bad1 == 1) {
-		if ((wantflags & P_L) && (pcp->pl_flags & P_L))
-		    bad1 = 0;
-		if ((wantflags & P_K) && (pcp->pl_flags & P_K))
-		    bad1 = 0;
-		if ((wantflags & P_E) && (pcp->pl_flags & P_E))
-		    bad1 = 0;
-	    }
-	    if (bad1)
-		continue;
-	}
-	bad = 0;
-	bad1 = 0;
-	if (nowantflags) {
-	    for (x = 0; x < sizeof(nowantflags) * 8; x++) {
-		y = (1 << x);
-		if ((nowantflags & y) == y)
-		    if ((pcp->pl_flags & y) == y)
-			bad = 1;
-	    }
-	    if (bad)
-		continue;
-	}
+	if (!pln_wanted(&plane, wantflags, nowantflags))
+	    continue;
 	if (plane.pln_range < range) {
 	    pr("%s out of range (%d:%d)\n",
 	       prplane(&plane), plane.pln_range, range);
