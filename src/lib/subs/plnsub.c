@@ -955,7 +955,7 @@ could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
     struct shpstr ship;
 
     ship = *sp;
-    sp->shp_nplane = sp->shp_nchoppers = sp->shp_nxlight = 0;
+    ship.shp_nplane = ship.shp_nchoppers = ship.shp_nxlight = 0;
     return fit_plane_on_ship(pp, &ship);
 }
 
