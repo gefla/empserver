@@ -807,12 +807,10 @@ fit_plane_on_ship(struct plnstr *pp, struct shpstr *sp)
     struct plchrstr *pcp = plchr + pp->pln_type;
     struct mchrstr *mcp = mchr + sp->shp_type;
 
-    if ((pcp->pl_flags & P_K) && (mcp->m_flags & M_CHOPPER)
-	&& sp->shp_nchoppers < mcp->m_nchoppers)
+    if ((pcp->pl_flags & P_K) && sp->shp_nchoppers < mcp->m_nchoppers)
 	return ++sp->shp_nchoppers;
 
-    if ((pcp->pl_flags & P_E) && (mcp->m_flags & M_XLIGHT)
-	&& sp->shp_nxlight < mcp->m_nxlight)
+    if ((pcp->pl_flags & P_E) && sp->shp_nxlight < mcp->m_nxlight)
 	return ++sp->shp_nxlight;
 
     if (!(pcp->pl_flags & P_L))
@@ -840,16 +838,13 @@ fit_plane_off_ship(struct plnstr *pp, struct shpstr *sp)
      * run count_planes() before fit_plane_on_ship().
      */
     struct plchrstr *pcp = plchr + pp->pln_type;
-    struct mchrstr *mcp = mchr + sp->shp_type;
 
-    if ((pcp->pl_flags & P_K) && (mcp->m_flags & M_CHOPPER)
-	&& sp->shp_nchoppers) {
+    if ((pcp->pl_flags & P_K) && sp->shp_nchoppers) {
 	sp->shp_nchoppers--;
 	return;
     }
 
-    if ((pcp->pl_flags & P_E) && (mcp->m_flags & M_XLIGHT)
-	&& sp->shp_nxlight) {
+    if ((pcp->pl_flags & P_E) && sp->shp_nxlight) {
 	sp->shp_nxlight--;
 	return;
     }
@@ -901,7 +896,7 @@ fit_plane_on_land(struct plnstr *pp, struct lndstr *lp)
     struct plchrstr *pcp = plchr + pp->pln_type;
     struct lchrstr *lcp = lchr + lp->lnd_type;
 
-    if ((pcp->pl_flags & P_E) && (lp->lnd_nxlight < lcp->l_nxlight))
+    if ((pcp->pl_flags & P_E) && lp->lnd_nxlight < lcp->l_nxlight)
 	return ++lp->lnd_nxlight;
 
     return 0;
