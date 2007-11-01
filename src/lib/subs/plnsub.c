@@ -952,31 +952,16 @@ take_plane_off_land(struct plnstr *plane, struct lndstr *land)
 }
 
 /*
- * Could a plane of PP's type be on on a ship of SP's type?
+ * Could a plane of PP's type be on on ship SP?
  */
 int
 could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
 {
-    struct plchrstr *pcp = plchr + pp->pln_type;
-    struct mchrstr *mcp = mchr + sp->shp_type;
+    struct shpstr ship;
 
-    if (pcp->pl_flags & P_L)
-	if (mcp->m_flags & M_FLY)
-	    return 1;
-
-    if (pcp->pl_flags & P_K)
-	if (mcp->m_flags & M_CHOPPER)
-	    return 1;
-
-    if (pcp->pl_flags & P_M)
-	if (mcp->m_flags & M_MSL)
-	    return 1;
-
-    if (pcp->pl_flags & P_E)
-	if (mcp->m_flags & M_XLIGHT)
-	    return 1;
-
-    return 0;
+    ship = *sp;
+    sp->shp_nplane = sp->shp_nchoppers = sp->shp_nxlight = 0;
+    return fit_plane_on_ship(pp, &ship);
 }
 
 void
