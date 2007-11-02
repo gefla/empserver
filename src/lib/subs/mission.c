@@ -946,7 +946,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    }
 	}
 
-	if (!pln_wanted(pp, wantflags, nowantflags)) {
+	if (!pln_capable(pp, wantflags, nowantflags)) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;

@@ -352,15 +352,15 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
 }
 
 /*
- * Is a plane of PP's type wanted?
- * A plane type is wanted unless
- * - it lacks all of the P_F, P_ESC in wantflags, or
- * - it lacks all of the P_E, P_L, P_K in wantflags, or
- * - it lacks any of the other flags in wantflags, or
- * - it has any of the flags in nowantflags.
+ * Has PP's type capabilities satisfying WANTFLAGS and NOWANTFLAGS?
+ * A plane type is capable unless
+ * - it lacks all of the P_F, P_ESC in WANTFLAGS, or
+ * - it lacks all of the P_E, P_L, P_K in WANTFLAGS, or
+ * - it lacks any of the other capabilities in WANTFLAGS, or
+ * - it has any of the capabilities in NOWANTFLAGS.
  */
 int
-pln_wanted(struct plnstr *pp, int wantflags, int nowantflags)
+pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 {
     int flags = plchr[(int)pp->pln_type].pl_flags;
 
@@ -427,7 +427,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	range += ap_to_target;
 	range *= rangemult;
 	pcp = &plchr[(int)plane.pln_type];
-	if (!pln_wanted(&plane, wantflags, nowantflags))
+	if (!pln_capable(&plane, wantflags, nowantflags))
 	    continue;
 	if (plane.pln_range < range) {
 	    pr("%s out of range (%d:%d)\n",
