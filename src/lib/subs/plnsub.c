@@ -384,15 +384,101 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 
     return 1;
 }
+static int
+pln_airbase_ok(struct plnstr *pp, int oneway)
+{
+    struct shpstr ship;
+    struct lndstr land;
+    struct sctstr sect;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+
+    if (pp->pln_ship >= 0) {
+	if (!getship(pp->pln_ship, &ship) ||
+	    pp->pln_own != player->cnum) {
+	shipsunk:
+	    pp->pln_effic = 0;
+	    pr("(note) ship not valid for %s\n", prplane(pp));
+	    putplane(pp->pln_uid, pp);
+	    return 0;
+	}
+	if (!could_be_on_ship(pp, &ship))
+	    goto shipsunk;
+	if (ship.shp_effic < SHIP_MINEFF)
+	    goto shipsunk;
+	if (ship.shp_effic < SHP_AIROPS_EFF)
+	    return 0;
+	/* Can't fly off non-owned ships or non-allied ship */
+	if ((ship.shp_own != player->cnum) &&
+	    (getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
+	    pr("(note) An ally does not own the ship %s is on\n",
+	       prplane(pp));
+	    return 0;
+	}
+    }
+    if (pp->pln_land >= 0) {
+	if (!getland(pp->pln_land, &land) ||
+	    (pp->pln_own != player->cnum)) {
+	landdead:
+	    pp->pln_effic = 0;
+	    pr("(note) land unit not valid for %s\n", prplane(pp));
+	    putplane(pp->pln_uid, pp);
+	    return 0;
+	}
+	if (!(plchr[(int)pp->pln_type].pl_flags & P_E))
+	    goto landdead;
+	if (land.lnd_effic < LAND_MINEFF)
+	    goto landdead;
+	if (land.lnd_effic < LND_AIROPS_EFF)
+	    return 0;
+	/* Can't fly off units in ships or other units */
+	if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))
+	    return 0;
+	/* Can't fly off non-owned units or non-allied unit */
+	if ((land.lnd_own != player->cnum) &&
+	    (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
+	    pr("(note) An ally does not own the unit %s is on\n",
+	       prplane(pp));
+	    return 0;
+	}
+    }
+    /* Now, check the sector status if not on a plane or unit */
+    if ((pp->pln_ship < 0) && (pp->pln_land < 0)) {
+	if (!getsect(pp->pln_x, pp->pln_y, &sect))
+	    return 0;
+	/* First, check allied status */
+	/* Can't fly from non-owned sectors or non-allied sectors */
+	if ((sect.sct_own != player->cnum) &&
+	    (getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)) {
+	    pr("(note) An ally does not own the sector %s is in\n",
+	       prplane(pp));
+	    return 0;
+	}
+	/* non-vtol plane */
+	if ((pcp->pl_flags & P_V) == 0) {
+	    if (sect.sct_type != SCT_AIRPT) {
+		pr("%s not at airport\n", prplane(pp));
+		return 0;
+	    }
+	    if (sect.sct_effic < 40) {
+		pr("%s is not 40%% efficient, %s can't take off from there.\n", xyas(sect.sct_x, sect.sct_y, pp->pln_own), prplane(pp));
+		return 0;
+	    }
+	    if (!oneway && sect.sct_effic < 60) {
+		pr("%s is not 60%% efficient, %s can't land there.\n",
+		   xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		   prplane(pp));
+		return 0;
+	    }
+	}
+    }
+    return 1;
+}
 
 void
 pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	int ap_to_target, int rangemult, int wantflags, int nowantflags)
 {
     struct plnstr plane;
-    struct shpstr ship;
-    struct lndstr land;
-    struct sctstr sect;
     int range;
     struct plchrstr *pcp;
     struct plist *plp;
@@ -434,85 +520,8 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	       prplane(&plane), plane.pln_range, range);
 	    continue;
 	}
-	if (plane.pln_ship >= 0) {
-	    if (!getship(plane.pln_ship, &ship) ||
-		plane.pln_own != player->cnum) {
-	      shipsunk:
-		plane.pln_effic = 0;
-		pr("(note) ship not valid for %s\n", prplane(&plane));
-		putplane(plane.pln_uid, &plane);
-		continue;
-	    }
-	    if (!could_be_on_ship(&plane, &ship))
-		goto shipsunk;
-	    if (ship.shp_effic < SHIP_MINEFF)
-		goto shipsunk;
-	    if (ship.shp_effic < SHP_AIROPS_EFF)
-		continue;
-	    /* Can't fly off non-owned ships or non-allied ship */
-	    if ((ship.shp_own != player->cnum) &&
-		(getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
-		pr("(note) An ally does not own the ship %s is on\n",
-		   prplane(&plane));
-		continue;
-	    }
-	}
-	if (plane.pln_land >= 0) {
-	    if (!getland(plane.pln_land, &land) ||
-		(plane.pln_own != player->cnum)) {
-	      landdead:
-		plane.pln_effic = 0;
-		pr("(note) land unit not valid for %s\n", prplane(&plane));
-		putplane(plane.pln_uid, &plane);
-		continue;
-	    }
-	    if (!(plchr[(int)plane.pln_type].pl_flags & P_E))
-		goto landdead;
-	    if (land.lnd_effic < LAND_MINEFF)
-		goto landdead;
-	    if (land.lnd_effic < LND_AIROPS_EFF)
-		continue;
-	    /* Can't fly off units in ships or other units */
-	    if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))
-		continue;
-	    /* Can't fly off non-owned units or non-allied unit */
-	    if ((land.lnd_own != player->cnum) &&
-		(getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
-		pr("(note) An ally does not own the unit %s is on\n",
-		   prplane(&plane));
-		continue;
-	    }
-	}
-	/* Now, check the sector status if not on a plane or unit */
-	if ((plane.pln_ship < 0) && (plane.pln_land < 0)) {
-	    if (!getsect(plane.pln_x, plane.pln_y, &sect))
-		continue;
-	    /* First, check allied status */
-	    /* Can't fly from non-owned sectors or non-allied sectors */
-	    if ((sect.sct_own != player->cnum) &&
-		(getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)) {
-		pr("(note) An ally does not own the sector %s is in\n",
-		   prplane(&plane));
-		continue;
-	    }
-	    /* non-vtol plane */
-	    if ((pcp->pl_flags & P_V) == 0) {
-		if (sect.sct_type != SCT_AIRPT) {
-		    pr("%s not at airport\n", prplane(&plane));
-		    continue;
-		}
-		if (sect.sct_effic < 40) {
-		    pr("%s is not 40%% efficient, %s can't take off from there.\n", xyas(sect.sct_x, sect.sct_y, plane.pln_own), prplane(&plane));
-		    continue;
-		}
-		if (rangemult == 2 && sect.sct_effic < 60) {
-		    pr("%s is not 60%% efficient, %s can't land there.\n",
-		       xyas(sect.sct_x, sect.sct_y, plane.pln_own),
-		       prplane(&plane));
-		    continue;
-		}
-	    }
-	}
+	if (!pln_airbase_ok(&plane, rangemult != 2))
+	    continue;
 	pr("%s standing by\n", prplane(&plane));
 	plane.pln_mission = 0;
 	putplane(plane.pln_uid, &plane);
