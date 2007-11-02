@@ -902,6 +902,80 @@ oprange(struct empobj *gp, int *radius)
     return range;
 }
 
+static int
+mission_pln_airbase_ok(struct plnstr *pp)
+{
+    struct shpstr ship;
+    struct lndstr land;
+    struct sctstr sect;
+    struct plchrstr *pcp = plchr + pp->pln_type;
+
+    if (pp->pln_ship >= 0) {
+	if (!getship(pp->pln_ship, &ship)) {
+	shipsunk:
+	    pp->pln_effic = 0;
+	    putplane(pp->pln_uid, pp);
+	    return 0;
+	}
+	if (!could_be_on_ship(pp, &ship)) {
+	    goto shipsunk;
+	}
+	if (ship.shp_effic < SHIP_MINEFF) {
+	    goto shipsunk;
+	}
+	/* Can't fly off of inefficient or non-owned, non-allied ships */
+	if ((ship.shp_effic < SHP_AIROPS_EFF) ||
+	    ((ship.shp_own != pp->pln_own) &&
+	     (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
+	    return 0;
+	}
+    }
+    if (pp->pln_land >= 0) {
+	if (!getland(pp->pln_land, &land)) {
+	landdead:
+	    pp->pln_effic = 0;
+	    putplane(pp->pln_uid, pp);
+	    return 0;
+	}
+	if (!(pcp->pl_flags & P_E))
+	    goto landdead;
+	if (land.lnd_effic < LAND_MINEFF)
+	    goto landdead;
+
+	/* Can't fly off of inefficient or non-owned, non-allied units */
+	if ((land.lnd_effic < LND_AIROPS_EFF) ||
+	    ((land.lnd_own != pp->pln_own) &&
+	     (getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED))) {
+	    return 0;
+	}
+
+	/* Can't fly off units in ships or other units */
+	if ((land.lnd_ship >= 0) || (land.lnd_land >= 0)) {
+	    return 0;
+	}
+    }
+    /* Now, check the sector status if not on a plane or unit */
+    if ((pp->pln_ship < 0) && (pp->pln_land < 0)) {
+	/* If we can't get the sector, we can't check it, and can't fly */
+	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
+	    return 0;
+	}
+	/* First, check allied status */
+	/* Can't fly from non-owned sectors or non-allied sectors */
+	if ((sect.sct_own != pp->pln_own) &&
+	    (getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED)) {
+	    return 0;
+	}
+	/* non-vtol plane */
+	if ((pcp->pl_flags & P_V) == 0) {
+	    if ((sect.sct_type != SCT_AIRPT) || (sect.sct_effic < 40)) {
+		return 0;
+	    }
+	}
+    }
+    return 1;
+}
+
 /*
  *  Remove all planes who cannot go on
  *  the mission from the plane list.
@@ -912,9 +986,6 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 {
     struct emp_qelem *qp, *next;
     struct plnstr *pp;
-    struct shpstr ship;
-    struct lndstr land;
-    struct sctstr sect;
     struct plchrstr *pcp;
     struct plist *plp;
     int y, bad, bad1;
@@ -952,85 +1023,12 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    continue;
 	}
 
-	if (pp->pln_ship >= 0) {
-	    if (!getship(pp->pln_ship, &ship)) {
-	      shipsunk:
-		pp->pln_effic = 0;
-		putplane(pp->pln_uid, pp);
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	    if (!could_be_on_ship(pp, &ship)) {
-		goto shipsunk;
-	    }
-	    if (ship.shp_effic < SHIP_MINEFF) {
-		goto shipsunk;
-	    }
-	    /* Can't fly off of inefficient or non-owned, non-allied ships */
-	    if ((ship.shp_effic < SHP_AIROPS_EFF) ||
-		((ship.shp_own != pp->pln_own) &&
-		 (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
+	if (!mission_pln_airbase_ok(pp)) {
+	    emp_remque(qp);
+	    free(qp);
+	    continue;
 	}
-	if (pp->pln_land >= 0) {
-	    if (!getland(pp->pln_land, &land)) {
-	      landdead:
-		pp->pln_effic = 0;
-		putplane(pp->pln_uid, pp);
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	    if (!(pcp->pl_flags & P_E))
-		goto landdead;
-	    if (land.lnd_effic < LAND_MINEFF)
-		goto landdead;
-
-	    /* Can't fly off of inefficient or non-owned, non-allied units */
-	    if ((land.lnd_effic < LND_AIROPS_EFF) ||
-		((land.lnd_own != pp->pln_own) &&
-		 (getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED))) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-
-	    /* Can't fly off units in ships or other units */
-	    if ((land.lnd_ship >= 0) || (land.lnd_land >= 0)) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	}
-	/* Now, check the sector status if not on a plane or unit */
-	if ((pp->pln_ship < 0) && (pp->pln_land < 0)) {
-	    /* If we can't get the sector, we can't check it, and can't fly */
-	    if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	    /* First, check allied status */
-	    /* Can't fly from non-owned sectors or non-allied sectors */
-	    if ((sect.sct_own != pp->pln_own) &&
-		(getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED)) {
-		emp_remque(qp);
-		free(qp);
-		continue;
-	    }
-	    /* non-vtol plane */
-	    if ((pcp->pl_flags & P_V) == 0) {
-		if ((sect.sct_type != SCT_AIRPT) || (sect.sct_effic < 40)) {
-		    emp_remque(qp);
-		    free(qp);
-		    continue;
-		}
-	    }
-	}
+	    
 	if (pcp->pl_flags & P_A) {
 	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
 		emp_remque(qp);
