@@ -912,17 +912,13 @@ mission_pln_airbase_ok(struct plnstr *pp)
 
     if (pp->pln_ship >= 0) {
 	if (!getship(pp->pln_ship, &ship)) {
-	shipsunk:
-	    pp->pln_effic = 0;
-	    putplane(pp->pln_uid, pp);
+	    CANT_REACH();
 	    return 0;
 	}
-	if (!could_be_on_ship(pp, &ship)) {
-	    goto shipsunk;
-	}
-	if (ship.shp_effic < SHIP_MINEFF) {
-	    goto shipsunk;
-	}
+	if (CANT_HAPPEN(ship.shp_effic < SHIP_MINEFF
+			|| !could_be_on_ship(pp, &ship)))
+	    return 0;
+
 	/* Can't fly off of inefficient or non-owned, non-allied ships */
 	if ((ship.shp_effic < SHP_AIROPS_EFF) ||
 	    ((ship.shp_own != pp->pln_own) &&
@@ -932,15 +928,12 @@ mission_pln_airbase_ok(struct plnstr *pp)
 
     } else if (pp->pln_land >= 0) {
 	if (!getland(pp->pln_land, &land)) {
-	landdead:
-	    pp->pln_effic = 0;
-	    putplane(pp->pln_uid, pp);
+	    CANT_REACH();
 	    return 0;
 	}
-	if (!(pcp->pl_flags & P_E))
-	    goto landdead;
-	if (land.lnd_effic < LAND_MINEFF)
-	    goto landdead;
+	if (CANT_HAPPEN(land.lnd_effic < LAND_MINEFF
+			|| !(pcp->pl_flags & P_E)))
+	    return 0;
 
 	/* Can't fly off of inefficient or non-owned, non-allied units */
 	if ((land.lnd_effic < LND_AIROPS_EFF) ||
@@ -955,8 +948,8 @@ mission_pln_airbase_ok(struct plnstr *pp)
 	}
 
     } else {
-	/* If we can't get the sector, we can't check it, and can't fly */
 	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
+	    CANT_REACH();
 	    return 0;
 	}
 	/* First, check allied status */

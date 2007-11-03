@@ -393,19 +393,18 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
     struct sctstr sect;
     struct plchrstr *pcp = plchr + pp->pln_type;
 
+    if (CANT_HAPPEN(pp->pln_own != player->cnum))
+	return 0;
+
     if (pp->pln_ship >= 0) {
-	if (!getship(pp->pln_ship, &ship) ||
-	    pp->pln_own != player->cnum) {
-	shipsunk:
-	    pp->pln_effic = 0;
-	    pr("(note) ship not valid for %s\n", prplane(pp));
-	    putplane(pp->pln_uid, pp);
+	if (!getship(pp->pln_ship, &ship)) {
+	    CANT_REACH();
 	    return 0;
 	}
-	if (!could_be_on_ship(pp, &ship))
-	    goto shipsunk;
-	if (ship.shp_effic < SHIP_MINEFF)
-	    goto shipsunk;
+	if (CANT_HAPPEN(ship.shp_effic < SHIP_MINEFF
+			|| !could_be_on_ship(pp, &ship)))
+	    return 0;
+
 	if (ship.shp_effic < SHP_AIROPS_EFF)
 	    return 0;
 	/* Can't fly off non-owned ships or non-allied ship */
@@ -417,18 +416,14 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	}
 
     } else if (pp->pln_land >= 0) {
-	if (!getland(pp->pln_land, &land) ||
-	    (pp->pln_own != player->cnum)) {
-	landdead:
-	    pp->pln_effic = 0;
-	    pr("(note) land unit not valid for %s\n", prplane(pp));
-	    putplane(pp->pln_uid, pp);
+	if (!getland(pp->pln_land, &land)) {
+	    CANT_REACH();
 	    return 0;
 	}
-	if (!(plchr[(int)pp->pln_type].pl_flags & P_E))
-	    goto landdead;
-	if (land.lnd_effic < LAND_MINEFF)
-	    goto landdead;
+	if (CANT_HAPPEN(land.lnd_effic < LAND_MINEFF
+			|| !(pcp->pl_flags & P_E)))
+	    return 0;
+
 	if (land.lnd_effic < LND_AIROPS_EFF)
 	    return 0;
 	/* Can't fly off units in ships or other units */
@@ -443,8 +438,10 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	}
 
     } else {
-	if (!getsect(pp->pln_x, pp->pln_y, &sect))
+	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
+	    CANT_REACH();
 	    return 0;
+	}
 	/* First, check allied status */
 	/* Can't fly from non-owned sectors or non-allied sectors */
 	if ((sect.sct_own != player->cnum) &&
