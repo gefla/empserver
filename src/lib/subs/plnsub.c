@@ -397,6 +397,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	return 0;
 
     if (pp->pln_ship >= 0) {
+	/* ship: needs to be own or allied, efficient */
 	if (!getship(pp->pln_ship, &ship)) {
 	    CANT_REACH();
 	    return 0;
@@ -415,6 +416,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	    return 0;
 
     } else if (pp->pln_land >= 0) {
+	/* land: needs to be own or allied, efficient, not embarked */
 	if (!getland(pp->pln_land, &land)) {
 	    CANT_REACH();
 	    return 0;
@@ -435,26 +437,28 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	    return 0;
 
     } else {
+	/* sector: needs to be own or allied, efficient airfield */
 	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
 	    CANT_REACH();
 	    return 0;
 	}
-	/* First, check allied status */
-	/* Can't fly from non-owned sectors or non-allied sectors */
+
 	if (sect.sct_own != pp->pln_own
 	    && getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED) {
 	    pr("(note) An ally does not own the sector %s is in\n",
 	       prplane(pp));
 	    return 0;
 	}
-	/* non-vtol plane */
+	/* need airfield unless VTOL */
 	if ((pcp->pl_flags & P_V) == 0) {
 	    if (sect.sct_type != SCT_AIRPT) {
 		pr("%s not at airport\n", prplane(pp));
 		return 0;
 	    }
 	    if (sect.sct_effic < 40) {
-		pr("%s is not 40%% efficient, %s can't take off from there.\n", xyas(sect.sct_x, sect.sct_y, pp->pln_own), prplane(pp));
+		pr("%s is not 40%% efficient, %s can't take off from there.\n",
+		   xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		   prplane(pp));
 		return 0;
 	    }
 	    if (!oneway && sect.sct_effic < 60) {
