@@ -405,8 +405,8 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 			|| !could_be_on_ship(pp, &ship)))
 	    return 0;
 
-	if ((ship.shp_own != player->cnum) &&
-	    (getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
+	if (ship.shp_own != pp->pln_own
+	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
 	    pr("(note) An ally does not own the ship %s is on\n",
 	       prplane(pp));
 	    return 0;
@@ -423,8 +423,8 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 			|| !(pcp->pl_flags & P_E)))
 	    return 0;
 
-	if ((land.lnd_own != player->cnum) &&
-	    (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
+	if (land.lnd_own != pp->pln_own
+	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED) {
 	    pr("(note) An ally does not own the unit %s is on\n",
 	       prplane(pp));
 	    return 0;
@@ -441,8 +441,8 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	}
 	/* First, check allied status */
 	/* Can't fly from non-owned sectors or non-allied sectors */
-	if ((sect.sct_own != player->cnum) &&
-	    (getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)) {
+	if (sect.sct_own != pp->pln_own
+	    && getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED) {
 	    pr("(note) An ally does not own the sector %s is in\n",
 	       prplane(pp));
 	    return 0;
