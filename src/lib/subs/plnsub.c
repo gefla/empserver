@@ -385,16 +385,16 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
     return 1;
 }
 
-static int
-pln_airbase_ok(struct plnstr *pp, int oneway)
+int
+pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 {
     struct shpstr ship;
     struct lndstr land;
     struct sctstr sect;
     struct plchrstr *pcp = plchr + pp->pln_type;
 
-    if (CANT_HAPPEN(pp->pln_own != player->cnum))
-	return 0;
+    if (CANT_HAPPEN(noisy && pp->pln_own != player->cnum))
+	noisy = 0;
 
     if (pp->pln_ship >= 0) {
 	/* ship: needs to be own or allied, efficient */
@@ -408,8 +408,9 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 
 	if (ship.shp_own != pp->pln_own
 	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
-	    pr("(note) An ally does not own the ship %s is on\n",
-	       prplane(pp));
+	    if (noisy)
+		pr("(note) An ally does not own the ship %s is on\n",
+		   prplane(pp));
 	    return 0;
 	}
 	if (ship.shp_effic < SHP_AIROPS_EFF)
@@ -427,8 +428,9 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 
 	if (land.lnd_own != pp->pln_own
 	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED) {
-	    pr("(note) An ally does not own the unit %s is on\n",
-	       prplane(pp));
+	    if (noisy)
+		pr("(note) An ally does not own the unit %s is on\n",
+		   prplane(pp));
 	    return 0;
 	}
 	if (land.lnd_effic < LND_AIROPS_EFF)
@@ -445,26 +447,30 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 
 	if (sect.sct_own != pp->pln_own
 	    && getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED) {
-	    pr("(note) An ally does not own the sector %s is in\n",
-	       prplane(pp));
+	    if (noisy)
+		pr("(note) An ally does not own the sector %s is in\n",
+		   prplane(pp));
 	    return 0;
 	}
 	/* need airfield unless VTOL */
 	if ((pcp->pl_flags & P_V) == 0) {
 	    if (sect.sct_type != SCT_AIRPT) {
-		pr("%s not at airport\n", prplane(pp));
+		if (noisy)
+		    pr("%s not at airport\n", prplane(pp));
 		return 0;
 	    }
 	    if (sect.sct_effic < 40) {
-		pr("%s is not 40%% efficient, %s can't take off from there.\n",
-		   xyas(sect.sct_x, sect.sct_y, pp->pln_own),
-		   prplane(pp));
+		if (noisy)
+		    pr("%s is not 40%% efficient, %s can't take off from there.\n",
+		       xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		       prplane(pp));
 		return 0;
 	    }
 	    if (!oneway && sect.sct_effic < 60) {
-		pr("%s is not 60%% efficient, %s can't land there.\n",
-		   xyas(sect.sct_x, sect.sct_y, pp->pln_own),
-		   prplane(pp));
+		if (noisy)
+		    pr("%s is not 60%% efficient, %s can't land there.\n",
+		       xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		       prplane(pp));
 		return 0;
 	    }
 	}
@@ -519,7 +525,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	       prplane(&plane), plane.pln_range, range);
 	    continue;
 	}
-	if (!pln_airbase_ok(&plane, rangemult != 2))
+	if (!pln_airbase_ok(&plane, rangemult != 2, 1))
 	    continue;
 	pr("%s standing by\n", prplane(&plane));
 	plane.pln_mission = 0;

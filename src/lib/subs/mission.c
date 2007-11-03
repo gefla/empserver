@@ -902,70 +902,6 @@ oprange(struct empobj *gp, int *radius)
     return range;
 }
 
-static int
-mission_pln_airbase_ok(struct plnstr *pp)
-{
-    struct shpstr ship;
-    struct lndstr land;
-    struct sctstr sect;
-    struct plchrstr *pcp = plchr + pp->pln_type;
-
-    if (pp->pln_ship >= 0) {
-	if (!getship(pp->pln_ship, &ship)) {
-	    CANT_REACH();
-	    return 0;
-	}
-	if (CANT_HAPPEN(ship.shp_effic < SHIP_MINEFF
-			|| !could_be_on_ship(pp, &ship)))
-	    return 0;
-
-	if (ship.shp_own != pp->pln_own
-	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
-	    return 0;
-	}
-	if (ship.shp_effic < SHP_AIROPS_EFF)
-	    return 0;
-
-    } else if (pp->pln_land >= 0) {
-	if (!getland(pp->pln_land, &land)) {
-	    CANT_REACH();
-	    return 0;
-	}
-	if (CANT_HAPPEN(land.lnd_effic < LAND_MINEFF
-			|| !(pcp->pl_flags & P_E)))
-	    return 0;
-
-	if (land.lnd_own != pp->pln_own
-	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED)
-	    return 0;
-	if (land.lnd_effic < LND_AIROPS_EFF)
-	    return 0;
-	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
-	    return 0;
-	}
-
-    } else {
-	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
-	    CANT_REACH();
-	    return 0;
-	}
-	/* First, check allied status */
-	/* Can't fly from non-owned sectors or non-allied sectors */
-	if ((sect.sct_own != pp->pln_own) &&
-	    (getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED)) {
-	    return 0;
-	}
-	/* non-vtol plane */
-	if ((pcp->pl_flags & P_V) == 0) {
-	    if ((sect.sct_type != SCT_AIRPT) || (sect.sct_effic < 40)) {
-		return 0;
-	    }
-	}
-    }
-
-    return 1;
-}
-
 /*
  *  Remove all planes who cannot go on
  *  the mission from the plane list.
@@ -1013,7 +949,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    continue;
 	}
 
-	if (!mission_pln_airbase_ok(pp)) {
+	if (!pln_airbase_ok(pp, 0, 0)) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
