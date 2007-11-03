@@ -405,15 +405,14 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 			|| !could_be_on_ship(pp, &ship)))
 	    return 0;
 
-	if (ship.shp_effic < SHP_AIROPS_EFF)
-	    return 0;
-	/* Can't fly off non-owned ships or non-allied ship */
 	if ((ship.shp_own != player->cnum) &&
 	    (getrel(getnatp(ship.shp_own), player->cnum) != ALLIED)) {
 	    pr("(note) An ally does not own the ship %s is on\n",
 	       prplane(pp));
 	    return 0;
 	}
+	if (ship.shp_effic < SHP_AIROPS_EFF)
+	    return 0;
 
     } else if (pp->pln_land >= 0) {
 	if (!getland(pp->pln_land, &land)) {
@@ -424,18 +423,16 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 			|| !(pcp->pl_flags & P_E)))
 	    return 0;
 
-	if (land.lnd_effic < LND_AIROPS_EFF)
-	    return 0;
-	/* Can't fly off units in ships or other units */
-	if ((land.lnd_ship >= 0) || (land.lnd_land >= 0))
-	    return 0;
-	/* Can't fly off non-owned units or non-allied unit */
 	if ((land.lnd_own != player->cnum) &&
 	    (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)) {
 	    pr("(note) An ally does not own the unit %s is on\n",
 	       prplane(pp));
 	    return 0;
 	}
+	if (land.lnd_effic < LND_AIROPS_EFF)
+	    return 0;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    return 0;
 
     } else {
 	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {

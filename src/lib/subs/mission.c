@@ -919,12 +919,12 @@ mission_pln_airbase_ok(struct plnstr *pp)
 			|| !could_be_on_ship(pp, &ship)))
 	    return 0;
 
-	/* Can't fly off of inefficient or non-owned, non-allied ships */
-	if ((ship.shp_effic < SHP_AIROPS_EFF) ||
-	    ((ship.shp_own != pp->pln_own) &&
-	     (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
+	if (ship.shp_own != pp->pln_own
+	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
 	    return 0;
 	}
+	if (ship.shp_effic < SHP_AIROPS_EFF)
+	    return 0;
 
     } else if (pp->pln_land >= 0) {
 	if (!getland(pp->pln_land, &land)) {
@@ -935,15 +935,12 @@ mission_pln_airbase_ok(struct plnstr *pp)
 			|| !(pcp->pl_flags & P_E)))
 	    return 0;
 
-	/* Can't fly off of inefficient or non-owned, non-allied units */
-	if ((land.lnd_effic < LND_AIROPS_EFF) ||
-	    ((land.lnd_own != pp->pln_own) &&
-	     (getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED))) {
+	if (land.lnd_own != pp->pln_own
+	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED)
 	    return 0;
-	}
-
-	/* Can't fly off units in ships or other units */
-	if ((land.lnd_ship >= 0) || (land.lnd_land >= 0)) {
+	if (land.lnd_effic < LND_AIROPS_EFF)
+	    return 0;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
 	    return 0;
 	}
 
