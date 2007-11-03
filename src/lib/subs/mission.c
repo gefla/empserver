@@ -929,8 +929,8 @@ mission_pln_airbase_ok(struct plnstr *pp)
 	     (getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED))) {
 	    return 0;
 	}
-    }
-    if (pp->pln_land >= 0) {
+
+    } else if (pp->pln_land >= 0) {
 	if (!getland(pp->pln_land, &land)) {
 	landdead:
 	    pp->pln_effic = 0;
@@ -953,9 +953,8 @@ mission_pln_airbase_ok(struct plnstr *pp)
 	if ((land.lnd_ship >= 0) || (land.lnd_land >= 0)) {
 	    return 0;
 	}
-    }
-    /* Now, check the sector status if not on a plane or unit */
-    if ((pp->pln_ship < 0) && (pp->pln_land < 0)) {
+
+    } else {
 	/* If we can't get the sector, we can't check it, and can't fly */
 	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
 	    return 0;
@@ -973,6 +972,7 @@ mission_pln_airbase_ok(struct plnstr *pp)
 	    }
 	}
     }
+
     return 1;
 }
 

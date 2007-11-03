@@ -384,6 +384,7 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 
     return 1;
 }
+
 static int
 pln_airbase_ok(struct plnstr *pp, int oneway)
 {
@@ -414,8 +415,8 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	       prplane(pp));
 	    return 0;
 	}
-    }
-    if (pp->pln_land >= 0) {
+
+    } else if (pp->pln_land >= 0) {
 	if (!getland(pp->pln_land, &land) ||
 	    (pp->pln_own != player->cnum)) {
 	landdead:
@@ -440,9 +441,8 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	       prplane(pp));
 	    return 0;
 	}
-    }
-    /* Now, check the sector status if not on a plane or unit */
-    if ((pp->pln_ship < 0) && (pp->pln_land < 0)) {
+
+    } else {
 	if (!getsect(pp->pln_x, pp->pln_y, &sect))
 	    return 0;
 	/* First, check allied status */
@@ -471,6 +471,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway)
 	    }
 	}
     }
+
     return 1;
 }
 
