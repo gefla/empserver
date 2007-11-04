@@ -482,7 +482,7 @@ extern double fortrange(struct sctstr *);
 extern int roundrange(double);
 /* list.c */
 extern int shipsatxy(coord, coord, int, int);
-extern int carriersatxy(coord, coord, int, int, natid);
+extern int carriersatxy(coord, coord, natid);
 extern int unitsatxy(coord, coord, int, int);
 extern int planesatxy(coord, coord, int, int, struct emp_qelem *);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
@@ -558,6 +558,7 @@ extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
 extern void pln_mine(struct emp_qelem *list, struct sctstr *sectp);
 extern int pln_capable(struct plnstr *, int, int);
 extern int pln_airbase_ok(struct plnstr *, int, int);
+extern int carrier_planes(struct shpstr *);
 extern void pln_sel(struct nstr_item *, struct emp_qelem *,
 		    struct sctstr *, int, int, int, int);
 extern int pln_arm(struct emp_qelem *, int, char, struct ichrstr *,

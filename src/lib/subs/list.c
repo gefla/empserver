@@ -85,12 +85,11 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 /* This one only shows owned or allied ships */
 
 int
-carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
+carriersatxy(coord x, coord y, natid own)
 {
     int first;
     int ships;
     struct nstr_item ni;
-    struct mchrstr *mp;
     struct shpstr ship;
 
     first = 1;
@@ -102,17 +101,8 @@ carriersatxy(coord x, coord y, int wantflags, int nowantflags, natid own)
 	if (ship.shp_own != own
 	    && getrel(getnatp(ship.shp_own), own) != ALLIED)
 	    continue;
-	if (ship.shp_effic < SHP_AIROPS_EFF)
+	if ((carrier_planes(&ship) & (P_L | P_K)) == 0)
 	    continue;
-	mp = &mchr[(int)ship.shp_type];
-	if (wantflags) {
-	    if ((mp->m_flags & wantflags) == 0)
-		continue;
-	}
-	if (nowantflags) {
-	    if (mp->m_flags & nowantflags)
-		continue;
-	}
 	if (first) {
 	    pr(" #          owner           eff       type\n");
 	    first = 0;

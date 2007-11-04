@@ -55,7 +55,6 @@
 #include "ship.h"
 #include "xy.h"
 
-static int carrier_planes(struct shpstr *);
 static int pln_equip(struct plist *, struct ichrstr *, int, char);
 static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
 
@@ -113,8 +112,7 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
     flags = *flagp;
 
     /* offer carriers */
-    nships = carriersatxy(target->sct_x, target->sct_y,
-			  M_FLY | M_CHOPPER, 0, player->cnum);
+    nships = carriersatxy(target->sct_x, target->sct_y, player->cnum);
     if (nships) {
 	for (;;) {
 	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
@@ -384,7 +382,7 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
  * It's zero if SP can't support air operations due to its type or
  * state (low efficiency).
  */
-static int
+int
 carrier_planes(struct shpstr *sp)
 {
     struct mchrstr *mcp = mchr + sp->shp_type;
