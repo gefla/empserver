@@ -55,6 +55,7 @@
 #include "ship.h"
 #include "xy.h"
 
+static int carrier_planes(struct shpstr *);
 static int pln_equip(struct plist *, struct ichrstr *, int, char);
 static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
 
@@ -104,7 +105,7 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 {
     int nships;
     int cno;
-    int flags;
+    int flags, fl;
     struct shpstr ship;
     char buf[1024];
     char *p;
@@ -132,22 +133,14 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 		   xyas(target->sct_x, target->sct_y, player->cnum));
 		continue;
 	    }
-	    if ((!(mchr[(int)ship.shp_type].m_flags & M_FLY)
-		 && !(mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-		 && !(mchr[(int)ship.shp_type].m_flags & M_CHOPPER))
-		|| ship.shp_effic < SHP_AIROPS_EFF) {
+	    fl = carrier_planes(&ship);
+	    if (fl == 0) {
 		pr("Can't land on %s.\n", prship(&ship));
 		continue;
 	    }
-
 	    /* clear to land on ship#CNO */
 	    pr("landing on carrier %d\n", cno);
-	    if (mchr[(int)ship.shp_type].m_flags & M_FLY)
-		flags |= P_L;
-	    if (mchr[(int)ship.shp_type].m_flags & M_CHOPPER)
-		flags |= P_K;
-	    if (mchr[(int)ship.shp_type].m_flags & M_XLIGHT)
-		flags |= P_E;
+	    flags |= fl;
 	    *shipno = cno;
 	    *flagp = flags;
 	    return 0;
@@ -385,6 +378,31 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
     return 1;
 }
 
+/*
+ * Find non-missile plane types that can operate from carrier SP.
+ * Return a combination of P_L, P_K, P_E.
+ * It's zero if SP can't support air operations due to its type or
+ * state (low efficiency).
+ */
+static int
+carrier_planes(struct shpstr *sp)
+{
+    struct mchrstr *mcp = mchr + sp->shp_type;
+    int res;
+
+    if (sp->shp_effic < SHP_AIROPS_EFF)
+	return 0;
+
+    res = 0;
+    if (mcp->m_flags & M_FLY)
+	res |= P_L;
+    if (mcp->m_flags & M_CHOPPER)
+	res |= P_K;
+    if (mcp->m_flags & M_XLIGHT)
+	res |= P_E;
+    return res;
+}
+
 int
 pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 {
@@ -402,10 +420,6 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    CANT_REACH();
 	    return 0;
 	}
-	if (CANT_HAPPEN(ship.shp_effic < SHIP_MINEFF
-			|| !could_be_on_ship(pp, &ship)))
-	    return 0;
-
 	if (ship.shp_own != pp->pln_own
 	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
 	    if (noisy)
@@ -413,7 +427,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 		   prplane(pp));
 	    return 0;
 	}
-	if (ship.shp_effic < SHP_AIROPS_EFF)
+	if ((carrier_planes(&ship) & pcp->pl_flags) == 0)
 	    return 0;
 
     } else if (pp->pln_land >= 0) {
@@ -422,10 +436,6 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    CANT_REACH();
 	    return 0;
 	}
-	if (CANT_HAPPEN(land.lnd_effic < LAND_MINEFF
-			|| !(pcp->pl_flags & P_E)))
-	    return 0;
-
 	if (land.lnd_own != pp->pln_own
 	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED) {
 	    if (noisy)
@@ -433,7 +443,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 		   prplane(pp));
 	    return 0;
 	}
-	if (land.lnd_effic < LND_AIROPS_EFF)
+	if (land.lnd_effic < LND_AIROPS_EFF || !(pcp->pl_flags & P_E))
 	    return 0;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    return 0;
