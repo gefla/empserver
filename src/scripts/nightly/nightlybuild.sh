@@ -17,27 +17,7 @@
 # CLEANUP	-	Remove the contents of the sandbox
 #
 
-# For some reason, solaris sh exits as soon as both stderr and stdout
-# are redirected to file at the exec, so if we run on solaris, use ksh
-# for this script.
-#
-INTERPRETER="$_"
-
-case "$INTERPRETER"
-in
-	*/ksh|ksh)
-		;;
-	*)
-		if  [ "`uname`" = "SunOS" ]
-		then
-			exec ksh "$0" "$@"
-		fi
-	;;
-esac
-
 PROGNAME="$0"
-CVS_RSH=ssh
-export CVS_RSH
 TERM="${TERM:-vt100}"
 export TERM
 
@@ -116,8 +96,10 @@ cd "${WORKDIR}" || err "Could not cd to ${BOXDIR}/${WORKDIR}"
 
 echo "Getting source from CVS:"
 # Extract source
+export CVS_RSH=${CVS_RSH:=ssh}
+export CVSROOT=${CVSROOT:=:pserver:anonymous@empserver.cvs.sourceforge.net:/cvsroot/empserver}
 RETR=0
-while ! cvs -z3 -d:ext:"${SFLOGIN}"@cvs.sourceforge.net:/cvsroot/empserver co empserver >/dev/null
+while ! cvs -z3 co empserver >/dev/null
 do
 	sleep "`expr 5 + ${RETR}`"
 	RETR="`expr 1 + ${RETR}`"
@@ -140,11 +122,11 @@ in
 	*PATCH*) ;;
 	*)
 
-echo "Applying global patches from patches/All:"
-for i in "${SCRIPTDIR}/patches/All"/*.patch
+echo "Applying global patches from ${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/All"
+for i in "${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/All"/*.patch
 do
 	[ -r "${i}" ] || continue
-	if patch -Np0 < "${i}" >/dev/null
+	if ${PATCH:=patch} -Np0 < "${i}" >/dev/null
 	then
 		echo "${i}: OK"
 	else
@@ -170,7 +152,7 @@ then
 	for i in "${LOCALPATCHDIR}"/*.patch
 	do
 		[ -r "${i}" ] || continue
-		if patch -Np0 < "${i}" >/dev/null
+		if ${PATCH:=patch} -Np0 < "${i}" >/dev/null
 		then
 			echo "${i}: OK"
 		else
@@ -183,18 +165,9 @@ fi
 
 cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 
-# Prep build.conf
-echo "Preparing build.conf"
-sed	-e "s,^USERNAME = .*$,USERNAME = ${EMPLOGIN}," \
-	-e "s,^HOSTNAME = .*$,HOSTNAME = localhost," \
-	-e "s,^IPADDR = .*$,IPADDR = 127.0.0.1," \
-	-e "s,^PORTNUM = .*$,PORTNUM = ${EMPPORT}," \
-	-e "s,^EMPDIR = .*$,EMPDIR = ${BOXDIR}/${WORKDIR}/emp4," \
-	< build.conf > build.conf.new && \
-	mv build.conf.new build.conf || \
-	err "Could not prep build.conf"
-echo "Done (build.conf)."
-echo ""
+cvs up -d
+sh ./bootstrap
+./configure --prefix ${BOXDIR}/${WORKDIR}/emp4
 
 		;;
 esac
@@ -210,11 +183,6 @@ in
 	*BUILD*) ;;
 	*)
 
-# TODO: this should be fixed another way...
-echo "Generating empty Makedepends."
-touch src/client/Makedepend src/doconfig/Makedepend src/lib/as/Makedepend src/lib/commands/Makedepend src/lib/common/Makedepend src/lib/empthread/Makedepend src/lib/gen/Makedepend src/lib/global/Makedepend src/lib/lwp/Makedepend src/lib/player/Makedepend src/lib/subs/Makedepend src/lib/update/Makedepend src/server/Makedepend src/util/Makedepend || err "Could tot touch Makedepends"
-echo "Done (touch)."
-echo ""
 
 # Start the build
 echo "Building server"
@@ -242,7 +210,7 @@ do
 		*GENERATE*) ;;
 		*)
 
-	if [ -d ../emp4 -a -d ../emp4/bin -a -d ../emp4/data ]
+	if [ -d ../emp4 -a -d ../emp4/bin -a -d ../emp4/sbin -a -d ../emp4/var/empire ]
 	then
 		echo "Directory structure is ok"
 	else
@@ -252,7 +220,14 @@ do
 
 	cd ../emp4/bin || err "Could not cd to ../emp4/bin"
 
-	echo "Determining type of files in bindir"
+	echo "Determining type of files in bin directory"
+	file *
+	echo "Done (file *)."
+	echo ""
+
+	cd ../../emp4/sbin || err "Could not cd to ../../emp4/sbin"
+
+	echo "Determining type of files in sbin directory"
 	file *
 	echo "Done (file *)."
 	echo ""
@@ -300,6 +275,7 @@ do
 		*GENERATE*) ;;
 		*)
 
+	ln -s ../bin/empire emp_client
 	echo "Running newcap_script through emp_client"
 	runfeed POGO peter < newcap_script >/dev/null 2>&1 ||
 		{
@@ -364,40 +340,42 @@ expl c 0,0 1 yh
 expl c 0,0 1 gh
 expl c 0,0 1 bh
 desi * ?ne=- +
+expl c 2,0 1 njh
+expl c 2,0 1 nnh
 expl c 2,0 1 bnh
-expl c 2,0 1 bbh
-expl c 0,0 1 bgh
-expl c 0,0 1 ggh
-expl c 0,0 1 gyh
+expl c 0,0 1 bbh
 expl c 0,0 1 yyh
-expl c 2,0 1 yyh
-expl c 2,0 1 uyh
+expl c 0,0 1 yuh
+expl c 0,0 1 bnh
+expl c 2,0 1 yuh
 expl c 2,0 1 uuh
+expl c 2,0 1 juh
 desi * ?ne=- +
-expl c 2,0 1 bbnh
-expl c 2,0 1 uuuh
-expl c 2,0 1 yyyh
-expl c 0,0 1 yyyh
+expl c 2,0 1 nnnh
+expl c 2,0 1 nnjh
+expl c 2,0 1 njjh
+expl c 2,0 1 uujh
+expl c 0,0 1 bbnh
+expl c 0,0 1 bnnh
 expl c 0,0 1 yygh
-expl c 0,0 1 yggh
-expl c 0,0 1 gggh
-expl c 0,0 1 ggbh
+expl c 0,0 1 yuuh
 desi * ?ne=- +
-expl c 0,0 1 ggggh
-expl c 0,0 1 gggbh
-expl c 0,0 1 ggbbh
+expl c 2,0 1 nnjjh
+desi * ?ne=- +
+expl c 2,0 1 nnjjjh
 desi * ?ne=- +
 mov u 0,0 75 jh
 demob 0:2,0 55 y
 desi 2,0 m
-mov c 0,0 767 -3,-1
-desi -3,-1 g
-mov c 0,0 270 1,-1
+mov c 0,0 767 -1,-1
+desi -1,-1 g
+mov c 0,0 275 1,-1
 mov c 2,0 274 1,-1
 desi 1,-1 m
-deliver i 2,0 120 u
-dist 2,-2 2,0
-thre i 2,-2 1000
+deliver i 2,0 230 u
+deliver i 1,-1 0 j
+dist 4,0 2,0
+thres i 2,0 1
 EOF
 
 	echo "Run an update"
@@ -415,7 +393,7 @@ EOF
 	sleep 10
 	echo "Check player 1"
 	runfeed 1 << EOF
-real 0 -12:10,-5:5
+real 0 -8:12,-4:4
 cen *
 map #
 read y
@@ -440,22 +418,22 @@ EOF
 	echo "Turn 2 for player 1"
 
 	runfeed 1 << EOF >/dev/null 2>&1
-desi -3,-1 b
-mov i 1,-1 120 2,-2
+desi -1,-1 b
+mov i 2,0 200 4,0
 mov i 1,-1 4 jh
-mov c -3,-1 435 2,-2
-deli i 2,0 0 u
-deli i 1,-1 0 u
-mov c -3,-1 80 3,-1
-mov c 1,-1 256 4,-2
-mov c 2,0 230 3,-1
+mov c -1,-1 435 4,0
+deli i 2,0 0 j
+deli i 1,-1 0 j
+mov c -1,-1 80 3,-1
+mov c 1,-1 256 4,0
+mov c 2,0 230 5,-1
 mov c 1,-1 409 3,-1
-desi 2,-2 k
+desi 4,0 k
 desi 3,-1 j
-dist # 4,-2
-thre h 2,-2 1
+dist # 5,-1
+thre h 4,0 1
 thre l 3,-1 1
-desi 4,-2 h
+desi 5,-1 h
 EOF
 
 	echo "Run an update"
@@ -476,27 +454,21 @@ EOF
 cen *
 map #
 read y
-build sh 4,-2 frg
-mov l 3,-1 1 -8,0
-mov l 4,-2 193 -8,0
-mov i 1,-1 1 2,-2
-mov c 2,-2 377 -8,0
-desi -8,0 l
-thre l -8,0 150
-mov c -3,-1 627 -2,0
-mov c 3,-1 139 -2,0
-mov c 4,-2 292 uh
-mov c 2,-2 36 -7,1
-mov c 3,-1 29 -7,1
-mov c 2,0 191 -7,1
-mov c 2,0 125 5,-3
-mov u 2,0 99 yh
-deliver o 5,-3 0 b
-deliver d -2,0 0 y
-desi -7,1 h
-desi 5,-3 o
-desi -2,0 g
-budg h 1
+build sh 5,-1 frg
+mov l 5,-1 134 6,-2
+mov c 4,0 377 6,-2
+desi 6,-2 l
+thre l 6,-2 150
+mov c -1,-1 600 1,1
+mov c 2,0 370 -2,2
+deliver i 2,0 0 j
+deliver i 1,-1 0 j
+thres d 1,1 1
+thres o -2,0 1
+thres i 2,0 0
+thres i 1,-1 0
+desi -2,2 o
+desi 1,1 g
 prod *
 EOF
 
@@ -560,7 +532,7 @@ in
 	*)
 
 echo "Cleaning sandbox"
-cd "${BOXDIR}" || err "Could not cd back to sanbox root !"
+cd "${BOXDIR}" || err "Could not cd back to sandbox root !"
 rm -r "${WORKDIR}" || warn "Directory ${WORKDIR} could not be cleanly removed !"
 rm -rf "${WORKDIR}" || warn "Directory ${WORKDIR} could not be forcibly removed !"
 [ -d "${WORKDIR}/." ] && warn "Directory ${WORKDIR} still present"
