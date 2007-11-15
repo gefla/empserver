@@ -736,12 +736,10 @@ lnd_count(struct emp_qelem *list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct ulist *llp;
     int count = 0;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	llp = (struct ulist *)qp;
 	++count;
     }
     return count;
