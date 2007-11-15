@@ -278,13 +278,11 @@ execute(void)
     failed = 0;
     redir = NULL;
 
+    /* FIXME should use raw argument here, to support UTF-8 file names */
     p = getstarg(player->argp[1], "File? ", buf);
-
     if (p == NULL || *p == '\0')
 	return RET_SYN;
-
-    /* FIXME should use raw argument here, to support UTF-8 file names */
-    prexec(player->argp[1]);
+    prexec(p);
 
     while (!failed && status()) {
 	if (recvclient(buf, sizeof(buf)) < 0)
