@@ -302,6 +302,7 @@ execute(void)
     }
     if (redir == NULL)
 	pr("Execute : %s\n", failed ? "aborted" : "terminated");
+    player->eof = 0;
     return RET_OK;
 }
 
