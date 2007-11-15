@@ -377,8 +377,8 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (p && *p)
-	noisy &= isdigit(*p);
+    if (noisy && p && *p)
+	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &pln)) {
 	if (pln.pln_own != player->cnum)
@@ -506,8 +506,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (p && *p)
-	noisy &= isdigit(*p);
+    if (noisy && p && *p)
+	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != player->cnum)
@@ -767,8 +767,8 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (p && *p)
-	noisy &= isdigit(*p);
+    if (noisy && p && *p)
+	noisy = isdigit(*p);
 
     if (sectp->sct_own != player->cnum && load_unload == LOAD) {
 	pr("Sector %s is not yours.\n",
@@ -950,8 +950,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (p && *p)
-	noisy &= isdigit(*p);
+    if (noisy && p && *p)
+	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &land)) {
 
