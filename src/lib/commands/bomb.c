@@ -870,7 +870,7 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 	sprintf(dmess, " -- shot down");
 	disp = 1;
     } else if (chance((100 - eff) / 100.0)) {
-	sprintf(dmess, " -- aborted with %d%%%% damage", 100 - eff);
+	sprintf(dmess, " -- aborted with %d%% damage", 100 - eff);
 	disp = 2;
     }
     PR(plane_owner, "    Flak! %s %s takes %d%s.\n",
