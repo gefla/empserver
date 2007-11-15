@@ -87,11 +87,13 @@ journal_entry(char *fmt, ...)
 
 	for (p = (unsigned char *)buf; *p; p++) {
 	    if (isprint(*p))
-		 putc(*p, journal);
+		putc(*p, journal);
 	    else
 		fprintf(journal, "\\%03o", *p);
 	}
 	fputs("\n", journal);
+	if (debug)
+	    fflush(journal);
 	if (ferror(journal)) {
 	    logerror("Error writing journal (%s)", strerror(errno));
 	    clearerr(journal);
