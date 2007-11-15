@@ -7,10 +7,10 @@ fi
 
 name=$1; shift
 
+mkdir $name
+
 # arrange cleanup
 trap 'rm -rf "$name"' 0
-
-mkdir -p $name
 
 dir=.
 until [ $# = 0 ]; do
