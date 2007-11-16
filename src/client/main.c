@@ -69,7 +69,7 @@ static void intr(int sig);
 static int handleintr(int);
 
 int
-main(int ac, char **av)
+main(int ac, char **argv)
 {
 #ifdef _WIN32
     WORD wVersionRequested;
@@ -88,7 +88,6 @@ main(int ac, char **av)
     int retry = 0;
 #endif
     struct ioqueue server;
-    char *argv[128];
     int i, j;
     char *ptr;
     char *auxout_fname;
@@ -122,8 +121,6 @@ main(int ac, char **av)
     FD_ZERO(&mask);
     FD_ZERO(&savemask);
 #endif
-    memset(argv, 0, sizeof(argv));
-    saveargv(ac, av, argv);
     auxout_fname = NULL;
     auxout_fp = NULL;
     for (i = j = 1; i < ac; ++i) {

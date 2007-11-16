@@ -54,7 +54,7 @@ VPATH = @srcdir@
 
 prog = empire$E
 obj = expect.$O host.$O ioqueue.$O ipglob.$O login.$O main.$O queue.$O	\
-saveargv.$O servcmd.$O serverio.$O tags.$O termio.$O termlib.$O
+servcmd.$O serverio.$O tags.$O termio.$O termlib.$O
 
 all: $(prog)
 
@@ -80,13 +80,11 @@ uninstall:
 
 # FIXME generate from .d
 expect.$O: misc.h
-handle.$O: misc.h
 host.$O: misc.h
 ioqueue.$O: misc.h queue.h ioqueue.h
 login.$O: misc.h proto.h
 main.$O: misc.h proto.h queue.h ioqueue.h tags.h
 queue.$O: misc.h queue.h
-saveargv.$O: misc.h
 servcmd.$O: misc.h proto.h queue.h ioqueue.h tags.h
 serverio.$O: misc.h queue.h ioqueue.h
 tags.$O: misc.h tags.h

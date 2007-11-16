@@ -67,7 +67,6 @@ int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
-void saveargv(int ac, char **src, char **dst);
 void sendcmd(int s, char *cmd, char *arg);
 void servercmd(struct ioqueue *ioq, FILE *auxfi);
 int serverio(int s, struct ioqueue *ioq);
