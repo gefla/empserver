@@ -185,8 +185,10 @@ install: all installdirs
 	echo 'every 10 minutes' >>$(schedule).dist
 	[ -e $(schedule) ] || mv $(schedule).dist $(schedule)
 	if [ -e $(econfig) ]; then					\
+	    echo "Attempting to update your econfig";			\
 	    if src/util/pconfig $(econfig) >$(econfig).dist; then	\
 	        if cmp -s $(econfig) $(econfig).dist; then		\
+		    echo "$(econfig) unchanged";			\
 		    rm $(econfig).dist;					\
 		fi;							\
 	    else							\
@@ -215,8 +217,7 @@ uninstall:
 	rm -f $(addprefix $(bindir)/, $(notdir $(client)))
 	rm -rf $(builtindir) $(einfodir)
 	rm -f $(addprefix $(mandir)/man6/, $(notdir $(man6)))
-	@[ -e $(gamedir) ] && echo "$(gamedir) not removed, you may wish to remove it manually."
-	@[ -e $(econfig) ] && echo "$(econfig) not removed, you may wish to remove it manually."
+	@echo "$(dir $(econfig)) and $(gamedir) not removed, you may wish to remove it manually."
 
 .PHONY: dist
 dist: dist-source dist-client dist-info
