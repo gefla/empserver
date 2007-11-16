@@ -261,7 +261,7 @@ info.html/%.html: info/%.t
 $(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-$(client): $(filter src/client/%, $(obj))
+$(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(util): $(libs)
@@ -330,7 +330,8 @@ dist-client: $(cli_distgen)
 	$(tarball) $(TARNAME)-client-$(VERSION)				\
 	-C $(srcdir)/src/client						\
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
-	-C $(srcdir)/include proto.h					\
+	-C $(srcdir)/include proto.h version.h				\
+	-C $(srcdir)/src/lib/global version.c				\
 	-C $(srcdir)/man empire.6					\
 	-C $(srcdir) COPYING INSTALL install-sh
 

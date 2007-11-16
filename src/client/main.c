@@ -31,7 +31,7 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1998
  *     Ron Koenderink, 2004-2005
- *     Markus Armbruster, 2005
+ *     Markus Armbruster, 2005-2007
  */
 
 #include <config.h>
@@ -54,6 +54,7 @@
 #include "misc.h"
 #include "proto.h"
 #include "tags.h"
+#include "version.h"
 
 #ifdef _WIN32
 HANDLE hStdIn;
@@ -68,9 +69,32 @@ static volatile sig_atomic_t interrupt;
 static void intr(int sig);
 static int handleintr(int);
 
-int
-main(int ac, char **argv)
+static void
+print_usage(char *program_name)
 {
+    printf("Usage: %s [OPTION]...[COUNTRY [PASSWORD]]\n"
+	   "  -2 FILE         Append log of session to FILE\n"
+	   "  -k              Kill connection\n"
+	   "  -u              Use UTF-8\n"
+	   "  -h              display this help and exit\n"
+	   "  -v              display version information and exit\n",
+	   program_name);
+}
+
+int
+main(int argc, char **argv)
+{
+    int opt;
+    char *auxfname = NULL;
+    int send_kill = 0;
+    int utf8 = 0;
+    char **ap;
+    char *country;
+    char *passwd;
+    char *uname;
+    char *host;
+    char *port;
+    int sock;
 #ifdef _WIN32
     WORD wVersionRequested;
     WSADATA WsaData;
@@ -88,18 +112,8 @@ main(int ac, char **argv)
     int retry = 0;
 #endif
     struct ioqueue server;
-    int i, j;
-    char *ptr;
-    char *auxout_fname;
-    FILE *auxout_fp;
+    FILE *auxout_fp = NULL;
     int n;
-    char *cname;
-    char *pname;
-    char *uname;
-    char *host;
-    char *port;
-    int send_kill = 0;
-    int utf8 = 0;
 
 #ifdef _WIN32
     /*
@@ -121,47 +135,45 @@ main(int ac, char **argv)
     FD_ZERO(&mask);
     FD_ZERO(&savemask);
 #endif
-    auxout_fname = NULL;
-    auxout_fp = NULL;
-    for (i = j = 1; i < ac; ++i) {
-	ptr = argv[i];
-	if (strcmp(ptr, "-2") == 0) {
-	    if (i + 1 >= ac) {
-		fprintf(stderr, "-2: Missing filename!\n");
-		exit(1);
-	    }
-	    auxout_fname = argv[i + 1];
-	    ++i;
-	    continue;
-	} else if (strcmp(ptr, "-k") == 0) {
+
+    while ((opt = getopt(argc, argv, "2:kuhv")) != EOF) {
+	switch (opt) {
+	case '2':
+	    auxfname = optarg;
+	    break;
+	case 'k':
 	    send_kill = 1;
-	    continue;
-	} else if (strcmp(ptr, "-u") == 0) {
+	    break;
+	case 'u':
 	    utf8 = eight_bit_clean = 1;
-	    continue;
+	    break;
+	case 'h':
+	    print_usage(argv[0]);
+	    exit(0);
+	case 'v':
+	    printf("%s\n\n%s", version, legal);
+	    exit(0);
+	default:
+	    print_usage(argv[0]);
+	    exit(1);
 	}
-	argv[j] = argv[i];
-	++j;
     }
-    ac = j;
-    if (auxout_fname && (auxout_fp = fopen(auxout_fname, "a")) == NULL) {
-	fprintf(stderr, "Unable to open %s for append\n", auxout_fname);
-	exit(1);
-    }
-    getsose();
+
+    ap = argv + optind;
+    if (*ap)
+	country = *ap++;
+    else
+	country = getenv("COUNTRY");
+    if (*ap)
+	passwd = *ap++;
+    else
+	passwd = getenv("PLAYER");
     port = getenv("EMPIREPORT");
     if (!port)
 	port = empireport;
     host = getenv("EMPIREHOST");
     if (!host)
 	host = empirehost;
-    sock = tcp_connect(host, port);
-    cname = getenv("COUNTRY");
-    if (ac > 1)
-	cname = argv[1];
-    pname = getenv("PLAYER");
-    if (ac > 2)
-	pname = argv[2];
     uname = getenv("LOGNAME");
     if (uname == NULL) {
 #ifndef _WIN32
@@ -185,7 +197,16 @@ main(int ac, char **argv)
 	    uname = "nobody";
 #endif
     }
-    if (!login(sock, uname, cname, pname, send_kill, utf8)) {
+
+    getsose();
+    if (auxfname && (auxout_fp = fopen(auxfname, "a")) == NULL) {
+	fprintf(stderr, "Unable to open %s for append\n", auxfname);
+	exit(1);
+    }
+
+    sock = tcp_connect(host, port);
+
+    if (!login(sock, uname, country, passwd, send_kill, utf8)) {
 #ifdef _WIN32
 	closesocket(sock);
 #else
