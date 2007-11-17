@@ -42,11 +42,11 @@
  * Set ARG[0] to point to the command name.
  * Set ARG[1..N] to point to arguments, where N is the number of
  * arguments.  Set ARG[N+1..127] to NULL.
- * If *CONDP is not null, recognize conditional argument syntax, and
+ * If CONDP is not null, recognize conditional argument syntax, and
  * set *CONDP to the conditional argument if present, else NULL.
  * Command name and arguments are copied into SPACE[], whose size must
  * be at least strlen(BUF) + 1.
- * If *REDIR is not null, recognize redirection syntax, and set *REDIR
+ * If REDIR is not null, recognize redirection syntax, and set *REDIR
  * to UTF-8 redirection string if present, else NULL.
  * Return number of slots used in ARG[], or -1 on error.
  */
