@@ -105,7 +105,6 @@ path(void)
 	       3);
 	cx += diroff[i][0];
 	cy += diroff[i][1];
-	++pp;
     }
     border(&relrange, "     ", " ");
     while (nxtsct(&ns, &sect)) {
