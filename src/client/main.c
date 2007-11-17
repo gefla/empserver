@@ -208,14 +208,9 @@ main(int argc, char **argv)
 
     sock = tcp_connect(host, port);
 
-    if (!login(sock, uname, country, passwd, send_kill, utf8)) {
-#ifdef _WIN32
-	closesocket(sock);
-#else
-	close(sock);
-#endif
+    if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
-    }
+
     ioq_init(&server, 2048);
     io_init();
 #ifndef _WIN32
