@@ -225,6 +225,8 @@ dopipe(char *p)
 static void
 doexecute(char *p)
 {
+    input_fd = -1;		/* make sure play() terminates exec */
+
     if (!seen_input(p)) {
 	fprintf(stderr,
 		"WARNING!  Server attempted to read file %s",
