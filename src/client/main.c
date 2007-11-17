@@ -125,12 +125,6 @@ main(int argc, char **argv)
      * after each prompt is required.
      */
     setvbuf(stdout, NULL, _IOLBF, 4096);
-    wVersionRequested = MAKEWORD(2, 0);
-    err = WSAStartup(wVersionRequested, &WsaData);
-    if (err != 0) {
-	printf("WSAStartup Failed, error code %d\n", err);
-	return FALSE;
-    }
 #else
     FD_ZERO(&mask);
     FD_ZERO(&savemask);
@@ -203,6 +197,15 @@ main(int argc, char **argv)
 	fprintf(stderr, "Unable to open %s for append\n", auxfname);
 	exit(1);
     }
+
+#ifdef _WIN32
+    wVersionRequested = MAKEWORD(2, 0);
+    err = WSAStartup(wVersionRequested, &WsaData);
+    if (err != 0) {
+	printf("WSAStartup Failed, error code %d\n", err);
+	exit(1);
+    }
+#endif
 
     sock = tcp_connect(host, port);
 
