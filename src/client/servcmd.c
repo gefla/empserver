@@ -266,23 +266,22 @@ doexecute(char *p, FILE *auxfi)
     char *tag;
 
     tag = gettag(p);
-    while (*p && isspace(*p))
-	p++;
     if (tag == NULL) {
 	fprintf(stderr,
 		"WARNING!  Server attempted unauthorized read of file %s\n",
 		p);
 	return;
     }
-    if (p == NULL) {
-	fprintf(stderr, "Null file to execute\n");
-	free(tag);
+    free(tag);
+
+    p = fname(p);
+    if (*p == 0) {
+	fprintf(stderr, "Need a file to execute\n");
 	return;
     }
     if ((fd = open(p, O_RDONLY, 0)) < 0) {
-	fprintf(stderr, "Can't open execute file\n");
-	perror(p);
-	free(tag);
+	fprintf(stderr, "Can't open execute file %s: %s\n",
+		p, strerror(errno));
 	return;
     }
     /* copies 4k at a time to the socket */
@@ -296,7 +295,6 @@ doexecute(char *p, FILE *auxfi)
      * sendeof(sock);
      */
     close(fd);
-    free(tag);
 }
 
 static void
