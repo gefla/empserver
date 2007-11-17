@@ -53,50 +53,46 @@
 int
 parse(char *buf, char **arg, char **condp, char *space, char **redir)
 {
-    char *bp2;
-    char *bp1 = space;
-    int fs;
-    int quoted;
-    int argnum;
+    char *ap;
+    int i, quoted, argnum;
 
     if (redir)
-	*redir = 0;
-    if (condp != NULL)
+	*redir = NULL;
+    if (condp)
 	*condp = NULL;
-    for (argnum = 0; *buf && argnum < 127;) {
-	while (isspace((unsigned char)*buf))
-	    buf++;
+
+    for (argnum = 0; argnum < 127;) {
+	for (; isspace(*(unsigned char *)buf); buf++) ;
 	if (!*buf)
 	    break;
+
+	/* recognize redirection syntax */
 	if (redir && (*buf == '>' || *buf == '|')) {
 	    *redir = buf;
 	    break;
 	}
+
+	/* copy argument */
 	quoted = 0;
-	for (bp2 = bp1; *buf;) {
-	    if (!quoted && isspace((unsigned char)*buf)) {
-		buf++;
-		break;
-	    }
-	    if (*buf == '"') {
+	ap = space;
+	for (; *buf && (quoted || !isspace(*(unsigned char *)buf)); buf++) {
+	    if (*buf == '"')
 		quoted = !quoted;
-		buf++;
-	    } else {
-		if (*buf >= 0x20 && *buf <= 0x7e)
-		    *bp1++ = *buf++;
-		else
-		    buf++;
-	    }
+	    else if (*buf >= 0x20 && *buf <= 0x7e)
+		*space++ = *buf;
+	    /* else funny character; ignore */
 	}
-	*bp1++ = 0;
-	if (*bp2 == '?' && condp != NULL) {
-	    *condp = bp2 + 1;
-	} else {
-	    arg[argnum] = bp2;
-	    argnum++;
-	}
+	*space++ = 0;
+
+	/* store copied argument as conditional or regular argument */
+	if (condp && *ap == '?')
+	    *condp = ap + 1;
+	else
+	    arg[argnum++] = ap;
     }
-    for (fs = argnum; fs < 128; fs++)
-	arg[fs] = NULL;
+
+    for (i = argnum; i < 128; i++)
+	arg[i] = NULL;
+
     return argnum;
 }
