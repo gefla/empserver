@@ -36,6 +36,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -165,14 +166,23 @@ prompt(FILE *auxfi)
     }
 }
 
+static char *
+fname(char *s)
+{
+    char *beg, *end;
+
+    for (beg = s; isspace(*(unsigned char *)beg); beg++) ;
+    for (end = beg; !isspace(*(unsigned char *)end); end++) ;
+    *end = 0;
+    return beg;
+}
+
 /*
  * opens redir_fp if successful
  */
 static void
 doredir(char *p)
 {
-    char *how;
-    char *name;
     char *tag;
     int mode;
     int fd;
@@ -181,40 +191,41 @@ doredir(char *p)
 	(void)fclose(redir_fp);
 	redir_fp = NULL;
     }
-    how = p++;
-    if (*p && ((*p == '>') || (*p == '!')))
+
+    if (*p++ != '>') {
+	fprintf(stderr, "WARNING!  Weird redirection %s", p);
+	return;
+    }
+
+    mode = O_WRONLY | O_CREAT;
+    if (*p == '>') {
+	mode |= O_APPEND;
 	p++;
+    } else if (*p == '!') {
+	mode |= O_TRUNC;
+	p++;
+    } else
+	mode |= O_EXCL;
+
     tag = gettag(p);
-    while (*p && isspace(*p))
-	p++;
-    name = p;
-    while (*p && !isspace(*p))
-	p++;
-    *p = 0;
+    p = fname(p);
     if (tag == NULL) {
 	fprintf(stderr, "WARNING!  Server redirected output to file %s\n",
-		name);
+		p);
 	return;
-    }
-    mode = O_WRONLY | O_CREAT;
-    if (how[1] == '>')
-	mode |= O_APPEND;
-    else if (how[1] == '!')
-	mode |= O_TRUNC;
-    else
-	mode |= O_EXCL;
-    if (*name == 0) {
-	fprintf(stderr, "Null file name after redirect\n");
-	free(tag);
-	return;
-    }
-    if ((fd = open(name, mode, 0600)) < 0) {
-	fprintf(stderr, "Redirect open failed\n");
-	perror(name);
-    } else {
-	redir_fp = fdopen(fd, "w");
     }
     free(tag);
+
+    if (*p == 0) {
+	fprintf(stderr, "Redirection lacks a file name\n");
+	return;
+    }
+    fd = open(p, mode, 0600);
+    redir_fp = fd < 0 ? NULL : fdopen(fd, "w");
+    if (!redir_fp) {
+	fprintf(stderr, "Can't redirect to %s: %s\n",
+		p, strerror(errno));
+    }
 }
 
 /*
