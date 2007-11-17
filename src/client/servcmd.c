@@ -186,7 +186,7 @@ doredir(char *p)
 	return;
     }
 
-    fd = open(p, mode, 0600);
+    fd = open(p, mode, 0666);
     redir_fp = fd < 0 ? NULL : fdopen(fd, "w");
     if (!redir_fp) {
 	fprintf(stderr, "Can't redirect to %s: %s\n",
