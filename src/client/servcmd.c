@@ -236,25 +236,27 @@ dopipe(char *p)
 {
     char *tag;
 
-    if (*p == '|')
-	p++;
+    if (*p++ != '|') {
+	fprintf(stderr, "WARNING!  Weird pipe %s", p);
+	return;
+    }
+
     tag = gettag(p);
-    while (*p && isspace(*p))
-	p++;
     if (tag == NULL) {
 	fprintf(stderr, "WARNING!  Server attempted to run: %s\n", p);
 	return;
     }
+    free(tag);
+
+    for (; *p && isspace(*p); p++) ;
     if (*p == 0) {
-	fprintf(stderr, "Null program name after redirect\n");
-	free(tag);
+	fprintf(stderr, "Redirection lacks a command\n");
 	return;
     }
     if ((pipe_fp = popen(p, "w")) == NULL) {
-	fprintf(stderr, "Pipe open failed\n");
-	perror(p);
+	fprintf(stderr, "Can't redirect to pipe %s: %s\n",
+		p, strerror(errno));
     }
-    free(tag);
 }
 
 static void
