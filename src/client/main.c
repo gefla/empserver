@@ -94,7 +94,6 @@ main(int argc, char **argv)
     char *uname;
     char *host;
     char *port;
-    int sock;
 #ifdef _WIN32
     WORD wVersionRequested;
     WSADATA WsaData;
