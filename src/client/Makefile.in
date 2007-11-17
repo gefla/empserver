@@ -90,4 +90,5 @@ serverio.$O: misc.h queue.h ioqueue.h
 tags.$O: misc.h tags.h
 termio.$O: misc.h tags.h
 termlib.$O: misc.h
+version.$O: version.h
 $(obj): config.h
