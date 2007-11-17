@@ -25,38 +25,17 @@
  *
  *  ---
  *
- *  ioqueue.h: stores and frees data associated with a file descriptor.
- *             uses writev to write, and read to read.
+ *  secure.h: Check redir etc. to protect against tampering deity
  * 
  *  Known contributors to this file:
- *  
+ *     Markus Armbruster, 2007
  */
 
-#ifndef IOQUEUE_H
-#define IOQUEUE_H
+#ifndef SECURE_H
+#define SECURE_H
 
-#include "queue.h"
-
-struct ioqueue {
-    struct qelem queue;		/* queue fwd/back */
-    int bsize;			/* basic block size */
-    int cc;			/* character count */
-};
-
-struct io {
-    struct qelem queue;		/* list of ioqueue elements */
-    int nbytes;			/* number of data bytes present */
-    int offset;			/* offset into current entry */
-    char *data;			/* pointer to start */
-};
-
-void ioq_init(struct ioqueue *ioq, int bsize);
-int ioq_peek(struct ioqueue *ioq, char *buf, int cc);
-int ioq_dequeue(struct ioqueue *ioq, int cc);
-int ioq_read(struct ioqueue *ioq, char *buf, int cc);
-void ioq_write(struct ioqueue *ioq, char *buf, int cc);
-int ioq_qsize(struct ioqueue *ioq);
-void ioq_drain(struct ioqueue *ioq);
-char *ioq_gets(struct ioqueue *ioq, char *buf, int cc, int *eol);
+extern void clear_recent_input(void);
+extern void save_input(char *);
+extern int seen_input(char *);
 
 #endif

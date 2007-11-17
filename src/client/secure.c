@@ -25,56 +25,41 @@
  *
  *  ---
  *
- *  serverio.c: Handle input from server
+ *  secure.c: Check redir etc. to protect against tampering deity
  * 
  *  Known contributors to this file:
- *     Steve McClure, 1998
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#if !defined(_WIN32)
-#include <unistd.h>
-#endif
-#include "misc.h"
-#include "ioqueue.h"
+#include <string.h>
+#include "ringbuf.h"
+#include "secure.h"
+
+struct ring recent_input;
+
+void
+save_input(char *inp)
+{
+    size_t len = strlen(inp);
+    int left;
+
+    left = ring_putm(&recent_input, inp, len);
+    if (left < 0) {
+	ring_discard(&recent_input, ring_search(&recent_input, "\n"));
+	ring_putm(&recent_input, inp, len);
+    }
+}
 
 int
-serverio(int s, struct ioqueue *ioq)
+seen_input(char *tail)
 {
-    char *buf;
-    int n;
+    int dist = ring_search(&recent_input, tail);
 
-    if ((buf = malloc(ioq->bsize)) == NULL) {
-	fprintf(stderr, "malloc server i/o failed\n");
+    if (dist < 0)
 	return 0;
-    }
-#ifdef _WIN32
-    n = recv(s, buf, ioq->bsize, 0);
-#else
-    n = read(s, buf, ioq->bsize);
-#endif
-    if (n < 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-#endif
-	perror("server i/o read");
-	free(buf);
-	return 0;
-    }
-    if (n == 0) {
-	fprintf(stderr, "Server EOF\n");
-#ifdef WIN32
-	(void)closesocket(s);
-#else
-	(void)close(s);
-#endif
-	return 0;
-    }
-    if (n != ioq->bsize)
-	buf = realloc(buf, n);
-    ioq_write(ioq, buf, n);
+
+    ring_discard(&recent_input, dist + strlen(tail));
     return 1;
 }

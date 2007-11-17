@@ -25,51 +25,28 @@
  *
  *  ---
  *
- *  tags.c: save redir, execute and pipe info to protect against tampering
- *          by the deity.
+ *  linebuf.h: Simple line buffer
  * 
  *  Known contributors to this file:
- *     John Yockey, 1998
+ *     Markus Armbruster, 2007
  */
 
-#include <config.h>
+#ifndef LINEBUF_H
+#define LINEBUF_H
 
-#include <stdlib.h>
-#include <string.h>
-#include "misc.h"
-#include "tags.h"
+#define LBUF_LEN_MAX 4096
 
-struct tagstruct *taglist;
+struct lbuf {
+    /* All members are private! */
+    unsigned len;		/* strlen(line) */
+    int full;			/* got a complete line, with newline? */
+    char line[LBUF_LEN_MAX];	/* buffered line, zero-terminated */
+};
 
-void
-io_init(void)
-{
-    taglist = NULL;
-}
+extern void lbuf_init(struct lbuf *);
+extern int lbuf_len(struct lbuf *);
+extern int lbuf_full(struct lbuf *);
+extern char *lbuf_line(struct lbuf *);
+extern int lbuf_putc(struct lbuf *, char);
 
-char *
-gettag(char *p)
-{
-    struct tagstruct *tag1, *tag2;
-
-    if (taglist == NULL)
-	return NULL;
-    tag1 = taglist;
-    if (!strncmp(tag1->item, p, strlen(tag1->item))) {
-	p = tag1->item;
-	taglist = taglist->next;
-	free(tag1);
-	return p;
-    }
-    while (tag1->next != NULL) {
-	tag2 = tag1->next;
-	if (!strncmp(tag2->item, p, strlen(tag2->item))) {
-	    p = tag2->item;
-	    tag1->next = tag2->next;
-	    free(tag2);
-	    return p;
-	}
-	tag1 = tag1->next;
-    }
-    return NULL;
-}
+#endif

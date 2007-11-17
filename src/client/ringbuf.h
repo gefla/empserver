@@ -25,35 +25,43 @@
  *
  *  ---
  *
- *  queue.c: implementation of various queuing routines
+ *  ringbuf.h: Simple ring buffer
  * 
  *  Known contributors to this file:
- *     Steve McClure, 1998
+ *     Markus Armbruster, 2007
  */
 
-#include <config.h>
+#ifndef RINGBUF_H
+#define RINGBUF_H
 
-#include "queue.h"
+#include <stddef.h>
 
-void
-insque(struct qelem *p, struct qelem *q)
-{
-    p->q_forw = q->q_forw;
-    p->q_back = q;
-    q->q_forw->q_back = p;
-    q->q_forw = p;
-}
+#define RING_SIZE 4096
 
-void
-remque(struct qelem *p)
-{
-    p->q_back->q_forw = p->q_forw;
-    p->q_forw->q_back = p->q_back;
-}
+/* Ring buffer, consumer reads, producer writes */
+struct ring {
+    /* All members are private! */
+    /*
+     * Consumer reads from buf[cons % RING_SIZE], incrementing cons
+     * Produces writes to buf[prod % RING_SIZE], incrementing prod
+     * prod == cons: empty
+     * prod == cons + RING_SIZE: full
+     * invariant: prod - cons <= RING_SIZE
+     */
+    unsigned cons, prod;
+    unsigned char buf[RING_SIZE];
+};
 
-void
-initque(struct qelem *p)
-{
-    p->q_forw = p;
-    p->q_back = p;
-}
+extern void ring_init(struct ring *);
+extern int ring_len(struct ring *);
+extern int ring_space(struct ring *);
+extern int ring_peek(struct ring *, int);
+extern int ring_getc(struct ring *);
+extern int ring_putc(struct ring *, unsigned char);
+extern int ring_putm(struct ring *, void *, size_t);
+extern void ring_discard(struct ring *, int);
+extern int ring_search(struct ring *, char *);
+extern int ring_from_file(struct ring *, int fd);
+extern int ring_to_file(struct ring *, int fd);
+
+#endif

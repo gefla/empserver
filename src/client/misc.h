@@ -39,18 +39,15 @@
 #include <windows.h>
 #endif
 
-struct ioqueue;
+#define MAX(a, b) ((a) >= (b) ? (a) : (b))
 
 extern char empirehost[];
 extern char empireport[];
 extern int eight_bit_clean;
-extern int sock;
+extern int input_fd;
+extern FILE *auxfp;
 extern char *SO;
 extern char *SE;
-
-#ifdef _WIN32
-extern HANDLE hStdIn;
-#endif
 
 #ifdef _WIN32
 #define getsose() ((void)0)
@@ -67,9 +64,9 @@ int recvline(int s, char *buf);
 int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
+int play(int);
 void sendcmd(int s, char *cmd, char *arg);
-void servercmd(struct ioqueue *ioq, FILE *auxfi);
-int serverio(int s, struct ioqueue *ioq);
-int termio(int fd, int sock, FILE *auxfi);
+void servercmd(int, char *, int);
+void outch(char);
 
 #endif

@@ -36,38 +36,11 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#if defined(_WIN32)
-#include <io.h>
-#else
 #include <pwd.h>
-#include <sys/time.h>
-#include <sys/types.h>
+#include <stdlib.h>
 #include <unistd.h>
-#endif
-
-#include "ioqueue.h"
 #include "misc.h"
-#include "proto.h"
-#include "tags.h"
 #include "version.h"
-
-#ifdef _WIN32
-HANDLE hStdIn;
-#endif
-
-#define	RETRY	3
-
-int eight_bit_clean;
-int sock;
-
-static volatile sig_atomic_t interrupt;
-static void intr(int sig);
-static int handleintr(int);
 
 static void
 print_usage(char *program_name)
@@ -94,25 +67,10 @@ main(int argc, char **argv)
     char *uname;
     char *host;
     char *port;
+    int sock;
 #ifdef _WIN32
-    WORD wVersionRequested;
-    WSADATA WsaData;
-    int err;
-    fd_set readfds;
-    struct timeval tm;
-    DWORD stdinmode;
-    SECURITY_ATTRIBUTES security;
-    int bRedirected = 0;
     char unamebuf[128];
-#else
-    struct sigaction sa;
-    fd_set mask;
-    fd_set savemask;
-    int retry = 0;
 #endif
-    struct ioqueue server;
-    FILE *auxout_fp = NULL;
-    int n;
 
 #ifdef _WIN32
     /*
@@ -124,9 +82,6 @@ main(int argc, char **argv)
      * after each prompt is required.
      */
     setvbuf(stdout, NULL, _IOLBF, 4096);
-#else
-    FD_ZERO(&mask);
-    FD_ZERO(&savemask);
 #endif
 
     while ((opt = getopt(argc, argv, "2:kuhv")) != EOF) {
@@ -192,14 +147,13 @@ main(int argc, char **argv)
     }
 
     getsose();
-    if (auxfname && (auxout_fp = fopen(auxfname, "a")) == NULL) {
+    if (auxfname && (auxfp = fopen(auxfname, "a")) == NULL) {
 	fprintf(stderr, "Unable to open %s for append\n", auxfname);
 	exit(1);
     }
 
 #ifdef _WIN32
-    wVersionRequested = MAKEWORD(2, 0);
-    err = WSAStartup(wVersionRequested, &WsaData);
+    err = WSAStartup(MAKEWORD(2, 0), &WsaData);
     if (err != 0) {
 	printf("WSAStartup Failed, error code %d\n", err);
 	exit(1);
@@ -211,156 +165,8 @@ main(int argc, char **argv)
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
 
-    ioq_init(&server, 2048);
-    io_init();
-#ifndef _WIN32
-    FD_ZERO(&mask);
-    FD_SET(0, &savemask);
-    FD_SET(sock, &savemask);
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sa.sa_handler = intr;
-    sigaction(SIGINT, &sa, NULL);
-    sa.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &sa, NULL);
-    while (FD_ISSET(sock, &savemask)) {
-	mask = savemask;
-	n = select(sock + 1, &mask, NULL, NULL, NULL);
-	if (interrupt) {
-	    if (!handleintr(sock))
-		break;
-	    errno = 0;
-	}
-	if (n <= 0) {
-	    if (errno == EINTR) {
-		perror("select");
-		(void)close(sock);
-		FD_CLR(sock, &savemask);
-	    }
-	} else {
-	    if (FD_ISSET(0, &mask)) {
-		if (!termio(0, sock, auxout_fp)) {
-		    if (retry++ >= RETRY) {
-			FD_CLR(0, &savemask);
-		    }
-		} else {
-		    retry = 0;
-		}
-	    }
-	    if (FD_ISSET(sock, &mask)) {
-		if (!serverio(sock, &server))
-		    FD_CLR(sock, &savemask);
-		else
-		    servercmd(&server, auxout_fp);
-	    }
-	}
-    }
-#else  /* _WIN32 */
-    signal(SIGINT, intr);
+    if (play(sock) < 0)
+	exit(1);
 
-    bRedirected = 0;
-    tm.tv_sec = 0;
-    tm.tv_usec = 1000;
-
-    if (!isatty(fileno(stdin)))
-	bRedirected = 1;
-    else {
-	security.nLength = sizeof(SECURITY_ATTRIBUTES);
-	security.lpSecurityDescriptor = NULL;
-	security.bInheritHandle = TRUE;
-	hStdIn = CreateFile("CONIN$",
-			    GENERIC_READ | GENERIC_WRITE,
-			    FILE_SHARE_READ | FILE_SHARE_WRITE,
-			    &security, OPEN_EXISTING, (DWORD) NULL, NULL);
-	
-	if (hStdIn == INVALID_HANDLE_VALUE) {
-	    printf("Error getting hStdIn.\n");
-	    fflush(stdout);
-	    exit(-3);
-	}
-	
-	err = GetConsoleMode(hStdIn, &stdinmode);
-	if (!err) {
-	    printf("Error getting console mode.\n");
-	    fflush(stdout);
-	    exit(-4);
-	} else {
-	    stdinmode |= ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT;
-	    err = SetConsoleMode(hStdIn, stdinmode);
-	    if (!err) {
-		printf("Error setting console mode.\n");
-		fflush(stdout);
-		exit(-5);
-	    }
-	}
-    }
-    while (1) {
-	FD_ZERO(&readfds);
-	FD_SET(sock, &readfds);
-	n = select(sock + 1, &readfds, NULL, NULL, &tm);
-	if (interrupt) {
-	    if (!handleintr(sock))
-		break;
-	    errno = 0;
-	}
-	if (n < 0) {
-	    if (errno == EINTR) {
-		errno = WSAGetLastError();
-		perror("select");
-		(void)closesocket(sock);
-		break;
-	    }
-	} else {
-	    if (bRedirected == 1) {
-		if (!termio(0, sock, auxout_fp))
-		    bRedirected = -1;
-	    } else if (bRedirected == 0) {
-		if (WaitForSingleObject(hStdIn, 10) != WAIT_TIMEOUT) {
-		    termio(-1, sock, auxout_fp);
-		    FlushConsoleInputBuffer(hStdIn);
-		}
-	    }
-	    if (FD_ISSET(sock, &readfds)) {
-		if (!serverio(sock, &server))
-		    break;
-		else
-		    servercmd(&server, auxout_fp);
-	    }
-	}
-    }
-    if (bRedirected == 0)
-	CloseHandle(hStdIn);
-#endif /* _WIN32 */
-    ioq_drain(&server);
-#ifdef _WIN32
-    (void)closesocket(sock);
-#else
-    (void)close(sock);
-#endif
-    return 0;			/* Shut the compiler up */
-}
-
-static void
-intr(int sig)
-{
-    interrupt = 1;
-#ifdef _WIN32
-    signal(SIGINT, intr);
-#endif
-}
-
-static int
-handleintr(int s)
-{
-    if (interrupt) {
-	/* tacky, but it works */
-#if !defined(_WIN32)
-	if (write(s, "\naborted\n", 1 + 7 + 1) <= 0)
-#else
-	if (send(s, "\naborted\n", 1 + 7 + 1, 0) <= 0)
-#endif
-	    return 0;
-	interrupt = 0;
-    }
-    return 1;
+    return 0;
 }
