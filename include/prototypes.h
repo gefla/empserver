@@ -57,7 +57,6 @@ extern void finish_server(void);
  * src/lib/commands/ *.c 
  */
 extern int check_market(void);
-extern int sendmessage(struct natstr *, struct natstr *, char *, int);
 extern void gift(natid, natid, void *, char *);
 extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);

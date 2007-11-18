@@ -38,6 +38,8 @@
 
 #include "commands.h"
 
+static int sendmessage(struct natstr *, struct natstr *, char *, int);
+
 int
 flash(void)
 {
@@ -124,7 +126,7 @@ wall(void)
  * A header identifying US is prepended to the message.  It is more
  * verbose if VERBOSE.
  */
-int
+static int
 sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 {
     struct player *other;
