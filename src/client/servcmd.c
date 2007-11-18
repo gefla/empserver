@@ -31,6 +31,7 @@
  *     Dave Pare, 1989
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
+ *     Markus Armbruster, 2005-2007
  */
 
 #include <config.h>
@@ -50,6 +51,7 @@ FILE *auxfp;
 
 static FILE *redir_fp;
 static FILE *pipe_fp;
+static size_t input_to_forget;
 
 static void prompt(int, char *, char *);
 static void doredir(char *p);
@@ -124,7 +126,12 @@ prompt(int code, char *prompt, char *teles)
 	    (void)pclose(pipe_fp);
 	    pipe_fp = NULL;
 	}
+	if (input_to_forget) {
+	    forget_input(input_to_forget);
+	    input_to_forget = 0;
+	}
     }
+
     nl = code == C_PROMPT || code == C_INFORM ? "\n" : "";
     printf("%s%s%s", nl, teles, prompt);
     fflush(stdout);
@@ -148,11 +155,14 @@ fname(char *s)
 static int
 redir_authorized(char *arg, char *attempt)
 {
-    if (!seen_input(arg)) {
+    size_t seen = seen_input(arg);
+
+    if (!seen || (input_to_forget && input_to_forget != seen)) {
 	fprintf(stderr, "WARNING!  Server attempted to %s %s\n",
 		attempt, arg);
 	return 0;
     }
+    input_to_forget = seen;
     return 1;
 }
 

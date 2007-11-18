@@ -39,8 +39,15 @@
 #include "secure.h"
 
 struct ring recent_input;
+static size_t saved_bytes;
 
-void
+/*
+ * Remember line of input INP for a while.
+ * It must end with a newline.
+ * Return value is suitable for forget_input(): it makes it forget all
+ * input up to and including this line.
+ */
+size_t
 save_input(char *inp)
 {
     size_t len = strlen(inp);
@@ -53,19 +60,47 @@ save_input(char *inp)
 	ring_discard(&recent_input, ring_search(&recent_input, "\n"));
 	ring_putm(&recent_input, inp, len);
     }
+    saved_bytes += len;
+    return saved_bytes;
 }
 
-int
+/*
+ * Can you still remember a line of input that ends with TAIL?
+ * It must end with a newline.
+ * Return non-zero iff TAIL can be remembered.
+ * Passing that value to forget_input() will forget all input up to
+ * and including this line.
+ */
+size_t
 seen_input(char *tail)
 {
     size_t len = strlen(tail);
-    int dist = ring_search(&recent_input, tail);
+    size_t remembered = ring_len(&recent_input);
+    int dist;
 
     assert(len && tail[len - 1] == '\n');
 
+    dist = ring_search(&recent_input, tail);
     if (dist < 0)
 	return 0;
 
-    ring_discard(&recent_input, dist + len);
-    return 1;
+    assert(dist + len <= remembered && remembered <= saved_bytes);
+    return saved_bytes - remembered + dist + len;
+}
+
+/*
+ * Forget remembered input up to SEEN.
+ * SEEN should be obtained from save_input() or seen_input().
+ */
+void
+forget_input(size_t seen)
+{
+    size_t forgotten = saved_bytes - ring_len(&recent_input);
+
+    assert(seen);
+
+    if (seen > forgotten) {
+	assert(ring_peek(&recent_input, seen - forgotten - 1) == '\n');
+	ring_discard(&recent_input, seen - forgotten);
+    }
 }
