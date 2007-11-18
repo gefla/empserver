@@ -145,7 +145,7 @@ ring_putm(struct ring *r, void *buf, size_t sz)
 void
 ring_discard(struct ring *r, int n)
 {
-    assert(n <= ring_len(r));
+    assert(0 <= n && n <= ring_len(r));
     r->cons += n;
 }
 
