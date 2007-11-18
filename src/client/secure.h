@@ -34,7 +34,6 @@
 #ifndef SECURE_H
 #define SECURE_H
 
-extern void clear_recent_input(void);
 extern void save_input(char *);
 extern int seen_input(char *);
 
