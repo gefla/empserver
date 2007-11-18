@@ -271,7 +271,7 @@ play(int sock)
 	    n = recv_input(input_fd, &inbuf);
 	    if (n < 0) {
 		perror("read stdin"); /* FIXME stdin misleading, could be execing */
-		return -1;
+		n = 0;
 	    }
 	    if (n == 0) {
 		/* EOF on input */
