@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include <assert.h>
 #include <string.h>
 #include "ringbuf.h"
 #include "secure.h"
@@ -45,6 +46,8 @@ save_input(char *inp)
     size_t len = strlen(inp);
     int left;
 
+    assert(len && inp[len - 1] == '\n');
+
     left = ring_putm(&recent_input, inp, len);
     if (left < 0) {
 	ring_discard(&recent_input, ring_search(&recent_input, "\n"));
@@ -55,11 +58,14 @@ save_input(char *inp)
 int
 seen_input(char *tail)
 {
+    size_t len = strlen(tail);
     int dist = ring_search(&recent_input, tail);
+
+    assert(len && tail[len - 1] == '\n');
 
     if (dist < 0)
 	return 0;
 
-    ring_discard(&recent_input, dist + strlen(tail));
+    ring_discard(&recent_input, dist + len);
     return 1;
 }
