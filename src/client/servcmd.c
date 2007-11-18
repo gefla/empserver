@@ -145,6 +145,17 @@ fname(char *s)
     return beg;
 }
 
+static int
+redir_authorized(char *arg, char *attempt)
+{
+    if (!seen_input(arg)) {
+	fprintf(stderr, "WARNING!  Server attempted to %s %s\n",
+		attempt, arg);
+	return 0;
+    }
+    return 1;
+}
+
 /*
  * opens redir_fp if successful
  */
@@ -159,12 +170,8 @@ doredir(char *p)
 	redir_fp = NULL;
     }
 
-    if (!seen_input(p)) {
-	fprintf(stderr, "WARNING!  Server attempted to redirect %s\n",
-		p);
+    if (!redir_authorized(p, "redirect to file"))
 	return;
-    }
-
     if (*p++ != '>') {
 	fprintf(stderr, "WARNING!  Weird redirection %s", p);
 	return;
@@ -200,11 +207,8 @@ doredir(char *p)
 static void
 dopipe(char *p)
 {
-    if (!seen_input(p)) {
-	fprintf(stderr, "WARNING!  Server attempted to pipe %s", p);
+    if (!redir_authorized(p, "pipe to command"))
 	return;
-    }
-
     if (*p++ != '|') {
 	fprintf(stderr, "WARNING!  Weird pipe %s", p);
 	return;
@@ -227,12 +231,8 @@ doexecute(char *p)
 {
     input_fd = -1;		/* make sure play() terminates exec */
 
-    if (!seen_input(p)) {
-	fprintf(stderr,
-		"WARNING!  Server attempted to read file %s",
-		p);
+    if (!redir_authorized(p, "read file"))
 	return;
-    }
 
     p = fname(p);
     if (*p == 0) {
