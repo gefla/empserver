@@ -317,7 +317,7 @@ nav_ship(struct shpstr *sp)
 	    max_amt = vship->m_item[I_FOOD];
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
-	    if (food_amt < max_amt && (sectp->sct_own == 0))
+	    if (food_amt < max_amt && (sectp->sct_type == SCT_WATER))
 		quit = 0;
 	}
 	/* reset flag and check if we can move. */
