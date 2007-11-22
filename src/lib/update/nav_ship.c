@@ -202,6 +202,34 @@ nav_loadship(struct shpstr *sp, natid cnum)
     return 1;
 }
 
+static int
+nav_load_ship_at_sea(struct shpstr *sp)
+{
+    int i;
+    int n_items;
+    int max_amt, item_amt;
+    struct mchrstr *mcp;
+    struct sctstr *sectp;
+    struct check_list_st {
+	long cap;
+	i_type item;
+    } check_list[] = {{M_FOOD, I_FOOD}, {M_OIL, I_OIL}};
+
+    n_items = sizeof(check_list) / sizeof(check_list[0]);
+
+    mcp = &mchr[(int)sp->shp_type];
+    sectp = getsectp(sp->shp_x, sp->shp_y);
+    for (i = 0; i < n_items; i++) {
+	if (mcp->m_flags & check_list[i].cap) {
+	    item_amt = sp->shp_item[check_list[i].item];
+	    max_amt = mcp->m_item[check_list[i].item];
+	    if (item_amt < max_amt && sectp->sct_type == SCT_WATER)
+		return 1;
+	}
+    }
+    return 0;
+}
+
 /* new autonav code.
  * 
  * 1. Try and move to the next sector/harbor given by the player.
@@ -227,7 +255,6 @@ nav_ship(struct shpstr *sp)
     int stopping;
     int quit;
     int didsomething = 0;
-    int max_amt, food_amt;
     char buf[1024];
     struct emp_qelem ship_list;
     struct emp_qelem *qp, *newqp;
@@ -236,14 +263,12 @@ nav_ship(struct shpstr *sp)
     double dummydouble;
     int dir;
     natid cnum;
-    struct mchrstr *mcp, *vship;
 
     /* just return if no autonaving to do for this ship */
     if (!(sp->shp_autonav & AN_AUTONAV) || (sp->shp_autonav & AN_STANDBY))
 	return RET_OK;
 
     cnum = sp->shp_own;
-    vship = mcp = &mchr[(int)sp->shp_type];
 
     /* Make a list of one ships so we can use the navi.c code */
     emp_initque(&ship_list);
@@ -311,15 +336,9 @@ nav_ship(struct shpstr *sp)
 	    if (didsomething)
 		quit = 1;
 	}
-	/* special case for fishing boats */
-	if ((mchr[(int)sp->shp_type].m_flags & M_FOOD) == 1) {
-	    food_amt = sp->shp_item[I_FOOD];
-	    max_amt = vship->m_item[I_FOOD];
-	    sectp = getsectp(sp->shp_x, sp->shp_y);
-
-	    if (food_amt < max_amt && (sectp->sct_type == SCT_WATER))
-		quit = 0;
-	}
+	/* special case for fishing boats and oil derricks */
+	if (nav_load_ship_at_sea(sp))
+	    quit = 0;
 	/* reset flag and check if we can move. */
 
     } while (quit);		/* end loop */
