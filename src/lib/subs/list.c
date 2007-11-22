@@ -101,7 +101,7 @@ carriersatxy(coord x, coord y, natid own)
 	if (ship.shp_own != own
 	    && getrel(getnatp(ship.shp_own), own) != ALLIED)
 	    continue;
-	if ((carrier_planes(&ship) & (P_L | P_K)) == 0)
+	if ((carrier_planes(&ship, 0) & (P_L | P_K)) == 0)
 	    continue;
 	if (first) {
 	    pr(" #          owner           eff       type\n");

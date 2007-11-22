@@ -131,7 +131,7 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 		   xyas(target->sct_x, target->sct_y, player->cnum));
 		continue;
 	    }
-	    fl = carrier_planes(&ship);
+	    fl = carrier_planes(&ship, 0);
 	    if (fl == 0) {
 		pr("Can't land on %s.\n", prship(&ship));
 		continue;
@@ -377,13 +377,14 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 }
 
 /*
- * Find non-missile plane types that can operate from carrier SP.
+ * Find plane types that can operate from carrier SP.
+ * If MSL find missile types, else non-missile types.
  * Return a combination of P_L, P_K, P_E.
  * It's zero if SP can't support air operations due to its type or
  * state (low efficiency).
  */
 int
-carrier_planes(struct shpstr *sp)
+carrier_planes(struct shpstr *sp, int msl)
 {
     struct mchrstr *mcp = mchr + sp->shp_type;
     int res;
@@ -394,7 +395,9 @@ carrier_planes(struct shpstr *sp)
     res = 0;
     if (mcp->m_flags & M_FLY)
 	res |= P_L;
-    if (mcp->m_flags & M_CHOPPER)
+    if ((mcp->m_flags & M_MSL) && msl)
+	res |= P_L;
+    if ((mcp->m_flags & M_CHOPPER) && !msl)
 	res |= P_K;
     if (mcp->m_flags & M_XLIGHT)
 	res |= P_E;
@@ -425,7 +428,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 		   prplane(pp));
 	    return 0;
 	}
-	if ((carrier_planes(&ship) & pcp->pl_flags) == 0)
+	if (!(carrier_planes(&ship, pcp->pl_flags & P_M) & pcp->pl_flags))
 	    return 0;
 
     } else if (pp->pln_land >= 0) {
