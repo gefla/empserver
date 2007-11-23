@@ -397,9 +397,9 @@ carrier_planes(struct shpstr *sp, int msl)
 	res |= P_L;
     if ((mcp->m_flags & M_MSL) && msl)
 	res |= P_L;
-    if ((mcp->m_flags & M_CHOPPER) && !msl)
+    if (mcp->m_nchoppers && !msl)
 	res |= P_K;
-    if (mcp->m_flags & M_XLIGHT)
+    if (mcp->m_nxlight)
 	res |= P_E;
     return res;
 }

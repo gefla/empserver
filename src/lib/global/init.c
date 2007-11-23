@@ -62,10 +62,6 @@ init_mchr(void)
     struct mchrstr *mp;
 
     for (mp = mchr; mp->m_name; mp++) {
-	if (mp->m_nxlight)
-	    mp->m_flags |= M_XLIGHT;
-	if (mp->m_nchoppers)
-	    mp->m_flags |= M_CHOPPER;
 	if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
 	    mp->m_flags |= M_MSL;
     }
