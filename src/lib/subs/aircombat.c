@@ -67,7 +67,6 @@ static void ac_fireflak(struct emp_qelem *, natid, int);
 static void getilist(struct emp_qelem *, natid,
 		     struct emp_qelem *, struct emp_qelem *,
 		     struct emp_qelem *, struct emp_qelem *);
-static int can_fly(int);
 static int do_evade(struct emp_qelem *, struct emp_qelem *);
 
 void
@@ -1032,7 +1031,6 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 {
     struct plchrstr *pcp;
     struct plnstr plane;
-    struct sctstr sect;
     struct nstr_item ni;
     struct plist *ip;
 
@@ -1050,15 +1048,8 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	    continue;
 	if (plane.pln_effic < 40)
 	    continue;
-	if (plane.pln_ship >= 0 || plane.pln_land >= 0) {
-	    if (!can_fly(plane.pln_uid))
-		continue;
-	} else {
-	    getsect(plane.pln_x, plane.pln_y, &sect);
-	    if ((sect.sct_effic < 60 || sect.sct_type != SCT_AIRPT)
-		&& (pcp->pl_flags & P_V) == 0)
-		continue;
-	}
+	if (!pln_airbase_ok(&plane, 0, 0))
+	    continue;
 	/* Finally, is it in the list of planes already in
 	   flight? */
 	if (ac_isflying(&plane, a))
@@ -1077,61 +1068,6 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	ip->plane = plane;
 	emp_insque(&ip->queue, list);
     }
-}
-
-
-
-static int
-can_fly(int p)
-{				/* Can this plane fly from the ship or land unit it is on? */
-    struct plnstr plane;
-    struct shpstr ship;
-    struct lndstr land;
-    struct plchrstr *pcp;
-    struct mchrstr *scp;
-
-    getplane(p, &plane);
-    pcp = &plchr[(int)plane.pln_type];
-
-    if (plane.pln_ship >= 0) {
-	if (!(pcp->pl_flags & P_L) && !(pcp->pl_flags & P_M)
-	    && !(pcp->pl_flags & P_K)
-	    && !(pcp->pl_flags & P_E)
-	    )
-	    return 0;
-
-	getship(plane.pln_ship, &ship);
-	scp = &mchr[(int)ship.shp_type];
-
-	if ((pcp->pl_flags & P_L) && (scp->m_flags & M_FLY)) {
-	    return 1;
-	}
-
-	if ((pcp->pl_flags & P_M) && (scp->m_flags & M_MSL)) {
-	    return 1;
-	}
-
-	if ((pcp->pl_flags & P_K) && (scp->m_flags & M_CHOPPER)) {
-	    return 1;
-	}
-
-	if ((pcp->pl_flags & P_E) && (scp->m_flags & M_XLIGHT)) {
-	    return 1;
-	}
-    }
-
-    if (plane.pln_land >= 0) {
-	if (!(pcp->pl_flags & P_E))
-	    return 0;
-
-	getland(plane.pln_land, &land);
-
-	if ((pcp->pl_flags & P_E) && land.lnd_maxlight) {
-	    return 1;
-	}
-    }
-
-    return 0;
 }
 
 static int
