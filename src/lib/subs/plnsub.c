@@ -961,7 +961,7 @@ put_plane_on_land(struct plnstr *plane, struct lndstr *land)
 void
 take_plane_off_land(struct plnstr *plane, struct lndstr *land)
 {
-    if (CANT_HAPPEN(plane->pln_ship != land->lnd_uid))
+    if (CANT_HAPPEN(plane->pln_land != land->lnd_uid))
 	return;
 
     fit_plane_off_land(plane, land);
