@@ -298,8 +298,8 @@ setsector(void)
 	    current += amt;
 	    if (current < 0)
 		current = 0;
-	    if (current > 120)
-		current = 120;
+	    if (current > 100)
+		current = 100;
 	    if (sect.sct_own != 0)
 		resnoise(&sect, 1, "Fertility content",
 			 (int)sect.sct_fertil, current);
