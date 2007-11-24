@@ -356,7 +356,7 @@ resnoise(struct sctstr *sptr, int public_amt, char *name, int old,
 {
     char p[100];
 
-    pr("%s of %s changed from %d to %d%%\n",
+    pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
     if (public_amt)
 	(void)sprintf(p, "changed from %d to %d", old, new);
