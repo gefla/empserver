@@ -1003,9 +1003,9 @@ set_fert(int e)
     if (e < LANDMIN)
 	fert = LANDMIN - e + 40;
     else if (e < FERT_MAX)
-	fert = (140 * (FERT_MAX - e)) / (FERT_MAX - LANDMIN);
-    if (fert > 120)
-	fert = 120;
+	fert = (120 * (FERT_MAX - e)) / (FERT_MAX - LANDMIN);
+    if (fert > 100)
+	fert = 100;
     return fert;
 }
 
