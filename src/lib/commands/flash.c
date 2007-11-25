@@ -47,7 +47,6 @@ flash(void)
     struct natstr *to;
     char buf[1024];		/* UTF-8 */
     int tocn;
-    char *sp;			/* points into player->combuf[], UTF-8 */
 
     us = getnatp(player->cnum);
     if ((tocn = natarg(player->argp[1], "to which country? ")) < 0)
@@ -70,11 +69,10 @@ flash(void)
 	}
     }
 
-    if (player->argp[2]) {
-	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
-	for (++sp; *sp && *sp != ' '; ++sp) ;
+    if (player->comtail[2]) {
 	buf[0] = ':';
-	strcpy(buf+1, sp);
+	buf[1] = ' ';
+	strcpy(buf+2, player->comtail[2]);
 	sendmessage(us, to, buf, 1);
     } else {
 	sendmessage(us, to, "...", 1);
@@ -93,13 +91,12 @@ wall(void)
 {
     struct natstr *us;
     char buf[1024];		/* UTF-8 */
-    char *sp;			/* points into player->combuf[], UTF-8 */
 
     us = getnatp(player->cnum);
-    if (player->argp[1]) {
-	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
+    if (player->comtail[1]) {
 	buf[0] = ':';
-	strcpy(buf+1, sp);
+	buf[1] = ' ';
+	strcpy(buf+2, player->comtail[1]);
 	sendmessage(us, 0, buf, 1);
     } else {
 	sendmessage(us, 0, "...", 1);
