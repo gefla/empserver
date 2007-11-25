@@ -74,10 +74,7 @@ flash(void)
 	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
 	for (++sp; *sp && *sp != ' '; ++sp) ;
 	buf[0] = ':';
-	if (player->flags & PF_UTF8)
-	    strcpy(buf+1, sp);
-	else
-	    copy_utf8_to_ascii_no_funny(buf+1, sp);
+	strcpy(buf+1, sp);
 	sendmessage(us, to, buf, 1);
     } else {
 	sendmessage(us, to, "...", 1);
@@ -102,10 +99,7 @@ wall(void)
     if (player->argp[1]) {
 	for (sp = player->combuf; *sp && *sp != ' '; ++sp) ;
 	buf[0] = ':';
-	if (player->flags & PF_UTF8)
-	    strcpy(buf+1, sp);
-	else
-	    copy_utf8_to_ascii_no_funny(buf+1, sp);
+	strcpy(buf+1, sp);
 	sendmessage(us, 0, buf, 1);
     } else {
 	sendmessage(us, 0, "...", 1);
