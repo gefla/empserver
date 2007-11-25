@@ -38,6 +38,7 @@
 
 #include "commands.h"
 
+static int chat(struct natstr *, struct natstr *, char *);
 static int sendmessage(struct natstr *, struct natstr *, char *, int);
 
 int
@@ -45,7 +46,6 @@ flash(void)
 {
     struct natstr *us;
     struct natstr *to;
-    char buf[1024];		/* UTF-8 */
     int tocn;
 
     us = getnatp(player->cnum);
@@ -69,10 +69,30 @@ flash(void)
 	}
     }
 
-    if (player->comtail[2]) {
+    return chat(us, to, player->comtail[2]);
+}
+
+int
+wall(void)
+{
+    return chat(getnatp(player->cnum), NULL, player->comtail[1]);
+}
+
+/*
+ * Send flash message(s) from US to TO.
+ * Null TO broadcasts to all.
+ * MESSAGE is UTF-8.  If it is null, prompt for messages interactively.
+ * Return RET_OK.
+ */
+static int
+chat(struct natstr *us, struct natstr *to, char *message)
+{
+    char buf[1024];		/* UTF-8 */
+
+    if (message) {
 	buf[0] = ':';
 	buf[1] = ' ';
-	strcpy(buf+2, player->comtail[2]);
+	strcpy(buf+2, message);
 	sendmessage(us, to, buf, 1);
     } else {
 	sendmessage(us, to, "...", 1);
@@ -82,30 +102,6 @@ flash(void)
 	    sendmessage(us, to, buf, 0);
 	}
 	sendmessage(us, to, "<EOT>", 0);
-    }
-    return RET_OK;
-}
-
-int
-wall(void)
-{
-    struct natstr *us;
-    char buf[1024];		/* UTF-8 */
-
-    us = getnatp(player->cnum);
-    if (player->comtail[1]) {
-	buf[0] = ':';
-	buf[1] = ' ';
-	strcpy(buf+2, player->comtail[1]);
-	sendmessage(us, 0, buf, 1);
-    } else {
-	sendmessage(us, 0, "...", 1);
-	while (ugetstring("> ", buf)) {
-	    if (*buf == '.')
-		break;
-	    sendmessage(us, 0, buf, 0);
-	}
-	sendmessage(us, 0, "<EOT>", 0);
     }
     return RET_OK;
 }
