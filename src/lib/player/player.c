@@ -141,8 +141,8 @@ command(void)
 
     if (getcommand(player->combuf) < 0)
 	return 0;
-    if (parse(player->combuf, player->argp, &player->condarg,
-	      scanspace, &redir) < 0) {
+    if (parse(player->combuf, scanspace, player->argp, player->comtail,
+	      &player->condarg, &redir) < 0) {
 	pr("See \"info Syntax\"?\n");
     } else {
 	if (dispatch(player->combuf, redir) < 0)
@@ -287,8 +287,8 @@ execute(void)
     while (!failed && status()) {
 	if (recvclient(buf, sizeof(buf)) < 0)
 	    break;
-	if (parse(buf, player->argp, &player->condarg,
-		  scanspace, &redir) < 0) {
+	if (parse(buf, scanspace, player->argp, player->comtail,
+		  &player->condarg, &redir) < 0) {
 	    failed = 1;
 	    continue;
 	}

@@ -99,7 +99,7 @@ emp_config(char *file)
 	for (i = 0; buf[i] && isspace(buf[i]); ++i) ;
 	if (!buf[i] || buf[i] == '#')
 	    continue;
-	if (parse(buf, av, NULL, scanspace, NULL) < 0) {
+	if (parse(buf, scanspace, av, NULL, NULL, NULL) < 0) {
 	    fprintf(stderr, "%s:%d: Can't parse line %s", file, lno, buf);
 	    errors = 1;
 	    continue;

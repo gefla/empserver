@@ -91,7 +91,7 @@ player_login(void *ud)
 	    io_input(player->iop, IO_WAIT);
 	    continue;
 	}
-	ac = parse(buf, player->argp, NULL, space, NULL);
+	ac = parse(buf, space, player->argp, NULL, NULL, NULL);
 	cmd = comtch(player->argp[0], login_coms, 0);
 	if (cmd < 0) {
 	    pr_id(player, C_BADCMD, "Command %s not found\n", player->argp[0]);

@@ -39,21 +39,22 @@
 /*
  * Parse user command in BUF.
  * BUF is UTF-8.
- * Set ARG[0] to point to the command name.
- * Set ARG[1..N] to point to arguments, where N is the number of
- * arguments.  Set ARG[N+1..127] to NULL.
- * If CONDP is not null, recognize conditional argument syntax, and
- * set *CONDP to the conditional argument if present, else NULL.
  * Command name and arguments are copied into SPACE[], whose size must
  * be at least strlen(BUF) + 1.
+ * Set ARG[0] to the zero-terminated command name.
+ * Set ARG[1..N] to the zero-terminated arguments, where N is the
+ * number of arguments.  Set ARG[N+1..127] to NULL.
+ * Set TAIL[0..N] to beginning of ARG[0] in BUF[].
+ * If CONDP is not null, recognize conditional argument syntax, and
+ * set *CONDP to the conditional argument if present, else NULL.
  * If REDIR is not null, recognize redirection syntax, and set *REDIR
  * to UTF-8 redirection string if present, else NULL.
  * Return number of slots used in ARG[], or -1 on error.
  */
 int
-parse(char *buf, char **arg, char **condp, char *space, char **redir)
+parse(char *buf, char *space, char **arg,
+      char **tail, char **condp, char **redir)
 {
-    char *ap;
     int i, quoted, argnum;
 
     if (redir)
@@ -72,9 +73,17 @@ parse(char *buf, char **arg, char **condp, char *space, char **redir)
 	    break;
 	}
 
+	if (condp && *buf == '?') {
+	    buf++;
+	    *condp = space;
+	} else {
+	    if (tail)
+		tail[argnum] = buf;
+	    arg[argnum++] = space;
+	}
+
 	/* copy argument */
 	quoted = 0;
-	ap = space;
 	for (; *buf && (quoted || !isspace(*(unsigned char *)buf)); buf++) {
 	    if (*buf == '"')
 		quoted = !quoted;
@@ -83,16 +92,13 @@ parse(char *buf, char **arg, char **condp, char *space, char **redir)
 	    /* else funny character; ignore */
 	}
 	*space++ = 0;
-
-	/* store copied argument as conditional or regular argument */
-	if (condp && *ap == '?')
-	    *condp = ap + 1;
-	else
-	    arg[argnum++] = ap;
     }
 
-    for (i = argnum; i < 128; i++)
+    for (i = argnum; i < 128; i++) {
 	arg[i] = NULL;
+	if (tail)
+	    tail[i] = NULL;
+    }
 
     return argnum;
 }

@@ -368,7 +368,7 @@ extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
 extern char *effadv(int);
 extern int onearg(char *, char *);
-extern int parse(char *, char **, char **, char *, char **);
+extern int parse(char *, char *, char **, char **, char **, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
 extern int scthash(int, int, int);
