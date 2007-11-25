@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /home/empire
+./nightlybuild.sh suse.i386.config
+./report.sh suse.i386.config | mutt -s 'empserver suse.i386' empserver-devel@lists.sourceforge.net
