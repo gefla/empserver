@@ -298,7 +298,7 @@ loc_BlockThisThread(void)
  * System-Shutdown will initiate a shutdown.
  * This is done by calling empth_request_shutdown()
  */
-static BOOL
+static BOOL WINAPI
 loc_Exit_Handler(DWORD fdwCtrlType)
 {
     switch (fdwCtrlType) { 
@@ -392,7 +392,7 @@ empth_init(void **ctx_ptr, int flags)
         logerror("Failed to create shutdown event %lu", GetLastError());
 	return 0;
     }
-    SetConsoleCtrlHandler((PHANDLER_ROUTINE)loc_Exit_Handler, TRUE);
+    SetConsoleCtrlHandler(loc_Exit_Handler, TRUE);
 
     /* Create the global Thread context. */
     pThread = malloc(sizeof(*pThread));
