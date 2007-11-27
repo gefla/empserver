@@ -278,6 +278,8 @@ play(int sock)
 		send_eof = 1;
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
+		    if (input_fd > 0)
+			close(input_fd);
 		    input_fd = 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
