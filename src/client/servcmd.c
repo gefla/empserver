@@ -57,12 +57,12 @@ static size_t input_to_forget;
 static void prompt(int, char *, char *);
 static void doredir(char *p);
 static void dopipe(char *p);
-static void doexecute(char *p);
+static int doexecute(char *p);
 
 void
 servercmd(int code, char *arg, int len)
 {
-    static int nmin, nbtu;
+    static int nmin, nbtu, fd;
     static char the_prompt[1024];
     static char teles[64];
 
@@ -74,13 +74,20 @@ servercmd(int code, char *arg, int len)
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
 	prompt(code, the_prompt, teles);
+	executing = 0;
 	break;
     case C_FLUSH:
 	snprintf(the_prompt, sizeof(the_prompt), "%.*s", len - 1, arg);
 	prompt(code, the_prompt, teles);
 	break;
     case C_EXECUTE:
-	doexecute(arg);
+	fd = doexecute(arg);
+	if (fd < 0)
+	    send_eof++;
+	else {
+	    input_fd = fd;
+	    executing = 1;
+	}
 	break;
     case C_EXIT:
 	printf("Exit: %s", arg);
@@ -127,7 +134,6 @@ prompt(int code, char *prompt, char *teles)
 	    (void)pclose(pipe_fp);
 	    pipe_fp = NULL;
 	}
-	executing = 0;
 	if (input_to_forget) {
 	    forget_input(input_to_forget);
 	    input_to_forget = 0;
@@ -243,32 +249,27 @@ dopipe(char *p)
     }
 }
 
-static void
+static int
 doexecute(char *p)
 {
     int fd;
 
-    if (!redir_authorized(p, "execute script file")) {
-	send_eof++;
-	return;
-    }
+    if (!redir_authorized(p, "execute script file"))
+	return -1;
 
     p = fname(p);
     if (*p == 0) {
 	fprintf(stderr, "Need a file to execute\n");
-	send_eof++;
-	return;
+	return -1;
     }
 
     if ((fd = open(p, O_RDONLY)) < 0) {
 	fprintf(stderr, "Can't open execute file %s: %s\n",
 		p, strerror(errno));
-	send_eof++;
-	return;
+	return -1;
     }
 
-    input_fd = fd;
-    executing = 1;
+    return fd;
 }
 
 void
