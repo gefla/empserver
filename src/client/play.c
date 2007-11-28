@@ -258,7 +258,7 @@ play(int sock)
 
 	if (send_eof
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
-	    send_eof = 0;
+	    send_eof--;
 	if (send_intr
 	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0)
 	    send_intr = 0;
@@ -275,7 +275,7 @@ play(int sock)
 	    }
 	    if (n == 0) {
 		/* EOF on input */
-		send_eof = 1;
+		send_eof++;
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
 		    if (input_fd > 0)
@@ -311,7 +311,7 @@ play(int sock)
 	    if (input_fd < 0) {
 		/* execute failed */
 		input_fd = 0;
-		send_eof = 1;
+		send_eof++;
 	    }
 	}
     }
