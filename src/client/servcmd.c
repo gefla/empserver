@@ -51,6 +51,7 @@ FILE *auxfp;
 
 static FILE *redir_fp;
 static FILE *pipe_fp;
+static int executing;
 static size_t input_to_forget;
 
 static void prompt(int, char *, char *);
@@ -126,6 +127,7 @@ prompt(int code, char *prompt, char *teles)
 	    (void)pclose(pipe_fp);
 	    pipe_fp = NULL;
 	}
+	executing = 0;
 	if (input_to_forget) {
 	    forget_input(input_to_forget);
 	    input_to_forget = 0;
@@ -156,6 +158,11 @@ static int
 redir_authorized(char *arg, char *attempt)
 {
     size_t seen = seen_input(arg);
+
+    if (executing) {
+	fprintf(stderr, "Can't %s in a script\n", attempt);
+	return 0;
+    }
 
     if (!seen || (input_to_forget && input_to_forget != seen)) {
 	fprintf(stderr, "WARNING!  Server attempted to %s %s\n",
@@ -217,7 +224,7 @@ doredir(char *p)
 static void
 dopipe(char *p)
 {
-    if (!redir_authorized(p, "pipe to command"))
+    if (!redir_authorized(p, "pipe to shell command"))
 	return;
     if (*p++ != '|') {
 	fprintf(stderr, "WARNING!  Weird pipe %s", p);
@@ -239,22 +246,29 @@ dopipe(char *p)
 static void
 doexecute(char *p)
 {
-    input_fd = -1;		/* make sure play() terminates exec */
+    int fd;
 
-    if (!redir_authorized(p, "read file"))
+    if (!redir_authorized(p, "execute script file")) {
+	send_eof++;
 	return;
+    }
 
     p = fname(p);
     if (*p == 0) {
 	fprintf(stderr, "Need a file to execute\n");
+	send_eof++;
 	return;
     }
 
-    if ((input_fd = open(p, O_RDONLY)) < 0) {
+    if ((fd = open(p, O_RDONLY)) < 0) {
 	fprintf(stderr, "Can't open execute file %s: %s\n",
 		p, strerror(errno));
+	send_eof++;
 	return;
     }
+
+    input_fd = fd;
+    executing = 1;
 }
 
 void

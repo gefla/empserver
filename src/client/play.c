@@ -51,6 +51,7 @@
 #define INTR_COOKIE "\naborted\n"
 
 int input_fd;
+int send_eof;				/* need to send EOF_COOKIE */
 static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
 
 /*
@@ -218,7 +219,6 @@ play(int sock)
     struct sigaction sa;
     struct ring inbuf;		/* input buffer, draining to SOCK */
     int eof_fd0;		/* read fd 0 hit EOF? */
-    int send_eof;		/* need to send EOF_COOKIE */
     fd_set rdfd, wrfd;
     int n;
 
@@ -229,7 +229,8 @@ play(int sock)
     sigaction(SIGPIPE, &sa, NULL);
 
     ring_init(&inbuf);
-    eof_fd0 = send_eof = 0;
+    eof_fd0 = send_eof = send_intr = 0;
+    input_fd = 0;
 
     for (;;) {
 	FD_ZERO(&rdfd);
@@ -278,8 +279,7 @@ play(int sock)
 		send_eof++;
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
-		    if (input_fd > 0)
-			close(input_fd);
+		    close(input_fd);
 		    input_fd = 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
@@ -308,11 +308,6 @@ play(int sock)
 	    }
 	    if (n == 0)
 		return 0;
-	    if (input_fd < 0) {
-		/* execute failed */
-		input_fd = 0;
-		send_eof++;
-	    }
 	}
     }
 }

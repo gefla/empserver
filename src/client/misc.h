@@ -45,6 +45,7 @@ extern char empirehost[];
 extern char empireport[];
 extern int eight_bit_clean;
 extern int input_fd;
+extern int send_eof;
 extern FILE *auxfp;
 extern char *SO;
 extern char *SE;
