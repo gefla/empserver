@@ -50,7 +50,7 @@ int eight_bit_clean;
 FILE *auxfp;
 
 static FILE *redir_fp;
-static FILE *pipe_fp;
+static int redir_is_pipe;
 static int executing;
 static size_t input_to_forget;
 
@@ -74,11 +74,11 @@ servercmd(int code, char *arg, int len)
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
 	if (redir_fp) {
-	    (void)fclose(redir_fp);
+	    if (redir_is_pipe)
+		(void)pclose(redir_fp);
+	    else
+		(void)fclose(redir_fp);
 	    redir_fp = NULL;
-	} else if (pipe_fp) {
-	    (void)pclose(pipe_fp);
-	    pipe_fp = NULL;
 	}
 	if (input_to_forget) {
 	    forget_input(input_to_forget);
@@ -113,7 +113,7 @@ servercmd(int code, char *arg, int len)
     case C_INFORM:
 	if (*arg) {
 	    snprintf(teles, sizeof(teles), "(%.*s )", len -1, arg);
-	    if (!redir_fp && !pipe_fp) {
+	    if (!redir_fp) {
 		putchar('\07');
 		prompt(code, the_prompt, teles);
 	    }
@@ -176,9 +176,6 @@ redir_authorized(char *arg, char *attempt)
     return 1;
 }
 
-/*
- * opens redir_fp if successful
- */
 static void
 doredir(char *p)
 {
@@ -213,6 +210,7 @@ doredir(char *p)
 	return;
     }
 
+    redir_is_pipe = 0;
     fd = open(p, mode, 0666);
     redir_fp = fd < 0 ? NULL : fdopen(fd, "w");
     if (!redir_fp) {
@@ -221,9 +219,6 @@ doredir(char *p)
     }
 }
 
-/*
- * opens "pipe_fp" if successful
- */
 static void
 dopipe(char *p)
 {
@@ -240,7 +235,8 @@ dopipe(char *p)
 	return;
     }
 
-    if ((pipe_fp = popen(p, "w")) == NULL) {
+    redir_is_pipe = 1;
+    if ((redir_fp = popen(p, "w")) == NULL) {
 	fprintf(stderr, "Can't redirect to pipe %s: %s\n",
 		p, strerror(errno));
     }
@@ -276,8 +272,6 @@ outch(char c)
 	putc(c, auxfp);
     if (redir_fp)
 	putc(c, redir_fp);
-    else if (pipe_fp)
-	putc(c, pipe_fp);
     else if (eight_bit_clean) {
 	if (c == 14)
 	    putso();
