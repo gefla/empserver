@@ -73,6 +73,17 @@ servercmd(int code, char *arg, int len)
 	}
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
+	if (redir_fp) {
+	    (void)fclose(redir_fp);
+	    redir_fp = NULL;
+	} else if (pipe_fp) {
+	    (void)pclose(pipe_fp);
+	    pipe_fp = NULL;
+	}
+	if (input_to_forget) {
+	    forget_input(input_to_forget);
+	    input_to_forget = 0;
+	}
 	prompt(code, the_prompt, teles);
 	executing = 0;
 	break;
@@ -125,20 +136,6 @@ static void
 prompt(int code, char *prompt, char *teles)
 {
     char *nl;
-
-    if (code == C_PROMPT) {
-	if (redir_fp) {
-	    (void)fclose(redir_fp);
-	    redir_fp = NULL;
-	} else if (pipe_fp) {
-	    (void)pclose(pipe_fp);
-	    pipe_fp = NULL;
-	}
-	if (input_to_forget) {
-	    forget_input(input_to_forget);
-	    input_to_forget = 0;
-	}
-    }
 
     nl = code == C_PROMPT || code == C_INFORM ? "\n" : "";
     printf("%s%s%s", nl, teles, prompt);
