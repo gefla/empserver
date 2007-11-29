@@ -158,12 +158,18 @@ fname(char *s)
 }
 
 static int
-redir_authorized(char *arg, char *attempt)
+redir_authorized(char *arg, char *attempt, int expected)
 {
     size_t seen = seen_input(arg);
 
     if (executing) {
 	fprintf(stderr, "Can't %s in a script\n", attempt);
+	return 0;
+    }
+
+    if (!expected) {
+	fprintf(stderr, "WARNING!  Server attempted to %s unexpectedly\n",
+		attempt);
 	return 0;
     }
 
@@ -182,12 +188,7 @@ doredir(char *p)
     int mode;
     int fd;
 
-    if (redir_fp) {
-	(void)fclose(redir_fp);
-	redir_fp = NULL;
-    }
-
-    if (!redir_authorized(p, "redirect to file"))
+    if (!redir_authorized(p, "redirect to file", !redir_fp))
 	return;
     if (*p++ != '>') {
 	fprintf(stderr, "WARNING!  Weird redirection %s", p);
@@ -222,7 +223,7 @@ doredir(char *p)
 static void
 dopipe(char *p)
 {
-    if (!redir_authorized(p, "pipe to shell command"))
+    if (!redir_authorized(p, "pipe to shell command", !redir_fp))
 	return;
     if (*p++ != '|') {
 	fprintf(stderr, "WARNING!  Weird pipe %s", p);
@@ -247,7 +248,7 @@ doexecute(char *p)
 {
     int fd;
 
-    if (!redir_authorized(p, "execute script file"))
+    if (!redir_authorized(p, "execute script file", 1))
 	return -1;
 
     p = fname(p);
