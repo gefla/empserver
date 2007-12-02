@@ -41,4 +41,4 @@ An example:
 .sp
 where -2,0 distributes to 10,-4 along the path shown.
 .sp
-.SA "distribute, census, Syntax, route, map, Distribution"
+.SA "distribute, route, map, Distribution"
