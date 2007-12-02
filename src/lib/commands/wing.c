@@ -69,6 +69,6 @@ wing(void)
 	putplane(plane.pln_uid, &plane);
 	count++;
     }
-    pr("%d plane%s added to wing `%c'\n", count, splur(count), c);
+    pr("%d plane%s added to wing `%1.1s'\n", count, splur(count), &c);
     return RET_OK;
 }

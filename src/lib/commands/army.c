@@ -83,6 +83,6 @@ army(void)
 	putland(land.lnd_uid, &land);
 	count++;
     }
-    pr("%d unit%s added to army `%c'\n", count, splur(count), c);
+    pr("%d unit%s added to army `%1.1s'\n", count, splur(count), &c);
     return RET_OK;
 }

@@ -83,6 +83,6 @@ flee(void)
 	putship(ship.shp_uid, &ship);
 	count++;
     }
-    pr("%d ship%s added to fleet `%c'\n", count, splur(count), c);
+    pr("%d ship%s added to fleet `%1.1s'\n", count, splur(count), &c);
     return RET_OK;
 }
