@@ -42,7 +42,7 @@ newline and double-quote are shown as octal escape sequences.  Example:
 field.
 .s1
 .L "FUTURE DIRECTIONS:"
-We might decide to support more C escape sequences, but never \\".
+We might decide to support more C escape sequences, but never \\\(dq.
 .s1
 Some fields can contain null strings.  A null string is the three
 letters \*Qnil\*U.  If a field contains nil, it's a string field.
@@ -91,8 +91,8 @@ doesn't have a table number, but it does have a meta-table.
 .s1
 .L BUGS:
 Still missing are game state files power, map, bmap; the list of
-commands; foreign relations and levels, contact and reject
-information, budget priorities; mortal access to sector selector
+commands; foreign levels, contact
+information, mortal access to sector selector
 mines, ship selectors xbuilt, ybuilt, trade selectors xloc, yloc,
 commodity selectors xbuy, ybuy, xsell, ysell.  Some information is not
 yet available in human-readable form: the lost file, sect-chr selector
