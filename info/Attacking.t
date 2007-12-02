@@ -194,8 +194,7 @@ will keep calling in support until its strength is at least 1.2 times
 the offense strength.
 .s1
 Fort, ship, and unit support is simply those forts, ships, and units
-in range that can fire (see info fire).  Note that ships and units on
-missions will not fire support.  Plane support comes from
+in range that can fire (see info fire).  Plane support comes from
 those planes on "support" mission.  The support multiplier is
 .NF
 1.0 + fortdamage/100 + shipdamage/100 + planedamage/100 + unitdamage/100.
