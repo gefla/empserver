@@ -2,7 +2,7 @@ Introduction
 
 Empire is designed as a smart server with dumb clients.  An Empire
 client need to know nothing about the game.  Even telnet would do.  In
-fact, emp_client is litte more than a slightly specialized telnet.
+fact, emp_client is little more than a slightly specialized telnet.
 
 In such a design, presentation is in the server, and it is designed
 for human consumption.  Ideally, presentation and logic are cleanly
@@ -207,7 +207,7 @@ Notes:
   parse' requirement
 
 * Space is to be taken literally: a single space character.  Not a
-  non-empty sequence of whitespace.
+  non-empty sequence of white-space.
 
 Semantics:
 
@@ -495,8 +495,8 @@ Human-Readable xdump Language
 
 Fundamental difference to basic, machine-readable xdump: the rigid
 single space between fields is replaced by the rule known from
-programming languages: whitespace (space and tab) separates tokens and
-is otherwise ignored.  The space non-terminal is no longer needed.
+programming languages: white-space (space and tab) separates tokens
+and is otherwise ignored.  The space non-terminal is no longer needed.
 
 Rationale: This allows visual alignment of columns and free mixing of
 space and tab characters.
