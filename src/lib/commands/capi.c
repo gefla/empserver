@@ -61,7 +61,6 @@ capi(void)
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	return RET_FAIL;
     }
-    player->nstat |= CAP;
     np->nat_xcap = sect.sct_x;
     np->nat_ycap = sect.sct_y;
     /* They have set a capital, so it wasn't sacked last. */

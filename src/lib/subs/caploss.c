@@ -59,10 +59,8 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     natp = getnatp(coun);
     if (sp->sct_x != natp->nat_xcap || sp->sct_y != natp->nat_ycap)
 	return;
-    if (coun == player->cnum) {
-	player->nstat &= ~CAP;
+    if (coun == player->cnum)
 	return;
-    }
     if (natp->nat_flags & NF_SACKED)
 	return;			/* sacked capital, not yet reset */
     natp->nat_flags |= NF_SACKED; /* no more sacking until player resets */
