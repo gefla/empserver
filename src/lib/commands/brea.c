@@ -48,6 +48,5 @@ brea(void)
     bsanct();
     natp->nat_stat = STAT_ACTIVE;
     putnat(natp);
-    player->nstat |= NORM;
     return RET_OK;
 }

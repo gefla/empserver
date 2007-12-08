@@ -47,30 +47,41 @@
 int
 init_nats(void)
 {
-    static int nstat[] = {
-	/* must match nat_status */
-	0, VIS, VIS, SANCT, NORM, GOD
-    };
     struct natstr *np;
 
     np = getnatp(player->cnum);
     if (CANT_HAPPEN(!np))
 	return -1;
-    player->nstat = nstat[np->nat_stat];
-    player->god = np->nat_stat == STAT_GOD;
+
     player->map = ef_ptr(EF_MAP, player->cnum);
     player->bmap = ef_ptr(EF_BMAP, player->cnum);
-    if (opt_HIDDEN) {
+
+    if (opt_HIDDEN)
 	putcontact(np, player->cnum, FOUND_SPY);
-    }
-    if (np->nat_money < 0)
-	player->broke = 1;
-    else {
-	player->nstat |= MONEY;
-	player->broke = 0;
-    }
-    if (grant_btus(np, game_tick_to_now(&np->nat_access)))
-	player->nstat |= CAP;
+
+    player_set_nstat(player, np);
+    grant_btus(np, game_tick_to_now(&np->nat_access));
+
     putnat(np);
     return 0;
+}
+
+int
+player_set_nstat(struct player *pl, struct natstr *np)
+{
+    static int nstat[] = {
+	/* must match nat_status */
+	0, VIS, VIS, SANCT, NORM, GOD
+    };
+
+    if (CANT_HAPPEN(pl->cnum != np->nat_cnum))
+	return pl->nstat;
+    pl->god = np->nat_stat == STAT_GOD;
+    pl->nstat = nstat[np->nat_stat];
+    pl->broke = np->nat_money < 0;
+    if (!pl->broke)
+	pl->nstat |= MONEY;
+    if (np->nat_stat >= STAT_ACTIVE && !influx(np))
+	pl->nstat |= CAP;
+    return pl->nstat;
 }

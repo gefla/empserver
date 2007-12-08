@@ -411,6 +411,7 @@ extern int getminleft(time_t, int);
 /* empmod.c */
 /* init_nats.c */
 extern int init_nats(void);
+extern int player_set_nstat(struct player *, struct natstr *);
 /* login.c */
 extern void player_login(void *);
 /* nat.c */

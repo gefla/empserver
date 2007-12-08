@@ -46,7 +46,6 @@
 #include "player.h"
 #include "proto.h"
 #include "prototypes.h"
-#include "sect.h"
 #include "tel.h"
 
 
@@ -156,7 +155,6 @@ status(void)
 {
     struct natstr *natp;
     int minute;
-    struct sctstr sect;
     char buf[128];
 
     if (player->state == PS_SHUTDOWN)
@@ -172,23 +170,17 @@ status(void)
 	pr("You just made $%.2f\n", -player->dolcost);
     natp->nat_money -= roundavg(player->dolcost);
     player->dolcost = 0.0;
+
     if (natp->nat_money < 0 && !player->broke) {
-	player->broke = 1;
-	player->nstat &= ~MONEY;
 	pr("You are now broke; industries are on strike.\n");
     } else if (player->broke && natp->nat_money >= 0) {
-	player->broke = 0;
-	player->nstat |= MONEY;
 	pr("You are no longer broke!\n");
     }
-    getsect(natp->nat_xcap, natp->nat_ycap, &sect);
-    if (influx(natp))
-	player->nstat &= ~CAP;
-    else
-	player->nstat |= CAP;
+    player_set_nstat(player, natp);
     player->ncomstat = player->nstat;
     if (player->god)
 	player->ncomstat |= CAP | MONEY;
+
     time(&player->curup);
     minute = (player->curup - player->lasttime) / 60;
     if (minute > 0) {
