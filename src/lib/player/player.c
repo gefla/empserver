@@ -154,7 +154,7 @@ static int
 status(void)
 {
     struct natstr *natp;
-    int minute;
+    int old_nstat, minute;
     char buf[128];
 
     if (player->state == PS_SHUTDOWN)
@@ -171,12 +171,12 @@ status(void)
     natp->nat_money -= roundavg(player->dolcost);
     player->dolcost = 0.0;
 
-    if (natp->nat_money < 0 && !player->broke) {
-	pr("You are now broke; industries are on strike.\n");
-    } else if (player->broke && natp->nat_money >= 0) {
-	pr("You are no longer broke!\n");
-    }
+    old_nstat = player->nstat;
     player_set_nstat(player, natp);
+    if ((old_nstat & MONEY) && !(player->nstat & MONEY))
+	pr("You are now broke; industries are on strike.\n");
+    if (!(old_nstat & MONEY) && (player->nstat & MONEY))
+	pr("You are no longer broke!\n");
     player->ncomstat = player->nstat;
     if (player->god)
 	player->ncomstat |= CAP | MONEY;

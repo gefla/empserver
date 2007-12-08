@@ -75,7 +75,6 @@ struct player {
     int nstat;
     int simulation;		/* e.g. budget command */
     double dolcost;
-    int broke;
     time_t curup;		/* when last input was received */
     int aborted;		/* interrupt cookie received? */
     int eof;			/* EOF (cookie or real) received? */

@@ -78,8 +78,7 @@ player_set_nstat(struct player *pl, struct natstr *np)
 	return pl->nstat;
     pl->god = np->nat_stat == STAT_GOD;
     pl->nstat = nstat[np->nat_stat];
-    pl->broke = np->nat_money < 0;
-    if (!pl->broke)
+    if (np->nat_money >= 0)
 	pl->nstat |= MONEY;
     if (np->nat_stat >= STAT_ACTIVE && !influx(np))
 	pl->nstat |= CAP;
