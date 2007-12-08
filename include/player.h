@@ -67,12 +67,11 @@ struct player {
     char *condarg;		/* conditional, ASCII, valid if command */
     char *comtail[128];		/* start of args in combuf[] */
     time_t lasttime;		/* when minleft was last debited */
-    int ncomstat;
     int minleft;
     int btused;
     int god;
     int owner;
-    int nstat;
+    int nstat;			/* command capabilities */
     int simulation;		/* e.g. budget command */
     double dolcost;
     time_t curup;		/* when last input was received */

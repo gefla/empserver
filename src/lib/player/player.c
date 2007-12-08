@@ -173,13 +173,12 @@ status(void)
 
     old_nstat = player->nstat;
     player_set_nstat(player, natp);
+    if (player->god)
+	player->nstat |= CAP | MONEY;
     if ((old_nstat & MONEY) && !(player->nstat & MONEY))
 	pr("You are now broke; industries are on strike.\n");
     if (!(old_nstat & MONEY) && (player->nstat & MONEY))
 	pr("You are no longer broke!\n");
-    player->ncomstat = player->nstat;
-    if (player->god)
-	player->ncomstat |= CAP | MONEY;
 
     time(&player->curup);
     minute = (player->curup - player->lasttime) / 60;
@@ -205,7 +204,7 @@ status(void)
     }
     if (natp->nat_stat == STAT_ACTIVE && natp->nat_minused > m_m_p_d) {
 	pr("Max minutes per day limit exceeded.\n");
-	player->ncomstat = VIS;
+	player->nstat = (player->nstat & ~NORM) | VIS;
     }
     if (player->btused) {
 	natp->nat_btu -= player->btused;

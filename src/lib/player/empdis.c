@@ -134,13 +134,14 @@ explain(void)
        "Args in [brackets] are optional.\n"
        "All-caps args in <angle brackets>"
        " have the following meanings:\n"
+       /* FIXME incomplete */
        "  <NUM> :: a number in unspecified units\n"
        "  <COMM> :: a commodity such as `food', `guns', etc\n"
        "  <VAR> :: a commodity such as `food', `guns', etc\n"
        "  <TYPE> :: an item type such as `ship', `plane', etc\n");
     for (i = 0; (format = player_coms[i].c_form) != 0; i++) {
-	if ((player_coms[i].c_permit & player->ncomstat) ==
-	    player_coms[i].c_permit) {
+	if ((player_coms[i].c_permit & player->nstat)
+	    == player_coms[i].c_permit) {
 	    pr("%2d ", player_coms[i].c_cost);
 	    if ((player_coms[i].c_permit & MONEY) == MONEY)
 		pr("$");

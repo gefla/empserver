@@ -61,18 +61,14 @@ dispatch(char *buf, char *redir)
     struct cmndstr *command;
     int cmd;
 
-    cmd = comtch(player->argp[0], player_coms, player->ncomstat);
+    cmd = comtch(player->argp[0], player_coms, player->nstat);
     if (cmd < 0) {
 	if (cmd == M_NOTUNIQUE)
 	    pr("Command \"%s\" is ambiguous -- ", player->argp[0]);
 	else if (cmd == M_IGNORE)
 	    return 0;
-	else {
-	    pr("\"%s\" is not a legal command ", player->argp[0]);
-	    if (player->nstat != player->ncomstat)
-		pr("now ");
-	    pr("\n");
-	}
+	else
+	    pr("\"%s\" is not a legal command\n", player->argp[0]);
 	return -1;
     }
     command = &player_coms[cmd];
