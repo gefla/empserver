@@ -111,7 +111,7 @@ servercmd(int code, char *arg, int len)
 	    fprintf(auxfp, "\n%s", arg);
 	break;
     case C_INFORM:
-	if (*arg) {
+	if (arg[0] != '\n') {
 	    snprintf(teles, sizeof(teles), "(%.*s )", len -1, arg);
 	    if (!redir_fp) {
 		putchar('\07');
