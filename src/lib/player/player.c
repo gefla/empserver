@@ -170,17 +170,17 @@ status(void)
 	pr("That just cost you $%.2f\n", player->dolcost);
     else if (player->dolcost < -100.0)
 	pr("You just made $%.2f\n", -player->dolcost);
-    if (natp->nat_money < player->dolcost && !player->broke) {
+    natp->nat_money -= roundavg(player->dolcost);
+    player->dolcost = 0.0;
+    if (natp->nat_money < 0 && !player->broke) {
 	player->broke = 1;
 	player->nstat &= ~MONEY;
 	pr("You are now broke; industries are on strike.\n");
-    } else if (player->broke && natp->nat_money - player->dolcost > 0) {
+    } else if (player->broke && natp->nat_money >= 0) {
 	player->broke = 0;
 	player->nstat |= MONEY;
 	pr("You are no longer broke!\n");
     }
-    natp->nat_money -= roundavg(player->dolcost);
-    player->dolcost = 0.0;
     getsect(natp->nat_xcap, natp->nat_ycap, &sect);
     if (influx(natp))
 	player->nstat &= ~CAP;
