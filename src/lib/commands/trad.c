@@ -358,7 +358,7 @@ check_trade(void)
 	    wu(0, trade.trd_maxbidder,
 	       "You tried to buy %s #%d from %s for $%.2f\n",
 	       trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
-	       price * tradetax);
+	       price);
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
 	    continue;
 	}
