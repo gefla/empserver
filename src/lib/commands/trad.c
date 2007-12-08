@@ -288,8 +288,6 @@ check_trade(void)
     struct trdstr trade;
     union empobj_storage tg;
     time_t now;
-    double subleft;
-    double monleft;
     double tleft;
     float price;
     int saveid;
@@ -330,23 +328,9 @@ check_trade(void)
 	    continue;
 	}
 
-	monleft = 0;
 	price = trade.trd_price;
 	natp = getnatp(trade.trd_maxbidder);
-	if (natp->nat_money <= 0)
-	    monleft = price;
-	if (natp->nat_money < price && natp->nat_money > 0) {
-	    monleft = price - (natp->nat_money - 1);
-	    natp->nat_money = 1;
-	    price = price - monleft;
-	} else if (natp->nat_money > 0) {
-	    monleft = 0;
-	    natp->nat_money -= price;
-	}
-
-	subleft = monleft;
-
-	if (monleft > 0) {
+	if (natp->nat_money < price) {
 	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, trade.trd_owner, 1);
 	    wu(0, trade.trd_owner,
 	       "%s tried to buy a %s #%d from you for $%.2f\n",
@@ -364,14 +348,14 @@ check_trade(void)
 	}
 
 /* If we get this far, the sale will go through. */
-/* Only pay tax on the part you actually get cash for.  As a break,
-   we don't tax the part you have to give a loan on. */
 
+	natp->nat_money -= price;
 	putnat(natp);
+
 	natp = getnatp(trade.trd_owner);
-	/* Make sure we subtract the extra amount */
-	natp->nat_money += (roundavg(price * tradetax) - subleft);
+	natp->nat_money += roundavg(price * tradetax);
 	putnat(natp);
+
 	switch (trade.trd_type) {
 	case EF_NUKE:
 	    tg.nuke.nuk_x = trade.trd_x;
