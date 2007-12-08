@@ -97,7 +97,7 @@ repo_list(struct natstr *plnatp, struct natstr *natp)
     } else {
 	if (!opt_HIDDEN && influx(natp))
 	    pr("In flux\n");
-	else if (!opt_HIDDEN && natp->nat_money <= 0)
+	else if (!opt_HIDDEN && natp->nat_money < 0)
 	    pr("Broke\n");
 	else
 	    pr("Active\n");

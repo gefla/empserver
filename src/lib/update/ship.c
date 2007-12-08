@@ -156,7 +156,7 @@ upd_ship(struct shpstr *sp, int etus,
 	    sectp = getsectp(sp->shp_x, sp->shp_y);
 
 	    /* produce oil */
-	    if (np->nat_money > 0
+	    if (np->nat_money >= 0
 		&& (mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
 		product = &pchr[dchr[SCT_OIL].d_prd];
 		oil_gained = roundavg(total_work(100, etus,
@@ -182,7 +182,7 @@ upd_ship(struct shpstr *sp, int etus,
 		sp->shp_item[I_OIL] += oil_gained;
 	    }
 	    /* produce fish */
-	    if (np->nat_money > 0
+	    if (np->nat_money >= 0
 		&& (mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
 		sp->shp_item[I_FOOD]
 		    += roundavg(total_work(100, etus,

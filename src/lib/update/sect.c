@@ -327,7 +327,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	desig = sp->sct_type;
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
-	    np->nat_money > 0) {
+	    np->nat_money >= 0) {
 	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
 				  &cost);
 	    bp_put_items(bp, sp, vec);
@@ -354,7 +354,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	 */
 
 	if (neweff >= 60) {
-	    if (np->nat_money > 0 && dchr[desig].d_prd >= 0)
+	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
 		work -= produce(np, sp, vec, work, desig, neweff,
 				&pcost, &amount);
 	    bp_put_items(bp, sp, vec);

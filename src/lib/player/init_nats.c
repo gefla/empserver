@@ -63,7 +63,7 @@ init_nats(void)
     if (opt_HIDDEN) {
 	putcontact(np, player->cnum, FOUND_SPY);
     }
-    if (np->nat_money <= 0)
+    if (np->nat_money < 0)
 	player->broke = 1;
     else {
 	player->nstat |= MONEY;
