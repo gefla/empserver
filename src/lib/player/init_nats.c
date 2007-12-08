@@ -71,7 +71,7 @@ player_set_nstat(struct player *pl, struct natstr *np)
 {
     static int nstat[] = {
 	/* must match nat_status */
-	0, VIS, VIS, SANCT, NORM, GOD
+	0, VIS, VIS, SANCT, NORM, GOD | CAP | MONEY
     };
 
     if (CANT_HAPPEN(pl->cnum != np->nat_cnum))
@@ -80,7 +80,7 @@ player_set_nstat(struct player *pl, struct natstr *np)
     pl->nstat = nstat[np->nat_stat];
     if (np->nat_money >= 0)
 	pl->nstat |= MONEY;
-    if (np->nat_stat >= STAT_ACTIVE && !influx(np))
+    if (np->nat_stat == STAT_ACTIVE && !influx(np))
 	pl->nstat |= CAP;
     return pl->nstat;
 }

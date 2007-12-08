@@ -173,8 +173,6 @@ status(void)
 
     old_nstat = player->nstat;
     player_set_nstat(player, natp);
-    if (player->god)
-	player->nstat |= CAP | MONEY;
     if ((old_nstat & MONEY) && !(player->nstat & MONEY))
 	pr("You are now broke; industries are on strike.\n");
     if (!(old_nstat & MONEY) && (player->nstat & MONEY))
