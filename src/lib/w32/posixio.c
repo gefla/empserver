@@ -520,8 +520,10 @@ readv(int fd, const struct iovec *iov, int iovcnt)
     }
 
     buffer = malloc(total_bytes);
-    if (buffer == NULL && total_bytes != 0)
+    if (buffer == NULL && total_bytes != 0) {
+	errno = ENOMEM;
 	return -1;
+    }
 
     bytes_read = posix_read(fd, buffer, total_bytes);
     if (bytes_read <= 0) {
@@ -573,8 +575,10 @@ writev(int fd, const struct iovec *iov, int iovcnt)
 	total_bytes += iov[i].iov_len;
 
     buffer = malloc(total_bytes);
-    if (buffer == NULL && total_bytes != 0)
+    if (buffer == NULL && total_bytes != 0) {
+	errno = ENOMEM;
 	return -1;
+    }
 
     buffer_location = buffer;
     for (i = 0; i < iovcnt; i++) {
