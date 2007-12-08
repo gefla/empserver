@@ -204,10 +204,7 @@ check_market(void)
     int m;
     int n;
     time_t now;
-    double tmoney;
     double tleft;
-    double subleft;
-    double monleft;
     double gain;
     double price;
 
@@ -226,31 +223,14 @@ check_market(void)
 	sect = getsectp(comm.com_x, comm.com_y);
 	m = sect->sct_item[comm.com_type];
 
-	monleft = 0;
-
 	price = comm.com_price * comm.com_amount * buytax;
 	gain = comm.com_price * comm.com_amount;
 
 	natp = getnatp(comm.com_maxbidder);
-	tmoney = natp->nat_money;
-	if (tmoney <= 0)
-	    monleft = price;
-	if (tmoney < price && tmoney > 0) {
-	    monleft = price - (tmoney - 1);
-	    tmoney = 1;
-	    price = price - monleft;
-	} else if (tmoney > 0) {
-	    monleft = 0;
-	    tmoney = tmoney - price;
-	}
-
-	/* Subtract the amount of money that needs to come out in a loan. */
-	subleft = monleft;
-
-	if (monleft > 0) {
+	if (natp->nat_money < price) {
 	    nreport(comm.com_maxbidder, N_WELCH_DEAL, comm.com_owner, 1);
 	    wu(0, comm.com_maxbidder,
-	       "You didn't have enough cash/credit to cover the cost.\n");
+	       "You didn't have enough cash to cover the cost.\n");
 	    wu(0, comm.com_owner,
 	       "Sale #%d fell through.  Goods remain on the market.\n", n);
 	    comm.com_maxbidder = comm.com_owner;
@@ -278,11 +258,11 @@ check_market(void)
 	       "You just bought %d %s from %s for $%.2f\n",
 	       comm.com_amount, ichr[comm.com_type].i_name,
 	       cname(comm.com_owner), gain * buytax);
+	    natp->nat_money -= roundavg(price);
+	    putnat(natp);
 	    natp = getnatp(comm.com_owner);
-	    /* Make sure we subtract the amount that came out in a loan */
-	    natp->nat_money += (gain - subleft);
-	    natp = getnatp(comm.com_maxbidder);
-	    natp->nat_money = tmoney;
+	    natp->nat_money += roundavg(gain);
+	    putnat(natp);
 	    comm.com_owner = 0;
 	}
 	comm.com_owner = 0;
