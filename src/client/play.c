@@ -181,7 +181,7 @@ recv_input(int fd, struct ring *inbuf)
     for (i = -n; i < 0; i++) {
 	ch = ring_peek(inbuf, i);
 	assert(ch != EOF);
-	if (lbuf_putc(&cmdbuf, ch)) {
+	if (ch != '\r' && lbuf_putc(&cmdbuf, ch)) {
 	    line = lbuf_line(&cmdbuf);
 	    if (auxfp)
 		fputs(line, auxfp);
