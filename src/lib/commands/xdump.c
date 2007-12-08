@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  xdump.c: Experimental extended dump
+ *  xdump.c: Extended dump
  * 
  *  Known contributors to this file:
  *     Markus Armbruster, 2004-2007
@@ -393,6 +393,7 @@ xdump(void)
     char buf[1024];
     int type;
     int meta = 0;
+    struct natstr *natp;
 
     p = getstarg(player->argp[1], "Table name, or meta? ", buf);
     if (p && strcmp(p, "meta") == 0) {
@@ -402,12 +403,13 @@ xdump(void)
     if (!p || !*p)
 	return RET_SYN;
 
+    natp = getnatp(player->cnum);
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type >= 0 && type < EF_MAX) {
 	if (meta)
 	    return xdmeta(type);
 	else if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
-		 && (player->ncomstat & NORM) != NORM) {
+		 && !(natp->nat_stat == STAT_ACTIVE || player->god)) {
 	    pr("Access to table %s denied\n", ef_nameof(type));
 	    return RET_FAIL;
 	} else
