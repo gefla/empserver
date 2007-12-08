@@ -46,7 +46,7 @@ esac
 
 cd "${LOGDIR}" || err "Could not cd to ${LOGDIR}"
 
-BUILDTYPE="${EMPTARGET}.${ARCH}"
+BUILDTYPE="${INSTANCE}"
 [ -n "${EXTRASUFFIX}" ] && BUILDTYPE="${BUILDTYPE}.${EXTRASUFFIX}"
 
 echo "This was generated using: ${0} ${1}"

@@ -46,7 +46,7 @@ esac
 
 
 STAMP="`date +%Y%m%d%H%M%S`"
-WORKDIR="${EMPTARGET}.${ARCH}"
+WORKDIR="${INSTANCE}"
 [ -n "${EXTRASUFFIX}" ] && WORKDIR="${WORKDIR}.${EXTRASUFFIX}"
 LOGFILE="${LOGDIR}/${WORKDIR}.${STAMP}"
 
@@ -136,20 +136,11 @@ done
 echo "Done (patch All)."
 echo ""
 
-# Run local patches ${LOCALPATCHDIR}/*.patch
-case "${LOCALPATCHDIR}"
-in
-	/*)
-		;;
-	*)
-		LOCALPATCHDIR="${SCRIPTDIR}/${LOCALPATCHDIR}"
-		;;
-esac
-
-if [ -n "${LOCALPATCHDIR}" -a -d "${LOCALPATCHDIR}/." ]
+LOCALPATCHDIRECTORY="${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/${INSTANCE}"
+if [ -n "${LOCALPATCHDIRECTORY}" -a -d "${LOCALPATCHDIRECTORY}/." ]
 then
-	echo "Applying system specific patches from ${LOCALPATCHDIR}:"
-	for i in "${LOCALPATCHDIR}"/*.patch
+	echo "Applying system specific patches from ${LOCALPATCHDIRECTORY}:"
+	for i in "${LOCALPATCHDIRECTORY}"/*.patch
 	do
 		[ -r "${i}" ] || continue
 		if ${PATCH:=patch} -Np0 < "${i}" >/dev/null
@@ -186,7 +177,7 @@ in
 
 # Start the build
 echo "Building server"
-if make "${EMPTARGET}" >/dev/null
+if make install >/dev/null
 then
 	warn "make did not return 0"
 fi
