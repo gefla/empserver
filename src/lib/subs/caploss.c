@@ -57,23 +57,21 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     if (coun == 0)
 	return;
     natp = getnatp(coun);
-    if ((xrel(natp, natp->nat_xcap) != xrel(natp, sp->sct_x)) ||
-	(yrel(natp, natp->nat_ycap) != yrel(natp, sp->sct_y)))
+    if (sp->sct_x != natp->nat_xcap || sp->sct_y != natp->nat_ycap)
 	return;
     if (coun == player->cnum) {
 	player->nstat &= ~CAP;
 	return;
     }
-    /* Ok, has the country owner reset their capital yet after it was last sacked? */
     if (natp->nat_flags & NF_SACKED)
-	return;			/* No, so not really the capital yet, so return */
+	return;			/* sacked capital, not yet reset */
+    natp->nat_flags |= NF_SACKED; /* no more sacking until player resets */
+
     pr(msg, natp->nat_cnam);
     gain = lose = natp->nat_money / 2;
     if (lose < 3000)
 	lose = 3000;
     natp->nat_money -= lose;
-    /* Your capital has now been sacked, no more sacking until you reset it */
-    natp->nat_flags |= NF_SACKED;
     putnat(natp);
     wu(0, coun, "* %s just sacked your capital! *\n", cname(player->cnum));
 
