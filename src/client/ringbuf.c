@@ -118,7 +118,7 @@ ring_putc(struct ring *r, unsigned char c)
 /*
  * Attempt to put SZ bytes from BUF into the ring buffer.
  * Return space left in ring buffer when it fits, else don't change
- * the ring buffer and return how much space is missing.
+ * the ring buffer and return how much space is missing times -1.
  */
 int
 ring_putm(struct ring *r, void *buf, size_t sz)
