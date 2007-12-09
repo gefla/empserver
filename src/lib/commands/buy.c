@@ -257,7 +257,7 @@ check_market(void)
 	    wu(0, comm.com_maxbidder,
 	       "You just bought %d %s from %s for $%.2f\n",
 	       comm.com_amount, ichr[comm.com_type].i_name,
-	       cname(comm.com_owner), gain * buytax);
+	       cname(comm.com_owner), price);
 	    natp->nat_money -= roundavg(price);
 	    putnat(natp);
 	    natp = getnatp(comm.com_owner);
