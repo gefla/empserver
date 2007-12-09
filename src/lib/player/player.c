@@ -237,7 +237,6 @@ status(void)
 }
 
 /*
- * actually a command; redirection and piping ignored.
  * XXX This whole mess should be redone; execute block should
  * start with "exec start", and should end with "exec end".
  * We'll wait until 1.2 I guess.
@@ -252,7 +251,6 @@ execute(void)
     char scanspace[1024];
 
     failed = 0;
-    redir = NULL;
 
     if (player->comtail[1])
 	p = player->comtail[1];
@@ -270,16 +268,17 @@ execute(void)
 	    failed = 1;
 	    continue;
 	}
-	if (redir == NULL)
-	    pr("\nExecute : %s\n", buf);
-	if (dispatch(buf, redir) < 0)
+	pr("\nExecute : %s\n", buf);
+	if (redir) {
+	    pr("Execute : redirection not supported\n");
+	    failed = 1;
+	} else if (dispatch(buf, NULL) < 0)
 	    failed = 1;
     }
     if (failed) {
 	while (recvclient(buf, sizeof(buf)) >= 0) ;
     }
-    if (redir == NULL)
-	pr("Execute : %s\n", failed ? "aborted" : "terminated");
+    pr("Execute : %s\n", failed ? "aborted" : "terminated");
     player->eof = 0;
     return RET_OK;
 }
