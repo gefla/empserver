@@ -82,5 +82,6 @@ player_set_nstat(struct player *pl, struct natstr *np)
 	pl->nstat |= MONEY;
     if (np->nat_stat == STAT_ACTIVE && !influx(np))
 	pl->nstat |= CAP;
+    pl->nstat |= EXEC;
     return pl->nstat;
 }

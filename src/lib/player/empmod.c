@@ -100,7 +100,7 @@ struct cmndstr player_coms[] = {
      0, edit, C_MOD, GOD},
     {"enable", 0, enab, C_MOD, GOD},
     {"enlist <SECTS> <NUM>", 2, enli, C_MOD, NORM + MONEY + CAP},
-    {"execute <INPUT FILE>", 0, execute, 0, VIS},
+    {"execute <INPUT FILE>", 0, execute, 0, VIS + EXEC },
     {"explore <c|m> <SECT> <NUM> <PATH|DESTINATION>",
      1, explore, C_MOD, NORM + MONEY + CAP},
     {"financial", 0, fina, 0, NORM},

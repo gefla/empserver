@@ -261,6 +261,7 @@ execute(void)
     prexec(p);
 
     while (!failed && status()) {
+	player->nstat &= ~EXEC;
 	if (recvclient(buf, sizeof(buf)) < 0)
 	    break;
 	if (parse(buf, scanspace, player->argp, player->comtail,
@@ -278,6 +279,7 @@ execute(void)
     if (failed) {
 	while (recvclient(buf, sizeof(buf)) >= 0) ;
     }
+
     pr("Execute : %s\n", failed ? "aborted" : "terminated");
     player->eof = 0;
     return RET_OK;
