@@ -89,21 +89,9 @@ login(int s, char *uname, char *cname, char *cpass,
 	return 0;
     }
     if (cpass == NULL) {
-#ifndef _WIN32
 	cpass = getpass("Your name? ");
 	if (cpass == NULL || *cpass == 0)
 	    return 0;
-#else
-	printf("Note: This is echoed to the screen\n");
-	printf("Your name? ");
-	fflush(stdout);
-	cpass = fgets(tmp, sizeof(tmp), stdin);
-	if (cpass == NULL || *cpass == 0)
-	    return 0;
-	len = strlen(cpass);
-	if (cname[len-1] == '\n')
-	    cname[len-1] = 0;
-#endif
     }
     (void)printf("\n");
     (void)sendcmd(s, "pass", cpass);

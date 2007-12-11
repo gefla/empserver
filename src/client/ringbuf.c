@@ -36,8 +36,16 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef _WIN32
 #include <sys/uio.h>
 #include <unistd.h>
+#else
+#define readv(fd, iov, iovcnt) \
+    w32_readv_handle((fd), (iov), (iovcnt))
+#define writev(fd, iov, iovcnt) \
+    w32_writev_socket((fd), (iov), (iovcnt))
+#endif
+#include "misc.h"
 #include "ringbuf.h"
 
 /*

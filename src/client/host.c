@@ -48,8 +48,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #else
-#include <winsock2.h>
-#include <ws2tcpip.h>
+#define close(fd) w32_close_socket((fd))
 #endif
 #include "misc.h"
 
@@ -83,11 +82,7 @@ tcp_connect(char *host, char *serv)
 
 	if (connect(sockfd, res->ai_addr, res->ai_addrlen) == 0)
 	    break;		/* success */
-#ifdef _WIN32
-	closesocket(sockfd);	/* ignore this one */
-#else
 	close(sockfd);		/* ignore this one */
-#endif
     } while ((res = res->ai_next) != NULL);
 
     if (res == NULL) {		/* errno set from final connect() */
@@ -147,19 +142,11 @@ hostconnect(struct sockaddr_in *addr)
 
     s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-#endif
 	return -1;
     }
     addr->sin_family = AF_INET;
     if (connect(s, (struct sockaddr *)addr, sizeof(*addr)) < 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-	(void)closesocket(s);
-#else
 	(void)close(s);
-#endif
 	return -1;
     }
     return s;

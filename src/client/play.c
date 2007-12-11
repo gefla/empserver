@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
+ *     Ron Koenderink, 2007
  */
 
 #include <config.h>
@@ -38,14 +39,253 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#ifndef _WIN32
 #include <sys/time.h>
 #include <sys/types.h>
 #include <unistd.h>
+#else
+#include <io.h>
+#endif
 #include "linebuf.h"
 #include "misc.h"
 #include "proto.h"
 #include "ringbuf.h"
 #include "secure.h"
+
+#ifdef _WIN32
+static CRITICAL_SECTION signal_critical_section;
+static LPCRITICAL_SECTION signal_critical_section_ptr = NULL;
+
+static unsigned char bounce_buf[RING_SIZE];
+/*
+ * Set bounce_empty to indicate bounce_buf is available for the stdin thread
+ * to use.
+ */
+static HANDLE bounce_empty;
+/*
+ * Set bounce_full to indicate bounce_buf is contains data from the
+ * stdin thread and is available for recv_input
+ */
+static HANDLE bounce_full;
+ /* Ctrl-C (SIGINT) was detected, generate EINTR for the w32_select() */
+static HANDLE ctrl_c_event;
+static int bounce_status, bounce_error;
+
+#define SIGPIPE -1
+static void (*ctrl_handler)(int sig) = { SIG_DFL };
+
+/*
+ * Ctrl-C handler for emulating the SIGINT in WIN32
+ */
+static BOOL WINAPI
+w32_signal_handler(DWORD ctrl_type)
+{
+    if (ctrl_type == CTRL_C_EVENT) {
+	EnterCriticalSection(signal_critical_section_ptr);
+	if (ctrl_handler != SIG_DFL) {
+	    ctrl_handler(SIGINT);
+	    LeaveCriticalSection(signal_critical_section_ptr);
+	    SetEvent(ctrl_c_event);
+	    return TRUE;
+	} else
+	    LeaveCriticalSection(signal_critical_section_ptr);
+    }
+    return FALSE;
+}
+
+/*
+ * WIN32 equivalent for sigaction supports the following:
+ * set handler for SIGINT using WIN32 Ctrl-C handler
+ * reset handler SIGINT to SIG_DFL
+ * ignore SIGPIPE
+ */
+static int
+sigaction(int signal, struct sigaction *action, struct sigaction *oaction)
+{
+    assert(!oaction);
+    assert(action);
+    
+    if (signal == SIGPIPE)
+	assert(action->sa_handler == SIG_IGN);
+    else {
+	assert(signal == SIGINT && action->sa_handler != SIG_IGN);
+	if (ctrl_handler == action->sa_handler)
+	    return 0;
+	if (signal_critical_section_ptr == NULL) {
+	    signal_critical_section_ptr = &signal_critical_section;
+	    InitializeCriticalSection(signal_critical_section_ptr);
+	}
+	EnterCriticalSection(signal_critical_section_ptr);
+	if (!SetConsoleCtrlHandler(w32_signal_handler,
+				   action->sa_handler != SIG_DFL)) {
+	    errno = GetLastError();
+	    LeaveCriticalSection(signal_critical_section_ptr);
+	    return -1;
+	}
+	ctrl_handler = action->sa_handler;
+	LeaveCriticalSection(signal_critical_section_ptr);
+    }
+    return 0;
+}
+
+/*
+ * Read the stdin in WIN32 environment
+ * WIN32 does not support select type function on console input
+ * so the client uses a separate thread to read input
+ */
+static DWORD WINAPI
+stdin_read_thread(LPVOID lpParam)
+{
+    for (;;) {
+	if (WaitForSingleObject(bounce_empty, INFINITE) != WAIT_OBJECT_0)
+	    break;
+	bounce_status = _read(0, bounce_buf, sizeof(bounce_buf));
+	bounce_error = errno;
+	if (bounce_status == 0) {
+	    if (_isatty(0)) {
+		SetEvent(bounce_empty);
+		continue;
+	    } else
+		break;
+	}
+	SetEvent(bounce_full);
+    }
+    SetEvent(bounce_full);
+    return 0;
+}
+
+/*
+ * Initialize and start the stdin reading thread for WIN32
+ */
+static void
+sysdep_stdin_init()
+{
+    bounce_empty = CreateEvent(NULL, FALSE, TRUE, "bounce_empty");
+    bounce_full = CreateEvent(NULL, TRUE, FALSE, "bounce_full");
+    ctrl_c_event = CreateEvent(NULL, FALSE, FALSE, "Ctrl_C");
+    CreateThread(NULL, 0, stdin_read_thread, NULL, 0, NULL);
+}
+
+/*
+ * This function uses to WaitForMultipleObjects to wait for both
+ * stdin and socket reading or writing.
+ * Stdin is treated special in WIN32. Waiting for stdin is done
+ * via a bounce_full event which is set in the stdin thread.
+ * Execute command file reading is done via handle.  Execute
+ * command is read via CreateFile/ReadFile instead open/read
+ * because a file descriptor is not waitable.
+ * WaitForMultipleObjects will only respond with one object
+ * so an additonal select is also done to determine
+ * which individual events are active for the sock.
+ */
+static int
+w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* time)
+{
+    HANDLE handles[3];
+    SOCKET sock;
+    int result, s_result, num_handles = 0;
+    struct timeval tv_time = {0, 0};
+    fd_set rdfd2;
+
+    if (rdfd->fd_count > 1) {
+	sock = rdfd->fd_array[1];
+	if (rdfd->fd_array[0])
+	    handles[num_handles++] = (HANDLE)rdfd->fd_array[0];
+	else {
+	    handles[num_handles++] = ctrl_c_event;
+	    handles[num_handles++] = bounce_full;
+	}
+    } else {
+	assert(rdfd->fd_count == 1);
+	sock = rdfd->fd_array[0];
+    }
+    assert(wrfd->fd_count == 0 ||
+	   (wrfd->fd_count == 1 && wrfd->fd_array[0] == sock));
+    /* always wait on the socket */
+    handles[num_handles++] = WSACreateEvent();
+
+    if (wrfd->fd_count > 0)
+	WSAEventSelect(sock, handles[num_handles - 1],
+		       FD_READ | FD_WRITE | FD_CLOSE);
+    else
+	WSAEventSelect(sock, handles[num_handles - 1],
+		       FD_READ | FD_CLOSE);
+
+    result = WaitForMultipleObjects(num_handles, handles, 0, INFINITE);
+    if (result < 0) {
+	errno = GetLastError();
+	WSACloseEvent(handles[num_handles - 1]);
+	return -1;
+    }
+    WSACloseEvent(handles[num_handles - 1]);
+    
+    if (num_handles == 3 && result == WAIT_OBJECT_0) {
+	errno = EINTR;
+	return -1;
+    }
+
+    FD_ZERO(&rdfd2);
+    FD_SET(sock, &rdfd2);
+    s_result = select(sock + 1, &rdfd2, wrfd, NULL, &tv_time);
+
+    if (s_result < 0) {
+	errno = WSAGetLastError();
+	return s_result;
+    }
+
+    *rdfd = rdfd2;
+    if (num_handles == 3 && result == WAIT_OBJECT_0 + 1) {
+	FD_SET((SOCKET)0, rdfd);
+	s_result++;
+    }
+    if (num_handles == 2 && result == WAIT_OBJECT_0) {
+	FD_SET((SOCKET)handles[0], rdfd);
+	s_result++;
+    }
+    return s_result;
+}
+
+/*
+ * Read input from the user either stdin or from file.
+ * For stdin, read from bounce_buf which filled by the stdin thread
+ * otherwise use the regular ring_from_file.
+ */
+static int
+w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
+{
+    int i, res;
+
+    if (fd)
+        return ring_from_file(r, fd);
+
+    if (bounce_status < 0) {
+        errno = bounce_error;
+        res = bounce_status;
+    } else {
+        for (i = 0; i < bounce_status; i++) {
+            if (ring_putc(r, bounce_buf[i]) == EOF) {
+                /* more work to do, hold on to bounce_buf */
+                memmove(bounce_buf, bounce_buf + i, bounce_status - i);
+                bounce_status -= i;
+                return i;
+            }
+        }
+        res = i;
+    }
+
+    ResetEvent(bounce_full);
+    SetEvent(bounce_empty);
+    return res;
+}
+#define ring_from_file w32_ring_from_file_or_bounce_buf
+#define close(fd) w32_close_handle((fd))
+#define read(sock, buffer, buf_size) \
+	w32_recv((sock), (buffer), (buf_size), 0)
+#define select(nfds, rd, wr, error, time) \
+	w32_select((nfds), (rd), (wr), (error), (time))
+#else
+#define sysdep_stdin_init() ((void)0)
+#endif
 
 #define EOF_COOKIE "ctld\n"
 #define INTR_COOKIE "\naborted\n"
@@ -197,9 +437,6 @@ static void
 intr(int sig)
 {
     send_intr = 1;
-#ifdef _WIN32
-    signal(SIGINT, intr);
-#endif
 }
 
 /*
@@ -231,6 +468,7 @@ play(int sock)
     ring_init(&inbuf);
     eof_fd0 = send_eof = send_intr = 0;
     input_fd = 0;
+    sysdep_stdin_init(&eof_fd0, &inbuf);
 
     for (;;) {
 	FD_ZERO(&rdfd);

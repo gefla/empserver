@@ -36,11 +36,20 @@
 
 #include <config.h>
 
+#ifndef _WIN32
 #include <pwd.h>
 #include <stdlib.h>
 #include <unistd.h>
+#endif
 #include "misc.h"
 #include "version.h"
+
+#ifdef _WIN32
+#define getuid() 0
+#define getpwuid(uid) ((uid), w32_getpw())
+#else
+#define sysdep_init() ((void)0)
+#endif
 
 static void
 print_usage(char *program_name)
@@ -68,21 +77,6 @@ main(int argc, char **argv)
     char *host;
     char *port;
     int sock;
-#ifdef _WIN32
-    char unamebuf[128];
-#endif
-
-#ifdef _WIN32
-    /*
-     * stdout is unbuffered under Windows if connected to a character
-     * device, and putchar() screws up when printing multibyte strings
-     * bytewise to an unbuffered stream.  Switch stdout to line-
-     * buffered mode.  Unfortunately, ISO C allows implementations to
-     * screw that up, and of course Windows does.  Manual flushing
-     * after each prompt is required.
-     */
-    setvbuf(stdout, NULL, _IOLBF, 4096);
-#endif
 
     while ((opt = getopt(argc, argv, "2:kuhv")) != EOF) {
 	switch (opt) {
@@ -124,7 +118,6 @@ main(int argc, char **argv)
 	host = empirehost;
     uname = getenv("LOGNAME");
     if (uname == NULL) {
-#ifndef _WIN32
 	struct passwd *pwd;
 
 	pwd = getpwuid(getuid());
@@ -133,17 +126,6 @@ main(int argc, char **argv)
 	    exit(1);
 	}
 	uname = pwd->pw_name;
-#else
-	DWORD unamesize;
-
-	unamesize = sizeof(unamebuf);
-	if (GetUserName(unamebuf, &unamesize)) {
-	    uname = unamebuf;
-	    if ((unamesize <= 0 ) || (strlen(uname) <= 0))
-		uname = "nobody";
-	} else
-	    uname = "nobody";
-#endif
     }
 
     getsose();
@@ -152,13 +134,7 @@ main(int argc, char **argv)
 	exit(1);
     }
 
-#ifdef _WIN32
-    err = WSAStartup(MAKEWORD(2, 0), &WsaData);
-    if (err != 0) {
-	printf("WSAStartup Failed, error code %d\n", err);
-	exit(1);
-    }
-#endif
+    sysdep_init();
 
     sock = tcp_connect(host, port);
 

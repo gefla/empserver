@@ -46,6 +46,13 @@
 #include "proto.h"
 #include "secure.h"
 
+#ifdef _WIN32
+    #define open(filename, flags, ...) \
+        ((flags & O_CREAT) \
+         ? w32_openfd((filename), (flags), ## __VA_ARGS__) \
+         : w32_openhandle((filename), (flags)))
+#endif
+
 int eight_bit_clean;
 FILE *auxfp;
 

@@ -36,10 +36,11 @@
 
 #include <stdio.h>
 #ifdef _WIN32
-#include <windows.h>
+#include "sysdep_w32.h"
 #endif
 
 #define MAX(a, b) ((a) >= (b) ? (a) : (b))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 extern char empirehost[];
 extern char empireport[];
@@ -50,13 +51,7 @@ extern FILE *auxfp;
 extern char *SO;
 extern char *SE;
 
-#ifdef _WIN32
-#define getsose() ((void)0)
-#define putso() ((void)0)
-#define putse() ((void)0)
-#define pclose _pclose
-#define popen _popen
-#else
+#ifndef _WIN32
 void getsose(void);
 void putso(void);
 void putse(void);

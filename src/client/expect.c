@@ -44,6 +44,15 @@
 #endif
 #include "misc.h"
 
+#ifdef _WIN32
+#define recv(sock, buffer, buf_size, flags) \
+	w32_recv((sock), (buffer), (buf_size), (flags))
+#define read(sock, buffer, buf_size) \
+	w32_recv((sock), (buffer), (buf_size), 0)
+#define write(sock, buffer, buf_size) \
+	w32_send((sock), (buffer), (buf_size), 0)
+#endif
+
 int
 recvline(int s, char *buf)
 {
@@ -55,15 +64,10 @@ recvline(int s, char *buf)
     int cc;
 
     size = 1024;
-#ifndef _WIN32
     (void)alarm(30);
-#endif
     ptr = buf;
     n = recv(s, ptr, size, MSG_PEEK);
     if (n <= 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-#endif
 	perror("recv");
 	return 0;
     }
@@ -71,15 +75,8 @@ recvline(int s, char *buf)
     buf[n] = '\0';
     if ((p = strchr(ptr, '\n')) == NULL) {
 	do {
-#ifndef _WIN32
 	    cc = read(s, ptr, n);
-#else
-	    cc = recv(s, ptr, n, 0);
-#endif
 	    if (cc < 0) {
-#ifdef _WIN32
-		errno = WSAGetLastError();
-#endif
 		perror("expect: read");
 		return 0;
 	    }
@@ -89,9 +86,6 @@ recvline(int s, char *buf)
 	    }
 	    ptr += n;
 	    if ((n = recv(s, ptr, size, MSG_PEEK)) <= 0) {
-#ifdef _WIN32
-		errno = WSAGetLastError();
-#endif
 		perror("recv");
 		return 0;
 	    }
@@ -102,15 +96,8 @@ recvline(int s, char *buf)
 	*p = 0;
     } else
 	newline = 1 + p - ptr;
-#ifndef _WIN32
     cc = read(s, buf, newline);
-#else
-    cc = recv(s, buf, newline, 0);
-#endif
     if (cc < 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-#endif
 	perror("expect: read #2");
 	return 0;
     }
@@ -120,9 +107,7 @@ recvline(int s, char *buf)
 	return 0;
     }
     buf[newline] = '\0';
-#ifndef _WIN32
     (void)alarm(0);
-#endif
     if (!isxdigit(buf[0]) || buf[1] != ' ') {
 	fprintf(stderr, "Malformed line %s\n", buf);
 	return 0;
@@ -146,15 +131,8 @@ sendcmd(int s, char *cmd, char *arg)
 
     (void)sprintf(buf, "%s %s\n", cmd, arg != NULL ? arg : "");
     len = strlen(buf);
-#ifndef _WIN32
     cc = write(s, buf, len);
-#else
-    cc = send(s, buf, len, 0);
-#endif
     if (cc < 0) {
-#ifdef _WIN32
-	errno = WSAGetLastError();
-#endif
 	perror("sendcmd: write");
     }
     if (cc != len) {
