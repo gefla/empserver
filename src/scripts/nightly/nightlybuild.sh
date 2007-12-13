@@ -177,7 +177,7 @@ in
 
 # Start the build
 echo "Building server"
-if make install >/dev/null
+if make -k install >/dev/null
 then
 	warn "make did not return 0"
 fi
