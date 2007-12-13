@@ -103,7 +103,7 @@ hard(void)
 	if (hcm <= n)
 	    n = hcm;
 	pln.pln_harden += n;
-	player->dolcost += (5.0 * n);
+	player->dolcost += 5.0 * n;
 	putplane(pln.pln_uid, &pln);
 	sect.sct_item[I_HCM] = hcm - n;
 	putsect(&sect);

@@ -168,7 +168,7 @@ budg(void)
     pr("Estimated delta\t\t\t\t\t\t      %+10d\n", income - expenses);
     pr("Estimated new treasury%s\n",
        dotsprintf(buf, "%50d", np->nat_money + income - expenses));
-    if (((np->nat_money + income - expenses) < 0) && !player->god) {
+    if (np->nat_money + income - expenses < 0 && !player->god) {
 	pr("After processsing sectors, you will be broke!\n");
 	pr("Sectors will not produce, distribute, or deliver!\n\n");
     }

@@ -1136,7 +1136,7 @@ att_combat_eff(struct combat *com)
 	eff = com->eff / 100.0;
 	if (com->own == player->cnum) {
 	    str = com->sct_dcp->d_ostr;
-	    eff = 1.0 + ((str - 1.0) * eff);
+	    eff = 1.0 + (str - 1.0) * eff;
 	} else
 	    eff = sector_strength(getsectp(com->x, com->y));
     } else if (com->type == EF_SHIP && com->own != player->cnum) {
@@ -2314,7 +2314,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 		continue;
 	    sprintf(prompt, "Move in with %s (%c %d%%) [ynYNq?] ",
 		    prland(&llp->unit.land),
-		    llp->unit.land.lnd_army ? llp->unit.land.lnd_army :  '~',
+		    llp->unit.land.lnd_army ? llp->unit.land.lnd_army : '~',
 		    llp->unit.land.lnd_effic);
 	    *answerp = att_prompt(prompt, llp->unit.land.lnd_army);
 	    if (player->aborted || att_get_combat(def, 0) < 0)
