@@ -468,7 +468,7 @@ play(int sock)
     ring_init(&inbuf);
     eof_fd0 = send_eof = send_intr = 0;
     input_fd = 0;
-    sysdep_stdin_init(&eof_fd0, &inbuf);
+    sysdep_stdin_init();
 
     for (;;) {
 	FD_ZERO(&rdfd);
