@@ -56,7 +56,7 @@ login(int s, char *uname, char *cname, char *cpass,
 
     if (!expect(s, C_INIT, buf))
 	return 0;
-    (void)sendcmd(s, "user", uname);
+    sendcmd(s, "user", uname);
     if (!expect(s, C_CMDOK, buf)) {
 	fprintf(stderr, "Server rejects your user name\n");
 	return 0;
@@ -83,7 +83,7 @@ login(int s, char *uname, char *cname, char *cpass,
     len = strlen(cname);
     if (cname[len-1] == '\n')
 	cname[len-1] = 0;
-    (void)sendcmd(s, "coun", cname);
+    sendcmd(s, "coun", cname);
     if (!expect(s, C_CMDOK, buf)) {
 	(void)fprintf(stderr, "No such country\n");
 	return 0;
@@ -94,20 +94,20 @@ login(int s, char *uname, char *cname, char *cpass,
 	    return 0;
     }
     (void)printf("\n");
-    (void)sendcmd(s, "pass", cpass);
+    sendcmd(s, "pass", cpass);
     memset(cpass, 0, strlen(cpass));	/* for core dumps */
     if (!expect(s, C_CMDOK, buf)) {
 	(void)fprintf(stderr, "Bad password\n");
 	return 0;
     }
     if (kill_proc) {
-	(void)sendcmd(s, "kill", NULL);
+	sendcmd(s, "kill", NULL);
 	(void)printf("\n\t-=O=-\n");
 	(void)expect(s, C_EXIT, buf);
 	fprintf(stderr, "%s\n", buf);
 	return 0;
     }
-    (void)sendcmd(s, "play", NULL);
+    sendcmd(s, "play", NULL);
     (void)printf("\n\t-=O=-\n");
     if (!expect(s, C_INIT, buf)) {
 	fprintf(stderr, "%s\n", buf);
