@@ -170,7 +170,7 @@ redir_authorized(char *arg, char *attempt, int expected)
     size_t seen = seen_input(arg);
 
     if (executing) {
-	fprintf(stderr, "Can't %s in a script\n", attempt);
+	fprintf(stderr, "Can't %s in a batch file\n", attempt);
 	return 0;
     }
 
@@ -255,7 +255,7 @@ doexecute(char *p)
 {
     int fd;
 
-    if (!redir_authorized(p, "execute script file", 1))
+    if (!redir_authorized(p, "execute batch file", 1))
 	return -1;
 
     p = fname(p);
