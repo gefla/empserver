@@ -126,11 +126,14 @@ void
 sendcmd(int s, char *cmd, char *arg)
 {
     char buf[128];
-    int cc;
-    int len;
+    int cc, len;
 
-    (void)sprintf(buf, "%s %s\n", cmd, arg != NULL ? arg : "");
-    len = strlen(buf);
+    len = snprintf(buf, sizeof(buf), "%s %s\n",
+		   cmd, arg != NULL ? arg : "");
+    if (len >= (int)sizeof(buf)) {
+	fprintf(stderr, "%s too long\n", cmd);
+	exit(1);
+    }
     cc = write(s, buf, len);
     if (cc < 0) {
 	perror("sendcmd: write");
