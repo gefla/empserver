@@ -183,7 +183,7 @@ plague_people(struct natstr *np, short *vec,
     }
     if (*ptime <= 0) {
 	*pstage -= 1;
-	*ptime = (etus / 2) + (random() % etus);
+	*ptime = etus / 2 + random() % etus;
     }
     return stage;
 }

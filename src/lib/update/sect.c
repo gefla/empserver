@@ -79,6 +79,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	*cost += work_cost;
 	if (!n && IS_BIG_CITY(old_type) &&
 	    !IS_BIG_CITY(*desig)) {
+	    // FIXME use trunc_people() and total_work()
 	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
 	    if (vec[I_CIVIL] > maxpop)
 		vec[I_CIVIL] = maxpop;
@@ -137,9 +138,9 @@ enlist(short *vec, int etu, int *cost)
 
     /* Need to check treaties here */
     enlisted = 0;
-    maxmil = (vec[I_CIVIL] / 2) - vec[I_MILIT];
+    maxmil = vec[I_CIVIL] / 2 - vec[I_MILIT];
     if (maxmil > 0) {
-	enlisted = (etu * (10 + vec[I_MILIT]) * 0.05);
+	enlisted = etu * (10 + vec[I_MILIT]) * 0.05;
 	if (enlisted > maxmil)
 	    enlisted = maxmil;
 	vec[I_CIVIL] -= enlisted;
