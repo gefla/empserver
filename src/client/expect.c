@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -126,7 +127,9 @@ void
 sendcmd(int s, char *cmd, char *arg)
 {
     char buf[128];
-    int cc, len;
+    char *p;
+    ssize_t n;
+    int len;
 
     len = snprintf(buf, sizeof(buf), "%s %s\n",
 		   cmd, arg != NULL ? arg : "");
@@ -134,11 +137,17 @@ sendcmd(int s, char *cmd, char *arg)
 	fprintf(stderr, "%s too long\n", cmd);
 	exit(1);
     }
-    cc = write(s, buf, len);
-    if (cc < 0) {
-	perror("sendcmd: write");
-    }
-    if (cc != len) {
-	fprintf(stderr, "sendcmd: short write (%d not %d)\n", cc, len);
+    p = buf;
+    while (len > 0) {
+	n = write(s, buf, len);
+	if (n < 0) {
+	    if (errno != EINTR) {
+		perror("sendcmd: write");
+		exit(1);
+	    }
+	    n = 0;
+	}
+	p += n;
+	len -= n;
     }
 }
