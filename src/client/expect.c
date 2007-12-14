@@ -105,8 +105,7 @@ parseid(char *line)
 int
 expect(int s, int match, char *buf)
 {
-    int code = recvline(s, buf);
-    return code == match;
+    return recvline(s, buf) == match;
 }
 
 void
