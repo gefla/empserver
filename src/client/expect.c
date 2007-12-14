@@ -29,6 +29,7 @@
  * 
  *  Known contributors to this file:
  *      Steve McClure, 1998
+ *      Markus Armbruster, 2007
  */
 
 #include <config.h>
@@ -46,8 +47,6 @@
 #include "misc.h"
 
 #ifdef _WIN32
-#define recv(sock, buffer, buf_size, flags) \
-	w32_recv((sock), (buffer), (buf_size), (flags))
 #define read(sock, buffer, buf_size) \
 	w32_recv((sock), (buffer), (buf_size), 0)
 #define write(sock, buffer, buf_size) \
@@ -57,56 +56,33 @@
 int
 recvline(int s, char *buf)
 {
-    int size;
-    char *p;
-    int n;
-    int newline;
-    char *ptr;
-    int cc;
+    int sz = 1024;
+    char *bp;
+    char ch;
+    ssize_t n;
 
-    size = 1024;
-    ptr = buf;
-    n = recv(s, ptr, size, MSG_PEEK);
-    if (n <= 0) {
-	perror("recv");
-	return 0;
-    }
-    size -= n;
-    buf[n] = '\0';
-    if ((p = strchr(ptr, '\n')) == NULL) {
-	do {
-	    cc = read(s, ptr, n);
-	    if (cc < 0) {
-		perror("expect: read");
-		return 0;
+    bp = buf;
+    for (;;) {
+	n = read(s, &ch, 1);
+	if (n < 0) {
+	    if (errno != EINTR) {
+		perror("read");
+		exit(1);
 	    }
-	    if (cc != n) {
-		fprintf(stderr, "expect: short read (%d not %d)\n", cc, n);
-		return 0;
-	    }
-	    ptr += n;
-	    if ((n = recv(s, ptr, size, MSG_PEEK)) <= 0) {
-		perror("recv");
-		return 0;
-	    }
-	    size -= n;
-	    ptr[n] = '\0';
-	} while ((p = strchr(ptr, '\n')) == 0);
-	newline = 1 + p - buf;
-	*p = 0;
-    } else
-	newline = 1 + p - ptr;
-    cc = read(s, buf, newline);
-    if (cc < 0) {
-	perror("expect: read #2");
-	return 0;
+	    continue;
+	}
+	if (n == 0)
+	    return -1;
+	if (ch == '\n')
+	    break;
+	if (bp < buf + sz - 2)
+	    *bp++ = ch;
+	/* else silently truncate */
     }
-    if (cc != newline) {
-	fprintf(stderr, "expect: short read #2 (%d not %d)\n",
-		cc, newline);
-	return 0;
-    }
-    buf[newline] = '\0';
+
+    *bp++ = ch;
+    *bp = 0;
+
     if (!isxdigit(buf[0]) || buf[1] != ' ') {
 	fprintf(stderr, "Malformed line %s\n", buf);
 	return 0;
