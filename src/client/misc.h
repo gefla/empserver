@@ -57,6 +57,7 @@ void putso(void);
 void putse(void);
 #endif
 int recvline(int s, char *buf);
+int parseid(char *);
 int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);

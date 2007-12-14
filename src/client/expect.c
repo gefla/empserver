@@ -58,10 +58,9 @@ int
 recvline(int s, char *buf)
 {
     int sz = 1024;
-    char *bp, *end;
+    char *bp;
     char ch;
     ssize_t n;
-    long id;
 
     bp = buf;
     for (;;) {
@@ -84,10 +83,18 @@ recvline(int s, char *buf)
 
     *bp++ = ch;
     *bp = 0;
+    return parseid(buf);
+}
 
-    id = strtol(buf, &end, 16);
-    if (end == buf || *end != ' ') {
-	fprintf(stderr, "Malformed id in line %s", buf);
+int
+parseid(char *line)
+{
+    char *end;
+    long id;
+
+    id = strtol(line, &end, 16);
+    if (end == line || *end != ' ') {
+	fprintf(stderr, "Malformed id in line %s", line);
 	id = -1;
     }
     if (id > C_LAST)

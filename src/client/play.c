@@ -322,7 +322,7 @@ recv_output(int sock)
     char buf[4096];
     ssize_t n;
     int i, ch, len;
-    char *line, *end;
+    char *line;
 
     n = read(sock, buf, sizeof(buf));
     if (n < 0)
@@ -337,16 +337,11 @@ recv_output(int sock)
 		lbuf_init(&lbuf);
 		break;
 	    }
-	    if (ch != ' ') {
-		lbuf_putc(&lbuf, ch);
+	    lbuf_putc(&lbuf, ch);
+	    if (ch != ' ')
 		break;
-	    }
 	    line = lbuf_line(&lbuf);
-	    id = strtol(line, &end, 16);
-	    if (end == line || *end) {
-		/* FIXME gripe bad id */
-		id = -1;
-	    }
+	    id = parseid(line);
 	    lbuf_init(&lbuf);
 
 	    switch (id) {
