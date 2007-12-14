@@ -45,6 +45,7 @@
 #include <unistd.h>
 #endif
 #include "misc.h"
+#include "proto.h"
 
 #ifdef _WIN32
 #define read(sock, buffer, buf_size) \
@@ -57,9 +58,10 @@ int
 recvline(int s, char *buf)
 {
     int sz = 1024;
-    char *bp;
+    char *bp, *end;
     char ch;
     ssize_t n;
+    long id;
 
     bp = buf;
     for (;;) {
@@ -83,11 +85,14 @@ recvline(int s, char *buf)
     *bp++ = ch;
     *bp = 0;
 
-    if (!isxdigit(buf[0]) || buf[1] != ' ') {
-	fprintf(stderr, "Malformed line %s\n", buf);
-	return 0;
+    id = strtol(buf, &end, 16);
+    if (end == buf || *end != ' ') {
+	fprintf(stderr, "Malformed id in line %s", buf);
+	id = -1;
     }
-    return strtol(buf, NULL, 16);
+    if (id > C_LAST)
+	id = -1;
+    return id;
 }
 
 int
