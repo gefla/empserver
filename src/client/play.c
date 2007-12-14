@@ -455,6 +455,7 @@ play(int sock)
     int n;
 
     sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
     sa.sa_handler = intr;
     sigaction(SIGINT, &sa, NULL);
     sa.sa_handler = SIG_IGN;
