@@ -74,7 +74,6 @@ extern ssize_t w32_writev_socket(int fd, const struct iovec *iov,
 extern int w32_createfd(const char *fname, int oflag, ...);
 extern int w32_openhandle(const char *fname, int oflag);
 
-extern int alarm(int time);
 extern struct passwd *w32_getpw(void);
 extern char *getpass(char *prompt);
 extern void sysdep_init(void);

@@ -43,15 +43,6 @@
 #include "secure.h"
 
 /*
- * Ignore alarm for WIN32 client
- */
-int 
-alarm(int time)
-{
-    return 0;
-}
-
-/*
  * Get user name in the WIN32 environment
  */
 struct passwd *

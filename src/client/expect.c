@@ -65,7 +65,6 @@ recvline(int s, char *buf)
     int cc;
 
     size = 1024;
-    (void)alarm(30);
     ptr = buf;
     n = recv(s, ptr, size, MSG_PEEK);
     if (n <= 0) {
@@ -108,7 +107,6 @@ recvline(int s, char *buf)
 	return 0;
     }
     buf[newline] = '\0';
-    (void)alarm(0);
     if (!isxdigit(buf[0]) || buf[1] != ' ') {
 	fprintf(stderr, "Malformed line %s\n", buf);
 	return 0;
