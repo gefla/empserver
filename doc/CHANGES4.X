@@ -1,3 +1,118 @@
+Changes to Empire 4.3.11 - Sat Dec 15 06:34:23 UTC 2007
+ * The client now copes with ids greater than 15.  The Empire
+   protocol currently uses 14 ids.
+ * Rewrite the client's code to read server output during login.  The
+   old code could write one byte beyond the end of the buffer
+   (theoretically a remote hole), got confused by long lines, and
+   lines that didn't arrive in one piece.
+ * Long country name, password or user name crashed the client.
+ * Fix xdump not to deny access to game state tables when maximum
+   minutes per day are exceeded.
+ * The server considers a country bankrupt when its treasury is
+   negative.  Except when it doesn't.  Fix that:
+   - report misreported countries with $0 as broke.
+   - If a command spent a few cents more than you had, commands requiring
+     money became unavailable even when rounding brought you back to
+     $0.  But logging out and back in then bankrupted you.
+   - If your treasury rose to exactly $0, commands requiring money
+     remained unavailable.
+   - If you had $0, sectors didn't build and sectors and ships didn't
+     produce at the update.
+ * Fix a bug in trade that made your money evaporate when a trade fell
+   through because you couldn't fully pay.  This bug was there since
+   the introduction of the market in 4.0.0.  It got aggravated by the
+   removal of forced loans in 4.3.0.
+ * Fix printing of the new group in army, fleet and wing.  Broken in
+   4.3.5.
+ * Fix flash not to screw up the message when the first argument
+   contains white-space.
+ * Don't let planes intercept when they are stuck in foreign bases, on
+   inefficient ships or land units, or on land units loaded on ships
+   or land units.
+ * Fix a bug that made interception require petrol to be present even
+   for planes that don't use fuel (SAMs).  Broken in 4.3.3.  Air
+   defense missions weren't affected.
+ * fairland and setsector now limit fertility to 100 instead of 120,
+   like the other resources.
+ * Generalize the autonav hack for fishing boats so it covers oil
+   derricks as well.
+ * Fix bug in path command that made it swallow every other step.
+   Broken in 4.2.22.
+ * The execute command no longer supports redirections and execute in
+   batch files.  Flaws in the Empire protocol make it next to
+   impossible for clients to implement that correctly.  See
+   doc/clients-howto for an explanation.
+ * Rewrite much of the client's code for sending commands and
+   receiving server output:
+   - No longer blocks on sending commands. which could deadlock the
+     session.
+   - Fix race condition that could cause server output to be discarded
+     on EOF on standard input.
+   - Don't discard server output when reading standard input fails.
+   - Fix error handling for execute and other, more obscure cases.
+   - More rigorous error checking for redirections and execute.
+     Clearer error messages, too.
+   - Fix execute redirected to file or pipe.  Believed to be broken in
+     4.2.0.
+   - The client now creates files for redirections with the same
+     permissions whether the redirection is in a pipe or not.  Before,
+     redirections without a pipe created files with no permissions for
+     group and others.  This change may make your redirected output
+     visible to other users on your system.  Use the usual controls,
+     like umask, to restrict permissions to your liking.
+   - Reject unexpected redirections (violating the protocol).  Before,
+     they silently replaced the current one, and in the case of pipes
+     leaked file descriptors and memory.
+   - Redirections in batch files are not implemented.  They didn't
+     quite work before, and could leak memory and file descriptors.  A
+     flaw in the Empire protocol makes them next to impossible to
+     implement correctly.
+   - The execute command in batch files is not implemented.  A flaw in
+     the Empire protocol makes this practically useless anyway.
+   - Old code leaked memory in various places.
+   - Unfortunate incompatibility with older servers: if you type the
+     EOF character (normally ^D) at an argument prompt, the session
+     hangs.  Use the interrupt character (normally ^C) to get out.
+ * The client now supports options -h and -v.
+ * The client no longer zaps its command line in a lame attempt at
+   protecting users who foolishly specify passwords on the command
+   line.  Zapping annoys system administrators and creates a false
+   sense of security.
+ * Journal entries are now flushed to disk right away when the server
+   is running in debug mode.
+ * Fix bugs in load that could make loading operations fail noisily
+   instead of silently on some systems.
+ * Server now reliably shuts down session when it receives an
+   end-of-file condition from the client.  Before, it merely failed
+   the current command when it got it at an argument prompt.
+ * Fix bug in execute that could crash the server on some systems when
+   it prompts for the argument.
+ * Fix bug that let you check whether a non-allied carrier is
+   efficient enough for takeoff when one of your planes got stuck
+   there somehow.
+ * Fix bug that let you attempt to escort a one-way mission to a
+   carrier with non-light, non-interceptor escorts.  Such planes don't
+   fit on carriers, and the command then failed with a bogus error
+   message.  Before 4.2.17, the planes flew, and the escorts were
+   teleported home.
+ * Change the rules for fitting planes on ships slightly, so that the
+   order of loading no longer matters. Choppers and x-lights can now
+   use plane slots even when not light.  X-light choppers, which don't
+   exist in the stock game, can no longer use x-light slots.
+ * The server now keeps its log file open, just like the journal.
+ * New server option -R to set the PRNG seed.  This is for
+   reproducible tests.  Change the Windows-only service uninstall
+   options from -r/-R to -u/-U.
+ * Supply a real PRNG for Windows instead of the leaky water-pistol
+   Windows provides.
+ * Threads sleeping until a specified time could return early under
+   Windows.  This could cause missed updates.  Broken in 4.3.10.
+ * Fix missing newline in show updates.
+ * Power report didn't factor tech into power correctly.  Broken in
+   4.3.3.
+ * Code refactoring and cleanup.
+ * Info file and documentation fixes and updates.
+
 Changes to Empire 4.3.10 - Thu Sep  6 17:59:53 UTC 2007
  * Bridge spans now cost $1000 instead of $2000, and bridge towers
    $3000 instead of $7500.
