@@ -92,7 +92,7 @@ parseid(char *line)
     char *end;
     long id;
 
-    id = strtol(line, &end, 16);
+    id = strtol(line, &end, 36);
     if (end == line || *end != ' ') {
 	fprintf(stderr, "Malformed id in line %s", line);
 	id = -1;
