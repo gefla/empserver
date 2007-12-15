@@ -34,7 +34,14 @@
 #ifndef PROTO_H
 #define PROTO_H
 
-#define CLIENTPROTO	2	/* if new things are added, bump this */
+/*
+ * Protocol version.
+ * Bump this if the protocol changes in a way that is not backwards
+ * compatible.  This breaks all existing clients.  If you are tempted
+ * to do that, please consider using session options to make your
+ * change backwards compatible.
+ */
+#define CLIENTPROTO	2
 
 #define	C_CMDOK		0x0
 #define	C_DATA		0x1
