@@ -12,14 +12,17 @@ ASCII.
 
 Client-server communication is line-oriented.
 
-The server sends lines of output.  Each output line starts with a
-character identifying the line, followed by a space, then arbitrary
-text, then a line feed.
+The server sends lines of output.  Each output line starts with an
+identification string, followed by a space, then arbitrary text, then
+a line feed.
 
-Identification characters encode small integers called output ids.
-Ids less than 10 are encoded as decimal digits, and larger ids as
-lower case letters, starting with 'a'.  Symbolic names for ids are
+Identification strings encode small integers called output ids as base
+36 numbers.  Characters '0' to '9' represent digits 0 to 9, and 'a' to
+'z' represent 10..35, as do 'A' to 'Z'.  Symbolic names for ids are
 defined in proto.h.
+
+emp_client versions before version 4.3.11 parse large output ids
+incorrectly.  Such ids do not currently occur.
 
 Clients shall be able to safely handle output lines of arbitrary
 length.  Naturally, a client may not be able to handle a sufficiently
@@ -45,10 +48,11 @@ clients.  Likewise, overlong or malformed UTF-8 sequences should not
 occur and may be ignored.
 
 The server prompts for input.  Each prompt `consumes' one line of
-input.  Input lines are arbitrary text, terminated by line feed, which
-is optionally preceded by carriage return (decimal 13).  Lines should
-not contain ASCII control characters other than horizontal tab.
-Clients should not send overlong or malformed UTF-8 sequences.
+input (except for C_EXECUTE, which see).  Input lines are arbitrary
+text, terminated by line feed, which is optionally preceded by
+carriage return (decimal 13).  Lines should not contain ASCII control
+characters other than horizontal tab.  Clients should not send
+overlong or malformed UTF-8 sequences.
 
 A client is called synchronous if it waits for a prompt before it
 sends another line of input.  Else it is called asynchronous.
@@ -61,7 +65,7 @@ session.
 
 An Empire session consists of two phases: login and playing.
 emp_client is synchronous during the former and asynchronous during
-the latter.  It can currently deadlock as described above.
+the latter.  Versions before 4.3.11 could deadlock as described above.
 
 Login phase
 -----------
@@ -108,7 +112,9 @@ Login commands are:
   may or may not process valid parts of rejected requests.
 
   If there are no arguments, the server lists its options.  For each
-  option, it sends a C_DATA line with OPTION=VALUE as text.
+  option, it sends a C_DATA line with OPTION=VALUE as text, and
+  finally a C_CMDOK.  If it supports no options at all, it may reply
+  with C_BADCMD instead.
 
   See below for supported session options.
 
@@ -116,16 +122,15 @@ Login commands are:
 
   Authenticate.  Country name must be set already.
 
-* play [USER [COUNTRY [PASSWORD]]]
+* play [USER COUNTRY PASSWORD]
 
   Start playing.
 
-  Optional argument USER sets the user name.
+  If no arguments are given, the country must be authenticated
+  already.
 
-  Optional argument COUNTRY sets the country name.
-
-  Optional argument PASSWORD authenticates.  If it isn't present, the
-  country must be authenticated already.
+  Else, argument USER sets the user name, COUNTRY sets the country
+  name, and PASSWORD authenticates.
 
   Some error conditions result in a C_EXIT reply.  Clients should
   treat it just like C_CMDERR.
@@ -187,7 +192,8 @@ The following ids occur:
 * Sub-prompt C_FLUSH
 
   The server consumes a line of input and passes it to the currently
-  executing command.  Commands usually fail on EOF or interrupt.
+  executing command.  Commands usually fail on interrupt.  The server
+  terminates the session on EOF (but see C_EXECUTE for an exception).
 
   Text is a human-readable prompt supplied by the command.
 
@@ -201,29 +207,44 @@ The following ids occur:
 
 * Control C_EXECUTE
 
-  Request execution of a script.  The text is a copy of the execute
-  command's first argument.  Its syntax and semantics is left to the
-  client.
+  Request execution of a batch file.  The text is whatever was on the
+  line of input after the execute command.  Its syntax and semantics
+  are left to the client.
 
-  emp_client interprets the text as file name, and sends the contents
-  of that file.
+  emp_client interprets the first word (sequence of non-space
+  characters) in the text as file name, and sends the contents of that
+  file.
 
   The security considerations on C_PIPE (below) apply to C_EXECUTE as
   well.
 
-  The client shall mark the end of the script by signalling EOF as
-  described above.  It may signal interrupt if it is unable or
-  unwilling to send the complete script.
+  Note that servers before 4.3.11 sent a copy of the execute command's
+  first argument as text.  This made it hard for clients to ensure
+  that the text is identical to what was sent, because the server
+  strips funny characters and interprets and strips '"' characters
+  when splitting input lines into command and arguments.
 
-  While executing the script, the server sends no C_PROMPT command
+  emp_client gets confused when old servers mangle the text that way.
+
+  The client shall mark the end of the batch file by signalling EOF as
+  described above.  This does not terminate the session.  It may
+  signal interrupt if it is unable or unwilling to send the complete
+  batch file.
+
+  While executing the batch file, the server sends no C_PROMPT command
   prompts.  It still sends C_FLUSH sub-prompts.
 
-  Certain bad failures make the server ignore the rest of the script
-  file.  This feature is too hard to predict to be really useful.
+  Protocol flaw: not sending C_PROMPT here screws up redirections:
+  they apply until the next C_PROMPT, i.e. from start of redirected
+  command until end of containing batch file.
 
-  Strictly asynchronous clients cannot support C_EXECUTE correctly.
-  By the time C_EXECUTE arrives, the client may have sent more input
-  already.  That input `overtakes' the script in the input stream.
+  Certain bad failures make the server ignore the rest of the batch
+  file file.  This feature is too hard to predict to be really useful.
+
+  Protocol flaw: strictly asynchronous clients cannot support
+  C_EXECUTE correctly.  By the time C_EXECUTE arrives, the client may
+  have sent more input already.  That input `overtakes' the contents
+  of the batch file in the input stream.
 
   emp_client has this problem.
 
@@ -232,8 +253,8 @@ The following ids occur:
 
 * Control C_EXIT
 
-  End of session.  The server will close the connection.  Text is a
-  human-readable farewell.
+  End of session.  The server is about to close the connection.  Text
+  is a human-readable farewell.
 
   emp_client prints this text prepended with "Exit: ".
 
@@ -270,13 +291,16 @@ The following ids occur:
 
 * Control C_PIPE
 
-  When a command is redirected to a pipeline, its output is prededed
+  When a command is redirected to a pipeline, its output is preceded
   by a C_PIPE line.  The text is a copy of the redirection, starting
   with '|'.  Syntax and semantics of the text after the '|' are left
   to the client.
 
   emp_client executes text after '|' as shell command, with standard
   input connected to the Empire command's output.
+
+  The redirection applies to a single command, i.e. until the next
+  C_PROMPT.
 
   For obvious security reasons, clients supporting pipes shall ensure
   that the text is identical to whatever was sent to the server.  Note
@@ -288,7 +312,7 @@ The following ids occur:
 
 * Control C_REDIR
 
-  When a command is redirected to a file, its output is prededed by a
+  When a command is redirected to a file, its output is preceded by a
   C_REDIR line.  The text is a copy of the redirection, starting with
   '>', optionally followed by '>' or '!'.  Syntax and semantics of the
   remaining text are left to the client.
@@ -301,6 +325,9 @@ The following ids occur:
   existing file, with '>>' it appends to the file, and with just '>'
   it refuses to overwrite an existing file.
 
+  The redirection applies to a single command, i.e. until the next
+  C_PROMPT.
+
   The security considerations on C_PIPE apply to C_REDIR as well.
 
 * Other ids
@@ -308,9 +335,9 @@ The following ids occur:
   Other ids do not occur currently.  Clients shall deal gracefully
   with ids they don't know.
 
-  emp_client treats unknown ids like C_DATA.  For historical reasons,
-  it prepends "Aborted\n" to C_ABORT lines, and "Error; " to C_CMDERR
-  and C_BADCMD lines.
+  emp_client treats unknown ids like C_DATA.  Versions before 4.3.11
+  prepend "Aborted\n" to C_ABORT lines, and "Error; " to C_CMDERR and
+  C_BADCMD lines for historical reasons.
 
 
 Session Options
