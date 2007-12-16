@@ -158,7 +158,7 @@ stdin_read_thread(LPVOID lpParam)
  * Initialize and start the stdin reading thread for WIN32
  */
 static void
-sysdep_stdin_init()
+sysdep_stdin_init(void)
 {
     bounce_empty = CreateEvent(NULL, FALSE, TRUE, "bounce_empty");
     bounce_full = CreateEvent(NULL, TRUE, FALSE, "bounce_full");
@@ -283,6 +283,7 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
 	w32_recv((sock), (buffer), (buf_size), 0)
 #define select(nfds, rd, wr, error, time) \
 	w32_select((nfds), (rd), (wr), (error), (time))
+#define sigemptyset(mask) ((void)0)
 #else
 #define sysdep_stdin_init() ((void)0)
 #endif
