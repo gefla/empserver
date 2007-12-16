@@ -71,7 +71,7 @@ extern ssize_t w32_readv_handle(int fd, const struct iovec *iov,
 				int iovcnt);
 extern ssize_t w32_writev_socket(int fd, const struct iovec *iov,
 				 int iovcnt);
-extern int w32_createfd(const char *fname, int oflag, ...);
+extern int w32_openfd(const char *fname, int oflag, ...);
 extern int w32_openhandle(const char *fname, int oflag);
 
 extern struct passwd *w32_getpw(void);
