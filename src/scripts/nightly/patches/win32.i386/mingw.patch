@@ -1,10 +1,10 @@
-Index: src/lib/global/path.c.in
+Index: empserver/src/lib/global/path.c.in
 ===================================================================
 RCS file: /cvsroot/empserver/empserver/src/lib/global/path.c.in,v
 retrieving revision 1.19
 diff -u -p -r1.19 path.c.in
---- src/lib/global/path.c.in	3 Aug 2007 04:44:54 -0000	1.19
-+++ src/lib/global/path.c.in	16 Dec 2007 15:36:56 -0000
+--- empserver/src/lib/global/path.c.in	3 Aug 2007 04:44:54 -0000	1.19
++++ empserver/src/lib/global/path.c.in	16 Dec 2007 20:11:51 -0000
 @@ -38,7 +38,7 @@
  #include "optlist.h"
  
