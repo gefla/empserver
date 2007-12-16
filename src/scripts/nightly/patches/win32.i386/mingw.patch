@@ -1,0 +1,35 @@
+Index: src/lib/global/path.c.in
+===================================================================
+RCS file: /cvsroot/empserver/empserver/src/lib/global/path.c.in,v
+retrieving revision 1.19
+diff -u -p -r1.19 path.c.in
+--- src/lib/global/path.c.in	3 Aug 2007 04:44:54 -0000	1.19
++++ src/lib/global/path.c.in	16 Dec 2007 15:36:56 -0000
+@@ -38,7 +38,7 @@
+ #include "optlist.h"
+ 
+ /* econfig file to try when user doesn't specify one */
+-char dflt_econfig[] = "@econfig@";
++char dflt_econfig[] = "c:/MinGW@econfig@";
+ 
+ /*
+  * Where to find configuration (absolute file name)
+@@ -53,15 +53,15 @@ char *custom_tables = "";
+ char *schedulefil;
+ 
+ /* Where to find built-in configuration tables (relative to configdir) */
+-char *builtindir = "@builtindir@";
++char *builtindir = "c:/MinGW@builtindir@";
+ 
+ /* Where to find info pages (relative to gamedir) */
+ /* TODO UI wart, make it relative to configdir */
+-char *infodir	= "@einfodir@";
++char *infodir	= "c:/MinGW@einfodir@";
+ 
+ /* Where this game's data is stored (relative to configdir) */
+ /* FIXME relative broken in utility programs */
+-char *gamedir	= "@gamedir@";
++char *gamedir	= "c:/MinGW@gamedir@";
+ 
+ /* These are relative to gamedir: */
+ char teldir[]	= "tel";
