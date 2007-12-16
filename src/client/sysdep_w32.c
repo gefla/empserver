@@ -94,14 +94,14 @@ sysdep_init(void)
 int
 w32_socket(int family, int sock_type, int protocol)
 {
-    int result;
+    unsigned int result;
     
     result = socket(family, sock_type, protocol);
     if (result == INVALID_SOCKET) {
 	errno = WSAGetLastError();
 	return -1;
     }
-    return result;
+    return (int)result;
 }
 
 /*
