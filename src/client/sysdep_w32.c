@@ -94,7 +94,7 @@ sysdep_init(void)
 int
 w32_socket(int family, int sock_type, int protocol)
 {
-    unsigned int result;
+    SOCKET result;
     
     result = socket(family, sock_type, protocol);
     if (result == INVALID_SOCKET) {
