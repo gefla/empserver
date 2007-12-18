@@ -54,7 +54,7 @@ VPATH = @srcdir@
 
 prog = empire$E
 obj = expect.$O host.$O ipglob.$O linebuf.$O login.$O main.$O play.$O	\
-ringbuf.$O secure.$O servcmd.$O termlib.$O version.$O
+ringbuf.$O secure.$O servcmd.$O sysdep_w32.$O termlib.$O version.$O
 
 all: $(prog)
 
