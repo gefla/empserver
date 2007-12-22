@@ -261,8 +261,11 @@ info.html/%.html: info/%.t
 $(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-$(client): $(filter src/client/%, $(obj)) src/lib/global/version.o src/lib/w32/getopt.o
+$(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+ifeq ($(empthread),Windows)
+$(client): src/lib/w32/getopt.o
+endif
 
 $(util): $(libs)
 
