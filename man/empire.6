@@ -41,7 +41,7 @@ This requires server version 4.2.21 or later, and a terminal that
 understands UTF-8.
 .TP
 .BI \-2 " outfile"
-Copy output to \fIoutfile\fR.
+Append log of session to \fIoutfile\fR.
 .SH OPERANDS
 .TP
 .I country
@@ -49,6 +49,8 @@ The name of your country in the game.
 .TP
 .I password
 The password for your country in the game.
+\fIWarning:\fR the password passed here is visible to other users on
+the same machine!
 .SH ENVIRONMENT VARIABLES
 The following environment variables affect the execution of the
 client:
