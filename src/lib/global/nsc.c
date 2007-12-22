@@ -105,6 +105,7 @@ struct castr pchr_ca[] = {
 struct castr sect_ca[] = {
     /* uid is encoded in x, y */
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_NATION},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_elev), "elev", EF_BAD},
     {NSC_XCOORD, NSC_CONST, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
     {NSC_YCOORD, NSC_CONST, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_type), "des", EF_SECTOR_CHR},
