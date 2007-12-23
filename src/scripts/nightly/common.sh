@@ -30,6 +30,6 @@ runfeed() {
 	{
 		cat
 		echo "quit"
-	} | ./emp_client "$1" "$REP" || { warn "emp_client not ok ?" ; return 1 ; }
+	} | ../bin/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
 	return 0
 }

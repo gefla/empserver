@@ -266,8 +266,7 @@ do
 		*GENERATE*) ;;
 		*)
 
-	ln -s ../bin/empire emp_client
-	echo "Running newcap_script through emp_client"
+	echo "Running newcap_script through empire"
 	runfeed POGO peter < newcap_script >/dev/null 2>&1 ||
 		{
 			warn "Could not run newcap_script"
@@ -275,7 +274,7 @@ do
 			trykill $PID
 			break
 		}
-	echo "Done (newcap_script / emp_client)."
+	echo "Done (newcap_script / empire)."
 	echo ""
 	
 	echo "TODO: Replace this with a real test script."
