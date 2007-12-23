@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /home/empire
+./nightlybuild.sh win32.i386.config </dev/null
+./report.sh win32.i386.config | /c/download/blat250/full/blat.exe -to empserver-devel@lists.sourceforge.net -subject "empserver win32.i386" -p ron
+:end
