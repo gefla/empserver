@@ -29,7 +29,6 @@ runfeed() {
 	[ -n "$REP" ] || REP="$1"
 	{
 		cat
-		echo "quit"
 	} | ../bin/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
 	return 0
 }
