@@ -18,7 +18,6 @@ in case you need to move it by hand.  Should a ship be fired upon
 by forts or strike a mine they will stop moving!  This will prevent
 your ship from foolishly getting sunk in enemy waters.  The
 \*Qorder\*U command covers many special cases.
-
 .s1
 The autonavigation capability is dependent upon the per country map database
 accessed via the \*Qbmap\*U command.  If you order a vessel to a destination
@@ -35,10 +34,11 @@ In reality, this is a limit to this process.  In order to limit the processing
 that is done to find a path to the destination, the internal path string is
 limited to 28 characters.
 .s1
-The other capability of the autonav function is autotrading.  By specifying
-two destinations and two commodities, the ship will move back and forth between
-the two destination loading and unloading the appropriate commodities.
-Specific examples can be found in the \*Qorder\*U info file.
+Autonavigation also supports autotrading.
+By specifying two destinations and two commodities,
+the ship will move back and forth between the two destination loading and
+unloading the appropriate commodities.
+Specific examples can be found in info \*Qorder\*U.
 .s1
 Autonavigation also supports automatic resource production at sea.
 See info \*QAutofish\*U for details.
@@ -46,6 +46,6 @@ See info \*QAutofish\*U for details.
 The same rules for navigating, loading, and unloading apply for
 Autonavigation as they do when you do these things by hand, namely
 that you may only use harbours owned by nations which consider you to
-be a friendly trading partner (see info relations).
+be a friendly trading partner (see info \*Qrelations\*U).
 .s1
 .SA "navigate, order, Ships, Updates, Autofish"
