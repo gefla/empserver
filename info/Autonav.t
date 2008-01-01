@@ -40,9 +40,12 @@ two destinations and two commodities, the ship will move back and forth between
 the two destination loading and unloading the appropriate commodities.
 Specific examples can be found in the \*Qorder\*U info file.
 .s1
+Autonavigation also supports automatic resource production at sea.
+See info \*QAutofish\*U for details.
+.s1
 The same rules for navigating, loading, and unloading apply for
 Autonavigation as they do when you do these things by hand, namely
 that you may only use harbours owned by nations which consider you to
 be a friendly trading partner (see info relations).
 .s1
-.SA "navigate, order, Ships, Updates"
+.SA "navigate, order, Ships, Updates, Autofish"

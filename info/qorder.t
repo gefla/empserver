@@ -24,4 +24,4 @@ light construction materials.  Then sail to the ending sector, again
 displayed in the sorder command, unload the cargo and load cargo hold 
 1 with 50 guns.
 .s1 
-.SA "order, sorder, bmap, navigate, ship, Ships, Autonav, Autofeed"
+.SA "order, sorder, bmap, navigate, ship, Ships, Autonav, Autofish"

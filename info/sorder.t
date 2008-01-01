@@ -32,4 +32,4 @@ Destroyer 1 is at sector -10,0 and only has orders to sail to sector
 When it arrives order will be cleared since only one destination
 order was given to it.
 .s1 
-.SA "order, qorder, bmap, navigate, ship, Ships, Autonav, Autofeed"
+.SA "order, qorder, bmap, navigate, ship, Ships, Autonav, Autofish"

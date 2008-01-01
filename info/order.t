@@ -161,7 +161,8 @@ is all done before mobility is gained from the update.
 After an update has completed
 your ship will have mobility so it can be moved by hand if needed. 
 .s1
-For information on setting up ships to feed your country see
-\&'info autofeed' for details.
+Ships with capability fish or oil can be setup to \*Qload\*U
+from the sea sector.
+See info \*QAutofish\*U for details.
 .s1
-.SA "sorder, qorder, bmap, navigate, ship, Autofeed, Autonav, Ships"
+.SA "sorder, qorder, bmap, navigate, ship, Autofish, Autonav, Ships"
