@@ -1,4 +1,7 @@
-Changes to Empire 4.3.11 - Sat Dec 15 06:34:23 UTC 2007
+Changes to Empire 4.3.11 - Tue Jan  1 18:57:38 UTC 2008
+ * New sector selector elev.  It's set by fairland, but has no effect
+   on the game.  It can be useful for deities to customize a world
+   created by fairland.
  * The client now copes with ids greater than 15.  The Empire
    protocol currently uses 14 ids.
  * Rewrite the client's code to read server output during login.  The
