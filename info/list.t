@@ -2,7 +2,6 @@
 .NA list "List commands which are currently legal"
 .LV Expert
 .SY list
-.SY "list of commands"
 The list command gets you a list of currently legal commands
 with their associated BTU costs,
 (see \*Qinfo time\*U for description of BTU's).
