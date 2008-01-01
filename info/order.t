@@ -24,7 +24,7 @@ points and clear all the cargo levels for the ship.
 .s1
      If you want to keep orders but don't want the ship
 to move during the update use the suspend option. 
-A quick look at 'sorder' 
+A quick look at \*Qsorder\*U
 will display the eta time as suspended.
 As long as a ship is suspended it will be unable to move
 during the update.  
