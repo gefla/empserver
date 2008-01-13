@@ -33,6 +33,7 @@
 #     Markus Armbruster, 2006
 #
 
+# Usage: findsubj.pl INFO-FILE...
 # Run it at the root of the build tree.  This updates the make include
 # file subjects.mk, which guides the remaking of info index files.
 #
@@ -68,12 +69,10 @@ our ($filename, %subjfil);
 our @Subjects = split(' ', read_make_var("subjects", "subjects.mk", ""));
 # Get source directory
 my $srcdir = read_make_var("srcdir", "GNUmakefile");
-# Get info sources
-my @tsrc = grep(/\.t$/, split(' ' , read_make_var("src", "sources.mk")));
 
 # Parse the .t files
-for my $t (@tsrc) {
-    parse_file("$srcdir/$t");
+for my $f (@ARGV) {
+    parse_file("$f");
 }
 
 # Create %subjfil from %see_also

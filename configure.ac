@@ -58,8 +58,10 @@ AC_ARG_VAR(NROFF, [nroff command])
 AC_CHECK_PROG(NROFF, groff, [GROFF_NO_SGR= groff -Tascii -U], nroff)
 
 # not really a check for a program, but close enough
-if test -d $srcdir/CVS; then cvs_controlled=yes; else cvs_controlled=no; fi
-AC_SUBST(cvs_controlled,$cvs_controlled)
+if test -d $srcdir/.git; then revctrl=git
+else revctrl=
+fi
+AC_SUBST(revctrl,$revctrl)
 
 
 ### Checks for libraries
@@ -142,14 +144,16 @@ esac
 
 AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_COMMANDS([stamp-h],
-	[if test $cvs_controlled = yes; then
-	    mkdir -p `cd $srcdir && $AWK -f src/scripts/cvsfiles.awk \
-		| sed -n '/\//s,/@<:@^/@:>@*$,,gp'| uniq`
-	else
+	[case $revctrl in
+	git)
+	    mkdir -p `cd $srcdir && git-ls-files \
+		| sed -n 's,/@<:@^/@:>@*$,,gp' | uniq`
+	    ;;
+	*)
 	    mkdir -p `sed s/.*=// <$srcdir/sources.mk | tr ' ' '\012' \
 		| sed -n '/\//s,/@<:@^/@:>@*$,,gp'| uniq`
-	fi
+	esac
 	mkdir -p info.html info.nr lib
 	touch stamp-h],
-	[cvs_controlled=$cvs_controlled; AWK=$AWK])
+	[revctrl=$revctrl])
 AC_OUTPUT

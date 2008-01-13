@@ -25,7 +25,7 @@
 # 
 #   ---
 # 
-#   Make.mk: 
+#   Make.mk: The real Makefile, included by GNUmakefile
 #  
 #   Known contributors to this file:
 #      Markus Armbruster, 2005-2007
@@ -46,14 +46,18 @@ all:
 .DELETE_ON_ERROR:
 
 # Source files
--include sources.mk
+ifeq ($(revctrl),git)
+src := $(shell cd $(srcdir) && git-ls-files)
+else
+include $(srcdir)/sources.mk
+endif
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
 tsrc := $(filter %.t, $(src))
 man6 := $(filter man/%.6, $(src))
 builtins := $(filter src/lib/global/%.config, $(src))
 
-# Info topics and subjects
+# Info subjects (automatically generated)
 -include subjects.mk
 
 # Abbreviations
@@ -281,12 +285,11 @@ $(libs) $(empth_lib):
 
 # Info formatting
 
-subjects.mk: $(tsrc) info/findsubj.pl sources.mk
-	perl $(srcdir)/info/findsubj.pl
-# If sources.mk is out of date, $(tsrc) is.  If it contains files that
-# went away, make can't remake subjects.mk.  Tell it to ignore such
-# missing files:
-$(tsrc):
+# FIXME Remaking subjects doesn't work correctly when info sources get
+# removed or subjects get dropped.
+
+subjects.mk: info/findsubj.pl $(tsrc)
+	perl $(srcdir)/info/findsubj.pl $(filter %.t, $^)
 
 $(tsubj): info/mksubj.pl
 	perl $(srcdir)/info/mksubj.pl $@ $(filter %.t, $^)
@@ -311,10 +314,13 @@ info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
 
 # List of source files
 
-ifeq ($(cvs_controlled),yes)
-# Find files and directories under CVS control
-sources.mk: $(scripts)/cvsfiles.awk $(addprefix $(srcdir)/, $(addsuffix CVS/Entries, $(dirs)))
-	echo 'src := ' `cd $(srcdir) && $(AWK) -f src/scripts/cvsfiles.awk | LC_ALL=C sort` >$@
+# Note: $(srcdir)/sources.mk is only used when the source tree came
+# from a tarball rather than git.  The following rules create a
+# sources.mk to put into the tarball.  It is not used in this build.
+
+ifeq ($(revctrl),git)
+sources.mk:
+	echo "src := $(src)" >sources.mk
 else
 ifneq ($(srcdir),.)
 sources.mk: $(srcdir)/sources.mk

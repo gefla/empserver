@@ -83,7 +83,7 @@ sysconfdir := @sysconfdir@
 srcdir := @srcdir@
 VPATH := @srcdir@
 
-cvs_controlled := @cvs_controlled@
+revctrl := @revctrl@
 
 EMPIREHOST := @EMPIREHOST@
 EMPIREPORT := @EMPIREPORT@
