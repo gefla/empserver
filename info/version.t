@@ -95,7 +95,7 @@ The person to annoy if something goes wrong is:
 
 You can get your own copy of the source from http://www.wolfpackempire.com/
 
-Copyright (C) 1986-2007, Dave Pare, Jeff Bailey, Thomas Ruschak,
+Copyright (C) 1986-2008, Dave Pare, Jeff Bailey, Thomas Ruschak,
                          Ken Stevens, Steve McClure
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
