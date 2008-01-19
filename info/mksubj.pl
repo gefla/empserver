@@ -93,8 +93,6 @@ EOF
 close SUBJ;
 
 
-# Check .TH, .NA, .LV and .SA.
-# Parse .NA into %desc and .SA into %see_also
 sub parse_file {
     ($filename) = @_;
     my ($topic, $chap, $lvl, $desc);
