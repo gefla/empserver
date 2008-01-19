@@ -163,6 +163,15 @@ The number of extra-light planes the land unit can carry.
 The number of land units the unit can carry (no 'heavy' units)
 .in
 .s1
+If option LIMBER is enabled, guns need to be \*Qlimbered\*U to march
+and \*Qunlimbered\*U to fire or fortify.  Limbering and unlimbering is
+completely automatic.  Limbering is free, but unlimbering can cost
+mobility, depending on the type of artillery unit: heavy railway
+artillery and any artillery with a speed below 22 pay unlimber
+mobility equivalent to a march with path cost 0.2, plus 1.  This gains
+one point of fortification.  Presence of engineer units in the same
+sector cut the cost by a third.
+.s1
 Each land unit can carry a certain amount of products and has certain
 capabilities. These are listed under the cargoes & abilities section.
 The cargoes give the number of each product that can be carried.
@@ -196,6 +205,7 @@ the unit can fire 'general unit flak' (see "info Flak")
 the unit is a spy
 .L train
 the unit is a train, and can't be loaded on land units
+(see "info Railroad")
 .L heavy
 the unit cannot be carried on land units or ships, not even supply ships
 .in
@@ -238,4 +248,3 @@ marines 1                  5f 10s xlight light marine
 .FI
 .s1
 .SA "land, LandUnits"
-

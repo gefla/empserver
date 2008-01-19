@@ -157,7 +157,8 @@ upd_ship(struct shpstr *sp, int etus,
 
 	    /* produce oil */
 	    if (np->nat_money >= 0
-		&& (mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
+		&& (mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER
+		&& sp->shp_mobil >= ship_mob_max) {
 		product = &pchr[dchr[SCT_OIL].d_prd];
 		oil_gained = roundavg(total_work(100, etus,
 						 sp->shp_item[I_CIVIL],

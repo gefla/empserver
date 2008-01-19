@@ -161,6 +161,8 @@ EMPCF_OPT("INTERDICT_ATT", opt_INTERDICT_ATT,
     "Interdict post-attack move in")
 EMPCF_OPT("LANDSPIES", opt_LANDSPIES,
     "Enable the land unit type spies")
+EMPCF_OPT("LIMBER", opt_LIMBER,
+    "Artillery requires mobility to start firing")
 EMPCF_OPT("LOANS", opt_LOANS,
     "Allow bailing out of other countries via S&L scandals")
 EMPCF_OPT("LOSE_CONTACT", opt_LOSE_CONTACT,
@@ -179,6 +181,8 @@ EMPCF_OPT("NO_PLAGUE", opt_NO_PLAGUE,
     "Disable plague")
 EMPCF_OPT("PINPOINTMISSILE", opt_PINPOINTMISSILE,
     "Enable marine missiles")
+EMPCF_OPT("RAILWAYS", opt_RAILWAYS,
+    "Highways double as rail")
 EMPCF_OPT("RES_POP", opt_RES_POP,
     "Population is limited by research")
 EMPCF_OPT("SAIL", opt_SAIL,

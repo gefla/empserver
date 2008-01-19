@@ -330,6 +330,12 @@ multifire(void)
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
+	    if (lchr[(int)fland.lnd_type].l_flags & L_HEAVY
+		&& target != targ_land) {
+		pr("%s is too ponderous to target ships!\n",
+		   prland(&fland));
+		continue;
+	    }
 	    if (fland.lnd_item[I_GUN] == 0) {
 		pr("%s -- not enough guns\n", prland(&fland));
 		continue;
@@ -349,6 +355,8 @@ multifire(void)
 		pr("Klick!     ...\n");
 		continue;
 	    }
+
+	    lnd_unlimber(&fland);
 	    if (target == targ_ship) {
 		if (chance(lnd_acc(&fland) / 100.0))
 		    dam = ldround(dam / 2.0, 1);
@@ -687,6 +695,9 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	/* Don't shoot yourself */
 	if (land.lnd_own == aown)
 	    continue;
+	/* Too ponderous for counter-battery fire */
+	if (lchr[(int)land.lnd_type].l_flags & L_HEAVY)
+	    continue;
 
 	rel = getrel(getnatp(land.lnd_own), own);
 	rel2 = getrel(getnatp(land.lnd_own), aown);
@@ -708,6 +719,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	if (dam2 < 0)
 	    continue;
 
+	lnd_unlimber(&land);
 	(*nfiring)++;
 	if (!fp)
 	    add_to_flist(list, (struct empobj *)&land, dam2, 0);

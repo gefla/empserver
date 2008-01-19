@@ -226,11 +226,16 @@ mission(void)
 		continue;
 	    }
 
-	if ((mission == MI_INTERDICT) && (type == EF_LAND))
+	if ((mission == MI_INTERDICT) && (type == EF_LAND)) {
 	    if (lchr[(int)gp->type].l_dam == 0) {
 		pr("%s: cannot fire at range!\n", obj_nameof(gp));
 		continue;
 	    }
+	    if (lchr[(int)gp->type].l_flags & L_HEAVY) {
+		pr("%s: too ponderous to interdict!\n", obj_nameof(gp));
+		continue;
+	    }
+	}
 
 	if ((mission == MI_INTERDICT) && (type == EF_PLANE)) {
 	    struct plchrstr *pcp;

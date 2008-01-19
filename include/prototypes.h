@@ -627,6 +627,7 @@ extern void sathead(void);
 extern int sct_postread(int, void *);
 extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
+extern void set_railway(struct sctstr *);
 extern int issector(char *);
 /* sectdamage.c */
 extern int sect_damage(struct sctstr *, int);
@@ -710,6 +711,7 @@ extern int wu(natid, natid, char *, ...) ATTRIBUTE((format (printf, 3, 4)));
  * src/lib/update/ *.c 
  */
 /* age.c */
+extern int age_people(int, int);
 extern void age_levels(int);
 /* anno.c */
 extern void delete_old_announcements(void);

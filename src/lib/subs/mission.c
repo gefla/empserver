@@ -436,6 +436,10 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		(md > land_max_interdiction_range))
 		continue;
 
+	    /* Too ponderous for interdiction fire */
+	    if (lchr[(int)lp->lnd_type].l_flags & L_HEAVY)
+		continue;
+
 	    range = roundrange(lnd_fire_range(lp));
 	    if (md > range)
 		continue;
@@ -445,6 +449,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if (dam2 < 0)
 		continue;
 
+	    lnd_unlimber(lp);
 	    if (sect.sct_type == SCT_WATER) {
 		if (chance(lnd_acc(lp) / 100.0))
 		    dam2 = ldround(dam2 / 2.0, 1);

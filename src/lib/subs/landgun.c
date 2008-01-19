@@ -287,7 +287,11 @@ shp_torp_hitchance(struct shpstr *sp, int range)
 double
 lnd_fire_range(struct lndstr *lp)
 {
-    return effrange(lnd_frg(lp), lp->lnd_tech);
+    struct sctstr sect;
+
+    getsect(lp->lnd_x, lp->lnd_y, &sect);
+    return effrange(lnd_frg(lp), lp->lnd_tech)
+	+ (sect.sct_type == SCT_MOUNT ? 0.5 : 0.0);
 }
 
 int

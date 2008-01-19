@@ -153,6 +153,7 @@ struct castr sect_ca[] = {
     {"uran", fldoff(sct_uran), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"oldown", fldoff(sct_oldown), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"off", fldoff(sct_off), NSC_UCHAR, 0, NULL, EF_BAD, 0},
+    {"track", fldoff(sct_track), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     NSC_IVEC(fldoff(sct_item), ""),
     NSC_IVEC(fldoff(sct_dist), "_dist"),
     NSC_IVEC(fldoff(sct_del), "_del"),

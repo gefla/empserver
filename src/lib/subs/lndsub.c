@@ -991,7 +991,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		continue;
 	    }
 	}
-	if ((!intrchr[INT_RAIL].in_enable || sect.sct_rail == 0)
+	if (!SCT_HAS_RAIL(&sect)
 	    && lnd_mobtype(&llp->unit.land) == MOB_RAIL) {
 	    if (together) {
 		pr("no rail system in %s\n", xyas(newx, newy, actor));
@@ -1126,6 +1126,9 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     while (nxtitem(&ni, &land)) {
 	if ((land.lnd_x == x) && (land.lnd_y == y))
 	    continue;
+	/* Too ponderous for defensive support */
+	if (defending && (lchr[(int)land.lnd_type].l_flags & L_HEAVY))
+	    continue;
 	rel = getrel(getnatp(land.lnd_own), attacker);
 	rel2 = getrel(getnatp(land.lnd_own), victim);
 	if ((land.lnd_own != attacker) &&
@@ -1144,6 +1147,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	if (dam2 < 0)
 	    continue;
 
+	lnd_unlimber(&land);
 	if (defending)
 	    nreport(land.lnd_own, N_FIRE_BACK, victim, 1);
 	else
@@ -1171,30 +1175,80 @@ lnd_can_attack(struct lndstr *lp)
 }
 
 /*
+ * Return mobility required to unlimber LP.
+ */
+static double
+lnd_mob_to_unlimber(struct lndstr *lp)
+{
+    struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
+
+    if (!opt_LIMBER || lcp->l_dam == 0 || lp->lnd_harden != 0)
+	return 0;
+
+    if (lnd_spd(lp) < 22
+	|| (lcp->l_flags & (L_HEAVY | L_TRAIN)) == (L_HEAVY | L_TRAIN)) {
+	/*
+	 * Slow artillery is towed and needs to be unlimbered.
+	 * Heavy railway guns need to be assembled.
+	 */
+	return lnd_pathcost(lp, 0.2);
+    }
+
+    return 0;
+}
+
+/*
+ * Unlimber land unit LP.
+ * No effect unless LP is limbered artillery.
+ */
+void
+lnd_unlimber(struct lndstr *lp)
+{
+    double unlimber_mob, mult, newmob;
+
+    unlimber_mob = lnd_mob_to_unlimber(lp);
+    if (unlimber_mob == 0)
+	return;
+
+    mult = has_helpful_engineer(lp->lnd_x, lp->lnd_y, lp->lnd_own)
+	? 1.5 : 1.0;
+    newmob = lp->lnd_mobil - (1 + unlimber_mob) / mult;
+    lp->lnd_mobil = (signed char)MAX(-127, floor(newmob));
+    CANT_HAPPEN(lp->lnd_harden != 0);
+    lp->lnd_harden = 1;
+}
+
+/*
  * Increase fortification value of LP.
  * Fortification costs mobility.  Use up to MOB mobility.
+ * Automatically unlimbers.
  * Return actual fortification increase.
  */
 int
 lnd_fortify(struct lndstr *lp, int mob)
 {
     int hard_amt;
-    double mob_used, mult;
+    double mob_used, unlimber_mob, mult;
 
     if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
 	return 0;
 
     mob_used = MIN(lp->lnd_mobil, mob);
-    if (mob_used < 0)
-	return 0;
-
     mult = has_helpful_engineer(lp->lnd_x, lp->lnd_y, lp->lnd_own)
 	? 1.5 : 1.0;
+    unlimber_mob = lnd_mob_to_unlimber(lp);
 
-    hard_amt = (int)(mob_used * mult);
+    hard_amt = (int)(mob_used * mult - unlimber_mob);
+    if (hard_amt < 1)
+	/*
+	 * FIXME unlimber_mob > land_mob_max breaks fortify command
+	 * FIXME > etu_per_update * land_mob_scale breaks auto-fort. at update
+	 */
+	return 0;
+
     if (lp->lnd_harden + hard_amt > land_mob_max) {
 	hard_amt = land_mob_max - lp->lnd_harden;
-	mob_used = ceil(hard_amt / mult);
+	mob_used = ceil((hard_amt + unlimber_mob) / mult);
     }
 
     lp->lnd_mobil -= (int)mob_used;

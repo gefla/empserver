@@ -35,6 +35,7 @@
 
 #include "misc.h"
 #include "nat.h"
+#include "optlist.h"
 #include "path.h"
 #include "sect.h"
 #include "xy.h"
@@ -47,6 +48,12 @@ sector_mcost(struct sctstr *sp, int mobtype)
     base = dchr[sp->sct_type].d_mob0;
     if (base < 0)
 	return -1.0;
+
+    if (mobtype == MOB_RAIL && opt_RAILWAYS) {
+	if (!SCT_HAS_RAIL(sp))
+	    return -1;
+	mobtype = MOB_MARCH;
+    }
 
     /* linear function in eff, d_mob0 at 0%, d_mob1 at 100% */
     base += (dchr[sp->sct_type].d_mob1 - base) * sp->sct_effic / 100;

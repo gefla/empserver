@@ -218,8 +218,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	   move through it.  We calculate it later. */
 	if (dchr[sp->sct_type].d_mob0 < 0)
 	    continue;
-	if (bp->bp_mobtype == MOB_RAIL
-	    && (!intrchr[INT_RAIL].in_enable || sp->sct_rail == 0))
+	if (bp->bp_mobtype == MOB_RAIL && !SCT_HAS_RAIL(sp))
 	    continue;
 	if (sp->sct_own != from->sct_own)
 	    continue;

@@ -48,6 +48,11 @@ TECH_POP:       Technology costs more to make as your civilian population
                  grows past 50,000 civilians.
 TREATIES:       Sign treaties with your friends and enemies, and breaking of
                  them is reported in the news.
+
+The following options are new in Hvy Metal:
+
+LIMBER		Artillery requires mobility to start firing
+RAILWAYS	Highways double as rail
 .fi
 
 .SA "Hidden, Server, version"

@@ -76,6 +76,7 @@ struct sctstr {
     natid sct_oldown;		/* old owner of sector (for liberation) */
     unsigned char sct_updated;	/* Has this sect been updated? */
     unsigned char sct_off;	/* Should this sector produce? */
+    unsigned char sct_track;	/* nearby railways (RAILWAYS) */
     short sct_item[I_MAX+1];	/* amount of items stored here */
     short sct_del[I_MAX+1];	/* delivieries */
     short sct_dist[I_MAX+1];	/* distribution thresholds */
@@ -180,6 +181,11 @@ extern struct dchrstr bigcity_dchr;
     (intrchr[INT_DEF].in_enable ? (sp)->sct_defense : (sp)->sct_effic)
 
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
+
+/* Can trains enter sector SP? */
+#define SCT_HAS_RAIL(sp)					\
+    (opt_RAILWAYS ? (sp)->sct_track != 0			\
+     : intrchr[INT_RAIL].in_enable && (sp)->sct_rail != 0)
 
 #define MOB_MOVE    0
 #define MOB_MARCH   1

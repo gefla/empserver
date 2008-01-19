@@ -109,6 +109,17 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	    if (!player->simulation)
 		sp->sct_work = sctwork;
 	    grow_people(sp, etu, np, &work_avail, sctwork, vec);
+	    /* age che */
+	    if (!player->simulation) {
+		int oldche = sp->sct_che;
+		sp->sct_che = age_people(sp->sct_che, etu);
+		if (sp->sct_che_target == sp->sct_own && sp->sct_loyal < 40)
+		    /* make them fade away eventually, for playability */
+		    sp->sct_che /= 2;
+		if (sp->sct_che != oldche)
+		    logerror("che in %d,%d aged from %d to %d",
+			     sp->sct_x, sp->sct_y, oldche, sp->sct_che);
+	    }
 	}
     } else
 	sctwork = sp->sct_work = 100;

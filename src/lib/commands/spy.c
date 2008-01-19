@@ -224,7 +224,7 @@ spyline(struct sctstr *sp)
        sp->sct_oldown,
        roundintby((int)sp->sct_effic, 10),
        roundintby((int)sp->sct_road, 10),
-       roundintby((int)sp->sct_rail, 10),
+       opt_RAILWAYS ? !!sp->sct_track : roundintby(sp->sct_rail, 10),
        roundintby((int)sp->sct_defense, 10),
        roundintby(sp->sct_item[I_CIVIL], 10),
        roundintby(sp->sct_item[I_MILIT], 10),
