@@ -23,7 +23,7 @@ guard it carefully.
 Land unit types are heavily customized.  Better check show for the
 details.  Non-mechanized units are slower and more vulnerable,
 infantry units have capability security, marines have amtraks,
-artilley firing ranges differ, few units are light (but troop
+artillery firing ranges differ, few units are light (but troop
 transports and landing ships can carry non-light units), food
 capacities are reduced.
 .s1
@@ -69,6 +69,8 @@ cheaper than usual.
 .s1
 Food is much harder to grow.  Expect 20% of your population to be
 farmers.
+.s1
+Your refineries make less petrol from each barrel of oil than usual.
 .s1
 Natural resources gold, oil and uran deplete much slower than usual.
 Fully depleting a sector will take you several updates.  Oil
