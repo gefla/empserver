@@ -832,7 +832,7 @@ grow_islands(void)
 	find_coast(c);
 	qprint(" %d(%d)", c - nc + 1, secs);
 	isecs[c] = secs;
-	ctot = c;
+	ctot++;
     }
 }
 
