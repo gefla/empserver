@@ -102,7 +102,7 @@ obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # Dependencies:
 deps := $(obj:.o=.d)
 # Library archives:
-libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
+libs := $(addprefix lib/, libcommon.a libas.a libgen.a libglobal.a)
 # Programs:
 util := $(addprefix src/util/, $(addsuffix $(EXEEXT), empsched fairland files pconfig))
 client := src/client/empire$(EXEEXT)
@@ -115,17 +115,17 @@ info.nr := $(addprefix info.nr/, $(info))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 
 # Conditionally generated files:
+empth_obj := src/lib/empthread/io.o
+empth_lib :=
 ifeq ($(empthread),LWP)
-empth_obj := src/lib/empthread/lwp.o src/lib/empthread/posix.o
-empth_lib := lib/liblwp.a
+empth_obj += src/lib/empthread/lwp.o src/lib/empthread/posix.o
+empth_lib += lib/liblwp.a
 endif
 ifeq ($(empthread),POSIX)
-empth_obj := src/lib/empthread/pthread.o src/lib/empthread/posix.o
-empth_lib :=
+empth_obj += src/lib/empthread/pthread.o src/lib/empthread/posix.o
 endif
 ifeq ($(empthread),Windows)
-empth_obj := src/lib/empthread/ntthread.o
-empth_lib :=
+empth_obj += src/lib/empthread/ntthread.o
 endif
 
 ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
@@ -262,7 +262,7 @@ info.html/%.html: info/%.t
 
 # Compilation
 
-$(server): $(filter src/server/% src/lib/as/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(libs) $(empth_lib)
+$(server): $(filter src/server/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(empth_lib) $(libs)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
@@ -273,6 +273,7 @@ endif
 
 $(util): $(libs)
 
+lib/libas.a: $(filter src/lib/as/%, $(obj))
 lib/libcommon.a: $(filter src/lib/common/%, $(obj))
 lib/libgen.a: $(filter src/lib/gen/%, $(obj))
 lib/libglobal.a: $(filter src/lib/global/%, $(obj))

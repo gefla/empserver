@@ -259,38 +259,16 @@ int zdon(void);
  */
 /* bestpath.c */
 extern char *bestownedpath(char *, char *, int, int, int, int, int);
-/* bridgefall.c */
-extern void bridgefall(struct sctstr *, struct emp_qelem *);
-extern void knockdown(struct sctstr *, struct emp_qelem *);
-/* damage.c */
-extern void landdamage(struct lndstr *, int);
-extern void ship_damage(struct shpstr *, int);
-extern int damage(int, int);
-extern void shipdamage(struct shpstr *, int);
-extern void land_damage(struct lndstr *, int);
-extern void planedamage(struct plnstr *, int);
-extern int nukedamage(struct nchrstr *, int, int);
-extern int effdamage(int, int);
-extern void item_damage(int, short *);
-extern int commdamage(int, int, i_type);
-/* check.c */
-extern int check_sect_ok(struct sctstr *);
-extern int check_ship_ok(struct shpstr *);
-extern int check_land_ok(struct lndstr *);
-extern int check_nuke_ok(struct nukstr *);
-extern int check_plane_ok(struct plnstr *);
-extern int check_comm_ok(struct comstr *);
-extern int check_loan_ok(struct lonstr *);
-extern int check_trade_ok(struct trdstr *);
 /* conftab.c */
 extern int read_builtin_tables(void);
 extern int read_custom_tables(void);
+/* cnumb.c */
+extern int cnumb(char *);
 /* ef_verify.c */
 /* in file.h */
-/* fsize.c */
-extern int fsize(int);
-extern int blksize(int);
-extern time_t fdate(int);
+/* emp_config.c */
+extern int emp_config(char *file);
+extern void print_config(FILE * fp);
 /* hap_fact.c */
 extern double hap_fact(struct natstr *, struct natstr *);
 extern double hap_req(struct natstr *np);
@@ -303,17 +281,15 @@ extern int loginit(char *);
 extern int logreopen(void);
 extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* more in misc.h */
-/* maps.c */
-extern int do_map(int bmap, int unit_type, char *arg1, char *arg2);
-extern int draw_map(int, char, int, struct nstr_sect *);
-extern int unit_map(int, int, struct nstr_sect *, char *);
-extern int display_region_map(int bmap, int unit_type, coord curx,
-			      coord cury, char *arg);
-extern int bmaps_intersect(natid, natid);
-extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
+/* mapdist.c */
+extern int diffx(int, int);
+extern int diffy(int, int);
+extern int deltax(int, int);
+extern int deltay(int, int);
+extern int mapdist(int, int, int, int);
 /* move.c */
 /* in path.h */
-/* nstr_subs.c */
+/* nstreval.c */
 /* in nsc.h */
 /* path.c */
 extern void bp_enable_cachepath(void);
@@ -331,9 +307,6 @@ extern int read_schedule(char *, time_t[], int, time_t, time_t);
 /* res_pop.c */
 extern int max_population(float, int, int);
 extern int max_pop(float, struct sctstr *);
-/* sectdamage.c */
-extern int sect_damage(struct sctstr *, int, struct emp_qelem *);
-extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 /* stmtch.c */
 /* in match.h */
 /* type.c */
@@ -348,21 +321,16 @@ extern int xundump(FILE *, char *, int *, int);
 /*
  * src/lib/gen/ *.c 
  */
-/* emp_config.c */
-extern int emp_config(char *file);
-extern void print_config(FILE * fp);
+/* fsize.c */
+extern int fsize(int);
+extern int blksize(int);
+extern time_t fdate(int);
 
 extern int roll(int);
 extern int roundavg(double);
 extern int chance(double);
 extern int disassoc(void);
-extern int diffx(int, int);
-extern int diffy(int, int);
-extern int deltax(int, int);
-extern int deltay(int, int);
-extern int mapdist(int, int, int, int);
 extern char *effadv(int);
-extern int onearg(char *, char *);
 extern int parse(char *, char *, char **, char **, char **, char **);
 extern int ldround(double, int);
 extern int roundintby(int, int);
@@ -430,19 +398,40 @@ extern void stop_service(void);
 /* askyn.c */
 extern int confirm(char *);
 extern int askyn(char *);
+/* bridgefall.c */
+extern void bridgefall(struct sctstr *, struct emp_qelem *);
+extern void knockdown(struct sctstr *, struct emp_qelem *);
 /* bsanct.c */
 extern void bsanct(void);
 /* caploss.c */
 extern void caploss(struct sctstr *, natid, char *);
+/* check.c */
+extern int check_sect_ok(struct sctstr *);
+extern int check_ship_ok(struct shpstr *);
+extern int check_land_ok(struct lndstr *);
+extern int check_nuke_ok(struct nukstr *);
+extern int check_plane_ok(struct plnstr *);
+extern int check_comm_ok(struct comstr *);
+extern int check_loan_ok(struct lonstr *);
+extern int check_trade_ok(struct trdstr *);
 /* chkmoney.c */
 extern int chkmoney(long, long, char *);
 extern int check_cost(int, int, long, int *, char *);
-/* cnumb.c */
-extern int cnumb(char *);
 /* coastal.c */
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
 extern int military_control(struct sctstr *);
+/* damage.c */
+extern void landdamage(struct lndstr *, int);
+extern void ship_damage(struct shpstr *, int);
+extern int damage(int, int);
+extern void shipdamage(struct shpstr *, int);
+extern void land_damage(struct lndstr *, int);
+extern void planedamage(struct plnstr *, int);
+extern int nukedamage(struct nchrstr *, int, int);
+extern int effdamage(int, int);
+extern void item_damage(int, short *);
+extern int commdamage(int, int, i_type);
 /* detonate.c */
 extern int detonate(struct nukstr *, coord, coord, int);
 /* disloan.c */
@@ -486,7 +475,15 @@ extern int num_shipsatxy(coord, coord, int, int);
 extern int has_units(coord, coord, natid, struct lndstr *);
 extern int adj_units(coord, coord, natid);
 extern int islist(char *);
-/* src/lib/subs/mission.c */
+/* maps.c */
+extern int do_map(int bmap, int unit_type, char *arg1, char *arg2);
+extern int draw_map(int, char, int, struct nstr_sect *);
+extern int unit_map(int, int, struct nstr_sect *, char *);
+extern int display_region_map(int bmap, int unit_type, coord curx,
+			      coord cury, char *arg);
+extern int bmaps_intersect(natid, natid);
+extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
+/* mission.c */
 extern char *mission_name(short);
 extern int collateral_damage(coord, coord, int, struct emp_qelem *);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
@@ -536,6 +533,8 @@ extern int nuk_on_plane(struct nukstr *, int);
 extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */
 extern int nxtsct(struct nstr_sect *, struct sctstr *);
+/* onearg.c */
+extern int onearg(char *, char *);
 /* plane.c */
 extern char *prplane(struct plnstr *);
 extern int pln_postread(int, void *);
@@ -631,6 +630,9 @@ extern int sct_postread(int, void *);
 extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
 extern int issector(char *);
+/* sectdamage.c */
+extern int sect_damage(struct sctstr *, int, struct emp_qelem *);
+extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 /* ship.c */
 extern char *prship(struct shpstr *);
 extern int shp_postread(int, void *);
