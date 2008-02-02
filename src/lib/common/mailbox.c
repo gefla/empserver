@@ -40,6 +40,6 @@
 char *
 mailbox(char *buf, natid cn)
 {
-    (void)sprintf(buf, "%s%d", telfil, cn);
+    sprintf(buf, "%s/tel%d", teldir, cn);
     return buf;
 }

@@ -67,7 +67,6 @@ char *gamedir	= "@gamedir@";
 char teldir[]	= "tel";
 char motdfil[]	= "motd";
 char downfil[]	= "down";
-char telfil[]	= "tel/tel";
 char annfil[]	= "ann";
 
 char *listen_addr = "";

@@ -51,7 +51,6 @@ extern char motdfil[];
 extern char downfil[];
 extern char annfil[];
 extern char teldir[];
-extern char telfil[];
 
 enum {
     KM_ALLOC = 1,		/* memory allocated */
