@@ -117,7 +117,7 @@ EMPCFBOTH("update_demand", update_demand, int, NSC_INT, 0,
 EMPCF_COMMENT("# 0 - No demand updates\n"
     "# 1 - Scheduled updates are demand updates\n"
     "# 2 - Demand updates run right after the deciding vote is cast,\n"
-    "#     in addition to (non-demand) scheduled updates\n")
+    "#     in addition to (non-demand) scheduled updates")
 EMPCFBOTH("update_wantmin", update_wantmin, int, NSC_INT, 0,
     "Number of votes required for a demand update")
 EMPCFBOTH("update_demandtimes", update_demandtimes, char *, NSC_STRING, 0,
