@@ -38,12 +38,12 @@
 
 #define	MAPWIDTH(persec) ((WORLD_X/2) * ((persec) + 1) + 1)
 
-extern void blankfill(char *, struct range *, int);
 /* src/lib/subs/bigmap.c */
 extern int map_set(natid, coord, coord, char, int);
 extern void writebmap(natid);
 extern void writemap(natid);
 /* src/lib/subs/border.c */
+extern void blankfill(char *, struct range *, int);
 extern void border(struct range *, char *, char *);
 
 #define MAP_PLANE	bit(0) /* this order must match */

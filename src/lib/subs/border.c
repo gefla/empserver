@@ -38,6 +38,27 @@
 #include "prototypes.h"
 #include "xy.h"
 
+/*
+ * space-fill a map or radar scan;
+ * null terminate
+ */
+void
+blankfill(char *ptr, struct range *range, int size)
+{
+    char *p;
+    int row;
+    int col;
+
+    for (row = 0; row < range->height; row++) {
+	col = (range->width + 1) * (size + 1) / 2 - 1;
+	p = ptr;
+	while (--col >= 0)
+	    *p++ = ' ';
+	*p++ = 0;
+	ptr += MAPWIDTH(size);
+    }
+}
+
 void
 border(struct range *rp, char *prefstr, char *sep)
 
