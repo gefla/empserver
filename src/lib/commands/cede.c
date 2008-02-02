@@ -42,6 +42,7 @@
 #include "plane.h"
 #include "ship.h"
 
+static int has_units_with_mob(coord, coord, natid);
 static void cede_hdr(void);
 static int cede_sect(struct nstr_sect *, natid);
 static int cede_ship(struct nstr_item *, natid);
@@ -167,6 +168,23 @@ cede_sect(struct nstr_sect *ns, natid to)
     }
     pr("%d sector%s\n", nsect, splur(nsect));
     return RET_OK;
+}
+
+static int
+has_units_with_mob(coord x, coord y, natid cn)
+{
+    struct nstr_item ni;
+    struct lndstr land;
+
+    snxtitem_xy(&ni, EF_LAND, x, y);
+    while (nxtitem(&ni, &land)) {
+	if (land.lnd_own != cn)
+	    continue;
+	if (land.lnd_mobil > 0)
+	    return 1;
+    }
+
+    return 0;
 }
 
 static void

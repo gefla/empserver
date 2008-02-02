@@ -39,9 +39,11 @@
 #include "misc.h"
 #include "nat.h"
 #include "nsc.h"
+#include "path.h"
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
+#include "sect.h"
 #include "ship.h"
 #include "xy.h"
 
@@ -269,6 +271,42 @@ num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 	ships++;
     }
     return ships;
+}
+
+int
+adj_units(coord x, coord y, natid own)
+{
+    int i;
+    struct sctstr sect;
+
+    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
+	getsect(x + diroff[i][0], y + diroff[i][1], &sect);
+	if (has_units(sect.sct_x, sect.sct_y, own, 0))
+	    return 1;
+    }
+    return 0;
+}
+
+int
+has_units(coord x, coord y, natid cn, struct lndstr *lp)
+{
+    int n;
+    struct lndstr land;
+
+    for (n = 0; ef_read(EF_LAND, n, &land); n++) {
+	if (land.lnd_x != x || land.lnd_y != y)
+	    continue;
+	if (lp) {
+	    /* Check this unit.  If it is this one, we don't want
+	       it included in the count. */
+	    if (lp->lnd_uid == land.lnd_uid)
+		continue;
+	}
+	if (land.lnd_own == cn)
+	    return 1;
+    }
+
+    return 0;
 }
 
 /*

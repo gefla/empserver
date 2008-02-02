@@ -298,11 +298,6 @@ extern double hap_req(struct natstr *np);
 extern int is_wday_allowed(int, char *);
 extern int is_daytime_allowed(int, char *);
 extern int gamehours(time_t);
-/* land.c */
-extern int has_units(coord, coord, natid, struct lndstr *);
-extern int has_units_with_mob(coord, coord, natid);
-extern int adj_units(coord, coord, natid);
-extern int has_helpful_engineer(coord x, coord y, natid cn);
 /* log.c */
 extern int loginit(char *);
 extern int logreopen(void);
@@ -488,6 +483,8 @@ extern int planesatxy(coord, coord, int, int, struct emp_qelem *);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 			 struct shiplist **);
 extern int num_shipsatxy(coord, coord, int, int);
+extern int has_units(coord, coord, natid, struct lndstr *);
+extern int adj_units(coord, coord, natid);
 extern int islist(char *);
 /* src/lib/subs/mission.c */
 extern char *mission_name(short);

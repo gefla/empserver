@@ -53,6 +53,7 @@
 
 static void lnd_mess(char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *, struct lchrstr *);
+static int has_helpful_engineer(coord, coord, natid);
 
 double
 attack_val(int combat_mode, struct lndstr *lp)
@@ -1246,6 +1247,26 @@ lnd_fortify(struct lndstr *lp, int mob)
     lp->lnd_harden = MIN(lp->lnd_harden, land_mob_max);
 
     return hard_amt;
+}
+
+/*
+ * Is there a engineer unit at X,Y that can help nation CN?
+ */
+static int
+has_helpful_engineer(coord x, coord y, natid cn)
+{
+    struct nstr_item ni;
+    struct lndstr land;
+
+    snxtitem_xy(&ni, EF_LAND, x, y);
+    while (nxtitem(&ni, &land)) {
+	if (land.lnd_own != cn && getrel(getnatp(land.lnd_own), cn) != ALLIED)
+	    continue;
+	if (lchr[(int)land.lnd_type].l_flags & L_ENGINEER)
+	    return 1;
+    }
+
+    return 0;
 }
 
 /*
