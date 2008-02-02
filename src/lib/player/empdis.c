@@ -137,7 +137,6 @@ explain(void)
        /* FIXME incomplete */
        "  <NUM> :: a number in unspecified units\n"
        "  <COMM> :: a commodity such as `food', `guns', etc\n"
-       "  <VAR> :: a commodity such as `food', `guns', etc\n"
        "  <TYPE> :: an item type such as `ship', `plane', etc\n");
     for (i = 0; (format = player_coms[i].c_form) != 0; i++) {
 	if ((player_coms[i].c_permit & player->nstat)
