@@ -79,7 +79,9 @@ EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relati
 	      "# name may change.")
 EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where info pages are stored, can be shared among games")
-EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relative\n"
+EMPCF_COMMENT("# Set this to your build tree's info.nr to run the server without\n"
+	      "# installing it.\n"
+	      "# Note: Use an absolute name here, the interpretation of a relative\n"
 	      "# name may change.")
 EMPCFBOTH("builtin", builtindir, char *, NSC_STRING, KM_INTERNAL,
     "Directory where builtin files are stored")
