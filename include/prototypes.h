@@ -321,6 +321,8 @@ extern int xundump(FILE *, char *, int *, int);
 /*
  * src/lib/gen/ *.c 
  */
+/* fnameat.c */
+extern char *fnameat(const char *, const char *);
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);

@@ -201,8 +201,10 @@ set_paths(char *econfig)
     }
 #endif /* !_WIN32 */
 
-    schedulefil = malloc(strlen(configdir) + 10);
-    sprintf(schedulefil, "%s/schedule", configdir);
+    infodir = fnameat(infodir_conf, configdir);
+    gamedir = fnameat(gamedir_conf, configdir);
+    builtindir = fnameat(builtindir_conf, configdir);
+    schedulefil = fnameat("schedule", configdir);
 
     free(cwd);
 }

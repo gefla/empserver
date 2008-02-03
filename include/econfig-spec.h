@@ -73,17 +73,13 @@ EMPCFBOTH((fvname), (vname), int, NSC_INT, KM_OPTION, (descr))
 EMPCF_COMMENT("\n### Server configuration and information")
 EMPCFBOTH("custom_tables", custom_tables, char *, NSC_STRING, KM_INTERNAL,
     "Custom configuration table files, separated by space")
-EMPCFBOTH("data", gamedir, char *, NSC_STRING, KM_INTERNAL,
+EMPCFBOTH("data", gamedir_conf, char *, NSC_STRING, KM_INTERNAL,
     "Directory where this game's data is stored")
-EMPCF_COMMENT("# Note: Use an absolute name here, the interpretation of a relative\n"
-	      "# name may change.")
-EMPCFBOTH("info", infodir, char *, NSC_STRING, KM_INTERNAL,
+EMPCFBOTH("info", infodir_conf, char *, NSC_STRING, KM_INTERNAL,
     "Directory where info pages are stored, can be shared among games")
 EMPCF_COMMENT("# Set this to your build tree's info.nr to run the server without\n"
-	      "# installing it.\n"
-	      "# Note: Use an absolute name here, the interpretation of a relative\n"
-	      "# name may change.")
-EMPCFBOTH("builtin", builtindir, char *, NSC_STRING, KM_INTERNAL,
+	      "# installing it.")
+EMPCFBOTH("builtin", builtindir_conf, char *, NSC_STRING, KM_INTERNAL,
     "Directory where builtin files are stored")
 EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server\n"
 	      "# without installing it, else leave it alone.")

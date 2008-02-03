@@ -25,56 +25,49 @@
  *
  *  ---
  *
- *  optlist.h: Definitions of option listings
+ *  fnameat.c: Interpret file names relative to a directory
  * 
  *  Known contributors to this file:
- *     Ken Stevens, 1995
- *     Steve McClure, 1998
+ *     Markus Armbruster, 2008
  */
 
-#ifndef OPTLIST_H
-#define OPTLIST_H
+#include <config.h>
 
-#include "nsc.h"
+#include <errno.h>
+#include "prototypes.h"
 
-extern char dflt_econfig[];
+static int fname_is_abs(const char *);
 
-/* Game parameters, can be set in econfig */
-#define	EMP_CONFIG_H_OUTPUT
-#include "econfig-spec.h"
-#undef	EMP_CONFIG_H_OUTPUT
+/*
+ * Interpret FNAME relative to directory DIR.
+ * Return FNAME if it is absolute, or DIR is null or empty.
+ * Else return a malloc'ed string containing DIR/FNAME, or null
+ * pointer when that fails.
+ */
+char *
+fnameat(const char *fname, const char *dir)
+{
+    char *res;
 
-extern char *configdir;
-extern char *builtindir;
-extern char *gamedir;
-extern char *infodir;
-extern char *schedulefil;
+    if (fname_is_abs(fname) || !dir || !*dir)
+	return (char *)fname;
 
-extern char motdfil[];
-extern char downfil[];
-extern char annfil[];
-extern char teldir[];
+    res = malloc(strlen(dir) + 1 + strlen(fname) + 1);
+    if (!res)
+	return NULL;
 
-enum {
-    KM_ALLOC = 1,		/* memory allocated */
-    KM_INTERNAL = 2,		/* not to be disclosed to players */
-    KM_OPTION = 4		/* historically an option */
-};
+    sprintf(res, "%s/%s", dir, fname);
+    return res;
+}
 
-enum {
-    UPD_DEMAND_NONE,		/* no demand updates */
-    UPD_DEMAND_SCHED,		/* scheduled updates are demand updates */
-    UPD_DEMAND_ASYNC,		/* zdone triggers unscheduled update */
-};
-
-struct keymatch {
-    char *km_key;		/* the key */
-    nsc_type km_type;		/* type of associated data */
-    void *km_data;		/* pointer to associated data */
-    int km_flags;		/* useful flags */
-    char *km_comment;		/* Comment (hopefully useful) */
-};
-
-extern struct keymatch configkeys[];
-
+static int
+fname_is_abs(const char *fname)
+{
+#ifdef _WIN32
+    /* Treat as absolute if it starts with '/', '\\' or a drive */
+    return fname[0] == '/' || fname[0] == '\\'
+	|| (fname[0] != 0 && fname[1] == ':');
+#else
+    return fname[0] == '/';
 #endif
+}
