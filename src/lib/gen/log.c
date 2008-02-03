@@ -46,7 +46,7 @@
 #include "prototypes.h"
 
 /* Debugging?  If yes call abort() on internal error.  */
-int debug = 0;
+int debug = 1;
 
 static char logfile[32];
 static int logfd = -1;

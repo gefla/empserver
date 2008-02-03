@@ -133,6 +133,8 @@ main(int argc, char **argv)
     int op, sig;
     unsigned seed = time(NULL);
 
+    debug = 0;
+
 #ifdef _WIN32
 # define XOPTS "iI:uU:"
 #else
