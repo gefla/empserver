@@ -323,6 +323,7 @@ extern int xundump(FILE *, char *, int *, int);
  */
 /* fnameat.c */
 extern char *fnameat(const char *, const char *);
+extern FILE *fopenat(const char *, const char *, const char *);
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);

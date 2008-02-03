@@ -42,6 +42,10 @@
 
 static int read_custom_table_file(char *);
 
+/*
+ * Read builtin configuration tables.
+ * Return 0 on success, -1 on failure.
+ */
 int
 read_builtin_tables(void)
 {
@@ -56,7 +60,7 @@ read_builtin_tables(void)
      */
     for (ep = empfile; ep->name; ep++) {
 	if (!EF_IS_GAME_STATE(ep->uid) && ep->file) {
-	    if ((fp = fopen(ep->file, "r")) == NULL) {
+	    if ((fp = fopenat(ep->file, "r", builtindir)) == NULL) {
 		fprintf(stderr, "Can't open %s for reading (%s)\n",
 			ep->file, strerror(errno));
 		return -1;
@@ -107,7 +111,7 @@ read_custom_table_file(char *fname)
     int lineno, res, n;
     FILE *fp;
 
-    if (!(fp = fopen(fname, "r"))) {
+    if (!(fp = fopenat(fname, "r", configdir))) {
 	fprintf(stderr, "Can't open config table %s for reading (%s)\n",
 		fname, strerror(errno));
 	return -1;

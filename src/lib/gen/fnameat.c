@@ -71,3 +71,26 @@ fname_is_abs(const char *fname)
     return fname[0] == '/';
 #endif
 }
+
+/*
+ * Open a stream like fopen(), optionally relative to a directory.
+ * This is exactly like fopen(), except FNAME is interpreted relative
+ * to DIR if that is neither null nor empty.
+ */
+FILE *
+fopenat(const char *fname, const char *mode, const char *dir)
+{
+    char *fnat;
+    FILE *fp;
+
+    fnat = fnameat(fname, dir);
+    if (!fnat)
+	return NULL;
+
+    fp = fopen(fnat, mode);
+
+    if (fnat != fname)
+	free(fnat);
+
+    return fp;
+}
