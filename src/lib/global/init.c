@@ -34,8 +34,6 @@
 
 #include <config.h>
 
-#include "land.h"
-#include "misc.h"
 #include "optlist.h"
 #include "plane.h"
 #include "product.h"
@@ -45,7 +43,6 @@
 static void init_mchr(void);
 static void init_pchr(void);
 static void init_plchr(void);
-static void init_lchr(void);
 
 void
 global_init(void)
@@ -53,7 +50,6 @@ global_init(void)
     init_pchr();
     init_mchr();
     init_plchr();
-    init_lchr();
 }
 
 static void
@@ -88,16 +84,5 @@ init_pchr(void)
 	    if (p->p_type == I_DUST || p->p_type == I_OIL)
 		p->p_nrdep = 0;
 	}
-    }
-}
-
-static void
-init_lchr()
-{
-    int i;
-
-    for (i = 0; lchr[i].l_name; i++) {
-	/* Fix up the military values */
-	lchr[i].l_mil = lchr[i].l_item[I_MILIT];
     }
 }

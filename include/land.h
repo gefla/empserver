@@ -103,7 +103,7 @@ struct lchrstr {
     char *l_name;		/* full name of type of land unit */
     int l_lcm;			/* units of lcm to build */
     int l_hcm;			/* units of hcm to build */
-    int l_mil;			/* how many mil it takes to build */
+    int l_mil;			/* how many mil it takes to build (unused) */
     int l_gun;			/* how many guns it takes to build (unused) */
     int l_shell;		/* #shells it takes to build (unused) */
     int l_tech;			/* tech required to build */

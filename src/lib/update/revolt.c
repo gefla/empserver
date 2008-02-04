@@ -478,7 +478,7 @@ take_casualties(struct sctstr *sp, int mc)
 
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
-	deq = lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
+	deq = lchr[(int)lp->lnd_type].l_item[I_MILIT] * (deq / 100.0);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
 	    return;
@@ -503,7 +503,7 @@ take_casualties(struct sctstr *sp, int mc)
 
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
-	deq = lchr[(int)lp->lnd_type].l_mil * (deq / 100.0);
+	deq = lchr[(int)lp->lnd_type].l_item[I_MILIT] * (deq / 100.0);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
 	    return;

@@ -172,7 +172,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	llp->unit.land.lnd_effic = 0;
     } else {
 	eff_eq = ldround(cas * 100.0 /
-	    ((struct lchrstr *)llp->chrp)->l_mil, 1);
+	    ((struct lchrstr *)llp->chrp)->l_item[I_MILIT], 1);
 	llp->unit.land.lnd_effic -= eff_eq;
 	lnd_submil(&llp->unit.land, cas);
     }
@@ -274,7 +274,8 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     if (nowhere_to_go) {
 	/* nowhere to go.. take more casualties */
 	llp->unit.land.lnd_effic -= 10;
-	lnd_submil(&llp->unit.land, ((struct lchrstr *)llp->chrp)->l_mil / 10);
+	lnd_submil(&llp->unit.land,
+		   ((struct lchrstr *)llp->chrp)->l_item[I_MILIT] / 10);
 	if (llp->unit.land.lnd_effic < LAND_MINEFF)
 	    lnd_delete(llp, "has nowhere to retreat, and dies!");
 	else
