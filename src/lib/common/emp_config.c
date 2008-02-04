@@ -66,7 +66,7 @@ struct keymatch configkeys[] = {
 };
 
 static struct keymatch *keylookup(char *key, struct keymatch tbl[]);
-static void set_paths(char *);
+static int set_paths(char *);
 
 /*
  * read in empire configuration
@@ -150,7 +150,8 @@ emp_config(char *file)
 
 done:
     WORLD_X &= ~1;		/* force even */
-    set_paths(file);
+    if (set_paths(file) < 0)
+	return -1;
 
     return -errors;
 }
@@ -170,43 +171,39 @@ keylookup(char *command, struct keymatch *tbl)
     return NULL;
 }
 
-static void
+static int
 set_paths(char *econfig)
 {
-    char *slash;
-    char *cwd = getcwd(NULL, 0);
+    char *p, *slash;
 
 #ifdef _WIN32
-    /* normalize path separator to '\\', for easier searching: */
-    econfig = _fullpath(NULL, econfig, 0);
-    slash = strrchr(econfig, '\\');
-    configdir = malloc(slash - econfig + 1);
-    memcpy(configdir, econfig, slash - econfig);
-    configdir[slash - econfig] = 0;
+    p = _fullpath(NULL, econfig, 0);
+    slash = strrchr(p, '\\');
 #else
-    if ((slash = strrchr(econfig, '/'))) {
-	configdir = malloc(slash - econfig + 1);
-	memcpy(configdir, econfig, slash - econfig);
-	configdir[slash - econfig] = 0;
-    } else
-	configdir = strdup(cwd);
+    char buf[1024];
+    char *cwd;
 
-    if (configdir[0] != '/') {
-	char *tmp = configdir;
-	size_t len = strlen(cwd);
-
-	configdir = malloc(len + 1 + strlen(tmp) + 1);
-	sprintf(configdir, "%s/%s", cwd, tmp);
-	free(tmp);
+    cwd = getcwd(buf, sizeof(buf));
+    p = fnameat(econfig, cwd);
+    if (p[0] != '/') {
+	fprintf(stderr, "Can't get current working directory (%s)\n",
+		strerror(errno));
+	return -1;
     }
+    if (p == econfig)
+	p = strdup(p);
+    slash = strrchr(p, '/');
 #endif /* !_WIN32 */
+
+    *slash = 0;
+    configdir = realloc(p, slash + 1 - configdir);
 
     infodir = fnameat(infodir_conf, configdir);
     gamedir = fnameat(gamedir_conf, configdir);
     builtindir = fnameat(builtindir_conf, configdir);
     schedulefil = fnameat("schedule", configdir);
 
-    free(cwd);
+    return 0;
 }
 
 void
