@@ -91,23 +91,39 @@ in
 	*)
 
 # Make sandbox
-mkdir "${WORKDIR}" || warn "Could not create ${BOXDIR}/${WORKDIR}"
+if [ -d "${WORKDIR}" ]
+then
+	! [ -d "${WORKDIR}"/empserver/.git ]  || err "Invalid sandbox, missing .git directory"
+else
+	echo making directory
+	mkdir "${WORKDIR}" || warn "Could not create ${BOXDIR}/${WORKDIR}"
+fi
 cd "${WORKDIR}" || err "Could not cd to ${BOXDIR}/${WORKDIR}"
 
-echo "Getting source from CVS:"
+echo "Getting source from GIT:"
 # Extract source
-export CVS_RSH=${CVS_RSH:=ssh}
-export CVSROOT=${CVSROOT:=:pserver:anonymous@empserver.cvs.sourceforge.net:/cvsroot/empserver}
+export GITROOT=${GITROOT:= git://git.pond.sub.org/~armbru/empserver}
 RETR=0
-while ! cvs -z3 co empserver >/dev/null
-do
-	sleep "`expr 5 + ${RETR}`"
-	RETR="`expr 1 + ${RETR}`"
-	[ "${RETR}" -gt 5 ] && err "CVS Timeout after ${RETR} retres."
+if ! [ -d empserver ]
+then
+	while ! git clone $GITROOT empserver >/dev/null
+	do
+		sleep "`expr 5 + ${RETR}`"
+		RETR="`expr 1 + ${RETR}`"
+		[ "${RETR}" -gt 5 ] && err "git-clone Timeout after ${RETR} retres."
+	done
+else
+	while ! git pull $GITROOT master >/dev/null
+	do
+		sleep "`expr 5 + ${RETR}`"
+		RETR="`expr 1 + ${RETR}`"
+		[ "${RETR}" -gt 5 ] && err "GIT pull Timeout after ${RETR} retres."
 done
-echo "Done (CVS)."
-echo ""
 
+fi
+
+echo "Done (GIT)."
+echo ""
 		;;
 esac
 #
@@ -156,7 +172,7 @@ fi
 
 cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 
-cvs up -d
+git-pull
 sh ./bootstrap
 ./configure --prefix ${BOXDIR}/${WORKDIR}/emp4
 
@@ -523,11 +539,18 @@ in
 
 echo "Cleaning sandbox"
 cd "${BOXDIR}" || err "Could not cd back to sandbox root !"
+case "${NIGHTLY_SKIP_STEP}"
+in
+	*REMOVE_REPOSITORY*)
+rm -rf `find "${WORKDIR}" -maxdepth 1 ! -name .git` || warn "Directory ${WORKDIR} could not be forcibly removed !"
+		;;
+	*)
 rm -r "${WORKDIR}" || warn "Directory ${WORKDIR} could not be cleanly removed !"
 rm -rf "${WORKDIR}" || warn "Directory ${WORKDIR} could not be forcibly removed !"
 [ -d "${WORKDIR}/." ] && warn "Directory ${WORKDIR} still present"
 echo "Done (cleaning)."
-
+		;;
+esac
 		;;
 esac
 #
