@@ -532,7 +532,7 @@ struct castr cou_ca[] = {
 };
 
 struct castr nat_ca[sizeof(cou_ca) / sizeof(*cou_ca)];
-/* initialized in ef_init_srv() */
+/* initialized by nsc_init() */
 
 struct castr realm_ca[] = {
     /* uid is encoded in cnum, realm */
@@ -599,6 +599,7 @@ struct castr symbol_ca[] = {
     {NSC_STRING, NSC_CONST, 0, offsetof(struct symbol, name), "name", EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
+
 struct castr mdchr_ca[] = {
     /* no need for uid */
     /* name must come first, clients may rely on it */
@@ -614,3 +615,21 @@ struct castr mdchr_ca[] = {
      EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
+
+void
+nsc_init(void)
+{
+    int i;
+    unsigned flags;
+
+    for (i = 0; cou_ca[i].ca_name; i++) {
+	nat_ca[i] = cou_ca[i];
+	flags = nat_ca[i].ca_flags;
+	if (flags & NSC_EXTRA)
+	    flags &= ~NSC_EXTRA;
+	else if (i != 0)
+	    flags |= NSC_DEITY;
+	nat_ca[i].ca_flags = flags;
+    }
+    nat_ca[i] = cou_ca[i];
+}

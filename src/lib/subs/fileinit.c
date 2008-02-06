@@ -62,7 +62,7 @@ static void ef_fina_view(int);
 void
 ef_init_srv(void)
 {
-    unsigned i, flags;
+    unsigned i;
 
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
 	empfile[fileinit[i].ef_type].init = fileinit[i].init;
@@ -70,17 +70,7 @@ ef_init_srv(void)
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }
 
-    for (i = 0; cou_ca[i].ca_name; i++) {
-	nat_ca[i] = cou_ca[i];
-	flags = nat_ca[i].ca_flags;
-	if (flags & NSC_EXTRA)
-	    flags &= ~NSC_EXTRA;
-	else if (i != 0)
-	    flags |= NSC_DEITY;
-	nat_ca[i].ca_flags = flags;
-    }
-    nat_ca[i] = cou_ca[i];
-
+    nsc_init();
     ef_open_srv();
     if (ef_verify() < 0)
 	exit(EXIT_FAILURE);
