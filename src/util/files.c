@@ -105,10 +105,10 @@ main(int argc, char *argv[])
 	}
     }
 
+    empfile_init();
     if (emp_config(config_file) < 0)
 	exit(1);
-
-    ef_init();
+    empfile_fixup();
 
     if (mkdir(gamedir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	perror(gamedir);

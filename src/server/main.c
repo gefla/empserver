@@ -211,9 +211,10 @@ main(int argc, char **argv)
     }
 #endif	/* _WIN32 */
 
+    empfile_init();
     if (emp_config(config_file) < 0)
 	exit(EXIT_FAILURE);
-    ef_init();
+    empfile_fixup();
     if (read_builtin_tables() < 0)
 	exit(EXIT_FAILURE);
     if (read_custom_tables() < 0)

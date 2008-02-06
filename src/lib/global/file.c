@@ -44,6 +44,7 @@
 #include "news.h"
 #include "nsc.h"
 #include "nuke.h"
+#include "optlist.h"
 #include "plane.h"
 #include "power.h"
 #include "product.h"
@@ -52,6 +53,7 @@
 #include "server.h"
 #include "trade.h"
 #include "treaty.h"
+#include "xy.h"
 
 /* Number of elements in ARRAY.  */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))
@@ -89,7 +91,7 @@ struct empfile empfile[] = {
     /*
      * How this initializer works:
      *
-     * Members uid, name, file, size, cadef, and the EFF_IMMUTABLE
+     * Members uid, name, file, cadef, size, and the EFF_IMMUTABLE
      * bits of flags get their final value.
      * If flags & EFF_STATIC, the cache is mapped here, and members
      * cache, csize get their final value.
@@ -100,7 +102,7 @@ struct empfile empfile[] = {
      * that can be changed by users.
      *
      * Whatever of the above can't be done here must be done in
-     * ef_init().
+     * empfile_init() or empfile_fixup().
      */
 
     /*
@@ -108,7 +110,12 @@ struct empfile empfile[] = {
      * values of member name: no whitespace there, please.
      */
 
-    /* Dynamic game data */
+    /*
+     * Dynamic game data
+     *
+     * All caches unmapped.  EF_MAP and EF_BMAP get a bogus size here.
+     * Fixed up by empfile_fixup().
+     */
     {EF_SECTOR, "sect", "sector", sect_ca,
      UNMAPPED_CACHE(struct sctstr, EFF_XY | EFF_OWNER)},
     {EF_SHIP, "ship", "ship", ship_ca,
@@ -144,7 +151,13 @@ struct empfile empfile[] = {
     {EF_GAME, "game", "game", game_ca,
      UNMAPPED_CACHE(struct gamestr, 0)},
 
-    /* Static game data (configuration) */
+    /*
+     * Static game data (configuration)
+     *
+     * These are all empty tables, except for EF_NEWS_CHR and EF_META.
+     * Use read_builtin_tables() to fill them.  EF_META gets bogus
+     * size, cids and fids here.  Fixed up by empfile_init().
+     */
     {EF_ITEM, "item", "item.config", ichr_ca,
      ARRAY_CACHE(ichr, EFF_CFG)},
     {EF_PRODUCT, "product", "product.config", pchr_ca,
@@ -170,7 +183,12 @@ struct empfile empfile[] = {
     {EF_META, "meta", NULL, mdchr_ca,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
 
-    /* Symbol tables */
+    /*
+     * Symbol tables
+     *
+     * These get bogus size, cids and fids here.  Fixed up by
+     * empfile_init().
+     */
 #define SYMTAB(type, name, tab) \
 	{(type), (name), NULL, symbol_ca, PTR_CACHE((tab), EFF_CFG)}
     SYMTAB(EF_AGREEMENT_STATUS, "agreement-status", agreement_statuses),
@@ -201,3 +219,37 @@ struct empfile empfile[] = {
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
 };
+
+static void
+ef_fix_size(struct empfile *ep, int n)
+{
+    ep->cids = ep->fids = n;
+    ep->csize = n + 1;
+}
+
+void
+empfile_init(void)
+{
+    struct castr *ca;
+    struct empfile *ep;
+    struct symbol *lup;
+    int i;
+
+    ca = (struct castr *)empfile[EF_META].cache;
+    for (i = 0; ca[i].ca_name; i++) ;
+    ef_fix_size(&empfile[EF_META], i);
+
+    for (ep = empfile; ep->uid >= 0; ep++) {
+	if (ep->cadef == symbol_ca) {
+	    lup = (struct symbol *)ep->cache;
+	    for (i = 0; lup[i].name; i++) ;
+	    ef_fix_size(ep, i);
+	}
+    }
+}
+
+void
+empfile_fixup(void)
+{
+    empfile[EF_MAP].size = empfile[EF_BMAP].size = WORLD_SZ();
+}

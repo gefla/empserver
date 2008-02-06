@@ -58,7 +58,6 @@ static void ef_fina_view(int);
 
 /*
  * Initialize empfile for full server operations.
- * ef_init() must be called first.
  */
 void
 ef_init_srv(void)

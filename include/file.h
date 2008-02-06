@@ -46,16 +46,19 @@ struct empfile {
     int size;			/* size of a table entry */
     int flags;			/* only EFF_IMMUTABLE immutable, see below
 				   for use of remaining bits */
+
     /* Members whose values are fixed when the cache is mapped */
     char *cache;		/* pointer to cache */
     int csize;			/* cache size, in entries */
-    /* and flags bit EFF_MEM */
+    /* flags bit EFF_MEM also fixed then */
+
     /* Members whose values may vary throughout operation */
     int baseid;			/* id of first entry in cache */
     int cids;			/* # entries in cache */
     int fids;			/* # entries in table */
     int fd;			/* file descriptor, -1 if not open */
-    /* and flags bit EFF_RDONLY */
+    /* flags bits EFF_RDONLY, EFF_CUSTOM also vary */
+
     /* User callbacks */
     void (*init)(int, void *);	/* called after entry creation, unless null */
     int (*postread)(int, void *); /* called after read, unless null */
@@ -131,7 +134,7 @@ enum {
     EF_INFRASTRUCTURE,
     EF_UPDATES,			/* not actually static */
     EF_TABLE,
-    EF_META,
+    EF_META,			/* not really configuration */
     /* Symbol tables */
     EF_AGREEMENT_STATUS,
     EF_LAND_CHR_FLAGS,
@@ -179,10 +182,11 @@ extern int ef_nelem(int);
 extern int ef_flags(int);
 extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
-extern void ef_init(void);
 extern int ef_verify(void);
 extern int ef_elt_byname(int, char *);
 
 extern struct empfile empfile[EF_MAX + 1];
+extern void empfile_init(void);
+extern void empfile_fixup(void);
 
 #endif
