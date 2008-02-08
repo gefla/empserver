@@ -39,6 +39,7 @@
 #include "optlist.h"
 #include "product.h"
 #include "prototypes.h"
+#include "xdump.h"
 
 static int read_custom_table_file(char *);
 

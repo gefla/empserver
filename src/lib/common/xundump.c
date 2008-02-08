@@ -56,12 +56,14 @@
 #include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "file.h"
 #include "match.h"
 #include "nsc.h"
 #include "optlist.h"
-#include "prototypes.h"
+#include "xdump.h"
 
 static char *fname;		/* Name of file being read */
 static int lineno;		/* Current line number */
