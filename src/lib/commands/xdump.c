@@ -28,7 +28,7 @@
  *  xdump.c: Extended dump
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2007
+ *     Markus Armbruster, 2004-2008
  */
 
 /*
@@ -85,17 +85,40 @@
 #include "treaty.h"
 #include "version.h"
 
+/* xdump descriptor */
+struct xdstr {
+    natid cnum;			/* dump for this country */
+    int divine;			/* is this a deity dump? */
+    void (*pr)(char *fmt, ...);	/* callback for printing dump */
+};
+
+/*
+ * Initialize XD to dump for country CNUM.
+ * Dump is to be delivered through callback PR.
+ * Return XD.
+ */
+static struct xdstr *
+xdinit(struct xdstr *xd, natid cnum, void (*pr)(char *fmt, ...))
+{
+    xd->cnum = cnum;
+    xd->divine = getnatp(cnum)->nat_stat == STAT_GOD;
+    xd->pr = pr;
+    return xd;
+}
+
 /*
  * Evaluate a attribute of an object into VAL, return VAL.
  * CA describes the attribute.
+ * XD is the xdump descriptor.
  * PTR points to the context object.
  * IDX is the index within the attribute.
  */
 static struct valstr *
-xdeval(struct valstr *val, struct castr *ca, void *ptr, int idx)
+xdeval(struct valstr *val, struct xdstr *xd,
+       struct castr *ca, void *ptr, int idx)
 {
     nstr_mksymval(val, ca, idx);
-    return nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
+    return nstr_exec_val(val, xd->cnum, ptr, NSC_NOTYPE);
 }
 
 /*
@@ -103,26 +126,26 @@ xdeval(struct valstr *val, struct castr *ca, void *ptr, int idx)
  * VAL must be evaluated.
  */
 static char *
-xdprval(struct valstr *val, char *sep)
+xdprval(struct xdstr *xd, struct valstr *val, char *sep)
 {
     unsigned char *s, *e, *l;
 
     if (CANT_HAPPEN(val->val_cat != NSC_VAL)) {
-	pr("%snil", sep);
+	xd->pr("%snil", sep);
 	return " ";
     }
 
     switch (val->val_type) {
     case NSC_LONG:
-	pr("%s%ld", sep, val->val_as.lng);
+	xd->pr("%s%ld", sep, val->val_as.lng);
 	break;
     case NSC_DOUBLE:
-	pr("%s%#g", sep, val->val_as.dbl);
+	xd->pr("%s%#g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
 	s = (unsigned char *)val->val_as.str.base;
 	if (s) {
-	    pr("%s\"", sep);
+	    xd->pr("%s\"", sep);
 	    l = s + val->val_as.str.maxsz;
 	    /* FIXME maxsz == INT_MAX ! */
 	    for (;;) {
@@ -130,46 +153,46 @@ xdprval(struct valstr *val, char *sep)
 		     e < l && *e != '"' && *e != '\\' && isgraph(*e);
 		     ++e)
 		    ;
-		pr("%.*s", (int)(e-s), s);
+		xd->pr("%.*s", (int)(e-s), s);
 		if (e < l && *e)
-		    pr("\\%03o", *e++);
+		    xd->pr("\\%03o", *e++);
 		else
 		    break;
 		s = e;
 	    }
-	    pr("\"");
+	    xd->pr("\"");
 	} else
-	    pr("%snil", sep);
+	    xd->pr("%snil", sep);
 	break;
     default:
 	CANT_REACH();
-	pr("%snil", sep);
+	xd->pr("%snil", sep);
     }
     return " ";
 }
 
 /*
- * Dump field values of a context object.
+ * Dump field values of a context object to XD.
  * CA[] describes fields.
  * PTR points to context object.
  */
 static void
-xdflds(struct castr ca[], void *ptr)
+xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 {
     int i, j, n;
     struct valstr val;
     char *sep = "";
 
     for (i = 0; ca[i].ca_name; ++i) {
-	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    xdeval(&val, &ca[i], ptr, j);
-	    sep = xdprval(&val, sep);
+	    xdeval(&val, xd, &ca[i], ptr, j);
+	    sep = xdprval(xd, &val, sep);
 	} while (++j < n);
     }
 }
@@ -179,16 +202,16 @@ xdflds(struct castr ca[], void *ptr)
  * If META, it's for the meta-data dump rather than the data dump.
  */
 static void
-xdhdr(char *name, int meta)
+xdhdr(struct xdstr *xd, char *name, int meta)
 {
-    pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
+    xd->pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
 }
 
 /* Dump footer for a dump that dumped N objects.  */
 static void
-xdftr(int n)
+xdftr(struct xdstr *xd, int n)
 {
-    pr("/%d\n", n);
+    xd->pr("/%d\n", n);
 }
 
 /*
@@ -265,11 +288,11 @@ xdvisible(int type, void *p)
 }
 
 /*
- * Dump items of type TYPE selected by ARG.
+ * Dump items of type TYPE selected by ARG to XD.
  * Return RET_OK on success, RET_SYN on error.
  */
 static int
-xditem(int type, char *arg)
+xditem(struct xdstr *xd, int type, char *arg)
 {
     struct castr *ca;
     struct nstr_item ni;
@@ -283,28 +306,28 @@ xditem(int type, char *arg)
     if (!snxtitem(&ni, type, arg))
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), 0);
+    xdhdr(xd, ef_nameof(type), 0);
 
     n = 0;
     while (nxtitem(&ni, buf)) {
 	if (!xdvisible(type, buf))
 	    continue;
 	++n;
-	xdflds(ca, buf);
-	pr("\n");
+	xdflds(xd, ca, buf);
+	xd->pr("\n");
     }
 
-    xdftr(n);
+    xdftr(xd, n);
 
     return RET_OK;
 }
 
 /*
- * Dump meta-data for items of type TYPE.
+ * Dump meta-data for items of type TYPE to XD.
  * Return RET_OK.
  */
 static int
-xdmeta(int type)
+xdmeta(struct xdstr *xd, int type)
 {
     struct castr *ca = ef_cadef(type);
     int i;
@@ -313,19 +336,19 @@ xdmeta(int type)
     if (!ca)
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), 1);
+    xdhdr(xd, ef_nameof(type), 1);
 
     for (i = 0; ca[i].ca_name; i++) {
-	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
-	xdflds(mdchr_ca, &ca[i]);
-	pr("\n");
+	xdflds(xd, mdchr_ca, &ca[i]);
+	xd->pr("\n");
 	n++;
     }
 
-    xdftr(n);
+    xdftr(xd, n);
 
     return RET_OK;
 }
@@ -336,9 +359,10 @@ xdump(void)
 {
     char *p;
     char buf[1024];
+    struct xdstr xd;
+    struct natstr *natp;
     int type;
     int meta = 0;
-    struct natstr *natp;
 
     p = getstarg(player->argp[1], "Table name, or meta? ", buf);
     if (p && strcmp(p, "meta") == 0) {
@@ -348,19 +372,19 @@ xdump(void)
     if (!p || !*p)
 	return RET_SYN;
 
+    xdinit(&xd, player->cnum, pr);
     natp = getnatp(player->cnum);
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type < 0 || type >= EF_MAX)
 	return RET_SYN;
-
     if (meta)
-	return xdmeta(type);
+	return xdmeta(&xd, type);
     if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
 	&& !(natp->nat_stat == STAT_ACTIVE || player->god)) {
 	pr("Access to table %s denied\n", ef_nameof(type));
 	return RET_FAIL;
     }
     if (type == EF_VERSION && !player->argp[2])
-	return xditem(type, "*"); /* backward compatibility */
-    return xditem(type, player->argp[2]);
+	return xditem(&xd, type, "*"); /* backward compatibility */
+    return xditem(&xd, type, player->argp[2]);
 }
