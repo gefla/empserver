@@ -28,7 +28,7 @@
  *  xdump.c: Extended dump
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2007
+ *     Markus Armbruster, 2004-2008
  */
 
 /*
@@ -85,8 +85,30 @@
 #include "treaty.h"
 #include "version.h"
 
+/* xdump descriptor */
+struct xdstr {
+    natid cnum;			/* dump for this country */
+    int divine;			/* is this a deity dump? */
+    void (*pr)(char *fmt, ...);	/* callback for printing dump */
+};
+
+/*
+ * Initialize XD to dump for country CNUM.
+ * Dump is to be delivered through callback PR.
+ * Return XD.
+ */
+static struct xdstr *
+xdinit(struct xdstr *xd, natid cnum, void (*pr)(char *fmt, ...))
+{
+    xd->cnum = cnum;
+    xd->divine = getnatp(cnum)->nat_stat == STAT_GOD;
+    xd->pr = pr;
+    return xd;
+}
+
 /*
  * Evaluate a attribute of an object into VAL, return VAL.
+ * XD is the xdump descriptor.
  * TYPE is the attribute's type.
  * PTR points to the context object.
  * The attribute is stored there at offset OFF + IDX * S, where S is
@@ -94,7 +116,7 @@
  * LEN is the #array elements if it is an array, else zero.
  */
 static struct valstr *
-xdeval(struct valstr *val,
+xdeval(struct valstr *val, struct xdstr *xd,
        nsc_type type, void *ptr, ptrdiff_t off, int idx, int len)
 {
     val->val_type = type;
@@ -102,27 +124,27 @@ xdeval(struct valstr *val,
     val->val_as.sym.off = off;
     val->val_as.sym.len = len;
     val->val_as.sym.idx = idx;
-    nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
+    nstr_exec_val(val, xd->cnum, ptr, NSC_NOTYPE);
     return val;			/* FIXME nstr_exec_val() should return VAL */
 }
 
 /* Dump VAL prefixed with SEP, return " ".  */
 static char *
-xdprval(struct valstr *val, char *sep)
+xdprval(struct xdstr *xd, struct valstr *val, char *sep)
 {
     unsigned char *s, *e, *l;
 
     switch (val->val_type) {
     case NSC_LONG:
-	pr("%s%ld", sep, val->val_as.lng);
+	xd->pr("%s%ld", sep, val->val_as.lng);
 	break;
     case NSC_DOUBLE:
-	pr("%s%#g", sep, val->val_as.dbl);
+	xd->pr("%s%#g", sep, val->val_as.dbl);
 	break;
     case NSC_STRING:
 	s = (unsigned char *)val->val_as.str.base;
 	if (s) {
-	    pr("%s\"", sep);
+	    xd->pr("%s\"", sep);
 	    l = s + val->val_as.str.maxsz;
 	    /* FIXME maxsz == INT_MAX ! */
 	    for (;;) {
@@ -130,46 +152,47 @@ xdprval(struct valstr *val, char *sep)
 		     e < l && *e != '"' && *e != '\\' && isgraph(*e);
 		     ++e)
 		    ;
-		pr("%.*s", (int)(e-s), s);
+		xd->pr("%.*s", (int)(e-s), s);
 		if (e < l && *e)
-		    pr("\\%03o", *e++);
+		    xd->pr("\\%03o", *e++);
 		else
 		    break;
 		s = e;
 	    }
-	    pr("\"");
+	    xd->pr("\"");
 	} else
-	    pr("%snil", sep);
+	    xd->pr("%snil", sep);
 	break;
     default:
 	CANT_REACH();
-	pr("0");
+	xd->pr("0");
     }
     return " ";
 }
 
 /*
- * Dump field values of a context object.
+ * Dump field values of a context object to XD.
  * CA[] describes fields.
  * PTR points to context object.
  */
 static void
-xdflds(struct castr ca[], void *ptr)
+xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 {
     int i, j, n;
     struct valstr val;
     char *sep = "";
 
     for (i = 0; ca[i].ca_name; ++i) {
-	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j, ca[i].ca_len);
-	    sep = xdprval(&val, sep);
+	    xdeval(&val, xd,
+		   ca[i].ca_type, ptr, ca[i].ca_off, j, ca[i].ca_len);
+	    sep = xdprval(xd, &val, sep);
 	} while (++j < n);
     }
 }
@@ -179,16 +202,16 @@ xdflds(struct castr ca[], void *ptr)
  * If META, it's for the meta-data dump rather than the data dump.
  */
 static void
-xdhdr(char *name, int meta)
+xdhdr(struct xdstr *xd, char *name, int meta)
 {
-    pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
+    xd->pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
 }
 
 /* Dump footer for a dump that dumped N objects.  */
 static void
-xdftr(int n)
+xdftr(struct xdstr *xd, int n)
 {
-    pr("/%d\n", n);
+    xd->pr("/%d\n", n);
 }
 
 /*
@@ -265,11 +288,11 @@ xdvisible(int type, void *p)
 }
 
 /*
- * Dump items of type TYPE selected by ARG.
+ * Dump items of type TYPE selected by ARG to XD.
  * Return RET_OK on success, RET_SYN on error.
  */
 static int
-xditem(int type, char *arg)
+xditem(struct xdstr *xd, int type, char *arg)
 {
     struct castr *ca;
     struct nstr_item ni;
@@ -283,28 +306,28 @@ xditem(int type, char *arg)
     if (!snxtitem(&ni, type, arg))
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), 0);
+    xdhdr(xd, ef_nameof(type), 0);
 
     n = 0;
     while (nxtitem(&ni, buf)) {
 	if (!xdvisible(type, buf))
 	    continue;
 	++n;
-	xdflds(ca, buf);
-	pr("\n");
+	xdflds(xd, ca, buf);
+	xd->pr("\n");
     }
 
-    xdftr(n);
+    xdftr(xd, n);
 
     return RET_OK;
 }
 
 /*
- * Dump meta-data for items of type TYPE.
+ * Dump meta-data for items of type TYPE to XD.
  * Return RET_OK.
  */
 static int
-xdmeta(int type)
+xdmeta(struct xdstr *xd, int type)
 {
     struct castr *ca = ef_cadef(type);
     int i;
@@ -313,29 +336,30 @@ xdmeta(int type)
     if (!ca)
 	return RET_SYN;
 
-    xdhdr(ef_nameof(type), 1);
+    xdhdr(xd, ef_nameof(type), 1);
 
     for (i = 0; ca[i].ca_name; i++) {
-	if (ca[i].ca_flags & NSC_DEITY && !player->god)
+	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
-	xdflds(mdchr_ca, &ca[i]);
-	pr("\n");
+	xdflds(xd, mdchr_ca, &ca[i]);
+	xd->pr("\n");
 	n++;
     }
 
-    xdftr(n);
+    xdftr(xd, n);
 
     return RET_OK;
 }
 
 /*
- * Dump configkeys[], return RET_OK.
+ * Dump configkeys[] to XD.
  * If META, dump meta-data rather than data.
+ * Return RET_OK.
  */
 static int
-xdver(int meta)
+xdver(struct xdstr *xd, int meta)
 {
     static struct castr vers_ca = {
 	NSC_STRINGY, 0, sizeof(PACKAGE_STRING), 0, "version", EF_BAD
@@ -346,11 +370,11 @@ xdver(int meta)
     struct castr ca;
     struct valstr val;
 
-    xdhdr("version", meta);
+    xdhdr(xd, "version", meta);
 
     if (meta) {
 	n = 0;
-	xdflds(mdchr_ca, &vers_ca);
+	xdflds(xd, mdchr_ca, &vers_ca);
 	pr("\n");
 	n++;
 	for (kp = configkeys; kp->km_key; ++kp) {
@@ -361,26 +385,27 @@ xdver(int meta)
 		ca.ca_off = 0;
 		ca.ca_name = kp->km_key;
 		ca.ca_table = EF_BAD;
-		xdflds(mdchr_ca, &ca);
+		xdflds(xd, mdchr_ca, &ca);
 		pr("\n");
 		n++;
 	    }
 	}
-	xdftr(n);
+	xdftr(xd, n);
 	return RET_OK;
     }
 
-    xdeval(&val, vers_ca.ca_type, version, vers_ca.ca_off, 0, vers_ca.ca_len);
-    sep = xdprval(&val, "");
+    xdeval(&val, xd,
+	   vers_ca.ca_type, version, vers_ca.ca_off, 0, vers_ca.ca_len);
+    sep = xdprval(xd, &val, "");
     for (kp = configkeys; kp->km_key; ++kp) {
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
-	    xdeval(&val, kp->km_type, kp->km_data, 0, 0, 0);
-	    sep = xdprval(&val, sep);
+	    xdeval(&val, xd, kp->km_type, kp->km_data, 0, 0, 0);
+	    sep = xdprval(xd, &val, sep);
 	}
     }
     pr("\n");
 
-    xdftr(1);
+    xdftr(xd, 1);
 
     return RET_OK;
 }
@@ -391,9 +416,10 @@ xdump(void)
 {
     char *p;
     char buf[1024];
+    struct xdstr xd;
+    struct natstr *natp;
     int type;
     int meta = 0;
-    struct natstr *natp;
 
     p = getstarg(player->argp[1], "Table name, or meta? ", buf);
     if (p && strcmp(p, "meta") == 0) {
@@ -403,19 +429,20 @@ xdump(void)
     if (!p || !*p)
 	return RET_SYN;
 
+    xdinit(&xd, player->cnum, pr);
     natp = getnatp(player->cnum);
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type >= 0 && type < EF_MAX) {
 	if (meta)
-	    return xdmeta(type);
+	    return xdmeta(&xd, type);
 	else if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
 		 && !(natp->nat_stat == STAT_ACTIVE || player->god)) {
 	    pr("Access to table %s denied\n", ef_nameof(type));
 	    return RET_FAIL;
 	} else
-	    return xditem(type, player->argp[2]);
+	    return xditem(&xd, type, player->argp[2]);
     } else if (!strncmp(p, "ver", strlen(p))) {
-	return xdver(meta);
+	return xdver(&xd, meta);
     }
 
     return RET_SYN;
