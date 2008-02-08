@@ -315,8 +315,8 @@ extern int sct_typematch(char *);
 extern int demand_update_want(int *, int *, int);
 extern int demand_check(void);
 extern int demandupdatecheck(void);
-/* xundump.c */
-extern int xundump(FILE *, char *, int *, int);
+/* xdump.c xundump.c */
+/* in xdump.h */
 
 /*
  * src/lib/gen/ *.c 
