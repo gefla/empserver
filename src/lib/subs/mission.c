@@ -914,8 +914,6 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
     struct plnstr *pp;
     struct plchrstr *pcp;
     struct plist *plp;
-    int y, bad, bad1;
-    unsigned x;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
