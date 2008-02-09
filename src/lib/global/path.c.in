@@ -55,7 +55,7 @@ char *schedulefil;
 /* Where to find built-in configuration tables (relative to configdir) */
 char *builtindir_conf = "@builtindir@";
 /* Where to find built-in configuration tables (absolute) */
-char *builtindir = "@builtindir@";
+char *builtindir;
 
 /* Where to find info pages (relative to configdir) */
 char *infodir_conf = "@einfodir@";
