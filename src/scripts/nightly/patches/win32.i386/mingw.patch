@@ -1,10 +1,7 @@
-Index: empserver/src/lib/global/path.c.in
-===================================================================
-RCS file: /cvsroot/empserver/empserver/src/lib/global/path.c.in,v
-retrieving revision 1.19
-diff -u -p -r1.19 path.c.in
---- empserver/src/lib/global/path.c.in	3 Aug 2007 04:44:54 -0000	1.19
-+++ empserver/src/lib/global/path.c.in	16 Dec 2007 20:11:51 -0000
+diff --git a/src/lib/global/path.c.in b/src/lib/global/path.c.in
+index a761735..77b9c50 100644
+--- a/src/lib/global/path.c.in
++++ b/src/lib/global/path.c.in
 @@ -38,7 +38,7 @@
  #include "optlist.h"
  
@@ -14,22 +11,24 @@ diff -u -p -r1.19 path.c.in
  
  /*
   * Where to find configuration (absolute file name)
-@@ -53,15 +53,15 @@ char *custom_tables = "";
+@@ -53,17 +53,17 @@ char *custom_tables = "";
  char *schedulefil;
  
  /* Where to find built-in configuration tables (relative to configdir) */
--char *builtindir = "@builtindir@";
-+char *builtindir = "c:/MinGW@builtindir@";
+-char *builtindir_conf = "@builtindir@";
++char *builtindir_conf = "c:/MinGW@builtindir@";
+ /* Where to find built-in configuration tables (absolute) */
+ char *builtindir;
  
- /* Where to find info pages (relative to gamedir) */
- /* TODO UI wart, make it relative to configdir */
--char *infodir	= "@einfodir@";
-+char *infodir	= "c:/MinGW@einfodir@";
+ /* Where to find info pages (relative to configdir) */
+-char *infodir_conf = "@einfodir@";
++char *infodir_conf = "c:/MinGW@einfodir@";
+ /* Where to find info pages (absolute) */
+ char *infodir;
  
  /* Where this game's data is stored (relative to configdir) */
- /* FIXME relative broken in utility programs */
--char *gamedir	= "@gamedir@";
-+char *gamedir	= "c:/MinGW@gamedir@";
+-char *gamedir_conf = "@gamedir@";
++char *gamedir_conf = "c:/MinGW@gamedir@";
+ /* Where this game's data is stored (absolute) */
+ char *gamedir;
  
- /* These are relative to gamedir: */
- char teldir[]	= "tel";
