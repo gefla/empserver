@@ -70,6 +70,7 @@ sct_prewrite(int id, void *ptr)
 
     time(&sp->sct_timestamp);
 
+    bridge_damaged(sp, NULL);
     checksect(sp);
     getsect(sp->sct_x, sp->sct_y, &sect);
     return 1;
@@ -106,14 +107,6 @@ checksect(struct sctstr *sp)
     else
 	loyalcivs = 0;
 
-    if (sp->sct_effic < SCT_MINEFF) {
-	if (sp->sct_type == SCT_BSPAN)
-	    knockdown(sp, 0);
-	else if (sp->sct_type == SCT_BTOWER) {
-	    knockdown(sp, 0);
-	    bridgefall(sp, 0);
-	}
-    }
     if (sp->sct_own != 0 && !civs) {
 	sp->sct_work = 100;
 	sp->sct_oldown = sp->sct_own;

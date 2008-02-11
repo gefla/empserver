@@ -402,8 +402,8 @@ extern void stop_service(void);
 extern int confirm(char *);
 extern int askyn(char *);
 /* bridgefall.c */
+extern void bridge_damaged(struct sctstr *, struct emp_qelem *);
 extern void bridgefall(struct sctstr *, struct emp_qelem *);
-extern void knockdown(struct sctstr *, struct emp_qelem *);
 /* bsanct.c */
 extern void bsanct(void);
 /* caploss.c */

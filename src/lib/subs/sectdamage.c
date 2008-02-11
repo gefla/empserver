@@ -69,13 +69,7 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
     if (sp->sct_mobil > 0)
 	sp->sct_mobil = damage(sp->sct_mobil, dam);
     item_damage(dam, sp->sct_item);
-    if (opt_EASY_BRIDGES == 0) {
-	if (sp->sct_effic < SCT_MINEFF && sp->sct_type == SCT_BHEAD)
-	    bridgefall(sp, list);
-    } else {
-	if (sp->sct_effic < SCT_MINEFF && sp->sct_type == SCT_BSPAN)
-	    knockdown(sp, list);
-    }
+    bridge_damaged(sp, list);
     putsect(sp);
     return eff;
 }

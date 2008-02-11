@@ -48,6 +48,31 @@
 #include "sect.h"
 #include "xy.h"
 
+static void knockdown(struct sctstr *, struct emp_qelem *);
+
+/*
+ * Check bridges at and around SP after damage to SP.
+ * If SP is an inefficent bridge, splash it.
+ * If SP can't support a bridge, splash unsupported adjacent bridges.
+ * Don't drown planes in LIST when splashing bridges.
+ * Write back splashed bridges, except for SP; writing that one is
+ * left to the caller.
+ */
+void
+bridge_damaged(struct sctstr *sp, struct emp_qelem *list)
+{
+    int des;
+
+    if (sp->sct_effic >= SCT_MINEFF)
+	return;
+
+    des = sp->sct_type;
+    if (des == SCT_BSPAN || des == SCT_BTOWER)
+	knockdown(sp, list);
+    if ((des == SCT_BHEAD || des == SCT_BTOWER) && !opt_EASY_BRIDGES)
+	bridgefall(sp, list);
+}
+
 void
 bridgefall(struct sctstr *sp, struct emp_qelem *list)
 {
@@ -94,7 +119,7 @@ bridgefall(struct sctstr *sp, struct emp_qelem *list)
 
 /* Knock down a bridge span.  Note that this does NOT write the
  * sector out to the database, it's up to the caller to do that. */
-void
+static void
 knockdown(struct sctstr *sp, struct emp_qelem *list)
 {
     struct lndstr land;
