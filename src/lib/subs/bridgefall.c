@@ -70,7 +70,7 @@ bridge_damaged(struct sctstr *sp)
     des = sp->sct_type;
     if (des == SCT_BSPAN || des == SCT_BTOWER)
 	knockdown(sp);
-    if ((des == SCT_BHEAD || des == SCT_BTOWER) && !opt_EASY_BRIDGES)
+    if (IS_BRIDGE_HEAD(des) && !opt_EASY_BRIDGES)
 	bridgefall(sp);
 }
 
@@ -98,16 +98,15 @@ bridgefall(struct sctstr *sp)
 	    if (nnx == sp->sct_x && nny == sp->sct_y)
 		continue;
 	    getsect(nnx, nny, &bh_sect);
-	    if (bh_sect.sct_type == SCT_BHEAD &&
-		bh_sect.sct_newtype == SCT_BHEAD)
-		break;
-	    if (bh_sect.sct_type == SCT_BTOWER)
-		break;
 	    /* With EASY_BRIDGES, it just has to be next to any
 	       land */
 	    if (opt_EASY_BRIDGES) {
 		if (bh_sect.sct_type != SCT_WATER &&
 		    bh_sect.sct_type != SCT_BSPAN)
+		    break;
+	    } else {
+		if (IS_BRIDGE_HEAD(bh_sect.sct_type)
+		    && bh_sect.sct_newtype == bh_sect.sct_type)
 		    break;
 	    }
 	}

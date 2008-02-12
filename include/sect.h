@@ -170,6 +170,9 @@ extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 extern struct dchrstr bigcity_dchr;
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
 
+#define IS_BRIDGE_HEAD(type) \
+    ((type) == SCT_BHEAD || (type) == SCT_HIWAY || (type) == SCT_BTOWER)
+
 /* Minimal efficiency of sectors that can be knocked down (bridges) */
 #define SCT_MINEFF 20
 

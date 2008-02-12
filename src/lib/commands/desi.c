@@ -97,7 +97,7 @@ desi(void)
 	    continue;
 	if (sect.sct_type == SCT_SANCT)
 	    breaksanct++;
-	if ((des == SCT_HARBR || des == SCT_BHEAD) && !sect.sct_coastal) {
+	if (des == SCT_HARBR && !sect.sct_coastal) {
 	    pr("%s does not border on water.\n",
 	       xyas(nstr.x, nstr.y, player->cnum));
 	    if (player->god)
@@ -129,11 +129,8 @@ desi(void)
 	if (sect.sct_x == cap_x && sect.sct_y == cap_y
 	    && des != SCT_CAPIT && des != SCT_SANCT && des != SCT_MOUNT)
 	    pr("You have redesignated your capital!\n");
-	if (opt_EASY_BRIDGES == 0) {	/* may cause a bridge fall */
-	    if (n != SCT_BHEAD)
-		continue;
+	if (!opt_EASY_BRIDGES && IS_BRIDGE_HEAD(n))
 	    bridgefall(&sect);
-	}
     }
     if (changed)
 	writemap(player->cnum);

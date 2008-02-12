@@ -528,12 +528,10 @@ build_bridge(struct sctstr *sp, short *vec)
     char buf[1024];
 
     if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
-	if (sp->sct_type != SCT_BTOWER) {
-	    if (sp->sct_type != SCT_BHEAD)
-		return 0;
-	    if (sp->sct_newtype != SCT_BHEAD)
-		return 0;
-	}
+	if (!IS_BRIDGE_HEAD(sp->sct_type))
+	    return 0;
+	if (sp->sct_newtype != sp->sct_type)
+	    return 0;
     }
 
     if (sp->sct_effic < 60 && !player->god) {
