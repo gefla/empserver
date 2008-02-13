@@ -103,6 +103,7 @@ enum d_navigation {
 struct dchrstr {
     unsigned char d_uid;
     char d_mnem;		/* map symbol */
+    unsigned char d_terrain;	/* terrain sector type */
     int d_prd;			/* product type */
     int d_peffic;		/* process efficiency, in percent */
     float d_mob0, d_mob1;	/* movement cost at 0 and 100% eff */
