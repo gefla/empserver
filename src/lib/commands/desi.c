@@ -92,6 +92,11 @@ desi(void)
 		pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
 		continue;
 	    }
+	    if (dchr[des].d_terrain != dchr[sect.sct_type].d_terrain) {
+		pr("You can't change a %s into a %s\n",
+		   dchr[sect.sct_type].d_name, dchr[des].d_name);
+		continue;
+	    }
 	}
 	if (sect.sct_type == des && sect.sct_newtype == des)
 	    continue;

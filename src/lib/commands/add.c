@@ -154,13 +154,8 @@ add(void)
 		sect.sct_defense = 0;
 		sect.sct_own = 0;
 		sect.sct_oldown = 0;
-		if (sect.sct_type == SCT_BSPAN ||
-		    sect.sct_type == SCT_BTOWER)
-		    sect.sct_newtype = sect.sct_type = SCT_WATER;
-		else if (sect.sct_type != SCT_MOUNT &&
-		    sect.sct_type != SCT_PLAINS)
-		    sect.sct_newtype = sect.sct_type = SCT_RURAL;
-		/* No dist path */
+		sect.sct_newtype = sect.sct_type
+		    = dchr[sect.sct_type].d_terrain;
 		sect.sct_dist_x = sect.sct_x;
 		sect.sct_dist_y = sect.sct_y;
 		memset(sect.sct_item, 0, sizeof(sect.sct_item));

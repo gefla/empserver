@@ -179,6 +179,7 @@ struct castr dchr_ca[] = {
     {"uid", fldoff(d_uid), NSC_UCHAR, 0, NULL, EF_SECTOR_CHR, 0},
     {"name", fldoff(d_name), NSC_STRING, 0, NULL, EF_BAD, 0},
     {"mnem", fldoff(d_mnem), NSC_STRINGY, 1, NULL, EF_BAD, NSC_CONST},
+    {"terrain", fldoff(d_terrain), NSC_UCHAR, 0, NULL, EF_SECTOR_CHR, 0},
     {"prd", fldoff(d_prd), NSC_INT, 0, NULL, EF_PRODUCT, 0},
     {"peffic", fldoff(d_peffic), NSC_INT, 0, NULL, EF_BAD, 0},
     {"mob0", fldoff(d_mob0), NSC_FLOAT, 0, NULL, EF_BAD, 0},
