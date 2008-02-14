@@ -73,7 +73,7 @@ struct lwpQueue {
 
 extern int LwpStackGrowsDown;
 
-int lwpNewContext(struct lwpProc *, int);
+int lwpNewContext(struct lwpProc *);
 void lwpSwitchContext(struct lwpProc *, struct lwpProc *);
 void lwpAddTail(struct lwpQueue *, struct lwpProc *);
 struct lwpProc *lwpGetFirst(struct lwpQueue *);

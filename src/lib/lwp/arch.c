@@ -47,36 +47,16 @@
  */
 
 int
-lwpNewContext(struct lwpProc *newp, int stacksz)
+lwpNewContext(struct lwpProc *newp)
 {
-    char *s;
-    int size, redsize;
-
-    /* Make size a multiple of sizeof(long) to keep things aligned */
-    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
-    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
-    redsize = newp->flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
-    size = stacksz + 2 * redsize;
-
-    s = malloc(size);
-    if (!s)
+    if (getcontext(&newp->context) < 0)
 	return -1;
-
-    newp->sbtm = s;
-    newp->size = size;
-    newp->ustack = s + redsize;
-    newp->usize = stacksz;
-
-    if (getcontext(&newp->context) < 0) {
-	free(s);
-	return -1;
-    }
 #ifdef MAKECONTEXT_SP_HIGH
     /*
      * Known systems that are broken that way: Solaris prior to 10,
      * IRIX.
      */
-    newp->context.uc_stack.ss_sp = newp->ustack + stacksz - 8;
+    newp->context.uc_stack.ss_sp = newp->ustack + newp->usize - 8;
 #else
     newp->context.uc_stack.ss_sp = newp->ustack;
 #endif

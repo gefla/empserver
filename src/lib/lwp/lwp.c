@@ -127,6 +127,32 @@ lwpEntryPoint(void)
     lwpExit();
 }
 
+static int
+lwpNewStack(struct lwpProc *newp, int stacksz)
+{
+    char *s;
+    int size, redsize;
+
+    /* Make size a multiple of sizeof(long) to keep things aligned */
+    stacksz = (stacksz + sizeof(long) - 1) & -sizeof(long);
+    /* Add a red zone on each side of the stack for LWP_STACKCHECK */
+    redsize = newp->flags & LWP_STACKCHECK ? LWP_REDZONE : 0;
+    size = stacksz + 2 * redsize;
+
+    s = malloc(size);
+    if (!s)
+	return -1;
+
+    newp->sbtm = s;
+    newp->size = size;
+    newp->ustack = s + redsize;
+    newp->usize = stacksz;
+
+    if (newp->flags & LWP_STACKCHECK)
+	lwpStackCheckInit(newp);
+    return 0;
+}
+
 /*
  * lwpCreate -- create a process.
  */
@@ -147,19 +173,19 @@ lwpCreate(int priority, void (*entry)(void *), int stacksz,
     newp->dead = 0;
     newp->runtime = (time_t)-1;
     newp->fd = -1;
+    newp->sbtm = NULL;
     if (LWP_MAX_PRIO <= priority)
 	priority = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < (newp->pri = priority))
 	LwpMaxpri = priority;
-    if (lwpNewContext(newp, stacksz) < 0) {
+    if (lwpNewStack(newp, stacksz) < 0 || lwpNewContext(newp) < 0) {
+	free(newp->sbtm);
 	free(newp->name);
 	free(newp);
 	return NULL;
     }
     lwpStatus(newp, "creating process structure %p (sbtm %p)",
 	      newp, newp->sbtm);
-    if (flags & LWP_STACKCHECK)
-	lwpStackCheckInit(newp);
     lwpReady(newp);
     lwpReady(LwpCurrent);
     lwpReschedule();
