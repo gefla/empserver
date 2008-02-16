@@ -14,7 +14,7 @@ just apply it to a land unit instead of a ship.
 A combat has 15 steps:
 (1)  Ask the aggressor for the target sector/ship.
 (2)  Ask the aggressor further details about the offensive force.
-(3)  Estimate the odds and possibly ask the aggressor for confirmation.
+(3)  Compute initial strengths.
 (4)  Move reacting defensive units to the target sector.
 (5)  Calculate defensive support.
 (6)  Fight.
@@ -101,7 +101,7 @@ q - quit attack
 ? - print this help message
 .FI
 .s1
-.L "(3)  Estimate the odds and possibly ask the aggressor for confirmation."
+.L "(3)  Compute initial strengths."
 .NF
 The offense strength of your land units is mil * off where "mil" is the
 number of mil in the unit, and "off" is the offense multiplier of the
@@ -130,36 +130,6 @@ the defense value of the sector the mil and units are in (see show
 sector stats).  Ships have a defense value of 1 + def/100 (see show
 ship stats).  You can use the "strength" command to see the defense
 strength of your sectors.
-.s1
-Now, when your scouts estimate the defense strength, they only count
-land units and mil that they see.  If your scouts didn't notice the
-efficiency of the defending units, then they assume that they are at
-100% efficiency.  Your scouts also assume that none of the enemy units
-are fortified.  Once your scouts have come up with an "estimated
-defense strength", then that number is compared with your offense
-strength.  The
-output so far might look like this:
-.EX attack -14,2
-.NF
--14,2 is a 100% 5 harbor with approximately 0 military.
-Number of mil from headquarters at -15,3 (max 108) : 10
-cavalry #7 has a base attack value of 44
-attack with cavalry #7 in -15,3 (~ 100%) [ynYNq?] y
-cavalry #24 has a base attack value of 44
-
-             Initial attack strength:      108
-Scouts report defending unit: inf1  infantry 1 #22 (efficiency 71, tech 169)
-Scouts report defending unit: inf2  infantry 2 #41 (efficiency 94, tech 169)
-Scouts report defending unit: inf2  infantry 2 #42 (efficiency 94, tech 173)
-Scouts report defending unit: inf2  infantry 2 #43 (efficiency 65, tech 139)
-          Estimated defense strength:     1118
-                      Estimated odds:        8%
-
-.FI
-.s1
-Note that your estimated odds are calculated before any enemy units
-have reacted, and before support multipliers are calculated, so they
-will not be particularly accurate.
 .s1
 .L "(4)  Move reacting defensive units to the target sector."
 .s1
