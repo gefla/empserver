@@ -307,18 +307,17 @@ If the combat was an assault, paradrop, board or lboard, then all victorious
 mil and units are automatically moved into the target.  The mil are
 moved in with no mobility charge.  If the combat is assault, then
 the mil will take an amount of food with them proportional to the
-number of people leaving the ship.  The mobility cost to land units is
-as follows:
-.NF
-Assault: If the land units are attacking from a ship with "land" capability,
-         then land units are charged (update mob) mobility, except for
-         "marine" units which are only charged half of that.  For all
-         other kinds of ships, land units go to -(update mob), except for
-         "marine" units which go to zero.  Here, (update mob) refers to
-         the amount of mobility that units gain at the update.
-Board:   Marine units are charged 10 mobility and other land units are
-         charged 40.     
-.FI
+number of people leaving the ship.
+.s1
+Assaulting units pay one update's worth of mobility, except for
+"marine" units, which pay only half of that.  Unless assaulting from a
+ship with "land" capability, mobility is further decreased to one
+update's worth of mobility negated (so that the unit will have zero
+mobility after the update), except for "marine" units, whose mobility
+is decreased to zero instead.
+.s1
+For boarding, "marine" units are charged 10 mobility and other land
+units are charged 40.
 .s1
 In the case of attack, the aggressor is asked what they'd
 like to move in as follows:  First, the aggressor is asked how many mil

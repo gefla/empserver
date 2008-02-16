@@ -2525,7 +2525,7 @@ take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 {
     double mob = llp->unit.land.lnd_mobil;
     double gain = etu_per_update * land_mob_scale;
-    double mobcost;
+    double mobcost, moblim;
 
     switch (combat_mode) {
     case A_ATTACK:
@@ -2534,10 +2534,20 @@ take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 					   lnd_mobtype(&llp->unit.land)));
 	break;
     case A_ASSAULT:
-	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
-	    mobcost = off->shp_mcp->m_flags & M_LAND ? gain / 2.0 : mob;
-	else
-	    mobcost = off->shp_mcp->m_flags & M_LAND ? gain : mob + gain;
+	/*
+	 * Set mobcost to basic assault cost, moblim to maximum
+	 * mobility to keep when assaulting from non-landing ship
+	 */
+	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE) {
+	    mobcost = gain / 2.0;
+	    moblim = 0;
+	} else {
+	    mobcost = gain;
+	    moblim = -gain;
+	}
+	if (!(off->shp_mcp->m_flags & M_LAND))
+	    /* Not a landing ship, ensure we go to or below moblim */
+	    mobcost = MAX(mobcost, mob - moblim);
 	break;
     case A_BOARD:
 	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)

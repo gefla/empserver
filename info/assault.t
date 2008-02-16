@@ -20,14 +20,12 @@ semi-lander flag, which allows them to land 25% of their troops.
 If you have land units with the 'assault' ability 
 aboard the ship assaulting, you will be asked if
 you wish them to join in the assault as well.
-Assaulting land units go to negative mobility when assaulting.
-(by an amount equal to the mobility gain per update)
-Marine units go to 0 mobility instead.
-If assaulting from a ship with the landing ability, a normal unit
-pays only mob equal to 1 update's worth of mobility. A marine unit
-pays 1/2 that amount. (Example: in a game where land units gain 32
-mobility per update, a non-marine unit would pay 32 mobility to assault
-from a landing ship. A marine unit would pay only 16 mobility)
+Assaulting units pay one update's worth of mobility, except for marine
+units, which pay only half of that.  Unless assaulting from a ship
+with landing capability, mobility is further decreased to one update's
+worth of mobility negated (so that the unit will have zero mobility
+after the update), except for marine units, whose mobility is
+decreased to zero instead.
 .s1
 .L NOTE
 This mobility loss for units happens whether or not you
