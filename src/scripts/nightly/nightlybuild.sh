@@ -15,6 +15,7 @@
 # TESTSCRIPT	-	Run the testscript
 # SERVERSTOP	-	Stop the server if it was started by this script
 # CLEANUP	-	Remove the contents of the sandbox
+# REMOVE_REPOSITORY	Removes the git repository when cleaning up
 #
 
 PROGNAME="$0"
