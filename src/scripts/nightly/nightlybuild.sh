@@ -112,7 +112,9 @@ then
 		RETR="`expr 1 + ${RETR}`"
 		[ "${RETR}" -gt 5 ] && err "git-clone Timeout after ${RETR} retres."
 	done
+	cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 else
+	cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 	while ! git pull $GITROOT master >/dev/null
 	do
 		sleep "`expr 5 + ${RETR}`"
@@ -142,7 +144,7 @@ echo "Applying global patches from ${BOXDIR}/${WORKDIR}/empserver/src/scripts/ni
 for i in "${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/All"/*.patch
 do
 	[ -r "${i}" ] || continue
-	if ${PATCH:=patch} -Np0 < "${i}" >/dev/null
+	if git apply "${i}" >/dev/null
 	then
 		echo "${i}: OK"
 	else
@@ -159,7 +161,7 @@ then
 	for i in "${LOCALPATCHDIRECTORY}"/*.patch
 	do
 		[ -r "${i}" ] || continue
-		if ${PATCH:=patch} -Np0 < "${i}" >/dev/null
+		if git apply "${i}" >/dev/null
 		then
 			echo "${i}: OK"
 		else
@@ -169,8 +171,6 @@ then
 	echo "Done (patch specific)."
 	echo ""
 fi
-
-cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 
 git-pull
 sh ./bootstrap
