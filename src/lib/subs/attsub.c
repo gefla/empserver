@@ -2523,43 +2523,37 @@ static void
 take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 		 struct combat *def)
 {
-    int mobcost;
-    int new;
+    double mob = llp->unit.land.lnd_mobil;
+    double gain = etu_per_update * land_mob_scale;
+    double mobcost;
 
     switch (combat_mode) {
     case A_ATTACK:
 	mobcost = lnd_pathcost(&llp->unit.land,
 			       att_mobcost(off->own, def,
 					   lnd_mobtype(&llp->unit.land)));
-	new = llp->unit.land.lnd_mobil - mobcost;
-	if (new < -127)
-	    new = -127;
-	llp->unit.land.lnd_mobil = new;
 	break;
     case A_ASSAULT:
-	if (off->shp_mcp->m_flags & M_LAND) {
-	    if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
-		llp->unit.land.lnd_mobil -=
-		    (float)etu_per_update * land_mob_scale * 0.5;
-	    else
-		llp->unit.land.lnd_mobil -= (float)etu_per_update *
-		    land_mob_scale;
-	} else {
-	    if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
-		llp->unit.land.lnd_mobil = 0;
-	    else
-		llp->unit.land.lnd_mobil = -(float)etu_per_update *
-		    land_mob_scale;
-	}
+	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
+	    mobcost = off->shp_mcp->m_flags & M_LAND ? gain / 2.0 : mob;
+	else
+	    mobcost = off->shp_mcp->m_flags & M_LAND ? gain : mob + gain;
 	break;
     case A_BOARD:
-	/* I arbitrarily chose the numbers 10 and 40 below -KHS */
 	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
-	    llp->unit.land.lnd_mobil -= 10;
+	    mobcost = 10;
 	else
-	    llp->unit.land.lnd_mobil -= 40;
+	    mobcost = 40;
 	break;
+    default:
+	CANT_REACH();
+	mobcost = 0;
     }
+
+    mob -= mobcost;
+    if (mob < -127.0)
+	mob = -127.0;
+    llp->unit.land.lnd_mobil = (signed char)mob;
     llp->unit.land.lnd_harden = 0;
 }
 
