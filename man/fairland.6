@@ -39,9 +39,9 @@ fairland \- Empire land generator
 .SH DESCRIPTION
 .B fairland
 is a program which creates land and ore for Empire.  It
-should be run after 
-.I files 
-has been run and before 
+should be run after
+.I files
+has been run and before
 .I emp_server
 has been started.  This is a land generator for empire that creates a
 specified number of continents, and spaces them evenly accross the
@@ -51,13 +51,13 @@ distribution of resources and the same number of mountains.  You can
 get nearly any kind of map you want by choosing the right arguments.
 .SH OPTIONS
 .TP
-.B \-a 
+.B \-a
 mark the continents with a * so that you can tell them from the islands
 .TP
 .BI \-e " configfile"
 Use game configuration in \fIconfigfile\fR.
 .TP
-.B \-h 
+.B \-h
 Help.  Print brief usage information and exit.
 .TP
 .B \-i
@@ -65,8 +65,8 @@ islands will crash into each other and merge
 .TP
 .B \-o
 do not set the resources.  If you use this flag, then you will need to
-run some other program (for example the 
-.I ore 
+run some other program (for example the
+.I ore
 program) to set the resources.
 .TP
 .B \-q
@@ -90,28 +90,28 @@ to "newcap_script".)
 Print version information and exit.
 .SH OPERANDS
 .TP
-.I nc 
+.I nc
 number of continents
 .TP
-.I sc 
+.I sc
 continent size
 .TP
-.I ni 
+.I ni
 number of islands (optional, default = nc)
 .TP
-.I is 
+.I is
 average size of islands (optional, default = sc/2)
 .TP
-.I sp 
+.I sp
 spike percentage: 0 = round, 100 = snake (default = 10)
 .TP
-.I pm 
+.I pm
 the percentage of land that is mountain (default = 0)
 .TP
-.I di 
+.I di
 the minimum distance between continents (default = 2)
 .TP
-.I id 
+.I id
 minimum distance from islands to continents (default = 1)
 .SH AUTHOR
 Ken Stevens <chidren@empire.net>
