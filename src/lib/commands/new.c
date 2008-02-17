@@ -105,10 +105,10 @@ new(void)
 	     * another place on the map.
 	     */
 	    getsect(x, y, &sect);
-	    if (sect.sct_type == SCT_WATER || sect.sct_own != 0)
+	    if (sect.sct_type != SCT_RURAL || sect.sct_own != 0)
 		continue;
 	    getsect(x + 2, y, &sect);
-	    if (sect.sct_type == SCT_WATER || sect.sct_own != 0)
+	    if (sect.sct_type != SCT_RURAL || sect.sct_own != 0)
 		continue;
 	    if (isok(x, y))
 		break;
