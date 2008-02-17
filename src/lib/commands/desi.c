@@ -38,31 +38,8 @@
 #include "optlist.h"
 #include "path.h"
 
-static long do_desi(struct natstr *natp, char *sects, char *deschar,
-		    long cash, int for_real);
-
 int
 desi(void)
-{
-    long cash;
-    long cost;
-    struct natstr *natp;
-
-    natp = getnatp(player->cnum);
-    cash = natp->nat_money;
-    if (player->argp[2]) {
-	cost = do_desi(natp, player->argp[1], player->argp[2], cash, 0);
-	if (cost < 0)
-	    return (int)-cost;
-	if (chkmoney(cost, cash, player->argp[3]))
-	    return RET_SYN;
-    }
-    return (int)do_desi(natp, player->argp[1], player->argp[2], cash, 1);
-}
-
-static long
-do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
-	int for_real)
 {
     int n;
     char *p;
@@ -73,19 +50,15 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
     struct nstr_sect nstr;
     struct sctstr sect;
     struct sctstr check;
+    struct natstr *natp;
     char prompt[128];
     char buf[1024];
-    long cost = 0;
     int changed = 0;
-    int warned = 0;
 
     breaksanct = 0;
-    if (!snxtsct(&nstr, sects)) {
-	if (for_real)
-	    return (long)RET_SYN;
-	else
-	    return (long)-RET_SYN;
-    }
+    if (!snxtsct(&nstr, player->argp[1]))
+	return RET_SYN;
+    natp = getnatp(player->cnum);
     cap_x = natp->nat_xcap;
     cap_y = natp->nat_ycap;
     while (!player->aborted && nxtsct(&nstr, &sect)) {
@@ -96,7 +69,7 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 	sprintf(prompt, "%s %d%% %s  desig? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
-	if ((p = getstarg(deschar, prompt, buf)) == 0)
+	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	    continue;
 
 	if (!check_sect_ok(&sect))
@@ -107,23 +80,17 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 			!player->god)) {
 	    pr("No such designation\n"
 	       "See \"info Sector-types\" for possible designations\n");
-	    if (for_real)
-		return (long)RET_FAIL;
-	    else
-		return (long)-RET_FAIL;
+	    return RET_FAIL;
 	}
 	if (!player->god) {
 	    if (des == SCT_WASTE) {
-		if (for_real)
-		    pr("Only a nuclear device (or %s) can make a %s!\n",
-		       cname(0), dchr[des].d_name);
+		pr("Only a nuclear device (or %s) can make a %s!\n",
+		   cname(0), dchr[des].d_name);
 		continue;
 	    }
 	    if (dchr[des].d_cost < 0) {
-		if (for_real)
-		    pr("Only %s can make a %s!\n",
-		       cname(0), dchr[des].d_name);
-		continue;
+		pr("Only %s can make a %s!\n",
+		   cname(0), dchr[des].d_name);
 	    }
 	}
 	if (sect.sct_type == des && sect.sct_newtype == des)
@@ -142,13 +109,11 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 		    break;
 	    }
 	    if (n > 6) {
-		if (for_real)
-		    pr("%s does not border on water.\n",
-		       xyas(nstr.x, nstr.y, player->cnum));
-		if (player->god) {
-		    if (for_real)
-			pr("But if it's what you want ...\n");
-		} else
+		pr("%s does not border on water.\n",
+		   xyas(nstr.x, nstr.y, player->cnum));
+		if (player->god)
+		    pr("But if it's what you want ...\n");
+		else
 		    continue;
 	    }
 	}
@@ -157,14 +122,11 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 	n = sect.sct_type;
 	if ((sect.sct_newtype != des) && (sect.sct_type != des)
 	    && dchr[des].d_cost > 0) {
-	    if (for_real) {
-		if (check_cost(!deschar, dchr[des].d_cost, cash, &warned,
-			       player->argp[3]))
-		    break;
-	    } else {
-		cost += dchr[des].d_cost;
-		continue;
+	    if (natp->nat_money < player->dolcost + dchr[des].d_cost) {
+		pr("You can't afford a %s!\n", dchr[des].d_name);
+		break;
 	    }
+	    player->dolcost += dchr[des].d_cost;
 	}
 	if (sect.sct_type != des && (sect.sct_effic < 5 || player->god)) {
 	    if (player->god)
@@ -177,8 +139,7 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 	sect.sct_newtype = des;
 	putsect(&sect);
 	if (sect.sct_x == cap_x && sect.sct_y == cap_y
-	    && des != SCT_CAPIT && des != SCT_SANCT && des != SCT_MOUNT
-	    && for_real)
+	    && des != SCT_CAPIT && des != SCT_SANCT && des != SCT_MOUNT)
 	    pr("You have redesignated your capital!\n");
 	if (opt_EASY_BRIDGES == 0) {	/* may cause a bridge fall */
 	    if (n != SCT_BHEAD)
@@ -186,13 +147,9 @@ do_desi(struct natstr *natp, char *sects, char *deschar, long cash,
 	    bridgefall(&sect, 0);
 	}
     }
-    if (for_real) {
-	if (changed)
-	    writemap(player->cnum);
-	if (breaksanct)
-	    bsanct();
-	return (long)RET_OK;
-    } else {
-	return cost;
-    }
+    if (changed)
+	writemap(player->cnum);
+    if (breaksanct)
+	bsanct();
+    return RET_OK;
 }
