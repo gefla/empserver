@@ -419,7 +419,6 @@ extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
 /* chkmoney.c */
 extern int chkmoney(long, long, char *);
-extern int check_cost(int, int, long, int *, char *);
 /* coastal.c */
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */

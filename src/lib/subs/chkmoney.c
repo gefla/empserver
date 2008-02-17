@@ -54,28 +54,3 @@ chkmoney(long cost, long cash, char *argp)
     }
     return 0;
 }
-
-int
-check_cost(int looping, int cost, long cash, int *warnedp,
-	   char *argp)
-{
-    char buf[1024];
-    char *p;
-
-    if (looping && cash > 0 && player->dolcost + cost > cash
-	&& *warnedp < 2) {
-	*warnedp = 2;
-	pr("You will go broke!  (it will cost $%d and you only have $%ld)\n", cost, cash - (long)player->dolcost);
-	p = getstarg(argp, "Are you sure you wish to continue? ", buf);
-	if (p == 0 || *p != 'y')
-	    return 1;
-    }
-    player->dolcost += cost;
-    if (looping && cash > 0 && player->dolcost > cash / 2 && *warnedp < 1) {
-	*warnedp = 1;
-	pr("WARNING.  You have just spent over half of your money.\n");
-	pr("You started with $%ld and now you only have $%ld left\n",
-	   cash, cash - (long)player->dolcost);
-    }
-    return 0;
-}
