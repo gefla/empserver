@@ -97,25 +97,13 @@ desi(void)
 	    continue;
 	if (sect.sct_type == SCT_SANCT)
 	    breaksanct++;
-	if ((des == SCT_HARBR) || (des == SCT_BHEAD)) {
-	    for (n = 1; n <= 6; n++) {
-		getsect(nstr.x + diroff[n][0],
-			nstr.y + diroff[n][1], &check);
-		if (check.sct_type == SCT_WATER)
-		    break;
-		if (check.sct_type == SCT_BSPAN)
-		    break;
-		if (check.sct_type == SCT_BTOWER)
-		    break;
-	    }
-	    if (n > 6) {
-		pr("%s does not border on water.\n",
-		   xyas(nstr.x, nstr.y, player->cnum));
-		if (player->god)
-		    pr("But if it's what you want ...\n");
-		else
-		    continue;
-	    }
+	if ((des == SCT_HARBR || des == SCT_BHEAD) && !sect.sct_coastal) {
+	    pr("%s does not border on water.\n",
+	       xyas(nstr.x, nstr.y, player->cnum));
+	    if (player->god)
+		pr("But if it's what you want ...\n");
+	    else
+		continue;
 	}
 	if (sect.sct_type == SCT_SANCT && !player->god)
 	    continue;
