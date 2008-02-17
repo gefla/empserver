@@ -225,7 +225,7 @@ struct symbol plane_chr_flags[] = {
 struct symbol plane_flags[] = {
     {PLN_LAUNCHED, "launched"},
     {PLN_SYNCHRONOUS, "synchronous"},
-    {PLN_AIRBURST, "airbust"},
+    {PLN_AIRBURST, "airburst"},
     {0, NULL}
 };
 
