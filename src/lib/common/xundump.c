@@ -492,6 +492,10 @@ getobj(void)
 		      cur_id, ep->name, ep->fids - !!need_sentinel - 1);
 	} else
 	    cur_obj = ef_ptr(cur_type, cur_id);
+	/* TODO find a less ugly solution */
+	if (EF_IS_GAME_STATE(cur_type) && cur_type != EF_POWER &&
+	    cur_type != EF_MAP && cur_type != EF_BMAP)
+	    *((short *)cur_obj) = cur_type;
     }
 
     return cur_obj;
