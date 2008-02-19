@@ -49,7 +49,7 @@ natbyname(char *name, natid *result)
 	    return 0;
 	}
     }
-    *result = 255;
+    *result = NATID_BAD;
     return -1;
 }
 

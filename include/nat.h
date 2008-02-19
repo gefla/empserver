@@ -39,6 +39,8 @@
 #include <time.h>
 #include "types.h"
 
+#define NATID_BAD 255
+
 #define	MAXNOR		50	/* max # realms */
 
 /* Nation status */

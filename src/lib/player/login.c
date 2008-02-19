@@ -207,7 +207,7 @@ pass_cmd(void)
 {
     if (!player->argp[1])
 	return RET_SYN;
-    if (player->cnum == 255) {
+    if (player->cnum == NATID_BAD) {
 	pr_id(player, C_CMDERR, "need country first\n");
 	return RET_FAIL;
     }
@@ -280,7 +280,7 @@ may_play(void)
 {
     struct natstr *np;
 
-    if (player->cnum == 255 || !player->authenticated) {
+    if (player->cnum == NATID_BAD || !player->authenticated) {
 	pr_id(player, C_CMDERR, "need country and password\n");
 	return 0;
     }

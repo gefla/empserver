@@ -47,6 +47,7 @@
 #include "empthread.h"
 #include "file.h"
 #include "misc.h"
+#include "nat.h"
 #include "optlist.h"
 #include "player.h"
 #include "power.h"
@@ -84,7 +85,7 @@ player_new(int s)
 	    return NULL;
 	}
 	emp_insque(&lp->queue, &Players);
-	lp->cnum = 255;
+	lp->cnum = NATID_BAD;
 	lp->curid = -1;
 	time(&lp->curup);
     }
