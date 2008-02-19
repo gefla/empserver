@@ -148,11 +148,6 @@ ef_open(int type, int how)
 	}
     }
 
-    /*
-     * Could close fd if both EFF_RDONLY and EFF_MEM, but that doesn't
-     * happen, so don't bother.
-     */
-
     return 1;
 }
 
