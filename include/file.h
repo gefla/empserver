@@ -57,7 +57,7 @@ struct empfile {
     int cids;			/* # entries in cache */
     int fids;			/* # entries in table */
     int fd;			/* file descriptor, -1 if not open */
-    /* flags bits EFF_RDONLY, EFF_CUSTOM also vary */
+    /* flags bits EFF_PRIVATE, EFF_CUSTOM also vary */
 
     /* User callbacks */
     void (*init)(int, void *);	/* called after entry creation, unless null */
@@ -86,8 +86,8 @@ struct empfile {
 /* Flags set when table contents is mapped */
 /* Table is entirely in memory */
 #define EFF_MEM		bit(8)
-/* Table is read-only */
-#define EFF_RDONLY	bit(9)
+/* Table is privately mapped: changes don't affect the underlying file */
+#define EFF_PRIVATE	bit(9)
 /* Table is customized (configuration tables only) */
 #define EFF_CUSTOM	bit(10)
 /* Transient flags, only occur in argument of ef_open() */
@@ -97,7 +97,8 @@ struct empfile {
 /*
  * Empire `file types'
  * These are really table IDs.  Some tables are backed by files, some
- * are compiled into the server.
+ * are compiled into the server, some initialized from configuration
+ * files.
  */
 enum {
     /* Error value */
