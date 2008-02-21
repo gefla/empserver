@@ -73,7 +73,7 @@ ef_open(int type, int how)
     if (CANT_HAPPEN(ep->fd >= 0))
 	return 0;
     oflags = O_RDWR;
-    if (how & EFF_RDONLY)
+    if (how & EFF_PRIVATE)
 	oflags = O_RDONLY;
     if (how & EFF_CREATE)
 	oflags |= O_CREAT | O_TRUNC;
@@ -85,7 +85,7 @@ ef_open(int type, int how)
 	return 0;
     }
 
-    lock.l_type = how & EFF_RDONLY ? F_RDLCK : F_WRLCK;
+    lock.l_type = how & EFF_PRIVATE ? F_RDLCK : F_WRLCK;
     lock.l_whence = SEEK_SET;
     lock.l_start = lock.l_len = 0;
     if (fcntl(fd, F_SETLK, &lock) == -1) {
@@ -177,7 +177,8 @@ ef_close(int type)
 }
 
 /*
- * Flush file-backed table TYPE (EF_SECTOR, ...) to disk.
+ * Flush table TYPE (EF_SECTOR, ...) to disk.
+ * Does nothing if the table is privately mapped.
  * Return non-zero on success, zero on failure.
  */
 int
@@ -188,6 +189,8 @@ ef_flush(int type)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
+    if (ep->flags & EFF_PRIVATE)
+	return 1;		/* nothing to do */
     if (CANT_HAPPEN(ep->fd < 0))
 	return 0;
     /*
@@ -196,7 +199,7 @@ ef_flush(int type)
      * allowed only with EFF_MEM.  Assume the whole cash is dirty
      * then.
      */
-    if (!(ep->flags & EFF_RDONLY) && (ep->flags & EFF_MEM))
+    if (ep->flags & EFF_MEM)
 	return do_write(ep, ep->cache, ep->baseid, ep->cids) >= 0;
 
     return 1;
@@ -311,7 +314,8 @@ do_write(struct empfile *ep, void *buf, int id, int count)
     int n, ret;
     char *p;
 
-    if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
+    if (CANT_HAPPEN(ep->fd < 0 || (ep->flags & EFF_PRIVATE)
+		    || id < 0 || count < 0))
 	return -1;
 
     if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
@@ -339,9 +343,10 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 }
 
 /*
- * Write element ID into file-backed table TYPE from buffer FROM.
+ * Write element ID into table TYPE from buffer FROM.
  * FIXME pass buffer size!
- * Write through cache straight to disk.
+ * If table is file-backed and not privately mapped, write through
+ * cache straight to disk.
  * Cannot write beyond the end of fully cached table (flags & EFF_MEM).
  * Can write at the end of partially cached table.
  * Return non-zero on success, zero on failure.
@@ -355,12 +360,16 @@ ef_write(int type, int id, void *from)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
+    if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
+	return 0;
     if (ep->prewrite)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
-    if (do_write(ep, from, id, 1) < 0)
-	return 0;
+    if (!(ep->flags & EFF_PRIVATE)) {
+	if (do_write(ep, from, id, 1) < 0)
+	    return 0;
+    }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	/* update the cache if necessary */
 	to = ep->cache + (id - ep->baseid) * ep->size;
@@ -376,6 +385,7 @@ ef_write(int type, int id, void *from)
 
 /*
  * Extend the file-backed table TYPE by COUNT elements.
+ * Can't extend privately mapped tables.
  * Return non-zero on success, zero on failure.
  */
 int
@@ -390,6 +400,8 @@ ef_extend(int type, int count)
     ep = &empfile[type];
     if (CANT_HAPPEN(ep->fd < 0 || count < 0))
 	return 0;
+    if (CANT_HAPPEN(ep->flags & EFF_PRIVATE))
+	return 0; 		/* not implemented */
 
     tmpobj = calloc(1, ep->size);
     id = ep->fids;

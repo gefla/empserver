@@ -85,7 +85,7 @@
     SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1, NULL, NULL, NULL
 
 /* Common configuration table flags */
-#define EFF_CFG (EFF_RDONLY | EFF_MEM | EFF_STATIC)
+#define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC)
 
 struct empfile empfile[] = {
     /*
@@ -95,7 +95,7 @@ struct empfile empfile[] = {
      * bits of flags get their final value.
      * If flags & EFF_STATIC, the cache is mapped here, and members
      * cache, csize get their final value.
-     * Members baseid, cids, fids and the EFF_MEM|EFF_RDONLY bits of
+     * Members baseid, cids, fids and the EFF_MEM|EFF_PRIVATE bits of
      * flags are initialized according the initial cache contents.
      * Member fd is initialized to -1.
      * Members init, postread, prewrite get initialized to NULL, but
