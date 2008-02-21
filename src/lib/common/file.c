@@ -46,8 +46,10 @@
 #include "nsc.h"
 #include "prototypes.h"
 
+static int ef_remap_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
 static int do_write(struct empfile *, void *, int, int);
+static void ef_blank(struct empfile *, void *, int, int);
 
 /*
  * Open the file-backed table TYPE (EF_SECTOR, ...).
@@ -61,7 +63,7 @@ ef_open(int type, int how)
 {
     struct empfile *ep;
     struct flock lock;
-    int oflags, fd, fsiz, size;
+    int oflags, fd, fsiz, nslots;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -116,18 +118,13 @@ ef_open(int type, int how)
 	    }
 	}
     } else {
-	if (how & EFF_MEM)
-	    ep->csize = ep->fids;
-	else
-	    ep->csize = blksize(fd) / ep->size;
-	/* 0 could lead to null cache, which confuses assertions */
-	if (!ep->csize)
-	    ep->csize++;
-	size = ep->csize * ep->size;
 	if (CANT_HAPPEN(ep->cache))
 	    free(ep->cache);
-	ep->cache = malloc(size);
-	if (ep->cache == NULL) {
+	if (how & EFF_MEM)
+	    nslots = ep->fids;
+	else
+	    nslots = blksize(fd) / ep->size;
+	if (!ef_remap_cache(ep, nslots)) {
 	    logerror("Can't open %s: out of memory", ep->file);
 	    close(fd);
 	    return 0;
@@ -148,6 +145,31 @@ ef_open(int type, int how)
 	}
     }
 
+    return 1;
+}
+
+static int
+ef_remap_cache(struct empfile *ep, int nslots)
+{
+    void *cache;
+
+    if (CANT_HAPPEN(ep->flags & EFF_STATIC))
+	return 0;
+    if (CANT_HAPPEN(nslots < 0))
+	nslots = 0;
+
+    /*
+     * Avoid zero slots, because that can lead to null cache, which
+     * would be interpreted as unmapped cache.
+     */
+    if (nslots == 0)
+	nslots++;
+    cache = realloc(ep->cache, nslots * ep->size);
+    if (!cache)
+	return 0;
+
+    ep->cache = cache;
+    ep->csize = nslots;
     return 1;
 }
 
@@ -384,47 +406,66 @@ ef_write(int type, int id, void *from)
 }
 
 /*
- * Extend the file-backed table TYPE by COUNT elements.
- * Can't extend privately mapped tables.
+ * Extend table TYPE by COUNT elements.
+ * Any pointers obtained from ef_ptr() become invalid.
  * Return non-zero on success, zero on failure.
  */
 int
 ef_extend(int type, int count)
 {
     struct empfile *ep;
-    void *tmpobj;
-    int id, i, how;
+    char *p;
+    int i, id;
 
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
-    if (CANT_HAPPEN(ep->fd < 0 || count < 0))
+    if (CANT_HAPPEN(count < 0))
 	return 0;
-    if (CANT_HAPPEN(ep->flags & EFF_PRIVATE))
-	return 0; 		/* not implemented */
 
-    tmpobj = calloc(1, ep->size);
     id = ep->fids;
-    for (i = 0; i < count; i++) {
-	if (ep->init)
-	    ep->init(id + i, tmpobj);
-	if (do_write(ep, tmpobj, id + i, 1) < 0)
-	    break;
-    }
-    free(tmpobj);
-
     if (ep->flags & EFF_MEM) {
-	/* FIXME lazy bastards...  do this right */
-	/* XXX this will cause problems if there are ef_ptrs (to the
-	 * old allocated structure) active when we do the re-open */
-	how = ep->flags & ~EFF_IMMUTABLE;
-	ef_close(type);
-	ef_open(type, how);
+	if (id + count > ep->csize) {
+	    if (ep->flags & EFF_STATIC)
+		return 0;
+	    if (!ef_remap_cache(ep, id + count))
+		return 0;
+	}
+	p = ep->cache + id * ep->size;
+	ef_blank(ep, p, id, count);
+	if (!(ep->flags & EFF_PRIVATE)) {
+	    if (do_write(ep, p, id, count) < 0)
+		return 0;
+	}
+	ep->cids += count;
     } else {
-	ep->fids += i;
+	/* need a buffer, steal last cache slot */
+	if (ep->cids == ep->csize)
+	    ep->cids--;
+	p = ep->cache + ep->cids * ep->size;
+	for (i = 0; i < count; i++) {
+	    ef_blank(ep, p, id + i, 1);
+	    if (do_write(ep, p, id + i, 1) < 0)
+		return 0;
+	}
     }
+    ep->fids += count;
+    return 1;
+}
 
-    return i == count;
+/*
+ * Initialize COUNT elements of EP in BUF, starting with element ID.
+ */
+static void
+ef_blank(struct empfile *ep, void *buf, int id, int count)
+{
+    int i;
+
+    memset(buf, 0, count * ep->size);
+    if (ep->init) {
+	for (i = 0; i < count; i++)
+	    ep->init(id + i, (char *)buf + i * ep->size);
+    }
 }
 
 struct castr *
