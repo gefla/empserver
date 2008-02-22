@@ -56,7 +56,8 @@ struct empobj {
     short uid;
     coord x;		/* is valid if EFF_XY      is set in table def. */
     coord y;		/* is valid if EFF_XY      is set in table def. */
-    signed char type;
+    signed char type;	/* is valid for sectors and units */
+    /* remaining are valid for units */
     signed char effic;
     signed char mobil;
     unsigned char off;

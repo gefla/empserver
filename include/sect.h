@@ -48,8 +48,8 @@ struct sctstr {
     short sct_elev;		/* elevation/depth */
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
+    signed char sct_type;	/* sector type */
     /* end of part matching struct empobj */
-    unsigned char sct_type;	/* sector type */
     unsigned char sct_effic;	/* 0% to 100% */
     short sct_mobil;		/* mobility units */
     unsigned char sct_loyal;	/* updates until civilans "converted" */
@@ -65,7 +65,7 @@ struct sctstr {
     short sct_fill;		/* gunk */
     unsigned char sct_work;	/* pct of civ actually working */
     unsigned char sct_coastal;	/* is this a coastal sector? */
-    unsigned char sct_newtype;	/* for changing designations */
+    signed char sct_newtype;	/* for changing designations */
     unsigned char sct_min;	/* ease of mining ore */
     unsigned char sct_gmin;	/* amount of gold ore */
     unsigned char sct_fertil;	/* fertility of soil */
