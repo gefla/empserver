@@ -54,7 +54,8 @@
 #include "xy.h"
 
 static int bmnxtsct(struct nstr_sect *);
-static char map_char(int type, natid own, int owner_or_god);
+static char map_char(int, natid, int);
+static int unit_map(int, int, struct nstr_sect *, char *);
 
 int
 do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
@@ -341,7 +342,7 @@ map_char(int type, natid own, int owner_or_god)
     return '?';
 }
 
-int
+static int
 unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 {
     struct empobj *gp;
