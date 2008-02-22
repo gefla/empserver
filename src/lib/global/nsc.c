@@ -542,6 +542,8 @@ struct castr realm_ca[] = {
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_xh), "xh", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_yl), "yl", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(realmstr, r_yh), "yh", EF_BAD},
+    {NSC_TIME, NSC_EXTRA, 0, fldoff(realmstr, r_timestamp), "timestamp",
+     EF_BAD},
     {NSC_NOTYPE, 0, 0, 0, NULL, EF_BAD}
 };
 
