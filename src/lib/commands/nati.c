@@ -74,8 +74,7 @@ nati(void)
 	    mil = sect.sct_item[I_MILIT];
 	    pr("%d%% eff %s at %s has %d civilian%s & %d military\n",
 	       sect.sct_effic,
-	       (sect.sct_type ==
-		SCT_CAPIT ? "capital" : "mountain capital"),
+	       sect.sct_type == SCT_CAPIT ? "capital" : "mountain capital",
 	       xyas(sect.sct_x, sect.sct_y, cnum), civ, splur(civ),
 	       mil);
 	}
