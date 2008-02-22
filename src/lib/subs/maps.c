@@ -54,7 +54,7 @@
 #include "xy.h"
 
 static int bmnxtsct(struct nstr_sect *);
-static char map_char(unsigned char type, natid own, int owner_or_god);
+static char map_char(int type, natid own, int owner_or_god);
 
 int
 do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
@@ -330,7 +330,7 @@ bmnxtsct(struct nstr_sect *np)
  * If OWNER_OR_GOD, the map is for the sector's owner or a deity.
  */
 static char
-map_char(unsigned char type, natid own, int owner_or_god)
+map_char(int type, natid own, int owner_or_god)
 {
     if (CANT_HAPPEN(type > SCT_TYPE_MAX || !dchr[type].d_mnem))
 	return '?';
