@@ -196,7 +196,7 @@ explore(void)
 	putsect(&sect);
 	return RET_FAIL;
     }
-    if (chksect.sct_type == '.') {
+    if (chksect.sct_type == SCT_WATER) {
 	pr("Bridge disappeared!\n");
 	getsect(start.sct_x, start.sct_y, &start);
 	start.sct_flags &= ~MOVE_IN_PROGRESS;
