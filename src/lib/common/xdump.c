@@ -153,7 +153,7 @@ xdprval_nosym(struct xdstr *xd, struct valstr *val, char *sep)
 	xd->pr("%s%ld", sep, val->val_as.lng);
 	break;
     case NSC_DOUBLE:
-#if 0 /* TODO have %a */
+#if 1 /* TODO have %a */
 	xd->pr("%s%a", sep, val->val_as.dbl);
 #else
 	xd->pr("%s%#g", sep, val->val_as.dbl);
