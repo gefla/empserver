@@ -321,7 +321,7 @@ mission(void)
 	gp->mission = mission;
 	gp->opx = x;
 	gp->opy = y;
-	put_empobj(gp);
+	put_empobj(type, gp->uid, gp);
     }
     if (num == 0) {
 	pr("No %s%s\n", ef_nameof(type), splur(num));

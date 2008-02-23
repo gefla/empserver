@@ -66,19 +66,9 @@ get_empobjp(int type, int id)
 }
 
 int
-put_empobj(struct empobj *gp)
+put_empobj(int type, int id, struct empobj *gp)
 {
-    switch (gp->ef_type)
-    {
-    case EF_SECTOR:
-        return ef_write(gp->ef_type, sctoff(gp->x, gp->y), gp);
-    case EF_NATION:
-    case EF_BMAP:
-    case EF_MAP:
-	return ef_write(gp->ef_type, gp->own, gp);
-    default:
-	return ef_write(gp->ef_type, gp->uid, gp);
-    }
+    return ef_write(type, id, gp);
 }
 
 struct empobj_chr *
