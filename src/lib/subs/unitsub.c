@@ -102,23 +102,24 @@ unit_put(struct emp_qelem *list, natid actor)
     struct emp_qelem *qp;
     struct emp_qelem *newqp;
     struct ulist *ulp;
+    struct empobj *unit;
 
     qp = list->q_back;
     while (qp != list) {
 	ulp = (struct ulist *)qp;
+	unit = &ulp->unit.gen;
 	if (actor) {
-	    mpr(actor, "%s stopped at %s\n", obj_nameof(&ulp->unit.gen),
-		xyas(ulp->unit.gen.x, ulp->unit.gen.y,
-		     ulp->unit.gen.own));
-	    if (ulp->unit.ef_type == EF_LAND) {
+	    mpr(actor, "%s stopped at %s\n", obj_nameof(unit),
+		xyas(unit->x, unit->y, unit->own));
+	    if (unit->ef_type == EF_LAND) {
 		if (ulp->mobil < -127)
 		    ulp->mobil = -127;
-		ulp->unit.land.lnd_mobil = ulp->mobil;
+		unit->mobil = ulp->mobil;
 	    }
 	}
-	if (ulp->unit.ef_type == EF_SHIP)
-	    ulp->unit.ship.shp_mobil = (int)ulp->mobil;
-	put_empobj(ulp->unit.gen.ef_type, ulp->unit.gen.uid, &ulp->unit.gen);
+	if (unit->ef_type == EF_SHIP)
+	    unit->mobil = (int)ulp->mobil;
+	put_empobj(unit->ef_type, unit->uid, unit);
 	newqp = qp->q_back;
 	emp_remque(qp);
 	free(qp);
