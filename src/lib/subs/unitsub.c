@@ -118,7 +118,7 @@ unit_put(struct emp_qelem *list, natid actor)
 	}
 	if (ulp->unit.ef_type == EF_SHIP)
 	    ulp->unit.ship.shp_mobil = (int)ulp->mobil;
-	put_empobj(&ulp->unit.gen);
+	put_empobj(ulp->unit.gen.ef_type, ulp->unit.gen.uid, &ulp->unit.gen);
 	newqp = qp->q_back;
 	emp_remque(qp);
 	free(qp);
