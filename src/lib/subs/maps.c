@@ -345,26 +345,27 @@ map_char(int type, natid own, int owner_or_god)
 static int
 unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 {
-    struct empobj *gp;
+    union empobj_storage unit;
     struct range range;
     char *name;
 
-    gp = get_empobjp(unit_type, uid);
-    if (!gp || (gp->own != player->cnum && !player->god) || gp->own == 0)
+    if (!get_empobj(unit_type, uid, &unit))
+	return RET_FAIL;
+    if (!player->owner || unit.gen.own == 0)
 	return RET_FAIL;
 
     if (unit_type == EF_NUKE)
 	*originp = 'n';
     else {
-	if ((name = emp_obj_chr_name(gp)) == NULL)
+	if ((name = emp_obj_chr_name(&unit.gen)) == NULL)
 	    return RET_FAIL;
 	*originp = *name;
     }
 
-    range.lx = xnorm(gp->x - 10);
-    range.hx = xnorm(gp->x + 11);
-    range.ly = ynorm(gp->y - 5);
-    range.hy = ynorm(gp->y + 6);
+    range.lx = xnorm(unit.gen.x - 10);
+    range.hx = xnorm(unit.gen.x + 11);
+    range.ly = ynorm(unit.gen.y - 5);
+    range.hy = ynorm(unit.gen.y + 6);
     xysize_range(&range);
     snxtsct_area(nsp, &range);
     return RET_OK;
