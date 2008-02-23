@@ -57,18 +57,6 @@ obj_nameof(struct empobj *gp)
     return "The Beast #666";
 }
 
-struct empobj *
-get_empobjp(int type, int id)
-{
-    return ef_ptr(type, id);
-}
-
-int
-put_empobj(int type, int id, struct empobj *gp)
-{
-    return ef_write(type, id, gp);
-}
-
 struct empobj_chr *
 get_empobj_chr(struct empobj *gp)
 {

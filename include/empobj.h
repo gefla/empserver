@@ -89,9 +89,11 @@ union empobj_storage {
 
 struct empobj_chr;
 
+#define get_empobj(type, n, p) ef_read((type), (n), (p))
+#define put_empobj(type, n, p) ef_write((type), (n), (p))
+#define get_empobjp(type, n) ((struct empobj *)ef_ptr((type), (n)))
+
 extern char *obj_nameof(struct empobj *gp);
-extern struct empobj *get_empobjp(int type, int id);
-extern int put_empobj(int, int, struct empobj *gp);
 extern struct empobj_chr *get_empobj_chr(struct empobj *gp);
 extern char *emp_obj_chr_name(struct empobj *gp);
 extern int get_empobj_mob_max(int type);
