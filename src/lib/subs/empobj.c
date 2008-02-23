@@ -60,8 +60,6 @@ obj_nameof(struct empobj *gp)
 struct empobj *
 get_empobjp(int type, int id)
 {
-    if (CANT_HAPPEN(type == EF_SECTOR || type == EF_BAD))
-	return NULL;
     return ef_ptr(type, id);
 }
 
