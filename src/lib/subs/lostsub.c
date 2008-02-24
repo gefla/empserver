@@ -45,20 +45,12 @@ makelost(short type, natid owner, short id, coord x, coord y)
     int n;
 
     n = findlost(type, owner, id, x, y, 1);
-    if (n < 0) {
-	ef_extend(EF_LOST, 25);
-	n = findlost(type, owner, id, x, y, 1);
-	if (n < 0)
-	    return;
-    }
-
-    getlost(n, &lost);
+    ef_blank(EF_LOST, n, &lost);
     lost.lost_type = type;
     lost.lost_owner = owner;
     lost.lost_id = id;
     lost.lost_x = x;
     lost.lost_y = y;
-    lost.lost_uid = n;
     time(&lost.lost_timestamp);
     putlost(n, &lost);
 }
@@ -82,8 +74,7 @@ makenotlost(short type, natid owner, short id, coord x, coord y)
 /*
  * Find a suitable slot in the lost file.
  * If a record for TYPE, OWNER, ID, X, Y exists, return its index.
- * Else if FREE is non-zero, return the index of an unused record if
- * there is one.
+ * Else if FREE is non-zero, return the index of an unused record.
  * Else return -1.
  */
 static int
@@ -94,19 +85,23 @@ findlost(short type, natid owner, short id, coord x, coord y, int free)
     int freeslot = -1;
 
     for (n = 0; getlost(n, &lost); n++) {
-	if (!lost.lost_owner && freeslot == -1 && free == 1)
+	if (!lost.lost_owner && freeslot < 0)
 	    freeslot = n;
 	if (!lost.lost_owner)
 	    continue;
 	if (lost.lost_owner == owner && type == lost.lost_type) {
-	    if (type == EF_SECTOR && lost.lost_x == x && lost.lost_y == y) {
-		freeslot = n;
-		break;
-	    } else if (lost.lost_id == id) {
-		freeslot = n;
-		break;
-	    }
+	    if (type == EF_SECTOR && lost.lost_x == x && lost.lost_y == y)
+		return n;
+	    else if (lost.lost_id == id)
+		return n;
 	}
     }
-    return freeslot;
+
+    if (free) {
+	if (freeslot < 0)
+	    freeslot = n;
+	return freeslot;
+    }
+
+    return -1;
 }
