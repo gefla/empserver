@@ -184,12 +184,12 @@ ncache(int actor, int event, int victim, int times)
     if (CANT_HAPPEN(!strstr(rpt[event].r_newstory[0], "%s") && victim != 0))
 	victim = 0;
     np = &cache[actor][oldslot];
+    ef_blank(EF_NEWS, news_tail, &np->news);
     np->news.nws_ano = actor;
     np->news.nws_vno = victim;
     np->news.nws_when = now;
     np->news.nws_vrb = event;
     np->news.nws_ntm = times;
-    ef_ensure_space(EF_NEWS, news_tail, 100);
     np->id = news_tail++;
     return np;
 }
