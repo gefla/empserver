@@ -97,7 +97,7 @@ delete_old_news(void)
     /* skip over expired news */
     expiry_time = time(NULL) - days(news_keep_days);
     for (i = 0; getnews(i, &news); i++) {
-	if (news.nws_when == 0 || news.nws_when >= expiry_time)
+	if (news.nws_vrb == 0 || news.nws_when >= expiry_time)
 	    break;
     }
     /* news id 0..I-1 have expired */
@@ -108,7 +108,7 @@ delete_old_news(void)
 
     /* move unexpired news I.. to 0.., overwriting expired news */
     for (j = 0; getnews(i + j, &news); j++) {
-	if (news.nws_when == 0)
+	if (news.nws_vrb == 0)
 	    break;
 	news.nws_uid = j;
 	putnews(j, &news);
@@ -137,7 +137,7 @@ init_nreport(void)
     struct nwsstr news;
 
     for (newest_item = 0; getnews(newest_item, &news); newest_item++) {
-	if (news.nws_when == 0)
+	if (news.nws_vrb == 0)
 	    break;
     }
     news_tail = newest_item;
@@ -165,7 +165,7 @@ ncache(int actor, int event, int victim, int times)
 	    oldslot = i;
 	    oldtime = np->nws_when;
 	}
-	if (np->nws_uid == 0)
+	if (np->nws_vrb == 0)
 	    continue;
 	if (now - np->nws_when > minutes(5))
 	    continue;
