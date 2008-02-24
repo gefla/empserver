@@ -134,8 +134,7 @@ do_treaty(void)
 	    break;
 	}
     }
-    trty.ef_type = EF_TREATY;
-    trty.trt_uid = nstr.cur;
+    ef_blank(EF_TREATY, nstr.cur, &trty);
     trty.trt_acond = ourcond;
     trty.trt_bcond = theircond;
     trty.trt_status = TS_PROPOSED;
@@ -220,6 +219,7 @@ do_loan(void)
 	if (loan.l_status == LS_FREE)
 	    break;
     }
+    ef_blank(EF_LOAN, nstr.cur, &loan);
     loan.l_loner = player->cnum;
     loan.l_lonee = recipient;
     loan.l_status = LS_PROPOSED;

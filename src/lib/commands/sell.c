@@ -143,9 +143,8 @@ sell(void)
 	    if (comm.com_owner == 0)
 		break;
 	}
-	if (getcomm(ii, &comm) == 0)
-	    ef_extend(EF_COMM, 1);
 	(void)time(&now);
+	ef_blank(EF_COMM, ii, &comm);
 	comm.com_type = ip->i_uid;
 	comm.com_owner = player->cnum;
 	comm.com_price = price;

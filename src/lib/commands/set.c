@@ -113,7 +113,7 @@ set(void)
 	    if (foundslot >= 0) {
 		pr("%s #%d (lot #%d) removed from trading\n",
 		   trade_nameof(&trade, &item), ni.cur, foundslot);
-		memset(&trade, 0, sizeof(trade));
+		trade.trd_owner = 0;
 		puttrade(ni_trade.cur, &trade);
 	    }
 	} else {
@@ -121,10 +121,9 @@ set(void)
 		id = foundslot;
 	    else if (freeslot >= 0)
 		id = freeslot;
-	    else {
-		ef_extend(EF_TRADE, 1);
+	    else
 		id = ni_trade.cur;
-	    }
+	    ef_blank(EF_TRADE, id, &trade);
 	    trade.trd_x = item.gen.x;
 	    trade.trd_y = item.gen.y;
 	    trade.trd_type = type;
