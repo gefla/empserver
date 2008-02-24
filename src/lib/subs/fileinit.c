@@ -38,17 +38,16 @@
 
 struct fileinit {
     int ef_type;
-    void (*init) (int, void *);
     int (*postread) (int, void *);
     int (*prewrite) (int, void *);
 };
 
 static struct fileinit fileinit[] = {
-    {EF_SECTOR, NULL, sct_postread, sct_prewrite},
-    {EF_SHIP, NULL, shp_postread, shp_prewrite},
-    {EF_PLANE, NULL, pln_postread, pln_prewrite},
-    {EF_LAND, NULL, lnd_postread, lnd_prewrite},
-    {EF_NUKE, NULL, nuk_postread, nuk_prewrite}
+    {EF_SECTOR, sct_postread, sct_prewrite},
+    {EF_SHIP, shp_postread, shp_prewrite},
+    {EF_PLANE, pln_postread, pln_prewrite},
+    {EF_LAND, lnd_postread, lnd_prewrite},
+    {EF_NUKE, nuk_postread, nuk_prewrite}
 };
 
 static void ef_open_srv(void);
@@ -65,7 +64,6 @@ ef_init_srv(void)
     unsigned i;
 
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
-	empfile[fileinit[i].ef_type].init = fileinit[i].init;
 	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
     }

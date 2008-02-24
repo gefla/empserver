@@ -478,14 +478,12 @@ do_blank(struct empfile *ep, void *buf, int id, int count)
     struct emptypedstr *elt;
 
     memset(buf, 0, count * ep->size);
-    for (i = 0; i < count; i++) {
-	elt = (struct emptypedstr *)((char *)buf + i * ep->size);
-	if (ep->flags & EFF_TYPED) {
+    if (ep->flags & EFF_TYPED) {
+	for (i = 0; i < count; i++) {
+	    elt = (struct emptypedstr *)((char *)buf + i * ep->size);
 	    elt->ef_type = ep->uid;
 	    elt->uid = id + i;
 	}
-	if (ep->init)
-	    ep->init(id + i, (void *)elt);
     }
 }
 

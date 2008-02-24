@@ -60,7 +60,6 @@ struct empfile {
     /* flags bits EFF_PRIVATE, EFF_CUSTOM also vary */
 
     /* User callbacks */
-    void (*init)(int, void *);	/* called after entry creation, unless null */
     int (*postread)(int, void *); /* called after read, unless null */
     int (*prewrite)(int, void *); /* called before write, unless null */
 };
