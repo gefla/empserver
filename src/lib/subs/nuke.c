@@ -101,11 +101,6 @@ nuk_prewrite(int n, void *ptr)
 void
 nuk_init(int n, void *ptr)
 {
-    struct nukstr *np = ptr;
-
-    np->ef_type = EF_NUKE;
-    np->nuk_uid = n;
-    np->nuk_own = 0;
 }
 
 int

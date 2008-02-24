@@ -112,11 +112,6 @@ shp_prewrite(int n, void *ptr)
 void
 shp_init(int n, void *ptr)
 {
-    struct shpstr *sp = ptr;
-
-    sp->ef_type = EF_SHIP;
-    sp->shp_uid = n;
-    sp->shp_own = 0;
 }
 
 char *

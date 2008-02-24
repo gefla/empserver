@@ -51,18 +51,23 @@
 #include "types.h"
 
 struct empobj {
-    short ef_type;	/* is always valid */
+    /*
+     * initial part must match struct emptypedstr
+     * valid if EFF_TYPED is set in table's flags
+     */
+    short ef_type;
     short uid;
-    natid own;		/* is valid if EFF_OWNER   is set in table def. */
-    coord x;		/* is valid if EFF_XY      is set in table def. */
-    coord y;		/* is valid if EFF_XY      is set in table def. */
-    signed char type;	/* is valid for sectors and units */
+    /* end of part matching struct emptypedstr */
+    natid own;		/* valid if EFF_OWNER is in table's flags */
+    coord x;		/* valid if EFF_XY    is in table's flags */
+    coord y;		/* valid if EFF_XY    is in table's flags */
+    signed char type;	/* valid for sectors and units */
     /* remaining are valid for units */
     signed char effic;
     signed char mobil;
     unsigned char off;
     short tech;	
-    char group;		/* is valid if EFF_GROUP   is set in table def. */
+    char group;		/* valid if EFF_GROUP is in table's flags */
     coord opx, opy;
     short mission;
     short radius;

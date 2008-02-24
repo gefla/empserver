@@ -144,11 +144,6 @@ pln_prewrite(int n, void *ptr)
 void
 pln_init(int n, void *ptr)
 {
-    struct plnstr *pp = ptr;
-
-    pp->ef_type = EF_PLANE;
-    pp->pln_uid = n;
-    pp->pln_own = 0;
 }
 
 char *

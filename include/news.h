@@ -47,7 +47,7 @@
 struct nwsstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short nws_uid;		/* unused */
+    short nws_uid;
     /* end of part matching struct empobj */
     natid nws_ano;		/* "actor" country # */
     signed char nws_vrb;	/* action (verb) */

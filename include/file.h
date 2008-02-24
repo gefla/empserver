@@ -65,13 +65,18 @@ struct empfile {
     int (*prewrite)(int, void *); /* called before write, unless null */
 };
 
+struct emptypedstr {
+    short ef_type;
+    short uid;
+};
+
 /*
  * Flag bits for struct empfile member flags
  * Immutable flags are properties of the table and thus cannot change.
  * The remaining flags record how the table is being used.
  */
 /* Immutable flags, fixed at compile-time */
-/* Table entries' addresses can't be safely cast to struct emptyped *.  */
+/* Dereferencing entry address cast to struct emptypedstr * is safe */
 #define EFF_TYPED 	bit(0)
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /

@@ -165,11 +165,6 @@ lnd_prewrite(int n, void *ptr)
 void
 lnd_init(int n, void *ptr)
 {
-    struct lndstr *lp = ptr;
-
-    lp->ef_type = EF_LAND;
-    lp->lnd_uid = n;
-    lp->lnd_own = 0;
 }
 
 char *
