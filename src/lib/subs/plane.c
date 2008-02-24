@@ -141,11 +141,6 @@ pln_prewrite(int n, void *ptr)
     return 1;
 }
 
-void
-pln_init(int n, void *ptr)
-{
-}
-
 char *
 prplane(struct plnstr *pp)
 {

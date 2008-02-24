@@ -162,11 +162,6 @@ lnd_prewrite(int n, void *ptr)
     return 1;
 }
 
-void
-lnd_init(int n, void *ptr)
-{
-}
-
 char *
 prland(struct lndstr *lp)
 {

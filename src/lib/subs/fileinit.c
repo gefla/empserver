@@ -45,10 +45,10 @@ struct fileinit {
 
 static struct fileinit fileinit[] = {
     {EF_SECTOR, NULL, sct_postread, sct_prewrite},
-    {EF_SHIP, shp_init, shp_postread, shp_prewrite},
-    {EF_PLANE, pln_init, pln_postread, pln_prewrite},
-    {EF_LAND, lnd_init, lnd_postread, lnd_prewrite},
-    {EF_NUKE, nuk_init, nuk_postread, nuk_prewrite}
+    {EF_SHIP, NULL, shp_postread, shp_prewrite},
+    {EF_PLANE, NULL, pln_postread, pln_prewrite},
+    {EF_LAND, NULL, lnd_postread, lnd_prewrite},
+    {EF_NUKE, NULL, nuk_postread, nuk_prewrite}
 };
 
 static void ef_open_srv(void);

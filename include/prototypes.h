@@ -457,7 +457,6 @@ extern int getele(char *, char *);
 extern char *prland(struct lndstr *);
 extern int lnd_postread(int, void *);
 extern int lnd_prewrite(int, void *);
-extern void lnd_init(int, void *);
 /* landgun.c */
 extern double seagun(int, int);
 extern double landgun(int, int);
@@ -528,7 +527,6 @@ extern void nreport(natid, int, natid, int);
 extern char *prnuke(struct nukstr *);
 extern int nuk_postread(int, void *);
 extern int nuk_prewrite(int, void *);
-extern void nuk_init(int, void *);
 extern int nuk_on_plane(struct nukstr *, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
@@ -540,7 +538,6 @@ extern int onearg(char *, char *);
 extern char *prplane(struct plnstr *);
 extern int pln_postread(int, void *);
 extern int pln_prewrite(int, void *);
-extern void pln_init(int, void *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
 extern struct sctstr *get_assembly_point(char *, struct sctstr *, char *);
@@ -638,7 +635,6 @@ extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
 extern char *prship(struct shpstr *);
 extern int shp_postread(int, void *);
 extern int shp_prewrite(int, void *);
-extern void shp_init(int, void *);
 /* show.c */
 extern void show_bridge(int);
 extern void show_tower(int);

@@ -109,11 +109,6 @@ shp_prewrite(int n, void *ptr)
     return 1;
 }
 
-void
-shp_init(int n, void *ptr)
-{
-}
-
 char *
 prship(struct shpstr *sp)
 {

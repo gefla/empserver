@@ -98,11 +98,6 @@ nuk_prewrite(int n, void *ptr)
     return 1;
 }
 
-void
-nuk_init(int n, void *ptr)
-{
-}
-
 int
 nuk_on_plane(struct nukstr *np, int pluid)
 {
