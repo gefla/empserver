@@ -116,15 +116,17 @@ delete_old_news(void)
     for (j = 0; getnews(i + j, &news); j++) {
 	if (news.nws_when == 0)
 	    break;
+	news.nws_uid = j;
 	putnews(j, &news);
     }
     CANT_HAPPEN(i + j != news_tail);
     news_tail = j;
 
     /* mark slots no longer in use */
-    memset(&news, 0, sizeof(news));
-    for (k = 0; k < i; k++)
+    for (k = 0; k < i; k++) {
+	ef_blank(EF_NEWS, j + k, &news);
 	putnews(j + k, &news);
+    }
 
     /* clear cache because moving news invalidated it */
     memset(&cache, 0, sizeof(cache));
