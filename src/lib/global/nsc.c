@@ -427,7 +427,7 @@ struct castr loan_ca[] = {
 struct castr news_ca[] = {
     /* no need for uid as long as it's not referenced from other tables */
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_ano), "actor", EF_NATION},
-    {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
+    {NSC_UCHAR, 0, 0, fldoff(nwsstr, nws_vrb), "action", EF_NEWS_CHR},
     {NSC_NATID, 0, 0, fldoff(nwsstr, nws_vno), "victim", EF_NATION},
     {NSC_CHAR, 0, 0, fldoff(nwsstr, nws_ntm), "times", EF_BAD},
     {NSC_TIME, 0, 0, fldoff(nwsstr, nws_when), "time", EF_BAD},

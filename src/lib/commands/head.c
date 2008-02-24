@@ -84,6 +84,8 @@ head(void)
     snxtitem_all(&nstr, EF_NEWS);
     maxcnum = 0;
     while (nxtitem(&nstr, &news)) {
+	if (!news.nws_vrb || CANT_HAPPEN(news.nws_vrb > N_MAX_VERB))
+	    continue;
 	news_age = now - news.nws_when;
 	if (news_age > news_per)
 	    continue;

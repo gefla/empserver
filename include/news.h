@@ -50,7 +50,7 @@ struct nwsstr {
     short nws_uid;
     /* end of part matching struct empobj */
     natid nws_ano;		/* "actor" country # */
-    signed char nws_vrb;	/* action (verb) */
+    unsigned char nws_vrb;	/* action (verb) */
     natid nws_vno;		/* "victim" country # */
     signed char nws_ntm;	/* number of times */
     time_t nws_when;		/* time of action */

@@ -85,6 +85,8 @@ news(void)
     head();
     pr("\nThe details of Empire news since %s", ctime(&then));
     while (nxtitem(&nstr, &nws)) {
+	if (!nws.nws_vrb || CANT_HAPPEN(nws.nws_vrb > N_MAX_VERB))
+	    continue;
 	if (nws.nws_when < then)
 	    continue;
 	if (opt_HIDDEN) {
@@ -102,6 +104,8 @@ news(void)
 	pr("\n\t ===  %s  ===\n", page_headings[page].name);
 	snxtitem_rewind(&nstr);
 	while (nxtitem(&nstr, &nws)) {
+	    if (CANT_HAPPEN(nws.nws_vrb > N_MAX_VERB))
+		continue;
 	    if (rpt[(int)nws.nws_vrb].r_newspage != page)
 		continue;
 	    if (nws.nws_when < then)
@@ -191,8 +195,6 @@ preport(struct nwsstr *np)
     strcpy(cp, cname(np->nws_ano));
     cp += strlen(cp);
     *cp++ = ' ';
-    if (np->nws_vrb < 1 || np->nws_vrb > N_MAX_VERB)
-	np->nws_vrb = 0;
     sprintf(cp, rpt[(int)np->nws_vrb].r_newstory[random() % NUM_RPTS],
 	    cname(np->nws_vno));
     cp += strlen(cp);
