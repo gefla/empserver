@@ -71,18 +71,21 @@ struct empfile {
  * The remaining flags record how the table is being used.
  */
 /* Immutable flags, fixed at compile-time */
+/* Table entries' addresses can't be safely cast to struct emptyped *.  */
+#define EFF_TYPED 	bit(0)
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
  * group of such a table's entries can be safely obtained by
- * dereferencing entry address cast to struct empobj *.
+ * dereferencing the entry's address cast to struct empobj *.
  */
-#define EFF_XY		bit(0)
-#define EFF_OWNER	bit(1)
-#define EFF_GROUP	bit(2)
+#define EFF_XY		bit(1)
+#define EFF_OWNER	bit(2)
+#define EFF_GROUP	bit(3)
 /* Table is allocated statically */
-#define EFF_STATIC	bit(3)
+#define EFF_STATIC	bit(4)
 /* All the immutable flags */
-#define EFF_IMMUTABLE	(EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC)
+#define EFF_IMMUTABLE \
+    (EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC)
 /* Flags set when table contents is mapped */
 /* Table is entirely in memory */
 #define EFF_MEM		bit(8)
