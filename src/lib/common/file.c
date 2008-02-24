@@ -469,6 +469,18 @@ ef_extend(int type, int count)
 }
 
 /*
+ * Initialize element ID for EP in BUF.
+ * FIXME pass buffer size!
+ */
+void
+ef_blank(int type, int id, void *buf)
+{
+    if (ef_check(type) < 0)
+	return;
+    do_blank(&empfile[type], buf, id, 1);
+}
+
+/*
  * Initialize COUNT elements of EP in BUF, starting with element ID.
  */
 static void
