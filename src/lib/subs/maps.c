@@ -254,8 +254,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		if (ef_mappable[i] == EF_NUKE)
 		    wmap[y][x] = 'N';
 		else {
-		    if ((name = empobj_chr_name(&unit.gen)) == NULL)
-			return RET_FAIL;
+		    name = empobj_chr_name(&unit.gen);
 		    wmap[y][x] = *name & ~0x20;
 		}
 	    }
@@ -361,8 +360,7 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     if (unit_type == EF_NUKE)
 	*originp = 'n';
     else {
-	if ((name = empobj_chr_name(&unit.gen)) == NULL)
-	    return RET_FAIL;
+	name = empobj_chr_name(&unit.gen);
 	*originp = *name;
     }
 

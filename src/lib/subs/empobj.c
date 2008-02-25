@@ -92,7 +92,7 @@ empobj_chr_name(struct empobj *gp)
 	return dchr[(int)gp->type].d_name;
     }
     CANT_REACH();
-    return NULL;
+    return "The Beast";
 }
 
 int
