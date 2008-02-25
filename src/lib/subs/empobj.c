@@ -77,7 +77,7 @@ get_empobj_chr(struct empobj *gp)
 }
 
 char *
-emp_obj_chr_name(struct empobj *gp)
+empobj_chr_name(struct empobj *gp)
 {
     switch (gp->ef_type) {
     case EF_LAND:

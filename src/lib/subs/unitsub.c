@@ -72,7 +72,7 @@ unit_list(struct emp_qelem *unit_list)
 	if (CANT_HAPPEN(type != unit->ef_type))
 	    continue;
 	pr("%4d ", unit->uid);
-	pr("%-16.16s ", emp_obj_chr_name(unit));
+	pr("%-16.16s ", empobj_chr_name(unit));
 	prxy("%4d,%-4d ", unit->x, unit->y, unit->own);
 	pr("%1.1s", &unit->group);
 	pr("%4d%%", unit->effic);
