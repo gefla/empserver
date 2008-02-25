@@ -342,12 +342,27 @@ fillcache(struct empfile *ep, int start)
 static int
 do_write(struct empfile *ep, void *buf, int id, int count)
 {
-    int n, ret;
+    int i, n, ret;
     char *p;
+    struct emptypedstr *elt;
 
     if (CANT_HAPPEN(ep->fd < 0 || (ep->flags & EFF_PRIVATE)
 		    || id < 0 || count < 0))
 	return -1;
+
+    if (ep->flags & EFF_TYPED) {
+	for (i = 0; i < count; i++) {
+	    /*
+	     * TODO Oopses here could be due to bad data corruption.
+	     * Fail instead of attempting to recover?
+	     */
+	    elt = (struct emptypedstr *)((char *)buf + i * ep->size);
+	    if (CANT_HAPPEN(elt->ef_type != ep->uid))
+		elt->ef_type = ep->uid;
+	    if (CANT_HAPPEN(elt->uid != id + i))
+		elt->uid = id + i;
+	}
+    }
 
     if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
 	logerror("Error seeking %s (%s)", ep->file, strerror(errno));
