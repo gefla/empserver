@@ -53,11 +53,14 @@ verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
     /* Find base table of view, if any */
     for (i = 0; empfile[i].cache == empfile[type].cache; i++) ;
 
-    fprintf(stderr, "%s %s uid %d field %s",
+    fprintf(stderr, "%s %s uid %d",
 	    EF_IS_GAME_STATE(i) ? "File" : "Config",
-	    ef_nameof(type), row, ca->ca_name);
-    if (ca->ca_type != NSC_STRINGY && ca->ca_len != 0)
-	fprintf(stderr, "(%d)", idx);
+	    ef_nameof(type), row);
+    if (ca) {
+	fprintf(stderr, " field %s", ca->ca_name);
+	if (ca->ca_type != NSC_STRINGY && ca->ca_len != 0)
+	    fprintf(stderr, "(%d)", idx);
+    }
     fprintf(stderr, ": ");
     va_start(ap, fmt);
     vfprintf(stderr, fmt, ap);
@@ -69,18 +72,25 @@ static int
 verify_row(int type, int row)
 {
     struct castr *ca = ef_cadef(type);
-    void *row_ref;
+    struct emptypedstr *row_ref;
     int i, j, k, n;
     struct castr *ca_sym;
     struct valstr val;
-    int ret_val = 0; 
-    int in_mem = (ef_flags(type) & EFF_MEM) != 0; 
+    int ret_val = 0;
+    int flags = ef_flags(type);
  
-    if (in_mem)
+    if (flags & EFF_MEM)
 	row_ref = ef_ptr(type, row); 
     else {
 	row_ref = malloc(empfile[type].size); 
 	ef_read(type, row, row_ref);
+    }
+
+    if ((flags & EFF_TYPED) && !EF_IS_VIEW(type)) {
+	if (row_ref->ef_type != type || row_ref->uid != row) {
+	    verify_fail(type, row, NULL, 0, "header corrupt");
+	    ret_val = -1;
+	}
     }
 
     for (i = 0; ca[i].ca_name; ++i) {
@@ -152,7 +162,7 @@ verify_row(int type, int row)
 	    }
 	} while (++j < n);
     } 
-    if (!in_mem)
+    if (!(flags & EFF_MEM))
         free(row_ref);
     return ret_val;
 }
