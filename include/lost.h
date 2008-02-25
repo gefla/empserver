@@ -40,9 +40,9 @@
 struct loststr {
     /* initial part must match struct empobj */
     short ef_type;
+    int lost_uid;		/* lost ID (assigned, otherwise unused) */
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct empobj */
-    int lost_uid;		/* lost ID (assigned, otherwise unused) */
     short lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
     short lost_id;		/* ID of lost thing */
     coord lost_x;

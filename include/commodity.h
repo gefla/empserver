@@ -43,8 +43,8 @@
 struct comstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid com_owner;
     short com_uid;
+    natid com_owner;
     /* end of part matching struct empobj */
     i_type com_type;
     int com_amount;

@@ -593,6 +593,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    return RET_SYN;
 	sect->sct_x = newx;
 	sect->sct_y = newy;
+	sect->sct_uid = XYOFFSET(newx, newy);
 	break;
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))

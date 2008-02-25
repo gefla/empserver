@@ -63,8 +63,8 @@
 struct shpstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid shp_own;		/* owner's country num */
     short shp_uid;		/* unit id (ship #) */
+    natid shp_own;		/* owner's country num */
     coord shp_x;		/* x location in abs coords */
     coord shp_y;		/* y location in abs coords */
     signed char shp_type;	/* index in mchr[] */

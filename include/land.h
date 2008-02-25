@@ -49,8 +49,8 @@
 struct lndstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid lnd_own;		/* owner's country num */
     short lnd_uid;		/* unit id (land unit) */
+    natid lnd_own;		/* owner's country num */
     coord lnd_x;		/* x location in abs coords */
     coord lnd_y;		/* y location in abs coords */
     signed char lnd_type;	/* index in lchr[] */

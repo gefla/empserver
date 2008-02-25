@@ -103,9 +103,10 @@ struct castr pchr_ca[] = {
 };
 
 struct castr sect_ca[] = {
-    /* uid is encoded in x, y */
+    /* uid needs to be NSC_DEITY because it discloses true origin */
+    {NSC_SHORT, NSC_DEITY | NSC_EXTRA, 0, fldoff(sctstr, sct_uid), "uid",
+     EF_SECTOR},
     {NSC_NATID, 0, 0, fldoff(sctstr, sct_own), "owner", EF_NATION},
-    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_elev), "elev", EF_BAD},
     {NSC_XCOORD, NSC_CONST, 0, fldoff(sctstr, sct_x), "xloc", EF_BAD},
     {NSC_YCOORD, NSC_CONST, 0, fldoff(sctstr, sct_y), "yloc", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(sctstr, sct_type), "des", EF_SECTOR_CHR},
@@ -121,6 +122,7 @@ struct castr sect_ca[] = {
     {NSC_XCOORD, 0, 0, fldoff(sctstr, sct_dist_x), "xdist", EF_BAD},
     {NSC_YCOORD, 0, 0, fldoff(sctstr, sct_dist_y), "ydist", EF_BAD},
     {NSC_SHORT, 0, 0, fldoff(sctstr, sct_avail), "avail", EF_BAD},
+    {NSC_SHORT, NSC_DEITY, 0, fldoff(sctstr, sct_elev), "elev", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_work), "work", EF_BAD},
     {NSC_UCHAR, 0, 0, fldoff(sctstr, sct_coastal), "coastal", EF_BAD},
     {NSC_CHAR, 0, 0, fldoff(sctstr, sct_newtype), "newdes", EF_SECTOR_CHR},

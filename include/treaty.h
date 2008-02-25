@@ -38,9 +38,11 @@
 #include "types.h"
 
 struct trtstr {
+    /* initial part must match struct empobj */
     short ef_type;
-    natid trt_cna;		/* proposer */
     short trt_uid;
+    /* end of part matching struct empobj */
+    natid trt_cna;		/* proposer */
     natid trt_cnb;		/* acceptor */
     signed char trt_status;	/* treaty status */
     char trt_fill;

@@ -1214,6 +1214,7 @@ static void
 fl_sct_init(coord x, coord y, struct sctstr *sp)
 {
     sp->ef_type = EF_SECTOR;
+    sp->sct_uid = XYOFFSET(x, y);
     sp->sct_x = x;
     sp->sct_y = y;
     sp->sct_dist_x = x;

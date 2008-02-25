@@ -69,9 +69,9 @@ typedef enum {
 struct realmstr {
     /* initial part must match struct empobj */
     short ef_type;
+    short r_uid;		/* realm table index */
     natid r_cnum;		/* country number */
     /* end of part matching struct empobj */
-    short r_uid;		/* realm table index */
     unsigned short r_realm;	/* realm number */
     short r_xl, r_xh;		/* horizontal bounds */
     short r_yl, r_yh;		/* vertical bounds */
@@ -81,6 +81,7 @@ struct realmstr {
 struct natstr {
     /* initial part must match struct empobj */
     short ef_type;
+    short nat_uid;		/* equals nat_cnum */
     natid nat_cnum;		/* our country number */
     /* end of part matching struct empobj */
     nat_status nat_stat;

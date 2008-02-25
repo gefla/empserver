@@ -41,9 +41,11 @@
 #define SECS_PER_DAY	(60*60*24)
 
 struct lonstr {
+    /* initial part must match struct empobj */
     short ef_type;
-    natid l_loner;		/* loan shark */
     short l_uid;
+    /* end of part matching struct empobj */
+    natid l_loner;		/* loan shark */
     natid l_lonee;		/* sucker */
     signed char l_status;	/* loan status */
     short l_sell;		/* pointer to trade file (unused) */

@@ -46,8 +46,8 @@
 struct plnstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid pln_own;		/* owning country */
     short pln_uid;		/* plane unit id */
+    natid pln_own;		/* owning country */
     coord pln_x;		/* plane x-y */
     coord pln_y;
     signed char pln_type;	/* index in plchr[] */

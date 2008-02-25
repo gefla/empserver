@@ -44,8 +44,8 @@
 struct sctstr {
     /* initial part must match struct empobj */
     short ef_type;
+    short sct_uid;		/* equals sctoff(sct_x, sct_y) */
     natid sct_own;		/* owner's country num */
-    short sct_elev;		/* elevation/depth */
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
     signed char sct_type;	/* sector type */
@@ -62,7 +62,7 @@ struct sctstr {
     coord sct_dist_y;
     short sct_avail;		/* available workforce for "other things" */
     short sct_flags;		/* temporary flags */
-    short sct_fill;		/* gunk */
+    short sct_elev;		/* elevation/depth */
     unsigned char sct_work;	/* pct of civ actually working */
     unsigned char sct_coastal;	/* is this a coastal sector? */
     signed char sct_newtype;	/* for changing designations */

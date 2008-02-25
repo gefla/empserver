@@ -39,6 +39,7 @@
 struct gamestr {
     /* initial part must match struct empobj */
     short ef_type;
+    short game_uid;
     /* end of part matching struct empobj */
     char game_upd_disable;	/* updates disabled? */
     /*

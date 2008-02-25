@@ -52,8 +52,8 @@
 
 struct empobj {
     short ef_type;	/* is always valid */
-    natid own;		/* is valid if EFF_OWNER   is set in table def. */
     short uid;
+    natid own;		/* is valid if EFF_OWNER   is set in table def. */
     coord x;		/* is valid if EFF_XY      is set in table def. */
     coord y;		/* is valid if EFF_XY      is set in table def. */
     signed char type;	/* is valid for sectors and units */

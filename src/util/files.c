@@ -154,7 +154,7 @@ main(int argc, char *argv[])
     memset(&nat, 0, sizeof(nat));
     for (i = 1; i < MAXNOC; i++) {
 	nat.ef_type = EF_NATION;
-	nat.nat_cnum = i;
+	nat.nat_cnum = nat.nat_uid = i;
 	putnat((&nat));
     }
     memset(&realm, 0, sizeof(realm));
@@ -208,6 +208,7 @@ file_sct_init(coord x, coord y, struct sctstr *ptr)
     struct sctstr *sp = (struct sctstr *)ptr;
 
     sp->ef_type = EF_SECTOR;
+    sp->sct_uid = XYOFFSET(x, y);
     sp->sct_x = x;
     sp->sct_y = y;
     sp->sct_dist_x = x;

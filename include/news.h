@@ -45,9 +45,11 @@
 #include "nsc.h"
 
 struct nwsstr {
+    /* initial part must match struct empobj */
     short ef_type;
-    natid nws_ano;		/* "actor" country # */
     short nws_uid;		/* unused */
+    /* end of part matching struct empobj */
+    natid nws_ano;		/* "actor" country # */
     signed char nws_vrb;	/* action (verb) */
     natid nws_vno;		/* "victim" country # */
     signed char nws_ntm;	/* number of times */

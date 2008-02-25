@@ -43,8 +43,8 @@
 struct trdstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid trd_owner;
     short trd_uid;
+    natid trd_owner;
     /* end of part matching struct empobj */
     short trd_type;
     short trd_unitid;

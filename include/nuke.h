@@ -43,8 +43,8 @@
 struct nukstr {
     /* initial part must match struct empobj */
     short ef_type;
-    natid nuk_own;
     short nuk_uid;
+    natid nuk_own;
     coord nuk_x, nuk_y;		/* current loc of device */
     signed char nuk_type;	/* index in nchr[] */
     signed char nuk_effic;	/* unused, always 100% */
