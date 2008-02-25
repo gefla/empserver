@@ -1221,9 +1221,6 @@ fl_sct_init(coord x, coord y, struct sctstr *sp)
     sp->sct_y = y;
     sp->sct_dist_x = x;
     sp->sct_dist_y = y;
-    sp->sct_road = 0;
-    sp->sct_rail = 0;
-    sp->sct_defense = 0;
     sp->sct_coastal = 1;
 }
 
