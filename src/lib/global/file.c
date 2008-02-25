@@ -131,7 +131,7 @@ struct empfile empfile[] = {
     {EF_TREATY, "treaty", "treaty", treaty_ca,
      UNMAPPED_CACHE(struct trtstr, 0)},
     {EF_TRADE, "trade", "trade", trade_ca,
-     UNMAPPED_CACHE(struct trdstr, 0)},
+     UNMAPPED_CACHE(struct trdstr, EFF_OWNER)},
     {EF_POWER, "pow", "power", NULL,
      UNMAPPED_CACHE(struct powstr, 0)},
     {EF_NATION, "nat", "nation", nat_ca,
@@ -143,7 +143,7 @@ struct empfile empfile[] = {
     {EF_BMAP, "bmap", "bmap", NULL,
      0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
     {EF_COMM, "commodity", "commodity", commodity_ca,
-     UNMAPPED_CACHE(struct comstr, 0)},
+     UNMAPPED_CACHE(struct comstr, EFF_OWNER)},
     {EF_LOST, "lost", "lostitems", lost_ca,
      UNMAPPED_CACHE(struct loststr, EFF_OWNER)},
     {EF_REALM, "realm", "realms", realm_ca,
@@ -214,7 +214,8 @@ struct empfile empfile[] = {
     SYMTAB(EF_TREATY_FLAGS, "treaty-flags", treaty_flags),
 
     /* Views */
-    {EF_COUNTRY, "country", NULL, cou_ca, UNMAPPED_CACHE(struct natstr, 0)},
+    {EF_COUNTRY, "country", NULL, cou_ca,
+     UNMAPPED_CACHE(struct natstr, EFF_OWNER)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
