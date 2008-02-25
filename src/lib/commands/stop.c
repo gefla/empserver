@@ -46,7 +46,6 @@ static void start_stop_hdr(int);
 static void proff(int);
 static int start_stop_unit(int, char *, int);
 static void start_stop_unit_hdr(int);
-static char *unit_type_name(union empobj_storage *);
 
 int
 start(void)
@@ -171,7 +170,7 @@ start_stop_unit(int type, char *arg, int off)
 	    start_stop_unit_hdr(off);
 	if (player->god)
 	    pr("%3d ", unit.gen.own);
-	pr("%4d %-4.4s ", nstr.cur, unit_type_name(&unit));
+	pr("%4d %-4.4s ", nstr.cur, empobj_chr_name(&unit.gen));
 	prxy("%4d,%-4d", unit.gen.x, unit.gen.y, player->cnum);
 	pr("%4d%%", unit.gen.effic);
 	proff(off);
@@ -195,23 +194,4 @@ start_stop_unit_hdr(int off)
     if (player->god)
 	pr("own ");
     pr("   #         x,y     eff\n");
-}
-
-static char *
-unit_type_name(union empobj_storage *unit)
-{
-    int type = unit->gen.type;
-
-    switch (unit->gen.ef_type) {
-    case EF_SHIP:
-	return mchr[type].m_name;
-    case EF_PLANE:
-	return plchr[type].pl_name;
-    case EF_LAND:
-	return lchr[type].l_name;
-    case EF_NUKE:
-	return nchr[type].n_name;
-    }
-    CANT_REACH();
-    return "?";
 }
