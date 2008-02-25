@@ -41,9 +41,11 @@
 #include "types.h"
 
 struct trdstr {
+    /* initial part must match struct empobj */
     short ef_type;
     natid trd_owner;
     short trd_uid;
+    /* end of part matching struct empobj */
     short trd_type;
     short trd_unitid;
     long trd_price;

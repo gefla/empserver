@@ -41,9 +41,11 @@
 #include "item.h"
 
 struct comstr {
+    /* initial part must match struct empobj */
     short ef_type;
     natid com_owner;
     short com_uid;
+    /* end of part matching struct empobj */
     i_type com_type;
     int com_amount;
     float com_price;
