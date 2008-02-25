@@ -349,6 +349,10 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     struct range range;
     char *name;
 
+    if (CANT_HAPPEN((ef_flags(unit_type) & (EFF_OWNER | EFF_XY))
+		    != (EFF_OWNER | EFF_XY)))
+	return RET_FAIL;
+
     if (!get_empobj(unit_type, uid, &unit))
 	return RET_FAIL;
     if (!player->owner || unit.gen.own == 0)

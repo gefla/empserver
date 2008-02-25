@@ -45,16 +45,20 @@ unit_list(struct emp_qelem *unit_list)
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *ulp;
+    int type;
     struct empobj *unit;
     struct lndstr *lnd;
     struct shpstr *shp;
 
-    CANT_HAPPEN(QEMPTY(unit_list));
-
+    if (CANT_HAPPEN(QEMPTY(unit_list)))
+	return;
     qp = unit_list->q_back;
     ulp = (struct ulist *)qp;
+    type = ulp->unit.ef_type;
+    if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
+	return;
 
-    if (ulp->unit.ef_type == EF_LAND)
+    if (type == EF_LAND)
 	pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr fuel\n");
     else
         pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
@@ -65,12 +69,14 @@ unit_list(struct emp_qelem *unit_list)
 	lnd = &ulp->unit.land;
 	shp = &ulp->unit.ship;
 	unit = &ulp->unit.gen;
+	if (CANT_HAPPEN(type != unit->ef_type))
+	    continue;
 	pr("%4d ", unit->uid);
 	pr("%-16.16s ", emp_obj_chr_name(unit));
 	prxy("%4d,%-4d ", unit->x, unit->y, unit->own);
 	pr("%1.1s", &unit->group);
 	pr("%4d%%", unit->effic);
-	if (unit->ef_type == EF_LAND) {
+	if (type == EF_LAND) {
 	    pr("%4d", lnd->lnd_item[I_SHELL]);
 	    pr("%4d", lnd->lnd_item[I_GUN]);
 	    count_land_planes(lnd);
@@ -88,7 +94,7 @@ unit_list(struct emp_qelem *unit_list)
 	}
 	pr("%4d", unit->mobil);
 	pr("%4d", unit->tech);
-	if (unit->ef_type == EF_LAND) {
+	if (type == EF_LAND) {
 	    pr("%4d%%", lnd->lnd_retreat);
 	    pr("%5d", lnd->lnd_fuel);
 	}
@@ -108,6 +114,9 @@ unit_put(struct emp_qelem *list, natid actor)
     while (qp != list) {
 	ulp = (struct ulist *)qp;
 	unit = &ulp->unit.gen;
+	if (CANT_HAPPEN(unit->ef_type != EF_LAND
+			&& unit->ef_type != EF_SHIP))
+	    continue;
 	if (actor) {
 	    mpr(actor, "%s stopped at %s\n", obj_nameof(unit),
 		xyas(unit->x, unit->y, unit->own));
@@ -136,6 +145,9 @@ unit_path(int together, struct empobj *unit, char *buf)
     char *cp;
     double dummy;
     int mtype;
+
+    if (CANT_HAPPEN(unit->ef_type != EF_LAND && unit->ef_type != EF_SHIP))
+	return NULL;
 
     if (!sarg_xy(buf, &destx, &desty))
 	return 0;
@@ -182,6 +194,8 @@ unit_view(struct emp_qelem *list)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	ulp = (struct ulist *)qp;
+	if (CANT_HAPPEN(!(ef_flags(ulp->unit.ef_type) & EFF_XY)))
+	    continue;
 	getsect(ulp->unit.gen.x, ulp->unit.gen.y, &sect);
 	if (ulp->unit.ef_type == EF_SHIP) {
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_FOOD)

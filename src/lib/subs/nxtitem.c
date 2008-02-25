@@ -72,26 +72,33 @@ nxtitem(struct nstr_item *np, void *ptr)
 	case NS_ALL:
 	    break;
 	case NS_DIST:
+	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
+		return 0;
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {
 		selected = 0;
 		break;
 	    }
-	    np->curdist = mapdist((int)gp->x, (int)gp->y,
-				  (int)np->cx, (int)np->cy);
+	    np->curdist = mapdist(gp->x, gp->y, np->cx, np->cy);
 	    if (np->curdist > np->dist)
 		selected = 0;
 	    break;
 	case NS_AREA:
+	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
+		return 0;
 	    if (!xyinrange(gp->x, gp->y, &np->range))
 		selected = 0;
 	    if (gp->x == np->range.hx || gp->y == np->range.hy)
 		selected = 0;
 	    break;
 	case NS_XY:
+	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
+		return 0;
 	    if (xnorm(gp->x) != np->cx || ynorm(gp->y) != np->cy)
 		selected = 0;
 	    break;
 	case NS_GROUP:
+	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_GROUP)))
+		return 0;
 	    if (np->group != gp->group)
 		selected = 0;
 	    break;

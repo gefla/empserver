@@ -622,6 +622,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    else
 		emp_insque(&plp->queue, &bombers);
 	    plane_owner = plp->plane.pln_own;
+	} else {
+	    CANT_REACH();
+	    break;
 	}
     }
     if (!QEMPTY(&missiles)) {
@@ -1327,6 +1330,8 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    next = qp->q_forw;
 	    glp = (struct genlist *)qp;
 	    gp = glp->thing;
+	    if (CANT_HAPPEN(gp->ef_type != EF_PLANE))
+		break;
 
 	    dist = mapdist(x, y, gp->x, gp->y);
 

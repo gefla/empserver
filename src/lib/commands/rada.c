@@ -61,6 +61,9 @@ radar(short type)
     char buf[1024];
     char prompt[80];
 
+    if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
+	type = EF_SHIP;
+
     sprintf(prompt, "Radar from (%s # or sector(s)) : ", ef_nameof(type));
     cp = getstarg(player->argp[1], prompt, buf);
 		      
