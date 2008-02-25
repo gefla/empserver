@@ -486,7 +486,7 @@ init(void)
 	}
     }
 
-    for (i = 0; i < nc; ++i, xx += 2) {
+    for (i = 0; i < nc; ++i) {
 	if (xx >= WORLD_X) {
 	    ++yy;
 	    xx = yy % 2;
@@ -497,6 +497,7 @@ init(void)
 	}
 	capx[i] = xx;
 	capy[i] = yy;
+	xx += 2;
     }
     for (i = 0; i < STABLE_CYCLE; ++i)
 	mc[i] = i;
@@ -1082,7 +1083,7 @@ write_sects(void)
     /*  sct = &sects[0][0]; */
     sct = sectsbuf;
     for (y = 0; y < YSIZE; y++) {
-	for (x = 0; x < XSIZE; x++, sct++) {
+	for (x = 0; x < XSIZE; x++) {
 	    fl_sct_init(x * 2 + (y & 1), y, sct);
 	    total = elev[sct->sct_x][y];
 	    if (total < LANDMIN) {
@@ -1099,6 +1100,7 @@ write_sects(void)
 	    sct->sct_newtype = sct->sct_type;
 	    if (ORE)
 		add_resources(sct);
+	    sct++;
 	}
     }
     if (AIRPORT_MARKER)
