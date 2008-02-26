@@ -76,20 +76,23 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <limits.h>
 #include "file.h"
 #include "nat.h"
 #include "xdump.h"
 
 /*
  * Initialize XD to dump for country CNUM.
+ * If HUMAN, dump in human-readable format.
  * Dump is to be delivered through callback PR.
  * Return XD.
  */
 struct xdstr *
-xdinit(struct xdstr *xd, natid cnum, void (*pr)(char *fmt, ...))
+xdinit(struct xdstr *xd, natid cnum, int human, void (*pr)(char *fmt, ...))
 {
     xd->cnum = cnum;
     xd->divine = getnatp(cnum)->nat_stat == STAT_GOD;
+    xd->human = human;
     xd->pr = pr;
     return xd;
 }
@@ -116,37 +119,50 @@ xdeval(struct valstr *val, struct xdstr *xd,
     return val;			/* FIXME nstr_exec_val() should return VAL */
 }
 
-/* Dump VAL prefixed with SEP, return " ".  */
-char *
-xdprval(struct xdstr *xd, struct valstr *val, char *sep)
+/*
+ * Dump string STR to XD with funny characters escaped.
+ * Dump at most N characters.
+ */
+static void
+xdpresc(struct xdstr *xd, char *str, size_t n)
 {
     unsigned char *s, *e, *l;
 
+    s = (unsigned char *)str;
+    l = s + n;
+    for (;;) {
+	for (e = s;
+	     e < l && *e != '"' && *e != '\\' && isgraph(*e);
+	     ++e)
+	    ;
+	xd->pr("%.*s", (int)(e-s), s);
+	if (e < l && *e)
+	    xd->pr("\\%03o", *e++);
+	else
+	    break;
+	s = e;
+    }
+}
+
+/* Dump VAL in machine readable format, prefixed with SEP, return " ".  */
+static char *
+xdprval_nosym(struct xdstr *xd, struct valstr *val, char *sep)
+{
     switch (val->val_type) {
     case NSC_LONG:
 	xd->pr("%s%ld", sep, val->val_as.lng);
 	break;
     case NSC_DOUBLE:
+#if 0 /* TODO have %a */
+	xd->pr("%s%a", sep, val->val_as.dbl);
+#else
 	xd->pr("%s%#g", sep, val->val_as.dbl);
+#endif
 	break;
     case NSC_STRING:
-	s = (unsigned char *)val->val_as.str.base;
-	if (s) {
+	if (val->val_as.str.base) {
 	    xd->pr("%s\"", sep);
-	    l = s + val->val_as.str.maxsz;
-	    /* FIXME maxsz == INT_MAX ! */
-	    for (;;) {
-		for (e = s;
-		     e < l && *e != '"' && *e != '\\' && isgraph(*e);
-		     ++e)
-		    ;
-		xd->pr("%.*s", (int)(e-s), s);
-		if (e < l && *e)
-		    xd->pr("\\%03o", *e++);
-		else
-		    break;
-		s = e;
-	    }
+	    xdpresc(xd, val->val_as.str.base, val->val_as.str.maxsz);
 	    xd->pr("\"");
 	} else
 	    xd->pr("%snil", sep);
@@ -156,6 +172,66 @@ xdprval(struct xdstr *xd, struct valstr *val, char *sep)
 	xd->pr("0");
     }
     return " ";
+}
+
+/*
+ * Dump symbol with value KEY from symbol table TYPE to XD.
+ * Prefix with SEP, return " ".
+ */
+static char *
+xdprsym(struct xdstr *xd, int key, int type, char *sep)
+{
+    char *sym = symbol_by_value(key, ef_ptr(type, 0));
+
+    if (CANT_HAPPEN(!sym))
+	xd->pr("%s%ld", sep, key);
+    else {
+	xd->pr("%s", sep);
+	xdpresc(xd, sym, INT_MAX);
+    }
+    return " ";
+}
+
+/*
+ * Dump VAL prefixed with SEP, return " ".
+ * CA describes the field from which the value was fetched.
+ */
+static char *
+xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca, char *sep)
+{
+    unsigned long bit;
+    struct castr *ca_sym;
+    char *sym;
+
+    if (xd->human && val->val_type == NSC_LONG && ca->ca_table != EF_BAD) {
+	ca_sym = ef_cadef(ca->ca_table);
+	if (ca_sym != symbol_ca)
+	    ;
+	else if (ca->ca_flags & NSC_BITS) {
+	    xd->pr("%s(", sep);
+	    sep = "";
+	    for (bit = 1; bit; bit <<= 1) {
+		if (bit & val->val_as.lng)
+		    sep = xdprsym(xd, bit, ca->ca_table, sep);
+	    }
+	    xd->pr(")");
+	    return " ";
+	} else
+	    return xdprsym(xd, val->val_as.lng, ca->ca_table, sep);
+    }
+
+    return xdprval_nosym(xd, val, sep);
+}
+
+/*
+ * Dump VAL prefixed with SEP, return " ".
+ * XD must not be human-readable.
+ */
+char *
+xdprval(struct xdstr *xd, struct valstr *val, char *sep)
+{
+    CANT_HAPPEN(xd->human);
+    return xdprval_nosym(xd, val, sep);
 }
 
 /*
@@ -180,26 +256,66 @@ xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 	do {
 	    xdeval(&val, xd,
 		   ca[i].ca_type, ptr, ca[i].ca_off, j, ca[i].ca_len);
-	    sep = xdprval(xd, &val, sep);
+	    sep = xdprval_sym(xd, &val, &ca[i], sep);
 	} while (++j < n);
     }
 }
 
 /*
- * Dump header for dump NAME.
+ * Dump header for dump NAME to XD.
  * If META, it's for the meta-data dump rather than the data dump.
  */
 void
 xdhdr(struct xdstr *xd, char *name, int meta)
 {
-    xd->pr("XDUMP %s%s %ld\n", meta ? "meta " : "", name, (long)time(NULL));
+    if (xd->human) {
+	xd->pr("config %s\n", name);
+    } else
+	xd->pr("XDUMP %s%s %ld\n",
+	       meta ? "meta " : "", name, (long)time(NULL));
 }
 
-/* Dump footer for a dump that dumped N objects.  */
+/*
+ * Dump column header to XD.
+ * CA[] describes fields.
+ * Does nothing unless XD is human-readable.
+ */
+void
+xdcolhdr(struct xdstr *xd, struct castr ca[])
+{
+    int i, j, n;
+    char *sep = "";
+
+    if (!xd->human)
+	return;
+
+    for (i = 0; ca[i].ca_name; ++i) {
+	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
+	    continue;
+	if (ca[i].ca_flags & NSC_EXTRA)
+	    continue;
+	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	if (n) {
+	    for (j = 0; j < n; j++) {
+		xd->pr("%s%s(%d)",sep, ca[i].ca_name, j);
+		sep = " ";
+	    }
+	} else {
+	    xd->pr("%s%s", sep, ca[i].ca_name);
+	    sep = " ";
+	}
+    }
+    xd->pr("\n");
+}
+
+/* Dump footer for a dump that dumped N objects to XD.  */
 void
 xdftr(struct xdstr *xd, int n)
 {
-    xd->pr("/%d\n", n);
+    if (xd->human)
+	xd->pr("/config\n");
+    else
+	xd->pr("/%d\n", n);
 }
 
 /*
@@ -217,6 +333,7 @@ xdmeta(struct xdstr *xd, int type)
 	return RET_SYN;
 
     xdhdr(xd, ef_nameof(type), 1);
+    xdcolhdr(xd, ca);
 
     for (i = 0; ca[i].ca_name; i++) {
 	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)

@@ -1,0 +1,57 @@
+.TH EMPDUMP 6
+.SH NAME
+empdump \- Export/import Empire game state
+.SH SYNOPSIS
+.B empdump
+[
+.B \-mtxhv
+]
+[
+.BI \-e " configfile"
+]
+[
+.I dump-file
+]
+.br
+.SH DESCRIPTION
+.B empdump
+imports and exports game state as plain text.
+.SH OPTIONS
+.TP
+.BI \-e " configfile"
+Use game configuration in \fIconfigfile\fR.
+.TP
+.B \-h
+Help.  Print brief usage information and exit.
+.TP
+.TP
+.B \-m
+Use machine-readable format for export.  Import always recognizes both
+machine-readable and human-readable format.
+.TP
+.B \-t
+Test import, don't update game state.
+.TP
+.B \-v
+Print version information and exit.
+.TP
+.B \-x
+Export game state to standard output.
+.SH OPERANDS
+.TP
+.I dump-file
+The file to import.
+.SH "LIMITATIONS"
+.B empdump
+can't export player bmaps, power report, telegrams, announcements,
+message of the day, no-login message and log files.  Exported
+floating-point values may be inexact.  Importing an exported game
+state may not result in identical data files; besides the loss of
+floating-point precision just mentioned, coordinates are normalized,
+and characters beyond a string's terminating zero in a character array
+may be lost.
+FIXME can't change file size, fix or document here
+.SH "SEE ALSO"
+\fIemp_server\fR(6).
+.SH AUTHOR
+Markus Armbruster <armbru@pond.sub.org>

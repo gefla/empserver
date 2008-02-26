@@ -223,7 +223,7 @@ xdump(void)
     if (!p || !*p)
 	return RET_SYN;
 
-    xdinit(&xd, player->cnum, pr);
+    xdinit(&xd, player->cnum, 0, pr);
     natp = getnatp(player->cnum);
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
     if (type >= 0 && type < EF_MAX) {
