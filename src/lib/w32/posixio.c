@@ -413,6 +413,15 @@ posix_fsync(int fd)
 }
 
 /*
+ * POSIX ftruncate()
+ */
+int
+ftruncate(int fd, off_t length)
+{
+    FILE_FUNCTION(FDMAP_IO_FILE, _chsize(handle, length))
+}
+
+/*
  * POSIX equivalent for fstat().
  * fstat() is used instead of _fstat(),
  * otherwise problems with the 32/64 time definitions

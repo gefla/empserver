@@ -127,6 +127,7 @@ extern int fcntl(int fd, int cmd, ...);
     posix_write((fd), (buffer), (count))
 #define fsync(fd) \
     posix_fsync((fd))
+extern int ftruncate(int fd, off_t length);
 extern int posix_close(int fd);
 extern off_t posix_lseek(int fd, off_t offset, int origin);
 extern ssize_t posix_read(int fd, void *buffer, size_t count);
