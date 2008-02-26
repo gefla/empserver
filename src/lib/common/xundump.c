@@ -986,12 +986,9 @@ xubody(FILE *fp)
     if (CANT_HAPPEN(maxid > ep->fids))
 	maxid = ep->fids;
     if (maxid < ep->fids) {
-	if (EF_IS_GAME_STATE(cur_type) && maxid != ep->csize)
-	    /* TODO truncate file */
-	    gripe("Warning: should resize table %s from %d to %d, not implemented",
-		  ef_nameof(cur_type), ep->csize, maxid);
-	else if (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR)
-	    ep->cids = ep->fids = maxid;
+	if (EF_IS_GAME_STATE(cur_type)
+	    || (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR))
+	    ef_truncate(cur_type, maxid);
 	else
 	    return gripe("Table %s requires %d rows, got %d",
 			 ef_nameof(cur_type), ep->fids, maxid);
