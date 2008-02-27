@@ -49,7 +49,6 @@ desi(void)
     int des;
     struct nstr_sect nstr;
     struct sctstr sect;
-    struct sctstr check;
     struct natstr *natp;
     char prompt[128];
     char buf[1024];
