@@ -895,7 +895,7 @@ oprange(struct empobj *gp, int *radius)
 	    range = ((struct plnstr *)gp)->pln_range / 2;
 	break;
     default:
-	CANT_HAPPEN("bad TYPE");
+	CANT_REACH();
 	range = -1;
     }
 
