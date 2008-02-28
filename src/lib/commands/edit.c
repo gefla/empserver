@@ -450,15 +450,6 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     int new, old;
     int des;
     switch (op) {
-    case 'C':
-	warn_deprecated(op);
-	if (arg < 0)
-	    return RET_SYN;
-	sect->sct_coastal = (arg ? 1 : 0);
-	pr("Coastal flag of %s changed to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_coastal);
-	break;
     case 'o':
 	if (arg < 0)
 	    return RET_SYN;
@@ -775,14 +766,6 @@ doship(char op, int arg, char *p, struct shpstr *ship)
     case 'W':
 	ship->shp_rflags = arg;
 	break;
-    case 'H':
-	warn_deprecated(op);
-	ship->shp_nchoppers = arg;
-	break;
-    case 'X':
-	warn_deprecated(op);
-	ship->shp_nxlight = arg;
-	break;
     case 'U':
 	ship->shp_uid = arg;
 	break;
@@ -830,14 +813,6 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	    pr("%c: invalid fleet\n", p[0]);
 	    return RET_FAIL;
 	}
-	break;
-    case 'Y':
-	warn_deprecated(op);
-	ship->shp_nland = errcheck(arg, 0, 100);
-	break;
-    case 'P':
-	warn_deprecated(op);
-	ship->shp_nplane = errcheck(arg, 0, 100);
 	break;
     case 'c':
 	ship->shp_item[I_CIVIL] = arg;
@@ -946,10 +921,6 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	break;
     case 'B':
 	land->lnd_fuel = errcheck(arg, 0, 255);
-	break;
-    case 'X':
-	warn_deprecated(op);
-	land->lnd_nxlight = arg;
 	break;
     case 'S':
 	land->lnd_ship = arg;
@@ -1067,14 +1038,6 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	    pr("%c: invalid wing\n", p[0]);
 	    return RET_FAIL;
 	}
-	break;
-    case 'a':
-	warn_deprecated(op);
-	plane->pln_att = arg;
-	break;
-    case 'd':
-	warn_deprecated(op);
-	plane->pln_def = arg;
 	break;
     case 'r':
 	plane->pln_range = (unsigned char)arg;
