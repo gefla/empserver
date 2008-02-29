@@ -76,7 +76,7 @@ float levels[MAXNOC][4];
  * into tech plants overnight...
  */
 
-double
+static double
 logx(double d, double base)
 {
     if (base == 1.0)

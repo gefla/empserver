@@ -747,7 +747,6 @@ extern void pln_do_upd_mob(struct plnstr *pp);
 /* move_sat.c */
 extern void move_sat(struct plnstr *);
 /* nat.c */
-extern double logx(double, double);
 extern void prod_nat(int);
 /* nav_ship.c */
 extern int nav_ship(struct shpstr *);
