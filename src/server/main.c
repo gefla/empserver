@@ -40,6 +40,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #if defined(_WIN32)
 #include <winsock2.h>
@@ -47,7 +48,6 @@
 #include <process.h>
 #include "service.h"
 #endif
-#include <unistd.h>
 
 #include "empio.h"
 #include "empthread.h"

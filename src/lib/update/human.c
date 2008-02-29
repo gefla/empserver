@@ -35,13 +35,13 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "budg.h"
 #include "item.h"
 #include "news.h"
 #include "player.h"
 #include "update.h"
 #include "xy.h"
-#include <math.h>
 
 static int growfood(struct sctstr *, short *, int, int);
 static int starve_some(short *, i_type, int);

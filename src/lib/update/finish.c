@@ -35,10 +35,10 @@
 
 #include <config.h>
 
+#include <stdlib.h>
 #include "distribute.h"
 #include "path.h"
 #include "update.h"
-#include <stdlib.h>
 
 /* Used for building up distribution info */
 struct distinfo {

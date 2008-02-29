@@ -36,6 +36,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "budg.h"
 #include "land.h"
 #include "lost.h"
@@ -44,7 +45,6 @@
 #include "player.h"
 #include "ship.h"
 #include "update.h"
-#include <math.h>
 
 static void landrepair(struct lndstr *, struct natstr *, struct bp *, int);
 static void upd_land(struct lndstr *, int, struct natstr *, struct bp *, int);

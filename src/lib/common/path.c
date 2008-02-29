@@ -37,6 +37,7 @@
 
 #include <config.h>
 
+#include <stdio.h>
 #include "../as/as.h"
 #include "file.h"
 #include "misc.h"
@@ -45,7 +46,6 @@
 #include "prototypes.h"
 #include "sect.h"
 #include "xy.h"
-#include <stdio.h>
 
 #define	BP_ASHASHSIZE	128	/* A* queue hash table size */
 #define	BP_NEIGHBORS	6	/* max number of neighbors */
