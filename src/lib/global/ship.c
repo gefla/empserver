@@ -37,6 +37,8 @@
 
 #include <config.h>
 
+#include <math.h>
+#include "misc.h"
 #include "ship.h"
 
 /*
@@ -45,3 +47,44 @@
  * Terminated by a sentinel with null m_name.
  */
 struct mchrstr mchr[SHP_TYPE_MAX + 2];
+
+#define logx(a, b) (log((a)) / log((b)))
+#define SHP_DEF(b, t) (t ? (b * (logx(t, 40.0) < 1.0 ? 1.0 : \
+				 logx(t, 40.0))) : b)
+#define SHP_SPD(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
+				 logx(t, 35.0))) : b)
+#define SHP_VIS(b, t) (b * (1 - (sqrt(t) / 50)))
+#define SHP_RNG(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
+				 logx(t, 35.0))) : b)
+#define SHP_FIR(b, t) (t ? (b * (logx(t, 60.0) < 1.0 ? 1.0 : \
+				 logx(t, 60.0))) : b)
+
+int
+m_armor(struct mchrstr *mcp, int tech)
+{
+    return SHP_DEF(mcp->m_armor, MAX(0, tech - mcp->m_tech));
+}
+
+int
+m_speed(struct mchrstr *mcp, int tech)
+{
+    return SHP_SPD(mcp->m_speed, MAX(0, tech - mcp->m_tech));
+}
+
+int
+m_visib(struct mchrstr *mcp, int tech)
+{
+    return SHP_VIS(mcp->m_visib, MAX(0, tech - mcp->m_tech));
+}
+
+int
+m_frnge(struct mchrstr *mcp, int tech)
+{
+    return SHP_RNG(mcp->m_frnge, MAX(0, tech - mcp->m_tech));
+}
+
+int
+m_glim(struct mchrstr *mcp, int tech)
+{
+    return SHP_FIR(mcp->m_glim, MAX(0, tech - mcp->m_tech));
+}

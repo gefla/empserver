@@ -36,7 +36,6 @@
 
 #include <config.h>
 
-#include <math.h>
 #include "file.h"
 #include "item.h"
 #include "land.h"
@@ -1238,20 +1237,17 @@ void
 pln_set_tech(struct plnstr *pp, int tlev)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int tech_diff = tlev - pcp->pl_tech;
     int limited_range = pp->pln_range < pp->pln_range_max;
 
-    if (CANT_HAPPEN(tech_diff < 0)) {
-      tlev -= tech_diff;
-      tech_diff = 0;
-    }
+    if (CANT_HAPPEN(tlev < pcp->pl_tech))
+	tlev = pcp->pl_tech;
 
     pp->pln_tech = tlev;
-    pp->pln_att = PLN_ATTDEF(pcp->pl_att, tech_diff);
-    pp->pln_def = PLN_ATTDEF(pcp->pl_def, tech_diff);
-    pp->pln_acc = PLN_ACC(pcp->pl_acc, tech_diff);
-    pp->pln_range_max = PLN_RAN(pcp->pl_range, tech_diff);
-    pp->pln_load = PLN_LOAD(pcp->pl_load, tech_diff);
+    pp->pln_att = pl_att(pcp, tlev);
+    pp->pln_def = pl_def(pcp, tlev);
+    pp->pln_acc = pl_acc(pcp, tlev);
+    pp->pln_range_max = pl_range(pcp, tlev);
+    pp->pln_load = pl_load(pcp, tlev);
 
     if (!limited_range || pp->pln_range > pp->pln_range_max)
 	pp->pln_range = pp->pln_range_max;

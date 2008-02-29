@@ -35,7 +35,6 @@
 
 #include <config.h>
 
-#include <math.h>
 #include <stdlib.h>
 #include "damage.h"
 #include "file.h"
@@ -980,17 +979,14 @@ void
 shp_set_tech(struct shpstr *sp, int tlev)
 {
     struct mchrstr *mcp = mchr + sp->shp_type;
-    int tech_diff = tlev - mcp->m_tech;
 
-    if (CANT_HAPPEN(tech_diff < 0)) {
-      tlev -= tech_diff;
-      tech_diff = 0;
-    }
+    if (CANT_HAPPEN(tlev < mcp->m_tech))
+	tlev = mcp->m_tech;
 
     sp->shp_tech = tlev;
-    sp->shp_armor = (short)SHP_DEF(mcp->m_armor, tech_diff);
-    sp->shp_speed = (short)SHP_SPD(mcp->m_speed, tech_diff);
-    sp->shp_visib = (short)SHP_VIS(mcp->m_visib, tech_diff);
-    sp->shp_frnge = (short)SHP_RNG(mcp->m_frnge, tech_diff);
-    sp->shp_glim  = (short)SHP_FIR(mcp->m_glim, tech_diff);
+    sp->shp_armor = m_armor(mcp, tlev);
+    sp->shp_speed = m_speed(mcp, tlev);
+    sp->shp_visib = m_visib(mcp, tlev);
+    sp->shp_frnge = m_frnge(mcp, tlev);
+    sp->shp_glim  = m_glim(mcp, tlev);
 }

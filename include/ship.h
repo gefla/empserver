@@ -163,16 +163,6 @@ struct mchrstr {
 
 extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
 
-#define SHP_DEF(b, t) (t ? (b * (logx(t, 40.0) < 1.0 ? 1.0 : \
-				 logx(t, 40.0))) : b)
-#define SHP_SPD(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
-				 logx(t, 35.0))) : b)
-#define SHP_VIS(b, t) (b * (1 - (sqrt(t) / 50)))
-#define SHP_RNG(b, t) (t ? (b * (logx(t, 35.0) < 1.0 ? 1.0 : \
-				 logx(t, 35.0))) : b)
-#define SHP_FIR(b, t) (t ? (b * (logx(t, 60.0) < 1.0 ? 1.0 : \
-				 logx(t, 60.0))) : b)
-
 /* Work required for building 100% */
 #define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
@@ -186,5 +176,11 @@ enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */
     SHP_TORP_SHELLS = 3		/* number of shells used by a torpedo */
 };
+
+extern int m_armor(struct mchrstr *, int);
+extern int m_speed(struct mchrstr *, int);
+extern int m_visib(struct mchrstr *, int);
+extern int m_frnge(struct mchrstr *, int);
+extern int m_glim(struct mchrstr *, int);
 
 #endif

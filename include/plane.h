@@ -146,14 +146,14 @@ struct shiplist {
     struct shiplist *next;
 };
 
-#define PLN_ATTDEF(b, t) (b + ((b?1:0) * ((t/20)>10?10:(t/20))))
-#define PLN_ACC(b, t) (b * (1.0 - (sqrt(t) / 50.)))
-#define PLN_RAN(b, t) (t ? (b + (logx(t, 2.0))) : b)
-#define PLN_LOAD(b, t) (t ? (b * (logx(t, 50.0) < 1.0 ? 1.0 : \
-				  logx(t, 50.0))) : b)
-
 /* Work required for building 100% */
 #define PLN_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
+
+extern int pl_att(struct plchrstr *, int);
+extern int pl_def(struct plchrstr *, int);
+extern int pl_acc(struct plchrstr *, int);
+extern int pl_range(struct plchrstr *, int);
+extern int pl_load(struct plchrstr *, int);
 
 /* src/lib/subs/aircombat.c */
 extern void ac_combat_headers(natid, natid);

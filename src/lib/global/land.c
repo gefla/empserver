@@ -35,6 +35,8 @@
 
 #include <config.h>
 
+#include <math.h>
+#include "misc.h"
 #include "land.h"
 
 /*
@@ -43,3 +45,78 @@
  * Terminated by a sentinel with null l_name.
  */
 struct lchrstr lchr[LND_TYPE_MAX + 2];
+
+#define logx(a, b) (log((a)) / log((b)))
+#define LND_ATTDEF(b, t) (((b) * (1.0 + ((sqrt((t)) / 100.0) * 4.0)))	\
+			  > 127 ? 127 :					\
+			  ((b) * (1.0 + ((sqrt((t)) / 100.0) * 4.0))))
+#define LND_SPD(b, t) ((b * (1.0 + ((sqrt(t) / 100.0) * 2.1))) > 127	\
+		       ? 127 : (b * (1.0 + ((sqrt(t) / 100.0) * 2.1))))
+#define LND_VUL(b, t) ((b * (1.0 - ((sqrt(t) / 100.0) * 1.1))) < 0	\
+		       ? 0 : (b * (1.0 - ((sqrt(t) / 100.0) * 1.1))))
+#define LND_VIS(b, t) (b)
+#define LND_SPY(b, t) (b)
+#define LND_RAD(b, t) (b)
+#define LND_FRG(b, t) ((t) ?				     \
+		       ((b) * (logx((t), 35.0) < 1.0 ? 1.0 : \
+			       logx((t), 35.0))) : (b))
+#define LND_DAM(b, t) ((t) ?				     \
+		       ((b) * (logx((t), 60.0) < 1.0 ? 1.0 : \
+			       logx((t), 60.0))) : (b))
+#define LND_ACC(b, t) ((b * (1.0 - ((sqrt(t) / 100.0) * 1.1))) < 0	\
+		       ? 0 : (b * (1.0 - ((sqrt(t) / 100.0) * 1.1))))
+#define LND_AMM(b, t) (b)
+#define LND_AAF(b, t) ((b * (1.0 + ((sqrt(t) / 100.0) * 3.0))) > 127	\
+		       ? 127 : (b * (1.0 + ((sqrt(t) / 100.0) * 3.0))))
+#define LND_FC(b, t)  (b)
+#define LND_FU(b, t)  (b)
+#define LND_XPL(b, t) (b)
+#define LND_MXL(b, t) (b)
+
+float
+l_att(struct lchrstr *lcp, int tech)
+{
+    return LND_ATTDEF(lcp->l_att, MAX(0, tech - lcp->l_tech));
+}
+
+float
+l_def(struct lchrstr *lcp, int tech)
+{
+    return LND_ATTDEF(lcp->l_def, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_vul(struct lchrstr *lcp, int tech)
+{
+    return LND_VUL(lcp->l_vul, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_spd(struct lchrstr *lcp, int tech)
+{
+    return LND_SPD(lcp->l_spd, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_frg(struct lchrstr *lcp, int tech)
+{
+    return LND_FRG(lcp->l_frg, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_acc(struct lchrstr *lcp, int tech)
+{
+    return LND_ACC(lcp->l_acc, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_dam(struct lchrstr *lcp, int tech)
+{
+    return LND_DAM(lcp->l_dam, MAX(0, tech - lcp->l_tech));
+}
+
+int
+l_aaf(struct lchrstr *lcp, int tech)
+{
+    return LND_AAF(lcp->l_aaf, MAX(0, tech - lcp->l_tech));
+}

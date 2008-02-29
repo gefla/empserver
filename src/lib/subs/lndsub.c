@@ -1277,28 +1277,25 @@ void
 lnd_set_tech(struct lndstr *lp, int tlev)
 {
     struct lchrstr *lcp = lchr + lp->lnd_type;
-    int tech_diff = tlev - lcp->l_tech;
 
-    if (CANT_HAPPEN(tech_diff < 0)) {
-      tlev -= tech_diff;
-      tech_diff = 0;
-    }
+    if (CANT_HAPPEN(tlev < lcp->l_tech))
+	tlev = 0;
 
     lp->lnd_tech = tlev;
-    lp->lnd_att = (float)LND_ATTDEF(lcp->l_att, tech_diff);
-    lp->lnd_def = (float)LND_ATTDEF(lcp->l_def, tech_diff);
-    lp->lnd_vul = (int)LND_VUL(lcp->l_vul, tech_diff);
-    lp->lnd_spd = (int)LND_SPD(lcp->l_spd, tech_diff);
-    lp->lnd_vis = (int)LND_VIS(lcp->l_vis, tech_diff);
-    lp->lnd_spy = (int)LND_SPY(lcp->l_spy, tech_diff);
-    lp->lnd_rad = (int)LND_RAD(lcp->l_rad, tech_diff);
-    lp->lnd_frg = (int)LND_FRG(lcp->l_frg, tech_diff);
-    lp->lnd_acc = (int)LND_ACC(lcp->l_acc, tech_diff);
-    lp->lnd_dam = (int)LND_DAM(lcp->l_dam, tech_diff);
-    lp->lnd_ammo = (int)LND_AMM(lcp->l_ammo, tech_diff);
-    lp->lnd_aaf = (int)LND_AAF(lcp->l_aaf, tech_diff);
-    lp->lnd_fuelc = (int)LND_FC(lcp->l_fuelc, tech_diff);
-    lp->lnd_fuelu = (int)LND_FU(lcp->l_fuelu, tech_diff);
-    lp->lnd_maxlight = (int)LND_XPL(lcp->l_nxlight, tech_diff);
-    lp->lnd_maxland = (int)LND_MXL(lcp->l_nland, tech_diff);
+    lp->lnd_att = l_att(lcp, tlev);
+    lp->lnd_def = l_def(lcp, tlev);
+    lp->lnd_vul = l_vul(lcp, tlev);
+    lp->lnd_spd = l_spd(lcp, tlev);
+    lp->lnd_vis = lcp->l_vis;
+    lp->lnd_spy = lcp->l_spy;
+    lp->lnd_rad = lcp->l_rad;
+    lp->lnd_frg = l_frg(lcp, tlev);
+    lp->lnd_acc = l_acc(lcp, tlev);
+    lp->lnd_dam = l_dam(lcp, tlev);
+    lp->lnd_ammo = lcp->l_ammo;
+    lp->lnd_aaf = lcp->l_aaf;
+    lp->lnd_fuelc = lcp->l_fuelc;
+    lp->lnd_fuelu = lcp->l_fuelu;
+    lp->lnd_maxlight = lcp->l_nxlight;
+    lp->lnd_maxland = lcp->l_nland;
 }

@@ -242,7 +242,6 @@ show_ship_stats(int tlev)
 {
     struct mchrstr *mp;
     int scount;
-    int techdiff;
 
     pr("%25s      s  v  s  r  f  l  p  h  x", "");
     if (opt_FUEL)
@@ -267,15 +266,10 @@ show_ship_stats(int tlev)
 	if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
 	    continue;
 
-	techdiff = (int)(tlev - mp->m_tech);
 	pr("%-25.25s %3d %2d %2d %2d %2d %2d ",
-	   mp->m_name,
-	   (short)SHP_DEF(mp->m_armor, techdiff),
-	   (short)SHP_SPD(mp->m_speed, techdiff),
-	   (short)SHP_VIS(mp->m_visib, techdiff),
-	   mp->m_vrnge,
-	   (short)SHP_RNG(mp->m_frnge, techdiff),
-	   (short)SHP_FIR(mp->m_glim, techdiff));
+	   mp->m_name, m_armor(mp, tlev), m_speed(mp, tlev),
+	   m_visib(mp, tlev), mp->m_vrnge,
+	   m_frnge(mp, tlev), m_glim(mp, tlev));
 
 	pr("%2d ", mp->m_nland);
 	pr("%2d ", mp->m_nplanes);
@@ -336,12 +330,8 @@ show_plane_stats(int tlev)
     for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
 	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
 	pr("%-25.25s %3d %4d %3d %3d %3d %4d ",
-	   pp->pl_name,
-	   (int)PLN_ACC(pp->pl_acc, (int)(tlev - pp->pl_tech)),
-	   (int)PLN_LOAD(pp->pl_load, (int)(tlev - pp->pl_tech)),
-	   (int)PLN_ATTDEF(pp->pl_att, (int)(tlev - pp->pl_tech)),
-	   (int)PLN_ATTDEF(pp->pl_def, (int)(tlev - pp->pl_tech)),
-	   (int)PLN_RAN(pp->pl_range, (int)(tlev - pp->pl_tech)),
+	   pp->pl_name, pl_acc(pp, tlev), pl_load(pp, tlev),
+	   pl_att(pp, tlev), pl_def(pp, tlev), pl_range(pp, tlev),
 	   pp->pl_fuel);
 	pr("%4d%% ", pp->pl_stealth);
 	pr("\n");
@@ -454,7 +444,6 @@ show_land_stats(int tlev)
 {
     struct lchrstr *lcp;
     int lcount;
-    int ourtlev;
 
     pr("%25s              s  v  s  r  r  a  f  a  a        x  l\n", "");
     pr("%25s              p  i  p  a  n  c  i  m  a  f  f  p  n\n", "");
@@ -466,28 +455,16 @@ show_land_stats(int tlev)
 	if ((lcp->l_flags & L_SPY) && !opt_LANDSPIES)
 	    continue;
 
-	ourtlev = (int)(tlev - lcp->l_tech);
 	pr("%-25s %1.1f %1.1f %3d ",
 	   lcp->l_name,
-	   LND_ATTDEF(lcp->l_att, ourtlev),
-	   LND_ATTDEF(lcp->l_def, ourtlev),
-	   (int)LND_VUL(lcp->l_vul, ourtlev));
+	   l_att(lcp, tlev), l_def(lcp, tlev), l_vul(lcp, tlev));
 	pr("%2d %2d %2d %2d ",
-	   (int)LND_SPD(lcp->l_spd, ourtlev),
-	   (int)LND_VIS(lcp->l_vis, ourtlev),
-	   (int)LND_SPY(lcp->l_spy, ourtlev),
-	   (int)LND_RAD(lcp->l_rad, ourtlev));
+	   l_spd(lcp, tlev), lcp->l_vis, lcp->l_spy, lcp->l_rad);
 	pr("%2d %2d %2d %2d %2d ",
-	   (int)LND_FRG(lcp->l_frg, ourtlev),
-	   (int)LND_ACC(lcp->l_acc, ourtlev),
-	   (int)LND_DAM(lcp->l_dam, ourtlev),
-	   (int)LND_AMM(lcp->l_ammo, ourtlev),
-	   (int)LND_AAF(lcp->l_aaf, ourtlev));
+	   l_frg(lcp, tlev), l_acc(lcp, tlev), l_dam(lcp, tlev),
+	   lcp->l_ammo, lcp->l_aaf);
 	pr("%2d %2d %2d %2d ",
-	   (int)LND_FC(lcp->l_fuelc, ourtlev),
-	   (int)LND_FU(lcp->l_fuelu, ourtlev),
-	   (int)LND_XPL(lcp->l_nxlight, ourtlev),
-	   (int)LND_MXL(lcp->l_nland, ourtlev));
+	   lcp->l_fuelc, lcp->l_fuelu, lcp->l_nxlight, lcp->l_nland);
 
 	pr("\n");
     }

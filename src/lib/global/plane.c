@@ -37,6 +37,8 @@
 
 #include <config.h>
 
+#include <math.h>
+#include "misc.h"
 #include "plane.h"
 
 /*
@@ -45,3 +47,40 @@
  * Terminated by a sentinel with null pl_name.
  */
 struct plchrstr plchr[PLN_TYPE_MAX + 2];
+
+#define logx(a, b) (log((a)) / log((b)))
+#define PLN_ATTDEF(b, t) (b + ((b?1:0) * ((t/20)>10?10:(t/20))))
+#define PLN_ACC(b, t) (b * (1.0 - (sqrt(t) / 50.)))
+#define PLN_RAN(b, t) (t ? (b + (logx(t, 2.0))) : b)
+#define PLN_LOAD(b, t) (t ? (b * (logx(t, 50.0) < 1.0 ? 1.0 : \
+				  logx(t, 50.0))) : b)
+
+int
+pl_att(struct plchrstr *pcp, int tech)
+{
+    return PLN_ATTDEF(pcp->pl_att, MAX(0, tech - pcp->pl_tech));
+}
+
+int
+pl_def(struct plchrstr *pcp, int tech)
+{
+    return PLN_ATTDEF(pcp->pl_def, MAX(0, tech - pcp->pl_tech));
+}
+
+int
+pl_acc(struct plchrstr *pcp, int tech)
+{
+    return PLN_ACC(pcp->pl_acc, MAX(0, tech - pcp->pl_tech));
+}
+
+int
+pl_range(struct plchrstr *pcp, int tech)
+{
+    return PLN_RAN(pcp->pl_range, MAX(0, tech - pcp->pl_tech));
+}
+
+int
+pl_load(struct plchrstr *pcp, int tech)
+{
+    return PLN_LOAD(pcp->pl_load, MAX(0, tech - pcp->pl_tech));
+}
