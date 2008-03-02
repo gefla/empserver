@@ -507,34 +507,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
    a sub. */
 		if (*s != 's')
 		    continue;
-		if (sp->shp_effic < 60)
-		    continue;
-		if (sp->shp_frnge == 0)
-		    continue;
-		if (sp->shp_item[I_MILIT] < 1)
-		    continue;
-		if (sp->shp_mobil < 0)
-		    continue;
-		gun = sp->shp_item[I_GUN];
-		if (gun < 1)
-		    continue;
-		shell = sp->shp_item[I_SHELL];
-		if (shell < SHP_TORP_SHELLS)
-		    shell += supply_commod(sp->shp_own,
-					   sp->shp_x, sp->shp_y, I_SHELL,
-					   SHP_TORP_SHELLS - shell);
-		if (shell < SHP_TORP_SHELLS)
-		    continue;
-
 		range = roundrange(torprange(sp));
 		if (md > range)
 		    continue;
-
 		if (!line_of_sight(NULL, x, y, gp->x, gp->y))
 		    continue;
-		sp->shp_item[I_SHELL] = shell - SHP_TORP_SHELLS;
-		sp->shp_mobil -= shp_mobcost(sp) / 2.0;
+		dam2 = shp_torp(sp, 1);
 		putship(sp->shp_uid, sp);
+		if (dam2 < 0)
+		    continue;
 		hitchance = DTORP_HITCHANCE(md, sp->shp_visib);
 
 		wu(0, sp->shp_own,
@@ -546,7 +527,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		   "\tWhooosh... Hitchance = %d%%\n",
 		   (int)(hitchance * 100));
 
-		if (hitchance < 1.0 && !chance(hitchance)) {
+		if (!chance(hitchance)) {
 		    wu(0, sp->shp_own, "\tMissed\n");
 		    mpr(victim,
 			"Incoming torpedo sighted @ %s missed (whew)!\n",
@@ -554,8 +535,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 		}
 		wu(0, sp->shp_own, "\tBOOM!...\n");
-		dam2 = TORP_DAMAGE();
-
 		dam += dam2;
 		nreport(victim, N_TORP_SHIP, 0, 1);
 		wu(0, sp->shp_own,

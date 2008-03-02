@@ -56,7 +56,6 @@ torp(void)
     natid vshipown;
     int range;
     int dam;
-    int shells;
     int subno;
     int victno;
     int erange;
@@ -79,11 +78,8 @@ torp(void)
 	    continue;
 	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0)
 	    continue;
-	shells = sub.shp_item[I_SHELL];
-	if (shells < SHP_TORP_SHELLS)
-	    shells += supply_commod(sub.shp_own, sub.shp_x, sub.shp_y,
-				    I_SHELL, SHP_TORP_SHELLS - shells);
-	if (sub.shp_item[I_GUN] == 0 || shells < SHP_TORP_SHELLS)
+	if (sub.shp_item[I_GUN] == 0
+	    || sub.shp_item[I_SHELL] < SHP_TORP_SHELLS)
 	    continue;
 	if (sub.shp_item[I_MILIT] < 1)
 	    continue;
@@ -106,11 +102,8 @@ torp(void)
 	       sub.shp_uid, mchr[(int)sub.shp_type].m_name);
 	    continue;
 	}
-	shells = sub.shp_item[I_SHELL];
-	if (shells < SHP_TORP_SHELLS)
-	    shells += supply_commod(sub.shp_own, sub.shp_x, sub.shp_y,
-				    I_SHELL, SHP_TORP_SHELLS - shells);
-	if (sub.shp_item[I_GUN] == 0 || shells < SHP_TORP_SHELLS) {
+	if (sub.shp_item[I_GUN] == 0
+	    || sub.shp_item[I_SHELL] < SHP_TORP_SHELLS) {
 	    pr("Ship #%d has insufficient armament\n", sub.shp_uid);
 	    continue;
 	}
@@ -149,19 +142,22 @@ torp(void)
 		continue;
 	    }
 	}
+	dam = shp_torp(&sub, 1);
+	sub.shp_mission = 0;
+	putship(sub.shp_uid, &sub);
+	if (CANT_HAPPEN(dam < 0)) {
+	    pr("Ship #%d has insufficient armament\n", sub.shp_uid);
+	    continue;
+	}
+
 	if ((mchr[(int)sub.shp_type].m_flags & M_SUB) == 0)
 	    anti_torp(sub.shp_uid, ntorping, vshipown);
 	getship(sub.shp_uid, &sub);
-	if (sub.shp_own == 0) {
+	if (sub.shp_own == 0)
 	    continue;
-	}
+
 	erange = roundrange(torprange(&sub));
 	pr("Effective torpedo range is %d.0\n", erange);
-	shells -= SHP_TORP_SHELLS;
-	sub.shp_item[I_SHELL] = shells;
-	putship(sub.shp_uid, &sub);
-	/* Mob cost for a torp is equal to the cost of 1/2 sector of movement */
-	sub.shp_mobil -= shp_mobcost(&sub) / 2.0;
 	pr("Whooosh... ");
 	getship(victno, &vship);
 	vshipown = vship.shp_own;
@@ -183,9 +179,8 @@ torp(void)
 	    }
 	} else if (range > erange) {
 	    pr("Out of range\n");
-	} else if (hitchance >= 1.0 || chance(hitchance)) {
+	} else if (chance(hitchance)) {
 	    pr("BOOM!...\n");
-	    dam = TORP_DAMAGE();
 	    if (vshipown != 0)
 		wu(0, vshipown, "%s in %s torpedoed %s for %d damage.\n",
 		   prsub(&sub), xyas(sub.shp_x, sub.shp_y, vshipown),
@@ -210,8 +205,7 @@ torp(void)
 		wu(0, vshipown, "Torpedo sighted @ %s by %s\n",
 		   xyas(sub.shp_x, sub.shp_y, vshipown), prship(&vship));
 	}
-	sub.shp_mission = 0;
-	putship(sub.shp_uid, &sub);
+
 	if (mchr[(int)sub.shp_type].m_flags & M_SUB)
 	    anti_torp(sub.shp_uid, ntorping, vshipown);
     }
@@ -355,55 +349,28 @@ static int
 fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
     int range, erange, dam;
-    int shells;
-    double hitchance;
 
     erange = roundrange(torprange(sp));
     range = mapdist(sp->shp_x, sp->shp_y, targ->shp_x, targ->shp_y);
     if (range > erange)
 	return 0;
 
-    shells = sp->shp_item[I_SHELL];
-
-    if (shells < SHP_TORP_SHELLS)
-	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				I_SHELL, SHP_TORP_SHELLS - shells);
-
-    if (sp->shp_item[I_GUN] == 0 || shells < SHP_TORP_SHELLS)
-	return 0;
-
-    if (sp->shp_item[I_MILIT] < 1)
-	return 0;
-
-    if (sp->shp_effic < 60)
-	return 0;
-
-    if (sp->shp_mobil <= 0)
-	return 0;
-
     if (!line_of_sight(NULL, sp->shp_x, sp->shp_y,
 		       targ->shp_x, targ->shp_y))
 	return 0;
-
-    /* All set.. fire! */
-    shells -= SHP_TORP_SHELLS;
-    sp->shp_item[I_SHELL] = shells;
+    dam = shp_torp(sp, 1);
     putship(sp->shp_uid, sp);
-
-    /* Mob cost for a torp is equal to the cost of 1/2 sector of movement */
-    sp->shp_mobil -= shp_mobcost(sp) / 2.0;
-
-    hitchance = DTORP_HITCHANCE(range, sp->shp_visib);
+    if (dam < 0)
+	return 0;
 
     pr("Captain! Torpedoes sighted!\n");
 
-    if (chance(hitchance)) {
+    if (chance(DTORP_HITCHANCE(range, sp->shp_visib))) {
 	pr("BOOM!...\n");
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own, "%s @ %s torpedoed %s\n",
 	       prship(sp),
 	       xyas(sp->shp_x, sp->shp_y, sp->shp_own), prsub(targ));
-	dam = TORP_DAMAGE();
 	if (ntargets > 2)
 	    dam /= ntargets / 2;
 

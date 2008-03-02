@@ -708,7 +708,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	     coord ax, coord ay, int *nfiring)
 {
     int range;
-    double erange, hitchance;
+    double erange;
     struct shpstr ship;
     struct lndstr land;
     struct nstr_item ni;
@@ -738,45 +738,25 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if (ship.shp_own == aown)
 	    continue;
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
-	    if (ship.shp_effic < 60)
-		continue;
-	    gun = ship.shp_item[I_GUN];
-	    shell = ship.shp_item[I_SHELL];
-	    if (ship.shp_item[I_MILIT] < 1)
-		continue;
-	    if (shell < SHP_TORP_SHELLS)
-		shell += supply_commod(ship.shp_own,
-				       ship.shp_x, ship.shp_y,
-				       I_SHELL, SHP_TORP_SHELLS - shell);
-	    if (shell < SHP_TORP_SHELLS)
-		continue;
-	    if (gun < 1)
-		continue;
-/*
-  if (ship.shp_mobil <= 0)
-  continue;
-*/
 	    erange = torprange(&ship);
 	    range = mapdist(ship.shp_x, ship.shp_y, ax, ay);
 	    if (range > roundrange(erange))
 		continue;
 	    if (!line_of_sight(NULL, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
-
+	    dam2 = shp_torp(&ship, 0);
+	    /* no putship(&ship) because ammo is charged in use_ammo() */
+	    if (dam2 < 0)
+		continue;
 	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
 	    add_to_fired_queue(&fp->queue, list);
-/*
-  nreport(ship.shp_own, N_FIRE_BACK, player->cnum, 1);
-*/
-	    hitchance = DTORP_HITCHANCE(range, ship.shp_visib);
-	    if (!chance(hitchance))
+	    if (!chance(DTORP_HITCHANCE(range, ship.shp_visib)))
 		continue;
-
-	    dam += TORP_DAMAGE();
+	    dam += dam2;
 	} else {
 	    erange = effrange(ship.shp_frnge, ship.shp_tech);
 	    if (roundrange(erange) < ni.curdist)

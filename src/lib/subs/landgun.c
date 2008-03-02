@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include "damage.h"
 #include "file.h"
 #include "nat.h"
 #include "optlist.h"
@@ -149,6 +150,33 @@ shp_dchrg(struct shpstr *sp)
        return -1;
     sp->shp_item[I_SHELL] = shells - 2;
     return (int)seagun(sp->shp_effic, 3);
+}
+
+/*
+ * Fire torpedo from ship SP.
+ * Use ammo and mobility, resupply if necessary.
+ * Return damage if the ship fires, else -1.
+ */
+int
+shp_torp(struct shpstr *sp, int usemob)
+{
+    int shells;
+
+    if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_TORP) == 0)
+	return -1;
+    if (sp->shp_item[I_MILIT] == 0 || sp->shp_item[I_GUN] == 0)
+	return -1;
+    if (usemob && sp->shp_mobil <= 0)
+	return -1;
+    shells = sp->shp_item[I_SHELL];
+    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+                           I_SHELL, SHP_TORP_SHELLS - shells);
+    if (shells < SHP_TORP_SHELLS)
+       return -1;
+    sp->shp_item[I_SHELL] = shells - SHP_TORP_SHELLS;
+    if (usemob)
+	sp->shp_mobil -= (int)shp_mobcost(sp) / 2.0;
+    return TORP_DAMAGE();
 }
 
 /*
