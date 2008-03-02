@@ -221,7 +221,7 @@ mission(void)
 	    radius = desired_radius;
 
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
-	    if (mchr[(int)gp->type].m_frnge < 1) {
+	    if (mchr[(int)gp->type].m_glim == 0) {
 		pr("%s: cannot fire at range!\n", obj_nameof(gp));
 		continue;
 	    }

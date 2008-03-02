@@ -480,15 +480,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    sp = (struct shpstr *)glp->thing;
 	    mcp = glp->cp;
 
-	    if (sp->shp_effic < 60)
-		continue;
-	    if (sp->shp_frnge == 0)
-		continue;
 	    if (((mission == MI_INTERDICT) ||
 		 (mission == MI_SINTERDICT)) &&
 		(md > ship_max_interdiction_range))
-		continue;
-	    if (sp->shp_item[I_MILIT] < 1)
 		continue;
 /*
   if ((mcp->m_flags & M_SUB) &&
@@ -512,6 +506,12 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 /* If we aren't shooting at "subs" or "ships" don't fire at all from
    a sub. */
 		if (*s != 's')
+		    continue;
+		if (sp->shp_effic < 60)
+		    continue;
+		if (sp->shp_frnge == 0)
+		    continue;
+		if (sp->shp_item[I_MILIT] < 1)
 		    continue;
 		if (sp->shp_mobil < 0)
 		    continue;
@@ -569,28 +569,13 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		range = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
 		if (md > range)
 		    continue;
-		if (mission == MI_SINTERDICT) {
+		if (mission == MI_SINTERDICT)
 		    dam2 = shp_dchrg(sp);
-		    putship(sp->shp_uid, sp);
-		    if (dam2 < 0)
-			continue;
-		} else {
-		    gun = sp->shp_item[I_GUN];
-		    gun = MIN(gun, sp->shp_glim);
-		    shell = sp->shp_item[I_SHELL];
-		    if (shell < gun)
-			shell += supply_commod(sp->shp_own,
-					       sp->shp_x, sp->shp_y, I_SHELL,
-					       gun - shell);
-		    gun = MIN(gun, shell);
-		    gun = MIN(gun, sp->shp_item[I_MILIT] / 2.0);
-		    if (gun == 0)
-			continue;
-		    gun = MAX(gun, 1);
-		    dam2 = seagun(sp->shp_effic, gun);
-		    sp->shp_item[I_SHELL] = shell - gun;
-		    putship(sp->shp_uid, sp);
-		}
+		else
+		    dam2 = shp_fire(sp);
+		putship(sp->shp_uid, sp);
+		if (dam2 < 0)
+		    continue;
 		if (range == 0.0)
 		    prb = 1.0;
 		else

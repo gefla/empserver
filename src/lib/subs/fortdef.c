@@ -67,12 +67,10 @@ int
 sd(natid att, natid own, coord x, coord y, int noisy, int defending,
    int usesubs)
 {
-    int nshot;
     int range;
     double eff;
     struct shpstr ship;
     struct nstr_item ni;
-    int shell;
     int dam, rel, rel2;
 
     if (own == 0)
@@ -91,34 +89,23 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	rel2 = getrel(getnatp(ship.shp_own), att);
 	if ((ship.shp_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
 	    continue;
-	if (ship.shp_effic < 60)
-	    continue;
 	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && !usesubs)
 	    continue;
 	range = roundrange(effrange(ship.shp_frnge, ship.shp_tech));
 	if (range < ni.curdist)
 	    continue;
-	/* must have gun, shell, and milit to fire */
-	shell = ship.shp_item[I_SHELL];
-	if (shell < ship.shp_glim)
-	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
-				   I_SHELL, shell - ship.shp_glim);
-	nshot = MIN(MIN(ship.shp_item[I_GUN], shell), ship.shp_item[I_MILIT]);
-	nshot = MIN(nshot, ship.shp_glim);
-	if (nshot <= 0)
-	    continue;
-	ship.shp_item[I_SHELL] = shell - nshot;
+	dam = shp_fire(&ship);
 	putship(ship.shp_uid, &ship);
+	if (dam < 0)
+	    continue;
 	if (defending)
 	    nreport(ship.shp_own, N_FIRE_BACK, att, 1);
 	else
 	    nreport(ship.shp_own, N_FIRE_S_ATTACK, att, 1);
-	dam = seagun(ship.shp_effic, nshot);
 	eff *= (1.0 - (0.01 * dam));
 	if (noisy) {
 	    pr_beep();
-	    pr("Incoming shell%s %d damage!\n",
-	       nshot == 1 ? " does" : "s do", dam);
+	    pr("Incoming shells do %d damage!\n", dam);
 	}
 	if (noisy || (ship.shp_own != own)) {
 	    if (ship.shp_own == own)

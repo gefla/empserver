@@ -102,6 +102,33 @@ fort_fire(struct sctstr *sp)
 }
 
 /*
+ * Fire from ship SP.
+ * Use ammo, resupply if necessary.
+ * Return damage if the ship fires, else -1.
+ */
+int
+shp_fire(struct shpstr *sp)
+{
+    int guns, shells;
+
+    if (sp->shp_effic < 60)
+	return -1;
+    guns = sp->shp_glim;
+    guns = MIN(guns, sp->shp_item[I_GUN]);
+    guns = MIN(guns, (sp->shp_item[I_MILIT] + 1) / 2);
+    if (guns == 0)
+	return -1;
+    shells = sp->shp_item[I_SHELL];
+    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+                           I_SHELL, (guns + 1) / 2 - shells);
+    guns = MIN(guns, shells * 2);
+    if (guns == 0)
+       return -1;
+    sp->shp_item[I_SHELL] = shells - (guns + 1) / 2;
+    return (int)seagun(sp->shp_effic, guns);
+}
+
+/*
  * Drop depth-charges from ship SP.
  * Use ammo, resupply if necessary.
  * Return damage if the ship drops depth-charges, else -1.

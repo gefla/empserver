@@ -319,30 +319,12 @@ static void
 fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
     int dam;
-    int shells;
-    int gun;
-    double guneff;
 
     if ((mchr[(int)targ->shp_type].m_flags & M_SUB) == 0) {
-	shells = sp->shp_item[I_SHELL];
-	gun = sp->shp_item[I_GUN];
-	gun = MIN(gun, sp->shp_glim);
-	gun = MIN(gun, sp->shp_item[I_MILIT] / 2);
-
-	shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				I_SHELL, (gun + 1) / 2 - shells);
-
-	gun = MIN(gun, shells * 2);
-	if (gun == 0)
-	    return;
-
-	/* ok, all set.. now, we shoot */
-	shells -= ldround(gun / 2.0, 1);
-	sp->shp_item[I_SHELL] = shells;
+	dam = shp_fire(sp);
 	putship(sp->shp_uid, sp);
-
-	guneff = seagun(sp->shp_effic, gun);
-	dam = (int)guneff;
+	if (dam < 0)
+	    return;
 	if (ntargets > 2)
 	    dam /= ntargets / 2;
 

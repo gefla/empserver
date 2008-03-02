@@ -82,7 +82,6 @@ multifire(void)
     int gun;
     int shell;
     int shots;
-    double guneff;
     int dam;
     int totaldefdam = 0;
     int fshipno;
@@ -189,13 +188,11 @@ multifire(void)
 		pr("Not enough mil on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
-	    gun = item.ship.shp_item[I_GUN];
-	    gun = MIN(gun, item.ship.shp_glim);
-	    if (item.ship.shp_frnge == 0) {
+	    if (item.ship.shp_glim == 0) {
 		pr("Ships %d cannot fire guns!\n", item.ship.shp_uid);
 		continue;
 	    }
-	    if (gun == 0) {
+	    if (item.ship.shp_item[I_GUN] == 0) {
 		pr("Not enough guns on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
@@ -328,29 +325,16 @@ multifire(void)
 		if (target == targ_sub)
 		    /* Don't tell it's a sub */
 		    range2 = -1;
-		gun = fship.shp_item[I_GUN];
-		gun = MIN(gun, fship.shp_glim);
-		if (fship.shp_frnge == 0 || gun == 0) {
+		if (fship.shp_item[I_GUN] == 0) {
 		    pr("Insufficient arms.\n");
 		    continue;
 		}
-		shell = fship.shp_item[I_SHELL];
-		shell += supply_commod(fship.shp_own,
-				       fship.shp_x, fship.shp_y,
-				       I_SHELL, 2 - shell);
-		if (shell <= 0) {
+		dam = shp_fire(&fship);
+		putship(fship.shp_uid, &fship);
+		if (dam <= 0) {
 		    pr("Klick!     ...\n");
 		    continue;
 		}
-		gun = MIN(gun, shell * 2);
-		gun = MIN(gun, mil / 2);
-		gun = MAX(gun, 1);
-		shots = gun;
-		guneff = seagun(fship.shp_effic, shots);
-		dam = (int)guneff;
-		shell -= ldround(shots / 2.0, 1);
-		fship.shp_item[I_SHELL] = shell;
-		putship(fship.shp_uid, &fship);
 	    }
 	    if (opt_NOMOBCOST == 0) {
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
@@ -723,7 +707,7 @@ static int
 quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	     coord ax, coord ay, int *nfiring)
 {
-    int nshot, range;
+    int range;
     double erange, hitchance;
     struct shpstr ship;
     struct lndstr land;
@@ -753,16 +737,13 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	/* Don't shoot yourself */
 	if (ship.shp_own == aown)
 	    continue;
-	if (ship.shp_effic < 60)
-	    continue;
-
-	gun = ship.shp_item[I_GUN];
-	shell = ship.shp_item[I_SHELL];
-
-	if (ship.shp_item[I_MILIT] < 1)
-	    continue;
-
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
+	    if (ship.shp_effic < 60)
+		continue;
+	    gun = ship.shp_item[I_GUN];
+	    shell = ship.shp_item[I_SHELL];
+	    if (ship.shp_item[I_MILIT] < 1)
+		continue;
 	    if (shell < SHP_TORP_SHELLS)
 		shell += supply_commod(ship.shp_own,
 				       ship.shp_x, ship.shp_y,
@@ -800,16 +781,9 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    erange = effrange(ship.shp_frnge, ship.shp_tech);
 	    if (roundrange(erange) < ni.curdist)
 		continue;
-	    /* must have gun, shell, and milit to fire */
-	    if (shell < 1)
-		shell += supply_commod(ship.shp_own,
-				       ship.shp_x, ship.shp_y, I_SHELL, 1);
-	    /* only need 1 shell, so don't check that */
-	    if (shell < 1)
-		continue;
-	    nshot = MIN(gun, ship.shp_item[I_MILIT]);
-	    nshot = MIN(nshot, ship.shp_glim);
-	    if (nshot == 0)
+	    dam2 = shp_fire(&ship);
+	    /* no putship(&ship) because ammo is charged in use_ammo() */
+	    if (dam2 < 0)
 		continue;
 	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
@@ -818,7 +792,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    fp->uid = ship.shp_uid;
 	    add_to_fired_queue(&fp->queue, list);
 	    nreport(ship.shp_own, N_FIRE_BACK, player->cnum, 1);
-	    dam += seagun(ship.shp_effic, nshot);
+	    dam += dam2;
 	}
     }
     snxtitem_dist(&ni, EF_LAND, ax, ay, 8);
