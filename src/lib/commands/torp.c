@@ -48,7 +48,7 @@ static int candchrg(struct shpstr *, struct shpstr *);
 static int canshoot(struct shpstr *, struct shpstr *);
 static int cantorp(struct shpstr *, struct shpstr *);
 static void fire_dchrg(struct shpstr *, struct shpstr *, int);
-static int fire_torp(struct shpstr *, struct shpstr *, int, int);
+static int fire_torp(struct shpstr *, struct shpstr *, int);
 
 int
 torp(void)
@@ -221,7 +221,6 @@ torp(void)
 static void
 anti_torp(int f, int ntorping, int vshipown)
 {
-    int range, erange;
     struct shpstr sub;
     struct shpstr dd;
     int x;
@@ -243,17 +242,9 @@ anti_torp(int f, int ntorping, int vshipown)
 	if (!canshoot(&dd, &sub))
 	    continue;
 
-	erange = roundrange(effrange(dd.shp_frnge, dd.shp_tech));
-	range = mapdist(sub.shp_x, sub.shp_y, dd.shp_x, dd.shp_y);
-	if (range > erange)
-	    continue;
-
-	if (!line_of_sight(NULL, sub.shp_x, sub.shp_y, dd.shp_x, dd.shp_y))
-	    continue;
-
 	if (cantorp(&dd, &sub)) {
 	    /* Try torping.. if we can, maybe we can fire */
-	    if (!fire_torp(&dd, &sub, range, ntorping))
+	    if (!fire_torp(&dd, &sub, ntorping))
 		if (candchrg(&dd, &sub))
 		    fire_dchrg(&dd, &sub, ntorping);
 	} else
@@ -318,7 +309,12 @@ candchrg(struct shpstr *a, struct shpstr *b)
 static void
 fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
-    int dam;
+    int range, erange, dam;
+
+    erange = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
+    range = mapdist(sp->shp_x, sp->shp_y, targ->shp_x, targ->shp_y);
+    if (range > erange)
+	return;
 
     if ((mchr[(int)targ->shp_type].m_flags & M_SUB) == 0) {
 	dam = shp_fire(sp);
@@ -356,11 +352,16 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 }
 
 static int
-fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
+fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
-    int dam;
+    int range, erange, dam;
     int shells;
     double hitchance;
+
+    erange = roundrange(torprange(sp));
+    range = mapdist(sp->shp_x, sp->shp_y, targ->shp_x, targ->shp_y);
+    if (range > erange)
+	return 0;
 
     shells = sp->shp_item[I_SHELL];
 
@@ -378,6 +379,10 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int range, int ntargets)
 	return 0;
 
     if (sp->shp_mobil <= 0)
+	return 0;
+
+    if (!line_of_sight(NULL, sp->shp_x, sp->shp_y,
+		       targ->shp_x, targ->shp_y))
 	return 0;
 
     /* All set.. fire! */
