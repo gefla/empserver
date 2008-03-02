@@ -44,9 +44,6 @@
 #include "ship.h"
 
 static void anti_torp(int f, int ntorping, int vshipown);
-static int candchrg(struct shpstr *, struct shpstr *);
-static int canshoot(struct shpstr *, struct shpstr *);
-static int cantorp(struct shpstr *, struct shpstr *);
 static void fire_dchrg(struct shpstr *, struct shpstr *, int);
 static int fire_torp(struct shpstr *, struct shpstr *, int);
 
@@ -233,71 +230,10 @@ anti_torp(int f, int ntorping, int vshipown)
 	    continue;
 	if (dd.shp_own != vshipown)
 	    continue;
-	if (!canshoot(&dd, &sub))
-	    continue;
 
-	if (cantorp(&dd, &sub)) {
-	    /* Try torping.. if we can, maybe we can fire */
-	    if (!fire_torp(&dd, &sub, ntorping))
-		if (candchrg(&dd, &sub))
-		    fire_dchrg(&dd, &sub, ntorping);
-	} else
+	if (!fire_torp(&dd, &sub, ntorping))
 	    fire_dchrg(&dd, &sub, ntorping);
     }
-}
-
-/* Can ship A shoot at ship B? */
-static int
-canshoot(struct shpstr *a, struct shpstr *b)
-{
-    /* Anyone can shoot a normal ship */
-    if ((mchr[(int)b->shp_type].m_flags & M_SUB) == 0)
-	return 1;
-
-    /* You can depth-charge a sub */
-    if (mchr[(int)a->shp_type].m_flags & M_DCH)
-	return 1;
-
-    /* If you have SUBT flag, you can torp a sub */
-    if (mchr[(int)a->shp_type].m_flags & M_SUBT)
-	return 1;
-
-    return 0;
-}
-
-/* Can ship A torp ship B? */
-static int
-cantorp(struct shpstr *a, struct shpstr *b)
-{
-    if ((mchr[(int)a->shp_type].m_flags & M_TORP) == 0)
-	return 0;
-
-    /* Anyone with TORP flag can torp a normal ship */
-    if ((mchr[(int)b->shp_type].m_flags & M_SUB) == 0)
-	return 1;
-
-    /* Ship b is a sub, so we need to have the SUBT flag */
-    if (mchr[(int)a->shp_type].m_flags & M_SUBT)
-	return 1;
-
-    return 0;
-}
-
-/* Can ship A depth-charge (or fire guns at) ship B? */
-static int
-candchrg(struct shpstr *a, struct shpstr *b)
-{
-    if ((mchr[(int)b->shp_type].m_flags & M_SUB) == 0) {
-	if ((mchr[(int)a->shp_type].m_flags & M_SUB) == 0)
-	    return 1;
-
-	return 0;
-    }
-
-    if ((mchr[(int)a->shp_type].m_flags & M_DCH) == 0)
-	return 0;
-
-    return 1;
 }
 
 static void
@@ -311,6 +247,9 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	return;
 
     if ((mchr[(int)targ->shp_type].m_flags & M_SUB) == 0) {
+	/* Return fire to a torpedo boat */
+	if (mchr[sp->shp_type].m_flags & M_SUB)
+	    return;		/* sub deck gun can't return fire */
 	dam = shp_fire(sp);
 	putship(sp->shp_uid, sp);
 	if (dam < 0)
@@ -325,9 +264,8 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	       "%s fired at %s\n", prship(sp), prship(targ));
 	pr_beep();
 	pr("BLAM! %d damage!\n", dam);
-	shipdamage(targ, dam);
-	putship(targ->shp_uid, targ);
     } else {
+	/* Return fire to a submarine */
 	dam = shp_dchrg(sp);
 	putship(sp->shp_uid, sp);
 	if (dam < 0)
@@ -340,15 +278,19 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	    wu(0, sp->shp_own,
 	       "%s depth charged %s\n", prship(sp), prsub(targ));
 	pr("click...WHAM!  %d damage!\n", dam);
-	shipdamage(targ, dam);
-	putship(targ->shp_uid, targ);
     }
+    shipdamage(targ, dam);
+    putship(targ->shp_uid, targ);
 }
 
 static int
 fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
     int range, erange, dam;
+
+    if ((mchr[targ->shp_type].m_flags & M_SUB)
+	&& (mchr[sp->shp_type].m_flags & M_SUBT) == 0)
+	return 0;		/* need sub-torp to torpedo a sub */
 
     erange = roundrange(torprange(sp));
     range = mapdist(sp->shp_x, sp->shp_y, targ->shp_x, targ->shp_y);
