@@ -569,19 +569,28 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		range = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
 		if (md > range)
 		    continue;
-		gun = sp->shp_item[I_GUN];
-		gun = MIN(gun, sp->shp_glim);
-		shell = sp->shp_item[I_SHELL];
-		if (shell < gun)
-		    shell += supply_commod(sp->shp_own,
-					   sp->shp_x, sp->shp_y, I_SHELL,
-					   gun - shell);
-		gun = MIN(gun, shell);
-		gun = MIN(gun, sp->shp_item[I_MILIT] / 2.0);
-		if (gun == 0)
-		    continue;
-		gun = MAX(gun, 1);
-		dam2 = seagun(sp->shp_effic, gun);
+		if (mission == MI_SINTERDICT) {
+		    dam2 = shp_dchrg(sp);
+		    putship(sp->shp_uid, sp);
+		    if (dam2 < 0)
+			continue;
+		} else {
+		    gun = sp->shp_item[I_GUN];
+		    gun = MIN(gun, sp->shp_glim);
+		    shell = sp->shp_item[I_SHELL];
+		    if (shell < gun)
+			shell += supply_commod(sp->shp_own,
+					       sp->shp_x, sp->shp_y, I_SHELL,
+					       gun - shell);
+		    gun = MIN(gun, shell);
+		    gun = MIN(gun, sp->shp_item[I_MILIT] / 2.0);
+		    if (gun == 0)
+			continue;
+		    gun = MAX(gun, 1);
+		    dam2 = seagun(sp->shp_effic, gun);
+		    sp->shp_item[I_SHELL] = shell - gun;
+		    putship(sp->shp_uid, sp);
+		}
 		if (range == 0.0)
 		    prb = 1.0;
 		else
@@ -600,9 +609,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 		mpr(victim, "%s %s fires at you at %s\n",
 		    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
-
-		sp->shp_item[I_SHELL] = shell - gun;
-		putship(sp->shp_uid, sp);
 	    }
 	} else if (glp->thing->ef_type == EF_PLANE) {
 	    pcp = glp->cp;

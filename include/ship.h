@@ -183,4 +183,6 @@ extern int m_visib(struct mchrstr *, int);
 extern int m_frnge(struct mchrstr *, int);
 extern int m_glim(struct mchrstr *, int);
 
+extern int shp_dchrg(struct shpstr *);
+
 #endif

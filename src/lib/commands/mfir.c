@@ -308,21 +308,6 @@ multifire(void)
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }
-	    gun = fship.shp_item[I_GUN];
-	    gun = MIN(gun, fship.shp_glim);
-	    if (fship.shp_frnge == 0 || gun == 0) {
-		pr("Insufficient arms.\n");
-		continue;
-	    }
-	    shell = fship.shp_item[I_SHELL];
-	    if (shell < 2)
-		shell += supply_commod(fship.shp_own,
-				       fship.shp_x, fship.shp_y,
-				       I_SHELL, 2 - shell);
-	    if (shell <= 0) {
-		pr("Klick!     ...\n");
-		continue;
-	    }
 	    if (fship.shp_effic < 60) {
 		pr("Ship #%d is crippled (%d%%)\n",
 		   fshipno, fship.shp_effic);
@@ -331,26 +316,46 @@ multifire(void)
 	    range = effrange(fship.shp_frnge, fship.shp_tech);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
-	    if (target == targ_sub) {
-		if ((mchr[(int)fship.shp_type].m_flags & M_DCH) == 0) {
-		    /* Don't tell it's a sub */
-		    range2 = -1;
-		} else if (shell < 2) {
+	    if (target == targ_sub
+		&& (mchr[(int)fship.shp_type].m_flags & M_DCH)) {
+		dam = shp_dchrg(&fship);
+		putship(fship.shp_uid, &fship);
+		if (dam < 0) {
 		    pr("Not enough shells for depth charge!\n");
 		    continue;
 		}
+	    } else {
+		if (target == targ_sub)
+		    /* Don't tell it's a sub */
+		    range2 = -1;
+		gun = fship.shp_item[I_GUN];
+		gun = MIN(gun, fship.shp_glim);
+		if (fship.shp_frnge == 0 || gun == 0) {
+		    pr("Insufficient arms.\n");
+		    continue;
+		}
+		shell = fship.shp_item[I_SHELL];
+		shell += supply_commod(fship.shp_own,
+				       fship.shp_x, fship.shp_y,
+				       I_SHELL, 2 - shell);
+		if (shell <= 0) {
+		    pr("Klick!     ...\n");
+		    continue;
+		}
+		gun = MIN(gun, shell * 2);
+		gun = MIN(gun, mil / 2);
+		gun = MAX(gun, 1);
+		shots = gun;
+		guneff = seagun(fship.shp_effic, shots);
+		dam = (int)guneff;
+		shell -= ldround(shots / 2.0, 1);
+		fship.shp_item[I_SHELL] = shell;
+		putship(fship.shp_uid, &fship);
 	    }
-	    gun = MIN(gun, shell * 2);
-	    gun = MIN(gun, mil / 2);
-	    gun = MAX(gun, 1);
-	    shots = gun;
-	    guneff = seagun(fship.shp_effic, shots);
-	    dam = (int)guneff;
-	    shell -= ldround(shots / 2.0, 1);
-	    fship.shp_item[I_SHELL] = shell;
-	    if (opt_NOMOBCOST == 0)
+	    if (opt_NOMOBCOST == 0) {
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
-	    putship(fship.shp_uid, &fship);
+		putship(fship.shp_uid, &fship);
+	    }
 	} else if (attacker == targ_unit) {
 	    if (fland.lnd_own != player->cnum) {
 		pr("Not your unit!\n");

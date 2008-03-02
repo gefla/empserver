@@ -102,6 +102,29 @@ fort_fire(struct sctstr *sp)
 }
 
 /*
+ * Drop depth-charges from ship SP.
+ * Use ammo, resupply if necessary.
+ * Return damage if the ship drops depth-charges, else -1.
+ */
+int
+shp_dchrg(struct shpstr *sp)
+{
+    int shells;
+
+    if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_DCH) == 0)
+	return -1;
+    if (sp->shp_item[I_MILIT] == 0)
+	return -1;
+    shells = sp->shp_item[I_SHELL];
+    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
+                           I_SHELL, 2 - shells);
+    if (shells < 2)
+       return -1;
+    sp->shp_item[I_SHELL] = shells - 2;
+    return (int)seagun(sp->shp_effic, 3);
+}
+
+/*
  * Return effective firing range for range factor RNG at tech TLEV.
  */
 double
