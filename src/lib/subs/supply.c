@@ -546,7 +546,7 @@ use_supply(struct lndstr *lp)
 
     lp->lnd_item[I_SHELL] = MAX(lp->lnd_item[I_SHELL] - shells_needed, 0);
 
-    if (lp->lnd_frg)		/* artillery */
+    if (lp->lnd_dam)		/* artillery */
 	goto done;
 
     food_needed = get_minimum(lp, I_FOOD);

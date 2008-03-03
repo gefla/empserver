@@ -227,7 +227,7 @@ mission(void)
 	    }
 
 	if ((mission == MI_INTERDICT) && (type == EF_LAND))
-	    if (lchr[(int)gp->type].l_frg < 1) {
+	    if (lchr[(int)gp->type].l_dam == 0) {
 		pr("%s: cannot fire at range!\n", obj_nameof(gp));
 		continue;
 	    }

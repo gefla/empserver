@@ -1136,7 +1136,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_frg == 0)
+	if (land.lnd_dam == 0)
 	    continue;
 	if ((land.lnd_x == x) && (land.lnd_y == y))
 	    continue;
