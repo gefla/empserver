@@ -113,8 +113,7 @@ shp_fire(struct shpstr *sp)
 
     if (sp->shp_effic < 60)
 	return -1;
-    guns = sp->shp_glim;
-    guns = MIN(guns, sp->shp_item[I_GUN]);
+    guns = shp_usable_guns(sp);
     guns = MIN(guns, (sp->shp_item[I_MILIT] + 1) / 2);
     if (guns == 0)
 	return -1;
@@ -215,6 +214,15 @@ lnd_fire(struct lndstr *lp)
     }
     lp->lnd_item[I_SHELL] = shells - ammo;
     return d;
+}
+
+/*
+ * Return number of guns ship SP can fire.
+ */
+int
+shp_usable_guns(struct shpstr *sp)
+{
+    return MIN(sp->shp_glim, sp->shp_item[I_GUN]);
 }
 
 /*

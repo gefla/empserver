@@ -877,7 +877,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    continue;
 
 	/* now calculate the odds */
-	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
+	gun = shp_usable_guns(&ship);
 	eff = ship.shp_effic / 100.0;
 	teff = ship.shp_tech / (ship.shp_tech + 200.0);
 	/* raise 4.5 for better interception -KHS */

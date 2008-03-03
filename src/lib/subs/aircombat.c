@@ -837,8 +837,8 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	rel = getrel(getnatp(ship.shp_own), plane_owner);
 	if (rel > HOSTILE)
 	    continue;
-	shell = gun = 0;
-	gun = MIN(ship.shp_item[I_GUN], ship.shp_glim);
+	shell = 0;
+	gun = shp_usable_guns(&ship);
 	if (gun) {
 	    shell = ship.shp_item[I_SHELL];
 	    if (shell <= 0) {
