@@ -167,6 +167,8 @@ extern int l_acc(struct lchrstr *, int);
 extern int l_dam(struct lchrstr *, int);
 extern int l_aaf(struct lchrstr *, int);
 
+extern int lnd_fire(struct lndstr *);
+
 /* src/lib/subs/lndsub.c */
 extern void lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);

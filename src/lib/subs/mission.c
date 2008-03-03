@@ -411,7 +411,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct plchrstr *pcp;
     int dam = 0, dam2, mission_flags, tech;
     natid plane_owner = 0;
-    int gun, shell, md, range, air_dam = 0;
+    int md, range, air_dam = 0;
     double prb, hitchance, vrange;
 
     getsect(x, y, &sect);
@@ -430,9 +430,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	if (glp->thing->ef_type == EF_LAND) {
 	    lp = (struct lndstr *)glp->thing;
 
-	    if (lp->lnd_effic < LAND_MINFIREEFF)
-		continue;
-
 	    if (mission == MI_SINTERDICT)
 		continue;
 
@@ -440,42 +437,30 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		(md > land_max_interdiction_range))
 		continue;
 
-	    if ((lp->lnd_ship != -1) || (lp->lnd_land != -1))
-		continue;
-
-	    if (lp->lnd_item[I_MILIT] < 1)
-		continue;
-
 	    range = roundrange(effrange(lp->lnd_frg, lp->lnd_tech));
 	    if (md > range)
 		continue;
 
-	    shell = lp->lnd_item[I_SHELL];
-	    gun = lp->lnd_item[I_GUN];
-	    if (shell == 0 || gun == 0)
+	    dam2 = lnd_fire(lp);
+	    putland(lp->lnd_uid, lp);
+	    if (dam2 < 0)
 		continue;
 
-	    if (has_supply(lp)) {
-		use_supply(lp);
-		putland(lp->lnd_uid, lp);
-		dam2 = ldround(landunitgun(lp->lnd_effic, lp->lnd_dam, gun,
-					   lp->lnd_ammo, shell), 1);
-		if (sect.sct_type == SCT_WATER) {
-		    if (chance(lp->lnd_acc / 100.0))
-			dam2 = ldround(dam2 / 2.0, 1);
-		}
-		dam += dam2;
-		if (sect.sct_type == SCT_WATER)
-		    nreport(lp->lnd_own, N_SHP_SHELL, victim, 1);
-		else
-		    nreport(lp->lnd_own, N_SCT_SHELL, victim, 1);
-		wu(0, lp->lnd_own,
-		   "%s fires at %s %s at %s\n",
-		   prland(lp), cname(victim), s, xyas(x, y, lp->lnd_own));
-
-		mpr(victim, "%s %s fires at you at %s\n",
-		    cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
+	    if (sect.sct_type == SCT_WATER) {
+		if (chance(lp->lnd_acc / 100.0))
+		    dam2 = ldround(dam2 / 2.0, 1);
 	    }
+	    dam += dam2;
+	    if (sect.sct_type == SCT_WATER)
+		nreport(lp->lnd_own, N_SHP_SHELL, victim, 1);
+	    else
+		nreport(lp->lnd_own, N_SCT_SHELL, victim, 1);
+	    wu(0, lp->lnd_own,
+	       "%s fires at %s %s at %s\n",
+	       prland(lp), cname(victim), s, xyas(x, y, lp->lnd_own));
+
+	    mpr(victim, "%s %s fires at you at %s\n",
+		cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
 	} else if (glp->thing->ef_type == EF_SHIP) {
 	    sp = (struct shpstr *)glp->thing;
 	    mcp = glp->cp;

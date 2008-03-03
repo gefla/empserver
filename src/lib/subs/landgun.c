@@ -35,6 +35,7 @@
 
 #include "damage.h"
 #include "file.h"
+#include "land.h"
 #include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"
@@ -65,16 +66,14 @@ seagun(int effic, int guns)
 }
 
 double
-landunitgun(int effic, int shots, int guns, int ammo, int shells)
+landunitgun(int effic, int guns)
 {
-    double d = 0.0;
+    double d;
 
-    shots = MIN(shots, guns);
-    while (shots-- > 0)
+    d = 0.0;
+    while (guns--)
 	d += 5.0 + random() % 6;
     d *= effic * 0.01;
-    if (shells < ammo && ammo != 0)
-	d *= (double)shells / (double)ammo;
     return d;
 }
 
@@ -177,6 +176,45 @@ shp_torp(struct shpstr *sp, int usemob)
     if (usemob)
 	sp->shp_mobil -= (int)shp_mobcost(sp) / 2.0;
     return TORP_DAMAGE();
+}
+
+/*
+ * Fire from land unit LP.
+ * Use ammo, resupply if necessary.
+ * Return damage if the land unit fires, else -1.
+ */
+int
+lnd_fire(struct lndstr *lp)
+{
+    int guns, shells;
+    double d;
+    int ammo = lchr[lp->lnd_type].l_ammo;
+
+    if (CANT_HAPPEN(ammo == 0))
+	ammo = 1;
+
+    if (lp->lnd_effic < LAND_MINFIREEFF)
+	return -1;
+    if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	return -1;
+    if (lp->lnd_item[I_MILIT] == 0)
+	return -1;
+    guns = lp->lnd_dam;
+    guns = MIN(guns, lp->lnd_item[I_GUN]);
+    if (guns == 0)
+	return -1;
+    shells = lp->lnd_item[I_SHELL];
+    shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
+			    I_SHELL, ammo - shells);
+    if (shells == 0)
+	return -1;
+    d = landunitgun(lp->lnd_effic, guns);
+    if (shells < ammo) {
+	d *= (double)shells / (double)ammo;
+	ammo = shells;
+    }
+    lp->lnd_item[I_SHELL] = shells - ammo;
+    return d;
 }
 
 /*

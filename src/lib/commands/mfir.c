@@ -79,8 +79,6 @@ multifire(void)
     coord x;
     coord y;
     int mil;
-    int gun;
-    int shell;
     int shots;
     int dam;
     int totaldefdam = 0;
@@ -173,8 +171,6 @@ multifire(void)
 		   fland.lnd_uid, LAND_MINFIREEFF);
 		continue;
 	    }
-	    resupply_commod(&fland, I_SHELL);	/* Get more shells */
-	    putland(fland.lnd_uid, &fland);
 	    if (fland.lnd_item[I_SHELL] == 0) {
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
@@ -361,12 +357,10 @@ multifire(void)
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
-	    if (fland.lnd_item[I_SHELL] == 0) {
-		pr("%s -- not enough shells\n", prland(&fland));
+	    if (fland.lnd_item[I_GUN] == 0) {
+		pr("%s -- not enough guns\n", prland(&fland));
 		continue;
 	    }
-
-	    shell = fland.lnd_item[I_SHELL];
 
 	    range = effrange(fland.lnd_frg, fland.lnd_tech);
 	    range2 = roundrange(range);
@@ -376,21 +370,16 @@ multifire(void)
 		range2 = -1;
 	    }
 
-	    gun = fland.lnd_item[I_GUN];
-	    if (gun <= 0) {
-		pr("%s -- not enough guns\n", prland(&fland));
+	    dam = lnd_fire(&fland);
+	    putland(fland.lnd_uid, &fland);
+	    if (dam < 0) {
+		pr("Klick!     ...\n");
 		continue;
 	    }
-
-	    dam = (int)landunitgun(fland.lnd_effic, fland.lnd_dam, gun,
-				   fland.lnd_ammo, shell);
 	    if (target == targ_ship) {
 		if (chance(fland.lnd_acc / 100.0))
 		    dam = ldround(dam / 2.0, 1);
 	    }
-	    use_supply(&fland);
-	    resupply_commod(&fland, I_SHELL);	/* Get more shells */
-	    putland(fland.lnd_uid, &fland);
 	} else {
 	    fx = fsect.sct_x;
 	    fy = fsect.sct_y;
@@ -716,7 +705,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     struct sctstr firing;
     struct nstr_sect ns;
     struct flist *fp;
-    int gun, shell;
 
     if (own == 0)
 	return 0;
@@ -779,16 +767,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
-	if (land.lnd_effic < LAND_MINFIREEFF)
-	    continue;
-	/* Can't fire if on a ship */
-	if (land.lnd_ship >= 0)
-	    continue;
-	if (land.lnd_land >= 0)
-	    continue;
-	/* Gotta have military */
-	if (land.lnd_item[I_MILIT] < 1)
-	    continue;
 	/* Don't shoot yourself */
 	if (land.lnd_own == aown)
 	    continue;
@@ -803,18 +781,10 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if (roundrange(erange) < ni.curdist)
 	    continue;
 
-	resupply_all(&land);
-	if (!has_supply(&land))
+	dam2 = lnd_fire(&land);
+	/* no putland(&land) because ammo is charged in use_ammo() */
+	if (dam2 < 0)
 	    continue;
-
-	gun = land.lnd_item[I_GUN];
-	shell = land.lnd_item[I_SHELL];
-
-	if (land.lnd_item[I_MILIT] == 0 || shell == 0 || gun == 0)
-	    continue;
-
-	dam2 = (int)landunitgun(land.lnd_effic, land.lnd_dam, gun,
-				land.lnd_ammo, shell);
 
 	(*nfiring)++;
 	fp = malloc(sizeof(struct flist));
@@ -822,8 +792,6 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	fp->type = targ_unit;
 	fp->uid = land.lnd_uid;
 	add_to_fired_queue(&fp->queue, list);
-	use_supply(&land);
-	putland(land.lnd_uid, &land);
 	nreport(land.lnd_own, N_FIRE_BACK, player->cnum, 1);
 	dam += dam2;
     }
@@ -929,21 +897,17 @@ static void
 add_to_fired_queue(struct emp_qelem *elem, struct emp_qelem *list)
 {
     struct emp_qelem *qp;
-    struct flist *fp, *ep;
-    int bad = 0;
-
-    ep = (struct flist *)elem;
+    struct flist *fp;
+    struct flist *ep = (struct flist *)elem;
 
     /* Don't put them on the list if they're already there */
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	fp = (struct flist *)qp;
-	if ((fp->type == targ_ship) && (fp->uid == ep->uid))
-	    bad = 1;
-	if ((fp->type != targ_ship) && (fp->x == ep->x) &&
-	    (fp->y == ep->y))
-	    bad = 1;
+	if (fp->type != targ_land && fp->uid == ep->uid)
+	    return;
+	if (fp->type != targ_land
+	    && fp->x == ep->x && fp->y == ep->y)
+	    return;
     }
-
-    if (!bad)
-	emp_insque(elem, list);
+    emp_insque(elem, list);
 }

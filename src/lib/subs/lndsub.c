@@ -1128,35 +1128,19 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     struct nstr_item ni;
     struct lndstr land;
     int rel, rel2;
-    double dam = 0.0;
+    int dam, dam2;
     int dist;
-    int shell;
-    int gun;
     int range;
 
+    dam = 0;
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_dam == 0)
-	    continue;
 	if ((land.lnd_x == x) && (land.lnd_y == y))
-	    continue;
-	if (land.lnd_ship >= 0)
-	    continue;
-	if (land.lnd_land >= 0)
-	    continue;
-	if (land.lnd_effic < LAND_MINFIREEFF)
-	    continue;
-	/* Do we have mil? */
-	if (land.lnd_item[I_MILIT] <= 0)
 	    continue;
 	rel = getrel(getnatp(land.lnd_own), attacker);
 	rel2 = getrel(getnatp(land.lnd_own), victim);
 	if ((land.lnd_own != attacker) &&
 	    ((rel != ALLIED) || (rel2 != AT_WAR)))
-	    continue;
-
-	/* do we have supplies? */
-	if (!has_supply(&land))
 	    continue;
 
 	/* are we in range? */
@@ -1166,31 +1150,26 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	if (dist > range)
 	    continue;
 
-	shell = land.lnd_item[I_SHELL];
-	gun = land.lnd_item[I_GUN];
-
-	if (shell == 0 || gun == 0)
+	dam2 = lnd_fire(&land);
+	putland(land.lnd_uid, &land);
+	if (dam2 < 0)
 	    continue;
 
-	use_supply(&land);
 	if (defending)
 	    nreport(land.lnd_own, N_FIRE_BACK, victim, 1);
 	else
 	    nreport(land.lnd_own, N_FIRE_L_ATTACK, victim, 1);
-	if (roll(100) < land.lnd_acc) {
-	    dam += landunitgun(land.lnd_effic, land.lnd_dam, gun,
-			       land.lnd_ammo, shell) / 2;
-	} else {
-	    dam += landunitgun(land.lnd_effic, land.lnd_dam, gun,
-			       land.lnd_ammo, shell);
-	}
+	if (roll(100) < land.lnd_acc)
+	    dam2 /= 2;
+	dam += dam2;
 	if (land.lnd_own != attacker)
 	    wu(0, land.lnd_own,
 	       "%s supported %s at %s\n",
 	       prland(&land), cname(attacker), xyas(x, y, land.lnd_own));
     }
-    return (int)dam;
+    return dam;
 }
+
 int
 lnd_can_attack(struct lndstr *lp)
 {
