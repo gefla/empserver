@@ -220,7 +220,7 @@ lnd_fire(struct lndstr *lp)
 /*
  * Return effective firing range for range factor RNG at tech TLEV.
  */
-double
+static double
 effrange(int rng, double tlev)
 {
     /* FIXME don't truncate TLEV */

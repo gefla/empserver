@@ -461,7 +461,6 @@ extern int lnd_prewrite(int, void *);
 extern double seagun(int, int);
 extern double fortgun(int, int);
 extern double landunitgun(int, int);
-extern double effrange(int, double);
 extern double torprange(struct shpstr *);
 extern double fortrange(struct sctstr *);
 extern int roundrange(double);
