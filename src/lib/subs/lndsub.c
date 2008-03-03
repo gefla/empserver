@@ -327,19 +327,18 @@ lnd_spyval(struct lndstr *lp)
 	return lp->lnd_spy * (lp->lnd_effic / 100.0);
 }
 
-double
+void
 intelligence_report(int destination, struct lndstr *lp, int spy,
 		    char *mess)
 {
     struct lchrstr *lcp;
     char buf1[80], buf2[80], buf3[80];
-    double estimate = 0.0;	/* estimated defense value */
 
     if (destination == 0)
-	return 0;
+	return;
 
     if (lp->lnd_own == 0)
-	return 0;
+	return;
 
     lcp = &lchr[(int)lp->lnd_type];
 
@@ -352,8 +351,6 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 	else
 	    sprintf(buf1, "%s %s", mess, prland(lp));
 
-	estimate = lp->lnd_item[I_MILIT];
-
 	if (chance((spy + lp->lnd_vis) / 20.0)) {
 	    if (destination == player->cnum)
 		pr(" (eff %d, mil %d",
@@ -363,7 +360,6 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 		sprintf(buf2, " (eff %d, mil %d",
 			roundintby(lp->lnd_effic, 5),
 			roundintby(lp->lnd_item[I_MILIT], 10));
-	    estimate = lp->lnd_item[I_MILIT] * lp->lnd_effic / 100.0;
 
 	    if (chance((spy + lp->lnd_vis) / 20.0)) {
 		int t;
@@ -390,11 +386,6 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     if (destination != player->cnum) {
 	wu(0, destination, "%s%s%s", buf1, buf2, buf3);
     }
-
-    if (lp->lnd_ship < 0 || lcp->l_flags & L_MARINE)
-	estimate *= lp->lnd_def;
-
-    return estimate;
 }
 
 /* Used by the spy command to count land units in a sector.  If used
