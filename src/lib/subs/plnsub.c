@@ -933,8 +933,6 @@ fit_plane_on_land(struct plnstr *pp, struct lndstr *lp)
 static void
 fit_plane_off_land(struct plnstr *pp, struct lndstr *lp)
 {
-    struct plchrstr *pcp = plchr + pp->pln_type;
-
     if (CANT_HAPPEN(lp->lnd_nxlight == 0))
 	lp->lnd_nxlight = 1;
     lp->lnd_nxlight--;
