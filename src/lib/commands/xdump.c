@@ -106,11 +106,19 @@ xdeval(struct valstr *val,
     return val;			/* FIXME nstr_exec_val() should return VAL */
 }
 
-/* Dump VAL prefixed with SEP, return " ".  */
+/*
+ * Dump VAL prefixed with SEP, return " ".
+ * VAL must be evaluated.
+ */
 static char *
 xdprval(struct valstr *val, char *sep)
 {
     unsigned char *s, *e, *l;
+
+    if (CANT_HAPPEN(val->val_cat != NSC_VAL)) {
+	pr("%snil", sep);
+	return " ";
+    }
 
     switch (val->val_type) {
     case NSC_LONG:
