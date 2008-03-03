@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "damage.h"
 #include "empobj.h"
 #include "optlist.h"
 #include "retreat.h"
@@ -742,7 +741,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    fp->type = targ_ship;
 	    fp->uid = ship.shp_uid;
 	    add_to_fired_queue(&fp->queue, list);
-	    if (!chance(DTORP_HITCHANCE(range, ship.shp_visib)))
+	    if (!chance(shp_torp_hitchance(&ship, range)))
 		continue;
 	    dam += dam2;
 	} else {

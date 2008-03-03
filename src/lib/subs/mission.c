@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include "damage.h"
 #include "empobj.h"
 #include "file.h"
 #include "item.h"
@@ -501,7 +500,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		putship(sp->shp_uid, sp);
 		if (dam2 < 0)
 		    continue;
-		hitchance = DTORP_HITCHANCE(md, sp->shp_visib);
+		hitchance = shp_torp_hitchance(sp, md);
 
 		wu(0, sp->shp_own,
 		   "%s locking on %s %s in %s\n",

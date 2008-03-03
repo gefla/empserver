@@ -236,16 +236,6 @@ effrange(int rng, double tlev)
 }
 
 /*
- * Return torpedo range for ship SP.
- */
-double
-torprange(struct shpstr *sp)
-{
-    return effrange(sp->shp_frnge * 2, sp->shp_tech)
-	* sp->shp_effic / 100.0;
-}
-
-/*
  * Return firing range for sector SP.
  */
 double
@@ -270,6 +260,25 @@ double
 shp_fire_range(struct shpstr *sp)
 {
     return effrange(sp->shp_frnge, sp->shp_tech);
+}
+
+/*
+ * Return torpedo range for ship SP.
+ */
+double
+torprange(struct shpstr *sp)
+{
+    return effrange(sp->shp_frnge * 2, sp->shp_tech)
+	* sp->shp_effic / 100.0;
+}
+
+/*
+ * Return hit chance for torpedo from ship SP at range RANGE.
+ */
+double
+shp_torp_hitchance(struct shpstr *sp, int range)
+{
+    return DTORP_HITCHANCE(range, sp->shp_visib);
 }
 
 /*

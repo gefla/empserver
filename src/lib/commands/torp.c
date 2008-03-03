@@ -37,7 +37,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "damage.h"
 #include "news.h"
 #include "optlist.h"
 #include "retreat.h"
@@ -159,7 +158,7 @@ torp(void)
 	getship(victno, &vship);
 	vshipown = vship.shp_own;
 	range = mapdist(sub.shp_x, sub.shp_y, vship.shp_x, vship.shp_y);
-	hitchance = DTORP_HITCHANCE(range, sub.shp_visib);
+	hitchance = shp_torp_hitchance(&sub, range);
 	if (range <= erange) {
 	    pr("Hitchance = %d%%\n", (int)(hitchance * 100));
 	}
@@ -307,7 +306,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 
     pr("Captain! Torpedoes sighted!\n");
 
-    if (chance(DTORP_HITCHANCE(range, sp->shp_visib))) {
+    if (chance(shp_torp_hitchance(sp, range))) {
 	pr("BOOM!...\n");
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own, "%s @ %s torpedoed %s\n",
