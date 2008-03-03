@@ -143,7 +143,7 @@ xdprval(struct valstr *val, char *sep)
 	break;
     default:
 	CANT_REACH();
-	pr("0");
+	pr("%snil", sep);
     }
     return " ";
 }
