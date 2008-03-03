@@ -362,7 +362,7 @@ multifire(void)
 		continue;
 	    }
 
-	    range = effrange(fland.lnd_frg, fland.lnd_tech);
+	    range = lnd_fire_range(&fland);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub) {
@@ -777,7 +777,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	if ((land.lnd_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
 	    continue;
 
-	erange = effrange(land.lnd_frg, land.lnd_tech);
+	erange = lnd_fire_range(&land);
 	if (roundrange(erange) < ni.curdist)
 	    continue;
 

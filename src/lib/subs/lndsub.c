@@ -1137,7 +1137,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	/* are we in range? */
 	dist = mapdist(land.lnd_x, land.lnd_y, x, y);
 
-	range = roundrange(effrange(land.lnd_frg, land.lnd_tech));
+	range = roundrange(lnd_fire_range(&land));
 	if (dist > range)
 	    continue;
 

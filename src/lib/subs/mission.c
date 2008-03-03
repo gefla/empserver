@@ -437,7 +437,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		(md > land_max_interdiction_range))
 		continue;
 
-	    range = roundrange(effrange(lp->lnd_frg, lp->lnd_tech));
+	    range = roundrange(lnd_fire_range(lp));
 	    if (md > range)
 		continue;
 
@@ -838,8 +838,7 @@ oprange(struct empobj *gp, int *radius)
 	range = ldround(shp_fire_range((struct shpstr *)gp), 1);
 	break;
     case EF_LAND:
-	range = ldround(effrange(((struct lndstr *)gp)->lnd_frg,
-				 ((struct lndstr *)gp)->lnd_tech), 1);
+	range = ldround(lnd_fire_range((struct lndstr *)gp), 1);
 	break;
     case EF_PLANE:
 	/* missiles go one way, so we can use all the range */

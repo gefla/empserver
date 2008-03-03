@@ -264,6 +264,15 @@ shp_fire_range(struct shpstr *sp)
     return effrange(sp->shp_frnge, sp->shp_tech);
 }
 
+/*
+ * Return firing range for land unit SP.
+ */
+double
+lnd_fire_range(struct lndstr *lp)
+{
+    return effrange(lp->lnd_frg, lp->lnd_tech);
+}
+
 int
 roundrange(double r)
 {
