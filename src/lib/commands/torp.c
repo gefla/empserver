@@ -241,7 +241,7 @@ fire_dchrg(struct shpstr *sp, struct shpstr *targ, int ntargets)
 {
     int range, erange, dam;
 
-    erange = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
+    erange = roundrange(shp_fire_range(sp));
     range = mapdist(sp->shp_x, sp->shp_y, targ->shp_x, targ->shp_y);
     if (range > erange)
 	return;

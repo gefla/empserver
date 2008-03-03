@@ -255,6 +255,15 @@ fortrange(struct sctstr *sp)
     return rng;
 }
 
+/*
+ * Return firing range for ship SP.
+ */
+double
+shp_fire_range(struct shpstr *sp)
+{
+    return effrange(sp->shp_frnge, sp->shp_tech);
+}
+
 int
 roundrange(double r)
 {

@@ -186,5 +186,6 @@ extern int m_glim(struct mchrstr *, int);
 extern int shp_dchrg(struct shpstr *);
 extern int shp_fire(struct shpstr *);
 extern int shp_torp(struct shpstr *, int);
+extern double shp_fire_range(struct shpstr *);
 
 #endif

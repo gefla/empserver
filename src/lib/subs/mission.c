@@ -530,7 +530,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    "Incoming torpedo sighted @ %s hits and does %d damage!\n",
 		    xyas(x, y, victim), dam2);
 	    } else {
-		range = roundrange(effrange(sp->shp_frnge, sp->shp_tech));
+		range = roundrange(shp_fire_range(sp));
 		if (md > range)
 		    continue;
 		if (mission == MI_SINTERDICT)
@@ -835,8 +835,7 @@ oprange(struct empobj *gp, int *radius)
 
     switch (gp->ef_type) {
     case EF_SHIP:
-	range = ldround(effrange(((struct shpstr *)gp)->shp_frnge,
-				 ((struct shpstr *)gp)->shp_tech), 1);
+	range = ldround(shp_fire_range((struct shpstr *)gp), 1);
 	break;
     case EF_LAND:
 	range = ldround(effrange(((struct lndstr *)gp)->lnd_frg,

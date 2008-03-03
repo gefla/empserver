@@ -306,7 +306,7 @@ multifire(void)
 		   fshipno, fship.shp_effic);
 		continue;
 	    }
-	    range = effrange(fship.shp_frnge, fship.shp_tech);
+	    range = shp_fire_range(&fship);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub
@@ -746,7 +746,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 		continue;
 	    dam += dam2;
 	} else {
-	    erange = effrange(ship.shp_frnge, ship.shp_tech);
+	    erange = shp_fire_range(&ship);
 	    if (roundrange(erange) < ni.curdist)
 		continue;
 	    dam2 = shp_fire(&ship);

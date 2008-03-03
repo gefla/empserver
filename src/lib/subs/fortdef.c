@@ -91,7 +91,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 	    continue;
 	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && !usesubs)
 	    continue;
-	range = roundrange(effrange(ship.shp_frnge, ship.shp_tech));
+	range = roundrange(shp_fire_range(&ship));
 	if (range < ni.curdist)
 	    continue;
 	dam = shp_fire(&ship);
