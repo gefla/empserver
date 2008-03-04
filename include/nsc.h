@@ -61,8 +61,7 @@ typedef enum {
 				   may need hiding */
     NSC_TIME,			/* time_t */
     NSC_FLOAT,			/* float */
-    NSC_STRINGY,		/* char[], zero-terminated string */
-				/* FIXME zero may be missing */
+    NSC_STRINGY,		/* char[], may be zero-terminated */
     /* aliases, must match typedefs */
     NSC_NATID = NSC_UCHAR	/* nation id */
 } nsc_type;
@@ -85,22 +84,22 @@ typedef enum {
 } nsc_cat;
 typedef char packed_nsc_cat;
 
-enum {
-    NSC_DEITY = bit(0),		/* access restricted to deity */
-    NSC_EXTRA = bit(1),		/* computable from other selectors */
-    NSC_CONST = bit(2),		/* field cannot be changed */
-    NSC_BITS = bit(3)		/* value consists of flag bits */
-};
-typedef unsigned char nsc_flags;
-
 /*
- * Value, possibly symbolic.
+ * Value, possibly symbolic
+ *
  * If type is NSC_NOTYPE, it's an error value.
- * If category is NSC_OFF, the value is in a context object at offset
- * val_as.sym.off + val_as.sym.idx * S, where S is the size of the
- * value.
  * If category is NSC_VAL, the value is in val_as, and the type is a
  * promoted type.
+ * If category is NSC_OFF, the value is in a context object, and
+ * val_as.sym specifies how to get it, as follows.
+ * If type is NSC_STRINGY, the value is an array of sym.len characters
+ * starting at sym.offs in the context object.  sym.idx must be zero.
+ * Else if sym.len is zero, the value is in the context object at offset
+ * sym.off.  sym.idx must be zero.
+ * Else sym.len is non-zero, and the value has index sym.idx in an
+ * array of sym.len elements at offset sym.off in in the context
+ * object.  I.e. the value is at sym.off + sym.idx * SZ, where SZ is
+ * the size of the value.
  */
 struct valstr {
     packed_nsc_type val_type;	/* type of value */
@@ -181,16 +180,41 @@ struct symbol {
     char *name;
 };
 
+/* Selector flags */
+enum {
+    NSC_DEITY = bit(0),		/* access restricted to deity */
+    NSC_EXTRA = bit(1),		/* computable from other selectors */
+    NSC_CONST = bit(2),		/* field cannot be changed */
+    NSC_BITS = bit(3)		/* value consists of flag bits */
+};
+typedef unsigned char nsc_flags;
+
 /*
- * Selector descriptor.
+ * Selector descriptor
+ *
+ * A selector describes an attribute of some context object.
+ * A selector with ca_type NSC_NOTYPE is invalid.
+ * A valid selector describes a datum of type ca_type at offset
+ * ca_offs in the context object.
+ * A datum of type NSC_STRINGY is an array of ca_len characters.
+ * A datum of any other type is either a scalar of that type (if
+ * ca_len is zero), or an array of ca_len elements of that type.
+ * If flag NSC_DEITY is set, only to deities can use this selector.
+ * If flag NSC_EXTRA is set, xdump ignores this selector.
+ * If flag NSC_CONST is set, the datum can't be changed from its
+ * initial value (xundump obeys that).
+ * If ca_table is not EF_BAD, the datum refers to that Empire table;
+ * ca_type must be an integer type.  If flag NSC_BITS is set, the
+ * datum consists of flag bits, and the referred table must be a
+ * symbol table defining those bits.
  */
 struct castr {
-    packed_nsc_type ca_type;	/* type of value */
+    packed_nsc_type ca_type;
     nsc_flags ca_flags;
-    unsigned short ca_len;	/* non-zero: is an array; #array elements */
-    ptrdiff_t ca_off;		/* offset of value in the context object */
+    unsigned short ca_len;
+    ptrdiff_t ca_off;
     char *ca_name;
-    int ca_table;		/* referred table ID, or EF_BAD */
+    int ca_table;
 };
 
 /* variables using the above */
