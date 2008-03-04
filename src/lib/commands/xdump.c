@@ -102,8 +102,7 @@ xdeval(struct valstr *val,
     val->val_as.sym.off = off;
     val->val_as.sym.len = len;
     val->val_as.sym.idx = idx;
-    nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
-    return val;			/* FIXME nstr_exec_val() should return VAL */
+    return nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
 }
 
 /*

@@ -53,7 +53,7 @@
  * WANT.  VAL must be coercible.  That's the case if a previous
  * nstr_coerce_val(VAL, WANT, STR) succeeded.
  */
-void
+struct valstr *
 nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 {
     char *memb_ptr;
@@ -158,6 +158,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
     }
 
     val->val_type = valtype;
+    return val;
 }
 
 /*
