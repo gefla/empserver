@@ -67,6 +67,9 @@ typedef enum {
 } nsc_type;
 typedef char packed_nsc_type;
 
+/* Is TYPE a promoted value type?  */
+#define NSC_IS_PROMOTED(type) (NSC_LONG <= (type) && (type) <= NSC_STRING)
+
 /* Return nsc_type for a signed integer with the same size as TYPE.  */
 #define NSC_SITYPE(type)				\
     (sizeof(type) == 1 ? NSC_CHAR			\

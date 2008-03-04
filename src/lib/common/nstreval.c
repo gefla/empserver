@@ -36,6 +36,7 @@
 #include <config.h>
 
 #include <limits.h>
+#include <string.h>
 #include "file.h"
 #include "nat.h"
 #include "nsc.h"
@@ -45,7 +46,7 @@
 /*
  * Evaluate VAL.
  * If VAL is symbolic, evaluate it into a promoted value type.
- * Use coordinate system of country CNUM.
+ * Use country CNUM's coordinate system and access control.
  * PTR points to a context object of the type that was used to compile
  * the value.
  * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
@@ -60,10 +61,10 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
     int idx;
     struct natstr *natp;
 
+    if (CANT_HAPPEN(want != NSC_NOTYPE && !NSC_IS_PROMOTED(want)))
+	want = nstr_promote(want);
+
     switch (val->val_cat) {
-    default:
-	CANT_REACH();
-	/* fall through */
     case NSC_VAL:
 	valtype = val->val_type;
 	break;
@@ -134,6 +135,10 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	    val->val_as.lng = 0;
 	}
 	val->val_cat = NSC_VAL;
+	break;
+    default:
+	CANT_REACH();
+	valtype = NSC_NOTYPE;
     }
 
     if (valtype == want)
@@ -147,14 +152,9 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	CANT_REACH();		/* FIXME implement */
 
     if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
+	/* make up an error value */
 	valtype = want;
-	switch (want) {
-	case NSC_LONG: val->val_as.lng = 0; break;
-	case NSC_DOUBLE: val->val_as.dbl = 0.0; break;
-	case NSC_STRING: val->val_as.str.base = NULL; break;
-	default:
-	    CANT_REACH();
-	}
+	memset(&val->val_as, 0, sizeof(val->val_as));
     }
 
     val->val_type = valtype;
