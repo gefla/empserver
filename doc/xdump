@@ -171,9 +171,10 @@ precisely specified.  We use EBNF (ISO 14977) for syntax, except we
 use '-' in meta-identifiers and omit the concatenation symbol ','.
 
     table = header { record } footer ;
-    header = "XDUMP" space [ "meta" space ] name space timestamp newline ;
-    name = name-chr { name-chr } ;
-    name-chr = ? ASCII characters 33..126 ? ;
+    header = "XDUMP" space [ "meta" space ]
+    	     identifier space timestamp newline ;
+    identifier = id-chr { id-chr } ;
+    id-char = ? ASCII characters 33..126 except '"#()<>=' ? ;
     timestamp = intnum ;
     footer = "/" number newline ;
     record = [ fields ] newline ;
@@ -208,7 +209,7 @@ Notes:
 
 Semantics:
 
-* The table name in the header is one of the names in xdump table.
+* The table identifier in the header is one of the names in xdump table.
 
 * The timestamp increases monotonically.  It has a noticeable
   granularity: game state may change between an xdump and the next
@@ -520,7 +521,7 @@ EBNF changes:
 
 * Header and footer:
 
-    header = "config" name newline colhdr newline ;
+    header = "config" identifier newline colhdr newline ;
     colhdr = { identifier [ "(" ( intnum | identifier ) ")" ] } [ "..." ] ;
     footer = "/config" newline ;
 
@@ -538,7 +539,7 @@ EBNF changes:
     update.
 
   - The column header is due to the self-containedness requirement.
-    It contains just the essential bit of meta-data: the column name.
+    It contains just the essential bit of meta-data: the column names.
 
 * Symbolic fields:
 
@@ -658,7 +659,7 @@ and section `Objectives':
   enemy ships, nations).
 
   (4) Bandwidth will be minimized (i.e. the format will be as
-  concise as possible) while remaining human readable (i.e. no
+  concise as possible) while remaining human-readable (i.e. no
   binary messages).  [Note that data compression may be added at a later
   date, but if it is added, it will be added on a separate port to
   maintain backwards compatability.]
@@ -731,14 +732,14 @@ f. The data to sync is not readily available the server.
    limited view on certain parts of server game state on certain
    events.
 
-   To be complete, a machine readable protocol must disclose as much
-   information as the human readable output.  Tracking server game
+   To be complete, a machine-readable protocol must disclose as much
+   information as the human-readable output.  Tracking server game
    state changes cannot do that alone.  For instance, lookout tells
    you ship#, owner and location.  That event does not trigger any
    state change on the server!
 
-   To be correct, a machine readable protocol must disclose no more
-   information than the human readable output.  When you observe a
+   To be correct, a machine-readable protocol must disclose no more
+   information than the human-readable output.  When you observe a
    server game state change, you can only guess what event triggered
    it, and what it disclosed to which player.  You're stuck with
    conservative assumptions.  That's the death knell for completeness.
@@ -757,7 +758,7 @@ a shortcut, and it didn't work.  That doesn't mean there's no way at
 all.  I believe the only way to get this done right is by tracking
 *events*.  Whenever something is printed to a player, be it live
 connection or telegram, we need to transmit precisely the same
-information in machine readable form.  Much more work.
+information in machine-readable form.  Much more work.
 
 xdump shares valuable ideas with C_SYNC, e.g. using selector
 meta-data.  It is, however, much more modest in scope.  We're pretty
