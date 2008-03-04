@@ -712,7 +712,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     struct lndstr land;
     struct emp_qelem *qp;
     int unitno;
-    int ignore, flak, hitchance;
+    int ignore, aaf, flak, hitchance;
     struct plist *plp;
     int nukedam;
     int nunits;
@@ -755,11 +755,12 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (unitno < 0)
 	    continue;
 
-	flak = (int)(techfact(land.lnd_tech, land.lnd_aaf) * 3.0);
+	aaf = lnd_aaf(&land);
+	flak = (int)(techfact(land.lnd_tech, aaf) * 3.0);
 	if (flak) {
 	    PR(land.lnd_own,
 	       "Flak! Firing flak guns from unit %s (aa rating %d)\n",
-	       prland(&land), land.lnd_aaf);
+	       prland(&land), aaf);
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, land.lnd_own, flak))
 		continue;
 	}

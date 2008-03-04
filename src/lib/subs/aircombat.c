@@ -883,7 +883,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     struct lndstr land;
     struct lchrstr *lcp;
     double flak, total, ngun;
-    int gun;
+    int aaf, gun;
     int rel;
     struct plist *plp;
     natid plane_owner;
@@ -900,14 +900,15 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	if (land.lnd_own == 0 || land.lnd_own == plane_owner)
 	    continue;
 	lcp = &lchr[(int)land.lnd_type];
-	if ((lcp->l_flags & L_FLAK) == 0 || land.lnd_aaf == 0)
+	aaf = lnd_aaf(&land);
+	if ((lcp->l_flags & L_FLAK) == 0 || aaf == 0)
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
 	rel = getrel(getnatp(land.lnd_own), plane_owner);
 	if (rel > HOSTILE)
 	    continue;
-	flak = land.lnd_aaf * 1.5 * land.lnd_effic / 100.0;
+	flak = aaf * 1.5 * land.lnd_effic / 100.0;
 	ngun += flak;
 	total += techfact(land.lnd_tech, flak * 2.0);
 
@@ -920,7 +921,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	    nats[land.lnd_own] = 1;
 	}
 	PR(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
-	   prland(&land), land.lnd_aaf);
+	   prland(&land), aaf);
 	from = land.lnd_own;
     }
 

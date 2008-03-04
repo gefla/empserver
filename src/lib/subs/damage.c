@@ -118,7 +118,7 @@ landdamage(struct lndstr *lp, int dam)
     damage_factor = m / (m + lp->lnd_harden);
 
     /* vulnerable units take more damage */
-    damage_factor *= lp->lnd_vul / 100.0;
+    damage_factor *= lnd_vul(lp) / 100.0;
 
     land_damage(lp, ldround(damage_factor * dam, 1));
 }

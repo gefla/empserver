@@ -228,7 +228,7 @@ look_land(struct lndstr *lookland)
 	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
-	vrange = ldround((lp->lnd_vis * range) / 20.0, 1);
+	vrange = ldround((lnd_vis(lp) * range) / 20.0, 1);
 	dist = mapdist(lp->lnd_x, lp->lnd_y,
 		       lookland->lnd_x, lookland->lnd_y);
 	if (dist > vrange)

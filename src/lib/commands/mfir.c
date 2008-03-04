@@ -146,7 +146,7 @@ multifire(void)
 	    if (item.land.lnd_own != player->cnum)
 		continue;
 
-	    if (fland.lnd_dam == 0) {
+	    if (lchr[fland.lnd_type].l_dam == 0) {
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
@@ -352,7 +352,7 @@ multifire(void)
 	    fx = fland.lnd_x;
 	    fy = fland.lnd_y;
 
-	    if (fland.lnd_dam == 0) {
+	    if (lchr[fland.lnd_type].l_dam == 0) {
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
 		continue;
 	    }
@@ -376,7 +376,7 @@ multifire(void)
 		continue;
 	    }
 	    if (target == targ_ship) {
-		if (chance(fland.lnd_acc / 100.0))
+		if (chance(lnd_acc(&fland) / 100.0))
 		    dam = ldround(dam / 2.0, 1);
 	    }
 	} else {

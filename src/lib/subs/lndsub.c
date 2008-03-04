@@ -76,7 +76,7 @@ attack_val(int combat_mode, struct lndstr *lp)
 	return 1;
 
     men = lp->lnd_item[I_MILIT];
-    value = men * lp->lnd_att * lp->lnd_effic / 100.0;
+    value = men * lnd_att(lp) * lp->lnd_effic / 100.0;
 
     switch (combat_mode) {
     case A_ATTACK:
@@ -113,7 +113,7 @@ defense_val(struct lndstr *lp)
 	!(lcp->l_flags & L_MARINE))
 	return men;
 
-    value = men * lp->lnd_def * lp->lnd_effic / 100.0;
+    value = men * lnd_def(lp) * lp->lnd_effic / 100.0;
     value *= ((double)land_mob_max + lp->lnd_harden) / land_mob_max;
 
     /* If there are military on the unit, you get at least a 1
@@ -331,7 +331,7 @@ void
 intelligence_report(int destination, struct lndstr *lp, int spy,
 		    char *mess)
 {
-    struct lchrstr *lcp;
+    int vis = lnd_vis(lp);
     char buf1[80], buf2[80], buf3[80];
 
     if (destination == 0)
@@ -340,18 +340,16 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     if (lp->lnd_own == 0)
 	return;
 
-    lcp = &lchr[(int)lp->lnd_type];
-
     memset(buf1, 0, sizeof(buf1));
     memset(buf2, 0, sizeof(buf2));
     memset(buf3, 0, sizeof(buf3));
-    if (chance((spy + lp->lnd_vis) / 10.0)) {
+    if (chance((spy + vis) / 10.0)) {
 	if (destination == player->cnum)
 	    pr("%s %s", mess, prland(lp));
 	else
 	    sprintf(buf1, "%s %s", mess, prland(lp));
 
-	if (chance((spy + lp->lnd_vis) / 20.0)) {
+	if (chance((spy + vis) / 20.0)) {
 	    if (destination == player->cnum)
 		pr(" (eff %d, mil %d",
 		   roundintby(lp->lnd_effic, 5),
@@ -361,7 +359,7 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 			roundintby(lp->lnd_effic, 5),
 			roundintby(lp->lnd_item[I_MILIT], 10));
 
-	    if (chance((spy + lp->lnd_vis) / 20.0)) {
+	    if (chance((spy + vis) / 20.0)) {
 		int t;
 		t = lp->lnd_tech - 20 + roll(40);
 		t = MAX(t, 0);
@@ -890,8 +888,8 @@ lnd_hardtarget(struct lndstr *lp)
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
     return (int)((lp->lnd_effic / 100.0) *
-		 (10 + dchr[sect.sct_type].d_dstr * 2 + lp->lnd_spd / 2.0
-		  - lp->lnd_vis));
+		 (10 + dchr[sect.sct_type].d_dstr * 2 + lnd_spd(lp) / 2.0
+		  - lnd_vis(lp)));
 }
 
 static int
@@ -917,7 +915,7 @@ lnd_pathcost(struct lndstr *lp, double pathcost)
 {
     double effspd;
 
-    effspd = lp->lnd_spd;
+    effspd = lnd_spd(lp);
     if (lchr[(int)lp->lnd_type].l_flags & L_SUPPLY)
 	effspd *= lp->lnd_effic * 0.01;
 
@@ -1150,7 +1148,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	    nreport(land.lnd_own, N_FIRE_BACK, victim, 1);
 	else
 	    nreport(land.lnd_own, N_FIRE_L_ATTACK, victim, 1);
-	if (roll(100) < land.lnd_acc)
+	if (roll(100) < lnd_acc(&land))
 	    dam2 /= 2;
 	dam += dam2;
 	if (land.lnd_own != attacker)
@@ -1238,18 +1236,9 @@ lnd_set_tech(struct lndstr *lp, int tlev)
 	tlev = 0;
 
     lp->lnd_tech = tlev;
-    lp->lnd_att = l_att(lcp, tlev);
-    lp->lnd_def = l_def(lcp, tlev);
-    lp->lnd_vul = l_vul(lcp, tlev);
-    lp->lnd_spd = l_spd(lcp, tlev);
-    lp->lnd_vis = lcp->l_vis;
     lp->lnd_spy = lcp->l_spy;
     lp->lnd_rad = lcp->l_rad;
-    lp->lnd_frg = l_frg(lcp, tlev);
-    lp->lnd_acc = l_acc(lcp, tlev);
-    lp->lnd_dam = l_dam(lcp, tlev);
     lp->lnd_ammo = lcp->l_ammo;
-    lp->lnd_aaf = lcp->l_aaf;
     lp->lnd_fuelc = lcp->l_fuelc;
     lp->lnd_fuelu = lcp->l_fuelu;
     lp->lnd_maxlight = lcp->l_nxlight;

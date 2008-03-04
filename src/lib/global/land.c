@@ -120,3 +120,57 @@ l_aaf(struct lchrstr *lcp, int tech)
 {
     return LND_AAF(lcp->l_aaf, MAX(0, tech - lcp->l_tech));
 }
+
+float
+lnd_att(struct lndstr *lp)
+{
+    return l_att(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+float
+lnd_def(struct lndstr *lp)
+{
+    return l_def(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_vul(struct lndstr *lp)
+{
+    return l_vul(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_spd(struct lndstr *lp)
+{
+    return l_spd(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_vis(struct lndstr *lp)
+{
+    return lchr[lp->lnd_type].l_vis;
+}
+
+int
+lnd_frg(struct lndstr *lp)
+{
+    return l_frg(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_acc(struct lndstr *lp)
+{
+    return l_acc(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_dam(struct lndstr *lp)
+{
+    return l_dam(lchr + lp->lnd_type, lp->lnd_tech);
+}
+
+int
+lnd_aaf(struct lndstr *lp)
+{
+    return l_aaf(lchr + lp->lnd_type, lp->lnd_tech);
+}

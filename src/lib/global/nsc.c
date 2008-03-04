@@ -48,6 +48,15 @@
 static void *nsc_ver(struct valstr *, natid, void *);
 static void *nsc_pln_att(struct valstr *, natid, void *);
 static void *nsc_pln_def(struct valstr *, natid, void *);
+static void *nsc_lnd_att(struct valstr *, natid, void *);
+static void *nsc_lnd_def(struct valstr *, natid, void *);
+static void *nsc_lnd_vul(struct valstr *, natid, void *);
+static void *nsc_lnd_spd(struct valstr *, natid, void *);
+static void *nsc_lnd_vis(struct valstr *, natid, void *);
+static void *nsc_lnd_frg(struct valstr *, natid, void *);
+static void *nsc_lnd_acc(struct valstr *, natid, void *);
+static void *nsc_lnd_dam(struct valstr *, natid, void *);
+static void *nsc_lnd_aaf(struct valstr *, natid, void *);
 
 /* Ugly hack to improve legibility by avoid long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -341,24 +350,24 @@ struct castr land_ca[] = {
     {"land", fldoff(lnd_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"nland", fldoff(lnd_nland), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"access", fldoff(lnd_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"att", fldoff(lnd_att), NSC_FLOAT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"def", fldoff(lnd_def), NSC_FLOAT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"vul", fldoff(lnd_vul), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"spd", fldoff(lnd_spd), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"vis", fldoff(lnd_vis), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
     {"spy", fldoff(lnd_spy), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
     {"rmax", fldoff(lnd_rad), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"frg", fldoff(lnd_frg), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"acc", fldoff(lnd_acc), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"dam", fldoff(lnd_dam), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
     {"ammo", fldoff(lnd_ammo), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"aaf", fldoff(lnd_aaf), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
     {"fuelc", fldoff(lnd_fuelc), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"fuelu", fldoff(lnd_fuelu), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"maxlight", fldoff(lnd_maxlight), NSC_UCHAR, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"timestamp", fldoff(lnd_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
+    {"att", 0, NSC_DOUBLE, 0, nsc_lnd_att, EF_BAD, NSC_EXTRA},
+    {"def", 0, NSC_DOUBLE, 0, nsc_lnd_def, EF_BAD, NSC_EXTRA},
+    {"vul", 0, NSC_LONG, 0, nsc_lnd_vul, EF_BAD, NSC_EXTRA},
+    {"spd", 0, NSC_LONG, 0, nsc_lnd_spd, EF_BAD, NSC_EXTRA},
+    {"vis", 0, NSC_LONG, 0, nsc_lnd_vis, EF_BAD, NSC_EXTRA},
+    {"frg", 0, NSC_LONG, 0, nsc_lnd_frg, EF_BAD, NSC_EXTRA},
+    {"acc", 0, NSC_LONG, 0, nsc_lnd_acc, EF_BAD, NSC_EXTRA},
+    {"dam", 0, NSC_LONG, 0, nsc_lnd_dam, EF_BAD, NSC_EXTRA},
+    {"aaf", 0, NSC_LONG, 0, nsc_lnd_aaf, EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -739,5 +748,68 @@ static void *
 nsc_pln_att(struct valstr *val, natid cnum, void *ptr)
 {
     val->val_as.lng = pln_att(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_att(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.dbl = lnd_att(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_def(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.dbl = lnd_def(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_vul(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_vul(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_spd(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_spd(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_vis(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_vis(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_frg(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_frg(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_acc(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_acc(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_dam(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_dam(ptr);
+    return NULL;
+}
+
+static void *
+nsc_lnd_aaf(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = lnd_aaf(ptr);
     return NULL;
 }

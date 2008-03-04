@@ -446,7 +446,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		continue;
 
 	    if (sect.sct_type == SCT_WATER) {
-		if (chance(lp->lnd_acc / 100.0))
+		if (chance(lnd_acc(lp) / 100.0))
 		    dam2 = ldround(dam2 / 2.0, 1);
 	    }
 	    dam += dam2;

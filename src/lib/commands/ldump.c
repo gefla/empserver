@@ -394,19 +394,19 @@ ldump(void)
 		pr(" %d", land.lnd_item[I_RAD]);
 		break;
 	    case 28:
-		pr(" %1.2f", land.lnd_att);
+		pr(" %1.2f", lnd_att(&land));
 		break;
 	    case 29:
-		pr(" %1.2f", land.lnd_def);
+		pr(" %1.2f", lnd_def(&land));
 		break;
 	    case 30:
-		pr(" %d", land.lnd_vul);
+		pr(" %d", lnd_vul(&land));
 		break;
 	    case 31:
-		pr(" %d", land.lnd_spd);
+		pr(" %d", lnd_spd(&land));
 		break;
 	    case 32:
-		pr(" %d", land.lnd_vis);
+		pr(" %d", lnd_vis(&land));
 		break;
 	    case 33:
 		pr(" %d", land.lnd_spy);
@@ -415,19 +415,19 @@ ldump(void)
 		pr(" %d", land.lnd_rad);
 		break;
 	    case 35:
-		pr(" %d", land.lnd_frg);
+		pr(" %d", lnd_frg(&land));
 		break;
 	    case 36:
-		pr(" %d", land.lnd_acc);
+		pr(" %d", lnd_acc(&land));
 		break;
 	    case 37:
-		pr(" %d", land.lnd_dam);
+		pr(" %d", lnd_dam(&land));
 		break;
 	    case 38:
 		pr(" %d", land.lnd_ammo);
 		break;
 	    case 39:
-		pr(" %d", land.lnd_aaf);
+		pr(" %d", lnd_aaf(&land));
 		break;
 	    case 40:
 		pr(" %d", land.lnd_item[I_UW]);

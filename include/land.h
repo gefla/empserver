@@ -79,18 +79,9 @@ struct lndstr {
     short lnd_land;		/* pointer to transporting unit */
     unsigned char lnd_nland;
     short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
-    float lnd_att;		/* attack multiplier */
-    float lnd_def;		/* defense multiplier */
-    int lnd_vul;		/* vulnerability (0-100) */
-    int lnd_spd;		/* speed */
-    int lnd_vis;		/* visibility */
     int lnd_spy;		/* Seeing distance */
     int lnd_rad;		/* reaction radius */
-    int lnd_frg;		/* firing range */
-    int lnd_acc;		/* firing accuracy */
-    int lnd_dam;		/* # of guns firing */
     int lnd_ammo;		/* firing ammu used per shot */
-    int lnd_aaf;		/* aa fire */
     unsigned char lnd_fuelc;	/* fuel capacity */
     unsigned char lnd_fuelu;	/* fuel used per 10 mob */
     unsigned char lnd_maxlight;	/* maximum number of xlight planes */
@@ -166,6 +157,15 @@ extern int l_frg(struct lchrstr *, int);
 extern int l_acc(struct lchrstr *, int);
 extern int l_dam(struct lchrstr *, int);
 extern int l_aaf(struct lchrstr *, int);
+extern float lnd_att(struct lndstr *);
+extern float lnd_def(struct lndstr *);
+extern int lnd_vul(struct lndstr *);
+extern int lnd_spd(struct lndstr *);
+extern int lnd_vis(struct lndstr *);
+extern int lnd_frg(struct lndstr *);
+extern int lnd_acc(struct lndstr *);
+extern int lnd_dam(struct lndstr *);
+extern int lnd_aaf(struct lndstr *);
 
 extern int lnd_fire(struct lndstr *);
 extern double lnd_fire_range(struct lndstr *);

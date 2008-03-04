@@ -198,7 +198,7 @@ lnd_fire(struct lndstr *lp)
 	return -1;
     if (lp->lnd_item[I_MILIT] == 0)
 	return -1;
-    guns = lp->lnd_dam;
+    guns = lnd_dam(lp);
     guns = MIN(guns, lp->lnd_item[I_GUN]);
     if (guns == 0)
 	return -1;
@@ -287,7 +287,7 @@ shp_torp_hitchance(struct shpstr *sp, int range)
 double
 lnd_fire_range(struct lndstr *lp)
 {
-    return effrange(lp->lnd_frg, lp->lnd_tech);
+    return effrange(lnd_frg(lp), lp->lnd_tech);
 }
 
 int
