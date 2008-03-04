@@ -94,12 +94,7 @@
 static struct valstr *
 xdeval(struct valstr *val, struct castr *ca, void *ptr, int idx)
 {
-    val->val_type = ca->ca_type;
-    val->val_cat = NSC_OFF;
-    val->val_as.sym.off = ca->ca_off;
-    val->val_as.sym.len = ca->ca_len;
-    val->val_as.sym.idx = idx;
-    val->val_as.sym.get = ca->ca_get;
+    nstr_mksymval(val, ca, idx);
     return nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
 }
 

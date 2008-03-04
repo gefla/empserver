@@ -212,9 +212,10 @@ typedef unsigned char nsc_flags;
  * ca_len is zero), or an array of ca_len elements of that type.
  * If ca_get is not null, the selector is virtual.  Values can be
  * obtained by calling ca_get(VAL, CNUM, CTXO), where VAL has been
- * initialized from the selector and an index, CNUM is the country to
- * use for coordinate translation and access control, and CTXO is the
- * context object.  See struct valstr for details.
+ * initialized my from the selector and an index by nstr_mksymval(),
+ * CNUM is the country to use for coordinate translation and access
+ * control, and CTXO is the context object.  See struct valstr for
+ * details.
  * If flag NSC_DEITY is set, only to deities can use this selector.
  * If flag NSC_EXTRA is set, xdump ignores this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its
@@ -291,6 +292,7 @@ extern char *nstr_comp_val(char *, struct valstr*, int);
 extern int nstr_coerce_val(struct valstr *, nsc_type, char *);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
+extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);
 extern struct valstr *nstr_exec_val(struct valstr *, natid, void *, nsc_type);
 extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);

@@ -427,13 +427,7 @@ nstr_resolve_sel(struct valstr *val, struct castr *ca)
 	return NULL;
     }
 
-    val->val_type = ca->ca_type;
-    val->val_cat = NSC_OFF;
-    val->val_as.sym.off = ca->ca_off;
-    val->val_as.sym.len = ca->ca_len;
-    val->val_as.sym.idx = 0;
-    val->val_as.sym.get = ca->ca_get;
-    return val;
+    return nstr_mksymval(val, ca, 0);
 }
 
 /*

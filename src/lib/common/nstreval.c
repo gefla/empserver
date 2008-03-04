@@ -42,6 +42,21 @@
 #include "nsc.h"
 #include "optlist.h"
 
+/*
+ * Initialize VAL to symbolic value for selector CA with index IDX.
+ * Return VAL.
+ */
+struct valstr *
+nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
+{
+    val->val_type = ca->ca_type;
+    val->val_cat = NSC_OFF;
+    val->val_as.sym.off = ca->ca_off;
+    val->val_as.sym.len = ca->ca_len;
+    val->val_as.sym.idx = idx;
+    val->val_as.sym.get = ca->ca_get;
+    return val;
+}
 
 /*
  * Evaluate VAL.
