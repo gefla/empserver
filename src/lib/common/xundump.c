@@ -133,21 +133,6 @@ skipfs(FILE *fp)
 }
 
 /*
- * Read an identifier from FP into BUF.
- * BUF must have space for 1024 characters.
- * Return number of characters read on success, -1 on failure.
- */
-static int
-getid(FILE *fp, char *buf)
-{
-    int n;
-    if (fscanf(fp, "%1023[^#()<>=#\" \t\n]%n", buf, &n) != 1
-	|| !isalpha(buf[0]))
-	return -1;
-    return n;
-}
-
-/*
  * Decode escape sequences in BUF.
  * Return BUF on success, null pointer on failure.
  */
@@ -170,6 +155,22 @@ xuesc(char *buf)
     }
     *dst = '\0';
     return buf;
+}
+
+/*
+ * Read an identifier from FP into BUF.
+ * BUF must have space for 1024 characters.
+ * Return number of characters read on success, -1 on failure.
+ */
+static int
+getid(FILE *fp, char *buf)
+{
+    int n;
+    if (fscanf(fp, "%1023[^\"#()<>= \t\n]%n", buf, &n) != 1
+	|| !isalpha(buf[0]))
+	return -1;
+    xuesc(buf);
+    return n;
 }
 
 /*
