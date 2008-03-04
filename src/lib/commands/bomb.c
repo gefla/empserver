@@ -849,7 +849,7 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     natid plane_owner;
     int dam;
 
-    dam = ac_flak_dam(flak, pp->pln_def, pcp->pl_flags);
+    dam = ac_flak_dam(flak, pln_def(pp), pcp->pl_flags);
     disp = 0;
     plane_owner = pp->pln_own;
     eff = pp->pln_effic;

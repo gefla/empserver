@@ -66,7 +66,7 @@ plan(void)
 	prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
 	pr(" %1.1s %c%3d%% %3d %3d %4d %3d  %3d",
 	   &plane.pln_wing, plane.pln_off ? '!' : ' ', plane.pln_effic,
-	   plane.pln_mobil, plane.pln_def, plane.pln_tech,
+	   plane.pln_mobil, pln_def(&plane), plane.pln_tech,
 	   plane.pln_range, plane.pln_harden);
 	if (plane.pln_ship >= 0)
 	    pr("%5dS", plane.pln_ship);

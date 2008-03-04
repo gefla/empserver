@@ -84,3 +84,33 @@ pl_load(struct plchrstr *pcp, int tech)
 {
     return PLN_LOAD(pcp->pl_load, MAX(0, tech - pcp->pl_tech));
 }
+
+int
+pln_att(struct plnstr *pp)
+{
+    return pl_att(plchr + pp->pln_type, pp->pln_tech);
+}
+
+int
+pln_def(struct plnstr *pp)
+{
+    return pl_def(plchr + pp->pln_type, pp->pln_tech);
+}
+
+int
+pln_acc(struct plnstr *pp)
+{
+    return pl_acc(plchr + pp->pln_type, pp->pln_tech);
+}
+
+int
+pln_range_max(struct plnstr *pp)
+{
+    return pl_range(plchr + pp->pln_type, pp->pln_tech);
+}
+
+int
+pln_load(struct plnstr *pp)
+{
+    return pl_load(plchr + pp->pln_type, pp->pln_tech);
+}

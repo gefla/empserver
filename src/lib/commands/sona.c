@@ -239,7 +239,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	pcp = ip->pcp;
 	if (!(pcp->pl_flags & P_A))	/* if it isn't an ASW plane */
 	    continue;
-	range = (int)techfact(pp->pln_tech, (100.0 - pp->pln_acc) / 10.0);
+	range = (int)techfact(pp->pln_tech, (100.0 - pln_acc(pp)) / 10.0);
 	for (i = 0; getship(i, &s); i++) {
 	    targ = &s;
 	    if (targ->shp_own == pp->pln_own || targ->shp_own == 0)

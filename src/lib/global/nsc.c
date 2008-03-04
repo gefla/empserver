@@ -46,6 +46,8 @@
 #include "product.h"
 
 static void *nsc_ver(struct valstr *, natid, void *);
+static void *nsc_pln_att(struct valstr *, natid, void *);
+static void *nsc_pln_def(struct valstr *, natid, void *);
 
 /* Ugly hack to improve legibility by avoid long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -282,8 +284,6 @@ struct castr plane_ca[] = {
     {"range", fldoff(pln_range), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"ship", fldoff(pln_ship), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"land", fldoff(pln_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"att", fldoff(pln_att), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"def", fldoff(pln_def), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
     {"harden", fldoff(pln_harden), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"nuketype", fldoff(pln_nuketype), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"flags", fldoff(pln_flags), NSC_CHAR, 0, NULL,
@@ -292,6 +292,8 @@ struct castr plane_ca[] = {
     {"timestamp", fldoff(pln_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"theta", fldoff(pln_theta), NSC_FLOAT, 0, NULL, EF_BAD, 0},
+    {"att", 0, NSC_LONG, 0, nsc_pln_att, EF_BAD, NSC_EXTRA},
+    {"def", 0, NSC_LONG, 0, nsc_pln_def, EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -724,4 +726,18 @@ nsc_ver(struct valstr *val, natid cnum, void *ptr)
     val->val_as.sym.off = 0;
     val->val_as.sym.get = NULL;
     return kp->km_data;
+}
+
+static void *
+nsc_pln_def(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = pln_def(ptr);;
+    return NULL;
+}
+
+static void *
+nsc_pln_att(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.lng = pln_att(ptr);
+    return NULL;
 }

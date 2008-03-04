@@ -58,10 +58,10 @@ pstat(void)
 	pr(" %3d%% %4d %3d %3d %3d %3d %4d %4d",
 	   plane.pln_effic,
 	   plane.pln_tech,
-	   plane.pln_att,
-	   plane.pln_def,
-	   plane.pln_acc,
-	   plane.pln_range_max, plane.pln_load,
+	   pln_att(&plane),
+	   pln_def(&plane),
+	   pln_acc(&plane),
+	   pln_range_max(&plane), pln_load(&plane),
 	   plchr[(int)plane.pln_type].pl_fuel);
 	pr("\n");
     }

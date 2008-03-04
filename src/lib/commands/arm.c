@@ -90,7 +90,7 @@ arm(void)
 	    }
 	}
 	ncp = &nchr[nuke.nuk_type];
-	if (pl.pln_load < ncp->n_weight) {
+	if (pln_load(&pl) < ncp->n_weight) {
 	    pr("A %s cannot carry %s devices!\n",
 	       plc->pl_name, ncp->n_name);
 	    return RET_FAIL;

@@ -202,7 +202,7 @@ launch_as(struct plnstr *pp)
 	pr("No satellites there!\n");
 	return RET_FAIL;
     }
-    if (msl_hit(pp, plane.pln_def, EF_PLANE, N_SAT_KILL, N_SAT_KILL,
+    if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
 		prplane(&plane), sx, sy, plane.pln_own)) {
 	dam = pln_damage(pp, sx, sy, 'p', &nukedam, 1);
 	oldown = plane.pln_own;

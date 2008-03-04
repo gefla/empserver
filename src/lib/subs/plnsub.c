@@ -595,7 +595,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 {
     struct plchrstr *pcp;
     struct plnstr *pp;
-    int needed;
+    int load, needed;
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
@@ -635,6 +635,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
     item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if ((flags & P_F) == 0) {
+	load = pln_load(pp);
 	itype = I_NONE;
 	needed = 0;
 	switch (mission) {
@@ -642,7 +643,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	case 'p':
 	    if (pp->pln_nuketype == -1) {
 		itype = I_SHELL;
-		needed = pp->pln_load;
+		needed = load;
 	    }
 	    break;
 	case 't':
@@ -650,19 +651,19 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
 	    itype = ip->i_uid;
-	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    needed = (load * 2) / ip->i_lbs;
 	    break;
 	case 'm':
 	    if ((pcp->pl_flags & P_MINE) == 0)
 		break;
 	    itype = I_SHELL;
-	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    needed = (load * 2) / ip->i_lbs;
 	    break;
 	case 'a':
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
 		break;
 	    itype = I_MILIT;
-	    needed = pp->pln_load / ip->i_lbs;
+	    needed = load / ip->i_lbs;
 	    break;
 	case 'n':
 	    if (pp->pln_nuketype == -1)
@@ -1010,7 +1011,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 	if (!(pcp->pl_flags & P_SWEEP))	/* if it isn't an sweep plane */
 	    continue;
 
-	if (chance((100.0 - pp->pln_acc) / 100.0)) {
+	if (chance((100.0 - pln_acc(pp)) / 100.0)) {
 	    pr("Sweep! in %s\n",
 	       xyas(sect.sct_x, sect.sct_y, pp->pln_own));
 	    mines_there--;
@@ -1109,7 +1110,7 @@ pln_hitchance(struct plnstr *pp, int hardtarget, int type)
     struct plchrstr *pcp = plchr + pp->pln_type;
     double tfact = (double)(pp->pln_tech - pcp->pl_tech) /
 	(pp->pln_tech - pcp->pl_tech / 2);
-    int acc = pp->pln_acc;
+    int acc = pln_acc(pp);
     int hitchance;
 
     if (type == EF_SHIP) {
@@ -1137,7 +1138,7 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
 {
     struct nukstr nuke;
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int i;
+    int load, i;
     int hitroll;
     int dam = 0;
     int aim;
@@ -1157,12 +1158,13 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     }
     *nukedamp = 0;
 
-    if (!pp->pln_load)		/* e.g. ab, blowing up on launch pad */
+    load = pln_load(pp);
+    if (!load)		       /* e.g. ab, blowing up on launch pad */
 	return 0;
 
-    i = roll(pp->pln_load) + 1;
-    if (i > pp->pln_load)
-	i = pp->pln_load;
+    i = roll(load) + 1;
+    if (i > load)
+	i = load;
 
     if (pcp->pl_flags & P_M) {
 	if (pcp->pl_flags & P_MAR)
@@ -1170,18 +1172,15 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     } else if (pcp->pl_flags & P_T)
 	pinbomber = 1;
 
-    aim = 100 - pp->pln_acc;
+    aim = pln_acc(pp);
     if (type == 's') {
-	if (pinbomber) {
-	    aim = pp->pln_acc;
-	    effective = 0;
-	}
-	aim += 30;
+	effective = !pinbomber;
+	aim = 30 + (pinbomber ? aim : 100 - aim);
     } else {
-	if (!pinbomber) {
-	    effective = 0;
-	}
+	effective = pinbomber;
+	aim = 100 - aim;
     }
+
     while (i--) {
 	dam += roll(6);
 	hitroll = roll(100);
@@ -1225,7 +1224,7 @@ pln_mobcost(int dist, struct plnstr *pp, int flags)
     if ((flags & P_F) || (flags & P_ESC))
 	cost /= 2;
 
-    return ldround(cost * dist / pp->pln_range_max + 5, 1);
+    return ldround(cost * dist / pln_range_max(pp) + 5, 1);
 }
 
 /*
@@ -1235,18 +1234,14 @@ void
 pln_set_tech(struct plnstr *pp, int tlev)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int limited_range = pp->pln_range < pp->pln_range_max;
+    int limited_range = pp->pln_range < pln_range_max(pp);
+    int range_max;
 
     if (CANT_HAPPEN(tlev < pcp->pl_tech))
 	tlev = pcp->pl_tech;
-
     pp->pln_tech = tlev;
-    pp->pln_att = pl_att(pcp, tlev);
-    pp->pln_def = pl_def(pcp, tlev);
-    pp->pln_acc = pl_acc(pcp, tlev);
-    pp->pln_range_max = pl_range(pcp, tlev);
-    pp->pln_load = pl_load(pcp, tlev);
 
-    if (!limited_range || pp->pln_range > pp->pln_range_max)
-	pp->pln_range = pp->pln_range_max;
+    range_max = pln_range_max(pp);
+    if (!limited_range || pp->pln_range > range_max)
+	pp->pln_range = range_max;
 }

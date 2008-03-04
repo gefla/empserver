@@ -62,14 +62,8 @@ struct plnstr {
     short pln_radius;		/* mission radius */
     /* end of part matching struct empobj */
     unsigned char pln_range;	/* total distance, not radius */
-    unsigned char pln_range_max; /* max range for this plane */
     short pln_ship;		/* pointer to carrier */
     short pln_land;		/* pointer to carrier */
-    int pln_att;		/* plane air-air attack/defense values */
-    int pln_def;
-    int pln_acc;
-    int pln_load;
-    int pln_fuel;		/* (unused) */
     signed char pln_harden;	/* for missiles */
     signed char pln_nuketype;	/* type of nuclear armament (if any) */
     signed char pln_flags;	/* State of the plane */
@@ -154,6 +148,11 @@ extern int pl_def(struct plchrstr *, int);
 extern int pl_acc(struct plchrstr *, int);
 extern int pl_range(struct plchrstr *, int);
 extern int pl_load(struct plchrstr *, int);
+extern int pln_att(struct plnstr *);
+extern int pln_def(struct plnstr *);
+extern int pln_acc(struct plnstr *);
+extern int pln_range_max(struct plnstr *);
+extern int pln_load(struct plnstr *);
 
 /* src/lib/subs/aircombat.c */
 extern void ac_combat_headers(natid, natid);

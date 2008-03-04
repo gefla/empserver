@@ -783,7 +783,6 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     plane.pln_opy = 0;
     plane.pln_radius = 0;
     plane.pln_range = UCHAR_MAX; /* will be adjusted by pln_set_tech() */
-    plane.pln_range_max = plane.pln_range;
     plane.pln_wing = 0;
     plane.pln_ship = -1;
     plane.pln_land = -1;

@@ -988,7 +988,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 {
     struct plchrstr *pcp;
     struct plnstr *pp;
-    int needed;
+    int load, needed;
     struct lndstr land;
     struct shpstr ship;
     struct sctstr sect;
@@ -1014,6 +1014,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     item[I_PETROL] -= pcp->pl_fuel;
     rval = 0;
     if (!(flags & P_F)) {
+	load = pln_load(pp);
 	itype = I_NONE;
 	needed = 0;
 	switch (mission) {
@@ -1021,35 +1022,35 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	case 'p':
 	    if (pp->pln_nuketype == -1) {
 		itype = I_SHELL;
-		needed = pp->pln_load;
+		needed = load;
 	    }
 	    break;
 	case 't':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
 	    itype = ip->i_uid;
-	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    needed = (load * 2) / ip->i_lbs;
 	    break;
 	case 'd':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
 	    itype = ip->i_uid;
-	    needed = (pp->pln_load * 2) / ip->i_lbs;
+	    needed = (load * 2) / ip->i_lbs;
 	    break;
 	case 'a':
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
 		break;
 	    itype = I_MILIT;
-	    needed = pp->pln_load / ip->i_lbs;
+	    needed = load / ip->i_lbs;
 	    break;
 	case 'n':
 	    if (pp->pln_nuketype == -1)
 		rval = -1;
 	    break;
 	case 'i':		/* missile interception */
-	    if (pp->pln_load) {
+	    if (load) {
 		itype = I_SHELL;
-		needed = pp->pln_load;
+		needed = load;
 	    }
 	    break;
 	default:

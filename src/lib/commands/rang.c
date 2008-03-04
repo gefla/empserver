@@ -42,7 +42,7 @@ range(void)
 {
     struct nstr_item np;
     struct plnstr plane;
-    int i;
+    int i, rmax;
     char *p;
     char buf[1024];
 
@@ -56,8 +56,8 @@ range(void)
 	    return RET_SYN;
 	if (!p || (i = atoi(p)) < 0)
 	    continue;
-	plane.pln_range = (plane.pln_range_max < i) ?
-	    plane.pln_range_max : i;
+	rmax = pln_range_max(&plane);
+	plane.pln_range = MIN(rmax, i);
 	pr("Plane %d range changed to %d\n",
 	   plane.pln_uid, plane.pln_range);
 

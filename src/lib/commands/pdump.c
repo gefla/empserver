@@ -228,22 +228,22 @@ pdump(void)
 		pr(" %d", plane.pln_tech);
 		break;
 	    case 8:
-		pr(" %d", plane.pln_att);
+		pr(" %d", pln_att(&plane));
 		break;
 	    case 9:
-		pr(" %d", plane.pln_def);
+		pr(" %d", pln_def(&plane));
 		break;
 	    case 10:
-		pr(" %d", plane.pln_acc);
+		pr(" %d", pln_acc(&plane));
 		break;
 	    case 11:
 		pr(" %d", plane.pln_range);
 		break;
 	    case 12:
-		pr(" %d", plane.pln_range_max);
+		pr(" %d", pln_range_max(&plane));
 		break;
 	    case 13:
-		pr(" %d", plane.pln_load);
+		pr(" %d", pln_load(&plane));
 		break;
 	    case 14:
 		pr(" %d", plchr[(int)plane.pln_type].pl_fuel);

@@ -622,15 +622,13 @@ ac_dog(struct plist *ap, struct plist *dp)
 	PR(def_own, " %3.3s #%-4d  %3.3s #%-4d",
 	   dp->pcp->pl_name,
 	   dp->plane.pln_uid, ap->pcp->pl_name, ap->plane.pln_uid);
-    if (ap->plane.pln_att == 0) {
-	att = ap->plane.pln_def * ap->plane.pln_effic / 100;
-	att = MAX(att, ap->pcp->pl_def / 2);
-    } else {
-	att = ap->plane.pln_att * ap->plane.pln_effic / 100;
-	att = MAX(att, ap->pcp->pl_att / 2);
-    }
+    att = pln_att(&ap->plane);
+    if (att == 0)
+	att = pln_def(&ap->plane);
+    att = att * ap->plane.pln_effic / 100;
+    att = MAX(att, ap->pcp->pl_def / 2);
 
-    def = dp->plane.pln_def * dp->plane.pln_effic / 100;
+    def = pln_def(&dp->plane) * dp->plane.pln_effic / 100;
     def = MAX(def, dp->pcp->pl_def / 2);
 
     if ((ap->pcp->pl_flags & P_F) && ap->bombs != 0)
@@ -954,7 +952,7 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
-	n = ac_flak_dam(guns, plp->plane.pln_def, plp->pcp->pl_flags);
+	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
 	ac_planedamage(plp, from, n, 0, 2, 1, msg);
     }
 }
