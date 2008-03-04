@@ -207,7 +207,7 @@ look_land(struct lndstr *lookland)
     int i;
     int dist;
 
-    drange = techfact(lookland->lnd_tech, lookland->lnd_spy);
+    drange = techfact(lookland->lnd_tech, lchr[lookland->lnd_type].l_spy);
     drange *= lookland->lnd_effic / 100.0;
     range = ldround(drange, 1);
 

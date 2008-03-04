@@ -72,7 +72,6 @@ lrange(void)
 {
     struct nstr_item np;
     struct lndstr land;
-    struct lchrstr *lcp;
     int i;
     char *p;
     char prompt[128];
@@ -83,7 +82,6 @@ lrange(void)
     while (nxtitem(&np, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	lcp = &lchr[(int)land.lnd_type];
 	sprintf(prompt, "New range for %s? ", prland(&land));
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	    return RET_SYN;
@@ -91,7 +89,7 @@ lrange(void)
 	    return RET_SYN;
 	if ((i = atoi(p)) < 0)
 	    continue;
-	land.lnd_rad_max = (i < land.lnd_rad) ? i : land.lnd_rad;
+	land.lnd_rad_max = MIN(i, lchr[land.lnd_type].l_rad);
 	pr("%s reaction radius changed to %d\n",
 	   prland(&land), land.lnd_rad_max);
 	putland(land.lnd_uid, &land);

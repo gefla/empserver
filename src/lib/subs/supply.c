@@ -106,13 +106,13 @@ resupply_commod(struct lndstr *lp, i_type type)
     }
 
     if (opt_FUEL && type == I_PETROL) {
-	int fuel_needed = lp->lnd_fuelu
+	int fuel_needed = lchr[lp->lnd_type].l_fuelu
 	    * ((float)etu_per_update * land_mob_scale) / 10.0;
 
 	while ((lp->lnd_fuel < fuel_needed) && lp->lnd_item[I_PETROL]) {
 	    lp->lnd_fuel += 10;
-	    if (lp->lnd_fuel > lp->lnd_fuelc)
-		lp->lnd_fuel = lp->lnd_fuelc;
+	    if (lp->lnd_fuel > lchr[lp->lnd_type].l_fuelc)
+		lp->lnd_fuel = lchr[lp->lnd_type].l_fuelc;
 	    lp->lnd_item[I_PETROL]--;
 	}
     }
@@ -433,7 +433,7 @@ get_minimum(struct lndstr *lp, i_type type)
 	want = (int)ceil(food_needed(lp->lnd_item, etu_per_update));
 	break;
     case I_SHELL:
-	want = lp->lnd_ammo;
+	want = lcp->l_ammo;
 	break;
 
 	/*
@@ -443,7 +443,7 @@ get_minimum(struct lndstr *lp, i_type type)
     case I_PETROL:
 	if (opt_FUEL == 0)
 	    return 0;
-	want = lp->lnd_fuelu * ((float)etu_per_update * land_mob_scale)
+	want = lcp->l_fuelu * ((float)etu_per_update * land_mob_scale)
 	    / 10.0;
 	want -= lp->lnd_fuel;
 	if (want > 0) {
@@ -487,7 +487,7 @@ has_supply(struct lndstr *lp)
 
     }
 
-    shells_needed = lp->lnd_ammo;
+    shells_needed = lchr[lp->lnd_type].l_ammo;
     shells = keepshells = lp->lnd_item[I_SHELL];
     if (shells < shells_needed) {
 	lp->lnd_item[I_SHELL] = 0;
@@ -502,7 +502,7 @@ has_supply(struct lndstr *lp)
 	return 0;
 
     if (opt_FUEL) {
-	fuel_needed = lp->lnd_fuelu;
+	fuel_needed = lchr[lp->lnd_type].l_fuelu;
 	fuel = lp->lnd_fuel;
 	if (fuel < fuel_needed) {
 	    petrol_needed =

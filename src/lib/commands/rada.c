@@ -112,7 +112,8 @@ radar(short type)
 		    pr("Units on ships can't use radar!\n");
 		    continue;
 		}
-		tech = techfact(item.land.lnd_tech, item.land.lnd_spy);
+		tech = techfact(item.land.lnd_tech,
+				lchr[item.land.lnd_type].l_spy);
 	    }
 
 	    pr("%s at ", obj_nameof(&item.gen));

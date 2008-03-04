@@ -745,14 +745,15 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     char *p;
     char prompt[512];
     char buf[1024];
+    struct lchrstr *lcp = lchr + lp->lnd_type;
 
-    if (!lp->lnd_maxlight) {
+    if (!lcp->l_nxlight) {
 	if (noisy)
 	    pr("%s cannot carry extra-light planes.\n", prland(lp));
 	return 0;
     }
     count_land_planes(lp);
-    if (load_unload == LOAD && lp->lnd_nxlight >= lp->lnd_maxlight) {
+    if (load_unload == LOAD && lp->lnd_nxlight >= lcp->l_nxlight) {
 	if (noisy)
 	    pr("%s doesn't have room for any more extra-light planes\n",
 	       prland(lp));
@@ -931,7 +932,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
     lnd_count_units(lp);
 
-    if (load_unload == LOAD && lp->lnd_nland >= lp->lnd_maxland) {
+    if (load_unload == LOAD
+	&& lp->lnd_nland >= lchr[lp->lnd_type].l_nland) {
 	if (noisy) {
 	    if (lp->lnd_nland)
 		pr("%s doesn't have room for any more land units!\n",
@@ -1003,7 +1005,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	/* Fit unit on ship */
 	if (load_unload == LOAD) {
 	    lnd_count_units(lp);
-	    if (lp->lnd_nland >= lp->lnd_maxland) {
+	    if (lp->lnd_nland >= lchr[lp->lnd_type].l_nland) {
 		if (noisy) {
 		    if (lp->lnd_nland)
 			pr("%s doesn't have room for any more land units!\n",

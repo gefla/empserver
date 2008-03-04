@@ -79,13 +79,6 @@ struct lndstr {
     short lnd_land;		/* pointer to transporting unit */
     unsigned char lnd_nland;
     short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
-    int lnd_spy;		/* Seeing distance */
-    int lnd_rad;		/* reaction radius */
-    int lnd_ammo;		/* firing ammu used per shot */
-    unsigned char lnd_fuelc;	/* fuel capacity */
-    unsigned char lnd_fuelu;	/* fuel used per 10 mob */
-    unsigned char lnd_maxlight;	/* maximum number of xlight planes */
-    unsigned char lnd_maxland;	/* maximum number of units */
     time_t lnd_timestamp;	/* Last time this unit was touched */
 };
 

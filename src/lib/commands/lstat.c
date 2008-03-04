@@ -42,6 +42,7 @@ lsta(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
+    struct lchrstr *lcp;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
@@ -50,6 +51,7 @@ lsta(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
+	lcp = lchr + land.lnd_type;
 	count_land_planes(&land);
 
 	if (nunits++ == 0) {
@@ -57,16 +59,16 @@ lsta(void)
 	    pr("     %16.16s                                 p  i  p  a  n  c  i  m  a\n", "");
 	    pr("lnd# %16.16s    x,y    eff tech att def vul  d  s  y  d  g  c  r  m  f\n", "unit-type");
 	}
-	pr("%4d %-16.16s ", land.lnd_uid, lchr[(int)land.lnd_type].l_name);
+	pr("%4d %-16.16s ", land.lnd_uid, lcp->l_name);
 	prxy("%4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
 	pr(" %3d%% %3d %1.1f %1.1f %3d ",
 	   land.lnd_effic, land.lnd_tech, lnd_att(&land), lnd_def(&land),
 	   lnd_vul(&land));
 	pr("%2d %2d %2d %2d ",
-	   lnd_spd(&land), lnd_vis(&land), land.lnd_spy, land.lnd_rad);
+	   lnd_spd(&land), lnd_vis(&land), lcp->l_spy, lcp->l_rad);
 	pr("%2d %2d %2d %2d %2d ",
-	   lnd_frg(&land),
-	   lnd_acc(&land), lnd_dam(&land), land.lnd_ammo, lnd_aaf(&land));
+	   lnd_frg(&land), lnd_acc(&land), lnd_dam(&land),
+	   lcp->l_ammo, lnd_aaf(&land));
 	pr("\n");
     }
     if (nunits == 0) {

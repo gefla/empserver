@@ -409,10 +409,10 @@ ldump(void)
 		pr(" %d", lnd_vis(&land));
 		break;
 	    case 33:
-		pr(" %d", land.lnd_spy);
+		pr(" %d", lchr[land.lnd_type].l_spy);
 		break;
 	    case 34:
-		pr(" %d", land.lnd_rad);
+		pr(" %d", lchr[land.lnd_type].l_rad);
 		break;
 	    case 35:
 		pr(" %d", lnd_frg(&land));
@@ -424,7 +424,7 @@ ldump(void)
 		pr(" %d", lnd_dam(&land));
 		break;
 	    case 38:
-		pr(" %d", land.lnd_ammo);
+		pr(" %d", lchr[land.lnd_type].l_ammo);
 		break;
 	    case 39:
 		pr(" %d", lnd_aaf(&land));

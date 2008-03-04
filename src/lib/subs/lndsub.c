@@ -322,9 +322,9 @@ int
 lnd_spyval(struct lndstr *lp)
 {
     if (lchr[(int)lp->lnd_type].l_flags & L_RECON)
-	return lp->lnd_spy * (lp->lnd_effic / 100.0) + 2;
+	return lchr[lp->lnd_type].l_spy * (lp->lnd_effic / 100.0) + 2;
     else
-	return lp->lnd_spy * (lp->lnd_effic / 100.0);
+	return lchr[lp->lnd_type].l_spy * (lp->lnd_effic / 100.0);
 }
 
 void
@@ -1236,11 +1236,4 @@ lnd_set_tech(struct lndstr *lp, int tlev)
 	tlev = 0;
 
     lp->lnd_tech = tlev;
-    lp->lnd_spy = lcp->l_spy;
-    lp->lnd_rad = lcp->l_rad;
-    lp->lnd_ammo = lcp->l_ammo;
-    lp->lnd_fuelc = lcp->l_fuelc;
-    lp->lnd_fuelu = lcp->l_fuelu;
-    lp->lnd_maxlight = lcp->l_nxlight;
-    lp->lnd_maxland = lcp->l_nland;
 }

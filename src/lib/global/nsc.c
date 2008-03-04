@@ -57,6 +57,7 @@ static void *nsc_lnd_frg(struct valstr *, natid, void *);
 static void *nsc_lnd_acc(struct valstr *, natid, void *);
 static void *nsc_lnd_dam(struct valstr *, natid, void *);
 static void *nsc_lnd_aaf(struct valstr *, natid, void *);
+static void *nsc_lchr(struct valstr *, natid, void *);
 
 /* Ugly hack to improve legibility by avoid long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -350,13 +351,6 @@ struct castr land_ca[] = {
     {"land", fldoff(lnd_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"nland", fldoff(lnd_nland), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"access", fldoff(lnd_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"spy", fldoff(lnd_spy), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"rmax", fldoff(lnd_rad), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"ammo", fldoff(lnd_ammo), NSC_INT, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"fuelc", fldoff(lnd_fuelc), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"fuelu", fldoff(lnd_fuelu), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"maxlight", fldoff(lnd_maxlight), NSC_UCHAR, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {"timestamp", fldoff(lnd_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"att", 0, NSC_DOUBLE, 0, nsc_lnd_att, EF_BAD, NSC_EXTRA},
@@ -368,6 +362,15 @@ struct castr land_ca[] = {
     {"acc", 0, NSC_LONG, 0, nsc_lnd_acc, EF_BAD, NSC_EXTRA},
     {"dam", 0, NSC_LONG, 0, nsc_lnd_dam, EF_BAD, NSC_EXTRA},
     {"aaf", 0, NSC_LONG, 0, nsc_lnd_aaf, EF_BAD, NSC_EXTRA},
+#undef CURSTR
+#define CURSTR struct lchrstr
+    {"spy", fldoff(l_spy), NSC_INT, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
+    {"rmax", fldoff(l_rad), NSC_INT, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
+    {"ammo", fldoff(l_ammo), NSC_INT, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
+    {"fuelc", fldoff(l_fuelc), NSC_UCHAR, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
+    {"fuelu", fldoff(l_fuelu), NSC_UCHAR, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
+    {"maxlight", fldoff(l_nxlight), NSC_UCHAR, 0, nsc_lchr,
+     EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -812,4 +815,11 @@ nsc_lnd_aaf(struct valstr *val, natid cnum, void *ptr)
 {
     val->val_as.lng = lnd_aaf(ptr);
     return NULL;
+}
+
+static void *
+nsc_lchr(struct valstr *val, natid cnum, void *ptr)
+{
+    val->val_as.sym.get = NULL;
+    return lchr + ((struct lndstr *)ptr)->lnd_type;
 }

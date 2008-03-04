@@ -285,6 +285,7 @@ do_mob_land(struct lndstr *lp, int etus)
     int value;
     int can_add, have_fuel_for, total_add;
     double d;
+    struct lchrstr *lcp = lchr + lp->lnd_type;
 
     if (CANT_HAPPEN(etus < 0))
 	etus = 0;
@@ -292,7 +293,7 @@ do_mob_land(struct lndstr *lp, int etus)
     if (lp->lnd_own == 0)
 	return;
 
-    if (opt_FUEL == 0 || lp->lnd_fuelu == 0) {
+    if (opt_FUEL == 0 || lcp->l_fuelu == 0) {
 	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
 	if (value > land_mob_max) {
 	    if (lp->lnd_harden < land_mob_max && !opt_MOB_ACCESS) {
@@ -323,13 +324,13 @@ do_mob_land(struct lndstr *lp, int etus)
 	if (can_add > (float)etus * land_mob_scale)
 	    can_add = (float)etus * land_mob_scale;
 
-	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
+	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
 
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
 	    d = need;
-	    d *= lp->lnd_fuelu;
+	    d *= lcp->l_fuelu;
 	    d /= fuel_mult;
 	    d /= 5.0;
 	    if (d - (int)d > 0.0)
@@ -340,13 +341,13 @@ do_mob_land(struct lndstr *lp, int etus)
 	    lp->lnd_fuel += newfuel * 5;
 	}
 
-	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
+	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
 
 	if (can_add > have_fuel_for) {
 	    int need;
 	    need = can_add - have_fuel_for;
 	    d = need;
-	    d *= lp->lnd_fuelu;
+	    d *= lcp->l_fuelu;
 	    d /= fuel_mult;
 	    d /= 50.0;
 	    if (d - (int)d > 0.0)
@@ -357,17 +358,17 @@ do_mob_land(struct lndstr *lp, int etus)
 	    lp->lnd_fuel += newfuel * 50;
 	}
 
-	have_fuel_for = (lp->lnd_fuel / lp->lnd_fuelu) * fuel_mult;
+	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
 
 	if (can_add > have_fuel_for) {
 	    total_add = have_fuel_for;
 	} else
 	    total_add = can_add;
 	d = total_add;
-	d *= lp->lnd_fuelu;
+	d *= lcp->l_fuelu;
 	d /= fuel_mult;
 	lp->lnd_fuel -= ldround(d, 1);
-	lp->lnd_fuel = MIN(lp->lnd_fuel, lp->lnd_fuelc);
+	lp->lnd_fuel = MIN(lp->lnd_fuel, lcp->l_fuelc);
 	lp->lnd_mobil += total_add;
 	/* No excess mobility here, hence no automatic fortification */
     }

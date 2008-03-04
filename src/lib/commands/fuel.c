@@ -293,7 +293,7 @@ fuel(void)
 	    if ((oil_amt + pet_amt) == 0)
 		sector = 0;
 
-	    if ((item.land.lnd_fuelu == 0)
+	    if (lcp->l_fuelu == 0
 		&& (item.land.lnd_own == player->cnum)) {
 		pr("%s does not use fuel!\n", prland(&item.land));
 		continue;
@@ -303,7 +303,7 @@ fuel(void)
 		land_fuel = item.land.lnd_fuel;
 		oil_amt = sect.sct_item[I_OIL];
 		pet_amt = sect.sct_item[I_PETROL];
-		max_amt = item.land.lnd_fuelc - land_fuel;
+		max_amt = lcp->l_fuelc - land_fuel;
 
 		if (max_amt == 0) {
 		    pr("%s already has a full fuel load.\n",
@@ -385,7 +385,7 @@ fuel(void)
 		land_fuel = item.land.lnd_fuel;
 		oil_amt = item2.land.lnd_item[I_OIL];
 		pet_amt = item2.land.lnd_item[I_PETROL];
-		max_amt = item.land.lnd_fuelc - land_fuel;
+		max_amt = lcp->l_fuelc - land_fuel;
 
 		if (max_amt == 0) {
 		    pr("%s already has a full fuel load.\n",
