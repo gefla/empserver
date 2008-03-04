@@ -194,7 +194,7 @@ strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
      : (op) == '=' ? (lft) == (rgt)		\
      : (op) == '>' ? (lft) > (rgt)		\
      : (op) == '#' ? (lft) != (rgt)		\
-     : 0)
+     : (CANT_REACH(), 0))
 
 /*
  * Evaluate compiled conditions in array NP[NCOND].
