@@ -212,12 +212,12 @@ typedef unsigned char nsc_flags;
  * symbol table defining those bits.
  */
 struct castr {
-    packed_nsc_type ca_type;
-    nsc_flags ca_flags;
-    unsigned short ca_len;
-    ptrdiff_t ca_off;
     char *ca_name;
+    ptrdiff_t ca_off;
+    packed_nsc_type ca_type;
+    unsigned short ca_len;
     int ca_table;
+    nsc_flags ca_flags;
 };
 
 /* variables using the above */

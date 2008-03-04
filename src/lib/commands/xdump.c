@@ -345,7 +345,7 @@ static int
 xdver(int meta)
 {
     static struct castr vers_ca = {
-	NSC_STRINGY, 0, sizeof(PACKAGE_STRING), 0, "version", EF_BAD
+	"version", 0, NSC_STRINGY, sizeof(PACKAGE_STRING), EF_BAD, 0
     };
     struct keymatch *kp;
     char *sep;
