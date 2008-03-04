@@ -88,3 +88,33 @@ m_glim(struct mchrstr *mcp, int tech)
 {
     return SHP_FIR(mcp->m_glim, MAX(0, tech - mcp->m_tech));
 }
+
+int
+shp_armor(struct shpstr *sp)
+{
+    return m_armor(mchr + sp->shp_type, sp->shp_tech);
+}
+
+int
+shp_speed(struct shpstr *sp)
+{
+    return m_speed(mchr + sp->shp_type, sp->shp_tech);
+}
+
+int
+shp_visib(struct shpstr *sp)
+{
+    return m_visib(mchr + sp->shp_type, sp->shp_tech);
+}
+
+int
+shp_frnge(struct shpstr *sp)
+{
+    return m_frnge(mchr + sp->shp_type, sp->shp_tech);
+}
+
+int
+shp_glim(struct shpstr *sp)
+{
+    return m_glim(mchr + sp->shp_type, sp->shp_tech);
+}

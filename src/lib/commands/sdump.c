@@ -354,19 +354,19 @@ sdump(void)
 		pr(" %d", ship.shp_item[I_RAD]);
 		break;
 	    case 27:
-		pr(" %d", ship.shp_armor);
+		pr(" %d", shp_armor(&ship));
 		break;
 	    case 28:
-		pr(" %d", ship.shp_speed);
+		pr(" %d", shp_speed(&ship));
 		break;
 	    case 29:
-		pr(" %d", ship.shp_visib);
+		pr(" %d", shp_visib(&ship));
 		break;
 	    case 30:
-		pr(" %d", ship.shp_frnge);
+		pr(" %d", shp_frnge(&ship));
 		break;
 	    case 31:
-		pr(" %d", ship.shp_glim);
+		pr(" %d", shp_glim(&ship));
 		break;
 	    case 32:
 		/*

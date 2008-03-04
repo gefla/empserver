@@ -183,7 +183,7 @@ multifire(void)
 		pr("Not enough mil on ship #%d\n", item.ship.shp_uid);
 		continue;
 	    }
-	    if (item.ship.shp_glim == 0) {
+	    if (mchr[item.ship.shp_type].m_glim == 0) {
 		pr("Ships %d cannot fire guns!\n", item.ship.shp_uid);
 		continue;
 	    }

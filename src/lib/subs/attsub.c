@@ -576,8 +576,8 @@ board_abort(struct combat *off, struct combat *def)
 	}
 	getship(off->shp_uid, &aship);
 	getship(def->shp_uid, &dship);
-	if (techfact(aship.shp_tech, 1.0) * aship.shp_speed * off->eff
-	    <= techfact(dship.shp_tech, 1.0) * dship.shp_speed * def->eff) {
+	if (techfact(aship.shp_tech, shp_speed(&aship)) * off->eff
+	    <= techfact(dship.shp_tech, shp_speed(&dship)) * def->eff) {
 	    pr("Victim ship moves faster than you do!\n");
 	    if (def->own)
 		wu(0, def->own,
@@ -893,7 +893,7 @@ calc_mobcost(int combat_mode, struct combat *off, struct combat *def,
 	case EF_SHIP:
 	    /* the 2 in the formula below is a fudge factor */
 	    getship(def->shp_uid, &ship);
-	    off->mobcost += (def->eff / 100) * (ship.shp_speed / 2);
+	    off->mobcost += (def->eff / 100) * (shp_speed(&ship) / 2);
 	}
     }
 }
@@ -1141,7 +1141,7 @@ att_combat_eff(struct combat *com)
 	    eff = sector_strength(getsectp(com->x, com->y));
     } else if (com->type == EF_SHIP && com->own != player->cnum) {
 	getship(com->shp_uid, &ship);
-	eff = 1.0 + ship.shp_armor / 100.0;
+	eff = 1.0 + shp_armor(&ship) / 100.0;
     }
     return eff;
 }

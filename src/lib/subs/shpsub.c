@@ -690,13 +690,13 @@ shp_hardtarget(struct shpstr *sp)
     int vis, onsea;
     struct mchrstr *mcp = mchr + sp->shp_type;
 
-    vis = sp->shp_visib;
+    vis = shp_visib(sp);
     getsect(sp->shp_x, sp->shp_y, &sect);
     onsea = sect.sct_type == SCT_WATER;
     if (mcp->m_flags & M_SUB)
 	vis *= 4;
     return (int)((sp->shp_effic / 100.0) *
-		 (20 + sp->shp_speed * onsea / 2.0 - vis));
+		 (20 + shp_speed(sp) * onsea / 2.0 - vis));
 }
 
 static int
@@ -952,7 +952,7 @@ shp_missdef(struct shpstr *sp, natid victim)
 double
 shp_mobcost(struct shpstr *sp)
 {
-    return speed_factor(sp->shp_effic * 0.01 * sp->shp_speed,
+    return speed_factor(sp->shp_effic * 0.01 * shp_speed(sp),
 			sp->shp_tech);
 }
 
@@ -968,9 +968,4 @@ shp_set_tech(struct shpstr *sp, int tlev)
 	tlev = mcp->m_tech;
 
     sp->shp_tech = tlev;
-    sp->shp_armor = m_armor(mcp, tlev);
-    sp->shp_speed = m_speed(mcp, tlev);
-    sp->shp_visib = m_visib(mcp, tlev);
-    sp->shp_frnge = m_frnge(mcp, tlev);
-    sp->shp_glim  = m_glim(mcp, tlev);
 }

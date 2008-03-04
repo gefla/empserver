@@ -82,7 +82,7 @@ ship_damage(struct shpstr *sp, int dam)
 void
 shipdamage(struct shpstr *sp, int dam)
 {
-    ship_damage(sp, (int)(dam / (1.0 + sp->shp_armor / 100.0)));
+    ship_damage(sp, (int)(dam / (1.0 + shp_armor(sp) / 100.0)));
 }
 
 void

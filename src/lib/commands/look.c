@@ -161,9 +161,9 @@ look_ship(struct shpstr *lookship)
 	    continue;
 	tmcp = &mchr[(int)sp->shp_type];
 	if (smcp->m_flags & M_SUB)
-	    vrange = (int)(sp->shp_visib * range / 30.0);
+	    vrange = (int)(shp_visib(sp) * range / 30.0);
 	else
-	    vrange = (int)(sp->shp_visib * range / 20.0);
+	    vrange = (int)(shp_visib(sp) * range / 20.0);
 	getsect(sp->shp_x, sp->shp_y, &sect);
 	if (sect.sct_type != SCT_WATER)
 	    vrange = MAX(1, vrange);

@@ -56,7 +56,7 @@ sona(void)
     struct mchrstr *tmcp;
     struct nstr_sect ns;
     int range;
-    int pingrange;
+    int visib, pingrange;
     int srange;
     int vrange;
     int dist;
@@ -147,7 +147,8 @@ sona(void)
 	    if (targ.shp_own == player->cnum || targ.shp_own == 0)
 		continue;
 	    tmcp = &mchr[(int)targ.shp_type];
-	    pingrange = MIN(7, MAX(targ.shp_visib, 10) * range / 10);
+	    visib = shp_visib(&targ);
+	    pingrange = MIN(7, MAX(visib, 10) * range / 10);
 	    vrange = pingrange * ship.shp_effic / 200;
 	    dist = mapdist(targ.shp_x, targ.shp_y, ship.shp_x, ship.shp_y);
 	    pingrange = (MAX(pingrange, 2) * targ.shp_effic) / 100;
@@ -173,11 +174,11 @@ sona(void)
 		continue;
 	    if (tmcp->m_flags & M_SUB &&
 		getrel(getnatp(targ.shp_own), player->cnum) < FRIENDLY) {
-		if (mcp->m_vrnge + targ.shp_visib < 8)
+		if (mcp->m_vrnge + visib < 8)
 		    pr("Sonar detects sub #%d @ %s\n",
 		       targ.shp_uid,
 		       xyas(targ.shp_x, targ.shp_y, player->cnum));
-		else if (mcp->m_vrnge + targ.shp_visib < 10)
+		else if (mcp->m_vrnge + visib < 10)
 		    pr("Sonar detects %s @ %s\n",
 		       prship(&targ),
 		       xyas(targ.shp_x, targ.shp_y, player->cnum));
@@ -190,8 +191,8 @@ sona(void)
 		   cname(targ.shp_own), prship(&targ),
 		   xyas(targ.shp_x, targ.shp_y, player->cnum));
 
-	    if (targ.shp_visib > vis[y][x]) {
-		vis[y][x] = targ.shp_visib;
+	    if (visib > vis[y][x]) {
+		vis[y][x] = visib;
 		/* &~0x20 makes it a cap letter */
 		rad[y][x] = (*mchr[(int)targ.shp_type].m_name) & ~0x20;
 	    }
@@ -224,7 +225,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
     struct plist *ip;
     struct sctstr sect;
     int found = 0;
-    int range, i;
+    int range, i, vis;
     int pingrange;
     int vrange;
     int dist;
@@ -252,7 +253,8 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	    if (roll(100) > pln_identchance(pp, shp_hardtarget(targ),
 					    EF_SHIP))
 		continue;
-	    pingrange = MAX(targ->shp_visib, 10) * range / 10;
+	    vis = shp_visib(targ);
+	    pingrange = MAX(vis, 10) * range / 10;
 	    vrange = pingrange * (pp->pln_effic / 200.0);
 	    dist = mapdist(targ->shp_x, targ->shp_y, x, y);
 	    pingrange = (MAX(pingrange, 2) * targ->shp_effic);

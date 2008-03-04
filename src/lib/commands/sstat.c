@@ -63,8 +63,8 @@ sstat(void)
 	pr(" %3d%% %4d %3d %3d %3d %3d %3d",
 	   ship.shp_effic,
 	   ship.shp_tech,
-	   ship.shp_armor,
-	   ship.shp_speed, ship.shp_visib, ship.shp_frnge, ship.shp_glim);
+	   shp_armor(&ship), shp_speed(&ship), shp_visib(&ship),
+	   shp_frnge(&ship), shp_glim(&ship));
 	pr("\n");
     }
     if (nships == 0) {

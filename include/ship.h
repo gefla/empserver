@@ -79,11 +79,6 @@ struct shpstr {
     /* end of part matching struct empobj */
     unsigned char shp_nplane;	/* number of planes on board */
     unsigned char shp_nland;	/* number of land units on board */
-    short shp_armor;
-    short shp_speed;
-    short shp_visib;
-    short shp_frnge;
-    short shp_glim;
     coord shp_destx[2];		/* location for ship destination */
     coord shp_desty[2];
     i_type shp_tstart[TMAX];	/* what goods to pick up at start point */
@@ -182,6 +177,11 @@ extern int m_speed(struct mchrstr *, int);
 extern int m_visib(struct mchrstr *, int);
 extern int m_frnge(struct mchrstr *, int);
 extern int m_glim(struct mchrstr *, int);
+extern int shp_armor(struct shpstr *);
+extern int shp_speed(struct shpstr *);
+extern int shp_visib(struct shpstr *);
+extern int shp_frnge(struct shpstr *);
+extern int shp_glim(struct shpstr *);
 
 extern int shp_dchrg(struct shpstr *);
 extern int shp_fire(struct shpstr *);

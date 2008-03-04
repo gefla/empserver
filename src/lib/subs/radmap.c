@@ -79,7 +79,7 @@ static void
 radmap2(int owner,
 	int cx, int cy, int eff, int range, double seesub, int pr_flag)
 {
-    int rng;
+    int visib, rng;
     struct sctstr sect;
     struct shpstr ship;
     struct plnstr plane;
@@ -158,14 +158,15 @@ radmap2(int owner,
 	x = deltx(&ns.range, (int)ship.shp_x);
 	y = delty(&ns.range, (int)ship.shp_y);
 
-	rng = (int)(range * ship.shp_visib / 20.0);
+	visib = shp_visib(&ship);
+	rng = (int)(range * visib / 20.0);
 	if (ni.curdist > rng)
 	    continue;
 	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) &&
 	    ni.curdist > rng * seesub)
 	    continue;
-	if (ship.shp_visib > vis[y][x]) {
-	    vis[y][x] = ship.shp_visib;
+	if (visib > vis[y][x]) {
+	    vis[y][x] = visib;
 	    /* &~0x20 makes it a cap letter */
 	    rad[y][x] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
 	}

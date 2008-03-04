@@ -291,7 +291,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 
     wf = 0;
     /* only military can work on a military boat */
-    if (ship->shp_glim > 0)
+    if (mp->m_glim != 0)
 	wf = etus * ship->shp_item[I_MILIT] / 2;
     else
 	wf = etus * (ship->shp_item[I_CIVIL] / 2 + ship->shp_item[I_MILIT] / 5);

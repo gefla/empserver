@@ -222,7 +222,7 @@ lnd_fire(struct lndstr *lp)
 int
 shp_usable_guns(struct shpstr *sp)
 {
-    return MIN(sp->shp_glim, sp->shp_item[I_GUN]);
+    return MIN(shp_glim(sp), sp->shp_item[I_GUN]);
 }
 
 /*
@@ -259,7 +259,7 @@ fortrange(struct sctstr *sp)
 double
 shp_fire_range(struct shpstr *sp)
 {
-    return effrange(sp->shp_frnge, sp->shp_tech);
+    return effrange(shp_frnge(sp), sp->shp_tech);
 }
 
 /*
@@ -268,7 +268,7 @@ shp_fire_range(struct shpstr *sp)
 double
 torprange(struct shpstr *sp)
 {
-    return effrange(sp->shp_frnge * 2, sp->shp_tech)
+    return effrange(shp_frnge(sp) * 2, sp->shp_tech)
 	* sp->shp_effic / 100.0;
 }
 
@@ -278,7 +278,7 @@ torprange(struct shpstr *sp)
 double
 shp_torp_hitchance(struct shpstr *sp, int range)
 {
-    return DTORP_HITCHANCE(range, sp->shp_visib);
+    return DTORP_HITCHANCE(range, shp_visib(sp));
 }
 
 /*
