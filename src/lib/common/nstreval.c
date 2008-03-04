@@ -160,6 +160,44 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
     val->val_type = valtype;
 }
 
+/*
+ * Promote VALTYPE.
+ * If VALTYPE is an integer type, return NSC_LONG.
+ * If VALTYPE is a floating-point type, return NSC_DOUBLE.
+ * If VALTYPE is a string type, return NSC_STRING.
+ */
+int
+nstr_promote(int valtype)
+{
+    switch (valtype) {
+    case NSC_LONG:
+    case NSC_DOUBLE:
+    case NSC_STRING:
+	break;
+    case NSC_CHAR:
+    case NSC_UCHAR:
+    case NSC_SHORT:
+    case NSC_USHORT:
+    case NSC_INT:
+    case NSC_XCOORD:
+    case NSC_YCOORD:
+    case NSC_HIDDEN:
+    case NSC_TIME:
+	valtype = NSC_LONG;
+	break;
+    case NSC_FLOAT:
+	valtype = NSC_DOUBLE;
+	break;
+    case NSC_STRINGY:
+	valtype = NSC_STRING;
+	break;
+    default:
+	CANT_REACH();
+	valtype = NSC_NOTYPE;
+    }
+    return valtype;
+}
+
 char *
 symbol_by_value(int key, struct symbol *table)
 {

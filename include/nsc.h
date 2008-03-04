@@ -275,6 +275,7 @@ extern int nstr_coerce_val(struct valstr *, nsc_type, char *);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern void nstr_exec_val(struct valstr *, natid, void *, nsc_type);
+extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);
 /* src/lib/global/nsc.c */
 extern void nsc_init(void);

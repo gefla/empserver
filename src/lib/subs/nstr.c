@@ -49,8 +49,6 @@ static int nstr_string_ok(struct castr *ca, int idx);
 static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
 static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int, int);
-static int nstr_promote(int);
-
 
 /*
  * Compile conditions into array NP[LEN].
@@ -472,45 +470,6 @@ nstr_comp_val(char *str, struct valstr *val, int type)
     if (!nstr_resolve_id(val, ca, nstr_match_ca(val, ca), 0))
 	return NULL;
     return tail;
-}
-
-
-/*
- * Promote VALTYPE.
- * If VALTYPE is an integer type, return NSC_LONG.
- * If VALTYPE is a floating-point type, return NSC_DOUBLE.
- * If VALTYPE is a string type, return NSC_STRING.
- */
-static int
-nstr_promote(int valtype)
-{
-    switch (valtype) {
-    case NSC_LONG:
-    case NSC_DOUBLE:
-    case NSC_STRING:
-	break;
-    case NSC_CHAR:
-    case NSC_UCHAR:
-    case NSC_SHORT:
-    case NSC_USHORT:
-    case NSC_INT:
-    case NSC_XCOORD:
-    case NSC_YCOORD:
-    case NSC_HIDDEN:
-    case NSC_TIME:
-	valtype = NSC_LONG;
-	break;
-    case NSC_FLOAT:
-	valtype = NSC_DOUBLE;
-	break;
-    case NSC_STRINGY:
-	valtype = NSC_STRING;
-	break;
-    default:
-	CANT_REACH();
-	valtype = NSC_NOTYPE;
-    }
-    return valtype;
 }
 
 static int
