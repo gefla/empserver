@@ -95,14 +95,21 @@ typedef char packed_nsc_cat;
  * promoted type.
  * If category is NSC_OFF, the value is in a context object, and
  * val_as.sym specifies how to get it, as follows.
- * If type is NSC_STRINGY, the value is an array of sym.len characters
- * starting at sym.offs in the context object.  sym.idx must be zero.
- * Else if sym.len is zero, the value is in the context object at offset
- * sym.off.  sym.idx must be zero.
- * Else sym.len is non-zero, and the value has index sym.idx in an
- * array of sym.len elements at offset sym.off in in the context
- * object.  I.e. the value is at sym.off + sym.idx * SZ, where SZ is
- * the size of the value.
+ * If sym.get is null, and type is NSC_STRINGY, the value is an array
+ * of sym.len characters starting at sym.offs in the context object.
+ * sym.idx must be zero.
+ * Else if sym.get is null, and sym.len is zero, the value is in the
+ * context object at offset sym.off.  sym.idx must be zero.
+ * Else if sym.get is null, sym.len is non-zero, and the value has
+ * index sym.idx in an array of sym.len elements at offset sym.off in
+ * in the context object.  I.e. the value is at sym.off + sym.idx *
+ * SZ, where SZ is the size of the value.
+ * If sym.get is not null, you obtain the value by calling get() like
+ * VAL->get(VAL, CNUM, CTXO), where CNUM is the country to use for
+ * coordinate translation and access control, and CTXO is the context
+ * object.  get() either returns a null pointer and sets VAL->val_as
+ * to the value, as appropriate for the type.  Or it returns another
+ * context object and sets VAL->val_as.sym for it.
  */
 struct valstr {
     packed_nsc_type val_type;	/* type of value */
@@ -112,6 +119,7 @@ struct valstr {
 	    ptrdiff_t off;
 	    int len;
 	    int idx;
+	    void *(*get)(struct valstr *, natid, void *);
 	} sym;
 	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
 	struct {		/* cat NSC_VAL, type NSC_STRING, cat NSC_ID */
@@ -197,11 +205,16 @@ typedef unsigned char nsc_flags;
  *
  * A selector describes an attribute of some context object.
  * A selector with ca_type NSC_NOTYPE is invalid.
- * A valid selector describes a datum of type ca_type at offset
- * ca_offs in the context object.
+ * If ca_get is null, the selector describes a datum of type ca_type
+ * at offset ca_offs in the context object.
  * A datum of type NSC_STRINGY is an array of ca_len characters.
  * A datum of any other type is either a scalar of that type (if
  * ca_len is zero), or an array of ca_len elements of that type.
+ * If ca_get is not null, the selector is virtual.  Values can be
+ * obtained by calling ca_get(VAL, CNUM, CTXO), where VAL has been
+ * initialized from the selector and an index, CNUM is the country to
+ * use for coordinate translation and access control, and CTXO is the
+ * context object.  See struct valstr for details.
  * If flag NSC_DEITY is set, only to deities can use this selector.
  * If flag NSC_EXTRA is set, xdump ignores this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its
@@ -216,6 +229,7 @@ struct castr {
     ptrdiff_t ca_off;
     packed_nsc_type ca_type;
     unsigned short ca_len;
+    void *(*ca_get)(struct valstr *, natid, void *);
     int ca_table;
     nsc_flags ca_flags;
 };

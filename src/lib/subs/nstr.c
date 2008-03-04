@@ -432,6 +432,7 @@ nstr_resolve_sel(struct valstr *val, struct castr *ca)
     val->val_as.sym.off = ca->ca_off;
     val->val_as.sym.len = ca->ca_len;
     val->val_as.sym.idx = 0;
+    val->val_as.sym.get = ca->ca_get;
     return val;
 }
 

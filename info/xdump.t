@@ -3,8 +3,6 @@
 .LV Expert
 .SY "xdump <TYPE|NUMBER> <RECORDS>"
 .SY "xdump meta <TYPE|NUMBER>"
-.SY "xdump ver"
-.SY "xdump meta ver"
 The xdump command displays information on game configuration and state
 in machine readable format.  It is intended for use by clients and
 tools.  This info page gives an overview; see doc/xdump in the source

@@ -142,6 +142,7 @@ enum {
     EF_INFRASTRUCTURE,
     EF_UPDATES,			/* not actually static */
     EF_TABLE,
+    EF_VERSION,
     EF_META,			/* not really configuration */
     /* Symbol tables */
     EF_AGREEMENT_STATUS,

@@ -158,9 +158,6 @@ Without such a key, you need to count records to find the record
 index, and that works only if you can see a prefix of the complete
 table.
 
-The special table "ver" collects all scalar configuration parameters
-in a single record.  It does not occur in the table of tables.
-
 
 Syntax of xdump command
 
@@ -368,8 +365,7 @@ table itself.  Let's try it:
 [...]
     /45
 
-It worked!  Mind that the special table "ver" is not in the table of
-tables.
+It worked!
 
 Now dump the two symbol tables we postponed.  Because xdump accepts
 table IDs as well as names, we don't have to know their names:

@@ -221,3 +221,11 @@ float start_education = 0.0;
 float start_happiness = 0.0;
 float start_technology = 0.0;
 float start_research = 0.0;
+
+/* econfig keys */
+static int emp_config_dummy;
+struct keymatch configkeys[] = {
+#define	EMP_CONFIG_C_OUTPUT
+#include "econfig-spec.h"
+#undef	EMP_CONFIG_C_OUTPUT
+};

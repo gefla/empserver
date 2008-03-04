@@ -53,6 +53,7 @@
 #include "server.h"
 #include "trade.h"
 #include "treaty.h"
+#include "version.h"
 #include "xy.h"
 
 /* Number of elements in ARRAY.  */
@@ -102,7 +103,8 @@ struct empfile empfile[] = {
      * that can be changed by users.
      *
      * Whatever of the above can't be done here must be done in
-     * empfile_init() or empfile_fixup().
+     * empfile_init() or empfile_fixup().  Except cadef may be set in
+     * nsc_init() instead.
      */
 
     /*
@@ -187,10 +189,13 @@ struct empfile empfile[] = {
      ARRAY_TABLE(update_time, EFF_CFG)},
     /*
      * Special tables.  EF_META gets bogus size, cids and fids here.
-     * Fixed up by empfile_init().
+     * Fixed up by empfile_init().  EF_VERSION's cadef is set by
+     * nsc_init().
      */
     {EF_TABLE, "table", NULL, empfile_ca,
      ARRAY_TABLE(empfile, EFF_CFG)},
+    {EF_VERSION, "version", NULL, NULL,
+     sizeof(PACKAGE_STRING), 0, version, 0, 0, 1, 1, -1, NULL, NULL},
     {EF_META, "meta", NULL, mdchr_ca,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
 

@@ -107,6 +107,7 @@ verify_row(int type, int row)
 	    val.val_as.sym.off = ca[i].ca_off;
 	    val.val_as.sym.len = ca[i].ca_len;
 	    val.val_as.sym.idx = j;
+	    val.val_as.sym.get = ca[i].ca_get;
 	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
 	    if (val.val_type != NSC_LONG)
 		continue;

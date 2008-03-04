@@ -87,21 +87,19 @@
 
 /*
  * Evaluate a attribute of an object into VAL, return VAL.
- * TYPE is the attribute's type.
+ * CA describes the attribute.
  * PTR points to the context object.
- * The attribute is stored there at offset OFF + IDX * S, where S is
- * its size.
- * LEN is the #array elements if it is an array, else zero.
+ * IDX is the index within the attribute.
  */
 static struct valstr *
-xdeval(struct valstr *val,
-       nsc_type type, void *ptr, ptrdiff_t off, int idx, int len)
+xdeval(struct valstr *val, struct castr *ca, void *ptr, int idx)
 {
-    val->val_type = type;
+    val->val_type = ca->ca_type;
     val->val_cat = NSC_OFF;
-    val->val_as.sym.off = off;
-    val->val_as.sym.len = len;
+    val->val_as.sym.off = ca->ca_off;
+    val->val_as.sym.len = ca->ca_len;
     val->val_as.sym.idx = idx;
+    val->val_as.sym.get = ca->ca_get;
     return nstr_exec_val(val, player->cnum, ptr, NSC_NOTYPE);
 }
 
@@ -175,7 +173,7 @@ xdflds(struct castr ca[], void *ptr)
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
-	    xdeval(&val, ca[i].ca_type, ptr, ca[i].ca_off, j, ca[i].ca_len);
+	    xdeval(&val, &ca[i], ptr, j);
 	    sep = xdprval(&val, sep);
 	} while (++j < n);
     }
@@ -337,62 +335,7 @@ xdmeta(int type)
     return RET_OK;
 }
 
-/*
- * Dump configkeys[], return RET_OK.
- * If META, dump meta-data rather than data.
- */
-static int
-xdver(int meta)
-{
-    static struct castr vers_ca = {
-	"version", 0, NSC_STRINGY, sizeof(PACKAGE_STRING), EF_BAD, 0
-    };
-    struct keymatch *kp;
-    char *sep;
-    int n;
-    struct castr ca;
-    struct valstr val;
-
-    xdhdr("version", meta);
-
-    if (meta) {
-	n = 0;
-	xdflds(mdchr_ca, &vers_ca);
-	pr("\n");
-	n++;
-	for (kp = configkeys; kp->km_key; ++kp) {
-	    if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
-		ca.ca_type = kp->km_type;
-		ca.ca_flags = 0;
-		ca.ca_len = 0;
-		ca.ca_off = 0;
-		ca.ca_name = kp->km_key;
-		ca.ca_table = EF_BAD;
-		xdflds(mdchr_ca, &ca);
-		pr("\n");
-		n++;
-	    }
-	}
-	xdftr(n);
-	return RET_OK;
-    }
-
-    xdeval(&val, vers_ca.ca_type, version, vers_ca.ca_off, 0, vers_ca.ca_len);
-    sep = xdprval(&val, "");
-    for (kp = configkeys; kp->km_key; ++kp) {
-	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
-	    xdeval(&val, kp->km_type, kp->km_data, 0, 0, 0);
-	    sep = xdprval(&val, sep);
-	}
-    }
-    pr("\n");
-
-    xdftr(1);
-
-    return RET_OK;
-}
-
-/* Experimental extended dump command */
+/* Extended dump command */
 int
 xdump(void)
 {
@@ -412,18 +355,17 @@ xdump(void)
 
     natp = getnatp(player->cnum);
     type = isdigit(p[0]) ? atoi(p) : ef_byname(p);
-    if (type >= 0 && type < EF_MAX) {
-	if (meta)
-	    return xdmeta(type);
-	else if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
-		 && !(natp->nat_stat == STAT_ACTIVE || player->god)) {
-	    pr("Access to table %s denied\n", ef_nameof(type));
-	    return RET_FAIL;
-	} else
-	    return xditem(type, player->argp[2]);
-    } else if (!strncmp(p, "ver", strlen(p))) {
-	return xdver(meta);
-    }
+    if (type < 0 || type >= EF_MAX)
+	return RET_SYN;
 
-    return RET_SYN;
+    if (meta)
+	return xdmeta(type);
+    if ((EF_IS_GAME_STATE(type) || EF_IS_VIEW(type))
+	&& !(natp->nat_stat == STAT_ACTIVE || player->god)) {
+	pr("Access to table %s denied\n", ef_nameof(type));
+	return RET_FAIL;
+    }
+    if (type == EF_VERSION && !player->argp[2])
+	return xditem(type, "*"); /* backward compatibility */
+    return xditem(type, player->argp[2]);
 }

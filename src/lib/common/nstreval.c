@@ -69,6 +69,17 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
 	valtype = val->val_type;
 	break;
     case NSC_OFF:
+	if (val->val_as.sym.get) {
+	    do {
+		ptr = val->val_as.sym.get(val, cnum, ptr);
+	    } while (ptr && val->val_as.sym.get);
+	    if (!ptr) {
+		valtype = val->val_type;
+		val->val_cat = NSC_VAL;
+		break;
+	    }
+	}
+
 	valtype = NSC_LONG;
 	memb_ptr = ptr;
 	memb_ptr += val->val_as.sym.off;

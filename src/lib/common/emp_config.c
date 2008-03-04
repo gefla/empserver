@@ -55,16 +55,6 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-/* Dummy one */
-static int emp_config_dummy;
-
-/* things that can be changed */
-struct keymatch configkeys[] = {
-#define	EMP_CONFIG_C_OUTPUT
-#include "econfig-spec.h"
-#undef	EMP_CONFIG_C_OUTPUT
-};
-
 static struct keymatch *keylookup(char *key, struct keymatch tbl[]);
 static int set_paths(char *);
 
