@@ -156,10 +156,11 @@ struct empfile empfile[] = {
 
     /*
      * Static game data (configuration)
-     *
-     * These are all empty tables, except for EF_NEWS_CHR and EF_META.
-     * Use read_builtin_tables() to fill them.  EF_META gets bogus
-     * size, cids and fids here.  Fixed up by empfile_init().
+     */
+    /*
+     * Characteristics tables.  Characteristics with a null file
+     * member are compiled in.  The others are empty; use
+     * read_builtin_tables() to fill them.
      */
     {EF_ITEM, "item", "item.config", ichr_ca,
      ARRAY_CACHE(ichr, EFF_CFG)},
@@ -179,8 +180,15 @@ struct empfile empfile[] = {
      ARRAY_TABLE(rpt, EFF_CFG)},
     {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca,
      ARRAY_CACHE(intrchr, EFF_CFG)},
+    /*
+     * Update schedule table.  Use read_schedule() to fill.
+     */
     {EF_UPDATES, "updates", NULL, update_ca,
      ARRAY_TABLE(update_time, EFF_CFG)},
+    /*
+     * Special tables.  EF_META gets bogus size, cids and fids here.
+     * Fixed up by empfile_init().
+     */
     {EF_TABLE, "table", NULL, empfile_ca,
      ARRAY_TABLE(empfile, EFF_CFG)},
     {EF_META, "meta", NULL, mdchr_ca,
