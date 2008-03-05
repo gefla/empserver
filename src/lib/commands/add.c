@@ -60,8 +60,6 @@ add(void)
     int stat;
     struct nstr_item ni;
     struct lndstr land;
-    struct realmstr realm;
-    time_t current_time = time(NULL);
 
     for (freecn = 0; NULL != (natp = getnatp(freecn)); freecn++) {
 	if (natp->nat_stat == STAT_UNUSED)
@@ -137,7 +135,6 @@ add(void)
 	    putland(land.lnd_uid, &land);
 	}
     }
-    natp->nat_stat = stat;
     strcpy(natp->nat_cnam, cntryname);
     strcpy(natp->nat_pnam, pname);
     if (*p != 'w' && *p != 'c') {
@@ -183,43 +180,10 @@ add(void)
 	}
     }
 
-    if (natp->nat_stat == STAT_NEW || natp->nat_stat == STAT_VIS) {
-	*natp->nat_hostaddr = '\0';
-	*natp->nat_hostname = '\0';
-	*natp->nat_userid = '\0';
-	natp->nat_btu = 0;
-	natp->nat_reserve = 0;
-	natp->nat_tgms = 0;
-	natp->nat_ycap = 0;
-	natp->nat_xcap = 0;
-	natp->nat_yorg = 0;
-	natp->nat_xorg = 0;
-	natp->nat_dayno = 0;
-	natp->nat_minused = 0;
-	for (i = 0; i < MAXNOR; i++) {
-	    getrealm(i, coun, &realm);
-	    realm.r_xl = realm.r_xh = realm.r_yl = realm.r_yh = 0;
-	    realm.r_timestamp = current_time;
-	    putrealm(&realm);
-	}
-	natp->nat_last_login = natp->nat_last_login = 0;
-	natp->nat_money = 0;
-	natp->nat_level[NAT_TLEV] = start_technology;
-	natp->nat_level[NAT_RLEV] = start_research;
-	natp->nat_level[NAT_ELEV] = start_education;
-	natp->nat_level[NAT_HLEV] = start_happiness;
-	for (i = 0; i < MAXNOC; i++)
-	    natp->nat_rejects[i] = 0;
-	natp->nat_newstim = 0;
-	natp->nat_annotim = 0;
-	close(creat(mailbox(buf, coun), S_IRWUG));
-    } else
+    if (stat == STAT_NEW || stat == STAT_VIS)
+	nat_reset(natp, stat, 0, 0);
+    else
 	pr("No special initializations done...\n");
-
-    natp->nat_flags =
-	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
-    for (i = 0; i < MAXNOC; i++)
-	natp->nat_relate[i] = NEUTRAL;
     putnat(natp);
     return 0;
 }

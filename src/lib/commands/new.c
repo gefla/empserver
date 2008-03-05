@@ -47,8 +47,6 @@ static int isok(int x, int y);
 static void ok(signed char *map, int x, int y);
 static void init_sanct(struct natstr *, coord, coord);
 
-static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
-
 #define	MAXAVAIL	300
 
 int
@@ -56,14 +54,11 @@ new(void)
 {
     struct sctstr sect;
     struct natstr *natp;
-    struct realmstr newrealm;
-    struct range absrealm;
     natid num;
     coord x, y;
     int i;
     char *p;
     char buf[1024];
-    time_t current_time = time(NULL);
 
     natp = getnatp(player->cnum);
     if (natp->nat_xorg != 0 || natp->nat_yorg != 0) {
@@ -122,33 +117,7 @@ new(void)
     if (player->aborted)
 	return RET_FAIL;
     pr("added country %d at %s\n", num, xyas(x, y, player->cnum));
-    natp->nat_btu = max_btus;
-    natp->nat_stat = STAT_SANCT;
-    natp->nat_xcap = x;
-    natp->nat_ycap = y;
-    natp->nat_xorg = x;
-    natp->nat_yorg = y;
-    xyabsrange(natp, &defrealm, &absrealm);
-    for (i = 0; i < MAXNOR; i++) {
-	getrealm(i, num, &newrealm);
-	newrealm.r_xl = absrealm.lx;
-	newrealm.r_xh = absrealm.hx;
-	newrealm.r_yl = absrealm.ly;
-	newrealm.r_yh = absrealm.hy;
-	newrealm.r_timestamp = current_time;
-	putrealm(&newrealm);
-    }
-    if (players_at_00) {
-	natp->nat_xorg = 0;
-	natp->nat_yorg = 0;
-    }
-    natp->nat_money = start_cash;
-    natp->nat_level[NAT_HLEV] = start_happiness;
-    natp->nat_level[NAT_RLEV] = start_research;
-    natp->nat_level[NAT_TLEV] = start_technology;
-    natp->nat_level[NAT_ELEV] = start_education;
-    natp->nat_tgms = 0;
-    close(creat(mailbox(buf, num), S_IRWUG));
+    nat_reset(natp, STAT_SANCT, x, y);
     init_sanct(natp, x, y);
     init_sanct(natp, x + 2, y);
     putnat(natp);
