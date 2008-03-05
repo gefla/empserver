@@ -42,7 +42,7 @@
 
 static int
 deliver(struct sctstr *from, struct ichrstr *ip, int dir,
-	int thresh, int amt_src, int plague, i_packing packing)
+	int thresh, int amt_src, int plague, enum i_packing packing)
 {
     struct sctstr *to;
     i_type vtype;			/* item vartype */
@@ -126,7 +126,7 @@ dodeliver(struct sctstr *sp)
     int thresh;
     int dir;
     int plague;
-    i_packing packing;
+    enum i_packing packing;
     int n;
 
     if (sp->sct_mobil <= 0)

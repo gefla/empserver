@@ -55,7 +55,7 @@
  *
  * or 0 for none of the above.
  */
-ns_seltype
+enum ns_seltype
 sarg_type(char *str)
 {
     int c;

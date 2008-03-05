@@ -44,7 +44,7 @@
 #define	MAXNOR		50	/* max # realms */
 
 /* Nation status */
-typedef enum {
+enum nat_status {
     /*
      * Don't change order without checking inequality comparisons and
      * array initializers!
@@ -55,7 +55,7 @@ typedef enum {
     STAT_SANCT,			/* still in sanctuary */
     STAT_ACTIVE,		/* active (sanctuary broken) */
     STAT_GOD			/* deity powers */
-} nat_status;
+};
 
 
 /*
@@ -84,7 +84,7 @@ struct natstr {
     short nat_uid;		/* equals nat_cnum */
     natid nat_cnum;		/* our country number */
     /* end of part matching struct empobj */
-    nat_status nat_stat;
+    enum nat_status nat_stat;
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
     char nat_hostaddr[32];	/* host addr of last user */

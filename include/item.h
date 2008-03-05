@@ -36,13 +36,13 @@
 
 #include "misc.h"
 
-typedef enum {
+enum i_packing {
     IPKG,			/* "inefficient" packaging (eff<60) */
     NPKG,			/* no special packaging */
     WPKG,			/* "warehouse" packaging */
     UPKG,			/* "urban" packaging */
     BPKG			/* "bank" packaging */
-} i_packing;
+};
 
 enum {
     NUMPKG = BPKG + 1

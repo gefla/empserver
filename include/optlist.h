@@ -69,7 +69,7 @@ enum {
 
 struct keymatch {
     char *km_key;		/* the key */
-    nsc_type km_type;		/* type of associated data */
+    enum nsc_type km_type;	/* type of associated data */
     void *km_data;		/* pointer to associated data */
     int km_flags;		/* useful flags */
     char *km_comment;		/* Comment (hopefully useful) */

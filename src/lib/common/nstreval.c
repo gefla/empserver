@@ -69,10 +69,10 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
  * nstr_coerce_val(VAL, WANT, STR) succeeded.
  */
 struct valstr *
-nstr_exec_val(struct valstr *val, natid cnum, void *ptr, nsc_type want)
+nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 {
     char *memb_ptr;
-    nsc_type valtype;
+    enum nsc_type valtype;
     int idx;
     struct natstr *natp;
 

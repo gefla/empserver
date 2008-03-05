@@ -43,7 +43,7 @@
 #define NS_NCOND	16
 
 /* Value type */
-typedef enum {
+enum nsc_type {
     NSC_NOTYPE,
     /* promoted types */
     NSC_LONG,			/* long */
@@ -64,8 +64,7 @@ typedef enum {
     NSC_STRINGY,		/* char[], may be zero-terminated */
     /* aliases, must match typedefs */
     NSC_NATID = NSC_UCHAR	/* nation id */
-} nsc_type;
-typedef char packed_nsc_type;
+};
 
 /* Is TYPE a promoted value type?  */
 #define NSC_IS_PROMOTED(type) (NSC_LONG <= (type) && (type) <= NSC_STRING)
@@ -79,13 +78,12 @@ typedef char packed_nsc_type;
      : 1/0)
 
 /* Value category */
-typedef enum {
+enum nsc_cat {
     NSC_NOCAT,
     NSC_VAL,			/* evaluated value */
     NSC_OFF,			/* symbolic value: at offset in object */
     NSC_ID			/* unresolved identifier (internal use) */
-} nsc_cat;
-typedef char packed_nsc_cat;
+};
 
 /*
  * Value, possibly symbolic
@@ -112,8 +110,8 @@ typedef char packed_nsc_cat;
  * context object and sets VAL->val_as.sym for it.
  */
 struct valstr {
-    packed_nsc_type val_type;	/* type of value */
-    packed_nsc_cat val_cat;	/* category of value */
+    enum nsc_type val_type;	/* type of value */
+    enum nsc_cat val_cat;	/* category of value */
     union {
 	struct {		/* cat NSC_OFF */
 	    ptrdiff_t off;
@@ -133,13 +131,13 @@ struct valstr {
 /* Compiled condition */
 struct nscstr {
     char operator;		/* '<', '=', '>', '#' */
-    packed_nsc_type optype;	/* operator type */
+    enum nsc_type optype;	/* operator type */
     struct valstr lft;		/* left operand */
     struct valstr rgt;		/* right operand */
 };
 
 /* Selection type */
-typedef enum {
+enum ns_seltype {
     NS_UNDEF,			/* error value */
     NS_LIST,			/* list of IDs */
     NS_DIST,			/* circular area */
@@ -147,14 +145,14 @@ typedef enum {
     NS_ALL,			/* everything */
     NS_XY,			/* one sector area */
     NS_GROUP			/* group, i.e. fleet, wing, army */
-} ns_seltype;
+};
 
 /* Sector iterator */
 struct nstr_sect {
     coord x, y;			/* current x-y */
     coord dx, dy;		/* accumlated x,y travel */
     int id;			/* return value of sctoff */
-    ns_seltype type;		/* type of query */
+    enum ns_seltype type;		/* type of query */
     int curdist;		/* dist query: current range */
     struct range range;		/* area of coverage */
     int dist;			/* dist query: range */
@@ -167,7 +165,7 @@ struct nstr_sect {
 /* Item iterator */
 struct nstr_item {
     int cur;			/* current item */
-    ns_seltype sel;		/* selection type */
+    enum ns_seltype sel;	/* selection type */
     int type;			/* item type being selected */
     int curdist;		/* if NS_DIST, current item's dist */
     struct range range;		/* NS_AREA/NS_DIST: range selector */
@@ -198,7 +196,6 @@ enum {
     NSC_CONST = bit(2),		/* field cannot be changed */
     NSC_BITS = bit(3)		/* value consists of flag bits */
 };
-typedef unsigned char nsc_flags;
 
 /*
  * Selector descriptor
@@ -228,11 +225,11 @@ typedef unsigned char nsc_flags;
 struct castr {
     char *ca_name;
     ptrdiff_t ca_off;
-    packed_nsc_type ca_type;
+    enum nsc_type ca_type;
     unsigned short ca_len;
     void *(*ca_get)(struct valstr *, natid, void *);
     int ca_table;
-    nsc_flags ca_flags;
+    int ca_flags;
 };
 
 /* variables using the above */
@@ -289,11 +286,11 @@ extern struct symbol sector_navigation[];
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
 extern char *nstr_comp_val(char *, struct valstr*, int);
-extern int nstr_coerce_val(struct valstr *, nsc_type, char *);
+extern int nstr_coerce_val(struct valstr *, enum nsc_type, char *);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);
-extern struct valstr *nstr_exec_val(struct valstr *, natid, void *, nsc_type);
+extern struct valstr *nstr_exec_val(struct valstr *, natid, void *, enum nsc_type);
 extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);
 /* src/lib/global/nsc.c */

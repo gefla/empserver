@@ -181,9 +181,10 @@ struct castr dchr_ca[] = {
     {"peffic", fldoff(d_peffic), NSC_INT, 0, NULL, EF_BAD, 0},
     {"mob0", fldoff(d_mob0), NSC_FLOAT, 0, NULL, EF_BAD, 0},
     {"mob1", fldoff(d_mob1), NSC_FLOAT, 0, NULL, EF_BAD, 0},
-    {"nav", fldoff(d_nav), NSC_SITYPE(d_navigation), 0, NULL,
+    {"nav", fldoff(d_nav), NSC_SITYPE(enum d_navigation), 0, NULL,
      EF_SECTOR_NAVIGATION, 0},
-    {"pkg", fldoff(d_pkg), NSC_SITYPE(i_packing), 0, NULL, EF_PACKING, 0},
+    {"pkg", fldoff(d_pkg), NSC_SITYPE(enum i_packing), 0, NULL,
+     EF_PACKING, 0},
     {"ostr", fldoff(d_ostr), NSC_FLOAT, 0, NULL, EF_BAD, 0},
     {"dstr", fldoff(d_dstr), NSC_FLOAT, 0, NULL, EF_BAD, 0},
     {"value", fldoff(d_value), NSC_INT, 0, NULL, EF_BAD, 0},
@@ -541,7 +542,7 @@ struct castr cou_ca[] = {
      * necessary for foreign levels.
      */
     {"cnum", fldoff(nat_cnum), NSC_NATID, 0, NULL, EF_NATION, 0},
-    {"stat", fldoff(nat_stat), NSC_SITYPE(nat_status), 0, NULL,
+    {"stat", fldoff(nat_stat), NSC_SITYPE(enum nat_status), 0, NULL,
      EF_NATION_STATUS, NSC_EXTRA},
     {"cname", fldoff(nat_cnam), NSC_STRINGY, 20, NULL, EF_BAD, NSC_EXTRA},
     {"passwd", fldoff(nat_pnam), NSC_STRINGY, 20, NULL,

@@ -90,13 +90,13 @@ struct sctstr {
     time_t sct_timestamp;	/* Last time this sector was written to */
 };
 
-typedef enum {
+enum d_navigation {
     NAV_NONE,	/* ships can't navigate */
     NAVOK,	/* ships can always navigate */
     NAV_02,	/* requires 2% effic to navigate */
     NAV_CANAL,	/* requires 2% effic to navigate and M_CANAL capability */
     NAV_60	/* requires 60% effic to navigate */
-} d_navigation;
+};
 
 struct dchrstr {
     unsigned char d_uid;
@@ -104,8 +104,8 @@ struct dchrstr {
     int d_prd;			/* product type */
     int d_peffic;		/* process efficiency, in percent */
     float d_mob0, d_mob1;	/* movement cost at 0 and 100% eff */
-    d_navigation d_nav;		/* navigation capability */
-    i_packing d_pkg;		/* type of packaging in these sects */
+    enum d_navigation d_nav;	/* navigation capability */
+    enum i_packing d_pkg;	/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
     int d_value;		/* resale ("collect") value */

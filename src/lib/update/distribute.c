@@ -55,7 +55,7 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
     int thresh;
     int amt_dist;
     int amt_sect;
-    i_packing sect_packing, dist_packing;
+    enum i_packing sect_packing, dist_packing;
     int pack;
     double mcost;
     int diff;

@@ -483,10 +483,10 @@ cond_type_mismatch(char *str)
  * messages if it is a null pointer.
  */
 int
-nstr_coerce_val(struct valstr *val, nsc_type to, char *str)
+nstr_coerce_val(struct valstr *val, enum nsc_type to, char *str)
 {
     /* FIXME get rid of promotion?  */
-    nsc_type from = nstr_promote(val->val_type);
+    enum nsc_type from = nstr_promote(val->val_type);
 
     if (from == NSC_NOTYPE)
 	return 0;

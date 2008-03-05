@@ -700,7 +700,7 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_yorg = newy;
 	break;
     case 's':
-	np->nat_stat = (nat_status)errcheck(arg, STAT_UNUSED, STAT_GOD);
+	np->nat_stat = errcheck(arg, STAT_UNUSED, STAT_GOD);
 	break;
     case 'u':
 	arg = errcheck(arg, 0, m_m_p_d);
