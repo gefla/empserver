@@ -44,6 +44,7 @@ struct lonstr {
     /* initial part must match struct empobj */
     short ef_type;
     short l_uid;
+    time_t l_timestamp;
     /* end of part matching struct empobj */
     natid l_loner;		/* loan shark */
     natid l_lonee;		/* sucker */

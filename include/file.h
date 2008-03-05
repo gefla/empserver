@@ -67,6 +67,7 @@ struct empfile {
 struct emptypedstr {
     short ef_type;
     short uid;
+    time_t timestamp;
 };
 
 /*

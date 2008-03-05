@@ -64,6 +64,7 @@ struct shpstr {
     /* initial part must match struct empobj */
     short ef_type;
     short shp_uid;		/* unit id (ship #) */
+    time_t shp_timestamp;	/* Last time this ship was touched. */
     natid shp_own;		/* owner's country num */
     coord shp_x;		/* x location in abs coords */
     coord shp_y;		/* y location in abs coords */
@@ -90,7 +91,6 @@ struct shpstr {
     short shp_pstage;		/* plague stage */
     short shp_ptime;		/* how many etus remain in this stage */
     short shp_access;		/* Last tick mob was updated (MOB_ACCESS) */
-    time_t shp_timestamp;	/* Last time this ship was touched. */
     unsigned char shp_mobquota;	/* mobility quota */
     char shp_path[MAXSHPPATH];
     short shp_follow;

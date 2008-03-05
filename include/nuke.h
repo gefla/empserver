@@ -44,6 +44,7 @@ struct nukstr {
     /* initial part must match struct empobj */
     short ef_type;
     short nuk_uid;
+    time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;
     coord nuk_x, nuk_y;		/* current loc of device */
     signed char nuk_type;	/* index in nchr[] */
@@ -59,7 +60,6 @@ struct nukstr {
     short nuk_ship;		/* currently aboard ship (unused) */
     short nuk_plane;		/* currently aboard plane */
     short nuk_land;		/* currently aboard land (unused) */
-    time_t nuk_timestamp;	/* Last time this nuke was touched */
 };
 
 struct nchrstr {

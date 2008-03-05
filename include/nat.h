@@ -70,18 +70,19 @@ struct realmstr {
     /* initial part must match struct empobj */
     short ef_type;
     short r_uid;		/* realm table index */
+    time_t r_timestamp;		/* Last time this realm was touched */
     natid r_cnum;		/* country number */
     /* end of part matching struct empobj */
     unsigned short r_realm;	/* realm number */
     short r_xl, r_xh;		/* horizontal bounds */
     short r_yl, r_yh;		/* vertical bounds */
-    time_t r_timestamp;	/* Last time this realm was touched */
 };
 
 struct natstr {
     /* initial part must match struct empobj */
     short ef_type;
     short nat_uid;		/* equals nat_cnum */
+    time_t nat_timestamp;
     natid nat_cnum;		/* our country number */
     /* end of part matching struct empobj */
     enum nat_status nat_stat;

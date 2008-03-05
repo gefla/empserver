@@ -47,6 +47,7 @@ struct plnstr {
     /* initial part must match struct empobj */
     short ef_type;
     short pln_uid;		/* plane unit id */
+    time_t pln_timestamp;	/* Last time this plane was touched */
     natid pln_own;		/* owning country */
     coord pln_x;		/* plane x-y */
     coord pln_y;
@@ -68,7 +69,6 @@ struct plnstr {
     signed char pln_nuketype;	/* type of nuclear armament (if any) */
     signed char pln_flags;	/* State of the plane */
     short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
-    time_t pln_timestamp;	/* Last time this plane was touched */
     float pln_theta;		/* position in orbital sine wave */
 };
 

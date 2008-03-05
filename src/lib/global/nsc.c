@@ -123,6 +123,8 @@ struct castr sect_ca[] = {
     /* uid needs to be NSC_DEITY because it discloses true origin */
     {"uid", fldoff(sct_uid), NSC_SHORT, 0, NULL,
      EF_SECTOR, NSC_DEITY | NSC_EXTRA},
+    {"timestamp", fldoff(sct_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"owner", fldoff(sct_own), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"xloc", fldoff(sct_x), NSC_XCOORD, 0, NULL, EF_BAD, NSC_CONST},
     {"yloc", fldoff(sct_y), NSC_YCOORD, 0, NULL, EF_BAD, NSC_CONST},
@@ -166,8 +168,6 @@ struct castr sect_ca[] = {
     {"road", fldoff(sct_road), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"rail", fldoff(sct_rail), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"dfense", fldoff(sct_defense), NSC_UCHAR, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(sct_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -199,6 +199,7 @@ struct castr dchr_ca[] = {
 
 #define NSC_GENITEM(ef_type, ef_chr)					\
     {"uid", empobjoff(uid),  NSC_SHORT, 0, NULL, ef_type, 0},		\
+    {"timestamp", empobjoff(timestamp), NSC_TIME, 0, NULL, EF_BAD, NSC_EXTRA}, \
     {"owner", empobjoff(own),  NSC_NATID, 0, NULL, EF_NATION, 0},	\
     {"xloc", empobjoff(x),  NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
     {"yloc", empobjoff(y),  NSC_YCOORD, 0, NULL, EF_BAD, 0},		\
@@ -235,8 +236,6 @@ struct castr ship_ca[] = {
      EF_PLAGUE_STAGES, NSC_DEITY},
     {"ptime", fldoff(shp_ptime), NSC_SHORT, 0, NULL, EF_BAD, NSC_DEITY},
     {"access", fldoff(shp_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(shp_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {"mquota", fldoff(shp_mobquota), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"path", fldoff(shp_path), NSC_STRINGY, MAXSHPPATH, NULL, EF_BAD, 0},
     {"follow", fldoff(shp_follow), NSC_SHORT, 0, NULL, EF_BAD, 0},
@@ -300,8 +299,6 @@ struct castr plane_ca[] = {
     {"flags", fldoff(pln_flags), NSC_CHAR, 0, NULL,
      EF_PLANE_FLAGS, NSC_BITS},
     {"access", fldoff(pln_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(pln_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {"theta", fldoff(pln_theta), NSC_FLOAT, 0, NULL, EF_BAD, 0},
     {"att", 0, NSC_LONG, 0, nsc_pln_att, EF_BAD, NSC_EXTRA},
     {"def", 0, NSC_LONG, 0, nsc_pln_def, EF_BAD, NSC_EXTRA},
@@ -352,8 +349,6 @@ struct castr land_ca[] = {
     {"land", fldoff(lnd_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"nland", fldoff(lnd_nland), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"access", fldoff(lnd_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(lnd_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {"att", 0, NSC_DOUBLE, 0, nsc_lnd_att, EF_BAD, NSC_EXTRA},
     {"def", 0, NSC_DOUBLE, 0, nsc_lnd_def, EF_BAD, NSC_EXTRA},
     {"vul", 0, NSC_LONG, 0, nsc_lnd_vul, EF_BAD, NSC_EXTRA},
@@ -411,8 +406,6 @@ struct castr nuke_ca[] = {
 #define CURSTR struct nukstr
     NSC_GENITEM(EF_NUKE, EF_NUKE_CHR),
     {"plane", fldoff(nuk_plane), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(nuk_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -484,12 +477,13 @@ struct castr news_ca[] = {
 struct castr lost_ca[] = {
 #define CURSTR struct loststr
    /* no need for uid as long as it's not referenced from other tables */
+    {"timestamp", fldoff(lost_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, 0},
     {"owner", fldoff(lost_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"type", fldoff(lost_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
     {"id", fldoff(lost_id), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"x", fldoff(lost_x), NSC_XCOORD, 0, NULL, EF_BAD, 0},
     {"y", fldoff(lost_y), NSC_YCOORD, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(lost_timestamp), NSC_TIME, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -595,14 +589,14 @@ struct castr nat_ca[sizeof(cou_ca) / sizeof(*cou_ca)];
 struct castr realm_ca[] = {
 #define CURSTR struct realmstr
     /* uid is encoded in cnum, realm */
+    {"timestamp", fldoff(r_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"cnum", fldoff(r_cnum), NSC_NATID, 0, NULL, EF_NATION, NSC_CONST},
     {"realm", fldoff(r_realm), NSC_USHORT, 0, NULL, EF_BAD, NSC_CONST},
     {"xl", fldoff(r_xl), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"xh", fldoff(r_xh), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"yl", fldoff(r_yl), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"yh", fldoff(r_yh), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"timestamp", fldoff(r_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };

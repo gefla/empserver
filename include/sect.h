@@ -45,6 +45,7 @@ struct sctstr {
     /* initial part must match struct empobj */
     short ef_type;
     short sct_uid;		/* equals sctoff(sct_x, sct_y) */
+    time_t sct_timestamp;	/* Last time this sector was written to */
     natid sct_own;		/* owner's country num */
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
@@ -87,7 +88,6 @@ struct sctstr {
     unsigned char sct_road;	/* Road value of a sector */
     unsigned char sct_rail;	/* Rail value of a sector */
     unsigned char sct_defense;	/* Defensive value of a sector */
-    time_t sct_timestamp;	/* Last time this sector was written to */
 };
 
 enum d_navigation {

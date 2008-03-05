@@ -41,13 +41,13 @@ struct loststr {
     /* initial part must match struct empobj */
     short ef_type;
     int lost_uid;
+    time_t lost_timestamp;	/* When it was lost */
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct empobj */
     short lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
     short lost_id;		/* ID of lost thing */
     coord lost_x;
     coord lost_y;
-    time_t lost_timestamp;	/* When it was lost */
 };
 
 #define getlost(n, p) ef_read(EF_LOST, (n), (p))
