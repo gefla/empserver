@@ -48,7 +48,7 @@
 
 static int ef_realloc_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
-static int do_write(struct empfile *, void *, int, int);
+static int do_write(struct empfile *, void *, int, int, time_t);
 static void do_blank(struct empfile *, void *, int, int);
 
 /*
@@ -230,8 +230,10 @@ ef_flush(int type)
      * allowed only with EFF_MEM.  Assume the whole cash is dirty
      * then.
      */
-    if (ep->flags & EFF_MEM)
-	return do_write(ep, ep->cache, ep->baseid, ep->cids) >= 0;
+    if (ep->flags & EFF_MEM) {
+	if (do_write(ep, ep->cache, ep->baseid, ep->cids, time(NULL)) < 0)
+	    return 0;
+    }
 
     return 1;
 }
@@ -337,10 +339,11 @@ fillcache(struct empfile *ep, int start)
 
 /*
  * Write COUNT elements from BUF to EP, starting at ID.
+ * Set the timestamp to NOW if the table has those.
  * Return 0 on success, -1 on error.
  */
 static int
-do_write(struct empfile *ep, void *buf, int id, int count)
+do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
 {
     int i, n, ret;
     char *p;
@@ -361,6 +364,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 		elt->ef_type = ep->uid;
 	    if (CANT_HAPPEN(elt->uid != id + i))
 		elt->uid = id + i;
+	    elt->timestamp = now;
 	}
     }
 
@@ -413,7 +417,7 @@ ef_write(int type, int id, void *from)
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
     if (!(ep->flags & EFF_PRIVATE)) {
-	if (do_write(ep, from, id, 1) < 0)
+	if (do_write(ep, from, id, 1, time(NULL)) < 0)
 	    return 0;
     }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
@@ -440,6 +444,7 @@ ef_extend(int type, int count)
     struct empfile *ep;
     char *p;
     int i, id;
+    time_t now = time(NULL);
 
     if (ef_check(type) < 0)
 	return 0;
@@ -464,7 +469,7 @@ ef_extend(int type, int count)
 	p = ep->cache + id * ep->size;
 	do_blank(ep, p, id, count);
 	if (ep->fd >= 0 && !(ep->flags & EFF_PRIVATE)) {
-	    if (do_write(ep, p, id, count) < 0)
+	    if (do_write(ep, p, id, count, now) < 0)
 		return 0;
 	}
 	ep->cids += count;
@@ -475,7 +480,7 @@ ef_extend(int type, int count)
 	p = ep->cache + ep->cids * ep->size;
 	for (i = 0; i < count; i++) {
 	    do_blank(ep, p, id + i, 1);
-	    if (do_write(ep, p, id + i, 1) < 0)
+	    if (do_write(ep, p, id + i, 1, now) < 0)
 		return 0;
 	}
     }

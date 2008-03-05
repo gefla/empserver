@@ -118,11 +118,6 @@ lnd_prewrite(int n, void *ptr)
     struct plnstr *pp;
     int i;
 
-    llp->ef_type = EF_LAND;
-    llp->lnd_uid = n;
-
-    time(&llp->lnd_timestamp);
-
     if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
 	makelost(EF_LAND, llp->lnd_own, llp->lnd_uid,
 		 llp->lnd_x, llp->lnd_y);

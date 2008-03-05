@@ -56,7 +56,6 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
     struct realmstr newrealm;
     struct range absrealm;
     char buf[1024];
-    time_t now = time(NULL);
     int i;
 
     natp->nat_stat = stat;
@@ -76,7 +75,6 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
 	newrealm.r_xh = absrealm.hx;
 	newrealm.r_yl = absrealm.ly;
 	newrealm.r_yh = absrealm.hy;
-	newrealm.r_timestamp = now;
 	putrealm(&newrealm);
     }
     if (players_at_00) {

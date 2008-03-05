@@ -71,11 +71,6 @@ shp_prewrite(int n, void *ptr)
     struct plnstr *pp;
     int i;
 
-    sp->ef_type = EF_SHIP;
-    sp->shp_uid = n;
-
-    time(&sp->shp_timestamp);
-
     if (sp->shp_own != 0 && sp->shp_effic < SHIP_MINEFF) {
 	mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
 	makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);

@@ -88,11 +88,6 @@ nuk_prewrite(int n, void *ptr)
 	np->nuk_effic = 0;
     }
 
-    np->ef_type = EF_NUKE;
-    np->nuk_uid = n;
-
-    time(&np->nuk_timestamp);
-
     getnuke(n, &nuke);
 
     return 1;

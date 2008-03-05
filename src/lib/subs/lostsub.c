@@ -51,7 +51,6 @@ makelost(short type, natid owner, short id, coord x, coord y)
     lost.lost_id = id;
     lost.lost_x = x;
     lost.lost_y = y;
-    time(&lost.lost_timestamp);
     putlost(n, &lost);
 }
 
@@ -66,7 +65,6 @@ makenotlost(short type, natid owner, short id, coord x, coord y)
 	return;
     getlost(n, &lost);
     lost.lost_owner = 0;
-    lost.lost_timestamp = 0;
     putlost(n, &lost);
 }
 

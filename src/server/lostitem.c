@@ -58,7 +58,6 @@ delete_lostitems(void *unused)
 	    if (lost.lost_timestamp > (now - lost_items_timeout))
 		continue;
 	    lost.lost_owner = 0;
-	    lost.lost_timestamp = 0;
 	    putlost(n, &lost);
 	    ncnt++;
 	}

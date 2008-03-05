@@ -131,11 +131,6 @@ pln_prewrite(int n, void *ptr)
 	    }
 	}
     }
-    pp->ef_type = EF_PLANE;
-    pp->pln_uid = n;
-
-    time(&pp->pln_timestamp);
-
     getplane(n, &plane);
 
     return 1;
