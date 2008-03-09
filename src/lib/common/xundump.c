@@ -352,6 +352,8 @@ deffld(int fldno, char *name, int idx)
     if (res < 0)
 	return gripe("Header %s of field %d is %s", name, fldno + 1,
 		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
+    if (ca[res].ca_flags == NSC_EXTRA)
+	return gripe("Extraneous header %s in field %d", name, fldno + 1);
     if (ca[res].ca_type != NSC_STRINGY && ca[res].ca_len != 0) {
 	if (idx < 0)
 	    return gripe("Header %s requires an index in field %d",
