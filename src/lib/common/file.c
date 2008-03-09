@@ -514,6 +514,49 @@ do_blank(struct empfile *ep, void *buf, int id, int count)
     }
 }
 
+/*
+ * Truncate table TYPE to COUNT elements.
+ * Any pointers obtained from ef_ptr() become invalid.
+ * Return non-zero on success, zero on failure.
+ */
+int
+ef_truncate(int type, int count)
+{
+    struct empfile *ep;
+
+    if (ef_check(type) < 0)
+	return 0;
+    ep = &empfile[type];
+    if (CANT_HAPPEN(count < 0 || count > ep->fids))
+	return 0;
+
+    if (ep->fd >= 0 && !(ep->flags & EFF_PRIVATE)) {
+	if (ftruncate(ep->fd, count * ep->size) < 0) {
+	    logerror("Can't truncate %s to %d elements (%s)",
+		     ep->file, count, strerror(errno));
+	    return 0;
+	}
+    }
+    ep->fids = count;
+
+    if (ep->flags & EFF_MEM) {
+	if (!(ep->flags & EFF_STATIC)) {
+	    if (!ef_realloc_cache(ep, count)) {
+		logerror("Can't shrink cache after truncate");
+		/* continue with unshrunk cache */
+	    }
+	}
+	ep->cids = count;
+    } else {
+	if (ep->baseid >= count)
+	    ep->cids = 0;
+	else if (ep->cids > count - ep->baseid)
+	    ep->cids = count - ep->baseid;
+    }
+
+    return 1;
+}
+
 struct castr *
 ef_cadef(int type)
 {

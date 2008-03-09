@@ -187,6 +187,7 @@ extern void ef_blank(int, int, void *);
 extern int ef_write(int, int, void *);
 extern int ef_extend(int, int);
 extern int ef_ensure_space(int, int, int);
+extern int ef_truncate(int, int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
 extern int ef_byname(char *);
