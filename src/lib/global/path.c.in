@@ -30,7 +30,7 @@
  *	       initialization tables
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2005
+ *     Markus Armbruster, 2005-2008
  */
 
 #include <config.h>

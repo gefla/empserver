@@ -30,7 +30,7 @@
 # 
 #  Known contributors to this file:
 #     Ken Stevens (when it was still info.pl)
-#     Markus Armbruster, 2006
+#     Markus Armbruster, 2006-2008
 #
 
 # Usage: findsubj.pl INFO-FILE...

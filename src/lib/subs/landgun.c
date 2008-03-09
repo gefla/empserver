@@ -28,7 +28,7 @@
  *  landgun.c: Return values for land and ship gun firing damages
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2008
  */
 
 #include <config.h>

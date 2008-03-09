@@ -31,7 +31,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1994-2000
- *     Markus Armbruster, 2004-2007
+ *     Markus Armbruster, 2004-2008
  */
 
 #include <config.h>

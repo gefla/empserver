@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2008
  */
 
 #ifndef PLANE_H

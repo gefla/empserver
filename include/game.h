@@ -28,7 +28,7 @@
  *  game.h: The game file
  * 
  *  Known contributors to this file:
- *       Markus Armbruster, 2007
+ *       Markus Armbruster, 2007-2008
  */
 
 #ifndef GAME_H

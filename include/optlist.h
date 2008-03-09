@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2008
  */
 
 #ifndef OPTLIST_H
