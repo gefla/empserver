@@ -432,6 +432,8 @@ struct castr nchr_ca[] = {
 struct castr treaty_ca[] = {
 #define CURSTR struct trtstr
     {"uid", fldoff(trt_uid), NSC_SHORT, 0, NULL, EF_TREATY, 0},
+    {"timestamp", fldoff(trt_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"cna", fldoff(trt_cna), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"cnb", fldoff(trt_cnb), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"status", fldoff(trt_status), NSC_CHAR, 0, NULL,
@@ -448,6 +450,8 @@ struct castr treaty_ca[] = {
 struct castr loan_ca[] = {
 #define CURSTR struct lonstr
     {"uid", fldoff(l_uid), NSC_SHORT, 0, NULL, EF_LOAN, 0},
+    {"timestamp", fldoff(l_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"loaner", fldoff(l_loner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"loanee", fldoff(l_lonee), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"status", fldoff(l_status), NSC_CHAR, 0, NULL,
@@ -465,6 +469,8 @@ struct castr loan_ca[] = {
 struct castr news_ca[] = {
 #define CURSTR struct nwsstr
     /* no need for uid as long as it's not referenced from other tables */
+    {"timestamp", fldoff(nws_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"actor", fldoff(nws_ano), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"action", fldoff(nws_vrb), NSC_UCHAR, 0, NULL, EF_NEWS_CHR, 0},
     {"victim", fldoff(nws_vno), NSC_NATID, 0, NULL, EF_NATION, 0},
@@ -491,6 +497,8 @@ struct castr lost_ca[] = {
 struct castr commodity_ca[] = {
 #define CURSTR struct comstr
     {"uid", fldoff(com_uid), NSC_SHORT, 0, NULL, EF_COMM, 0},
+    {"timestamp", fldoff(com_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"owner", fldoff(com_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"type", fldoff(com_type), NSC_SITYPE(i_type), 0, NULL, EF_ITEM, 0},
     {"amount", fldoff(com_amount), NSC_INT, 0, NULL, EF_BAD, 0},
@@ -510,6 +518,8 @@ struct castr commodity_ca[] = {
 struct castr trade_ca[] = {
 #define CURSTR struct trdstr
     {"uid", fldoff(trd_uid), NSC_SHORT, 0, NULL, EF_TRADE, 0},
+    {"timestamp", fldoff(trd_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"owner", fldoff(trd_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"type", fldoff(trd_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
     {"unitid", fldoff(trd_unitid), NSC_SHORT, 0, NULL, EF_BAD, 0},
@@ -530,12 +540,15 @@ struct castr cou_ca[] = {
      * nation.  The public view nat_ca[], which applies to all
      * nations, has the same selectors with different flags: NSC_DEITY
      * is set except for cnum (which must come first) and all
-     * NSC_EXTRA selectors, NSC_EXTRA is cleared.
+     * NSC_EXTRA selectors; NSC_EXTRA is cleared except for timestamp
+     * (which must come second).
      * nat_ca[] should also make tech, research, education and
      * happiness available, but we can't express the obfuscation
      * necessary for foreign levels.
      */
     {"cnum", fldoff(nat_cnum), NSC_NATID, 0, NULL, EF_NATION, 0},
+    {"timestamp", fldoff(nat_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"stat", fldoff(nat_stat), NSC_SITYPE(enum nat_status), 0, NULL,
      EF_NATION_STATUS, NSC_EXTRA},
     {"cname", fldoff(nat_cnam), NSC_STRINGY, 20, NULL, EF_BAD, NSC_EXTRA},
@@ -604,6 +617,8 @@ struct castr realm_ca[] = {
 struct castr game_ca[] = {
 #define CURSTR struct gamestr
     /* no need for uid */
+    {"timestamp", fldoff(game_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, NSC_EXTRA},
     {"upd_disable", fldoff(game_upd_disable), NSC_CHAR, 0, NULL,
      EF_BAD, 0},
     {"turn", fldoff(game_turn), NSC_SHORT, 0, NULL, EF_BAD, 0},
@@ -710,16 +725,18 @@ nsc_init(void)
     empfile[EF_VERSION].cadef = ca;
 
     /* derive nat_ca[] from cou_ca[] */
-    for (i = 0; cou_ca[i].ca_name; i++) {
+    nat_ca[0] = cou_ca[0];	/* cnum */
+    nat_ca[1] = cou_ca[1];	/* timestamp */
+    for (i = 2; cou_ca[i].ca_name; i++) {
 	nat_ca[i] = cou_ca[i];
 	flags = nat_ca[i].ca_flags;
 	if (flags & NSC_EXTRA)
 	    flags &= ~NSC_EXTRA;
-	else if (i != 0)
+	else
 	    flags |= NSC_DEITY;
 	nat_ca[i].ca_flags = flags;
     }
-    nat_ca[i] = cou_ca[i];
+    nat_ca[i] = cou_ca[i];	/* sentinel */
 }
 
 /*
