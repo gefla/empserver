@@ -56,9 +56,10 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
 	case ME_MISMATCH:
 	    break;
 	case ME_PARTIAL:
-	    if (res >= 0)
-		return M_NOTUNIQUE;
-	    res = i;
+	    if (res == M_NOTFOUND)
+		res = i;
+	    else
+		res = M_NOTUNIQUE;
 	    break;
 	case ME_EXACT:
 	    return i;
