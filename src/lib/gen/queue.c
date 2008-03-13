@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include <stddef.h>
 #include "queue.h"
 
 void
@@ -56,6 +57,19 @@ emp_remque(struct emp_qelem *elem)
 	elem->q_forw->q_back = elem->q_back;
     if (elem->q_back)
 	elem->q_back->q_forw = elem->q_forw;
+}
+
+struct emp_qelem *
+emp_searchque(struct emp_qelem *queue, void *key,
+	      int (*test)(struct emp_qelem *, void *))
+{
+    struct emp_qelem *qp;
+
+    for (qp = queue->q_forw; qp != queue; qp = qp->q_forw) {
+	if (test(qp, key))
+	    return qp;
+    }
+    return NULL;
 }
 
 void

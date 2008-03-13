@@ -43,6 +43,8 @@ struct emp_qelem {
 
 extern void emp_remque(struct emp_qelem *);
 extern void emp_initque(struct emp_qelem *);
+extern struct emp_qelem *emp_searchque(struct emp_qelem *, void *,
+				int (*)(struct emp_qelem *, void *));
 extern void emp_insque(struct emp_qelem *, struct emp_qelem *);
 
 #endif
