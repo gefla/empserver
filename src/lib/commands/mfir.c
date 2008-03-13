@@ -54,11 +54,9 @@ struct flist {
 static void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
 static int defend(struct emp_qelem *al,
 		  struct emp_qelem *dl,
-		  enum targ_type target,
+		  natid,
 		  enum targ_type attacker,
-		  struct sctstr *vsect,
 		  struct sctstr *fsect,
-		  struct shpstr *vship,
 		  struct shpstr *fship, int fx, int fy, int *nd);
 static void do_defdam(struct emp_qelem *, double);
 static int quiet_bigdef(int, struct emp_qelem *, natid, natid, coord,
@@ -557,8 +555,8 @@ multifire(void)
 	    getsect(fland.lnd_x, fland.lnd_y, &fsect);
 	}
 	totaldefdam =
-	    defend(&fired, &defended, target, attacker, &vsect, &fsect,
-		   &vship, &fship, fx, fy, &ndefending);
+	    defend(&fired, &defended, vict, attacker,
+		   &fsect, &fship, fx, fy, &ndefending);
 	switch (target) {
 	case targ_land:
 	    putsect(&vsect);
@@ -595,13 +593,13 @@ multifire(void)
 }
 
 static int
-defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
-       enum targ_type attacker, struct sctstr *vsect, struct sctstr *fsect,
-       struct shpstr *vship, struct shpstr *fship, int fx, int fy, int *nd)
+defend(struct emp_qelem *al, struct emp_qelem *dl, natid vict,
+       enum targ_type attacker, struct sctstr *fsect,
+       struct shpstr *fship, int fx, int fy, int *nd)
 {
 
     int dam;
-    int vict, nfiring = 0;
+    int nfiring = 0;
     struct flist *fp;
     int aown;
 
@@ -609,11 +607,6 @@ defend(struct emp_qelem *al, struct emp_qelem *dl, enum targ_type target,
 	aown = fsect->sct_own;
     else
 	aown = fship->shp_own;
-
-    if (target == targ_land)
-	vict = vsect->sct_own;
-    else
-	vict = vship->shp_own;
 
     if (0 !=
 	(dam = quiet_bigdef(attacker, dl, vict, aown, fx, fy, &nfiring))) {
