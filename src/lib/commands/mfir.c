@@ -75,7 +75,6 @@ multifire(void)
     int shots;
     int dam;
     int totaldefdam = 0;
-    int fshipno;
     int vshipno;
     double prb;
     natid vict;
@@ -194,7 +193,6 @@ multifire(void)
 		pr("Ship #%d is crippled!\n", item.ship.shp_uid);
 		continue;
 	    }
-	    fshipno = fship.shp_uid;
 	} else if (attacker == targ_land) {
 	    if (!getsect(item.sect.sct_x, item.sect.sct_y, &fsect))
 		continue;
@@ -297,7 +295,7 @@ multifire(void)
 	    }
 	    if (fship.shp_effic < 60) {
 		pr("Ship #%d is crippled (%d%%)\n",
-		   fshipno, fship.shp_effic);
+		   fship.shp_uid, fship.shp_effic);
 		continue;
 	    }
 	    range = shp_fire_range(&fship);
