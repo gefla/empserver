@@ -187,7 +187,7 @@ set_paths(char *econfig)
 #endif /* !_WIN32 */
 
     *slash = 0;
-    configdir = realloc(p, slash + 1 - configdir);
+    configdir = realloc(p, slash + 1 - p);
 
     infodir = fnameat(infodir_conf, configdir);
     gamedir = fnameat(gamedir_conf, configdir);
