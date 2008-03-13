@@ -695,7 +695,6 @@ static int
 quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	     coord ax, coord ay, int *nfiring)
 {
-    int range;
     double erange;
     struct shpstr ship;
     struct lndstr land;
@@ -726,8 +725,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    continue;
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
 	    erange = torprange(&ship);
-	    range = mapdist(ship.shp_x, ship.shp_y, ax, ay);
-	    if (range > roundrange(erange))
+	    if (roundrange(erange) < ni.curdist)
 		continue;
 	    if (!line_of_sight(NULL, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
@@ -735,15 +733,8 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    /* no putship(&ship) because ammo is charged in use_ammo() */
 	    if (dam2 < 0)
 		continue;
-	    (*nfiring)++;
-	    fp = malloc(sizeof(struct flist));
-	    memset(fp, 0, sizeof(struct flist));
-	    fp->type = targ_ship;
-	    fp->uid = ship.shp_uid;
-	    add_to_fired_queue(&fp->queue, list);
-	    if (!chance(shp_torp_hitchance(&ship, range)))
-		continue;
-	    dam += dam2;
+	    if (!chance(shp_torp_hitchance(&ship, ni.curdist)))
+		dam2 = 0;
 	} else {
 	    erange = shp_fire_range(&ship);
 	    if (roundrange(erange) < ni.curdist)
@@ -752,15 +743,15 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    /* no putship(&ship) because ammo is charged in use_ammo() */
 	    if (dam2 < 0)
 		continue;
-	    (*nfiring)++;
-	    fp = malloc(sizeof(struct flist));
-	    memset(fp, 0, sizeof(struct flist));
-	    fp->type = targ_ship;
-	    fp->uid = ship.shp_uid;
-	    add_to_fired_queue(&fp->queue, list);
 	    nreport(ship.shp_own, N_FIRE_BACK, player->cnum, 1);
-	    dam += dam2;
 	}
+	(*nfiring)++;
+	fp = malloc(sizeof(struct flist));
+	memset(fp, 0, sizeof(struct flist));
+	fp->type = targ_ship;
+	fp->uid = ship.shp_uid;
+	add_to_fired_queue(&fp->queue, list);
+	dam += dam2;
     }
     snxtitem_dist(&ni, EF_LAND, ax, ay, 8);
     while (nxtitem(&ni, &land)) {
