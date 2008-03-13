@@ -902,11 +902,12 @@ add_to_fired_queue(struct emp_qelem *elem, struct emp_qelem *list)
     /* Don't put them on the list if they're already there */
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	fp = (struct flist *)qp;
-	if (fp->type != targ_land && fp->uid == ep->uid)
+	if (fp->type == targ_land
+	    ? fp->x == ep->x && fp->y == ep->y
+	    : fp->uid == ep->uid) {
+	    free(ep);
 	    return;
-	if (fp->type != targ_land
-	    && fp->x == ep->x && fp->y == ep->y)
-	    return;
+	}
     }
     emp_insque(elem, list);
 }
