@@ -141,6 +141,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	logerror("telegram 'open' of %s (#%d) failed", box, to);
 	return -1;
     }
+    memset(&tel, 0, sizeof(tel));
     tel.tel_from = from;
     (void)time(&tel.tel_date);
     len = strlen(message);
