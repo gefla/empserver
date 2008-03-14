@@ -44,11 +44,11 @@ enum targ_type {
 
 struct flist {
     struct emp_qelem queue;	/* list of fired things */
-    int type;			/* ship? otherwise sector */
-    int uid;			/* ship uid */
+    short type;			/* EF_SECTOR, EF_SHIP or EF_LAND */
+    short uid;			/* ship or land unit uid */
     coord x, y;			/* sector coords */
     int defdam;			/* damage defenders did */
-    int victim;			/* who I was shooting at */
+    natid victim;
 };
 
 static void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
@@ -605,17 +605,10 @@ defend(struct emp_qelem *al, struct emp_qelem *dl,
 	memset(fp, 0, sizeof(struct flist));
 	fp->defdam = dam;
 	fp->victim = vict;
-	switch (attgp->ef_type) {
-	case EF_SECTOR:
-	    fp->x = attgp->x;
-	    fp->y = attgp->y;
-	    fp->type = targ_land;
-	    break;
-	default:
-	    fp->type = targ_ship;
-	    fp->uid = attgp->uid;
-	    break;
-	}
+	fp->type = attgp->ef_type;
+	fp->uid = attgp->uid;
+	fp->x = attgp->x;
+	fp->y = attgp->y;
 	emp_insque(&fp->queue, al);
     }
 
@@ -626,7 +619,8 @@ static void
 do_defdam(struct emp_qelem *list, double odds)
 {
 
-    int dam, vict, first = 1;
+    int dam, first = 1;
+    natid vict;
     struct flist *fp;
     struct shpstr ship;
     struct sctstr sect;
@@ -635,7 +629,7 @@ do_defdam(struct emp_qelem *list, double odds)
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	fp = (struct flist *)qp;
-	if (fp->type == targ_ship) {
+	if (fp->type == EF_SHIP) {
 	    if (!getship(fp->uid, &ship) || !ship.shp_own)
 		continue;
 	}
@@ -646,7 +640,7 @@ do_defdam(struct emp_qelem *list, double odds)
 	}
 	dam = odds * fp->defdam;
 
-	if (fp->type == targ_ship) {
+	if (fp->type == EF_SHIP) {
 	    vict = fp->victim;
 	    pr("Return fire hit %s in %s for %d damage.\n",
 	       prship(&ship),
@@ -658,6 +652,7 @@ do_defdam(struct emp_qelem *list, double odds)
 	    shipdamage(&ship, dam);
 	    putship(ship.shp_uid, &ship);
 	} else {
+	    CANT_HAPPEN(fp->type != EF_SECTOR);
 	    getsect(fp->x, fp->y, &sect);
 	    vict = fp->victim;
 	    pr("Return fire hit sector %s for %d damage.\n",
@@ -729,7 +724,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	(*nfiring)++;
 	fp = malloc(sizeof(struct flist));
 	memset(fp, 0, sizeof(struct flist));
-	fp->type = targ_ship;
+	fp->type = EF_SHIP;
 	fp->uid = ship.shp_uid;
 	add_to_fired_queue(&fp->queue, list);
 	dam += dam2;
@@ -760,7 +755,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	(*nfiring)++;
 	fp = malloc(sizeof(struct flist));
 	memset(fp, 0, sizeof(struct flist));
-	fp->type = targ_unit;
+	fp->type = EF_LAND;
 	fp->uid = land.lnd_uid;
 	add_to_fired_queue(&fp->queue, list);
 	nreport(land.lnd_own, N_FIRE_BACK, player->cnum, 1);
@@ -801,7 +796,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	    memset(fp, 0, sizeof(struct flist));
 	    fp->x = firing.sct_x;
 	    fp->y = firing.sct_y;
-	    fp->type = targ_land;
+	    fp->type = EF_SECTOR;
 	    add_to_fired_queue(&fp->queue, list);
 	    nreport(firing.sct_own, N_FIRE_BACK, player->cnum, 1);
 	    dam += dam2;
@@ -826,7 +821,7 @@ use_ammo(struct emp_qelem *list)
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	fp = (struct flist *)qp;
-	if (fp->type == targ_ship) {
+	if (fp->type == EF_SHIP) {
 	    getship(fp->uid, &ship);
 	    item = ship.shp_item;
 	    if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
@@ -839,7 +834,7 @@ use_ammo(struct emp_qelem *list)
 		/* mob cost = 1/2 a sect's mob */
 		ship.shp_mobil -= shp_mobcost(&ship) / 2.0;
 	    }
-	} else if (fp->type == targ_land) {
+	} else if (fp->type == EF_SECTOR) {
 	    getsect(fp->x, fp->y, &sect);
 	    item = sect.sct_item;
 	} else {
@@ -851,9 +846,9 @@ use_ammo(struct emp_qelem *list)
 	if (shell < 0)
 	    shell = 0;
 	item[I_SHELL] = shell;
-	if (fp->type == targ_ship)
+	if (fp->type == EF_SHIP)
 	    putship(ship.shp_uid, &ship);
-	else if (fp->type == targ_land)
+	else if (fp->type == EF_SECTOR)
 	    putsect(&sect);
 	else
 	    putland(land.lnd_uid, &land);
@@ -874,7 +869,7 @@ add_to_fired_queue(struct emp_qelem *elem, struct emp_qelem *list)
     /* Don't put them on the list if they're already there */
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	fp = (struct flist *)qp;
-	if (fp->type == targ_land
+	if (fp->type == EF_SECTOR
 	    ? fp->x == ep->x && fp->y == ep->y
 	    : fp->uid == ep->uid) {
 	    free(ep);
