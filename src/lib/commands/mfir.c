@@ -45,19 +45,20 @@ enum targ_type {
 struct flist {
     struct emp_qelem queue;	/* list of fired things */
     short type;			/* EF_SECTOR, EF_SHIP or EF_LAND */
-    short uid;			/* ship or land unit uid */
-    coord x, y;			/* sector coords */
+    short uid;
+    coord x, y;
     int defdam;			/* damage defenders did */
     natid victim;
 };
 
-static void add_to_fired_queue(struct emp_qelem *, struct emp_qelem *);
 static int defend(struct emp_qelem *, struct emp_qelem *,
 		  struct empobj *, natid, int *);
 static void do_defdam(struct emp_qelem *, double);
 static int quiet_bigdef(int, struct emp_qelem *, natid, natid, coord,
 			coord, int *);
-static void use_ammo(struct emp_qelem *);
+static void add_to_flist(struct emp_qelem *, struct empobj *, int, natid);
+static void free_flist(struct emp_qelem *);
+static struct flist *search_flist(struct emp_qelem *, struct empobj *);
 
 int
 multifire(void)
@@ -578,7 +579,7 @@ multifire(void)
 	}
     }
 
-    use_ammo(&defended);
+    free_flist(&defended);
     if (nfiring)
 	odds = ((double)ndefending) / ((double)nfiring);
     else
@@ -591,25 +592,15 @@ static int
 defend(struct emp_qelem *al, struct emp_qelem *dl,
        struct empobj *attgp, natid vict, int *nd)
 {
-
     int dam;
     int nfiring = 0;
-    struct flist *fp;
 
     dam = quiet_bigdef(attgp->ef_type, dl, vict,
 		       attgp->own, attgp->x, attgp->y, &nfiring);
     if (dam) {
 	if (nfiring > *nd)
 	    *nd = nfiring;
-	fp = malloc(sizeof(struct flist));
-	memset(fp, 0, sizeof(struct flist));
-	fp->defdam = dam;
-	fp->victim = vict;
-	fp->type = attgp->ef_type;
-	fp->uid = attgp->uid;
-	fp->x = attgp->x;
-	fp->y = attgp->y;
-	emp_insque(&fp->queue, al);
+	add_to_flist(al, attgp, dam, vict);
     }
 
     return dam;
@@ -705,8 +696,13 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 		continue;
 	    if (!line_of_sight(NULL, ship.shp_x, ship.shp_y, ax, ay))
 		continue;
-	    dam2 = shp_torp(&ship, 0);
-	    /* no putship(&ship) because ammo is charged in use_ammo() */
+	    fp = search_flist(list, (struct empobj *)&ship);
+	    if (fp)
+		dam2 = fp->defdam;
+	    else {
+		dam2 = shp_torp(&ship, 0);
+		putship(ship.shp_uid, &ship);
+	    }
 	    if (dam2 < 0)
 		continue;
 	    if (!chance(shp_torp_hitchance(&ship, ni.curdist)))
@@ -715,18 +711,20 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	    erange = shp_fire_range(&ship);
 	    if (roundrange(erange) < ni.curdist)
 		continue;
-	    dam2 = shp_fire(&ship);
-	    /* no putship(&ship) because ammo is charged in use_ammo() */
+	    fp = search_flist(list, (struct empobj *)&ship);
+	    if (fp)
+		dam2 = fp->defdam;
+	    else {
+		dam2 = shp_fire(&ship);
+		putship(ship.shp_uid, &ship);
+	    }
 	    if (dam2 < 0)
 		continue;
 	    nreport(ship.shp_own, N_FIRE_BACK, player->cnum, 1);
 	}
 	(*nfiring)++;
-	fp = malloc(sizeof(struct flist));
-	memset(fp, 0, sizeof(struct flist));
-	fp->type = EF_SHIP;
-	fp->uid = ship.shp_uid;
-	add_to_fired_queue(&fp->queue, list);
+	if (!fp)
+	    add_to_flist(list, (struct empobj *)&ship, dam2, 0);
 	dam += dam2;
     }
     snxtitem_dist(&ni, EF_LAND, ax, ay, 8);
@@ -747,17 +745,19 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	if (roundrange(erange) < ni.curdist)
 	    continue;
 
-	dam2 = lnd_fire(&land);
-	/* no putland(&land) because ammo is charged in use_ammo() */
+	fp = search_flist(list, (struct empobj *)&land);
+	if (fp)
+	    dam2 = fp->defdam;
+	else {
+	    dam2 = lnd_fire(&land);
+	    putland(land.lnd_uid, &land);
+	}
 	if (dam2 < 0)
 	    continue;
 
 	(*nfiring)++;
-	fp = malloc(sizeof(struct flist));
-	memset(fp, 0, sizeof(struct flist));
-	fp->type = EF_LAND;
-	fp->uid = land.lnd_uid;
-	add_to_fired_queue(&fp->queue, list);
+	if (!fp)
+	    add_to_flist(list, (struct empobj *)&land, dam2, 0);
 	nreport(land.lnd_own, N_FIRE_BACK, player->cnum, 1);
 	dam += dam2;
     }
@@ -787,17 +787,18 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	    if (roundrange(erange) < ns.curdist)
 		continue;
 
-	    dam2 = fort_fire(&firing);
-	    /* no putsect(&firing) because ammo is charged in use_ammo() */
+	    fp = search_flist(list, (struct empobj *)&firing);
+	    if (fp)
+		dam2 = fp->defdam;
+	    else {
+		dam2 = fort_fire(&firing);
+		putsect(&firing);
+	    }
 	    if (dam2 < 0)
 		continue;
 	    (*nfiring)++;
-	    fp = malloc(sizeof(struct flist));
-	    memset(fp, 0, sizeof(struct flist));
-	    fp->x = firing.sct_x;
-	    fp->y = firing.sct_y;
-	    fp->type = EF_SECTOR;
-	    add_to_fired_queue(&fp->queue, list);
+	    if (!fp)
+		add_to_flist(list, (struct empobj *)&firing, dam2, 0);
 	    nreport(firing.sct_own, N_FIRE_BACK, player->cnum, 1);
 	    dam += dam2;
 	}
@@ -807,74 +808,43 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 }
 
 static void
-use_ammo(struct emp_qelem *list)
+add_to_flist(struct emp_qelem *list,
+	     struct empobj *gp, int dam, natid victim)
 {
-    struct emp_qelem *qp, *next;
     struct flist *fp;
-    struct shpstr ship;
-    struct lndstr land;
-    struct sctstr sect;
-    int shell;
-    short *item;
 
-    /* use 1 shell from everyone */
-    for (qp = list->q_forw; qp != list; qp = next) {
-	next = qp->q_forw;
-	fp = (struct flist *)qp;
-	if (fp->type == EF_SHIP) {
-	    getship(fp->uid, &ship);
-	    item = ship.shp_item;
-	    if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
-		shell = item[I_SHELL];
-		shell -= SHP_TORP_SHELLS - 1;
-		if (shell < 0)
-		    shell = 0;
-		item[I_SHELL] = shell;
-		putship(ship.shp_uid, &ship);
-		/* mob cost = 1/2 a sect's mob */
-		ship.shp_mobil -= shp_mobcost(&ship) / 2.0;
-	    }
-	} else if (fp->type == EF_SECTOR) {
-	    getsect(fp->x, fp->y, &sect);
-	    item = sect.sct_item;
-	} else {
-	    getland(fp->uid, &land);
-	    item = land.lnd_item;
-	}
-	shell = item[I_SHELL];
-	shell--;
-	if (shell < 0)
-	    shell = 0;
-	item[I_SHELL] = shell;
-	if (fp->type == EF_SHIP)
-	    putship(ship.shp_uid, &ship);
-	else if (fp->type == EF_SECTOR)
-	    putsect(&sect);
-	else
-	    putland(land.lnd_uid, &land);
-
-	emp_remque(&fp->queue);
-	free(fp);
-    }
-
+    fp = malloc(sizeof(struct flist));
+    fp->type = gp->ef_type;
+    fp->uid = gp->uid;
+    fp->x = gp->x;
+    fp->y = gp->y;
+    fp->defdam = dam;
+    fp->victim = victim;
+    emp_insque(&fp->queue, list);
 }
 
 static void
-add_to_fired_queue(struct emp_qelem *elem, struct emp_qelem *list)
+free_flist(struct emp_qelem *list)
 {
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     struct flist *fp;
-    struct flist *ep = (struct flist *)elem;
 
-    /* Don't put them on the list if they're already there */
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	fp = (struct flist *)qp;
-	if (fp->type == EF_SECTOR
-	    ? fp->x == ep->x && fp->y == ep->y
-	    : fp->uid == ep->uid) {
-	    free(ep);
-	    return;
-	}
+	emp_remque(&fp->queue);
+	free(fp);
     }
-    emp_insque(elem, list);
+}
+
+static int
+uid_eq(struct emp_qelem *elem, void *key)
+{
+    return ((struct flist *)elem)->uid == ((struct empobj *)key)->uid;
+}
+
+static struct flist *
+search_flist(struct emp_qelem *list, struct empobj *gp)
+{
+    return (struct flist *)emp_searchque(list, gp, uid_eq);
 }
