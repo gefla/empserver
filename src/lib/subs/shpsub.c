@@ -587,8 +587,6 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     struct nstr_sect ns;
     struct sctstr fsect;
     int trange, range;
-    double guneff;
-    int shell, gun;
     int dam;
     int totdam = 0;
     signed char notified[MAXNOC];
@@ -625,28 +623,14 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     while (nxtsct(&ns, &fsect)) {
 	if (!notified[fsect.sct_own])
 	    continue;
-	gun = fsect.sct_item[I_GUN];
-	if (gun < 1)
-	    continue;
 	range = roundrange(fortrange(&fsect));
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
 	if (trange > range)
 	    continue;
-	if (fsect.sct_item[I_MILIT] < 5)
-	    continue;
-	shell = fsect.sct_item[I_SHELL];
-	if (shell < 1)
-	    shell += supply_commod(fsect.sct_own, fsect.sct_x, fsect.sct_y,
-				   I_SHELL, 1);
-	if (shell < 1)
-	    continue;
-	shell--;
-	fsect.sct_item[I_SHELL] = shell;
+	dam = fort_fire(&fsect);
 	putsect(&fsect);
-	if (gun > 7)
-	    gun = 7;
-	guneff = landgun((int)fsect.sct_effic, gun);
-	dam = (int)guneff;
+	if (dam < 0)
+	    continue;
 	totdam += dam;
 	mpr(victim, "Incoming fire does %d damage!\n", dam);
 /*

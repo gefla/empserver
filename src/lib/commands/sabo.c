@@ -83,7 +83,7 @@ sabo(void)
 	    continue;
 	}
 
-	dam = landgun(3 * land.lnd_effic, 7);
+	dam = fortgun(3 * land.lnd_effic, 7);
 	if (sect.sct_item[I_SHELL] > 20)
 	    dam += seagun(land.lnd_effic,
 			  random() % (sect.sct_item[I_SHELL] / 10));

@@ -181,9 +181,7 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
 {
     int damage;
     natid own;
-    int shell;
-    int range;
-    int range2, gun;
+    int range, range2;
 
     own = sp->sct_own;
     if (own == 0)
@@ -194,18 +192,10 @@ sb(natid att, natid def, struct sctstr *sp, coord tx, coord ty, int noisy,
     range2 = mapdist(sp->sct_x, sp->sct_y, tx, ty);
     if (range < range2)
 	return 0;
-    gun = sp->sct_item[I_GUN];
-    if (gun == 0)
-	return 0;
-    shell = sp->sct_item[I_SHELL];
-    if (shell <= 0)
-	shell += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y,
-			       I_SHELL, 1);
-    if (shell <= 0)
-	return 0;
-    sp->sct_item[I_SHELL] = shell - 1;
+    damage = fort_fire(sp);
     putsect(sp);
-    damage = landgun((int)sp->sct_effic, gun);
+    if (damage < 0)
+	return 0;
     if (sp->sct_own != def)
 	wu(0, sp->sct_own,
 	   "%s fired on %s in %s in defense of %s, doing %d damage!\n",

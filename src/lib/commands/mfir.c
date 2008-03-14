@@ -419,25 +419,20 @@ multifire(void)
 		}
 	    }
 	    attacker = targ_land;
-	    if ((gun = fsect.sct_item[I_GUN]) == 0) {
+	    if (fsect.sct_item[I_GUN] == 0) {
 		pr("Insufficient arms.\n");
-		continue;
-	    }
-	    shell = fsect.sct_item[I_SHELL];
-	    if (shell <= 0)
-		shell += supply_commod(fsect.sct_own,
-				       fsect.sct_x, fsect.sct_y,
-				       I_SHELL, 1);
-	    if (shell <= 0) {
-		pr("Klick!     ...\n");
 		continue;
 	    }
 	    if (fsect.sct_item[I_MILIT] < 5) {
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }
-	    if (gun > 7)
-		gun = 7;
+	    dam = fort_fire(&fsect);
+	    putsect(&fsect);
+	    if (dam < 0) {
+		pr("Klick!     ...\n");
+		continue;
+	    }
 	    range = fortrange(&fsect);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
@@ -445,11 +440,6 @@ multifire(void)
 		/* Don't tell it's a sub */
 		range2 = -1;
 	    }
-	    guneff = landgun((int)fsect.sct_effic, gun);
-	    dam = (int)guneff;
-	    shell--;
-	    fsect.sct_item[I_SHELL] = shell;
-	    putsect(&fsect);
 	}
 	trange = mapdist(x, y, fx, fy);
 	if (trange > range2) {
@@ -904,14 +894,9 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    if (roundrange(erange) < ns.curdist)
 		continue;
 
-	    gun = firing.sct_item[I_GUN];
-	    shell = firing.sct_item[I_SHELL];
-
-	    if (shell < 1)
-		shell += supply_commod(firing.sct_own,
-				       firing.sct_x, firing.sct_y,
-				       I_SHELL, 1);
-	    if (gun == 0 || firing.sct_item[I_MILIT] < 5 || shell == 0)
+	    dam2 = fort_fire(&firing);
+	    /* no putsect(&firing) because ammo is charged in use_ammo() */
+	    if (dam2 < 0)
 		continue;
 	    (*nfiring)++;
 	    fp = malloc(sizeof(struct flist));
@@ -921,9 +906,7 @@ quiet_bigdef(int attacker, struct emp_qelem *list, natid own, natid aown,
 	    fp->type = targ_land;
 	    add_to_fired_queue(&fp->queue, list);
 	    nreport(firing.sct_own, N_FIRE_BACK, player->cnum, 1);
-	    if (gun > 7)
-		gun = 7;
-	    dam += landgun((int)firing.sct_effic, gun);
+	    dam += dam2;
 	}
     }
 

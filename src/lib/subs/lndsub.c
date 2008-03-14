@@ -846,28 +846,14 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	    continue;
 	if (getrel(getnatp(fsect.sct_own), victim) >= NEUTRAL)
 	    continue;
-	gun = fsect.sct_item[I_GUN];
-	if (gun < 1)
-	    continue;
 	range = roundrange(fortrange(&fsect));
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
 	if (trange > range)
 	    continue;
-	if (fsect.sct_item[I_MILIT] < 5)
-	    continue;
-	shell = fsect.sct_item[I_SHELL];
-	if (shell < 1)
-	    shell += supply_commod(fsect.sct_own, fsect.sct_x, fsect.sct_y,
-				   I_SHELL, 1);
-	if (shell < 1)
-	    continue;
-	shell--;
-	fsect.sct_item[I_SHELL] = shell;
+	dam = fort_fire(&fsect);
 	putsect(&fsect);
-	if (gun > 7)
-	    gun = 7;
-	guneff = landgun((int)fsect.sct_effic, gun);
-	dam = (int)guneff;
+	if (dam < 0)
+	    continue;
 	totdam += dam;
 	mpr(victim, "Incoming fire does %d damage!\n", dam);
 	wu(0, fsect.sct_own,

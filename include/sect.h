@@ -214,4 +214,6 @@ struct sctintrins {
 
 extern struct sctintrins intrchr[INT_DEF + 2];
 
+extern int fort_fire(struct sctstr *);
+
 #endif

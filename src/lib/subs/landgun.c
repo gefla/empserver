@@ -41,7 +41,7 @@
 #include "ship.h"
 
 double
-landgun(int effic, int guns)
+fortgun(int effic, int guns)
 {
     double d;
     double g = MIN(guns, 7);
@@ -75,6 +75,30 @@ landunitgun(int effic, int shots, int guns, int ammo, int shells)
     if (shells < ammo && ammo != 0)
 	d *= (double)shells / (double)ammo;
     return d;
+}
+
+/*
+ * Fire from fortress SP.
+ * Use ammo, resupply if necessary.
+ * Return damage if the fortress fires, else -1.
+ */
+int
+fort_fire(struct sctstr *sp)
+{
+    int guns = sp->sct_item[I_GUN];
+    int shells;
+
+    if (sp->sct_type != SCT_FORTR || sp->sct_effic < FORTEFF)
+	return -1;
+    if (sp->sct_item[I_MILIT] < 5 || guns == 0)
+	return -1;
+    shells = sp->sct_item[I_SHELL];
+    shells += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y,
+			    I_SHELL, 1 - shells);
+    if (shells == 0)
+	return -1;
+    sp->sct_item[I_SHELL] = shells - 1;
+    return (int)fortgun(sp->sct_effic, guns);
 }
 
 /*
