@@ -82,9 +82,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	    if (vec[I_FOOD] < needed && sp->sct_own == sp->sct_oldown) {
 		/* steal food from warehouses, headquarters,
 		   supply ships in port, or supply units */
-		vec[I_FOOD] = supply_commod(sp->sct_own,
-					    sp->sct_x, sp->sct_y,
-					    I_FOOD, needed);
+		vec[I_FOOD] += supply_commod(sp->sct_own,
+					     sp->sct_x, sp->sct_y,
+					     I_FOOD, needed - vec[I_FOOD]);
 	    }
 	}
 	starved = feed_people(vec, etu);
