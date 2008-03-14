@@ -334,7 +334,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     if (freeship == 0) {
 	ef_extend(EF_SHIP, 50);
     }
-    memset(&ship, 0, sizeof(struct shpstr));
+    ef_blank(EF_SHIP, nstr.cur, &ship);
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
     ship.shp_destx[0] = sp->sct_x;
@@ -359,7 +359,6 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     } else {
 	ship.shp_mobil = 0;
     }
-    ship.shp_uid = nstr.cur;
     ship.shp_nplane = 0;
     ship.shp_nland = 0;
     ship.shp_nxlight = 0;
@@ -471,7 +470,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     if (freeland == 0) {
 	ef_extend(EF_LAND, 50);
     }
-    memset(&land, 0, sizeof(struct lndstr));
+    ef_blank(EF_LAND, nstr.cur, &land);
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
     land.lnd_own = player->cnum;
@@ -484,7 +483,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     } else {
 	land.lnd_mobil = 0;
     }
-    land.lnd_uid = nstr.cur;
     land.lnd_army = 0;
     land.lnd_flags = 0;
     land.lnd_ship = -1;
@@ -682,7 +680,7 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     if (freenuke == 0) {
 	ef_extend(EF_NUKE, 50);
     }
-    memset(&nuke, 0, sizeof(struct nukstr));
+    ef_blank(EF_NUKE, nstr.cur, &nuke);
     nuke.nuk_x = sp->sct_x;
     nuke.nuk_y = sp->sct_y;
     nuke.nuk_own = sp->sct_own;
@@ -690,7 +688,6 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     nuke.nuk_effic = 100;
     nuke.nuk_stockpile = 0;
     nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
-    nuke.nuk_uid = nstr.cur;
     nuke.nuk_tech = tlev;
 
     vec[I_HCM] -= np->n_hcm;
@@ -769,7 +766,7 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     if (freeplane == 0) {
 	ef_extend(EF_PLANE, 50);
     }
-    memset(&plane, 0, sizeof(struct plnstr));
+    ef_blank(EF_PLANE, nstr.cur, &plane);
     plane.pln_x = sp->sct_x;
     plane.pln_y = sp->sct_y;
     plane.pln_own = sp->sct_own;
@@ -790,7 +787,6 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     plane.pln_wing = 0;
     plane.pln_ship = -1;
     plane.pln_land = -1;
-    plane.pln_uid = nstr.cur;
     plane.pln_nuketype = -1;
     plane.pln_harden = 0;
     plane.pln_flags = 0;
