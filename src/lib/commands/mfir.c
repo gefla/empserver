@@ -73,7 +73,6 @@ multifire(void)
     coord x;
     coord y;
     int mil;
-    int shots;
     int dam;
     int totaldefdam = 0;
     int vshipno;
@@ -111,7 +110,6 @@ multifire(void)
 	    return RET_FAIL;
 	}
 	orig_attacker = attacker = targ_land;
-	shots = 1;
     } else if (type == EF_SHIP) {
 	orig_attacker = attacker = targ_ship;
     } else if (type == EF_LAND) {
@@ -496,7 +494,7 @@ multifire(void)
 	    prb = range2 ? (double)trange / range2 : 1.0;
 	    prb *= prb;
 	    if (chance(prb)) {
-		pr("Wind deflects shell%s.\n", splur(shots));
+		pr("Wind deflects shells.\n");
 /*			dam = (int)(dam / 2.0);*/
 		dam *= (90 - (random() % 11)) / 100.0;
 		if (dam < 0)
@@ -512,8 +510,8 @@ multifire(void)
 		wu(0, vict,
 		   "Country #%d shelled sector %s for %d damage.\n",
 		   player->cnum, xyas(x, y, vict), dam);
-	    pr("Shell%s hit sector %s for %d damage.\n",
-	       splur(shots), xyas(x, y, player->cnum), dam);
+	    pr("Shells hit sector %s for %d damage.\n",
+	       xyas(x, y, player->cnum), dam);
 	    /* Ok, it wasn't a bogus target, so do damage. */
 	    if (target != targ_bogus)
 		sectdamage(&vsect, dam, 0);
@@ -533,8 +531,8 @@ multifire(void)
 		   player->cnum, prship(&vship),
 		   xyas(vship.shp_x, vship.shp_y, vict), dam);
 	    }
-	    pr("Shell%s hit %s in %s for %d damage.\n",
-	       splur(shots), prsub(&vship),
+	    pr("Shells hit %s in %s for %d damage.\n",
+	       prsub(&vship),
 	       xyas(vship.shp_x, vship.shp_y, player->cnum), dam);
 
 	    if (vship.shp_effic < SHIP_MINEFF)
