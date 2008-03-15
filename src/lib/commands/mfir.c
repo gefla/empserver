@@ -39,7 +39,7 @@
 #include "retreat.h"
 
 enum targ_type {
-    targ_land, targ_ship, targ_sub, targ_unit, targ_bogus
+    targ_land, targ_ship, targ_sub, targ_bogus
 };
 
 struct flist {
@@ -422,7 +422,6 @@ multifire(void)
 	    if (!trechk(player->cnum, vict, SUBFIR))
 		continue;
 	    break;
-	case targ_unit:
 	case targ_land:
 	    if (!trechk(player->cnum, vict, LANFIR))
 		continue;
@@ -474,7 +473,6 @@ multifire(void)
 		   player->cnum, xyas(x, y, vict), dam);
 	    pr("Shells hit sector %s for %d damage.\n",
 	       xyas(x, y, player->cnum), dam);
-	    /* Ok, it wasn't a bogus target, so do damage. */
 	    if (target != targ_bogus)
 		sectdamage(&vsect, dam, 0);
 	    break;
