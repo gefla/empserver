@@ -64,7 +64,6 @@ int
 multifire(void)
 {
     static int ef_with_guns[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
-    char vbuf[20];
     char *ptr;
     double range;
     int trange, range2;
@@ -221,14 +220,8 @@ multifire(void)
 	    pr("Fire aborted.\n");
 	    continue;
 	}
-	ptr[19] = 0;
-	(void)strcpy(vbuf, ptr);
-	if (issector(vbuf))
-	    target = targ_land;
-	else
-	    target = targ_ship;
-	if (target == targ_ship) {
-	    vshipno = atoi(vbuf);
+	if (!issector(ptr)) {
+	    vshipno = atoi(ptr);
 	    if (vshipno < 0 || !getship(vshipno, &vship) ||
 		(!vship.shp_own)) {
 		pr("No such ship exists!\n");
@@ -244,7 +237,7 @@ multifire(void)
 		continue;
 	    }
 	} else {
-	    if (!sarg_xy(vbuf, &x, &y) || !getsect(x, y, &vsect)) {
+	    if (!sarg_xy(ptr, &x, &y) || !getsect(x, y, &vsect)) {
 		pr("No such sector exists!\n");
 		continue;
 	    }
