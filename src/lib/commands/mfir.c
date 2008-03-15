@@ -83,7 +83,7 @@ multifire(void)
     struct sctstr fsect;
     struct shpstr vship;
     struct sctstr vsect;
-    enum targ_type target, attacker, orig_attacker;
+    enum targ_type target;
     int rel;
     struct natstr *natp;
     struct nstr_item nbst;
@@ -104,17 +104,11 @@ multifire(void)
 		       buf)))
 	return RET_SYN;
     type = ef_byname_from(p, ef_with_guns);
-    if (type == EF_SECTOR) {
-	if (opt_NO_FORT_FIRE) {
-	    pr("Fort firing is disabled.\n");
-	    return RET_FAIL;
-	}
-	orig_attacker = attacker = targ_land;
-    } else if (type == EF_SHIP) {
-	orig_attacker = attacker = targ_ship;
-    } else if (type == EF_LAND) {
-	orig_attacker = attacker = targ_unit;
-    } else {
+    if (opt_NO_FORT_FIRE && type == EF_SECTOR) {
+	pr("Fort firing is disabled.\n");
+	return RET_FAIL;
+    }
+    if (type < 0) {
 	pr("Ships, land units or sectors only!\n");
 	return RET_SYN;
     }
@@ -130,8 +124,7 @@ multifire(void)
 	return RET_OK;
     }
     while (nxtitem(&nbst, &item)) {
-	attacker = orig_attacker;
-	if (attacker == targ_unit) {
+	if (type == EF_LAND) {
 	    if (!getland(item.land.lnd_uid, &fland))
 		continue;
 	    if (!getsect(item.land.lnd_x, item.land.lnd_y, &fsect))
@@ -167,7 +160,7 @@ multifire(void)
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
 	    }
-	} else if (attacker == targ_ship) {
+	} else if (type == EF_SHIP) {
 	    if (!getship(item.ship.shp_uid, &fship))
 		continue;
 	    if (item.ship.shp_own != player->cnum)
@@ -192,7 +185,7 @@ multifire(void)
 		pr("Ship #%d is crippled!\n", item.ship.shp_uid);
 		continue;
 	    }
-	} else if (attacker == targ_land) {
+	} else if (type == EF_SECTOR) {
 	    if (!getsect(item.sect.sct_x, item.sect.sct_y, &fsect))
 		continue;
 	    if (item.sect.sct_own != player->cnum)
@@ -266,7 +259,7 @@ multifire(void)
 	    x = vsect.sct_x;
 	    y = vsect.sct_y;
 	}
-	if (attacker == targ_ship) {
+	if (type == EF_SHIP) {
 	    if (fship.shp_own != player->cnum) {
 		pr("Not your ship!\n");
 		continue;
@@ -279,15 +272,6 @@ multifire(void)
 	    }
 	    fx = fship.shp_x;
 	    fy = fship.shp_y;
-/*
-  attacker = (mchr[fship.shp_type].m_flags & M_SUB) ?
-  targ_sub : targ_ship;
-  if (attacker == targ_sub){
-  pr("Subs may not fire normally.. use torpedo.\n");
-  continue;
-  }
-*/
-	    attacker = targ_ship;
 	    if ((mil = fship.shp_item[I_MILIT]) < 1) {
 		pr("Not enough military for firing crew.\n");
 		continue;
@@ -327,7 +311,7 @@ multifire(void)
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
 		putship(fship.shp_uid, &fship);
 	    }
-	} else if (attacker == targ_unit) {
+	} else if (type == EF_LAND) {
 	    if (fland.lnd_own != player->cnum) {
 		pr("Not your unit!\n");
 		continue;
@@ -387,7 +371,6 @@ multifire(void)
 		    continue;
 		}
 	    }
-	    attacker = targ_land;
 	    if (fsect.sct_item[I_GUN] == 0) {
 		pr("Insufficient arms.\n");
 		continue;
@@ -413,44 +396,23 @@ multifire(void)
 	trange = mapdist(x, y, fx, fy);
 	if (trange > range2) {
 	    pr("Target out of range.\n");
-/*
-			switch (target) {
-			case targ_land:
-			case targ_bogus:
-				pr("Target out of range.  Thud.\n");
-				break ;
-			default:
-				pr("Target ship out of range.  Splash.\n");
-				break ;
-			}	
- */
-	    switch (attacker) {
-	    case targ_land:
+	    switch (type) {
+	    case EF_SECTOR:
 		putsect(&fsect);
 		break;
-	    case targ_unit:
+	    case EF_LAND:
 		fland.lnd_mission = 0;
 		putland(fland.lnd_uid, &fland);
 		break;
-	    default:
+	    case EF_SHIP:
 		fship.shp_mission = 0;
 		putship(fship.shp_uid, &fship);
+		break;
+	    default:
+		CANT_REACH();
 	    }
 	    continue;
 	}
-/*
-		if (target == targ_bogus) {
-			if (vsect.sct_type == SCT_SANCT) {
-				pr("%s is a %s!!\n", vbuf,
-				   dchr[SCT_SANCT].d_name);
-				continue;
-			} else if (vsect.sct_type == SCT_WATER) {
-				pr("You must specify a ship in sector %s!\n",
-				   vbuf);
-				continue;
-			}
-		}
-*/
 	switch (target) {
 	case targ_ship:
 	    if (!trechk(player->cnum, vict, SEAFIR))
@@ -545,8 +507,7 @@ multifire(void)
 	if (target == targ_bogus)
 	    continue;
 	attgp = &item.gen;
-	if (attacker == targ_unit) {
-	    attacker = targ_land;
+	if (type == EF_LAND) {
 	    getsect(fland.lnd_x, fland.lnd_y, &fsect);
 	    attgp = (struct empobj *)&fsect;
 	}
@@ -562,11 +523,11 @@ multifire(void)
 	if ((totaldefdam == 0) && (target == targ_ship))
 	    if (vship.shp_rflags & RET_HELPLESS)
 		retreat_ship(&vship, 'h');
-	switch (attacker) {
-	case targ_land:
+	switch (attgp->ef_type) {
+	case EF_SECTOR:
 	    putsect(&fsect);
 	    break;
-	default:
+	case EF_SHIP:
 	    if ((target == targ_ship) || (target == targ_sub)) {
 		if (fship.shp_effic > SHIP_MINEFF) {
 		    shp_missdef(&fship, vict);
@@ -574,6 +535,8 @@ multifire(void)
 	    };
 	    putship(fship.shp_uid, &fship);
 	    break;
+	default:
+	    CANT_REACH();
 	}
     }
 
