@@ -46,7 +46,7 @@
 
 #ifdef _WIN32
 #define getuid() 0
-#define getpwuid(uid) ((uid), w32_getpw())
+#define getpwuid(uid) ((void)(uid), w32_getpw())
 #else
 #define sysdep_init() ((void)0)
 #endif
