@@ -1,4 +1,0 @@
-#!/bin/sh
-cd /home/marcolz/src/empire/nightlybuild/
-./nightlybuild.sh conf/freebsd.amd64.config
-./report.sh conf/freebsd.amd64.config | mutt -s 'empserver freebsd.amd64' empserver-devel@lists.sourceforge.net
