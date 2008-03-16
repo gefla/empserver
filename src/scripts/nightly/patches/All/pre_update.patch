@@ -6,7 +6,7 @@ Index: empserver/src/lib/global/constants.c
  char *game_days = "";		/* days game is running */
  char *game_hours = "";		/* hours game is running */
 -char *pre_update_hook = "";
-+char *pre_update_hook = "echo '-=< pre_update_hook executed here >=-'";
++char *pre_update_hook = "echo pre_update_hook executed here";
  int max_idle = 15;		/* session dies after max_idle minutes idle */
  
  int sect_mob_max = 127;		/* sector mobility limits */
