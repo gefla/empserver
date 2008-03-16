@@ -40,6 +40,7 @@
  *
  *     startup
  *     shutdown
+ *     prng NAME SEED
  *     login CNUM HOSTADDR USER
  *     logout CNUM
  *     input INPUT
@@ -141,6 +142,12 @@ journal_reopen(void)
 	fclose(journal);
     journal = j;
     return 0;
+}
+
+void
+journal_prng(unsigned seed)
+{
+    journal_entry("prng BSD %d", seed);
 }
 
 void

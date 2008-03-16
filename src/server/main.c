@@ -263,6 +263,7 @@ main(int argc, char **argv)
     }
 #endif /* !_WIN32 */
     start_server(flags);
+    journal_prng(seed);
 
     for (;;) {
 	sig = empth_wait_for_signal();
