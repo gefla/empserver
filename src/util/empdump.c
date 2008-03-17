@@ -44,6 +44,7 @@
 #include "version.h"
 #include "xdump.h"
 
+static void exit_bad_arg(char *, ...) ATTRIBUTE((noreturn));
 static void dump_table(int, int);
 static void pln_fixup(void);
 static void lnd_fixup(void);
@@ -61,42 +62,48 @@ main(int argc, char *argv[])
     FILE *impf = NULL;
     int dirty[EF_MAX];
 
-    while ((opt = getopt(argc, argv, "e:mtxhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "e:i:mnxhv")) != EOF) {
 	switch (opt) {
 	case 'e':
 	    config_file = optarg;
 	    break;
-	case 'h':
-	    printf("Usage: %s [OPTION]... [DUMP-FILE]\n"
-		   "  -e CONFIG-FILE  configuration file\n"
-		   "                  (default %s)\n"
-		   "  -m              use machine-readable format\n"
-		   "  -t              test import, don't update game state\n"
-		   "  -x              export to standard output\n"
-		   "  -h              display this help and exit\n"
-		   "  -v              display version information and exit\n",
-		   argv[0], dflt_econfig);
-	    exit(0);
+	case 'i':
+	    import = optarg;
+	    break;
 	case 'm':
 	    human = 0;
 	    break;
-	case 't':
+	case 'n':
 	    private = EFF_PRIVATE;
 	    break;
 	case 'x':
 	    export = 1;
 	    break;
+	case 'h':
+	    printf("Usage: %s [OPTION]...\n"
+		   "  -e CONFIG-FILE  configuration file\n"
+		   "                  (default %s)\n"
+		   "  -i DUMP-FILE    import from DUMP-FILE\n"
+		   "  -m              use machine-readable format\n"
+		   "  -n              dry run, don't update game state\n"
+		   "  -x              export to standard output\n"
+		   "  -h              display this help and exit\n"
+		   "  -v              display version information and exit\n",
+		   argv[0], dflt_econfig);
+	    exit(0);
 	case 'v':
 	    printf("%s\n\n%s", version, legal);
 	    exit(0);
 	default:
-	    fprintf(stderr, "Try -h for help.\n");
-	    exit(1);
+	    exit_bad_arg(NULL);
 	}
     }
 
     if (argv[optind])
-	import = argv[optind++];
+	exit_bad_arg("%s: extra operand %s\n", argv[0], argv[optind]);
+
+    if (!import && !export)
+	exit_bad_arg("%s: nothing to do!\n", argv[0]);
 
     if (import) {
 	impf = fopen(import, "r");
@@ -168,6 +175,20 @@ main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+static void
+exit_bad_arg(char *complaint, ...)
+{
+    va_list ap;
+
+    if (complaint) {
+	va_start(ap, complaint);
+	vfprintf(stderr, complaint, ap);
+	va_end(ap);
+    }
+    fprintf(stderr, "Try -h for help.\n");
+    exit(1);
 }
 
 static void

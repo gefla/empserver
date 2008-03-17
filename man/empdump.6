@@ -4,13 +4,13 @@ empdump \- Export/import Empire game state
 .SH SYNOPSIS
 .B empdump
 [
-.B \-mtxhv
+.B \-mnxhv
 ]
 [
 .BI \-e " configfile"
 ]
 [
-.I dump-file
+.BI \-i " dump-file"
 ]
 .br
 .SH DESCRIPTION
@@ -24,23 +24,21 @@ Use game configuration in \fIconfigfile\fR.
 .B \-h
 Help.  Print brief usage information and exit.
 .TP
+.BI \-i " dump-file"
+Import from \fIdump-file\fR.
 .TP
 .B \-m
 Use machine-readable format for export.  Import always recognizes both
 machine-readable and human-readable format.
 .TP
-.B \-t
-Test import, don't update game state.
+.B \-n
+Dry run, don't actually update game state on import.
 .TP
 .B \-v
 Print version information and exit.
 .TP
 .B \-x
 Export game state to standard output.
-.SH OPERANDS
-.TP
-.I dump-file
-The file to import.
 .SH "LIMITATIONS"
 .B empdump
 can't export player bmaps, power report, telegrams, announcements,
