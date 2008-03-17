@@ -108,8 +108,8 @@ main(int argc, char *argv[])
     if (import) {
 	impf = fopen(import, "r");
 	if (!impf) {
-	    fprintf(stderr, "Cant open %s for reading (%s)\n",
-		    import, strerror(errno));
+	    fprintf(stderr, "%s: Can't open %s for reading (%s)\n",
+		    argv[0], import, strerror(errno));
 	    exit(1);
 	}
     } else
@@ -126,8 +126,8 @@ main(int argc, char *argv[])
     if (read_custom_tables() < 0)
 	exit(1);
     if (chdir(gamedir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n",
-		gamedir, strerror(errno));
+	fprintf(stderr, "%s: Can't chdir to %s (%s)\n",
+		argv[0], gamedir, strerror(errno));
 	exit(1);
     }
     global_init();
