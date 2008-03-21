@@ -70,7 +70,7 @@ static void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
 static int dosupport(struct genlist *, coord, coord, natid, natid);
 static int find_airport(struct emp_qelem *, coord, coord);
 static int mission_pln_arm(struct emp_qelem *, coord, coord, int,
-			   int, struct ichrstr *, int, int, int *);
+			   int, struct ichrstr *, int, int);
 static void mission_pln_sel(struct emp_qelem *, int, int, int);
 static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
 			   char *, int);
@@ -408,7 +408,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct sctstr sect;
     struct mchrstr *mcp;
     struct plchrstr *pcp;
-    int dam = 0, dam2, mission_flags, tech;
+    int dam = 0, dam2, mission_flags;
     natid plane_owner = 0;
     int md, range, air_dam = 0;
     double prb, hitchance, vrange;
@@ -644,19 +644,18 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	/* Split off the escorts at this base into e */
 	divide(&escorts, &e, air->x, air->y);
 
-	tech = 0;
 	mission_flags = 0;
 	mission_flags |= P_X;	/* stealth (shhh) */
 	mission_flags |= P_H;	/* gets turned off if not all choppers */
 
 	mission_flags = mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', 0,
-					0, mission_flags, &tech);
+					0, mission_flags);
 
 	if (QEMPTY(&b))
 	    continue;
 
 	mission_flags = mission_pln_arm(&e, air->x, air->y, 2 * md, 'p', 0,
-					P_F | P_ESC, mission_flags, &tech);
+					P_F | P_ESC, mission_flags);
 
 	pp = BestAirPath(buf, air->x, air->y, x, y);
 	if (CANT_HAPPEN(!pp))
@@ -926,14 +925,12 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 static int
 mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 		int mission, struct ichrstr *ip, int flags,
-		int mission_flags, int *tech)
+		int mission_flags)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct plist *plp;
 
-    if (*tech == 0)
-	*tech = 9999;
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
@@ -954,8 +951,6 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 	    if (plp->pcp->pl_flags & P_I)
 		mission_flags |= P_I;
 	}
-	if (*tech > plp->plane.pln_tech)
-	    *tech = plp->plane.pln_tech;
 	if (!(plp->pcp->pl_flags & P_H))
 	    /* no stealth on this mission */
 	    mission_flags &= ~P_H;
@@ -1243,7 +1238,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    struct emp_qelem *esc_list)
 {
     int dam = 0, cn;
-    int mission_flags, tech, combat = 0, rel, dist, z;
+    int mission_flags, combat = 0, rel, dist, z;
     struct emp_qelem *qp, interceptors, airp, i, empty, *next;
     struct plist *plp;
     struct genlist *glp;
@@ -1353,7 +1348,6 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    /* Split off the interceptors at this base into i */
 	    divide(&interceptors, &i, air->x, air->y);
 
-	    tech = 0;
 	    mission_flags = 0;
 	    mission_flags |= P_X;	/* stealth (shhh) */
 	    /* gets turned off if not all choppers */
@@ -1373,7 +1367,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    }
 	    mission_flags =
 		mission_pln_arm(&i, air->x, air->y, 2 * dist, 'r', 0, P_F,
-				mission_flags, &tech);
+				mission_flags);
 
 	    /* Did we run out of interceptors? */
 	    if (QEMPTY(&i))
