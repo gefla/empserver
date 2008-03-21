@@ -584,7 +584,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	    return RET_SYN;
 	sect->sct_x = newx;
 	sect->sct_y = newy;
-	sect->sct_uid = XYOFFSET(newx, newy);
+	ef_set_uid(EF_SECTOR, &sect, XYOFFSET(newx, newy));
 	break;
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
@@ -767,7 +767,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	ship->shp_rflags = arg;
 	break;
     case 'U':
-	ship->shp_uid = arg;
+	ef_set_uid(EF_SHIP, ship, arg);
 	break;
     case 'O':
 	if (ship->shp_own)
@@ -871,7 +871,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	land->lnd_land = arg;
 	break;
     case 'U':
-	land->lnd_uid = arg;
+	ef_set_uid(EF_SHIP, land, arg);
 	break;
     case 'O':
 	if (land->lnd_own)

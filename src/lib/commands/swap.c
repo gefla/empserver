@@ -63,14 +63,14 @@ swaps(void)
     /* change the location of secta to that of sectb */
     secta.sct_x = sectb.sct_x;
     secta.sct_y = sectb.sct_y;
-    secta.sct_uid = sectb.sct_uid;
+    ef_set_uid(EF_SECTOR, &secta, sectb.sct_uid);
     secta.sct_dist_x = sectb.sct_x;
     secta.sct_dist_y = sectb.sct_y;
     secta.sct_coastal = sectb.sct_coastal;
     /* change the location of sectb to where secta was */
     sectb.sct_x = tmp.sct_x;
     sectb.sct_y = tmp.sct_y;
-    sectb.sct_uid = tmp.sct_uid;
+    ef_set_uid(EF_SECTOR, &sectb, tmp.sct_uid);
     sectb.sct_dist_x = tmp.sct_x;
     sectb.sct_dist_y = tmp.sct_y;
     sectb.sct_coastal = tmp.sct_coastal;

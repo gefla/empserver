@@ -65,6 +65,7 @@ struct shpstr {
     /* initial part must match struct empobj */
     short ef_type;
     short shp_uid;		/* unit id (ship #) */
+    unsigned shp_seqno;
     time_t shp_timestamp;	/* Last time this ship was touched. */
     natid shp_own;		/* owner's country num */
     coord shp_x;		/* x location in abs coords */

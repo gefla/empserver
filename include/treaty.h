@@ -41,6 +41,7 @@ struct trtstr {
     /* initial part must match struct empobj */
     short ef_type;
     short trt_uid;
+    unsigned trt_seqno;
     time_t trt_timestamp;
     /* end of part matching struct empobj */
     natid trt_cna;		/* proposer */
