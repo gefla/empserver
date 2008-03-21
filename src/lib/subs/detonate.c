@@ -157,7 +157,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    continue;
 	if ((own = plane.pln_own) == 0)
 	    continue;
-	if ((plane.pln_flags & PLN_LAUNCHED) && (airburst != 2))
+	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	damage = nukedamage(ncp, ni.curdist, airburst) - plane.pln_harden;
 	if (damage <= 0)
