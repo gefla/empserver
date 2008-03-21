@@ -294,12 +294,12 @@ ef_read(int type, int id, void *into)
 }
 
 /*
- * Fill cache of EP with elements starting at ID.
+ * Fill cache of file-backed EP with elements starting at ID.
  * If any were read, return their number.
  * Else return -1 and leave the cache unchanged.
  */
 static int
-fillcache(struct empfile *ep, int start)
+fillcache(struct empfile *ep, int id)
 {
     int n, ret;
     char *p;
@@ -307,21 +307,27 @@ fillcache(struct empfile *ep, int start)
     if (CANT_HAPPEN(ep->fd < 0 || !ep->cache))
 	return -1;
 
-    if (lseek(ep->fd, start * ep->size, SEEK_SET) == (off_t)-1) {
-	logerror("Error seeking %s (%s)", ep->file, strerror(errno));
+    if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
+	logerror("Error seeking %s to elt %d (%s)",
+		 ep->file, id, strerror(errno));
 	return -1;
     }
 
     p = ep->cache;
-    n = ep->csize * ep->size;
+    n = MIN(ep->csize, ep->fids - id) * ep->size;
     while (n > 0) {
 	ret = read(ep->fd, p, n);
 	if (ret < 0) {
-	    if (errno != EAGAIN) {
-		logerror("Error reading %s (%s)", ep->file, strerror(errno));
+	    if (errno != EINTR) {
+		logerror("Error reading %s elt %d (%s)",
+			 ep->file,
+			 id + (int)((p - ep->cache) / ep->size),
+			 strerror(errno));
 		break;
 	    }
 	} else if (ret == 0) {
+	    logerror("Unexpected EOF reading %s elt %d",
+		     ep->file, id + (int)((p - ep->cache) / ep->size));
 	    break;
 	} else {
 	    p += ret;
@@ -332,15 +338,15 @@ fillcache(struct empfile *ep, int start)
     if (p == ep->cache)
 	return -1;		/* nothing read, old cache still ok */
 
-    ep->baseid = start;
+    ep->baseid = id;
     ep->cids = (p - ep->cache) / ep->size;
     return ep->cids;
 }
 
 /*
- * Write COUNT elements from BUF to EP, starting at ID.
+ * Write COUNT elements starting at ID from BUF to file-backed EP.
  * Set the timestamp to NOW if the table has those.
- * Return 0 on success, -1 on error.
+ * Return 0 on success, -1 on error (file may be corrupt then).
  */
 static int
 do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
@@ -369,7 +375,8 @@ do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
     }
 
     if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
-	logerror("Error seeking %s (%s)", ep->file, strerror(errno));
+	logerror("Error seeking %s to elt %d (%s)",
+		 ep->file, id, strerror(errno));
 	return -1;
     }
 
@@ -378,9 +385,11 @@ do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
     while (n > 0) {
 	ret = write(ep->fd, p, n);
 	if (ret < 0) {
-	    if (errno != EAGAIN) {
-		logerror("Error writing %s (%s)", ep->file, strerror(errno));
-		/* FIXME if this extended file, truncate back to old size */
+	    if (errno != EINTR) {
+		logerror("Error writing %s elt %d (%s)",
+			 ep->file,
+			 id + (int)((p - (char *)buf) / ep->size),
+			 strerror(errno));
 		return -1;
 	    }
 	} else {
