@@ -1426,6 +1426,8 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 
 	    pln_put(&i);
 	}
+	if (CANT_HAPPEN(!QEMPTY(&interceptors)))
+	    pln_put(&interceptors);
     }
 
     /* We have to free all of these, if they are still there, otherwise they get
