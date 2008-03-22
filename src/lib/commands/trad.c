@@ -66,7 +66,6 @@ trad(void)
     struct trdstr trade;
     struct trdstr tmpt;
     union empobj_storage tg;
-    int plflags;
     double canspend;
     time_t now;
     int bid;
@@ -181,14 +180,12 @@ trad(void)
     }
     canspend = natp->nat_money - tally;
     /*
-     * Find the destination sector for the plane before the trade
-     * is actually made. Must be owned (except for satellites) and
-     * must be a 60% airfield (except for VTOL planes).
+     * Find the destination sector for the plane before the trade is
+     * actually made, except for satellites in orbit.  Must be owned
+     * and must be a 60% airfield (except for VTOL planes).
      */
-    if (((trade.trd_type == EF_PLANE) || (trade.trd_type == EF_NUKE))
-	&& ((trade.trd_type == EF_NUKE) ||
-	    !(tg.plane.pln_flags & PLN_LAUNCHED))) {
-	plflags = plchr[(int)tg.plane.pln_type].pl_flags;
+    if (((trade.trd_type == EF_PLANE) && !(tg.plane.pln_flags & PLN_LAUNCHED))
+	|| (trade.trd_type == EF_NUKE)) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(&trade, &tg))
@@ -200,11 +197,11 @@ trad(void)
 		pr("Bad sector designation; try again!\n");
 		continue;
 	    }
-	    if (!player->owner && !(plflags & P_O)) {
+	    if (!player->owner) {
 		pr("You don't own that sector; try again!\n");
 		continue;
 	    }
-	    if (!(plflags & (P_V | P_O))) {
+	    if (!(plchr[tg.plane.pln_type].pl_flags & P_V)) {
 		if (!player->god && (sect.sct_type != SCT_AIRPT)) {
 		    pr("Destination sector is not an airfield!\n");
 		    continue;
