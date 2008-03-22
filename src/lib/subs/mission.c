@@ -1381,8 +1381,10 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    }
 
 	    path = BestAirPath(buf, air->x, air->y, x, y);
-	    if (CANT_HAPPEN(!path))
+	    if (CANT_HAPPEN(!path)) {
+		pln_put(&i);
 		continue;
+	    }
 	    wu(0, cn, "Flying %s mission from %s\n",
 	       mission_name(MI_AIR_DEFENSE), xyas(air->x, air->y, cn));
 	    if (air->own && (air->own != cn)) {
