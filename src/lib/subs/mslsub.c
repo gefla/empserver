@@ -236,11 +236,9 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	att_name = "satellite";
 	def_name = "a-sat missile";
 	news_item = N_SAT_KILL;
-	if (sect.sct_own) {
-	    mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
-		sublaunch ? "someone" : cname(bombown),
-		xyas(x, y, sect.sct_own));
-	}
+	mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
+	    sublaunch ? "someone" : cname(bombown),
+	    xyas(x, y, sect.sct_own));
     } else if (wantflags == P_N && nowantflags == P_O) {
 	att_name = "warhead";
 	def_name = "abm";
@@ -304,8 +302,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	free(qp);
     }
     if (icount == 0) {
-	if (sect.sct_own != 0)
-	    mpr(sect.sct_own, "No %ss launched to intercept.\n", def_name);
+	mpr(sect.sct_own, "No %ss launched to intercept.\n", def_name);
 	return destroyed;
     }
 
@@ -323,10 +320,9 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	    mpr(sect.sct_own, "%s launched to intercept %s %s!\n",
 		def_name, who, att_name);
 	} else {
-	    if (sect.sct_own)
-		mpr(sect.sct_own,
-		    "%s launched an %s to intercept the %s %s!\n",
-		    cname(pp->pln_own), def_name, who, att_name);
+	    mpr(sect.sct_own,
+		"%s launched an %s to intercept the %s %s!\n",
+		cname(pp->pln_own), def_name, who, att_name);
 	    mpr(pp->pln_own,
 		"%s launched to intercept %s %s arcing towards %s territory!\n",
 		def_name, who, att_name, cname(sect.sct_own));
@@ -337,8 +333,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 		    att_name, x, y, bombown)) {
 	    mpr(bombown, "%s destroyed by %s %s!\n",
 		att_name, cname(pp->pln_own), def_name);
-	    if (sect.sct_own)
-		mpr(sect.sct_own, "%s %s intercepted!\n", who, att_name);
+	    mpr(sect.sct_own, "%s %s intercepted!\n", who, att_name);
 	    if (sect.sct_own != pp->pln_own)
 		mpr(pp->pln_own, "%s %s intercepted!\n", who, att_name);
 	    destroyed = 1;
@@ -362,9 +357,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     if (icount) {
 	mpr(bombown, "%s made it through %s defenses!\n",
 	    att_name, def_name);
-	if (sect.sct_own)
-	    mpr(sect.sct_own, "%s made it through %s defenses!\n",
-		att_name, def_name);
+	mpr(sect.sct_own, "%s made it through %s defenses!\n",
+	    att_name, def_name);
     }
     return destroyed;
 }

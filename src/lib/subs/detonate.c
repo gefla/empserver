@@ -98,9 +98,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    continue;
 	if (type == SCT_SANCT) {
 	    mpr(bombown, "bounced off %s\n", xyas(ns.x, ns.y, bombown));
-	    if (own != 0)
-		mpr(own, "%s nuclear device bounced off %s\n",
-		    cname(bombown), xyas(ns.x, ns.y, bombown));
+	    mpr(own, "%s nuclear device bounced off %s\n",
+		cname(bombown), xyas(ns.x, ns.y, bombown));
 	    nreport(bombown, N_NUKE, own, 1);
 	    continue;
 	}
@@ -191,10 +190,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 		prplane(&plane),
 		xyas(plane.pln_x, plane.pln_y, own), damage);
 	} else {
-	    if (own != 0)
-		mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		    cname(bombown), damage,
-		    prplane(&plane), xyas(plane.pln_x, plane.pln_y, own));
+	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
+		cname(bombown), damage,
+		prplane(&plane), xyas(plane.pln_x, plane.pln_y, own));
 	}
 	putplane(ni.cur, &plane);
     }
@@ -239,10 +237,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    mpr(bombown, "%s at %s reports %d%% damage\n",
 		prland(&land), xyas(land.lnd_x, land.lnd_y, own), damage);
 	} else {
-	    if (own != 0)
-		mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		    cname(bombown), damage,
-		    prland(&land), xyas(land.lnd_x, land.lnd_y, own));
+	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
+		cname(bombown), damage,
+		prland(&land), xyas(land.lnd_x, land.lnd_y, own));
 	}
 	putland(land.lnd_uid, &land);
     }
@@ -281,10 +278,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    mpr(bombown, "%s at %s reports %d%% damage\n",
 		prship(&ship), xyas(ship.shp_x, ship.shp_y, own), damage);
 	} else {
-	    if (own != 0)
-		mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		    cname(bombown), damage, prship(&ship),
-		    xyas(ship.shp_x, ship.shp_y, own));
+	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
+		cname(bombown), damage, prship(&ship),
+		xyas(ship.shp_x, ship.shp_y, own));
 	}
 	putship(ship.shp_uid, &ship);
     }
@@ -307,9 +303,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    mpr(bombown, "%s at %s destroyed\n",
 		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	} else {
-	    if (own != 0)
-		mpr(own, "%s at %s destroyed\n",
-		    prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
+	    mpr(own, "%s at %s destroyed\n",
+		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	}
 	putnuke(ni.cur, &nuke);
     }
