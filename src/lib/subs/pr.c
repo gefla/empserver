@@ -507,8 +507,9 @@ pr_beep(void)
 /*
  * Print to country CN similar to printf().
  * Use printf-style FORMAT with the optional arguments.
- * If CN is the current player and we're not in the update, print just
- * like pr().  Else print into a bulletin.
+ * If CN is zero, don't print anything.
+ * Else, if CN is the current player and we're not in the update,
+ * print just like pr().  Else print into a bulletin.
  * Because printing like pr() requires normal text, and bulletins
  * require user text, only plain ASCII is allowed.
  */
@@ -518,15 +519,15 @@ mpr(int cn, char *format, ...)
     char buf[4096];
     va_list ap;
 
+    if (!cn)
+	return;
     va_start(ap, format);
     (void)vsprintf(buf, format, ap);
     va_end(ap);
-    if (cn) {
-	if (update_running || cn != player->cnum)
-	    typed_wu(0, cn, buf, TEL_BULLETIN);
-	else
-	    pr_player(player, C_DATA, buf);
-    }
+    if (update_running || cn != player->cnum)
+	typed_wu(0, cn, buf, TEL_BULLETIN);
+    else
+	pr_player(player, C_DATA, buf);
 }
 
 /*
