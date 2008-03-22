@@ -50,7 +50,7 @@ shown here (no partial pattern matching is done.)
    hard     hardness
    ship     ship number the plane is on
    land     land unit number the plane is on
-   laun     launchable?
+   laun     launched into orbit?
    orb      orbiting synchronously?
    nuke     nuke name (if armed)
    grd      groundburst? (if armed)
