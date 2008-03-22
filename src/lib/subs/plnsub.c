@@ -725,50 +725,59 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 void
 pln_put(struct emp_qelem *list)
 {
-    struct emp_qelem *qp;
-    struct emp_qelem *newqp;
-    struct plist *plp;
+    struct emp_qelem *qp, *next;
+
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
+	pln_put1((struct plist *)qp);
+    }
+}
+
+void
+pln_put1(struct plist *plp)
+{
     struct plnstr *pp;
     struct shpstr ship;
+    struct lndstr land;
     struct sctstr sect;
 
-    /* Here is where planes return home from bombing runs.
-       We need to make sure they still have somewhere to return
-       home to! */
-    qp = list->q_forw;
-    while (qp != list) {
-	plp = (struct plist *)qp;
-	pp = &plp->plane;
-	/* Ok, check out where it wants to land */
+    pp = &plp->plane;
+    if (!pp->pln_own) {
+	/* crashed */
 	if (pp->pln_ship >= 0) {
-	    /* It is landing on a carrier */
 	    getship(pp->pln_ship, &ship);
-	    /* We should do more, like make sure it's really
-	       a carrier, etc. but for now just make sure it's
-	       not sunk. */
-	    if (ship.shp_effic < SHIP_MINEFF) {
-		mpr(pp->pln_own,
-		    "Ship #%d has been sunk, plane #%d has nowhere to land, and\n"
-		    "splashes into the sea.\n",
-		    pp->pln_ship, pp->pln_uid);
-		pp->pln_effic = 0;
-	    }
-	} else {
-	    /* Presume we are landing back in a sector. */
-	    getsect(pp->pln_x, pp->pln_y, &sect);
-	    if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_WASTE) {
-		mpr(pp->pln_own,
-		    "Nowhere to land at %s, plane #%d crashes and burns...\n",
-		    xyas(pp->pln_x, pp->pln_y, pp->pln_own), pp->pln_uid);
-		pp->pln_effic = 0;
-	    }
+	    take_plane_off_ship(pp, &ship);
 	}
-	putplane(pp->pln_uid, pp);
-	newqp = qp->q_forw;
-	emp_remque(qp);
-	free(qp);
-	qp = newqp;
+	if (pp->pln_land >= 0) {
+	    getland(pp->pln_land, &land);
+	    take_plane_off_land(pp, &land);
+	}
+    } else if (pp->pln_ship >= 0) {
+	/* It is landing on a carrier */
+	getship(pp->pln_ship, &ship);
+	/* We should do more, like make sure it's really
+	   a carrier, etc. but for now just make sure it's
+	   not sunk. */
+	if (ship.shp_effic < SHIP_MINEFF) {
+	    mpr(pp->pln_own,
+		"Ship #%d has been sunk, plane #%d has nowhere to land, and\n"
+		"splashes into the sea.\n",
+		pp->pln_ship, pp->pln_uid);
+	    pp->pln_effic = 0;
+	}
+    } else {
+	/* Presume we are landing back in a sector. */
+	getsect(pp->pln_x, pp->pln_y, &sect);
+	if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_WASTE) {
+	    mpr(pp->pln_own,
+		"Nowhere to land at %s, plane #%d crashes and burns...\n",
+		xyas(pp->pln_x, pp->pln_y, pp->pln_own), pp->pln_uid);
+	    pp->pln_effic = 0;
+	}
     }
+    putplane(pp->pln_uid, pp);
+    emp_remque(&plp->queue);
+    free(plp);
 }
 
 void

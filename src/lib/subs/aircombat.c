@@ -708,8 +708,6 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     int disp;
     char dmess[255];
     int eff;
-    struct shpstr ship;
-    struct lndstr land;
     natid plane_owner;
 
     disp = 0;
@@ -752,25 +750,10 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 
     pp->pln_effic = eff;
     pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
-    if (disp == 1) {
-	if (from != 0 && (plp->pcp->pl_flags & P_M) == 0)
+    if (disp) {
+	if (disp == 1 && from != 0 && (plp->pcp->pl_flags & P_M) == 0)
 	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
-	if (pp->pln_ship >= 0) {
-	    getship(pp->pln_ship, &ship);
-	    take_plane_off_ship(pp, &ship);
-	}
-	if (pp->pln_land >= 0) {
-	    getland(pp->pln_land, &land);
-	    take_plane_off_land(pp, &land);
-	}
-	pp->pln_effic = 0;
-	putplane(pp->pln_uid, pp);
-	emp_remque(&plp->queue);
-	free(plp);
-    } else if (disp == 2) {
-	putplane(pp->pln_uid, pp);
-	emp_remque(&plp->queue);
-	free(plp);
+	pln_put1(plp);
     } else
 	putplane(pp->pln_uid, pp);
     strcpy(mesg, dmess);

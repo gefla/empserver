@@ -558,6 +558,7 @@ extern int pln_arm(struct emp_qelem *, int, char, struct ichrstr *,
 		   int, int);
 extern int pln_mobcost(int, struct plnstr *, int);
 extern void pln_put(struct emp_qelem *);
+extern void pln_put1(struct plist *);
 extern void pln_removedupes(struct emp_qelem *, struct emp_qelem *);
 extern void take_plane_off_ship(struct plnstr *, struct shpstr *);
 extern void take_plane_off_land(struct plnstr *, struct lndstr *);

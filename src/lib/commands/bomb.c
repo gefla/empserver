@@ -844,8 +844,6 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     int disp;
     char dmess[255];
     int eff;
-    struct shpstr ship;
-    struct lndstr land;
     natid plane_owner;
     int dam;
 
@@ -873,14 +871,6 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     if (disp == 1) {
 	if (from != 0)
 	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
-	if (pp->pln_ship >= 0) {
-	    getship(pp->pln_ship, &ship);
-	    take_plane_off_ship(pp, &ship);
-	}
-	if (pp->pln_land >= 0) {
-	    getland(pp->pln_land, &land);
-	    take_plane_off_land(pp, &land);
-	}
     }
     putplane(pp->pln_uid, pp);
 
