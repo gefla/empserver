@@ -269,11 +269,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     if (changed)
 	writemap(player->cnum);
     /* Now, if the bomber and escort lists are empty, we are done */
-    if (QEMPTY(bomb_list) && QEMPTY(esc_list)) {
-	if (mission_flags & P_A)
-	    free_shiplist(&head);
-	return;
-    }
+    if (QEMPTY(bomb_list) && QEMPTY(esc_list))
+	goto out;
 
     /* Something made it through */
     /* Go figure out if there are ships in this sector, and who's they are */
@@ -355,8 +352,13 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    }
 	}
     }
+out:
     if (mission_flags & P_A)
 	free_shiplist(&head);
+    for (cn = 1; cn < MAXNOC; cn++) {
+	if (gotilist[cn])
+	    pln_put(&ilist[cn]);
+    }
 }
 
 static int
@@ -504,6 +506,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     ac_airtoair(bomb_list, &int_list);
     PR(plane_owner, "\n");
     PR(def_own, "\n");
+    pln_put(&int_list);
 }
 
 void
