@@ -65,7 +65,7 @@ sate(void)
 	return RET_FAIL;
     }
 
-    if (!(plane.pln_flags & PLN_LAUNCHED)) {
+    if (!pln_is_in_orbit(&plane)) {
 	pr("%s isn't in orbit\n", prplane(&plane));
 	return RET_FAIL;
     }

@@ -82,7 +82,7 @@ laun(void)
 	       prplane(&plane));
 	    continue;
 	}
-	if ((plane.pln_flags & PLN_LAUNCHED) && (pcp->pl_flags & P_O)) {
+	if (pln_is_in_orbit(&plane)) {
 	    pr("%s already in orbit!\n", prplane(&plane));
 	    continue;
 	}
@@ -193,7 +193,7 @@ launch_as(struct plnstr *pp)
     while (!goodtarget && nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;
-	if (!(plane.pln_flags & PLN_LAUNCHED))
+	if (!pln_is_in_orbit(&plane))
 	    continue;
 	goodtarget = 1;
 

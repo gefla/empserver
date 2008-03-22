@@ -258,20 +258,12 @@ pdump(void)
 		pr(" %d", plane.pln_land);
 		break;
 	    case 18:
-		if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) ==
-		    P_O) {
-		    pr(" %c",
-		       (plane.pln_flags & PLN_LAUNCHED) ? 'Y' : 'N');
-		} else
-		    pr(" N");
+		pr(pln_is_in_orbit(&plane) ? " Y" : " N");
 		break;
 	    case 19:
-		if ((plchr[(int)plane.pln_type].pl_flags & (P_O | P_M)) ==
-		    P_O) {
-		    pr(" %c",
-		       (plane.pln_flags & PLN_SYNCHRONOUS) ? 'Y' : 'N');
-		} else
-		    pr(" N");
+		pr(pln_is_in_orbit(&plane)
+		   && (plane.pln_flags & PLN_SYNCHRONOUS)
+		    ? " Y" : " N");
 		break;
 	    case 20:
 		if (plane.pln_nuketype != -1) {

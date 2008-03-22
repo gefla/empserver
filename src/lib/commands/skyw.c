@@ -74,7 +74,7 @@ skyw(void)
     while (nxtitem(&ni, &skyp->s_sat)) {
 	if (!skyp->s_sat.pln_own)
 	    continue;
-	if (!(skyp->s_sat.pln_flags & PLN_LAUNCHED))
+	if (!pln_is_in_orbit(&skyp->s_sat))
 	    continue;
 	getsect(skyp->s_sat.pln_x, skyp->s_sat.pln_y, &sect);
 	n = scthash(skyp->s_sat.pln_x, skyp->s_sat.pln_y, TSIZE);

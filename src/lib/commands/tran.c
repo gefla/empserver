@@ -175,8 +175,7 @@ tran_plane(void)
 	    pr("%s has been hardened and can't be transported\n",
 	       prplane(&plane));
 	    return RET_FAIL;
-	} else if ((plane.pln_flags & PLN_LAUNCHED) &&
-		   (plchr[type].pl_flags & P_O)) {
+	} else if (pln_is_in_orbit(&plane)) {
 	    pr("%s is in space and can't be transported\n",
 	       prplane(&plane));
 	    return RET_FAIL;

@@ -184,7 +184,7 @@ trad(void)
      * actually made, except for satellites in orbit.  Must be owned
      * and must be a 60% airfield (except for VTOL planes).
      */
-    if (((trade.trd_type == EF_PLANE) && !(tg.plane.pln_flags & PLN_LAUNCHED))
+    if (((trade.trd_type == EF_PLANE) && !pln_is_in_orbit(&tg.plane))
 	|| (trade.trd_type == EF_NUKE)) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
@@ -364,7 +364,7 @@ check_trade(void)
 			tg.nuke.nuk_x, tg.nuke.nuk_y);
 	    break;
 	case EF_PLANE:
-	    if ((tg.plane.pln_flags & PLN_LAUNCHED) == 0) {
+	    if (!pln_is_in_orbit(&tg.plane)) {
 		tg.plane.pln_x = trade.trd_x;
 		tg.plane.pln_y = trade.trd_y;
 	    }

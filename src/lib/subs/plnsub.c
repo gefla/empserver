@@ -1236,6 +1236,13 @@ pln_mobcost(int dist, struct plnstr *pp, int flags)
     return ldround(cost * dist / pln_range_max(pp) + 5, 1);
 }
 
+int
+pln_is_in_orbit(struct plnstr *pp)
+{
+    return (plchr[pp->pln_type].pl_flags & (P_M | P_O)) == P_O
+	&& (pp->pln_flags & PLN_LAUNCHED);
+}
+
 /*
  * Set PP's tech to TLEV along with everything else that depends on it.
  */

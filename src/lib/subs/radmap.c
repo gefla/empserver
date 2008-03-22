@@ -145,7 +145,7 @@ radmap2(int owner,
 	x = deltx(&ns.range, (int)plane.pln_x);
 	y = delty(&ns.range, (int)plane.pln_y);
 
-	if ((plane.pln_flags & PLN_LAUNCHED) && plane.pln_own != owner) {
+	if (pln_is_in_orbit(&plane) && plane.pln_own != owner) {
 	    vis[y][x] = 100;
 	    rad[y][x] = '$';
 	}

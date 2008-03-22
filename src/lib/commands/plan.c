@@ -74,10 +74,8 @@ plan(void)
 	    pr("%5dL", plane.pln_land);
 	else
 	    pr("      ");
-	if (plane.pln_flags & PLN_SYNCHRONOUS)
-	    pr(" geosync");
-	else if (plane.pln_flags & PLN_LAUNCHED)
-	    pr(" orbit");
+	if (pln_is_in_orbit(&plane))
+	    pr((plane.pln_flags & PLN_SYNCHRONOUS) ? " geosync" : " orbit");
 	else if (plane.pln_nuketype >= 0)
 	    pr(" %-5.5s %c",
 	       nchr[(int)plane.pln_nuketype].n_name,

@@ -66,7 +66,7 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 	    continue;
 	}
 
-	if (pp->pln_flags & PLN_LAUNCHED) {
+	if (pln_is_in_orbit(pp)) {
 	    if (!player->simulation && buildem == 0
 		&& !(pp->pln_flags & PLN_SYNCHRONOUS))
 		move_sat(pp);
