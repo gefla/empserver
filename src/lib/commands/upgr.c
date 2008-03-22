@@ -272,6 +272,10 @@ pupgr(void)
 	       plane.pln_uid);
 	    continue;
 	}
+	if (plane.pln_flags & PLN_LAUNCHED) {
+	    pr("Plane %s is in orbit!\n", prplane(&plane));
+	    continue;
+	}
 	n++;
 	pp = &plchr[(int)plane.pln_type];
 	avail = (PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm) * UPGR_COST + 99) / 100;
@@ -294,10 +298,6 @@ pupgr(void)
 	if (cost + player->dolcost > cash) {
 	    pr("You don't have enough money to upgrade %s!\n",
 	       prplane(&plane));
-	    continue;
-	}
-	if (plane.pln_flags & PLN_LAUNCHED) {
-	    pr("Plane %s is in orbit!\n", prplane(&plane));
 	    continue;
 	}
 
