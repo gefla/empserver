@@ -467,7 +467,7 @@ multifire(void)
 	    pr("Shells hit sector %s for %d damage.\n",
 	       xyas(x, y, player->cnum), dam);
 	    if (target != targ_bogus)
-		sectdamage(&vsect, dam, 0);
+		sectdamage(&vsect, dam);
 	    break;
 	case targ_ship:
 	    nreport(player->cnum, N_SHP_SHELL, vict, 1);
@@ -600,7 +600,7 @@ do_defdam(struct emp_qelem *list, double odds)
 	    vict = fp->victim;
 	    pr("Return fire hit sector %s for %d damage.\n",
 	       xyas(fp->x, fp->y, player->cnum), dam);
-	    sectdamage(&sect, dam, 0);
+	    sectdamage(&sect, dam);
 	    putsect(&sect);
 	    if (vict)
 		wu(0, vict, "Return fire hit sector %s for %d damage.\n",

@@ -118,8 +118,8 @@ reco(void)
     if (*player->argp[0] == 's')
 	mission_flags |= PM_S;
 
-    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
-		 0, 0, 0);
+    ac_encounter(&bomb_list, &esc_list, ax, ay,
+		 flightpath, mission_flags, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {

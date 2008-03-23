@@ -40,6 +40,7 @@
 #include "file.h"
 #include "misc.h"
 #include "nsc.h"
+#include "plane.h"
 #include "product.h"
 
 static void verify_fail(int, int, struct castr *, int, char *, ...)
@@ -163,6 +164,26 @@ verify_row(int type, int row)
     return ret_val;
 }
 
+static void
+pln_zap_transient_flags(void)
+{
+    int i;
+    struct plnstr *pp;
+
+    /* laziness: assumes plane file is EFF_MEM */
+    for (i = 0; (pp = getplanep(i)) != NULL; i++) {
+	if (pp->pln_flags & PLN_LAUNCHED
+	    && (plchr[pp->pln_type].pl_flags & (P_M | P_O)) != P_O) {
+	    pp->pln_flags &= ~PLN_LAUNCHED;
+	    verify_fail(EF_PLANE, i, NULL, 0, "stuck in the air (patched)");
+	    /*
+	     * Can't putplane() here, because pln_prewrite() crashes
+	     * without a valid player.
+	     */
+	}
+    }
+}
+
 int
 ef_verify()
 {
@@ -188,5 +209,6 @@ ef_verify()
 	}
     }
 
+    pln_zap_transient_flags();
     return retval;
 }

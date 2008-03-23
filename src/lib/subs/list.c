@@ -162,8 +162,7 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
 }
 
 int
-planesatxy(coord x, coord y, int wantflags, int nowantflags,
-	   struct emp_qelem *list)
+planesatxy(coord x, coord y, int wantflags, int nowantflags)
 {
     int first;
     int planes;
@@ -178,9 +177,6 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags,
 	if (plane.pln_effic < PLANE_MINEFF || plane.pln_own == 0)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
-	    continue;
-	/* Is this plane one of the ones flying somewhere? */
-	if (ac_isflying(&plane, list))
 	    continue;
 	plp = &plchr[(int)plane.pln_type];
 	if (first) {

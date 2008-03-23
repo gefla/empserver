@@ -402,8 +402,8 @@ extern void stop_service(void);
 extern int confirm(char *);
 extern int askyn(char *);
 /* bridgefall.c */
-extern void bridge_damaged(struct sctstr *, struct emp_qelem *);
-extern void bridgefall(struct sctstr *, struct emp_qelem *);
+extern void bridge_damaged(struct sctstr *);
+extern void bridgefall(struct sctstr *);
 /* bsanct.c */
 extern void bsanct(void);
 /* caploss.c */
@@ -468,7 +468,7 @@ extern int roundrange(double);
 extern int shipsatxy(coord, coord, int, int);
 extern int carriersatxy(coord, coord, natid);
 extern int unitsatxy(coord, coord, int, int);
-extern int planesatxy(coord, coord, int, int, struct emp_qelem *);
+extern int planesatxy(coord, coord, int, int);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 			 struct shiplist **);
 extern int num_shipsatxy(coord, coord, int, int);
@@ -484,7 +484,7 @@ extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* mission.c */
 extern char *mission_name(short);
-extern int collateral_damage(coord, coord, int, struct emp_qelem *);
+extern int collateral_damage(coord, coord, int);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
 extern int ground_interdict(coord, coord, natid, char *);
 extern int unit_interdict(coord, coord, natid, char *, int, int);
@@ -559,7 +559,6 @@ extern int pln_arm(struct emp_qelem *, int, char, struct ichrstr *,
 extern int pln_mobcost(int, struct plnstr *, int);
 extern void pln_put(struct emp_qelem *);
 extern void pln_put1(struct plist *);
-extern void pln_removedupes(struct emp_qelem *, struct emp_qelem *);
 extern void take_plane_off_ship(struct plnstr *, struct shpstr *);
 extern void take_plane_off_land(struct plnstr *, struct lndstr *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
@@ -630,8 +629,8 @@ extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
 extern int issector(char *);
 /* sectdamage.c */
-extern int sect_damage(struct sctstr *, int, struct emp_qelem *);
-extern int sectdamage(struct sctstr *, int, struct emp_qelem *);
+extern int sect_damage(struct sctstr *, int);
+extern int sectdamage(struct sctstr *, int);
 /* ship.c */
 extern char *prship(struct shpstr *);
 extern int shp_postread(int, void *);

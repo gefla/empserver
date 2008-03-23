@@ -553,11 +553,14 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct plist *plp;
+    struct plnstr *pp;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
-	if (pln_equip(plp, ip, flags, mission) < 0) {
+	pp = &plp->plane;
+	if ((pp->pln_flags & PLN_LAUNCHED)
+	    || pln_equip(plp, ip, flags, mission) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -584,8 +587,11 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	    mission_flags &= ~P_MINE;
 	    /* FIXME no effect */
 	}
-	plp->plane.pln_mobil -= pln_mobcost(dist, &plp->plane, flags);
-	pr("%s equipped\n", prplane(&plp->plane));
+	CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
+	pp->pln_flags |= PLN_LAUNCHED;
+	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
+	putplane(pp->pln_uid, pp);
+	pr("%s equipped\n", prplane(pp));
     }
     return mission_flags;
 }
@@ -742,8 +748,16 @@ pln_put1(struct plist *plp)
     struct sctstr sect;
 
     pp = &plp->plane;
-    if (!pp->pln_own) {
-	/* crashed */
+
+    if (CANT_HAPPEN((pp->pln_flags & PLN_LAUNCHED)
+		    && (plchr[pp->pln_type].pl_flags & P_M)
+		    && pp->pln_effic >= PLANE_MINEFF))
+	pp->pln_effic = 0;   /* bug: missile launched but not used up */
+
+    if (!(pp->pln_flags & PLN_LAUNCHED))
+	;			/* never took off */
+    else if (pp->pln_effic < PLANE_MINEFF) {
+	/* destroyed */
 	if (pp->pln_ship >= 0) {
 	    getship(pp->pln_ship, &ship);
 	    take_plane_off_ship(pp, &ship);
@@ -775,40 +789,10 @@ pln_put1(struct plist *plp)
 	    pp->pln_effic = 0;
 	}
     }
+    pp->pln_flags &= ~PLN_LAUNCHED;
     putplane(pp->pln_uid, pp);
     emp_remque(&plp->queue);
     free(plp);
-}
-
-void
-pln_removedupes(struct emp_qelem *bomb_list, struct emp_qelem *esc_list)
-{
-    struct emp_qelem *bomb;
-    struct emp_qelem *esc;
-    struct plist *bombp;
-    struct plist *escp;
-
-    if (QEMPTY(bomb_list) || QEMPTY(esc_list))
-	return;
-    bomb = bomb_list->q_forw;
-    while (bomb != bomb_list) {
-	if (QEMPTY(esc_list)) {
-	    bomb = bomb_list;
-	    continue;
-	}
-	esc = esc_list->q_forw;
-	bombp = (struct plist *)bomb;
-	while (esc != esc_list) {
-	    escp = (struct plist *)esc;
-	    if (escp->plane.pln_uid == bombp->plane.pln_uid) {
-		emp_remque(esc);
-		free(esc);
-		esc = esc_list;
-	    } else
-		esc = esc->q_forw;
-	}
-	bomb = bomb->q_forw;
-    }
 }
 
 /*

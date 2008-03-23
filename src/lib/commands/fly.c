@@ -136,8 +136,8 @@ fly(void)
     }
     mission_flags = pln_arm(&esc_list, ap_to_target, 't',
 			    ip, P_ESC | P_F, mission_flags);
-    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
-		 0, 0, 0);
+    ac_encounter(&bomb_list, &esc_list, ax, ay,
+		 flightpath, mission_flags, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {

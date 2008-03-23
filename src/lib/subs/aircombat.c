@@ -64,16 +64,13 @@ static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
 static void ac_fireflak(struct emp_qelem *, natid, int);
-static void getilist(struct emp_qelem *, natid,
-		     struct emp_qelem *, struct emp_qelem *,
-		     struct emp_qelem *, struct emp_qelem *);
+static void getilist(struct emp_qelem *, natid);
 static int do_evade(struct emp_qelem *, struct emp_qelem *);
 
 void
 ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     coord x, coord y, char *path, int mission_flags,
-	     int no_air_defense, struct emp_qelem *obomb,
-	     struct emp_qelem *oesc)
+	     int no_air_defense)
 {
     int val, non_missiles;
     int rel;
@@ -135,7 +132,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	}
     }
 
-    pln_removedupes(bomb_list, esc_list);
     while ((dir = mypath[myp++]) && !QEMPTY(bomb_list)) {
 	if ((val = diridx(dir)) == DIR_STOP)
 	    break;
@@ -247,8 +243,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    continue;
 
 	if (unfriendly[sect.sct_own] && !gotilist[sect.sct_own]) {
-	    getilist(&ilist[sect.sct_own], sect.sct_own,
-		     bomb_list, esc_list, obomb, oesc);
+	    getilist(&ilist[sect.sct_own], sect.sct_own);
 	    gotilist[sect.sct_own]++;
 	}
 	if (rel > HOSTILE)
@@ -307,8 +302,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
-		    getilist(&ilist[cn], cn, bomb_list, esc_list, obomb,
-			     oesc);
+		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
 		}
 		PR(plane_owner, "Flying over %s ships in %s\n",
@@ -336,8 +330,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
-		    getilist(&ilist[cn], cn, bomb_list, esc_list, obomb,
-			     oesc);
+		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
 		}
 		PR(plane_owner, "Flying over %s land units in %s\n",
@@ -416,6 +409,8 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 		free(dqp);
 		continue;
 	    }
+	    CANT_HAPPEN(dplp->plane.pln_flags & PLN_LAUNCHED);
+	    dplp->plane.pln_flags |= PLN_LAUNCHED;
 	    if (first) {
 		first = 0;
 		PR(plane_owner, "%s launches SAMs!\n", cname(def_own));
@@ -481,7 +476,8 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	dist = mapdist(x, y, pp->pln_x, pp->pln_y) * 2;
 	if (pp->pln_range < dist)
 	    continue;
-	if (mission_pln_equip(plp, 0, P_F, 0) < 0) {
+	if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
+	    || mission_pln_equip(plp, 0, P_F, 0) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -489,6 +485,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* got one; delete from def_list, add to int_list */
 	emp_remque(qp);
 	emp_insque(qp, &int_list);
+	pp->pln_flags |= PLN_LAUNCHED;
 	pp->pln_mobil -= pln_mobcost(dist, pp, P_F);
 	putplane(pp->pln_uid, pp);
 	icount++;
@@ -984,35 +981,10 @@ ac_flak_dam(int guns, int def, int pl_flags)
 }
 
 /*
- * See if this plane is flying in this list
- */
-int
-ac_isflying(struct plnstr *plane, struct emp_qelem *list)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    struct plnstr *pp;
-    struct plist *plp;
-
-    if (!list)
-	return 0;
-    for (qp = list->q_forw; qp != list; qp = next) {
-	next = qp->q_forw;
-	plp = (struct plist *)qp;
-	pp = &plp->plane;
-	if (plane->pln_uid == pp->pln_uid)
-	    return 1;
-    }
-    return 0;
-}
-
-
-/*
  * Get a list of planes available for interception duties.
  */
 static void
-getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
-	 struct emp_qelem *b, struct emp_qelem *c, struct emp_qelem *d)
+getilist(struct emp_qelem *list, natid own)
 {
     struct plchrstr *pcp;
     struct plnstr plane;
@@ -1027,6 +999,8 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	pcp = &plchr[(int)plane.pln_type];
 	if ((pcp->pl_flags & P_F) == 0)
 	    continue;
+	if (plane.pln_flags & PLN_LAUNCHED)
+	    continue;
 	if (plane.pln_mission != 0)
 	    continue;
 	if (plane.pln_mobil <= 0)
@@ -1034,16 +1008,6 @@ getilist(struct emp_qelem *list, natid own, struct emp_qelem *a,
 	if (plane.pln_effic < 40)
 	    continue;
 	if (!pln_airbase_ok(&plane, 0, 0))
-	    continue;
-	/* Finally, is it in the list of planes already in
-	   flight? */
-	if (ac_isflying(&plane, a))
-	    continue;
-	if (ac_isflying(&plane, b))
-	    continue;
-	if (ac_isflying(&plane, c))
-	    continue;
-	if (ac_isflying(&plane, d))
 	    continue;
 	/* got one! */
 	ip = malloc(sizeof(*ip));

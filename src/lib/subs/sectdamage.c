@@ -49,7 +49,7 @@
 #include "xy.h"
 
 int
-sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
+sect_damage(struct sctstr *sp, int dam)
 {
     int eff;
 
@@ -69,13 +69,13 @@ sect_damage(struct sctstr *sp, int dam, struct emp_qelem *list)
     if (sp->sct_mobil > 0)
 	sp->sct_mobil = damage(sp->sct_mobil, dam);
     item_damage(dam, sp->sct_item);
-    bridge_damaged(sp, list);
+    bridge_damaged(sp);
     putsect(sp);
     return eff;
 }
 
 int
-sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
+sectdamage(struct sctstr *sp, int dam)
 {
     struct nstr_item ni;
     struct lndstr land;
@@ -87,7 +87,7 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
     /* the damage accordingly. Makes forts a pain */
     dam = ldround(dam / sector_strength(sp), 1);
 
-    eff = sect_damage(sp, PERCENT_DAMAGE(dam), list);
+    eff = sect_damage(sp, PERCENT_DAMAGE(dam));
 
     /* Damage all the land units in the sector */
     /* Units don't take full damage */
@@ -113,9 +113,6 @@ sectdamage(struct sctstr *sp, int dam, struct emp_qelem *list)
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	if (plane.pln_ship >= 0)
-	    continue;
-	/* Is this plane flying in this list? */
-	if (ac_isflying(&plane, list))
 	    continue;
 	planedamage(&plane, dam);
 	putplane(plane.pln_uid, &plane);

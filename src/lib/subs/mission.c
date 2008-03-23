@@ -108,13 +108,13 @@ ground_interdict(coord x, coord y, natid victim, char *s)
 		cname(cn), newdam);
     }
     if (dam) {
-	collateral_damage(x, y, dam, 0);
+	collateral_damage(x, y, dam);
     }
     return dam;
 }
 
 int
-collateral_damage(coord x, coord y, int dam, struct emp_qelem *list)
+collateral_damage(coord x, coord y, int dam)
 {
     int coll;
     struct sctstr sect;
@@ -129,7 +129,7 @@ collateral_damage(coord x, coord y, int dam, struct emp_qelem *list)
 	    return 0;
 	mpr(sect.sct_own, "%s takes %d%% collateral damage\n",
 	    xyas(x, y, sect.sct_own), coll);
-	sectdamage(&sect, coll, list);
+	sectdamage(&sect, coll);
 	putsect(&sect);
 	return coll;
     }
@@ -201,7 +201,7 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	}
     }
     if (dam) {
-	collateral_damage(x, y, dam, 0);
+	collateral_damage(x, y, dam);
     }
     return dam;
 }
@@ -668,7 +668,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	       xyas(air->x, air->y, air->own));
 	}
 
-	ac_encounter(&b, &e, air->x, air->y, pp, mission_flags, 0, 0, 0);
+	ac_encounter(&b, &e, air->x, air->y, pp, mission_flags, 0);
 
 	if (!QEMPTY(&b))
 	    air_dam +=
@@ -930,17 +930,20 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct plist *plp;
+    struct plnstr *pp;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
+	pp = &plp->plane;
 
-	if (plp->plane.pln_x != x)
+	if (pp->pln_x != x)
 	    continue;
-	if (plp->plane.pln_y != y)
+	if (pp->pln_y != y)
 	    continue;
 
-	if (mission_pln_equip(plp, ip, flags, mission) < 0) {
+	if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
+	    || mission_pln_equip(plp, ip, flags, mission) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -966,13 +969,9 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 	    mission_flags &= ~P_MINE;
 	}
 
-	/*
-	 *      Mob costs for missions are 1/2 normal
-	 *       Not anymore. :)
-	 */
-/*	plp->plane.pln_mobil -= pln_mobcost(dist,&plp->plane,flags)/2;*/
-	plp->plane.pln_mobil -= pln_mobcost(dist, &plp->plane, flags);
-
+	CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
+	pp->pln_flags |= PLN_LAUNCHED;
+	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
     }
     return mission_flags;
 }
@@ -1217,7 +1216,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	    }
 	    /* Now, even though we missed, the bombs
 	       land somewhere. */
-	    collateral_damage(x, y, newdam, bombers);
+	    collateral_damage(x, y, newdam);
 	}
 
 	/* use up missiles */
@@ -1396,7 +1395,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 	    /* Now, fly the planes to the sector */
 	    emp_initque(&empty);
 	    ac_encounter(&i, &empty, air->x, air->y,
-			 path, mission_flags, 1, bomb_list, esc_list);
+			 path, mission_flags, 1);
 
 	    /* If none made it, continue */
 	    if (QEMPTY(&i))

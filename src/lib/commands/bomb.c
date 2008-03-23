@@ -147,8 +147,8 @@ bomb(void)
     }
     mission_flags = pln_arm(&esc_list, 2 * ap_to_target, mission,
 			    ip, P_F | P_ESC, mission_flags);
-    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags,
-		 0, 0, 0);
+    ac_encounter(&bomb_list, &esc_list, ax, ay,
+		 flightpath, mission_flags, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else if (target.sct_type == SCT_SANCT) {
@@ -218,7 +218,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     } else {
 	nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
     }
-    nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0, list);
+    nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
     nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
   retry:
     p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
@@ -369,9 +369,9 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	   "%s bombing raid did %d%% damage in %s\n",
 	   cname(player->cnum), oldeff - target->sct_effic,
 	   xyas(target->sct_x, target->sct_y, target->sct_own));
-    bridge_damaged(target, list);
+    bridge_damaged(target);
     putsect(&sect);
-    collateral_damage(target->sct_x, target->sct_y, dam, list);
+    collateral_damage(target->sct_x, target->sct_y, dam);
 }
 
 static void
@@ -447,7 +447,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	   cname(player->cnum), b, ip->i_name,
 	   xyas(target->sct_x, target->sct_y, target->sct_own));
     putsect(&sect);
-    collateral_damage(target->sct_x, target->sct_y, dam, list);
+    collateral_damage(target->sct_x, target->sct_y, dam);
 }
 
 static void
@@ -559,7 +559,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			     'p', &nukedam, 0);
-	    collateral_damage(target->sct_x, target->sct_y, dam, list);
+	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
 	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
@@ -586,7 +586,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	       prship(&ship),
 	       xyas(target->sct_x, target->sct_y, player->cnum));
 	}
-	collateral_damage(target->sct_x, target->sct_y, dam / 2, list);
+	collateral_damage(target->sct_x, target->sct_y, dam / 2);
       next:
 	;
     }
@@ -615,7 +615,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
-	nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0, list);
+	nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
 	if (nplanes == 0) {
 	    pr("%s could not find any planes!\n", prplane(&plp->plane));
 	    continue;
@@ -632,7 +632,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 		continue;
 	    }
 	    if (*q == '?') {
-		planesatxy(target->sct_x, target->sct_y, 0, 0, list);
+		planesatxy(target->sct_x, target->sct_y, 0, 0);
 		continue;
 	    }
 	    if (*q == 'd')
@@ -643,8 +643,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (getplane(n, &plane) &&
 		plane.pln_x == target->sct_x &&
 		plane.pln_y == target->sct_y &&
-		((plane.pln_flags & PLN_LAUNCHED) == 0) &&
-		(!ac_isflying(&plane, list)))
+		!(plane.pln_flags & PLN_LAUNCHED))
 		planeno = n;
 	    else
 		pr("Plane #%d not spotted\n", n);
@@ -667,7 +666,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			     'p', &nukedam, 0);
-	    collateral_damage(target->sct_x, target->sct_y, dam, list);
+	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
 	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
@@ -694,7 +693,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	       cname(player->cnum), dam, prplane(&plane),
 	       xyas(target->sct_x, target->sct_y, own));
 	putplane(plane.pln_uid, &plane);
-	collateral_damage(target->sct_x, target->sct_y, dam, list);
+	collateral_damage(target->sct_x, target->sct_y, dam);
       next:
 	;
     }
@@ -781,7 +780,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			     'p', &nukedam, 0);
-	    collateral_damage(target->sct_x, target->sct_y, dam, list);
+	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
 	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
@@ -798,7 +797,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		retreat_land(&land, 'b');
 	nreport(player->cnum, N_UNIT_BOMB, own, 1);
 	putland(land.lnd_uid, &land);
-	collateral_damage(target->sct_x, target->sct_y, dam, list);
+	collateral_damage(target->sct_x, target->sct_y, dam);
       next:
 	;
     }
@@ -830,7 +829,7 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	   cname(player->cnum), PERCENT_DAMAGE(dam),
 	   xyas(target->sct_x, target->sct_y, target->sct_own));
 
-    sectdamage(target, dam, list);
+    sectdamage(target, dam);
 
     pr("did %d damage in %s\n", PERCENT_DAMAGE(dam),
        xyas(target->sct_x, target->sct_y, player->cnum));

@@ -799,7 +799,7 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 			    MI_INTERDICT);
     if (dam) {
 	mpr(victim, "missile interdiction mission does %d damage!\n", dam);
-	collateral_damage(newx, newy, dam, 0);
+	collateral_damage(newx, newy, dam);
     }
     qp = msl_list.q_forw;
     while (qp != msl_list.q_forw) {

@@ -49,7 +49,7 @@
 #include "sect.h"
 #include "xy.h"
 
-static void knockdown(struct sctstr *, struct emp_qelem *);
+static void knockdown(struct sctstr *);
 
 /*
  * Check bridges at and around SP after damage to SP.
@@ -60,7 +60,7 @@ static void knockdown(struct sctstr *, struct emp_qelem *);
  * left to the caller.
  */
 void
-bridge_damaged(struct sctstr *sp, struct emp_qelem *list)
+bridge_damaged(struct sctstr *sp)
 {
     int des;
 
@@ -69,13 +69,13 @@ bridge_damaged(struct sctstr *sp, struct emp_qelem *list)
 
     des = sp->sct_type;
     if (des == SCT_BSPAN || des == SCT_BTOWER)
-	knockdown(sp, list);
+	knockdown(sp);
     if ((des == SCT_BHEAD || des == SCT_BTOWER) && !opt_EASY_BRIDGES)
-	bridgefall(sp, list);
+	bridgefall(sp);
 }
 
 void
-bridgefall(struct sctstr *sp, struct emp_qelem *list)
+bridgefall(struct sctstr *sp)
 {
     int i;
     int j;
@@ -112,7 +112,7 @@ bridgefall(struct sctstr *sp, struct emp_qelem *list)
 	    }
 	}
 	if (j > 6) {
-	    knockdown(&sect, list);
+	    knockdown(&sect);
 	    putsect(&sect);
 	}
     }
@@ -121,7 +121,7 @@ bridgefall(struct sctstr *sp, struct emp_qelem *list)
 /* Knock down a bridge span.  Note that this does NOT write the
  * sector out to the database, it's up to the caller to do that. */
 static void
-knockdown(struct sctstr *sp, struct emp_qelem *list)
+knockdown(struct sctstr *sp)
 {
     struct lndstr land;
     struct plnstr plane;
@@ -164,9 +164,6 @@ knockdown(struct sctstr *sp, struct emp_qelem *list)
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	if (plane.pln_ship >= 0)
-	    continue;
-	/* Is this plane flying in this list? */
-	if (ac_isflying(&plane, list))
 	    continue;
 	np = getnatp(plane.pln_own);
 	if (np->nat_flags & NF_BEEP)

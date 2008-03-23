@@ -116,7 +116,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 		    pr("Explosion damages %s %d%%",
 		       xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
 		    getsect(pp->pln_x, pp->pln_y, &sect);
-		    sectdamage(&sect, dam, 0);
+		    sectdamage(&sect, dam);
 		    putsect(&sect);
 		}
 	    }
@@ -406,7 +406,7 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 	    } else {
 		/* Missiles that miss have to hit somewhere! */
 		newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 0);
-		collateral_damage(x, y, newdam, 0);
+		collateral_damage(x, y, newdam);
 	    }
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);

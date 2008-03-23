@@ -271,7 +271,7 @@ guerrilla(struct sctstr *sp)
 	wu(0, sp->sct_own,
 	   "Production %s disrupted by terrorists in %s\n",
 	   effadv(n), ownxy(sp));
-	sect_damage(sp, n / 10, 0);
+	sect_damage(sp, n / 10);
 	/*logerror("(#%d) che blew up %s for %d", sp->sct_own, */
 	/*ownxy(sp), n); */
 	recruit++;

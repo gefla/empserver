@@ -132,7 +132,7 @@ desi(void)
 	if (opt_EASY_BRIDGES == 0) {	/* may cause a bridge fall */
 	    if (n != SCT_BHEAD)
 		continue;
-	    bridgefall(&sect, 0);
+	    bridgefall(&sect);
 	}
     }
     if (changed)

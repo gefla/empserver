@@ -105,7 +105,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	}
 	if (opt_FALLOUT)
 	    fallout = sect.sct_fallout;
-	sect_damage(&sect, damage, 0);
+	sect_damage(&sect, damage);
 	if (sect.sct_x == x && sect.sct_y == y)
 	    retval = damage;
 	if (opt_FALLOUT) {

@@ -73,7 +73,7 @@ struct plnstr {
     float pln_theta;		/* position in orbital sine wave */
 };
 
-#define	PLN_LAUNCHED	bit(0)	/* A satellite that's in orbit */
+#define	PLN_LAUNCHED	bit(0)	/* Flying (satellite: in orbit) */
 #define	PLN_SYNCHRONOUS	bit(1)	/* A satellite in geo-synchronous orbit */
 #define	PLN_AIRBURST	bit(2)	/* Airburst the nuke we're armed with */
 
@@ -160,9 +160,7 @@ extern void ac_combat_headers(natid, natid);
 extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 extern int ac_flak_dam(int, int, int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
-			 coord, char *, int, int,
-			 struct emp_qelem *, struct emp_qelem *);
-extern int ac_isflying(struct plnstr *, struct emp_qelem *);
+			 coord, char *, int, int);
 extern void sam_intercept(struct emp_qelem *, struct emp_qelem *,
 			  natid, natid, coord, coord, int);
 

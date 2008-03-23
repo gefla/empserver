@@ -103,7 +103,7 @@ sabo(void)
 	land.lnd_own = 0;
 	putland(land.lnd_uid, &land);
 
-	sectdamage(&sect, dam, 0);
+	sectdamage(&sect, dam);
 	putsect(&sect);
 
 	land.lnd_own = player->cnum;

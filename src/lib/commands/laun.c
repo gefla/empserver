@@ -321,7 +321,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		       cname(player->cnum), dam,
 		       xyas(sx, sy, sect.sct_own));
 	    }
-	    sectdamage(&sect, dam, 0);
+	    sectdamage(&sect, dam);
 	    putsect(&sect);
 	}
     } /* end PINPOINTMISSILE conditional */
@@ -414,6 +414,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
     }
     pp->pln_x = sx;
     pp->pln_y = sy;
+    CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
     pp->pln_flags |= PLN_LAUNCHED;
     pp->pln_mobil = pp->pln_mobil > dist ? pp->pln_mobil - dist : 0;
     putplane(pp->pln_uid, pp);

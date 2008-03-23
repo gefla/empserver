@@ -650,7 +650,7 @@ att_approach(struct combat *off, struct combat *def)
     }
     if (off->type == EF_SECTOR) {
 	getsect(off->x, off->y, &sect);
-	sectdamage(&sect, dam, 0);
+	sectdamage(&sect, dam);
 	putsect(&sect);
 	pr("Enemy fleet at %s does %d damage to %s\n",
 	   xyas(def->x, def->y, player->cnum), dam, prcom(0, off));
