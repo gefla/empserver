@@ -987,7 +987,6 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
     struct shpstr ship;
     struct sctstr sect;
     i_type itype;
-    int rval;
     short *item;
 
     pp = &plp->plane;
@@ -1006,7 +1005,6 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	return -1;
     }
     item[I_PETROL] -= pcp->pl_fuel;
-    rval = 0;
     if (!(flags & P_F)) {
 	load = pln_load(pp);
 	itype = I_NONE;
@@ -1037,10 +1035,6 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	    itype = I_MILIT;
 	    needed = load / ip->i_lbs;
 	    break;
-	case 'n':
-	    if (pp->pln_nuketype == -1)
-		rval = -1;
-	    break;
 	case 'i':		/* missile interception */
 	    if (load) {
 		itype = I_SHELL;
@@ -1050,9 +1044,8 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	default:
 	    break;
 	}
-	if (rval < 0 || (itype != I_NONE && needed <= 0)) {
+	if (itype != I_NONE && needed <= 0)
 	    return -1;
-	}
 	if (itype != I_NONE) {
 	    if (itype == I_SHELL && item[itype] < needed)
 		item[itype] += supply_commod(plp->plane.pln_own,
@@ -1074,7 +1067,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	putland(land.lnd_uid, &land);
     else
 	putsect(&sect);
-    return rval;
+    return 0;
 }
 
 /*

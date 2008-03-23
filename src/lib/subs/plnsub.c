@@ -606,7 +606,6 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
     struct shpstr ship;
     struct sctstr sect;
     i_type itype;
-    int rval;
     short *item;
     int own;
     int abandon_needed;
@@ -639,7 +638,6 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	return -1;
     }
     item[I_PETROL] -= pcp->pl_fuel;
-    rval = 0;
     if ((flags & P_F) == 0) {
 	load = pln_load(pp);
 	itype = I_NONE;
@@ -671,14 +669,10 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	    itype = I_MILIT;
 	    needed = load / ip->i_lbs;
 	    break;
-	case 'n':
-	    if (pp->pln_nuketype == -1)
-		rval = -1;
-	    break;
 	default:
 	    break;
 	}
-	if (rval < 0 || (itype != I_NONE && needed <= 0)) {
+	if (itype != I_NONE && needed <= 0) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
 	}
@@ -725,7 +719,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	}
 	putsect(&sect);
     }
-    return rval;
+    return 0;
 }
 
 void
