@@ -177,8 +177,7 @@ bomb(void)
 	    strat_bomb(&bomb_list, &target);
 	    break;
 	default:
-	    pr("Bad mission %c\n", mission);
-	    break;
+	    CANT_REACH();
 	}
     }
     pln_put(&bomb_list);
