@@ -71,8 +71,6 @@ xrel(struct natstr *np, coord absx)
     x = XNORM(absx - np->nat_xorg);
     if (x >= WORLD_X / 2)
 	x -= WORLD_X;
-    else if (x < -WORLD_X / 2)
-	x += WORLD_X;
     return x;
 }
 
@@ -84,8 +82,6 @@ yrel(struct natstr *np, coord absy)
     y = YNORM(absy - np->nat_yorg);
     if (y >= WORLD_Y / 2)
 	y -= WORLD_Y;
-    else if (y < -WORLD_Y / 2)
-	y += WORLD_Y;
     return y;
 }
 
