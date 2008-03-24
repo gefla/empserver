@@ -1018,11 +1018,6 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	    }
 	    break;
 	case 't':
-	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
-		break;
-	    itype = ip->i_uid;
-	    needed = (load * 2) / ip->i_lbs;
-	    break;
 	case 'd':
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
