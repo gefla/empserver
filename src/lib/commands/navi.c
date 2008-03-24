@@ -327,7 +327,7 @@ nav_map(int x, int y, int show_designations)
 	 * in which case they'll see that.
 	 * --ts
 	 */
-	*ptr = player->bmap[sctoff(sect.sct_x, sect.sct_y)];
+	*ptr = player->bmap[sect.sct_uid];
     }
     if (changed)
 	writemap(player->cnum);

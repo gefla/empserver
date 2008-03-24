@@ -125,7 +125,7 @@ finish_sects(int etu)
 	if (np->nat_money < 0)
 	    continue;
 	/* Get the pointer */
-	infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
+	infptr = &g_distptrs[sp->sct_uid];
 	dodistribute(sp, EXPORT,
 		     infptr->path, infptr->imcost, infptr->excost);
     }
@@ -135,7 +135,7 @@ finish_sects(int etu)
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	/* Get the pointer (we do it first so we can free if needed) */
-	infptr = &g_distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
+	infptr = &g_distptrs[sp->sct_uid];
 	if (sp->sct_type == SCT_WATER || sp->sct_own == 0) {
 #ifdef SAVE_FINISH_PATHS
 	    if (infptr->path)
@@ -179,7 +179,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	    continue;
 	/* Set the pointer */
-	infptr = &distptrs[XYOFFSET(sp->sct_x, sp->sct_y)];
+	infptr = &distptrs[sp->sct_uid];
 	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (dist == NULL) {

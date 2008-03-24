@@ -221,6 +221,6 @@ owned_and_navigable(char *bigmap, int x, int y, int own)
     }
 
     /* Can only check bigmap */
-    mapspot = bigmap[sctoff(x, y)];
+    mapspot = bigmap[sect.sct_uid];
     return mapspot == '.' || mapspot == ' ' || mapspot == 0;
 }

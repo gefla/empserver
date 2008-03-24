@@ -53,7 +53,7 @@ bdes(void)
     while (!player->aborted && nxtsct(&nstr, &sect)) {
 	if ((nstr.ncond > 0) && (sect.sct_own != player->cnum))
 	    continue;
-	d = player->map[sctoff(nstr.x, nstr.y)];
+	d = player->map[sect.sct_uid];
 	sprintf(prompt, "%s '%c'  desig? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		d ? d : ' ');

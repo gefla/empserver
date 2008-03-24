@@ -71,7 +71,7 @@ static enum bp_item_idx bud_key[I_MAX + 1] = {
 static struct bp *
 bp_ref(struct bp *bp, struct sctstr *sp)
 {
-    return &bp[XYOFFSET(sp->sct_x, sp->sct_y)];
+    return &bp[sp->sct_uid];
 }
 
 /*

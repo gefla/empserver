@@ -431,9 +431,9 @@ share_bmap(natid from, natid to, struct nstr_sect *ns, char des,
 	from_des &= ~0x20;
 
     while (nxtsct(ns, &sect)) {
-	if (!(fromdes = from_bmap[sctoff(ns->x, ns->y)]))
+	if (!(fromdes = from_bmap[sect.sct_uid]))
 	    continue;
-	todes = to_bmap[sctoff(ns->x, ns->y)];
+	todes = to_bmap[sect.sct_uid];
 	if (todes &&
 	    todes != '?' &&
 	    todes != '.' && todes != ' ' && todes != from_des)

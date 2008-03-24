@@ -300,7 +300,7 @@ fly_map(coord curx, coord cury)
     i = 0;
     while (i < 7 && nxtsct(&ns, &sect)) {
 	/* Nasty: this relies on the iteration order */
-	if (!(view[i] = player->bmap[sctoff(ns.x, ns.y)]))
+	if (!(view[i] = player->bmap[sect.sct_uid]))
 	    view[i] = ' ';
 	i++;
     }
