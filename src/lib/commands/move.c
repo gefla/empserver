@@ -367,30 +367,22 @@ want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 int
 would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 {
-    int mil, civs, loyalcivs;
+    int mil, loyalcivs;
 
-    if ((vtype != I_CIVIL) && (vtype != I_MILIT))
+    if (vtype != I_CIVIL && vtype != I_MILIT)
 	return 0;
 
     mil = sp->sct_item[I_MILIT];
-    civs = sp->sct_item[I_CIVIL];
+    loyalcivs = sp->sct_item[I_CIVIL];
 
     if (vtype == I_MILIT)
 	mil -= amnt;
-
     if (vtype == I_CIVIL)
-	civs -= amnt;
-
-    if (sp->sct_own == sp->sct_oldown)
-	loyalcivs = civs;
-    else
+	loyalcivs -= amnt;
+    if (sp->sct_own != sp->sct_oldown)
 	loyalcivs = 0;
 
-    /* If they have a military unit there, they still own it */
-    if (sp->sct_own != 0
-	&& ((loyalcivs == 0) && (mil == 0)
-	    && (has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp) == 0)))
-	return 1;
-
-    return 0;
+    return sp->sct_own != 0
+	&& loyalcivs == 0 && mil == 0
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp);
 }
