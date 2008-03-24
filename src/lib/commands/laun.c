@@ -57,11 +57,9 @@ laun(void)
     struct nstr_item nstr;
     struct plnstr plane;
     struct shpstr ship;
-    struct sctstr sect;
     int sublaunch;
     struct plchrstr *pcp;
-    int rel, retval, gone;
-    struct natstr *natp;
+    int retval, gone;
 
     if (!snxtitem(&nstr, EF_PLANE, player->argp[1]))
 	return RET_SYN;
@@ -94,41 +92,17 @@ laun(void)
 	    }
 	}
 
-	sublaunch = 0;
-	if (plane.pln_ship >= 0) {
-	    getship(plane.pln_ship, &ship);
-	    if (!ship.shp_own) {
-		pr("%s: ship #%d was sunk!\n",
-		   prplane(&plane), ship.shp_uid);
-		plane.pln_effic = 0;
-		putplane(plane.pln_uid, &plane);
-		continue;
-	    }
-	    natp = getnatp(ship.shp_own);
-	    rel = getrel(natp, player->cnum);
-	    if (ship.shp_own != player->cnum && rel != ALLIED) {
-		pr("%s: you or an ally do not own ship #%d\n",
-		   prplane(&plane), ship.shp_uid);
-		continue;
-	    }
-	    if (mchr[(int)ship.shp_type].m_flags & M_SUB)
-		sublaunch = 1;
-	} else {
-	    sublaunch = 0;
-	    getsect(plane.pln_x, plane.pln_y, &sect);
-	    natp = getnatp(sect.sct_own);
-	    rel = getrel(natp, player->cnum);
-	    if (sect.sct_own && sect.sct_own != player->cnum
-		&& rel != ALLIED) {
-		pr("%s: you or an ally do not own sector %s!\n",
-		   prplane(&plane), xyas(plane.pln_x, plane.pln_y,
-					 player->cnum));
-		continue;
-	    }
-	}
 	if (plane.pln_effic < 60) {
 	    pr("%s is damaged (%d%%)\n", prplane(&plane), plane.pln_effic);
 	    continue;
+	}
+	if (!pln_airbase_ok(&plane, 1, 1))
+	    continue;
+	sublaunch = 0;
+	if (plane.pln_ship >= 0) {
+	    getship(plane.pln_ship, &ship);
+	    if (mchr[(int)ship.shp_type].m_flags & M_SUB)
+		sublaunch = 1;
 	}
 	pr("%s at %s; range %d, eff %d%%\n", prplane(&plane),
 	   xyas(plane.pln_x, plane.pln_y, player->cnum),
