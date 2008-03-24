@@ -155,7 +155,6 @@ sell(void)
 	comm.com_y = 0;
 	comm.sell_x = sect.sct_x;
 	comm.sell_y = sect.sct_y;
-	comm.com_uid = ii;
 	if (!putcomm(ii, &comm)) {
 	    pr("Problems with the commodities file, call the Deity\n");
 	    return RET_FAIL;

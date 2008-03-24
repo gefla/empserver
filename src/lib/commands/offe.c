@@ -229,7 +229,6 @@ do_loan(void)
     loan.l_amtdue = amt;
     (void)time(&loan.l_lastpay);
     loan.l_duedate = loan.l_ldur * SECS_PER_DAY + loan.l_lastpay;
-    loan.l_uid = nstr.cur;
     if (!putloan(nstr.cur, &loan)) {
 	pr("Couldn't save loan; get help!\n");
 	return RET_SYS;

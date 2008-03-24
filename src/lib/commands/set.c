@@ -128,7 +128,6 @@ set(void)
 	    trade.trd_y = item.gen.y;
 	    trade.trd_type = type;
 	    trade.trd_owner = player->cnum;
-	    trade.trd_uid = id;
 	    trade.trd_unitid = ni.cur;
 	    trade.trd_price = price;
 	    (void)time(&now);
