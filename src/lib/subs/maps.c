@@ -319,7 +319,7 @@ bmnxtsct(struct nstr_sect *np)
 	    if (np->curdist > np->dist)
 		continue;
 	}
-	np->id = sctoff(np->x, np->y);
+	np->id = XYOFFSET(np->x, np->y);
 	return 1;
     }
     /*NOTREACHED*/

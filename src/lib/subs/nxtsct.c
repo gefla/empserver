@@ -67,7 +67,7 @@ nxtsct(struct nstr_sect *np, struct sctstr *sp)
 	    if (np->curdist > np->dist)
 		continue;
 	}
-	np->id = sctoff(np->x, np->y);
+	np->id = XYOFFSET(np->x, np->y);
 	if (!np->read(EF_SECTOR, np->id, sp))
 	    continue;
 	if (np->ncond == 0)
