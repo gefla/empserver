@@ -177,21 +177,21 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	    /* fall through */
 	case 'b':
 	    while (bmnxtsct(nsp) && !player->aborted) {
-		if (0 != (c = player->bmap[sctoff(nsp->x, nsp->y)]))
+		if (0 != (c = player->bmap[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
 	case 't':
 	    while (bmnxtsct(nsp) && !player->aborted) {
-		if (0 != (c = player->map[sctoff(nsp->x, nsp->y)]))
+		if (0 != (c = player->map[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
 	case 'r':
 	    while (bmnxtsct(nsp) && !player->aborted) {
-		player->bmap[sctoff(nsp->x, nsp->y)] =
-		    player->map[sctoff(nsp->x, nsp->y)];
-		if (0 != (c = player->bmap[sctoff(nsp->x, nsp->y)]))
+		player->bmap[nsp->id] =
+		    player->map[nsp->id];
+		if (0 != (c = player->bmap[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    ef_write(EF_BMAP, player->cnum, player->bmap);
