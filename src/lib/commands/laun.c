@@ -171,10 +171,6 @@ launch_as(struct plnstr *pp)
     int dam, nukedam;
     natid oldown;
 
-    if (msl_equip(pp, 'p') < 0) {
-	pr("%s not enough petrol or shells!\n", prplane(pp));
-	return RET_FAIL;
-    }
     cp = getstarg(player->argp[2], "Target sector? ", buf);
     if (!check_plane_ok(pp))
 	return RET_FAIL;
@@ -200,6 +196,10 @@ launch_as(struct plnstr *pp)
     }
     if (!goodtarget) {
 	pr("No satellites there!\n");
+	return RET_FAIL;
+    }
+    if (msl_equip(pp, 'p') < 0) {
+	pr("%s not enough petrol or shells!\n", prplane(pp));
 	return RET_FAIL;
     }
     if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
