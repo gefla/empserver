@@ -200,6 +200,8 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	    continue;
 	if (plane.pln_effic < 100)
 	    continue;
+	if (!pln_airbase_ok(&plane, 1, 0))
+	    continue;
 	/* got a valid interceptor */
 	irv = malloc(sizeof(*irv));
 	irv->bombs = 0;
