@@ -170,17 +170,13 @@ sctoff(coord x, coord y)
 coord
 xnorm(coord x)
 {
-    if (x < 0)
-	x = WORLD_X - (-x % WORLD_X);
-    return x % WORLD_X;
+    return XNORM(x);
 }
 
 coord
 ynorm(coord y)
 {
-    if (y < 0)
-	y = WORLD_Y - (-y % WORLD_Y);
-    return y % WORLD_Y;
+    return YNORM(y);
 }
 
 int
