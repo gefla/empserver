@@ -40,6 +40,7 @@
 #include <unistd.h>
 #include "file.h"
 #include "optlist.h"
+#include "nat.h"
 #include "prototypes.h"
 #include "version.h"
 #include "xdump.h"
@@ -213,7 +214,7 @@ dump_table(int type, int human)
     if (!ca)
 	return;
 
-    xdinit(&xd, 0, human, printf_wrapper);
+    xdinit(&xd, NATID_BAD, human, printf_wrapper);
     xdhdr(&xd, ef_nameof(type), 0);
     xdcolhdr(&xd, ca);
     for (i = 0; (p = ef_ptr(type, i)); i++) {

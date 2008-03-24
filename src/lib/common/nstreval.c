@@ -61,7 +61,8 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
 /*
  * Evaluate VAL.
  * If VAL is symbolic, evaluate it into a promoted value type.
- * Use country CNUM's coordinate system and access control.
+ * Translate it for country CNUM (coordinate system and contact
+ * status), except when CNUM is NATID_BAD.
  * PTR points to a context object of the type that was used to compile
  * the value.
  * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
@@ -74,6 +75,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
     char *memb_ptr;
     enum nsc_type valtype;
     int idx;
+    coord c;
     struct natstr *natp;
 
     if (CANT_HAPPEN(want != NSC_NOTYPE && !NSC_IS_PROMOTED(want)))
@@ -119,20 +121,36 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	    val->val_as.lng = ((long *)memb_ptr)[idx];
 	    break;
 	case NSC_XCOORD:
-	    val->val_as.lng = xrel(getnatp(cnum), ((short *)memb_ptr)[idx]);
+	    c = ((short *)memb_ptr)[idx];
+	    if (cnum == NATID_BAD) {
+		/* FIXME use variant of xrel() that takes orig instead of nation */
+		if (c >= WORLD_X / 2)
+		    c -= WORLD_X;
+	    } else
+		c = xrel(getnatp(cnum), c);
+	    val->val_as.lng = c;
 	    break;
 	case NSC_YCOORD:
-	    val->val_as.lng = yrel(getnatp(cnum), ((short *)memb_ptr)[idx]);
+	    c = ((short *)memb_ptr)[idx];
+	    if (cnum == NATID_BAD) {
+		/* FIXME use variant of yrel() that takes orig instead of nation */
+		if (c >= WORLD_Y / 2)
+		    c -= WORLD_Y;
+	    } else
+		c = yrel(getnatp(cnum), c);
+	    val->val_as.lng = c;
 	    break;
 	case NSC_HIDDEN:
 	    val->val_as.lng = -1;
 	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
 		break;
-	    natp = getnatp(cnum);
-	    if (!opt_HIDDEN
-		|| natp->nat_stat == STAT_GOD
-		|| (getcontact(natp, idx) && getcontact(ptr, idx)))
-		val->val_as.lng = ((unsigned char *)memb_ptr)[idx];
+	    if (!opt_HIDDEN && cnum != NATID_BAD) {
+		natp = getnatp(cnum);
+		if (natp->nat_stat != STAT_GOD
+		    && !(getcontact(natp, idx) && getcontact(ptr, idx)))
+		    break;
+	    }
+	    val->val_as.lng = ((unsigned char *)memb_ptr)[idx];
 	    break;
 	case NSC_FLOAT:
 	    val->val_as.dbl = ((float *)memb_ptr)[idx];

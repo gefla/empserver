@@ -82,7 +82,8 @@
 #include "xdump.h"
 
 /*
- * Initialize XD to dump for country CNUM.
+ * Initialize XD.
+ * Translate dump for country CNUM, except when CNUM is NATID_BAD.
  * If HUMAN, dump in human-readable format.
  * Dump is to be delivered through callback PR.
  * Return XD.
@@ -91,7 +92,7 @@ struct xdstr *
 xdinit(struct xdstr *xd, natid cnum, int human, void (*pr)(char *fmt, ...))
 {
     xd->cnum = cnum;
-    xd->divine = getnatp(cnum)->nat_stat == STAT_GOD;
+    xd->divine = cnum == NATID_BAD || getnatp(cnum)->nat_stat == STAT_GOD;
     xd->human = human;
     xd->pr = pr;
     return xd;
