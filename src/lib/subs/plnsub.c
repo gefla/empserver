@@ -504,6 +504,13 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	    continue;
 	if (plane.pln_mobil <= 0)
 	    continue;
+	if (plane.pln_effic < 40) {
+	    pr("%s not efficient enough (must be 40%%)\n",
+	       prplane(&plane));
+	    continue;
+	}
+	if (!pln_capable(&plane, wantflags, nowantflags))
+	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &plane)) {
 		pr("plane #%d inelligible - it's for sale.\n",
@@ -517,16 +524,9 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	    pr("%s too far from assembly point\n", prplane(&plane));
 	    continue;
 	}
-	if (plane.pln_effic < 40) {
-	    pr("%s not efficient enough (must be 40%%)\n",
-	       prplane(&plane));
-	    continue;
-	}
 	range += ap_to_target;
 	range *= rangemult;
 	pcp = &plchr[(int)plane.pln_type];
-	if (!pln_capable(&plane, wantflags, nowantflags))
-	    continue;
 	if (plane.pln_range < range) {
 	    pr("%s out of range (%d:%d)\n",
 	       prplane(&plane), plane.pln_range, range);
