@@ -643,34 +643,36 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	itype = I_NONE;
 	needed = 0;
 	switch (mission) {
-	case 's':
-	case 'p':
+	case 's':		/* strategic bomb */
+	case 'p':		/* pinpoint bomb */
 	    if (pp->pln_nuketype == -1) {
 		itype = I_SHELL;
 		needed = load;
 	    }
 	    break;
-	case 't':
-	case 'd':
+	case 't':		/* transport */
+	case 'd':		/* drop */
 	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
 		break;
 	    itype = ip->i_uid;
 	    needed = (load * 2) / ip->i_lbs;
 	    break;
-	case 'm':
+	case 'm':		/* mine */
 	    if ((pcp->pl_flags & P_MINE) == 0)
 		break;
 	    itype = I_SHELL;
 	    needed = (load * 2) / ip->i_lbs;
 	    break;
-	case 'a':
+	case 'a':		/* paradrop */
 	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
 		break;
 	    itype = I_MILIT;
 	    needed = load / ip->i_lbs;
 	    break;
-	default:
+	case 'r':		/* reconnaissance */
 	    break;
+	default:
+	    CANT_REACH();
 	}
 	if (itype != I_NONE && needed <= 0) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
