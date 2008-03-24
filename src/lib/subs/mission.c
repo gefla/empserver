@@ -1353,7 +1353,7 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 		continue;
 	    }
 	    mission_flags =
-		mission_pln_arm(&i, air->x, air->y, 2 * dist, 'r', 0, P_F,
+		mission_pln_arm(&i, air->x, air->y, 2 * dist, 0, 0, P_F,
 				mission_flags);
 
 	    /* Did we run out of interceptors? */
