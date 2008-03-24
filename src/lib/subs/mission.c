@@ -1036,6 +1036,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 		needed = load;
 	    }
 	    break;
+	case 'r':		/* reconnaissance */
 	case 0:			/* plane interception */
 	    break;
 	default:

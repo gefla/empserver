@@ -171,7 +171,7 @@ launch_as(struct plnstr *pp)
     int dam, nukedam;
     natid oldown;
 
-    if (msl_equip(pp) < 0) {
+    if (msl_equip(pp, 'p') < 0) {
 	pr("%s not enough petrol or shells!\n", prplane(pp));
 	return RET_FAIL;
     }
@@ -280,7 +280,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	pr("Range too great; try again!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp) < 0) {
+    if (msl_equip(pp, 'p') < 0) {
 	pr("%s not enough shells!\n", prplane(pp));
 	return RET_FAIL;
     }
@@ -390,6 +390,10 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	return RET_SYN;
     if (!check_plane_ok(pp))
 	return RET_FAIL;
+    if (msl_equip(pp, 'r') < 0) {
+	pr("%s not enough petrol!\n", prplane(pp));
+	return RET_FAIL;
+    }
     pp->pln_theta = 0;
     pp->pln_flags |= PLN_SYNCHRONOUS;
     if (*p == 0 || *p == 'n')

@@ -53,14 +53,14 @@
 #include "xy.h"
 
 int
-msl_equip(struct plnstr *pp)
+msl_equip(struct plnstr *pp, char mission)
 {
     struct plist pl;
 
     memset(&pl, 0, sizeof(struct plist));
     pl.pcp = plchr + pp->pln_type;
     pl.plane = *pp;
-    return mission_pln_equip(&pl, 0, 0, 'p');
+    return mission_pln_equip(&pl, 0, 0, mission);
 }
 
 int
