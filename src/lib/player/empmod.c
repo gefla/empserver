@@ -168,7 +168,7 @@ struct cmndstr player_coms[] = {
     {"navigate <SHIPS> <PATH|DESTINATION>", 1, navi, C_MOD, NORM + CAP},
     {"nbmap <SECTS|NUKE> [s|l|n|p|r|t|*|h]", 0, map, C_MOD, NORM},
     {"ndump <SECTS>", 0, ndump, 0, NORM},
-    {"newcap <NAT> [<SECTOR>]", 0, new, C_MOD, GOD},
+    {"newcap <NAT> <SECTOR>", 0, new, C_MOD, GOD},
     {"neweff <SECTS>", 0, newe, C_MOD, NORM},
     {"newspaper [days]", 0, news, 0, VIS},
     {"nmap <SECTS|NUKE> [s|l|n|p|*|h]", 0, map, C_MOD, VIS},

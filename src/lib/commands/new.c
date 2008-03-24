@@ -43,11 +43,7 @@
 #include "prototypes.h"
 #include "tel.h"
 
-static int isok(int x, int y);
-static void ok(signed char *map, int x, int y);
 static void init_sanct(struct natstr *, coord, coord);
-
-#define	MAXAVAIL	300
 
 int
 new(void)
@@ -56,7 +52,6 @@ new(void)
     struct natstr *natp;
     natid num;
     coord x, y;
-    int i;
     char *p;
     char buf[1024];
 
@@ -72,50 +67,22 @@ new(void)
 	pr("Country #%d (%s) isn't a new country!\n", num, cname(num));
 	return RET_SYN;
     }
-    if (player->argp[2] != 0) {
-	if ((p = getstarg(player->argp[2], "sanctuary pair : ", buf)) == 0)
-	    return RET_SYN;
-	if (!sarg_xy(p, &x, &y) || !getsect(x, y, &sect))
-	    return RET_SYN;
-	if (sect.sct_type != SCT_RURAL) {
-	    pr("%s is a %s; try again...\n",
-	       xyas(x, y, player->cnum), dchr[sect.sct_type].d_name);
-	    return RET_SYN;
-	}
-	getsect(x + 2, y, &sect);
-	if (sect.sct_type != SCT_RURAL) {
-	    pr("%s is a %s; try again...\n",
-	       xyas(x + 2, y, player->cnum), dchr[sect.sct_type].d_name);
-	    return RET_SYN;
-	}
-    } else {
-	for (i = 0; i < 300 && !player->aborted; i++) {
-	    /* Both x and y should be either odd or even */
-	    x = (random() % WORLD_X) - (WORLD_X / 2);
-	    y = (((random() % WORLD_Y) - (WORLD_Y / 2)) & ~1) | (x & 1);
-	    /*
-	     * If either of the two potential
-	     * sanctuary sectors are already
-	     * owned by someone else, pick
-	     * another place on the map.
-	     */
-	    getsect(x, y, &sect);
-	    if (sect.sct_type != SCT_RURAL || sect.sct_own != 0)
-		continue;
-	    getsect(x + 2, y, &sect);
-	    if (sect.sct_type != SCT_RURAL || sect.sct_own != 0)
-		continue;
-	    if (isok(x, y))
-		break;
-	}
-	if (i == 300) {
-	    pr("couldn't find an empty slot!\n");
-	    return RET_FAIL;
-	}
+    if ((p = getstarg(player->argp[2], "sanctuary pair : ", buf)) == 0)
+	return RET_SYN;
+    if (!sarg_xy(p, &x, &y) || !getsect(x, y, &sect))
+	return RET_SYN;
+    if (sect.sct_type != SCT_RURAL) {
+	pr("%s is a %s; try again...\n",
+	   xyas(x, y, player->cnum), dchr[sect.sct_type].d_name);
+	return RET_SYN;
+    }
+    getsect(x + 2, y, &sect);
+    if (sect.sct_type != SCT_RURAL) {
+	pr("%s is a %s; try again...\n",
+	   xyas(x + 2, y, player->cnum), dchr[sect.sct_type].d_name);
+	return RET_SYN;
     }
 
-    if (player->aborted)
-	return RET_FAIL;
     pr("added country %d at %s\n", num, xyas(x, y, player->cnum));
     nat_reset(natp, STAT_SANCT, x, y);
     init_sanct(natp, x, y);
@@ -152,76 +119,4 @@ init_sanct(struct natstr *natp, coord x, coord y)
     sect.sct_item[I_FOOD] = opt_NOFOOD ? 0 : 550;
     sect.sct_item[I_UW] = 75;
     putsect(&sect);
-}
-
-static int nmin, ngold, noil, nur;
-static int nfree, navail, nowned;
-
-static int
-isok(int x, int y)
-{
-    signed char *map;
-    char *p;
-    char buf[1024];
-
-    nmin = ngold = noil = nur = 0;
-    navail = nfree = nowned = 0;
-    if (!(map = malloc(WORLD_SZ()))) {
-	logerror("malloc failed in isok\n");
-	pr("Memory error.  Tell the deity.\n");
-	return 0;
-    }
-    memset(map, 0, WORLD_SZ());
-    ok(map, x, y);
-    free(map);
-    if (nfree < 5)
-	return 0;
-    pr("Cap at %s; owned sectors: %d, free sectors: %d, avail: %d\n",
-       xyas(x, y, player->cnum), nowned, nfree, navail);
-    pr("min: %d, oil: %d, gold: %d, uranium: %d\n",
-       nmin, noil, ngold, nur);
-    p = getstring("This setup ok? ", buf);
-    if (p == 0 || *p != 'y')
-	return 0;
-    return 1;
-}
-
-static void
-ok(signed char *map, int x, int y)
-{
-    struct sctstr sect;
-    int dir;
-    int id;
-
-    if (navail > MAXAVAIL)
-	return;
-    id = sctoff(x, y);
-    if (map[id])
-	return;
-    if (!ef_read(EF_SECTOR, id, &sect))
-	return;
-    if (sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN)
-	return;
-    navail++;
-    if (navail >= MAXAVAIL) {
-	pr("At least %d...\n", MAXAVAIL);
-	return;
-    }
-    if (sect.sct_type != SCT_MOUNT && sect.sct_type != SCT_PLAINS) {
-	if (sect.sct_own == 0)
-	    nfree++;
-	else
-	    nowned++;
-	if (sect.sct_min > 9)
-	    nmin++;
-	if (sect.sct_gmin > 9)
-	    ngold++;
-	if (sect.sct_uran > 9)
-	    nur++;
-	if (sect.sct_oil > 9)
-	    noil++;
-    }
-    map[id] = 1;
-    for (dir = DIR_FIRST; dir <= DIR_LAST; dir++)
-	ok(map, diroff[dir][0] + x, diroff[dir][1] + y);
 }
