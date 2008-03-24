@@ -383,6 +383,6 @@ would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 	loyalcivs = 0;
 
     return sp->sct_own != 0
-	&& loyalcivs == 0 && mil == 0
+	&& loyalcivs <= 0 && mil <= 0
 	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp);
 }
