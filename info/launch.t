@@ -1,25 +1,25 @@
 .TH Command LAUNCH
 .NA launch "Launch missiles or satellites"
 .LV Expert
-.SY "launch <PLANES>"
+.SY "launch <PLANES> <SECT|SHIP>"
 The launch command is used to launch missiles (or satellites)
 from sectors or submarines owned by you.
 .s1
 There are 5 classes of missiles:
 .NF
 1. "marine" missiles may only be fired at ships.  They may be given
-   "interdiction" mission.  When interdicting ships, "marine" missiles
-   will keep launching until the entire enemy fleet is sunk.
+   "interdiction" mission.
 2. "tactical" missiles (without "marine" capability) may only be fired
    against sectors.  They may be given missions.  If they fire on a
    mission, then only enough missiles will fire to cause 100 damage.
-3. "intercept" missiles can not be launched.  They automatically
-   intercept planes.  You can increase their reaction radius by giving
-   them an "air" defense mission.
-4. "a-sat" missiles will automatically attempt to intercept AT_WAR
-   satellites which are launched into orbit within range.
-5. "abm" (anti-ballistic-missiles) will automatically attempt to
-   intercept incoming "tactical" (non-"marine") missiles.
+3. "intercept" missiles can't be launched manually.  They
+   automatically intercept planes.
+4. "satellite" missiles may only be fired against satellites in orbit.
+   They will automatically attempt to intercept AT_WAR satellites
+   being launched into orbit.
+5. "SDI" (anti-ballistic-missiles) can't be launched manually.  They
+   automatically intercept incoming "tactical" (non-"marine")
+   missiles.
 
 As well, there are "satellites" which are like missiles in that they
 can be launched, but unlike missiles in that they don't get destroyed
@@ -42,12 +42,6 @@ and missiles below 60% cannot be launched.
 The formula for the chance that a missile hits its target is in
 \*Qinfo Hitchance\*U.
 .s1
-Of course, things don't always go as planned!
-.s1
-Note that when you are first asked for the target sector
-you can chicken out by hitting ^C
-(or your favorite abort character).
-.s1
 In the case of non-marine tactical missiles, if there are any HOSTILE
 abm's within range of the target sector, then two of them will fire in
 an attempt to intercept the incoming missile.  
@@ -61,13 +55,7 @@ satellite.  See below for details of a satellite's orbit path.
 When launching missiles, there is a 
 % chance equal to (5 + 100 - efficiency) * (1 - techfactor) that the
 missile will blow up on
-the launching pad instead of launching. If that happens, then there is
-a further 33% chance that the warhead it is carrying (whether it be
-conventional or nuclear) will detonate.  (Note that nuclear warheads
-will only detonate in this way if the option NUKEFAILDETONATE is enabled).
-A nuclear warhead exploding on the launch pad will do the normal
-amount of damage, but a conventional missile will only do half damage
-to the sector or ship it is being launched from.
+the launching pad instead of launching.
 .s1
 Missiles launched from submarines are anonymous. The victim
 is not notified of the identity of the launching country.
@@ -93,12 +81,11 @@ Nuclear strategists call this a \*Qcounter-value\*U technique.
 .s1
 See Also \*QOn Thermonuclear War\*U by Herman Kahn.
 .s1
-If the ORBIT option is enabled, then when you launch a satellite, you
-will be asked "Geostationary orbit?".  If you answer "y", then your
-satellite will stay where you launch it.  If, however, you answer
-"n", then your satellite will orbit the planet.  When a satellite is
-"orbiting", it moves along 5% of a geodesic path every
-update.  The path the satellite follows looks like this:
+When you launch a satellite, you will be asked "Geostationary orbit?".
+If you answer "y", then your satellite will stay where you launch it.
+If, however, you answer "n", then your satellite will move along 5% of
+a geodesic path around the world every update.  The path the satellite
+follows looks like this:
 .NF
 +----+
 | /  |
@@ -117,8 +104,6 @@ then continue from the west edge near the top and go northeast until
 you go off the top of the map, then continue at the bottom going
 northeast until you go off the eastern edge again, and continue from
 the western edge near the bottom until you get back to the centre.
-That is the path of satellites which are _not_ in geostationary orbit
-(geo-stationary means stay in the same spot over the planet).
 .s1
 If a foreign satellite moves over your territory durring an update, then you
 will get a message like "Fodderland satellite spotted over 12,24" as a
