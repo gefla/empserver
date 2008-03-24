@@ -109,8 +109,6 @@ laun(void)
 	    if (ship.shp_own != player->cnum && rel != ALLIED) {
 		pr("%s: you or an ally do not own ship #%d\n",
 		   prplane(&plane), ship.shp_uid);
-		plane.pln_effic = 0;
-		putplane(plane.pln_uid, &plane);
 		continue;
 	    }
 	    if (mchr[(int)ship.shp_type].m_flags & M_SUB)
