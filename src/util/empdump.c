@@ -163,6 +163,11 @@ main(int argc, char *argv[])
 		continue;
 	    dump_table(i, human);
 	}
+	if (fclose(stdout) != 0) {
+	    fprintf(stderr, "%s: error writing export (%s)\n",
+		    argv[0], strerror(errno));
+	    exit(1);
+	}
     }
 
     /* write out imported data */
