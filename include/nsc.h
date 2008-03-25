@@ -103,11 +103,11 @@ enum nsc_cat {
  * in the context object.  I.e. the value is at sym.off + sym.idx *
  * SZ, where SZ is the size of the value.
  * If sym.get is not null, you obtain the value by calling get() like
- * VAL->get(VAL, CNUM, CTXO), where CNUM is the country to use for
- * coordinate translation and access control, and CTXO is the context
- * object.  get() either returns a null pointer and sets VAL->val_as
- * to the value, as appropriate for the type.  Or it returns another
- * context object and sets VAL->val_as.sym for it.
+ * VAL->get(VAL, NP, CTXO), where NP points to the country to use for
+ * coordinate translation and access control (null for none), and CTXO
+ * is the context object.  get() either returns a null pointer and
+ * sets VAL->val_as to the value, as appropriate for the type.  Or it
+ * returns another context object and sets VAL->val_as.sym for it.
  */
 struct valstr {
     enum nsc_type val_type;	/* type of value */
@@ -117,7 +117,7 @@ struct valstr {
 	    ptrdiff_t off;
 	    int len;
 	    int idx;
-	    void *(*get)(struct valstr *, natid, void *);
+	    void *(*get)(struct valstr *, struct natstr *, void *);
 	} sym;
 	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
 	struct {		/* cat NSC_VAL, type NSC_STRING, cat NSC_ID */
@@ -208,11 +208,11 @@ enum {
  * A datum of any other type is either a scalar of that type (if
  * ca_len is zero), or an array of ca_len elements of that type.
  * If ca_get is not null, the selector is virtual.  Values can be
- * obtained by calling ca_get(VAL, CNUM, CTXO), where VAL has been
+ * obtained by calling ca_get(VAL, NP, CTXO), where VAL has been
  * initialized my from the selector and an index by nstr_mksymval(),
- * CNUM is the country to use for coordinate translation and access
- * control, and CTXO is the context object.  See struct valstr for
- * details.
+ * NP points to the country to use for coordinate translation and
+ * access control (null for none), and CTXO is the context object.
+ * See struct valstr for details.
  * If flag NSC_DEITY is set, only to deities can use this selector.
  * If flag NSC_EXTRA is set, xdump ignores this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its
@@ -227,7 +227,7 @@ struct castr {
     ptrdiff_t ca_off;
     enum nsc_type ca_type;
     unsigned short ca_len;
-    void *(*ca_get)(struct valstr *, natid, void *);
+    void *(*ca_get)(struct valstr *, struct natstr *, void *);
     int ca_table;
     int ca_flags;
 };

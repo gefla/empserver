@@ -45,19 +45,19 @@
 #include "nsc.h"
 #include "product.h"
 
-static void *nsc_ver(struct valstr *, natid, void *);
-static void *nsc_pln_att(struct valstr *, natid, void *);
-static void *nsc_pln_def(struct valstr *, natid, void *);
-static void *nsc_lnd_att(struct valstr *, natid, void *);
-static void *nsc_lnd_def(struct valstr *, natid, void *);
-static void *nsc_lnd_vul(struct valstr *, natid, void *);
-static void *nsc_lnd_spd(struct valstr *, natid, void *);
-static void *nsc_lnd_vis(struct valstr *, natid, void *);
-static void *nsc_lnd_frg(struct valstr *, natid, void *);
-static void *nsc_lnd_acc(struct valstr *, natid, void *);
-static void *nsc_lnd_dam(struct valstr *, natid, void *);
-static void *nsc_lnd_aaf(struct valstr *, natid, void *);
-static void *nsc_lchr(struct valstr *, natid, void *);
+static void *nsc_ver(struct valstr *, struct natstr *, void *);
+static void *nsc_pln_att(struct valstr *, struct natstr *, void *);
+static void *nsc_pln_def(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_att(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_def(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_vul(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_spd(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_vis(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_frg(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_acc(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_dam(struct valstr *, struct natstr *, void *);
+static void *nsc_lnd_aaf(struct valstr *, struct natstr *, void *);
+static void *nsc_lchr(struct valstr *, struct natstr *, void *);
 
 /* Ugly hack to improve legibility by avoid long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -744,7 +744,7 @@ nsc_init(void)
  */
 
 static void *
-nsc_ver(struct valstr *val, natid cnum, void *ptr)
+nsc_ver(struct valstr *val, struct natstr *np, void *ptr)
 {
     struct keymatch *kp = &configkeys[val->val_as.sym.off];
     val->val_as.sym.off = 0;
@@ -753,84 +753,84 @@ nsc_ver(struct valstr *val, natid cnum, void *ptr)
 }
 
 static void *
-nsc_pln_def(struct valstr *val, natid cnum, void *ptr)
+nsc_pln_def(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = pln_def(ptr);;
     return NULL;
 }
 
 static void *
-nsc_pln_att(struct valstr *val, natid cnum, void *ptr)
+nsc_pln_att(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = pln_att(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_att(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_att(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.dbl = lnd_att(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_def(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_def(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.dbl = lnd_def(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_vul(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_vul(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_vul(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_spd(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_spd(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_spd(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_vis(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_vis(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_vis(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_frg(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_frg(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_frg(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_acc(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_acc(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_acc(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_dam(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_dam(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_dam(ptr);
     return NULL;
 }
 
 static void *
-nsc_lnd_aaf(struct valstr *val, natid cnum, void *ptr)
+nsc_lnd_aaf(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = lnd_aaf(ptr);
     return NULL;
 }
 
 static void *
-nsc_lchr(struct valstr *val, natid cnum, void *ptr)
+nsc_lchr(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.sym.get = NULL;
     return lchr + ((struct lndstr *)ptr)->lnd_type;

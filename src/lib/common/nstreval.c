@@ -87,8 +87,9 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	break;
     case NSC_OFF:
 	if (val->val_as.sym.get) {
+	    natp = getnatp(cnum);
 	    do {
-		ptr = val->val_as.sym.get(val, cnum, ptr);
+		ptr = val->val_as.sym.get(val, natp, ptr);
 	    } while (ptr && val->val_as.sym.get);
 	    if (!ptr) {
 		valtype = val->val_type;
