@@ -510,6 +510,7 @@ void
 empth_yield(void)
 {
     loc_BlockThisThread();
+    Sleep(0);
     loc_RunThisThread(NULL);
 }
 
