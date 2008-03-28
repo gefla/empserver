@@ -7,7 +7,7 @@
 # preventing the named behaviour:
 #
 # REDIRECT	-	Redirect all output to a logfile
-# CHECKOUT	-	Fill the sandbox with a fresh cvs checkout
+# CHECKOUT	-	Fill the sandbox with a fresh checkout
 # PATCH		-	Apply the patches for this system (global + specific)
 # BUILD		-	Build everything
 # GENERATE	-	Generate a new world
