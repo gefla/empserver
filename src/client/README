@@ -12,7 +12,7 @@ the Free Software Foundation; either version 2 of the License (in file
 The client is distributed as part of the complete source tarball and
 as a standalone client tarball.  The instructions below apply to the
 client tarball.  If you got the complete source, as tarball or from
-CVS, refer to ../../README instead.
+a git repository, refer to ../../README instead.
 
 See file `INSTALL' for detailed compilation and installation
 instructions.  Quick guide for the impatient: run configure; make;

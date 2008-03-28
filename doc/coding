@@ -422,14 +422,18 @@ There are several ways to access an object in set FOO:
   writebmap() instead.
 
 
-CVS
+git
 ---
 
-Commit related changes together, unrelated changes separately.
+Commit related changes together, unrelated changes separately.  
 
-See chapter Change Logs in the GNU coding standards for guidelines on
-log messages.  Try http://www.gnu.org/prep/standards_40.html#SEC40 or
-search the web for `gnu coding standards change logs'.
+Write meaningfull commit messages.  Start with a single short line
+(ideally less than 50 characters) summarizing the change, followed by
+a blank line and then a more thorough description.
+
+The purpose of the change log is not to explain how the code works;
+that should be done in the source code itself.  It's to explain *why*
+you made the change, and what is affected by it.
 
 Don't change whitespace gratuitiously, say just because your editor
 screws up tabs.  Such changes make it much harder to figure out who
