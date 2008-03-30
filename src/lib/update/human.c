@@ -273,7 +273,7 @@ babies(int adults, int etu, double brate, int food, int maxpop)
     if (opt_NOFOOD)
 	new_food = new_birth;
     else
-	new_food = (int)(0.5 + food / (2.0 * babyeat));
+	new_food = (int)(food / (2.0 * babyeat));
 
     new = new_birth;
     if (new > new_food)
