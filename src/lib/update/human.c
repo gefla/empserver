@@ -61,6 +61,7 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     int starved, sctwork;
     int needed;
     int maxpop;
+    int manna;
 
     /* grow people & stuff */
     sctwork = sp->sct_work;
@@ -72,12 +73,16 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 				     maxpop));
 
     if (sp->sct_type != SCT_SANCT) {
+	manna = 0;
 	if (opt_NOFOOD == 0) {
 	    needed = (int)ceil(food_needed(vec, etu));
 	    if (vec[I_FOOD] < needed) {
 		/* need to grow "emergency rations" */
 		work_avail -= 2 * growfood(sp, vec, work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
+		if (vec[I_FOOD] == 0)
+		    /* Conjure up 1f to make life easier for the player */
+		    manna = vec[I_FOOD] = 1;
 	    }
 	    if (vec[I_FOOD] < needed && sp->sct_own == sp->sct_oldown) {
 		/* steal food from warehouses, headquarters,
@@ -110,6 +115,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		sp->sct_work = sctwork;
 	    grow_people(sp, etu, np, &work_avail, sctwork, vec);
 	}
+	if (manna)
+	    /* Take away food we conjured up */
+	    vec[I_FOOD] = 0;
     } else
 	sctwork = sp->sct_work = 100;
     /* Here is where we truncate extra people, always */
@@ -141,13 +149,7 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
     food = MIN(food_workers, food_fertil);
     if (food > ITEM_MAX - vec[I_FOOD])
 	food = ITEM_MAX - vec[I_FOOD];
-    /*
-     * Be nice; grow minimum one food unit.
-     * This makes life simpler for the player.
-     */
     vec[I_FOOD] += food;
-    if (vec[I_FOOD] == 0)
-	vec[I_FOOD] = 1;
     work_used = food / fcrate;
     return work_used;
 }
