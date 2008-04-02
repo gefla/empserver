@@ -7,6 +7,133 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
+ * Fix rounding error in update that could result in more babies than
+   food permits, and negative food.
+ * Fix a bug that could lead to unfair thread scheduling under
+   Windows.
+ * Fix ship and land unit missile interdiction and ballistic missile
+   interception to require a proper base.  Before, missiles could
+   launch from anywhere for that.
+ * Launch bug fixes:
+   - Don't allow launching from unowned sectors.
+   - Don't destroy missiles stuck on foreign ships.
+   - Use up the supplies required for launching an asat only when it
+     actually launches.
+   - Don't ignore satellites' fuel use.
+ * Deity command newcap now requires its second argument (sanctuary
+   coordinates).  Before, it tried to pick a suitable location when
+   none was given.  The code implementing this feature had problems,
+   and it's not worth fixing: it is obscure, and rarely (if ever)
+   used: no conscientious deity would use it for a real game, and for
+   blitzes fairland does a better job.
+ * Keep track of flying planes properly.  This fixes a number of bugs:
+   - While the bomb command awaited pin-bombing target input from the
+     player, other players could interact with the pin-bombers and
+     escorts as if they were sitting in their bases: spy them, damage,
+     capture, load, unload, or upgrade them, even get intercepted by
+     them.  But any changes to those planes were wiped out when they
+     landed.  Abusable.
+   - The bomb command could bomb its own escorts, directly (pin-bomb
+     planes) or through collateral damage, strategic sector damage,
+     collapsing bridges or nuke damage.  The damage to the escorts was
+     wiped out when they landed.
+   - If you asked for a plane to fly both in the primary mission and
+     escort, you got charged fuel for two sorties instead of one.
+ * Plug memory leaks in plane interception.
+ * Fix trade not to let the buyer teleport satellites (not in orbit)
+   and asats to an arbitrary sector.  Abusable, because abms
+   intercepted from anywhere, and satellites could be launched from
+   unowned sectors.
+ * The PRNG seed is now logged in the journal.
+ * Fix nightly build for Windows.
+ * Fix crash bug that bit when custom tables contained columns names
+   that existed, but weren't supposed to be in the custom table.
+ * New timestamp selector for commodity, country, game, loan, nation,
+   news, realm, trade, treaty to support incremental xdump.
+ * Deity commands newcap and add wipe the nation more thoroughly.  add
+   no longer touches relations and flags for status active and god.
+ * New utility program empdump to export and import game state as
+   plain text.  Check its manual for details, including limitations.
+ * Plane, ship and land unit stats are no longer stored as game state,
+   but recomputed from tech and base stats as needed.
+ * xdump ver is no longer a special case.  Syntax "xdump ver" is now
+   deprecated.  Use "xdump ver *".
+ * Fire and torpedo cleanup and bug hunt:
+   - Plug memory leak in fire command.
+   - Fix ammunition use when returning fire: resupply could lose
+     shells when returning fire to multiple targets, and land units
+     were charged per target instead of just once.
+   - torpedo and fire no longer resupply shells automatically.  The
+     latter used to resupply land units only.
+   - Land units no longer have to be in supply to fire actively, for
+     consistency with other ways to fire.
+   - Submarines with zero mobility can no longer interdict, for
+     consistency with other ways to torpedo.
+   - Fix bugs that let submarines without capability torp use
+     torpedoes to return fire and interdict.
+   - Fix torpedo command not to require a line of sight for return
+     fire and depth charges, and to use torpedo range instead of
+     firing range for return torpedoes.
+   - Active fire and interdiction didn't work for ships with zero
+     firing range, even though return fire and support did.  No such
+     ships exist in the stock game.
+   - Let land units with zero firing range and non-zero firing damage
+     fire, for consistency with ships.  No such units exist in the
+     stock game.
+   - Ships required different numbers of military to operate their
+     guns for the various kinds of fire.  Unify to require 2*N-1
+     military to fire N guns.
+   - Ship ammunition use differed for the various kinds of fire.
+     Unify to use one shell per two guns.
+   - Forts could fire support even when there were not enough mil.
+   - Fix automatic shell resupply in several places to supply exactly
+     the shells actually fired, no more, no less.
+ * Change depth charges back to how they are documented and worked
+   before 4.0.6, mostly: require no guns, one military, do damage like
+   shell fire from three guns (before 4.0.6: two guns), use two
+   shells.  In 4.0.6's model, they worked exactly like shell fire
+   (require guns and gun crew, non-zero firing range, damage and
+   ammunition use scales with available guns), except for missions,
+   which was a bug.  Note that depth charge damage for all ships is
+   now like fire from three guns for two shells.  No change for dd; af
+   did two gun damage for one shell before, and nas did four gun
+   damage for two shells.
+ * The edit command keys deprecated in 4.3.3 are now gone.
+ * Fix build not to screw up automatic dependencies on certain compile
+   errors.
+ * Fix a bug that could prevent repeated news from properly
+   aggregating into one news item.
+ * Properly initialize all bits in game state files, even those that
+   aren't used.
+ * Fix explore's test for stopping on a splashed bridge.  The bug made
+   explore print to a bogus message.
+ * Fix spelling of symbol airburst in table plane-flags.  This could
+   affect clients.
+ * Change designate not to check total cost before executing the
+   redesignation.  The code implementing that was buggy and too ugly
+   to live.  Designate doesn't cost anything in the stock game.
+ * Always charge land units at least as much mobility for assaulting
+   from non-landing ships as from landing ships.  Before, marines lost
+   all mobility when assaulting from a non-landing ship, which could
+   be less than what the same assault costs from a landing ship (half
+   an update's worth).
+ * Fix LWP's stack initialization for -s.  It caused crashes on some
+   systems.
+ * Fix confused and buggy bridge splashing code:
+   - Flying planes could be reported drowned.
+   - Pin-bombing a bridge head failed to collapse bridge spans for
+     lack of support, unless the pin-bombing caused collateral damage.
+   - Corrupt sector file could lead to infinite recursion.
+ * Relative names now work for econfig keys data and info.
+ * Fix utility programs to abort on internal errors.  They used to
+   print a message and attempt to recover.
+ * Fix off-by-one in fairland that ate the last expansion island.
+ * Switch from CVS to git.
+ * Code refactoring and cleanup.
+ * Portability fixes.
+ * Info file, manual page and documentation fixes and updates.
+
 Changes to Empire 4.3.11 - Tue Jan  1 18:57:38 UTC 2008
  * New sector selector elev.  It's set by fairland, but has no effect
    on the game.  It can be useful for deities to customize a world
@@ -158,7 +285,9 @@ Changes to Empire 4.3.10 - Thu Sep  6 17:59:53 UTC 2007
  * Not voting for a demand update no longer lets you veto further
    demand updates.  This feature was flawed (it encourages players to
    vote late so that they can tactically vote no and thus build up
-   veto rights), virtually unused, and buggy.
+   veto rights), virtually unused, and buggy.  The edit command still
+   accepts and ignores the country key 'U' for compatibility, but it
+   is deprecated.
  * Fix zdone not to claim to have triggered an update when they're
    disabled.
  * New update scheduler and ETU clock:
