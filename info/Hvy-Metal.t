@@ -13,8 +13,8 @@ interesting avenue to explore, and reflects the ships better.  Also
 helps simulate irregular forces desperately equipping what they can for
 a role.  A chance for a creative player to spring surprises.
 .s1
-New assault ship type: Think Tarawa or Io Jima class ships.  These put
-the ASSAULT back into landings.  Huge mil capacity, can operate
+New assault ship type: Think Tarawa or Iwo Jima class ships.  These
+put the ASSAULT back into landings.  Huge mil capacity, can operate
 choppers and Harriers.  Able to drop 12 marine units and a horde of
 mil onto a shore, or sustain para drops and air strikes inland with
 its aircraft.  Go ashore in a hurry, Big Time.  A fat target too, so
@@ -22,7 +22,7 @@ guard it carefully.
 .s1
 Land unit types are heavily customized.  Better check show for the
 details.  Non-mechanized units are slower and more vulnerable,
-infantry units have capability security, marines have amtraks,
+infantry units have capability security, marines can have amtraks,
 artillery firing ranges differ, few units are light (but troop
 transports and landing ships can carry non-light units), food
 capacities are reduced.
@@ -44,11 +44,12 @@ and sectors next to highways.  Use sinfra to find out mobility costs.
 Try sect # ?track>0 to visualize your track.  Check \*Qinfo
 Railroad\*U for details.
 .s1
-There are more train types, BIG siege guns, etc.  And we got the
-Mother Of All Guns: something like what was attempted a few times in
-history, a huge costly gun with incredible range.  It CAN be moved.
-Slowly.  Has all the problems fixed positions have.  If these are not
-obvious, any experienced player will gladly demonstrate them for you.
+There are more train types, BIG siege guns, etc.
+.\"And we got the
+.\"Mother Of All Guns: something like what was attempted a few times in
+.\"history, a huge costly gun with incredible range.  It CAN be moved.
+.\"Slowly.  Has all the problems fixed positions have.  If these are not
+.\"obvious, any experienced player will gladly demonstrate them for you.
 .s1
 Infrastructure is disabled.
 .s1
@@ -63,12 +64,24 @@ sufficiently loyal sectors you don't own, however, a full half of them
 (rounded up) vanish each update.  The anti command is disabled.
 .s1
 Mountains, fortresses and cities provide a respectable defensive
-bonus.  Cities cost real money to build.  Banks need construction
-materials to build efficiency.  Ever seen Fort Knox?  Bridges are
-cheaper than usual.
+bonus.  Cities cost real money to build.  Banks cost some money, too.
+Ever seen Fort Knox?  Bridges cost only half as many hcms as usual.
+.s1
+There is no bridge head sector type.  Highways can serve as bridge
+heads.
+.s1
+New sector type freeway.  You can turn plains into freeway and back,
+but you can't turn either into anything else.  Freeways can serve as
+bridge heads.
+.s1
+Plains produce food.
 .s1
 Food is much harder to grow.  Expect 20% of your population to be
 farmers.
+.s1
+Sectors without any food get one unit of food for free to avoid
+starvation.  In Hvy Metal, that free food is always completely
+consumed.
 .s1
 Your refineries make less petrol from each barrel of oil than usual.
 .s1
@@ -94,6 +107,6 @@ for grabs.
 .s1
 Source code and configuration is available from
 .br
-http://www.stdio.com/~rhyatt/empire/hvy_metal/
+http://www.stdio.com/~rhyatt/empire/hvy_metal_II/
 .s1
 .SA "Introduction, Server"
