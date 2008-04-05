@@ -1098,6 +1098,7 @@ write_sects(void)
 		sct->sct_type = SCT_MOUNT;
 	    sct->sct_elev = total;
 	    sct->sct_newtype = sct->sct_type;
+	    sct->sct_dterr = own[sct->sct_x][y] + 1;
 	    if (ORE)
 		add_resources(sct);
 	    sct++;
