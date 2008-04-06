@@ -46,6 +46,7 @@
 #include "product.h"
 
 static void *nsc_ver(struct valstr *, struct natstr *, void *);
+static void *nsc_ver_maxnoc(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_att(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_def(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_att(struct valstr *, struct natstr *, void *);
@@ -698,6 +699,9 @@ nsc_init(void)
     static struct castr version_ca0 = {
 	"version", 0, NSC_STRINGY, sizeof(PACKAGE_STRING), NULL, EF_BAD, 0
     };
+    static struct castr version_ca1 = {
+	"maxnoc", 0, NSC_LONG, 0, nsc_ver_maxnoc, EF_BAD, 0
+    };
     static struct castr *ca;
     struct keymatch *kp;
     int n, i;
@@ -709,9 +713,10 @@ nsc_init(void)
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL))
 	    n++;
     }
-    ca = calloc(n + 2, sizeof(*ca));
+    ca = calloc(2 + n + 1, sizeof(*ca));
     ca[0] = version_ca0;
-    i = 1;
+    ca[1] = version_ca1;
+    i = 2;
     for (kp = configkeys; kp->km_key; ++kp) {
 	if (kp->km_type != NSC_NOTYPE && !(kp->km_flags & KM_INTERNAL)) {
 	    ca[i].ca_type = kp->km_type;
@@ -750,6 +755,13 @@ nsc_ver(struct valstr *val, struct natstr *np, void *ptr)
     val->val_as.sym.off = 0;
     val->val_as.sym.get = NULL;
     return kp->km_data;
+}
+
+static void *
+nsc_ver_maxnoc(struct valstr *val, struct natstr *np, void *ptr)
+{
+    val->val_as.lng = MAXNOC;
+    return NULL;
 }
 
 static void *
