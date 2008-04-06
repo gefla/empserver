@@ -182,8 +182,10 @@ add(void)
 
     if (stat == STAT_NEW || stat == STAT_VIS)
 	nat_reset(natp, stat, 0, 0);
-    else
+    else {
+	natp->nat_stat = stat;
 	pr("No special initializations done...\n");
+    }
     putnat(natp);
     return 0;
 }
