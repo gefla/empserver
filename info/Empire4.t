@@ -7,6 +7,12 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.13 - Sun Apr  6 19:56:59 UTC 2008
+ * New selector maxnoc for xdump version.
+ * Fix initialization of realms in newcap.  Broken in 4.3.12.
+ * Fix add for status arguments active, god, delete.  Broken in
+   4.3.12.
+
 Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
  * Fix rounding error in update that could result in more babies than
    food permits, and negative food.
@@ -58,7 +64,7 @@ Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
  * Plane, ship and land unit stats are no longer stored as game state,
    but recomputed from tech and base stats as needed.
  * xdump ver is no longer a special case.  Syntax "xdump ver" is now
-   deprecated.  Use "xdump ver *".
+   deprecated.  Use "xdump version *".
  * Fire and torpedo cleanup and bug hunt:
    - Plug memory leak in fire command.
    - Fix ammunition use when returning fire: resupply could lose
