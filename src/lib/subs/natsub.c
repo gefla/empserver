@@ -70,7 +70,9 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
     else
 	memset(&absrealm, 0, sizeof(absrealm));
     for (i = 0; i < MAXNOR; i++) {
-	ef_blank(EF_REALM, i, &newrealm);
+	ef_blank(EF_REALM, i + natp->nat_cnum * MAXNOR, &newrealm);
+	newrealm.r_cnum = natp->nat_cnum;
+	newrealm.r_realm = i;
 	newrealm.r_xl = absrealm.lx;
 	newrealm.r_xh = absrealm.hx;
 	newrealm.r_yl = absrealm.ly;
