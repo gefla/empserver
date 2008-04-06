@@ -328,12 +328,10 @@ A word on hard-coding.  Clients hard-code *names*.  The numbers used
 for table IDs and to encode symbols are none of the client's business.
 
 The encoding doesn't normally change within a game.  Except when the
-game is migrated to a sufficiently different server.  That's a
-difficult and risky thing to do, especially as there are no tools to
-help with migrating (yet).  Clients may wish to provide for such
-changes anyway, by decoupling the client's encoding from the server's,
-and dumping fresh meta-data on login.  Incremental meta-data dump
-would be nice to have.
+game is migrated to a sufficiently different server.  That's a rare
+event.  Clients may wish to provide for such changes anyway, by
+decoupling the client's encoding from the server's, and dumping fresh
+meta-data on login.  Incremental meta-data dump would be nice to have.
 
 So we don't know how symbol type and symbol set flags are encoded.  To
 decode them, we need their symbol tables.  However, we need flags and
