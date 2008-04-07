@@ -37,6 +37,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -169,9 +170,17 @@ static char *
 parse_time(time_t *t, char *s, time_t *anchor)
 {
     static char *fmt[] = {
+	/*
+	 * Absolute time formats
+	 * Must set tm_year, tm_mon, tm_mday, tm_hour, tm_min.
+	 */
 	"%Y-%m-%d %H:%M ",	/* ISO 8601 */
 	"%b %d %H:%M %Y ",	/* like ctime(): Dec 22 15:35 2006 */
-	"%d %b %Y %H:%M ",	/* 22 Dec 2006 15:35 */
+	"%d %b %Y %H:%M ",	/* like RFC 2822: 22 Dec 2006 15:35 */
+	/*
+	 * Relative to anchor formats
+	 * Must set tm_wday, may set tm_hour and tm_min
+	 */
 	"next %a %H:%M ",	/* next Fri 15:35 */
 	"next %a ",		/* next Fri */
 	NULL
@@ -185,10 +194,26 @@ parse_time(time_t *t, char *s, time_t *anchor)
     for (i = 0; ; i++) {
 	if (!fmt[i])
 	    return NULL;
+	/*
+	 * Carefully initialize tm so we can tell what strptime()
+	 * actually set.
+	 *
+	 * Beware: some losing implementations of strptime() happily
+	 * succeed when they fully consumed the first argument,
+	 * regardless of whether they matched the full second argument
+	 * or not.  Observed on FreeBSD 6.2.
+	 */
 	memset(&tm, 0, sizeof(tm));
-	tm.tm_hour = -1;
+	tm.tm_hour = -1;	/* to recognize anchor-relat. w/o time */
+	tm.tm_year = INT_MIN;	/* strptime() lossage work-around */
+	tm.tm_mon = tm.tm_mday = tm.tm_min = tm.tm_wday = -1; /* ditto */
 	endp = strptime(p, fmt[i], &tm);
-	if (endp)
+	if (endp
+	    /* strptime() lossage work-around: */
+	    && ((tm.tm_year != INT_MIN && tm.tm_mon != -1
+		 && tm.tm_mday != -1 && tm.tm_hour != -1 && tm.tm_min != -1)
+		|| (tm.tm_wday != -1
+		    && (tm.tm_hour == -1 || tm.tm_min != -1))))
 	    break;
     }
 
