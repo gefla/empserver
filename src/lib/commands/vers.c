@@ -47,6 +47,7 @@
 
 static void show_custom(void);
 static void show_opts(int val);
+static char *prwrap(char *, char *, int *);
 
 int
 vers(void)
@@ -226,9 +227,9 @@ vers(void)
     pr("\n");
     pr("You can have at most %d BTUs.\n", max_btus);
     pr("You are disconnected after %d minutes of idle time.\n", max_idle);
-    pr("\nOptions enabled in this game:\n        ");
+    pr("\nOptions enabled in this game:\n");
     show_opts(1);
-    pr("\n\nOptions disabled in this game:\n        ");
+    pr("\n\nOptions disabled in this game:\n");
     show_opts(0);
     pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n");
     show_custom();
@@ -243,15 +244,14 @@ vers(void)
 static void
 show_custom(void)
 {
-    char *sep = "\nCustomized in this game:\n        ";
-    int i;
+    char *sep;
+    int col, i;
 
-    /* TODO wrap long lines */
+    sep = "\nCustomized in this game:\n\t";
+    col = 0;
     for (i = 0; i < EF_MAX; i++) {
-	if (ef_flags(i) & EFF_CUSTOM) {
-	    pr("%s%s", sep, ef_nameof(i));
-	    sep = ", ";
-	}
+	if (ef_flags(i) & EFF_CUSTOM)
+	    sep = prwrap(sep, ef_nameof(i), &col);
     }
     if (*sep == ',')
 	pr("\nCheck \"show\" for details.\n");
@@ -260,11 +260,11 @@ show_custom(void)
 static void
 show_opts(int val)
 {
-    int col;
     char *sep;
+    int col;
     struct keymatch *kp;
 
-    sep = "";
+    sep = "\t";
     col = 0;
     for (kp = configkeys; kp->km_key; kp++) {
 	if (!(kp->km_flags & KM_OPTION))
@@ -273,13 +273,21 @@ show_opts(int val)
 	    continue;
 	if (!*(int *)kp->km_data != !val)
 	    continue;
-	col += strlen(sep) + strlen(kp->km_key);
-	if (col > 70) {
-	    pr(",\n        ");
-	    sep = "";
-	    col = strlen(kp->km_key);
-	}
-	pr("%s%s", sep, kp->km_key);
-	sep = ", ";
+	sep = prwrap(sep, kp->km_key, &col);
     }
+}
+
+static char *
+prwrap(char *sep, char *it, int *col)
+{
+    size_t len = strlen(it);
+
+    if (*col != 0 && *col + len > 70) {
+	sep = ",\n\t";
+	*col = 0;
+    }
+    pr("%s%s", sep, it);
+    sep = ", ";
+    *col += len + 2;
+    return sep;
 }
