@@ -1,4 +1,6 @@
 Changes to Empire 4.3.13 - Sun Apr  6 19:56:59 UTC 2008
+ * Work around strptime() lossage on some systems.  Fixes the parsing
+   of the schedule file there.
  * New selector maxnoc for xdump version.
  * Fix initialization of realms in newcap.  Broken in 4.3.12.
  * Fix add for status arguments active, god, delete.  Broken in
