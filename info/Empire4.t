@@ -7,11 +7,14 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.13 - Sun Apr  6 19:56:59 UTC 2008
+Changes to Empire 4.3.13 - Tue Apr 15 19:03:11 UTC 2008
+ * Work around strptime() lossage on some systems.  Fixes the parsing
+   of the schedule file there.
  * New selector maxnoc for xdump version.
  * Fix initialization of realms in newcap.  Broken in 4.3.12.
  * Fix add for status arguments active, god, delete.  Broken in
    4.3.12.
+ * Info file, manual page and documentation fixes.
 
 Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
  * Fix rounding error in update that could result in more babies than
