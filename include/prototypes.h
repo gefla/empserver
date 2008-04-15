@@ -627,7 +627,6 @@ extern void sathead(void);
 extern int sct_postread(int, void *);
 extern int sct_prewrite(int, void *);
 extern void item_prewrite(short *);
-extern void set_railway(struct sctstr *);
 extern int issector(char *);
 /* sectdamage.c */
 extern int sect_damage(struct sctstr *, int);

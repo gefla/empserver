@@ -87,11 +87,6 @@ finish_sects(int etu)
     /* Wipe it clean */
     memset(g_distptrs, 0, WORLD_SZ() * sizeof(*g_distptrs));
 
-    if (opt_RAILWAYS) {
-	for (n = 0; NULL != (sp = getsectid(n)); n++)
-	    set_railway(sp);
-    }
-
     logerror("delivering...\n");
     /* Do deliveries */
     for (n = 0; NULL != (sp = getsectid(n)); n++) {

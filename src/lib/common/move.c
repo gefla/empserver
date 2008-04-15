@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include "file.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
@@ -89,4 +90,34 @@ double
 speed_factor(double effspd, int tech)
 {
     return 480.0 / (effspd + techfact(tech, effspd));
+}
+
+/* Minimal efficiency for railway and railway extension (opt_RAILWAYS) */
+#define SCT_RAIL_EFF 5
+#define SCT_RAIL_EXT_EFF 60
+
+/* Is sector SP a railway? */
+#define SCT_IS_RAILWAY(sp) \
+    (dchr[(sp)->sct_type].d_mob1 == 0 && (sp)->sct_effic >= SCT_RAIL_EFF)
+/* May sector SP have a railway extension? */
+#define SCT_MAY_HAVE_RAIL_EXT(sp) \
+    ((sp)->sct_effic >= SCT_RAIL_EXT_EFF)
+/* Does railway sector SP extend railway track into sector TOSP? */
+#define SCT_EXTENDS_RAIL(sp, tosp) \
+    ((sp)->sct_own == (tosp)->sct_own && SCT_MAY_HAVE_RAIL_EXT(tosp))
+
+int
+sct_rail_track(struct sctstr *sp)
+{
+    int i, res;
+    struct sctstr *nsp;
+
+    res = !!SCT_IS_RAILWAY(sp);
+    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
+	nsp = getsectp(sp->sct_x + diroff[i][0],
+		       sp->sct_y + diroff[i][1]);
+	if (SCT_IS_RAILWAY(nsp) && SCT_EXTENDS_RAIL(nsp, sp))
+	    res++;
+    }
+    return res;
 }

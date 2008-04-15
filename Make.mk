@@ -284,6 +284,7 @@ ifeq ($(empthread),Windows)
 $(client): src/lib/w32/getopt.o
 endif
 
+$(util): src/lib/common/move.o	# FIXME hack for opt_RAILWAYS
 $(util): $(libs)
 
 lib/libas.a: $(filter src/lib/as/%, $(obj))

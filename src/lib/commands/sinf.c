@@ -74,7 +74,7 @@ sinfra(void)
 	pr("%4d%% ", sect.sct_road);
 	prmobcost(&sect, MOB_MOVE);
 	if (opt_RAILWAYS)
-	    pr(sect.sct_track ? "  yes " : "   no ");
+	    pr(sct_rail_track(&sect) ? "  yes " : "   no ");
 	else
 	    pr("%4d%% ", sect.sct_rail);
 	prmobcost(&sect, MOB_RAIL);

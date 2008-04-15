@@ -285,7 +285,7 @@ satdisp_sect(struct sctstr *sp, int acc)
        dchr[sp->sct_type].d_mnem,
        sp->sct_own, roundintby((int)sp->sct_effic, acc / 2),
        roundintby((int)sp->sct_road, acc / 2),
-       opt_RAILWAYS ? !!sp->sct_track : roundintby(sp->sct_rail, acc / 2),
+       opt_RAILWAYS ? !!sct_rail_track(sp) : roundintby(sp->sct_rail, acc / 2),
        roundintby((int)sp->sct_defense, acc / 2),
        roundintby(sp->sct_item[I_CIVIL], acc),
        roundintby(sp->sct_item[I_MILIT], acc),

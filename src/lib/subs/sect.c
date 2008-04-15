@@ -42,7 +42,6 @@
 #include "nat.h"
 #include "nsc.h"
 #include "optlist.h"
-#include "path.h"
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
@@ -50,7 +49,6 @@
 #include "xy.h"
 
 static int checksect(struct sctstr *);
-static void update_railway(struct sctstr *, struct sctstr *);
 
 int
 sct_postread(int id, void *ptr)
@@ -73,8 +71,6 @@ sct_prewrite(int id, void *ptr)
     bridge_damaged(sp);
     checksect(sp);
     getsect(sp->sct_x, sp->sct_y, &sect);
-    if (opt_RAILWAYS)
-	update_railway(sp, &sect);
     return 1;
 }
 
@@ -130,69 +126,6 @@ checksect(struct sctstr *sp)
 	}
     }
     return 1;
-}
-
-/* Minimal efficiency for railway and railway extension (opt_RAILWAYS) */
-#define SCT_RAIL_EFF 5
-#define SCT_RAIL_EXT_EFF 60
-
-/* Is sector SP a railway? */
-#define SCT_IS_RAILWAY(sp) \
-    (dchr[(sp)->sct_type].d_mob1 == 0 && (sp)->sct_effic >= SCT_RAIL_EFF)
-/* May sector SP have a railway extension? */
-#define SCT_MAY_HAVE_RAIL_EXT(sp) \
-    ((sp)->sct_effic >= SCT_RAIL_EXT_EFF)
-/* Does railway sector SP extend railway track into sector TOSP? */
-#define SCT_EXTENDS_RAIL(sp, tosp) \
-    ((sp)->sct_own == (tosp)->sct_own && SCT_MAY_HAVE_RAIL_EXT(tosp))
-
-static void
-update_railway(struct sctstr *sp, struct sctstr *oldsp)
-{
-    struct sctstr sect;
-    int was_railway = SCT_IS_RAILWAY(oldsp);
-    int is_railway = SCT_IS_RAILWAY(sp);
-    int i;
-
-    if (was_railway == is_railway
-	&& sp->sct_own == oldsp->sct_own
-	&& SCT_MAY_HAVE_RAIL_EXT(sp) == SCT_MAY_HAVE_RAIL_EXT(oldsp))
-	return;
-
-    if (was_railway)
-	sp->sct_track--;
-    if (is_railway)
-	sp->sct_track++;
-
-    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
-	getsect(sp->sct_x + diroff[i][0],
-		sp->sct_y + diroff[i][1],
-		&sect);
-	if (SCT_IS_RAILWAY(&sect) && SCT_EXTENDS_RAIL(&sect, oldsp))
-	    sp->sct_track--;
-	if (SCT_IS_RAILWAY(&sect) && SCT_EXTENDS_RAIL(&sect, sp))
-	    sp->sct_track++;
-	if (was_railway && SCT_EXTENDS_RAIL(oldsp, &sect))
-	    sect.sct_track--;
-	if (is_railway && SCT_EXTENDS_RAIL(sp, &sect))
-	    sect.sct_track++;
-	putsect(&sect);
-    }
-}
-
-void
-set_railway(struct sctstr *sp)
-{
-    int i;
-    struct sctstr *nsp;
-
-    sp->sct_track = !!SCT_IS_RAILWAY(sp);
-    for (i = DIR_FIRST; i <= DIR_LAST; i++) {
-	nsp = getsectp(sp->sct_x + diroff[i][0],
-		       sp->sct_y + diroff[i][1]);
-	if (SCT_IS_RAILWAY(nsp) && SCT_EXTENDS_RAIL(nsp, sp))
-	    sp->sct_track++;
-    }
 }
 
 int
