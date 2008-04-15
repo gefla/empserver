@@ -1,13 +1,13 @@
 .TH Command SET
-.NA set "Establish price for a ship, plane or land unit"
+.NA set "Establish price for a ship, plane, land unit or nuke"
 .LV Expert
-.SY "set <type> <SHIP(s)/UNIT(s)/PLANE(s)> <PRICE>"
-The set price command allows you to set the prices on ships/units/planes
-for sale.
+.SY "set <TYPE> <SHIPS|PLANES|UNITS|NUKES> <PRICE>"
+The set price command allows you to set the prices on ships, planes,
+land units or nukes for sale.
 .s1
-<type> is the type of unit you are putting on sale,
-either ship, plane, or land.
-<SHIP(s)/UNIT(s)/PLANE(s)> is(are) the unit #(s), and
+<TYPE> is the type of unit you are putting on sale,
+either ship, plane, or land or nuke.
+<SHIPS|PLANES|UNITS|NUKES> is(are) the unit #(s), and
 <PRICE> is the cost per item.
 .s1
 If you don't supply the price on the command line the program
@@ -18,7 +18,7 @@ Negative prices can't be used (no more Crazy Eddie).
 You may withdraw an offer by setting the price to zero.
 .s1
 Note that ships are not \*Qdelivered\*U to the purchaser,
-but planes and units are.
+but planes, land units and nukes are.
 .sp
 .SA "trade, Commerce"
 

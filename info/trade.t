@@ -1,10 +1,9 @@
 .TH Command TRADE
-.NA trade "Buy planes/ships/land units"
+.NA trade "Buy ships, planes, land units or nukes"
 .LV Expert
 .SY "trade"
-The trade report lists
-all ships, planes and land units that are being sold and allows you
-to buy them.
+The trade report lists all ships, planes, land units and nukes that
+are being sold and allows you to buy them.
 .s1
 It is based on a bidding system, and after the bidding time has passed,
 the transactions are executed, and the highest bidder gets the goods
