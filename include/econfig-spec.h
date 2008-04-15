@@ -84,8 +84,8 @@ EMPCFBOTH("builtin", builtindir_conf, char *, NSC_STRING, KM_INTERNAL,
 EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server\n"
 	      "# without installing it, else leave it alone.")
 EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
-    "Local IP address the server should listen on.")
-EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface")
+    "Local IP address the server should listen on")
+EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,
@@ -109,7 +109,7 @@ EMPCFBOTH("etu_per_update", etu_per_update, int, NSC_INT, 0,
 EMPCFBOTH("update_window", update_window, int, NSC_INT, 0,
     "Time window the update will occur in after the update time, in seconds")
 EMPCFBOTH("pre_update_hook", pre_update_hook, char *, NSC_STRING, KM_INTERNAL,
-    "Shell command run right before the update.")
+    "Shell command run right before the update, in the game's data directory")
 EMPCFBOTH("update_demand", update_demand, int, NSC_INT, 0,
     "Demand update policy")
 EMPCF_COMMENT("# 0 - No demand updates\n"
@@ -119,8 +119,8 @@ EMPCF_COMMENT("# 0 - No demand updates\n"
 EMPCFBOTH("update_wantmin", update_wantmin, int, NSC_INT, 0,
     "Number of votes required for a demand update")
 EMPCFBOTH("update_demandtimes", update_demandtimes, char *, NSC_STRING, 0,
-    "Times when unscheduled demand updates can occur, separated by space.")
-EMPCF_COMMENT("# Give time ranges as HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
+    "Times when unscheduled demand updates can occur, separated by space")
+EMPCF_COMMENT("# Give time ranges as HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00.\n"
 	      "# Ranges CANNOT cross midnight.")
 
 EMPCF_COMMENT("\n\n### Game hours restrictions")
@@ -128,8 +128,8 @@ EMPCFBOTH("game_days", game_days, char *, NSC_STRING, 0,
     "Days of week the game is up and running, separated by space")
 EMPCF_COMMENT("# Give days as Su Mo Tu We Th Fr Sa.")
 EMPCFBOTH("game_hours", game_hours, char *, NSC_STRING, 0,
-    "Time of day ranges when the game is open, separated by space.")
-EMPCF_COMMENT("# Give time ranges as HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00\n"
+    "Time of day ranges when the game is open, separated by space")
+EMPCF_COMMENT("# Give time ranges as HOUR:MINUTE-HOUR:MINUTE, e.g. 20:00-24:00.\n"
 	      "# Ranges CANNOT cross midnight.")
 
 EMPCF_COMMENT("\n\n### Options")
@@ -266,7 +266,7 @@ EMPCFBOTH("land_grow_scale", land_grow_scale, float, NSC_FLOAT, 0,
 EMPCFBOTH("land_mob_max", land_mob_max, int, NSC_INT, 0,
     "Maximum mobility for land units")
 EMPCFBOTH("money_land", money_land, double, NSC_DOUBLE, 0,
-    "Cost per ETU to maintain land units (percentage of unit price)")
+    "Cost per ETU to maintain land units (fraction of unit price)")
 EMPCFBOTH("morale_base", morale_base, int, NSC_INT, KM_INTERNAL,
     "Base level for setting morale of land units")
 
@@ -278,7 +278,7 @@ EMPCFBOTH("plane_grow_scale", plane_grow_scale, float, NSC_FLOAT, 0,
 EMPCFBOTH("plane_mob_max", plane_mob_max, int, NSC_INT, 0,
     "Maximum mobility for planes")
 EMPCFBOTH("money_plane", money_plane, double, NSC_DOUBLE, 0,
-    "Cost per ETU to maintain planes (percentage of plane price)")
+    "Cost per ETU to maintain planes (fraction of plane price)")
 
 EMPCF_COMMENT("\n\n### Ships")
 EMPCFBOTH("ship_mob_scale", ship_mob_scale, float, NSC_FLOAT, 0,
@@ -288,7 +288,7 @@ EMPCFBOTH("ship_grow_scale", ship_grow_scale, float, NSC_FLOAT, 0,
 EMPCFBOTH("ship_mob_max", ship_mob_max, int, NSC_INT, 0,
     "Maximum mobility for ships")
 EMPCFBOTH("money_ship", money_ship, double, NSC_DOUBLE, 0,
-    "Cost per ETU to maintain ships (percentage of ship price)")
+    "Cost per ETU to maintain ships (fraction of ship price)")
 EMPCFBOTH("torpedo_damage", torpedo_damage, int, NSC_INT, 0,
     "Torpedo damage (damage is X + 1dX + 1dX)")
 
@@ -310,18 +310,18 @@ EMPCFBOTH("unit_damage", unit_damage, double, NSC_DOUBLE, 0,
 EMPCFBOTH("collateral_dam", collateral_dam, double, NSC_DOUBLE, 0,
     "Side effect damage amount done to sector")
 EMPCFBOTH("assault_penalty", assault_penalty, double, NSC_DOUBLE, 0,
-    "Amount of normal attacking efficiency for paratroopers and assaulting")
+    "Attack strength multiplier for paratroopers and assaulting")
 EMPCFBOTH("fire_range_factor", fire_range_factor, float, NSC_FLOAT, 0,
     "Scale normal firing ranges by this amount")
 EMPCFBOTH("sect_mob_neg_factor", sect_mob_neg_factor, int, NSC_INT, 0,
-    "Initial mobility for MOB_ACCESS (etu_per_update / sect_mob_neg_factor)")
-EMPCF_COMMENT("# Applies to sector takeover, ship build, plane or land unit build or trade")
+    "Initial mobility for MOB_ACCESS (-etu_per_update / sect_mob_neg_factor)")
+EMPCF_COMMENT("# Applies to sector takeover, ship build, plane or land unit build, and trade.")
 EMPCFBOTH("mission_mob_cost", mission_mob_cost, double, NSC_DOUBLE, 0,
     "Cost to put something on a mission (percentage of max mob)")
 
 EMPCF_COMMENT("\n\n### Populace")
 EMPCFBOTH("uwbrate", uwbrate, double, NSC_DOUBLE, 0,
-    "Birth rate for uw's")
+    "Birth rate for uncompensated workers")
 EMPCFBOTH("money_civ", money_civ, double, NSC_DOUBLE, 0,
     "Money gained from taxes on a civilian in one ETU")
 EMPCFBOTH("money_mil", money_mil, double, NSC_DOUBLE, 0,
@@ -351,13 +351,14 @@ EMPCFBOTH("decay_per_etu", decay_per_etu, double, NSC_DOUBLE, 0,
 EMPCFBOTH("fallout_spread", fallout_spread, double, NSC_DOUBLE, 0,
     "Amount of fallout that leaks into surrounding sectors")
 EMPCFBOTH("drnuke_const", drnuke_const, float, NSC_FLOAT, 0,
-    "Amount of research to tech needed to build a nuke, a common value is 0.33")
+    "Research needed to build a nuke, as fraction of the tech needed")
+EMPCF_COMMENT("# A common value is 0.33.")
 
 EMPCF_COMMENT("\n\n### Market/Trade")
 EMPCFBOTH("MARK_DELAY", MARK_DELAY, int, NSC_INT, 0,
-    "Number of seconds commodities stay on the market for bidding")
+    "Time commodities stay on the market for bidding (seconds)")
 EMPCFBOTH("TRADE_DELAY", TRADE_DELAY, int, NSC_INT, 0,
-    "Number of seconds ships, planes, and units stay on the market for bidding")
+    "Time ships, planes, lands and nukes stay on the market for bidding (seconds)")
 EMPCFBOTH("buytax", buytax, double, NSC_DOUBLE, 0,
     "Tax (in percentage points) charged to the buyer on market purchases")
 EMPCFBOTH("tradetax", tradetax, double, NSC_DOUBLE, 0,
@@ -365,11 +366,11 @@ EMPCFBOTH("tradetax", tradetax, double, NSC_DOUBLE, 0,
 
 EMPCF_COMMENT("\n\n### Trade ships")
 EMPCFBOTH("trade_1_dist", trade_1_dist, int, NSC_INT, 0,
-    "Less than this distance no money for cashing in")
+    "Less than this distance gets no money for cashing in")
 EMPCFBOTH("trade_2_dist", trade_2_dist, int, NSC_INT, 0,
     "Less than this distance gets trade_1 money for cashing in")
 EMPCFBOTH("trade_3_dist", trade_3_dist, int, NSC_INT, 0,
-    "Less than this distance gets trade_2 money for cashing in (>= gets trade_3")
+    "Less than this distance gets trade_2 money for cashing in, more gets trade_3")
 EMPCFBOTH("trade_1", trade_1, float, NSC_FLOAT, 0,
     "Return per sector on trade_1 distance amount")
 EMPCFBOTH("trade_2", trade_2, float, NSC_FLOAT, 0,
@@ -381,7 +382,7 @@ EMPCFBOTH("trade_ally_bonus", trade_ally_bonus, float, NSC_FLOAT, 0,
 EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, NSC_FLOAT, 0,
     "Bonus your ally gets for you cashing in with them")
 
-EMPCF_COMMENT("\n\n### Misc.")
+EMPCF_COMMENT("\n\n### Miscellaneous")
 EMPCFBOTH("disabled_commands", disabled_commands, char *, NSC_STRING, KM_INTERNAL,
 	  "Disabled commands, separated by space")
 EMPCFBOTH("anno_keep_days", anno_keep_days, int, NSC_INT, KM_INTERNAL,
