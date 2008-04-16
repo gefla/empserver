@@ -89,8 +89,8 @@ desi(void)
 		continue;
 	    }
 	    if (dchr[des].d_cost < 0) {
-		pr("Only %s can make a %s!\n",
-		   cname(0), dchr[des].d_name);
+		pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
+		continue;
 	    }
 	}
 	if (sect.sct_type == des && sect.sct_newtype == des)
