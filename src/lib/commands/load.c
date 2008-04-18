@@ -985,7 +985,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		    pr("%s can't be loaded onto itself!\n", prland(&land));
 		continue;
 	    }
-	    if (lchr[(int)land.lnd_type].l_flags & L_HEAVY) {
+	    if (lchr[(int)land.lnd_type].l_flags & (L_HEAVY | L_TRAIN)) {
 		if (noisy)
 		    pr("%s is too heavy to load.\n", prland(&land));
 		continue;

@@ -195,7 +195,7 @@ the unit can fire 'general unit flak' (see "info Flak")
 .L spy
 the unit is a spy
 .L train
-the unit is a train
+the unit is a train, and can't be loaded on land units
 .L heavy
 the unit cannot be carried on land units or ships, not even supply ships
 .in
