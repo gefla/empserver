@@ -96,7 +96,9 @@ powe(void)
 	if (player->argp[i][0] == 'c') {
 	    snxtitem(&ni, EF_NATION, player->argp[i + 1]);
 	    while (nxtitem(&ni, &nat)) {
-		if (nat.nat_stat != STAT_ACTIVE)
+		if (nat.nat_stat == STAT_UNUSED)
+		    continue;
+		if (!player->god && nat.nat_stat != STAT_ACTIVE)
 		    continue;
 		targets[nat.nat_cnum] = 1;
 	    }
