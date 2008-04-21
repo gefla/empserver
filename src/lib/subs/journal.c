@@ -93,8 +93,7 @@ journal_entry(char *fmt, ...)
 		fprintf(journal, "\\%03o", *p);
 	}
 	fputs("\n", journal);
-	if (debug)
-	    fflush(journal);
+	fflush(journal);
 	if (ferror(journal)) {
 	    logerror("Error writing journal (%s)", strerror(errno));
 	    clearerr(journal);
