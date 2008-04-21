@@ -1,7 +1,9 @@
 .TH Concept "Railroad"
 .NA Railroad "How railroads work"
 .LV Expert
-Trains are land units with capability \*Qtrain\*U.
+Trains are land units with capability \*Qtrain\*U.  They can't be
+loaded on land units, but they can be loaded on ships, subject to the
+usual restrictions for non-light and heavy land units.
 .s1
 Unlike other units, trains can enter a sector only if it has
 (operational) railroad track.
