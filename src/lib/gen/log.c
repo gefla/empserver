@@ -46,8 +46,7 @@
 #include "player.h"
 #include "prototypes.h"
 
-/* Debugging?  If yes call abort() on internal error.  */
-int debug = 1;
+enum oops_action oops_action = OOPS_ABORT;
 
 static char logfile[32];
 static int logfd = -1;
@@ -133,7 +132,18 @@ int
 oops(char *msg, char *file, int line)
 {
     logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
-    if (debug) abort();
+    switch (oops_action) {
+    case OOPS_ABORT:
+	abort();
+    case OOPS_CRASH_DUMP:
+#ifndef _WIN32
+	if (fork() == 0)
+	    abort();
+#endif
+	/* fall through */
+    case OOPS_NOTHING:
+	break;
+    }
     return 1;
 }
 

@@ -13,7 +13,10 @@ emp_server \- Empire server
 .BI \-e " configfile"
 ]
 [
-.BI \-R " random-seed"
+.BI \-E " action"
+]
+[
+.BI \-R " seed"
 ]
 .if \nw \{\
 .br
@@ -42,13 +45,19 @@ pages within the game.
 .TP
 .B \-d
 Debug mode.  This will prevent the server from forking itself into the
-background.  It will also make it abort when it detects an internal
-error.  You normally want to use this flag if you are running
+background.  Implies -E abort.  You normally want to use this flag if
+you are running
 .B emp_server
 from within a debugger.
 .TP
 .BI \-e " configfile"
 Use game configuration in \fIconfigfile\fR.
+.TP
+.BI \-E " action"
+What to do on recoverable internal error ("oops"): \fBabort\fP,
+\fBcrash\-dump\fP (but continue), \fBnothing\fP (default).
+.ie \nw \fBcrash-dump\fP is not implemented for Windows.
+.el \fBcrash-dump\fP works by aborting a fork of the server process.
 .TP
 .B \-h
 Help.  Print brief usage information and exit.
@@ -73,7 +82,7 @@ Uninstall the Windows Service with the specified name.\}
 .B \-s
 Enable thread stack checking.
 .TP
-.B \-R " random-seed"
+.B \-R " seed"
 Set the seed for random function.
 .TP
 .B \-v

@@ -54,6 +54,7 @@
 #include "file.h"
 #include "journal.h"
 #include "land.h"
+#include "match.h"
 #include "misc.h"
 #include "nat.h"
 #include "nuke.h"
@@ -93,12 +94,21 @@ static char pidfname[] = "server.pid";
 static int daemonize = 1;
 
 static void
+help(char *program_name, char *complaint)
+{
+    if (complaint)
+	fprintf(stderr, "%s: %s\n", program_name, complaint);
+    fprintf(stderr, "Try -h for help.\n");
+}
+
+static void
 print_usage(char *program_name)
 {
     printf("Usage: %s [OPTION]...\n"
-	   "  -d              debug mode\n"
+	   "  -d              debug mode, implies -E abort\n"
 	   "  -e CONFIG-FILE  configuration file\n"
 	   "                  (default %s)\n"
+	   "  -E ACTION       what to do on oops: abort, crash-dump, nothing (default)\n"
 	   "  -h              display this help and exit\n"
 #ifdef _WIN32
 	   "  -i              install service `%s'\n"
@@ -122,6 +132,7 @@ print_usage(char *program_name)
 int
 main(int argc, char **argv)
 {
+    static char *oops_key[] = { "abort", "crash-dump", "nothing", NULL };
     int flags = 0;
 #if defined(_WIN32)
     int install_service_set = 0;
@@ -130,27 +141,35 @@ main(int argc, char **argv)
     int remove_service_set = 0;
 #endif
     char *config_file = NULL;
-    int op, sig;
+    int op, idx, sig;
     unsigned seed = time(NULL);
 
-    debug = 0;
+    oops_action = OOPS_NOTHING;
 
 #ifdef _WIN32
 # define XOPTS "iI:uU:"
 #else
 # define XOPTS
 #endif
-    while ((op = getopt(argc, argv, "de:hpsR:v" XOPTS)) != EOF) {
+    while ((op = getopt(argc, argv, "de:E:hpsR:v" XOPTS)) != EOF) {
 	switch (op) {
 	case 'p':
 	    flags |= EMPTH_PRINT;
 	    /* fall through */
 	case 'd':
-	    debug = 1;
+	    oops_action = OOPS_ABORT;
 	    daemonize = 0;
 	    break;
 	case 'e':
 	    config_file = optarg;
+	    break;
+	case 'E':
+	    idx = stmtch(optarg, oops_key, 0, sizeof(*oops_key));
+	    if (idx < 0) {
+		help(argv[0], "invalid argument for -E");
+		return EXIT_FAILURE;
+	    }
+	    oops_action = idx;
 	    break;
 #if defined(_WIN32)
 	case 'I':
@@ -179,19 +198,19 @@ main(int argc, char **argv)
 	    print_usage(argv[0]);
 	    return EXIT_SUCCESS;
 	default:
-	    fprintf(stderr, "Try -h for help.\n");
+	    help(argv[0], NULL);
 	    return EXIT_FAILURE;
 	}
     }
 
 #if defined(_WIN32)
-    if ((debug || flags || config_file != NULL) &&
+    if ((!daemonize || flags || config_file != NULL) &&
 	remove_service_set) {
 	fprintf(stderr, "Can't use -p, -s, -d or -e with either "
 	    "-u or -U options\n");
 	exit(EXIT_FAILURE);
     }
-    if ((debug || flags) && install_service_set) {
+    if ((!daemonize || flags) && install_service_set) {
 	fprintf(stderr, "Can't use -d, -p or -s with either "
 	    "-i or -I options\n");
 	exit(EXIT_FAILURE);

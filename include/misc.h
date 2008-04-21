@@ -69,7 +69,12 @@
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
-extern int debug;
+enum oops_action {
+    OOPS_ABORT,
+    OOPS_CRASH_DUMP,
+    OOPS_NOTHING
+};
+extern enum oops_action oops_action;
 
 /*
  * If EXPR is true, an internal error occured.
