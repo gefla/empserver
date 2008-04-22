@@ -132,7 +132,7 @@ supply_commod(int own, int x, int y, i_type type, int total_wanted)
 /*
  * Just return the number you COULD get, without doing it
  */
-int
+static int
 try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
     if (total_wanted < 0)

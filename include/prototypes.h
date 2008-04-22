@@ -690,7 +690,6 @@ extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
 extern void resupply_all(struct lndstr *);
 extern void resupply_commod(struct lndstr *, i_type);
 extern int supply_commod(int, int, int, i_type, int);
-extern int try_supply_commod(int, int, int, i_type, int);
 extern int has_supply(struct lndstr *);
 /* takeover.c */
 extern void takeover_land(struct lndstr *, natid, int);
