@@ -867,12 +867,18 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	shell = ship.shp_item[I_SHELL];
 	if (ship.shp_item[I_MILIT] < 1)	/* do we have mil? */
 	    continue;
+#if 0
+	/*
+	 * FIXME can supply from itself, causing seqno mismatch oops
+	 * further down
+	 */
 	if (shell < 2) {	/* do we need shells */
 	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
 				   I_SHELL, 2);
 	    if (shell < 2)
 		continue;
 	}
+#endif
 	if (ship.shp_item[I_GUN] < 1)	/* we need at least 1 gun */
 	    continue;
 

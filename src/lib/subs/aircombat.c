@@ -770,12 +770,18 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
 
     gun = MIN(FLAK_GUN_MAX, from->sct_item[I_GUN]);
     shell = from->sct_item[I_SHELL];
+#if 0
+    /*
+     * FIXME can supply from itself, causing seqno mismatch oops
+     * further down
+     */
     if (gun > shell * 2) {
 	shell += supply_commod(from->sct_own, from->sct_x, from->sct_y,
 			       I_SHELL, (gun + 1) / 2 - shell);
 	from->sct_item[I_SHELL] = shell;
 	putsect(from);
     }
+#endif
     if (gun > shell * 2)
 	gun = shell * 2;
 
