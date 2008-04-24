@@ -20,6 +20,10 @@ mil onto a shore, or sustain para drops and air strikes inland with
 its aircraft.  Go ashore in a hurry, Big Time.  A fat target too, so
 guard it carefully.
 .s1
+Ships can navigate bridge sectors regardless of owner.
+.s1
+Ships can assault the sector they're in.
+.s1
 Land unit types are heavily customized.  Better check show for the
 details.  Non-mechanized units are slower and more vulnerable,
 infantry units have capability security, marines can have amtraks,
@@ -83,6 +87,8 @@ Sectors without any food get one unit of food for free to avoid
 starvation.  In Hvy Metal, that free food is always completely
 consumed.
 .s1
+New sector type biofuel plant lets you make oil from food, at a cost.
+.s1
 Your refineries make less petrol from each barrel of oil than usual.
 .s1
 Natural resources gold, oil and uran deplete much slower than usual.
@@ -93,8 +99,8 @@ conserve oil.  Resources are scarce.  Expect to fight over them.
 Oil derricks need to set up shop before they produce: no production
 while mobility is below maximum.
 .s1
-New experimental option AUTO_POWER is enabled: the power report is
-only updated automatically, at the update.  No more tactical abuse.
+Automatic shell supply for sector flak and ship missile defense is
+disabled, because its bugs interfere with Hvy Metal modifications.
 .s1
 Missed updates due to server problems will be forced if caught within
 15 minutes of planned update time or skipped otherwise.
