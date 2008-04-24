@@ -461,6 +461,7 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
 	if (att_get_combat(off, 0) < 0)
 	    return abort_attack();
 	if (off->type == EF_SHIP &&
+	    !(off->x == def->x && off->y == def->y) &&
 	    (!getsect(off->x, off->y, &sect) ||
 	     sect.sct_type != SCT_WATER)) {
 	    pr("%s can not %s from that far inland!\n",
