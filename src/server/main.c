@@ -68,6 +68,8 @@
 #include "ship.h"
 #include "version.h"
 
+static void ignore(void);
+static void crash_dump(void);
 static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
@@ -133,6 +135,7 @@ int
 main(int argc, char **argv)
 {
     static char *oops_key[] = { "abort", "crash-dump", "nothing", NULL };
+    static void (*oops_hndlr[])(void) = { abort, crash_dump, ignore };
     int flags = 0;
 #if defined(_WIN32)
     int install_service_set = 0;
@@ -144,7 +147,7 @@ main(int argc, char **argv)
     int op, idx, sig;
     unsigned seed = time(NULL);
 
-    oops_action = OOPS_NOTHING;
+    oops_handler = ignore;
 
 #ifdef _WIN32
 # define XOPTS "iI:uU:"
@@ -157,7 +160,7 @@ main(int argc, char **argv)
 	    flags |= EMPTH_PRINT;
 	    /* fall through */
 	case 'd':
-	    oops_action = OOPS_ABORT;
+	    oops_handler = abort;
 	    daemonize = 0;
 	    break;
 	case 'e':
@@ -169,7 +172,7 @@ main(int argc, char **argv)
 		help(argv[0], "invalid argument for -E");
 		return EXIT_FAILURE;
 	    }
-	    oops_action = idx;
+	    oops_handler = oops_hndlr[idx];
 	    break;
 #if defined(_WIN32)
 	case 'I':
@@ -304,6 +307,19 @@ main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
+static void
+ignore(void)
+{
+}
+
+static void
+crash_dump(void)
+{
+#ifndef _WIN32
+    if (fork() == 0)
+	abort();
+#endif
+}
 
 /*
  * Initialize for serving, acquire resources.

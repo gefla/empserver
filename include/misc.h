@@ -69,13 +69,6 @@
 #define hours(x)	(60*60*(x))
 #define days(x)		(60*60*24*(x))
 
-enum oops_action {
-    OOPS_ABORT,
-    OOPS_CRASH_DUMP,
-    OOPS_NOTHING
-};
-extern enum oops_action oops_action;
-
 /*
  * If EXPR is true, an internal error occured.
  * Return EXPR != 0.
@@ -90,6 +83,7 @@ extern enum oops_action oops_action;
 #define CANT_REACH() (void)oops(NULL, __FILE__, __LINE__)
 
 extern int oops(char *, char *, int);
+extern void (*oops_handler)(void);
 
 void exit_nomem(void) ATTRIBUTE((noreturn));
 

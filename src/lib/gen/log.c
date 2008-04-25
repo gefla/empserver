@@ -46,7 +46,7 @@
 #include "player.h"
 #include "prototypes.h"
 
-enum oops_action oops_action = OOPS_ABORT;
+void (*oops_handler)(void) = abort;
 
 static char logfile[32];
 static int logfd = -1;
@@ -126,24 +126,14 @@ logerror(char *format, ...)
 
 /*
  * Log internal error MSG occured in FILE:LINE.
- * If debugging, call abort(), else return 1.
+ * Call oops handler, and if it returns, return 1.
+ * Oops handler defaults to abort().
  */
 int
 oops(char *msg, char *file, int line)
 {
     logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
-    switch (oops_action) {
-    case OOPS_ABORT:
-	abort();
-    case OOPS_CRASH_DUMP:
-#ifndef _WIN32
-	if (fork() == 0)
-	    abort();
-#endif
-	/* fall through */
-    case OOPS_NOTHING:
-	break;
-    }
+    oops_handler();
     return 1;
 }
 
