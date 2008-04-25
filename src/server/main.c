@@ -40,6 +40,9 @@
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
+#ifndef _WIN32
+#include <sys/wait.h>
+#endif
 #include <unistd.h>
 
 #if defined(_WIN32)
@@ -315,9 +318,29 @@ ignore(void)
 static void
 crash_dump(void)
 {
-#ifndef _WIN32
-    if (fork() == 0)
-	abort();
+#ifdef _WIN32
+    logerror("Crash dump is not implemented");
+#else
+    pid_t pid;
+    int status;
+
+    pid = fork();
+    if (pid < 0) {
+	logerror("Can't fork for crash dump (%s)", strerror(errno));
+	return;
+    }
+    if (pid == 0)
+	abort();		/* child */
+
+    /* parent */
+    while (waitpid(pid, &status, 0) < 0) {
+	if (errno != EINTR) {
+	    logerror("Can't get crash dumping child's status (%s)",
+		     strerror(errno));
+	    return;
+	}
+    }
+    logerror("Crash dump complete");
 #endif
 }
 
