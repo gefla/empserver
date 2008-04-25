@@ -49,6 +49,7 @@ void update_main(void);
 void update_init(void);
 int update_trigger(void);
 int update_reschedule(void);
+int run_hook(char *, char *);
 int shutdown_initiate(int);
 
 /* thread entry points */

@@ -63,7 +63,6 @@ static empth_t *update_thread;
 static int update_get_schedule(void);
 static void update_sched(void *);
 static void update_run(void);
-static int run_hook(char *cmd, char *name);
 
 void
 update_init(void)
@@ -218,7 +217,7 @@ update_run(void)
     empth_rwlock_unlock(play_lock);
 }
 
-static int
+int
 run_hook(char *cmd, char *name)
 {
     int status;

@@ -340,6 +340,7 @@ crash_dump(void)
 	    return;
 	}
     }
+    run_hook(post_crash_dump_hook, "post-crash-dump");
     logerror("Crash dump complete");
 #endif
 }

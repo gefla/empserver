@@ -90,6 +90,8 @@ EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,
     "Enable journal log file")
+EMPCFBOTH("post_crash_dump_hook", post_crash_dump_hook, char *, NSC_STRING, KM_INTERNAL,
+    "Shell command run right after a crash dump, in the game's data directory")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,
     "Name of the deity")
 EMPCFBOTH("privlog", privlog, char *, NSC_STRING, 0,

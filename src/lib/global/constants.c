@@ -44,6 +44,8 @@ char *privlog = "careless@invalid";
 /* Divine hosts and networks */
 char *privip = "127.0.0.1 ::1 ::ffff:127.0.0.1";
 
+char *post_crash_dump_hook = "";
+
 char *disabled_commands = "";
 
 int keep_journal = 0;		/* journal log file enabled */
