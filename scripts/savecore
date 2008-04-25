@@ -1,0 +1,59 @@
+#!/bin/sh -e
+# Script to save core files, to be run from post_crash_dump_hook
+# Written by Markus Armbruster, 2008
+# This script is in the public domain.
+
+# Use: edit configuration variables below to taste, then set
+#   post_crash_dump_hook = /wherever/savecore
+# in econfig.  Make sure to run the server with core dumps enabled
+# (ulimit -c unlimited).
+
+# Rules when running as post_crash_dump_hook:
+# Data directory is working directory.
+# stdin, stdout, stderr are redirected to /dev/null, except in debug
+# mode
+
+# Configuration
+
+# How your system names core files
+#
+# This is a pattern rather than a name, because modern kernels can put
+# fancy stuff in the name we can't always predict.
+core_pattern=core.*
+#core_pattern=emp_server.core
+#core_pattern=core
+
+# Where to save core dumps
+#
+# If you leave cores in the data directory, backup scripts may pick
+# them up, which is probably not what you want.
+core_dir=../core-dumps
+
+# Whom to send mail (leave empty to not send any)
+privlog=
+
+# Program to send mail
+mailx=mailx
+#mailx=mail
+
+# End of configuration
+
+saved=
+
+alert_deity ()
+{
+    local msg;
+    if [ "$saved" ]
+    then msg="Core dump $saved_core saved."
+    else msg="Could not save core dump."
+    fi
+    echo $msg | $mailx -s "emp_server dumped core" "$privlog"
+}
+
+test -n "$privlog" && trap 'alert_deity' EXIT
+
+core_name=`ls -td $core_pattern | head -n 1`
+saved_core=$core_dir/core-`/bin/date +%Y-%m-%d-%H:%M`
+
+mv -f $core_name $saved_core
+saved=y
