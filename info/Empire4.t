@@ -7,6 +7,20 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.14 - Fri Apr 25 20:25:42 UTC 2008
+ * New server option -E to choose what to do on oops.  You can now
+   make the server dump core and keep going (-E crash-dump, not
+   implemented for Windows).  New econfig key post_crash_dump_hook to
+   run a program after crash-dumping.  See scripts/savecore for an
+   example.
+ * Journal entries are now flushed to disk right away even when the
+   server is not running in debug mode.
+ * Don't let land units load trains.
+ * Allow deity to display power report for all types of countries,
+   with power c.
+ * Fix designate's check for disallowed sector types.  Broken in
+   4.3.12.
+
 Changes to Empire 4.3.13 - Tue Apr 15 19:03:11 UTC 2008
  * Work around strptime() lossage on some systems.  Fixes the parsing
    of the schedule file there.
@@ -33,9 +47,9 @@ Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
  * Deity command newcap now requires its second argument (sanctuary
    coordinates).  Before, it tried to pick a suitable location when
    none was given.  The code implementing this feature had problems,
-   and it's not worth fixing: it is obscure, and rarely (if ever)
-   used: no conscientious deity would use it for a real game, and for
-   blitzes fairland does a better job.
+   and it's not worth fixing, because it is obscure, and rarely (if
+   ever) used: no conscientious deity would use it for a real game,
+   and for blitzes fairland does a better job.
  * Keep track of flying planes properly.  This fixes a number of bugs:
    - While the bomb command awaited pin-bombing target input from the
      player, other players could interact with the pin-bombers and
