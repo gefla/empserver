@@ -89,6 +89,9 @@ nuk_prewrite(int n, void *ptr)
     }
 
     getnuke(n, &nuke);
+    if (nuke.nuk_plane != np->nuk_plane)
+	logerror("phantom nuke debug: nuk#%d plane %d->%d",
+		 np->nuk_uid, nuke.nuk_plane, np->nuk_plane);
 
     return 1;
 }

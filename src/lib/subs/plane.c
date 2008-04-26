@@ -132,6 +132,9 @@ pln_prewrite(int n, void *ptr)
 	}
     }
     getplane(n, &plane);
+    if (plane.pln_nuketype != pp->pln_nuketype)
+	logerror("phantom nuke debug: pln#%d nuketype %d->%d",
+		 pp->pln_uid, plane.pln_nuketype, pp->pln_nuketype);
 
     return 1;
 }
