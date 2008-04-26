@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  landgun.c: Return values for land and ship gun firing damages
+ *  landgun.c: Fire weapons
  * 
  *  Known contributors to this file:
  *     Markus Armbruster, 2006-2008
@@ -185,12 +185,8 @@ shp_torp(struct shpstr *sp, int usemob)
 int
 lnd_fire(struct lndstr *lp)
 {
-    int guns, shells;
+    int guns, ammo, shells;
     double d;
-    int ammo = lchr[lp->lnd_type].l_ammo;
-
-    if (CANT_HAPPEN(ammo == 0))
-	ammo = 1;
 
     if (lp->lnd_effic < LAND_MINFIREEFF)
 	return -1;
@@ -202,6 +198,9 @@ lnd_fire(struct lndstr *lp)
     guns = MIN(guns, lp->lnd_item[I_GUN]);
     if (guns == 0)
 	return -1;
+    ammo = lchr[lp->lnd_type].l_ammo;
+    if (CANT_HAPPEN(ammo == 0))
+	ammo = 1;
     shells = lp->lnd_item[I_SHELL];
     shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
 			    I_SHELL, ammo - shells);
