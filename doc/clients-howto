@@ -48,11 +48,12 @@ clients.  Likewise, overlong or malformed UTF-8 sequences should not
 occur and may be ignored.
 
 The server prompts for input.  Each prompt `consumes' one line of
-input (except for C_EXECUTE, which see).  Input lines are arbitrary
-text, terminated by line feed, which is optionally preceded by
-carriage return (decimal 13).  Lines should not contain ASCII control
-characters other than horizontal tab.  Clients should not send
-overlong or malformed UTF-8 sequences.
+input (except for C_EXECUTE, and when the update aborts a command, as
+described below).  Input lines are arbitrary text, terminated by line
+feed, which is optionally preceded by carriage return (decimal 13).
+Lines should not contain ASCII control characters other than
+horizontal tab.  Clients should not send overlong or malformed UTF-8
+sequences.
 
 A client is called synchronous if it waits for a prompt before it
 sends another line of input.  Else it is called asynchronous.
@@ -189,11 +190,17 @@ The following ids occur:
   Clients with a tty-like user interface are advised to use a similar
   format, to minimize differences to the examples in info.
 
-* Sub-prompt C_FLUSH
+* Argument prompt C_FLUSH
 
   The server consumes a line of input and passes it to the currently
   executing command.  Commands usually fail on interrupt.  The server
   terminates the session on EOF (but see C_EXECUTE for an exception).
+
+  If an update runs while the server waits for the line of input to
+  arrive, the current command is aborted.  Whether the server consumes
+  a line of input for this argument prompt is unpredictable.  Any
+  argument prompts it may send before the next command prompt do not
+  consume input.
 
   Text is a human-readable prompt supplied by the command.
 
@@ -232,7 +239,7 @@ The following ids occur:
   batch file.
 
   While executing the batch file, the server sends no C_PROMPT command
-  prompts.  It still sends C_FLUSH sub-prompts.
+  prompts.  It still sends C_FLUSH argument prompts.
 
   Protocol flaw: not sending C_PROMPT here screws up redirections:
   they apply until the next C_PROMPT, i.e. from start of redirected
