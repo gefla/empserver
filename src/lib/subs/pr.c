@@ -368,12 +368,6 @@ prmptrd(char *prompt, char *buf, int size)
 {
     int r;
 
-    /*
-     * Each prompt must consume one line of input.  recvclient()
-     * doesn't do that while player->aborted.
-     */
-    CANT_HAPPEN(player->aborted);
-
     if (CANT_HAPPEN(!prompt))
 	prompt = "? ";
 
@@ -402,9 +396,6 @@ int
 uprmptrd(char *prompt, char *buf, int size)
 {
     int r;
-
-    /* See prmptrd() */
-    CANT_HAPPEN(player->aborted);
 
     if (CANT_HAPPEN(!prompt))
 	prompt = "? ";
