@@ -74,7 +74,7 @@ hard(void)
 	    pr("%s isn't a missile!\n", prplane(&pln));
 	    continue;
 	}
-	if (pln.pln_ship >= 0)	/* can't harden ssbns ... */
+	if (pln.pln_ship >= 0 || pln.pln_land >= 0)
 	    continue;
 	n = level;
 	if (level + pln.pln_harden > 127)
