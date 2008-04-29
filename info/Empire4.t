@@ -7,9 +7,16 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.14 - Fri Apr 25 20:25:42 UTC 2008
- * New server option -E to choose what to do on oops.  You can now
-   make the server dump core and keep going (-E crash-dump, not
+Changes to Empire 4.3.14 - Tue Apr 29 19:55:12 UTC 2008
+ * Fix logging of player input in the journal to include command
+   interruption and EOF.
+ * Fix oversights in 4.3.12's change to keep track of flying planes:
+   planes could be erroneously reported damaged by their own ground
+   strikes.  Happened with missions and the launch command.
+ * Fix load not load hardened missiles.
+ * Fix harden not to harden missiles loaded on land units.
+ * New server option -E to choose what to do on recoverable internal
+   error.  You can now make the server dump core and keep going (not
    implemented for Windows).  New econfig key post_crash_dump_hook to
    run a program after crash-dumping.  See scripts/savecore for an
    example.
@@ -20,6 +27,7 @@ Changes to Empire 4.3.14 - Fri Apr 25 20:25:42 UTC 2008
    with power c.
  * Fix designate's check for disallowed sector types.  Broken in
    4.3.12.
+ * Documentation fixes.
 
 Changes to Empire 4.3.13 - Tue Apr 15 19:03:11 UTC 2008
  * Work around strptime() lossage on some systems.  Fixes the parsing
