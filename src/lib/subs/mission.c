@@ -969,9 +969,9 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 	    mission_flags &= ~P_MINE;
 	}
 
-	CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
 	pp->pln_flags |= PLN_LAUNCHED;
 	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
+	putplane(pp->pln_uid, pp);
     }
     return mission_flags;
 }

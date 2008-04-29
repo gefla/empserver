@@ -124,6 +124,9 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	return 0;
     }
 
+    CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
+    pp->pln_flags |= PLN_LAUNCHED;
+    putplane(pp->pln_uid, pp);
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
     if (pp->pln_nuketype != -1)

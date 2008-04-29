@@ -587,7 +587,6 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	    mission_flags &= ~P_MINE;
 	    /* FIXME no effect */
 	}
-	CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
 	pp->pln_flags |= PLN_LAUNCHED;
 	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
 	putplane(pp->pln_uid, pp);

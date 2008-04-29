@@ -404,13 +404,14 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 		free(dqp);
 		continue;
 	    }
-	    if (mission_pln_equip(dplp, 0, P_F, 0) < 0) {
+	    if (CANT_HAPPEN(dplp->plane.pln_flags & PLN_LAUNCHED)
+		|| mission_pln_equip(dplp, 0, P_F, 0) < 0) {
 		emp_remque(dqp);
 		free(dqp);
 		continue;
 	    }
-	    CANT_HAPPEN(dplp->plane.pln_flags & PLN_LAUNCHED);
 	    dplp->plane.pln_flags |= PLN_LAUNCHED;
+	    putplane(dplp->plane.pln_uid, &dplp->plane);
 	    if (first) {
 		first = 0;
 		PR(plane_owner, "%s launches SAMs!\n", cname(def_own));
