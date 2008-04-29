@@ -52,22 +52,24 @@
  * is "ctld", set the player's eof flag and return -1.
  * Else return the length of the line.
  * Design bug: there is no way to indicate truncation of a long line.
- * FIXME caller needs to know whether a line was consumed, to prompt correctly
  */
 int
 recvclient(char *cmd, int size)
 {
     int count;
 
-    if (player->eof)
-	return -1;
-    if (player->aborted)
-	return -2;
-
-    count = io_gets(player->iop, cmd, size);
-
-    while (!player->aborted && !player->eof && count < 0) {
-	/* Sleep for input */
+    count = -1;
+    while (!player->aborted && !player->eof) {
+	/* Try to get a line of input */
+	count = io_gets(player->iop, cmd, size);
+	if (count >= 0) {
+	    /* got it */
+	    if (strcmp(cmd, "ctld") == 0)
+		player->eof = 1;
+	    if (strcmp(cmd, "aborted") == 0)
+		player->aborted = 1;
+	    break;
+	}
 
 	/* Make sure player sees prompt */
 	io_output_all(player->iop);
@@ -77,22 +79,14 @@ recvclient(char *cmd, int size)
 	 * abortion, we must return without blocking in io_input().
 	 */
 	if (player->aborted)
-	    return -2;
+	    break;
 
+	/* Await more input */
 	io_input(player->iop, IO_WAIT);
 	if (io_error(player->iop))
 	    player->aborted = 1;
 	else if (io_eof(player->iop))
 	    player->eof = 1;
-	else
-	    count = io_gets(player->iop, cmd, size);
-    }
-
-    if (count > 0) {
-	if (strcmp(cmd, "ctld") == 0)
-	    player->eof = 1;
-	if (strcmp(cmd, "aborted") == 0)
-	    player->aborted = 1;
     }
 
     if (player->eof)
