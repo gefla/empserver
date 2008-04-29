@@ -177,6 +177,8 @@ launch_as(struct plnstr *pp)
     if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
 		prplane(&plane), sx, sy, plane.pln_own)) {
 	dam = pln_damage(pp, sx, sy, 'p', &nukedam, 1);
+	if (CANT_HAPPEN(nukedam))
+	    return RET_OK;
 	oldown = plane.pln_own;
 	planedamage(&plane, dam);
 	pr("Hit satellite for %d%% damage!\n", dam);
