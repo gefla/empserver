@@ -311,13 +311,10 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	     */
 	    return RET_OK;
 	}
-	dam =
-	    pln_damage(pp, target_ship.shp_x, target_ship.shp_y, 'p',
-		       &nukedam, 1);
+	dam = pln_damage(pp, target_ship.shp_x, target_ship.shp_y, 'p',
+			 &nukedam, 1);
 	if (!nukedam) {
 	    check_retreat_and_do_shipdamage(&target_ship, dam);
-	    if (target_ship.shp_effic < SHIP_MINEFF)
-		pr("\t%s sunk!\n", prship(&target_ship));
 	    putship(target_ship.shp_uid, &target_ship);
 	}
 	getship(target_ship.shp_uid, &target_ship);
