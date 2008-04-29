@@ -68,6 +68,7 @@ recvclient(char *cmd, int size)
 		player->eof = 1;
 	    if (strcmp(cmd, "aborted") == 0)
 		player->aborted = 1;
+	    journal_input(cmd);
 	    break;
 	}
 
@@ -94,6 +95,5 @@ recvclient(char *cmd, int size)
     if (player->aborted)
 	return -2;
 
-    journal_input(cmd);
     return count;
 }
