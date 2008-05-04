@@ -443,8 +443,6 @@ multifire(void)
 	case targ_sub:
 	    pr_beep();
 	    pr("Kawhomp!!!\n");
-	    if (vship.shp_rflags & RET_DCHRGED)
-		retreat_ship(&vship, 'd');
 	    break;
 	default:
 	    pr_beep();
@@ -470,18 +468,11 @@ multifire(void)
 		   player->cnum, xyas(x, y, vict), dam);
 	    pr("Shells hit sector %s for %d damage.\n",
 	       xyas(x, y, player->cnum), dam);
-	    if (target != targ_bogus)
-		sectdamage(&vsect, dam);
 	    break;
 	case targ_ship:
 	    nreport(player->cnum, N_SHP_SHELL, vict, 1);
 	    /* fall through */
 	default:
-	    if ((target != targ_sub) ||
-		((vship.shp_rflags & RET_DCHRGED) == 0))
-		check_retreat_and_do_shipdamage(&vship, dam);
-	    else
-		shipdamage(&vship, dam);
 	    if (vict) {
 		wu(0, vict,
 		   "Country #%d shelled %s in %s for %d damage.\n",
@@ -491,10 +482,6 @@ multifire(void)
 	    pr("Shells hit %s in %s for %d damage.\n",
 	       prsub(&vship),
 	       xyas(vship.shp_x, vship.shp_y, player->cnum), dam);
-
-	    if (vship.shp_effic < SHIP_MINEFF)
-		pr("%s sunk!\n", prsub(&vship));
-
 	    break;
 	}
 	/*  Ok, now, check if we had a bogus target.  If so,
@@ -509,9 +496,19 @@ multifire(void)
 	totaldefdam = defend(&fired, &defended, attgp, vict, &ndefending);
 	switch (target) {
 	case targ_land:
+	    getsect(x, y, &vsect);
+	    sectdamage(&vsect, dam);
 	    putsect(&vsect);
 	    break;
 	default:
+	    getship(vshipno, &vship);
+	    check_retreat_and_do_shipdamage(&vship, dam);
+	    if (vship.shp_effic < SHIP_MINEFF)
+		pr("%s sunk!\n", prsub(&vship));
+	    else if (target == targ_sub
+		&& (vship.shp_rflags & RET_DCHRGED)
+		&& !(vship.shp_rflags & RET_INJURED))
+		retreat_ship(&vship, 'd');
 	    putship(vship.shp_uid, &vship);
 	    break;
 	}
