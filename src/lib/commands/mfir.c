@@ -253,6 +253,8 @@ multifire(void)
 	    y = vsect.sct_y;
 	}
 	if (type == EF_SHIP) {
+	    if (!check_ship_ok(&fship))
+		return RET_FAIL;
 	    if (fship.shp_own != player->cnum) {
 		pr("Not your ship!\n");
 		continue;
@@ -305,6 +307,8 @@ multifire(void)
 		putship(fship.shp_uid, &fship);
 	    }
 	} else if (type == EF_LAND) {
+	    if (!check_land_ok(&fland))
+		return RET_FAIL;
 	    if (fland.lnd_own != player->cnum) {
 		pr("Not your unit!\n");
 		continue;
@@ -349,6 +353,8 @@ multifire(void)
 		    dam = ldround(dam / 2.0, 1);
 	    }
 	} else {
+	    if (!check_sect_ok(&fsect))
+		return RET_FAIL;
 	    fx = fsect.sct_x;
 	    fy = fsect.sct_y;
 	    if (fsect.sct_own != player->cnum ||
