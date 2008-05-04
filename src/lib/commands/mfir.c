@@ -159,6 +159,8 @@ multifire(void)
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
 	    }
+	    fx = fland.lnd_x;
+	    fy = fland.lnd_y;
 	} else if (type == EF_SHIP) {
 	    if (!getship(item.ship.shp_uid, &fship))
 		continue;
@@ -184,6 +186,8 @@ multifire(void)
 		pr("Ship #%d is crippled!\n", item.ship.shp_uid);
 		continue;
 	    }
+	    fx = fship.shp_x;
+	    fy = fship.shp_y;
 	} else if (type == EF_SECTOR) {
 	    if (!getsect(item.sect.sct_x, item.sect.sct_y, &fsect))
 		continue;
@@ -212,7 +216,10 @@ multifire(void)
 	    }
 	    pr("\nSector %s firing\n",
 	       xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
+	    fx = fsect.sct_x;
+	    fy = fsect.sct_y;
 	}
+
 	if ((ptr = getstarg(player->argp[3], "Firing at? ", buf)) == 0
 	    || *ptr == '\0')
 	    continue;
@@ -252,6 +259,9 @@ multifire(void)
 	    x = vsect.sct_x;
 	    y = vsect.sct_y;
 	}
+
+	trange = mapdist(x, y, fx, fy);
+
 	if (type == EF_SHIP) {
 	    if (!check_ship_ok(&fship))
 		return RET_FAIL;
@@ -265,8 +275,6 @@ multifire(void)
 		    continue;
 		}
 	    }
-	    fx = fship.shp_x;
-	    fy = fship.shp_y;
 	    if ((mil = fship.shp_item[I_MILIT]) < 1) {
 		pr("Not enough military for firing crew.\n");
 		continue;
@@ -280,13 +288,9 @@ multifire(void)
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    if (target == targ_sub
+		&& trange <= range2
 		&& (mchr[(int)fship.shp_type].m_flags & M_DCH)) {
 		dam = shp_dchrg(&fship);
-		putship(fship.shp_uid, &fship);
-		if (dam < 0) {
-		    pr("Not enough shells for depth charge!\n");
-		    continue;
-		}
 	    } else {
 		if (target == targ_sub)
 		    /* Don't tell it's a sub */
@@ -296,11 +300,11 @@ multifire(void)
 		    continue;
 		}
 		dam = shp_fire(&fship);
-		putship(fship.shp_uid, &fship);
-		if (dam <= 0) {
-		    pr("Klick!     ...\n");
-		    continue;
-		}
+	    }
+	    putship(fship.shp_uid, &fship);
+	    if (dam <= 0) {
+		pr("Klick!     ...\n");
+		continue;
 	    }
 	    if (opt_NOMOBCOST == 0) {
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
@@ -321,9 +325,6 @@ multifire(void)
 		    continue;
 		}
 	    }
-
-	    fx = fland.lnd_x;
-	    fy = fland.lnd_y;
 
 	    if (lchr[fland.lnd_type].l_dam == 0) {
 		pr("Unit %d cannot fire!\n", fland.lnd_uid);
@@ -355,8 +356,6 @@ multifire(void)
 	} else {
 	    if (!check_sect_ok(&fsect))
 		return RET_FAIL;
-	    fx = fsect.sct_x;
-	    fy = fsect.sct_y;
 	    if (fsect.sct_own != player->cnum ||
 		fsect.sct_type != SCT_FORTR) {
 		pr("No fortress at %s\n",
@@ -392,7 +391,6 @@ multifire(void)
 		range2 = -1;
 	    }
 	}
-	trange = mapdist(x, y, fx, fy);
 	if (trange > range2) {
 	    pr("Target out of range.\n");
 	    switch (type) {
