@@ -217,7 +217,7 @@ parse_time(time_t *t, char *s, time_t *anchor)
 	    break;
     }
 
-    if (tm.tm_mday == 0) {
+    if (tm.tm_mday == -1) {
 	/* relative to anchor */
 	nexttm = *localtime(anchor);
 	if (tm.tm_hour >= 0) {
