@@ -135,7 +135,7 @@ shp_fire(struct shpstr *sp)
 int
 shp_dchrg(struct shpstr *sp)
 {
-    int shells;
+    int shells, dchrgs;
 
     if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_DCH) == 0)
 	return -1;
@@ -144,10 +144,11 @@ shp_dchrg(struct shpstr *sp)
     shells = sp->shp_item[I_SHELL];
     shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
                            I_SHELL, 2 - shells);
-    if (shells < 2)
+    if (shells == 0)
        return -1;
-    sp->shp_item[I_SHELL] = shells - 2;
-    return (int)seagun(sp->shp_effic, 3);
+    dchrgs = MIN(2, shells);
+    sp->shp_item[I_SHELL] = shells - dchrgs;
+    return (int)seagun(sp->shp_effic, 2 * dchrgs - 1);
 }
 
 /*
