@@ -871,7 +871,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	land->lnd_land = arg;
 	break;
     case 'U':
-	ef_set_uid(EF_SHIP, land, arg);
+	ef_set_uid(EF_LAND, land, arg);
 	break;
     case 'O':
 	if (land->lnd_own)
@@ -994,7 +994,7 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	plane->pln_nuketype = arg;
 	break;
     case 'U':
-	plane->pln_uid = arg;
+	ef_set_uid(EF_PLANE, plane, arg);
 	break;
     case 'l':
 	if (!sarg_xy(p, &newx, &newy))
