@@ -1,4 +1,17 @@
-Changes to Empire 4.3.14 - Tue Apr 29 19:55:12 UTC 2008
+Changes to Empire 4.3.14 - Mon May  5 04:57:03 UTC 2008
+ * Another round of fixes to the fire command:
+   - Don't disclose where the target retreated to.
+   - Charge the target shells for returning fire.
+   - Always use guns when the target is out of range, even if it's a
+     submarine.  Before, the difference in shell use disclosed whether
+     the target is a submarine.  Loophole opened in 4.3.12.
+   - Make depth charges again work with just one shell.  Failing the
+     command in that case lets players find out whether the target is
+     a submarine.  Loophole opened in 4.3.12.
+   - Detect when the firing sector, ship or land unit changes across
+     the target prompt.  Abusable.
+ * Fix parsing of anchor-relative time in update schedule.  Broken in
+   4.3.13.
  * Fix logging of player input in the journal to include command
    interruption and EOF.
  * Fix oversights in 4.3.12's change to keep track of flying planes:
