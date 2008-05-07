@@ -47,7 +47,7 @@ orig(void)
     struct natstr *np;
 
     p = getstarg(player->argp[1], "New origin (sector or country) : ", buf);
-    if (!p)
+    if (!p || !*p)
 	return RET_SYN;
     if (!isalpha(*p) && strchr(p, ',')) {
 	/* sector */
