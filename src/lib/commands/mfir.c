@@ -188,7 +188,7 @@ multifire(void)
 	    }
 	    fx = fship.shp_x;
 	    fy = fship.shp_y;
-	} else if (type == EF_SECTOR) {
+	} else {
 	    if (!getsect(item.sect.sct_x, item.sect.sct_y, &fsect))
 		continue;
 	    if (item.sect.sct_own != player->cnum)
