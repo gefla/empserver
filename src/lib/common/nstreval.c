@@ -145,7 +145,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	    val->val_as.lng = -1;
 	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
 		break;
-	    if (!opt_HIDDEN && cnum != NATID_BAD) {
+	    if (opt_HIDDEN && cnum != NATID_BAD) {
 		natp = getnatp(cnum);
 		if (natp->nat_stat != STAT_GOD
 		    && !(getcontact(natp, idx) && getcontact(ptr, idx)))
