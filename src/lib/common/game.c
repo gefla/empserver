@@ -72,7 +72,23 @@ updates_disabled(void)
 }
 
 /*
+ * Notice that a player broke sanctuary.
+ * This starts the Empire clock if it hasn't been started yet.
+ */
+void
+game_note_bsanct(void)
+{
+    struct gamestr *game = getgamep();
+
+    if (game->game_rt == 0) {
+	game->game_rt = time(NULL);
+	putgame();
+    }
+}
+
+/*
  * Record an update in the game file, the current time is NOW.
+ * This starts the Empire clock if it hasn't been started yet.
  */
 void
 game_record_update(time_t now)
@@ -94,8 +110,8 @@ secs_per_etu(struct gamestr *game)
 {
     double secs;
 
-    if (!update_time[0])
-	return HUGE_VAL;	/* no update scheduled */
+    if (!game->game_rt || !update_time[0])
+	return HUGE_VAL;	/* not started or no update scheduled */
 
     secs = update_time[0] - game->game_rt;
     if (secs < 0)

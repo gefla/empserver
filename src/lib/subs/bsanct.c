@@ -69,6 +69,8 @@ bsanct(void)
 	(void)putsect(&s);
 	count++;
     }
-    if (count > 0)
+    if (count > 0) {
+	game_note_bsanct();
 	nreport(player->cnum, N_BROKE_SANCT, 0, 1);
+    }
 }

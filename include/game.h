@@ -57,6 +57,7 @@ struct gamestr {
 
 extern void game_ctrl_update(int);
 extern int updates_disabled(void);
+extern void game_note_bsanct(void);
 extern void game_record_update(time_t);
 extern struct gamestr *game_tick_tick(void);
 extern int game_tick_to_now(short *);
