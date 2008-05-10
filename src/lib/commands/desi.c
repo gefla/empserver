@@ -44,7 +44,6 @@ desi(void)
 {
     int n;
     char *p;
-    int breaksanct;
     int cap_x;
     int cap_y;
     int des;
@@ -55,7 +54,6 @@ desi(void)
     char buf[1024];
     int changed = 0;
 
-    breaksanct = 0;
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     natp = getnatp(player->cnum);
@@ -95,8 +93,6 @@ desi(void)
 	}
 	if (sect.sct_type == des && sect.sct_newtype == des)
 	    continue;
-	if (sect.sct_type == SCT_SANCT)
-	    breaksanct++;
 	if ((des == SCT_HARBR || des == SCT_BHEAD) && !sect.sct_coastal) {
 	    pr("%s does not border on water.\n",
 	       xyas(nstr.x, nstr.y, player->cnum));
@@ -137,7 +133,5 @@ desi(void)
     }
     if (changed)
 	writemap(player->cnum);
-    if (breaksanct)
-	bsanct();
     return RET_OK;
 }
