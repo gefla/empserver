@@ -829,12 +829,19 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	gun = shp_usable_guns(&ship);
 	if (gun) {
 	    shell = ship.shp_item[I_SHELL];
+#if 0
+	    /*
+	     * FIXME if this supplies the ship while it is being
+	     * interdicted, we get a seqno mismatch when interdiction
+	     * damage is applied.
+	     */
 	    if (shell <= 0) {
 		shell = supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
 				      I_SHELL, 1);
 		ship.shp_item[I_SHELL] = shell;
 		putship(ship.shp_uid, &ship);
 	    }
+#endif
 	}
 	if (gun == 0 || shell == 0)
 	    continue;
