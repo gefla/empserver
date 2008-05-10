@@ -51,7 +51,7 @@ show(void)
     int rlev;
 
     if (!(p = getstarg(player->argp[1],
-		       "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)?",
+		       "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)? ",
 		       buf))
 	|| !*p)
 	return RET_SYN;

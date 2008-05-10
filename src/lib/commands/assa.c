@@ -82,7 +82,7 @@ assa(void)
      */
 
     if ((off->shp_uid =
-	 onearg(player->argp[2], "Assault from ship #")) < 0) {
+	 onearg(player->argp[2], "Assault from ship # ")) < 0) {
 	pr("You may only assault from one ship!\n");
 	return RET_FAIL;
     }

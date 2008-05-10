@@ -53,7 +53,7 @@ foll(void)
     }
     if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
 	return RET_SYN;
-    cp = getstarg(player->argp[2], "leader?", buf);
+    cp = getstarg(player->argp[2], "leader? ", buf);
     if (cp == 0)
 	cp = "";
     good = sscanf(cp, "%d", &leader);

@@ -60,7 +60,7 @@ coll(void)
 	pr("Loans are not enabled.\n");
 	return RET_FAIL;
     }
-    if ((arg = onearg(player->argp[1], "Collect on loan #")) < 0)
+    if ((arg = onearg(player->argp[1], "Collect on loan # ")) < 0)
 	return RET_SYN;
     /* Check if it's a valid loan.  That means, is it a valid loan,
        owed to this player, with a valid duration and it's been signed. */

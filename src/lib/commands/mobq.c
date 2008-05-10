@@ -74,7 +74,7 @@ mobq(void)
 	    pr("Ship #%d at %s.  Old value %d.\n", ship.shp_uid,
 	       xyas(ship.shp_x, ship.shp_y, player->cnum),
 	       ship.shp_mobquota);
-	cp = getstarg(player->argp[2], "mobility quota?", buf);
+	cp = getstarg(player->argp[2], "mobility quota? ", buf);
 	if (!cp)
 	    return RET_SYN;
 	if (!check_ship_ok(&ship))

@@ -55,7 +55,7 @@ mine(void)
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     mines = onearg(player->argp[2],
-		   "Drop how many mines from each ship?  ");
+		   "Drop how many mines from each ship? ");
     if (mines <= 0)
 	return RET_SYN;
     while (nxtitem(&ni, &ship)) {
@@ -126,7 +126,7 @@ landmine(void)
 	if (sect.sct_own == sect.sct_oldown)
 	    pr("There are currently %d mines in %s\n",
 	       sect.sct_mines, xyas(sect.sct_x, sect.sct_y, player->cnum));
-	sprintf(prompt, "Drop how many mines from %s?  ", prland(&land));
+	sprintf(prompt, "Drop how many mines from %s? ", prland(&land));
 	mines_wanted = onearg(player->argp[2], prompt);
 	if (!check_land_ok(&land))
 	    continue;
