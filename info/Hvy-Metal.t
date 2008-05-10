@@ -45,8 +45,8 @@ Artillery units in mountains receive a range bonus of +0.5.
 .s1
 New experimental option RAILWAYS is enabled: trains run on highways
 and sectors next to highways.  Use sinfra to find out mobility costs.
-Try sect # ?track>0 to visualize your track.  Check \*Qinfo
-Railroad\*U for details.
+Try sect # ?track>0 to visualize your track.  Check info
+\*QRailroad\*U for details.
 .s1
 There are more train types, BIG siege guns, etc.
 .\"And we got the
