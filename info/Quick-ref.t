@@ -22,7 +22,7 @@ Sector-types:
 (Petrol is per 10 units; others per unit)
 
 Products:
-Item      $    Lcm  Hcm Iron Dust  Oil  Rad   Tech   Production Eff.
+Item      $    Lcm  Hcm Iron Dust  Oil Food   Tech   Production Eff.
 Shells:   3     2    1    0    0    0    0     20    (tech-20)/(tech-10)
 Guns:    30     5    10   0    0    1    0     20    (tech-20)/(tech-10)
 Iron:     0     0    0    0    0    0    0      0    0
@@ -30,6 +30,7 @@ Dust:     0     0    0    0    0    0    0      0    0
 Bars:    10     0    0    0    5    0    0      0    0
 Food:     0     0    0    0    0    0    0      0    (tech+10)/(tech+20)
 Oil:      0     0    0    0    0    0    0      0    (tech+10)/(tech+20)
+Biofuel  10     0    0    0    0    0    5    150    (tech+150)/(tech+230)
 Petrol    1     0    0    0    0    1    0     20    (tech-20)/(tech-10)
 Lcm:      0     0    0    1    0    0    0      0    (tech+10)/(tech+20)
 Hcm:      0     0    0    2    0    0    0      0    (tech+10)/(tech+20)
