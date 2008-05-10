@@ -191,12 +191,16 @@ edit(void)
 		return err;
 	    break;
 	case 'l':
+	    if (!check_sect_ok(&sect))
+		return RET_FAIL;
 	    if ((err = doland(thing, arg, ptr, &sect)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
 	    break;
 	case 's':
+	    if (!check_ship_ok(&ship))
+		return RET_FAIL;
 	    if ((err = doship(thing, arg, ptr, &ship)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
@@ -205,6 +209,8 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'u':
+	    if (!check_land_ok(&land))
+		return RET_FAIL;
 	    if ((err = dounit(thing, arg, ptr, &land)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
@@ -213,6 +219,8 @@ edit(void)
 		return RET_FAIL;
 	    break;
 	case 'p':
+	    if (!check_plane_ok(&plane))
+		return RET_FAIL;
 	    if ((err = doplane(thing, arg, ptr, &plane)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
