@@ -245,33 +245,6 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 }
 
 int
-num_shipsatxy(coord x, coord y, int wantflags, int nowantflags)
-{
-    int ships;
-    struct nstr_item ni;
-    struct mchrstr *mp;
-    struct shpstr ship;
-
-    ships = 0;
-    snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, &ship)) {
-	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
-	    continue;
-	mp = &mchr[(int)ship.shp_type];
-	if (wantflags) {
-	    if ((mp->m_flags & wantflags) == 0)
-		continue;
-	}
-	if (nowantflags) {
-	    if (mp->m_flags & nowantflags)
-		continue;
-	}
-	ships++;
-    }
-    return ships;
-}
-
-int
 adj_units(coord x, coord y, natid own)
 {
     int i;
