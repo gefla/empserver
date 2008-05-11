@@ -84,7 +84,7 @@ caploss(struct sctstr *sp, natid coun, char *msg)
        cname(player->cnum), cname(coun), -(int)(player->dolcost));
     if (opt_LOANS) {
 	for (loan_num = 0; getloan(loan_num, &loan); loan_num++) {
-	    if (loan.l_ldur != 0 && loan.l_loner == coun) {
+	    if (loan.l_status == LS_SIGNED && loan.l_loner == coun) {
 		loan.l_loner = player->cnum;
 		putloan(loan_num, &loan);
 		pr("Loan %d has been transfered over to you\n", loan_num);
@@ -93,6 +93,8 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     }
     if (opt_MARKET) {
 	for (comm_num = 0; getcomm(comm_num, &comm); comm_num++) {
+	    if (comm.com_owner == 0)
+		continue;
 	    if (comm.com_owner == coun) {
 		if (comm.com_owner == comm.com_maxbidder)
 		    comm.com_maxbidder = player->cnum;
