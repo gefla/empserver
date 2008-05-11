@@ -209,13 +209,11 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
        effadv((int)target->sct_effic), dcp->d_name);
     nsubs = 0;
     plp = (struct plist *)list->q_forw;
+    nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB, 0);
     if (plp->pcp->pl_flags & P_A) {
-	nships = num_shipsatxy(target->sct_x, target->sct_y, 0, 0);
-	nsubs = nships - shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
+	nsubs = shipsatxy(target->sct_x, target->sct_y, M_SUB, 0, 1);
 	if (nsubs > 0)
 	    pr("Some subs are present in the sector.\n");
-    } else {
-	nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
     }
     nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
     nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
@@ -481,7 +479,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    nships = asw_shipsatxy(target->sct_x, target->sct_y, 0, 0,
 				   &plp->plane, &head);
 	else
-	    nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
+	    nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB, 0);
 	if (nships == 0) {
 	    pr("%s could not find any ships!\n", prplane(&plp->plane));
 	    continue;
@@ -501,7 +499,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		if (plp->pcp->pl_flags & P_A)
 		    print_shiplist(head);
 		else
-		    shipsatxy(target->sct_x, target->sct_y, 0, M_SUB);
+		    shipsatxy(target->sct_x, target->sct_y, 0, M_SUB, 0);
 		continue;
 	    }
 	    if (*q == 'd')

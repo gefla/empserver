@@ -48,7 +48,7 @@
 #include "xy.h"
 
 int
-shipsatxy(coord x, coord y, int wantflags, int nowantflags)
+shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 {
     int first;
     int ships;
@@ -73,12 +73,14 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags)
 	    if (mp->m_flags & nowantflags)
 		continue;
 	}
-	if (first) {
-	    pr(" #          owner           eff       type\n");
-	    first = 0;
+	if (!only_count) {
+	    if (first) {
+		pr(" #          owner           eff       type\n");
+		first = 0;
+	    }
+	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
+	       cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	}
-	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	ships++;
     }
     return ships;

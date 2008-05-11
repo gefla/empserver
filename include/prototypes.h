@@ -465,7 +465,7 @@ extern double torprange(struct shpstr *);
 extern double fortrange(struct sctstr *);
 extern int roundrange(double);
 /* list.c */
-extern int shipsatxy(coord, coord, int, int);
+extern int shipsatxy(coord, coord, int, int, int);
 extern int carriersatxy(coord, coord, natid);
 extern int unitsatxy(coord, coord, int, int);
 extern int planesatxy(coord, coord, int, int);
