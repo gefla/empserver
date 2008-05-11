@@ -54,9 +54,9 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     int loan_num = 0;
     int comm_num = 0;
 
-    if (coun == 0)
-	return;
     natp = getnatp(coun);
+    if (natp->nat_stat != STAT_ACTIVE)
+	return;
     if (sp->sct_x != natp->nat_xcap || sp->sct_y != natp->nat_ycap)
 	return;
     if (coun == player->cnum)
