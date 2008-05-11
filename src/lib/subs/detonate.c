@@ -135,8 +135,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    sprintf(buf, "did %d%%%% damage in %%s\n", damage);
 	    bp = buf;
 	}
-	if ((type == SCT_CAPIT || type == SCT_MOUNT) && damage >= 100)
-	    caploss(&sect, own, "\n%s lost its capital!\n\n");
 	(void)putsect(&sect);
 	if (type != SCT_WATER)
 	    nreport(bombown, N_NUKE, own, 1);
