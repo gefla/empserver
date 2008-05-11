@@ -91,6 +91,7 @@ static int
 checksect(struct sctstr *sp)
 {
     int mil, civs, loyalcivs;
+    natid own;
 
     item_prewrite(sp->sct_item);
 
@@ -113,9 +114,7 @@ checksect(struct sctstr *sp)
     if (sp->sct_own && !loyalcivs && !(sp->sct_flags & MOVE_IN_PROGRESS)) {
 	if (!mil && !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
 	    /* more cruft! */
-	    if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
-		caploss(sp, sp->sct_own, "");
-
+	    own = sp->sct_own;
 	    if (sp->sct_oldown == sp->sct_own) {
 		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 		sp->sct_own = 0;
@@ -123,6 +122,8 @@ checksect(struct sctstr *sp)
 	    } else
 		takeover(sp, sp->sct_oldown);
 	    sp->sct_mobil = 0;
+	    if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
+		caploss(sp, own, "");
 	}
     }
     return 1;

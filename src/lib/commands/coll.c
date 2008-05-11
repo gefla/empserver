@@ -106,8 +106,6 @@ coll(void)
 	pr("That is more than is owed!\n");
 	return RET_FAIL;
     }
-    if (sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT)
-	caploss(&sect, sect.sct_own, "that was %s's capital!\n");
     sect.sct_item[I_MILIT] = 1;	/* FIXME now where did this guy come from? */
 
 /* Consider modifying takeover to take a "no che" argument and
@@ -123,6 +121,8 @@ coll(void)
     sect.sct_dist_x = sect.sct_x;
     sect.sct_dist_y = sect.sct_y;
 
+    if (sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT)
+	caploss(&sect, loan.l_lonee, "that was %s's capital!\n");
     putsect(&sect);
     nreport(player->cnum, N_SEIZE_SECT, loan.l_lonee, 1);
     owed = loan_owed(&loan, time(&now));

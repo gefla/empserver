@@ -51,8 +51,10 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     struct comstr comm;
     long lose;
     long gain;
-    int loan_num = 0;
-    int comm_num = 0;
+    char *verb;
+    int loan_num, comm_num;
+
+    CANT_HAPPEN(sp->sct_own && sp->sct_own != player->cnum);
 
     natp = getnatp(coun);
     if (natp->nat_stat != STAT_ACTIVE)
@@ -71,18 +73,20 @@ caploss(struct sctstr *sp, natid coun, char *msg)
 	lose = 3000;
     natp->nat_money -= lose;
     putnat(natp);
-    wu(0, coun, "* %s just sacked your capital! *\n", cname(player->cnum));
-
-    if (gain >= 0) {
+    if (gain >= 0 && sp->sct_own) {
 	gain = (0.2 + 0.8 * (sp->sct_effic / 100.0)) * gain;
 	player->dolcost -= gain;
     } else
 	gain = 0;
+    verb = sp->sct_own ? "sacked" : "obliterated";
+    wu(0, coun, "* %s just %s your capital! *\n",
+       cname(player->cnum), verb);
     wu(0, coun, "You lost $%ld and they gained $%ld\n", lose, gain);
     wu(0, coun, "You need to use 'capital' to activate a new capital.\n");
-    wu(0, 0, "%s just took %s's capital and gained $%d\n",
-       cname(player->cnum), cname(coun), -(int)(player->dolcost));
-    if (opt_LOANS) {
+    wu(0, 0, "%s just %s %s's capital and gained $%ld\n",
+       cname(player->cnum), verb, cname(coun), gain);
+
+    if (opt_LOANS && sp->sct_own) {
 	for (loan_num = 0; getloan(loan_num, &loan); loan_num++) {
 	    if (loan.l_status == LS_SIGNED && loan.l_loner == coun) {
 		loan.l_loner = player->cnum;
@@ -91,7 +95,7 @@ caploss(struct sctstr *sp, natid coun, char *msg)
 	    }
 	}
     }
-    if (opt_MARKET) {
+    if (opt_MARKET && sp->sct_own) {
 	for (comm_num = 0; getcomm(comm_num, &comm); comm_num++) {
 	    if (comm.com_owner == 0)
 		continue;
