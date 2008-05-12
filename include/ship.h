@@ -96,7 +96,6 @@ struct shpstr {
     char shp_path[MAXSHPPATH];
     short shp_follow;
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
-    unsigned char shp_fuel;	/* How much fuel do we have */
     unsigned char shp_nchoppers; /* How many choppers on board? */
     unsigned char shp_nxlight;	/* How many xlight planes on board? */
     coord shp_orig_x;
@@ -118,8 +117,6 @@ struct mchrstr {
     int m_glim;			/* how many guns it can fire */
     unsigned char m_nxlight;	/* maximum number of xlight planes */
     unsigned char m_nchoppers;	/* maximum number of choppers */
-    unsigned char m_fuelc;	/* fuel capacity */
-    unsigned char m_fuelu;	/* fuel used per 10 mob */
     char *m_name;		/* full name of type of ship */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */
@@ -148,7 +145,7 @@ struct mchrstr {
 #define M_SEMILAND	bit(14)	/* can land 1/4 */
 /* unused		bit(15)	*/
 /* unused		bit(16)	*/
-#define M_OILER		bit(17)	/* can re-fuel ships */
+/* unused		bit(17)	*/
 #define M_SUPPLY	bit(18)	/* Can supply units/sects/ships */
 #define M_CANAL		bit(19) /* Can navigate a canal (BIG CITY) */
 #define M_ANTIMISSILE   bit(20)	/* Shoot down missile */

@@ -60,7 +60,7 @@ unit_list(struct emp_qelem *unit_list)
 	return;
 
     if (type == EF_LAND)
-	pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr fuel\n");
+	pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr\n");
     else
         pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
 
@@ -97,7 +97,6 @@ unit_list(struct emp_qelem *unit_list)
 	pr("%4d", unit->tech);
 	if (type == EF_LAND) {
 	    pr("%4d%%", lnd->lnd_retreat);
-	    pr("%5d", lnd->lnd_fuel);
 	}
 	pr("\n");
     }

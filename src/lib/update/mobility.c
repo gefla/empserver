@@ -181,10 +181,7 @@ mob_ship(void)
 static void
 do_mob_ship(struct shpstr *sp, int etus)
 {
-    int newfuel = 0;
     int value;
-    int can_add, have_fuel_for, total_add;
-    double d;
 
     if (CANT_HAPPEN(etus < 0))
 	etus = 0;
@@ -192,72 +189,10 @@ do_mob_ship(struct shpstr *sp, int etus)
     if (sp->shp_own == 0)
 	return;
 
-    if (opt_FUEL == 0 || mchr[(int)sp->shp_type].m_fuelu == 0) {
-	value = sp->shp_mobil + (float)etus * ship_mob_scale;
-	if (value > ship_mob_max)
-	    value = ship_mob_max;
-	sp->shp_mobil = (signed char)value;
-    } else {
-	if (sp->shp_mobil >= ship_mob_max) {
-	    sp->shp_mobil = ship_mob_max;
-	    return;
-	}
-	can_add = ship_mob_max - sp->shp_mobil;
-	if (can_add > (float)etus * ship_mob_scale)
-	    can_add = (float)etus * ship_mob_scale;
-	have_fuel_for = ldround(((double)sp->shp_fuel /
-				 (double)mchr[(int)sp->shp_type].m_fuelu)
-				* (double)fuel_mult, 1);
-
-	if (can_add > have_fuel_for) {
-	    int need;
-	    need = can_add - have_fuel_for;
-	    d = need;
-	    d *= mchr[(int)sp->shp_type].m_fuelu;
-	    d /= fuel_mult;
-	    d /= 5.0;
-	    if (d - (int)d > 0.0)
-		d++;
-	    need = (int)d;
-	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				    I_PETROL, need);
-	    sp->shp_fuel += newfuel * 5;
-	}
-
-	have_fuel_for = ldround(((double)sp->shp_fuel /
-				 (double)mchr[(int)sp->shp_type].m_fuelu)
-				* (double)fuel_mult, 1);
-
-	if (can_add > have_fuel_for) {
-	    int need;
-	    need = can_add - have_fuel_for;
-	    d = need;
-	    d *= mchr[(int)sp->shp_type].m_fuelu;
-	    d /= fuel_mult;
-	    d /= 50.0;
-	    if (d - (int)d > 0.0)
-		d++;
-	    need = (int)d;
-	    newfuel = supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-				    I_OIL, need);
-	    sp->shp_fuel += newfuel * 50;
-	}
-
-	have_fuel_for = ldround(((double)sp->shp_fuel /
-				 (double)mchr[(int)sp->shp_type].m_fuelu)
-				* (double)fuel_mult, 1);
-
-	if (can_add > have_fuel_for)
-	    total_add = have_fuel_for;
-	else
-	    total_add = can_add;
-	d = total_add;
-	d *= mchr[(int)sp->shp_type].m_fuelu;
-	d /= fuel_mult;
-	sp->shp_fuel -= ldround(d, 1);
-	sp->shp_fuel = MIN(sp->shp_fuel, mchr[(int)sp->shp_type].m_fuelc);
-	sp->shp_mobil += total_add;
-    }
+    value = sp->shp_mobil + (float)etus * ship_mob_scale;
+    if (value > ship_mob_max)
+	value = ship_mob_max;
+    sp->shp_mobil = (signed char)value;
 }
 
 void
@@ -281,11 +216,7 @@ mob_land(void)
 static void
 do_mob_land(struct lndstr *lp, int etus)
 {
-    int newfuel = 0;
     int value;
-    int can_add, have_fuel_for, total_add;
-    double d;
-    struct lchrstr *lcp = lchr + lp->lnd_type;
 
     if (CANT_HAPPEN(etus < 0))
 	etus = 0;
@@ -293,85 +224,24 @@ do_mob_land(struct lndstr *lp, int etus)
     if (lp->lnd_own == 0)
 	return;
 
-    if (opt_FUEL == 0 || lcp->l_fuelu == 0) {
-	value = lp->lnd_mobil + ((float)etus * land_mob_scale);
-	if (value > land_mob_max) {
-	    if (lp->lnd_harden < land_mob_max && !opt_MOB_ACCESS) {
-		/*
-		 * Automatic fortification on excess mobility.
-		 * Disabled for MOB_ACCESS, because it leads to
-		 * excessively deep recursion and thus miserable
-		 * performance as the number of land units grows.
-		 *
-		 * Provide mobility to be used in lnd_fortify()
-		 * without overflowing lnd_mobil.
-		 */
-		lp->lnd_mobil = land_mob_max;
-		lnd_fortify(lp, value - land_mob_max);
-	    }
-	    value = land_mob_max;
-	}
-	lp->lnd_mobil = value;
-
-    } else {
-	if (lp->lnd_mobil >= land_mob_max) {
+    value = lp->lnd_mobil + ((float)etus * land_mob_scale);
+    if (value > land_mob_max) {
+	if (lp->lnd_harden < land_mob_max && !opt_MOB_ACCESS) {
+	    /*
+	     * Automatic fortification on excess mobility.
+	     * Disabled for MOB_ACCESS, because it leads to
+	     * excessively deep recursion and thus miserable
+	     * performance as the number of land units grows.
+	     *
+	     * Provide mobility to be used in lnd_fortify()
+	     * without overflowing lnd_mobil.
+	     */
 	    lp->lnd_mobil = land_mob_max;
-	    return;
+	    lnd_fortify(lp, value - land_mob_max);
 	}
-
-	can_add = land_mob_max - lp->lnd_mobil;
-
-	if (can_add > (float)etus * land_mob_scale)
-	    can_add = (float)etus * land_mob_scale;
-
-	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
-
-	if (can_add > have_fuel_for) {
-	    int need;
-	    need = can_add - have_fuel_for;
-	    d = need;
-	    d *= lcp->l_fuelu;
-	    d /= fuel_mult;
-	    d /= 5.0;
-	    if (d - (int)d > 0.0)
-		d++;
-	    need = (int)d;
-	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
-				    I_PETROL, need);
-	    lp->lnd_fuel += newfuel * 5;
-	}
-
-	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
-
-	if (can_add > have_fuel_for) {
-	    int need;
-	    need = can_add - have_fuel_for;
-	    d = need;
-	    d *= lcp->l_fuelu;
-	    d /= fuel_mult;
-	    d /= 50.0;
-	    if (d - (int)d > 0.0)
-		d++;
-	    need = (int)d;
-	    newfuel = supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
-				    I_OIL, need);
-	    lp->lnd_fuel += newfuel * 50;
-	}
-
-	have_fuel_for = (lp->lnd_fuel / lcp->l_fuelu) * fuel_mult;
-
-	if (can_add > have_fuel_for) {
-	    total_add = have_fuel_for;
-	} else
-	    total_add = can_add;
-	d = total_add;
-	d *= lcp->l_fuelu;
-	d /= fuel_mult;
-	lp->lnd_fuel -= ldround(d, 1);
-	lp->lnd_fuel = MIN(lp->lnd_fuel, lcp->l_fuelc);
-	lp->lnd_mobil += total_add;
-	/* No excess mobility here, hence no automatic fortification */
+	value = land_mob_max;
     }
+    lp->lnd_mobil = value;
 }
 
 void

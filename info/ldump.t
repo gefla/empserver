@@ -42,7 +42,7 @@ shown here (no partial pattern matching is done.)
    fort    fortification level
    mob     mobility
    food    # of food loaded
-   fuel    # of fuel loaded
+   fuel    obsolete, retained for backwards compatibility, always zero
    tech    technology of unit
    retr    retreat %age of unit
    react   current reaction radius 

@@ -114,8 +114,6 @@ struct cmndstr player_coms[] = {
     {"follow <leader> <SHIPS>", 1, foll, C_MOD, NORM + CAP},
     {"force", 0, force, C_MOD, GOD},
     {"fortify <UNITS> <MOB>", 1, fort, C_MOD, NORM},
-    {"fuel <s|l> <SHIP/FLEET | UNIT/ARMY> <AMOUNT> [<OILER>]",
-     1, fuel, C_MOD, NORM},
     {"give <COMM> <SECT> <NUM>", 0, give, C_MOD, GOD},
     {"grind <SECT> <NUM>", 1, grin, C_MOD, NORM + MONEY + CAP},
     {"harden <PLANES> <NUM>", 2, hard, C_MOD, NORM + MONEY + CAP},

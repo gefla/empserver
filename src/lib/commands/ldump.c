@@ -337,10 +337,7 @@ ldump(void)
 		pr(" %d", land.lnd_item[I_FOOD]);
 		break;
 	    case 10:
-		if (opt_FUEL)
-		    pr(" %d", land.lnd_fuel);
-		else
-		    pr(" 0");
+		pr(" 0");
 		break;
 	    case 11:
 		pr(" %d", land.lnd_tech);

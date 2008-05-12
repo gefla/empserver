@@ -130,7 +130,6 @@ int fly(void);
 int foll(void);
 int force(void);
 int fort(void);
-int fuel(void);
 int give(void);
 int grin(void);
 int hard(void);
@@ -751,7 +750,6 @@ extern int nav_ship(struct shpstr *);
 extern int load_it(struct shpstr *, struct sctstr *,
 		   int);
 extern void unload_it(struct shpstr *);
-extern void auto_fuel_ship(struct shpstr *);
 /* nxtitemp.c */
 extern void *nxtitemp(struct nstr_item *);
 /* plague.c */

@@ -118,14 +118,6 @@ In either case when you arrive at the other harbor all but 1 civ
 will be dumped into the harbor.  Be careful if you set civilians
 as one of your cargo levels. 
 .s1 
-If the FUEL option is enabled ships will try and fuel when they load
-cargo in the starting or ending point and they currently have a fuel
-level less then half of their max fuel level. 
-Auto fueling is not foolproof.  If you declare a 
-long path and the ship does not pass through any harbors it might
-run out of fuel and mobility. Remember ships can only autofuel 
-in harbors. 
-.s1
 You can set any commodity in the game to be loaded on the ship.
 However if you tell a ship to load a commodity it can not hold it
 will be ignored.  Example:  If you tell a battleship to load

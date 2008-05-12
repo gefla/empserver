@@ -59,8 +59,6 @@ shi(void)
 		pr("own ");
 	    pr("shp#     ship type       x,y   fl   eff civ mil  uw  fd pn"
 	       " he xl ln mob");
-	    if (opt_FUEL)
-		pr(" fuel");
 	    pr(" tech\n");
 	}
 	if (ship.shp_off)
@@ -83,8 +81,6 @@ shi(void)
 	pr("%3d", ship.shp_nxlight);
 	pr("%3d", ship.shp_nland);
 	pr("%4d", ship.shp_mobil);
-	if (opt_FUEL)
-	    pr("%5d", ship.shp_fuel);
 	pr("%5d\n", ship.shp_tech);
 	if (ship.shp_name[0] != 0) {
 	    if (player->god)

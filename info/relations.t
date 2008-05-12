@@ -47,7 +47,7 @@ allies, but not by others .  Allied nations are assumed to have
 .L Friendly
 When you accept a country as a trustworthy trading partner, then you
 establish friendly relations towards them.  This allows them to sail
-ships into your harbours, load and unload goods, fuel, and have their
+ships into your harbours, load and unload goods, and have their
 ships repaired there.  You are allowed to "tend" and "follow" friendly
 ships.  You are allowed to cede sectors to a friendly
 nation, and may send them "flash" messages (see info flash).  You will

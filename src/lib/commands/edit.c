@@ -346,7 +346,6 @@ pr_land(struct lndstr *land)
     pr("Tech <t>: %d\t\t", land->lnd_tech);
     pr("Army <a>: %.1s\n", &land->lnd_army);
     pr("Fortification <F>: %d\t", land->lnd_harden);
-    pr("Fuel <B>: %d\n", land->lnd_fuel);
     pr("Land unit <Y>: %d\n", land->lnd_land);
     pr("Ship <S>: %d\t\t", land->lnd_ship);
     pr("Radius <P>: %d\n", land->lnd_rad_max);
@@ -386,9 +385,6 @@ pr_ship(struct shpstr *ship)
     pr("Efficiency <E>: %d\n", ship->shp_effic);
     pr("Mobility <M>: %d\t\t", ship->shp_mobil);
     pr("Fleet <F>: %.1s\n", &ship->shp_fleet);
-    /* could depend on opt_FUEL - but a deity might want to set this
-       up before enabling the option */
-    pr("Fuel <B>: %d\n", ship->shp_fuel);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, ship->shp_rflags);
     pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
@@ -810,7 +806,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	ship->shp_mobil = arg;
 	break;
     case 'B':
-	ship->shp_fuel = errcheck(arg, 0, 255);
+	warn_deprecated(op);
 	break;
     case 'F':
 	if (p[0] == '~')
@@ -928,7 +924,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	land->lnd_harden = errcheck(arg, 0, 255);
 	break;
     case 'B':
-	land->lnd_fuel = errcheck(arg, 0, 255);
+	warn_deprecated(op);
 	break;
     case 'S':
 	land->lnd_ship = arg;

@@ -74,8 +74,6 @@ ship_damage(struct shpstr *sp, int dam)
     sp->shp_effic = damage((int)sp->shp_effic, dam);
     if (sp->shp_mobil > 0)
 	sp->shp_mobil = damage((int)sp->shp_mobil, dam);
-    if (opt_FUEL && sp->shp_fuel)
-	sp->shp_fuel = damage((int)sp->shp_fuel, dam);
     item_damage(dam, sp->shp_item);
 }
 
@@ -101,8 +99,6 @@ land_damage(struct lndstr *lp, int dam)
 	lp->lnd_effic = damage((int)lp->lnd_effic, dam);
 	if (lp->lnd_mobil > 0)
 	    lp->lnd_mobil = damage((int)lp->lnd_mobil, dam);
-	if (opt_FUEL && lp->lnd_fuel)
-	    lp->lnd_fuel = damage((int)lp->lnd_fuel, dam);
 	item_damage(dam, lp->lnd_item);
     }
 }

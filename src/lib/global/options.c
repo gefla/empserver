@@ -42,7 +42,6 @@ int opt_BLITZ = 1;
 int opt_BRIDGETOWERS = 1;
 int opt_EASY_BRIDGES = 1;
 int opt_FALLOUT = 1;
-int opt_FUEL = 0;
 int opt_GODNEWS = 1;
 int opt_GO_RENEW = 0;
 int opt_GUINEA_PIGS = 0;

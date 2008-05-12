@@ -48,8 +48,7 @@ static int s_commod(int, int, int, i_type, int, int);
 
 /*
  * We want to get enough guns to be maxed out, enough shells to
- * 	fire once, one update's worth of food, enough fuel for
- *	one update.
+ * 	fire once, one update's worth of food.
  *
  * Firts, try to forage in the sector
  * Second look for a warehouse or headquarters to leech
@@ -67,8 +66,6 @@ resupply_all(struct lndstr *lp)
     if (!opt_NOFOOD)
 	resupply_commod(lp, I_FOOD);
     resupply_commod(lp, I_SHELL);
-    if (opt_FUEL)
-	resupply_commod(lp, I_PETROL);
 }
 
 /*
@@ -102,18 +99,6 @@ resupply_commod(struct lndstr *lp, i_type type)
 	    lp->lnd_item[type] += amt;
 	    ship.shp_item[type] -= amt;
 	    putship(lp->lnd_ship, &ship);
-	}
-    }
-
-    if (opt_FUEL && type == I_PETROL) {
-	int fuel_needed = lchr[lp->lnd_type].l_fuelu
-	    * ((float)etu_per_update * land_mob_scale) / 10.0;
-
-	while ((lp->lnd_fuel < fuel_needed) && lp->lnd_item[I_PETROL]) {
-	    lp->lnd_fuel += 10;
-	    if (lp->lnd_fuel > lchr[lp->lnd_type].l_fuelc)
-		lp->lnd_fuel = lchr[lp->lnd_type].l_fuelc;
-	    lp->lnd_item[I_PETROL]--;
 	}
     }
 }
@@ -413,8 +398,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 
 /*
  * We want to get enough shells to fire once,
- * one update's worth of food, enough fuel for
- * one update.
+ * one update's worth of food.
  */
 
 static int
@@ -435,25 +419,6 @@ get_minimum(struct lndstr *lp, i_type type)
     case I_SHELL:
 	want = lcp->l_ammo;
 	break;
-
-	/*
-	 * return the amount of pet we'd need to get to 
-	 * enough fuel for 1 update
-	 */
-    case I_PETROL:
-	if (opt_FUEL == 0)
-	    return 0;
-	want = lcp->l_fuelu * ((float)etu_per_update * land_mob_scale)
-	    / 10.0;
-	want -= lp->lnd_fuel;
-	if (want > 0) {
-	    want = want / 10;
-	    if (want == 0)
-		want++;
-	}
-
-	max = want;
-	break;
     default:
 	return 0;
     }
@@ -469,7 +434,6 @@ has_supply(struct lndstr *lp)
 {
     int shells_needed, shells, keepshells;
     int food, food_needed, keepfood;
-    int fuel_needed, fuel, petrol_needed, petrol, keeppetrol;
 
     if (!opt_NOFOOD) {
 	food_needed = get_minimum(lp, I_FOOD);
@@ -501,29 +465,5 @@ has_supply(struct lndstr *lp)
     if (shells < shells_needed)
 	return 0;
 
-    if (opt_FUEL) {
-	fuel_needed = lchr[lp->lnd_type].l_fuelu;
-	fuel = lp->lnd_fuel;
-	if (fuel < fuel_needed) {
-	    petrol_needed =
-		ldround((fuel_needed - fuel) / 10.0, 1);
-	    petrol = keeppetrol = lp->lnd_item[I_PETROL];
-	    if (petrol < petrol_needed) {
-		lp->lnd_item[I_PETROL] = 0;
-		putland(lp->lnd_uid, lp);
-		petrol += try_supply_commod(lp->lnd_own,
-					    lp->lnd_x, lp->lnd_y,
-					    I_PETROL,
-					    (petrol_needed - petrol));
-		lp->lnd_item[I_PETROL] = keeppetrol;
-		putland(lp->lnd_uid, lp);
-	    }
-	    fuel += petrol * 10;
-	}
-
-	if (fuel < fuel_needed)
-	    return 0;
-    }
-    /* end opt_FUEL */
     return 1;
 }

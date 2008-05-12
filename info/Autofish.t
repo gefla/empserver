@@ -66,9 +66,6 @@ repeat 2a,2b for other ships in the area.
 .s1
 During the update your fishing boats will now move to the harbor at
 15,1 unload food until it reaches 30, then move back to 15,1 and STOP.
-If you're using fishing boats that require fuel, i.e. fb2
-when the ship enters the harbor, and the fuel level is at 0, the
-autonav code will automatically refuel the ship for you.
 So unless the ship gets sunk, or something happens to it, like the
 civs starve on board if you don't leave enough food on it,
 the ships will continue to feed your country and you won't even need

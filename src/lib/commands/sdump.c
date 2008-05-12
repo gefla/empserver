@@ -315,10 +315,7 @@ sdump(void)
 		pr(" %d", ship.shp_mobil);
 		break;
 	    case 15:
-		if (opt_FUEL)
-		    pr(" %d", ship.shp_fuel);
-		else
-		    pr(" 0");
+		pr(" 0");
 		break;
 	    case 16:
 		pr(" %d", ship.shp_tech);

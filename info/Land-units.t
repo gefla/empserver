@@ -17,7 +17,7 @@ will usually start with 'l'.
 .s1
 Land units have some characteristics of both ships and planes, plus some
 unique ones. Like both ships & planes, they have efficiency & mobility.
-Like ships, they can carry cargo, may have/use fuel, and may be able to fire
+Like ships, they can carry cargo, and may be able to fire
 guns at distant targets. Like planes, they have attack and defense values,
 and may be able to act automatically to defend your country.
 Let's look at a typical land unit:
@@ -31,7 +31,7 @@ Let's look at a typical land unit:
 .s1
 This land unit is an infantry unit, located at 8,0. In many games, you will
 start with 1-2 basic land units of this type. Some of the things about it are
-familiar. It is 96% efficient, has 93 mobility units, carries 1 food, no fuel,
+familiar. It is 96% efficient, has 93 mobility units, carries 1 food,
 and is tech 0 and currently contains 100 mi. It carries 0 extra-light
 planes, and is not on a ship. The 'a'
 stands for army, and is just like fleets or wings, i.e. a way of grouping your
@@ -132,16 +132,16 @@ operate. These are obtainable from the show command:
 .EX show land statistics
 .s1
 .NF
-                                       s  v  s  r  f  a  d  a  a        x
-                                       p  i  p  a  r  c  a  m  a  f  f  p
-                          att def vul  d  s  y  d  g  c  m  m  f  c  u  l
-infantry                  1.0 1.5  60 23 15  2  1  0  0  0  0  0  0  0  0
+                                       s  v  s  r  f  a  d  a  a  x
+                                       p  i  p  a  r  c  a  m  a  p
+                          att def vul  d  s  y  d  g  c  m  m  f  l
+infantry                  1.0 1.5  60 23 15  2  1  0  0  0  0  0  0
 .FI
 .s1
 The infantry unit has an attack multiplier of 1.0, and defensive multiplier
 of 1.5. It has a vulnerability rating of 60, a speed of 23, a visibility of
 15, spy value of 2, reaction radius maximum of 1, no firing range, no accuracy,
-no firing damage, uses no ammo, has no aa fire, doesn't carry of use fuel,
+no firing damage, uses no ammo, has no aa fire,
 and can't carry extra-light planes.
 .s1
 When attacking, a unit's value is expressed in 'mil-equivalents', i.e. 1
@@ -206,11 +206,6 @@ information on supply and how it affects combat)
 .s1
 Aaf is the unit's anti-aircraft fire value. The higher the value, the more
 damage the unit will do to planes flying overhead.
-.s1
-Fc/fu are the unit's fuel capacity and use. If the fc/fu are 0, the unit
-does not need fuel to gain mobility. If the fc/fu are non-zero, the unit
-will need fuel to gain mobility, and will use fu fuel whenever it fights.
-(See info \*Qfuel\*U for information on fuel)
 .s1
 Xpl is the number of extra-light planes the unit can carry. Planes can
 operate from a land unit in the same fashion as if it were a carrier.

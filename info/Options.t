@@ -17,7 +17,6 @@ ALL_BLEED:	you get tech bleed from all countries, not just allies
 SLOW_WAR:	War declaring takes time. No land attacks unless at war.
 NOMOBCOST:	ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost
 TRADESHIPS:	you can build/nav/scuttle trade ships to make money
-FUEL:		ships need fuel to gain mobility
 RES_POP:	Research affects max sector population.
 NOFOOD:		No food is required.
 BLITZ:		Players get infinite BTU's.

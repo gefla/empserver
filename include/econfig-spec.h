@@ -147,8 +147,6 @@ EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
     "Allow bridge building without bridge heads")
 EMPCF_OPT("FALLOUT", opt_FALLOUT,
     "Enable secondary effects caused by radiation")
-EMPCF_OPT("FUEL", opt_FUEL,
-    "Make ships use fuel to move")
 EMPCF_OPT("GODNEWS", opt_GODNEWS,
     "Inform the world when deities give/take away")
 EMPCF_OPT("GO_RENEW", opt_GO_RENEW,
@@ -391,8 +389,6 @@ EMPCFBOTH("anno_keep_days", anno_keep_days, int, NSC_INT, KM_INTERNAL,
 	  "How long until announcements expire (<0 means never)")
 EMPCFBOTH("news_keep_days", news_keep_days, int, NSC_INT, KM_INTERNAL,
 	  "How long until news expire")
-EMPCFBOTH("fuel_mult", fuel_mult, int, NSC_INT, 0,
-    "Multiplier for fuel to mobility calculation")
 EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, NSC_INT, KM_INTERNAL,
     "Seconds before a lost item is timed out of the database")
 

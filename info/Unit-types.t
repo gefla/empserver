@@ -126,7 +126,7 @@ The headings for the stats listing are
 .s1
 .EX show land stats
 .s1
-.in \w'fc/fu\0\0'u
+.in \w'spy\0\0'u
 .L att
 the attack multiplier of the land unit
 .L def
@@ -153,9 +153,6 @@ the number of guns that fire when the unit fires
 ammo: the number of shells the unit uses when fighting or firing
 .L aaf
 the aa fire rating of the unit
-.L fc/fu
-The land unit's fuel capacity & usage.
-(see info fuel) (If the FUEL option is enabled)
 .L xpl
 The number of extra-light planes the land unit can carry.
 (If the XLIGHT option is enabled)
@@ -215,15 +212,15 @@ marines 1                  20  10 100    2      4     5  200  $2000
 .s1
 .EX show land stats
 .NF
-                                       s  v  s  r  f  a  d  a  a        x
-                                       p  i  p  a  r  c  a  m  a  f  f  p
-                          att def vul  d  s  y  d  g  c  m  m  f  c  u  l
-War band                  1.3 1.0  99 23  5  1  1  0  0  0  0  0  0  0  0
-Supply Wagon              0.1 0.2 100 15  6  1  0  0  0  0  0  0  0  0  0
-GPG Commandos             1.0 1.0  70 30  1  2  1  0  0  0  5  1 10  1  0
-artillery 1               0.0 0.5  50 15  6  1  0  6 40  4  5 15  0  0  0
-Jump infantry             5.0 6.0  20 55  1  4  4  0  0  0  5 35 10  1  5
-marines 1                 1.0 2.0  70 23  3  3  2  0  0  0  5  5  0  0  2
+                                       s  v  s  r  f  a  d  a  a  x
+                                       p  i  p  a  r  c  a  m  a  p
+                          att def vul  d  s  y  d  g  c  m  m  f  l
+War band                  1.3 1.0  99 23  5  1  1  0  0  0  0  0  0
+Supply Wagon              0.1 0.2 100 15  6  1  0  0  0  0  0  0  0
+GPG Commandos             1.0 1.0  70 30  1  2  1  0  0  0  5  1  0
+artillery 1               0.0 0.5  50 15  6  1  0  6 40  4  5 15  0
+Jump infantry             5.0 6.0  20 55  1  4  4  0  0  0  5 35  5
+marines 1                 1.0 2.0  70 23  3  3  2  0  0  0  5  5  2
 .FI
 .s1
 .EX show land cap

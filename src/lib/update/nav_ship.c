@@ -239,9 +239,6 @@ nav_load_ship_at_sea(struct shpstr *sp)
  * Continue to loop until the ship runs out of mobility, a load fails,
  * the ship gets sunk (forts,ect..), the ship hits a mine.
  *
- * A check has been added for fuel so ships don't end up running
- * out of mobility in the ocean.
- *
  * Questions, bugs (fixes) , or new ideas should be directed at
  * Chad Zabel.  
  * 6-1-94   
@@ -250,7 +247,6 @@ nav_load_ship_at_sea(struct shpstr *sp)
 int
 nav_ship(struct shpstr *sp)
 {
-    struct sctstr *sectp;
     char *cp;
     int stopping;
     int quit;
@@ -287,14 +283,6 @@ nav_ship(struct shpstr *sp)
 		    sp->shp_own);
 	    if (QEMPTY(&ship_list))
 		return RET_OK;
-	    /* before we move check to see if ship needs fuel. */
-	    sectp = getsectp(sp->shp_x, sp->shp_y);
-	    if (opt_FUEL &&
-		sectp->sct_own != 0 &&
-		sp->shp_fuel <= 0 &&
-		((struct mchrstr *)mlp->chrp)->m_fuelu != 0)
-		auto_fuel_ship(sp);
-	    mlp->unit.ship.shp_fuel = sp->shp_fuel;
 
 	    cp = BestShipPath(buf, sp->shp_x, sp->shp_y,
 			      sp->shp_destx[0], sp->shp_desty[0],

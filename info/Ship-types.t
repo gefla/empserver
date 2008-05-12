@@ -162,8 +162,6 @@ submarine	The submarine was originally intended, in the 1900-1910 period,
 minesweeper	Usually converted fishing vessels, small, and expendable. They
 		found and destroyed mines with a variety of tricks, including
 		cables & magnetism.
-
-oiler		These ships represent the whole range of refueling ships.
 .fi
 .s1
 These units types differ in their fundamental
@@ -191,7 +189,7 @@ The headings for the stats listing are
 .s1
 .EX show ship stats
 .s1
-.in \w'fuel c/u\0\0'u
+.in \w'spy\0\0'u
 .L def
 defensive armament of the ship
 .L spd
@@ -219,9 +217,6 @@ enabled)
 .L xpl
 The number of extra-light planes the ship can carry. (If the XLIGHT option is
 enabled)
-.L "fuel c/u"
-The ship's fuel capacity & usage. (see info fuel) (If the FUEL option is
-enabled)
 .in
 .s1
 Each ship can carry a certain amount of products and has certain
@@ -244,8 +239,6 @@ The vessel can carry planes with the light attribute set.
 The vessel can carry missiles.
 .L oil
 The vessel can drill for oil
-.L oiler
-The vessel can fuel other ships at sea
 .L sonar
 The vessel has sonar capabilities to detect submarines
 .L mine
@@ -290,15 +283,15 @@ battleship 1               50  50    31    0 $800
 .s1
 .EX show ship stats
 .NF
-                               s  v s  r  f  h  x  p  l fuel
-                               p  i p  n  i  e  p  l  n  c/u
+                               s  v s  r  f  h  x  p  l
+                               p  i p  n  i  e  p  l  n
                           def  d  s y  g  r  l  l  n  d
-fishing boat 1             10 10 15 2  0  0  0  0  0  0   0/0
-cargo ship 1               20 10 35 3  0  0  0  1  0  0   0/0
-ore ship 1                 20 10 35 3  0  0  0  1  0  0   0/0
-slave ship                 20 10 35 3  0  0  0  1  0  0   0/0
-trade ship 1               20 10 35 3  0  0  0  1  0  0   0/0
-frigate                    50 25 25 3  1  1  0  1  0  2   0/0
+fishing boat 1             10 10 15 2  0  0  0  0  0  0
+cargo ship 1               20 10 35 3  0  0  0  1  0  0
+ore ship 1                 20 10 35 3  0  0  0  1  0  0
+slave ship                 20 10 35 3  0  0  0  1  0  0
+trade ship 1               20 10 35 3  0  0  0  1  0  0
+frigate                    50 25 25 3  1  1  0  1  0  2
 .FI
 .s1
 .EX show ship cap

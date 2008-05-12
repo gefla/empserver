@@ -102,9 +102,6 @@ double people_damage = 1.00;	/* Civs/mil/uw take this fraction of damage */
 double collateral_dam = 0.10;	/* Side effect damage to sector */
 double assault_penalty = 0.50;	/* attack factor for para & assault troops */
 
-/* opt_FUEL */
-int fuel_mult = 10;		/* 1 fuel = 10 mob */
-
 float land_grow_scale = 2.0;	/* how fast eff grows for land units (xETUS) */
 float ship_grow_scale = 3.0;	/* how fast eff grows for ships (xETUS) */
 float plane_grow_scale = 2.0;	/* how fast eff grows for planes (xETUS) */

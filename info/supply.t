@@ -14,9 +14,6 @@ A basic load of supplies for a unit consists of:
 		A unit uses shells equal to its ammo stat to fire once.
 		Use the \*Qshow\*U command to find out how much ammo
 		the unit uses per shot.
-
-	3) petrol equal to its fuel use number, if the unit uses fuel
-		(show land stats will show the fuel use number)
 .fi
 
 .s1

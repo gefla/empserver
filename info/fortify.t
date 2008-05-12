@@ -35,7 +35,4 @@ to fortify.  For example, when a unit with 120 of 127 mobility gains
 60 mobility, its mobility increases to the maximum 127, and it uses 53
 mobility to fortify.
 .s1
-Units requiring fuel (if option FUEL is enabled), do not fortify
-automatically, as this would burn fuel.
-.s1
 .SA "bomb, Unit-types, LandUnits"

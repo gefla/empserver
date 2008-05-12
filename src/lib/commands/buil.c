@@ -374,7 +374,6 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     ship.shp_orig_own = player->cnum;
     ship.shp_orig_x = sp->sct_x;
     ship.shp_orig_y = sp->sct_y;
-    ship.shp_fuel = mchr[(int)ship.shp_type].m_fuelc;
     ship.shp_rflags = 0;
     memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
     shp_set_tech(&ship, tlev);
@@ -490,7 +489,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     land.lnd_nland = 0;
     land.lnd_harden = 0;
     land.lnd_retreat = morale_base;
-    land.lnd_fuel = lp->l_fuelc;
     land.lnd_nxlight = 0;
     land.lnd_rflags = 0;
     memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));

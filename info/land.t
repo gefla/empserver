@@ -34,8 +34,6 @@ the land unit's fortification level,
 the mobility of the land unit,
 .L fd
 the amount of food on board,
-.L fl
-the amount of fuel on board (only if the FUEL option is enabled),
 .L tch
 the tech level of the land unit,
 .L retr

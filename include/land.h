@@ -69,7 +69,6 @@ struct lndstr {
     short lnd_ship;		/* pointer to transporting ship */
     signed char lnd_harden;	/* fortification */
     short lnd_retreat;		/* retreat percentage */
-    unsigned char lnd_fuel;	/* How much fuel do we have */
     unsigned char lnd_nxlight;	/* How many xlight planes on board? */
     int lnd_rflags;		/* When do I retreat? */
     char lnd_rpath[RET_LEN];	/* retreat path */
@@ -105,8 +104,6 @@ struct lchrstr {
     int l_dam;			/* # of guns firing */
     int l_ammo;			/* firing ammu used per shot */
     int l_aaf;			/* aa fire */
-    unsigned char l_fuelc;	/* fuel capacity */
-    unsigned char l_fuelu;	/* fuel used per 10 mob */
     unsigned char l_nxlight;	/* maximum number of xlight planes */
     unsigned char l_nland;	/* maximum number of units */
     signed char l_type;		/* index in lchr[] */

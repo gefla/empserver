@@ -244,18 +244,12 @@ show_ship_stats(int tlev)
     int scount;
 
     pr("%25s      s  v  s  r  f  l  p  h  x", "");
-    if (opt_FUEL)
-	pr("  fuel");
     pr("\n");
 
     pr("%25s      p  i  p  n  i  n  l  e  p", "");
-    if (opt_FUEL)
-	pr("   c/u");
     pr("\n");
 
     pr("%25s def  d  s  y  g  r  d  n  l  l", "");
-    if (opt_FUEL)
-	pr("      ");
     pr("\n");
 
 
@@ -275,8 +269,6 @@ show_ship_stats(int tlev)
 	pr("%2d ", mp->m_nplanes);
 	pr("%2d ", mp->m_nchoppers);
 	pr("%2d ", mp->m_nxlight);
-	if (opt_FUEL)
-	    pr("%3d/%1d ", mp->m_fuelc, mp->m_fuelu);
 	pr("\n");
     }
 }
@@ -445,9 +437,9 @@ show_land_stats(int tlev)
     struct lchrstr *lcp;
     int lcount;
 
-    pr("%25s              s  v  s  r  r  a  f  a  a        x  l\n", "");
-    pr("%25s              p  i  p  a  n  c  i  m  a  f  f  p  n\n", "");
-    pr("%25s att def vul  d  s  y  d  g  c  r  m  f  c  u  l  d\n", "");
+    pr("%25s              s  v  s  r  r  a  f  a  a  x  l\n", "");
+    pr("%25s              p  i  p  a  n  c  i  m  a  p  n\n", "");
+    pr("%25s att def vul  d  s  y  d  g  c  r  m  f  l  d\n", "");
 
     make_new_list(tlev, EF_LAND);
     for (lcount = 0; lcount < lookup_list_cnt; lcount++) {
@@ -463,9 +455,6 @@ show_land_stats(int tlev)
 	pr("%2d %2d %2d %2d %2d ",
 	   l_frg(lcp, tlev), l_acc(lcp, tlev), l_dam(lcp, tlev),
 	   lcp->l_ammo, lcp->l_aaf);
-	pr("%2d %2d %2d %2d ",
-	   lcp->l_fuelc, lcp->l_fuelu, lcp->l_nxlight, lcp->l_nland);
-
 	pr("\n");
     }
 }

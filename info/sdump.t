@@ -47,7 +47,7 @@ shown here (no partial pattern matching is done.)
    xl      # of x-light planes on board
    land    # of land units on board
    mob     mobility
-   fuel    fuel on board
+   fuel    obsolete, retained for backwards compatibility, always zero
    tech    technology of ship
    shell   # of shells on board
    gun     # of guns on board

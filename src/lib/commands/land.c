@@ -60,8 +60,6 @@ land(void)
 	    if (player->god)
 		pr("own ");
 	    pr("   # unit type          x,y   a   eff mil frt  mu  fd");
-	    if (opt_FUEL)
-		pr(" fl");
 	    pr(" tch retr rd xl ln carry\n");
 	}
 	if (land.lnd_off)
@@ -77,8 +75,6 @@ land(void)
 	pr("%4d", land.lnd_harden);
 	pr("%4d", land.lnd_mobil);
 	pr("%4d", land.lnd_item[I_FOOD]);
-	if (opt_FUEL)
-	    pr("%3d", land.lnd_fuel);
 	pr("%4d ", land.lnd_tech);
 	pr("%3d%%", land.lnd_retreat);
 	pr("%3d", land.lnd_rad_max);

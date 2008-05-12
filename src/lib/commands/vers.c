@@ -162,9 +162,6 @@ vers(void)
         pr("The starting mobility when acquiring a sector or unit is %d.\n",
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
-    if (opt_FUEL)
-	pr("For ships and land units, fuelu makes %d mobility.\n\n",
-	   fuel_mult);
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (opt_TRADESHIPS) {
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",

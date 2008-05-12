@@ -120,7 +120,6 @@ Ship:
 .L fleet
 .L nplane
 number of planes the ship is carrying
-.L fuel
 .L nxlight
 number of xlight planes the ship is carrying
 .L nchoppers
@@ -154,7 +153,6 @@ ship the land unit is on (-1 = no land unit)
 .L harden
 fortification
 .L retreat
-.L fuel
 .L land
 number of land units on the unit
 .L nxlight
@@ -169,8 +167,6 @@ number of xlight planes on the unit
 .L dam
 .L ammo
 .L aaf
-.L fuelc
-.L fuelu
 .L maxlight
 .in
 .s1

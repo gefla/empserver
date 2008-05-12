@@ -40,8 +40,6 @@ the number of helicopters on board,
 the number of extra-light planes on board,
 .L ln
 the number of land units on board,
-.L fuel
-the amount of fuel on board (only if the FUEL option is enabled)
 .L mob
 the mobility of the ship,
 .L tech
