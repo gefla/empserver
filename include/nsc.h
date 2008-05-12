@@ -213,8 +213,10 @@ enum {
  * NP points to the country to use for coordinate translation and
  * access control (null for none), and CTXO is the context object.
  * See struct valstr for details.
+ * Because virtual selectors don't have a setter method, xundump must
+ * be made to ignore them, e.g. by setting NSC_EXTRA.
  * If flag NSC_DEITY is set, only to deities can use this selector.
- * If flag NSC_EXTRA is set, xdump ignores this selector.
+ * If flag NSC_EXTRA is set, xdump and xundump ignore this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its
  * initial value (xundump obeys that).
  * If ca_table is not EF_BAD, the datum refers to that Empire table;

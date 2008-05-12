@@ -47,6 +47,7 @@
  * - Check each partial table supplies the same rows
  * - Check EFF_CFG tables are dense
  * - Symbolic array indexes
+ * - Option to treat missing and unknown fields as warning, not error
  * TODO, but hardly worth the effort:
  * - Permit reordering of array elements
  */
@@ -352,7 +353,7 @@ deffld(int fldno, char *name, int idx)
     if (res < 0)
 	return gripe("Header %s of field %d is %s", name, fldno + 1,
 		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
-    if (ca[res].ca_flags == NSC_EXTRA)
+    if (ca[res].ca_flags == NSC_EXTRA || CANT_HAPPEN(ca[res].ca_get))
 	return gripe("Extraneous header %s in field %d", name, fldno + 1);
     if (ca[res].ca_type != NSC_STRINGY && ca[res].ca_len != 0) {
 	if (idx < 0)
