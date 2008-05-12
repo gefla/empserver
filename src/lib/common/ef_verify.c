@@ -71,6 +71,25 @@ verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
 }
 
 static int
+verify_ca(int type)
+{
+    struct castr *ca = ef_cadef(type);
+    int i;
+
+    for (i = 0; ca[i].ca_name; i++) {
+	/*
+	 * Virtual selectors must be NSC_EXTRA, because xundump can't
+	 * cope with them without setter methods.  Exception: if
+	 * EFF_MEM is not set, xundump doesn't touch the table.
+	 */
+	if (CANT_HAPPEN((ef_flags(type) & EFF_MEM)
+			&& ca[i].ca_get && !(ca[i].ca_flags & NSC_EXTRA)))
+	    ca[i].ca_flags |= NSC_EXTRA;
+    }
+    return 0;
+}
+
+static int
 verify_row(int type, int row)
 {
     struct castr *ca = ef_cadef(type);
@@ -199,6 +218,7 @@ ef_verify()
     for (ep = empfile; ep->name; ep++) {
 	if (!ef_cadef(ep->uid))
 	    continue;
+	verify_ca(ep->uid);
 	for (i = 0; i < ef_nelem(ep->uid); i++) {
 	    retval += verify_row(ep->uid, i);
 	}
