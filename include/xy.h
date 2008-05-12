@@ -43,9 +43,9 @@
 #define XYOFFSET(x, y) (((y) * WORLD_X + (x)) / 2)
 
 #define XNORM(x) \
-    (((x) < 0) ? (WORLD_X - (-(x) % WORLD_X)) : ((x) % WORLD_X))
+    (((x) < 0) ? (WORLD_X - 1 - ((-(x) - 1) % WORLD_X)) : ((x) % WORLD_X))
 #define YNORM(y) \
-    (((y) < 0) ? (WORLD_Y - (-(y) % WORLD_Y)) : ((y) % WORLD_Y))
+    (((y) < 0) ? (WORLD_Y - 1 - ((-(y) - 1) % WORLD_Y)) : ((y) % WORLD_Y))
 
 struct range {
     coord lx;			/* low-range x,y */
