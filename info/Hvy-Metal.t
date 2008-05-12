@@ -99,8 +99,10 @@ conserve oil.  Resources are scarce.  Expect to fight over them.
 Oil derricks need to set up shop before they produce: no production
 while mobility is below maximum.
 .s1
-Automatic shell supply for sector flak and ship missile defense is
-disabled, because its bugs interfere with Hvy Metal modifications.
+Automatic shell supply for sector flak, ship flak and ship missile
+defense is disabled, because its bugs interfere with Hvy Metal
+modifications.  Same for automatic supply of land units on loading
+them onto ships or land units.
 .s1
 Missed updates due to server problems will be forced if caught within
 15 minutes of planned update time or skipped otherwise.

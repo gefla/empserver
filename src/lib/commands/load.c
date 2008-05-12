@@ -603,7 +603,14 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    land.lnd_ship = sp->shp_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
+#if 0
+	    /*
+	     * FIXME if this supplies from the sector, the putsect in
+	     * load() / lload() duplicates those supplies, causing a
+	     * seqno mismatch
+	     */
 	    resupply_all(&land);
+#endif
 	    sp->shp_nland++;
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
@@ -1034,7 +1041,10 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    land.lnd_land = lp->lnd_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
+#if 0
+	    /* FIXME same issue as in load_land_ship() */
 	    resupply_all(&land);
+#endif
 	    lp->lnd_nland++;
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
