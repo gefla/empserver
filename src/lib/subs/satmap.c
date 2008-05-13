@@ -177,15 +177,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    }
 	    /* If we are imaging *and* drawing the map */
 	    if ((flags & P_I) && (type == EF_BAD)) {
-		/* Figure out where to put the ship */
-		/* First, figure out the distance from the two */
-		rx = diffx((int)ship.shp_x, x);
-		ry = diffy((int)ship.shp_y, y);
-		/* Next, determine which direction to add it to the center */
-		/* We can only do this if imaging and we have gotten the center
-		   up above by imaging the sectors. */
-		rx = deltax(x, ns.range.lx) + rx;
-		ry = deltay(y, ns.range.ly) + ry;
+		rx = deltx(&ns.range, ship.shp_x);
+		ry = delty(&ns.range, ship.shp_y);
 		/* &~0x20 makes it a cap letter */
 		rad[ry][rx] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
 	    }
@@ -230,15 +223,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    }
 	    /* If we are imaging *and* drawing the map */
 	    if ((flags & P_I) && (type == EF_BAD)) {
-		/* Figure out where to put the unit */
-		/* First, figure out the distance from the two */
-		rx = diffx((int)land.lnd_x, x);
-		ry = diffy((int)land.lnd_y, y);
-		/* Next, determine which direction to add it to the center */
-		/* We can only do this if imaging and we have gotten the center
-		   up above by imaging the sectors. */
-		rx = deltax(x, ns.range.lx) + rx;
-		ry = deltay(y, ns.range.ly) + ry;
+		rx = deltx(&ns.range, land.lnd_x);
+		ry = delty(&ns.range, land.lnd_y);
 		/* &~0x20 makes it a cap letter */
 		rad[ry][rx] = (*lchr[(int)land.lnd_type].l_name) & ~0x20;
 	    }

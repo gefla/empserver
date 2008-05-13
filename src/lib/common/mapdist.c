@@ -42,34 +42,6 @@
 #include "prototypes.h"
 
 int
-diffx(int x1, int x2)
-{
-    int dx;
-
-    dx = x1 - x2;
-    dx = dx % WORLD_X;
-    if (dx > WORLD_X / 2)
-	dx = dx - WORLD_X;
-    if (dx < -WORLD_X / 2)
-	dx = dx + WORLD_X;
-    return dx;
-}
-
-int
-diffy(int y1, int y2)
-{
-    int dy;
-
-    dy = y1 - y2;
-    dy = dy % WORLD_Y;
-    if (dy > WORLD_Y / 2)
-	dy = dy - WORLD_Y;
-    if (dy < -WORLD_Y / 2)
-	dy = dy + WORLD_Y;
-    return dy;
-}
-
-int
 deltax(int x1, int x2)
 {
     int dx;
