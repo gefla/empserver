@@ -20,4 +20,4 @@ which will be used as a temporary stopover in a multi-step move to
 make sure the stuff won't get stranded there.
 .in -0.3i
 .s1
-.SA "move, Commodities"
+.SA "move, Commodities, Transportation"
