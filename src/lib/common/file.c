@@ -50,7 +50,7 @@ static int ef_realloc_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
 static int do_read(struct empfile *, void *, int, int);
 static int do_write(struct empfile *, void *, int, int, time_t);
-static int get_seqno(struct empfile *, int);
+static unsigned get_seqno(struct empfile *, int);
 static void new_seqno(struct empfile *, void *);
 static void do_blank(struct empfile *, void *, int, int);
 
@@ -458,6 +458,13 @@ ef_write(int type, int id, void *from)
     return 1;
 }
 
+/*
+ * Change element id.
+ * BUF is an element of table TYPE.
+ * ID is its new element ID.
+ * If table is EFF_TYPED, change id and sequence number stored in BUF.
+ * Else do nothing.
+ */
 void
 ef_set_uid(int type, void *buf, int uid)
 {
@@ -476,7 +483,12 @@ ef_set_uid(int type, void *buf, int uid)
     elt->seqno = get_seqno(ep, uid);
 }
 
-static int
+/*
+ * Return sequence number of element ID in table EP.
+ * Return zero if table is not EFF_TYPED (it has no sequence number
+ * then).
+ */
+static unsigned
 get_seqno(struct empfile *ep, int id)
 {
     struct emptypedstr *elt;
@@ -498,6 +510,11 @@ get_seqno(struct empfile *ep, int id)
     return elt->seqno;
 }
 
+/*
+ * Increment sequence number in BUF, which is about to be written to EP.
+ * Do nothing if table is not EFF_TYPED (it has no sequence number
+ * then).
+ */
 static void
 new_seqno(struct empfile *ep, void *buf)
 {
