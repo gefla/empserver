@@ -192,9 +192,9 @@ famine_victims(short *vec, int etu)
 {
     double can_eat = vec[I_FOOD] / (etu * eatrate);
     int people = vec[I_CIVIL] + vec[I_MILIT] + vec[I_UW];
-    if (people < can_eat)
+    if (people <= can_eat)
 	return 0;
-    if (can_eat < people / 2)
+    if (can_eat <= people / 2)
 	return people / 2;
     return (int)(people - can_eat);
 }
