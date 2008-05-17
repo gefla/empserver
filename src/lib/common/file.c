@@ -48,7 +48,10 @@
 
 static int ef_realloc_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
+static int do_read(struct empfile *, void *, int, int);
 static int do_write(struct empfile *, void *, int, int);
+static unsigned get_seqno(struct empfile *, int);
+static void new_seqno(struct empfile *, void *);
 static void do_blank(struct empfile *, void *, int, int);
 
 /*
@@ -309,10 +312,27 @@ ef_read(int type, int id, void *into)
 static int
 fillcache(struct empfile *ep, int id)
 {
+    int ret;
+
+    if (CANT_HAPPEN(!ep->cache))
+	return -1;
+
+    ret = do_read(ep, ep->cache, id, MIN(ep->csize, ep->fids - id));
+    if (ret >= 0) {
+	/* cache changed */
+	ep->baseid = id;
+	ep->cids = ret;
+    }
+    return ret;
+}
+
+static int
+do_read(struct empfile *ep, void *buf, int id, int count)
+{
     int n, ret;
     char *p;
 
-    if (CANT_HAPPEN(ep->fd < 0 || !ep->cache))
+    if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
 	return -1;
 
     if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
@@ -321,21 +341,21 @@ fillcache(struct empfile *ep, int id)
 	return -1;
     }
 
-    p = ep->cache;
-    n = MIN(ep->csize, ep->fids - id) * ep->size;
+    p = buf;
+    n = count * ep->size;
     while (n > 0) {
 	ret = read(ep->fd, p, n);
 	if (ret < 0) {
 	    if (errno != EINTR) {
 		logerror("Error reading %s elt %d (%s)",
 			 ep->file,
-			 id + (int)((p - ep->cache) / ep->size),
+			 id + (int)((p - (char *)buf) / ep->size),
 			 strerror(errno));
 		break;
 	    }
 	} else if (ret == 0) {
 	    logerror("Unexpected EOF reading %s elt %d",
-		     ep->file, id + (int)((p - ep->cache) / ep->size));
+		     ep->file, id + (int)((p - (char *)buf) / ep->size));
 	    break;
 	} else {
 	    p += ret;
@@ -343,12 +363,7 @@ fillcache(struct empfile *ep, int id)
 	}
     }
 
-    if (p == ep->cache)
-	return -1;		/* nothing read, old cache still ok */
-
-    ep->baseid = id;
-    ep->cids = (p - ep->cache) / ep->size;
-    return ep->cids;
+    return (p - (char *)buf) / ep->size;
 }
 
 /*
@@ -440,6 +455,7 @@ ef_write(int type, int id, void *from)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
+    new_seqno(ep, from);
     if (ep->fd >= 0) {
 	if (do_write(ep, from, id, 1) < 0)
 	    return 0;
@@ -455,6 +471,77 @@ ef_write(int type, int id, void *from)
 	ep->fids = id + 1;
     }
     return 1;
+}
+
+/*
+ * Change element id.
+ * BUF is an element of table TYPE.
+ * ID is its new element ID.
+ * If table is EFF_TYPED, change id and sequence number stored in BUF.
+ * Else do nothing.
+ */
+void
+ef_set_uid(int type, void *buf, int uid)
+{
+    struct emptypedstr *elt;
+    struct empfile *ep;
+
+    if (ef_check(type) < 0)
+	return;
+    ep = &empfile[type];
+    if (!(ep->flags & EFF_TYPED))
+	return;
+    elt = buf;
+    if (elt->uid == uid)
+	return;
+    elt->uid = uid;
+    elt->seqno = get_seqno(ep, uid);
+}
+
+/*
+ * Return sequence number of element ID in table EP.
+ * Return zero if table is not EFF_TYPED (it has no sequence number
+ * then).
+ */
+static unsigned
+get_seqno(struct empfile *ep, int id)
+{
+    struct emptypedstr *elt;
+
+    if (!(ep->flags & EFF_TYPED))
+	return 0;
+    if (id < 0 || id >= ep->fids)
+	return 0;
+    if (id >= ep->baseid && id < ep->baseid + ep->cids)
+	elt = (void *)(ep->cache + (id - ep->baseid) * ep->size);
+    else {
+	/* need a buffer, steal last cache slot */
+	if (ep->cids == ep->csize)
+	    ep->cids--;
+	elt = (void *)(ep->cache + ep->cids * ep->size);
+	if (do_read(ep, elt, id, 1) < 0)
+	    return 0;		/* deep trouble */
+    }
+    return elt->seqno;
+}
+
+/*
+ * Increment sequence number in BUF, which is about to be written to EP.
+ * Do nothing if table is not EFF_TYPED (it has no sequence number
+ * then).
+ */
+static void
+new_seqno(struct empfile *ep, void *buf)
+{
+    struct emptypedstr *elt = buf;
+    unsigned old_seqno;
+
+    if (!(ep->flags & EFF_TYPED))
+	return;
+    old_seqno = get_seqno(ep, elt->uid);
+    if (CANT_HAPPEN(old_seqno != elt->seqno))
+	old_seqno = MAX(old_seqno, elt->seqno);
+    elt->seqno = old_seqno + 1;
 }
 
 /*
@@ -518,9 +605,17 @@ ef_extend(int type, int count)
 void
 ef_blank(int type, int id, void *buf)
 {
+    struct empfile *ep;
+    struct emptypedstr *elt;
+
     if (ef_check(type) < 0)
 	return;
-    do_blank(&empfile[type], buf, id, 1);
+    ep = &empfile[type];
+    do_blank(ep, buf, id, 1);
+    if (ep->flags & EFF_TYPED) {
+	elt = buf;
+	elt->seqno = get_seqno(ep, elt->uid);
+    }
 }
 
 /*

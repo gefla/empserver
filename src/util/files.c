@@ -155,6 +155,7 @@ main(int argc, char *argv[])
     for (i = 1; i < MAXNOC; i++) {
 	nat.ef_type = EF_NATION;
 	nat.nat_cnum = nat.nat_uid = i;
+	nat.nat_seqno = 0;
 	putnat((&nat));
     }
     memset(&realm, 0, sizeof(realm));
@@ -164,6 +165,7 @@ main(int argc, char *argv[])
 	for (j = 0; j < MAXNOR; j++) {
 	    realm.r_realm = j;
 	    realm.r_uid = (i * MAXNOR) + j;
+	    realm.r_seqno = 0;
 	    putrealm(&realm);
 	}
     }
@@ -209,6 +211,7 @@ file_sct_init(coord x, coord y, struct sctstr *ptr)
 
     sp->ef_type = EF_SECTOR;
     sp->sct_uid = XYOFFSET(x, y);
+    sp->sct_seqno = 0;
     sp->sct_x = x;
     sp->sct_y = y;
     sp->sct_dist_x = x;

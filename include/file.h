@@ -67,6 +67,7 @@ struct empfile {
 struct emptypedstr {
     short ef_type;
     short uid;
+    unsigned seqno;
     time_t timestamp;
 };
 
@@ -189,6 +190,7 @@ extern int ef_close(int);
 extern int ef_flush(int);
 extern void ef_blank(int, int, void *);
 extern int ef_write(int, int, void *);
+extern void ef_set_uid(int, void *, int);
 extern int ef_extend(int, int);
 extern int ef_ensure_space(int, int, int);
 extern int ef_truncate(int, int);

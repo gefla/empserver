@@ -48,6 +48,7 @@ struct nwsstr {
     /* initial part must match struct empobj */
     short ef_type;
     short nws_uid;
+    unsigned nws_seqno;
     time_t nws_timestamp;
     /* end of part matching struct empobj */
     natid nws_ano;		/* "actor" country # */

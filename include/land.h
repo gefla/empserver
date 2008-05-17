@@ -51,6 +51,7 @@ struct lndstr {
     /* initial part must match struct empobj */
     short ef_type;
     short lnd_uid;		/* unit id (land unit) */
+    unsigned lnd_seqno;
     time_t lnd_timestamp;	/* Last time this unit was touched */
     natid lnd_own;		/* owner's country num */
     coord lnd_x;		/* x location in abs coords */
