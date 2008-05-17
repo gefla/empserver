@@ -98,9 +98,11 @@ struct emptypedstr {
 #define EFF_PRIVATE	bit(9)
 /* Table is customized (configuration tables only) */
 #define EFF_CUSTOM	bit(10)
+/* Don't update timestamps */
+#define EFF_NOTIME	bit(11)
 /* Transient flags, only occur in argument of ef_open() */
 /* Create table file, clobbering any existing file */
-#define EFF_CREATE	bit(11)
+#define EFF_CREATE	bit(16)
 
 /*
  * Empire `file types'

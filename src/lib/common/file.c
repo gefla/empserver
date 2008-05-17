@@ -369,7 +369,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 	return -1;
 
     if (ep->flags & EFF_TYPED) {
-	now = time(NULL);
+	now = ep->flags & EFF_NOTIME ? (time_t)-1 : time(NULL);
 	for (i = 0; i < count; i++) {
 	    /*
 	     * TODO Oopses here could be due to bad data corruption.
@@ -380,7 +380,8 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 		elt->ef_type = ep->uid;
 	    if (CANT_HAPPEN(elt->uid != id + i))
 		elt->uid = id + i;
-	    elt->timestamp = now;
+	    if (now != (time_t)-1)
+		elt->timestamp = now;
 	}
     }
 
