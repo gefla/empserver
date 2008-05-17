@@ -432,7 +432,7 @@ ef_write(int type, int id, void *from)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
-    if (!(ep->flags & EFF_PRIVATE)) {
+    if (ep->fd >= 0 && !(ep->flags & EFF_PRIVATE)) {
 	if (do_write(ep, from, id, 1, time(NULL)) < 0)
 	    return 0;
     }
