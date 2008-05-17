@@ -55,11 +55,12 @@ static void do_blank(struct empfile *, void *, int, int);
  * Open the file-backed table TYPE (EF_SECTOR, ...).
  * HOW are flags to control operation.  Naturally, immutable flags are
  * not permitted.
+ * If NELT is non-negative, the table must have that many elements.
  * Return non-zero on success, zero on failure.
  * You must call ef_close() before the next ef_open().
  */
 int
-ef_open(int type, int how)
+ef_open(int type, int how, int nelt)
 {
     struct empfile *ep;
     struct flock lock;
@@ -105,6 +106,12 @@ ef_open(int type, int how)
 	return 0;
     }
     ep->fids = fsiz / ep->size;
+    if (nelt >= 0 && nelt != ep->fids) {
+	logerror("Can't open %s (got %d records instead of %d)",
+		 ep->file, ep->fids, nelt);
+	close(fd);
+	return 0;
+    }
 
     /* allocate cache */
     if (ep->flags & EFF_STATIC) {

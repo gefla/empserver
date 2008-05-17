@@ -181,7 +181,7 @@ extern int ef_read(int, int, void *);
 extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);
-extern int ef_open(int, int);
+extern int ef_open(int, int, int);
 extern int ef_check(int);
 extern int ef_close(int);
 extern int ef_flush(int);
