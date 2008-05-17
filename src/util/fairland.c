@@ -66,6 +66,7 @@ static int quiet = 0;
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -143,9 +144,6 @@ int **sectc;			/* which sectors are on the coast? */
 int *vector;			/* used for measuring distances */
 int *weight;			/* used for placing mountains */
 int *dsea, *dmoun;		/* the dist to the ocean and mountain */
-FILE *sect_fptr;			/* the file we write everything to */
-struct sctstr **sects;
-struct sctstr *sectsbuf;
 int fl_status;			/* is anything wrong? */
 #define STATUS_NO_ROOM 1	/* there was no room to grow */
 #define NUMTRIES 10		/* keep trying to grow this many times */
@@ -162,14 +160,12 @@ static int drift(void);
 static void grow_continents(void);
 static void create_elevations(void);
 static void write_sects(void);
-static int write_file(void);
 static void output(void);
 static int write_newcap_script(void);
 static int stable(void);
 static void elevate_land(void);
 static void elevate_sea(void);
 static int map_symbol(int x, int y);
-static void fl_sct_init(coord, coord, struct sctstr *);
 static void set_coastal_flags(void);
 
 static void print_vars(void);
@@ -228,8 +224,10 @@ main(int argc, char *argv[])
     parse_args(argc - optind, argv + optind);
 
     srandom(rnd_seed);
-    if (emp_config(config_file))
+    empfile_init();
+    if (emp_config(config_file) < 0)
 	exit(1);
+    empfile_fixup();
 
     if (allocate_memory() == -1)
 	exit(-1);
@@ -259,12 +257,24 @@ main(int argc, char *argv[])
     qprint("designating sectors...\n");
     if (ORE)
 	qprint("adding resources...\n");
+    write_newcap_script();
+
+    if (chdir(gamedir)) {
+	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
+	exit(EXIT_FAILURE);
+    }
+    if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME, WORLD_SZ())) {
+	perror("ef_open");
+	exit(1);
+    }
     write_sects();
     qprint("writing to sectors file...\n");
-    if (write_file() == -1)
+    if (!ef_close(EF_SECTOR))
 	exit(-1);
+
     output();
-    write_newcap_script();
+    qprint("\n\nA script for adding all the countries can be found in \"%s\".\n",
+	   outfile);
     if (!ORE)
 	qprint("\t*** Resources have not been added ***\n");
     exit(0);
@@ -427,20 +437,7 @@ static int
 allocate_memory(void)
 {
     int i;
-    char *fname;
 
-    fname = malloc(strlen(gamedir) + 1 + strlen(empfile[EF_SECTOR].file) + 1);
-    sprintf(fname, "%s/%s", gamedir, empfile[EF_SECTOR].file);
-    sect_fptr = fopen(fname, "wb");
-    if (sect_fptr == NULL) {
-	perror(fname);
-	return -1;
-    }
-    free(fname);
-    sectsbuf = calloc((YSIZE * XSIZE), sizeof(struct sctstr));
-    sects = calloc(YSIZE, sizeof(struct sctstr *));
-    for (i = 0; i < YSIZE; i++)
-	sects[i] = &sectsbuf[XSIZE * i];
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
     vector = calloc(WORLD_X + WORLD_Y, sizeof(int));
@@ -1081,11 +1078,9 @@ write_sects(void)
     struct sctstr *sct;
     int c, x, y, total;
 
-    /*  sct = &sects[0][0]; */
-    sct = sectsbuf;
     for (y = 0; y < YSIZE; y++) {
 	for (x = 0; x < XSIZE; x++) {
-	    fl_sct_init(x * 2 + (y & 1), y, sct);
+	    sct = getsectp(x * 2 + (y & 1), y);
 	    total = elev[sct->sct_x][y];
 	    if (total < LANDMIN) {
 		sct->sct_type = SCT_WATER;
@@ -1101,36 +1096,15 @@ write_sects(void)
 	    sct->sct_newtype = sct->sct_type;
 	    if (ORE)
 		add_resources(sct);
-	    sct++;
 	}
     }
     if (AIRPORT_MARKER)
 	for (c = 0; c < nc; ++c) {
-	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_type = SCT_AIRPT;
-	    sects[capy[c]][capx[c] / 2 + capy[c] % 2].sct_newtype = SCT_AIRPT;
+	    sct = getsectp(capx[c], capy[c]);
+	    sct->sct_type = SCT_AIRPT;
+	    sct->sct_newtype = SCT_AIRPT;
 	}
     set_coastal_flags();
-}
-
-/****************************************************************************
-  WRITE ALL THIS STUFF TO THE FILE
-****************************************************************************/
-static int
-write_file(void)
-{
-    int n;
-
-    n = fwrite(sectsbuf, sizeof(struct sctstr), YSIZE * XSIZE, sect_fptr);
-    if (n <= 0) {
-	perror(empfile[EF_SECTOR].file);
-	return -1;
-    }
-    if (n != YSIZE * XSIZE) {
-	printf("%s:partial write\n", empfile[EF_SECTOR].file);
-	return -1;
-    }
-    fclose(sect_fptr);
-    return 0;
 }
 
 /****************************************************************************
@@ -1196,8 +1170,6 @@ write_newcap_script(void)
     fprintf(script, "add %d visitor visitor v i\n", c + 1);
     ++c;
     fclose(script);
-    qprint("\n\nA script for adding all the countries can be found in \"%s\".\n",
-	   outfile);
     return 0;
 }
 
@@ -1214,27 +1186,22 @@ qprint(const char * const fmt, ...)
 }
 
 static void
-fl_sct_init(coord x, coord y, struct sctstr *sp)
-{
-    sp->ef_type = EF_SECTOR;
-    sp->sct_uid = XYOFFSET(x, y);
-    sp->sct_x = x;
-    sp->sct_y = y;
-    sp->sct_dist_x = x;
-    sp->sct_dist_y = y;
-    sp->sct_coastal = 1;
-}
-
-static void
 set_coastal_flags(void)
 {
     int i, j;
+    struct sctstr *sp;
 
     qprint("setting coastal flags...\n");
-    for (i = 0; i < nc; ++i)
-	for (j = 0; j < sc; j++)
-	    sects[secty[i][j]][sectx[i][j] / 2].sct_coastal = sectc[i][j];
-    for (i = nc; i < nc + ni; ++i)
-	for (j = 0; j < isecs[i]; j++)
-	    sects[secty[i][j]][sectx[i][j] / 2].sct_coastal = sectc[i][j];
+    for (i = 0; i < nc; ++i) {
+	for (j = 0; j < sc; j++) {
+	    sp = getsectp(sectx[i][j], secty[i][j]);
+	    sp->sct_coastal = sectc[i][j];
+	}
+    }
+    for (i = nc; i < nc + ni; ++i) {
+	for (j = 0; j < isecs[i]; j++) {
+	    sp = getsectp(sectx[i][j], secty[i][j]);
+	    sp->sct_coastal = sectc[i][j];
+	}
+    }
 }
