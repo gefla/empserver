@@ -101,8 +101,6 @@ static int DISTINCT_ISLANDS = 1;
 
 static char *program_name;
 
-#define XSIZE           ((WORLD_X) / 2)	/* basically world x-y size */
-#define YSIZE           (WORLD_Y)
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
 #define INFINITY        999	/* a number which means "BIG" */
 
@@ -1078,10 +1076,10 @@ write_sects(void)
     struct sctstr *sct;
     int c, x, y, total;
 
-    for (y = 0; y < YSIZE; y++) {
-	for (x = 0; x < XSIZE; x++) {
-	    sct = getsectp(x * 2 + (y & 1), y);
-	    total = elev[sct->sct_x][y];
+    for (y = 0; y < WORLD_Y; y++) {
+	for (x = y % 2; x < WORLD_X; x += 2) {
+	    sct = getsectp(x, y);
+	    total = elev[x][y];
 	    if (total < LANDMIN) {
 		sct->sct_type = SCT_WATER;
 	    } else if (total < HILLMIN)
