@@ -225,11 +225,12 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
+    parse_args(argc - optind, argv + optind);
+
     srandom(rnd_seed);
     if (emp_config(config_file))
 	exit(1);
 
-    parse_args(argc - optind, argv + optind);
     if (allocate_memory() == -1)
 	exit(-1);
     print_vars();
