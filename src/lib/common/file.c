@@ -48,7 +48,7 @@
 
 static int ef_realloc_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
-static int do_write(struct empfile *, void *, int, int, time_t);
+static int do_write(struct empfile *, void *, int, int);
 static void do_blank(struct empfile *, void *, int, int);
 
 /*
@@ -239,7 +239,7 @@ ef_flush(int type)
      * then.
      */
     if (ep->flags & EFF_MEM) {
-	if (do_write(ep, ep->cache, ep->baseid, ep->cids, time(NULL)) < 0)
+	if (do_write(ep, ep->cache, ep->baseid, ep->cids) < 0)
 	    return 0;
     }
 
@@ -353,21 +353,23 @@ fillcache(struct empfile *ep, int id)
 
 /*
  * Write COUNT elements starting at ID from BUF to file-backed EP.
- * Set the timestamp to NOW if the table is EFF_TYPED.
+ * Update the timestamp if the table is EFF_TYPED.
  * Don't actually write if table is privately mapped.
  * Return 0 on success, -1 on error (file may be corrupt then).
  */
 static int
-do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
+do_write(struct empfile *ep, void *buf, int id, int count)
 {
     int i, n, ret;
     char *p;
     struct emptypedstr *elt;
+    time_t now;
 
     if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
 	return -1;
 
     if (ep->flags & EFF_TYPED) {
+	now = time(NULL);
 	for (i = 0; i < count; i++) {
 	    /*
 	     * TODO Oopses here could be due to bad data corruption.
@@ -438,7 +440,7 @@ ef_write(int type, int id, void *from)
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
     if (ep->fd >= 0) {
-	if (do_write(ep, from, id, 1, time(NULL)) < 0)
+	if (do_write(ep, from, id, 1) < 0)
 	    return 0;
     }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
@@ -465,7 +467,6 @@ ef_extend(int type, int count)
     struct empfile *ep;
     char *p;
     int i, id;
-    time_t now = time(NULL);
 
     if (ef_check(type) < 0)
 	return 0;
@@ -490,7 +491,7 @@ ef_extend(int type, int count)
 	p = ep->cache + id * ep->size;
 	do_blank(ep, p, id, count);
 	if (ep->fd >= 0) {
-	    if (do_write(ep, p, id, count, now) < 0)
+	    if (do_write(ep, p, id, count) < 0)
 		return 0;
 	}
 	ep->cids += count;
@@ -501,7 +502,7 @@ ef_extend(int type, int count)
 	p = ep->cache + ep->cids * ep->size;
 	for (i = 0; i < count; i++) {
 	    do_blank(ep, p, id + i, 1);
-	    if (do_write(ep, p, id + i, 1, now) < 0)
+	    if (do_write(ep, p, id + i, 1) < 0)
 		return 0;
 	}
     }
