@@ -216,7 +216,8 @@ ef_close(int type)
 
 /*
  * Flush table TYPE (EF_SECTOR, ...) to disk.
- * Does nothing if the table is privately mapped.
+ * Do nothing if the table is privately mapped.
+ * Update timestamps of written elements if table is EFF_TYPED.
  * Return non-zero on success, zero on failure.
  */
 int
@@ -352,7 +353,8 @@ fillcache(struct empfile *ep, int id)
 
 /*
  * Write COUNT elements starting at ID from BUF to file-backed EP.
- * Set the timestamp to NOW if the table has those.
+ * Set the timestamp to NOW if the table is EFF_TYPED.
+ * Don't actually write if table is privately mapped.
  * Return 0 on success, -1 on error (file may be corrupt then).
  */
 static int
@@ -362,8 +364,7 @@ do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
     char *p;
     struct emptypedstr *elt;
 
-    if (CANT_HAPPEN(ep->fd < 0 || (ep->flags & EFF_PRIVATE)
-		    || id < 0 || count < 0))
+    if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
 	return -1;
 
     if (ep->flags & EFF_TYPED) {
@@ -380,6 +381,9 @@ do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
 	    elt->timestamp = now;
 	}
     }
+
+    if (ep->flags & EFF_PRIVATE)
+	return 0;
 
     if (lseek(ep->fd, id * ep->size, SEEK_SET) == (off_t)-1) {
 	logerror("Error seeking %s to elt %d (%s)",
@@ -411,6 +415,7 @@ do_write(struct empfile *ep, void *buf, int id, int count, time_t now)
 /*
  * Write element ID into table TYPE from buffer FROM.
  * FIXME pass buffer size!
+ * Update timestamp in FROM if table is EFF_TYPED.
  * If table is file-backed and not privately mapped, write through
  * cache straight to disk.
  * Cannot write beyond the end of fully cached table (flags & EFF_MEM).
@@ -432,7 +437,7 @@ ef_write(int type, int id, void *from)
 	ep->prewrite(id, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
-    if (ep->fd >= 0 && !(ep->flags & EFF_PRIVATE)) {
+    if (ep->fd >= 0) {
 	if (do_write(ep, from, id, 1, time(NULL)) < 0)
 	    return 0;
     }
@@ -484,7 +489,7 @@ ef_extend(int type, int count)
 	}
 	p = ep->cache + id * ep->size;
 	do_blank(ep, p, id, count);
-	if (ep->fd >= 0 && !(ep->flags & EFF_PRIVATE)) {
+	if (ep->fd >= 0) {
 	    if (do_write(ep, p, id, count, now) < 0)
 		return 0;
 	}
