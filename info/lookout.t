@@ -40,4 +40,4 @@ Groonland (#1) mine 100% eff with approx. 300 civilians @-12,6
 Groonland (#1) heavy manufacturing 23% eff with approx. 10 civilians @-11,7
 .FI
 .s1
-.SA "coastwatch, Ship-types, Sector-types, radar, sonar, Ships"
+.SA "coastwatch, Ship-types, Sector-types, radar, sonar, Ships, Detection"

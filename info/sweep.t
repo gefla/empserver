@@ -53,4 +53,4 @@ overflight of the sector.
 Note that a plane must be at least 40% efficient before it can leave
 the ground.
 .s1
-.SA "Plane-types, bomb, fly, paradrop, drop, Planes"
+.SA "Plane-types, bomb, fly, paradrop, drop, recon, Planes"

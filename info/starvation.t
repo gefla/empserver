@@ -56,4 +56,4 @@ Starvation
 To see how much food your people need to eat, check the output
 of the version command.
 .s1
-.SA "census, version, Populace"
+.SA "census, version, Populace, Updates"

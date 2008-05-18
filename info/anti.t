@@ -32,4 +32,4 @@ They may all come out of hiding to join the
 military.  A few may stay in hiding while the majority come out to join
 the military.  Who knows what else they may do.
 .s1
-.SA "census, Guerrilla, Sectors, Populace"
+.SA "census, Guerrilla, Sectors, Populace, Occupation"

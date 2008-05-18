@@ -115,4 +115,4 @@ determining whether a plane hits its target.
 Note that a plane must be at least 40% efficient before it can leave
 the ground.
 .s1
-.SA "Plane-types, build, fly, paradrop, drop, recon, relations, Mobility, Damage, Planes"
+.SA "Plane-types, build, fly, paradrop, drop, recon, relations, Combat, Mobility, Damage, Planes"
