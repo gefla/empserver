@@ -739,9 +739,6 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	   np->nat_level[NAT_HLEV], farg);
 	np->nat_level[NAT_HLEV] = farg;
 	break;
-    case 'U':
-	warn_deprecated(op);
-	break;
     default:
 	pr("huh? (%c)\n", op);
 	break;
