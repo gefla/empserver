@@ -28,7 +28,7 @@
  *  game.c: Game file access
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2008
  */
 
 /*

@@ -28,7 +28,7 @@
  *  rdsched.c: Read update schedule
  * 
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2008
  */
 
 #define _XOPEN_SOURCE 500
