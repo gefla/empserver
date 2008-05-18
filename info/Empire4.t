@@ -7,6 +7,41 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.15 - Sun May 18 08:59:30 UTC 2008
+ * The edit command keys deprecated in 4.3.10 are now gone.
+ * fairland now obeys game file locks.
+ * Do not leak world creation time in files utility, because that
+   facilitates attacks against fairland's PRNG.  Broken in 4.3.12.
+ * Fix starvation not to starve one more than it should.  The last man
+   on a boat or land unit now can't starve anymore.
+ * Fix a crash bug in satellite.  Broken in 4.2.7 and not fixed
+   correctly in 4.2.12.
+ * Fix a coordinate normalization bug that could theoretically lead to
+   buffer overruns and other unpleasantness.  None have been
+   reproduced, though.  Broken in 4.3.12.
+ * Remove option FUEL.  The abstract idea of tying ships and land
+   units to a logistical tether is sound, the concrete implementation
+   as option FUEL is flawed.  It adds too much busy-work to the game
+   to be enjoyable.  It hasn't been enabled in a public game for
+   years.  The code implementing it is ugly, repetitive, and a burden
+   to maintain.  The edit command still accepts and ignores the fuel
+   keys for compatibility, but they are deprecated.
+ * Fix pin-bomb not to report subs when there are none.
+ * You now have to take a capital to capture the victim's money, loans
+   or market lots.  Merely obliterating the capital doesn't cut it.
+   It still makes the victim lose money, though.
+ * Fix a bug that could theoretically allow sacking of non-existant
+   capitals of visitors, deities and such.
+ * You now gain BTUs and MOB_ACCESS mobility before the first update
+   again.  You didn't since 4.3.10 introduced the ETU clock.
+ * Fix edit to detect when the edited object changes while it's being
+   edited.
+ * Fix xdump nat for relations: it got HIDDEN backwards.  Broken in
+   4.3.12.
+ * Fix origin command not to prompt twice for its argument.  Broken in
+   4.3.0.
+ * Info file improvements.
+
 Changes to Empire 4.3.14 - Mon May  5 04:57:03 UTC 2008
  * Another round of fixes to the fire command:
    - Don't disclose where the target retreated to.
@@ -184,8 +219,8 @@ Changes to Empire 4.3.11 - Tue Jan  1 18:57:38 UTC 2008
    created by fairland.
  * The client now copes with ids greater than 15.  The Empire
    protocol currently uses 14 ids.
- * Rewrite the client's code to read server output during login.  The
-   old code could write one byte beyond the end of the buffer
+ * Rewrite the client's code for reading server output during login.
+   The old code could write one byte beyond the end of the buffer
    (theoretically a remote hole), got confused by long lines, and
    lines that didn't arrive in one piece.
  * Long country name, password or user name crashed the client.
@@ -948,7 +983,7 @@ Changes to Empire 4.2.22 - Tue Oct 11 20:23:51 UTC 2005
  * convert now silently limits conversions to avoid exceeding maximum
    population.
  * shoot no longer limits you to 999 victims.
- * 4.2.19 broke pin bombing commodities on some platforms.
+ * 4.2.19 broke pin-bombing commodities on some platforms.
  * Don't block on output while update is pending.  This is required to
    ensure the update can abort commands.
  * Commands submitted while the update is waiting for commands to
