@@ -361,6 +361,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    save = land;
 	    land.lnd_item[type] = 0;
 	    putland(land.lnd_uid, &land);
+	    save.lnd_seqno = land.lnd_seqno;
 
 	    land.lnd_item[type] =
 		save.lnd_item[type] + s_commod(own, land.lnd_x, land.lnd_y,
