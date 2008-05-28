@@ -124,7 +124,7 @@ resupply_commod(struct lndstr *lp, i_type type)
 int
 supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
-    if (total_wanted < 0)
+    if (total_wanted <= 0)
 	return 0;
     return s_commod(own, x, y, type, total_wanted, !player->simulation);
 }
@@ -135,7 +135,7 @@ supply_commod(int own, int x, int y, i_type type, int total_wanted)
 static int
 try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
-    if (total_wanted < 0)
+    if (total_wanted <= 0)
 	return 0;
 
     return s_commod(own, x, y, type, total_wanted, 0);
