@@ -10,13 +10,15 @@ in a given sector area.
 The <SECTS> argument is as described in \*Qinfo syntax\*U.
 <ITEM> is one of the following:
 .NF
+c    civilians
+m    military
 u    uncompensated workers
 f    food
 s    shells
 g    guns (not gold)
 p    planes
 i    iron ore
-d    dust, (gold)
+d    dust (gold)
 b    bars of gold
 o    oil
 l    light construction materials

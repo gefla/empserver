@@ -52,12 +52,6 @@ deli(void)
 
     if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
 	return RET_SYN;
-    /*
-       if (ich->i_uid == I_CIVIL || ich->i_uid == I_MILIT) {
-       pr("You cannot deliver people!\n");
-       return RET_FAIL;
-       }
-     */
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
 

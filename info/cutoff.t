@@ -25,9 +25,13 @@ These columns represent:
 .L sect
 the x and y coordinates of the sector
 .L ufsgpidbolhr
-the twelve delivery direction columns correspond to the delivery
-direction for food, guns, petroleum (refined), iron ore, dust (gold),
-bars (dust), oil, lcm, and hcm.
+the fourteen delivery direction columns correspond to the delivery
+direction for civilians, military, food, guns, petroleum (refined),
+iron ore, dust (gold), bars (dust), oil, lcm, and hcm.
+.L civ
+the delivery cutoff threshold for civilians in that sector
+.L mil
+the delivery cutoff threshold for military in that sector
 .L uw
 the delivery cutoff threshold for uncompensated workers in that sector
 .L food
@@ -60,22 +64,22 @@ For example:
 .EX cutoff -3:3,-2:0
 .NF
 .ps -1
-Wed Nov 12 00:15:51 1986
+Sat May 31 18:40:57 2008
 DELIVERY CUTOFF LEVELS
-  sect    ufsgpidbolhr   uw food  sh gun pet iron dust bar oil lcm hcm rad
-  0,0   c ............    0    0   0   0   0    0    0   0   0   0   0   0
- -5,-3  a n...........    0  400   0   0   0    0    0   0   0   0   0   0
- -6,-2  k j...........    0  400   0   0   0    0    0   0   0   0   0   0
- -4,-2  + j...........    0  400   0   0   0    0    0   0   0   0   0   0
- -2,-2  m ....n.......    0    0   0   0   0    0    0   0   0   0   0   0
- -5,-1  t ............    0    0   0   0   0    0    0   0   0   0   0   0
- -1,-1  w ....j.......    0    0   0   0   0  800    0   0   0   0   0   0
-  1,-1  m ....j...b...    0    0   0   0   0   40    0   0   0   0   0   0
-  3,-1  j .....j......    0    0   0   0   0    0  104   0   0   0   0   0
-  5,-1  b ............    0    0   0   0   0    0    0   0   0   0   0   0
-  0,0   c y...........    0  200   0   0   0    0    0   0   0   0   0   0
-  2,0   + g.......j...    0  200   0   0   0    0    0   0   0  80   0   0
- -5,1   l ........j...    0    0   0   0   0    0    0   0   0   0   0   0
+   sect   cmufsgpidbolhr civ mil  uw food sh gun pet irn dst bar oil lcm hcm rad
+  0,0   c ..............   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ -5,-3  a ..n...........   0   0   0 400   0   0   0   0   0   0   0   0   0   0
+ -6,-2  k ..j...........   0   0   0 400   0   0   0   0   0   0   0   0   0   0
+ -4,-2  + ..j...........   0   0   0 400   0   0   0   0   0   0   0   0   0   0
+ -2,-2  m ......n.......   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ -5,-1  t ..............   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+ -1,-1  w ......j.......   0   0   0   0   0   0   0 800   0   0   0   0   0   0
+  1,-1  m ......j...b...   0   0   0   0   0   0   0  40   0   0   0   0   0   0
+  3,-1  j .......j......   0   0   0   0   0   0   0   0 104   0   0   0   0   0
+  5,-1  b ..............   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+  0,0   c ..y...........   0   0   0 200   0   0   0   0   0   0   0   0   0   0
+  2,0   + ..g.......j...   0   0   0 200   0   0   0   0   0   0   0  80   0   0
+ -5,1   l ..........j...   0   0   0   0   0   0   0   0   0   0   0   0   0   0
     12 sectors
 .ps +1
 .FI
