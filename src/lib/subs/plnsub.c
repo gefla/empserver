@@ -215,7 +215,6 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		   cno, prplane(&plp->plane));
 	    else {
 		if (plp->plane.pln_own != ship.shp_own) {
-/*					plp->plane.pln_own = ship.shp_own;*/
 		    wu(0, ship.shp_own, "%s %s lands on your %s\n",
 		       cname(player->cnum), prplane(&plp->plane),
 		       prship(&ship));
@@ -226,7 +225,6 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 	    plp->plane.pln_y = ty;
 	    getsect(tx, ty, &sect);
 	    if (plp->plane.pln_own != sect.sct_own) {
-/*				plp->plane.pln_own = sect.sct_own;*/
 		wu(0, sect.sct_own,
 		   "%s %s lands at your sector %s\n",
 		   cname(player->cnum),
