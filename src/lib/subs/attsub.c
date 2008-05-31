@@ -1230,11 +1230,8 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 	if (def->type == EF_LAND && land.lnd_land != def->lnd_uid)
 	    continue;
-	if (!list) {		/* Just estimating the enemy strength */
-	    intelligence_report(player->cnum, &land, a_spy,
-				"Scouts report defending unit:");
-	    continue;
-	}
+	intelligence_report(player->cnum, &land, a_spy,
+			    "Scouts report defending unit:");
 	if (!(llp = malloc(sizeof(struct ulist)))) {
 	    logerror("Malloc failed in attack!\n");
 	    abort_attack();
