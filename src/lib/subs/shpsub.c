@@ -58,11 +58,6 @@ static void shp_mess(char *, struct ulist *);
 
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
-
-
-    /*  int     wantflags;
-       int      nowantflags;
-     */
 {
     struct shpstr ship;
     struct mchrstr *mcp;
@@ -73,11 +68,6 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	if (!player->owner)
 	    continue;
 	mcp = &mchr[(int)ship.shp_type];
-	/* if (wantflags && (mcp->m_flags & wantflags) != wantflags)
-	   continue;
-	   if (nowantflags && mcp->m_flags & nowantflags)
-	   continue;
-	 */
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_SHIP, &ship)) {
 		pr("ship #%d inelligible - it's for sale.\n",

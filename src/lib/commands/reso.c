@@ -68,7 +68,6 @@ reso(void)
 	pr("%5d", sect.sct_fertil);
 	pr("%4d", sect.sct_oil);
 	pr("%5d", sect.sct_uran);
-/*		pr("%5d", sect.sct_elev);*/
 	if (!player->god && sect.sct_terr)
 	    pr("%4d", sect.sct_terr);
 	pr("\n");
