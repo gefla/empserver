@@ -108,9 +108,10 @@ coll(void)
     }
     sect.sct_item[I_MILIT] = 1;	/* FIXME now where did this guy come from? */
 
-/* Consider modifying takeover to take a "no che" argument and
-   putting using it here again. */
-/*	(void) takeover(&sect, player->cnum);*/
+    /*
+     * Used to call takeover() here a long time ago, but that does
+     * unwanted things, like generate che.
+     */
     makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
     makenotlost(EF_SECTOR, player->cnum, 0, sect.sct_x, sect.sct_y);
     sect.sct_own = player->cnum;
