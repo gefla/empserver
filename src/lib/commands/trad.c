@@ -95,12 +95,6 @@ trad(void)
 	if (!trade_getitem(&trade, &tg)) {
 	    continue;
 	};
-	/* fix up database if things get weird */
-	/*if (trade.trd_owner != tg.gen.own) {
-	   trade.trd_unitid = -1;
-	   (void) puttrade(ni.cur, &trade);
-	   continue;
-	   } */
 	pr(" %3d ", ni.cur);
 	(void)time(&now);
 	tleft =
