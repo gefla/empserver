@@ -75,18 +75,6 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 		continue;
 	    }
 	}
-	/* This abuse is better fixed by building a ship with the normal negative
-	   mobility that everything else is built with */
-/*
-	if (opt_MOB_ACCESS) {
-	  if (ship.shp_effic < 21 &&
-	    ship.shp_mobil < etu_per_update) {
-	    pr("%s needs at least %d mob to navigate.\n",
-	       prship(&ship), etu_per_update);
-	    continue;
-	  }
-	}
-*/
 	ship.shp_mission = 0;
 	ship.shp_rflags = 0;
 	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
