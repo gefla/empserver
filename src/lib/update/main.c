@@ -132,7 +132,6 @@ update_main(void)
     prod_nat(etu);
     age_levels(etu);
     free(bp);
-    /*flushwu(); */
     if (opt_SLOW_WAR) {
 	/* Update war declarations */
 	/* MOBILIZATION->SITZKRIEG->AT_WAR */
