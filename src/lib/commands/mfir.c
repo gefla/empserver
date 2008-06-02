@@ -76,7 +76,6 @@ multifire(void)
     int dam;
     int totaldefdam = 0;
     int vshipno;
-    double prb;
     natid vict;
     struct shpstr fship;
     struct lndstr fland;
@@ -448,15 +447,6 @@ multifire(void)
 	default:
 	    pr_beep();
 	    pr("Kaboom!!!\n");
-	    prb = range2 ? (double)trange / range2 : 1.0;
-	    prb *= prb;
-	    if (chance(prb)) {
-		pr("Wind deflects shells.\n");
-/*			dam = (int)(dam / 2.0);*/
-		dam *= (90 - (random() % 11)) / 100.0;
-		if (dam < 0)
-		    dam = 0;
-	    }
 	    break;
 	}
 	switch (target) {

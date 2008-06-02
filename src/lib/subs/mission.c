@@ -411,7 +411,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     int dam = 0, dam2, mission_flags;
     natid plane_owner = 0;
     int md, range, air_dam = 0;
-    double prb, hitchance, vrange;
+    double hitchance, vrange;
 
     getsect(x, y, &sect);
 
@@ -539,13 +539,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		putship(sp->shp_uid, sp);
 		if (dam2 < 0)
 		    continue;
-		if (range == 0.0)
-		    prb = 1.0;
-		else
-		    prb = (double)md / range;
-		prb *= prb;
-		if (chance(prb))
-		    dam2 /= 2;
 		dam += dam2;
 		if (sect.sct_type == SCT_WATER)
 		    nreport(sp->shp_own, N_SHP_SHELL, victim, 1);
