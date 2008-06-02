@@ -275,10 +275,15 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	}
 	if (!msl_hit(pp, SECT_HARDTARGET, EF_SECTOR, N_SCT_MISS,
 		     N_SCT_SMISS, "sector", sx, sy, sect.sct_own)) {
+#if 0
 	    /*
-	       dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 0);
-	       collateral_damage(sect.sct_x, sect.sct_y, dam, 0);
+	     * FIXME want collateral damage on miss (which can't
+	     * happen for nuclear war heads), but we get here too when
+	     * launch fails or missile is intercepted
 	     */
+	    dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 0);
+	    collateral_damage(sect.sct_x, sect.sct_y, dam, 0);
+#endif
 	    return RET_OK;
 	}
 	dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 1);
@@ -306,10 +311,10 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		     target_ship.shp_x, target_ship.shp_y,
 		     target_ship.shp_own)) {
 	    pr("splash\n");
-	    /*
-	       dam = pln_damage(pp,target_ship.shp_x,target_ship.shp_y,'p',&nukedam, 0);
-	       collateral_damage(target_ship.shp_x, target_ship.shp_y, dam, 0);
-	     */
+#if 0 /* FIXME see above */
+	    dam = pln_damage(pp,target_ship.shp_x,target_ship.shp_y,'p',&nukedam, 0);
+	    collateral_damage(target_ship.shp_x, target_ship.shp_y, dam, 0);
+#endif
 	    return RET_OK;
 	}
 	dam = pln_damage(pp, target_ship.shp_x, target_ship.shp_y, 'p',
