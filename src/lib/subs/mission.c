@@ -772,6 +772,7 @@ show_mission(int type, struct nstr_item *np)
     int first = 1, radius;
     union empobj_storage item;
     struct empobj *gp;
+    struct sctstr sect;
 
     while (nxtitem(np, &item)) {
 	gp = (struct empobj *)&item;
@@ -784,35 +785,39 @@ show_mission(int type, struct nstr_item *np)
 	}
 	pr("%-25s", obj_nameof(gp));
 	prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
-	if (gp->mission == MI_INTERDICT || gp->mission == MI_SUPPORT ||
-	    gp->mission == MI_OSUPPORT ||
-	    gp->mission == MI_DSUPPORT || gp->mission == MI_AIR_DEFENSE) {
-	    radius = 999;
+	switch (gp->mission) {
+	case MI_INTERDICT:
+	case MI_SUPPORT:
+	case MI_AIR_DEFENSE:
+	case MI_DSUPPORT:
+	case MI_OSUPPORT:
+	    radius = gp->radius;
 	    oprange(gp, &radius);
 	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
-	    if (radius < gp->radius)
-		pr("  %4d", radius);
-	    else
-		pr("  %4d", gp->radius);
-	} else if (gp->mission == MI_RESERVE) {
-	    struct sctstr sect;
-	    int plus = 2;
+	    pr("  %4d", radius);
+	    break;
+	case MI_RESERVE:
+	    radius = item.land.lnd_rad_max;
 
-	    getsect(gp->x, gp->y, &sect);
-	    if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
-		plus++;
-
-	    if (item.land.lnd_rad_max == 0)
-		plus = 0;
-	    else
-		plus += item.land.lnd_rad_max;
+	    if (radius) {
+		radius += 2;
+		getsect(gp->x, gp->y, &sect);
+		if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
+		    radius++;
+	    }
 	    prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
-	    pr("  %4d", plus);
-	} else if (gp->mission == MI_ESCORT) {
+	    pr("  %4d", radius);
+	    break;
+	case MI_ESCORT:
 	    pr("        ");
 	    pr("  %4d", item.plane.pln_range / 2);
-	} else
+	    break;
+	default:
+	    CANT_REACH();
+	    /* fall through */
+	case MI_NONE:
 	    pr("              ");
+	}
 	if (gp->mission)
 	    pr(" is on %s mission\n", mission_name(gp->mission));
 	else
