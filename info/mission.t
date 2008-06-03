@@ -5,17 +5,15 @@
 .s1
 The mission command is used to assign ships, planes, or land units to
 missions. The available missions are:
-.s1
-Here is a summary of which units can be put on which missions:
 .NF
-Mission        Op-sect  Radius  Ships  Land-Units  Planes
-interdiction        no     yes    yes         yes  only "tactical"
-     support        no     yes     no          no  only "tactical"
- off support        no     yes     no          no  only "tactical"
- def support        no     yes     no          no  only "tactical"
-     reserve       yes      no     no         yes  no
-      escort       yes      no     no          no  only "intercept" or "escort"
- air defense        no     yes     no          no  only "intercept"
+   Mission        Ships  Land-Units  Planes
+i  interdiction     yes         yes  only "tactical"
+s       support      no          no  only "tactical"
+o   off support      no          no  only "tactical"
+d   def support      no          no  only "tactical"
+r       reserve      no         yes  no
+e        escort      no          no  only "intercept" or "escort"
+a   air defense      no          no  only "intercept"
 .FI
 You may also use 'q' (query) to check on
 the mission of something, or 'c' (clear) to wipe the mission of a land
@@ -36,7 +34,7 @@ That's the price you pay for having automatic defenses.
 Missions can occur during updates.  (Interdicting ships using "sail"
 or "order").
 .s1
-Artillery units less than 20% efficient will not fire.
+Artillery units less than 40% efficient will not fire.
 .s1
 Planes flying missions will be intercepted normally. (i.e. if you fly
 over enemy territory, you'll get intercepted. Any mission except air
