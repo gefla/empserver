@@ -750,7 +750,7 @@ mission_name(short mission)
     case MI_SUPPORT:
 	return "a support";
     case MI_OSUPPORT:
-	return "a offensive support";
+	return "an offensive support";
     case MI_DSUPPORT:
 	return "a defensive support";
     case MI_RESERVE:
@@ -762,6 +762,7 @@ mission_name(short mission)
     case MI_AIR_DEFENSE:
 	return "an air defense";
     }
+    CANT_REACH();
     return "a mysterious";
 }
 
