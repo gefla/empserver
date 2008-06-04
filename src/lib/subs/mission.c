@@ -468,11 +468,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		 (mission == MI_SINTERDICT)) &&
 		(md > ship_max_interdiction_range))
 		continue;
-/*
-  if ((mcp->m_flags & M_SUB) &&
-  (sect.sct_type != SCT_WATER))
-  continue;
-*/
 	    if (mission == MI_SINTERDICT) {
 		if (!(mcp->m_flags & M_SONAR))
 		    continue;
