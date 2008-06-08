@@ -703,6 +703,10 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	if (!fp)
 	    add_to_flist(list, (struct empobj *)&land, dam2, 0);
 	nreport(land.lnd_own, N_FIRE_BACK, player->cnum, 1);
+	if (type == EF_SHIP) {
+	    if (chance(lnd_acc(&land) / 100.0))
+		dam2 = ldround(dam2 / 2.0, 1);
+	}
 	dam += dam2;
     }
 
