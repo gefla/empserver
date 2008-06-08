@@ -344,10 +344,10 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 		if (getrel(getnatp(gp->own), sect.sct_own) > AT_WAR) {
 
 		    /*
-		     * If the player->owner of the unit isn't at war
+		     * If the owner of the unit isn't at war
 		     * with the victim, and doesn't own the
 		     * sect being acted upon, and isn't the
-		     * old player->owner of that sect, bounce them.
+		     * old owner of that sect, bounce them.
 		     */
 		    if (sect.sct_type != SCT_WATER &&
 			sect.sct_own != gp->own &&
@@ -412,6 +412,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     natid plane_owner = 0;
     int md, range, air_dam = 0;
     double hitchance, vrange;
+    int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
     getsect(x, y, &sect);
 
@@ -445,12 +446,12 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if (dam2 < 0)
 		continue;
 
-	    if (sect.sct_type == SCT_WATER) {
+	    if (targeting_ships) {
 		if (chance(lnd_acc(lp) / 100.0))
 		    dam2 = ldround(dam2 / 2.0, 1);
 	    }
 	    dam += dam2;
-	    if (sect.sct_type == SCT_WATER)
+	    if (targeting_ships)
 		nreport(lp->lnd_own, N_SHP_SHELL, victim, 1);
 	    else
 		nreport(lp->lnd_own, N_SCT_SHELL, victim, 1);
@@ -482,10 +483,8 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		    continue;
 	    }
 	    if (mcp->m_flags & M_SUB) {
-/* If we aren't shooting at "subs" or "ships" don't fire at all from
-   a sub. */
-		if (*s != 's')
-		    continue;
+		if (!targeting_ships)
+		    continue;	/* subs interdict only ships */
 		range = roundrange(torprange(sp));
 		if (md > range)
 		    continue;
@@ -535,7 +534,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		if (dam2 < 0)
 		    continue;
 		dam += dam2;
-		if (sect.sct_type == SCT_WATER)
+		if (targeting_ships)
 		    nreport(sp->shp_own, N_SHP_SHELL, victim, 1);
 		else
 		    nreport(sp->shp_own, N_SCT_SHELL, victim, 1);
@@ -668,7 +667,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
     if (air_dam > 0) {
 	dam += air_dam;
-	if (sect.sct_type == SCT_WATER)
+	if (targeting_ships)
 	    nreport(plane_owner, N_SHP_BOMB, victim, 1);
 	else
 	    nreport(plane_owner, N_SCT_BOMB, victim, 1);
