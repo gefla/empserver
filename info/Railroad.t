@@ -19,9 +19,9 @@ and the track is operational as long as the sector is at least 5%
 efficient.  A sector is highway-like if its mobility cost at 100% is
 zero (column mob cost in \*Qshow sect s\*u).  Operational railways
 additionally extend track into adjacent sectors that are at least 60%
-efficient.  Sector selector track gives the number of operational
-railways within one sector range.  Spy and satellite reports show the
-presence of track in column \*Qrl eff\*U.  To visualize your railway
-network, try \*Qsect # ?track#0\*U.
+efficient and owned by the same nation.  Sector selector track gives
+the number of operational railways within one sector range.  Spy and
+satellite reports show the presence of track in column \*Qrl eff\*U.
+To visualize your railway network, try \*Qsect # ?track#0\*U.
 .s1
 .SA "LandUnits"
