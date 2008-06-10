@@ -349,6 +349,7 @@ multifire(void)
 		range2 = -1;
 	    }
 
+	    lnd_unlimber(&fland);
 	    dam = lnd_fire(&fland);
 	    putland(fland.lnd_uid, &fland);
 	    if (dam < 0) {
@@ -356,7 +357,6 @@ multifire(void)
 		continue;
 	    }
 
-	    lnd_unlimber(&fland);
 	    if (target == targ_ship) {
 		if (chance(lnd_acc(&fland) / 100.0))
 		    dam = ldround(dam / 2.0, 1);
@@ -713,13 +713,13 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	if (fp)
 	    dam2 = fp->defdam;
 	else {
+	    lnd_unlimber(&land);
 	    dam2 = lnd_fire(&land);
 	    putland(land.lnd_uid, &land);
 	}
 	if (dam2 < 0)
 	    continue;
 
-	lnd_unlimber(&land);
 	(*nfiring)++;
 	if (!fp)
 	    add_to_flist(list, (struct empobj *)&land, dam2, 0);
