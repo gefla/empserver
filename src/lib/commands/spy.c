@@ -100,7 +100,7 @@ spy(void)
     pr("SPY report\n");
     prdate();
     pr("                 old sct rd  rl  def\n");
-    pr("   sect   de own own eff eff eff eff  civ  mil  shl gun  pet food bars lnd pln\n");
+    pr("   sect   de own own eff eff eff eff  civ  mil  shl gun  pet food bars\n");
     while (nxtsct(&nstr, &from)) {
 	if (!player->owner && !player->god)
 	    continue;
@@ -202,7 +202,7 @@ static void
 spy_report(struct sctstr *sp)
 {
     prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
-    pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n",
+    pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d\n",
        dchr[sp->sct_type].d_mnem,
        sp->sct_newtype == sp->sct_type ? ' ' : dchr[sp->sct_newtype].d_mnem,
        sp->sct_own,
@@ -217,9 +217,7 @@ spy_report(struct sctstr *sp)
        roundintby(sp->sct_item[I_GUN], 10),
        roundintby(sp->sct_item[I_PETROL], 10),
        roundintby(sp->sct_item[I_FOOD], 10),
-       roundintby(sp->sct_item[I_BAR], 10),
-       count_sect_units(sp),
-       count_sect_planes(sp));
+       roundintby(sp->sct_item[I_BAR], 10));
     prunits(sp->sct_x, sp->sct_y);
     prplanes(sp->sct_x, sp->sct_y);
 }

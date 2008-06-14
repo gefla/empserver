@@ -216,7 +216,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	     * defending unit.. find a place to send it
 	     * strategy: look for the most-populated 
 	     * adjacent sector that is owned by the unit
-	     * player->owner. Charge mob..
+	     * owner. Charge mob..
 	     */
 	    biggest = -1;
 	    nowned = 0;
@@ -384,34 +384,6 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     if (destination != player->cnum) {
 	wu(0, destination, "%s%s%s", buf1, buf2, buf3);
     }
-}
-
-/* Used by the spy command to count land units in a sector.  If used
-   for anything else, you may want to reconsider, because this doesn't
-   always count spies. :) */
-int
-count_sect_units(struct sctstr *sp)
-{
-    int count = 0;
-    struct nstr_item ni;
-    struct lndstr land;
-
-    snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, &land)) {
-	if (!land.lnd_own)
-	    continue;
-	if (land.lnd_x != sp->sct_x || land.lnd_y != sp->sct_y)
-	    continue;
-	/* Don't always see spies */
-	if (lchr[(int)land.lnd_type].l_flags & L_SPY) {
-	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
-		continue;
-	}
-	/* Got here, report it */
-	++count;
-    }
-
-    return count;
 }
 
 void

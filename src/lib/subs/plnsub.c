@@ -1071,26 +1071,6 @@ count_land_planes(struct lndstr *lp)
 }
 
 int
-count_sect_planes(struct sctstr *sp)
-{
-    int count = 0;
-    struct nstr_item ni;
-    struct plnstr plane;
-
-    snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, &plane)) {
-	if (!plane.pln_own)
-	    continue;
-	if (plane.pln_flags & PLN_LAUNCHED)
-	    continue;
-	if (plane.pln_x == sp->sct_x && plane.pln_y == sp->sct_y)
-	    ++count;
-    }
-
-    return count;
-}
-
-int
 pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;

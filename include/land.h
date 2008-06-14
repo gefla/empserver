@@ -180,7 +180,6 @@ extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
 extern void intelligence_report(int, struct lndstr *, int, char *);
-extern int count_sect_units(struct sctstr *);
 extern void count_units(struct shpstr *);
 extern void lnd_count_units(struct lndstr *);
 extern void lnd_mar(struct emp_qelem *, double *, double *, int *, natid);

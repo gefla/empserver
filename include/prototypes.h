@@ -559,7 +559,6 @@ extern void take_plane_off_ship(struct plnstr *, struct shpstr *);
 extern void take_plane_off_land(struct plnstr *, struct lndstr *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
 extern void count_land_planes(struct lndstr *);
-extern int count_sect_planes(struct sctstr *);
 extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
 extern int pln_damage(struct plnstr *, coord, coord, char, int *, int);
