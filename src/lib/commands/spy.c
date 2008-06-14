@@ -57,7 +57,6 @@ static void spyline(struct sctstr *sp);
 int
 spy(void)
 {
-    int caught;
     natid own;
     int relat;
     coord x, y;
@@ -145,56 +144,45 @@ spy(void)
 		insert(table, &t_len, nx, ny);
 		continue;
 	    }
-	    /* catch spy N/200 chance, N = # military */
-	    caught = chance(dsect.sct_item[I_MILIT] / 200.0);
+
 	    own = dsect.sct_own;
-	    /* determine spyee relations with spyer */
 	    relat = getrel(getnatp(own), player->cnum);
-	    if (relat == NEUTRAL && caught) {
-		/* neutral spy-ee */
-		pr("Spy deported from %s\n", xyas(nx, ny, player->cnum));
-		if (own != 0)
-		    wu(0, own, "%s (#%d) spy deported from %s\n",
-		       cname(player->cnum), player->cnum,
-		       xyas(nx, ny, own));
+	    if (relat <= NEUTRAL
+		&& chance(dsect.sct_item[I_MILIT] / 200.0)) {
+		/* spy caught */
+		if (relat == NEUTRAL) {
+		    /* deport spy */
+		    pr("Spy deported from %s\n",
+		       xyas(nx, ny, player->cnum));
+		    if (own != 0)
+			wu(0, own, "%s (#%d) spy deported from %s\n",
+			   cname(player->cnum), player->cnum,
+			   xyas(nx, ny, own));
+		} else {
+		    /* execute spy */
+		    pr("BANG!! A spy was shot in %s\n",
+		       xyas(nx, ny, player->cnum));
+		    military--;
+		    if (own != 0)
+			wu(0, own, "%s (#%d) spy caught in %s\n",
+			   cname(player->cnum), player->cnum,
+			   xyas(nx, ny, own));
+		}
 		if (opt_HIDDEN)
 		    setcont(own, player->cnum, FOUND_SPY);
-	    } else if (relat < NEUTRAL && caught) {
-		/* hostile spy-ee */
-		pr("BANG!! A spy was shot in %s\n",
-		   xyas(nx, ny, player->cnum));
-		military--;
-		if (own != 0)
-		    wu(0, own, "%s (#%d) spy caught in %s\n",
-		       cname(player->cnum), player->cnum,
-		       xyas(nx, ny, own));
-		nreport(player->cnum, N_SPY_SHOT, own, 1);
-		if (opt_HIDDEN)
-		    setcont(own, player->cnum, FOUND_SPY);
-	    } else {
-		insert(table, &t_len, nx, ny);
-		spyline(&dsect);
-		changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
-				   dchr[dsect.sct_type].d_mnem, 0);
-		prunits(dsect.sct_x, dsect.sct_y);
-		prplanes(dsect.sct_x, dsect.sct_y);
-		if (opt_HIDDEN)
-		    setcont(player->cnum, own, FOUND_SPY);
+		if (!nrecon)	/* unless you have a recon unit */
+		    continue;	/* no report from caught spy */
 	    }
-	    /*
-	     * If you have a recon unit, it'll
-	     * see the sector anyway...
-	     */
-	    if (nrecon && caught) {
-		insert(table, &t_len, nx, ny);
-		spyline(&dsect);
-		changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
-				   dchr[dsect.sct_type].d_mnem, 0);
-		prunits(dsect.sct_x, dsect.sct_y);
-		prplanes(dsect.sct_x, dsect.sct_y);
-		if (opt_HIDDEN)
-		    setcont(player->cnum, own, FOUND_SPY);
-	    }
+
+	    /* spy report */
+	    insert(table, &t_len, nx, ny);
+	    spyline(&dsect);
+	    changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
+			       dchr[dsect.sct_type].d_mnem, 0);
+	    prunits(dsect.sct_x, dsect.sct_y);
+	    prplanes(dsect.sct_x, dsect.sct_y);
+	    if (opt_HIDDEN)
+		setcont(player->cnum, own, FOUND_SPY);
 	}
 	/* subtract any military if necessary */
 	if ((savemil != military) && (savemil > 0)) {
