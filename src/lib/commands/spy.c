@@ -287,13 +287,11 @@ prunits(int x, int y)
 	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
 		continue;
 	}
-	if ((land.lnd_own != player->cnum) && land.lnd_own) {
-	    sprintf(report, "%s (%s) unit in %s: ",
-		    player_relstr(land.lnd_own),
-		    cname(land.lnd_own),
-		    xyas(land.lnd_x, land.lnd_y, player->cnum));
-	    intelligence_report(player->cnum, &land, 3, report);
-	}
+	sprintf(report, "%s (%s) unit in %s: ",
+		player_relstr(land.lnd_own),
+		cname(land.lnd_own),
+		xyas(land.lnd_x, land.lnd_y, player->cnum));
+	intelligence_report(player->cnum, &land, 3, report);
     }
 }
 
@@ -311,13 +309,11 @@ prplanes(int x, int y)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
-	if ((plane.pln_own != player->cnum) && plane.pln_own) {
-	    pr("%s (%s) plane in %s: %s\n",
-	       player_relstr(plane.pln_own),
-	       cname(plane.pln_own),
-	       xyas(plane.pln_x, plane.pln_y, player->cnum),
-	       prplane(&plane));
-	}
+	pr("%s (%s) plane in %s: %s\n",
+	   player_relstr(plane.pln_own),
+	   cname(plane.pln_own),
+	   xyas(plane.pln_x, plane.pln_y, player->cnum),
+	   prplane(&plane));
     }
 }
 
