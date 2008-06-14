@@ -49,7 +49,6 @@
 
 static int check(coord *table, int *len, coord x, coord y);
 static void insert(coord *table, int *len, coord x, coord y);
-static int num_units(int, int);
 static void spy_report(struct sctstr *sp);
 static void prplanes(int, int);
 static void prunits(int, int);
@@ -137,14 +136,8 @@ spy(void)
 		continue;
 	    }
 	    getsect(nx, ny, &dsect);
-	    if (player->owner
-		|| (dsect.sct_type == SCT_WATER)
-		|| (!dsect.sct_item[I_MILIT] && !dsect.sct_item[I_CIVIL]
-		    && num_units(nx, ny) == 0)) {
-		/* mark sector as seen */
-		insert(table, &t_len, nx, ny);
+	    if (player->owner || dsect.sct_type == SCT_WATER)
 		continue;
-	    }
 
 	    own = dsect.sct_own;
 	    relat = getrel(getnatp(own), player->cnum);
@@ -246,25 +239,6 @@ check(coord *table, int *len, coord x, coord y)
 	if (table[i] == x && table[i + 1] == y)
 	    return 1;
     return 0;
-}
-
-static int
-num_units(int x, int y)
-{
-    struct lndstr land;
-    struct nstr_item ni;
-    int n = 0;
-
-    snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, &land)) {
-	if ((land.lnd_own == player->cnum) || (land.lnd_own == 0))
-	    continue;
-	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
-	    continue;
-	n++;
-    }
-
-    return n;
 }
 
 static void
