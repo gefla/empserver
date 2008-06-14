@@ -192,6 +192,8 @@ spy(void)
 				   dchr[dsect.sct_type].d_mnem, 0);
 		prunits(dsect.sct_x, dsect.sct_y);
 		prplanes(dsect.sct_x, dsect.sct_y);
+		if (opt_HIDDEN)
+		    setcont(player->cnum, own, FOUND_SPY);
 	    }
 	}
 	/* subtract any military if necessary */
