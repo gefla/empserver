@@ -50,9 +50,10 @@
 static int check(coord *table, int *len, coord x, coord y);
 static void insert(coord *table, int *len, coord x, coord y);
 static int num_units(int, int);
+static void spy_report(struct sctstr *sp);
 static void prplanes(int, int);
 static void prunits(int, int);
-static void spy_report(struct sctstr *sp);
+static char *player_relstr(natid);
 
 int
 spy(void)
@@ -287,18 +288,9 @@ prunits(int x, int y)
 		continue;
 	}
 	if ((land.lnd_own != player->cnum) && land.lnd_own) {
-	    int rel;
-	    char *relstr;
-
-	    rel = getrel(getnatp(player->cnum), land.lnd_own);
-	    if (rel == ALLIED)
-		relstr = "Allied";
-	    else if (rel == FRIENDLY || rel == NEUTRAL)
-		relstr = "Neutral";
-	    else
-		relstr = "Enemy";
 	    sprintf(report, "%s (%s) unit in %s: ",
-		    relstr, cname(land.lnd_own),
+		    player_relstr(land.lnd_own),
+		    cname(land.lnd_own),
 		    xyas(land.lnd_x, land.lnd_y, player->cnum));
 	    intelligence_report(player->cnum, &land, 3, report);
 	}
@@ -320,20 +312,23 @@ prplanes(int x, int y)
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	if ((plane.pln_own != player->cnum) && plane.pln_own) {
-	    int rel;
-	    char *relstr;
-
-	    rel = getrel(getnatp(player->cnum), plane.pln_own);
-	    if (rel == ALLIED)
-		relstr = "Allied";
-	    else if (rel == FRIENDLY || rel == NEUTRAL)
-		relstr = "Neutral";
-	    else
-		relstr = "Enemy";
 	    pr("%s (%s) plane in %s: %s\n",
-	       relstr, cname(plane.pln_own),
+	       player_relstr(plane.pln_own),
+	       cname(plane.pln_own),
 	       xyas(plane.pln_x, plane.pln_y, player->cnum),
 	       prplane(&plane));
 	}
     }
+}
+
+static char *
+player_relstr(natid them)
+{
+    int rel = getrel(getnatp(player->cnum), them);
+
+    if (rel == ALLIED)
+	return "Allied";
+    if (rel >= NEUTRAL)
+	return "Neutral";
+    return "Enemy";
 }
