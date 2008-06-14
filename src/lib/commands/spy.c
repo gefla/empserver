@@ -52,7 +52,7 @@ static void insert(coord *table, int *len, coord x, coord y);
 static int num_units(int, int);
 static void prplanes(int, int);
 static void prunits(int, int);
-static void spyline(struct sctstr *sp);
+static void spy_report(struct sctstr *sp);
 
 int
 spy(void)
@@ -176,11 +176,9 @@ spy(void)
 
 	    /* spy report */
 	    insert(table, &t_len, nx, ny);
-	    spyline(&dsect);
+	    spy_report(&dsect);
 	    changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
 			       dchr[dsect.sct_type].d_mnem, 0);
-	    prunits(dsect.sct_x, dsect.sct_y);
-	    prplanes(dsect.sct_x, dsect.sct_y);
 	    if (opt_HIDDEN)
 		setcont(player->cnum, own, FOUND_SPY);
 	}
@@ -199,12 +197,8 @@ spy(void)
     return RET_OK;
 }
 
-
-/*
- * just a big printf.
- */
 static void
-spyline(struct sctstr *sp)
+spy_report(struct sctstr *sp)
 {
     prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
     pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d %3d %3d\n",
@@ -225,8 +219,9 @@ spyline(struct sctstr *sp)
        roundintby(sp->sct_item[I_BAR], 10),
        count_sect_units(sp),
        count_sect_planes(sp));
+    prunits(sp->sct_x, sp->sct_y);
+    prplanes(sp->sct_x, sp->sct_y);
 }
-
 
 /*
  * insert a key into the table.
