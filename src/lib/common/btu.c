@@ -64,8 +64,8 @@ accrued_btus(struct sctstr *cap, int etu)
 	eff = 0.5;
 
     civ = cap->sct_item[I_CIVIL];
-    if (civ > 999)
-	civ = 999;
+    if (civ > 1000)
+	civ = 1000;
 
     return roundavg(etu * civ * eff * btu_build_rate);
 }

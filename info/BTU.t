@@ -22,7 +22,7 @@ If the game is a blitz, then as soon as your BTUs go below zero, then
 they are automatically set back to the maximum.
 
 (1) Count the number of civs generating BTUs.
-  civs = maximum(999, number of civs in your capital sector)
+  civs = maximum(1000, number of civs in your capital sector)
   Note that if you don't have a capital, then you will get _no_ BTUs.
 
 (2) Find out how many civs are required to make one BTU in one time unit.
