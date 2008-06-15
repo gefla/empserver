@@ -62,13 +62,11 @@ spy(void)
     coord x, y;
     coord nx, ny;
     int military;
-    int savemil;
     int btucost;
     int i;
     coord *table;		/* sectors already seen */
     int t_len = 0;
     int nrecon;
-    int nunits;
     struct nstr_sect nstr;
     struct nstr_item ni;
     struct natstr *natp;
@@ -103,27 +101,25 @@ spy(void)
     while (nxtsct(&nstr, &from)) {
 	if (!player->owner && !player->god)
 	    continue;
-	nrecon = 0;
-	nunits = 0;
-	snxtitem_xy(&ni, EF_LAND, from.sct_x, from.sct_y);
-	while (nxtitem(&ni, &land)) {
-	    nunits++;
-	    if (lchr[(int)land.lnd_type].l_flags & L_RECON)
-		nrecon++;
-	}
-	if ((military = from.sct_item[I_MILIT]) == 0 && (nunits == 0))
+	military = from.sct_item[I_MILIT];
+	if (military == 0)
 	    continue;
 	x = from.sct_x;
 	y = from.sct_y;
+	nrecon = 0;
+	snxtitem_xy(&ni, EF_LAND, x, y);
+	while (nxtitem(&ni, &land)) {
+	    if (lchr[(int)land.lnd_type].l_flags & L_RECON)
+		nrecon++;
+	}
 	/* Print out the units/planes in this sector */
 	prunits(x, y);
 	prplanes(x, y);
-	savemil = military;
 	/*
 	 * check the neighboring sectors.
 	 */
 	for (i = 1; i <= 6; i++) {
-	    if ((military == 0) && (nunits == 0))
+	    if (military == 0)
 		break;
 	    nx = x + diroff[i][0];
 	    ny = y + diroff[i][1];
@@ -177,9 +173,7 @@ spy(void)
 		setcont(player->cnum, own, FOUND_SPY);
 	}
 	/* subtract any military if necessary */
-	if ((savemil != military) && (savemil > 0)) {
-	    if ((military < 0) || (military > savemil))
-		military = 0;
+	if (from.sct_item[I_MILIT] != military) {
 	    from.sct_item[I_MILIT] = military;
 	    putsect(&from);
 	}
