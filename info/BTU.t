@@ -14,7 +14,7 @@ do.
 BTUs are generated in real-time based on the number of civilians that
 are in your capital.  Every time you log out and in again, the server
 calculates how long you've been away, and based on that time awards
-you a certain number of BTUs.
+you a certain number of BTUs.  The same happens at the update.
 .s1
 Here is the procedure for determining how many BTUs you get:
 .nf
@@ -27,43 +27,46 @@ they are automatically set back to the maximum.
 
 (2) Find out how many civs are required to make one BTU in one time unit.
 The "version" command will tell you how many civilians are required to
-produce one BTU in one Empire Time Unit (ETU).
+produce one BTU in one Empire Time Unit (ETU) in a perfectly efficient
+capital.
 
-(3) Calculate how many BTUs your cap produces in one time unit.
+(3) Calculate how efficiently your capital makes BTUs.  A proper
+capital's BTU efficiency is sector efficiency times work percentage,
+but at least 0.5%.  A mountain capital's BTU efficiency is always
+0.5%.
+
+(4) Calculate how many BTUs your capital produces in one time unit.
 Divide the number of civs generating BTUs (step 1) by the number of
-civs required to produce one BTU in one time unit (step 2).  If your
-capital is in a mountain or has zero efficiency, then multiply by
-1/200.  Otherwise, multiply by (sector efficiency) / 100.  Note that
-0% capitals and mountains generate BTUs as if they were 0.5% capitals.
+civs required to produce one BTU in one time unit (step 2).  Multiply
+by efficiency (step 3).
 
-(4) Find out how many time units have passed.
+(5) Find out how many time units have passed since you last got BTUs.
 A fixed number of ETUs elapse between updates.  The \*Qversion\*U
 command shows how many.
 
-(5) Calculate how many BTUs you get.
-Multiply the number of BTUs your cap produces in one ETU (step 3) by
-the number of ETUs which have passed (step 4).  This is how many BTUs
+(6) Calculate how many BTUs you get.
+Multiply the number of BTUs your cap produces in one ETU (step 4) by
+the number of ETUs which have passed (step 5).  This is how many BTUs
 you get.  Note that there is a limit to how many BTUs you can have at
 any given time.  This number is usually 640 but can be changed by the deity.
 
-EXAMPLE: say you had a 100% capital containing 500 civs.
-Suppose that version said:
+EXAMPLE: say your capital is in perfect condition (100% efficiency and
+work), and has 500 civilians.  Suppose that version said:
 
 It takes 25.00 civilians to produce a BTU in one time unit
 
 Then first you would divide 500 by 25 to get 20.  Now since your cap
-is 100% efficient, you would multiply 20 by (100/100) and so the civs
-in your cap would produce 20 BTUs per time unit.  Now suppose that
+is 100% efficient and 100% working, its BTU efficiency is 100% * 100%
+= 100%, i.e. your capital makes 20 BTUs per ETU.  Now suppose that
 version said:
 
 An update consists of 60 empire time units.
 
 and suppose that exactly that many had passed since the last time you
-logged on.
-  Lastly, we multiply 20 by 60 to get 1200 BTUs.  But since the
-maximum is 640, we would have 640 BTUs.  Note that if your capital had
-been in a mountain sector, then you would have only gotten 6 BTUs in
-24 hours.
+got BTUs.  You multiply 20 by 60 and get 1200 BTUs.  But since the
+maximum is 640, you'd have 640 BTUs.  Note that if your capital were a
+mountain sector, it would make only 20 * 0.5% = 0.1 BTUs per time
+unit.  You'd get only 6 BTUs then.
 .fi
 .s1
 .SA "Innards, version, Time, Playing"
