@@ -32,7 +32,7 @@ sector is too small, or if the sector starves, disloyalty will
 increase.
 .s1
 If a sector is a conquered sector,
-a star \*Q*\*U will be shown in the appropriate column
+the old owner will be shown in the appropriate column
 on the census report.
 Friendly sectors allow enlistment of military,
 as well as the ability to move the civilians freely about.
