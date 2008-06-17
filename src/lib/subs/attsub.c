@@ -1007,6 +1007,12 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    pr("Land units are not able to board this kind of ship\n");
 	    return;
 	}
+	if (def->type == EF_SHIP
+	    && (def->shp_mcp->m_flags & (M_SUPPLY | M_SUB)) != M_SUPPLY
+	    && !(lcp->l_flags & L_LIGHT)) {
+	    pr("Only light land units can board this kind of ship\n");
+	    continue;
+	}
 	if (land.lnd_mobil <= 0) {
 	    pr("%s is out of mobility, and cannot %s\n",
 	       prland(&land), att_mode[combat_mode]);
