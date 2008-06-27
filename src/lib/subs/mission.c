@@ -445,7 +445,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    if (md > range)
 		continue;
 
-	    lnd_unlimber(lp);
 	    dam2 = lnd_fire(lp);
 	    putland(lp->lnd_uid, lp);
 	    if (dam2 < 0)

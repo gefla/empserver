@@ -1142,7 +1142,6 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	if (dist > range)
 	    continue;
 
-	lnd_unlimber(&land);
 	dam2 = lnd_fire(&land);
 	putland(land.lnd_uid, &land);
 	if (dam2 < 0)

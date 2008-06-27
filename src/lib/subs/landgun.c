@@ -207,6 +207,7 @@ lnd_fire(struct lndstr *lp)
 			    I_SHELL, ammo - shells);
     if (shells == 0)
 	return -1;
+    lnd_unlimber(lp);
     d = landunitgun(lp->lnd_effic, guns);
     if (shells < ammo) {
 	d *= (double)shells / (double)ammo;

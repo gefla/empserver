@@ -349,7 +349,6 @@ multifire(void)
 		range2 = -1;
 	    }
 
-	    lnd_unlimber(&fland);
 	    dam = lnd_fire(&fland);
 	    putland(fland.lnd_uid, &fland);
 	    if (dam < 0) {
@@ -713,7 +712,6 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
 	if (fp)
 	    dam2 = fp->defdam;
 	else {
-	    lnd_unlimber(&land);
 	    dam2 = lnd_fire(&land);
 	    putland(land.lnd_uid, &land);
 	}
