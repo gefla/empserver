@@ -215,13 +215,13 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 	}
 	sect.sct_mines = mines;
 	mlp->unit.ship.shp_item[I_SHELL] = shells;
+	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
+	putsect(&sect);
 	if (shp_check_one_mines(mlp)) {
 	    stopping = 1;
 	    emp_remque(qp);
 	    free(qp);
 	}
-	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-	putsect(&sect);
     }
     if (changed)
 	writemap(actor);
