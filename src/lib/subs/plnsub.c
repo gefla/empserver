@@ -559,6 +559,7 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
 	pp = &plp->plane;
+	getplane(pp->pln_uid, pp);
 	if ((pp->pln_flags & PLN_LAUNCHED)
 	    || pln_equip(plp, ip, flags, mission) < 0) {
 	    emp_remque(qp);
