@@ -8,13 +8,13 @@ BEGIN {
   FS="[ \t\n,]+";
 }
 
-/^World size is [0-9]+ by [0-9]+./ {
+/^World size is [0-9]+ by [0-9]+\./ {
   width = $4;
   height= $6;
   system("ppmmake white " (width+1)*scale " " height*scale " | ppmtopgm | pgmtopbm >over.pbm");
 }
 
-/.*#.*name.*tech.*research.*education.*happiness.*cap-location/ {
+/.*#.*name.*tech.*research.*education.*happiness.*capital/ {
   getline;
   while (NF>4) {
     if ($2>0 && $2<90) {
