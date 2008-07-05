@@ -48,9 +48,7 @@ retr(void)
     int nships;
     struct nstr_item ni;
     struct shpstr ship;
-    int isfleet = 0;
-    int rflags = -2;
-    int zero;
+    int rflags;
     unsigned i;
     char buf1[1024];
     char buf2[1024];
@@ -58,22 +56,19 @@ retr(void)
     if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
 	return RET_SYN;
     nships = 0;
-    if (player->argp[1] != NULL)
-	if (isalpha(player->argp[1][0]))
-	    isfleet = RET_GROUP;
     if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
 	pq = NULL;
 
+    rflags = 0;
     if (pq != NULL) {
 	fl = getstarg(player->argp[3],
 		      "Retreat conditions [i|t|s|h|b|d|u|c]? ", buf2);
 	if (!fl)
 	    return RET_SYN;
-	rflags = 0 | isfleet;
 
-	for (i = 0; i < strlen(fl); i++) {
+	for (i = 0; fl[i]; i++) {
 	    switch (fl[i]) {
 	    case 'I':
 	    case 'i':
@@ -105,7 +100,7 @@ retr(void)
 		break;
 	    case 'C':
 	    case 'c':
-		rflags = -1;
+		pq = "";
 		break;
 	    default:
 		pr("bad condition\n");
@@ -120,30 +115,21 @@ retr(void)
 		pr("u\tretreat when boarded\n");
 	    }
 	}
-	if (rflags == isfleet) {
+	if (*pq && !rflags) {
 	    pr("Must give retreat conditions!\n");
 	    return RET_FAIL;
 	}
+	if (ni.sel == NS_GROUP && ni.group)
+	    rflags |= RET_GROUP;
+	if (!*pq)
+	    rflags = 0;
     }
-
-    if (rflags == -1)
-	pq = NULL;
-
-    zero = (rflags == -1);
-    if (zero)
-	rflags = 0;
 
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if (zero)
-	    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
-
 	if (pq != NULL) {
 	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath) - 1);
-	    putship(ship.shp_uid, &ship);
-	}
-	if (rflags >= 0) {
 	    ship.shp_rflags = rflags;
 	    putship(ship.shp_uid, &ship);
 	}
@@ -197,31 +183,27 @@ lretr(void)
     int nunits;
     struct nstr_item ni;
     struct lndstr land;
-    int isarmy = 0;
-    int rflags = -2;
-    int zero;
+    int rflags;
+    unsigned i;
     char buf1[1024];
     char buf2[1024];
-    unsigned i;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1]))
 	return RET_SYN;
     nunits = 0;
-    if (player->argp[1] != NULL)
-	if (isalpha(player->argp[1][0]))
-	    isarmy = RET_GROUP;
     if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
 	pq = NULL;
+
+    rflags = 0;
     if (pq != NULL) {
 	fl = getstarg(player->argp[3], "Retreat conditions [i|h|b|c]? ",
 		      buf2);
 	if (!fl)
 	    return RET_SYN;
-	rflags = 0 | isarmy;
 
-	for (i = 0; i < strlen(fl); i++) {
+	for (i = 0; fl[i]; i++) {
 	    switch (fl[i]) {
 	    case 'I':
 	    case 'i':
@@ -237,7 +219,7 @@ lretr(void)
 		break;
 	    case 'C':
 	    case 'c':
-		rflags = -1;
+		pq = "";
 		break;
 	    default:
 		pr("bad condition\n");
@@ -248,30 +230,21 @@ lretr(void)
 		pr("b\tretreat when bombed\n");
 	    }
 	}
-	if (rflags == isarmy) {
+	if (*pq && !rflags) {
 	    pr("Must give retreat conditions!\n");
 	    return RET_FAIL;
 	}
+	if (ni.sel == NS_GROUP && ni.group)
+	    rflags |= RET_GROUP;
+	if (!*pq)
+	    rflags = 0;
     }
-
-    if (rflags == -1)
-	pq = NULL;
-
-    zero = (rflags == -1);
-    if (zero)
-	rflags = 0;
 
     while (nxtitem(&ni, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
-	if (zero)
-	    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
-
 	if (pq != NULL) {
 	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath) - 1);
-	    putland(land.lnd_uid, &land);
-	}
-	if (rflags >= 0) {
 	    land.lnd_rflags = rflags;
 	    putland(land.lnd_uid, &land);
 	}
