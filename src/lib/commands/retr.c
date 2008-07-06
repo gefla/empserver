@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2008
  */
 
 #include <config.h>
@@ -41,6 +42,14 @@
 #include "path.h"
 #include "retreat.h"
 #include "ship.h"
+
+/*
+ * Retreat flag characters
+ * 'X' means flag is not available
+ * Must agree with RET_ defines.
+ */
+static char shp_rflagsc[] = "Xitshbdu";
+static char lnd_rflagsc[] = "XiXXhbXX";
 
 static int retreat(short);
 
@@ -63,15 +72,16 @@ retreat(short type)
     int nunits;
     struct nstr_item ni;
     union empobj_storage unit;
-    int rflags;
+    int rflags, ch, j;
     unsigned i;
-    char *name, *rpath, *what;
+    char *rflagsc, *p, *name, *rpath, *what;
     int *rflagsp;
     char buf1[1024];
     char buf2[1024];
 
     if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
 	type = EF_SHIP;
+    rflagsc = type == EF_SHIP ? shp_rflagsc : lnd_rflagsc;
 
     if (!snxtitem(&ni, type, player->argp[1]))
 	return RET_SYN;
@@ -83,73 +93,35 @@ retreat(short type)
 
     rflags = 0;
     if (pq != NULL) {
+    again:
 	fl = getstarg(player->argp[3],
-		      type == EF_SHIP
-		      ? "Retreat conditions [i|t|s|h|b|d|u|c]? "
-		      : "Retreat conditions [i|h|b|c]? ",
+		      "Retreat conditions ('?' to list available ones)? ",
 		      buf2);
 	if (!fl)
 	    return RET_SYN;
 
 	for (i = 0; fl[i]; i++) {
-	    switch (fl[i]) {
-	    case 'I':
-	    case 'i':
-		rflags |= RET_INJURED;
-		break;
-	    case 'T':
-	    case 't':
-		if (type == EF_LAND)
-		    goto badflag;
-		rflags |= RET_TORPED;
-		break;
-	    case 'S':
-	    case 's':
-		if (type == EF_LAND)
-		    goto badflag;
-		rflags |= RET_SONARED;
-		break;
-	    case 'H':
-	    case 'h':
-		rflags |= RET_HELPLESS;
-		break;
-	    case 'B':
-	    case 'b':
-		rflags |= RET_BOMBED;
-		break;
-	    case 'D':
-	    case 'd':
-		if (type == EF_LAND)
-		    goto badflag;
-		rflags |= RET_DCHRGED;
-		break;
-	    case 'U':
-	    case 'u':
-		if (type == EF_LAND)
-		    goto badflag;
-		rflags |= RET_BOARDED;
-		break;
-	    case 'C':
-	    case 'c':
-		pq = "";
-		break;
-	    default:
-	    badflag:
-		pr("bad condition\n");
-		/* fall through */
-	    case '?':
-		pr("i\tretreat when injured\n");
-		if (type == EF_SHIP) {
-		    pr("t\tretreat when torped\n");
-		    pr("s\tretreat when sonared\n");
-		}
-		pr("h\tretreat when helpless\n");
-		pr("b\tretreat when bombed\n");
-		if (type == EF_SHIP) {
-		    pr("d\tretreat when depth-charged\n");
-		    pr("u\tretreat when boarded\n");
-		}
+	    ch = tolower(fl[i]);
+	    if (ch == 'C') {
+		*pq = 0;
+		return 0;
 	    }
+	    if (ch == '?') {
+		for (j = 1; rflagsc[j]; j++) {
+		    if (rflagsc[j] != 'X')
+			pr("%c\tretreat when %s\n",
+			   rflagsc[j],
+			   symbol_by_value(1 << j, retreat_flags));
+		}
+		pr("c\tcancel retreat order\n");
+		goto again;
+	    }
+	    p = strchr(rflagsc, ch);
+	    if (!p) {
+		pr("Bad retreat condition '%c'\n", fl[i]);
+		return RET_SYN;
+	    }
+	    rflags |= 1 << (p - rflagsc);
 	}
 	if (*pq && !rflags) {
 	    pr("Must give retreat conditions!\n");
@@ -200,20 +172,13 @@ retreat(short type)
 	    pr("Yes      ");
 	else
 	    pr("         ");
-	if (rflags & RET_INJURED)
-	    pr("I");
-	if (rflags & RET_TORPED)
-	    pr("T");
-	if (rflags & RET_SONARED)
-	    pr("S");
-	if (rflags & RET_HELPLESS)
-	    pr("H");
-	if (rflags & RET_BOMBED)
-	    pr("B");
-	if (rflags & RET_DCHRGED)
-	    pr("D");
-	if (rflags & RET_BOARDED)
-	    pr("U");
+	for (j = 1; rflagsc[j]; j++) {
+	    if ((1 << j) & rflags) {
+		if (CANT_HAPPEN(rflagsc[j] == 'X'))
+		    continue;
+		pr("%c", rflagsc[j]);
+	    }
+	}
 	pr("\n");
     }
     what = type == EF_SHIP ? "ship" : "unit";
