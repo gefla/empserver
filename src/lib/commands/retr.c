@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  retr.c: Set retreat conditionals for ships
+ *  retr.c: Set retreat conditionals for ships and land units
  * 
  *  Known contributors to this file:
  *     Ken Stevens, 1995
@@ -36,26 +36,45 @@
 
 #include <ctype.h>
 #include "commands.h"
+#include "empobj.h"
 #include "land.h"
 #include "path.h"
 #include "retreat.h"
 #include "ship.h"
 
+static int retreat(short);
+
 int
 retr(void)
 {
+    return retreat(EF_SHIP);
+}
+
+int
+lretr(void)
+{
+    return retreat(EF_LAND);
+}
+
+static int
+retreat(short type)
+{
     char *pq, *fl;
-    int nships;
+    int nunits;
     struct nstr_item ni;
-    struct shpstr ship;
+    union empobj_storage unit;
     int rflags;
     unsigned i;
+    char *what;
     char buf1[1024];
     char buf2[1024];
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
+	type = EF_SHIP;
+
+    if (!snxtitem(&ni, type, player->argp[1]))
 	return RET_SYN;
-    nships = 0;
+    nunits = 0;
     if (player->argp[2] != NULL)
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
     else
@@ -64,7 +83,10 @@ retr(void)
     rflags = 0;
     if (pq != NULL) {
 	fl = getstarg(player->argp[3],
-		      "Retreat conditions [i|t|s|h|b|d|u|c]? ", buf2);
+		      type == EF_SHIP
+		      ? "Retreat conditions [i|t|s|h|b|d|u|c]? "
+		      : "Retreat conditions [i|h|b|c]? ",
+		      buf2);
 	if (!fl)
 	    return RET_SYN;
 
@@ -76,10 +98,14 @@ retr(void)
 		break;
 	    case 'T':
 	    case 't':
+		if (type == EF_LAND)
+		    goto badflag;
 		rflags |= RET_TORPED;
 		break;
 	    case 'S':
 	    case 's':
+		if (type == EF_LAND)
+		    goto badflag;
 		rflags |= RET_SONARED;
 		break;
 	    case 'H':
@@ -92,10 +118,14 @@ retr(void)
 		break;
 	    case 'D':
 	    case 'd':
+		if (type == EF_LAND)
+		    goto badflag;
 		rflags |= RET_DCHRGED;
 		break;
 	    case 'U':
 	    case 'u':
+		if (type == EF_LAND)
+		    goto badflag;
 		rflags |= RET_BOARDED;
 		break;
 	    case 'C':
@@ -103,16 +133,21 @@ retr(void)
 		pq = "";
 		break;
 	    default:
+	    badflag:
 		pr("bad condition\n");
 		/* fall through */
 	    case '?':
 		pr("i\tretreat when injured\n");
-		pr("t\tretreat when torped\n");
-		pr("s\tretreat when sonared\n");
+		if (type == EF_SHIP) {
+		    pr("t\tretreat when torped\n");
+		    pr("s\tretreat when sonared\n");
+		}
 		pr("h\tretreat when helpless\n");
 		pr("b\tretreat when bombed\n");
-		pr("d\tretreat when depth-charged\n");
-		pr("u\tretreat when boarded\n");
+		if (type == EF_SHIP) {
+		    pr("d\tretreat when depth-charged\n");
+		    pr("u\tretreat when boarded\n");
+		}
 	    }
 	}
 	if (*pq && !rflags) {
@@ -125,169 +160,81 @@ retr(void)
 	    rflags = 0;
     }
 
-    while (nxtitem(&ni, &ship)) {
-	if (!player->owner || ship.shp_own == 0)
+    while (nxtitem(&ni, &unit)) {
+	if (!player->owner || unit.gen.own == 0)
 	    continue;
-	if (pq != NULL) {
-	    strncpy(ship.shp_rpath, pq, sizeof(ship.shp_rpath) - 1);
-	    ship.shp_rflags = rflags;
-	    putship(ship.shp_uid, &ship);
-	}
-	if (nships++ == 0) {
-	    if (player->god)
-		pr("own ");
-	    pr("shp#     ship type       x,y   fl path       as flt? flags\n");
-	}
-	if (player->god)
-	    pr("%3d ", ship.shp_own);
-	pr("%4d ", ni.cur);
-	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
-	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
-	pr("%1.1s", &ship.shp_fleet);
-	pr(" %-11s", ship.shp_rpath);
-	if (ship.shp_rflags & RET_GROUP)
-	    pr("Yes     ");
-	else
-	    pr("        ");
-	if (ship.shp_rflags & RET_INJURED)
-	    pr("I");
-	if (ship.shp_rflags & RET_TORPED)
-	    pr("T");
-	if (ship.shp_rflags & RET_SONARED)
-	    pr("S");
-	if (ship.shp_rflags & RET_HELPLESS)
-	    pr("H");
-	if (ship.shp_rflags & RET_BOMBED)
-	    pr("B");
-	if (ship.shp_rflags & RET_DCHRGED)
-	    pr("D");
-	if (ship.shp_rflags & RET_BOARDED)
-	    pr("U");
-	pr("\n");
-    }
-    if (nships == 0) {
-	if (player->argp[1])
-	    pr("%s: No ship(s)\n", player->argp[1]);
-	else
-	    pr("%s: No ship(s)\n", "");
-	return RET_FAIL;
-    } else
-	pr("%d ship%s\n", nships, splur(nships));
-    return RET_OK;
-}
-
-int
-lretr(void)
-{
-    char *pq, *fl;
-    int nunits;
-    struct nstr_item ni;
-    struct lndstr land;
-    int rflags;
-    unsigned i;
-    char buf1[1024];
-    char buf2[1024];
-
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
-	return RET_SYN;
-    nunits = 0;
-    if (player->argp[2] != NULL)
-	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
-    else
-	pq = NULL;
-
-    rflags = 0;
-    if (pq != NULL) {
-	fl = getstarg(player->argp[3], "Retreat conditions [i|h|b|c]? ",
-		      buf2);
-	if (!fl)
-	    return RET_SYN;
-
-	for (i = 0; fl[i]; i++) {
-	    switch (fl[i]) {
-	    case 'I':
-	    case 'i':
-		rflags |= RET_INJURED;
-		break;
-	    case 'H':
-	    case 'h':
-		rflags |= RET_HELPLESS;
-		break;
-	    case 'B':
-	    case 'b':
-		rflags |= RET_BOMBED;
-		break;
-	    case 'C':
-	    case 'c':
-		pq = "";
-		break;
-	    default:
-		pr("bad condition\n");
-		/* fall through */
-	    case '?':
-		pr("i\tretreat when injured\n");
-		pr("h\tretreat when helpless\n");
-		pr("b\tretreat when bombed\n");
+	if (type == EF_SHIP) {
+	    if (pq != NULL) {
+		strncpy(unit.ship.shp_rpath, pq, sizeof(unit.ship.shp_rpath) - 1);
+		unit.ship.shp_rflags = rflags;
+		putship(unit.ship.shp_uid, &unit.ship);
 	    }
-	}
-	if (*pq && !rflags) {
-	    pr("Must give retreat conditions!\n");
-	    return RET_FAIL;
-	}
-	if (ni.sel == NS_GROUP && ni.group)
-	    rflags |= RET_GROUP;
-	if (!*pq)
-	    rflags = 0;
-    }
-
-    while (nxtitem(&ni, &land)) {
-	if (!player->owner || land.lnd_own == 0)
-	    continue;
-	if (pq != NULL) {
-	    strncpy(land.lnd_rpath, pq, sizeof(land.lnd_rpath) - 1);
-	    land.lnd_rflags = rflags;
-	    putland(land.lnd_uid, &land);
-	}
-
-	if (nunits++ == 0) {
+	    if (nunits++ == 0) {
+		if (player->god)
+		    pr("own ");
+		pr("shp#     ship type       x,y   fl path       as flt? flags\n");
+	    }
 	    if (player->god)
-		pr("own ");
-	    pr("lnd#     unit type       x,y   ar path       as army? flags\n");
+		pr("%3d ", unit.ship.shp_own);
+	    pr("%4d ", ni.cur);
+	    pr("%-16.16s ", mchr[unit.ship.shp_type].m_name);
+	    prxy("%4d,%-4d ", unit.ship.shp_x, unit.ship.shp_y, player->cnum);
+	    pr("%1.1s", &unit.ship.shp_fleet);
+	    pr(" %-11s", unit.ship.shp_rpath);
+	    rflags = unit.ship.shp_rflags;
+	    if (rflags & RET_GROUP)
+		pr("Yes     ");
+	    else
+		pr("        ");
+	} else {
+	    if (pq != NULL) {
+		strncpy(unit.land.lnd_rpath, pq, sizeof(unit.land.lnd_rpath) - 1);
+		unit.land.lnd_rflags = rflags;
+		putland(unit.land.lnd_uid, &unit.land);
+	    }
+
+	    if (nunits++ == 0) {
+		if (player->god)
+		    pr("own ");
+		pr("lnd#     unit type       x,y   ar path       as army? flags\n");
+	    }
+	    if (player->god)
+		pr("%3d ", unit.land.lnd_own);
+	    pr("%4d ", ni.cur);
+	    pr("%-16.16s ", lchr[unit.land.lnd_type].l_name);
+	    prxy("%4d,%-4d ", unit.land.lnd_x, unit.land.lnd_y, player->cnum);
+	    pr("%1.1s", &unit.land.lnd_army);
+	    pr(" %-11s", unit.land.lnd_rpath);
+	    rflags = unit.land.lnd_rflags;
+	    if (rflags & RET_GROUP)
+		pr("Yes      ");
+	    else
+		pr("         ");
 	}
-	if (player->god)
-	    pr("%3d ", land.lnd_own);
-	pr("%4d ", ni.cur);
-	pr("%-16.16s ", lchr[(int)land.lnd_type].l_name);
-	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
-	pr("%1.1s", &land.lnd_army);
-	pr(" %-11s", land.lnd_rpath);
-	if (land.lnd_rflags & RET_GROUP)
-	    pr("Yes      ");
-	else
-	    pr("         ");
-	if (land.lnd_rflags & RET_INJURED)
+	if (rflags & RET_INJURED)
 	    pr("I");
-	if (land.lnd_rflags & RET_TORPED)
+	if (rflags & RET_TORPED)
 	    pr("T");
-	if (land.lnd_rflags & RET_SONARED)
+	if (rflags & RET_SONARED)
 	    pr("S");
-	if (land.lnd_rflags & RET_HELPLESS)
+	if (rflags & RET_HELPLESS)
 	    pr("H");
-	if (land.lnd_rflags & RET_BOMBED)
+	if (rflags & RET_BOMBED)
 	    pr("B");
-	if (land.lnd_rflags & RET_DCHRGED)
+	if (rflags & RET_DCHRGED)
 	    pr("D");
-	if (land.lnd_rflags & RET_BOARDED)
+	if (rflags & RET_BOARDED)
 	    pr("U");
 	pr("\n");
     }
+    what = type == EF_SHIP ? "ship" : "unit";
     if (nunits == 0) {
 	if (player->argp[1])
-	    pr("%s: No unit(s)\n", player->argp[1]);
+	    pr("%s: No %s(s)\n", player->argp[1], what);
 	else
-	    pr("%s: No unit(s)\n", "");
+	    pr("%s: No %s(s)\n", "", what);
 	return RET_FAIL;
-    }
-    pr("%d unit%s\n", nunits, splur(nunits));
+    } else
+	pr("%d %s%s\n", nunits, what, splur(nunits));
     return RET_OK;
 }
