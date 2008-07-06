@@ -37,8 +37,8 @@ what conditions the ship will retreat under
 For example:
 .EX retreat *
 .NF
-shp#     ship type       x,y   fl path       as flt? flags
-   0 battleship 4        2,0      jjuuj              I
+shp#     ship type       x,y   fl path       as flt?  flags
+   0 battleship 4        2,0      jjuuj               I
 1 ship
 .FI
 .s1
@@ -58,34 +58,34 @@ same sector, if any exist.
 .s1
 Retreat orders are wiped when a ship navigates.
 .s1
-Retreat conditions at present include:
+Retreat conditions are:
 .nf
 
-		Condition	Meaning
-		I		Retreat when the ship is injured,
-				i.e. whenever the ship is damaged
-				by fire, bombs, or torping.
-		T		Retreat when a sub torpedos or tries
-				to torpedo the ship.
-		B		Retreat when a plane bombs or tries
-				to bomb the ship.
-		S		Retreat when the ship detects a sonar
-				ping.
-		D		Retreat when the ship is depth-charged.
-		H		Retreat when helpless. A ship is helpless
-				when it is fired upon, and no friendly
-				ships/sectors (including the ship itself)
-				are able to fire back at the aggressor.
-                U               Retreat upon a failed boarding attempt.
-		C		Clear the flags
+	Condition	Meaning
+	I		Retreat when the ship is injured,
+			i.e. whenever the ship is damaged by fire,
+			bombs, or torping
+	T		Retreat when a sub torpedos or tries to
+			torpedo the ship
+	B		Retreat when a plane bombs or tries to bomb
+			the ship
+	S		Retreat when the ship detects a sonar ping
+	D		Retreat when the ship is depth-charged
+	H		Retreat when helpless --- a ship is helpless
+			when it is fired upon, and no friendly
+			ships/sectors (including the ship itself) are
+			able to fire back at the aggressor
+	U		Retreat upon a failed boarding attempt
+	C		Cancel retreat order
+	?		List the conditions
 .fi
 .s1
 For example, if the battleship above was fired at, it would attempt to
 retreat 2 sectors, jj, using the normal amount of mobility for moving
 2 sectors. It would then look like:
 .NF
-shp#     ship type       x,y   fl path       as flt? flags
-   0 battleship 4        2,0      uuj                I
+shp#     ship type       x,y   fl path       as flt?  flags
+   0 battleship 4        2,0      uuj                 I
 1 ship
 .FI
 .s1
