@@ -512,8 +512,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		continue;
 	    if ((plp->pcp->pl_flags & P_A) && !on_shiplist(n, head))
 		continue;
-	    if (getship(n, &ship) && ship.shp_x == target->sct_x &&
-		ship.shp_y == target->sct_y)
+	    if (getship(n, &ship) && ship.shp_own &&
+		ship.shp_x == target->sct_x && ship.shp_y == target->sct_y)
 		shipno = n;
 	}
 	if (shipno < 0)
@@ -743,7 +743,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    n = atoi(q);
 	    if (n < 0)
 		continue;
-	    if (getland(n, &land) &&
+	    if (getland(n, &land) && land.lnd_own &&
 		land.lnd_x == target->sct_x && land.lnd_y == target->sct_y)
 		unitno = n;
 	    else
