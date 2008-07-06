@@ -65,7 +65,8 @@ retreat(short type)
     union empobj_storage unit;
     int rflags;
     unsigned i;
-    char *what;
+    char *name, *rpath, *what;
+    int *rflagsp;
     char buf1[1024];
     char buf2[1024];
 
@@ -164,53 +165,41 @@ retreat(short type)
 	if (!player->owner || unit.gen.own == 0)
 	    continue;
 	if (type == EF_SHIP) {
-	    if (pq != NULL) {
-		strncpy(unit.ship.shp_rpath, pq, sizeof(unit.ship.shp_rpath) - 1);
-		unit.ship.shp_rflags = rflags;
-		putship(unit.ship.shp_uid, &unit.ship);
-	    }
 	    if (nunits++ == 0) {
 		if (player->god)
 		    pr("own ");
-		pr("shp#     ship type       x,y   fl path       as flt? flags\n");
+		pr("shp#     ship type       x,y   fl path       as flt?  flags\n");
 	    }
-	    if (player->god)
-		pr("%3d ", unit.ship.shp_own);
-	    pr("%4d ", ni.cur);
-	    pr("%-16.16s ", mchr[unit.ship.shp_type].m_name);
-	    prxy("%4d,%-4d ", unit.ship.shp_x, unit.ship.shp_y, player->cnum);
-	    pr("%1.1s", &unit.ship.shp_fleet);
-	    pr(" %-11s", unit.ship.shp_rpath);
-	    rflags = unit.ship.shp_rflags;
-	    if (rflags & RET_GROUP)
-		pr("Yes     ");
-	    else
-		pr("        ");
+	    name = mchr[unit.ship.shp_type].m_name;
+	    rpath = unit.ship.shp_rpath;
+	    rflagsp = &unit.ship.shp_rflags;
 	} else {
-	    if (pq != NULL) {
-		strncpy(unit.land.lnd_rpath, pq, sizeof(unit.land.lnd_rpath) - 1);
-		unit.land.lnd_rflags = rflags;
-		putland(unit.land.lnd_uid, &unit.land);
-	    }
-
 	    if (nunits++ == 0) {
 		if (player->god)
 		    pr("own ");
 		pr("lnd#     unit type       x,y   ar path       as army? flags\n");
 	    }
-	    if (player->god)
-		pr("%3d ", unit.land.lnd_own);
-	    pr("%4d ", ni.cur);
-	    pr("%-16.16s ", lchr[unit.land.lnd_type].l_name);
-	    prxy("%4d,%-4d ", unit.land.lnd_x, unit.land.lnd_y, player->cnum);
-	    pr("%1.1s", &unit.land.lnd_army);
-	    pr(" %-11s", unit.land.lnd_rpath);
-	    rflags = unit.land.lnd_rflags;
-	    if (rflags & RET_GROUP)
-		pr("Yes      ");
-	    else
-		pr("         ");
+	    name = lchr[unit.land.lnd_type].l_name;
+	    rpath = unit.land.lnd_rpath;
+	    rflagsp = &unit.land.lnd_rflags;
 	}
+	if (pq) {
+	    strncpy(rpath, pq, RET_LEN - 1);
+	    *rflagsp = rflags;
+	    put_empobj(type, unit.gen.uid, &unit);
+	}
+	if (player->god)
+	    pr("%3d ", unit.gen.own);
+	pr("%4d ", ni.cur);
+	pr("%-16.16s ", name);
+	prxy("%4d,%-4d ", unit.gen.x, unit.gen.y, player->cnum);
+	pr("%1.1s", &unit.gen.group);
+	pr(" %-11s", rpath);
+	rflags = *rflagsp;
+	if (rflags & RET_GROUP)
+	    pr("Yes      ");
+	else
+	    pr("         ");
 	if (rflags & RET_INJURED)
 	    pr("I");
 	if (rflags & RET_TORPED)
