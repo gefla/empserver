@@ -192,6 +192,8 @@ pln_zap_transient_flags(void)
 
     /* laziness: assumes plane file is EFF_MEM */
     for (i = 0; (pp = getplanep(i)) != NULL; i++) {
+	if (!pp->pln_own)
+	    continue;
 	if (pp->pln_flags & PLN_LAUNCHED
 	    && (plchr[pp->pln_type].pl_flags & (P_M | P_O)) != P_O) {
 	    pp->pln_flags &= ~PLN_LAUNCHED;
