@@ -47,6 +47,7 @@
 
 static void *nsc_ver(struct valstr *, struct natstr *, void *);
 static void *nsc_ver_maxnoc(struct valstr *, struct natstr *, void *);
+static void *nsc_sct_terr(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_att(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_def(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_att(struct valstr *, struct natstr *, void *);
@@ -133,8 +134,8 @@ struct castr sect_ca[] = {
     {"effic", fldoff(sct_effic), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"mobil", fldoff(sct_mobil), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"loyal", fldoff(sct_loyal), NSC_UCHAR, 0, NULL, EF_BAD, NSC_DEITY},
-    {"terr", fldoff(sct_terr), NSC_UCHAR, 0, NULL, EF_BAD, 0},
-    {"terr0", fldoff(sct_terr), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
+    {"terr", 0, NSC_UCHAR, 0, nsc_sct_terr, EF_BAD, NSC_EXTRA},
+    {"terr0", fldoff(sct_terr), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"terr1", fldoff(sct_terr1), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"terr2", fldoff(sct_terr2), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"terr3", fldoff(sct_terr3), NSC_UCHAR, 0, NULL, EF_BAD, 0},
@@ -754,6 +755,17 @@ nsc_ver_maxnoc(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = MAXNOC;
     return NULL;
+}
+
+static void *
+nsc_sct_terr(struct valstr *val, struct natstr *np, void *ptr)
+{
+    if (!np || np->nat_stat == STAT_GOD)
+	val->val_as.sym.off = offsetof(struct sctstr, sct_dterr);
+    else
+	val->val_as.sym.off = offsetof(struct sctstr, sct_terr);
+    val->val_as.sym.get = NULL;
+    return ptr;
 }
 
 static void *

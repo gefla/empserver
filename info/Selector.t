@@ -42,11 +42,12 @@ designation/infrastructure
 .L effic
 .L mobil
 .L terr
+alias for terr0 (mortal player) or dterr (deity)
 .L terr0
-alias for terr
 .L terr1
 .L terr2
 .L terr3
+.L dterr
 .L timestamp
 .L fallout
 .L road
