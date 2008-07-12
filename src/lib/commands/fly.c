@@ -87,14 +87,6 @@ fly(void)
     cno = -1;
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
-    if (cno < 0) {
-	dst_ptr = &target;
-	dst_type = EF_SECTOR;
-    } else {
-	getship(cno, &ship);
-	dst_ptr = &ship;
-	dst_type = EF_SHIP;
-    }
 
     if (ip && ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
 	pr("Can't fly civilians into occupied sectors.\n");
@@ -142,6 +134,14 @@ fly(void)
 	pr("No planes got through fighter defenses\n");
     } else {
 	getsect(tx, ty, &target);
+	if (cno < 0) {
+	    dst_ptr = &target;
+	    dst_type = EF_SECTOR;
+	} else {
+	    getship(cno, &ship);
+	    dst_ptr = &ship;
+	    dst_type = EF_SHIP;
+	}
 	pln_dropoff(&bomb_list, ip, tx, ty, dst_ptr, dst_type);
 	pln_newlanding(&bomb_list, tx, ty, cno);
 	pln_newlanding(&esc_list, tx, ty, cno);
