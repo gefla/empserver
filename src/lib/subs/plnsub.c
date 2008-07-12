@@ -239,16 +239,15 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 
 void
 pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
-	    void *ptr, int type)
+	    int cno)
 {
     struct emp_qelem *qp;
     struct plist *plp;
     int amt;
-    struct sctstr *sectp;
-    struct shpstr *sp;
+    struct sctstr sect;
+    struct shpstr ship;
     int there;
     int max;
-    struct mchrstr *mp;
 
     if (ip == 0)
 	return;
@@ -257,33 +256,32 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	plp = (struct plist *)qp;
 	amt += plp->misc;
     }
-    if (type == EF_SECTOR) {
-	sectp = ptr;
-	if (!sectp->sct_own) {
-	    if (sectp->sct_type == SCT_WATER)
+    if (cno < 0) {
+	getsect(tx, ty, &sect);
+	if (!sect.sct_own) {
+	    if (sect.sct_type == SCT_WATER)
 		pr("Your %s sink like a rock!\n", ip->i_name);
 	    else
 		pr("Your %s vanish without a trace.\n", ip->i_name);
 	    return;
 	}
-	if (sectp->sct_own != player->cnum
-	    && getrel(getnatp(sectp->sct_own), player->cnum) != ALLIED) {
+	if (sect.sct_own != player->cnum
+	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
 	    pr("You don't own %s!  Cargo jettisoned...\n",
 	       xyas(tx, ty, player->cnum));
 	    return;
 	}
-	if (ip->i_uid == I_CIVIL && sectp->sct_own != sectp->sct_oldown) {
+	if (ip->i_uid == I_CIVIL && sect.sct_own != sect.sct_oldown) {
 	    pr("%s is occupied.  Your civilians suffer from identity crisis and die.\n",
 	       xyas(tx, ty, player->cnum));
 	    return;
 	}
-	there = sectp->sct_item[ip->i_uid];
+	there = sect.sct_item[ip->i_uid];
 	max = ITEM_MAX;
     } else {
-	sp = ptr;
-	there = sp->shp_item[ip->i_uid];
-	mp = &mchr[(int)sp->shp_type];
-	max = mp->m_item[ip->i_uid];
+	getship(cno, &ship);
+	there = ship.shp_item[ip->i_uid];
+	max = mchr[ship.shp_type].m_item[ip->i_uid];
     }
     there += amt;
     if (there > max) {
@@ -292,23 +290,21 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	there = max;
     }
     pr("%d %s landed safely", amt, ip->i_name);
-    if (type == EF_SECTOR) {
-	sectp = ptr;
-	sectp->sct_item[ip->i_uid] = there;
-	if (sectp->sct_own != player->cnum)
-	    wu(0, sectp->sct_own, "%s planes drop %d %s in %s\n",
+    if (cno < 0) {
+	sect.sct_item[ip->i_uid] = there;
+	if (sect.sct_own != player->cnum)
+	    wu(0, sect.sct_own, "%s planes drop %d %s in %s\n",
 	       cname(player->cnum), amt, ip->i_name,
-	       xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
+	       xyas(tx, ty, sect.sct_own));
 	pr(" at %s\n", xyas(tx, ty, player->cnum));
-	putsect((struct sctstr *)ptr);
+	putsect(&sect);
     } else {
-	struct shpstr *sp = (struct shpstr *)ptr;
-	sp->shp_item[ip->i_uid] = there;
-	if (sp->shp_own != player->cnum)
-	    wu(0, sp->shp_own, "%s planes land %d %s on carrier %d\n",
-	       cname(player->cnum), amt, ip->i_name, sp->shp_uid);
-	pr(" on carrier #%d\n", sp->shp_uid);
-	putship(sp->shp_uid, sp);
+	ship.shp_item[ip->i_uid] = there;
+	if (ship.shp_own != player->cnum)
+	    wu(0, ship.shp_own, "%s planes land %d %s on carrier %d\n",
+	       cname(player->cnum), amt, ip->i_name, ship.shp_uid);
+	pr(" on carrier #%d\n", ship.shp_uid);
+	putship(ship.shp_uid, &ship);
     }
 }
 

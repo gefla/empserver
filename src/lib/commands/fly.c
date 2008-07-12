@@ -49,7 +49,6 @@ fly(void)
     int ap_to_target;
     struct ichrstr *ip;
     char flightpath[MAX_PATH_LEN];
-    struct shpstr ship;
     int cno;
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
@@ -58,8 +57,6 @@ fly(void)
     struct emp_qelem esc_list;
     int wantflags;
     struct sctstr ap_sect;
-    int dst_type;
-    void *dst_ptr;
     char buf[1024];
 
     wantflags = 0;
@@ -133,16 +130,7 @@ fly(void)
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
-	getsect(tx, ty, &target);
-	if (cno < 0) {
-	    dst_ptr = &target;
-	    dst_type = EF_SECTOR;
-	} else {
-	    getship(cno, &ship);
-	    dst_ptr = &ship;
-	    dst_type = EF_SHIP;
-	}
-	pln_dropoff(&bomb_list, ip, tx, ty, dst_ptr, dst_type);
+	pln_dropoff(&bomb_list, ip, tx, ty, cno);
 	pln_newlanding(&bomb_list, tx, ty, cno);
 	pln_newlanding(&esc_list, tx, ty, cno);
     }
