@@ -129,9 +129,8 @@ drop(void)
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
-	getsect(tx, ty, &target);
 	if (wantflags & P_MINE)
-	    pln_mine(&bomb_list, &target);
+	    pln_mine(&bomb_list, tx, ty);
 	else
 	    pln_dropoff(&bomb_list, ip, tx, ty, -1);
     }

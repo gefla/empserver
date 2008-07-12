@@ -544,7 +544,7 @@ extern int could_be_on_ship(struct plnstr *, struct shpstr *);
 extern int put_plane_on_ship(struct plnstr *, struct shpstr *);
 extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
 			coord, coord, int);
-extern void pln_mine(struct emp_qelem *list, struct sctstr *sectp);
+extern void pln_mine(struct emp_qelem *, coord, coord);
 extern int pln_capable(struct plnstr *, int, int);
 extern int pln_airbase_ok(struct plnstr *, int, int);
 extern int carrier_planes(struct shpstr *, int);

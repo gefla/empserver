@@ -309,11 +309,12 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 }
 
 void
-pln_mine(struct emp_qelem *list, struct sctstr *sectp)
+pln_mine(struct emp_qelem *list, coord tx, coord ty)
 {
     struct emp_qelem *qp;
     struct plist *plp;
     int amt;
+    struct sctstr sect;
 
     amt = 0;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
@@ -322,16 +323,16 @@ pln_mine(struct emp_qelem *list, struct sctstr *sectp)
 
     }
     if (amt > 0) {
-	if (sectp->sct_type != SCT_WATER) {
+	getsect(tx, ty, &sect);
+	if (sect.sct_type != SCT_WATER) {
 	    pr("Your seamines have no effect here.\n");
 	    return;
 	}
-	sectp->sct_mines = MIN(sectp->sct_mines + amt, MINES_MAX);
-	pr("%d mines laid in %s.\n", amt,
-	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
-	if (map_set(player->cnum, sectp->sct_x, sectp->sct_y, 'X', 0))
+	sect.sct_mines = MIN(sect.sct_mines + amt, MINES_MAX);
+	pr("%d mines laid in %s.\n", amt, xyas(tx, ty, player->cnum));
+	if (map_set(player->cnum, tx, ty, 'X', 0))
 	    writemap(player->cnum);
-	putsect(sectp);
+	putsect(&sect);
     }
 }
 
