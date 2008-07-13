@@ -90,10 +90,19 @@ recvclient(char *cmd, int size)
 	    player->eof = 1;
     }
 
-    if (player->eof)
-	return -1;
-    if (player->aborted)
-	return -2;
+    if (player->aborted || player->eof) {
+	player->recvfail++;
+	if (player->recvfail > 255) {
+	    /*
+	     * Looks like the thread is stuck in a loop that fails to
+	     * check errors; oops once, then slow it down drastically.
+	     */
+	    CANT_HAPPEN(player->recvfail == 256);
+	    empth_sleep(time(NULL) + 60);
+	}
+	return player->eof ? -1 : -2;
+    }
 
+    player->recvfail = 0;
     return count;
 }

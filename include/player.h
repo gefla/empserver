@@ -78,6 +78,7 @@ struct player {
     time_t curup;		/* when last input was received */
     int aborted;		/* interrupt cookie received? */
     int eof;			/* EOF (cookie or real) received? */
+    int recvfail;		/* #recvclient() failures */
     int curid;			/* for pr, cur. line's id, -1 none */
     char *map;			/* pointer to in-mem map */
     char *bmap;			/* pointer to in-mem bmap */
