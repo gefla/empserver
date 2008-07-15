@@ -221,9 +221,9 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
   retry:
     p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
 		  buf);
-    if (p == 0 || *p == 0) {
-	if (player->aborted)
-	    return;
+    if (!p)
+       return;
+    if (!*p) {
 	bad++;
 	if (bad > 2)
 	    return;
