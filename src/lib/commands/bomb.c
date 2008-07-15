@@ -105,7 +105,7 @@ bomb(void)
 		  getstarg(player->argp[2], "escort(s)? ", buf)))
 	pr("No escorts...\n");
     p = getstarg(player->argp[3], "pinpoint, or strategic? ", buf);
-    if (!p)
+    if (!p || !*p)
 	return RET_SYN;
     mission = *p;
     if (strchr("ps", mission) == 0)
