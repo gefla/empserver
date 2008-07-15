@@ -76,7 +76,7 @@ struct player {
     int simulation;		/* e.g. budget command */
     double dolcost;
     time_t curup;		/* when last input was received */
-    int aborted;		/* interrupt cookie received? */
+    int aborted;		/* interrupt cookie or EOF received? */
     int eof;			/* EOF (cookie or real) received? */
     int recvfail;		/* #recvclient() failures */
     int curid;			/* for pr, cur. line's id, -1 none */

@@ -47,7 +47,8 @@
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
  * If the player's connection has the I/O error or EOF indicator set,
- * or the line is "ctld", set the player's eof flag and return -1.
+ * or the line is "ctld", set the player's eof and aborted flag and
+ * return -1.
  * If the line is "aborted", set the player's aborted flag and return
  * -2.
  * Else return the length of the line.
@@ -59,13 +60,13 @@ recvclient(char *cmd, int size)
     int count;
 
     count = -1;
-    while (!player->aborted && !player->eof) {
+    while (!player->aborted) {
 	/* Try to get a line of input */
 	count = io_gets(player->iop, cmd, size);
 	if (count >= 0) {
 	    /* got it */
 	    if (strcmp(cmd, "ctld") == 0)
-		player->eof = 1;
+		player->aborted = player->eof = 1;
 	    if (strcmp(cmd, "aborted") == 0)
 		player->aborted = 1;
 	    journal_input(cmd);
@@ -85,10 +86,10 @@ recvclient(char *cmd, int size)
 	/* Await more input */
 	io_input(player->iop, IO_WAIT);
 	if (io_error(player->iop) || io_eof(player->iop))
-	    player->eof = 1;
+	    player->aborted = player->eof = 1;
     }
 
-    if (player->aborted || player->eof) {
+    if (player->aborted) {
 	player->recvfail++;
 	if (player->recvfail > 255) {
 	    /*
