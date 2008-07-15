@@ -110,8 +110,7 @@ player_main(struct player *p)
     }
 
     while (status()) {
-	if (command() == 0 && !player->aborted)
-	    break;
+	command();
 	player->aborted = 0;
 	empth_yield();
     }
@@ -157,13 +156,9 @@ status(void)
     int old_nstat, minute;
     char buf[128];
 
-    if (player->state == PS_SHUTDOWN)
+    if (player->eof || player->state == PS_SHUTDOWN)
 	return 0;
     natp = getnatp(player->cnum);
-    if (io_error(player->iop) || io_eof(player->iop)) {
-	putnat(natp);
-	return 0;
-    }
     if (player->dolcost > 100.0)
 	pr("That just cost you $%.2f\n", player->dolcost);
     else if (player->dolcost < -100.0)
