@@ -50,10 +50,15 @@ shut(void)
     shutdown_minutes =
 	onearg(player->argp[1],
 	       "Time until shutdown in minutes (-1 to abort shutdown sequence)? ");
-    if (!updates_disabled())
-	if (!(p = getstarg(player->argp[2], "Disable update [y]? ", buf))
-	    || *p != 'n')
+    if (player->aborted)
+	return RET_SYN;
+    if (!updates_disabled()) {
+	p = getstarg(player->argp[2], "Disable update [y]? ", buf);
+	if (!p)
+	    return RET_SYN;
+	if (*p != 'n')
 	    disa();
+    }
 
     shutdown_was_pending = shutdown_initiate(shutdown_minutes);
     if (shutdown_was_pending < 0)

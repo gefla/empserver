@@ -52,9 +52,11 @@ range(void)
 	if (!player->owner || plane.pln_own == 0)
 	    continue;
 	p = getstarg(player->argp[2], "New range? ", buf);
+	if (!p)
+	    return RET_SYN;
 	if (!check_plane_ok(&plane))
 	    return RET_SYN;
-	if (!p || (i = atoi(p)) < 0)
+	if ((i = atoi(p)) < 0)
 	    continue;
 	rmax = pln_range_max(&plane);
 	plane.pln_range = MIN(rmax, i);

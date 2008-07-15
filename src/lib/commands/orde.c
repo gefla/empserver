@@ -136,7 +136,9 @@ orde(void)
 
 	    if (!orders) {
 		p = getstarg(player->argp[4], "Second dest? ", buf);
-		if (!p || !*p || !strcmp(p, "-")) {
+		if (!p)
+		    return RET_SYN;
+		if (!*p || !strcmp(p, "-")) {
 		    orders = 1;
 		    pr("A one-way order has been accepted.\n");
 		} else if (!strncmp(p, "s", 1)) {

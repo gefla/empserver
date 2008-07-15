@@ -114,7 +114,10 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
     nships = carriersatxy(target->sct_x, target->sct_y, player->cnum);
     if (nships) {
 	for (;;) {
-	    if (!(p = getstarg(0, "Carrier #? ", buf)) || !*p)
+	    p = getstring("Carrier #? ", buf);
+	    if (!p)
+		return -1;
+	    if (!*p)
 		break;
 	    cno = atoi(p);
 	    if (cno < 0

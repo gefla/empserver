@@ -94,7 +94,8 @@ powe(void)
 
     if (player->argp[i]) {
 	if (player->argp[i][0] == 'c') {
-	    snxtitem(&ni, EF_NATION, player->argp[i + 1]);
+	    if (!snxtitem(&ni, EF_NATION, player->argp[i + 1]))
+		return RET_SYN;
 	    while (nxtitem(&ni, &nat)) {
 		if (nat.nat_stat == STAT_UNUSED)
 		    continue;

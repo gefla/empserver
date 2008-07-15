@@ -55,7 +55,7 @@ deli(void)
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
 
-    while (!player->aborted && nxtsct(&nstr, &sect) > 0) {
+    while (nxtsct(&nstr, &sect) > 0) {
 	if (!player->owner)
 	    continue;
 
@@ -69,15 +69,17 @@ deli(void)
 	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
 	    return RET_SYN;
 	if (*p != 'q') {
-	    sprintf(prompt, "%s %s %s direction? ",
-		    xyas(nstr.x, nstr.y, player->cnum),
-		    dchr[sect.sct_type].d_name, ich->i_name);
 	    if (((*p >= '0') && (*p <= '9')) || *p == '+') {
 		thresh = atoi(p) & ~0x7;
 		if (*p == '+')
 		    p = NULL;
 		else {
+		    sprintf(prompt, "%s %s %s direction? ",
+			    xyas(nstr.x, nstr.y, player->cnum),
+			    dchr[sect.sct_type].d_name, ich->i_name);
 		    p = getstarg(player->argp[4], prompt, buf);
+		    if (!p)
+			return RET_SYN;
 		}
 	    }
 	    if (p && *p) {

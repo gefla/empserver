@@ -118,10 +118,6 @@ multifire(void)
     if (!snxtitem(&nbst, type, ptr))
 	return RET_SYN;
 
-    if (player->aborted) {
-	pr("Fire aborted.\n");
-	return RET_OK;
-    }
     while (nxtitem(&nbst, &item)) {
 	if (type == EF_LAND) {
 	    if (!getland(item.land.lnd_uid, &fland))
@@ -220,13 +216,11 @@ multifire(void)
 	    fy = fsect.sct_y;
 	}
 
-	if ((ptr = getstarg(player->argp[3], "Firing at? ", buf)) == 0
-	    || *ptr == '\0')
+	ptr = getstarg(player->argp[3], "Firing at? ", buf);
+	if (!ptr)
+	    return RET_SYN;
+	if (!*ptr)
 	    continue;
-	if (player->aborted) {
-	    pr("Fire aborted.\n");
-	    continue;
-	}
 	if (!issector(ptr)) {
 	    vshipno = atoi(ptr);
 	    if (vshipno < 0 || !getship(vshipno, &vship) ||

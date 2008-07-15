@@ -128,9 +128,11 @@ landmine(void)
 	       sect.sct_mines, xyas(sect.sct_x, sect.sct_y, player->cnum));
 	sprintf(prompt, "Drop how many mines from %s? ", prland(&land));
 	mines_wanted = onearg(player->argp[2], prompt);
-	if (!check_land_ok(&land))
+	if (mines_wanted < 0)
+	    return RET_SYN;
+	if (mines_wanted == 0)
 	    continue;
-	if (mines_wanted <= 0)
+	if (!check_land_ok(&land))
 	    continue;
 	land.lnd_mission = 0;
 	total_mines_laid = 0;

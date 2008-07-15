@@ -110,7 +110,7 @@ cmd_sail_ship(struct nstr_item *nstr)
     struct shpstr ship;
     char navpath[MAX_PATH_LEN];
 
-    while (!player->aborted && nxtitem(nstr, &ship)) {
+    while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
 	if ((ship.shp_autonav & AN_AUTONAV) &&
@@ -123,13 +123,13 @@ cmd_sail_ship(struct nstr_item *nstr)
 	   xyas(ship.shp_x, ship.shp_y, ship.shp_own));
 	cp = getpath(navpath, player->argp[2],
 		     ship.shp_x, ship.shp_y, 0, 0, P_SAILING);
+	if (!cp)
+	    return RET_SYN;
 	if (!check_ship_ok(&ship))
 	    continue;
-	if (!player->aborted) {
-	    strncpy(ship.shp_path, cp, sizeof(ship.shp_path) - 2);
-	    ship.shp_mission = 0;
-	    putship(ship.shp_uid, &ship);
-	}
+	strncpy(ship.shp_path, cp, sizeof(ship.shp_path) - 2);
+	ship.shp_mission = 0;
+	putship(ship.shp_uid, &ship);
     }
     return RET_OK;
 }

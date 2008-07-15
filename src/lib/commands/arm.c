@@ -96,6 +96,8 @@ arm(void)
 	    return RET_FAIL;
 	}
 	p = getstarg(player->argp[3], "Airburst [n]? ", buf);
+	if (!p)
+	    return RET_SYN;
 
 	if (!check_plane_ok(&pl) || !check_nuke_ok(&nuke))
 	    return RET_FAIL;
@@ -106,7 +108,7 @@ arm(void)
 	    return RET_FAIL;
 	}
 
-	if (p && (*p == 'y' || *p == 'Y'))
+	if (*p == 'y' || *p == 'Y')
 	    pl.pln_flags |= PLN_AIRBURST;
 	else
 	    pl.pln_flags &= ~PLN_AIRBURST;

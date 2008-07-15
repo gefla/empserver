@@ -90,7 +90,10 @@ tend(void)
 	if (type == EF_LAND) {
 	    sprintf(prompt, "Land unit(s) to tend from %s? ",
 		    prship(&tender));
-	    if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+	    p = getstarg(player->argp[3], prompt, buf);
+	    if (!p)
+		return RET_SYN;
+	    if (!*p)
 		continue;
 	    if (!check_ship_ok(&tender))
 		return RET_SYN;
@@ -100,7 +103,10 @@ tend(void)
 	}
 	sprintf(prompt, "Number of %s to tend from %s? ",
 		ip->i_name, prship(&tender));
-	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+	p = getstarg(player->argp[3], prompt, buf);
+	if (!p)
+	    return RET_SYN;
+	if (!*p)
 	    continue;
 	if (!check_ship_ok(&tender))
 	    return RET_SYN;
