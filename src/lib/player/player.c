@@ -111,7 +111,7 @@ player_main(struct player *p)
 
     while (status()) {
 	command();
-	player->aborted = 0;
+	player->aborted = player->eof;
 	empth_yield();
     }
     /* #*# I put the following line in to prevent server crash -KHS */
