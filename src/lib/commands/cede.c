@@ -62,7 +62,8 @@ cede(void)
     struct natstr *natp;
     char buf[1024];
 
-    if ((p = getstarg(player->argp[1], "Cede what? ", buf)) == 0)
+    p = getstarg(player->argp[1], "Cede what? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (snxtsct(&ns, p))
 	is_sector = 1;
