@@ -59,7 +59,7 @@
 int
 zdon(void)
 {
-    natid whichcnum;
+    int whichcnum;
     struct natstr *natp;
     char *p;
 

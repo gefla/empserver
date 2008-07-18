@@ -43,7 +43,7 @@ orig(void)
     char *p;
     coord x, y;
     char buf[1024];
-    natid cnum;
+    int cnum;
     struct natstr *np;
 
     p = getstarg(player->argp[1], "New origin (sector or country) : ", buf);
