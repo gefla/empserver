@@ -53,7 +53,7 @@ dist(void)
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    while (!player->aborted && nxtsct(&nstr, &sect)) {
+    while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	pr("%s at %s ", dchr[sect.sct_type].d_name,
@@ -70,20 +70,18 @@ dist(void)
 	} else
 	    pr("has no dist sector. \n");
 	p = getstarg(player->argp[2], "Distribution sector? ", buf);
-	if (p && (*p == 0))
+	if (!p)
+	    return RET_SYN;
+	if (!*p)
 	    continue;
-
 	if (!check_sect_ok(&sect))
 	    continue;
 
-	if (p && (*p != '.') && (*p != 'h') && (!sarg_xy(p, &dstx, &dsty)))
-	    return RET_SYN;
-
-	if (p && ((*p == '.') || (*p == 'h'))) {
+	if (*p == '.' || *p == 'h') {
 	    dstx = sect.sct_x;
 	    dsty = sect.sct_y;
-	}
-
+	} else if (!sarg_xy(p, &dstx, &dsty))
+	    return RET_SYN;
 	if (!getsect(dstx, dsty, &dsect)) {
 	    pr("Bad sector.\n");
 	    return RET_FAIL;
