@@ -110,6 +110,8 @@ explore(void)
     sprintf(prompt, "Number of %s to explore with? (max %d) ",
 	    ip->i_name, amt_src);
     amount = onearg(player->argp[3], prompt);
+    if (amount <= 0)
+	return RET_SYN;
     if (!check_sect_ok(&sect))
 	return RET_FAIL;
     if (amount > amt_src) {
@@ -125,8 +127,6 @@ explore(void)
     if (!check_sect_ok(&sect))
 	return RET_FAIL;
 
-    if (amount <= 0)
-	return RET_SYN;
     weight = (double)amount * ip->i_lbs;
     /* remove commodities from source sector */
     getsect(x, y, &start);
