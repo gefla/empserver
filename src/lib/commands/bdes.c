@@ -60,7 +60,8 @@ bdes(void)
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	    continue;
 	if (!isprint(*p)) {
-	    pr("Bad character. Must be printable!\n");
+	    if (*p)
+		pr("Bad character. Must be printable!\n");
 	    continue;
 	}
 	changed |= map_set(player->cnum, nstr.x, nstr.y, *p, 2);
