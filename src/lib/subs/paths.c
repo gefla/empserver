@@ -169,13 +169,13 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 		xyas(x, y, player->cnum));
     }
     bp = getstring(prompt, buf2);
-    if (bp && p + strlen(bp) + 1 >= buf + MAX_PATH_LEN) {
+    if (!bp)
+	return NULL;
+    if (p + strlen(bp) + 1 >= buf + MAX_PATH_LEN) {
 	pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
 	pr("Aborting...\n");
 	bp = NULL;
     }
-    if (!bp)
-	return NULL;
     strcpy(p, bp);
     if (*bp)
 	goto more;
