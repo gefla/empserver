@@ -56,7 +56,7 @@ getele(char *recipient, char *buf)
     pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
     bp = buf;
     *bp = 0;
-    while (!player->aborted) {
+    for (;;) {
 	sprintf(left, "%4d left: ", (int)(buf + MAXTELSIZE - bp));
 	if (uprmptrd(left, buffer, sizeof(buffer) - 2) <= 0)
 	    return -1;
@@ -93,8 +93,6 @@ getele(char *recipient, char *buf)
 	    bp += len;
 	}
     }
-    if (player->aborted)
-	return -1;
     return bp - buf;
 }
 
