@@ -66,7 +66,7 @@ surv(void)
 
     nsect = 0;
     ptr = getstarg(player->argp[1], "commodity or variable? ", buf);
-    if (ptr == 0)
+    if (!ptr || !*ptr)
 	return RET_SYN;
     ptr = nstr_comp_val(ptr, &val, EF_SECTOR);
     if (!ptr)
