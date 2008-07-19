@@ -951,11 +951,11 @@ att_prompt(char *prompt, char army)
 	army = '~';
     for (;;) {
 	p = getstring(prompt, buf);
-	if (player->aborted || (p && *p == 'q')) {
+	if (!p || *p == 'q') {
 	    abort_attack();
 	    return 'N';
 	}
-	if (!p || !*p)
+	if (!*p)
 	    return 'n';
 	if (tolower(*p) == 'y' || tolower(*p) == 'n')
 	    return *p;
