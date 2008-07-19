@@ -53,6 +53,7 @@ desi(void)
     char prompt[128];
     char buf[1024];
     int changed = 0;
+    int rc = RET_OK;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -78,7 +79,8 @@ desi(void)
 			!player->god)) {
 	    pr("No such designation\n"
 	       "See \"info Sector-types\" for possible designations\n");
-	    return RET_FAIL;
+	    rc = RET_FAIL;
+	    break;
 	}
 	if (!player->god) {
 	    if (des == SCT_WASTE) {
@@ -133,5 +135,5 @@ desi(void)
     }
     if (changed)
 	writemap(player->cnum);
-    return RET_OK;
+    return rc;
 }

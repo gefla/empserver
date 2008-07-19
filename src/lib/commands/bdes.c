@@ -47,18 +47,21 @@ bdes(void)
     char prompt[128];
     char buf[1024];
     int changed = 0;
+    int rc = RET_OK;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    while (!player->aborted && nxtsct(&nstr, &sect)) {
+    while (nxtsct(&nstr, &sect)) {
 	if ((nstr.ncond > 0) && (sect.sct_own != player->cnum))
 	    continue;
 	d = player->map[sect.sct_uid];
 	sprintf(prompt, "%s '%c'  desig? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		d ? d : ' ');
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-	    continue;
+	if ((p = getstarg(player->argp[2], prompt, buf)) == 0) {
+	    rc = RET_SYN;
+	    break;
+	}
 	if (!isprint(*p)) {
 	    if (*p)
 		pr("Bad character. Must be printable!\n");
@@ -68,5 +71,5 @@ bdes(void)
     }
     if (changed)
 	writebmap(player->cnum);
-    return RET_OK;
+    return rc;
 }
