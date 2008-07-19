@@ -50,7 +50,7 @@ morale(void)
 
     if (!snxtitem(&np, EF_LAND, player->argp[1]))
 	return RET_SYN;
-    while (!player->aborted && nxtitem(&np, &land)) {
+    while (nxtitem(&np, &land)) {
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	natp = getnatp(land.lnd_own);
@@ -58,11 +58,11 @@ morale(void)
 	sprintf(mess, "New retreat percentage for %s (min %d%%)? ",
 		prland(&land), min);
 	p = getstarg(player->argp[2], mess, buf);
+	if (!p)
+	    return RET_SYN;
 	if (!check_land_ok(&land))
 	    continue;
-	if (player->aborted)
-	    continue;
-	if (!p || (i = atoi(p)) < 0)
+	if ((i = atoi(p)) < 0)
 	    continue;
 	land.lnd_retreat = ((i < min) ? min : i);
 	if (land.lnd_retreat > 100)

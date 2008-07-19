@@ -66,7 +66,7 @@ rout(void)
 	return RET_SYN;
     i_del = ip->i_uid;;
     if (!snxtsct(&ns, player->argp[2]))
-	return RET_FAIL;
+	return RET_SYN;
     if (!mapbuf)
 	mapbuf = malloc(WORLD_Y * MAPWIDTH(3));
     if (!map) {

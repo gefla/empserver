@@ -87,7 +87,7 @@ zdon(void)
 	p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
     }
     if (player->aborted)
-	return RET_FAIL;
+	return RET_SYN;
 
     checking = 1;
     wantupd = 0;

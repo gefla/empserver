@@ -93,7 +93,7 @@ set(void)
 	sprintf(prompt, "%s #%d; Price? ",
 		trade_nameof(&trade, &item), ni.cur);
 	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
-	    break;
+	    return RET_SYN;
 	if (!trade_check_item_ok(&item))
 	    return RET_FAIL;
 	if ((price = atoi(p)) < 0)

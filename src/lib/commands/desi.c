@@ -60,7 +60,7 @@ desi(void)
     natp = getnatp(player->cnum);
     cap_x = natp->nat_xcap;
     cap_y = natp->nat_ycap;
-    while (!player->aborted && nxtsct(&nstr, &sect)) {
+    while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	if (!player->god && dchr[sect.sct_type].d_cost < 0)
@@ -68,8 +68,10 @@ desi(void)
 	sprintf(prompt, "%s %d%% %s  desig? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-	    continue;
+	if ((p = getstarg(player->argp[2], prompt, buf)) == 0) {
+	    rc = RET_SYN;
+	    break;
+	}
 
 	if (!check_sect_ok(&sect))
 	    continue;

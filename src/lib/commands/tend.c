@@ -129,7 +129,7 @@ tend(void)
 	if (!snxtitem(&targets, EF_SHIP,
 		      getstarg(player->argp[4], "Ships to be tended? ",
 			       buf)))
-	    break;
+	    return RET_SYN;
 	if (!check_ship_ok(&tender))
 	    return RET_SYN;
 	total = 0;
@@ -231,7 +231,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!snxtitem(&targets, EF_SHIP,
 		      getstarg(player->argp[4], "Ship to be tended? ",
 			       buf)))
-	    break;
+	    return RET_SYN;
 	if (!check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {
