@@ -58,12 +58,7 @@ thre(void)
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
     type = ip->i_uid;
-    if (player->argp[3] && *player->argp[3] &&
-	(*player->argp[3] < '0' || *player->argp[3] > '9')) {
-	pr("Threshold must be a number\n");
-	return RET_SYN;
-    }
-    while (!player->aborted && nxtsct(&nstr, &sect)) {
+    while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
 	val = sect.sct_dist[type];
@@ -76,12 +71,14 @@ thre(void)
 		    xyas(nstr.x, nstr.y, player->cnum),
 		    dchr[sect.sct_type].d_name);
 	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
-	    return RET_FAIL;
+	    return RET_SYN;
+	if (!*p)
+	    continue;
 	if (!check_sect_ok(&sect))
 	    return RET_FAIL;
-	if (*p == '\0' || *p == '-')
-	    continue;
 	thresh = atoi(p);
+	if (thresh < 0)
+	    return RET_SYN;
 	if (thresh > ITEM_MAX)
 	    thresh = ITEM_MAX;
 	if ((val > 0) && (val == thresh)) {
