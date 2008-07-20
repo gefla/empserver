@@ -62,13 +62,13 @@ torp(void)
     char *ptr;
     struct nstr_item nbst;
     char buf[1024];
-    char *sav;
+    char *p;
     int ntorping = 0;
     char prompt[128];
 
-    if (!(sav = getstarg(player->argp[1], "From ship(s)? ", buf)))
+    if (!(p = getstarg(player->argp[1], "From ship(s)? ", buf)))
 	return RET_SYN;
-    if (!snxtitem(&nbst, EF_SHIP, sav))
+    if (!snxtitem(&nbst, EF_SHIP, p))
 	return RET_SYN;
     while (nxtitem(&nbst, &sub)) {
 	if (sub.shp_own != player->cnum)
@@ -87,7 +87,7 @@ torp(void)
 	ntorping++;
     }
     pr("%d ships are eligible to torp\n", ntorping);
-    snxtitem(&nbst, EF_SHIP, sav);
+    snxtitem_rewind(&nbst);
     while (nxtitem(&nbst, &sub)) {
 	if (!sub.shp_own)
 	    continue;

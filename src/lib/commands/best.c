@@ -54,7 +54,7 @@ best(void)
     while (!player->aborted && nxtsct(&nstr, &s1)) {
 	if (s1.sct_own != player->cnum)
 	    continue;
-	snxtsct(&nstr2, player->argp[2]);
+	snxtsct_rewind(&nstr2);
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (s2.sct_own != player->cnum)
 		continue;
