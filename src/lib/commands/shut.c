@@ -64,15 +64,19 @@ shut(void)
     if (shutdown_was_pending < 0)
 	return RET_FAIL;
 
-    if (shutdown_was_pending) {
-	if (shutdown_minutes >= 0) {
-	    pr("The shutdown time has been changed to %d minutes!",
+    if (shutdown_minutes >= 0) {
+	if (shutdown_was_pending)
+	    pr("The shutdown time has been changed to %d minutes!\n",
 	       shutdown_minutes);
-	} else {
-	    pr("The server shutdown has been cancelled!");
+	else
+	    pr("Shutdown sequence begun.\n");
+    } else {
+	if (shutdown_was_pending)
+	    pr("The server shutdown has been cancelled!\n");
+	else {
+	    pr("No shutdown to abort\n");
+	    return RET_FAIL;
 	}
-    } else if (shutdown_minutes) {
-	pr("Shutdown sequence begun.\n");
     }
     return RET_OK;
 }
