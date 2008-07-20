@@ -438,7 +438,7 @@ xloc and yloc together reference the sector table, but that's not
 expressed in meta-data (yet).
 
 Let's stop here before this gets too long and boring.  Experiment
-yourself!  Check out example Perl code src/xdump.pl.
+yourself!  Check out example Perl code scripts/xdump.pl.
 
 
 Analysis of xdump as Configuration File Format
