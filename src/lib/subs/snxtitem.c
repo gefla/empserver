@@ -55,11 +55,10 @@ snxtitem(struct nstr_item *np, int type, char *str)
 {
     struct range range;
     int list[NS_LSIZE];
-    int n;
+    int cnum, n;
     coord cx, cy;
     int dist;
     int flags;
-    char natnumber[16];
     char prompt[128];
     char buf[1024];
 
@@ -76,8 +75,11 @@ snxtitem(struct nstr_item *np, int type, char *str)
 	return 0;
     }
     if (type == EF_NATION && isalpha(*str)) {
-	sprintf(natnumber, "%d", natarg(str, NULL));
-	str = natnumber;
+	cnum = natarg(str, NULL);
+	if (cnum < 0)
+	    return 0;
+	sprintf(buf, "%d", cnum);
+	str = buf;
     }
     flags = ef_flags(type);
     switch (sarg_type(str)) {
