@@ -75,30 +75,28 @@ zdon(void)
 	pr("Demand updates are not enabled.\n");
 	return RET_FAIL;
     }
-    whichcnum = player->cnum;
-    p = NULL;
     if (player->god) {
 	/* Deity syntax "country what" */
-	whichcnum = onearg(player->argp[1], "Which country no.? ");
-	if ((whichcnum > 0) && (getnatp(whichcnum)))
-	    p = getstarg(player->argp[2], "Want update? [Yes|No|Check] ",
-			 buf);
+	whichcnum = natarg(player->argp[1], "Which country no.? ");
+	if (whichcnum < 0)
+	    return RET_SYN;
+	p = getstarg(player->argp[2], "Want update? [Yes|No|Check] ", buf);
     } else {
+	whichcnum = player->cnum;
 	p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
     }
-    if (player->aborted)
+    if (!p)
 	return RET_SYN;
 
-    checking = 1;
-    wantupd = 0;
-    if (p) {
-	if (*p == 'y' || *p == 'Y') {
-	    checking = 0;
-	    wantupd = 1;
-	} else if  (*p == 'n' || *p == 'N') {
-	    checking = 0;
-	    wantupd = 0;
-	}
+    if (*p == 'y' || *p == 'Y') {
+	checking = 0;
+	wantupd = 1;
+    } else if  (*p == 'n' || *p == 'N') {
+	checking = 0;
+	wantupd = 0;
+    } else {
+	checking = 1;
+	wantupd = 0;
     }
 
     if (!(natp = getnatp(whichcnum))) {
