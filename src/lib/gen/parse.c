@@ -87,7 +87,7 @@ parse(char *buf, char *space, char **arg,
 	for (; *buf && (quoted || !isspace(*(unsigned char *)buf)); buf++) {
 	    if (*buf == '"')
 		quoted = !quoted;
-	    else if (*buf >= 0x20 && *buf <= 0x7e)
+	    else if ((*buf >= 0x20 && *buf <= 0x7e) || *buf == '\t')
 		*space++ = *buf;
 	    /* else funny character; ignore */
 	}
