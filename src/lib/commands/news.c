@@ -202,8 +202,6 @@ preport(struct nwsstr *np)
 	sprintf(cp, " %s times", ptr);
 	cp += strlen(cp);
     }
-    if (*buf >= 'a' && *buf <= 'z')
-	*buf += 'A' - 'a';
     if (cp - buf > 80) {
 	for (i = 80; --i > 60;)
 	    if (buf[i] == ' ')
