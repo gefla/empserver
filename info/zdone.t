@@ -31,5 +31,8 @@ command.
 Your zdone state is cleared when an update occurs.
 .s1
 The \*Qshow updates\*U command shows update policy and schedule.
-.sp
+.s1
+For deities, the command takes an additional parameter: the country to
+impersonate.
+.s1
 .SA "show, Updates"

@@ -75,19 +75,9 @@ zdon(void)
 	pr("Demand updates are not enabled.\n");
 	return RET_FAIL;
     }
-    if (player->god) {
-	/* Deity syntax "country what" */
-	whichcnum = natarg(player->argp[1], "Which country no.? ");
-	if (whichcnum < 0)
-	    return RET_SYN;
-	p = getstarg(player->argp[2], "Want update? [Yes|No|Check] ", buf);
-    } else {
-	whichcnum = player->cnum;
-	p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
-    }
+    p = getstarg(player->argp[1], "Want update? [Yes|No|Check] ", buf);
     if (!p)
 	return RET_SYN;
-
     if (*p == 'y' || *p == 'Y') {
 	checking = 0;
 	wantupd = 1;
@@ -98,6 +88,13 @@ zdon(void)
 	checking = 1;
 	wantupd = 0;
     }
+
+    if (player->god) {
+	whichcnum = natarg(player->argp[2], "for which country? ");
+	if (whichcnum < 0)
+	    return RET_SYN;
+    } else
+	whichcnum = player->cnum;
 
     if (!(natp = getnatp(whichcnum))) {
 	pr("Unable to find country. %d\n", whichcnum);
