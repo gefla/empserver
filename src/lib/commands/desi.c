@@ -75,22 +75,24 @@ desi(void)
 	    continue;
 
 	des = sct_typematch(p);
-	if (des < 0 || (((des == SCT_BSPAN) || (des == SCT_BTOWER)) &&
-			!player->god)) {
+	if (des < 0) {
 	    pr("No such designation\n"
 	       "See \"info Sector-types\" for possible designations\n");
-	    rc = RET_FAIL;
+	    rc = RET_SYN;
 	    break;
 	}
 	if (!player->god) {
 	    if (des == SCT_WASTE) {
 		pr("Only a nuclear device (or %s) can make a %s!\n",
 		   cname(0), dchr[des].d_name);
-		continue;
+		rc = RET_FAIL;
+		break;
 	    }
 	    if (dchr[des].d_cost < 0) {
-		pr("Only %s can make a %s!\n", cname(0), dchr[des].d_name);
-		continue;
+		pr("Only %s can designate a %s!\n",
+		   cname(0), dchr[des].d_name);
+		rc = RET_FAIL;
+		break;
 	    }
 	}
 	if (sect.sct_type == des && sect.sct_newtype == des)
@@ -110,6 +112,7 @@ desi(void)
 	    && dchr[des].d_cost > 0) {
 	    if (natp->nat_money < player->dolcost + dchr[des].d_cost) {
 		pr("You can't afford a %s!\n", dchr[des].d_name);
+		rc = RET_FAIL;
 		break;
 	    }
 	    player->dolcost += dchr[des].d_cost;
