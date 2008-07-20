@@ -42,9 +42,16 @@
 #include "server.h"
 
 int shutdown_pending;
+static empth_t *shutdown_thread;
 
 static void shutdown_sequence(void *unused);
 
+/*
+ * Initiate shutdown in MINS_FROM_NOW minutes.
+ * If MINS_FROM_NOW is negative, cancel any pending shutdown instead.
+ * Return -1 on error, zero when no shutdown was pending, positive
+ * number when a pending shutdown was modified.
+ */
 int
 shutdown_initiate(int mins_from_now)
 {
@@ -60,14 +67,18 @@ shutdown_initiate(int mins_from_now)
 
     shutdown_pending = mins_from_now + 1;
 
-    if (old_pending) {
-	pr_wall("The shutdown time has been changed to %d minutes!\n",
-		mins_from_now);
+    if (shutdown_thread) {
+	if (old_pending)
+	    pr_wall("The shutdown time has been changed to %d minutes!\n",
+		    mins_from_now);
 	/* FIXME wake up shutdown_sequence() */
     } else {
-	if (!empth_create(shutdown_sequence, 50 * 1024, 0,
-			  "shutdownSeq", NULL))
+	shutdown_thread = empth_create(shutdown_sequence, 50 * 1024, 0,
+				       "shutdownSeq", NULL);
+	if (!shutdown_thread) {
+	    shutdown_pending = 0;
 	    return -1;
+	}
     }
 
     return old_pending;
@@ -104,4 +115,6 @@ shutdown_sequence(void *unused)
 	/* FIXME error due to late wakeup accumulates */
 	empth_sleep(now + 60);
     }
+
+    shutdown_thread = NULL;
 }
