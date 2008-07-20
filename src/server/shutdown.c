@@ -71,7 +71,7 @@ shutdown_initiate(int mins_from_now)
 	if (old_pending)
 	    pr_wall("The shutdown time has been changed to %d minutes!\n",
 		    mins_from_now);
-	/* FIXME wake up shutdown_sequence() */
+	empth_wakeup(shutdown_thread);
     } else {
 	shutdown_thread = empth_create(shutdown_sequence, 50 * 1024, 0,
 				       "shutdownSeq", NULL);
