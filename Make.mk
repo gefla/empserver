@@ -334,6 +334,7 @@ info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
 # this build.
 
 ifeq ($(revctrl),git)
+.PHONY: sources.mk
 sources.mk:
 	echo "src := $(src)" >sources.mk
 else
