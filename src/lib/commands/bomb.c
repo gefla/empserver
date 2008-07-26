@@ -99,11 +99,8 @@ bomb(void)
     char buf[1024];
 
     wantflags = 0;
-    if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))
+    if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
 	return RET_SYN;
-    if (!snxtitem(&ni_esc, EF_PLANE,
-		  getstarg(player->argp[2], "escort(s)? ", buf)))
-	pr("No escorts...\n");
     p = getstarg(player->argp[3], "pinpoint, or strategic? ", buf);
     if (!p || !*p)
 	return RET_SYN;

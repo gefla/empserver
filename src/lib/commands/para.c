@@ -63,11 +63,8 @@ para(void)
     char buf[1024];
 
     wantflags = P_P;
-    if (!snxtitem(&ni_bomb, EF_PLANE, player->argp[1]))
+    if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
 	return RET_SYN;
-    if (!snxtitem(&ni_esc, EF_PLANE,
-		  getstarg(player->argp[2], "escort(s)? ", buf)))
-	pr("No escorts...\n");
     if (!get_assembly_point(player->argp[3], &ap_sect, buf))
 	return RET_SYN;
     ax = ap_sect.sct_x;

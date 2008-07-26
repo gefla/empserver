@@ -58,6 +58,29 @@ static int pln_equip(struct plist *, struct ichrstr *, int, char);
 static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
 
 /*
+ * Get planes and escorts argument.
+ * Read planes into *NI_BOMB, and (optional) escorts into *NI_ESC.
+ * If INPUT_BOMB is not empty, use it, else prompt for more input.
+ * Same for INPUT_ESC.
+ * If we got a plane argument, initialize *NI_BOMB and *NI_ESC, and
+ * return 0.
+ * Else return -1 (*NI_BOMB and *NI_ESC may be modified).
+ */
+int
+get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
+	   char *input_bomb, char *input_esc)
+{
+    char buf[1024];
+
+    if (!snxtitem(ni_bomb, EF_PLANE, input_bomb))
+	return -1;
+    if (!snxtitem(ni_esc, EF_PLANE,
+		  getstarg(input_esc, "escort(s)? ", buf)))
+	pr("No escorts...\n");
+    return 0;
+}
+
+/*
  * Get assembly point argument.
  * If INPUT is not empty, use it, else prompt for more input using PROMPT.
  * If this yields a valid assembly point, read it into *AP_SECT and
