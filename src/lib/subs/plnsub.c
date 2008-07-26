@@ -75,8 +75,11 @@ get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
     if (!snxtitem(ni_bomb, EF_PLANE, input_bomb))
 	return -1;
     if (!snxtitem(ni_esc, EF_PLANE,
-		  getstarg(input_esc, "escort(s)? ", buf)))
+		  getstarg(input_esc, "escort(s)? ", buf))) {
+	if (player->aborted)
+	    return -1;
 	pr("No escorts...\n");
+    }
     return 0;
 }
 
