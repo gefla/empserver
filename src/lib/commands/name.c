@@ -49,7 +49,7 @@ name(void)
     struct nstr_item nb;
     char buf[1024];
 
-    if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nb, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&nb, &ship)) {
 	if (!player->owner)

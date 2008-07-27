@@ -53,7 +53,7 @@ navi(void)
     double minmob, maxmob;
     int together;
 
-    if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     shp_sel(&ni_ship, &ship_list);
     shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
@@ -199,7 +199,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	     */
 	case 'M':
 	    do_map(bmap_flag, leader->ef_type, player->argp[1],
-		player->argp[2]);
+		   player->argp[2]);
 	    skip = 1;
 	    continue;
 	case 'f':

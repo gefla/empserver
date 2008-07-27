@@ -45,7 +45,7 @@ carg(void)
     struct nstr_item ni;
     struct shpstr ship;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     nships = 0;
     while (nxtitem(&ni, &ship)) {
@@ -94,7 +94,7 @@ lcarg(void)
     struct nstr_item ni;
     struct lndstr land;
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     nunits = 0;
     while (nxtitem(&ni, &land)) {

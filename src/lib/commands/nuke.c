@@ -46,7 +46,7 @@ nuke(void)
     struct nukstr nuk;
     struct plnstr plane;
 
-    if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
+    if (!snxtitem(&nstr, EF_NUKE, player->argp[1], NULL))
 	return RET_SYN;
     nnukes = noff = 0;
     while (nxtitem(&nstr, &nuk)) {

@@ -45,7 +45,7 @@ sabo(void)
     double odds;
     int dam;
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
 
     while (nxtitem(&ni, &land)) {

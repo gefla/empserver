@@ -43,7 +43,7 @@ pboa(void)
     struct nstr_item np;
     struct plnstr plane;
 
-    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&np, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&np, &plane)) {
 	getsect(plane.pln_x, plane.pln_y, &sect);

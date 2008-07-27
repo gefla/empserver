@@ -55,7 +55,7 @@ arm(void)
     char buf[1024];
     char prompt[128];
 
-    if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&ni, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&ni, &pl)) {
 	if (!player->owner
@@ -138,7 +138,7 @@ disarm(void)
     struct sctstr sect;
     char buf[128];
 
-    if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&ni, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&ni, &pl)) {
 	if (!player->owner)

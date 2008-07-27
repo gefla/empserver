@@ -90,7 +90,7 @@ radar(short type)
     case NS_LIST:
     case NS_GROUP:
 	/* assumes a NS_LIST return is a unit no */
-	if (!snxtitem(&ni, type, cp)) {
+	if (!snxtitem(&ni, type, cp, NULL)) {
 	    pr("Specify at least one %s\n", ef_nameof(type));
 	    return RET_SYN;
 	}

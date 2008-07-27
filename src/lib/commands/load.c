@@ -102,7 +102,7 @@ load(void)
 
     noisy = isdigit(*p);
 
-    if (!snxtitem(&nbst, EF_SHIP, p))
+    if (!snxtitem(&nbst, EF_SHIP, p, NULL))
 	return RET_SYN;
 
     load_unload = **player->argp == 'l' ? LOAD : UNLOAD;
@@ -237,7 +237,7 @@ lload(void)
 
     noisy = isdigit(*p);
 
-    if (!snxtitem(&nbst, EF_LAND, p))
+    if (!snxtitem(&nbst, EF_LAND, p, NULL))
 	return RET_SYN;
 
     load_unload = player->argp[0][1] == 'l' ? LOAD : UNLOAD;
@@ -370,8 +370,10 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
-    if (!snxtitem(&ni, EF_PLANE,
-		  p = getstarg(player->argp[3], prompt, buf)))
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p)
+	return RET_SYN;
+    if (!snxtitem(&ni, EF_PLANE, p, NULL))
 	return RET_SYN;
 
     if (!still_ok_ship(sectp, sp))
@@ -505,8 +507,10 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
-    if (!snxtitem(&ni, EF_LAND,
-		  p = getstarg(player->argp[3], prompt, buf)))
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p)
+	return RET_SYN;
+    if (!snxtitem(&ni, EF_LAND, p, NULL))
 	return RET_SYN;
 
     if (!still_ok_ship(sectp, sp))
@@ -767,8 +771,10 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
-    if (!snxtitem(&ni, EF_PLANE,
-		  p = getstarg(player->argp[3], prompt, buf)))
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p)
+	return RET_SYN;
+    if (!snxtitem(&ni, EF_PLANE, p, NULL))
 	return RET_SYN;
 
     if (!still_ok_land(sectp, lp))
@@ -958,8 +964,10 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
 	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
-    if (!snxtitem(&ni, EF_LAND,
-		  p = getstarg(player->argp[3], prompt, buf)))
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p)
+	return RET_SYN;
+    if (!snxtitem(&ni, EF_LAND, p, NULL))
 	return RET_SYN;
 
     if (!still_ok_land(sectp, lp))

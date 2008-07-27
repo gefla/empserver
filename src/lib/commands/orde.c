@@ -73,7 +73,7 @@ orde(void)
     char buf[1024];
     char prompt[128];
 
-    if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nb, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     while (!player->aborted && nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
@@ -357,7 +357,7 @@ qorde(void)
     struct nstr_item nb;
     struct shpstr ship;
 
-    if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nb, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)
@@ -419,7 +419,7 @@ sorde(void)
     struct shpstr ship;
     char buf[1024];
 
-    if (!snxtitem(&nb, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nb, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&nb, (&ship))) {
 	if (!player->owner || ship.shp_own == 0)

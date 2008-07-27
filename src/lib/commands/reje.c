@@ -80,7 +80,7 @@ reje(void)
 	pr("That's not one of the choices!\n");
 	return RET_SYN;
     }
-    if (!snxtitem(&ni, EF_NATION, player->argp[3]))
+    if (!snxtitem(&ni, EF_NATION, player->argp[3], NULL))
 	return RET_SYN;
     while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat == STAT_GOD) {

@@ -70,7 +70,7 @@ scut(void)
     sprintf(prompt, "%s(s)? ", ef_nameof(type));
     if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
 	return RET_SYN;
-    if (!snxtitem(&ni, type, p))
+    if (!snxtitem(&ni, type, p, NULL))
 	return RET_SYN;
     if (p && (isalpha(*p) || (*p == '*') || (*p == '~') || issector(p)
 	      || islist(p))) {

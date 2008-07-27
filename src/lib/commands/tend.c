@@ -80,8 +80,7 @@ tend(void)
 	return RET_SYN;
     }
 
-    if (!snxtitem(&tenders, EF_SHIP,
-		  getstarg(player->argp[2], "Tender(s)? ", buf)))
+    if (!snxtitem(&tenders, EF_SHIP, player->argp[2], "Tender(s)? "))
 	return RET_SYN;
 
     while (nxtitem(&tenders, &tender)) {
@@ -127,8 +126,7 @@ tend(void)
 	    break;
 	}
 	if (!snxtitem(&targets, EF_SHIP,
-		      getstarg(player->argp[4], "Ships to be tended? ",
-			       buf)))
+		      player->argp[4], "Ships to be tended? "))
 	    return RET_SYN;
 	if (!check_ship_ok(&tender))
 	    return RET_SYN;
@@ -213,7 +211,7 @@ tend_land(struct shpstr *tenderp, char *units)
     struct nstr_item pni;
     char buf[1024];
 
-    if (!snxtitem(&lni, EF_LAND, units))
+    if (!snxtitem(&lni, EF_LAND, units, NULL))
 	return RET_SYN;
 
     while (nxtitem(&lni, &land)) {
@@ -229,8 +227,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	    continue;
 	}
 	if (!snxtitem(&targets, EF_SHIP,
-		      getstarg(player->argp[4], "Ship to be tended? ",
-			       buf)))
+		      player->argp[4], "Ship to be tended? "))
 	    return RET_SYN;
 	if (!check_land_ok(&land))
 	    return RET_SYN;

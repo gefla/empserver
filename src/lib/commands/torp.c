@@ -62,13 +62,10 @@ torp(void)
     char *ptr;
     struct nstr_item nbst;
     char buf[1024];
-    char *p;
     int ntorping = 0;
     char prompt[128];
 
-    if (!(p = getstarg(player->argp[1], "From ship(s)? ", buf)))
-	return RET_SYN;
-    if (!snxtitem(&nbst, EF_SHIP, p))
+    if (!snxtitem(&nbst, EF_SHIP, player->argp[1], "From ship(s)? "))
 	return RET_SYN;
     while (nxtitem(&nbst, &sub)) {
 	if (sub.shp_own != player->cnum)

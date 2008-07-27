@@ -61,7 +61,7 @@ news(void)
     char num[128];
     char *verb;
 
-    if (!snxtitem(&nstr, EF_NEWS, "*"))
+    if (!snxtitem(&nstr, EF_NEWS, "*", NULL))
     	return RET_SYN;
     memset(page_has_news, 0, sizeof(page_has_news));
     memset(sectors_taken, 0, sizeof(sectors_taken));

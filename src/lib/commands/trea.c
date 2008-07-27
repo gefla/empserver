@@ -43,7 +43,7 @@ trea(void)
     struct nstr_item nstr;
     int ntreaty;
 
-    if (!snxtitem(&nstr, EF_TREATY, player->argp[1]))
+    if (!snxtitem(&nstr, EF_TREATY, player->argp[1], NULL))
 	return RET_SYN;
     pr("\t... %s Treaty Report ...\n", cname(player->cnum));
     ntreaty = 0;

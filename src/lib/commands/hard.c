@@ -56,7 +56,7 @@ hard(void)
     long cash;
     struct natstr *natp;
 
-    if (!snxtitem(&ni, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&ni, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     if ((p = getstarg(player->argp[2], "Increase by? ", buf)) == 0
 	|| *p == 0)

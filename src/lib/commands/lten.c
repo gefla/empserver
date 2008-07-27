@@ -69,8 +69,7 @@ ltend(void)
     if (!(ip = whatitem(player->argp[1], "Transfer what commodity? ")))
 	return RET_SYN;
 
-    if (!snxtitem(&tenders, EF_SHIP,
-		  getstarg(player->argp[2], "Tender(s)? ", buf)))
+    if (!snxtitem(&tenders, EF_SHIP, player->argp[2], "Tender(s)? "))
 	return RET_SYN;
     while (nxtitem(&tenders, &tender)) {
 	if (!player->owner)
@@ -95,8 +94,7 @@ ltend(void)
 	    return RET_FAIL;
 	}
 	if (!snxtitem(&targets, EF_LAND,
-		      getstarg(player->argp[4], "Units to be tended? ",
-			       buf)))
+		      player->argp[4], "Units to be tended? "))
 	    return RET_SYN;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;

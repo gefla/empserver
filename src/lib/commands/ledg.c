@@ -48,7 +48,7 @@ ledg(void)
 	pr("Loans are not enabled.\n");
 	return RET_FAIL;
     }
-    if (!snxtitem(&nstr, EF_LOAN, player->argp[1]))
+    if (!snxtitem(&nstr, EF_LOAN, player->argp[1], NULL))
 	return RET_SYN;
     pr("\n... %s Ledger ...\n", cname(player->cnum));
     nloan = 0;

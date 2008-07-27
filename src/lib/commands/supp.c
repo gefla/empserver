@@ -43,7 +43,7 @@ supp(void)
     struct nstr_item ni;
     struct lndstr land;
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
 
     nunits = 0;

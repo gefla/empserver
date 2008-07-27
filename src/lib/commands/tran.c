@@ -77,7 +77,7 @@ tran_nuke(void)
 
     weight = 0;
     count = 0;
-    if (!snxtitem(&nstr, EF_NUKE, player->argp[2]))
+    if (!snxtitem(&nstr, EF_NUKE, player->argp[2], NULL))
 	return RET_SYN;
     while (nxtitem(&nstr, &nuke)) {
 	if (!player->owner)
@@ -156,7 +156,7 @@ tran_plane(void)
 
     weight = 0;
     count = 0;
-    if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
+    if (!snxtitem(&nstr, EF_PLANE, player->argp[2], NULL))
 	return RET_SYN;
     /*
      * First do some sanity checks: make sure that they are all in the,

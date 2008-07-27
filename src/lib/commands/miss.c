@@ -57,7 +57,6 @@ mission(void)
     struct empobj *gp;
     int num = 0, mobmax, mobused, dist;
     struct nstr_item ni;
-    char prompt[128];
     char buf[1024];
 
     if ((p =
@@ -69,9 +68,7 @@ mission(void)
 	pr("Ships, land units or planes only! (s, l, p)\n");
 	return RET_SYN;
     }
-    sprintf(prompt, "%s(s)? ", ef_nameof(type));
-    p = getstarg(player->argp[2], prompt, buf);
-    if (!snxtitem(&ni, type, p))
+    if (!snxtitem(&ni, type, player->argp[2], NULL))
 	return RET_SYN;
 
     if ((p =

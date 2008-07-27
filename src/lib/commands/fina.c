@@ -53,7 +53,7 @@ fina(void)
 	pr("Loans are not enabled.\n");
 	return RET_FAIL;
     }
-    if (!snxtitem(&ni, EF_LOAN, "*"))
+    if (!snxtitem(&ni, EF_LOAN, "*", NULL))
     	return RET_SYN;
     (void)time(&now);
     pr("\n");

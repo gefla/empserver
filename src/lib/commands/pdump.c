@@ -50,7 +50,7 @@ pdump(void)
     int n, i;
     time_t now;
 
-    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&np, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
 

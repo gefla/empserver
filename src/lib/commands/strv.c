@@ -170,7 +170,7 @@ starv_ships(char *range)
     int nship = 0;
     int s;
 
-    if (!snxtitem(&ni, EF_SHIP, range))
+    if (!snxtitem(&ni, EF_SHIP, range, NULL))
 	return;
 
     while (nxtitem(&ni, &ship)) {
@@ -218,7 +218,7 @@ starv_units(char *range)
     int nunit = 0;
     int s;
 
-    if (!snxtitem(&ni, EF_LAND, range))
+    if (!snxtitem(&ni, EF_LAND, range, NULL))
 	return;
 
     while (nxtitem(&ni, &land)) {

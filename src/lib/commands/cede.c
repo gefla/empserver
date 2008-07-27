@@ -67,7 +67,7 @@ cede(void)
 	return RET_SYN;
     if (snxtsct(&ns, p))
 	is_sector = 1;
-    if (snxtitem(&ni, EF_SHIP, p))
+    if (snxtitem(&ni, EF_SHIP, p, NULL))
 	is_ship = 1;
     if (!is_sector && !is_ship)
 	return RET_SYN;

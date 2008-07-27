@@ -47,7 +47,7 @@ fort(void)
     char *p;
     char buf[1024];
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     p = getstarg(player->argp[2], "Amount: ", buf);
     if (p == 0 || *p == 0)

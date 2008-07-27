@@ -85,7 +85,7 @@ decl(void)
 	return RET_SYN;
     }
 
-    if (!snxtitem(&ni, EF_NATION, player->argp[2]))
+    if (!snxtitem(&ni, EF_NATION, player->argp[2], NULL))
 	return RET_SYN;
     who = player->cnum;
     if (player->god) {

@@ -59,7 +59,7 @@ flee(void)
     }
     if (c == '~')
 	c = 0;
-    if (!snxtitem(&nstr, EF_SHIP, player->argp[2]))
+    if (!snxtitem(&nstr, EF_SHIP, player->argp[2], NULL))
 	return RET_SYN;
     count = 0;
     while (nxtitem(&nstr, &ship)) {

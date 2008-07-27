@@ -45,7 +45,7 @@ ndump(void)
     time_t now;
     int nnukes;
 
-    if (!snxtitem(&nstr, EF_NUKE, player->argp[1]))
+    if (!snxtitem(&nstr, EF_NUKE, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
     if (player->god)

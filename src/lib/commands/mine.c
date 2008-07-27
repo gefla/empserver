@@ -52,7 +52,7 @@ mine(void)
     int shells;
     int mines_avail;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     mines = onearg(player->argp[2],
 		   "Drop how many mines from each ship? ");
@@ -101,7 +101,7 @@ landmine(void)
     int total_mines_laid;
     char prompt[128];
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)

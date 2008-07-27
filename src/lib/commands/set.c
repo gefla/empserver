@@ -79,7 +79,7 @@ set(void)
 	pr("You can sell only ships, planes, land units or nukes\n");
 	return RET_SYN;
     }
-    if (!snxtitem(&ni, type, player->argp[2]))
+    if (!snxtitem(&ni, type, player->argp[2], NULL))
 	return RET_SYN;
     while (nxtitem(&ni, &item)) {
 	if (!player->owner && !player->god)

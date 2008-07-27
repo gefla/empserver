@@ -129,7 +129,7 @@ xditem(struct xdstr *xd, int type, char *arg)
     if (!ca)
 	return RET_SYN;
 
-    if (!snxtitem(&ni, type, arg))
+    if (!snxtitem(&ni, type, arg, NULL))
 	return RET_SYN;
 
     xdhdr(xd, ef_nameof(type), 0);

@@ -50,7 +50,7 @@ sdump(void)
     int n, i;
     time_t now;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
 

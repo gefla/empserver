@@ -57,7 +57,7 @@ wing(void)
     }
     if (c == '~')
 	c = 0;
-    if (!snxtitem(&nstr, EF_PLANE, player->argp[2]))
+    if (!snxtitem(&nstr, EF_PLANE, player->argp[2], NULL))
 	return RET_SYN;
     count = 0;
     while (nxtitem(&nstr, &plane)) {

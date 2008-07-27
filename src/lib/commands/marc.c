@@ -50,7 +50,7 @@ march(void)
     double minmob, maxmob;
     int together;
 
-    if (!snxtitem(&ni_land, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni_land, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     lnd_sel(&ni_land, &land_list);
     lnd_mar(&land_list, &minmob, &maxmob, &together, player->cnum);

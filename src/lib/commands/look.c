@@ -70,7 +70,7 @@ do_look(short type)
     if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
 	type = EF_SHIP;
 
-    if (!snxtitem(&ni, type, player->argp[1]))
+    if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
     if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
 	logerror("malloc failed in do_look\n");

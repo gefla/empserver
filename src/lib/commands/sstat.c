@@ -44,7 +44,7 @@ sstat(void)
     struct nstr_item ni;
     struct shpstr ship;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
 
     nships = 0;

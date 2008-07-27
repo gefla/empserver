@@ -48,7 +48,7 @@ morale(void)
     char mess[128];
     char buf[1024];
 
-    if (!snxtitem(&np, EF_LAND, player->argp[1]))
+    if (!snxtitem(&np, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&np, &land)) {
 	if (!player->owner || land.lnd_own == 0)

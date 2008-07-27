@@ -51,7 +51,7 @@ foll(void)
 	pr("The SAIL option is not enabled, so this command is not valid.\n");
 	return RET_FAIL;
     }
-    if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nstr, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     cp = getstarg(player->argp[2], "leader? ", buf);
     if (cp == 0)

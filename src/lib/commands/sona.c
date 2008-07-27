@@ -70,7 +70,7 @@ sona(void)
     static signed char **vis = NULL;
     static signed char *visbuf = NULL;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     if (!radbuf)
 	radbuf = malloc((WORLD_Y * (WORLD_X + 1)));

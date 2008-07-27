@@ -43,7 +43,7 @@ pstat(void)
     struct nstr_item np;
     struct plnstr plane;
 
-    if (!snxtitem(&np, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&np, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     nplanes = 0;
     while (nxtitem(&np, &plane)) {

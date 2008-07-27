@@ -666,7 +666,7 @@ extern void shp_missdef(struct shpstr *, natid);
 extern double shp_mobcost(struct shpstr *);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
-extern int snxtitem(struct nstr_item *, int, char *);
+extern int snxtitem(struct nstr_item *, int, char *, char *);
 extern void snxtitem_area(struct nstr_item *, int,
 			  struct range *);
 extern void snxtitem_dist(struct nstr_item *, int, int, int, int);

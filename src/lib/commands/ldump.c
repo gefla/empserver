@@ -49,7 +49,7 @@ ldump(void)
     struct natstr *np;
     time_t now;
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[1]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
     nunits = 0;

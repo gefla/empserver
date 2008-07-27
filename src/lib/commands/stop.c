@@ -157,7 +157,7 @@ start_stop_unit(int type, char *arg, int off)
     int nunit;
     struct nstr_item nstr;
 
-    if (!snxtitem(&nstr, type, arg))
+    if (!snxtitem(&nstr, type, arg, NULL))
 	return RET_SYN;
     prdate();
     nunit = 0;

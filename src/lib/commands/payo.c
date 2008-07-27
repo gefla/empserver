@@ -52,7 +52,7 @@ payo(void)
 	pr("Tradeships are not enabled.\n");
 	return RET_FAIL;
     }
-    if (!snxtitem(&ni, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
 
     nships = 0;

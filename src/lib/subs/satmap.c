@@ -145,7 +145,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     if ((type == EF_BAD || type == EF_SHIP) &&
 	(flags & P_S || flags & P_I)) {
 	if (type == EF_SHIP)
-	    snxtitem(&ni, EF_SHIP, selection);
+	    snxtitem(&ni, EF_SHIP, selection, NULL);
 	else
 	    snxtitem_dist(&ni, EF_SHIP, x, y, range);
 
@@ -190,7 +190,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     if ((type == EF_BAD || type == EF_LAND) &&
 	(flags & P_S || flags & P_I)) {
 	if (type == EF_LAND)
-	    snxtitem(&ni, EF_LAND, selection);
+	    snxtitem(&ni, EF_LAND, selection, NULL);
 	else
 	    snxtitem_dist(&ni, EF_LAND, x, y, range);
 

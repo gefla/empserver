@@ -44,7 +44,9 @@ lost(void)
     struct loststr lost;
     time_t now;
 
-    if (!snxtitem(&ni, EF_LOST, player->argp[1] ? player->argp[1] : "*"))
+    if (!snxtitem(&ni, EF_LOST,
+		  player->argp[1] ? player->argp[1] : "*",
+		  NULL))
 	return RET_SYN;
 
     prdate();

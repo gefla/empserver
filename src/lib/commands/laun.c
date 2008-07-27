@@ -62,7 +62,7 @@ laun(void)
     struct plchrstr *pcp;
     int retval, gone;
 
-    if (!snxtitem(&nstr, EF_PLANE, player->argp[1]))
+    if (!snxtitem(&nstr, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
     while (nxtitem(&nstr, &plane)) {
 	if (plane.pln_own != player->cnum)

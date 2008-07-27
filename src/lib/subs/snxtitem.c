@@ -51,7 +51,7 @@
  * instead.
  */
 int
-snxtitem(struct nstr_item *np, int type, char *str)
+snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
 {
     struct range range;
     int list[NS_LSIZE];
@@ -59,13 +59,16 @@ snxtitem(struct nstr_item *np, int type, char *str)
     coord cx, cy;
     int dist;
     int flags;
-    char prompt[128];
+    char promptbuf[128];
     char buf[1024];
 
     np->type = EF_BAD;
     np->sel = NS_UNDEF;
     if (str == 0) {
-	sprintf(prompt, "%s(s)? ", ef_nameof(type));
+	if (!prompt) {
+	    sprintf(promptbuf, "%s(s)? ", ef_nameof(type));
+	    prompt = promptbuf;
+	}
 	str = getstring(prompt, buf);
 	if (str == 0)
 	    return 0;

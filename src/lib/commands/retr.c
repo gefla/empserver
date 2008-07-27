@@ -83,7 +83,7 @@ retreat(short type)
 	type = EF_SHIP;
     rflagsc = type == EF_SHIP ? shp_rflagsc : lnd_rflagsc;
 
-    if (!snxtitem(&ni, type, player->argp[1]))
+    if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
     nunits = 0;
     if (player->argp[2] != NULL)

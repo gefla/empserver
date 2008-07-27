@@ -44,7 +44,7 @@ coun(void)
     struct nstr_item ni;
     struct natstr nat;
 
-    if (!snxtitem(&ni, EF_NATION, player->argp[1]))
+    if (!snxtitem(&ni, EF_NATION, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
     pr("  #   last access                         %sstatus     country name\n",

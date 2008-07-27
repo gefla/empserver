@@ -50,7 +50,7 @@ repo(void)
     struct natstr nat;
     struct nstr_item ni;
 
-    if (!snxtitem(&ni, EF_NATION, player->argp[1]))
+    if (!snxtitem(&ni, EF_NATION, player->argp[1], NULL))
 	return RET_SYN;
     prdate();
     natp = getnatp(player->cnum);

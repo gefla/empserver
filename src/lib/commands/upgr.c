@@ -87,7 +87,7 @@ lupgr(void)
     int rel;
     long cash;
 
-    if (!snxtitem(&ni, EF_LAND, player->argp[2]))
+    if (!snxtitem(&ni, EF_LAND, player->argp[2], NULL))
 	return RET_SYN;
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
@@ -170,7 +170,7 @@ supgr(void)
     int rel;
     long cash;
 
-    if (!snxtitem(&ni, EF_SHIP, player->argp[2]))
+    if (!snxtitem(&ni, EF_SHIP, player->argp[2], NULL))
 	return RET_SYN;
     natp = getnatp(player->cnum);
     cash = natp->nat_money;
@@ -252,7 +252,7 @@ pupgr(void)
     int rel;
     long cash;
 
-    if (!snxtitem(&ni, EF_PLANE, player->argp[2]))
+    if (!snxtitem(&ni, EF_PLANE, player->argp[2], NULL))
 	return RET_SYN;
     natp = getnatp(player->cnum);
     cash = natp->nat_money;

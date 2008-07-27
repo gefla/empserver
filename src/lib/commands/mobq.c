@@ -51,7 +51,7 @@ mobq(void)
 	pr("The SAIL option is not enabled, so this command is not valid.\n");
 	return RET_FAIL;
     }
-    if (!snxtitem(&nstr, EF_SHIP, player->argp[1]))
+    if (!snxtitem(&nstr, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     oldmq = player->argp[2];
     if (oldmq) {

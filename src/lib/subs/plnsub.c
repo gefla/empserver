@@ -70,12 +70,9 @@ int
 get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
 	   char *input_bomb, char *input_esc)
 {
-    char buf[1024];
-
-    if (!snxtitem(ni_bomb, EF_PLANE, input_bomb))
+    if (!snxtitem(ni_bomb, EF_PLANE, input_bomb, NULL))
 	return -1;
-    if (!snxtitem(ni_esc, EF_PLANE,
-		  getstarg(input_esc, "escort(s)? ", buf))) {
+    if (!snxtitem(ni_esc, EF_PLANE, input_esc, "escort(s)? ")) {
 	if (player->aborted)
 	    return -1;
 	pr("No escorts...\n");

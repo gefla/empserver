@@ -111,11 +111,7 @@ multifire(void)
 	pr("Ships, land units or sectors only!\n");
 	return RET_SYN;
     }
-    if ((ptr = getstarg(player->argp[2], "Firing from? ", buf)) == 0
-	|| *ptr == '\0')
-	return RET_SYN;
-
-    if (!snxtitem(&nbst, type, ptr))
+    if (!snxtitem(&nbst, type, player->argp[2], "Firing from? "))
 	return RET_SYN;
 
     while (nxtitem(&nbst, &item)) {
