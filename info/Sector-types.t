@@ -240,6 +240,7 @@ types.  To check out build costs, you do:
 sector type    cost to des    cost for 1% eff   lcms for 1%    hcms for 1%
 -              0              0                 0              0
 f              0              5                 0              1
+other          0              1                 0              0
 
 Infrastructure building - adding 1 point of efficiency costs:
        type          lcms    hcms    mobility    $$$$

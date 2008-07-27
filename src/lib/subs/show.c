@@ -464,7 +464,7 @@ show_sect_build(int foo)
 {
     int x, first;
 
-    first = 1;
+    pr("sector type    cost to des    cost for 1%% eff   lcms for 1%%    hcms for 1%%\n");
     for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
@@ -472,15 +472,12 @@ show_sect_build(int foo)
 	    continue;
 	if ((dchr[x].d_cost > 0) || (dchr[x].d_build != 1) ||
 	    (dchr[x].d_lcms > 0) || (dchr[x].d_hcms > 0)) {
-	    if (first) {
-		pr("sector type    cost to des    cost for 1%% eff   lcms for 1%%    hcms for 1%%\n");
-		first = 0;
-	    }
 	    pr("%-14c %-14d %-17d %-14d %d\n",
 	       dchr[x].d_mnem, dchr[x].d_cost, dchr[x].d_build,
 	       dchr[x].d_lcms, dchr[x].d_hcms);
 	}
     }
+    pr("other          0              1                 0              0\n");
 
     first = 1;
     for (x = 0; intrchr[x].in_name; x++) {
