@@ -496,18 +496,15 @@ show_sect_build(int foo)
 void
 show_sect_stats(int foo)
 {
-    int x, first = 1;
-    struct natstr *natp;
+    int x;
+    struct natstr *natp = getnatp(player->cnum);
 
-    natp = getnatp(player->cnum);
+    pr("                        mob cost   max   max   naviga    packing   max\n");
+    pr("  sector type            0%% 100%%   off   def   bility      bonus   pop\n");
+
     for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0)
 	    continue;
-	if (first) {
-	    pr("                        mob cost   max   max   naviga    packing   max\n");
-	    pr("  sector type            0%% 100%%   off   def   bility      bonus   pop\n");
-	    first = 0;
-	}
 	pr("%c %-21.21s", dchr[x].d_mnem, dchr[x].d_name);
 	if (dchr[x].d_mob0 < 0)
 	    pr("  no way ");
@@ -524,18 +521,15 @@ show_sect_stats(int foo)
 void
 show_sect_capab(int foo)
 {
-    int x, first = 1, i, j;
+    int x, i, j;
     char *tmpstr;
+
+    pr("                                                 --- level ---          reso \n");
+    pr("  sector type             product use1 use2 use3 level min lag eff%% $$$ dep c\n");
 
     for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0 || dchr[x].d_prd < 0)
 	    continue;
-	if (first) {
-	    pr("                                                 --- level ---          reso \n");
-	    pr("  sector type             product use1 use2 use3 level min lag eff%% $$$ dep c\n");
-	    first = 0;
-	}
-
 	j = dchr[x].d_prd;
 
 	pr("%c %-23s %-7s ",
