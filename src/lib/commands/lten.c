@@ -77,7 +77,7 @@ ltend(void)
 	    continue;
 	if ((p =
 	     getstarg(player->argp[3], "Amount to transfer? ", buf)) == 0)
-	    break;
+	    return RET_SYN;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	if ((amt = atoi(p)) == 0)
@@ -92,12 +92,12 @@ ltend(void)
 	if (maxtender == 0) {
 	    pr("A %s cannot hold any %s\n",
 	       mchr[(int)tender.shp_type].m_name, ip->i_name);
-	    break;
+	    return RET_FAIL;
 	}
 	if (!snxtitem(&targets, EF_LAND,
 		      getstarg(player->argp[4], "Units to be tended? ",
 			       buf)))
-	    break;
+	    return RET_SYN;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	total = 0;
