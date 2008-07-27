@@ -265,42 +265,42 @@ sectors.  See \*Qinfo Infrastructure\*U for details.
 To check out various stats, you do:
 .EX show sect stats
 .NF
-                        mob cost   max   max   --  packing bonus  --   max
-  sector type            0% 100%   off   def   mil  uw civ bar other   pop
-\&. sea                    no way    0.00  0.00     1   1  10   1     1     0
-^ mountain              2.4  1.2   1.00  4.00     1   1  10   1     1   100
-s sanctuary              no way    0.00 99.00     1   1  10   1     1  1000
-\e wasteland              no way    0.00 99.00     1   1  10   1     1     0
-- wilderness            0.4  0.4   1.00  2.00     1   1  10   1     1  1000
-c capital               0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-u uranium mine          0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-p park                  0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-d defense plant         0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-i shell industry        0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-m mine                  0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-g gold mine             0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-h harbor                0.4  0.2   1.00  1.50     1   2  10   5    10  1000
-w warehouse             0.4  0.2   1.00  1.50     1   2  10   5    10  1000
-* airfield              0.4  0.2   1.00  1.25     1   1  10   1     1  1000
-a agribusiness          0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-o oil field             0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-j light manufacturing   0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-k heavy manufacturing   0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-f fortress              0.4  0.2   2.00  4.00     1   1  10   1     1  1000
-t technical center      0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-r research lab          0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-n nuclear plant         0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-l library/school        0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-+ highway               0.4  0.0   1.00  1.00     1   1  10   1     1  1000
-) radar installation    0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-! headquarters          0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-# bridge head           0.4  0.0   1.00  1.00     1   1  10   1     1  1000
-= bridge span           0.4  0.0   1.00  1.00     1   1  10   1     1   100
-b bank                  0.4  0.2   1.00  2.25     1   1  10   4     1  1000
-% refinery              0.4  0.2   1.00  1.50     1   1  10   1     1  1000
-e enlistment center     0.4  0.2   1.00  2.00     1   1  10   1     1  1000
-~ plains                0.4  0.2   1.00  1.50     1   1  10   1     1   100
-@ bridge tower          0.4  0.0   1.00  1.50     1   1  10   1     1   100
+                        mob cost   max   max     packing   max
+  sector type            0% 100%   off   def       bonus   pop
+\&. sea                    no way    0.00  0.00     normal     0
+^ mountain              2.4  1.2   1.00  4.00     normal   100
+s sanctuary              no way    0.00 99.00     normal  1000
+\e wasteland              no way    0.00 99.00     normal     0
+- wilderness            0.4  0.4   1.00  2.00     normal  1000
+c capital               0.4  0.2   1.00  2.00     normal  1000
+u uranium mine          0.4  0.2   1.00  2.00     normal  1000
+p park                  0.4  0.2   1.00  1.50     normal  1000
+d defense plant         0.4  0.2   1.00  1.50     normal  1000
+i shell industry        0.4  0.2   1.00  1.50     normal  1000
+m mine                  0.4  0.2   1.00  2.00     normal  1000
+g gold mine             0.4  0.2   1.00  2.00     normal  1000
+h harbor                0.4  0.2   1.00  1.50  warehouse  1000
+w warehouse             0.4  0.2   1.00  1.50  warehouse  1000
+* airfield              0.4  0.2   1.00  1.25     normal  1000
+a agribusiness          0.4  0.2   1.00  1.50     normal  1000
+o oil field             0.4  0.2   1.00  1.50     normal  1000
+j light manufacturing   0.4  0.2   1.00  1.50     normal  1000
+k heavy manufacturing   0.4  0.2   1.00  1.50     normal  1000
+f fortress              0.4  0.2   2.00  4.00     normal  1000
+t technical center      0.4  0.2   1.00  1.50     normal  1000
+r research lab          0.4  0.2   1.00  1.50     normal  1000
+n nuclear plant         0.4  0.2   1.00  2.00     normal  1000
+l library/school        0.4  0.2   1.00  1.50     normal  1000
++ highway               0.4  0.0   1.00  1.00     normal  1000
+) radar installation    0.4  0.2   1.00  1.50     normal  1000
+! headquarters          0.4  0.2   1.00  1.50     normal  1000
+# bridge head           0.4  0.0   1.00  1.00     normal  1000
+= bridge span           0.4  0.0   1.00  1.00     normal   100
+b bank                  0.4  0.2   1.00  2.25       bank  1000
+% refinery              0.4  0.2   1.00  1.50     normal  1000
+e enlistment center     0.4  0.2   1.00  2.00     normal  1000
+~ plains                0.4  0.2   1.00  1.50     normal   100
+@ bridge tower          0.4  0.0   1.00  1.50     normal   100
 .FI
 The two mob cost columns show the relative cost to move through such
 sectors at 0% and 100% efficiency.  It changes linearly between 0% and

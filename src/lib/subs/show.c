@@ -504,8 +504,8 @@ show_sect_stats(int foo)
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (first) {
-	    pr("                        mob cost   max   max   --  packing bonus  --   max\n");
-	    pr("  sector type            0%% 100%%   off   def   mil  uw civ bar other   pop\n");
+	    pr("                        mob cost   max   max     packing   max\n");
+	    pr("  sector type            0%% 100%%   off   def       bonus   pop\n");
 	    first = 0;
 	}
 	pr("%c %-21.21s", dchr[x].d_mnem, dchr[x].d_name);
@@ -513,13 +513,9 @@ show_sect_stats(int foo)
 	    pr("  no way ");
 	else
 	    pr(" %3.1f  %3.1f", dchr[x].d_mob0, dchr[x].d_mob1);
-	pr("  %5.2f %5.2f   %3d %3d %3d %3d %5d %5d\n",
+	pr("  %5.2f %5.2f %10.10s %5d\n",
 	   dchr[x].d_ostr, dchr[x].d_dstr,
-	   ichr[I_MILIT].i_pkg[dchr[x].d_pkg],
-	   ichr[I_UW].i_pkg[dchr[x].d_pkg],
-	   ichr[I_CIVIL].i_pkg[dchr[x].d_pkg],
-	   ichr[I_BAR].i_pkg[dchr[x].d_pkg],
-	   ichr[I_LCM].i_pkg[dchr[x].d_pkg],
+	   symbol_by_value(dchr[x].d_pkg, packing),
 	   max_population(natp->nat_level[NAT_RLEV], x, 100));
     }
 }
@@ -589,7 +585,7 @@ show_item(int tlev)
     struct ichrstr *ip;
 
     pr("item value sell lbs    packing     melt  item\n");
-    pr("mnem                in rg wh ur bk deno  name\n");
+    pr("mnem                in no wh ur bk deno  name\n");
 
     for (ip = ichr; ip->i_name; ip++) {
 	pr("   %c %5d %4s %3d %2d %2d %2d %2d %2d %4d  %s\n",

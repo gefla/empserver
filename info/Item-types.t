@@ -9,9 +9,8 @@ The show command displays the detailed characteristics of items.
 .s1
 .EX show item
 .NF
-Printing for tech level '344'
 item value sell lbs    packing     melt  item
-mnem                in rg wh ur bk deno  name
+mnem                in no wh ur bk deno  name
    c     1   no   1  1 10 10 10 10    4  civilians
    m     0   no   1  1  1  1  1  1   20  military
    s     5  yes   1  1  1 10  1  1   80  shells
@@ -42,8 +41,8 @@ The weight of the item, which determines how much mobility it takes to
 move it.
 .L "packing in"
 The packing bonus the item receives in inefficient (<60%) sectors.
-.L "packing rg"
-The packing bonus the item receives in regular sectors.
+.L "packing no"
+The packing bonus the item receives in normal sectors.
 .L "packing wh"
 The packing bonus the item receives in warehouse sectors.
 .L "packing ur"
