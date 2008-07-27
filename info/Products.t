@@ -8,121 +8,65 @@ Some of those products may, in turn,
 be considered raw materials for other industries
 which produce other products.
 .s1
-This table gives the constituents and costs for each type of product.
+The show command displays characteristics of products:
 .s1
-All costs given in the table are for 100% production efficiency.
-Many processes depend on technology level
-or educational level of the country;
-a note like \*Qp.e.=(tlev+10)/(tlev+20)\*U means
-that a country with a technology level of 0
-has a production efficiency of 50%
-and will only produce one-half of the specified product amount
-for the given costs,
-whereas a country with a technology level of 100
-will have a production efficiency of 92%.
+.EX show product
+.NF
+product    cost  raw materials  reso dep  level p.e.
+   iron i  $0                    min   0  1.0
+   dust d  $0                   gold  20  1.0
+   food f  $0                   fert   0  (tech+10)/(tech+20)
+    oil o  $0                  ocont  10  (tech+10)/(tech+20)
+    rad r  $2                   uran  35  (tech-40)/(tech-30)
+ shells s  $3     2l  1h                  (tech-20)/(tech-10)
+   guns g  $30    1o  5l 10h              (tech-20)/(tech-10)
+ petrol p  $1     1o                      (tech-20)/(tech-10)
+   bars b  $10    5d                      1.0
+    lcm l  $0     1i                      (tech+10)/(tech+20)
+    hcm h  $0     2i                      (tech+10)/(tech+20)
+   tech    $300   1d  5o 10l              (educ-5)/(educ+5)
+medical    $90    1d  5o 10l              (educ-5)/(educ+5)
+    edu    $9     1l                      1.0
+  happy    $9     1l                      1.0
+.FI
 .s1
-In addition, some sectors don't produce raw materials as well as others,
-and some produce much better than others.  Use the "show sector capabilities"
-command to see production efficiencies and other useful information on
-producing sectors.
+The columns are:
+.in \w'raw materials\0\0'u
+.L product
+The name of the product and the one-letter mnemonic of the commodity
+made, if any.
+.L cost
+Cost per unit of production.
+.L "raw materials"
+Raw materials for one unit of production.
+.L "reso dep"
+Natural resource exploited, and its rate of depletion.
+.L "level p.e."
+Level production efficiency, for 100% sector type production
+efficiency
+.in
 .s1
-The rate at which constituents can be turned into products
+How much a sector can produce
 is governed by the amount of \*Qwork\*U performed by its populace,
-divided by the units of constituents
-per unit of product.
+divided by the amount of raw materials
+per unit of production.
 E.g., it takes 3 units of \*Qwork\*U to produce 1 shell;
 2 units to incorporate the light construction materials
 and 1 unit for the heavy.
-\*QNatural resources\*U such as fertility
-count as one unit of constituents;
+Mining a \*Qnatural resource\*U such as fertility
+takes one unit of work;
 e.g., it takes 1 unit of work per unit of food produced.
 .s1
-.in \w'technology\0\0'u
-.L shells
-Shell production efficiency depends on technology level;
-p.e.=(tlev-20)/(tlev-10)
-Shells cost $3 each to manufacture.
-Each requires 2 units of light construction materials
-and 1 unit of heavy construction materials.
-You must have a minimum technology of 20 to produce shells.
-.L guns
-Gun production depends on technology level;
-p.e.=(tlev-20)/(tlev-10)
-Guns cost $30 each to manufacture.
-Each requires 5 units of light construction materials,
-10 units of heavy construction materials,
-and 1 unit of oil.
-You must have a minimum technology of 20 to produce guns.
-.L iron
-Iron ore production depends on the mine's mineral richness.
-Extracting iron ore is free,
-and doesn't deplete the sector's mineral richness.
-.L dust
-Gold dust production depends on the mine's gold richness.
-Extracting gold dust is free,
-but depletes the sector's gold richness.
-.L bars
-Gold bars cost $10 to produce and require 5 units of gold dust each.
-.L food
-Food production efficiency depends on technology level
-and the fertility of the sector;
-p.e.=(tlev+10)/(tlev+20).
-Growing food is free,
-and doesn't deplete the sector's fertility.
-.L oil
-Oil production efficiency depends on technology level
-and the oil content of the sector;
-p.e.=(tlev+10)/(tlev+20).
-Pumping oil is free,
-but depletes the sector's oil content.
-.L petrol
-Petrol production depends on technology level;
-p.e.=(tlev-20)/(tlev-10).
-A unit of petrol costs $1 to manufacture.
-Every 10 units of petrol require 1 unit of oil to produce.
-You must have a minimum technology of 20 to produce petrol.
-.L lcm
-Light construction material production efficiency
-depends on technology level;
-p.e.=(tlev+10)/(tlev+20).
-Producing lcms does not cost money, but requires 1 unit of iron ore. 
-.L hcm
-Heavy construction material production efficiency
-depends on technology level;
-p.e.=(tlev+10)/(tlev+20).
-Producing hcms does not cost money, but requires 2 unit of iron ore. 
-.L rad
-Radioactive material production efficiency depends on technology level,
-which must be at least 40.
-p.e.=(tlev-40)/(tlev-30).
-Producing rads cost $2 per ton,
-and depletes the uranium content of the sector.
-.L education
-A unit of education (a \*Qclass of graduates\*U),
-costs $10 to produce and requires 1 unit
-of light construction materials (see "info Education").
-.L happiness
-A unit of happiness (\*Qhappy strollers\*U),
-costs $10 to produce and requires 1 unit
-of light construction materials (see "info Happiness").
-.L technology
-Technology production efficiency depends on education level;
-p.e.=(elev-5)/(elev+5).
-A unit of technology (a \*Qtechnological breakthrough\*U),
-costs $5 times the number of ETUs per update
-to produce, and requires 10 units
-of light construction materials,
-5 units of oil and 1 unit of gold dust.  For more details about how
-technology level is calculated from technology units, see "info Technology".
-.L research
-Research production efficiency depends on education level;
-p.e.=(elev-5)/(elev+5).
-A unit of research (a \*Qmedical discovery\*U),
-costs $90 to produce and requires 10 units
-of light construction materials,
-5 units of oil and 1 unit of gold dust (see "info Research").
+How many products each unit of production makes depends on the level
+production efficiency, which is the product's level p.e. (shown by
+"show product") times the sector type's p.e. (shown by "show sect
+stats").  Production requires a level p.e. above zero, obviously.
 .s1
-Note that the resource depletion documented above can be customized by
-the deity.
-.in
-.SA "Producing, Updates"
+Say your country is at tech level 25.  Then your agribusinesses' level
+p.e. is (25+10)/(25+20) * 900% = 7, i.e. they'll make 7 food per unit
+of production.  Your shell industries' level p.e. is only
+(25-20)/(25-10) * 100% = 1/3, i.e. they'll make 1 shell per three
+units of production.  Your uranium mines can't produce at all, because
+their level p.e. is negative.
+.s1
+.SA "Producing, Updates, Item-types"

@@ -598,6 +598,43 @@ show_item(int tlev)
 }
 
 void
+show_product(int tlev)
+{
+    struct pchrstr *pp;
+    int i;
+    char *lev;
+
+    pr("product    cost  raw materials  reso dep  level p.e.\n");
+
+    for (pp = pchr; pp->p_sname; pp++) {
+	pr("%7.7s %c  $%-3d ",
+	   pp->p_sname,
+	   pp->p_type < 0 ? ' ' : ichr[pp->p_type].i_mnem,
+	   pp->p_cost);
+	(void)CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
+	for (i = 0; i < 3; i++) {
+	    if (i < MAXPRCON && pp->p_camt[i]
+		&& pp->p_ctype[i] > I_NONE && pp->p_ctype[i] <= I_MAX)
+		pr(" %2d%c", pp->p_camt[i], ichr[pp->p_ctype[i]].i_mnem);
+	    else
+		pr("    ");
+	}
+	if (pp->p_nrndx)
+	    pr("   %5.5s %3d  ",
+	       symbol_by_value(pp->p_nrndx, resources), pp->p_nrdep);
+	else
+	    pr("              ");
+	if (pp->p_nlndx < 0)
+	    pr("1.0\n");
+	else {
+	    lev = symbol_by_value(pp->p_nlndx, level);
+	    pr("(%.4s%+d)/(%.4s%+d)\n",
+	       lev, -pp->p_nlmin, lev, pp->p_nllag - pp->p_nlmin);
+	}
+    }
+}
+
+void
 show_news(int tlev)
 {
     int i, j;

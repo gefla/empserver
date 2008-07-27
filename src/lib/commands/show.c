@@ -98,6 +98,10 @@ show(void)
 	cfunc = show_land_capab;
 	break;
     case 'p':
+	if (p[1] == 'r') {
+	    show_product(99999);
+	    return RET_OK;
+	}
 	bfunc = show_plane_build;
 	sfunc = show_plane_stats;
 	cfunc = show_plane_capab;
