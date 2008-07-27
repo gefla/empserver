@@ -345,6 +345,14 @@ at this, please don't make it worse.
 
 FIXME what to do on error
 
+Sanity checking
+
+In many places, the code checks for conditions that should not happen,
+and then tries to recover.  This is sound defensive programming.
+Please use CANT_HAPPEN() and CANT_REACH() for this purpose, because
+they log the error condition, and optionally abort the program, or
+write out a core dump.  This is called an "oops".
+
 Buffer overruns
 
 FIXME
@@ -394,20 +402,29 @@ There are several ways to access an object in set FOO:
 
 * You can get a copy with getFOO() and write it back with putFOO().
 
-  Yielding the processor invalidates the copy.  In particular, if you
-  yield the processor between get and put, and another thread changes
-  the game data, then put will clobber that change, possibly resulting
-  in a corrupted game.
-
-  Therefore, you have to re-get after a yield, and repeat any checks
-  you already made.  If you can afford to bail out when something
-  changed at all, use check_FOO_ok().
-
   Putting updates both the object in memory and the disk file.
 
-  If you write a function that takes a pointer to an object, think
-  twice before you put it, and if you do, mention it in the function
-  comment.
+  Any change to the object invalidates the copy.  Putting such an
+  invalid copy will clobber the change(s) that invalidated it,
+  possibly resulting in corrupted game state.  The code oopses on such
+  puts, but it can't repair the damage.
+
+  There are two common ways to invalidate a copy: calling a function
+  that updates the object you copied (unless it does that through your
+  copy), and yielding the processor, which lets other threads update
+  the object you copied.
+
+  Therefore, you have to reget after a possible invalidation, and deal
+  with changes.  In particular, if you checked whether the object is
+  suitable for a task, you need to check again after regetting it.  If
+  you can afford to bail out when something changed, use
+  check_FOO_ok().
+
+  Function comments should state what objects the function can update.
+  Unfortunately, they generally don't.
+
+  It's best to keep puts close to gets, both in runtime and in the
+  source code.
 
 * Bmaps have special access functions.
 
@@ -420,6 +437,26 @@ There are several ways to access an object in set FOO:
   In that case, you must write bmaps to disk with writemap() before
   you yield.  If you only updated the working bmap, then you can call
   writebmap() instead.
+
+Reading player input
+
+Reading player input can fail, and you must check for that.
+Neglecting it can break the interrupt feature for players (normally
+Ctrl-C), and produce extra prompts that could confuse clients.  Even
+worse is neglecting it in a loop that terminates only when input is
+read successfully.
+
+When reading input fails, you should normally abort the command with
+status RET_SYN.  There are exceptions, e.g. when aborting a pinpoint
+bombing run over the target.
+
+Some functions to read player input return a special error value you
+can check, e.g. recvclient(), prmptrd() and uprmptrd() return a
+negative value, getstring() and getstarg() return NULL.
+
+Others return the same error value for failed read and for successful
+read of input that is invalid.  Then you need to check
+player->aborted; if it is set after a read, the read failed.
 
 
 git
