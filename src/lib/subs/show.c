@@ -504,8 +504,8 @@ show_sect_stats(int foo)
 	if (dchr[x].d_mnem == 0)
 	    continue;
 	if (first) {
-	    pr("                        mob cost   max   max     packing   max\n");
-	    pr("  sector type            0%% 100%%   off   def       bonus   pop\n");
+	    pr("                        mob cost   max   max   naviga    packing   max\n");
+	    pr("  sector type            0%% 100%%   off   def   bility      bonus   pop\n");
 	    first = 0;
 	}
 	pr("%c %-21.21s", dchr[x].d_mnem, dchr[x].d_name);
@@ -513,8 +513,9 @@ show_sect_stats(int foo)
 	    pr("  no way ");
 	else
 	    pr(" %3.1f  %3.1f", dchr[x].d_mob0, dchr[x].d_mob1);
-	pr("  %5.2f %5.2f %10.10s %5d\n",
+	pr("  %5.2f %5.2f %7.7s %10.10s %5d\n",
 	   dchr[x].d_ostr, dchr[x].d_dstr,
+	   symbol_by_value(dchr[x].d_nav, sector_navigation),
 	   symbol_by_value(dchr[x].d_pkg, packing),
 	   max_population(natp->nat_level[NAT_RLEV], x, 100));
     }
