@@ -521,56 +521,16 @@ show_sect_stats(int foo)
 void
 show_sect_capab(int foo)
 {
-    int x, i, j;
-    char *tmpstr;
+    int x;
 
-    pr("                                                 --- level ---          reso \n");
-    pr("  sector type             product use1 use2 use3 level min lag eff%% $$$ dep c\n");
+    pr("  sector type             product  p.e.\n");
 
     for (x = 0; dchr[x].d_name; x++) {
 	if (dchr[x].d_mnem == 0 || dchr[x].d_prd < 0)
 	    continue;
-	j = dchr[x].d_prd;
-
-	pr("%c %-23s %-7s ",
-	   dchr[x].d_mnem, dchr[x].d_name, pchr[j].p_sname);
-	(void)CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
-	for (i = 0; i < 3; i++) {
-	    if (i < MAXPRCON
-		&& pchr[j].p_camt[i]
-		&& pchr[j].p_ctype[i] > I_NONE
-		&& pchr[j].p_ctype[i] <= I_MAX) {
-		pr("%2d %c ", pchr[j].p_camt[i],
-		   ichr[pchr[j].p_ctype[i]].i_name[0]);
-	    } else {
-		pr("     ");
-	    }
-	}
-	switch (pchr[j].p_nlndx) {
-	case NAT_TLEV:
-	    tmpstr = "tech";
-	    break;
-	case NAT_ELEV:
-	    tmpstr = "edu";
-	    break;
-	case NAT_RLEV:
-	    tmpstr = "res";
-	    break;
-	case NAT_HLEV:
-	    tmpstr = "hap";
-	    break;
-	default:
-	    tmpstr = " ";
-	    break;
-	}
-	pr("%-5s %3d %3d %4d %3d %3d %c",
-	   tmpstr,
-	   pchr[j].p_nlmin,
-	   pchr[j].p_nllag,
-	   dchr[x].d_peffic, pchr[j].p_cost, pchr[j].p_nrdep,
-	   pchr[j].p_type != I_NONE ? ichr[pchr[j].p_type].i_mnem : ' ');
-
-	pr("\n");
+	pr("%c %-23s %-7s %4d%%\n",
+	   dchr[x].d_mnem, dchr[x].d_name, pchr[dchr[x].d_prd].p_sname,
+	   dchr[x].d_peffic);
     }
 }
 

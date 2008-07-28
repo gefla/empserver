@@ -321,36 +321,27 @@ sector type can hold.
 Finally, to check out what sectors can do, use:
 .EX show sect capabilities
 .NF
-                                                 --- level ---          reso 
-  sector type             product use1 use2 use3 level min lag eff% $$$ dep c
-^ mountain                dust                           0   0   75   0  20 d
-u uranium mine            rad                    tech   40  10  100   2  35 r
-p park                    happy    1 l                   0   0  100   9   0  
-d defense plant           guns     1 o  5 l 10 h tech   20  10  100  30   0 g
-i shell industry          shells   2 l  1 h      tech   20  10  100   3   0 s
-m mine                    iron                           0   0  100   0   0 i
-g gold mine               dust                           0   0  100   0  20 d
-a agribusiness            food                   tech  -10  10  900   0   0 f
-o oil field               oil                    tech  -10  10  100   0  10 o
-j light manufacturing     lcm      1 i           tech  -10  10  100   0   0 l
-k heavy manufacturing     hcm      2 i           tech  -10  10  100   0   0 h
-t technical center        tech     1 d  5 o 10 l edu     5  10  100 300   0  
-r research lab            medical  1 d  5 o 10 l edu     5  10  100  90   0  
-l library/school          edu      1 l                   0   0  100   9   0  
-b bank                    bars     5 d                   0   0  100  10   0 b
-% refinery                petrol   1 o           tech   20  10 1000   1   0 p
+  sector type             product  p.e.
+^ mountain                dust      75%
+u uranium mine            rad      100%
+p park                    happy    100%
+d defense plant           guns     100%
+i shell industry          shells   100%
+m mine                    iron     100%
+g gold mine               dust     100%
+a agribusiness            food     900%
+o oil field               oil      100%
+j light manufacturing     lcm      100%
+k heavy manufacturing     hcm      100%
+t technical center        tech     100%
+r research lab            medical  100%
+l library/school          edu      100%
+b bank                    bars     100%
+% refinery                petrol  1000%
 .FI
-Column product shows what the sector produces, the use columns show
-the raw materials required to make one unit of production, and column
-$$$ shows how much money it costs.
+Column product shows what the sector produces.  Column p.e. shows the
+sector type's production efficiency.  Use command \*Qshow product\*U
+to find out more about products, and see \*Qinfo Products\*U.
 .s1
-Columns level, min and lag show how the production efficiency depends
-on a level (if any): p.e. = (level-min) / (level-min+lag).
 .s1
-Column eff% shows how many products are made per unit of production.
-.s1
-Column dep shows how fast production depletes the natural resource it
-exploits.  It only applies to products iron, dist, food, oil and rad.
-High numbers mean fast depletion.
-.s1
-.SA "designate, show, improve, BTU, Sectors, Producing, Transportation"
+.SA "designate, show, improve, BTU, Sectors, Producing, Products, Transportation"
