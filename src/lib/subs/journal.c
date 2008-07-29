@@ -43,6 +43,7 @@
  *     prng NAME SEED
  *     login CNUM HOSTADDR USER
  *     logout CNUM
+ *     command NAME
  *     input INPUT
  *     update ETU
  */
@@ -170,6 +171,13 @@ void
 journal_input(char *input)
 {
     journal_entry("input %s", input);
+}
+
+void
+journal_command(char *cmd)
+{
+    char *eptr = strchr(cmd, ' ');
+    journal_entry("command %.*s", eptr ? (int)(eptr - cmd) : -1, cmd);
 }
 
 void
