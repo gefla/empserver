@@ -80,8 +80,12 @@ journal_entry(char *fmt, ...)
 
     if (journal) {
 	time(&now);
-	fprintf(journal, "%.24s %p ", ctime(&now), empth_self());
-	
+	fprintf(journal, "%.24s ", ctime(&now));
+	if (player && player->state == PS_PLAYING)
+	    fprintf(journal, "%d ", player->cnum);
+	else
+	    fprintf(journal, "%p ", empth_self());
+
 	va_start(ap, fmt);
 	vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
 	va_end(ap);
