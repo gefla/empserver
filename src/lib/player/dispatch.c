@@ -38,6 +38,7 @@
 #include "com.h"
 #include "empio.h"
 #include "file.h"
+#include "journal.h"
 #include "match.h"
 #include "misc.h"
 #include "nat.h"
@@ -94,6 +95,7 @@ dispatch(char *buf, char *redir)
 	uprnf(buf);
 	pr("\n");
     }
+    journal_command(command->c_form);
     switch (command->c_addr()) {
     case RET_OK:
 	player->btused += command->c_cost;

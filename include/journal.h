@@ -41,6 +41,7 @@ void journal_login(void);
 void journal_logout(void);
 void journal_prng(unsigned);
 void journal_input(char *);
+void journal_command(char *);
 void journal_update(int);
 
 #endif
