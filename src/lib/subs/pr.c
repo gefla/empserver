@@ -125,6 +125,7 @@ pr_id(struct player *p, int id, char *format, ...)
 
     if (p->curid >= 0) {
 	io_puts(p->iop, "\n");
+	journal_output(p, "\n");
 	p->curid = -1;
     }
     va_start(ap, format);
@@ -246,7 +247,7 @@ pr_player(struct player *pl, int id, char *buf)
 	    bp += len;
 	}
     }
-    journal_output(pl, id, buf);
+    journal_output(pl, buf);
 }
 
 /*
@@ -301,7 +302,7 @@ upr_player(struct player *pl, int id, char *buf)
 	    io_puts(pl->iop, printbuf);
 	}
     }
-    journal_output(pl, id, buf);
+    journal_output(pl, buf);
 }
 
 /*
@@ -323,6 +324,7 @@ outid(struct player *pl, int n)
     buf[1] = ' ';
     buf[2] = '\0';
     io_puts(pl->iop, buf);
+    journal_output(pl, buf);
     pl->curid = n;
 }
 
