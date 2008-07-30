@@ -56,6 +56,7 @@
 #include "com.h"
 #include "empio.h"
 #include "file.h"
+#include "journal.h"
 #include "misc.h"
 #include "nat.h"
 #include "player.h"
@@ -242,6 +243,8 @@ pr_player(struct player *pl, int id, char *buf)
 	}
     }
 
+    journal_output(pl, id, buf);
+
     if (player == pl) {
 	while (io_output_if_queue_long(pl->iop,
 			pl->may_sleep == PLAYER_SLEEP_FREELY) > 0)
@@ -297,6 +300,8 @@ upr_player(struct player *pl, int id, char *buf)
 	    io_puts(pl->iop, printbuf);
 	}
     }
+
+    journal_output(pl, id, buf);
 
     if (player == pl) {
 	while (io_output_if_queue_long(pl->iop,
