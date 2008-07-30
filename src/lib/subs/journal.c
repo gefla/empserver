@@ -45,6 +45,7 @@
  *     logout CNUM
  *     command NAME
  *     input INPUT
+ *     output THREAD ID OUTPUT
  *     update ETU
  */
 
@@ -98,7 +99,8 @@ journal_entry(char *fmt, ...)
 		fprintf(journal, "\\%03o", *p);
 	}
 	fputs("\n", journal);
-	fflush(journal);
+	if (fmt[0] != 'o')	/* FIXME disgusting hack */
+	    fflush(journal);
 	if (ferror(journal)) {
 	    logerror("Error writing journal (%s)", strerror(errno));
 	    clearerr(journal);
@@ -165,6 +167,17 @@ void
 journal_logout(void)
 {
     journal_entry("logout %d", player->cnum);
+}
+
+void
+journal_output(struct player *pl, int id, char *output)
+{
+    if (keep_journal < 2)
+	return;
+    if (pl && pl->state == PS_PLAYING)
+	journal_entry("output %d %d %s", pl->cnum, id, output);
+    else
+	journal_entry("output %p %d %s", pl, id, output);
 }
 
 void
