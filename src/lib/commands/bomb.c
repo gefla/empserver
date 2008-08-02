@@ -500,8 +500,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		    shipsatxy(target->sct_x, target->sct_y, 0, M_SUB, 0);
 		continue;
 	    }
-	    if (*q == 'd')
-		goto next;
 	    if (!isdigit(*q))
 		continue;
 	    n = atoi(q);
@@ -582,8 +580,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	       xyas(target->sct_x, target->sct_y, player->cnum));
 	}
 	collateral_damage(target->sct_x, target->sct_y, dam / 2);
-      next:
-	;
     }
     free_shiplist(&head);
 }
@@ -630,8 +626,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 		planesatxy(target->sct_x, target->sct_y, 0, 0);
 		continue;
 	    }
-	    if (*q == 'd')
-		goto next;
 	    n = atoi(q);
 	    if (n < 0)
 		continue;
@@ -690,8 +684,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	       xyas(target->sct_x, target->sct_y, own));
 	putplane(plane.pln_uid, &plane);
 	collateral_damage(target->sct_x, target->sct_y, dam);
-      next:
-	;
     }
 }
 
@@ -736,8 +728,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		unitsatxy(target->sct_x, target->sct_y, 0, 0);
 		continue;
 	    }
-	    if (*q == 'd')
-		goto next;
 	    n = atoi(q);
 	    if (n < 0)
 		continue;
@@ -796,8 +786,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	nreport(player->cnum, N_UNIT_BOMB, own, 1);
 	putland(land.lnd_uid, &land);
 	collateral_damage(target->sct_x, target->sct_y, dam);
-      next:
-	;
     }
 }
 
