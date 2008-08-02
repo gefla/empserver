@@ -178,6 +178,8 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags)
     while (nxtitem(&ni, &plane)) {
 	if (plane.pln_effic < PLANE_MINEFF || plane.pln_own == 0)
 	    continue;
+	if (plane.pln_ship >= 0 || plane.pln_land >= 0)
+	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	plp = &plchr[(int)plane.pln_type];

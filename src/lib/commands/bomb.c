@@ -638,6 +638,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (getplane(n, &plane) &&
 		plane.pln_x == target->sct_x &&
 		plane.pln_y == target->sct_y &&
+		plane.pln_ship < 0 && plane.pln_land < 0 &&
 		!(plane.pln_flags & PLN_LAUNCHED))
 		planeno = n;
 	    else
@@ -741,6 +742,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (n < 0)
 		continue;
 	    if (getland(n, &land) && land.lnd_own &&
+		land.lnd_ship < 0 && land.lnd_land < 0 &&
 		land.lnd_x == target->sct_x && land.lnd_y == target->sct_y)
 		unitno = n;
 	    else
