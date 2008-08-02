@@ -172,6 +172,7 @@ static void **ppvUserData;
 /* Global flags.  From empth_init parameter. */
 static int global_flags;
 
+static void loc_debug(const char *, ...) ATTRIBUTE((format(printf, 1, 2)));
 
 /************************
  * loc_debug

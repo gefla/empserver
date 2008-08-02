@@ -43,7 +43,8 @@ struct xdstr {
     natid cnum;			/* dump for this country */
     int divine;			/* is this a deity dump? */
     int human;			/* dump human-readable format */
-    void (*pr)(char *fmt, ...);	/* callback for printing dump */
+    void (*pr)(char *fmt, ...)	/* callback for printing dump */
+	ATTRIBUTE((format (printf, 1, 2)));
 };
 
 struct xdstr *xdinit(struct xdstr *, natid, int, void (*)(char *, ...));

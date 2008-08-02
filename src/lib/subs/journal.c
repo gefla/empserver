@@ -64,6 +64,9 @@
 static char journal_fname[] = "journal.log";
 static FILE *journal;
 
+static void journal_entry(char *fmt, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
+
 static FILE *
 journal_open(void)
 {

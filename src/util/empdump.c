@@ -45,7 +45,8 @@
 #include "version.h"
 #include "xdump.h"
 
-static void exit_bad_arg(char *, ...) ATTRIBUTE((noreturn));
+static void exit_bad_arg(char *, ...)
+    ATTRIBUTE((noreturn, format (printf, 1, 2)));
 static void dump_table(int, int);
 static void pln_fixup(void);
 static void lnd_fixup(void);
