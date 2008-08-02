@@ -183,7 +183,7 @@ xdprsym(struct xdstr *xd, int key, int type, char *sep)
     char *sym = symbol_by_value(key, ef_ptr(type, 0));
 
     if (CANT_HAPPEN(!sym))
-	xd->pr("%s%ld", sep, key);
+	xd->pr("%s%d", sep, key);
     else {
 	xd->pr("%s", sep);
 	xdpresc(xd, sym, INT_MAX);
