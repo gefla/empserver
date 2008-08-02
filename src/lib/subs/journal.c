@@ -69,7 +69,7 @@ static FILE *journal;
 
 static void journal_entry(char *fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
-static void journal_output_1(struct player *, char *, char *, int);
+static void journal_output_1(struct player *, int, char *, char *, int);
 
 static FILE *
 journal_open(void)
@@ -172,35 +172,45 @@ journal_logout(void)
 }
 
 void
-journal_output(struct player *pl, char *output)
+journal_output(struct player *pl, int id, char *output)
 {
     static char buf[1024];
+    static struct player *bpl;
+    static int bid;
     char *s, *e;
 
     if (keep_journal < 2)
 	return;
 
-    for (s = output; (e = strchr(s, '\n')); s = e + 1) {
-	journal_output_1(pl, buf, s, (int)(e + 1 - s));
+    if (buf[0] && (pl != bpl && id != bid)) {
+	journal_output_1(bpl, bid, buf, "", -1);
 	buf[0] = 0;
     }
-    if (strlen(buf) + strlen(s) < 1024)
+
+    for (s = output; (e = strchr(s, '\n')); s = e + 1) {
+	journal_output_1(pl, id, buf, s, (int)(e + 1 - s));
+	buf[0] = 0;
+    }
+    if (strlen(buf) + strlen(s) < 1024) {
 	strcpy(buf + strlen(buf), s);
-    else {
-	journal_output_1(pl, buf, s, -1);
+	bpl = pl;
+	bid = id;
+    } else {
+	journal_output_1(pl, id, buf, s, -1);
 	buf[0] = 0;
     }
 }
 
 void
-journal_output_1(struct player *pl, char *buf1, char *buf2, int buf2prec)
+journal_output_1(struct player *pl, int id,
+		 char *buf1, char *buf2, int buf2prec)
 {
     if (pl && pl->state == PS_PLAYING)
-	journal_entry("output %d %s%.*s",
-		      pl->cnum, buf1, buf2prec, buf2);
+	journal_entry("output %d %d %s%.*s",
+		      pl->cnum, id, buf1, buf2prec, buf2);
     else
-	journal_entry("output %p %s%.*s",
-		      pl, buf1, buf2prec, buf2);
+	journal_entry("output %p %id %s%.*s",
+		      pl, id, buf1, buf2prec, buf2);
 }
 
 void
