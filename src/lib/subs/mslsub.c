@@ -411,10 +411,17 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 			dam += nukedam;
 		} else
 		    dam += newdam;
+#if 0
+	    /*
+	     * FIXME want collateral damage on miss (which can't
+	     * happen for nuclear war heads), but we get here too when
+	     * launch fails or missile is intercepted
+	     */
 	    } else {
 		/* Missiles that miss have to hit somewhere! */
 		newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 0);
 		collateral_damage(x, y, newdam);
+#endif
 	    }
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
