@@ -93,7 +93,7 @@ laun(void)
 	    }
 	}
 
-	if (plane.pln_effic < 60) {
+	if (plane.pln_effic < 40) { 
 	    pr("%s is damaged (%d%%)\n", prplane(&plane), plane.pln_effic);
 	    continue;
 	}

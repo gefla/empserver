@@ -37,7 +37,7 @@ Once a satellite has been launched, it can not be moved again.
 .s1
 Note here that it is much safer to use 100% missiles than those which
 are less efficient,
-and missiles below 60% cannot be launched.
+and missiles below 40% cannot be launched.
 .s1
 The formula for the chance that a missile hits its target is in
 \*Qinfo Hitchance\*U.
