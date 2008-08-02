@@ -752,8 +752,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 
 	aaf = lnd_aaf(&land);
-	flak = (int)(techfact(land.lnd_tech, aaf) * 3.0);
-	if (flak) {
+	if (aaf) {
+	    flak = roundavg(techfact(land.lnd_tech,
+				     aaf * 3.0 * land.lnd_effic / 100.0));
 	    PR(land.lnd_own,
 	       "Flak! Firing flak guns from unit %s (aa rating %d)\n",
 	       prland(&land), aaf);
