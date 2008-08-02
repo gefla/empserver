@@ -3,7 +3,7 @@
 .LV Basic
 .SY "bomb <BOMBERS> <ESCORTS> mission-type <SECT> route|destination"
 The \*Qbomb\*U command is used to rain destruction upon helpless
-enemy ships, planes, and sectors.
+enemy ships, planes, land units, and sectors.
 It represents a complete mission for one or more bombers and escorts
 taking off from one place and returning to base at the end of the mission.
 .s1
@@ -19,10 +19,11 @@ To be selected, escorts must have fuel and mobility.
 Mission-type must be one of "pinpoint" or "strategic".
 Each mission has different objectives for the planes performing it.
 Pinpoint missions allow bombers to attack ships, sector efficiency,
-commodities in sectors, and planes on the ground in the target sector.
+commodities in sectors, land units, and planes on the ground in the
+target sector.
 Strategic missions damage all commodities in the entire target sector,
-while not damaging any ships or planes resident (similar to the
-ship and sector \*Qfire\*U missions).
+while not damaging any ships resident (similar to the
+\*Qfire\*U command).
 If a plane is armed with a nuclear warhead, then it will drop the bomb
 rather than using conventional weapons.
 Nuclear devices damage everything in the sector; planes, ships, and
@@ -78,7 +79,7 @@ particular plane not to bomb. Other planes on the mission will still
 be asked for their targets.
 .s1
 If your plane has anti-submarine
-(asw) capabilities, you will be told when you arrive in a sector whether
+(ASW) capabilities, you will be told when you arrive in a sector whether
 it has submarines in it. If you then choose to pin-bomb ships, each plane
 in turn will attempt to find submarines (this ability varies with the plane's
 accuracy rating).  Each plane can only bomb the subs it can find. (It
@@ -90,23 +91,8 @@ and load-carrying capacities.
 Some airplanes don't need runways, but can operate out of any
 sector which has fuel in it.
 .s1
-ASW capable planes may attempt
-to fly pin-bombing missions versus submarines. To do this, the plane
-gives a target sector, and flies there. If there are any subs in the
-sector, a message will be printed saying that. If the plane then 
-attempts to bomb ships, it may get the chance to bomb subs in the sector.
-.s1
-The chance to detect a sub is the same as the chance of hitting it.
-.s1
-If the plane does not detect a particular sub, it may not bomb it on that
-mission. On other missions, it could roll again.
-.s1
-Trying to pinpoint bomb land units is similar to trying to bomb a sub.
-The chance to find the unit to bomb it is based on the unit's 
-visibility & the type of the sector it is in. 
-.s1
 When you pin-bomb a land unit, it will fire flak at the plane bombing it,
-unless it is an 'flak' unit (in which case it fired earlier), or 
+unless
 it has an AA fire rating of 0. 
 .s1
 In the case of pinpoint bombing, see \*Qinfo Hitchance\*U for the formula
