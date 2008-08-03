@@ -1,3 +1,96 @@
+Changes to Empire 4.3.16 - Sun Aug  3 01:26:36 UTC 2008
+ * Remove undocumented key 'd' at bomb ship, plane and land unit
+   target prompts.
+ * Fix land unit flak when pin-bombed to match flak when overflown:
+   proportional to efficiency, and randomly rounded.  Was missed in
+   4.3.6.
+ * Don't permit bombing of embarked planes and land units.
+ * Fix capital maintenance to charge at 60% efficiency.
+ * launch command now requires only 40% plane efficiency, for
+   consistency with other ways to launch missiles.
+ * Disable collateral damage when automatically launched missiles miss
+   their target.  Collateral damage was done even when the launch
+   failed or the missile got intercepted.  It's been disabled for
+   manually launched missiles since 4.0.18, for the same reason.
+ * Fix a bug that corrupted the lostitems file.  Broken in 4.3.12.
+ * Show command changes:
+   - Move product information from "show sect c" into new "show
+     product", and reformat it to be easier to understand.
+   - New column navigability in "show sect s".
+   - "show sect s" now shows the packing bonus type instead of
+     selected packing bonuses.  "show item" shows the actual bonuses
+     for each type.
+   - "show sect b" now shows the usual values in addition to unusual
+     ones.
+ * Fix interdiction to obey op-area for missiles.
+ * Fix a bug that caused a stale sources.mk to be distributed in the
+   4.3.14 an 4.3.15 tarballs.  The latter does not build out of the
+   box because of that.
+ * Don't strip tab characters from quoted command arguments.  Broken
+   in 4.2.21.
+ * shutdown commands now always take effect immediately.  Before, they
+   could be delayed by up to a minute.
+ * shutdown could start multiple shutdown threads when you initiated a
+   shutdown shortly after cancelling one.  This screwed up the timing
+   of the shutdown.
+ * Deity syntax of zdone changed, and is now documented in info.
+ * The threshold command could be tricked into accepting negative
+   thresholds.
+ * Fix bdes and designate to always write updated bmap to disk.
+ * Fix bomb to fail on empty <pin|strat> argument instead of flying
+   without bombs.
+ * Fix a bug in distribute that screwed up the current sector's
+   distribution center when the command got aborted.
+ * Commands arm, bomb, deliver, drop, fire, fly, paradrop, recon,
+   lmine, order, power, range, sail, shutdown, sweep and tend did not
+   honor command abortion at some prompts.
+ * Fix a bug in handling of EOF from client that could bite in the
+   following ways:
+   - EOF at target prompts for bombing commodities, ships, planes and
+     land units sent the server into an infinite loop that ate all
+     memory.
+   - EOF at sail's path prompt crashed the server.
+   - EOF at some prompts in deliver, designate, fly, morale, zdone,
+     attack and assault didn't abort the command.
+   Broken in 4.3.11.
+ * Selector terr is now the same as terr0 for mortal players, and
+   dterr for deities.  This matches how the territory command works.
+   Unfortunately, this required us to rename xdump sect field terr to
+   terr0.  Sorry about that.
+ * Fix bomb not to let you bomb dead ships and land units.
+ * Make the retreat command a bit more helpful on retreat conditions,
+   and make it fail on bad conditions.
+ * Fix the mapper scripts.  Broken in 4.2.0.
+ * Fix flying commands not to let planes do double duty as escorts.
+   Broken in 4.3.12.
+ * When a minesweeper hit a mine after sweeping, the mine wasn't used
+   up.  If it sank the minesweeper, the code accessed freed memory,
+   which could clobber the ship file or worse.  Broken in 4.0.17.
+ * Don't let non-light units board ships that can't carry them.
+ * Capitals can now employ up to 1000 civilians instead of 999.
+ * Spy command changes:
+   - Spy now requires sector military.  Before, presence of land units
+     was sufficient, but spies shot were only deduced from sector
+     military.  If you lost more spies than you had sector military,
+     the rest came back from the dead.
+   - Spy no longer ignores non-sea sectors without civilians, military
+     and land units.
+   - Remove columns lnd, pln from spy report.  The values didn't match
+     the reported land units and planes, and could leak the presence
+     of spy units.
+   - Establish contact when spy succeeds even though the spy was
+     caught.
+ * Fix news reporting and damage when land units interdict ships in
+   sectors other than sea.
+ * Fix land unit return fire damage to ships to take accuracy into
+   account, like the fire command and interdiction does.
+ * Remove the inconsistent shelling damage reduction for range.  Fire
+   command got damage reduced by 10-20% with a chance depending on
+   range ("Wind deflects shells").  Ships interdicting got it reduced
+   by half.  Other ways to shell did not get damage reduced for range.
+ * Fix ground combat to report defending land units.  Broken in 4.3.4.
+ * Info file and documentation fixes and improvements.
+
 Changes to Empire 4.3.15 - Sun May 18 08:59:30 UTC 2008
  * The edit command keys deprecated in 4.3.10 are now gone.
  * fairland now obeys game file locks.
@@ -134,6 +227,8 @@ Changes to Empire 4.3.12 - Wed Apr  2 05:35:06 UTC 2008
    - Fix ammunition use when returning fire: resupply could lose
      shells when returning fire to multiple targets, and land units
      were charged per target instead of just once.
+   - Interdicting land units now resupply shells automatically, for
+     consistency with other ways to fire.
    - torpedo and fire no longer resupply shells automatically.  The
      latter used to resupply land units only.
    - Land units no longer have to be in supply to fire actively, for
@@ -253,7 +348,7 @@ Changes to Empire 4.3.11 - Tue Jan  1 18:57:38 UTC 2008
    doc/clients-howto for an explanation.
  * Rewrite much of the client's code for sending commands and
    receiving server output:
-   - No longer blocks on sending commands. which could deadlock the
+   - No longer blocks on sending commands, which could deadlock the
      session.
    - Fix race condition that could cause server output to be discarded
      on EOF on standard input.
