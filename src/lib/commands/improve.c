@@ -138,20 +138,11 @@ improve(void)
 	}
 	dneeded = intrchr[type].in_dcost * maxup;
 	natp = getnatp(player->cnum);
-	if ((natp->nat_money - 1) < dneeded) {
-/* Nasty - leave 'em with a buck. :) */
-	    dneeded = natp->nat_money - 1;
-	    if (dneeded < 0)
-		dneeded = 0;
-	    maxup = dneeded / intrchr[type].in_dcost;
-	    if (maxup <= 0) {
-		pr("Not enough money left to improve %s\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		continue;
-	    }
+	if (player->dolcost + dneeded > natp->nat_money) {
+	    pr("Not enough money left to improve %s by %d%%\n",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum), maxup);
+	    break;
 	}
-	if (maxup <= 0)
-	    continue;
 	lneeded = intrchr[type].in_lcms * maxup;
 	hneeded = intrchr[type].in_hcms * maxup;
 	mneeded = intrchr[type].in_mcost * maxup;
