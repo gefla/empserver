@@ -87,6 +87,11 @@ work(void)
 	}
 	cost = 0.0;
 	w = buildeff(&sect, w, &cost);
+	if (w == 0) {
+	    pr("%s can't change efficiency in %s\n",
+	       prland(&land), xyas(land.lnd_x, land.lnd_y, player->cnum));
+	    continue;
+	}
 	if (player->dolcost + cost > natp->nat_money) {
 	    pr("You can't afford to work that much in %s!\n",
 	       xyas(land.lnd_x, land.lnd_y, player->cnum));
