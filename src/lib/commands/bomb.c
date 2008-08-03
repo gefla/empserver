@@ -455,7 +455,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int n;
     struct emp_qelem *qp;
     int shipno;
-    int ignore;
     struct shpstr ship;
     int nships = 0;
     struct shiplist *head = NULL;
@@ -467,8 +466,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int gun;
     int shell;
 
-    for (qp = list->q_forw; qp != list && !player->aborted;
-	 qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	free_shiplist(&head);
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
@@ -484,15 +482,14 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
 		      prplane(&plp->plane), plp->bombs);
-	ignore = 0;
 	shipno = -1;
-	while (shipno < 0 && !player->aborted && !ignore) {
-	    if ((q = getstring(prompt, buf)) == 0 || *q == 0)
+	while (shipno < 0) {
+	    if ((q = getstring(prompt, buf)) == 0)
+		goto out;
+	    if (*q == 0)
 		continue;
-	    if (*q == '~') {
-		ignore = 1;
-		continue;
-	    }
+	    if (*q == '~')
+		break;
 	    if (*q == '?') {
 		if (plp->pcp->pl_flags & P_A)
 		    print_shiplist(head);
@@ -581,6 +578,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	collateral_damage(target->sct_x, target->sct_y, dam / 2);
     }
+out:
     free_shiplist(&head);
 }
 
@@ -594,7 +592,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
     struct plnstr plane;
     struct emp_qelem *qp;
     int planeno;
-    int ignore;
     struct plist *plp;
     char prompt[128];
     char buf[1024];
@@ -614,14 +611,13 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
 		      prplane(&plp->plane), plp->bombs);
 	planeno = -1;
-	ignore = 0;
-	while (planeno < 0 && !player->aborted && !ignore) {
-	    if ((q = getstring(prompt, buf)) == 0 || *q == 0)
+	while (planeno < 0) {
+	    if ((q = getstring(prompt, buf)) == 0)
+		return;
+	    if (*q == 0)
 		continue;
-	    if (*q == '~') {
-		ignore = 1;
-		continue;
-	    }
+	    if (*q == '~')
+		break;
 	    if (*q == '?') {
 		planesatxy(target->sct_x, target->sct_y, 0, 0);
 		continue;
@@ -699,7 +695,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     struct lndstr land;
     struct emp_qelem *qp;
     int unitno;
-    int ignore, aaf, flak, hitchance;
+    int aaf, flak, hitchance;
     struct plist *plp;
     int nukedam;
     int nunits;
@@ -716,14 +712,13 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
 		      prplane(&plp->plane), plp->bombs);
 	unitno = -1;
-	ignore = 0;
-	while (unitno < 0 && !player->aborted && !ignore) {
-	    if ((q = getstring(prompt, buf)) == 0 || *q == 0)
+	while (unitno < 0) {
+	    if ((q = getstring(prompt, buf)) == 0)
+		return;
+	    if (*q == 0)
 		continue;
-	    if (*q == '~') {
-		ignore = 1;
-		continue;
-	    }
+	    if (*q == '~')
+		break;
 	    if (*q == '?') {
 		unitsatxy(target->sct_x, target->sct_y, 0, 0);
 		continue;
