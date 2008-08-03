@@ -40,41 +40,25 @@
 #include "commands.h"
 #include "land.h"
 
-static long do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real);
-
 int
 conv(void)
 {
     struct natstr *natp;
-    long cash;
-    long cost;
+    struct sctstr sect;
     struct nstr_sect nstr;
-    int uwtoconvert;
+    int uwtoconvert, newuw, totaluw, uw;
+    int maxpop, civ, mil, adj_mob, mob;
+    double security_extra = 1.0;
+    struct lndstr land;
+    struct nstr_item ni;
+
 
     natp = getnatp(player->cnum);
-    cash = natp->nat_money;
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     uwtoconvert = onearg(player->argp[2], "Number to convert: ");
     if (uwtoconvert < 0)
 	return RET_SYN;
-    cost = do_conv(nstr, uwtoconvert, 0);
-    if (chkmoney(cost, cash, player->argp[3]))
-	return RET_SYN;
-    return (int)do_conv(nstr, uwtoconvert, 1);
-}
-
-static long
-do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
-{
-    struct natstr *natp;
-    struct sctstr sect;
-    int newuw, totaluw, uw;
-    int maxpop, civ, mil, adj_mob, mob;
-    double security_extra = 1.0;
-    struct lndstr land;
-    struct nstr_item ni;
-    long cost = 0;
 
     totaluw = 0;
     while (nxtsct(&nstr, &sect)) {
@@ -106,8 +90,6 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 		 */
 		security_extra += .1;
 		land.lnd_mobil -= 10;
-		if (for_real)
-		    putland(land.lnd_uid, &land);
 		mil += land.lnd_item[I_MILIT];
 	    }
 	}
@@ -138,9 +120,10 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	    newuw = adj_mob;
 	if (newuw <= 0)
 	    continue;
-	if (!for_real) {
-	    cost += newuw * 1.5;
-	    continue;
+	if (player->dolcost + newuw * 1.5 > natp->nat_money) {
+	    pr("You can't afford to convert %d civilians in %s!\n",
+	       newuw, xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    break;
 	}
 	player->btused += (newuw - 1) / 100 + 1;
 	player->dolcost += newuw * 1.5;
@@ -163,8 +146,6 @@ do_conv(struct nstr_sect nstr, int uwtoconvert, int for_real)
 	putsect(&sect);
 	totaluw += newuw;
     }
-    if (!for_real)
-	return cost;
     pr("Total civilians converted: %d\n", totaluw);
     pr("Paperwork at conversion places ... %d\n", player->btused);
     return RET_OK;
