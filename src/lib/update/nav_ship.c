@@ -159,9 +159,7 @@ nav_loadship(struct shpstr *sp, natid cnum)
     sp->shp_autonav &= ~AN_LOADING;
 
     if (!(sectp = getsectp(sp->shp_x, sp->shp_y)))
-	return RET_SYS;		/* safety */
-    /* I suspect RET_SYS isn't really what you want here --dfp */
-
+	return 0;		/* safety */
 
     landown = sectp->sct_own;
     shipown = sp->shp_own;
