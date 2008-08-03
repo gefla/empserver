@@ -28,7 +28,7 @@
  *  aswplnsubs.c: Various subroutines used for ASW planes
  * 
  *  Known contributors to this file:
- *  Ron Koenderink, 2004
+ *     Ron Koenderink, 2004
  */
 
 #include <config.h>

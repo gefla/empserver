@@ -29,7 +29,7 @@
  * 
  *  Known contributors to this file:
  *     Doug Hay, 1990
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2008
  */
 
 /*
