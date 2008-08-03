@@ -91,7 +91,6 @@ void exit_nomem(void) ATTRIBUTE((noreturn));
 #define	RET_OK		0	/* command completed sucessfully */
 #define	RET_FAIL	1	/* command completed unsucessfully [?] */
 #define	RET_SYN		2	/* syntax error in command */
-#define	RET_SYS		3	/* system error (missing file, etc) */
 
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);

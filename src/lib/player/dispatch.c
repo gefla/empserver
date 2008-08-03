@@ -113,9 +113,6 @@ dispatch(char *buf, char *redir)
     case RET_SYN:
 	pr("Usage: %s\n", command->c_form);
 	break;
-    case RET_SYS:
-	logerror("System error, command failed: %s", command->c_form);
-	break;
     default:
 	CANT_REACH();
 	break;

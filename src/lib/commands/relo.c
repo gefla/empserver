@@ -47,7 +47,7 @@ relo(void)
 
     if (journal_reopen() < 0) {
 	pr("Can't reopen journal");
-	return RET_SYS;
+	return RET_FAIL;
     }
     pr("Journal reopened.\n");
 
@@ -56,7 +56,7 @@ relo(void)
 
     if (logreopen() < 0) {
 	pr("Can't reopen log");
-	return RET_SYS;
+	return RET_FAIL;
     }
     pr("Log reopened.\n");
 

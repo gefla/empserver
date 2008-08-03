@@ -62,7 +62,7 @@ turn(void)
 	if ((unlink(downfil) == -1) && (errno != ENOENT)) {
 	    pr("Could not remove no-login file, logins still disabled.\n");
 	    logerror("Could not remove no-login file (%s).\n", downfil);
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
 	return RET_OK;
     } else {
@@ -89,7 +89,7 @@ turn(void)
 		pr("Could not remove motd.\n");
 		logerror("Could not remove motd file (%s).\n",
 			 msgfilepath);
-		return RET_SYS;
+		return RET_FAIL;
 	    }
 	    return RET_OK;
 	} else
@@ -100,7 +100,7 @@ turn(void)
     if (fptr == NULL) {
 	pr("Something went wrong opening the message file.\n");
 	logerror("Could not open message file (%s).\n", msgfilepath);
-	return RET_SYS;
+	return RET_FAIL;
     }
 
     if (msgfilepath == downfil)
@@ -112,13 +112,13 @@ turn(void)
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",
 	    msgfilepath);
-	return RET_SYS;
+	return RET_FAIL;
     }
     if (fclose(fptr)) {
     	pr("Something went wrong closing the message.\n");
 	logerror("Could not properly close message file (%s).\n",
 	    msgfilepath);
-	return RET_SYS;
+	return RET_FAIL;
     }
 
     pr("\n");

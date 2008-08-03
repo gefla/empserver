@@ -142,8 +142,9 @@ do_treaty(void)
     trty.trt_cnb = recipient;
     trty.trt_exp = j * SECS_PER_DAY + now;
     if (!puttre(nstr.cur, &trty)) {
+	logerror("do_treaty: can't write treaty");
 	pr("Couldn't save treaty; get help.\n");
-	return RET_SYS;
+	return RET_FAIL;
     }
     wu(0, recipient, "Treaty #%d proposed to you by %s\n",
        nstr.cur, cname(player->cnum));
@@ -230,8 +231,9 @@ do_loan(void)
     (void)time(&loan.l_lastpay);
     loan.l_duedate = loan.l_ldur * SECS_PER_DAY + loan.l_lastpay;
     if (!putloan(nstr.cur, &loan)) {
+	logerror("do_loan: can't save loan");
 	pr("Couldn't save loan; get help!\n");
-	return RET_SYS;
+	return RET_FAIL;
     }
     pr("You have offered loan %d\n", nstr.cur);
     wu(0, recipient, "Country #%d has offered you a loan (#%d)\n",

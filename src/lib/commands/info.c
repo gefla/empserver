@@ -99,7 +99,7 @@ info(void)
 	if (info_dp == 0) {
 	    pr("Can't open info dir\n");
 	    logerror("Can't open info dir \"%s\"\n", infodir);
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
 
 	while ((dp = readdir(info_dp)) != 0) {
@@ -146,13 +146,13 @@ info(void)
 	logerror("Cannot fstat for \"%s\" info file (%s)",
 		 filename, strerror(errno));
 	fclose(fp);
-	return RET_SYS;
+	return RET_FAIL;
     }
     if ((statb.st_mode & S_IFREG) == 0) {
 	pr("Error reading info file for %s\n", name);
 	logerror("The info file \"%s\" is not regular file\n", filename);
 	fclose(fp);
-	return RET_SYS;
+	return RET_FAIL;
     }
     pr("Information on:  %s    Last modification date: %s",
        name, ctime(&statb.st_mtime));
@@ -193,7 +193,7 @@ apro(void)
     if (info_dp == NULL) {
 	pr("Can't open info dir \n");
 	logerror("Can't open info dir \"%s\"", infodir);
-	return RET_SYS;
+	return RET_FAIL;
     }
 
     fbuf = malloc(256);
@@ -315,7 +315,6 @@ info(void)
 	    switch (GetLastError()) {
 	    case ERROR_FILE_NOT_FOUND:
 		pr("Sorry, there is no info on %s\n", name);
-		return RET_FAIL;
 		break;
 	    case ERROR_PATH_NOT_FOUND:
 		pr("Can't open info dir\n");
@@ -326,7 +325,7 @@ info(void)
 		logerror("Error (%lu) reading info dir(%s)\\file(%s)",
 		    GetLastError(), infodir, filename);
 	    }
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
 	do {
 	    if ((fData.dwFileAttributes != (DWORD)-1) &&
@@ -381,7 +380,7 @@ info(void)
 	    logerror("The info file \"%s\" is not regular file\n",
 		     filename);
 	    fclose(fp);
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
     }
 
@@ -429,7 +428,7 @@ apro(void)
 	    logerror("Error (%lu) reading info dir(%s)\\file(%s)",
 		GetLastError(), infodir, filename);
 	}
-	return RET_SYS;
+	return RET_FAIL;
     }
 
     fbuf = malloc(256);

@@ -295,7 +295,7 @@ show_motd(void)
 	else {
 	    pr ("Could not open motd.\n");
 	    logerror("Could not open motd (%s).\n", motdfil);
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
     }
     if (fread(&tgm, sizeof(tgm), 1, motd_fp) != 1) {

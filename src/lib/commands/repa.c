@@ -105,8 +105,9 @@ repa(void)
 	loan.l_amtpaid += payment;
     }
     if (!putloan(loan_num, &loan)) {
+	logerror("repa: can't write loan");
 	pr("Can't save loan; get help!\n");
-	return RET_SYS;
+	return RET_FAIL;
     }
     return RET_OK;
 }

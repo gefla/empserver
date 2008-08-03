@@ -196,8 +196,9 @@ loan_accept(struct ltcomstr *ltcp)
 	return RET_OK;
     }
     if (!getloan(ltcp->num, lp)) {
-	pr("loan_accept: can't read loan; get help!\n");
-	return RET_SYS;
+	logerror("loan_accept: can't read loan");
+	pr("can't read loan; get help!\n");
+	return RET_FAIL;
     }
     if (lp->l_status == LS_FREE) {	/* other guy retratcted already */
 	late(ltcp);
@@ -250,8 +251,9 @@ loan_decline(struct ltcomstr *ltcp)
 
     lp = &ltcp->u.l;
     if (!getloan(ltcp->num, lp)) {
-	pr("Decline: can't read loan; get help!\n");
-	return RET_SYS;
+	logerror("loan_decline: can't read loan");
+	pr("can't read loan; get help!\n");
+	return RET_FAIL;
     }
     /* loan got accepted somehow between now and last time we checked */
     if (lp->l_status == LS_SIGNED) {
@@ -260,8 +262,9 @@ loan_decline(struct ltcomstr *ltcp)
     }
     lp->l_status = LS_FREE;
     if (!putloan(ltcp->num, lp)) {
-	pr("loan_decline: can't write loan; get help!\n");
-	return RET_SYS;
+	logerror("loan_decline: can't write loan");
+	pr("can't write loan; get help!\n");
+	return RET_FAIL;
     }
     decline(ltcp);
     return RET_OK;
@@ -281,8 +284,9 @@ treaty_accept(struct ltcomstr *ltcp)
 	return RET_OK;
     }
     if (!gettre(ltcp->num, tp)) {
-	pr("Accept: can't read treaty; get help!\n");
-	return RET_SYS;
+	pr("treaty_accept: can't read treaty");
+	pr("can't read treaty; get help!\n");
+	return RET_FAIL;
     }
     if (tp->trt_status == TS_FREE) {	/* treaty offer withdrawn */
 	late(ltcp);
@@ -294,8 +298,9 @@ treaty_accept(struct ltcomstr *ltcp)
     }
     tp->trt_status = TS_SIGNED;
     if (!puttre(ltcp->num, tp)) {
+	pr("treaty_accept: can't write treaty");
 	pr("Problem saving treaty; get help!\n");
-	return RET_SYS;
+	return RET_FAIL;
     }
     accpt(ltcp);
     pr("Treaty in effect until %s", ctime(&tp->trt_exp));
@@ -312,8 +317,9 @@ treaty_decline(struct ltcomstr *ltcp)
 
     tp = &ltcp->u.t;
     if (!gettre(ltcp->num, tp)) {
-	pr("Decline: can't read treaty; get help!\n");
-	return RET_SYS;
+	logerror("treaty_decline: can't read treaty");
+	pr("can't read treaty; get help!\n");
+	return RET_FAIL;
     }
     /* treaty got signed somehow between now and last time we read it */
     if (tp->trt_status == TS_SIGNED) {
@@ -322,8 +328,9 @@ treaty_decline(struct ltcomstr *ltcp)
     }
     tp->trt_status = TS_FREE;
     if (!puttre(ltcp->num, tp)) {
+	logerror("treaty_decline: can't write treaty");
 	pr("Problem saving treaty; get help!\n");
-	return RET_SYS;
+	return RET_FAIL;
     }
     decline(ltcp);
     return RET_OK;

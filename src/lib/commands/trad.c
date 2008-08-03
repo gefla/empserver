@@ -134,8 +134,9 @@ trad(void)
 	pr("Can't find trade #%d!\n", trade.trd_unitid);
 	trade.trd_unitid = -1;
 	if (!puttrade(lotno, &trade)) {
+	    logerror("trad: can't write trade");
 	    pr("Couldn't save after getitem failed; get help!\n");
-	    return RET_SYS;
+	    return RET_FAIL;
 	}
 	return RET_OK;
     }
