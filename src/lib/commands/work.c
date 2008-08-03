@@ -49,6 +49,8 @@ work(void)
     int work_amt, eff_amt, w;
     char *p;
     char buf[1024];
+    double cost;
+    struct natstr *natp = getnatp(player->cnum);
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
@@ -83,11 +85,18 @@ work(void)
 	       prland(&land));
 	    continue;
 	}
-	nunits++;
-	eff_amt = ((6 * buildeff(&sect, w, &player->dolcost)) /
-		   (land.lnd_effic / 100.0));
+	cost = 0.0;
+	w = buildeff(&sect, w, &cost);
+	if (player->dolcost + cost > natp->nat_money) {
+	    pr("You can't afford to work that much in %s!\n",
+	       xyas(land.lnd_x, land.lnd_y, player->cnum));
+	    break;
+	}
+	player->dolcost += cost;
+	eff_amt = ((6 * w) / (land.lnd_effic / 100.0));
 	land.lnd_mission = 0;
 	land.lnd_mobil -= eff_amt;
+	nunits++;
 	pr("%s %s efficiency at %s to %d\n",
 	   prland(&land),
 	   sect.sct_type == sect.sct_newtype ? "raised" : "lowered",
