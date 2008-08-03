@@ -40,22 +40,22 @@
  *
  */
 
-static long do_demo(struct natstr *natp, struct nstr_sect nstr, int number,
-		    char *p, int for_real);
-
 int
 demo(void)
 {
     struct natstr *natp;
-    long cash;
-    long cost;
     int number;
     char *p;
     char buf[1024];
     struct nstr_sect nstr;
+    struct sctstr sect;
+    int mil_demob;
+    int mil;
+    int civ;
+    int deltamil;
+    int reserves;
 
     natp = getnatp(player->cnum);
-    cash = natp->nat_money;
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     if (!(p = getstarg(player->argp[2], "Number to de-mobilize : ", buf)))
@@ -66,23 +66,6 @@ demo(void)
 	return RET_SYN;
     if (*p != 'y' && *p != 'n')
 	return RET_SYN;
-    cost = do_demo(natp, nstr, number, p, 0);
-    if (chkmoney(cost, cash, player->argp[4]))
-	return RET_SYN;
-    return (int)do_demo(natp, nstr, number, p, 1);
-}
-
-static long
-do_demo(struct natstr *natp, struct nstr_sect nstr, int number, char *p,
-	int for_real)
-{
-    struct sctstr sect;
-    int mil_demob;
-    int mil;
-    int civ;
-    int deltamil;
-    int reserves;
-    long cost = 0;
 
     mil_demob = 0;
     reserves = 0;
@@ -99,14 +82,15 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, char *p,
 	    continue;
 	if (deltamil > ITEM_MAX - civ)
 	    deltamil = ITEM_MAX - civ;
+	if (player->dolcost + deltamil * 5 > natp->nat_money) {
+	    pr("You can't afford to demobilize %d military in %s!\n",
+	       deltamil, xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    break;
+	}
+	player->dolcost += deltamil * 5;
 	civ += deltamil;
 	mil -= deltamil;
 	mil_demob += deltamil;
-	if (!for_real) {
-	    cost += deltamil * 5;
-	    continue;
-	}
-	player->dolcost += deltamil * 5;
 	pr("%d demobilized in %s (%d mil left)\n",
 	   deltamil, xyas(sect.sct_x, sect.sct_y, player->cnum), mil);
 	if (*p == 'y')
@@ -115,11 +99,9 @@ do_demo(struct natstr *natp, struct nstr_sect nstr, int number, char *p,
 	sect.sct_item[I_CIVIL] = civ;
 	putsect(&sect);
     }
-    if (!for_real)
-	return cost;
     if (!mil_demob) {
 	pr("No eligible sectors/military for demobilization\n");
-	return (long)RET_FAIL;
+	return RET_FAIL;
     }
     pr("Total new civilians : %d\n", mil_demob);
     if (*p == 'y')
