@@ -414,8 +414,6 @@ extern int check_plane_ok(struct plnstr *);
 extern int check_comm_ok(struct comstr *);
 extern int check_loan_ok(struct lonstr *);
 extern int check_trade_ok(struct trdstr *);
-/* chkmoney.c */
-extern int chkmoney(long, long, char *);
 /* coastal.c */
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
