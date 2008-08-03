@@ -48,7 +48,6 @@ work(void)
     struct lndstr land;
     int work_amt, eff_amt, w;
     char *p;
-    coord donex = 0, doney = 1;
     char buf[1024];
 
     if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
@@ -73,13 +72,8 @@ work(void)
 	}
 	getsect(land.lnd_x, land.lnd_y, &sect);
 	if (sect.sct_effic >= 100 && sect.sct_type == sect.sct_newtype) {
-	    if (sect.sct_x != donex || sect.sct_y != doney)
-		pr("%s is %d%% efficient\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum),
-		   sect.sct_effic);
-	    /* not perfect, but it'll do -KHS */
-	    donex = sect.sct_x;
-	    doney = sect.sct_y;
+	    pr("Nothing to do for %s in %s\n",
+	       prland(&land), xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
 	eff_amt = MIN(land.lnd_mobil, work_amt);
