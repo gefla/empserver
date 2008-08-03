@@ -28,7 +28,7 @@
  *  work.c: Implementation of the work command
  * 
  *  Known contributors to this file:
- *   
+ *     Markus Armbruster, 2008
  */
 
 #include <config.h>
@@ -93,15 +93,14 @@ work(void)
 	    break;
 	}
 	player->dolcost += cost;
-	eff_amt = ((6 * w) / (land.lnd_effic / 100.0));
 	land.lnd_mission = 0;
-	land.lnd_mobil -= eff_amt;
+	land.lnd_mobil -= roundavg(w * 600.0 / land.lnd_effic);
 	nunits++;
 	pr("%s %s efficiency at %s to %d\n",
 	   prland(&land),
 	   sect.sct_type == sect.sct_newtype ? "raised" : "lowered",
 	   xyas(land.lnd_x, land.lnd_y, player->cnum),
-	   (int)sect.sct_effic);
+	   sect.sct_effic);
 	putland(land.lnd_uid, &land);
 	putsect(&sect);
     }
