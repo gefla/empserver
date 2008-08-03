@@ -260,7 +260,7 @@ nav_ship(struct shpstr *sp)
 
     /* just return if no autonaving to do for this ship */
     if (!(sp->shp_autonav & AN_AUTONAV) || (sp->shp_autonav & AN_STANDBY))
-	return RET_OK;
+	return 0;
 
     cnum = sp->shp_own;
 
@@ -280,7 +280,7 @@ nav_ship(struct shpstr *sp)
 	    shp_nav(&ship_list, &dummydouble, &dummydouble, &dummyint,
 		    sp->shp_own);
 	    if (QEMPTY(&ship_list))
-		return RET_OK;
+		return 0;
 
 	    cp = BestShipPath(buf, sp->shp_x, sp->shp_y,
 			      sp->shp_destx[0], sp->shp_desty[0],
@@ -299,7 +299,7 @@ nav_ship(struct shpstr *sp)
 		    free(qp);
 		    qp = newqp;
 		}
-		return RET_SYN;
+		return -1;
 	    }
 	    stopping = 0;
 
@@ -339,5 +339,5 @@ nav_ship(struct shpstr *sp)
 	free(qp);
 	qp = newqp;
     }
-    return RET_OK;
+    return 0;
 }
