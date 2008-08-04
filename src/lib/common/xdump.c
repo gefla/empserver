@@ -226,18 +226,6 @@ xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca, char *sep)
 }
 
 /*
- * Dump VAL prefixed with SEP to XD, return " ".
- * XD must not be human-readable.
- * VAL must be evaluated.
- */
-char *
-xdprval(struct xdstr *xd, struct valstr *val, char *sep)
-{
-    CANT_HAPPEN(xd->human);
-    return xdprval_nosym(xd, val, sep);
-}
-
-/*
  * Dump field values of a context object to XD.
  * CA[] describes fields.
  * PTR points to context object.
