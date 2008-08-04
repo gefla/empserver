@@ -105,7 +105,7 @@ xdinit(struct xdstr *xd, natid cnum, int human, void (*pr)(char *fmt, ...))
  * PTR points to the context object.
  * IDX is the index within the attribute.
  */
-struct valstr *
+static struct valstr *
 xdeval(struct valstr *val, struct xdstr *xd,
        struct castr *ca, void *ptr, int idx)
 {
@@ -311,7 +311,7 @@ xdftr(struct xdstr *xd, int n)
 
 /*
  * Dump meta-data for items of type TYPE to XD.
- * Return RET_OK.
+ * Return RET_SYN when TYPE doesn't have meta-data, else RET_OK.
  */
 int
 xdmeta(struct xdstr *xd, int type)

@@ -471,7 +471,6 @@ extern int adj_units(coord, coord, natid);
 extern int islist(char *);
 /* maps.c */
 extern int do_map(int bmap, int unit_type, char *arg1, char *arg2);
-extern int draw_map(int, char, int, struct nstr_sect *);
 extern int display_region_map(int bmap, int unit_type, coord curx,
 			      coord cury, char *arg);
 extern int bmaps_intersect(natid, natid);

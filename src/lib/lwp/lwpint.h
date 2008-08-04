@@ -71,8 +71,6 @@ struct lwpQueue {
 /* XXX Note that this assumes sizeof(int) == 4 */
 #define LWP_CHECKMARK	0x5a5a5a5a
 
-extern int LwpStackGrowsDown;
-
 int lwpNewContext(struct lwpProc *);
 void lwpSwitchContext(struct lwpProc *, struct lwpProc *);
 void lwpAddTail(struct lwpQueue *, struct lwpProc *);

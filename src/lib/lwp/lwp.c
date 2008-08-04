@@ -39,12 +39,12 @@
 #include "lwpint.h"
 #include "prototypes.h"
 
-struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
+static struct lwpQueue LwpSchedQ[LWP_MAX_PRIO], LwpDeadQ;
 
 struct lwpProc *LwpCurrent = NULL;
-void **LwpContextPtr;
-int LwpMaxpri = 0;		/* maximum priority so far */
-int LwpStackGrowsDown;
+static void **LwpContextPtr;
+static int LwpMaxpri = 0;	/* maximum priority so far */
+static int LwpStackGrowsDown;
 
 static void lwpDestroy(struct lwpProc *proc);
 static void lwpStackCheckInit(struct lwpProc *newp);

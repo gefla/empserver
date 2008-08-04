@@ -53,6 +53,7 @@
 #include "ship.h"
 #include "xy.h"
 
+static int draw_map(int, char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(int, natid, int);
 static int unit_map(int, int, struct nstr_sect *, char *);
@@ -115,7 +116,7 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
     return draw_map(bmap, origin, map_flags, &ns);
 }
 
-int
+static int
 draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 {
     struct natstr *np;
