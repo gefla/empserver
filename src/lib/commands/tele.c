@@ -50,7 +50,7 @@ tele(void)
     if (*player->argp[0] == 'a') {
 	if (getele("everybody", buf) <= 0) {
 	    pr("Announcement aborted\n");
-	    return RET_OK;
+	    return RET_FAIL;
 	}
 	pr("\n");
 	to = 0;
@@ -59,7 +59,7 @@ tele(void)
     } else if (*player->argp[0] == 'p') {
 	if (getele("your Gracious Deity", buf) <= 0) {
 	    pr("Prayer aborted\n");
-	    return RET_OK;
+	    return RET_FAIL;
 	}
 	pr("\n");
 	if (typed_wu(player->cnum, 0, buf, TEL_NORM) < 0)
@@ -77,12 +77,12 @@ tele(void)
 		if (player->argp[2]) {
 		    if (getele("multiple recipients", buf) < 0) {
 			pr("Telegram aborted\n");
-			return RET_OK;
+			return RET_FAIL;
 		    }
 		} else {
 		    if (getele(cname(to), buf) < 0) {
 			pr("Telegram aborted\n");
-			return RET_OK;
+			return RET_FAIL;
 		    }
 		}
 		pr("\n");

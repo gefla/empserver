@@ -76,12 +76,11 @@ turn(void)
 
     time(&tgm.tel_date);
     tgm.tel_length = getele("The World", msgbuf);
-
     if (tgm.tel_length < 0) {
 	pr("Ignored\n");
 	if (msgfilepath == downfil)
 	    pr("NOT disabling logins.\n");
-	return RET_SYN;
+	return RET_FAIL;
     } else if (tgm.tel_length == 0) {
 	if (msgfilepath == motdfil) {
 	    pr("Removing exsting motd.\n");
