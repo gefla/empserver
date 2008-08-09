@@ -375,7 +375,7 @@ desi * ?ne=- +
 mov u 0,0 75 jh
 demob 0:2,0 55 y
 desi 2,0 m
-mov c 0,0 767 -1,-1
+mov c 0,0 600 -1,-1
 desi -1,-1 g
 mov c 0,0 275 1,-1
 mov c 2,0 274 1,-1
@@ -384,12 +384,17 @@ deliver i 2,0 230 u
 deliver i 1,-1 0 j
 dist 4,0 2,0
 thres i 2,0 1
+des 0,-2 c
+capital 0,-2
+des 0,0 g
+thres d 0,0 1
 EOF
 
 	echo "Run an update"
 	runfeed POGO peter << EOF
 power new
 cen * ?own#0
+comm * ?own#0
 reso * ?own#0
 enable
 force 1
@@ -413,6 +418,7 @@ EOF
 	runfeed POGO peter << EOF
 power new
 cen * ?own#0
+comm * ?own#0
 reso * ?own#0
 read
 y
@@ -429,13 +435,12 @@ EOF
 desi -1,-1 b
 mov i 2,0 200 4,0
 mov i 1,-1 4 jh
-mov c -1,-1 435 4,0
+mov c -1,-1 300 4,0
+mov c -1,-1 300 3,-1
+mov c 1,-1 175 3,-1
 deli i 2,0 0 j
 deli i 1,-1 0 j
-mov c -1,-1 80 3,-1
-mov c 1,-1 256 4,0
 mov c 2,0 230 5,-1
-mov c 1,-1 409 3,-1
 desi 4,0 k
 desi 3,-1 j
 dist # 5,-1
@@ -448,6 +453,7 @@ EOF
 	runfeed POGO peter << EOF
 power new
 cen * ?own#0
+comm * ?own#0
 reso * ?own#0
 enable
 force 1
@@ -463,27 +469,46 @@ cen *
 map #
 read y
 build sh 5,-1 frg
-mov l 5,-1 134 6,-2
-mov c 4,0 377 6,-2
+mov l 5,-1 102 6,-2
+mov c 4,0 255 6,-2
 desi 6,-2 l
 thre l 6,-2 150
-mov c -1,-1 600 1,1
 mov c 2,0 370 -2,2
 deliver i 2,0 0 j
 deliver i 1,-1 0 j
 thres d 1,1 1
-thres o -2,0 1
+thres o -2,2 1
 thres i 2,0 0
 thres i 1,-1 0
 desi -2,2 o
 desi 1,1 g
+thres c -1:5,-1 768
+thres c -2:4,0 768
+thres c 6,-2 250
+thres c 4,-2 300
+thres l 4,-2 100
+thres o 4,-2 50
+thres d 4,-2 10
+thres d -1,-1 50
+thres c 1,1 768
 prod *
+EOF
+	echo "Turn 3 for player 8"
+	runfeed 8 << EOF
+cen *
+map #
+read y 
+exp c 0,0 50 gyyygh
+des -7,-3 )
+lost *
 EOF
 
 	echo "Run an update"
 	runfeed POGO peter << EOF
 power new
+report *
 cen * ?own#0
+comm * ?own#0
 reso * ?own#0
 enable
 force 1
@@ -492,6 +517,56 @@ EOF
 	echo "Done (force)."
 	echo ""
 	sleep 10
+
+	echo "Turn 4 for player 1"
+	runfeed 1 << EOF
+cen *
+ship *
+map #
+read y
+des 4,-2 t
+enlist 3,-1 50
+mov m 3,-1 50 5,-1
+load m 0 50
+nav 0
+j
+j
+h
+assault 11,-1 0
+25
+prod *
+EOF
+	echo "Turn 4 for player 8"
+	runfeed 8 << EOF
+cen *
+map #
+read y 
+lost *
+EOF
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 5 for player 1"
+	runfeed 1 << EOF
+real 0 -8:16,-4:4
+cen *
+ship *
+map #
+read y
+prod *
+EOF
 
 	echo "Done (player 1)."
 	echo ""
