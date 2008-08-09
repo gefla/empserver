@@ -59,7 +59,7 @@ morale(void)
 		prland(&land), min);
 	p = getstarg(player->argp[2], mess, buf);
 	if (!p)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_land_ok(&land))
 	    continue;
 	if ((i = atoi(p)) < 0)

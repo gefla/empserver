@@ -91,7 +91,7 @@ tend(void)
 		    prship(&tender));
 	    p = getstarg(player->argp[3], prompt, buf);
 	    if (!p)
-		return RET_SYN;
+		return RET_FAIL;
 	    if (!*p)
 		continue;
 	    if (!check_ship_ok(&tender))
@@ -104,7 +104,7 @@ tend(void)
 		ip->i_name, prship(&tender));
 	p = getstarg(player->argp[3], prompt, buf);
 	if (!p)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!*p)
 	    continue;
 	if (!check_ship_ok(&tender))
@@ -127,7 +127,7 @@ tend(void)
 	}
 	if (!snxtitem(&targets, EF_SHIP,
 		      player->argp[4], "Ships to be tended? "))
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_ship_ok(&tender))
 	    return RET_SYN;
 	total = 0;
@@ -228,7 +228,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	}
 	if (!snxtitem(&targets, EF_SHIP,
 		      player->argp[4], "Ship to be tended? "))
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {

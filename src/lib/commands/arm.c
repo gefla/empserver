@@ -97,7 +97,7 @@ arm(void)
 	}
 	p = getstarg(player->argp[3], "Airburst [n]? ", buf);
 	if (!p)
-	    return RET_SYN;
+	    return RET_FAIL;
 
 	if (!check_plane_ok(&pl) || !check_nuke_ok(&nuke))
 	    return RET_FAIL;

@@ -71,14 +71,14 @@ thre(void)
 		    xyas(nstr.x, nstr.y, player->cnum),
 		    dchr[sect.sct_type].d_name);
 	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!*p)
 	    continue;
 	if (!check_sect_ok(&sect))
 	    return RET_FAIL;
 	thresh = atoi(p);
 	if (thresh < 0)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (thresh > ITEM_MAX)
 	    thresh = ITEM_MAX;
 	if ((val > 0) && (val == thresh)) {

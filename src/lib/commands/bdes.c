@@ -59,7 +59,7 @@ bdes(void)
 		xyas(nstr.x, nstr.y, player->cnum),
 		d ? d : ' ');
 	if ((p = getstarg(player->argp[2], prompt, buf)) == 0) {
-	    rc = RET_SYN;
+	    rc = RET_FAIL;
 	    break;
 	}
 	if (!isprint(*p)) {

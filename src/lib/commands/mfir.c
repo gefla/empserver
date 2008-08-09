@@ -214,7 +214,7 @@ multifire(void)
 
 	ptr = getstarg(player->argp[3], "Firing at? ", buf);
 	if (!ptr)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!*ptr)
 	    continue;
 	if (!issector(ptr)) {

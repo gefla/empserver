@@ -129,7 +129,7 @@ landmine(void)
 	sprintf(prompt, "Drop how many mines from %s? ", prland(&land));
 	mines_wanted = onearg(player->argp[2], prompt);
 	if (mines_wanted < 0)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (mines_wanted == 0)
 	    continue;
 	if (!check_land_ok(&land))

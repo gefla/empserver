@@ -53,7 +53,7 @@ range(void)
 	    continue;
 	p = getstarg(player->argp[2], "New range? ", buf);
 	if (!p)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_plane_ok(&plane))
 	    return RET_SYN;
 	if ((i = atoi(p)) < 0)

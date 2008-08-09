@@ -79,7 +79,7 @@ deli(void)
 			    dchr[sect.sct_type].d_name, ich->i_name);
 		    p = getstarg(player->argp[4], prompt, buf);
 		    if (!p)
-			return RET_SYN;
+			return RET_FAIL;
 		}
 	    }
 	    if (p && *p) {

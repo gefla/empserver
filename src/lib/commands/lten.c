@@ -76,7 +76,7 @@ ltend(void)
 	    continue;
 	if ((p =
 	     getstarg(player->argp[3], "Amount to transfer? ", buf)) == 0)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	if ((amt = atoi(p)) == 0)
@@ -95,7 +95,7 @@ ltend(void)
 	}
 	if (!snxtitem(&targets, EF_LAND,
 		      player->argp[4], "Units to be tended? "))
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
 	total = 0;

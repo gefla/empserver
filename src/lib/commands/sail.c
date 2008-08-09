@@ -124,7 +124,7 @@ cmd_sail_ship(struct nstr_item *nstr)
 	cp = getpath(navpath, player->argp[2],
 		     ship.shp_x, ship.shp_y, 0, 0, P_SAILING);
 	if (!cp)
-	    return RET_SYN;
+	    return RET_FAIL;
 	if (!check_ship_ok(&ship))
 	    continue;
 	strncpy(ship.shp_path, cp, sizeof(ship.shp_path) - 2);
