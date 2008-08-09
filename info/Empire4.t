@@ -7,7 +7,18 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.16 - Sun Aug  3 01:26:36 UTC 2008
+Changes to Empire 4.3.16 - Sat Aug  9 15:56:52 UTC 2008
+ * Production command incorrectly limited the number of graduates,
+   happy strollers, technological breakthroughs and medical
+   discoveries produced by a sector to 999.  Broken in 4.2.15.
+ * Fix a bug in improve that could let you spend more money than you
+   have.
+ * Fix work command not to spend more mobility than requested, and to
+   round mobility use randomly instead of down.
+ * Commands demobilize, convert and work no longer let you spend more
+   money than you have.  Commands demobilize and convert no longer ask
+   for confirmation before spending more than half your money.  Saving
+   that feature would have been more work than it's worth.
  * Remove undocumented key 'd' at bomb ship, plane and land unit
    target prompts.
  * Fix land unit flak when pin-bombed to match flak when overflown:
@@ -45,7 +56,7 @@ Changes to Empire 4.3.16 - Sun Aug  3 01:26:36 UTC 2008
  * Deity syntax of zdone changed, and is now documented in info.
  * The threshold command could be tricked into accepting negative
    thresholds.
- * Fix bdes and designate to always write updated bmap to disk.
+ * Fix designate to always write updated bmap to disk.
  * Fix bomb to fail on empty <pin|strat> argument instead of flying
    without bombs.
  * Fix a bug in distribute that screwed up the current sector's
