@@ -207,6 +207,7 @@ esac
 # END BUILD
 #
 
+cd "${BOXDIR}/${WORKDIR}" || err "Could not cd to ${BOXDIR}/${WORKDIR}"
 # Try to run startup utilities
 for onetime in 1
 do
@@ -218,7 +219,7 @@ do
 		*GENERATE*) ;;
 		*)
 
-	if [ -d ../emp4 -a -d ../emp4/bin -a -d ../emp4/sbin -a -d ../emp4/var/empire ]
+	if [ -d emp4 -a -d emp4/bin -a -d emp4/sbin -a -d emp4/var/empire ]
 	then
 		echo "Directory structure is ok"
 	else
@@ -226,14 +227,14 @@ do
 		break
 	fi
 
-	cd ../emp4/bin || err "Could not cd to ../emp4/bin"
+	cd emp4/bin || err "Could not cd to emp4/bin"
 
 	echo "Determining type of files in bin directory"
 	file *
 	echo "Done (file *)."
 	echo ""
 
-	cd ../../emp4/sbin || err "Could not cd to ../../emp4/sbin"
+	cd ../sbin || err "Could not cd to ../sbin"
 
 	echo "Determining type of files in sbin directory"
 	file *
