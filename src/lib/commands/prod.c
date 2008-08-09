@@ -30,7 +30,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2008
  */
 
 #include <config.h>
@@ -250,10 +250,12 @@ prod(void)
 	}
 	act = MIN(used, max);
 
-	real = MIN(999.0, (double)act * prodeff);
-	maxr = MIN(999.0, (double)max * prodeff);
+	real = (double)act * prodeff;
+	maxr = (double)max * prodeff;
 
 	if (vtype != I_NONE) {
+	    real = MIN(999.0, real);
+	    maxr = MIN(999.0, maxr);
 	    if (real < 0.0)
 		real = 0.0;
 	    /* production backlog? */
