@@ -189,26 +189,28 @@ radmap2(int owner,
     pr("\n");
 }
 
+/*
+ * Return distance from left edge of R to X.
+ * Value is between 0 (inclusive) and WORLD_X (exclusive).
+ * X must be normalized.
+ */
 int
 deltx(struct range *r, coord x)
 {
-    if (r->lx < r->hx)
-	return x - r->lx;
-
     if (x >= r->lx)
 	return x - r->lx;
-
     return x + WORLD_X - r->lx;
 }
 
+/*
+ * Return distance from top edge of R to Y.
+ * Value is between 0 (inclusive) and WORLD_Y (exclusive).
+ * Y must be normalized.
+ */
 int
 delty(struct range *r, coord y)
 {
-    if (r->ly < r->hy)
-	return y - r->ly;
-
     if (y >= r->ly)
 	return y - r->ly;
-
     return y + WORLD_Y - r->ly;
 }
