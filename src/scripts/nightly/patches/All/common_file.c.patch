@@ -1,0 +1,13 @@
+diff --git a/src/lib/common/file.c b/src/lib/common/file.c
+index ae851ae..872c363 100644
+--- a/src/lib/common/file.c
++++ b/src/lib/common/file.c
+@@ -384,7 +384,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
+ 	return -1;
+ 
+     if (ep->flags & EFF_TYPED) {
+-	now = ep->flags & EFF_NOTIME ? (time_t)-1 : time(NULL);
++	now = ep->flags & EFF_NOTIME ? (time_t)-1 : (time_t)100;
+ 	for (i = 0; i < count; i++) {
+ 	    /*
+ 	     * TODO Oopses here could be due to bad data corruption.
