@@ -94,9 +94,12 @@ sarg_xy(char *str, coord *xp, coord *yp)
     return 1;
 }
 
-/* returns absolute coords */
-static int
-sarg_getrange(char *str, struct range *rp)
+/*
+ * translate #1 or lx:ly,hx:hy into a result range struct
+ * returns absolute coords
+ */
+int
+sarg_area(char *str, struct range *rp)
 {
     long rlm;
     struct natstr *np;
@@ -153,18 +156,6 @@ sarg_getrange(char *str, struct range *rp)
 	rp->hy = yabs(np, rp->hy);
     }
     xysize_range(rp);
-    return 1;
-}
-
-/*
- * translate #1 or lx:ly,hx:hy into
- * a result range struct
- */
-int
-sarg_area(char *str, struct range *rp)
-{
-    if (!sarg_getrange(str, rp))
-	return 0;
     return 1;
 }
 
