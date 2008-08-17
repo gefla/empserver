@@ -100,7 +100,7 @@ path(void)
 	i = diridx(*pp);
 	if (i == DIR_STOP)
 	    break;
-	memcpy(&map[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx) * 2],
+	memcpy(&map[delty(&ns.range, cy)][deltx(&ns.range, cx) * 2],
 	       routech[i][0],
 	       3);
 	cx += diroff[i][0];

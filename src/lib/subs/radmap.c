@@ -175,15 +175,9 @@ radmap2(int owner,
      * make the center of the display 0
      * so ve et al can find it.
      */
-    rad[deltay(cy, ns.range.ly)][deltax(cx, ns.range.lx)] = '0';
-    /* won't work for radar maps > WORLD_Y/2 */
-#ifdef HAY
-    /* This is not correct for small, hitech worlds. */
-    n = deltay(ns.range.hy, ns.range.ly);
-#else
-    /* This is already available, so why not use it. */
+    rad[delty(&ns.range, cy)][deltx(&ns.range, cx)] = '0';
+
     n = ns.range.height;
-#endif
     for (row = 0; row < n; row++)
 	pr("%s\n", rad[row]);
     pr("\n");

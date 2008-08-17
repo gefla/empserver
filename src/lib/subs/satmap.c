@@ -240,16 +240,10 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	 * We have to make the center a '0' for ve
 	 * ve needs a garbage line to terminate the map
 	 */
-	rad[deltay(y, ns.range.ly)][deltax(x, ns.range.lx)] = '0';
+	rad[delty(&ns.range, y)][deltx(&ns.range, y)] = '0';
 
 	pr("Satellite radar report\n");
-#ifdef HAY
-	/* This is wrong for small, hitech worlds. */
-	n = deltay(ns.range.hy, ns.range.ly);
-#else
-	/* This is already available, so why not use it. */
 	n = ns.range.height;
-#endif
 	for (row = 0; row < n; row++)
 	    pr("%s\n", rad[row]);
 	pr("\n(c) 1989 Imaginative Images Inc.\n");

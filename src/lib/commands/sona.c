@@ -122,8 +122,8 @@ sona(void)
 	    }
 	}
 	snxtsct_dist(&ns, ship.shp_x, ship.shp_y, srange);
-	cx = deltax(ship.shp_x, ns.range.lx);
-	cy = deltay(ship.shp_y, ns.range.ly);
+	cx = deltx(&ns.range, ship.shp_x);
+	cy = delty(&ns.range, ship.shp_y);
 	while (nxtsct(&ns, &sect)) {
 	    if (!line_of_sight(rad, cx, cy, ns.dx, ns.dy)) {
 		rad[ns.dy][ns.dx] = ' ';

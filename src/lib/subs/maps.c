@@ -249,8 +249,8 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		if (!xyinrange(unit.gen.x, unit.gen.y, &nsp->range))
 		    continue;
 
-		x = xnorm(unit.gen.x - nsp->range.lx);
-		y = ynorm(unit.gen.y - nsp->range.ly);
+		x = deltx(&nsp->range, unit.gen.x);
+		y = delty(&nsp->range, unit.gen.y);
 
 		if (ef_mappable[i] == EF_NUKE)
 		    wmap[y][x] = 'N';
