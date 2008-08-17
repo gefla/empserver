@@ -55,7 +55,6 @@ static void knockdown(struct sctstr *);
  * Check bridges at and around SP after damage to SP.
  * If SP is an inefficent bridge, splash it.
  * If SP can't support a bridge, splash unsupported adjacent bridges.
- * Don't drown planes in LIST when splashing bridges.
  * Write back splashed bridges, except for SP; writing that one is
  * left to the caller.
  */
