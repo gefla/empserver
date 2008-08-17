@@ -166,20 +166,14 @@ xysize_range(struct range *rp)
 	rp->width = WORLD_X + rp->hx - rp->lx;
     else
 	rp->width = rp->hx - rp->lx;
-#ifndef HAY
-    /* This is a necessary check for small, hitech worlds. */
-    if (rp->width > WORLD_X)
+    if (CANT_HAPPEN(rp->width > WORLD_X))
 	rp->width = WORLD_X;
-#endif
     if (rp->ly >= rp->hy)
 	rp->height = WORLD_Y + rp->hy - rp->ly;
     else
 	rp->height = rp->hy - rp->ly;
-#ifndef HAY
-    /* This is a necessary check for small, hitech worlds. */
-    if (rp->height > WORLD_Y)
+    if (CANT_HAPPEN(rp->height > WORLD_Y))
 	rp->height = WORLD_Y;
-#endif
 }
 
 /* This is called also called in snxtitem.c */
