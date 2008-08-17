@@ -48,12 +48,9 @@
     (((y) < 0) ? (WORLD_Y - 1 - ((-(y) - 1) % WORLD_Y)) : ((y) % WORLD_Y))
 
 struct range {
-    coord lx;			/* low-range x,y */
-    coord ly;
-    coord hx;			/* high-range x,y */
-    coord hy;
-    int width;			/* range width, height */
-    int height;
+    coord lx, ly;		/* low-range x,y (inclusive) */
+    coord hx, hy;		/* high-range x,y (inclusive) */
+    int width, height;
 };
 
 extern char *xyas(coord x, coord y, natid country);

@@ -86,9 +86,9 @@ real(void)
 	    return RET_SYN;
 	getrealm(curr, natp->nat_cnum, &realm);
 	realm.r_xl = abs.lx;
-	realm.r_xh = abs.hx - 1;
+	realm.r_xh = abs.hx;
 	realm.r_yl = abs.ly;
-	realm.r_yh = abs.hy - 1;
+	realm.r_yh = abs.hy;
 	putrealm(&realm);
 	list_realm(curr, natp);
     }

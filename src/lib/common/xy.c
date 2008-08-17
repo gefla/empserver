@@ -183,7 +183,7 @@ ynorm(coord y)
 int
 xyinrange(coord x, coord y, struct range *rp)
 {
-    if (rp->lx < rp->hx) {
+    if (rp->lx <= rp->hx) {
 	/* xrange doesn't wrap */
 	if (x < rp->lx || x > rp->hx)
 	    return 0;
@@ -191,7 +191,7 @@ xyinrange(coord x, coord y, struct range *rp)
 	if (x < rp->lx && x > rp->hx)
 	    return 0;
     }
-    if (rp->ly < rp->hy) {
+    if (rp->ly <= rp->hy) {
 	/* yrange doesn't wrap */
 	if (y < rp->ly || y > rp->hy)
 	    return 0;

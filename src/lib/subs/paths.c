@@ -243,8 +243,6 @@ pathrange(coord cx, coord cy, char *pp, int border, struct range *range)
     range->hx = cx;
     range->ly = cy;
     range->hy = cy;
-    range->width = 0;
-    range->height = 0;
     for (; *pp; pp++) {
 	dir = diridx(*pp);
 	if (dir == DIR_STOP)
@@ -262,7 +260,7 @@ pathrange(coord cx, coord cy, char *pp, int border, struct range *range)
     }
     range->lx = xnorm(range->lx - border * 2);
     range->ly = ynorm(range->ly - border);
-    range->hx = xnorm(range->hx + border * 2 + 1);
-    range->hy = ynorm(range->hy + border + 1);
+    range->hx = xnorm(range->hx + border * 2);
+    range->hy = ynorm(range->hy + border);
     xysize_range(range);
 }

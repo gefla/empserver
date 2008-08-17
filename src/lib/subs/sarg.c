@@ -165,13 +165,6 @@ sarg_area(char *str, struct range *rp)
 {
     if (!sarg_getrange(str, rp))
 	return 0;
-    rp->hx += 1;
-    if (rp->hx >= WORLD_X)
-	rp->hx = 0;
-    rp->hy += 1;
-    if (rp->hy >= WORLD_Y)
-	rp->hy = 0;
-    xysize_range(rp);
     return 1;
 }
 

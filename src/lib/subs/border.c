@@ -68,7 +68,7 @@ border(struct range *rp, char *prefstr, char *sep)
     int posi, n, x;
 
     if ((WORLD_X / 2) >= 100) {
-	if (rp->lx + rp->width > 99 || rp->hx - rp->width < -99) {
+	if (rp->lx + rp->width > 100 || rp->hx - rp->width < -100) {
 	    /*
 	     * hundreds
 	     */

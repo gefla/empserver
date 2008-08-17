@@ -83,8 +83,8 @@ snxtsct(struct nstr_sect *np, char *str)
 	natp = getnatp(player->cnum);
 	range.lx = xabs(natp, -WORLD_X / 2);
 	range.ly = yabs(natp, -WORLD_Y / 2);
-	range.hx = xabs(natp, WORLD_X / 2);
-	range.hy = yabs(natp, WORLD_Y / 2);
+	range.hx = xnorm(range.lx + WORLD_X - 1);
+	range.hy = ynorm(range.ly + WORLD_Y - 1);
 	xysize_range(&range);
 	snxtsct_area(np, &range);
 	break;
@@ -104,10 +104,10 @@ snxtsct_all(struct nstr_sect *np)
 {
     struct range worldrange;
 
-    worldrange.lx = -WORLD_X / 2;
-    worldrange.ly = -WORLD_Y / 2;
-    worldrange.hx = WORLD_X / 2;
-    worldrange.hy = WORLD_Y / 2;
+    worldrange.lx = 0;
+    worldrange.ly = 0;
+    worldrange.hx = WORLD_X - 1;
+    worldrange.hy = WORLD_Y - 1;
     xysize_range(&worldrange);
     snxtsct_area(np, &worldrange);
 }
@@ -156,44 +156,40 @@ snxtsct_dist(struct nstr_sect *np, coord cx, coord cy, int dist)
 void
 xysize_range(struct range *rp)
 {
-    if (rp->lx >= rp->hx)
-	rp->width = WORLD_X + rp->hx - rp->lx;
+    if (rp->lx > rp->hx)
+	rp->width = WORLD_X + rp->hx + 1 - rp->lx;
     else
-	rp->width = rp->hx - rp->lx;
+	rp->width = rp->hx + 1 - rp->lx;
     if (CANT_HAPPEN(rp->width > WORLD_X))
 	rp->width = WORLD_X;
-    if (rp->ly >= rp->hy)
-	rp->height = WORLD_Y + rp->hy - rp->ly;
+    if (rp->ly > rp->hy)
+	rp->height = WORLD_Y + rp->hy + 1 - rp->ly;
     else
-	rp->height = rp->hy - rp->ly;
+	rp->height = rp->hy + 1 - rp->ly;
     if (CANT_HAPPEN(rp->height > WORLD_Y))
 	rp->height = WORLD_Y;
 }
 
-/* This is called also called in snxtitem.c */
 void
 xydist_range(coord x, coord y, int dist, struct range *rp)
 {
-    if (dist < WORLD_X / 4) {
-	rp->lx = xnorm((coord)(x - 2 * dist));
-	rp->hx = xnorm((coord)(x + 2 * dist) + 1);
+    if (4 * dist + 1 < WORLD_X) {
+	rp->lx = xnorm(x - 2 * dist);
+	rp->hx = xnorm(x + 2 * dist);
 	rp->width = 4 * dist + 1;
     } else {
-	/* Range is larger than the world */
-	/* Make sure we get lx in the right place. */
-	rp->lx = xnorm((coord)(x - WORLD_X / 2));
-	rp->hx = xnorm((coord)(rp->lx + WORLD_X - 1));
+	rp->lx = xnorm(x - WORLD_X / 2);
+	rp->hx = xnorm(rp->lx + WORLD_X - 1);
 	rp->width = WORLD_X;
     }
 
-    if (dist < WORLD_Y / 2) {
-	rp->ly = ynorm((coord)(y - dist));
-	rp->hy = ynorm((coord)(y + dist) + 1);
+    if (2 * dist + 1 < WORLD_Y) {
+	rp->ly = ynorm(y - dist);
+	rp->hy = ynorm(y + dist);
 	rp->height = 2 * dist + 1;
     } else {
-	/* Range is larger than the world */
-	rp->ly = ynorm((coord)(y - WORLD_Y / 2));
-	rp->hy = ynorm((coord)(rp->ly + WORLD_Y - 1));
+	rp->ly = ynorm(y - WORLD_Y / 2);
+	rp->hy = ynorm(rp->ly + WORLD_Y - 1);
 	rp->height = WORLD_Y;
     }
 }

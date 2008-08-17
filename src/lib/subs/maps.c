@@ -366,9 +366,9 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     }
 
     range.lx = xnorm(unit.gen.x - 10);
-    range.hx = xnorm(unit.gen.x + 11);
+    range.hx = xnorm(unit.gen.x + 10);
     range.ly = ynorm(unit.gen.y - 5);
-    range.hy = ynorm(unit.gen.y + 6);
+    range.hy = ynorm(unit.gen.y + 5);
     xysize_range(&range);
     snxtsct_area(nsp, &range);
     return RET_OK;

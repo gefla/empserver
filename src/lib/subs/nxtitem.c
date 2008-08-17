@@ -87,8 +87,6 @@ nxtitem(struct nstr_item *np, void *ptr)
 		return 0;
 	    if (!xyinrange(gp->x, gp->y, &np->range))
 		selected = 0;
-	    if (gp->x == np->range.hx || gp->y == np->range.hy)
-		selected = 0;
 	    break;
 	case NS_XY:
 	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
