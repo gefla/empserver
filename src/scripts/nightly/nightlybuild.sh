@@ -567,10 +567,289 @@ map #
 read y
 prod *
 EOF
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
 
-	echo "Done (player 1)."
+	echo "Done (force)."
 	echo ""
-	echo "TODO: turn 4/5 (tech/assault)..."
+	sleep 10
+
+	echo "Turn 6 for player 1"
+	runfeed 1 << EOF
+real 1 -16:24,-8:8
+convert 11,-1 76
+thres c -2,2 769
+mov c -2,2 47 0,2
+des 0:2,2 g
+thres d 0:2,2 1
+thres c 0:2,2 769
+des 3,1 g
+thres d 3,1 1
+thres c 3,1 769
+des 0,0 m
+deliver i 0,0 0 g
+thres d -1,-1 75
+thres d 0,0 0
+mov d 0,0 1 -1,-1
+thres c 0,-2 100
+thres c 4:6,-2 210
+thres c -1,-1 100
+thres i 4,0 999
+thres i 3,-1 999
+des -2,0 j
+thres c -2,0 769
+thres l -2,0 1
+bmap #1
+nav 0 njnh
+look 0
+radar 0
+radar 11,-1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 7 for player 1"
+	runfeed 1 << EOF
+build bridge 5,-1 j
+explore c 5,-1 1 jh
+mov c 5,-1 76 7,-1
+thres c 7,-1 77
+dist * 5,-1
+des 1,1 m
+deliver i 1,1 0 g
+thres d 1,1 0
+mov d 1,1 1 -1,-1
+des -1,1 k
+thres h -1,1 1
+thres c -1,1 769
+des -4:-2,-2 o
+thres o -4:-2,-2 1
+thres c -4:-2,-2 769
+des 1,-3 o
+thres o 1,-3 1
+thres c 1,-3 769
+des 4:8,2 g
+thres d 4:8,2 1
+thres c 4:8,2 769
+thres c * ?c_dist=768 769
+bmap #1
+radar 11,-1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 8 for player 1"
+	runfeed 1 << EOF
+des 0,2 m
+deliver i 0,2 0 j
+thres d 0,2 0
+mov d 0,2 1 -1,-1
+des 3,1 m
+deliver i 3,1 0 j
+thres d 3,1 0
+mov d 3,1 1 -1,-1
+des 2,2 k
+thres h 2,2 1
+thres d 2,2 0
+mov d 2,2 1 -1,-1
+thres d 4,-2 15
+thres o 4,-2 75
+thres l 4,-2 150
+des 5:7,1 g
+thres d 5:7,1 1
+thres c 5:7,1 769
+des 10,2 g
+thres d 10,2 1
+thres c 10,2 769
+radar 11,-1
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 9 for player 1"
+	runfeed 1 << EOF
+mov u 2,0 10 7,-1
+des -2,2 i
+thres l -2,2 600
+thres h -2,2 300
+thres s -2,2 1
+thres o -2,2 0
+mov o -2,2 1 4,-2
+thres c * ?des#= 769
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 10 for player 1"
+	runfeed 1 << EOF
+mov h 5,-1 100 7,-1
+build bridge 7,-1 j
+explore c 7,-1 1 jh
+thres c 9,-1 77
+mov u 7,-1 12 4,0
+thres u 2,0 579
+thres u 4,0 869
+thres u 11,-1 1
+thres l 6,-2 250
+des 7,1 d
+thres l 7,1 200
+thres h 7,1 100
+thres o 7,1 20
+thres g 7,1 1
+thres d 7,1 0
+mov d 7,1 1 -1,-1
+des 5,1 j
+thres l 5,1 1
+thres d 5,1 0
+mov d 5,1 1 -1,-1
+des 4,2 r
+thres l 4,2 100
+thres o 4,2 50
+thres d 4,2 10
+des 6,2 w
+thres d 6,2 0
+mov d 6,2 1 -1,-1
+des 8,2 e
+thres d 8,2 0
+mov d 8,2 1 -1,-1
+thres m 8,2 1
+des 10,2 !
+thres l 10,2 200
+thres h 10,2 200
+thres s 10,2 200
+thres g 10,2 25
+thres d 10,2 0
+mov d 10,2 1 -1,-1
+des 5,3 p
+thres l 5,3 75
+dist #1 5,-1
+spy 11,-1
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
+
+	echo "Run an update"
+	runfeed POGO peter << EOF
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+enable
+force 1
+disable
+EOF
+
+	echo "Done (force)."
+	echo ""
+	sleep 10
+
+	echo "Turn 11 for player 1"
+	runfeed 1 << EOF
+thres l 6,-2 300
+thres l 5,-1 200
+thres h 5,-1 200
+thres i 5,-1 1
+thres o 5,-1 1
+thres d 5,-1 1
+dist #1 6,2
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
 
 	echo "Done (Rudimentary tests)."
 	echo ""
