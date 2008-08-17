@@ -152,25 +152,17 @@ void
 snxtitem_dist(struct nstr_item *np, int type, int cx, int cy,
 	      int dist)
 {
-    struct range range;
-
     memset(np, 0, sizeof(*np));
-    xydist_range(cx, cy, dist, &range);
+    xydist_range(cx, cy, dist, &np->range);
     np->cur = -1;
     np->type = type;
     np->sel = NS_DIST;
     np->cx = cx;
     np->cy = cy;
     np->index = -1;
-    np->range = range;
     np->dist = dist;
     np->read = ef_read;
     np->flags = ef_flags(type);
-#if 0
-    /* This is no longer proper. */
-    /* It did the wrong thing for small, hitech worlds. */
-    xysize_range(&np->range);
-#endif
 }
 
 void

@@ -152,11 +152,6 @@ snxtsct_dist(struct nstr_sect *np, coord cx, coord cy, int dist)
     np->y = np->range.ly;
     np->dx = -1;
     np->dy = 0;
-#if 0
-    /* This function is now done elsewhere. */
-    /* It was not doing the right thing when the world was small */
-    xysize_range(&np->range);
-#endif
 }
 
 void
