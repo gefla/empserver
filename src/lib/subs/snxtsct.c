@@ -85,7 +85,7 @@ snxtsct(struct nstr_sect *np, char *str)
 	range.ly = yabs(natp, -WORLD_Y / 2);
 	range.hx = xabs(natp, WORLD_X / 2);
 	range.hy = yabs(natp, WORLD_Y / 2);
-	range.width = range.height = 0;
+	xysize_range(&range);
 	snxtsct_area(np, &range);
 	break;
     default:
@@ -108,7 +108,7 @@ snxtsct_all(struct nstr_sect *np)
     worldrange.ly = -WORLD_Y / 2;
     worldrange.hx = WORLD_X / 2;
     worldrange.hy = WORLD_Y / 2;
-    worldrange.width = worldrange.height = 0;
+    xysize_range(&worldrange);
     snxtsct_area(np, &worldrange);
 }
 
@@ -124,7 +124,6 @@ snxtsct_area(struct nstr_sect *np, struct range *range)
     np->y = np->range.ly;
     np->dx = -1;
     np->dy = 0;
-    xysize_range(&np->range);
 }
 
 void
