@@ -384,8 +384,8 @@ display_region_map(int bmap, int unit_type, coord curx, coord cury,
 
 	np = getnatp(player->cnum);
 	sprintf(coordinates, "%d:%d,%d:%d",
-	    xrel(np, curx - 10), xrel(np, curx + 11),
-	    yrel(np, cury - 5), yrel(np, cury + 6));
+	    xrel(np, curx - 10), xrel(np, curx + 10),
+	    yrel(np, cury - 5), yrel(np, cury + 5));
 	arg = coordinates;
 	map_flag_arg = NULL;
     } else {
