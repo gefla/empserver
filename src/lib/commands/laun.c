@@ -158,7 +158,7 @@ launch_as(struct plnstr *pp)
 	return RET_FAIL;
     }
     goodtarget = 0;
-    snxtitem_dist(&ni, EF_PLANE, sx, sy, 0);
+    snxtitem_xy(&ni, EF_PLANE, sx, sy);
     while (!goodtarget && nxtitem(&ni, &plane)) {
 	if (!plane.pln_own)
 	    continue;

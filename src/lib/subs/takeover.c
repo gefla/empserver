@@ -73,7 +73,7 @@ takeover(struct sctstr *sp, natid newown)
 
     pp = &p;
     /* Take over planes */
-    snxtitem_dist(&ni, EF_PLANE, sp->sct_x, sp->sct_y, 0);
+    snxtitem_xy(&ni, EF_PLANE, sp->sct_x, sp->sct_y);
     while (nxtitem(&ni, pp)) {
 	if (pp->pln_own != sp->sct_own)
 	    continue;
@@ -82,7 +82,7 @@ takeover(struct sctstr *sp, natid newown)
 
     /* Take over land units */
     lp = &land;
-    snxtitem_dist(&ni, EF_LAND, sp->sct_x, sp->sct_y, 0);
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (nxtitem(&ni, lp)) {
 	if ((lp->lnd_own == newown) || (lp->lnd_own == 0))
 	    continue;
