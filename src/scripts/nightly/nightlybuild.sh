@@ -700,7 +700,36 @@ map #
 read y
 prod *
 EOF
-
+	echo "Turn 7 for player 8"
+	runfeed 8 << EOF
+des 7,-1 c
+capital 7,-1
+des * ?gold>1 g
+thres d * ?newdes=g 1
+thres d * ?des=g 1
+thres d 4,0 0
+thres d 1,-1 1
+des -5,-3 o
+thres o -5,-3 1
+des -6,-4 o
+thres o -6,-4 1
+des 1,-1 m
+thres i 1,-1 1
+des 3,1 w
+dist * 3,1
+thres c 0:2,0 769
+thres c 1,-1 769
+thres c 4,0 350
+thres c 3,-1 769
+mov c 2:0 231 jh
+mov c 0,0 231 jjh
+mov c 1,-1 231 jh
+bmap #
+cen *
+map #
+read y
+prod *
+EOF
 	echo "Run an update"
 	runfeed POGO peter << EOF
 power new
@@ -748,6 +777,17 @@ map #
 read y
 prod *
 EOF
+	echo "Turn 8 for player 8"
+	runfeed 8 << EOF
+thres c -3:-1,-1 769
+des 0:2,0 m
+thres i 0:2,0 1
+bmap #
+cen *
+map #
+read y
+prod *
+EOF
 
 	echo "Run an update"
 	runfeed POGO peter << EOF
@@ -778,6 +818,28 @@ thres c * ?des#= 769
 bmap #1
 cen *
 ship *
+map #
+read y
+prod *
+EOF
+	echo "Turn 9 for player 8"
+	runfeed 8 << EOF
+thres d 1,-1 0
+mov d 1,-1 1 4,0
+des 3,-1 m
+thres i 3,-1 1
+thres d 3,-1 0
+mov d 3,-1 1 4,0
+thres c -6,-4 769
+thres c 6,-2 769
+thres c 1,-3 769
+des 4,0 b
+thres d 4,0 100
+thres d 0:2,0 0
+mov d 0,0 1 4,0
+mov d 2,0 1 4,0
+bmap #
+cen *
 map #
 read y
 prod *
@@ -850,7 +912,20 @@ map #
 read y
 prod *
 EOF
-
+	echo "Turn 10 for player 8"
+	runfeed 8 << EOF
+des -3,-1 j
+thres i -3,-1 999
+thres j -3,-1 1
+thres c 6,0 769
+thres d -3,-1 0
+mov d -3,-1 1 4,0
+bmap #
+cen *
+map #
+read y
+prod *
+EOF
 	echo "Run an update"
 	runfeed POGO peter << EOF
 power new
@@ -879,6 +954,18 @@ dist #1 6,2
 bmap #1
 cen *
 ship *
+map #
+read y
+prod *
+EOF
+	echo "Turn 11 for player 8"
+	runfeed 8 << EOF
+des -1,-1 m
+thres i -1,-1 1
+thres d -1,-1 0
+mov d -1,-1 1 4,0
+bmap #
+cen *
 map #
 read y
 prod *
