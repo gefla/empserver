@@ -240,13 +240,11 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     i = 0;
     while (ef_mappable[i] != EF_BAD) {
 	if (map_flags & ef_unit_map[i]) {
-	    snxtitem_all(&ni, ef_mappable[i]);
+	    snxtitem_area(&ni, ef_mappable[i], &nsp->range);
 	    while (nxtitem(&ni, &unit)) {
 		if (unit.gen.own == 0)
 		    continue;
 		if (unit.gen.own != player->cnum && !player->god)
-		    continue;
-		if (!xyinrange(unit.gen.x, unit.gen.y, &nsp->range))
 		    continue;
 
 		x = deltx(&nsp->range, unit.gen.x);
