@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include "file.h"
+#include "optlist.h"
 #include "path.h"
 #include "player.h"
 #include "prototypes.h"
@@ -237,30 +238,34 @@ pathtoxy(char *path, coord *xp, coord *yp,
 void
 pathrange(coord cx, coord cy, char *pp, int border, struct range *range)
 {
-    int dir;
+    int dir, lx, ly, hx, hy;
 
-    range->lx = cx;
-    range->hx = cx;
-    range->ly = cy;
-    range->hy = cy;
+    lx = hx = cx;
+    ly = hy = cy;
     for (; *pp; pp++) {
 	dir = diridx(*pp);
 	if (dir == DIR_STOP)
 	    break;
 	cx += diroff[dir][0];
 	cy += diroff[dir][1];
-	if (cx < range->lx)
-	    range->lx = cx;
-	if (cx > range->hx)
-	    range->hx = cx;
-	if (cy < range->ly)
-	    range->ly = cy;
-	if (cy > range->hy)
-	    range->hy = cy;
+	if (cx < lx)
+	    lx = cx;
+	if (cx > hx)
+	    hx = cx;
+	if (cy < ly)
+	    ly = cy;
+	if (cy > hy)
+	    hy = cy;
     }
-    range->lx = xnorm(range->lx - border * 2);
-    range->ly = ynorm(range->ly - border);
-    range->hx = xnorm(range->hx + border * 2);
-    range->hy = ynorm(range->hy + border);
+
+    lx -= border * 2;
+    hx += border * 2;
+    ly -= border;
+    hy += border;
+
+    range->lx = xnorm(lx);
+    range->hx = ynorm(hx - lx < WORLD_X ? hx : lx - 1);
+    range->ly = ynorm(ly);
+    range->hy = ynorm(hy - ly < WORLD_Y ? hy : ly - 1);
     xysize_range(range);
 }
