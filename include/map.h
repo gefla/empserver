@@ -36,7 +36,22 @@
 
 #include "types.h"
 
-#define	MAPWIDTH(persec) ((WORLD_X/2) * ((persec) + 1) + 1)
+/*
+ * Width of the body of a map using PERSEC characters per sector.
+ *
+ * One row shows WORLD_X/2 sectors, separated by one space.  Requires
+ * WORLD_X/2 * (PERSEC+1) - 1 characters.
+ *
+ * Every other row is indented so that the center of the first sector
+ * is aligned with the space separating the first two sectors in the
+ * adjacent rows.  For odd PERSEC, that's (PERSEC+1)/2 additional
+ * characters.  For even PERSEC, it's either PERSEC/2 or PERSEC/2 + 1,
+ * depending on whether we align the character left or right of the
+ * center with the space (the map will look rather odd either way).
+ *
+ * We need one more character for the terminating zero.
+ */
+#define MAPWIDTH(persec) (WORLD_X/2 * ((persec) + 1) + ((persec) + 2) / 2)
 
 /* src/lib/subs/bigmap.c */
 extern int map_set(natid, coord, coord, char, int);
