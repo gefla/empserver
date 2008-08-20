@@ -59,7 +59,6 @@ rout(void)
        around */
     static char *mapbuf = NULL;
     static char **map = NULL;
-    static char *buf = NULL;
     int i;
 
     if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
@@ -79,9 +78,7 @@ rout(void)
 	    map = NULL;
 	}
     }
-    if (!buf)
-	buf = malloc(MAPWIDTH(3) + 12);
-    if (!mapbuf || !map || !buf) {
+    if (!mapbuf || !map) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in rout\n");
 	return RET_FAIL;
@@ -92,7 +89,6 @@ rout(void)
 
     natp = getnatp(player->cnum);
     xyrelrange(natp, &ns.range, &relrange);
-    memset(mapbuf, 0, ((WORLD_Y * MAPWIDTH(3))));
     blankfill(mapbuf, &ns.range, 3);
     border(&relrange, "     ", " ");
 
@@ -107,11 +103,7 @@ rout(void)
     }
     for (row = 0, y = ns.range.ly; row < ns.range.height; y++, row++) {
 	ry = yrel(natp, y);
-	memset(buf, 0, (MAPWIDTH(3) + 10));
-	sprintf(buf, "%4d ", ry);
-	memcpy(buf + 5, map[row], ns.range.width * 2 + 1);
-	sprintf(buf + 5 + ns.range.width * 2 + 1, " %-4d\n", ry);
-	pr("%s", buf);
+	pr("%4d %s %-4d\n", ry, map[row], ry);
 	if (y >= WORLD_Y)
 	    y -= WORLD_Y;
     }
