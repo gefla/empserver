@@ -114,25 +114,22 @@ static int *bitmaps[5] = {
     bitmap4,
 };
 
-#define GCFx(x) ((x + WORLD_X) % WORLD_X)
-#define GCFy(y) ((y + WORLD_Y) % WORLD_Y)
-
 int
 emp_getbit(int x, int y, unsigned char *bitmap)
 {
-    int id;
-
-    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
-    return bitmap[id / 8] & bit(id & 07);
+    int id = sctoff(x, y);
+    if (id < 0)
+	return 0;
+    return bitmap[id >> 3] & bit(id & 07);
 }
 
 void
 emp_setbit(int x, int y, unsigned char *bitmap)
 {
-    int id;
-
-    id = (GCFy(y)) * WORLD_X / 2 + GCFx(x) / 2;
-    bitmap[id / 8] |= bit(id & 07);
+    int id = sctoff(x, y);
+    if (id < 0)
+	return;
+    bitmap[id >> 3] |= bit(id & 07);
 }
 
 static void
@@ -145,8 +142,8 @@ emp_setbitmap(int x, int y, unsigned char *bitmap, int *bitmaps)
     for (mp = bitmaps; *mp != 9999;) {
 	dx = x + *mp++;
 	dy = y + *mp++;
-	id = (GCFy(dy)) * WORLD_X / 2 + GCFx(dx) / 2;
-	bitmap[id / 8] |= bit(id & 07);
+	id = sctoff(dx, dy);
+	bitmap[id >> 3] |= bit(id & 07);
     }
 }
 
