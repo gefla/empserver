@@ -48,8 +48,6 @@
  * format:  spy <SECTS>
  */
 
-static int check(coord *table, int *len, coord x, coord y);
-static void insert(coord *table, int *len, coord x, coord y);
 static void spy_report(struct sctstr *sp);
 static void prplanes(int, int);
 static void prunits(int, int);
@@ -65,8 +63,7 @@ spy(void)
     int military;
     int btucost;
     int i;
-    coord *table;		/* sectors already seen */
-    int t_len = 0;
+    unsigned char *bitmap;
     int nrecon;
     struct nstr_sect nstr;
     struct nstr_item ni;
@@ -89,12 +86,13 @@ spy(void)
 	pr("You don't have the BTU's for spying on that scale!\n");
 	return RET_FAIL;
     }
-    /*
-     * set up all the goodies we need later
-     * 6 = neighbors, 2 = x,y
-     */
-    table = malloc((nsects + 1) * 6 * 2 * sizeof(coord));
-    memset(table, 0, (nsects + 1) * 6 * 2 * sizeof(coord));
+    bitmap = calloc(WORLD_SZ() / 8, 1);
+    if (!bitmap) {
+	logerror("malloc failed in do_look\n");
+	pr("Memory error.  Tell the deity.\n");
+	return RET_FAIL;
+    }
+
     pr("SPY report\n");
     prdate();
     pr("                 old sct rd  rl  def\n");
@@ -124,14 +122,8 @@ spy(void)
 		break;
 	    nx = x + diroff[i][0];
 	    ny = y + diroff[i][1];
-	    /*
-	     * if we've already seen the
-	     * sector, don't bother checking it
-	     * out.
-	     */
-	    if (check(table, &t_len, nx, ny)) {
-		continue;
-	    }
+	    if (emp_getbit(nx, ny, bitmap))
+		continue;	/* spied already */
 	    getsect(nx, ny, &dsect);
 	    if (player->owner || dsect.sct_type == SCT_WATER)
 		continue;
@@ -166,7 +158,7 @@ spy(void)
 	    }
 
 	    /* spy report */
-	    insert(table, &t_len, nx, ny);
+	    emp_setbit(nx, ny, bitmap);
 	    spy_report(&dsect);
 	    changed += map_set(player->cnum, dsect.sct_x, dsect.sct_y,
 			       dchr[dsect.sct_type].d_mnem, 0);
@@ -182,7 +174,7 @@ spy(void)
     if (changed)
 	writemap(player->cnum);
     player->btused += btucost;
-    free(table);
+    free(bitmap);
     return RET_OK;
 }
 
@@ -208,32 +200,6 @@ spy_report(struct sctstr *sp)
        roundintby(sp->sct_item[I_BAR], 10));
     prunits(sp->sct_x, sp->sct_y);
     prplanes(sp->sct_x, sp->sct_y);
-}
-
-/*
- * insert a key into the table.
- */
-static void
-insert(coord *table, int *len, coord x, coord y)
-{
-    if (!check(table, len, x, y)) {
-	table[(*len)++] = x;
-	table[(*len)++] = y;
-    }
-}
-
-/*
- * see if a key is in the bitmask table
- */
-static int
-check(coord *table, int *len, coord x, coord y)
-{
-    int i;
-
-    for (i = 0; i < *len; i += 2)
-	if (table[i] == x && table[i + 1] == y)
-	    return 1;
-    return 0;
 }
 
 static void
