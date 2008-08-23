@@ -72,12 +72,12 @@ do_look(short type)
 
     if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
-    if ((bitmap = malloc((WORLD_X * WORLD_Y) / 8)) == 0) {
+    bitmap = calloc(WORLD_SZ() / 8, 1);
+    if (!bitmap) {
 	logerror("malloc failed in do_look\n");
 	pr("Memory error.  Tell the deity.\n");
 	return RET_FAIL;
     }
-    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
     while (nxtitem(&ni, &unit)) {
 	if (!player->owner)
 	    continue;

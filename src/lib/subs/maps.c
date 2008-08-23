@@ -147,7 +147,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	}
     }
     if (!bitmap)
-	bitmap = malloc((WORLD_X * WORLD_Y) / 8);
+	bitmap = malloc(WORLD_SZ() / 8);
     if (!wmapbuf || !wmap || !bitmap) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in draw_map\n");
@@ -202,7 +202,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		struct sctstr sect;
 
 		if (!player->god) {
-		    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
+		    memset(bitmap, 0, WORLD_SZ() / 8);
 		    bitinit2(nsp, bitmap, player->cnum);
 		}
 		while (nxtsct(nsp, &sect) && !player->aborted) {
@@ -221,7 +221,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	int changed = 0;
 
 	if (!player->god) {
-	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
+	    memset(bitmap, 0, WORLD_SZ() / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {
@@ -265,7 +265,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 
 	snxtsct_rewind(nsp);
 	if (!player->god) {
-	    memset(bitmap, 0, (WORLD_X * WORLD_Y) / 8);
+	    memset(bitmap, 0, WORLD_SZ() / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {
