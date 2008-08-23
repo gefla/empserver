@@ -264,13 +264,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
-	if (!player->god) {
-	    memset(bitmap, 0, WORLD_SZ() / 8);
-	    bitinit2(nsp, bitmap, player->cnum);
-	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {
-	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
-		continue;
 	    if (sect.sct_own == player->cnum)
 		 wmap[nsp->dy][nsp->dx] |= 0x80;
 	}
