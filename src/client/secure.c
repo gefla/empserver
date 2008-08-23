@@ -38,7 +38,7 @@
 #include "ringbuf.h"
 #include "secure.h"
 
-struct ring recent_input;
+static struct ring recent_input;
 static size_t saved_bytes;
 
 /*
@@ -51,14 +51,14 @@ size_t
 save_input(char *inp)
 {
     size_t len = strlen(inp);
-    int left;
+    int eol;
 
     assert(len && inp[len - 1] == '\n');
 
-    left = ring_putm(&recent_input, inp, len);
-    if (left < 0) {
-	ring_discard(&recent_input, ring_search(&recent_input, "\n"));
-	ring_putm(&recent_input, inp, len);
+    while (ring_putm(&recent_input, inp, len) < 0) {
+	eol = ring_search(&recent_input, "\n");
+	assert(eol >= 0);
+	ring_discard(&recent_input, eol + 1);
     }
     saved_bytes += len;
     return saved_bytes;
