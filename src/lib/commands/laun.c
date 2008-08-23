@@ -384,8 +384,8 @@ launch_sat(struct plnstr *pp, int sublaunch)
     i = pp->pln_tech + pp->pln_effic;
     if (chance(1.0 - (i / (i + 50.0)))) {
 	dir = (random() % 6) + 1;
-	sx += diroff[dir][0];
-	sy += diroff[dir][1];
+	sx = xnorm(sx + diroff[dir][0]);
+	sy = ynorm(sy + diroff[dir][1]);
 	pr("Your trajectory was a little off.\n");
     }
     nreport(player->cnum, N_LAUNCH, 0, 1);
