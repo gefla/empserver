@@ -600,10 +600,10 @@ struct castr realm_ca[] = {
      EF_BAD, NSC_EXTRA},
     {"cnum", fldoff(r_cnum), NSC_NATID, 0, NULL, EF_NATION, NSC_CONST},
     {"realm", fldoff(r_realm), NSC_USHORT, 0, NULL, EF_BAD, NSC_CONST},
-    {"xl", fldoff(r_xl), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"xh", fldoff(r_xh), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"yl", fldoff(r_yl), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"yh", fldoff(r_yh), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"xl", fldoff(r_xl), NSC_XCOORD, 0, NULL, EF_BAD, 0},
+    {"xh", fldoff(r_xh), NSC_XCOORD, 0, NULL, EF_BAD, 0},
+    {"yl", fldoff(r_yl), NSC_YCOORD, 0, NULL, EF_BAD, 0},
+    {"yh", fldoff(r_yh), NSC_YCOORD, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };

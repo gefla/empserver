@@ -75,8 +75,8 @@ struct realmstr {
     natid r_cnum;		/* country number */
     /* end of part matching struct empobj */
     unsigned short r_realm;	/* realm number */
-    short r_xl, r_xh;		/* horizontal bounds */
-    short r_yl, r_yh;		/* vertical bounds */
+    coord r_xl, r_xh;		/* horizontal bounds */
+    coord r_yl, r_yh;		/* vertical bounds */
 };
 
 struct natstr {
