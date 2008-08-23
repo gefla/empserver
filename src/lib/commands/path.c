@@ -103,8 +103,8 @@ path(void)
 	memcpy(&map[delty(&ns.range, cy)][deltx(&ns.range, cx) * 2],
 	       routech[i][0],
 	       3);
-	cx += diroff[i][0];
-	cy += diroff[i][1];
+	cx = xnorm(cx + diroff[i][0]);
+	cy = ynorm(cy + diroff[i][1]);
     }
     border(&relrange, "     ", " ");
     while (nxtsct(&ns, &sect)) {
