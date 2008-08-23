@@ -206,8 +206,8 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    mobility -= sect_mcost;
 	    total_mcost += sect_mcost;
 	}
-	curx = tmpx;
-	cury = tmpy;
+	curx = next.sct_x;
+	cury = next.sct_y;
 	if (cury != start->sct_y)
 	    out = 1;
 	if (curx != start->sct_x)
