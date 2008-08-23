@@ -109,8 +109,6 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
     }
 
     getsect(x, y, &sect);
-    nx = x;
-    ny = y;
 
   more:
     while (*p) {
@@ -121,10 +119,10 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 		pr("Destination sectors not allowed here!\n");
 		break;
 	    case P_FLYING:
-		bp = BestAirPath(buf2, nx, ny, dx, dy);
+		bp = BestAirPath(buf2, x, y, dx, dy);
 		break;
 	    case P_SAILING:
-		bp = BestShipPath(buf2, nx, ny, dx, dy, player->cnum);
+		bp = BestShipPath(buf2, x, y, dx, dy, player->cnum);
 		break;
 	    }
 	    if (bp && p + strlen(bp) + 1 < buf + MAX_PATH_LEN) {
@@ -157,8 +155,8 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 	    return buf;
 	}
 	++p;
-	x = nx;
-	y = ny;
+	x = sect.sct_x;
+	y = sect.sct_y;
     }
     fly_map(x, y);
     if (showdes) {
