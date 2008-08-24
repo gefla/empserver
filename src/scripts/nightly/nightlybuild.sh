@@ -773,7 +773,7 @@ thres c 0:2,0 769
 thres c 1,-1 769
 thres c 4,0 350
 thres c 3,-1 769
-mov c 2:0 231 jh
+mov c 2,0 231 jh
 mov c 0,0 231 jjh
 mov c 1,-1 231 jh
 bmap #
@@ -968,7 +968,7 @@ EOF
 	runfeed 8 << EOF
 des -3,-1 j
 thres i -3,-1 999
-thres j -3,-1 1
+thres l -3,-1 1
 thres c 6,0 769
 thres d -3,-1 0
 mov d -3,-1 1 4,0
