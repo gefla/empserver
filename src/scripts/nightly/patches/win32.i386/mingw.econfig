@@ -1,0 +1,3 @@
+echo data "$MINGW_DIR$BOXDIR/$INSTANCE/emp4/var/empire"
+echo info "$MINGW_DIR$BOXDIR/$INSTANCE/emp4/share/empire/info.nr"
+echo builtin "$MINGW_DIR$BOXDIR/$INSTANCE/emp4/share/empire/builtin"

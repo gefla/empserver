@@ -227,6 +227,49 @@ do
 		break
 	fi
 
+	if [ ! -f emp4/etc/empire/econfig ]
+	then
+		warn "econfig file is missing"
+		break
+	fi
+
+	if ! emp4/sbin/pconfig >emp4/etc/empire/econfig
+	then
+		warn "pconfig failed to create econfig file"
+		break
+	fi
+echo "Applying global econfig patches from ${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/All"
+for i in "${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/All"/*.econfig
+do
+	[ -r "${i}" ] || continue
+	if "${i}" >>emp4/etc/empire/econfig
+	then
+		echo "${i}: OK"
+	else
+		echo "========== ${i}: NOT OK! ${?} =========="
+	fi
+done
+echo "Done (econfig patch All)."
+echo ""
+
+LOCALPATCHDIRECTORY="${BOXDIR}/${WORKDIR}/empserver/src/scripts/nightly/patches/${INSTANCE}"
+if [ -n "${LOCALPATCHDIRECTORY}" -a -d "${LOCALPATCHDIRECTORY}/." ]
+then
+	echo "Applying system specific econfig patches from ${LOCALPATCHDIRECTORY}:"
+	for i in "${LOCALPATCHDIRECTORY}"/*.econfig
+	do
+		[ -r "${i}" ] || continue
+		if "${i}" >>emp4/etc/empire/econfig
+		then
+			echo "${i}: OK"
+		else
+			echo "========== ${i}: NOT OK! ${?} =========="
+		fi
+	done
+	echo "Done (econfig patch specific)."
+	echo ""
+fi
+
 	cd emp4/bin || err "Could not cd to emp4/bin"
 
 	echo "Determining type of files in bin directory"
@@ -242,8 +285,8 @@ do
 	echo ""
 
 	echo "Running files and fairland"
-	echo y | ./files || warn "Error running files"
-	./fairland -R 1 10 30 >/dev/null || { warn "Error running fairland" ; break ; }
+	echo y | ./files -e ../etc/empire/econfig || warn "Error running files"
+	./fairland -R 1 -e ../etc/empire/econfig 10 30 >/dev/null || { warn "Error running fairland" ; break ; }
 	[ -s "newcap_script" ] || { warn "fairland did not produce newcap_script" ; break ; }
 	echo "Done (files & fairland)."
 	echo ""
@@ -262,8 +305,17 @@ do
 		*SERVERSTART*) ;;
 		*)
 
+	echo "Removing existing server.log and journal.log"
+	if [ -f "../var/empire/server.log" ] 
+	then
+	    rm "../var/empire/server.log"
+	fi
+	if [ -f "../var/empire/journal.log" ] 
+	then
+	    rm "../var/empire/journal.log"
+	fi
 	echo "Starting server with -d in the background"
-	./emp_server -R 1 -d &
+	./emp_server -R 1 -e ../etc/empire/econfig -d 2>/dev/null &
 	PID="$!"
 	sleep 1
 	kill -0 "${PID}" || { warn "emp_server not running ?" ; break ; }
@@ -995,7 +1047,14 @@ EOF
 	echo "Stopping server"
 	trykill "${PID}"
 	echo "Done (kill)."
-	echo ""
+cd "${BOXDIR}/${WORKDIR}/emp4/var/empire" || err "Could not cd to ${BOXDIR}/${WORKDIR}/emp4/var/empire"
+	echo "-- Start Server Log --"
+	cat server.log 
+	echo "-- End of Server Log --"
+	echo "-- Start Journal Log --"
+	cat journal.log 
+	echo "-- End of Journal Log --"
+	echo "Server stopped"
 					;;
 			esac
 			;;
