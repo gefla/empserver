@@ -647,12 +647,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	pp = BestAirPath(buf, air->x, air->y, x, y);
 	if (CANT_HAPPEN(!pp))
 	    continue;
-	wu(0, plane_owner, "Flying %s mission from %s\n",
-	   mission_name(mission), xyas(air->x, air->y, plane_owner));
+	wu(0, plane_owner, "Flying %s mission from %s to %s\n",
+	   mission_name(mission),
+	   xyas(air->x, air->y, plane_owner),
+	   xyas(x, y, plane_owner));
 	if (air->own && (air->own != plane_owner)) {
-	    wu(0, air->own, "%s is flying %s mission from %s\n",
+	    wu(0, air->own, "%s is flying %s mission from %s to %s\n",
 	       cname(plane_owner), mission_name(mission),
-	       xyas(air->x, air->y, air->own));
+	       xyas(air->x, air->y, air->own),
+	       xyas(x, y, air->own));
 	}
 
 	ac_encounter(&b, &e, air->x, air->y, pp, mission_flags, 0);
@@ -1369,12 +1372,15 @@ air_defense(coord x, coord y, natid victim, struct emp_qelem *bomb_list,
 		pln_put(&i);
 		continue;
 	    }
-	    wu(0, cn, "Flying %s mission from %s\n",
-	       mission_name(MI_AIR_DEFENSE), xyas(air->x, air->y, cn));
+	    wu(0, cn, "Flying %s mission from %s to %s\n",
+	       mission_name(MI_AIR_DEFENSE),
+	       xyas(air->x, air->y, cn),
+	       xyas(x, y, cn));
 	    if (air->own && (air->own != cn)) {
-		wu(0, air->own, "%s is flying %s mission from %s\n",
+		wu(0, air->own, "%s is flying %s mission from %s to %s\n",
 		   cname(cn), mission_name(MI_AIR_DEFENSE),
-		   xyas(air->x, air->y, air->own));
+		   xyas(air->x, air->y, air->own),
+		   xyas(x, y, air->own));
 	    }
 
 	    /* Now, fly the planes to the sector */

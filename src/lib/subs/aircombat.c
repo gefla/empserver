@@ -415,8 +415,8 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	    if (first) {
 		first = 0;
 		PR(plane_owner, "%s launches SAMs!\n", cname(def_own));
-		PR(def_own, "Launching SAMs at %s planes!\n",
-		   cname(plane_owner));
+		PR(def_own, "Launching SAMs at %s planes over %s!\n",
+		   cname(plane_owner), xyas(x, y, def_own));
 		ac_combat_headers(plane_owner, def_own);
 	    }
 	    ac_dog(aplp, dplp);
@@ -497,8 +497,9 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	return;
     PR(plane_owner, "%d %s fighter%s rising to intercept!\n",
        icount, cname(def_own), icount == 1 ? " is" : "s are");
-    PR(def_own, "%d fighter%s intercepting %s planes!\n",
-       icount, icount == 1 ? " is" : "s are", cname(plane_owner));
+    PR(def_own, "%d fighter%s intercepting %s planes over %s!\n",
+       icount, icount == 1 ? " is" : "s are", cname(plane_owner),
+       xyas(x, y, def_own));
     ac_combat_headers(plane_owner, def_own);
     ac_airtoair(esc_list, &int_list);
     ac_airtoair(bomb_list, &int_list);
