@@ -58,7 +58,7 @@ enum p_mode {			/* How to find path to destination */
 extern signed char dirindex['z'-'a'+1];
 extern int diroff[DIR_MAP+1][2];
 extern char dirch[DIR_MAP+2];
-extern char *routech[DIR_LAST+1][2];
+extern char *routech[DIR_LAST+1];
 
 /* src/lib/subs/paths.c */
 extern char *getpath(char *, char *, coord, coord, int, int, enum p_mode);

@@ -101,8 +101,7 @@ path(void)
 	if (i == DIR_STOP)
 	    break;
 	memcpy(&map[delty(&ns.range, cy)][deltx(&ns.range, cx) * 2],
-	       routech[i][0],
-	       3);
+	       routech[i], 3);
 	cx = xnorm(cx + diroff[i][0]);
 	cy = ynorm(cy + diroff[i][1]);
     }
