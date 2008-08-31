@@ -70,10 +70,6 @@ mapdist(int x1, int y1, int x2, int y2)
 {
     int dx, dy;
 
-    x1 = x1 % WORLD_X;
-    y1 = y1 % WORLD_Y;
-    x2 = x2 % WORLD_X;
-    y2 = y2 % WORLD_Y;
     dx = deltax(x1, x2);
     dy = deltay(y1, y2);
     if (dx > dy)
