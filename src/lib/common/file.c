@@ -210,7 +210,7 @@ ef_close(int type)
 	ep->cache = NULL;
     }
     if (close(ep->fd) < 0) {
-	logerror("Error closing %s (%s)", ep->name, strerror(errno));
+	logerror("Error closing %s (%s)", ep->file, strerror(errno));
 	retval = 0;
     }
     ep->fd = -1;
@@ -567,12 +567,12 @@ ef_extend(int type, int count)
 	if (id + count > ep->csize) {
 	    if (ep->flags & EFF_STATIC) {
 		logerror("Can't extend %s beyond %d elements",
-			 ep->file, ep->csize);
+			 ep->name, ep->csize);
 		return 0;
 	    }
 	    if (!ef_realloc_cache(ep, id + count)) {
 		logerror("Can't extend %s to %d elements (%s)",
-			 ep->file, id + count, strerror(errno));
+			 ep->name, id + count, strerror(errno));
 		return 0;
 	    }
 	}
@@ -665,7 +665,8 @@ ef_truncate(int type, int count)
     if (ep->flags & EFF_MEM) {
 	if (!(ep->flags & EFF_STATIC)) {
 	    if (!ef_realloc_cache(ep, count)) {
-		logerror("Can't shrink cache after truncate");
+		logerror("Can't shrink %s cache after truncate (%s)",
+			 ep->name, strerror(errno));
 		/* continue with unshrunk cache */
 	    }
 	}
@@ -766,7 +767,7 @@ ef_check(int type)
 }
 
 /*
- * Ensure file-backed table contains ID.
+ * Ensure table contains element ID.
  * If necessary, extend it in steps of COUNT elements.
  * Return non-zero on success, zero on failure.
  */
