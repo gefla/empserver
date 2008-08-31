@@ -45,7 +45,7 @@
 #include "prototypes.h"
 #include "ship.h"
 
-int
+void
 pln_postread(int n, void *ptr)
 {
     struct plnstr *pp = ptr;
@@ -105,10 +105,9 @@ pln_postread(int n, void *ptr)
     player->owner = (player->god || pp->pln_own == player->cnum);
     if (opt_MOB_ACCESS)
 	pln_do_upd_mob(pp);
-    return 1;
 }
 
-int
+void
 pln_prewrite(int n, void *ptr)
 {
     struct plnstr *pp = ptr;
@@ -132,8 +131,6 @@ pln_prewrite(int n, void *ptr)
 	}
     }
     getplane(n, &plane);
-
-    return 1;
 }
 
 char *

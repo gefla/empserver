@@ -41,8 +41,8 @@
 
 struct fileinit {
     int ef_type;
-    int (*postread) (int, void *);
-    int (*prewrite) (int, void *);
+    void (*postread) (int, void *);
+    void (*prewrite) (int, void *);
 };
 
 static struct fileinit fileinit[] = {

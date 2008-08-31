@@ -45,7 +45,7 @@
 #include "prototypes.h"
 #include "ship.h"
 
-int
+void
 shp_postread(int n, void *ptr)
 {
     struct shpstr *sp = ptr;
@@ -59,10 +59,9 @@ shp_postread(int n, void *ptr)
     if (opt_MOB_ACCESS)
 	shp_do_upd_mob(sp);
     player->owner = (player->god || sp->shp_own == player->cnum);
-    return 1;
 }
 
-int
+void
 shp_prewrite(int n, void *ptr)
 {
     struct shpstr *sp = ptr;
@@ -100,8 +99,6 @@ shp_prewrite(int n, void *ptr)
 	item_prewrite(sp->shp_item);
 	getship(n, &ship);
     }
-
-    return 1;
 }
 
 char *

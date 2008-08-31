@@ -44,7 +44,7 @@
 #include "prototypes.h"
 #include "ship.h"
 
-int
+void
 lnd_postread(int n, void *ptr)
 {
     struct lndstr *llp = ptr;
@@ -106,10 +106,9 @@ lnd_postread(int n, void *ptr)
 	lnd_do_upd_mob(llp);
 
     player->owner = (player->god || llp->lnd_own == player->cnum);
-    return 1;
 }
 
-int
+void
 lnd_prewrite(int n, void *ptr)
 {
     struct lndstr *llp = ptr;
@@ -154,7 +153,6 @@ lnd_prewrite(int n, void *ptr)
 	getland(n, &land);
     }
 
-    return 1;
 }
 
 char *

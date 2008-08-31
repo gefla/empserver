@@ -59,9 +59,19 @@ struct empfile {
     int fd;			/* file descriptor, -1 if not open */
     /* flags bits EFF_PRIVATE, EFF_CUSTOM also vary */
 
-    /* User callbacks */
-    int (*postread)(int, void *); /* called after read, unless null */
-    int (*prewrite)(int, void *); /* called before write, unless null */
+    /* User callbacks, may all be null */
+    /*
+     * Called after read, with file type and element as arguments.
+     * May modify the element.  Modifications are visible to caller of
+     * ef_read(), but have no effect on the file.
+     */
+    void (*postread)(int, void *);
+    /*
+     * Called before write, with file type and element as arguments.
+     * May modify the element.  Modifications will be visible to
+     * caller of ef_write() and are written to the file.
+     */
+    void (*prewrite)(int, void *);
 };
 
 struct emptypedstr {

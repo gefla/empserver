@@ -50,7 +50,7 @@
 
 static int checksect(struct sctstr *);
 
-int
+void
 sct_postread(int id, void *ptr)
 {
     struct sctstr *sp = ptr;
@@ -59,10 +59,9 @@ sct_postread(int id, void *ptr)
     player->owner = (player->god || sp->sct_own == player->cnum);
     if (opt_MOB_ACCESS)
 	sct_do_upd_mob(sp);
-    return 1;
 }
 
-int
+void
 sct_prewrite(int id, void *ptr)
 {
     struct sctstr *sp = ptr;
@@ -71,7 +70,6 @@ sct_prewrite(int id, void *ptr)
     bridge_damaged(sp);
     checksect(sp);
     getsect(sp->sct_x, sp->sct_y, &sect);
-    return 1;
 }
 
 void

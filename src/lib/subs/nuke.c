@@ -47,7 +47,7 @@
 #include "sect.h"
 #include "xy.h"
 
-int
+void
 nuk_postread(int n, void *ptr)
 {
     struct nukstr *np = ptr;
@@ -71,10 +71,9 @@ nuk_postread(int n, void *ptr)
     }
 
     player->owner = (player->god || np->nuk_own == player->cnum);
-    return 1;
 }
 
-int
+void
 nuk_prewrite(int n, void *ptr)
 {
     struct nukstr *np = ptr;
@@ -89,8 +88,6 @@ nuk_prewrite(int n, void *ptr)
     }
 
     getnuke(n, &nuke);
-
-    return 1;
 }
 
 int

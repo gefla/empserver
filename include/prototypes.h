@@ -450,8 +450,8 @@ extern void bitinit2(struct nstr_sect *, unsigned char *, int);
 extern int getele(char *, char *);
 /* land.c */
 extern char *prland(struct lndstr *);
-extern int lnd_postread(int, void *);
-extern int lnd_prewrite(int, void *);
+extern void lnd_postread(int, void *);
+extern void lnd_prewrite(int, void *);
 /* landgun.c */
 extern double seagun(int, int);
 extern double fortgun(int, int);
@@ -517,8 +517,8 @@ extern void init_nreport(void);
 extern void nreport(natid, int, natid, int);
 /* nuke.c */
 extern char *prnuke(struct nukstr *);
-extern int nuk_postread(int, void *);
-extern int nuk_prewrite(int, void *);
+extern void nuk_postread(int, void *);
+extern void nuk_prewrite(int, void *);
 extern int nuk_on_plane(struct nukstr *, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
@@ -528,8 +528,8 @@ extern int nxtsct(struct nstr_sect *, struct sctstr *);
 extern int onearg(char *, char *);
 /* plane.c */
 extern char *prplane(struct plnstr *);
-extern int pln_postread(int, void *);
-extern int pln_prewrite(int, void *);
+extern void pln_postread(int, void *);
+extern void pln_prewrite(int, void *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
 extern int get_planes(struct nstr_item *, struct nstr_item *,
@@ -618,8 +618,8 @@ extern void satdisp_units(coord, coord);
 extern void satmap(int, int, int, int, int, int);
 extern void sathead(void);
 /* sect.c */
-extern int sct_postread(int, void *);
-extern int sct_prewrite(int, void *);
+extern void sct_postread(int, void *);
+extern void sct_prewrite(int, void *);
 extern void item_prewrite(short *);
 extern int issector(char *);
 /* sectdamage.c */
@@ -627,8 +627,8 @@ extern int sect_damage(struct sctstr *, int);
 extern int sectdamage(struct sctstr *, int);
 /* ship.c */
 extern char *prship(struct shpstr *);
-extern int shp_postread(int, void *);
-extern int shp_prewrite(int, void *);
+extern void shp_postread(int, void *);
+extern void shp_prewrite(int, void *);
 /* show.c */
 extern void show_bridge(int);
 extern void show_tower(int);
