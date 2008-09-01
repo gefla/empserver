@@ -195,14 +195,15 @@ struct empfile empfile[] = {
     {EF_TABLE, "table", NULL, empfile_ca,
      ARRAY_TABLE(empfile, EFF_CFG)},
     {EF_VERSION, "version", NULL, NULL,
-     sizeof(PACKAGE_STRING), 0, version, 0, 0, 1, 1, -1, NULL, NULL},
+     sizeof(PACKAGE_STRING), EFF_STATIC, version, 1, 0, 1, 1, -1,
+     NULL, NULL},
     {EF_META, "meta", NULL, mdchr_ca,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
 
     /*
      * Symbol tables
      *
-     * These get bogus size, cids and fids here.  Fixed up by
+     * These get bogus csize, cids and fids here.  Fixed up by
      * empfile_init().
      */
 #define SYMTAB(type, name, tab) \
