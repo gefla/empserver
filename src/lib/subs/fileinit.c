@@ -55,8 +55,6 @@ static struct fileinit fileinit[] = {
 
 static void ef_open_srv(void);
 static void ef_close_srv(void);
-static int ef_init_view(int, int);
-static void ef_fina_view(int);
 
 /*
  * Initialize empfile for full server operations.
@@ -107,7 +105,7 @@ ef_open_srv(void)
     failed |= !ef_open(EF_LOST, 0, -1);
     failed |= !ef_open(EF_REALM, EFF_MEM, MAXNOC * MAXNOR);
     if (!failed)
-	failed |= ef_init_view(EF_COUNTRY, EF_NATION);
+	failed |= ef_open_view(EF_COUNTRY, EF_NATION);
     if (failed) {
 	logerror("Missing files, giving up");
 	exit(EXIT_FAILURE);
@@ -117,7 +115,7 @@ ef_open_srv(void)
 static void
 ef_close_srv(void)
 {
-    ef_fina_view(EF_COUNTRY);
+    ef_close(EF_COUNTRY);
     ef_close(EF_NATION);
     ef_close(EF_SECTOR);
     ef_close(EF_SHIP);
@@ -135,24 +133,4 @@ ef_close_srv(void)
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
     ef_close(EF_REALM);
-}
-
-static int
-ef_init_view(int type, int base)
-{
-    if (CANT_HAPPEN(!(empfile[base].flags & EFF_MEM)))
-	return -1;
-    empfile[type].cache = empfile[base].cache;
-    empfile[type].csize = empfile[base].csize;
-    empfile[type].flags |= EFF_MEM;
-    empfile[type].baseid = empfile[base].baseid;
-    empfile[type].cids = empfile[base].cids;
-    empfile[type].fids = empfile[base].fids;
-    return 0;
-}
-
-static void
-ef_fina_view(int type)
-{
-    empfile[type].cache = NULL;
 }

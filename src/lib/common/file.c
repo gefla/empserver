@@ -194,6 +194,32 @@ ef_realloc_cache(struct empfile *ep, int count)
 }
 
 /*
+ * Open the table TYPE as view of table BASE.
+ * Return non-zero on success, zero on failure.
+ * Beware: views work only as long as BASE doesn't change size!
+ * You must call ef_close(TYPE) before closing BASE.
+ */
+int
+ef_open_view(int type, int base)
+{
+    struct empfile *ep;
+
+    if (CANT_HAPPEN(!EF_IS_VIEW(type)))
+	return -1;
+    ep = &empfile[type];
+    if (CANT_HAPPEN(!(ef_flags(base) & EFF_MEM)))
+	return -1;
+
+    ep->cache = empfile[base].cache;
+    ep->csize = empfile[base].csize;
+    ep->flags |= EFF_MEM;
+    ep->baseid = empfile[base].baseid;
+    ep->cids = empfile[base].cids;
+    ep->fids = empfile[base].fids;
+    return 0;
+}
+
+/*
  * Close the file-backed table TYPE (EF_SECTOR, ...).
  * Return non-zero on success, zero on failure.
  */
@@ -201,25 +227,33 @@ int
 ef_close(int type)
 {
     struct empfile *ep;
-    int retval;
+    int retval = 1;
 
-    retval = ef_flush(type);
+    if (ef_check(type) < 0)
+	return 0;
     ep = &empfile[type];
-    ep->flags &= EFF_IMMUTABLE;
-    if (!(ep->flags & EFF_STATIC)) {
-	free(ep->cache);
+
+    if (EF_IS_VIEW(type))
 	ep->cache = NULL;
+    else {
+	if (!ef_flush(type))
+	    retval = 0;
+	ep->flags &= EFF_IMMUTABLE;
+	if (!(ep->flags & EFF_STATIC)) {
+	    free(ep->cache);
+	    ep->cache = NULL;
+	}
+	if (close(ep->fd) < 0) {
+	    logerror("Error closing %s (%s)", ep->file, strerror(errno));
+	    retval = 0;
+	}
+	ep->fd = -1;
     }
-    if (close(ep->fd) < 0) {
-	logerror("Error closing %s (%s)", ep->file, strerror(errno));
-	retval = 0;
-    }
-    ep->fd = -1;
     return retval;
 }
 
 /*
- * Flush table TYPE (EF_SECTOR, ...) to disk.
+ * Flush file-backed table TYPE (EF_SECTOR, ...) to its backing file.
  * Do nothing if the table is privately mapped.
  * Update timestamps of written elements if table is EFF_TYPED.
  * Return non-zero on success, zero on failure.
@@ -557,7 +591,7 @@ ef_extend(int type, int count)
     char *p;
     int need_sentinel, i, id;
 
-    if (ef_check(type) < 0)
+    if (ef_check(type) < 0 || CANT_HAPPEN(EF_IS_VIEW(type)))
 	return 0;
     ep = &empfile[type];
     if (CANT_HAPPEN(count < 0))
@@ -652,7 +686,7 @@ ef_truncate(int type, int count)
     struct empfile *ep;
     int need_sentinel;
 
-    if (ef_check(type) < 0)
+    if (ef_check(type) < 0 || CANT_HAPPEN(EF_IS_VIEW(type)))
 	return 0;
     ep = &empfile[type];
     if (CANT_HAPPEN(count < 0 || count > ep->fids))
