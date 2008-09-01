@@ -40,8 +40,8 @@ struct empfile {
     /* Members with immutable values */
     int uid;			/* Table ID */
     char *name;			/* Empire name (e.g., "treaty") */
-    char *file;			/* if backed by file, file name relative to
-				   data directory */
+    char *file;			/* file name, relative to gamedir for
+				   game state, to builtindir for config */
     struct castr *cadef;	/* table column selectors (column meta-data) */
     int size;			/* size of a table entry */
     int flags;			/* only EFF_IMMUTABLE immutable, see below
@@ -50,14 +50,14 @@ struct empfile {
     /* Members whose values are fixed when the cache is mapped */
     char *cache;		/* pointer to cache */
     int csize;			/* cache size, in entries */
-    /* flags bit EFF_MEM also fixed then */
+    /* flags bits EFF_MEM, EFF_PRIVATE, EFF_NOTIME also fixed then */
 
     /* Members whose values may vary throughout operation */
     int baseid;			/* id of first entry in cache */
     int cids;			/* # entries in cache */
     int fids;			/* # entries in table */
     int fd;			/* file descriptor, -1 if not open */
-    /* flags bits EFF_PRIVATE, EFF_CUSTOM also vary */
+    /* flags bit EFF_CUSTOM also varies */
 
     /* User callbacks, may all be null */
     /*
