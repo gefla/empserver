@@ -53,6 +53,7 @@ static int do_write(struct empfile *, void *, int, int);
 static unsigned get_seqno(struct empfile *, int);
 static void new_seqno(struct empfile *, void *);
 static void do_blank(struct empfile *, void *, int, int);
+static int ef_check(int);
 
 /*
  * Open the file-backed table TYPE (EF_SECTOR, ...).
@@ -691,24 +692,32 @@ ef_truncate(int type, int count)
 struct castr *
 ef_cadef(int type)
 {
+    if (ef_check(type) < 0)
+	return NULL;
     return empfile[type].cadef;
 }
 
 int
 ef_nelem(int type)
 {
+    if (ef_check(type) < 0)
+	return 0;
     return empfile[type].fids;
 }
 
 int
 ef_flags(int type)
 {
+    if (ef_check(type) < 0)
+	return 0;
     return empfile[type].flags;
 }
 
 time_t
 ef_mtime(int type)
 {
+    if (ef_check(type) < 0)
+	return 0;
     if (empfile[type].fd <= 0)
 	return 0;
     return fdate(empfile[type].fd);
@@ -765,7 +774,7 @@ ef_nameof(int type)
     return empfile[type].name;
 }
 
-int
+static int
 ef_check(int type)
 {
     if (CANT_HAPPEN((unsigned)type >= EF_MAX))
