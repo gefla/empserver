@@ -249,6 +249,7 @@ ef_close(int type)
 	}
 	ep->fd = -1;
     }
+    ep->baseid = ep->cids = ep->fids = 0;
     return retval;
 }
 
