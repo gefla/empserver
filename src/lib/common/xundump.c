@@ -671,7 +671,7 @@ symval(struct castr *ca, int i)
 {
     int type = ca->ca_table;
 
-    if (ef_cadef(type) == symbol_ca)
+    if (type != EF_BAD && ef_cadef(type) == symbol_ca)
 	/* symbol table, value is in the table */
 	return ((struct symbol *)ef_ptr(type, i))->value;
     /* value is the table index */

@@ -63,6 +63,7 @@ sct_typematch(char *name)
 
 /*
  * Search table TYPE for an element matching NAME, return its index.
+ * Accepts EF_BAD, but of course never finds anything then.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  */
@@ -70,6 +71,8 @@ int
 ef_elt_byname(int type, char *name)
 {
     switch (type) {
+    case EF_BAD:
+	return M_NOTFOUND;
     case EF_NATION:
 	return cnumb(name);
     case EF_SECTOR_CHR:

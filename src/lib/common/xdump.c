@@ -197,10 +197,10 @@ xdprsym(struct xdstr *xd, int key, int type, char *sep)
  * CA describes the field from which the value was fetched.
  */
 static char *
-xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca, char *sep)
+xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca,
+	    char *sep)
 {
     unsigned long bit;
-    struct castr *ca_sym = ef_cadef(ca->ca_table);
 
     if (CANT_HAPPEN(val->val_cat != NSC_VAL)) {
 	xd->pr("%snil", sep);
@@ -208,7 +208,7 @@ xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca, char *sep)
     }
 
     if (!xd->human || val->val_type != NSC_LONG
-	|| ca->ca_table == EF_BAD || ca_sym != symbol_ca)
+	|| ca->ca_table == EF_BAD || ef_cadef(ca->ca_table) != symbol_ca)
 	return xdprval_nosym(xd, val, sep);
 
     if (ca->ca_flags & NSC_BITS) {
