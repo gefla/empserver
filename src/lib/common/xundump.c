@@ -482,17 +482,16 @@ static void *
 getobj(void)
 {
     struct empfile *ep = &empfile[cur_type];
-    int need_sentinel = !EF_IS_GAME_STATE(cur_type);
 
     if (!cur_obj) {
-	cur_obj_is_blank = cur_id >= ep->fids - !!need_sentinel;
+	cur_obj_is_blank = cur_id >= ep->fids;
 	if (cur_obj_is_blank) {
-	    if (ef_ensure_space(cur_type, cur_id + !!need_sentinel, 1))
+	    if (ef_ensure_space(cur_type, cur_id, 1))
 		cur_obj = ef_ptr(cur_type, cur_id);
 	    /* FIXME diagnose out of dynamic memory vs. static table full */
 	    if (!cur_obj)
 		gripe("Can't put ID %d into table %s, it holds only 0..%d.",
-		      cur_id, ep->name, ep->fids - !!need_sentinel - 1);
+		      cur_id, ep->name, ep->fids - 1);
 	} else
 	    cur_obj = ef_ptr(cur_type, cur_id);
     }
@@ -962,12 +961,7 @@ static int
 xubody(FILE *fp)
 {
     struct empfile *ep = &empfile[cur_type];
-    int need_sentinel = !EF_IS_GAME_STATE(cur_type);
-    int old_maxid = ep->fids;
     int i, maxid, ch;
-
-    if (old_maxid == 0 && need_sentinel)
-	ef_ensure_space(cur_type, 0, 1);
 
     maxid = 0;
     for (i = 0;; ++i) {
@@ -981,12 +975,6 @@ xubody(FILE *fp)
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
 	maxid = MAX(maxid, cur_id + 1);
-    }
-
-    if (maxid >= old_maxid && need_sentinel) {
-	/* appended a sentinel, strip it off */
-	ep->fids--;
-	ep->cids--;
     }
 
     if (CANT_HAPPEN(maxid > ep->fids))

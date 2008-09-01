@@ -86,7 +86,7 @@
     SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1, NULL, NULL
 
 /* Common configuration table flags */
-#define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC)
+#define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC | EFF_SENTINEL)
 
 struct empfile empfile[] = {
     /*

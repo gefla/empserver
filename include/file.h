@@ -99,6 +99,8 @@ struct emptypedstr {
 #define EFF_GROUP	bit(3)
 /* Table is allocated statically */
 #define EFF_STATIC	bit(4)
+/* Table has a sentinel (all zero, not counted as elt), implies EFF_MEM */
+#define EFF_SENTINEL	bit(5)
 /* All the immutable flags */
 #define EFF_IMMUTABLE \
     (EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC)

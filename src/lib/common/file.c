@@ -554,7 +554,7 @@ ef_extend(int type, int count)
 {
     struct empfile *ep;
     char *p;
-    int i, id;
+    int need_sentinel, i, id;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -564,13 +564,14 @@ ef_extend(int type, int count)
 
     id = ep->fids;
     if (ep->flags & EFF_MEM) {
-	if (id + count > ep->csize) {
+	need_sentinel = (ep->flags & EFF_SENTINEL) != 0;
+	if (id + count + need_sentinel > ep->csize) {
 	    if (ep->flags & EFF_STATIC) {
 		logerror("Can't extend %s beyond %d elements",
-			 ep->name, ep->csize);
+			 ep->name, ep->csize - need_sentinel);
 		return 0;
 	    }
-	    if (!ef_realloc_cache(ep, id + count)) {
+	    if (!ef_realloc_cache(ep, id + count + need_sentinel)) {
 		logerror("Can't extend %s to %d elements (%s)",
 			 ep->name, id + count, strerror(errno));
 		return 0;
@@ -582,7 +583,9 @@ ef_extend(int type, int count)
 	    if (do_write(ep, p, id, count) < 0)
 		return 0;
 	}
-	ep->cids += count;
+	if (need_sentinel)
+	    memset(ep->cache + (id + count) * ep->size, 0, ep->size);
+	ep->cids = id + count;
     } else {
 	/* need a buffer, steal last cache slot */
 	if (ep->cids == ep->csize)
@@ -594,7 +597,7 @@ ef_extend(int type, int count)
 		return 0;
 	}
     }
-    ep->fids += count;
+    ep->fids = id + count;
     return 1;
 }
 
@@ -646,6 +649,7 @@ int
 ef_truncate(int type, int count)
 {
     struct empfile *ep;
+    int need_sentinel;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -663,13 +667,16 @@ ef_truncate(int type, int count)
     ep->fids = count;
 
     if (ep->flags & EFF_MEM) {
+	need_sentinel = (ep->flags & EFF_SENTINEL) != 0;
 	if (!(ep->flags & EFF_STATIC)) {
-	    if (!ef_realloc_cache(ep, count)) {
+	    if (!ef_realloc_cache(ep, count + need_sentinel)) {
 		logerror("Can't shrink %s cache after truncate (%s)",
 			 ep->name, strerror(errno));
 		/* continue with unshrunk cache */
 	    }
 	}
+	if (need_sentinel)
+	    memset(ep->cache + count * ep->size, 0, ep->size);
 	ep->cids = count;
     } else {
 	if (ep->baseid >= count)
