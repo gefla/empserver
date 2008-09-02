@@ -77,7 +77,6 @@ void
 nuk_prewrite(int n, void *ptr)
 {
     struct nukstr *np = ptr;
-    struct nukstr nuke;
 
     if (np->nuk_effic == 0) {
 	if (np->nuk_own)
@@ -86,8 +85,6 @@ nuk_prewrite(int n, void *ptr)
 	np->nuk_own = 0;
 	np->nuk_effic = 0;
     }
-
-    getnuke(n, &nuke);
 }
 
 int

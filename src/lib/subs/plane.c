@@ -111,7 +111,6 @@ void
 pln_prewrite(int n, void *ptr)
 {
     struct plnstr *pp = ptr;
-    struct plnstr plane;
     struct nukstr *np;
     int i;
 
@@ -130,7 +129,6 @@ pln_prewrite(int n, void *ptr)
 	    }
 	}
     }
-    getplane(n, &plane);
 }
 
 char *

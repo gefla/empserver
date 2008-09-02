@@ -112,7 +112,6 @@ void
 lnd_prewrite(int n, void *ptr)
 {
     struct lndstr *llp = ptr;
-    struct lndstr land;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;
@@ -121,8 +120,6 @@ lnd_prewrite(int n, void *ptr)
 	makelost(EF_LAND, llp->lnd_own, llp->lnd_uid,
 		 llp->lnd_x, llp->lnd_y);
 	llp->lnd_own = 0;
-
-	getland(n, &land);
 
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_land == n) {
@@ -150,7 +147,6 @@ lnd_prewrite(int n, void *ptr)
 	}
     } else {
 	item_prewrite(llp->lnd_item);
-	getland(n, &land);
     }
 
 }

@@ -65,11 +65,9 @@ void
 sct_prewrite(int id, void *ptr)
 {
     struct sctstr *sp = ptr;
-    struct sctstr sect;
 
     bridge_damaged(sp);
     checksect(sp);
-    getsect(sp->sct_x, sp->sct_y, &sect);
 }
 
 void

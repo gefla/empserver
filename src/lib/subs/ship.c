@@ -65,7 +65,6 @@ void
 shp_prewrite(int n, void *ptr)
 {
     struct shpstr *sp = ptr;
-    struct shpstr ship;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;
@@ -74,8 +73,6 @@ shp_prewrite(int n, void *ptr)
 	mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
 	makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
 	sp->shp_own = 0;
-
-	getship(n, &ship);
 
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_ship == n) {
@@ -97,7 +94,6 @@ shp_prewrite(int n, void *ptr)
 	}
     } else {
 	item_prewrite(sp->shp_item);
-	getship(n, &ship);
     }
 }
 
