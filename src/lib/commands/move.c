@@ -367,22 +367,19 @@ want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 int
 would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
 {
-    int mil, loyalcivs;
+    int mil, civs;
 
     if (vtype != I_CIVIL && vtype != I_MILIT)
 	return 0;
 
     mil = sp->sct_item[I_MILIT];
-    loyalcivs = sp->sct_item[I_CIVIL];
+    civs = sp->sct_item[I_CIVIL];
 
     if (vtype == I_MILIT)
 	mil -= amnt;
     if (vtype == I_CIVIL)
-	loyalcivs -= amnt;
-    if (sp->sct_own != sp->sct_oldown)
-	loyalcivs = 0;
+	civs -= amnt;
 
-    return sp->sct_own != 0
-	&& loyalcivs <= 0 && mil <= 0
+    return sp->sct_own != 0 && civs <= 0 && mil <= 0
 	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp);
 }

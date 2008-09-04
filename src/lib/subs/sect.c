@@ -86,7 +86,7 @@ item_prewrite(short *item)
 static int
 checksect(struct sctstr *sp)
 {
-    int mil, civs, loyalcivs;
+    int mil, civs;
     natid own;
 
     item_prewrite(sp->sct_item);
@@ -97,30 +97,22 @@ checksect(struct sctstr *sp)
 
     mil = sp->sct_item[I_MILIT];
     civs = sp->sct_item[I_CIVIL];
-    if (sp->sct_own == sp->sct_oldown)
-	loyalcivs = civs;
-    else
-	loyalcivs = 0;
 
     if (sp->sct_own != 0 && !civs) {
 	sp->sct_work = 100;
 	sp->sct_oldown = sp->sct_own;
     }
-    /* If they have a military unit there, they still own it */
-    if (sp->sct_own && !loyalcivs && !(sp->sct_flags & MOVE_IN_PROGRESS)) {
-	if (!mil && !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
-	    /* more cruft! */
-	    own = sp->sct_own;
-	    if (sp->sct_oldown == sp->sct_own) {
-		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-		sp->sct_own = 0;
-		sp->sct_oldown = 0;
-	    } else
-		takeover(sp, sp->sct_oldown);
-	    sp->sct_mobil = 0;
-	    if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
-		caploss(sp, own, "");
-	}
+
+    if (sp->sct_own && !civs && !mil
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)
+	&& !(sp->sct_flags & MOVE_IN_PROGRESS)) {
+	/* more cruft! */
+	own = sp->sct_own;
+	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
+	sp->sct_own = 0;
+	sp->sct_mobil = 0;
+	if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
+	    caploss(sp, own, "");
     }
     return 1;
 }
