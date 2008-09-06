@@ -156,6 +156,8 @@ ef_open(int type, int how, int nelt)
 	}
     }
 
+    if (ep->onresize && ep->onresize(type) < 0)
+	return 0;
     return 1;
 }
 
@@ -250,6 +252,8 @@ ef_close(int type)
 	ep->fd = -1;
     }
     ep->baseid = ep->cids = ep->fids = 0;
+    if (ep->onresize && ep->onresize(type) < 0)
+	retval = 0;
     return retval;
 }
 
@@ -487,25 +491,27 @@ ef_write(int type, int id, void *from)
     ep = &empfile[type];
     if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
 	return 0;
+    if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
+	return 0;		/* not implemented */
+    new_seqno(ep, from);
+    if (id >= ep->fids) {
+	/* write beyond end of file extends it, take note */
+	ep->fids = id + 1;
+	if (ep->onresize && ep->onresize(type) < 0)
+	    return 0;
+    }
     if (id >= ep->baseid && id < ep->baseid + ep->cids)
 	cachep = ep->cache + (id - ep->baseid) * ep->size;
     else
 	cachep = NULL;
     if (ep->prewrite)
 	ep->prewrite(id, cachep, from);
-    if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
-	return 0;		/* not implemented */
-    new_seqno(ep, from);
     if (ep->fd >= 0) {
 	if (do_write(ep, from, id, 1) < 0)
 	    return 0;
     }
     if (cachep && cachep != from)	/* update the cache if necessary */
 	memcpy(cachep, from, ep->size);
-    if (id >= ep->fids) {
-	/* write beyond end of file extends it, take note */
-	ep->fids = id + 1;
-    }
     return 1;
 }
 
@@ -634,6 +640,8 @@ ef_extend(int type, int count)
 	}
     }
     ep->fids = id + count;
+    if (ep->onresize && ep->onresize(type) < 0)
+	return 0;
     return 1;
 }
 
@@ -723,6 +731,8 @@ ef_truncate(int type, int count)
 	    ep->cids = count - ep->baseid;
     }
 
+    if (ep->onresize && ep->onresize(type) < 0)
+	return 0;
     return 1;
 }
 

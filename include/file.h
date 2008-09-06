@@ -77,6 +77,11 @@ struct empfile {
      * visible to caller of ef_write() and are written to the file.
      */
     void (*prewrite)(int id, void *old, void *elt);
+    /*
+     * Called after table size changed, with file type as argument.
+     * Return -1 and set errno to make the operation fail.
+     */
+    int (*onresize)(int type);
 };
 
 struct emptypedstr {
