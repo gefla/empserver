@@ -521,7 +521,6 @@ extern char *prnuke(struct nukstr *);
 extern void nuk_oninit(void *);
 extern void nuk_postread(int, void *);
 extern void nuk_prewrite(int, void *, void *);
-extern int nuk_on_plane(struct nukstr *, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */

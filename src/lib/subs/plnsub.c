@@ -1135,16 +1135,13 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     int effective = 1;
     int pinbomber = 0;
 
-    if (pp->pln_nuketype != -1) {
-	if (nuk_on_plane(&nuke, pp->pln_uid) >= 0) {
-	    mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
-		pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
-	    pp->pln_nuketype = -1;
-	    *nukedamp = detonate(&nuke, x, y,
-				 pp->pln_flags & PLN_AIRBURST);
-	    return 0;
-	}
-	CANT_REACH();
+    if (getnuke(nuk_on_plane(pp), &nuke)) {
+	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
+	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
+	pp->pln_nuketype = -1;
+	*nukedamp = detonate(&nuke, x, y,
+			     pp->pln_flags & PLN_AIRBURST);
+	return 0;
     }
     *nukedamp = 0;
 

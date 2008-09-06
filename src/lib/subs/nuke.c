@@ -94,21 +94,6 @@ nuk_prewrite(int n, void *old, void *new)
     np->nuk_own = own;
 }
 
-int
-nuk_on_plane(struct nukstr *np, int pluid)
-{
-    struct nstr_item ni;
-
-    snxtitem_all(&ni, EF_NUKE);
-    while (nxtitem(&ni, np)) {
-	if (np->nuk_own == 0)
-	    continue;
-	if (np->nuk_plane == pluid)
-	    return np->nuk_uid;
-    }
-    return -1;
-}
-
 void
 nuk_oninit(void *ptr)
 {

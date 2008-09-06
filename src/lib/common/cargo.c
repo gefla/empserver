@@ -379,7 +379,6 @@ lnd_next_on_unit(int uid)
     return unit_cargo_next(EF_LAND, uid);
 }
 
-#if 0 /* clashes with the one in src/lib/subs/nuke.c */
 /*
  * If PP carries a nuke, return its uid, else -1.
  */
@@ -388,4 +387,3 @@ nuk_on_plane(struct plnstr *pp)
 {
     return unit_cargo_first(EF_PLANE, pp->pln_uid, EF_NUKE);
 }
-#endif

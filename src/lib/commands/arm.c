@@ -73,7 +73,7 @@ arm(void)
 		return RET_FAIL;
 	    }
 	}
-	if (pl.pln_nuketype < 0) {
+	if (!getnuke(nuk_on_plane(&pl), &nuke)) {
 	    sprintf(prompt, "Nuclear device for %s: ", prplane(&pl));
 	    p = getstarg(player->argp[2], prompt, buf);
 	    if (!p || !*p)
@@ -83,11 +83,6 @@ arm(void)
 	    nukno = atoi(p);
 	    if (!getnuke(nukno, &nuke) || !player->owner)
 		return RET_FAIL;
-	} else {
-	    if (nuk_on_plane(&nuke, pl.pln_uid) < 0) {
-		CANT_REACH();
-		continue;
-	    }
 	}
 	ncp = &nchr[nuke.nuk_type];
 	if (pln_load(&pl) < ncp->n_weight) {
@@ -143,7 +138,7 @@ disarm(void)
     while (nxtitem(&ni, &pl)) {
 	if (!player->owner)
 	    continue;
-	if (pl.pln_nuketype == -1)
+	if (!getnuke(nuk_on_plane(&pl), &nuke))
 	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &pl)) {
@@ -151,10 +146,6 @@ disarm(void)
 		   prplane(&pl));
 		return RET_FAIL;
 	    }
-	}
-	if (nuk_on_plane(&nuke, pl.pln_uid) < 0) {
-	    CANT_REACH();
-	    continue;
 	}
 	getsect(nuke.nuk_x, nuke.nuk_y, &sect);
 	if (!player->owner
