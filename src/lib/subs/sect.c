@@ -68,10 +68,6 @@ sct_prewrite(int id, void *ptr)
     bridge_damaged(sp);
     item_prewrite(sp->sct_item);
 
-    /* shouldn't happen, but... */
-    if (sp->sct_mobil > 127)
-	sp->sct_mobil = 0;
-
     mil = sp->sct_item[I_MILIT];
     civs = sp->sct_item[I_CIVIL];
 
