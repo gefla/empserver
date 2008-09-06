@@ -38,19 +38,22 @@
 #include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"
+#include "unit.h"
 
 struct fileinit {
     int ef_type;
-    void (*postread) (int, void *);
-    void (*prewrite) (int, void *, void *);
+    void (*oninit)(void *);
+    void (*postread)(int, void *);
+    void (*prewrite)(int, void *, void *);
+    int (*onresize)(int);
 };
 
 static struct fileinit fileinit[] = {
-    {EF_SECTOR, sct_postread, sct_prewrite},
-    {EF_SHIP, shp_postread, shp_prewrite},
-    {EF_PLANE, pln_postread, pln_prewrite},
-    {EF_LAND, lnd_postread, lnd_prewrite},
-    {EF_NUKE, nuk_postread, nuk_prewrite}
+    {EF_SECTOR, NULL, sct_postread, sct_prewrite, NULL},
+    {EF_SHIP, NULL, shp_postread, shp_prewrite, unit_onresize},
+    {EF_PLANE, pln_oninit, pln_postread, pln_prewrite, unit_onresize},
+    {EF_LAND, lnd_oninit, lnd_postread, lnd_prewrite, unit_onresize},
+    {EF_NUKE, nuk_oninit, nuk_postread, nuk_prewrite, unit_onresize}
 };
 
 static void ef_open_srv(void);
@@ -67,6 +70,7 @@ ef_init_srv(void)
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
 	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
+	empfile[fileinit[i].ef_type].onresize = fileinit[i].onresize;
     }
 
     nsc_init();
@@ -74,6 +78,7 @@ ef_init_srv(void)
     if (ef_verify() < 0)
 	exit(EXIT_FAILURE);
     global_init();
+    unit_cargo_init();
 }
 
 void

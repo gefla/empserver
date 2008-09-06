@@ -44,6 +44,12 @@ struct ulist {
     int supplied;		/* LAND only */
 };
 
+extern void unit_cargo_init(void);
+extern void unit_carrier_change(struct empobj *, int, int, int);
+extern int unit_cargo_first(int, int, int);
+extern int unit_cargo_next(int, int);
+extern int unit_onresize(int);
+
 extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);
 extern char *unit_path(int, struct empobj *, char *);

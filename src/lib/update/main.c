@@ -42,6 +42,7 @@
 #include "journal.h"
 #include "player.h"
 #include "server.h"
+#include "unit.h"
 #include "update.h"
 
 long money[MAXNOC];
@@ -169,6 +170,7 @@ update_main(void)
     ef_flush(EF_SHIP);
     ef_flush(EF_PLANE);
     ef_flush(EF_LAND);
+    unit_cargo_init();
     delete_old_announcements();
     delete_old_news();
     /* Clear all the telegram flags */

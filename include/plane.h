@@ -156,6 +156,12 @@ extern int pln_acc(struct plnstr *);
 extern int pln_range_max(struct plnstr *);
 extern int pln_load(struct plnstr *);
 
+/* src/lib/common/cargo.c */
+extern void pln_carrier_change(struct plnstr *, int, int, int);
+extern int pln_first_on_ship(struct shpstr *);
+extern int pln_first_on_land(struct lndstr *);
+extern int pln_next_on_unit(int);
+
 /* src/lib/subs/aircombat.c */
 extern void ac_combat_headers(natid, natid);
 extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);

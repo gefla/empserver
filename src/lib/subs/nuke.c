@@ -44,8 +44,6 @@
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
-#include "xy.h"
 
 void
 nuk_postread(int n, void *ptr)
@@ -80,8 +78,13 @@ nuk_prewrite(int n, void *old, void *new)
     struct nukstr *np = new;
     natid own = np->nuk_own;
 
-    if (np->nuk_effic == 0)
+    if (np->nuk_effic == 0) {
 	own = 0;
+	np->nuk_plane = -1;
+    }
+
+    if (oldnp->nuk_plane != np->nuk_plane)
+	nuk_carrier_change(np, EF_PLANE, oldnp->nuk_plane, np->nuk_plane);
 
     /* We've avoided assigning to np->nuk_own, in case oldsp == sp */
     if (oldnp->nuk_own != own)
@@ -104,6 +107,14 @@ nuk_on_plane(struct nukstr *np, int pluid)
 	    return np->nuk_uid;
     }
     return -1;
+}
+
+void
+nuk_oninit(void *ptr)
+{
+    struct nukstr *np = ptr;
+
+    np->nuk_plane = -1;
 }
 
 char *

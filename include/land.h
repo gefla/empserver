@@ -159,6 +159,12 @@ extern int lnd_acc(struct lndstr *);
 extern int lnd_dam(struct lndstr *);
 extern int lnd_aaf(struct lndstr *);
 
+/* src/lib/common/cargo.c */
+extern void lnd_carrier_change(struct lndstr *, int, int, int);
+extern int lnd_first_on_ship(struct shpstr *);
+extern int lnd_first_on_land(struct lndstr *);
+extern int lnd_next_on_unit(int);
+
 extern int lnd_fire(struct lndstr *);
 extern double lnd_fire_range(struct lndstr *);
 

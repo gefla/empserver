@@ -120,6 +120,7 @@ lnd_prewrite(int n, void *old, void *new)
 
     if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
 	own = 0;
+	llp->lnd_ship = llp->lnd_land = -1;
 
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_land == n) {
@@ -149,12 +150,27 @@ lnd_prewrite(int n, void *old, void *new)
 	item_prewrite(llp->lnd_item);
     }
 
+    if (CANT_HAPPEN(llp->lnd_ship >= 0 && llp->lnd_land >= 0))
+	llp->lnd_land = -1;
+    if (oldlp->lnd_ship != llp->lnd_ship)
+	lnd_carrier_change(llp, EF_SHIP, oldlp->lnd_ship, llp->lnd_ship);
+    if (oldlp->lnd_land != llp->lnd_land)
+	lnd_carrier_change(llp, EF_LAND, oldlp->lnd_land, llp->lnd_land);
+
     /* We've avoided assigning to llp->lnd_own, in case oldsp == sp */
     if (oldlp->lnd_own != own)
 	lost_and_found(EF_LAND, oldlp->lnd_own, own,
 		       llp->lnd_uid, llp->lnd_x, llp->lnd_y);
 
     llp->lnd_own = own;
+}
+
+void
+lnd_oninit(void *ptr)
+{
+    struct lndstr *lp = ptr;
+
+    lp->lnd_ship = lp->lnd_land = -1;
 }
 
 char *

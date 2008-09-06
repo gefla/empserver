@@ -90,4 +90,10 @@ struct nchrstr {
 
 extern struct nchrstr nchr[N_MAXNUKE + 1];
 
+/* src/lib/common/cargo.c */
+extern void nuk_carrier_change(struct nukstr *, int, int, int);
+#if 0 /* clashes with the one in src/lib/subs/nuke.c */
+extern int nuk_on_plane(struct plnstr *);
+#endif
+
 #endif

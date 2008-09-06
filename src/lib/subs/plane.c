@@ -119,6 +119,7 @@ pln_prewrite(int n, void *old, void *new)
     if (pp->pln_effic < PLANE_MINEFF) {
 	own = 0;
 	pp->pln_effic = 0;
+	pp->pln_ship = pp->pln_land = -1;
 	for (i = 0; NULL != (np = getnukep(i)); i++) {
 	    if (np->nuk_own && np->nuk_plane == n) {
 		mpr(np->nuk_own, "%s lost!\n", prnuke(np));
@@ -129,12 +130,27 @@ pln_prewrite(int n, void *old, void *new)
 	}
     }
 
+    if (CANT_HAPPEN(pp->pln_ship >= 0 && pp->pln_land >= 0))
+	pp->pln_land = -1;
+    if (oldpp->pln_ship != pp->pln_ship)
+	pln_carrier_change(pp, EF_SHIP, oldpp->pln_ship, pp->pln_ship);
+    if (oldpp->pln_land != pp->pln_land)
+	pln_carrier_change(pp, EF_LAND, oldpp->pln_land, pp->pln_land);
+
     /* We've avoided assigning to pp->pln_own, in case oldsp == sp */
     if (oldpp->pln_own != own)
 	lost_and_found(EF_PLANE, oldpp->pln_own, own,
 		       pp->pln_uid, pp->pln_x, pp->pln_y);
 
     pp->pln_own = own;
+}
+
+void
+pln_oninit(void *ptr)
+{
+    struct plnstr *pp = ptr;
+
+    pp->pln_ship = pp->pln_land = -1;
 }
 
 char *
