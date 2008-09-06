@@ -109,9 +109,9 @@ lnd_postread(int n, void *ptr)
 }
 
 void
-lnd_prewrite(int n, void *ptr)
+lnd_prewrite(int n, void *old, void *new)
 {
-    struct lndstr *llp = ptr;
+    struct lndstr *llp = new;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;

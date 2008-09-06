@@ -314,7 +314,7 @@ int
 ef_read(int type, int id, void *into)
 {
     struct empfile *ep;
-    void *from;
+    void *cachep;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -325,15 +325,15 @@ ef_read(int type, int id, void *into)
 	return 0;
 
     if (ep->flags & EFF_MEM) {
-	from = ep->cache + id * ep->size;
+	cachep = ep->cache + id * ep->size;
     } else {
 	if (ep->baseid + ep->cids <= id || ep->baseid > id) {
 	    if (fillcache(ep, id) < 1)
 		return 0;
 	}
-	from = ep->cache + (id - ep->baseid) * ep->size;
+	cachep = ep->cache + (id - ep->baseid) * ep->size;
     }
-    memcpy(into, from, ep->size);
+    memcpy(into, cachep, ep->size);
 
     if (ep->postread)
 	ep->postread(id, into);
@@ -480,15 +480,19 @@ int
 ef_write(int type, int id, void *from)
 {
     struct empfile *ep;
-    char *to;
+    char *cachep;
 
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
     if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
 	return 0;
+    if (id >= ep->baseid && id < ep->baseid + ep->cids)
+	cachep = ep->cache + (id - ep->baseid) * ep->size;
+    else
+	cachep = NULL;
     if (ep->prewrite)
-	ep->prewrite(id, from);
+	ep->prewrite(id, cachep, from);
     if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
 	return 0;		/* not implemented */
     new_seqno(ep, from);
@@ -496,12 +500,8 @@ ef_write(int type, int id, void *from)
 	if (do_write(ep, from, id, 1) < 0)
 	    return 0;
     }
-    if (id >= ep->baseid && id < ep->baseid + ep->cids) {
-	/* update the cache if necessary */
-	to = ep->cache + (id - ep->baseid) * ep->size;
-	if (to != from)
-	    memcpy(to, from, ep->size);
-    }
+    if (cachep && cachep != from)	/* update the cache if necessary */
+	memcpy(cachep, from, ep->size);
     if (id >= ep->fids) {
 	/* write beyond end of file extends it, take note */
 	ep->fids = id + 1;

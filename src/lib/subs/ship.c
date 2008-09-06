@@ -62,9 +62,9 @@ shp_postread(int n, void *ptr)
 }
 
 void
-shp_prewrite(int n, void *ptr)
+shp_prewrite(int n, void *old, void *new)
 {
-    struct shpstr *sp = ptr;
+    struct shpstr *sp = new;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;

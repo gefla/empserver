@@ -59,9 +59,9 @@ sct_postread(int id, void *ptr)
 }
 
 void
-sct_prewrite(int id, void *ptr)
+sct_prewrite(int id, void *old, void *new)
 {
-    struct sctstr *sp = ptr;
+    struct sctstr *sp = new;
     int mil, civs;
     natid own;
 

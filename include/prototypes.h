@@ -451,7 +451,7 @@ extern int getele(char *, char *);
 /* land.c */
 extern char *prland(struct lndstr *);
 extern void lnd_postread(int, void *);
-extern void lnd_prewrite(int, void *);
+extern void lnd_prewrite(int, void *, void *);
 /* landgun.c */
 extern double seagun(int, int);
 extern double fortgun(int, int);
@@ -518,7 +518,7 @@ extern void nreport(natid, int, natid, int);
 /* nuke.c */
 extern char *prnuke(struct nukstr *);
 extern void nuk_postread(int, void *);
-extern void nuk_prewrite(int, void *);
+extern void nuk_prewrite(int, void *, void *);
 extern int nuk_on_plane(struct nukstr *, int);
 /* nxtitem.c */
 extern int nxtitem(struct nstr_item *, void *);
@@ -529,7 +529,7 @@ extern int onearg(char *, char *);
 /* plane.c */
 extern char *prplane(struct plnstr *);
 extern void pln_postread(int, void *);
-extern void pln_prewrite(int, void *);
+extern void pln_prewrite(int, void *, void *);
 /* plnsub.c */
 extern void count_planes(struct shpstr *);
 extern int get_planes(struct nstr_item *, struct nstr_item *,
@@ -619,7 +619,7 @@ extern void satmap(int, int, int, int, int, int);
 extern void sathead(void);
 /* sect.c */
 extern void sct_postread(int, void *);
-extern void sct_prewrite(int, void *);
+extern void sct_prewrite(int, void *, void *);
 extern void item_prewrite(short *);
 extern int issector(char *);
 /* sectdamage.c */
@@ -628,7 +628,7 @@ extern int sectdamage(struct sctstr *, int);
 /* ship.c */
 extern char *prship(struct shpstr *);
 extern void shp_postread(int, void *);
-extern void shp_prewrite(int, void *);
+extern void shp_prewrite(int, void *, void *);
 /* show.c */
 extern void show_bridge(int);
 extern void show_tower(int);

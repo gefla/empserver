@@ -108,9 +108,9 @@ pln_postread(int n, void *ptr)
 }
 
 void
-pln_prewrite(int n, void *ptr)
+pln_prewrite(int n, void *old, void *new)
 {
-    struct plnstr *pp = ptr;
+    struct plnstr *pp = new;
     struct nukstr *np;
     int i;
 

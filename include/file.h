@@ -67,12 +67,12 @@ struct empfile {
      */
     void (*postread)(int id, void *elt);
     /*
-     * Called before write.  ID is the element id, and ELT is the
-     * element being written.  May modify the element.  Modifications
-     * will be visible to caller of ef_write() and are written to the
-     * file.
+     * Called before write.  ID is the element id, OLD is the element
+     * being updated (null unless it is cached) and ELT is the element
+     * being written.  May modify the element.  Modifications will be
+     * visible to caller of ef_write() and are written to the file.
      */
-    void (*prewrite)(int id, void *elt);
+    void (*prewrite)(int id, void *old, void *elt);
 };
 
 struct emptypedstr {

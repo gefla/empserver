@@ -74,9 +74,9 @@ nuk_postread(int n, void *ptr)
 }
 
 void
-nuk_prewrite(int n, void *ptr)
+nuk_prewrite(int n, void *old, void *new)
 {
-    struct nukstr *np = ptr;
+    struct nukstr *np = new;
 
     if (np->nuk_effic == 0) {
 	if (np->nuk_own)
