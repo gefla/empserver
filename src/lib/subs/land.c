@@ -111,15 +111,15 @@ lnd_postread(int n, void *ptr)
 void
 lnd_prewrite(int n, void *old, void *new)
 {
+    struct lndstr *oldlp = old;
     struct lndstr *llp = new;
+    natid own = llp->lnd_own;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;
 
     if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
-	makelost(EF_LAND, llp->lnd_own, llp->lnd_uid,
-		 llp->lnd_x, llp->lnd_y);
-	llp->lnd_own = 0;
+	own = 0;
 
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_land == n) {
@@ -149,6 +149,17 @@ lnd_prewrite(int n, void *old, void *new)
 	item_prewrite(llp->lnd_item);
     }
 
+    /* We've avoided assigning to llp->lnd_own, in case oldsp == sp */
+    if (oldlp->lnd_own != own) {
+	if (oldlp->lnd_own)
+	    makelost(EF_LAND, oldlp->lnd_own,
+		     llp->lnd_uid, llp->lnd_x, llp->lnd_y);
+	if (own)
+	    makenotlost(EF_LAND, own,
+			llp->lnd_uid, llp->lnd_x, llp->lnd_y);
+    }
+
+    llp->lnd_own = own;
 }
 
 char *

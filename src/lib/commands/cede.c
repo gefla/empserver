@@ -229,10 +229,7 @@ grab_sect(struct sctstr *sp, natid to)
 
 	wu(0, to, "\t%s ceded to you by %s\n",
 	   prplane(pp), cname(player->cnum));
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = to;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
-		    pp->pln_x, pp->pln_y);
 	pp->pln_mobil = 0;
 	pp->pln_mission = 0;
 	putplane(pp->pln_uid, pp);
@@ -246,10 +243,7 @@ grab_sect(struct sctstr *sp, natid to)
 
 	wu(0, to, "\t%s ceded to you by %s\n",
 	   prnuke(np), cname(player->cnum));
-	makelost(EF_NUKE, np->nuk_own, np->nuk_uid, np->nuk_x, np->nuk_y);
 	np->nuk_own = to;
-	makenotlost(EF_NUKE, np->nuk_own, np->nuk_uid,
-		    np->nuk_x, np->nuk_y);
 	putnuke(ni.cur, np);
     }
 
@@ -265,8 +259,6 @@ grab_sect(struct sctstr *sp, natid to)
 
 	wu(0, to, "\t%s ceded to you by %s\n",
 	   prland(lp), cname(player->cnum));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	makenotlost(EF_LAND, to, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	lp->lnd_own = to;
 	lp->lnd_mobil = 0;
 	lp->lnd_mission = 0;
@@ -288,8 +280,6 @@ grab_sect(struct sctstr *sp, natid to)
 
     sp->sct_dist_x = sp->sct_x;
     sp->sct_dist_y = sp->sct_y;
-    makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-    makenotlost(EF_SECTOR, to, 0, sp->sct_x, sp->sct_y);
     if (sp->sct_oldown == sp->sct_own)
 	sp->sct_oldown = to;
     sp->sct_own = to;
@@ -358,10 +348,7 @@ grab_ship(struct shpstr *sp, natid to)
 
 	wu(0, to, "\t%s ceded to you by %s\n",
 	   prplane(pp), cname(player->cnum));
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = to;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
-		    pp->pln_x, pp->pln_y);
 	pp->pln_mobil = 0;
 	pp->pln_mission = 0;
 	putplane(pp->pln_uid, pp);
@@ -379,15 +366,11 @@ grab_ship(struct shpstr *sp, natid to)
 
 	wu(0, to, "\t%s ceded to you by %s\n",
 	   prland(lp), cname(player->cnum));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	makenotlost(EF_LAND, to, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 	lp->lnd_own = to;
 	lp->lnd_mobil = 0;
 	lp->lnd_mission = 0;
 	putland(ni.cur, lp);
     }
 
-    makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
     sp->shp_own = to;
-    makenotlost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
 }

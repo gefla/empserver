@@ -112,8 +112,6 @@ coll(void)
      * Used to call takeover() here a long time ago, but that does
      * unwanted things, like generate che.
      */
-    makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
-    makenotlost(EF_SECTOR, player->cnum, 0, sect.sct_x, sect.sct_y);
     sect.sct_own = player->cnum;
 
     memset(sect.sct_dist, 0, sizeof(sect.sct_dist));

@@ -361,8 +361,6 @@ put_combat(struct combat *com)
 		    sect.sct_mobil = (short)(com->mob - com->mobcost);
 	    }
 	}
-	makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
-	makenotlost(EF_SECTOR, com->own, 0, sect.sct_x, sect.sct_y);
 	sect.sct_own = com->own;
 	if (com->plague) {
 	    if (sect.sct_pstage == PLG_HEALTHY)
@@ -381,11 +379,7 @@ put_combat(struct combat *com)
 	    else
 		land.lnd_mobil = (signed char)(com->mob - com->mobcost);
 	}
-	makelost(EF_LAND, land.lnd_own, land.lnd_uid,
-		 land.lnd_x, land.lnd_y);
 	land.lnd_own = com->own;
-	makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
-		    land.lnd_x, land.lnd_y);
 	if (com->plague) {
 	    if (land.lnd_pstage == PLG_HEALTHY)
 		land.lnd_pstage = PLG_EXPOSED;
@@ -409,11 +403,7 @@ put_combat(struct combat *com)
 	    else
 		ship.shp_mobil = (signed char)(com->mob - com->mobcost);
 	}
-	makelost(EF_SHIP, ship.shp_own, ship.shp_uid,
-		 ship.shp_x, ship.shp_y);
 	ship.shp_own = com->own;
-	makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid,
-		    ship.shp_x, ship.shp_y);
 	if (com->plague) {
 	    if (ship.shp_pstage == PLG_HEALTHY)
 		ship.shp_pstage = PLG_EXPOSED;

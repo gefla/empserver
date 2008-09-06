@@ -462,8 +462,6 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(sect->sct_own), sect->sct_own, cname(newown), newown);
 	if (sect->sct_own) {
-	    makelost(EF_SECTOR, sect->sct_own, 0,
-		     sect->sct_x, sect->sct_y);
 	    wu(player->cnum, sect->sct_own,
 	       "Sector %s lost to deity intervention\n",
 	       xyas(sect->sct_x, sect->sct_y, sect->sct_own));
@@ -471,7 +469,6 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	benefit(sect->sct_own, 0);
 	sect->sct_own = newown;
 	if (newown) {
-	    makenotlost(EF_SECTOR, newown, 0, sect->sct_x, sect->sct_y);
 	    wu(player->cnum, newown,
 	       "Sector %s gained from deity intervention\n",
 	       xyas(sect->sct_x, sect->sct_y, sect->sct_own));
@@ -777,11 +774,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	if (arg && arg < MAXNOC) {
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prship(ship));
-	    makelost(EF_SHIP, ship->shp_own, ship->shp_uid,
-		     ship->shp_x, ship->shp_y);
 	    ship->shp_own = (natid)arg;
-	    makenotlost(EF_SHIP, ship->shp_own, ship->shp_uid,
-			ship->shp_x, ship->shp_y);
 	} else if (!arg)
 	    ship->shp_effic = 0;
 	break;
@@ -882,11 +875,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	if (arg && arg < MAXNOC) {
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prland(land));
-	    makelost(EF_LAND, land->lnd_own, land->lnd_uid,
-		     land->lnd_x, land->lnd_y);
 	    land->lnd_own = (natid)arg;
-	    makenotlost(EF_LAND, land->lnd_own, land->lnd_uid,
-			land->lnd_x, land->lnd_y);
 	} else if (!arg)
 	    land->lnd_effic = 0;
 	break;
@@ -1009,11 +998,7 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	       "%s taken from you by deity intervention!\n",
 	       prplane(plane));
 	if (arg && arg < MAXNOC) {
-	    makelost(EF_PLANE, plane->pln_own, plane->pln_uid,
-		     plane->pln_x, plane->pln_y);
 	    plane->pln_own = (natid)arg;
-	    makenotlost(EF_PLANE, plane->pln_own, plane->pln_uid,
-			plane->pln_x, plane->pln_y);
 	    wu(player->cnum, plane->pln_own,
 	       "%s given to you by deity intervention!\n", prplane(plane));
 	} else if (!arg)

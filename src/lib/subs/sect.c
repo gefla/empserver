@@ -61,6 +61,7 @@ sct_postread(int id, void *ptr)
 void
 sct_prewrite(int id, void *old, void *new)
 {
+    struct sctstr *oldsp = old;
     struct sctstr *sp = new;
     int mil, civs;
     natid own;
@@ -70,23 +71,33 @@ sct_prewrite(int id, void *old, void *new)
 
     mil = sp->sct_item[I_MILIT];
     civs = sp->sct_item[I_CIVIL];
+    own = sp->sct_own;
 
-    if (sp->sct_own != 0 && !civs) {
+    if (own && !civs) {
 	sp->sct_work = 100;
-	sp->sct_oldown = sp->sct_own;
+	sp->sct_oldown = own;
     }
 
-    if (sp->sct_own && !civs && !mil
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)
+    if (own && !civs && !mil && !has_units(sp->sct_x, sp->sct_y, own, NULL)
 	&& !(sp->sct_flags & MOVE_IN_PROGRESS)) {
 	/* more cruft! */
-	own = sp->sct_own;
-	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-	sp->sct_own = 0;
+	own = 0;
 	sp->sct_mobil = 0;
 	if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
 	    caploss(sp, own, "");
     }
+
+    /* We've avoided assigning to sp->sct_own, in case oldsp == sp */
+    if (oldsp->sct_own != own) {
+	if (oldsp->sct_own)
+	    makelost(EF_SECTOR, oldsp->sct_own,
+		     0, sp->sct_x, sp->sct_y);
+	if (own)
+	    makenotlost(EF_SECTOR, own,
+			0, sp->sct_x, sp->sct_y);
+    }
+
+    sp->sct_own = own;
 }
 
 void

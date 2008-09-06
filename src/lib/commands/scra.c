@@ -196,11 +196,7 @@ scra(void)
 			   "%s given to you by %s\n", prplane(&plane),
 			   cname(player->cnum));
 		    }
-		    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			     plane.pln_x, plane.pln_y);
 		    plane.pln_own = sect2.sct_own;
-		    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid,
-				plane.pln_x, plane.pln_y);
 		    putplane(plane.pln_uid, &plane);
 		}
 	    }
@@ -222,11 +218,7 @@ scra(void)
 			   "%s given to you by %s\n", prland(&land),
 			   cname(player->cnum));
 		    }
-		    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
-			     land.lnd_x, land.lnd_y);
 		    land.lnd_own = sect2.sct_own;
-		    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
-				land.lnd_x, land.lnd_y);
 		    putland(land.lnd_uid, &land);
 		}
 	    }
@@ -261,11 +253,7 @@ scra(void)
 			   "%s given to you by %s\n", prland(&land),
 			   cname(player->cnum));
 		    }
-		    makelost(EF_LAND, land.lnd_own, land.lnd_uid,
-			     land.lnd_x, land.lnd_y);
 		    land.lnd_own = sect2.sct_own;
-		    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
-				land.lnd_x, land.lnd_y);
 		    putland(land.lnd_uid, &land);
 		}
 	    }
@@ -288,11 +276,7 @@ scra(void)
 			   "%s given to you by %s\n", prplane(&plane),
 			   cname(player->cnum));
 		    }
-		    makelost(EF_PLANE, plane.pln_own, plane.pln_uid,
-			     plane.pln_x, plane.pln_y);
 		    plane.pln_own = sect2.sct_own;
-		    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid,
-				plane.pln_x, plane.pln_y);
 		    putplane(plane.pln_uid, &plane);
 		}
 	    }

@@ -134,7 +134,6 @@ knockdown(struct sctstr *sp)
 	xyas(sp->sct_x, sp->sct_y, sp->sct_own));
     sp->sct_type = SCT_WATER;
     sp->sct_newtype = SCT_WATER;
-    makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
     sp->sct_own = 0;
     sp->sct_oldown = 0;
     sp->sct_mobil = 0;

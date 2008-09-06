@@ -116,7 +116,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    sect.sct_fallout = MIN(fallout, FALLOUT_MAX);
 	}
 	if (damage > 100) {
-	    makelost(EF_SECTOR, sect.sct_own, 0, sect.sct_x, sect.sct_y);
 	    sect.sct_oldown = 0;
 	    sect.sct_own = 0;
 	    if (type == SCT_WATER || type == SCT_BSPAN ||

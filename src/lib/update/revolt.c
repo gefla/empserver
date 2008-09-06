@@ -312,8 +312,13 @@ guerrilla(struct sctstr *sp)
 	/* che won, and sector converts. */
 	if (sp->sct_own == sp->sct_oldown)
 	    sp->sct_oldown = 0;
-	else
+	else {
+	    makelost(EF_SECTOR, sp->sct_own,
+		     0, sp->sct_x, sp->sct_y);
+	    makenotlost(EF_SECTOR, sp->sct_oldown,
+			0, sp->sct_x, sp->sct_y);
 	    takeover(sp, sp->sct_oldown);
+	}
 	sp->sct_mobil = oldmob;
 	civ += uw;
 	uw = 0;

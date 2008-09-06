@@ -352,22 +352,14 @@ check_trade(void)
 	case EF_NUKE:
 	    tg.nuke.nuk_x = trade.trd_x;
 	    tg.nuke.nuk_y = trade.trd_y;
-	    makelost(EF_NUKE, tg.nuke.nuk_own, tg.nuke.nuk_uid,
-		     tg.nuke.nuk_x, tg.nuke.nuk_y);
 	    tg.nuke.nuk_own = trade.trd_maxbidder;
-	    makenotlost(EF_NUKE, tg.nuke.nuk_own, tg.nuke.nuk_uid,
-			tg.nuke.nuk_x, tg.nuke.nuk_y);
 	    break;
 	case EF_PLANE:
 	    if (!pln_is_in_orbit(&tg.plane)) {
 		tg.plane.pln_x = trade.trd_x;
 		tg.plane.pln_y = trade.trd_y;
 	    }
-	    makelost(EF_PLANE, tg.plane.pln_own, tg.plane.pln_uid,
-		     tg.plane.pln_x, tg.plane.pln_y);
 	    tg.plane.pln_own = trade.trd_maxbidder;
-	    makenotlost(EF_PLANE, tg.plane.pln_own, tg.plane.pln_uid,
-			tg.plane.pln_x, tg.plane.pln_y);
 	    tg.plane.pln_wing = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
@@ -393,11 +385,7 @@ check_trade(void)
 		ship.shp_nland--;
 		putship(ship.shp_uid, &ship);
 	    }
-	    makelost(EF_LAND, tg.land.lnd_own, tg.land.lnd_uid,
-		     tg.land.lnd_x, tg.land.lnd_y);
 	    tg.land.lnd_own = trade.trd_maxbidder;
-	    makenotlost(EF_LAND, tg.land.lnd_own, tg.land.lnd_uid,
-			tg.land.lnd_x, tg.land.lnd_y);
 	    tg.land.lnd_army = 0;
 	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {

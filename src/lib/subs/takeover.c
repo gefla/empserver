@@ -158,8 +158,6 @@ takeover(struct sctstr *sp, natid newown)
 	 */
 	sp->sct_loyal = 50;
     }
-    makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-    makenotlost(EF_SECTOR, newown, 0, sp->sct_x, sp->sct_y);
     sp->sct_own = newown;
     if (opt_MOB_ACCESS) {
 	game_tick_to_now(&sp->sct_access);
@@ -206,9 +204,7 @@ takeover_plane(struct plnstr *pp, natid newown)
 	trdswitchown(EF_PLANE, pp, newown);
     if (pp->pln_mobil > 0)
 	pp->pln_mobil = 0;
-    makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
     pp->pln_own = newown;
-    makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
     pp->pln_mission = 0;
     pp->pln_wing = 0;
     putplane(pp->pln_uid, pp);
@@ -225,9 +221,7 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
 
     if (opt_MARKET)
 	trdswitchown(EF_SHIP, sp, newown);
-    makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
     sp->shp_own = newown;
-    makenotlost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
     sp->shp_mission = 0;
     sp->shp_fleet = 0;
     sp->shp_rflags = 0;
@@ -251,10 +245,7 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
 	if (opt_MARKET)
 	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = newown;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
-		    pp->pln_x, pp->pln_y);
 	putplane(pp->pln_uid, pp);
     }
     /* Take over land units */
@@ -290,11 +281,7 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     if (opt_MARKET)
 	trdswitchown(EF_LAND, landp, newown);
     landp->lnd_mission = 0;
-    makelost(EF_LAND, landp->lnd_own, landp->lnd_uid,
-	     landp->lnd_x, landp->lnd_y);
     landp->lnd_own = newown;
-    makenotlost(EF_LAND, landp->lnd_own, landp->lnd_uid,
-		landp->lnd_x, landp->lnd_y);
     pp = &p;
     lp = &llp;
     /* Take over planes */
@@ -314,10 +301,7 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
 	if (opt_MARKET)
 	    trdswitchown(EF_PLANE, pp, newown);
 	pp->pln_mission = 0;
-	makelost(EF_PLANE, pp->pln_own, pp->pln_uid, pp->pln_x, pp->pln_y);
 	pp->pln_own = newown;
-	makenotlost(EF_PLANE, pp->pln_own, pp->pln_uid,
-		    pp->pln_x, pp->pln_y);
 	putplane(pp->pln_uid, pp);
     }
     /* Take over land units */

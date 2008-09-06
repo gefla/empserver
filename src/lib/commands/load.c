@@ -316,10 +316,7 @@ gift(natid givee, natid giver, void *ptr, char *mesg)
 
     if (giver != givee)
 	wu(0, givee, "%s %s %s\n", cname(giver), obj_nameof(gen), mesg);
-
-    makelost(gen->ef_type, gen->own, gen->uid, gen->x, gen->y);
     gen->own = givee;
-    makenotlost(gen->ef_type, gen->own, gen->uid, gen->x, gen->y);
 }
 
 static int

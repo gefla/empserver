@@ -64,15 +64,16 @@ shp_postread(int n, void *ptr)
 void
 shp_prewrite(int n, void *old, void *new)
 {
+    struct shpstr *oldsp = old;
     struct shpstr *sp = new;
+    natid own = sp->shp_own;
     struct lndstr *lp;
     struct plnstr *pp;
     int i;
 
-    if (sp->shp_own != 0 && sp->shp_effic < SHIP_MINEFF) {
-	mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
-	makelost(EF_SHIP, sp->shp_own, sp->shp_uid, sp->shp_x, sp->shp_y);
-	sp->shp_own = 0;
+    if (own && sp->shp_effic < SHIP_MINEFF) {
+	mpr(own, "\t%s sunk!\n", prship(sp));
+	own = 0;
 
 	for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	    if (lp->lnd_own && lp->lnd_ship == n) {
@@ -95,6 +96,18 @@ shp_prewrite(int n, void *old, void *new)
     } else {
 	item_prewrite(sp->shp_item);
     }
+
+    /* We've avoided assigning to sp->shp_own, in case oldsp == sp */
+    if (oldsp->shp_own != own) {
+	if (oldsp->shp_own)
+	    makelost(EF_SHIP, oldsp->shp_own,
+		     sp->shp_uid, sp->shp_x, sp->shp_y);
+	if (own)
+	    makenotlost(EF_SHIP, own,
+			sp->shp_uid, sp->shp_x, sp->shp_y);
+    }
+
+    sp->shp_own = own;
 }
 
 char *

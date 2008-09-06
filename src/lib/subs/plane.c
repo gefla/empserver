@@ -110,15 +110,14 @@ pln_postread(int n, void *ptr)
 void
 pln_prewrite(int n, void *old, void *new)
 {
+    struct plnstr *oldpp = old;
     struct plnstr *pp = new;
+    natid own = pp->pln_own;
     struct nukstr *np;
     int i;
 
     if (pp->pln_effic < PLANE_MINEFF) {
-	if (pp->pln_own)
-	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-		     pp->pln_x, pp->pln_y);
-	pp->pln_own = 0;
+	own = 0;
 	pp->pln_effic = 0;
 	for (i = 0; NULL != (np = getnukep(i)); i++) {
 	    if (np->nuk_own && np->nuk_plane == n) {
@@ -129,6 +128,18 @@ pln_prewrite(int n, void *old, void *new)
 	    }
 	}
     }
+
+    /* We've avoided assigning to pp->pln_own, in case oldsp == sp */
+    if (oldpp->pln_own != own) {
+	if (oldpp->pln_own)
+	    makelost(EF_PLANE, oldpp->pln_own,
+		     pp->pln_uid, pp->pln_x, pp->pln_y);
+	if (own)
+	    makenotlost(EF_PLANE, own,
+			pp->pln_uid, pp->pln_x, pp->pln_y);
+    }
+
+    pp->pln_own = own;
 }
 
 char *

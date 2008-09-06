@@ -383,8 +383,6 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
 
     if (sp->sct_pstage == PLG_INFECT)
 	ship.shp_pstage = PLG_EXPOSED;
-    makenotlost(EF_SHIP, ship.shp_own, ship.shp_uid,
-		ship.shp_x, ship.shp_y);
     putship(ship.shp_uid, &ship);
     pr("%s", prship(&ship));
     pr(" built in sector %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -507,8 +505,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     if (sp->sct_pstage == PLG_INFECT)
 	land.lnd_pstage = PLG_EXPOSED;
     putland(nstr.cur, &land);
-    makenotlost(EF_LAND, land.lnd_own, land.lnd_uid,
-		land.lnd_x, land.lnd_y);
     pr("%s", prland(&land));
     pr(" built in sector %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
@@ -693,8 +689,6 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     vec[I_OIL] -= np->n_oil;
     vec[I_RAD] -= np->n_rad;
 
-    makenotlost(EF_NUKE, nuke.nuk_own, nuke.nuk_uid,
-		nuke.nuk_x, nuke.nuk_y);
     putnuke(nuke.nuk_uid, &nuke);
     pr("%s created in %s\n", prnuke(&nuke),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -793,8 +787,6 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     vec[I_HCM] -= hcm;
     vec[I_MILIT] -= mil;
 
-    makenotlost(EF_PLANE, plane.pln_own, plane.pln_uid,
-		plane.pln_x, plane.pln_y);
     putplane(plane.pln_uid, &plane);
     pr("%s built in sector %s\n", prplane(&plane),
        xyas(sp->sct_x, sp->sct_y, player->cnum));

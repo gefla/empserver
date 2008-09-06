@@ -76,15 +76,24 @@ nuk_postread(int n, void *ptr)
 void
 nuk_prewrite(int n, void *old, void *new)
 {
+    struct nukstr *oldnp = old;
     struct nukstr *np = new;
+    natid own = np->nuk_own;
 
-    if (np->nuk_effic == 0) {
-	if (np->nuk_own)
-	    makelost(EF_NUKE, np->nuk_own, np->nuk_uid,
-		     np->nuk_x, np->nuk_y);
-	np->nuk_own = 0;
-	np->nuk_effic = 0;
+    if (np->nuk_effic == 0)
+	own = 0;
+
+    /* We've avoided assigning to np->nuk_own, in case oldsp == sp */
+    if (oldnp->nuk_own != own) {
+	if (oldnp->nuk_own)
+	    makelost(EF_NUKE, oldnp->nuk_own,
+		     np->nuk_uid, np->nuk_x, np->nuk_y);
+	if (own)
+	    makenotlost(EF_NUKE, own,
+			np->nuk_uid, np->nuk_x, np->nuk_y);
     }
+
+    np->nuk_own = own;
 }
 
 int
