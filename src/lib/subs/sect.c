@@ -48,14 +48,11 @@
 #include "sect.h"
 #include "xy.h"
 
-static int checksect(struct sctstr *);
-
 void
 sct_postread(int id, void *ptr)
 {
     struct sctstr *sp = ptr;
 
-    checksect(sp);
     player->owner = (player->god || sp->sct_own == player->cnum);
     if (opt_MOB_ACCESS)
 	sct_do_upd_mob(sp);
@@ -65,30 +62,10 @@ void
 sct_prewrite(int id, void *ptr)
 {
     struct sctstr *sp = ptr;
-
-    bridge_damaged(sp);
-    checksect(sp);
-}
-
-void
-item_prewrite(short *item)
-{
-    i_type i;
-
-    for (i = I_NONE + 1; i <= I_MAX; ++i) {
-	if (CANT_HAPPEN(item[i] < 0))
-	    item[i] = 0;
-	else if (CANT_HAPPEN(item[i] > ITEM_MAX))
-	    item[i] = ITEM_MAX;
-    }
-}
-
-static int
-checksect(struct sctstr *sp)
-{
     int mil, civs;
     natid own;
 
+    bridge_damaged(sp);
     item_prewrite(sp->sct_item);
 
     /* shouldn't happen, but... */
@@ -114,7 +91,19 @@ checksect(struct sctstr *sp)
 	if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
 	    caploss(sp, own, "");
     }
-    return 1;
+}
+
+void
+item_prewrite(short *item)
+{
+    i_type i;
+
+    for (i = I_NONE + 1; i <= I_MAX; ++i) {
+	if (CANT_HAPPEN(item[i] < 0))
+	    item[i] = 0;
+	else if (CANT_HAPPEN(item[i] > ITEM_MAX))
+	    item[i] = ITEM_MAX;
+    }
 }
 
 int
