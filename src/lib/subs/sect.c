@@ -88,14 +88,9 @@ sct_prewrite(int id, void *old, void *new)
     }
 
     /* We've avoided assigning to sp->sct_own, in case oldsp == sp */
-    if (oldsp->sct_own != own) {
-	if (oldsp->sct_own)
-	    makelost(EF_SECTOR, oldsp->sct_own,
-		     0, sp->sct_x, sp->sct_y);
-	if (own)
-	    makenotlost(EF_SECTOR, own,
-			0, sp->sct_x, sp->sct_y);
-    }
+    if (oldsp->sct_own != own)
+	lost_and_found(EF_SECTOR, oldsp->sct_own, own,
+		       0, sp->sct_x, sp->sct_y);
 
     sp->sct_own = own;
 }

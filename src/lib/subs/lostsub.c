@@ -39,6 +39,20 @@
 
 static int findlost(short, natid, short, coord, coord, int);
 
+/*
+ * Record item ID of type TYPE changed owner from EXOWN to OWN at X, Y.
+ */
+void
+lost_and_found(int type, natid exown, natid own, int id, coord x, coord y)
+{
+    if (exown == own)
+	return;
+    if (exown)
+	makelost(type, exown, id, x, y);
+    if (own)
+	makenotlost(type, own, id, x, y);
+}
+
 void
 makelost(short type, natid owner, short id, coord x, coord y)
 {

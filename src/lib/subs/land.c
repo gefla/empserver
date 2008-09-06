@@ -150,14 +150,9 @@ lnd_prewrite(int n, void *old, void *new)
     }
 
     /* We've avoided assigning to llp->lnd_own, in case oldsp == sp */
-    if (oldlp->lnd_own != own) {
-	if (oldlp->lnd_own)
-	    makelost(EF_LAND, oldlp->lnd_own,
-		     llp->lnd_uid, llp->lnd_x, llp->lnd_y);
-	if (own)
-	    makenotlost(EF_LAND, own,
-			llp->lnd_uid, llp->lnd_x, llp->lnd_y);
-    }
+    if (oldlp->lnd_own != own)
+	lost_and_found(EF_LAND, oldlp->lnd_own, own,
+		       llp->lnd_uid, llp->lnd_x, llp->lnd_y);
 
     llp->lnd_own = own;
 }

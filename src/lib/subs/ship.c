@@ -98,14 +98,9 @@ shp_prewrite(int n, void *old, void *new)
     }
 
     /* We've avoided assigning to sp->shp_own, in case oldsp == sp */
-    if (oldsp->shp_own != own) {
-	if (oldsp->shp_own)
-	    makelost(EF_SHIP, oldsp->shp_own,
-		     sp->shp_uid, sp->shp_x, sp->shp_y);
-	if (own)
-	    makenotlost(EF_SHIP, own,
-			sp->shp_uid, sp->shp_x, sp->shp_y);
-    }
+    if (oldsp->shp_own != own)
+	lost_and_found(EF_SHIP, oldsp->shp_own, own,
+		       sp->shp_uid, sp->shp_x, sp->shp_y);
 
     sp->shp_own = own;
 }

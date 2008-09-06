@@ -130,14 +130,9 @@ pln_prewrite(int n, void *old, void *new)
     }
 
     /* We've avoided assigning to pp->pln_own, in case oldsp == sp */
-    if (oldpp->pln_own != own) {
-	if (oldpp->pln_own)
-	    makelost(EF_PLANE, oldpp->pln_own,
-		     pp->pln_uid, pp->pln_x, pp->pln_y);
-	if (own)
-	    makenotlost(EF_PLANE, own,
-			pp->pln_uid, pp->pln_x, pp->pln_y);
-    }
+    if (oldpp->pln_own != own)
+	lost_and_found(EF_PLANE, oldpp->pln_own, own,
+		       pp->pln_uid, pp->pln_x, pp->pln_y);
 
     pp->pln_own = own;
 }

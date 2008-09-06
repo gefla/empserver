@@ -84,14 +84,9 @@ nuk_prewrite(int n, void *old, void *new)
 	own = 0;
 
     /* We've avoided assigning to np->nuk_own, in case oldsp == sp */
-    if (oldnp->nuk_own != own) {
-	if (oldnp->nuk_own)
-	    makelost(EF_NUKE, oldnp->nuk_own,
-		     np->nuk_uid, np->nuk_x, np->nuk_y);
-	if (own)
-	    makenotlost(EF_NUKE, own,
-			np->nuk_uid, np->nuk_x, np->nuk_y);
-    }
+    if (oldnp->nuk_own != own)
+	lost_and_found(EF_NUKE, oldnp->nuk_own, own,
+		       np->nuk_uid, np->nuk_x, np->nuk_y);
 
     np->nuk_own = own;
 }

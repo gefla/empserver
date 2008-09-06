@@ -55,6 +55,7 @@ struct loststr {
 #define putlost(n, p) ef_write(EF_LOST, (n), (p))
 
 /* src/lib/subs/lostsub.c */
+extern void lost_and_found(int, natid, natid, int, coord, coord);
 extern void makelost(short, natid, short, coord, coord);
 extern void makenotlost(short, natid, short, coord, coord);
 
