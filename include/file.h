@@ -61,17 +61,18 @@ struct empfile {
 
     /* User callbacks, may all be null */
     /*
-     * Called after read, with file type and element as arguments.
-     * May modify the element.  Modifications are visible to caller of
-     * ef_read(), but have no effect on the file.
+     * Called after read.  ID is the element id, and ELT is the
+     * element read.  May modify the element.  Modifications are
+     * visible to caller of ef_read(), but have no effect on the file.
      */
-    void (*postread)(int, void *);
+    void (*postread)(int id, void *elt);
     /*
-     * Called before write, with file type and element as arguments.
-     * May modify the element.  Modifications will be visible to
-     * caller of ef_write() and are written to the file.
+     * Called before write.  ID is the element id, and ELT is the
+     * element being written.  May modify the element.  Modifications
+     * will be visible to caller of ef_write() and are written to the
+     * file.
      */
-    void (*prewrite)(int, void *);
+    void (*prewrite)(int id, void *elt);
 };
 
 struct emptypedstr {
