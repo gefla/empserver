@@ -62,28 +62,29 @@
 /* Initializers for members flags... */
 /* Unmapped cache */
 #define UNMAPPED_CACHE(type, flags) \
-    sizeof(type), (flags), NULL, 0, 0, 0, 0, -1, NULL, NULL
+    sizeof(type), (flags), NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL
 /*
  * Mapped cache, array with known size.
  * Members cids, fids are not set.
  */
 #define ARRAY_CACHE(array, flags) \
     sizeof(*(array)), (flags), (char *)(array), \
-    SZ((array)), 0, 0, 0, -1, NULL, NULL
+    SZ((array)), 0, 0, 0, -1, NULL, NULL, NULL
 /*
  * Mapped cache, array with unknown size.
  * Members csize, cids, fids are not set.
  */
 #define PTR_CACHE(ptr, flags) \
     sizeof(*(ptr)), (flags), (char *)(ptr), \
-    0, 0, 0, 0, -1, NULL, NULL
+    0, 0, 0, 0, -1, NULL, NULL, NULL
 /*
  * Array-backed table.
  * The array's last element is the sentinel.
  */
-#define ARRAY_TABLE(array, flags) \
-    sizeof(*(array)), (flags), (char *)(array), \
-    SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1, NULL, NULL
+#define ARRAY_TABLE(array, flags)				\
+    sizeof(*(array)), (flags), (char *)(array),			\
+    SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1,	\
+    NULL, NULL, NULL
 
 /* Common configuration table flags */
 #define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC | EFF_SENTINEL)
@@ -144,9 +145,9 @@ struct empfile empfile[] = {
     {EF_LOAN, "loan", "loan", loan_ca,
      UNMAPPED_CACHE(struct lonstr, EFF_TYPED)},
     {EF_MAP, "map", "map", NULL,
-     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL},
+     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
     {EF_BMAP, "bmap", "bmap", NULL,
-     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL},
+     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
     {EF_COMM, "commodity", "commodity", commodity_ca,
      UNMAPPED_CACHE(struct comstr, EFF_TYPED | EFF_OWNER)},
     {EF_LOST, "lost", "lostitems", lost_ca,
@@ -196,7 +197,7 @@ struct empfile empfile[] = {
      ARRAY_TABLE(empfile, EFF_CFG)},
     {EF_VERSION, "version", NULL, NULL,
      sizeof(PACKAGE_STRING), EFF_STATIC, version, 1, 0, 1, 1, -1,
-     NULL, NULL},
+     NULL, NULL, NULL},
     {EF_META, "meta", NULL, mdchr_ca,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
 
@@ -235,7 +236,8 @@ struct empfile empfile[] = {
      UNMAPPED_CACHE(struct natstr, EFF_TYPED | EFF_OWNER)},
 
     /* Sentinel */
-    {EF_BAD, NULL, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL},
+    {EF_BAD, NULL, NULL, NULL,
+     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL},
 };
 
 static void

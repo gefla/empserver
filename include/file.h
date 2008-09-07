@@ -61,6 +61,10 @@ struct empfile {
 
     /* User callbacks, may all be null */
     /*
+     * Called after element initialization.  ELT is the element.
+     */
+    void (*oninit)(void *elt);
+    /*
      * Called after read.  ID is the element id, and ELT is the
      * element read.  May modify the element.  Modifications are
      * visible to caller of ef_read(), but have no effect on the file.

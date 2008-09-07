@@ -667,12 +667,14 @@ do_blank(struct empfile *ep, void *buf, int id, int count)
     struct emptypedstr *elt;
 
     memset(buf, 0, count * ep->size);
-    if (ep->flags & EFF_TYPED) {
-	for (i = 0; i < count; i++) {
-	    elt = (struct emptypedstr *)((char *)buf + i * ep->size);
+    for (i = 0; i < count; i++) {
+	elt = (struct emptypedstr *)((char *)buf + i * ep->size);
+	if (ep->flags & EFF_TYPED) {
 	    elt->ef_type = ep->uid;
 	    elt->uid = id + i;
 	}
+	if (ep->oninit)
+	    ep->oninit(elt);
     }
 }
 
