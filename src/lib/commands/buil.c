@@ -778,7 +778,6 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     plane.pln_wing = 0;
     plane.pln_ship = -1;
     plane.pln_land = -1;
-    plane.pln_nuketype = -1;
     plane.pln_harden = 0;
     plane.pln_flags = 0;
     pln_set_tech(&plane, tlev);

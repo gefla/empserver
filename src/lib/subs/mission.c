@@ -1008,7 +1008,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	switch (mission) {
 	case 's':		/* strategic bomb */
 	case 'p':		/* pinpoint bomb */
-	    if (pp->pln_nuketype == -1) {
+	    if (nuk_on_plane(pp) < 0) {
 		itype = I_SHELL;
 		needed = load;
 	    }
@@ -1168,7 +1168,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	       prplane(pp), cname(victim), s, xyas(x, y, pp->pln_own));
 	}
 	hitchance = pln_hitchance(pp, hardtarget, EF_SHIP);
-	if (plp->plane.pln_nuketype != -1)
+	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else if (hardtarget != SECT_HARDTARGET)
 	    wu(0, pp->pln_own, "\t\t%d%% hitchance...", hitchance);

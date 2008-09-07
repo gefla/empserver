@@ -332,7 +332,6 @@ pr_plane(struct plnstr *plane)
     pr("Flags <f>: %d\n", plane->pln_flags);
     pr("Ship <s>: %d\t\t", plane->pln_ship);
     pr("Land Unit <y>: %d\t", plane->pln_land);
-    pr("Nuke Type <n>: %d\n", plane->pln_nuketype);
 }
 
 static void
@@ -981,7 +980,7 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 
     switch (op) {
     case 'n':
-	plane->pln_nuketype = arg;
+	warn_deprecated(op);
 	break;
     case 'U':
 	ef_set_uid(EF_PLANE, plane, arg);

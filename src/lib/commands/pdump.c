@@ -45,6 +45,7 @@ pdump(void)
     int nplanes;
     struct nstr_item np;
     struct plnstr plane;
+    struct nukstr nuke;
     int field[128];
     struct natstr *natp;
     int n, i;
@@ -266,8 +267,8 @@ pdump(void)
 		    ? " Y" : " N");
 		break;
 	    case 20:
-		if (plane.pln_nuketype != -1) {
-		    pr(" %.5s", nchr[(int)plane.pln_nuketype].n_name);
+		if (getnuke(nuk_on_plane(&plane), &nuke)) {
+		    pr(" %.5s", nchr[nuke.nuk_type].n_name);
 		    break;
 		} else
 		    pr(" N/A");

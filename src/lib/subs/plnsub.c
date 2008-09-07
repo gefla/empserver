@@ -666,7 +666,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	switch (mission) {
 	case 's':		/* strategic bomb */
 	case 'p':		/* pinpoint bomb */
-	    if (pp->pln_nuketype == -1) {
+	    if (nuk_on_plane(pp) < 0) {
 		itype = I_SHELL;
 		needed = load;
 	    }
@@ -1138,7 +1138,6 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     if (getnuke(nuk_on_plane(pp), &nuke)) {
 	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
 	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
-	pp->pln_nuketype = -1;
 	*nukedamp = detonate(&nuke, x, y,
 			     pp->pln_flags & PLN_AIRBURST);
 	return 0;

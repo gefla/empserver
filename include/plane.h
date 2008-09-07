@@ -68,7 +68,6 @@ struct plnstr {
     short pln_ship;		/* pointer to carrier */
     short pln_land;		/* pointer to carrier */
     signed char pln_harden;	/* for missiles */
-    signed char pln_nuketype;	/* type of nuclear armament (if any) */
     signed char pln_flags;	/* State of the plane */
     short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
     float pln_theta;		/* position in orbital sine wave */

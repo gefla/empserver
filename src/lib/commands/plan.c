@@ -46,6 +46,7 @@ plan(void)
     int nplanes, noff;
     struct nstr_item np;
     struct plnstr plane;
+    struct nukstr nuke;
 
     if (!snxtitem(&np, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
@@ -76,9 +77,9 @@ plan(void)
 	    pr("      ");
 	if (pln_is_in_orbit(&plane))
 	    pr((plane.pln_flags & PLN_SYNCHRONOUS) ? " geosync" : " orbit");
-	else if (plane.pln_nuketype >= 0)
+	else if (getnuke(nuk_on_plane(&plane), &nuke))
 	    pr(" %-5.5s %c",
-	       nchr[(int)plane.pln_nuketype].n_name,
+	       nchr[nuke.nuk_type].n_name,
 	       plane.pln_flags & PLN_AIRBURST ? 'A' : 'G');
 	pr("\n");
     }

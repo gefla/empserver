@@ -111,7 +111,6 @@ arm(void)
 	snprintf(buf, sizeof(buf), "armed on your %s in %s",
 		 prplane(&pl), xyas(pl.pln_x, pl.pln_y, pl.pln_own));
 	gift(pl.pln_own, player->cnum, &nuke, buf);
-	pl.pln_nuketype = nuke.nuk_type;
 	nuke.nuk_plane = pl.pln_uid;
 	putplane(pl.pln_uid, &pl);
 	putnuke(nuke.nuk_uid, &nuke);
@@ -159,7 +158,6 @@ disarm(void)
 		 xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	gift(sect.sct_own, player->cnum, &nuke, buf);
 	nuke.nuk_plane = -1;
-	pl.pln_nuketype = -1;
 	pl.pln_flags &= ~PLN_AIRBURST;
 	putplane(pl.pln_uid, &pl);
 	putnuke(nuke.nuk_uid, &nuke);

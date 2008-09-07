@@ -42,6 +42,7 @@
 #include "nat.h"
 #include "news.h"
 #include "nsc.h"
+#include "nuke.h"
 #include "optlist.h"
 #include "path.h"
 #include "plane.h"
@@ -129,8 +130,10 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     putplane(pp->pln_uid, pp);
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
-    if (pp->pln_nuketype != -1)
+    if (nuk_on_plane(pp) >= 0) {
 	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
+	hitchance = 100;
+    }
 
     if (pcp->pl_flags & P_T)
 	mpr(victim, "Incoming %s missile sighted at %s...\n",
@@ -149,9 +152,6 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	    return 0;
 	}
     }
-
-    if (pp->pln_nuketype != -1)
-	hitchance = 100;
 
     mpr(pp->pln_own, "\t%d%% hitchance...", hitchance);
     hit = (roll(100) <= hitchance);

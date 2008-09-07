@@ -50,7 +50,6 @@ static void exit_bad_arg(char *, ...)
 static void dump_table(int, int);
 static void pln_fixup(void);
 static void lnd_fixup(void);
-static void nuk_fixup(void);
 
 int
 main(int argc, char *argv[])
@@ -151,7 +150,6 @@ main(int argc, char *argv[])
 	    exit(1);
 	pln_fixup();
 	lnd_fixup();
-	nuk_fixup();
     }
 
     if (ef_verify() < 0)
@@ -279,22 +277,6 @@ lnd_fixup(void)
 	    csp->shp_nland++;
 	else if (clp)
 	    clp->lnd_nland++;
-    }
-}
-
-static void
-nuk_fixup(void)
-{
-    int i;
-    struct nukstr *np;
-    struct plnstr *cpp;
-
-    for (i = 0; (np = ef_ptr(EF_NUKE, i)); i++) {
-	if (!np->nuk_own)
-	    continue;
-	cpp = ef_ptr(EF_PLANE, np->nuk_plane);
-	if (cpp)
-	    cpp->pln_nuketype = np->nuk_type;
     }
 }
 

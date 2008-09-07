@@ -50,6 +50,7 @@ static void *nsc_ver_maxnoc(struct valstr *, struct natstr *, void *);
 static void *nsc_sct_terr(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_att(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_def(struct valstr *, struct natstr *, void *);
+static void *nsc_pln_nuketype(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_att(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_def(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_vul(struct valstr *, struct natstr *, void *);
@@ -294,13 +295,13 @@ struct castr plane_ca[] = {
     {"ship", fldoff(pln_ship), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"land", fldoff(pln_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"harden", fldoff(pln_harden), NSC_CHAR, 0, NULL, EF_BAD, 0},
-    {"nuketype", fldoff(pln_nuketype), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"flags", fldoff(pln_flags), NSC_CHAR, 0, NULL,
      EF_PLANE_FLAGS, NSC_BITS},
     {"access", fldoff(pln_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"theta", fldoff(pln_theta), NSC_FLOAT, 0, NULL, EF_BAD, 0},
     {"att", 0, NSC_LONG, 0, nsc_pln_att, EF_BAD, NSC_EXTRA},
     {"def", 0, NSC_LONG, 0, nsc_pln_def, EF_BAD, NSC_EXTRA},
+    {"nuketype", 0, NSC_LONG, 0, nsc_pln_nuketype, EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -779,6 +780,14 @@ static void *
 nsc_pln_att(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = pln_att(ptr);
+    return NULL;
+}
+
+static void *
+nsc_pln_nuketype(struct valstr *val, struct natstr *np, void *ptr)
+{
+    struct nukstr *nukp = getnukep(nuk_on_plane(ptr));
+    val->val_as.lng = nukp ? nukp->nuk_type : -1;
     return NULL;
 }
 

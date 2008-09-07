@@ -108,6 +108,7 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
     struct nstr_item ni;
     struct plnstr plane;
     struct lndstr land;
+    struct nukstr nuke;
 
     switch (tp->trd_type) {
     case EF_NUKE:
@@ -136,9 +137,8 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 		       plane.pln_tech,
 		       plane.pln_effic,
 		       plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		    if (plane.pln_nuketype != -1) {
-			pr("(%s)", nchr[(int)plane.pln_nuketype].n_name);
-		    }
+		    if (getnuke(nuk_on_plane(&plane), &nuke))
+			pr("(%s)", nchr[nuke.nuk_type].n_name);
 		}
 	    }
 	    snxtitem_all(&ni, EF_LAND);
@@ -157,10 +157,8 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 				   plane.pln_effic,
 				   plchr[(int)plane.pln_type].pl_name,
 				   plane.pln_uid);
-				if (plane.pln_nuketype != -1) {
-				    pr("(%s)",
-				       nchr[(int)plane.pln_nuketype].n_name);
-				}
+				if (getnuke(nuk_on_plane(&plane), &nuke))
+				    pr("(%s)", nchr[nuke.nuk_type].n_name);
 			    }
 			}
 		    }
@@ -193,9 +191,8 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 		       plane.pln_tech,
 		       plane.pln_effic,
 		       plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		    if (plane.pln_nuketype != -1) {
-			pr("(%s)", nchr[(int)plane.pln_nuketype].n_name);
-		    }
+		    if (getnuke(nuk_on_plane(&plane), &nuke))
+			pr("(%s)", nchr[nuke.nuk_type].n_name);
 		}
 	    }
 	}
@@ -209,9 +206,8 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 	   pp->pln_tech,
 	   pp->pln_effic,
 	   plchr[(int)pp->pln_type].pl_name, tp->trd_unitid);
-	if (pp->pln_nuketype != -1) {
-	    pr("(%s)", nchr[(int)pp->pln_nuketype].n_name);
-	}
+	if (getnuke(nuk_on_plane(pp), &nuke))
+	    pr("(%s)", nchr[nuke.nuk_type].n_name);
 	break;
     default:
 	pr("flaky unit type %d", tp->trd_type);

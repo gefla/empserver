@@ -42,6 +42,7 @@
 #include "item.h"
 #include "land.h"
 #include "news.h"
+#include "nuke.h"
 #include "optlist.h"
 #include "path.h"
 #include "plane.h"
@@ -342,7 +343,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
-	if (plp->bombs || plp->plane.pln_nuketype != -1)
+	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
     }
@@ -419,7 +420,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
-	if (plp->bombs || plp->plane.pln_nuketype != -1)
+	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
     }
@@ -532,7 +533,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 
 	dam = 0;
-	if (plp->plane.pln_nuketype != -1)
+	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {
 	    hitchance = pln_hitchance(&plp->plane,
@@ -636,7 +637,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (planeno < 0)
 	    continue;
 	dam = 0;
-	if (plp->plane.pln_nuketype != -1)
+	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {
 	    hitchance = pln_hitchance(&plp->plane, 0, EF_PLANE);
@@ -747,7 +748,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 
 	dam = 0;
-	if (plp->plane.pln_nuketype != -1)
+	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {
 	    hitchance = pln_hitchance(&plp->plane,
@@ -796,7 +797,7 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
-	if (plp->bombs || plp->plane.pln_nuketype != -1)
+	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      's', &nukedam, 1);
     }
