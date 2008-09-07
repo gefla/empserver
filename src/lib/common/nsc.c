@@ -44,10 +44,15 @@
 #include "optlist.h"
 #include "nsc.h"
 #include "product.h"
+#include "unit.h"
 
 static void *nsc_ver(struct valstr *, struct natstr *, void *);
 static void *nsc_ver_maxnoc(struct valstr *, struct natstr *, void *);
 static void *nsc_sct_terr(struct valstr *, struct natstr *, void *);
+static void *nsc_cargo_nplane(struct valstr *, struct natstr *, void *);
+static void *nsc_cargo_nchopper(struct valstr *, struct natstr *, void *);
+static void *nsc_cargo_nxlight(struct valstr *, struct natstr *, void *);
+static void *nsc_cargo_nland(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_att(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_def(struct valstr *, struct natstr *, void *);
 static void *nsc_pln_nuketype(struct valstr *, struct natstr *, void *);
@@ -221,8 +226,6 @@ struct castr ship_ca[] = {
 #define CURSTR struct shpstr
     NSC_GENITEM(EF_SHIP, EF_SHIP_CHR),
     {"fleet", fldoff(shp_fleet), NSC_STRINGY, 1, NULL, EF_BAD, 0},
-    {"nplane", fldoff(shp_nplane), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
-    {"nland", fldoff(shp_nland), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"xstart", fldoff(shp_destx[0]), NSC_XCOORD, 0, NULL, EF_BAD, 0},
     {"xend", fldoff(shp_destx[1]), NSC_XCOORD, 0, NULL, EF_BAD, 0},
     {"ystart", fldoff(shp_desty[0]), NSC_YCOORD, 0, NULL, EF_BAD, 0},
@@ -244,10 +247,6 @@ struct castr ship_ca[] = {
     {"follow", fldoff(shp_follow), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"name", fldoff(shp_name), NSC_STRINGY, MAXSHPNAMLEN, NULL,
      EF_BAD, 0},
-    {"nchoppers", fldoff(shp_nchoppers), NSC_UCHAR, 0, NULL,
-     EF_BAD, NSC_EXTRA},
-    {"nxlight", fldoff(shp_nxlight), NSC_UCHAR, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     /* should let builder access xbuilt, ybuilt, but can't express that: */
     {"xbuilt", fldoff(shp_orig_x), NSC_XCOORD, 0, NULL,
      EF_BAD, NSC_DEITY},
@@ -258,6 +257,10 @@ struct castr ship_ca[] = {
     {"rflags", fldoff(shp_rflags), NSC_INT, 0, NULL,
      EF_RETREAT_FLAGS, NSC_BITS},
     {"rpath", fldoff(shp_rpath), NSC_STRINGY, RET_LEN, NULL, EF_BAD, 0},
+    {"nplane", 0, NSC_LONG, 0, nsc_cargo_nplane, EF_BAD, NSC_EXTRA},
+    {"nchoppers", 0, NSC_LONG, 0, nsc_cargo_nchopper, EF_BAD, NSC_EXTRA},
+    {"nxlight", 0, NSC_LONG, 0, nsc_cargo_nxlight, EF_BAD, NSC_EXTRA},
+    {"nland", 0, NSC_LONG, 0, nsc_cargo_nland, EF_BAD, NSC_EXTRA},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -335,8 +338,6 @@ struct castr land_ca[] = {
     {"ship", fldoff(lnd_ship), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"harden", fldoff(lnd_harden), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"retreat", fldoff(lnd_retreat), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"nxlight", fldoff(lnd_nxlight), NSC_UCHAR, 0, NULL,
-     EF_BAD, NSC_EXTRA},
     {"rflags", fldoff(lnd_rflags), NSC_INT, 0, NULL,
      EF_RETREAT_FLAGS, NSC_BITS},
     {"rpath", fldoff(lnd_rpath), NSC_STRINGY, RET_LEN, NULL, EF_BAD, 0},
@@ -346,7 +347,6 @@ struct castr land_ca[] = {
      EF_PLAGUE_STAGES, NSC_DEITY},
     {"ptime", fldoff(lnd_ptime), NSC_SHORT, 0, NULL, EF_BAD, NSC_DEITY},
     {"land", fldoff(lnd_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"nland", fldoff(lnd_nland), NSC_UCHAR, 0, NULL, EF_BAD, NSC_EXTRA},
     {"access", fldoff(lnd_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"att", 0, NSC_DOUBLE, 0, nsc_lnd_att, EF_BAD, NSC_EXTRA},
     {"def", 0, NSC_DOUBLE, 0, nsc_lnd_def, EF_BAD, NSC_EXTRA},
@@ -357,6 +357,8 @@ struct castr land_ca[] = {
     {"acc", 0, NSC_LONG, 0, nsc_lnd_acc, EF_BAD, NSC_EXTRA},
     {"dam", 0, NSC_LONG, 0, nsc_lnd_dam, EF_BAD, NSC_EXTRA},
     {"aaf", 0, NSC_LONG, 0, nsc_lnd_aaf, EF_BAD, NSC_EXTRA},
+    {"nland", 0, NSC_LONG, 0, nsc_cargo_nland, EF_BAD, NSC_EXTRA},
+    {"nxlight", 0, NSC_LONG, 0, nsc_cargo_nxlight, EF_BAD, NSC_EXTRA},
 #undef CURSTR
 #define CURSTR struct lchrstr
     {"spy", fldoff(l_spy), NSC_INT, 0, nsc_lchr, EF_BAD, NSC_EXTRA},
@@ -767,6 +769,48 @@ nsc_sct_terr(struct valstr *val, struct natstr *np, void *ptr)
 	val->val_as.sym.off = offsetof(struct sctstr, sct_terr);
     val->val_as.sym.get = NULL;
     return ptr;
+}
+
+static void *
+nsc_cargo_nplane(struct valstr *val, struct natstr *np, void *ptr)
+{
+    struct empobj *obj = ptr;
+    int n, nch, nxl;
+
+    n = unit_nplane(obj->ef_type, obj->uid, &nch, &nxl, NULL);
+    val->val_as.lng = n - nch - nxl;
+    return NULL;
+}
+
+static void *
+nsc_cargo_nchopper(struct valstr *val, struct natstr *np, void *ptr)
+{
+    struct empobj *obj = ptr;
+    int n;
+
+    unit_nplane(obj->ef_type, obj->uid, &n, NULL, NULL);
+    val->val_as.lng = n;
+    return NULL;
+}
+
+static void *
+nsc_cargo_nxlight(struct valstr *val, struct natstr *np, void *ptr)
+{
+    struct empobj *obj = ptr;
+    int n;
+
+    unit_nplane(obj->ef_type, obj->uid, NULL, &n, NULL);
+    val->val_as.lng = n;
+    return NULL;
+}
+
+static void *
+nsc_cargo_nland(struct valstr *val, struct natstr *np, void *ptr)
+{
+    struct empobj *obj = ptr;
+
+    val->val_as.lng = unit_cargo_count(obj->ef_type, obj->uid, EF_LAND);
+    return NULL;
 }
 
 static void *

@@ -359,10 +359,6 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     } else {
 	ship.shp_mobil = 0;
     }
-    ship.shp_nplane = 0;
-    ship.shp_nland = 0;
-    ship.shp_nxlight = 0;
-    ship.shp_nchoppers = 0;
     ship.shp_fleet = 0;
     memset(ship.shp_item, 0, sizeof(ship.shp_item));
     ship.shp_pstage = PLG_HEALTHY;
@@ -484,10 +480,8 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     land.lnd_flags = 0;
     land.lnd_ship = -1;
     land.lnd_land = -1;
-    land.lnd_nland = 0;
     land.lnd_harden = 0;
     land.lnd_retreat = morale_base;
-    land.lnd_nxlight = 0;
     land.lnd_rflags = 0;
     memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
     land.lnd_rad_max = 0;

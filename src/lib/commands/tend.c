@@ -242,7 +242,6 @@ tend_land(struct shpstr *tenderp, char *units)
 		continue;
 
 	    /* Fit unit on ship */
-	    count_units(&target);
 	    getship(target.shp_uid, &target);
 
 	    if ((!(lchr[(int)land.lnd_type].l_flags & L_LIGHT)) &&
@@ -257,12 +256,12 @@ tend_land(struct shpstr *tenderp, char *units)
 	    if ((mchr[(int)target.shp_type].m_flags & M_SUB) &&
 		(lchr[(int)land.lnd_type].l_flags & L_SPY) &&
 		!mchr[(int)target.shp_type].m_nland) {
-		if (target.shp_nland > 1) {
+		if (shp_nland(&target) > 1) {
 		    pr("%s doesn't have room for more than two spy units!\n",
 		       prship(&target));
 		    continue;
 		}
-	    } else if (target.shp_nland >= mchr[(int)target.shp_type].m_nland) {
+	    } else if (shp_nland(&target) >= mchr[target.shp_type].m_nland) {
 		if (mchr[(int)target.shp_type].m_nland)
 		    pr("%s doesn't have room for any more land units!\n",
 		       prship(&target));
@@ -279,11 +278,9 @@ tend_land(struct shpstr *tenderp, char *units)
 	    land.lnd_ship = target.shp_uid;
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
-	    target.shp_nland++;
 	    putland(land.lnd_uid, &land);
 	    expose_ship(tenderp, &target);
 	    putship(target.shp_uid, &target);
-	    count_units(tenderp);
 	    putship(tenderp->shp_uid, tenderp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
 	    while (nxtitem(&pni, &plane)) {

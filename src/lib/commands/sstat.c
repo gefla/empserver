@@ -51,9 +51,6 @@ sstat(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	count_planes(&ship);
-	count_units(&ship);
-
 	if (nships++ == 0) {
 	    pr("shp# %22.22s    x,y    eff  tech def spd vis rng fir\n",
 	       "ship-type");

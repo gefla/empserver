@@ -379,12 +379,6 @@ check_trade(void)
 	case EF_LAND:
 	    tg.land.lnd_x = trade.trd_x;
 	    tg.land.lnd_y = trade.trd_y;
-	    if (tg.land.lnd_ship >= 0) {
-		struct shpstr ship;
-		getship(tg.land.lnd_ship, &ship);
-		ship.shp_nland--;
-		putship(ship.shp_uid, &ship);
-	    }
 	    tg.land.lnd_own = trade.trd_maxbidder;
 	    tg.land.lnd_army = 0;
 	    /* no cheap version of fly */

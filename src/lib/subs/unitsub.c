@@ -46,7 +46,7 @@ unit_list(struct emp_qelem *unit_list)
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *ulp;
-    int type;
+    int type, npln, nch, nxl;
     struct empobj *unit;
     struct lndstr *lnd;
     struct shpstr *shp;
@@ -80,18 +80,14 @@ unit_list(struct emp_qelem *unit_list)
 	if (type == EF_LAND) {
 	    pr("%4d", lnd->lnd_item[I_SHELL]);
 	    pr("%4d", lnd->lnd_item[I_GUN]);
-	    count_land_planes(lnd);
-	    pr("%3d", lnd->lnd_nxlight);
+	    pr("%3d", lnd_nxlight(lnd));
 	} else {
 	    pr("%4d", shp->shp_item[I_MILIT]);
 	    pr("%4d", shp->shp_item[I_SHELL]);
 	    pr("%4d", shp->shp_item[I_GUN]);
-	    count_planes(shp);
-	    pr("%3d", shp->shp_nplane);
-	    pr("%3d", shp->shp_nchoppers);
-	    pr("%3d", shp->shp_nxlight);
-	    count_units(shp);
-	    pr("%3d", shp->shp_nland);
+	    npln = shp_nplane(shp, &nch, &nxl, NULL);
+	    pr("%3d%3d%3d", npln - nch - nxl, nch, nxl);
+	    pr("%3d", shp_nland(shp));
 	}
 	pr("%4d", unit->mobil);
 	pr("%4d", unit->tech);

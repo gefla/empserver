@@ -387,3 +387,83 @@ nuk_on_plane(struct plnstr *pp)
 {
     return unit_cargo_first(EF_PLANE, pp->pln_uid, EF_NUKE);
 }
+
+/*
+ * Return length of a carrier's cargo list for file type CARGO_TYPE.
+ */
+int
+unit_cargo_count(int type, int uid, int cargo_type)
+{
+    int n, cargo;
+
+    n = 0;
+    for (cargo = unit_cargo_first(type, uid, cargo_type);
+	 cargo >= 0;
+	 cargo = unit_cargo_next(cargo_type, cargo))
+	n++;
+
+    return n;
+}
+
+/*
+ * Return number of land units loaded on SP.
+ */
+int
+shp_nland(struct shpstr *sp)
+{
+    return unit_cargo_count(EF_SHIP, sp->shp_uid, EF_LAND);
+}
+
+/*
+ * Return number of land units loaded on LP.
+ */
+int
+lnd_nland(struct lndstr *lp)
+{
+    return unit_cargo_count(EF_LAND, lp->lnd_uid, EF_LAND);
+}
+
+int
+unit_nplane(int type, int uid, int *nchopper, int *nxlight, int *nmsl)
+{
+    int n, nch, nxl, nms, cargo;
+    struct plnstr *pp;
+    struct plchrstr *pcp;
+
+    n = nxl = nch = nms = 0;
+    for (cargo = unit_cargo_first(type, uid, EF_PLANE);
+	 (pp = getplanep(cargo));
+	 cargo = pln_next_on_unit(cargo)) {
+	pcp = &plchr[pp->pln_type];
+	if (pcp->pl_flags & P_K)
+	    nch++;
+	else if (pcp->pl_flags & P_E)
+	    nxl++;
+	else if (pcp->pl_flags & P_M)
+	    nms++;
+	n++;
+    }
+
+    if (nchopper)
+	*nchopper = nch;
+    if (nxlight)
+	*nxlight = nxl;
+    if (nmsl)
+	*nmsl = nms;
+    return n;
+}
+
+int
+shp_nplane(struct shpstr *sp, int *nchopper, int *nxlight, int *nmsl)
+{
+    return unit_nplane(EF_SHIP, sp->shp_uid, nchopper, nxlight, nmsl);
+}
+
+int
+lnd_nxlight(struct lndstr *lp)
+{
+    int n;
+
+    unit_nplane(EF_LAND, lp->lnd_uid, NULL, &n, NULL);
+    return n;
+}

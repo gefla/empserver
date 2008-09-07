@@ -299,9 +299,6 @@ ldump(void)
 	    continue;
 	if (!player->owner && !player->god)
 	    continue;
-	count_land_planes(&land);
-	lnd_count_units(&land);
-
 	nunits++;
 	if (player->god)
 	    pr("%d ", land.lnd_own);
@@ -349,10 +346,10 @@ ldump(void)
 		pr(" %d", land.lnd_rad_max);
 		break;
 	    case 14:
-		pr(" %d", land.lnd_nxlight);
+		pr(" %d", lnd_nxlight(&land));
 		break;
 	    case 15:
-		pr(" %d", land.lnd_nland);
+		pr(" %d", lnd_nland(&land));
 		break;
 	    case 16:
 		pr(" %d", land.lnd_land);

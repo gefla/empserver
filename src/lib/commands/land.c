@@ -53,9 +53,6 @@ land(void)
 	    continue;
 	if (!player->owner && !player->god)
 	    continue;
-	count_land_planes(&land);
-	lnd_count_units(&land);
-
 	if (nunits++ == 0) {
 	    if (player->god)
 		pr("own ");
@@ -78,8 +75,8 @@ land(void)
 	pr("%4d ", land.lnd_tech);
 	pr("%3d%%", land.lnd_retreat);
 	pr("%3d", land.lnd_rad_max);
-	pr("%3d", land.lnd_nxlight);
-	pr("%3d", land.lnd_nland);
+	pr("%3d", lnd_nxlight(&land));
+	pr("%3d", lnd_nland(&land));
 	if (land.lnd_ship >= 0)
 	    pr(" %4dS", land.lnd_ship);
 	else if (land.lnd_land >= 0)

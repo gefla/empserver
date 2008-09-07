@@ -386,7 +386,6 @@ put_combat(struct combat *com)
 	}
 	if (!(com->lnd_lcp->l_flags & L_SPY))
 	    land.lnd_item[I_MILIT] = com->mil;
-	lnd_count_units(&land);
 	if (com->own == player->cnum) {
 	    land.lnd_mission = 0;
 	    land.lnd_rflags = 0;
@@ -409,7 +408,6 @@ put_combat(struct combat *com)
 		ship.shp_pstage = PLG_EXPOSED;
 	}
 	ship.shp_item[I_MILIT] = com->mil;
-	count_units(&ship);
 	if (com->own == player->cnum) {
 	    ship.shp_mission = 0;
 	    ship.shp_rflags = 0;

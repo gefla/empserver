@@ -202,8 +202,6 @@ pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
     if (cno < 0 || !getship(cno, &ship))
 	return 0;
 
-    count_planes(&ship);
-
     /* for both lists */
     for (list = bomb_list;
 	 list;
@@ -232,8 +230,7 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
 	if (cno >= 0) {
-	    count_planes(&ship);
-	    if (!could_be_on_ship(&plp->plane, &ship))
+	    if (!could_be_on_ship(&plp->plane, &ship, 0, 0, 0, 0))
 		pr("\t%s cannot land on ship #%d! %s aborts!\n",
 		   prplane(&plp->plane), cno, prplane(&plp->plane));
 	    else if (!put_plane_on_ship(&plp->plane, &ship))
@@ -259,8 +256,6 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 	    plp->plane.pln_ship = cno;
 	}
     }
-    if (cno >= 0)
-	putship(ship.shp_uid, &ship);
 }
 
 void
@@ -813,80 +808,49 @@ pln_put1(struct plist *plp)
 }
 
 /*
+ * Can PP be loaded on a ship of SP's type?
+ * Assume that it already carries N planes, of which NCH are choppers,
+ * NXL xlight, NMSL light missiles, and the rest are light fixed-wing
+ * planes.
+ */
+int
+could_be_on_ship(struct plnstr *pp, struct shpstr *sp, 
+		 int n, int nch, int nxl, int nmsl)
+{
+    struct plchrstr *pcp = &plchr[pp->pln_type];
+    struct mchrstr *mcp = &mchr[sp->shp_type];
+
+    if (pcp->pl_flags & P_K)
+	nch++;
+    else if (pcp->pl_flags & P_E)
+	nxl++;
+    else if (!(pcp->pl_flags & P_L))
+	return 0;
+    else if (pcp->pl_flags & P_M)
+	nmsl++;
+    n++;
+
+    n -= MIN(nch, mcp->m_nchoppers);
+    n -= MIN(nxl, mcp->m_nxlight);
+    if (nmsl && !(mcp->m_flags & (M_MSL | M_FLY)))
+	return 0;		/* missile slots wanted */
+    if (nmsl < n && !(mcp->m_flags & M_FLY))
+	return 0;		/* fixed-wing slots wanted */
+    return n <= mcp->m_nplanes;
+}
+
+/*
  * Fit a plane of PP's type on ship SP.
- * Adjust SP's plane counters.
  * Updating the plane accordingly is the caller's job.
  * Return whether it fits.
  */
 static int
 fit_plane_on_ship(struct plnstr *pp, struct shpstr *sp)
 {
-    struct plchrstr *pcp = plchr + pp->pln_type;
-    struct mchrstr *mcp = mchr + sp->shp_type;
-    int wanted;
+    int n, nch, nxl, nmsl;
 
-    if (pcp->pl_flags & P_K) {
-	/* chopper, try chopper slot first */
-	if (sp->shp_nchoppers < mcp->m_nchoppers)
-	    return ++sp->shp_nchoppers;
-	/* else try plane slot */
-	wanted = M_FLY;
-    } else if (pcp->pl_flags & P_E) {
-	/* x-light, try x-light slot first */
-	if (sp->shp_nxlight < mcp->m_nxlight)
-	    return ++sp->shp_nxlight;
-	/* else try plane slot */
-	wanted = M_MSL | M_FLY;
-    } else if (!(pcp->pl_flags & P_L)) {
-	/* not light, no go */
-	wanted = 0;
-    } else if (pcp->pl_flags & P_M) {
-	/* missile, use plane slot */
-	wanted = M_MSL | M_FLY;
-    } else {
-	/* fixed-wing plane, use plane slot */
-	wanted = M_FLY;
-    }
-
-    if ((mcp->m_flags & wanted) == 0)
-	return 0;		/* ship not capable */
-
-    if (sp->shp_nplane < mcp->m_nplanes)
-	return ++sp->shp_nplane;
-
-    return 0;
-}
-
-/*
- * Fit a plane of PP's type off ship SP.
- * Adjust SP's plane counters, badly.  You need to run count_planes()
- * before the next fit_plane_on_ship().
- * Updating the plane accordingly is the caller's job.
- */
-static void
-fit_plane_off_ship(struct plnstr *pp, struct shpstr *sp)
-{
-    /*
-     * Frees chopper and nxlight slots first, which is why we need to
-     * run count_planes() before fit_plane_on_ship().
-     */
-    struct plchrstr *pcp = plchr + pp->pln_type;
-
-    if (pcp->pl_flags & P_K) {
-	if (sp->shp_nchoppers) {
-	    sp->shp_nchoppers--;
-	    return;
-	}
-    } else if (pcp->pl_flags & P_E) {
-	if (sp->shp_nxlight) {
-	    sp->shp_nxlight--;
-	    return;
-	}
-    }
-
-    if (CANT_HAPPEN(sp->shp_nplane == 0))
-	sp->shp_nplane = 1;
-    sp->shp_nplane--;
+    n = shp_nplane(sp, &nch, &nxl, &nmsl);
+    return could_be_on_ship(pp, sp, n, nch, nxl, nmsl);
 }
 
 int
@@ -902,7 +866,6 @@ put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
     plane->pln_y = ship->shp_y;
     plane->pln_ship = ship->shp_uid;
     putplane(plane->pln_uid, plane);
-    putship(ship->shp_uid, ship);
     return 1;
 }
 
@@ -912,15 +875,12 @@ take_plane_off_ship(struct plnstr *plane, struct shpstr *ship)
     if (CANT_HAPPEN(plane->pln_ship != ship->shp_uid))
 	return;
 
-    fit_plane_off_ship(plane, ship);
     plane->pln_ship = -1;
-    putship(ship->shp_uid, ship);
     putplane(plane->pln_uid, plane);
 }
 
 /*
  * Fit a plane of PP's type on land unit LP.
- * Adjust LP's plane counters.
  * Updating the plane accordingly is the caller's job.
  * Return whether it fits.
  */
@@ -930,23 +890,7 @@ fit_plane_on_land(struct plnstr *pp, struct lndstr *lp)
     struct plchrstr *pcp = plchr + pp->pln_type;
     struct lchrstr *lcp = lchr + lp->lnd_type;
 
-    if ((pcp->pl_flags & P_E) && lp->lnd_nxlight < lcp->l_nxlight)
-	return ++lp->lnd_nxlight;
-
-    return 0;
-}
-
-/*
- * Fit a plane of PP's type off land unit LP.
- * Adjust LP's plane counters.
- * Updating the plane accordingly is the caller's job.
- */
-static void
-fit_plane_off_land(struct plnstr *pp, struct lndstr *lp)
-{
-    if (CANT_HAPPEN(lp->lnd_nxlight == 0))
-	lp->lnd_nxlight = 1;
-    lp->lnd_nxlight--;
+    return (pcp->pl_flags & P_E) && lnd_nxlight(lp) < lcp->l_nxlight;
 }
 
 int
@@ -962,7 +906,6 @@ put_plane_on_land(struct plnstr *plane, struct lndstr *land)
     plane->pln_y = land->lnd_y;
     plane->pln_land = land->lnd_uid;
     putplane(plane->pln_uid, plane);
-    putland(land->lnd_uid, land);
     return 1;
 }
 
@@ -972,23 +915,8 @@ take_plane_off_land(struct plnstr *plane, struct lndstr *land)
     if (CANT_HAPPEN(plane->pln_land != land->lnd_uid))
 	return;
 
-    fit_plane_off_land(plane, land);
     plane->pln_land = -1;
-    putland(land->lnd_uid, land);
     putplane(plane->pln_uid, plane);
-}
-
-/*
- * Could a plane of PP's type be on on ship SP?
- */
-int
-could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
-{
-    struct shpstr ship;
-
-    ship = *sp;
-    ship.shp_nplane = ship.shp_nchoppers = ship.shp_nxlight = 0;
-    return fit_plane_on_ship(pp, &ship);
 }
 
 void
@@ -1033,65 +961,6 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 	writemap(player->cnum);
     sect.sct_mines = mines_there;
     putsect(&sect);
-}
-
-void
-count_planes(struct shpstr *sp)
-{
-    struct nstr_item ni;
-    struct plnstr plane;
-    int nplane, nchoppers, nxlight;
-
-    if (sp->shp_effic < SHIP_MINEFF)
-	return;
-
-    nplane = sp->shp_nplane;
-    sp->shp_nplane = 0;
-    nchoppers = sp->shp_nchoppers;
-    sp->shp_nchoppers = 0;
-    nxlight = sp->shp_nxlight;
-    sp->shp_nxlight = 0;
-
-    snxtitem_xy(&ni, EF_PLANE, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, &plane)) {
-	if (plane.pln_own == 0)
-	    continue;
-	if (plane.pln_ship == sp->shp_uid) {
-	    if (!fit_plane_on_ship(&plane, sp))
-		CANT_REACH();
-	}
-    }
-
-    if (nplane != sp->shp_nplane ||
-	nxlight != sp->shp_nxlight || nchoppers != sp->shp_nchoppers) {
-	putship(sp->shp_uid, sp);
-    }
-}
-
-void
-count_land_planes(struct lndstr *lp)
-{
-    struct nstr_item ni;
-    struct plnstr plane;
-    int nplane;
-
-    if (lp->lnd_effic < LAND_MINEFF)
-	return;
-
-    nplane = lp->lnd_nxlight;
-    lp->lnd_nxlight = 0;
-
-    snxtitem_all(&ni, EF_PLANE);
-    while (nxtitem(&ni, &plane)) {
-	if (plane.pln_own == 0)
-	    continue;
-	if (plane.pln_land == lp->lnd_uid)
-	    if (!fit_plane_on_land(&plane, lp))
-		CANT_REACH();
-    }
-
-    if (lp->lnd_nxlight != nplane)
-	putland(lp->lnd_uid, lp);
 }
 
 int

@@ -533,7 +533,6 @@ extern void pln_oninit(void *);
 extern void pln_postread(int, void *);
 extern void pln_prewrite(int, void *, void *);
 /* plnsub.c */
-extern void count_planes(struct shpstr *);
 extern int get_planes(struct nstr_item *, struct nstr_item *,
 		      char *, char *);
 extern struct sctstr *get_assembly_point(char *, struct sctstr *, char *);
@@ -541,7 +540,8 @@ extern int pln_onewaymission(struct sctstr *, int *, int *);
 extern int pln_oneway_to_carrier_ok(struct emp_qelem *,
 				    struct emp_qelem *, int);
 extern void pln_newlanding(struct emp_qelem *, coord, coord, int);
-extern int could_be_on_ship(struct plnstr *, struct shpstr *);
+extern int could_be_on_ship(struct plnstr *, struct shpstr *,
+			    int, int, int, int);
 extern int put_plane_on_ship(struct plnstr *, struct shpstr *);
 extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
 			coord, coord, int);
@@ -559,7 +559,6 @@ extern void pln_put1(struct plist *);
 extern void take_plane_off_ship(struct plnstr *, struct shpstr *);
 extern void take_plane_off_land(struct plnstr *, struct lndstr *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
-extern void count_land_planes(struct lndstr *);
 extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
 extern int pln_damage(struct plnstr *, coord, coord, char, int *, int);

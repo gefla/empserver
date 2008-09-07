@@ -41,7 +41,7 @@
 int
 shi(void)
 {
-    int nships, noff;
+    int nships, noff, npln, nch, nxl;
     struct nstr_item ni;
     struct shpstr ship;
 
@@ -52,8 +52,6 @@ shi(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	count_planes(&ship);
-	count_units(&ship);
 	if (nships++ == 0) {
 	    if (player->god)
 		pr("own ");
@@ -76,10 +74,9 @@ shi(void)
 	pr("%4d", ship.shp_item[I_UW]);
 	pr("%4d", ship.shp_item[I_FOOD]);
 
-	pr("%3d", ship.shp_nplane);
-	pr("%3d", ship.shp_nchoppers);
-	pr("%3d", ship.shp_nxlight);
-	pr("%3d", ship.shp_nland);
+	npln = shp_nplane(&ship, &nch, &nxl, NULL);
+	pr("%3d%3d%3d", npln - nch - nxl, nch, nxl);
+	pr("%3d", shp_nland(&ship));
 	pr("%4d", ship.shp_mobil);
 	pr("%5d\n", ship.shp_tech);
 	if (ship.shp_name[0] != 0) {

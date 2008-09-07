@@ -52,8 +52,6 @@ lsta(void)
 	if (!player->owner || land.lnd_own == 0)
 	    continue;
 	lcp = lchr + land.lnd_type;
-	count_land_planes(&land);
-
 	if (nunits++ == 0) {
 	    pr("     %16.16s                                 s  v  s  r  r  a  f  a  a\n", "");
 	    pr("     %16.16s                                 p  i  p  a  n  c  i  m  a\n", "");

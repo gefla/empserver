@@ -70,7 +70,6 @@ struct lndstr {
     short lnd_ship;		/* pointer to transporting ship */
     signed char lnd_harden;	/* fortification */
     short lnd_retreat;		/* retreat percentage */
-    unsigned char lnd_nxlight;	/* How many xlight planes on board? */
     int lnd_rflags;		/* When do I retreat? */
     char lnd_rpath[RET_LEN];	/* retreat path */
     unsigned char lnd_rad_max;	/* max radius for this unit */
@@ -79,7 +78,6 @@ struct lndstr {
     short lnd_pstage;		/* plague stage */
     short lnd_ptime;		/* how many etus remain in this stage */
     short lnd_land;		/* pointer to transporting unit */
-    unsigned char lnd_nland;
     short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
 };
 
@@ -164,6 +162,8 @@ extern void lnd_carrier_change(struct lndstr *, int, int, int);
 extern int lnd_first_on_ship(struct shpstr *);
 extern int lnd_first_on_land(struct lndstr *);
 extern int lnd_next_on_unit(int);
+extern int lnd_nxlight(struct lndstr *);
+extern int lnd_nland(struct lndstr *);
 
 extern int lnd_fire(struct lndstr *);
 extern double lnd_fire_range(struct lndstr *);
@@ -186,8 +186,6 @@ extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
 extern void intelligence_report(int, struct lndstr *, int, char *);
-extern void count_units(struct shpstr *);
-extern void lnd_count_units(struct lndstr *);
 extern void lnd_mar(struct emp_qelem *, double *, double *, int *, natid);
 extern int lnd_hardtarget(struct lndstr *);
 extern int lnd_mar_one_sector(struct emp_qelem *, int, natid, int);

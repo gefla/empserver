@@ -80,8 +80,6 @@ struct shpstr {
     short shp_mission;		/* mission code */
     short shp_radius;		/* mission radius */
     /* end of part matching struct empobj */
-    unsigned char shp_nplane;	/* number of planes on board */
-    unsigned char shp_nland;	/* number of land units on board */
     coord shp_destx[2];		/* location for ship destination */
     coord shp_desty[2];
     i_type shp_tstart[TMAX];	/* what goods to pick up at start point */
@@ -97,8 +95,6 @@ struct shpstr {
     char shp_path[MAXSHPPATH];
     short shp_follow;
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
-    unsigned char shp_nchoppers; /* How many choppers on board? */
-    unsigned char shp_nxlight;	/* How many xlight planes on board? */
     coord shp_orig_x;
     coord shp_orig_y;		/* Where we were built */
     natid shp_orig_own;		/* Who built us */
@@ -181,6 +177,9 @@ extern int shp_speed(struct shpstr *);
 extern int shp_visib(struct shpstr *);
 extern int shp_frnge(struct shpstr *);
 extern int shp_glim(struct shpstr *);
+
+extern int shp_nplane(struct shpstr *, int *, int *, int *);
+extern int shp_nland(struct shpstr *);
 
 extern int shp_dchrg(struct shpstr *);
 extern int shp_fire(struct shpstr *);

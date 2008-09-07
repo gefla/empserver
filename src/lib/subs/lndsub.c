@@ -387,54 +387,6 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
 }
 
 void
-count_units(struct shpstr *sp)
-{
-    struct nstr_item ni;
-    struct lndstr land;
-    int nland = 0;
-
-    if (sp->shp_effic < SHIP_MINEFF)
-	return;
-
-    snxtitem_xy(&ni, EF_LAND, sp->shp_x, sp->shp_y);
-    while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == 0)
-	    continue;
-	if (land.lnd_ship == sp->shp_uid)
-	    nland++;
-    }
-
-    if (sp->shp_nland != nland) {
-	sp->shp_nland = nland;
-	putship(sp->shp_uid, sp);
-    }
-}
-
-void
-lnd_count_units(struct lndstr *lp)
-{
-    struct nstr_item ni;
-    struct lndstr land;
-    int nland = 0;
-
-    if (lp->lnd_effic < LAND_MINEFF)
-	return;
-
-    snxtitem_xy(&ni, EF_LAND, lp->lnd_x, lp->lnd_y);
-    while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == 0)
-	    continue;
-	if (land.lnd_land == lp->lnd_uid)
-	    nland++;
-    }
-
-    if (lp->lnd_nland != nland) {
-	lp->lnd_nland = nland;
-	putland(lp->lnd_uid, lp);
-    }
-}
-
-void
 lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
     struct lndstr land;

@@ -48,8 +48,6 @@
 static void exit_bad_arg(char *, ...)
     ATTRIBUTE((noreturn, format (printf, 1, 2)));
 static void dump_table(int, int);
-static void pln_fixup(void);
-static void lnd_fixup(void);
 
 int
 main(int argc, char *argv[])
@@ -148,8 +146,6 @@ main(int argc, char *argv[])
 	    dirty[type] = 1;
 	if (type == EF_BAD)
 	    exit(1);
-	pln_fixup();
-	lnd_fixup();
     }
 
     if (ef_verify() < 0)
@@ -226,121 +222,4 @@ dump_table(int type, int human)
 	printf("\n");
     }
     xdftr(&xd, i);
-}
-
-
-/* TODO remove need for this */
-
-#include <math.h>
-#include "ship.h"
-#include "plane.h"
-#include "land.h"
-#include "nuke.h"
-
-static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
-static int fit_plane_on_land(struct plnstr *, struct lndstr *);
-
-static void
-pln_fixup(void)
-{
-    int i;
-    struct plnstr *pp;
-    struct shpstr *csp;
-    struct lndstr *clp;
-
-    for (i = 0; (pp = ef_ptr(EF_PLANE, i)); i++) {
-	if (!pp->pln_own)
-	    continue;
-	csp = ef_ptr(EF_SHIP, pp->pln_ship);
-	clp = ef_ptr(EF_LAND, pp->pln_land);
-	if (csp)
-	    fit_plane_on_ship(pp, csp);
-	else if (clp)
-	    fit_plane_on_land(pp, clp);
-    }
-}
-
-static void
-lnd_fixup(void)
-{
-    int i;
-    struct lndstr *lp;
-    struct shpstr *csp;
-    struct lndstr *clp;
-
-    for (i = 0; (lp = ef_ptr(EF_LAND, i)); i++) {
-	if (!lp->lnd_own)
-	    continue;
-	csp = ef_ptr(EF_SHIP, lp->lnd_ship);
-	clp = ef_ptr(EF_LAND, lp->lnd_land);
-	if (csp)
-	    csp->shp_nland++;
-	else if (clp)
-	    clp->lnd_nland++;
-    }
-}
-
-/* Temporarily copied from src/lib/subs/???sub.c */
-
-/*
- * Fit a plane of PP's type on ship SP.
- * Adjust SP's plane counters.
- * Updating the plane accordingly is the caller's job.
- * Return whether it fits.
- */
-static int
-fit_plane_on_ship(struct plnstr *pp, struct shpstr *sp)
-{
-    struct plchrstr *pcp = plchr + pp->pln_type;
-    struct mchrstr *mcp = mchr + sp->shp_type;
-    int wanted;
-
-    if (pcp->pl_flags & P_K) {
-	/* chopper, try chopper slot first */
-	if (sp->shp_nchoppers < mcp->m_nchoppers)
-	    return ++sp->shp_nchoppers;
-	/* else try plane slot */
-	wanted = M_FLY;
-    } else if (pcp->pl_flags & P_E) {
-	/* x-light, try x-light slot first */
-	if (sp->shp_nxlight < mcp->m_nxlight)
-	    return ++sp->shp_nxlight;
-	/* else try plane slot */
-	wanted = M_MSL | M_FLY;
-    } else if (!(pcp->pl_flags & P_L)) {
-	/* not light, no go */
-	wanted = 0;
-    } else if (pcp->pl_flags & P_M) {
-	/* missile, use plane slot */
-	wanted = M_MSL | M_FLY;
-    } else {
-	/* fixed-wing plane, use plane slot */
-	wanted = M_FLY;
-    }
-
-    if ((mcp->m_flags & wanted) == 0)
-	return 0;		/* ship not capable */
-
-    if (sp->shp_nplane < mcp->m_nplanes)
-	return ++sp->shp_nplane;
-
-    return 0;
-}
-
-/*
- * Fit a plane of PP's type on land unit LP.
- * Adjust LP's plane counters.
- * Updating the plane accordingly is the caller's job.
- * Return whether it fits.
- */
-static int
-fit_plane_on_land(struct plnstr *pp, struct lndstr *lp)
-{
-    struct plchrstr *pcp = plchr + pp->pln_type;
-    struct lchrstr *lcp = lchr + lp->lnd_type;
-
-    if ((pcp->pl_flags & P_E) && lp->lnd_nxlight < lcp->l_nxlight)
-	return ++lp->lnd_nxlight;
-
-    return 0;
 }

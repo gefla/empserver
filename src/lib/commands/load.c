@@ -356,11 +356,9 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    pr("%s cannot carry planes\n", prship(sp));
 	return 0;
     }
-    count_planes(sp);
     if (load_unload == LOAD &&
-	sp->shp_nchoppers >= mcp->m_nchoppers &&
-	sp->shp_nxlight >= mcp->m_nxlight &&
-	sp->shp_nplane >= mcp->m_nplanes) {
+	shp_nplane(sp, NULL, NULL, NULL)
+		>= mcp->m_nchoppers + mcp->m_nxlight + mcp->m_nplanes) {
 	if (noisy)
 	    pr("%s doesn't have room for any more planes\n", prship(sp));
 	return 0;
@@ -419,7 +417,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 
 	/* ship to (plane or missle) sanity */
-	if (!could_be_on_ship(&pln, sp)) {
+	if (!could_be_on_ship(&pln, sp, 0, 0, 0, 0)) {
 	    if (plchr[(int)pln.pln_type].pl_flags & P_L) {
 		strcpy(buf, "planes");
 	    } else if (plchr[(int)pln.pln_type].pl_flags & P_K) {
@@ -477,12 +475,11 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     char buf[1024];
     int load_spy = 0;
 
-    count_units(sp);
     if (load_unload == LOAD) {
 	if (opt_LANDSPIES) {
 	    if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
 		(mchr[(int)sp->shp_type].m_nland == 0)) {
-		if (sp->shp_nland >= 2) {
+		if (shp_nland(sp) >= 2) {
 		    pr("Non-land unit carrying subs can only carry up to two spy units.\n");
 		    return 0;
 		}
@@ -490,8 +487,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		load_spy = 1;
 	    }
 	}
-	if ((!load_spy) &&
-	    (sp->shp_nland >= mchr[(int)sp->shp_type].m_nland)) {
+	if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
 	    if (noisy) {
 		if (mchr[(int)sp->shp_type].m_nland)
 		    pr("%s doesn't have room for any more land units!\n",
@@ -533,8 +529,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		       prland(&land), land.lnd_land);
 		continue;
 	    }
-	    lnd_count_units(&land);
-	    if (land.lnd_nland > 0) {
+	    if (lnd_nland(&land)) {
 		if (noisy)
 		    pr("%s cannot be loaded since it is carrying units\n",
 		       prland(&land));
@@ -574,12 +569,11 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	/* Fit unit on ship */
 	if (load_unload == LOAD) {
-	    count_units(sp);
 	    /* We have to check again, since it may have changed */
 	    if (opt_LANDSPIES) {
 		if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
 		    (mchr[(int)sp->shp_type].m_nland == 0)) {
-		    if (sp->shp_nland >= 2) {
+		    if (shp_nland(sp) >= 2) {
 			pr("Non-land unit carrying subs can only carry up to two spy units.\n");
 			return 0;
 		    }
@@ -587,8 +581,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		    load_spy = 1;
 		}
 	    }
-	    if (!load_spy &&
-		(sp->shp_nland >= mchr[(int)sp->shp_type].m_nland)) {
+	    if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
 		if (noisy) {
 		    if (mchr[(int)sp->shp_type].m_nland)
 			pr("%s doesn't have room for any more land units!\n",
@@ -605,11 +598,9 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
 	    resupply_all(&land);
-	    sp->shp_nland++;
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
-	    putship(sp->shp_uid, sp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
 	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
@@ -630,9 +621,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
 		gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_ship = -1;
-	    sp->shp_nland--;
 	    putland(land.lnd_uid, &land);
-	    putship(sp->shp_uid, sp);
 
 	    /* Spies are unloaded quietly, others aren't, and
 	       in the off chance they can carry a plane (missile?)
@@ -759,8 +748,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    pr("%s cannot carry extra-light planes.\n", prland(lp));
 	return 0;
     }
-    count_land_planes(lp);
-    if (load_unload == LOAD && lp->lnd_nxlight >= lcp->l_nxlight) {
+    if (load_unload == LOAD && lnd_nxlight(lp) >= lcp->l_nxlight) {
 	if (noisy)
 	    pr("%s doesn't have room for any more extra-light planes\n",
 	       prland(lp));
@@ -946,12 +934,10 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     char prompt[512];
     char buf[1024];
 
-    lnd_count_units(lp);
-
     if (load_unload == LOAD
-	&& lp->lnd_nland >= lchr[lp->lnd_type].l_nland) {
+	&& lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
 	if (noisy) {
-	    if (lp->lnd_nland)
+	    if (lchr[lp->lnd_type].l_nland)
 		pr("%s doesn't have room for any more land units!\n",
 		   prland(lp));
 	    else
@@ -991,8 +977,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		       prland(&land), land.lnd_land);
 		continue;
 	    }
-	    lnd_count_units(&land);
-	    if (land.lnd_nland > 0) {
+	    if (lnd_nland(&land)) {
 		if (noisy)
 		    pr("%s cannot be loaded since it is carrying units\n",
 		       prland(&land));
@@ -1022,10 +1007,9 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
 	/* Fit unit on ship */
 	if (load_unload == LOAD) {
-	    lnd_count_units(lp);
-	    if (lp->lnd_nland >= lchr[lp->lnd_type].l_nland) {
+	    if (lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
 		if (noisy) {
-		    if (lp->lnd_nland)
+		    if (lchr[lp->lnd_type].l_nland)
 			pr("%s doesn't have room for any more land units!\n",
 			   prland(lp));
 		    else
@@ -1040,11 +1024,9 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    land.lnd_harden = 0;
 	    land.lnd_mission = 0;
 	    resupply_all(&land);
-	    lp->lnd_nland++;
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
-	    putland(lp->lnd_uid, lp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
 	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)
@@ -1062,9 +1044,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_land = -1;
-	    lp->lnd_nland--;
 	    putland(land.lnd_uid, &land);
-	    putland(lp->lnd_uid, lp);
 	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
 	    while (nxtitem(&pni, &plane)) {
 		if (plane.pln_flags & PLN_LAUNCHED)

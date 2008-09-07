@@ -47,7 +47,7 @@ sdump(void)
     struct shpstr ship;
     int field[128];
     struct natstr *np;
-    int n, i;
+    int n, i, npln, nch, nxl;
     time_t now;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
@@ -263,9 +263,8 @@ sdump(void)
     while (nxtitem(&ni, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	count_planes(&ship);
-	count_units(&ship);
 	nships++;
+	npln = shp_nplane(&ship, &nch, &nxl, NULL);
 	if (player->god)
 	    pr("%d ", ship.shp_own);
 	pr("%d", ni.cur);
@@ -300,16 +299,16 @@ sdump(void)
 		pr(" %d", ship.shp_item[I_FOOD]);
 		break;
 	    case 10:
-		pr(" %d", ship.shp_nplane);
+		pr(" %d", npln - nch - nxl);
 		break;
 	    case 11:
-		pr(" %d", ship.shp_nchoppers);
+		pr(" %d", nch);
 		break;
 	    case 12:
-		pr(" %d", ship.shp_nxlight);
+		pr(" %d", nxl);
 		break;
 	    case 13:
-		pr(" %d", ship.shp_nland);
+		pr(" %d", shp_nland(&ship));
 		break;
 	    case 14:
 		pr(" %d", ship.shp_mobil);

@@ -48,6 +48,8 @@ extern void unit_cargo_init(void);
 extern void unit_carrier_change(struct empobj *, int, int, int);
 extern int unit_cargo_first(int, int, int);
 extern int unit_cargo_next(int, int);
+extern int unit_cargo_count(int, int, int);
+extern int unit_nplane(int, int, int *, int *, int *);
 extern int unit_onresize(int);
 
 extern void unit_list(struct emp_qelem *);
