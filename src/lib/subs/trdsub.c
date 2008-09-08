@@ -148,7 +148,7 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 		       land.lnd_tech,
 		       land.lnd_effic,
 		       lchr[(int)land.lnd_type].l_name, land.lnd_uid);
-		    if (lnd_nxlight(&land)) {
+		    if (pln_first_on_land(&land) >= 0) {
 			snxtitem_all(&ni, EF_PLANE);
 			while (nxtitem(&ni, &plane)) {
 			    if (plane.pln_land == land.lnd_uid) {

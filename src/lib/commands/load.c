@@ -529,7 +529,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		       prland(&land), land.lnd_land);
 		continue;
 	    }
-	    if (lnd_nland(&land)) {
+	    if (lnd_first_on_land(&land) >= 0) {
 		if (noisy)
 		    pr("%s cannot be loaded since it is carrying units\n",
 		       prland(&land));
@@ -977,7 +977,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		       prland(&land), land.lnd_land);
 		continue;
 	    }
-	    if (lnd_nland(&land)) {
+	    if (lnd_first_on_land(&land) >= 0) {
 		if (noisy)
 		    pr("%s cannot be loaded since it is carrying units\n",
 		       prland(&land));
