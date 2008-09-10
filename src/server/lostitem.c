@@ -55,7 +55,7 @@ delete_lostitems(void *unused)
 	for (n = 0; getlost(n, &lost); n++) {
 	    if (!lost.lost_owner)
 		continue;
-	    if (lost.lost_timestamp > (now - lost_items_timeout))
+	    if (lost.lost_timestamp > (now - hours(lost_keep_hours)))
 		continue;
 	    lost.lost_owner = 0;
 	    putlost(n, &lost);

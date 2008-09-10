@@ -384,13 +384,13 @@ EMPCFBOTH("trade_ally_cut", trade_ally_cut, float, NSC_FLOAT, 0,
 
 EMPCF_COMMENT("\n\n### Miscellaneous")
 EMPCFBOTH("disabled_commands", disabled_commands, char *, NSC_STRING, KM_INTERNAL,
-	  "Disabled commands, separated by space")
+    "Disabled commands, separated by space")
 EMPCFBOTH("anno_keep_days", anno_keep_days, int, NSC_INT, KM_INTERNAL,
-	  "How long until announcements expire (<0 means never)")
+    "How long until announcements expire (<0 means never)")
 EMPCFBOTH("news_keep_days", news_keep_days, int, NSC_INT, KM_INTERNAL,
-	  "How long until news expire")
-EMPCFBOTH("lost_items_timeout", lost_items_timeout, int, NSC_INT, KM_INTERNAL,
-    "Seconds before a lost item is timed out of the database")
+    "How long until news expire")
+EMPCFBOTH("lost_keep_hours", lost_keep_hours, int, NSC_INT, KM_INTERNAL,
+    "How long until lost items expire")
 
 /* Sentinel */
 EMPCFONLYC(NULL, emp_config_dummy, NULL, NSC_NOTYPE, 0, NULL)
