@@ -173,6 +173,7 @@ update_main(void)
     unit_cargo_init();
     delete_old_announcements();
     delete_old_news();
+    delete_old_lostitems();
     /* Clear all the telegram flags */
     for (cn = 0; cn < MAXNOC; cn++)
 	clear_telegram_is_new(cn);

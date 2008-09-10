@@ -36,6 +36,8 @@
 
 #include "file.h"
 #include "lost.h"
+#include "misc.h"
+#include "optlist.h"
 
 static int findlost(short, natid, short, coord, coord, int);
 
@@ -117,4 +119,21 @@ findlost(short type, natid owner, short id, coord x, coord y, int free)
     }
 
     return -1;
+}
+
+void
+delete_old_lostitems(void)
+{
+    time_t expiry_time = time(NULL) - hours(lost_keep_hours);
+    struct loststr lost;
+    int i;
+
+    for (i = 0; getlost(i, &lost); i++) {
+	if (!lost.lost_owner)
+	    continue;
+	if (lost.lost_timestamp >= expiry_time)
+	    continue;
+	lost.lost_owner = 0;
+	putlost(i, &lost);
+    }
 }

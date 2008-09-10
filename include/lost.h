@@ -58,5 +58,6 @@ struct loststr {
 extern void lost_and_found(int, natid, natid, int, coord, coord);
 extern void makelost(short, natid, short, coord, coord);
 extern void makenotlost(short, natid, short, coord, coord);
+extern void delete_old_lostitems(void);
 
 #endif

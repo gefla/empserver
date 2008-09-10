@@ -53,7 +53,6 @@ int run_hook(char *, char *);
 int shutdown_initiate(int);
 
 /* thread entry points */
-void delete_lostitems(void *);
 void player_kill_idle(void *);
 
 #endif
