@@ -40,10 +40,8 @@
  *
  * Empire threads are non-preemptive, i.e. they run until they
  * voluntarily yield the processor.  The thread scheduler then picks
- * one of the runnable threads with the highest priority.  Priorities
- * are static.  Empire code relies on these properties heavily.  The
- * most common form of yielding the processor is sleeping for some
- * event to happen.
+ * one of the runnable threads.  The most common form of yielding the
+ * processor is sleeping for some event to happen.
  */
 
 #ifndef EMPTHREAD_H
