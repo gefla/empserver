@@ -487,6 +487,27 @@ empth_self(void)
 }
 
 /************************
+ * empth_name
+ */
+char *
+empth_name(void)
+{
+    return empth_self()->szName;
+}
+
+/************************
+ * empth_set_name
+ * Set the thread name
+ */
+void
+empth_set_name(char *name)
+{
+    empth_t *pThread = TlsGetValue(dwTLSIndex);
+
+    strncpy(pThread->szName, name, sizeof(pThread->szName) - 1);
+}
+
+/************************
  * empth_exit
  */
 void

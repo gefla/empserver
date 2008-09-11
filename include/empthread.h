@@ -128,6 +128,16 @@ empth_t *empth_create(void (*entry)(void *),
 empth_t *empth_self(void);
 
 /*
+ * Return the name of the current thread.
+ */
+char *empth_name(void);
+
+/*
+ * Sets the name of the current thread.
+ */
+void empth_set_name(char *);
+
+/*
  * Terminate the current thread.
  * The current thread should not be the thread that executed main().
  * If it is, implementations may terminate the process rather than the

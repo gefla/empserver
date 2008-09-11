@@ -74,6 +74,18 @@ empth_self(void)
     return LwpCurrent;
 }
 
+char *
+empth_name(void)
+{
+    return lwpName(LwpCurrent);
+}
+
+void
+empth_set_name(char *name)
+{
+    lwpSetName(LwpCurrent, name);
+}
+
 void
 empth_exit(void)
 {

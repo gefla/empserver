@@ -405,3 +405,27 @@ lwpStackCheckUsed(struct lwpProc *newp)
     lwpStatus(newp, "Thread stack %d used, %d left, %d total",
 	      used, total - used, total);
 }
+
+/* lwpName
+ *
+ * Return the name of the thread.
+ */
+char *
+lwpName(struct lwpProc *proc)
+{
+    return proc->name;
+}
+
+/* lwpSetName
+ *
+ * Set the name of the thread.
+ */
+void
+lwpSetName(struct lwpProc *proc, char *name)
+{
+    if (proc->name != NULL)
+	free(proc->name);
+
+    proc->name = strdup(name);
+}
+

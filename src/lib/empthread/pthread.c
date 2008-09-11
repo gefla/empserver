@@ -247,6 +247,25 @@ empth_self(void)
     return pthread_getspecific(ctx_key);
 }
 
+char *
+empth_name(void)
+{
+    return empth_self()->name;
+}
+
+void
+empth_set_name(char *name)
+{
+    empth_t *ctx_ptr;
+    
+    ctx_ptr = pthread_getspecific(ctx_key);
+
+    if (ctx_ptr->name != NULL)
+	free(ctx_ptr->name);
+
+    ctx_ptr->name = strdup(name);
+}
+
 void
 empth_exit(void)
 {

@@ -52,6 +52,8 @@ int lwpSigWait(sigset_t *set, int *sig);
 void *lwpGetUD(struct lwpProc * p);
 void lwpSetUD(struct lwpProc * p, char *ud);
 int lwpSetPriority(int prio);
+char *lwpName(struct lwpProc * p);
+void lwpSetName(struct lwpProc * p, char *name);
 
 struct lwp_rwlock *lwp_rwlock_create(char *);
 void lwp_rwlock_destroy(struct lwp_rwlock *);
