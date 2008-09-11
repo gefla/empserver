@@ -227,6 +227,12 @@ do
 		break
 	fi
 
+	if [ ! -f emp4/etc/empire/schedule ]
+	then
+		warn "schedule file is missing"
+		break
+	fi
+
 	if [ ! -f emp4/etc/empire/econfig ]
 	then
 		warn "econfig file is missing"
@@ -314,6 +320,11 @@ fi
 	then
 	    rm "../var/empire/journal.log"
 	fi
+	echo "Removing existing schedule"
+	if [ -f "../etc/empire/schedule" ] 
+	then
+	    >../etc/empire/schedule
+	fi
 	echo "Starting server with -d in the background"
 	./emp_server -R 1 -e ../etc/empire/econfig -d 2>/dev/null &
 	PID="$!"
@@ -351,13 +362,6 @@ fi
 	echo "Just do some rudimentary testing for now."
 	echo ""
 
-	echo "Prevent updates from happening without our consent."
-	runfeed POGO peter << EOF
-disable
-EOF
-	echo "Done (update stop)."
-	echo ""
-	
 			;;
 	esac
 	#
@@ -448,9 +452,7 @@ power new
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 	echo "Done (force)."
 	echo ""
@@ -507,9 +509,7 @@ power new
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 	echo "Done (force)."
 	echo ""
@@ -562,9 +562,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 	echo "Done (force)."
 	echo ""
@@ -602,9 +600,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 	echo "Done (force)."
 	echo ""
@@ -626,9 +622,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
@@ -711,9 +705,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
@@ -789,9 +781,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
@@ -848,9 +838,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
@@ -904,9 +892,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
@@ -985,9 +971,7 @@ report *
 cen * ?own#0
 comm * ?own#0
 reso * ?own#0
-enable
-force 1
-disable
+force
 EOF
 
 	echo "Done (force)."
