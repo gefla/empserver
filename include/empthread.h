@@ -128,14 +128,14 @@ empth_t *empth_create(void (*entry)(void *),
 empth_t *empth_self(void);
 
 /*
- * Return the name of the current thread.
+ * Return the name THREAD.
  */
-char *empth_name(void);
+char *empth_name(empth_t *thread);
 
 /*
- * Sets the name of the current thread.
+ * Set the name of THREAD to NAME.
  */
-void empth_set_name(char *);
+void empth_set_name(empth_t *thread, char *name);
 
 /*
  * Terminate the current thread.

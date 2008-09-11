@@ -490,9 +490,9 @@ empth_self(void)
  * empth_name
  */
 char *
-empth_name(void)
+empth_name(empth_t *thread)
 {
-    return empth_self()->szName;
+    return thread->szName;
 }
 
 /************************
@@ -500,11 +500,9 @@ empth_name(void)
  * Set the thread name
  */
 void
-empth_set_name(char *name)
+empth_set_name(empth_t *thread, char *name)
 {
-    empth_t *pThread = TlsGetValue(dwTLSIndex);
-
-    strncpy(pThread->szName, name, sizeof(pThread->szName) - 1);
+    strncpy(thread->szName, name, sizeof(thread->szName) - 1);
 }
 
 /************************

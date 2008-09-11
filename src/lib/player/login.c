@@ -344,7 +344,7 @@ play_cmd(void)
 	return RET_FAIL;
     }
     snprintf(buf, sizeof(buf), "Play#%d", player->cnum);
-    empth_set_name(buf);
+    empth_set_name(empth_self(), buf);
     logerror("%s logged in as country #%d", praddr(player), player->cnum);
     pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
     player_main(player);

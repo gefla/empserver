@@ -248,22 +248,17 @@ empth_self(void)
 }
 
 char *
-empth_name(void)
+empth_name(empth_t *thread)
 {
-    return empth_self()->name;
+    return thread->name;
 }
 
 void
-empth_set_name(char *name)
+empth_set_name(empth_t *thread, char *name)
 {
-    empth_t *ctx_ptr;
-    
-    ctx_ptr = pthread_getspecific(ctx_key);
-
-    if (ctx_ptr->name != NULL)
+    if (thread->name)
 	free(ctx_ptr->name);
-
-    ctx_ptr->name = strdup(name);
+    thread->name = strdup(name);
 }
 
 void

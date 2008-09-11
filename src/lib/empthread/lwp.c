@@ -75,15 +75,15 @@ empth_self(void)
 }
 
 char *
-empth_name(void)
+empth_name(empth_t *thread)
 {
-    return lwpName(LwpCurrent);
+    return lwpName(thread);
 }
 
 void
-empth_set_name(char *name)
+empth_set_name(empth_t *thread, char *name)
 {
-    lwpSetName(LwpCurrent, name);
+    lwpSetName(thread, name);
 }
 
 void

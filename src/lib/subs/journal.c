@@ -83,7 +83,8 @@ journal_entry(char *fmt, ...)
 
     if (journal) {
 	time(&now);
-	fprintf(journal, "%.24s %10.10s:", ctime(&now), empth_name());
+	fprintf(journal, "%.24s %10.10s:",
+		ctime(&now), empth_name(empth_self()));
 	
 	va_start(ap, fmt);
 	vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
