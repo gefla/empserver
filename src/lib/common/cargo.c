@@ -277,8 +277,8 @@ unit_onresize(int type)
 
     n = ef_nelem(type);
     cl = realloc(clink[type], n * sizeof(*clink[type]));
-    if (!cl)
-	return -1;
+    if (!cl && n)
+	exit_nomem();
     for (i = nclink[type]; i < n; i++)
 	clink_init(&cl[i]);
     clink[type] = cl;
