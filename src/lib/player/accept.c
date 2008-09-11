@@ -213,7 +213,7 @@ player_accept(void *unused)
 	stacksize = 100000
 /* budget */  + MAX(WORLD_SZ() * sizeof(int) * 7,
 /* power */ MAXNOC * sizeof(struct powstr));
-	sprintf(buf, "Player (fd #%d)", ns);
+	sprintf(buf, "Conn%d", ns);
 	empth_create(player_login, stacksize, 0, buf, np);
     }
 }
