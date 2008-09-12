@@ -35,72 +35,23 @@
 #include <config.h>
 
 #include "file.h"
-#include "land.h"
 #include "lost.h"
 #include "misc.h"
-#include "nuke.h"
 #include "optlist.h"
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "ship.h"
+#include "unit.h"
 
 void
 pln_postread(int n, void *ptr)
 {
     struct plnstr *pp = ptr;
-    struct shpstr theship;
-    struct lndstr theland;
 
     if (pp->pln_uid != n) {
 	logerror("pln_postread: Error - %d != %d, zeroing.\n",
 		 pp->pln_uid, n);
 	memset(pp, 0, sizeof(struct plnstr));
-    }
-
-    if (pp->pln_ship >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
-	if (getship(pp->pln_ship, &theship) &&
-	    (theship.shp_effic >= SHIP_MINEFF)) {
-	    /* wooof!  Carriers are a pain */
-	    if (pp->pln_mission) {
-		/*
-		 *  If the plane is on a mission centered
-		 *  on it's loc, the op-area travels with
-		 *  the plane.
-		 */
-		if ((pp->pln_opx == pp->pln_x) &&
-		    (pp->pln_opy == pp->pln_y)) {
-		    pp->pln_opx = theship.shp_x;
-		    pp->pln_opy = theship.shp_y;
-		}
-	    }
-	    if (pp->pln_x != theship.shp_x || pp->pln_y != theship.shp_y)
-		time(&pp->pln_timestamp);
-	    pp->pln_x = theship.shp_x;
-	    pp->pln_y = theship.shp_y;
-	}
-    }
-    if (pp->pln_land >= 0 && pp->pln_own && pp->pln_effic >= PLANE_MINEFF) {
-	if (getland(pp->pln_land, &theland) &&
-	    (theland.lnd_effic >= LAND_MINEFF)) {
-	    /* wooof!  Units are a pain, too */
-	    if (pp->pln_mission) {
-		/*
-		 *  If the plane is on a mission centered
-		 *  on it's loc, the op-area travels with
-		 *  the plane.
-		 */
-		if ((pp->pln_opx == pp->pln_x) &&
-		    (pp->pln_opy == pp->pln_y)) {
-		    pp->pln_opx = theland.lnd_x;
-		    pp->pln_opy = theland.lnd_y;
-		}
-	    }
-	    if (pp->pln_x != theland.lnd_x || pp->pln_y != theland.lnd_y)
-		time(&pp->pln_timestamp);
-	    pp->pln_x = theland.lnd_x;
-	    pp->pln_y = theland.lnd_y;
-	}
     }
     player->owner = (player->god || pp->pln_own == player->cnum);
     if (opt_MOB_ACCESS)
@@ -113,21 +64,11 @@ pln_prewrite(int n, void *old, void *new)
     struct plnstr *oldpp = old;
     struct plnstr *pp = new;
     natid own = pp->pln_own;
-    struct nukstr *np;
-    int i;
 
     if (pp->pln_effic < PLANE_MINEFF) {
 	own = 0;
 	pp->pln_effic = 0;
 	pp->pln_ship = pp->pln_land = -1;
-	for (i = 0; NULL != (np = getnukep(i)); i++) {
-	    if (np->nuk_own && np->nuk_plane == n) {
-		mpr(np->nuk_own, "%s lost!\n", prnuke(np));
-		np->nuk_effic = 0;
-		np->nuk_plane = -1;
-		putnuke(np->nuk_uid, np);
-	    }
-	}
     }
 
     if (CANT_HAPPEN(pp->pln_ship >= 0 && pp->pln_land >= 0))
@@ -143,6 +84,8 @@ pln_prewrite(int n, void *old, void *new)
 		       pp->pln_uid, pp->pln_x, pp->pln_y);
 
     pp->pln_own = own;
+    if (!own || pp->pln_x != oldpp->pln_x || pp->pln_y != oldpp->pln_y)
+	unit_update_cargo((struct empobj *)pp);
 }
 
 void

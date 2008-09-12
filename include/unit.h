@@ -56,3 +56,4 @@ extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);
 extern char *unit_path(int, struct empobj *, char *);
 extern void unit_view(struct emp_qelem *);
+extern void unit_update_cargo(struct empobj *);

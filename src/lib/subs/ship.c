@@ -35,15 +35,13 @@
 #include <config.h>
 
 #include "file.h"
-#include "land.h"
 #include "lost.h"
 #include "misc.h"
-#include "nsc.h"
 #include "optlist.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
 #include "ship.h"
+#include "unit.h"
 
 void
 shp_postread(int n, void *ptr)
@@ -67,32 +65,10 @@ shp_prewrite(int n, void *old, void *new)
     struct shpstr *oldsp = old;
     struct shpstr *sp = new;
     natid own = sp->shp_own;
-    struct lndstr *lp;
-    struct plnstr *pp;
-    int i;
 
     if (own && sp->shp_effic < SHIP_MINEFF) {
 	mpr(own, "\t%s sunk!\n", prship(sp));
 	own = 0;
-
-	for (i = 0; NULL != (lp = getlandp(i)); i++) {
-	    if (lp->lnd_own && lp->lnd_ship == n) {
-		mpr(lp->lnd_own, "%s sunk!\n", prland(lp));
-		lp->lnd_effic = 0;
-		lp->lnd_ship = -1;
-		lp->lnd_land = -1;
-		putland(lp->lnd_uid, lp);
-	    }
-	}
-	for (i = 0; NULL != (pp = getplanep(i)); i++) {
-	    if (pp->pln_own && pp->pln_ship == n) {
-		mpr(pp->pln_own, "%s sunk!\n", prplane(pp));
-		pp->pln_effic = 0;
-		pp->pln_ship = -1;
-		pp->pln_land = -1;
-		putplane(pp->pln_uid, pp);
-	    }
-	}
     } else {
 	item_prewrite(sp->shp_item);
     }
@@ -103,6 +79,8 @@ shp_prewrite(int n, void *old, void *new)
 		       sp->shp_uid, sp->shp_x, sp->shp_y);
 
     sp->shp_own = own;
+    if (!own || sp->shp_x != oldsp->shp_x || sp->shp_y != oldsp->shp_y)
+	unit_update_cargo((struct empobj *)sp);
 }
 
 char *

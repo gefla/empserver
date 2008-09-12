@@ -37,74 +37,24 @@
 #include "land.h"
 #include "lost.h"
 #include "misc.h"
-#include "nsc.h"
 #include "optlist.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "ship.h"
+#include "unit.h"
 
 void
 lnd_postread(int n, void *ptr)
 {
     struct lndstr *llp = ptr;
-    struct shpstr theship;
-    struct lndstr theland;
 
     if (llp->lnd_uid != n) {
 	logerror("lnd_postread: Error - %d != %d, zeroing.\n",
 		 llp->lnd_uid, n);
 	memset(llp, 0, sizeof(struct lndstr));
     }
-    if (llp->lnd_ship >= 0 && llp->lnd_own
-	&& llp->lnd_effic >= LAND_MINEFF) {
-	if (getship(llp->lnd_ship, &theship)
-	    && (theship.shp_effic >= SHIP_MINEFF)) {
-	    /* wooof!  Carriers are a pain */
-	    if (llp->lnd_mission) {
-		/*
-		 *  If the unit is on a mission centered
-		 *  on it's loc, the op-area travels with
-		 *  the unit.
-		 */
-		if ((llp->lnd_opx == llp->lnd_x) &&
-		    (llp->lnd_opy == llp->lnd_y)) {
-		    llp->lnd_opx = theship.shp_x;
-		    llp->lnd_opy = theship.shp_y;
-		}
-	    }
-	    if (llp->lnd_x != theship.shp_x || llp->lnd_y != theship.shp_y)
-		time(&llp->lnd_timestamp);
-	    llp->lnd_x = theship.shp_x;
-	    llp->lnd_y = theship.shp_y;
-	}
-    }
-    if (llp->lnd_land >= 0 && llp->lnd_own
-	&& llp->lnd_effic >= LAND_MINEFF) {
-	if (getland(llp->lnd_land, &theland)
-	    && (theland.lnd_effic >= LAND_MINEFF)) {
-	    /* wooof!  Carriers are a pain */
-	    if (llp->lnd_mission) {
-		/*
-		 *  If the unit is on a mission centered
-		 *  on it's loc, the op-area travels with
-		 *  the unit.
-		 */
-		if ((llp->lnd_opx == llp->lnd_x) &&
-		    (llp->lnd_opy == llp->lnd_y)) {
-		    llp->lnd_opx = theland.lnd_x;
-		    llp->lnd_opy = theland.lnd_y;
-		}
-	    }
-	    if (llp->lnd_x != theland.lnd_x || llp->lnd_y != theland.lnd_y)
-		time(&llp->lnd_timestamp);
-	    llp->lnd_x = theland.lnd_x;
-	    llp->lnd_y = theland.lnd_y;
-	}
-    }
+
     if (opt_MOB_ACCESS)
 	lnd_do_upd_mob(llp);
-
     player->owner = (player->god || llp->lnd_own == player->cnum);
 }
 
@@ -114,38 +64,10 @@ lnd_prewrite(int n, void *old, void *new)
     struct lndstr *oldlp = old;
     struct lndstr *llp = new;
     natid own = llp->lnd_own;
-    struct lndstr *lp;
-    struct plnstr *pp;
-    int i;
 
     if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
 	own = 0;
 	llp->lnd_ship = llp->lnd_land = -1;
-
-	for (i = 0; NULL != (lp = getlandp(i)); i++) {
-	    if (lp->lnd_own && lp->lnd_land == n) {
-		mpr(lp->lnd_own, "%s MIA!\n", prland(lp));
-		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
-			 lp->lnd_x, lp->lnd_y);
-		lp->lnd_own = 0;
-		lp->lnd_effic = 0;
-		lp->lnd_ship = -1;
-		lp->lnd_land = -1;
-		putland(lp->lnd_uid, lp);
-	    }
-	}
-	for (i = 0; NULL != (pp = getplanep(i)); i++) {
-	    if (pp->pln_own && pp->pln_land == n) {
-		mpr(pp->pln_own, "%s MIA!\n", prplane(pp));
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-			 pp->pln_x, pp->pln_y);
-		pp->pln_own = 0;
-		pp->pln_effic = 0;
-		pp->pln_ship = -1;
-		pp->pln_land = -1;
-		putplane(pp->pln_uid, pp);
-	    }
-	}
     } else {
 	item_prewrite(llp->lnd_item);
     }
@@ -163,6 +85,8 @@ lnd_prewrite(int n, void *old, void *new)
 		       llp->lnd_uid, llp->lnd_x, llp->lnd_y);
 
     llp->lnd_own = own;
+    if (!own || llp->lnd_x != oldlp->lnd_x || llp->lnd_y != oldlp->lnd_y)
+	unit_update_cargo((struct empobj *)llp);
 }
 
 void

@@ -38,10 +38,7 @@
 #include "file.h"
 #include "lost.h"
 #include "misc.h"
-#include "nat.h"
-#include "nsc.h"
 #include "nuke.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
 
@@ -49,25 +46,12 @@ void
 nuk_postread(int n, void *ptr)
 {
     struct nukstr *np = ptr;
-    struct plnstr plane;
 
     if (np->nuk_uid != n) {
 	logerror("nuk_postread: Error - %d != %d, zeroing.\n",
 		 np->nuk_uid, n);
 	memset(np, 0, sizeof(struct nukstr));
     }
-
-    if (np->nuk_plane >= 0 && np->nuk_own && np->nuk_effic >= 0) {
-	if (getplane(np->nuk_plane, &plane)
-	    && plane.pln_effic >= PLANE_MINEFF) {
-	    if (np->nuk_x != plane.pln_x || np->nuk_y != plane.pln_y) {
-		time(&np->nuk_timestamp);
-		np->nuk_x = plane.pln_x;
-		np->nuk_y = plane.pln_y;
-	    }
-	}
-    }
-
     player->owner = (player->god || np->nuk_own == player->cnum);
 }
 

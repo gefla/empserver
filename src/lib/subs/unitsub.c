@@ -204,3 +204,37 @@ unit_view(struct emp_qelem *list)
 	    sect.sct_effic, dchr[sect.sct_type].d_name);
     }
 }
+
+/*
+ * Update cargo of CARRIER for movement or destruction.
+ * If the carrier is destroyed, destroy its cargo (planes, land units,
+ * nukes).
+ * Else update their location to the carrier's.  Any op sectors equal
+ * to location get updated, too.
+ */
+void
+unit_update_cargo(struct empobj *carrier)
+{
+    int cargo_type;
+    struct nstr_item ni;
+    union empobj_storage obj;
+
+    for (cargo_type = EF_PLANE; cargo_type <= EF_NUKE; cargo_type++) {
+	snxtitem_cargo(&ni, cargo_type, carrier->ef_type, carrier->uid);
+	while (nxtitem(&ni, &obj)) {
+	    if (!carrier->own) {
+		mpr(obj.gen.own, "%s lost!\n", obj_nameof(&obj.gen));
+		obj.gen.effic = 0;
+	    } else {
+		/* mission op-area centered on the obj travels with it */
+		if (obj.gen.opx == obj.gen.x && obj.gen.opy == obj.gen.y) {
+		    obj.gen.opx = carrier->x;
+		    obj.gen.opy = carrier->y;
+		}
+		obj.gen.x = carrier->x;
+		obj.gen.y = carrier->y;
+	    }
+	    put_empobj(cargo_type, obj.gen.uid, &obj);
+	}
+    }
+}
