@@ -41,6 +41,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "ship.h"
+#include "unit.h"
 #include "xy.h"
 
 int
@@ -58,6 +59,11 @@ nxtitem(struct nstr_item *np, void *ptr)
 	    if (np->index >= np->size)
 		return 0;
 	    np->cur = np->list[np->index];
+	} else if (np->sel == NS_CARGO) {
+	    if (np->next < 0)
+		return 0;
+	    np->cur = np->next;
+	    np->next = unit_cargo_next(np->type, np->next);
 	} else {
 	    np->cur++;
 	}
@@ -66,7 +72,7 @@ nxtitem(struct nstr_item *np, void *ptr)
 	selected = 1;
 	switch (np->sel) {
 	case NS_LIST:
-	    break;
+	case NS_CARGO:
 	case NS_ALL:
 	    break;
 	case NS_DIST:

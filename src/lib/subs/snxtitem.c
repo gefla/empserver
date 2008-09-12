@@ -41,6 +41,7 @@
 #include "nsc.h"
 #include "file.h"
 #include "prototypes.h"
+#include "unit.h"
 
 /*
  * setup the nstr structure for sector selection.
@@ -221,4 +222,22 @@ snxtitem_list(struct nstr_item *np, int type, int *list, int len)
 	np->list[i] = list[i];
     np->size = len;
     return 1;
+}
+
+/*
+ * Initialize NP to iterate over the items of type TYPE in a carrier.
+ * The carrier has file type CARRIER_TYPE and uid CARRIER_UID.
+ * Note: you can take an item gotten with nxtitem() off its carrier
+ * without disturbing the iterator.  Whether the iterator will pick up
+ * stuff you load onto the carrier during iteration is unspecified.
+ */
+void
+snxtitem_cargo(struct nstr_item *np, int type,
+		int carrier_type, int carrier_uid)
+{
+    memset(np, 0, sizeof(*np));
+    np->cur = -1;
+    np->type = type;
+    np->sel = NS_CARGO;
+    np->next = unit_cargo_first(carrier_type, carrier_uid, type);
 }

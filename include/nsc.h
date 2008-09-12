@@ -144,7 +144,8 @@ enum ns_seltype {
     NS_AREA,			/* rectangular area */
     NS_ALL,			/* everything */
     NS_XY,			/* one sector area */
-    NS_GROUP			/* group, i.e. fleet, wing, army */
+    NS_GROUP,			/* group, i.e. fleet, wing, army */
+    NS_CARGO			/* loaded on the same carrier */
 };
 
 /* Sector iterator */
@@ -171,6 +172,7 @@ struct nstr_item {
     int dist;			/* NS_DIST: distance selector */
     coord cx, cy;		/* NS_DIST: center x-y, NS_XY: xy */
     char group;			/* NS_GROUP: fleet/wing match */
+    short next;			/* NS_CARGO: next item */
     int size;			/* NS_LIST: size of list */
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */
