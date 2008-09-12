@@ -125,7 +125,6 @@ snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
     default:
 	return 0;
     }
-    np->flags = flags;
     if (player->condarg == 0)
 	return 1;
     n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond), type,
@@ -143,8 +142,6 @@ snxtitem_area(struct nstr_item *np, int type, struct range *range)
     np->sel = NS_AREA;
     np->index = -1;
     np->range = *range;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
     xysize_range(&np->range);
 }
 
@@ -161,8 +158,6 @@ snxtitem_dist(struct nstr_item *np, int type, int cx, int cy,
     np->cy = cy;
     np->index = -1;
     np->dist = dist;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
 }
 
 void
@@ -176,8 +171,6 @@ snxtitem_xy(struct nstr_item *np, int type, coord x, coord y)
     np->cy = ynorm(y);
     np->index = -1;
     np->dist = 0;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
 }
 
 void
@@ -188,8 +181,6 @@ snxtitem_all(struct nstr_item *np, int type)
     np->sel = NS_ALL;
     np->type = type;
     np->index = -1;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
     xysize_range(&np->range);
 }
 
@@ -204,8 +195,6 @@ snxtitem_group(struct nstr_item *np, int type, char group)
     np->group = group;
     np->type = type;
     np->index = -1;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
     xysize_range(&np->range);
 }
 
@@ -226,8 +215,6 @@ snxtitem_list(struct nstr_item *np, int type, int *list, int len)
     np->type = type;
     np->sel = NS_LIST;
     np->index = -1;
-    np->read = ef_read;
-    np->flags = ef_flags(type);
     if (len <= 0 || len > NS_LSIZE)
 	return 0;
     for (i = 0; i < len; i++)

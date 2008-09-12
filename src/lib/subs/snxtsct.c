@@ -119,7 +119,6 @@ snxtsct_area(struct nstr_sect *np, struct range *range)
     np->range = *range;
     np->ncond = 0;
     np->type = NS_AREA;
-    np->read = ef_read;
     np->x = np->range.lx - 1;
     np->y = np->range.ly;
     np->dx = -1;
@@ -146,7 +145,6 @@ snxtsct_dist(struct nstr_sect *np, coord cx, coord cy, int dist)
     np->ncond = 0;
     np->dist = dist;
     np->type = NS_DIST;
-    np->read = ef_read;
     np->x = np->range.lx - 1;
     np->y = np->range.ly;
     np->dx = -1;

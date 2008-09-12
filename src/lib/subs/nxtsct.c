@@ -68,7 +68,7 @@ nxtsct(struct nstr_sect *np, struct sctstr *sp)
 		continue;
 	}
 	np->id = sctoff(np->x, np->y);
-	if (!np->read(EF_SECTOR, np->id, sp))
+	if (!ef_read(EF_SECTOR, np->id, sp))
 	    continue;
 	if (np->ncond == 0)
 	    return 1;

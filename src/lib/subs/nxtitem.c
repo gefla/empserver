@@ -61,10 +61,8 @@ nxtitem(struct nstr_item *np, void *ptr)
 	} else {
 	    np->cur++;
 	}
-	if (!np->read(np->type, np->cur, ptr)) {
-	    /* if read fails, fatal */
+	if (!ef_read(np->type, np->cur, ptr))
 	    return 0;
-	}
 	selected = 1;
 	switch (np->sel) {
 	case NS_LIST:

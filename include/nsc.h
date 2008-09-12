@@ -152,31 +152,28 @@ struct nstr_sect {
     coord x, y;			/* current x-y */
     coord dx, dy;		/* accumlated x,y travel */
     int id;			/* return value of sctoff */
-    enum ns_seltype type;		/* type of query */
-    int curdist;		/* dist query: current range */
+    enum ns_seltype type;	/* selection type: NS_AREA or NS_DIST */
+    int curdist;		/* NS_DIST: current range */
     struct range range;		/* area of coverage */
-    int dist;			/* dist query: range */
-    coord cx, cy;		/* dist query: center x-y */
-    int (*read)(int type, int id, void *ptr);	/* read function */
+    int dist;			/* NS_DIST: range */
+    coord cx, cy;		/* NS_DIST: center x-y */
     int ncond;			/* # of selection conditions */
-    struct nscstr cond[NS_NCOND];	/* selection conditions */
+    struct nscstr cond[NS_NCOND]; /* selection conditions */
 };
 
 /* Item iterator */
 struct nstr_item {
     int cur;			/* current item */
-    enum ns_seltype sel;	/* selection type */
+    enum ns_seltype sel;	/* selection type, any but NS_UNDEF */
     int type;			/* item type being selected */
     int curdist;		/* if NS_DIST, current item's dist */
     struct range range;		/* NS_AREA/NS_DIST: range selector */
     int dist;			/* NS_DIST: distance selector */
     coord cx, cy;		/* NS_DIST: center x-y, NS_XY: xy */
-    int group;			/* NS_GROUP: fleet/wing match */
+    char group;			/* NS_GROUP: fleet/wing match */
     int size;			/* NS_LIST: size of list */
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */
-    int (*read)(int type, int id, void *ptr);	/* read function */
-    int flags;			/* ef_flags(TYPE) */
     int ncond;			/* # of selection conditions */
     struct nscstr cond[NS_NCOND]; /* selection conditions */
 };
