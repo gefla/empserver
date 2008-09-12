@@ -257,7 +257,7 @@ void
 empth_set_name(empth_t *thread, char *name)
 {
     if (thread->name)
-	free(ctx_ptr->name);
+	free(thread->name);
     thread->name = strdup(name);
 }
 
