@@ -613,11 +613,11 @@ empth_wakeup(empth_t *pThread)
 int
 empth_sleep(time_t until)
 {
-    long lSec;
+    long lSec = until - time(0) > 0 ? until - time(0) : 0;
     empth_t *pThread = TlsGetValue(dwTLSIndex);
     int iReturn = 0;
 
-    while (!iReturn && ((lSec = until - time(0)) > 0)) {
+    do {
 	loc_BlockThisThread();
 	loc_debug("going to sleep %ld sec", lSec);
 
@@ -627,7 +627,8 @@ empth_sleep(time_t until)
 
 	loc_debug("sleep done. Waiting to run.");
 	loc_RunThisThread(NULL);
-    }
+    } while (!iReturn && ((lSec = until - time(0)) > 0));
+
     return iReturn;
 }
 
