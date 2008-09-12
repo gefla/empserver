@@ -144,6 +144,7 @@ clink_add(struct clink *cl, int type, int uid)
 	return;
     if (CANT_HAPPEN(*head >= nclink[type]))
 	*head = -1;
+    CANT_HAPPEN(clink[type][uid].next >= 0);
     clink[type][uid].next = *head;
     *head = uid;
 }
@@ -171,6 +172,7 @@ clink_rem(struct clink *cl, int type, int uid)
     }
 
     *p = linkv[uid].next;
+    linkv[uid].next = -1;
 }
 
 /*
