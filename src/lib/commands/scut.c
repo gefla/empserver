@@ -156,7 +156,7 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 {
     float cash = 0;
     float ally_cash = 0;
-    int dist;
+    int dist = -1;
     struct sctstr sect;
     struct mchrstr *mp;
     struct natstr *np;
@@ -202,7 +202,7 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 	wu(0, sp->shp_own, "Unfortunately, you make $0 on this trade.\n");
     } else if (cash && interactive) {
 	player->dolcost -= cash;
-    } else if (interactive && sp->shp_own == sp->shp_orig_own) {
+    } else if (interactive && (dist < 0 || sp->shp_own == sp->shp_orig_own)) {
 	pr("You won't get any money if you scuttle in %s!",
 	   xyas(sp->shp_x, sp->shp_y, player->cnum));
 	sprintf(buf, "Are you sure you want to scuttle %s? ", prship(sp));
