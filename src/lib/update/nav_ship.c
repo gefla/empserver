@@ -53,23 +53,19 @@ scuttle_it(struct shpstr *sp)
 	   sp->shp_x, sp->shp_y, sp->shp_uid);
 	return;
     }
-    if (sectp->sct_type != SCT_HARBR || sectp->sct_effic < 2) {
-	wu(0, sp->shp_own,
-	   "%s is not in a harbor at least 2%% eff!  Not scuttling.\n",
-	   prship(sp));
-	return;
-    }
     if (opt_TRADESHIPS) {
 	if (!(mchr[(int)sp->shp_type].m_flags & M_TRADE)) {
 	    wu(0, sp->shp_own, "You can only autoscuttle trade ships!\n");
 	    return;
 	}
     }
+    if (!scuttle_tradeship(sp, 0)) {
+	wu(0, sp->shp_own,
+	   "%s doesn't pay here!  Not scuttled.\n", prship(sp));
+	return;
+    }
     wu(0, sp->shp_own, "Scuttling %s in sector %s\n",
        prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-    if (opt_TRADESHIPS) {
-	scuttle_tradeship(sp, 0);
-    }
     scuttle_ship(sp);
 }
 
