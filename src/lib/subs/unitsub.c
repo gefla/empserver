@@ -238,3 +238,44 @@ unit_update_cargo(struct empobj *carrier)
 	}
     }
 }
+
+/*
+ * Drop cargo of UNIT.
+ * Give it to NEWOWN, unless it's zero.
+ */
+void
+unit_drop_cargo(struct empobj *unit, natid newown)
+{
+    int type;
+    struct nstr_item ni;
+    union empobj_storage cargo;
+
+    for (type = EF_PLANE; type <= EF_NUKE; type++) {
+	snxtitem_cargo(&ni, type, unit->ef_type, unit->uid);
+	while (nxtitem(&ni, &cargo)) {
+	    switch (type) {
+	    case EF_PLANE:
+		cargo.plane.pln_ship = cargo.plane.pln_land = -1;
+		break;
+	    case EF_LAND:
+		cargo.land.lnd_ship = cargo.land.lnd_land = -1;
+		break;
+	    case EF_NUKE:
+		cargo.nuke.nuk_plane = -1;
+		break;
+	    }
+	    mpr(cargo.gen.own, "%s transferred off %s %d to %s\n",
+		obj_nameof(&cargo.gen),
+		ef_nameof(unit->ef_type), unit->uid,
+		xyas(cargo.gen.x, cargo.gen.y, cargo.gen.own));
+	    if (newown) {
+		mpr(cargo.gen.own, "%s given to %s\n",
+		    obj_nameof(&cargo.gen), cname(newown));
+		mpr(newown, "%s given to you by %s\n",
+		    obj_nameof(&cargo.gen), cname(cargo.gen.own));
+		cargo.gen.own = newown;
+	    }
+	    put_empobj(type, cargo.gen.uid, &cargo.gen);
+	}
+    }
+}

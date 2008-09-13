@@ -66,7 +66,6 @@ extern int do_unit_move(struct emp_qelem *land_list, int *together,
 	     double *minmob, double *maxmob);
 extern int count_pop(int);
 extern int scuttle_tradeship(struct shpstr *, int);
-extern void scuttle_ship(struct shpstr *);
 extern void resnoise(struct sctstr *sptr, int public_amt, char *name,
 		     int old, int new);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);

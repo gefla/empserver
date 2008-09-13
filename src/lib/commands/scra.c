@@ -37,6 +37,7 @@
 #include "commands.h"
 #include "empobj.h"
 #include "optlist.h"
+#include "unit.h"
 
 int
 scra(void)
@@ -50,10 +51,6 @@ scra(void)
     struct lchrstr *lp;
     char *p;
     i_type i;
-    struct nstr_item ni2;
-    struct plnstr plane;
-    struct lndstr land;
-    struct sctstr sect2;
     char prompt[128];
     char buf[1024];
     float eff;
@@ -147,6 +144,17 @@ scra(void)
 		   prship(&item.ship));
 		continue;
 	    }
+	    if (opt_TRADESHIPS
+		&& (mchr[item.ship.shp_type].m_flags & M_TRADE)) {
+		pr("WARNING: You only collect money from trade ships if you \"scuttle\" them!\n");
+		sprintf(prompt,
+			"Are you really sure that you want to scrap %s (n)? ",
+			prship(&item.ship));
+		if (!confirm(prompt)) {
+		    pr("%s not scrapped\n", prship(&item.ship));
+		    continue;
+		}
+	    }
 	} else {
 	    if (!player->owner
 		&& getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
@@ -162,65 +170,18 @@ scra(void)
 	    }
 	}
 
+	pr("%s scrapped in %s\n",
+	   obj_nameof(&item.gen),
+	   xyas(item.gen.x, item.gen.y, player->cnum));
+	unit_drop_cargo(&item.gen, sect.sct_own);
 	if (type == EF_SHIP) {
 	    eff = item.ship.shp_effic / 100.0;
 	    mp = &mchr[(int)item.ship.shp_type];
-	    if (opt_TRADESHIPS) {
-		if (mp->m_flags & M_TRADE) {
-		    pr("WARNING: You only collect money from trade ships if you \"scuttle\" them!\n");
-		    sprintf(prompt,
-			    "Are you really sure that you want to scrap %s (n)? ",
-			    prship(&item.ship));
-		    if (!confirm(prompt)) {
-			pr("%s not scrapped\n", prship(&item.ship));
-			continue;
-		    }
-		}
-	    }
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
 		sect.sct_item[i] += item.ship.shp_item[i];
 	    }
 	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
-	    getsect(item.ship.shp_x, item.ship.shp_y, &sect2);
-	    snxtitem_cargo(&ni2, EF_PLANE, EF_SHIP, item.ship.shp_uid);
-	    while (nxtitem(&ni2, &plane)) {
-		wu(0, plane.pln_own,
-		   "Plane %d transferred off ship %d to %s\n",
-		   ni2.cur, item.ship.shp_uid,
-		   xyas(plane.pln_x, plane.pln_y, player->cnum));
-		plane.pln_ship = -1;
-		if (sect2.sct_own != plane.pln_own) {
-		    wu(0, plane.pln_own,
-		       "%s given to %s\n", prplane(&plane),
-		       cname(sect2.sct_own));
-		    wu(0, sect2.sct_own,
-		       "%s given to you by %s\n", prplane(&plane),
-		       cname(player->cnum));
-		}
-		plane.pln_own = sect2.sct_own;
-		putplane(plane.pln_uid, &plane);
-	    }
-	    snxtitem_cargo(&ni2, EF_LAND, EF_SHIP, item.ship.shp_uid);
-	    while (nxtitem(&ni2, &land)) {
-		wu(0, land.lnd_own,
-		   "Land unit %d transferred off ship %d to %s\n",
-		   ni2.cur, item.ship.shp_uid,
-		   xyas(land.lnd_x, land.lnd_y, player->cnum));
-		land.lnd_ship = -1;
-		if (sect2.sct_own != land.lnd_own) {
-		    wu(0, land.lnd_own,
-		       "%s given to %s\n", prland(&land),
-		       cname(sect2.sct_own));
-		    wu(0, sect2.sct_own,
-		       "%s given to you by %s\n", prland(&land),
-		       cname(player->cnum));
-		}
-		land.lnd_own = sect2.sct_own;
-		putland(land.lnd_uid, &land);
-	    }
-	    item.ship.shp_effic = 0;
-	    putship(item.ship.shp_uid, &item.ship);
 	} else if (type == EF_LAND) {
 	    eff = item.land.lnd_effic / 100.0;
 	    lp = &lchr[(int)item.land.lnd_type];
@@ -229,59 +190,15 @@ scra(void)
 	    }
 	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += lp->l_hcm * 2 / 3 * eff;
-	    getsect(item.land.lnd_x, item.land.lnd_y, &sect2);
-
-	    snxtitem_cargo(&ni2, EF_LAND, EF_LAND, item.land.lnd_uid);
-	    while (nxtitem(&ni2, &land)) {
-		wu(0, land.lnd_own,
-		   "Land unit %d transferred off land unit %d to %s\n",
-		   land.lnd_uid, item.land.lnd_uid,
-		   xyas(land.lnd_x, land.lnd_y, player->cnum));
-		land.lnd_land = -1;
-		if (sect2.sct_own != land.lnd_own) {
-		    wu(0, land.lnd_own,
-		       "%s given to %s\n", prland(&land),
-		       cname(sect2.sct_own));
-		    wu(0, sect2.sct_own,
-		       "%s given to you by %s\n", prland(&land),
-		       cname(player->cnum));
-		}
-		land.lnd_own = sect2.sct_own;
-		putland(land.lnd_uid, &land);
-	    }
-
-	    snxtitem_cargo(&ni2, EF_PLANE, EF_LAND, item.land.lnd_uid);
-	    while (nxtitem(&ni2, &plane)) {
-		wu(0, plane.pln_own,
-		   "Plane %d transferred off land unit %d to %s\n",
-		   ni2.cur, item.land.lnd_uid,
-		   xyas(plane.pln_x, plane.pln_y, player->cnum));
-		plane.pln_land = -1;
-		if (sect2.sct_own != plane.pln_own) {
-		    wu(0, plane.pln_own,
-		       "%s given to %s\n", prplane(&plane),
-		       cname(sect2.sct_own));
-		    wu(0, sect2.sct_own,
-		       "%s given to you by %s\n", prplane(&plane),
-		       cname(player->cnum));
-		}
-		plane.pln_own = sect2.sct_own;
-		putplane(plane.pln_uid, &plane);
-	    }
-	    item.land.lnd_effic = 0;
-	    putland(item.land.lnd_uid, &item.land);
 	} else {
 	    eff = item.land.lnd_effic / 100.0;
 	    pp = &plchr[(int)item.plane.pln_type];
 	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
 	    sect.sct_item[I_MILIT] += pp->pl_crew;
-	    item.plane.pln_effic = 0;
-	    putplane(item.plane.pln_uid, &item.plane);
 	}
-	pr("%s scrapped in %s\n",
-	   obj_nameof(&item.gen),
-	   xyas(item.gen.x, item.gen.y, player->cnum));
+	item.gen.effic = 0;
+	put_empobj(type, item.gen.uid, &item.gen);
 	for (i = I_NONE + 1; i <= I_MAX; i++) {
 	    if (sect.sct_item[i] > ITEM_MAX)
 		sect.sct_item[i] = ITEM_MAX;

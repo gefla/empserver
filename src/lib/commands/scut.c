@@ -37,8 +37,7 @@
 #include "commands.h"
 #include "empobj.h"
 #include "optlist.h"
-
-static void scuttle_land(struct lndstr *);
+#include "unit.h"
 
 int
 scut(void)
@@ -50,6 +49,7 @@ scut(void)
     char *p;
     char prompt[128];
     char buf[1024];
+    struct sctstr sect;
 
     if (!(p = getstarg(player->argp[1], "Ship, land, or plane? ", buf)))
 	return RET_SYN;
@@ -126,26 +126,25 @@ scut(void)
 
 	if (type == EF_SHIP) {
 	    mp = &mchr[(int)item.ship.shp_type];
-	    if (opt_TRADESHIPS) {
-		if (mp->m_flags & M_TRADE)
-		    if (!scuttle_tradeship(&item.ship, 1))
-			continue;
+	    if (opt_TRADESHIPS && (mp->m_flags & M_TRADE)) {
+		if (!scuttle_tradeship(&item.ship, 1))
+		    continue;
 	    }
-	    scuttle_ship(&item.ship);
 	} else if (type == EF_LAND) {
 	    if (item.land.lnd_ship >= 0) {
 		pr("%s is on a ship, and cannot be scuttled!\n",
 		   prland(&item.land));
 		continue;
 	    }
-	    scuttle_land(&item.land);
-	} else {
-	    item.plane.pln_effic = 0;
-	    putplane(item.plane.pln_uid, &item.plane);
 	}
 	pr("%s scuttled in %s\n",
 	   obj_nameof(&item.gen),
 	   xyas(item.gen.x, item.gen.y, player->cnum));
+	getsect(item.gen.x, item.gen.y, &sect);
+	if (sect.sct_own == item.gen.own)
+	    unit_drop_cargo(&item.gen, sect.sct_own);
+	item.gen.effic = 0;
+	put_empobj(type, item.gen.uid, &item.gen);
     }
 
     return RET_OK;
@@ -224,86 +223,4 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 	nreport(sp->shp_own, N_PIRATE_KEEP, sp->shp_orig_own, 1);
 
     return 1;
-}
-
-void
-scuttle_ship(struct shpstr *sp)
-{
-    struct nstr_item ni;
-    struct sctstr sect;
-    struct plnstr plane;
-    struct lndstr land;
-
-    getsect(sp->shp_x, sp->shp_y, &sect);
-    snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
-    while (nxtitem(&ni, &plane)) {
-	plane.pln_ship = -1;
-	if (sect.sct_own != sp->shp_own) {
-	    wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
-	       plane.pln_uid,
-	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	    plane.pln_effic = 0;
-	} else {
-	    wu(0, plane.pln_own,
-	       "Plane %d transferred off ship %d to %s\n",
-	       plane.pln_uid, sp->shp_uid,
-	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	}
-	putplane(plane.pln_uid, &plane);
-    }
-    snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
-    while (nxtitem(&ni, &land)) {
-	land.lnd_ship = -1;
-	if (sect.sct_own == sp->shp_own) {
-	    wu(0, land.lnd_own,
-	       "Land unit %d transferred off ship %d to %s\n",
-	       land.lnd_uid, sp->shp_uid,
-	       xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-	    putland(land.lnd_uid, &land);
-	} else
-	    scuttle_land(&land);
-    }
-    sp->shp_effic = 0;
-    putship(sp->shp_uid, sp);
-}
-
-static void
-scuttle_land(struct lndstr *lp)
-{
-    struct nstr_item ni;
-    struct sctstr sect;
-    struct plnstr plane;
-    struct lndstr land;
-
-    getsect(lp->lnd_x, lp->lnd_y, &sect);
-    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, lp->lnd_uid);
-    while (nxtitem(&ni, &plane)) {
-	plane.pln_land = -1;
-	if (sect.sct_own != lp->lnd_own) {
-	    wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
-	       plane.pln_uid,
-	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	    plane.pln_effic = 0;
-	} else {
-	    wu(0, plane.pln_own,
-	       "Plane %d transferred off unit %d to %s\n",
-	       plane.pln_uid, lp->lnd_uid,
-	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	}
-	putplane(plane.pln_uid, &plane);
-    }
-    snxtitem_cargo(&ni, EF_LAND, EF_LAND, lp->lnd_uid);
-    while (nxtitem(&ni, &land)) {
-	land.lnd_land = -1;
-	if (sect.sct_own == lp->lnd_own) {
-	    wu(0, land.lnd_own,
-	       "Land unit %d transferred off unit %d to %s\n",
-	       land.lnd_uid, lp->lnd_uid,
-	       xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-	    putland(land.lnd_uid, &land);
-	} else
-	    scuttle_land(&land);
-    }
-    lp->lnd_effic = 0;
-    putland(lp->lnd_uid, lp);
 }

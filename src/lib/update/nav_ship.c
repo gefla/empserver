@@ -66,7 +66,10 @@ scuttle_it(struct shpstr *sp)
     }
     wu(0, sp->shp_own, "Scuttling %s in sector %s\n",
        prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-    scuttle_ship(sp);
+    if (sectp->sct_own == sp->shp_own)
+	unit_drop_cargo((struct empobj *)sp, sectp->sct_own);
+    sp->shp_effic = 0;
+    putship(sp->shp_uid, sp);
 }
 
 static void
