@@ -12,8 +12,8 @@ In the empire version, you make a trade ship, using lots of cm's, and costing
 $2500. You then sail it to a harbor somewhere and scuttle it. You then receive
 money, with a varying rate of return.
 .s1
-The trade ship MUST be scuttled in a harbor that is at least 2% efficient to
-make money. (In other sectors,
+The trade ship MUST be scuttled in a friendly harbor that is at least
+2% efficient to make money. (In other sectors,
 it sinks quietly, like most ships) You may scuttle it in either a harbor you
 own, or the harbor of an ally. Pirates who capture a trade ship may also gain
 money from it, just as if they were the lawful owner (although the news knows
