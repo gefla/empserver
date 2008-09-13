@@ -165,8 +165,17 @@ status(void)
 	pr("That just cost you $%.2f\n", player->dolcost);
     else if (player->dolcost < -100.0)
 	pr("You just made $%.2f\n", -player->dolcost);
-    natp->nat_money -= roundavg(player->dolcost);
-    player->dolcost = 0.0;
+    if (player->dolcost != 0.0) {
+	/*
+	 * Hackish work around for a race condition in the nightly
+	 * build's regression tests: sometimes the update starts right
+	 * after the force command yields, sometimes a bit later.  If
+	 * it is late, we use one random number here, for the bye,
+	 * and throwing off the random sequence.
+	 */
+	natp->nat_money -= roundavg(player->dolcost);
+	player->dolcost = 0.0;
+    }
 
     old_nstat = player->nstat;
     player_set_nstat(player, natp);
