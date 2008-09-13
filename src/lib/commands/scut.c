@@ -244,41 +244,33 @@ scuttle_ship(struct shpstr *sp)
     struct lndstr land;
 
     getsect(sp->shp_x, sp->shp_y, &sect);
-    snxtitem_all(&ni, EF_PLANE);
+    snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
     while (nxtitem(&ni, &plane)) {
-	if (plane.pln_own == 0)
-	    continue;
-	if (plane.pln_ship == sp->shp_uid) {
-	    plane.pln_ship = -1;
-	    if (sect.sct_own != sp->shp_own) {
-		wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
-		   plane.pln_uid,
-		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		plane.pln_effic = 0;
-	    } else {
-		wu(0, plane.pln_own,
-		   "Plane %d transferred off ship %d to %s\n",
-		   plane.pln_uid, sp->shp_uid,
-		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	    }
-	    putplane(plane.pln_uid, &plane);
+	plane.pln_ship = -1;
+	if (sect.sct_own != sp->shp_own) {
+	    wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
+	       plane.pln_uid,
+	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
+	    plane.pln_effic = 0;
+	} else {
+	    wu(0, plane.pln_own,
+	       "Plane %d transferred off ship %d to %s\n",
+	       plane.pln_uid, sp->shp_uid,
+	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 	}
+	putplane(plane.pln_uid, &plane);
     }
-    snxtitem_all(&ni, EF_LAND);
+    snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == 0)
-	    continue;
-	if (land.lnd_ship == sp->shp_uid) {
-	    land.lnd_ship = -1;
-	    if (sect.sct_own == sp->shp_own) {
-		wu(0, land.lnd_own,
-		   "Land unit %d transferred off ship %d to %s\n",
-		   land.lnd_uid, sp->shp_uid,
-		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		putland(land.lnd_uid, &land);
-	    } else
-		scuttle_land(&land);
-	}
+	land.lnd_ship = -1;
+	if (sect.sct_own == sp->shp_own) {
+	    wu(0, land.lnd_own,
+	       "Land unit %d transferred off ship %d to %s\n",
+	       land.lnd_uid, sp->shp_uid,
+	       xyas(land.lnd_x, land.lnd_y, land.lnd_own));
+	    putland(land.lnd_uid, &land);
+	} else
+	    scuttle_land(&land);
     }
     sp->shp_effic = 0;
     putship(sp->shp_uid, sp);
@@ -293,41 +285,33 @@ scuttle_land(struct lndstr *lp)
     struct lndstr land;
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
-    snxtitem_all(&ni, EF_PLANE);
+    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, lp->lnd_uid);
     while (nxtitem(&ni, &plane)) {
-	if (plane.pln_own == 0)
-	    continue;
-	if (plane.pln_land == lp->lnd_uid) {
-	    plane.pln_land = -1;
-	    if (sect.sct_own != lp->lnd_own) {
-		wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
-		   plane.pln_uid,
-		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		plane.pln_effic = 0;
-	    } else {
-		wu(0, plane.pln_own,
-		   "Plane %d transferred off unit %d to %s\n",
-		   plane.pln_uid, lp->lnd_uid,
-		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-	    }
-	    putplane(plane.pln_uid, &plane);
+	plane.pln_land = -1;
+	if (sect.sct_own != lp->lnd_own) {
+	    wu(0, plane.pln_own, "Plane %d scuttled in %s\n",
+	       plane.pln_uid,
+	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
+	    plane.pln_effic = 0;
+	} else {
+	    wu(0, plane.pln_own,
+	       "Plane %d transferred off unit %d to %s\n",
+	       plane.pln_uid, lp->lnd_uid,
+	       xyas(plane.pln_x, plane.pln_y, plane.pln_own));
 	}
+	putplane(plane.pln_uid, &plane);
     }
-    snxtitem_all(&ni, EF_LAND);
+    snxtitem_cargo(&ni, EF_LAND, EF_LAND, lp->lnd_uid);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == 0)
-	    continue;
-	if (land.lnd_land == lp->lnd_uid) {
-	    land.lnd_land = -1;
-	    if (sect.sct_own == lp->lnd_own) {
-		wu(0, land.lnd_own,
-		   "Land unit %d transferred off unit %d to %s\n",
-		   land.lnd_uid, lp->lnd_uid,
-		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		putland(land.lnd_uid, &land);
-	    } else
-		scuttle_land(&land);
-	}
+	land.lnd_land = -1;
+	if (sect.sct_own == lp->lnd_own) {
+	    wu(0, land.lnd_own,
+	       "Land unit %d transferred off unit %d to %s\n",
+	       land.lnd_uid, lp->lnd_uid,
+	       xyas(land.lnd_x, land.lnd_y, land.lnd_own));
+	    putland(land.lnd_uid, &land);
+	} else
+	    scuttle_land(&land);
     }
     lp->lnd_effic = 0;
     putland(lp->lnd_uid, lp);

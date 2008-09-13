@@ -229,12 +229,8 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     pp = &p;
     lp = &llp;
     /* Take over planes */
-    snxtitem_all(&ni, EF_PLANE);
+    snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
     while (nxtitem(&ni, pp)) {
-	if (pp->pln_ship != sp->shp_uid)
-	    continue;
-	if (pp->pln_own == 0)
-	    continue;
 	if (hostile) {
 	    if (pp->pln_effic > PLANE_MINEFF)
 		pp->pln_effic = PLANE_MINEFF;
@@ -249,14 +245,9 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
 	putplane(pp->pln_uid, pp);
     }
     /* Take over land units */
-    snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, lp)) {
-	if (lp->lnd_ship != sp->shp_uid)
-	    continue;
-	if (lp->lnd_own == 0)
-	    continue;
+    snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
+    while (nxtitem(&ni, lp))
 	takeover_land(lp, newown, hostile);
-    }
     putship(sp->shp_uid, sp);
 }
 
@@ -285,12 +276,8 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     pp = &p;
     lp = &llp;
     /* Take over planes */
-    snxtitem_all(&ni, EF_PLANE);
+    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, landp->lnd_uid);
     while (nxtitem(&ni, pp)) {
-	if (pp->pln_land != landp->lnd_uid)
-	    continue;
-	if (pp->pln_own == 0)
-	    continue;
 	if (hostile) {
 	    if (pp->pln_effic > PLANE_MINEFF)
 		pp->pln_effic = PLANE_MINEFF;
@@ -305,13 +292,8 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
 	putplane(pp->pln_uid, pp);
     }
     /* Take over land units */
-    snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, lp)) {
-	if (lp->lnd_land != landp->lnd_uid)
-	    continue;
-	if (lp->lnd_own == 0)
-	    continue;
+    snxtitem_cargo(&ni, EF_LAND, EF_LAND, landp->lnd_uid);
+    while (nxtitem(&ni, lp))
 	takeover_land(lp, newown, hostile);
-    }
     putland(landp->lnd_uid, landp);
 }

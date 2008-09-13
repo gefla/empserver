@@ -388,10 +388,8 @@ feed_ship(struct shpstr *sp, int etus)
 					needed - sp->shp_item[I_FOOD]);
     if (needed > sp->shp_item[I_FOOD]) {
 	/* take from embarked land units, but don't starve them */
-	snxtitem_all(&ni, EF_LAND);
+	snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
 	while ((lp = nxtitemp(&ni)) && needed > sp->shp_item[I_FOOD]) {
-	    if (lp->lnd_ship != sp->shp_uid)
-		continue;
 	    give = lp->lnd_item[I_FOOD] - food_needed(lp->lnd_item, etus);
 	    if (give < 1.0)
 		continue;
