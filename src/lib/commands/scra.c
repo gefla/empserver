@@ -134,28 +134,34 @@ scra(void)
 	    }
 	}
 
+	getsect(item.gen.x, item.gen.y, &sect);
 	if (type == EF_SHIP) {
-	    getsect(item.ship.shp_x, item.ship.shp_y, &sect);
-	    if (sect.sct_type != SCT_HARBR)
-		continue;
-	    if (sect.sct_effic < 60 || sect.sct_own != player->cnum)
-		continue;
-	} else if (type == EF_LAND) {
-	    if (item.land.lnd_ship >= 0) {
-		pr("%s is on a ship, and cannot be scrapped!\n",
-		   prland(&item.land));
+	    if (!player->owner
+		&& getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY) {
+		pr("%s is not in a friendly harbor!\n",
+		   prship(&item.ship));
 		continue;
 	    }
-	    getsect(item.land.lnd_x, item.land.lnd_y, &sect);
+	    if (sect.sct_type != SCT_HARBR || sect.sct_effic < 60) {
+		pr("%s is not in a 60%% efficient harbor!\n",
+		   prship(&item.ship));
+		continue;
+	    }
 	} else {
-	    getsect(item.plane.pln_x, item.plane.pln_y, &sect);
-	    if (sect.sct_type != SCT_AIRPT)
+	    if (!player->owner
+		&& getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+		pr("%s is not in an allied sector!\n",
+		   obj_nameof(&item.gen));
 		continue;
-	    if (sect.sct_effic < 60 ||
-		(sect.sct_own != player->cnum &&
-		 getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY))
+	    }
+	    if (type == EF_PLANE
+		&& (sect.sct_type != SCT_AIRPT || sect.sct_effic < 60)) {
+		pr("%s is not in a 60%% efficient airfield!\n",
+		   prplane(&item.plane));
 		continue;
+	    }
 	}
+
 	if (type == EF_SHIP) {
 	    eff = item.ship.shp_effic / 100.0;
 	    mp = &mchr[(int)item.ship.shp_type];
