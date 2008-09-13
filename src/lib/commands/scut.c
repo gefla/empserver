@@ -131,7 +131,6 @@ scut(void)
 		    if (!scuttle_tradeship(&item.ship, 1))
 			continue;
 	    }
-	    pr("%s", prship(&item.ship));
 	    scuttle_ship(&item.ship);
 	} else if (type == EF_LAND) {
 	    if (item.land.lnd_ship >= 0) {
@@ -139,15 +138,14 @@ scut(void)
 		   prland(&item.land));
 		continue;
 	    }
-	    pr("%s", prland(&item.land));
 	    scuttle_land(&item.land);
 	} else {
-	    pr("%s", prplane(&item.plane));
 	    item.plane.pln_effic = 0;
 	    putplane(item.plane.pln_uid, &item.plane);
 	}
-	pr(" scuttled in %s\n",
-	   xyas(item.ship.shp_x, item.ship.shp_y, player->cnum));
+	pr("%s scuttled in %s\n",
+	   obj_nameof(&item.gen),
+	   xyas(item.gen.x, item.gen.y, player->cnum));
     }
 
     return RET_OK;

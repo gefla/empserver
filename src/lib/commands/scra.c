@@ -171,7 +171,6 @@ scra(void)
 		    }
 		}
 	    }
-	    pr("%s", prship(&item.ship));
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
 		sect.sct_item[i] += item.ship.shp_item[i];
 	    }
@@ -219,7 +218,6 @@ scra(void)
 	} else if (type == EF_LAND) {
 	    eff = item.land.lnd_effic / 100.0;
 	    lp = &lchr[(int)item.land.lnd_type];
-	    pr("%s", prland(&item.land));
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
 		sect.sct_item[i] += item.land.lnd_item[i];
 	    }
@@ -269,15 +267,15 @@ scra(void)
 	} else {
 	    eff = item.land.lnd_effic / 100.0;
 	    pp = &plchr[(int)item.plane.pln_type];
-	    pr("%s", prplane(&item.plane));
 	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
 	    sect.sct_item[I_MILIT] += pp->pl_crew;
 	    item.plane.pln_effic = 0;
 	    putplane(item.plane.pln_uid, &item.plane);
 	}
-	pr(" scrapped in %s\n",
-	   xyas(sect.sct_x, sect.sct_y, player->cnum));
+	pr("%s scrapped in %s\n",
+	   obj_nameof(&item.gen),
+	   xyas(item.gen.x, item.gen.y, player->cnum));
 	for (i = I_NONE + 1; i <= I_MAX; i++) {
 	    if (sect.sct_item[i] > ITEM_MAX)
 		sect.sct_item[i] = ITEM_MAX;
