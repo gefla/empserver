@@ -63,14 +63,13 @@ lnd_prewrite(int n, void *old, void *new)
 {
     struct lndstr *oldlp = old;
     struct lndstr *lp = new;
-    natid own = lp->lnd_own;
+    natid own = lp->lnd_effic < LAND_MINEFF ? 0 : lp->lnd_own;
 
-    if (lp->lnd_own && lp->lnd_effic < LAND_MINEFF) {
-	own = 0;
+    if (!own) {
+	lp->lnd_effic = 0;
 	lp->lnd_ship = lp->lnd_land = -1;
-    } else {
-	item_prewrite(lp->lnd_item);
     }
+    item_prewrite(lp->lnd_item);
 
     if (CANT_HAPPEN(lp->lnd_ship >= 0 && lp->lnd_land >= 0))
 	lp->lnd_land = -1;
@@ -79,7 +78,7 @@ lnd_prewrite(int n, void *old, void *new)
     if (oldlp->lnd_land != lp->lnd_land)
 	lnd_carrier_change(lp, EF_LAND, oldlp->lnd_land, lp->lnd_land);
 
-    /* We've avoided assigning to lp->lnd_own, in case oldsp == sp */
+    /* We've avoided assigning to lp->lnd_own, in case oldlp == lp */
     if (oldlp->lnd_own != own)
 	lost_and_found(EF_LAND, oldlp->lnd_own, own,
 		       lp->lnd_uid, lp->lnd_x, lp->lnd_y);

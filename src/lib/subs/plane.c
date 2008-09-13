@@ -63,10 +63,9 @@ pln_prewrite(int n, void *old, void *new)
 {
     struct plnstr *oldpp = old;
     struct plnstr *pp = new;
-    natid own = pp->pln_own;
+    natid own = pp->pln_effic < PLANE_MINEFF ? 0 : pp->pln_own;
 
-    if (pp->pln_effic < PLANE_MINEFF) {
-	own = 0;
+    if (!own) {
 	pp->pln_effic = 0;
 	pp->pln_ship = pp->pln_land = -1;
     }
@@ -78,7 +77,7 @@ pln_prewrite(int n, void *old, void *new)
     if (oldpp->pln_land != pp->pln_land)
 	pln_carrier_change(pp, EF_LAND, oldpp->pln_land, pp->pln_land);
 
-    /* We've avoided assigning to pp->pln_own, in case oldsp == sp */
+    /* We've avoided assigning to pp->pln_own, in case oldpp == pp */
     if (oldpp->pln_own != own)
 	lost_and_found(EF_PLANE, oldpp->pln_own, own,
 		       pp->pln_uid, pp->pln_x, pp->pln_y);

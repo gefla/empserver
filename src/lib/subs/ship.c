@@ -64,14 +64,14 @@ shp_prewrite(int n, void *old, void *new)
 {
     struct shpstr *oldsp = old;
     struct shpstr *sp = new;
-    natid own = sp->shp_own;
+    natid own = sp->shp_effic < SHIP_MINEFF ? 0 : sp->shp_own;
 
-    if (own && sp->shp_effic < SHIP_MINEFF) {
-	mpr(own, "\t%s sunk!\n", prship(sp));
-	own = 0;
-    } else {
-	item_prewrite(sp->shp_item);
+    if (!own) {
+	sp->shp_effic = 0;
+	if (sp->shp_own)
+	    mpr(own, "\t%s sunk!\n", prship(sp));
     }
+    item_prewrite(sp->shp_item);
 
     /* We've avoided assigning to sp->shp_own, in case oldsp == sp */
     if (oldsp->shp_own != own)
