@@ -135,7 +135,7 @@ struct loc_Thread {
  *
  */
 struct loc_RWLock {
-    char name[17];	/* The thread name, passed in at create time. */
+    char *name;		/* The lock name, passed in at create time. */
     HANDLE can_read;	/* Manual event -- allows read locks */
     HANDLE can_write;	/* Auto-reset event -- allows write locks */
     int nread;		/* number of active readers */
@@ -666,11 +666,12 @@ empth_rwlock_create(char *name)
 	return NULL;
 
     memset(rwlock, 0, sizeof(*rwlock));
-    strncpy(rwlock->name, name, sizeof(rwlock->name) - 1);
+    rwlock->name = strdup(name);
 
     if ((rwlock->can_read = CreateEvent(NULL, TRUE, TRUE, NULL)) == NULL) {
 	logerror("rwlock_create: failed to create reader event %s at %s:%d",
 	    name, __FILE__, __LINE__);
+	free(rwlock->name);
 	free(rwlock);
 	return NULL;
     }
@@ -678,6 +679,7 @@ empth_rwlock_create(char *name)
     if ((rwlock->can_write = CreateEvent(NULL, FALSE, TRUE, NULL)) == NULL) {
 	logerror("rwlock_create: failed to create writer event %s at %s:%d",
 	    name, __FILE__, __LINE__);
+	free(rwlock->name);
 	CloseHandle(rwlock->can_read);
 	free(rwlock);
 	return NULL;
@@ -690,6 +692,8 @@ empth_rwlock_destroy(empth_rwlock_t *rwlock)
 {
     if (CANT_HAPPEN(rwlock->nread || rwlock->nwrite))
 	return;
+    if (rwlock->name != NULL)
+	free(rwlock->name);
     CloseHandle(rwlock->can_read);
     CloseHandle(rwlock->can_write);
     free(rwlock);
