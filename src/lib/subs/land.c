@@ -45,48 +45,48 @@
 void
 lnd_postread(int n, void *ptr)
 {
-    struct lndstr *llp = ptr;
+    struct lndstr *lp = ptr;
 
-    if (llp->lnd_uid != n) {
+    if (lp->lnd_uid != n) {
 	logerror("lnd_postread: Error - %d != %d, zeroing.\n",
-		 llp->lnd_uid, n);
-	memset(llp, 0, sizeof(struct lndstr));
+		 lp->lnd_uid, n);
+	memset(lp, 0, sizeof(struct lndstr));
     }
 
     if (opt_MOB_ACCESS)
-	lnd_do_upd_mob(llp);
-    player->owner = (player->god || llp->lnd_own == player->cnum);
+	lnd_do_upd_mob(lp);
+    player->owner = (player->god || lp->lnd_own == player->cnum);
 }
 
 void
 lnd_prewrite(int n, void *old, void *new)
 {
     struct lndstr *oldlp = old;
-    struct lndstr *llp = new;
-    natid own = llp->lnd_own;
+    struct lndstr *lp = new;
+    natid own = lp->lnd_own;
 
-    if (llp->lnd_own && llp->lnd_effic < LAND_MINEFF) {
+    if (lp->lnd_own && lp->lnd_effic < LAND_MINEFF) {
 	own = 0;
-	llp->lnd_ship = llp->lnd_land = -1;
+	lp->lnd_ship = lp->lnd_land = -1;
     } else {
-	item_prewrite(llp->lnd_item);
+	item_prewrite(lp->lnd_item);
     }
 
-    if (CANT_HAPPEN(llp->lnd_ship >= 0 && llp->lnd_land >= 0))
-	llp->lnd_land = -1;
-    if (oldlp->lnd_ship != llp->lnd_ship)
-	lnd_carrier_change(llp, EF_SHIP, oldlp->lnd_ship, llp->lnd_ship);
-    if (oldlp->lnd_land != llp->lnd_land)
-	lnd_carrier_change(llp, EF_LAND, oldlp->lnd_land, llp->lnd_land);
+    if (CANT_HAPPEN(lp->lnd_ship >= 0 && lp->lnd_land >= 0))
+	lp->lnd_land = -1;
+    if (oldlp->lnd_ship != lp->lnd_ship)
+	lnd_carrier_change(lp, EF_SHIP, oldlp->lnd_ship, lp->lnd_ship);
+    if (oldlp->lnd_land != lp->lnd_land)
+	lnd_carrier_change(lp, EF_LAND, oldlp->lnd_land, lp->lnd_land);
 
-    /* We've avoided assigning to llp->lnd_own, in case oldsp == sp */
+    /* We've avoided assigning to lp->lnd_own, in case oldsp == sp */
     if (oldlp->lnd_own != own)
 	lost_and_found(EF_LAND, oldlp->lnd_own, own,
-		       llp->lnd_uid, llp->lnd_x, llp->lnd_y);
+		       lp->lnd_uid, lp->lnd_x, lp->lnd_y);
 
-    llp->lnd_own = own;
-    if (!own || llp->lnd_x != oldlp->lnd_x || llp->lnd_y != oldlp->lnd_y)
-	unit_update_cargo((struct empobj *)llp);
+    lp->lnd_own = own;
+    if (!own || lp->lnd_x != oldlp->lnd_x || lp->lnd_y != oldlp->lnd_y)
+	unit_update_cargo((struct empobj *)lp);
 }
 
 void
