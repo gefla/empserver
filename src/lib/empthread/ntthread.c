@@ -73,7 +73,7 @@
 struct loc_Thread {
 
     /* The thread name, passed in at create time. */
-    char szName[17];
+    char *szName;
 
     /* True if this is the main line, and not a real thread. */
     BOOL bMainThread;
@@ -224,6 +224,8 @@ loc_FreeThreadInfo(empth_t *pThread)
     if (pThread) {
 	if (pThread->hThreadEvent)
 	    CloseHandle(pThread->hThreadEvent);
+	if (pThread->szName != NULL)
+	    free(pThread->szName);
 	memset(pThread, 0, sizeof(*pThread));
 	free(pThread);
     }
@@ -403,7 +405,7 @@ empth_init(void **ctx_ptr, int flags)
     }
     memset(pThread, 0, sizeof(*pThread));
 
-    strncpy(pThread->szName, "Main", sizeof(pThread->szName) - 1);
+    pThread->szName = strdup("Main");
     pThread->ulThreadID = GetCurrentThreadId();
     pThread->bMainThread = TRUE;
 
@@ -446,7 +448,7 @@ empth_create(void (*entry)(void *), int size, int flags,
     }
     memset(pThread, 0, sizeof(*pThread));
 
-    strncpy(pThread->szName, name, sizeof(pThread->szName) - 1);
+    pThread->szName = strdup(name);
     pThread->pvUserData = ud;
     pThread->pfnEntry = entry;
     pThread->bMainThread = FALSE;
@@ -502,7 +504,9 @@ empth_name(empth_t *thread)
 void
 empth_set_name(empth_t *thread, char *name)
 {
-    strncpy(thread->szName, name, sizeof(thread->szName) - 1);
+    if (thread->szName != NULL)
+	free(thread->szName);
+    thread->szName = strdup(name);
 }
 
 /************************
