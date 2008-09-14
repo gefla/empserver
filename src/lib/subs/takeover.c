@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include "file.h"
+#include "empobj.h"
 #include "game.h"
 #include "land.h"
 #include "lost.h"
@@ -47,6 +48,8 @@
 #include "sect.h"
 #include "ship.h"
 #include "xy.h"
+
+static void takeover_unit(struct empobj *, natid);
 
 void
 takeover(struct sctstr *sp, natid newown)
@@ -200,96 +203,70 @@ takeover_plane(struct plnstr *pp, natid newown)
 	   prplane(pp),
 	   cname(newown), xyas(pp->pln_x, pp->pln_y, pp->pln_own));
     }
-    if (opt_MARKET)
-	trdswitchown(EF_PLANE, pp, newown);
-    if (pp->pln_mobil > 0)
-	pp->pln_mobil = 0;
-    pp->pln_own = newown;
-    pp->pln_mission = 0;
-    pp->pln_wing = 0;
-    putplane(pp->pln_uid, pp);
+    takeover_unit((struct empobj *)pp, newown);
 }
 
 void
 takeover_ship(struct shpstr *sp, natid newown)
 {
-    struct plnstr *pp;
-    struct lndstr *lp;
-    struct nstr_item ni;
-    struct plnstr p;
-    struct lndstr llp;
-
-    if (opt_MARKET)
-	trdswitchown(EF_SHIP, sp, newown);
-    sp->shp_own = newown;
-    sp->shp_mission = 0;
-    sp->shp_fleet = 0;
-    sp->shp_rflags = 0;
-    memset(sp->shp_rpath, 0, sizeof(sp->shp_rpath));
-    pp = &p;
-    lp = &llp;
-    /* Take over planes */
-    snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
-    while (nxtitem(&ni, pp)) {
-	if (pp->pln_effic > PLANE_MINEFF)
-	    pp->pln_effic = PLANE_MINEFF;
-	pp->pln_mobil = 0;
-	if (opt_MOB_ACCESS)
-	    game_tick_to_now(&pp->pln_access);
-	if (opt_MARKET)
-	    trdswitchown(EF_PLANE, pp, newown);
-	pp->pln_mission = 0;
-	pp->pln_own = newown;
-	putplane(pp->pln_uid, pp);
-    }
-    /* Take over land units */
-    snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
-    while (nxtitem(&ni, lp))
-	takeover_land(lp, newown);
-    putship(sp->shp_uid, sp);
+    takeover_unit((struct empobj *)sp, newown);
 }
 
 void
 takeover_land(struct lndstr *landp, natid newown)
 {
+    takeover_unit((struct empobj *)landp, newown);
+}
+
+static void
+takeover_unit(struct empobj *unit, natid newown)
+{
+    struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
+    int type;
     struct nstr_item ni;
-    struct plnstr p;
-    struct lndstr llp;
+    union empobj_storage cargo;
 
-    if (landp->lnd_effic < LAND_MINEFF) {
-	putland(landp->lnd_uid, landp);
-	return;
-    }
-    landp->lnd_army = 0;
-    landp->lnd_mobil = 0;
-    if (opt_MOB_ACCESS)
-	game_tick_to_now(&landp->lnd_access);
-    landp->lnd_harden = 0;
+    unit->own = newown;
     if (opt_MARKET)
-	trdswitchown(EF_LAND, landp, newown);
-    landp->lnd_mission = 0;
-    landp->lnd_own = newown;
-    pp = &p;
-    lp = &llp;
-    /* Take over planes */
-    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, landp->lnd_uid);
-    while (nxtitem(&ni, pp)) {
-	if (pp->pln_effic > PLANE_MINEFF)
-	    pp->pln_effic = PLANE_MINEFF;
-	pp->pln_mobil = 0;
-	if (opt_MOB_ACCESS)
-	    game_tick_to_now(&pp->pln_access);
-	if (opt_MARKET)
-	    trdswitchown(EF_PLANE, pp, newown);
-	pp->pln_mission = 0;
-	pp->pln_own = newown;
-	putplane(pp->pln_uid, pp);
+	trdswitchown(unit->ef_type, unit, newown);
+    unit->group = 0;
+    unit->mission = 0;
+
+    switch (unit->ef_type) {
+    case EF_SHIP:
+	sp = (struct shpstr *)unit;
+	sp->shp_rflags = 0;
+	memset(sp->shp_rpath, 0, sizeof(sp->shp_rpath));
+	break;
+    case EF_PLANE:
+	pp = (struct plnstr *)unit;
+	if (pp->pln_mobil > 0)
+	    pp->pln_mobil = 0;
+	break;
+    case EF_LAND:
+	lp = (struct lndstr *)unit;
+	if (lp->lnd_mobil > 0)
+	    lp->lnd_mobil = 0;
+	lp->lnd_harden = 0;
+	break;
+    case EF_NUKE:
+	break;
+    default:
+	CANT_REACH();
     }
-    /* Take over land units */
-    snxtitem_cargo(&ni, EF_LAND, EF_LAND, landp->lnd_uid);
-    while (nxtitem(&ni, lp))
-	takeover_land(lp, newown);
-    putland(landp->lnd_uid, landp);
+
+    put_empobj(unit->ef_type, unit->uid, unit);
+
+    for (type = EF_PLANE; type <= EF_NUKE; type++) {
+	snxtitem_cargo(&ni, type, unit->ef_type, unit->uid);
+	while (nxtitem(&ni, &cargo)) {
+	    if (cargo.gen.own == newown)
+		continue;
+	    if (type == EF_PLANE)
+		cargo.plane.pln_effic = PLANE_MINEFF;
+	    takeover_unit(&cargo.gen, newown);
+	}
+    }
 }
