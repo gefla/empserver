@@ -47,6 +47,7 @@
 #include "plane.h"
 #include "ship.h"
 #include "treaty.h"
+#include "unit.h"
 
 static int build_nuke(struct sctstr *sp,
 		      struct nchrstr *np, short *vec, int tlev);
@@ -285,7 +286,7 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
 {
     struct shpstr ship;
     struct nstr_item nstr;
-    int avail, i;
+    int avail;
     double cost;
     double eff = SHIP_MINEFF / 100.0;
     int lcm, hcm;
@@ -337,19 +338,6 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     ef_blank(EF_SHIP, nstr.cur, &ship);
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
-    ship.shp_destx[0] = sp->sct_x;
-    ship.shp_desty[0] = sp->sct_y;
-    ship.shp_destx[1] = sp->sct_x;
-    ship.shp_desty[1] = sp->sct_y;
-    ship.shp_autonav = 0;
-    /* new code for autonav, Chad Zabel 1-15-94 */
-    for (i = 0; i < TMAX; ++i) {
-	ship.shp_tstart[i] = I_NONE;
-	ship.shp_tend[i] = I_NONE;
-	ship.shp_lstart[i] = 0;
-	ship.shp_lend[i] = 0;
-    }
-    ship.shp_mission = 0;
     ship.shp_own = player->cnum;
     ship.shp_type = mp - mchr;
     ship.shp_effic = SHIP_MINEFF;
@@ -359,20 +347,15 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
     } else {
 	ship.shp_mobil = 0;
     }
-    ship.shp_fleet = 0;
     memset(ship.shp_item, 0, sizeof(ship.shp_item));
     ship.shp_pstage = PLG_HEALTHY;
     ship.shp_ptime = 0;
-    ship.shp_mobquota = 0;
-    *ship.shp_path = 0;
-    ship.shp_follow = nstr.cur;
     ship.shp_name[0] = 0;
     ship.shp_orig_own = player->cnum;
     ship.shp_orig_x = sp->sct_x;
     ship.shp_orig_y = sp->sct_y;
-    ship.shp_rflags = 0;
-    memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
     shp_set_tech(&ship, tlev);
+    unit_wipe_orders((struct empobj *)&ship);
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
@@ -467,7 +450,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
     land.lnd_own = player->cnum;
-    land.lnd_mission = 0;
     land.lnd_type = lp - lchr;
     land.lnd_effic = LAND_MINEFF;
     if (opt_MOB_ACCESS) {
@@ -476,19 +458,15 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     } else {
 	land.lnd_mobil = 0;
     }
-    land.lnd_army = 0;
     land.lnd_flags = 0;
     land.lnd_ship = -1;
     land.lnd_land = -1;
     land.lnd_harden = 0;
-    land.lnd_retreat = morale_base;
-    land.lnd_rflags = 0;
-    memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
-    land.lnd_rad_max = 0;
     memset(land.lnd_item, 0, sizeof(land.lnd_item));
     land.lnd_pstage = PLG_HEALTHY;
     land.lnd_ptime = 0;
     lnd_set_tech(&land, tlev);
+    unit_wipe_orders((struct empobj *)&land);
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
@@ -674,9 +652,9 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     nuke.nuk_own = sp->sct_own;
     nuke.nuk_type = np - nchr;
     nuke.nuk_effic = 100;
-    nuke.nuk_stockpile = 0;
     nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
     nuke.nuk_tech = tlev;
+    unit_wipe_orders((struct empobj *)&nuke);
 
     vec[I_HCM] -= np->n_hcm;
     vec[I_LCM] -= np->n_lcm;
@@ -764,17 +742,13 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     } else {
 	plane.pln_mobil = 0;
     }
-    plane.pln_mission = 0;
-    plane.pln_opx = 0;
-    plane.pln_opy = 0;
-    plane.pln_radius = 0;
     plane.pln_range = UCHAR_MAX; /* will be adjusted by pln_set_tech() */
-    plane.pln_wing = 0;
     plane.pln_ship = -1;
     plane.pln_land = -1;
     plane.pln_harden = 0;
     plane.pln_flags = 0;
     pln_set_tech(&plane, tlev);
+    unit_wipe_orders((struct empobj *)&plane);
 
     vec[I_LCM] -= lcm;
     vec[I_HCM] -= hcm;
