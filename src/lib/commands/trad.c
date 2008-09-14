@@ -47,6 +47,7 @@
 #include "plane.h"
 #include "ship.h"
 #include "trade.h"
+#include "unit.h"
 
 /*
  * format: trade
@@ -273,9 +274,6 @@ int
 check_trade(void)
 {
     int n;
-    struct nstr_item ni;
-    struct plnstr plane;
-    struct lndstr land;
     struct natstr *natp;
     struct trdstr trade;
     union empobj_storage tg;
@@ -352,36 +350,30 @@ check_trade(void)
 	case EF_NUKE:
 	    tg.nuke.nuk_x = trade.trd_x;
 	    tg.nuke.nuk_y = trade.trd_y;
-	    tg.nuke.nuk_own = trade.trd_maxbidder;
+	    tg.nuke.nuk_plane = -1;
 	    break;
 	case EF_PLANE:
 	    if (!pln_is_in_orbit(&tg.plane)) {
 		tg.plane.pln_x = trade.trd_x;
 		tg.plane.pln_y = trade.trd_y;
 	    }
-	    tg.plane.pln_own = trade.trd_maxbidder;
-	    tg.plane.pln_wing = 0;
-	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.plane.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
 		game_tick_to_now(&tg.plane.pln_access);
 	    } else {
 		tg.plane.pln_mobil = 0;
 	    }
-	    tg.plane.pln_mission = 0;
 	    tg.plane.pln_harden = 0;
 	    tg.plane.pln_ship = -1;
 	    tg.plane.pln_land = -1;
 	    break;
 	case EF_SHIP:
-	    takeover_ship(&tg.ship, trade.trd_maxbidder, 0);
+	    tg.ship.shp_rflags = 0;
+	    memset(tg.ship.shp_rpath, 0, sizeof(tg.ship.shp_rpath));
 	    break;
 	case EF_LAND:
 	    tg.land.lnd_x = trade.trd_x;
 	    tg.land.lnd_y = trade.trd_y;
-	    tg.land.lnd_own = trade.trd_maxbidder;
-	    tg.land.lnd_army = 0;
-	    /* no cheap version of fly */
 	    if (opt_MOB_ACCESS) {
 		tg.land.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
 		game_tick_to_now(&tg.land.lnd_access);
@@ -389,31 +381,7 @@ check_trade(void)
 		tg.land.lnd_mobil = 0;
 	    }
 	    tg.land.lnd_harden = 0;
-	    tg.land.lnd_mission = 0;
-	    /* Drop any land units this unit was carrying */
-	    snxtitem_xy(&ni, EF_LAND, tg.land.lnd_x, tg.land.lnd_y);
-	    while (nxtitem(&ni, &land)) {
-		if (land.lnd_land != tg.land.lnd_uid)
-		    continue;
-		land.lnd_land = -1;
-		wu(0, land.lnd_own, "unit #%d dropped in %s\n",
-		   land.lnd_uid,
-		   xyas(land.lnd_x, land.lnd_y, land.lnd_own));
-		putland(land.lnd_uid, &land);
-	    }
-	    /* Drop any planes this unit was carrying */
-	    snxtitem_xy(&ni, EF_PLANE, tg.land.lnd_x, tg.land.lnd_y);
-	    while (nxtitem(&ni, &plane)) {
-		if (plane.pln_flags & PLN_LAUNCHED)
-		    continue;
-		if (plane.pln_land != land.lnd_uid)
-		    continue;
-		plane.pln_land = -1;
-		wu(0, plane.pln_own, "plane #%d dropped in %s\n",
-		   plane.pln_uid,
-		   xyas(plane.pln_x, plane.pln_y, plane.pln_own));
-		putplane(plane.pln_uid, &plane);
-	    }
+	    unit_drop_cargo(&tg.gen, 0);
 	    tg.land.lnd_ship = -1;
 	    tg.land.lnd_land = -1;
 	    break;
@@ -421,10 +389,9 @@ check_trade(void)
 	    logerror("Bad trade type %d in trade\n", trade.trd_type);
 	    break;
 	}
-	if (!ef_write(trade.trd_type, saveid, &tg)) {
-	    logerror("Couldn't write unit to disk; seek help.\n");
-	    continue;
-	}
+	unit_give_away(&tg.gen, trade.trd_maxbidder, 0);
+	put_empobj(trade.trd_type, saveid, &tg.gen);
+
 	nreport(trade.trd_owner, N_MAKE_SALE, trade.trd_maxbidder, 1);
 	wu(0, trade.trd_owner, "%s bought a %s #%d from you for $%.2f\n",
 	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
