@@ -233,7 +233,7 @@ snxtitem_list(struct nstr_item *np, int type, int *list, int len)
  */
 void
 snxtitem_cargo(struct nstr_item *np, int type,
-		int carrier_type, int carrier_uid)
+	       int carrier_type, int carrier_uid)
 {
     memset(np, 0, sizeof(*np));
     np->cur = -1;
