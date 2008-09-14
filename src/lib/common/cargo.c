@@ -235,10 +235,9 @@ unit_cargo_init(void)
     struct lndstr *lp;
     struct nukstr *np;
 
-    for (i = EF_SHIP; i <= EF_NUKE; i++) {
-	nclink[i] = 0;
+    memset(nclink, 0, sizeof(nclink));
+    for (i = EF_SHIP; i <= EF_NUKE; i++)
 	unit_onresize(i);
-    }
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (!pp->pln_own)
@@ -285,7 +284,8 @@ unit_onresize(int type)
 	clink_init(&cl[i]);
     clink[type] = cl;
     nclink[type] = n;
-    clink_check(type);
+    if (ef_flags(type) & EFF_MEM)
+	clink_check(type);
     return 0;
 }
 
