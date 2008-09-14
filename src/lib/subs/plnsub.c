@@ -756,7 +756,6 @@ pln_put1(struct plist *plp)
 {
     struct plnstr *pp;
     struct shpstr ship;
-    struct lndstr land;
     struct sctstr sect;
 
     pp = &plp->plane;
@@ -769,15 +768,7 @@ pln_put1(struct plist *plp)
     if (!(pp->pln_flags & PLN_LAUNCHED))
 	;			/* never took off */
     else if (pp->pln_effic < PLANE_MINEFF) {
-	/* destroyed */
-	if (pp->pln_ship >= 0) {
-	    getship(pp->pln_ship, &ship);
-	    take_plane_off_ship(pp, &ship);
-	}
-	if (pp->pln_land >= 0) {
-	    getland(pp->pln_land, &land);
-	    take_plane_off_land(pp, &land);
-	}
+	;			/* destroyed */
     } else if (pp->pln_ship >= 0) {
 	/* It is landing on a carrier */
 	getship(pp->pln_ship, &ship);

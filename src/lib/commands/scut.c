@@ -143,12 +143,6 @@ scut(void)
 	    scuttle_land(&item.land);
 	} else {
 	    pr("%s", prplane(&item.plane));
-	    if (item.plane.pln_ship >= 0) {
-		struct shpstr ship;
-
-		getship(item.plane.pln_ship, &ship);
-		take_plane_off_ship(&item.plane, &ship);
-	    }
 	    item.plane.pln_effic = 0;
 	    putplane(item.plane.pln_uid, &item.plane);
 	}
