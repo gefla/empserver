@@ -268,13 +268,44 @@ unit_drop_cargo(struct empobj *unit, natid newown)
 		obj_nameof(&cargo.gen),
 		ef_nameof(unit->ef_type), unit->uid,
 		xyas(cargo.gen.x, cargo.gen.y, cargo.gen.own));
-	    if (newown) {
-		mpr(cargo.gen.own, "%s given to %s\n",
-		    obj_nameof(&cargo.gen), cname(newown));
-		mpr(newown, "%s given to you by %s\n",
-		    obj_nameof(&cargo.gen), cname(cargo.gen.own));
-		cargo.gen.own = newown;
-	    }
+	    if (newown)
+		unit_give_away(&cargo.gen, newown, cargo.gen.own);
+	    put_empobj(type, cargo.gen.uid, &cargo.gen);
+	}
+    }
+}
+
+/*
+ * Give UNIT and its cargo to RECIPIENT.
+ * No action if RECIPIENT already owns UNIT.
+ * If GIVER is non-zero, inform RECIPIENT and GIVER of the transaction.
+ * Clears mission and group on the units given away.
+ */
+void
+unit_give_away(struct empobj *unit, natid recipient, natid giver)
+{
+    int type;
+    struct nstr_item ni;
+    union empobj_storage cargo;
+
+    if (unit->own == recipient)
+	return;
+
+    if (giver) {
+	mpr(unit->own, "%s given to %s\n",
+	    obj_nameof(unit), cname(recipient));
+	mpr(recipient, "%s given to you by %s\n",
+	    obj_nameof(unit), cname(giver));
+    }
+
+    unit->own = recipient;
+    unit->mission = 0;
+    unit->group = 0;
+
+    for (type = EF_PLANE; type <= EF_NUKE; type++) {
+	snxtitem_cargo(&ni, type, unit->ef_type, unit->uid);
+	while (nxtitem(&ni, &cargo)) {
+	    unit_give_away(&cargo.gen, recipient, giver);
 	    put_empobj(type, cargo.gen.uid, &cargo.gen);
 	}
     }
