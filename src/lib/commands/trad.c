@@ -372,8 +372,6 @@ check_trade(void)
 	    tg.plane.pln_land = -1;
 	    break;
 	case EF_SHIP:
-	    tg.ship.shp_rflags = 0;
-	    memset(tg.ship.shp_rpath, 0, sizeof(tg.ship.shp_rpath));
 	    break;
 	case EF_LAND:
 	    tg.land.lnd_x = trade.trd_x;

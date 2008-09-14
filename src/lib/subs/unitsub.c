@@ -37,6 +37,7 @@
 #include "empobj.h"
 #include "file.h"
 #include "player.h"
+#include "optlist.h"
 #include "prototypes.h"
 #include "unit.h"
 
@@ -299,8 +300,7 @@ unit_give_away(struct empobj *unit, natid recipient, natid giver)
     }
 
     unit->own = recipient;
-    unit->mission = 0;
-    unit->group = 0;
+    unit_wipe_orders(unit);
 
     for (type = EF_PLANE; type <= EF_NUKE; type++) {
 	snxtitem_cargo(&ni, type, unit->ef_type, unit->uid);
@@ -308,5 +308,57 @@ unit_give_away(struct empobj *unit, natid recipient, natid giver)
 	    unit_give_away(&cargo.gen, recipient, giver);
 	    put_empobj(type, cargo.gen.uid, &cargo.gen);
 	}
+    }
+}
+
+/*
+ * Wipe orders and such from UNIT.
+ */
+void
+unit_wipe_orders(struct empobj *unit)
+{
+    struct shpstr *sp;
+    struct plnstr *pp;
+    struct lndstr *lp;
+    int i;
+
+    unit->group = 0;
+    unit->opx = unit->opy = 0;
+    unit->mission = 0;
+    unit->radius = 0;
+
+    switch (unit->ef_type) {
+    case EF_SHIP:
+	sp = (struct shpstr *)unit;
+	sp->shp_destx[0] = sp->shp_desty[0] = 0;
+	sp->shp_destx[1] = sp->shp_desty[1] = 0;
+	for (i = 0; i < TMAX; ++i) {
+	    sp->shp_tstart[i] = I_NONE;
+	    sp->shp_tend[i] = I_NONE;
+	    sp->shp_lstart[i] = 0;
+	    sp->shp_lend[i] = 0;
+	}
+	sp->shp_autonav = 0;
+	sp->shp_mobquota = 0;
+	sp->shp_path[0] = 0;
+	sp->shp_follow = sp->shp_uid;
+	sp->shp_rflags = 0;
+	sp->shp_rpath[0] = 0;
+	break;
+    case EF_PLANE:
+	pp = (struct plnstr *)unit;
+	pp->pln_range = pln_range_max(pp);
+	break;
+    case EF_LAND:
+	lp = (struct lndstr *)unit;
+	lp->lnd_retreat = morale_base;
+	lp->lnd_rflags = 0;
+	lp->lnd_rpath[0] = 0;
+	lp->lnd_rad_max = 0;
+	break;
+    case EF_NUKE:
+	break;
+    default:
+	CANT_REACH();
     }
 }

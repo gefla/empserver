@@ -47,6 +47,7 @@
 #include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
+#include "unit.h"
 #include "xy.h"
 
 static void takeover_unit(struct empobj *, natid);
@@ -231,14 +232,11 @@ takeover_unit(struct empobj *unit, natid newown)
     unit->own = newown;
     if (opt_MARKET)
 	trdswitchown(unit->ef_type, unit, newown);
-    unit->group = 0;
-    unit->mission = 0;
+    unit_wipe_orders(unit);
 
     switch (unit->ef_type) {
     case EF_SHIP:
 	sp = (struct shpstr *)unit;
-	sp->shp_rflags = 0;
-	memset(sp->shp_rpath, 0, sizeof(sp->shp_rpath));
 	break;
     case EF_PLANE:
 	pp = (struct plnstr *)unit;

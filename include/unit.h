@@ -59,3 +59,4 @@ extern void unit_view(struct emp_qelem *);
 extern void unit_update_cargo(struct empobj *);
 extern void unit_drop_cargo(struct empobj *, natid);
 extern void unit_give_away(struct empobj *, natid, natid);
+extern void unit_wipe_orders(struct empobj *);
