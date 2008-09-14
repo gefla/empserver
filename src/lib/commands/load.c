@@ -44,6 +44,7 @@
 #include "plague.h"
 #include "plane.h"
 #include "ship.h"
+#include "unit.h"
 
 /*
  * The values 1 and -1 are important below, don't change them.
@@ -312,11 +313,9 @@ lload(void)
 void
 gift(natid givee, natid giver, void *ptr, char *mesg)
 {
-    struct empobj *gen = ptr;
-
     if (giver != givee)
-	wu(0, givee, "%s %s %s\n", cname(giver), obj_nameof(gen), mesg);
-    gen->own = givee;
+	wu(0, givee, "%s %s %s\n", cname(giver), obj_nameof(ptr), mesg);
+    unit_give_away(ptr, givee, 0);
 }
 
 static int
@@ -441,7 +440,6 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
 	    gift(sp->shp_own, player->cnum, &pln, buf);
-	    pln.pln_mission = 0;
 	    putplane(pln.pln_uid, &pln);
 	} else {
 	    pln.pln_ship = -1;
@@ -466,9 +464,8 @@ static int
 load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	       int load_unload, int *nshipsp)
 {
-    struct nstr_item pni, ni;
+    struct nstr_item ni;
     struct lndstr land;
-    struct plnstr plane;
     int loaded = 0;
     char *p;
     char prompt[512];
@@ -596,22 +593,10 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    gift(sp->shp_own, player->cnum, &land, buf);
 	    land.lnd_ship = sp->shp_uid;
 	    land.lnd_harden = 0;
-	    land.lnd_mission = 0;
 	    resupply_all(&land);
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
-	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, &plane)) {
-		if (plane.pln_flags & PLN_LAUNCHED)
-		    continue;
-		if (plane.pln_land != land.lnd_uid)
-		    continue;
-		sprintf(buf, "loaded on %s", prship(sp));
-		gift(sp->shp_own, player->cnum, &plane, buf);
-		plane.pln_mission = 0;
-		putplane(plane.pln_uid, &plane);
-	    }
 	} else {
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
@@ -622,25 +607,6 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_ship = -1;
 	    putland(land.lnd_uid, &land);
-
-	    /* Spies are unloaded quietly, others aren't, and
-	       in the off chance they can carry a plane (missile?)
-	       they are quietly unloaded too. */
-	    if (!(lchr[(int)land.lnd_type].l_flags & L_SPY)) {
-		snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-		while (nxtitem(&pni, &plane)) {
-		    if (plane.pln_flags & PLN_LAUNCHED)
-			continue;
-		    if (plane.pln_land != land.lnd_uid)
-			continue;
-		    sprintf(buf, "unloaded at %s",
-			    xyas(plane.pln_x, plane.pln_y,
-				 sectp->sct_own));
-		    gift(sectp->sct_own, player->cnum, &plane, buf);
-		    plane.pln_mission = 0;
-		    putplane(plane.pln_uid, &plane);
-		}
-	    }
 	}
 	pr("%s %s %s at %s.\n",
 	   prland(&land),
@@ -926,9 +892,8 @@ static int
 load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	       int load_unload, int *nunitsp)
 {
-    struct nstr_item pni, ni;
+    struct nstr_item ni;
     struct lndstr land;
-    struct plnstr plane;
     int loaded = 0;
     char *p;
     char prompt[512];
@@ -1022,22 +987,10 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    gift(lp->lnd_own, player->cnum, &land, buf);
 	    land.lnd_land = lp->lnd_uid;
 	    land.lnd_harden = 0;
-	    land.lnd_mission = 0;
 	    resupply_all(&land);
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
-	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, &plane)) {
-		if (plane.pln_flags & PLN_LAUNCHED)
-		    continue;
-		if (plane.pln_land != land.lnd_uid)
-		    continue;
-		sprintf(buf, "loaded on %s", prland(lp));
-		gift(lp->lnd_own, player->cnum, &plane, buf);
-		plane.pln_mission = 0;
-		putplane(plane.pln_uid, &plane);
-	    }
 	} else {
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
@@ -1045,18 +998,6 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    gift(sectp->sct_own, player->cnum, &land, buf);
 	    land.lnd_land = -1;
 	    putland(land.lnd_uid, &land);
-	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, &plane)) {
-		if (plane.pln_flags & PLN_LAUNCHED)
-		    continue;
-		if (plane.pln_land != land.lnd_uid)
-		    continue;
-		sprintf(buf, "unloaded at %s",
-			xyas(plane.pln_x, plane.pln_y, sectp->sct_own));
-		gift(sectp->sct_own, player->cnum, &plane, buf);
-		plane.pln_mission = 0;
-		putplane(plane.pln_uid, &plane);
-	    }
 	}
 	pr("%s %s %s at %s.\n",
 	   prland(&land),

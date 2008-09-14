@@ -207,8 +207,6 @@ tend_land(struct shpstr *tenderp, char *units)
     struct nstr_item targets;
     struct shpstr target;
     struct lndstr land;
-    struct plnstr plane;
-    struct nstr_item pni;
     char buf[1024];
 
     if (!snxtitem(&lni, EF_LAND, units, NULL))
@@ -277,22 +275,10 @@ tend_land(struct shpstr *tenderp, char *units)
 	    gift(target.shp_own, player->cnum, &land, buf);
 	    land.lnd_ship = target.shp_uid;
 	    land.lnd_harden = 0;
-	    land.lnd_mission = 0;
 	    putland(land.lnd_uid, &land);
 	    expose_ship(tenderp, &target);
 	    putship(target.shp_uid, &target);
 	    putship(tenderp->shp_uid, tenderp);
-	    snxtitem_xy(&pni, EF_PLANE, land.lnd_x, land.lnd_y);
-	    while (nxtitem(&pni, &plane)) {
-		if (plane.pln_flags & PLN_LAUNCHED)
-		    continue;
-		if (plane.pln_land != land.lnd_uid)
-		    continue;
-		sprintf(buf, "loaded on %s", prship(&target));
-		gift(target.shp_own, player->cnum, &plane, buf);
-		plane.pln_mission = 0;
-		putplane(plane.pln_uid, &plane);
-	    }
 	}
     }
     return 0;
