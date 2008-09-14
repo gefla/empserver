@@ -133,6 +133,7 @@ trad(void)
     }
     if (!trade_getitem(&trade, &tg)) {
 	pr("Can't find trade #%d!\n", trade.trd_unitid);
+	trade.trd_owner = 0;
 	trade.trd_unitid = -1;
 	if (!puttrade(lotno, &trade)) {
 	    logerror("trad: can't write trade");
@@ -289,12 +290,14 @@ check_trade(void)
 	if (!trade_getitem(&trade, &tg))
 	    continue;
 	if (tg.gen.own == 0) {
+	    trade.trd_owner = 0;
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
 	}
 	if (tg.gen.own != trade.trd_owner) {
 	    logerror("Something weird, tg.gen.own != trade.trd_owner!\n");
+	    trade.trd_owner = 0;
 	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
@@ -312,6 +315,7 @@ check_trade(void)
 	    continue;
 
 	saveid = trade.trd_unitid;
+	trade.trd_owner = 0;
 	trade.trd_unitid = -1;
 	if (!puttrade(n, &trade)) {
 	    logerror("Couldn't save trade after purchase; get help!\n");
