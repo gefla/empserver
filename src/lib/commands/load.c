@@ -444,7 +444,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    pln.pln_mission = 0;
 	    putplane(pln.pln_uid, &pln);
 	} else {
-	    take_plane_off_ship(&pln, sp);
+	    pln.pln_ship = -1;
 	    sprintf(buf, "unloaded in your %s at %s",
 		    dchr[sectp->sct_type].d_name,
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
@@ -823,7 +823,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    gift(lp->lnd_own, player->cnum, &pln, buf);
 	    putplane(pln.pln_uid, &pln);
 	} else {
-	    take_plane_off_land(&pln, lp);
+	    pln.pln_land = -1;
 	    sprintf(buf, "unloaded at your sector at %s",
 		    xyas(sectp->sct_x, sectp->sct_y, sectp->sct_own));
 	    gift(sectp->sct_own, player->cnum, &pln, buf);

@@ -860,16 +860,6 @@ put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
     return 1;
 }
 
-void
-take_plane_off_ship(struct plnstr *plane, struct shpstr *ship)
-{
-    if (CANT_HAPPEN(plane->pln_ship != ship->shp_uid))
-	return;
-
-    plane->pln_ship = -1;
-    putplane(plane->pln_uid, plane);
-}
-
 /*
  * Fit a plane of PP's type on land unit LP.
  * Updating the plane accordingly is the caller's job.
@@ -898,16 +888,6 @@ put_plane_on_land(struct plnstr *plane, struct lndstr *land)
     plane->pln_land = land->lnd_uid;
     putplane(plane->pln_uid, plane);
     return 1;
-}
-
-void
-take_plane_off_land(struct plnstr *plane, struct lndstr *land)
-{
-    if (CANT_HAPPEN(plane->pln_land != land->lnd_uid))
-	return;
-
-    plane->pln_land = -1;
-    putplane(plane->pln_uid, plane);
 }
 
 void
