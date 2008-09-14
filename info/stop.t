@@ -4,17 +4,18 @@
 .SY "stop <TYPE> <SECTS|SHIPS|PLANES|UNITS|NUKES>"
 The stop command stops production and repairs for one update.
 .s1
-Stopped sectors don't gain in efficiency, don't produce anything, and
+Stopped sectors don't gain efficiency, don't produce anything, and
 don't work on ships, planes or units there, but otherwise function
 normally: they still pay tax, distribute goods and so forth.
 .s1
 Stopping ships, planes and land units works just the same: they don't
-gain in efficiency, they don't produce anything (if applicable), and
+gain efficiency, they don't produce anything (if applicable), and
 they don't work on embarked land units or planes.
 .s1
 Stopping nukes doesn't do anything in particular, right now.
 .s1
-Conquering a sector stops it automatically.  Stop orders expire at the
+Conquering a sector, ship, plane, land unit or nuke stops it
+automatically.  Stop orders expire at the
 update.  Use the start command to countermand them manually.
 .s1
 .EX stop se 2,0

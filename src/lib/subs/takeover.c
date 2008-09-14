@@ -225,6 +225,7 @@ takeover_unit(struct empobj *unit, natid newown)
     struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
+    struct nukstr *np;
     int type;
     struct nstr_item ni;
     union empobj_storage cargo;
@@ -237,19 +238,24 @@ takeover_unit(struct empobj *unit, natid newown)
     switch (unit->ef_type) {
     case EF_SHIP:
 	sp = (struct shpstr *)unit;
+	sp->shp_off = 1;
 	break;
     case EF_PLANE:
 	pp = (struct plnstr *)unit;
 	if (pp->pln_mobil > 0)
 	    pp->pln_mobil = 0;
+	pp->pln_off = 1;
 	break;
     case EF_LAND:
 	lp = (struct lndstr *)unit;
 	if (lp->lnd_mobil > 0)
 	    lp->lnd_mobil = 0;
+	lp->lnd_off = 1;
 	lp->lnd_harden = 0;
 	break;
     case EF_NUKE:
+	np = (struct nukstr *)unit;
+	np->nuk_off = 1;
 	break;
     default:
 	CANT_REACH();
