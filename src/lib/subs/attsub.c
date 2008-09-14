@@ -2251,11 +2251,11 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 	putsect(&sect);
     } else if (def->type == EF_SHIP) {
 	getship(def->shp_uid, &ship);
-	takeover_ship(&ship, player->cnum, 1);
+	takeover_ship(&ship, player->cnum);
 	putship(ship.shp_uid, &ship);
     } else if (def->type == EF_LAND) {
 	getland(def->lnd_uid, &land);
-	takeover_land(&land, player->cnum, 1);
+	takeover_land(&land, player->cnum);
 	putland(land.lnd_uid, &land);
     }
     if (delete_me)

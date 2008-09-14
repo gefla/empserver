@@ -113,7 +113,7 @@ takeover(struct sctstr *sp, natid newown)
 	       prland(lp),
 	       cname(newown), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
 	}
-	takeover_land(lp, newown, 1);
+	takeover_land(lp, newown);
     }
 
     sp->sct_avail = 0;
@@ -211,7 +211,7 @@ takeover_plane(struct plnstr *pp, natid newown)
 }
 
 void
-takeover_ship(struct shpstr *sp, natid newown, int hostile)
+takeover_ship(struct shpstr *sp, natid newown)
 {
     struct plnstr *pp;
     struct lndstr *lp;
@@ -231,10 +231,8 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     /* Take over planes */
     snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
     while (nxtitem(&ni, pp)) {
-	if (hostile) {
-	    if (pp->pln_effic > PLANE_MINEFF)
-		pp->pln_effic = PLANE_MINEFF;
-	}
+	if (pp->pln_effic > PLANE_MINEFF)
+	    pp->pln_effic = PLANE_MINEFF;
 	pp->pln_mobil = 0;
 	if (opt_MOB_ACCESS)
 	    game_tick_to_now(&pp->pln_access);
@@ -247,12 +245,12 @@ takeover_ship(struct shpstr *sp, natid newown, int hostile)
     /* Take over land units */
     snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
     while (nxtitem(&ni, lp))
-	takeover_land(lp, newown, hostile);
+	takeover_land(lp, newown);
     putship(sp->shp_uid, sp);
 }
 
 void
-takeover_land(struct lndstr *landp, natid newown, int hostile)
+takeover_land(struct lndstr *landp, natid newown)
 {
     struct plnstr *pp;
     struct lndstr *lp;
@@ -278,10 +276,8 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     /* Take over planes */
     snxtitem_cargo(&ni, EF_PLANE, EF_LAND, landp->lnd_uid);
     while (nxtitem(&ni, pp)) {
-	if (hostile) {
-	    if (pp->pln_effic > PLANE_MINEFF)
-		pp->pln_effic = PLANE_MINEFF;
-	}
+	if (pp->pln_effic > PLANE_MINEFF)
+	    pp->pln_effic = PLANE_MINEFF;
 	pp->pln_mobil = 0;
 	if (opt_MOB_ACCESS)
 	    game_tick_to_now(&pp->pln_access);
@@ -294,6 +290,6 @@ takeover_land(struct lndstr *landp, natid newown, int hostile)
     /* Take over land units */
     snxtitem_cargo(&ni, EF_LAND, EF_LAND, landp->lnd_uid);
     while (nxtitem(&ni, lp))
-	takeover_land(lp, newown, hostile);
+	takeover_land(lp, newown);
     putland(landp->lnd_uid, landp);
 }

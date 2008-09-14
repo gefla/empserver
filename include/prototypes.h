@@ -686,9 +686,9 @@ extern void resupply_commod(struct lndstr *, i_type);
 extern int supply_commod(int, int, int, i_type, int);
 extern int has_supply(struct lndstr *);
 /* takeover.c */
-extern void takeover_land(struct lndstr *, natid, int);
+extern void takeover_land(struct lndstr *, natid);
 extern void takeover(struct sctstr *, natid);
-extern void takeover_ship(struct shpstr *, natid, int);
+extern void takeover_ship(struct shpstr *, natid);
 extern void takeover_plane(struct plnstr *, natid);
 /* trdsub.c */
 /* trechk.c */
