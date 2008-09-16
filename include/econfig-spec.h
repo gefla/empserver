@@ -181,8 +181,6 @@ EMPCF_OPT("RES_POP", opt_RES_POP,
     "Population is limited by research")
 EMPCF_OPT("SAIL", opt_SAIL,
     "Enable sail command")
-EMPCF_OPT("SHOWPLANE", opt_SHOWPLANE,
-    "Show planes and land units embarked on ships or land units up for trade")
 EMPCF_OPT("SLOW_WAR", opt_SLOW_WAR,
     "Declaring war takes time")
 EMPCF_OPT("SUPER_BARS", opt_SUPER_BARS,

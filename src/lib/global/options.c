@@ -59,7 +59,6 @@ int opt_NO_PLAGUE = 1;
 int opt_PINPOINTMISSILE = 1;
 int opt_RES_POP = 0;
 int opt_SAIL = 1;
-int opt_SHOWPLANE = 1;
 int opt_SLOW_WAR = 0;
 int opt_SUPER_BARS = 0;
 int opt_TECH_POP = 0;

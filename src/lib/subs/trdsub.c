@@ -129,33 +129,31 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 		pr("%c:%d ", ichr[it].i_mnem, sp->shp_item[it]);
 	}
 	pr("] #%d", tp->trd_unitid);
-	if (opt_SHOWPLANE) {
-	    snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
-	    while (nxtitem(&ni, &plane)) {
-		pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
-		   plane.pln_tech,
-		   plane.pln_effic,
-		   plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		if (getnuke(nuk_on_plane(&plane), &nuke))
-		    pr("(%s)", nchr[nuke.nuk_type].n_name);
-	    }
-	    snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
-	    while (nxtitem(&ni, &land)) {
-		pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
-		   land.lnd_tech,
-		   land.lnd_effic,
-		   lchr[(int)land.lnd_type].l_name, land.lnd_uid);
-		if (pln_first_on_land(&land) >= 0) {
-		    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, land.lnd_uid);
-		    while (nxtitem(&ni, &plane)) {
-			pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
-			   plane.pln_tech,
-			   plane.pln_effic,
-			   plchr[(int)plane.pln_type].pl_name,
-			   plane.pln_uid);
-			if (getnuke(nuk_on_plane(&plane), &nuke))
-			    pr("(%s)", nchr[nuke.nuk_type].n_name);
-		    }
+	snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
+	while (nxtitem(&ni, &plane)) {
+	    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
+	       plane.pln_tech,
+	       plane.pln_effic,
+	       plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
+	    if (getnuke(nuk_on_plane(&plane), &nuke))
+		pr("(%s)", nchr[nuke.nuk_type].n_name);
+	}
+	snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);
+	while (nxtitem(&ni, &land)) {
+	    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
+	       land.lnd_tech,
+	       land.lnd_effic,
+	       lchr[(int)land.lnd_type].l_name, land.lnd_uid);
+	    if (pln_first_on_land(&land) >= 0) {
+		snxtitem_cargo(&ni, EF_PLANE, EF_LAND, land.lnd_uid);
+		while (nxtitem(&ni, &plane)) {
+		    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
+		       plane.pln_tech,
+		       plane.pln_effic,
+		       plchr[(int)plane.pln_type].pl_name,
+		       plane.pln_uid);
+		    if (getnuke(nuk_on_plane(&plane), &nuke))
+			pr("(%s)", nchr[nuke.nuk_type].n_name);
 		}
 	    }
 	}
@@ -177,18 +175,6 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 		pr("%c:%d ", ichr[it].i_mnem, lp->lnd_item[it]);
 	}
 	pr("] #%d", tp->trd_unitid);
-	if (opt_SHOWPLANE) {
-	    snxtitem_cargo(&ni, EF_PLANE, EF_LAND, lp->lnd_uid);
-	    while (nxtitem(&ni, &plane)) {
-		pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
-		   plane.pln_tech,
-		   plane.pln_effic,
-		   plchr[(int)plane.pln_type].pl_name, plane.pln_uid);
-		if (getnuke(nuk_on_plane(&plane), &nuke))
-		    pr("(%s)", nchr[nuke.nuk_type].n_name);
-	    }
-	}
-	getsect(lp->lnd_x, lp->lnd_y, &sect);
 	break;
     case EF_PLANE:
 	pp = &tgp->plane;

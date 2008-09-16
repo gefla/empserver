@@ -4,7 +4,6 @@
 .nf
 The following options are from KSU code:
 
-SHOWPLANE:	planes/units on ships/units up for trade are shown
 PINPOINT(etc):	Missile exist which target ships instead of sectors
 SAIL:		another way to automatically move ships (may also be buggy)
 DEMANDUPDATE:	updates may be allowed on player demand
