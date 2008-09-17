@@ -301,13 +301,12 @@ unit_give_away(struct empobj *unit, natid recipient, natid giver)
 
     unit->own = recipient;
     unit_wipe_orders(unit);
+    put_empobj(unit->ef_type, unit->uid, unit);
 
     for (type = EF_PLANE; type <= EF_NUKE; type++) {
 	snxtitem_cargo(&ni, type, unit->ef_type, unit->uid);
-	while (nxtitem(&ni, &cargo)) {
+	while (nxtitem(&ni, &cargo))
 	    unit_give_away(&cargo.gen, recipient, giver);
-	    put_empobj(type, cargo.gen.uid, &cargo.gen);
-	}
     }
 }
 
