@@ -155,7 +155,7 @@ landmine(void)
 	       prland(&land), total_mines_laid,
 	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
 	    if (!shells)
-	    	pr(" but is now out of supply\n");
+		pr(" but is now out of supply\n");
 	    else
 		pr("\n");
 	} else

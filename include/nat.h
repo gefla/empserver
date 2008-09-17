@@ -182,9 +182,9 @@ extern struct natstr *nat_reset(struct natstr *, enum nat_status, coord, coord);
 extern int grant_btus(struct natstr *, int );
 
 /* nation flags */
-#define NF_INFORM    	bit(0)	/* Inform me of telegrams right away */
-#define NF_FLASH     	bit(1)	/* Allow other players to flash me (sicko :) */
-#define NF_BEEP      	bit(2)	/* Make beeping sounds when appropriate */
+#define NF_INFORM	bit(0)	/* Inform me of telegrams right away */
+#define NF_FLASH	bit(1)	/* Allow other players to flash me (sicko :) */
+#define NF_BEEP		bit(2)	/* Make beeping sounds when appropriate */
 #define NF_COASTWATCH	bit(3)	/* Turn auto-coastwatch on */
 #define NF_SONAR	bit(4)	/* Turn auto-sonar on */
 #define NF_TECHLISTS    bit(5)	/* Sort lists by tech not type */

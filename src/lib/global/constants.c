@@ -163,7 +163,7 @@ double hap_cons = 600000.0;
 double edu_cons = 600000.0;
 
 /* hap and edu avg mean that the weight on current happiness is
- *  (cur_hap * hap_avg + hap_prod * etu) / (hap_avg + etu);  		*/
+ *  (cur_hap * hap_avg + hap_prod * etu) / (hap_avg + etu); */
 float hap_avg = 16.0 * 3.0;
 float edu_avg = 16.0 * 12.0;
 

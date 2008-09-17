@@ -186,9 +186,9 @@ player_accept(void *unused)
 	np = player_new(ns);
 	if (!np) {
 	    logerror("can't create player for fd %d", ns);
- 	    close(ns);
- 	    continue;
- 	}
+	    close(ns);
+	    continue;
+	}
 #ifdef HAVE_GETADDRINFO
 	inaddr = sap->sa_family == AF_INET
 	    ? (void *)&((struct sockaddr_in *)sap)->sin_addr

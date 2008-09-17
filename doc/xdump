@@ -172,7 +172,7 @@ use '-' in meta-identifiers and omit the concatenation symbol ','.
 
     table = header { record } footer ;
     header = "XDUMP" space [ "meta" space ]
-    	     identifier space timestamp newline ;
+	     identifier space timestamp newline ;
     identifier = id-chr { id-chr } ;
     id-char = ? ASCII characters 33..126 except '"#()<>=' ? ;
     timestamp = intnum ;

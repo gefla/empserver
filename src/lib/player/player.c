@@ -299,7 +299,7 @@ show_motd(void)
     char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
     if ((motd_fp = fopen(motdfil, "rb")) == NULL) {
-    	if (errno == ENOENT)
+	if (errno == ENOENT)
 	    return RET_OK;
 	else {
 	    pr ("Could not open motd.\n");

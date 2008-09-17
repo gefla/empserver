@@ -158,7 +158,7 @@ typed_wu(natid from, natid to, char *message, int type)
     if (writev(fd, iov, 2) < (int)(iov[0].iov_len + iov[1].iov_len)) {
 	logerror("telegram 'write' to #%d failed", to);
     } else
-    	write_ok = 1;
+	write_ok = 1;
 
     if (close(fd) == -1) {
 	logerror("telegram 'write' to #%d failed to close.", to);

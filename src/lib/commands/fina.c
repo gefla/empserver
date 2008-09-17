@@ -54,7 +54,7 @@ fina(void)
 	return RET_FAIL;
     }
     if (!snxtitem(&ni, EF_LOAN, "*", NULL))
-    	return RET_SYN;
+	return RET_SYN;
     (void)time(&now);
     pr("\n");
     pr("             -= Empire Financial Status Report =- \n");

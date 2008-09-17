@@ -114,7 +114,7 @@ turn(void)
 	return RET_FAIL;
     }
     if (fclose(fptr)) {
-    	pr("Something went wrong closing the message.\n");
+	pr("Something went wrong closing the message.\n");
 	logerror("Could not properly close message file (%s).\n",
 	    msgfilepath);
 	return RET_FAIL;

@@ -98,7 +98,7 @@ struct emptypedstr {
  */
 /* Immutable flags, fixed at compile-time */
 /* Dereferencing entry address cast to struct emptypedstr * is safe */
-#define EFF_TYPED 	bit(0)
+#define EFF_TYPED	bit(0)
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /
  * group of such a table's entries can be safely obtained by

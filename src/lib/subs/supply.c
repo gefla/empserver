@@ -48,14 +48,14 @@ static int s_commod(int, int, int, i_type, int, int);
 
 /*
  * We want to get enough guns to be maxed out, enough shells to
- * 	fire once, one update's worth of food.
+ *	fire once, one update's worth of food.
  *
  * Firts, try to forage in the sector
  * Second look for a warehouse or headquarters to leech
  * Third, look for a ship we own in a harbor
  * Fourth, look for supplies in a supply unit we own
- * 		(one good reason to do this last is that the supply
- * 		 unit will then call resupply, taking more time)
+ *		(one good reason to do this last is that the supply
+ *		 unit will then call resupply, taking more time)
  *
  * May want to put code to resupply with SAMs here, later --ts
  */

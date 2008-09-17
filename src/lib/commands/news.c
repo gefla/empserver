@@ -62,7 +62,7 @@ news(void)
     char *verb;
 
     if (!snxtitem(&nstr, EF_NEWS, "*", NULL))
-    	return RET_SYN;
+	return RET_SYN;
     memset(page_has_news, 0, sizeof(page_has_news));
     memset(sectors_taken, 0, sizeof(sectors_taken));
     (void)time(&now);

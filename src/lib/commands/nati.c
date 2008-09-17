@@ -52,7 +52,7 @@ nati(void)
 	if (!(natp = natargp(player->argp[1], NULL)))
 	    return RET_SYN;
     } else
-    	natp = getnatp(player->cnum);
+	natp = getnatp(player->cnum);
 
     cnum = natp->nat_cnum;
     if (!player->god && cnum != player->cnum) {

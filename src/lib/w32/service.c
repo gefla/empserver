@@ -62,8 +62,8 @@ install_service(char *program_name, char *service_name, char *config_file)
     }
 
     schService = CreateService(schSCManager,
-    	service_name,
-    	service_name,			/* service name to display */
+	service_name,
+	service_name,			/* service name to display */
         SERVICE_ALL_ACCESS,		/* desired access */
         SERVICE_WIN32_OWN_PROCESS,	/* service type */
         SERVICE_AUTO_START,		/* start type */
