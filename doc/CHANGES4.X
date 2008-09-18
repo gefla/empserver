@@ -1,3 +1,113 @@
+Changes to Empire 4.3.17 - Thu Sep 18 01:28:01 UTC 2008
+ * Make trade show exactly what's on sale, remove option SHOW_PLANE.
+ * Stop ships, planes, land units and nukes on violent takeover, just
+   like sectors.
+ * Wipe orders when ships, planes, land units and nukes are taken over
+   violently or given away peacefully.  Fleet, wing, army and mission
+   were already cleared in many, but not all cases.  Other orders were
+   never cleared: mission op areas (visible in xdump), ship autonav
+   orders, ship sail path (including ship to follow and mobility
+   quota), land unit retreat orders, plane range limit, and land unit
+   retreat percentage.
+ * Fix takeover of stuff by attack, assault, board, lboard, paradrop
+   and pboard:
+   - Corrupt land unit file could lead to infinite recursion.
+   - Take over nuke armed on plane along with the plane.  Broken in
+     4.3.3.
+   - Taking over land units with negative mobility increased mobility
+     to zero.  Ditto for planes embarked on ships or land units.
+ * Fix a bug that made set and xdump not recognize unused trade lots
+   as such.
+ * Fix giving away stuff by trading it:
+   - Take sold nuke off its plane.  You couldn't sell armed nukes
+     separately before 4.3.3.
+   - Give away nuke armed on sold plane along with the plane.  Broken
+     in 4.3.3.
+   - Don't zero mobility of planes and land units on sold ships.
+ * Fix giving away stuff by unloading from its carrier: Give away any
+   nukes armed on planes (broken in 4.3.3) and land units loaded on
+   land units.  The latter can't happen in the stock game.
+ * Fix giving away stuff by scrapping or scuttling its carrier:
+   - Fix up output.
+   - Disarm the nuke from a plane instead of destroying it.
+   - Give away any loaded land units and planes, too.
+ * Tradeship fixes:
+   - Fix scuttle to ask for confirmation when scuttling a tradeship in
+     an unsuitable sector even when the tradeship is pirated.  Broken
+     in 4.2.13.
+   - Fix scuttle to require 2% harbor efficiency for a trade ship to
+     pay.  Also require at least friendly relations.
+   - Make autonav refuse scuttle orders in unsuitable sectors.
+ * Clean up rules on where you can scrap stuff:
+   - Ships in own or friendly, efficient harbors (relations used not
+     to matter, contrary to info)
+   - Planes in own or allied, efficient airfields (friendly used to
+     work as well, contrary to info)
+   - Land units in any own or allied sector (relations used not to
+     matter, and you couldn't scrap them on ships)
+   Also tell player why something can't be scrapped instead of
+   ignoring it silently.
+ * Rewrite the broken code to move land units, planes and nukes along
+   with their carrier.  The old code was a hack that didn't update
+   timestamps (so incremental dumps didn't pick up the movement), and
+   it didn't cover all uses.  The update, in particular, was prone to
+   see cargo in old locations, which could screw up repairs.
+ * Expire lost items at the update instead of continuously.
+ * Replace econfig key lost_items_timeout by lost_keep_hours.
+ * Minor Windows threading fixes.
+ * Journal now uses human-readable names to identify threads.
+ * Ship and land unit load counters are no longer stored in game
+   state, because they duplicate information already there.  Same for
+   the type of nuke loaded on a plane.  Remove field nuketype from
+   xdump plane.  Clients can simply find the plane's nuke instead.
+ * Ship and land unit load counts as displayed by ship, sdump, land,
+   ldump, ship selectors nplane, nxlight, nchoppers, nland, and land
+   selectors nxlight, nland are now reliable.  They used to get out of
+   sync at times.
+ * Ship load counts now reflect what is loaded, not how it is stored.
+   For instance, if a light carrier, capable of carrying 4 x-lights
+   and 20 light planes carries nothing but 5 sams, we now have
+   nxlight=5, nplane=0 instead of nxlight=4, nplane=1.
+ * New cargo lists data structure to let code find loaded planes, land
+   units and nukes easily and efficiently.
+ * Revamped upkeep of lost file.  It should be reliable now.
+ * Disable the ill-advised error recovery on sector access that swept
+   bugs under the carpet rather than recovering from them.
+ * Occupied sectors no longer revert to the old owner when all
+   military and land units go away.  This feature was added in
+   Chainsaw 3.  It wasn't integrated properly with the che code
+   (things went wrong when che killed all defenders, but couldn't
+   convert the sector due to its loyalty), and combat code (if an
+   attack killed off all local defenders and got defeated by reacting
+   units, the sector changed ownership anyway, silently).
+ * Include destination coordinates in interception and plane mission
+   messages.
+ * Client could misdiagnose redirections and executes as unauthorized,
+   or die outright.  Broken in 4.3.11.
+ * Fix xdump realm to dump player instead of absolute coordinates.
+   Disclosed the true origin.  Broken in 4.3.0.
+ * Fix spy to reliably avoid spying same sector more than once.
+ * The map drawing code could smash the heap when the world was
+   ridiculously small.
+ * When a satellite's launch trajectory was off, its coordinates could
+   get screwed up, which made it invisible in skywatch.
+ * Fix several bugs that made the path command screw up when the path
+   spans large areas.
+ * Fix the default size of the map shown by move, test and transport
+   sub-command M.
+ * Fix bugs that could make arguments in area or dist syntax miss
+   ships, planes, land units and nukes at the border of the selected
+   area, if that area spans the whole world.  In sufficiently small
+   worlds, it could also make radar miss satellites and ships, sonar
+   miss ships, satellite miss ships and land units, nuclear
+   detonations miss ships, planes, land units and nukes, automatic
+   supply miss ship and land unit supply sources, ships and land units
+   fail to return fire, ships fail to fire support.
+ * Maps sometimes showed x-coordinates as three lines instead of two
+   unnecessarily.
+ * Improved nightly build, tests in particular.
+ * Code refactoring and cleanup.
+
 Changes to Empire 4.3.16 - Sat Aug  9 15:56:52 UTC 2008
  * Production command incorrectly limited the number of graduates,
    happy strollers, technological breakthroughs and medical
