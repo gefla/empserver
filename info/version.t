@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.10
+Wolfpack Empire 4.3.17
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -20,7 +20,7 @@ There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 Use the 'show' command to find out the time of the next update.
-The current time is Tue Jul 10 23:09:03.
+The current time is Wed Sep 17 21:16:49.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -31,6 +31,7 @@ A non-aggi, 100 fertility sector can grow 0.12 food per etu.
 1000 uncompensated workers will give birth to 2.5 babies.
 In one time unit, 1000 people eat 0.5 units of food.
 1000 babies eat 6.0 units of food becoming adults.
+No food is needed!
 
 Banks pay $250.00 in interest per 1000 gold bars per etu.
 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
@@ -43,20 +44,17 @@ The technology/research boost you get from the world is 50.00%.
 Nation levels (tech etc.) decline 1% every 96 time units.
 Tech Buildup is limited to logarithmic growth (base 2.00) after 1.00.
 
-                                Sectors Ships   Planes  Units
-Maximum mobility                127     127     127     127
-Max mob gain per update         60      90      60      60
-Mission mobility cost           --      0       0       0
-Max eff gain per update         --      100     100     100
-Maintenance cost per update     --      6.0%    6.0%    6.0%
-Max interdiction range          8       8       --      8
+				Sectors	Ships	Planes	Units
+Maximum mobility		127	127	127	127
+Max mob gain per update		60	90	60	60
+Mission mobility cost		--	0	0	0
+Max eff gain per update		--	100	100	100
+Maintenance cost per update	--	6.0%	6.0%	6.0%
+Max interdiction range		8	8	--	8
 
 The maximum amount of mobility used for land unit combat is 5.00.
 
 Ships on autonavigation may use 6 cargo holds per ship.
-In order to build a nuke, you need 0.33 times the tech level in research
-        Example: In order to build a 300 tech nuke, you need 99 research
-
 Fire ranges are scaled by 1.00.
 Flak damage is scaled by 1.75.
 Torpedo damage is 2d40+38.
@@ -64,34 +62,34 @@ The attack factor for para & assault troops is 0.50.
 12% of fallout leaks into each surrounding sector.
 Fallout decays by 28% per update
 
-Damage to                       Spills to
-              Sector  People  Mater.   Ships  Planes  LandU.
-Sector           --     100%    100%      0%      4%     30%
-People           10%     --      --      --      --      --
-Materials        10%     --      --      --      --      --
-Efficiency       10%     --      --      --      --      --
-Ships            10%    100%    100%     --       0%      0%
-Planes           10%      0%      0%     --      --      --
-Land units       10%      0%    100%     --       0%      0%
+Damage to			Spills to
+	      Sector  People  Mater.   Ships  Planes  LandU.
+Sector		 --	100%	100%	  0%	  4%	 30%
+People		 10%	 --	 --	 --	 --	 --
+Materials	 10%	 --	 --	 --	 --	 --
+Efficiency	 10%	 --	 --	 --	 --	 --
+Ships		 10%	100%	100%	 --	  0%	  0%
+Planes		 10%	  0%	  0%	 --	 --	 --
+Land units	 10%	  0%	100%	 --	  0%	  0%
 
 You can have at most 640 BTUs.
 You are disconnected after 15 minutes of idle time.
 
 Options enabled in this game:
-        ALL_BLEED, BLITZ, BRIDGETOWERS, EASY_BRIDGES, FALLOUT, GODNEWS,
-        INTERDICT_ATT, LANDSPIES, LOANS, NOFOOD, NOMOBCOST, NO_PLAGUE,
-        PINPOINTMISSILE, SAIL, SHOWPLANE, TREATIES
+	ALL_BLEED, BLITZ, BRIDGETOWERS, EASY_BRIDGES, FALLOUT, GODNEWS,
+	INTERDICT_ATT, LANDSPIES, LOANS, NOFOOD, NOMOBCOST, NO_PLAGUE,
+	PINPOINTMISSILE, SAIL, TREATIES
 
 Options disabled in this game:
-        AUTO_POWER, GO_RENEW, GUINEA_PIGS, HIDDEN, LOSE_CONTACT, MARKET,
-        MOB_ACCESS, NO_FORT_FIRE, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP,
-        TRADESHIPS
+	AUTO_POWER, GO_RENEW, GUINEA_PIGS, HIDDEN, LOSE_CONTACT, MARKET,
+	MOB_ACCESS, NO_FORT_FIRE, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP,
+	TRADESHIPS
 
 See "info Options" for a detailed list of options and descriptions.
 
 The person to annoy if something goes wrong is:
-        John Doe
-        (johndoe@bar.edu).
+	John Doe
+	(johndoe@bar.edu).
 
 You can get your own copy of the source from http://www.wolfpackempire.com/
 
