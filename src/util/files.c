@@ -26,7 +26,7 @@
  *  ---
  *
  *  files.c: Create all the misc files
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak
  *     Ken Stevens, 1995

@@ -26,7 +26,7 @@
  *  ---
  *
  *  chan.c: Change country/representative name
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

@@ -17,7 +17,7 @@ This represents the use of the Admiral's gig, the Captain's barge, etc.
 Note that some ships will have the
 semi-lander flag, which allows them to land 25% of their troops.
 .s1
-If you have land units with the 'assault' ability 
+If you have land units with the 'assault' ability
 aboard the ship assaulting, you will be asked if
 you wish them to join in the assault as well.
 Assaulting units pay one update's worth of mobility, except for marine

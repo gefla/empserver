@@ -26,7 +26,7 @@
  *  ---
  *
  *  mission.c: Mission subroutines for planes/ships/units
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
@@ -902,7 +902,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	    free(qp);
 	    continue;
 	}
-	    
+
 	if (pcp->pl_flags & P_A) {
 	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
 		emp_remque(qp);

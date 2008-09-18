@@ -26,9 +26,9 @@
  *  ---
  *
  *  supply.c: Supply subroutines
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #include <config.h>

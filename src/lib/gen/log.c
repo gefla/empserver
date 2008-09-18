@@ -26,7 +26,7 @@
  *  ---
  *
  *  log.c: Log an Empire error to a file
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2003-2008

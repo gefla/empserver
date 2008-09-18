@@ -26,7 +26,7 @@
  *  ---
  *
  *  nxtsct.c: Select/get the next sector from a range of sectors
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

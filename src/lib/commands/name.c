@@ -26,7 +26,7 @@
  *  ---
  *
  *  name.c: Name a ship
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Bailey
  */

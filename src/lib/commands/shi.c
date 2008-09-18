@@ -26,7 +26,7 @@
  *  ---
  *
  *  shi.c: Show a list of your ships
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

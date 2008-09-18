@@ -6,7 +6,7 @@
 .SY "lload land <UNITS> <UNITS>"
 The load command carries out the loading of units.
 Commodities (like guns, civs, food) can be loaded onto any unit capable
-of carrying them (to see what cargos a unit can carry, use the show command). 
+of carrying them (to see what cargos a unit can carry, use the show command).
 .s1
 Some land units can carry extra-light
 planes (typically these are SAM's)
@@ -26,7 +26,7 @@ than that amount, the commodity will be unloaded. For example,
 .EX load food 3 -100
 .s1
 will cause unit 3 to load or unload food so that it has 100.
-If it had 120 food, 20 would be unloaded. If it had 50 food, 
+If it had 120 food, 20 would be unloaded. If it had 50 food,
 50 would be loaded.
 .s1
 .SY "lload plane <UNITS> <PLANES>"

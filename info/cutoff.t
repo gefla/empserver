@@ -2,7 +2,7 @@
 .NA cutoff "List delivery thresholds"
 .LV Expert
 .SY "cutoff <SECTS>"
-The cutoff report provides information about the various 
+The cutoff report provides information about the various
 delivery cutoff levels in some or all of the sectors that
 you occupy.
 .s1

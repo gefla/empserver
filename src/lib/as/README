@@ -162,7 +162,7 @@ arbitrary cost function we get off of a map.  E.g.,
 
 	   0  1  2  3
 	0  0  0  0  0
-	1  0  0  0  0 
+	1  0  0  0  0
    Y	2  0  0  2  0
 	3  0  0  0  0
 
@@ -238,7 +238,7 @@ to move on.  The secondary sort function is then used to break the tie --
 it says, "Take the one that moves you closer to the destination".
 
 Fourth, all of the information we need about a sector (its mobility
-cost, who owns it, etc.) is stored in the sector file on disk.  This 
+cost, who owns it, etc.) is stored in the sector file on disk.  This
 means that the getsect() function to get it off disk will do a read(),
 which is VERY expensive.  Because of the weak lower bound, A* ends up
 checking lots of sectors, including sectors that it's seen before.

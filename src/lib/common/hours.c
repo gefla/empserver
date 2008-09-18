@@ -26,7 +26,7 @@
  *  ---
  *
  *  hours.c: Game hours determination; is it legal to play now?
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Doug Hay, 1998

@@ -26,7 +26,7 @@
  *  ---
  *
  *  para.c: Drop paratroopers onto a sector
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995

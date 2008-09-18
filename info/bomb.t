@@ -36,7 +36,7 @@ The assembly point must be owned by you or an ally, or you or an ally
 must have a ship there.  It must not be more than
 four sectors away from any of the planes selected for the mission.
 .s1
-Route is a normal empire path specification. You may also give a 
+Route is a normal empire path specification. You may also give a
 destination sector on the command line, or at any time while giving
 the route, and empire will use the best path from the current sector
 to the desired destination sector.
@@ -67,14 +67,14 @@ at the target sector, your force must still contend with
 any flak guns which your enemy has stationed there.
 What's more, any enemy ship in the target sector will also
 shoot at each of your bombers before any attacks are performed.
-Any enemy land units with the 'flak' ability will also fire at 
+Any enemy land units with the 'flak' ability will also fire at
 all your planes at this time.
 .s1
 A well-equipped fleet of battleships in a heavily-defended harbor
 can be very risky to attack, even though hitting ships in harbor is
 like shooting fish in a barrel.
 .s1
-When bombing ships/planes/units, entering a '~' character will cause a 
+When bombing ships/planes/units, entering a '~' character will cause a
 particular plane not to bomb. Other planes on the mission will still
 be asked for their targets.
 .s1
@@ -93,7 +93,7 @@ sector which has fuel in it.
 .s1
 When you pin-bomb a land unit, it will fire flak at the plane bombing it,
 unless
-it has an AA fire rating of 0. 
+it has an AA fire rating of 0.
 .s1
 In the case of pinpoint bombing, see \*Qinfo Hitchance\*U for the formula
 determining whether a plane hits its target.

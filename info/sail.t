@@ -44,7 +44,7 @@ shp#     ship type       x,y    mobil mobquota follows path
 \*Qsail\*U, with the \*Q-\*U parameter, causes the sailing path
 for the ships specified to be removed.
 .s1
-The PATH is a normal empire path specification. You may *not* give a 
+The PATH is a normal empire path specification. You may *not* give a
 destination sector on the command line, or at any time while giving
 the route.  Use the \*Qorder\*U command if you wish this functionality.
 .s1

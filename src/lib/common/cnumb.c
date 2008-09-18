@@ -26,9 +26,9 @@
  *  ---
  *
  *  cnumb.c: Return country number give country name
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -18,10 +18,10 @@ shp#     ship type           [Starting]  ,  (Ending)
 1003 destroyer 2               [1-s:40]  ,  ( ) 
 .FI
 This report reads.
-Cargo Ship #6 will sail to its starting sector, displayed 
-in the sorder, and load cargo hold 1 with 50 shells and cargo hold 2 with 500 
+Cargo Ship #6 will sail to its starting sector, displayed
+in the sorder, and load cargo hold 1 with 50 shells and cargo hold 2 with 500
 light construction materials.  Then sail to the ending sector, again
-displayed in the sorder command, unload the cargo and load cargo hold 
+displayed in the sorder command, unload the cargo and load cargo hold
 1 with 50 guns.
-.s1 
+.s1
 .SA "order, sorder, bmap, navigate, ship, Ships, Autonav, Autofish"

@@ -26,7 +26,7 @@
  *  ---
  *
  *  sate.c: Do satellite maps/reports.
- * 
+ *
  *  Known contributors to this file:
  *     Edward M. Rynes Esq, 1988
  *     Ken Stevens, 1995

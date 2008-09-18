@@ -27,7 +27,7 @@
  *
  *  @configure_input@
  *  ipglob.c.in: IP globals.
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2005
  */

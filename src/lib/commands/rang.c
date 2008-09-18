@@ -26,7 +26,7 @@
  *  ---
  *
  *  rang.c: Edit range of plane/land unit
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Bailey
  */

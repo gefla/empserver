@@ -44,7 +44,7 @@ See the various info pages on these for complete documentation on how they
 work and how you can use them to help improve your clients.
 .s1
 In addition, there is a "timestamp" field on each object (sectors, ships,
-land units, planes, nuclear stockpiles, lost items) that you can use to 
+land units, planes, nuclear stockpiles, lost items) that you can use to
 compare against to keep data between clients and the database in sync with
 each other.  These timestamps are kept in systems seconds, so they should
 be accurate down to 1 second.  Every time an object is changed, it's

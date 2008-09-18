@@ -26,9 +26,9 @@
  *  ---
  *
  *  enli.c: Enlist some military
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

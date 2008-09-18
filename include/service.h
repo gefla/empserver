@@ -26,7 +26,7 @@
  *  ---
  *
  *  service.h: Windows services support
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2004
  */

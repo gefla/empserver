@@ -26,7 +26,7 @@
  *  ---
  *
  *  echo.c: Just echo something
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

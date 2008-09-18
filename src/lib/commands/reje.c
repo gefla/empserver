@@ -26,9 +26,9 @@
  *  ---
  *
  *  reje.c: Refuse telegrams/annos/treaties/loans from countries
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -26,7 +26,7 @@
  *  ---
  *
  *  shark.c: Transfer a loan by buying it out
- * 
+ *
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000

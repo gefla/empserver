@@ -26,7 +26,7 @@
  *  ---
  *
  *  prototypes.h: Prototypes for server functions
- * 
+ *
  *  Known contributors to this file:
  *     Curtis Larsen, 1998
  *     Steve McClure, 1998,2000
@@ -54,7 +54,7 @@ extern void finish_server(void);
 /* in empthread.h */
 
 /*
- * src/lib/commands/ *.c 
+ * src/lib/commands/ *.c
  */
 extern int check_market(void);
 extern void gift(natid, natid, void *, char *);
@@ -253,7 +253,7 @@ int xedit(void);
 int zdon(void);
 
 /*
- * src/lib/common/ *.c 
+ * src/lib/common/ *.c
  */
 /* bestpath.c */
 extern char *bestownedpath(char *, char *, int, int, int, int, int);
@@ -315,7 +315,7 @@ extern int demandupdatecheck(void);
 /* in xdump.h */
 
 /*
- * src/lib/gen/ *.c 
+ * src/lib/gen/ *.c
  */
 /* fnameat.c */
 extern char *fnameat(const char *, const char *);
@@ -344,13 +344,13 @@ extern char *plurize(char *buf, int max_len, int n);
 /* more in misc.h */
 
 /*
- * src/lib/global/ *.c 
+ * src/lib/global/ *.c
  */
 extern void global_init(void);
 
 
 /*
- * src/lib/player/ *.c 
+ * src/lib/player/ *.c
  */
 /* accept.c */
 extern void player_init(void);
@@ -392,7 +392,7 @@ extern void stop_service(void);
 /* more in service.h */
 
 /*
- * src/lib/subs/ *.c 
+ * src/lib/subs/ *.c
  */
 /* askyn.c */
 extern int confirm(char *);
@@ -701,7 +701,7 @@ extern int typed_wu(natid, natid, char *, int);
 extern int wu(natid, natid, char *, ...) ATTRIBUTE((format (printf, 3, 4)));
 
 /*
- * src/lib/update/ *.c 
+ * src/lib/update/ *.c
  */
 /* age.c */
 extern void age_levels(int);

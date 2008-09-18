@@ -26,9 +26,9 @@
  *  ---
  *
  *  move.c: Move something somewhere.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

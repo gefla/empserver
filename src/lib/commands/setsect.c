@@ -26,7 +26,7 @@
  *  ---
  *
  *  setsect.c: Give resources to a country
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Steve McClure, 1998

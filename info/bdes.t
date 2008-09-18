@@ -7,7 +7,7 @@ Bdes allows you to change a sector of your bmap.
 .s1
 Bmap differs from map in that it reflects everything you've learned
 about the world. If, for example, you navigate near a sector and find
-out that it is as sea, it will show up on your bmap as sea, even if it 
+out that it is as sea, it will show up on your bmap as sea, even if it
 doesn't show up on your map.
 .s1
 When you get new information, it will overwrite the designation you put in

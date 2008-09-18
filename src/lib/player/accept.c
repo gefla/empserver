@@ -26,7 +26,7 @@
  *  ---
  *
  *  accept.c: Keep track of people logged in
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Markus Armbruster, 2005-2008

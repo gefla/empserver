@@ -26,7 +26,7 @@
  *  ---
  *
  *  main.c: World update main function
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1996

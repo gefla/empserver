@@ -26,7 +26,7 @@
  *  ---
  *
  *  hard.c: Increases the silo protection of a given missile
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

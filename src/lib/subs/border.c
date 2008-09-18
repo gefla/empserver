@@ -26,9 +26,9 @@
  *  ---
  *
  *  border.c: Create a border around a map
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

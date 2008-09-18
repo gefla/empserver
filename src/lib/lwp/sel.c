@@ -27,7 +27,7 @@
  *  ---
  *
  *  sel.c: arrange to block on read/write file descriptors using lwp
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Markus Armbruster, 2007
@@ -59,7 +59,7 @@ static struct lwpProc **LwpFdwait;
 static struct lwpQueue LwpDelayq;
 
 /* The thread executing lwpSelect() */
-static struct lwpProc *LwpSelProc;	
+static struct lwpProc *LwpSelProc;
 
 void
 lwpInitSelect(struct lwpProc *proc)

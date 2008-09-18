@@ -26,9 +26,9 @@
  *  ---
  *
  *  product.h: Definitions for things having to do with products
- * 
+ *
  *  Known contributors to this file:
- * 
+ *
  */
 
 #ifndef PRODUCT_H

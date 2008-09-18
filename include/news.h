@@ -26,7 +26,7 @@
  *  ---
  *
  *  news.h: Definitions for Empire News
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Thomas Ruschak

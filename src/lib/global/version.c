@@ -25,8 +25,8 @@
  *
  *  ---
  *
- *  version.c: 
- * 
+ *  version.c:
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2006
  */

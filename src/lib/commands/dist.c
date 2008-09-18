@@ -26,10 +26,10 @@
  *  ---
  *
  *  dist.c: Name distribution sector for a given range of sectors
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Thomas Ruschak, 1993 (rewritten) 
+ *     Thomas Ruschak, 1993 (rewritten)
  *     Steve McClure, 1998
  */
 

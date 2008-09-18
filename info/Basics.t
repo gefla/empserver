@@ -29,10 +29,10 @@ as he/she/it will be watching who is playing what.
 .s1
 Bugs: if you find a bug,
 you are REQUIRED to report it to the deity.
-I will not let other people know about the bug 
+I will not let other people know about the bug
 and in most cases, you may exploit it until it is fixed.
 Punishment for use without telling: at least $50,000 or
-getting your country removed from the game. 
+getting your country removed from the game.
 .s1
 Denial-of-service attacks are forbidden.  Any form of attack that
 prevents a player from connecting to the server is against the rules.

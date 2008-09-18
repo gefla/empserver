@@ -26,7 +26,7 @@
  *  ---
  *
  *  lboard.c: Board an enemy land unit (heavily borrowing from boar.c)
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998
  */

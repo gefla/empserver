@@ -26,7 +26,7 @@
  *  ---
  *
  *  capi.c: Move your capital
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 2000

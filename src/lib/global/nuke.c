@@ -26,9 +26,9 @@
  *  ---
  *
  *  nuke.c: Nuke characteristics
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

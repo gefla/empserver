@@ -26,7 +26,7 @@
  *  ---
  *
  *  unitsub.c: Common subroutines for multiple type of units
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  *     Markus Armbruster, 2008

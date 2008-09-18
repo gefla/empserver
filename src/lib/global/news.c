@@ -26,9 +26,9 @@
  *  ---
  *
  *  news.c: News item characteristics
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 /*

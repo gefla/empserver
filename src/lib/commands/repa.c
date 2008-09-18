@@ -26,9 +26,9 @@
  *  ---
  *
  *  repa.c: repay loan from a country
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

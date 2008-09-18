@@ -26,7 +26,7 @@
  *  ---
  *
  *  scut.c: Scuttle ships, planes or land units
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2004-2008
  */

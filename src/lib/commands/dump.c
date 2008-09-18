@@ -26,7 +26,7 @@
  *  ---
  *
  *  dump.c: Dump sector information
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Wallace, 1989
  *     Steve McClure, 1997 (added timestamping)

@@ -22,7 +22,7 @@ The assembly point must be owned by you or an ally, or you or an ally
 must have a ship there.  It must not be more than
 four sectors away from any of the planes selected for the mission.
 .s1
-Route is a normal empire path specification. You may also give a 
+Route is a normal empire path specification. You may also give a
 destination sector on the command line, or at any time while giving
 the route, and empire will use the best path from the current sector
 to the desired destination sector.
@@ -44,7 +44,7 @@ of the sub, from the sector in which it
 is first detected (which may not be the sector the sub is in, as plane
 sonar has a range dependent on acc, and a chance of finding a sub of
 ((100-acc)-(4-sub visib)*10))+((100-effic)/5) percent.
-The sub being sonared may detect the sonar ping. 
+The sub being sonared may detect the sonar ping.
 .s1
 Note that a plane must be at least 40% efficient before it can leave
 the ground.

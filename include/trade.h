@@ -27,7 +27,7 @@
  *
  *  trade.h: Definitions for trading units/ships/planes in a time delay
  *           system
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Pat Loney, 1992

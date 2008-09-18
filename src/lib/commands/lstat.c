@@ -26,7 +26,7 @@
  *  ---
  *
  *  lstat.c: Show the stats of your land units
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  payo.c: Calculate trade ship payoffs
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  */

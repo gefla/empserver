@@ -26,7 +26,7 @@
  *  ---
  *
  *  repo.c: Report on various levels (tech, research) of other nations
- * 
+ *
  *  Known contributors to this file:
  *     Keith Muller, 1983
  *     Dave Pare, 1986 (rewrite)

@@ -26,9 +26,9 @@
  *  ---
  *
  *  ioqueue.c: Read and write i/o queues
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 /*

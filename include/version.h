@@ -26,7 +26,7 @@
  *  ---
  *
  *  version.h: Version information
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995

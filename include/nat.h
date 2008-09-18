@@ -26,7 +26,7 @@
  *  ---
  *
  *  nat.h: Definitions for things having to do with nations
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak
  *     Ken Stevens, 1995

@@ -26,9 +26,9 @@
  *  ---
  *
  *  queue.c: Various queue routines (for lists)
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

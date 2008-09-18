@@ -114,7 +114,7 @@ struct as_data {
     struct as_node **neighbor_nodes;
 };
 
-/* 
+/*
  * Added these for caching of paths as we stumble across them
  */
 

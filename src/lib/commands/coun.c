@@ -26,9 +26,9 @@
  *  ---
  *
  *  coun.c: Do a country roster
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

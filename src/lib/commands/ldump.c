@@ -26,7 +26,7 @@
  *  ---
  *
  *  ldump.c: Dump land unit information
- * 
+ *
  *  Known contributors to this file:
  *     John Yockey, 1997
  *     Steve McClure, 1998

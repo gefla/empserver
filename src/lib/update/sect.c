@@ -26,7 +26,7 @@
  *  ---
  *
  *  sect.c: Do production for sectors
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
@@ -291,7 +291,7 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	} else
 	    vec = sp->sct_item;
 
-	/* If everybody is dead, the sector reverts to unowned. 
+	/* If everybody is dead, the sector reverts to unowned.
 	 * This is also checked at the end of the production in
 	 * they all starved or were plagued off.
 	 */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  rese.c: Reset (lower) commodity prices
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Bailey
  *     Pat Loney, 1992

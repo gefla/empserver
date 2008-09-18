@@ -22,7 +22,7 @@ Pandora (#5) oil derrick #74 @3, -9
 Galexis (#2) destroyer #35 @-3, 11
 .FI
 .s1
-Note that subs will NOT show up on coastwatch, unless they are in a 
+Note that subs will NOT show up on coastwatch, unless they are in a
 sector you own.
 .s1
 .SA "skywatch, lookout, Sector-types, radar, Ships, Detection"

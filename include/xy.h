@@ -26,7 +26,7 @@
  *  ---
  *
  *  xy.h: Constants having to do with world locations.
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998
  */

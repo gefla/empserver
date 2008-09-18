@@ -26,9 +26,9 @@
  *  ---
  *
  *  bdes.c: Change bmap designations
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

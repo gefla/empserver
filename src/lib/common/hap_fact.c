@@ -26,7 +26,7 @@
  *  ---
  *
  *  hap_fact.c: Happiness effect on che
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  coll.c: Collet on a loan
- * 
+ *
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000

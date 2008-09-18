@@ -26,9 +26,9 @@
  *  ---
  *
  *  real.c: Show or set a realm
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

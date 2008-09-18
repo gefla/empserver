@@ -26,7 +26,7 @@
  *  ---
  *
  *  sect.c: Sector pre-write and post-read data massage
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996

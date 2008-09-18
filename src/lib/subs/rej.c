@@ -26,7 +26,7 @@
  *  ---
  *
  *  rej.c: Various relations setting routines
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  */

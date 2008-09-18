@@ -11,7 +11,7 @@ is no longer occupied (i.e. you become the "oldowner" of the sector).
 After the program has collected any necessary information
 it will list each sector where civilians are converted.
 .s1
-Note: you must have enough military in the sectors to force the 
+Note: you must have enough military in the sectors to force the
 populace to become uncompensated workers -- about 10%. Land units
 count toward this at a value equal to the number of mil required
 to build them. Security units are even more efficient, counting for

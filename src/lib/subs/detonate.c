@@ -26,7 +26,7 @@
  *  ---
  *
  *  detonate.c: Detonate a nuclear device in a sector.
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
  */

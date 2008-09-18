@@ -26,7 +26,7 @@
  *  ---
  *
  *  land.c: Land unit characteristics
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995

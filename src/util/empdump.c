@@ -26,7 +26,7 @@
  *  ---
  *
  *  empdump.c: Export/import Empire game state
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2008
  */

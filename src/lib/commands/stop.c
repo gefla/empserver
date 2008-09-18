@@ -26,9 +26,9 @@
  *  ---
  *
  *  stop.c: Stop a sector or unit from producing
- * 
+ *
  *  Known contributors to this file:
- *     Thomas Ruschak, 1992 
+ *     Thomas Ruschak, 1992
  *     Steve McClure, 1998
  *     Markus Armbruster, 2006-2008
  */

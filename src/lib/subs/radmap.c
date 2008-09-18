@@ -26,7 +26,7 @@
  *  ---
  *
  *  radmap.c: Do a radar map given an x,y location, effic, and other
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */
@@ -171,7 +171,7 @@ radmap2(int owner,
 	    rad[y][x] = (*mchr[(int)ship.shp_type].m_name) & ~0x20;
 	}
     }
-    /* 
+    /*
      * make the center of the display 0
      * so ve et al can find it.
      */

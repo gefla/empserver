@@ -26,9 +26,9 @@
  *  ---
  *
  *  head.c: Print headlines of the Empire News
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

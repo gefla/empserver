@@ -26,7 +26,7 @@
  *  ---
  *
  *  snxtitem.c: Arrange item selection using one of many criteria.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2008

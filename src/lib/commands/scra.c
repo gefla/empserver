@@ -26,7 +26,7 @@
  *  ---
  *
  *  scra.c: Scrap ships, planes or land units
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  *     Markus Armbruster, 2004-2008

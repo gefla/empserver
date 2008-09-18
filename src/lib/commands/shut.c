@@ -26,7 +26,7 @@
  *  ---
  *
  *  shut.c: Shut down the server with a warning.
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Markus Armbruster, 2007-2008

@@ -26,7 +26,7 @@
  *  ---
  *
  *  ledg.c: Get a report of the current ledger
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

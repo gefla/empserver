@@ -26,9 +26,9 @@
  *  ---
  *
  *  army.c: Add units to an army
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

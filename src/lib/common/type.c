@@ -26,7 +26,7 @@
  *  ---
  *
  *  type.c: typename to array offset translation
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000

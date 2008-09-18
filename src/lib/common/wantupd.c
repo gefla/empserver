@@ -26,7 +26,7 @@
  *  ---
  *
  *  wantupd.c: Check to se if an update is wanted and/or allowed.
- * 
+ *
  *  Known contributors to this file:
  *     Doug Hay, 1990
  */

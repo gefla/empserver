@@ -26,9 +26,9 @@
  *  ---
  *
  *  fortdef.c: Fort defends an area.
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 /*

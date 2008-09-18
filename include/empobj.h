@@ -26,7 +26,7 @@
  *  ---
  *
  *  empobj.h: General empire objects.
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006
  *     Markus Armbruster, 2006-2008
@@ -68,7 +68,7 @@ struct empobj {
     signed char effic;
     signed char mobil;
     unsigned char off;
-    short tech;	
+    short tech;
     char group;		/* valid if EFF_GROUP is in table's flags */
     coord opx, opy;
     short mission;
@@ -83,7 +83,7 @@ union empobj_storage {
     struct lndstr land;
     struct lonstr loan;
     struct loststr lost;
-    struct natstr nat; 
+    struct natstr nat;
     struct nwsstr news;
     struct nukstr nuke;
     struct plnstr plane;

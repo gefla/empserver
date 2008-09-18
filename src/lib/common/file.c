@@ -26,7 +26,7 @@
  *  ---
  *
  *  file.c: Operations on Empire tables (`files' for historical reasons)
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000

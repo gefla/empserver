@@ -26,9 +26,9 @@
  *  ---
  *
  *  power.h: Definitions for things having to do with the power report.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #ifndef POWER_H

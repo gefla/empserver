@@ -26,7 +26,7 @@
  *  ---
  *
  *  set.c: Place units/ships/planes/nukes up for sale.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Pat Loney, 1992

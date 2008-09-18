@@ -26,7 +26,7 @@
  *  ---
  *
  *  scthash.c: Create a hash function based on the sector x-y mod table size
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  host.c: make stream connection to empire
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1998

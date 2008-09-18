@@ -462,7 +462,7 @@ player->aborted; if it is set after a read, the read failed.
 git
 ---
 
-Commit related changes together, unrelated changes separately.  
+Commit related changes together, unrelated changes separately.
 
 Write meaningfull commit messages.  Start with a single short line
 (ideally less than 50 characters) summarizing the change, followed by
@@ -507,7 +507,7 @@ a procedure, something may well be amiss.
 
 Sasha Mikheev on indentation:
 
-The empire indentation style can be achived by using 
+The empire indentation style can be achived by using
 indent -orig -i8 foo.c
 
 or in old c-mode emacs (versions before 19.29):

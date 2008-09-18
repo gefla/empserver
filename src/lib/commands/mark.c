@@ -26,7 +26,7 @@
  *  ---
  *
  *  mark.c: Display report for commodities
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Pat Loney, 1992

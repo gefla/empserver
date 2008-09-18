@@ -3,7 +3,7 @@
 .LV Basic
 .SY "cargo [<SHIP/FLEET> | <SECTS>]"
 .SY "lcargo [<UNIT/ARMY> | <SECTS>]"
-The cargo command lists the commodities on board your ships 
+The cargo command lists the commodities on board your ships
 in readable format. The lcargo command does the same for land units.
 .s1
 The <SHIP/FLEET>, <UNIT/ARMY>, and <SECTS> arguments are

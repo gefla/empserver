@@ -27,7 +27,7 @@
  *
  *  commodity.h: Definitions for buy/market/sell commands in a time delay
  *               market
- * 
+ *
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1996

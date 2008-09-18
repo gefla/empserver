@@ -26,7 +26,7 @@
  *  ---
  *
  *  wu.c: Write a telegram to a user from another
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */
@@ -57,7 +57,7 @@ clear_telegram_is_new(natid to)
 }
 
 /*
- * telegram_is_new counts new telegrams the same as read_telegrams in 
+ * telegram_is_new counts new telegrams the same as read_telegrams in
  * lib/commands/mail.c and lib/commands/rea.c
  */
 

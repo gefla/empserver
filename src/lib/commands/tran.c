@@ -26,7 +26,7 @@
  *  ---
  *
  *  tran.c: Transport nuclear devices and planes
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  *     Markus Armbruster, 2006

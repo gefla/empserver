@@ -26,7 +26,7 @@
  *  ---
  *
  *  aircombat.c: Deal with air to air combat
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992

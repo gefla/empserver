@@ -26,7 +26,7 @@
  *  ---
  *
  *  play.c: Playing the game
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  *     Ron Koenderink, 2007
@@ -104,7 +104,7 @@ sigaction(int signal, struct sigaction *action, struct sigaction *oaction)
 {
     assert(!oaction);
     assert(action);
-    
+
     if (signal == SIGPIPE)
 	assert(action->sa_handler == SIG_IGN);
     else {
@@ -218,7 +218,7 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
 	return -1;
     }
     WSACloseEvent(handles[num_handles - 1]);
-    
+
     if (num_handles == 3 && result == WAIT_OBJECT_0) {
 	errno = EINTR;
 	return -1;

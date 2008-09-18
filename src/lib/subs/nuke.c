@@ -26,7 +26,7 @@
  *  ---
  *
  *  nuke.c: Nuke post-read and pre-write data massage
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996

@@ -26,7 +26,7 @@
  *  ---
  *
  *  fnameat.c: Interpret file names relative to a directory
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2008
  */

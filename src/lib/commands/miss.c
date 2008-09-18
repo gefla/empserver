@@ -26,7 +26,7 @@
  *  ---
  *
  *  miss.c: set missions for ships/planes/units
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
@@ -77,7 +77,7 @@ mission(void)
 		  buf)) == 0)
 	return RET_SYN;
 
-/* 
+/*
  * 'i'     interdiction
  * 's'     support
  * 'o'     support attacks

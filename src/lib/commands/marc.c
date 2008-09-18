@@ -26,7 +26,7 @@
  *  ---
  *
  *  marc.c: March units around
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak
  *     Ken Stevens, 1995 (rewrite)

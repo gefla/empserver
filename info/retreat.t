@@ -3,7 +3,7 @@
 .LV Expert
 .SY "retreat [<SHIP/FLEET> | <SECTS>] [<PATH>] [<CONDITIONS>]"
 .SY "lretreat [<UNIT/ARMY> | <SECTS>] [<PATH>] [<CONDITIONS>]"
-The retreat command allows you to examine or modify the retreat 
+The retreat command allows you to examine or modify the retreat
 paths and conditions of your ships or units. The following description
 is for ships. Land units are exactly the same, except of course that
 some of the retreat conditions (being sonared, depth charged, etc) don't apply.
@@ -44,12 +44,12 @@ shp#     ship type       x,y   fl path       as flt?  flags
 .s1
 .L Overview
 .s1
-A player may give retreat orders for a ship or a fleet. Retreat 
+A player may give retreat orders for a ship or a fleet. Retreat
 orders include a set of conditions that determine when the fleet/ship
 will retreat, and a path that the fleet/ship will follow. When a condition
 is met for a particular ship, the \*Qas flt?\*U field is checked. If it
 is Yes, then every ship in that fleet with fleet retreat orders retreats
-along the specified path. If it is no, then the retreat orders apply to 
+along the specified path. If it is no, then the retreat orders apply to
 that ship only, and only that ship retreats.
 .s1
 When a ship is added to a fleet, it is given the retreat orders of the

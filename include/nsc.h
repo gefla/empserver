@@ -26,7 +26,7 @@
  *  ---
  *
  *  nsc.h: Definitions for Empire conditionals
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2004-2008

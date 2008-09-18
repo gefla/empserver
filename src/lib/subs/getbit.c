@@ -26,7 +26,7 @@
  *  ---
  *
  *  getbit.c: Replaces old bitmap code
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

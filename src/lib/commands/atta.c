@@ -26,7 +26,7 @@
  *  ---
  *
  *  atta.c: Attack another sector
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Ken Stevens, 1995

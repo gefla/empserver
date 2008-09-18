@@ -26,7 +26,7 @@
  *  ---
  *
  *  nat.c: Get nation stuff
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  */

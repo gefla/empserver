@@ -26,7 +26,7 @@
  *  ---
  *
  *  trdsub.c: Trade helper functions
- * 
+ *
  *  Known contributors to this file:
  *     St Phil, 1989
  *     Pat Loney, 1992

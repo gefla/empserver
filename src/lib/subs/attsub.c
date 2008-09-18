@@ -26,7 +26,7 @@
  *  ---
  *
  *  attsub.c: Attack subroutines
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
@@ -155,7 +155,7 @@ prcom(int inon, struct combat *com)
 
 /*
  * This is the combat object "type" based integrity check.  It basically
- * splits along three divisions: ship/sector, attacker/defender, 
+ * splits along three divisions: ship/sector, attacker/defender,
  * first time/not first time.
  */
 
@@ -1845,7 +1845,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     att_infect_units(dlist, def->plague);
 
     /*
-     * Fighting is slightly random.  There is always that last little 
+     * Fighting is slightly random.  There is always that last little
      * effort you see people put in.  Or the stray bullet that takes out
      * an officer and the rest go into chaos.  Things like that.
      * Thus, we have added a very slight random factor that will sometimes
@@ -2586,7 +2586,7 @@ att_free_lists(struct emp_qelem *olist, struct emp_qelem *dlist)
 /*
  * sector_strength - Everyone starts at 1.  You can get up to a max
  *                   of d_dstr, depending on how much you build up the
- *                   defenses of the sector. 
+ *                   defenses of the sector.
  */
 
 double

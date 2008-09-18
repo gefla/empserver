@@ -3,7 +3,7 @@
 .LV Expert
 .SY "ndump <SECTS>"
 The ndump command displays all information on
-some or all of the sectors you occupy. 
+some or all of the sectors you occupy.
 Each nuke's information is printed on one very long line.
 Fields are separated by a single space.
 .s1

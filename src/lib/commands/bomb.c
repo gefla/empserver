@@ -26,7 +26,7 @@
  *  ---
  *
  *  bomb.c: Fly bombing missions
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995

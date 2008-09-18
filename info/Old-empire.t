@@ -10,7 +10,7 @@ So you want to try the New Empire Huh?
 Okay, I have written this document with YOU in mind!
 Welcome to the University of California at Berkeley's Empire!
 (From now on called UCB Empire).
-There are a whole bunch of changes in the game 
+There are a whole bunch of changes in the game
 since we last played, so I need to bring you up to date.
 .s1
 Our OLD EMPIRE game was Version 1.2 -
@@ -40,7 +40,7 @@ and you can make an \*Qannouncement\*U to the World.
 In the OLD game -
 you simply dug up ORE and sent it to the Shell, Defense, etc.
 factory to have it processed into something else
-(make guns, shells, etc).  
+(make guns, shells, etc).
 .s1
 But in the NEW game - sectors are a lot more complex.
 For one thing curtain sectors CAN'T even PRODUCE
@@ -55,7 +55,7 @@ Uranium Mines   (need at least 40 TECH)
 Other sectors can produce normally,
 even though your TECH level is still 0.
 Keep in mind that you CAN DESIGNATE the ABOVE sectors -
-but they won't produce until you reach the desired TECH LEVEL. 
+but they won't produce until you reach the desired TECH LEVEL.
 .s1
 Also, it takes more \*QMaterials\*U
 to make 1 Unit of a finished product.

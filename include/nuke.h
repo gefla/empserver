@@ -26,7 +26,7 @@
  *  ---
  *
  *  nuke.h: Definitions for things having to do with nukes
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

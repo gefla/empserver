@@ -26,7 +26,7 @@
  *  ---
  *
  *  main.c: Empire Server main, startup and shutdown
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1996, 1998

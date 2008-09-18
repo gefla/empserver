@@ -26,7 +26,7 @@
  *  ---
  *
  *  list.c: List ships, planes, units at a given x,y
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

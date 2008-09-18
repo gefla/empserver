@@ -26,7 +26,7 @@
  *  ---
  *
  *  lndsub.c: Land unit subroutines
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
@@ -214,7 +214,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	else if (combat_mode == A_DEFEND) {
 	    /*
 	     * defending unit.. find a place to send it
-	     * strategy: look for the most-populated 
+	     * strategy: look for the most-populated
 	     * adjacent sector that is owned by the unit
 	     * owner. Charge mob..
 	     */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  tend.c: Transfer goodies from one ship to another.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992

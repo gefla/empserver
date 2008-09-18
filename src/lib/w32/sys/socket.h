@@ -26,7 +26,7 @@
  *  ---
  *
  *  sys/socket.h: POSIX socket emulation for WIN32
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */

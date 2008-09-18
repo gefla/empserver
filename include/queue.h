@@ -26,9 +26,9 @@
  *  ---
  *
  *  queue.h: Generic vax-like doubly linked list queues
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 #ifndef QUEUE_H

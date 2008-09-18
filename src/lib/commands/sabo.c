@@ -26,7 +26,7 @@
  *  ---
  *
  *  sabo.c: Spy terrorist bombing
- * 
+ *
  *  Known contributors to this file:
  *     John Yockey, 2001
  */

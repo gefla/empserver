@@ -40,7 +40,7 @@ Will set iron delivery threshold to 80 in all mines.
 Will list all lcm delivery specifications.  (Sectors with no delivery
 threshold or direction will not be listed).
 .s1
-The census and commodity reports will indicate deliveries by the 
+The census and commodity reports will indicate deliveries by the
 same characters used to specify them in this command.
 .s1
 If, during an update, the destination sector is not owned by you,

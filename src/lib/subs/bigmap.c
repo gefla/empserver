@@ -27,9 +27,9 @@
  *
  *  bigmap.c:  Updates a player's sector map using sector offsets and
  *             simple overwrite rules.
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #include <config.h>

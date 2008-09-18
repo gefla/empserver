@@ -26,9 +26,9 @@
  *  ---
  *
  *  acce.c: Report rejection status of telegrams/treaties/annos/loans
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

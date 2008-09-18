@@ -14,7 +14,7 @@ Only ships at sea may use sonar and sonar only detects ships
 which are at sea.  Furthermore, there must be a straight line of water
 between the detector and the detected (sonar doesn't work around corners).
 .s1
-In the current implementation, sonar works similar to 
+In the current implementation, sonar works similar to
 lookout.  The major difference is that a submarines cannot use
 lookout to sight ships.  Likewise, submarines cannot be sighted
 by ships via lookout.
@@ -90,7 +90,7 @@ If detection is above 7, then you will be told the ship type, and if
 it is above 9, you will also be told the owner of the sub.  Note that
 type and owner will always be shown for Friendly subs.
 .s1
-Planes with the ASW ability can use 
+Planes with the ASW ability can use
 sonar while on recon missions. See info recon for more details.
 .s1
 .SA "coastwatch, Ship-types, Sector-types, radar, recon, Ships, Detection"

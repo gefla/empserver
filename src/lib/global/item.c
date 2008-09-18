@@ -26,9 +26,9 @@
  *  ---
  *
  *  item.c: Item characteristics
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

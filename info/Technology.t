@@ -85,7 +85,7 @@ chance that your tech level will increase by one third of the
 difference between your tech level and the minimum tech.
 .fi
 .s1
-Note that if the TECH_POP option is enabled, technology costs 
+Note that if the TECH_POP option is enabled, technology costs
 proportionately more $$$ to make as your civilian population grows
 past 50,000 civilians.
 .s1

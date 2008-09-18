@@ -10,7 +10,7 @@ The Empire Shell (command interpreter)
 expects input in the form:
 .EX VERB ARG1 ARG2 ...
 VERB is any one of the Empire commands on the \*Qcommand list\*U
-(what you see when you type \*Qlist\*U-- e.g. 
+(what you see when you type \*Qlist\*U-- e.g.
 \*Qmap\*U, \*Qmove\*U, \*Qinfo\*U, etc).
 .s1
 The number of ARGs varies from command to command.
@@ -92,7 +92,7 @@ have food delivery.
 Note that \*Qhix\*U, \*Qhiy\*U, and \*Q?cond\*U are all optional.
 Also, the entire \*Qlox:hix,loy:hiy\*U section may be replaced
 by either \*Q#\*U, \*Q#0\*U, \*Q#1\*U, \*Q#2\*U,
-or \*Q#3\*U, ... which refer to 
+or \*Q#3\*U, ... which refer to
 \*Qrealm\*Us which you can define.
 (See \*Qinfo realm\*U.)
 Note that \*Q#\*U and \*Q#0\*U are equivalent.  Also \*Q*\*U refers to

@@ -26,7 +26,7 @@
  *  ---
  *
  *  cens.c: Do a census report
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

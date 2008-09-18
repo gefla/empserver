@@ -26,7 +26,7 @@
  *  ---
  *
  *  sinf.c: Do an infrastructure report
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

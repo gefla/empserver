@@ -26,7 +26,7 @@
  *  ---
  *
  *  shar.c: share a bmap with a friend
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

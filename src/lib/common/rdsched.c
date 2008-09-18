@@ -26,7 +26,7 @@
  *  ---
  *
  *  rdsched.c: Read update schedule
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007-2008
  */
@@ -57,7 +57,7 @@ static int delete_update(time_t, time_t[], int);
  * Read update schedule from file FNAME.
  * Put the first N-1 updates after T0 into SCHED[] in ascending order,
  * terminated with a zero.
- * Use ANCHOR as initial anchor for anchor-relative times. 
+ * Use ANCHOR as initial anchor for anchor-relative times.
  * Return 0 on success, -1 on failure.
  */
 int

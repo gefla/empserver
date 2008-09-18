@@ -26,7 +26,7 @@
  *  ---
  *
  *  flash.c: Flash a message to another player
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998

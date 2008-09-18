@@ -26,7 +26,7 @@
  *  ---
  *
  *  lost.c: List lost items
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1997
  */

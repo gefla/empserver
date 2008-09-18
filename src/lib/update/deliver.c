@@ -26,9 +26,9 @@
  *  ---
  *
  *  deliver.c: Deliver commodities to neighboring sector
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #include <config.h>

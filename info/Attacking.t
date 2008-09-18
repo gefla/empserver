@@ -60,7 +60,7 @@ If you are not paradropping, then you will be asked for mil and units
 you would like to attack with.
 You must always leave at least 1 mil in
 the sector or ship you are attacking from, so you may never attack
-with all of your mil out of a sector or ship.  
+with all of your mil out of a sector or ship.
 The following limitations apply to the aggressor's mil:
 .NF
 Attack:  You are limited by the mobility of the attacking sector
@@ -335,7 +335,7 @@ in "assault", "paradrop", "board" or "lboard").
 When you move your mil into the target sector after an attack, you
 will risk the same chances of interdiction (number of mil / 200) and
 stepping on land mines (see "info lmine") as
-if you were moving them using the "move" command.  
+if you were moving them using the "move" command.
 .s1
 Similarly, once you have specified which land units you'd like to move
 into the conquered sector, then all of your units will move in at

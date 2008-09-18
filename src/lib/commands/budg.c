@@ -26,7 +26,7 @@
  *  ---
  *
  *  budg.c: Calculate production levels, prioritize
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
@@ -195,7 +195,7 @@ calc_all(long p_sect[][2],
     *ships = *sbuild = *nsbuild = *smaint = 0;
     *units = *lbuild = *nlbuild = *lmaint = 0;
     *planes = *pbuild = *npbuild = *pmaint = 0;
-    
+
     np = getnatp(player->cnum);
     bp = bp_alloc();
     for (n = 0; NULL != (sp = getsectid(n)); n++) {

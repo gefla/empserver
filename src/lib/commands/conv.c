@@ -26,7 +26,7 @@
  *  ---
  *
  *  conv.c: Convert conquered populace into uw's
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

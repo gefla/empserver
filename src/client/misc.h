@@ -26,7 +26,7 @@
  *  ---
  *
  *  misc.h: Misc client definitions
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998
  */

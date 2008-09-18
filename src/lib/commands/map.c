@@ -26,7 +26,7 @@
  *  ---
  *
  *  map.c: Display a map of sectors.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995

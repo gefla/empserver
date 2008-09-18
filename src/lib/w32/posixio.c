@@ -26,7 +26,7 @@
  *  ---
  *
  *  posixio.c: POSIX IO emulation layer for WIN32
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  *     Markus Armbruster, 2007-2008
@@ -314,7 +314,7 @@ posix_socket(int domain, int type, int protocol)
 {
     SOCKET handle;
     int new_fd;
-    
+
     if ((new_fd = get_fd()) < 0)
 	return -1;
 
@@ -669,7 +669,7 @@ fcntl(int fd, int cmd, ...)
 	if (type == FDMAP_IO_SOCKET) {
 	    result = WSAIoctl(handle, FIONBIO, NULL, 0,&nonblocking,
 		sizeof (nonblocking), &bytes_returned, NULL, NULL);
-    	
+
 	    if(result < 0) {
 		errno = WSAGetLastError();
 		return -1;

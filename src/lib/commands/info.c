@@ -26,7 +26,7 @@
  *  ---
  *
  *  info.c: display an info page
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Mike Wise, 1997 - added apropos and case insensitivity
@@ -79,7 +79,7 @@ info(void)
     int nmatch = 0;
     int width = 0;
     char sep;
- 
+
     name = player->argp[1];
     if (name) {
 	/*
@@ -90,7 +90,7 @@ info(void)
     }
     if (!name || !*name)
 	name = "TOP";
- 
+
     snprintf(filename, sizeof(filename), "%s/%s", infodir, name);
     fp = fopen(filename, "r");
     if (fp == NULL) {

@@ -26,7 +26,7 @@
  *  ---
  *
  *  age.c: Age people
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

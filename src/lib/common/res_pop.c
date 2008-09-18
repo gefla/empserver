@@ -26,7 +26,7 @@
  *  ---
  *
  *  res_pop.c: Get maximum pop of a sector
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998

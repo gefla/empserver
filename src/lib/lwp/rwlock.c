@@ -27,7 +27,7 @@
  *  ---
  *
  *  rwlock.c: Read-write locks
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  *     Markus Armbruster, 2007

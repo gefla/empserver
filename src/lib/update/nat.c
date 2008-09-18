@@ -26,7 +26,7 @@
  *  ---
  *
  *  nat.c: Accumulate tech, edu, research and happiness.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997

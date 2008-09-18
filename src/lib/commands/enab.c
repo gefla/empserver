@@ -26,7 +26,7 @@
  *  ---
  *
  *  enab.c: Enable the updates (deity)
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  */

@@ -26,9 +26,9 @@
  *  ---
  *
  *  mailbox.c: Return string containing telegram file
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 #include <config.h>

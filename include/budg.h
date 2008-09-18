@@ -26,7 +26,7 @@
  *  ---
  *
  *  budg.h: Budget related definitions
- * 
+ *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
  */

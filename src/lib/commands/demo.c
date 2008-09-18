@@ -26,7 +26,7 @@
  *  ---
  *
  *  demo.c: De-mobilize "n" military in a given sector
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

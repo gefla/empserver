@@ -26,7 +26,7 @@
  *  ---
  *
  *  plane.c: Plane characteristics
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Jeff Bailey

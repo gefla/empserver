@@ -4,7 +4,7 @@ Index: empserver/src/lib/subs/pr.c
 @@ -68,6 +68,13 @@
  static void upr_player(struct player *pl, int id, char *buf);
  static void outid(struct player *pl, int n);
- 
+
 +/* Hack for nightlybuild */
 +char *
 +ctime(const time_t *clock)
@@ -22,5 +22,5 @@ Index: empserver/src/lib/subs/pr.c
 -    pr_id(player, C_PROMPT, "%d %d\n", min, btu);
 +    pr_id(player, C_PROMPT, "0 640\n"); /* Hack for nightlybuild */
  }
- 
+
  /*

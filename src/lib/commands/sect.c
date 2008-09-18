@@ -26,7 +26,7 @@
  *  ---
  *
  *  sect.c: Show sectors in map-like format with conditionals.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

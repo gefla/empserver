@@ -26,7 +26,7 @@
  *  ---
  *
  *  mora.c: Edit morale of a land unit
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Bailey
  */

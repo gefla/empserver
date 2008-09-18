@@ -26,7 +26,7 @@
  *  ---
  *
  *  vers.c: Print out the Empire version
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Jeff Bailey

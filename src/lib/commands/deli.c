@@ -26,9 +26,9 @@
  *  ---
  *
  *  deli.c: Set deliveries from a sector
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

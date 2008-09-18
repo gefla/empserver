@@ -27,8 +27,8 @@ Units do not participate in the anti command.  A sector can revert
 to the old owner while your units are stuck in it.
 .s1
 Note that che are finicky.  If you manage to lose a sector fighting them,
-they do unpredictable things. 
-They may all come out of hiding to join the 
+they do unpredictable things.
+They may all come out of hiding to join the
 military.  A few may stay in hiding while the majority come out to join
 the military.  Who knows what else they may do.
 .s1

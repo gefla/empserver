@@ -53,7 +53,7 @@ Use the "improve" command to improve the infrastructure of your sectors.
 To find out the required amounts of materials, mobility, and money
 use the "show sect build" command.
 .s1
-Also, defensive infrastructure is not always improvable.  See the version 
+Also, defensive infrastructure is not always improvable.  See the version
 info to see if the DEFENSE_INFRA option is enabled or not.  If it is not
 enabled, the defense infrastructure of the sector is always the same
 as the efficiency of the sector.  If it is enabled, you must improve your

@@ -26,7 +26,7 @@
  *  ---
  *
  *  nxtitem.c: Get the next item from a list
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

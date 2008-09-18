@@ -9,7 +9,7 @@ The program will then give you a census report for all the
 sectors that have been assigned the territory number \*Q27\*U.
 .s1
 In this sense it is essentially an extended \*Qrealm\*U.
-However, you are not limited to rectangular regions and you have 
+However, you are not limited to rectangular regions and you have
 99 values to choose from.
 .s1
 There are four independent territory fields terr, terr1, terr2, terr3

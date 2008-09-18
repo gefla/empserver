@@ -26,7 +26,7 @@
  *  ---
  *
  *  ship.c: Ship characteristics
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Jeff Bailey

@@ -26,9 +26,9 @@
  *  ---
  *
  *  product.c: Product information
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -11,7 +11,7 @@ specified destination.  This is done via the \*Qorder\*U command.
 Each ship can be ordered to proceed to a destination.  During each update,
 the ship will try and use ALL the mobility it has and use the shortest
 possible path.  It will also avoid any known mines (sectors marked
-with an 'X' or 'x' on your bmap).  Note that this movement is all 
+with an 'X' or 'x' on your bmap).  Note that this movement is all
 done before mobility is accumulated, so that after the update is
 complete the ship will have a full updates worth of mobility
 in case you need to move it by hand.  Should a ship be fired upon

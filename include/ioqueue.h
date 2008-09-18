@@ -28,7 +28,7 @@
  *  ioqueue.h: Stores and frees data associated with a file descriptor.
  *             uses writev to write, and read to read
  *  Known contributors to this file:
- * 
+ *
  */
 
 #ifndef IOQUEUE_H

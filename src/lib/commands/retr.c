@@ -26,7 +26,7 @@
  *  ---
  *
  *  retr.c: Set retreat conditionals for ships and land units
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 2000

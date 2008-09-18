@@ -27,7 +27,7 @@
  *
  *  lten.c: Transfer commodity from a ship to a land unit the ship is
  *          carrying
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Thomas Ruschak

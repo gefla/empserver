@@ -26,7 +26,7 @@
  *  ---
  *
  *  togg.c: Set player flags
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996

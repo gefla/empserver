@@ -26,7 +26,7 @@
  *  ---
  *
  *  player.h: Definitions for player information (threads)
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Doug Hay, 1998

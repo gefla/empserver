@@ -26,9 +26,9 @@
  *  ---
  *
  *  whatitem.c: Return pointer to item chr struct given an item name
- * 
+ *
  *  Known contributors to this file:
- * 
+ *
  */
 
 #include <config.h>

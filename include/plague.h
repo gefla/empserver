@@ -26,9 +26,9 @@
  *  ---
  *
  *  plague.h: plague defines.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #ifndef PLAGUE_H

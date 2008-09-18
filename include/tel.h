@@ -26,9 +26,9 @@
  *  ---
  *
  *  tel.h: Definitions for things having to do with telegrams
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #ifndef TEL_H

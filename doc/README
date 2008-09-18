@@ -16,7 +16,7 @@ clients-howto
 troubleshooting
 	Some common problems and solutions.
 
-configuration    
+configuration
 	How to turn options on and off, change game parameters, etc...
 
 debugging
@@ -35,7 +35,7 @@ pthreads
 	Sasha Mikheev's notes on Empire's threading abstraction, and
 	its LWP and POSIX threads implementation.
 
-coding           
+coding
 	Guidelines for coding style
 
 unicode

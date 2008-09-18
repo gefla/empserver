@@ -26,7 +26,7 @@
  *  ---
  *
  *  check.c: Check a sector, plane, land unit, ship or nuke
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998
  */

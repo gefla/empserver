@@ -26,9 +26,9 @@
  *  ---
  *
  *  map.h: Definitions for making maps
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef MAP_H

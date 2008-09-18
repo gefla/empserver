@@ -26,7 +26,7 @@
  *  ---
  *
  *  retreat.c: Retreat subroutines
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  proto.h: Protocol for client
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  login.c: Log into an empire server
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1998

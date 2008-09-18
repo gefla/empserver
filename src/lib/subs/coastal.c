@@ -26,7 +26,7 @@
  *  ---
  *
  *  coastal.c: Routines to calculate the coastal flag
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  disassoc.c: Boilerplate daemonization code
- * 
+ *
  *  Known contributors to this file:
  *     Doug Hay, 1998
  *     Markus Armbruster, 2005

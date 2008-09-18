@@ -3,7 +3,7 @@
 .LV Expert
 .SY "sdump <SHIPS> [<fields>]"
 The sdump command displays all information on
-some or all of your ships. 
+some or all of your ships.
 sdump is a combination of ship, cargo, and sstat.
 Each ship's information is printed on one very long line.
 Fields are separated by a single space.

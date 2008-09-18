@@ -44,7 +44,7 @@ The formula for the chance that a missile hits its target is in
 .s1
 In the case of non-marine tactical missiles, if there are any HOSTILE
 abm's within range of the target sector, then two of them will fire in
-an attempt to intercept the incoming missile.  
+an attempt to intercept the incoming missile.
 .s1
 Similarly, two AT_WAR a-sat's will attempt to intercept any satellites
 you attempt to launch within their range.  Also, if the sector you are
@@ -52,7 +52,7 @@ launching your satellite at is owned by a non-allied country, then
 they will get a telegram informing them of the positioning of the
 satellite.  See below for details of a satellite's orbit path.
 .s1
-When launching missiles, there is a 
+When launching missiles, there is a
 % chance equal to (5 + 100 - efficiency) * (1 - techfactor) that the
 missile will blow up on
 the launching pad instead of launching.

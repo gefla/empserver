@@ -111,7 +111,7 @@ This would make the unit interdict anything passing within 5 sectors of
 This would make the unit interdict anything passing within 2 sectors of
 4,0, provided it was also within 5 sectors (the unit's range) of 0,0.
 .s1
-The op-sector/op-range concept allows you to restrict a unit's area of 
+The op-sector/op-range concept allows you to restrict a unit's area of
 interest to a small, important area, or just let it shoot at anything within
 range.
 .s1
@@ -124,8 +124,8 @@ perform that mission if done by the player.
 A unit stays on its mission until you cancel it, OR the unit acts. Any type
 of action not a part of a mission
 is sufficient, so marching, navigating, transporting, flying, reconing,
-bombing, mining, paratrooping, being attacked, being 
-paratrooped on, retreating, etc, will all cause a unit to lose its 
+bombing, mining, paratrooping, being attacked, being
+paratrooped on, retreating, etc, will all cause a unit to lose its
 mission status, but the unit could bomb/shell/etc AS PART OF A MISSION, and
 still retain its mission status.
 Also, land units with a reserve
@@ -167,7 +167,7 @@ have mobility left.
 .s1
 Damage done is divided amongst all units/ships/commodities moving. For
 example, if 6 ships were moving, and the interdiction mission did 18 points of
-damage, each ship would take 3. 
+damage, each ship would take 3.
 .s1
 Note that only ships with sonar and ASW planes can interdict subs. Also, the
 units may or may not detect the subs, so it's kind of random. The sub also
@@ -188,8 +188,8 @@ sector that the commodities were moving into.
 .s1
 Note also that forts will fire at enemy ships coming within
 range. You don't have to set anything for this, it
-happens automatically. (Forts firing at enemy ships naving happens before 
-ships/planes/units interdicting ships, so if the enemy is using an area a 
+happens automatically. (Forts firing at enemy ships naving happens before
+ships/planes/units interdicting ships, so if the enemy is using an area a
 lot, a fort will hurt him without costing you mob from planes)
 .s1
 SUPPORT MISSIONS (planes only)
@@ -239,9 +239,9 @@ owned sectors, some sea, some allied sectors, and some enemy sectors, it
 would try to intercept over any of them.
 .s1
 When a plane enters a sector, any planes with air defense missions that are
-at war with the owner of the plane will fly there to fight it. 
+at war with the owner of the plane will fly there to fight it.
 The air defense planes
-encounter normal interception along the way (but do \*QNOT\*U trigger 
+encounter normal interception along the way (but do \*QNOT\*U trigger
 more air defense missions, but \*QMAY\*U be intercepted normally).
 Once the air defense planes get to the sector,
 they fight the plane. Then, if the owner of the sector

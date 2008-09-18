@@ -26,7 +26,7 @@
  *  ---
  *
  *  sail.c: Sail ships during the update
- * 
+ *
  *  Known contributors to this file:
  *     Doug Hay
  *     Robert Forsman

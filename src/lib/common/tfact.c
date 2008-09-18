@@ -26,7 +26,7 @@
  *  ---
  *
  *  tfact.c: return tech fact given multiplier
- * 
+ *
  *  Known contributors to this file:
  *     Yannick Trembley
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  coas.c: Look at all the ships in the world
- * 
+ *
  *  Known contributors to this file:
  *     Keith Muller, 1983
  *     Dave Pare, 1986 (rewrite)

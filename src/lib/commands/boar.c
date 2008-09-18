@@ -26,7 +26,7 @@
  *  ---
  *
  *  boar.c: Board an enemy ship
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

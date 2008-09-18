@@ -26,7 +26,7 @@
  *  ---
  *
  *  cede.c: Give a sector to a neighbor
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Thomas Ruschak

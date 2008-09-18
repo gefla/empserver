@@ -26,7 +26,7 @@
  *  ---
  *
  *  snxtsct.c: Arrange sector selection using either distance or area
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2006-2008

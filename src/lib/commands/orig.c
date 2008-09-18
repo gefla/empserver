@@ -26,7 +26,7 @@
  *  ---
  *
  *  orig.c: Move your origin
- * 
+ *
  *  Known contributors to this file:
  *     Shelley Louie, 1988
  *     Markus Armbruster, 2006

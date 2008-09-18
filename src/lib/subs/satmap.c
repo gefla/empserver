@@ -26,7 +26,7 @@
  *  ---
  *
  *  satmap.c: Do a satellite map given an x,y location, effic and other
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

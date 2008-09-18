@@ -26,7 +26,7 @@
  *  ---
  *
  *  laun.c: Launch missiles from land or sea
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
@@ -93,7 +93,7 @@ laun(void)
 	    }
 	}
 
-	if (plane.pln_effic < 40) { 
+	if (plane.pln_effic < 40) {
 	    pr("%s is damaged (%d%%)\n", prplane(&plane), plane.pln_effic);
 	    continue;
 	}

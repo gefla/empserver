@@ -26,7 +26,7 @@
  *  ---
  *
  *  combat.h: Definitions for things having to do with combat
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

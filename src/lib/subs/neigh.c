@@ -26,9 +26,9 @@
  *  ---
  *
  *  neigh.c: Return true if a neighbor
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -26,7 +26,7 @@
  *  ---
  *
  *  nav_ship.c: Navigate ships and such
- * 
+ *
  *  Known contributors to this file:
  *     Chad Zabel, 1994
  *     Ken Stevens, 1995
@@ -228,7 +228,7 @@ nav_load_ship_at_sea(struct shpstr *sp)
 }
 
 /* new autonav code.
- * 
+ *
  * 1. Try and move to the next sector/harbor given by the player.
  * 2. Once we reach a harbor try and load all cargo holds for that ship.
  * 3. If the ship reaches its max levels set by the player try to use
@@ -237,8 +237,8 @@ nav_load_ship_at_sea(struct shpstr *sp)
  * the ship gets sunk (forts,ect..), the ship hits a mine.
  *
  * Questions, bugs (fixes) , or new ideas should be directed at
- * Chad Zabel.  
- * 6-1-94   
+ * Chad Zabel.
+ * 6-1-94
  * Modified to use shp_nav by Ken Stevens 1995
  */
 int

@@ -26,7 +26,7 @@
  *  ---
  *
  *  types.h: Empire types
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2006-2007
  */

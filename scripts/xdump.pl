@@ -164,7 +164,7 @@ sub parse_xdump {
     my $n = 0;
     while ($data !~ /^\//) {
 	($_, $data) = split(/\n/, $data, 2);
-	my @fld = split(/ /);	
+	my @fld = split(/ /);
 	&$store_record($tuid, $meta, $name, $n, \@fld, $timestamp);
 	$n++;
     }

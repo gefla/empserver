@@ -26,9 +26,9 @@
  *  ---
  *
  *  item.h: Definitions for item characteristics stuff
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef ITEM_H

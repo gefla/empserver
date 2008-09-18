@@ -26,7 +26,7 @@
  *  ---
  *
  *  rea.c: Read telegrams
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Doug Hay, 1998

@@ -27,7 +27,7 @@
  *
  *  misc.h: Misc. definitions which don't really belong anywhere,
  *          but have to go somewhere!
- * 
+ *
  *  Known contributors to this file:
  *       Doug Hay, 1998
  */
@@ -95,7 +95,7 @@ void exit_nomem(void) ATTRIBUTE((noreturn));
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);
 extern char *ugetstring(char *prompt, char buf[]);
-             
+
 extern char *prbuf(char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 

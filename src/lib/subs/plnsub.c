@@ -26,7 +26,7 @@
  *  ---
  *
  *  plnsub.c: Plane subroutine stuff
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
@@ -805,7 +805,7 @@ pln_put1(struct plist *plp)
  * planes.
  */
 int
-could_be_on_ship(struct plnstr *pp, struct shpstr *sp, 
+could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
 		 int n, int nch, int nxl, int nmsl)
 {
     struct plchrstr *pcp = &plchr[pp->pln_type];

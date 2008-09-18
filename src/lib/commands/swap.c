@@ -26,7 +26,7 @@
  *  ---
  *
  *  swap.c: Swap two sectors on the map
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

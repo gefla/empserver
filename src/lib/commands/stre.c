@@ -26,7 +26,7 @@
  *  ---
  *
  *  stre.c: Calculate military strengths of sectors
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

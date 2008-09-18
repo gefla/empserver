@@ -26,7 +26,7 @@
  *  ---
  *
  *  ntthread.c: Interface from Empire threads to Windows NT threads
- * 
+ *
  *  Known contributors to this file:
  *     Doug Hay, 1998
  *     Steve McClure, 1998
@@ -304,12 +304,12 @@ loc_BlockThisThread(void)
 static BOOL WINAPI
 loc_Exit_Handler(DWORD fdwCtrlType)
 {
-    switch (fdwCtrlType) { 
+    switch (fdwCtrlType) {
         case CTRL_C_EVENT:
         case CTRL_CLOSE_EVENT:
-        case CTRL_BREAK_EVENT: 
-        case CTRL_LOGOFF_EVENT: 
-        case CTRL_SHUTDOWN_EVENT: 
+        case CTRL_BREAK_EVENT:
+        case CTRL_LOGOFF_EVENT:
+        case CTRL_SHUTDOWN_EVENT:
 	    empth_request_shutdown();
             return TRUE;
         default:

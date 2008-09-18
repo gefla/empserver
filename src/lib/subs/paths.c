@@ -26,7 +26,7 @@
  *  ---
  *
  *  path.c: Routines associated with paths, directions, etc.
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2005-2008
  */

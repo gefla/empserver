@@ -287,9 +287,9 @@ then it will just keep resupplying itself until it finishes the job.
 Also, it now costs engineers 1 point of mobility per mine laid.
 .L -
 If land units are accompanied by engineers, then their chance of
-hitting a land mine is reduced by a factor of 3.  E.g. if there 
+hitting a land mine is reduced by a factor of 3.  E.g. if there
 are 25 mines in the sector, then a land unit has a 33%
-chance of hitting a land mine.  If it is accompanied by an 
+chance of hitting a land mine.  If it is accompanied by an
 engineer, then that chance drops to 11%.
 .L -
 If an engineer sweeps a land mine that it cannot carry, it drops

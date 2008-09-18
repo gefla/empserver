@@ -26,7 +26,7 @@
  *  ---
  *
  *  xy.c: x-y related conversion routines
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2004-2008

@@ -26,7 +26,7 @@
  *  ---
  *
  *  ringbuf.c: Simple ring buffer
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  */

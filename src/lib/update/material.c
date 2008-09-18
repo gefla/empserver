@@ -26,7 +26,7 @@
  *  ---
  *
  *  material.c: Tries to find materials for production
- * 
+ *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1996
  *     Markus Armbruster, 2007

@@ -26,7 +26,7 @@
  *  ---
  *
  *  sstat.c: Show the stats of your ships
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

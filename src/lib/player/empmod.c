@@ -26,7 +26,7 @@
  *  ---
  *
  *  empmod.c: List all commands for Empire
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Jeff Bailey

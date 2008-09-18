@@ -26,7 +26,7 @@
  *  ---
  *
  *  game.c: Game file access
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007-2008
  */
@@ -51,7 +51,7 @@
 #include "server.h"
 
 /*
- * Disable updates 
+ * Disable updates
  */
 void
 game_ctrl_update(int enable)

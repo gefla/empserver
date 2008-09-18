@@ -26,7 +26,7 @@
  *  ---
  *
  *  tele.c: Send a telegram
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

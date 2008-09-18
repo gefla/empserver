@@ -26,9 +26,9 @@
  *  ---
  *
  *  bsanct.c: Break Sanctuary subroutines
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #include <config.h>

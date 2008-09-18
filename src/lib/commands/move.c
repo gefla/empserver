@@ -26,9 +26,9 @@
  *  ---
  *
  *  move.c: Move commodities around
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

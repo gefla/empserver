@@ -26,7 +26,7 @@
  *  ---
  *
  *  sona.c: Sonar from a sub (or other sonar-equipped ship)
- * 
+ *
  *  Known contributors to this file:
  *     Jim Griffith, 1989
  *     Ken Stevens, 1995
@@ -295,7 +295,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
     }
 }
 
-/* 
+/*
  * line_of_sight() - is there a "straight" all water path from (x,y) to (tx,ty)
  * Ken & Irina Stevens, 1995
  */

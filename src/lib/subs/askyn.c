@@ -26,7 +26,7 @@
  *  ---
  *
  *  askyn.c: The oldest routines in the book... ask questions of the user
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1993
  *     Doug Hay, 1998

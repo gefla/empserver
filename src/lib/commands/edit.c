@@ -26,7 +26,7 @@
  *  ---
  *
  *  edit.c: Edit things (sectors, ships, planes, units, nukes, countries)
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Chad Zabel, 1994

@@ -26,7 +26,7 @@
  *  ---
  *
  *  sarg.c: Parse selection arguments
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Markus Armbruster, 2004-2008
@@ -116,7 +116,7 @@ sarg_area(char *str, struct range *rp)
 	    if (end == str || (*end != 0 && !isspace(*end))
 		|| rlm < 0 || MAXNOR <= rlm)
 		return 0;
-	} else 
+	} else
 	    rlm = 0;
 	getrealm(rlm, player->cnum, &realm);
 	rp->lx = realm.r_xl;

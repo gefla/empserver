@@ -26,7 +26,7 @@
  *  ---
  *
  *  trad.c: Buy units/ships/planes/nukes from other nations.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Pat Loney, 1992

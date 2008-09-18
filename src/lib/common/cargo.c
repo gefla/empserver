@@ -26,7 +26,7 @@
  *  ---
  *
  *  cargo.c: Cargo lists
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2008
  */

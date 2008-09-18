@@ -26,9 +26,9 @@
  *  ---
  *
  *  flee.c: Add ships to a fleet
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

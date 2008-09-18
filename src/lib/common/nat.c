@@ -26,7 +26,7 @@
  *  ---
  *
  *  nat.c: Misc. accesses on the nation file
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

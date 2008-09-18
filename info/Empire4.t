@@ -524,7 +524,7 @@ Changes to Empire 4.3.10 - Thu Sep  6 17:59:53 UTC 2007
      shutdown aborted it.  The bug allowed players to delay update and
      shutdown indefinitely.
  * Thread priorities are only implemented by LWP and no longer used.
-   With LWP, they let players with a sufficiently fast connection 
+   With LWP, they let players with a sufficiently fast connection
    starve out the threads that clean the lost file and kill idle
    connections.  Drop them.
  * Show nuke rounded required research incorrectly.
@@ -736,7 +736,7 @@ Changes to Empire 4.3.6 - Tue Jun 20 18:46:18 UTC 2006
    in 4.0.2), and trains could be sent down paths without rail (never
    worked).  Also fixes unit reaction path cost.
  * The custom table reader can now deal with sector, item, product and
-   infra tables more comfortably.  
+   infra tables more comfortably.
  * Remove option BIG_CITY.  Deities can customize the sect table to
    get the same effect.
  * Many more selectors can now be compared with names, not just
@@ -1641,7 +1641,7 @@ Changes to Empire 4.2.13 - Fri Feb 13 22:12:36 UTC 2004
  * News no longer call all sub-launched missiles nuclear.
  * Incoming missiles are now reported with coordinates.
  * Removed some code that served no purpose except crashing on
-   Windows. 
+   Windows.
  * Fixed Mac OSX and AIX build problems.
  * Don't resolve player IP addresses for now, because it can crash
    with certain versions of GNU libc.
@@ -1736,7 +1736,7 @@ Changes to Empire 4.2.8 - Mon Oct  9 17:35:35 MDT 2000
  * Updated order of firing flak in Flak.t.
  * Fixed 80% efficient planes on ships must be maintained.
  * Fixed initial MOB_ACCESS check thread sleep time was set by an uninitialized
-   variable. 
+   variable.
  * Removed "TEMPORARILY DISABLED" message from mission command for escort
    missions.  Escort missions have been re-enabled since 4.0.15.
  * Using sonar from the navigate command will print the sonar map.
@@ -1871,7 +1871,7 @@ Changes to Empire 4.2.6 - Fri Jun  4 05:55:20 PDT 1999
  * Fixed bug in sectors that don't revolt not showing up as lost items.
  * Fixed bug where maps with an X of exactly 200 is not drawing third line.
  * Fixed bug where MOB_ACCESS was not updating the mobility just before
-   the update. 
+   the update.
  * Fixed bug in the way treaties are examined and sometimes produce
    wrong results.
  * Fixed edit to allow creating negative mobility for sectors.
@@ -1902,7 +1902,7 @@ Changes to Empire 4.2.5 - Mon Mar  1 06:42:24 PST 1999
  * Fixed bug where scrapping land units was creating military.
  * Fixed description of sect_mob_neg_factor in econfig file.
  * Increased speed of PT boats.
-	
+
 Changes to Empire 4.2.4 - Tue Feb  2 05:47:44 PST 1999
  * Added check to make military values match up correctly for land
    units.
@@ -1914,7 +1914,7 @@ Changes to Empire 4.2.4 - Tue Feb  2 05:47:44 PST 1999
  * Fixed bug in explore command not setting mobility to correct
    value when MOB_ACCESS was enabled.
  * Fixed bug in enlist setting mobility incorrectly sometimes.
- * Added doc/backup file for deities which recommends how backups and 
+ * Added doc/backup file for deities which recommends how backups and
    restores of the data directory should be done.
 
 Changes to Empire 4.2.3 - Wed Jan 13 06:02:35 PST 1999
@@ -2039,7 +2039,7 @@ Changes to Empire 4.2.2 - Sun Dec 27 12:46:34 PST 1998
  * Fixed bug where satellites were not orbiting the world during the
    update.
  * Fixed bug in torpedos being too smart.  They knew how to jump over
-   land! :)  Now the "line_of_sight" routine is used to determine if a 
+   land! :)  Now the "line_of_sight" routine is used to determine if a
    torpedo has a straight path to the destination.  If it doesn't, the
    torpedo no longer jumps over land, but instead slams into it.  This was
    an interesting bug because you could torp ships on the other side of
@@ -2055,9 +2055,9 @@ Changes to Empire 4.2.2 - Sun Dec 27 12:46:34 PST 1998
    destination sector.  Goods are now attempted to be returned to the
    start sector, and apporpriate steps taken if the start sector is no
    longer available.
- * Fixed march to prompt you before you abandon a sector you own by 
+ * Fixed march to prompt you before you abandon a sector you own by
    marching out the last land unit.
- * Fixed check functions to only check the relevant portions of the structure 
+ * Fixed check functions to only check the relevant portions of the structure
    and not the timestamp info that doesn't affect how the object functions.
  * Fixed bug in spy command that always told you if a spy unit was in a
    non-owned sector.
@@ -2105,7 +2105,7 @@ Changes to Empire 4.2.2 - Sun Dec 27 12:46:34 PST 1998
    gained information that you wouldn't normally know.)
  * Merged bestpath and bestownedpath and wrote new wrappers, "BestShipPath"
    and "BestAirPath" to use it properly.  It is also good to note that
-   bestownedpath is used to determine paths for ships and for planes, 
+   bestownedpath is used to determine paths for ships and for planes,
    and that best_path (which uses the A* algorithm) is used for all land
    based paths, and that the two are never interchanged.
  * Removed "jet recon" plane (it slipped in during the PLANENAMES conversion,
@@ -2118,7 +2118,7 @@ Changes to Empire 4.2.1 - Tue Nov  3 12:56:20 PST 1998
    properly, and thus causing crashes when accessing certain plane
    routines.  This happened during the move to make the PLANENAMES option
    run-time configurable.
-	
+
 Changes to Empire 4.2.0 - Thu Oct 29 06:27:15 PST 1998
  * Bumped rev to 4.2.0 since this is a major release (the server is now
    run-time configurable for just about everything and is released under
@@ -2281,7 +2281,7 @@ Changes to Empire 4.0.18 - Thu Sep 24 06:54:27 PDT 1998
  * Updated Education.t
  * Modified (increased) chances of hitting mines slightly.
  * Removed unused variables from shp_check_mines.
-	
+
 Changes to Empire 4.0.17 - Fri Jul 31 06:12:21 PDT 1998
  * Added ability in edit to change coastal flag for sectors.
  * Added ability in edit to edit plague values for ships.
@@ -2299,7 +2299,7 @@ Changes to Empire 4.0.17 - Fri Jul 31 06:12:21 PDT 1998
    (works for sea and land mines, used "lmine" to distinguish it from "min"
    which determines mineral (iron) content of a sector.)
  * No longer able to pin bomb land units on a ship.
- * Land units are required to have at least one military loaded to perform 
+ * Land units are required to have at least one military loaded to perform
    a mission.
  * Firing land units are required to have at least on military loaded to
    be able to fire (or return fire.)
@@ -2315,7 +2315,7 @@ Changes to Empire 4.0.17 - Fri Jul 31 06:12:21 PDT 1998
    they were not cargo capable.
  * Fixed bug in potentially crashing in update code for nations tech/research.
  * Fixed bug in execute putting you into execute mode incorrectly.
- * Fixed bug in board not allowing land units to board from 0 mobility 
+ * Fixed bug in board not allowing land units to board from 0 mobility
    sectors.
  * Fixed bug where interdicted land units that were missed displayed
    a "SPLASH! Bombs miss your ships" message.
@@ -2405,7 +2405,7 @@ Changes to Empire 4.0.16 - Fri Jun 12 08:52:06 EDT 1998
    before.)
  * Fixed bug in neweff not reporting stopped sectors.  It now (correctly)
    reports them as not changing eff.
-	
+
 Changes to Empire 4.0.15 - Wed May 20 12:35:53 EDT 1998
  * Fixed the spelling of Markus' name in CHANGES4.0 files.
  * Added Markus' patches/fixes.  Some are detailed below.
@@ -2426,7 +2426,7 @@ Changes to Empire 4.0.15 - Wed May 20 12:35:53 EDT 1998
  * Fixed bug in setsector telling the deity coordinates of sectors being
    granted/taken away.
  * Fixed bug in setting budget of enlistment sectors to 0.
-	
+
 Changes to Empire 4.0.14 - Wed Apr  8 08:47:54 EDT 1998
  * Fixed time_t problem in common/log.c
  * Fixed bug in headlines
@@ -2436,7 +2436,7 @@ Changes to Empire 4.0.14 - Wed Apr  8 08:47:54 EDT 1998
  * Fixed bug in printing of "No ship(s)" twice in cargo command when no
    ships were selected.
  * Temporarily disabled escort missions until a fix is found. They are
-   randomly crashing the server.  
+   randomly crashing the server.
  * Fixed morale.t to reflect that retreat percentage is based off of
    morale_base and not 75.
  * Fixed bug in bridgefall where planes and units on ship in a sector
@@ -2446,7 +2446,7 @@ Changes to Empire 4.0.14 - Wed Apr  8 08:47:54 EDT 1998
  * Fixed bug in produce command reporting incorrect costs (sometimes).
  * Land units on ships will now try to draw supply from the ship they
    are on.
-	
+
 Changes to Empire 4.0.13 - Mon Mar  2 11:04:28 EST 1998
  * Fixed bug in distribute when world sizes are other than 64x32
  * Fixed bug in getcommand (not really a bug, just made it work like
@@ -2455,10 +2455,10 @@ Changes to Empire 4.0.13 - Mon Mar  2 11:04:28 EST 1998
  * Fixed building of POSIX threads on Alpha running Digital Unix.
  * Fixed line_of_sight prototype in sona.c
  * Fixed fairland not to conuse stupid C++ compilers.
-	
+
 Changes to Empire 4.0.12 - Tue Feb 24 11:27:31 EST 1998
  * Fixed client build on linux (whoops)
-	
+
 Changes to Empire 4.0.11 - Tue Feb 10 10:53:10 EST 1998
  * AIX build seems to only work with gcc right now (but at least that works)
  * Vax Ultrix (vaxultrix) build should work now (hopefully) out of the box.
@@ -2473,7 +2473,7 @@ Changes to Empire 4.0.11 - Tue Feb 10 10:53:10 EST 1998
  * Fixed bug where spies were not dying when damaged.
  * Fixed bug in HIDDEN mods in declare command not printing country # of
     uncontacted country correctly (or at all as a matter of fact)
-	
+
 Changes to Empire 4.0.10 - Mon Aug 18 12:34:58 EDT 1997
  * Fixed bug where fleets were being interdicted but the damage was being
     spread to ships not in the same sectors.
@@ -2507,7 +2507,7 @@ Changes to Empire 4.0.10 - Mon Aug 18 12:34:58 EDT 1997
     a sector.
  * Documented mountains only holding and using 1/10th of the normal sector
     population in Sector-types.t.
- * Fixed documentation on ship's firing ranges in fire.t to be less 
+ * Fixed documentation on ship's firing ranges in fire.t to be less
     ambiguous.
  * Updated nukes in nuke.t
  * Added apropos command (thanks to Mike Wise)
@@ -2515,7 +2515,7 @@ Changes to Empire 4.0.10 - Mon Aug 18 12:34:58 EDT 1997
     there are two files of the same name, and you don't get a complete match,
     then whichever file is found first in the directory is used.
  * Changed documentation in wantupd.h
-	
+
 Changes to Empire 4.0.9 - Sat Apr 19 23:01:51 EDT 1997
  * Fixed dump info pages that were getting formatted funny.
  * Fixed improve info page.
@@ -2583,7 +2583,7 @@ Changes to Empire 4.0.8 - Wed Feb 26 23:00:51 EST 1997
     This was major because it affected timestamp values which are more
     than 65535.
  * Fixed bug in sdump.c for typo in reporting the trade ships origin.
-	
+
 Changes to Empire 4.0.7 - Mon Feb 24 22:48:54 EST 1997
  * Fixed bug in aircombat.c when calculating the air combat odds.  Negative
     numbers were screwing things up good...
@@ -2618,7 +2618,7 @@ Changes to Empire 4.0.7 - Mon Feb 24 22:48:54 EST 1997
  * Spies caught in Neutral or Friendly countries cause the Neutral or
     Friendly country to go Hostile towards the owner of the spy.
  * Tweaked ammunition numbers for artillery units.
- * No more automatic declarations of War should be made.  You will go 
+ * No more automatic declarations of War should be made.  You will go
     hostile, but since going to war doesn't increase your countries
     defenses, and is purely political, it is left to the player to go
     that final step.
@@ -2712,7 +2712,7 @@ Changes to Empire 4.0.4 - Mon Dec  9 11:00:00 EST 1996
  * Fixed doconfig.c to create directories with right modes.
  * Fixed install macros in makefiles to move binaries to the right
     places.
-	
+
 Changes to Empire 4.0.3 - Wed Dec  4 22:46:53 EST 1996
  * Added HP/UX port.
  * Fixed doconfig.c (put exit(0) at the end of main.)
@@ -2747,7 +2747,7 @@ Changes to Empire 4.0.2 - Mon Oct 14 12:26:40 EDT 1996
  * Fixed attack value in attack_val in lndsub.c
  * Fixed lload in commands/load.c
  * Fixed defense_val in lndsub.c - Made it a minimum of 1, so that units will
-    always fight until dead or retreating.  0 makes them get stuck. 
+    always fight until dead or retreating.  0 makes them get stuck.
  * Fixed update/deliver.c - no delivery of non-oldowned civvies (or anything
     else for that matter.)
  * Fixed llook in commands/look.c
@@ -2831,7 +2831,7 @@ Changes to Empire 4.0.0 - Wed Aug 21 1996
  * Added NO_LCMS, NO_HCMS and NO_OIL options.  When any of these options are
     enabled, you don't need any of that type of material to build things.
     If NO_HCMS is enabled, you don't need HCMS to build bridges, you need
-    lcms.  If both NO_HCMS and NO_LCMS are enabled, then you don't need 
+    lcms.  If both NO_HCMS and NO_LCMS are enabled, then you don't need
     any materials to build a bridge.
  * There is no mobility cost for assigning missions.  But, there is also
     no longer any benefit for being on a mission either.
@@ -2886,7 +2886,7 @@ Changes to Empire 4.0.0 - Wed Aug 21 1996
  * Che can now be lessened by making happiness.  If you have more happiness
     than your conquered populace, they don't fight as hard or recruit as
     much.  If you have less than them, they fight harder and recruit more.
-    It's not much though - it ranges from 2.0 in your favor to only 0.8 
+    It's not much though - it ranges from 2.0 in your favor to only 0.8
     against you (whereas it was always 1.0 before.)  So, it definitely
     favors the attackers to make lots of happy now.
  * Bridgeheads can only be built on coasts.

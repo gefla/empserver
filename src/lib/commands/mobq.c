@@ -26,7 +26,7 @@
  *  ---
  *
  *  mobq.c: Set the sailing mobility quota for a ship
- * 
+ *
  *  Known contributors to this file:
  *     Robert Forsman
  */

@@ -26,9 +26,9 @@
  *  ---
  *
  *  nati.c: List nation information
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

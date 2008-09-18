@@ -26,9 +26,9 @@
  *  ---
  *
  *  getstring.c: get string, printing a prompt if there is one
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

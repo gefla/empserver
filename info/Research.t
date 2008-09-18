@@ -3,7 +3,7 @@
 .LV Expert
 .sp
 .s1
-If the RES_POP option is in use, 
+If the RES_POP option is in use,
 the research level of a country determines the maximum number of civilians
 and uw's
 that can live in a sector. For ordinary sectors, the maximum is:

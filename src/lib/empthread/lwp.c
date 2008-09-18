@@ -26,7 +26,7 @@
  *  ---
  *
  *  lwp.c: Interface from Empire threads to LWP threads
- * 
+ *
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Markus Armbruster, 2006-2007

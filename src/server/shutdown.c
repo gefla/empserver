@@ -26,7 +26,7 @@
  *  ---
  *
  *  shutdown.c: Shuts down server.  Runs at low priority.
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Markus Armbruster, 2007-2008

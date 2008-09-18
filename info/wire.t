@@ -5,7 +5,7 @@
 The wire command is used to read the announcements sent you by other countries.
 .sp
 After reading all your announcements you may mark them
-as being read by 
+as being read by
 specifying \*Qyes\*U or not by specifying \*Qno\*U as an argument.
 If an argument is not supplied then you will be prompted
 to either answer \*Qyes\*U or \*Qno\*U to marking announcements

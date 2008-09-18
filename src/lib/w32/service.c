@@ -26,7 +26,7 @@
  *  ---
  *
  *  service.c: Windows services support
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2004
  */
@@ -57,7 +57,7 @@ install_service(char *program_name, char *service_name, char *config_file)
     schSCManager = OpenSCManager(NULL,NULL,SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        fprintf(stderr, "install_service failed to open Service Control Manager\n"); 
+        fprintf(stderr, "install_service failed to open Service Control Manager\n");
 	return EXIT_FAILURE;
     }
 
@@ -74,7 +74,7 @@ install_service(char *program_name, char *service_name, char *config_file)
         NULL,				/* database service dependency */
         NULL,				/* LocalSystem account */
         NULL);				/* no password */
- 
+
     if (schService == NULL) {
 	fprintf(stderr, "install_service failed to create service %s\n", service_name);
         return EXIT_FAILURE;
@@ -107,7 +107,7 @@ remove_service(char *service_name)
     schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        fprintf(stderr, "remove_service failed to open Service Control Manager\n"); 
+        fprintf(stderr, "remove_service failed to open Service Control Manager\n");
 	return EXIT_FAILURE;
     }
 
@@ -124,81 +124,81 @@ remove_service(char *service_name)
     }
 
     if (CloseServiceHandle(hService) == 0) {
-        fprintf(stderr, "remove_service failed to close service %s\n", service_name); 
+        fprintf(stderr, "remove_service failed to close service %s\n", service_name);
         return EXIT_FAILURE;
     } else {
-        printf("Service %s removed.\n", service_name); 
+        printf("Service %s removed.\n", service_name);
         return EXIT_SUCCESS;
     }
 }
 
-static SERVICE_STATUS		service_status; 
+static SERVICE_STATUS		service_status;
 static SERVICE_STATUS_HANDLE	service_status_handle;
 
 static void WINAPI
-service_ctrl_handler(DWORD Opcode) 
-{ 
-    switch(Opcode) { 
-        case SERVICE_CONTROL_PAUSE: 
+service_ctrl_handler(DWORD Opcode)
+{
+    switch(Opcode) {
+        case SERVICE_CONTROL_PAUSE:
             service_status.dwCurrentState = SERVICE_PAUSED;
 	    logerror("Pausing the service not supported");
-            break; 
- 
-        case SERVICE_CONTROL_CONTINUE: 
+            break;
+
+        case SERVICE_CONTROL_CONTINUE:
 	    logerror("Continuing the service not supported");
-            service_status.dwCurrentState = SERVICE_RUNNING; 
-            break; 
- 
+            service_status.dwCurrentState = SERVICE_RUNNING;
+            break;
+
         case SERVICE_CONTROL_STOP:
 	    logerror("Service stopping");
 	    empth_request_shutdown();
-            return; 
- 
-        case SERVICE_CONTROL_INTERROGATE: 
+            return;
+
+        case SERVICE_CONTROL_INTERROGATE:
         /* Fall through to send current status.  */
-            break; 
- 
-        default: 
-            logerror("Unrecognized opcode %ld in ServiceCtrlHandler", 
-                Opcode); 
-    } 
- 
+            break;
+
+        default:
+            logerror("Unrecognized opcode %ld in ServiceCtrlHandler",
+                Opcode);
+    }
+
     /* Send current status. */
     if (!SetServiceStatus (service_status_handle,  &service_status))
-        logerror("SetServiceStatus error %ld",GetLastError()); 
-    return; 
-} 
+        logerror("SetServiceStatus error %ld",GetLastError());
+    return;
+}
 
 void WINAPI
 service_main(DWORD argc, LPTSTR *argv)
 {
     int sig;
-    
-    service_status.dwServiceType        = SERVICE_WIN32; 
-    service_status.dwCurrentState       = SERVICE_START_PENDING; 
-    service_status.dwControlsAccepted   = SERVICE_ACCEPT_STOP; 
-    service_status.dwWin32ExitCode      = 0; 
-    service_status.dwServiceSpecificExitCode = 0; 
-    service_status.dwCheckPoint         = 0; 
-    service_status.dwWaitHint           = 0; 
- 
+
+    service_status.dwServiceType        = SERVICE_WIN32;
+    service_status.dwCurrentState       = SERVICE_START_PENDING;
+    service_status.dwControlsAccepted   = SERVICE_ACCEPT_STOP;
+    service_status.dwWin32ExitCode      = 0;
+    service_status.dwServiceSpecificExitCode = 0;
+    service_status.dwCheckPoint         = 0;
+    service_status.dwWaitHint           = 0;
+
     service_status_handle = RegisterServiceCtrlHandler(
         DEFAULT_SERVICE_NAME, service_ctrl_handler);
- 
-    if (service_status_handle == (SERVICE_STATUS_HANDLE)0) { 
+
+    if (service_status_handle == (SERVICE_STATUS_HANDLE)0) {
         logerror("RegisterServiceCtrlHandler failed %lu\n", GetLastError());
 	finish_server();
         return;
     }
- 
+
     start_server(0);
- 
+
     /* Initialization complete - report running status. */
-    service_status.dwCurrentState       = SERVICE_RUNNING; 
-    service_status.dwCheckPoint         = 0; 
-    service_status.dwWaitHint           = 0; 
- 
-    if (!SetServiceStatus (service_status_handle, &service_status)) { 
+    service_status.dwCurrentState       = SERVICE_RUNNING;
+    service_status.dwCheckPoint         = 0;
+    service_status.dwWaitHint           = 0;
+
+    if (!SetServiceStatus (service_status_handle, &service_status)) {
         logerror("SetServiceStatus error %ld\n", GetLastError());
     }
 
@@ -214,12 +214,12 @@ void
 stop_service(void)
 {
     logerror("Service stopped");
-    service_status.dwWin32ExitCode = 0; 
-    service_status.dwCurrentState  = SERVICE_STOPPED; 
-    service_status.dwCheckPoint    = 0; 
-    service_status.dwWaitHint      = 0; 
+    service_status.dwWin32ExitCode = 0;
+    service_status.dwCurrentState  = SERVICE_STOPPED;
+    service_status.dwCheckPoint    = 0;
+    service_status.dwWaitHint      = 0;
 
-    if (!SetServiceStatus (service_status_handle, &service_status)) 
+    if (!SetServiceStatus (service_status_handle, &service_status))
 	logerror("Error while stopping service SetServiceStatus"
-	    " error %ld", GetLastError()); 
+	    " error %ld", GetLastError());
 }

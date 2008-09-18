@@ -26,7 +26,7 @@
  *  ---
  *
  *  brea.c: Break out of sanctuary
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Wallace, 1989
  */

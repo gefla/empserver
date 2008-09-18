@@ -26,7 +26,7 @@
  *  ---
  *
  *  emp_config.c: Allows config file to control server config. from a file
- * 
+ *
  *  Known contributors to this file:
  *     Julian Onions, 1995
  *     Steve McClure, 1998-2000

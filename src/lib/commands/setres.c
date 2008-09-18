@@ -26,7 +26,7 @@
  *  ---
  *
  *  setres.c: Set resources of a sector
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Karl Hagen

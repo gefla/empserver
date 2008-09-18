@@ -26,7 +26,7 @@
  *  ---
  *
  *  finish.c: Finish the update
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1993

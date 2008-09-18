@@ -71,9 +71,9 @@ described in \*Qinfo capital \*U.
 Capitals are typically better at defending against attack than other
 sectors, except fortresses.
 .s1
-PARK - Parks are provided solely for the convenience of the 
+PARK - Parks are provided solely for the convenience of the
 people.
-Parks require construction materials to provide maintenance 
+Parks require construction materials to provide maintenance
 services and
 add to a nation's \*Qhappiness\*U level.
 .s1
@@ -118,7 +118,7 @@ FINANCIAL
 .s1
 BANK - Banks are used for smelting and storing gold bars.
 They include a smelter to refine gold dust into gold bars.
-While the bars are stored in the bank the busy little bankers 
+While the bars are stored in the bank the busy little bankers
 invest them and return a profit on their use.
 Banks are of the Fort Knox variety; they are more impervious to shelling
 than most other sectors, and military in them fight harder
@@ -170,7 +170,7 @@ AGRIBUSINESS - These sectors are large farms and provide food.
 Agribusiness sectors produce much more food than other sectors.
 .s1
 OIL - Oil fields produce oil by pumping it out of the ground.
-.s1 
+.s1
 REFINERY - Refineries produce petroleum by processing oil.
 .s1
 LIGHT - Light manufacturing plants produce light construction materials

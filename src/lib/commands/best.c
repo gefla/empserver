@@ -26,9 +26,9 @@
  *  ---
  *
  *  best.c: Show the best path between two sectors
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

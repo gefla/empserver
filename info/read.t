@@ -6,7 +6,7 @@ The read command is used to read the telegrams sent you
 by other countries and by the game,
 (e.g. when you make a sale or are attacked).
 .sp
-After reading all your telegrams you may delete them by 
+After reading all your telegrams you may delete them by
 specifying \*Qyes\*U or not by specifying \*Qno\*U as an argument.
 If an argument is not supplied then you will be prompted
 to either answer \*Qyes\*U or \*Qno\*U to delete the telegrams.

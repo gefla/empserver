@@ -26,7 +26,7 @@
  *  ---
  *
  *  file.h: Describes Empire tables (`files' for historical reasons)
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2005-2008
  */

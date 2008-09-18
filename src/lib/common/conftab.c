@@ -26,7 +26,7 @@
  *  ---
  *
  *  conftab.c: Load game configuration files
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2006-2008
  */

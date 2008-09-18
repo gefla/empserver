@@ -26,7 +26,7 @@
  *  ---
  *
  *  supp.c: supply land units
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

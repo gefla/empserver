@@ -26,9 +26,9 @@
  *  ---
  *
  *  decl.c: Declare war, neutrality, alliance, hostile or friendly
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -26,7 +26,7 @@
  *  ---
  *
  *  posixfile.c: POSIX equivalents for file operations
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */

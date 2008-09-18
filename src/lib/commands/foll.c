@@ -26,7 +26,7 @@
  *  ---
  *
  *  foll.c: Set leader of a set of ships
- * 
+ *
  *  Known contributors to this file:
  *     Robert Forsman
  */

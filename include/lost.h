@@ -26,7 +26,7 @@
  *  ---
  *
  *  lost.h: Definitions for lost items
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1997
  */

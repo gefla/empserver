@@ -26,7 +26,7 @@
  *  ---
  *
  *  sysdep_w32.h: system dependent support for WIN32 environments
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */
@@ -84,7 +84,7 @@ extern void sysdep_init(void);
     w32_socket((family), (sock_type), (protocol))
 #define connect(sock, addr, addrlen) \
     w32_connect((sock), (addr), (addrlen))
-				    
+
 #define pclose _pclose
 #define popen _popen
 #define snprintf _snprintf

@@ -26,9 +26,9 @@
  *  ---
  *
  *  distribute.h: Definitions for distribution stuff
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef DISTRIBUTE_H

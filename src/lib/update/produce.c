@@ -26,9 +26,9 @@
  *  ---
  *
  *  produce.c: Produce goodies
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 #include <config.h>

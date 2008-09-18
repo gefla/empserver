@@ -26,7 +26,7 @@
  *  ---
  *
  *  anti.c: Take action against che
- * 
+ *
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1997

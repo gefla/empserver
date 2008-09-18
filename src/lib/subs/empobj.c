@@ -27,7 +27,7 @@
  *
  *  empobj.c: Common functions on struct empobj and
  *            union empobj_storage
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006
  *     Markus Armbruster, 2006-2008

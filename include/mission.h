@@ -26,7 +26,7 @@
  *  ---
  *
  *  mission.h: Definitions for things having to do with missions.
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

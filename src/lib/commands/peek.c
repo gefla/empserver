@@ -26,7 +26,7 @@
  *  ---
  *
  *  peek.c: Show hidden values report (deity)
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Wallace, 1989
  *     Pat Loney, 1998

@@ -26,7 +26,7 @@
  *  ---
  *
  *  update.c: Update scheduler
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1996
@@ -221,9 +221,9 @@ int
 run_hook(char *cmd, char *name)
 {
     int status;
-    
+
     fflush(NULL);
-    
+
     status = system(cmd);
     if (status == 0)
 	;			/* successful exit */

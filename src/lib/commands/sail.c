@@ -26,7 +26,7 @@
  *  ---
  *
  *  sail.c: Set sail path for leaders
- * 
+ *
  *  Known contributors to this file:
  *     Robert Forsman
  */

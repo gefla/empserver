@@ -26,7 +26,7 @@
  *  ---
  *
  *  sell.c: Sell commodities to other nations.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Jeff Bailey

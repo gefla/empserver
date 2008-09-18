@@ -26,7 +26,7 @@
  *  ---
  *
  *  nstr.c: compile and execute the item selections on sectors
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997

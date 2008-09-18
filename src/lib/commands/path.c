@@ -26,7 +26,7 @@
  *  ---
  *
  *  path.c: Show empire distribution paths
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1986
  *     (unknown rewrite), 1989

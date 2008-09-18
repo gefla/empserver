@@ -26,7 +26,7 @@
  *  ---
  *
  *  dispatch.c: Actually execute the command given
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1998

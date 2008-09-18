@@ -26,9 +26,9 @@
  *  ---
  *
  *  plur.c: Pluralize (is that a word?) something
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

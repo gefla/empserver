@@ -26,7 +26,7 @@
  *  ---
  *
  *  filetable.c: Empire game data file descriptions.
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2005-2008
  */

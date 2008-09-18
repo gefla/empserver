@@ -26,7 +26,7 @@
  *  ---
  *
  *  powe.c: Do a power report
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Ken Stevens, 1995

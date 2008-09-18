@@ -26,7 +26,7 @@
  *  ---
  *
  *  skyw.c: Look at satellites in the sky.
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

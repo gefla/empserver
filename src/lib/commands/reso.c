@@ -26,7 +26,7 @@
  *  ---
  *
  *  reso.c: Display natural resources
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

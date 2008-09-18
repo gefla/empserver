@@ -26,7 +26,7 @@
  *  ---
  *
  *  cuto.c: Do a delivery cutoff level report
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  */

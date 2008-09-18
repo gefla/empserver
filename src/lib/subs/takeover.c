@@ -26,7 +26,7 @@
  *  ---
  *
  *  takeover.c: Take over from another country
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996-2000

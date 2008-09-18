@@ -26,7 +26,7 @@
  *  ---
  *
  *  sig.c: Wait for signals
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2006-2007
  */
@@ -46,7 +46,7 @@
 static sigset_t LwpSigCatched;
 
 /*
- * LwpSigCatched changed since last 
+ * LwpSigCatched changed since last
  */
 static sig_atomic_t LwpSigCheck;
 

@@ -26,9 +26,9 @@
  *  ---
  *
  *  star.c: Do a starvation report
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

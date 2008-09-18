@@ -70,7 +70,7 @@ ways to kill them, but not by shelling or bombing.
 A bridge can be built in any sector adjacent to one of yours, providing
 that the target sector is adjacent to a non-sea, non-bridge sector. Since
 bridgeheads are not required, you can't collapse bridges by killing the head.
-(You can still kill them by taking the bridge below 20%) This also fixes a 
+(You can still kill them by taking the bridge below 20%) This also fixes a
 problem with planes on bridges not dying when the bridge dies. (This was partly
 fixed before, but the fix didn't work all the time)
 .s1
@@ -210,7 +210,7 @@ assaulted, or shelled.
 .s1
 Your ships/sects will no longer shoot themselves in defense.
 You can cheerfully blast your own ships/sects without fear of
-retaliation from your own forces. You can also torp your own 
+retaliation from your own forces. You can also torp your own
 ships, and they will resignedly watch as the torps slam into them.
 .s1
 Gun ranges are no longer truncated. Instead, there is a % chance equal to the
@@ -248,7 +248,7 @@ You may now upgrade allied ships. (If ALLYHARBOR is used)
 .s1
 Your civs will work on allied ships in your harbors. (If ALLYHARBOR is used)
 .s1
-You may assault your own sectors. Mil assaulting are simply added to the 
+You may assault your own sectors. Mil assaulting are simply added to the
 number in the sector.
 .s1
 You may now land planes on a carrier in an allied harbor. (If ALLYHARBOR is
@@ -301,7 +301,7 @@ a fuel usage of 1 get 10 mob for every 1 fuel, ships with 2 fuel usage get 10
 mob for 2 fuel, etc. Ships with no fuel do not get mobility. Ships with a fuel
 usage of 0 do not need fuel. (Sailing ships & nuc ships/subs)
 .s1
-A new command, "fuel" is added. It allows fueling from a harbor sector, or a 
+A new command, "fuel" is added. It allows fueling from a harbor sector, or a
 ship or ships with the "oiler" flag. When fueling, petrol and/or oil in the
 harbor or on the oiler is exchanged for fuel points, which are loaded on the
 ship. Petrol is used first, if available, at a rate of 1 pet = 10 fuel. If
@@ -433,12 +433,12 @@ Changes to the Chainsaw code in version 2.1
 Chainsaw 2.1 has some minor differences from Chainsaw 2.0.
 .s1
 Now, when navigating, sonar or radar commands will
-default to the current ship, or the first (lowest 
+default to the current ship, or the first (lowest
 numbered) ship in a group. You may override this by
 specifying the desired ship on the command line.
 (I.e. "r 12" or "radar 212", etc)
 .s1
-The chance of a plane aborting is changed to 
+The chance of a plane aborting is changed to
 (100-eff)%. This means that if a 100% plane
 takes a hit for 30% damage, it has a 30% chance to abort.
 If it then takes another hit for 20% more, a total of 50% damage,
@@ -449,11 +449,11 @@ aborting until after all ships have fired, rather
 than rolling every time the plane takes a flak
 hit from a ship.
 .s1
-A new command has been added, the 'payoff' command. 
+A new command has been added, the 'payoff' command.
 It shows the value of trade ships if scuttled at
 the current sect (check info payoff).
 .s1
-Constants have been added to control ship & plane 
+Constants have been added to control ship & plane
 efficiency growth rate. It is now possible to allow
 2xETUS growth in efficiency, 3x, etc.
 .s1
@@ -466,7 +466,7 @@ reads only telegrams & bulletins.
 .s1
 When assaulting, troops will always leave at least 1 food on the ship.
 .s1
-You may now build multiples of an item by adding a build count at the 
+You may now build multiples of an item by adding a build count at the
 end of your build command. (see info build)
 .s1
 You may now give comments in the hours file. Comment lines start with a
@@ -486,9 +486,9 @@ Chainsaw 2.2 has some minor differences from Chainsaw 2.1.
 .s1
 A new option, SNEAK_ATTACK is included. It can only be used in
 conjunction with SLOW_WAR. It allows you to attack a sector of
-someone you're not at war with. Once attacked, the attacker 
+someone you're not at war with. Once attacked, the attacker
 automatically declares war against the defender, and pays $5K.
-At that point, the attacker has to go through the normal SLOW_WAR 
+At that point, the attacker has to go through the normal SLOW_WAR
 procedure before attacking again. See info attack, info assault.
 SNEAK_ATTACKs may not be done by parachute.
 .s1
@@ -565,7 +565,7 @@ will attempt to load or unload food as necessary to get ship 4 to 10 food.
 Land units have been added. There are many new commands for dealing with them.
 Look at info Land-units for a general overview.
 .s1
-Sectors that don't have enough food at the update will now attempt to 
+Sectors that don't have enough food at the update will now attempt to
 draw food from supply sources. (see info supply for details on supply sources.
 Conquered sectors will not draw food)
 Other sectors/ships/units will now draw supplies (mostly shells) when they
@@ -585,7 +585,7 @@ them all at once. See info build for more details.
 Distribution has been changed. Each sector now has a distribution sector
 rather than a distribution path (during the update, the least-cost path
 is found and used) Also, importing & exporting via distribute now happen
-in separate  phases, rather than being mingled. See info distribute 
+in separate  phases, rather than being mingled. See info distribute
 and info update-sequence for a full description.
 Read info distribute, or don't cry.
 .s1
@@ -609,12 +609,12 @@ may also take lcms or hcms to build. Show sector build will show this.
 A new command, cede, allows you to give a sector or ship to a neighbor. See
 info cede for more details.
 .s1
-There are several new information commands, such as neweff and 
+There are several new information commands, such as neweff and
 starvation. See the info pages for details.
 .s1
 Sectors are damaged by combat occurring in them. See info attack for details.
 .s1
-Missions may be given to ships/planes/units, allowing them to interdict 
+Missions may be given to ships/planes/units, allowing them to interdict
 enemy movement, support friendly attacks & defense, and other things.
 See info mission for details.
 .s1
@@ -634,7 +634,7 @@ you first lose uw's, then civs, then mil. As before, no more than 1/2 the total
 population of a sector can starve in one update. Example: if you have 200 uw's,
 100 mil, and 500 civilians, and no food, normally you'd have 100 uw's, 50 mil,
 and 250 civs after the update. With NEW_STARVE in effect, you'd have 0 uw's,
-300 civilians, and 100 mil. 
+300 civilians, and 100 mil.
 .s1
 NEW_WORK: When moving civs to or from a sector with low work, the new loyalty
 and work percentage of the destination sector is computed proportionally.

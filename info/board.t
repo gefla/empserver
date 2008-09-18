@@ -7,7 +7,7 @@ combat.
 To board ship #16 from ship #93 you might type:
 .EX board 16
 .s1
-The program will ask from which ship or sector you wish to board, 
+The program will ask from which ship or sector you wish to board,
 (you may only board from one ship at a time), how many troops to board
 with, and which land units (having "assault" capability) to board with.
 .s1

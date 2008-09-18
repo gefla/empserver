@@ -26,7 +26,7 @@
  *  ---
  *
  *  posix.c: Thread-related code common to POSIX systems
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2006
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  anno.c: Delete announcements older than ANNO_KEEP_DAYS
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Doug Hay, 1998

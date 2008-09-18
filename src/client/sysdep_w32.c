@@ -26,7 +26,7 @@
  *  ---
  *
  *  sysdep_w32.c: system dependent functions for WIN32 environments
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */
@@ -95,7 +95,7 @@ int
 w32_socket(int family, int sock_type, int protocol)
 {
     SOCKET result;
-    
+
     result = socket(family, sock_type, protocol);
     if (result == INVALID_SOCKET) {
 	errno = WSAGetLastError();
@@ -112,7 +112,7 @@ int
 w32_connect(int sock, struct sockaddr *addr, int addrlen)
 {
     int result;
-    
+
     result = connect(sock,  addr, addrlen);
     if (result == SOCKET_ERROR) {
 	errno = WSAGetLastError();
@@ -197,7 +197,7 @@ int
 w32_close_socket(int fd)
 {
     int result;
-    
+
     result = closesocket(fd);
     if (result == SOCKET_ERROR)
 	errno = WSAGetLastError();

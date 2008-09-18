@@ -26,7 +26,7 @@
  *  ---
  *
  *  give.c: give stuff to countries (deity)
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Steve McClure, 1997

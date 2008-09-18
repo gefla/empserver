@@ -26,9 +26,9 @@
  *  ---
  *
  *  comm.c: Do a commodity report
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

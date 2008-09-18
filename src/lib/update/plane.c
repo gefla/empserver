@@ -26,7 +26,7 @@
  *  ---
  *
  *  plane.c: Do production for planes
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998

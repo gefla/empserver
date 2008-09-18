@@ -26,7 +26,7 @@
  *  ---
  *
  *  sect.h: Definitions for things having to do with sectors.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Ken Stevens, 1995

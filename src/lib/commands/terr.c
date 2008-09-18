@@ -26,7 +26,7 @@
  *  ---
  *
  *  terr.c: Designate territory of sectors
- * 
+ *
  *  Known contributors to this file:
  *     Edward M. Rynes Esq.
  */

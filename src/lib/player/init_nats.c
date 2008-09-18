@@ -26,7 +26,7 @@
  *  ---
  *
  *  init_nats.c: Initialize country and nation file stuff
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000

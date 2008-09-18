@@ -26,9 +26,9 @@
  *  ---
  *
  *  rout.c: Show empire deliver routes
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

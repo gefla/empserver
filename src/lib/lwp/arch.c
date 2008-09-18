@@ -27,7 +27,7 @@
  *  ---
  *
  *  arch.c: architecture-dependant process context code
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1994-2000

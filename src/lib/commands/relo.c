@@ -26,7 +26,7 @@
  *  ---
  *
  *  relo.c: Re-read (some) configuration files
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  */

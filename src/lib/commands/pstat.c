@@ -26,7 +26,7 @@
  *  ---
  *
  *  pstat.c: Show the stats of your planes
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  */

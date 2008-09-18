@@ -1,7 +1,7 @@
 .TH Command ORDER
 .NA order "Order a ship to auto-navigate"
 .LV Expert
-.SY "order <SHIP/FLEET> [c|r|s|d|l] 
+.SY "order <SHIP/FLEET> [c|r|s|d|l]
 You use the \*Qorder\*U command to give sailing orders to ships.
 At each update, ships sailing under orders \*Qautonavigate\*U toward a
 specific destination sector.  Telegrams notify you of arrivals.
@@ -9,7 +9,7 @@ specific destination sector.  Telegrams notify you of arrivals.
 ONLY merchant ship may be given orders, but in order to move during the
 update a ship must have at least one crew (which may be civilian or military,
 but not an uncompensated worker).  Merchant ships are those that
-have 0 for their firing range and gun limit values.  
+have 0 for their firing range and gun limit values.
 .s1
 Note that your ships sailing on orders will be interdicted just as if
 you were navigating them by hand.
@@ -23,17 +23,17 @@ points and clear all the cargo levels for the ship.
 .EX order <SHIP/FLEET> s      Suspend Orders
 .s1
      If you want to keep orders but don't want the ship
-to move during the update use the suspend option. 
+to move during the update use the suspend option.
 A quick look at \*Qsorder\*U
 will display the eta time as suspended.
 As long as a ship is suspended it will be unable to move
-during the update.  
+during the update.
 .s1
 .EX order <SHIP/FLEET> r      Resume Orders
      Resume will allow ships that have a suspended order to move
-again. 
+again.
 .s1
-.EX order <SHIP/FLEET> d <dest1> [dest2|scuttle|-]   Declare Orders 
+.EX order <SHIP/FLEET> d <dest1> [dest2|scuttle|-]   Declare Orders
 .s1
 To declare an order you have 3 options.
 .NF
@@ -79,7 +79,7 @@ scuttle themselves at sea.
 .s1
 .EX order <SHIP/FLEET> l <hold> <start/end> <COMM> <amount>
 .s1
-Set cargo Levels. 
+Set cargo Levels.
 .NF 
 Example: Cargo ship #109 is at your harbor in sector 10,0.
 You have agreed to trade 200 lcm and 100 hcm to your friend and
@@ -103,45 +103,45 @@ shp #   type           [Starting]  (Ending)
 .FI 
 .s1
 AutoNav Features.
-.s1 
+.s1
 Whenever a ship is autoloading cargo, it will always wait until it loads
-to capacity.  If a ship does not load fully it will not move!!! 
+to capacity.  If a ship does not load fully it will not move!!!
 Remember 'ships need food!!' unless the NOFOOD option is enabled.
 Set one of your cargo holds to load food or your ship will starve at sea.
 When unloading cargo, the ship will unload all goods
 listed in the cargo holds ONLY!  It will not unload any extra good
-manually placed on the ship.  
+manually placed on the ship.
 .s1
 If you are dealing with civilians 1 will be left in either the
 sector or the harbor depending if your loading or unloading.
 In either case when you arrive at the other harbor all but 1 civ
 will be dumped into the harbor.  Be careful if you set civilians
-as one of your cargo levels. 
-.s1 
+as one of your cargo levels.
+.s1
 You can set any commodity in the game to be loaded on the ship.
 However if you tell a ship to load a commodity it can not hold it
 will be ignored.  Example:  If you tell a battleship to load
-Lcm, and of course it does not have that capability, see 'show ship 
+Lcm, and of course it does not have that capability, see 'show ship
 capability' that level will be ignored at the update.
-Planes and Units are not commodities so they can not be loaded this way. 
-.s1 
+Planes and Units are not commodities so they can not be loaded this way.
+.s1
 At update time, the most direct path from the ship to destination
 is calculated.  Each ship is then autonavigated along that path to
 the best of its mobility.  The path is calculated from what the player
 knows of the world (what you can see using the \*Qbmap\*U command).
 Open sea, bridges, harbors, and unexplored regions of the world
 are considered to be navigable.  Your friend's harbors and bridges
-may be uses as long as the harbor >= 2% and the bridge >= 60%. 
+may be uses as long as the harbor >= 2% and the bridge >= 60%.
 Your ships will also try to avoid any mines you have declared on your
 bmap.  'x' or 'X' characters.  Should your ship hit a mine the ship
 will stop moving and its orders suspended.  You bmap will also be updated
-with a 'x' marking the sector for you. 
-.s1 
+with a 'x' marking the sector for you.
+.s1
 If a ship sails in range of enemy forts they will be fired upon.
 Setting your ship to autonavigate into an area with good fort
 cover could result in many ships getting sunk fast.
-However you could put an invasion fleet off someone's coast in a hurry. 
-.s1 
+However you could put an invasion fleet off someone's coast in a hurry.
+.s1
 If the ship has a 'sweep' flag
 ships will try and sweep any mines if any are present as they move.
 .s1
@@ -151,7 +151,7 @@ adding sector information to the known world map.
 The autonav code will try and use as much mobility as possible and this
 is all done before mobility is gained from the update.
 After an update has completed
-your ship will have mobility so it can be moved by hand if needed. 
+your ship will have mobility so it can be moved by hand if needed.
 .s1
 Ships with capability fish or oil can be setup to \*Qload\*U
 from the sea sector.

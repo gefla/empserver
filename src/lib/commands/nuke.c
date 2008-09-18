@@ -26,7 +26,7 @@
  *  ---
  *
  *  nuke.c: Display a listing of your nuclear arsenal
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Markus Armbruster, 2006

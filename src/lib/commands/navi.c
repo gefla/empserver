@@ -26,7 +26,7 @@
  *  ---
  *
  *  navi.c: Navigate ships and such
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995 (rewritten)
  *     Ron Koenderink, 2006-2007
@@ -130,7 +130,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    else
 		skip = 0;
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", *maxmob,
-		    *minmob, xyas(leader->x, leader->y, player->cnum)); 
+		    *minmob, xyas(leader->x, leader->y, player->cnum));
 	    cp = getstring(prompt, buf);
 	    /* Just in case any of our units were shelled while we were
 	     * at the prompt, we call shp_nav() or lnd_mar() again.

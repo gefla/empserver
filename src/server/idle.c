@@ -26,7 +26,7 @@
  *  ---
  *
  *  idle.c: Stamps out idle players.  Runs at low priority
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  */

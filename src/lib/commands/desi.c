@@ -26,7 +26,7 @@
  *  ---
  *
  *  desi.c: Redesignate sectors
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
  *     Markus Armbruster, 2004-2008

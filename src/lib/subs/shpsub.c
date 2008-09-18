@@ -26,7 +26,7 @@
  *  ---
  *
  *  shpsub.c: Ship subroutine stuff
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
@@ -810,11 +810,11 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 }
 
 /*
- * shp_miss_defence 
- * Check for incoming missiles with a P_MAR flag. 
+ * shp_miss_defence
+ * Check for incoming missiles with a P_MAR flag.
  * Return True=1 if the missile was shotdown.
  * Or False=0
- * 
+ *
  * Chad Zabel, July 95
  */
 

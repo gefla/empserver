@@ -26,9 +26,9 @@
  *  ---
  *
  *  getele.c: Read a telegram from a file or stdin and send it to a country
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 #include <config.h>

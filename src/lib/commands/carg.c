@@ -26,9 +26,9 @@
  *  ---
  *
  *  carg.c: List cargo contents of a ship
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

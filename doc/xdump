@@ -468,7 +468,7 @@ requirements than dumps:
   - No comment syntax.
 
 * Each table is self-contained.  You don't have to look into other
-  tables to make sense of it.  
+  tables to make sense of it.
 
   This conflicts with xdump's separation of data and meta-data.  You
   need the table's meta-data to identify fields, and the referenced

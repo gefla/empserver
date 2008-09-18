@@ -26,7 +26,7 @@
  *  ---
  *
  *  land.c: Do production for land units
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992

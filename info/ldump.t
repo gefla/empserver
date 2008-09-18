@@ -3,7 +3,7 @@
 .LV Expert
 .SY "ldump <UNITS> [<fields>]"
 The ldump command displays all information on
-some or all of your land units. 
+some or all of your land units.
 ldump is a combination of land, lcargo, and lstat.
 Each ship's information is printed on one very long line.
 Fields are separated by a single space.

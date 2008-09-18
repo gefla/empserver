@@ -26,9 +26,9 @@
  *  ---
  *
  *  move_sat.c: Move a satellite to the next point in it's orbit.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

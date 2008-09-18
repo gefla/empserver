@@ -26,7 +26,7 @@
  *  ---
  *
  *  improve.c: Improve the infrastructure of a sector
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996-2000
  */

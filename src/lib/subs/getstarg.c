@@ -26,9 +26,9 @@
  *  ---
  *
  *  getstarg.c: Get a string argument (ask if not there)
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

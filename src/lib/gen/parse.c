@@ -26,9 +26,9 @@
  *  ---
  *
  *  parse.c: Parse an Empire command line
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

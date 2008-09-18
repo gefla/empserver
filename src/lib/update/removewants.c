@@ -26,9 +26,9 @@
  *  ---
  *
  *  removewants.c: Remove the "I want an update" flag.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

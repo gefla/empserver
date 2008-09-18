@@ -26,7 +26,7 @@
  *  ---
  *
  *  aswplnsubs.c: Various subroutines used for ASW planes
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2004
  */
@@ -71,7 +71,7 @@ add_shiplist(short uid, struct shiplist **head)
     }
 
     s = malloc(sizeof(struct shiplist));
-    if (s2 != NULL) 
+    if (s2 != NULL)
 	s2->next = s;
     else
 	*head = s;

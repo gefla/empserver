@@ -27,7 +27,7 @@
  *
  *  path.c: Empire/A* Interface code.
  *          Define AS_STATS for A* statistics.
- * 
+ *
  *  Known contributors to this file:
  *     Phil Lapsley, 1991
  *     Dave Pare, 1991

@@ -26,7 +26,7 @@
  *  ---
  *
  *  wipe.c: Clear all existing distribution thresholds
- * 
+ *
  *  Known contributors to this file:
  *     Jim Griffith, 1989
  */

@@ -27,7 +27,7 @@
  *
  *  w32misc.h: POSIX emulation for WIN32
  *	Stuff that can not be put in the equivalent include files
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */

@@ -27,7 +27,7 @@
  *
  *  dir.c: Directional orientation descriptions.  Must agree with defines
  *         in path.h
- * 
+ *
  *  Known contributors to this file:
  */
 

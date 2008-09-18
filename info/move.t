@@ -106,7 +106,7 @@ some damage to the sector you were moving into.
 .s1
 .L "Unhappy civilians"
 .s1
-Also, when moving unhappy civilians (work percentage less than 100%), 
+Also, when moving unhappy civilians (work percentage less than 100%),
 unhappiness is contagious. The work percentage of the
 destination sector is computed by averaging the incoming civ's happiness
 with the happiness of the civs already there. For example, say you move

@@ -39,7 +39,7 @@ the rail efficiency of the sector
 the mcost used to determine the mobility cost of moving trains through the
 sector.  If the rail eff is 0, trains cannot move through this sector.
 .L "defense eff"
-the defense efficiency of the sector. 
+the defense efficiency of the sector.
 .L "defense fact"
 the defense factor of the sector.  This is how well the sector defends.
 All sectors start at 1, and improve (see "improve") from there to the maximum

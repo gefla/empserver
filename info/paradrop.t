@@ -23,7 +23,7 @@ The assembly point must be owned by you or an ally, or you or an ally
 must have a ship there.  It must not be more than
 four sectors away from any of the planes selected for the mission.
 .s1
-Route is a normal empire path specification. You may also give a 
+Route is a normal empire path specification. You may also give a
 destination sector on the command line, or at any time while giving
 the route, and empire will use the best path from the current sector
 to the desired destination sector.

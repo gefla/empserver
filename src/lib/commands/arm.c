@@ -26,7 +26,7 @@
  *  ---
  *
  *  arm.c: Arm planes (missiles) with nuclear devices
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995

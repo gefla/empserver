@@ -26,7 +26,7 @@
  *  ---
  *
  *  assa.c: Hit the beaches!
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1997

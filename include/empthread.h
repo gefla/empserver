@@ -26,7 +26,7 @@
  *  ---
  *
  *  empthread.h: Definitions for Empire threading
- * 
+ *
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Doug Hay, 1998

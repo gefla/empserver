@@ -26,9 +26,9 @@
  *  ---
  *
  *  commands.h: Definitions used for command stuff
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef COMMANDS_H

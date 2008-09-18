@@ -238,7 +238,7 @@ The first thing you want is land.
 Lots of land.
 A whole hell of a lot of land.
 You should try to expand your country from the very beginning.
-From there, you'll meet your neighbors who are doubtlessly 
+From there, you'll meet your neighbors who are doubtlessly
 doing the same thing you're doing.
 Expanding wildly.
 Now comes the first of a series of decisions you have to make.
@@ -255,13 +255,13 @@ about 20% agribusinesses
 (later dropping to 10%, 5%, or even none at all!),
 and a few schools, research, parks, etc.
 to fill up some of the other space.
-The most important thing to have is a good transportation system 
+The most important thing to have is a good transportation system
 in the form of your highways.
 Anywhere from 20-40% of your country should be highways.
 You'll find them infinitely useful
 in moving food to a starving sector,
 taking people to a new settlement,
-or transporting troops to a local revolution, highways are vital!  
+or transporting troops to a local revolution, highways are vital!
 .s1
 Another important consideration is \*Qdo you want really want to win?\*U
 This implies the idea of competing
@@ -335,7 +335,7 @@ Try to get a hold of nukes to devastate them.
 Form a cartel with other small nations
 and try to run over a big country.
 As in real life, the possibilities are endless!
-Look at the Middle East, they're having fun, right? 
+Look at the Middle East, they're having fun, right?
 .s1
 This is just a game, and from this point on,
 you don't have to worry about watching over your nation too closely.
@@ -410,7 +410,7 @@ You can do this for all of your sectors using a command like
 And give a threshold for each of your sectors as prompted.
 .s1
 Now at each update,
-Empire will move food to and from your warehouse 
+Empire will move food to and from your warehouse
 in an attempt to satisfy all your threshold requirements.
 If for example a certain sector
 has more than its allotted threshold of a certain product
@@ -435,7 +435,7 @@ Empire would move all iron off your iron mine (except for one unit),
 try to put 45 iron on your lcm factory and take all lcm's
 (except for one)
 off your lcm plant
-(possibly to be used somewhere else).  
+(possibly to be used somewhere else).
 .s1
 Note: the order in which this happens is predictable,
 but not always desirable.
@@ -489,7 +489,7 @@ Sector -2,0 (the distribution sector for 4,0)
 will attempt to keep 400 units of food in 4,0
 by importing or exporting as necessary.
 .s1
-.EX thresh oil 4,0 100 
+.EX thresh oil 4,0 100
 This command is the same as above,
 but will instead attempt to keep 100 units of oil.
 .s1

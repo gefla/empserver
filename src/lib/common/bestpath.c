@@ -26,17 +26,17 @@
  *  ---
  *
  *  bestpath.c: Find the best path between sectors
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
  *     Markus Armbruster, 2006
  */
 
-/* 
+/*
  * IMPORTANT: These routines are very selectively used in the server.
  *
  * "bestownedpath" is only used to determine paths for ships and planes.
- * 
+ *
  * Callers should not be calling these directly anymore. They should use
  * the "BestShipPath", "BestAirPath", "BestLandPath" and "BestDistPath"
  * functions.  Note that those last two use the A* algorithms to find

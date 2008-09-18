@@ -26,7 +26,7 @@
  *  ---
  *
  *  marketup.c: Market updater thread
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 1996
  *     Markus Armbruster, 2007

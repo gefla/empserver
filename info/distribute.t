@@ -82,7 +82,7 @@ will flow to and from the warehouse.
 .s1
 .L "Finding sectors with not dist point set"
 .s1
-If you want to find sectors with no distribution point set, use the 
+If you want to find sectors with no distribution point set, use the
 xdist and ydist selectors:
 .s1
 .EX level # ?xdist=xloc&ydist=yloc

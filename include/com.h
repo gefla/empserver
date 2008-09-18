@@ -26,9 +26,9 @@
  *  ---
  *
  *  com.h: Definitions used to parse Empire commands
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef COM_H

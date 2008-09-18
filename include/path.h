@@ -26,9 +26,9 @@
  *  ---
  *
  *  path.h: Definitions for directions, paths, etc.
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef PATH_H

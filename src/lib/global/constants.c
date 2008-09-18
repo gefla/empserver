@@ -26,7 +26,7 @@
  *  ---
  *
  *  constants.c: Global constants
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
@@ -129,7 +129,7 @@ double decay_per_etu = 0.006;	/* This gives a half life of ? etus,
 				   you can not get a precise number
 				   without intensive simulation
 				   (more than 3 digits). */
-double fallout_spread = 0.005;	/* fraction of fallout that leaks into 
+double fallout_spread = 0.005;	/* fraction of fallout that leaks into
 				   each surrounding sector */
 /* end opt_FALLOUT */
 

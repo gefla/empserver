@@ -26,7 +26,7 @@
  *  ---
  *
  *  netinet/in.h: POSIX networking for WIN32
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */

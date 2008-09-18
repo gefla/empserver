@@ -26,7 +26,7 @@
  *  ---
  *
  *  fileinit.c: Initialize Empire tables for full server operations.
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
  *     Markus Armbruster, 2005-2008

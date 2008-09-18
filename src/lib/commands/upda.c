@@ -26,7 +26,7 @@
  *  ---
  *
  *  upda.c: Give the time of the next update
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  */

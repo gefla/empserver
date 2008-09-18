@@ -26,7 +26,7 @@
  *  ---
  *
  *  pthread.c: Interface from Empire threads to POSIX threads
- * 
+ *
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998

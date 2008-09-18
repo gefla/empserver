@@ -26,7 +26,7 @@
  *  ---
  *
  *  add.c: Add a new country to the game
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

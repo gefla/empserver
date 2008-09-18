@@ -18,7 +18,7 @@ command does not remove items from the database.  That is where the
 timestamp functionality becomes important.
 .s1
 While the lost command does not take any arguments, it does
-take the standard syntax for selecting information.  
+take the standard syntax for selecting information.
 (see \*Qinfo Selector\*U).
 .s1
 A typical usage might be:

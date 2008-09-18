@@ -10,7 +10,7 @@ A bmap gives you a graphic representation of all or part of your country.
 .s1
 Bmap differs from map in that it reflects everything you've learned
 about the world. If, for example, you navigate near a sector and find
-out that it is sea, it will show up on your bmap as sea, even if it 
+out that it is sea, it will show up on your bmap as sea, even if it
 doesn't show up on your map.
 .s1
 Note that bmap shows the \*QLAST KNOWN INFORMATION\*U you have about
@@ -67,7 +67,7 @@ and also put the bmap in the file called \*Qmapfil\*U.
 You can also give the number of a ship, and bmap will give you a small
 bmap centered on the location of that ship, provided you own it.
 .s1
-If you use lbmap, you can get a bmap around a land unit. 
+If you use lbmap, you can get a bmap around a land unit.
 If you use pbmap, you can get a bmap around a plane.
 If you use sbmap, you can get a bmap around a ship.
 If you use nbmap, you can get a bmap around a nuke.

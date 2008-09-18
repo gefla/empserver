@@ -26,7 +26,7 @@
  *  ---
  *
  *  prod.c: Calculate production levels
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  *     Steve McClure, 1997-2000

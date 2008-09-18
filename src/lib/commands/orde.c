@@ -26,7 +26,7 @@
  *  ---
  *
  *  orde.c: Turn on/off autonavigation
- * 
+ *
  *  Known contributors to this file:
  *     Chad Zabel, 1994
  *     Steve McClure, 2000
@@ -52,8 +52,8 @@
  *  ORDER <ship> l[evel]   <field> <start/end> <comm> <level>
  *
  * New syntax:
- *  qorder <ship>    display cargo levels     
- *  sorder <ship>    display statistical info 
+ *  qorder <ship>    display cargo levels
+ *  sorder <ship>    display statistical info
  */
 
 int
@@ -194,7 +194,7 @@ orde(void)
 		break;
 	    }
 
-	    /* to keep sub in range of our arrays 
+	    /* to keep sub in range of our arrays
 	       subtract 1 so the new range is 0-(TMAX-1)
 	     */
 	    sub = sub - 1;;
@@ -279,7 +279,7 @@ orde(void)
 
 	    ship.shp_autonav |= AN_LOADING;
 
-	    /*  swap variables, this keeps 
+	    /*  swap variables, this keeps
 	       the load_it() procedure happy. CZ
 	     */
 	    tcord = ship.shp_destx[0];

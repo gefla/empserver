@@ -26,7 +26,7 @@
  *  ---
  *
  *  show.c: General show routines
- * 
+ *
  *  Known contributors to this file:
  *     Julian Onions, 1988
  *     Jeff Bailey, 1990
@@ -592,7 +592,7 @@ void
 show_news(int tlev)
 {
     int i, j;
-    
+
     pr("id category           good will\n");
     pr("    messsages\n");
 
@@ -668,7 +668,7 @@ fmttime2822(time_t t)
     TIME_ZONE_INFORMATION tzi;
     long time_offset;
     struct tm *time;
-    
+
     time = localtime(&t);
 
     n = strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S", time);

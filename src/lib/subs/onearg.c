@@ -26,9 +26,9 @@
  *  ---
  *
  *  onearg.c: Get one argument, or ask if not there
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

@@ -26,7 +26,7 @@
  *  ---
  *
  *  econfig-spec.h: Combined include for optlist.h and emp_config.c
- * 
+ *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
  *     Markus Armbruster, 2004-2008

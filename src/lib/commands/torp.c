@@ -26,7 +26,7 @@
  *  ---
  *
  *  torp.c: Fire torpedoes at enemy ships
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Thomas Ruschak, 1992

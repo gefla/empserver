@@ -26,7 +26,7 @@
  *  ---
  *
  *  fsize.c: BSD dependant file and block sizing routines
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Doug Hay, 1998

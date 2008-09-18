@@ -45,7 +45,7 @@ unit must be within supply range of the source. Supply range is:
 10 * ((tech+50)/(tech+200) sectors.
 .s1
 In addition there must be a valid supply path to the source. A supply path
-is a path of sectors owned by the owner of the unit that leads to the 
+is a path of sectors owned by the owner of the unit that leads to the
 supply source. (Note that the path may be of any length.. only the supply
 source itself must be within supply range.. this is to make the coding
 simpler, and may change in the future) The best path (in terms of mobility

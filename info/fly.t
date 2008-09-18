@@ -24,7 +24,7 @@ four sectors away from any of the planes selected for the mission.
 on all of the planes which have a transport capacity.
 If nothing is specified, then nothing will be carried.
 .s1
-Route is a normal empire path specification. You may also give a 
+Route is a normal empire path specification. You may also give a
 destination sector on the command line, or at any time while giving
 the route, and empire will use the best path from the current sector
 to the desired destination sector.

@@ -26,9 +26,9 @@
  *  ---
  *
  *  empio.h: Describes io pointers used in Empire
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef EMPIO_H

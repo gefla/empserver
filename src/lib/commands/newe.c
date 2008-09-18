@@ -26,7 +26,7 @@
  *  ---
  *
  *  newe.c: Show new sector efficiency (projected)
- * 
+ *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1993
  */

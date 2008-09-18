@@ -8,10 +8,10 @@ abilities. With the addition of land units, mil are now more or less
 considered to be militia instead of military, and are less important.
 .s1
 The way that military are incorporated into units are that the mil are
-loadable commodities of the unit.  The offensive or defensive 
+loadable commodities of the unit.  The offensive or defensive
 .s1
 Commands for land units are generally similar to those of planes/ships, and
-will usually start with 'l'. 
+will usually start with 'l'.
 .s1
 .L "Land unit characteristics"
 .s1
@@ -58,7 +58,7 @@ morale checks, see info \*QAttacking\*U) Just as you can use \*Qrange\*U to chan
 range of your planes and control how far away they'll intercept, you can
 change the reaction radius for land units with \*Qlrange\*U. Units with a base reaction
 radius of 0, or those whose radius you have set to 0, will not react.
-When built, the unit will have as its reaction radius set to zero. 
+When built, the unit will have as its reaction radius set to zero.
 .s1
 .L Cargo
 .s1
@@ -126,7 +126,7 @@ in other sector types, but at a much reduced efficiency (1/3rd normal gain)
 .s1
 .L "Land unit statistics"
 .s1
-Each land unit has certain vital statistics which show how it will 
+Each land unit has certain vital statistics which show how it will
 operate. These are obtainable from the show command:
 .s1
 .EX show land statistics
@@ -175,7 +175,7 @@ units' visibility (see info \*Qllookout\*U for more details).
 Spy is the other side of the equation, i.e. how well can the unit find things?
 A unit with a low spy won't be very good at locating other units, and won't
 be able to report much when it encounters them in battle. A high-spy unit
-will be able to use the \*Qllookout\*U command with more chance of success, and 
+will be able to use the \*Qllookout\*U command with more chance of success, and
 will be able to more accurately report information about the units it runs
 into in battle. (See info \*QAttacking\*U for information about intelligence
 reports) Units with radar capacity also use their spy value to determine how
@@ -291,7 +291,7 @@ When you decide to attack a sector, you can use mil and units from adjacent
 sectors. The attack value of your forces is the combined attack values of all
 attacking land units, plus the number of mil coming in from adjacent sectors.
 .s1
-The defense value is equal to the mil in the defending sector, plus 
+The defense value is equal to the mil in the defending sector, plus
 the defense values of any defending units in the sector, as well as any that
 react and move there.
 .s1

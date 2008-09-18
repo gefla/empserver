@@ -26,7 +26,7 @@
  *  ---
  *
  *  nreport.c: File a news report.  Downgrade relations if things get hostile.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1997

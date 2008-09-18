@@ -40,7 +40,7 @@ Currently, the return rates are:
 For example, if you sail the ship 10 sectors from the harbor where it was
 built and scuttle it in a harbor there, you would get 125% of the money you
 paid for it, or $2188. If you sailed it 15 sectors to a harbor and scuttled it,
-you would get 153%, or $2678. 
+you would get 153%, or $2678.
 .s1
 Use the \*Qpayoff\*U command to see how much the trade ship would pay
 were it scuttled in a harbour at its present location.

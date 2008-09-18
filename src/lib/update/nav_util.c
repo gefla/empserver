@@ -26,9 +26,9 @@
  *  ---
  *
  *  nav_util.c: Utilities for autonav and sail
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>
@@ -42,10 +42,10 @@
 #include "ship.h"
 #include "update.h"
 
-/* load a specific ship given its 
+/* load a specific ship given its
  * location and what field to modify.
  * new autonav code
- * Chad Zabel 6/1/94 
+ * Chad Zabel 6/1/94
  */
 int
 load_it(struct shpstr *sp, struct sctstr *psect, int i)
@@ -115,13 +115,13 @@ load_it(struct shpstr *sp, struct sctstr *psect, int i)
 
 }
 
-/* unload_it 
+/* unload_it
  * A guess alot of this looks like load_it but because of its location
  * in the autonav code I had to split the 2 procedures up.
  * unload_it dumps all the goods from the ship to the harbor.
  * ONLY goods in the trade fields will be unloaded.
  * new autonav code
- * Chad Zabel 6/1/94  
+ * Chad Zabel 6/1/94
  */
 void
 unload_it(struct shpstr *sp)

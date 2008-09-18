@@ -3,7 +3,7 @@
 .LV Expert
 .SY "pdump <PLANES> [<fields>]"
 The pdump command displays all information on
-some or all of your planes. 
+some or all of your planes.
 pdump is a combination of plane and pstat.
 Each plane's information is printed on one very long line.
 Fields are separated by a single space.

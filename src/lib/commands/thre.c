@@ -26,7 +26,7 @@
  *  ---
  *
  *  thre.c: Describe/set threshold for given commodity
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998

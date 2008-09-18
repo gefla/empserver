@@ -27,7 +27,7 @@
  *  ---
  *
  *  status.c: Process and perhaps display status messages
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  */

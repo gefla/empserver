@@ -12,7 +12,7 @@ efficiency in neighboring sectors.
 .s1
 The sectors denoted by <SECTS>
 are those from which you are spying,
-(see \*Qinfo syntax\*U for format). 
+(see \*Qinfo syntax\*U for format).
 Note: you can only spy from sectors that have military or land units in them.
 .s1
 Note that the number of BTU's consumed
@@ -49,7 +49,7 @@ the sector you are spying from, such as allied land units that have been
 marched there, allied planes that have been landed there, spy units that have
 marched there and non-allied units that have been trapped there.
 .s1
-Note that spy units are not always seen.  There is a 10-100% chance of a spy 
+Note that spy units are not always seen.  There is a 10-100% chance of a spy
 unit being seen by the spy command.  See "info Spies" for more information.
 .s1
 .L NOTE

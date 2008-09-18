@@ -26,7 +26,7 @@
  *  ---
  *
  *  expl.c: Take over unoccupied sectors
- * 
+ *
  *  Known contributors to this file:
  *     Jeff Wallace, 1989
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  retreat.h: Things having to do with retreating
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  */

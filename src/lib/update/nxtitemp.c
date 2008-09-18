@@ -26,7 +26,7 @@
  *  ---
  *
  *  nxtitemp.c: Get next item from list
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  */

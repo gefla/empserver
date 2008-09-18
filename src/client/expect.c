@@ -26,7 +26,7 @@
  *  ---
  *
  *  expect.c: Read from the socket, expecting to see a particular code.
- * 
+ *
  *  Known contributors to this file:
  *      Steve McClure, 1998
  *      Markus Armbruster, 2007

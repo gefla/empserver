@@ -26,7 +26,7 @@
  *  ---
  *
  *  pconfig.c: Print the empire configuration
- * 
+ *
  *  Known contributors to this file:
  *     Julian Onions
  */

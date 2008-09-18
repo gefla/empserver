@@ -26,9 +26,9 @@
  *  ---
  *
  *  rela.c: Show relations with other countries
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

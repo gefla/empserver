@@ -26,9 +26,9 @@
  *  ---
  *
  *  round.c: Round off functions
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

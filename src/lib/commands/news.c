@@ -26,9 +26,9 @@
  *  ---
  *
  *  news.c: Show current Empire news
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

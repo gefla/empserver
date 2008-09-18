@@ -26,7 +26,7 @@
  *  ---
  *
  *  damage.h: Damage formulas
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998

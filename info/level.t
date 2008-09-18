@@ -2,7 +2,7 @@
 .NA level "List distribution thresholds"
 .LV Basic
 .SY "level <SECTS>"
-The level report provides information about the various 
+The level report provides information about the various
 distribution thresholds in some or all of the sectors that
 you occupy.
 .s1

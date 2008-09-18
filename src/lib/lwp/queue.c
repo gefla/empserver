@@ -27,7 +27,7 @@
  *  ---
  *
  *  queue.c: queue manipulation routines
- * 
+ *
  *  Known contributors to this file:
  *
  */

@@ -3,7 +3,7 @@
 .LV Expert
 .SY "dump <SECTS> [<fields>]"
 The dump command displays all information on
-some or all of the sectors you occupy. 
+some or all of the sectors you occupy.
 dump is a combination of census, commodity, cutoff and level.
 Each sector's information is printed on one very long line.
 Fields are separated by a single space.

@@ -110,7 +110,7 @@ You now have 50 realms.
 Each country now has two bmaps, their 'working' bmap and their 'true' bmap.  The true bmap contains only information put there by the
 server.  The working bmap also contains information put there by the
 bdes and sharebmap commands.  The 'bmap' command usually displays the
-working bmap unless the player specifies 'bmap <SECTS> true'.  
+working bmap unless the player specifies 'bmap <SECTS> true'.
 If the players working bmap becomes corrupted somehow, then they can
 type 'bmap <SECTS> revert' to revert their working bmap back to their
 true bmap.  This change was necessary to prevent abuse of the new 'sharebmap' command (which compares the players true bmaps when

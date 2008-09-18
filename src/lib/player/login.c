@@ -26,7 +26,7 @@
  *  ---
  *
  *  login.c: Allow the player to login
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000

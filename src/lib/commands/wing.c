@@ -26,9 +26,9 @@
  *  ---
  *
  *  wing.c: Add planes to a wing
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #include <config.h>

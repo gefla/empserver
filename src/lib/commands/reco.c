@@ -26,7 +26,7 @@
  *  ---
  *
  *  reco.c: Fly a recon mission
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

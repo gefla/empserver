@@ -28,7 +28,7 @@
  *  @configure_input@
  *  path.c.in: Path initializations needed outside of the file
  *	       initialization tables
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2005-2008
  */

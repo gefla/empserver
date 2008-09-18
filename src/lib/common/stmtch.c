@@ -26,7 +26,7 @@
  *  ---
  *
  *  stmtch.c: Matching operations on structures and commands
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2004-2008
  */

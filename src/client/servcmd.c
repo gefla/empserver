@@ -26,7 +26,7 @@
  *  ---
  *
  *  servercmd.c: Change the state depending on the command from the server.
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1998

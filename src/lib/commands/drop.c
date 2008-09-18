@@ -26,7 +26,7 @@
  *  ---
  *
  *  drop.c: Air-drop commodities
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

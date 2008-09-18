@@ -26,7 +26,7 @@
  *  ---
  *
  *  empdis.c: Empire dispatcher stuff
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000

@@ -26,7 +26,7 @@
  *  ---
  *
  *  work.c: Implementation of the work command
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2008
  */

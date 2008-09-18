@@ -26,7 +26,7 @@
  *  ---
  *
  *  leve.c: Do a distribution threshold level report
- * 
+ *
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  */

@@ -26,7 +26,7 @@
  *  ---
  *
  *  init.c: Initialize global unit arrays
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1997

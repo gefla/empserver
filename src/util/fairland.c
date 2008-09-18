@@ -26,7 +26,7 @@
  *  ---
  *
  *  fairland.c: Create a nice, new world
- * 
+ *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998

@@ -26,9 +26,9 @@
  *  ---
  *
  *  match.h: Used for string compare matching
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef MATCH_H

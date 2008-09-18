@@ -312,16 +312,16 @@ fi
 		*)
 
 	echo "Removing existing server.log and journal.log"
-	if [ -f "../var/empire/server.log" ] 
+	if [ -f "../var/empire/server.log" ]
 	then
 	    rm "../var/empire/server.log"
 	fi
-	if [ -f "../var/empire/journal.log" ] 
+	if [ -f "../var/empire/journal.log" ]
 	then
 	    rm "../var/empire/journal.log"
 	fi
 	echo "Removing existing schedule"
-	if [ -f "../etc/empire/schedule" ] 
+	if [ -f "../etc/empire/schedule" ]
 	then
 	    >../etc/empire/schedule
 	fi
@@ -357,7 +357,7 @@ fi
 		}
 	echo "Done (newcap_script / empire)."
 	echo ""
-	
+
 	echo "TODO: Replace this with a real test script."
 	echo "Just do some rudimentary testing for now."
 	echo ""
@@ -549,7 +549,7 @@ EOF
 	runfeed 8 << EOF
 cen *
 map #
-read y 
+read y
 exp c 0,0 50 gyyygh
 des -7,-3 )
 lost *
@@ -590,7 +590,7 @@ EOF
 	runfeed 8 << EOF
 cen *
 map #
-read y 
+read y
 lost *
 EOF
 	echo "Run an update"
@@ -1033,10 +1033,10 @@ EOF
 	echo "Done (kill)."
 cd "${BOXDIR}/${WORKDIR}/emp4/var/empire" || err "Could not cd to ${BOXDIR}/${WORKDIR}/emp4/var/empire"
 	echo "-- Start Server Log --"
-	cat server.log 
+	cat server.log
 	echo "-- End of Server Log --"
 	echo "-- Start Journal Log --"
-	cat journal.log 
+	cat journal.log
 	echo "-- End of Journal Log --"
 	echo "Server stopped"
 					;;

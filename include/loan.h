@@ -26,9 +26,9 @@
  *  ---
  *
  *  loan.h: Definitions for loans
- * 
+ *
  *  Known contributors to this file:
- *  
+ *
  */
 
 #ifndef LOAN_H

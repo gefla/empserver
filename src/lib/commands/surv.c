@@ -26,7 +26,7 @@
  *  ---
  *
  *  surv.c: Show sector survey
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare, 1986
  */

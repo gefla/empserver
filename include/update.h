@@ -26,9 +26,9 @@
  *  ---
  *
  *  update.h: Include headers used for updates
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #ifndef UPDATE_H

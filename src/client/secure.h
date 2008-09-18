@@ -26,7 +26,7 @@
  *  ---
  *
  *  secure.h: Check redir etc. to protect against tampering deity
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2007
  */

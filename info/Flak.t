@@ -20,7 +20,7 @@ The way that flak works when planes fly over a sector is:
    scaled by unit tech factor.
 .fi
 .s1
-In addition, if you are pin-bombing a land unit or a ship, when 
+In addition, if you are pin-bombing a land unit or a ship, when
 you make your bombing run, the specific unit/ship you are bombing
 gets to fire flak at you again.  This number of guns firing flak
 in these cases does NOT saturate.

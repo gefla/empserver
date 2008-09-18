@@ -26,7 +26,7 @@
  *  ---
  *
  *  ef_verify.c: Verify game configuration
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
  *     Markus Armbruster, 2006-2008
@@ -99,11 +99,11 @@ verify_row(int type, int row)
     struct valstr val;
     int ret_val = 0;
     int flags = ef_flags(type);
- 
+
     if (flags & EFF_MEM)
-	row_ref = ef_ptr(type, row); 
+	row_ref = ef_ptr(type, row);
     else {
-	row_ref = malloc(empfile[type].size); 
+	row_ref = malloc(empfile[type].size);
 	ef_read(type, row, row_ref);
     }
 
@@ -177,7 +177,7 @@ verify_row(int type, int row)
 		}
 	    }
 	} while (++j < n);
-    } 
+    }
     if (!(flags & EFF_MEM))
         free(row_ref);
     return ret_val;

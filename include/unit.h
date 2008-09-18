@@ -26,12 +26,12 @@
  *  ---
  *
  *  unit.h: Generalize unit data structures and functions.
- * 
+ *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
  *     Markus Armbruster, 2006
  */
- 
+
 #ifndef UNIT_H
 #define UNIT_H
 

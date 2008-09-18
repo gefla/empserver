@@ -26,9 +26,9 @@
  *  ---
  *
  *  trea.c: Look at current treaties.
- * 
+ *
  *  Known contributors to this file:
- *    
+ *
  */
 
 #include <config.h>

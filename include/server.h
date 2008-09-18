@@ -26,7 +26,7 @@
  *  ---
  *
  *  server.h: Server startup, control and shutdown
- * 
+ *
  *  Known contributors to this file:
  *     Markus Armbruster, 2004-2008
  */

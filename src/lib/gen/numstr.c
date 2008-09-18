@@ -26,7 +26,7 @@
  *  ---
  *
  *  numstr.c: Turn a number into a word
- * 
+ *
  *  Known contributors to this file:
  *     Steve McClure, 2000
  */

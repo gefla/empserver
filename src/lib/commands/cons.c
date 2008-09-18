@@ -26,9 +26,9 @@
  *  ---
  *
  *  cons.c: Consider a loan or treaty
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

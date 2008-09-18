@@ -26,7 +26,7 @@
  *  ---
  *
  *  load.c: load/unload goods from a sector onto a ship or land unit
- * 
+ *
  *  Known contributors to this file:
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)

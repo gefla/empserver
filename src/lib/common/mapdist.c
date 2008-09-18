@@ -26,9 +26,9 @@
  *  ---
  *
  *  mapdist.c: Return the distance between two sectors
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 /*

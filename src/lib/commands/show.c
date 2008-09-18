@@ -26,7 +26,7 @@
  *  ---
  *
  *  show.c: Give info on empire objects, planes, boats, nukes, etc.
- * 
+ *
  *  Known contributors to this file:
  *     Julian Onions, 1988
  *     Steve McClure, 1997

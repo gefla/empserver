@@ -26,9 +26,9 @@
  *  ---
  *
  *  chance.c: return 1 if "roll" is under the chance.
- * 
+ *
  *  Known contributors to this file:
- *     
+ *
  */
 
 #include <config.h>

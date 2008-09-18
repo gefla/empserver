@@ -26,7 +26,7 @@
  *  ---
  *
  *  ship.h: Definitions for things having to do with ships
- * 
+ *
  *  Known contributors to this file:
  *     Dave Pare
  *     Thomas Ruschak, 1992

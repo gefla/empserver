@@ -3,7 +3,7 @@
 .LV Expert
 .SY "bestpath <SECTS> <SECTS>"
 .s1
-The bestpath command shows you the best path from any sector 
+The bestpath command shows you the best path from any sector
 to any sector. You must own both sectors.
 .s1
 The path shown by bestpath is the cheapest
