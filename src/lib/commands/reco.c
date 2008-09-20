@@ -101,7 +101,6 @@ reco(void)
      */
     mission_flags |= P_X;	/* stealth (shhh) */
     mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags |= P_A;
     mission_flags = pln_arm(&bomb_list, ap_to_target, 'r',
 			    0, P_S | P_I, mission_flags);
     if (QEMPTY(&bomb_list)) {

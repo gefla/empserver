@@ -127,7 +127,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    PR(plane_owner, "\nSPY Plane report\n");
 	    PRdate(plane_owner);
 	    sathead();
-	} else if (mission_flags & P_A) {
+	} else if (flags & P_A) {
 	    PR(plane_owner, "\nAnti-Sub Patrol report\n");
 	} else {
 	    PR(plane_owner, "\nReconnaissance report\n");
@@ -153,9 +153,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		   dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
 		if (mission_flags & PM_S)
 		    plane_sweep(bomb_list, x, y);
-		if (mission_flags & P_A) {
+		if (flags & P_A)
 		    plane_sona(bomb_list, x, y, &head);
-		}
 		changed += map_set(plane_owner,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
@@ -350,8 +349,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	}
     }
 out:
-    if (mission_flags & P_A)
-	free_shiplist(&head);
+    free_shiplist(&head);
     for (cn = 1; cn < MAXNOC; cn++) {
 	if (gotilist[cn])
 	    pln_put(&ilist[cn]);

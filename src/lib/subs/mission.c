@@ -881,10 +881,6 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 	if (!(plp->pcp->pl_flags & P_X))
 	    /* no stealth on this mission */
 	    mission_flags &= ~P_X;
-	if (!(plp->pcp->pl_flags & P_A)) {
-	    /* no asw on this mission */
-	    mission_flags &= ~P_A;
-	}
 	if (!(plp->pcp->pl_flags & P_MINE)) {
 	    /* no asw on this mission */
 	    mission_flags &= ~P_MINE;

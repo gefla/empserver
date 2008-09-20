@@ -594,11 +594,6 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	if (!(plp->pcp->pl_flags & P_X))
 	    /* no stealth on this mission */
 	    mission_flags &= ~P_X;
-	if (!(plp->pcp->pl_flags & P_A)) {
-	    /* no asw on this mission */
-	    mission_flags &= ~P_A;
-	    /* FIXME escorts turn ASW patrol into ordinary recon */
-	}
 	if (!(plp->pcp->pl_flags & P_MINE)) {
 	    /* no asw on this mission */
 	    mission_flags &= ~P_MINE;
