@@ -1,4 +1,7 @@
-Changes to Empire 4.3.17 - Thu Sep 18 01:28:01 UTC 2008
+Changes to Empire 4.3.17 - Sat Sep 20 16:07:44 UTC 2008
+ * Fix standalone client build for Windows.  Broken in 4.3.11.
+ * Disable automatic supply of land units on load for now, it's broken
+   in a highly abusable way.
  * Make trade show exactly what's on sale, remove option SHOW_PLANE.
  * Stop ships, planes, land units and nukes on violent takeover, just
    like sectors.
@@ -19,8 +22,8 @@ Changes to Empire 4.3.17 - Thu Sep 18 01:28:01 UTC 2008
  * Fix a bug that made set and xdump not recognize unused trade lots
    as such.
  * Fix giving away stuff by trading it:
-   - Take sold nuke off its plane.  You couldn't sell armed nukes
-     separately before 4.3.3.
+   - When an armed nuke is sold separately from its plane, take it off
+     the plane.  You couldn't do that before 4.3.3.
    - Give away nuke armed on sold plane along with the plane.  Broken
      in 4.3.3.
    - Don't zero mobility of planes and land units on sold ships.
