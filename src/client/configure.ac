@@ -69,6 +69,15 @@ fi
 
 ### Checks for typedefs, structures, and compiler characteristics.
 
+AC_MSG_CHECKING([for Windows])
+AC_COMPILE_IFELSE(
+    [AC_LANG_SOURCE([[#ifdef _WIN32
+#Here's a nickel, kid
+#endif]])],
+    [Windows_res=no],
+    [Windows_res=yes CFLAGS="$CFLAGS -mthreads"])
+AC_MSG_RESULT([$Windows_res])
+
 
 ### Checks for library functions.
 
