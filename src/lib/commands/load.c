@@ -594,7 +594,14 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    gift(sp->shp_own, player->cnum, &land, buf);
 	    land.lnd_ship = sp->shp_uid;
 	    land.lnd_harden = 0;
+#if 0
+           /*
+            * FIXME if this supplies from the sector, the putsect in
+            * load() / lload() duplicates those supplies, causing a
+            * seqno mismatch
+            */
 	    resupply_all(&land);
+#endif
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
@@ -988,7 +995,10 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    gift(lp->lnd_own, player->cnum, &land, buf);
 	    land.lnd_land = lp->lnd_uid;
 	    land.lnd_harden = 0;
+#if 0
+           /* FIXME same issue as in load_land_ship() */
 	    resupply_all(&land);
+#endif
 	    putland(land.lnd_uid, &land);
 	    if (!has_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
