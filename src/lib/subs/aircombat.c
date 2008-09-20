@@ -54,6 +54,7 @@
 
 #define FLAK_GUN_MAX 14
 
+static int plane_caps(struct emp_qelem *);
 static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 			 struct emp_qelem *, natid, coord, coord);
 static int all_missiles(struct emp_qelem *);
@@ -80,6 +81,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int gotilist[MAXNOC];
     int unfriendly[MAXNOC];
     int overfly[MAXNOC];
+    int flags;
     struct emp_qelem ilist[MAXNOC], *qp;
     char mypath[1024];
     int myp;
@@ -120,7 +122,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	unfriendly[cn]++;
     }
     if (mission_flags & PM_R) {
-	if (mission_flags & P_S) {
+	flags = plane_caps(bomb_list);
+	if (flags & P_S) {
 	    PR(plane_owner, "\nSPY Plane report\n");
 	    PRdate(plane_owner);
 	    sathead();
@@ -142,6 +145,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	over = getnatp(sect.sct_own);
 
 	if (mission_flags & PM_R) {
+	    flags = plane_caps(bomb_list);
 	    if (opt_HIDDEN)
 		setcont(plane_owner, sect.sct_own, FOUND_FLY);
 	    if (sect.sct_type == SCT_WATER) {
@@ -155,8 +159,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		changed += map_set(plane_owner,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
-	    } else if (mission_flags & P_S) {
-		satdisp_sect(&sect, (mission_flags & P_I) ? 10 : 50);
+	    } else if (flags & P_S) {
+		satdisp_sect(&sect, flags & P_I ? 10 : 50);
 	    } else {
 		/* This is borrowed from lookout */
 		if (sect.sct_own == plane_owner)
@@ -187,7 +191,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		       mil : roundintby(mil, 25));
 		PR(plane_owner, "@ %s\n", xyas(x, y, plane_owner));
 	    }
-	    if (mission_flags & P_S)
+	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);
 	} else {
 	    PR(plane_owner, "flying over %s at %s\n",
@@ -352,6 +356,22 @@ out:
 	if (gotilist[cn])
 	    pln_put(&ilist[cn]);
     }
+}
+
+static int
+plane_caps(struct emp_qelem *list)
+{
+    struct emp_qelem *qp;
+    struct plist *plp;
+    int fl;
+
+    fl = 0;
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	fl |= plp->pcp->pl_flags;
+    }
+
+    return fl;
 }
 
 static int
