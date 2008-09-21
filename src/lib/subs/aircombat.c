@@ -296,20 +296,18 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* Are there ships owned by this country? */
 	if (nats[cn] != 0) {
 	    /* Yes. */
-	    if (cn != 0) {
-		PR(cn, "%s planes spotted over ships in %s\n",
-		   cname(plane_owner), xyas(x, y, cn));
-		if (opt_HIDDEN)
-		    setcont(cn, plane_owner, FOUND_FLY);
-	    }
+	    PR(plane_owner, "Flying over %s ships in %s\n",
+	       cname(cn), xyas(x, y, plane_owner));
+	    PR(cn, "%s planes spotted over ships in %s\n",
+	       cname(plane_owner), xyas(x, y, cn));
+	    if (opt_HIDDEN)
+		setcont(cn, plane_owner, FOUND_FLY);
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
 		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
 		}
-		PR(plane_owner, "Flying over %s ships in %s\n",
-		   cname(cn), xyas(x, y, plane_owner));
 		/* This makes going for ships in harbors tough */
 		if (!evaded) {
 		    /* We already fired flak up above.  Now we intercept again if we haven't already */
@@ -324,20 +322,18 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* Are there units owned by this country? */
 	if (lnats[cn] != 0) {
 	    /* Yes. */
-	    if (cn != 0) {
-		PR(cn, "%s planes spotted over land units in %s\n",
-		   cname(plane_owner), xyas(x, y, cn));
-		if (opt_HIDDEN)
-		    setcont(cn, plane_owner, FOUND_FLY);
-	    }
+	    PR(plane_owner, "Flying over %s land units in %s\n",
+	       cname(cn), xyas(x, y, plane_owner));
+	    PR(cn, "%s planes spotted over land units in %s\n",
+	       cname(plane_owner), xyas(x, y, cn));
+	    if (opt_HIDDEN)
+		setcont(cn, plane_owner, FOUND_FLY);
 	    if (unfriendly[cn]) {
 		/* They are unfriendly too */
 		if (!gotilist[cn]) {
 		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
 		}
-		PR(plane_owner, "Flying over %s land units in %s\n",
-		   cname(cn), xyas(x, y, plane_owner));
 		if (!evaded) {
 		    if (intown == -1) {
 			/* We haven't intercepted yet, so intercept */
