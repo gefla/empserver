@@ -41,7 +41,6 @@
 int
 reco(void)
 {
-    int mission_flags;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -72,7 +71,6 @@ reco(void)
     pr("target is %s\n", xyas(tx, ty, player->cnum));
     getsect(tx, ty, &target);
     cno = -1;
-    mission_flags = 0;
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
     ap_to_target = strlen(flightpath);
@@ -99,23 +97,15 @@ reco(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    mission_flags |= P_X;	/* stealth (shhh) */
-    mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags = pln_arm(&bomb_list, ap_to_target, 'r',
-			    0, P_S | P_I, mission_flags);
+    pln_arm(&bomb_list, ap_to_target, 'r', 0, P_S | P_I);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags = pln_arm(&esc_list, ap_to_target, 'r',
-			    0, P_F | P_ESC, mission_flags);
-    mission_flags |= PM_R;
-
-    if (*player->argp[0] == 's')
-	mission_flags |= PM_S;
-
-    ac_encounter(&bomb_list, &esc_list, ax, ay,
-		 flightpath, mission_flags, 0);
+    pln_arm(&esc_list, ap_to_target, 'r', 0, P_F | P_ESC);
+    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath,
+		 *player->argp[0] == 's' ? PM_R | PM_S : PM_R,
+		 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {

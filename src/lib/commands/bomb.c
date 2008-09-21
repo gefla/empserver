@@ -81,7 +81,6 @@ int
 bomb(void)
 {
     char *p;
-    int mission_flags;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -128,7 +127,6 @@ bomb(void)
     /*
      * select planes within range
      */
-    mission_flags = 0;
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
 	    2, wantflags, P_M | P_O);
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
@@ -136,18 +134,13 @@ bomb(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    mission_flags |= P_X;	/* stealth (shhh) */
-    mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags = pln_arm(&bomb_list, 2 * ap_to_target, mission,
-			    ip, 0, mission_flags);
+    pln_arm(&bomb_list, 2 * ap_to_target, mission, ip, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags = pln_arm(&esc_list, 2 * ap_to_target, mission,
-			    ip, P_F | P_ESC, mission_flags);
-    ac_encounter(&bomb_list, &esc_list, ax, ay,
-		 flightpath, mission_flags, 0);
+    pln_arm(&esc_list, 2 * ap_to_target, mission, ip, P_F | P_ESC);
+    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else if (target.sct_type == SCT_SANCT) {

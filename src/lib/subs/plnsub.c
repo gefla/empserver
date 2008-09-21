@@ -562,9 +562,9 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
     }
 }
 
-int
+void
 pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
-	int flags, int mission_flags)
+	int flags)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -582,29 +582,11 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	    free(qp);
 	    continue;
 	}
-	if (flags & (P_S | P_I)) {
-	    if (plp->pcp->pl_flags & P_S)
-		mission_flags |= P_S;
-	    if (plp->pcp->pl_flags & P_I)
-		mission_flags |= P_I;
-	}
-	if (!(plp->pcp->pl_flags & P_H))
-	    /* no stealth on this mission */
-	    mission_flags &= ~P_H;
-	if (!(plp->pcp->pl_flags & P_X))
-	    /* no stealth on this mission */
-	    mission_flags &= ~P_X;
-	if (!(plp->pcp->pl_flags & P_MINE)) {
-	    /* no asw on this mission */
-	    mission_flags &= ~P_MINE;
-	    /* FIXME no effect */
-	}
 	pp->pln_flags |= PLN_LAUNCHED;
 	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
 	putplane(pp->pln_uid, pp);
 	pr("%s equipped\n", prplane(pp));
     }
-    return mission_flags;
 }
 
 static int

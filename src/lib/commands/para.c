@@ -48,7 +48,6 @@ static int paradrop(struct emp_qelem *list, coord x, coord y);
 int
 para(void)
 {
-    int mission_flags;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -91,19 +90,13 @@ para(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    mission_flags = 0;
-    mission_flags |= P_X;	/* stealth (shhh) */
-    mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags = pln_arm(&bomb_list, 2 * ap_to_target, 'a',
-			    &ichr[I_MILIT], 0, mission_flags);
+    pln_arm(&bomb_list, 2 * ap_to_target, 'a', &ichr[I_MILIT], 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags = pln_arm(&esc_list, 2 * ap_to_target, 'a',
-			    &ichr[I_MILIT], P_ESC | P_F, mission_flags);
-    ac_encounter(&bomb_list, &esc_list, ax, ay,
-		 flightpath, mission_flags, 0);
+    pln_arm(&esc_list, 2 * ap_to_target, 'a', &ichr[I_MILIT], P_ESC | P_F);
+    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {

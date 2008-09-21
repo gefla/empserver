@@ -44,7 +44,6 @@
 int
 fly(void)
 {
-    int mission_flags;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -95,7 +94,6 @@ fly(void)
     /*
      * select planes within range
      */
-    mission_flags = 0;
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
 	    1, wantflags, P_M | P_O);
     if (QEMPTY(&bomb_list)) {
@@ -113,18 +111,14 @@ fly(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    mission_flags |= P_X;	/* stealth (shhh) */
-    mission_flags |= P_H;	/* gets turned off if not all choppers */
-    mission_flags = pln_arm(&bomb_list, ap_to_target, 't',
-			    ip, 0, mission_flags);
+    pln_arm(&bomb_list, ap_to_target, 't', ip, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    mission_flags = pln_arm(&esc_list, ap_to_target, 't',
-			    ip, P_ESC | P_F, mission_flags);
+    pln_arm(&esc_list, ap_to_target, 't', ip, P_ESC | P_F);
     ac_encounter(&bomb_list, &esc_list, ax, ay,
-		 flightpath, mission_flags, 0);
+		 flightpath, 0, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
