@@ -97,7 +97,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int evaded;
     struct shiplist *head = NULL;
     int changed = 0;
-    int intown = 0;		/* Last owner to intercept */
 /* We want to only intercept once per sector per owner.  So, if we overfly
    a sector, and then overfly some land units or ships, we don't want to
    potentially intercept 3 times. */
@@ -253,7 +252,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    continue;
 	ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
 		     sect.sct_own, x, y);
-	intown = sect.sct_own;
     }
 
     /* Let's report all of the overflights even if aborted */
@@ -292,55 +290,27 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
 	if (plane_owner == cn)
 	    continue;
-	intown = -1;
-	/* Are there ships owned by this country? */
 	if (nats[cn] != 0) {
-	    /* Yes. */
 	    PR(plane_owner, "Flying over %s ships in %s\n",
 	       cname(cn), xyas(x, y, plane_owner));
 	    PR(cn, "%s planes spotted over ships in %s\n",
 	       cname(plane_owner), xyas(x, y, cn));
-	    if (opt_HIDDEN)
-		setcont(cn, plane_owner, FOUND_FLY);
-	    if (unfriendly[cn]) {
-		/* They are unfriendly too */
-		if (!gotilist[cn]) {
-		    getilist(&ilist[cn], cn);
-		    gotilist[cn]++;
-		}
-		/* This makes going for ships in harbors tough */
-		if (!evaded) {
-		    /* We already fired flak up above.  Now we intercept again if we haven't already */
-		    /* Flag that we intercepted */
-		    intown = 1;
-		    /* And now intercept again */
-		    ac_intercept(bomb_list, esc_list, &ilist[cn],
-				 cn, x, y);
-		}
-	    }
 	}
-	/* Are there units owned by this country? */
 	if (lnats[cn] != 0) {
-	    /* Yes. */
 	    PR(plane_owner, "Flying over %s land units in %s\n",
 	       cname(cn), xyas(x, y, plane_owner));
 	    PR(cn, "%s planes spotted over land units in %s\n",
 	       cname(plane_owner), xyas(x, y, cn));
+	}
+	if (nats[cn] || lnats[cn]) {
 	    if (opt_HIDDEN)
 		setcont(cn, plane_owner, FOUND_FLY);
-	    if (unfriendly[cn]) {
-		/* They are unfriendly too */
+	    if (unfriendly[cn] && !evaded) {
 		if (!gotilist[cn]) {
 		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
 		}
-		if (!evaded) {
-		    if (intown == -1) {
-			/* We haven't intercepted yet, so intercept */
-			ac_intercept(bomb_list, esc_list, &ilist[cn],
-				     cn, x, y);
-		    }
-		}
+		ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x, y);
 	    }
 	}
     }
