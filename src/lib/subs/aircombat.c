@@ -348,11 +348,8 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 		continue;
 
 	    if (dplp->plane.pln_range <
-		mapdist(x, y, dplp->plane.pln_x, dplp->plane.pln_y)) {
-		emp_remque(dqp);
-		free(dqp);
+		mapdist(x, y, dplp->plane.pln_x, dplp->plane.pln_y))
 		continue;
-	    }
 	    if (CANT_HAPPEN(dplp->plane.pln_flags & PLN_LAUNCHED)
 		|| mission_pln_equip(dplp, 0, P_F, 0) < 0) {
 		emp_remque(dqp);
@@ -408,7 +405,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     plane_owner = plp->plane.pln_own;
 
     sam_intercept(bomb_list, def_list, def_own, plane_owner, x, y, 0);
-    sam_intercept(esc_list, def_list, def_own, plane_owner, x, y, 1);
+    sam_intercept(esc_list, def_list, def_own, plane_owner, x, y, 0);
 
     att_count = 0;
     for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw)
