@@ -200,10 +200,10 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    continue;
 
 	evaded = do_evade(bomb_list, esc_list);
+	if (evaded)
+	    continue;
 
-	if (sect.sct_own != 0 && sect.sct_own != plane_owner && !evaded) {
-	    /* We only show planes overhead if they didn't
-	     * evade radar */
+	if (sect.sct_own != 0 && sect.sct_own != plane_owner) {
 	    overfly[sect.sct_own]++;
 	    PR(sect.sct_own, "%s planes spotted over %s\n",
 	       cname(plane_owner), xyas(x, y, sect.sct_own));
@@ -211,26 +211,22 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		setcont(sect.sct_own, plane_owner, FOUND_FLY);
 	}
 
-	if (!evaded) {
-	    /* Fire flak */
-	    if (unfriendly[sect.sct_own])
-		ac_doflak(bomb_list, &sect);
-	    /* If bombers left, fire flak from units and ships */
-	    if (!QEMPTY(bomb_list))
-		ac_landflak(bomb_list, x, y);
-	    if (!QEMPTY(bomb_list))
-		ac_shipflak(bomb_list, x, y);
-	}
+	/* Fire flak */
+	if (unfriendly[sect.sct_own])
+	    ac_doflak(bomb_list, &sect);
+	/* If bombers left, fire flak from units and ships */
+	if (!QEMPTY(bomb_list))
+	    ac_landflak(bomb_list, x, y);
+	if (!QEMPTY(bomb_list))
+	    ac_shipflak(bomb_list, x, y);
 	/* mission planes aborted due to flak -- don't send escorts */
 	if (QEMPTY(bomb_list))
 	    break;
-	if (!no_air_defense && !evaded)
+
+	if (!no_air_defense)
 	    air_defense(x, y, plane_owner, bomb_list, esc_list);
 
 	if (sect.sct_own == 0 || sect.sct_own == plane_owner)
-	    continue;
-
-	if (evaded)
 	    continue;
 
 	if (unfriendly[sect.sct_own] && !gotilist[sect.sct_own]) {
