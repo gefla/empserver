@@ -209,7 +209,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    PR(sect.sct_own, "%s planes spotted over %s\n",
 	       cname(plane_owner), xyas(x, y, sect.sct_own));
 	    if (opt_HIDDEN)
-		setcont(cn, plane_owner, FOUND_FLY);
+		setcont(sect.sct_own, plane_owner, FOUND_FLY);
 	}
 
 	if (!evaded) {
