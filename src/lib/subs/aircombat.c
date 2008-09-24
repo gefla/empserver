@@ -91,7 +91,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     struct lndstr land;
     struct nstr_item ni;
     natid cn;
-    struct natstr *over, *mynatp;
+    struct natstr *mynatp;
     struct plist *plp;
     int evaded;
     struct shiplist *head = NULL;
@@ -140,7 +140,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	x = xnorm(x + diroff[val][0]);
 	y = ynorm(y + diroff[val][1]);
 	getsect(x, y, &sect);
-	over = getnatp(sect.sct_own);
 
 	if (mission_flags & PM_R) {
 	    flags = plane_caps(bomb_list);
@@ -196,14 +195,13 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    changed += map_set(plane_owner, sect.sct_x, sect.sct_y,
 			       dchr[sect.sct_type].d_mnem, 0);
 	}
-	if ((rel = getrel(over, plane_owner)) == ALLIED)
-	    continue;
 
 	evaded = do_evade(bomb_list, esc_list);
 	if (evaded)
 	    continue;
 
-	if (sect.sct_own != 0 && sect.sct_own != plane_owner) {
+	if (sect.sct_own != 0 && sect.sct_own != plane_owner
+	    && getrel(getnatp(sect.sct_own), plane_owner) != ALLIED) {
 	    overfly[sect.sct_own]++;
 	    PR(sect.sct_own, "%s planes spotted over %s\n",
 	       cname(plane_owner), xyas(x, y, sect.sct_own));
@@ -229,14 +227,14 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	if (sect.sct_own == 0 || sect.sct_own == plane_owner)
 	    continue;
 
-	if (unfriendly[sect.sct_own] && !gotilist[sect.sct_own]) {
-	    getilist(&ilist[sect.sct_own], sect.sct_own);
-	    gotilist[sect.sct_own]++;
+	if (unfriendly[sect.sct_own]) {
+	    if (!gotilist[sect.sct_own]) {
+		getilist(&ilist[sect.sct_own], sect.sct_own);
+		gotilist[sect.sct_own]++;
+	    }
+	    ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
+			 sect.sct_own, x, y);
 	}
-	if (rel > HOSTILE)
-	    continue;
-	ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
-		     sect.sct_own, x, y);
     }
 
     /* Let's report all of the overflights even if aborted */
