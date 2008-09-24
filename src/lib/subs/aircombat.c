@@ -57,7 +57,6 @@
 static int plane_caps(struct emp_qelem *);
 static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 			 struct emp_qelem *, natid, coord, coord);
-static int all_missiles(struct emp_qelem *);
 static void ac_dog(struct plist *, struct plist *);
 static void ac_planedamage(struct plist *, natid, int, natid, int,
 			   int, char *);
@@ -73,7 +72,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     coord x, coord y, char *path, int mission_flags,
 	     int no_air_defense)
 {
-    int val, non_missiles;
+    int val;
     int rel;
     int dir;
     int nats[MAXNOC];
@@ -82,7 +81,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int unfriendly[MAXNOC];
     int overfly[MAXNOC];
     int flags;
-    struct emp_qelem ilist[MAXNOC], *qp;
+    struct emp_qelem ilist[MAXNOC];
     char mypath[1024];
     int myp;
     int civ, mil;
@@ -234,16 +233,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	if (evaded)
 	    continue;
 
-	non_missiles = 0;
-	for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw) {
-	    struct plist *ip = (struct plist *)qp;
-	    if (!(plchr[(int)ip->plane.pln_type].pl_flags & P_M))
-		non_missiles = 1;
-	}
-
-	if (!non_missiles)
-	    continue;
-
 	if (unfriendly[sect.sct_own] && !gotilist[sect.sct_own]) {
 	    getilist(&ilist[sect.sct_own], sect.sct_own);
 	    gotilist[sect.sct_own]++;
@@ -338,22 +327,6 @@ plane_caps(struct emp_qelem *list)
     return fl;
 }
 
-static int
-count_non_missiles(struct emp_qelem *list)
-{
-    struct emp_qelem *qp;
-    struct plist *plp;
-    int att_count = 0;
-
-    /* don't intercept missiles */
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-	plp = (struct plist *)qp;
-	if (!(plp->pcp->pl_flags & P_M))
-	    att_count++;
-    }
-    return att_count;
-}
-
 void
 sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	      natid def_own, natid plane_owner, coord x, coord y,
@@ -372,8 +345,6 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	 aqp != att_list && dqp != def_list; aqp = anext) {
 	anext = aqp->q_forw;
 	aplp = (struct plist *)aqp;
-	if (aplp->pcp->pl_flags & P_M)
-	    continue;
 	if (aplp->pcp->pl_cost < 1000)
 	    continue;
 	for (; dqp != def_list; dqp = dnext) {
@@ -442,15 +413,19 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     plp = (struct plist *)bomb_list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    icount = 0;
-
     sam_intercept(bomb_list, def_list, def_own, plane_owner, x, y, 0);
     sam_intercept(esc_list, def_list, def_own, plane_owner, x, y, 1);
-    if (!(att_count = count_non_missiles(bomb_list) +
-	  count_non_missiles(esc_list)))
+
+    att_count = 0;
+    for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw)
+	att_count++;
+    for (qp = esc_list->q_forw; qp != esc_list; qp = qp->q_forw)
+	att_count++;
+    if (!att_count)
 	return;
 
     emp_initque(&int_list);
+    icount = 0;
     for (qp = def_list->q_forw; qp != def_list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
@@ -531,21 +506,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 	in_next = in->q_forw;
 	att_next = att->q_forw;
 	attacker = (struct plist *)att;
-
-	/* skip missiles. If only missiles left, we're done */
-	if (plchr[(int)attacker->plane.pln_type].pl_flags & P_M) {
-	    att = att_next;
-	    if (att == att_list) {
-		more_att = 0;
-		if (QEMPTY(att_list))
-		    more_int = 0;
-		else
-		    att = att->q_forw;
-	    }
-	    if (all_missiles(att_list))
-		more_att = 0;
-	    continue;
-	}
 	interceptor = (struct plist *)in;
 	nplanes = attacker->plane.pln_effic;
 	if (nplanes > interceptor->plane.pln_effic)
@@ -568,23 +528,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 		in = in->q_forw;
 	}
     }
-}
-
-static int
-all_missiles(struct emp_qelem *att_list)
-{
-    struct emp_qelem *qp;
-    struct plist *p;
-
-    qp = att_list->q_forw;
-    while (qp != att_list) {
-	p = (struct plist *)qp;
-	if (!(plchr[(int)p->plane.pln_type].pl_flags & P_M))
-	    return 0;
-
-	qp = qp->q_forw;
-    }
-    return 1;
 }
 
 static void
