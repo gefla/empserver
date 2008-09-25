@@ -73,12 +73,11 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	     int no_air_defense)
 {
     int val;
-    int rel;
     int dir;
     int nats[MAXNOC];
     int lnats[MAXNOC];
     int gotilist[MAXNOC];
-    int unfriendly[MAXNOC];
+    unsigned char rel[MAXNOC];
     int overfly[MAXNOC];
     int flags;
     struct emp_qelem ilist[MAXNOC];
@@ -89,7 +88,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     struct lndstr land;
     struct nstr_item ni;
     natid cn;
-    struct natstr *mynatp;
     struct plist *plp;
     int evaded;
     struct shiplist *head = NULL;
@@ -103,17 +101,9 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
     memset(overfly, 0, sizeof(overfly));
     memset(gotilist, 0, sizeof(gotilist));
-    memset(unfriendly, 0, sizeof(unfriendly));
-    for (cn = 1; cn < MAXNOC; cn++) {
-	if ((mynatp = getnatp(cn)) == 0)
-	    continue;
-	rel = getrel(mynatp, plane_owner);
-	if (rel > HOSTILE)
-	    continue;
-	if (plane_owner == cn)
-	    continue;
-	unfriendly[cn]++;
-    }
+    for (cn = 0; cn < MAXNOC; cn++)
+	rel[cn] = getrel(getnatp(cn), plane_owner);
+
     if (mission_flags & PM_R) {
 	flags = plane_caps(bomb_list);
 	if (flags & P_S) {
@@ -189,7 +179,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	evaded = do_evade(bomb_list, esc_list);
 	if (!evaded) {
 	    if (sect.sct_own != 0 && sect.sct_own != plane_owner
-		&& getrel(getnatp(sect.sct_own), plane_owner) != ALLIED) {
+		&& rel[sect.sct_own] != ALLIED) {
 		overfly[sect.sct_own]++;
 		PR(sect.sct_own, "%s planes spotted over %s\n",
 		   cname(plane_owner), xyas(x, y, sect.sct_own));
@@ -198,7 +188,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    }
 
 	    /* Fire flak */
-	    if (unfriendly[sect.sct_own])
+	    if (rel[sect.sct_own] <= HOSTILE)
 		ac_doflak(bomb_list, &sect);
 	    /* If bombers left, fire flak from units and ships */
 	    if (!QEMPTY(bomb_list))
@@ -212,7 +202,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    if (!no_air_defense)
 		air_defense(x, y, plane_owner, bomb_list, esc_list);
 
-	    if (unfriendly[sect.sct_own]) {
+	    if (rel[sect.sct_own] <= HOSTILE) {
 		if (!gotilist[sect.sct_own]) {
 		    getilist(&ilist[sect.sct_own], sect.sct_own);
 		    gotilist[sect.sct_own]++;
@@ -280,7 +270,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	if (nats[cn] || lnats[cn]) {
 	    if (opt_HIDDEN)
 		setcont(cn, plane_owner, FOUND_FLY);
-	    if (unfriendly[cn] && !evaded) {
+	    if (rel[cn] <= HOSTILE && !evaded) {
 		if (!gotilist[cn]) {
 		    getilist(&ilist[cn], cn);
 		    gotilist[cn]++;
