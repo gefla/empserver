@@ -74,8 +74,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 {
     int val;
     int dir;
-    int nats[MAXNOC];
-    int lnats[MAXNOC];
+    unsigned char gotships[MAXNOC];
+    unsigned char gotlands[MAXNOC];
     int gotilist[MAXNOC];
     unsigned char rel[MAXNOC];
     int overfly[MAXNOC];
@@ -120,6 +120,20 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
     for (;;) {
 	getsect(x, y, &sect);
+	memset(gotships, 0, sizeof(gotships));
+	snxtitem_xy(&ni, EF_SHIP, x, y);
+	while (nxtitem(&ni, &ship)) {
+	    if (mchr[(int)ship.shp_type].m_flags & M_SUB)
+		continue;
+	    gotships[ship.shp_own] = 1;
+	}
+	memset(gotlands, 0, sizeof(gotlands));
+	snxtitem_xy(&ni, EF_LAND, x, y);
+	while (nxtitem(&ni, &land)) {
+	    if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+		continue;
+	    gotlands[land.lnd_own] = 1;
+	}
 
 	if (mission_flags & PM_R) {
 	    flags = plane_caps(bomb_list);
@@ -169,6 +183,18 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    }
 	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);
+	    else {
+		for (cn = 1; cn < MAXNOC; cn++) {
+		    if (cn == plane_owner)
+			continue;
+		    if (gotships[cn])
+			PR(plane_owner, "Flying over %s ships in %s\n",
+			   cname(cn), xyas(x, y, plane_owner));
+		    if (gotlands[cn])
+			PR(plane_owner, "Flying over %s land units in %s\n",
+			   cname(cn), xyas(x, y, plane_owner));
+		}
+	    }
 	} else {
 	    PR(plane_owner, "flying over %s at %s\n",
 	       dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
@@ -234,40 +260,18 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	goto out;
 
     /* Something made it through */
-    /* Go figure out if there are ships in this sector, and who's they are */
-    memset(nats, 0, sizeof(nats));
-    snxtitem_xy(&ni, EF_SHIP, x, y);
-    while (nxtitem(&ni, &ship)) {
-	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
-	    continue;
-	nats[ship.shp_own]++;
-    }
-    /* Go figure out if there are units in this sector, and who's they are */
-    memset(lnats, 0, sizeof(lnats));
-    snxtitem_xy(&ni, EF_LAND, x, y);
-    while (nxtitem(&ni, &land)) {
-	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
-	    continue;
-	lnats[land.lnd_own]++;
-    }
 
     /* Now, let's make life a little rougher. */
     for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
 	if (plane_owner == cn)
 	    continue;
-	if (nats[cn] != 0) {
-	    PR(plane_owner, "Flying over %s ships in %s\n",
-	       cname(cn), xyas(x, y, plane_owner));
+	if (gotships[cn] != 0)
 	    PR(cn, "%s planes spotted over ships in %s\n",
 	       cname(plane_owner), xyas(x, y, cn));
-	}
-	if (lnats[cn] != 0) {
-	    PR(plane_owner, "Flying over %s land units in %s\n",
-	       cname(cn), xyas(x, y, plane_owner));
+	if (gotlands[cn] != 0)
 	    PR(cn, "%s planes spotted over land units in %s\n",
 	       cname(plane_owner), xyas(x, y, cn));
-	}
-	if (nats[cn] || lnats[cn]) {
+	if (gotships[cn] || gotlands[cn]) {
 	    if (opt_HIDDEN)
 		setcont(cn, plane_owner, FOUND_FLY);
 	    if (rel[cn] <= HOSTILE && !evaded) {
@@ -741,8 +745,6 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	    /* First time here, print the message */
 	    PR(ship.shp_own, "%s planes spotted over ships in %s\n",
 	       cname(plane_owner), xyas(x, y, ship.shp_own));
-	    PR(plane_owner, "Flying over %s ships in %s\n",
-	       cname(ship.shp_own), xyas(x, y, plane_owner));
 	    nats[ship.shp_own] = 1;
 	}
 	PR(ship.shp_own, "firing %.0f flak guns from %s...\n",
@@ -801,8 +803,6 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	    /* First time here, print the message */
 	    PR(land.lnd_own, "%s planes spotted over land units in %s\n",
 	       cname(plane_owner), xyas(x, y, land.lnd_own));
-	    PR(plane_owner, "Flying over %s land units in %s\n",
-	       cname(land.lnd_own), xyas(x, y, plane_owner));
 	    nats[land.lnd_own] = 1;
 	}
 	PR(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
