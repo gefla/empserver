@@ -33,8 +33,9 @@ When getting a path interactively, empire will show you the information
 you have (from your bmap) concerning the current area, to help you plot
 your course.
 .s1
-If the transports stray over enemy territory, then they will be
-intercepted and shot at just like any other mission.
+Transport missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
+.s1
 If the destination sector is not an airport, then all planes in
 the mission must have VTOL capability.
 .s1

@@ -28,6 +28,9 @@ destination sector on the command line, or at any time while giving
 the route, and empire will use the best path from the current sector
 to the desired destination sector.
 .s1
+Paradrop missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
+.s1
 If the planes manage to fight through enemy air defenses and arrive
 on-target, each transport in the mission will be shot at by any
 guns present on the ground.

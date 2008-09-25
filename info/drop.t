@@ -33,6 +33,9 @@ When getting a path interactively, empire will show you the information
 you have (from your bmap) concerning the current area, to help you plot
 your course.
 .s1
+Air drop missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
+.s1
 Planes which arrive safely at the target sector will drop the goodies off
 to the waiting people below.
 .s1

@@ -32,7 +32,9 @@ your course.
 .s1
 Information given by sweep/recon is not totally accurate.
 .s1
-Sweep/recon missions can be intercepted just like any other mission.
+Sweep missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
+.s1
 If the destination sector is not an airport, then all planes in
 the mission must have V/STOL capability.
 .s1

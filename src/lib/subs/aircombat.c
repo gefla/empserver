@@ -231,13 +231,16 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    if (!no_air_defense)
 		air_defense(x, y, plane_owner, bomb_list, esc_list);
 
-	    if (rel[sect.sct_own] <= HOSTILE) {
-		if (!gotilist[sect.sct_own]) {
-		    getilist(&ilist[sect.sct_own], sect.sct_own);
-		    gotilist[sect.sct_own]++;
+	    for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
+		if (rel[cn] > HOSTILE)
+		    continue;
+		if (cn != sect.sct_own && !gotships[cn] && !gotlands[cn])
+		    continue;
+		if (!gotilist[cn]) {
+		    getilist(&ilist[cn], cn);
+		    gotilist[cn]++;
 		}
-		ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
-			     sect.sct_own, x, y);
+		ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x, y);
 	    }
 	}
 
@@ -258,27 +261,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     /* If the map changed, update it */
     if (changed)
 	writemap(player->cnum);
-    /* Now, if the bomber and escort lists are empty, we are done */
-    if (QEMPTY(bomb_list) && QEMPTY(esc_list))
-	goto out;
 
-    /* Something made it through */
-
-    /* Now, let's make life a little rougher. */
-    for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
-	if (plane_owner == cn)
-	    continue;
-	if (gotships[cn] || gotlands[cn]) {
-	    if (rel[cn] <= HOSTILE && !evaded) {
-		if (!gotilist[cn]) {
-		    getilist(&ilist[cn], cn);
-		    gotilist[cn]++;
-		}
-		ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x, y);
-	    }
-	}
-    }
-out:
     free_shiplist(&head);
     for (cn = 1; cn < MAXNOC; cn++) {
 	if (gotilist[cn])

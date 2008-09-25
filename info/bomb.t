@@ -51,28 +51,8 @@ Heavy bombers (with the bomber capability), while they can perform pinpoint
 bombing, are notoriously inaccurate and in general miss what they are aiming
 at.  They are used mainly for strategic bombing.
 .s1
-During the course of a mission,
-your planes may fly over someone else's land.
-If you fly over land owned by another country,
-and this country is either hostile or in any war state (see info relation)
-with you, fighter planes from the enemy country will scramble
-and attempt to intercept your force.
-If the country is simply neutral,
-he will be notified that his radar tracked your planes
-as they flew over his country.
-If the country is allied, then nothing will occur.
-.s1
-If you manage to fight though the enemy fighters and arrive
-at the target sector, your force must still contend with
-any flak guns which your enemy has stationed there.
-What's more, any enemy ship in the target sector will also
-shoot at each of your bombers before any attacks are performed.
-Any enemy land units with the 'flak' ability will also fire at
-all your planes at this time.
-.s1
-A well-equipped fleet of battleships in a heavily-defended harbor
-can be very risky to attack, even though hitting ships in harbor is
-like shooting fish in a barrel.
+Bombing missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
 .s1
 When bombing ships/planes/units, entering a '~' character will cause a
 particular plane not to bomb. Other planes on the mission will still

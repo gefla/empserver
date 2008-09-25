@@ -3,9 +3,9 @@
 .LV Expert
 .s1
 Each time an enemy plane (i.e. a plane owned by a country that your are
-HOSTILE to or worse) flies into over a sector you own, planes you
+HOSTILE to or worse) flies into over a sector, surface ship or land
+unit you own, planes you
 have with the intercept ability will intercept them if:
-
 .NF
 a) The incoming plane is not stealthy, or is detected.
 b) The sector is within 1/2 the interceptor's range (as modified
@@ -22,6 +22,8 @@ d) They are at an appropriate place:
 e) There is petrol there equal to 1/2 the plane's fuel rating.
 	(rounded down)
 .FI
+.s1
+Neutral and friendly planes will be reported, but not intercepted.
 .s1
 Before planes scramble to intercept incoming planes, flak fires (see
 info Flak), air defense missions are executed (see info mission), and
@@ -114,13 +116,5 @@ his flight path, perhaps to have combat again.
 .L ABM's
 ABM's do not use the normal combat procedure. They simply have a %
 chance of destroying an incoming warhead equal to their defensive value.
-.s1
-If you have land units in the enemy plane's target sector, your plane will
-intercept the enemy planes AGAIN. If you have non-sub ships in the enemy plane's
-target sector, your planes will intercept them yet again. If you own
-the target sector, and have ships & units there, your planes will therefore
-intercept them a total of three times in that sector. Note that a 'target
-sector' is a sector that is the target of a bombing or para mission. Merely
-having ships in a sector will not cause interception of planes flying over.
 .s1
 .SA "Plane-types, plane, fly, recon, bomb, range, mission, Flak, Planes"

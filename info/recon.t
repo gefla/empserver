@@ -33,7 +33,9 @@ your course.
 .s1
 Information given by recon is not totally accurate.
 .s1
-Recon missions can be intercepted just like any other mission.
+Recon missions can be intercepted just like any other mission.  See
+info \*QIntercept\*U.
+.s1
 If the destination sector is not an airport, then all planes in
 the mission must have V/STOL capability.
 .s1
