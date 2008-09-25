@@ -128,12 +128,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	}
     }
 
-    while ((dir = *path++) && !QEMPTY(bomb_list)) {
-	if ((val = diridx(dir)) == DIR_STOP)
-	    break;
-	/* XXX using xnorm is probably bad */
-	x = xnorm(x + diroff[val][0]);
-	y = ynorm(y + diroff[val][1]);
+    for (;;) {
 	getsect(x, y, &sect);
 
 	if (mission_flags & PM_R) {
@@ -192,44 +187,46 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	}
 
 	evaded = do_evade(bomb_list, esc_list);
-	if (evaded)
-	    continue;
-
-	if (sect.sct_own != 0 && sect.sct_own != plane_owner
-	    && getrel(getnatp(sect.sct_own), plane_owner) != ALLIED) {
-	    overfly[sect.sct_own]++;
-	    PR(sect.sct_own, "%s planes spotted over %s\n",
-	       cname(plane_owner), xyas(x, y, sect.sct_own));
-	    if (opt_HIDDEN)
-		setcont(sect.sct_own, plane_owner, FOUND_FLY);
-	}
-
-	/* Fire flak */
-	if (unfriendly[sect.sct_own])
-	    ac_doflak(bomb_list, &sect);
-	/* If bombers left, fire flak from units and ships */
-	if (!QEMPTY(bomb_list))
-	    ac_landflak(bomb_list, x, y);
-	if (!QEMPTY(bomb_list))
-	    ac_shipflak(bomb_list, x, y);
-	/* mission planes aborted due to flak -- don't send escorts */
-	if (QEMPTY(bomb_list))
-	    break;
-
-	if (!no_air_defense)
-	    air_defense(x, y, plane_owner, bomb_list, esc_list);
-
-	if (sect.sct_own == 0 || sect.sct_own == plane_owner)
-	    continue;
-
-	if (unfriendly[sect.sct_own]) {
-	    if (!gotilist[sect.sct_own]) {
-		getilist(&ilist[sect.sct_own], sect.sct_own);
-		gotilist[sect.sct_own]++;
+	if (!evaded) {
+	    if (sect.sct_own != 0 && sect.sct_own != plane_owner
+		&& getrel(getnatp(sect.sct_own), plane_owner) != ALLIED) {
+		overfly[sect.sct_own]++;
+		PR(sect.sct_own, "%s planes spotted over %s\n",
+		   cname(plane_owner), xyas(x, y, sect.sct_own));
+		if (opt_HIDDEN)
+		    setcont(sect.sct_own, plane_owner, FOUND_FLY);
 	    }
-	    ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
-			 sect.sct_own, x, y);
+
+	    /* Fire flak */
+	    if (unfriendly[sect.sct_own])
+		ac_doflak(bomb_list, &sect);
+	    /* If bombers left, fire flak from units and ships */
+	    if (!QEMPTY(bomb_list))
+		ac_landflak(bomb_list, x, y);
+	    if (!QEMPTY(bomb_list))
+		ac_shipflak(bomb_list, x, y);
+	    /* mission planes aborted due to flak -- don't send escorts */
+	    if (QEMPTY(bomb_list))
+		break;
+
+	    if (!no_air_defense)
+		air_defense(x, y, plane_owner, bomb_list, esc_list);
+
+	    if (unfriendly[sect.sct_own]) {
+		if (!gotilist[sect.sct_own]) {
+		    getilist(&ilist[sect.sct_own], sect.sct_own);
+		    gotilist[sect.sct_own]++;
+		}
+		ac_intercept(bomb_list, esc_list, &ilist[sect.sct_own],
+			     sect.sct_own, x, y);
+	    }
 	}
+
+	dir = *path++;
+	if (!dir || QEMPTY(bomb_list) || (val = diridx(dir)) == DIR_STOP)
+	    break;
+	x = xnorm(x + diroff[val][0]);
+	y = ynorm(y + diroff[val][1]);
     }
 
     /* Let's report all of the overflights even if aborted */
