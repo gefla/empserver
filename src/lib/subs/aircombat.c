@@ -204,13 +204,16 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
 	evaded = do_evade(bomb_list, esc_list);
 	if (!evaded) {
-	    if (sect.sct_own != 0 && sect.sct_own != plane_owner
-		&& rel[sect.sct_own] != ALLIED) {
-		overfly[sect.sct_own]++;
-		PR(sect.sct_own, "%s planes spotted over %s\n",
-		   cname(plane_owner), xyas(x, y, sect.sct_own));
+	    overfly[sect.sct_own]++;
+	    for (cn = 1; cn < MAXNOC; cn++) {
+		if (cn == plane_owner || rel[cn] == ALLIED)
+		    continue;
+		if (cn != sect.sct_own && !gotships[cn] && !gotlands[cn])
+		    continue;
+		PR(cn, "%s planes spotted over %s\n",
+		   cname(plane_owner), xyas(x, y, cn));
 		if (opt_HIDDEN)
-		    setcont(sect.sct_own, plane_owner, FOUND_FLY);
+		    setcont(cn, plane_owner, FOUND_FLY);
 	    }
 
 	    /* Fire flak */
@@ -249,7 +252,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     for (cn = 1; cn < MAXNOC; cn++) {
 	if (plane_owner == cn)
 	    continue;
-	if (overfly[cn] > 0)
+	if (overfly[cn] > 0 && rel[cn] != ALLIED)
 	    nreport(plane_owner, N_OVFLY_SECT, cn, overfly[cn]);
     }
     /* If the map changed, update it */
@@ -265,15 +268,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
 	if (plane_owner == cn)
 	    continue;
-	if (gotships[cn] != 0)
-	    PR(cn, "%s planes spotted over ships in %s\n",
-	       cname(plane_owner), xyas(x, y, cn));
-	if (gotlands[cn] != 0)
-	    PR(cn, "%s planes spotted over land units in %s\n",
-	       cname(plane_owner), xyas(x, y, cn));
 	if (gotships[cn] || gotlands[cn]) {
-	    if (opt_HIDDEN)
-		setcont(cn, plane_owner, FOUND_FLY);
 	    if (rel[cn] <= HOSTILE && !evaded) {
 		if (!gotilist[cn]) {
 		    getilist(&ilist[cn], cn);
@@ -707,12 +702,10 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
     struct plist *plp;
     natid plane_owner;
     natid from;
-    int nats[MAXNOC];
 
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    memset(nats, 0, sizeof(nats));
     total = ngun = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, &ship)) {
@@ -741,12 +734,6 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	ngun += flak;
 	total += techfact(ship.shp_tech, flak * 2.0);
 
-	if (!nats[ship.shp_own]) {
-	    /* First time here, print the message */
-	    PR(ship.shp_own, "%s planes spotted over ships in %s\n",
-	       cname(plane_owner), xyas(x, y, ship.shp_own));
-	    nats[ship.shp_own] = 1;
-	}
 	PR(ship.shp_own, "firing %.0f flak guns from %s...\n",
 	   flak, prship(&ship));
 	from = ship.shp_own;
@@ -775,12 +762,10 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
     struct plist *plp;
     natid plane_owner;
     natid from;
-    int nats[MAXNOC];
 
     plp = (struct plist *)list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    memset(nats, 0, sizeof(nats));
     total = ngun = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (!QEMPTY(list) && nxtitem(&ni, &land)) {
@@ -799,12 +784,6 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	ngun += flak;
 	total += techfact(land.lnd_tech, flak * 2.0);
 
-	if (!nats[land.lnd_own]) {
-	    /* First time here, print the message */
-	    PR(land.lnd_own, "%s planes spotted over land units in %s\n",
-	       cname(plane_owner), xyas(x, y, land.lnd_own));
-	    nats[land.lnd_own] = 1;
-	}
 	PR(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
 	   prland(&land), aaf);
 	from = land.lnd_own;
