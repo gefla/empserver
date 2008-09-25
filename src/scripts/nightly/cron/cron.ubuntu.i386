@@ -1,0 +1,8 @@
+#!/bin/sh
+cd /home/empire/empserver.git
+git pull 2>&1 >/dev/null
+cd /home/empire
+./nightlybuild.sh ubuntu-lwp.i386.config
+./report.sh ubuntu-lwp.i386.config | mutt -s 'empserver ubuntu-lwp.i386' empserver-devel@lists.sourceforge.net
+./nightlybuild.sh ubuntu-pthread.i386.config
+./report.sh ubuntu-pthread.i386.config | mutt -s 'empserver ubuntu-pthread.i386' empserver-devel@lists.sourceforge.net
