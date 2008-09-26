@@ -96,7 +96,7 @@ para(void)
 	return RET_FAIL;
     }
     pln_arm(&esc_list, 2 * ap_to_target, 'a', &ichr[I_MILIT], P_ESC | P_F);
-    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0, 0);
+    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {

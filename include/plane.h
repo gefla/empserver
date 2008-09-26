@@ -162,13 +162,9 @@ extern int pln_first_on_land(struct lndstr *);
 extern int pln_next_on_unit(int);
 
 /* src/lib/subs/aircombat.c */
-extern void ac_combat_headers(natid, natid);
-extern void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 extern int ac_flak_dam(int, int, int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
-			 coord, char *, int, int);
-extern void sam_intercept(struct emp_qelem *, struct emp_qelem *,
-			  natid, natid, coord, coord, int);
+			 coord, char *, int);
 
 /* src/lib/subs/aswplnsubs.c */
 extern int on_shiplist(short, struct shiplist *);

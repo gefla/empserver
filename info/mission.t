@@ -36,14 +36,13 @@ or "order").
 .s1
 Artillery units less than 40% efficient will not fire.
 .s1
-Planes flying missions will be intercepted normally. (i.e. if you fly
-over enemy territory, you'll get intercepted. Any mission except air
-missions may also be intercepted by planes on air defense missions)
+Planes flying missions other than air defense will be intercepted
+normally. (i.e. if you fly over enemy territory, you'll get
+intercepted.
 .s1
-Planes of less than 40% efficiency will not fly missions.
-.s1
-Planes assigned to missions are \*QNOT\*U eligible to intercept
-normally. For example, if a fighter is assigned to an escort or air-defense
+Planes assigned to missions other than air defense are \*QNOT\*U
+eligible to intercept normally. For example, if a fighter is assigned
+to an escort
 or interdiction or support mission, it will \*QNOT\*U rise to intercept
 an intruding enemy plane. (planes on air-defense missions will intercept
 planes flying in their op-area, in accordance with the air-defense mission,
@@ -232,22 +231,11 @@ pays to put your bombing planes and escorting planes together.
 Only planes with the 'escort' or 'intercept' abilities can fly escort missions.
 .s1
 AIR DEFENSE MISSIONS (planes only)
-When given an air defense mission, an intercept capable plane will attempt
-to intercept any enemy plane (defined as any plane belonging to a country
-you re at war with) flying into its operations area, irregardless
-of whether the enemy planes are flying over owned sectors. For example, if
-a plane is given an air defense mission with an op area covering some
-owned sectors, some sea, some allied sectors, and some enemy sectors, it
-would try to intercept over any of them.
 .s1
-When a plane enters a sector, any planes with air defense missions that are
-at war with the owner of the plane will fly there to fight it.
-The air defense planes
-encounter normal interception along the way (but do \*QNOT\*U trigger
-more air defense missions, but \*QMAY\*U be intercepted normally).
-Once the air defense planes get to the sector,
-they fight the plane. Then, if the owner of the sector
-is hostile to the plane, still more planes may intercept it.
+Putting a plane on an air defense mission modifies where the plane
+intercepts.  Without a mission, it intercepts over own sectors,
+surface ships and land units.  With an air defense mission, it
+intercepts over any sector in its op area.
 .s1
 .L Example
 Groonland wants to run a recon flight over Bannannarama. Joeland has a
@@ -275,12 +263,10 @@ This is within the Joeland aircraft's op-area, so it flies to intercept.
 It takes the shortest path there, and fights the Groonland plane.
 Let's say that both take 20 points of damage, and neither aborts.
 .s1
-Next, the Groonland plane overflies a Bannannarama sector. The Joeland
-plane flies there, and is intercepted by the Bannannarama plane. Let's
-say that it comes through the fight without being aborted. It then fights
-the Groonland plane. After this combat, if the Groonland plane is not
-aborted, it may be intercepted again by the busy Bannannarama fighter,
-assuming that that plane is still efficient enough, has mob enough, etc.
+Next, the Groonland plane overflies a Bannannarama sector.  It gets
+intercepted by Joeland's fighter, because the sector is in its
+op-area, and by Bannannarama's fighter, because the sector belongs to
+Bannannarama.  And so forth.
 .s1
 A good use of this mission is to provide a wider CAP around a carrier,
 so that enemy planes get intercepted several times on the way to the

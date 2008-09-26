@@ -40,6 +40,7 @@
 #include "land.h"
 #include "map.h"
 #include "misc.h"
+#include "mission.h"
 #include "nat.h"
 #include "news.h"
 #include "nsc.h"
@@ -55,8 +56,12 @@
 #define FLAK_GUN_MAX 14
 
 static int plane_caps(struct emp_qelem *);
+static void sam_intercept(struct emp_qelem *, struct emp_qelem *,
+			  natid, natid, coord, coord, int);
 static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
-			 struct emp_qelem *, natid, coord, coord);
+			 struct emp_qelem *, natid, coord, coord, int);
+static void ac_combat_headers(natid, natid);
+static void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 static void ac_dog(struct plist *, struct plist *);
 static void ac_planedamage(struct plist *, natid, int, natid, int,
 			   int, char *);
@@ -64,19 +69,17 @@ static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
 static void ac_fireflak(struct emp_qelem *, natid, int);
-static void getilist(struct emp_qelem *, natid);
+static void getilists(struct emp_qelem *, unsigned char *, natid);
 static int do_evade(struct emp_qelem *, struct emp_qelem *);
 
 void
 ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
-	     coord x, coord y, char *path, int mission_flags,
-	     int no_air_defense)
+	     coord x, coord y, char *path, int mission_flags)
 {
     int val;
     int dir;
     unsigned char gotships[MAXNOC];
     unsigned char gotlands[MAXNOC];
-    int gotilist[MAXNOC];
     unsigned char rel[MAXNOC];
     int overfly[MAXNOC];
     int flags;
@@ -100,9 +103,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     plane_owner = plp->plane.pln_own;
 
     memset(overfly, 0, sizeof(overfly));
-    memset(gotilist, 0, sizeof(gotilist));
-    for (cn = 0; cn < MAXNOC; cn++)
-	rel[cn] = getrel(getnatp(cn), plane_owner);
+    getilists(ilist, rel, plane_owner);
 
     if (mission_flags & PM_R) {
 	flags = plane_caps(bomb_list);
@@ -228,19 +229,12 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    if (QEMPTY(bomb_list))
 		break;
 
-	    if (!no_air_defense)
-		air_defense(x, y, plane_owner, bomb_list, esc_list);
-
 	    for (cn = 1; cn < MAXNOC && !QEMPTY(bomb_list); cn++) {
 		if (rel[cn] > HOSTILE)
 		    continue;
-		if (cn != sect.sct_own && !gotships[cn] && !gotlands[cn])
-		    continue;
-		if (!gotilist[cn]) {
-		    getilist(&ilist[cn], cn);
-		    gotilist[cn]++;
-		}
-		ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x, y);
+		ac_intercept(bomb_list, esc_list, &ilist[cn], cn, x, y,
+			     !(cn == sect.sct_own
+			       || gotships[cn] || gotlands[cn]));
 	    }
 	}
 
@@ -263,10 +257,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	writemap(player->cnum);
 
     free_shiplist(&head);
-    for (cn = 1; cn < MAXNOC; cn++) {
-	if (gotilist[cn])
-	    pln_put(&ilist[cn]);
-    }
+    for (cn = 1; cn < MAXNOC; cn++)
+	pln_put(&ilist[cn]);
 }
 
 static int
@@ -285,10 +277,10 @@ plane_caps(struct emp_qelem *list)
     return fl;
 }
 
-void
+static void
 sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	      natid def_own, natid plane_owner, coord x, coord y,
-	      int delete_missiles)
+	      int only_mission)
 {
     struct emp_qelem *aqp;
     struct emp_qelem *anext;
@@ -296,6 +288,7 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
     struct emp_qelem *dnext;
     struct plist *aplp;
     struct plist *dplp;
+    struct plnstr *pp;
     int first = 1;
 
     for (aqp = att_list->q_forw,
@@ -308,20 +301,24 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	for (; dqp != def_list; dqp = dnext) {
 	    dnext = dqp->q_forw;
 	    dplp = (struct plist *)dqp;
+	    pp = &dplp->plane;
 	    if (!(dplp->pcp->pl_flags & P_M))
 		continue;
-
-	    if (dplp->plane.pln_range <
-		mapdist(x, y, dplp->plane.pln_x, dplp->plane.pln_y))
+	    if (only_mission && !pp->pln_mission)
 		continue;
-	    if (CANT_HAPPEN(dplp->plane.pln_flags & PLN_LAUNCHED)
+	    if (pp->pln_range < mapdist(x, y, pp->pln_x, pp->pln_y))
+		continue;
+	    if (pp->pln_mission
+		&& pp->pln_radius < mapdist(x, y, pp->pln_opx, pp->pln_opy))
+		continue;
+	    if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
 		|| mission_pln_equip(dplp, 0, P_F, 0) < 0) {
 		emp_remque(dqp);
 		free(dqp);
 		continue;
 	    }
-	    dplp->plane.pln_flags |= PLN_LAUNCHED;
-	    putplane(dplp->plane.pln_uid, &dplp->plane);
+	    pp->pln_flags |= PLN_LAUNCHED;
+	    putplane(pp->pln_uid, pp);
 	    if (first) {
 		first = 0;
 		PR(plane_owner, "%s launches SAMs!\n", cname(def_own));
@@ -338,22 +335,12 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	PR(plane_owner, "\n");
 	PR(def_own, "\n");
     }
-    if (delete_missiles) {
-	for (; dqp != def_list; dqp = dnext) {
-	    dnext = dqp->q_forw;
-	    dplp = (struct plist *)dqp;
-	    if (!(dplp->pcp->pl_flags & P_M))
-		continue;
-	    emp_remque(dqp);
-	    free(dqp);
-	    continue;
-	}
-    }
 }
 
 static void
 ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
-	     struct emp_qelem *def_list, natid def_own, coord x, coord y)
+	     struct emp_qelem *def_list, natid def_own, coord x, coord y,
+	     int only_mission)
 {
     struct plnstr *pp;
     struct plist *plp;
@@ -368,8 +355,10 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     plp = (struct plist *)bomb_list->q_forw;
     plane_owner = plp->plane.pln_own;
 
-    sam_intercept(bomb_list, def_list, def_own, plane_owner, x, y, 0);
-    sam_intercept(esc_list, def_list, def_own, plane_owner, x, y, 0);
+    sam_intercept(bomb_list, def_list, def_own, plane_owner, x, y,
+		  only_mission);
+    sam_intercept(esc_list, def_list, def_own, plane_owner, x, y,
+		  only_mission);
 
     att_count = 0;
     for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw)
@@ -388,8 +377,13 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	/* SAMs interdict separately */
 	if (plp->pcp->pl_flags & P_M)
 	    continue;
+	if (only_mission && !pp->pln_mission)
+	    continue;
 	dist = mapdist(x, y, pp->pln_x, pp->pln_y) * 2;
 	if (pp->pln_range < dist)
+	    continue;
+	if (pp->pln_mission
+	    && pp->pln_radius < mapdist(x, y, pp->pln_opx, pp->pln_opy))
 	    continue;
 	if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
 	    || mission_pln_equip(plp, 0, P_F, 0) < 0) {
@@ -845,27 +839,33 @@ ac_flak_dam(int guns, int def, int pl_flags)
 }
 
 /*
- * Get a list of planes available for interception duties.
+ * Get planes available for interception duties.
  */
 static void
-getilist(struct emp_qelem *list, natid own)
+getilists(struct emp_qelem *list, unsigned char *rel, natid intruder)
 {
+    natid cn;
     struct plchrstr *pcp;
     struct plnstr plane;
     struct nstr_item ni;
     struct plist *ip;
 
-    emp_initque(list);
+    rel[0] = NEUTRAL;
+    for (cn = 1; cn < MAXNOC; cn++) {
+	rel[cn] = getrel(getnatp(cn), intruder);
+	emp_initque(&list[cn]);
+    }
+
     snxtitem_all(&ni, EF_PLANE);
     while (nxtitem(&ni, &plane)) {
-	if (plane.pln_own != own)
+	if (rel[plane.pln_own] > HOSTILE)
 	    continue;
 	pcp = &plchr[(int)plane.pln_type];
 	if ((pcp->pl_flags & P_F) == 0)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
-	if (plane.pln_mission != 0)
+	if (plane.pln_mission && plane.pln_mission != MI_AIR_DEFENSE)
 	    continue;
 	if (plane.pln_mobil <= 0)
 	    continue;
@@ -879,7 +879,7 @@ getilist(struct emp_qelem *list, natid own)
 	ip->misc = 0;
 	ip->pcp = &plchr[(int)plane.pln_type];
 	ip->plane = plane;
-	emp_insque(&ip->queue, list);
+	emp_insque(&ip->queue, &list[plane.pln_own]);
     }
 }
 

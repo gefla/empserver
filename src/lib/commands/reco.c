@@ -104,8 +104,7 @@ reco(void)
     }
     pln_arm(&esc_list, ap_to_target, 'r', 0, P_F | P_ESC);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath,
-		 *player->argp[0] == 's' ? PM_R | PM_S : PM_R,
-		 0);
+		 *player->argp[0] == 's' ? PM_R | PM_S : PM_R);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
