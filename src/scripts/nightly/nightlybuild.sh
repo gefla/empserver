@@ -175,7 +175,7 @@ fi
 
 git-pull
 sh ./bootstrap
-./configure --prefix ${BOXDIR}/${WORKDIR}/emp4
+./configure --prefix ${BOXDIR}/${WORKDIR}/emp4 ${CONFIGURE_OPTIONS}
 
 		;;
 esac
