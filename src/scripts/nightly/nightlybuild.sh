@@ -136,6 +136,7 @@ esac
 #
 # START PATCH
 #
+cd "${BOXDIR}/${WORKDIR}/empserver" || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver"
 case "${NIGHTLY_SKIP_STEP}"
 in
 	*PATCH*) ;;
