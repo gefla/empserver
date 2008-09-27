@@ -1,0 +1,37 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+real 1 -16:24,-8:8
+convert 11,-1 76
+thres c -2,2 769
+mov c -2,2 47 0,2
+des 0:2,2 g
+thres d 0:2,2 1
+thres c 0:2,2 769
+des 3,1 g
+thres d 3,1 1
+thres c 3,1 769
+des 0,0 m
+deliver i 0,0 0 g
+thres d -1,-1 75
+thres d 0,0 0
+mov d 0,0 1 -1,-1
+thres c 0,-2 100
+thres c 4:6,-2 210
+thres c -1,-1 100
+thres i 4,0 999
+thres i 3,-1 999
+des -2,0 j
+thres c -2,0 769
+thres l -2,0 1
+bmap #1
+nav 0 njnh
+look 0
+radar 0
+radar 11,-1
+cen *
+ship *
+map #
+read y
+prod *
+EOF

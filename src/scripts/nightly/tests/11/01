@@ -1,0 +1,17 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+thres l 6,-2 300
+thres l 5,-1 200
+thres h 5,-1 200
+thres i 5,-1 1
+thres o 5,-1 1
+thres d 5,-1 1
+dist #1 6,2
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF

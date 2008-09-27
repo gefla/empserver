@@ -1,0 +1,19 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+desi -1,-1 b
+mov i 2,0 200 4,0
+mov i 1,-1 4 jh
+mov c -1,-1 300 4,0
+mov c -1,-1 300 3,-1
+mov c 1,-1 175 3,-1
+deli i 2,0 0 j
+deli i 1,-1 0 j
+mov c 2,0 230 5,-1
+desi 4,0 k
+desi 3,-1 j
+dist # 5,-1
+thre h 4,0 1
+thre l 3,-1 1
+desi 5,-1 h
+EOF

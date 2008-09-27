@@ -1,0 +1,31 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 8 << EOF
+des 7,-1 c
+capital 7,-1
+des * ?gold>1 g
+thres d * ?newdes=g 1
+thres d * ?des=g 1
+thres d 4,0 0
+thres d 1,-1 1
+des -5,-3 o
+thres o -5,-3 1
+des -6,-4 o
+thres o -6,-4 1
+des 1,-1 m
+thres i 1,-1 1
+des 3,1 w
+dist * 3,1
+thres c 0:2,0 769
+thres c 1,-1 769
+thres c 4,0 350
+thres c 3,-1 769
+mov c 2,0 231 jh
+mov c 0,0 231 jjh
+mov c 1,-1 231 jh
+bmap #
+cen *
+map #
+read y
+prod *
+EOF

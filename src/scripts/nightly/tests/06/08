@@ -1,0 +1,34 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 8 << EOF
+exp c 0,0 1 gh
+exp c 0,0 1 yh
+exp c 0,0 1 ygh
+exp c 0,0 1 yyh
+exp c 0,0 1 yyyh
+exp c 0,0 1 yyyyh
+exp c 0,0 1 yygh
+exp c 0,0 1 yygyh
+exp c 0,0 1 yygyyh
+exp c 0,0 1 bh
+exp c 0,0 1 bgh
+exp c 0,0 1 nh
+exp c 0,0 1 njh
+exp c 0,0 1 yuh
+exp c 0,0 1 yuyh
+exp c 0,0 1 yuuh
+exp c 0,0 1 yuuyh
+exp c 2,0 1 jh
+exp c 2,0 1 jjh
+exp c 2,0 1 jjjh
+exp c 2,0 1 uh
+exp c 2,0 1 ujh
+exp c 2,0 1 ujjh
+exp c 2,0 1 uyh
+exp c 2,0 1 uuh
+exp c 2,0 1 uujh
+cen *
+map #
+read y
+prod *
+EOF

@@ -1,0 +1,33 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+build bridge 5,-1 j
+explore c 5,-1 1 jh
+mov c 5,-1 76 7,-1
+thres c 7,-1 77
+dist * 5,-1
+des 1,1 m
+deliver i 1,1 0 g
+thres d 1,1 0
+mov d 1,1 1 -1,-1
+des -1,1 k
+thres h -1,1 1
+thres c -1,1 769
+des -4:-2,-2 o
+thres o -4:-2,-2 1
+thres c -4:-2,-2 769
+des 1,-3 o
+thres o 1,-3 1
+thres c 1,-3 769
+des 4:8,2 g
+thres d 4:8,2 1
+thres c 4:8,2 769
+thres c * ?c_dist=768 769
+bmap #1
+radar 11,-1
+cen *
+ship *
+map #
+read y
+prod *
+EOF

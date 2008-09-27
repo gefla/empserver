@@ -1,0 +1,8 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+real 0 -8:12,-4:4
+cen *
+map #
+read y
+EOF

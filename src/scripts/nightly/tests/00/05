@@ -1,0 +1,10 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 5 << EOF
+break
+expl c 0,0 1 uh
+desi 1,-1 +
+mov c 0,0 205 uh
+desi 1,-1 g
+cen *
+EOF

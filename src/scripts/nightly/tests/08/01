@@ -1,0 +1,32 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+des 0,2 m
+deliver i 0,2 0 j
+thres d 0,2 0
+mov d 0,2 1 -1,-1
+des 3,1 m
+deliver i 3,1 0 j
+thres d 3,1 0
+mov d 3,1 1 -1,-1
+des 2,2 k
+thres h 2,2 1
+thres d 2,2 0
+mov d 2,2 1 -1,-1
+thres d 4,-2 15
+thres o 4,-2 75
+thres l 4,-2 150
+des 5:7,1 g
+thres d 5:7,1 1
+thres c 5:7,1 769
+des 10,2 g
+thres d 10,2 1
+thres c 10,2 769
+radar 11,-1
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF

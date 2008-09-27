@@ -29,6 +29,6 @@ runfeed() {
 	[ -n "$REP" ] || REP="$1"
 	{
 		cat
-	} | ../bin/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
+	} | ${EMPIRE_PATH}/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
 	return 0
 }

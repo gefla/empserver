@@ -1,0 +1,54 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+break
+expl c 0,0 1 uh
+expl c 2,0 1 jh
+expl c 2,0 1 uh
+expl c 2,0 1 nh
+expl c 2,0 1 bh
+expl c 0,0 1 yh
+expl c 0,0 1 gh
+expl c 0,0 1 bh
+desi * ?ne=- +
+expl c 2,0 1 njh
+expl c 2,0 1 nnh
+expl c 2,0 1 bnh
+expl c 0,0 1 bbh
+expl c 0,0 1 yyh
+expl c 0,0 1 yuh
+expl c 0,0 1 bnh
+expl c 2,0 1 yuh
+expl c 2,0 1 uuh
+expl c 2,0 1 juh
+desi * ?ne=- +
+expl c 2,0 1 nnnh
+expl c 2,0 1 nnjh
+expl c 2,0 1 njjh
+expl c 2,0 1 uujh
+expl c 0,0 1 bbnh
+expl c 0,0 1 bnnh
+expl c 0,0 1 yygh
+expl c 0,0 1 yuuh
+desi * ?ne=- +
+expl c 2,0 1 nnjjh
+desi * ?ne=- +
+expl c 2,0 1 nnjjjh
+desi * ?ne=- +
+mov u 0,0 75 jh
+demob 0:2,0 55 y
+desi 2,0 m
+mov c 0,0 600 -1,-1
+desi -1,-1 g
+mov c 0,0 275 1,-1
+mov c 2,0 274 1,-1
+desi 1,-1 m
+deliver i 2,0 230 u
+deliver i 1,-1 0 j
+dist 4,0 2,0
+thres i 2,0 1
+des 0,-2 c
+capital 0,-2
+des 0,0 g
+thres d 0,0 1
+EOF

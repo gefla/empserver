@@ -1,0 +1,52 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+mov h 5,-1 100 7,-1
+build bridge 7,-1 j
+explore c 7,-1 1 jh
+thres c 9,-1 77
+mov u 7,-1 12 4,0
+thres u 2,0 579
+thres u 4,0 869
+thres u 11,-1 1
+thres l 6,-2 250
+des 7,1 d
+thres l 7,1 200
+thres h 7,1 100
+thres o 7,1 20
+thres g 7,1 1
+thres d 7,1 0
+mov d 7,1 1 -1,-1
+des 5,1 j
+thres l 5,1 1
+thres d 5,1 0
+mov d 5,1 1 -1,-1
+des 4,2 r
+thres l 4,2 100
+thres o 4,2 50
+thres d 4,2 10
+des 6,2 w
+thres d 6,2 0
+mov d 6,2 1 -1,-1
+des 8,2 e
+thres d 8,2 0
+mov d 8,2 1 -1,-1
+thres m 8,2 1
+des 10,2 !
+thres l 10,2 200
+thres h 10,2 200
+thres s 10,2 200
+thres g 10,2 25
+thres d 10,2 0
+mov d 10,2 1 -1,-1
+des 5,3 p
+thres l 5,3 75
+dist #1 5,-1
+spy 11,-1
+bmap #1
+cen *
+ship *
+map #
+read y
+prod *
+EOF
