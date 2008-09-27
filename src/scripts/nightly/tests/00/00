@@ -1,0 +1,53 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed POGO peter << EOF
+xdump meta sect
+xdump meta ship
+xdump meta plane
+xdump meta land
+xdump meta nuke
+xdump meta news
+xdump meta treaty
+xdump meta trade
+xdump meta nat
+xdump meta loan
+xdump meta commodity
+xdump meta lost
+xdump meta realm
+xdump meta game
+xdump meta item
+xdump meta product
+xdump meta sect-chr
+xdump meta ship-chr
+xdump meta plane-chr
+xdump meta land-chr
+xdump meta nuke-chr
+xdump meta news-chr
+xdump meta infrastructure
+xdump meta updates
+xdump meta table
+xdump meta version
+xdump meta meta
+xdump meta sector
+xdump meta agreement-status
+xdump meta land-chr-flags
+xdump meta level
+xdump meta meta-flags
+xdump meta meta-type
+xdump meta missions
+xdump meta nation-flags
+xdump meta nation-rejects
+xdump meta nation-relationships
+xdump meta nation-status
+xdump meta nuke-chr-flags
+xdump meta packing
+xdump meta page-headings
+xdump meta plague-stages
+xdump meta plane-chr-flags
+xdump meta plane-flags
+xdump meta resources
+xdump meta retreat-flags
+xdump meta ship-chr-flags
+xdump meta treaty-flags
+xdump meta country
+EOF
