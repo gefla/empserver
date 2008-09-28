@@ -1,0 +1,53 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed POGO peter << EOF
+xdump sect 0,0
+xdump ship *
+xdump plane *
+xdump land *
+xdump nuke *
+xdump news *
+xdump treaty *
+xdump trade *
+xdump nat *
+xdump loan *
+xdump commodity *
+xdump lost *
+xdump realm 0
+xdump game *
+xdump item *
+xdump product *
+xdump sect-chr *
+xdump ship-chr *
+xdump plane-chr *
+xdump land-chr *
+xdump nuke-chr *
+xdump news-chr *
+xdump infrastructure *
+xdump updates *
+xdump table *
+xdump version *
+xdump meta *
+xdump sector *
+xdump agreement-status *
+xdump land-chr-flags *
+xdump level *
+xdump meta-flags *
+xdump meta-type *
+xdump missions *
+xdump nation-flags *
+xdump nation-rejects *
+xdump nation-relationships *
+xdump nation-status *
+xdump nuke-chr-flags *
+xdump packing *
+xdump page-headings *
+xdump plague-stages *
+xdump plane-chr-flags *
+xdump plane-flags *
+xdump resources *
+xdump retreat-flags *
+xdump ship-chr-flags *
+xdump treaty-flags *
+xdump country *
+EOF
