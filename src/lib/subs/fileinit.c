@@ -68,6 +68,7 @@ ef_init_srv(void)
     unsigned i;
 
     for (i = 0; i < sizeof(fileinit) / sizeof(fileinit[0]); i++) {
+	empfile[fileinit[i].ef_type].oninit = fileinit[i].oninit;
 	empfile[fileinit[i].ef_type].postread = fileinit[i].postread;
 	empfile[fileinit[i].ef_type].prewrite = fileinit[i].prewrite;
 	empfile[fileinit[i].ef_type].onresize = fileinit[i].onresize;
