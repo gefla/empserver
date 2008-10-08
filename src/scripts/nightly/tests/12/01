@@ -1,0 +1,14 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+build l 10,2 cav 3
+build sh 5,-1 cs 2
+thres m 10,2 25
+bmap #1
+cen *
+ship *
+land *
+map #
+read y
+prod *
+EOF

@@ -42,6 +42,7 @@ mov d 10,2 1 -1,-1
 des 5,3 p
 thres l 5,3 75
 dist #1 5,-1
+thres c -1:1,3 769
 spy 11,-1
 bmap #1
 cen *
