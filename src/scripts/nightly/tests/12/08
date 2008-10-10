@@ -7,6 +7,11 @@ thres d 6,0 0
 des 8,0 i
 thres l 6,0 200
 thres h 6,0 200
+thres c 4,0 400
+thres c -2:4,-2 769
+thres i 4,-2 999
+des 4,-2 j
+thres i -3,1 999
 bmap #
 cen *
 map #
