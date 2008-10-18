@@ -186,9 +186,9 @@ unit_carrier_change(struct empobj *cargo, int type, int old, int new)
 {
     if (CANT_HAPPEN(type < 0 || type > EF_NUKE))
 	return;
-    if (old >= 0)
+    if (old >= 0 && !CANT_HAPPEN(old >= nclink[type]))
 	clink_rem(&clink[type][old], cargo->ef_type, cargo->uid);
-    if (new >= 0)
+    if (new >= 0 && !CANT_HAPPEN(new >= nclink[type]))
 	clink_add(&clink[type][new], cargo->ef_type, cargo->uid);
 }
 
