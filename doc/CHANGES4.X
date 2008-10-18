@@ -1,3 +1,9 @@
+Changes to Empire 4.3.18 - Sat Oct 18 18:39:17 UTC 2008
+ * Fix building of planes, land units and nukes with uids that have
+   never been used before.  This could crash the server on some
+   systems in certain states.  Broken in 4.3.17.
+ * Improved nightly build, with restructured and extended tests.
+
 Changes to Empire 4.3.17 - Sat Sep 20 16:07:44 UTC 2008
  * Fix standalone client build for Windows.  Broken in 4.3.11.
  * Disable automatic supply of land units on load for now, it's broken
