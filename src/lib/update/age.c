@@ -35,6 +35,13 @@
 
 #include "update.h"
 
+int
+age_people(int n, int etu)
+{
+    /* age by 1% per 24 etus */
+    return roundavg(n * (1.0 - etu / 2400.0));
+}
+
 void
 age_levels(int etu)
 {
@@ -43,7 +50,6 @@ age_levels(int etu)
     int i;
     double level;
     double delta;
-    int deltares;
 
     best_tech = 0.0;
     best_res = 0.0;
@@ -61,14 +67,7 @@ age_levels(int etu)
 	    delta = np->nat_level[NAT_TLEV] * etu / (100 * level_age_rate);
 	    np->nat_level[NAT_TLEV] -= delta;
 	}
-	/*
-	 * age reserves by 1% per every 24 etus
-	 */
-	deltares = -roundavg(np->nat_reserve * etu / 2400.0);
-	if (deltares != 0)
-	    np->nat_reserve += deltares;
-	/* Chad Zabel - above number is negative ( was a -= there
-	   which was wrong. */
+	np->nat_reserve = age_people(np->nat_reserve, etu);
     }
     best_tech /= 5;
     best_res /= 5;

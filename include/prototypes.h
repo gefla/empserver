@@ -704,6 +704,7 @@ extern int wu(natid, natid, char *, ...) ATTRIBUTE((format (printf, 3, 4)));
  * src/lib/update/ *.c
  */
 /* age.c */
+extern int age_people(int, int);
 extern void age_levels(int);
 /* anno.c */
 extern void delete_old_announcements(void);

@@ -114,6 +114,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	    if (!player->simulation)
 		sp->sct_work = sctwork;
 	    grow_people(sp, etu, np, &work_avail, sctwork, vec);
+	    /* age che */
+	    if (!player->simulation)
+		sp->sct_che = age_people(sp->sct_che, etu);
 	}
 	if (manna)
 	    /* Take away food we conjured up */
