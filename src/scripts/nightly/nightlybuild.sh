@@ -175,6 +175,7 @@ then
 	echo ""
 fi
 
+git-add include/emptime.h src/lib/gen/emptime.c
 git-pull
 sh ./bootstrap
 ./configure --prefix ${BOXDIR}/${WORKDIR}/emp4 ${CONFIGURE_OPTIONS}
