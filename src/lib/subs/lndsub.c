@@ -915,7 +915,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		continue;
 	    }
 	}
-	if ((!intrchr[INT_RAIL].in_enable || sect.sct_rail == 0)
+	if (!SCT_HAS_RAIL(&sect)
 	    && lnd_mobtype(&llp->unit.land) == MOB_RAIL) {
 	    if (together) {
 		pr("no rail system in %s\n", xyas(newx, newy, actor));

@@ -73,7 +73,10 @@ sinfra(void)
 	pr("%4d%% ", sect.sct_effic);
 	pr("%4d%% ", sect.sct_road);
 	prmobcost(&sect, MOB_MOVE);
-	pr("%4d%% ", sect.sct_rail);
+	if (opt_RAILWAYS)
+	    pr(sct_rail_track(&sect) ? "  yes " : "   no ");
+	else
+	    pr("%4d%% ", sect.sct_rail);
 	prmobcost(&sect, MOB_RAIL);
 	pr("%4d%% ", SCT_DEFENSE(&sect));
 	pr("%5.2f\n", sector_strength(&sect));

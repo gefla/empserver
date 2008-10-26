@@ -183,6 +183,11 @@ extern struct dchrstr bigcity_dchr;
 
 #define FORTEFF 5		/* forts must be 5% efficient to fire. */
 
+/* Can trains enter sector SP? */
+#define SCT_HAS_RAIL(sp)					\
+    (opt_RAILWAYS ? sct_rail_track((sp)) != 0			\
+     : intrchr[INT_RAIL].in_enable && (sp)->sct_rail != 0)
+
 #define MOB_MOVE    0
 #define MOB_MARCH   1
 #define MOB_RAIL    2
@@ -218,5 +223,6 @@ struct sctintrins {
 extern struct sctintrins intrchr[INT_DEF + 2];
 
 extern int fort_fire(struct sctstr *);
+extern int sct_rail_track(struct sctstr *);
 
 #endif

@@ -193,6 +193,7 @@ the unit can fire 'general unit flak' (see "info Flak")
 the unit is a spy
 .L train
 the unit is a train, and can't be loaded on land units
+(see "info Railroad")
 .L heavy
 the unit cannot be carried on land units or ships, not even supply ships
 .in
@@ -235,4 +236,3 @@ marines 1                  5f 10s xlight light marine
 .FI
 .s1
 .SA "land, LandUnits"
-

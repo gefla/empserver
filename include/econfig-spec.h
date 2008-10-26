@@ -177,6 +177,8 @@ EMPCF_OPT("NO_PLAGUE", opt_NO_PLAGUE,
     "Disable plague")
 EMPCF_OPT("PINPOINTMISSILE", opt_PINPOINTMISSILE,
     "Enable marine missiles")
+EMPCF_OPT("RAILWAYS", opt_RAILWAYS,
+    "Highways double as rail")
 EMPCF_OPT("RES_POP", opt_RES_POP,
     "Population is limited by research")
 EMPCF_OPT("SAIL", opt_SAIL,

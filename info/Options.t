@@ -41,6 +41,7 @@ MARKET:         Time-delay market and trade.
 LOANS:          Allows S&L type interaction between countries.
 LANDSPIES:      Creates land unit style spies.
 NO_FORT_FIRE:   Forts cannot fire.
+RAILWAYS	Highways double as rail
 TECH_POP:       Technology costs more to make as your civilian population
                  grows past 50,000 civilians.
 TREATIES:       Sign treaties with your friends and enemies, and breaking of
