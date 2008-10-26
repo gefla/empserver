@@ -1,0 +1,37 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+mov c 1,-1 230 jjh
+mov c 3,-1 230 jh
+mov c 2,-2 230 njh
+mov c 4,-2 230 nh
+mov c 6,-2 230 bh
+load c 3/4 999
+nav 3 6,0
+h
+nav 3 vh
+order 3 des 5,-1 6,0
+order 3 level 1 end oil 1
+nav 4 nvh
+order 4 des 5,-1 6,0
+order 4 level 1 start food 30
+order 4 level 1 end food 30
+reco 0 . 11,-1 ujbgh
+bomb 1 . stat 11,-1 ujh
+mission p 2 o . 2
+fire l 5 12,-2
+attack 12,-2 0 0 0 0
+0
+N
+attack 12,-2
+1
+y
+bmap #1
+cen *
+ship *
+land *
+plane *
+map #
+read y
+prod *
+EOF

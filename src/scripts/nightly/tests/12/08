@@ -4,9 +4,10 @@ runfeed 8 << EOF
 des 6,-2 t
 des 6,0 h
 thres d 6,0 0
-des 8,0 i
 thres l 6,0 200
 thres h 6,0 200
+des 8,0 i
+thres s 8,0 1
 thres c 4,0 400
 thres c -2:4,-2 769
 thres i 4,-2 999

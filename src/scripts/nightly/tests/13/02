@@ -1,0 +1,93 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 2 << EOF
+explore c 2,0  1 uh
+explore c 2,0  1 jh
+explore c 2,0  1 bh
+explore c 2,0  1 nh
+des * ?des=- +
+explore c 2,0  1 yuh
+explore c 2,0  1 ygh
+explore c 2,0  1 juh
+explore c 2,0  1 ggh
+explore c 2,0  1 bgh
+explore c 2,0  1 bbh
+explore c 2,0  1 bnh
+des * ?des=- +
+explore c 2,0  1 jujh
+explore c 2,0  1 gggh
+explore c 2,0  1 bggh
+explore c 2,0  1 bbgh
+explore c 2,0  1 bbbh
+explore c 2,0  1 bbnh
+explore c 2,0  1 bnnh
+des * ?des=- +
+explore c 2,0  1 gggyh
+explore c 2,0  1 ggggh
+explore c 2,0  1 bgggh
+explore c 2,0  1 bbggh
+explore c 2,0  1 bbbgh
+des * ?des=- +
+explore c 2,0  1 gggyuh
+des * ?des=- +
+explore c 0,0  1 yh
+explore c 0,0  1 gh
+explore c 0,0  1 bh
+explore c 0,0  1 nh
+des * ?des=- +
+explore c 0,0  1 uuh
+explore c 0,0  1 juh
+explore c 0,0  1 ggh
+explore c 0,0  1 jjh
+explore c 0,0  1 bgh
+explore c 0,0  1 jnh
+explore c 0,0  1 bbh
+explore c 0,0  1 bnh
+explore c 0,0  1 nnh
+des * ?des=- +
+explore c 0,0  1 ggyh
+explore c 0,0  1 jjuh
+explore c 0,0  1 gggh
+explore c 0,0  1 bggh
+explore c 0,0  1 bbgh
+explore c 0,0  1 bbbh
+explore c 0,0  1 bbnh
+explore c 0,0  1 bnnh
+explore c 0,0  1 nnnh
+des * ?des=- +
+explore c 0,0  1 ggyyh
+explore c 0,0  1 ggyuh
+explore c 0,0  1 ggygh
+explore c 0,0  1 jjujh
+explore c 0,0  1 bgggh
+des * ?des=- +
+designate 2,-2 c
+capital 2,-2
+des * ?gold>10 g
+thres d * ?gold>10 1
+des  -1,-1 o
+thres o -1,-1 1
+des 1,-1 b
+thres d 1,-1 300
+thres c * ?des#+ 769
+thres c -4,-2 230
+thres c 2,-2 50
+thres c 1,-1 385
+thres c 3,-1 300
+thres c 5,-1 600
+des -4,-2 w
+distr * 1,-1
+mov c 1,1 231 -4,-2
+demob 0:2,0 55
+y
+mov c 0,0 260 3,-1
+mov c 2,0 165 3,-1
+mov c 2,0 100 5,-1
+thres u 0:2,0 579
+thres u -5,-1 579
+bmap #1
+cen *
+map #
+read y
+prod *
+EOF

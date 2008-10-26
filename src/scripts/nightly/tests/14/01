@@ -1,0 +1,30 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+lload m 4/5 5
+lload s 5 200
+lload g 5 20
+march 4/5 ggyyh
+thres l 6,-2 450
+des 11,-1 *
+thres l 11,-1 200
+thres h 11,-1 200
+thres p 11,-1 200
+thres u 3:5,1 579
+des 2,-2 o
+build s 5,-1 tk
+load c 2 200
+telegram 2
+Want an alliance?
+.
+declare war 8
+declare alliance 2
+bmap #1
+cen *
+ship *
+land *
+plane *
+map #
+read y
+prod *
+EOF

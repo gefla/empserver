@@ -1,0 +1,26 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 1 << EOF
+build p 11,-1 f1 3
+thres s 11,-1 200
+thres p 11,-1 200
+des 2,-2 %
+thres p 2,-2 1
+thres s 5,-1 200
+thres g 5,-1 10
+thres d -1,-1 0
+thres c * 0
+march 4/5 ujjjh
+build s 5,-1 od
+load c 3 200
+build s 5,-1 ft
+load c 4 200
+bmap #1
+cen *
+ship *
+land *
+plane *
+map #
+read y
+prod *
+EOF

@@ -7,10 +7,13 @@ thres c 5,-1 769
 thres c -5,-3 769
 thres c -4,-2 769
 thres c -1,-3 769
-thres u -1,-1 512
+thres u -1:3,-1 512
 thres u 0:2,0 512
 thres d -3,1 0
 thres l -3,1 1
+thres i 2,-2 999
+des 2,-2 k
+thres h 2,-2 1
 des -3,1 j
 bmap #
 cen *

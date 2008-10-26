@@ -8,6 +8,7 @@ thres c 9,-1 77
 mov u 7,-1 12 4,0
 thres u 2,0 579
 thres u 4,0 869
+thres i 4,0 1200
 thres u 11,-1 1
 thres l 6,-2 250
 des 7,1 d

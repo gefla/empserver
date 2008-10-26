@@ -13,7 +13,7 @@ thres d 3,1 1
 thres c 3,1 769
 des 0,0 m
 deliver i 0,0 0 g
-thres d -1,-1 75
+thres d -1,-1 300
 thres d 0,0 0
 mov d 0,0 1 -1,-1
 thres c 0,-2 100

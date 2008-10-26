@@ -1,0 +1,25 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 2 << EOF
+des 0:2,0 m
+thres i 0:2,0 1
+thres i -5,-1 999
+dist * -4,-2
+thres o 4,0 1
+wall
+Sure
+.
+declare alliance 1
+declare hostile 8
+wire y
+announce
+Hello World
+.
+wire y
+flash 1 Testing Flash
+bmap #1
+cen *
+map #
+read y
+prod *
+EOF

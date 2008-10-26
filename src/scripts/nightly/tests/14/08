@@ -1,0 +1,20 @@
+#!/bin/sh
+. "${SCRIPTDIR}"/common.sh
+runfeed 8 << EOF
+thres c * 769
+thres i -2:0,-2 1
+des -2:0,-2 m
+thres d -2:2,-2 0
+thres o 5,-1 10
+thres l 5,-1 50
+thres h 5,-1 100
+thres h -6,-4 100
+declare war 1
+declare hostile 2
+wire y
+bmap #
+cen *
+map #
+read y
+prod *
+EOF
