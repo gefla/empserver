@@ -818,17 +818,17 @@ index 513382b..4b97be7 100644
 -    time(&natp->nat_last_logout);
 +    empire_time(&natp->nat_last_logout);
      secs = MAX(natp->nat_last_logout - player->lasttime, 15);
-     natp->nat_timeused += secs;
-     putnat(natp);
+     natp->nat_minused += secs / 60;
+     secs = secs % 60;
 @@ -182,7 +183,7 @@ status(void)
      if (!(old_nstat & MONEY) && (player->nstat & MONEY))
  	pr("You are no longer broke!\n");
  
 -    time(&player->curup);
 +    empire_time(&player->curup);
-     second = player->curup - player->lasttime;
-     if (second > 0) {
- 	player->secleft -= second;
+     minute = (player->curup - player->lasttime) / 60;
+     if (minute > 0) {
+ 	player->minleft -= minute;
 diff --git a/src/lib/player/recvclient.c b/src/lib/player/recvclient.c
 index ab4ef69..8934189 100644
 --- a/src/lib/player/recvclient.c
