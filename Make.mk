@@ -241,7 +241,7 @@ dist: dist-source dist-client dist-info
 # addition to %.o.
 ifeq ($(how_to_dep),fast)
 %.o: %.c
-	$(COMPILE.c) -MT $@ -MMD -MP $(OUTPUT_OPTION) $< \
+	$(COMPILE.c) -MT $@ -MMD -MP -MF $(@:.o=.d) $(OUTPUT_OPTION) $< \
 	|| { rm -f $(@:.o=.d) $@; false; }
 # Why the rm?  If gcc's preprocessor chokes, it leaves an empty
 # dependency file behind, and doesn't touch the object file.  If an
