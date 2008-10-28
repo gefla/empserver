@@ -300,7 +300,7 @@ prnat(struct natstr *np)
     pr("Origin <o>: %3s\n",
        xyas(np->nat_xorg, np->nat_yorg, player->cnum));
     pr("Status <s>: 0x%x\t\t\t", np->nat_stat);
-    pr("Min Used <u>: %3d\n", np->nat_minused);
+    pr("Seconds Used <u>: %3d\n", np->nat_timeused);
     pr("Technology <T>: %.2f\t\t", np->nat_level[NAT_TLEV]);
     pr("Research <R>: %.2f\n", np->nat_level[NAT_RLEV]);
     pr("Education <E>: %.2f\t\t", np->nat_level[NAT_ELEV]);
@@ -703,10 +703,10 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_stat = errcheck(arg, STAT_UNUSED, STAT_GOD);
 	break;
     case 'u':
-	arg = errcheck(arg, 0, m_m_p_d);
-	pr("Number of minutes used changed from %d to %d.\n",
-	   np->nat_minused, arg);
-	np->nat_minused = arg;
+	arg = errcheck(arg, 0, m_m_p_d * 60);
+	pr("Number of seconds used changed from %d to %d.\n",
+	   np->nat_timeused, arg);
+	np->nat_timeused = arg;
 	break;
     case 'M':
 	pr("Money changed from %ld to %d\n", np->nat_money, arg);

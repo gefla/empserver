@@ -368,7 +368,7 @@ extern void init_player_commands(void);
 extern void log_last_commands(void);
 extern int gamedown(void);
 extern void daychange(time_t);
-extern int getminleft(time_t, int);
+extern int gettimeleft(time_t, int);
 /* more under Commands */
 /* empmod.c */
 /* init_nats.c */

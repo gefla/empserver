@@ -99,7 +99,7 @@ struct natstr {
     signed char nat_update;	/* Want an update or not. */
     unsigned short nat_tgms;	/* # of telegrams to be announced */
     unsigned short nat_ann;	/* # of annos pending */
-    unsigned short nat_minused;	/* number of minutes used today */
+    int nat_timeused;		/* number of seconds used today */
     short nat_btu;		/* bureaucratic time units */
     short nat_access;		/* The tick when BTUs were last updated */
     long nat_reserve;		/* military reserves */

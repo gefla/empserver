@@ -78,7 +78,7 @@ getcommand(char *combufp)
 	    player_commands_index, player->cnum);
 
     do {
-	prprompt(natp->nat_minused, natp->nat_btu);
+	prprompt(natp->nat_timeused / 60, natp->nat_btu);
 	buf[0] = 0;
 	if (recvclient(buf, 1024) < 0) {
 	    return -1;
@@ -223,23 +223,23 @@ daychange(time_t now)
     tm = localtime(&now);
     if ((tm->tm_yday % 128) != natp->nat_dayno) {
 	natp->nat_dayno = tm->tm_yday % 128;
-	natp->nat_minused = 0;
+	natp->nat_timeused = 0;
     }
 }
 
 int
-getminleft(time_t now, int mpd)
+gettimeleft(time_t now, int mpd)
 {
     struct tm *tm;
-    int nminleft;
+    int nsecleft;
     struct natstr *natp;
     int n;
 
     tm = localtime(&now);
     natp = getnatp(player->cnum);
-    nminleft = mpd - natp->nat_minused;
-    n = 60 * 24 - (tm->tm_min + tm->tm_hour * 60);
-    if (n < nminleft)
-	nminleft = n;
-    return nminleft;
+    nsecleft = mpd * 60 - natp->nat_timeused;
+    n = 60 * 60 * 24 - (tm->tm_sec + tm->tm_min * 60 + tm->tm_hour * 3600);
+    if (n < nsecleft)
+	nsecleft = n;
+    return nsecleft;
 }

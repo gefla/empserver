@@ -67,8 +67,8 @@ struct player {
     char *argp[128];		/* arguments, ASCII, valid if command */
     char *condarg;		/* conditional, ASCII, valid if command */
     char *comtail[128];		/* start of args in combuf[] */
-    time_t lasttime;		/* when minleft was last debited */
-    int minleft;
+    time_t lasttime;		/* when timeleft was last debited */
+    int timeleft;
     int btused;
     int god;
     int owner;

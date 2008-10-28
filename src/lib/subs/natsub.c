@@ -85,7 +85,7 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
     }
 
     natp->nat_dayno = 0;
-    natp->nat_minused = 0;
+    natp->nat_timeused = 0;
     natp->nat_update = 0;
 
     natp->nat_tgms = 0;

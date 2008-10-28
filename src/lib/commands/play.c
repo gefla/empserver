@@ -101,8 +101,8 @@ play_list(struct player *joe)
        cname(joe->cnum),
        joe->cnum,
        player->god || joe->cnum == player->cnum ? praddr(joe) : "",
-       natp->nat_minused / 60,
-       natp->nat_minused % 60,
+       natp->nat_timeused / 3600,
+       (natp->nat_timeused % 3600) / 60,
        (long)(now - joe->curup));
 
     if (player->god) {

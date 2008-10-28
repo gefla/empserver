@@ -79,7 +79,7 @@ player_main(struct player *p)
 	    return;
     }
     daychange(player->curup);
-    if ((player->minleft = getminleft(player->curup, m_m_p_d)) <= 0) {
+    if ((player->timeleft = gettimeleft(player->curup, m_m_p_d)) <= 0) {
 	pr("Time exceeded today\n");
 	return;
     }
@@ -124,10 +124,7 @@ player_main(struct player *p)
      */
     time(&natp->nat_last_logout);
     secs = MAX(natp->nat_last_logout - player->lasttime, 15);
-    natp->nat_minused += secs / 60;
-    secs = secs % 60;
-    if (chance(secs / 60.0))
-	natp->nat_minused += 1;
+    natp->nat_timeused += secs;
     putnat(natp);
     pr("Bye-bye\n");
     journal_logout();
@@ -155,7 +152,7 @@ static int
 status(void)
 {
     struct natstr *natp;
-    int old_nstat, minute;
+    int old_nstat, second;
     char buf[128];
 
     if (player->eof || player->state == PS_SHUTDOWN)
@@ -185,12 +182,12 @@ status(void)
 	pr("You are no longer broke!\n");
 
     time(&player->curup);
-    minute = (player->curup - player->lasttime) / 60;
-    if (minute > 0) {
-	player->minleft -= minute;
-	if (player->minleft <= 0) {
+    second = player->curup - player->lasttime;
+    if (second > 0) {
+	player->timeleft -= second;
+	if (player->timeleft <= 0) {
 	    /*
-	     * countdown timer "player->minleft" has expired.
+	     * countdown timer "player->timeleft" has expired.
 	     * either day change, or hours restriction
 	     */
 	    daychange(player->curup);
@@ -201,12 +198,13 @@ status(void)
 		    return 0;
 		}
 	    }
-	    player->minleft = getminleft(player->curup, m_m_p_d);
+	    player->timeleft = gettimeleft(player->curup, m_m_p_d);
 	}
-	player->lasttime += minute * 60;
-	natp->nat_minused += minute;
+	player->lasttime += second;
+	natp->nat_timeused += second;
     }
-    if (natp->nat_stat == STAT_ACTIVE && natp->nat_minused > m_m_p_d) {
+    if (natp->nat_stat == STAT_ACTIVE &&
+	natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
 	player->nstat = (player->nstat & ~NORM) | VIS;
     }

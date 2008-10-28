@@ -564,7 +564,7 @@ struct castr cou_ca[] = {
     {"update", fldoff(nat_update), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"tgms", fldoff(nat_tgms), NSC_USHORT, 0, NULL, EF_BAD, 0},
     {"ann", fldoff(nat_ann), NSC_USHORT, 0, NULL, EF_BAD, 0},
-    {"minused", fldoff(nat_minused), NSC_USHORT, 0, NULL, EF_BAD, 0},
+    {"timeused", fldoff(nat_timeused), NSC_INT, 0, NULL, EF_BAD, 0},
     {"btu", fldoff(nat_btu), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"access", fldoff(nat_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"milreserve", fldoff(nat_reserve), NSC_LONG, 0, NULL, EF_BAD, 0},
