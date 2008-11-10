@@ -97,7 +97,7 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
     game_tick_to_now(&natp->nat_access);
     natp->nat_reserve = 0;
     natp->nat_money = stat == STAT_SANCT ? start_cash : 0;
-    natp->nat_last_login = natp->nat_last_login = 0;
+    natp->nat_last_login = natp->nat_last_logout = 0;
     natp->nat_newstim = 0;
     natp->nat_annotim = 0;
     natp->nat_level[NAT_HLEV] = start_happiness;
