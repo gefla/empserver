@@ -153,7 +153,7 @@ daytime(char *str, int *min)
     unsigned long h, m;
 
     h = strtoul(str, &end, 10);
-    if (end == str || h > 23)
+    if (end == str || h > 24)
 	return NULL;
 
     if (*end++ != ':')
@@ -162,6 +162,8 @@ daytime(char *str, int *min)
     str = end;
     m = strtoul(str, &end, 10);
     if (end == str || m > 59)
+	return NULL;
+    else if (h == 24 && m != 0)
 	return NULL;
 
     *min = 60 * h + m;
