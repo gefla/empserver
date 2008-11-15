@@ -780,7 +780,7 @@ index 3106849..726b5fc 100644
      return lp;
  }
 diff --git a/src/lib/player/player.c b/src/lib/player/player.c
-index f81e2f0..a9a1f74 100644
+index 0e1c5e3..9773db4 100644
 --- a/src/lib/player/player.c
 +++ b/src/lib/player/player.c
 @@ -40,6 +40,7 @@
@@ -800,16 +800,7 @@ index f81e2f0..a9a1f74 100644
      update_timeused_login(player->curup);
      show_motd();
      if (init_nats() < 0) {
-@@ -98,7 +99,7 @@ player_main(struct player *p)
-     strcpy(natp->nat_hostname, player->hostname);
-     strcpy(natp->nat_hostaddr, player->hostaddr);
- 
--    time(&natp->nat_last_login);
-+    empire_time(&natp->nat_last_login);
-     putnat(natp);
-     journal_login();
-     if (natp->nat_flags & NF_INFORM && natp->nat_tgms > 0) {
-@@ -117,7 +118,7 @@ player_main(struct player *p)
+@@ -116,7 +117,7 @@ player_main(struct player *p)
      }
      /* #*# I put the following line in to prevent server crash -KHS */
      natp = getnatp(player->cnum);
@@ -818,7 +809,7 @@ index f81e2f0..a9a1f74 100644
      putnat(natp);
      update_timeused(natp->nat_last_logout);
      enforce_minimum_session_time();
-@@ -176,7 +177,7 @@ status(void)
+@@ -175,7 +176,7 @@ status(void)
      if (!(old_nstat & MONEY) && (player->nstat & MONEY))
  	pr("You are no longer broke!\n");
  
