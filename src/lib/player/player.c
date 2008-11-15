@@ -109,8 +109,7 @@ player_main(struct player *p)
 	natp->nat_tgms = 0;
     }
 
-    while (status()) {
-	command();
+    while (status() && command()) {
 	player->aborted = player->eof;
 	empth_yield();
     }
@@ -129,9 +128,21 @@ command(void)
 {
     char *redir;		/* UTF-8 */
     char scanspace[1024];
+    time_t now;
+    struct natstr *natp;
 
     if (getcommand(player->combuf) < 0)
 	return 0;
+
+    now = time(NULL);
+    update_timeused(now);
+    natp = getnatp(player->cnum);
+    if (natp->nat_stat == STAT_ACTIVE &&
+	natp->nat_timeused > m_m_p_d * 60) {
+	pr("Max minutes per day limit exceeded.\n");
+	return 0;
+    }
+
     if (parse(player->combuf, scanspace, player->argp, player->comtail,
 	      &player->condarg, &redir) < 0) {
 	pr("See \"info Syntax\"?\n");
