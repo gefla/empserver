@@ -213,33 +213,58 @@ gamedown(void)
     return 1;
 }
 
-void
-daychange(time_t now)
+static int
+seconds_since_midnight(time_t time)
 {
-    struct natstr *natp;
-    struct tm *tm;
+    struct tm *tm = localtime(&time);
+    time_t midnight;
 
-    natp = getnatp(player->cnum);
-    tm = localtime(&now);
-    if ((tm->tm_yday % 128) != natp->nat_dayno) {
-	natp->nat_dayno = tm->tm_yday % 128;
-	natp->nat_timeused = 0;
-    }
+    tm->tm_hour = 0;
+    tm->tm_min = 0;
+    tm->tm_sec = 0;
+    tm->tm_isdst = -1;
+    midnight = mktime(tm);
+
+    return(time - midnight);
 }
 
-int
-gettimeleft(time_t now, int mpd)
+void
+update_timeused_login(time_t now)
 {
-    struct tm *tm;
-    int nsecleft;
-    struct natstr *natp;
-    int n;
+    struct natstr *natp = getnatp(player->cnum);
+    time_t midnight_secs = seconds_since_midnight(player->lasttime);
 
-    tm = localtime(&now);
-    natp = getnatp(player->cnum);
-    nsecleft = mpd * 60 - natp->nat_timeused;
-    n = 60 * 60 * 24 - (tm->tm_sec + tm->tm_min * 60 + tm->tm_hour * 3600);
-    if (n < nsecleft)
-	nsecleft = n;
-    return nsecleft;
+    if (now - natp->nat_last_logout > midnight_secs) {
+	natp->nat_timeused = 0;
+	putnat(natp);
+    }
+    player->lasttime = now;
+}
+
+void
+update_timeused(time_t now)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    time_t midnight_secs = seconds_since_midnight(now);
+    time_t dt = now - player->lasttime;
+
+    if (dt > midnight_secs)
+        natp->nat_timeused = midnight_secs;
+    else
+        natp->nat_timeused += dt;
+    player->lasttime = now;
+    putnat(natp);
+}
+
+void
+enforce_minimum_session_time(void)
+{
+   struct natstr *natp = getnatp(player->cnum);
+
+    time_t dt = natp->nat_last_logout - natp->nat_last_login;
+    if (dt > seconds_since_midnight(natp->nat_last_logout))
+	dt = seconds_since_midnight(natp->nat_last_logout);
+    if (dt < 15)
+	natp->nat_timeused += 15 - dt;
+    putnat(natp);
 }

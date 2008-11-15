@@ -367,8 +367,9 @@ extern int getcommand(char *);
 extern void init_player_commands(void);
 extern void log_last_commands(void);
 extern int gamedown(void);
-extern void daychange(time_t);
-extern int gettimeleft(time_t, int);
+extern void update_timeused_login(time_t now);
+extern void update_timeused(time_t now);
+extern void enforce_minimum_session_time(void);
 /* more under Commands */
 /* empmod.c */
 /* init_nats.c */

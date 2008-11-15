@@ -563,7 +563,6 @@ struct castr cou_ca[] = {
      EF_BAD, NSC_DEITY | NSC_EXTRA},
     {"yorg", fldoff(nat_yorg), NSC_YCOORD, 0, NULL,
      EF_BAD, NSC_DEITY | NSC_EXTRA},
-    {"dayno", fldoff(nat_dayno), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"update", fldoff(nat_update), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"tgms", fldoff(nat_tgms), NSC_USHORT, 0, NULL, EF_BAD, 0},
     {"ann", fldoff(nat_ann), NSC_USHORT, 0, NULL, EF_BAD, 0},

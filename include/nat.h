@@ -95,7 +95,6 @@ struct natstr {
     char nat_userid[32];	/* userid of last user, may be empty */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */
-    signed char nat_dayno;	/* day of the year mod 128 */
     signed char nat_update;	/* Want an update or not. */
     unsigned short nat_tgms;	/* # of telegrams to be announced */
     unsigned short nat_ann;	/* # of annos pending */

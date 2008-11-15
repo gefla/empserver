@@ -60,13 +60,12 @@ void
 player_main(struct player *p)
 {
     struct natstr *natp;
-    int secs;
     char buf[128];
 
     p->state = PS_PLAYING;
     player = p;
-    time(&player->lasttime);
     time(&player->curup);
+    update_timeused_login(player->curup);
     show_motd();
     if (init_nats() < 0) {
 	pr("Server confused, try again later\n");
@@ -78,8 +77,8 @@ player_main(struct player *p)
 	if (natp->nat_stat != STAT_GOD)
 	    return;
     }
-    daychange(player->curup);
-    if ((player->timeleft = gettimeleft(player->curup, m_m_p_d)) <= 0) {
+    if (natp->nat_stat == STAT_ACTIVE &&
+	natp->nat_timeused > m_m_p_d * 60) {
 	pr("Time exceeded today\n");
 	return;
     }
@@ -118,14 +117,10 @@ player_main(struct player *p)
     }
     /* #*# I put the following line in to prevent server crash -KHS */
     natp = getnatp(player->cnum);
-    /*
-     * randomly round up to the nearest minute,
-     * charging at least 15 seconds.
-     */
     time(&natp->nat_last_logout);
-    secs = MAX(natp->nat_last_logout - player->lasttime, 15);
-    natp->nat_timeused += secs;
     putnat(natp);
+    update_timeused(natp->nat_last_logout);
+    enforce_minimum_session_time();
     pr("Bye-bye\n");
     journal_logout();
 }
@@ -182,27 +177,7 @@ status(void)
 	pr("You are no longer broke!\n");
 
     time(&player->curup);
-    second = player->curup - player->lasttime;
-    if (second > 0) {
-	player->timeleft -= second;
-	if (player->timeleft <= 0) {
-	    /*
-	     * countdown timer "player->timeleft" has expired.
-	     * either day change, or hours restriction
-	     */
-	    daychange(player->curup);
-	    if (!gamehours(player->curup)) {
-		pr("Empire hours restriction in force\n");
-		if (natp->nat_stat != STAT_GOD) {
-		    putnat(natp);
-		    return 0;
-		}
-	    }
-	    player->timeleft = gettimeleft(player->curup, m_m_p_d);
-	}
-	player->lasttime += second;
-	natp->nat_timeused += second;
-    }
+    update_timeused(player->curup);
     if (natp->nat_stat == STAT_ACTIVE &&
 	natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
