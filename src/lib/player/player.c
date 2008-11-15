@@ -147,7 +147,7 @@ static int
 status(void)
 {
     struct natstr *natp;
-    int old_nstat, second;
+    int old_nstat;
     char buf[128];
 
     if (player->eof || player->state == PS_SHUTDOWN)
