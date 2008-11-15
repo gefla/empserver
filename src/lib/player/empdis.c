@@ -217,15 +217,12 @@ static int
 seconds_since_midnight(time_t time)
 {
     struct tm *tm = localtime(&time);
-    time_t midnight;
 
     tm->tm_hour = 0;
     tm->tm_min = 0;
     tm->tm_sec = 0;
     tm->tm_isdst = -1;
-    midnight = mktime(tm);
-
-    return(time - midnight);
+    return time - mktime(tm);
 }
 
 void
