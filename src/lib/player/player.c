@@ -97,8 +97,7 @@ player_main(struct player *p)
     strcpy(natp->nat_userid, player->userid);
     strcpy(natp->nat_hostname, player->hostname);
     strcpy(natp->nat_hostaddr, player->hostaddr);
-
-    time(&natp->nat_last_login);
+    natp->nat_last_login = player->curup;
     putnat(natp);
     journal_login();
     if (natp->nat_flags & NF_INFORM && natp->nat_tgms > 0) {
