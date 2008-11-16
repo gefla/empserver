@@ -229,7 +229,7 @@ void
 update_timeused_login(time_t now)
 {
     struct natstr *natp = getnatp(player->cnum);
-    time_t midnight_secs = seconds_since_midnight(player->lasttime);
+    time_t midnight_secs = seconds_since_midnight(now);
 
     if (now - natp->nat_last_logout > midnight_secs) {
 	natp->nat_timeused = 0;
