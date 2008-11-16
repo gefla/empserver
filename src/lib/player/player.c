@@ -77,9 +77,9 @@ player_main(struct player *p)
 	if (natp->nat_stat != STAT_GOD)
 	    return;
     }
-    if (natp->nat_stat == STAT_ACTIVE &&
-	natp->nat_timeused > m_m_p_d * 60) {
-	pr("Time exceeded today\n");
+    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+	&& natp->nat_timeused > m_m_p_d * 60) {
+	pr("Max minutes per day limit exceeded.\n");
 	return;
     }
     if (natp->nat_stat != STAT_VIS
@@ -137,8 +137,8 @@ command(void)
     now = time(NULL);
     update_timeused(now);
     natp = getnatp(player->cnum);
-    if (natp->nat_stat == STAT_ACTIVE &&
-	natp->nat_timeused > m_m_p_d * 60) {
+    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+	&& natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
 	return 0;
     }
@@ -188,10 +188,10 @@ status(void)
 
     time(&player->curup);
     update_timeused(player->curup);
-    if (natp->nat_stat == STAT_ACTIVE &&
-	natp->nat_timeused > m_m_p_d * 60) {
+    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+	&& natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
-	player->nstat = (player->nstat & ~NORM) | VIS;
+	return 0;
     }
     if (player->btused) {
 	natp->nat_btu -= player->btused;

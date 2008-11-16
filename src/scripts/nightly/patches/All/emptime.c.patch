@@ -780,7 +780,7 @@ index 3106849..726b5fc 100644
      return lp;
  }
 diff --git a/src/lib/player/player.c b/src/lib/player/player.c
-index 9912ba1..9dd8c5b 100644
+index 811e1d4..d08ac40 100644
 --- a/src/lib/player/player.c
 +++ b/src/lib/player/player.c
 @@ -40,6 +40,7 @@
@@ -817,7 +817,7 @@ index 9912ba1..9dd8c5b 100644
 +    now = empire_time(NULL);
      update_timeused(now);
      natp = getnatp(player->cnum);
-     if (natp->nat_stat == STAT_ACTIVE &&
+     if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
 @@ -186,7 +187,7 @@ status(void)
      if (!(old_nstat & MONEY) && (player->nstat & MONEY))
  	pr("You are no longer broke!\n");
@@ -825,8 +825,8 @@ index 9912ba1..9dd8c5b 100644
 -    time(&player->curup);
 +    empire_time(&player->curup);
      update_timeused(player->curup);
-     if (natp->nat_stat == STAT_ACTIVE &&
- 	natp->nat_timeused > m_m_p_d * 60) {
+     if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+ 	&& natp->nat_timeused > m_m_p_d * 60) {
 diff --git a/src/lib/player/recvclient.c b/src/lib/player/recvclient.c
 index ab4ef69..8934189 100644
 --- a/src/lib/player/recvclient.c
