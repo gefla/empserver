@@ -1511,9 +1511,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	else
 	    radius = land.lnd_rad_max;
 
-	if (land.lnd_mission == MI_RESERVE)
-	    radius += 2;
-
 	if (dist > radius)
 	    continue;
 

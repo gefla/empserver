@@ -294,20 +294,16 @@ mission(void)
 	       obj_nameof(gp), mission_name(mission),
 	       xyas(x, y, player->cnum), gp->radius);
 	} else if (mission == MI_RESERVE) {
-	    int plus = 2;
-
-	    if (((struct lndstr *)gp)->lnd_rad_max == 0) {
-		plus = 0;
-	    } else {
+	    radius = ((struct lndstr *)gp)->lnd_rad_max;
+	    if (radius) {
 		getsect(gp->x, gp->y, &opsect);
 		if ((opsect.sct_type == SCT_HEADQ)
 		    && (opsect.sct_effic >= 60))
-		    plus++;
-		plus += ((struct lndstr *)gp)->lnd_rad_max;
+		    radius++;
 	    }
 
 	    pr("%s on %s mission with maximum reaction radius %d\n",
-	       obj_nameof(gp), mission_name(mission), plus);
+	       obj_nameof(gp), mission_name(mission), radius);
 	} else if (mission) {
 	    pr("%s on %s mission\n", obj_nameof(gp),
 	       mission_name(mission));

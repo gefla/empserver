@@ -797,7 +797,6 @@ show_mission(int type, struct nstr_item *np)
 	    radius = item.land.lnd_rad_max;
 
 	    if (radius) {
-		radius += 2;
 		getsect(gp->x, gp->y, &sect);
 		if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
 		    radius++;

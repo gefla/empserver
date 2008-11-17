@@ -289,20 +289,16 @@ lost his planes.
 .s1
 RESERVE MISSIONS (land units only)
 .s1
-A land unit given reserve orders has an increased ability to react to enemy
-attacks. A reserve unit has its reaction radius increased by 2.
-(Note: this is cumulative with the +1 modifier for being at an
-efficient headquarters, so a reserve unit at an HQ would have a +3).
-See info attack for more details on reaction.
+This mission has no effect at this time.
 .s1
-Note that units with a reserve mission retain this status, even though they
-move to the threatened sector and return. This is an exception to the normal
+Note that units with a reserve mission retain this status even when they
+react to a threatened sector and return. This is an exception to the normal
 rules on losing your mission status. If, however, the land unit is forced to
-retreat from the combat (see land combat for details), it WOULD lose its status.
+retreat from the combat (see land combat for details), it DOES lose its status.
 .s1
 When a unit with a reserve mission is listed, the op sector is the sector
 the unit is in, and the radius is the units maximum reaction radius, including
-the bonus for the reserve mission and HQ (if applicable). Note that the unit's
+the bonus for HQ (if applicable). Note that the unit's
 actual radius might be different if it was changed by lrange command.
 .s1
 Note: information gained from planes flying missions is automatically

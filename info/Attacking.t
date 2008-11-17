@@ -144,8 +144,8 @@ restrictions apply to reacting land units:
 - The unit must be in range.
 .FI
 If the unit is in a 60% efficient headquarters, then 1 is added to its
-reaction radius.  If it is on "reserve" mission, then 2 is added to
-the radius.  Note that you can limit the reaction radius of your land
+reaction radius.
+Note that you can limit the reaction radius of your land
 units using the "lrange" command.
 .s1
 .L "(5)  Calculate support."
