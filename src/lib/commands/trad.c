@@ -283,7 +283,6 @@ check_trade(void)
     float price;
     int saveid;
 
-/*    logerror("Checking the trades.\n");*/
     for (n = 0; gettrade(n, &trade); n++) {
 	if (trade.trd_unitid < 0)
 	    continue;
@@ -402,8 +401,7 @@ check_trade(void)
 	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
 	   trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
 	   price);
-    }
-/*    logerror("Done checking the trades.\n");*/
+   }
     return RET_OK;
 }
 

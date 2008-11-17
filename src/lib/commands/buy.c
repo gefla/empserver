@@ -208,7 +208,6 @@ check_market(void)
     double gain;
     double price;
 
-/*    logerror("Checking the market.\n");*/
     for (n = 0; getcomm(n, &comm); n++) {
 	if (comm.com_maxbidder == comm.com_owner || comm.com_owner == 0)
 	    continue;
@@ -268,6 +267,5 @@ check_market(void)
 	comm.com_owner = 0;
 	putcomm(n, &comm);
     }
-/*    logerror("Done checking the market.\n");*/
     return RET_OK;
 }

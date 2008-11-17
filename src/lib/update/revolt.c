@@ -211,7 +211,6 @@ guerrilla(struct sctstr *sp)
     }
 
     if (sp->sct_own != target) {
-	/*logerror("own %d != target %d", sp->sct_own, target); */
 	move++;
 	goto domove;
     }
@@ -225,7 +224,6 @@ guerrilla(struct sctstr *sp)
 	recruit++;
 	convert++;
     } else if (che > mil && mil > 0) {
-	/*logerror("guerrilla shootout with military"); */
 	/*
 	 * shoot it out with the military, and kill them off.
 	 * If loyalty bad enough, then take the sector over,
@@ -246,13 +244,9 @@ guerrilla(struct sctstr *sp)
 	    if (n < 0)
 		n = 0;
 	    sp->sct_loyal = n;
-	    /*logerror("(#%d) mil beat che in %s", sp->sct_own, */
-	    /*ownxy(sp)); */
 	} else {
 	    convert++;
 	    recruit++;
-	    /*logerror("(#%d) che beat mil in %s", sp->sct_own, */
-	    /*ownxy(sp)); */
 	}
 	take_casualties(sp, mc);
     } else if (ratio < 5) {
@@ -272,13 +266,9 @@ guerrilla(struct sctstr *sp)
 	   "Production %s disrupted by terrorists in %s\n",
 	   effadv(n), ownxy(sp));
 	sect_damage(sp, n / 10);
-	/*logerror("(#%d) che blew up %s for %d", sp->sct_own, */
-	/*ownxy(sp), n); */
 	recruit++;
     } else {
 	/* ratio >= 5 */
-	/*logerror("(#%d) %d che fleeing %d mil in %s", sp->sct_own, */
-	/*che, mil, ownxy(sp)); */
 	move++;
     }
     if (mil > 0 && che > 0) {
@@ -302,7 +292,6 @@ guerrilla(struct sctstr *sp)
 	    }
 	    take_casualties(sp, mc);
 	    recruit = 0;
-	    /*logerror("Caught che; mc: %d, cc: %d", cc, mc); */
 	}
     }
     if (convert && sp->sct_loyal >= 50) {

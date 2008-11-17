@@ -274,6 +274,5 @@ share_incr(double *res, double *tech)
 	if (tnc > 0) {
 	    tech[i] /= tnc * ally_factor;
 	}
-/*		logerror("Country #%d gets %g res from %d allies, %g tech from %d allies", i, res[i], rnc, tech[i], tnc);*/
     }
 }

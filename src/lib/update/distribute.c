@@ -115,10 +115,8 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
 	     * check to make sure have enough mobility in the
 	     * dist sector to import what we need.
 	     */
-	    if (dist->sct_mobil <= 0) {
-		/*logerror("  dist mobil < 0"); */
+	    if (dist->sct_mobil <= 0)
 		continue;
-	    }
 	    amt = diff;
 	    if (item == I_CIVIL)
 		amt_dist--;	/* Don't send your last civ */
@@ -154,10 +152,8 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
 	     * also make sure that there's enough space in the
 	     * target sector to hold the required amt.
 	     */
-	    if (sp->sct_mobil <= 0) {
-		/*logerror("  sp mob is zero"); */
+	    if (sp->sct_mobil <= 0)
 		continue;
-	    }
 	    amt = diff;
 	    if (amt > amt_sect)
 		amt = amt_sect;
