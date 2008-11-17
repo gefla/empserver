@@ -300,9 +300,6 @@ lnd_takemob(struct emp_qelem *list, double loss)
 /*
 		if (chance(loss))
 			use_supply(&llp->unit.land);
-		if (llp->unit.land.lnd_mission == MI_RESERVE)
-			new = llp->unit.land.lnd_mobil - mcost/2;
-		else
  */
 	new = llp->unit.land.lnd_mobil - mcost;
 	if (new < -127)

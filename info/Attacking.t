@@ -227,7 +227,7 @@ The "aggresor loss factor" is equal to the number of aggressor
 casualties divided by the total number of aggressor troops that went into
 the conflict.  Similarly, the "defender loss factor" is calculated.
 Then each land unit loses mobility equal to 10 * (loss factor).
-Defensive land units on reserve mission only lose half of that.  Also
+Also
 there is a chance equal to the loss factor that the land unit will use
 up some of its supply (see info supply).
 .s1

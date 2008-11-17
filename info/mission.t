@@ -293,8 +293,6 @@ A land unit given reserve orders has an increased ability to react to enemy
 attacks. A reserve unit has its reaction radius increased by 2.
 (Note: this is cumulative with the +1 modifier for being at an
 efficient headquarters, so a reserve unit at an HQ would have a +3).
-In addition, a reserve unit pays 1/2 the normal cost for fighting a battle.
-(It still pays the normal cost for moving to the threatened sector)
 See info attack for more details on reaction.
 .s1
 Note that units with a reserve mission retain this status, even though they
