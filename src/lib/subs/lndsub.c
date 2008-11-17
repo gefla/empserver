@@ -297,10 +297,10 @@ lnd_takemob(struct emp_qelem *list, double loss)
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
-/*
-		if (chance(loss))
-			use_supply(&llp->unit.land);
- */
+#if 0
+	if (chance(loss))
+	    use_supply(&llp->unit.land);
+#endif
 	new = llp->unit.land.lnd_mobil - mcost;
 	if (new < -127)
 	    new = -127;
