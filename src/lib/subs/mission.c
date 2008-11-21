@@ -321,19 +321,13 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	    continue;
 
 	dist = mapdist(x, y, gp->opx, gp->opy);
-
-	radius = gp->radius;
-	if (mission != MI_RESERVE)	/* XXX */
-	    oprange(gp, &radius);
-
-	if (dist > radius)
+	if (dist > gp->radius)
 	    continue;
 
 	/* Ok, it is within the operations range. */
 	/* Now check from where the object actually is */
 	dist = mapdist(x, y, gp->x, gp->y);
-	radius = 999;
-	oprange(gp, &radius);
+	radius = oprange(gp);
 	if (dist > radius)
 	    continue;
 	/* Ok, the object can get to where the x,y is */
@@ -788,10 +782,8 @@ show_mission(int type, struct nstr_item *np)
 	case MI_AIR_DEFENSE:
 	case MI_DSUPPORT:
 	case MI_OSUPPORT:
-	    radius = gp->radius;
-	    oprange(gp, &radius);
 	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
-	    pr("  %4d", radius);
+	    pr("  %4d", gp->radius);
 	    break;
 	case MI_RESERVE:
 	    radius = item.land.lnd_rad_max;
@@ -822,33 +814,21 @@ show_mission(int type, struct nstr_item *np)
 }
 
 int
-oprange(struct empobj *gp, int *radius)
+oprange(struct empobj *gp)
 {
-    int range;
-
     switch (gp->ef_type) {
     case EF_SHIP:
-	range = ldround(shp_fire_range((struct shpstr *)gp), 1);
-	break;
+	return ldround(shp_fire_range((struct shpstr *)gp), 1);
     case EF_LAND:
-	range = ldround(lnd_fire_range((struct lndstr *)gp), 1);
-	break;
+	return ldround(lnd_fire_range((struct lndstr *)gp), 1);
     case EF_PLANE:
 	/* missiles go one way, so we can use all the range */
 	if (plchr[(int)gp->type].pl_flags & P_M)
-	    range = ((struct plnstr *)gp)->pln_range;
-	else
-	    range = ((struct plnstr *)gp)->pln_range / 2;
-	break;
-    default:
-	CANT_REACH();
-	range = -1;
+	    return ((struct plnstr *)gp)->pln_range;
+	return ((struct plnstr *)gp)->pln_range / 2;
     }
-
-    if (*radius > range)
-	*radius = range;
-
-    return range;
+    CANT_REACH();
+    return -1;
 }
 
 /*

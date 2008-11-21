@@ -207,11 +207,13 @@ mission(void)
 	radius = 999;
 	if ((mission == MI_INTERDICT || mission == MI_SUPPORT ||
 	     mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	     mission == MI_AIR_DEFENSE) &&
-	    (oprange(gp, &radius) < dist)) {
-	    pr("%s: out of range! (range %d)\n",
-	       obj_nameof(gp), oprange(gp, &radius));
-	    continue;
+	     mission == MI_AIR_DEFENSE)) {
+	    radius = oprange(gp);
+	    if (radius < dist) {
+		pr("%s: out of range! (range %d)\n",
+		   obj_nameof(gp), radius);
+		continue;
+	    }
 	}
 
 	if (radius > desired_radius)
