@@ -1,7 +1,7 @@
 .TH Command MISSION
 .NA mission "Assign a mission to a ship/plane/unit"
 .LV Basic
-.SY "mission <TYPE> <UNITS> <s|o|d|i|e|r|a|c|q> [<op sector|.>] [<radius>]"
+.SY "mission <TYPE> <UNITS> <s|o|d|i|e|r|a|c|q> <op sector|.> [<radius>]"
 .s1
 The mission command is used to assign ships, planes, or land units to
 missions. The available missions are:
@@ -63,7 +63,7 @@ on a sector until 100 damage is done.
 .s1
 OPERATIONS SECTORS
 .s1
-Some missions require the designation of an 'op sector', short for operations
+Missions require the designation of an 'op sector', short for operations
 sector. This is the center of an area that the mission is focused on.
 The op sector may be any sector that is within the unit's range.
 (Firing range for ships & land units on interdiction, reaction range

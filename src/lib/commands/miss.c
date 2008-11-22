@@ -205,10 +205,7 @@ mission(void)
 
 	dist = mapdist(gp->x, gp->y, x, y);
 	radius = 999;
-	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
-	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	    mission == MI_RESERVE || mission == MI_ESCORT ||
-	    mission == MI_AIR_DEFENSE) {
+	if (mission) {
 	    radius = oprange(gp, mission);
 	    if (radius < dist) {
 		pr("%s: out of range! (range %d)\n",
@@ -283,28 +280,15 @@ mission(void)
 
 	num++;			/* good one.. go with it */
 
-	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
-	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	    mission == MI_RESERVE || mission == MI_ESCORT ||
-	    mission == MI_AIR_DEFENSE)
-	    gp->radius = radius;
-	else
-	    gp->radius = 0;
-
-	if (mission == MI_SUPPORT || mission == MI_OSUPPORT ||
-	    mission == MI_DSUPPORT || mission == MI_INTERDICT ||
-	    mission == MI_RESERVE || mission == MI_ESCORT ||
-	    mission == MI_AIR_DEFENSE) {
+	if (mission) {
 	    pr("%s on %s mission, centered on %s, radius %d\n",
 	       obj_nameof(gp), mission_name(mission),
-	       xyas(x, y, player->cnum), gp->radius);
-	} else if (mission) {
-	    pr("%s on %s mission\n", obj_nameof(gp),
-	       mission_name(mission));
-	}
-
-	if (mission)
+	       xyas(x, y, player->cnum), radius);
 	    gp->mobil -= mobused;
+	    gp->radius = radius;
+	} else
+	    gp->radius = 0;
+
 	gp->mission = mission;
 	gp->opx = x;
 	gp->opy = y;
