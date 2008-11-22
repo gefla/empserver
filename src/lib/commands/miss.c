@@ -148,7 +148,7 @@ mission(void)
 	return RET_FAIL;
     }
 
-    if (mission && ((mission != MI_RESERVE) && (mission != MI_ESCORT))) {
+    if (mission && mission != MI_ESCORT) {
 	if ((p = getstarg(player->argp[4], "operations point? ", buf)) == 0
 	    || *p == 0)
 	    return RET_SYN;
@@ -205,10 +205,11 @@ mission(void)
 
 	dist = mapdist(gp->x, gp->y, x, y);
 	radius = 999;
-	if ((mission == MI_INTERDICT || mission == MI_SUPPORT ||
-	     mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	     mission == MI_AIR_DEFENSE)) {
-	    radius = oprange(gp);
+	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
+	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
+	    mission == MI_RESERVE ||
+	    mission == MI_AIR_DEFENSE) {
+	    radius = oprange(gp, mission);
 	    if (radius < dist) {
 		pr("%s: out of range! (range %d)\n",
 		   obj_nameof(gp), radius);
@@ -284,6 +285,7 @@ mission(void)
 
 	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
 	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
+	    mission == MI_RESERVE ||
 	    mission == MI_AIR_DEFENSE)
 	    gp->radius = radius;
 	else
@@ -291,21 +293,11 @@ mission(void)
 
 	if (mission == MI_SUPPORT || mission == MI_OSUPPORT ||
 	    mission == MI_DSUPPORT || mission == MI_INTERDICT ||
+	    mission == MI_RESERVE ||
 	    mission == MI_AIR_DEFENSE) {
 	    pr("%s on %s mission, centered on %s, radius %d\n",
 	       obj_nameof(gp), mission_name(mission),
 	       xyas(x, y, player->cnum), gp->radius);
-	} else if (mission == MI_RESERVE) {
-	    radius = ((struct lndstr *)gp)->lnd_rad_max;
-	    if (radius) {
-		getsect(gp->x, gp->y, &opsect);
-		if ((opsect.sct_type == SCT_HEADQ)
-		    && (opsect.sct_effic >= 60))
-		    radius++;
-	    }
-
-	    pr("%s on %s mission with maximum reaction radius %d\n",
-	       obj_nameof(gp), mission_name(mission), radius);
 	} else if (mission) {
 	    pr("%s on %s mission\n", obj_nameof(gp),
 	       mission_name(mission));

@@ -66,8 +66,9 @@ OPERATIONS SECTORS
 Some missions require the designation of an 'op sector', short for operations
 sector. This is the center of an area that the mission is focused on.
 The op sector may be any sector that is within the unit's range.
-(Firing range, for ships & land units, flying range for planes,
-changeable with range command).
+(Firing range for ships & land units on interdiction, reaction range
+for land units on reserve, changeable with lrange command, flying
+range for planes, changeable with range command).
 The unit will exert influence in a radius around the op sector.
 By default, the radius will be as large as possible, i.e. the biggest range
 so that the unit/ship/plane could legally act there.)
@@ -289,17 +290,13 @@ lost his planes.
 .s1
 RESERVE MISSIONS (land units only)
 .s1
-This mission has no effect at this time.
+A land unit on a reserve mission may react to enemy attacks within its
+op-area.  See info \*QAttacking\*U for more on land unit reactions.
 .s1
 Note that units with a reserve mission retain this status even when they
 react to a threatened sector and return. This is an exception to the normal
 rules on losing your mission status. If, however, the land unit is forced to
 retreat from the combat (see land combat for details), it DOES lose its status.
-.s1
-When a unit with a reserve mission is listed, the op sector is the sector
-the unit is in, and the radius is the units maximum reaction radius, including
-the bonus for HQ (if applicable). Note that the unit's
-actual radius might be different if it was changed by lrange command.
 .s1
 Note: information gained from planes flying missions is automatically
 added to your bmap.

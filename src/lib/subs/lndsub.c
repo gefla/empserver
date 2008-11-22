@@ -124,6 +124,17 @@ defense_val(struct lndstr *lp)
     return value;
 }
 
+int
+lnd_reaction_range(struct lndstr *lp)
+{
+    struct sctstr sect;
+
+    getsect(lp->lnd_x, lp->lnd_y, &sect);
+    if (sect.sct_type == SCT_HEADQ && sect.sct_effic >= 60)
+	return lp->lnd_rad_max + 1;
+    return lp->lnd_rad_max;
+}
+
 void
 lnd_print(struct ulist *llp, char *s)
 {

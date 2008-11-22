@@ -749,10 +749,9 @@ mission_name(short mission)
 void
 show_mission(int type, struct nstr_item *np)
 {
-    int first = 1, radius;
+    int first = 1;
     union empobj_storage item;
     struct empobj *gp;
-    struct sctstr sect;
 
     while (nxtitem(np, &item)) {
 	gp = (struct empobj *)&item;
@@ -768,22 +767,12 @@ show_mission(int type, struct nstr_item *np)
 	switch (gp->mission) {
 	case MI_INTERDICT:
 	case MI_SUPPORT:
+	case MI_RESERVE:
 	case MI_AIR_DEFENSE:
 	case MI_DSUPPORT:
 	case MI_OSUPPORT:
 	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
 	    pr("  %4d", gp->radius);
-	    break;
-	case MI_RESERVE:
-	    radius = item.land.lnd_rad_max;
-
-	    if (radius) {
-		getsect(gp->x, gp->y, &sect);
-		if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
-		    radius++;
-	    }
-	    prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
-	    pr("  %4d", radius);
 	    break;
 	case MI_ESCORT:
 	    pr("        ");
@@ -803,12 +792,14 @@ show_mission(int type, struct nstr_item *np)
 }
 
 int
-oprange(struct empobj *gp)
+oprange(struct empobj *gp, int mission)
 {
     switch (gp->ef_type) {
     case EF_SHIP:
 	return ldround(shp_fire_range((struct shpstr *)gp), 1);
     case EF_LAND:
+	if (mission == MI_RESERVE)
+	    return lnd_reaction_range((struct lndstr *)gp);
 	return ldround(lnd_fire_range((struct lndstr *)gp), 1);
     case EF_PLANE:
 	/* missiles go one way, so we can use all the range */
@@ -827,7 +818,7 @@ int
 in_oparea(struct empobj *gp, coord x, coord y)
 {
     return mapdist(x, y, gp->opx, gp->opy) <= gp->radius
-	&& mapdist(x, y, gp->x, gp->y) <= oprange(gp);
+	&& mapdist(x, y, gp->x, gp->y) <= oprange(gp, gp->mission);
 }
 
 /*

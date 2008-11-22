@@ -1469,8 +1469,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     double new_land = 0;
     double mobcost;
     double pathcost;
-    int dist;
-    int radius;
     int origx, origy;
     double eff = att_combat_eff(def);
     char buf[1024];
@@ -1502,18 +1500,16 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (!has_supply(&land))
 	    continue;
 
-	dist = mapdist(land.lnd_x, land.lnd_y, def->x, def->y);
+	if (land.lnd_mission == MI_RESERVE) {
+	    if (!in_oparea((struct empobj *)&land, def->x, def->y))
+		continue;
+	} else {
+	    if (mapdist(land.lnd_x, land.lnd_y, def->x, def->y)
+		> lnd_reaction_range(&land))
+		continue;
+	}
 
 	getsect(land.lnd_x, land.lnd_y, &sect);
-	/* Units on efficient headquarters can react 1 farther */
-	if ((sect.sct_type == SCT_HEADQ) && (sect.sct_effic >= 60))
-	    radius = land.lnd_rad_max + 1;
-	else
-	    radius = land.lnd_rad_max;
-
-	if (dist > radius)
-	    continue;
-
 	getsect(def->x, def->y, &dsect);
 	if (!BestLandPath(buf, &sect, &dsect, &pathcost,
 			  lnd_mobtype(&land)))

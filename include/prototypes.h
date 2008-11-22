@@ -484,7 +484,7 @@ extern int ground_interdict(coord, coord, natid, char *);
 extern int unit_interdict(coord, coord, natid, char *, int, int);
 extern int off_support(coord, coord, natid, natid);
 extern int def_support(coord, coord, natid, natid);
-extern int oprange(struct empobj *);
+extern int oprange(struct empobj *, int);
 extern int in_oparea(struct empobj *, coord, coord);
 extern int cando(int, int);
 extern void show_mission(int, struct nstr_item *);

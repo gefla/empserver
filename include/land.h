@@ -179,6 +179,7 @@ extern double lnd_mobcost(struct lndstr *, struct sctstr *);
 
 extern double attack_val(int, struct lndstr *);
 extern double defense_val(struct lndstr *);
+extern int lnd_reaction_range(struct lndstr *);
 extern void lnd_print(struct ulist *, char *);
 extern void lnd_delete(struct ulist *, char *);
 extern int lnd_take_casualty(int, struct ulist *, int);
