@@ -289,8 +289,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
     struct genlist *glp;
     struct empobj *gp;
     union empobj_storage item;
-    int dist;
-    int radius;
     int relat;
     struct sctstr sect;
 
@@ -320,17 +318,8 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 	} else if (relat > HOSTILE)
 	    continue;
 
-	dist = mapdist(x, y, gp->opx, gp->opy);
-	if (dist > gp->radius)
+	if (!in_oparea(gp, x, y))
 	    continue;
-
-	/* Ok, it is within the operations range. */
-	/* Now check from where the object actually is */
-	dist = mapdist(x, y, gp->x, gp->y);
-	radius = oprange(gp);
-	if (dist > radius)
-	    continue;
-	/* Ok, the object can get to where the x,y is */
 
 	if (opt_SLOW_WAR) {
 	    if (mission != MI_AIR_DEFENSE) {
@@ -829,6 +818,16 @@ oprange(struct empobj *gp)
     }
     CANT_REACH();
     return -1;
+}
+
+/*
+ * Does GP's mission op area cover X,Y?
+ */
+int
+in_oparea(struct empobj *gp, coord x, coord y)
+{
+    return mapdist(x, y, gp->opx, gp->opy) <= gp->radius
+	&& mapdist(x, y, gp->x, gp->y) <= oprange(gp);
 }
 
 /*
