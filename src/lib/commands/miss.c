@@ -40,6 +40,7 @@
 #include "optlist.h"
 #include "path.h"
 
+static int clear_mission(struct nstr_item *);
 static int show_mission(struct nstr_item *);
 
 /*
@@ -57,7 +58,7 @@ mission(void)
     struct sctstr opsect;
     union empobj_storage item;
     struct empobj *gp;
-    int num = 0, mobmax, mobused, dist;
+    int num = 0, mobmax, mobused;
     struct nstr_item ni;
     char buf[1024];
 
@@ -107,8 +108,7 @@ mission(void)
 	break;
     case 'C':
     case 'c':
-	mission = 0;
-	break;
+	return clear_mission(&ni);
     case 'E':
     case 'e':
 	mission = MI_ESCORT;
@@ -137,7 +137,7 @@ mission(void)
 	return RET_SYN;
     }
 
-    if (mission && !cando(mission, type)) {
+    if (!cando(mission, type)) {
 	pr("A %s cannot do that mission!\n", ef_nameof(type));
 	pr("i\tinterdiction (any)\n");
 	pr("s\tsupport (planes only)\n");
@@ -149,21 +149,16 @@ mission(void)
 	return RET_FAIL;
     }
 
-    if (mission) {
-	if ((p = getstarg(player->argp[4], "operations point? ", buf)) == 0
-	    || *p == 0)
+    if ((p = getstarg(player->argp[4], "operations point? ", buf)) == 0
+	|| *p == 0)
+	return RET_SYN;
+
+    if (*p != '.') {
+	if (!sarg_xy(p, &x, &y))
 	    return RET_SYN;
 
-	if (*p != '.') {
-	    if (!sarg_xy(p, &x, &y))
-		return RET_SYN;
-
-	    if (!getsect(x, y, &opsect))
-		return RET_FAIL;
-	}
-    } else {
-	x = 0;
-	y = 0;
+	if (!getsect(x, y, &opsect))
+	    return RET_FAIL;
     }
 
     if (player->argp[5] != NULL) {
@@ -187,7 +182,7 @@ mission(void)
 	if (!player->owner || gp->own == 0)
 	    continue;
 
-	if ((mission && (gp->mobil < mobused)) && mission_mob_cost) {
+	if (gp->mobil < mobused && mission_mob_cost) {
 	    pr("%s: not enough mobility! (needs %d)\n",
 	       obj_nameof(gp), mobused);
 	    continue;
@@ -204,15 +199,11 @@ mission(void)
 		return RET_FAIL;
 	}
 
-	dist = mapdist(gp->x, gp->y, x, y);
-	radius = 999;
-	if (mission) {
-	    radius = oprange(gp, mission);
-	    if (radius < dist) {
-		pr("%s: out of range! (range %d)\n",
-		   obj_nameof(gp), radius);
-		continue;
-	    }
+	radius = oprange(gp, mission);
+	if (radius < mapdist(gp->x, gp->y, x, y)) {
+	    pr("%s: out of range! (range %d)\n",
+	       obj_nameof(gp), radius);
+	    continue;
 	}
 
 	if (radius > desired_radius)
@@ -281,18 +272,15 @@ mission(void)
 
 	num++;			/* good one.. go with it */
 
-	if (mission) {
-	    pr("%s on %s mission, centered on %s, radius %d\n",
-	       obj_nameof(gp), mission_name(mission),
-	       xyas(x, y, player->cnum), radius);
-	    gp->mobil -= mobused;
-	    gp->radius = radius;
-	} else
-	    gp->radius = 0;
+	pr("%s on %s mission, centered on %s, radius %d\n",
+	   obj_nameof(gp), mission_name(mission),
+	   xyas(x, y, player->cnum), radius);
+	gp->mobil -= mobused;
 
 	gp->mission = mission;
 	gp->opx = x;
 	gp->opy = y;
+	gp->radius = radius;
 	put_empobj(type, gp->uid, gp);
     }
     if (num == 0) {
@@ -300,6 +288,19 @@ mission(void)
 	return RET_FAIL;
     }
     pr("%d %s%s\n", num, ef_nameof(type), splur(num));
+    return RET_OK;
+}
+
+static int
+clear_mission(struct nstr_item *np)
+{
+    union empobj_storage item;
+
+    while (nxtitem(np, &item)) {
+	item.gen.mission = 0;
+	put_empobj(item.gen.ef_type, item.gen.uid, &item);
+    }
+
     return RET_OK;
 }
 
