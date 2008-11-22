@@ -741,48 +741,6 @@ mission_name(short mission)
     return "a mysterious";
 }
 
-void
-show_mission(int type, struct nstr_item *np)
-{
-    int first = 1;
-    union empobj_storage item;
-    struct empobj *gp;
-
-    while (nxtitem(np, &item)) {
-	gp = (struct empobj *)&item;
-	if (!player->owner || gp->own == 0)
-	    continue;
-
-	if (first) {
-	    pr("Thing                         x,y   op-sect rad mission\n");
-	    first = 0;
-	}
-	pr("%-25s", obj_nameof(gp));
-	prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
-	switch (gp->mission) {
-	case MI_INTERDICT:
-	case MI_SUPPORT:
-	case MI_RESERVE:
-	case MI_ESCORT:
-	case MI_AIR_DEFENSE:
-	case MI_DSUPPORT:
-	case MI_OSUPPORT:
-	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
-	    pr("  %4d", gp->radius);
-	    break;
-	default:
-	    CANT_REACH();
-	    /* fall through */
-	case MI_NONE:
-	    pr("              ");
-	}
-	if (gp->mission)
-	    pr(" is on %s mission\n", mission_name(gp->mission));
-	else
-	    pr(" has no mission.\n");
-    }
-}
-
 int
 oprange(struct empobj *gp, int mission)
 {
