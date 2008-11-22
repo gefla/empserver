@@ -222,7 +222,8 @@ Only planes with the 'tactical' ability can fly support missions.
 ESCORT MISSIONS (planes only)
 .s1
 When given an escort mission, an escort or intercept capable plane will attempt
-to escort any plane flying a support or interdict mission from the same airport.
+to escort any plane flying a support or interdict mission from the
+same airport into its op-area.
 If even 1 plane flies a support or interdiction mission from an airport, all
 planes on escort duty at that airport will attempt to escort. Planes with escort
 duty will NOT attempt to escort planes taking off from other airports, so it

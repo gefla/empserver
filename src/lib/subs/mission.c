@@ -355,20 +355,15 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
     struct nstr_item ni;
     struct plist *plp;
     struct plnstr plane;
-    int dist;
 
     snxtitem_all(&ni, EF_PLANE);
     while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own != cn)
 	    continue;
-
 	if (plane.pln_mission != MI_ESCORT)
 	    continue;
-
-	dist = mapdist(x, y, plane.pln_x, plane.pln_y);
-	if (dist > plane.pln_range / 2)
+	if (!in_oparea((struct empobj *)&plane, x, y))
 	    continue;
-
 	plp = malloc(sizeof(struct plist));
 	memset(plp, 0, sizeof(struct plist));
 	plp->pcp = &plchr[(int)plane.pln_type];
@@ -768,15 +763,12 @@ show_mission(int type, struct nstr_item *np)
 	case MI_INTERDICT:
 	case MI_SUPPORT:
 	case MI_RESERVE:
+	case MI_ESCORT:
 	case MI_AIR_DEFENSE:
 	case MI_DSUPPORT:
 	case MI_OSUPPORT:
 	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
 	    pr("  %4d", gp->radius);
-	    break;
-	case MI_ESCORT:
-	    pr("        ");
-	    pr("  %4d", item.plane.pln_range / 2);
 	    break;
 	default:
 	    CANT_REACH();

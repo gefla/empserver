@@ -148,7 +148,7 @@ mission(void)
 	return RET_FAIL;
     }
 
-    if (mission && mission != MI_ESCORT) {
+    if (mission) {
 	if ((p = getstarg(player->argp[4], "operations point? ", buf)) == 0
 	    || *p == 0)
 	    return RET_SYN;
@@ -207,7 +207,7 @@ mission(void)
 	radius = 999;
 	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
 	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	    mission == MI_RESERVE ||
+	    mission == MI_RESERVE || mission == MI_ESCORT ||
 	    mission == MI_AIR_DEFENSE) {
 	    radius = oprange(gp, mission);
 	    if (radius < dist) {
@@ -285,7 +285,7 @@ mission(void)
 
 	if (mission == MI_INTERDICT || mission == MI_SUPPORT ||
 	    mission == MI_OSUPPORT || mission == MI_DSUPPORT ||
-	    mission == MI_RESERVE ||
+	    mission == MI_RESERVE || mission == MI_ESCORT ||
 	    mission == MI_AIR_DEFENSE)
 	    gp->radius = radius;
 	else
@@ -293,7 +293,7 @@ mission(void)
 
 	if (mission == MI_SUPPORT || mission == MI_OSUPPORT ||
 	    mission == MI_DSUPPORT || mission == MI_INTERDICT ||
-	    mission == MI_RESERVE ||
+	    mission == MI_RESERVE || mission == MI_ESCORT ||
 	    mission == MI_AIR_DEFENSE) {
 	    pr("%s on %s mission, centered on %s, radius %d\n",
 	       obj_nameof(gp), mission_name(mission),
