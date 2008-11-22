@@ -40,7 +40,7 @@
 #include "optlist.h"
 #include "path.h"
 
-static void show_mission(int, struct nstr_item *);
+static int show_mission(struct nstr_item *);
 
 /*
  *  mission <type> <planes/ships/units> <mission type> <op sector> [<radius>]
@@ -122,8 +122,7 @@ mission(void)
 	mission = MI_AIR_DEFENSE;
 	break;
     case 'q':
-	show_mission(type, &ni);
-	return RET_OK;
+	return show_mission(&ni);
     default:
 	pr("bad condition\n");
 	pr("i\tinterdiction (any)\n");
@@ -304,8 +303,8 @@ mission(void)
     return RET_OK;
 }
 
-static void
-show_mission(int type, struct nstr_item *np)
+static int
+show_mission(struct nstr_item *np)
 {
     int first = 1;
     union empobj_storage item;
@@ -344,4 +343,6 @@ show_mission(int type, struct nstr_item *np)
 	else
 	    pr(" has no mission.\n");
     }
+
+    return RET_OK;
 }
