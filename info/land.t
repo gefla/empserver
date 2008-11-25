@@ -6,10 +6,10 @@ The land unit report command is a census of your land units.  For
 example:
 .EX land *
 .NF
-   # unit type          x,y   a   eff mil frt  mu  fd tch retr rd xl ln carry
-   0 cav   cavalry      1,-1     100%  10   0 127  12 992  75%  3  0  0
-   1 cav   cavalry      0,0      100%   0   0 127  12 968  75%  3  0  0
-   2 cav   cavalry      0,0      100%  10   0 127  12  40  75%  3  0  0
+   # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav   cavalry      1,-1     100%  10   0 127  12 992  75%  0  0
+   1 cav   cavalry      0,0      100%   0   0 127  12 968  75%  0  0
+   2 cav   cavalry      0,0      100%  10   0 127  12  40  75%  0  0
 3 units
 .FI
 .s1
@@ -38,8 +38,6 @@ the amount of food on board,
 the tech level of the land unit,
 .L retr
 the retreat percentage of the land unit (see info \*morale\*U),
-.L rd
-the land unit's reaction radius (see info \*Qfortify\*U),
 .L xl
 the number of extra-light planes on board,
 .L ln

@@ -347,7 +347,6 @@ pr_land(struct lndstr *land)
     pr("Fortification <F>: %d\t", land->lnd_harden);
     pr("Land unit <Y>: %d\n", land->lnd_land);
     pr("Ship <S>: %d\t\t", land->lnd_ship);
-    pr("Radius <P>: %d\n", land->lnd_rad_max);
     pr("Retreat percentage <Z>: %d\n", land->lnd_retreat);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        land->lnd_rpath, land->lnd_rflags);
@@ -915,7 +914,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	land->lnd_ship = arg;
 	break;
     case 'P':
-	land->lnd_rad_max = arg;
+	warn_deprecated(op);
 	break;
     case 'Z':
 	land->lnd_retreat = arg;

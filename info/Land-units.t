@@ -24,19 +24,19 @@ Let's look at a typical land unit:
 .s1
 .EX land *
 .NF
-   # unit type             x,y   a  eff mil fort  mu  fd tech retr rd xl ship
-   0 inf   infantry        8,0      96% 100    0  93  24    0  42%  1  0
+   # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+   0 inf   infantry     8,0       96% 100   0  93   1  50  42%  0  0
 1 unit
 .FI
 .s1
 This land unit is an infantry unit, located at 8,0. In many games, you will
 start with 1-2 basic land units of this type. Some of the things about it are
 familiar. It is 96% efficient, has 93 mobility units, carries 1 food,
-and is tech 0 and currently contains 100 mi. It carries 0 extra-light
-planes, and is not on a ship. The 'a'
+and is tech 50 and currently contains 100 mi. It carries 0 extra-light
+planes and land units, and is not on a ship. The 'a'
 stands for army, and is just like fleets or wings, i.e. a way of grouping your
 units. (See info \*Qarmy\*U for more information)
-Fort is the level of fortification of the land
+Frt is the level of fortification of the land
 unit. The higher the fortification, the harder the unit is to hurt.
 .s1
 The 'retr' stands for retreat percentage. This
@@ -47,18 +47,6 @@ they fight. If, on the other hand, you \*Qwant\*U the unit to retreat easily,
 you can set this to 100% or some other high number. (For information on
 setting this, see info \*Qmorale\*U. For information on morale checks, see info
 \*QAttacking\*U)
-.s1
-The 'rd' field is referred to as the unit's 'reaction radius',
-and is the distance to which the unit can react to defend your country.
-Basically, if an enemy attacks a sector close enough to the unit, it will go
-to the threatened sector and fight, like a plane intercepting. If it survives
-the attack without failing a morale check, it will return to the sector it
-started from, just like a plane would. (For more information on reacting and
-morale checks, see info \*QAttacking\*U) Just as you can use \*Qrange\*U to change the
-range of your planes and control how far away they'll intercept, you can
-change the reaction radius for land units with \*Qlrange\*U. Units with a base reaction
-radius of 0, or those whose radius you have set to 0, will not react.
-When built, the unit will have as its reaction radius set to zero.
 .s1
 .L Cargo
 .s1
@@ -186,9 +174,6 @@ Don't confuse this spy value with the "spy" capability of a unit.  See
 "info \*QSpies\*U" for more information.
 .s1
 Rad is the maximum reaction radius for the unit.
-If you change the reaction radius by using
-the \*Qlrange\*U command, you will be able to select any value that is
-between 0 and the maximum.
 .s1
 Frg is the unit's firing range. The unit can fire as far as the frg, modified
 by the unit's tech. Accuracy is the unit's firing accuracy, and helps to

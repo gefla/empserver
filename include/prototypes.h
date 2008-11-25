@@ -149,7 +149,6 @@ int load(void);
 int look(void);
 int lost(void);
 int lrad(void);
-int lrange(void);
 int lretr(void);
 int lsta(void);
 int ltend(void);

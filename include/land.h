@@ -72,7 +72,6 @@ struct lndstr {
     short lnd_retreat;		/* retreat percentage */
     int lnd_rflags;		/* When do I retreat? */
     char lnd_rpath[RET_LEN];	/* retreat path */
-    unsigned char lnd_rad_max;	/* max radius for this unit */
     unsigned char lnd_scar;	/* how experienced the unit is (not used) */
     short lnd_item[I_MAX+1];	/* amount of items on board */
     short lnd_pstage;		/* plague stage */

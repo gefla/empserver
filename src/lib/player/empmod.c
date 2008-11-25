@@ -142,7 +142,6 @@ struct cmndstr player_coms[] = {
     {"lookout <SHIPS>", 1, look, 0, NORM + CAP},
     {"lost", 0, lost, 0, NORM},
     {"lradar <UNITS | SECTS>", 1, lrad, 0, NORM + CAP},
-    {"lrange <UNITS> <range>", 1, lrange, C_MOD, NORM + CAP},
     {"lretreat <UNITS|ARMY> <PATH> [i|h|b|c]",
      1, lretr, C_MOD, NORM + CAP},
     {"lstat <UNITS>", 0, lsta, C_MOD, NORM},

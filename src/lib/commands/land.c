@@ -57,7 +57,7 @@ land(void)
 	    if (player->god)
 		pr("own ");
 	    pr("   # unit type          x,y   a   eff mil frt  mu  fd");
-	    pr(" tch retr rd xl ln carry\n");
+	    pr(" tch retr xl ln carry\n");
 	}
 	if (land.lnd_off)
 	    noff++;
@@ -74,7 +74,6 @@ land(void)
 	pr("%4d", land.lnd_item[I_FOOD]);
 	pr("%4d ", land.lnd_tech);
 	pr("%3d%%", land.lnd_retreat);
-	pr("%3d", land.lnd_rad_max);
 	pr("%3d", lnd_nxlight(&land));
 	pr("%3d", lnd_nland(&land));
 	if (land.lnd_ship >= 0)

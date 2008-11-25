@@ -344,7 +344,6 @@ struct castr land_ca[] = {
     {"rflags", fldoff(lnd_rflags), NSC_INT, 0, NULL,
      EF_RETREAT_FLAGS, NSC_BITS},
     {"rpath", fldoff(lnd_rpath), NSC_STRINGY, RET_LEN, NULL, EF_BAD, 0},
-    {"react", fldoff(lnd_rad_max), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     NSC_IVEC(fldoff(lnd_item), ""),
     {"pstage", fldoff(lnd_pstage), NSC_SHORT, 0, NULL,
      EF_PLAGUE_STAGES, NSC_DEITY},

@@ -17,8 +17,7 @@ the new server:
 (1) Build 100% forts and put 10 guns and at least 100 shells in them.
 (2) Put at least 5 mil in all of your coastal sectors.
 (3) Build infantry units, put them in the forts, "fortify" them,
-    put them on "reserve" mission (info mission) and set their
-    reaction radius to maximum (info lrange).
+    and put them on "reserve" mission (info mission).
 (4) Build battleships and artillery and put them on "interdiction"
     mission.  Put the artillery in forts and fortify them.
 (5) Put infantry units in your banks and capitals and fortify them.

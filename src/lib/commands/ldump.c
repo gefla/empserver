@@ -343,7 +343,7 @@ ldump(void)
 		pr(" %d", land.lnd_retreat);
 		break;
 	    case 13:
-		pr(" %d", land.lnd_rad_max);
+		pr(" 0");
 		break;
 	    case 14:
 		pr(" %d", lnd_nxlight(&land));

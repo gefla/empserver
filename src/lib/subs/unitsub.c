@@ -353,7 +353,6 @@ unit_wipe_orders(struct empobj *unit)
 	lp->lnd_retreat = morale_base;
 	lp->lnd_rflags = 0;
 	lp->lnd_rpath[0] = 0;
-	lp->lnd_rad_max = 0;
 	break;
     case EF_NUKE:
 	break;

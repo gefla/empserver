@@ -133,20 +133,18 @@ strength of your sectors.
 .s1
 .L "(4)  Move reacting defensive units to the target sector."
 .s1
-If the target is not a mountain, then defensive units in nearby
-sectors may react.  Defensive units will keep reacting until the
+If the target is not a mountain, then nearby land units on reserve
+missions may react.  Reserve units will keep reacting until the
 defense strength is 1.2 times the offense strength.  The following
 restrictions apply to reacting land units:
 .NF
+- The target must be in the mission's op-area, and in reaction range.
 - The efficiency of the unit must be higher than it's retreat percentage.
 - The unit must be in supply.
 - The unit must have enough mobility to get to the target.
-- The unit must be in range.
 .FI
 If the unit is in a 60% efficient headquarters, then 1 is added to its
-reaction radius.
-Note that you can limit the reaction radius of your land
-units using the "lrange" command.
+reaction range.
 .s1
 .L "(5)  Calculate support."
 .s1

@@ -1481,7 +1481,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     while (nxtitem(&ni, &land) && dtotal + new_land * eff < 1.2 * ototal) {
 	if (!land.lnd_own)
 	    continue;
-	if (!land.lnd_rad_max)
+	if (land.lnd_mission != MI_RESERVE)
 	    continue;
 	if ((land.lnd_x == def->x) && (land.lnd_y == def->y))
 	    continue;
@@ -1500,14 +1500,8 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (!has_supply(&land))
 	    continue;
 
-	if (land.lnd_mission == MI_RESERVE) {
-	    if (!in_oparea((struct empobj *)&land, def->x, def->y))
-		continue;
-	} else {
-	    if (mapdist(land.lnd_x, land.lnd_y, def->x, def->y)
-		> lnd_reaction_range(&land))
-		continue;
-	}
+	if (!in_oparea((struct empobj *)&land, def->x, def->y))
+	    continue;
 
 	getsect(land.lnd_x, land.lnd_y, &sect);
 	getsect(def->x, def->y, &dsect);

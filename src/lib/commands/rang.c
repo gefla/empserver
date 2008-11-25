@@ -68,34 +68,3 @@ range(void)
 
     return RET_OK;
 }
-
-int
-lrange(void)
-{
-    struct nstr_item np;
-    struct lndstr land;
-    int i;
-    char *p;
-    char prompt[128];
-    char buf[1024];
-
-    if (!snxtitem(&np, EF_LAND, player->argp[1], NULL))
-	return RET_SYN;
-    while (nxtitem(&np, &land)) {
-	if (!player->owner || land.lnd_own == 0)
-	    continue;
-	sprintf(prompt, "New range for %s? ", prland(&land));
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
-	    return RET_SYN;
-	if (!check_land_ok(&land))
-	    return RET_SYN;
-	if ((i = atoi(p)) < 0)
-	    continue;
-	land.lnd_rad_max = MIN(i, lchr[land.lnd_type].l_rad);
-	pr("%s reaction radius changed to %d\n",
-	   prland(&land), land.lnd_rad_max);
-	putland(land.lnd_uid, &land);
-    }
-
-    return RET_OK;
-}

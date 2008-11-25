@@ -131,8 +131,8 @@ lnd_reaction_range(struct lndstr *lp)
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
     if (sect.sct_type == SCT_HEADQ && sect.sct_effic >= 60)
-	return lp->lnd_rad_max + 1;
-    return lp->lnd_rad_max;
+	return lchr[lp->lnd_type].l_rad + 1;
+    return lchr[lp->lnd_type].l_rad;
 }
 
 void

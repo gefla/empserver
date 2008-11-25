@@ -67,7 +67,7 @@ Some missions require the designation of an 'op sector', short for operations
 sector. This is the center of an area that the mission is focused on.
 The op sector may be any sector that is within the unit's range.
 (Firing range for ships & land units on interdiction, reaction range
-for land units on reserve, changeable with lrange command, flying
+for land units on reserve, flying
 range for planes, changeable with range command).
 The unit will exert influence in a radius around the op sector.
 By default, the radius will be as large as possible, i.e. the biggest range
