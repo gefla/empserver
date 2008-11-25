@@ -70,7 +70,7 @@ shp_prewrite(int n, void *old, void *new)
     if (!own) {
 	sp->shp_effic = 0;
 	if (sp->shp_own)
-	    mpr(own, "\t%s sunk!\n", prship(sp));
+	    mpr(sp->shp_own, "\t%s sunk!\n", prship(sp));
     }
     item_prewrite(sp->shp_item);
 
