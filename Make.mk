@@ -47,7 +47,7 @@ all:
 
 # Source files
 ifeq ($(revctrl),git)
-src := $(shell cd $(srcdir) && git-ls-files)
+src := $(shell cd $(srcdir) && git ls-files)
 else
 include $(srcdir)/sources.mk
 endif

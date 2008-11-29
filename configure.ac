@@ -146,7 +146,7 @@ AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_COMMANDS([stamp-h],
 	[case $revctrl in
 	git)
-	    mkdir -p `cd $srcdir && git-ls-files \
+	    mkdir -p `cd $srcdir && git ls-files \
 		| sed -n 's,/@<:@^/@:>@*$,,gp' | uniq`
 	    ;;
 	*)
