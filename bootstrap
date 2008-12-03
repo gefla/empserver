@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# Run this script after a fresh git-clone to bring the source tree
+# Run this script after a fresh git clone to bring the source tree
 # into a state where you can run configure.
 aclocal -I m4
 autoconf

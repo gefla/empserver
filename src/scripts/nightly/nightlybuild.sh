@@ -112,7 +112,7 @@ then
 	do
 		sleep "`expr 5 + ${RETR}`"
 		RETR="`expr 1 + ${RETR}`"
-		[ "${RETR}" -gt 5 ] && err "git-clone Timeout after ${RETR} retres."
+		[ "${RETR}" -gt 5 ] && err "git clone Timeout after ${RETR} retres."
 	done
 	cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 else
@@ -175,8 +175,8 @@ then
 	echo ""
 fi
 
-git-add include/emptime.h src/lib/gen/emptime.c
-git-pull
+git add include/emptime.h src/lib/gen/emptime.c
+git pull
 sh ./bootstrap
 ./configure --prefix ${BOXDIR}/${WORKDIR}/emp4 ${CONFIGURE_OPTIONS}
 
