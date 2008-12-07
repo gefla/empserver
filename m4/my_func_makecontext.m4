@@ -1,7 +1,14 @@
 AC_DEFUN([MY_FUNC_MAKECONTEXT],
 [
 	AC_REQUIRE([AC_CANONICAL_HOST])
-	AC_CHECK_FUNCS(makecontext)
+	case "$host_os" in
+	*darwin*)
+		# ucontext appears to be broken, avoid it for now
+		ac_cv_func_makecontext=no
+		;;
+	*)
+		AC_CHECK_FUNCS(makecontext)
+	esac
 	case "$host_os" in
 	*irix*|*solaris2.?)
 		AC_DEFINE([MAKECONTEXT_SP_HIGH], 1,
