@@ -7,7 +7,10 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.19 - Sun Dec  7 01:08:20 UTC 2008
+Changes to Empire 4.3.19 - Sun Dec  7 22:25:46 UTC 2008
+ * LWP doesn't work with Darwin due to OS bugs, avoid it for now.
+ * Don't let ships double-retreat first on 'i' (injured) and then on
+   'h' (helpless) when shelled.
  * Fix a bug that suppressed the "sunk!" message.  Broken in 4.3.17.
  * Log out player when maximum time per day is exceeded.  Before, he
    could remain logged in with visitor privileges only, but once
@@ -23,6 +26,8 @@ Changes to Empire 4.3.19 - Sun Dec  7 01:08:20 UTC 2008
  * New option RAILWAYS.
  * Che ages just like military reserves (1% per 24 ETUs).
  * Permit ships to assault the sector they're in.
+ * Sectors eating less than one unit of food don't make one unit of
+   food for free anymore.  They still can't starve.
  * New concept sector terrain.  Deities can use it to make sectors
    other than wilderness redesignatable.  See sect.config for more
    info.
