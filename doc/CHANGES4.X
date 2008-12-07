@@ -1,3 +1,27 @@
+Changes to Empire 4.3.19 - Sun Dec  7 01:08:20 UTC 2008
+ * Fix a bug that suppressed the "sunk!" message.  Broken in 4.3.17.
+ * Log out player when maximum time per day is exceeded.  Before, he
+   could remain logged in with visitor privileges only, but once
+   logged out could not log back in.
+ * If a player was at a prompt when either game hours restriction
+   started or maximum time per day was exceeded, he was allowed to
+   enter one more command.
+ * Deitying a capital failed to charge money and report news.  Broken
+   in 4.3.17.
+ * Overhaul accounting of play time, fixing minor inaccuracies.
+ * Fix parsing of 24:00 in econfig key game_hours and
+   update_demandtimes.
+ * New option RAILWAYS.
+ * Che ages just like military reserves (1% per 24 ETUs).
+ * Permit ships to assault the sector they're in.
+ * New concept sector terrain.  Deities can use it to make sectors
+   other than wilderness redesignatable.  See sect.config for more
+   info.
+ * Represent play time in seconds rather than minutes.  This affects
+   xdump: nat selector minused (counting minutes) is replaced by
+   timeused (counting seconds).
+ * Improved nightly build, with additional tests.
+
 Changes to Empire 4.3.18 - Sat Oct 18 18:39:17 UTC 2008
  * Fix building of planes, land units and nukes with uids that have
    never been used before.  This could crash the server on some
