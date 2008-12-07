@@ -493,9 +493,10 @@ multifire(void)
 	    putship(vship.shp_uid, &vship);
 	    break;
 	}
-	if ((totaldefdam == 0) && (target == targ_ship))
-	    if (vship.shp_rflags & RET_HELPLESS)
-		retreat_ship(&vship, 'h');
+	if (totaldefdam == 0 && target == targ_ship
+	    && (vship.shp_rflags & RET_HELPLESS)
+	    && !(vship.shp_rflags & RET_INJURED))
+	    retreat_ship(&vship, 'h');
 	switch (attgp->ef_type) {
 	case EF_SECTOR:
 	    putsect(&fsect);
