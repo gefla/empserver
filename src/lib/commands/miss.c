@@ -57,7 +57,7 @@ mission(void)
     int radius, range;
     union empobj_storage item;
     struct empobj *gp;
-    int num = 0, mobmax, mobused;
+    int num = 0;
     struct nstr_item ni;
     char buf[1024];
 
@@ -166,22 +166,12 @@ mission(void)
     } else
 	radius = 9999;
 
-    if ((mobmax = get_empobj_mob_max(type)) == -1)
-	return RET_FAIL;
-
-    mobused = ldround(mission_mob_cost * (double)mobmax, 1);
-
     while (nxtitem(&ni, &item)) {
 	gp = (struct empobj *)&item;
 
 	if (!player->owner || gp->own == 0)
 	    continue;
 
-	if (gp->mobil < mobused && mission_mob_cost) {
-	    pr("%s: not enough mobility! (needs %d)\n",
-	       obj_nameof(gp), mobused);
-	    continue;
-	}
 	if (mission == MI_RESERVE && !lnd_can_attack((struct lndstr *)gp)) {
 	    pr("%s is not designed to fight ground troops\n",
 	       obj_nameof(gp));
@@ -254,7 +244,6 @@ mission(void)
 	    y = gp->y;
 	}
 
-	gp->mobil -= mobused;
 	gp->mission = mission;
 	range = oprange(gp);
 	if (range < mapdist(gp->x, gp->y, x, y)) {

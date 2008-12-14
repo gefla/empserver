@@ -316,8 +316,6 @@ EMPCFBOTH("fire_range_factor", fire_range_factor, float, NSC_FLOAT, 0,
 EMPCFBOTH("sect_mob_neg_factor", sect_mob_neg_factor, int, NSC_INT, 0,
     "Initial mobility for MOB_ACCESS (-etu_per_update / sect_mob_neg_factor)")
 EMPCF_COMMENT("# Applies to sector takeover, ship build, plane or land unit build, and trade.")
-EMPCFBOTH("mission_mob_cost", mission_mob_cost, double, NSC_DOUBLE, 0,
-    "Cost to put something on a mission (percentage of max mob)")
 
 EMPCF_COMMENT("\n\n### Populace")
 EMPCFBOTH("uwbrate", uwbrate, double, NSC_DOUBLE, 0,

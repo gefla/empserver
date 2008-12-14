@@ -139,10 +139,6 @@ vers(void)
        (int)(ship_mob_scale * (float)etu_per_update),
        (int)(plane_mob_scale * (float)etu_per_update),
        (int)(land_mob_scale * (float)etu_per_update));
-    pr("Mission mobility cost\t\t--\t%d\t%d\t%d\n",
-       ldround((mission_mob_cost * (double)ship_mob_max), 1),
-       ldround((mission_mob_cost * (double)plane_mob_max), 1),
-       ldround((mission_mob_cost * (double)land_mob_max), 1));
     pr("Max eff gain per update\t\t--\t%d\t%d\t%d\n",
        MIN((int)(ship_grow_scale * (float)etu_per_update), 100),
        MIN((int)(plane_grow_scale * (float)etu_per_update), 100),

@@ -95,8 +95,6 @@ int fort_max_interdiction_range = 8;
 int ship_max_interdiction_range = 8;
 int land_max_interdiction_range = 8;
 
-double mission_mob_cost = 0.0;	/* Cost is percentage of max mob */
-
 double unit_damage = 0.30;	/* Units take this fraction of normal damage */
 double people_damage = 1.00;	/* Civs/mil/uw take this fraction of damage */
 double collateral_dam = 0.10;	/* Side effect damage to sector */
