@@ -54,7 +54,7 @@ mission(void)
     int type;
     int mission;
     coord x, y;
-    int desired_radius, radius;
+    int radius, range;
     union empobj_storage item;
     struct empobj *gp;
     int num = 0, mobmax, mobused;
@@ -158,14 +158,13 @@ mission(void)
     }
 
     if (player->argp[5] != NULL) {
-	desired_radius = atoi(player->argp[5]);
-	if (desired_radius < 0) {
-	    pr("Radius must be greater than zero!\n");
+	radius = atoi(player->argp[5]);
+	if (radius < 0) {
+	    pr("Radius can't be negative!\n");
 	    return RET_FAIL;
 	}
-    } else {
-	desired_radius = 9999;
-    }
+    } else
+	radius = 9999;
 
     if ((mobmax = get_empobj_mob_max(type)) == -1)
 	return RET_FAIL;
@@ -255,27 +254,23 @@ mission(void)
 	    y = gp->y;
 	}
 
-	radius = oprange(gp, mission);
-	if (radius < mapdist(gp->x, gp->y, x, y)) {
+	gp->mobil -= mobused;
+	gp->mission = mission;
+	range = oprange(gp);
+	if (range < mapdist(gp->x, gp->y, x, y)) {
 	    pr("%s: out of range! (range %d)\n",
-	       obj_nameof(gp), radius);
+	       obj_nameof(gp), range);
 	    continue;
 	}
-
-	if (radius > desired_radius)
-	    radius = desired_radius;
-	num++;			/* good one.. go with it */
+	gp->opx = x;
+	gp->opy = y;
+	gp->radius = MIN(range, radius);
+	put_empobj(type, gp->uid, gp);
+	num++;
 
 	pr("%s on %s mission, centered on %s, radius %d\n",
 	   obj_nameof(gp), mission_name(mission),
-	   xyas(x, y, player->cnum), radius);
-	gp->mobil -= mobused;
-
-	gp->mission = mission;
-	gp->opx = x;
-	gp->opy = y;
-	gp->radius = radius;
-	put_empobj(type, gp->uid, gp);
+	   xyas(x, y, player->cnum), gp->radius);
     }
     if (num == 0) {
 	pr("No %s%s\n", ef_nameof(type), splur(num));

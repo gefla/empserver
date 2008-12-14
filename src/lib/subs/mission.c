@@ -741,14 +741,20 @@ mission_name(short mission)
     return "a mysterious";
 }
 
+/*
+ * Maximum distance GP can perform its mission.
+ * Note: this has nothing to do with the radius of the op-area.
+ * oprange() governs where the unit *can* strike, the op-area governs
+ * where the player wants it to strike.
+ */
 int
-oprange(struct empobj *gp, int mission)
+oprange(struct empobj *gp)
 {
     switch (gp->ef_type) {
     case EF_SHIP:
 	return ldround(shp_fire_range((struct shpstr *)gp), 1);
     case EF_LAND:
-	if (mission == MI_RESERVE)
+	if (gp->mission == MI_RESERVE)
 	    return lnd_reaction_range((struct lndstr *)gp);
 	return ldround(lnd_fire_range((struct lndstr *)gp), 1);
     case EF_PLANE:
@@ -768,7 +774,7 @@ int
 in_oparea(struct empobj *gp, coord x, coord y)
 {
     return mapdist(x, y, gp->opx, gp->opy) <= gp->radius
-	&& mapdist(x, y, gp->x, gp->y) <= oprange(gp, gp->mission);
+	&& mapdist(x, y, gp->x, gp->y) <= oprange(gp);
 }
 
 /*
