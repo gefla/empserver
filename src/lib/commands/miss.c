@@ -188,20 +188,6 @@ mission(void)
 	       obj_nameof(gp));
 	    continue;
 	}
-	if (*p == '.') {
-	    x = gp->x;
-	    y = gp->y;
-	}
-
-	radius = oprange(gp, mission);
-	if (radius < mapdist(gp->x, gp->y, x, y)) {
-	    pr("%s: out of range! (range %d)\n",
-	       obj_nameof(gp), radius);
-	    continue;
-	}
-
-	if (radius > desired_radius)
-	    radius = desired_radius;
 
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
 	    if (mchr[(int)gp->type].m_glim == 0) {
@@ -264,6 +250,20 @@ mission(void)
 	    }
 	}
 
+	if (*p == '.') {
+	    x = gp->x;
+	    y = gp->y;
+	}
+
+	radius = oprange(gp, mission);
+	if (radius < mapdist(gp->x, gp->y, x, y)) {
+	    pr("%s: out of range! (range %d)\n",
+	       obj_nameof(gp), radius);
+	    continue;
+	}
+
+	if (radius > desired_radius)
+	    radius = desired_radius;
 	num++;			/* good one.. go with it */
 
 	pr("%s on %s mission, centered on %s, radius %d\n",
