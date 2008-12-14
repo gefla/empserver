@@ -55,7 +55,6 @@ mission(void)
     int mission;
     coord x, y;
     int desired_radius, radius;
-    struct sctstr opsect;
     union empobj_storage item;
     struct empobj *gp;
     int num = 0, mobmax, mobused;
@@ -156,9 +155,6 @@ mission(void)
     if (*p != '.') {
 	if (!sarg_xy(p, &x, &y))
 	    return RET_SYN;
-
-	if (!getsect(x, y, &opsect))
-	    return RET_FAIL;
     }
 
     if (player->argp[5] != NULL) {
@@ -195,8 +191,6 @@ mission(void)
 	if (*p == '.') {
 	    x = gp->x;
 	    y = gp->y;
-	    if (!getsect(x, y, &opsect))
-		return RET_FAIL;
 	}
 
 	radius = oprange(gp, mission);
