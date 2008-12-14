@@ -172,10 +172,16 @@ mission(void)
 	if (!player->owner || gp->own == 0)
 	    continue;
 
-	if (mission == MI_RESERVE && !lnd_can_attack((struct lndstr *)gp)) {
-	    pr("%s is not designed to fight ground troops\n",
-	       obj_nameof(gp));
-	    continue;
+	if (mission == MI_RESERVE) {
+	    if (!lnd_can_attack((struct lndstr *)gp)) {
+		pr("%s is not designed to fight ground troops\n",
+		   obj_nameof(gp));
+		continue;
+	    }
+	    if (!lchr[gp->type].l_rad) {
+		pr("%s cannot react anywhere!\n", obj_nameof(gp));
+		continue;
+	    }
 	}
 
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
