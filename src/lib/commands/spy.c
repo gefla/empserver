@@ -150,6 +150,7 @@ spy(void)
 			wu(0, own, "%s (#%d) spy caught in %s\n",
 			   cname(player->cnum), player->cnum,
 			   xyas(nx, ny, own));
+		    nreport(player->cnum, N_SPY_SHOT, own, 1);
 		}
 		if (opt_HIDDEN)
 		    setcont(own, player->cnum, FOUND_SPY);
