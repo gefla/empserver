@@ -71,7 +71,7 @@ surv(void)
     ptr = nstr_comp_val(ptr, &val, EF_SECTOR);
     if (!ptr)
 	return RET_SYN;
-    if (val.val_cat != NSC_OFF || nstr_coerce_val(&val, NSC_LONG, NULL) < 0) {
+    if (val.val_cat != NSC_OFF || nstr_promote(val.val_type) != NSC_LONG) {
 	pr("Can't survey this\n");
 	return RET_SYN;
     }

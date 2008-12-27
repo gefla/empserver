@@ -66,8 +66,7 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
  * PTR points to a context object of the type that was used to compile
  * the value.
  * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
- * WANT.  VAL must be coercible.  That's the case if a previous
- * nstr_coerce_val(VAL, WANT, STR) succeeded.
+ * WANT.  VAL must be coercible.
  */
 struct valstr *
 nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
@@ -186,6 +185,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	valtype = NSC_NOTYPE;
     }
 
+    /* coerce */
     if (valtype == want)
 	;
     else if (want == NSC_DOUBLE) {
@@ -193,8 +193,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	    valtype = want;
 	    val->val_as.dbl = val->val_as.lng;
 	}
-    } else if (want == NSC_STRING)
-	CANT_REACH();		/* FIXME implement */
+    }
 
     if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
 	/* make up an error value */

@@ -48,7 +48,7 @@ enum nsc_type {
     /* promoted types */
     NSC_LONG,			/* long */
     NSC_DOUBLE,			/* double */
-    NSC_STRING,			/* char *, zero-terminated string */
+    NSC_STRING,			/* character string */
     /* unpromoted types */
     NSC_CHAR,			/* signed char */
     NSC_UCHAR,			/* unsigned char */
@@ -61,7 +61,7 @@ enum nsc_type {
 				   may need hiding */
     NSC_TIME,			/* time_t */
     NSC_FLOAT,			/* float */
-    NSC_STRINGY,		/* char[], may be zero-terminated */
+    NSC_STRINGY,		/* char[] */
     /* aliases, must match typedefs */
     NSC_NATID = NSC_UCHAR	/* nation id */
 };
@@ -287,7 +287,6 @@ extern struct symbol sector_navigation[];
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
 extern char *nstr_comp_val(char *, struct valstr*, int);
-extern int nstr_coerce_val(struct valstr *, enum nsc_type, char *);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);

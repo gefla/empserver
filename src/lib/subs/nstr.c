@@ -46,9 +46,10 @@ static char *nstr_parse_val(char *, struct valstr *);
 static int nstr_match_ca(struct valstr *, struct castr *);
 static int nstr_match_val(struct valstr *, struct castr *, int);
 static int nstr_string_ok(struct castr *ca, int idx);
+static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int, int);
 static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_mkselval(struct valstr *, int, struct castr *);
-static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int, int);
+static int nstr_optype(enum nsc_type, enum nsc_type);
 
 /*
  * Compile conditions into array NP[LEN].
@@ -68,7 +69,6 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
     struct nscstr dummy;
     int lft_caidx, rgt_caidx;
     int lft_val, rgt_val;
-    int lft_type, rgt_type;
 
     cond = str;
     for (i = 0; ; ++i, ++np) {
@@ -125,7 +125,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	} else {
 	    /*
 	     * Neither side works as selector value; any identifiers
-	     * must name selectors.
+	     * must name selectors or strings.
 	     */
 	    if (!nstr_resolve_id(&np->lft, ca, lft_caidx,
 				 nstr_string_ok(ca, rgt_caidx)))
@@ -135,29 +135,13 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 		return -1;
 	}
 
-	/* find operator type, coerce operands */
-	lft_type = nstr_promote(np->lft.val_type);
-	rgt_type = nstr_promote(np->rgt.val_type);
-	np->optype = NSC_NOTYPE;
-	if (lft_type == NSC_STRING) {
-	    if (!nstr_coerce_val(&np->rgt, NSC_STRING, str))
-		np->optype = NSC_STRING;
-	} else if (rgt_type == NSC_STRING) {
-	    if (!nstr_coerce_val(&np->lft, NSC_STRING, str))
-		np->optype = NSC_STRING;
-	} else if (lft_type == NSC_DOUBLE) {
-	    if (!nstr_coerce_val(&np->rgt, NSC_DOUBLE, str))
-		np->optype = NSC_DOUBLE;
-	} else if (rgt_type == NSC_DOUBLE) {
-	    if (!nstr_coerce_val(&np->lft, NSC_DOUBLE, str))
-		np->optype = NSC_DOUBLE;
-	} else {
-	    if (!nstr_coerce_val(&np->lft, NSC_LONG, str)
-		&& !nstr_coerce_val(&np->rgt, NSC_LONG, str))
-		np->optype = NSC_LONG;
-	}
-	if (np->optype == NSC_NOTYPE)
+	/* find operator type */
+	np->optype = nstr_optype(np->lft.val_type, np->rgt.val_type);
+	if (np->optype == NSC_NOTYPE) {
+	    pr("%.*s -- condition operand type mismatch\n",
+	       (int)(tail-cond), cond);
 	    return -1;
+	}
 
 	/* another condition? */
 	if (*tail == 0)
@@ -436,17 +420,35 @@ nstr_resolve_sel(struct valstr *val, struct castr *ca)
 static struct valstr *
 nstr_mkselval(struct valstr *val, int selval, struct castr *ca)
 {
-    if (CANT_HAPPEN(nstr_promote(ca->ca_type) != NSC_LONG
-		    || ca->ca_table == EF_BAD)) {
+    enum nsc_type type = nstr_promote(ca->ca_type);
+    
+    if (CANT_HAPPEN(type != NSC_LONG || ca->ca_table == EF_BAD)) {
 	val->val_type = NSC_NOTYPE;
 	val->val_cat = NSC_NOCAT;
 	return val;
     }
 
-    val->val_type = ca->ca_type;
+    val->val_type = type;
     val->val_cat = NSC_VAL;
     val->val_as.lng = selval;
     return val;
+}
+
+/*
+ * Return operator type for operand types LFT, RGT.
+ */
+static int
+nstr_optype(enum nsc_type lft, enum nsc_type rgt)
+{
+    lft = nstr_promote(lft);
+    rgt = nstr_promote(rgt);
+    if (lft == rgt)
+       return lft;
+    if (lft == NSC_DOUBLE && rgt == NSC_LONG)
+       return NSC_DOUBLE;
+    if (rgt == NSC_DOUBLE && lft == NSC_LONG)
+       return NSC_DOUBLE;
+    return NSC_NOTYPE;
 }
 
 /*
@@ -465,58 +467,4 @@ nstr_comp_val(char *str, struct valstr *val, int type)
     if (!nstr_resolve_id(val, ca, nstr_match_ca(val, ca), 0))
 	return NULL;
     return tail;
-}
-
-static int
-cond_type_mismatch(char *str)
-{
-    if (str)
-	pr("%s -- condition operand type mismatch\n", str);
-    return -1;
-}
-
-/*
- * Coerce VAL to promoted value type TO.
- * Return 0 on success, -1 on error.
- * If VAL is evaluated, convert it, else only check.
- * STR is the condition text to be used for error messages.  Suppress
- * messages if it is a null pointer.
- */
-int
-nstr_coerce_val(struct valstr *val, enum nsc_type to, char *str)
-{
-    /* FIXME get rid of promotion?  */
-    enum nsc_type from = nstr_promote(val->val_type);
-
-    if (from == NSC_NOTYPE)
-	return 0;
-
-    if (from != to) {
-	switch (to) {
-	case NSC_STRING:
-	    return cond_type_mismatch(str); /* FIXME implement */
-	case NSC_DOUBLE:
-	    if (from == NSC_LONG) {
-		if (val->val_cat == NSC_VAL)
-		    val->val_as.dbl = val->val_as.lng;
-	    } else
-		return cond_type_mismatch(str);
-	    break;
-	case NSC_LONG:
-	    return cond_type_mismatch(str);
-	default:
-	    CANT_REACH();
-	    to = from;
-	}
-    }
-
-    if (val->val_cat == NSC_VAL) {
-	/* unimplemented conversions; don't currently occur here */
-	CANT_HAPPEN(val->val_type == NSC_XCOORD
-		    || val->val_type == NSC_YCOORD
-		    || val->val_type == NSC_HIDDEN);
-	val->val_type = to;
-    }
-
-    return 0;
 }
