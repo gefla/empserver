@@ -967,6 +967,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
     struct nstr_item ni;
     struct lndstr land;
     double pathcost, mobcost;
+    int reqmob;
     struct ulist *llp;
     struct lchrstr *lcp;
     double att_val;
@@ -1048,9 +1049,10 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		    continue;
 		}
 	    } else {
-		if (land.lnd_mobil < mobcost) {
+		reqmob = MIN(land_mob_max, (int)ceil(mobcost));
+		if (land.lnd_mobil < reqmob) {
 		    pr("%s does not have enough mobility (%d needed)\n",
-		       prland(&land), (int)ceil(mobcost));
+		       prland(&land), reqmob);
 		    continue;
 		}
 	    }
