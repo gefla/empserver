@@ -154,8 +154,7 @@ info(void)
 	fclose(fp);
 	return RET_FAIL;
     }
-    pr("Information on:  %s    Last modification date: %s",
-       name, ctime(&statb.st_mtime));
+
     while (fgets(buf, sizeof(buf), fp) != 0)
 	pr("%s", buf);
     (void)fclose(fp);
@@ -369,8 +368,7 @@ info(void)
 		     filename, strerror(errno));
 	    return RET_FAIL;
 	}
-    }
-    else {
+    } else {
 	DWORD fAttrib = GetFileAttributes(filename);
 	if ((fAttrib == (DWORD)-1) || /* INVALID_FILE_ATTRIBUTES */
 	    ((fAttrib != FILE_ATTRIBUTE_NORMAL) &&
@@ -384,7 +382,6 @@ info(void)
 	}
     }
 
-    pr("Information on:  %s", name);
     while (fgets(buf, sizeof(buf), fp) != 0)
 	pr("%s", buf);
     (void)fclose(fp);
