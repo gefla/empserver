@@ -48,7 +48,6 @@ static int nstr_is_name_of_ca(struct valstr *, struct castr *, int);
 static int nstr_ca_comparable(struct castr *, int, int);
 static int nstr_match_val(struct valstr *, struct castr *, int);
 static struct valstr *nstr_resolve_id(struct valstr *, struct castr *, int);
-static struct valstr *nstr_resolve_sel(struct valstr *, struct castr *);
 static struct valstr *nstr_resolve_val(struct valstr *, int, struct castr *);
 static int nstr_optype(enum nsc_type, enum nsc_type);
 
@@ -432,31 +431,14 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
 	return NULL;
     }
 
-    return nstr_resolve_sel(val, &ca[idx]);
-}
-
-/*
- * Change VAL to resolve identifier to selector CA.
- * Return VAL on success, NULL if the player is denied access to the
- * selector.
- * VAL must be an identifier.
- */
-static struct valstr *
-nstr_resolve_sel(struct valstr *val, struct castr *ca)
-{
-    if (CANT_HAPPEN(val->val_cat != NSC_ID)) {
-	val->val_cat = NSC_NOCAT;
-	return val;
-    }
-
-    if ((ca->ca_flags & NSC_DEITY) && !player->god) {
+    if ((ca[idx].ca_flags & NSC_DEITY) && !player->god) {
 	pr("%.*s -- not accessible to mortals\n",
 	   (int)val->val_as.str.maxsz, val->val_as.str.base);
 	val->val_cat = NSC_NOCAT;
 	return NULL;
     }
 
-    return nstr_mksymval(val, ca, 0);
+    return nstr_mksymval(val, &ca[idx], 0);
 }
 
 /*
