@@ -254,7 +254,8 @@ parse_every(time_t *secs, char *s)
     else
 	sscanf(s, " every %u minutes%n", &delta, &nch);
     if (nch < 0)
-	return NULL;    *secs = 60 * delta;
+	return NULL;
+    *secs = 60 * delta;
     return s + nch;
 }
 
