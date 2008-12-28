@@ -216,7 +216,7 @@ status(void)
 	natp->nat_ann = 0;
     }
     if (natp->nat_stat == STAT_ACTIVE && (player->nstat & CAP) == 0)
-	pr("You lost your capital... better designate one\n");
+	pr("You lost your capital... better designate one (see info capital)\n");
     putnat(natp);
     if (gamedown() && !player->god) {
 	pr("gamedown\n");
