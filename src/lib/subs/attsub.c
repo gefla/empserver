@@ -966,7 +966,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 {
     struct nstr_item ni;
     struct lndstr land;
-    double mobcost;
+    double pathcost, mobcost;
     struct ulist *llp;
     struct lchrstr *lcp;
     double att_val;
@@ -1040,14 +1040,14 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	     * of high-mobility sectors (mountains): for those we
 	     * still require attack mobility.
 	     */
-	    mobcost = att_mobcost(off->own, def, lnd_mobtype(&land));
-	    if (mobcost < 1.0) {
+	    pathcost = att_mobcost(off->own, def, lnd_mobtype(&land));
+	    mobcost = lnd_pathcost(&land, pathcost);
+	    if (pathcost < 1.0) {
 		if (land.lnd_mobil <= 0) {
 		    pr("%s is out of mobility\n", prland(&land));
 		    continue;
 		}
 	    } else {
-		mobcost = lnd_pathcost(&land, mobcost);
 		if (land.lnd_mobil < mobcost) {
 		    pr("%s does not have enough mobility (%d needed)\n",
 		       prland(&land), (int)ceil(mobcost));
