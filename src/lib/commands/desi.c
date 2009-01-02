@@ -44,8 +44,6 @@ desi(void)
 {
     int n;
     char *p;
-    int cap_x;
-    int cap_y;
     int des;
     struct nstr_sect nstr;
     struct sctstr sect;
@@ -58,8 +56,6 @@ desi(void)
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     natp = getnatp(player->cnum);
-    cap_x = natp->nat_xcap;
-    cap_y = natp->nat_ycap;
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
@@ -134,7 +130,8 @@ desi(void)
 	}
 	sect.sct_newtype = des;
 	putsect(&sect);
-	if (sect.sct_x == cap_x && sect.sct_y == cap_y
+	if (!player->god
+	    && sect.sct_x == natp->nat_xcap && sect.sct_y == natp->nat_ycap
 	    && des != SCT_CAPIT && des != SCT_SANCT && des != SCT_MOUNT)
 	    pr("You have redesignated your capital!\n");
 	if (opt_EASY_BRIDGES == 0) {	/* may cause a bridge fall */
