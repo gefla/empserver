@@ -327,6 +327,10 @@ load_comm_ok(struct sctstr *sectp, natid unit_own,
 {
     if (!move_amt)
 	return 0;
+    if (move_amt < 0 && !player->god && unit_own != player->cnum)
+	return 0;
+    if (move_amt > 0 && !player->god && sectp->sct_own != player->cnum)
+	return 0;
     if (sectp->sct_oldown != unit_own && item == I_CIVIL) {
 	pr("%s civilians refuse to %s at %s!\n",
 	   (move_amt < 0 ? unit_own : sectp->sct_oldown) == player->cnum
@@ -868,11 +872,6 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	move_amt = sect_amt - ITEM_MAX;
     if (!load_comm_ok(sectp, lp->lnd_own, item, move_amt))
 	return RET_OK;
-    if (sectp->sct_own != player->cnum && move_amt > 0) {
-	pr("Sector %s is not yours.\n",
-	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
-	return RET_FAIL;
-    }
     sectp->sct_item[item] = sect_amt - move_amt;
     lp->lnd_item[item] = land_amt + move_amt;
 
