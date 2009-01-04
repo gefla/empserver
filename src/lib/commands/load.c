@@ -322,6 +322,27 @@ lload(void)
 }
 
 static int
+move_amount(int sect_amt, int unit_amt, int unit_max,
+           int load_unload, int amount)
+{
+    int move_amt;
+
+    if (amount < 0)
+	move_amt = -amount - unit_amt;
+    else
+	move_amt = load_unload == LOAD ? amount : -amount;
+    if (move_amt > unit_max - unit_amt)
+	move_amt = unit_max - unit_amt;
+    if (move_amt < -unit_amt)
+	move_amt = -unit_amt;
+    if (move_amt > sect_amt)
+	move_amt = sect_amt;
+    if (move_amt < sect_amt - ITEM_MAX)
+	move_amt = sect_amt - ITEM_MAX;
+    return move_amt;
+}
+
+static int
 load_comm_ok(struct sctstr *sectp, natid unit_own,
 	     i_type item, int move_amt)
 {
@@ -664,8 +685,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 {
     i_type item = ich->i_uid;
     struct mchrstr *mcp = &mchr[(int)sp->shp_type];
-    int ship_amt, ship_max, sect_amt, move_amt;
-    int amount;
+    int ship_amt, sect_amt, move_amt;
     char prompt[512];
     char *p;
     char buf[1024];
@@ -682,21 +702,9 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	return RET_SYN;
 
     ship_amt = sp->shp_item[item];
-    ship_max = mcp->m_item[item];
     sect_amt = sectp->sct_item[item];
-    amount = atoi(p);
-    if (amount < 0)
-	move_amt = -amount - ship_amt;
-    else
-	move_amt = load_unload == LOAD ? amount : -amount;
-    if (move_amt > ship_max - ship_amt)
-	move_amt = ship_max - ship_amt;
-    if (move_amt < -ship_amt)
-	move_amt = -ship_amt;
-    if (move_amt > sect_amt)
-	move_amt = sect_amt;
-    if (move_amt < sect_amt - ITEM_MAX)
-	move_amt = sect_amt - ITEM_MAX;
+    move_amt = move_amount(sect_amt, ship_amt, mcp->m_item[item],
+			   load_unload, atoi(p));
     if (!load_comm_ok(sectp, sp->shp_own, item, move_amt))
 	return RET_OK;
     if (!want_to_abandon(sectp, item, move_amt, 0))
@@ -705,6 +713,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	return RET_SYN;
     sectp->sct_item[item] = sect_amt - move_amt;
     sp->shp_item[item] = ship_amt + move_amt;
+
     if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
 	   move_amt, ich->i_name,
@@ -837,8 +846,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 {
     i_type item = ich->i_uid;
     struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
-    int land_amt, land_max, sect_amt, move_amt;
-    int amount;
+    int land_amt, sect_amt, move_amt;
     char prompt[512];
     char *p;
     char buf[1024];
@@ -855,21 +863,9 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	return RET_SYN;
 
     land_amt = lp->lnd_item[item];
-    land_max = lcp->l_item[item];
     sect_amt = sectp->sct_item[item];
-    amount = atoi(p);
-    if (amount < 0)
-	move_amt = -amount - land_amt;
-    else
-	move_amt = load_unload == LOAD ? amount : -amount;
-    if (move_amt > land_max - land_amt)
-	move_amt = land_max - land_amt;
-    if (move_amt < -land_amt)
-	move_amt = -land_amt;
-    if (move_amt > sect_amt)
-	move_amt = sect_amt;
-    if (move_amt < sect_amt - ITEM_MAX)
-	move_amt = sect_amt - ITEM_MAX;
+    move_amt = move_amount(sect_amt, land_amt, lcp->l_item[item],
+			   load_unload, atoi(p));
     if (!load_comm_ok(sectp, lp->lnd_own, item, move_amt))
 	return RET_OK;
     sectp->sct_item[item] = sect_amt - move_amt;
@@ -878,6 +874,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
     /* Did we put mils onto this unit? If so, reset the fortification */
     if (item == I_MILIT && move_amt > 0)
 	lp->lnd_harden = 0;
+
     if (move_amt >= 0) {
 	pr("%d %s loaded onto %s at %s\n",
 	   move_amt, ich->i_name,
