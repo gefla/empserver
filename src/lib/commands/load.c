@@ -321,6 +321,21 @@ lload(void)
     return RET_OK;
 }
 
+static int
+load_comm_ok(struct sctstr *sectp, i_type item, int move_amt)
+{
+    if (!move_amt)
+	return 0;
+    if (sectp->sct_oldown != player->cnum && item == I_CIVIL) {
+	pr("%s civilians refuse to %s at %s!\n",
+	   move_amt < 0 ? "Your" : "Foreign",
+	   move_amt < 0 ? "disembark" : "board",
+	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
+	return 0;
+    }
+    return 1;
+}
+
 void
 gift(natid givee, natid giver, void *ptr, char *mesg)
 {
@@ -676,16 +691,8 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	move_amt = sect_amt;
     if (move_amt < sect_amt - ITEM_MAX)
 	move_amt = sect_amt - ITEM_MAX;
-    if (!move_amt)
+    if (!load_comm_ok(sectp, item, move_amt))
 	return RET_OK;
-    if (sectp->sct_oldown != player->cnum && item == I_CIVIL) {
-	pr("%s civilians refuse to %s at %s!\n",
-	   move_amt < 0 ? "Your" : "Foreign",
-	   move_amt < 0 ? "disembark" : "board",
-	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
-	return RET_FAIL;
-    }
-
     if (!want_to_abandon(sectp, item, move_amt, 0))
 	return RET_FAIL;
     if (!still_ok_ship(sectp, sp))
@@ -857,18 +864,11 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	move_amt = sect_amt;
     if (move_amt < sect_amt - ITEM_MAX)
 	move_amt = sect_amt - ITEM_MAX;
-    if (!move_amt)
+    if (!load_comm_ok(sectp, item, move_amt))
 	return RET_OK;
     if (sectp->sct_own != player->cnum && move_amt > 0) {
 	pr("Sector %s is not yours.\n",
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
-	return RET_FAIL;
-    }
-    if (sectp->sct_oldown != player->cnum && item == I_CIVIL) {
-	pr("%s civilians refuse to %s at %s!\n",
-	   move_amt < 0 ? "Your" : "Foreign",
-	   move_amt < 0 ? "disembark" : "board",
-	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
 	return RET_FAIL;
     }
     sectp->sct_item[item] = sect_amt - move_amt;
