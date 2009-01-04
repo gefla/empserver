@@ -126,7 +126,7 @@ load(void)
 	if (ship.shp_own != player->cnum) {
 	    if (!noisy)
 		continue;
-	    if (getrel(getnatp(player->cnum), ship.shp_own) < FRIENDLY)
+	    if (getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY)
 		continue;
 	}
 	if (!getsect(ship.shp_x, ship.shp_y, &sect))	/* XXX */
@@ -250,7 +250,7 @@ lload(void)
 	    continue;
 
 	if (player->cnum != land.lnd_own &&
-	    getrel(getnatp(player->cnum), land.lnd_own) != ALLIED)
+	    getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
 	    continue;
 
 	if (!getsect(land.lnd_x, land.lnd_y, &sect))	/* XXX */
@@ -266,7 +266,7 @@ lload(void)
 	}
 
 	if (sect.sct_own != player->cnum &&
-	    getrel(getnatp(sect.sct_own), land.lnd_own) != ALLIED) {
+	    getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
 	    pr("Sector %s is not yours.\n",
 	       xyas(land.lnd_x, land.lnd_y, player->cnum));
 	    continue;
