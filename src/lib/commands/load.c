@@ -116,13 +116,6 @@ load(void)
 	if (!player->owner && (load_unload == UNLOAD)) {
 	    continue;
 	}
-	if (opt_MARKET) {
-	    if (ontradingblock(EF_SHIP, &ship)) {
-		pr("You cannot load/unload an item on the trading block!\n");
-		continue;
-	    }
-	}
-
 	if (ship.shp_own != player->cnum) {
 	    if (!noisy)
 		continue;
@@ -165,6 +158,14 @@ load(void)
 		   xyas(ship.shp_x, ship.shp_y, player->cnum));
 	    continue;
 	}
+
+	if (opt_MARKET) {
+	    if (ontradingblock(EF_SHIP, &ship)) {
+		pr("You cannot load/unload an item on the trading block!\n");
+		continue;
+	    }
+	}
+
 	switch (type) {
 	case EF_PLANE:
 	    if (0 !=
@@ -262,13 +263,6 @@ lload(void)
 
 	if (sect.sct_own != player->cnum && land.lnd_own != player->cnum)
 	    continue;
-	if (opt_MARKET) {
-	    if (ontradingblock(EF_LAND, &land)) {
-		pr("You cannot load/unload an item on the trading block!\n");
-		continue;
-	    }
-	}
-
 	if (sect.sct_own != player->cnum && load_unload == LOAD) {
 	    if (noisy)
 		pr("Sector %s is not yours.\n",
@@ -281,6 +275,14 @@ lload(void)
 	       xyas(land.lnd_x, land.lnd_y, player->cnum));
 	    continue;
 	}
+
+	if (opt_MARKET) {
+	    if (ontradingblock(EF_LAND, &land)) {
+		pr("You cannot load/unload an item on the trading block!\n");
+		continue;
+	    }
+	}
+
 	switch (type) {
 	case EF_LAND:
 	    if (0 !=
