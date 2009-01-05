@@ -116,7 +116,7 @@ load(void)
 	if (!player->owner && (load_unload == UNLOAD)) {
 	    continue;
 	}
-	if (ship.shp_own != player->cnum) {
+	if (!player->owner) {
 	    if (!noisy)
 		continue;
 	    if (getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY)
@@ -124,15 +124,13 @@ load(void)
 	}
 	if (!getsect(ship.shp_x, ship.shp_y, &sect))	/* XXX */
 	    continue;
-	if ((sect.sct_own != player->cnum) &&
-	    (ship.shp_own != player->cnum))
+	if (!player->owner && ship.shp_own != player->cnum)
 	    continue;
-	if (!player->owner &&
-	    !sect_has_dock(&sect))
+	if (!player->owner && !sect_has_dock(&sect))
 	    continue;
 	if (!sect.sct_own)
 	    continue;
-	if ((sect.sct_own != player->cnum) && (load_unload == LOAD)) {
+	if (!player->owner && load_unload == LOAD) {
 	    if (noisy)
 		pr("You don't own %s \n",
 		   xyas(ship.shp_x, ship.shp_y, player->cnum));
@@ -144,7 +142,7 @@ load(void)
 		   xyas(ship.shp_x, ship.shp_y, player->cnum));
 	    continue;
 	}
-	if (sect.sct_own != player->cnum && load_unload == UNLOAD
+	if (!player->owner && load_unload == UNLOAD
 	    && getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY) {
 	    if (noisy)
 		pr("You can't unload into an unfriendly %s\n",
@@ -251,7 +249,7 @@ lload(void)
 	    continue;
 	if (!player->owner && load_unload == UNLOAD)
 	    continue;
-	if (player->cnum != land.lnd_own) {
+	if (!player->owner) {
 	    if (!noisy)
 		continue;
 	    if (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
@@ -260,16 +258,15 @@ lload(void)
 
 	if (!getsect(land.lnd_x, land.lnd_y, &sect))	/* XXX */
 	    continue;
-
-	if (sect.sct_own != player->cnum && land.lnd_own != player->cnum)
+	if (!player->owner && land.lnd_own != player->cnum)
 	    continue;
-	if (sect.sct_own != player->cnum && load_unload == LOAD) {
+	if (!player->owner && load_unload == LOAD) {
 	    if (noisy)
 		pr("Sector %s is not yours.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
-	if (sect.sct_own != player->cnum &&
+	if (!player->owner &&
 	    getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
 	    pr("Sector %s is not yours.\n",
 	       xyas(land.lnd_x, land.lnd_y, player->cnum));
@@ -432,7 +429,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &pln)) {
-	if (pln.pln_own != player->cnum)
+	if (!player->owner)
 	    continue;
 	if (!(plchr[(int)pln.pln_type].pl_flags & P_L)
 	    && !(plchr[(int)pln.pln_type].pl_flags & P_E)
@@ -565,7 +562,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_own != player->cnum)
+	if (!player->owner)
 	    continue;
 
 	if (load_unload == LOAD) {
@@ -777,7 +774,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &pln)) {
-	if (pln.pln_own != player->cnum)
+	if (!player->owner)
 	    continue;
 
 	if (!(plchr[(int)pln.pln_type].pl_flags & P_E)) {
@@ -937,8 +934,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	noisy = isdigit(*p);
 
     while (nxtitem(&ni, &land)) {
-
-	if (land.lnd_own != player->cnum)
+	if (!player->owner)
 	    continue;
 
 	if (load_unload == LOAD) {
