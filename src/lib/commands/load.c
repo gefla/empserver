@@ -113,33 +113,33 @@ load(void)
     while (nxtitem(&nbst, &ship)) {
 	if (!ship.shp_own)
 	    continue;
-	if (!player->owner && (load_unload == UNLOAD)) {
-	    continue;
-	}
 	if (!player->owner) {
-	    if (!noisy)
+	    if (load_unload == UNLOAD || !noisy)
 		continue;
 	    if (getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY)
 		continue;
 	}
+
 	if (!getsect(ship.shp_x, ship.shp_y, &sect))	/* XXX */
-	    continue;
-	if (!player->owner && ship.shp_own != player->cnum)
-	    continue;
-	if (!player->owner && !sect_has_dock(&sect))
 	    continue;
 	if (!sect.sct_own)
 	    continue;
-	if (!player->owner && load_unload == LOAD) {
-	    if (noisy)
-		pr("You don't own %s \n",
-		   xyas(ship.shp_x, ship.shp_y, player->cnum));
-	    continue;
+	if (!player->owner) {
+	    if (ship.shp_own != player->cnum)
+		continue;
+	    if (!sect_has_dock(&sect))
+		continue;
+	    if (load_unload == LOAD) {
+		if (noisy)
+		    pr("You don't own %s \n",
+		       xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
 	}
 	if (!sect_has_dock(&sect)) {
 	    if (noisy)
 		pr("Sector %s is not a harbor or canal.\n",
-		   xyas(ship.shp_x, ship.shp_y, player->cnum));
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
 	if (!player->owner && load_unload == UNLOAD
@@ -153,7 +153,7 @@ load(void)
 	    if (noisy)
 		pr("The %s at %s is not 2%% efficient yet.\n",
 		   dchr[sect.sct_type].d_name,
-		   xyas(ship.shp_x, ship.shp_y, player->cnum));
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
 
@@ -247,10 +247,8 @@ lload(void)
     while (nxtitem(&nbst, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
-	if (!player->owner && load_unload == UNLOAD)
-	    continue;
 	if (!player->owner) {
-	    if (!noisy)
+	    if (load_unload == UNLOAD || !noisy)
 		continue;
 	    if (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
 		continue;
@@ -258,19 +256,20 @@ lload(void)
 
 	if (!getsect(land.lnd_x, land.lnd_y, &sect))	/* XXX */
 	    continue;
-	if (!player->owner && land.lnd_own != player->cnum)
-	    continue;
-	if (!player->owner && load_unload == LOAD) {
-	    if (noisy)
+	if (!player->owner) {
+	    if (land.lnd_own != player->cnum)
+		continue;
+	    if (load_unload == LOAD) {
+		if (noisy)
+		    pr("Sector %s is not yours.\n",
+		       xyas(sect.sct_x, sect.sct_y, player->cnum));
+		continue;
+	    }
+	    if (getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
 		pr("Sector %s is not yours.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-	    continue;
-	}
-	if (!player->owner &&
-	    getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
-	    pr("Sector %s is not yours.\n",
-	       xyas(land.lnd_x, land.lnd_y, player->cnum));
-	    continue;
+		continue;
+	    }
 	}
 
 	if (opt_MARKET) {
