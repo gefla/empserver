@@ -248,10 +248,12 @@ lload(void)
     while (nxtitem(&nbst, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
-
-	if (player->cnum != land.lnd_own &&
-	    getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
-	    continue;
+	if (player->cnum != land.lnd_own) {
+	    if (!noisy)
+		continue;
+	    if (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
+		continue;
+	}
 
 	if (!getsect(land.lnd_x, land.lnd_y, &sect))	/* XXX */
 	    continue;
