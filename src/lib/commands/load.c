@@ -248,6 +248,8 @@ lload(void)
     while (nxtitem(&nbst, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
+	if (!player->owner && load_unload == UNLOAD)
+	    continue;
 	if (player->cnum != land.lnd_own) {
 	    if (!noisy)
 		continue;
@@ -267,6 +269,12 @@ lload(void)
 	    }
 	}
 
+	if (sect.sct_own != player->cnum && load_unload == LOAD) {
+	    if (noisy)
+		pr("Sector %s is not yours.\n",
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    continue;
+	}
 	if (sect.sct_own != player->cnum &&
 	    getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
 	    pr("Sector %s is not yours.\n",
@@ -743,12 +751,6 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
     if (noisy && p && *p)
 	noisy = isdigit(*p);
-
-    if (sectp->sct_own != player->cnum && load_unload == LOAD) {
-	pr("Sector %s is not yours.\n",
-	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
-	return 0;
-    }
 
     while (nxtitem(&ni, &pln)) {
 	if (pln.pln_own != player->cnum)
