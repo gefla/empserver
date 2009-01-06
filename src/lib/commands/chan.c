@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include "commands.h"
 #include "news.h"
 #include "optlist.h"
@@ -41,12 +40,8 @@
 int
 chan(void)
 {
-    char *temp;
-    struct natstr *natp;
     char *p;
-    natid cn;
     int charge;
-    int nonb;
     int btucost;
     char buf[1024];
     struct natstr *us;
@@ -84,25 +79,8 @@ chan(void)
 	if ((p =
 	     getstarg(player->argp[2], "New country name -- ", buf)) == 0)
 	    return RET_SYN;
-	p[sizeof(us->nat_cnam) - 1] = 0;
-	for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
-	    if (!strcmp(p, natp->nat_cnam)) {
-		pr("Country #%d is already called `%s'!\n", cn, p);
-		return RET_FAIL;
-	    }
-	}
-	nonb = 0;
-	for (temp = p; *temp != '\0'; temp++) {
-	    if (iscntrl(*temp)) {
-		pr("No control characters allowed in country names!\n");
-		return RET_FAIL;
-	    } else if (*temp != ' ')
-		nonb = 1;
-	}
-	if (!nonb) {
-	    pr("Must have a non-blank name!\n");
+	if (!check_nat_name(p))
 	    return RET_FAIL;
-	}
 	player->dolcost += charge;
 	player->btused += btucost;
 	strcpy(us->nat_cnam, p);

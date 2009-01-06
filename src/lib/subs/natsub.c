@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <string.h>
+#include <ctype.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -41,6 +42,7 @@
 #include "game.h"
 #include "nat.h"
 #include "optlist.h"
+#include "prototypes.h"
 #include "tel.h"
 #include "xy.h"
 
@@ -111,4 +113,39 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
 	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
 
     return natp;
+}
+
+int
+check_nat_name(char *cname)
+{
+    struct natstr *natp;
+    natid cn;
+    int nonb;
+    char *temp;
+
+    if (strlen(cname) >= sizeof(natp->nat_cnam)) {
+	pr("Country name too long\n");
+	return 0;
+    }
+
+    nonb = 0;
+    for (temp = cname; *temp != '\0'; temp++) {
+	if (iscntrl(*temp)) {
+	    pr("No control characters allowed in country names!\n");
+	    return 0;
+	} else if (!isspace(*temp))
+	    nonb = 1;
+    }
+    if (!nonb) {
+	pr("Country name can't be all blank\n");
+	return 0;
+    }
+
+    for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
+	if (!strcmp(cname, natp->nat_cnam)) {
+	    pr("Country #%d is already called `%s'\n", cn, cname);
+	    return 0;
+	}
+    }
+    return 1;
 }

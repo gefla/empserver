@@ -177,6 +177,7 @@ extern void agecontact(struct natstr *np);
 extern int influx(struct natstr *np);
 
 extern struct natstr *nat_reset(struct natstr *, enum nat_status, coord, coord);
+extern int check_nat_name(char *cname);
 
 extern int grant_btus(struct natstr *, int );
 

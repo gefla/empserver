@@ -84,12 +84,10 @@ add(void)
     }
     natp = getnatp(coun);
     p = getstarg(player->argp[2], "Country Name? ", buf);
-    if (p == 0 || *p == 0)
+    if (p ==0)
 	return RET_SYN;
-    if (strlen(p) >= sizeof(cntryname)) {
-	pr("Country name too long\n");
+    if (!check_nat_name(p))
 	return RET_FAIL;
-    }
     strcpy(cntryname, p);
     p = getstarg(player->argp[3], "Representative? ", buf);
     if (p == 0 || *p == 0)

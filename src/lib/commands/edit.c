@@ -655,8 +655,10 @@ docountry(char op, int arg, char *p, struct natstr *np)
 
     switch (op) {
     case 'n':
+	if (!check_nat_name(p))
+	    return RET_SYN;
 	pr("Country name changed from %s to %s\n", np->nat_cnam, p);
-	strncpy(np->nat_cnam, p, sizeof(np->nat_cnam) - 1);
+	strcpy(np->nat_cnam, p);
 	break;
     case 'r':
 	pr("Country representative changed from %s to %s\n",
