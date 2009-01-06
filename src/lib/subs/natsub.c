@@ -120,23 +120,23 @@ check_nat_name(char *cname)
 {
     struct natstr *natp;
     natid cn;
-    int nonb;
-    char *temp;
+    int allblank;
+    char *p;
 
     if (strlen(cname) >= sizeof(natp->nat_cnam)) {
 	pr("Country name too long\n");
 	return 0;
     }
 
-    nonb = 0;
-    for (temp = cname; *temp != '\0'; temp++) {
-	if (iscntrl(*temp)) {
+    allblank = 1;
+    for (p = cname; *p != '\0'; p++) {
+	if (iscntrl(*p)) {
 	    pr("No control characters allowed in country names!\n");
 	    return 0;
-	} else if (!isspace(*temp))
-	    nonb = 1;
+	} else if (!isspace(*p))
+	    allblank = 0;
     }
-    if (!nonb) {
+    if (allblank) {
 	pr("Country name can't be all blank\n");
 	return 0;
     }
