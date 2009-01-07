@@ -89,10 +89,12 @@ xdist and ydist selectors:
 .s1
 This finds all sectors that have themselves as a distribution point.
 .s1
-.L "Distributing civilians"
+.L "Distributing civilians and military"
 .s1
-When distributing civilians, no distribution point will ship out its
-last civilian, regardless of thresholds set in sectors using it as a
+When distributing civilians or military,
+no distribution point will ship out its last civilian or
+the last military if there are no civilians,
+regardless of thresholds set in sectors using it as a
 distribution point.
 .s1
 .SA "deliver, threshold, level, Distribution"

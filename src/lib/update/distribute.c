@@ -118,8 +118,10 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
 	    if (dist->sct_mobil <= 0)
 		continue;
 	    amt = diff;
-	    if (item == I_CIVIL)
-		amt_dist--;	/* Don't send your last civ */
+	    /* make sure not to abandon the sector */
+	    if (item == I_CIVIL ||
+		(item == I_MILIT && dist->sct_item[I_CIVIL] == 0))
+		amt_dist--;
 
 	    if (amt_dist < amt) {
 		amt = amt_dist;
