@@ -174,8 +174,22 @@ then
 	echo "Done (patch specific)."
 	echo ""
 fi
-
+echo "Apply controlled time patch."
+for f in `git-ls-files | grep -E '\.[ch](\.in)?$' | xargs grep -l \>`
+do
+ n=`grep -n '^[     ]*#[     ]*include\>' $f | tail -n 1 | sed 's/:.*//'`
+if [ $n ] 
+then
+sed "$n"'a\
+#include "emptime.h"\
+#undef time\
+#define time(timer) emp_time((timer), __FUNCTION__)' $f >$f.patched
+mv $f.patched $f
+fi
+done
 git add include/emptime.h src/lib/gen/emptime.c
+echo "Done applying controlled time patch."
+echo ""
 git pull
 sh ./bootstrap
 ./configure --prefix ${BOXDIR}/${WORKDIR}/emp4 ${CONFIGURE_OPTIONS}
