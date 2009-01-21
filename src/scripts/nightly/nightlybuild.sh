@@ -108,7 +108,7 @@ export GITROOT=${GITROOT:= git://git.pond.sub.org/~armbru/empserver}
 RETR=0
 if ! [ -d empserver ]
 then
-	while ! git clone $GITROOT empserver >/dev/null
+	while ! git clone --quiet $GITROOT empserver >/dev/null
 	do
 		sleep "`expr 5 + ${RETR}`"
 		RETR="`expr 1 + ${RETR}`"
@@ -117,7 +117,7 @@ then
 	cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
 else
 	cd empserver || err "Could not cd to ${BOXDIR}/${WORKDIR}/empserver."
-	while ! git pull $GITROOT master >/dev/null
+	while ! git pull --quiet $GITROOT master >/dev/null
 	do
 		sleep "`expr 5 + ${RETR}`"
 		RETR="`expr 1 + ${RETR}`"
@@ -190,7 +190,7 @@ done
 git add include/emptime.h src/lib/gen/emptime.c
 echo "Done applying controlled time patch."
 echo ""
-git pull
+git pull --quiet
 sh ./bootstrap
 ./configure --prefix ${BOXDIR}/${WORKDIR}/emp4 ${CONFIGURE_OPTIONS}
 
