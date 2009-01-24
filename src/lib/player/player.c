@@ -188,6 +188,11 @@ status(void)
 
     time(&player->curup);
     update_timeused(player->curup);
+    if (!gamehours(player->curup)) {
+	pr("Empire hours restriction in force\n");
+	if (natp->nat_stat != STAT_GOD)
+	    return 0;
+    }
     if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
 	&& natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
