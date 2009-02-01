@@ -160,9 +160,9 @@ stdin_read_thread(LPVOID lpParam)
 static void
 sysdep_stdin_init(void)
 {
-    bounce_empty = CreateEvent(NULL, FALSE, TRUE, "bounce_empty");
-    bounce_full = CreateEvent(NULL, TRUE, FALSE, "bounce_full");
-    ctrl_c_event = CreateEvent(NULL, FALSE, FALSE, "Ctrl_C");
+    bounce_empty = CreateEvent(NULL, FALSE, TRUE, NULL);
+    bounce_full = CreateEvent(NULL, TRUE, FALSE, NULL);
+    ctrl_c_event = CreateEvent(NULL, FALSE, FALSE, NULL);
     CreateThread(NULL, 0, stdin_read_thread, NULL, 0, NULL);
 }
 
