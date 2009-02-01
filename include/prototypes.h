@@ -369,6 +369,8 @@ extern int gamedown(void);
 extern void update_timeused_login(time_t now);
 extern void update_timeused(time_t now);
 extern void enforce_minimum_session_time(void);
+extern int may_play_now(struct natstr *natp, time_t current_time,
+			int suppress_deity_message);
 /* more under Commands */
 /* empmod.c */
 /* init_nats.c */

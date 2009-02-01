@@ -72,16 +72,8 @@ player_main(struct player *p)
 	return;
     }
     natp = getnatp(player->cnum);
-    if (!gamehours(player->curup)) {
-	pr("Empire hours restriction in force\n");
-	if (natp->nat_stat != STAT_GOD)
-	    return;
-    }
-    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
-	&& natp->nat_timeused > m_m_p_d * 60) {
-	pr("Max minutes per day limit exceeded.\n");
+    if (!may_play_now(natp, player->curup, 0))
 	return;
-    }
     if (natp->nat_stat != STAT_VIS
 	&& natp->nat_last_login
 	&& (strcmp(natp->nat_hostaddr, player->hostaddr)
@@ -128,25 +120,12 @@ command(void)
 {
     char *redir;		/* UTF-8 */
     char scanspace[1024];
-    time_t now;
-    struct natstr *natp;
 
     if (getcommand(player->combuf) < 0)
 	return 0;
 
-    now = time(NULL);
-    update_timeused(now);
-    natp = getnatp(player->cnum);
-    if (!gamehours(player->curup))
-	if (natp->nat_stat != STAT_GOD) {
-	    pr("Empire hours restriction in force\n");
-	    return 0;
-	}
-    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
-	&& natp->nat_timeused > m_m_p_d * 60) {
-	pr("Max minutes per day limit exceeded.\n");
+    if (!may_play_now(getnatp(player->cnum), time(NULL), 1))
 	return 0;
-    }
 
     if (parse(player->combuf, scanspace, player->argp, player->comtail,
 	      &player->condarg, &redir) < 0) {
@@ -192,17 +171,8 @@ status(void)
 	pr("You are no longer broke!\n");
 
     time(&player->curup);
-    update_timeused(player->curup);
-    if (!gamehours(player->curup)) {
-	pr("Empire hours restriction in force\n");
-	if (natp->nat_stat != STAT_GOD)
-	    return 0;
-    }
-    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
-	&& natp->nat_timeused > m_m_p_d * 60) {
-	pr("Max minutes per day limit exceeded.\n");
+    if (!may_play_now(natp, player->curup, 0))
 	return 0;
-    }
     if (player->btused) {
 	natp->nat_btu -= player->btused;
 	player->btused = 0;

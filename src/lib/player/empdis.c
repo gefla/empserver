@@ -265,3 +265,24 @@ enforce_minimum_session_time(void)
 	natp->nat_timeused += 15 - dt;
     putnat(natp);
 }
+
+int
+may_play_now(struct natstr *natp, time_t now,
+	     int suppress_deity_message)
+{
+    update_timeused(now);
+
+    if (!gamehours(now)) {
+	if (natp->nat_stat != STAT_GOD || !suppress_deity_message)
+	    pr("Empire hours restriction in force\n");
+	if (natp->nat_stat != STAT_GOD)
+	    return 0;
+    }
+
+    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+	&& natp->nat_timeused > m_m_p_d * 60) {
+	pr("Max minutes per day limit exceeded.\n");
+	return 0;
+    }
+    return 1;
+}
