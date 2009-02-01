@@ -79,16 +79,21 @@ player_login(void *ud)
     char space[128];
     int ac;
     int cmd;
+    int res;
 
     player->proc = empth_self();
 
     pr_id(player, C_INIT, "Empire server ready\n");
 
-    while (!io_eof(player->iop) && !io_error(player->iop)
-	   && player->state != PS_SHUTDOWN) {
+    while (player->state != PS_SHUTDOWN) {
 	io_output(player->iop, IO_WAIT);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
-	    io_input(player->iop, IO_WAIT);
+	    res = io_input(player->iop, IO_WAIT);
+	    if (res <= 0) {
+		if (res == 0 && !io_eof(player->iop))
+		    pr_id(player, C_DATA, "idle connection terminated\n");
+		break;
+	    }
 	    continue;
 	}
 	ac = parse(buf, space, player->argp, NULL, NULL, NULL);

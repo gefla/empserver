@@ -52,6 +52,7 @@ struct lwpProc {
     int pri;			/* which scheduling queue we're on */
     time_t runtime;		/* time at which process is restarted */
     int fd;			/* fd we're blocking on */
+    int fd_ready;		/* woken up because fd was ready */
     int argc;			/* initial arguments */
     char **argv;
     void *ud;			/* user data */

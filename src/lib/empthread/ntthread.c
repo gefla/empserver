@@ -560,12 +560,14 @@ empth_terminate(empth_t *pThread)
  *
  * This would be one of the main functions used within gen\io.c
  */
-void
-empth_select(int fd, int flags)
+int
+empth_select(int fd, int flags, struct timeval *timeout)
 {
     int handle;
     WSAEVENT hEventObject[2];
+    DWORD result, msec;
     empth_t *pThread = TlsGetValue(dwTLSIndex);
+    int res;
 
     loc_debug("%s select on %d",
 	      flags == EMPTH_FD_READ ? "read" : "write", fd);
@@ -586,13 +588,31 @@ empth_select(int fd, int flags)
 	empth_exit();
     }
 
-    WSAWaitForMultipleEvents(2, hEventObject, FALSE, WSA_INFINITE, FALSE);
+    if (timeout)
+	msec = timeout->tv_sec * 1000L + timeout->tv_usec / 1000L;
+    else
+	msec = WSA_INFINITE;
+    result = WSAWaitForMultipleEvents(2, hEventObject, FALSE, msec,
+	FALSE);
+
+    switch (result) {
+    case WSA_WAIT_TIMEOUT:
+	res = 0;
+	break;
+    case WSA_WAIT_FAILED:
+	errno = WSAGetLastError();
+	res = -1;
+	break;
+    default:
+	res = 1;
+    }
 
     WSAEventSelect(handle, hEventObject[0], 0);
 
     WSACloseEvent(hEventObject[0]);
 
     loc_RunThisThread(NULL);
+    return res;
 }
 
 /************************

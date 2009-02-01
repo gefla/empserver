@@ -61,6 +61,7 @@ struct iop {
     struct ioqueue *output;
     int flags;
     int bufsize;
+    struct timeval input_timeout;
 };
 
 void
@@ -69,7 +70,7 @@ io_init(void)
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize)
+io_open(int fd, int flags, int bufsize, struct timeval timeout)
 {
     struct iop *iop;
 
@@ -83,6 +84,7 @@ io_open(int fd, int flags, int bufsize)
     iop->input = 0;
     iop->output = 0;
     iop->flags = 0;
+    iop->input_timeout = timeout;
     iop->bufsize = bufsize;
     if ((flags & IO_READ) && (flags & IO_NEWSOCK) == 0)
 	iop->input = ioq_create(bufsize);
@@ -106,31 +108,47 @@ io_close(struct iop *iop)
     free(iop);
 }
 
+/*
+ * Return number of bytes read on success, zero on timeout or EOF, -1
+ * on error, with errno set appropriately.  In particular, return -1
+ * with errno set to EAGAIN or EWOULDBLOCK when no data is available
+ * for non-blocking input (WAITFORINPUT false).  Use io_eof() to
+ * distinguish timeout from EOF.
+ */
 int
 io_input(struct iop *iop, int waitforinput)
 {
     char buf[IO_BUFSIZE];
     int cc;
+    int res;
+    struct timeval timeout = iop->input_timeout;
 
     /* Not a read IOP */
-    if ((iop->flags & IO_READ) == 0)
+    if ((iop->flags & IO_READ) == 0) {
+	errno = EBADF;
 	return -1;
+    }
     /* IOP is markes as in error. */
-    if (iop->flags & IO_ERROR)
+    if (iop->flags & IO_ERROR) {
+	errno = EBADF;
 	return -1;
+    }
     /* Wait for the file to have input. */
     if (waitforinput) {
-	empth_select(iop->fd, EMPTH_FD_READ);
+	res = empth_select(iop->fd, EMPTH_FD_READ, &timeout);
+	if (res < 0) {
+	    iop->flags |= IO_ERROR;
+	    return -1;
+	} else if (res == 0)
+	    return 0;
     }
+
     /* Do the actual read. */
     cc = read(iop->fd, buf, sizeof(buf));
     if (cc < 0) {
-	/* would block, so nothing to read. */
-	if (errno == EAGAIN || errno == EWOULDBLOCK)
-	    return 0;
-
-	/* Some form of file error occurred... */
-	iop->flags |= IO_ERROR;
+	if (errno != EAGAIN && errno != EWOULDBLOCK)
+	    /* Some form of file error occurred... */
+	    iop->flags |= IO_ERROR;
 	return -1;
     }
 
@@ -190,7 +208,7 @@ io_output(struct iop *iop, int waitforoutput)
     if (waitforoutput != IO_NOWAIT) {
 	/* This waits for the file to be ready for writing, */
 	/* and lets other threads run. */
-	empth_select(iop->fd, EMPTH_FD_WRITE);
+	empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
     }
 
     /* Do the actual write. */
@@ -272,7 +290,7 @@ io_output_all(struct iop *iop)
      * a malicous player could delay the update indefinitely
      */
     while ((n = io_output(iop, IO_NOWAIT)) > 0 && !play_wrlock_wanted)
-	empth_select(iop->fd, EMPTH_FD_WRITE);
+	empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
 
     return n;
 }

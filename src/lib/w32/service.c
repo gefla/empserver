@@ -33,7 +33,12 @@
 
 #include <config.h>
 
-#include <windows.h>
+/*
+ * For WIN32 in empthread.h, winsock2.h is included which interfers
+ * with including windows.h, use sys/socket.h instead to prevent a
+ * problem
+ */
+#include <sys/socket.h>
 
 #include "service.h"
 #include "empthread.h"

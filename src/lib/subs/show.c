@@ -37,10 +37,6 @@
 
 #include <config.h>
 
-#if defined(_WIN32)
-#include <Windows.h>
-#endif
-
 #include <math.h>
 #include "file.h"
 #include "game.h"

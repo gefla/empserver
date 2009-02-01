@@ -382,7 +382,6 @@ start_server(int flags)
 	exit(1);
 
     empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", 0);
-    empth_create(player_kill_idle, 50 * 1024, flags, "KillIdle", 0);
 
     market_init();
     update_init();

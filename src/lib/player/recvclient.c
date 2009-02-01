@@ -84,10 +84,13 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	/* Await more input */
-	io_input(player->iop, IO_WAIT);
-	if (io_error(player->iop) || io_eof(player->iop))
+	if (io_input(player->iop, IO_WAIT) <= 0) {
+	    if (!io_error(player->iop) && !io_eof(player->iop)) {
+		pr_flash(player, "idle connection terminated\n");
+		player->state = PS_SHUTDOWN;
+	    }
 	    player->aborted = player->eof = 1;
+	}
     }
 
     if (player->aborted) {

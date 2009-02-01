@@ -289,65 +289,58 @@ empth_terminate(empth_t *a)
     pthread_kill(a->id, SIGALRM);
 }
 
-void
-empth_select(int fd, int flags)
+int
+empth_select(int fd, int flags, struct timeval *tv)
 {
-
     fd_set readmask;
     fd_set writemask;
-    struct timeval tv;
     int n;
+    int res = 0;
 
     pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("%s select on %d",
 		 flags == EMPTH_FD_READ ? "read" : "write", fd);
-    while (1) {
-	tv.tv_sec = 1000000;
-	tv.tv_usec = 0;
 
-	FD_ZERO(&readmask);
-	FD_ZERO(&writemask);
+    FD_ZERO(&readmask);
+    FD_ZERO(&writemask);
 
-	switch (flags) {
-	case EMPTH_FD_READ:
-	    FD_SET(fd, &readmask);
-	    break;
-	case EMPTH_FD_WRITE:
-	    FD_SET(fd, &writemask);
-	    break;
-	default:
-	    logerror("bad flag %d passed to empth_select", flags);
-	    empth_exit();
-	}
-
-	n = select(fd + 1, &readmask, &writemask, (fd_set *) 0, &tv);
-
-	if (n < 0) {
-	    if (errno == EINTR) {
-		/* go handle the signal */
-		empth_status("select broken by signal");
-		goto done;
-		return;
-	    }
-	    /* strange but we dont get EINTR on select broken by signal */
-	    empth_status("select failed (%s)", strerror(errno));
-	    goto done;
-	    return;
-	}
-
-	if (flags == EMPTH_FD_READ && FD_ISSET(fd, &readmask)) {
-	    empth_status("input ready");
-	    break;
-	}
-	if (flags == EMPTH_FD_WRITE && FD_ISSET(fd, &writemask)) {
-	    empth_status("output ready");
-	    break;
-	}
+    switch (flags) {
+    case EMPTH_FD_READ:
+	FD_SET(fd, &readmask);
+	break;
+    case EMPTH_FD_WRITE:
+	FD_SET(fd, &writemask);
+	break;
+    default:
+	CANT_REACH();
+	errno = EINVAL;
+	res = -1;
+	goto done;
     }
 
-  done:
+    n = select(fd + 1, &readmask, &writemask, (fd_set *) 0, tv);
+
+    if (n < 0) {
+	if (errno == EINTR) /* go handle the signal */
+	    empth_status("select broken by signal");
+	 else
+	    empth_status("select failed (%s)", strerror(errno));
+	res = -1;
+    } else if (n == 0) {
+	empth_status("select timed out");
+	res = 0;
+    } else if (flags == EMPTH_FD_READ && FD_ISSET(fd, &readmask)) {
+	empth_status("input ready");
+	res = 1;
+    } else if (flags == EMPTH_FD_WRITE && FD_ISSET(fd, &writemask)) {
+	empth_status("output ready");
+	res = 1;
+    }
+
+done:
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
+    return res;
 }
 
 static void

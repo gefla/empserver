@@ -43,8 +43,6 @@
 #include <stdio.h>
 #if !defined(_WIN32)
 #include <dirent.h>
-#else
-#include <windows.h>
 #endif
 #include "commands.h"
 #include "optlist.h"

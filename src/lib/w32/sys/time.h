@@ -25,47 +25,16 @@
  *
  *  ---
  *
- *  idle.c: Stamps out idle players.  Runs at low priority
+ *  sys/time.h: POSIX emulation for WIN32
  *
  *  Known contributors to this file:
- *     Dave Pare, 1994
+ *     Ron Koenderink, 2008
  */
 
-#include <config.h>
+#ifndef SYS_TIME_H
+#define SYS_TIME_H
 
-#include <time.h>
-#include "empthread.h"
-#include "optlist.h"
-#include "player.h"
-#include "prototypes.h"
-#include "server.h"
+/* include winsock2.h thru sys/socket.h to get struct timeval */
+#include "sys/socket.h"
 
-/*ARGSUSED*/
-void
-player_kill_idle(void *unused)
-{
-    struct player *p;
-    time_t now;
-
-    time(&now);
-    while (1) {
-	empth_sleep(now + 60);
-	time(&now);
-	for (p = player_next(0); p != 0; p = player_next(p)) {
-	    if (p->state == PS_SHUTDOWN) {
-		/*
-		 * Player thread hung or just aborted by update or
-		 * shutdown, we can't tell.
-		 */
-		continue;
-	    }
-	    if (p->curup + max_idle * 60 < now) {
-		p->state = PS_SHUTDOWN;
-		p->aborted++;
-		pr_flash(p, "idle connection terminated\n");
-		empth_wakeup(p->proc);
-	    }
-	}
-    }
-    /*NOTREACHED*/
-}
+#endif /* SYS_TIME_H */

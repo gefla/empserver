@@ -72,14 +72,18 @@ struct player *
 player_new(int s)
 {
     struct player *lp;
+    struct timeval idle_timeout;
 
     lp = malloc(sizeof(struct player));
     if (!lp)
       return NULL;
     memset(lp, 0, sizeof(struct player));
+    idle_timeout.tv_sec = max_idle * 60;
+    idle_timeout.tv_usec = 0 ;
     if (s >= 0) {
 	/* real player, not dummy created by update and market update */
-	lp->iop = io_open(s, IO_READ | IO_WRITE | IO_NBLOCK, IO_BUFSIZE);
+	lp->iop = io_open(s, IO_READ | IO_WRITE | IO_NBLOCK, IO_BUFSIZE,
+			  idle_timeout);
 	if (!lp->iop) {
 	    free(lp);
 	    return NULL;
@@ -173,7 +177,7 @@ player_accept(void *unused)
     sap = malloc(player_addrlen);
 
     while (1) {
-	empth_select(s, EMPTH_FD_READ);
+	empth_select(s, EMPTH_FD_READ, NULL);
 	len = player_addrlen;
 	ns = accept(s, sap, &len);
 	/* FIXME accept() can block on some systems (RST after select() reports ready) */

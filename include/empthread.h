@@ -48,6 +48,7 @@
 #ifndef EMPTHREAD_H
 #define EMPTHREAD_H
 
+#include <sys/time.h>
 #include <time.h>
 
 #ifdef EMPTH_LWP
@@ -168,10 +169,13 @@ void empth_terminate(empth_t *thread);
  * If FLAGS & EMPTH_FD_READ, wake up if FD is ready for input.
  * If FLAGS & EMPTH_FD_WRITE, wake up if FD is ready for output.
  * At most one thread may sleep on the same file descriptor.
+ * TIMEOUT, if non-null, limits the sleep time.
+ * Return one when the FD is ready, zero on timeout, -1 on error with
+ * errno set.
  * Note: Currently, Empire sleeps only on network I/O, i.e. FD is a
  * socket.  Implementations should not rely on that.
  */
-void empth_select(int fd, int flags);
+int empth_select(int fd, int flags, struct timeval *timeout);
 
 /*
  * Awaken THREAD if it is sleeping in empth_select() or empth_sleep().

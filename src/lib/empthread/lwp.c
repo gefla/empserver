@@ -104,10 +104,10 @@ empth_terminate(empth_t *a)
     lwpTerminate(a);
 }
 
-void
-empth_select(int fd, int flags)
+int
+empth_select(int fd, int flags, struct timeval *timeout)
 {
-    lwpSleepFd(fd, flags);
+    return lwpSleepFd(fd, flags, timeout);
 }
 
 void
