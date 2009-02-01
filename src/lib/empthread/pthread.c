@@ -290,10 +290,11 @@ empth_terminate(empth_t *a)
 }
 
 int
-empth_select(int fd, int flags, struct timeval *tv)
+empth_select(int fd, int flags, struct timeval *timeout)
 {
     fd_set readmask;
     fd_set writemask;
+    struct timeval tv;
     int n;
     int res = 0;
 
@@ -318,7 +319,11 @@ empth_select(int fd, int flags, struct timeval *tv)
 	goto done;
     }
 
-    n = select(fd + 1, &readmask, &writemask, (fd_set *) 0, tv);
+    if (timeout) {
+	tv = *timeout;
+	timeout = &tv;
+    }
+    n = select(fd + 1, &readmask, &writemask, NULL, timeout);
 
     if (n < 0) {
 	if (errno == EINTR) /* go handle the signal */

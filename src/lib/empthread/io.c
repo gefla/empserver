@@ -121,7 +121,6 @@ io_input(struct iop *iop, int waitforinput)
     char buf[IO_BUFSIZE];
     int cc;
     int res;
-    struct timeval timeout = iop->input_timeout;
 
     /* Not a read IOP */
     if ((iop->flags & IO_READ) == 0) {
@@ -135,7 +134,7 @@ io_input(struct iop *iop, int waitforinput)
     }
     /* Wait for the file to have input. */
     if (waitforinput) {
-	res = empth_select(iop->fd, EMPTH_FD_READ, &timeout);
+	res = empth_select(iop->fd, EMPTH_FD_READ, &iop->input_timeout);
 	if (res < 0) {
 	    iop->flags |= IO_ERROR;
 	    return -1;
