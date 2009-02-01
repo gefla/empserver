@@ -279,7 +279,7 @@ may_play_now(struct natstr *natp, time_t now,
 	    return 0;
     }
 
-    if ((natp->nat_stat == STAT_ACTIVE || natp->nat_stat == STAT_SANCT)
+    if ((natp->nat_stat != STAT_GOD && natp->nat_stat != STAT_VIS)
 	&& natp->nat_timeused > m_m_p_d * 60) {
 	pr("Max minutes per day limit exceeded.\n");
 	return 0;
