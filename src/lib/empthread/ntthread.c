@@ -565,6 +565,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
 {
     int handle;
     WSAEVENT hEventObject[2];
+    long events;
     DWORD result, msec;
     empth_t *pThread = TlsGetValue(dwTLSIndex);
     int res;
@@ -579,21 +580,18 @@ empth_select(int fd, int flags, struct timeval *timeout)
     handle = posix_fd2socket(fd);
     CANT_HAPPEN(handle < 0);
 
-    if (flags == EMPTH_FD_READ)
-	WSAEventSelect(handle, hEventObject[0], FD_READ | FD_ACCEPT | FD_CLOSE);
-    else if (flags == EMPTH_FD_WRITE)
-	WSAEventSelect(handle, hEventObject[0], FD_WRITE | FD_CLOSE);
-    else {
-	logerror("bad flag %d passed to empth_select", flags);
-	empth_exit();
-    }
+    events = 0;
+    if (flags & EMPTH_FD_READ)
+	events |= FD_READ | FD_ACCEPT | FD_CLOSE;
+    if (flags & EMPTH_FD_WRITE)
+	events |= FD_WRITE | FD_CLOSE;
+    WSAEventSelect(handle, hEventObject[0], events);
 
     if (timeout)
 	msec = timeout->tv_sec * 1000L + timeout->tv_usec / 1000L;
     else
 	msec = WSA_INFINITE;
-    result = WSAWaitForMultipleEvents(2, hEventObject, FALSE, msec,
-	FALSE);
+    result = WSAWaitForMultipleEvents(2, hEventObject, FALSE, msec, FALSE);
 
     switch (result) {
     case WSA_WAIT_TIMEOUT:

@@ -299,25 +299,14 @@ empth_select(int fd, int flags, struct timeval *timeout)
     int res = 0;
 
     pthread_mutex_unlock(&mtx_ctxsw);
-    empth_status("%s select on %d",
-		 flags == EMPTH_FD_READ ? "read" : "write", fd);
+    empth_status("select on %d for %d", fd, flags);
 
     FD_ZERO(&readmask);
     FD_ZERO(&writemask);
-
-    switch (flags) {
-    case EMPTH_FD_READ:
+    if (flags & EMPTH_FD_READ)
 	FD_SET(fd, &readmask);
-	break;
-    case EMPTH_FD_WRITE:
+    if (flags & EMPTH_FD_WRITE)
 	FD_SET(fd, &writemask);
-	break;
-    default:
-	CANT_REACH();
-	errno = EINVAL;
-	res = -1;
-	goto done;
-    }
 
     if (timeout) {
 	tv = *timeout;
@@ -342,7 +331,6 @@ empth_select(int fd, int flags, struct timeval *timeout)
 	res = 1;
     }
 
-done:
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
     return res;
