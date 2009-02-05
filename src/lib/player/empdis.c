@@ -180,15 +180,13 @@ disable_coms(void)
 /*
  * returns true if down
  */
-int
-gamedown(void)
+static int
+gamedown(int suppress_deity_message)
 {
     FILE *down_fp;
     struct telstr tgm;
     char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
-    if (player->god)
-	return 0;
     if ((down_fp = fopen(downfil, "rb")) == NULL)
 	return 0;
     if (fread(&tgm, sizeof(tgm), 1, down_fp) != 1) {
@@ -207,9 +205,14 @@ gamedown(void)
 	return 1;
     }
     buf[tgm.tel_length] = 0;
+    fclose(down_fp);
+    if (player->god) {
+	if (!suppress_deity_message)
+	    pr("The game is down\n");
+	return 0;
+    }
     uprnf(buf);
     pr("\nThe game is down\n");
-    fclose(down_fp);
     return 1;
 }
 
@@ -278,6 +281,9 @@ may_play_now(struct natstr *natp, time_t now,
 	if (natp->nat_stat != STAT_GOD)
 	    return 0;
     }
+
+    if (gamedown(suppress_deity_message))
+	return 0;
 
     if ((natp->nat_stat != STAT_GOD && natp->nat_stat != STAT_VIS)
 	&& natp->nat_timeused > m_m_p_d * 60) {

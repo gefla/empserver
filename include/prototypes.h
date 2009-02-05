@@ -365,7 +365,6 @@ extern int dispatch(char *, char *);
 extern int getcommand(char *);
 extern void init_player_commands(void);
 extern void log_last_commands(void);
-extern int gamedown(void);
 extern void update_timeused_login(time_t now);
 extern void update_timeused(time_t now);
 extern void enforce_minimum_session_time(void);
