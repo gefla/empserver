@@ -1,6 +1,6 @@
 /*
  *  Empire - A multi-player, client/server Internet based war game.
- *  Copyright (C) 1986-2008, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *  Copyright (C) 1986-2009, Dave Pare, Jeff Bailey, Thomas Ruschak,
  *                           Ken Stevens, Steve McClure
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -37,7 +37,7 @@
 
 char version[] = PACKAGE_STRING;
 char legal[] =
-"Copyright (C) 1986-2008, Dave Pare, Jeff Bailey, Thomas Ruschak,\n"
+"Copyright (C) 1986-2009, Dave Pare, Jeff Bailey, Thomas Ruschak,\n"
 "                         Ken Stevens, Steve McClure\n"
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";

@@ -1,6 +1,6 @@
 /*
  *  Empire - A multi-player, client/server Internet based war game.
- *  Copyright (C) 1994-2008, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *  Copyright (C) 1994-2009, Dave Pare, Jeff Bailey, Thomas Ruschak,
  *                           Ken Stevens, Steve McClure
  *  Copyright (C) 1991-3 Stephen Crane
  *
