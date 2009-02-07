@@ -265,25 +265,24 @@ show_motd(void)
 	if (errno == ENOENT)
 	    return RET_OK;
 	else {
-	    pr ("Could not open motd.\n");
 	    logerror("Could not open motd (%s).\n", motdfil);
-	    return RET_FAIL;
+	    return RET_OK;
 	}
     }
     if (fread(&tgm, sizeof(tgm), 1, motd_fp) != 1) {
 	logerror("bad header on login message (motdfil)");
 	fclose(motd_fp);
-	return RET_FAIL;
+	return RET_OK;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
 	logerror("text length (%ld) is too long for login message (motdfil)", tgm.tel_length);
 	fclose(motd_fp);
-	return RET_FAIL;
+	return RET_OK;
     }
     if (fread(buf, tgm.tel_length, 1, motd_fp) != 1) {
 	logerror("bad length %ld on login message", tgm.tel_length);
 	fclose(motd_fp);
-	return RET_FAIL;
+	return RET_OK;
     }
     buf[tgm.tel_length] = 0;
     uprnf(buf);
