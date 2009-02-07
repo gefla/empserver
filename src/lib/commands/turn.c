@@ -107,6 +107,7 @@ turn(void)
     if (msgfilepath == downfil)
 	pr("Logins disabled.\n");
 
+    memset(&tgm, 0, sizeof(tgm));
     if ((fwrite(&tgm, sizeof(tgm), 1, fptr) != 1) ||
 	(fwrite(msgbuf, tgm.tel_length, 1, fptr) != 1)) {
 	fclose(fptr);
