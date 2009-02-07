@@ -52,6 +52,7 @@ turn(void)
     char buf[1024];
     char msgbuf[MAXTELSIZE + 1]; /* UTF-8 */
     char *msgfilepath;
+    int len;
 
     p = getstarg(player->argp[1], "on, off or motd? ", buf);
     if (!p)
@@ -76,14 +77,14 @@ turn(void)
     else
 	pr("Enter a new message of the day.\n");
 
-    time(&tgm.tel_date);
-    tgm.tel_length = getele("The World", msgbuf);
-    if (tgm.tel_length < 0) {
+    len = getele("The World", msgbuf);
+    if (len < 0) {
 	pr("Ignored\n");
 	if (msgfilepath == downfil)
 	    pr("NOT disabling logins.\n");
 	return RET_FAIL;
-    } else if (tgm.tel_length == 0) {
+    }
+    if (len == 0) {
 	if (msgfilepath == motdfil) {
 	    pr("Removing exsting motd.\n");
 	    if ((unlink(msgfilepath) == -1) && (errno != ENOENT)) {
@@ -108,6 +109,8 @@ turn(void)
 	pr("Logins disabled.\n");
 
     memset(&tgm, 0, sizeof(tgm));
+    time(&tgm.tel_date);
+    tgm.tel_length = len;
     if ((fwrite(&tgm, sizeof(tgm), 1, fptr) != 1) ||
 	(fwrite(msgbuf, tgm.tel_length, 1, fptr) != 1)) {
 	fclose(fptr);

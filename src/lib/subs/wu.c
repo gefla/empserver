@@ -115,7 +115,7 @@ wu(natid from, natid to, char *format, ...)
 int
 typed_wu(natid from, natid to, char *message, int type)
 {
-    int len;
+    size_t len;
     struct telstr tel;
     struct natstr *np;
     struct iovec iov[2];

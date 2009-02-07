@@ -118,14 +118,13 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 
     while (fread(&tgm, sizeof(tgm), 1, annfp) == 1) {
 	writeit = 1;
-	if (tgm.tel_length < 0 || tgm.tel_length > MAXTELSIZE) {
-	    logerror("bad telegram file header (length=%ld)",
+	if (tgm.tel_length > MAXTELSIZE) {
+	    logerror("bad telegram file header (length=%d)",
 		     tgm.tel_length);
 	    return 0;
 	}
-	if (tgm.tel_type < 0 || tgm.tel_type > TEL_LAST) {
-	    logerror("bad telegram file header (type=%d)",
-		     tgm.tel_type);
+	if (tgm.tel_type > TEL_LAST) {
+	    logerror("bad telegram file header (type=%d)", tgm.tel_type);
 	    return 0;
 	}
 
@@ -146,15 +145,14 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 	    ++saved;
 	} else
 	    ++deleted;
-	if (fread(message, 1, tgm.tel_length, annfp) !=
-	    (size_t)tgm.tel_length) {
+	if (fread(message, 1, tgm.tel_length, annfp) != tgm.tel_length) {
 	    logerror("error reading body from telegram file %s",
 		     annfil);
 	    return 0;
 	}
 	if (writeit) {
-	    if (fwrite(message, 1, tgm.tel_length, tmpfp) !=
-		(size_t)tgm.tel_length) {
+	    if (fwrite(message, 1, tgm.tel_length, tmpfp)
+		!= tgm.tel_length) {
 		logerror("error writing body to temporary telegram "
 			 "file %s", tmp_filename);
 		return 0;

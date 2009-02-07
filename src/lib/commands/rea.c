@@ -114,11 +114,7 @@ rea(void)
     lasttype = -1;
     while (fread(&tgm, sizeof(tgm), 1, telfp) == 1) {
 	readit = 1;
-	if (tgm.tel_length < 0) {
-	    logerror("bad telegram file header in %s", mbox);
-	    break;
-	}
-	if (tgm.tel_type < 0 || tgm.tel_type > TEL_LAST) {
+	if (tgm.tel_type > TEL_LAST) {
 	    pr("Bad telegram header.  Skipping telegram...\n");
 	    readit = 0;
 	    goto skip;
@@ -146,7 +142,7 @@ rea(void)
 	    pr("\n> ");
 	    lastcnum = tgm.tel_from;
 	    lasttype = tgm.tel_type;
-	    pr("%s ", telnames[(int)tgm.tel_type]);
+	    pr("%s ", telnames[tgm.tel_type]);
 	    if ((tgm.tel_type == TEL_NORM) ||
 		(tgm.tel_type == TEL_ANNOUNCE) ||
 		(tgm.tel_type == TEL_BULLETIN))

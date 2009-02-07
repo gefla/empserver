@@ -284,14 +284,14 @@ show_first_tel(char *fname)
 	fclose(fp);
 	return -1;
     }
-    if (tgm.tel_length >= (long)sizeof(buf)) {
-	logerror("text length (%ld) is too long for login message (%s)",
-		 tgm.tel_length, fname);
+    if (tgm.tel_length >= sizeof(buf)) {
+	logerror("text length (%u) is too long for login message (motdfil)",
+		 tgm.tel_length);
 	fclose(fp);
 	return -1;
     }
     if (fread(buf, tgm.tel_length, 1, fp) != 1) {
-	logerror("bad length %ld on login message", tgm.tel_length);
+	logerror("bad length %u on login message", tgm.tel_length);
 	fclose(fp);
 	return -1;
     }
