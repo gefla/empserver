@@ -44,6 +44,7 @@ struct gamestr {
     time_t game_timestamp;
     /* end of part matching struct empobj */
     char game_upd_disable;	/* updates disabled? */
+    char game_down;		/* playing disabled? */
     /*
      * The Empire clock.
      * Access it through game_tick_tick(), or else it'll be late.
@@ -58,6 +59,8 @@ struct gamestr {
 
 extern void game_ctrl_update(int);
 extern int updates_disabled(void);
+extern void game_ctrl_play(int);
+extern int game_play_disabled(void);
 extern void game_note_bsanct(void);
 extern void game_record_update(time_t);
 extern struct gamestr *game_tick_tick(void);

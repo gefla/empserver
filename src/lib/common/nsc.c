@@ -619,6 +619,7 @@ struct castr game_ca[] = {
      EF_BAD, NSC_EXTRA},
     {"upd_disable", fldoff(game_upd_disable), NSC_CHAR, 0, NULL,
      EF_BAD, 0},
+    {"down", fldoff(game_down), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"turn", fldoff(game_turn), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"tick", fldoff(game_tick), NSC_SHORT, 0, NULL, EF_BAD, NSC_DEITY},
     {"rt", fldoff(game_rt), NSC_TIME, 0, NULL, EF_BAD, NSC_DEITY},

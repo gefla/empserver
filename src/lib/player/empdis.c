@@ -40,6 +40,7 @@
 #include "com.h"
 #include "empio.h"
 #include "file.h"
+#include "game.h"
 #include "match.h"
 #include "misc.h"
 #include "nat.h"
@@ -187,8 +188,13 @@ gamedown(int suppress_deity_message)
     struct telstr tgm;
     char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
-    if ((down_fp = fopen(downfil, "rb")) == NULL)
+    if (!game_play_disabled())
 	return 0;
+
+    if ((down_fp = fopen(downfil, "rb")) == NULL) {
+	logerror("Could not open downfil.\n");
+	return 1;
+    }
     if (fread(&tgm, sizeof(tgm), 1, down_fp) != 1) {
 	logerror("bad header on login message (downfil)");
 	fclose(down_fp);

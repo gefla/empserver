@@ -51,7 +51,7 @@
 #include "server.h"
 
 /*
- * Disable updates
+ * Enable / disable updates
  */
 void
 game_ctrl_update(int enable)
@@ -69,6 +69,27 @@ int
 updates_disabled(void)
 {
     return getgamep()->game_upd_disable;
+}
+
+/*
+ * Enable / disable play
+ */
+void
+game_ctrl_play(int enable)
+{
+    struct gamestr *game = getgamep();
+
+    game->game_down = !enable;
+    putgame();
+}
+
+/*
+ * Is playing enabled?
+ */
+int
+game_play_disabled(void)
+{
+    return getgamep()->game_down;
 }
 
 /*

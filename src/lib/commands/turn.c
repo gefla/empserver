@@ -35,6 +35,7 @@
 
 #include <errno.h>
 #include <unistd.h>
+#include "game.h"
 #include "tel.h"
 #include "commands.h"
 #include "optlist.h"
@@ -64,6 +65,7 @@ turn(void)
 	    logerror("Could not remove no-login file (%s).\n", downfil);
 	    return RET_FAIL;
 	}
+	game_ctrl_play(1);
 	return RET_OK;
     } else {
 	msgfilepath = motdfil;
@@ -122,5 +124,6 @@ turn(void)
 
     pr("\n");
 
+    game_ctrl_play(0);
     return RET_OK;
 }
