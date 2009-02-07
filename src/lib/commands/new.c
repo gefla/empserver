@@ -41,7 +41,6 @@
 #include "optlist.h"
 #include "path.h"
 #include "prototypes.h"
-#include "tel.h"
 
 static void init_sanct(struct natstr *, coord, coord);
 

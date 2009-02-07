@@ -41,7 +41,6 @@
 #include "land.h"
 #include "optlist.h"
 #include "plague.h"
-#include "tel.h"
 
 int
 add(void)
