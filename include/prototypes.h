@@ -382,6 +382,7 @@ extern int natbyname(char *, natid *);
 extern int natpass(int, char *);
 /* player.c */
 extern struct player *player;	/* current player's context */
+extern int show_first_tel(char *);
 extern char *praddr(struct player *);
 extern void player_main(struct player *);
 /* more under Commands */

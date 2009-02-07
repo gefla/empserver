@@ -48,7 +48,6 @@
 #include "player.h"
 #include "proto.h"
 #include "prototypes.h"
-#include "tel.h"
 
 
 #define KEEP_COMMANDS 50
@@ -184,40 +183,14 @@ disable_coms(void)
 static int
 gamedown(int suppress_deity_message)
 {
-    FILE *down_fp;
-    struct telstr tgm;
-    char buf[MAXTELSIZE + 1];	/* UTF-8 */
-
     if (!game_play_disabled())
 	return 0;
-
-    if ((down_fp = fopen(downfil, "rb")) == NULL) {
-	logerror("Could not open downfil.\n");
-	return 1;
-    }
-    if (fread(&tgm, sizeof(tgm), 1, down_fp) != 1) {
-	logerror("bad header on login message (downfil)");
-	fclose(down_fp);
-	return 1;
-    }
-    if (tgm.tel_length >= (long)sizeof(buf)) {
-	logerror("text length (%ld) is too long for login message (downfil)", tgm.tel_length);
-	fclose(down_fp);
-	return 1;
-    }
-    if (fread(buf, tgm.tel_length, 1, down_fp) != 1) {
-	logerror("bad length %ld on login message", tgm.tel_length);
-	fclose(down_fp);
-	return 1;
-    }
-    buf[tgm.tel_length] = 0;
-    fclose(down_fp);
     if (player->god) {
 	if (!suppress_deity_message)
 	    pr("The game is down\n");
 	return 0;
     }
-    uprnf(buf);
+    show_first_tel(downfil);
     pr("\nThe game is down\n");
     return 1;
 }

@@ -257,37 +257,48 @@ execute(void)
 int
 show_motd(void)
 {
-    FILE *motd_fp;
+    show_first_tel(motdfil);
+    return RET_OK;
+}
+
+/*
+ * Print first telegram in file FNAME.
+ */
+int
+show_first_tel(char *fname)
+{
+    FILE *fp;
     struct telstr tgm;
     char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
-    if ((motd_fp = fopen(motdfil, "rb")) == NULL) {
+    if ((fp = fopen(fname, "rb")) == NULL) {
 	if (errno == ENOENT)
-	    return RET_OK;
+	    return 0;
 	else {
-	    logerror("Could not open motd (%s).\n", motdfil);
-	    return RET_OK;
+	    logerror("Could not open %s.\n", fname);
+	    return -1;
 	}
     }
-    if (fread(&tgm, sizeof(tgm), 1, motd_fp) != 1) {
-	logerror("bad header on login message (motdfil)");
-	fclose(motd_fp);
-	return RET_OK;
+    if (fread(&tgm, sizeof(tgm), 1, fp) != 1) {
+	logerror("bad header on login message (%s)", fname);
+	fclose(fp);
+	return -1;
     }
     if (tgm.tel_length >= (long)sizeof(buf)) {
-	logerror("text length (%ld) is too long for login message (motdfil)", tgm.tel_length);
-	fclose(motd_fp);
-	return RET_OK;
+	logerror("text length (%ld) is too long for login message (%s)",
+		 tgm.tel_length, fname);
+	fclose(fp);
+	return -1;
     }
-    if (fread(buf, tgm.tel_length, 1, motd_fp) != 1) {
+    if (fread(buf, tgm.tel_length, 1, fp) != 1) {
 	logerror("bad length %ld on login message", tgm.tel_length);
-	fclose(motd_fp);
-	return RET_OK;
+	fclose(fp);
+	return -1;
     }
     buf[tgm.tel_length] = 0;
     uprnf(buf);
-    fclose(motd_fp);
-    return RET_OK;
+    fclose(fp);
+    return 0;
 }
 
 int
