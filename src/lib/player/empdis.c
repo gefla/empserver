@@ -258,7 +258,8 @@ may_play_now(struct natstr *natp, time_t now)
 	}
 	if (natp->nat_stat != STAT_GOD)
 	    return 0;
-    }
+    } else
+	player->flags &= ~PF_DOWN;
 
     if ((natp->nat_stat != STAT_GOD && natp->nat_stat != STAT_VIS)
 	&& natp->nat_timeused > m_m_p_d * 60) {
