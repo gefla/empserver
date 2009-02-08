@@ -29,6 +29,8 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
+ *     Ron Koenderink, 2005-2007
+ *     Markus Armbruster, 2005-2009
  */
 
 #include <config.h>
@@ -40,9 +42,6 @@
 #include "commands.h"
 #include "optlist.h"
 
-/*
- * Enable / disable logins and set the message of the day.
- */
 int
 turn(void)
 {
@@ -52,82 +51,65 @@ turn(void)
     char buf[1024];
     char msgbuf[MAXTELSIZE + 1]; /* UTF-8 */
     char *msgfilepath;
-    int len;
+    int len, down;
 
     p = getstarg(player->argp[1], "on, off or motd? ", buf);
     if (!p)
 	return RET_SYN;
     if (strcmp(p, "off") == 0) {
 	msgfilepath = downfil;
+	pr("Enter a message explaining the down time.\n");
+	len = getele("The World", msgbuf);
+	down = 1;
     } else if (strcmp(p, "on") == 0) {
-	pr("Removing no-login message and re-enabling logins.\n");
-	if ((unlink(downfil) == -1) && (errno != ENOENT)) {
-	    pr("Could not remove no-login file, logins still disabled.\n");
-	    logerror("Could not remove no-login file (%s).\n", downfil);
-	    return RET_FAIL;
-	}
-	game_ctrl_play(1);
-	return RET_OK;
+	msgfilepath = downfil;
+	len = 0;
+	down = 0;
     } else {
 	msgfilepath = motdfil;
-    }
-
-    if (msgfilepath == downfil)
-	pr("Enter a message shown to countries trying to log in.\n");
-    else
 	pr("Enter a new message of the day.\n");
-
-    len = getele("The World", msgbuf);
-    if (len < 0) {
-	pr("Ignored\n");
-	if (msgfilepath == downfil)
-	    pr("NOT disabling logins.\n");
-	return RET_FAIL;
+	len = getele("The World", msgbuf);
+	down = -1;
     }
+
+    if (len < 0)
+	return RET_FAIL;
     if (len == 0) {
-	if (msgfilepath == motdfil) {
-	    pr("Removing exsting motd.\n");
-	    if ((unlink(msgfilepath) == -1) && (errno != ENOENT)) {
-		pr("Could not remove motd.\n");
-		logerror("Could not remove motd file (%s).\n",
-			 msgfilepath);
-		return RET_FAIL;
-	    }
-	    return RET_OK;
-	} else
-	    pr("Writing empty no-login message.\n");
+	if (unlink(msgfilepath) < 0 && (errno != ENOENT)) {
+	    pr("Could not remove %s file.\n", msgfilepath);
+	    logerror("Could not remove %s file (%s)",
+		     msgfilepath, strerror(errno));
+	    return RET_FAIL;
+	}
+    } else {
+	fptr = fopen(msgfilepath, "wb");
+	if (fptr == NULL) {
+	    pr("Something went wrong opening the message file.\n");
+	    logerror("Could not open message file (%s).\n", msgfilepath);
+	    return RET_FAIL;
+	}
+	memset(&tgm, 0, sizeof(tgm));
+	time(&tgm.tel_date);
+	tgm.tel_length = len;
+	if (fwrite(&tgm, sizeof(tgm), 1, fptr) != 1 ||
+	    fwrite(msgbuf, 1, tgm.tel_length, fptr) != tgm.tel_length) {
+	    fclose(fptr);
+	    pr("Something went wrong writing the message file.\n");
+	    logerror("Could not properly write message file (%s).\n",
+		     msgfilepath);
+	    return RET_FAIL;
+	}
+	if (fclose(fptr)) {
+	    pr("Something went wrong closing the message.\n");
+	    logerror("Could not properly close message file (%s).\n",
+		     msgfilepath);
+	    return RET_FAIL;
+	}
     }
 
-    fptr = fopen(msgfilepath, "wb");
-    if (fptr == NULL) {
-	pr("Something went wrong opening the message file.\n");
-	logerror("Could not open message file (%s).\n", msgfilepath);
-	return RET_FAIL;
-    }
+    if (down >= 0)
+	game_ctrl_play(!down);
 
-    if (msgfilepath == downfil)
-	pr("Logins disabled.\n");
-
-    memset(&tgm, 0, sizeof(tgm));
-    time(&tgm.tel_date);
-    tgm.tel_length = len;
-    if (fwrite(&tgm, sizeof(tgm), 1, fptr) != 1 ||
-	fwrite(msgbuf, 1, tgm.tel_length, fptr) != tgm.tel_length) {
-	fclose(fptr);
-	pr("Something went wrong writing the message file.\n");
-	logerror("Could not properly write message file (%s).\n",
-	    msgfilepath);
-	return RET_FAIL;
-    }
-    if (fclose(fptr)) {
-	pr("Something went wrong closing the message.\n");
-	logerror("Could not properly close message file (%s).\n",
-	    msgfilepath);
-	return RET_FAIL;
-    }
-
-    pr("\n");
-
-    game_ctrl_play(0);
+    /* "The game is down" will be printed automatically */
     return RET_OK;
 }
