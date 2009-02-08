@@ -145,10 +145,6 @@ typed_wu(natid from, natid to, char *message, int type)
     tel.tel_from = from;
     (void)time(&tel.tel_date);
     len = strlen(message);
-    if (CANT_HAPPEN(len > MAXTELSIZE)) {
-	len = MAXTELSIZE;
-	message[len] = 0;
-    }
     tel.tel_length = len;
     tel.tel_type = type;
     iov[0].iov_base = &tel;
