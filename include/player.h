@@ -89,7 +89,9 @@ struct player {
 
 /* player flags */
 enum {
-    PF_UTF8 = bit(0)			/* client wants UTF-8 */
+    PF_UTF8 = bit(0),		/* client wants UTF-8 */
+    PF_DOWN = bit(1),		/* told player game is down */
+    PF_HOURS = bit(2)		/* told player hours restriction is on */
 };
 
 #endif

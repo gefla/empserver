@@ -70,7 +70,7 @@ player_main(struct player *p)
 	return;
     }
     natp = getnatp(player->cnum);
-    if (!may_play_now(natp, player->curup, 0))
+    if (!may_play_now(natp, player->curup))
 	return;
     if (natp->nat_stat != STAT_VIS
 	&& natp->nat_last_login
@@ -125,7 +125,7 @@ command(void)
 
     now = time(NULL);
     update_timeused(now);
-    if (!may_play_now(getnatp(player->cnum), now, 1))
+    if (!player->god && !may_play_now(getnatp(player->cnum), now))
 	return 0;
 
     if (parse(player->combuf, scanspace, player->argp, player->comtail,
@@ -173,7 +173,7 @@ status(void)
 
     time(&player->curup);
     update_timeused(player->curup);
-    if (!may_play_now(natp, player->curup, 0))
+    if (!may_play_now(natp, player->curup))
 	return 0;
     if (player->btused) {
 	natp->nat_btu -= player->btused;

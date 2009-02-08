@@ -231,27 +231,33 @@ enforce_minimum_session_time(void)
 }
 
 int
-may_play_now(struct natstr *natp, time_t now,
-	     int suppress_deity_message)
+may_play_now(struct natstr *natp, time_t now)
 {
     if (CANT_HAPPEN(natp->nat_cnum != player->cnum))
 	return 0;
 
-    if (!gamehours(now)) {
-	if (natp->nat_stat != STAT_GOD || !suppress_deity_message)
-	    pr("Empire hours restriction in force\n");
+    if (gamehours(now)) {
+	if (player->flags & PF_HOURS) {
+	    pr("\nEmpire hours restriction lifted\n");
+	    player->flags &= ~PF_HOURS;
+	}
+    } else {
+	if (!(player->flags & PF_HOURS)) {
+	    pr("\nEmpire hours restriction in force\n");
+	    player->flags |= PF_HOURS;
+	}
 	if (natp->nat_stat != STAT_GOD)
 	    return 0;
     }
 
     if (game_play_disabled()) {
-	if (natp->nat_stat != STAT_GOD) {
+	if (!(player->flags & PF_DOWN)) {
 	    show_first_tel(downfil);
 	    pr("\nThe game is down\n");
-	    return 0;
+	    player->flags |= PF_DOWN;
 	}
-	if (!suppress_deity_message)
-	    pr("The game is down\n");
+	if (natp->nat_stat != STAT_GOD)
+	    return 0;
     }
 
     if ((natp->nat_stat != STAT_GOD && natp->nat_stat != STAT_VIS)
