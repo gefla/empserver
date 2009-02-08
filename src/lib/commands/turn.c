@@ -111,8 +111,8 @@ turn(void)
     memset(&tgm, 0, sizeof(tgm));
     time(&tgm.tel_date);
     tgm.tel_length = len;
-    if ((fwrite(&tgm, sizeof(tgm), 1, fptr) != 1) ||
-	(fwrite(msgbuf, tgm.tel_length, 1, fptr) != 1)) {
+    if (fwrite(&tgm, sizeof(tgm), 1, fptr) != 1 ||
+	fwrite(msgbuf, 1, tgm.tel_length, fptr) != tgm.tel_length) {
 	fclose(fptr);
 	pr("Something went wrong writing the message file.\n");
 	logerror("Could not properly write message file (%s).\n",
