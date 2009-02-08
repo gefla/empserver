@@ -53,6 +53,7 @@
 
 static int command(void);
 static int status(void);
+static int print_sink(char *, size_t, void *);
 
 struct player *player;
 
@@ -269,7 +270,6 @@ show_first_tel(char *fname)
 {
     FILE *fp;
     struct telstr tgm;
-    char buf[MAXTELSIZE + 1];	/* UTF-8 */
 
     if ((fp = fopen(fname, "rb")) == NULL) {
 	if (errno == ENOENT)
@@ -279,25 +279,18 @@ show_first_tel(char *fname)
 	    return -1;
 	}
     }
-    if (fread(&tgm, sizeof(tgm), 1, fp) != 1) {
-	logerror("bad header on login message (%s)", fname);
-	fclose(fp);
+    if (tel_read_header(fp, fname, &tgm) < 0)
 	return -1;
-    }
-    if (tgm.tel_length >= sizeof(buf)) {
-	logerror("text length (%u) is too long for login message (motdfil)",
-		 tgm.tel_length);
-	fclose(fp);
+    if (tel_read_body(fp, fname, &tgm, print_sink, NULL) < 0)
 	return -1;
-    }
-    if (fread(buf, tgm.tel_length, 1, fp) != 1) {
-	logerror("bad length %u on login message", tgm.tel_length);
-	fclose(fp);
-	return -1;
-    }
-    buf[tgm.tel_length] = 0;
-    uprnf(buf);
     fclose(fp);
+    return 0;
+}
+
+static int
+print_sink(char *chunk, size_t sz, void *arg)
+{
+    uprnf(chunk);
     return 0;
 }
 

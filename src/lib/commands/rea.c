@@ -43,6 +43,8 @@
 #include "optlist.h"
 #include "tel.h"
 
+static int print_sink(char *, size_t, void *);
+
 int
 rea(void)
 {
@@ -57,23 +59,20 @@ rea(void)
     FILE *telfp;
     int teles;
     int size;
-    unsigned nbytes;
     char buf[1024];
-    char msgbuf[4096];		/* UTF-8 */
     int lasttype;
     int lastcnum;
     time_t lastdate;
     int header;
     int filelen;
     char *kind;
-    int n;
+    int n, res;
     int num = player->cnum;
     struct natstr *np = getnatp(player->cnum);
     time_t now;
     time_t then;
     time_t delta;
     int first = 1;
-    int readit;
     int may_delete = 1; /* may messages be deleted? */
 
     now = time(NULL);
@@ -112,21 +111,14 @@ rea(void)
     lastdate = 0;
     lastcnum = -1;
     lasttype = -1;
-    while (fread(&tgm, sizeof(tgm), 1, telfp) == 1) {
-	readit = 1;
-	if (tgm.tel_type > TEL_LAST) {
-	    pr("Bad telegram header.  Skipping telegram...\n");
-	    readit = 0;
-	    goto skip;
-	}
+    while ((res = tel_read_header(telfp, mbox, &tgm)) > 0) {
 	if (*kind == 'a') {
-	    if (!player->god && (getrejects(tgm.tel_from, np) & REJ_ANNO)) {
-		readit = 0;
-		goto skip;
-	    }
-	    if (tgm.tel_date < then) {
-		readit = 0;
-		goto skip;
+	    if ((!player->god && (getrejects(tgm.tel_from, np) & REJ_ANNO))
+		|| tgm.tel_date < then) {
+		res = tel_read_body(telfp, mbox, &tgm, NULL, NULL);
+		if (res < 0)
+		    break;
+		continue;
 	    }
 	}
 	if (first && *kind == 'a') {
@@ -151,18 +143,13 @@ rea(void)
 	    lastdate = tgm.tel_date;
 	}
 	teles++;
-      skip:
-	while (tgm.tel_length > 0) {
-	    nbytes = tgm.tel_length;
-	    if (nbytes > sizeof(msgbuf) - 1)
-		nbytes = sizeof(msgbuf) - 1;
-	    fread(msgbuf, 1, nbytes, telfp);
-	    msgbuf[nbytes] = 0;
-	    if (readit)
-		uprnf(msgbuf);
-	    tgm.tel_length -= nbytes;
-	}
+	res = tel_read_body(telfp, mbox, &tgm, print_sink, NULL);
+	if (res < 0)
+	    break;
     }
+    if (res < 0)
+	pr("\n> Mailbox corrupt, tell the deity.\n");
+
     if (teles > 0 && player->cnum == num && may_delete) {
 	pr("\n");
 	if (teles == 1) {
@@ -211,4 +198,11 @@ rea(void)
 	putnat(np);
     }
     return RET_OK;
+}
+
+static int
+print_sink(char *chunk, size_t sz, void *arg)
+{
+    uprnf(chunk);
+    return 0;
 }

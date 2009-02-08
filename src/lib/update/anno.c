@@ -46,6 +46,7 @@
 
 static int copy_and_expire(FILE *annfp, FILE *tmpfp,
 			   char *tmp_filename, time_t expiry_time);
+static int copy_sink(char *, size_t, void *);
 
 void
 delete_old_announcements(void)
@@ -110,32 +111,18 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 		time_t expiry_time)
 {
     struct telstr tgm;
-    int writeit;
-    char message[MAXTELSIZE];	/* UTF-8 */
+    int res, writeit;
     int deleted = 0;
     int saved = 0;
     int first = 1;
 
-    while (fread(&tgm, sizeof(tgm), 1, annfp) == 1) {
-	writeit = 1;
-	if (tgm.tel_length > MAXTELSIZE) {
-	    logerror("bad telegram file header (length=%d)",
-		     tgm.tel_length);
-	    return 0;
-	}
-	if (tgm.tel_type > TEL_LAST) {
-	    logerror("bad telegram file header (type=%d)", tgm.tel_type);
-	    return 0;
-	}
-
+    while ((res = tel_read_header(annfp, annfil, &tgm)) > 0) {
+	writeit = tgm.tel_date >= expiry_time;
 	if (first) {
 	    first = 0;
-	    if (tgm.tel_date >= expiry_time)
+	    if (writeit)
 		return 0;
 	}
-	if (tgm.tel_date < expiry_time)
-	    writeit = 0;
-
 	if (writeit) {
 	    if (fwrite(&tgm, sizeof(tgm), 1, tmpfp) != 1) {
 		logerror("error writing header to temporary "
@@ -145,21 +132,25 @@ copy_and_expire(FILE *annfp, FILE *tmpfp, char *tmp_filename,
 	    ++saved;
 	} else
 	    ++deleted;
-	if (fread(message, 1, tgm.tel_length, annfp) != tgm.tel_length) {
-	    logerror("error reading body from telegram file %s",
-		     annfil);
+	res = tel_read_body(annfp, annfil, &tgm,
+			    writeit ? copy_sink : NULL, tmpfp);
+	if (res < 0)
 	    return 0;
-	}
-	if (writeit) {
-	    if (fwrite(message, 1, tgm.tel_length, tmpfp)
-		!= tgm.tel_length) {
-		logerror("error writing body to temporary telegram "
-			 "file %s", tmp_filename);
-		return 0;
-	    }
-	}
     }
+
+    if (res < 0)
+	return 0;
     logerror("%d announcements deleted; %d announcements saved",
 	     deleted, saved);
     return 1;
+}
+
+static int
+copy_sink(char *chunk, size_t sz, void *fp)
+{
+    if (fwrite(chunk, 1, sz, fp) != sz) {
+	logerror("error writing to %s.tmp", annfil);
+	return -1;
+    }
+    return 0;
 }

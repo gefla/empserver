@@ -34,6 +34,7 @@
 #ifndef TEL_H
 #define TEL_H
 
+#include <stdio.h>
 #include <time.h>
 #include "types.h"
 
@@ -55,5 +56,9 @@ struct telstr {
 };
 
 extern char *mailbox(char *buf, natid cn);
+extern int tel_read_header(FILE *, char *, struct telstr *);
+extern int tel_read_body(FILE *, char *, struct telstr *,
+			 int (*sink)(char *, size_t, void *),
+			 void *);
 
 #endif
