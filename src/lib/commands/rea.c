@@ -36,6 +36,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <errno.h>
 #include <stdio.h>
 #include "commands.h"
 #include "match.h"
@@ -198,6 +199,31 @@ rea(void)
 	putnat(np);
     }
     return RET_OK;
+}
+
+/*
+ * Print first telegram in file FNAME.
+ */
+int
+show_first_tel(char *fname)
+{
+    FILE *fp;
+    struct telstr tgm;
+
+    if ((fp = fopen(fname, "rb")) == NULL) {
+	if (errno == ENOENT)
+	    return 0;
+	else {
+	    logerror("Could not open %s.\n", fname);
+	    return -1;
+	}
+    }
+    if (tel_read_header(fp, fname, &tgm) < 0)
+	return -1;
+    if (tel_read_body(fp, fname, &tgm, print_sink, NULL) < 0)
+	return -1;
+    fclose(fp);
+    return 0;
 }
 
 static int

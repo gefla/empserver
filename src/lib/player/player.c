@@ -35,8 +35,6 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <stdio.h>
 #include "com.h"
 #include "empio.h"
 #include "empthread.h"
@@ -53,7 +51,6 @@
 
 static int command(void);
 static int status(void);
-static int print_sink(char *, size_t, void *);
 
 struct player *player;
 
@@ -260,38 +257,6 @@ show_motd(void)
 {
     show_first_tel(motdfil);
     return RET_OK;
-}
-
-/*
- * Print first telegram in file FNAME.
- */
-int
-show_first_tel(char *fname)
-{
-    FILE *fp;
-    struct telstr tgm;
-
-    if ((fp = fopen(fname, "rb")) == NULL) {
-	if (errno == ENOENT)
-	    return 0;
-	else {
-	    logerror("Could not open %s.\n", fname);
-	    return -1;
-	}
-    }
-    if (tel_read_header(fp, fname, &tgm) < 0)
-	return -1;
-    if (tel_read_body(fp, fname, &tgm, print_sink, NULL) < 0)
-	return -1;
-    fclose(fp);
-    return 0;
-}
-
-static int
-print_sink(char *chunk, size_t sz, void *arg)
-{
-    uprnf(chunk);
-    return 0;
 }
 
 int
