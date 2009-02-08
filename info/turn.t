@@ -1,10 +1,14 @@
 .TH Command TURN
-.NA turn "Allow/disallow logins. Change login message."
+.NA turn "Turn game on or off, or change the login message"
 .LV Expert
 .SY "turn <on|off|motd>"
-Use "turn on" or "turn off" to enable/disable logins.  If you want to
-change the login message, then use "turn motd".  With "turn motd" and
-"turn off", you will be put into the telegram prompter to enter a new
-motd (message of the day) which is printed when the player logs in, or
-an additional "no-login" message printed while logins are disabled.
+\*Qturn off\*U turns the game off: mortal players can't log in, and
+mortals already logged will be booted at the next command prompt.  The
+command lets you enter a message to the players explaining the
+downtime.
+.s1
+\*Qturn on\*U reverts the effect of \*Qturn off\*U.
+.s1
+\*Qturn motd\*U lets you enter a new login message, also known as
+motto of the day.
 .SA "Deity"
