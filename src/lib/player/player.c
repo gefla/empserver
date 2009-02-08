@@ -120,11 +120,14 @@ command(void)
 {
     char *redir;		/* UTF-8 */
     char scanspace[1024];
+    time_t now;
 
     if (getcommand(player->combuf) < 0)
 	return 0;
 
-    if (!may_play_now(getnatp(player->cnum), time(NULL), 1))
+    now = time(NULL);
+    update_timeused(now);
+    if (!may_play_now(getnatp(player->cnum), now, 1))
 	return 0;
 
     if (parse(player->combuf, scanspace, player->argp, player->comtail,
@@ -171,6 +174,7 @@ status(void)
 	pr("You are no longer broke!\n");
 
     time(&player->curup);
+    update_timeused(player->curup);
     if (!may_play_now(natp, player->curup, 0))
 	return 0;
     if (player->btused) {

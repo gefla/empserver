@@ -273,7 +273,8 @@ int
 may_play_now(struct natstr *natp, time_t now,
 	     int suppress_deity_message)
 {
-    update_timeused(now);
+    if (CANT_HAPPEN(natp->nat_cnum != player->cnum))
+	return 0;
 
     if (!gamehours(now)) {
 	if (natp->nat_stat != STAT_GOD || !suppress_deity_message)
