@@ -139,7 +139,7 @@ putreject(struct natstr *np, natid them, int how, int what)
     if (how)
 	np->nat_rejects[them] |= what;
     else
-	np->nat_rejects[them] &= what;
+	np->nat_rejects[them] &= ~what;
 }
 
 void
