@@ -177,24 +177,6 @@ disable_coms(void)
     free(tmp);
 }
 
-/*
- * returns true if down
- */
-static int
-gamedown(int suppress_deity_message)
-{
-    if (!game_play_disabled())
-	return 0;
-    if (player->god) {
-	if (!suppress_deity_message)
-	    pr("The game is down\n");
-	return 0;
-    }
-    show_first_tel(downfil);
-    pr("\nThe game is down\n");
-    return 1;
-}
-
 static int
 seconds_since_midnight(time_t time)
 {
@@ -262,8 +244,15 @@ may_play_now(struct natstr *natp, time_t now,
 	    return 0;
     }
 
-    if (gamedown(suppress_deity_message))
-	return 0;
+    if (game_play_disabled()) {
+	if (natp->nat_stat != STAT_GOD) {
+	    show_first_tel(downfil);
+	    pr("\nThe game is down\n");
+	    return 0;
+	}
+	if (!suppress_deity_message)
+	    pr("The game is down\n");
+    }
 
     if ((natp->nat_stat != STAT_GOD && natp->nat_stat != STAT_VIS)
 	&& natp->nat_timeused > m_m_p_d * 60) {
