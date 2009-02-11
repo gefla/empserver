@@ -34,7 +34,7 @@ or the unit wishes to attack, or is attacked, etc, it must attempt to get
 them from supply sources. Other things may use the same routines, such as
 loyal sectors, which will draw food from supply sources when in danger of
 starvation, and ships/forts/sectors, which will draw shells when they need
-them to fire defensively or fire AA at planes.
+them to fire defensively.
 .s1
 .L "Supply Sources"
 .s1

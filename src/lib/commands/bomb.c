@@ -458,7 +458,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int nukedam;
     int flak;
     int gun;
-    int shell;
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	free_shiplist(&head);
@@ -506,19 +505,10 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	if ((plp->pcp->pl_flags & P_A) && !on_shiplist(shipno, head))
 	    continue;
 
-	shell = 0;
 	gun = shp_usable_guns(&ship);
-	if (gun > 0) {
-	    shell = ship.shp_item[I_SHELL];
-	    if (shell <= 0)
-		shell = supply_commod(ship.shp_own,
-				      ship.shp_x, ship.shp_y, I_SHELL, 1);
-	}
 	mcp = &mchr[(int)ship.shp_type];
-	if (gun > 0 && shell > 0 && !(mcp->m_flags & M_SUB)) {
+	if (gun > 0 && !(mcp->m_flags & M_SUB)) {
 	    flak = (int)(techfact(ship.shp_tech, gun) * 2.0);
-	    ship.shp_item[I_SHELL] = shell;
-	    putship(ship.shp_uid, &ship);
 	    PR(ship.shp_own, "Flak! Firing %d guns from ship %s\n",
 	       flak, prship(&ship));
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, ship.shp_own, flak))

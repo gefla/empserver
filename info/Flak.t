@@ -24,19 +24,7 @@ In addition, if you are pin-bombing a land unit or a ship, when
 you make your bombing run, the specific unit/ship you are bombing
 gets to fire flak at you again.  This number of guns firing flak
 in these cases does NOT saturate.
-.s1
-When a sector fires flak, the amount of shells required is the # of
-guns fired divided by 2.  If not enough shells are available, either no flak
-is fired, or the flak is reduced to the number of shells available.
-Note that the shells are not consumed during flak fire, they just need
-to be available.
-.s1
-When a ship fires flak, at least 1 shell must be available.
-If no shells are available, no flak is fired.  Note that the shell is
-not consumed during flak fire, it just needs to be available.
-.s1
-Land units use no shells when firing flak.  Any land unit with an
-aaf rating of > 0 will fire flak when pin-bombed.
+Land units do not need capability flak to fire here.
 .s1
 The formulas for determining the # of guns fired in a general volley
 is:
