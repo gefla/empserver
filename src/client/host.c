@@ -52,6 +52,11 @@
 #endif
 #include "misc.h"
 
+/* Portability cruft, should become unnecessary eventually */
+#ifndef AI_ADDRCONFIG
+#define AI_ADDRCONFIG 0
+#endif
+
 #ifdef HAVE_GETADDRINFO
 /*
  * Inspired by example code from W. Richard Stevens: UNIX Network
@@ -65,6 +70,7 @@ tcp_connect(char *host, char *serv)
     struct addrinfo hints, *res, *ressave;
 
     memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_flags = AI_ADDRCONFIG;
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 

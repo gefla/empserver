@@ -46,6 +46,11 @@
 #include <unistd.h>
 #include "prototypes.h"
 
+/* Portability cruft, should become unnecessary eventually */
+#ifndef AI_ADDRCONFIG
+#define AI_ADDRCONFIG 0
+#endif
+
 static void cant_listen(char *, char *, const char *);
 
 int
@@ -62,7 +67,7 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
     struct addrinfo hints, *res, *ressave;
 
     memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_flags = AI_PASSIVE;
+    hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
