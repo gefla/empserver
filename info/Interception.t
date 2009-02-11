@@ -7,27 +7,28 @@ HOSTILE to or worse) flies into over a sector, surface ship or land
 unit you own, planes you
 have with the intercept ability will intercept them if:
 .NF
-a) The incoming plane is not stealthy, or is detected.
+a) The incoming planes are not stealthy, or are detected.
 b) The sector is within 1/2 the interceptor's range (as modified
-   by the range command)
-b) They have mobility
-c) Their efficiency is 40 or more
-d) They are at an appropriate place:
+   by the range command).
+c) The interceptor is on no mission, or it is on air defense mission
+   and the incoming planes are in its op area.
+d) It has mobility and fuel.
+e) It is at least 40% efficient.
+f) It is in a suitable base:
 	1) planes without VTOL ability must be at an airport that
 		is at least 60% efficient.
 
 	2) planes on ships may only fly if the ship can operate
 		that kind of aircraft.
-
-e) There is petrol there equal to 1/2 the plane's fuel rating.
-	(rounded down)
 .FI
 .s1
 Neutral and friendly planes will be reported, but not intercepted.
 .s1
+You additionally intercept anywhere else in your air defense mission
+op areas, but only with planes on air defense mission.
+.s1
 Before planes scramble to intercept incoming planes, flak fires (see
-info Flak), air defense missions are executed (see info mission), and
-any SAMs in range
+info Flak), and any SAMs in range
 will be launched.  One SAM is launched at each incoming plane that
 cost at least $1000 to build.  See below for the damage that the SAM
 does to the plane it hits.
