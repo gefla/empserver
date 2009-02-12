@@ -308,15 +308,8 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	sp->sct_updated = 1;
 	work = 0;
 
-	/* do_feed trys to supply.  So, we need to enable cacheing
-	   here */
-	bp_enable_cachepath();
-
 	sctwork = do_feed(sp, np, vec, &work, etu);
 	bp_put_items(bp, sp, vec);
-
-	bp_disable_cachepath();
-	bp_clear_cachepath();
 
 	if (sp->sct_off || np->nat_money < 0)
 	    continue;

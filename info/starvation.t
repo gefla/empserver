@@ -11,7 +11,7 @@ sectors, land units, and ships that will starve at the update.
 .s1
 With this syntax, the starvation command displays all sectors in
 <SECTS> that currently do not have enough food. It does not take into account
-emergency food growing & supplying (see info supply)
+emergency food growing.
 It also does not worry about feeding babies... it merely
 check for starvation. If you want population increase,
 you'll need to chuck in some extra food...

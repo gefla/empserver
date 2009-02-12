@@ -230,10 +230,7 @@ used in assaulting sectors. (See info \*Qassault\*U)
 .s1
 .L Supply
 .s1
-Units need supplies in order to attack. Each update, and each time they
-attack, units will attempt to draw supplies. See info \*Qsupply\*U.
-Really, I'm serious. If you don't read info \*Qsupply\*U, you'll die a horrible
-death. I'm not kidding.
+Units need supplies in order to attack.  See info \*Qsupply\*U.
 .s1
 .L Fortification
 .s1

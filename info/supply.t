@@ -26,15 +26,11 @@ A unit that fights may use a basic load of supplies
 to attack with.  (depending on the intensity of combat. The more intense the
 combat, the more chance the unit will use a basic load of supplies)
 .s1
-During the update, each unit will attempt to draw food supplies just before
-starvation is calculated.
-.s1
 When a unit needs to draw supplies, such as when you use the supply command,
 or the unit wishes to attack, or is attacked, etc, it must attempt to get
 them from supply sources. Other things may use the same routines, such as
-loyal sectors, which will draw food from supply sources when in danger of
-starvation, and ships/forts/sectors, which will draw shells when they need
-them to fire defensively.
+ships/forts/sectors, which will draw shells when they need them to
+fire defensively.
 .s1
 .L "Supply Sources"
 .s1
@@ -88,8 +84,5 @@ OTHER USES OF SUPPLY
 .s1
 In general, when any land unit/ship/fort needs shells, it will attempt to
 draw them before use, if it does not already have them.
-.s1
-Also, units/ships/sectors will use supply sources to get enough food during
-the update so that they do not starve.
 .s1
 .SA "lload, LandUnits"

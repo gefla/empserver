@@ -27,14 +27,10 @@ This document gives a rough order of events during the update.
                 a) if the sector is a cap, it costs $1 per etu since
 			the last update
                 b) people in non-sanctuary sectors eat
-                        1) If not enough is available, the sector
-                                uses the supply routines to draw more.
-                        2) If still not enough is available,
-                                the excess people will starve off.
-                                a) No more than 50% of the people
-                                        in a sect can die;
-                                        the uw's die first, then
-                                        the civs, then the mil.
+                        If not enough is available, the excess people will
+			starve off.  No more than 50% of the people
+                        in a sector can die; the uw's die first, then
+                        the civs, then the mil.
                 c) if there was starvation, the work percentage is set
                         to 0, otherwise the work rate rises by
                         8+(1-15), max of 100

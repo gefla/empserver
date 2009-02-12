@@ -59,9 +59,7 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
     struct natstr *np;
     int n, k = 0;
     int start_money;
-    int lastx = 9999, lasty = 9999;
 
-    bp_enable_cachepath();
     for (n = 0; NULL != (sp = getshipp(n)); n++) {
 	if (sp->shp_own == 0)
 	    continue;
@@ -75,16 +73,6 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 	}
 
 	np = getnatp(sp->shp_own);
-	if (lastx == 9999 || lasty == 9999) {
-	    lastx = sp->shp_x;
-	    lasty = sp->shp_y;
-	}
-	if (lastx != sp->shp_x || lasty != sp->shp_y) {
-	    /* Reset the cache */
-	    bp_disable_cachepath();
-	    bp_clear_cachepath();
-	    bp_enable_cachepath();
-	}
 	start_money = np->nat_money;
 	upd_ship(sp, etus, np, bp, build);
 	if (build && !player->simulation)	/* make sure to only autonav once */
@@ -382,10 +370,6 @@ feed_ship(struct shpstr *sp, int etus)
     needed = (int)ceil(food_needed(sp->shp_item, etus));
 
     /* scrounge */
-    if (needed > sp->shp_item[I_FOOD])
-	sp->shp_item[I_FOOD] += supply_commod(sp->shp_own,
-					sp->shp_x, sp->shp_y, I_FOOD,
-					needed - sp->shp_item[I_FOOD]);
     if (needed > sp->shp_item[I_FOOD]) {
 	/* take from embarked land units, but don't starve them */
 	snxtitem_cargo(&ni, EF_LAND, EF_SHIP, sp->shp_uid);

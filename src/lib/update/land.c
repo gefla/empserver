@@ -59,9 +59,7 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
     struct natstr *np;
     int n, k = 0;
     int start_money;
-    int lastx = 9999, lasty = 9999;
 
-    bp_enable_cachepath();
     for (n = 0; NULL != (lp = getlandp(n)); n++) {
 	if (lp->lnd_own == 0)
 	    continue;
@@ -77,16 +75,6 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 	sp = getsectp(lp->lnd_x, lp->lnd_y);
 	if (sp->sct_type == SCT_SANCT)
 	    continue;
-	if (lastx == 9999 || lasty == 9999) {
-	    lastx = lp->lnd_x;
-	    lasty = lp->lnd_y;
-	}
-	if (lastx != lp->lnd_x || lasty != lp->lnd_y) {
-	    /* Reset the cache */
-	    bp_disable_cachepath();
-	    bp_clear_cachepath();
-	    bp_enable_cachepath();
-	}
 	np = getnatp(lp->lnd_own);
 	start_money = np->nat_money;
 	upd_land(lp, etus, np, bp, build);
@@ -96,8 +84,6 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 	if (player->simulation)
 	    np->nat_money = start_money;
     }
-    bp_disable_cachepath();
-    bp_clear_cachepath();
 
     return k;
 }
@@ -285,16 +271,5 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
 static int
 feed_land(struct lndstr *lp, int etus)
 {
-    int needed;
-
-    if (opt_NOFOOD)
-	return 0;
-
-    needed = (int)ceil(food_needed(lp->lnd_item, etus));
-
-    /* scrounge */
-    if (needed > lp->lnd_item[I_FOOD])
-	resupply_commod(lp, I_FOOD);
-
     return feed_people(lp->lnd_item, etus);
 }

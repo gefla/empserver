@@ -125,15 +125,8 @@ in one time unit is:
 0
 .in
 .s1
-Note that if a ship doesn't have enough food, it will try to draw it from
-supply sources (see info supply). If it still hasn't enough food, it will
+Note that if a ship doesn't have enough food, it will
 attempt to grab unneeded food from any land units it is carrying.
-.s1
-Land units eat food as well, an amount based on the total number of military
-in the unit (this is the efficiency times the number of mil needed to build
-the unit). If a land unit doesn't have enough food, it will try to draw it
-from supply sources (see info supply). If it still doesn't have enough, and
-it is on a ship, it will attempt to get food from the ship.
 .s1
 The presence of food also affects the birthrate in Empire;
 if there is no food in a sector no babies will be born.
