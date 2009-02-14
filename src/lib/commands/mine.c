@@ -137,7 +137,7 @@ landmine(void)
 	    return RET_FAIL;
 	if (mines_wanted == 0)
 	    continue;
-	if (!check_land_ok(&land))
+	if (!check_land_ok(&land) || !check_sect_ok(&sect))
 	    continue;
 	land.lnd_mission = 0;
 	total_mines_laid = 0;
