@@ -93,9 +93,8 @@ landmine(void)
 {
     struct lndstr land;
     struct sctstr sect;
-    struct lchrstr *lp;
     struct nstr_item ni;
-    int shells;
+    int shells, todo;
     int mines_wanted;
     int mines_laid;
     int total_mines_laid;
@@ -106,8 +105,7 @@ landmine(void)
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)
 	    continue;
-	lp = &lchr[(int)land.lnd_type];
-	if (!(lp->l_flags & L_ENGINEER))
+	if (!(lchr[land.lnd_type].l_flags & L_ENGINEER))
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
 	    pr("%s is on a %s\n", prland(&land),
@@ -118,11 +116,6 @@ landmine(void)
 	    pr("%s is out of mobility\n", prland(&land));
 	    continue;
 	}
-	resupply_commod(&land, I_SHELL);
-	putland(land.lnd_uid, &land);
-	if (!(shells = land.lnd_item[I_SHELL]))
-	    continue;
-	shells = MIN(shells, land.lnd_mobil);
 	if (!getsect(land.lnd_x, land.lnd_y, &sect)
 	    || sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN
 	    || sect.sct_own != land.lnd_own) {
@@ -141,18 +134,23 @@ landmine(void)
 	if (!check_land_ok(&land) || !check_sect_ok(&sect))
 	    continue;
 	land.lnd_mission = 0;
+	todo = MIN(mines_wanted, land.lnd_mobil);
 	total_mines_laid = 0;
-	while (shells > 0 && total_mines_laid < mines_wanted) {
-	    mines_laid = MIN(shells, mines_wanted - total_mines_laid);
+	do {
+	    shells = land.lnd_item[I_SHELL];
+	    if (shells < todo)
+		shells += supply_commod(land.lnd_own,
+					land.lnd_x, land.lnd_y, I_SHELL,
+					todo - shells);
+	    mines_laid = MIN(todo, shells);
 	    land.lnd_item[I_SHELL] = shells - mines_laid;
 	    land.lnd_mobil -= mines_laid;
 	    putland(land.lnd_uid, &land);
-	    resupply_commod(&land, I_SHELL);	/* Get more shells */
-	    putland(land.lnd_uid, &land);
 	    total_mines_laid += mines_laid;
-	    shells = land.lnd_item[I_SHELL];
-	    shells = MIN(shells, land.lnd_mobil);
-	}
+	    todo -= mines_laid;
+	} while (todo && mines_laid);
+	resupply_commod(&land, I_SHELL);
+	putland(land.lnd_uid, &land);
 	getsect(sect.sct_x, sect.sct_y, &sect);
 	sect.sct_mines = MIN(sect.sct_mines + total_mines_laid, MINES_MAX);
 	putsect(&sect);
