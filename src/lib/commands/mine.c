@@ -159,15 +159,15 @@ landmine(void)
 	    pr("%s laid a total of %d mines in %s",
 	       prland(&land), total_mines_laid,
 	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
-	    if (!shells)
-		pr(" but is now out of supply\n");
+	    if (!land.lnd_item[I_SHELL])
+		pr(" but is now out of shells\n");
 	    else
 		pr("\n");
 	} else
 	    pr("%s ran out of %s before it could finish the job\n"
 	       "Only %d mines were laid in %s\n",
 	       prland(&land),
-	       land.lnd_mobil > 0 ? "supply" : "mobility",
+	       land.lnd_mobil > 0 ? "shells" : "mobility",
 	       total_mines_laid,
 	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
     }
