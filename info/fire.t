@@ -54,7 +54,7 @@ See info \*QOptions\*U for more info.
 Any military ship may fire as long as it has
 at least one crew (which must be military, not civilians),
 at least one gun,
-at least one shell (or shells within supply range),
+at least one shell,
 and has at least 60% efficiency.
 A ship's gun range is its firing range,  as  shown  by
 the show command, divided by two, times ((tech+50)/(tech+200).
@@ -62,7 +62,7 @@ A ship uses one shell per two guns firing.
 .s1
 Any land unit may fire as long as it has
 at least one military,
-at least one shell (or shells within supply range),
+at least one shell,
 and has at least 40% efficiency.
 A land unit's gun range is its firing range, as shown by the show
 command, divided by two, times ((50+tech)/(200+tech)).  A land unit
