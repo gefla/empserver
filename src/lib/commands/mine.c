@@ -115,7 +115,7 @@ landmine(void)
 	    continue;
 	}
 	if (land.lnd_mobil < 1) {
-	    pr("Unit %d is out of mobility\n", land.lnd_uid);
+	    pr("%s is out of mobility\n", prland(&land));
 	    continue;
 	}
 	resupply_commod(&land, I_SHELL);
