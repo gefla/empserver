@@ -3,8 +3,7 @@
 .LV Basic
 .SY "tend <COMMODITY|'land'> <SHIP> <AMT|UNIT> <to-SHIP>"
 The tend command allows transfer of commodities
-from a particular (supply) ship to patrol boats,
-submarines, battleships, etc. while at sea.
+between ships.
 .s1
 If you had cargo ship #16 which had food, and your fleet S needed food,
 you could resupply the entire fleet with 20 units of food by typing
