@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <math.h>
+#include "empobj.h"
 #include "file.h"
 #include "land.h"
 #include "nat.h"
@@ -43,44 +44,28 @@
 #include "sect.h"
 #include "ship.h"
 
-static int supply_commod(int, int, int, i_type, int);
-static int s_commod(int, int, int, i_type, int, int);
+static int s_commod(struct empobj *, short *, i_type, int, int, int);
 static int get_minimum(struct lndstr *, i_type);
 
 int
 sct_supply(struct sctstr *sp, i_type type, int wanted)
 {
-    if (sp->sct_item[type] < wanted) {
-	sp->sct_item[type] += supply_commod(sp->sct_own,
-					    sp->sct_x, sp->sct_y, type,
-					    wanted - sp->sct_item[type]);
-	putsect(sp);
-    }
-    return sp->sct_item[type] >= wanted;
+    return s_commod((struct empobj *)sp, sp->sct_item,
+		    type, wanted, ITEM_MAX, 1);
 }
 
 int
 shp_supply(struct shpstr *sp, i_type type, int wanted)
 {
-    if (sp->shp_item[type] < wanted) {
-	sp->shp_item[type] += supply_commod(sp->shp_own,
-					    sp->shp_x, sp->shp_y, type,
-					    wanted - sp->shp_item[type]);
-	putship(sp->shp_uid, sp);
-    }
-    return sp->shp_item[type] >= wanted;
+    return s_commod((struct empobj *)sp, sp->shp_item,
+		    type, wanted, mchr[sp->shp_type].m_item[type], 1);
 }
 
 int
 lnd_supply(struct lndstr *lp, i_type type, int wanted)
 {
-    if (lp->lnd_item[type] < wanted) {
-	lp->lnd_item[type] += supply_commod(lp->lnd_own,
-					    lp->lnd_x, lp->lnd_y, type,
-					    wanted - lp->lnd_item[type]);
-	putland(lp->lnd_uid, lp);
-    }
-    return lp->lnd_item[type] >= wanted;
+    return s_commod((struct empobj *)lp, lp->lnd_item,
+		    type, wanted, lchr[lp->lnd_type].l_item[type], 1);
 }
 
 int
@@ -106,29 +91,6 @@ lnd_supply_all(struct lndstr *lp)
 
 /*
  * Actually get the commod
- */
-static int
-supply_commod(int own, int x, int y, i_type type, int total_wanted)
-{
-    if (total_wanted <= 0)
-	return 0;
-    return s_commod(own, x, y, type, total_wanted, !player->simulation);
-}
-
-/*
- * Just return the number you COULD get, without doing it
- */
-static int
-try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
-{
-    if (total_wanted <= 0)
-	return 0;
-
-    return s_commod(own, x, y, type, total_wanted, 0);
-}
-
-/*
- * Actually get the commod
  *
  * First, try to forage in the sector
  * Second look for a warehouse or headquarters to leech
@@ -140,11 +102,13 @@ try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
  * May want to put code to resupply with SAMs here, later --ts
  */
 static int
-s_commod(int own, int x, int y, i_type type, int total_wanted,
-	 int actually_doit)
+s_commod(struct empobj *sink, short *vec,
+	 i_type type, int wanted, int limit, int actually_doit)
 {
-    int wanted = total_wanted;
-    int gotten = 0, lookrange;
+    natid own = sink->own;
+    coord x = sink->x;
+    coord y = sink->y;
+    int lookrange;
     struct sctstr sect, dest;
     struct nstr_sect ns;
     struct nstr_item ni;
@@ -160,6 +124,12 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     struct ichrstr *ip;
     char buf[1024];
 
+    if (wanted > limit)
+	wanted = limit;
+    if (wanted <= vec[type])
+	return 1;
+    wanted -= vec[type];
+
     /* try to get it from sector we're in */
     getsect(x, y, &dest);
     getsect(x, y, &sect);
@@ -169,15 +139,19 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 						etu_per_update));
 	if (sect.sct_item[type] - wanted >= minimum) {
 	    sect.sct_item[type] -= wanted;
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += wanted;
 		putsect(&sect);
-	    return total_wanted;
+		put_empobj(sink->ef_type, sink->uid, sink);
+	    }
+	    return 1;
 	} else if (sect.sct_item[type] - minimum > 0) {
-	    gotten += sect.sct_item[type] - minimum;
 	    wanted -= sect.sct_item[type] - minimum;
 	    sect.sct_item[type] = minimum;
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += sect.sct_item[type] - minimum;
 		putsect(&sect);
+	    }
 	}
     }
     /* look for a headquarters or warehouse */
@@ -230,14 +204,14 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= n;
-
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += wanted;
 		putsect(&sect);
-
-	    return total_wanted;
+		put_empobj(sink->ef_type, sink->uid, sink);
+	    }
+	    return 1;
 	} else if (can_move > 0) {
 	    int n;
-	    gotten += can_move;
 	    wanted -= can_move;
 	    sect.sct_item[type] -= can_move;
 
@@ -248,9 +222,10 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= n;
-
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += can_move;
 		putsect(&sect);
+	    }
 	}
     }
 
@@ -301,13 +276,14 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= n;
 	    if (actually_doit) {
+		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);
 		putsect(&sect);
+		put_empobj(sink->ef_type, sink->uid, sink);
 	    }
-	    return total_wanted;
+	    return 1;
 	} else if (can_move > 0) {
 	    int n;
-	    gotten += can_move;
 	    wanted -= can_move;
 	    ship.shp_item[type] -= can_move;
 
@@ -317,8 +293,8 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    if (n > sect.sct_mobil)
 		n = sect.sct_mobil;
 	    sect.sct_mobil -= n;
-
 	    if (actually_doit) {
+		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);
 		putsect(&sect);
 	    }
@@ -404,33 +380,32 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	if (can_move >= wanted) {
 	    land.lnd_item[type] -= wanted;
 	    land.lnd_mobil -= roundavg(wanted * weight * move_cost);
-
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += wanted;
 		putland(land.lnd_uid, &land);
-	    return total_wanted;
+		put_empobj(sink->ef_type, sink->uid, sink);
+	    }
+	    return 1;
 	} else if (can_move > 0) {
-	    gotten += can_move;
 	    wanted -= can_move;
 	    land.lnd_item[type] -= can_move;
-
 	    land.lnd_mobil -= roundavg(can_move * weight * move_cost);
-
-	    if (actually_doit)
+	    if (actually_doit) {
+		vec[type] += can_move;
 		putland(land.lnd_uid, &land);
+	    }
 	}
     }
 
-    /* We've done the best we could */
-    /* return the number gotten */
-    return gotten;
+    if (actually_doit)
+	put_empobj(sink->ef_type, sink->uid, sink);
+    return wanted <= vec[type];
 }
-
 
 /*
  * We want to get enough shells to fire once,
  * one update's worth of food.
  */
-
 static int
 get_minimum(struct lndstr *lp, i_type type)
 {
@@ -462,38 +437,37 @@ get_minimum(struct lndstr *lp, i_type type)
 int
 lnd_could_be_supplied(struct lndstr *lp)
 {
-    int shells_needed, shells, keepshells;
-    int food, food_needed, keepfood;
+    int res, food, food_needed, shells_needed, shells;
 
     if (!opt_NOFOOD) {
 	food_needed = get_minimum(lp, I_FOOD);
-	food = keepfood = lp->lnd_item[I_FOOD];
+	food = lp->lnd_item[I_FOOD];
 	if (food < food_needed) {
 	    lp->lnd_item[I_FOOD] = 0;
 	    putland(lp->lnd_uid, lp);
-	    food += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
-				      I_FOOD, (food_needed - food));
-	    lp->lnd_item[I_FOOD] = keepfood;
+	    res = s_commod((struct empobj *)lp, lp->lnd_item,
+			   I_FOOD, food_needed,
+			   lchr[lp->lnd_type].l_item[I_FOOD], 0);
+	    lp->lnd_item[I_FOOD] = food;
 	    putland(lp->lnd_uid, lp);
+	    if (!res)
+		return 0;
 	}
-	if (food < food_needed)
-	    return 0;
-
     }
 
     shells_needed = lchr[lp->lnd_type].l_ammo;
-    shells = keepshells = lp->lnd_item[I_SHELL];
+    shells = lp->lnd_item[I_SHELL];
     if (shells < shells_needed) {
 	lp->lnd_item[I_SHELL] = 0;
 	putland(lp->lnd_uid, lp);
-	shells += try_supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
-				    I_SHELL, (shells_needed - shells));
-	lp->lnd_item[I_SHELL] = keepshells;
+	res = s_commod((struct empobj *)lp, lp->lnd_item,
+		       I_SHELL, shells_needed,
+		       lchr[lp->lnd_type].l_item[I_SHELL], 0);
+	lp->lnd_item[I_SHELL] = shells;
 	putland(lp->lnd_uid, lp);
+	if (!res)
+	    return 0;
     }
-
-    if (shells < shells_needed)
-	return 0;
 
     return 1;
 }
