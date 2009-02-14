@@ -123,8 +123,9 @@ landmine(void)
 	if (!(shells = land.lnd_item[I_SHELL]))
 	    continue;
 	shells = MIN(shells, land.lnd_mobil);
-	if (!getsect(land.lnd_x, land.lnd_y, &sect) ||
-	    sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN) {
+	if (!getsect(land.lnd_x, land.lnd_y, &sect)
+	    || sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN
+	    || sect.sct_own != land.lnd_own) {
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
