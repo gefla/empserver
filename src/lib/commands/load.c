@@ -653,7 +653,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    resupply_all(&land);
 #endif
 	    putland(land.lnd_uid, &land);
-	    if (!has_supply(&land))
+	    if (!lnd_in_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 	} else {
 	    sprintf(buf, "unloaded in your %s at %s",
@@ -999,7 +999,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    resupply_all(&land);
 #endif
 	    putland(land.lnd_uid, &land);
-	    if (!has_supply(&land))
+	    if (!lnd_in_supply(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 	} else {
 	    sprintf(buf, "unloaded in your %s at %s",

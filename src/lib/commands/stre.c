@@ -138,7 +138,7 @@ units_in_sector(struct combat *def)
 	if (land.lnd_ship >= 0)
 	    continue;
 	d_unit = defense_val(&land);
-	if (!has_supply(&land))
+	if (!lnd_could_be_supplied(&land))
 	    d_unit /= 2.0;
 	dtotal += d_unit;
     }

@@ -1074,7 +1074,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	}
 	resupply_all(&land);
 	putland(land.lnd_uid, &land);
-	if (!has_supply(&land)) {
+	if (!lnd_in_supply(&land)) {
 	    pr("%s is out of supply, and cannot %s\n",
 	       prland(&land), att_mode[combat_mode]);
 	    continue;
@@ -1235,7 +1235,9 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	}
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, list);
-	llp->supplied = has_supply(&land);
+	resupply_all(&land);
+	putland(land.lnd_uid, &land);
+	llp->supplied = lnd_in_supply(&land);
 	if (!get_land(A_DEFEND, def, land.lnd_uid, llp, 1))
 	    continue;
 	if (lnd_spyval(&land) > *d_spyp)
@@ -1499,8 +1501,15 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 
 	/* Only supplied units can react */
-	if (!has_supply(&land))
-	    continue;
+	if (list) {
+	    resupply_all(&land);
+	    putland(land.lnd_uid, &land);
+	    if (!lnd_in_supply(&land))
+		continue;
+	} else {
+	    if (!lnd_could_be_supplied(&land))
+		continue;
+	}
 
 	if (!in_oparea((struct empobj *)&land, def->x, def->y))
 	    continue;

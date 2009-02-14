@@ -86,6 +86,16 @@ resupply_commod(struct lndstr *lp, i_type type)
     }
 }
 
+int
+lnd_in_supply(struct lndstr *lp)
+{
+    if (!opt_NOFOOD) {
+	if (lp->lnd_item[I_FOOD] < get_minimum(lp, I_FOOD))
+	    return 0;
+    }
+    return lp->lnd_item[I_SHELL] >= get_minimum(lp, I_SHELL);
+}
+
 /*
  * Actually get the commod
  */
@@ -410,7 +420,7 @@ get_minimum(struct lndstr *lp, i_type type)
 }
 
 int
-has_supply(struct lndstr *lp)
+lnd_could_be_supplied(struct lndstr *lp)
 {
     int shells_needed, shells, keepshells;
     int food, food_needed, keepfood;

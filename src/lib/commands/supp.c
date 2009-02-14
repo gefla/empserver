@@ -53,7 +53,7 @@ supp(void)
 	nunits++;
 	resupply_all(&land);
 	putland(land.lnd_uid, &land);
-	if (has_supply(&land))
+	if (lnd_in_supply(&land))
 	    pr("%s has supplies\n", prland(&land));
 	else
 	    pr("%s is out of supply\n", prland(&land));
