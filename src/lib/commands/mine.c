@@ -109,6 +109,11 @@ landmine(void)
 	lp = &lchr[(int)land.lnd_type];
 	if (!(lp->l_flags & L_ENGINEER))
 	    continue;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
+	    pr("%s is on a %s\n", prland(&land),
+	       land. lnd_ship >= 0 ? "ship" : "land unit");
+	    continue;
+	}
 	if (land.lnd_mobil < 1) {
 	    pr("Unit %d is out of mobility\n", land.lnd_uid);
 	    continue;
