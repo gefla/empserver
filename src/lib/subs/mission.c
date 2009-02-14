@@ -939,11 +939,14 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	if (itype != I_NONE && needed <= 0)
 	    return -1;
 	if (itype != I_NONE) {
-	    if (itype == I_SHELL && item[itype] < needed)
-		item[itype] += supply_commod(plp->plane.pln_own,
-					     plp->plane.pln_x,
-					     plp->plane.pln_y,
-					     I_SHELL, needed);
+	    if (itype == I_SHELL && item[itype] < needed) {
+		if (pp->pln_ship >= 0)
+		    shp_supply(&ship, I_SHELL, needed);
+		else if (pp->pln_land >= 0)
+		    lnd_supply(&land, I_SHELL, needed);
+		else
+		    sct_supply(&sect, I_SHELL, needed);
+	    }
 	    if (item[itype] < needed)
 		return -1;
 	    item[itype] -= needed;

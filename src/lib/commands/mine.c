@@ -94,7 +94,7 @@ landmine(void)
     struct lndstr land;
     struct sctstr sect;
     struct nstr_item ni;
-    int shells, todo;
+    int todo;
     int mines_wanted;
     int mines_laid;
     int total_mines_laid;
@@ -137,20 +137,15 @@ landmine(void)
 	todo = MIN(mines_wanted, land.lnd_mobil);
 	total_mines_laid = 0;
 	do {
-	    shells = land.lnd_item[I_SHELL];
-	    if (shells < todo)
-		shells += supply_commod(land.lnd_own,
-					land.lnd_x, land.lnd_y, I_SHELL,
-					todo - shells);
-	    mines_laid = MIN(todo, shells);
-	    land.lnd_item[I_SHELL] = shells - mines_laid;
+	    lnd_supply(&land, I_SHELL, todo);
+	    mines_laid = MIN(todo, land.lnd_item[I_SHELL]);
+	    land.lnd_item[I_SHELL] -= mines_laid;
 	    land.lnd_mobil -= mines_laid;
 	    putland(land.lnd_uid, &land);
 	    total_mines_laid += mines_laid;
 	    todo -= mines_laid;
 	} while (todo && mines_laid);
-	resupply_commod(&land, I_SHELL);
-	putland(land.lnd_uid, &land);
+	lnd_supply_all(&land);
 	getsect(sect.sct_x, sect.sct_y, &sect);
 	sect.sct_mines = MIN(sect.sct_mines + total_mines_laid, MINES_MAX);
 	putsect(&sect);

@@ -28,7 +28,7 @@
  *  supply.c: Supply subroutines
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2009
  */
 
 #include <config.h>
@@ -43,47 +43,44 @@
 #include "sect.h"
 #include "ship.h"
 
-static int get_minimum(struct lndstr *, i_type);
+static int supply_commod(int, int, int, i_type, int);
 static int s_commod(int, int, int, i_type, int, int);
+static int get_minimum(struct lndstr *, i_type);
 
-/*
- * We want to get enough guns to be maxed out, enough shells to
- *	fire once, one update's worth of food.
- *
- * Firts, try to forage in the sector
- * Second look for a warehouse or headquarters to leech
- * Third, look for a ship we own in a harbor
- * Fourth, look for supplies in a supply unit we own
- *		(one good reason to do this last is that the supply
- *		 unit will then call resupply, taking more time)
- *
- * May want to put code to resupply with SAMs here, later --ts
- */
-
-void
-resupply_all(struct lndstr *lp)
+int
+sct_supply(struct sctstr *sp, i_type type, int wanted)
 {
-    if (!opt_NOFOOD)
-	resupply_commod(lp, I_FOOD);
-    resupply_commod(lp, I_SHELL);
+    if (sp->sct_item[type] < wanted) {
+	sp->sct_item[type] += supply_commod(sp->sct_own,
+					    sp->sct_x, sp->sct_y, type,
+					    wanted - sp->sct_item[type]);
+	putsect(sp);
+    }
+    return sp->sct_item[type] >= wanted;
 }
 
-/*
- * If the unit has less than it's minimum level of a
- * certain commodity, fill it, to the best of our abilities.
- */
-
-void
-resupply_commod(struct lndstr *lp, i_type type)
+int
+shp_supply(struct shpstr *sp, i_type type, int wanted)
 {
-    int amt;
-
-    amt = get_minimum(lp, type) - lp->lnd_item[type];
-    if (amt > 0) {
-	lp->lnd_item[type] += supply_commod(lp->lnd_own,
-					    lp->lnd_x, lp->lnd_y,
-					    type, amt);
+    if (sp->shp_item[type] < wanted) {
+	sp->shp_item[type] += supply_commod(sp->shp_own,
+					    sp->shp_x, sp->shp_y, type,
+					    wanted - sp->shp_item[type]);
+	putship(sp->shp_uid, sp);
     }
+    return sp->shp_item[type] >= wanted;
+}
+
+int
+lnd_supply(struct lndstr *lp, i_type type, int wanted)
+{
+    if (lp->lnd_item[type] < wanted) {
+	lp->lnd_item[type] += supply_commod(lp->lnd_own,
+					    lp->lnd_x, lp->lnd_y, type,
+					    wanted - lp->lnd_item[type]);
+	putland(lp->lnd_uid, lp);
+    }
+    return lp->lnd_item[type] >= wanted;
 }
 
 int
@@ -96,10 +93,21 @@ lnd_in_supply(struct lndstr *lp)
     return lp->lnd_item[I_SHELL] >= get_minimum(lp, I_SHELL);
 }
 
+int
+lnd_supply_all(struct lndstr *lp)
+{
+    int fail = 0;
+
+    if (!opt_NOFOOD)
+	fail |= !lnd_supply(lp, I_FOOD, get_minimum(lp, I_FOOD));
+    fail |= !lnd_supply(lp, I_SHELL, get_minimum(lp, I_SHELL));
+    return !fail;
+}
+
 /*
  * Actually get the commod
  */
-int
+static int
 supply_commod(int own, int x, int y, i_type type, int total_wanted)
 {
     if (total_wanted <= 0)
@@ -119,7 +127,18 @@ try_supply_commod(int own, int x, int y, i_type type, int total_wanted)
     return s_commod(own, x, y, type, total_wanted, 0);
 }
 
-/* Get supplies of a certain type */
+/*
+ * Actually get the commod
+ *
+ * First, try to forage in the sector
+ * Second look for a warehouse or headquarters to leech
+ * Third, look for a ship we own in a harbor
+ * Fourth, look for supplies in a supply unit we own
+ *		(one good reason to do this last is that the supply
+ *		 unit will then call resupply, taking more time)
+ *
+ * May want to put code to resupply with SAMs here, later --ts
+ */
 static int
 s_commod(int own, int x, int y, i_type type, int total_wanted,
 	 int actually_doit)

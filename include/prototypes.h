@@ -679,9 +679,10 @@ extern void snxtsct_all(struct nstr_sect *);
 extern void snxtsct_rewind(struct nstr_sect *);
 extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
 /* supply.c */
-extern void resupply_all(struct lndstr *);
-extern void resupply_commod(struct lndstr *, i_type);
-extern int supply_commod(int, int, int, i_type, int);
+extern int sct_supply(struct sctstr *, i_type, int);
+extern int shp_supply(struct shpstr *, i_type, int);
+extern int lnd_supply(struct lndstr *, i_type, int);
+extern int lnd_supply_all(struct lndstr *);
 extern int lnd_in_supply(struct lndstr *);
 extern int lnd_could_be_supplied(struct lndstr *);
 /* takeover.c */

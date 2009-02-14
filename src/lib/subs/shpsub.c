@@ -824,7 +824,6 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
     struct nstr_item ni;
     struct shpstr ship;
     int hitchance;
-    int shell;
     double gun, eff, teff;
 
     snxtitem_dist(&ni, EF_SHIP, dx, dy, 1);
@@ -842,17 +841,14 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	if (ship.shp_effic < 60)
 	    continue;
 
-	shell = ship.shp_item[I_SHELL];
 	if (ship.shp_item[I_MILIT] < 1)	/* do we have mil? */
 	    continue;
-	if (shell < 2) {	/* do we need shells */
-	    shell += supply_commod(ship.shp_own, ship.shp_x, ship.shp_y,
-				   I_SHELL, 2);
-	    if (shell < 2)
-		continue;
-	}
 	if (ship.shp_item[I_GUN] < 1)	/* we need at least 1 gun */
 	    continue;
+	if (!shp_supply(&ship, I_SHELL, 2))
+	    continue;
+	ship.shp_item[I_SHELL] -= 2;
+	putship(ship.shp_uid, &ship);
 
 	/* now calculate the odds */
 	gun = shp_usable_guns(&ship);
@@ -870,9 +866,6 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	mpr(ship.shp_own, "Ship #%i anti-missile system activated!\n",
 	    ship.shp_uid);
 	mpr(ship.shp_own, "%d%% hitchance...", hitchance);
-	/* use ammo */
-	ship.shp_item[I_SHELL] = shell - 2;
-	putship(ship.shp_uid, &ship);
 
 	if (roll(100) <= hitchance) {
 	    mpr(bombown, "KABOOOM!! Missile destroyed\n\n");

@@ -86,18 +86,14 @@ int
 fort_fire(struct sctstr *sp)
 {
     int guns = sp->sct_item[I_GUN];
-    int shells;
 
     if (sp->sct_type != SCT_FORTR || sp->sct_effic < FORTEFF)
 	return -1;
     if (sp->sct_item[I_MILIT] < 5 || guns == 0)
 	return -1;
-    shells = sp->sct_item[I_SHELL];
-    shells += supply_commod(sp->sct_own, sp->sct_x, sp->sct_y,
-			    I_SHELL, 1 - shells);
-    if (shells == 0)
+    if (!sct_supply(sp, I_SHELL, 1))
 	return -1;
-    sp->sct_item[I_SHELL] = shells - 1;
+    sp->sct_item[I_SHELL]--;
     return (int)fortgun(sp->sct_effic, guns);
 }
 
@@ -109,7 +105,7 @@ fort_fire(struct sctstr *sp)
 int
 shp_fire(struct shpstr *sp)
 {
-    int guns, shells;
+    int guns;
 
     if (sp->shp_effic < 60)
 	return -1;
@@ -117,13 +113,11 @@ shp_fire(struct shpstr *sp)
     guns = MIN(guns, (sp->shp_item[I_MILIT] + 1) / 2);
     if (guns == 0)
 	return -1;
-    shells = sp->shp_item[I_SHELL];
-    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-                           I_SHELL, (guns + 1) / 2 - shells);
-    guns = MIN(guns, shells * 2);
+    shp_supply(sp, I_SHELL, (guns + 1) / 2);
+    guns = MIN(guns, sp->shp_item[I_SHELL] * 2);
     if (guns == 0)
        return -1;
-    sp->shp_item[I_SHELL] = shells - (guns + 1) / 2;
+    sp->shp_item[I_SHELL] -= (guns + 1) / 2;
     return (int)seagun(sp->shp_effic, guns);
 }
 
@@ -135,19 +129,17 @@ shp_fire(struct shpstr *sp)
 int
 shp_dchrg(struct shpstr *sp)
 {
-    int shells, dchrgs;
+    int dchrgs;
 
     if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_DCH) == 0)
 	return -1;
     if (sp->shp_item[I_MILIT] == 0)
 	return -1;
-    shells = sp->shp_item[I_SHELL];
-    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-                           I_SHELL, 2 - shells);
-    if (shells == 0)
-       return -1;
-    dchrgs = MIN(2, shells);
-    sp->shp_item[I_SHELL] = shells - dchrgs;
+    shp_supply(sp, I_SHELL, 2);
+    dchrgs = MIN(2, sp->shp_item[I_SHELL]);
+    if (dchrgs == 0)
+	return -1;
+    sp->shp_item[I_SHELL] -= dchrgs;
     return (int)seagun(sp->shp_effic, 2 * dchrgs - 1);
 }
 
@@ -159,20 +151,15 @@ shp_dchrg(struct shpstr *sp)
 int
 shp_torp(struct shpstr *sp, int usemob)
 {
-    int shells;
-
     if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_TORP) == 0)
 	return -1;
     if (sp->shp_item[I_MILIT] == 0 || sp->shp_item[I_GUN] == 0)
 	return -1;
     if (usemob && sp->shp_mobil <= 0)
 	return -1;
-    shells = sp->shp_item[I_SHELL];
-    shells += supply_commod(sp->shp_own, sp->shp_x, sp->shp_y,
-                           I_SHELL, SHP_TORP_SHELLS - shells);
-    if (shells < SHP_TORP_SHELLS)
-       return -1;
-    sp->shp_item[I_SHELL] = shells - SHP_TORP_SHELLS;
+    if (!shp_supply(sp, I_SHELL, SHP_TORP_SHELLS))
+	return -1;
+    sp->shp_item[I_SHELL] -= SHP_TORP_SHELLS;
     if (usemob)
 	sp->shp_mobil -= (int)shp_mobcost(sp) / 2.0;
     return TORP_DAMAGE();
@@ -202,9 +189,8 @@ lnd_fire(struct lndstr *lp)
     ammo = lchr[lp->lnd_type].l_ammo;
     if (CANT_HAPPEN(ammo == 0))
 	ammo = 1;
+    lnd_supply(lp, I_SHELL, ammo);
     shells = lp->lnd_item[I_SHELL];
-    shells += supply_commod(lp->lnd_own, lp->lnd_x, lp->lnd_y,
-			    I_SHELL, ammo - shells);
     if (shells == 0)
 	return -1;
     d = landunitgun(lp->lnd_effic, guns);
@@ -212,7 +198,7 @@ lnd_fire(struct lndstr *lp)
 	d *= (double)shells / (double)ammo;
 	ammo = shells;
     }
-    lp->lnd_item[I_SHELL] = shells - ammo;
+    lp->lnd_item[I_SHELL] -= ammo;
     return d;
 }
 
