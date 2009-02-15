@@ -66,9 +66,11 @@ efficient. This uses mobility from the harbor.
 If it still can't find enough supplies, the unit will look for an owned
 unit with the 'supply' ability. (see info show for information on how to
 find out about abilities of units) In this case, the supply unit uses its
-mobility to use the supplies. After it supplies the unit, the supply unit
-will then itself try to re-supply, so that it is possible to form a chain
-of supply units reaching back to a headquarters or supply ship.
+mobility to use the supplies.
+\" Disabled due to bugs:
+\" After it supplies the unit, the supply unit
+\" will then itself try to re-supply, so that it is possible to form a chain
+\" of supply units reaching back to a headquarters or supply ship.
 .s1
 If after all this the unit can't get enough, it is out of supplies.
 .s1

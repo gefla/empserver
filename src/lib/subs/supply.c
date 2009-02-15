@@ -329,6 +329,23 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	if ((land.lnd_ship >= 0) && (sect.sct_effic < 2))
 	    continue;
 
+#if 0
+	/*
+	 * Recursive supply is disabled for now.  It can introduce
+	 * cycles into the "resupplies from" relation.  The code below
+	 * attempts to break these cycles by temporarily zapping the
+	 * commodity being supplied.  That puts the land file in a
+	 * funny state temporarily, risking loss of supplies when
+	 * something goes wrong on the way.  Worse, it increases
+	 * lnd_seqno even when !actually_doit, which can lead to
+	 * spurious seqno mismatch oopses in users of
+	 * lnd_could_be_supplied().  I can't be bothered to clean up
+	 * this mess right now, because recursive resupply is too dumb
+	 * to be really useful anyway: each step uses the first source
+	 * it finds, without consideration of mobility cost.  If you
+	 * re-enable it, don't forget to uncomment its documentation
+	 * in supply.t as well.
+	 */
 	if (land.lnd_item[type] - wanted < get_minimum(&land, type)) {
 	    struct lndstr save;
 
@@ -349,6 +366,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    else
 		putland(save.lnd_uid, &save);
 	}
+#endif
 
 	min = get_minimum(&land, type);
 	ip = &ichr[type];
