@@ -21,10 +21,10 @@ If the unit has enough of all these things, it is said to be 'in supply'.
 A lack of any of these things is enough to make the unit 'out of supply'.
 .s1
 .L "When supplies are drawn & used"
-.s1
-A unit that fights may use a basic load of supplies
-to attack with.  (depending on the intensity of combat. The more intense the
-combat, the more chance the unit will use a basic load of supplies)
+\" Has been disabled for ages:
+\" A unit that fights may use a basic load of supplies
+\" to attack with.  (depending on the intensity of combat. The more intense the
+\" combat, the more chance the unit will use a basic load of supplies)
 .s1
 When a unit needs to draw supplies, such as when you use the supply command,
 or the unit wishes to attack, or is attacked, etc, it must attempt to get
@@ -50,12 +50,11 @@ use) will be used.
 In each case, mobility is used to move the supplies.
 .s1
 The first source of supply checked is the sector the unit is in.
-This is foraging, and uses some mobility from the unit itself.
 .s1
-If the unit's needs can't be satisfied by foraging, it look for an owned
-warehouse or headquarters that is at least 60% efficient. Drawing
+If the unit's needs can't be satisfied there, it looks for an owned
+harbor, warehouse or headquarters that is at least 60% efficient. Drawing
 from these sources uses mobility from
-the warehouse or headquarters. (A headquarters will NOT supply a unit if it
+the source sector. (A headquarters will NOT supply a unit if it
 has no distribution path)
 .s1
 If still in need, the unit will look for an owned supply ship (one that has
@@ -75,16 +74,12 @@ mobility to use the supplies.
 If after all this the unit can't get enough, it is out of supplies.
 .s1
 Note that no supply source will give up enough food to make it starve. In
-addition, no supply source will go below 1 of any commodity.
+addition, land units will keep enough shells to fire once.
 .s1
 .EX supply *
 War band #2 has supplies
 .ti 3
 4 units
 .s1
-OTHER USES OF SUPPLY
 .s1
-In general, when any land unit/ship/fort needs shells, it will attempt to
-draw them before use, if it does not already have them.
-.s1
-.SA "lload, LandUnits"
+.SA "lload, LandUnits, Attacking, Mobility"
