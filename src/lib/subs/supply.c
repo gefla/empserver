@@ -130,34 +130,40 @@ s_commod(struct empobj *sink, short *vec,
 	return 1;
     wanted -= vec[type];
 
-    /* try to get it from sector we're in */
     getsect(x, y, &dest);
-    getsect(x, y, &sect);
-    if (sect.sct_own == own) {
-	if (!opt_NOFOOD && type == I_FOOD)
-	    minimum = 1 + (int)ceil(food_needed(sect.sct_item,
-						etu_per_update));
-	if (sect.sct_item[type] - wanted >= minimum) {
-	    sect.sct_item[type] -= wanted;
-	    if (actually_doit) {
-		vec[type] += wanted;
-		putsect(&sect);
-		put_empobj(sink->ef_type, sink->uid, sink);
-	    }
-	    return 1;
-	} else if (sect.sct_item[type] - minimum > 0) {
-	    wanted -= sect.sct_item[type] - minimum;
-	    sect.sct_item[type] = minimum;
-	    if (actually_doit) {
-		vec[type] += sect.sct_item[type] - minimum;
-		putsect(&sect);
+
+    /* try to get it from sector we're in */
+    if (sink->ef_type != EF_SECTOR) {
+	getsect(x, y, &sect);
+	if (sect.sct_own == own) {
+	    if (!opt_NOFOOD && type == I_FOOD)
+		minimum = 1 + (int)ceil(food_needed(sect.sct_item,
+						    etu_per_update));
+	    if (sect.sct_item[type] - wanted >= minimum) {
+		sect.sct_item[type] -= wanted;
+		if (actually_doit) {
+		    vec[type] += wanted;
+		    putsect(&sect);
+		    put_empobj(sink->ef_type, sink->uid, sink);
+		}
+		return 1;
+	    } else if (sect.sct_item[type] - minimum > 0) {
+		wanted -= sect.sct_item[type] - minimum;
+		sect.sct_item[type] = minimum;
+		if (actually_doit) {
+		    vec[type] += sect.sct_item[type] - minimum;
+		    putsect(&sect);
+		}
 	    }
 	}
     }
+
     /* look for a headquarters or warehouse */
     lookrange = tfact(own, 10.0);
     snxtsct_dist(&ns, x, y, lookrange);
     while (nxtsct(&ns, &sect) && wanted) {
+	if (ns.curdist == 0)
+	    continue;
 	if (sect.sct_own != own)
 	    continue;
 	if ((sect.sct_type != SCT_WAREH) &&
@@ -174,10 +180,8 @@ s_commod(struct empobj *sink, short *vec,
 	if (!opt_NOFOOD && type == I_FOOD)
 	    minimum = 1 + (int)ceil(food_needed(sect.sct_item,
 						etu_per_update));
-	if (sect.sct_item[type] <= minimum) {
-	    /* Don't bother... */
+	if (sect.sct_item[type] <= minimum)
 	    continue;
-	}
 	ip = &ichr[type];
 	dp = &dchr[sect.sct_type];
 	packing = ip->i_pkg[dp->d_pkg];
@@ -231,11 +235,11 @@ s_commod(struct empobj *sink, short *vec,
 
     /* look for an owned ship in a harbor */
     snxtitem_dist(&ni, EF_SHIP, x, y, lookrange);
-
     while (nxtitem(&ni, &ship) && wanted) {
+	if (sink->ef_type == EF_SHIP && sink->uid == ship.shp_uid)
+	    continue;
 	if (ship.shp_own != own)
 	    continue;
-
 	if (!(mchr[(int)ship.shp_type].m_flags & M_SUPPLY))
 	    continue;
 	getsect(ship.shp_x, ship.shp_y, &sect);
@@ -248,10 +252,8 @@ s_commod(struct empobj *sink, short *vec,
 	if (!opt_NOFOOD && type == I_FOOD)
 	    minimum = 1 + (int)ceil(food_needed(ship.shp_item,
 						etu_per_update));
-	if (ship.shp_item[type] <= minimum) {
-	    /* Don't bother... */
+	if (ship.shp_item[type] <= minimum)
 	    continue;
-	}
 	ip = &ichr[type];
 	dp = &dchr[sect.sct_type];
 	packing = ip->i_pkg[dp->d_pkg];
@@ -303,10 +305,11 @@ s_commod(struct empobj *sink, short *vec,
 
     /* look for an owned supply unit */
     snxtitem_dist(&ni, EF_LAND, x, y, lookrange);
-
     while (nxtitem(&ni, &land) && wanted) {
 	int min;
 
+	if (sink->ef_type == EF_LAND && sink->uid == land.lnd_uid)
+	    continue;
 	if (land.lnd_own != own)
 	    continue;
 
@@ -443,13 +446,10 @@ lnd_could_be_supplied(struct lndstr *lp)
 	food_needed = get_minimum(lp, I_FOOD);
 	food = lp->lnd_item[I_FOOD];
 	if (food < food_needed) {
-	    lp->lnd_item[I_FOOD] = 0;
-	    putland(lp->lnd_uid, lp);
 	    res = s_commod((struct empobj *)lp, lp->lnd_item,
 			   I_FOOD, food_needed,
 			   lchr[lp->lnd_type].l_item[I_FOOD], 0);
 	    lp->lnd_item[I_FOOD] = food;
-	    putland(lp->lnd_uid, lp);
 	    if (!res)
 		return 0;
 	}
@@ -458,13 +458,10 @@ lnd_could_be_supplied(struct lndstr *lp)
     shells_needed = lchr[lp->lnd_type].l_ammo;
     shells = lp->lnd_item[I_SHELL];
     if (shells < shells_needed) {
-	lp->lnd_item[I_SHELL] = 0;
-	putland(lp->lnd_uid, lp);
 	res = s_commod((struct empobj *)lp, lp->lnd_item,
 		       I_SHELL, shells_needed,
 		       lchr[lp->lnd_type].l_item[I_SHELL], 0);
 	lp->lnd_item[I_SHELL] = shells;
-	putland(lp->lnd_uid, lp);
 	if (!res)
 	    return 0;
     }
