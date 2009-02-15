@@ -133,7 +133,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     struct shpstr ship;
     struct lndstr land;
     /* leave at least 1 military in sectors/ships */
-    int minimum = (type == I_MILIT ? 1 : 0);
+    int minimum = 0;
     int can_move;
     double move_cost, weight, mobcost;
     int packing;
@@ -145,6 +145,9 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
     getsect(x, y, &dest);
     getsect(x, y, &sect);
     if (sect.sct_own == own) {
+	if (!opt_NOFOOD && type == I_FOOD)
+	    minimum = 1 + (int)ceil(food_needed(sect.sct_item,
+						etu_per_update));
 	if (sect.sct_item[type] - wanted >= minimum) {
 	    sect.sct_item[type] -= wanted;
 	    if (actually_doit)
