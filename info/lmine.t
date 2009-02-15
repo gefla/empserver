@@ -4,8 +4,9 @@
 .SY "lmine <UNIT> <NUMBER>"
 This command causes a unit with the engineering ability
 to lay mines in a sector. (see \*Qinfo Unit-types\*U).  If you ask to
-lay more mines than the unit is carrying, then it will attempt to keep
-resupplying itself until all of the mines have been laid.  It costs
+lay more mines than the unit is carrying, then it will attempt to
+draw shells from a supply source (see info supply for details on that).
+It costs
 1 mobility point per mine laid, so an engineer with 20 mobility can
 lay a maximum of 20 mines.  The 'strength' command will list how many
 mines you have put in each sector.
@@ -43,4 +44,4 @@ times its 'att' value (see show land stats).  If an engineer sweeps
 more mines than it can carry, then it will drop the rest as shells
 into the sector.
 .s1
-.SA "march, strength, move, explore, transport, Hitchance, Damage, Attacking, LandUnits"
+.SA "strength, supply, Hitchance, Damage, Attacking, LandUnits"
