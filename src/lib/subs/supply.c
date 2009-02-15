@@ -77,29 +77,12 @@ void
 resupply_commod(struct lndstr *lp, i_type type)
 {
     int amt;
-    struct shpstr ship;
 
-    /* Ok, do we now have enough? */
     amt = get_minimum(lp, type) - lp->lnd_item[type];
     if (amt > 0) {
 	lp->lnd_item[type] += supply_commod(lp->lnd_own,
 					    lp->lnd_x, lp->lnd_y,
 					    type, amt);
-	amt = get_minimum(lp, type) - lp->lnd_item[type];
-    }
-    /* Now, check again to see if we have enough. */
-    if (amt > 0) {
-	/* Are we on a ship?  if so, try to get it from the ship first. */
-	if (lp->lnd_ship >= 0) {
-	    getship(lp->lnd_ship, &ship);
-	    /* Now, determine how much we can get */
-	    if (amt > ship.shp_item[type])
-		amt = ship.shp_item[type];
-	    /* Now, add and subtract */
-	    lp->lnd_item[type] += amt;
-	    ship.shp_item[type] -= amt;
-	    putship(lp->lnd_ship, &ship);
-	}
     }
 }
 
