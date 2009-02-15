@@ -353,10 +353,6 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 
 	if (can_move >= wanted) {
 	    land.lnd_item[type] -= wanted;
-
-	    /* resupply the supply unit */
-	    resupply_commod(&land, type);
-
 	    land.lnd_mobil -= roundavg(wanted * weight * move_cost);
 
 	    if (actually_doit)
