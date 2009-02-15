@@ -202,7 +202,7 @@ s_commod(int own, int x, int y, i_type type, int total_wanted,
 	    sect.sct_item[type] -= wanted;
 
 	    /* take off mobility for delivering sect */
-	    n = roundavg(total_wanted * weight * move_cost);
+	    n = roundavg(wanted * weight * move_cost);
 	    if (n < 0)
 		n = 0;
 	    if (n > sect.sct_mobil)
