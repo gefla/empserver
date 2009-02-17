@@ -143,7 +143,7 @@ $(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
 # Removed by distclean:
 distclean := $(ac) $(mk)
 # Distributed by dist-source from $(srcdir)
-src_distgen := $(acdist) sources.mk
+src_distgen := $(acdist)
 # Distributed by dist-client from $(srcdir)/src/client
 cli_distgen := $(acdistcli)
 
@@ -320,23 +320,14 @@ $(topics.html): info/emp2html.pl
 info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
 	groff $^ >$@
 
-# List of source files
-
-# Note: $(srcdir)/sources.mk is only included when the source tree
-# came from a tarball rather than git.  The following rule creates a
-# it only for putting it into the tarball.  It is not used otherwise
-# in this build.
-ifeq ($(revctrl),git)
-.PHONY: $(srcdir)/sources.mk
-$(srcdir)/sources.mk:
-	echo "src := $(src)" >$@
-endif
-
 # Distributing
 
 .PHONY: dist-source
 dist-source: $(src_distgen)
-	$(tarball) $(TARNAME)-$(VERSION) -C $(srcdir) $(src_distgen) $(src)
+ifeq ($(revctrl),git)
+	echo "src := $(src)" >$(srcdir)/sources.mk
+endif
+	$(tarball) $(TARNAME)-$(VERSION) -C $(srcdir) $(src_distgen) $(src) sources.mk
 
 .PHONY: dist-client
 dist-client: $(cli_distgen)
