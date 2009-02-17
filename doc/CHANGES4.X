@@ -1,4 +1,129 @@
-Changes to Empire 4.3.19 - Sun Dec  7 22:25:46 UTC 2008
+Changes to Empire 4.3.20 - Tue Feb 17 18:56:53 UTC 2009
+ * Changes and fixes to automatic supply:
+   - Planes flying interception or support missions, abms intercepting
+     ballistic missiles, and the launch command for missiles and
+     anti-sats could all supply more shells than necessary, lose
+     shells, or conjure them up.
+   - Ships shooting down marine missiles could supply more shells than
+     necessary, or lose shells.
+   - Supply ships could conjure up shells when firing guns using
+     multiple shells, or launching torpedoes, or dropping depth
+     charges, or shooting down marine missiles.  No supply ships
+     capable of doing that exist in the stock game.
+   - Supply engineers could conjure up shells when laying mines.  They
+     don't exist in the stock game.
+   - load, lload and supply could supply land units with enough food
+     from the sector containing them to starve the sector.
+   - Sectors were charged too much mobility for moving supplies
+     sometimes.
+   - Land units serving as supply source no longer draw supplies
+     recursively, because the bugs there are too hard to fix to be
+     worth it.
+   - Defending and reacting units checked whether they could draw
+     supplies, but failed to actually draw them.
+   - load, lload, supply, assault and board no longer supply land
+     units from ships carrying them.  This feature, added in 4.0.14,
+     was inconsistent with other ways to supply.
+   - Don't use automatic supply to avoid starvation at the update.  It
+     adds complexity to the update.  How much good it does to players
+     is highly doubtful; certainly nobody can rely on it.  It isn't
+     covered by the starvation command.  Ships or land units could
+     steal enough food from their sector to make it starve.
+   The changes listed for load and lload are actually lies, because
+   supply has been disabled there since 4.3.17.
+ * lmine didn't work for engineers that don't use ammo.  The stock
+   game's engineers all use ammo.
+ * Don't let an engineer lay mines while it is on a ship or land unit,
+   or in a foreign sector.
+ * Sectors and ships no longer need shells to fire flak.
+ * Use IPv4 and v6 only when suitable interfaces are configured.
+ * Fix turn off not to fail when the message is empty.  Broken in
+   4.2.20.
+ * Don't nag the deity about game hours restriction in force all the
+   time.
+ * Tell deity when the game is down, just like players.  Also make the
+   information available in xdump, as game selector down.
+ * Corrupt mailboxes could crash the server.
+ * Fix reject accept.  Broken in 4.3.4.
+ * If a player was at a prompt when the deity turned the game down, he
+   was allowed to enter one more command.
+ * Air defense is no longer separate from interception.  Putting a
+   plane on air defense now merely changes where it intercepts.
+   Separate air defense added too much pointless complexity.  Its
+   implementation violated design assumptions of the intercept code.
+   Because of that, the same plane could intercept both an air defense
+   mission and the planes that triggered it, and the damage it
+   received in the first interception was wiped out.
+ * Intercept the same all along the flight path.  In each sector, any
+   country owning the sector, a surface ship or a land unit there gets
+   to intercept.  Before, only the sector owner got to intercept,
+   except for the assembly point and the target sector.  In the target
+   sector, any country owning surface ships or land units got to
+   intercept in addition to the sector owner.  Thus, a sector owner
+   with surface ships or land units there got to intercept twice.  The
+   sector owner did not get to intercept at the assembly point,
+   even when it was the target sector.
+ * Spotting rule changes:
+   - Ships and land units now spot overflying planes along all of the
+     flight path instead of just the target sector, and no longer
+     report allied planes.
+   - Planes now spot ships and land units only when flying recon or
+     sweep, and along all of their flight path instead of just the
+     target sector.  It still takes a spy plane to identify ships and
+     land units.
+   - Planes now spot ships and land units in a sector even when all
+     planes abort there.
+   - Planes now spot all foreign ships and land units, not just
+     hostile ones.
+ * Fix SAM interception for intercepts other than the first.
+ * Fix air defense and flak over sectors allied to the planes.  Air
+   defense was broken in Empire 2.  Flak was broken in 4.2.8.
+ * Establishing contact by spotting planes from sectors didn't work.
+ * Fix reconnaissance patrols to use sonar when any capable plane is
+   present.  Before, all planes had to be capable.
+ * Fix recon and sweep not to spy after all spy planes are gone.
+ * Fix a bug that made multiple clients running on the same Windows
+   machine interfere with each other.  Broken in 4.3.11.
+ * Fix enforcing game hours for players already logged in.  Broken in
+   4.3.19.
+ * Fix distribution not to abandon a distribution center by exporting
+   the last military.
+ * Many fixes to load, unload, lload and lunload:
+   - Now usable for deities.
+   - Plug loopholes that let you steal foreign commodities by making
+     load/lload unload and unload/lunload load through use of negative
+     amount arguments.
+   - Fix not to let you give away civilians.
+   - You can't use lload in foreign sectors or lunload with foreign
+     land units anymore.  Loading stuff in foreign sectors was
+     prohibited already for ships.
+   - lload and lunload now work on foreign land units only when
+     they're explicitely named by uid.  This matches behavior of load
+     and unload.
+   - Fix to test relations of foreign object's owner to player instead
+     of the other way round.
+ * Make sure land units with maximum mobility can attack mountains.
+ * Fix land unit attack mobility cost.  Broken in 4.3.6.
+ * Conditions comparing string-valued selectors like wing to unquoted
+   values are now interpreted more smartly.  Before, unquoted strings
+   were prone to be interpreted as selector names even when that made
+   no sense.  You still have to disambiguate truly ambiguous cases
+   like w=w for planes, e.g. as wing=w or w='w'.
+ * Fix reporting of shot spies in news.  Broken in 4.3.16.
+ * Remove econfig key mission_mob_cost.  Questionable feature, and
+   hasn't been used in a long time.
+ * Reserve and escort missions now have an op-area, like all the other
+   missions.
+ * Land units now react only when on a reserve mission.  The lrange
+   command is gone.
+ * Fix a bug that could mess up mission op-area when the range of
+   ship, plane or land unit on the mission decreases, e.g. through the
+   range command.
+ * Reserve missions no longer give a bonus to reaction range.
+ * Info file fixes.
+ * Code refactoring and cleanup.
+
+Changes to Empire 4.3.19 - Sun Dec  7 23:15:34 UTC 2008
  * LWP doesn't work with Darwin due to OS bugs, avoid it for now.
  * Don't let ships double-retreat first on 'i' (injured) and then on
    'h' (helpless) when shelled.
@@ -1616,8 +1741,8 @@ Changes to Empire 4.2.15 - Wed May 26 17:55:58 UTC 2004
  * Rewrite selector code.  Old code let players smash the stack by
    supplying too many conditions.  New code properly rejects ambiguous
    abbreviations and prefers exact matches.  Selectors with names that
-   collide with types, like land units' rad and spy, now work.  Selectors with
-   non-integral values, like land units' att, now work.
+   collide with types, like land units' rad and spy, now work.
+   Selectors with non-integral values, like land units' att, now work.
  * survey used to display hundreds for everything but variables.  Now
    it displays hundreds only for values that can be large.
  * Rewrite info survey.  Document ability to survey properties other
