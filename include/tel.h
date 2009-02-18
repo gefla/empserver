@@ -28,7 +28,7 @@
  *  tel.h: Definitions for things having to do with telegrams
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2009
  */
 
 #ifndef TEL_H

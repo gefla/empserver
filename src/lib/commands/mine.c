@@ -28,7 +28,7 @@
  *  mine.c: Lay mines from ships or units
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>

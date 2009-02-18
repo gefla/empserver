@@ -31,7 +31,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
- *     Ron Koenderink, 2004-2005
+ *     Ron Koenderink, 2004-2009
  *     Markus Armbruster, 2005-2008
  */
 

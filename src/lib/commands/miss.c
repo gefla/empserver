@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2005-2008
  */
 
 #include <config.h>

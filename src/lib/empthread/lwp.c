@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Sasha Mikheev
- *     Markus Armbruster, 2006-2007
+ *     Markus Armbruster, 2006-2008
  */
 
 #include <config.h>

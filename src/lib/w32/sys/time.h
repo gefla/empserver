@@ -28,7 +28,7 @@
  *  sys/time.h: POSIX emulation for WIN32
  *
  *  Known contributors to this file:
- *     Ron Koenderink, 2008
+ *     Ron Koenderink, 2009
  */
 
 #ifndef SYS_TIME_H

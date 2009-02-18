@@ -28,13 +28,13 @@
  *  service.c: Windows services support
  *
  *  Known contributors to this file:
- *     Ron Koenderink, 2004
+ *     Ron Koenderink, 2004-2009
  */
 
 #include <config.h>
 
 /*
- * For WIN32 in empthread.h, winsock2.h is included which interfers
+ * For WIN32 in empthread.h, winsock2.h is included which interferes
  * with including windows.h, use sys/socket.h instead to prevent a
  * problem
  */

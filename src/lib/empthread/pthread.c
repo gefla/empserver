@@ -30,8 +30,8 @@
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2007
- *     Ron Koenderink, 2007
+ *     Markus Armbruster, 2005-2009
+ *     Ron Koenderink, 2007-2009
  */
 
 /* Required for PTHREAD_STACK_MIN on some systems, e.g. Solaris: */

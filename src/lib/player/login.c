@@ -31,6 +31,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 2000
  *     Markus Armbruster, 2004-2008
+ *     Ron Koenderink, 2005-2009
  */
 
 #include <config.h>

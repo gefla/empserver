@@ -32,7 +32,7 @@
  *     Doug Hay, 1998
  *     Steve McClure, 1998
  *     Markus Armbruster, 2005-2008
- *     Ron Koenderink, 2005-2008
+ *     Ron Koenderink, 2005-2009
  */
 
 /*

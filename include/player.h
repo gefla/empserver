@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Doug Hay, 1998
+ *     Markus Armbruster, 2005-2009
  */
 
 #ifndef PLAYER_H

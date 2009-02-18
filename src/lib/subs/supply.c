@@ -28,7 +28,7 @@
  *  supply.c: Supply subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>
