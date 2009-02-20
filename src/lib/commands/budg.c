@@ -133,8 +133,10 @@ budg(void)
     }
 
     if (p_sect[SCT_EFFIC][1]) {
-	pr("Sector building\t\t\t\t%8ld sct(s)\t\t%8ld\n",
-	   p_sect[SCT_EFFIC][0], p_sect[SCT_EFFIC][1]);
+	sprintf(buf, "%ld sector%s",
+		p_sect[SCT_EFFIC][0], splur(p_sect[SCT_EFFIC][0]));
+	pr("Sector building\t\t\t%-16s\t\t%8ld\n",
+	   buf, p_sect[SCT_EFFIC][1]);
 	expenses += p_sect[SCT_EFFIC][1];
     }
     if (p_sect[SCT_MAINT][0]) {

@@ -21,7 +21,7 @@ Ship building                   2 ships    		             480
 Ship maintenance                25 ships   		            6327
 Plane building                  9 planes   		            2508
 Plane maintenance               219 planes 		            8874
-Sector building                                                     2398
+Sector building			25 sectors       		    2398
 Sector maintenance		5 sectors       		     300
 Military payroll                7648 mil, 338 res                  38247
 Total expenses....................................................147490
