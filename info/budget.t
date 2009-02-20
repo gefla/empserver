@@ -22,8 +22,8 @@ Ship maintenance                25 ships   		            6327
 Plane building                  9 planes   		            2508
 Plane maintenance               219 planes 		            8874
 Sector building                                                     2398
+Sector maintenance		5 sectors       		     300
 Military payroll                7648 mil, 338 res                  38247
-City maintenance                5 cities                             300
 Total expenses....................................................147490
 Income from taxes               320709 civs, 100235 uws           +92513
 Income from bars                7986 bars                         +95832

@@ -84,7 +84,7 @@ budg(void)
     expenses = 0;
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
     for (i = 0; i <= SCT_TYPE_MAX; i++) {
-	if (!p_sect[i][1] || i == SCT_CAPIT)
+	if (!p_sect[i][1])
 	    continue;
 	pr("%-17s\t\t", dchr[i].d_name);
 	if (i == SCT_ENLIST)
@@ -137,21 +137,18 @@ budg(void)
 	   p_sect[SCT_EFFIC][0], p_sect[SCT_EFFIC][1]);
 	expenses += p_sect[SCT_EFFIC][1];
     }
+    if (p_sect[SCT_MAINT][0]) {
+	sprintf(buf, "%ld sector%s",
+		p_sect[SCT_MAINT][0], splur(p_sect[SCT_MAINT][0]));
+	pr("Sector maintenance\t\t%-16s\t\t%8ld\n",
+	   buf, p_sect[SCT_MAINT][1]);
+	expenses += p_sect[SCT_MAINT][1];
+    }
     if (mil) {
 	n = (mil - np->nat_reserve * money_res * etu) / (etu * money_mil);
 	sprintf(in, "%d mil, %d res", n, (int)np->nat_reserve);
 	pr("Military payroll\t\t%-32s%8d\n", in, -mil);
 	expenses -= mil;
-    }
-    if (p_sect[SCT_CAPIT][0]) {
-	pr("%c%s maintenance\t\t",
-	   toupper(dchr[SCT_CAPIT].d_name[0]),
-	   dchr[SCT_CAPIT].d_name + 1);
-	n = p_sect[SCT_CAPIT][0];
-	sprintf(in, "%d %s", n, dchr[SCT_CAPIT].d_name);
-	plurize(in, sizeof(in), n);
-	pr("%-32s%8ld\n", in, p_sect[SCT_CAPIT][1]);
-	expenses += p_sect[SCT_CAPIT][1];
     }
     pr("Total expenses%s\n", dotsprintf(buf, "%58d", expenses));
     if (taxes) {

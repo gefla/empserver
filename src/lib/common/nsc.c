@@ -203,6 +203,7 @@ struct castr dchr_ca[] = {
     {"build", fldoff(d_build), NSC_INT, 0, NULL, EF_BAD, 0},
     {"lcms", fldoff(d_lcms), NSC_INT, 0, NULL, EF_BAD, 0},
     {"hcms", fldoff(d_hcms), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"maint", fldoff(d_maint), NSC_INT, 0, NULL, EF_BAD, 0},
     {"maxpop", fldoff(d_maxpop), NSC_INT, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR

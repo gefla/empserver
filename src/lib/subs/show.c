@@ -460,27 +460,29 @@ show_sect_build(int foo)
 {
     int i, first;
 
-    pr("                        desig   build 100%% eff\n"
-       "sector type                 $   lcm   hcm     $\n");
+    pr("                        desig   build 100%% eff  maint\n"
+       "sector type                 $   lcm  hcm     $      $\n");
     for (i = 0; dchr[i].d_name; i++) {
 	if (dchr[i].d_mnem == 0)
 	    continue;
 	if (dchr[i].d_mob0 < 0)
 	    continue;
 	if (dchr[i].d_cost <= 0 && dchr[i].d_build == 1
-	    && dchr[i].d_lcms == 0 && dchr[i].d_hcms == 0)
+	    && dchr[i].d_lcms == 0 && dchr[i].d_hcms == 0
+	    && dchr[i].d_maint == 0)
 	    continue;		/* the usual, skip */
 	pr("%c %-21.21s", dchr[i].d_mnem, dchr[i].d_name);
 	if (dchr[i].d_cost < 0)
 	    pr(" can't");
 	else
 	    pr(" %5d", dchr[i].d_cost);
-	pr(" %5d %5d %5d\n",
+	pr(" %5d%5d %5d  %5d\n",
 	   100 * dchr[i].d_lcms,
 	   100 * dchr[i].d_hcms,
-	   100 * dchr[i].d_build);
+	   100 * dchr[i].d_build,
+	   dchr[i].d_maint * etu_per_update);
     }
-    pr("any other                   0     0     0   100\n");
+    pr("any other                   0     0    0   100      0\n");
 
     first = 1;
     for (i = 0; intrchr[i].in_name; i++) {

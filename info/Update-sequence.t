@@ -24,17 +24,16 @@ This document gives a rough order of events during the update.
 	d) land unit maintenance
 		pay maintenance, then feed and plague people on board
 	e) produce for all sectors
-                a) if the sector is a cap, it costs $1 per etu since
-			the last update
-                b) people in non-sanctuary sectors eat
+                a) people in non-sanctuary sectors eat
                         If not enough is available, the excess people will
 			starve off.  No more than 50% of the people
                         in a sector can die; the uw's die first, then
                         the civs, then the mil.
-                c) if there was starvation, the work percentage is set
+                b) if there was starvation, the work percentage is set
                         to 0, otherwise the work rate rises by
                         8+(1-15), max of 100
-                d) population grows and is truncated
+                c) population grows and is truncated
+                d) pay sector maintenance
                 e) sectors that are stopped are skipped (see info stop)
                 f) first increase eff
                 g) then make things

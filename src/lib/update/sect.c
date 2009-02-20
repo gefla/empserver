@@ -278,13 +278,6 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 
 	np = getnatp(natnum);
 
-	if (sp->sct_type == SCT_CAPIT && sp->sct_effic >= 60) {
-	    p_sect[SCT_CAPIT][0]++;
-	    p_sect[SCT_CAPIT][1] += etu;
-	    if (!player->simulation)
-		np->nat_money -= etu;
-	}
-
 	if (player->simulation) {
 	    /* work on a copy, which will be discarded */
 	    memcpy(buf, sp->sct_item, sizeof(buf));
@@ -320,6 +313,14 @@ produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
 	pcost = cost = ecost = 0;
 
 	desig = sp->sct_type;
+
+	if (dchr[desig].d_maint) {
+	    cost = etu * dchr[desig].d_maint;
+	    p_sect[SCT_MAINT][0]++;
+	    p_sect[SCT_MAINT][1] += cost;
+	    if (!player->simulation)
+		np->nat_money -= cost;
+	}
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
