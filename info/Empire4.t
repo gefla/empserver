@@ -7,8 +7,10 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.20 - Tue Feb 17 18:56:53 UTC 2009
- * Changes and fixes to automatic supply:
+Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
+ * Option LOANS is now disabled by default.
+ * Option RAILWAYS is now enabled by default.
+ * Many fixes to automatic supply:
    - Planes flying interception or support missions, abms intercepting
      ballistic missiles, and the launch command for missiles and
      anti-sats could all supply more shells than necessary, lose
@@ -28,8 +30,8 @@ Changes to Empire 4.3.20 - Tue Feb 17 18:56:53 UTC 2009
    - Land units serving as supply source no longer draw supplies
      recursively, because the bugs there are too hard to fix to be
      worth it.
-   - Defending and reacting units checked whether they could draw
-     supplies, but failed to actually draw them.
+   - Defending and reacting units only checked whether they could draw
+     supplies, but didn't actually draw them.
    - load, lload, supply, assault and board no longer supply land
      units from ships carrying them.  This feature, added in 4.0.14,
      was inconsistent with other ways to supply.
@@ -38,10 +40,10 @@ Changes to Empire 4.3.20 - Tue Feb 17 18:56:53 UTC 2009
      is highly doubtful; certainly nobody can rely on it.  It isn't
      covered by the starvation command.  Ships or land units could
      steal enough food from their sector to make it starve.
+   - lmine could only fetch shells for engineers that use ammo.  The
+     stock game's engineers all do.
    The changes listed for load and lload are actually lies, because
    supply has been disabled there since 4.3.17.
- * lmine didn't work for engineers that don't use ammo.  The stock
-   game's engineers all use ammo.
  * Don't let an engineer lay mines while it is on a ship or land unit,
    or in a foreign sector.
  * Sectors and ships no longer need shells to fire flak.
@@ -107,7 +109,7 @@ Changes to Empire 4.3.20 - Tue Feb 17 18:56:53 UTC 2009
      land units anymore.  Loading stuff in foreign sectors was
      prohibited already for ships.
    - lload and lunload now work on foreign land units only when
-     they're explicitely named by uid.  This matches behavior of load
+     they're explicitly named by uid.  This matches behavior of load
      and unload.
    - Fix to test relations of foreign object's owner to player instead
      of the other way round.
