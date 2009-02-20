@@ -57,7 +57,7 @@ int
 budg(void)
 {
     int i;
-    long p_sect[SCT_TYPE_MAX+2][2];
+    long p_sect[SCT_BUDG_MAX+1][2];
     int taxes, Ncivs, Nuws, bars, Nbars, mil;
     int ships, sbuild, nsbuild, smaint;
     int units, lbuild, nlbuild, lmaint;
@@ -190,7 +190,7 @@ calc_all(long p_sect[][2],
     struct sctstr *sp;
     int etu = etu_per_update;
 
-    memset(p_sect, 0, sizeof(**p_sect) * (SCT_TYPE_MAX+2) * 2);
+    memset(p_sect, 0, sizeof(**p_sect) * (SCT_BUDG_MAX+1) * 2);
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
     *ships = *sbuild = *nsbuild = *smaint = 0;
     *units = *lbuild = *nlbuild = *lmaint = 0;

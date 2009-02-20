@@ -38,6 +38,7 @@
 #include "item.h"
 
 #define SCT_EFFIC (SCT_TYPE_MAX + 1)
+#define SCT_BUDG_MAX SCT_EFFIC
 
 struct bp *bp_alloc(void);
 void bp_set_from_sect(struct bp *, struct sctstr *);

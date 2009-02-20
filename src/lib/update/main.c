@@ -101,7 +101,7 @@ update_main(void)
     logerror("done preparing sectors.");
     logerror("producing for countries...");
     for (i = 0; i < MAXNOC; i++) {
-	long p_sect[SCT_TYPE_MAX+2][2];
+	long p_sect[SCT_BUDG_MAX+1][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
 	if (!(np = getnatp(i)))
