@@ -458,33 +458,33 @@ show_land_stats(int tlev)
 void
 show_sect_build(int foo)
 {
-    int x, first;
+    int i, first;
 
     pr("sector type    cost to des    cost for 1%% eff   lcms for 1%%    hcms for 1%%\n");
-    for (x = 0; dchr[x].d_name; x++) {
-	if (dchr[x].d_mnem == 0)
+    for (i = 0; dchr[i].d_name; i++) {
+	if (dchr[i].d_mnem == 0)
 	    continue;
-	if (dchr[x].d_cost < 0)
+	if (dchr[i].d_cost < 0)
 	    continue;
-	if ((dchr[x].d_cost > 0) || (dchr[x].d_build != 1) ||
-	    (dchr[x].d_lcms > 0) || (dchr[x].d_hcms > 0)) {
+	if ((dchr[i].d_cost > 0) || (dchr[i].d_build != 1) ||
+	    (dchr[i].d_lcms > 0) || (dchr[i].d_hcms > 0)) {
 	    pr("%-14c %-14d %-17d %-14d %d\n",
-	       dchr[x].d_mnem, dchr[x].d_cost, dchr[x].d_build,
-	       dchr[x].d_lcms, dchr[x].d_hcms);
+	       dchr[i].d_mnem, dchr[i].d_cost, dchr[i].d_build,
+	       dchr[i].d_lcms, dchr[i].d_hcms);
 	}
     }
     pr("other          0              1                 0              0\n");
 
     first = 1;
-    for (x = 0; intrchr[x].in_name; x++) {
-	if (!intrchr[x].in_enable)
+    for (i = 0; intrchr[i].in_name; i++) {
+	if (!intrchr[i].in_enable)
 	    continue;
 	if (first)
 	    pr("\nInfrastructure building - adding 1 point of efficiency costs:\n"
 	       "       type          lcms    hcms    mobility    $$$$\n");
 	pr("%-20s %4d    %4d    %8d    %4d\n",
-	   intrchr[x].in_name, intrchr[x].in_lcms, intrchr[x].in_hcms,
-	   intrchr[x].in_mcost, intrchr[x].in_dcost);
+	   intrchr[i].in_name, intrchr[i].in_lcms, intrchr[i].in_hcms,
+	   intrchr[i].in_mcost, intrchr[i].in_dcost);
 	first = 0;
     }
 }
@@ -492,41 +492,41 @@ show_sect_build(int foo)
 void
 show_sect_stats(int foo)
 {
-    int x;
+    int i;
     struct natstr *natp = getnatp(player->cnum);
 
     pr("                        mob cost   max   max   naviga    packing   max\n");
     pr("  sector type            0%% 100%%   off   def   bility      bonus   pop\n");
 
-    for (x = 0; dchr[x].d_name; x++) {
-	if (dchr[x].d_mnem == 0)
+    for (i = 0; dchr[i].d_name; i++) {
+	if (dchr[i].d_mnem == 0)
 	    continue;
-	pr("%c %-21.21s", dchr[x].d_mnem, dchr[x].d_name);
-	if (dchr[x].d_mob0 < 0)
+	pr("%c %-21.21s", dchr[i].d_mnem, dchr[i].d_name);
+	if (dchr[i].d_mob0 < 0)
 	    pr("  no way ");
 	else
-	    pr(" %3.1f  %3.1f", dchr[x].d_mob0, dchr[x].d_mob1);
+	    pr(" %3.1f  %3.1f", dchr[i].d_mob0, dchr[i].d_mob1);
 	pr("  %5.2f %5.2f %7.7s %10.10s %5d\n",
-	   dchr[x].d_ostr, dchr[x].d_dstr,
-	   symbol_by_value(dchr[x].d_nav, sector_navigation),
-	   symbol_by_value(dchr[x].d_pkg, packing),
-	   max_population(natp->nat_level[NAT_RLEV], x, 100));
+	   dchr[i].d_ostr, dchr[i].d_dstr,
+	   symbol_by_value(dchr[i].d_nav, sector_navigation),
+	   symbol_by_value(dchr[i].d_pkg, packing),
+	   max_population(natp->nat_level[NAT_RLEV], i, 100));
     }
 }
 
 void
 show_sect_capab(int foo)
 {
-    int x;
+    int i;
 
     pr("  sector type             product  p.e.\n");
 
-    for (x = 0; dchr[x].d_name; x++) {
-	if (dchr[x].d_mnem == 0 || dchr[x].d_prd < 0)
+    for (i = 0; dchr[i].d_name; i++) {
+	if (dchr[i].d_mnem == 0 || dchr[i].d_prd < 0)
 	    continue;
 	pr("%c %-23s %-7s %4d%%\n",
-	   dchr[x].d_mnem, dchr[x].d_name, pchr[dchr[x].d_prd].p_sname,
-	   dchr[x].d_peffic);
+	   dchr[i].d_mnem, dchr[i].d_name, pchr[dchr[i].d_prd].p_sname,
+	   dchr[i].d_peffic);
     }
 }
 

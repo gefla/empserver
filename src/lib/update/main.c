@@ -57,7 +57,7 @@ update_main(void)
 {
     int etu = etu_per_update;
     int n;
-    int x;
+    int i;
     struct bp *bp;
     int cn, cn2, rel;
     struct natstr *cnp;
@@ -100,32 +100,32 @@ update_main(void)
     prepare_sects(etu, bp);
     logerror("done preparing sectors.");
     logerror("producing for countries...");
-    for (x = 0; x < MAXNOC; x++) {
+    for (i = 0; i < MAXNOC; i++) {
 	long p_sect[SCT_TYPE_MAX+2][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
-	if (!(np = getnatp(x)))
+	if (!(np = getnatp(i)))
 	    continue;
 	if (np->nat_stat == STAT_SANCT) {
 #ifdef DEBUG
-	    logerror("Country %i is in sanctuary and did not update", x);
+	    logerror("Country %i is in sanctuary and did not update", i);
 #endif
 	    continue;
 	}
 	np->nat_money += (int)(np->nat_reserve * money_res * etu);
 
 	/* maintain units */
-	prod_ship(etu, x, bp, 0);
-	prod_plane(etu, x, bp, 0);
-	prod_land(etu, x, bp, 0);
+	prod_ship(etu, i, bp, 0);
+	prod_plane(etu, i, bp, 0);
+	prod_land(etu, i, bp, 0);
 
 	/* produce all sects */
-	produce_sect(x, etu, bp, p_sect);
+	produce_sect(i, etu, bp, p_sect);
 
 	/* build units */
-	prod_ship(etu, x, bp, 1);
-	prod_plane(etu, x, bp, 1);
-	prod_land(etu, x, bp, 1);
+	prod_ship(etu, i, bp, 1);
+	prod_plane(etu, i, bp, 1);
+	prod_land(etu, i, bp, 1);
     }
     logerror("done producing for countries.");
 

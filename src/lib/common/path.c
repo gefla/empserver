@@ -182,7 +182,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
     struct bestp *bp = pp;
     coord x, y;
     coord nx, ny;
-    int n = 0, q;
+    int n = 0, i;
     struct sctstr *sp, *from, **ssp;
     /* Six pointers, just in case our cache isn't there */
     struct sctstr *tsp[] = { NULL, NULL, NULL, NULL, NULL, NULL };
@@ -199,11 +199,11 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	ssp = (struct sctstr **)&tsp[0];
     else
 	ssp = (struct sctstr **)&neighsects[offset * 6];
-    for (q = 1; q <= 6; q++, ssp++) {
+    for (i = 1; i <= 6; i++, ssp++) {
 	if (*ssp == NULL) {
 	    /* We haven't cached this neighbor yet */
-	    nx = x + diroff[q][0];
-	    ny = y + diroff[q][1];
+	    nx = x + diroff[i][0];
+	    ny = y + diroff[i][1];
 	    sx = XNORM(nx);
 	    sy = YNORM(ny);
 	    offset = XYOFFSET(sx, sy);

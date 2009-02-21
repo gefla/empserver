@@ -174,8 +174,8 @@ main(int argc, char *argv[])
 	printf("Can't make telegram directory\n");
 	exit(1);
     }
-    for (x = MAXNOC - 1; x >= 0; x--) {
-	filename = mailbox(buf, x);
+    for (i = 0; i < MAXNOC; i++) {
+	filename = mailbox(buf, i);
 	close(creat(filename, S_IRWUG));
     }
     close(creat(annfil, S_IRWUG));

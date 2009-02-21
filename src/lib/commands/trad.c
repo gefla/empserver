@@ -72,7 +72,7 @@ trad(void)
     int bid;
     double tleft;
     double tally;
-    int q;
+    int i;
     char buf[1024];
 
     if (!opt_MARKET) {
@@ -164,13 +164,13 @@ trad(void)
 	return RET_OK;
     }
     tally = 0.0;
-    for (q = 0; gettrade(q, &tmpt); q++) {
+    for (i = 0; gettrade(i, &tmpt); i++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
 	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_price * tradetax;
 	}
     }
-    for (q = 0; getcomm(q, &comt); q++) {
+    for (i = 0; getcomm(i, &comt); i++) {
 	if (comt.com_maxbidder == player->cnum &&
 	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
 	    tally += (comt.com_price * comt.com_amount) * buytax;
