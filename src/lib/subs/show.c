@@ -460,7 +460,8 @@ show_sect_build(int foo)
 {
     int i, first;
 
-    pr("sector type    cost to des    cost for 1%% eff   lcms for 1%%    hcms for 1%%\n");
+    pr("                        desig   build 100%% eff\n"
+       "sector type                 $   lcm   hcm     $\n");
     for (i = 0; dchr[i].d_name; i++) {
 	if (dchr[i].d_mnem == 0)
 	    continue;
@@ -469,11 +470,17 @@ show_sect_build(int foo)
 	if (dchr[i].d_cost <= 0 && dchr[i].d_build == 1
 	    && dchr[i].d_lcms == 0 && dchr[i].d_hcms == 0)
 	    continue;		/* the usual, skip */
-	pr("%-14c %-14d %-17d %-14d %d\n",
-	   dchr[i].d_mnem, dchr[i].d_cost, dchr[i].d_build,
-	   dchr[i].d_lcms, dchr[i].d_hcms);
+	pr("%c %-21.21s", dchr[i].d_mnem, dchr[i].d_name);
+	if (dchr[i].d_cost < 0)
+	    pr(" can't");
+	else
+	    pr(" %5d", dchr[i].d_cost);
+	pr(" %5d %5d %5d\n",
+	   100 * dchr[i].d_lcms,
+	   100 * dchr[i].d_hcms,
+	   100 * dchr[i].d_build);
     }
-    pr("other          0              1                 0              0\n");
+    pr("any other                   0     0     0   100\n");
 
     first = 1;
     for (i = 0; intrchr[i].in_name; i++) {
