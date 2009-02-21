@@ -464,14 +464,14 @@ show_sect_build(int foo)
     for (i = 0; dchr[i].d_name; i++) {
 	if (dchr[i].d_mnem == 0)
 	    continue;
-	if (dchr[i].d_cost < 0)
+	if (dchr[i].d_mob0 < 0)
 	    continue;
-	if ((dchr[i].d_cost > 0) || (dchr[i].d_build != 1) ||
-	    (dchr[i].d_lcms > 0) || (dchr[i].d_hcms > 0)) {
-	    pr("%-14c %-14d %-17d %-14d %d\n",
-	       dchr[i].d_mnem, dchr[i].d_cost, dchr[i].d_build,
-	       dchr[i].d_lcms, dchr[i].d_hcms);
-	}
+	if (dchr[i].d_cost <= 0 && dchr[i].d_build == 1
+	    && dchr[i].d_lcms == 0 && dchr[i].d_hcms == 0)
+	    continue;		/* the usual, skip */
+	pr("%-14c %-14d %-17d %-14d %d\n",
+	   dchr[i].d_mnem, dchr[i].d_cost, dchr[i].d_build,
+	   dchr[i].d_lcms, dchr[i].d_hcms);
     }
     pr("other          0              1                 0              0\n");
 
