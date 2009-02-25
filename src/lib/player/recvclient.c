@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2009
  *     Ron Koenderink, 2009
  */
 
@@ -59,7 +59,7 @@
 int
 recvclient(char *cmd, int size)
 {
-    int count;
+    int count, res;
 
     count = -1;
     while (!player->aborted) {
@@ -85,11 +85,15 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	if (io_input(player->iop, IO_WAIT) <= 0) {
-	    if (!io_error(player->iop) && !io_eof(player->iop)) {
-		pr_flash(player, "idle connection terminated\n");
-		player->state = PS_SHUTDOWN;
-	    }
+	res = io_input(player->iop, IO_WAIT);
+	if (res > 0)
+	    ;
+	else if (res < 0)
+	    player->aborted = player->eof = 1;
+	else if (io_eof(player->iop))
+	    player->aborted = player->eof = 1;
+	else if (!player->aborted) {
+	    pr_flash(player, "idle connection terminated\n");
 	    player->aborted = player->eof = 1;
 	}
     }
