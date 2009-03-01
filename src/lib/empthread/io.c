@@ -51,6 +51,7 @@
 #include <unistd.h>
 #include "empio.h"
 #include "empthread.h"
+#include "file.h"
 #include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
@@ -123,6 +124,9 @@ io_input(struct iop *iop, int waitforinput)
     int cc;
     int res;
 
+    if (waitforinput)
+	ef_make_stale();
+
     /* Not a read IOP */
     if ((iop->flags & IO_READ) == 0) {
 	errno = EBADF;
@@ -182,6 +186,9 @@ io_output(struct iop *iop, int waitforoutput)
     int cc;
     int n;
     int remain;
+
+    if (waitforoutput)
+	ef_make_stale();
 
     /* If there is no output waiting. */
     if (!io_outputwaiting(iop))
@@ -264,6 +271,9 @@ io_write(struct iop *iop, char *buf, int nbytes, int doWait)
 {
     int len;
 
+    if (doWait)
+	ef_make_stale();
+
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
     ioq_append(iop->output, buf, nbytes);
@@ -284,6 +294,8 @@ int
 io_output_all(struct iop *iop)
 {
     int n;
+
+    ef_make_stale();
 
     /*
      * Mustn't block a player thread while update is pending, or else

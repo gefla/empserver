@@ -49,6 +49,7 @@ struct plnstr {
     short ef_type;
     short pln_uid;		/* plane unit id */
     unsigned pln_seqno;
+    unsigned pln_generation;
     time_t pln_timestamp;	/* Last time this plane was touched */
     natid pln_own;		/* owning country */
     coord pln_x;		/* plane x-y */

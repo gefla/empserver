@@ -45,6 +45,7 @@ struct comstr {
     short ef_type;
     short com_uid;
     unsigned com_seqno;
+    unsigned com_generation;
     time_t com_timestamp;
     natid com_owner;
     /* end of part matching struct empobj */

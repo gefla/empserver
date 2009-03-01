@@ -45,6 +45,7 @@ struct nukstr {
     short ef_type;
     short nuk_uid;
     unsigned nuk_seqno;
+    unsigned nuk_generation;
     time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;
     coord nuk_x, nuk_y;		/* current loc of device */

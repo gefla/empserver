@@ -58,6 +58,7 @@ struct empobj {
     short ef_type;
     short uid;
     unsigned seqno;
+    unsigned generation;
     time_t timestamp;
     /* end of part matching struct emptypedstr */
     natid own;		/* valid if EFF_OWNER is in table's flags */

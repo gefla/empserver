@@ -41,6 +41,7 @@ struct gamestr {
     short ef_type;
     short game_uid;
     unsigned game_seqno;
+    unsigned game_generation;
     time_t game_timestamp;
     /* end of part matching struct empobj */
     char game_upd_disable;	/* updates disabled? */

@@ -88,6 +88,7 @@ struct emptypedstr {
     short ef_type;
     short uid;
     unsigned seqno;
+    unsigned generation;
     time_t timestamp;
 };
 
@@ -203,6 +204,8 @@ enum {
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
+extern void ef_make_stale(void);
+extern void ef_mark_fresh(int, void *);
 extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);

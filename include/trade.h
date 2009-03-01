@@ -45,6 +45,7 @@ struct trdstr {
     short ef_type;
     short trd_uid;
     unsigned trd_seqno;
+    unsigned trd_generation;
     time_t trd_timestamp;
     natid trd_owner;
     /* end of part matching struct empobj */

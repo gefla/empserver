@@ -73,6 +73,7 @@ struct realmstr {
     short ef_type;
     short r_uid;		/* realm table index */
     unsigned r_seqno;
+    unsigned r_generation;
     time_t r_timestamp;		/* Last time this realm was touched */
     natid r_cnum;		/* country number */
     /* end of part matching struct empobj */
@@ -86,6 +87,7 @@ struct natstr {
     short ef_type;
     short nat_uid;		/* equals nat_cnum */
     unsigned nat_seqno;
+    unsigned nat_generation;
     time_t nat_timestamp;
     natid nat_cnum;		/* our country number */
     /* end of part matching struct empobj */

@@ -45,6 +45,7 @@ struct lonstr {
     short ef_type;
     short l_uid;
     unsigned l_seqno;
+    unsigned l_generation;
     time_t l_timestamp;
     /* end of part matching struct empobj */
     natid l_loner;		/* loan shark */

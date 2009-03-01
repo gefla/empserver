@@ -52,8 +52,11 @@ static int do_read(struct empfile *, void *, int, int);
 static int do_write(struct empfile *, void *, int, int);
 static unsigned get_seqno(struct empfile *, int);
 static void new_seqno(struct empfile *, void *);
+static void must_be_fresh(struct empfile *, void *);
 static void do_blank(struct empfile *, void *, int, int);
 static int ef_check(int);
+
+static unsigned ef_generation;
 
 /*
  * Open the file-backed table TYPE (EF_SECTOR, ...).
@@ -338,6 +341,7 @@ ef_read(int type, int id, void *into)
 	cachep = ep->cache + (id - ep->baseid) * ep->size;
     }
     memcpy(into, cachep, ep->size);
+    ef_mark_fresh(type, into);
 
     if (ep->postread)
 	ep->postread(id, into);
@@ -500,9 +504,11 @@ ef_write(int type, int id, void *from)
 	if (ep->onresize && ep->onresize(type) < 0)
 	    return 0;
     }
-    if (id >= ep->baseid && id < ep->baseid + ep->cids)
+    if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	cachep = ep->cache + (id - ep->baseid) * ep->size;
-    else
+	if (cachep != from)
+	    must_be_fresh(ep, from);
+    } else
 	cachep = NULL;
     if (ep->prewrite)
 	ep->prewrite(id, cachep, from);
@@ -586,6 +592,35 @@ new_seqno(struct empfile *ep, void *buf)
     elt->seqno = old_seqno + 1;
 }
 
+void
+ef_make_stale(void)
+{
+    ef_generation++;
+}
+
+void
+ef_mark_fresh(int type, void *buf)
+{
+    struct empfile *ep;
+
+    if (ef_check(type) < 0)
+	return;
+    ep = &empfile[type];
+    if (!(ep->flags & EFF_TYPED))
+	return;
+    ((struct emptypedstr *)buf)->generation = ef_generation;
+}
+
+static void
+must_be_fresh(struct empfile *ep, void *buf)
+{
+    struct emptypedstr *elt = buf;
+
+    if (!(ep->flags & EFF_TYPED))
+	return;
+    CANT_HAPPEN(elt->generation != ef_generation);
+}
+
 /*
  * Extend table TYPE by COUNT elements.
  * Any pointers obtained from ef_ptr() become invalid.
@@ -663,6 +698,7 @@ ef_blank(int type, int id, void *buf)
 	elt = buf;
 	elt->seqno = get_seqno(ep, elt->uid);
     }
+    ef_mark_fresh(type, buf);
 }
 
 /*
