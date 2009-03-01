@@ -34,36 +34,31 @@
 #include <config.h>
 
 #include "commodity.h"
+#include "empobj.h"
 #include "file.h"
-#include "land.h"
-#include "loan.h"
-#include "misc.h"
-#include "nat.h"
-#include "nsc.h"
-#include "nuke.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
-#include "ship.h"
-#include "trade.h"
-#include "xy.h"
 
 /* Note that timestamps make things tricky.  And, we don't
  * really care about the timestamp, we just care about the rest
  * of the structure.  So, we make a copy, and zero the timestamps
  * in both copies, and then compare. */
 
+static int
+obj_changed(struct empobj *obj, size_t sz)
+{
+    union empobj_storage old, tobj;
+
+    get_empobj(obj->ef_type, obj->uid, &old);
+    memcpy(&tobj, obj, sz);
+    old.gen.timestamp = tobj.gen.timestamp = 0;
+    return memcmp(&tobj, &old, sz);
+}
+
 int
 check_sect_ok(struct sctstr *sectp)
 {
-    struct sctstr chksect;
-    struct sctstr tsect;
-
-    getsect(sectp->sct_x, sectp->sct_y, &chksect);
-    memcpy(&tsect, sectp, sizeof(struct sctstr));
-    tsect.sct_timestamp = chksect.sct_timestamp = 0;
-    if (memcmp(&tsect, &chksect, sizeof(struct sctstr))) {
+    if (obj_changed((struct empobj *)sectp, sizeof(*sectp))) {
 	pr("Sector %s has changed!\n",
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
 	return 0;
@@ -74,13 +69,7 @@ check_sect_ok(struct sctstr *sectp)
 int
 check_ship_ok(struct shpstr *shipp)
 {
-    struct shpstr chkship;
-    struct shpstr tship;
-
-    getship(shipp->shp_uid, &chkship);
-    memcpy(&tship, shipp, sizeof(struct shpstr));
-    tship.shp_timestamp = chkship.shp_timestamp = 0;
-    if (memcmp(&tship, &chkship, sizeof(struct shpstr))) {
+    if (obj_changed((struct empobj *)shipp, sizeof(*shipp))) {
 	pr("Ship #%d has changed!\n", shipp->shp_uid);
 	return 0;
     }
@@ -90,13 +79,7 @@ check_ship_ok(struct shpstr *shipp)
 int
 check_plane_ok(struct plnstr *planep)
 {
-    struct plnstr chkplane;
-    struct plnstr tplane;
-
-    getplane(planep->pln_uid, &chkplane);
-    memcpy(&tplane, planep, sizeof(struct plnstr));
-    tplane.pln_timestamp = chkplane.pln_timestamp = 0;
-    if (memcmp(&tplane, &chkplane, sizeof(struct plnstr))) {
+    if (obj_changed((struct empobj *)planep, sizeof(*planep))) {
 	pr("Plane #%d has changed!\n", planep->pln_uid);
 	return 0;
     }
@@ -106,13 +89,7 @@ check_plane_ok(struct plnstr *planep)
 int
 check_land_ok(struct lndstr *landp)
 {
-    struct lndstr chkland;
-    struct lndstr tland;
-
-    getland(landp->lnd_uid, &chkland);
-    memcpy(&tland, landp, sizeof(struct lndstr));
-    tland.lnd_timestamp = chkland.lnd_timestamp = 0;
-    if (memcmp(&tland, &chkland, sizeof(struct lndstr))) {
+    if (obj_changed((struct empobj *)landp, sizeof(*landp))) {
 	pr("Land unit #%d has changed!\n", landp->lnd_uid);
 	return 0;
     }
@@ -122,13 +99,7 @@ check_land_ok(struct lndstr *landp)
 int
 check_nuke_ok(struct nukstr *nukep)
 {
-    struct nukstr chknuke;
-    struct nukstr tnuke;
-
-    getnuke(nukep->nuk_uid, &chknuke);
-    memcpy(&tnuke, nukep, sizeof(struct nukstr));
-    tnuke.nuk_timestamp = chknuke.nuk_timestamp = 0;
-    if (memcmp(&tnuke, &chknuke, sizeof(struct nukstr))) {
+    if (obj_changed((struct empobj *)nukep, sizeof(*nukep))) {
 	pr("Nuke %d has changed!\n", nukep->nuk_uid);
 	return 0;
     }
@@ -138,13 +109,7 @@ check_nuke_ok(struct nukstr *nukep)
 int
 check_loan_ok(struct lonstr *loanp)
 {
-    struct lonstr chkloan;
-    struct lonstr tloan;
-
-    getloan(loanp->l_uid, &chkloan);
-    memcpy(&tloan, loanp, sizeof(struct lonstr));
-    tloan.l_timestamp = chkloan.l_timestamp = 0;
-    if (memcmp(loanp, &chkloan, sizeof(struct lonstr))) {
+    if (obj_changed((struct empobj *)loanp, sizeof(*loanp))) {
 	pr("Loan %d has changed!\n", loanp->l_uid);
 	return 0;
     }
@@ -154,13 +119,7 @@ check_loan_ok(struct lonstr *loanp)
 int
 check_comm_ok(struct comstr *commp)
 {
-    struct comstr chkcomm;
-    struct comstr tcomm;
-
-    getcomm(commp->com_uid, &chkcomm);
-    memcpy(&tcomm, commp, sizeof(struct comstr));
-    tcomm.com_timestamp = chkcomm.com_timestamp = 0;
-    if (memcmp(commp, &chkcomm, sizeof(struct comstr))) {
+    if (obj_changed((struct empobj *)commp, sizeof(*commp))) {
 	pr("Commodity %d has changed!\n", commp->com_uid);
 	return 0;
     }
@@ -170,13 +129,7 @@ check_comm_ok(struct comstr *commp)
 int
 check_trade_ok(struct trdstr *tp)
 {
-    struct trdstr chktrade;
-    struct trdstr ttrade;
-
-    gettrade(tp->trd_uid, &chktrade);
-    memcpy(&ttrade, tp, sizeof(struct trdstr));
-    ttrade.trd_timestamp = chktrade.trd_timestamp = 0;
-    if (memcmp(tp, &chktrade, sizeof(struct trdstr))) {
+    if (obj_changed((struct empobj *)tp, sizeof(*tp))) {
 	pr("Trade lot #%d has changed!\n", tp->trd_uid);
 	return 0;
     }
