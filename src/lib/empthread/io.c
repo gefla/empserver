@@ -110,11 +110,11 @@ io_close(struct iop *iop)
 }
 
 /*
- * Return number of bytes read on success, zero on timeout or EOF, -1
- * on error, with errno set appropriately.  In particular, return -1
- * with errno set to EAGAIN or EWOULDBLOCK when no data is available
- * for non-blocking input (WAITFORINPUT false).  Use io_eof() to
- * distinguish timeout from EOF.
+ * Return number of bytes read on success, zero on timeout, early
+ * wakeup or EOF, -1 on error, with errno set appropriately.  In
+ * particular, return -1 with errno set to EAGAIN or EWOULDBLOCK when
+ * no data is available for non-blocking input (WAITFORINPUT false).
+ * Use io_eof() to distinguish timeout and early wakeup from EOF.
  */
 int
 io_input(struct iop *iop, int waitforinput)

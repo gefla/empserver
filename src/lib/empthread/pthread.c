@@ -280,11 +280,13 @@ empth_select(int fd, int flags, struct timeval *timeout)
     fd_set writemask;
     struct timeval tv;
     int n;
+    empth_t *ctx;
     int res = 0;
 
     pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("select on %d for %d", fd, flags);
 
+again:
     FD_ZERO(&readmask);
     FD_ZERO(&writemask);
     if (flags & EMPTH_FD_READ)
@@ -292,18 +294,21 @@ empth_select(int fd, int flags, struct timeval *timeout)
     if (flags & EMPTH_FD_WRITE)
 	FD_SET(fd, &writemask);
 
-    if (timeout) {
+    if (timeout)
 	tv = *timeout;
-	timeout = &tv;
-    }
-    n = select(fd + 1, &readmask, &writemask, NULL, timeout);
-
+    n = select(fd + 1, &readmask, &writemask, NULL, timeout ? &tv : NULL);
     if (n < 0) {
-	if (errno == EINTR) /* go handle the signal */
+	ctx = pthread_getspecific(ctx_key);
+	if (ctx->wakeup) {
+	    empth_status("select woken up");
+	    res = 0;
+	} else if (errno == EINTR) {
 	    empth_status("select broken by signal");
-	 else
+	    goto again;
+	} else {
 	    empth_status("select failed (%s)", strerror(errno));
-	res = -1;
+	    res = -1;
+	}
     } else if (n == 0) {
 	empth_status("select timed out");
 	res = 0;

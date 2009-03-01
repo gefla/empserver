@@ -160,8 +160,8 @@ void empth_yield(void);
  * If FLAGS & EMPTH_FD_WRITE, wake up if FD is ready for output.
  * At most one thread may sleep on the same file descriptor.
  * TIMEOUT, if non-null, limits the sleep time.
- * Return one when the FD is ready, zero on timeout, -1 on error with
- * errno set.
+ * Return one when the FD is ready, zero on timeout or early wakeup by
+ * empth_wakeup(), -1 on error with errno set.
  * Note: Currently, Empire sleeps only on network I/O, i.e. FD is a
  * socket.  Implementations should not rely on that.
  */
@@ -169,7 +169,7 @@ int empth_select(int fd, int flags, struct timeval *timeout);
 
 /*
  * Awaken THREAD if it is sleeping in empth_select() or empth_sleep().
- * Note: This must not awaken threads sleeping in other functions.
+ * This does not awaken threads sleeping in other functions.
  * Does not yield the processor.
  */
 void empth_wakeup(empth_t *thread);
