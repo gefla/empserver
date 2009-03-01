@@ -139,8 +139,11 @@ int
 check_loan_ok(struct lonstr *loanp)
 {
     struct lonstr chkloan;
+    struct lonstr tloan;
 
     getloan(loanp->l_uid, &chkloan);
+    memcpy(&tloan, loanp, sizeof(struct lonstr));
+    tloan.l_timestamp = chkloan.l_timestamp = 0;
     if (memcmp(loanp, &chkloan, sizeof(struct lonstr))) {
 	pr("Loan %d has changed!\n", loanp->l_uid);
 	return 0;
@@ -152,8 +155,11 @@ int
 check_comm_ok(struct comstr *commp)
 {
     struct comstr chkcomm;
+    struct comstr tcomm;
 
     getcomm(commp->com_uid, &chkcomm);
+    memcpy(&tcomm, commp, sizeof(struct comstr));
+    tcomm.com_timestamp = chkcomm.com_timestamp = 0;
     if (memcmp(commp, &chkcomm, sizeof(struct comstr))) {
 	pr("Commodity %d has changed!\n", commp->com_uid);
 	return 0;
@@ -165,8 +171,11 @@ int
 check_trade_ok(struct trdstr *tp)
 {
     struct trdstr chktrade;
+    struct trdstr ttrade;
 
     gettrade(tp->trd_uid, &chktrade);
+    memcpy(&ttrade, tp, sizeof(struct trdstr));
+    ttrade.trd_timestamp = chktrade.trd_timestamp = 0;
     if (memcmp(tp, &chktrade, sizeof(struct trdstr))) {
 	pr("Trade lot #%d has changed!\n", tp->trd_uid);
 	return 0;
