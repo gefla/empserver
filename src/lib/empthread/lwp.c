@@ -98,12 +98,6 @@ empth_yield(void)
     lwpYield();
 }
 
-void
-empth_terminate(empth_t *a)
-{
-    lwpTerminate(a);
-}
-
 int
 empth_select(int fd, int flags, struct timeval *timeout)
 {

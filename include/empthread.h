@@ -112,6 +112,7 @@ int empth_init(void **ctx, int flags);
 /*
  * Create a new thread.
  * ENTRY is the entry point.  It will be called with argument UD.
+ * If it returns, the thread terminates as if it called empth_exit().
  * Thread stack is at least SIZE bytes.
  * FLAGS should be the same as were passed to empth_init(), or zero.
  * NAME is the thread's name, it is used for logging and debugging.
@@ -152,17 +153,6 @@ void empth_exit(void);
  * Yield the processor.
  */
 void empth_yield(void);
-
-/*
- * Terminate THREAD.
- * THREAD will not be scheduled again.  Instead, it will terminate as
- * if it executed empth_exit().  It is unspecified when exactly that
- * happens.
- * THREAD must not be the current thread.
- * Naive use of this function almost always leads to resource leaks.
- * Terminating a thread that may hold locks is not a good idea.
- */
-void empth_terminate(empth_t *thread);
 
 /*
  * Put current thread to sleep until file descriptor FD is ready for I/O.

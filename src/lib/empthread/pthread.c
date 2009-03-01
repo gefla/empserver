@@ -50,18 +50,14 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <unistd.h>
-
 #include "misc.h"
 #include "empthread.h"
 #include "prototypes.h"
 
-#define EMPTH_KILLED  1
-#define EMPTH_INTR 2
-
 struct empth_t {
     char *name;			/* thread name */
     void *ud;			/* user data */
-    int state;			/* my state */
+    int wakeup;
     void (*ep)(void *);		/* entry point */
     pthread_t id;		/* thread id */
 };
@@ -170,7 +166,7 @@ empth_init(void **ctx_ptr, int flags)
     ctx->ep = 0;
     ctx->ud = 0;
     ctx->id = pthread_self();
-    ctx->state = 0;
+    ctx->wakeup = 0;
     pthread_setspecific(ctx_key, ctx);
     pthread_mutex_lock(&mtx_ctxsw);
     logerror("pthreads initialized");
@@ -196,7 +192,7 @@ empth_create(void (*entry)(void *), int size, int flags,
     }
     ctx->name = strdup(name);
     ctx->ud = ud;
-    ctx->state = 0;
+    ctx->wakeup = 0;
     ctx->ep = entry;
 
     eno = pthread_attr_init(&attr);
@@ -233,11 +229,7 @@ empth_restorectx(void)
 
     ctx_ptr = pthread_getspecific(ctx_key);
     *udata = ctx_ptr->ud;
-    if (ctx_ptr->state == EMPTH_KILLED) {
-	empth_status("i am dead");
-	empth_exit();
-    }
-    ctx_ptr->state = 0;
+    ctx_ptr->wakeup = 0;
     empth_status("context restored");
 }
 
@@ -279,14 +271,6 @@ empth_yield(void)
     pthread_mutex_unlock(&mtx_ctxsw);
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
-}
-
-void
-empth_terminate(empth_t *a)
-{
-    empth_status("killing thread %s", a->name);
-    a->state = EMPTH_KILLED;
-    pthread_kill(a->id, SIGALRM);
 }
 
 int
@@ -341,7 +325,7 @@ empth_alarm(int sig)
 {
     /*
      * Nothing to do --- we handle this signal just to let
-     * empth_wakeup() and empth_terminate() interrupt system calls.
+     * empth_wakeup() interrupt system calls.
      */
 }
 
@@ -349,8 +333,7 @@ void
 empth_wakeup(empth_t *a)
 {
     empth_status("waking up thread %s", a->name);
-    if (a->state == 0)
-	a->state = EMPTH_INTR;
+    a->wakeup = 1;
     pthread_kill(a->id, SIGALRM);
 }
 
@@ -367,7 +350,7 @@ empth_sleep(time_t until)
 	tv.tv_sec = until - time(NULL);
 	tv.tv_usec = 0;
 	res = select(0, NULL, NULL, NULL, &tv);
-    } while (res < 0 && ctx->state == 0);
+    } while (res < 0 && !ctx->wakeup);
     empth_status("sleep done. Waiting for lock");
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();

@@ -81,9 +81,6 @@ struct loc_Thread {
     /* The user data passed in at create time. */
     void *pvUserData;
 
-    /* True if this thread has been killed. */
-    BOOL bKilled;
-
     /* The entry function for the thread. */
     void (*pfnEntry) (void *);
 
@@ -244,14 +241,6 @@ loc_RunThisThread(HANDLE hWaitObject)
     HANDLE hWaitObjects[2];
 
     empth_t *pThread = TlsGetValue(dwTLSIndex);
-
-    if (pThread->bKilled) {
-	if (!pThread->bMainThread) {
-	    TlsSetValue(dwTLSIndex, NULL);
-	    loc_FreeThreadInfo(pThread);
-	    _endthread();
-	}
-    }
 
     hWaitObjects[0] = hThreadMutex;
     hWaitObjects[1] = hWaitObject;
@@ -536,20 +525,6 @@ empth_yield(void)
     loc_BlockThisThread();
     Sleep(0);
     loc_RunThisThread(NULL);
-}
-
-/************************
- * empth_terminate
- *
- * Kill off the thread.
- */
-void
-empth_terminate(empth_t *pThread)
-{
-    loc_debug("killing thread %s", pThread->szName);
-    pThread->bKilled = TRUE;
-
-    SetEvent(pThread->hThreadEvent);
 }
 
 /************************
