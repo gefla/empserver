@@ -392,6 +392,25 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 }
 
 /*
+ * Return union of capabilities of planes in LIST.
+ */
+int
+pln_caps(struct emp_qelem *list)
+{
+    struct emp_qelem *qp;
+    struct plist *plp;
+    int fl;
+
+    fl = 0;
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	fl |= plp->pcp->pl_flags;
+    }
+
+    return fl;
+}
+
+/*
  * Find plane types that can operate from carrier SP.
  * If MSL find missile types, else non-missile types.
  * Return a combination of P_L, P_K, P_E.

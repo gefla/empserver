@@ -55,7 +55,6 @@
 
 #define FLAK_GUN_MAX 14
 
-static int plane_caps(struct emp_qelem *);
 static void sam_intercept(struct emp_qelem *, struct emp_qelem *,
 			  natid, natid, coord, coord, int);
 static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
@@ -106,7 +105,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     getilists(ilist, rel, plane_owner);
 
     if (mission_flags & PM_R) {
-	flags = plane_caps(bomb_list);
+	flags = pln_caps(bomb_list);
 	if (flags & P_S) {
 	    PR(plane_owner, "\nSPY Plane report\n");
 	    PRdate(plane_owner);
@@ -137,7 +136,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	}
 
 	if (mission_flags & PM_R) {
-	    flags = plane_caps(bomb_list);
+	    flags = pln_caps(bomb_list);
 	    if (opt_HIDDEN)
 		setcont(plane_owner, sect.sct_own, FOUND_FLY);
 	    if (sect.sct_type == SCT_WATER) {
@@ -259,22 +258,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     free_shiplist(&head);
     for (cn = 1; cn < MAXNOC; cn++)
 	pln_put(&ilist[cn]);
-}
-
-static int
-plane_caps(struct emp_qelem *list)
-{
-    struct emp_qelem *qp;
-    struct plist *plp;
-    int fl;
-
-    fl = 0;
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-	plp = (struct plist *)qp;
-	fl |= plp->pcp->pl_flags;
-    }
-
-    return fl;
 }
 
 static void
