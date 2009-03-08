@@ -2288,9 +2288,9 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	    *answerp = 'N';
 	if (*answerp == 'Y')
 	    continue;
+	if (!get_land(A_ATTACK, def, llp->unit.land.lnd_uid, llp, 0))
+	    continue;
 	if (*answerp != 'N') {
-	    if (!get_land(A_ATTACK, def, llp->unit.land.lnd_uid, llp, 0))
-		continue;
 	    sprintf(prompt, "Move in with %s (%c %d%%) [ynYNq?] ",
 		    prland(&llp->unit.land),
 		    llp->unit.land.lnd_army ? llp->unit.land.lnd_army : '~',
