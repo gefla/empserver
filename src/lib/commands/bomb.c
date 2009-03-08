@@ -49,15 +49,16 @@
 #include "retreat.h"
 #include "ship.h"
 
-static void pin_bomb(struct emp_qelem *list, struct sctstr *target);
-static void strat_bomb(struct emp_qelem *list, struct sctstr *target);
-static void comm_bomb(struct emp_qelem *list, struct sctstr *target);
-static void eff_bomb(struct emp_qelem *list, struct sctstr *target);
-static int pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp,
-			       natid from, int flak);
-static void plane_bomb(struct emp_qelem *list, struct sctstr *target);
-static void land_bomb(struct emp_qelem *list, struct sctstr *target);
-static void ship_bomb(struct emp_qelem *list, struct sctstr *target);
+static void pin_bomb(struct emp_qelem *, struct sctstr *);
+static void eff_bomb(struct emp_qelem *, struct sctstr *);
+static void comm_bomb(struct emp_qelem *, struct sctstr *);
+static void ship_bomb(struct emp_qelem *, struct sctstr *);
+static void plane_bomb(struct emp_qelem *, struct sctstr *);
+static void land_bomb(struct emp_qelem *, struct sctstr *);
+static void strat_bomb(struct emp_qelem *, struct sctstr *);
+static int changed_plane_aborts(struct plist *);
+static int pinflak_planedamage(struct plnstr *, struct plchrstr *,
+			       natid, int);
 
 static i_type bombcomm[] = {
     I_CIVIL,
@@ -325,13 +326,16 @@ static void
 eff_bomb(struct emp_qelem *list, struct sctstr *target)
 {
     struct plist *plp;
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     struct sctstr sect;
     int oldeff, dam = 0;
     int nukedam;
 
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	plp = (struct plist *)qp;
+	if (changed_plane_aborts(plp))
+	    continue;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
@@ -369,7 +373,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
     int i;
     int amt, before;
     struct ichrstr *ip;
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     struct sctstr sect;
     int dam = 0;
     int nukedam;
@@ -407,8 +411,11 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else
 	    break;
     }
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	plp = (struct plist *)qp;
+	if (changed_plane_aborts(plp))
+	    continue;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
@@ -445,7 +452,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int dam;
     char *q;
     int n;
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     int shipno;
     struct shpstr ship;
     int nships = 0;
@@ -457,9 +464,12 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     int flak;
     int gun;
 
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	free_shiplist(&head);
 	plp = (struct plist *)qp;
+	if (changed_plane_aborts(plp))
+	    continue;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->pcp->pl_flags & P_A)
@@ -501,6 +511,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (shipno < 0)
 	    continue;
 	if ((plp->pcp->pl_flags & P_A) && !on_shiplist(shipno, head))
+	    continue;
+	if (changed_plane_aborts(plp))
 	    continue;
 
 	gun = shp_usable_guns(&ship);
@@ -571,7 +583,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
     int n;
     natid own;
     struct plnstr plane;
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     int planeno;
     struct plist *plp;
     char prompt[128];
@@ -580,8 +592,11 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
     int nukedam;
     int nplanes;
 
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	plp = (struct plist *)qp;
+	if (changed_plane_aborts(plp))
+	    continue;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
@@ -616,6 +631,8 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 		pr("Plane #%d not spotted\n", n);
 	}
 	if (planeno < 0)
+	    continue;
+	if (changed_plane_aborts(plp))
 	    continue;
 	dam = 0;
 	if (nuk_on_plane(&plp->plane) >= 0)
@@ -674,15 +691,18 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     char prompt[128];
     char buf[1024];
     struct lndstr land;
-    struct emp_qelem *qp;
+    struct emp_qelem *qp, *next;
     int unitno;
     int aaf, flak, hitchance;
     struct plist *plp;
     int nukedam;
     int nunits;
 
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; qp = next) {
+	next = qp->q_forw;
 	plp = (struct plist *)qp;
+	if (changed_plane_aborts(plp))
+	    continue;
 	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
@@ -715,6 +735,8 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		pr("Unit #%d not spotted\n", n);
 	}
 	if (unitno < 0)
+	    continue;
+	if (changed_plane_aborts(plp))
 	    continue;
 
 	aaf = lnd_aaf(&land);
@@ -796,6 +818,16 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
     pr("did %d damage in %s\n", PERCENT_DAMAGE(dam),
        xyas(target->sct_x, target->sct_y, player->cnum));
     putsect(&sect);
+}
+
+static int
+changed_plane_aborts(struct plist *plp)
+{
+    if (check_plane_ok(&plp->plane))
+	return 0;
+    getplane(plp->plane.pln_uid, &plp->plane);
+    pln_put1(plp);
+    return 1;
 }
 
 static int
