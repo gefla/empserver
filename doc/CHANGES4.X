@@ -1,4 +1,8 @@
-Changes to Empire 4.3.21 - Sun Mar  8 13:32:08 UTC 2009
+Changes to Empire 4.3.21 - Sun Mar  8 17:23:37 UTC 2009
+ * When bombing ships with a force containing both planes with and
+   without capability ASW, the bomb command could fail to report
+   presence of submarines, and could refuse to bomb ships when there
+   were only submarines.
  * Leaving land units behind after a victorious attack could in some
    cases wipe out changes made to them since the victory.
  * The timestamp selectors added to commodity, load and trade in
