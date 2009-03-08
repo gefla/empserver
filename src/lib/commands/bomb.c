@@ -186,7 +186,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     int type;
     int bad;
     char *p;
-    struct plist *plp;
     int nsubs;
     int nunits;
     struct natstr *natp;
@@ -200,9 +199,8 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     pr("Target sector is a %s constructed %s\n",
        effadv((int)target->sct_effic), dcp->d_name);
     nsubs = 0;
-    plp = (struct plist *)list->q_forw;
     nships = shipsatxy(target->sct_x, target->sct_y, 0, M_SUB, 0);
-    if (plp->pcp->pl_flags & P_A) {
+    if (pln_caps(list) & P_A) {
 	nsubs = shipsatxy(target->sct_x, target->sct_y, M_SUB, 0, 1);
 	if (nsubs > 0)
 	    pr("Some subs are present in the sector.\n");
@@ -261,7 +259,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	break;
     case 's':
 	if (nships == 0) {
-	    if (((struct plist *)list->q_forw)->pcp->pl_flags & P_A) {
+	    if (pln_caps(list) & P_A) {
 		if (nsubs == 0) {
 		    pr("no ships there\n");
 		    goto retry;
