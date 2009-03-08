@@ -1,3 +1,13 @@
+Changes to Empire 4.3.21 - Sun Mar  8 13:32:08 UTC 2009
+ * Leaving land units behind after a victorious attack could in some
+   cases wipe out changes made to them since the victory.
+ * The timestamp selectors added to commodity, load and trade in
+   4.3.12 could lead to spurious command failures.  None have been
+   observed in the wild.
+ * Don't log out player when update aborts a command.  Broken in
+   4.3.20.
+ * Code refactoring and cleanup.
+
 Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
  * Option LOANS is now disabled by default.
  * Option RAILWAYS is now enabled by default.
