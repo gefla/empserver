@@ -61,6 +61,8 @@ nreport(natid actor, int event, natid victim, int times)
 	return;
 
     np = ncache(actor, event, victim, times);
+    /* TODO get rid of nws_generation?  */
+    ef_mark_fresh(EF_NEWS, np);
     putnews(np->nws_uid, np);
 
     /*
