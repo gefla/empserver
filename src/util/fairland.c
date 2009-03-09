@@ -821,7 +821,7 @@ grow_islands(void)
 	secs = 0;
 	if (!place_island(c, &x, &y))
 	    return;
-	isiz = 1 + rnd(2 * is - 1);
+	isiz = 1 + rnd(is) + rnd(is);
 	do {
 	    ++secs;
 	    find_coast(c);
