@@ -7,7 +7,9 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.21 - Mon Mar  9 20:32:22 UTC 2009
+Changes to Empire 4.3.21 - Mon Mar  9 21:34:52 UTC 2009
+ * Fix swapsector not to wipe out concurrent changes to the swapped
+   sectors.
  * Fix a bug in crash dumping that could mess up the journal and, at
    least in theory, mess up commands info, read, turn, and wire;
    announcement expiry, and reading of econfig and schedule.
