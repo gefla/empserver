@@ -59,6 +59,8 @@ swaps(void)
     print_res(&sectb);
     if (!confirm ("Are you sure these are the two sectors you wish to swap? "))
 	return RET_FAIL;
+    if (!check_sect_ok(&secta) || !check_sect_ok(&sectb))
+	return RET_FAIL;
     tmp = secta;
     /* change the location of secta to that of sectb */
     secta.sct_x = sectb.sct_x;
