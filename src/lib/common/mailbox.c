@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  mailbox.c: Return string containing telegram file
+ *  mailbox.c: Mailbox file access
  *
  *  Known contributors to this file:
  *     Markus Armbruster, 2009
