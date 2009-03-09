@@ -324,13 +324,14 @@ crash_dump(void)
     pid_t pid;
     int status;
 
+    fflush(NULL);
     pid = fork();
     if (pid < 0) {
 	logerror("Can't fork for crash dump (%s)", strerror(errno));
 	return;
     }
     if (pid == 0)
-	abort();		/* child */
+	raise(SIGABRT);		/* child */
 
     /* parent */
     while (waitpid(pid, &status, 0) < 0) {
