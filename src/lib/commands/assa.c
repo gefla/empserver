@@ -181,7 +181,7 @@ assa(void)
 		    pr(" and was killed in the attempt.\n");
 		    llp->unit.land.lnd_effic = 0;
 		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-		    lnd_delete(llp, "");
+		    lnd_delete(llp, NULL);
 		} else {
 		    wu(0, def->own, "%s spy spotted in %s.\n",
 		       cname(player->cnum), xyas(def->x, def->y,
