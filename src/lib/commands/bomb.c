@@ -95,6 +95,8 @@ bomb(void)
     int wantflags;
     struct sctstr ap_sect;
     char mission;
+    struct plist *plp;
+    struct emp_qelem *qp, *next;
     int rel;
     struct natstr *natp;
     char buf[1024];
@@ -150,6 +152,11 @@ bomb(void)
 	switch (mission) {
 	case 'p':
 	    pin_bomb(&bomb_list, &target);
+	    for (qp = bomb_list.q_forw; qp != &bomb_list; qp = next) {
+		next = qp->q_forw;
+		plp = (struct plist *)qp;
+		changed_plane_aborts(plp);
+	    }
 	    break;
 	case 's':
 	    if (opt_SLOW_WAR) {
