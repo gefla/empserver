@@ -34,6 +34,8 @@ Gold in mountains does not deplete at all.
 Oil production does not depend on tech; you don't have to micro-manage
 to conserve oil.
 .s1
+Ship capability anti-missile is disabled because of bugs.
+.s1
 Missed updates due to server problems will be forced if caught within
 15 minutes of planned update time or skipped otherwise.
 .s1
