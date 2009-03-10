@@ -142,9 +142,9 @@ clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
 $(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
 # Removed by distclean:
 distclean := $(ac) $(mk)
-# Distributed by dist-source from $(srcdir)
+# Distributed by dist-source from $(srcdir):
 src_distgen := $(acdist)
-# Distributed by dist-client from $(srcdir)/src/client
+# Distributed by dist-client from $(srcdir)/src/client; removed by distclean:
 cli_distgen := $(acdistcli)
 
 # Compiler flags
@@ -177,7 +177,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	rm -rf $(distclean)
+	rm -rf $(distclean) $(cli_distgen)
 
 .PHONY: install
 install: all installdirs
