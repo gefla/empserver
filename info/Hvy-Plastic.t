@@ -36,6 +36,9 @@ to conserve oil.
 .s1
 Ship capability anti-missile is disabled because of bugs.
 .s1
+Server time is in UTC, which means there will be no daylight savings
+time.
+.s1
 Missed updates due to server problems will be forced if caught within
 15 minutes of planned update time or skipped otherwise.
 .s1
