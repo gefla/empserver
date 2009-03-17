@@ -209,7 +209,7 @@ journal_output_1(struct player *pl, int id,
 	journal_entry("output %d %d %s%.*s",
 		      pl->cnum, id, buf1, buf2prec, buf2);
     else
-	journal_entry("output %p %id %s%.*s",
+	journal_entry("output %p %d %s%.*s",
 		      pl, id, buf1, buf2prec, buf2);
 }
 
