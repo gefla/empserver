@@ -201,16 +201,12 @@ journal_output(struct player *pl, int id, char *output)
     }
 }
 
-void
+static void
 journal_output_1(struct player *pl, int id,
 		 char *buf1, char *buf2, int buf2prec)
 {
-    if (pl && pl->state == PS_PLAYING)
-	journal_entry("output %d %d %s%.*s",
-		      pl->cnum, id, buf1, buf2prec, buf2);
-    else
-	journal_entry("output %p %d %s%.*s",
-		      pl, id, buf1, buf2prec, buf2);
+    journal_entry("output %s %d %s%.*s",
+		  empth_name(empth_self()), id, buf1, buf2prec, buf2);
 }
 
 void
