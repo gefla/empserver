@@ -62,9 +62,9 @@ mission(void)
     struct nstr_item ni;
     char buf[1024];
 
-    if ((p =
-	 getstarg(player->argp[1], "Ship, plane or land unit (p,sh,la)? ",
-		  buf)) == 0)
+    p = getstarg(player->argp[1], "Ship, plane or land unit (p,sh,la)? ",
+		 buf);
+    if (p == 0)
 	return RET_SYN;
     type = ef_byname_from(p, ef_with_missions);
     if (type < 0) {
@@ -74,10 +74,10 @@ mission(void)
     if (!snxtitem(&ni, type, player->argp[2], NULL))
 	return RET_SYN;
 
-    if ((p =
-	 getstarg(player->argp[3],
-		  "Mission (int, sup, osup, dsup, esc, res, air, query, clear)? ",
-		  buf)) == 0)
+    p = getstarg(player->argp[3],
+		 "Mission (int, sup, osup, dsup, esc, res, air, query, clear)? ",
+		 buf);
+    if (p == 0)
 	return RET_SYN;
 
 /*

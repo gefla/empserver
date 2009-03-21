@@ -46,9 +46,8 @@ chan(void)
     char buf[1024];
     struct natstr *us;
 
-    if ((p =
-	 getstarg(player->argp[1], "country name or representative? ",
-		  buf)) == 0)
+    p = getstarg(player->argp[1], "country name or representative? ", buf);
+    if (p == 0)
 	return RET_SYN;
     us = getnatp(player->cnum);
     if (us->nat_stat == STAT_VIS) {
@@ -76,8 +75,8 @@ chan(void)
 		    charge = us->nat_money / 10;
 	    }
 	}
-	if ((p =
-	     getstarg(player->argp[2], "New country name -- ", buf)) == 0)
+	p = getstarg(player->argp[2], "New country name -- ", buf);
+	if (p == 0)
 	    return RET_SYN;
 	if (!check_nat_name(p))
 	    return RET_FAIL;
@@ -90,8 +89,8 @@ chan(void)
     case 'p':
     case 'r':
 	pr("(note: these are stored in plain text.)\n");
-	if ((p = getstarg(player->argp[2],
-			  "New representative name -- ", buf)) == 0)
+	p = getstarg(player->argp[2], "New representative name -- ", buf);
+	if (p == 0)
 	    return RET_SYN;
 	p[sizeof(us->nat_pnam) - 1] = 0;
 	strcpy(us->nat_pnam, p);

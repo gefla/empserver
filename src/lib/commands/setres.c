@@ -50,9 +50,10 @@ setres(void)
     struct nstr_sect nstr;
     char buf[1024];
 
-    if ((what = getstarg(player->argp[1],
-			 "Set What (iron, gold, oil, uranium, fertility)? ",
-			 buf)) == 0)
+    what = getstarg(player->argp[1],
+		    "Set What (iron, gold, oil, uranium, fertility)? ",
+		    buf);
+    if (what == 0)
 	return RET_SYN;
     switch (what[0]) {
     case 'i':

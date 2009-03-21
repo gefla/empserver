@@ -78,8 +78,9 @@ coll(void)
     }
 
     pr("You are owed $%.2f on that loan.\n", owed);
-    if (!(p = getstarg(player->argp[2],
-		       "What sector do you wish to confiscate? ", buf)))
+    p = getstarg(player->argp[2],
+		 "What sector do you wish to confiscate? ", buf);
+    if (!p)
 	return RET_SYN;
     if (!check_loan_ok(&loan))
 	return RET_FAIL;

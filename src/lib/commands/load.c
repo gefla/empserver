@@ -166,23 +166,21 @@ load(void)
 
 	switch (type) {
 	case EF_PLANE:
-	    if (0 !=
-		(retval =
-		 load_plane_ship(&sect, &ship, noisy, load_unload,
-				 &nships)))
+	    retval = load_plane_ship(&sect, &ship, noisy, load_unload,
+				     &nships);
+	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_LAND:
-	    if (0 !=
-		(retval =
-		 load_land_ship(&sect, &ship, noisy, load_unload,
-				&nships)))
+	    retval = load_land_ship(&sect, &ship, noisy, load_unload,
+				    &nships);
+	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_SECTOR:
-	    if (0 !=
-		(retval =
-		 load_comm_ship(&sect, &ship, ich, load_unload, &nships)))
+	    retval = load_comm_ship(&sect, &ship, ich, load_unload,
+				    &nships);
+	    if (retval != 0)
 		return retval;
 	}
 	/* load/unload plague */
@@ -281,23 +279,21 @@ lload(void)
 
 	switch (type) {
 	case EF_LAND:
-	    if (0 !=
-		(retval =
-		 load_land_land(&sect, &land, noisy, load_unload,
-				&nunits)))
+	    retval = load_land_land(&sect, &land, noisy, load_unload,
+				    &nunits);
+	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_PLANE:
-	    if (0 !=
-		(retval =
-		 load_plane_land(&sect, &land, noisy, load_unload,
-				 &nunits)))
+	    retval = load_plane_land(&sect, &land, noisy, load_unload,
+				     &nunits);
+	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_SECTOR:
-	    if (0 !=
-		(retval =
-		 load_comm_land(&sect, &land, ich, load_unload, &nunits)))
+	    retval = load_comm_land(&sect, &land, ich, load_unload,
+				    &nunits);
+	    if (retval != 0)
 		return retval;
 	}
 	/* load/unload plague */

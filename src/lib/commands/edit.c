@@ -85,9 +85,10 @@ edit(void)
     char buf[1024];
     char ewhat;
 
-    if ((what = getstarg(player->argp[1],
-			 "Edit What (country, land, ship, plane, nuke, unit)? ",
-			 buf)) == 0)
+    what = getstarg(player->argp[1],
+		    "Edit What (country, land, ship, plane, nuke, unit)? ",
+		    buf);
+    if (what == 0)
 	return RET_SYN;
     ewhat = what[0];
     switch (ewhat) {

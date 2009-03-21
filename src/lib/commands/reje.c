@@ -59,9 +59,9 @@ reje(void)
 	pr("That's not one of the choices!\n");
 	return RET_SYN;
     }
-    if ((p =
-	 getstarg(player->argp[2],
-		  "mail, treaties, loans, or announcements? ", buf)) == 0)
+    p = getstarg(player->argp[2],
+		 "mail, treaties, loans, or announcements? ", buf);
+    if (p == 0)
 	return RET_SYN;
     switch (*p) {
     case 'a':

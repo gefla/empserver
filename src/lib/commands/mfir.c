@@ -98,9 +98,9 @@ multifire(void)
 
     emp_initque(&fired);
     emp_initque(&defended);
-    if (!(p = getstarg(player->argp[1],
-		       "Firing from ship(s), sect(s), or land unit(s)? ",
-		       buf)))
+    p = getstarg(player->argp[1],
+		 "Firing from ship(s), sect(s), or land unit(s)? ", buf);
+    if (!p)
 	return RET_SYN;
     type = ef_byname_from(p, ef_with_guns);
     if (opt_NO_FORT_FIRE && type == EF_SECTOR) {

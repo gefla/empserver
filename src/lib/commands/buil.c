@@ -86,10 +86,10 @@ buil(void)
     char buf[1024];
 
     natp = getnatp(player->cnum);
-    if ((p =
-	 getstarg(player->argp[1],
-		  "Build (ship, nuke, bridge, plane, land unit, tower)? ",
-		  buf)) == 0)
+    p = getstarg(player->argp[1],
+		 "Build (ship, nuke, bridge, plane, land unit, tower)? ",
+		 buf);
+    if (p == 0)
 	return RET_SYN;
     what = *p;
 

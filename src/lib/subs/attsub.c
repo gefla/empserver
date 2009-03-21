@@ -709,29 +709,29 @@ att_ask_support(int offset, int *fortp, int *shipp, int *landp,
 	*fortp = *shipp = 0;
 	*landp = *planep = 0;
 
-	if (!(p = getstarg(player->argp[offset], "Use fort support? ",
-			   buf)))
+	p = getstarg(player->argp[offset], "Use fort support? ", buf);
+	if (!p)
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *fortp = 1;
 
-	if (!(p = getstarg(player->argp[offset + 1], "Use ship support? ",
-			   buf)))
+	p = getstarg(player->argp[offset + 1], "Use ship support? ", buf);
+	if (!p)
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *shipp = 1;
 
-	if (!(p = getstarg(player->argp[offset + 2], "Use land support? ",
-			   buf)))
+	p = getstarg(player->argp[offset + 2], "Use land support? ", buf);
+	if (!p)
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))
 	    *landp = 1;
 
-	if (!(p = getstarg(player->argp[offset + 3], "Use plane support? ",
-			   buf)))
+	p = getstarg(player->argp[offset + 3], "Use plane support? ", buf);
+	if (!p)
 	    return RET_SYN;
 
 	if ((*p == 'y') || (*p == 'Y'))

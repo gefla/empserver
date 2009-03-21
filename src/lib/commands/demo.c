@@ -61,8 +61,9 @@ demo(void)
     if (!(p = getstarg(player->argp[2], "Number to de-mobilize : ", buf)))
 	return RET_SYN;
     number = atoi(p);
-    if (!(p = getstarg(player->argp[3],
-		       "New civilians on active reserve? (y/n) ", buf)))
+    p = getstarg(player->argp[3],
+		 "New civilians on active reserve? (y/n) ", buf);
+    if (!p)
 	return RET_SYN;
     if (*p != 'y' && *p != 'n')
 	return RET_SYN;

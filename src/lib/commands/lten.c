@@ -74,8 +74,7 @@ ltend(void)
     while (nxtitem(&tenders, &tender)) {
 	if (!player->owner)
 	    continue;
-	if ((p =
-	     getstarg(player->argp[3], "Amount to transfer? ", buf)) == 0)
+	if (!(p = getstarg(player->argp[3], "Amount to transfer? ", buf)))
 	    return RET_FAIL;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
