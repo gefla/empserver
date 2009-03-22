@@ -121,7 +121,7 @@ command(void)
     time_t now;
 
     if (getcommand(player->combuf) < 0)
-	return 0;
+	return player->aborted;
 
     now = time(NULL);
     update_timeused(now);
