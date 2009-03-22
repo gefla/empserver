@@ -120,33 +120,33 @@ static char *program_name;
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
 #define rnd(x) (random() % (x))
 
-int secs;			/* number of sectors grown */
-int ctot;			/* total number of continents and islands grown */
-int *isecs;			/* array of how large each island is */
+static int secs;		/* number of sectors grown */
+static int ctot;		/* total number of continents and islands grown */
+static int *isecs;		/* array of how large each island is */
 
-int nc, sc, di, sp, pm, ni, is, id;	/* the 8 arguments to this program */
-unsigned long rnd_seed;		/* optional seed can be passed as an argument */
-int *capx, *capy;		/* location of the nc capitals */
-int *mc, mcc;			/* array and counter used for stability
+static int nc, sc, di, sp, pm, ni, is, id; /* the 8 args to this program */
+static unsigned long rnd_seed;	/* optional seed argument */
+static int *capx, *capy;	/* location of the nc capitals */
+static int *mc, mcc;		/* array and counter used for stability
 				   check when perturbing */
-int spike;			/* are we spiking? */
-int mind;			/* the final distance between capitals that
+static int spike;		/* are we spiking? */
+static int mind;		/* the final distance between capitals that
 				   we achieved */
-int dirx[] = { -2, -1, 1, 2, 1, -1 };	/* gyujnb */
-int diry[] = { 0, -1, -1, 0, 1, 1 };
+static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
+static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
-int **own;			/* owner of the sector.  -1 means water */
-int **elev;			/* elevation of the sectors */
-int **sectx, **secty;		/* the sectors for each continent */
-int **sectc;			/* which sectors are on the coast? */
-int *vector;			/* used for measuring distances */
-int *weight;			/* used for placing mountains */
-int *dsea, *dmoun;		/* the dist to the ocean and mountain */
-int fl_status;			/* is anything wrong? */
+static int **own;		/* owner of the sector.  -1 means water */
+static int **elev;		/* elevation of the sectors */
+static int **sectx, **secty;	/* the sectors for each continent */
+static int **sectc;		/* which sectors are on the coast? */
+static int *vector;		/* used for measuring distances */
+static int *weight;		/* used for placing mountains */
+static int *dsea, *dmoun;	/* the dist to the ocean and mountain */
+static int fl_status;		/* is anything wrong? */
 #define STATUS_NO_ROOM 1	/* there was no room to grow */
 #define NUMTRIES 10		/* keep trying to grow this many times */
 
-const char *numletter =
+static const char *numletter =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 static void help(char *);
