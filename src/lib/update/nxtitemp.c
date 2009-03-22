@@ -47,16 +47,16 @@ nxtitemp(struct nstr_item *np)
     int selected;
 
     if (np->sel == NS_UNDEF)
-	return 0;
+	return NULL;
     do {
 	if (np->sel == NS_LIST) {
 	    np->index++;
 	    if (np->index >= np->size)
-		return 0;
+		return NULL;
 	    np->cur = np->list[np->index];
 	} else if (np->sel == NS_CARGO) {
 	    if (np->next < 0)
-		return 0;
+		return NULL;
 	    np->cur = np->next;
 	    np->next = unit_cargo_next(np->type, np->next);
 	} else {
@@ -64,7 +64,7 @@ nxtitemp(struct nstr_item *np)
 	}
 	gp = ef_ptr(np->type, np->cur);
 	if (!gp)
-	    return 0;
+	    return NULL;
 
 	selected = 1;
 	switch (np->sel) {
@@ -74,7 +74,7 @@ nxtitemp(struct nstr_item *np)
 	    break;
 	case NS_DIST:
 	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
-		return 0;
+		return NULL;
 	    if (!xyinrange(gp->x, gp->y, &np->range)) {
 		selected = 0;
 		break;
@@ -85,25 +85,25 @@ nxtitemp(struct nstr_item *np)
 	    break;
 	case NS_AREA:
 	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
-		return 0;
+		return NULL;
 	    if (!xyinrange(gp->x, gp->y, &np->range))
 		selected = 0;
 	    break;
 	case NS_XY:
 	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_XY)))
-		return 0;
+		return NULL;
 	    if (xnorm(gp->x) != np->cx || ynorm(gp->y) != np->cy)
 		selected = 0;
 	    break;
 	case NS_GROUP:
 	    if (CANT_HAPPEN(!(ef_flags(np->type) & EFF_GROUP)))
-		return 0;
+		return NULL;
 	    if (np->group != gp->group)
 		selected = 0;
 	    break;
 	default:
 	    CANT_REACH();
-	    return 0;
+	    return NULL;
 	}
 	if (selected && np->ncond) {
 	    /* nstr_exec is expensive, so we do it last */

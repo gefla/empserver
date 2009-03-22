@@ -74,7 +74,7 @@ assa(void)
 	return RET_SYN;
     if (!sarg_xy(p, &def->x, &def->y))
 	return RET_SYN;
-    if (att_abort(A_ASSAULT, 0, def))
+    if (att_abort(A_ASSAULT, NULL, def))
 	return RET_FAIL;
 
     /*
@@ -110,7 +110,7 @@ assa(void)
     if (att_abort(A_ASSAULT, off, def)) {
 	pr("Assault aborted\n");
 	att_empty_attack(A_ASSAULT, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     /* If we're assaulting our own sector, end here */
@@ -127,7 +127,7 @@ assa(void)
     if (att_abort(A_ASSAULT, off, def)) {
 	pr("Assault aborted\n");
 	att_empty_attack(A_ASSAULT, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     /*

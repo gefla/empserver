@@ -254,7 +254,7 @@ adj_units(coord x, coord y, natid own)
 
     for (i = DIR_FIRST; i <= DIR_LAST; i++) {
 	getsect(x + diroff[i][0], y + diroff[i][1], &sect);
-	if (has_units(sect.sct_x, sect.sct_y, own, 0))
+	if (has_units(sect.sct_x, sect.sct_y, own, NULL))
 	    return 1;
     }
     return 0;

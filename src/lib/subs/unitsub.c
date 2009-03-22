@@ -147,14 +147,14 @@ unit_path(int together, struct empobj *unit, char *buf)
 	return NULL;
 
     if (!sarg_xy(buf, &destx, &desty))
-	return 0;
+	return NULL;
     if (!together) {
 	pr("Cannot go to a destination sector if not all starting in the same sector\n");
-	return 0;
+	return NULL;
     }
     if (!getsect(destx, desty, &d_sect)) {
 	pr("%d,%d is not a sector\n", destx, desty);
-	return 0;
+	return NULL;
     }
     if (unit->ef_type == EF_SHIP) {
 	cp = BestShipPath(buf, unit->x, unit->y,
@@ -162,7 +162,7 @@ unit_path(int together, struct empobj *unit, char *buf)
 	if (!cp || unit->mobil <= 0) {
 	    pr("Can't get to '%s' right now.\n",
 		xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
-	    return 0;
+	    return NULL;
 	}
     } else {
 	getsect(unit->x, unit->y, &sect);
@@ -173,7 +173,7 @@ unit_path(int together, struct empobj *unit, char *buf)
 	       mtype == MOB_RAIL ? "railway" : "path",
 	       xyas(unit->x, unit->y, player->cnum),
 	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
-	    return 0;
+	    return NULL;
 	}
 	pr("Using path '%s'\n", cp);
     }

@@ -382,7 +382,7 @@ start_server(int flags)
     if (journal_startup() < 0)
 	exit(1);
 
-    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", 0);
+    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", NULL);
 
     market_init();
     update_init();
@@ -422,7 +422,7 @@ shutdwn(int sig)
     logerror("Shutdown commencing (cleaning up threads.)");
 
     play_wrlock_wanted = 1;
-    for (p = player_next(0); p != 0; p = player_next(p)) {
+    for (p = player_next(NULL); p != 0; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");

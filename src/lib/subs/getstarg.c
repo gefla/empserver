@@ -48,7 +48,7 @@ getstarg(char *input, char *prompt, char *buf)
     *buf = '\0';
     if (input == 0 || *input == 0) {
 	if (getstring(prompt, buf) == 0)
-	    return 0;
+	    return NULL;
     } else {
 	strcpy(buf, input);
     }

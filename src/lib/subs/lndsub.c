@@ -989,7 +989,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    pr("%s was shot and killed.\n", prland(&llp->unit.land));
 		    llp->unit.land.lnd_effic = 0;
 		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-		    lnd_delete(llp, 0);
+		    lnd_delete(llp, NULL);
 		}
 	    }
 	}

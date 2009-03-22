@@ -119,7 +119,7 @@ explore(void)
 	pr("Only exploring with %d.\n", amount);
     }
 
-    if (!want_to_abandon(&sect, vtype, amount, 0)) {
+    if (!want_to_abandon(&sect, vtype, amount, NULL)) {
 	pr("Explore cancelled.\n");
 	return RET_FAIL;
     }

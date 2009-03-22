@@ -69,7 +69,7 @@ static struct cmndstr login_coms[] = {
     {"quit", 0, quit_cmd, 0, 0},
     {"sanc", 0, sanc_cmd, 0, 0},
     {"user name", 0, user_cmd, 0, 0},
-    {0, 0, 0, 0, 0}
+    {NULL, 0, NULL, 0, 0}
 };
 
 /*ARGSUSED*/

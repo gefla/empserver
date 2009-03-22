@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include <stddef.h>
 #include "lwp.h"
 #include "lwpint.h"
 
@@ -43,7 +44,7 @@ lwpGetFirst(struct lwpQueue *q)
     struct lwpProc *head;
 
     if ((head = q->head) && !(q->head = head->next))
-	q->tail = 0;
+	q->tail = NULL;
     return head;
 }
 
@@ -55,5 +56,5 @@ lwpAddTail(struct lwpQueue *q, struct lwpProc *p)
     else
 	q->tail->next = p;
     q->tail = p;
-    p->next = 0;
+    p->next = NULL;
 }

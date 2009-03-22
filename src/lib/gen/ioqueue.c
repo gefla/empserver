@@ -62,7 +62,7 @@ ioq_create(int size)
     ioq->list.nbytes = 0;
     ioq->list.offset = 0;
     ioq->list.size = 0;
-    ioq->list.data = 0;
+    ioq->list.data = NULL;
     ioq->bufsize = size;
     ioq->cc = 0;
     return ioq;

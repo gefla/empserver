@@ -97,12 +97,12 @@ reco(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    pln_arm(&bomb_list, ap_to_target, 'r', 0, P_S | P_I);
+    pln_arm(&bomb_list, ap_to_target, 'r', NULL, P_S | P_I);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    pln_arm(&esc_list, ap_to_target, 'r', 0, P_F | P_ESC);
+    pln_arm(&esc_list, ap_to_target, 'r', NULL, P_F | P_ESC);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath,
 		 *player->argp[0] == 's' ? PM_R | PM_S : PM_R);
     if (QEMPTY(&bomb_list)) {

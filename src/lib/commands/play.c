@@ -47,7 +47,7 @@ play(void)
     int saw = 0;
 
     play_header();
-    for (joe = player_prev(0); joe; joe = player_prev(joe)) {
+    for (joe = player_prev(NULL); joe; joe = player_prev(joe)) {
 	saw += play_list(joe);
     }
     if (player->god || opt_BLITZ)

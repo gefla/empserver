@@ -201,7 +201,7 @@ pr_wall(char *format, ...)
     va_start(ap, format);
     (void)vsprintf(buf + n, format, ap);
     va_end(ap);
-    for (p = player_next(0); p; p = player_next(p)) {
+    for (p = player_next(NULL); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_player(p, C_FLASH, buf);

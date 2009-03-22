@@ -52,7 +52,7 @@ setrel(natid us, natid them, int rel)
     char *whichway;
     int n_up = 0;
     int n_down = 0;
-    char *addendum = 0;
+    char *addendum = NULL;
     int theirrel;
 
     if (rel < AT_WAR)

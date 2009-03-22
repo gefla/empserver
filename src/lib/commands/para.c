@@ -128,7 +128,7 @@ paradrop(struct emp_qelem *list, coord x, coord y)
     att_combat_init(def, EF_SECTOR);
     def->x = x;
     def->y = y;
-    if (att_abort(A_PARA, 0, def))
+    if (att_abort(A_PARA, NULL, def))
 	return RET_FAIL;
 
     /* Show what we're air-assaulting, and check treaties */

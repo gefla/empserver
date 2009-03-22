@@ -107,14 +107,14 @@ lboa(void)
     if (att_abort(A_LBOARD, off, def)) {
 	pr("Land unit boarding aborted\n");
 	att_empty_attack(A_LBOARD, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     ototal = att_get_offense(A_LBOARD, off, &olist, def);
     if (att_abort(A_LBOARD, off, def)) {
 	pr("Land unit boarding aborted\n");
 	att_empty_attack(A_LBOARD, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     /*

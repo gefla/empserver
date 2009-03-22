@@ -706,7 +706,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 			   load_unload, atoi(p));
     if (!load_comm_ok(sectp, sp->shp_own, item, move_amt))
 	return RET_OK;
-    if (!want_to_abandon(sectp, item, move_amt, 0))
+    if (!want_to_abandon(sectp, item, move_amt, NULL))
 	return RET_FAIL;
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;

@@ -136,14 +136,14 @@ boar(void)
     if (att_abort(A_BOARD, off, def)) {
 	pr("Board aborted\n");
 	att_empty_attack(A_BOARD, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     ototal = att_get_offense(A_BOARD, off, &olist, def);
     if (att_abort(A_BOARD, off, def)) {
 	pr("Board aborted\n");
 	att_empty_attack(A_BOARD, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     /*

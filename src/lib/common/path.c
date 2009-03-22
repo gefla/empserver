@@ -185,7 +185,7 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
     int n = 0, q;
     struct sctstr *sp, *from, **ssp;
     /* Six pointers, just in case our cache isn't there */
-    struct sctstr *tsp[] = { 0, 0, 0, 0, 0, 0 };
+    struct sctstr *tsp[] = { NULL, NULL, NULL, NULL, NULL, NULL };
     int sx, sy, offset;
 
     x = c.x;

@@ -540,7 +540,7 @@ build_bridge(struct sctstr *sp, short *vec)
 
     if ((val = chkdir(*p, DIR_FIRST, DIR_LAST)) < 0) {
 	pr("'%c' is not a valid direction...\n", *p);
-	direrr(0, 0, 0);
+	direrr(NULL, NULL, NULL);
 	return 0;
     }
     newx = sp->sct_x + diroff[val][0];
@@ -816,7 +816,7 @@ build_tower(struct sctstr *sp, short *vec)
 
     if ((val = chkdir(*p, DIR_FIRST, DIR_LAST)) < 0) {
 	pr("'%c' is not a valid direction...\n", *p);
-	direrr(0, 0, 0);
+	direrr(NULL, NULL, NULL);
 	return 0;
     }
     newx = sp->sct_x + diroff[val][0];

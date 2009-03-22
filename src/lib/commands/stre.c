@@ -82,7 +82,7 @@ stre(void)
 	    pr("%7s", "");
 
 	if (def->sct_type != SCT_MOUNT)
-	    r_total = att_reacting_units(def, 0, 0, &dummy, 9999999);
+	    r_total = att_reacting_units(def, NULL, 0, &dummy, 9999999);
 	else
 	    r_total = 0.0;
 	def->own = 0;

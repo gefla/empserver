@@ -65,7 +65,7 @@ empth_create(void (*entry)(void *), int size, int flags,
 {
     if (!flags)
 	flags = empth_flags;
-    return lwpCreate(1, entry, size, flags, name, 0, 0, ud);
+    return lwpCreate(1, entry, size, flags, name, 0, NULL, ud);
 }
 
 empth_t *

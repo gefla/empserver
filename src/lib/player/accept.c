@@ -107,7 +107,7 @@ player_delete(struct player *lp)
     if (lp->iop) {
 	/* it's a real player */
 	io_close(lp->iop);
-	lp->iop = 0;
+	lp->iop = NULL;
     }
     free(lp);
     /* XXX may need to free bigmap here */
@@ -122,7 +122,7 @@ player_next(struct player *lp)
     else
 	lp = (struct player *)lp->queue.q_forw;
     if (&lp->queue == &Players)
-	return 0;
+	return NULL;
     return lp;
 }
 
@@ -134,7 +134,7 @@ player_prev(struct player *lp)
     else
 	lp = (struct player *)lp->queue.q_back;
     if (&lp->queue == &Players)
-	return 0;
+	return NULL;
     return lp;
 }
 

@@ -912,7 +912,7 @@ ask_off(int combat_mode, struct combat *off, struct combat *def)
 	sprintf(prompt, "Number of mil from %s (max %d) : ",
 		prcom(0, off), mob_support);
     }
-    if ((attacking_mil = onearg(0, prompt)) < 0)
+    if ((attacking_mil = onearg(NULL, prompt)) < 0)
 	abort_attack();
     if (att_abort(combat_mode, off, def))
 	return 0;
@@ -1271,7 +1271,8 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
-	if (check && !get_land(combat_mode, 0, llp->unit.land.lnd_uid, llp, 0))
+	if (check &&
+	    !get_land(combat_mode, NULL, llp->unit.land.lnd_uid, llp, 0))
 	    continue;
 	if (combat_mode == A_ATTACK) {
 	    w = -1;
@@ -1448,7 +1449,7 @@ put_land(struct emp_qelem *list)
 	    emp_remque((struct emp_qelem *)llp);
 	    free(llp);
 	} else
-	    get_land(A_ATTACK, 0, llp->unit.land.lnd_uid, llp, 0);
+	    get_land(A_ATTACK, NULL, llp->unit.land.lnd_uid, llp, 0);
     }
 }
 
@@ -2181,7 +2182,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 {
     int n;
     int occuppied = 0;
-    struct ulist *llp, *delete_me = 0;
+    struct ulist *llp, *delete_me = NULL;
     char buf[1024];
     struct sctstr sect;
     struct shpstr ship;

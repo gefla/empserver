@@ -122,7 +122,7 @@ bomb(void)
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target sector is %s\n", xyas(tx, ty, player->cnum));
     getsect(tx, ty, &target);
-    ip = 0;
+    ip = NULL;
     ap_to_target = strlen(flightpath);
     if (flightpath[ap_to_target - 1] == 'h')
 	ap_to_target--;

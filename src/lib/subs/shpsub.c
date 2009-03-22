@@ -423,7 +423,7 @@ most_valuable_ship(struct emp_qelem *list)
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *mlp;
-    struct ulist *mvs = 0;
+    struct ulist *mvs = NULL;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;

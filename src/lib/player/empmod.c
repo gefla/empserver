@@ -279,5 +279,5 @@ struct cmndstr player_coms[] = {
     {"work <LAND UNITS> <AMOUNT>", 1, work, C_MOD, NORM + MONEY + CAP},
     {"xdump [\"meta\"] <TYPE> [<RECORDS>]", 0, xdump, 0, VIS},
     {"zdone <y|n|c>", 0, zdon, C_MOD, NORM},
-    {0, 0, 0, 0, 0}
+    {NULL, 0, NULL, 0, 0}
 };

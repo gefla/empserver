@@ -73,8 +73,8 @@ lwpInitSelect(struct lwpProc *proc)
     FD_ZERO(&LwpReadfds);
     FD_ZERO(&LwpWritefds);
     LwpFdwait = calloc(FD_SETSIZE, sizeof(struct lwpProc *));
-    LwpDelayq.head = 0;
-    LwpDelayq.tail = 0;
+    LwpDelayq.head = NULL;
+    LwpDelayq.tail = NULL;
     LwpSelProc = proc;
 }
 
@@ -141,7 +141,7 @@ lwpWakeupFd(struct lwpProc *proc)
     FD_CLR(proc->fd, &LwpReadfds);
     FD_CLR(proc->fd, &LwpWritefds);
     LwpNfds--;
-    LwpFdwait[proc->fd] = 0;
+    LwpFdwait[proc->fd] = NULL;
     proc->fd = -1;
     lwpReady(proc);
 }
@@ -158,7 +158,7 @@ lwpWakeupSleep(void)
 
     if (LwpDelayq.head) {
 	now = time(NULL);
-	save.tail = save.head = 0;
+	save.tail = save.head = NULL;
 	while (NULL != (proc = lwpGetFirst(&LwpDelayq))) {
 	    if (now >= proc->runtime) {
 		lwpStatus(proc, "sleep done");

@@ -42,8 +42,8 @@
 #include <unistd.h>
 #include "misc.h"
 
-static char *smso = 0;
-static char *rmso = 0;
+static char *smso;
+static char *rmso;
 
 void
 getsose(void)

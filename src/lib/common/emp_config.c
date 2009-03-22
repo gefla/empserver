@@ -154,7 +154,7 @@ keylookup(char *command, struct keymatch *tbl)
     struct keymatch *kp;
 
     if (command == 0 || *command == 0)
-	return 0;
+	return NULL;
     for (kp = tbl; kp->km_key != 0; kp++) {
 	if (strcmp(kp->km_key, command) == 0)
 	    return kp;

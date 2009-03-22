@@ -610,12 +610,12 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	/* Split off the escorts at this base into e */
 	divide(&escorts, &e, air->x, air->y);
 
-	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', 0, 0);
+	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', NULL, 0);
 
 	if (QEMPTY(&b))
 	    continue;
 
-	mission_pln_arm(&e, air->x, air->y, 2 * md, 'p', 0, P_F | P_ESC);
+	mission_pln_arm(&e, air->x, air->y, 2 * md, 'p', NULL, P_F | P_ESC);
 
 	pp = BestAirPath(buf, air->x, air->y, x, y);
 	if (CANT_HAPPEN(!pp))

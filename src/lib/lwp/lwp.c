@@ -98,7 +98,7 @@ lwpReschedule(void)
 	    } else {
 		lwpDestroy(nextp);
 	    }
-	    nextp = 0;
+	    nextp = NULL;
 	}
 	if (nextp)
 	    break;
@@ -315,18 +315,19 @@ lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
 	pri = LWP_MAX_PRIO - 1;
     if (LwpMaxpri < pri)
 	LwpMaxpri = pri;
-    LwpCurrent->next = 0;
+    LwpCurrent->next = NULL;
     LwpCurrent->sbtm = stack;	/* dummy stack for "main" */
     LwpCurrent->pri = pri;
     LwpCurrent->dead = 0;
     LwpCurrent->flags = flags & ~LWP_STACKCHECK;
     LwpCurrent->name = "Main";
     for (i = LWP_MAX_PRIO, q = LwpSchedQ; i--; q++)
-	q->head = q->tail = 0;
-    LwpDeadQ.head = LwpDeadQ.tail = 0;
+	q->head = q->tail = NULL;
+    LwpDeadQ.head = LwpDeadQ.tail = NULL;
     lwpInitSigWait(waitset);
     /* must be lower in priority than us for this to work right */
-    sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler", 0, 0, 0);
+    sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler", 0,
+		    NULL, NULL);
     lwpInitSelect(sel);
     return LwpCurrent;
 }

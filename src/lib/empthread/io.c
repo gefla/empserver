@@ -82,8 +82,8 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
     if (!iop)
 	return NULL;
     iop->fd = fd;
-    iop->input = 0;
-    iop->output = 0;
+    iop->input = NULL;
+    iop->output = NULL;
     iop->flags = 0;
     iop->input_timeout = timeout;
     iop->bufsize = bufsize;

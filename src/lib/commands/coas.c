@@ -70,7 +70,7 @@ coas(void)
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     for (i = 0; i < TSIZE; i++)
-	list[i] = 0;
+	list[i] = NULL;
     cp = malloc(sizeof(*cp));
     snxtitem_all(&ni, EF_SHIP);
     while (nxtitem(&ni, &cp->c_shp)) {
@@ -139,18 +139,18 @@ static int
 showship(struct coast **cpp, int x, int y)
 {
     struct coast *cp;
-    struct coast *todelete = 0;
+    struct coast *todelete = NULL;
     struct coast **prev;
     int nship = 0;
 
-    prev = 0;
+    prev = NULL;
     cp = *cpp;
     prev = cpp;
     do {
 	/* we delete it, we free it. */
 	if (todelete) {
 	    free(todelete);
-	    todelete = 0;
+	    todelete = NULL;
 	}
 	if (cp->c_shp.shp_x != x || cp->c_shp.shp_y != y) {
 	    prev = &(*prev)->c_next;

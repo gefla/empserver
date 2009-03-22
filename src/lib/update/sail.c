@@ -299,7 +299,7 @@ void
 sail_ship(natid cn)
 {
     struct shpstr *sp;
-    struct fltheadstr *head = 0;
+    struct fltheadstr *head = NULL;
     struct fltheadstr *fltp;
     int n;
 

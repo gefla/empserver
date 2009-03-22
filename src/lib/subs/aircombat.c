@@ -295,7 +295,7 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 		&& pp->pln_radius < mapdist(x, y, pp->pln_opx, pp->pln_opy))
 		continue;
 	    if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
-		|| mission_pln_equip(dplp, 0, P_F, 0) < 0) {
+		|| mission_pln_equip(dplp, NULL, P_F, 0) < 0) {
 		emp_remque(dqp);
 		free(dqp);
 		continue;
@@ -369,7 +369,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    && pp->pln_radius < mapdist(x, y, pp->pln_opx, pp->pln_opy))
 	    continue;
 	if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
-	    || mission_pln_equip(plp, 0, P_F, 0) < 0) {
+	    || mission_pln_equip(plp, NULL, P_F, 0) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;

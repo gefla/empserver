@@ -68,7 +68,7 @@ skyw(void)
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     for (i = 0; i < TSIZE; i++)
-	list[i] = 0;
+	list[i] = NULL;
     skyp = malloc(sizeof(*skyp));
     snxtitem_all(&ni, EF_PLANE);
     while (nxtitem(&ni, &skyp->s_sat)) {
@@ -131,20 +131,20 @@ static int
 showsat(struct sky **skypp, int x, int y)
 {
     struct sky *skyp;
-    struct sky *todelete = 0;
+    struct sky *todelete = NULL;
     struct sky **prev;
     struct plchrstr *pcp;
     char *name;
     int nsat = 0;
 
-    prev = 0;
+    prev = NULL;
     skyp = *skypp;
     prev = skypp;
     do {
 	/* we delete it, we free it. */
 	if (todelete) {
 	    free(todelete);
-	    todelete = 0;
+	    todelete = NULL;
 	}
 	if (skyp->s_sat.pln_x != x || skyp->s_sat.pln_y != y) {
 	    prev = &(*prev)->s_next;

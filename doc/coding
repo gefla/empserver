@@ -288,6 +288,10 @@ Do not use increment operators to set a variable to logical true!  It
 obfuscates the purpose, and narrow variables could even overflow.
 Just assign 1.  A lot of cleanup remains to be done there.
 
+Null pointer constant
+
+Please use NULL for clarity, not just 0.
+
 Type casts
 
 Casting pointers to and from `void *' clutters the code and serves no

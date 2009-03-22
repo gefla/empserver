@@ -73,7 +73,7 @@ atta(void)
 	return RET_SYN;
     if (!sarg_xy(p, &def->x, &def->y))
 	return RET_SYN;
-    if (att_abort(A_ATTACK, 0, def))
+    if (att_abort(A_ATTACK, NULL, def))
 	return RET_FAIL;
 
     /* Show what we're attacking, and check treaties */
@@ -84,7 +84,7 @@ atta(void)
     /* Ask about offensive support */
 
     att_ask_support(2, &fort_sup, &ship_sup, &land_sup, &plane_sup);
-    if (att_abort(A_ATTACK, 0, def)) {
+    if (att_abort(A_ATTACK, NULL, def)) {
 	att_empty_attack(A_ATTACK, 0, def);
 	return RET_OK;
     }
@@ -110,14 +110,14 @@ atta(void)
     if (att_abort(A_ATTACK, off, def)) {
 	pr("Attack aborted\n");
 	att_empty_attack(A_ATTACK, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     ototal = att_get_offense(A_ATTACK, off, &olist, def);
     if (att_abort(A_ATTACK, off, def)) {
 	pr("Attack aborted\n");
 	att_empty_attack(A_ATTACK, 0, def);
-	return att_free_lists(&olist, 0);
+	return att_free_lists(&olist, NULL);
     }
 
     /*

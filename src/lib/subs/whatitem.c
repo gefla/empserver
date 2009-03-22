@@ -49,7 +49,7 @@ whatitem(char *input, char *prompt)
 
     p = getstarg(input, prompt, buf);
     if (p == 0 || *p == 0)
-	return 0;
+	return NULL;
     ip = item_by_name(p);
     if (!ip)
 	pr("Unrecognized item \"%c\"\n", *p);
@@ -69,5 +69,5 @@ item_by_name(char *str)
 	if (*str == ip->i_mnem)
 	    return ip;
     }
-    return 0;
+    return NULL;
 }

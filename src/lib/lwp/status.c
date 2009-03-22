@@ -51,8 +51,8 @@ lwpStatus(struct lwpProc *proc, char *format, ...)
     va_start(ap, format);
     if (proc->flags & LWP_PRINT) {
 	if (startTime.tv_sec == 0)
-	    gettimeofday(&startTime, 0);
-	gettimeofday(&tv, 0);
+	    gettimeofday(&startTime, NULL);
+	gettimeofday(&tv, NULL);
 	sec = tv.tv_sec - startTime.tv_sec;
 	msec = (tv.tv_usec - startTime.tv_usec) / 1000;
 	if (msec < 0) {

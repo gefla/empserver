@@ -99,7 +99,7 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	}
     }
     if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, 0)) {
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;

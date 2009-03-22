@@ -352,7 +352,7 @@ guerrilla(struct sctstr *sp)
     }
   domove:
     if (move && che > 0) {
-	struct sctstr *nicest_sp = 0;
+	struct sctstr *nicest_sp = NULL;
 	if (convert)
 	    min_mil = 999;
 	else
