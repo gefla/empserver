@@ -399,7 +399,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     pln_put(&int_list);
 }
 
-void
+static void
 ac_combat_headers(natid plane_owner, natid def_own)
 {
     PR(plane_owner,
@@ -413,7 +413,7 @@ ac_combat_headers(natid plane_owner, natid def_own)
 /*
  * air-to-air combat.
  */
-void
+static void
 ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 {
     struct plist *attacker;

@@ -142,7 +142,7 @@ weekday(char *str, int *wday)
  * Else return NULL.
  * Time format is HOUR:MINUTE.  Initial whitespace is ignored.
  */
-char *
+static char *
 daytime(char *str, int *min)
 {
     /*
@@ -177,7 +177,7 @@ daytime(char *str, int *min)
  * Else return NULL.
  * Format is HOUR:MINUTE-HOUR:MINUTE.  Initial whitespace is ignored.
  */
-char *
+static char *
 daytime_range(char *str, int *from_min, int *to_min)
 {
     char *end;

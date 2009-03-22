@@ -975,7 +975,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 }
 
 
-int
+static int
 doplane(char op, int arg, char *p, struct plnstr *plane)
 {
     coord newx, newy;
