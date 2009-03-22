@@ -211,7 +211,7 @@ pln_zap_transient_flags(void)
 }
 
 int
-ef_verify()
+ef_verify(void)
 {
     struct empfile *ep;
     int retval = 0;
