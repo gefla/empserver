@@ -53,7 +53,7 @@ getele(char *recipient, char *buf)
     char left[16];
 
     pr("Enter telegram for %s\n", recipient);
-    pr("undo last line with ~u, print with ~p, abort with ~q, end with ^D or .\n");
+    pr("undo last line with ~u, print with ~p, abort with ~q, end with .\n");
     bp = buf;
     *bp = 0;
     for (;;) {

@@ -18,8 +18,8 @@ Or you can send a multi-line message:
 > I ate Fodderland for lunch.
 > .
 .FI
-Note that you can end a multi-line flash with either a '.' (period)
-on a line all by itself, or by hitting ^D on a line by itself.
+You can end a multi-line flash with a '.' (period) on a line all by
+itself.
 .s1
 If you do not wish to receive any flash messages from your friends,
 then you can temporarily turn the feature off by typing "toggle flash".

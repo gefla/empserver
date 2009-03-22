@@ -15,8 +15,8 @@ Or you can send a multi-line message:
 > OK, let's hit the beaches!
 > .
 .FI
-Note that you can end a multi-line wall with either a '.' (period)
-on a line all by itself, or by hitting ^D on a line by itself.
+You can end a multi-line flash with a '.' (period) on a line all by
+itself.
 .s1
 If you do not wish to receive any broadcast messages from your allies,
 then you can temporarily turn the feature off by typing "toggle flash".

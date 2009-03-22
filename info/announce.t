@@ -11,7 +11,7 @@ For example:
 .EX announce
 .NF
 Enter telegram for everybody
-undo last line with ~u, print with ~p, abort with ~q, end with ^D or .
+undo last line with ~u, print with ~p, abort with ~q, end with .
 1024 left: 
 1023 left:               For Immediate Release
  987 left:                     from

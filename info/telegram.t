@@ -13,15 +13,15 @@ Telegrams sent to country #0 appear as prayers,
 (favors are best obtained in this manner.)
 .s1
 While entering your telegram the system tells you how many characters
-you have left.  You end the telegram by typing ^D on a line by itself,
-or by entering a line with a '.' on a line by itself. A line containing
+you have left.  You end the telegram by by entering a line with a '.'
+on a line by itself. A line containing
 only '~q' will abort the telegram.
 .s1
 For example:
 .EX tel 7 8
 .NF
 Enter telegram for multiple recipients
-undo last line with ~u, print with ~p, abort with ~q, end with ^D or .
+undo last line with ~u, print with ~p, abort with ~q, end with .
  1024 left:
  1023 left: B.F.D. Pouncetrifle
  1003 left: Groonland Embassy

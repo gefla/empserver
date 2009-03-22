@@ -21,7 +21,8 @@ is the telegram; if you should be in need of aid type:
 When the program requests your message for The Deity,
 state it simply:
 .NF
-Enter telegram for your Gracious Deity; end with ^D
+Enter telegram for your Gracious Deity
+undo last line with ~u, print with ~p, abort with ~q, end with .
 <512> I can't do anything!!!!
 <488> HELP!!
 <481> .
