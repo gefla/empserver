@@ -67,8 +67,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_min;
@@ -88,8 +88,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_gmin;
@@ -111,8 +111,8 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		if (!(p = getstarg(player->argp[3], "What value : ", buf))
-		    || (*p == '\0'))
+		p = getstarg(player->argp[3], "What value : ", buf);
+		if (!p || !*p)
 		    return RET_SYN;
 		amt = atoi(p);
 		current = sect.sct_oil;
@@ -132,8 +132,8 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		if (!(p = getstarg(player->argp[3], "What value : ", buf))
-		    || (*p == '\0'))
+		p = getstarg(player->argp[3], "What value : ", buf);
+		if (!p || !*p)
 		    return RET_SYN;
 		amt = atoi(p);
 		if ((amt < 0) || (amt > MAXNOC - 1))
@@ -158,8 +158,8 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		if (!(p = getstarg(player->argp[3], "What value : ", buf))
-		    || (*p == '\0'))
+		p = getstarg(player->argp[3], "What value : ", buf);
+		if (!p || !*p)
 		    return RET_SYN;
 		amt = atoi(p);
 		if ((amt < 0) || (amt > MAXNOC - 1))
@@ -181,8 +181,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_effic;
@@ -203,8 +203,8 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		if (!(p = getstarg(player->argp[3], "What value : ", buf))
-		    || (*p == '\0'))
+		p = getstarg(player->argp[3], "What value : ", buf);
+		if (!p || !*p)
 		    return RET_SYN;
 		amt = atoi(p);
 		current = sect.sct_mines;
@@ -223,8 +223,8 @@ setsector(void)
 	    if (!snxtsct(&nstr, player->argp[2]))
 		return RET_SYN;
 	    while (nxtsct(&nstr, &sect) > 0) {
-		if (!(p = getstarg(player->argp[3], "What value : ", buf))
-		    || (*p == '\0'))
+		p = getstarg(player->argp[3], "What value : ", buf);
+		if (!p || !*p)
 		    return RET_SYN;
 		amt = atoi(p);
 		current = sect.sct_mobil;
@@ -248,8 +248,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_avail;
@@ -268,8 +268,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_work;
@@ -288,8 +288,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_fertil;
@@ -309,8 +309,8 @@ setsector(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    current = sect.sct_uran;

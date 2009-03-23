@@ -61,9 +61,8 @@ lboa(void)
      */
 
     /* What are we boarding? */
-
-    if (!(p = getstarg(player->argp[1], "Victim land unit #?  ", buf)) ||
-	(def->lnd_uid = atoi(p)) < 0)
+    p = getstarg(player->argp[1], "Victim land unit #?  ", buf);
+    if (!p || (def->lnd_uid = atoi(p)) < 0)
 	return RET_SYN;
 
     /*

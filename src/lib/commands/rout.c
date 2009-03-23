@@ -96,8 +96,8 @@ rout(void)
 	if (!player->owner)
 	    continue;
 	p = &map[ns.dy][ns.dx * 2];
-	if ((dir = sect.sct_del[i_del] & 0x7) &&
-	    nstr_exec(cond, ncond, &sect))
+	dir = sect.sct_del[i_del] & 0x7;
+	if (dir && nstr_exec(cond, ncond, &sect))
 	    memcpy(p, routech[dir], 3);
 	p[1] = dchr[sect.sct_type].d_mnem;
     }

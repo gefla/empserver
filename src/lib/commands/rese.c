@@ -61,8 +61,8 @@ rese(void)
     }
     check_market();
     check_trade();
-    if ((p = getstarg(player->argp[1], "Which lot :  ", buf)) == 0
-	|| *p == 0)
+    p = getstarg(player->argp[1], "Which lot :  ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     number_set = atoi(p);
     getcomm(number_set, &comm);
@@ -74,8 +74,8 @@ rese(void)
 	pr("Some one already has a bid out on that\n");
 	return RET_OK;
     }
-    if ((p = getstarg(player->argp[2], "New (lower) price: ", buf)) == 0
-	|| *p == 0)
+    p = getstarg(player->argp[2], "New (lower) price: ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (!check_comm_ok(&comm))
 	return RET_FAIL;

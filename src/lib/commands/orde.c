@@ -124,8 +124,8 @@ orde(void)
 	    orders = 0;
 	    scuttling = 0;
 	    /* Need location */
-	    if ((p = getstarg(player->argp[3], "Destination? ", buf)) == 0
-		|| *p == 0)
+	    p = getstarg(player->argp[3], "Destination? ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    if (!sarg_xy(p, &p0x, &p0y))
 		return RET_SYN;

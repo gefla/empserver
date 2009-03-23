@@ -60,8 +60,8 @@ setres(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    if (amt > 100)
@@ -79,8 +79,8 @@ setres(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    if (amt > 100)
@@ -98,8 +98,8 @@ setres(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    if (amt > 100)
@@ -116,8 +116,8 @@ setres(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    if (amt > 100)
@@ -135,8 +135,8 @@ setres(void)
 	if (!snxtsct(&nstr, player->argp[2]))
 	    return RET_SYN;
 	while (nxtsct(&nstr, &sect) > 0) {
-	    if (!(p = getstarg(player->argp[3], "What value : ", buf)) ||
-		(*p == '\0'))
+	    p = getstarg(player->argp[3], "What value : ", buf);
+	    if (!p || !*p)
 		return RET_SYN;
 	    amt = atoi(p);
 	    if (amt > 100)

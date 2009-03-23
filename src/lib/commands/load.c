@@ -83,9 +83,9 @@ load(void)
     char *p;
     char buf[1024];
 
-    if (!(p = getstarg(player->argp[1],
-		       "What commodity (or 'plane' or 'land')? ", buf))
-	|| !*p)
+    p = getstarg(player->argp[1],
+		 "What commodity (or 'plane' or 'land')? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     if (!strncmp(p, "plane", 5))
@@ -99,7 +99,8 @@ load(void)
 	return RET_SYN;
     }
 
-    if (!(p = getstarg(player->argp[2], "Ship(s): ", buf)) || !*p)
+    p = getstarg(player->argp[2], "Ship(s): ", buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     noisy = isdigit(*p);
@@ -216,9 +217,9 @@ lload(void)
     char *p;
     char buf[1024];
 
-    if (!(p = getstarg(player->argp[1],
-		       "What commodity (or 'plane' or 'land')? ", buf))
-	|| !*p)
+    p = getstarg(player->argp[1],
+		 "What commodity (or 'plane' or 'land')? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (!strncmp(p, "plane", 5))
 	type = EF_PLANE;
@@ -231,7 +232,8 @@ lload(void)
 	return RET_SYN;
     }
 
-    if (!(p = getstarg(player->argp[2], "Unit(s): ", buf)) || !*p)
+    p = getstarg(player->argp[2], "Unit(s): ", buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     noisy = isdigit(*p);
@@ -691,7 +693,8 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 	    (load_unload == UNLOAD) ?
 	    "unload from" : "load onto",
 	    prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
-    if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     if (!still_ok_ship(sectp, sp))
@@ -852,7 +855,8 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 	    (load_unload == UNLOAD) ?
 	    "unload from" : "load onto",
 	    prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
-    if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     if (!still_ok_land(sectp, lp))

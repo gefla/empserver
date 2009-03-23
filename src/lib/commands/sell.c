@@ -100,13 +100,14 @@ sell(void)
 	return RET_FAIL;
     }
     number_sub = 0;
-    if ((p = getstarg(player->argp[3], "Quantity: ", buf)) == 0 || *p == 0)
+    p = getstarg(player->argp[3], "Quantity: ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (!check_sect_ok(&sect))
 	return RET_FAIL;
     number_set = atoi(p);
-    if ((p = getstarg(player->argp[4], "Price per unit: ", buf)) == 0 ||
-	*p == 0)
+    p = getstarg(player->argp[4], "Price per unit: ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     if (!check_sect_ok(&sect))
 	return RET_FAIL;

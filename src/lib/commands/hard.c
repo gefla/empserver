@@ -58,8 +58,8 @@ hard(void)
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[1], NULL))
 	return RET_SYN;
-    if ((p = getstarg(player->argp[2], "Increase by? ", buf)) == 0
-	|| *p == 0)
+    p = getstarg(player->argp[2], "Increase by? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     level = atoi(p);
     if (level < 0)

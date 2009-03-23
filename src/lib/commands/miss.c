@@ -149,8 +149,8 @@ mission(void)
 	return RET_FAIL;
     }
 
-    if ((p = getstarg(player->argp[4], "operations point? ", buf)) == 0
-	|| *p == 0)
+    p = getstarg(player->argp[4], "operations point? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     if (*p != '.') {

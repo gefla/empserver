@@ -66,7 +66,8 @@ deli(void)
 	sprintf(prompt, "%s %s %s threshold or direction or 'query'? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		dchr[sect.sct_type].d_name, ich->i_name);
-	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+	p = getstarg(player->argp[3], prompt, buf);
+	if (!p || !*p)
 	    return RET_SYN;
 	if (*p != 'q') {
 	    if (((*p >= '0') && (*p <= '9')) || *p == '+') {

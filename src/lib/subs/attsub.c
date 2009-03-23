@@ -2450,7 +2450,8 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	return;
     sprintf(prompt, "How many mil to move in from %s (%d max)? ",
 	    xyas(off->x, off->y, player->cnum), mob_support);
-    if (!(p = getstring(prompt, buf)) || !*p || (num_mil = atoi(p)) <= 0)
+    p = getstring(prompt, buf);
+    if (!p || !*p || (num_mil = atoi(p)) <= 0)
 	return;
 /* Make sure we don't move in more than we can support mobility-wise */
     if (num_mil > mob_support)

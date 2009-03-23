@@ -114,7 +114,8 @@ trad(void)
 	pr("Nothing to buy at the moment...\n");
 	return RET_OK;
     }
-    if ((p = getstring("Which lot to buy: ", buf)) == 0 || *p == 0)
+    p = getstring("Which lot to buy: ", buf);
+    if (!p || !*p)
 	return RET_OK;
     if (isdigit(*p) == 0)
 	return RET_OK;
@@ -239,7 +240,8 @@ trad(void)
 	}
     }
 
-    if ((p = getstring("How much do you bid: ", buf)) == 0 || *p == 0)
+    p = getstring("How much do you bid: ", buf);
+    if (!p || !*p)
 	return RET_OK;
     if (!trade_check_ok(&trade, &tg))
 	return RET_FAIL;

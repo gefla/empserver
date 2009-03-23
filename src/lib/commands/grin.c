@@ -60,7 +60,8 @@ grin(void)
 	return RET_SYN;
     if (!snxtsct(&nstr, p))
 	return RET_SYN;
-    if ((p = getstarg(player->argp[2], "amount :  ", buf)) == 0 || *p == 0)
+    p = getstarg(player->argp[2], "amount :  ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     qty = atoi(p);
     if (qty < 0)

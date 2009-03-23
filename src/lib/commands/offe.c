@@ -48,7 +48,8 @@ offe(void)
     char *cp;
     char buf[1024];
 
-    if (!(cp = getstarg(player->argp[1], "loan or treaty? ", buf)) || !*cp)
+    cp = getstarg(player->argp[1], "loan or treaty? ", buf);
+    if (!cp || !*cp)
 	return RET_SYN;
 
     switch (*cp) {

@@ -92,7 +92,8 @@ improve(void)
 	sprintf(prompt, "Sector %s has a %s of %d%%.  Improve how much? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		intrchr[type].in_name, value);
-	if (!(p = getstarg(player->argp[3], prompt, buf)) || !*p)
+	p = getstarg(player->argp[3], prompt, buf);
+	if (!p || !*p)
 	    continue;
 	if (!check_sect_ok(&sect))
 	    continue;

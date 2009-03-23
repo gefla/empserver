@@ -67,8 +67,9 @@ tend(void)
     char prompt[512];
     char buf[1024];
 
-    if (!(p = getstarg(player->argp[1],
-		       "Tend what commodity (or 'land')? ", buf)) || !*p)
+    p = getstarg(player->argp[1], "Tend what commodity (or 'land')? ",
+		 buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     if (!strncmp(p, "land", 4))

@@ -65,9 +65,8 @@ boar(void)
      */
 
     /* What are we boarding? */
-
-    if (!(p = getstarg(player->argp[1], "Victim ship #?  ", buf)) ||
-	(def->shp_uid = atoi(p)) < 0)
+    p = getstarg(player->argp[1], "Victim ship #?  ", buf);
+    if (!p || (def->shp_uid = atoi(p)) < 0)
 	return RET_SYN;
 
     /*

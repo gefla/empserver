@@ -50,10 +50,10 @@ show(void)
     char buf[1024];
     int rlev;
 
-    if (!(p = getstarg(player->argp[1],
-		       "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)? ",
-		       buf))
-	|| !*p)
+    p = getstarg(player->argp[1],
+		 "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)? ",
+		 buf);
+    if (!p || !*p)
 	return RET_SYN;
 
     natp = getnatp(player->cnum);
@@ -124,9 +124,9 @@ show(void)
 	return RET_SYN;
     }
 
-    if (!(p = getstarg(player->argp[2],
-		       "Build, stats, or capability data (b,s,c)? ", buf))
-	|| !*p)
+    p = getstarg(player->argp[2],
+		 "Build, stats, or capability data (b,s,c)? ", buf);
+    if (!p || !*p)
 	return RET_SYN;
     pr("Printing for tech level '%d'\n", tlev);
     if (*p == 'B' || *p == 'b')
