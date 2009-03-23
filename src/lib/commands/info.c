@@ -94,7 +94,7 @@ info(void)
     if (fp == NULL) {
 	/* may be a "partial" request.  */
 	info_dp = opendir(infodir);
-	if (info_dp == 0) {
+	if (!info_dp) {
 	    pr("Can't open info dir\n");
 	    logerror("Can't open info dir \"%s\"\n", infodir);
 	    return RET_FAIL;
@@ -174,7 +174,7 @@ apro(void)
     int lhitlim;
     struct stat statb;
 
-    if (player->argp[1] == 0 || !*player->argp[1]) {
+    if (!player->argp[1] || !*player->argp[1]) {
 	pr("Apropos what?\n");
 	return RET_FAIL;
     }

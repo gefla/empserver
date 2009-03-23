@@ -117,7 +117,7 @@ player_delete(struct player *lp)
 struct player *
 player_next(struct player *lp)
 {
-    if (lp == 0)
+    if (!lp)
 	lp = (struct player *)Players.q_forw;
     else
 	lp = (struct player *)lp->queue.q_forw;
@@ -129,7 +129,7 @@ player_next(struct player *lp)
 struct player *
 player_prev(struct player *lp)
 {
-    if (lp == 0)
+    if (!lp)
 	lp = (struct player *)Players.q_back;
     else
 	lp = (struct player *)lp->queue.q_back;

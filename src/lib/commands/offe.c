@@ -102,7 +102,7 @@ do_treaty(void)
     theircond = 0;
     for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
 	sprintf(prompt, "%s? ", tfp->name);
-	if ((cp = getstring(prompt, buf)) == 0)
+	if (!(cp = getstring(prompt, buf)))
 	    return RET_FAIL;
 	if (*cp == 'y')
 	    theircond |= tfp->value;
@@ -111,7 +111,7 @@ do_treaty(void)
     ourcond = 0;
     for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
 	sprintf(prompt, "%s? ", tfp->name);
-	if ((cp = getstring(prompt, buf)) == 0)
+	if (!(cp = getstring(prompt, buf)))
 	    return RET_FAIL;
 	if (*cp == 'y')
 	    ourcond |= tfp->value;
@@ -121,7 +121,7 @@ do_treaty(void)
 	return RET_SYN;
     }
     cp = getstring("Proposed treaty duration? (days) ", buf);
-    if (cp == 0)
+    if (!cp)
 	return RET_FAIL;
     j = atoi(cp);
     if (j <= 0) {

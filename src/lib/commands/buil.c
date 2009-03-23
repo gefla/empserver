@@ -89,7 +89,7 @@ buil(void)
     p = getstarg(player->argp[1],
 		 "Build (ship, nuke, bridge, plane, land unit, tower)? ",
 		 buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     what = *p;
 
@@ -103,7 +103,7 @@ buil(void)
     switch (what) {
     case 'p':
 	p = getstarg(player->argp[3], "Plane type? ", buf);
-	if (p == 0 || *p == 0)
+	if (!p || !*p)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_PLANE_CHR, p);
 	if (type >= 0) {
@@ -121,7 +121,7 @@ buil(void)
 	break;
     case 's':
 	p = getstarg(player->argp[3], "Ship type? ", buf);
-	if (p == 0 || *p == 0)
+	if (!p || !*p)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_SHIP_CHR, p);
 	if (type >= 0) {
@@ -141,7 +141,7 @@ buil(void)
 	break;
     case 'l':
 	p = getstarg(player->argp[3], "Land unit type? ", buf);
-	if (p == 0 || *p == 0)
+	if (!p || !*p)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_LAND_CHR, p);
 	if (type >= 0) {
@@ -182,7 +182,7 @@ buil(void)
 	    return RET_FAIL;
 	}
 	p = getstarg(player->argp[3], "Nuke type? ", buf);
-	if (p == 0 || *p == 0)
+	if (!p || !*p)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_NUKE_CHR, p);
 	if (type >= 0) {
@@ -219,7 +219,7 @@ buil(void)
 			"Are you sure that you want to build %s of them? ",
 			player->argp[4]);
 		p = getstarg(player->argp[6], bstr, buf);
-		if (p == 0 || *p != 'y')
+		if (!p || *p != 'y')
 		    return RET_SYN;
 	    }
 	}

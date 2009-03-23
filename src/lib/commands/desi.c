@@ -64,7 +64,7 @@ desi(void)
 	sprintf(prompt, "%s %d%% %s  desig? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0) {
+	if (!(p = getstarg(player->argp[2], prompt, buf))) {
 	    rc = RET_FAIL;
 	    break;
 	}

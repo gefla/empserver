@@ -270,7 +270,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     int there;
     int max;
 
-    if (ip == 0)
+    if (!ip)
 	return;
     amt = 0;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
@@ -664,7 +664,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	    break;
 	case 't':		/* transport */
 	case 'd':		/* drop */
-	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
+	    if (!(pcp->pl_flags & P_C) || !ip)
 		break;
 	    itype = ip->i_uid;
 	    needed = (load * 2) / ip->i_lbs;

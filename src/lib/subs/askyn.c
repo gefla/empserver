@@ -45,7 +45,7 @@ confirm(char *promptstring)
     char y_or_n[1024];
     char c;
 
-    if (getstring(promptstring, y_or_n) == 0)
+    if (!getstring(promptstring, y_or_n))
 	return 0;
     c = *y_or_n;
     if (c == 'y' || c == 'Y')

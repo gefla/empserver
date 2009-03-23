@@ -363,7 +363,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	return RET_FAIL;
     }
     p = getstring("Geostationary orbit? ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     if (!check_plane_ok(pp))
 	return RET_FAIL;

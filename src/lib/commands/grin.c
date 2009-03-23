@@ -56,7 +56,7 @@ grin(void)
     }
     pp = &pchr[prd];
 
-    if ((p = getstarg(player->argp[1], "Sectors? ", buf)) == 0)
+    if (!(p = getstarg(player->argp[1], "Sectors? ", buf)))
 	return RET_SYN;
     if (!snxtsct(&nstr, p))
 	return RET_SYN;

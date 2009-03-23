@@ -61,7 +61,7 @@ rout(void)
     static char **map = NULL;
     int i;
 
-    if ((ip = whatitem(player->argp[1], "What item? ")) == 0)
+    if (!(ip = whatitem(player->argp[1], "What item? ")))
 	return RET_SYN;
     i_del = ip->i_uid;;
     if (!snxtsct(&ns, player->argp[2]))

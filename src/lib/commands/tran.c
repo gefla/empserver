@@ -53,7 +53,7 @@ tran(void)
 
     what = getstarg(player->argp[1], "transport what (nuke or plane): ",
 		    buf);
-    if (what == 0)
+    if (!what)
 	return RET_SYN;
     if (*what == 'n')
 	return tran_nuke();

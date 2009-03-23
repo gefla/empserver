@@ -59,7 +59,7 @@ give(void)
 	return RET_SYN;
     while (nxtsct(&nstr, &sect) > 0) {
 	p = getstarg(player->argp[3], "how much : ", buf);
-	if (p == 0 || *p == '\0')
+	if (!p || !*p)
 	    return RET_SYN;
 	if ((amt = atoi(p)) == 0)
 	    return RET_SYN;

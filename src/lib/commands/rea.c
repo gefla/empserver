@@ -103,7 +103,7 @@ rea(void)
 	clear_telegram_is_new(player->cnum);
     }
 
-    if ((telfp = fopen(mbox, "rb+")) == 0) {
+    if (!(telfp = fopen(mbox, "rb+"))) {
 	logerror("telegram file %s", mbox);
 	return RET_FAIL;
     }

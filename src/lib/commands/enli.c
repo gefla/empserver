@@ -60,7 +60,7 @@ enli(void)
     natp = getnatp(player->cnum);
     newmil = 500;
     sprintf(prompt, "Number to enlist (max %d) : ", newmil);
-    if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
+    if (!(p = getstarg(player->argp[2], prompt, buf)))
 	return RET_SYN;
     if ((milwant = atoi(p)) > newmil)
 	milwant = newmil;

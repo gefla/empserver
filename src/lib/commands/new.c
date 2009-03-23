@@ -66,7 +66,7 @@ new(void)
 	pr("Country #%d (%s) isn't a new country!\n", num, cname(num));
 	return RET_SYN;
     }
-    if ((p = getstarg(player->argp[2], "sanctuary pair : ", buf)) == 0)
+    if (!(p = getstarg(player->argp[2], "sanctuary pair : ", buf)))
 	return RET_SYN;
     if (!sarg_xy(p, &x, &y) || !getsect(x, y, &sect))
 	return RET_SYN;

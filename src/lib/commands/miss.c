@@ -64,7 +64,7 @@ mission(void)
 
     p = getstarg(player->argp[1], "Ship, plane or land unit (p,sh,la)? ",
 		 buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     type = ef_byname_from(p, ef_with_missions);
     if (type < 0) {
@@ -77,7 +77,7 @@ mission(void)
     p = getstarg(player->argp[3],
 		 "Mission (int, sup, osup, dsup, esc, res, air, query, clear)? ",
 		 buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
 
 /*

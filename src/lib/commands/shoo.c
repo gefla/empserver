@@ -57,14 +57,14 @@ shoo(void)
     char buf[1024];
 
     ip = whatitem(player->argp[1], "Shoot what <civ or uw> ");
-    if (ip == 0 || (ip->i_uid != I_CIVIL && ip->i_uid != I_UW))
+    if (!ip || (ip->i_uid != I_CIVIL && ip->i_uid != I_UW))
 	return RET_SYN;
     item = ip->i_uid;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
     sprintf(prompt, "number of %s to shoot? ", ip->i_name);
     p = getstarg(player->argp[3], prompt, buf);
-    if (p == 0 || (targets = atoi(p)) <= 0)
+    if (!p || (targets = atoi(p)) <= 0)
 	return RET_SYN;
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)

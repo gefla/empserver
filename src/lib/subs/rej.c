@@ -149,7 +149,7 @@ setcont(natid us, natid them, int contact)
 {
     struct natstr *np;
 
-    if ((np = getnatp(us)) == 0)
+    if (!(np = getnatp(us)))
 	return 0;
     putcontact(np, them, contact);
     putnat(np);
@@ -161,7 +161,7 @@ setrej(natid us, natid them, int how, int what)
 {
     struct natstr *np;
 
-    if ((np = getnatp(us)) == 0)
+    if (!(np = getnatp(us)))
 	return 0;
     putreject(np, them, how, what);
     putnat(np);

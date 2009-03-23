@@ -184,7 +184,7 @@ orde(void)
 		sub = atoi(player->argp[3]);
 	    else {
 		sprintf(buf1, "Field (1-%d) ", TMAX);
-		if (getstarg(player->argp[3], buf1, buf) == 0)
+		if (!getstarg(player->argp[3], buf1, buf))
 		    return RET_SYN;
 		sub = atoi(buf);
 	    }

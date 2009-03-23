@@ -57,7 +57,7 @@ name(void)
 	p = getstarg(player->argp[2], "Name? ", buf);
 	if (!check_ship_ok(&ship))
 	    return RET_FAIL;
-	if (p == 0 || *p == 0)
+	if (!p || !*p)
 	    return RET_SYN;
 	if (!strcmp(p, "~")) {
 	    ship.shp_name[0] = 0;

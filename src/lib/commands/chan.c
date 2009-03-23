@@ -47,7 +47,7 @@ chan(void)
     struct natstr *us;
 
     p = getstarg(player->argp[1], "country name or representative? ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     us = getnatp(player->cnum);
     if (us->nat_stat == STAT_VIS) {
@@ -76,7 +76,7 @@ chan(void)
 	    }
 	}
 	p = getstarg(player->argp[2], "New country name -- ", buf);
-	if (p == 0)
+	if (!p)
 	    return RET_SYN;
 	if (!check_nat_name(p))
 	    return RET_FAIL;
@@ -90,7 +90,7 @@ chan(void)
     case 'r':
 	pr("(note: these are stored in plain text.)\n");
 	p = getstarg(player->argp[2], "New representative name -- ", buf);
-	if (p == 0)
+	if (!p)
 	    return RET_SYN;
 	p[sizeof(us->nat_pnam) - 1] = 0;
 	strcpy(us->nat_pnam, p);

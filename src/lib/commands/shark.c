@@ -57,7 +57,7 @@ shark(void)
 	return RET_FAIL;
     }
     p = getstarg(player->argp[1], "Transfer which loan #: ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     if (*p == 0)
 	return RET_SYN;

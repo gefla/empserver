@@ -49,7 +49,7 @@ comtch(char *command, struct cmndstr *coms, int comstat)
     struct cmndstr *com;
     int status;
 
-    if (command == 0 || *command == 0)
+    if (!command || !*command)
 	return M_IGNORE;
     status = M_NOTFOUND;
     for (com = coms; com->c_form; com++) {

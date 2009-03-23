@@ -53,7 +53,7 @@ thre(void)
     char prompt[128];
     char buf[128];
 
-    if ((ip = whatitem(player->argp[1], "What commodity? ")) == 0)
+    if (!(ip = whatitem(player->argp[1], "What commodity? ")))
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
@@ -70,7 +70,7 @@ thre(void)
 	    sprintf(prompt, "%s %s  threshold? ",
 		    xyas(nstr.x, nstr.y, player->cnum),
 		    dchr[sect.sct_type].d_name);
-	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
+	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;
 	if (!*p)
 	    continue;

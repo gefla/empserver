@@ -72,7 +72,7 @@ move(void)
 
 
     istest = *player->argp[0] == 't';
-    if ((ip = whatitem(player->argp[1], "move what? ")) == 0)
+    if (!(ip = whatitem(player->argp[1], "move what? ")))
 	return RET_SYN;
     vtype = ip->i_uid;
     if (!(p = getstarg(player->argp[2], "from sector : ", buf)))

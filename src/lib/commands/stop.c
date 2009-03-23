@@ -76,7 +76,7 @@ start_stop(int off)
     } else {
 	p = getstarg(player->argp[1],
 		     "Sector, ship, plane, land unit or nuke? ", buf);
-	if (p == 0)
+	if (!p)
 	    return RET_SYN;
 	type = ef_byname_from(p, sct_or_unit);
 	if (type < 0) {

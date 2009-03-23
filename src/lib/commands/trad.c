@@ -188,7 +188,7 @@ trad(void)
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(&trade, &tg))
 		return RET_FAIL;
-	    if (p == 0) {
+	    if (!p) {
 		return RET_FAIL;
 	    }
 	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {
@@ -217,7 +217,7 @@ trad(void)
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(&trade, &tg))
 		return RET_FAIL;
-	    if (p == 0) {
+	    if (!p) {
 		return RET_FAIL;
 	    }
 	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {

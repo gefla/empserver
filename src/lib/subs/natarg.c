@@ -59,7 +59,7 @@ natargp(char *arg, char *prompt)
     struct natstr *np;
 
     arg = getstarg(arg, prompt, buf);
-    if (arg == 0 || *arg == 0)
+    if (!arg || !*arg)
 	return NULL;
     if (isdigit(*arg))
 	n = atoi(arg);

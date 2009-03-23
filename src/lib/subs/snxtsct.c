@@ -61,8 +61,8 @@ snxtsct(struct nstr_sect *np, char *str)
     int dist, n;
     char buf[1024];
 
-    if (str == 0 || *str == 0) {
-	if ((str = getstring("(sects)? ", buf)) == 0)
+    if (!str || !*str) {
+	if (!(str = getstring("(sects)? ", buf)))
 	    return 0;
     }
     switch (sarg_type(str)) {
@@ -92,7 +92,7 @@ snxtsct(struct nstr_sect *np, char *str)
     default:
 	return 0;
     }
-    if (player->condarg == 0)
+    if (!player->condarg)
 	return 1;
     n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
 		  EF_SECTOR, player->condarg);

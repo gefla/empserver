@@ -88,7 +88,7 @@ edit(void)
     what = getstarg(player->argp[1],
 		    "Edit What (country, land, ship, plane, nuke, unit)? ",
 		    buf);
-    if (what == 0)
+    if (!what)
 	return RET_SYN;
     ewhat = what[0];
     switch (ewhat) {
@@ -130,7 +130,7 @@ edit(void)
 	pr("huh?\n");
 	return RET_SYN;
     }
-    if (player->argp[3] == 0) {
+    if (!player->argp[3]) {
 	switch (ewhat) {
 	case 'l':
 	    prsect(&sect);
@@ -374,7 +374,7 @@ pr_ship(struct shpstr *ship)
 {
     struct natstr *natp;
 
-    if ((natp = getnatp(ship->shp_own)) == 0)
+    if (!(natp = getnatp(ship->shp_own)))
 	return;
     pr("%s (#%d) %s\n", natp->nat_cnam, ship->shp_own, prship(ship));
     pr("UID <U>: %d\n", ship->shp_uid);

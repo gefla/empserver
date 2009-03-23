@@ -115,7 +115,7 @@ torp(void)
 	}
 	subno = sub.shp_uid;
 	sprintf(prompt, "Ship %d, target? ", sub.shp_uid);
-	if ((ptr = getstarg(player->argp[2], prompt, buf)) == 0)
+	if (!(ptr = getstarg(player->argp[2], prompt, buf)))
 	    return RET_SYN;
 	if (!check_ship_ok(&sub))
 	    return RET_FAIL;

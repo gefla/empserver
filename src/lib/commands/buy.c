@@ -81,7 +81,7 @@ buy(void)
     display_mark(ip->i_uid, 0);
     pr("\n");
     p = getstarg(player->argp[2], "Which lot are you bidding on: ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     if (*p == 0)
 	return RET_SYN;
@@ -100,7 +100,7 @@ buy(void)
 	pr("You can't bid on your own lot.\n");
 	return RET_OK;
     }
-    if ((p = getstarg(player->argp[3], "How much per unit: ", buf)) == 0)
+    if (!(p = getstarg(player->argp[3], "How much per unit: ", buf)))
 	return RET_SYN;
     bid = atof(p);
     if (bid <= 0)

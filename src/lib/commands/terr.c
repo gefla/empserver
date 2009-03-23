@@ -59,7 +59,7 @@ terr(void)
 	sprintf(prompt, "%s %d%% %s  territory? ",
 		xyas(nstr.x, nstr.y, player->cnum),
 		sect.sct_effic, dchr[sect.sct_type].d_name);
-	if ((p = getstarg(player->argp[2], prompt, buf)) == 0)
+	if (!(p = getstarg(player->argp[2], prompt, buf)))
 	    return RET_FAIL;
 	if (*p == 0)
 	    continue;

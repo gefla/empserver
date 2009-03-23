@@ -64,14 +64,14 @@ drop(void)
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING) == 0
+    if (!getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING)
 	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;
     ty = ay;
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target is %s\n", xyas(tx, ty, player->cnum));
-    if ((ip = whatitem(player->argp[5], "Drop off what? ")) == 0)
+    if (!(ip = whatitem(player->argp[5], "Drop off what? ")))
 	return RET_SYN;
     getsect(tx, ty, &target);
 

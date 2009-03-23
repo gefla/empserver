@@ -50,7 +50,7 @@ deli(void)
     char prompt[128];
     char *p;
 
-    if ((ich = whatitem(player->argp[1], "deliver what? ")) == 0)
+    if (!(ich = whatitem(player->argp[1], "deliver what? ")))
 	return RET_SYN;
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;

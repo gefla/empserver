@@ -108,13 +108,13 @@ bomb(void)
     if (!p || !*p)
 	return RET_SYN;
     mission = *p;
-    if (strchr("ps", mission) == 0)
+    if (!strchr("ps", mission))
 	return RET_SYN;
     if (!get_assembly_point(player->argp[4], &ap_sect, buf))
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (getpath(flightpath, player->argp[5], ax, ay, 0, 0, P_FLYING) == 0
+    if (!getpath(flightpath, player->argp[5], ax, ay, 0, 0, P_FLYING)
 	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;
@@ -492,7 +492,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		      prplane(&plp->plane), plp->bombs);
 	shipno = -1;
 	while (shipno < 0) {
-	    if ((q = getstring(prompt, buf)) == 0)
+	    if (!(q = getstring(prompt, buf)))
 		goto out;
 	    if (*q == 0)
 		continue;
@@ -615,7 +615,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 		      prplane(&plp->plane), plp->bombs);
 	planeno = -1;
 	while (planeno < 0) {
-	    if ((q = getstring(prompt, buf)) == 0)
+	    if (!(q = getstring(prompt, buf)))
 		return;
 	    if (*q == 0)
 		continue;
@@ -721,7 +721,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		      prplane(&plp->plane), plp->bombs);
 	unitno = -1;
 	while (unitno < 0) {
-	    if ((q = getstring(prompt, buf)) == 0)
+	    if (!(q = getstring(prompt, buf)))
 		return;
 	    if (*q == 0)
 		continue;

@@ -100,7 +100,7 @@ best_path(struct sctstr *from, struct sctstr *to, char *path,
     struct as_data *adp;
     struct as_path *ap;
 
-    if (mybestpath == 0)
+    if (!mybestpath)
 	mybestpath = bp_init();
     adp = mybestpath->adp;
     ap = as_find_cachepath(from->sct_x, from->sct_y, to->sct_x, to->sct_y);

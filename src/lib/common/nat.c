@@ -49,7 +49,7 @@ cname(natid n)
 {
     struct natstr *np;
 
-    if ((np = getnatp(n)) == 0)
+    if (!(np = getnatp(n)))
 	return NULL;
     return np->nat_cnam;
 }

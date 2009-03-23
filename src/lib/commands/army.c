@@ -50,7 +50,7 @@ army(void)
     char buf[1024];
 
     cp = getstarg(player->argp[1], "army? ", buf);
-    if (cp == 0)
+    if (!cp)
 	return RET_SYN;
     c = *cp;
     if (!isalpha(c) && c != '~') {

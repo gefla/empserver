@@ -111,7 +111,7 @@ skyw(void)
 		    continue;
 		y = ynorm(sect.sct_y + k);
 		n = scthash(x, y, TSIZE);
-		if (list[n] == 0)
+		if (!list[n])
 		    continue;
 		nsat -= showsat(&list[n], x, y);
 	    }

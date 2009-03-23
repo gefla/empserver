@@ -41,8 +41,8 @@ onearg(char *arg, char *prompt)
     int n;
     char buf[1024];
 
-    if (arg == 0 || *arg == 0) {
-	if ((arg = getstring(prompt, buf)) == 0)
+    if (!arg || !*arg) {
+	if (!(arg = getstring(prompt, buf)))
 	    return -1;
     }
     n = atoi(arg);

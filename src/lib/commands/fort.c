@@ -50,7 +50,7 @@ fort(void)
     if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     p = getstarg(player->argp[2], "Amount: ", buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return RET_SYN;
     fort_amt = atoi(p);
     if (fort_amt > land_mob_max)

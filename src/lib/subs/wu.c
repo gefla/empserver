@@ -131,7 +131,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	mailbox(box, to);
 
     if (type != TEL_ANNOUNCE)
-	if ((np = getnatp(to)) == 0 || np->nat_stat < STAT_SANCT)
+	if (!(np = getnatp(to)) || np->nat_stat < STAT_SANCT)
 	    return -1;
 #if !defined(_WIN32)
     if ((fd = open(box, O_WRONLY | O_APPEND, 0)) < 0) {

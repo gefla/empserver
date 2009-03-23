@@ -53,7 +53,7 @@ setres(void)
     what = getstarg(player->argp[1],
 		    "Set What (iron, gold, oil, uranium, fertility)? ",
 		    buf);
-    if (what == 0)
+    if (!what)
 	return RET_SYN;
     switch (what[0]) {
     case 'i':

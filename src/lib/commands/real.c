@@ -72,7 +72,7 @@ real(void)
 	    return RET_SYN;
 	}
     }
-    if (player->argp[2] == 0) {
+    if (!player->argp[2]) {
 	while (curr <= lastr) {
 	    list_realm(curr, natp);
 	    curr++;

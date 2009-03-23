@@ -46,7 +46,7 @@ reje(void)
     struct nstr_item ni;
     char buf[1024];
 
-    if ((p = getstarg(player->argp[1], "reject or accept? ", buf)) == 0)
+    if (!(p = getstarg(player->argp[1], "reject or accept? ", buf)))
 	return RET_SYN;
     switch (*p) {
     case 'r':
@@ -61,7 +61,7 @@ reje(void)
     }
     p = getstarg(player->argp[2],
 		 "mail, treaties, loans, or announcements? ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     switch (*p) {
     case 'a':

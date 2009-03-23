@@ -77,7 +77,7 @@ nreport(natid actor, int event, natid victim, int times)
 	return;
     if (!chance((double)-nice * times / 20.0))
 	return;
-    if ((natp = getnatp(victim)) == 0)
+    if (!(natp = getnatp(victim)))
 	return;
     if (getrel(natp, actor) < HOSTILE)
 	return;

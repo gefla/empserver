@@ -62,7 +62,7 @@ reco(void)
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING) == 0
+    if (!getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING)
 	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;

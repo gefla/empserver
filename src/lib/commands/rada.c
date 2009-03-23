@@ -67,7 +67,7 @@ radar(short type)
     sprintf(prompt, "Radar from (%s # or sector(s)) : ", ef_nameof(type));
     cp = getstarg(player->argp[1], prompt, buf);
 
-    if (cp == 0)
+    if (!cp)
 	return RET_SYN;
     switch (sarg_type(cp)) {
     case NS_AREA:

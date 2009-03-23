@@ -50,7 +50,7 @@ rela(void)
     natid as;
     int n;
 
-    if (player->argp[1] == 0)
+    if (!player->argp[1])
 	as = player->cnum;
     else {
 	if ((n = natarg(player->argp[1], NULL)) < 0)
@@ -63,7 +63,7 @@ rela(void)
     pr("\n  Formal Relations         %5s      theirs\n",
        player->cnum == as ? "yours" : "his");
     for (cn = 1; cn < MAXNOC; cn++) {
-	if ((np = getnatp(cn)) == 0)
+	if (!(np = getnatp(cn)))
 	    break;
 	if (cn == as)
 	    continue;

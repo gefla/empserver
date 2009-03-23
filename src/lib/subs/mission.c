@@ -913,7 +913,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	    break;
 	case 't':		/* transport */
 	case 'd':		/* drop */
-	    if ((pcp->pl_flags & P_C) == 0 || ip == 0)
+	    if (!(pcp->pl_flags & P_C) || !ip)
 		break;
 	    itype = ip->i_uid;
 	    needed = (load * 2) / ip->i_lbs;

@@ -54,7 +54,7 @@ cnumb(char *cntry)
 
     res = M_NOTFOUND;
     for (cn = 0; cn < MAXNOC; cn++) {
-	if ((natp = getnatp(cn)) == 0)
+	if (!(natp = getnatp(cn)))
 	    break;
 	if (natp->nat_stat == STAT_UNUSED)
 	    continue;

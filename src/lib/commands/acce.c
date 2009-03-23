@@ -49,7 +49,7 @@ acce(void)
     natid cn;
     natid as;
 
-    if (player->argp[1] == 0) {
+    if (!player->argp[1]) {
 	natp = getnatp(player->cnum);
     } else {
 	if (!(natp = natargp(player->argp[1], NULL)))
@@ -64,7 +64,7 @@ acce(void)
     for (cn = 0; cn < MAXNOC; cn++) {
 	if (cn == as)
 	    continue;
-	if ((np = getnatp(cn)) == 0)
+	if (!(np = getnatp(cn)))
 	    break;
 	if (np->nat_stat == STAT_UNUSED)
 	    continue;

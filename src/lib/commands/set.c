@@ -73,7 +73,7 @@ set(void)
     check_trade();
 
     p = getstarg(player->argp[1], "Ship, plane, land unit or nuke? ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     if ((type = ef_byname_from(p, ef_saleable)) < 0) {
 	pr("You can sell only ships, planes, land units or nukes\n");
@@ -92,7 +92,7 @@ set(void)
 	trade.trd_type = type;
 	sprintf(prompt, "%s #%d; Price? ",
 		trade_nameof(&trade, &item), ni.cur);
-	if ((p = getstarg(player->argp[3], prompt, buf)) == 0)
+	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;
 	if (!trade_check_item_ok(&item))
 	    return RET_FAIL;

@@ -99,7 +99,7 @@ lwpSleepFd(int fd, int mask, struct timeval *timeout)
 	FD_SET(fd, &LwpWritefds);
     LwpNfds++;
 
-    if (LwpMaxfd == 0 && LwpDelayq.head == 0) {
+    if (LwpMaxfd == 0 && !LwpDelayq.head) {
 	/* select process is sleeping until first waiter arrives */
 	lwpStatus(LwpCurrent, "going to resched fd %d", fd);
 	lwpReady(LwpSelProc);
@@ -194,7 +194,7 @@ lwpSleepUntil(time_t until)
     lwpStatus(LwpCurrent, "sleeping for %ld sec",
 	      (long)(until - time(NULL)));
     LwpCurrent->runtime = until;
-    if (LwpMaxfd == 0 && LwpDelayq.head == 0) {
+    if (LwpMaxfd == 0 && !LwpDelayq.head) {
 	/* select process is sleeping until first waiter arrives */
 	lwpReady(LwpSelProc);
     }
@@ -264,7 +264,7 @@ lwpSelect(void *arg)
 	if (n > 0) {
 	    /* file descriptor activity */
 	    for (fd = 0; fd <= LwpMaxfd; fd++) {
-		if (LwpFdwait[fd] == 0)
+		if (!LwpFdwait[fd])
 		    continue;
 		if (FD_ISSET(fd, &readmask)) {
 		    lwpStatus(LwpFdwait[fd], "input ready");

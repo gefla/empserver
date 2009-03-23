@@ -81,7 +81,7 @@ dispatch(char *buf, char *redir)
 	    return 0;
 	}
     }
-    if (command->c_addr == 0) {
+    if (!command->c_addr) {
 	pr("Command not implemented\n");
 	return 0;
     }

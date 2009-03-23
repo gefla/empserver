@@ -137,7 +137,7 @@ update_main(void)
 	/* Update war declarations */
 	/* MOBILIZATION->SITZKRIEG->AT_WAR */
 	for (cn = 1; cn < MAXNOC; cn++) {
-	    if ((cnp = getnatp(cn)) == 0)
+	    if (!(cnp = getnatp(cn)))
 		break;
 	    for (cn2 = 1; cn2 < MAXNOC; cn2++) {
 		if (cn2 == cn)

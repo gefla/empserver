@@ -78,7 +78,7 @@ cede(void)
 
 	p = getstarg(player->argp[3], "Cede sectors or ships (se, sh)? ",
 		     buf);
-	if (p == 0)
+	if (!p)
 	    return RET_FAIL;
 	if (strlen(p) > 4)
 	    p[2] = 0;

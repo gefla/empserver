@@ -75,7 +75,7 @@ explore(void)
 	pr("You can only explore with civs and mil.\n");
 	return RET_FAIL;
     }
-    if ((p = getstarg(player->argp[2], "from sector : ", buf)) == 0)
+    if (!(p = getstarg(player->argp[2], "from sector : ", buf)))
 	return RET_SYN;
     if (!sarg_xy(p, &x, &y))
 	return RET_SYN;

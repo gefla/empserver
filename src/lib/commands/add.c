@@ -69,7 +69,7 @@ add(void)
     else
 	strcpy(prompt, "New country number? (they all seem to be used) ");
     p = getstarg(player->argp[1], prompt, buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return RET_SYN;
     i = atoi(p);
     if (i >= MAXNOC) {
@@ -83,13 +83,13 @@ add(void)
     }
     natp = getnatp(coun);
     p = getstarg(player->argp[2], "Country Name? ", buf);
-    if (p ==0)
+    if (!p)
 	return RET_SYN;
     if (!check_nat_name(p))
 	return RET_FAIL;
     strcpy(cntryname, p);
     p = getstarg(player->argp[3], "Representative? ", buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return RET_SYN;
     if (strlen(p) >= sizeof(pname)) {
 	pr("Representative too long\n");
@@ -98,7 +98,7 @@ add(void)
     strcpy(pname, p);
     p = getstarg(player->argp[4],
 		 "Status? (visitor, new, active, god, delete) ", buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return RET_SYN;
     switch (*p) {
     case 'v':
@@ -122,7 +122,7 @@ add(void)
     }
     p = getstarg(player->argp[5],
 		 "Check, wipe, or ignore existing sectors (c|w|i) ", buf);
-    if (p == 0)
+    if (!p)
 	return RET_SYN;
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {

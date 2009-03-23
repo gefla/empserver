@@ -55,7 +55,7 @@ work(void)
     if (!snxtitem(&ni, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     p = getstarg(player->argp[2], "Amount: ", buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return RET_SYN;
     work_amt = atoi(p);
     if ((work_amt < 0) || (work_amt > land_mob_max)) {

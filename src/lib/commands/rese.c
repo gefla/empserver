@@ -87,7 +87,7 @@ rese(void)
 	    return RET_OK;
 	}
 	if (player->god) {
-	    if ((p = getstring("Really destroy that lot? ", buf)) == 0)
+	    if (!(p = getstring("Really destroy that lot? ", buf)))
 		return RET_FAIL;
 	    if (!check_comm_ok(&comm))
 		return RET_FAIL;

@@ -48,7 +48,7 @@ whatitem(char *input, char *prompt)
     char buf[1024];
 
     p = getstarg(input, prompt, buf);
-    if (p == 0 || *p == 0)
+    if (!p || !*p)
 	return NULL;
     ip = item_by_name(p);
     if (!ip)

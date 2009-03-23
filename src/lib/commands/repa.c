@@ -58,7 +58,7 @@ repa(void)
     }
     natp = getnatp(player->cnum);
     cp = getstarg(player->argp[1], "Repay loan #? ", buf);
-    if (cp == 0)
+    if (!cp)
 	return RET_SYN;
     loan_num = atoi(cp);
     if (loan_num < 0)
@@ -68,7 +68,7 @@ repa(void)
 	pr("You don't owe anything on that loan.\n");
 	return RET_FAIL;
     }
-    if ((cp = getstarg(player->argp[2], "amount? ", buf)) == 0)
+    if (!(cp = getstarg(player->argp[2], "amount? ", buf)))
 	return RET_SYN;
     if (!check_loan_ok(&loan))
 	return RET_FAIL;

@@ -66,13 +66,13 @@ snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
 
     np->type = EF_BAD;
     np->sel = NS_UNDEF;
-    if (str == 0) {
+    if (!str) {
 	if (!prompt) {
 	    sprintf(promptbuf, "%s(s)? ", ef_nameof(type));
 	    prompt = promptbuf;
 	}
 	str = getstring(prompt, buf);
-	if (str == 0)
+	if (!str)
 	    return 0;
     }
     if (*str == 0) {
@@ -126,7 +126,7 @@ snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
     default:
 	return 0;
     }
-    if (player->condarg == 0)
+    if (!player->condarg)
 	return 1;
     n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond), type,
 		  player->condarg);
