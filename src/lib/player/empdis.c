@@ -124,8 +124,7 @@ log_last_commands(void)
 int
 explain(void)
 {
-    char *format;
-    int i;
+    struct cmndstr *com;
 
     pr("\t\tCurrent EMPIRE Command List\n"
        "\t\t------- ------ ------- ----\n"
@@ -139,19 +138,18 @@ explain(void)
        "  <NUM> :: a number in unspecified units\n"
        "  <COMM> :: a commodity such as `food', `guns', etc\n"
        "  <TYPE> :: an item type such as `ship', `plane', etc\n");
-    for (i = 0; (format = player_coms[i].c_form) != 0; i++) {
-	if ((player_coms[i].c_permit & player->nstat)
-	    == player_coms[i].c_permit) {
-	    pr("%2d ", player_coms[i].c_cost);
-	    if ((player_coms[i].c_permit & MONEY) == MONEY)
+    for (com = player_coms; com->c_form; com++) {
+	if ((com->c_permit & player->nstat) == com->c_permit) {
+	    pr("%2d ", com->c_cost);
+	    if (com->c_permit & MONEY)
 		pr("$");
 	    else
 		pr(" ");
-	    if ((player_coms[i].c_permit & CAP) == CAP)
+	    if (com->c_permit & CAP)
 		pr("c");
 	    else
 		pr(" ");
-	    pr(" %s\n", format);
+	    pr(" %s\n", com->c_form);
 	}
     }
     pr("For further info on command syntax see \"info Syntax\".\n");
