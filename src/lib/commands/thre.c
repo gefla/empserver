@@ -86,7 +86,7 @@ thre(void)
 	       xyas(nstr.x, nstr.y, player->cnum), val);
 	    continue;
 	}
-	if (val > 0 && (player->argp[3] != 0 && *player->argp[3] != 0))
+	if (val > 0 && player->argp[3] && *player->argp[3])
 	    pr("%s old threshold %d\n",
 	       xyas(nstr.x, nstr.y, player->cnum), val);
 	sect.sct_dist[type] = thresh;

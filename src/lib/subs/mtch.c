@@ -52,7 +52,7 @@ comtch(char *command, struct cmndstr *coms, int comstat)
     if (command == 0 || *command == 0)
 	return M_IGNORE;
     status = M_NOTFOUND;
-    for (com = coms; com->c_form != 0; com++) {
+    for (com = coms; com->c_form; com++) {
 	if ((com->c_permit & comstat) != com->c_permit)
 	    continue;
 	switch (mineq(command, com->c_form)) {

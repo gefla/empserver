@@ -61,7 +61,7 @@ demand_update_want(int *want, int *pop, int which)
     int whichwants;
 
     whichwants = totpop = totwant = 0;
-    for (cn = 1; 0 != (natp = getnatp(cn)); cn++) {
+    for (cn = 1; (natp = getnatp(cn)); cn++) {
 	/* Only countries which are normal. */
 	/* Should probably include sanctuaries ..... */
 	if (natp->nat_stat == STAT_ACTIVE) {

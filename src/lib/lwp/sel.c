@@ -87,7 +87,7 @@ lwpSleepFd(int fd, int mask, struct timeval *timeout)
 	errno = EBADF;
 	return -1;
     }
-    if (LwpFdwait[fd] != 0) {
+    if (LwpFdwait[fd]) {
 	lwpStatus(LwpCurrent,
 		  "multiple sleeps attempted on file descriptor %d", fd);
 	errno = EBADF;
@@ -237,8 +237,7 @@ lwpSelect(void *arg)
 	tv.tv_usec = 0;
 	if (LwpDelayq.head) {
 	    time(&now);
-	    proc = LwpDelayq.head;
-	    for (; proc != 0; proc = proc->next) {
+	    for (proc = LwpDelayq.head; proc; proc = proc->next) {
 		delta = proc->runtime - now;
 		if (delta < tv.tv_sec)
 		    tv.tv_sec = delta;

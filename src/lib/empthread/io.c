@@ -101,9 +101,9 @@ void
 io_close(struct iop *iop)
 {
 
-    if (iop->input != 0)
+    if (iop->input)
 	ioq_destroy(iop->input);
-    if (iop->output != 0)
+    if (iop->output)
 	ioq_destroy(iop->output);
     (void)close(iop->fd);
     free(iop);

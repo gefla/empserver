@@ -65,7 +65,7 @@ sarg_type(char *str)
 	return NS_DIST;
     if (c == '*')
 	return NS_ALL;
-    if (c == '#' || strchr(str, ',') != 0)
+    if (c == '#' || strchr(str, ','))
 	return NS_AREA;
     if (isdigit(c))
 	return NS_LIST;

@@ -68,7 +68,7 @@ head(void)
 
     (void)time(&now);
     natp = getnatp(player->cnum);
-    if (player->argp[1] != 0 && *player->argp[1] != 0) {
+    if (player->argp[1] && *player->argp[1]) {
 	news_per = days(atoi(player->argp[1]));
 	if (news_per > days(3))
 	    news_per = days(3);

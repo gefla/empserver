@@ -58,11 +58,11 @@ direrr(char *stop_msg, char *view_msg, char *map_msg)
     pr(" %c %c\n", dirch[DIR_UL], dirch[DIR_UR]);
     pr("%c   %c\n", dirch[DIR_L], dirch[DIR_R]);
     pr(" %c %c\n", dirch[DIR_DL], dirch[DIR_DR]);
-    if (stop_msg != 0)
+    if (stop_msg)
 	pr(stop_msg, dirch[DIR_STOP]);
-    if (view_msg != 0)
+    if (view_msg)
 	pr(view_msg, dirch[DIR_VIEW]);
-    if (map_msg != 0)
+    if (map_msg)
 	pr(map_msg, dirch[DIR_MAP]);
 }
 

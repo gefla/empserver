@@ -150,8 +150,8 @@ edit(void)
 	}
     }
     for (;;) {
-	if (player->argp[arg_index] != 0) {
-	    if (player->argp[arg_index+1] != 0) {
+	if (player->argp[arg_index]) {
+	    if (player->argp[arg_index+1]) {
 		thing = player->argp[arg_index++][0];
 		ptr = player->argp[arg_index++];
 		arg = atoi(ptr);

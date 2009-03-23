@@ -383,7 +383,7 @@ guerrilla(struct sctstr *sp)
 	    min_mil = val;
 	}
 	/* if we found a nice sector, go there */
-	if (nicest_sp != 0) {
+	if (nicest_sp) {
 	    nicest_sp->sct_che += che;
 	    nicest_sp->sct_che_target = target;
 	    che = 0;

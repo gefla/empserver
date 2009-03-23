@@ -194,7 +194,7 @@ update_run(void)
     struct player *p;
 
     play_wrlock_wanted = 1;
-    for (p = player_next(NULL); p != 0; p = player_next(p)) {
+    for (p = player_next(NULL); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	if (p->command) {

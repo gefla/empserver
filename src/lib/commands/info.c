@@ -100,7 +100,7 @@ info(void)
 	    return RET_FAIL;
 	}
 
-	while ((dp = readdir(info_dp)) != 0) {
+	while ((dp = readdir(info_dp))) {
 	    if (strncasecmp(name, dp->d_name, strlen(name)) != 0)
 		continue;
 	    nmatch++;
@@ -153,7 +153,7 @@ info(void)
 	return RET_FAIL;
     }
 
-    while (fgets(buf, sizeof(buf), fp) != 0)
+    while (fgets(buf, sizeof(buf), fp))
 	pr("%s", buf);
     (void)fclose(fp);
     return RET_OK;
@@ -207,7 +207,7 @@ apro(void)
      *  search
      */
     nf = nhf = nl = nhl = 0;
-    while ((dp = readdir(info_dp)) != 0) {
+    while ((dp = readdir(info_dp))) {
 	if (dp->d_name[0] == '.')
 	    continue;
 	snprintf(filename, sizeof(filename), "%s/%s", infodir,

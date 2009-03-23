@@ -422,7 +422,7 @@ shutdwn(int sig)
     logerror("Shutdown commencing (cleaning up threads.)");
 
     play_wrlock_wanted = 1;
-    for (p = player_next(NULL); p != 0; p = player_next(p)) {
+    for (p = player_next(NULL); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");

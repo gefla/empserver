@@ -317,11 +317,11 @@ sail_ship(natid cn)
     }
 
     /* Free up the memory, 'cause I want to. */
-    for (fltp = head; fltp != 0;) {
+    for (fltp = head; fltp;) {
 	struct fltelemstr *fe;
 	struct fltheadstr *saveh;
 	saveh = fltp->next;
-	for (fe = fltp->head; fe != 0;) {
+	for (fe = fltp->head; fe;) {
 	    struct fltelemstr *saveel;
 	    saveel = fe->next;
 	    free(fe);
