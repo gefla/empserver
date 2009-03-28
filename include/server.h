@@ -52,7 +52,4 @@ int update_reschedule(void);
 int run_hook(char *, char *);
 int shutdown_initiate(int);
 
-/* thread entry points */
-void player_kill_idle(void *);
-
 #endif
