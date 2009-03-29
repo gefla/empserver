@@ -72,10 +72,10 @@ specify a flagship.
 The \*Qdrop\*U command will drop mines using ships
 with mine capability.
 You can specify the ship number or fleet or groups of ships
-and the number of land mines on the same line: \*Qd 12/13 10\*U.
+and the number of sea mines on the same line: \*Qd 12/13 10\*U.
 An omitted unit number defaults to the flagship,
-for example \*Qd 10\*U drops ten land mines from the flagship.
-If you omit the number of land mines as well, the flagship will drop one
+for example \*Qd 10\*U drops ten sea mines from the flagship.
+If you omit the number of sea mines as well, the flagship will drop one
 mine.
 .s1
 The \*Qsweep\*U command will have the minesweepers in the navigating

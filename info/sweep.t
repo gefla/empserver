@@ -4,7 +4,7 @@
 .SY "sweep <PLANES> <ESCORTS> <SECT> route|destination"
 The \*Qsweep\*U command is identical to the recon command, except
 that if you use planes capable of minesweeping, they will sweep
-mines from sectors along their route.
+sea mines from sectors along their route.
 .s1
 <PLANES> represents a list of planes which are to be performing the
 intelligence gathering operation.
@@ -48,7 +48,7 @@ sonar has a range dependent on acc, and a chance of finding a sub of
 The sub being sonared may detect the sonar ping.
 .s1
 Planes with the sweep ability will
-automatically attempt to sweep mines in sea or harbor sectors they overfly.
+automatically attempt to sweep sea mines in sea sectors they overfly.
 Their chance of sweeping is (100-acc), and they can only sweep 1 mine per
 overflight of the sector.
 .s1

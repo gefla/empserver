@@ -30,7 +30,7 @@ thus, a ship may safely drop mines in a sector and then move out.
 On the other hand, the mines know no allegiance,
 so moving back into a mined sector is foolish at best.
 .s1
-Mines in the same sector as a bridge that collapses are cleared.
+Building a bridge clears all mines there.
 .s1
 You cannot drop sea mines into a harbor, only land mines.
 .s1

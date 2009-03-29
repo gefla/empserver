@@ -169,8 +169,6 @@ supporting sector if it is of a type that can build bridges.  Bridge
 heads and bridge towers are.  With option EASY_BRIDGES, all land
 sectors are as well.
 .s1
-When a bridge falls, all mines in the sector are cleared.
-.s1
 Ships can navigate under bridge spans that are at least 60% efficient.
 .s1
 .SA "Unit-types, Ship-types, Plane-types, Nuke-types, Bridges, show, upgrade, Maintenance, Ships, Planes, LandUnits, Nukes, Sectors"
