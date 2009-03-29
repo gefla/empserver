@@ -318,7 +318,7 @@ check_lmines(coord x, coord y, double weight)
     int dam = 0;
 
     getsect(x, y, &sect);
-    if (sect.sct_mines > 0 &&
+    if (SCT_LANDMINES(&sect) > 0 &&
 	sect.sct_oldown != player->cnum &&
 	chance(DMINE_LHITCHANCE(sect.sct_mines)) && chance(weight / 100.0)) {
 	pr_beep();

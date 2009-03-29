@@ -68,7 +68,7 @@ mine(void)
 	    continue;
 	mines_avail = MIN(shells, mines);
 	if (getsect(ship.shp_x, ship.shp_y, &sect) == 0 ||
-	    (sect.sct_type != SCT_WATER && sect.sct_type != SCT_BSPAN)) {
+	    !SCT_MINES_ARE_SEAMINES(&sect)) {
 	    pr("You can't lay mines there!!\n");
 	    continue;
 	}
@@ -117,7 +117,7 @@ landmine(void)
 	    continue;
 	}
 	if (!getsect(land.lnd_x, land.lnd_y, &sect)
-	    || sect.sct_type == SCT_WATER || sect.sct_type == SCT_BSPAN
+	    || SCT_MINES_ARE_SEAMINES(&sect)
 	    || sect.sct_own != land.lnd_own) {
 	    pr("You can't lay mines there!!\n");
 	    continue;

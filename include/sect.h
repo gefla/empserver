@@ -187,6 +187,13 @@ extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
     (opt_RAILWAYS ? sct_rail_track((sp)) != 0			\
      : intrchr[INT_RAIL].in_enable && (sp)->sct_rail != 0)
 
+#define SCT_MINES_ARE_SEAMINES(sp) \
+    ((sp)->sct_type == SCT_WATER || (sp)->sct_type == SCT_BSPAN)
+#define SCT_SEAMINES(sp) \
+    (SCT_MINES_ARE_SEAMINES((sp)) ? (sp)->sct_mines : 0)
+#define SCT_LANDMINES(sp) \
+    (SCT_MINES_ARE_SEAMINES((sp)) ? 0 : (sp)->sct_mines)
+
 #define MOB_MOVE    0
 #define MOB_MARCH   1
 #define MOB_RAIL    2

@@ -132,6 +132,8 @@ knockdown(struct sctstr *sp)
 	"Crumble... SCREEEECH!  Splash! Bridge%s falls at %s!\n",
 	sp->sct_type == SCT_BTOWER ? " tower" : "",
 	xyas(sp->sct_x, sp->sct_y, sp->sct_own));
+    if (!SCT_MINES_ARE_SEAMINES(sp))
+	sp->sct_mines = 0;
     sp->sct_type = SCT_WATER;
     sp->sct_newtype = SCT_WATER;
     sp->sct_own = 0;

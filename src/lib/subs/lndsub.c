@@ -553,10 +553,10 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 		    prland(&llp->unit.land));
 	    continue;
 	}
-	if (sect.sct_type == SCT_BSPAN) {
+	if (SCT_MINES_ARE_SEAMINES(&sect)) {
 	    if (verbose)
-		mpr(actor, "%s is on a bridge.  No mines there!\n",
-		    prland(&llp->unit.land));
+		mpr(actor, "%s is in a %s sector.  No landmines there!\n",
+		    prland(&llp->unit.land), dchr[sect.sct_type].d_name);
 	    continue;
 	}
 	if (takemob) {
@@ -620,9 +620,7 @@ lnd_check_mines(struct emp_qelem *land_list)
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
 	if (sect.sct_oldown == llp->unit.land.lnd_own)
 	    continue;
-	if (sect.sct_type == SCT_BSPAN)
-	    continue;
-	if (!sect.sct_mines)
+	if (SCT_LANDMINES(&sect) == 0)
 	    continue;
 	if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
 	    lnd_hit_mine(&llp->unit.land, ((struct lchrstr *)llp->chrp));

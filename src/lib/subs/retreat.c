@@ -475,7 +475,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	if (stopping)
 	    continue;
 
-	mines = sect.sct_mines;
+	mines = SCT_LANDMINES(&sect);
 	if ((lcp->l_flags & L_ENGINEER) && mines > 0 &&
 	    (sect.sct_oldown != lp->lnd_own)) {
 	    max = lcp->l_item[I_SHELL];

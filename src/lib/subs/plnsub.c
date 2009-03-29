@@ -904,7 +904,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
     if (mines_there == 0)
 	return;
 
-    if ((sect.sct_type != SCT_WATER) && (sect.sct_type != SCT_HARBR))
+    if (sect.sct_type != SCT_WATER)
 	return;
 
     for (qp = plane_list->q_forw; ((qp != plane_list) && (mines_there));

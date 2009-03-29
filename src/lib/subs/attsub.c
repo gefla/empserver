@@ -1656,7 +1656,8 @@ get_mine_dsupport(struct combat *def, int a_engineer)
     getsect(def->x, def->y, &sect);
 
     if (sect.sct_oldown != player->cnum) {
-	mines = MIN(sect.sct_mines, 20);
+	mines = SCT_LANDMINES(&sect);
+	mines = MIN(mines, 20);
 	if (a_engineer)
 	    mines = ldround(mines / 2.0, 1);
 	if (mines > 0) {

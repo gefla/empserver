@@ -88,11 +88,11 @@ stre(void)
 	def->own = 0;
 	eff = att_combat_eff(def);
 	if (sect.sct_own == sect.sct_oldown || player->god) {
-	    if (sect.sct_mines > 0)
+	    if (SCT_LANDMINES(&sect) > 0) {
 		pr("%7d", sect.sct_mines);
-	    else
+		eff *= (1.0 + MIN(sect.sct_mines, 20) * 0.02);
+	    } else
 		pr("%7s", "");
-	    eff *= (1.0 + MIN(sect.sct_mines, 20) * 0.02);
 	} else {
 	    pr("%7s", "?");
 	}
