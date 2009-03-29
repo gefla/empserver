@@ -769,7 +769,6 @@ build_tower(struct sctstr *sp, short *vec)
     int avail;
     char *p;
     char buf[1024];
-    int good;
     int i;
     int nx;
     int ny;
@@ -828,7 +827,6 @@ build_tower(struct sctstr *sp, short *vec)
 
     /* Now, check.  You aren't allowed to build bridge towers
        next to land. */
-    good = 0;
     for (i = 1; i <= 6; i++) {
 	struct sctstr s2;
 	nx = sect.sct_x + diroff[i][0];
@@ -836,14 +834,10 @@ build_tower(struct sctstr *sp, short *vec)
 	getsect(nx, ny, &s2);
 	if ((s2.sct_type != SCT_WATER) &&
 	    (s2.sct_type != SCT_BTOWER) && (s2.sct_type != SCT_BSPAN)) {
-	    good = 1;
-	    break;
+	    pr("Bridge towers cannot be built adjacent to land.\n");
+	    pr("That sector is adjacent to land.\n");
+	    return 0;
 	}
-    }
-    if (good) {
-	pr("Bridge towers cannot be built adjacent to land.\n");
-	pr("That sector is adjacent to land.\n");
-	return 0;
     }
 
     sp->sct_avail -= avail;
