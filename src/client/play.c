@@ -473,10 +473,10 @@ play(int sock)
 
 	/*
 	 * Want to read player input only when we don't need to send
-	 * cookies, and we haven't hit EOF on fd 0, and INBUF can
-	 * accept some.
+	 * cookies, and INPUT_FD is still open, and INBUF can accept
+	 * some.
 	 */
-	if (!send_intr && !send_eof && !eof_fd0 && ring_space(&inbuf))
+	if (!send_intr && !send_eof && input_fd >= 0 && ring_space(&inbuf))
 	    FD_SET(input_fd, &rdfd);
 	/* Want to send player input only when we have something */
 	if (send_intr || send_eof || ring_len(&inbuf))
@@ -503,7 +503,7 @@ play(int sock)
 	    continue;
 
 	/* read player input */
-	if (FD_ISSET(input_fd, &rdfd)) {
+	if (input_fd >= 0 && FD_ISSET(input_fd, &rdfd)) {
 	    n = recv_input(input_fd, &inbuf);
 	    if (n < 0) {
 		perror("read stdin"); /* FIXME stdin misleading, could be execing */
@@ -515,10 +515,11 @@ play(int sock)
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
 		    close(input_fd);
-		    input_fd = 0;
+		    input_fd = eof_fd0 ? -1 : 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
 		    eof_fd0 = 1;
+		    input_fd = -1;
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
 		}
