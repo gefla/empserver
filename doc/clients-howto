@@ -3,8 +3,9 @@ This file contains material useful for client writers.
 Protocol
 ========
 
-Empire's client server protocol is plain text.  It is simple enough
-that you could play using nothing more than telnet.  That's a feature.
+The protocol between Empire client and server is plain text.  It is
+simple enough that you could play using nothing more than telnet.
+That's a feature.
 
 A session uses either ASCII or UTF-8, controlled by session option
 utf-8.  See below for session options.  The session always starts in
@@ -21,7 +22,7 @@ Identification strings encode small integers called output ids as base
 'z' represent 10..35, as do 'A' to 'Z'.  Symbolic names for ids are
 defined in proto.h.
 
-emp_client versions before version 4.3.11 parse large output ids
+empire-client versions before version 4.3.11 parse large output ids
 incorrectly.  Such ids do not currently occur.
 
 Clients shall be able to safely handle output lines of arbitrary
@@ -65,7 +66,7 @@ because the server may well block on output, which then deadlocks the
 session.
 
 An Empire session consists of two phases: login and playing.
-emp_client is synchronous during the former and asynchronous during
+empire-client is synchronous during the former and asynchronous during
 the latter.  Versions before 4.3.11 could deadlock as described above.
 
 Login phase
@@ -174,9 +175,9 @@ sending "aborted\n".  The server treats these conditions specially, as
 described below.  Anything else is either a command or input for a
 command, depending on how the server prompts for the line.
 
-emp_client signals `EOF' when it encounters an end-of-file condition
-while reading player input.  It signals `interrupt' when it catches
-SIGINT, which is normally triggered by Ctrl-C.
+empire-client signals `EOF' when it encounters an end-of-file
+condition while reading player input.  It signals `interrupt' when it
+catches SIGINT, which is normally triggered by Ctrl-C.
 
 The following ids occur:
 
@@ -190,7 +191,7 @@ The following ids occur:
   decimal.  Clients shall ignore additional text separated by another
   space.
 
-  emp_client prints this prompt using format "[%d:%d] Command : ".
+  empire-client prints this prompt using format "[%d:%d] Command : ".
   Clients with a tty-like user interface are advised to use a similar
   format, to minimize differences to the examples in info.
 
@@ -208,13 +209,13 @@ The following ids occur:
 
   Text is a human-readable prompt supplied by the command.
 
-  emp_client prints the text verbatim.
+  empire-client prints the text verbatim.
 
 * Data C_DATA
 
   Text is human-readable server output.
 
-  emp_client prints the text verbatim.
+  empire-client prints the text verbatim.
 
 * Control C_EXECUTE
 
@@ -222,7 +223,7 @@ The following ids occur:
   line of input after the execute command.  Its syntax and semantics
   are left to the client.
 
-  emp_client interprets the first word (sequence of non-space
+  empire-client interprets the first word (sequence of non-space
   characters) in the text as file name, and sends the contents of that
   file.
 
@@ -235,7 +236,8 @@ The following ids occur:
   strips funny characters and interprets and strips '"' characters
   when splitting input lines into command and arguments.
 
-  emp_client gets confused when old servers mangle the text that way.
+  empire-client gets confused when old servers mangle the text that
+  way.
 
   The client shall mark the end of the batch file by signalling EOF as
   described above.  This does not terminate the session.  It may
@@ -262,7 +264,7 @@ The following ids occur:
   execute comes from a batch file, the server rejects execute commands
   there.
 
-  emp_client has this problem.
+  empire-client has this problem.
 
   Clients are not required to support C_EXECUTE.  Clients are
   encouraged to offer alternative means for scripting.
@@ -272,18 +274,18 @@ The following ids occur:
   End of session.  The server is about to close the connection.  Text
   is a human-readable farewell.
 
-  emp_client prints this text prepended with "Exit: ".
+  empire-client prints this text prepended with "Exit: ".
 
 * Control C_FLASH
 
   Asynchronous message.  The client should display the text
   immediately.
 
-  emp_client prints the text verbatim, prepended by a line feed.  This
-  is clearly sub-optimal, because it can be inserted in the middle of
-  user input.  Clients wishing to to display asynchronous messages
-  together with normal I/O should insert them before the current
-  prompt.
+  empire-client prints the text verbatim, prepended by a line feed.
+  This is clearly sub-optimal, because it can be inserted in the
+  middle of user input.  Clients wishing to to display asynchronous
+  messages together with normal I/O should insert them before the
+  current prompt.
 
   Although asynchronous messages can be switched off with the toggle
   command, client support for C_FLASH is not really optional, because
@@ -298,9 +300,9 @@ The following ids occur:
   Notification that the number of unread telegrams changed.  The text
   is the notification in human-readable form.
 
-  emp_client prints the last received C_INFORM text right before each
-  prompt.  It also repeats the last prompt when a C_INFORM arrives.
-  This is sub-optimal just like its treatment of C_FLASH.
+  empire-client prints the last received C_INFORM text right before
+  each prompt.  It also repeats the last prompt when a C_INFORM
+  arrives.  This is sub-optimal just like its treatment of C_FLASH.
 
   The user can switch these off with the toggle command.  Client
   support is not really optional for the same reasons as for C_FLASH.
@@ -312,8 +314,8 @@ The following ids occur:
   with '|'.  Syntax and semantics of the text after the '|' are left
   to the client.
 
-  emp_client executes text after '|' as shell command, with standard
-  input connected to the Empire command's output.
+  empire-client executes text after '|' as shell command, with
+  standard input connected to the Empire command's output.
 
   The redirection applies to a single command, i.e. until the next
   C_PROMPT.
@@ -323,8 +325,8 @@ The following ids occur:
   that the server recognizes redirection only in command lines, not
   argument lines.  Asynchronous clients cannot distinguish the two.
 
-  emp_client prepares for redirections being recognized in any line,
-  and copes with only some of them being actually recognized.
+  empire-client prepares for redirections being recognized in any
+  line, and copes with only some of them being actually recognized.
 
 * Control C_REDIR
 
@@ -333,7 +335,7 @@ The following ids occur:
   '>', optionally followed by '>' or '!'.  Syntax and semantics of the
   remaining text are left to the client.
 
-  emp_client interprets the first word (sequence of non-space
+  empire-client interprets the first word (sequence of non-space
   characters) in the remaining text as file name, and redirects the
   command's output to that file.  The use of the first word is
   unfortunate, as it arbitrarily limits the user's choice of file
@@ -351,9 +353,9 @@ The following ids occur:
   Other ids do not occur currently.  Clients shall deal gracefully
   with ids they don't know.
 
-  emp_client treats unknown ids like C_DATA.  Versions before 4.3.11
-  prepend "Aborted\n" to C_ABORT lines, and "Error; " to C_CMDERR and
-  C_BADCMD lines for historical reasons.
+  empire-client treats unknown ids like C_DATA.  Versions before
+  4.3.11 prepend "Aborted\n" to C_ABORT lines, and "Error; " to
+  C_CMDERR and C_BADCMD lines for historical reasons.
 
 
 Session Options
