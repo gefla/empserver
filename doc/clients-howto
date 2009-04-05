@@ -242,12 +242,14 @@ The following ids occur:
   signal interrupt if it is unable or unwilling to send the complete
   batch file.
 
-  While executing the batch file, the server sends no C_PROMPT command
-  prompts.  It still sends C_FLUSH argument prompts.
+  While executing the batch file, the server rejects redirections and
+  execute commands, and sends no C_PROMPT command prompts.  It still
+  sends C_FLUSH argument prompts.
 
   Protocol flaw: not sending C_PROMPT here screws up redirections:
-  they apply until the next C_PROMPT, i.e. from start of redirected
-  command until end of containing batch file.
+  they'd apply until the next C_PROMPT, i.e. from start of redirected
+  command until end of containing batch file.  That's why the server
+  rejects redirections in batch files.
 
   Certain bad failures make the server ignore the rest of the batch
   file file.  This feature is too hard to predict to be really useful.
@@ -255,7 +257,10 @@ The following ids occur:
   Protocol flaw: strictly asynchronous clients cannot support
   C_EXECUTE correctly.  By the time C_EXECUTE arrives, the client may
   have sent more input already.  That input `overtakes' the contents
-  of the batch file in the input stream.
+  of the batch file in the input stream, and is interpreted as part of
+  the batch file.  Because this is almost certain to happen when the
+  execute comes from a batch file, the server rejects execute commands
+  there.
 
   emp_client has this problem.
 
