@@ -79,16 +79,16 @@ uninstall:
 	rm $(mandir)/man6/empire.6
 
 # FIXME generate from .d
-expect.$O: misc.h sysdep_w32.h
+expect.$O: misc.h sysdep_w32.h proto.h
 host.$O: misc.h sysdep_w32.h
 linebuf.$O: linebuf.h
-login.$O: misc.h proto.h sysdep_w32.h
-main.$O: misc.h version.h sysdep_w32.h
-play.$O: linebuf.h misc.h proto.h ringbuf.h secure.h sysdep_w32.h
-ringbuf.$O: ringbuf.h
+login.$O: misc.h sysdep_w32.h proto.h
+main.$O: misc.h sysdep_w32.h version.h
+play.$O: linebuf.h misc.h sysdep_w32.h proto.h ringbuf.h secure.h
+ringbuf.$O: misc.h sysdep_w32.h ringbuf.h
 secure.$O: ringbuf.h secure.h
-servcmd.$O: misc.h proto.h secure.h sysdep_w32.h
-sysdep_w32.$O: misc.h sysdep_w32.h
+servcmd.$O: misc.h sysdep_w32.h proto.h secure.h
+sysdep_w32.$O: misc.h sysdep_w32.h linebuf.h ringbuf.h secure.h
 termlib.$O: misc.h sysdep_w32.h
 version.$O: version.h
 $(obj): config.h
