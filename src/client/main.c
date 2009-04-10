@@ -36,9 +36,9 @@
 
 #include <config.h>
 
+#include <stdlib.h>
 #ifndef _WIN32
 #include <pwd.h>
-#include <stdlib.h>
 #include <unistd.h>
 #endif
 #include "misc.h"
