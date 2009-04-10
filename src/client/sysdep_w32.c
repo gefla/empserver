@@ -205,35 +205,6 @@ w32_close_socket(int fd)
 }
 
 /*
- * WIN32 equivalent for getpass
- */
-char *
-getpass(char *prompt)
-{
-    static char tmp[128];
-    int len;
-    char *cpass;
-    DWORD mode;
-    HANDLE input_handle = GetStdHandle(STD_INPUT_HANDLE);
-
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode & ~ENABLE_ECHO_INPUT);
-    else
-	printf("Note: This is echoed to the screen\n");
-    printf("%s", prompt);
-    fflush(stdout);
-    cpass = fgets(tmp, sizeof(tmp), stdin);
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode | ENABLE_ECHO_INPUT);
-    if (cpass == NULL)
-	return NULL;
-    len = strlen(cpass);
-    if (tmp[len - 1] == '\n')
-	tmp[len - 1] = 0;
-    return cpass;
-}
-
-/*
  * POSIX compatible open() replacement
  */
 int

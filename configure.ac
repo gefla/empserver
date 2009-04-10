@@ -92,7 +92,7 @@ AC_C_CHAR_UNSIGNED
 
 ### Checks for library functions
 
-AC_CHECK_FUNCS(getaddrinfo)
+AC_CHECK_FUNCS(getaddrinfo getpass)
 MY_FUNC_MAKECONTEXT
 
 

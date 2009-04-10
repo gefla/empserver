@@ -81,7 +81,7 @@ AC_MSG_RESULT([$Windows_res])
 
 ### Checks for library functions.
 
-AC_CHECK_FUNCS(getaddrinfo)
+AC_CHECK_FUNCS(getaddrinfo getpass)
 
 
 ### Site configuration

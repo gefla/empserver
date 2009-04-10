@@ -44,6 +44,28 @@
 #include "misc.h"
 #include "proto.h"
 
+#ifndef HAVE_GETPASS
+#define getpass ersatz_getpass
+static char *
+ersatz_getpass(char *prompt)
+{
+    static char buf[128];
+    char *p;
+    size_t len;
+
+    printf("Note: your input is echoed to the screen\n");
+    printf("Your name? ");
+    fflush(stdout);
+    p = fgets(buf, sizeof(buf), stdin);
+    if (!p)
+	return NULL;
+    len = strlen(p);
+    if (p[len - 1] == '\n')
+	p[len - 1] = 0;
+    return p;
+}
+#endif
+
 int
 login(int s, char *uname, char *cname, char *cpass,
       int kill_proc, int utf8)

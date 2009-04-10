@@ -75,7 +75,6 @@ extern int w32_openfd(const char *fname, int oflag, ...);
 extern int w32_openhandle(const char *fname, int oflag);
 
 extern struct passwd *w32_getpw(void);
-extern char *getpass(char *prompt);
 extern void sysdep_init(void);
 
 #define recv(sock, buffer, buf_size, flags) \
