@@ -37,9 +37,8 @@
 #include <config.h>
 
 #include <errno.h>
-#include <sys/time.h>
+#include <sys/select.h>
 #include <time.h>
-#include <unistd.h>
 #include "lwp.h"
 #include "lwpint.h"
 #include "prototypes.h"
