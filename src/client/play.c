@@ -489,8 +489,14 @@ play(int sock)
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
 	    send_eof--;
 	if (send_intr
-	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0)
+	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0) {
 	    send_intr = 0;
+	    if (input_fd) {
+		/* execute aborted, switch back to fd 0 */
+		close(input_fd);
+		input_fd = eof_fd0 ? -1 : 0;
+	    }
+	}
 
 	if (n < 0)
 	    continue;
