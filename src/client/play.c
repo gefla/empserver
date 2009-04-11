@@ -136,21 +136,15 @@ static DWORD WINAPI
 stdin_read_thread(LPVOID lpParam)
 {
     for (;;) {
-	if (WaitForSingleObject(bounce_empty, INFINITE) != WAIT_OBJECT_0)
-	    break;
-	bounce_status = _read(0, bounce_buf, sizeof(bounce_buf));
-	bounce_error = errno;
-	if (bounce_status == 0) {
-	    if (_isatty(0)) {
-		SetEvent(bounce_empty);
-		continue;
-	    } else
-		break;
+	if (WaitForSingleObject(bounce_empty, INFINITE) != WAIT_OBJECT_0) {
+	    bounce_status = 0;
+	    bounce_error = GetLastError();
+	} else {
+	    bounce_status = _read(0, bounce_buf, sizeof(bounce_buf));
+	    bounce_error = errno;
 	}
 	SetEvent(bounce_full);
     }
-    SetEvent(bounce_full);
-    return 0;
 }
 
 /*
