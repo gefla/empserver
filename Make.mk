@@ -160,8 +160,12 @@ CFLAGS += -Wall -W -Wno-unused-parameter -Wpointer-arith	\
 -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs	\
 -Wredundant-decls
 endif
-LDLIBS += -lm
-$(client): LDLIBS += $(termlibs)
+ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
+# FIXME split src/lib/w32/posixio.c
+LDLIBS := $(LIBS_server)
+endif
+$(client): LDLIBS := $(LIBS_client)
+$(server): LDLIBS := $(LIBS_server)
 
 ### Advertized goals
 
@@ -275,7 +279,7 @@ $(server): $(filter src/server/% src/lib/commands/% src/lib/player/% src/lib/sub
 
 $(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
-ifeq ($(empthread),Windows)
+ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
 $(client): src/lib/w32/getopt.o
 endif
 

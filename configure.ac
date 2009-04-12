@@ -69,16 +69,15 @@ MY_WINDOWS_API
 
 ### Checks for libraries
 ACX_PTHREAD
+save_LIBS="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
-
-# TODO turn this into a macro?
-save_LIBS=$LIBS
+LIBS_server="$LIBS"
 AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
-# FIXME if not found, complain and switch off highlighting
-termlibs=`echo $LIBS | sed s/\`echo $save_LIBS | sed 's/././g'\`'$//'`
-AC_SUBST(termlibs)
-LIBS=$save_LIBS
+LIBS_client="$LIBS"
+LIBS="$save_LIBS"
+AC_SUBST(LIBS_server)
+AC_SUBST(LIBS_client)
 
 
 ### Checks for header files
