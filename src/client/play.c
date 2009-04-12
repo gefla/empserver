@@ -67,7 +67,7 @@ static HANDLE bounce_empty;
  * stdin thread and is available for recv_input
  */
 static HANDLE bounce_full;
- /* Ctrl-C (SIGINT) was detected, generate EINTR for the w32_select() */
+/* Ctrl-C (SIGINT) was detected, generate EINTR for the w32_select() */
 static HANDLE ctrl_c_event;
 static int bounce_status, bounce_error;
 
@@ -184,24 +184,31 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
 {
     HANDLE handles[3];
     SOCKET sock;
-    int result, s_result, num_handles = 0;
+    int inp, result, s_result, num_handles;
     struct timeval tv_time = {0, 0};
     fd_set rdfd2;
 
-    if (rdfd->fd_count > 1) {
-	sock = rdfd->fd_array[1];
-	if (rdfd->fd_array[0])
-	    handles[num_handles++] = (HANDLE)rdfd->fd_array[0];
-	else {
-	    handles[num_handles++] = ctrl_c_event;
-	    handles[num_handles++] = bounce_full;
-	}
-    } else {
-	assert(rdfd->fd_count == 1);
+    switch (rdfd->fd_count) {
+    case 1:
+	inp = -1;
 	sock = rdfd->fd_array[0];
+	break;
+    case 2:
+	inp = rdfd->fd_array[0];
+	sock = rdfd->fd_array[1];
+	break;
+    default:
+	assert(0);
     }
-    assert(wrfd->fd_count == 0 ||
-	   (wrfd->fd_count == 1 && wrfd->fd_array[0] == sock));
+
+    assert(wrfd->fd_count == 0
+	   || (wrfd->fd_count == 1 && wrfd->fd_array[0] == sock));
+    assert(inp < 0 || inp == input_fd);
+
+    num_handles = 0;
+    handles[num_handles++] = ctrl_c_event;
+    if (inp >= 0)
+	handles[num_handles++] = inp ? (HANDLE)inp : bounce_full;
     /* always wait on the socket */
     handles[num_handles++] = WSACreateEvent();
 
@@ -220,7 +227,7 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
     }
     WSACloseEvent(handles[num_handles - 1]);
 
-    if (num_handles == 3 && result == WAIT_OBJECT_0) {
+    if (result == WAIT_OBJECT_0) {
 	errno = EINTR;
 	return -1;
     }
@@ -235,12 +242,8 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
     }
 
     *rdfd = rdfd2;
-    if (num_handles == 3 && result == WAIT_OBJECT_0 + 1) {
-	FD_SET((SOCKET)0, rdfd);
-	s_result++;
-    }
-    if (num_handles == 2 && result == WAIT_OBJECT_0) {
-	FD_SET((SOCKET)handles[0], rdfd);
+    if (inp >= 0 && result == WAIT_OBJECT_0 + 1) {
+	FD_SET((SOCKET)inp, rdfd);
 	s_result++;
     }
     return s_result;
