@@ -59,7 +59,7 @@ ringbuf.$O secure.$O servcmd.$O sysdep_w32.$O termlib.$O version.$O
 all: $(prog)
 
 $(prog): $(obj)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o empire $(obj) $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(prog) $(obj) $(LIBS)
 
 clean:
 	rm -f $(obj) $(prog)
