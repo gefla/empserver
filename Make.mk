@@ -54,6 +54,7 @@ endif
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
 tsrc := $(filter %.t, $(src))
+m4src := $(filter m4/%.m4, $(src))
 man6 := $(filter man/%.6, $(src))
 builtins := $(filter src/lib/global/%.config, $(src))
 
@@ -363,7 +364,7 @@ $(srcdir)/stamp-h.in: configure.ac aclocal.m4
 	cd $(srcdir) && autoheader
 	touch $@
 
-$(srcdir)/aclocal.m4: $(filter m4/%.m4, $(src))
+$(srcdir)/aclocal.m4: $(m4src)
 	cd $(srcdir) && aclocal -I m4
 
 # config.status might not change config.h; use the stamp file.
@@ -390,5 +391,5 @@ $(srcdir)/src/client/config.h.in: src/client/configure.ac src/client/aclocal.m4
 	cd $(dir $@) && autoheader
 	touch $@
 
-$(srcdir)/src/client/aclocal.m4: m4/lib_socket_nsl.m4
-	cp -f $< $@
+$(srcdir)/src/client/aclocal.m4: $(m4src)
+	cd $(srcdir)/src/client && aclocal -I ../../m4
