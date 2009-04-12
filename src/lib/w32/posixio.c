@@ -49,8 +49,9 @@
 #include <fcntl.h>
 #include <io.h>
 #include <share.h>
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 /*
  * Need to include winsock2.h before ws2tcpip.h.
  * Use sys/socket.h to ensure the #undef NS_ALL
