@@ -47,36 +47,24 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC
 AC_PROG_INSTALL
 
+# Not a program, but need to check this early
+MY_WINDOWS_API
+
 
 ### Checks for libraries.
-AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
+LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
-# TODO merge this into LIB_SOCKET_NSL?
-if test "$ac_cv_search_gethostbyname" = no; then
-    dnl Can't search ws2_32 for gethostbyname using AC_SEARCH_LIBS, because
-    dnl it requires #include <winsock2.h> to work.
-    AC_MSG_CHECKING([for gethostbyname in -lws2_32])
-    save_LIBS=$LIBS
-    LIBS="-lws2_32 $LIBS"
-    AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <winsock2.h>]],
-				    [[gethostbyname ("");]])],
-		   [ws2_res=yes], [LIBS=save_LIBS ws2_res=no])
-    AC_MSG_RESULT([$ws2_res])
-fi
+AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
+
 
 ### Checks for header files.
 
 
 ### Checks for typedefs, structures, and compiler characteristics.
 
-AC_MSG_CHECKING([for Windows])
-AC_COMPILE_IFELSE(
-    [AC_LANG_SOURCE([[#ifdef _WIN32
-#Here's a nickel, kid
-#endif]])],
-    [Windows_res=no],
-    [Windows_res=yes CFLAGS="$CFLAGS -mthreads"])
-AC_MSG_RESULT([$Windows_res])
+if test "$Windows_API" = yes; then
+	CFLAGS="$CFLAGS -mthreads"
+fi
 
 
 ### Checks for library functions.

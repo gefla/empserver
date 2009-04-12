@@ -63,15 +63,14 @@ else revctrl=
 fi
 AC_SUBST(revctrl,$revctrl)
 
+# Not a program, but need to check this early
+MY_WINDOWS_API
+
 
 ### Checks for libraries
 ACX_PTHREAD
+LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
-# TODO merge this into LIB_SOCKET_NSL?
-case "$host_os" in
-*mingw32)
-    LIBS="-lws2_32 $LIBS" ;;
-esac
 
 # TODO turn this into a macro?
 save_LIBS=$LIBS
@@ -123,10 +122,9 @@ if test -z "$with_pthread" || test "$with_pthread" = no; then
     if test "$ac_cv_func_makecontext" = yes; then
 	empthread=LWP
     fi
-    case "$host_os" in
-    *mingw32)
-	empthread=Windows ;;
-    esac
+    if test $Windows_API = yes; then
+	empthread=Windows
+    fi
 fi
 if test -z "$empthread"; then
     AC_MSG_ERROR([No usable thread package found])
