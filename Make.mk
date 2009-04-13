@@ -159,10 +159,6 @@ CFLAGS += -Wall -W -Wno-unused-parameter -Wpointer-arith	\
 -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs	\
 -Wredundant-decls
 endif
-ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
-# FIXME split src/lib/w32/posixio.c
-LDLIBS := $(LIBS_server)
-endif
 $(client): LDLIBS := $(LIBS_client)
 $(server): LDLIBS := $(LIBS_server)
 

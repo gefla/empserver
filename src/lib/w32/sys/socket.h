@@ -63,5 +63,6 @@ extern int posix_socket(int domain, int type, int protocol);
 /* Low-level stuff specific to the emulation */
 extern SOCKET posix_fd2socket(int fd);
 extern void w32_set_winsock_errno(void);
+extern int w32_socket_init(void);
 
 #endif /* SYS_SOCKET_H */

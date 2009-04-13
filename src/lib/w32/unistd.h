@@ -95,14 +95,12 @@ extern int posix_mkdir(const char *dirname, mode_t perm);
 extern int fcntl(int fd, int cmd, ...);
 
 /* Stuff that actually belongs here */
-#define close(fd) \
-    posix_close((fd))
-#define read	posix_read
-extern ssize_t posix_read(int, void *, size_t);
-#define write(fd, buffer, count) \
-    posix_write((fd), (buffer), (count))
-extern ssize_t posix_write(int, const void *, size_t);
-extern int posix_close(int fd);
+#define close(fd) w32_close_function((fd))
+extern int (*w32_close_function)(int);
 #define ftruncate(fd, length) _chsize((fd), (length))
+#define read(fd, buf, sz) w32_read_function((fd), (buf), (sz))
+extern int (*w32_read_function)(int, void *, unsigned);
+#define write(fd, buf, sz) w32_write_function((fd), (buf), (sz))
+extern int (*w32_write_function)(int, const void *, unsigned);
 
 #endif /* UNISTD_H */

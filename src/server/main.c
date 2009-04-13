@@ -32,7 +32,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2009
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2009
  */
 
 #include <config.h>
@@ -48,6 +48,7 @@
 #if defined(_WIN32)
 #include <process.h>
 #include "service.h"
+#include "sys/socket.h"
 #endif
 
 #include "empio.h"
@@ -75,7 +76,6 @@ static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
 static void loc_NTInit(void);
-static void loc_NTTerm(void);
 #endif
 
 /*
@@ -385,9 +385,6 @@ void
 finish_server(void)
 {
     ef_fin_srv();
-#if defined(_WIN32)
-    loc_NTTerm();
-#endif
     journal_shutdown();
     remove(pidfname);
 }
@@ -464,20 +461,11 @@ static void
 loc_NTInit(void)
 {
     int rc;
-    WORD wVersionRequested;
-    WSADATA wsaData;
 
-    wVersionRequested = MAKEWORD(2, 0);
-    rc = WSAStartup(wVersionRequested, &wsaData);
+    rc = w32_socket_init();
     if (rc != 0) {
-	logerror("WSAStartup failed.  %d", rc);
+	logerror("WSAStartup Failed, error code %d\n", rc);
 	exit(1);
     }
-}
-
-static void
-loc_NTTerm(void)
-{
-    WSACleanup();
 }
 #endif
