@@ -37,10 +37,6 @@
 #include <winsock2.h>
 #undef NS_ALL
 
-#define EWOULDBLOCK WSAEWOULDBLOCK
-#define ENOTSOCK    WSAENOTSOCK
-#define EAFNOSUPPORT	WSAEAFNOSUPPORT
-
 typedef int socklen_t;
 
 #define accept(fd, addr, addrlen) \
@@ -63,5 +59,9 @@ extern int posix_setsockopt(int fd, int level, int optname,
 		      const void *optval, socklen_t optlen);
 extern int posix_shutdown(int fd, int how);
 extern int posix_socket(int domain, int type, int protocol);
+
+/* Low-level stuff specific to the emulation */
+extern SOCKET posix_fd2socket(int fd);
+extern void w32_set_winsock_errno(void);
 
 #endif /* SYS_SOCKET_H */

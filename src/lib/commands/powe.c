@@ -324,7 +324,7 @@ gen_power(struct powstr *powbuf, int save)
      * write(), they delay it until the write actually hits the disk.
      * Bad, because `power' displays that time.  Force it.
      */
-    fsync(empfile[EF_POWER].fd);
+    _commit(empfile[EF_POWER].fd);
 #endif
 }
 

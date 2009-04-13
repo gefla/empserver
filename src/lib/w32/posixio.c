@@ -25,22 +25,19 @@
  *
  *  ---
  *
- *  posixio.c: POSIX IO emulation layer for WIN32
+ *  posixio.c: POSIX I/O emulation layer for WIN32
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2007-2008
+ *     Markus Armbruster, 2007-2009
  */
 
 /*
- * POSIX has just one kind of file descriptors, while Windows has (at
- * least) two: one for sockets and one for files, with separate
- * functions to operate on them.  To present a more POSIX-like
- * interface to our application code, we provide a compatibility layer
- * that maps POSIX file descriptors to sockets and file handles behind
- * the scenes.  This actual mapping is done by the fdmap.  It doesn't
- * implement the finer points of POSIX correctly.  In particular, the
- * actual values of the file descriptors usually differ.
+ * POSIX sockets are file descriptors.  Windows sockets are something
+ * else, with a separate set of functions to operate on them.  To
+ * present a more POSIX-like interface to our application code, we
+ * provide a compatibility layer that wraps file descriptors around
+ * sockets.
  */
 
 #include <config.h>
@@ -65,163 +62,69 @@
 #include "sys/uio.h"
 #include "unistd.h"
 
-/*
- * FD_SETSIZE is the size for the maximum number of sockets.
- * The number of file descriptors is in a variable _nhandle
- * based on the assertion output.  In order the simplify the
- * code and skip dynamic allocation, used double the socket size.
- */
-#define MAX_FDS (FD_SETSIZE * 2)
+#define W32_FD_TO_SOCKET(fd) ((SOCKET)_get_osfhandle((fd)))
+#define W32_SOCKET_TO_FD(fh) (_open_osfhandle((long)(fh), O_RDWR | O_BINARY))
 
-enum fdmap_io_type {
-    FDMAP_IO_NOTUSED = 0,
-    FDMAP_IO_FILE,
-    FDMAP_IO_SOCKET,
-    FDMAP_IO_ANY /* used for searching only (lookup_handle) */
-};
-
-struct fdmap {
-    int handle;
-    enum fdmap_io_type type;
-};
-
-static struct fdmap fdmap[MAX_FDS] = {
-    {0, FDMAP_IO_FILE},
-    {1, FDMAP_IO_FILE},
-    {2, FDMAP_IO_FILE}
-};
-static int nfd = 3;
-
-/*
- * Allocate a POSIX equivalent file descriptor.
- * Note once get_fd() is called either free_fd() or set_fd()
- * must be called before thread mutex is released as the
- * allocation/deallocation code is not thread safe.
- */
-static int
-get_fd(void)
-{
-    int fd;
-
-    for (fd = 0; fd < nfd && fdmap[fd].type != FDMAP_IO_NOTUSED; fd++) ;
-    if (fd == MAX_FDS) {
-	errno = EMFILE;
-	return -1;
-    }
-    if (fd == nfd) {
-	fdmap[fd].type = FDMAP_IO_NOTUSED;
-	nfd++;
-    }
-    return fd;
-}
-
-/*
- * Deallocate a POSIX equivalent file descriptor.
- */
-static void
-free_fd(int fd)
-{
-    fdmap[fd].type = FDMAP_IO_NOTUSED;
-    for(; fdmap[nfd - 1].type == FDMAP_IO_NOTUSED; nfd--) ;
-}
-
-/*
- * Complete the allocation of the file descriptor.
- */
-static void
-set_fd(int fd, enum fdmap_io_type type, int handle)
-{
-    int i;
-
-    fdmap[fd].handle = handle;
-    fdmap[fd].type = type;
-
-    /*
-     * Garbage collection for fileno(), currently not
-     * replacing fclose() and fcloseall() so do not know when
-     * a stream is closed.
-     */
-    for (i = 0; i < nfd; i++) {
-	if (i != fd && type == fdmap[i].type && handle == fdmap[i].handle)
-	    free_fd(i);
-    }
-}
-
-/*
- * Find the windows handle (file or socket) for file descriptor.
- * Return windows handle and type of handle.
- * You can search for a specific type (FDMAP_IO_FILE or FDMAP_IO_SOCKET)
- * or for both search by using FDMAP_IO_ANY.
- * FDMAP_IO_NOTUSED is not valid type to search with.
- */
-static int
-lookup_handle(int fd, enum fdmap_io_type d_type, int error,
-	enum fdmap_io_type *type_ptr, int *handle_ptr)
-{
-
-    if (fd < 0 || fd >= MAX_FDS) {
-	if (error != 0)
-	    errno = error;
-	return 0;
-    } else if ((fdmap[fd].type != d_type && d_type != FDMAP_IO_ANY) ||
-	(fdmap[fd].type == FDMAP_IO_NOTUSED && d_type == FDMAP_IO_ANY)) {
-	if (error != 0)
-	    errno = error;
-	return 0;
-    }
-    if (type_ptr != NULL)
-	*type_ptr = fdmap[fd].type;
-    if (handle_ptr != NULL)
-	*handle_ptr = fdmap[fd].handle;
-    return 1;
-}
-
-/*
- * Find and return the file descriptor associated with windows handle.
- * You can search for FDMAP_IO_FILE or FDMAP_IO_SOCKET.
- * FDMAP_IO_ANY or FDMAP_IO_NOTUSED is not considered valid search
- * criteria.
- */
-static int
-lookup_fd(int handle, enum fdmap_io_type d_type)
-{
-    int i;
-
-    for (i = 0; i < nfd; i++)
-	if (fdmap[i].handle == handle && fdmap[i].type == d_type)
-	    return i;
-    return -1;
-}
-
-/*
- * Get the window socket handle for POSIX file descriptor.
- */
-int
+SOCKET
 posix_fd2socket(int fd)
 {
-    int handle;
-    enum fdmap_io_type type;
-
-    if (!lookup_handle(fd, FDMAP_IO_SOCKET, WSAENOTSOCK,
-	&type, &handle))
-	return INVALID_SOCKET;
-    return handle;
+    return W32_FD_TO_SOCKET(fd);
 }
 
-#define SOCKET_FUNCTION(expr)				\
-    int result;						\
-    int handle;						\
-							\
-    if (!lookup_handle(fd, FDMAP_IO_SOCKET,		\
-	ENOTSOCK, NULL, &handle))			\
-	return -1;					\
-							\
-    result = (expr);					\
-    if (result == SOCKET_ERROR) {			\
-	errno = WSAGetLastError();			\
-	return -1;					\
-    }							\
-    return result;
+static int
+fd_is_socket(int fd, SOCKET *sockp)
+{
+    SOCKET sock;
+    WSANETWORKEVENTS ev;
+
+    sock = W32_FD_TO_SOCKET(fd);
+    if (sockp)
+	*sockp = sock;
+    return WSAEnumNetworkEvents(sock, NULL, &ev) == 0;
+}
+
+void
+w32_set_winsock_errno(void)
+{
+  int err = WSAGetLastError();
+  WSASetLastError(0);
+
+  /* Map some WSAE* errors to the runtime library's error codes.  */
+  switch (err)
+    {
+    case WSA_INVALID_HANDLE:
+      errno = EBADF;
+      break;
+    case WSA_NOT_ENOUGH_MEMORY:
+      errno = ENOMEM;
+      break;
+    case WSA_INVALID_PARAMETER:
+      errno = EINVAL;
+      break;
+    case WSAEWOULDBLOCK:
+      errno = EAGAIN;
+      break;
+    case WSAENAMETOOLONG:
+      errno = ENAMETOOLONG;
+      break;
+    case WSAENOTEMPTY:
+      errno = ENOTEMPTY;
+      break;
+    default:
+      errno = (err > 10000 && err < 10025) ? err - 10000 : err;
+      break;
+    }
+}
+
+#define SOCKET_FUNCTION(expr) do {		\
+	SOCKET sock = W32_FD_TO_SOCKET(fd);	\
+	int res = (expr);			\
+	if (res == SOCKET_ERROR) {		\
+	    w32_set_winsock_errno();		\
+	    return -1;				\
+	}					\
+	return res;				\
+    } while (0)
 
 /*
  * POSIX equivalent for accept().
@@ -230,25 +133,15 @@ posix_fd2socket(int fd)
 int
 posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 {
-    int new_fd;
-    int handle;
-    SOCKET new_handle;
+    SOCKET sock;
 
-    if (!lookup_handle(fd, FDMAP_IO_SOCKET, ENOTSOCK, NULL, &handle))
-	return -1;
-
-    new_fd = get_fd();
-    if (new_fd < 0)
-	return -1;
-
-    new_handle = accept(handle, addr, addrlen);
-    if (new_handle == INVALID_SOCKET) {
-	free_fd(new_fd);
-	errno = WSAGetLastError();
+    sock = accept(W32_FD_TO_SOCKET(fd), addr, addrlen);
+    if (sock == INVALID_SOCKET) {
+	w32_set_winsock_errno();
 	return -1;
     }
-    set_fd(new_fd, FDMAP_IO_SOCKET, (int)new_handle);
-    return new_fd;
+
+    return W32_SOCKET_TO_FD(sock);
 }
 
 /*
@@ -258,7 +151,7 @@ posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 int
 posix_bind(int fd, const struct sockaddr *name, socklen_t namelen)
 {
-    SOCKET_FUNCTION(bind(handle, name, namelen))
+    SOCKET_FUNCTION(bind(sock, name, namelen));
 }
 
 /*
@@ -268,7 +161,7 @@ posix_bind(int fd, const struct sockaddr *name, socklen_t namelen)
 int
 posix_listen(int fd, int backlog)
 {
-    SOCKET_FUNCTION(listen(handle, backlog))
+    SOCKET_FUNCTION(listen(sock, backlog));
 }
 
 /*
@@ -291,8 +184,7 @@ posix_setsockopt(int fd, int level, int optname,
     if (level == SOL_SOCKET && optname == SO_REUSEADDR)
 	return 0;
     {
-	SOCKET_FUNCTION(setsockopt(handle, level, optname,
-			optval, optlen))
+	SOCKET_FUNCTION(setsockopt(sock, level, optname, optval, optlen));
     }
 }
 
@@ -303,7 +195,7 @@ posix_setsockopt(int fd, int level, int optname,
 int
 posix_shutdown(int fd, int how)
 {
-    SOCKET_FUNCTION(shutdown(handle, how))
+    SOCKET_FUNCTION(shutdown(sock, how));
 }
 
 /*
@@ -313,20 +205,18 @@ posix_shutdown(int fd, int how)
 int
 posix_socket(int domain, int type, int protocol)
 {
-    SOCKET handle;
-    int new_fd;
+    SOCKET sock;
 
-    if ((new_fd = get_fd()) < 0)
-	return -1;
-
-    handle = socket(domain, type, protocol);
-    if (handle == INVALID_SOCKET) {
-	free_fd(new_fd);
-	errno = WSAGetLastError();
+    /*
+     * We have to use WSASocket() to create non-overlapped IO sockets.
+     * Overlapped IO sockets cannot be used with read/write.
+     */
+    sock = WSASocket(domain, type, protocol, NULL, 0, 0);
+    if (sock == INVALID_SOCKET) {
+	w32_set_winsock_errno();
 	return -1;
     }
-    set_fd(new_fd, FDMAP_IO_SOCKET, (int)handle);
-    return new_fd;
+    return W32_SOCKET_TO_FD(sock);
 }
 
 #ifdef HAVE_GETADDRINFO
@@ -351,12 +241,14 @@ inet_ntop(int af, const void *src, char *dst, socklen_t len)
 	sa = (struct sockaddr *)&sin6;
 	salen = sizeof(sin6);
     } else {
-	errno = EAFNOSUPPORT;
+	WSASetLastError(WSAEAFNOSUPPORT);
+	w32_set_winsock_errno();
 	return NULL;
     }
 
     if (getnameinfo(sa, salen, dst, len, NULL, 0, NI_NUMERICHOST)) {
-	errno = EAFNOSUPPORT;
+	WSASetLastError(WSAEAFNOSUPPORT);
+	w32_set_winsock_errno();
 	return NULL;
     }
 
@@ -364,85 +256,27 @@ inet_ntop(int af, const void *src, char *dst, socklen_t len)
 }
 #endif
 
-#define FILE_FUNCTION(type, expr)				\
-    int handle;							\
-								\
-    if (!lookup_handle(fd, (type), EBADF, NULL, &handle))	\
-	return -1;						\
-								\
-    return (expr);
-
 /*
  * POSIX equivalent for close().
  */
 int
 posix_close(int fd)
 {
-    int result;
-    int handle;
-    enum fdmap_io_type type;
+    SOCKET sock;
 
-    if (!lookup_handle(fd, FDMAP_IO_ANY, EBADF, &type, &handle))
-	return -1;
-
-    free_fd(fd);
-    switch (type) {
-    case FDMAP_IO_SOCKET:
-	result = closesocket(handle);
-	if (result == SOCKET_ERROR) {
-	    errno = WSAGetLastError();
+    if (fd_is_socket(fd, &sock)) {
+	if (closesocket(sock)) {
+	    w32_set_winsock_errno();
 	    return -1;
 	}
-	return result;
-    case FDMAP_IO_FILE:
-       return _close(handle);
-    default:
-	CANT_REACH();
-	return -1;
+	/*
+	 * This always fails because the underlying handle is already
+	 * gone, but it closes the fd just fine.
+	 */
+	_close(fd);
+	return 0;
     }
-}
-
-/*
- * posix_fsync forces file sync with the disk.
- * In order for the power report report to accurate timestamp,
- * the _commit() is to force a sync with disk and therefore
- * an update for file time.
- */
-int
-posix_fsync(int fd)
-{
-    FILE_FUNCTION(FDMAP_IO_FILE, _commit(handle))
-}
-
-/*
- * POSIX ftruncate()
- */
-int
-ftruncate(int fd, off_t length)
-{
-    FILE_FUNCTION(FDMAP_IO_FILE, _chsize(handle, length))
-}
-
-/*
- * POSIX equivalent for fstat().
- * fstat() is used instead of _fstat(),
- * otherwise problems with the 32/64 time definitions
- * in WIN32.
- */
-#undef fstat
-int
-posix_fstat(int fd, struct stat *buffer)
-{
-    FILE_FUNCTION(FDMAP_IO_ANY, fstat(handle, buffer))
-}
-
-/*
- * POSIX equivalent for lseek().
- */
-off_t
-posix_lseek(int fd, off_t offset, int origin)
-{
-    FILE_FUNCTION(FDMAP_IO_FILE, _lseek(handle, offset, origin))
+    return _close(fd);
 }
 
 /*
@@ -454,8 +288,7 @@ int
 posix_open(const char *fname, int oflag, ...)
 {
     va_list ap;
-    int pmode = 0, new_fd;
-    int handle;
+    int pmode = 0;
 
     if (oflag & O_CREAT) {
 	va_start(ap, oflag);
@@ -463,54 +296,31 @@ posix_open(const char *fname, int oflag, ...)
 	va_end(ap);
     }
 
-    if ((new_fd = get_fd()) < 0)
-	return -1;
-
     /*
      * We don't implement fcntl() for F_SETLK.  Instead, we lock *all*
      * files we open.  Not ideal, but it works for Empire.
      */
-    handle = _sopen(fname, oflag,
-	oflag & O_RDONLY ? SH_DENYNO : SH_DENYWR, pmode);
-    if (handle == -1) {
-	free_fd(new_fd);
-	return -1;
-    }
-    set_fd(new_fd, FDMAP_IO_FILE, handle);
-    return new_fd;
+    return _sopen(fname, oflag,
+		  oflag & O_RDONLY ? SH_DENYNO : SH_DENYWR,
+		  pmode);
 }
-
-#define SHARED_FUNCTION(socket_expr, file_expr)			    \
-    int result;							    \
-    int handle;							    \
-    enum fdmap_io_type type;					    \
-								    \
-    if (!lookup_handle(fd, FDMAP_IO_ANY, EBADF, &type, &handle))    \
-	return -1;						    \
-								    \
-    switch (type) {						    \
-    case FDMAP_IO_SOCKET:					    \
-	result = (socket_expr);					    \
-	if (result == SOCKET_ERROR) {				    \
-	    errno = WSAGetLastError();				    \
-	    return -1;						    \
-	}							    \
-	return result;						    \
-    case FDMAP_IO_FILE:						    \
-	return (file_expr);					    \
-    default:							    \
-	CANT_REACH();						    \
-	return -1;						    \
-    }
 
 /*
  * POSIX equivalent for read().
  */
 ssize_t
-posix_read(int fd, void *buffer, size_t count)
+posix_read(int fd, void *buf, size_t sz)
 {
-    SHARED_FUNCTION(recv(handle, buffer, count, 0),
-	_read(handle, buffer, count))
+    SOCKET sock;
+    ssize_t res;
+
+    if (fd_is_socket(fd, &sock)) {
+	res = recv(sock, buf, sz, 0);
+	if (res < 0)
+	    w32_set_winsock_errno();
+	return res;
+    }
+    return _read(fd, buf, sz);
 }
 
 /*
@@ -564,10 +374,18 @@ readv(int fd, const struct iovec *iov, int iovcnt)
  * POSIX equivalent for write().
  */
 ssize_t
-posix_write(int fd, const void *buffer, size_t count)
+posix_write(int fd, const void *buf, size_t sz)
 {
-    SHARED_FUNCTION(send(handle, buffer, count, 0),
-	_write(handle, buffer, count))
+    SOCKET sock;
+    ssize_t res;
+
+    if (fd_is_socket(fd, &sock)) {
+	res = send(sock, buf, sz, 0);
+	if (res < 0)
+	    w32_set_winsock_errno();
+	return res;
+    }
+    return _write(fd, buf, sz);
 }
 
 /*
@@ -607,40 +425,6 @@ writev(int fd, const struct iovec *iov, int iovcnt)
 }
 
 /*
- * POSIX equivalent for fileno().
- * As fopen/fclose/fcloseall are not implemented as POSIX
- * equivalent functions, the mapping is done when required
- * by a call to fileno().  The garbage collection of the
- * file descriptors allocated is done in set_fd() when the
- * handle is reused.
- */
-int
-fileno(FILE *stream)
-{
-    int fd;
-    int handle;
-
-    if (stream == NULL) {
-	errno = EBADF;
-	return -1;
-    }
-
-    handle = _fileno(stream);
-
-    fd = lookup_fd(handle, FDMAP_IO_FILE);
-    if (fd >= 0)
-	return fd;
-
-    if ((fd = get_fd()) < 0) {
-	errno = EBADF;
-	return -1;
-    }
-
-    set_fd(fd, FDMAP_IO_FILE, handle);
-    return fd;
-}
-
-/*
  * POSIX equivalent for fcntl().
  * Horrible hacks, just good enough support Empire's use of fcntl().
  * F_GETFL / F_SETFL support making a socket (non-)blocking by getting
@@ -653,32 +437,24 @@ fcntl(int fd, int cmd, ...)
     va_list ap;
     int value;
     unsigned long nonblocking;
-    int handle;
-    enum fdmap_io_type type;
-
-    if (!lookup_handle(fd, FDMAP_IO_ANY, EBADF, &type, &handle))
-        return -1;
+    SOCKET sock;
 
     switch (cmd)
     {
     case F_GETFL:
-	if (type == FDMAP_IO_SOCKET)
-	    return 0;
-	break;
+	return 0;
     case F_SETFL:
-	if (type == FDMAP_IO_SOCKET) {
-	    va_start(ap, cmd);
-	    value = va_arg(ap, int);
-	    va_end(ap);
-	    nonblocking = (value & O_NONBLOCK) != 0;
+	sock = W32_FD_TO_SOCKET(fd);
+	va_start(ap, cmd);
+	value = va_arg(ap, int);
+	va_end(ap);
+	nonblocking = (value & O_NONBLOCK) != 0;
 
-	    if (ioctlsocket(handle, FIONBIO, &nonblocking) == SOCKET_ERROR) {
-		errno = WSAGetLastError();
-		return -1;
-	    }
-	    return 0;
+	if (ioctlsocket(sock, FIONBIO, &nonblocking) == SOCKET_ERROR) {
+	    w32_set_winsock_errno();
+	    return -1;
 	}
-	break;
+	return 0;
     case F_SETLK:
 	return 0;
     }

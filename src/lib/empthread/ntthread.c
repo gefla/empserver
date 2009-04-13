@@ -56,10 +56,6 @@
 #undef NS_ALL
 #include <windows.h>
 #include <process.h>
-/* Note: unistd.h(posixio.c) is not thread-safe.
- * It may be used *only* while holding hThreadMutex.
- */
-#include "unistd.h"
 #include "misc.h"
 #include "empthread.h"
 #include "prototypes.h"
@@ -537,7 +533,7 @@ empth_yield(void)
 int
 empth_select(int fd, int flags, struct timeval *timeout)
 {
-    int handle;
+    SOCKET sock;
     WSAEVENT hEventObject[2];
     long events;
     DWORD result, msec;
@@ -551,15 +547,15 @@ empth_select(int fd, int flags, struct timeval *timeout)
     hEventObject[0] = WSACreateEvent();
     hEventObject[1] = pThread->hThreadEvent;
 
-    handle = posix_fd2socket(fd);
-    CANT_HAPPEN(handle < 0);
+    sock = posix_fd2socket(fd);
+    CANT_HAPPEN(sock == (SOCKET)-1);
 
     events = 0;
     if (flags & EMPTH_FD_READ)
 	events |= FD_READ | FD_ACCEPT | FD_CLOSE;
     if (flags & EMPTH_FD_WRITE)
 	events |= FD_WRITE | FD_CLOSE;
-    WSAEventSelect(handle, hEventObject[0], events);
+    WSAEventSelect(sock, hEventObject[0], events);
 
     if (timeout)
 	msec = timeout->tv_sec * 1000L + timeout->tv_usec / 1000L;
@@ -576,7 +572,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
 	res = 0;
 	break;
     case WSA_WAIT_FAILED:
-	errno = WSAGetLastError();
+	w32_set_winsock_errno();
 	res = -1;
 	break;
     default:
@@ -585,7 +581,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
 	res = -1;
     }
 
-    WSAEventSelect(handle, hEventObject[0], 0);
+    WSAEventSelect(sock, hEventObject[0], 0);
 
     WSACloseEvent(hEventObject[0]);
 

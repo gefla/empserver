@@ -39,14 +39,16 @@
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
 
-/* strings.h (POSIX) or string.h (GNU) */
+/* strings.h */
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
 #endif /* _MSC_VER */
+
+/* errno.h */
+#define EWOULDBLOCK EAGAIN
 
 /* stdio.h */
 #define vsnprintf _vsnprintf
 #define snprintf _snprintf
-#undef fileno
 
 /* stdlib.h */
 #include <io.h>

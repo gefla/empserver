@@ -25,10 +25,11 @@
  *
  *  ---
  *
- *  unistd.h: POSIX emulation for WIN32
+ *  unistd.h: POSIX emulation for Windows
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
+ *     Markus Armbruster, 2007-2009
  */
 
 /*
@@ -46,7 +47,6 @@
  * here.  Major name space pollution, can't be helped.
  */
 #include <io.h>
-#include <stdio.h>
 #include <direct.h>
 #include <sys/stat.h>
 
@@ -66,9 +66,6 @@ extern int optind, opterr, optopt;
 #define mkdir(dir, perm)    posix_mkdir((dir), (perm))
 extern int posix_mkdir(const char *dirname, mode_t perm);
 
-/*
- * posixio.c
- */
 /* Should be in sys/stat.h */
 #ifndef S_IRUSR
 #define S_IRUSR	    _S_IREAD
@@ -88,9 +85,6 @@ extern int posix_mkdir(const char *dirname, mode_t perm);
 #define S_IXOTH	    0
 #define S_IRWXO	    S_IROTH | S_IWOTH | S_IXOTH
 #endif
-#define fstat(fd, buffer) \
-    posix_fstat((fd), (buffer))
-extern int posix_fstat(int fd, struct stat *buffer);
 
 /* Should be in fcntl.h */
 #define O_NONBLOCK  1
@@ -120,21 +114,12 @@ extern int fcntl(int fd, int cmd, ...);
 /* Stuff that actually belongs here */
 #define close(fd) \
     posix_close((fd))
-#define lseek(fd, offset, origin) \
-    posix_lseek((fd), (offset), (origin))
 #define read	posix_read
+extern ssize_t posix_read(int, void *, size_t);
 #define write(fd, buffer, count) \
     posix_write((fd), (buffer), (count))
-#define fsync(fd) \
-    posix_fsync((fd))
-extern int ftruncate(int fd, off_t length);
+extern ssize_t posix_write(int, const void *, size_t);
 extern int posix_close(int fd);
-extern off_t posix_lseek(int fd, off_t offset, int origin);
-extern ssize_t posix_read(int fd, void *buffer, size_t count);
-extern ssize_t posix_write(int fd, const void *buffer, size_t count);
-extern int posix_fsync(int fd);
-
-/* Low-level stuff specific to the emulation */
-extern int posix_fd2socket(int fd);
+#define ftruncate(fd, length) _chsize((fd), (length))
 
 #endif /* UNISTD_H */
