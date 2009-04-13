@@ -87,7 +87,8 @@ ef_open(int type, int how, int nelt)
 #if defined(_WIN32)
     oflags |= O_BINARY;
 #endif
-    if ((fd = open(ep->file, oflags, S_IRWUG)) < 0) {
+    fd = open(ep->file, oflags, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+    if (fd < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
 	return 0;
     }

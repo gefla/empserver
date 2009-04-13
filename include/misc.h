@@ -42,10 +42,6 @@
 #include "w32misc.h"
 #endif /* _WIN32 */
 
-#ifndef S_IRWUG
-#define S_IRWUG	    S_IRGRP | S_IWGRP | S_IRUSR | S_IWUSR
-#endif
-
 #ifdef __GNUC__
 #define ATTRIBUTE(attrs) __attribute__ (attrs)
 #else

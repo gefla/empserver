@@ -69,7 +69,8 @@ logopen(void)
 {
     int fd;
 
-    fd = open(logfile, O_WRONLY | O_CREAT | O_APPEND, S_IRWUG);
+    fd = open(logfile, O_WRONLY | O_CREAT | O_APPEND,
+	      S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
     if (fd < 0)
 	logerror("Can't open %s (%s)", logfile, strerror(errno));
     return fd;

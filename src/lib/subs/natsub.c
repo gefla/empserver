@@ -91,7 +91,8 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
     natp->nat_update = 0;
 
     natp->nat_tgms = 0;
-    close(creat(mailbox(buf, natp->nat_cnum), S_IRWUG));
+    close(creat(mailbox(buf, natp->nat_cnum),
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
     natp->nat_ann = 0;		/* FIXME number of annos */
 
     natp->nat_btu = stat == STAT_SANCT ? max_btus : 0;

@@ -176,9 +176,9 @@ main(int argc, char *argv[])
     }
     for (i = 0; i < MAXNOC; i++) {
 	filename = mailbox(buf, i);
-	close(creat(filename, S_IRWUG));
+	close(creat(filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
     }
-    close(creat(annfil, S_IRWUG));
+    close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
 
     /* create a zero-filled sector file */
     memset(&sct, 0, sizeof(sct));
