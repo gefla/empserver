@@ -45,9 +45,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <io.h>
-#include <share.h>
 #include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
 /*
  * Need to include winsock2.h before ws2tcpip.h.
@@ -280,32 +278,6 @@ posix_close(int fd)
 }
 
 /*
- * POSIX equivalent for open().
- * Implements file locks when opening files to provide equivalent
- * F_GETLK/F_SETLK.
- */
-int
-posix_open(const char *fname, int oflag, ...)
-{
-    va_list ap;
-    int pmode = 0;
-
-    if (oflag & O_CREAT) {
-	va_start(ap, oflag);
-	pmode = va_arg(ap, int);
-	va_end(ap);
-    }
-
-    /*
-     * We don't implement fcntl() for F_SETLK.  Instead, we lock *all*
-     * files we open.  Not ideal, but it works for Empire.
-     */
-    return _sopen(fname, oflag,
-		  oflag & O_RDONLY ? SH_DENYNO : SH_DENYWR,
-		  pmode);
-}
-
-/*
  * POSIX equivalent for read().
  */
 ssize_t
@@ -429,7 +401,6 @@ writev(int fd, const struct iovec *iov, int iovcnt)
  * Horrible hacks, just good enough support Empire's use of fcntl().
  * F_GETFL / F_SETFL support making a socket (non-)blocking by getting
  * flags, adding or removing O_NONBLOCK, and setting the result.
- * F_SETLK does nothing.  Instead, we lock in posix_open().
  */
 int
 fcntl(int fd, int cmd, ...)
@@ -454,8 +425,6 @@ fcntl(int fd, int cmd, ...)
 	    w32_set_winsock_errno();
 	    return -1;
 	}
-	return 0;
-    case F_SETLK:
 	return 0;
     }
     errno = EINVAL;

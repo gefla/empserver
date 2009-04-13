@@ -89,26 +89,9 @@ extern int posix_mkdir(const char *dirname, mode_t perm);
 /* Should be in fcntl.h */
 #define O_NONBLOCK  1
 
-#define F_RDLCK	    0
-#define F_WRLCK	    1
 #define F_GETFL	    1
 #define F_SETFL	    2
-#define F_SETLK	    3
 
-struct flock
-{
-    short l_type;
-    short l_whence;
-    off_t l_start;
-    off_t l_len;
-    /* intentionally missing: pid_t l_pid */
-};
-
-#define creat(fname, pmode) \
-    posix_open((fname), _O_WRONLY | _O_CREAT |_O_TRUNC, (pmode))
-#define open(fname, oflag, ...) \
-    posix_open((fname), (oflag), __VA_ARGS__)
-extern int posix_open(const char *fname, int oflag, ...);
 extern int fcntl(int fd, int cmd, ...);
 
 /* Stuff that actually belongs here */

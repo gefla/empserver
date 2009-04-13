@@ -40,12 +40,17 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#ifdef _WIN32
+#include <io.h>
+#include <share.h>
+#endif
 #include "file.h"
 #include "match.h"
 #include "misc.h"
 #include "nsc.h"
 #include "prototypes.h"
 
+static int open_locked(char *, int, mode_t);
 static int ef_realloc_cache(struct empfile *, int);
 static int fillcache(struct empfile *, int);
 static int do_read(struct empfile *, void *, int, int);
@@ -67,7 +72,6 @@ int
 ef_open(int type, int how, int nelt)
 {
     struct empfile *ep;
-    struct flock lock;
     int oflags, fd, fsiz, nslots;
 
     if (ef_check(type) < 0)
@@ -84,21 +88,9 @@ ef_open(int type, int how, int nelt)
 	oflags = O_RDONLY;
     if (how & EFF_CREATE)
 	oflags |= O_CREAT | O_TRUNC;
-#if defined(_WIN32)
-    oflags |= O_BINARY;
-#endif
-    fd = open(ep->file, oflags, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+    fd = open_locked(ep->file, oflags, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
     if (fd < 0) {
 	logerror("Can't open %s (%s)", ep->file, strerror(errno));
-	return 0;
-    }
-
-    lock.l_type = how & EFF_PRIVATE ? F_RDLCK : F_WRLCK;
-    lock.l_whence = SEEK_SET;
-    lock.l_start = lock.l_len = 0;
-    if (fcntl(fd, F_SETLK, &lock) == -1) {
-	logerror("Can't lock %s (%s)", ep->file, strerror(errno));
-	close(fd);
 	return 0;
     }
 
@@ -160,6 +152,35 @@ ef_open(int type, int how, int nelt)
     if (ep->onresize && ep->onresize(type) < 0)
 	return 0;
     return 1;
+}
+
+static int
+open_locked(char *name, int oflags, mode_t mode)
+{
+    int rdlonly = (oflags & O_ACCMODE) == O_RDONLY;
+    int fd;
+
+#ifdef _WIN32
+    fd = _sopen(name, oflags | O_BINARY, rdlonly ? SH_DENYNO : SH_DENYWR,
+		mode);
+    if (fd < 0)
+	return -1;
+#else  /* !_WIN32 */
+    struct flock lock;
+
+    fd = open(name, oflags, mode);
+    if (fd < 0)
+	return -1;
+
+    lock.l_type = rdlonly ? F_RDLCK : F_WRLCK;
+    lock.l_whence = SEEK_SET;
+    lock.l_start = lock.l_len = 0;
+    if (fcntl(fd, F_SETLK, &lock) == -1) {
+	close(fd);
+	return -1;
+    }
+#endif	/* !_WIN32 */
+    return fd;
 }
 
 /*

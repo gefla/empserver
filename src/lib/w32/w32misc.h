@@ -46,6 +46,11 @@
 /* errno.h */
 #define EWOULDBLOCK EAGAIN
 
+/* fcntl.h */
+#ifdef _MSC_VER
+#define O_ACCMODE (_O_RDONLY|_O_WRONLY|_O_RDWR)
+#endif
+
 /* stdio.h */
 #define vsnprintf _vsnprintf
 #define snprintf _snprintf
