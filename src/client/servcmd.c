@@ -31,7 +31,7 @@
  *     Dave Pare, 1989
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2007
+ *     Markus Armbruster, 2005-2009
  */
 
 #include <config.h>
@@ -45,13 +45,6 @@
 #include "misc.h"
 #include "proto.h"
 #include "secure.h"
-
-#ifdef _WIN32
-    #define open(filename, flags, ...) \
-        ((flags & O_CREAT) \
-         ? w32_openfd((filename), (flags), ## __VA_ARGS__) \
-         : w32_openhandle((filename), (flags)))
-#endif
 
 int eight_bit_clean;
 FILE *auxfp;

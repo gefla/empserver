@@ -29,18 +29,58 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
+ *     Markus Armbruster, 2009
  */
 
 #ifdef _WIN32
-#include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <io.h>
-#include <sys/stat.h>
 #include "misc.h"
-#include "linebuf.h"
-#include "ringbuf.h"
-#include "secure.h"
+
+static int
+fd_is_socket(int fd, SOCKET *sockp)
+{
+    SOCKET sock;
+    WSANETWORKEVENTS ev;
+
+    sock = W32_FD_TO_SOCKET(fd);
+    if (sockp)
+	*sockp = sock;
+    return WSAEnumNetworkEvents(sock, NULL, &ev) == 0;
+}
+
+void
+w32_set_winsock_errno(void)
+{
+  int err = WSAGetLastError();
+  WSASetLastError(0);
+
+  /* Map some WSAE* errors to the runtime library's error codes.  */
+  switch (err)
+    {
+    case WSA_INVALID_HANDLE:
+      errno = EBADF;
+      break;
+    case WSA_NOT_ENOUGH_MEMORY:
+      errno = ENOMEM;
+      break;
+    case WSA_INVALID_PARAMETER:
+      errno = EINVAL;
+      break;
+    case WSAEWOULDBLOCK:
+      errno = EAGAIN;
+      break;
+    case WSAENAMETOOLONG:
+      errno = ENAMETOOLONG;
+      break;
+    case WSAENOTEMPTY:
+      errno = ENOTEMPTY;
+      break;
+    default:
+      errno = (err > 10000 && err < 10025) ? err - 10000 : err;
+      break;
+    }
+}
 
 /*
  * Get user name in the WIN32 environment
@@ -50,12 +90,12 @@ w32_getpw(void)
 {
     static char unamebuf[128];
     static struct passwd pwd;
-    long unamesize;
+    DWORD unamesize;
 
     unamesize = sizeof(unamebuf);
     if (GetUserName(unamebuf, &unamesize)) {
 	pwd.pw_name = unamebuf;
-	if ((unamesize <= 0 ) || (strlen(unamebuf) <= 0))
+	if (unamesize == 0 || strlen(unamebuf) == 0)
 	    pwd.pw_name = "nobody";
     } else
 	pwd.pw_name = "nobody";
@@ -67,7 +107,7 @@ w32_getpw(void)
  * set up stdout to work around bugs
  */
 void
-sysdep_init(void)
+w32_sysdep_init(void)
 {
     int err;
     WSADATA WsaData;
@@ -92,16 +132,20 @@ sysdep_init(void)
  */
 #undef socket
 int
-w32_socket(int family, int sock_type, int protocol)
+w32_socket(int domain, int type, int protocol)
 {
-    SOCKET result;
+    SOCKET sock;
 
-    result = socket(family, sock_type, protocol);
-    if (result == INVALID_SOCKET) {
-	errno = WSAGetLastError();
+    /*
+     * We have to use WSASocket() to create non-overlapped IO sockets.
+     * Overlapped IO sockets cannot be used with read/write.
+     */
+    sock = WSASocket(domain, type, protocol, NULL, 0, 0);
+    if (sock == INVALID_SOCKET) {
+	w32_set_winsock_errno();
 	return -1;
     }
-    return (int)result;
+    return W32_SOCKET_TO_FD(sock);
 }
 
 /*
@@ -109,13 +153,15 @@ w32_socket(int family, int sock_type, int protocol)
  */
 #undef connect
 int
-w32_connect(int sock, struct sockaddr *addr, int addrlen)
+w32_connect(int sockfd, const struct sockaddr *addr, int addrlen)
 {
+    SOCKET sock = W32_FD_TO_SOCKET(sockfd);
     int result;
 
-    result = connect(sock,  addr, addrlen);
+    result = connect(sock, addr, addrlen);
     if (result == SOCKET_ERROR) {
-	errno = WSAGetLastError();
+	/* FIXME map WSAEWOULDBLOCK to EINPROGRESS */
+	w32_set_winsock_errno();
 	return -1;
     }
     return result;
@@ -126,13 +172,14 @@ w32_connect(int sock, struct sockaddr *addr, int addrlen)
  */
 #undef recv
 int
-w32_recv(int socket, char *buffer, size_t buf_size, int flags)
+w32_recv(int sockfd, void *buffer, size_t buf_size, int flags)
 {
+    SOCKET socket = W32_FD_TO_SOCKET(sockfd);
     int result;
 
     result = recv(socket, buffer, buf_size, flags);
     if (result == SOCKET_ERROR) {
-	errno = WSAGetLastError();
+	w32_set_winsock_errno();
 	return -1;
     }
     return result;
@@ -143,10 +190,11 @@ w32_recv(int socket, char *buffer, size_t buf_size, int flags)
  * Modelled after the GNU's libc/sysdeps/posix/writev.c
  */
 ssize_t
-w32_writev_socket(int fd, const struct iovec *iov, int iovcnt)
+w32_writev_socket(int sockfd, const struct iovec *iov, int iovcnt)
 {
+    SOCKET sock = W32_FD_TO_SOCKET(sockfd);
     int i;
-    unsigned char *buffer, *buffer_location;
+    char *buffer, *buffer_location;
     size_t total_bytes = 0;
     int bytes_written;
 
@@ -165,12 +213,10 @@ w32_writev_socket(int fd, const struct iovec *iov, int iovcnt)
 	buffer_location += iov[i].iov_len;
     }
 
-    bytes_written = send(fd, buffer, total_bytes, 0);
-
+    bytes_written = send(sock, buffer, total_bytes, 0);
     free(buffer);
-
     if (bytes_written == SOCKET_ERROR) {
-	errno = WSAGetLastError();
+	w32_set_winsock_errno();
 	return -1;
     }
     return bytes_written;
@@ -180,87 +226,38 @@ w32_writev_socket(int fd, const struct iovec *iov, int iovcnt)
  * POSIX compatible send() replacement
  */
 int
-w32_send(int socket, char *buffer, size_t buf_size, int flags)
+w32_send(int sockfd, const void *buffer, size_t buf_size, int flags)
 {
-	int result;
-
-	result = send(socket, buffer, buf_size, flags);
-	if (result == SOCKET_ERROR)
-		errno = WSAGetLastError();
-	return result;
-}
-
-/*
- * POSIX compatible close() replacement specialized to sockets.
- */
-int
-w32_close_socket(int fd)
-{
+    SOCKET socket = W32_FD_TO_SOCKET(sockfd);
     int result;
 
-    result = closesocket(fd);
+    result = send(socket, buffer, buf_size, flags);
     if (result == SOCKET_ERROR)
-	errno = WSAGetLastError();
+	w32_set_winsock_errno();
     return result;
 }
 
 /*
- * POSIX compatible open() replacement
+ * POSIX compatible close() replacement
  */
 int
-w32_openfd(const char *fname, int oflag, ...)
+w32_close(int fd)
 {
-    va_list ap;
-    int pmode = 0;
-    int fd;
-    int create_permission = 0;
+    SOCKET sock;
 
-    if (oflag & O_CREAT) {
-	va_start(ap, oflag);
-	pmode = va_arg(ap, int);
-	va_end(ap);
-
-	if (pmode & 0400)
-	    create_permission |= _S_IREAD;
-	if (pmode & 0200)
-	    create_permission |= _S_IWRITE;
-    }
-
-    fd = _open(fname, oflag, create_permission);
-    return fd;
-}
-/*
- * Open a file for reading, return its handle.
- * This can be used in place of open() when a handle is desired for
- * waiting on it with WaitForMultipleObjects() or similar.
- * Ensure the handle is not zero in order to prevent a problem
- * input_fd.
- */
-int
-w32_openhandle(const char *fname, int oflag)
-{
-    HANDLE handle;
-
-    handle = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL,
-	OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-    if (handle == INVALID_HANDLE_VALUE) {
-	errno = GetLastError();
-	return -1;
-    }
-    if (handle == 0) {
-	HANDLE dup_handle;
-	if (!DuplicateHandle(GetCurrentProcess(), handle,
-			GetCurrentProcess(), &dup_handle,
-			0, FALSE, DUPLICATE_SAME_ACCESS)) {
-	    errno = GetLastError();
+    if (fd_is_socket(fd, &sock)) {
+	if (closesocket(sock)) {
+	    w32_set_winsock_errno();
 	    return -1;
-	} else {
-	    CloseHandle(handle);
-	    handle = dup_handle;
 	}
+	/*
+	 * This always fails because the underlying handle is already
+	 * gone, but it closes the fd just fine.
+	 */
+	_close(fd);
+	return 0;
     }
-    return (int)handle;
+    return _close(fd);
 }
 
 /*
@@ -268,12 +265,12 @@ w32_openhandle(const char *fname, int oflag)
  * Modelled after the GNU's libc/sysdeps/posix/readv.c
  */
 ssize_t
-w32_readv_handle(int fd, const struct iovec *iov, int iovcnt)
+w32_readv_fd(int fd, const struct iovec *iov, int iovcnt)
 {
     int i;
-    unsigned char *buffer, *buffer_location;
+    char *buffer, *buffer_location;
     size_t total_bytes = 0;
-    DWORD bytes_read;
+    int bytes_read;
     size_t bytes_left;
 
     for (i = 0; i < iovcnt; i++) {
@@ -286,11 +283,9 @@ w32_readv_handle(int fd, const struct iovec *iov, int iovcnt)
 	return -1;
     }
 
-    if (!ReadFile((HANDLE)fd, buffer, total_bytes, &bytes_read, NULL)) {
-	free(buffer);
-	errno = GetLastError();
+    bytes_read = read(fd, buffer, total_bytes);
+    if (bytes_read < 0)
 	return -1;
-    }
 
     bytes_left = bytes_read;
     buffer_location = buffer;
@@ -306,23 +301,7 @@ w32_readv_handle(int fd, const struct iovec *iov, int iovcnt)
     }
 
     free(buffer);
-
     return bytes_read;
 }
 
-/*
- * POSIX compatible close() replacement specialized to files.
- * Hack: expects a handle, cannot be used with a file descriptor.
- */
-int
-w32_close_handle(int fd)
-{
-    int result;
-
-    result = CloseHandle((HANDLE)fd);
-
-    if (!result)
-	errno = GetLastError();
-    return result;
-}
 #endif /* _WIN32 */

@@ -28,7 +28,7 @@
  *  ringbuf.c: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2009
  */
 
 #include <config.h>
@@ -41,7 +41,7 @@
 #include <unistd.h>
 #else
 #define readv(fd, iov, iovcnt) \
-    w32_readv_handle((fd), (iov), (iovcnt))
+    w32_readv_fd((fd), (iov), (iovcnt))
 #define writev(fd, iov, iovcnt) \
     w32_writev_socket((fd), (iov), (iovcnt))
 #endif

@@ -31,7 +31,7 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1998
  *     Ron Koenderink, 2004-2005
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2009
  */
 
 #include <config.h>
@@ -47,6 +47,7 @@
 #ifdef _WIN32
 #define getuid() 0
 #define getpwuid(uid) ((void)(uid), w32_getpw())
+#define sysdep_init() w32_sysdep_init()
 #else
 #define sysdep_init() ((void)0)
 #endif

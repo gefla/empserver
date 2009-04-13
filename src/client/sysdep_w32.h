@@ -29,13 +29,13 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
+ *     Markus Armbruster, 2009
  */
 
 #ifndef _SYSDEF_W32_H
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
-#include <signal.h>
 
 extern int getopt(int, char * const[], const char *);
 extern char *optarg;
@@ -54,35 +54,32 @@ struct iovec {
     size_t iov_len;
 };
 
-struct sigaction {
-    int sa_flags;
-    void (*sa_handler)(int sig);
-};
+#define W32_FD_TO_SOCKET(fd) ((SOCKET)_get_osfhandle((fd)))
+#define W32_SOCKET_TO_FD(fh) (_open_osfhandle((long)(fh), O_RDWR | O_BINARY))
 
-extern int w32_recv(int socket, char *buffer,
-			   size_t buf_size, int flags);
-extern int w32_send(int socket, char *buffer,
-			    size_t buf_size, int flags);
-extern int w32_close_socket(int fd);
-extern int w32_socket(int family, int sock_type, int protocol);
-extern int w32_connect(int sock, struct sockaddr *addr, int addrlen);
-extern int w32_close_handle(int fd);
-extern ssize_t w32_readv_handle(int fd, const struct iovec *iov,
-				int iovcnt);
-extern ssize_t w32_writev_socket(int fd, const struct iovec *iov,
+extern void w32_set_winsock_errno(void);
+
+extern int w32_recv(int sockfd, void *, size_t, int flags);
+extern int w32_send(int sockfd, const void *, size_t, int flags);
+extern int w32_close(int fd);
+extern int w32_socket(int domain, int type, int protocol);
+extern int w32_connect(int sockfd, const struct sockaddr *, int addrlen);
+extern ssize_t w32_readv_fd(int fd, const struct iovec *iov,
+			    int iovcnt);
+extern ssize_t w32_writev_socket(int sockfd, const struct iovec *iov,
 				 int iovcnt);
-extern int w32_openfd(const char *fname, int oflag, ...);
-extern int w32_openhandle(const char *fname, int oflag);
 
 extern struct passwd *w32_getpw(void);
-extern void sysdep_init(void);
+extern void w32_sysdep_init(void);
 
-#define recv(sock, buffer, buf_size, flags) \
-    w32_recv((sock), (buffer), (buf_size), (flags))
-#define socket(family, sock_type, protocol) \
-    w32_socket((family), (sock_type), (protocol))
-#define connect(sock, addr, addrlen) \
-    w32_connect((sock), (addr), (addrlen))
+#define recv(sockfd, buffer, buf_size, flags) \
+    w32_recv((sockfd), (buffer), (buf_size), (flags))
+#define close(fd) \
+    w32_close((fd))
+#define socket(domain, type, protocol) \
+    w32_socket((domain), (type), (protocol))
+#define connect(sockfd, addr, addrlen) \
+    w32_connect((sockfd), (addr), (addrlen))
 
 #define pclose _pclose
 #define popen _popen

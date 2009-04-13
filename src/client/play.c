@@ -28,7 +28,7 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2009
  *     Ron Koenderink, 2007-2009
  */
 
@@ -70,6 +70,11 @@ static HANDLE bounce_full;
 /* Ctrl-C (SIGINT) was detected, generate EINTR for the w32_select() */
 static HANDLE ctrl_c_event;
 static int bounce_status, bounce_error;
+
+struct sigaction {
+    int sa_flags;
+    void (*sa_handler)(int sig);
+};
 
 #define SIGPIPE -1
 static void (*ctrl_handler)(int sig) = { SIG_DFL };
@@ -170,45 +175,45 @@ sysdep_stdin_init(void)
 /*
  * This function uses to WaitForMultipleObjects to wait for both
  * stdin and socket reading or writing.
- * Stdin is treated special in WIN32. Waiting for stdin is done
+ * Stdin is treated special in WIN32.  Waiting for stdin is done
  * via a bounce_full event which is set in the stdin thread.
- * Execute command file reading is done via handle.  Execute
- * command is read via CreateFile/ReadFile instead open/read
- * because a file descriptor is not waitable.
- * WaitForMultipleObjects will only respond with one object
+ * Execute command file reading is done via handle.
+ * WaitForMultipleObjects will only respond with one object,
  * so an additonal select is also done to determine
- * which individual events are active for the sock.
+ * which individual events are active.
  */
 static int
 w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* time)
 {
     HANDLE handles[3];
     SOCKET sock;
-    int inp, result, s_result, num_handles;
+    int inp, sockfd, result, s_result, num_handles;
     struct timeval tv_time = {0, 0};
-    fd_set rdfd2;
+    fd_set rdsock, wrsock;
 
     switch (rdfd->fd_count) {
     case 1:
 	inp = -1;
-	sock = rdfd->fd_array[0];
+	sockfd = rdfd->fd_array[0];
 	break;
     case 2:
 	inp = rdfd->fd_array[0];
-	sock = rdfd->fd_array[1];
+	sockfd = rdfd->fd_array[1];
 	break;
     default:
 	assert(0);
     }
+    sock = W32_FD_TO_SOCKET(sockfd);
 
     assert(wrfd->fd_count == 0
-	   || (wrfd->fd_count == 1 && wrfd->fd_array[0] == sock));
+	   || (wrfd->fd_count == 1 && wrfd->fd_array[0] == (SOCKET)sockfd));
     assert(inp < 0 || inp == input_fd);
 
     num_handles = 0;
     handles[num_handles++] = ctrl_c_event;
     if (inp >= 0)
-	handles[num_handles++] = inp ? (HANDLE)inp : bounce_full;
+	handles[num_handles++]
+	    = inp ? (HANDLE)_get_osfhandle(inp) : bounce_full;
     /* always wait on the socket */
     handles[num_handles++] = WSACreateEvent();
 
@@ -232,20 +237,27 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
 	return -1;
     }
 
-    FD_ZERO(&rdfd2);
-    FD_SET(sock, &rdfd2);
-    s_result = select(sock + 1, &rdfd2, wrfd, NULL, &tv_time);
+    FD_ZERO(&rdsock);
+    FD_ZERO(&wrsock);
+    FD_SET(sock, &rdsock);
+    if (wrfd->fd_count)
+	FD_SET(sock, &wrsock);
+    s_result = select(sock + 1, &rdsock, &wrsock, NULL, &tv_time);
 
     if (s_result < 0) {
-	errno = WSAGetLastError();
+	w32_set_winsock_errno();
 	return s_result;
     }
 
-    *rdfd = rdfd2;
-    if (inp >= 0 && result == WAIT_OBJECT_0 + 1) {
-	FD_SET((SOCKET)inp, rdfd);
+    if (!FD_ISSET(sock, &rdsock))
+	FD_CLR((SOCKET)sockfd, rdfd);
+    if (!FD_ISSET(sock, &wrsock))
+	FD_CLR((SOCKET)sockfd, wrfd);
+    if (inp >= 0 && result == WAIT_OBJECT_0 + 1)
 	s_result++;
-    }
+    else
+	FD_CLR((SOCKET)inp, rdfd);
+
     return s_result;
 }
 
@@ -282,7 +294,6 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
     return res;
 }
 #define ring_from_file w32_ring_from_file_or_bounce_buf
-#define close(fd) w32_close_handle((fd))
 #define read(sock, buffer, buf_size) \
 	w32_recv((sock), (buffer), (buf_size), 0)
 #define select(nfds, rd, wr, error, time) \

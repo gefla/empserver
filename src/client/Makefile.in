@@ -88,7 +88,7 @@ play.$O: linebuf.h misc.h sysdep_w32.h proto.h ringbuf.h secure.h
 ringbuf.$O: misc.h sysdep_w32.h ringbuf.h
 secure.$O: ringbuf.h secure.h
 servcmd.$O: misc.h sysdep_w32.h proto.h secure.h
-sysdep_w32.$O: misc.h sysdep_w32.h linebuf.h ringbuf.h secure.h
+sysdep_w32.$O: misc.h sysdep_w32.h
 termlib.$O: misc.h
 version.$O: version.h
 $(obj): config.h

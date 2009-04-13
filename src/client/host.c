@@ -47,8 +47,6 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
-#else
-#define close(fd) w32_close_socket((fd))
 #endif
 #include "misc.h"
 
