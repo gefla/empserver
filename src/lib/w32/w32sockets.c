@@ -59,7 +59,7 @@
 #define W32_SOCKET_TO_FD(fh) (_open_osfhandle((long)(fh), O_RDWR | O_BINARY))
 
 SOCKET
-posix_fd2socket(int fd)
+w32_fd2socket(int fd)
 {
     return W32_FD_TO_SOCKET(fd);
 }
@@ -124,7 +124,7 @@ w32_set_winsock_errno(void)
  */
 #undef accept
 int
-posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
+w32_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 {
     SOCKET sock;
 
@@ -142,7 +142,7 @@ posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
  */
 #undef bind
 int
-posix_bind(int fd, const struct sockaddr *name, socklen_t namelen)
+w32_bind(int fd, const struct sockaddr *name, socklen_t namelen)
 {
     SOCKET_FUNCTION(bind(sock, name, namelen));
 }
@@ -152,7 +152,7 @@ posix_bind(int fd, const struct sockaddr *name, socklen_t namelen)
  */
 #undef listen
 int
-posix_listen(int fd, int backlog)
+w32_listen(int fd, int backlog)
 {
     SOCKET_FUNCTION(listen(sock, backlog));
 }
@@ -162,8 +162,8 @@ posix_listen(int fd, int backlog)
  */
 #undef setsockopt
 int
-posix_setsockopt(int fd, int level, int optname,
-		      const void *optval, socklen_t optlen)
+w32_setsockopt(int fd, int level, int optname,
+	       const void *optval, socklen_t optlen)
 {
     /*
      * SO_REUSEADDR requests to permit another bind even when the
@@ -186,7 +186,7 @@ posix_setsockopt(int fd, int level, int optname,
  */
 #undef shutdown
 int
-posix_shutdown(int fd, int how)
+w32_shutdown(int fd, int how)
 {
     SOCKET_FUNCTION(shutdown(sock, how));
 }
@@ -196,7 +196,7 @@ posix_shutdown(int fd, int how)
  */
 #undef socket
 int
-posix_socket(int domain, int type, int protocol)
+w32_socket(int domain, int type, int protocol)
 {
     SOCKET sock;
 

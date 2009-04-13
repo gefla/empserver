@@ -40,28 +40,28 @@
 typedef int socklen_t;
 
 #define accept(fd, addr, addrlen) \
-    posix_accept((fd), (addr), (addrlen))
+    w32_accept((fd), (addr), (addrlen))
 #define bind(fd, name, namelen) \
-    posix_bind((fd), (name), (namelen))
+    w32_bind((fd), (name), (namelen))
 #define listen(fd, backlog) \
-    posix_listen((fd), (backlog))
+    w32_listen((fd), (backlog))
 #define setsockopt(fd, level, optname, optval, optlen) \
-    posix_setsockopt((fd), (level), (optname), (optval), (optlen))
+    w32_setsockopt((fd), (level), (optname), (optval), (optlen))
 #define shutdown(fd, how) \
-    posix_shutdown((fd), (how))
+    w32_shutdown((fd), (how))
 #define socket(domain, type, protocol) \
-    posix_socket((domain), (type), (protocol))
+    w32_socket((domain), (type), (protocol))
 
-extern int posix_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
-extern int posix_bind(int fd, const struct sockaddr *name, socklen_t namelen);
-extern int posix_listen(int fd, int backlog);
-extern int posix_setsockopt(int fd, int level, int optname,
-		      const void *optval, socklen_t optlen);
-extern int posix_shutdown(int fd, int how);
-extern int posix_socket(int domain, int type, int protocol);
+extern int w32_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
+extern int w32_bind(int fd, const struct sockaddr *name, socklen_t namelen);
+extern int w32_listen(int fd, int backlog);
+extern int w32_setsockopt(int fd, int level, int optname,
+			  const void *optval, socklen_t optlen);
+extern int w32_shutdown(int fd, int how);
+extern int w32_socket(int domain, int type, int protocol);
 
 /* Low-level stuff specific to the emulation */
-extern SOCKET posix_fd2socket(int fd);
+extern SOCKET w32_fd2socket(int fd);
 extern void w32_set_winsock_errno(void);
 extern int w32_socket_init(void);
 

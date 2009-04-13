@@ -60,11 +60,11 @@ extern char *optarg;
 extern int optind, opterr, optopt;
 
 /*
- * posixfile.c
+ * w32file.c
  */
 /* Should be in sys/stat.h */
-#define mkdir(dir, perm)    posix_mkdir((dir), (perm))
-extern int posix_mkdir(const char *dirname, mode_t perm);
+#define mkdir(dir, perm)    w32_mkdir((dir), (perm))
+extern int w32_mkdir(const char *dirname, mode_t perm);
 
 /* Should be in sys/stat.h */
 #ifndef S_IRUSR

@@ -546,7 +546,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
     hEventObject[0] = WSACreateEvent();
     hEventObject[1] = pThread->hThreadEvent;
 
-    sock = posix_fd2socket(fd);
+    sock = w32_fd2socket(fd);
     CANT_HAPPEN(sock == (SOCKET)-1);
 
     events = 0;

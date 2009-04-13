@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  posixio.c: POSIX I/O emulation layer for Windows
+ *  w32io.c: POSIX I/O emulation layer for Windows
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007

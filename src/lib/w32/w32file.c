@@ -25,7 +25,7 @@
  *
  *  ---
  *
- *  posixfile.c: POSIX equivalents for file operations
+ *  w32file.c: POSIX file operations emulation layer for Windows
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
@@ -38,11 +38,11 @@
 #include "unistd.h"
 
 /*
- * POSIX equivalent for mkdir().
- * Windows does not set the permission directly with mkdir().
+ * POSIX-compatible replacement for mkdir().
+ * Windows' mkdir() lacks the second parameter.
  */
 int
-posix_mkdir(const char *dirname, mode_t perm)
+w32_mkdir(const char *dirname, mode_t perm)
 {
     int result;
 
