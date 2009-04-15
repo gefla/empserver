@@ -126,6 +126,7 @@ done
 
 fi
 
+echo "Commit `git describe --match 'v*' --always`"
 echo "Done (GIT)."
 echo ""
 		;;
