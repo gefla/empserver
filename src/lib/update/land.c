@@ -125,6 +125,7 @@ upd_land(struct lndstr *lp, int etus,
 		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
 			 lp->lnd_x, lp->lnd_y);
 		lp->lnd_own = 0;
+		lp->lnd_ship = lp->lnd_land = -1;
 		return;
 	    }
 	    wu(0, lp->lnd_own,

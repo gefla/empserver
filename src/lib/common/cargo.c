@@ -241,24 +241,33 @@ unit_cargo_init(void)
 	unit_onresize(i);
 
     for (i = 0; (pp = getplanep(i)); i++) {
-	if (!pp->pln_own)
+	if (!pp->pln_own) {
+	    if (CANT_HAPPEN(pp->pln_ship >= 0 || pp->pln_land >= 0))
+		pp->pln_ship = pp->pln_land = -1;
 	    continue;
+	}
 	if (CANT_HAPPEN(pp->pln_ship >= 0 && pp->pln_land >= 0))
 	    pp->pln_land = -1;
 	pln_carrier_change(pp, EF_SHIP, -1, pp->pln_ship);
 	pln_carrier_change(pp, EF_LAND, -1, pp->pln_land);
     }
     for (i = 0; (lp = getlandp(i)); i++) {
-	if (!lp->lnd_own)
+	if (!lp->lnd_own) {
+	    if (CANT_HAPPEN(lp->lnd_ship >= 0 || lp->lnd_land >= 0))
+		lp->lnd_ship = lp->lnd_land = -1;
 	    continue;
+	}
 	if (CANT_HAPPEN(lp->lnd_ship >= 0 && lp->lnd_land >= 0))
 	    lp->lnd_land = -1;
 	lnd_carrier_change(lp, EF_SHIP, -1, lp->lnd_ship);
 	lnd_carrier_change(lp, EF_LAND, -1, lp->lnd_land);
     }
     for (i = 0; (np = getnukep(i)); i++) {
-	if (!np->nuk_own)
+	if (!np->nuk_own) {
+	    if (CANT_HAPPEN(np->nuk_plane >= 0))
+		np->nuk_plane = -1;
 	    continue;
+	}
 	nuk_carrier_change(np, EF_PLANE, -1, np->nuk_plane);
     }
 }
