@@ -110,6 +110,7 @@ upd_plane(struct plnstr *pp, int etus,
 		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
 			 pp->pln_x, pp->pln_y);
 		pp->pln_own = 0;
+		pp->pln_ship = pp->pln_land = -1;
 		return;
 	    }
 	    wu(0, pp->pln_own,
