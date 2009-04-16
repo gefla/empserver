@@ -402,7 +402,7 @@ s_commod(struct empobj *sink, short *vec,
 
     if (actually_doit)
 	put_empobj(sink->ef_type, sink->uid, sink);
-    return wanted <= vec[type];
+    return 0;
 }
 
 /*
