@@ -34,6 +34,8 @@
 #ifndef SERVICE_H
 #define SERVICE_H
 
+#include <windows.h>
+
 #define DEFAULT_SERVICE_NAME "Empire Server"
 
 extern int install_service(char *program_name, char *service_name,
