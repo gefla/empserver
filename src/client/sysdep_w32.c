@@ -33,54 +33,12 @@
  */
 
 #ifdef _WIN32
-#include <errno.h>
-#include <fcntl.h>
+#include <config.h>
+
+#include <stdlib.h>
+#include <windows.h>
 #include "misc.h"
-
-static int
-fd_is_socket(int fd, SOCKET *sockp)
-{
-    SOCKET sock;
-    WSANETWORKEVENTS ev;
-
-    sock = W32_FD_TO_SOCKET(fd);
-    if (sockp)
-	*sockp = sock;
-    return WSAEnumNetworkEvents(sock, NULL, &ev) == 0;
-}
-
-void
-w32_set_winsock_errno(void)
-{
-  int err = WSAGetLastError();
-  WSASetLastError(0);
-
-  /* Map some WSAE* errors to the runtime library's error codes.  */
-  switch (err)
-    {
-    case WSA_INVALID_HANDLE:
-      errno = EBADF;
-      break;
-    case WSA_NOT_ENOUGH_MEMORY:
-      errno = ENOMEM;
-      break;
-    case WSA_INVALID_PARAMETER:
-      errno = EINVAL;
-      break;
-    case WSAEWOULDBLOCK:
-      errno = EAGAIN;
-      break;
-    case WSAENAMETOOLONG:
-      errno = ENAMETOOLONG;
-      break;
-    case WSAENOTEMPTY:
-      errno = ENOTEMPTY;
-      break;
-    default:
-      errno = (err > 10000 && err < 10025) ? err - 10000 : err;
-      break;
-    }
-}
+#include "sys/socket.h"
 
 /*
  * Get user name in the WIN32 environment
@@ -102,15 +60,11 @@ w32_getpw(void)
     return &pwd;
 }
 
-/*
- * Initialize the WIN32 socket library and
- * set up stdout to work around bugs
- */
 void
 w32_sysdep_init(void)
 {
     int err;
-    WSADATA WsaData;
+
     /*
      * stdout is unbuffered under Windows if connected to a character
      * device, and putchar() screws up when printing multibyte strings
@@ -120,107 +74,12 @@ w32_sysdep_init(void)
      * after each prompt is required.
      */
     setvbuf(stdout, NULL, _IOLBF, 4096);
-    err = WSAStartup(MAKEWORD(2, 0), &WsaData);
+
+    err = w32_socket_init();
     if (err != 0) {
 	printf("WSAStartup Failed, error code %d\n", err);
 	exit(1);
     }
-}
-
-/*
- * POSIX compatible socket() replacement
- */
-#undef socket
-int
-w32_socket(int domain, int type, int protocol)
-{
-    SOCKET sock;
-
-    /*
-     * We have to use WSASocket() to create non-overlapped IO sockets.
-     * Overlapped IO sockets cannot be used with read/write.
-     */
-    sock = WSASocket(domain, type, protocol, NULL, 0, 0);
-    if (sock == INVALID_SOCKET) {
-	w32_set_winsock_errno();
-	return -1;
-    }
-    return W32_SOCKET_TO_FD(sock);
-}
-
-/*
- * POSIX compatible connect() replacement
- */
-#undef connect
-int
-w32_connect(int sockfd, const struct sockaddr *addr, int addrlen)
-{
-    SOCKET sock = W32_FD_TO_SOCKET(sockfd);
-    int result;
-
-    result = connect(sock, addr, addrlen);
-    if (result == SOCKET_ERROR) {
-	/* FIXME map WSAEWOULDBLOCK to EINPROGRESS */
-	w32_set_winsock_errno();
-	return -1;
-    }
-    return result;
-}
-
-/*
- * POSIX compatible recv() replacement
- */
-#undef recv
-int
-w32_recv(int sockfd, void *buffer, size_t buf_size, int flags)
-{
-    SOCKET socket = W32_FD_TO_SOCKET(sockfd);
-    int result;
-
-    result = recv(socket, buffer, buf_size, flags);
-    if (result == SOCKET_ERROR) {
-	w32_set_winsock_errno();
-	return -1;
-    }
-    return result;
-}
-
-/*
- * POSIX compatible send() replacement
- */
-int
-w32_send(int sockfd, const void *buffer, size_t buf_size, int flags)
-{
-    SOCKET socket = W32_FD_TO_SOCKET(sockfd);
-    int result;
-
-    result = send(socket, buffer, buf_size, flags);
-    if (result == SOCKET_ERROR)
-	w32_set_winsock_errno();
-    return result;
-}
-
-/*
- * POSIX compatible close() replacement
- */
-int
-w32_close(int fd)
-{
-    SOCKET sock;
-
-    if (fd_is_socket(fd, &sock)) {
-	if (closesocket(sock)) {
-	    w32_set_winsock_errno();
-	    return -1;
-	}
-	/*
-	 * This always fails because the underlying handle is already
-	 * gone, but it closes the fd just fine.
-	 */
-	_close(fd);
-	return 0;
-    }
-    return _close(fd);
 }
 
 #endif /* _WIN32 */

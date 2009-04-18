@@ -43,6 +43,8 @@ typedef int socklen_t;
     w32_accept((fd), (addr), (addrlen))
 #define bind(fd, name, namelen) \
     w32_bind((fd), (name), (namelen))
+#define connect(fd, addr, addrlen) \
+    w32_connect((fd), (addr), (addrlen))
 #define listen(fd, backlog) \
     w32_listen((fd), (backlog))
 #define setsockopt(fd, level, optname, optval, optlen) \
@@ -54,6 +56,7 @@ typedef int socklen_t;
 
 extern int w32_accept(int fd, struct sockaddr *addr, socklen_t *addrlen);
 extern int w32_bind(int fd, const struct sockaddr *name, socklen_t namelen);
+extern int w32_connect(int fd, const struct sockaddr *addr, socklen_t addrlen);
 extern int w32_listen(int fd, int backlog);
 extern int w32_setsockopt(int fd, int level, int optname,
 			  const void *optval, socklen_t optlen);

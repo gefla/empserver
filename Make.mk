@@ -74,7 +74,8 @@ gamedir := $(localstatedir)/empire
 builtindir := $(datadir)/empire/builtin
 einfodir := $(datadir)/empire/info.nr
 ehtmldir := $(datadir)/empire/info.html
-client/w32 := sys/uio.h w32io.c w32types.h
+client/w32 := arpa/inet.h netdb.h netinet/in.h sys/time.h sys/socket.h	\
+sys/uio.h unistd.h w32io.c w32sockets.c w32types.h
 
 # How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.

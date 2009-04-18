@@ -39,8 +39,8 @@
 #include <stdlib.h>
 #ifndef _WIN32
 #include <pwd.h>
-#include <unistd.h>
 #endif
+#include <unistd.h>
 #include "misc.h"
 #include "version.h"
 

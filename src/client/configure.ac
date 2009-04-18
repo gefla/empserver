@@ -56,6 +56,7 @@ LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
 if test "$Windows_API" = yes; then
 	AC_LIBOBJ([w32/w32io])
+	AC_LIBOBJ([w32/w32sockets])
 fi
 
 

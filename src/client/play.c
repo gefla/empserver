@@ -39,14 +39,13 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef _WIN32
-#include <sys/select.h>
-#include <unistd.h>
-#else
+#ifdef _WIN32
 #include <process.h>
-#include <io.h>
-#include "w32types.h"
+#include <sys/socket.h>
+#else
+#include <sys/select.h>
 #endif
+#include <unistd.h>
 #include "linebuf.h"
 #include "misc.h"
 #include "proto.h"
@@ -204,7 +203,7 @@ w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* 
     default:
 	assert(0);
     }
-    sock = W32_FD_TO_SOCKET(sockfd);
+    sock = w32_fd2socket(sockfd);
 
     assert(wrfd->fd_count == 0
 	   || (wrfd->fd_count == 1 && wrfd->fd_array[0] == (SOCKET)sockfd));
@@ -295,8 +294,6 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
     return res;
 }
 #define ring_from_file w32_ring_from_file_or_bounce_buf
-#define read(sock, buffer, buf_size) \
-	w32_recv((sock), (buffer), (buf_size), 0)
 #define select(nfds, rd, wr, error, time) \
 	w32_select((nfds), (rd), (wr), (error), (time))
 #define sigemptyset(mask) ((void)0)

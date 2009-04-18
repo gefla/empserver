@@ -39,22 +39,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _WIN32
-#include "w32types.h"
-#else
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#endif
 #include "misc.h"
 #include "proto.h"
-
-#ifdef _WIN32
-#define read(sock, buffer, buf_size) \
-	w32_recv((sock), (buffer), (buf_size), 0)
-#define write(sock, buffer, buf_size) \
-	w32_send((sock), (buffer), (buf_size), 0)
-#endif
 
 int
 recvline(int s, char *buf)

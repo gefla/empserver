@@ -148,6 +148,25 @@ w32_bind(int fd, const struct sockaddr *name, socklen_t namelen)
 }
 
 /*
+ * POSIX compatible connect() replacement
+ */
+#undef connect
+int
+w32_connect(int sockfd, const struct sockaddr *addr, int addrlen)
+{
+    SOCKET sock = W32_FD_TO_SOCKET(sockfd);
+    int result;
+
+    result = connect(sock, addr, addrlen);
+    if (result == SOCKET_ERROR) {
+	/* FIXME map WSAEWOULDBLOCK to EINPROGRESS */
+	w32_set_winsock_errno();
+	return -1;
+    }
+    return result;
+}
+
+/*
  * POSIX equivalent for listen().
  */
 #undef listen
