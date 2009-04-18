@@ -57,16 +57,10 @@
 
 /* stdlib.h */
 #include <io.h>
-#define initstate(seed, state, size) \
-    __initstate((seed), (state), (size))
-#define setstate(state) __setstate((state))
-#define srandom(seed) __srandom((seed))
-#define random() __random()
-
-extern char *__initstate(unsigned seed, char *state, size_t size);
-extern long __random(void);
-extern char *__setstate(char *state);
-extern void __srandom(unsigned seed);
+extern char *initstate(unsigned seed, char *state, size_t size);
+extern long random(void);
+extern char *setstate(char *state);
+extern void srandom(unsigned seed);
 
 /* sys/types.h */
 typedef unsigned short mode_t;

@@ -133,6 +133,8 @@ endif
 
 ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
 libs += lib/libw32.a
+LDLIBS += -liberty
+LIBS_server += -liberty
 endif
 
 # Cleanliness
