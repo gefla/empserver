@@ -25,15 +25,21 @@
  *
  *  ---
  *
- *  w32misc.h: POSIX emulation for WIN32
- *	Stuff that can not be put in the equivalent include files
+ *  w32misc.h: POSIX emulation for WIN32, miscellaneous stuff
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  */
 
+/*
+ * Stuff that cannot be put in the "correct" include files.  More of
+ * that in unistd.h.
+ */
+
 #ifndef W32MISC_H
 #define W32MISC_H
+
+#include <stddef.h>
 
 #ifdef _MSC_VER
 /* integral mismatch, due to misuse of sector short */
@@ -52,21 +58,22 @@
 #endif
 
 /* stdio.h */
-#define vsnprintf _vsnprintf
+#ifdef _MSC_VER
 #define snprintf _snprintf
+#define vsnprintf _vsnprintf
+#endif
 
 /* stdlib.h */
-#include <io.h>
 extern char *initstate(unsigned seed, char *state, size_t size);
 extern long random(void);
 extern char *setstate(char *state);
 extern void srandom(unsigned seed);
 
 /* sys/types.h */
+#ifdef _MSC_VER
 typedef unsigned short mode_t;
 typedef long off_t;
 typedef int pid_t;
-#ifdef _MSC_VER
 typedef int __w64 ssize_t;
 #endif
 

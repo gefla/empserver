@@ -34,6 +34,7 @@
 
 #ifndef _SYSDEF_W32_H
 #include <getopt.h>
+#include <stdio.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
@@ -78,7 +79,9 @@ extern void w32_sysdep_init(void);
 #define connect(sockfd, addr, addrlen) \
     w32_connect((sockfd), (addr), (addrlen))
 
+#ifdef _MSC_VER
 #define pclose _pclose
 #define popen _popen
 #define snprintf _snprintf
+#endif
 #endif
