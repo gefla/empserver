@@ -77,7 +77,7 @@ readv(int fd, const struct iovec *iov, int iovcnt)
     }
 
     bytes_read = read(fd, buffer, total_bytes);
-    if (bytes_read <= 0) {
+    if (bytes_read < 0) {
 	free(buffer);
 	return -1;
     }
@@ -96,7 +96,6 @@ readv(int fd, const struct iovec *iov, int iovcnt)
     }
 
     free(buffer);
-
     return bytes_read;
 }
 
@@ -128,10 +127,6 @@ writev(int fd, const struct iovec *iov, int iovcnt)
     }
 
     bytes_written = write(fd, buffer, total_bytes);
-
     free(buffer);
-
-    if (bytes_written <= 0)
-	return -1;
     return bytes_written;
 }
