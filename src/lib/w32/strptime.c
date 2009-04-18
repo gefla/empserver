@@ -1,13 +1,59 @@
-#include "misc.h"
-
 /*
  * Ported from NetBSD to Windows by Ron Koenderink, 2007
+ * Port rebased by Markus Armbruster, 2009
  */
 
-/*	$NetBSD: strptime.c,v 1.25 2005/11/29 03:12:00 christos Exp $	*/
+#include "w32misc.h"
+
+typedef unsigned char u_char;
+typedef unsigned int uint;
+
+typedef struct {
+	const char *abday[7];
+	const char *day[7];
+	const char *abmon[12];
+	const char *mon[12];
+	const char *am_pm[2];
+	const char *d_t_fmt;
+	const char *d_fmt;
+	const char *t_fmt;
+	const char *t_fmt_ampm;
+} TimeLocale;
+
+static const TimeLocale DefaultTimeLocale = 
+{
+	{
+		"Sun","Mon","Tue","Wed","Thu","Fri","Sat",
+	},
+	{
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+		"Friday", "Saturday"
+	},
+	{
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+	},
+	{
+		"January", "February", "March", "April", "May", "June", "July",
+		"August", "September", "October", "November", "December"
+	},
+	{
+		"AM", "PM"
+	},
+	"%a %b %e %H:%M:%S %Y",
+	"%m/%d/%y",
+	"%H:%M:%S",
+	"%I:%M:%S %p"
+};
+
+#define _CurrentTimeLocale (&DefaultTimeLocale)
+#define TM_YEAR_BASE 1900
+#define __UNCONST(a)	((void *)(unsigned long)(const void *)(a))
+
+/*	$NetBSD: strptime.c,v 1.28 2008/04/28 20:23:01 martin Exp $	*/
 
 /*-
- * Copyright (c) 1997, 1998, 2005 The NetBSD Foundation, Inc.
+ * Copyright (c) 1997, 1998, 2005, 2008 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code was contributed to The NetBSD Foundation by Klaus Klein.
@@ -21,13 +67,6 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *        This product includes software developed by the NetBSD
- *        Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
@@ -42,64 +81,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !defined(_WIN32)
+#if 0
 #include <sys/cdefs.h>
-#endif
-
 #if defined(LIBC_SCCS) && !defined(lint)
-__RCSID("$NetBSD: strptime.c,v 1.25 2005/11/29 03:12:00 christos Exp $");
+__RCSID("$NetBSD: strptime.c,v 1.28 2008/04/28 20:23:01 martin Exp $");
 #endif
 
-#if !defined(_WIN32)
 #include "namespace.h"
 #include <sys/localedef.h>
-#else
-typedef unsigned char u_char;
-typedef unsigned int uint;
 #endif
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
 #include <time.h>
-#if !defined(_WIN32)
+#if 0
 #include <tzfile.h>
-#endif
 
 #ifdef __weak_alias
 __weak_alias(strptime,_strptime)
 #endif
-
-#if !defined(_WIN32)
-#define	_ctloc(x)		(_CurrentTimeLocale->x)
-#else
-#define _ctloc(x)   (x)
-const char *abday[] = {
-	"Sun", "Mon", "Tue", "Wed",
-	"Thu", "Fri", "Sat"
-};
-const char *day[] = {
-	"Sunday", "Monday", "Tuesday", "Wednesday",
-	"Thursday", "Friday", "Saturday"
-};
-const char *abmon[] =	{
-	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-};
-const char *mon[] = {
-	"January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"
-};
-const char *am_pm[] = {
-	"AM", "PM"
-};
-char *d_t_fmt = "%a %Ef %T %Y";
-char *t_fmt_ampm = "%I:%M:%S %p";
-char *t_fmt = "%H:%M:%S";
-char *d_fmt = "%m/%d/%y";
-#define TM_YEAR_BASE 1900
-#define __UNCONST(x) ((void *)(((const char *)(x) - (const char *)0) + (char *)0))
-
 #endif
+
+#define	_ctloc(x)		(_CurrentTimeLocale->x)
+
 /*
  * We do not implement alternate representations. However, we always
  * check whether a given modifier is allowed for a certain conversion.
@@ -108,6 +112,7 @@ char *d_fmt = "%m/%d/%y";
 #define ALT_O			0x02
 #define	LEGAL_ALT(x)		{ if (alt_format & ~(x)) return NULL; }
 
+static const char gmt[4] = { "GMT" };
 
 static const u_char *conv_num(const unsigned char *, int *, uint, uint);
 static const u_char *find_string(const u_char *, int *, const char * const *,
@@ -171,6 +176,11 @@ literal:
 
 		case 'D':	/* The date as "%m/%d/%y". */
 			new_fmt = "%m/%d/%y";
+			LEGAL_ALT(0);
+			goto recurse;
+
+		case 'F':	/* The date as "%Y-%m-%d". */
+			new_fmt = "%Y-%m-%d";
 			LEGAL_ALT(0);
 			goto recurse;
 
@@ -326,6 +336,36 @@ literal:
 					i = i + 1900 - TM_YEAR_BASE;
 			}
 			tm->tm_year = i;
+			continue;
+
+		case 'Z':
+			tzset();
+			if (strncmp((const char *)bp, gmt, 3) == 0) {
+				tm->tm_isdst = 0;
+#ifdef TM_GMTOFF
+				tm->TM_GMTOFF = 0;
+#endif
+#ifdef TM_ZONE
+				tm->TM_ZONE = gmt;
+#endif
+				bp += 3;
+			} else {
+				const unsigned char *ep;
+
+				ep = find_string(bp, &i,
+					       	 (const char * const *)tzname,
+					       	  NULL, 2);
+				if (ep != NULL) {
+					tm->tm_isdst = i;
+#ifdef TM_GMTOFF
+					tm->TM_GMTOFF = -(timezone);
+#endif
+#ifdef TM_ZONE
+					tm->TM_ZONE = tzname[i];
+#endif
+				}
+				bp = ep;
+			}
 			continue;
 
 		/*
