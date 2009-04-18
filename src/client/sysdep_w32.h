@@ -33,13 +33,10 @@
  */
 
 #ifndef _SYSDEF_W32_H
+#include <getopt.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
-
-extern int getopt(int, char * const[], const char *);
-extern char *optarg;
-extern int optind, opterr, optopt;
 
 #ifdef _MSC_VER
 typedef int __w64 ssize_t;

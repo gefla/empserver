@@ -274,9 +274,6 @@ $(server): $(filter src/server/% src/lib/commands/% src/lib/player/% src/lib/sub
 
 $(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
-ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
-$(client): src/lib/w32/getopt.o
-endif
 
 $(util): $(libs)
 
@@ -336,7 +333,6 @@ dist-client: $(cli_distgen)
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
 	-C $(srcdir)/include proto.h version.h				\
 	-C $(srcdir)/src/lib/global version.c				\
-	-C $(srcdir)/src/lib/w32 getopt.h getopt.c			\
 	-C $(srcdir)/man empire.6					\
 	-C $(srcdir) COPYING INSTALL install-sh
 

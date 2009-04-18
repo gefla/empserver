@@ -46,18 +46,12 @@
  * breaks if the system's declaration is included later.  Include them
  * here.  Major name space pollution, can't be helped.
  */
+#include <getopt.h>
 #include <io.h>
 #include <direct.h>
 #include <sys/stat.h>
 
 #include "w32misc.h"
-
-/*
- * getopt.c
- */
-extern int getopt(int, char * const[], const char *);
-extern char *optarg;
-extern int optind, opterr, optopt;
 
 /*
  * w32file.c
