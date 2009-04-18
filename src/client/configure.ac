@@ -54,6 +54,9 @@ MY_WINDOWS_API
 ### Checks for libraries.
 LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
+if test "$Windows_API" = yes; then
+	AC_LIBOBJ([w32/w32io])
+fi
 
 
 ### Checks for header files.
@@ -62,6 +65,7 @@ LIB_SOCKET_NSL
 ### Checks for typedefs, structures, and compiler characteristics.
 
 if test "$Windows_API" = yes; then
+	CPPFLAGS="$CPPFLAGS -Iw32"
 	CFLAGS="$CFLAGS -mthreads"
 fi
 

@@ -45,6 +45,7 @@
 #else
 #include <process.h>
 #include <io.h>
+#include "w32types.h"
 #endif
 #include "linebuf.h"
 #include "misc.h"

@@ -50,8 +50,7 @@
 #include <io.h>
 #include <direct.h>
 #include <sys/stat.h>
-
-#include "w32misc.h"
+#include "w32types.h"
 
 /*
  * w32file.c

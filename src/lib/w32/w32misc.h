@@ -75,14 +75,6 @@ extern long __random(void);
 extern char *__setstate(char *state);
 extern void __srandom(unsigned seed);
 
-/* sys/types.h */
-#ifdef _MSC_VER
-typedef unsigned short mode_t;
-typedef long off_t;
-typedef int pid_t;
-typedef int __w64 ssize_t;
-#endif
-
 /* time.h */
 struct tm;
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);

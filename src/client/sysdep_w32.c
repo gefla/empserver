@@ -186,43 +186,6 @@ w32_recv(int sockfd, void *buffer, size_t buf_size, int flags)
 }
 
 /*
- * POSIX compatible writev() replacement specialized to sockets
- * Modelled after the GNU's libc/sysdeps/posix/writev.c
- */
-ssize_t
-w32_writev_socket(int sockfd, const struct iovec *iov, int iovcnt)
-{
-    SOCKET sock = W32_FD_TO_SOCKET(sockfd);
-    int i;
-    char *buffer, *buffer_location;
-    size_t total_bytes = 0;
-    int bytes_written;
-
-    for (i = 0; i < iovcnt; i++)
-	total_bytes += iov[i].iov_len;
-
-    buffer = malloc(total_bytes);
-    if (buffer == NULL && total_bytes != 0) {
-	errno = ENOMEM;
-	return -1;
-    }
-
-    buffer_location = buffer;
-    for (i = 0; i < iovcnt; i++) {
-	memcpy(buffer_location, iov[i].iov_base, iov[i].iov_len);
-	buffer_location += iov[i].iov_len;
-    }
-
-    bytes_written = send(sock, buffer, total_bytes, 0);
-    free(buffer);
-    if (bytes_written == SOCKET_ERROR) {
-	w32_set_winsock_errno();
-	return -1;
-    }
-    return bytes_written;
-}
-
-/*
  * POSIX compatible send() replacement
  */
 int
@@ -258,50 +221,6 @@ w32_close(int fd)
 	return 0;
     }
     return _close(fd);
-}
-
-/*
- * POSIX compatible readv() replacement specialized to files.
- * Modelled after the GNU's libc/sysdeps/posix/readv.c
- */
-ssize_t
-w32_readv_fd(int fd, const struct iovec *iov, int iovcnt)
-{
-    int i;
-    char *buffer, *buffer_location;
-    size_t total_bytes = 0;
-    int bytes_read;
-    size_t bytes_left;
-
-    for (i = 0; i < iovcnt; i++) {
-	total_bytes += iov[i].iov_len;
-    }
-
-    buffer = malloc(total_bytes);
-    if (buffer == NULL && total_bytes != 0) {
-	errno = ENOMEM;
-	return -1;
-    }
-
-    bytes_read = read(fd, buffer, total_bytes);
-    if (bytes_read < 0)
-	return -1;
-
-    bytes_left = bytes_read;
-    buffer_location = buffer;
-    for (i = 0; i < iovcnt; i++) {
-	size_t copy = MIN(iov[i].iov_len, bytes_left);
-
-	memcpy(iov[i].iov_base, buffer_location, copy);
-
-	buffer_location += copy;
-	bytes_left -= copy;
-	if (bytes_left == 0)
-	    break;
-    }
-
-    free(buffer);
-    return bytes_read;
 }
 
 #endif /* _WIN32 */

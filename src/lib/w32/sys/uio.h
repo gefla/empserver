@@ -35,7 +35,7 @@
 #define SYS_UIO_H
 
 #include <sys/types.h>
-#include "w32misc.h"
+#include "w32types.h"
 
 struct iovec {
     /* Base address of a memory region for input or output. */

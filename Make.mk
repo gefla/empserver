@@ -74,6 +74,7 @@ gamedir := $(localstatedir)/empire
 builtindir := $(datadir)/empire/builtin
 einfodir := $(datadir)/empire/info.nr
 ehtmldir := $(datadir)/empire/info.html
+client/w32 := sys/uio.h w32io.c w32types.h
 
 # How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.
@@ -133,6 +134,7 @@ endif
 
 ifeq ($(empthread),Windows)	# really: W32, regardless of thread package
 libs += lib/libw32.a
+$(client): lib/libw32.a
 endif
 
 # Cleanliness
@@ -333,6 +335,7 @@ dist-client: $(cli_distgen)
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
 	-C $(srcdir)/include proto.h version.h				\
 	-C $(srcdir)/src/lib/global version.c				\
+	-C $(srcdir)/src/lib $(addprefix w32/, $(client/w32))		\
 	-C $(srcdir)/man empire.6					\
 	-C $(srcdir) COPYING INSTALL install-sh
 

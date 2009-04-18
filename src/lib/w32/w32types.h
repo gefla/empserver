@@ -25,50 +25,22 @@
  *
  *  ---
  *
- *  sysdep_w32.h: system dependent support for WIN32 environments
+ *  w32types.h: POSIX emulation for WIN32, missing types
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
  *     Markus Armbruster, 2009
  */
 
-#ifndef _SYSDEF_W32_H
-#include <getopt.h>
-#include <stdio.h>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <windows.h>
+#ifndef W32TYPES_H
+#define W32TYPES_H
 
-struct passwd {
-    char *pw_name;
-};
-
-#define W32_FD_TO_SOCKET(fd) ((SOCKET)_get_osfhandle((fd)))
-#define W32_SOCKET_TO_FD(fh) (_open_osfhandle((long)(fh), O_RDWR | O_BINARY))
-
-extern void w32_set_winsock_errno(void);
-
-extern int w32_recv(int sockfd, void *, size_t, int flags);
-extern int w32_send(int sockfd, const void *, size_t, int flags);
-extern int w32_close(int fd);
-extern int w32_socket(int domain, int type, int protocol);
-extern int w32_connect(int sockfd, const struct sockaddr *, int addrlen);
-
-extern struct passwd *w32_getpw(void);
-extern void w32_sysdep_init(void);
-
-#define recv(sockfd, buffer, buf_size, flags) \
-    w32_recv((sockfd), (buffer), (buf_size), (flags))
-#define close(fd) \
-    w32_close((fd))
-#define socket(domain, type, protocol) \
-    w32_socket((domain), (type), (protocol))
-#define connect(sockfd, addr, addrlen) \
-    w32_connect((sockfd), (addr), (addrlen))
-
+/* sys/types.h */
 #ifdef _MSC_VER
-#define pclose _pclose
-#define popen _popen
-#define snprintf _snprintf
+typedef unsigned short mode_t;
+typedef long off_t;
+typedef int pid_t;
+typedef int __w64 ssize_t;
 #endif
+
 #endif

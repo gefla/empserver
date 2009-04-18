@@ -39,7 +39,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifndef _WIN32
+#ifdef _WIN32
+#include "w32types.h"
+#else
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>

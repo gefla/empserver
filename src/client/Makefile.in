@@ -35,6 +35,7 @@
 CC = @CC@
 CFLAGS = @CFLAGS@ @CPPFLAGS@ @DEFS@ -I.
 LDFLAGS = @LDFLAGS@
+LIBOBJS := @LIBOBJS@
 LIBS = @LIBS@
 E = @EXEEXT@
 O = @OBJEXT@
@@ -54,7 +55,8 @@ VPATH = @srcdir@
 
 prog = empire$E
 obj = expect.$O host.$O ipglob.$O linebuf.$O login.$O main.$O play.$O	\
-ringbuf.$O secure.$O servcmd.$O sysdep_w32.$O termlib.$O version.$O
+ringbuf.$O secure.$O servcmd.$O sysdep_w32.$O termlib.$O version.$O	\
+$(LIBOBJS)
 
 all: $(prog)
 
@@ -85,10 +87,15 @@ linebuf.$O: linebuf.h
 login.$O: misc.h sysdep_w32.h proto.h
 main.$O: misc.h sysdep_w32.h version.h
 play.$O: linebuf.h misc.h sysdep_w32.h proto.h ringbuf.h secure.h
-ringbuf.$O: misc.h sysdep_w32.h ringbuf.h
+ringbuf.$O: ringbuf.h
 secure.$O: ringbuf.h secure.h
 servcmd.$O: misc.h sysdep_w32.h proto.h secure.h
 sysdep_w32.$O: misc.h sysdep_w32.h
 termlib.$O: misc.h
 version.$O: version.h
 $(obj): config.h
+
+expect.$O: w32/w32types.h
+play.$O: w32/w32types.h
+ringbuf.$O: w32/sys/uio.h w32/w32types.h
+w32/w32io.$O: misc.h w32/sys/uio.h w32/w32types.h
