@@ -227,7 +227,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!snxtitem(&targets, EF_SHIP,
 		      player->argp[4], "Ship to be tended? "))
 	    return RET_FAIL;
-	if (!check_land_ok(&land))
+	if (!check_ship_ok(tenderp) || !check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {
 	    if (!player->owner &&
