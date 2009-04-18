@@ -87,7 +87,4 @@ extern void sysdep_init(void);
 #define pclose _pclose
 #define popen _popen
 #define snprintf _snprintf
-#define getsose() ((void)0)
-#define putso() ((void)0)
-#define putse() ((void)0)
-#endif /* sysdef_w32.h */
+#endif

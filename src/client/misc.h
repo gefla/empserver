@@ -53,7 +53,11 @@ extern FILE *auxfp;
 void getsose(void);
 void putso(void);
 void putse(void);
-#endif
+#else  /* !_WIN32 */
+#define getsose() ((void)0)
+#define putso() ((void)0)
+#define putse() ((void)0)
+#endif	/* !WIN32 */
 int recvline(int s, char *buf);
 int parseid(char *);
 int expect(int s, int match, char *buf);
