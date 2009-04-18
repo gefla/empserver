@@ -157,6 +157,11 @@ bomb(void)
 		plp = (struct plist *)qp;
 		changed_plane_aborts(plp);
 	    }
+	    for (qp = esc_list.q_forw; qp != &esc_list; qp = next) {
+		next = qp->q_forw;
+		plp = (struct plist *)qp;
+		changed_plane_aborts(plp);
+	    }
 	    break;
 	case 's':
 	    if (opt_SLOW_WAR) {
