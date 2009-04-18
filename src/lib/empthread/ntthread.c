@@ -52,14 +52,13 @@
 #include <stdarg.h>
 #include <sys/types.h>
 #include <time.h>
-#include <winsock2.h>
-#undef NS_ALL
 #include <windows.h>
 #include <process.h>
 #include "misc.h"
 #include "empthread.h"
 #include "prototypes.h"
 #include "server.h"
+#include "sys/socket.h"
 
 #define loc_MIN_THREAD_STACK  16384
 
