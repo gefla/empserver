@@ -28,7 +28,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2008
+#      Markus Armbruster, 2005-2009
 #
 # Process this file with autoconf to produce a configure script.
 
@@ -54,7 +54,6 @@ MY_WINDOWS_API
 ### Checks for libraries.
 LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
-AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
 
 
 ### Checks for header files.
@@ -80,6 +79,7 @@ test "$EMPIREHOST" || EMPIREHOST=blitz.wolfpackempire.com
 AC_ARG_VAR([EMPIREPORT], [Default port [6789]])
 test "$EMPIREPORT" || EMPIREPORT=6789
 
+MY_WITH_TERMINFO
 
 ### Output
 

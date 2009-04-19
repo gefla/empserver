@@ -28,7 +28,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2008
+#      Markus Armbruster, 2005-2009
 #
 # Process this file with autoconf to produce a configure script.
 
@@ -73,7 +73,6 @@ save_LIBS="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
 LIBS_server="$LIBS"
-AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses])
 LIBS_client="$LIBS"
 LIBS="$save_LIBS"
 AC_SUBST(LIBS_server)
@@ -135,6 +134,12 @@ LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads]) ;;
 POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
 Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
 esac
+
+save_LIBS="$LIBS"
+LIBS="$LIBS_client"
+MY_WITH_TERMINFO
+LIBS_client="$LIBS"
+LIBS="$save_LIBS"
 
 
 ### Output

@@ -34,7 +34,7 @@
 
 #include <config.h>
 
-#ifndef _WIN32
+#ifdef HAVE_CURSES_TERMINFO
 
 #include <curses.h>
 #include <stdio.h>
@@ -77,4 +77,4 @@ putse(void)
 	putp(rmso);
 }
 
-#endif /* !_WIN32 */
+#endif /* HAVE_CURSES_TERMINFO */

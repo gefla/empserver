@@ -49,15 +49,15 @@ extern int input_fd;
 extern int send_eof;
 extern FILE *auxfp;
 
-#ifndef _WIN32
+#ifdef HAVE_CURSES_TERMINFO
 void getsose(void);
 void putso(void);
 void putse(void);
-#else  /* !_WIN32 */
+#else  /* !HAVE_CURSES_TERMINFO */
 #define getsose() ((void)0)
 #define putso() ((void)0)
 #define putse() ((void)0)
-#endif	/* !WIN32 */
+#endif	/* !HAVE_CURSES_TERMINFO */
 int recvline(int s, char *buf);
 int parseid(char *);
 int expect(int s, int match, char *buf);
