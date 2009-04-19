@@ -128,7 +128,6 @@ if test -z "$empthread"; then
     AC_MSG_ERROR([No usable thread package found])
 fi
 AC_SUBST(empthread)
-AC_MSG_NOTICE([Using $empthread threads])
 case $empthread in
 LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads]) ;;
 POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
@@ -159,3 +158,10 @@ AC_CONFIG_COMMANDS([stamp-h],
 	touch stamp-h],
 	[revctrl=$revctrl])
 AC_OUTPUT
+
+AC_MSG_NOTICE([])
+AC_MSG_NOTICE([-= Configuration summary =-])
+AC_MSG_NOTICE([Thread package: $empthread])
+AC_MSG_NOTICE([      terminfo: $with_terminfo])
+AC_MSG_NOTICE([    EMPIREHOST: $EMPIREHOST])
+AC_MSG_NOTICE([    EMPIREPORT: $EMPIREPORT])

@@ -85,3 +85,9 @@ MY_WITH_TERMINFO
 
 AC_CONFIG_FILES([Makefile ipglob.c])
 AC_OUTPUT
+
+AC_MSG_NOTICE([])
+AC_MSG_NOTICE([-= Configuration summary =-])
+AC_MSG_NOTICE([      terminfo: $with_terminfo])
+AC_MSG_NOTICE([    EMPIREHOST: $EMPIREHOST])
+AC_MSG_NOTICE([    EMPIREPORT: $EMPIREPORT])
