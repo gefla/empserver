@@ -196,7 +196,7 @@ w32_sysdep_init(void)
 
     err = w32_socket_init();
     if (err != 0) {
-	printf("WSAStartup Failed, error code %d\n", err);
+	fprintf(stderr, "WSAStartup Failed, error code %d\n", err);
 	exit(1);
     }
 }
