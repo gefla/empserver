@@ -30,14 +30,17 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998
- *     Ron Koenderink, 2004-2005
+ *     Ron Koenderink, 2004-2007
  *     Markus Armbruster, 2005-2009
  */
 
 #include <config.h>
 
 #include <stdlib.h>
-#ifndef _WIN32
+#ifdef _WIN32
+#include <windows.h>
+#include "sys/socket.h"
+#else
 #include <pwd.h>
 #endif
 #include <unistd.h>
@@ -48,9 +51,16 @@
 #define getuid() 0
 #define getpwuid(uid) ((void)(uid), w32_getpw())
 #define sysdep_init() w32_sysdep_init()
-#else
+
+struct passwd {
+    char *pw_name;
+};
+
+static struct passwd *w32_getpw(void);
+static void w32_sysdep_init(void);
+#else  /* !_WIN32 */
 #define sysdep_init() ((void)0)
-#endif
+#endif	/* !_WIN32 */
 
 static void
 print_usage(char *program_name)
@@ -147,3 +157,47 @@ main(int argc, char **argv)
 
     return 0;
 }
+
+#ifdef _WIN32
+/*
+ * Get Windows user name
+ */
+static struct passwd *
+w32_getpw(void)
+{
+    static char unamebuf[128];
+    static struct passwd pwd;
+    DWORD unamesize;
+
+    unamesize = sizeof(unamebuf);
+    if (GetUserName(unamebuf, &unamesize)) {
+	pwd.pw_name = unamebuf;
+	if (unamesize == 0 || strlen(unamebuf) == 0)
+	    pwd.pw_name = "nobody";
+    } else
+	pwd.pw_name = "nobody";
+    return &pwd;
+}
+
+static void
+w32_sysdep_init(void)
+{
+    int err;
+
+    /*
+     * stdout is unbuffered under Windows if connected to a character
+     * device, and putchar() screws up when printing multibyte strings
+     * bytewise to an unbuffered stream.  Switch stdout to line-
+     * buffered mode.  Unfortunately, ISO C allows implementations to
+     * screw that up, and of course Windows does.  Manual flushing
+     * after each prompt is required.
+     */
+    setvbuf(stdout, NULL, _IOLBF, 4096);
+
+    err = w32_socket_init();
+    if (err != 0) {
+	printf("WSAStartup Failed, error code %d\n", err);
+	exit(1);
+    }
+}
+#endif

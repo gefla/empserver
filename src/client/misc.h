@@ -35,9 +35,6 @@
 #define MISC_H
 
 #include <stdio.h>
-#ifdef _WIN32
-#include "sysdep_w32.h"
-#endif
 
 #define MAX(a, b) ((a) >= (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -58,6 +55,7 @@ void putse(void);
 #define putso() ((void)0)
 #define putse() ((void)0)
 #endif	/* !HAVE_CURSES_TERMINFO */
+
 int recvline(int s, char *buf);
 int parseid(char *);
 int expect(int s, int match, char *buf);
@@ -67,5 +65,11 @@ int play(int);
 void sendcmd(int s, char *cmd, char *arg);
 void servercmd(int, char *, int);
 void outch(char);
+
+#ifdef _MSC_VER
+#define pclose _pclose
+#define popen _popen
+#define snprintf _snprintf
+#endif
 
 #endif

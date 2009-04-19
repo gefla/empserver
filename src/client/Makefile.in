@@ -55,8 +55,7 @@ VPATH = @srcdir@
 
 prog = empire$E
 obj = expect.$O host.$O ipglob.$O linebuf.$O login.$O main.$O play.$O	\
-ringbuf.$O secure.$O servcmd.$O sysdep_w32.$O termlib.$O version.$O	\
-$(LIBOBJS)
+ringbuf.$O secure.$O servcmd.$O termlib.$O version.$O $(LIBOBJS)
 
 all: $(prog)
 
@@ -81,16 +80,15 @@ uninstall:
 	rm $(mandir)/man6/empire.6
 
 # FIXME generate from .d
-expect.$O: misc.h sysdep_w32.h proto.h
-host.$O: misc.h sysdep_w32.h
+expect.$O: misc.h proto.h
+host.$O: misc.h
 linebuf.$O: linebuf.h
-login.$O: misc.h sysdep_w32.h proto.h
-main.$O: misc.h sysdep_w32.h version.h
-play.$O: linebuf.h misc.h sysdep_w32.h proto.h ringbuf.h secure.h
+login.$O: misc.h proto.h
+main.$O: misc.h version.h
+play.$O: linebuf.h misc.h proto.h ringbuf.h secure.h
 ringbuf.$O: ringbuf.h
 secure.$O: ringbuf.h secure.h
-servcmd.$O: misc.h sysdep_w32.h proto.h secure.h
-sysdep_w32.$O: misc.h sysdep_w32.h
+servcmd.$O: misc.h proto.h secure.h
 termlib.$O: misc.h
 version.$O: version.h
 $(obj): config.h
@@ -101,6 +99,5 @@ login.$O: w32/unistd.h w32/w32types.h
 main.$O: w32/unistd.h w32/w32types.h
 play.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 ringbuf.$O: w32/sys/uio.h w32/w32types.h
-sysdep_w32.$O: w32/sys/socket.h
 w32/w32io.$O: misc.h w32/sys/uio.h w32/w32types.h
 w32/w32sockets.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
