@@ -75,7 +75,7 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
 {
     struct iop *iop;
 
-    flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK | IO_NEWSOCK);
+    flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK);
     if ((flags & (IO_READ | IO_WRITE)) == 0)
 	return NULL;
     iop = malloc(sizeof(struct iop));
@@ -87,9 +87,9 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
     iop->flags = 0;
     iop->input_timeout = timeout;
     iop->bufsize = bufsize;
-    if ((flags & IO_READ) && (flags & IO_NEWSOCK) == 0)
+    if (flags & IO_READ)
 	iop->input = ioq_create(bufsize);
-    if ((flags & IO_WRITE) && (flags & IO_NEWSOCK) == 0)
+    if (flags & IO_WRITE)
 	iop->output = ioq_create(bufsize);
     if (flags & IO_NBLOCK)
 	io_noblocking(iop, 1);	/* FIXME check success */

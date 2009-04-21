@@ -37,7 +37,6 @@
 
 #define	IO_READ		0x1
 #define IO_WRITE	0x2
-#define IO_NEWSOCK	0x4
 #define IO_NBLOCK	0x8
 #define	IO_EOF		0x10
 #define IO_ERROR	0x40
