@@ -34,6 +34,8 @@
 #ifndef SECURE_H
 #define SECURE_H
 
+#include <stddef.h>
+
 extern size_t save_input(char *);
 extern size_t seen_input(char *);
 extern void forget_input(size_t);

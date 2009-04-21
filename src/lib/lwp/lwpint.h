@@ -36,6 +36,7 @@
 #define LWPINT_H
 
 #include <signal.h>
+#include <time.h>
 #include <ucontext.h>
 
 #include "misc.h"
