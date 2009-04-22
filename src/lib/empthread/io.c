@@ -232,15 +232,7 @@ io_output(struct iop *iop, int waitforoutput)
 	return -1;
     }
 
-    /* If no bytes were written, something happened..  Like an EOF. */
-    if (cc == 0) {
-	iop->flags |= IO_EOF;
-	return 0;
-    }
-
-    /* Remove the number of written bytes from the queue. */
     ioq_dequeue(iop->output, cc);
-
     return cc;
 }
 
