@@ -37,7 +37,6 @@
 
 #define	IO_READ		0x1
 #define IO_WRITE	0x2
-#define IO_NBLOCK	0x8
 #define	IO_EOF		0x10
 #define IO_ERROR	0x40
 
@@ -48,7 +47,6 @@
 
 extern struct iop *io_open(int, int, int, struct timeval);
 extern void io_init(void);
-extern int io_noblocking(struct iop *, int);
 extern void io_close(struct iop *);
 extern int io_input(struct iop *, int);
 extern int io_inputwaiting(struct iop *);

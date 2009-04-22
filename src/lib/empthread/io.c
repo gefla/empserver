@@ -73,27 +73,33 @@ io_init(void)
 struct iop *
 io_open(int fd, int flags, int bufsize, struct timeval timeout)
 {
+    int fdfl;
     struct iop *iop;
 
-    flags = flags & (IO_READ | IO_WRITE | IO_NBLOCK);
+    flags = flags & (IO_READ | IO_WRITE);
     if ((flags & (IO_READ | IO_WRITE)) == 0)
 	return NULL;
+
+    fdfl = fcntl(fd, F_GETFL, 0);
+    if (fdfl < 0)
+	return NULL;
+    fdfl |= O_NONBLOCK;
+    if (fcntl(fd, F_SETFL, fdfl) < 0)
+	return NULL;
+
     iop = malloc(sizeof(struct iop));
     if (!iop)
 	return NULL;
     iop->fd = fd;
     iop->input = NULL;
     iop->output = NULL;
-    iop->flags = 0;
-    iop->input_timeout = timeout;
+    iop->flags = flags;
     iop->bufsize = bufsize;
+    iop->input_timeout = timeout;
     if (flags & IO_READ)
 	iop->input = ioq_create(bufsize);
     if (flags & IO_WRITE)
 	iop->output = ioq_create(bufsize);
-    if (flags & IO_NBLOCK)
-	io_noblocking(iop, 1);	/* FIXME check success */
-    iop->flags = flags;
     return iop;
 }
 
@@ -325,27 +331,6 @@ io_shutdown(struct iop *iop, int flags)
 	shutdown(iop->fd, 1);
 	ioq_drain(iop->output);
     }
-    return 0;
-}
-
-int
-io_noblocking(struct iop *iop, int value)
-{
-    int flags;
-
-    flags = fcntl(iop->fd, F_GETFL, 0);
-    if (flags < 0)
-	return -1;
-    if (value == 0)
-	flags &= ~O_NONBLOCK;
-    else
-	flags |= O_NONBLOCK;
-    if (fcntl(iop->fd, F_SETFL, flags) < 0)
-	return -1;
-    if (value == 0)
-	iop->flags &= ~IO_NBLOCK;
-    else
-	iop->flags |= IO_NBLOCK;
     return 0;
 }
 

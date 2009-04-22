@@ -82,8 +82,7 @@ player_new(int s)
     idle_timeout.tv_usec = 0 ;
     if (s >= 0) {
 	/* real player, not dummy created by update and market update */
-	lp->iop = io_open(s, IO_READ | IO_WRITE | IO_NBLOCK, IO_BUFSIZE,
-			  idle_timeout);
+	lp->iop = io_open(s, IO_READ | IO_WRITE, IO_BUFSIZE, idle_timeout);
 	if (!lp->iop) {
 	    free(lp);
 	    return NULL;
