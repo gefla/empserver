@@ -47,7 +47,7 @@ alert_deity ()
     then msg="Core dump $saved_core saved."
     else msg="Could not save core dump."
     fi
-    echo $msg | $mailx -s "emp_server dumped core" "$privlog"
+    echo $msg | $mailx -s "emp_server dumped core in $PWD" "$privlog"
 }
 
 test -n "$privlog" && trap 'alert_deity' EXIT
