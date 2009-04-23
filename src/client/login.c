@@ -52,11 +52,22 @@ ersatz_getpass(char *prompt)
     static char buf[128];
     char *p;
     size_t len;
+#ifdef _WIN32
+    DWORD mode;
+    HANDLE input_handle = GetStdHandle(STD_INPUT_HANDLE);
 
-    printf("Note: your input is echoed to the screen\n");
+    if (GetConsoleMode(input_handle, &mode))
+	SetConsoleMode(input_handle, mode & ~ENABLE_ECHO_INPUT);
+    else
+#endif
+	printf("Note: your input is echoed to the screen\n");
     printf("Your name? ");
     fflush(stdout);
     p = fgets(buf, sizeof(buf), stdin);
+#ifdef _WIN32
+    if (GetConsoleMode(input_handle, &mode))
+	SetConsoleMode(input_handle, mode | ENABLE_ECHO_INPUT);
+#endif
     if (!p)
 	return NULL;
     len = strlen(p);
