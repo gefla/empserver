@@ -181,53 +181,46 @@ io_outputwaiting(struct iop *iop)
     return ioq_qsize(iop->output);
 }
 
+/*
+ * Write output queued in IOP.
+ * If WAITFOROUTPUT != IO_NOWAIT, writing may put the thread to sleep.
+ * Return number of bytes written on success, -1 on error.
+ * In particular, return zero when nothing was written because the
+ * queue was empty, or because the write slept and got woken up (only
+ * if WAITFOROUTPUT != IO_NOWAIT), or because the write refused to
+ * sleep (only if WAITFOROUTPUT == IO_NOWAIT).
+ */
 int
 io_output(struct iop *iop, int waitforoutput)
 {
     struct iovec iov[16];
-    int cc;
-    int n;
-    int remain;
+    int n, res, cc;
 
-    /* If there is no output waiting. */
-    if (!io_outputwaiting(iop))
+    if (!ioq_qsize(iop->output))
 	return 0;
 
-    /* If the iop is not write enabled. */
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
 
-    /* If the io is marked as in error... */
     if (iop->flags & IO_ERROR)
 	return -1;
 
-    /* make the iov point to the data in the queue. */
-    /* I.E., each of the elements in the queue. */
-    /* returns the number of elements in the iov. */
     n = ioq_makeiov(iop->output, iov, IO_BUFSIZE);
 
-    if (n <= 0) {
-	return 0;
-    }
-
-    /* wait for the file to be output ready. */
     if (waitforoutput != IO_NOWAIT) {
-	/* This waits for the file to be ready for writing, */
-	/* and lets other threads run. */
-	empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
+	res = empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
+	if (res == 0)
+	    return 0;
+	if (res < 0) {
+	    iop->flags |= IO_ERROR;
+	    return -1;
+	}
     }
 
-    /* Do the actual write. */
     cc = writev(iop->fd, iov, n);
-
-    /* if it failed.... */
     if (cc < 0) {
-	/* Hmm, it would block.  file is opened noblock, soooooo.. */
-	if (errno == EAGAIN || errno == EWOULDBLOCK) {
-	    /* If there are remaining bytes, set the IO as remaining.. */
-	    remain = ioq_qsize(iop->output);
-	    return remain;
-	}
+	if (errno == EAGAIN || errno == EWOULDBLOCK)
+	    return 0;
 	iop->flags |= IO_ERROR;
 	return -1;
     }
