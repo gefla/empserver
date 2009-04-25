@@ -223,7 +223,6 @@ loc_FreeThreadInfo(empth_t *pThread)
 	    CloseHandle(pThread->hThreadEvent);
 	if (pThread->szName != NULL)
 	    free(pThread->szName);
-	memset(pThread, 0, sizeof(*pThread));
 	free(pThread);
     }
 }
