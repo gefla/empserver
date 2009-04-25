@@ -1,9 +1,48 @@
+Changes to Empire 4.3.22 - Sat Apr 25 11:56:29 UTC 2009
+ * Fix a Windows client bug that could lead to hangs, at least with
+   some versions of the C run-time.  Broken in 4.3.11.
+ * Allow building without curses terminfo.  Highlighting in the client
+   doesn't work then.
+ * Really fix bomb not to wipe out plane updates made while it asked
+   for pinpoint targets.  The fix in 4.3.21 didn't cover escorts.
+ * Fix tend land not to wipe out concurrent updates.
+ * Fix a bug in automatic supply:
+   - Ships with just two shells could fire a torpedo to return fire or
+     interdict.
+   - Ships with just one shell could use their anti-missile defense.
+   - Land units were considered in supply even when they had not quite
+     enough supplies.  Such land units could defend without penalty,
+     attack and react.
+   Broken in 4.3.20.
+ * Fix update to take dead units off carriers.
+ * Standalone client distribution built empire instead of empire.exe
+   for Windows.  Broken in 4.3.0.
+ * Fix client to abort script execution on SIGINT.
+ * Fix Windows client not to hang on EOF on standard input when that
+   is a tty.
+ * Fix a client bug that could make it hang when EOF on standard input
+   follows an execute command closely.
+ * Seamines under bridge spans were disabled a long time ago, in
+   Empire 2.  The drop command refuses to mine there.  Change mine
+   command to do so as well.
+ * Seamines under bridge spans were mistaken for landmines by ground
+   combat, land units retreating from bombs, and non-land unit ground
+   movement.
+ * When a bridge tower collapsed, its landmines magically became
+   seamines.
+ * Don't log out player when he interrupts a command.  Broken in
+   4.3.19.
+ * Code cleanup and portability improvements.
+ * Info file and documentation fixes.
+
 Changes to Empire 4.3.21 - Mon Mar  9 21:34:52 UTC 2009
  * Fix swapsector not to wipe out concurrent changes to the swapped
    sectors.
  * Fix a bug in crash dumping that could mess up the journal and, at
    least in theory, mess up commands info, read, turn, and wire;
    announcement expiry, and reading of econfig and schedule.
+ * Fix bomb not to wipe out plane updates made while it asked for
+   pinpoint targets.
  * When bombing ships with a force containing both planes with and
    without capability ASW, the bomb command could fail to report
    presence of submarines, and could refuse to bomb ships when there
@@ -189,7 +228,7 @@ Changes to Empire 4.3.17 - Sat Sep 20 16:07:44 UTC 2008
  * Wipe orders when ships, planes, land units and nukes are taken over
    violently or given away peacefully.  Fleet, wing, army and mission
    were already cleared in many, but not all cases.  Other orders were
-   never cleared: mission op areas (visible in xdump), ship autonav
+   never cleared: mission op-areas (visible in xdump), ship autonav
    orders, ship sail path (including ship to follow and mobility
    quota), land unit retreat orders, plane range limit, and land unit
    retreat percentage.
@@ -1422,7 +1461,7 @@ Changes to Empire 4.2.21 - Sat Jul 16 17:51:01 UTC 2005
  * Fix crash bug in emp_config parsing.
  * Fix buffer overruns in turn and shutdown.
  * Fix second argument of shutdown.
- * tele and turn now abort on EOF.
+ * announce, pray, telegram and turn now abort on EOF.
  * Fix display of MOTD and game down message of maximum size.
  * Correctly support telnet line termination on input.  Previously,
    carriage returns could slip into ship names and such.
