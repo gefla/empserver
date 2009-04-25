@@ -43,9 +43,7 @@ CFLAGS := @CFLAGS@
 CPPFLAGS := @CPPFLAGS@ @DEFS@
 LDFLAGS := @LDFLAGS@
 LIBOBJS := @LIBOBJS@
-LDLIBS := @LIBS@ -lm
-LIBS_client := @LIBS_client@ -lm
-LIBS_server := @LIBS_server@ -lm
+LDLIBS := -lm
 empthread := @empthread@
 ifeq ($(empthread),POSIX)
 CC := @PTHREAD_CC@
@@ -56,6 +54,9 @@ endif
 ifeq ($(empthread),Windows)
 CFLAGS := $(CFLAGS) -mthreads
 endif
+LIBS_client := @LIBS_client@ $(LDLIBS)
+LIBS_server := @LIBS_server@ $(LDLIBS)
+LDLIBS := @LIBS@ $(LDLIBS)
 CCDEPMODE := @CCDEPMODE@
 @am__fastdepCC_TRUE@how_to_dep := fast
 @am__fastdepCC_FALSE@@AMDEP_TRUE@how_to_dep := depcomp

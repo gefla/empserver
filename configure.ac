@@ -69,14 +69,10 @@ MY_WINDOWS_API
 
 ### Checks for libraries
 ACX_PTHREAD
-save_LIBS="$LIBS"
+LIBS_util="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
 LIB_SOCKET_NSL
 LIBS_server="$LIBS"
-LIBS_client="$LIBS"
-LIBS="$save_LIBS"
-AC_SUBST(LIBS_server)
-AC_SUBST(LIBS_client)
 
 
 ### Checks for header files
@@ -134,14 +130,15 @@ POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
 Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
 esac
 
-save_LIBS="$LIBS"
-LIBS="$LIBS_client"
 MY_WITH_TERMINFO
 LIBS_client="$LIBS"
-LIBS="$save_LIBS"
 
 
 ### Output
+
+LIBS="$LIBS_util"
+AC_SUBST(LIBS_client)
+AC_SUBST(LIBS_server)
 
 AC_CONFIG_FILES([GNUmakefile])
 AC_CONFIG_COMMANDS([stamp-h],
