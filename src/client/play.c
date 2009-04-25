@@ -43,6 +43,7 @@
 #include <sys/select.h>
 #include <unistd.h>
 #else
+#include <process.h>
 #include <io.h>
 #endif
 #include "linebuf.h"
@@ -132,8 +133,8 @@ sigaction(int signal, struct sigaction *action, struct sigaction *oaction)
  * WIN32 does not support select type function on console input
  * so the client uses a separate thread to read input
  */
-static DWORD WINAPI
-stdin_read_thread(LPVOID lpParam)
+static void
+stdin_read_thread(void *dummy)
 {
     for (;;) {
 	switch (WaitForSingleObject(bounce_empty, INFINITE)) {
@@ -146,7 +147,7 @@ stdin_read_thread(LPVOID lpParam)
 	    bounce_error = errno;
 	    break;
 	case WAIT_ABANDONED:
-	    return 0;
+	    return;
 	default:
 	    assert(0);
 	}
@@ -163,7 +164,7 @@ sysdep_stdin_init(void)
     bounce_empty = CreateEvent(NULL, FALSE, TRUE, NULL);
     bounce_full = CreateEvent(NULL, TRUE, FALSE, NULL);
     ctrl_c_event = CreateEvent(NULL, FALSE, FALSE, NULL);
-    CreateThread(NULL, 0, stdin_read_thread, NULL, 0, NULL);
+    _beginthread(stdin_read_thread, 0, NULL);
 }
 
 /*
