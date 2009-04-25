@@ -61,7 +61,7 @@ ersatz_getpass(char *prompt)
     else
 #endif
 	printf("Note: your input is echoed to the screen\n");
-    printf("Your name? ");
+    printf("%s", prompt);
     fflush(stdout);
     p = fgets(buf, sizeof(buf), stdin);
 #ifdef _WIN32
