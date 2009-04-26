@@ -109,6 +109,7 @@ void
 lwp_rwlock_unlock(struct lwp_rwlock *rwlock)
 {
     struct lwpProc *p;
+    int maxpri;
 
     lwpStatus(LwpCurrent, "unlocking rwlock %s", rwlock->name);
     if (CANT_HAPPEN(rwlock->count == 0))
@@ -121,14 +122,19 @@ lwp_rwlock_unlock(struct lwp_rwlock *rwlock)
     if (rwlock->count == 0 && rwlock->wq.head) {
 	p = lwpGetFirst(&rwlock->wq);
 	lwpStatus(p, "wake up next writer of rwlock %s", rwlock->name);
+	maxpri = p->pri;
+	lwpReady(p);
     } else if (rwlock->count >= 0 && rwlock->rq.head && !rwlock->wq.head) {
-	p = lwpGetFirst(&rwlock->rq);
-	lwpStatus(p, "wake up next reader of rwlock %s", rwlock->name);
+	maxpri = 0;
+	while ((p = lwpGetFirst(&rwlock->rq))) {
+	    lwpStatus(p, "wake up next reader of rwlock %s", rwlock->name);
+	    maxpri = MAX(maxpri, p->pri);
+	    lwpReady(p);
+	}
     } else
 	return;
 
-    lwpReady(p);
-    if (LwpCurrent->pri < p->pri) {
+    if (LwpCurrent->pri < maxpri) {
 	lwpStatus(LwpCurrent, "yielding to thread with higher priority");
 	lwpYield();
     }
