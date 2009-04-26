@@ -102,7 +102,7 @@ struct loc_Thread {
  * any state:
  *	nwrite >= 0
  *	nread >= 0
-
+ *
  * if unlocked:
  *	can_read set
  *	can_write set
@@ -293,15 +293,15 @@ static BOOL WINAPI
 loc_Exit_Handler(DWORD fdwCtrlType)
 {
     switch (fdwCtrlType) {
-        case CTRL_C_EVENT:
-        case CTRL_CLOSE_EVENT:
-        case CTRL_BREAK_EVENT:
-        case CTRL_LOGOFF_EVENT:
-        case CTRL_SHUTDOWN_EVENT:
-	    empth_request_shutdown();
-            return TRUE;
-        default:
-            return FALSE;
+    case CTRL_C_EVENT:
+    case CTRL_CLOSE_EVENT:
+    case CTRL_BREAK_EVENT:
+    case CTRL_LOGOFF_EVENT:
+    case CTRL_SHUTDOWN_EVENT:
+	empth_request_shutdown();
+	return TRUE;
+    default:
+	return FALSE;
     }
 }
 
@@ -457,7 +457,7 @@ empth_create(void (*entry)(void *), int size, int flags,
     empth_yield();
     return pThread;
 
-  bad:
+bad:
     if (pThread) {
 	loc_FreeThreadInfo(pThread);
     }
@@ -663,7 +663,7 @@ empth_rwlock_create(char *name)
 
     if ((rwlock->can_read = CreateEvent(NULL, TRUE, TRUE, NULL)) == NULL) {
 	logerror("rwlock_create: failed to create reader event %s at %s:%d",
-	    name, __FILE__, __LINE__);
+		 name, __FILE__, __LINE__);
 	free(rwlock->name);
 	free(rwlock);
 	return NULL;
@@ -671,7 +671,7 @@ empth_rwlock_create(char *name)
 
     if ((rwlock->can_write = CreateEvent(NULL, FALSE, TRUE, NULL)) == NULL) {
 	logerror("rwlock_create: failed to create writer event %s at %s:%d",
-	    name, __FILE__, __LINE__);
+		 name, __FILE__, __LINE__);
 	free(rwlock->name);
 	CloseHandle(rwlock->can_read);
 	free(rwlock);
@@ -717,7 +717,7 @@ empth_rwlock_unlock(empth_rwlock_t *rwlock)
 {
     if (CANT_HAPPEN(!rwlock->nread && !rwlock->nwrite))
 	return;
-   if (rwlock->nread) { /* holding read lock */
+    if (rwlock->nread) {	/* holding read lock */
 	rwlock->nread--;
 	if (rwlock->nread == 0)
 	    SetEvent(rwlock->can_write);
