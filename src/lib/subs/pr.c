@@ -152,7 +152,7 @@ pr_flash(struct player *pl, char *format, ...)
     if (!(pl->flags & PF_UTF8))
 	copy_utf8_to_ascii_no_funny(buf, buf);
     pr_player(pl, C_FLASH, buf);
-    io_output(pl->iop, IO_NOWAIT);
+    io_output(pl->iop, 0);
 }
 
 /*
@@ -173,7 +173,7 @@ pr_inform(struct player *pl, char *format, ...)
     (void)vsprintf(buf, format, ap);
     va_end(ap);
     pr_player(pl, C_INFORM, buf);
-    io_output(pl->iop, IO_NOWAIT);
+    io_output(pl->iop, 0);
 }
 
 /*
@@ -205,7 +205,7 @@ pr_wall(char *format, ...)
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_player(p, C_FLASH, buf);
-	io_output(p->iop, IO_NOWAIT);
+	io_output(p->iop, 0);
     }
 }
 
@@ -233,11 +233,9 @@ pr_player(struct player *pl, int id, char *buf)
 	p = strchr(bp, '\n');
 	if (p != NULL) {
 	    len = (p - bp) + 1;
-	    if ((pl->command && (pl->command->c_flags & C_MOD)) ||
-		(player != pl))
-		io_write(pl->iop, bp, len, IO_NOWAIT);
-	    else
-		io_write(pl->iop, bp, len, IO_WAIT);
+	    io_write(pl->iop, bp, len,
+		     player == pl
+		     && !(pl->command && (pl->command->c_flags & C_MOD)));
 	    bp += len;
 	    pl->curid = -1;
 	} else {
@@ -288,11 +286,9 @@ upr_player(struct player *pl, int id, char *buf)
 	    }
 	}
 	if (ch == '\n') {
-	    if ((pl->command && (pl->command->c_flags & C_MOD)) ||
-		(player != pl))
-		io_write(pl->iop, &ch, 1, IO_NOWAIT);
-	    else
-		io_write(pl->iop, &ch, 1, IO_WAIT);
+	    io_write(pl->iop, &ch, 1,
+		     player == pl
+		     && !(pl->command && (pl->command->c_flags & C_MOD)));
 	    pl->curid = -1;
 	} else {
 	    printbuf[0] = ch;

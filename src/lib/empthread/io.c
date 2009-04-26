@@ -183,15 +183,14 @@ io_outputwaiting(struct iop *iop)
 
 /*
  * Write output queued in IOP.
- * If WAITFOROUTPUT != IO_NOWAIT, writing may put the thread to sleep.
+ * If WAIT, writing may put the thread to sleep.
  * Return number of bytes written on success, -1 on error.
  * In particular, return zero when nothing was written because the
  * queue was empty, or because the write slept and got woken up (only
- * if WAITFOROUTPUT != IO_NOWAIT), or because the write refused to
- * sleep (only if WAITFOROUTPUT == IO_NOWAIT).
+ * if WAIT), or because the write refused to sleep (only if !WAIT).
  */
 int
-io_output(struct iop *iop, int waitforoutput)
+io_output(struct iop *iop, int wait)
 {
     struct iovec iov[16];
     int n, res, cc;
@@ -207,7 +206,7 @@ io_output(struct iop *iop, int waitforoutput)
 
     n = ioq_makeiov(iop->output, iov, IO_BUFSIZE);
 
-    if (waitforoutput != IO_NOWAIT) {
+    if (wait) {
 	res = empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
 	if (res == 0)
 	    return 0;
@@ -251,7 +250,7 @@ io_read(struct iop *iop, char *buf, int nbytes)
 }
 
 int
-io_write(struct iop *iop, char *buf, int nbytes, int doWait)
+io_write(struct iop *iop, char *buf, int nbytes, int wait)
 {
     int len;
 
@@ -260,12 +259,12 @@ io_write(struct iop *iop, char *buf, int nbytes, int doWait)
     ioq_append(iop->output, buf, nbytes);
     len = ioq_qsize(iop->output);
     if (len > iop->bufsize) {
-	if (doWait) {
+	if (wait) {
 	    io_output_all(iop);
 	} else {
 	    /* only try a write every BUFSIZE characters */
 	    if (((len - nbytes) % iop->bufsize) < (len % iop->bufsize))
-		io_output(iop, IO_NOWAIT);
+		io_output(iop, 0);
 	}
     }
     return nbytes;
@@ -280,7 +279,7 @@ io_output_all(struct iop *iop)
      * Mustn't block a player thread while update is pending, or else
      * a malicous player could delay the update indefinitely
      */
-    while ((n = io_output(iop, IO_NOWAIT)) > 0 && !play_wrlock_wanted)
+    while ((n = io_output(iop, 0)) > 0 && !play_wrlock_wanted)
 	empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
 
     return n;

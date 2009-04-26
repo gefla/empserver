@@ -42,9 +42,6 @@
 
 #define IO_BUFSIZE	4096
 
-#define IO_NOWAIT	0
-#define IO_WAIT		1
-
 extern struct iop *io_open(int, int, int, struct timeval);
 extern void io_init(void);
 extern void io_close(struct iop *);

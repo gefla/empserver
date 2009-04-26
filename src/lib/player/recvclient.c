@@ -85,7 +85,7 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	res = io_input(player->iop, IO_WAIT);
+	res = io_input(player->iop, 1);
 	if (res > 0)
 	    ;
 	else if (res < 0)

@@ -87,9 +87,9 @@ player_login(void *ud)
     pr_id(player, C_INIT, "Empire server ready\n");
 
     while (player->state != PS_SHUTDOWN) {
-	io_output(player->iop, IO_WAIT);
+	io_output(player->iop, 1);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
-	    res = io_input(player->iop, IO_WAIT);
+	    res = io_input(player->iop, 1);
 	    if (res <= 0) {
 		if (res == 0 && !io_eof(player->iop))
 		    pr_id(player, C_DATA, "idle connection terminated\n");
@@ -118,7 +118,7 @@ player_login(void *ud)
     player->state = PS_SHUTDOWN;
     if (!io_eof(player->iop)) {
 	pr_id(player, C_EXIT, "so long...\n");
-	while (io_output(player->iop, IO_WAIT) > 0) ;
+	while (io_output(player->iop, 1) > 0) ;
     }
     player_delete(player);
     empth_exit();
