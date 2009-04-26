@@ -62,8 +62,12 @@ struct empth_t {
 };
 
 struct empth_rwlock_t {
+    /* Can't use pthread_rwlock_t, because it needn't prefer writers */
     char *name;
-    pthread_rwlock_t lock;
+    int nread;			/* #active readers */
+    int nwrite;			/* total #writers (active and waiting) */
+    pthread_cond_t can_read;
+    pthread_cond_t can_write;
 };
 
 /* Thread-specific data key */
@@ -397,19 +401,22 @@ empth_rwlock_create(char *name)
     if (!rwlock)
 	return NULL;
 
-    if (pthread_rwlock_init(&rwlock->lock, NULL) != 0) {
+    if (pthread_cond_init(&rwlock->can_read, NULL) != 0
+	|| pthread_cond_init(&rwlock->can_write, NULL) != 0) {
 	free(rwlock);
 	return NULL;
     }
 
     rwlock->name = strdup(name);
+    rwlock->nread = rwlock->nwrite = 0;
     return rwlock;
 }
 
 void
 empth_rwlock_destroy(empth_rwlock_t *rwlock)
 {
-    pthread_rwlock_destroy(&rwlock->lock);
+    pthread_cond_destroy(&rwlock->can_read);
+    pthread_cond_destroy(&rwlock->can_write);
     free(rwlock->name);
     free(rwlock);
 }
@@ -417,23 +424,45 @@ empth_rwlock_destroy(empth_rwlock_t *rwlock)
 void
 empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 {
-    pthread_mutex_unlock(&mtx_ctxsw);
-    pthread_rwlock_wrlock(&rwlock->lock);
-    pthread_mutex_lock(&mtx_ctxsw);
-    empth_restorectx();
+    empth_status("wrlock %s %d %d",
+		 rwlock->name, rwlock->nread, rwlock->nwrite);
+    rwlock->nwrite++;
+    while (rwlock->nread != 0 || rwlock->nwrite != 1) {
+	empth_status("waiting for wrlock %s", rwlock->name);
+	pthread_cond_wait(&rwlock->can_write, &mtx_ctxsw);
+	empth_status("got wrlock %s %d %d",
+		 rwlock->name, rwlock->nread, rwlock->nwrite);
+	empth_restorectx();
+    }
 }
 
 void
 empth_rwlock_rdlock(empth_rwlock_t *rwlock)
 {
-    pthread_mutex_unlock(&mtx_ctxsw);
-    pthread_rwlock_rdlock(&rwlock->lock);
-    pthread_mutex_lock(&mtx_ctxsw);
-    empth_restorectx();
+    empth_status("rdlock %s %d %d",
+		 rwlock->name, rwlock->nread, rwlock->nwrite);
+    while (rwlock->nwrite) {
+	empth_status("waiting for rdlock %s", rwlock->name);
+	pthread_cond_wait(&rwlock->can_read, &mtx_ctxsw);
+	empth_status("got rdlock %s %d %d",
+		     rwlock->name, rwlock->nread, rwlock->nwrite);
+	empth_restorectx();
+    }
+    rwlock->nread++;
 }
 
 void
 empth_rwlock_unlock(empth_rwlock_t *rwlock)
 {
-    pthread_rwlock_unlock(&rwlock->lock);
+    if (CANT_HAPPEN(!rwlock->nread && !rwlock->nwrite))
+	return;
+    if (rwlock->nread) {	/* holding read lock */
+	if (!--rwlock->nread)
+	    pthread_cond_signal(&rwlock->can_write);
+    } else {
+	rwlock->nwrite--;
+	pthread_cond_signal(&rwlock->can_write);
+    }
+    if (rwlock->nwrite == 0)
+	pthread_cond_broadcast(&rwlock->can_read);
 }

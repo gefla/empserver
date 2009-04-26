@@ -85,16 +85,6 @@ dispatch(char *buf, char *redir)
 	pr("Command not implemented\n");
 	return 0;
     }
-    /*
-     * Rwlocks can hand out read locks while a write lock is wanted.
-     * Unfair to writers, but possible.  This lets commands run with
-     * !player->aborted, which can then block on input and thus delay
-     * the update indefinitely.  We could avoid that by setting
-     * player->aborted here, but spinning until the update is done is
-     * nicer to players.
-     */
-    while (play_wrlock_wanted)
-	empth_yield();
     player->command = command;
     empth_rwlock_rdlock(play_lock);
     if (redir) {

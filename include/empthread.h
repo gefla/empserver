@@ -56,10 +56,10 @@
 
 /* Abstract data types */
 
-/* empth_t * represents a thread.  */
+/* A thread.  */
 typedef struct lwpProc empth_t;
 
-/* empth_rwlock_t * represents a read-write lock */
+/* A read-write lock, perferring writers */
 typedef struct lwp_rwlock empth_rwlock_t;
 
 /* Flags for empth_select(): whether to sleep on input or output */
@@ -189,7 +189,7 @@ int empth_wait_for_signal(void);
 /*
  * Create a read-write lock.
  * NAME is its name, it is used for debugging.
- * Return the reade-write lock, or NULL on error.
+ * Return the read-write lock, or NULL on error.
  */
 empth_rwlock_t *empth_rwlock_create(char *name);
 
@@ -209,9 +209,9 @@ void empth_rwlock_wrlock(empth_rwlock_t *rwlock);
 /*
  * Lock RWLOCK for reading.
  * A read-write lock can be locked for reading only when it is not
- * locked for writing.  If this is not the case, put the current
- * thread to sleep until it is.  Must not starve writers, and may
- * sleep to avoid that.
+ * locked for writing, and no other thread is attempting to lock it
+ * for writing.  If this is not the case, put the current thread to
+ * sleep until it is.
  */
 void empth_rwlock_rdlock(empth_rwlock_t *rwlock);
 
