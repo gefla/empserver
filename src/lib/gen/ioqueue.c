@@ -46,6 +46,20 @@
 #include "misc.h"
 #include "queue.h"
 
+struct io {
+    struct emp_qelem queue;
+    int size;
+    int nbytes;
+    int offset;
+    char *data;
+};
+
+struct ioqueue {
+    struct io list;
+    int bufsize;
+    int cc;
+};
+
 static int ioqtocbuf(struct ioqueue *ioq, char *buf, int cc, int stopc);
 static int ioqtoiov(struct ioqueue *ioq, struct iovec *iov, int max);
 static int ioqtobuf(struct ioqueue *ioq, char *buf, int cc);

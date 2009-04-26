@@ -35,21 +35,8 @@
 #define IOQUEUE_H
 
 #include <sys/uio.h>
-#include "queue.h"
 
-struct io {
-    struct emp_qelem queue;
-    int size;
-    int nbytes;
-    int offset;
-    char *data;
-};
-
-struct ioqueue {
-    struct io list;
-    int bufsize;
-    int cc;
-};
+struct ioqueue;
 
 extern struct ioqueue *ioq_create(int size);
 extern void ioq_destroy(struct ioqueue *ioq);
