@@ -233,15 +233,21 @@ pr_player(struct player *pl, int id, char *buf)
 	p = strchr(bp, '\n');
 	if (p != NULL) {
 	    len = (p - bp) + 1;
-	    io_write(pl->iop, bp, len,
-		     player == pl
-		     && !(pl->command && (pl->command->c_flags & C_MOD)));
+	    io_write(pl->iop, bp, len);
 	    bp += len;
 	    pl->curid = -1;
 	} else {
 	    len = io_puts(pl->iop, bp);
 	    bp += len;
 	}
+    }
+
+    if (player == pl) {
+	while (io_output_if_queue_long(pl->iop,
+			!play_wrlock_wanted
+			&& !(pl->command && (pl->command->c_flags & C_MOD)))
+	       > 0)
+	    ;
     }
 }
 
@@ -286,14 +292,20 @@ upr_player(struct player *pl, int id, char *buf)
 	    }
 	}
 	if (ch == '\n') {
-	    io_write(pl->iop, &ch, 1,
-		     player == pl
-		     && !(pl->command && (pl->command->c_flags & C_MOD)));
+	    io_write(pl->iop, &ch, 1);
 	    pl->curid = -1;
 	} else {
 	    printbuf[0] = ch;
 	    io_puts(pl->iop, printbuf);
 	}
+    }
+
+    if (player == pl) {
+	while (io_output_if_queue_long(pl->iop,
+			!play_wrlock_wanted
+			&& !(pl->command && (pl->command->c_flags & C_MOD)))
+	       > 0)
+	    ;
     }
 }
 

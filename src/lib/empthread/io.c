@@ -54,7 +54,6 @@
 #include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
-#include "server.h"
 
 struct iop {
     int fd;
@@ -62,6 +61,7 @@ struct iop {
     struct ioqueue *output;
     int flags;
     int bufsize;
+    int last_out;
     struct timeval input_timeout;
 };
 
@@ -94,6 +94,7 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
     iop->input = NULL;
     iop->output = NULL;
     iop->flags = flags;
+    iop->last_out = 0;
     iop->bufsize = bufsize;
     iop->input_timeout = timeout;
     if (flags & IO_READ)
@@ -225,8 +226,31 @@ io_output(struct iop *iop, int wait)
     }
 
     ioq_dequeue(iop->output, cc);
+    iop->last_out = ioq_qsize(iop->output);
     return cc;
 }
+
+/*
+ * Write output queued in IOP if enough have been enqueued.
+ * Write if at least one buffer has been filled since the last write.
+ * If WAIT, writing may put the thread to sleep.
+ * Return number of bytes written on success, -1 on error.
+ * In particular, return zero when nothing was written because the
+ * queue was not long, or the write slept and got woken up (only if
+ * WAIT), or the write refused to sleep (only if !WAIT).
+ */
+int
+io_output_if_queue_long(struct iop *iop, int wait)
+{
+    int len = ioq_qsize(iop->output);
+
+    if (CANT_HAPPEN(iop->last_out > len))
+	iop->last_out = 0;
+    if (len - iop->last_out < iop->bufsize)
+	return 0;
+    return io_output(iop, wait);
+}
+
 
 int
 io_peek(struct iop *iop, char *buf, int nbytes)
@@ -250,39 +274,12 @@ io_read(struct iop *iop, char *buf, int nbytes)
 }
 
 int
-io_write(struct iop *iop, char *buf, int nbytes, int wait)
+io_write(struct iop *iop, char *buf, int nbytes)
 {
-    int len;
-
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
     ioq_append(iop->output, buf, nbytes);
-    len = ioq_qsize(iop->output);
-    if (len > iop->bufsize) {
-	if (wait) {
-	    io_output_all(iop);
-	} else {
-	    /* only try a write every BUFSIZE characters */
-	    if (((len - nbytes) % iop->bufsize) < (len % iop->bufsize))
-		io_output(iop, 0);
-	}
-    }
     return nbytes;
-}
-
-int
-io_output_all(struct iop *iop)
-{
-    int n;
-
-    /*
-     * Mustn't block a player thread while update is pending, or else
-     * a malicous player could delay the update indefinitely
-     */
-    while ((n = io_output(iop, 0)) > 0 && !play_wrlock_wanted)
-	empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
-
-    return n;
 }
 
 int
@@ -314,6 +311,7 @@ io_shutdown(struct iop *iop, int flags)
     if (flags & IO_WRITE) {
 	shutdown(iop->fd, 1);
 	ioq_drain(iop->output);
+	iop->last_out = 0;
     }
     return 0;
 }

@@ -39,6 +39,7 @@
 #include "journal.h"
 #include "player.h"
 #include "prototypes.h"
+#include "server.h"
 
 /*
  * Receive a line of input from the current player.
@@ -75,8 +76,11 @@ recvclient(char *cmd, int size)
 	    break;
 	}
 
-	/* Make sure player sees prompt */
-	io_output_all(player->iop);
+	/*
+	 * Flush all queued output before potentially sleeping in
+	 * io_input(), to make sure player sees the prompt.
+	 */
+	while (io_output(player->iop, !play_wrlock_wanted) > 0) ;
 
 	/*
 	 * If io_output_all() blocked and got unblocked by command
