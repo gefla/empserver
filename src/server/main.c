@@ -375,10 +375,9 @@ start_server(int flags)
     if (journal_startup() < 0)
 	exit(1);
 
-    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", NULL);
-
     market_init();
     update_init();
+    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", NULL);
 }
 
 /*
