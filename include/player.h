@@ -51,6 +51,10 @@
 #define	CAP		bit(6)
 #define	MONEY		bit(7)
 
+enum player_sleep {
+    PLAYER_SLEEP_NEVER, PLAYER_SLEEP_ON_INPUT, PLAYER_SLEEP_FREELY
+};
+
 struct player {
     struct emp_qelem queue;
     empth_t *proc;
@@ -76,6 +80,7 @@ struct player {
     int simulation;		/* e.g. budget command */
     double dolcost;
     time_t curup;		/* when last input was received */
+    enum player_sleep may_sleep; /* when may thread sleep? */
     int aborted;		/* interrupt cookie or EOF received? */
     int eof;			/* EOF (cookie or real) received? */
     int recvfail;		/* #recvclient() failures */

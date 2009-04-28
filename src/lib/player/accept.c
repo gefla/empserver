@@ -89,6 +89,7 @@ player_new(int s)
 	}
 	emp_insque(&lp->queue, &Players);
 	lp->cnum = NATID_BAD;
+	lp->may_sleep = PLAYER_SLEEP_FREELY;
 	lp->curid = -1;
 	time(&lp->curup);
     }

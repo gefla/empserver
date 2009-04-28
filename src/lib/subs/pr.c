@@ -244,9 +244,7 @@ pr_player(struct player *pl, int id, char *buf)
 
     if (player == pl) {
 	while (io_output_if_queue_long(pl->iop,
-			!play_wrlock_wanted
-			&& !(pl->command && (pl->command->c_flags & C_MOD)))
-	       > 0)
+			pl->may_sleep == PLAYER_SLEEP_FREELY) > 0)
 	    ;
     }
 }
@@ -302,9 +300,7 @@ upr_player(struct player *pl, int id, char *buf)
 
     if (player == pl) {
 	while (io_output_if_queue_long(pl->iop,
-			!play_wrlock_wanted
-			&& !(pl->command && (pl->command->c_flags & C_MOD)))
-	       > 0)
+			pl->may_sleep == PLAYER_SLEEP_FREELY) > 0)
 	    ;
     }
 }

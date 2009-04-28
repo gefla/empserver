@@ -193,12 +193,12 @@ update_run(void)
 {
     struct player *p;
 
-    play_wrlock_wanted = 1;
     for (p = player_next(NULL); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	if (p->command) {
 	    pr_flash(p, "Update aborting command\n");
+	    p->may_sleep = PLAYER_SLEEP_NEVER;
 	    p->aborted = 1;
 	    empth_wakeup(p->proc);
 	}
@@ -206,14 +206,13 @@ update_run(void)
     empth_rwlock_wrlock(play_lock);
     if (*pre_update_hook) {
 	if (run_hook(pre_update_hook, "pre-update")) {
-	    play_wrlock_wanted = 0;
 	    empth_rwlock_unlock(play_lock);
 	    return;
 	}
     }
     update_running = 1;
     update_main();
-    play_wrlock_wanted = update_running = 0;
+    update_running = 0;
     empth_rwlock_unlock(play_lock);
 }
 

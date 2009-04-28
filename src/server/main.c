@@ -86,13 +86,6 @@ static void loc_NTTerm(void);
  */
 empth_rwlock_t *play_lock;
 
-/*
- * Is a thread attempting to take an exclusive play_lock?
- * Threads holding a shared play_lock must not sleep while this is
- * true.
- */
-int play_wrlock_wanted;
-
 static char pidfname[] = "server.pid";
 
 /* Run as daemon?  If yes, detach from controlling terminal etc. */
@@ -421,12 +414,12 @@ shutdwn(int sig)
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
-    play_wrlock_wanted = 1;
     for (p = player_next(NULL); p; p = player_next(p)) {
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");
 	p->state = PS_SHUTDOWN;
+	p->may_sleep = PLAYER_SLEEP_NEVER;
 	p->aborted++;
 	if (p->command) {
 	    pr_flash(p, "Shutdown aborting command\n");

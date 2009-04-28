@@ -40,7 +40,6 @@
 
 extern int shutdown_pending;
 extern empth_rwlock_t *play_lock;
-extern int play_wrlock_wanted;
 extern int update_running;
 extern time_t update_time[UPDATE_TIME_LEN];
 

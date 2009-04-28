@@ -85,6 +85,8 @@ dispatch(char *buf, char *redir)
 	pr("Command not implemented\n");
 	return 0;
     }
+    player->may_sleep = command->c_flags & C_MOD
+	? PLAYER_SLEEP_ON_INPUT : PLAYER_SLEEP_FREELY;
     player->command = command;
     empth_rwlock_rdlock(play_lock);
     if (redir) {
@@ -109,5 +111,6 @@ dispatch(char *buf, char *redir)
     }
     empth_rwlock_unlock(play_lock);
     player->command = NULL;
+    player->may_sleep = PLAYER_SLEEP_FREELY;
     return 0;
 }
