@@ -112,7 +112,7 @@ lwpReschedule(void)
 	LwpCurrent = nextp;
 	*LwpContextPtr = nextp->ud;
 	lwpSwitchContext(oldp, nextp);
-	lwpStatus(nextp, "switch in %d", nextp->pri);
+	lwpStatus(nextp, "switch in");
     }
 }
 

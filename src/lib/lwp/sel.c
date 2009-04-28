@@ -131,12 +131,12 @@ lwpWakeupFd(struct lwpProc *proc)
     if (CANT_HAPPEN(proc->fd < 0 || proc->fd > LwpMaxfd))
 	return;
 
-    lwpStatus(proc, "awakening; was sleeping on fd %d", proc->fd);
     if (proc->runtime != (time_t)-1 && proc->runtime != 0) {
 	/* is in LwpDelayq; leave the job to lwpWakeupSleep() */
 	proc->runtime = (time_t)-1;
 	return;
     }
+    lwpStatus(proc, "awakening; was sleeping on fd %d", proc->fd);
     FD_CLR(proc->fd, &LwpReadfds);
     FD_CLR(proc->fd, &LwpWritefds);
     LwpNfds--;
