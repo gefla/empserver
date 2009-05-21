@@ -90,6 +90,10 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     worker_limit = roundavg(work * p_e / unit_work);
     if (material_consume > worker_limit)
 	material_consume = worker_limit;
+    if (product->p_nrdep != 0) {
+	if (*resource * 100 < product->p_nrdep * material_consume)
+	    material_consume = *resource * 100 / product->p_nrdep;
+    }
     if (material_consume == 0)
 	return 0;
     prodeff = prod_eff(desig, np->nat_level[product->p_nlndx]);
@@ -114,10 +118,6 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	actual = roundavg(output);
 	if (actual <= 0)
 	    return 0;
-	if (product->p_nrdep != 0) {
-	    if (*resource * 100 < product->p_nrdep * actual)
-		actual = *resource * 100 / product->p_nrdep;
-	}
 	if (actual > 999) {
 	    material_consume = roundavg(999.0 * material_consume / actual);
 	    actual = 999;
