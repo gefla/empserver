@@ -83,8 +83,6 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 	if (player->simulation)
 	    np->nat_money = start_money;
     }
-    bp_disable_cachepath();
-    bp_clear_cachepath();
 
     if (opt_SAIL) {
 	if (build && !player->simulation)	/* make sure to only sail once */
