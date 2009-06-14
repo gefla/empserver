@@ -642,18 +642,17 @@ fileno(FILE *stream)
 
 /*
  * POSIX equivalent for fcntl().
- * Currently supports only the F_GETFL/F_SETFL/O_NONBLOCK
- * Currently ignores F_GETLK/F_SETLK as the file locks are
- * implement in open()
+ * Horrible hacks, just good enough support Empire's use of fcntl().
+ * F_GETFL / F_SETFL support making a socket (non-)blocking by getting
+ * flags, adding or removing O_NONBLOCK, and setting the result.
+ * F_SETLK does nothing.  Instead, we lock in posix_open().
  */
 int
 fcntl(int fd, int cmd, ...)
 {
     va_list ap;
     int value;
-    unsigned int nonblocking;
-    int result;
-    long bytes_returned;
+    unsigned long nonblocking;
     int handle;
     enum fdmap_io_type type;
 
@@ -663,52 +662,24 @@ fcntl(int fd, int cmd, ...)
     switch (cmd)
     {
     case F_GETFL:
-	/*
-	 * F_GETFL and F_SETFL only support O_NONBLOCK
-	 * for sockets currently
-	 */
-	if (type == FDMAP_IO_SOCKET) {
-	    result = WSAIoctl(handle, FIONBIO, NULL, 0,&nonblocking,
-		sizeof (nonblocking), &bytes_returned, NULL, NULL);
-
-	    if(result < 0) {
-		errno = WSAGetLastError();
-		return -1;
-	    }
-
-	    if (nonblocking)
-		return O_NONBLOCK;
-	    else
-		return 0;
-	}
+	if (type == FDMAP_IO_SOCKET)
+	    return 0;
 	break;
     case F_SETFL:
 	if (type == FDMAP_IO_SOCKET) {
 	    va_start(ap, cmd);
 	    value = va_arg(ap, int);
 	    va_end(ap);
-	    if (value & O_NONBLOCK)
-		nonblocking = 1;
-	    else
-		nonblocking = 0;
+	    nonblocking = (value & O_NONBLOCK) != 0;
 
-	    result = WSAIoctl(handle, FIONBIO, &nonblocking,
-		sizeof (nonblocking), NULL, 0, &bytes_returned,
-		NULL, NULL);
-
-	    if(result < 0) {
+	    if (ioctlsocket(handle, FIONBIO, &nonblocking) == SOCKET_ERROR) {
 		errno = WSAGetLastError();
 		return -1;
 	    }
-	    return result;
+	    return 0;
 	}
 	break;
     case F_SETLK:
-	/*
-	 * The POSIX equivalent is not available in WIN32
-	 * That implement the file locking in the file open
-	 * by using sopen instead of open.
-	 */
 	return 0;
     }
     errno = EINVAL;
