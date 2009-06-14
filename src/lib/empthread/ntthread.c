@@ -609,23 +609,24 @@ empth_wakeup(empth_t *pThread)
 int
 empth_sleep(time_t until)
 {
-    long lSec = until - time(0) > 0 ? until - time(0) : 0;
+    time_t now;
+    long lSec;
     empth_t *pThread = TlsGetValue(dwTLSIndex);
-    int iReturn = 0;
+    DWORD result;
+
+    loc_BlockThisThread();
 
     do {
-	loc_BlockThisThread();
+	now = time(NULL);
+	lSec = until >= now ? until - now : 0;
 	loc_debug("going to sleep %ld sec", lSec);
+	result = WaitForSingleObject(pThread->hThreadEvent, lSec * 1000L);
+    } while (result != WAIT_TIMEOUT && result != WAIT_OBJECT_0);
 
-	if (WaitForSingleObject(pThread->hThreadEvent, lSec * 1000L) !=
-	    WAIT_TIMEOUT)
-	    iReturn = -1;
+    loc_debug("sleep done. Waiting to run.");
+    loc_RunThisThread(NULL);
 
-	loc_debug("sleep done. Waiting to run.");
-	loc_RunThisThread(NULL);
-    } while (!iReturn && ((lSec = until - time(0)) > 0));
-
-    return iReturn;
+    return result == WAIT_TIMEOUT ? 0 : -1;
 }
 
 /************************
