@@ -345,14 +345,16 @@ int
 empth_sleep(time_t until)
 {
     empth_t *ctx = pthread_getspecific(ctx_key);
+    time_t now;
     struct timeval tv;
     int res;
 
-    empth_status("going to sleep %ld sec", until - time(0));
     pthread_mutex_unlock(&mtx_ctxsw);
     do {
-	tv.tv_sec = until - time(NULL);
+	now = time(NULL);
+	tv.tv_sec = until >= now ? until - now : 0;
 	tv.tv_usec = 0;
+	empth_status("going to sleep %ld sec", (long)tv.tv_sec);
 	res = select(0, NULL, NULL, NULL, &tv);
     } while (res < 0 && !ctx->wakeup);
     empth_status("sleep done. Waiting for lock");
