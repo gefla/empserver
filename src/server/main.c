@@ -410,6 +410,8 @@ void
 shutdwn(int sig)
 {
     struct player *p;
+    time_t now;
+    int i, queues_drained;
 
     logerror("Shutdown commencing (cleaning up threads.)");
 
@@ -426,6 +428,26 @@ shutdwn(int sig)
 	empth_wakeup(p->proc);
     }
     empth_rwlock_wrlock(play_lock);
+
+    now = time(NULL);
+    empth_yield();
+    for (i = 1; i <= 3; i++) {
+	queues_drained = 1;
+	for (p = player_next(NULL); p; p = player_next(p)) {
+	    if (io_outputwaiting(p->iop))
+		queues_drained = 0;
+	}
+	if (queues_drained)
+	    break;
+	logerror("Waiting for player output to drain\n");
+	empth_sleep(now + i);
+    }
+
+    for (p = player_next(NULL); p; p = player_next(p)) {
+	if (io_outputwaiting(p->iop))
+	    logerror("Output for player %d lost", p->cnum);
+    }
+
     if (sig)
 	logerror("Server shutting down on signal %d", sig);
     else
