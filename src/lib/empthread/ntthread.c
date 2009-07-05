@@ -568,6 +568,10 @@ empth_select(int fd, int flags, struct timeval *timeout)
     result = WSAWaitForMultipleEvents(2, hEventObject, FALSE, msec, FALSE);
 
     switch (result) {
+    case WSA_WAIT_EVENT_0:
+	res = 1;
+	break;
+    case WSA_WAIT_EVENT_0 + 1:
     case WSA_WAIT_TIMEOUT:
 	res = 0;
 	break;
@@ -576,7 +580,9 @@ empth_select(int fd, int flags, struct timeval *timeout)
 	res = -1;
 	break;
     default:
-	res = 1;
+	CANT_REACH();
+	errno = EINVAL;
+	res = -1;
     }
 
     WSAEventSelect(handle, hEventObject[0], 0);
