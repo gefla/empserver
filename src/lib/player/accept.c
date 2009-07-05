@@ -201,7 +201,7 @@ player_accept(void *unused)
 	if (!inet_ntop(sap->sa_family, inaddr,
 		       np->hostaddr, sizeof(np->hostaddr))) {
 	    logerror("inet_ntop() failed: %s", strerror(errno));
-	    close(ns);
+	    player_delete(np);
 	    continue;
 	}
 #else
