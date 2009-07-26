@@ -82,7 +82,7 @@ COMMUNICATIONS
 .s1
 HIGHWAY - Moving stuff through sectors costs mobility.  Efficienct
 highways cost much less than other sectors.  To find out more about
-moving stuff, start with \*info Transportation\*.
+moving stuff, start with \*Qinfo Transportation\*U.
 .s1
 RADAR - Radar stations can scan the surrounding
 area, and generate

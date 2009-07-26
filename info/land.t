@@ -37,7 +37,7 @@ the amount of food on board,
 .L tch
 the tech level of the land unit,
 .L retr
-the retreat percentage of the land unit (see info \*morale\*U),
+the retreat percentage of the land unit (see info \*Qmorale\*U),
 .L xl
 the number of extra-light planes on board,
 .L ln

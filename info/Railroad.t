@@ -17,7 +17,7 @@ efficiency in column \*Qrl eff\*U.
 If option RAILWAYS is enabled, all highway-like sectors are railways,
 and the track is operational as long as the sector is at least 5%
 efficient.  A sector is highway-like if its mobility cost at 100% is
-zero (column mob cost in \*Qshow sect s\*u).  Operational railways
+zero (column mob cost in \*Qshow sect s\*U).  Operational railways
 additionally extend track into adjacent sectors that are at least 60%
 efficient and owned by the same nation.  Sector selector track gives
 the number of operational railways within one sector range.  Spy and

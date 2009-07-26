@@ -2365,7 +2365,7 @@ Changes to Empire 4.2.2 - Sun Dec 27 12:46:34 PST 1998
  * Fixed missing -ltermcap in HP/UX build.
  * Fixed setsector to limit mobility to 127 not 255 (255 was being caught
    later and being reset to 0 anyway)
- * Fixed Sector-types.t to show a '\' instead of a '/' for wasteland,
+ * Fixed Sector-types.t to show a '\e' instead of a '/' for wasteland,
    since that is what it really is.
  * Fixed retreat.t documentation to reflect the "retreat upon failed
    boarding" flag.
