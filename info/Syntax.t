@@ -145,8 +145,8 @@ pager like \*(iFmore\*(pF(1) or \*(iFless\*(pF(1).
 The Empire shell also recognizes a few control characters:
 .s1
 .in +\w'interrupt\0\0'u
-.L \fIname\fP
-\fImeaning\fP
+.L \*(fIname\*(fP
+\*(fImeaning\*(fP
 .L interrupt
 Abort command and return to Empire command level
 .L quit

@@ -3,7 +3,7 @@
 .LV Basic
 .SY "announce"
 The announce command is a variant of the telegram command.
-It sends your message to \fIall\fR of the players in the game.
+It sends your message to \*(fIall\*(fP of the players in the game.
 This convenient service may cost money to provide, depending on
 your deity.
 .s1

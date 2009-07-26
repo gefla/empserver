@@ -9,7 +9,7 @@ tools.  This info page gives an overview; see doc/xdump in the source
 distribution for complete documentation.
 .s1
 Game configuration and state consists of a a number of tables or
-files.  xdump shows only things that are \fIcertainly\fP visible to
+files.  xdump shows only things that are \*(fIcertainly\*(fP visible to
 you: sectors you own, ship types known, etc.
 .s1
 The output of xdump is a table consisting of a header line, the table
@@ -36,7 +36,7 @@ Floating-point fields can be parsed by scanf %g (or equivalents %e,
 .s1
 String fields are in C syntax.  Funny characters including space,
 newline and double-quote are shown as octal escape sequences.  Example:
-"gold\\040mine".  If a field starts with a double-quote, it's a string
+"gold\e040mine".  If a field starts with a double-quote, it's a string
 field.
 .s1
 .L "FUTURE DIRECTIONS:"

@@ -18,10 +18,10 @@ the total number of military resulting (in parentheses).
 If <NUMBER> is a positive number that many draftees will be sought in
 each sector regardless of any military already in the sector.
 .s1
-If <NUMBER> is a negative number of the form -\fBxxx\fP,
+If <NUMBER> is a negative number of the form -\*(fBxxx\*(fP,
 then an enlistment quota is established
 and the draft board will attempt to enlist enough in each sector
-to bring the total number of military up to \fBxxx\fP in each sector.
+to bring the total number of military up to \*(fBxxx\*(fP in each sector.
 .s1
 Although the program tries to draft the specified number of
 civilians in each sector only one-half of the civilians
