@@ -50,11 +50,14 @@ show(void)
     char buf[1024];
     int rlev;
 
-    p = getstarg(player->argp[1],
-		 "Show what (bridge, item, land, nuke, plane, sect, ship, tower, updates)? ",
-		 buf);
+again:
+    p = getstarg(player->argp[1], "Show what ('?' to list options)? ", buf);
     if (!p || !*p)
 	return RET_SYN;
+    if (*p == '?') {
+	pr("bridge, item, land, news, nuke, plane, sect, ship, product, tower, updates\n");
+	goto again;
+    }
 
     natp = getnatp(player->cnum);
     rlev = (int)(1.25 * natp->nat_level[NAT_RLEV]);
