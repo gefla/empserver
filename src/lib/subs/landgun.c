@@ -42,7 +42,7 @@
 #include "sect.h"
 #include "ship.h"
 
-double
+static double
 fortgun(int effic, int guns)
 {
     double d;
@@ -53,7 +53,7 @@ fortgun(int effic, int guns)
     return d;
 }
 
-double
+static double
 seagun(int effic, int guns)
 {
     double d;
@@ -65,7 +65,7 @@ seagun(int effic, int guns)
     return d;
 }
 
-double
+static double
 landunitgun(int effic, int guns)
 {
     double d;
@@ -200,6 +200,31 @@ lnd_fire(struct lndstr *lp)
     }
     lp->lnd_item[I_SHELL] -= ammo;
     return d;
+}
+
+/*
+ * Sabotage with land unit LP.
+ * Use ammo.
+ * Return damage if the land unit sabotages, else -1.
+ */
+int
+lnd_sabo(struct lndstr *lp, short item[])
+{
+    int dam;
+
+    if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	return -1;
+    if (!(lchr[lp->lnd_type].l_flags & L_SPY))
+	return -1;
+    if (!lp->lnd_item[I_SHELL])
+	return -1;
+    lp->lnd_item[I_SHELL]--;
+    dam = fortgun(3 * lp->lnd_effic, 7);
+    if (item[I_SHELL] > 20)
+	dam += seagun(lp->lnd_effic, random() % (item[I_SHELL] / 10));
+    if (item[I_PETROL] > 100)
+	dam += seagun(lp->lnd_effic, random() % (item[I_PETROL] / 50));
+    return dam;
 }
 
 /*

@@ -165,6 +165,7 @@ extern int lnd_nxlight(struct lndstr *);
 extern int lnd_nland(struct lndstr *);
 
 extern int lnd_fire(struct lndstr *);
+extern int lnd_sabo(struct lndstr *, short *);
 extern double lnd_fire_range(struct lndstr *);
 
 /* src/lib/subs/lndsub.c */

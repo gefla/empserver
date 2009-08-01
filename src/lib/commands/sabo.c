@@ -69,7 +69,6 @@ sabo(void)
 	    pr("%s has no shells.\n", prland(&land));
 	    continue;
 	}
-	--land.lnd_item[I_SHELL];
 
 	odds = LND_SPY_DETECT_CHANCE(land.lnd_effic);
 	if (chance(odds)) {
@@ -83,13 +82,9 @@ sabo(void)
 	    continue;
 	}
 
-	dam = fortgun(3 * land.lnd_effic, 7);
-	if (sect.sct_item[I_SHELL] > 20)
-	    dam += seagun(land.lnd_effic,
-			  random() % (sect.sct_item[I_SHELL] / 10));
-	if (sect.sct_item[I_PETROL] > 100)
-	    dam += seagun(land.lnd_effic,
-			  random() % (sect.sct_item[I_PETROL] / 50));
+	dam = lnd_sabo(&land, sect.sct_item);
+	if (dam < 0)
+	    continue;
 
 	pr("Explosion in %s causes %d damage.\n",
 	   xyas(land.lnd_x, land.lnd_y, land.lnd_own), dam);
