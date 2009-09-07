@@ -66,6 +66,10 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	return 0;
     product = &pchr[dchr[desig].d_prd];
     item = product->p_type;
+    if (product->p_nrndx)
+	resource = (unsigned char *)sp + product->p_nrndx;
+    else
+	resource = NULL;
     *amount = 0;
     *cost = 0;
 
@@ -75,10 +79,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
      * calculate production efficiency.
      */
     p_e = neweff / 100.0;
-    if (product->p_nrndx != 0) {
+    if (resource) {
 	unit_work++;
-	resource = (unsigned char *)sp + product->p_nrndx;
-	p_e = (*resource * p_e) / 100.0;
+	p_e *= *resource / 100.0;
     }
     /*
      * determine number that can be made with
@@ -90,7 +93,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     worker_limit = roundavg(work * p_e / unit_work);
     if (material_consume > worker_limit)
 	material_consume = worker_limit;
-    if (product->p_nrdep != 0) {
+    if (resource && product->p_nrdep != 0) {
 	if (*resource * 100 < product->p_nrdep * material_consume)
 	    material_consume = *resource * 100 / product->p_nrdep;
     }
@@ -140,7 +143,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
      */
     if (!player->simulation) {
 	materials_charge(product, vec, material_consume);
-	if (product->p_nrdep != 0) {
+	if (resource && product->p_nrdep != 0) {
 	    /*
 	     * lower natural resource in sector depending on
 	     * amount produced

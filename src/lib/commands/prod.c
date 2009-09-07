@@ -211,14 +211,17 @@ prod(void)
 	unit_work = 0;
 	pp = &pchr[dchr[type].d_prd];
 	vtype = pp->p_type;
+	if (pp->p_nrndx)
+	    resource = (unsigned char *)&sect + pp->p_nrndx;
+	else
+	    resource = NULL;
 	natp = getnatp(sect.sct_own);
 	/*
 	 * sect p_e  (inc improvements)
 	 */
-	if (pp->p_nrndx != 0) {
+	if (resource) {
 	    unit_work++;
-	    resource = (unsigned char *)&sect + pp->p_nrndx;
-	    p_e = (*resource * p_e) / 100.0;
+	    p_e *= *resource / 100.0;
 	}
 	/*
 	 * production effic.
@@ -244,7 +247,7 @@ prod(void)
 	 * workforce?
 	 */
 	max = (int)(work * p_e / (double)unit_work + 0.5);
-	if (pp->p_nrdep != 0 && vtype != I_NONE) {
+	if (resource && pp->p_nrdep != 0 && vtype != I_NONE) {
 	    if (*resource * 100 < pp->p_nrdep * max)
 		max = *resource * 100 / pp->p_nrdep;
 	}
