@@ -54,7 +54,6 @@ static char *radbuf;
 void
 satmap(int x, int y, int eff, int range, int flags, int type)
 {
-    int acc;
     struct sctstr sect;
     struct shpstr ship;
     struct lndstr land;
@@ -112,7 +111,6 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    pr("Satellite sector report\n");
 	    prdate();
 	    sathead();
-	    acc = (flags & P_I) ? 5 : 50;
 	}
 	crackle = count = 0;
 	while (nxtsct(&ns, &sect)) {
@@ -122,7 +120,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		continue;
 	    if (flags & P_S) {
 		if (sect.sct_own && sect.sct_own != player->cnum) {
-		    satdisp_sect(&sect, acc);
+		    satdisp_sect(&sect, (flags & P_I) ? 5 : 50);
 		    ++count;
 		    if (opt_HIDDEN)
 			setcont(player->cnum, sect.sct_own, FOUND_FLY);
