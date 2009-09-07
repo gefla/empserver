@@ -102,10 +102,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    nreport(bombown, N_NUKE, own, 1);
 	    continue;
 	}
-	if (opt_FALLOUT)
-	    fallout = sect.sct_fallout;
 	sect_damage(&sect, damage);
 	if (opt_FALLOUT) {
+	    fallout = sect.sct_fallout;
 	    if (ncp->n_flags & N_NEUT)
 		fallout += damage * 30;
 	    else
