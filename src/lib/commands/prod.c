@@ -247,7 +247,7 @@ prod(void)
 	 * workforce?
 	 */
 	max = (int)(work * p_e / (double)unit_work + 0.5);
-	if (resource && pp->p_nrdep != 0 && vtype != I_NONE) {
+	if (resource && pp->p_nrdep != 0) {
 	    if (*resource * 100 < pp->p_nrdep * max)
 		max = *resource * 100 / pp->p_nrdep;
 	}
