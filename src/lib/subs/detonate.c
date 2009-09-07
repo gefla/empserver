@@ -73,7 +73,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     struct nstr_sect ns;
     struct nstr_item ni;
     int issea;
-    int retval;
 
     getsect(x, y, &sect);
     issea = sect.sct_type == SCT_WATER;
@@ -106,8 +105,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	if (opt_FALLOUT)
 	    fallout = sect.sct_fallout;
 	sect_damage(&sect, damage);
-	if (sect.sct_x == x && sect.sct_y == y)
-	    retval = damage;
 	if (opt_FALLOUT) {
 	    if (ncp->n_flags & N_NEUT)
 		fallout += damage * 30;
@@ -306,7 +303,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	putnuke(ni.cur, &nuke);
     }
 
-    return retval;
+    return nukedamage(ncp, 0, airburst);
 }
 
 
