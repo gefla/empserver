@@ -4,7 +4,6 @@
 .nf
 The following options are from KSU code:
 
-PINPOINT(etc):	Missile exist which target ships instead of sectors
 SAIL:		another way to automatically move ships (may also be buggy)
 
 The following options were introduced in the Chainsaw server:

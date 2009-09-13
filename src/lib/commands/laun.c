@@ -222,7 +222,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	return RET_SYN;
     if (!check_plane_ok(pp))
 	return RET_FAIL;
-    if (opt_PINPOINTMISSILE && sarg_type(cp) == NS_LIST) {
+    if (sarg_type(cp) == NS_LIST) {
 	if (!(pcp->pl_flags & P_MAR)) {
 	    pr("Missile not designed to attack ships!\n");
 	    return RET_FAIL;
@@ -240,17 +240,16 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	    pr("Bad ship number!\n");
 	    return RET_FAIL;
 	}
-    } /* not PINPOINTMISSILE for ships */
-    else if (!sarg_xy(cp, &sx, &sy)) {
+    } else if (!sarg_xy(cp, &sx, &sy)) {
 	pr("Not a sector!\n");
 	return RET_FAIL;
-    } else if (opt_PINPOINTMISSILE) {
+    } else {
 	if (pcp->pl_flags & P_MAR) {
 	    pr("Missile designed to attack ships!\n");
 	    return RET_FAIL;
 	}
     }
-    /* end PINPOINTMISSILE */
+
     if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
 	pr("Range too great; try again!\n");
 	return RET_FAIL;
@@ -259,7 +258,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	pr("%s not enough shells!\n", prplane(pp));
 	return RET_FAIL;
     }
-    if (opt_PINPOINTMISSILE == 0 || !(pcp->pl_flags & P_MAR)) {
+    if (!(pcp->pl_flags & P_MAR)) {
 	getsect(sx, sy, &sect);
 	if (opt_SLOW_WAR) {
 	    natp = getnatp(player->cnum);
@@ -304,8 +303,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	    sectdamage(&sect, dam);
 	    putsect(&sect);
 	}
-    } /* end PINPOINTMISSILE conditional */
-    else if (opt_PINPOINTMISSILE) {	/* else */
+    } else {
 	if (!msl_hit(pp, shp_hardtarget(&target_ship), EF_SHIP,
 		     N_SHP_MISS, N_SHP_SMISS, prship(&target_ship),
 		     target_ship.shp_x, target_ship.shp_y,
@@ -327,7 +325,6 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	if (!target_ship.shp_own)
 	    pr("%s sunk!\n", prship(&target_ship));
     }
-    /* end PINPOINTMISSILE */
     return RET_OK;
 }
 

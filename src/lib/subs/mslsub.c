@@ -140,8 +140,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	    sublaunch ? "sub-launched" : cname(pp->pln_own),
 	    xyas(x, y, victim));
 
-    if (opt_PINPOINTMISSILE == 0 ||
-	(pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
+    if ((pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
 	if (msl_intercept(x, y, pp->pln_own, pcp->pl_def,
 			  sublaunch, P_N, P_O)) {
 	    return 0;
