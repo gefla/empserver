@@ -73,7 +73,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     struct sctstr sect;
     int sublaunch = 0;
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int hitchance = pln_hitchance(pp, hardtarget, type);
+    int hitchance;
     char *from;
     int dam, dummyi;
 
@@ -130,11 +130,6 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     putplane(pp->pln_uid, pp);
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
-    if (nuk_on_plane(pp) >= 0) {
-	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
-	hitchance = 100;
-    }
-
     if (pcp->pl_flags & P_T)
 	mpr(victim, "Incoming %s missile sighted at %s...\n",
 	    sublaunch ? "sub-launched" : cname(pp->pln_own),
@@ -152,10 +147,16 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	}
     }
 
-    mpr(pp->pln_own, "\t%d%% hitchance...", hitchance);
-    hit = (roll(100) <= hitchance);
+    if (nuk_on_plane(pp) >= 0) {
+	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
+	hit = 1;
+    } else {
+	hitchance = pln_hitchance(pp, hardtarget, type);
+	hit = (roll(100) <= hitchance);
+	mpr(pp->pln_own, "\t%d%% hitchance...%s\n", hitchance,
+	    hit ? "HIT!" : "miss");
+    }
 
-    mpr(pp->pln_own, hit ? "HIT!\n" : "miss\n");
     if (pcp->pl_flags & P_T)
 	mpr(victim, "...Incoming %s missile %s\n",
 	    sublaunch ? "" : cname(pp->pln_own),
