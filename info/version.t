@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.17
+Wolfpack Empire 4.3.23
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -47,7 +47,6 @@ Tech Buildup is limited to logarithmic growth (base 2.00) after 1.00.
 				Sectors	Ships	Planes	Units
 Maximum mobility		127	127	127	127
 Max mob gain per update		60	90	60	60
-Mission mobility cost		--	0	0	0
 Max eff gain per update		--	100	100	100
 Maintenance cost per update	--	6.0%	6.0%	6.0%
 Max interdiction range		8	8	--	8
@@ -77,11 +76,11 @@ You are disconnected after 15 minutes of idle time.
 
 Options enabled in this game:
 	ALL_BLEED, BLITZ, BRIDGETOWERS, EASY_BRIDGES, FALLOUT, GODNEWS,
-	INTERDICT_ATT, LANDSPIES, LOANS, NOFOOD, NOMOBCOST, NO_PLAGUE,
-	PINPOINTMISSILE, SAIL, TREATIES
+	INTERDICT_ATT, LANDSPIES, NOFOOD, NOMOBCOST, NO_PLAGUE,
+	PINPOINTMISSILE, RAILWAYS, SAIL, TREATIES
 
 Options disabled in this game:
-	AUTO_POWER, GO_RENEW, GUINEA_PIGS, HIDDEN, LOSE_CONTACT, MARKET,
+	AUTO_POWER, GO_RENEW, GUINEA_PIGS, HIDDEN, LOANS, LOSE_CONTACT, MARKET,
 	MOB_ACCESS, NO_FORT_FIRE, RES_POP, SLOW_WAR, SUPER_BARS, TECH_POP,
 	TRADESHIPS
 
