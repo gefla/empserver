@@ -136,39 +136,26 @@ laun(void)
 static int
 launch_as(struct plnstr *pp)
 {
-    coord sx, sy;
     char *cp, buf[1024];
     struct plnstr plane;
-    struct nstr_item ni;
-    int goodtarget;
     int dam, nukedam;
     natid oldown;
 
-    cp = getstarg(player->argp[2], "Target sector? ", buf);
+    cp = getstarg(player->argp[2], "Target satellite? ", buf);
     if (!check_plane_ok(pp))
 	return RET_FAIL;
     if (!cp || !*cp)
 	return RET_SYN;
-    if (!sarg_xy(cp, &sx, &sy)) {
-	pr("Bad sector designation!\n");
-	return RET_SYN;
-    }
-    if (mapdist(pp->pln_x, pp->pln_y, sx, sy) > pp->pln_range) {
-	pr("Range too great!\n");
+    if (!getplane(atoi(cp), &plane) || !plane.pln_own
+	|| !pln_is_in_orbit(&plane)) {
+	pr("No such satellite exists!\n");
 	return RET_FAIL;
+	/* Can be abused to find satellite ids.  Tolerable.  */
     }
-    goodtarget = 0;
-    snxtitem_xy(&ni, EF_PLANE, sx, sy);
-    while (!goodtarget && nxtitem(&ni, &plane)) {
-	if (!plane.pln_own)
-	    continue;
-	if (!pln_is_in_orbit(&plane))
-	    continue;
-	goodtarget = 1;
 
-    }
-    if (!goodtarget) {
-	pr("No satellites there!\n");
+    if (mapdist(pp->pln_x, pp->pln_y, plane.pln_x, plane.pln_y)
+	> pp->pln_range) {
+	pr("Range too great!\n");
 	return RET_FAIL;
     }
     if (msl_equip(pp, 'p') < 0) {
@@ -176,10 +163,9 @@ launch_as(struct plnstr *pp)
 	return RET_FAIL;
     }
     if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
-		prplane(&plane), sx, sy, plane.pln_own)) {
-	dam = pln_damage(pp, sx, sy, 'p', &nukedam, 1);
-	if (CANT_HAPPEN(nukedam))
-	    return RET_OK;
+		prplane(&plane), plane.pln_x, plane.pln_y, plane.pln_own)) {
+	dam = pln_damage(pp, plane.pln_x, plane.pln_y, 'p', &nukedam, 1);
+	CANT_HAPPEN(nukedam);
 	oldown = plane.pln_own;
 	planedamage(&plane, dam);
 	pr("Hit satellite for %d%% damage!\n", dam);

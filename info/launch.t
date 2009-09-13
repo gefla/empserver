@@ -1,7 +1,7 @@
 .TH Command LAUNCH
 .NA launch "Launch missiles or satellites"
 .LV Expert
-.SY "launch <PLANES> <SECT|SHIP>"
+.SY "launch <PLANES> <SECT|SHIP|PLANE>"
 The launch command is used to launch missiles (or satellites)
 from sectors or submarines owned by you.
 .s1
