@@ -97,7 +97,7 @@ reco(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    pln_arm(&bomb_list, ap_to_target, 'r', NULL, P_S | P_I);
+    pln_arm(&bomb_list, ap_to_target, 'r', NULL, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
