@@ -476,7 +476,7 @@ extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* mission.c */
 extern char *mission_name(short);
 extern int collateral_damage(coord, coord, int);
-extern int mission_pln_equip(struct plist *, struct ichrstr *, int, char);
+extern int mission_pln_equip(struct plist *, struct ichrstr *, char);
 extern int ground_interdict(coord, coord, natid, char *);
 extern int unit_interdict(coord, coord, natid, char *, int, int);
 extern int off_support(coord, coord, natid, natid);
@@ -547,8 +547,8 @@ extern int pln_airbase_ok(struct plnstr *, int, int);
 extern int carrier_planes(struct shpstr *, int);
 extern void pln_sel(struct nstr_item *, struct emp_qelem *,
 		    struct sctstr *, int, int, int, int);
-extern void pln_arm(struct emp_qelem *, int, char, struct ichrstr *, int);
-extern int pln_mobcost(int, struct plnstr *, int);
+extern void pln_arm(struct emp_qelem *, int, char, struct ichrstr *);
+extern int pln_mobcost(int, struct plnstr *, char);
 extern void pln_put(struct emp_qelem *);
 extern void pln_put1(struct plist *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);

@@ -71,7 +71,7 @@ static void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
 static int dosupport(struct genlist *, coord, coord, natid, natid);
 static int find_airport(struct emp_qelem *, coord, coord);
 static void mission_pln_arm(struct emp_qelem *, coord, coord, int,
-			    int, struct ichrstr *, int);
+			    int, struct ichrstr *);
 static void mission_pln_sel(struct emp_qelem *, int, int, int);
 static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
 			   char *, int);
@@ -610,12 +610,12 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	/* Split off the escorts at this base into e */
 	divide(&escorts, &e, air->x, air->y);
 
-	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', NULL, 0);
+	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', NULL);
 
 	if (QEMPTY(&b))
 	    continue;
 
-	mission_pln_arm(&e, air->x, air->y, 2 * md, 'p', NULL, P_F | P_ESC);
+	mission_pln_arm(&e, air->x, air->y, 2 * md, 'e', NULL);
 
 	pp = BestAirPath(buf, air->x, air->y, x, y);
 	if (CANT_HAPPEN(!pp))
@@ -840,7 +840,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
  */
 static void
 mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
-		int mission, struct ichrstr *ip, int flags)
+		int mission, struct ichrstr *ip)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -858,21 +858,20 @@ mission_pln_arm(struct emp_qelem *list, coord x, coord y, int dist,
 	    continue;
 
 	if (CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED)
-	    || mission_pln_equip(plp, ip, flags, mission) < 0) {
+	    || mission_pln_equip(plp, ip, mission) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
 	}
 
 	pp->pln_flags |= PLN_LAUNCHED;
-	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
+	pp->pln_mobil -= pln_mobcost(dist, pp, mission);
 	putplane(pp->pln_uid, pp);
     }
 }
 
 int
-mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
-		  char mission)
+mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 {
     struct plchrstr *pcp;
     struct plnstr *pp;
@@ -899,64 +898,62 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, int flags,
 	return -1;
     }
     item[I_PETROL] -= pcp->pl_fuel;
-    if (!(flags & P_F)) {
-	load = pln_load(pp);
-	itype = I_NONE;
-	needed = 0;
-	switch (mission) {
-	case 's':		/* strategic bomb */
-	case 'p':		/* pinpoint bomb */
-	    if (nuk_on_plane(pp) < 0) {
-		itype = I_SHELL;
-		needed = load;
-	    }
-	    break;
-	case 't':		/* transport */
-	case 'd':		/* drop */
-	    if (!(pcp->pl_flags & P_C) || !ip)
-		break;
-	    itype = ip->i_uid;
-	    needed = (load * 2) / ip->i_lbs;
-	    break;
-	case 'a':		/* paradrop */
-	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
-		break;
-	    itype = I_MILIT;
-	    needed = load / ip->i_lbs;
-	    break;
-	case 'i':		/* missile interception */
-	    if (load) {
-		itype = I_SHELL;
-		needed = load;
-	    }
-	    break;
-	case 'r':		/* reconnaissance */
-	case 0:			/* plane interception */
-	    break;
-	default:
-	    CANT_REACH();
-	    break;
+    load = pln_load(pp);
+    itype = I_NONE;
+    needed = 0;
+    switch (mission) {
+    case 's':		/* strategic bomb */
+    case 'p':		/* pinpoint bomb */
+	if (nuk_on_plane(pp) < 0) {
+	    itype = I_SHELL;
+	    needed = load;
 	}
-	if (itype != I_NONE && needed <= 0)
-	    return -1;
-	if (itype != I_NONE) {
-	    if (itype == I_SHELL && item[itype] < needed) {
-		if (pp->pln_ship >= 0)
-		    shp_supply(&ship, I_SHELL, needed);
-		else if (pp->pln_land >= 0)
-		    lnd_supply(&land, I_SHELL, needed);
-		else
-		    sct_supply(&sect, I_SHELL, needed);
-	    }
-	    if (item[itype] < needed)
-		return -1;
-	    item[itype] -= needed;
+	break;
+    case 't':		/* transport */
+    case 'd':		/* drop */
+	if (!(pcp->pl_flags & P_C) || !ip)
+	    break;
+	itype = ip->i_uid;
+	needed = (load * 2) / ip->i_lbs;
+	break;
+    case 'a':		/* paradrop */
+	if ((pcp->pl_flags & (P_V | P_C)) == 0)
+	    break;
+	itype = I_MILIT;
+	needed = load / ip->i_lbs;
+	break;
+    case 'i':		/* missile interception */
+	if (load) {
+	    itype = I_SHELL;
+	    needed = load;
 	}
-	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	    plp->bombs = needed;
-	else
-	    plp->misc = needed;
+	break;
+    case 'r':		/* reconnaissance */
+    case 'e':		/* escort */
+    case 0:			/* plane interception */
+	break;
+    default:
+	CANT_REACH();
     }
+    if (itype != I_NONE && needed <= 0)
+	return -1;
+    if (itype != I_NONE) {
+	if (itype == I_SHELL && item[itype] < needed) {
+	    if (pp->pln_ship >= 0)
+		shp_supply(&ship, I_SHELL, needed);
+	    else if (pp->pln_land >= 0)
+		lnd_supply(&land, I_SHELL, needed);
+	    else
+		sct_supply(&sect, I_SHELL, needed);
+	}
+	if (item[itype] < needed)
+	    return -1;
+	item[itype] -= needed;
+    }
+    if (itype == I_SHELL && (mission == 's' || mission == 'p'))
+	plp->bombs = needed;
+    else
+	plp->misc = needed;
     if (pp->pln_ship >= 0)
 	putship(ship.shp_uid, &ship);
     else if (pp->pln_land >= 0)

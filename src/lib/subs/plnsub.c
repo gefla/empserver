@@ -54,7 +54,7 @@
 #include "ship.h"
 #include "xy.h"
 
-static int pln_equip(struct plist *, struct ichrstr *, int, char);
+static int pln_equip(struct plist *, struct ichrstr *, char);
 static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
 
 /*
@@ -582,8 +582,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 }
 
 void
-pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
-	int flags)
+pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -596,20 +595,20 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip,
 	pp = &plp->plane;
 	getplane(pp->pln_uid, pp);
 	if ((pp->pln_flags & PLN_LAUNCHED)
-	    || pln_equip(plp, ip, flags, mission) < 0) {
+	    || pln_equip(plp, ip, mission) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
 	}
 	pp->pln_flags |= PLN_LAUNCHED;
-	pp->pln_mobil -= pln_mobcost(dist, pp, flags);
+	pp->pln_mobil -= pln_mobcost(dist, pp, mission);
 	putplane(pp->pln_uid, pp);
 	pr("%s equipped\n", prplane(pp));
     }
 }
 
 static int
-pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
+pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 {
     struct plchrstr *pcp;
     struct plnstr *pp;
@@ -642,71 +641,70 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	return -1;
     }
     item[I_PETROL] -= pcp->pl_fuel;
-    if ((flags & P_F) == 0) {
-	load = pln_load(pp);
-	itype = I_NONE;
-	needed = 0;
-	switch (mission) {
-	case 's':		/* strategic bomb */
-	case 'p':		/* pinpoint bomb */
-	    if (nuk_on_plane(pp) < 0) {
-		itype = I_SHELL;
-		needed = load;
-	    }
-	    break;
-	case 't':		/* transport */
-	case 'd':		/* drop */
-	    if (!(pcp->pl_flags & P_C) || !ip)
-		break;
-	    itype = ip->i_uid;
-	    needed = (load * 2) / ip->i_lbs;
-	    break;
-	case 'm':		/* mine */
-	    if ((pcp->pl_flags & P_MINE) == 0)
-		break;
+    load = pln_load(pp);
+    itype = I_NONE;
+    needed = 0;
+    switch (mission) {
+    case 's':		/* strategic bomb */
+    case 'p':		/* pinpoint bomb */
+	if (nuk_on_plane(pp) < 0) {
 	    itype = I_SHELL;
-	    needed = (load * 2) / ip->i_lbs;
+	    needed = load;
+	}
+	break;
+    case 't':		/* transport */
+    case 'd':		/* drop */
+	if (!(pcp->pl_flags & P_C) || !ip)
 	    break;
-	case 'a':		/* paradrop */
-	    if ((pcp->pl_flags & (P_V | P_C)) == 0)
-		break;
-	    itype = I_MILIT;
-	    needed = load / ip->i_lbs;
+	itype = ip->i_uid;
+	needed = (load * 2) / ip->i_lbs;
+	break;
+    case 'm':		/* mine */
+	if ((pcp->pl_flags & P_MINE) == 0)
 	    break;
-	case 'r':		/* reconnaissance */
+	itype = I_SHELL;
+	needed = (load * 2) / ip->i_lbs;
+	break;
+    case 'a':		/* paradrop */
+	if ((pcp->pl_flags & (P_V | P_C)) == 0)
 	    break;
-	default:
-	    CANT_REACH();
-	}
-	if (itype != I_NONE && needed <= 0) {
-	    pr("%s can't contribute to mission\n", prplane(pp));
-	    return -1;
-	}
-	if (itype == I_CIVIL && pp->pln_own != own) {
-	    pr("You don't control those civilians!\n");
-	    return -1;
-	}
-	if (itype != I_NONE) {
-#if 0
-	    /* Supply is broken somewhere, so don't use it for now */
-	    if (itype == I_SHELL && item[itype] < needed)
-		item[itype] += supply_commod(plp->plane.pln_own,
-					     plp->plane.pln_x,
-					     plp->plane.pln_y,
-					     I_SHELL, needed);
-#endif
-	    abandon_needed = !!would_abandon(&sect, itype, needed, NULL);
-	    if (item[itype] < needed + abandon_needed) {
-		pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
-		return -1;
-	    }
-	    item[itype] -= needed;
-	}
-	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	    plp->bombs = needed;
-	else
-	    plp->misc = needed;
+	itype = I_MILIT;
+	needed = load / ip->i_lbs;
+	break;
+    case 'r':		/* reconnaissance */
+    case 'e':		/* escort */
+	break;
+    default:
+	CANT_REACH();
     }
+    if (itype != I_NONE && needed <= 0) {
+	pr("%s can't contribute to mission\n", prplane(pp));
+	return -1;
+    }
+    if (itype == I_CIVIL && pp->pln_own != own) {
+	pr("You don't control those civilians!\n");
+	return -1;
+    }
+    if (itype != I_NONE) {
+#if 0
+	/* Supply is broken somewhere, so don't use it for now */
+	if (itype == I_SHELL && item[itype] < needed)
+	    item[itype] += supply_commod(plp->plane.pln_own,
+					 plp->plane.pln_x,
+					 plp->plane.pln_y,
+					 I_SHELL, needed);
+#endif
+	abandon_needed = !!would_abandon(&sect, itype, needed, NULL);
+	if (item[itype] < needed + abandon_needed) {
+	    pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
+	    return -1;
+	}
+	item[itype] -= needed;
+    }
+    if (itype == I_SHELL && (mission == 's' || mission == 'p'))
+	plp->bombs = needed;
+    else
+	plp->misc = needed;
     if (pp->pln_ship >= 0) {
 	if (pp->pln_own != ship.shp_own) {
 	    wu(0, ship.shp_own,
@@ -1034,13 +1032,13 @@ pln_identchance(struct plnstr *pp, int hardtarget, int type)
 }
 
 int
-pln_mobcost(int dist, struct plnstr *pp, int flags)
+pln_mobcost(int dist, struct plnstr *pp, char mission)
 {
     double cost;
 
     cost = 20.0 / (pp->pln_effic / 100.0);
-    if ((flags & P_F) || (flags & P_ESC))
-	cost /= 2;
+    if (mission == 'e' || mission == 0)
+	cost /= 2;		/* escort or intercept */
 
     return ldround(cost * dist / pln_range_max(pp) + 5, 1);
 }

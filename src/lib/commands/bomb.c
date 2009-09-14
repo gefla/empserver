@@ -137,12 +137,12 @@ bomb(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    pln_arm(&bomb_list, 2 * ap_to_target, mission, ip, 0);
+    pln_arm(&bomb_list, 2 * ap_to_target, mission, ip);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    pln_arm(&esc_list, 2 * ap_to_target, mission, ip, P_F | P_ESC);
+    pln_arm(&esc_list, 2 * ap_to_target, 'e', NULL);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");

@@ -61,7 +61,7 @@ msl_equip(struct plnstr *pp, char mission)
     memset(&pl, 0, sizeof(struct plist));
     pl.pcp = plchr + pp->pln_type;
     pl.plane = *pp;
-    return mission_pln_equip(&pl, NULL, 0, mission);
+    return mission_pln_equip(&pl, NULL, mission);
 }
 
 int
@@ -271,7 +271,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	if (pp->pln_own != sect.sct_own)
 	    continue;
 	pcp = ip->pcp;
-	if (mission_pln_equip(ip, NULL, 0, 'i') < 0) {
+	if (mission_pln_equip(ip, NULL, 'i') < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -290,7 +290,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
 	pcp = ip->pcp;
-	if (mission_pln_equip(ip, NULL, 0, 'i') < 0) {
+	if (mission_pln_equip(ip, NULL, 'i') < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -401,7 +401,7 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 	next = qp->q_back;
 	plp = (struct plist *)qp;
 
-	if (mission_pln_equip(plp, NULL, 0, 'p') >= 0) {
+	if (mission_pln_equip(plp, NULL, 'p') >= 0) {
 	    if (msl_hit(&plp->plane,
 			hardtarget, type, news_item, snews_item,
 			whatp, x, y, victim)) {

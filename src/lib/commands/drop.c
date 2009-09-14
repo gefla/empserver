@@ -110,12 +110,12 @@ drop(void)
      */
     pln_arm(&bomb_list, 2 * ap_to_target,
 	    wantflags & P_MINE ? 'm' : 'd',
-	    ip, 0);
+	    ip);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
     }
-    pln_arm(&esc_list, 2 * ap_to_target, 'd', ip, P_ESC | P_F);
+    pln_arm(&esc_list, 2 * ap_to_target, 'e', NULL);
     ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, 0);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
