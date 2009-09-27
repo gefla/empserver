@@ -6,10 +6,11 @@ The \*Qdropoff\*U command is used to resupply beleaguered friendly
 troops with food, shells, reinforcements, and other necessities of
 battle.
 .s1
-<TRANSPORTS> represents a list of planes which are to travel
-to the target sector.
-Only planes which are provided with gas, and have sufficient mobility will
-be successfully selected for the mission.
+<TRANSPORTS> represents a list of planes to transport commodities to
+the target sector.
+Only planes with sufficient mobility, based in a sector stocked with
+petrol and the commodities to transport, will be successfully selected
+for the mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the transports all the way to the target.

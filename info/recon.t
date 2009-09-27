@@ -7,10 +7,10 @@ that the spy mission overflies.
 The planes take off from their respective airports, assemble, and
 then fly the mission and land in the destination sector.
 .s1
-<SPYPLANES> represents a list of planes which are to be performing the
+<SPYPLANES> represents a list of planes which are to perform the
 intelligence gathering operation.
-Only planes which are provided with gas, and have sufficient mobility will
-be successfully selected for the mission.
+Only planes with sufficient mobility, based in a sector stocked with
+petrol, will be successfully selected for the mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the transports all the way to the target.

@@ -7,10 +7,10 @@ enemy ships, planes, land units, and sectors.
 It represents a complete mission for one or more bombers and escorts
 taking off from one place and returning to base at the end of the mission.
 .s1
-<BOMBERS> represents a list of planes which can carry bombs.
-Only planes which have a bomb bay, belong in a sector which is
-stocked with gas and shells, and have sufficient mobility will
-be successfully selected for the mission.
+<BOMBERS> represents a list of planes to carry out the bombing run.
+Only planes with a bomb bay and sufficient mobility, based in a sector
+stocked with petrol and shells, will be successfully selected for the
+mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the bombers all the way to the target.

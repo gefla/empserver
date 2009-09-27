@@ -6,10 +6,10 @@ The \*Qsweep\*U command is identical to the recon command, except
 that if you use planes capable of minesweeping, they will sweep
 sea mines from sectors along their route.
 .s1
-<PLANES> represents a list of planes which are to be performing the
+<PLANES> represents a list of planes which are to perform the
 intelligence gathering operation.
-Only planes which are provided with gas, and have sufficient mobility will
-be successfully selected for the mission.
+Only planes with sufficient mobility, based in a sector stocked with
+petrol, will be successfully selected for the mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the transports all the way to the target.

@@ -7,11 +7,11 @@ or to drop in unawares on lightly-defended enemy islands or outposts.
 It represents a complete mission for one or more transports and escorts
 taking off from one place and returning to base at the end of the mission.
 .s1
-<TRANSPORTS> represents a list of planes which can carry commodities.
-Only planes which have a transport capacity, belong in a sector which is
-stocked with gas and military, and have sufficient mobility will
-be successfully selected for the mission. Only planes with the para ability
-may be used for paratroop missions.
+<TRANSPORTS> represents a list of planes to carry the paratroopers to
+the target sector.
+Only planes with capability para and sufficient mobility, based in a
+sector stocked with petrol and military, will be successfully selected
+for the mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the transports all the way to the target.
