@@ -8,9 +8,9 @@ battle.
 .s1
 <TRANSPORTS> represents a list of planes to transport commodities to
 the target sector.
-Only planes with sufficient mobility, based in a sector stocked with
-petrol and the commodities to transport, will be successfully selected
-for the mission.
+Only planes with capability cargo and sufficient mobility, based in a
+sector stocked with petrol and the commodities to transport, will be
+successfully selected for the mission.
 .s1
 <ESCORTS> represent a list of fighter planes which are capable of escorting
 the transports all the way to the target.
@@ -22,8 +22,7 @@ The assembly point must be owned by you or an ally, or you or an ally
 must have a ship there.  It must not be more than
 four sectors away from any of the planes selected for the mission.
 .s1
-<COMMODITY> is the name of a commodity which is to be carried along
-on all of the planes which have a transport capacity.
+<COMMODITY> is the name of the commodity which is to be dropped.
 .s1
 Route is a normal empire path specification. You may also give a
 destination sector on the command line, or at any time while giving

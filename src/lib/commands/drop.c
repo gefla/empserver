@@ -57,7 +57,6 @@ drop(void)
     struct sctstr ap_sect;
     char buf[1024];
 
-    wantflags = 0;
     if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
 	return RET_SYN;
     if (!get_assembly_point(player->argp[3], &ap_sect, buf))
@@ -77,16 +76,19 @@ drop(void)
 
     if (target.sct_own == player->cnum
 	|| getrel(getnatp(target.sct_own), player->cnum) == ALLIED) {
+	/* own or allied sector: cargo drop */
 	if (ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
 	    pr("Can't drop civilians into occupied sectors.\n");
 	    return RET_FAIL;
 	}
+	wantflags = P_C;
     } else {
 	/* into the unknown... */
 	if (ip->i_uid != I_SHELL) {
 	    pr("You don't own %s!\n", xyas(tx, ty, player->cnum));
 	    return RET_FAIL;
 	}
+	/* mine drop */
 	wantflags = P_MINE;
     }
 
