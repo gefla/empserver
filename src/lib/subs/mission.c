@@ -908,16 +908,24 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	itype = I_SHELL;
 	break;
     case 't':		/* transport */
-    case 'd':		/* drop */
 	if (!(pcp->pl_flags & P_C) || !ip)
 	    break;
 	itype = ip->i_uid;
 	load *= 2;
 	break;
+    case 'd':		/* drop */
+	if (!(pcp->pl_flags & P_C) || CANT_HAPPEN(!ip))
+	    break;
+	itype = ip->i_uid;
+	if (pcp->pl_flags & P_V)
+	    load *= 2;
+	break;
     case 'a':		/* paradrop */
 	if (!(pcp->pl_flags & P_P))
 	    break;
 	itype = I_MILIT;
+	if (pcp->pl_flags & P_V)
+	    load *= 2;
 	break;
     case 'i':		/* missile interception */
 	if (load)
