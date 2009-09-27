@@ -900,44 +900,43 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     item[I_PETROL] -= pcp->pl_fuel;
     load = pln_load(pp);
     itype = I_NONE;
-    needed = 0;
     switch (mission) {
     case 's':		/* strategic bomb */
     case 'p':		/* pinpoint bomb */
-	if (nuk_on_plane(pp) < 0) {
-	    itype = I_SHELL;
-	    needed = load;
-	}
+	if (nuk_on_plane(pp) >= 0)
+	    break;
+	itype = I_SHELL;
 	break;
     case 't':		/* transport */
     case 'd':		/* drop */
 	if (!(pcp->pl_flags & P_C) || !ip)
 	    break;
 	itype = ip->i_uid;
-	needed = (load * 2) / ip->i_lbs;
+	load *= 2;
 	break;
     case 'a':		/* paradrop */
 	if (!(pcp->pl_flags & P_P))
 	    break;
 	itype = I_MILIT;
-	needed = load / ichr[I_MILIT].i_lbs;
 	break;
     case 'i':		/* missile interception */
-	if (load) {
+	if (load)
 	    itype = I_SHELL;
-	    needed = load;
-	}
 	break;
     case 'r':		/* reconnaissance */
     case 'e':		/* escort */
     case 0:			/* plane interception */
+	load = 0;
 	break;
     default:
 	CANT_REACH();
+	load = 0;
     }
-    if (itype != I_NONE && needed <= 0)
-	return -1;
+
     if (itype != I_NONE) {
+	needed = load / ichr[itype].i_lbs;
+	if (needed <= 0)
+	    return -1;
 	if (itype == I_SHELL && item[itype] < needed) {
 	    if (pp->pln_ship >= 0)
 		shp_supply(&ship, I_SHELL, needed);
@@ -949,11 +948,12 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	if (item[itype] < needed)
 	    return -1;
 	item[itype] -= needed;
+	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
+	    plp->bombs = needed;
+	else
+	    plp->misc = needed;
     }
-    if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	plp->bombs = needed;
-    else
-	plp->misc = needed;
+
     if (pp->pln_ship >= 0)
 	putship(ship.shp_uid, &ship);
     else if (pp->pln_land >= 0)

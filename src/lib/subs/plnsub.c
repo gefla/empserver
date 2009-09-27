@@ -650,49 +650,50 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     item[I_PETROL] -= pcp->pl_fuel;
     load = pln_load(pp);
     itype = I_NONE;
-    needed = 0;
     switch (mission) {
     case 's':		/* strategic bomb */
     case 'p':		/* pinpoint bomb */
-	if (nuk_on_plane(pp) < 0) {
-	    itype = I_SHELL;
-	    needed = load;
-	}
+	if (nuk_on_plane(pp) >= 0)
+	    break;
+	itype = I_SHELL;
 	break;
     case 't':		/* transport */
     case 'd':		/* drop */
 	if (!(pcp->pl_flags & P_C) || !ip)
 	    break;
 	itype = ip->i_uid;
-	needed = (load * 2) / ip->i_lbs;
+	load *= 2;
 	break;
     case 'm':		/* mine */
 	if ((pcp->pl_flags & P_MINE) == 0)
 	    break;
 	itype = I_SHELL;
-	needed = (load * 2) / ichr[I_SHELL].i_lbs;
+	load *= 2;
 	break;
     case 'a':		/* paradrop */
 	if (!(pcp->pl_flags & P_P))
 	    break;
 	itype = I_MILIT;
-	needed = load / ichr[I_MILIT].i_lbs;
 	break;
     case 'r':		/* reconnaissance */
     case 'e':		/* escort */
+	load = 0;
 	break;
     default:
 	CANT_REACH();
+	load = 0;
     }
-    if (itype != I_NONE && needed <= 0) {
-	pr("%s can't contribute to mission\n", prplane(pp));
-	return -1;
-    }
-    if (itype == I_CIVIL && pp->pln_own != own) {
-	pr("You don't control those civilians!\n");
-	return -1;
-    }
+
     if (itype != I_NONE) {
+	needed = load / ichr[itype].i_lbs;
+	if (needed <= 0) {
+	    pr("%s can't contribute to mission\n", prplane(pp));
+	    return -1;
+	}
+	if (itype == I_CIVIL && pp->pln_own != own) {
+	    pr("You don't control those civilians!\n");
+	    return -1;
+	}
 #if 0
 	/* Supply is broken somewhere, so don't use it for now */
 	if (itype == I_SHELL && item[itype] < needed)
@@ -707,11 +708,12 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	    return -1;
 	}
 	item[itype] -= needed;
+	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
+	    plp->bombs = needed;
+	else
+	    plp->misc = needed;
     }
-    if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	plp->bombs = needed;
-    else
-	plp->misc = needed;
+
     if (pp->pln_ship >= 0) {
 	if (pp->pln_own != ship.shp_own) {
 	    wu(0, ship.shp_own,
