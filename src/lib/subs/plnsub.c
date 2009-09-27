@@ -637,14 +637,6 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	item = sect.sct_item;
 	own = sect.sct_oldown;
     }
-    if (ip) {
-	if (ip->i_uid == I_CIVIL) {
-	    if (pp->pln_own != own) {
-		pr("You don't control those civilians!\n");
-		return -1;
-	    }
-	}
-    }
     if (pcp->pl_fuel > item[I_PETROL]) {
 	pr("%s not enough petrol there!\n", prplane(pp));
 	return -1;
@@ -688,6 +680,10 @@ pln_equip(struct plist *plp, struct ichrstr *ip, int flags, char mission)
 	}
 	if (itype != I_NONE && needed <= 0) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
+	    return -1;
+	}
+	if (itype == I_CIVIL && pp->pln_own != own) {
+	    pr("You don't control those civilians!\n");
 	    return -1;
 	}
 	if (itype != I_NONE) {
