@@ -85,7 +85,6 @@ bomb(void)
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
-    struct ichrstr *ip;
     char flightpath[MAX_PATH_LEN];
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
@@ -122,7 +121,6 @@ bomb(void)
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target sector is %s\n", xyas(tx, ty, player->cnum));
     getsect(tx, ty, &target);
-    ip = NULL;
     ap_to_target = strlen(flightpath);
     if (flightpath[ap_to_target - 1] == 'h')
 	ap_to_target--;
@@ -137,7 +135,7 @@ bomb(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    pln_arm(&bomb_list, 2 * ap_to_target, mission, ip);
+    pln_arm(&bomb_list, 2 * ap_to_target, mission, NULL);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
