@@ -917,7 +917,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	needed = (load * 2) / ip->i_lbs;
 	break;
     case 'a':		/* paradrop */
-	if ((pcp->pl_flags & (P_V | P_C)) == 0)
+	if (!(pcp->pl_flags & P_P))
 	    break;
 	itype = I_MILIT;
 	needed = load / ichr[I_MILIT].i_lbs;
