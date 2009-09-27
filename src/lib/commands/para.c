@@ -90,7 +90,7 @@ para(void)
     /*
      * now arm and equip the bombers, transports, whatever.
      */
-    pln_arm(&bomb_list, 2 * ap_to_target, 'a', &ichr[I_MILIT]);
+    pln_arm(&bomb_list, 2 * ap_to_target, 'a', NULL);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;

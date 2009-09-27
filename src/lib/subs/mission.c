@@ -920,7 +920,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	if ((pcp->pl_flags & (P_V | P_C)) == 0)
 	    break;
 	itype = I_MILIT;
-	needed = load / ip->i_lbs;
+	needed = load / ichr[I_MILIT].i_lbs;
 	break;
     case 'i':		/* missile interception */
 	if (load) {
