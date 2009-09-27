@@ -91,7 +91,6 @@ bomb(void)
     struct sctstr target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
-    int wantflags;
     struct sctstr ap_sect;
     char mission;
     struct plist *plp;
@@ -100,7 +99,6 @@ bomb(void)
     struct natstr *natp;
     char buf[1024];
 
-    wantflags = 0;
     if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
 	return RET_SYN;
     p = getstarg(player->argp[3], "pinpoint, or strategic? ", buf);
@@ -129,9 +127,9 @@ bomb(void)
      * select planes within range
      */
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
-	    2, wantflags, P_M | P_O);
+	    2, 0, P_M | P_O);
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
-	    2, wantflags | P_F | P_ESC, P_M | P_O);
+	    2, P_ESC | P_F, P_M | P_O);
     /*
      * now arm and equip the bombers, transports, whatever.
      */

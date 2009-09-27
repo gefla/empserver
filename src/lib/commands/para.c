@@ -57,11 +57,9 @@ para(void)
     struct sctstr target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
-    int wantflags;
     struct sctstr ap_sect;
     char buf[1024];
 
-    wantflags = P_P;
     if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
 	return RET_SYN;
     if (!get_assembly_point(player->argp[3], &ap_sect, buf))
@@ -84,7 +82,7 @@ para(void)
      * select planes within range
      */
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
-	    2, P_C | wantflags, P_M | P_O);
+	    2, P_P | P_C, P_M | P_O);
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
 	    2, P_ESC | P_F, P_M | P_O);
     /*
