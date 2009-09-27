@@ -41,6 +41,7 @@
 int
 reco(void)
 {
+    int mission_flags = player->argp[0][0] == 's' ? PM_R | PM_S : PM_R;
     coord tx, ty;
     coord ax, ay;
     int ap_to_target;
@@ -81,7 +82,7 @@ reco(void)
      * select planes within range
      */
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
-	    1, wantflags, P_M | P_O);
+	    1, wantflags | (mission_flags & PM_S ? P_SWEEP : 0), P_M | P_O);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes could be equipped for the mission.\n");
 	return RET_FAIL;
@@ -101,8 +102,7 @@ reco(void)
 	return RET_FAIL;
     }
     pln_arm(&esc_list, ap_to_target, 'e', NULL);
-    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath,
-		 *player->argp[0] == 's' ? PM_R | PM_S : PM_R);
+    ac_encounter(&bomb_list, &esc_list, ax, ay, flightpath, mission_flags);
     if (QEMPTY(&bomb_list)) {
 	pr("No planes got through fighter defenses\n");
     } else {
