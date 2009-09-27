@@ -127,7 +127,7 @@ bomb(void)
      * select planes within range
      */
     pln_sel(&ni_bomb, &bomb_list, &ap_sect, ap_to_target,
-	    2, 0, P_M | P_O);
+	    2, P_B | P_T, P_M | P_O);
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target,
 	    2, P_ESC | P_F, P_M | P_O);
     /*

@@ -360,6 +360,7 @@ pln_mine(struct emp_qelem *list, coord tx, coord ty)
 /*
  * Has PP's type capabilities satisfying WANTFLAGS and NOWANTFLAGS?
  * A plane type is capable unless
+ * - it lacks all of the P_B, P_T in WANTFLAGS, or
  * - it lacks all of the P_F, P_ESC in WANTFLAGS, or
  * - it lacks all of the P_E, P_L, P_K in WANTFLAGS, or
  * - it lacks any of the other capabilities in WANTFLAGS, or
@@ -369,6 +370,12 @@ int
 pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 {
     int flags = plchr[(int)pp->pln_type].pl_flags;
+
+    if (wantflags & (P_B | P_T)) {
+	if ((flags & wantflags & (P_B | P_T)) == 0)
+	    return 0;
+	wantflags &= ~(P_B | P_T);
+    }
 
     if (wantflags & (P_F | P_ESC)) {
 	if ((flags & wantflags & (P_F | P_ESC)) == 0)
