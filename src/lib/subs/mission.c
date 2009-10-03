@@ -956,10 +956,7 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	if (item[itype] < needed)
 	    return -1;
 	item[itype] -= needed;
-	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	    plp->bombs = needed;
-	else
-	    plp->misc = needed;
+	plp->load = needed;
     }
 
     if (pp->pln_ship >= 0)
@@ -1048,7 +1045,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	if ((mission == MI_SINTERDICT) && !(plp->pcp->pl_flags & P_A))
 	    continue;
 
-	if (!plp->bombs)
+	if (!plp->load)
 	    continue;
 
 	newdam = 0;

@@ -210,8 +210,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	    continue;
 	/* got a valid interceptor */
 	irv = malloc(sizeof(*irv));
-	irv->bombs = 0;
-	irv->misc = 0;
+	irv->load = 0;
 	irv->pcp = &plchr[(int)plane.pln_type];
 	irv->plane = plane;
 	emp_insque(&irv->queue, list);

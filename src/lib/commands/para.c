@@ -144,7 +144,7 @@ paradrop(struct emp_qelem *list, coord x, coord y)
     att_combat_init(off, EF_PLANE);
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	off->troops += plp->misc;
+	off->troops += plp->load;
     }
     off->mil = off->troops;
     if (att_abort(A_PARA, off, def)) {

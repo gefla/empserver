@@ -275,7 +275,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     amt = 0;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	amt += plp->misc;
+	amt += plp->load;
     }
     if (cno < 0) {
 	getsect(tx, ty, &sect);
@@ -340,7 +340,7 @@ pln_mine(struct emp_qelem *list, coord tx, coord ty)
     amt = 0;
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	amt += plp->misc;
+	amt += plp->load;
 
     }
     if (amt > 0) {
@@ -580,8 +580,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	plane.pln_mission = 0;
 	putplane(plane.pln_uid, &plane);
 	plp = malloc(sizeof(struct plist));
-	plp->misc = 0;
-	plp->bombs = 0;
+	plp->load = 0;
 	plp->pcp = pcp;
 	plp->plane = plane;
 	emp_insque(&plp->queue, list);
@@ -716,10 +715,7 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	    return -1;
 	}
 	item[itype] -= needed;
-	if (itype == I_SHELL && (mission == 's' || mission == 'p'))
-	    plp->bombs = needed;
-	else
-	    plp->misc = needed;
+	plp->load = needed;
     }
 
     if (pp->pln_ship >= 0) {

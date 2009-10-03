@@ -344,7 +344,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
+	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
     }
@@ -422,7 +422,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
+	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
     }
@@ -484,7 +484,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	}
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
-		      prplane(&plp->plane), plp->bombs);
+		      prplane(&plp->plane), plp->load);
 	shipno = -1;
 	while (shipno < 0) {
 	    if (!(q = getstring(prompt, buf)))
@@ -605,7 +605,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	}
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
-		      prplane(&plp->plane), plp->bombs);
+		      prplane(&plp->plane), plp->load);
 	planeno = -1;
 	while (planeno < 0) {
 	    if (!(q = getstring(prompt, buf)))
@@ -709,7 +709,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	}
 	(void)sprintf(prompt, "%s, %d bombs.  Target ('~' to skip)? ",
-		      prplane(&plp->plane), plp->bombs);
+		      prplane(&plp->plane), plp->load);
 	unitno = -1;
 	while (unitno < 0) {
 	    if (!(q = getstring(prompt, buf)))
@@ -796,7 +796,7 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
+	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      's', &nukedam, 1);
     }

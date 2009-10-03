@@ -124,8 +124,7 @@ struct plchrstr {
 
 struct plist {
     struct emp_qelem queue;	/* list of planes */
-    int bombs;			/* bombs carried for bombing mission */
-    int misc;			/* amount of random item being transported */
+    int load;			/* number of bombs or items carried */
     struct plchrstr *pcp;	/* pointer to desc of plane */
     struct plnstr plane;	/* struct plane */
 };
