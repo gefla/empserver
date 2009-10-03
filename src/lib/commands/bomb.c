@@ -344,8 +344,6 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
-	    continue;
 	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
@@ -424,8 +422,6 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
-	    continue;
 	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      'p', &nukedam, 1);
@@ -477,8 +473,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	free_shiplist(&head);
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
-	    continue;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
 	    continue;
 	if (plp->pcp->pl_flags & P_A)
 	    nships = asw_shipsatxy(target->sct_x, target->sct_y, 0, 0,
@@ -605,8 +599,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
-	    continue;
 	nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
 	if (nplanes == 0) {
 	    pr("%s could not find any planes!\n", prplane(&plp->plane));
@@ -711,8 +703,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
-	    continue;
 	nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
 	if (nunits == 0) {
 	    pr("%s could not find any units!\n", prplane(&plp->plane));
@@ -806,8 +796,6 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	if ((plp->pcp->pl_flags & P_C) && (!(plp->pcp->pl_flags & P_T)))
-	    continue;
 	if (plp->bombs || nuk_on_plane(&plp->plane) >= 0)
 	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
 			      's', &nukedam, 1);
