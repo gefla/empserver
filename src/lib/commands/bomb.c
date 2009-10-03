@@ -344,9 +344,8 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
-	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			      'p', &nukedam, 1);
+	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			  'p', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
@@ -422,9 +421,8 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
-	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			      'p', &nukedam, 1);
+	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			  'p', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
@@ -796,9 +794,8 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	if (plp->load || nuk_on_plane(&plp->plane) >= 0)
-	    dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			      's', &nukedam, 1);
+	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
+			  's', &nukedam, 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;
