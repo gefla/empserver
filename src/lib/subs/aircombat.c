@@ -492,9 +492,9 @@ ac_dog(struct plist *ap, struct plist *dp)
     def = pln_def(&dp->plane) * dp->plane.pln_effic / 100;
     def = MAX(def, dp->pcp->pl_def / 2);
 
-    if ((ap->pcp->pl_flags & P_F) && ap->bombs != 0)
+    if ((ap->pcp->pl_flags & P_F) && ap->bombs + ap->misc != 0)
 	att -= 2;
-    if ((dp->pcp->pl_flags & P_F) && dp->bombs != 0)
+    if ((dp->pcp->pl_flags & P_F) && dp->bombs + ap->misc != 0)
 	def -= 2;
     att += ap->pcp->pl_stealth / 25.0;
     def += dp->pcp->pl_stealth / 25.0;
