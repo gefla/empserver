@@ -138,8 +138,6 @@ launch_as(struct plnstr *pp)
 {
     char *cp, buf[1024];
     struct plnstr plane;
-    int dam, nukedam;
-    natid oldown;
 
     cp = getstarg(player->argp[2], "Target satellite? ", buf);
     if (!check_plane_ok(pp))
@@ -158,23 +156,18 @@ launch_as(struct plnstr *pp)
 	pr("Range too great!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp, 'p') < 0) {
+    if (msl_equip(pp, 'i') < 0) {
 	pr("%s not enough petrol or shells!\n", prplane(pp));
 	return RET_FAIL;
     }
     if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
 		prplane(&plane), plane.pln_x, plane.pln_y, plane.pln_own)) {
-	dam = pln_damage(pp, plane.pln_x, plane.pln_y, 'p', &nukedam, 1);
-	CANT_HAPPEN(nukedam);
-	oldown = plane.pln_own;
-	planedamage(&plane, dam);
-	pr("Hit satellite for %d%% damage!\n", dam);
-	mpr(oldown, "%s anti-sat did %d%% damage to %s over %s\n",
-	    cname(player->cnum), dam, prplane(&plane),
+	pr("Satellite shot down\n");
+	mpr(plane.pln_own, "%s anti-sat destroyed %s over %s\n",
+	    cname(player->cnum), prplane(&plane),
 	    xyas(plane.pln_x, plane.pln_y, plane.pln_own));
+	plane.pln_effic = 0;
 	putplane(plane.pln_uid, &plane);
-	if (!plane.pln_own)
-	    mpr(oldown, "Satellite shot down\n");
     }
     return RET_OK;
 }

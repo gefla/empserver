@@ -106,8 +106,8 @@ For all other flights, the flight cost is:
   20 / (plane efficiency)
 For planes flying on an air defense mission, this cost is cut in half.
 
-4. Land mine, pin-bombing, a-sat, and nuclear damage
-A land mine, pinpoint bomb, anti-sat missile or nuclear detonation
+4. Land mine, pin-bombing, and nuclear damage
+A land mine, pinpoint bomb or nuclear detonation
 will damage the mobility of the plane in exactly the same way that the
 efficiency of the plane is damaged (see "info Damage").
 
