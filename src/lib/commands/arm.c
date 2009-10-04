@@ -62,7 +62,8 @@ arm(void)
 	    && getrel(getnatp(pl.pln_own), player->cnum) != ALLIED)
 	    continue;
 	plc = &plchr[(int)pl.pln_type];
-	if ((plc->pl_flags & (P_O | P_M)) == (P_O | P_M)) {
+	if ((plc->pl_flags & (P_O | P_N))
+	    || (plc->pl_flags & (P_M | P_F)) == (P_M | P_F)) {
 	    pr("A %s cannot carry nuclear devices!\n", plc->pl_name);
 	    return RET_FAIL;
 	}
