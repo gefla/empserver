@@ -372,7 +372,6 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	pr("Your trajectory was a little off.\n");
     }
     nreport(player->cnum, N_LAUNCH, 0, 1);
-    pr("%s positioned over %s", prplane(pp), xyas(sx, sy, player->cnum));
     if (msl_intercept(sx, sy, pp->pln_own, pcp->pl_def, sublaunch, P_O, 0)) {
 	return RET_OK;
     }
@@ -382,7 +381,8 @@ launch_sat(struct plnstr *pp, int sublaunch)
     pp->pln_flags |= PLN_LAUNCHED;
     pp->pln_mobil = pp->pln_mobil > dist ? pp->pln_mobil - dist : 0;
     putplane(pp->pln_uid, pp);
-    pr(", will be ready for use in %d time units\n",
+    pr("%s positioned over %s, will be ready for use in %d time units\n",
+       prplane(pp), xyas(sx, sy, player->cnum),
        plane_mob_max - pp->pln_mobil);
     return RET_OK;
 }
