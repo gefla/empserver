@@ -456,27 +456,24 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 	}
 
-	/* Plane sanity done */
-	/* Find the right ship */
 	if (load_unload == UNLOAD) {
 	    if (pln.pln_ship != sp->shp_uid)
 		continue;
 	} else if (sp->shp_x != pln.pln_x || sp->shp_y != pln.pln_y)
 	    continue;
 
-	/* ship to (plane or missle) sanity */
 	if (!could_be_on_ship(&pln, sp, 0, 0, 0, 0)) {
-	    if (plchr[(int)pln.pln_type].pl_flags & P_L) {
-		strcpy(buf, "planes");
-	    } else if (plchr[(int)pln.pln_type].pl_flags & P_K) {
-		strcpy(buf, "choppers");
-	    } else if (plchr[(int)pln.pln_type].pl_flags & P_M) {
-		strcpy(buf, "missiles");
-	    } else if (plchr[(int)pln.pln_type].pl_flags & P_E) {
-		strcpy(buf, "extra light planes");
-	    }			/* else impossible */
-	    if (noisy)
-		pr("%s cannot carry %s.\n", prship(sp), buf);
+	    if (noisy) {
+		if (plchr[(int)pln.pln_type].pl_flags & P_K)
+		    p = "choppers";
+		else if (plchr[(int)pln.pln_type].pl_flags & P_E)
+		    p = "extra light planes";
+		else if (plchr[(int)pln.pln_type].pl_flags & P_M)
+		    p = "missiles";
+		else
+		    p = "planes";
+		pr("%s cannot carry %s.\n", prship(sp), p);
+	    }
 	    continue;
 	}
 	/* Fit plane on ship */
