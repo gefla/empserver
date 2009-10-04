@@ -780,10 +780,6 @@ ac_flak_dam(int guns, int def, int pl_flags)
     flak = guns - def;
     if ((pl_flags & P_T) == 0)
 	flak--;
-    if (pl_flags & P_X)
-	flak -= 2;
-    if (pl_flags & P_H)
-	flak -= 1;
 
     if (flak > 8)
 	mult = flaktable[FLAK_MAX];
