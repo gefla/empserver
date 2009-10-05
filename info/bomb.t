@@ -24,11 +24,10 @@ target sector.
 Strategic missions damage all commodities in the entire target sector,
 while not damaging any ships resident (similar to the
 \*Qfire\*U command).
-If a plane is armed with a nuclear warhead, then it will drop the bomb
-rather than using conventional weapons.
-Nuclear devices damage everything in the sector; planes, ships, and
-commodities.
-Only missiles in hardened silos can avoid damage from a nuclear mission.
+.s1
+Nuclear bombs can only be used for strategic bombing.  They damage
+everything in the sector; planes, ships, and commodities.
+Only missiles in hardened silos can avoid damage from a nuclear attack.
 .s1
 <SECT> represents an assembly point, where all of the planes in the
 mission meet before proceeding on to the target sector.

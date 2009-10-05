@@ -651,8 +651,6 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     switch (mission) {
     case 's':		/* strategic bomb */
     case 'p':		/* pinpoint bomb */
-	if (nuk_on_plane(pp) >= 0)
-	    break;
 	itype = I_SHELL;
 	break;
     case 't':		/* transport */
@@ -700,6 +698,16 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	if (needed <= 0) {
 	    pr("%s can't contribute to mission\n", prplane(pp));
 	    return -1;
+	}
+	if (nuk_on_plane(pp) >= 0) {
+	    if (mission == 's' || mission == 't')
+		needed = 0;
+	    else {
+		pr("%s can't fly this mission"
+		   " while it is carrying a nuclear weapon",
+		   prplane(pp));
+		return -1;
+	    }
 	}
 	if (itype == I_CIVIL && pp->pln_own != own) {
 	    pr("You don't control those civilians!\n");
@@ -967,13 +975,9 @@ pln_hitchance(struct plnstr *pp, int hardtarget, int type)
     return hitchance;
 }
 
-/* return 0 if there was a nuclear detonation */
-
 int
-pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
-	   int noisy)
+pln_damage(struct plnstr *pp, char type, int noisy)
 {
-    struct nukstr nuke;
     struct plchrstr *pcp = plchr + pp->pln_type;
     int load, i;
     int hitroll;
@@ -982,14 +986,8 @@ pln_damage(struct plnstr *pp, coord x, coord y, char type, int *nukedamp,
     int effective = 1;
     int pinbomber = 0;
 
-    if (getnuke(nuk_on_plane(pp), &nuke)) {
-	mpr(pp->pln_own, "Releasing RV's for %s detonation...\n",
-	    pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
-	*nukedamp = detonate(&nuke, x, y,
-			     pp->pln_flags & PLN_AIRBURST);
+    if (CANT_HAPPEN(nuk_on_plane(pp) >= 0)) /* FIXME check uses! */
 	return 0;
-    }
-    *nukedamp = 0;
 
     load = pln_load(pp);
     if (!load)		       /* e.g. ab, blowing up on launch pad */

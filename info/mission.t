@@ -49,7 +49,7 @@ planes flying in their op-area, in accordance with the air-defense mission,
 but will not intercept one outside their op-area, even if it is within
 their normal range. Be sure you understand this before using plane missions.)
 .s1
-Nukes on missiles or planes flying missions DO detonate.
+Planes armed with nukes cannot be assigned missions.
 .s1
 "marine" missiles will keep launching to interdict ships until all of
 the valuable ships in the fleet are sunk.  A "valuable" ship is one

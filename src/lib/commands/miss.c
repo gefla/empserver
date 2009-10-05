@@ -246,6 +246,12 @@ mission(void)
 	    }
 	}
 
+	if (type == EF_PLANE && nuk_on_plane((struct plnstr *)gp) >= 0) {
+	    pr("%s can't perform a mission while it carries a nuclear weapon",
+	       obj_nameof(gp));
+	    continue;
+	}
+
 	if (*p == '.') {
 	    x = gp->x;
 	    y = gp->y;

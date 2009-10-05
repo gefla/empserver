@@ -62,7 +62,7 @@ where
 
 
 Plane and missile hitchance
-If the plane or missile is carrying a nuclear warhead or the target is
+If the target is
 a sector, then the hitchance is 100%.  Otherwise, the following
 procedure is used to calculate hitchance.
 

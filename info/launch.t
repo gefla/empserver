@@ -60,10 +60,8 @@ the launching pad instead of launching.
 Missiles launched from submarines are anonymous. The victim
 is not notified of the identity of the launching country.
 .s1
-Missiles on interdiction mission have the same chance of hitting and
-do the same damage as if they were launched by hand.  Also, any
-nuclear armed missiles will detonate if they launch on an interdiction
-mission.  You specify whether the nuclear warhead will airburst or
+Nuclear-tipped missiles can only be launched at sectors.
+You specify whether the nuclear warhead will airburst or
 groundburst when you arm the missiles (see info arm).
 In order to better destroy missiles on the ground (or in their silos),
 the ground-burst technique is used.

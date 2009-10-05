@@ -75,7 +75,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
     struct plchrstr *pcp = plchr + pp->pln_type;
     int hitchance;
     char *from;
-    int dam, dummyi;
+    int dam;
 
     mpr(pp->pln_own, "Preparing to launch %s at %s %s %s%s\n",
 	prplane(pp),
@@ -107,19 +107,16 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
 	if (chance(0.33)) {
-	    dam = pln_damage(pp, pp->pln_x, pp->pln_y,
-			     'p', &dummyi, 1) / 2;
-	    if (dam) {
-		if (pp->pln_ship >= 0) {
-		    shipdamage(&ship, dam);
-		    putship(ship.shp_uid, &ship);
-		} else {
-		    pr("Explosion damages %s %d%%",
-		       xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
-		    getsect(pp->pln_x, pp->pln_y, &sect);
-		    sectdamage(&sect, dam);
-		    putsect(&sect);
-		}
+	    dam = pln_damage(pp, 'p', 1) / 2;
+	    if (pp->pln_ship >= 0) {
+		shipdamage(&ship, dam);
+		putship(ship.shp_uid, &ship);
+	    } else {
+		pr("Explosion damages %s %d%%",
+		   xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
+		getsect(pp->pln_x, pp->pln_y, &sect);
+		sectdamage(&sect, dam);
+		putsect(&sect);
 	    }
 	}
 	return 0;
@@ -373,14 +370,12 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 /* Keep launching missiles on list until mindam damage has been done */
 int
 msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
-		  int type, int mindam, char *whatp, int victim,
-		  int mission)
+		  int type, int mindam, char *whatp, int victim)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct plist *plp;
     int newdam, dam = 0;
-    int nukedam = 0;
     int news_item;
     int snews_item;
 
@@ -395,7 +390,7 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 	snews_item = N_SCT_SMISS;
     }
 
-    for (qp = list->q_back; qp != list && dam < mindam && !nukedam;
+    for (qp = list->q_back; qp != list && dam < mindam;
 	 qp = next) {
 	next = qp->q_back;
 	plp = (struct plist *)qp;
@@ -404,21 +399,16 @@ msl_launch_mindam(struct emp_qelem *list, coord x, coord y, int hardtarget,
 	    if (msl_hit(&plp->plane,
 			hardtarget, type, news_item, snews_item,
 			whatp, x, y, victim)) {
-		newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 1);
-		if (nukedam) {
-		    if (mission == MI_INTERDICT && type == EF_SECTOR)
-			dam += nukedam;
-		} else
-		    dam += newdam;
+		newdam = pln_damage(&plp->plane, 'p', 1);
+		dam += newdam;
 #if 0
 	    /*
-	     * FIXME want collateral damage on miss (which can't
-	     * happen for nuclear war heads), but we get here too when
-	     * launch fails or missile is intercepted
+	     * FIXME want collateral damage on miss, but we get here
+	     * too when launch fails or missile is intercepted
 	     */
 	    } else {
 		/* Missiles that miss have to hit somewhere! */
-		newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 0);
+		newdam = pln_damage(&plp->plane, 'p', 0);
 		collateral_damage(x, y, newdam);
 #endif
 	    }

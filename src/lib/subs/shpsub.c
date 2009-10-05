@@ -492,7 +492,7 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	sprintf(what, "%s", prship(&mvs->unit.ship));
 	dam = msl_launch_mindam(&msl_list, newx, newy,
 				shp_hardtarget(&mvs->unit.ship),
-				EF_SHIP, 1, what, victim, MI_INTERDICT);
+				EF_SHIP, 1, what, victim);
 	if (dam) {
 	    mpr(victim,
 		"missile interdiction mission does %d damage to %s!\n",

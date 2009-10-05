@@ -499,7 +499,7 @@ extern int msl_hit(struct plnstr *, int, int, int, int, char *,
 extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,
 		    int, int);
 extern int msl_launch_mindam(struct emp_qelem *, coord, coord, int,
-			     int, int, char *, int, int);
+			     int, int, char *, int);
 /* mtch.c */
 extern int comtch(char *, struct cmndstr *, int);
 /* natarg.c */
@@ -555,7 +555,7 @@ extern void pln_put1(struct plist *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
 extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
-extern int pln_damage(struct plnstr *, coord, coord, char, int *, int);
+extern int pln_damage(struct plnstr *, char, int);
 extern int pln_identchance(struct plnstr *, int, int);
 extern int pln_is_in_orbit(struct plnstr *);
 extern void pln_set_tech(struct plnstr *, int);

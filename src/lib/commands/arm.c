@@ -62,7 +62,7 @@ arm(void)
 	    && getrel(getnatp(pl.pln_own), player->cnum) != ALLIED)
 	    continue;
 	plc = &plchr[(int)pl.pln_type];
-	if ((plc->pl_flags & (P_O | P_N))
+	if ((plc->pl_flags & (P_O | P_N | P_MAR))
 	    || (plc->pl_flags & (P_M | P_F)) == (P_M | P_F)) {
 	    pr("A %s cannot carry nuclear devices!\n", plc->pl_name);
 	    return RET_FAIL;
@@ -108,6 +108,7 @@ arm(void)
 	    pl.pln_flags |= PLN_AIRBURST;
 	else
 	    pl.pln_flags &= ~PLN_AIRBURST;
+	pl.pln_mission = 0;
 
 	snprintf(buf, sizeof(buf), "armed on your %s in %s",
 		 prplane(&pl), xyas(pl.pln_x, pl.pln_y, pl.pln_own));

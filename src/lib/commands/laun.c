@@ -40,6 +40,7 @@
 #include "damage.h"
 #include "mission.h"
 #include "news.h"
+#include "nuke.h"
 #include "optlist.h"
 #include "path.h"
 #include "plane.h"
@@ -186,9 +187,9 @@ launch_missile(struct plnstr *pp, int sublaunch)
     struct mchrstr *mcp;
     struct shpstr target_ship;
     struct sctstr sect;
-    int nukedam;
     int rel;
     struct natstr *natp;
+    struct nukstr nuke;
     char buf[1024];
 
     if (pcp->pl_flags & P_MAR)
@@ -231,9 +232,9 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	pr("Range too great; try again!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp, 'p') < 0)
-	return RET_FAIL;
     if (!(pcp->pl_flags & P_MAR)) {
+	if (msl_equip(pp, 's') < 0)
+	    return RET_FAIL;
 	getsect(sx, sy, &sect);
 	if (opt_SLOW_WAR) {
 	    natp = getnatp(player->cnum);
@@ -251,17 +252,21 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		     N_SCT_SMISS, "sector", sx, sy, sect.sct_own)) {
 #if 0
 	    /*
-	     * FIXME want collateral damage on miss (which can't
-	     * happen for nuclear war heads), but we get here too when
-	     * launch fails or missile is intercepted
+	     * FIXME want collateral damage on miss, but we get here
+	     * too when launch fails or missile is intercepted
 	     */
-	    dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 0);
+	    dam = pln_damage(pp, 's', 0);
 	    collateral_damage(sect.sct_x, sect.sct_y, dam, 0);
 #endif
 	    return RET_OK;
 	}
-	dam = pln_damage(pp, sect.sct_x, sect.sct_y, 's', &nukedam, 1);
-	if (!nukedam) {
+	if (getnuke(nuk_on_plane(pp), &nuke)) {
+	    mpr(pp->pln_own,
+		"Releasing RV's for %s detonation...\n",
+		pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
+	    detonate(&nuke, sx, sy, pp->pln_flags & PLN_AIRBURST);
+	} else {
+	    dam = pln_damage(pp, 's', 1);
 	    pr("did %d damage in %s\n", PERCENT_DAMAGE(dam),
 	       xyas(sx, sy, player->cnum));
 	    if (sect.sct_own != 0) {
@@ -279,23 +284,22 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	    putsect(&sect);
 	}
     } else {
+	if (msl_equip(pp, 'p') < 0)
+	    return RET_FAIL;
 	if (!msl_hit(pp, shp_hardtarget(&target_ship), EF_SHIP,
 		     N_SHP_MISS, N_SHP_SMISS, prship(&target_ship),
 		     target_ship.shp_x, target_ship.shp_y,
 		     target_ship.shp_own)) {
 	    pr("splash\n");
 #if 0 /* FIXME see above */
-	    dam = pln_damage(pp,target_ship.shp_x,target_ship.shp_y,'p',&nukedam, 0);
+	    dam = pln_damage(pp, 'p', 0);
 	    collateral_damage(target_ship.shp_x, target_ship.shp_y, dam, 0);
 #endif
 	    return RET_OK;
 	}
-	dam = pln_damage(pp, target_ship.shp_x, target_ship.shp_y, 'p',
-			 &nukedam, 1);
-	if (!nukedam) {
-	    check_retreat_and_do_shipdamage(&target_ship, dam);
-	    putship(target_ship.shp_uid, &target_ship);
-	}
+	dam = pln_damage(pp, 'p', 1);
+	check_retreat_and_do_shipdamage(&target_ship, dam);
+	putship(target_ship.shp_uid, &target_ship);
 	getship(target_ship.shp_uid, &target_ship);
 	if (!target_ship.shp_own)
 	    pr("%s sunk!\n", prship(&target_ship));

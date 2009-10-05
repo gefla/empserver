@@ -337,17 +337,15 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
     struct emp_qelem *qp, *next;
     struct sctstr sect;
     int oldeff, dam = 0;
-    int nukedam;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			  'p', &nukedam, 1);
+	dam += pln_damage(&plp->plane, 'p', 1);
     }
-    if (dam <= 0)		/* dam == 0 if only nukes were delivered */
+    if (dam <= 0)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
@@ -381,7 +379,6 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
     struct emp_qelem *qp, *next;
     struct sctstr sect;
     int dam = 0;
-    int nukedam;
 
     for (i = 0; i < nbomb; i++) {
 	if (target->sct_item[bombcomm[i]] == 0)
@@ -421,10 +418,9 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			  'p', &nukedam, 1);
+	dam += pln_damage(&plp->plane, 'p', 1);
     }
-    if (dam <= 0)		/* dam == 0 if only nukes were delivered */
+    if (dam <= 0)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
@@ -462,7 +458,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
     char buf[1024];
     char prompt[128];
     int hitchance;
-    int nukedam;
     int flak;
     int gun;
 
@@ -535,17 +530,15 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (roll(100) <= hitchance) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-				 'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
 	    pr("splash\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			     'p', &nukedam, 0);
+	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
-	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
+	if (dam <= 0)
 	    continue;
 	if (mcp->m_flags & M_SUB)
 	    nreport(player->cnum, N_SUB_BOMB, ship.shp_own, 1);
@@ -589,7 +582,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
     char prompt[128];
     char buf[1024];
     int hitchance;
-    int nukedam;
     int nplanes;
 
     for (qp = list->q_forw; qp != list; qp = next) {
@@ -641,17 +633,15 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (roll(100) <= hitchance) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-				 'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			     'p', &nukedam, 0);
+	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
-	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
+	if (dam <= 0)
 	    continue;
 	if (dam > 100)
 	    dam = 100;
@@ -693,7 +683,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
     int unitno;
     int aaf, flak, hitchance;
     struct plist *plp;
-    int nukedam;
     int nunits;
 
     for (qp = list->q_forw; qp != list; qp = next) {
@@ -755,17 +744,15 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    pr("%d%% hitchance...", hitchance);
 	}
 	if (roll(100) <= hitchance) {
-	    dam = 2 * pln_damage(&plp->plane, target->sct_x, target->sct_y,
-				 'p', &nukedam, 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			     'p', &nukedam, 0);
+	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    dam = 0;
 	}
-	if (dam <= 0)		/* dam == 0 if only nukes were delivered */
+	if (dam <= 0)
 	    continue;
 	if (dam > 100)
 	    dam = 100;
@@ -790,12 +777,19 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
     int dam = 0;
     struct emp_qelem *qp;
     struct sctstr sect;
-    int nukedam;
+    struct nukstr nuke;
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	dam += pln_damage(&plp->plane, target->sct_x, target->sct_y,
-			  's', &nukedam, 1);
+	if (getnuke(nuk_on_plane(&plp->plane), &nuke)) {
+	    mpr(plp->plane.pln_own,
+		"Releasing RV's for %s detonation...\n",
+		plp->plane.pln_flags & PLN_AIRBURST
+		? "airburst" : "groundburst");
+	    detonate(&nuke, target->sct_x, target->sct_y,
+		     plp->plane.pln_flags & PLN_AIRBURST);
+	} else
+	    dam += pln_damage(&plp->plane, 's', 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */
 	return;

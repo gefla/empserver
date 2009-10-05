@@ -725,8 +725,7 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 
     dam = msl_launch_mindam(&msl_list, newx, newy,
 			    lnd_easiest_target(list), EF_LAND,
-			    lnd_count(list) * 20, "troops", victim,
-			    MI_INTERDICT);
+			    lnd_count(list) * 20, "troops", victim);
     if (dam) {
 	mpr(victim, "missile interdiction mission does %d damage!\n", dam);
 	collateral_damage(newx, newy, dam);

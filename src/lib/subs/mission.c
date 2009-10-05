@@ -551,7 +551,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	/* I arbitrarily chose 100 mindam -KHS */
 	dam +=
 	    msl_launch_mindam(&missiles, x, y, hardtarget, EF_SECTOR, 100,
-			      "sector", victim, mission);
+			      "sector", victim);
 	qp = missiles.q_forw;
 	while (qp != (&missiles)) {
 	    newqp = qp->q_forw;
@@ -902,8 +902,6 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     itype = I_NONE;
     switch (mission) {
     case 'p':		/* pinpoint bomb */
-	if (nuk_on_plane(pp) >= 0)
-	    break;
 	itype = I_SHELL;
 	break;
     case 'i':		/* missile interception */
@@ -922,6 +920,8 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     if (itype != I_NONE) {
 	needed = load / ichr[itype].i_lbs;
 	if (needed <= 0)
+	    return -1;
+	if (CANT_HAPPEN(nuk_on_plane(pp) >= 0))
 	    return -1;
 	if (itype == I_SHELL && item[itype] < needed) {
 	    if (pp->pln_ship >= 0)
@@ -1014,7 +1014,6 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
     struct plnstr *pp;
     int newdam, dam = 0;
     int hitchance;
-    int nukedam;
 
     for (qp = bombers->q_forw; qp != bombers; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
@@ -1053,24 +1052,14 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	    hitchance = 100;
 	else if (hardtarget != SECT_HARDTARGET)
 	    wu(0, pp->pln_own, "\t\t%d%% hitchance...", hitchance);
-	/* Always calculate damage */
 	if (roll(100) <= hitchance) {
-	    newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 1);
-	    if (nukedam) {
-		if (mission == MI_INTERDICT) {
-		    wu(0, pp->pln_own,
-		       "\t\tnuclear warhead on plane %s does %d damage to %s %s\n",
-		       prplane(pp), nukedam, cname(victim), s);
-		    dam += nukedam;
-		}
-	    } else {
-		wu(0, pp->pln_own,
-		   "\t\thit %s %s for %d damage\n",
-		   cname(victim), s, newdam);
-		dam += newdam;
-	    }
+	    newdam = pln_damage(&plp->plane, 'p', 1);
+	    wu(0, pp->pln_own,
+	       "\t\thit %s %s for %d damage\n",
+	       cname(victim), s, newdam);
+	    dam += newdam;
 	} else {
-	    newdam = pln_damage(&plp->plane, x, y, 'p', &nukedam, 0);
+	    newdam = pln_damage(&plp->plane, 'p', 0);
 	    wu(0, pp->pln_own, "missed\n");
 	    if (mission == MI_SINTERDICT) {
 		mpr(victim,
