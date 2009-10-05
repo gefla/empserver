@@ -493,7 +493,6 @@ extern int move_ground(struct sctstr *, struct sctstr *,
 extern int fly_map(coord, coord);
 /* mslsub.c */
 extern int msl_intercept(coord, coord, natid, int, int, int, int);
-extern int msl_equip(struct plnstr *, char);
 extern int msl_hit(struct plnstr *, int, int, int, int, char *,
 		   coord, coord, int);
 extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,

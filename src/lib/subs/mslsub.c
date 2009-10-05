@@ -54,17 +54,6 @@
 #include "xy.h"
 
 int
-msl_equip(struct plnstr *pp, char mission)
-{
-    struct plist pl;
-
-    memset(&pl, 0, sizeof(struct plist));
-    pl.pcp = plchr + pp->pln_type;
-    pl.plane = *pp;
-    return pln_equip(&pl, NULL, mission);
-}
-
-int
 msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	int snews_item, char *what, coord x, coord y, int victim)
 {

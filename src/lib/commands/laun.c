@@ -49,6 +49,7 @@
 static int launch_as(struct plnstr *pp);
 static int launch_missile(struct plnstr *pp, int sublaunch);
 static int launch_sat(struct plnstr *pp, int sublaunch);
+static int msl_equip(struct plnstr *, char);
 
 /*
  * laun <PLANES>
@@ -373,4 +374,15 @@ launch_sat(struct plnstr *pp, int sublaunch)
        prplane(pp), xyas(sx, sy, player->cnum),
        plane_mob_max - pp->pln_mobil);
     return RET_OK;
+}
+
+static int
+msl_equip(struct plnstr *pp, char mission)
+{
+    struct plist pl;
+
+    memset(&pl, 0, sizeof(struct plist));
+    pl.pcp = plchr + pp->pln_type;
+    pl.plane = *pp;
+    return pln_equip(&pl, NULL, mission);
 }
