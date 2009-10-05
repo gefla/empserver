@@ -781,14 +781,10 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
-	if (getnuke(nuk_on_plane(&plp->plane), &nuke)) {
-	    mpr(plp->plane.pln_own,
-		"Releasing RV's for %s detonation...\n",
-		plp->plane.pln_flags & PLN_AIRBURST
-		? "airburst" : "groundburst");
+	if (getnuke(nuk_on_plane(&plp->plane), &nuke))
 	    detonate(&nuke, target->sct_x, target->sct_y,
 		     plp->plane.pln_flags & PLN_AIRBURST);
-	} else
+	else
 	    dam += pln_damage(&plp->plane, 's', 1);
     }
     if (dam <= 0)		/* dam == 0 if only nukes were delivered */

@@ -74,6 +74,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     struct nstr_item ni;
     int issea;
 
+    mpr(bombown, "Releasing RV's for %s detonation...\n",
+	airburst ? "airburst" : "groundburst");
+
     getsect(x, y, &sect);
     issea = sect.sct_type == SCT_WATER;
     ncp = &nchr[nuketype];

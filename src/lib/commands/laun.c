@@ -260,12 +260,9 @@ launch_missile(struct plnstr *pp, int sublaunch)
 #endif
 	    return RET_OK;
 	}
-	if (getnuke(nuk_on_plane(pp), &nuke)) {
-	    mpr(pp->pln_own,
-		"Releasing RV's for %s detonation...\n",
-		pp->pln_flags & PLN_AIRBURST ? "airburst" : "groundburst");
+	if (getnuke(nuk_on_plane(pp), &nuke))
 	    detonate(&nuke, sx, sy, pp->pln_flags & PLN_AIRBURST);
-	} else {
+	else {
 	    dam = pln_damage(pp, 's', 1);
 	    pr("did %d damage in %s\n", PERCENT_DAMAGE(dam),
 	       xyas(sx, sy, player->cnum));
