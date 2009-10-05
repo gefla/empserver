@@ -54,7 +54,6 @@
 #include "ship.h"
 #include "xy.h"
 
-static int pln_equip(struct plist *, struct ichrstr *, char);
 static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
 
 /*
@@ -613,7 +612,7 @@ pln_arm(struct emp_qelem *list, int dist, char mission, struct ichrstr *ip)
     }
 }
 
-static int
+int
 pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 {
     struct plchrstr *pcp;
@@ -684,7 +683,12 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	break;
     case 'r':		/* reconnaissance */
     case 'e':		/* escort */
-	load = 0;
+    case 'i':		/* missile interception */
+	if (CANT_HAPPEN(!(pcp->pl_flags & P_M)
+			|| !(pcp->pl_flags & (P_N | P_O))))
+	    break;
+	if (load)
+	    itype = I_SHELL;
 	break;
     default:
 	CANT_REACH();

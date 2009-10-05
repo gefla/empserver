@@ -548,6 +548,7 @@ extern int carrier_planes(struct shpstr *, int);
 extern void pln_sel(struct nstr_item *, struct emp_qelem *,
 		    struct sctstr *, int, int, int, int);
 extern void pln_arm(struct emp_qelem *, int, char, struct ichrstr *);
+extern int pln_equip(struct plist *, struct ichrstr *, char);
 extern int pln_mobcost(int, struct plnstr *, char);
 extern void pln_put(struct emp_qelem *);
 extern void pln_put1(struct plist *);

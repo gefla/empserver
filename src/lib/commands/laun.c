@@ -156,10 +156,8 @@ launch_as(struct plnstr *pp)
 	pr("Range too great!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp, 'i') < 0) {
-	pr("%s not enough petrol or shells!\n", prplane(pp));
+    if (msl_equip(pp, 'i') < 0)
 	return RET_FAIL;
-    }
     if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
 		prplane(&plane), plane.pln_x, plane.pln_y, plane.pln_own)) {
 	pr("Satellite shot down\n");
@@ -233,10 +231,8 @@ launch_missile(struct plnstr *pp, int sublaunch)
 	pr("Range too great; try again!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp, 'p') < 0) {
-	pr("%s not enough shells!\n", prplane(pp));
+    if (msl_equip(pp, 'p') < 0)
 	return RET_FAIL;
-    }
     if (!(pcp->pl_flags & P_MAR)) {
 	getsect(sx, sy, &sect);
 	if (opt_SLOW_WAR) {
@@ -343,10 +339,8 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	return RET_SYN;
     if (!check_plane_ok(pp))
 	return RET_FAIL;
-    if (msl_equip(pp, 'r') < 0) {
-	pr("%s not enough petrol!\n", prplane(pp));
+    if (msl_equip(pp, 'r') < 0)
 	return RET_FAIL;
-    }
     pp->pln_theta = 0;
     pp->pln_flags |= PLN_SYNCHRONOUS;
     if (*p == 0 || *p == 'n')
