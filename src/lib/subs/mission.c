@@ -901,39 +901,17 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     load = pln_load(pp);
     itype = I_NONE;
     switch (mission) {
-    case 's':		/* strategic bomb */
     case 'p':		/* pinpoint bomb */
 	if (nuk_on_plane(pp) >= 0)
 	    break;
 	itype = I_SHELL;
 	break;
-    case 't':		/* transport */
-	if (!(pcp->pl_flags & P_C) || !ip)
-	    break;
-	itype = ip->i_uid;
-	load *= 2;
-	break;
-    case 'd':		/* drop */
-	if (!(pcp->pl_flags & P_C) || CANT_HAPPEN(!ip))
-	    break;
-	itype = ip->i_uid;
-	if (pcp->pl_flags & P_V)
-	    load *= 2;
-	break;
-    case 'a':		/* paradrop */
-	if (!(pcp->pl_flags & P_P))
-	    break;
-	itype = I_MILIT;
-	if (pcp->pl_flags & P_V)
-	    load *= 2;
-	break;
     case 'i':		/* missile interception */
 	if (load)
 	    itype = I_SHELL;
 	break;
-    case 'r':		/* reconnaissance */
     case 'e':		/* escort */
-    case 0:			/* plane interception */
+    case 0:		/* plane interception */
 	load = 0;
 	break;
     default:
