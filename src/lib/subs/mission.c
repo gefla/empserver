@@ -389,7 +389,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct plchrstr *pcp;
     int dam = 0, dam2;
     natid plane_owner = 0;
-    int md, range, air_dam = 0;
+    int md, range, air_dam;
     double hitchance, vrange;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
@@ -547,19 +547,36 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    break;
 	}
     }
-    if (!QEMPTY(&missiles)) {
-	/* I arbitrarily chose 100 mindam -KHS */
-	dam +=
-	    msl_launch_mindam(&missiles, x, y, hardtarget, EF_SECTOR, 100,
-			      "sector", victim);
-	qp = missiles.q_forw;
-	while (qp != (&missiles)) {
-	    newqp = qp->q_forw;
-	    emp_remque(qp);
-	    free(qp);
-	    qp = newqp;
+
+    air_dam = 0;
+    for (qp = missiles.q_back; qp != &missiles; qp = newqp) {
+	newqp = qp->q_back;
+	plp = (struct plist *)qp;
+
+	if (air_dam < 100 && mission_pln_equip(plp, NULL, 'p') >= 0) {
+	    if (msl_hit(&plp->plane, hardtarget, EF_SECTOR,
+			N_SCT_MISS, N_SCT_SMISS,
+			"sector", x, y, victim)) {
+		dam2 = pln_damage(&plp->plane, 'p', 1);
+		air_dam += dam2;
+#if 0
+	    /*
+	     * FIXME want collateral damage on miss, but we get here
+	     * too when launch fails or missile is intercepted
+	     */
+	    } else {
+		/* Missiles that miss have to hit somewhere! */
+		dam2 = pln_damage(&plp->plane, 'p', 0);
+		collateral_damage(x, y, dam2);
+#endif
+	    }
+	    plp->plane.pln_effic = 0;
+	    putplane(plp->plane.pln_uid, &plp->plane);
 	}
+	emp_remque(qp);
+	free(qp);
     }
+    dam += air_dam;
 
     if (QEMPTY(&bombers)) {
 	qp = list->q_forw;
@@ -593,6 +610,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    add_airport(&airp, plp->plane.pln_x, plp->plane.pln_y);
     }
 
+    air_dam = 0;
     for (qp = airp.q_forw; qp != (&airp); qp = qp->q_forw) {
 	struct airport *air;
 	char buf[512];

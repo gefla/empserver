@@ -718,24 +718,46 @@ static int
 lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 			 natid victim)
 {
-    int dam;
+    int mindam = lnd_count(list) * 20;
+    int hardtarget = lnd_easiest_target(list);
+    int dam, newdam;
+    struct plist *plp;
     struct emp_qelem msl_list, *qp, *newqp;
 
     msl_sel(&msl_list, newx, newy, victim, P_T, P_MAR, MI_INTERDICT);
 
-    dam = msl_launch_mindam(&msl_list, newx, newy,
-			    lnd_easiest_target(list), EF_LAND,
-			    lnd_count(list) * 20, "troops", victim);
+    dam = 0;
+    for (qp = msl_list.q_back; qp != &msl_list; qp = newqp) {
+	newqp = qp->q_back;
+	plp = (struct plist *)qp;
+
+	if (dam < mindam && mission_pln_equip(plp, NULL, 'p') >= 0) {
+	    if (msl_hit(&plp->plane, hardtarget, EF_LAND,
+			N_LND_MISS, N_LND_SMISS,
+			"troops", newx, newy, victim)) {
+		newdam = pln_damage(&plp->plane, 'p', 1);
+		dam += newdam;
+#if 0
+	    /*
+	     * FIXME want collateral damage on miss, but we get here
+	     * too when launch fails or missile is intercepted
+	     */
+	    } else {
+		/* Missiles that miss have to hit somewhere! */
+		newdam = pln_damage(&plp->plane, 'p', 0);
+		collateral_damage(newx, newy, newdam);
+#endif
+	    }
+	    plp->plane.pln_effic = 0;
+	    putplane(plp->plane.pln_uid, &plp->plane);
+	}
+	emp_remque(qp);
+	free(qp);
+    }
+
     if (dam) {
 	mpr(victim, "missile interdiction mission does %d damage!\n", dam);
 	collateral_damage(newx, newy, dam);
-    }
-    qp = msl_list.q_forw;
-    while (qp != msl_list.q_forw) {
-	newqp = qp->q_forw;
-	emp_remque(qp);
-	free(qp);
-	qp = newqp;
     }
     return dam;
 }

@@ -497,8 +497,6 @@ extern int msl_hit(struct plnstr *, int, int, int, int, char *,
 		   coord, coord, int);
 extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,
 		    int, int);
-extern int msl_launch_mindam(struct emp_qelem *, coord, coord, int,
-			     int, int, char *, int);
 /* mtch.c */
 extern int comtch(char *, struct cmndstr *, int);
 /* natarg.c */
