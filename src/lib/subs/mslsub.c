@@ -122,10 +122,8 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	    xyas(x, y, victim));
 
     if ((pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
-	if (msl_intercept(x, y, pp->pln_own, pln_def(pp),
-			  sublaunch, P_N, P_O)) {
+	if (msl_abm_intercept(pp, x, y, sublaunch))
 	    return 0;
-	}
     }
     if (pcp->pl_flags & P_MAR) {
 	if (shp_missile_defense(x, y, pp->pln_own, pln_def(pp))) {
@@ -203,15 +201,13 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
     }
 }
 
-int
-msl_intercept(coord x, coord y, natid bombown, int hardtarget,
-	      int sublaunch, int wantflags, int nowantflags)
+static int
+msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
+	      struct emp_qelem *irvlist, char *att_name, char *def_name,
+	      int news_item)
 {
     struct plnstr *pp;
     struct plchrstr *pcp;
-    struct sctstr sect;
-    struct emp_qelem *irvlist;
-    struct emp_qelem foo;
     struct emp_qelem *intlist;
     struct emp_qelem intfoo;
     struct emp_qelem *qp;
@@ -219,32 +215,8 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     struct plist *ip;
     int icount = 0;
     short destroyed;
-    char *att_name;
-    char *def_name;
-    int news_item;
-    char *who = sublaunch ? "" : cname(bombown);
+    char *who = sublaunch ? "" : cname(msl->pln_own);
 
-    getsect(x, y, &sect);
-    if (wantflags == P_O && !nowantflags) {
-	att_name = "satellite";
-	def_name = "a-sat missile";
-	news_item = N_SAT_KILL;
-	CANT_HAPPEN(sublaunch);
-	mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
-	    cname(bombown), xyas(x, y, sect.sct_own));
-    } else if (wantflags == P_N && nowantflags == P_O) {
-	att_name = "warhead";
-	def_name = "abm";
-	news_item = sublaunch ? N_NUKE_SSTOP : N_NUKE_STOP;
-    } else {
-	att_name = "elephant";
-	def_name = "tomato";	/* heh -KHS */
-	news_item = N_NUKE_STOP;
-    }
-    irvlist = &foo;
-
-    /* get all hostile abms in range */
-    msl_sel(irvlist, x, y, bombown, wantflags, nowantflags, 0);
     intlist = &intfoo;
     emp_initque(intlist);
     /* First choose interceptors belonging to the target sector */
@@ -253,7 +225,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	next = qp->q_forw;
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
-	if (pp->pln_own != sect.sct_own)
+	if (pp->pln_own != sp->sct_own)
 	    continue;
 	pcp = ip->pcp;
 	if (mission_pln_equip(ip, NULL, 'i') < 0) {
@@ -295,7 +267,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	free(qp);
     }
     if (icount == 0) {
-	mpr(sect.sct_own, "No %ss launched to intercept.\n", def_name);
+	mpr(sp->sct_own, "No %ss launched to intercept.\n", def_name);
 	return 0;
     }
 
@@ -308,26 +280,26 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	pp = &ip->plane;
 	pcp = ip->pcp;
 
-	mpr(bombown, "%s %s launched in defense!\n",
+	mpr(msl->pln_own, "%s %s launched in defense!\n",
 	    cname(pp->pln_own), def_name);
-	if (sect.sct_own == pp->pln_own) {
-	    mpr(sect.sct_own, "%s launched to intercept %s %s!\n",
+	if (sp->sct_own == pp->pln_own) {
+	    mpr(sp->sct_own, "%s launched to intercept %s %s!\n",
 		def_name, who, att_name);
 	} else {
-	    mpr(sect.sct_own,
+	    mpr(sp->sct_own,
 		"%s launched an %s to intercept the %s %s!\n",
 		cname(pp->pln_own), def_name, who, att_name);
 	    mpr(pp->pln_own,
 		"%s launched to intercept %s %s arcing towards %s territory!\n",
-		def_name, who, att_name, cname(sect.sct_own));
+		def_name, who, att_name, cname(sp->sct_own));
 	}
 
-	if (msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item,
-		    att_name, x, y, bombown)) {
-	    mpr(bombown, "%s destroyed by %s %s!\n",
+	if (msl_hit(pp, pln_def(msl), EF_PLANE, news_item, news_item,
+		    att_name, sp->sct_x, sp->sct_y, msl->pln_own)) {
+	    mpr(msl->pln_own, "%s destroyed by %s %s!\n",
 		att_name, cname(pp->pln_own), def_name);
-	    mpr(sect.sct_own, "%s %s intercepted!\n", who, att_name);
-	    if (sect.sct_own != pp->pln_own)
+	    mpr(sp->sct_own, "%s %s intercepted!\n", who, att_name);
+	    if (sp->sct_own != pp->pln_own)
 		mpr(pp->pln_own, "%s %s intercepted!\n", who, att_name);
 	    destroyed = 1;
 	}
@@ -346,10 +318,38 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     if (destroyed)
 	return 1;
     if (icount) {
-	mpr(bombown, "%s made it through %s defenses!\n",
+	mpr(msl->pln_own, "%s made it through %s defenses!\n",
 	    att_name, def_name);
-	mpr(sect.sct_own, "%s made it through %s defenses!\n",
+	mpr(sp->sct_own, "%s made it through %s defenses!\n",
 	    att_name, def_name);
     }
     return 0;
+}
+
+int
+msl_abm_intercept(struct plnstr *msl, coord x, coord y, int sublaunch)
+{
+    struct sctstr sect;
+    struct emp_qelem irvlist;
+
+    getsect(x, y, &sect);
+    msl_sel(&irvlist, x, y, msl->pln_own, P_N, P_O, 0);
+    return msl_intercept(msl, &sect, sublaunch,
+			 &irvlist, "warhead", "abm",
+			 sublaunch ? N_NUKE_SSTOP : N_NUKE_STOP);
+}
+
+int
+msl_asat_intercept(struct plnstr *msl, coord x, coord y)
+{
+    struct sctstr sect;
+    struct emp_qelem irvlist;
+
+    getsect(x, y, &sect);
+    mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
+	cname(msl->pln_own), xyas(x, y, sect.sct_own));
+    msl_sel(&irvlist, x, y, msl->pln_own, P_O, 0, 0);
+    return msl_intercept(msl, &sect, 0,
+			 &irvlist, "satellite", "a-sat missile",
+			 N_SAT_KILL);
 }

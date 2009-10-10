@@ -360,9 +360,8 @@ launch_sat(struct plnstr *pp)
 	pr("Your trajectory was a little off.\n");
     }
     nreport(player->cnum, N_LAUNCH, 0, 1);
-    if (msl_intercept(sx, sy, pp->pln_own, pln_def(pp), 0, P_O, 0)) {
+    if (msl_asat_intercept(pp, sx, sy))
 	return RET_OK;
-    }
     pp->pln_x = sx;
     pp->pln_y = sy;
     CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);

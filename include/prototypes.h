@@ -492,11 +492,12 @@ extern int move_ground(struct sctstr *, struct sctstr *,
 		       int, int *);
 extern int fly_map(coord, coord);
 /* mslsub.c */
-extern int msl_intercept(coord, coord, natid, int, int, int, int);
 extern int msl_hit(struct plnstr *, int, int, int, int, char *,
 		   coord, coord, int);
 extern void msl_sel(struct emp_qelem *, coord, coord, natid, int,
 		    int, int);
+extern int msl_abm_intercept(struct plnstr *, coord, coord, int);
+extern int msl_asat_intercept(struct plnstr *, coord, coord);
 /* mtch.c */
 extern int comtch(char *, struct cmndstr *, int);
 /* natarg.c */
