@@ -218,7 +218,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     struct emp_qelem *next;
     struct plist *ip;
     int icount = 0;
-    short destroyed = 0;
+    short destroyed;
     char *att_name;
     char *def_name;
     int news_item;
@@ -296,12 +296,13 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
     }
     if (icount == 0) {
 	mpr(sect.sct_own, "No %ss launched to intercept.\n", def_name);
-	return destroyed;
+	return 0;
     }
 
     /* attempt to destroy incoming missile */
 
-    while (!QEMPTY(intlist)) {
+    destroyed = 0;
+    while (!destroyed && !QEMPTY(intlist)) {
 	qp = intlist->q_forw;
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
@@ -321,8 +322,7 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 		def_name, who, att_name, cname(sect.sct_own));
 	}
 
-	if (!destroyed &&
-	    msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item,
+	if (msl_hit(pp, hardtarget, EF_PLANE, news_item, news_item,
 		    att_name, x, y, bombown)) {
 	    mpr(bombown, "%s destroyed by %s %s!\n",
 		att_name, cname(pp->pln_own), def_name);
@@ -336,8 +336,6 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	putplane(pp->pln_uid, pp);
 	emp_remque(qp);
 	free(qp);
-	if (destroyed)
-	    break;
     }
     /* Clean out what is left in the list */
     while (!QEMPTY(intlist)) {
@@ -346,14 +344,14 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	free(qp);
     }
     if (destroyed)
-	return destroyed;
+	return 1;
     if (icount) {
 	mpr(bombown, "%s made it through %s defenses!\n",
 	    att_name, def_name);
 	mpr(sect.sct_own, "%s made it through %s defenses!\n",
 	    att_name, def_name);
     }
-    return destroyed;
+    return 0;
 }
 
 /* Keep launching missiles on list until mindam damage has been done */
