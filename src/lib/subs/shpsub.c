@@ -418,7 +418,7 @@ shp_contains(struct emp_qelem *list, int newx, int newy, int wantflags,
 }
 
 static struct ulist *
-most_valuable_ship(struct emp_qelem *list)
+most_valuable_ship(struct emp_qelem *list, coord x, coord y)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -428,6 +428,8 @@ most_valuable_ship(struct emp_qelem *list)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
+	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
+	    continue;
 	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SUB)
 	    continue;
 	if (!((struct mchrstr *)mlp->chrp)->m_nxlight &&
@@ -490,7 +492,7 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	newqp = qp->q_back;
 	plp = (struct plist *)qp;
 
-	mvs = most_valuable_ship(list);
+	mvs = most_valuable_ship(list, newx, newy);
 	if (mvs && mission_pln_equip(plp, NULL, 'p') >= 0) {
 	    if (msl_hit(&plp->plane,
 			shp_hardtarget(&mvs->unit.ship),
@@ -654,7 +656,7 @@ shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 					  shp_easiest_target(list, 0, M_SUB),
 					  MI_INTERDICT),
 			   0, M_SUB, newx, newy);
-	    if (most_valuable_ship(list)) {
+	    if (most_valuable_ship(list, newx, newy)) {
 		stopping |=
 		    shp_missile_interdiction(list, newx, newy, victim);
 	    }
@@ -912,7 +914,7 @@ shp_missdef(struct shpstr *sp, natid victim)
     sprintf(buf, "%s", prship(&mlp->unit.ship));
 
     eff = sp->shp_effic;
-    if (most_valuable_ship(&list)) {
+    if (most_valuable_ship(&list, sp->shp_x, sp->shp_y)) {
 	shp_missile_interdiction(&list, sp->shp_x, sp->shp_y, sp->shp_own);
 	getship(sp->shp_uid, sp);
 
