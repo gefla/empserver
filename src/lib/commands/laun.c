@@ -48,7 +48,7 @@
 
 static int launch_as(struct plnstr *pp);
 static int launch_missile(struct plnstr *pp, int sublaunch);
-static int launch_sat(struct plnstr *pp, int sublaunch);
+static int launch_sat(struct plnstr *pp);
 static int msl_equip(struct plnstr *, char);
 
 /*
@@ -117,7 +117,7 @@ laun(void)
 	    retval = launch_as(&plane);
 	    gone = 1;
 	} else {		/* satellites */
-	    retval = launch_sat(&plane, sublaunch);
+	    retval = launch_sat(&plane);
 	    gone = !(plane.pln_flags & PLN_LAUNCHED);
 	}
 	if (retval != RET_OK)
@@ -311,7 +311,7 @@ launch_missile(struct plnstr *pp, int sublaunch)
  * else RET_SYN or RET_FAIL.
  */
 static int
-launch_sat(struct plnstr *pp, int sublaunch)
+launch_sat(struct plnstr *pp)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
     coord sx, sy;
@@ -361,7 +361,7 @@ launch_sat(struct plnstr *pp, int sublaunch)
 	pr("Your trajectory was a little off.\n");
     }
     nreport(player->cnum, N_LAUNCH, 0, 1);
-    if (msl_intercept(sx, sy, pp->pln_own, pcp->pl_def, sublaunch, P_O, 0)) {
+    if (msl_intercept(sx, sy, pp->pln_own, pcp->pl_def, 0, P_O, 0)) {
 	return RET_OK;
     }
     pp->pln_x = sx;

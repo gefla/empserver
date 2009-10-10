@@ -229,9 +229,9 @@ msl_intercept(coord x, coord y, natid bombown, int hardtarget,
 	att_name = "satellite";
 	def_name = "a-sat missile";
 	news_item = N_SAT_KILL;
+	CANT_HAPPEN(sublaunch);
 	mpr(sect.sct_own, "%s has positioned a satellite over %s\n",
-	    sublaunch ? "someone" : cname(bombown),
-	    xyas(x, y, sect.sct_own));
+	    cname(bombown), xyas(x, y, sect.sct_own));
     } else if (wantflags == P_N && nowantflags == P_O) {
 	att_name = "warhead";
 	def_name = "abm";
