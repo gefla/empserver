@@ -138,7 +138,7 @@ ship the plane is on (-1 = no ship)
 .L def
 .L harden
 .L nuketype
-Type of nuke on the plane (-1 = no ship, 0..n = index into nuke table)
+Type of nuke on the plane (-1 = no nuke, 0..n = index into nuke table)
 .L flags
 .L land
 land unit the plane is on (-1 = no land unit)
