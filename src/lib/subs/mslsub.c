@@ -122,13 +122,13 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 	    xyas(x, y, victim));
 
     if ((pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
-	if (msl_intercept(x, y, pp->pln_own, pcp->pl_def,
+	if (msl_intercept(x, y, pp->pln_own, pln_def(pp),
 			  sublaunch, P_N, P_O)) {
 	    return 0;
 	}
     }
     if (pcp->pl_flags & P_MAR) {
-	if (shp_missile_defense(x, y, pp->pln_own, pcp->pl_def)) {
+	if (shp_missile_defense(x, y, pp->pln_own, pln_def(pp))) {
 	    return 0;
 	}
     }
