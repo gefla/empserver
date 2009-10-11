@@ -47,7 +47,7 @@
 #include "ship.h"
 
 static int launch_as(struct plnstr *pp);
-static int launch_missile(struct plnstr *pp, int sublaunch);
+static int launch_missile(struct plnstr *pp);
 static int launch_sat(struct plnstr *pp);
 static int msl_equip(struct plnstr *, char);
 
@@ -59,8 +59,6 @@ laun(void)
 {
     struct nstr_item nstr;
     struct plnstr plane;
-    struct shpstr ship;
-    int sublaunch;
     struct plchrstr *pcp;
     int retval, gone;
 
@@ -101,17 +99,11 @@ laun(void)
 	}
 	if (!pln_airbase_ok(&plane, 1, 1))
 	    continue;
-	sublaunch = 0;
-	if (plane.pln_ship >= 0) {
-	    getship(plane.pln_ship, &ship);
-	    if (mchr[(int)ship.shp_type].m_flags & M_SUB)
-		sublaunch = 1;
-	}
 	pr("%s at %s; range %d, eff %d%%\n", prplane(&plane),
 	   xyas(plane.pln_x, plane.pln_y, player->cnum),
 	   plane.pln_range, plane.pln_effic);
 	if (!(pcp->pl_flags & P_O)) {
-	    retval = launch_missile(&plane, sublaunch);
+	    retval = launch_missile(&plane);
 	    gone = 1;
 	} else if ((pcp->pl_flags & (P_M | P_O)) == (P_M | P_O)) {
 	    retval = launch_as(&plane);
@@ -160,8 +152,10 @@ launch_as(struct plnstr *pp)
     }
     if (msl_equip(pp, 'i') < 0)
 	return RET_FAIL;
-    if (msl_hit(pp, pln_def(&plane), EF_PLANE, 0, 0,
-		prplane(&plane), plane.pln_x, plane.pln_y, plane.pln_own)) {
+    if (msl_launch(pp, EF_PLANE, prplane(&plane),
+		   plane.pln_x, plane.pln_y, plane.pln_own, NULL) < 0)
+	return RET_OK;
+    if (msl_hit(pp, pln_def(&plane), EF_PLANE, 0, 0, 0, plane.pln_own)) {
 	pr("Satellite shot down\n");
 	mpr(plane.pln_own, "%s anti-sat destroyed %s over %s\n",
 	    cname(player->cnum), prplane(&plane),
@@ -175,16 +169,15 @@ launch_as(struct plnstr *pp)
 
 /*
  * Launch missile PP.
- * If SUBLAUNCH, it's sub-launched.
  * Return RET_OK if launched (even when missile explodes),
  * else RET_SYN or RET_FAIL.
  */
 static int
-launch_missile(struct plnstr *pp, int sublaunch)
+launch_missile(struct plnstr *pp)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
     coord sx, sy;
-    int n, dam;
+    int n, dam, sublaunch;
     char *cp;
     struct mchrstr *mcp;
     struct shpstr target_ship;
@@ -250,18 +243,12 @@ launch_missile(struct plnstr *pp, int sublaunch)
 		return RET_OK;
 	    }
 	}
-	if (!msl_hit(pp, SECT_HARDTARGET, EF_SECTOR, N_SCT_MISS,
-		     N_SCT_SMISS, "sector", sx, sy, sect.sct_own)) {
-#if 0
-	    /*
-	     * FIXME want collateral damage on miss, but we get here
-	     * too when launch fails or missile is intercepted
-	     */
-	    dam = pln_damage(pp, 's', 0);
-	    collateral_damage(sect.sct_x, sect.sct_y, dam, 0);
-#endif
+	if (msl_launch(pp, EF_SECTOR, "sector", sx, sy, sect.sct_own,
+		       &sublaunch) < 0)
 	    return RET_OK;
-	}
+	if (!msl_hit(pp, SECT_HARDTARGET, EF_SECTOR,
+		     N_SCT_MISS, N_SCT_SMISS, sublaunch, sect.sct_own))
+	    CANT_REACH();
 	if (getnuke(nuk_on_plane(pp), &nuke))
 	    detonate(&nuke, sx, sy, pp->pln_flags & PLN_AIRBURST);
 	else {
@@ -285,15 +272,16 @@ launch_missile(struct plnstr *pp, int sublaunch)
     } else {
 	if (msl_equip(pp, 'p') < 0)
 	    return RET_FAIL;
+	if (msl_launch(pp, EF_SHIP, prship(&target_ship),
+		       target_ship.shp_x, target_ship.shp_y,
+		       target_ship.shp_own, &sublaunch) < 0)
+	    return RET_OK;
 	if (!msl_hit(pp, shp_hardtarget(&target_ship), EF_SHIP,
-		     N_SHP_MISS, N_SHP_SMISS, prship(&target_ship),
-		     target_ship.shp_x, target_ship.shp_y,
+		     N_SHP_MISS, N_SHP_SMISS, sublaunch,
 		     target_ship.shp_own)) {
 	    pr("splash\n");
-#if 0 /* FIXME see above */
 	    dam = pln_damage(pp, 'p', 0);
-	    collateral_damage(target_ship.shp_x, target_ship.shp_y, dam, 0);
-#endif
+	    collateral_damage(target_ship.shp_x, target_ship.shp_y, dam);
 	    return RET_OK;
 	}
 	dam = pln_damage(pp, 'p', 1);

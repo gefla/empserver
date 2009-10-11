@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>
@@ -54,15 +55,13 @@
 #include "xy.h"
 
 int
-msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
-	int snews_item, char *what, coord x, coord y, int victim)
+msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
+	   natid victim, int *sublaunchp)
 {
-    int hit;
     struct shpstr ship;
     struct sctstr sect;
     int sublaunch = 0;
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int hitchance;
     char *from;
     int dam;
 
@@ -108,7 +107,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 		putsect(&sect);
 	    }
 	}
-	return 0;
+	return -1;
     }
 
     CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
@@ -123,13 +122,25 @@ msl_hit(struct plnstr *pp, int hardtarget, int type, int news_item,
 
     if ((pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
 	if (msl_abm_intercept(pp, x, y, sublaunch))
-	    return 0;
+	    return -1;
     }
     if (pcp->pl_flags & P_MAR) {
 	if (shp_missile_defense(x, y, pp->pln_own, pln_def(pp))) {
-	    return 0;
+	    return -1;
 	}
     }
+
+    if (sublaunchp)
+	*sublaunchp = sublaunch;
+    return 0;
+}
+
+int
+msl_hit(struct plnstr *pp, int hardtarget, int type,
+	int news_item, int snews_item, int sublaunch, natid victim)
+{
+    struct plchrstr *pcp = plchr + pp->pln_type;
+    int hitchance, hit;
 
     if (nuk_on_plane(pp) >= 0) {
 	mpr(pp->pln_own, "\tArming nuclear warheads...\n");
@@ -294,8 +305,9 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 		def_name, who, att_name, cname(sp->sct_own));
 	}
 
-	if (msl_hit(pp, pln_def(msl), EF_PLANE, 0, 0,
-		    att_name, sp->sct_x, sp->sct_y, msl->pln_own)) {
+	if (msl_launch(pp, EF_PLANE, att_name, sp->sct_x, sp->sct_y,
+		       msl->pln_own, NULL) >= 0
+	    && msl_hit(pp, pln_def(msl), EF_PLANE, 0, 0, 0, msl->pln_own)) {
 	    mpr(msl->pln_own, "%s destroyed by %s %s!\n",
 		att_name, cname(pp->pln_own), def_name);
 	    mpr(sp->sct_own, "%s %s intercepted!\n", who, att_name);

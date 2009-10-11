@@ -389,7 +389,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct plchrstr *pcp;
     int dam = 0, dam2;
     natid plane_owner = 0;
-    int md, range, air_dam;
+    int md, range, air_dam, sublaunch;
     double hitchance, vrange;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
@@ -562,22 +562,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    && !CANT_HAPPEN(hardtarget != SECT_HARDTARGET
 			    || (plp->pcp->pl_flags & P_MAR))
 	    && mission_pln_equip(plp, NULL, 'p') >= 0) {
-	    if (msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
-			N_SCT_MISS, N_SCT_SMISS,
-			"sector", x, y, victim)) {
-		dam2 = pln_damage(&plp->plane, 'p', 1);
-		air_dam += dam2;
-#if 0
-	    /*
-	     * FIXME want collateral damage on miss, but we get here
-	     * too when launch fails or missile is intercepted
-	     */
-	    } else {
-		/* Missiles that miss have to hit somewhere! */
-		dam2 = pln_damage(&plp->plane, 'p', 0);
-		collateral_damage(x, y, dam2);
-#endif
-	    }
+	    if (msl_launch(&plp->plane, EF_SECTOR, "sector", x, y, victim,
+			   &sublaunch) < 0)
+		goto use_up_msl;
+	    if (!msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
+			N_SCT_MISS, N_SCT_SMISS, sublaunch, victim))
+		CANT_REACH();
+	    dam2 = pln_damage(&plp->plane, 'p', 1);
+	    air_dam += dam2;
+	use_up_msl:
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
 	}

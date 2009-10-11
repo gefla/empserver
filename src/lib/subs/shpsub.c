@@ -480,7 +480,7 @@ static int
 shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 			 natid victim)
 {
-    int dam;
+    int dam, sublaunch;
     int stopping = 0;
     struct emp_qelem msl_list, *qp, *newqp;
     struct plist *plp;
@@ -494,11 +494,12 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 
 	mvs = most_valuable_ship(list, newx, newy);
 	if (mvs && mission_pln_equip(plp, NULL, 'p') >= 0) {
+	    if (msl_launch(&plp->plane, EF_SHIP, prship(&mvs->unit.ship),
+			   newx, newy, victim, &sublaunch) < 0)
+		goto use_up_msl;
 	    if (msl_hit(&plp->plane,
-			shp_hardtarget(&mvs->unit.ship),
-			EF_SHIP, N_SHP_MISS, N_SHP_SMISS,
-			prship(&mvs->unit.ship),
-			newx, newy, victim)) {
+			shp_hardtarget(&mvs->unit.ship), EF_SHIP,
+			N_SHP_MISS, N_SHP_SMISS, sublaunch, victim)) {
 		dam = pln_damage(&plp->plane, 'p', 1);
 		if (dam) {
 		    mpr(victim,
@@ -507,17 +508,11 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 		    shp_damage_one(mvs, dam);
 		    stopping = 1;
 		}
-#if 0
-	    /*
-	     * FIXME want collateral damage on miss, but we get here
-	     * too when launch fails or missile is intercepted
-	     */
 	    } else {
-		/* Missiles that miss have to hit somewhere! */
 		dam = pln_damage(&plp->plane, 'p', 0);
 		collateral_damage(newx, newy, dam);
-#endif
 	    }
+	use_up_msl:
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
 	}
