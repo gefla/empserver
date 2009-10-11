@@ -548,13 +548,21 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	}
     }
 
+    /*
+     * Missiles, except for interdiction of ships or land units,
+     * because that happens elsewhere, in shp_missile_interdiction()
+     * and lnd_missile_interdiction().
+     */
     air_dam = 0;
     for (qp = missiles.q_back; qp != &missiles; qp = newqp) {
 	newqp = qp->q_back;
 	plp = (struct plist *)qp;
 
-	if (air_dam < 100 && mission_pln_equip(plp, NULL, 'p') >= 0) {
-	    if (msl_hit(&plp->plane, hardtarget, EF_SECTOR,
+	if (air_dam < 100
+	    && !CANT_HAPPEN(hardtarget != SECT_HARDTARGET
+			    || (plp->pcp->pl_flags & P_MAR))
+	    && mission_pln_equip(plp, NULL, 'p') >= 0) {
+	    if (msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
 			N_SCT_MISS, N_SCT_SMISS,
 			"sector", x, y, victim)) {
 		dam2 = pln_damage(&plp->plane, 'p', 1);
