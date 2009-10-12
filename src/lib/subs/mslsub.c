@@ -61,7 +61,6 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
     struct shpstr ship;
     struct sctstr sect;
     int sublaunch = 0;
-    struct plchrstr *pcp = plchr + pp->pln_type;
     char *from;
     int dam;
 
@@ -115,16 +114,16 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
     putplane(pp->pln_uid, pp);
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
-    if (pcp->pl_flags & P_T)
+    if (type != EF_PLANE)
 	mpr(victim, "Incoming %s missile sighted at %s...\n",
 	    sublaunch ? "sub-launched" : cname(pp->pln_own),
 	    xyas(x, y, victim));
 
-    if ((pcp->pl_flags & P_T && !(pcp->pl_flags & P_MAR))) {
+    if (type == EF_SECTOR || type == EF_LAND) {
 	if (msl_abm_intercept(pp, x, y, sublaunch))
 	    return -1;
     }
-    if (pcp->pl_flags & P_MAR) {
+    if (type == EF_SHIP) {
 	if (shp_missile_defense(x, y, pp->pln_own, pln_def(pp))) {
 	    return -1;
 	}
@@ -139,7 +138,6 @@ int
 msl_hit(struct plnstr *pp, int hardtarget, int type,
 	int news_item, int snews_item, int sublaunch, natid victim)
 {
-    struct plchrstr *pcp = plchr + pp->pln_type;
     int hitchance, hit;
 
     if (nuk_on_plane(pp) >= 0) {
@@ -152,7 +150,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type,
 	    hit ? "HIT!" : "miss");
     }
 
-    if (pcp->pl_flags & P_T)
+    if (type != EF_PLANE)
 	mpr(victim, "...Incoming %s missile %s\n",
 	    sublaunch ? "" : cname(pp->pln_own),
 	    hit ? "HIT!\n" : "missed\n");
