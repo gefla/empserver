@@ -68,7 +68,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	prplane(pp),
 	cname(victim),
 	what,
-	(type == EF_SHIP || type == EF_PLANE) ? "in " : "",
+	type != EF_SECTOR ? "in " : "",
 	xyas(x, y, pp->pln_own));
     mpr(pp->pln_own, "\tLaunching from ");
     if (pp->pln_ship >= 0) {
@@ -99,7 +99,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 		shipdamage(&ship, dam);
 		putship(ship.shp_uid, &ship);
 	    } else {
-		pr("Explosion damages %s %d%%",
+		pr("Explosion damages %s %d%%\n",
 		   xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
 		getsect(pp->pln_x, pp->pln_y, &sect);
 		sectdamage(&sect, dam);
