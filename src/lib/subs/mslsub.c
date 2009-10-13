@@ -294,13 +294,17 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 		def_name, who, att_name, cname(sp->sct_own));
 	}
 
-	if (msl_hit(pp, pln_def(msl), EF_PLANE, news_item, news_item,
+	if (msl_hit(pp, pln_def(msl), EF_PLANE, 0, 0,
 		    att_name, sp->sct_x, sp->sct_y, msl->pln_own)) {
 	    mpr(msl->pln_own, "%s destroyed by %s %s!\n",
 		att_name, cname(pp->pln_own), def_name);
 	    mpr(sp->sct_own, "%s %s intercepted!\n", who, att_name);
 	    if (sp->sct_own != pp->pln_own)
 		mpr(pp->pln_own, "%s %s intercepted!\n", who, att_name);
+	    if (sublaunch)
+		nreport(pp->pln_own, news_item, 0, 1);
+	    else
+		nreport(pp->pln_own, news_item, msl->pln_own, 1);
 	    destroyed = 1;
 	}
 	/* zap the missile */

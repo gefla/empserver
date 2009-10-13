@@ -160,12 +160,13 @@ launch_as(struct plnstr *pp)
     }
     if (msl_equip(pp, 'i') < 0)
 	return RET_FAIL;
-    if (msl_hit(pp, pln_def(&plane), EF_PLANE, N_SAT_KILL, N_SAT_KILL,
+    if (msl_hit(pp, pln_def(&plane), EF_PLANE, 0, 0,
 		prplane(&plane), plane.pln_x, plane.pln_y, plane.pln_own)) {
 	pr("Satellite shot down\n");
 	mpr(plane.pln_own, "%s anti-sat destroyed %s over %s\n",
 	    cname(player->cnum), prplane(&plane),
 	    xyas(plane.pln_x, plane.pln_y, plane.pln_own));
+	nreport(pp->pln_own, N_SAT_KILL, plane.pln_own, 1);
 	plane.pln_effic = 0;
 	putplane(plane.pln_uid, &plane);
     }
