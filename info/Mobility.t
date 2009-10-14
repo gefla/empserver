@@ -104,7 +104,6 @@ For escorts and interceptors, the flight cost is:
   10 / (plane efficiency)
 For all other flights, the flight cost is:
   20 / (plane efficiency)
-For planes flying on an air defense mission, this cost is cut in half.
 
 4. Land mine, pin-bombing, and nuclear damage
 A land mine, pinpoint bomb or nuclear detonation
