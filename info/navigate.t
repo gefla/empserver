@@ -136,7 +136,8 @@ belonging to hostile countries will fire at you when you come within
 range. Hostile land/sea/air units may fire at/bomb your ships, if they're
 on interdiction missions (see info mission).  If your enemy has a
 stack of missiles on interdiction mission, then they will
-automatically fire one after another until all of your ships are sunk.
+automatically fire one after another until all of your \*Qvaluable\*U
+ships are sunk.
 The chance of missiles and planes hitting your ships is determined by
 the \*Qworst\*U ship in your fleet (see \*Qbomb\*U for the chance of
 hitting).  Any damage incurred by the fleet is divided evenly among
