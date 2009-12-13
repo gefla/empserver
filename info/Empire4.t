@@ -7,6 +7,97 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.23 - Sun Dec 13 16:34:49 UTC 2009
+ * Fix missile interception not to intercept tactical and marine
+   missiles attacking missiles or satellites.  No such missiles exist
+   in the stock game.  Interception of tactical ABMs could crash the
+   server.  Broken in Empire 2.
+ * Missiles missing their target do collateral damage again.  Was
+   disabled because of bugs in 4.0.18 for manual launch and in 4.3.16
+   for automatic launch.
+ * News reported victim as actor for sub-launched anti-sat and ABM.
+ * Defense value of missiles vs. ABMs and satellites vs. anti-sats
+   failed to improve with tech.
+ * Fix a bug that let missiles interdict ships outside their op area.
+   This could happen when a group navigating together was partly
+   inside the op area.
+ * Only bomb strategic and launch at sector can use nukes.  Before,
+   they could also be used by missions, bomb pinpoint, and launch at
+   ships, but there were several bugs and inconsistencies, and the
+   code was messy.  The arm command now rejects marine missiles in
+   addition to satellites, ABMs and SAMs, and clears the mission.  The
+   mission command now rejects planes armed with nukes.
+ * Missiles exploding on launch pad no longer set off their nukes.
+ * The launch command now more accurately reports why a missile can't
+   be equipped.  It no longer draws supplies automatically.
+ * Manually launched anti-sat now always kills when it hits, for
+   consistency with automatically launched ones.
+ * Don't permit nukes on satellites, ABMs and SAMs.  Nukes on
+   satellites could be armed and disarmed even in orbit.  Nukes on
+   ABMs and SAMs were lost without effect when their missile
+   intercepted.  The stock game is not affected, because its
+   satellites, ABMs and SAMs all have zero load.
+ * Remove obsolete plane capabilities stealth and half-stealth.  Not
+   used by the stock game.
+ * Penalize fighter combat value for any load, not just bombs.  The
+   stock game's fighters can't carry anything but bombs.
+ * Make bomb work for non-tactical cargo bomber.  No such planes exist
+   in the stock game.
+ * Revised cargo plane rules: a cargo flight can be either an airlift
+   or an airdrop now.  Airlifts carry more cargo than airdrops.  A
+   cargo drop or paradrop with a non-VTOL plane is an airdrop.
+   Anything else is an airlift.  This makes paradrop loads consistent
+   with drop loads.  Paradrop with VTOL transports now carries twice
+   the punch, and drop with non-VTOL transports hauls less than fly.
+   In particular, the stock game's tr can't drop guns anymore.
+ * Enforce plane selection rules more tightly:
+   - bomb command can select only planes with capability bomber or
+     tactical.  Before, other planes with non-zero load flew along,
+     but their bombs were silently lost.
+   - sweep command can select only planes with capability sweep.
+     Before, other planes performed ordinary reconnaissance instead.
+   - drop command can select only planes with capability cargo.
+     Before, other planes flew along but dropped nothing.
+ * Fix paradrop to fail without destroying the paratroopers when the
+   player owns the target sector.
+ * Launching an anti-sat now takes the target plane as argument.
+   Before, it took a sector argument, and targeted the lowest-numbered
+   satellite there.  Rather inconvenient when your own satellite masks
+   one of the enemy's.
+ * Remove option PINPOINTMISSILE.  Deities can customize the plane
+   table to disable marine missiles.
+ * Ridiculously impotent nukes could do unpredictable interdiction
+   damage.  No such nukes exist in the stock game.
+ * The production command could mispredict resource-depleting level
+   production.  No such products exist in the stock game.  In fact,
+   they'd be highly unusual.
+ * The update could crash or corrupt the game when a (misconfigured)
+   product depleted resource "none".
+ * Revamp the Windows port based on ideas stolen from Gnulib.  Share
+   the code between server and client.
+ * Don't log out player when update aborts a command under Windows.
+   Broken in 4.3.20, and not fully fixed in 4.3.21.
+ * Fix accepting connections from hosts with "long" IPv6 address.  The
+   internal buffer had insufficient space.
+ * Delay shutdown up to 3s to let player output buffers drain.
+ * Fix a race between main thread and player threads, which could
+   theoretically make the server crash on start.
+ * Clean up synchronization between commands, update and shutdown, and
+   when player threads sleep on I/O.
+ * Clean up the cruft that has accumulated in and behind the empio
+   interface, and, to a lesser degree, the empthread interface.
+ * Fix time difference underflows in pthread and Windows code.  They
+   could potentially cause hangs, although none have been observed.
+ * Make budget's "Sector building" line look better.
+ * Make sector maintenance cost configurable.  New sect-chr selector
+   maint.  Capitals now pay maintenance regardless of efficiency.
+ * Overhaul show sect b.
+ * Fix mine production resource limit for sector peffic != 100.  This
+   affects mountains in the stock game, but only with an impractically
+   large number of ETUs per update.
+ * Code refactoring and cleanup.
+ * Info file fixes and improvements.
+
 Changes to Empire 4.3.22 - Sat Apr 25 11:56:29 UTC 2009
  * Fix a Windows client bug that could lead to hangs, at least with
    some versions of the C run-time.  Broken in 4.3.11.
