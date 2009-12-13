@@ -96,7 +96,7 @@ $(obj): config.h
 expect.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 host.$O: w32/sys/socket.h w32/netinet/in.h w32/arpa/inet.h w32/netdb.h w32/unistd.h w32/w32types.h
 login.$O: w32/unistd.h w32/w32types.h
-main.$O: w32/unistd.h w32/w32types.h
+main.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 play.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 ringbuf.$O: w32/sys/uio.h w32/w32types.h
 w32/w32io.$O: misc.h w32/sys/uio.h w32/w32types.h
