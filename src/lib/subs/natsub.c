@@ -28,7 +28,7 @@
  *  nat.c: Nation subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008
+ *     Markus Armbruster, 2009
  *     Ron Koenderink, 2008-2009
  */
 

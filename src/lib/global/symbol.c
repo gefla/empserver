@@ -28,7 +28,7 @@
  *  symbol.c: Empire symbol tables
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2009
  */
 
 #include <config.h>

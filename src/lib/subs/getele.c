@@ -28,6 +28,8 @@
  *  getele.c: Read a telegram from a file or stdin and send it to a country
  *
  *  Known contributors to this file:
+ *     Ron Koenderink, 2005
+ *     Markus Armbruster, 2005-2009
  *
  */
 

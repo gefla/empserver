@@ -31,7 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>

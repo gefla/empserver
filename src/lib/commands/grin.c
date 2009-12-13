@@ -28,7 +28,7 @@
  *  grin.c: Grind gold bars into dust
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2006
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>

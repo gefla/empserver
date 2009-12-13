@@ -32,7 +32,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2009
  */
 
 #include <config.h>

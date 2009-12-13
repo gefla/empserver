@@ -29,6 +29,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2004-2009
  */
 
 #include <config.h>

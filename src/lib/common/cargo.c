@@ -28,7 +28,7 @@
  *  cargo.c: Cargo lists
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008
+ *     Markus Armbruster, 2009
  */
 
 #include <config.h>

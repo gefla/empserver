@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2009
  */
 
 /*

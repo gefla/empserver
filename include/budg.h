@@ -29,6 +29,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
+ *     Markus Armbruster, 2004-2009
  */
 
 #ifndef BUDG_H

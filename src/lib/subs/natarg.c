@@ -28,7 +28,7 @@
  *  natarg.c: Return countr # given country name or country #
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2009
  */
 
 #include <config.h>
