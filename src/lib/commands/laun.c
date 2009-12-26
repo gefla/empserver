@@ -246,6 +246,7 @@ launch_missile(struct plnstr *pp)
 	if (msl_launch(pp, EF_SECTOR, "sector", sx, sy, sect.sct_own,
 		       &sublaunch) < 0)
 	    return RET_OK;
+	getsect(sx, sy, &sect);
 	if (!msl_hit(pp, SECT_HARDTARGET, EF_SECTOR,
 		     N_SCT_MISS, N_SCT_SMISS, sublaunch, sect.sct_own))
 	    CANT_REACH();
