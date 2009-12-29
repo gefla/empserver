@@ -731,7 +731,7 @@ cando(int mission, int type)
 }
 
 char *
-mission_name(short mission)
+mission_name(int mission)
 {
     switch (mission) {
     case MI_INTERDICT:

@@ -474,7 +474,7 @@ extern int display_region_map(int bmap, int unit_type, coord curx,
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 /* mission.c */
-extern char *mission_name(short);
+extern char *mission_name(int);
 extern int collateral_damage(coord, coord, int);
 extern int mission_pln_equip(struct plist *, struct ichrstr *, char);
 extern int ground_interdict(coord, coord, natid, char *);
