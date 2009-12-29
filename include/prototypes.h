@@ -74,8 +74,8 @@ extern char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, void *);
 extern void trdswitchown(int, void *, int);
-extern int do_look(short);
-extern int radar(short);
+extern int do_look(int);
+extern int radar(int);
 extern void update_power(void);
 extern int show_first_tel(char *);
 /* Commands */

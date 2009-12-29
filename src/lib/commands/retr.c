@@ -51,7 +51,7 @@
 static char shp_rflagsc[] = "Xitshbdu";
 static char lnd_rflagsc[] = "XiXXhbXX";
 
-static int retreat(short);
+static int retreat(int);
 
 int
 retr(void)
@@ -66,7 +66,7 @@ lretr(void)
 }
 
 static int
-retreat(short type)
+retreat(int type)
 {
     char *pq, *fl;
     int nunits;

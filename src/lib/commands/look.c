@@ -55,7 +55,7 @@ llook(void)
 }
 
 int
-do_look(short type)
+do_look(int type)
 {
     int i;
     struct nstr_item ni;

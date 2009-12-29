@@ -82,7 +82,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
     char *pt = pathtaken;
     char bmap_flag;
     int ac;
-    short type;
+    int type;
 
     leader = get_leader(ulist);
     leader_uid = leader->uid;

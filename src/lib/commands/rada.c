@@ -50,7 +50,7 @@ lrad(void)
 }
 
 int
-radar(short type)
+radar(int type)
 {
     char *cp;
     double tf;
