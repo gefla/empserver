@@ -66,7 +66,6 @@ struct lndstr {
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
     /* end of part matching struct empobj */
-    signed char lnd_flags;	/* unit flags (unused) */
     short lnd_ship;		/* pointer to transporting ship */
     signed char lnd_harden;	/* fortification */
     short lnd_retreat;		/* retreat percentage */

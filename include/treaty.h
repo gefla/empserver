@@ -50,7 +50,6 @@ struct trtstr {
     char trt_fill;
     short trt_acond;		/* conditions for proposer */
     short trt_bcond;		/* conditions for accepter */
-    float trt_bond;		/* amount of bond involved (unused) */
     time_t trt_exp;		/* expiration date */
 };
 

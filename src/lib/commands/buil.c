@@ -458,7 +458,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     } else {
 	land.lnd_mobil = 0;
     }
-    land.lnd_flags = 0;
     land.lnd_ship = -1;
     land.lnd_land = -1;
     land.lnd_harden = 0;
@@ -652,7 +651,7 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
     nuke.nuk_own = sp->sct_own;
     nuke.nuk_type = np - nchr;
     nuke.nuk_effic = 100;
-    nuke.nuk_ship = nuke.nuk_plane = nuke.nuk_land = -1;
+    nuke.nuk_plane = -1;
     nuke.nuk_tech = tlev;
     unit_wipe_orders((struct empobj *)&nuke);
 

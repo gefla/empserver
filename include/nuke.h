@@ -58,9 +58,7 @@ struct nukstr {
     short nuk_mission;		/* mission code, unused */
     short nuk_radius;		/* mission radius, unused */
     /* end of part matching struct empobj */
-    short nuk_ship;		/* currently aboard ship (unused) */
     short nuk_plane;		/* currently aboard plane */
-    short nuk_land;		/* currently aboard land (unused) */
 };
 
 struct nchrstr {

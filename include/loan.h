@@ -50,7 +50,6 @@ struct lonstr {
     natid l_loner;		/* loan shark */
     natid l_lonee;		/* sucker */
     signed char l_status;	/* loan status */
-    short l_sell;		/* pointer to trade file (unused) */
     int l_irate;		/* interest rate */
     int l_ldur;			/* intended duration */
     long l_amtpaid;		/* amount paid so far */
