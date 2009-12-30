@@ -172,7 +172,7 @@ struct nstr_item {
     int dist;			/* NS_DIST: distance selector */
     coord cx, cy;		/* NS_DIST: center x-y, NS_XY: xy */
     char group;			/* NS_GROUP: fleet/wing match */
-    short next;			/* NS_CARGO: next item */
+    int next;			/* NS_CARGO: next item */
     int size;			/* NS_LIST: size of list */
     int index;			/* NS_LIST: index */
     int list[NS_LSIZE];		/* NS_LIST: item list */

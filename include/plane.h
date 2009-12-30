@@ -47,7 +47,7 @@
 struct plnstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short pln_uid;		/* plane unit id */
+    int pln_uid;		/* unit id (plane #) */
     unsigned pln_seqno;
     time_t pln_timestamp;	/* Last time this plane was touched */
     natid pln_own;		/* owning country */
@@ -65,8 +65,8 @@ struct plnstr {
     short pln_radius;		/* mission radius */
     /* end of part matching struct empobj */
     unsigned char pln_range;	/* total distance, not radius */
-    short pln_ship;		/* pointer to carrier */
-    short pln_land;		/* pointer to carrier */
+    int pln_ship;		/* uid of carrier, or -1 */
+    int pln_land;		/* uid of transporting land unit, or -1 */
     signed char pln_harden;	/* for missiles */
     signed char pln_flags;	/* State of the plane */
     short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
@@ -136,7 +136,7 @@ struct plist {
 extern struct plchrstr plchr[PLN_TYPE_MAX + 2];
 
 struct shiplist {
-    short uid;
+    int uid;
     struct shiplist *next;
 };
 

@@ -43,7 +43,7 @@
 struct nukstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short nuk_uid;
+    int nuk_uid;		/* unit id (nuke #) */
     unsigned nuk_seqno;
     time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;
@@ -58,7 +58,7 @@ struct nukstr {
     short nuk_mission;		/* mission code, unused */
     short nuk_radius;		/* mission radius, unused */
     /* end of part matching struct empobj */
-    short nuk_plane;		/* currently aboard plane */
+    int nuk_plane;		/* uid of transporting plane, or -1 */
 };
 
 struct nchrstr {

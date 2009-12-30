@@ -131,7 +131,7 @@ struct castr pchr_ca[] = {
 struct castr sect_ca[] = {
 #define CURSTR struct sctstr
     /* uid needs to be NSC_DEITY because it discloses true origin */
-    {"uid", fldoff(sct_uid), NSC_SHORT, 0, NULL,
+    {"uid", fldoff(sct_uid), NSC_INT, 0, NULL,
      EF_SECTOR, NSC_DEITY | NSC_EXTRA},
     {"timestamp", fldoff(sct_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
@@ -211,7 +211,7 @@ struct castr dchr_ca[] = {
 };
 
 #define NSC_GENITEM(ef_type, ef_chr)					\
-    {"uid", empobjoff(uid),  NSC_SHORT, 0, NULL, ef_type, 0},		\
+    {"uid", empobjoff(uid),  NSC_INT, 0, NULL, ef_type, 0},		\
     {"timestamp", empobjoff(timestamp), NSC_TIME, 0, NULL, EF_BAD, NSC_EXTRA}, \
     {"owner", empobjoff(own),  NSC_NATID, 0, NULL, EF_NATION, 0},	\
     {"xloc", empobjoff(x),  NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
@@ -249,7 +249,7 @@ struct castr ship_ca[] = {
     {"access", fldoff(shp_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"mquota", fldoff(shp_mobquota), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"path", fldoff(shp_path), NSC_STRINGY, MAXSHPPATH, NULL, EF_BAD, 0},
-    {"follow", fldoff(shp_follow), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"follow", fldoff(shp_follow), NSC_INT, 0, NULL, EF_BAD, 0},
     {"name", fldoff(shp_name), NSC_STRINGY, MAXSHPNAMLEN, NULL,
      EF_BAD, 0},
     /* should let builder access xbuilt, ybuilt, but can't express that: */
@@ -300,8 +300,8 @@ struct castr plane_ca[] = {
     NSC_GENITEM(EF_PLANE, EF_PLANE_CHR),
     {"wing", fldoff(pln_wing), NSC_STRINGY, 1, NULL, EF_BAD, 0},
     {"range", fldoff(pln_range), NSC_UCHAR, 0, NULL, EF_BAD, 0},
-    {"ship", fldoff(pln_ship), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"land", fldoff(pln_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"ship", fldoff(pln_ship), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"land", fldoff(pln_land), NSC_INT, 0, NULL, EF_BAD, 0},
     {"harden", fldoff(pln_harden), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"flags", fldoff(pln_flags), NSC_CHAR, 0, NULL,
      EF_PLANE_FLAGS, NSC_BITS},
@@ -340,7 +340,7 @@ struct castr land_ca[] = {
 #define CURSTR struct lndstr
     NSC_GENITEM(EF_LAND, EF_LAND_CHR),
     {"army", fldoff(lnd_army), NSC_STRINGY, 1, NULL, EF_BAD, 0},
-    {"ship", fldoff(lnd_ship), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"ship", fldoff(lnd_ship), NSC_INT, 0, NULL, EF_BAD, 0},
     {"harden", fldoff(lnd_harden), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"retreat", fldoff(lnd_retreat), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"rflags", fldoff(lnd_rflags), NSC_INT, 0, NULL,
@@ -350,7 +350,7 @@ struct castr land_ca[] = {
     {"pstage", fldoff(lnd_pstage), NSC_SHORT, 0, NULL,
      EF_PLAGUE_STAGES, NSC_DEITY},
     {"ptime", fldoff(lnd_ptime), NSC_SHORT, 0, NULL, EF_BAD, NSC_DEITY},
-    {"land", fldoff(lnd_land), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"land", fldoff(lnd_land), NSC_INT, 0, NULL, EF_BAD, 0},
     {"access", fldoff(lnd_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"att", 0, NSC_DOUBLE, 0, nsc_lnd_att, EF_BAD, NSC_EXTRA},
     {"def", 0, NSC_DOUBLE, 0, nsc_lnd_def, EF_BAD, NSC_EXTRA},
@@ -406,7 +406,7 @@ struct castr lchr_ca[] = {
 struct castr nuke_ca[] = {
 #define CURSTR struct nukstr
     NSC_GENITEM(EF_NUKE, EF_NUKE_CHR),
-    {"plane", fldoff(nuk_plane), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"plane", fldoff(nuk_plane), NSC_INT, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -432,7 +432,7 @@ struct castr nchr_ca[] = {
 
 struct castr treaty_ca[] = {
 #define CURSTR struct trtstr
-    {"uid", fldoff(trt_uid), NSC_SHORT, 0, NULL, EF_TREATY, 0},
+    {"uid", fldoff(trt_uid), NSC_INT, 0, NULL, EF_TREATY, 0},
     {"timestamp", fldoff(trt_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"cna", fldoff(trt_cna), NSC_NATID, 0, NULL, EF_NATION, 0},
@@ -450,7 +450,7 @@ struct castr treaty_ca[] = {
 
 struct castr loan_ca[] = {
 #define CURSTR struct lonstr
-    {"uid", fldoff(l_uid), NSC_SHORT, 0, NULL, EF_LOAN, 0},
+    {"uid", fldoff(l_uid), NSC_INT, 0, NULL, EF_LOAN, 0},
     {"timestamp", fldoff(l_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"loaner", fldoff(l_loner), NSC_NATID, 0, NULL, EF_NATION, 0},
@@ -487,7 +487,7 @@ struct castr lost_ca[] = {
      EF_BAD, 0},
     {"owner", fldoff(lost_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"type", fldoff(lost_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
-    {"id", fldoff(lost_id), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"id", fldoff(lost_id), NSC_INT, 0, NULL, EF_BAD, 0},
     {"x", fldoff(lost_x), NSC_XCOORD, 0, NULL, EF_BAD, 0},
     {"y", fldoff(lost_y), NSC_YCOORD, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
@@ -496,7 +496,7 @@ struct castr lost_ca[] = {
 
 struct castr commodity_ca[] = {
 #define CURSTR struct comstr
-    {"uid", fldoff(com_uid), NSC_SHORT, 0, NULL, EF_COMM, 0},
+    {"uid", fldoff(com_uid), NSC_INT, 0, NULL, EF_COMM, 0},
     {"timestamp", fldoff(com_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"owner", fldoff(com_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
@@ -517,12 +517,12 @@ struct castr commodity_ca[] = {
 
 struct castr trade_ca[] = {
 #define CURSTR struct trdstr
-    {"uid", fldoff(trd_uid), NSC_SHORT, 0, NULL, EF_TRADE, 0},
+    {"uid", fldoff(trd_uid), NSC_INT, 0, NULL, EF_TRADE, 0},
     {"timestamp", fldoff(trd_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"owner", fldoff(trd_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"type", fldoff(trd_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
-    {"unitid", fldoff(trd_unitid), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"unitid", fldoff(trd_unitid), NSC_INT, 0, NULL, EF_BAD, 0},
     {"price", fldoff(trd_price), NSC_LONG, 0, NULL, EF_BAD, 0},
     {"maxbidder", fldoff(trd_maxbidder), NSC_INT, 0, NULL, EF_NATION, 0},
     {"markettime", fldoff(trd_markettime), NSC_TIME, 0, NULL, EF_BAD, 0},

@@ -71,7 +71,7 @@ enum nat_status {
 struct realmstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short r_uid;		/* realm table index */
+    int r_uid;			/* realm table index */
     unsigned r_seqno;
     time_t r_timestamp;		/* Last time this realm was touched */
     natid r_cnum;		/* country number */
@@ -84,7 +84,7 @@ struct realmstr {
 struct natstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short nat_uid;		/* equals nat_cnum */
+    int nat_uid;		/* equals nat_cnum */
     unsigned nat_seqno;
     time_t nat_timestamp;
     natid nat_cnum;		/* our country number */

@@ -40,8 +40,8 @@
 #include "unit.h"
 
 struct clink {
-    short next;
-    short head[EF_NUKE - EF_PLANE + 1];
+    int next;
+    int head[EF_NUKE - EF_PLANE + 1];
 };
 
 /*
@@ -70,15 +70,15 @@ struct clink {
  * cargo lists know nothing about that.
  */
 static struct clink *clink[EF_NUKE + 1];
-static short nclink[EF_NUKE + 1];
+static int nclink[EF_NUKE + 1];
 
 /*
  * Return pointer to CL's cargo list head for file type TYPE.
  */
-static short *
+static int *
 clink_headp(struct clink *cl, int type)
 {
-    static short dummy;
+    static int dummy;
 
     if (CANT_HAPPEN(type < EF_PLANE || type > EF_NUKE)) {
 	dummy = -1;
@@ -104,7 +104,7 @@ clink_init(struct clink *cl)
  * Check whether *UIDP is a valid uid for file type TYPE.
  */
 static void
-clink_check1(short *uidp, int type)
+clink_check1(int *uidp, int type)
 {
     if (CANT_HAPPEN(*uidp >= nclink[type]))
 	*uidp = -1;
@@ -138,7 +138,7 @@ clink_check(int type)
 static void
 clink_add(struct clink *cl, int type, int uid)
 {
-    short *head = clink_headp(cl, type);
+    int *head = clink_headp(cl, type);
 
     if (CANT_HAPPEN(type < 0 || type > EF_NUKE
 		    || uid < 0 || uid >= nclink[type]))
@@ -157,10 +157,10 @@ clink_add(struct clink *cl, int type, int uid)
 static void
 clink_rem(struct clink *cl, int type, int uid)
 {
-    short *head = clink_headp(cl, type);
+    int *head = clink_headp(cl, type);
     struct clink *linkv;
     int n;
-    short *p;
+    int *p;
 
     if (CANT_HAPPEN(type < 0 || type > EF_NUKE))
 	return;
@@ -308,7 +308,7 @@ unit_onresize(int type)
 int
 unit_cargo_first(int type, int uid, int cargo_type)
 {
-    short *headp;
+    int *headp;
 
     if (CANT_HAPPEN(type < EF_SHIP || type > EF_NUKE))
 	return -1;

@@ -40,13 +40,13 @@
 struct loststr {
     /* initial part must match struct empobj */
     short ef_type;
-    short lost_uid;
+    int lost_uid;
     unsigned lost_seqno;
     time_t lost_timestamp;	/* When it was lost */
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct empobj */
     short lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
-    short lost_id;		/* ID of lost thing */
+    int lost_id;		/* uid of lost thing (0 for sector)*/
     coord lost_x;
     coord lost_y;
 };

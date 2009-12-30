@@ -46,7 +46,7 @@ enum targ_type {
 struct flist {
     struct emp_qelem queue;	/* list of fired things */
     short type;			/* EF_SECTOR, EF_SHIP or EF_LAND */
-    short uid;
+    int uid;
     coord x, y;
     int defdam;			/* damage defenders did */
     natid victim;

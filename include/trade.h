@@ -43,13 +43,13 @@
 struct trdstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short trd_uid;
+    int trd_uid;
     unsigned trd_seqno;
     time_t trd_timestamp;
     natid trd_owner;
     /* end of part matching struct empobj */
     short trd_type;
-    short trd_unitid;
+    int trd_unitid;
     long trd_price;
     int trd_maxbidder;
     time_t trd_markettime;

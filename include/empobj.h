@@ -56,7 +56,7 @@ struct empobj {
      * valid if EFF_TYPED is set in table's flags
      */
     short ef_type;
-    short uid;
+    int uid;
     unsigned seqno;
     time_t timestamp;
     /* end of part matching struct emptypedstr */

@@ -64,7 +64,7 @@
 struct shpstr {
     /* initial part must match struct empobj */
     short ef_type;
-    short shp_uid;		/* unit id (ship #) */
+    int shp_uid;		/* unit it (ship #) */
     unsigned shp_seqno;
     time_t shp_timestamp;	/* Last time this ship was touched. */
     natid shp_own;		/* owner's country num */
@@ -93,7 +93,7 @@ struct shpstr {
     short shp_access;		/* Last tick mob was updated (MOB_ACCESS) */
     unsigned char shp_mobquota;	/* mobility quota */
     char shp_path[MAXSHPPATH];
-    short shp_follow;
+    int shp_follow;
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
     coord shp_orig_x;
     coord shp_orig_y;		/* Where we were built */
