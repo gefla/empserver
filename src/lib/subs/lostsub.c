@@ -39,7 +39,7 @@
 #include "misc.h"
 #include "optlist.h"
 
-static int findlost(int, natid, short, coord, coord, int);
+static int findlost(int, natid, int, coord, coord, int);
 
 /*
  * Record item ID of type TYPE changed owner from EXOWN to OWN at X, Y.
@@ -56,7 +56,7 @@ lost_and_found(int type, natid exown, natid own, int id, coord x, coord y)
 }
 
 void
-makelost(int type, natid owner, short id, coord x, coord y)
+makelost(int type, natid owner, int id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -72,7 +72,7 @@ makelost(int type, natid owner, short id, coord x, coord y)
 }
 
 void
-makenotlost(int type, natid owner, short id, coord x, coord y)
+makenotlost(int type, natid owner, int id, coord x, coord y)
 {
     struct loststr lost;
     int n;
@@ -93,7 +93,7 @@ makenotlost(int type, natid owner, short id, coord x, coord y)
  * Else return -1.
  */
 static int
-findlost(int type, natid owner, short id, coord x, coord y, int free)
+findlost(int type, natid owner, int id, coord x, coord y, int free)
 {
     struct loststr lost;
     int n;

@@ -166,8 +166,8 @@ extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
 			 coord, char *, int);
 
 /* src/lib/subs/aswplnsubs.c */
-extern int on_shiplist(short, struct shiplist *);
-extern void add_shiplist(short, struct shiplist **);
+extern int on_shiplist(int, struct shiplist *);
+extern void add_shiplist(int, struct shiplist **);
 extern void free_shiplist(struct shiplist **);
 extern void print_shiplist(struct shiplist *);
 

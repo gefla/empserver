@@ -41,7 +41,7 @@
 #include "ship.h"
 
 int
-on_shiplist(short uid, struct shiplist *head)
+on_shiplist(int uid, struct shiplist *head)
 {
     struct shiplist *s;
 
@@ -55,7 +55,7 @@ on_shiplist(short uid, struct shiplist *head)
 }
 
 void
-add_shiplist(short uid, struct shiplist **head)
+add_shiplist(int uid, struct shiplist **head)
 {
     struct shiplist *s, *s2;
 
