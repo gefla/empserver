@@ -44,24 +44,30 @@
 
 #define SLOTS	5
 
-static struct nwsstr cache[MAXNOC][SLOTS];
+struct newscache {
+    struct nwsstr news;
+    int id;
+};
+
+static struct newscache cache[MAXNOC][SLOTS];
 static int news_tail;
 
-static struct nwsstr *ncache(int actor, int event, int victim, int times);
+static struct newscache *
+ncache(int actor, int event, int victim, int times);
 
 void
 nreport(natid actor, int event, natid victim, int times)
 {
     int nice;
     struct natstr *natp;
-    struct nwsstr *np;
+    struct newscache *ncp;
 
     if (CANT_HAPPEN((unsigned)event > N_MAX_VERB
 		    || rpt[event].r_newstory[0] == rpt[0].r_newstory[0]))
 	return;
 
-    np = ncache(actor, event, victim, times);
-    putnews(np->nws_uid, np);
+    ncp = ncache(actor, event, victim, times);
+    putnews(ncp->id, &ncp->news);
 
     /*
      * this is probably pretty expensive, but hopefully we
@@ -149,10 +155,10 @@ init_nreport(void)
  * in the last 5 minutes, if so just increment the times
  * field instead of creating a new message.
  */
-static struct nwsstr *
+static struct newscache *
 ncache(int actor, int event, int victim, int times)
 {
-    struct nwsstr *np;
+    struct newscache *np;
     int i;
     int oldslot;
     time_t oldtime;
@@ -162,17 +168,17 @@ ncache(int actor, int event, int victim, int times)
     oldtime = 0x7fffffff;
     for (i = 0; i < SLOTS; i++) {
 	np = &cache[actor][i];
-	if (np->nws_when < oldtime) {
+	if (np->news.nws_when < oldtime) {
 	    oldslot = i;
-	    oldtime = np->nws_when;
+	    oldtime = np->news.nws_when;
 	}
-	if (np->nws_vrb == 0)
+	if (np->news.nws_vrb == 0)
 	    continue;
-	if (now - np->nws_when > minutes(5))
+	if ((now - np->news.nws_when) > minutes(5))
 	    continue;
-	if (np->nws_vrb == event && np->nws_vno == victim
-	    && np->nws_ntm + times <= 127) {
-	    np->nws_ntm += times;
+	if (np->news.nws_vrb == event && np->news.nws_vno == victim &&
+	    np->news.nws_ntm + times <= 127) {
+	    np->news.nws_ntm += times;
 	    return np;
 	}
     }
@@ -181,12 +187,12 @@ ncache(int actor, int event, int victim, int times)
     if (CANT_HAPPEN(!strstr(rpt[event].r_newstory[0], "%s") && victim != 0))
 	victim = 0;
     np = &cache[actor][oldslot];
-    ef_blank(EF_NEWS, news_tail, np);
-    np->nws_ano = actor;
-    np->nws_vno = victim;
-    np->nws_when = now;
-    np->nws_vrb = event;
-    np->nws_ntm = times;
-    news_tail++;
+    ef_blank(EF_NEWS, news_tail, &np->news);
+    np->news.nws_ano = actor;
+    np->news.nws_vno = victim;
+    np->news.nws_when = now;
+    np->news.nws_vrb = event;
+    np->news.nws_ntm = times;
+    np->id = news_tail++;
     return np;
 }
