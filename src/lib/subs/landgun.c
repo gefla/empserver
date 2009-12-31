@@ -259,7 +259,7 @@ fortrange(struct sctstr *sp)
 	return -1.0;
 
     rng = effrange(14.0 * fire_range_factor, np->nat_level[NAT_TLEV]);
-    if (sp->sct_effic > 59)
+    if (sp->sct_effic >= 60)
 	rng++;
     return rng;
 }
