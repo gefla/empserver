@@ -134,8 +134,9 @@ tran_nuke(void)
     else
 	pr("No mobility used\n");
     getsect(srcx, srcy, &sect);
-    sect.sct_mobil -= mcost;
-    if (sect.sct_mobil < 0)
+    if (sect.sct_mobil >= mcost)
+	sect.sct_mobil -= mcost;
+    else
 	sect.sct_mobil = 0;
     putsect(&sect);
     return RET_OK;
@@ -229,8 +230,9 @@ tran_plane(void)
     else
 	pr("No mobility used\n");
     getsect(srcx, srcy, &sect);
-    sect.sct_mobil -= mcost;
-    if (sect.sct_mobil < 0)
+    if (sect.sct_mobil >= mcost)
+	sect.sct_mobil -= mcost;
+    else
 	sect.sct_mobil = 0;
     putsect(&sect);
     return RET_OK;
