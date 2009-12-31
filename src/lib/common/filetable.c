@@ -133,7 +133,7 @@ struct empfile empfile[] = {
     {EF_NUKE, "nuke", "nuke", nuke_ca,
      UNMAPPED_CACHE(struct nukstr, EFF_TYPED | EFF_XY | EFF_OWNER)},
     {EF_NEWS, "news", "news", news_ca,
-     UNMAPPED_CACHE(struct nwsstr, EFF_TYPED)},
+     UNMAPPED_CACHE(struct nwsstr, 0)},
     {EF_TREATY, "treaty", "treaty", treaty_ca,
      UNMAPPED_CACHE(struct trtstr, EFF_TYPED)},
     {EF_TRADE, "trade", "trade", trade_ca,

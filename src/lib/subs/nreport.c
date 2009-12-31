@@ -117,7 +117,6 @@ delete_old_news(void)
     for (j = 0; getnews(i + j, &news); j++) {
 	if (news.nws_vrb == 0)
 	    break;
-	ef_set_uid(EF_NEWS, &news, j);
 	putnews(j, &news);
     }
     CANT_HAPPEN(i + j != news_tail);

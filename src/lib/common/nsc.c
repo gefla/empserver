@@ -67,6 +67,7 @@ static void *nsc_lnd_acc(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_dam(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_aaf(struct valstr *, struct natstr *, void *);
 static void *nsc_lchr(struct valstr *, struct natstr *, void *);
+static void *nsc_nws_timestamp(struct valstr *, struct natstr *, void *);
 
 /* Ugly hack to improve legibility by avoid long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -468,9 +469,7 @@ struct castr loan_ca[] = {
 
 struct castr news_ca[] = {
 #define CURSTR struct nwsstr
-    /* no need for uid as long as it's not referenced from other tables */
-    {"timestamp", fldoff(nws_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
+    {"timestamp", 0, NSC_LONG, 0, nsc_nws_timestamp, EF_BAD, NSC_EXTRA},
     {"actor", fldoff(nws_ano), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"action", fldoff(nws_vrb), NSC_UCHAR, 0, NULL, EF_NEWS_CHR, 0},
     {"victim", fldoff(nws_vno), NSC_NATID, 0, NULL, EF_NATION, 0},
@@ -914,4 +913,13 @@ nsc_lchr(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.sym.get = NULL;
     return lchr + ((struct lndstr *)ptr)->lnd_type;
+}
+
+static void *
+nsc_nws_timestamp(struct valstr *val, struct natstr *natp, void *ptr)
+{
+    struct nwsstr *np = ptr;
+
+    val->val_as.lng = np->nws_when + np->nws_duration;
+    return NULL;
 }

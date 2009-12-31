@@ -84,7 +84,6 @@ union empobj_storage {
     struct lonstr loan;
     struct loststr lost;
     struct natstr nat;
-    struct nwsstr news;
     struct nukstr nuke;
     struct plnstr plane;
     struct realmstr realm;

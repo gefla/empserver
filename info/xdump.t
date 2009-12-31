@@ -97,6 +97,8 @@ yet available in human-readable form: the lost file, sect-chr selector
 nav, ship and land plague status (deity only), plane theta (governs
 satellite movement), trade selectors xloc, yloc, commodity selectors
 xbuy, ybuy.
+Incremental dump doesn't work after importing news with the empdump
+utility.
 .s1
 .L "FUTURE DIRECTIONS:"
 xdump is still fairly new, and experience with it may lead to changes.
