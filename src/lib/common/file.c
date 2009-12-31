@@ -603,8 +603,7 @@ new_seqno(struct empfile *ep, void *buf)
     if (!(ep->flags & EFF_TYPED))
 	return;
     old_seqno = get_seqno(ep, elt->uid);
-    if (CANT_HAPPEN(old_seqno != elt->seqno))
-	old_seqno = MAX(old_seqno, elt->seqno);
+    CANT_HAPPEN(old_seqno != elt->seqno);
     elt->seqno = old_seqno + 1;
 }
 
