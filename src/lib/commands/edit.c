@@ -487,7 +487,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'e':
 	new = errcheck(arg, 0, 100);
 	noise(sect, "Efficiency", sect->sct_effic, new);
-	sect->sct_effic = (unsigned char)new;
+	sect->sct_effic = new;
 	break;
     case 'm':
 	new = errcheck(arg, -127, 255);

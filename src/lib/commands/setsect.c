@@ -193,7 +193,7 @@ setsector(void)
 		current = 100;
 	    pr("Efficiency in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
-	    sect.sct_effic = (unsigned char)current;
+	    sect.sct_effic = current;
 	    putsect(&sect);
 	}
 	break;
