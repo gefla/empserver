@@ -53,9 +53,10 @@ struct sctstr {
     coord sct_x;		/* x coord of sector */
     coord sct_y;		/* y coord of sector */
     signed char sct_type;	/* sector type */
-    /* end of part matching struct empobj */
     signed char sct_effic;	/* 0% to 100% */
     signed char sct_mobil;	/* mobility units */
+    unsigned char sct_off;	/* Should this sector produce? */
+    /* end of part matching struct empobj */
     unsigned char sct_loyal;	/* updates until civilans "converted" */
     unsigned char sct_terr;	/* territory 0 id # of sector */
     unsigned char sct_terr1;	/* territory 1 id # of sector */
@@ -77,7 +78,6 @@ struct sctstr {
     unsigned char sct_uran;	/* uranium ore content */
     natid sct_oldown;		/* old owner of sector (for liberation) */
     unsigned char sct_updated;	/* Has this sect been updated? */
-    unsigned char sct_off;	/* Should this sector produce? */
     short sct_item[I_MAX+1];	/* amount of items stored here */
     short sct_del[I_MAX+1];	/* delivieries */
     short sct_dist[I_MAX+1];	/* distribution thresholds */

@@ -64,11 +64,12 @@ struct empobj {
     natid own;		/* valid if EFF_OWNER is in table's flags */
     coord x;		/* valid if EFF_XY    is in table's flags */
     coord y;		/* valid if EFF_XY    is in table's flags */
-    signed char type;	/* valid for sectors and units */
-    /* remaining are valid for units */
+    /* remaining are valid for sectors and units */
+    signed char type;
     signed char effic;
     signed char mobil;
     unsigned char off;
+    /* remaining are valid for units */
     short tech;
     char group;		/* valid if EFF_GROUP is in table's flags */
     coord opx, opy;
