@@ -161,7 +161,7 @@ ncache(int actor, int event, int victim, int times)
     struct newscache *np;
     int i;
     int oldslot;
-    time_t oldtime;
+    time_t oldtime, dur;
     time_t now = time(NULL);
 
     oldslot = -1;
@@ -174,11 +174,13 @@ ncache(int actor, int event, int victim, int times)
 	}
 	if (np->news.nws_vrb == 0)
 	    continue;
-	if ((now - np->news.nws_when) > minutes(5))
+	dur = now - np->news.nws_when;
+	if (dur > minutes(5))
 	    continue;
 	if (np->news.nws_vrb == event && np->news.nws_vno == victim &&
 	    np->news.nws_ntm + times <= 127) {
 	    np->news.nws_ntm += times;
+	    np->news.nws_duration = dur;
 	    return np;
 	}
     }
@@ -189,10 +191,11 @@ ncache(int actor, int event, int victim, int times)
     np = &cache[actor][oldslot];
     ef_blank(EF_NEWS, news_tail, &np->news);
     np->news.nws_ano = actor;
-    np->news.nws_vno = victim;
-    np->news.nws_when = now;
     np->news.nws_vrb = event;
+    np->news.nws_vno = victim;
     np->news.nws_ntm = times;
+    np->news.nws_duration = 0;
+    np->news.nws_when = now;
     np->id = news_tail++;
     return np;
 }

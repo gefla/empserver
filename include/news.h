@@ -55,6 +55,7 @@ struct nwsstr {
     unsigned char nws_vrb;	/* action (verb) */
     natid nws_vno;		/* "victim" country # */
     signed char nws_ntm;	/* number of times */
+    short nws_duration;		/* last time at nws_when + nws_duration */
     time_t nws_when;		/* time of action */
 };
 

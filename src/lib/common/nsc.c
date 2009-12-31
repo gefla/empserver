@@ -475,6 +475,7 @@ struct castr news_ca[] = {
     {"action", fldoff(nws_vrb), NSC_UCHAR, 0, NULL, EF_NEWS_CHR, 0},
     {"victim", fldoff(nws_vno), NSC_NATID, 0, NULL, EF_NATION, 0},
     {"times", fldoff(nws_ntm), NSC_CHAR, 0, NULL, EF_BAD, 0},
+    {"duration", fldoff(nws_duration), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"time", fldoff(nws_when), NSC_TIME, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
