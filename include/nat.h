@@ -72,6 +72,7 @@ struct realmstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned r_seqno: 12;
+    unsigned r_generation: 12;
     int r_uid;			/* realm table index */
     time_t r_timestamp;		/* Last time this realm was touched */
     natid r_cnum;		/* country number */
@@ -85,6 +86,7 @@ struct natstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned nat_seqno: 12;
+    unsigned nat_generation: 12;
     int nat_uid;		/* equals nat_cnum */
     time_t nat_timestamp;
     natid nat_cnum;		/* our country number */

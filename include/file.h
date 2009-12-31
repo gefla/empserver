@@ -87,6 +87,7 @@ struct empfile {
 struct emptypedstr {
     signed ef_type: 8;
     unsigned seqno: 12;
+    unsigned generation: 12;
     int uid;
     time_t timestamp;
 };
@@ -203,6 +204,8 @@ enum {
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
+extern void ef_make_stale(void);
+extern void ef_mark_fresh(int, void *);
 extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);

@@ -56,6 +56,7 @@
 #include <process.h>
 #include "misc.h"
 #include "empthread.h"
+#include "file.h"
 #include "prototypes.h"
 #include "server.h"
 #include "sys/socket.h"
@@ -423,6 +424,7 @@ empth_create(void (*entry)(void *), int size, int flags,
     empth_t *pThread = NULL;
 
     loc_debug("creating new thread %s", name);
+    ef_make_stale();
 
     pThread = malloc(sizeof(*pThread));
     if (!pThread) {
@@ -501,6 +503,7 @@ empth_exit(void)
     empth_t *pThread = TlsGetValue(dwTLSIndex);
 
     loc_debug("empth_exit");
+    ef_make_stale();
     loc_BlockThisThread();
 
     TlsSetValue(dwTLSIndex, NULL);
@@ -516,6 +519,7 @@ empth_exit(void)
 void
 empth_yield(void)
 {
+    ef_make_stale();
     loc_BlockThisThread();
     Sleep(0);
     loc_RunThisThread(NULL);
@@ -541,6 +545,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
 
     loc_debug("%s select on %d",
 	      flags == EMPTH_FD_READ ? "read" : "write", fd);
+    ef_make_stale();
     loc_BlockThisThread();
 
     hEventObject[0] = WSACreateEvent();
@@ -615,6 +620,7 @@ empth_sleep(time_t until)
     empth_t *pThread = TlsGetValue(dwTLSIndex);
     DWORD result;
 
+    ef_make_stale();
     loc_BlockThisThread();
 
     do {
@@ -645,6 +651,7 @@ empth_request_shutdown(void)
 int
 empth_wait_for_signal(void)
 {
+    ef_make_stale();
     loc_BlockThisThread();
     loc_RunThisThread(hShutdownEvent);
     return SIGTERM;
@@ -696,6 +703,7 @@ empth_rwlock_destroy(empth_rwlock_t *rwlock)
 void
 empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 {
+    ef_make_stale();
     /* block any new readers */
     ResetEvent(rwlock->can_read);
     rwlock->nwrite++;
@@ -707,6 +715,7 @@ empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 void
 empth_rwlock_rdlock(empth_rwlock_t *rwlock)
 {
+    ef_make_stale();
     loc_BlockThisThread();
     loc_RunThisThread(rwlock->can_read);
     ResetEvent(rwlock->can_write);

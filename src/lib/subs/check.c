@@ -53,7 +53,11 @@ obj_changed(struct empobj *obj, size_t sz)
     get_empobj(obj->ef_type, obj->uid, &old);
     memcpy(&tobj, obj, sz);
     old.gen.timestamp = tobj.gen.timestamp = 0;
-    return memcmp(&tobj, &old, sz);
+    old.gen.generation = tobj.gen.generation = 0;
+    if (memcmp(&tobj, &old, sz))
+	return 1;
+    ef_mark_fresh(obj->ef_type, obj);
+    return 0;
 }
 
 int

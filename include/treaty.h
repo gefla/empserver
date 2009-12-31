@@ -41,6 +41,7 @@ struct trtstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned trt_seqno: 12;
+    unsigned trt_generation: 12;
     int trt_uid;
     time_t trt_timestamp;
     /* end of part matching struct empobj */

@@ -347,6 +347,7 @@ fltp_to_list(struct fltheadstr *fltp, struct emp_qelem *list)
 	sp = getshipp(fe->num);
 	mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
 	mlp->unit.ship = *sp;
+	ef_mark_fresh(EF_SHIP, &mlp->unit.ship);
 	mlp->mobil = fe->mobil;
 	emp_insque(&mlp->queue, list);
     }

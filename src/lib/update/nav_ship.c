@@ -268,6 +268,7 @@ nav_ship(struct shpstr *sp)
     mlp = malloc(sizeof(struct ulist));
     mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
     mlp->unit.ship = *sp;
+    ef_mark_fresh(EF_SHIP, &mlp->unit.ship);
     mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &ship_list);
 

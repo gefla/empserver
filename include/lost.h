@@ -41,6 +41,7 @@ struct loststr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned lost_seqno: 12;
+    unsigned lost_generation: 12;
     int lost_uid;
     time_t lost_timestamp;	/* When it was lost */
     natid lost_owner;		/* Who lost it */

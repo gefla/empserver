@@ -37,6 +37,7 @@
 #include <signal.h>
 #include <time.h>
 #include "empthread.h"
+#include "file.h"
 #include "misc.h"
 
 /* Flags that were passed to empth_init() */
@@ -65,6 +66,7 @@ empth_create(void (*entry)(void *), int size, int flags,
 {
     if (!flags)
 	flags = empth_flags;
+    ef_make_stale();
     return lwpCreate(1, entry, size, flags, name, 0, NULL, ud);
 }
 
@@ -89,18 +91,21 @@ empth_set_name(empth_t *thread, char *name)
 void
 empth_exit(void)
 {
+    ef_make_stale();
     lwpExit();
 }
 
 void
 empth_yield(void)
 {
+    ef_make_stale();
     lwpYield();
 }
 
 int
 empth_select(int fd, int flags, struct timeval *timeout)
 {
+    ef_make_stale();
     return lwpSleepFd(fd, flags, timeout);
 }
 
@@ -113,6 +118,7 @@ empth_wakeup(empth_t *a)
 int
 empth_sleep(time_t until)
 {
+    ef_make_stale();
     return lwpSleepUntil(until);
 }
 
@@ -123,6 +129,7 @@ empth_wait_for_signal(void)
     int sig, err;
     time_t now;
 
+    ef_make_stale();
     sigemptyset(&set);
     sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
@@ -153,12 +160,14 @@ empth_rwlock_destroy(empth_rwlock_t *rwlock)
 void
 empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 {
+    ef_make_stale();
     lwp_rwlock_wrlock(rwlock);
 }
 
 void
 empth_rwlock_rdlock(empth_rwlock_t *rwlock)
 {
+    ef_make_stale();
     lwp_rwlock_rdlock(rwlock);
 }
 

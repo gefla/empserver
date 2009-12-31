@@ -44,6 +44,7 @@ struct nukstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned nuk_seqno: 12;
+    unsigned nuk_generation: 12;
     int nuk_uid;		/* unit id (nuke #) */
     time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;

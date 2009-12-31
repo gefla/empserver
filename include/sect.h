@@ -46,6 +46,7 @@ struct sctstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned sct_seqno: 12;
+    unsigned sct_generation: 12;
     int sct_uid;		/* equals XYOFFSET(sct_x, sct_y) */
     time_t sct_timestamp;	/* Last time this sector was written to */
     natid sct_own;		/* owner's country num */

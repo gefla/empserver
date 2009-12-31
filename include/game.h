@@ -40,6 +40,7 @@ struct gamestr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned game_seqno: 12;
+    unsigned game_generation: 12;
     int game_uid;
     time_t game_timestamp;
     /* end of part matching struct empobj */

@@ -57,6 +57,7 @@ struct empobj {
      */
     signed ef_type: 8;
     unsigned seqno: 12;
+    unsigned generation: 12;
     int uid;
     time_t timestamp;
     /* end of part matching struct emptypedstr */

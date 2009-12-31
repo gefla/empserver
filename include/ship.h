@@ -65,6 +65,7 @@ struct shpstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned shp_seqno: 12;
+    unsigned shp_generation: 12;
     int shp_uid;		/* unit it (ship #) */
     time_t shp_timestamp;	/* Last time this ship was touched. */
     natid shp_own;		/* owner's country num */

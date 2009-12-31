@@ -44,6 +44,7 @@ struct lonstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned l_seqno: 12;
+    unsigned l_generation: 12;
     int l_uid;
     time_t l_timestamp;
     /* end of part matching struct empobj */

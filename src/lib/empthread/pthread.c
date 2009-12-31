@@ -51,6 +51,7 @@
 #include <unistd.h>
 #include "misc.h"
 #include "empthread.h"
+#include "file.h"
 #include "prototypes.h"
 
 struct empth_t {
@@ -187,6 +188,7 @@ empth_create(void (*entry)(void *), int size, int flags,
     int eno;
 
     empth_status("creating new thread %s", name);
+    ef_make_stale();
 
     ctx = malloc(sizeof(empth_t));
     if (!ctx) {
@@ -262,6 +264,7 @@ empth_exit(void)
     empth_t *ctx = pthread_getspecific(ctx_key);
 
     empth_status("empth_exit");
+    ef_make_stale();
     pthread_mutex_unlock(&mtx_ctxsw);
     free(ctx->name);
     free(ctx);
@@ -271,6 +274,7 @@ empth_exit(void)
 void
 empth_yield(void)
 {
+    ef_make_stale();
     pthread_mutex_unlock(&mtx_ctxsw);
     pthread_mutex_lock(&mtx_ctxsw);
     empth_restorectx();
@@ -286,6 +290,7 @@ empth_select(int fd, int flags, struct timeval *timeout)
     empth_t *ctx;
     int res = 0;
 
+    ef_make_stale();
     pthread_mutex_unlock(&mtx_ctxsw);
     empth_status("select on %d for %d", fd, flags);
 
@@ -353,6 +358,7 @@ empth_sleep(time_t until)
     struct timeval tv;
     int res;
 
+    ef_make_stale();
     pthread_mutex_unlock(&mtx_ctxsw);
     do {
 	now = time(NULL);
@@ -373,6 +379,7 @@ empth_wait_for_signal(void)
     sigset_t set;
     int sig, err;
 
+    ef_make_stale();
     sigemptyset(&set);
     sigaddset(&set, SIGHUP);
     sigaddset(&set, SIGINT);
@@ -426,6 +433,7 @@ empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 {
     empth_status("wrlock %s %d %d",
 		 rwlock->name, rwlock->nread, rwlock->nwrite);
+    ef_make_stale();
     rwlock->nwrite++;
     while (rwlock->nread != 0 || rwlock->nwrite != 1) {
 	empth_status("waiting for wrlock %s", rwlock->name);
@@ -441,6 +449,7 @@ empth_rwlock_rdlock(empth_rwlock_t *rwlock)
 {
     empth_status("rdlock %s %d %d",
 		 rwlock->name, rwlock->nread, rwlock->nwrite);
+    ef_make_stale();
     while (rwlock->nwrite) {
 	empth_status("waiting for rdlock %s", rwlock->name);
 	pthread_cond_wait(&rwlock->can_read, &mtx_ctxsw);

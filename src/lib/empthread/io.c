@@ -51,6 +51,7 @@
 #include <unistd.h>
 #include "empio.h"
 #include "empthread.h"
+#include "file.h"
 #include "ioqueue.h"
 #include "misc.h"
 #include "queue.h"
@@ -195,6 +196,9 @@ io_output(struct iop *iop, int wait)
 {
     struct iovec iov[16];
     int n, res, cc;
+
+    if (wait)
+	ef_make_stale();
 
     if (!ioq_qsize(iop->output))
 	return 0;

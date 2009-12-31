@@ -44,6 +44,7 @@ struct trdstr {
     /* initial part must match struct empobj */
     signed ef_type: 8;
     unsigned trd_seqno: 12;
+    unsigned trd_generation: 12;
     int trd_uid;
     time_t trd_timestamp;
     natid trd_owner;
