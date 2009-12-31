@@ -353,12 +353,12 @@ put_combat(struct combat *com)
 		if ((com->mob - com->mobcost) < -127)
 		    sect.sct_mobil = -127;
 		else
-		    sect.sct_mobil = (short)(com->mob - com->mobcost);
+		    sect.sct_mobil = com->mob - com->mobcost;
 	    } else {
 		if ((com->mob - com->mobcost) < 0)
 		    sect.sct_mobil = 0;
 		else
-		    sect.sct_mobil = (short)(com->mob - com->mobcost);
+		    sect.sct_mobil = com->mob - com->mobcost;
 	    }
 	}
 	sect.sct_own = com->own;

@@ -140,7 +140,7 @@ struct castr sect_ca[] = {
     {"yloc", fldoff(sct_y), NSC_YCOORD, 0, NULL, EF_BAD, NSC_CONST},
     {"des", fldoff(sct_type), NSC_CHAR, 0, NULL, EF_SECTOR_CHR, 0},
     {"effic", fldoff(sct_effic), NSC_CHAR, 0, NULL, EF_BAD, 0},
-    {"mobil", fldoff(sct_mobil), NSC_SHORT, 0, NULL, EF_BAD, 0},
+    {"mobil", fldoff(sct_mobil), NSC_CHAR, 0, NULL, EF_BAD, 0},
     {"loyal", fldoff(sct_loyal), NSC_UCHAR, 0, NULL, EF_BAD, NSC_DEITY},
     {"terr", 0, NSC_UCHAR, 0, nsc_sct_terr, EF_BAD, NSC_EXTRA},
     {"terr0", fldoff(sct_terr), NSC_UCHAR, 0, NULL, EF_BAD, 0},

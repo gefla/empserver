@@ -55,7 +55,7 @@ struct sctstr {
     signed char sct_type;	/* sector type */
     /* end of part matching struct empobj */
     signed char sct_effic;	/* 0% to 100% */
-    short sct_mobil;		/* mobility units */
+    signed char sct_mobil;	/* mobility units */
     unsigned char sct_loyal;	/* updates until civilans "converted" */
     unsigned char sct_terr;	/* territory 0 id # of sector */
     unsigned char sct_terr1;	/* territory 1 id # of sector */

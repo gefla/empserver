@@ -235,7 +235,7 @@ setsector(void)
 		    current = 127;
 		pr("Mobility in %s changed to %d.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum), current);
-		sect.sct_mobil = (short)current;
+		sect.sct_mobil = current;
 		putsect(&sect);
 	    }
 	    break;
