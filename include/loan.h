@@ -42,9 +42,9 @@
 
 struct lonstr {
     /* initial part must match struct empobj */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned l_seqno: 12;
     int l_uid;
-    unsigned l_seqno;
     time_t l_timestamp;
     /* end of part matching struct empobj */
     natid l_loner;		/* loan shark */

@@ -38,9 +38,9 @@
 
 struct gamestr {
     /* initial part must match struct empobj */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned game_seqno: 12;
     int game_uid;
-    unsigned game_seqno;
     time_t game_timestamp;
     /* end of part matching struct empobj */
     char game_upd_disable;	/* updates disabled? */

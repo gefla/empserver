@@ -56,7 +56,7 @@ unit_list(struct emp_qelem *unit_list)
 	return;
     qp = unit_list->q_back;
     ulp = (struct ulist *)qp;
-    type = ulp->unit.ef_type;
+    type = ulp->unit.gen.ef_type;
     if (CANT_HAPPEN(type != EF_LAND && type != EF_SHIP))
 	return;
 
@@ -191,10 +191,10 @@ unit_view(struct emp_qelem *list)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	ulp = (struct ulist *)qp;
-	if (CANT_HAPPEN(!(ef_flags(ulp->unit.ef_type) & EFF_XY)))
+	if (CANT_HAPPEN(!(ef_flags(ulp->unit.gen.ef_type) & EFF_XY)))
 	    continue;
 	getsect(ulp->unit.gen.x, ulp->unit.gen.y, &sect);
-	if (ulp->unit.ef_type == EF_SHIP) {
+	if (ulp->unit.gen.ef_type == EF_SHIP) {
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_FOOD)
 		pr("[fert:%d] ", sect.sct_fertil);
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_OIL)

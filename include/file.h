@@ -85,9 +85,9 @@ struct empfile {
 };
 
 struct emptypedstr {
-    short ef_type;
+    signed ef_type: 8;
+    unsigned seqno: 12;
     int uid;
-    unsigned seqno;
     time_t timestamp;
 };
 

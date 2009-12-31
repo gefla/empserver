@@ -55,9 +55,9 @@ struct empobj {
      * initial part must match struct emptypedstr
      * valid if EFF_TYPED is set in table's flags
      */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned seqno: 12;
     int uid;
-    unsigned seqno;
     time_t timestamp;
     /* end of part matching struct emptypedstr */
     natid own;		/* valid if EFF_OWNER is in table's flags */
@@ -76,7 +76,6 @@ struct empobj {
 };
 
 union empobj_storage {
-    short ef_type;
     struct empobj gen;
     struct comstr comm;
     struct gamestr game;

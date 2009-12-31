@@ -42,9 +42,9 @@
 
 struct comstr {
     /* initial part must match struct empobj */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned com_seqno: 12;
     int com_uid;
-    unsigned com_seqno;
     time_t com_timestamp;
     natid com_owner;
     /* end of part matching struct empobj */

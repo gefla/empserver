@@ -46,9 +46,9 @@
 
 struct plnstr {
     /* initial part must match struct empobj */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned pln_seqno: 12;
     int pln_uid;		/* unit id (plane #) */
-    unsigned pln_seqno;
     time_t pln_timestamp;	/* Last time this plane was touched */
     natid pln_own;		/* owning country */
     coord pln_x;		/* plane x-y */

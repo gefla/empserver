@@ -42,9 +42,9 @@
 
 struct nukstr {
     /* initial part must match struct empobj */
-    short ef_type;
+    signed ef_type: 8;
+    unsigned nuk_seqno: 12;
     int nuk_uid;		/* unit id (nuke #) */
-    unsigned nuk_seqno;
     time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;
     coord nuk_x, nuk_y;		/* current loc of device */
