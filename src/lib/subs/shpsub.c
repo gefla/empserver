@@ -53,7 +53,7 @@
 #include "unit.h"
 
 static int shp_check_one_mines(struct ulist *);
-static int shp_hit_mine(struct shpstr *, struct mchrstr *);
+static int shp_hit_mine(struct shpstr *);
 static void shp_mess(char *, struct ulist *);
 
 void
@@ -241,7 +241,7 @@ shp_check_one_mines(struct ulist *mlp)
 	return 0;
     if (chance(DMINE_HITCHANCE(sect.sct_mines))) {
 	actor = mlp->unit.ship.shp_own;
-	shp_hit_mine(&mlp->unit.ship, ((struct mchrstr *)mlp->chrp));
+	shp_hit_mine(&mlp->unit.ship);
 	sect.sct_mines--;
 	if (map_set(actor, sect.sct_x, sect.sct_y, 'X', 0))
 	    writemap(actor);
@@ -687,7 +687,7 @@ shp_hardtarget(struct shpstr *sp)
 }
 
 static int
-shp_hit_mine(struct shpstr *sp, struct mchrstr *mcp)
+shp_hit_mine(struct shpstr *sp)
 {
     double m;
 
@@ -697,7 +697,7 @@ shp_hit_mine(struct shpstr *sp, struct mchrstr *mcp)
     nreport(sp->shp_own, N_HIT_MINE, 0, 1);
 
     m = MINE_DAMAGE();
-    if (mcp->m_flags & M_SWEEP)
+    if (mchr[sp->shp_uid].m_flags & M_SWEEP)
 	m /= 2.0;
 
     shipdamage(sp, ldround(m, 1));

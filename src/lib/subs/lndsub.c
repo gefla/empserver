@@ -52,7 +52,7 @@
 #include "unit.h"
 
 static void lnd_mess(char *, struct ulist *);
-static int lnd_hit_mine(struct lndstr *, struct lchrstr *);
+static int lnd_hit_mine(struct lndstr *);
 static int has_helpful_engineer(coord, coord, natid);
 
 double
@@ -623,7 +623,7 @@ lnd_check_mines(struct emp_qelem *land_list)
 	if (SCT_LANDMINES(&sect) == 0)
 	    continue;
 	if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
-	    lnd_hit_mine(&llp->unit.land, ((struct lchrstr *)llp->chrp));
+	    lnd_hit_mine(&llp->unit.land);
 	    sect.sct_mines--;
 	    putsect(&sect);
 	    putland(llp->unit.land.lnd_uid, &llp->unit.land);
@@ -840,7 +840,7 @@ lnd_hardtarget(struct lndstr *lp)
 }
 
 static int
-lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
+lnd_hit_mine(struct lndstr *lp)
 {
     int m;
 
@@ -850,7 +850,7 @@ lnd_hit_mine(struct lndstr *lp, struct lchrstr *lcp)
     nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
 
     m = MINE_LDAMAGE();
-    if (lcp->l_flags & L_ENGINEER)
+    if (lchr[lp->lnd_uid].l_flags & L_ENGINEER)
 	m /= 2;
 
     landdamage(lp, m);
