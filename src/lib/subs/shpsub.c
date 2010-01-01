@@ -486,13 +486,16 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
     struct plist *plp;
     struct ulist *mvs;
 
+    mvs = most_valuable_ship(list, newx, newy);
+    if (!mvs)
+	return 0;
+
     msl_sel(&msl_list, newx, newy, victim, P_T | P_MAR, 0, MI_INTERDICT);
 
     for (qp = msl_list.q_back; qp != &msl_list; qp = newqp) {
 	newqp = qp->q_back;
 	plp = (struct plist *)qp;
 
-	mvs = most_valuable_ship(list, newx, newy);
 	if (mvs && mission_pln_equip(plp, NULL, 'p') >= 0) {
 	    if (msl_launch(&plp->plane, EF_SHIP, prship(&mvs->unit.ship),
 			   newx, newy, victim, &sublaunch) < 0)
@@ -512,6 +515,7 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 		dam = pln_damage(&plp->plane, 'p', 0);
 		collateral_damage(newx, newy, dam);
 	    }
+	    mvs = most_valuable_ship(list, newx, newy);
 	use_up_msl:
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
@@ -651,10 +655,7 @@ shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 					  shp_easiest_target(list, 0, M_SUB),
 					  MI_INTERDICT),
 			   0, M_SUB, newx, newy);
-	    if (most_valuable_ship(list, newx, newy)) {
-		stopping |=
-		    shp_missile_interdiction(list, newx, newy, victim);
-	    }
+	    stopping |= shp_missile_interdiction(list, newx, newy, victim);
 	}
     }
     if (shp_contains(list, newx, newy, M_SUB, 0)) {
@@ -909,20 +910,18 @@ shp_missdef(struct shpstr *sp, natid victim)
     sprintf(buf, "%s", prship(&mlp->unit.ship));
 
     eff = sp->shp_effic;
-    if (most_valuable_ship(&list, sp->shp_x, sp->shp_y)) {
-	shp_missile_interdiction(&list, sp->shp_x, sp->shp_y, sp->shp_own);
-	getship(sp->shp_uid, sp);
+    shp_missile_interdiction(&list, sp->shp_x, sp->shp_y, sp->shp_own);
+    getship(sp->shp_uid, sp);
 
-	if (!sp->shp_own) {
-	    wu(0, victim,
-	       "missiles launched in defense did 100%% damage to %s\n",
-	       buf);
-	    wu(0, victim, "%s sunk!\n", buf);
-	} else if (eff > 0 && sp->shp_effic < eff) {
-	    wu(0, victim,
-	       "missiles launched in defense did %d%% damage to %s\n",
-	       100 * (eff - sp->shp_effic) / eff, buf);
-	}
+    if (!sp->shp_own) {
+	wu(0, victim,
+	   "missiles launched in defense did 100%% damage to %s\n",
+	   buf);
+	wu(0, victim, "%s sunk!\n", buf);
+    } else if (eff > 0 && sp->shp_effic < eff) {
+	wu(0, victim,
+	   "missiles launched in defense did %d%% damage to %s\n",
+	   100 * (eff - sp->shp_effic) / eff, buf);
     }
     if (!QEMPTY(&list))
 	free(mlp);
