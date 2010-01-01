@@ -169,7 +169,7 @@ main(int argc, char *argv[])
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))
 	    continue;
-	if (!private && dirty[i]) {
+	if (dirty[i]) {
 	    if (!ef_close(i))
 		exit(1);
 	}
