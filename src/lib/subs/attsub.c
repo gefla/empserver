@@ -1107,8 +1107,11 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, olist);
 	llp->mobil = mobcost;
-	if (!get_land(combat_mode, def, land.lnd_uid, llp, 0))
-	    continue;
+	getland(land.lnd_uid, &llp->unit.land);
+	llp->x = llp->unit.land.lnd_x;
+	llp->y = llp->unit.land.lnd_y;
+	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
+	llp->eff = llp->unit.land.lnd_effic;
 	if (lnd_spyval(&land) > *a_spyp)
 	    *a_spyp = lnd_spyval(&land);
 	if (((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)
@@ -1234,8 +1237,11 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, list);
 	llp->supplied = lnd_supply_all(&land);
-	if (!get_land(A_DEFEND, def, land.lnd_uid, llp, 1))
-	    continue;
+	getland(land.lnd_uid, &llp->unit.land);
+	llp->x = llp->unit.land.lnd_x;
+	llp->y = llp->unit.land.lnd_y;
+	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
+	llp->eff = llp->unit.land.lnd_effic;
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
     }
@@ -1348,43 +1354,37 @@ get_land(int combat_mode, struct combat *def, int uid, struct ulist *llp,
 
     getland(uid, lp);
 
-    if (!llp->chrp) {		/* first time */
-	llp->x = llp->unit.land.lnd_x;
-	llp->y = llp->unit.land.lnd_y;
-	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
-    } else {			/* not first time */
-	if (lp->lnd_effic < LAND_MINEFF) {
-	    sprintf(buf, "was destroyed and is no longer a part of the %s",
+    if (lp->lnd_effic < LAND_MINEFF) {
+	sprintf(buf, "was destroyed and is no longer a part of the %s",
+		att_mode[combat_mode]);
+	lnd_delete(llp, buf);
+	return 0;
+    }
+    if (victim_land) {
+	if (lp->lnd_x != def->x || lp->lnd_y != def->y) {
+	    lnd_delete(llp,
+		       "left to go fight another battle and is no longer a part of the defense");
+	    return 0;
+	}
+    } else {
+	if (lp->lnd_own != player->cnum) {
+	    sprintf(buf,
+		    "was destroyed and is no longer a part of the %s",
 		    att_mode[combat_mode]);
 	    lnd_delete(llp, buf);
 	    return 0;
 	}
-	if (victim_land) {
-	    if (lp->lnd_x != def->x || lp->lnd_y != def->y) {
-		lnd_delete(llp,
-			   "left to go fight another battle and is no longer a part of the defense");
-		return 0;
-	    }
-	} else {
-	    if (lp->lnd_own != player->cnum) {
-		sprintf(buf,
-			"was destroyed and is no longer a part of the %s",
-			att_mode[combat_mode]);
-		lnd_delete(llp, buf);
-		return 0;
-	    }
-	    if (lp->lnd_x != llp->x || lp->lnd_y != llp->y) {
-		sprintf(buf,
-			"left to fight another battle and is no longer a part of the %s",
-			att_mode[combat_mode]);
-		lnd_delete(llp, buf);
-		return 0;
-	    }
-	    if (lp->lnd_effic < llp->eff) {
-		sprintf(buf, "damaged from %d%% to %d%%",
-			llp->eff, lp->lnd_effic);
-		lnd_print(llp, buf);
-	    }
+	if (lp->lnd_x != llp->x || lp->lnd_y != llp->y) {
+	    sprintf(buf,
+		    "left to fight another battle and is no longer a part of the %s",
+		    att_mode[combat_mode]);
+	    lnd_delete(llp, buf);
+	    return 0;
+	}
+	if (lp->lnd_effic < llp->eff) {
+	    sprintf(buf, "damaged from %d%% to %d%%",
+		    llp->eff, lp->lnd_effic);
+	    lnd_print(llp, buf);
 	}
     }
     llp->eff = llp->unit.land.lnd_effic;
