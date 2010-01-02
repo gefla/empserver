@@ -1537,6 +1537,7 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	llp->y = origy;
 	llp->chrp = (struct empobj_chr *)&lchr[(int)land.lnd_type];
 	llp->unit.land = land;
+	llp->eff = land.lnd_effic;
 	emp_insque(&llp->queue, list);
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
