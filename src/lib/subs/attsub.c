@@ -1107,7 +1107,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, olist);
 	llp->mobil = mobcost;
-	getland(land.lnd_uid, &llp->unit.land);
+	llp->unit.land = land;
 	llp->x = llp->unit.land.lnd_x;
 	llp->y = llp->unit.land.lnd_y;
 	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
@@ -1237,7 +1237,7 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, list);
 	llp->supplied = lnd_supply_all(&land);
-	getland(land.lnd_uid, &llp->unit.land);
+	llp->unit.land = land;
 	llp->x = llp->unit.land.lnd_x;
 	llp->y = llp->unit.land.lnd_y;
 	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
