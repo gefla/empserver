@@ -384,18 +384,16 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct emp_qelem *qp, missiles, bombers;
     struct genlist *glp;
     struct plist *plp;
-    struct sctstr sect;
     struct plchrstr *pcp;
     int dam = 0;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
-    getsect(x, y, &sect);
-
     emp_initque(&missiles);
     emp_initque(&bombers);
 
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+    for (qp = list->q_forw; qp != list; ) {
 	glp = (struct genlist *)qp;
+	qp = qp->q_forw;
 
 	if (glp->thing->ef_type == EF_LAND) {
 	    dam = perform_mission_land(dam, (struct lndstr *)glp->thing,
@@ -426,20 +424,13 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    CANT_REACH();
 	    break;
 	}
+	free(glp->thing);
+	free(glp);
     }
 
     dam = perform_mission_msl(dam, &missiles, x, y, victim, hardtarget);
     dam = perform_mission_bomb(dam, &bombers, x, y, victim, mission, s,
 			       hardtarget, targeting_ships);
-
-    qp = list->q_forw;
-    while (qp != list) {
-	glp = (struct genlist *)qp;
-	qp = qp->q_forw;
-
-	free(glp->thing);
-	free(glp);
-    }
 
     return dam;
 }
