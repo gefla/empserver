@@ -755,7 +755,7 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	mpr(victim, "missile interdiction mission does %d damage!\n", dam);
 	collateral_damage(newx, newy, dam);
     }
-    return dam;
+    return lnd_damage(list, dam);
 }
 
 #if 0
@@ -827,9 +827,7 @@ lnd_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 #endif
 
     stopping |= lnd_mission_interdiction(list, newx, newy, victim);
-    stopping |=
-	lnd_damage(list,
-		   lnd_missile_interdiction(list, newx, newy, victim));
+    stopping |= lnd_missile_interdiction(list, newx, newy, victim);
     return stopping;
 }
 
