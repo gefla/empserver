@@ -73,6 +73,14 @@ static int find_airport(struct emp_qelem *, coord, coord);
 static void mission_pln_arm(struct emp_qelem *, coord, coord, int,
 			    int, struct ichrstr *);
 static void mission_pln_sel(struct emp_qelem *, int, int, int);
+static int perform_mission_land(int, struct lndstr *, coord, coord,
+				natid, int, char *, int, int);
+static int perform_mission_ship(int, struct shpstr *, coord, coord,
+				natid, int, char *, int, int);
+static int perform_mission_msl(int, struct emp_qelem *, coord, coord,
+			       natid, int);
+static int perform_mission_bomb(int, struct emp_qelem *, coord, coord,
+				natid, int, char *, int, int);
 static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
 			   char *, int);
 
@@ -377,28 +385,20 @@ static int
 perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		int mission, char *s, int hardtarget)
 {
-    struct emp_qelem *qp, missiles, bombers, escorts, airp, b, e;
-    struct emp_qelem *newqp;
+    struct emp_qelem *qp, missiles, bombers;
     struct genlist *glp;
     struct plist *plp;
     struct empobj *gp;
-    struct lndstr *lp;
-    struct shpstr *sp;
     struct sctstr sect;
-    struct mchrstr *mcp;
     struct plchrstr *pcp;
-    int dam = 0, dam2;
-    natid plane_owner = 0;
-    int md, range, air_dam, sublaunch;
-    double hitchance, vrange;
+    int dam = 0;
+    int md;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
     getsect(x, y, &sect);
 
     emp_initque(&missiles);
     emp_initque(&bombers);
-    emp_initque(&escorts);
-    emp_initque(&airp);
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
@@ -407,123 +407,13 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	md = mapdist(x, y, gp->x, gp->y);
 
 	if (glp->thing->ef_type == EF_LAND) {
-	    lp = (struct lndstr *)glp->thing;
-
-	    if (mission == MI_SINTERDICT)
-		continue;
-
-	    if ((mission == MI_INTERDICT) &&
-		(md > land_max_interdiction_range))
-		continue;
-
-	    range = roundrange(lnd_fire_range(lp));
-	    if (md > range)
-		continue;
-
-	    dam2 = lnd_fire(lp);
-	    putland(lp->lnd_uid, lp);
-	    if (dam2 < 0)
-		continue;
-
-	    if (targeting_ships) {
-		if (chance(lnd_acc(lp) / 100.0))
-		    dam2 = ldround(dam2 / 2.0, 1);
-	    }
-	    dam += dam2;
-	    if (targeting_ships)
-		nreport(lp->lnd_own, N_SHP_SHELL, victim, 1);
-	    else
-		nreport(lp->lnd_own, N_SCT_SHELL, victim, 1);
-	    wu(0, lp->lnd_own,
-	       "%s fires at %s %s at %s\n",
-	       prland(lp), cname(victim), s, xyas(x, y, lp->lnd_own));
-
-	    mpr(victim, "%s %s fires at you at %s\n",
-		cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
+	    dam = perform_mission_land(dam, (struct lndstr *)glp->thing,
+				       x, y, victim, mission, s,
+				       md, targeting_ships);
 	} else if (glp->thing->ef_type == EF_SHIP) {
-	    sp = (struct shpstr *)glp->thing;
-	    mcp = glp->cp;
-
-	    if (((mission == MI_INTERDICT) ||
-		 (mission == MI_SINTERDICT)) &&
-		(md > ship_max_interdiction_range))
-		continue;
-	    if (mission == MI_SINTERDICT) {
-		if (!(mcp->m_flags & M_SONAR))
-		    continue;
-		if (!(mcp->m_flags & M_DCH) && !(mcp->m_flags & M_SUBT))
-		    continue;
-		vrange = techfact(sp->shp_tech, mcp->m_vrnge);
-		vrange *= sp->shp_effic / 200.0;
-		if (md > vrange)
-		    continue;
-		/* can't look all the time */
-		if (chance(0.5))
-		    continue;
-	    }
-	    if (mcp->m_flags & M_SUB) {
-		if (!targeting_ships)
-		    continue;	/* subs interdict only ships */
-		range = roundrange(torprange(sp));
-		if (md > range)
-		    continue;
-		if (!line_of_sight(NULL, x, y, gp->x, gp->y))
-		    continue;
-		dam2 = shp_torp(sp, 1);
-		putship(sp->shp_uid, sp);
-		if (dam2 < 0)
-		    continue;
-		hitchance = shp_torp_hitchance(sp, md);
-
-		wu(0, sp->shp_own,
-		   "%s locking on %s %s in %s\n",
-		   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
-		wu(0, sp->shp_own,
-		   "\tEffective torpedo range is %d.0\n", range);
-		wu(0, sp->shp_own,
-		   "\tWhooosh... Hitchance = %d%%\n",
-		   (int)(hitchance * 100));
-
-		if (!chance(hitchance)) {
-		    wu(0, sp->shp_own, "\tMissed\n");
-		    mpr(victim,
-			"Incoming torpedo sighted @ %s missed (whew)!\n",
-			xyas(x, y, victim));
-		    continue;
-		}
-		wu(0, sp->shp_own, "\tBOOM!...\n");
-		dam += dam2;
-		nreport(victim, N_TORP_SHIP, 0, 1);
-		wu(0, sp->shp_own,
-		   "\tTorpedo hit %s %s for %d damage\n",
-		   cname(victim), s, dam2);
-
-		mpr(victim,
-		    "Incoming torpedo sighted @ %s hits and does %d damage!\n",
-		    xyas(x, y, victim), dam2);
-	    } else {
-		range = roundrange(shp_fire_range(sp));
-		if (md > range)
-		    continue;
-		if (mission == MI_SINTERDICT)
-		    dam2 = shp_dchrg(sp);
-		else
-		    dam2 = shp_fire(sp);
-		putship(sp->shp_uid, sp);
-		if (dam2 < 0)
-		    continue;
-		dam += dam2;
-		if (targeting_ships)
-		    nreport(sp->shp_own, N_SHP_SHELL, victim, 1);
-		else
-		    nreport(sp->shp_own, N_SCT_SHELL, victim, 1);
-		wu(0, sp->shp_own,
-		   "%s fires at %s %s at %s\n",
-		   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
-
-		mpr(victim, "%s %s fires at you at %s\n",
-		    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
-	    }
+	    dam = perform_mission_ship(dam, (struct shpstr *)glp->thing,
+				       x, y, victim, mission, s,
+				       md, targeting_ships);
 	} else if (glp->thing->ef_type == EF_PLANE) {
 	    pcp = glp->cp;
 	    if (pcp->pl_flags & P_M)
@@ -541,12 +431,168 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		emp_insque(&plp->queue, &missiles);
 	    else
 		emp_insque(&plp->queue, &bombers);
-	    plane_owner = plp->plane.pln_own;
 	} else {
 	    CANT_REACH();
 	    break;
 	}
     }
+
+    dam = perform_mission_msl(dam, &missiles, x, y, victim, hardtarget);
+    dam = perform_mission_bomb(dam, &bombers, x, y, victim, mission, s,
+			       hardtarget, targeting_ships);
+
+    qp = list->q_forw;
+    while (qp != list) {
+	glp = (struct genlist *)qp;
+	qp = qp->q_forw;
+
+	free(glp->thing);
+	free(glp);
+    }
+
+    return dam;
+}
+
+static int
+perform_mission_land(int dam, struct lndstr *lp, coord x, coord y,
+		     natid victim, int mission, char *s, int md,
+		     int targeting_ships)
+{
+    int range, dam2;
+
+    if (mission == MI_SINTERDICT)
+	return dam;
+
+    if ((mission == MI_INTERDICT) &&
+	(md > land_max_interdiction_range))
+	return dam;
+
+    range = roundrange(lnd_fire_range(lp));
+    if (md > range)
+	return dam;
+
+    dam2 = lnd_fire(lp);
+    putland(lp->lnd_uid, lp);
+    if (dam2 < 0)
+	return dam;
+
+    if (targeting_ships) {
+	if (chance(lnd_acc(lp) / 100.0))
+	    dam2 = ldround(dam2 / 2.0, 1);
+    }
+    if (targeting_ships)
+	nreport(lp->lnd_own, N_SHP_SHELL, victim, 1);
+    else
+	nreport(lp->lnd_own, N_SCT_SHELL, victim, 1);
+    wu(0, lp->lnd_own,
+       "%s fires at %s %s at %s\n",
+       prland(lp), cname(victim), s, xyas(x, y, lp->lnd_own));
+
+    mpr(victim, "%s %s fires at you at %s\n",
+	cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
+
+    return dam + dam2;
+}
+
+static int
+perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
+		     natid victim, int mission, char *s, int md,
+		     int targeting_ships)
+{
+    struct mchrstr *mcp = &mchr[sp->shp_type];
+    double vrange, hitchance;
+    int range, dam2;
+
+    if (((mission == MI_INTERDICT) ||
+	 (mission == MI_SINTERDICT)) &&
+	(md > ship_max_interdiction_range))
+	return dam;
+    if (mission == MI_SINTERDICT) {
+	if (!(mcp->m_flags & M_SONAR))
+	    return dam;
+	if (!(mcp->m_flags & M_DCH) && !(mcp->m_flags & M_SUBT))
+	    return dam;
+	vrange = techfact(sp->shp_tech, mcp->m_vrnge);
+	vrange *= sp->shp_effic / 200.0;
+	if (md > vrange)
+	    return dam;
+	/* can't look all the time */
+	if (chance(0.5))
+	    return dam;
+    }
+    if (mcp->m_flags & M_SUB) {
+	if (!targeting_ships)
+	    return dam;	/* subs interdict only ships */
+	range = roundrange(torprange(sp));
+	if (md > range)
+	    return dam;
+	if (!line_of_sight(NULL, x, y, sp->shp_x, sp->shp_y))
+	    return dam;
+	dam2 = shp_torp(sp, 1);
+	putship(sp->shp_uid, sp);
+	if (dam2 < 0)
+	    return dam;
+	hitchance = shp_torp_hitchance(sp, md);
+
+	wu(0, sp->shp_own,
+	   "%s locking on %s %s in %s\n",
+	   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
+	wu(0, sp->shp_own,
+	   "\tEffective torpedo range is %d.0\n", range);
+	wu(0, sp->shp_own,
+	   "\tWhooosh... Hitchance = %d%%\n",
+	   (int)(hitchance * 100));
+
+	if (!chance(hitchance)) {
+	    wu(0, sp->shp_own, "\tMissed\n");
+	    mpr(victim,
+		"Incoming torpedo sighted @ %s missed (whew)!\n",
+		xyas(x, y, victim));
+	    return dam;
+	}
+	wu(0, sp->shp_own, "\tBOOM!...\n");
+	nreport(victim, N_TORP_SHIP, 0, 1);
+	wu(0, sp->shp_own,
+	   "\tTorpedo hit %s %s for %d damage\n",
+	   cname(victim), s, dam2);
+
+	mpr(victim,
+	    "Incoming torpedo sighted @ %s hits and does %d damage!\n",
+	    xyas(x, y, victim), dam2);
+    } else {
+	range = roundrange(shp_fire_range(sp));
+	if (md > range)
+	    return dam;
+	if (mission == MI_SINTERDICT)
+	    dam2 = shp_dchrg(sp);
+	else
+	    dam2 = shp_fire(sp);
+	putship(sp->shp_uid, sp);
+	if (dam2 < 0)
+	    return dam;
+	if (targeting_ships)
+	    nreport(sp->shp_own, N_SHP_SHELL, victim, 1);
+	else
+	    nreport(sp->shp_own, N_SCT_SHELL, victim, 1);
+	wu(0, sp->shp_own,
+	   "%s fires at %s %s at %s\n",
+	   prship(sp), cname(victim), s, xyas(x, y, sp->shp_own));
+
+	mpr(victim, "%s %s fires at you at %s\n",
+	    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
+    }
+
+    return dam + dam2;
+}
+
+static int
+perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
+		    natid victim, int hardtarget)
+{
+    int air_dam;
+    struct emp_qelem *qp, *newqp;
+    struct plist *plp;
+    int sublaunch, dam2;
 
     /*
      * Missiles, except for interdiction of ships or land units,
@@ -554,7 +600,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
      * and lnd_missile_interdiction().
      */
     air_dam = 0;
-    for (qp = missiles.q_back; qp != &missiles; qp = newqp) {
+    for (qp = missiles->q_back; qp != missiles; qp = newqp) {
 	newqp = qp->q_back;
 	plp = (struct plist *)qp;
 
@@ -566,30 +612,38 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 			   &sublaunch) < 0)
 		goto use_up_msl;
 	    if (!msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
-			N_SCT_MISS, N_SCT_SMISS, sublaunch, victim))
+			 N_SCT_MISS, N_SCT_SMISS, sublaunch, victim))
 		CANT_REACH();
 	    dam2 = pln_damage(&plp->plane, 'p', 1);
 	    air_dam += dam2;
 	use_up_msl:
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
-	}
+        }
 	emp_remque(qp);
 	free(qp);
     }
-    dam += air_dam;
+    return dam + air_dam;
+}
 
-    if (QEMPTY(&bombers)) {
-	qp = list->q_forw;
-	while (qp != list) {
-	    glp = (struct genlist *)qp;
-	    qp = qp->q_forw;
+static int
+perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
+		     natid victim, int mission, char *s, int hardtarget,
+		     int targeting_ships)
+{
+    struct emp_qelem *qp, *newqp, escorts, airp, b, e;
+    struct plist *plp;
+    int plane_owner, air_dam, md;
 
-	    free(glp->thing);
-	    free(glp);
-	}
+    emp_initque(&escorts);
+    emp_initque(&airp);
+
+    if (QEMPTY(bombers))
 	return dam;
-    }
+
+    plp = (struct plist *)bombers->q_forw;
+    plane_owner = plp->plane.pln_own;
+
     /*
      * If there are planes performing an
      * interdict or support mission, find
@@ -599,13 +653,13 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     find_escorts(x, y, plane_owner, &escorts);
 
     if (mission == MI_SINTERDICT)
-	mission_pln_sel(&bombers, P_T | P_A, 0, hardtarget);
+	mission_pln_sel(bombers, P_T | P_A, 0, hardtarget);
     else
-	mission_pln_sel(&bombers, P_T, P_A, SECT_HARDTARGET);
+	mission_pln_sel(bombers, P_T, P_A, SECT_HARDTARGET);
 
     mission_pln_sel(&escorts, P_ESC | P_F, 0, SECT_HARDTARGET);
 
-    for (qp = bombers.q_forw; qp != (&bombers); qp = qp->q_forw) {
+    for (qp = bombers->q_forw; qp != bombers; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
 	if (!find_airport(&airp, plp->plane.pln_x, plp->plane.pln_y))
 	    add_airport(&airp, plp->plane.pln_x, plp->plane.pln_y);
@@ -624,7 +678,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	emp_initque(&e);
 
 	/* Split off the bombers at this base into b */
-	divide(&bombers, &b, air->x, air->y);
+	divide(bombers, &b, air->x, air->y);
 
 	/* Split off the escorts at this base into e */
 	divide(&escorts, &e, air->x, air->y);
@@ -661,21 +715,10 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     }
 
     if (air_dam > 0) {
-	dam += air_dam;
 	if (targeting_ships)
 	    nreport(plane_owner, N_SHP_BOMB, victim, 1);
 	else
 	    nreport(plane_owner, N_SCT_BOMB, victim, 1);
-    }
-
-    /* free up all this memory */
-    qp = list->q_forw;
-    while (qp != list) {
-	glp = (struct genlist *)qp;
-	qp = qp->q_forw;
-
-	free(glp->thing);
-	free(glp);
     }
 
     qp = escorts.q_forw;
@@ -686,15 +729,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	qp = newqp;
     }
 
-    qp = bombers.q_forw;
-    while (qp != (&bombers)) {
+    qp = bombers->q_forw;
+    while (qp != bombers) {
 	newqp = qp->q_forw;
 	emp_remque(qp);
 	free(qp);
 	qp = newqp;
     }
 
-    return dam;
+    return dam + air_dam;
 }
 
 int
