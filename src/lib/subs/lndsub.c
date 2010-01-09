@@ -805,6 +805,16 @@ lnd_fort_interdiction(struct emp_qelem *list,
 }
 #endif
 
+static int
+lnd_mission_interdiction(struct emp_qelem *list, coord x, coord y,
+			 natid victim)
+{
+    return lnd_damage(list,
+		      unit_interdict(x, y, victim, "land units",
+				     lnd_easiest_target(list),
+				     MI_INTERDICT));
+}
+
 int
 lnd_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 {
@@ -816,11 +826,7 @@ lnd_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 	stopping |= lnd_fort_interdiction(list, newx, newy, victim);
 #endif
 
-    stopping |=
-	lnd_damage(list,
-		   unit_interdict(newx, newy, victim, "land units",
-				  lnd_easiest_target(list), MI_INTERDICT));
-
+    stopping |= lnd_mission_interdiction(list, newx, newy, victim);
     stopping |=
 	lnd_damage(list,
 		   lnd_missile_interdiction(list, newx, newy, victim));
