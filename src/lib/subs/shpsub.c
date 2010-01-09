@@ -641,6 +641,22 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 }
 
 static int
+shp_mission_interdiction(struct emp_qelem *list, coord x, coord y,
+			 natid victim, int subs)
+{
+    char *what = subs ? "subs" : "ships";
+    int wantflags = subs ? M_SUB : 0;
+    int nowantflags = subs ? 0 : M_SUB;
+
+    return shp_damage(list,
+		      unit_interdict(x, y, victim, what,
+				     shp_easiest_target(list,
+						wantflags, nowantflags),
+				     MI_INTERDICT),
+		      wantflags, nowantflags, x, y);
+}
+
+static int
 shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 {
     int stopping = 0;
@@ -649,23 +665,12 @@ shp_interdict(struct emp_qelem *list, coord newx, coord newy, natid victim)
 	stopping |= shp_fort_interdiction(list, newx, newy, victim);
 
 	if (shp_contains(list, newx, newy, 0, M_SUB)) {
-	    stopping |=
-		shp_damage(list,
-			   unit_interdict(newx, newy, victim, "ships",
-					  shp_easiest_target(list, 0, M_SUB),
-					  MI_INTERDICT),
-			   0, M_SUB, newx, newy);
+	    stopping |= shp_mission_interdiction(list, newx, newy, victim, 0);
 	    stopping |= shp_missile_interdiction(list, newx, newy, victim);
 	}
     }
-    if (shp_contains(list, newx, newy, M_SUB, 0)) {
-	stopping |=
-	    shp_damage(list,
-		       unit_interdict(newx, newy, victim, "subs",
-				      shp_easiest_target(list, M_SUB, 0),
-				      MI_SINTERDICT),
-		       M_SUB, 0, newx, newy);
-    }
+    if (shp_contains(list, newx, newy, M_SUB, 0))
+	stopping |= shp_mission_interdiction(list, newx, newy, victim, 1);
     return stopping;
 }
 
