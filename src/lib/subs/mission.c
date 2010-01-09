@@ -74,9 +74,9 @@ static void mission_pln_arm(struct emp_qelem *, coord, coord, int,
 			    int, struct ichrstr *);
 static void mission_pln_sel(struct emp_qelem *, int, int, int);
 static int perform_mission_land(int, struct lndstr *, coord, coord,
-				natid, int, char *, int, int);
+				natid, int, char *, int);
 static int perform_mission_ship(int, struct shpstr *, coord, coord,
-				natid, int, char *, int, int);
+				natid, int, char *, int);
 static int perform_mission_msl(int, struct emp_qelem *, coord, coord,
 			       natid, int);
 static int perform_mission_bomb(int, struct emp_qelem *, coord, coord,
@@ -388,11 +388,9 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct emp_qelem *qp, missiles, bombers;
     struct genlist *glp;
     struct plist *plp;
-    struct empobj *gp;
     struct sctstr sect;
     struct plchrstr *pcp;
     int dam = 0;
-    int md;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
     getsect(x, y, &sect);
@@ -402,18 +400,15 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
-	gp = glp->thing;
-
-	md = mapdist(x, y, gp->x, gp->y);
 
 	if (glp->thing->ef_type == EF_LAND) {
 	    dam = perform_mission_land(dam, (struct lndstr *)glp->thing,
 				       x, y, victim, mission, s,
-				       md, targeting_ships);
+				       targeting_ships);
 	} else if (glp->thing->ef_type == EF_SHIP) {
 	    dam = perform_mission_ship(dam, (struct shpstr *)glp->thing,
 				       x, y, victim, mission, s,
-				       md, targeting_ships);
+				       targeting_ships);
 	} else if (glp->thing->ef_type == EF_PLANE) {
 	    pcp = glp->cp;
 	    if (pcp->pl_flags & P_M)
@@ -455,16 +450,17 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 
 static int
 perform_mission_land(int dam, struct lndstr *lp, coord x, coord y,
-		     natid victim, int mission, char *s, int md,
+		     natid victim, int mission, char *s,
 		     int targeting_ships)
 {
-    int range, dam2;
+    int md, range, dam2;
 
     if (mission == MI_SINTERDICT)
 	return dam;
 
-    if ((mission == MI_INTERDICT) &&
-	(md > land_max_interdiction_range))
+    md = mapdist(x, y, lp->lnd_x, lp->lnd_y);
+
+    if (mission == MI_INTERDICT && md > land_max_interdiction_range)
 	return dam;
 
     range = roundrange(lnd_fire_range(lp));
@@ -496,17 +492,19 @@ perform_mission_land(int dam, struct lndstr *lp, coord x, coord y,
 
 static int
 perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
-		     natid victim, int mission, char *s, int md,
+		     natid victim, int mission, char *s,
 		     int targeting_ships)
 {
     struct mchrstr *mcp = &mchr[sp->shp_type];
     double vrange, hitchance;
-    int range, dam2;
+    int md, range, dam2;
 
-    if (((mission == MI_INTERDICT) ||
-	 (mission == MI_SINTERDICT)) &&
-	(md > ship_max_interdiction_range))
+    md = mapdist(x, y, sp->shp_x, sp->shp_y);
+
+    if ((mission == MI_INTERDICT || mission == MI_SINTERDICT)
+	&& md > ship_max_interdiction_range)
 	return dam;
+
     if (mission == MI_SINTERDICT) {
 	if (!(mcp->m_flags & M_SONAR))
 	    return dam;
