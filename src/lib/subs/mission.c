@@ -92,11 +92,10 @@ ground_interdict(coord x, coord y, natid victim, char *s)
     int cn;
     int dam = 0, newdam, rel;
     struct genlist mi[MAXNOC];
-    int z;
 
     memset(mi, 0, sizeof(mi));
-    for (z = 1; z < MAXNOC; z++)
-	emp_initque((struct emp_qelem *)&mi[z]);
+    for (cn = 1; cn < MAXNOC; cn++)
+	emp_initque((struct emp_qelem *)&mi[cn]);
 
     build_mission_list(mi, x, y, MI_INTERDICT, victim);
 
@@ -174,12 +173,11 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
     int cn;
     int dam = 0, newdam;
     struct genlist mi[MAXNOC];
-    int z;
     int osubs;
 
     memset(mi, 0, sizeof(mi));
-    for (z = 1; z < MAXNOC; z++)
-	emp_initque((struct emp_qelem *)&mi[z]);
+    for (cn = 1; cn < MAXNOC; cn++)
+	emp_initque((struct emp_qelem *)&mi[cn]);
 
     build_mission_list(mi, x, y, mission, victim);
 
@@ -220,11 +218,11 @@ off_support(coord x, coord y, natid victim, natid actee)
 {
     int dam = 0;
     struct genlist mi[MAXNOC];
-    int z;
+    int cn;
 
     memset(mi, 0, sizeof(mi));
-    for (z = 1; z < MAXNOC; z++)
-	emp_initque((struct emp_qelem *)&mi[z]);
+    for (cn = 1; cn < MAXNOC; cn++)
+	emp_initque((struct emp_qelem *)&mi[cn]);
 
     build_mission_list(mi, x, y, MI_SUPPORT, victim);
     build_mission_list(mi, x, y, MI_OSUPPORT, victim);
@@ -241,11 +239,11 @@ def_support(coord x, coord y, natid victim, natid actee)
 {
     int dam = 0;
     struct genlist mi[MAXNOC];
-    int z;
+    int cn;
 
     memset(mi, 0, sizeof(mi));
-    for (z = 1; z < MAXNOC; z++)
-	emp_initque((struct emp_qelem *)&mi[z]);
+    for (cn = 1; cn < MAXNOC; cn++)
+	emp_initque((struct emp_qelem *)&mi[cn]);
 
     build_mission_list(mi, x, y, MI_SUPPORT, victim);
     build_mission_list(mi, x, y, MI_DSUPPORT, victim);

@@ -61,7 +61,7 @@ buy(void)
     struct trdstr tmpt;
     struct ichrstr *ip;
     int qty;
-    int o, n, q;
+    int o, n;
     coord x, y;
     char *p;
     float bid;
@@ -115,13 +115,13 @@ buy(void)
     would make him go broke.  Ken, I ought to skin you alive for making me code
     this part up.*/
     tally = 0.0;
-    for (q = 0; gettrade(q, &tmpt); q++) {
+    for (n = 0; gettrade(n, &tmpt); n++) {
 	if (tmpt.trd_maxbidder == player->cnum &&
 	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_price * tradetax;
 	}
     }
-    for (q = 0; getcomm(q, &comt); q++) {
+    for (n = 0; getcomm(n, &comt); n++) {
 	if (comt.com_maxbidder == player->cnum &&
 	    comt.com_owner != 0 && comt.com_owner != player->cnum) {
 	    tally += comt.com_price * comt.com_amount * buytax;
