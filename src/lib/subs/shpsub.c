@@ -500,6 +500,7 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    if (msl_launch(&plp->plane, EF_SHIP, prship(&mvs->unit.ship),
 			   newx, newy, victim, &sublaunch) < 0)
 		goto use_up_msl;
+	    stopping = 1;
 	    if (msl_hit(&plp->plane,
 			shp_hardtarget(&mvs->unit.ship), EF_SHIP,
 			N_SHP_MISS, N_SHP_SMISS, sublaunch, victim)) {
@@ -509,7 +510,6 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 			"missile interdiction mission does %d damage to %s!\n",
 			dam, prship(&mvs->unit.ship));
 		    shp_damage_one(mvs, dam);
-		    stopping = 1;
 		}
 	    } else {
 		dam = pln_damage(&plp->plane, 'p', 0);
@@ -578,6 +578,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
     struct sctstr fsect;
     int trange, range;
     int dam;
+    int stopping = 0;
     int totdam = 0;
     signed char notified[MAXNOC];
     int i;
@@ -621,6 +622,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	putsect(&fsect);
 	if (dam < 0)
 	    continue;
+	stopping = 1;
 	totdam += dam;
 	mpr(victim, "Incoming fire does %d damage!\n", dam);
 #if 0
@@ -636,8 +638,8 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	nreport(fsect.sct_own, N_SHP_SHELL, victim, 1);
     }
     if (totdam > 0)
-	return shp_damage(list, totdam, 0, M_SUB, newx, newy);
-    return 0;
+	shp_damage(list, totdam, 0, M_SUB, newx, newy);
+    return stopping;
 }
 
 static int
@@ -647,13 +649,14 @@ shp_mission_interdiction(struct emp_qelem *list, coord x, coord y,
     char *what = subs ? "subs" : "ships";
     int wantflags = subs ? M_SUB : 0;
     int nowantflags = subs ? 0 : M_SUB;
+    int dam;
 
-    return shp_damage(list,
-		      unit_interdict(x, y, victim, what,
-				     shp_easiest_target(list,
-						wantflags, nowantflags),
-				     MI_INTERDICT),
-		      wantflags, nowantflags, x, y);
+    dam = unit_interdict(x, y, victim, what,
+			 shp_easiest_target(list, wantflags, nowantflags),
+			 MI_INTERDICT);
+    if (dam >= 0)
+	shp_damage(list, dam, wantflags, nowantflags, x, y);
+    return dam >= 0;
 }
 
 static int

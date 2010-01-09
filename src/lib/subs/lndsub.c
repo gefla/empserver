@@ -721,6 +721,7 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
     int mindam = lnd_count(list) * 20;
     int hardtarget = lnd_easiest_target(list);
     int dam, newdam, sublaunch;
+    int stopping = 0;
     struct plist *plp;
     struct emp_qelem msl_list, *qp, *newqp;
 
@@ -735,6 +736,7 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    if (msl_launch(&plp->plane, EF_LAND, "troops",
 			   newx, newy, victim, &sublaunch) < 0)
 		goto use_up_msl;
+	    stopping = 1;
 	    if (msl_hit(&plp->plane, hardtarget, EF_LAND,
 			N_LND_MISS, N_LND_SMISS, sublaunch, victim)) {
 		newdam = pln_damage(&plp->plane, 'p', 1);
@@ -754,8 +756,9 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
     if (dam) {
 	mpr(victim, "missile interdiction mission does %d damage!\n", dam);
 	collateral_damage(newx, newy, dam);
+	lnd_damage(list, dam);
     }
-    return lnd_damage(list, dam);
+    return stopping;
 }
 
 #if 0
@@ -771,6 +774,7 @@ lnd_fort_interdiction(struct emp_qelem *list,
     double guneff;
     int shell, gun;
     int dam;
+    int stopping = 0;
     int totdam = 0;
     int i;
 
@@ -790,6 +794,7 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	putsect(&fsect);
 	if (dam < 0)
 	    continue;
+	stopping = 1;
 	totdam += dam;
 	mpr(victim, "Incoming fire does %d damage!\n", dam);
 	wu(0, fsect.sct_own,
@@ -800,8 +805,8 @@ lnd_fort_interdiction(struct emp_qelem *list,
 	nreport(fsect.sct_own, N_SCT_SHELL, victim, 1);
     }
     if (totdam > 0)
-	return lnd_damage(list, totdam);
-    return 0;
+	lnd_damage(list, totdam);
+    return stopping;
 }
 #endif
 
@@ -809,10 +814,14 @@ static int
 lnd_mission_interdiction(struct emp_qelem *list, coord x, coord y,
 			 natid victim)
 {
-    return lnd_damage(list,
-		      unit_interdict(x, y, victim, "land units",
-				     lnd_easiest_target(list),
-				     MI_INTERDICT));
+    int dam;
+
+    dam = unit_interdict(x, y, victim, "land units",
+			 lnd_easiest_target(list),
+			 MI_INTERDICT);
+    if (dam >= 0)
+	lnd_damage(list, dam);
+    return dam >= 0;
 }
 
 int

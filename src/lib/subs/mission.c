@@ -80,8 +80,14 @@ static int perform_mission_msl(int, struct emp_qelem *, coord, coord,
 			       natid, int);
 static int perform_mission_bomb(int, struct emp_qelem *, coord, coord,
 				natid, int, char *, int, int);
-static int perform_mission(coord, coord, natid, struct emp_qelem *, int,
-			   char *, int);
+static int perform_mission(coord, coord, natid, struct emp_qelem *,
+			   int, char *, int);
+
+static int
+tally_dam(int dam, int newdam)
+{
+    return dam < 0 ? newdam : dam + newdam;
+}
 
 /*
  * Interdict commodities & transported planes
@@ -109,10 +115,11 @@ ground_interdict(coord x, coord y, natid victim, char *s)
 
 	newdam = perform_mission(x, y, victim, &mi[cn].queue,
 				 MI_INTERDICT, s, SECT_HARDTARGET);
-	dam += newdam;
-	if (newdam)
+	if (newdam > 0) {
+	    dam += newdam;
 	    mpr(victim, "%s interdiction mission does %d damage!\n",
 		cname(cn), newdam);
+	}
     }
     if (dam) {
 	collateral_damage(x, y, dam);
@@ -170,10 +177,9 @@ int
 unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	       int mission)
 {
-    int cn;
-    int dam = 0, newdam;
+    int cn, newdam, osubs;
+    int dam = -1;
     struct genlist mi[MAXNOC];
-    int osubs;
 
     memset(mi, 0, sizeof(mi));
     for (cn = 1; cn < MAXNOC; cn++)
@@ -196,17 +202,13 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	osubs = only_subs(&mi[cn].queue);
 	newdam = perform_mission(x, y, victim, &mi[cn].queue,
 				 mission, s, hardtarget);
-	dam += newdam;
-	if (newdam) {
-	    /* If only subs responded, then we don't know who's
-	       subs they are */
+	dam = tally_dam(dam, newdam);
+	if (newdam > 0)
 	    mpr(victim, "%s interdiction mission does %d damage!\n",
 		osubs ? "Enemy" : cname(cn), newdam);
-	}
     }
-    if (dam) {
+    if (dam > 0)
 	collateral_damage(x, y, dam);
-    }
     return dam;
 }
 
@@ -256,7 +258,7 @@ static int
 dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
 {
     int cn;
-    int rel;
+    int rel, newdam;
     int dam = 0;
 
     for (cn = 1; cn < MAXNOC; cn++) {
@@ -270,8 +272,10 @@ dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
 	if (QEMPTY(&mi[cn].queue))
 	    continue;
 
-	dam += perform_mission(x, y, victim, &mi[cn].queue, MI_SUPPORT,
-			       "", SECT_HARDTARGET);
+	newdam = perform_mission(x, y, victim, &mi[cn].queue, MI_SUPPORT,
+				 "", SECT_HARDTARGET);
+	if (newdam > 0)
+	    dam += newdam;
     }
     return dam;
 }
@@ -383,7 +387,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     struct genlist *glp;
     struct plist *plp;
     struct plchrstr *pcp;
-    int dam = 0;
+    int dam = -1;
     int targeting_ships = *s == 's'; /* "subs" or "ships" FIXME gross! */
 
     emp_initque(&missiles);
@@ -429,7 +433,6 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
     dam = perform_mission_msl(dam, &missiles, x, y, victim, hardtarget);
     dam = perform_mission_bomb(dam, &bombers, x, y, victim, mission, s,
 			       hardtarget, targeting_ships);
-
     return dam;
 }
 
@@ -472,7 +475,7 @@ perform_mission_land(int dam, struct lndstr *lp, coord x, coord y,
     mpr(victim, "%s %s fires at you at %s\n",
 	cname(lp->lnd_own), prland(lp), xyas(x, y, victim));
 
-    return dam + dam2;
+    return tally_dam(dam, dam2);
 }
 
 static int
@@ -531,7 +534,7 @@ perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
 	    mpr(victim,
 		"Incoming torpedo sighted @ %s missed (whew)!\n",
 		xyas(x, y, victim));
-	    return dam;
+	    return tally_dam(dam, 0);
 	}
 	wu(0, sp->shp_own, "\tBOOM!...\n");
 	nreport(victim, N_TORP_SHIP, 0, 1);
@@ -565,24 +568,23 @@ perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
 	    cname(sp->shp_own), prship(sp), xyas(x, y, victim));
     }
 
-    return dam + dam2;
+    return tally_dam(dam, dam2);
 }
 
 static int
 perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
 		    natid victim, int hardtarget)
 {
-    int air_dam;
+    int performed, air_dam, sublaunch, dam2;
     struct emp_qelem *qp, *newqp;
     struct plist *plp;
-    int sublaunch, dam2;
 
     /*
      * Missiles, except for interdiction of ships or land units,
      * because that happens elsewhere, in shp_missile_interdiction()
      * and lnd_missile_interdiction().
      */
-    air_dam = 0;
+    performed = air_dam = 0;
     for (qp = missiles->q_back; qp != missiles; qp = newqp) {
 	newqp = qp->q_back;
 	plp = (struct plist *)qp;
@@ -594,6 +596,7 @@ perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
 	    if (msl_launch(&plp->plane, EF_SECTOR, "sector", x, y, victim,
 			   &sublaunch) < 0)
 		goto use_up_msl;
+	    performed = 1;
 	    if (!msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
 			 N_SCT_MISS, N_SCT_SMISS, sublaunch, victim))
 		CANT_REACH();
@@ -606,7 +609,8 @@ perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
 	emp_remque(qp);
 	free(qp);
     }
-    return dam + air_dam;
+
+    return performed ? tally_dam(dam, air_dam) : dam;
 }
 
 static int
@@ -616,7 +620,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 {
     struct emp_qelem *qp, *newqp, escorts, airp, b, e;
     struct plist *plp;
-    int plane_owner, air_dam, md;
+    int plane_owner, performed, air_dam, md;
 
     emp_initque(&escorts);
     emp_initque(&airp);
@@ -648,7 +652,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	    add_airport(&airp, plp->plane.pln_x, plp->plane.pln_y);
     }
 
-    air_dam = 0;
+    performed = air_dam = 0;
     for (qp = airp.q_forw; qp != (&airp); qp = qp->q_forw) {
 	struct airport *air;
 	char buf[512];
@@ -676,6 +680,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	pp = BestAirPath(buf, air->x, air->y, x, y);
 	if (CANT_HAPPEN(!pp))
 	    continue;
+	performed = 1;
 	wu(0, plane_owner, "Flying %s mission from %s to %s\n",
 	   mission_name(mission),
 	   xyas(air->x, air->y, plane_owner),
@@ -720,7 +725,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	qp = newqp;
     }
 
-    return dam + air_dam;
+    return performed ? tally_dam(dam, air_dam) : dam;
 }
 
 int
