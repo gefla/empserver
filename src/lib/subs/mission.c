@@ -51,7 +51,6 @@
 
 struct genlist {
     struct emp_qelem queue;	/* list of units */
-    void *cp;			/* pointer to desc of thing */
     struct empobj *thing;	/* thing's struct */
 };
 
@@ -150,15 +149,13 @@ only_subs(struct emp_qelem *list)
 {
     struct emp_qelem *qp;
     struct genlist *glp;
-    struct mchrstr *mcp;
 
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	glp = (struct genlist *)qp;
 
 	if (glp->thing->ef_type != EF_SHIP)
 	    return 0;
-	mcp = glp->cp;
-	if (!(mcp->m_flags & M_SUB))
+	if (!(mchr[glp->thing->type].m_flags & M_SUB))
 	    return 0;
 	/* It's a sub! */
     }
@@ -351,7 +348,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));
-	glp->cp = get_empobj_chr(gp);
 	glp->thing = malloc(sizeof(item));
 	memcpy(glp->thing, &item, sizeof(item));
 	emp_insque(&glp->queue, &mi[gp->own].queue);
@@ -410,7 +406,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 				       x, y, victim, mission, s,
 				       targeting_ships);
 	} else if (glp->thing->ef_type == EF_PLANE) {
-	    pcp = glp->cp;
+	    pcp = &plchr[glp->thing->type];
 	    if (pcp->pl_flags & P_M)
 		/* units have their own missile interdiction */
 		if (hardtarget != SECT_HARDTARGET || pcp->pl_flags & P_MAR)
