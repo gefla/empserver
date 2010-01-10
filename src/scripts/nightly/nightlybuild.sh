@@ -179,7 +179,7 @@ echo "Apply controlled time patch."
 for f in `git-ls-files | grep -E '\.[ch](\.in)?$' | xargs grep -l \>`
 do
  n=`grep -n '^[     ]*#[     ]*include\>' $f | tail -n 1 | sed 's/:.*//'`
-if [ $n ] 
+if [ $n ]
 then
 sed "$n"'a\
 #include "emptime.h"\

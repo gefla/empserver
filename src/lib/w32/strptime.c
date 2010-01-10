@@ -20,7 +20,7 @@ typedef struct {
 	const char *t_fmt_ampm;
 } TimeLocale;
 
-static const TimeLocale DefaultTimeLocale = 
+static const TimeLocale DefaultTimeLocale =
 {
 	{
 		"Sun","Mon","Tue","Wed","Thu","Fri","Sat",
