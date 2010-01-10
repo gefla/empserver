@@ -1,5 +1,5 @@
 .TH Concept "Hvy-Plastic"
-.NA Hvy-Plastic "Special rules for Hvy Plastic"
+.NA Hvy-Plastic "Special rules for Hvy Plastic 2"
 .LV Basic
 .s1
 Ship types are customized.  Better check show for the details.
@@ -47,6 +47,6 @@ Make the deity laugh and get up to 5 gold bars.
 .s1
 Source code and configuration is available from
 .br
-http://www.pond.sub.org/~armbru/empire/hvy-plastic.html
+http://www.pond.sub.org/~armbru/empire/hvy-plastic-2/
 .s1
 .SA "Introduction, Server, show"
