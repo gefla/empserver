@@ -41,7 +41,7 @@ editing mistakes.
 
 			       Copyright
 
-Copyright (C) 1991-2009 Geoff Cashman.  This is free documentation; see the
+Copyright (C) 1991-2010 Geoff Cashman.  This is free documentation; see the
 source for copying conditions.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 .\" See COPYING in the root of the source tree for details.
