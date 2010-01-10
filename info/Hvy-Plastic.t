@@ -21,6 +21,8 @@ command?
 .s1
 Infrastructure is disabled.
 .s1
+Fortresses cost maintenance, like capitals.
+.s1
 Your refineries make less petrol from each barrel of oil than usual.
 .s1
 Natural resources gold, oil and uran deplete much slower than usual.
