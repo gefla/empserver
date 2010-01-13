@@ -681,6 +681,8 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 	break;
     case 'r':		/* reconnaissance */
     case 'e':		/* escort */
+	load = 0;
+	break;
     case 'i':		/* missile interception */
 	if (CANT_HAPPEN(!(pcp->pl_flags & P_M)
 			|| !(pcp->pl_flags & (P_N | P_O))))
