@@ -173,7 +173,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
     if (p + strlen(bp) + 1 >= buf + MAX_PATH_LEN) {
 	pr("Path length may not exceed %d.\n", MAX_PATH_LEN);
 	pr("Aborting...\n");
-	bp = NULL;
+	return NULL;
     }
     strcpy(p, bp);
     if (*bp)
