@@ -70,15 +70,15 @@
  * Return EXPR != 0.
  * Usage: if (CANT_HAPPEN(...)) <recovery code>;
  */
-#define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__) : 0)
+#define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__), 1 : 0)
 
 /*
  * Report internal error.
  * Usage: CANT_REACH(); <recovery code>;
  */
-#define CANT_REACH() (void)oops(NULL, __FILE__, __LINE__)
+#define CANT_REACH() oops(NULL, __FILE__, __LINE__)
 
-extern int oops(char *, char *, int);
+extern void oops(char *, char *, int);
 extern void (*oops_handler)(void);
 
 void exit_nomem(void) ATTRIBUTE((noreturn));

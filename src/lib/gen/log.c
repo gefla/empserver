@@ -126,16 +126,13 @@ logerror(char *format, ...)
 }
 
 /*
- * Log internal error MSG occured in FILE:LINE.
- * Call oops handler, and if it returns, return 1.
- * Oops handler defaults to abort().
+ * Log internal error MSG occured in FILE:LINE, call oops handler.
  */
-int
+void
 oops(char *msg, char *file, int line)
 {
     logerror("Oops: %s in %s:%d", msg ? msg : "bug", file, line);
     oops_handler();
-    return 1;
 }
 
 /*
