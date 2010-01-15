@@ -51,7 +51,8 @@
 #define AI_ADDRCONFIG 0
 #endif
 
-static void cant_listen(char *, char *, const char *);
+static void cant_listen(char *, char *, const char *)
+    ATTRIBUTE((noreturn));
 
 int
 tcp_listen(char *host, char *serv, size_t *addrlenp)
