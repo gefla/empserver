@@ -103,7 +103,7 @@ lwpReschedule(void)
 	if (nextp)
 	    break;
     }
-    if (CANT_HAPPEN(!LwpCurrent && !nextp))
+    if (CANT_HAPPEN(!nextp))
 	abort();
     if (LwpCurrent != nextp) {
 	struct lwpProc *oldp = LwpCurrent;
