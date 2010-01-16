@@ -92,6 +92,12 @@ main(int argc, char *argv[])
 	}
     }
 
+    if (argc - optind > 1) {
+	fprintf(stderr, "%s: extra operand %s\n", argv[0], argv[optind+1]);
+	fprintf(stderr, "Try -h for help.\n");
+	exit(1);
+    }
+
     if (emp_config(config_file) < 0)
 	exit(1);
 

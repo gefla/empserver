@@ -105,6 +105,12 @@ main(int argc, char *argv[])
 	}
     }
 
+    if (argv[optind]) {
+	fprintf(stderr, "%s: does not take operands\n", argv[0]);
+	fprintf(stderr, "Try -h for help.\n");
+	exit(1);
+    }
+
     empfile_init();
     if (emp_config(config_file) < 0)
 	exit(1);

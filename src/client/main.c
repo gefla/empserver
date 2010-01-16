@@ -138,6 +138,11 @@ main(int argc, char **argv)
 	}
 	uname = pwd->pw_name;
     }
+    if (*ap) {
+	fprintf(stderr, "%s: extra operand %s\n", argv[0], *ap);
+	fprintf(stderr, "Try -h for help.\n");
+	exit(1);
+    }
 
     getsose();
     if (auxfname && (auxfp = fopen(auxfname, "a")) == NULL) {
