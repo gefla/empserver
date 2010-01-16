@@ -520,7 +520,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		continue;
 	}
 
-	dam = 0;
 	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {
@@ -624,7 +623,6 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	if (changed_plane_aborts(plp))
 	    continue;
-	dam = 0;
 	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {
@@ -735,7 +733,6 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		continue;
 	}
 
-	dam = 0;
 	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
 	else {

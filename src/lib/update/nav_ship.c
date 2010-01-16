@@ -272,8 +272,6 @@ nav_ship(struct shpstr *sp)
     mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, &ship_list);
 
-    quit = 1;			/* setup loop, we want to check it 1 time. */
-
     do {
 	if ((sp->shp_mobil > 0) && (!(sp->shp_autonav & AN_LOADING)) &&
 	    (!(sp->shp_autonav & AN_STANDBY))) {

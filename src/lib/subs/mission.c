@@ -1075,7 +1075,6 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	if (!plp->load)
 	    continue;
 
-	newdam = 0;
 	if (plp->pcp->pl_flags & P_A) {
 	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
 		wu(0, pp->pln_own,

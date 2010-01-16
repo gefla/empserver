@@ -178,10 +178,9 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 
     taken = llp->unit.land.lnd_item[I_MILIT];
     /* Spies always die */
-    if (((struct lchrstr *)llp->chrp)->l_flags & L_SPY) {
-	eff_eq = 100;
+    if (((struct lchrstr *)llp->chrp)->l_flags & L_SPY)
 	llp->unit.land.lnd_effic = 0;
-    } else {
+    else {
 	eff_eq = ldround(cas * 100.0 /
 	    ((struct lchrstr *)llp->chrp)->l_item[I_MILIT], 1);
 	llp->unit.land.lnd_effic -= eff_eq;
@@ -1054,7 +1053,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	/* move survivors to done */
 	for (qp = cur.q_back; qp != &cur; qp = next) {
 	    next = qp->q_back;
-	    llp = (struct ulist *)qp;
 	    emp_remque(qp);
 	    emp_insque(qp, &done);
 	}

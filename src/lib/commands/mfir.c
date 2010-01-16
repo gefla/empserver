@@ -72,7 +72,6 @@ multifire(void)
     coord fy;
     coord x;
     coord y;
-    int mil;
     int dam;
     int totaldefdam = 0;
     int vshipno;
@@ -265,7 +264,7 @@ multifire(void)
 		    continue;
 		}
 	    }
-	    if ((mil = fship.shp_item[I_MILIT]) < 1) {
+	    if (fship.shp_item[I_MILIT] < 1) {
 		pr("Not enough military for firing crew.\n");
 		continue;
 	    }

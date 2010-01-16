@@ -105,7 +105,7 @@ head(void)
     for (n = 0; n < 5; n++) {
 	if ((scoop = head_findscoop(hist, maxcnum, &actor, &victim)) < 10)
 	    break;
-	severity = head_printscoop(hist, actor, victim);
+	head_printscoop(hist, actor, victim);
 	hp = &hist[actor][victim];
 	severity = hp->h_recent - hp->h_past;
 	if (severity <= -scoop / 2 || severity >= scoop / 2) {

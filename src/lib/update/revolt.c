@@ -62,7 +62,6 @@ revolt(struct sctstr *sp)
     if (che > (civ + uw) * 3)
 	return;
     che_uw = 0;
-    che_civ = 0;
     /* che due to civilian unrest */
     n = 10 - (random() % 20);
     che_civ = 3 + (civ * n / 500);
@@ -254,7 +253,6 @@ guerrilla(struct sctstr *sp)
 	 * guerrillas have to resort to blowing things up.
 	 * Note this disrupts work in the sector.
 	 */
-	n = 0;
 	n = (random() % 10) + (random() % che);
 	if (n > 100)
 	    n = 100;

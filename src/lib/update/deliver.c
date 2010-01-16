@@ -50,7 +50,6 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
     int amt_dst;
     int mobility;
     double mcost;
-    struct dchrstr *dp;
     int n;
 
     if (dir <= 0 || dir > DIR_UL)
@@ -73,7 +72,6 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
 	   ip->i_name, ownxy(from));
 	return 0;
     }
-    dp = &dchr[from->sct_type];
     vtype = ip->i_uid;
     mobility = from->sct_mobil / 2;
     if (vtype == I_CIVIL) {

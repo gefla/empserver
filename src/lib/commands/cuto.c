@@ -49,7 +49,6 @@ cuto(void)
 	return RET_SYN;
     prdate();
     (void)strcpy(dirstr, ".      $");
-    n = 1;
     for (n = 1; n <= 6; n++)
 	dirstr[n] = dirch[n];
     nsect = 0;

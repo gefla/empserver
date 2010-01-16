@@ -175,7 +175,6 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	switch (bmap) {
 	default:
 	    CANT_REACH();
-	    bmap = 'b';
 	    /* fall through */
 	case 'b':
 	    while (bmnxtsct(nsp) && !player->aborted) {

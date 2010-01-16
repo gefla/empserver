@@ -130,7 +130,6 @@ takeover(struct sctstr *sp, natid newown)
      * n: random number from -25:75 + (50 - loyalty)
      */
     n = (50 - sp->sct_loyal) + ((random() % 100) - 25);
-    che_count = 0;
     if (n > 0 && sp->sct_own == sp->sct_oldown) {
 	che_count = (civ * n / 3000) + 5;
 	if (che_count * 2 > civ)

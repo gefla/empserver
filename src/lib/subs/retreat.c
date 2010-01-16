@@ -145,7 +145,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     if (sp->shp_own == 0)
 	return 0;
 
-    n = 0;
     if (sp->shp_effic < SHIP_MINEFF) {
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",
@@ -405,7 +404,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     if (lp->lnd_own == 0)
 	return 0;
 
-    n = 0;
     if (lp->lnd_effic < LAND_MINEFF) {
 	wu(0, lp->lnd_own,
 	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",

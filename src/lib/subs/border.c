@@ -54,7 +54,7 @@ blankfill(char *ptr, struct range *range, int size)
 	p = ptr;
 	while (--col >= 0)
 	    *p++ = ' ';
-	*p++ = 0;
+	*p = 0;
 	ptr += MAPWIDTH(size);
     }
 }

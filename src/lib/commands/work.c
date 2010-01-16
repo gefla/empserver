@@ -127,7 +127,6 @@ buildeff(struct sctstr *sp, int work, double *money)
     int n, hcms, lcms;
     int effdone = 0;
 
-    work_cost = 0;
     if (sp->sct_type != sp->sct_newtype) {
 	/*
 	 * Tear down existing sector.

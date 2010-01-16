@@ -125,7 +125,6 @@ bestownedpath(char *bpath, char *bigmap,
 
     routelen = 0;		/* path length is now 0 */
     mapindex[x][y] = 0;		/* mark starting spot   */
-    markedsectors = 1;		/* source sector marked */
     minx = x - 2;		/* set X scan bounds    */
     maxx = x + 2;
     miny = y - 1;		/* set Y scan bounds    */

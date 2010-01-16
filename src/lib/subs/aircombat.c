@@ -420,7 +420,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
     struct plist *interceptor;
     struct emp_qelem *att;
     struct emp_qelem *in;
-    int nplanes;
     int more_att;
     int more_int;
     struct emp_qelem *att_next;
@@ -439,9 +438,6 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 	att_next = att->q_forw;
 	attacker = (struct plist *)att;
 	interceptor = (struct plist *)in;
-	nplanes = attacker->plane.pln_effic;
-	if (nplanes > interceptor->plane.pln_effic)
-	    nplanes = interceptor->plane.pln_effic;
 	ac_dog(attacker, interceptor);
 	in = in_next;
 	att = att_next;
@@ -750,8 +746,6 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
     struct emp_qelem *qp;
     struct emp_qelem *next;
     char msg[255];
-
-    plp = (struct plist *)list->q_forw;
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;

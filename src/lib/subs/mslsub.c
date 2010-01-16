@@ -216,7 +216,6 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	      int news_item)
 {
     struct plnstr *pp;
-    struct plchrstr *pcp;
     struct emp_qelem *intlist;
     struct emp_qelem intfoo;
     struct emp_qelem *qp;
@@ -236,7 +235,6 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	pp = &ip->plane;
 	if (pp->pln_own != sp->sct_own)
 	    continue;
-	pcp = ip->pcp;
 	if (mission_pln_equip(ip, NULL, 'i') < 0) {
 	    emp_remque(qp);
 	    free(qp);
@@ -255,7 +253,6 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	next = qp->q_forw;
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
-	pcp = ip->pcp;
 	if (mission_pln_equip(ip, NULL, 'i') < 0) {
 	    emp_remque(qp);
 	    free(qp);
@@ -287,7 +284,6 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	qp = intlist->q_forw;
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
-	pcp = ip->pcp;
 
 	mpr(msl->pln_own, "%s %s launched in defense!\n",
 	    cname(pp->pln_own), def_name);

@@ -60,7 +60,7 @@ int
 orde(void)
 {
     int diffeachship = 0;
-    int orders, sub, level;
+    int sub, level;
     int scuttling = 0;
     struct nstr_item nb;
     struct shpstr ship;
@@ -121,7 +121,6 @@ orde(void)
 	    ship.shp_autonav &= ~AN_STANDBY;
 	    break;
 	case 'd':		/* declare path */
-	    orders = 0;
 	    scuttling = 0;
 	    /* Need location */
 	    p = getstarg(player->argp[3], "Destination? ", buf);
@@ -132,32 +131,27 @@ orde(void)
 	    p1x = p0x;
 	    p1y = p0y;
 
-
-
-	    if (!orders) {
-		p = getstarg(player->argp[4], "Second dest? ", buf);
-		if (!p)
-		    return RET_FAIL;
-		if (!*p || !strcmp(p, "-")) {
-		    orders = 1;
-		    pr("A one-way order has been accepted.\n");
-		} else if (!strncmp(p, "s", 1)) {
-		    if (opt_TRADESHIPS) {
-			if (!(mchr[(int)ship.shp_type].m_flags & M_TRADE)) {
-			    pr("You can't auto-scuttle that ship!\n");
-			    return RET_SYN;
-			}
-		    } else {
+	    p = getstarg(player->argp[4], "Second dest? ", buf);
+	    if (!p)
+		return RET_FAIL;
+	    if (!*p || !strcmp(p, "-")) {
+		pr("A one-way order has been accepted.\n");
+	    } else if (!strncmp(p, "s", 1)) {
+		if (opt_TRADESHIPS) {
+		    if (!(mchr[(int)ship.shp_type].m_flags & M_TRADE)) {
 			pr("You can't auto-scuttle that ship!\n");
 			return RET_SYN;
 		    }
-		    pr("A scuttle order has been accepted.\n");
-		    scuttling = 1;
 		} else {
-		    if (!sarg_xy(p, &p1x, &p1y))
-			return RET_SYN;
-		    pr("A circular order has been accepted.\n");
+		    pr("You can't auto-scuttle that ship!\n");
+		    return RET_SYN;
 		}
+		pr("A scuttle order has been accepted.\n");
+		scuttling = 1;
+	    } else {
+		if (!sarg_xy(p, &p1x, &p1y))
+		    return RET_SYN;
+		pr("A circular order has been accepted.\n");
 	    }
 
 	    /*
@@ -200,56 +194,53 @@ orde(void)
 	    sub = sub - 1;;
 
 	    if (ship.shp_autonav & AN_AUTONAV) {
-		orders = 1;
 		dest = getstarg(player->argp[4], "Start or End? ", buf);
-		if (orders) {	/* before dest check */
-		    if (!dest)
+		if (!dest)
+		    break;
+		switch (*dest) {
+		default:
+		    pr("You must enter 'start' or 'end'\n");
+		    return RET_SYN;
+		case 'e':
+		case 'E':
+		    i1 = whatitem(player->argp[5], "Commodity? ");
+		    if (!i1)
 			break;
-		    switch (*dest) {
-		    default:
-			pr("You must enter 'start' or 'end'\n");
-			return RET_SYN;
-		    case 'e':
-		    case 'E':
-			i1 = whatitem(player->argp[5], "Commodity? ");
-			if (!i1)
-			    break;
-			else {
-			    p1 = getstarg(player->argp[6], "Amount? ",
-					  buf);
-			    if (!p1)
-				return RET_SYN;
-			    level = atoi(p1);
-			}
-			if (level < 0) {
-			    level = 0;	/* prevent negatives. */
-			    pr("You must use positive number! Level set to 0.\n");
-			}
-			ship.shp_tstart[sub] = i1->i_uid;
-			ship.shp_lstart[sub] = level;
-			pr("Order Set \n");
-			break;
-		    case 's':
-		    case 'S':
-			i1 = whatitem(player->argp[5], "Commodity? ");
-			if (!i1)
-			    break;
-			else {
-			    p1 = getstarg(player->argp[6], "Amount? ",
-					  buf);
-			    if (!p1)
-				return RET_SYN;
-			    level = atoi(p1);
-			}
-			if (level < 0) {
-			    level = 0;
-			    pr("You must use positive number! Level set to 0.\n");
-			}
-			ship.shp_tend[sub] = i1->i_uid;
-			ship.shp_lend[sub] = level;
-			pr("Order Set \n");
-			break;
+		    else {
+			p1 = getstarg(player->argp[6], "Amount? ",
+				      buf);
+			if (!p1)
+			    return RET_SYN;
+			level = atoi(p1);
 		    }
+		    if (level < 0) {
+			level = 0;	/* prevent negatives. */
+			pr("You must use positive number! Level set to 0.\n");
+		    }
+		    ship.shp_tstart[sub] = i1->i_uid;
+		    ship.shp_lstart[sub] = level;
+		    pr("Order Set \n");
+		    break;
+		case 's':
+		case 'S':
+		    i1 = whatitem(player->argp[5], "Commodity? ");
+		    if (!i1)
+			break;
+		    else {
+			p1 = getstarg(player->argp[6], "Amount? ",
+				      buf);
+			if (!p1)
+			    return RET_SYN;
+			level = atoi(p1);
+		    }
+		    if (level < 0) {
+			level = 0;
+			pr("You must use positive number! Level set to 0.\n");
+		    }
+		    ship.shp_tend[sub] = i1->i_uid;
+		    ship.shp_lend[sub] = level;
+		    pr("Order Set \n");
+		    break;
 		}
 	    } else
 		pr("You need to 'declare' a ship path first, see 'info order'\n");

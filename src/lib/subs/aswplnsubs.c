@@ -99,7 +99,6 @@ print_shiplist(struct shiplist *head)
 {
     struct shiplist *s;
     int first;
-    struct mchrstr *mp;
     struct shpstr ship;
 
     s = head;
@@ -107,7 +106,6 @@ print_shiplist(struct shiplist *head)
 
     while (s != NULL) {
 	getship(s->uid, &ship);
-	mp = &mchr[(int)ship.shp_type];
 	if (first) {
 	    pr(" #          player->owner           eff        type\n");
 	    first = 0;

@@ -79,7 +79,6 @@ newe(void)
 		if (twork > bwork) {
 		    twork = bwork;
 		}
-		work -= twork;
 		bwork -= twork;
 		eff -= twork * 4;
 		if (eff <= 0) {
@@ -103,7 +102,6 @@ newe(void)
 		    if (twork > hcms)
 			twork = hcms;
 		}
-		work -= twork;
 		eff += twork;
 	    } else if (eff < 100) {
 		twork = 100 - eff;
@@ -122,7 +120,6 @@ newe(void)
 		    if (twork > hcms)
 			twork = hcms;
 		}
-		work -= twork;
 		eff += twork;
 	    }
 	} else {

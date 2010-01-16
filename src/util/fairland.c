@@ -1166,7 +1166,6 @@ write_newcap_script(void)
 	fprintf(script, "newcap %d %d,%d\n", c + 1, capx[c], capy[c]);
     }
     fprintf(script, "add %d visitor visitor v i\n", c + 1);
-    ++c;
     fclose(script);
     return 0;
 }

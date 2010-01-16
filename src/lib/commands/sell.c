@@ -57,7 +57,6 @@ sell(void)
     struct ichrstr *ip;
     struct comstr comm;
     int number_set;
-    int number_sub;
     int totalcom;
     int amt;
     int com;
@@ -99,7 +98,6 @@ sell(void)
 	pr("Sectors need at least 1 mobility to sell goods.\n");
 	return RET_FAIL;
     }
-    number_sub = 0;
     p = getstarg(player->argp[3], "Quantity: ", buf);
     if (!p || !*p)
 	return RET_SYN;
