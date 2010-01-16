@@ -184,7 +184,10 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    continue;
 	}
 	ac = parse(cp, scanspace, player->argp, NULL, NULL, NULL);
-	if (ac <= 1) {
+	if (ac <= 0) {
+	    player->argp[0] = "";
+	    cp = NULL;
+	} else if (ac == 1) {
 	    sprintf(dp, "%d", leader->uid);
 	    player->argp[1] = dp;
 	    cp++;
