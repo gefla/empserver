@@ -98,6 +98,10 @@ player_login(void *ud)
 	    continue;
 	}
 	ac = parse(buf, space, player->argp, NULL, NULL, NULL);
+	if (ac <= 0) {
+	    pr_id(player, C_BADCMD, "Can't parse command\n");
+	    continue;
+	}
 	cmd = comtch(player->argp[0], login_coms, 0);
 	if (cmd < 0) {
 	    pr_id(player, C_BADCMD, "Command %s not found\n", player->argp[0]);
