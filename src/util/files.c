@@ -100,7 +100,7 @@ main(int argc, char *argv[])
 	    printf("%s\n\n%s", version, legal);
 	    exit(0);
 	default:
-	    print_usage(argv[0]);
+	    fprintf(stderr, "Try -h for help.\n");
 	    exit(1);
 	}
     }
