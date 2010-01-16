@@ -278,7 +278,6 @@ nav_map(int x, int y, int show_designations)
 {
     char *ptr;
     struct nstr_sect ns;
-    struct natstr *np;
     struct sctstr sect;
     int i;
     /* Note this is not re-entrant anyway, so we keep the buffers
@@ -305,7 +304,6 @@ nav_map(int x, int y, int show_designations)
 	return RET_FAIL;
     }
     snxtsct_dist(&ns, x, y, 1);
-    np = getnatp(player->cnum);
     blankfill(wmapbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
 	ptr = &wmap[ns.dy][ns.dx];

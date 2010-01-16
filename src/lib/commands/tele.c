@@ -46,7 +46,6 @@ tele(void)
     char buf[MAXTELSIZE + 1];	/* UTF-8 */
     int n;
 
-    natp = getnatp(player->cnum);
     if (*player->argp[0] == 'a') {
 	if (getele("everybody", buf) <= 0) {
 	    pr("Announcement aborted\n");

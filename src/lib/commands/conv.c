@@ -52,8 +52,6 @@ conv(void)
     struct lndstr land;
     struct nstr_item ni;
 
-
-    natp = getnatp(player->cnum);
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
     uwtoconvert = onearg(player->argp[2], "Number to convert: ");
