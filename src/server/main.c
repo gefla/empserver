@@ -105,7 +105,6 @@ print_usage(char *program_name)
 	   "  -e CONFIG-FILE  configuration file\n"
 	   "                  (default %s)\n"
 	   "  -E ACTION       what to do on oops: abort, crash-dump, nothing (default)\n"
-	   "  -h              display this help and exit\n"
 #ifdef _WIN32
 	   "  -i              install service `%s'\n"
 	   "  -I NAME         install service NAME\n"
@@ -117,6 +116,7 @@ print_usage(char *program_name)
 #endif
 	   "  -s              enable stack checking\n"
 	   "  -R RANDOM-SEED  random seed\n"
+	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
 	   program_name, dflt_econfig
 #ifdef _WIN32
@@ -199,6 +199,8 @@ main(int argc, char **argv)
 	    return EXIT_FAILURE;
 	}
     }
+
+    /* silently ignore operands for backward compatibility */
 
 #if defined(_WIN32)
     if ((!daemonize || flags || config_file != NULL) &&
