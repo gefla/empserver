@@ -7,6 +7,40 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.24 - Mon Jan 18 18:30:50 UTC 2010
+ * Fix navigate and march not to crash the server when a path argument
+   consists of a valid path plus whitespace.  Broken in 4.3.7.
+ * When a client sent a blank line in the login phase, the server
+   crashed on some systems.
+ * Fix crash bug in bomb, drop, fly, paradrop, recon and sail.  Broken
+   in 4.3.16.
+ * Fix bogus internal error on escort, recon, and satellite launch.
+   Mostly harmless, as error recovery worked fine.  Broken in 4.3.23.
+ * Stop ship and land unit movement on interdiction even when it does
+   no damage.
+ * When an interdiction did no or only collateral damage, the planes
+   that intercepted it from interdicted carriers used no petrol, and
+   interdicted land units were immune to collateral damage.
+ * The limit for the number of sectors, ships, planes, land units,
+   nukes, and so forth is now large enough not to matter.  It used to
+   be 32768 on common machines.  The sector limit was introduced in
+   4.3.12.  World x- and y-size are still limited to 65536 on common
+   machines.
+ * News use much less space, and thus I/O.  Space was wasted in
+   4.3.12.  Side effects of the change:
+   - Expiry of old news no longer updates news timestamps.  Updating
+     timestamps was wrong, because it defeated incremental xdump news.
+   - The empdump utility can no longer update timestamps of imported
+     news.  Unfortunate, as it breaks incremental xdump news.
+ * New news selector duration, the time span covered by this news item
+   in seconds.
+ * ABMs failed to charge supplies when their sector was the
+   intercepted missile's target.  The stock game's ABMs use no
+   supplies.
+ * Ship anti-missile defense failed to charge shells when the ship was
+   the missile's target.
+ * Code refactoring and cleanup.
+
 Changes to Empire 4.3.23 - Sun Dec 13 16:34:49 UTC 2009
  * Fix missile interception not to intercept tactical and marine
    missiles attacking missiles or satellites.  No such missiles exist
