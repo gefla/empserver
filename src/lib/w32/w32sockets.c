@@ -68,12 +68,14 @@ static int
 fd_is_socket(int fd, SOCKET *sockp)
 {
     SOCKET sock;
-    WSANETWORKEVENTS ev;
+    BOOL val;
+    int size = sizeof(val);
 
     sock = W32_FD_TO_SOCKET(fd);
     if (sockp)
 	*sockp = sock;
-    return WSAEnumNetworkEvents(sock, NULL, &ev) == 0;
+    return   getsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (char *)&val, &size) == 0;
+	//WSAEnumNetworkEvents(sock, NULL, &ev) == 0;
 }
 
 void
