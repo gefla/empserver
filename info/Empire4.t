@@ -7,7 +7,9 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.24 - Mon Jan 18 18:30:50 UTC 2010
+Changes to Empire 4.3.24 - Tue Jan 26 21:29:14 UTC 2010
+ * The client sometimes hung under Windows when the server closed the
+   connection.  Broken in 4.3.23.
  * Fix navigate and march not to crash the server when a path argument
    consists of a valid path plus whitespace.  Broken in 4.3.7.
  * When a client sent a blank line in the login phase, the server
