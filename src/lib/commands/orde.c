@@ -166,14 +166,10 @@ orde(void)
 
 	case 'l':
 	    /* convert player->argp[3] to an integer */
-	    if (player->argp[3])
-		sub = atoi(player->argp[3]);
-	    else {
-		sprintf(buf1, "Field (1-%d) ", TMAX);
-		if (!getstarg(player->argp[3], buf1, buf))
-		    return RET_SYN;
-		sub = atoi(buf);
-	    }
+	    sprintf(buf1, "Field (1-%d) ", TMAX);
+	    if (!getstarg(player->argp[3], buf1, buf))
+		return RET_SYN;
+	    sub = atoi(buf);
 	    /* check to make sure value in within range. */
 	    if (sub > TMAX || sub < 1) {
 		pr("Value must range from 1 to %d\n", TMAX);
