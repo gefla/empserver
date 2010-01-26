@@ -59,7 +59,6 @@
 int
 orde(void)
 {
-    int diffeachship = 0;
     int sub, level;
     int scuttling = 0;
     struct nstr_item nb;
@@ -80,8 +79,7 @@ orde(void)
 	    continue;
 	if (opt_SAIL) {
 	    if (*ship.shp_path) {
-		if (!diffeachship)
-		    pr("Ship #%d has a \"sail\" path!\n", ship.shp_uid);
+		pr("Ship #%d has a \"sail\" path!\n", ship.shp_uid);
 		continue;
 	    }
 	}
@@ -90,14 +88,8 @@ orde(void)
 		"Ship #%d, declare, cancel, suspend, resume, level? ",
 		ship.shp_uid);
 	p = getstarg(player->argp[2], prompt, buf);
-	if (player->aborted || !p)
+	if (player->aborted || !p || !*p)
 	    return RET_FAIL;
-	if (!*p) {
-	    if (!diffeachship)
-		return RET_FAIL;
-	    else
-		continue;
-	}
 	switch (*p) {
 	default:
 	    pr("Bad order type!\n");
@@ -206,13 +198,11 @@ orde(void)
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
 			break;
-		    else {
-			p1 = getstarg(player->argp[6], "Amount? ",
-				      buf);
-			if (!p1)
-			    return RET_SYN;
-			level = atoi(p1);
-		    }
+		    p1 = getstarg(player->argp[6], "Amount? ",
+				  buf);
+		    if (!p1)
+			return RET_SYN;
+		    level = atoi(p1);
 		    if (level < 0) {
 			level = 0;	/* prevent negatives. */
 			pr("You must use positive number! Level set to 0.\n");
@@ -226,13 +216,11 @@ orde(void)
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
 			break;
-		    else {
-			p1 = getstarg(player->argp[6], "Amount? ",
-				      buf);
-			if (!p1)
-			    return RET_SYN;
-			level = atoi(p1);
-		    }
+		    p1 = getstarg(player->argp[6], "Amount? ",
+				  buf);
+		    if (!p1)
+			return RET_SYN;
+		    level = atoi(p1);
 		    if (level < 0) {
 			level = 0;
 			pr("You must use positive number! Level set to 0.\n");
