@@ -63,7 +63,6 @@ orde(void)
     int scuttling = 0;
     struct nstr_item nb;
     struct shpstr ship;
-    struct shpstr start;	/* Used for checking database */
     struct ichrstr *i1;
     coord p0x, p0y, p1x, p1y;
     int i;
@@ -83,12 +82,13 @@ orde(void)
 		continue;
 	    }
 	}
-	memcpy(&start, &ship, sizeof(struct shpstr));
 	sprintf(prompt,
 		"Ship #%d, declare, cancel, suspend, resume, level? ",
 		ship.shp_uid);
 	p = getstarg(player->argp[2], prompt, buf);
 	if (player->aborted || !p || !*p)
+	    return RET_FAIL;
+	if (!check_ship_ok(&ship))
 	    return RET_FAIL;
 	switch (*p) {
 	default:
@@ -125,6 +125,8 @@ orde(void)
 
 	    p = getstarg(player->argp[4], "Second dest? ", buf);
 	    if (!p)
+		return RET_FAIL;
+	    if (!check_ship_ok(&ship))
 		return RET_FAIL;
 	    if (!*p || !strcmp(p, "-")) {
 		pr("A one-way order has been accepted.\n");
@@ -169,6 +171,8 @@ orde(void)
 	    sprintf(buf1, "Field (1-%d) ", TMAX);
 	    if (!getstarg(player->argp[3], buf1, buf))
 		return RET_SYN;
+	    if (!check_ship_ok(&ship))
+		return RET_FAIL;
 	    sub = atoi(buf);
 	    /* check to make sure value in within range. */
 	    if (sub > TMAX || sub < 1) {
@@ -198,6 +202,8 @@ orde(void)
 				  buf);
 		    if (!p1)
 			return RET_SYN;
+		    if (!check_ship_ok(&ship))
+			return RET_FAIL;
 		    level = atoi(p1);
 		    if (level < 0) {
 			level = 0;	/* prevent negatives. */
@@ -216,6 +222,8 @@ orde(void)
 				  buf);
 		    if (!p1)
 			return RET_SYN;
+		    if (!check_ship_ok(&ship))
+			return RET_FAIL;
 		    level = atoi(p1);
 		    if (level < 0) {
 			level = 0;
@@ -273,15 +281,6 @@ orde(void)
 		ship.shp_tend[i] = tcomm;
 	    }
 	}
-	/*
-	   **  Write ship back to database, then give it
-	   **  a kick down the autonav route if necessary.
-	 */
-
-
-	/* Now do a sanity check. */
-	if (!check_ship_ok(&start))
-	    return RET_SYN;
 
 	putship(ship.shp_uid, &ship);
     }
