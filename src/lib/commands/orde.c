@@ -173,7 +173,7 @@ orde(void)
 	    /* check to make sure value in within range. */
 	    if (sub > TMAX || sub < 1) {
 		pr("Value must range from 1 to %d\n", TMAX);
-		break;
+		return RET_FAIL;
 	    }
 
 	    /* to keep sub in range of our arrays
@@ -184,7 +184,7 @@ orde(void)
 	    if (ship.shp_autonav & AN_AUTONAV) {
 		dest = getstarg(player->argp[4], "Start or End? ", buf);
 		if (!dest)
-		    break;
+		    return RET_FAIL;
 		switch (*dest) {
 		default:
 		    pr("You must enter 'start' or 'end'\n");
@@ -193,7 +193,7 @@ orde(void)
 		case 'E':
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
-			break;
+			return RET_FAIL;
 		    p1 = getstarg(player->argp[6], "Amount? ",
 				  buf);
 		    if (!p1)
@@ -211,7 +211,7 @@ orde(void)
 		case 'S':
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
-			break;
+			return RET_FAIL;
 		    p1 = getstarg(player->argp[6], "Amount? ",
 				  buf);
 		    if (!p1)
