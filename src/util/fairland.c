@@ -420,10 +420,9 @@ parse_args(int argc, char *argv[])
 	exit(1);
     }
     if (nc * sc + nc * my_sqrt(sc) * 2 * (di + 1) > WORLD_X * WORLD_Y) {
-	puts("fairland: error -- world not big enough to fit continents.");
-	puts("arguments must satisfy:");
+	puts("fairland: warning -- world might be too small to fit continents.");
+	puts("arguments should satisfy:");
 	puts("nc*sc*sc + nc*sqrt(sc)*2*(di+1) < WORLD_X * WORLD_Y");
-	exit(1);
     }
 }
 
