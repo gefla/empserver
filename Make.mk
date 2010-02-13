@@ -77,6 +77,19 @@ ehtmldir := $(datadir)/empire/info.html
 client/w32 := arpa/inet.h netdb.h netinet/in.h sys/time.h sys/socket.h	\
 sys/uio.h unistd.h w32io.c w32sockets.c w32types.h
 
+# Abbreviate make output
+# Run make with a V=1 parameter for full output.
+ifneq ($(origin V),command line)
+V:=
+endif
+# $(call quiet-command COMMAND,ABBREV) runs COMMAND, but prints only ABBREV.
+# Recursively expanded so that variables in COMMAND and ABBREV work.
+ifneq ($V$(findstring s,$(MAKEFLAGS)),)
+quiet-command = $1
+else
+quiet-command = @echo $2 && $1
+endif
+
 # How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.
 subst.in = sed \
@@ -176,11 +189,11 @@ html: $(info.html)
 
 .PHONY: clean
 clean:
-	rm -f $(clean)
+	$(call quiet-command,rm -f $(clean),CLEAN)
 
 .PHONY: distclean
 distclean: clean
-	rm -rf $(distclean) $(cli_distgen)
+	$(call quiet-command,rm -rf $(distclean) $(cli_distgen),DISTCLEAN)
 
 .PHONY: install
 install: all installdirs
@@ -238,8 +251,8 @@ dist: dist-source dist-client dist-info
 # addition to %.o.
 ifeq ($(how_to_dep),fast)
 %.o: %.c
-	$(COMPILE.c) -MT $@ -MMD -MP -MF $(@:.o=.d) $(OUTPUT_OPTION) $< \
-	|| { rm -f $(@:.o=.d) $@; false; }
+	$(call quiet-command,$(COMPILE.c) -MT $@ -MMD -MP -MF $(@:.o=.d) \
+	$(OUTPUT_OPTION) $< || { rm -f $(@:.o=.d) $@; false; },CC $@)
 # Why the rm?  If gcc's preprocessor chokes, it leaves an empty
 # dependency file behind, and doesn't touch the object file.  If an
 # old object file exists, and is newer than the .c file, make will
@@ -247,22 +260,20 @@ ifeq ($(how_to_dep),fast)
 endif
 ifeq ($(how_to_dep),depcomp)
 %.o: %.c
-	source='$<' object='$@' depfile='$(@:.o=.d)' $(CCDEPMODE) $(depcomp) \
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$(call quiet-command,source='$<' object='$@' depfile='$(@:.o=.d)' \
+	$(CCDEPMODE) $(depcomp) $(COMPILE.c) $(OUTPUT_OPTION) $<,CC $@)
 endif
 # Cancel the rule to compile %.c straight to %, it interferes with
 # automatic dependency generation
 %: %.c
 
-# Work around MinGW Make's broken built-in link rule:
 %$(EXEEXT): %.o
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(call quiet-command,$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@,LINK $@)
 
 
 info.nr/%: info/%.t
-	$(NROFF) $(filter %.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@
-# Pipes in make are a pain.  Catch obvious errors:
-	@test -s $@
+	$(call quiet-command,$(NROFF) $(filter %.MAC, $^) $< | $(AWK) -f $(filter %/Blank.awk, $^) >$@ && test -s $@,NROFF $@)
+# Pipes in make are a pain.  The "test -s" catches obvious errors.
 
 info.html/%.html: info/%.t
 	perl $(filter %.pl, $^) $< >$@
@@ -273,10 +284,10 @@ info.html/%.html: info/%.t
 # Compilation
 
 $(server): $(filter src/server/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(empth_lib) $(libs)
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(call quiet-command,$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@,LINK $@)
 
 $(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(call quiet-command,$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@,LINK $@)
 
 $(util): $(libs)
 
@@ -288,7 +299,7 @@ lib/liblwp.a: $(filter src/lib/lwp/%, $(obj))
 lib/libw32.a: $(filter src/lib/w32/%, $(obj))
 
 $(libs) $(empth_lib):
-	$(AR) rc $@ $?
+	$(call quiet-command,$(AR) rc $@ $?,AR $@)
 	$(RANLIB) $@
 
 # Info formatting
@@ -378,7 +389,7 @@ config.status: configure
 	./config.status --recheck
 
 src/lib/global/path.c src/client/ipglob.c: %: %.in GNUmakefile Make.mk
-	$(subst.in) <$< >$@
+	$(call quiet-command,$(subst.in) <$< >$@,GEN $@)
 
 
 # Make files for standalone client distribution
