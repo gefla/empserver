@@ -33,7 +33,7 @@
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
 # Peter Miller, 1997.
-# http://www.pcug.org.au/~millerp/rmch/recu-make-cons-harm.html
+# http://miller.emu.id.au/pmiller/books/rmch/
 
 # Recursively expanded variables are occasionally useful, but can be
 # slow and tricky.  Do not use them gratuitously.  If you don't
