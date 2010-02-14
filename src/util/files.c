@@ -130,8 +130,7 @@ main(int argc, char *argv[])
 	printf("WARNING: this blasts the existing game in %s (if any)\n",
 	       gamedir);
 	printf("continue? ");
-	fgets(buf, sizeof(buf), stdin);
-	if (*buf != 'y' && *buf != 'Y')
+	if (!fgets(buf, sizeof(buf), stdin) || (*buf != 'y' && *buf != 'Y'))
 	    exit(1);
     }
     for (i = 0; i < EF_MAX; i++) {
