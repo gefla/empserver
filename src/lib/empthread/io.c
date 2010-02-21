@@ -250,8 +250,11 @@ io_output_if_queue_long(struct iop *iop, int wait)
 
     if (CANT_HAPPEN(iop->last_out > len))
 	iop->last_out = 0;
-    if (len - iop->last_out < iop->bufsize)
+    if (len - iop->last_out < iop->bufsize) {
+	if (wait)
+	    ef_make_stale();
 	return 0;
+    }
     return io_output(iop, wait);
 }
 
