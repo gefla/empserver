@@ -649,11 +649,12 @@ shp_mission_interdiction(struct emp_qelem *list, coord x, coord y,
     char *what = subs ? "subs" : "ships";
     int wantflags = subs ? M_SUB : 0;
     int nowantflags = subs ? 0 : M_SUB;
+    int mission = subs ? MI_SINTERDICT : MI_INTERDICT;
     int dam;
 
     dam = unit_interdict(x, y, victim, what,
 			 shp_easiest_target(list, wantflags, nowantflags),
-			 MI_INTERDICT);
+			 mission);
     if (dam >= 0)
 	shp_damage(list, dam, wantflags, nowantflags, x, y);
     return dam >= 0;
