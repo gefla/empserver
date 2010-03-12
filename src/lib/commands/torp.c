@@ -319,7 +319,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	if (mchr[(int)sp->shp_type].m_flags & M_SUB)
 	    nreport(targ->shp_own, N_TORP_SHIP, 0, 1);
 	else
-	    nreport(targ->shp_own, N_SHIP_TORP, player->cnum, 1);
+	    nreport(targ->shp_own, N_SHIP_TORP, sp->shp_own, 1);
     } else {
 	pr("Missed!\n");
 	if (sp->shp_own != 0)
