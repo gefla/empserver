@@ -253,6 +253,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		mine();
 	    else
 		landmine();
+	    stopping = 1;
 	    skip = 1;
 	    player->btused++;
 	    continue;
