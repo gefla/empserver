@@ -988,7 +988,7 @@ pln_damage(struct plnstr *pp, char type, int noisy)
     int effective = 1;
     int pinbomber = 0;
 
-    if (CANT_HAPPEN(nuk_on_plane(pp) >= 0)) /* FIXME check uses! */
+    if (CANT_HAPPEN(nuk_on_plane(pp) >= 0))
 	return 0;
 
     load = pln_load(pp);

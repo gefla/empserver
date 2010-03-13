@@ -59,6 +59,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	   natid victim, int *sublaunchp)
 {
     struct shpstr ship;
+    struct nukstr nuke;
     struct sctstr sect;
     int sublaunch = 0;
     char *from;
@@ -93,6 +94,11 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
     if (chance((0.05 + (100 - pp->pln_effic) / 100.0)
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
+	if (getnuke(nuk_on_plane(pp), &nuke)) {
+	    pr("%s lost!\n", prnuke(&nuke));
+	    nuke.nuk_effic = 0;
+	    putnuke(nuke.nuk_uid, &nuke);
+	}
 	if (chance(0.33)) {
 	    dam = pln_damage(pp, 'p', 0) / 2;
 	    if (pp->pln_ship >= 0) {
