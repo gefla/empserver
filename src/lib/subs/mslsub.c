@@ -94,7 +94,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
 	if (chance(0.33)) {
-	    dam = pln_damage(pp, 'p', 1) / 2;
+	    dam = pln_damage(pp, 'p', 0) / 2;
 	    if (pp->pln_ship >= 0) {
 		shipdamage(&ship, dam);
 		putship(ship.shp_uid, &ship);
