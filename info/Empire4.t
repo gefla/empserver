@@ -7,6 +7,20 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.25 - Tue Mar 16 20:40:54 UTC 2010
+ * Missile exploding on launch could not damage its base if it was
+   armed with a nuke.  Broken in 4.3.23.
+ * When a torpedo attack triggered a return torpedo, the news reported
+   it to be fired by the attacker instead of the defender.
+ * Interdiction attacked submarines with surface-only weapons.  Broken
+   in 4.3.24.
+ * Fix a bug in lradar, path, radar, route, satellite, sect and survey
+   that could leak maps to other players.  Broken in 4.2.0.  Fixed in
+   4.2.8 for bmap, lbmap, lmap, map, nmap, pbmap, pmap, sbmap and smap
+   only.
+ * files could clobber the game when reading confirmation fails.
+ * fairland no longer rejects small worlds without trying.
+
 Changes to Empire 4.3.24 - Tue Jan 26 21:29:14 UTC 2010
  * The client sometimes hung under Windows when the server closed the
    connection.  Broken in 4.3.23.
