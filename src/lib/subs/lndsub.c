@@ -680,7 +680,7 @@ lnd_damage(struct emp_qelem *list, int totdam)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	/* have to get it again because of collateral damage */
+	/* land unit might have changed (launched SAMs, collateral dmg) */
 	getland(llp->unit.land.lnd_uid, &llp->unit.land);
 	landdamage(&llp->unit.land, dam);
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
