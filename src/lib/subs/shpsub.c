@@ -354,6 +354,8 @@ shp_count(struct emp_qelem *list, int wantflags, int nowantflags,
 static void
 shp_damage_one(struct ulist *mlp, int dam)
 {
+    /* ship might have changed (launched interceptors, missile defense) */
+    getship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     shipdamage(&mlp->unit.ship, dam);
     putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     if (!mlp->unit.ship.shp_own) {
