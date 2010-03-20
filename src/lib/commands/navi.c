@@ -244,8 +244,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    skip = 1;
 	    continue;
 	case 'd':
-	    if (ac == 2) {
-		player->argp[2] = player->argp[1];
+	    if (ac < 3) {
+		player->argp[2] = ac < 2 ? "1" : player->argp[1];
 		sprintf(dp, "%d", leader->uid);
 		player->argp[1] = dp;
 	    }
