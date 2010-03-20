@@ -7,7 +7,14 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.25 - Tue Mar 16 20:40:54 UTC 2010
+Changes to Empire 4.3.25 - Sat Mar 20 17:52:50 UTC 2010
+ * When an interdiction did damage other than collateral damage, the
+   planes that intercepted it from interdicted carriers used no
+   petrol.  4.3.24 fixed only the "no damage" case.
+ * Ship anti-missile defense failed to charge shells when the ship was
+   interdicted.  The fix in 4.3.24 covered only launch.
+ * Fix a bug in navigate and march that let players lay mines free of
+   charge.  Also fix them not to prompt for the number of mines.
  * Missile exploding on launch could not damage its base if it was
    armed with a nuke.  Broken in 4.3.23.
  * When a torpedo attack triggered a return torpedo, the news reported
