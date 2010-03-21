@@ -1,4 +1,7 @@
-Changes to Empire 4.3.25 - Sat Mar 20 17:52:50 UTC 2010
+Changes to Empire 4.3.25 - Sun Mar 21 08:27:37 UTC 2010
+ * Hitting seamines could crash the server.  When not, the damage
+   reduction for capability sweep was applied unpredictably.  Broken
+   in 4.3.24.
  * When an interdiction did damage other than collateral damage, the
    planes that intercepted it from interdicted carriers used no
    petrol.  4.3.24 fixed only the "no damage" case.
