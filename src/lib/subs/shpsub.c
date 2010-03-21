@@ -708,7 +708,7 @@ shp_hit_mine(struct shpstr *sp)
     nreport(sp->shp_own, N_HIT_MINE, 0, 1);
 
     m = MINE_DAMAGE();
-    if (mchr[sp->shp_uid].m_flags & M_SWEEP)
+    if (mchr[sp->shp_type].m_flags & M_SWEEP)
 	m /= 2.0;
 
     shipdamage(sp, ldround(m, 1));
