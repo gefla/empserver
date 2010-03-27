@@ -4,7 +4,7 @@ empire \- Empire client
 .SH SYNOPSIS
 .B empire
 [
-.B \-ku
+.B \-hkuv
 ]
 [
 .BI \-2 " outfile"
@@ -28,6 +28,9 @@ WARNING -- This game is not only addictive but often peels back
 the thin veneer of civilization that hides the maniac within.
 .SH OPTIONS
 .TP
+.B \-h
+Help.  Print brief usage information and exit.
+.TP
 .B \-k
 If someone else is connected to your country, kill their connection.
 .TP
@@ -36,6 +39,9 @@ Use UTF-8 rather than ASCII character set.
 .IP
 This requires server version 4.2.21 or later, and a terminal that
 understands UTF-8.
+.TP
+.B \-v
+Print version information and exit.
 .TP
 .BI \-2 " outfile"
 Append log of session to \fIoutfile\fR.
