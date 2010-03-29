@@ -41,7 +41,7 @@ int
 sabo(void)
 {
     struct nstr_item ni;
-    struct lndstr land;
+    struct lndstr land, tmp;
     struct sctstr sect;
     double odds;
     int dam;
@@ -96,13 +96,14 @@ sabo(void)
 	}
 
 	/* hack: hide the spy so it don't gets blasted by sectdamage() */
-	land.lnd_own = 0;
-	putland(land.lnd_uid, &land);
+	tmp = land;
+	tmp.lnd_own = 0;
+	putland(land.lnd_uid, &tmp);
+	land.lnd_seqno = tmp.lnd_seqno;
 
 	sectdamage(&sect, dam);
 	putsect(&sect);
 
-	land.lnd_own = player->cnum;
 	if (chance(odds)) {
 	    pr("%s dies in explosion.\n", prland(&land));
 	    land.lnd_effic = 0;
