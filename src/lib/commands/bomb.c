@@ -345,8 +345,6 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	dam += pln_damage(&plp->plane, 'p', 1);
     }
-    if (dam <= 0)
-	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
     oldeff = target->sct_effic;
@@ -420,8 +418,6 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	    continue;
 	dam += pln_damage(&plp->plane, 'p', 1);
     }
-    if (dam <= 0)
-	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
     before = target->sct_item[ip->i_uid];
@@ -535,10 +531,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
-	    dam = 0;
-	}
-	if (dam <= 0)
 	    continue;
+	}
 	if (mcp->m_flags & M_SUB)
 	    nreport(player->cnum, N_SUB_BOMB, ship.shp_own, 1);
 	else
@@ -637,10 +631,8 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
-	    dam = 0;
-	}
-	if (dam <= 0)
 	    continue;
+	}
 	if (dam > 100)
 	    dam = 100;
 	own = plane.pln_own;
@@ -747,10 +739,8 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    /* Bombs that miss have to land somewhere! */
 	    dam = pln_damage(&plp->plane, 'p', 0);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
-	    dam = 0;
-	}
-	if (dam <= 0)
 	    continue;
+	}
 	if (dam > 100)
 	    dam = 100;
 	own = land.lnd_own;
@@ -784,8 +774,6 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	else
 	    dam += pln_damage(&plp->plane, 's', 1);
     }
-    if (dam <= 0)		/* dam == 0 if only nukes were delivered */
-	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
     if (target->sct_own)
