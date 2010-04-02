@@ -69,7 +69,7 @@ print_usage(char *program_name)
     printf("Usage: %s [OPTION]...[COUNTRY [PASSWORD]]\n"
 	   "  -2 FILE         Append log of session to FILE\n"
 	   "  -k              Kill connection\n"
-	   "  -s HOST:PORT    Set host and port to connect\n"
+	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
@@ -89,6 +89,7 @@ main(int argc, char **argv)
     char *country;
     char *passwd;
     char *uname;
+    char *colon;
     int sock;
 
     while ((opt = getopt(argc, argv, "2:ks:uhv")) != EOF) {
@@ -100,17 +101,12 @@ main(int argc, char **argv)
 	    send_kill = 1;
 	    break;
 	case 's':
-	    host = strdup(optarg);
-	    port = strchr(host, ':');
-	    if (port == host) { /* if no host specified, then set to null */
-		host = NULL;
-	    }
-	    if (port) {	       /* make port the bit after the colon */
-		port[0] = 0;
-		port++;
-		if (port[0] == 0) { /* handle colon-at-end-of-string */
-		    port = NULL;
-		}
+	    port = strdup(optarg);
+	    colon = strrchr(port, ':');
+	    if (colon) {
+		*colon = 0;
+		host = port;
+		port = colon + 1;
 	    }
 	    break;
 	case 'u':
