@@ -10,6 +10,9 @@ empire \- Empire client
 .BI \-2 " outfile"
 ]
 [
+.BI \-s " host:port"
+]
+[
 .I country
 [
 .I password
@@ -33,6 +36,12 @@ Help.  Print brief usage information and exit.
 .TP
 .B \-k
 If someone else is connected to your country, kill their connection.
+.TP
+.BI \-s " host:port"
+Specify host and port to which to connect.
+.IP
+Connect to \fIhost\fR using port \fIport\fR.  You can specify only
+one; just leave the other empty (include the colon).
 .TP
 .B \-u
 Use UTF-8 rather than ASCII character set.
@@ -60,9 +69,11 @@ client:
 .TP
 .I EMPIREHOST
 Specifies the host to connect to, i.e. where the server runs.
+Only effective if no host specified via \-s.
 .TP
 .I EMPIREPORT
 Specifies the port number or service name to connect to.
+Only effective if no port specified via \-s.
 .TP
 .I COUNTRY
 The name of your country in the game.

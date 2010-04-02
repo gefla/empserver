@@ -37,6 +37,7 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <string.h>
 #ifdef _WIN32
 #include <windows.h>
 #include "sys/socket.h"
@@ -68,6 +69,7 @@ print_usage(char *program_name)
     printf("Usage: %s [OPTION]...[COUNTRY [PASSWORD]]\n"
 	   "  -2 FILE         Append log of session to FILE\n"
 	   "  -k              Kill connection\n"
+	   "  -s HOST:PORT    Set host and port to connect\n"
 	   "  -u              Use UTF-8\n"
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
@@ -80,22 +82,36 @@ main(int argc, char **argv)
     int opt;
     char *auxfname = NULL;
     int send_kill = 0;
+    char *host = NULL;
+    char *port = NULL;
     int utf8 = 0;
     char **ap;
     char *country;
     char *passwd;
     char *uname;
-    char *host;
-    char *port;
     int sock;
 
-    while ((opt = getopt(argc, argv, "2:kuhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:ks:uhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
 	    break;
 	case 'k':
 	    send_kill = 1;
+	    break;
+	case 's':
+	    host = strdup(optarg);
+	    port = strchr(host, ':');
+	    if (port == host) { /* if no host specified, then set to null */
+		host = NULL;
+	    }
+	    if (port) {	       /* make port the bit after the colon */
+		port[0] = 0;
+		port++;
+		if (port[0] == 0) { /* handle colon-at-end-of-string */
+		    port = NULL;
+		}
+	    }
 	    break;
 	case 'u':
 	    utf8 = eight_bit_clean = 1;
@@ -121,10 +137,12 @@ main(int argc, char **argv)
 	passwd = *ap++;
     else
 	passwd = getenv("PLAYER");
-    port = getenv("EMPIREPORT");
+    if (!port)
+	port = getenv("EMPIREPORT");
     if (!port)
 	port = empireport;
-    host = getenv("EMPIREHOST");
+    if (!host)
+	host = getenv("EMPIREHOST");
     if (!host)
 	host = empirehost;
     uname = getenv("LOGNAME");
