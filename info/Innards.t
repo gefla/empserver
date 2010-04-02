@@ -88,7 +88,7 @@ bank interest rate in $/bar
 .in
 .nf
 .s1
-workforce = (civ*work/100 + uw + mil / 5.) / 100.
+workforce = (civ*work/100 + uw + mil * 0.4) / 100.
 If workforce = 0 go away and don't update anything
 
 /* increase sector efficiency */
