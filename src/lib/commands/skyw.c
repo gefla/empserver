@@ -87,7 +87,7 @@ skyw(void)
     /* get that last one! */
     free(skyp);
     pr("- = [ Skywatch report for %s ] = -\n", cname(player->cnum));
-    pr(" %18s%20s        %s\n", "Country", "Satellite", "Location");
+    pr("  Country            Satellite     Location\n");
     tech = tfact(player->cnum, 1.0);
     while (nxtsct(&nstr, &sect) && nsat) {
 	if (sect.sct_own != player->cnum)
@@ -134,7 +134,6 @@ showsat(struct sky **skypp, int x, int y)
     struct sky *todelete = NULL;
     struct sky **prev;
     struct plchrstr *pcp;
-    char *name;
     int nsat = 0;
 
     prev = NULL;
@@ -151,10 +150,9 @@ showsat(struct sky **skypp, int x, int y)
 	    continue;
 	}
 	pcp = &plchr[(int)skyp->s_sat.pln_type];
-	name = pcp->pl_name;
-	pr(" %12.12s (#%d) %20s            %s\n",
+	pr(" %12.12s (#%3d) %s @ %s\n",
 	   cname(skyp->s_sat.pln_own), skyp->s_sat.pln_own,
-	   name, xyas(x, y, player->cnum));
+	   prplane(&skyp->s_sat), xyas(x, y, player->cnum));
 	if (opt_HIDDEN) {
 	    /* FOUND_COAST should probably be changed to FOUND_SKY -KHS */
 	    setcont(player->cnum, skyp->s_sat.pln_own, FOUND_COAST);
