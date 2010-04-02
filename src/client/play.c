@@ -302,7 +302,7 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
 #endif
 
 #define EOF_COOKIE "ctld\n"
-#define INTR_COOKIE "\naborted\n"
+#define INTR_COOKIE "aborted\n"
 
 int input_fd;
 int send_eof;				/* need to send EOF_COOKIE */
@@ -465,6 +465,7 @@ play(int sock)
     struct sigaction sa;
     struct ring inbuf;		/* input buffer, draining to SOCK */
     int eof_fd0;		/* read fd 0 hit EOF? */
+    int input_eol;		/* input ends with '\n'? */
     fd_set rdfd, wrfd;
     int n;
 
@@ -476,7 +477,7 @@ play(int sock)
     sigaction(SIGPIPE, &sa, NULL);
 
     ring_init(&inbuf);
-    eof_fd0 = send_eof = send_intr = 0;
+    eof_fd0 = input_eol = send_eof = send_intr = 0;
     input_fd = 0;
     sysdep_stdin_init();
 
@@ -505,10 +506,13 @@ play(int sock)
 	    }
 	}
 
-	if (send_eof
+	if ((send_eof || send_intr) && !input_eol
+	    && ring_putc(&inbuf, '\n') != EOF)
+	    input_eol = 1;
+	if (send_eof && input_eol
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
 	    send_eof--;
-	if (send_intr
+	if (send_intr && input_eol
 	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0) {
 	    send_intr = 0;
 	    if (input_fd) {
@@ -542,7 +546,8 @@ play(int sock)
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
 		}
-	    }
+	    } else
+		input_eol = ring_peek(&inbuf, -1) == '\n';
 	}
 
 	/* send it to the server */
