@@ -59,10 +59,9 @@ coas(void)
     struct nstr_sect nstr;
     struct coast *cp;
     struct coast *list[TSIZE];
-    int i, k, j, n;
+    int i, n;
     int vrange, see;
-    int x, y;
-    int mink, minj, maxk, maxj;
+    int x, y, dx, dy, dxmax;
     int nship = 0;
     double tech;
     struct nstr_item ni;
@@ -104,20 +103,11 @@ coas(void)
 	vrange = (int)(sect.sct_effic / 100.0 * see * tech);
 	if (vrange < 1)
 	    vrange = 1;
-	maxk = vrange;
-	maxj = vrange * 2;
-	vrange *= vrange;
-	mink = -maxk;
-	minj = -maxj;
-	for (j = minj; j <= maxj && nship; j++) {
-	    x = xnorm(sect.sct_x + j);
-	    for (k = mink; k <= maxk && nship; k++) {
-		if ((j + k) & 01)
-		    continue;
-		/* quick range check to save time... */
-		if (vrange < (j * j + 3 * k * k) / 4)
-		    continue;
-		y = ynorm(sect.sct_y + k);
+	for (dy = -vrange; dy <= vrange; dy++) {
+	    y = ynorm(sect.sct_y + dy);
+	    dxmax = 2 * vrange - abs(dy);
+	    for (dx = -dxmax; dx <= dxmax; dx += 2) {
+		x = xnorm(sect.sct_x + dx);
 		n = scthash(x, y, TSIZE);
 		if (!list[n])
 		    continue;
