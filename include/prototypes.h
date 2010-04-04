@@ -280,8 +280,6 @@ extern int logreopen(void);
 extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 /* more in misc.h */
 /* mapdist.c */
-extern int deltax(int, int);
-extern int deltay(int, int);
 extern int mapdist(int, int, int, int);
 /* move.c */
 /* in path.h */

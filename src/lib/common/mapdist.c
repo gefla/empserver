@@ -31,17 +31,13 @@
  *
  */
 
-/*
- * mapdist returns (integer) distance between two sectors.
- */
-
 #include <config.h>
 
 #include "misc.h"
 #include "optlist.h"
 #include "prototypes.h"
 
-int
+static int
 deltax(int x1, int x2)
 {
     int dx;
@@ -53,7 +49,7 @@ deltax(int x1, int x2)
     return dx;
 }
 
-int
+static int
 deltay(int y1, int y2)
 {
     int dy;
