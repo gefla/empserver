@@ -102,9 +102,9 @@ retreat(int type)
 
 	for (i = 0; fl[i]; i++) {
 	    ch = tolower(fl[i]);
-	    if (ch == 'C') {
+	    if (ch == 'c') {
 		*pq = 0;
-		return 0;
+		break;
 	    }
 	    if (ch == '?') {
 		for (j = 1; rflagsc[j]; j++) {
