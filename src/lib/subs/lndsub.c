@@ -862,7 +862,7 @@ lnd_hit_mine(struct lndstr *lp)
     nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
 
     m = MINE_LDAMAGE();
-    if (lchr[lp->lnd_uid].l_flags & L_ENGINEER)
+    if (lchr[lp->lnd_type].l_flags & L_ENGINEER)
 	m /= 2;
 
     landdamage(lp, m);
