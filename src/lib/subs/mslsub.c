@@ -91,6 +91,10 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	mpr(pp->pln_own, "%s\n", xyas(pp->pln_x, pp->pln_y, pp->pln_own));
     }
 
+    CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
+    pp->pln_flags |= PLN_LAUNCHED;
+    putplane(pp->pln_uid, pp);
+
     if (chance((0.05 + (100 - pp->pln_effic) / 100.0)
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
@@ -115,9 +119,6 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	return -1;
     }
 
-    CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
-    pp->pln_flags |= PLN_LAUNCHED;
-    putplane(pp->pln_uid, pp);
     mpr(pp->pln_own, "\tSHWOOOOOSH!  Missile launched!\n");
 
     if (type != EF_PLANE)
