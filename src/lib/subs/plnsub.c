@@ -305,8 +305,8 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     }
     there += amt;
     if (there > max) {
-	pr("%d excess %s discarded\n", max - there, ip->i_name);
-	amt = max - there;
+	pr("%d excess %s discarded\n", there - max, ip->i_name);
+	amt -= there - max;
 	there = max;
     }
     pr("%d %s landed safely", amt, ip->i_name);
