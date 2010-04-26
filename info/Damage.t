@@ -90,14 +90,12 @@ Plane
 Sector
 sectdamage = damage / ((sectdef - 2) * eff + 2)
 %damage = (100 * sectdamage / (sectdamage + 100))
-commodities take %damage (bars take no damage and people take 0.4 * %damage)
+commodities take %damage
 land units take 0.3 * %damage
-planes take no damage
+planes take 1/7 of the damage done to land units
 
 Commodity
 %damage = (100 * damage / (damage + 50))
-bars take no damage
-civs, mil, and uws take 0.4 * %damage
 
 .fi
 .SA "fire, launch, torpedo, lmine, bomb, Hitchance, Attacking, Combat"
