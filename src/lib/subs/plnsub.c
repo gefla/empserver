@@ -827,6 +827,7 @@ could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
 {
     struct plchrstr *pcp = &plchr[pp->pln_type];
     struct mchrstr *mcp = &mchr[sp->shp_type];
+    int nfw;
 
     if (pcp->pl_flags & P_K)
 	nch++;
@@ -837,14 +838,17 @@ could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
     else if (pcp->pl_flags & P_M)
 	nmsl++;
     n++;
+    nfw = n - nch - nxl - nmsl;
 
-    n -= MIN(nch, mcp->m_nchoppers);
-    n -= MIN(nxl, mcp->m_nxlight);
+    if (nch > mcp->m_nchoppers) /* overflow into fixed-wing slots */
+	nfw += nch - mcp->m_nchoppers;
+    if (nxl > mcp->m_nxlight)	/* overflow into missile slots */
+	nmsl += nxl - mcp->m_nxlight;
     if (nmsl && !(mcp->m_flags & (M_MSL | M_FLY)))
 	return 0;		/* missile slots wanted */
-    if (nmsl < n && !(mcp->m_flags & M_FLY))
+    if (nfw && !(mcp->m_flags & M_FLY))
 	return 0;		/* fixed-wing slots wanted */
-    return n <= mcp->m_nplanes;
+    return nfw + nmsl <= mcp->m_nplanes;
 }
 
 /*
