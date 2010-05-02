@@ -37,6 +37,7 @@
 #include "file.h"
 #include "land.h"
 #include "lost.h"
+#include "map.h"
 #include "misc.h"
 #include "nat.h"
 #include "news.h"
@@ -73,6 +74,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     int rad;
     struct nstr_sect ns;
     struct nstr_item ni;
+    int changed = 0;
 
     mpr(bombown, "Releasing RV's for %s detonation...\n",
 	airburst ? "airburst" : "groundburst");
@@ -125,6 +127,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 		sect.sct_type = SCT_WASTE;
 		bp = "turned %s into a radioactive wasteland\n";
 	    }
+	    changed |= map_set(player->cnum, sect.sct_x, sect.sct_y,
+			       dchr[sect.sct_type].d_mnem, 0);
 	} else {
 	    sprintf(buf, "did %d%%%% damage in %%s\n", damage);
 	    bp = buf;
@@ -138,6 +142,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    mpr(own, "%s nuclear device %s\n", cname(bombown), buf2);
 	}
     }
+
+    if (changed)
+	writebmap(player->cnum);
 
     snxtitem_dist(&ni, EF_PLANE, x, y, rad);
     while (nxtitem(&ni, &plane)) {
