@@ -73,28 +73,23 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     int rad;
     struct nstr_sect ns;
     struct nstr_item ni;
-    int issea;
 
     mpr(bombown, "Releasing RV's for %s detonation...\n",
 	airburst ? "airburst" : "groundburst");
 
     getsect(x, y, &sect);
-    issea = sect.sct_type == SCT_WATER;
     ncp = &nchr[nuketype];
     kaboom(x, y, ncp->n_blast, bombown);
     rad = ncp->n_blast;
     if (!airburst)
 	rad = rad * 2 / 3;
+    if (sect.sct_type == SCT_WATER)
+	rad = 0;     /* Nukes falling on water affect only 1 sector */
     np->nuk_effic = 0;
     putnuke(np->nuk_uid, np);
 
     snxtsct_dist(&ns, x, y, rad);
     while (nxtsct(&ns, &sect)) {
-	/* Nukes falling on water affect only 1 sector */
-	if ((sect.sct_x != x) && issea)
-	    continue;
-	if ((sect.sct_y != y) && issea)
-	    continue;
 	own = sect.sct_own;
 	type = sect.sct_type;
 	if ((damage = nukedamage(ncp, ns.curdist, airburst)) <= 0)
@@ -146,11 +141,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 
     snxtitem_dist(&ni, EF_PLANE, x, y, rad);
     while (nxtitem(&ni, &plane)) {
-	/* Nukes falling on water affect only 1 sector */
-	if ((plane.pln_x != x) && issea)
-	    continue;
-	if ((plane.pln_y != y) && issea)
-	    continue;
 	if ((own = plane.pln_own) == 0)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
@@ -196,11 +186,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 
     snxtitem_dist(&ni, EF_LAND, x, y, rad);
     while (nxtitem(&ni, &land)) {
-	/* Nukes falling on water affect only 1 sector */
-	if ((land.lnd_x != x) && issea)
-	    continue;
-	if ((land.lnd_y != y) && issea)
-	    continue;
 	if ((own = land.lnd_own) == 0)
 	    continue;
 	if ((damage = nukedamage(ncp, ni.curdist, airburst)) <= 0)
@@ -243,11 +228,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 
     snxtitem_dist(&ni, EF_SHIP, x, y, rad);
     while (nxtitem(&ni, &ship)) {
-	/* Nukes falling on water affect only 1 sector */
-	if ((ship.shp_x != x) && issea)
-	    continue;
-	if ((ship.shp_y != y) && issea)
-	    continue;
 	if ((own = ship.shp_own) == 0)
 	    continue;
 	if ((damage = nukedamage(ncp, ni.curdist, airburst)) <= 0)
@@ -284,11 +264,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 
     snxtitem_dist(&ni, EF_NUKE, x, y, rad);
     while (nxtitem(&ni, &nuke)) {
-	/* Nukes falling on water affect only 1 sector */
-	if ((nuke.nuk_x != x) && issea)
-	    continue;
-	if ((nuke.nuk_y != y) && issea)
-	    continue;
 	if ((own = nuke.nuk_own) == 0)
 	    continue;
 	if ((damage = nukedamage(ncp, ni.curdist, airburst)) <= 0)
