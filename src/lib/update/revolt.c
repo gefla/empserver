@@ -439,6 +439,8 @@ take_casualties(struct sctstr *sp, int mc)
      */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
 	nunits++;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    nunits++;
@@ -452,6 +454,8 @@ take_casualties(struct sctstr *sp, int mc)
     /* kill some security troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
@@ -477,6 +481,8 @@ take_casualties(struct sctstr *sp, int mc)
     /* kill some normal troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -503,6 +509,8 @@ take_casualties(struct sctstr *sp, int mc)
     /* kill some normal troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -521,6 +529,8 @@ take_casualties(struct sctstr *sp, int mc)
     /* kill some security troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
+	if (lp->lnd_own != sp->sct_own)
+	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
