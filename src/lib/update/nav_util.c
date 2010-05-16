@@ -68,7 +68,7 @@ load_it(struct shpstr *sp, struct sctstr *psect, int i)
     if (psect->sct_oldown != shipown && comm == I_CIVIL) {
 	wu(0, shipown,
 	   "Ship #%d - unable to load disloyal civilians at %s.",
-	   sp->shp_uid, xyas(psect->sct_x, psect->sct_y, psect->sct_own));
+	   sp->shp_uid, xyas(psect->sct_x, psect->sct_y, shipown));
 	return 0;
     }
     if (comm == I_CIVIL || comm == I_MILIT)
@@ -158,8 +158,7 @@ unload_it(struct shpstr *sp)
 	if (sectp->sct_oldown != shipown && comm == I_CIVIL) {
 	    wu(0, sp->shp_own,
 	       "Ship #%d - unable to unload civilians into a disloyal sector at %s.",
-	       sp->shp_uid, xyas(sectp->sct_x, sectp->sct_y,
-				 sectp->sct_own));
+	       sp->shp_uid, xyas(sectp->sct_x, sectp->sct_y, sp->shp_own));
 	    continue;
 	}
 	if (comm == I_CIVIL)
