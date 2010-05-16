@@ -68,14 +68,15 @@ nati(void)
 	getsect(natp->nat_xcap, natp->nat_ycap, &sect);
 	if (influx(natp))
 	    pr("No capital (was at %s).\n",
-	       xyas(sect.sct_x, sect.sct_y, cnum));
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	else {
 	    civ = sect.sct_item[I_CIVIL];
 	    mil = sect.sct_item[I_MILIT];
 	    pr("%d%% eff %s at %s has %d civilian%s & %d military\n",
 	       sect.sct_effic,
 	       sect.sct_type == SCT_CAPIT ? "capital" : "mountain capital",
-	       xyas(sect.sct_x, sect.sct_y, cnum), civ, splur(civ), mil);
+	       xyas(sect.sct_x, sect.sct_y, player->cnum),
+	       civ, splur(civ), mil);
 	}
     }
     pr(" The treasury has $%.2f", (double)natp->nat_money);
