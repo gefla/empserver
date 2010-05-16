@@ -99,7 +99,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	if (type == SCT_SANCT) {
 	    mpr(bombown, "bounced off %s\n", xyas(ns.x, ns.y, bombown));
 	    mpr(own, "%s nuclear device bounced off %s\n",
-		cname(bombown), xyas(ns.x, ns.y, bombown));
+		cname(bombown), xyas(ns.x, ns.y, own));
 	    nreport(bombown, N_NUKE, own, 1);
 	    continue;
 	}
