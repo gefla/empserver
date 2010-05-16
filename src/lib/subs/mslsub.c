@@ -99,7 +99,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	       * (1 - techfact(pp->pln_tech, 1.0)))) {
 	mpr(pp->pln_own, "KABOOOOM!  Missile explodes %s!\n", from);
 	if (getnuke(nuk_on_plane(pp), &nuke)) {
-	    pr("%s lost!\n", prnuke(&nuke));
+	    mpr(pp->pln_own, "%s lost!\n", prnuke(&nuke));
 	    nuke.nuk_effic = 0;
 	    putnuke(nuke.nuk_uid, &nuke);
 	}
@@ -109,8 +109,8 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 		shipdamage(&ship, dam);
 		putship(ship.shp_uid, &ship);
 	    } else {
-		pr("Explosion damages %s %d%%\n",
-		   xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
+		mpr(pp->pln_own, "Explosion damages %s %d%%\n",
+		    xyas(pp->pln_x, pp->pln_y, pp->pln_own), dam);
 		getsect(pp->pln_x, pp->pln_y, &sect);
 		sectdamage(&sect, dam);
 		putsect(&sect);
