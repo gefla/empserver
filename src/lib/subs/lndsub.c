@@ -471,7 +471,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	getland(llp->unit.land.lnd_uid, &land);
 	if (land.lnd_own != actor) {
 	    mpr(actor, "%s was disbanded at %s\n",
-		prland(&land), xyas(land.lnd_x, land.lnd_y, land.lnd_own));
+		prland(&land), xyas(land.lnd_x, land.lnd_y, actor));
 	    emp_remque((struct emp_qelem *)llp);
 	    free(llp);
 	    continue;
