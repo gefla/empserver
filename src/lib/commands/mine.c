@@ -152,7 +152,7 @@ landmine(void)
 	if (total_mines_laid == mines_wanted) {
 	    pr("%s laid a total of %d mines in %s",
 	       prland(&land), total_mines_laid,
-	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    if (!land.lnd_item[I_SHELL])
 		pr(" but is now out of shells\n");
 	    else
@@ -163,7 +163,7 @@ landmine(void)
 	       prland(&land),
 	       land.lnd_mobil > 0 ? "shells" : "mobility",
 	       total_mines_laid,
-	       xyas(sect.sct_x, sect.sct_y, land.lnd_own));
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
     }
     return RET_OK;
 }
