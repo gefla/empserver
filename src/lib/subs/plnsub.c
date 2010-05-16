@@ -943,7 +943,7 @@ plane_sweep(struct emp_qelem *plane_list, coord x, coord y)
 
 	if (chance((100.0 - pln_acc(pp)) / 100.0)) {
 	    pr("Sweep! in %s\n",
-	       xyas(sect.sct_x, sect.sct_y, pp->pln_own));
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    mines_there--;
 	    found = 1;
 	}
