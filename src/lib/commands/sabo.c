@@ -88,7 +88,7 @@ sabo(void)
 	    continue;
 
 	pr("Explosion in %s causes %d damage.\n",
-	   xyas(land.lnd_x, land.lnd_y, land.lnd_own), dam);
+	   xyas(land.lnd_x, land.lnd_y, player->cnum), dam);
 	if (sect.sct_own) {
 	    wu(0, sect.sct_own,
 	       "Sabotage in sector %s caused %d damage.\n",
