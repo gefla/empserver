@@ -69,7 +69,7 @@ static int board_abort(struct combat *off, struct combat *def);
 static int land_board_abort(struct combat *off, struct combat *def);
 static int ask_off(int combat_mode, struct combat *off,
 		   struct combat *def);
-static void get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
+static void get_dlist(struct combat *def, struct emp_qelem *, int a_spy,
 		      int *d_spyp);
 static int get_ototal(int combat_mode, struct combat *off,
 		      struct emp_qelem *olist, double osupport, int check);
@@ -136,8 +136,7 @@ pr_com(int inon, struct combat *com, natid who)
     } else if (com->type == EF_SHIP) {
 	return prbuf("%s%s %s(#%d)",
 		     inon ? inon == 1 ? "on " : "onto " : "",
-		     com->shp_mcp->m_name, com->shp_name,
-		     com->shp_uid);
+		     com->shp_mcp->m_name, com->shp_name, com->shp_uid);
     } else if (com->type == EF_LAND) {
 	return prbuf("%s%s #%d",
 		     inon ? inon == 1 ? "on " : "onto " : "",
@@ -217,8 +216,7 @@ att_get_combat(struct combat *com, int isdef)
 	    return att_combat_init(com, EF_BAD);
 	}
 	if (opt_MARKET) {
-	    if (isdef && player->owner &&
-		ontradingblock(EF_SHIP, &ship)) {
+	    if (isdef && player->owner && ontradingblock(EF_SHIP, &ship)) {
 		pr("%s is on the trading block.\n", prcom(0, com));
 		return att_combat_init(com, EF_BAD);
 	    }
@@ -287,7 +285,8 @@ att_get_combat(struct combat *com, int isdef)
 		   mil);
 	    com->troops = mil;
 	} else {		/* attacker */
-	    if (owner != player->cnum && getrel(getnatp(owner), player->cnum) != ALLIED) {
+	    if (owner != player->cnum
+		&& getrel(getnatp(owner), player->cnum) != ALLIED) {
 		/* must be EF_SECTOR */
 		if (com->mil)
 		    pr("WARNING: Your %d mil in %s were destroyed because %s just took the sector!\n",
@@ -682,7 +681,9 @@ att_show(struct combat *def)
 	    if (!trechk(player->cnum, def->own, LNDATT))
 		return abort_attack();
 	}
-	pr("%s is about %d%% efficient and has approximately %d mil on board.\n", prcom(0, def), roundintby((int)def->eff, 10), roundintby(def->troops, 10));
+	pr("%s is about %d%% efficient and has approximately %d mil on board.\n",
+	   prcom(0, def), roundintby((int)def->eff, 10),
+	   roundintby(def->troops, 10));
     }
     /* Ok, everything is fine */
     return 0;
@@ -2486,7 +2487,10 @@ ask_move_in_off(struct combat *off, struct combat *def)
 	left = commdamage(num_mil, dam, I_MILIT);
 	if (left < num_mil) {
 	    if (left) {
-		pr("%d of the mil you were moving were destroyed!\nOnly %d mil made it to %s\n", num_mil - left, left, xyas(def->x, def->y, player->cnum));
+		pr("%d of the mil you were moving were destroyed!\n"
+		   "Only %d mil made it to %s\n",
+		   num_mil - left, left,
+		   xyas(def->x, def->y, player->cnum));
 	    } else {
 		pr("All of the mil you were moving were destroyed!\n");
 	    }

@@ -399,8 +399,7 @@ domove:
 	if (sp->sct_own == target)
 	    wu(0, target, "  body count: troops: %d, rebels: %d\n", mc, cc);
 	else
-	    wu(0, target,
-	       "  rebels murder %d military\n", mc);
+	    wu(0, target, "  rebels murder %d military\n", mc);
 	nreport(actor, N_FREEDOM_FIGHT, victim, 1);
     }
     if (sp->sct_own != victim)

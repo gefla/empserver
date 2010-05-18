@@ -62,12 +62,10 @@ extern int display_mark(i_type, int);
 extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
-extern int do_unit_move(struct emp_qelem *land_list, int *together,
-	     double *minmob, double *maxmob);
+extern int do_unit_move(struct emp_qelem *, int *, double *, double *);
 extern int count_pop(int);
 extern int scuttle_tradeship(struct shpstr *, int);
-extern void resnoise(struct sctstr *sptr, int public_amt, char *name,
-		     int old, int new);
+extern void resnoise(struct sctstr *, int, char *, int, int);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern char *prsub(struct shpstr *);
@@ -657,8 +655,7 @@ extern double shp_mobcost(struct shpstr *);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
 extern int snxtitem(struct nstr_item *, int, char *, char *);
-extern void snxtitem_area(struct nstr_item *, int,
-			  struct range *);
+extern void snxtitem_area(struct nstr_item *, int, struct range *);
 extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
 extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
 extern void snxtitem_all(struct nstr_item *, int);
@@ -740,8 +737,7 @@ extern void prod_nat(int);
 /* nav_ship.c */
 extern int nav_ship(struct shpstr *);
 /* nav_util.c */
-extern int load_it(struct shpstr *, struct sctstr *,
-		   int);
+extern int load_it(struct shpstr *, struct sctstr *, int);
 extern void unload_it(struct shpstr *);
 /* nxtitemp.c */
 extern void *nxtitemp(struct nstr_item *);

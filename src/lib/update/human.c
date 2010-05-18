@@ -213,8 +213,7 @@ starve_some(short *vec, i_type whom, int num)
  * Truncate any extra people that may be around
  */
 static void
-trunc_people(struct sctstr *sp, struct natstr *np,
-	     short *vec)
+trunc_people(struct sctstr *sp, struct natstr *np, short *vec)
 {
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
 

@@ -44,8 +44,9 @@ install_service(char *program_name, char *service_name, char *config_file)
     SERVICE_DESCRIPTION sdBuf;
 
     if (config_file != NULL)
-        snprintf(&program_name[strlen(program_name)], _MAX_PATH-strlen(program_name), " -e %s",
-	    config_file);
+	snprintf(&program_name[strlen(program_name)],
+		 _MAX_PATH - strlen(program_name),
+		 " -e %s", config_file);
 
     if (service_name == NULL)
 	service_name = DEFAULT_SERVICE_NAME;

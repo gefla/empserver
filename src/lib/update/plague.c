@@ -144,8 +144,7 @@ infect_people(struct natstr *np, struct sctstr *sp)
  */
 int
 plague_people(struct natstr *np, short *vec,
-	      int *pstage, int *ptime,
-	      int etus)
+	      int *pstage, int *ptime, int etus)
 {
     int stage;
     double plg_num;

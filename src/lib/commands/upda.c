@@ -61,8 +61,7 @@ upda(void)
     pr("The current time is   %19.19s.\n\n", ctime(&now));
 
     if (next && update_window) {
-	pr("The next update window starts at %19.19s.\n",
-	   ctime(&next));
+	pr("The next update window starts at %19.19s.\n", ctime(&next));
 	stop = next + update_window;
 	pr("The next update window stops at %19.19s.\n", ctime(&stop));
     }
@@ -74,8 +73,7 @@ upda(void)
     case UPD_DEMAND_SCHED:
 	pr("Demand updates occur at update CHECK times.\n");
 	if (next) {
-	    pr("The next update check is at %19.19s.\n",
-	       ctime(&next));
+	    pr("The next update check is at %19.19s.\n", ctime(&next));
 	}
 	pr("Demand updates require %d country(s) to want one.\n",
 	   update_wantmin);

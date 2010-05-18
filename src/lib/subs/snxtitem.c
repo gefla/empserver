@@ -147,8 +147,7 @@ snxtitem_area(struct nstr_item *np, int type, struct range *range)
 }
 
 void
-snxtitem_dist(struct nstr_item *np, int type, int cx, int cy,
-	      int dist)
+snxtitem_dist(struct nstr_item *np, int type, int cx, int cy, int dist)
 {
     memset(np, 0, sizeof(*np));
     xydist_range(cx, cy, dist, &np->range);

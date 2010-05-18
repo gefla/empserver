@@ -78,8 +78,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	}
 	neweff = n;
 	*cost += work_cost;
-	if (!n && IS_BIG_CITY(old_type) &&
-	    !IS_BIG_CITY(*desig)) {
+	if (!n && IS_BIG_CITY(old_type) && !IS_BIG_CITY(*desig)) {
 	    // FIXME use trunc_people() and total_work()
 	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
 	    if (vec[I_CIVIL] > maxpop)
@@ -154,8 +153,8 @@ enlist(short *vec, int etu, int *cost)
 /* Fallout is calculated here. */
 
 static void
-meltitems(int etus, int fallout, int own, short *vec, int type, int x, int y,
-	  int uid)
+meltitems(int etus, int fallout, int own, short *vec,
+	  int type, int x, int y, int uid)
 {
     i_type n;
     int melt;
@@ -200,15 +199,15 @@ do_fallout(struct sctstr *sp, int etus)
 	return;
     if (etus > 24)
 	etus = 24;
-    meltitems(etus, sp->sct_fallout, sp->sct_own, sp->sct_item, EF_SECTOR,
-	      sp->sct_x, sp->sct_y, 0);
+    meltitems(etus, sp->sct_fallout, sp->sct_own, sp->sct_item,
+	      EF_SECTOR, sp->sct_x, sp->sct_y, 0);
     for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	if (!lp->lnd_own)
 	    continue;
 	if (lp->lnd_x != sp->sct_x || lp->lnd_y != sp->sct_y)
 	    continue;
-	meltitems(etus, sp->sct_fallout, lp->lnd_own, lp->lnd_item, EF_LAND,
-		  lp->lnd_x, lp->lnd_y, lp->lnd_uid);
+	meltitems(etus, sp->sct_fallout, lp->lnd_own, lp->lnd_item,
+		  EF_LAND, lp->lnd_x, lp->lnd_y, lp->lnd_uid);
     }
     for (i = 0; NULL != (spp = getshipp(i)); i++) {
 	if (!spp->shp_own)
@@ -217,8 +216,8 @@ do_fallout(struct sctstr *sp, int etus)
 	    continue;
 	if (mchr[(int)spp->shp_type].m_flags & M_SUB)
 	    continue;
-	meltitems(etus, sp->sct_fallout, spp->shp_own, spp->shp_item, EF_SHIP,
-		  spp->shp_x, spp->shp_y, spp->shp_uid);
+	meltitems(etus, sp->sct_fallout, spp->shp_own, spp->shp_item,
+		  EF_SHIP, spp->shp_x, spp->shp_y, spp->shp_uid);
     }
 }
 

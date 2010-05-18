@@ -90,8 +90,7 @@ sct_prewrite(int id, void *old, void *new)
     }
 
     if (prev_own != own)
-	lost_and_found(EF_SECTOR, prev_own, own,
-		       0, sp->sct_x, sp->sct_y);
+	lost_and_found(EF_SECTOR, prev_own, own, 0, sp->sct_x, sp->sct_y);
 }
 
 void

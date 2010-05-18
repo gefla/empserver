@@ -69,8 +69,7 @@ read_builtin_tables(void)
 	    lineno = 1;
 	    res = xundump(fp, ep->file, &lineno, ep->uid);
 	    if (res >= 0 && getc(fp) != EOF) {
-		fprintf(stderr, "%s: Junk after the table\n",
-			ep->file);
+		fprintf(stderr, "%s: Junk after the table\n", ep->file);
 		res = EF_BAD;
 	    }
 	    fclose(fp);

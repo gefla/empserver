@@ -1123,7 +1123,9 @@ output(void)
 	}
     }
     if (AIRPORT_MARKER)
-	printf("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\nthe islands).  You can redesignate these airfields to wilderness sectors\none at a time, each time you add a new country to the game.\n");
+	printf("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\n"
+	       "the islands).  You can redesignate these airfields to wilderness sectors\n"
+	       "one at a time, each time you add a new country to the game.\n");
 }
 
 static int

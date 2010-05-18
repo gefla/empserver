@@ -290,7 +290,8 @@ extern char *nstr_comp_val(char *, struct valstr *, int);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);
-extern struct valstr *nstr_exec_val(struct valstr *, natid, void *, enum nsc_type);
+extern struct valstr *nstr_exec_val(struct valstr *, natid, void *,
+				    enum nsc_type);
 extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);
 /* src/lib/global/nsc.c */

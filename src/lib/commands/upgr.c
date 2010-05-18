@@ -146,8 +146,7 @@ lupgr(void)
 	if (land.lnd_own != player->cnum)
 	    wu(0, land.lnd_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
-	       prland(&land), cname(player->cnum), land.lnd_tech,
-	       cost);
+	       prland(&land), cname(player->cnum), land.lnd_tech, cost);
     }
     if (n == 0) {
 	pr("No land units\n");
@@ -228,8 +227,7 @@ supgr(void)
 	if (ship.shp_own != player->cnum)
 	    wu(0, ship.shp_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
-	       prship(&ship), cname(player->cnum), ship.shp_tech,
-	       cost);
+	       prship(&ship), cname(player->cnum), ship.shp_tech, cost);
     }
     if (n == 0) {
 	pr("No ships\n");
@@ -317,8 +315,7 @@ pupgr(void)
 	if (plane.pln_own != player->cnum)
 	    wu(0, plane.pln_own,
 	       "%s upgraded by %s to tech %d, at a cost of %d\n",
-	       prplane(&plane), cname(player->cnum), plane.pln_tech,
-	       cost);
+	       prplane(&plane), cname(player->cnum), plane.pln_tech, cost);
     }
     if (n == 0) {
 	pr("No planes.\n");

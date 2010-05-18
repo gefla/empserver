@@ -108,8 +108,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    else
 		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(ulist)) {
-		pr("No %s left\n",
-		    type == EF_SHIP ? "ships" : "lands");
+		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
 		if (type == EF_SHIP && strlen(pathtaken) > 1) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
 		    pr("Path taken: %s\n", pathtaken);
@@ -140,8 +139,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    else
 		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(ulist)) {
-		pr("No %s left\n",
-		    type == EF_SHIP ? "ships" : "lands");
+		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
 		if (type == EF_SHIP && strlen(pathtaken) > 1) {
 		    pathtaken[strlen(pathtaken) - 1] = '\0';
 		    pr("Path taken: %s\n", pathtaken);

@@ -121,8 +121,7 @@ radar(int type)
 		tech = WORLD_Y / 2.0;
 	    if (tech > WORLD_X / 4.0)
 		tech = WORLD_X / 4.0;
-	    radmap(item.gen.x, item.gen.y, item.gen.effic,
-		   (int)tech, tf);
+	    radmap(item.gen.x, item.gen.y, item.gen.effic, (int)tech, tf);
 	}
 	break;
     default:

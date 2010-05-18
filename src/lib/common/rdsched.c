@@ -340,7 +340,6 @@ delete_update(time_t t, time_t sched[], int n)
 {
     int i = find_update(t, sched);
     if (t == sched[i])
-	memmove(sched + i, sched + i + 1,
-		(n - 1 - i) * sizeof(*sched));
+	memmove(sched + i, sched + i + 1, (n - 1 - i) * sizeof(*sched));
     return i;
 }

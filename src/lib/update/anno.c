@@ -72,8 +72,7 @@ delete_old_announcements(void)
     }
     sprintf(tmp_filename, "%s.tmp", annfil);
     if ((tmpfp = fopen(tmp_filename, "wb")) == NULL) {
-	logerror("can't open telegram file %s for writing",
-		 tmp_filename);
+	logerror("can't open telegram file %s for writing", tmp_filename);
 	if (fclose(annfp) != 0)
 	    logerror("can't close telegram file %s", annfil);
 	return;
@@ -85,8 +84,7 @@ delete_old_announcements(void)
 	copy_file = 0;
     }
     if (fclose(tmpfp) != 0) {
-	logerror("can't close temporary telegram file %s",
-		 tmp_filename);
+	logerror("can't close temporary telegram file %s", tmp_filename);
 	copy_file = 0;
     }
 #if defined(_WIN32)

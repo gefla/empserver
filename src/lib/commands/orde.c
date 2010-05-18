@@ -198,8 +198,7 @@ orde(void)
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
 			return RET_FAIL;
-		    p1 = getstarg(player->argp[6], "Amount? ",
-				  buf);
+		    p1 = getstarg(player->argp[6], "Amount? ", buf);
 		    if (!p1)
 			return RET_SYN;
 		    if (!check_ship_ok(&ship))
@@ -218,8 +217,7 @@ orde(void)
 		    i1 = whatitem(player->argp[5], "Commodity? ");
 		    if (!i1)
 			return RET_FAIL;
-		    p1 = getstarg(player->argp[6], "Amount? ",
-				  buf);
+		    p1 = getstarg(player->argp[6], "Amount? ", buf);
 		    if (!p1)
 			return RET_SYN;
 		    if (!check_ship_ok(&ship))

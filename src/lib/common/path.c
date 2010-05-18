@@ -93,8 +93,7 @@ bp_init(void)
  * string in path.  Return 0 on success, -1 on error.
  */
 static int
-best_path(struct sctstr *from, struct sctstr *to, char *path,
-	  int mob_type)
+best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 {
     static struct bestp *mybestpath;
     struct as_data *adp;

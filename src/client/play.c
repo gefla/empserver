@@ -183,7 +183,8 @@ sysdep_stdin_init(void)
  * which individual events are active.
  */
 static int
-w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd, struct timeval* time)
+w32_select(int nfds, fd_set *rdfd, fd_set *wrfd, fd_set *errfd,
+	   struct timeval *time)
 {
     HANDLE handles[3];
     SOCKET sock;

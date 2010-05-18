@@ -201,8 +201,7 @@ launch_missile(struct plnstr *pp)
 	    return RET_FAIL;
 	}
 	n = atoi(cp);
-	if ((n < 0) || !getship(n, &target_ship) ||
-	    !target_ship.shp_own) {
+	if ((n < 0) || !getship(n, &target_ship) || !target_ship.shp_own) {
 	    pr("Bad ship number!\n");
 	    return RET_FAIL;
 	}

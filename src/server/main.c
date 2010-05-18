@@ -203,20 +203,19 @@ main(int argc, char **argv)
     /* silently ignore operands for backward compatibility */
 
 #if defined(_WIN32)
-    if ((!daemonize || flags || config_file != NULL) &&
-	remove_service_set) {
+    if ((!daemonize || flags || config_file != NULL)
+	&& remove_service_set) {
 	fprintf(stderr, "Can't use -p, -s, -d or -e with either "
 	    "-u or -U options\n");
 	exit(EXIT_FAILURE);
     }
     if ((!daemonize || flags) && install_service_set) {
-	fprintf(stderr, "Can't use -d, -p or -s with either "
-	    "-i or -I options\n");
+	fprintf(stderr,
+		"Can't use -d, -p or -s with either -i or -I options\n");
 	exit(EXIT_FAILURE);
     }
     if (install_service_set && remove_service_set) {
-	fprintf(stderr, "Can't use both -u or -U and -i or -I "
-	    "options\n");
+	fprintf(stderr, "Can't use both -u or -U and -i or -I options\n");
 	exit(EXIT_FAILURE);
     }
 

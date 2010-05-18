@@ -129,8 +129,7 @@ info(void)
 	    pr(".\n");
 	    return RET_FAIL;
 	}
-	snprintf(filename, sizeof(filename), "%s/%s", infodir,
-		 last);
+	snprintf(filename, sizeof(filename), "%s/%s", infodir, last);
 	fp = fopen(filename, "r");
 	if (fp == NULL) {
 	    pr("Error reading info file for %s\n", name);
@@ -210,8 +209,7 @@ apro(void)
     while ((dp = readdir(info_dp))) {
 	if (dp->d_name[0] == '.')
 	    continue;
-	snprintf(filename, sizeof(filename), "%s/%s", infodir,
-		 dp->d_name);
+	snprintf(filename, sizeof(filename), "%s/%s", infodir, dp->d_name);
 	fp = fopen(filename, "r");
 	alreadyhit = 0;
 	nll = nlhl = 0;
@@ -357,8 +355,7 @@ info(void)
 	    pr(".\n");
 	    return RET_FAIL;
 	}
-	snprintf(filename, sizeof(filename), "%s/%s",
-		  infodir, last);
+	snprintf(filename, sizeof(filename), "%s/%s", infodir, last);
 	fp = fopen(filename, "rb");
 	if (fp == NULL) {
 	    pr("Error reading info file for %s\n", name);
