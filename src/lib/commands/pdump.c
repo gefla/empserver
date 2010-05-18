@@ -264,7 +264,7 @@ pdump(void)
 	    case 19:
 		pr(pln_is_in_orbit(&plane)
 		   && (plane.pln_flags & PLN_SYNCHRONOUS)
-		    ? " Y" : " N");
+		   ? " Y" : " N");
 		break;
 	    case 20:
 		if (getnuke(nuk_on_plane(&plane), &nuke)) {

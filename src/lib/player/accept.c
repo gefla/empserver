@@ -76,10 +76,10 @@ player_new(int s)
 
     lp = malloc(sizeof(struct player));
     if (!lp)
-      return NULL;
+	return NULL;
     memset(lp, 0, sizeof(struct player));
     idle_timeout.tv_sec = max_idle * 60;
-    idle_timeout.tv_usec = 0 ;
+    idle_timeout.tv_usec = 0;
     if (s >= 0) {
 	/* real player, not dummy created by update and market update */
 	lp->iop = io_open(s, IO_READ | IO_WRITE, IO_BUFSIZE, idle_timeout);

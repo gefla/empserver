@@ -439,7 +439,7 @@ empth_rwlock_wrlock(empth_rwlock_t *rwlock)
 	empth_status("waiting for wrlock %s", rwlock->name);
 	pthread_cond_wait(&rwlock->can_write, &mtx_ctxsw);
 	empth_status("got wrlock %s %d %d",
-		 rwlock->name, rwlock->nread, rwlock->nwrite);
+		     rwlock->name, rwlock->nread, rwlock->nwrite);
 	empth_restorectx();
     }
 }

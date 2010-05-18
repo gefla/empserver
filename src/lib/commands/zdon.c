@@ -81,7 +81,7 @@ zdon(void)
     if (*p == 'y' || *p == 'Y') {
 	checking = 0;
 	wantupd = 1;
-    } else if  (*p == 'n' || *p == 'N') {
+    } else if (*p == 'n' || *p == 'N') {
 	checking = 0;
 	wantupd = 0;
     } else {

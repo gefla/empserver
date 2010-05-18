@@ -288,7 +288,7 @@ xdcolhdr(struct xdstr *xd, struct castr ca[])
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	if (n) {
 	    for (j = 0; j < n; j++) {
-		xd->pr("%s%s(%d)",sep, ca[i].ca_name, j);
+		xd->pr("%s%s(%d)", sep, ca[i].ca_name, j);
 		sep = " ";
 	    }
 	} else {

@@ -386,7 +386,7 @@ pr_ship(struct shpstr *ship)
     pr("Fleet <F>: %.1s\n", &ship->shp_fleet);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        ship->shp_rpath, ship->shp_rflags);
-    pr("Plague Stage <a>: %d\t\t",ship->shp_pstage);
+    pr("Plague Stage <a>: %d\t\t", ship->shp_pstage);
     pr("Plague Time <b>: %d\n", ship->shp_ptime);
     pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
     pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");

@@ -349,7 +349,7 @@ deffld(int fldno, char *name, int idx)
     int res;
 
     res = stmtch(name, ca, offsetof(struct castr, ca_name),
-		     sizeof(struct castr));
+		 sizeof(struct castr));
     if (res < 0)
 	return gripe("Header %s of field %d is %s", name, fldno + 1,
 		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
@@ -851,7 +851,7 @@ xufooter(FILE *fp, struct castr ca[], int recs)
 
     res = -1;
     if (human) {
-	if (fscanf(fp, "config%n",  &res) != 0 || res < 0)
+	if (fscanf(fp, "config%n", &res) != 0 || res < 0)
 	    return gripe("Malformed table footer");
     } else {
 	if (fscanf(fp, "%d", &n) != 1)

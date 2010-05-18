@@ -183,8 +183,8 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 	delta = 100 - pp->pln_effic;
 
     memset(mvec, 0, sizeof(mvec));
-    mvec[I_MILIT] =  pcp->pl_crew;
-    mvec[I_LCM] =  pcp->pl_lcm;
+    mvec[I_MILIT] = pcp->pl_crew;
+    mvec[I_LCM] = pcp->pl_lcm;
     mvec[I_HCM] = pcp->pl_hcm;
     build = get_materials(sp, bp, mvec, delta);
 

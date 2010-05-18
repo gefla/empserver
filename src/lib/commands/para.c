@@ -81,8 +81,8 @@ para(void)
     pr("range to target is %d\n", ap_to_target);
     if (target.sct_own == player->cnum) {
 	pr("You can't air-assault your own sector!\n");
-	    return RET_FAIL;
-	}
+	return RET_FAIL;
+    }
     /*
      * select planes within range
      */

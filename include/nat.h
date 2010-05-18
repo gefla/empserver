@@ -183,7 +183,7 @@ extern int influx(struct natstr *np);
 extern struct natstr *nat_reset(struct natstr *, enum nat_status, coord, coord);
 extern int check_nat_name(char *cname);
 
-extern int grant_btus(struct natstr *, int );
+extern int grant_btus(struct natstr *, int);
 
 /* nation flags */
 #define NF_INFORM	bit(0)	/* Inform me of telegrams right away */

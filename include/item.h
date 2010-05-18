@@ -49,22 +49,22 @@ enum {
 };
 
 typedef enum {
-	I_NONE = -1,
-	I_CIVIL,
-	I_MILIT,
-	I_SHELL,
-	I_GUN,
-	I_PETROL,
-	I_IRON,
-	I_DUST,
-	I_BAR,
-	I_FOOD,
-	I_OIL,
-	I_LCM,
-	I_HCM,
-	I_UW,
-	I_RAD,
-	I_MAX = I_RAD
+    I_NONE = -1,
+    I_CIVIL,
+    I_MILIT,
+    I_SHELL,
+    I_GUN,
+    I_PETROL,
+    I_IRON,
+    I_DUST,
+    I_BAR,
+    I_FOOD,
+    I_OIL,
+    I_LCM,
+    I_HCM,
+    I_UW,
+    I_RAD,
+    I_MAX = I_RAD
 } ATTRIBUTE((packed)) i_type;
 
 struct ichrstr {

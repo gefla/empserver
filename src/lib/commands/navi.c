@@ -125,8 +125,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    }
 	    if (!skip)
 		nav_map(leader->x, leader->y,
-			type == EF_SHIP ?
-			    !(mchr[(int)leader->type].m_flags & M_SUB) : 1);
+			type == EF_SHIP
+			? !(mchr[(int)leader->type].m_flags & M_SUB) : 1);
 	    else
 		skip = 0;
 	    sprintf(prompt, "<%.1f:%.1f: %s> ", *maxmob,
@@ -171,7 +171,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	if (dir >= 0) {
 	    if (type == EF_SHIP) {
 		stopping |= shp_nav_one_sector(ulist, dir,
-		    player->cnum, *together);
+					       player->cnum, *together);
 		if (stopping != 2) {
 		    *pt++ = dirch[dir];
 		    *pt = '\0';
@@ -179,7 +179,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    } else
 		stopping |=
 		    lnd_mar_one_sector(ulist, dir, player->cnum,
-			*together);
+				       *together);
 	    cp++;
 	    continue;
 	}

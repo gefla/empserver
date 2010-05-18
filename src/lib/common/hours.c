@@ -117,7 +117,8 @@ weekday(char *str, int *wday)
      */
     static char *day_name[7] = {
 	"sunday", "monday", "tuesday", "wednesday",
-	"thursday", "friday", "saturday" };
+	"thursday", "friday", "saturday"
+    };
     int i, j;
 
     for (; isspace(*str); ++str) ;

@@ -47,7 +47,7 @@ struct loststr {
     natid lost_owner;		/* Who lost it */
     /* end of part matching struct empobj */
     short lost_type;		/* Type of thing (ship, plane, nuke, land, sector) */
-    int lost_id;		/* uid of lost thing (0 for sector)*/
+    int lost_id;		/* uid of lost thing (0 for sector) */
     coord lost_x;
     coord lost_y;
 };

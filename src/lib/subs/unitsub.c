@@ -161,7 +161,7 @@ unit_path(int together, struct empobj *unit, char *buf)
 			  d_sect.sct_x, d_sect.sct_y, player->cnum);
 	if (!cp || unit->mobil <= 0) {
 	    pr("Can't get to '%s' right now.\n",
-		xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
+	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
 	    return NULL;
 	}
     } else {
@@ -201,8 +201,8 @@ unit_view(struct emp_qelem *list)
 		pr("[oil:%d] ", sect.sct_oil);
 	}
 	pr("%s @ %s %d%% %s\n", obj_nameof(&ulp->unit.gen),
-	    xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
-	    sect.sct_effic, dchr[sect.sct_type].d_name);
+	   xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
+	   sect.sct_effic, dchr[sect.sct_type].d_name);
     }
 }
 

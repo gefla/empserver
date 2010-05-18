@@ -627,8 +627,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	mpr(victim, "Incoming fire does %d damage!\n", dam);
 #if 0
 	mpr(victim, "%s fires at you for %d!\n",
-	    xyas(fsect.sct_x,fsect.sct_y,victim),
-	    dam);
+	    xyas(fsect.sct_x, fsect.sct_y, victim), dam);
 #endif
 	wu(0, fsect.sct_own,
 	   "%s fires at %s ships in %s for %d!\n",

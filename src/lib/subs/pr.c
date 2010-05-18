@@ -544,7 +544,7 @@ copy_ascii_no_funny(char *dst, char *src)
 	if ((ch < 0x20 && ch != '\t' && ch != '\n') || ch == 0x7f)
 	    ;			/* ignore funny control */
 	else if (ch > 0x7f)
-	    *p++ = '?';	/* replace non-ASCII */
+	    *p++ = '?';		/* replace non-ASCII */
 	else
 	    *p++ = ch;
     }
@@ -619,8 +619,7 @@ ufindpfx(char *s, int n)
 {
     int i = 0;
 
-    while (n && s[i])
-    {
+    while (n && s[i]) {
 	if ((s[i++] & 0xc0) == 0xc0)
             while ((s[i] & 0xc0) == 0x80)
 		i++;

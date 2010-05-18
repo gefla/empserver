@@ -605,7 +605,7 @@ show_news(int tlev)
 	if (rpt[i].r_newspage == N_NOTUSED)
 	    continue;
 	pr("%-2d %-20.20s %4d\n", rpt[i].r_uid,
-	    page_headings[rpt[i].r_newspage].name, rpt[i].r_good_will);
+	   page_headings[rpt[i].r_newspage].name, rpt[i].r_good_will);
 	for (j = 0; j < NUM_RPTS; j++)
 	    pr("    %s\n", rpt[i].r_newstory[j]);
     }
@@ -686,12 +686,12 @@ fmttime2822(time_t t)
 	(time->tm_isdst ? tzi.DaylightBias : tzi.StandardBias));
 
     nn = _snprintf(buf + n, sizeof(buf) - n, " %+03d%02d",
-	time_offset/60, abs(time_offset) % 60);
+		   time_offset / 60, abs(time_offset) % 60);
     if (CANT_HAPPEN(nn <= 0 || nn + n >= sizeof(buf)))
 	buf[0] = 0;
 #else
     size_t n = strftime(buf, sizeof(buf), "%a, %d %b %Y %T %z",
-		     localtime(&t));
+			localtime(&t));
     if (CANT_HAPPEN(n == 0))
 	buf[0] = 0;
 #endif

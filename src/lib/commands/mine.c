@@ -109,7 +109,7 @@ landmine(void)
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
 	    pr("%s is on a %s\n", prland(&land),
-	       land. lnd_ship >= 0 ? "ship" : "land unit");
+	       land.lnd_ship >= 0 ? "ship" : "land unit");
 	    continue;
 	}
 	if (land.lnd_mobil < 1) {

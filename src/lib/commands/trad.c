@@ -403,7 +403,7 @@ check_trade(void)
 	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
 	   trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
 	   price);
-   }
+    }
     return RET_OK;
 }
 

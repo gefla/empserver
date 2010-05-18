@@ -45,7 +45,7 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
 	int thresh, int amt_src, int plague, enum i_packing packing)
 {
     struct sctstr *to;
-    i_type vtype;			/* item vartype */
+    i_type vtype;		/* item vartype */
     int amt_moved;
     int amt_dst;
     int mobility;

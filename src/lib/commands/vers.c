@@ -201,7 +201,7 @@ vers(void)
     pr("Fallout decays by %.0f%% per update\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
     pr("\n");
-    pr ("Damage to\t\t\tSpills to\n");
+    pr("Damage to\t\t\tSpills to\n");
     pr("\t      Sector  People  Mater.   Ships  Planes  LandU.\n");
     pr("Sector\t\t --\t%3.0f%%\t100%%\t  0%%\t%3.0f%%\t%3.0f%%\n",
        people_damage * 100.0, unit_damage / 0.07, unit_damage * 100.0);

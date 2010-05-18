@@ -211,21 +211,21 @@ struct castr dchr_ca[] = {
 };
 
 #define NSC_GENITEM(ef_type, ef_chr)					\
-    {"uid", empobjoff(uid),  NSC_INT, 0, NULL, ef_type, 0},		\
+    {"uid", empobjoff(uid), NSC_INT, 0, NULL, ef_type, 0},		\
     {"timestamp", empobjoff(timestamp), NSC_TIME, 0, NULL, EF_BAD, NSC_EXTRA}, \
-    {"owner", empobjoff(own),  NSC_NATID, 0, NULL, EF_NATION, 0},	\
-    {"xloc", empobjoff(x),  NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
-    {"yloc", empobjoff(y),  NSC_YCOORD, 0, NULL, EF_BAD, 0},		\
-    {"type", empobjoff(type),  NSC_CHAR, 0, NULL, ef_chr, 0},		\
-    {"effic", empobjoff(effic),  NSC_CHAR, 0, NULL, EF_BAD, 0},		\
-    {"mobil", empobjoff(mobil),  NSC_CHAR , 0, NULL, EF_BAD, 0},	\
-    {"off", empobjoff(off),  NSC_UCHAR , 0, NULL, EF_BAD, 0},		\
-    {"tech", empobjoff(tech),  NSC_SHORT, 0, NULL, EF_BAD, 0},		\
-    {"group", empobjoff(group),  NSC_STRINGY, 1, NULL, EF_BAD, NSC_EXTRA}, \
-    {"opx", empobjoff(opx),  NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
-    {"opy", empobjoff(opy),  NSC_YCOORD, 0, NULL, EF_BAD, 0},		\
-    {"mission", empobjoff(mission),  NSC_SHORT, 0, NULL, EF_MISSIONS, 0}, \
-    {"radius", empobjoff(radius),  NSC_SHORT, 0, NULL, EF_BAD, 0}
+    {"owner", empobjoff(own), NSC_NATID, 0, NULL, EF_NATION, 0},	\
+    {"xloc", empobjoff(x), NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
+    {"yloc", empobjoff(y), NSC_YCOORD, 0, NULL, EF_BAD, 0},		\
+    {"type", empobjoff(type), NSC_CHAR, 0, NULL, ef_chr, 0},		\
+    {"effic", empobjoff(effic), NSC_CHAR, 0, NULL, EF_BAD, 0},		\
+    {"mobil", empobjoff(mobil), NSC_CHAR , 0, NULL, EF_BAD, 0},		\
+    {"off", empobjoff(off), NSC_UCHAR , 0, NULL, EF_BAD, 0},		\
+    {"tech", empobjoff(tech), NSC_SHORT, 0, NULL, EF_BAD, 0},		\
+    {"group", empobjoff(group), NSC_STRINGY, 1, NULL, EF_BAD, NSC_EXTRA}, \
+    {"opx", empobjoff(opx), NSC_XCOORD, 0, NULL, EF_BAD, 0},		\
+    {"opy", empobjoff(opy), NSC_YCOORD, 0, NULL, EF_BAD, 0},		\
+    {"mission", empobjoff(mission), NSC_SHORT, 0, NULL, EF_MISSIONS, 0}, \
+    {"radius", empobjoff(radius), NSC_SHORT, 0, NULL, EF_BAD, 0}
 
 struct castr ship_ca[] = {
 #define CURSTR struct shpstr
@@ -482,7 +482,7 @@ struct castr news_ca[] = {
 
 struct castr lost_ca[] = {
 #define CURSTR struct loststr
-   /* no need for uid as long as it's not referenced from other tables */
+    /* no need for uid as long as it's not referenced from other tables */
     {"timestamp", fldoff(lost_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, 0},
     {"owner", fldoff(lost_owner), NSC_NATID, 0, NULL, EF_NATION, 0},

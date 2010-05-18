@@ -102,7 +102,7 @@ radar(int type)
 		if (mchr[(int)item.ship.shp_type].m_flags & M_SONAR)
 		    tf = techfact(item.ship.shp_tech, 1.0);
 		tech = techfact(item.ship.shp_tech,
-		    mchr[(int)item.ship.shp_type].m_vrnge);
+				mchr[(int)item.ship.shp_type].m_vrnge);
 	    } else {
 		if (!(lchr[(int)item.land.lnd_type].l_flags & L_RADAR)) {
 		    pr("%s can't use radar!\n", prland(&item.land));

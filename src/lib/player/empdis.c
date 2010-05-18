@@ -167,7 +167,7 @@ disable_coms(void)
 	cmd = comtch(name, player_coms, -1);
 	if (cmd < 0) {
 	    logerror("Warning: not disabling %s command %s\n",
-		    cmd == M_NOTUNIQUE ? "ambiguous" : "unknown", name);
+		     cmd == M_NOTUNIQUE ? "ambiguous" : "unknown", name);
 	    continue;
 	}
 	player_coms[cmd].c_permit |= GOD;
@@ -219,7 +219,7 @@ update_timeused(time_t now)
 void
 enforce_minimum_session_time(void)
 {
-   struct natstr *natp = getnatp(player->cnum);
+    struct natstr *natp = getnatp(player->cnum);
 
     time_t dt = natp->nat_last_logout - natp->nat_last_login;
     if (dt > seconds_since_midnight(natp->nat_last_logout))

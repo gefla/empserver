@@ -61,17 +61,17 @@ struct lwpProc *lwpCreate(int prio, void (*)(void *), int size,
 			  int flags, char *name,
 			  int argc, char **argv, void *ud);
 void lwpExit(void);
-void lwpTerminate(struct lwpProc * p);
+void lwpTerminate(struct lwpProc *);
 void lwpYield(void);
 int lwpSleepFd(int fd, int flags, struct timeval *timeout);
 int lwpSleepUntil(time_t until);
 void lwpWakeup(struct lwpProc *);
 int lwpSigWait(sigset_t *set, int *sig);
-void *lwpGetUD(struct lwpProc * p);
-void lwpSetUD(struct lwpProc * p, char *ud);
+void *lwpGetUD(struct lwpProc *);
+void lwpSetUD(struct lwpProc *, char *ud);
 int lwpSetPriority(int prio);
-char *lwpName(struct lwpProc * p);
-void lwpSetName(struct lwpProc * p, char *name);
+char *lwpName(struct lwpProc *);
+void lwpSetName(struct lwpProc *, char *name);
 
 struct lwp_rwlock *lwp_rwlock_create(char *);
 void lwp_rwlock_destroy(struct lwp_rwlock *);

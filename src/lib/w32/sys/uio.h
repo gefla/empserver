@@ -39,9 +39,9 @@
 
 struct iovec {
     /* Base address of a memory region for input or output. */
-    void   *iov_base;
+    void *iov_base;
     /* The size of the memory pointed to by iov_base. */
-    size_t  iov_len;
+    size_t iov_len;
 };
 
 extern ssize_t readv(int fd, const struct iovec *iov, int iovcnt);

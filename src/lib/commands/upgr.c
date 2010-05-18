@@ -40,8 +40,8 @@
 #include "ship.h"
 
 enum {
-  UPGR_COST = 15,		/* how much avail and money to charge */
-  UPGR_EFF = 35			/* efficiency reduction */
+    UPGR_COST = 15,		/* how much avail and money to charge */
+    UPGR_EFF = 35		/* efficiency reduction */
 };
 
 static int lupgr(void);

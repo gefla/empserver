@@ -199,8 +199,10 @@ static int
 strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
 {
     int res;
-    if (sz1 == sz2) return strncmp(s1, s2, sz2);
-    if (sz1 < sz2) return -strnncmp(s2, sz2, s1, sz1);
+    if (sz1 == sz2)
+	return strncmp(s1, s2, sz2);
+    if (sz1 < sz2)
+	return -strnncmp(s2, sz2, s1, sz1);
     res = strncmp(s1, s2, sz2);
     return res ? res : s1[sz2];
 }
@@ -278,7 +280,8 @@ nstr_parse_val(char *str, struct valstr *val)
 	val->val_cat = NSC_VAL;
 	val->val_as.str.base = str + 1;
 	val->val_as.str.maxsz = tail - (str + 1);
-	if (*tail) ++tail;
+	if (*tail)
+	    ++tail;
 	/* FIXME else unclosed string */
 	return tail;
     }
@@ -353,7 +356,7 @@ static int
 nstr_is_name_of_ca(struct valstr *val, struct castr *ca, int idx)
 {
     if (CANT_HAPPEN(val->val_cat != NSC_ID && idx >= 0))
-       return 0;
+	return 0;
     return idx >= 0 && strlen(ca[idx].ca_name) == val->val_as.str.maxsz;
 }
 
@@ -487,11 +490,11 @@ nstr_optype(enum nsc_type lft, enum nsc_type rgt)
     lft = nstr_promote(lft);
     rgt = nstr_promote(rgt);
     if (lft == rgt)
-       return lft;
+	return lft;
     if (lft == NSC_DOUBLE && rgt == NSC_LONG)
-       return NSC_DOUBLE;
+	return NSC_DOUBLE;
     if (rgt == NSC_DOUBLE && lft == NSC_LONG)
-       return NSC_DOUBLE;
+	return NSC_DOUBLE;
     return NSC_NOTYPE;
 }
 

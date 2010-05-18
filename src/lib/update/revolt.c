@@ -346,7 +346,7 @@ guerrilla(struct sctstr *sp)
 	uw -= n;
 	sp->sct_item[I_UW] = uw;
     }
-  domove:
+domove:
     if (move && che > 0) {
 	struct sctstr *nicest_sp = NULL;
 	if (convert)

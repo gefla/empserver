@@ -286,7 +286,7 @@ extern struct symbol sector_navigation[];
 
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
-extern char *nstr_comp_val(char *, struct valstr*, int);
+extern char *nstr_comp_val(char *, struct valstr *, int);
 extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);

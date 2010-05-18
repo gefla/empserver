@@ -85,7 +85,7 @@ sarg_xy(char *str, coord *xp, coord *yp)
 	return 0;
     y = strtoy(str, &str);
     if (y < 0 || (*str != 0 && !isspace(*str)))
-      return 0;
+	return 0;
     if ((x ^ y) & 1)
 	return 0;
     np = getnatp(player->cnum);

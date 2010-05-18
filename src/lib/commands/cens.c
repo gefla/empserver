@@ -85,9 +85,9 @@ cens(void)
 	n = sect.sct_dist[I_FOOD] % 1000;
 	pr("%c ", n == 0 ? '.' : '0' + (n / 100));
 	if (sect.sct_own != sect.sct_oldown)
-	  pr("%3d",  sect.sct_oldown);
+	    pr("%3d",  sect.sct_oldown);
 	else
-	  pr("   ");
+	    pr("   ");
 
 	pr("%5d", sect.sct_item[I_CIVIL]);
 	pr("%5d", sect.sct_item[I_MILIT]);

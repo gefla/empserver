@@ -84,7 +84,9 @@ mineq(char *a, char *b)
     /* find common prefix: */
     for (i = 0; a[i] != 0 && a[i] == b[i]; i++) ;
 
-    if (a[i] != 0) return ME_MISMATCH;
-    if (b[i] == 0 || b[i] == ' ') return ME_EXACT;
+    if (a[i] != 0)
+	return ME_MISMATCH;
+    if (b[i] == 0 || b[i] == ' ')
+	return ME_EXACT;
     return ME_PARTIAL;
 }

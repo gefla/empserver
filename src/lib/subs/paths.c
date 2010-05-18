@@ -110,7 +110,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
 
     getsect(x, y, &sect);
 
-  more:
+more:
     while (*p) {
 	if (sarg_xy(p, &dx, &dy)) {
 	    bp = NULL;

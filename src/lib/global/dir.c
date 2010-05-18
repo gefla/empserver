@@ -64,5 +64,5 @@ signed char dirindex[] = {
 
 /* must agree with dirch[] and DIR_ defines */
 char *routech[] = {
-    "   ", "  /", "  >","  \\","/  ","<  ","\\  "
+    "   ", "  /", "  >", "  \\", "/  ", "<  ", "\\  "
 };

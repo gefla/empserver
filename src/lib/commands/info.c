@@ -320,7 +320,7 @@ info(void)
 	    default:
 		pr("Error reading info dir\n");
 		logerror("Error (%lu) reading info dir(%s)\\file(%s)",
-		    GetLastError(), infodir, filename);
+			 GetLastError(), infodir, filename);
 	    }
 	    return RET_FAIL;
 	}
@@ -412,7 +412,7 @@ apro(void)
 	    lhitlim = 100;
     }
 
-    snprintf(filename, sizeof(filename), "%s\\*",infodir);
+    snprintf(filename, sizeof(filename), "%s\\*", infodir);
     hDir = FindFirstFile(filename, &fData);
     if (hDir == INVALID_HANDLE_VALUE) {
 	if (GetLastError() == ERROR_PATH_NOT_FOUND) {
@@ -421,7 +421,7 @@ apro(void)
 	} else {
 	    pr("Error reading info dir\n");
 	    logerror("Error (%lu) reading info dir(%s)\\file(%s)",
-		GetLastError(), infodir, filename);
+		     GetLastError(), infodir, filename);
 	}
 	return RET_FAIL;
     }
@@ -446,7 +446,7 @@ apro(void)
 	     (fData.dwFileAttributes == FILE_ATTRIBUTE_ARCHIVE) ||
 	     (fData.dwFileAttributes == FILE_ATTRIBUTE_READONLY))) {
 	    snprintf(filename, sizeof(filename), "%s\\%s", infodir,
-		      fData.cFileName);
+		     fData.cFileName);
 	    fp = fopen(filename, "rb");
 	    alreadyhit = 0;
 	    nll = nlhl = 0;

@@ -81,33 +81,32 @@ fd_is_socket(int fd, SOCKET *sockp)
 void
 w32_set_winsock_errno(void)
 {
-  int err = WSAGetLastError();
-  WSASetLastError(0);
+    int err = WSAGetLastError();
+    WSASetLastError(0);
 
-  /* Map some WSAE* errors to the runtime library's error codes.  */
-  switch (err)
-    {
+    /* Map some WSAE* errors to the runtime library's error codes.  */
+    switch (err) {
     case WSA_INVALID_HANDLE:
-      errno = EBADF;
-      break;
+	errno = EBADF;
+	break;
     case WSA_NOT_ENOUGH_MEMORY:
-      errno = ENOMEM;
-      break;
+	errno = ENOMEM;
+	break;
     case WSA_INVALID_PARAMETER:
-      errno = EINVAL;
-      break;
+	errno = EINVAL;
+	break;
     case WSAEWOULDBLOCK:
-      errno = EAGAIN;
-      break;
+	errno = EAGAIN;
+	break;
     case WSAENAMETOOLONG:
-      errno = ENAMETOOLONG;
-      break;
+	errno = ENAMETOOLONG;
+	break;
     case WSAENOTEMPTY:
-      errno = ENOTEMPTY;
-      break;
+	errno = ENOTEMPTY;
+	break;
     default:
-      errno = (err > 10000 && err < 10025) ? err - 10000 : err;
-      break;
+	errno = (err > 10000 && err < 10025) ? err - 10000 : err;
+	break;
     }
 }
 
@@ -284,8 +283,7 @@ fcntl(int fd, int cmd, ...)
     unsigned long nonblocking;
     SOCKET sock;
 
-    switch (cmd)
-    {
+    switch (cmd) {
     case F_GETFL:
 	return 0;
     case F_SETFL:

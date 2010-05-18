@@ -82,7 +82,7 @@ fort(void)
 	if (hard_amt <= 0)
 	    continue;
 
-	if (lnd_fortify (&land, hard_amt) <= 0) {
+	if (lnd_fortify(&land, hard_amt) <= 0) {
 	    pr("%s can't be fortified%s\n", prland(&land),
 	       land.lnd_harden >= land_mob_max ? " any further" : "");
 	    continue;

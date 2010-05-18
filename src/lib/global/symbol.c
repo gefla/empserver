@@ -87,7 +87,7 @@ struct symbol meta_flags[] = {
     {0, NULL}
 };
 
-struct symbol meta_type[]  = {
+struct symbol meta_type[] = {
     {NSC_LONG, "d"},
     {NSC_DOUBLE, "g"},
     {NSC_STRING, "s"},
@@ -101,7 +101,7 @@ struct symbol meta_type[]  = {
     {NSC_HIDDEN, "d"},
     {NSC_TIME, "d"},
     {NSC_FLOAT, "g"},
-    {NSC_STRINGY,"c"},
+    {NSC_STRINGY, "c"},
     {NSC_NOTYPE, NULL}
 };
 
@@ -150,7 +150,7 @@ struct symbol nation_relations[] = {
 
 struct symbol nation_status[] = {
     {STAT_UNUSED, "unused"},
-    {STAT_NEW,	"new"},
+    {STAT_NEW, "new"},
     {STAT_VIS, "visitor"},
     {STAT_SANCT, "sanctuary"},
     {STAT_ACTIVE, "active"},

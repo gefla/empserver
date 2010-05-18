@@ -508,7 +508,7 @@ perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
     }
     if (mcp->m_flags & M_SUB) {
 	if (!targeting_ships)
-	    return dam;	/* subs interdict only ships */
+	    return dam;		/* subs interdict only ships */
 	range = roundrange(torprange(sp));
 	if (md > range)
 	    return dam;

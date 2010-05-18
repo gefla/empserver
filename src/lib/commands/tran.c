@@ -255,4 +255,3 @@ tran_nmap(coord curx, coord cury, char *arg)
 {
     return display_region_map(0, EF_NUKE, curx, cury, arg);
 }
-

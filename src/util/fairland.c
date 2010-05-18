@@ -1167,7 +1167,7 @@ write_newcap_script(void)
 }
 
 static void
-qprint(const char * const fmt, ...)
+qprint(const char *const fmt, ...)
 {
     va_list ap;
 

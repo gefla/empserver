@@ -112,7 +112,7 @@ servercmd(int code, char *arg, int len)
 	break;
     case C_INFORM:
 	if (arg[0] != '\n') {
-	    snprintf(teles, sizeof(teles), "(%.*s) ", len -1, arg);
+	    snprintf(teles, sizeof(teles), "(%.*s) ", len - 1, arg);
 	    if (!redir_fp) {
 		putchar('\07');
 		prompt(code, the_prompt, teles);
