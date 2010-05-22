@@ -58,7 +58,7 @@
 #endif
 
 #ifndef bit
-#define	bit(x)		(1<<(x))
+#define bit(x)		(1<<(x))
 #endif
 
 #define minutes(x)	(60*(x))
@@ -84,9 +84,9 @@ extern void (*oops_handler)(void);
 void exit_nomem(void) ATTRIBUTE((noreturn));
 
 	/* return codes from command routines */
-#define	RET_OK		0	/* command completed sucessfully */
-#define	RET_FAIL	1	/* command completed unsucessfully [?] */
-#define	RET_SYN		2	/* syntax error in command */
+#define RET_OK		0	/* command completed sucessfully */
+#define RET_FAIL	1	/* command completed unsucessfully [?] */
+#define RET_SYN		2	/* syntax error in command */
 
 extern char *getstarg(char *input, char *prompt, char buf[]);
 extern char *getstring(char *prompt, char buf[]);

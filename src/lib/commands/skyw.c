@@ -37,7 +37,7 @@
 #include "optlist.h"
 #include "plane.h"
 
-#define	TSIZE	200
+#define TSIZE	200
 
 struct sky {
     struct sky *s_next;

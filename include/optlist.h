@@ -41,7 +41,7 @@
 extern char dflt_econfig[];
 
 /* Game parameters, can be set in econfig */
-#define	EMP_CONFIG_H_OUTPUT
+#define EMP_CONFIG_H_OUTPUT
 #include "econfig-spec.h"
 #undef	EMP_CONFIG_H_OUTPUT
 

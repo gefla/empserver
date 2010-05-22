@@ -37,8 +37,8 @@
 #include <time.h>
 #include "types.h"
 
-#define	N_MAXNUKE	20
-#define	MIN_DRNUKE_CONST	0.001
+#define N_MAXNUKE	20
+#define MIN_DRNUKE_CONST	0.001
 
 struct nukstr {
     /* initial part must match struct empobj */
@@ -77,7 +77,7 @@ struct nchrstr {
     signed char n_type;		/* index in nchr[] */
 };
 
-#define	N_NEUT	bit(0)		/* Neutron bomb (low damage, high fallout) */
+#define N_NEUT	bit(0)		/* Neutron bomb (low damage, high fallout) */
 
 #define getnuke(n, p) ef_read(EF_NUKE, (n), (p))
 #define putnuke(n, p) ef_write(EF_NUKE, (n), (p))

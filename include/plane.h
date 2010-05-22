@@ -42,7 +42,7 @@
 #include "types.h"
 
 #define PLN_TYPE_MAX	46
-#define	PLANE_MINEFF	10
+#define PLANE_MINEFF	10
 
 struct plnstr {
     /* initial part must match struct empobj */
@@ -74,9 +74,9 @@ struct plnstr {
     float pln_theta;		/* position in orbital sine wave */
 };
 
-#define	PLN_LAUNCHED	bit(0)	/* Flying (satellite: in orbit) */
-#define	PLN_SYNCHRONOUS	bit(1)	/* A satellite in geo-synchronous orbit */
-#define	PLN_AIRBURST	bit(2)	/* Airburst the nuke we're armed with */
+#define PLN_LAUNCHED	bit(0)	/* Flying (satellite: in orbit) */
+#define PLN_SYNCHRONOUS	bit(1)	/* A satellite in geo-synchronous orbit */
+#define PLN_AIRBURST	bit(2)	/* Airburst the nuke we're armed with */
 
 struct plchrstr {
     char *pl_name;		/* full name of type of plane */

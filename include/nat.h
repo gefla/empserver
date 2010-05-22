@@ -43,7 +43,7 @@
 
 #define NATID_BAD 255
 
-#define	MAXNOR		50	/* max # realms */
+#define MAXNOR		50	/* max # realms */
 
 /* Nation status */
 enum nat_status {
@@ -119,24 +119,24 @@ struct natstr {
 };
 
 	/* nation relation codes */
-#define	AT_WAR		0
+#define AT_WAR		0
 #define SITZKRIEG       1
 #define MOBILIZATION    2
-#define	HOSTILE		3
-#define	NEUTRAL		4
+#define HOSTILE		3
+#define NEUTRAL		4
 #define FRIENDLY        5
-#define	ALLIED		6
+#define ALLIED		6
 
 	/* nation reject codes */
-#define	REJ_TELE	bit(0)	/* dont allow telegrams to be sent */
-#define	REJ_TREA	bit(1)	/* dont allow treaties to be offered */
-#define	REJ_ANNO	bit(2)	/* don't receive announcements */
-#define	REJ_LOAN	bit(3)	/* don't allow loans to be offered */
+#define REJ_TELE	bit(0)	/* dont allow telegrams to be sent */
+#define REJ_TREA	bit(1)	/* dont allow treaties to be offered */
+#define REJ_ANNO	bit(2)	/* don't receive announcements */
+#define REJ_LOAN	bit(3)	/* don't allow loans to be offered */
 
-#define	NAT_TLEV	0
-#define	NAT_RLEV	1
-#define	NAT_ELEV	2
-#define	NAT_HLEV	3
+#define NAT_TLEV	0
+#define NAT_RLEV	1
+#define NAT_ELEV	2
+#define NAT_HLEV	3
 
 /*
  * Number of updates contact lasts for various ways of making contact.

@@ -45,7 +45,7 @@
 #include "types.h"
 
 #define SHP_TYPE_MAX	46
-#define	SHIP_MINEFF	20
+#define SHIP_MINEFF	20
 
 /* bit masks for the autonav mode flags */
 
@@ -59,7 +59,7 @@
 
 
 #define MAXSHPPATH	28
-#define	MAXSHPNAMLEN	24
+#define MAXSHPNAMLEN	24
 
 struct shpstr {
     /* initial part must match struct empobj */

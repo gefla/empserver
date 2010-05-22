@@ -37,17 +37,17 @@
 #include "types.h"
 
 	/* direction indices */
-#define	DIR_STOP	0
-#define	DIR_UR		1
-#define	DIR_R		2
-#define	DIR_DR		3
-#define	DIR_DL		4
-#define	DIR_L		5
-#define	DIR_UL		6
-#define	DIR_VIEW	7
-#define	DIR_MAP		8
-#define	DIR_FIRST	1
-#define	DIR_LAST	6
+#define DIR_STOP	0
+#define DIR_UR		1
+#define DIR_R		2
+#define DIR_DR		3
+#define DIR_DL		4
+#define DIR_L		5
+#define DIR_UL		6
+#define DIR_VIEW	7
+#define DIR_MAP		8
+#define DIR_FIRST	1
+#define DIR_LAST	6
 
 enum p_mode {			/* How to find path to destination */
     P_NONE,			/* don't */

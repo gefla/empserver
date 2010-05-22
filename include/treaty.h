@@ -59,16 +59,16 @@ struct trtstr {
 #define TS_SIGNED	AGREE_SIGNED
 
 	/* treaty clauses */
-#define	LNDATT	bit(0)		/* no attacks on land units */
-#define	SEAATT	bit(1)		/* no attacks on ships */
-#define	SEAFIR	bit(2)		/* no shelling ships */
-#define	LANATT	bit(3)		/* no attacks on sectors */
-#define	LANFIR	bit(4)		/* no shelling sectors */
-#define	NEWSHP	bit(5)		/* no new ships */
-#define	NEWNUK	bit(6)		/* no new nuclear weapons */
-#define	NEWPLN	bit(7)		/* no new planes */
+#define LNDATT	bit(0)		/* no attacks on land units */
+#define SEAATT	bit(1)		/* no attacks on ships */
+#define SEAFIR	bit(2)		/* no shelling ships */
+#define LANATT	bit(3)		/* no attacks on sectors */
+#define LANFIR	bit(4)		/* no shelling sectors */
+#define NEWSHP	bit(5)		/* no new ships */
+#define NEWNUK	bit(6)		/* no new nuclear weapons */
+#define NEWPLN	bit(7)		/* no new planes */
 #define NEWLND  bit(8)		/* no new land units */
-#define	TRTENL	bit(9)		/* no enlistment */
+#define TRTENL	bit(9)		/* no enlistment */
 #define SUBFIR  bit(10)		/* no depth-charging submarines */
 
 #define gettre(n, p) ef_read(EF_TREATY, (n), (p))

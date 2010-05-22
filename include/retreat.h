@@ -34,17 +34,17 @@
 #ifndef RETREAT_H
 #define RETREAT_H
 
-#define	MAX_RETREAT	2	/* Max number of sectors you can retreat */
-#define	RET_LEN		10
+#define MAX_RETREAT	2	/* Max number of sectors you can retreat */
+#define RET_LEN		10
 
 /* Retreat conditions */
-#define	RET_GROUP	1	/* Whole group retreats */
-#define	RET_INJURED	2	/* Retreat when damaged at all */
-#define	RET_TORPED	4	/* Retreat when torped */
-#define	RET_SONARED	8	/* Retreat when sonared */
-#define	RET_HELPLESS	16	/* Retreat when fired upon from beyond range */
-#define	RET_BOMBED	32	/* Retreat when bombed */
-#define	RET_DCHRGED	64	/* Retreat when depth-charged */
-#define	RET_BOARDED	128	/* Retreat when unsuccessfully boarded */
+#define RET_GROUP	1	/* Whole group retreats */
+#define RET_INJURED	2	/* Retreat when damaged at all */
+#define RET_TORPED	4	/* Retreat when torped */
+#define RET_SONARED	8	/* Retreat when sonared */
+#define RET_HELPLESS	16	/* Retreat when fired upon from beyond range */
+#define RET_BOMBED	32	/* Retreat when bombed */
+#define RET_DCHRGED	64	/* Retreat when depth-charged */
+#define RET_BOARDED	128	/* Retreat when unsuccessfully boarded */
 
 #endif

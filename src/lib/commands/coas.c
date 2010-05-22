@@ -38,7 +38,7 @@
 #include "optlist.h"
 #include "ship.h"
 
-#define	TSIZE	200
+#define TSIZE	200
 
 struct coast {
     struct coast *c_next;

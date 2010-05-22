@@ -34,7 +34,7 @@
 #ifndef DISTRIBUTE_H
 #define DISTRIBUTE_H
 
-#define	IMPORT	0
-#define	EXPORT	1
+#define IMPORT	0
+#define EXPORT	1
 
 #endif

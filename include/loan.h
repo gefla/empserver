@@ -37,7 +37,7 @@
 #include <time.h>
 #include "types.h"
 
-#define	MAXLOAN		100000
+#define MAXLOAN		100000
 #define SECS_PER_DAY	(60*60*24)
 
 struct lonstr {

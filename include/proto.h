@@ -43,18 +43,18 @@
  */
 #define CLIENTPROTO	2
 
-#define	C_CMDOK		0x0
-#define	C_DATA		0x1
-#define	C_INIT		0x2
-#define	C_EXIT		0x3
+#define C_CMDOK		0x0
+#define C_DATA		0x1
+#define C_INIT		0x2
+#define C_EXIT		0x3
 #define C_FLUSH		0x4
-#define	C_NOECHO	0x5
+#define C_NOECHO	0x5
 #define C_PROMPT	0x6
-#define	C_ABORT		0x7
+#define C_ABORT		0x7
 #define C_REDIR		0x8
 #define C_PIPE		0x9
-#define	C_CMDERR	0xA
-#define	C_BADCMD	0xB
+#define C_CMDERR	0xA
+#define C_BADCMD	0xB
 #define C_EXECUTE	0xC
 #define C_FLASH		0xD
 #define C_INFORM        0xE

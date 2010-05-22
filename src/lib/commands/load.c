@@ -50,8 +50,8 @@
 /*
  * The values 1 and -1 are important below, don't change them.
  */
-#define	LOAD	1
-#define	UNLOAD	-1
+#define LOAD	1
+#define UNLOAD	-1
 
 static int load_plane_ship(struct sctstr *sectp, struct shpstr *sp,
 			   int noisy, int load_unload, int *nshipsp);

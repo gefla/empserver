@@ -53,7 +53,7 @@ struct nwsstr {
     time_t nws_when;		/* time of action */
 };
 
-#define	NUM_RPTS	2	/* number of story alternates */
+#define NUM_RPTS	2	/* number of story alternates */
 
 struct rptstr {
     signed char r_uid;
@@ -63,43 +63,43 @@ struct rptstr {
 };
 
 	/* news verbs */
-#define	N_WON_SECT	1
-#define	N_SCT_LOSE	2
-#define	N_SPY_SHOT	3
-#define	N_SENT_TEL	4
-#define	N_SIGN_TRE	5
-#define	N_MAKE_LOAN	6
-#define	N_REPAY_LOAN	7
-#define	N_MAKE_SALE	8
-#define	N_OVFLY_SECT	9
-#define	N_SCT_SHELL	10
-#define	N_SHP_SHELL	11
-#define	N_TOOK_UNOCC	12
-#define	N_TORP_SHIP	13
-#define	N_FIRE_BACK	14
-#define	N_BROKE_SANCT	15
-#define	N_SCT_BOMB	16
-#define	N_SHP_BOMB	17
-#define	N_BOARD_SHIP	18
-#define	N_SHP_LOSE	19
+#define N_WON_SECT	1
+#define N_SCT_LOSE	2
+#define N_SPY_SHOT	3
+#define N_SENT_TEL	4
+#define N_SIGN_TRE	5
+#define N_MAKE_LOAN	6
+#define N_REPAY_LOAN	7
+#define N_MAKE_SALE	8
+#define N_OVFLY_SECT	9
+#define N_SCT_SHELL	10
+#define N_SHP_SHELL	11
+#define N_TOOK_UNOCC	12
+#define N_TORP_SHIP	13
+#define N_FIRE_BACK	14
+#define N_BROKE_SANCT	15
+#define N_SCT_BOMB	16
+#define N_SHP_BOMB	17
+#define N_BOARD_SHIP	18
+#define N_SHP_LOSE	19
 /* unused		20 */
-#define	N_SEIZE_SECT	21
-#define	N_HONOR_TRE	22
-#define	N_VIOL_TRE	23
+#define N_SEIZE_SECT	21
+#define N_HONOR_TRE	22
+#define N_VIOL_TRE	23
 /* unused		24 */
-#define	N_HIT_MINE	25
-#define	N_DECL_ALLY	26
+#define N_HIT_MINE	25
+#define N_DECL_ALLY	26
 /* unused		27 */
-#define	N_DECL_WAR	28
-#define	N_DIS_ALLY	29
-#define	N_DIS_WAR	30
-#define	N_OUT_PLAGUE	31
-#define	N_DIE_PLAGUE	32
-#define	N_NAME_CHNG	33
-#define	N_DIE_FAMINE	34
+#define N_DECL_WAR	28
+#define N_DIS_ALLY	29
+#define N_DIS_WAR	30
+#define N_OUT_PLAGUE	31
+#define N_DIE_PLAGUE	32
+#define N_NAME_CHNG	33
+#define N_DIE_FAMINE	34
 /* unused		35 */
-#define	N_DOWN_PLANE	36
-#define	N_NUKE		37
+#define N_DOWN_PLANE	36
+#define N_NUKE		37
 #define N_FREEDOM_FIGHT	38
 #define N_SHOOT_CIV	39
 #define N_LAUNCH	40
@@ -109,19 +109,19 @@ struct rptstr {
 #define N_HURTS		44
 #define N_TAKE		45
 #define N_NUKE_STOP     46
-#define	N_SCT_MISS	47
-#define	N_SHP_MISS	48
+#define N_SCT_MISS	47
+#define N_SHP_MISS	48
 #define N_TRADE		49
 #define N_PIRATE_TRADE	50
 #define N_PIRATE_KEEP	51
-#define	N_SHIP_TORP	52
+#define N_SHIP_TORP	52
 #define N_SUB_BOMB	53
 /* unused		54 */
 #define N_UNIT_BOMB	55
-#define	N_LHIT_MINE	56
-#define	N_FIRE_F_ATTACK	57
-#define	N_FIRE_L_ATTACK	58
-#define	N_FIRE_S_ATTACK	59
+#define N_LHIT_MINE	56
+#define N_FIRE_F_ATTACK	57
+#define N_FIRE_L_ATTACK	58
+#define N_FIRE_S_ATTACK	59
 #define N_SACK_CAP      60
 #define N_UP_FRIENDLY   61
 #define N_DOWN_FRIENDLY 62
@@ -145,7 +145,7 @@ struct rptstr {
 #define N_WELCH_DEAL    80
 #define N_LND_LOSE      81
 #define N_BOARD_LAND    82
-#define	N_MAX_VERB	82
+#define N_MAX_VERB	82
 
 #define N_NOTUSED        0
 #define N_FOR            1
@@ -159,7 +159,7 @@ struct rptstr {
 #define N_HOME           9
 #define N_SPY           10
 #define N_TELE          11
-#define	N_MAX_PAGE	11
+#define N_MAX_PAGE	11
 
 #define getnews(n, p) ef_read(EF_NEWS, (n), (p))
 #define putnews(n, p) ef_write(EF_NEWS, (n), (p))

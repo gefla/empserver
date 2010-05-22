@@ -47,7 +47,7 @@
 #include "sect.h"
 #include "ship.h"
 
-#define	NOISY	1
+#define NOISY	1
 
 static int sb(natid, natid, struct sctstr *, coord, coord, int, int);
 

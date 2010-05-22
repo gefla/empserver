@@ -54,9 +54,9 @@ struct fltheadstr {
     int leader;
     signed char real_q;
 /* defines for the real_q member */
-#define	LEADER_VIRTUAL	0
-#define	LEADER_REAL	1
-#define	LEADER_WRONGSECT	2
+#define LEADER_VIRTUAL	0
+#define LEADER_REAL	1
+#define LEADER_WRONGSECT	2
     coord x, y;
     natid own;
     unsigned maxmoves;

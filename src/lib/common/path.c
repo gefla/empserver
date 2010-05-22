@@ -47,8 +47,8 @@
 #include "sect.h"
 #include "xy.h"
 
-#define	BP_ASHASHSIZE	128	/* A* queue hash table size */
-#define	BP_NEIGHBORS	6	/* max number of neighbors */
+#define BP_ASHASHSIZE	128	/* A* queue hash table size */
+#define BP_NEIGHBORS	6	/* max number of neighbors */
 
 struct bestp {
     int sctcache_hits;

@@ -61,7 +61,7 @@ struct as_node {
     int flags;
     struct as_node *back;
 };
-#define	AS_TRIED	1	/* we've tried this node before */
+#define AS_TRIED	1	/* we've tried this node before */
 
 /*
  * Linked list of nodes, used internally by A* algorithm.
@@ -133,15 +133,15 @@ struct as_frompath {
 /*
  * Some cheezy allocation macros.
  */
-#define	AS_NEW_ARRAY(p, type, n, err) \
+#define AS_NEW_ARRAY(p, type, n, err) \
 	(p) = (type *)calloc((n), sizeof(*(p))); \
 	if ((p) == NULL) \
 		return err; \
 
-#define	AS_NEW(p, type, err) \
+#define AS_NEW(p, type, err) \
 	AS_NEW_ARRAY((p), type, 1, err);
 
-#define	AS_NEW_MALLOC(p, type, err) \
+#define AS_NEW_MALLOC(p, type, err) \
 	(p) = (type *)malloc(sizeof(type)); \
 	if ((p) == NULL) \
 	       return err; \

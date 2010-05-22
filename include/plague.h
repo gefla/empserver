@@ -34,10 +34,10 @@
 #ifndef PLAGUE_H
 #define PLAGUE_H
 
-#define	PLG_HEALTHY	0
-#define	PLG_DYING	1
-#define	PLG_INFECT	2
-#define	PLG_INCUBATE	3
-#define	PLG_EXPOSED	4
+#define PLG_HEALTHY	0
+#define PLG_DYING	1
+#define PLG_INFECT	2
+#define PLG_INCUBATE	3
+#define PLG_EXPOSED	4
 
 #endif

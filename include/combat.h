@@ -62,9 +62,9 @@ struct combat {
 
 /* Types of combat for use by attack routines */
 #define A_DEFEND        0
-#define	A_ATTACK	1
-#define	A_ASSAULT	2
-#define	A_PARA		3
+#define A_ATTACK	1
+#define A_ASSAULT	2
+#define A_PARA		3
 #define A_BOARD		4
 #define A_LBOARD        5
 

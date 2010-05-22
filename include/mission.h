@@ -34,10 +34,10 @@
 #ifndef MISSION_H
 #define MISSION_H
 
-#define	MI_NONE		0
-#define	MI_INTERDICT	1
-#define	MI_SUPPORT	2
-#define	MI_RESERVE	3
+#define MI_NONE		0
+#define MI_INTERDICT	1
+#define MI_SUPPORT	2
+#define MI_RESERVE	3
 #define MI_ESCORT	4
 #define MI_SINTERDICT	5	/* sub interdiction */
 #define MI_AIR_DEFENSE	6

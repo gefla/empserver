@@ -124,37 +124,37 @@ struct dchrstr {
 
 	/* sector types (must agree with order in dchr, empglb.c) */
 
-#define	SCT_WATER	0	/* basics */
-#define	SCT_MOUNT	1
-#define	SCT_SANCT	2
-#define	SCT_WASTE	3
-#define	SCT_RURAL	4
-#define	SCT_CAPIT	5
-#define	SCT_URAN	6
-#define	SCT_PARK	7
-#define	SCT_ARMSF	8	/* industries */
-#define	SCT_AMMOF	9
-#define	SCT_MINE	10
-#define	SCT_GMINE	11
-#define	SCT_HARBR	12
-#define	SCT_WAREH	13
-#define	SCT_AIRPT	14
-#define	SCT_AGRI	15
-#define	SCT_OIL		16
-#define	SCT_LIGHT	17
-#define	SCT_HEAVY	18
-#define	SCT_FORTR	19	/* military/scientific */
-#define	SCT_TECH	20
-#define	SCT_RSRCH	21
-#define	SCT_NUKE	22
-#define	SCT_LIBR	23
-#define	SCT_HIWAY	24	/* communications */
-#define	SCT_RADAR	25
-#define	SCT_HEADQ	26	/* headquarters */
-#define	SCT_BHEAD	27	/* Bridge head */
-#define	SCT_BSPAN	28	/* Bridge span */
-#define	SCT_BANK	29	/* financial */
-#define	SCT_REFINE	30	/* refinery */
+#define SCT_WATER	0	/* basics */
+#define SCT_MOUNT	1
+#define SCT_SANCT	2
+#define SCT_WASTE	3
+#define SCT_RURAL	4
+#define SCT_CAPIT	5
+#define SCT_URAN	6
+#define SCT_PARK	7
+#define SCT_ARMSF	8	/* industries */
+#define SCT_AMMOF	9
+#define SCT_MINE	10
+#define SCT_GMINE	11
+#define SCT_HARBR	12
+#define SCT_WAREH	13
+#define SCT_AIRPT	14
+#define SCT_AGRI	15
+#define SCT_OIL		16
+#define SCT_LIGHT	17
+#define SCT_HEAVY	18
+#define SCT_FORTR	19	/* military/scientific */
+#define SCT_TECH	20
+#define SCT_RSRCH	21
+#define SCT_NUKE	22
+#define SCT_LIBR	23
+#define SCT_HIWAY	24	/* communications */
+#define SCT_RADAR	25
+#define SCT_HEADQ	26	/* headquarters */
+#define SCT_BHEAD	27	/* Bridge head */
+#define SCT_BSPAN	28	/* Bridge span */
+#define SCT_BANK	29	/* financial */
+#define SCT_REFINE	30	/* refinery */
 #define SCT_ENLIST	31	/* enlistment center */
 #define SCT_PLAINS      32	/* plains sector */
 #define SCT_BTOWER      33	/* Bridge tower */

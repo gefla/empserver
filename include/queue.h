@@ -34,7 +34,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#define	QEMPTY(p)	((p)->q_forw == (p))
+#define QEMPTY(p)	((p)->q_forw == (p))
 
 struct emp_qelem {
     struct emp_qelem *q_forw;

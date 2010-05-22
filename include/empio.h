@@ -35,9 +35,9 @@
 #define EMPIO_H
 #include <sys/time.h>
 
-#define	IO_READ		0x1
+#define IO_READ		0x1
 #define IO_WRITE	0x2
-#define	IO_EOF		0x10
+#define IO_EOF		0x10
 #define IO_ERROR	0x40
 
 #define IO_BUFSIZE	4096

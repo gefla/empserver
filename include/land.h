@@ -109,12 +109,12 @@ struct lchrstr {
 };
 
 /* Land unit ability flags */
-#define	L_ENGINEER	bit(1)	/* Do engineering things */
-#define	L_SUPPLY	bit(2)	/* supply other units/sects */
-#define	L_SECURITY	bit(3)	/* anti-terrorist troops */
-#define	L_LIGHT		bit(4)	/* can go on ships */
-#define	L_MARINE	bit(5)	/* marine units, good at assaulting */
-#define	L_RECON		bit(6)	/* recon units, good at spying */
+#define L_ENGINEER	bit(1)	/* Do engineering things */
+#define L_SUPPLY	bit(2)	/* supply other units/sects */
+#define L_SECURITY	bit(3)	/* anti-terrorist troops */
+#define L_LIGHT		bit(4)	/* can go on ships */
+#define L_MARINE	bit(5)	/* marine units, good at assaulting */
+#define L_RECON		bit(6)	/* recon units, good at spying */
 #define L_RADAR		bit(7)	/* radar unit */
 #define L_ASSAULT	bit(8)	/* can assault */
 #define L_FLAK		bit(9)	/* flak unit */

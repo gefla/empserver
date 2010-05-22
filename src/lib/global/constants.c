@@ -223,7 +223,7 @@ float start_research = 0.0;
 /* econfig keys */
 static int emp_config_dummy;
 struct keymatch configkeys[] = {
-#define	EMP_CONFIG_C_OUTPUT
+#define EMP_CONFIG_C_OUTPUT
 #include "econfig-spec.h"
 #undef	EMP_CONFIG_C_OUTPUT
 };
