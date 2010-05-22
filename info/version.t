@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.23
+Wolfpack Empire 4.3.26
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -20,7 +20,7 @@ There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 Use the 'show' command to find out the time of the next update.
-The current time is Wed Sep 17 21:16:49.
+The current time is Sat May 22 15:03:58.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -42,7 +42,7 @@ Happiness is averaged over 48 time units.
 Education is averaged over 192 time units.
 The technology/research boost you get from the world is 50.00%.
 Nation levels (tech etc.) decline 1% every 96 time units.
-Tech Buildup is limited to logarithmic growth (base 2.00) after 1.00.
+Tech buildup is limited to logarithmic growth (base 2.00) after 1.00.
 
 				Sectors	Ships	Planes	Units
 Maximum mobility		127	127	127	127
