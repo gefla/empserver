@@ -209,9 +209,9 @@ update_timeused(time_t now)
     time_t dt = now - player->lasttime;
 
     if (dt > midnight_secs)
-        natp->nat_timeused = midnight_secs;
+	natp->nat_timeused = midnight_secs;
     else
-        natp->nat_timeused += dt;
+	natp->nat_timeused += dt;
     player->lasttime = now;
     putnat(natp);
 }

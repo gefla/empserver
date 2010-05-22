@@ -220,7 +220,7 @@ main(int argc, char **argv)
     }
 
     if (remove_service_set)
-        return remove_service(service_name);
+	return remove_service(service_name);
     if (install_service_set) {
 	program_name = _fullpath(NULL, argv[0], 0);
 	if (config_file != NULL)
@@ -452,7 +452,7 @@ shutdwn(int sig)
 
 #if defined(_WIN32)
     if (daemonize)
-        stop_service();
+	stop_service();
 #endif
     exit(0);
 }

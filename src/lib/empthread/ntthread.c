@@ -376,7 +376,7 @@ empth_init(void **ctx_ptr, int flags)
     /* Manual reset */
     hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
     if (!hShutdownEvent) {
-        logerror("Failed to create shutdown event %lu", GetLastError());
+	logerror("Failed to create shutdown event %lu", GetLastError());
 	return 0;
     }
     SetConsoleCtrlHandler(loc_Exit_Handler, TRUE);

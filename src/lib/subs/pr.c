@@ -88,7 +88,7 @@ pr(char *format, ...)
 	upr_player(player, C_DATA, buf);
     else
 	/* normal text and user text are identical */
-        pr_player(player, C_DATA, buf);
+	pr_player(player, C_DATA, buf);
 }
 
 /*
@@ -621,9 +621,9 @@ ufindpfx(char *s, int n)
 
     while (n && s[i]) {
 	if ((s[i++] & 0xc0) == 0xc0)
-            while ((s[i] & 0xc0) == 0x80)
+	    while ((s[i] & 0xc0) == 0x80)
 		i++;
-        --n;
+	--n;
     }
     return i;
 }

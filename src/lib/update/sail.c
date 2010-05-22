@@ -248,7 +248,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
 	       fe->num, cname(fe->own));
 	    error = 1;
 	}
-        if ((shp_check_nav(sectp, sp) == CN_LANDLOCKED) &&
+	if ((shp_check_nav(sectp, sp) == CN_LANDLOCKED) &&
 	    (dchr[sectp->sct_type].d_nav == NAV_CANAL)) {
 	    wu(0, fltp->own,
 	       "Your ship #%d (%s) is too big to fit through the canal.\n",

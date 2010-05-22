@@ -56,35 +56,35 @@ install_service(char *program_name, char *service_name, char *config_file)
     schSCManager = OpenSCManager(NULL,NULL,SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        fprintf(stderr, "install_service failed to open Service Control Manager\n");
+	fprintf(stderr, "install_service failed to open Service Control Manager\n");
 	return EXIT_FAILURE;
     }
 
     schService = CreateService(schSCManager,
 	service_name,
 	service_name,			/* service name to display */
-        SERVICE_ALL_ACCESS,		/* desired access */
-        SERVICE_WIN32_OWN_PROCESS,	/* service type */
-        SERVICE_AUTO_START,		/* start type */
-        SERVICE_ERROR_NORMAL,		/* error control type */
-        program_name,			/* service's binary */
-        NULL,				/* no load ordering group */
-        NULL,				/* no tag identifier */
-        NULL,				/* database service dependency */
-        NULL,				/* LocalSystem account */
-        NULL);				/* no password */
+	SERVICE_ALL_ACCESS,		/* desired access */
+	SERVICE_WIN32_OWN_PROCESS,	/* service type */
+	SERVICE_AUTO_START,		/* start type */
+	SERVICE_ERROR_NORMAL,		/* error control type */
+	program_name,			/* service's binary */
+	NULL,				/* no load ordering group */
+	NULL,				/* no tag identifier */
+	NULL,				/* database service dependency */
+	NULL,				/* LocalSystem account */
+	NULL);				/* no password */
 
     if (schService == NULL) {
 	fprintf(stderr, "install_service failed to create service %s\n", service_name);
-        return EXIT_FAILURE;
+	return EXIT_FAILURE;
     }
     sdBuf.lpDescription = "Server for Empire game";
 
     if(!ChangeServiceConfig2(
-          schService,                 /* handle to service */
-          SERVICE_CONFIG_DESCRIPTION, /* change: description */
-          &sdBuf)) {                  /* value: new description */
-        fprintf(stderr, "install_service failed to set the description\n");
+	  schService,		      /* handle to service */
+	  SERVICE_CONFIG_DESCRIPTION, /* change: description */
+	  &sdBuf)) {		      /* value: new description */
+	fprintf(stderr, "install_service failed to set the description\n");
     }
 
     printf("Service %s installed.\n", service_name);
@@ -106,28 +106,28 @@ remove_service(char *service_name)
     schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
 
     if (schSCManager == NULL) {
-        fprintf(stderr, "remove_service failed to open Service Control Manager\n");
+	fprintf(stderr, "remove_service failed to open Service Control Manager\n");
 	return EXIT_FAILURE;
     }
 
     hService = OpenService(schSCManager, service_name, SERVICE_ALL_ACCESS);
 
     if (hService == NULL) {
-        fprintf(stderr, "remove_service failed to open service %s\n", service_name);
+	fprintf(stderr, "remove_service failed to open service %s\n", service_name);
 	return EXIT_FAILURE;
     }
 
     if (DeleteService(hService) == 0) {
-        fprintf(stderr, "remove_service failed to remove service %s\n", service_name);
+	fprintf(stderr, "remove_service failed to remove service %s\n", service_name);
 	return EXIT_FAILURE;
     }
 
     if (CloseServiceHandle(hService) == 0) {
-        fprintf(stderr, "remove_service failed to close service %s\n", service_name);
-        return EXIT_FAILURE;
+	fprintf(stderr, "remove_service failed to close service %s\n", service_name);
+	return EXIT_FAILURE;
     } else {
-        printf("Service %s removed.\n", service_name);
-        return EXIT_SUCCESS;
+	printf("Service %s removed.\n", service_name);
+	return EXIT_SUCCESS;
     }
 }
 
@@ -138,33 +138,33 @@ static void WINAPI
 service_ctrl_handler(DWORD Opcode)
 {
     switch(Opcode) {
-        case SERVICE_CONTROL_PAUSE:
-            service_status.dwCurrentState = SERVICE_PAUSED;
+	case SERVICE_CONTROL_PAUSE:
+	    service_status.dwCurrentState = SERVICE_PAUSED;
 	    logerror("Pausing the service not supported");
-            break;
+	    break;
 
-        case SERVICE_CONTROL_CONTINUE:
+	case SERVICE_CONTROL_CONTINUE:
 	    logerror("Continuing the service not supported");
-            service_status.dwCurrentState = SERVICE_RUNNING;
-            break;
+	    service_status.dwCurrentState = SERVICE_RUNNING;
+	    break;
 
-        case SERVICE_CONTROL_STOP:
+	case SERVICE_CONTROL_STOP:
 	    logerror("Service stopping");
 	    empth_request_shutdown();
-            return;
+	    return;
 
-        case SERVICE_CONTROL_INTERROGATE:
-        /* Fall through to send current status.  */
-            break;
+	case SERVICE_CONTROL_INTERROGATE:
+	/* Fall through to send current status.  */
+	    break;
 
-        default:
-            logerror("Unrecognized opcode %ld in ServiceCtrlHandler",
-                Opcode);
+	default:
+	    logerror("Unrecognized opcode %ld in ServiceCtrlHandler",
+		Opcode);
     }
 
     /* Send current status. */
     if (!SetServiceStatus (service_status_handle,  &service_status))
-        logerror("SetServiceStatus error %ld",GetLastError());
+	logerror("SetServiceStatus error %ld",GetLastError());
     return;
 }
 
@@ -173,32 +173,32 @@ service_main(DWORD argc, LPTSTR *argv)
 {
     int sig;
 
-    service_status.dwServiceType        = SERVICE_WIN32;
-    service_status.dwCurrentState       = SERVICE_START_PENDING;
-    service_status.dwControlsAccepted   = SERVICE_ACCEPT_STOP;
-    service_status.dwWin32ExitCode      = 0;
+    service_status.dwServiceType	= SERVICE_WIN32;
+    service_status.dwCurrentState	= SERVICE_START_PENDING;
+    service_status.dwControlsAccepted	= SERVICE_ACCEPT_STOP;
+    service_status.dwWin32ExitCode	= 0;
     service_status.dwServiceSpecificExitCode = 0;
-    service_status.dwCheckPoint         = 0;
-    service_status.dwWaitHint           = 0;
+    service_status.dwCheckPoint		= 0;
+    service_status.dwWaitHint		= 0;
 
     service_status_handle = RegisterServiceCtrlHandler(
-        DEFAULT_SERVICE_NAME, service_ctrl_handler);
+	DEFAULT_SERVICE_NAME, service_ctrl_handler);
 
     if (service_status_handle == (SERVICE_STATUS_HANDLE)0) {
-        logerror("RegisterServiceCtrlHandler failed %lu\n", GetLastError());
+	logerror("RegisterServiceCtrlHandler failed %lu\n", GetLastError());
 	finish_server();
-        return;
+	return;
     }
 
     start_server(0);
 
     /* Initialization complete - report running status. */
-    service_status.dwCurrentState       = SERVICE_RUNNING;
-    service_status.dwCheckPoint         = 0;
-    service_status.dwWaitHint           = 0;
+    service_status.dwCurrentState	= SERVICE_RUNNING;
+    service_status.dwCheckPoint		= 0;
+    service_status.dwWaitHint		= 0;
 
     if (!SetServiceStatus (service_status_handle, &service_status)) {
-        logerror("SetServiceStatus error %ld\n", GetLastError());
+	logerror("SetServiceStatus error %ld\n", GetLastError());
     }
 
     sig = empth_wait_for_signal();
@@ -215,8 +215,8 @@ stop_service(void)
     logerror("Service stopped");
     service_status.dwWin32ExitCode = 0;
     service_status.dwCurrentState  = SERVICE_STOPPED;
-    service_status.dwCheckPoint    = 0;
-    service_status.dwWaitHint      = 0;
+    service_status.dwCheckPoint	   = 0;
+    service_status.dwWaitHint	   = 0;
 
     if (!SetServiceStatus (service_status_handle, &service_status))
 	logerror("Error while stopping service SetServiceStatus"

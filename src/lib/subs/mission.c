@@ -605,7 +605,7 @@ perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
 	use_up_msl:
 	    plp->plane.pln_effic = 0;
 	    putplane(plp->plane.pln_uid, &plp->plane);
-        }
+	}
 	emp_remque(qp);
 	free(qp);
     }

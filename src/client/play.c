@@ -273,21 +273,21 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
     int i, res;
 
     if (fd)
-        return ring_from_file(r, fd);
+	return ring_from_file(r, fd);
 
     if (bounce_status < 0) {
-        errno = bounce_error;
-        res = bounce_status;
+	errno = bounce_error;
+	res = bounce_status;
     } else {
-        for (i = 0; i < bounce_status; i++) {
-            if (ring_putc(r, bounce_buf[i]) == EOF) {
-                /* more work to do, hold on to bounce_buf */
-                memmove(bounce_buf, bounce_buf + i, bounce_status - i);
-                bounce_status -= i;
-                return i;
-            }
-        }
-        res = i;
+	for (i = 0; i < bounce_status; i++) {
+	    if (ring_putc(r, bounce_buf[i]) == EOF) {
+		/* more work to do, hold on to bounce_buf */
+		memmove(bounce_buf, bounce_buf + i, bounce_status - i);
+		bounce_status -= i;
+		return i;
+	    }
+	}
+	res = i;
     }
 
     ResetEvent(bounce_full);

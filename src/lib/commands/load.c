@@ -319,7 +319,7 @@ lload(void)
 
 static int
 move_amount(int sect_amt, int unit_amt, int unit_max,
-           int load_unload, int amount)
+	   int load_unload, int amount)
 {
     int move_amt;
 
@@ -641,11 +641,11 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    land.lnd_harden = 0;
 	    putland(land.lnd_uid, &land);
 #if 0
-           /*
-            * FIXME if this supplies from the sector, the putsect in
-            * load() / lload() duplicates those supplies, causing a
-            * seqno mismatch
-            */
+	   /*
+	    * FIXME if this supplies from the sector, the putsect in
+	    * load() / lload() duplicates those supplies, causing a
+	    * seqno mismatch
+	    */
 	    if (!lnd_supply_all(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 #else
@@ -995,7 +995,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    land.lnd_harden = 0;
 	    putland(land.lnd_uid, &land);
 #if 0
-           /* FIXME same issue as in load_land_ship() */
+	   /* FIXME same issue as in load_land_ship() */
 	    if (!lnd_supply_all(&land))
 		pr("WARNING: %s is out of supply!\n", prland(&land));
 #else

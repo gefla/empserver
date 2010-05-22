@@ -359,11 +359,11 @@ switch_leader(struct emp_qelem *list, int uid)
 
     save = qp = list->q_back;
     do {
-        emp_remque(qp);
-        emp_insque(qp, list);
-        qp = list->q_back;
-        ulp = (struct ulist *)qp;
-        if (ulp->unit.gen.uid == uid || uid == -1)
-            break;
+	emp_remque(qp);
+	emp_insque(qp, list);
+	qp = list->q_back;
+	ulp = (struct ulist *)qp;
+	if (ulp->unit.gen.uid == uid || uid == -1)
+	    break;
     } while (list->q_back != save);
 }

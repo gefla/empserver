@@ -179,7 +179,7 @@ verify_row(int type, int row)
 	} while (++j < n);
     }
     if (!(flags & EFF_MEM))
-        free(row_ref);
+	free(row_ref);
     return ret_val;
 }
 

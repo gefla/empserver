@@ -142,7 +142,7 @@ struct as_frompath {
 	AS_NEW_ARRAY((p), type, 1, err);
 
 #define	AS_NEW_MALLOC(p, type, err) \
-        (p) = (type *)malloc(sizeof(type)); \
+	(p) = (type *)malloc(sizeof(type)); \
 	if ((p) == NULL) \
 	       return err; \
 

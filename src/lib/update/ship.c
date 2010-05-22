@@ -147,7 +147,7 @@ upd_ship(struct shpstr *sp, int etus,
 		product = &pchr[dchr[SCT_OIL].d_prd];
 		oil_gained = roundavg(total_work(100, etus,
 						 sp->shp_item[I_CIVIL],
-					         sp->shp_item[I_MILIT],
+						 sp->shp_item[I_MILIT],
 						 sp->shp_item[I_UW],
 						 ITEM_MAX)
 				      * sp->shp_effic / 100.0

@@ -766,9 +766,9 @@ xuheader(FILE *fp, int expected_table)
     human = ch == 'c';
     res = -1;
     if ((human
-         ? fscanf(fp, "config%*[ \t]%63[^ \t#\n]%n", name, &res) != 1
-         : fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
-                  name, &res) != 1) || res < 0)
+	 ? fscanf(fp, "config%*[ \t]%63[^ \t#\n]%n", name, &res) != 1
+	 : fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
+		  name, &res) != 1) || res < 0)
 	return gripe("Expected xdump header");
 
     type = ef_byname(name);

@@ -63,7 +63,7 @@ unit_list(struct emp_qelem *unit_list)
     if (type == EF_LAND)
 	pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr\n");
     else
-        pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
+	pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
 
     for (; qp != unit_list; qp = next) {
 	next = qp->q_back;

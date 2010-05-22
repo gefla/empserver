@@ -64,7 +64,7 @@ conv(void)
 	    continue;
 	if (sect.sct_oldown == player->cnum)
 	    continue;
-        natp = getnatp(sect.sct_own);
+	natp = getnatp(sect.sct_own);
 	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civ = sect.sct_item[I_CIVIL];
 	mil = sect.sct_item[I_MILIT];

@@ -155,7 +155,7 @@ vers(void)
     pr("The maximum amount of mobility used for land unit combat is %0.2f.\n",
        combat_mob);
     if (opt_MOB_ACCESS)
-        pr("The starting mobility when acquiring a sector or unit is %d.\n",
+	pr("The starting mobility when acquiring a sector or unit is %d.\n",
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);

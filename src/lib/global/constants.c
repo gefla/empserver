@@ -135,9 +135,9 @@ double bankint = 0.25;		/* bank interest rate (dt * bars) */
 
 /* Note in the taxes below:
    tradetax - this is charged to the seller, so it is < 1 (because the seller
-              gets the (price paid * tradetax)
+	      gets the (price paid * tradetax)
    buytax - this is charged to the buyer, so it is > 1 (because the buyer is
-              charged (price paid * buytax).
+	      charged (price paid * buytax).
    Not perfect, but it works. :) */
 
 double tradetax = 0.99;		/* Tax charged on trade */
