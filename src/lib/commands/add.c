@@ -82,7 +82,7 @@ add(void)
 	return RET_FAIL;
     }
     natp = getnatp(coun);
-    p = getstarg(player->argp[2], "Country Name? ", buf);
+    p = getstarg(player->argp[2], "Country name? ", buf);
     if (!p)
 	return RET_SYN;
     if (!check_nat_name(p))

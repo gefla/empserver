@@ -90,7 +90,7 @@ set(void)
 	    return RET_FAIL;
 	}
 	trade.trd_type = type;
-	sprintf(prompt, "%s #%d; Price? ",
+	sprintf(prompt, "%s #%d; price? ",
 		trade_nameof(&trade, &item), ni.cur);
 	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;

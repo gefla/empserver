@@ -51,7 +51,7 @@ setres(void)
     char buf[1024];
 
     what = getstarg(player->argp[1],
-		    "Set What (iron, gold, oil, uranium, fertility)? ",
+		    "Set what (iron, gold, oil, uranium, fertility)? ",
 		    buf);
     if (!what)
 	return RET_SYN;

@@ -119,7 +119,7 @@ vers(void)
     pr("Nation levels (tech etc.) decline 1%% every %d time units.\n",
        (int)(level_age_rate));
 
-    pr("Tech Buildup is ");
+    pr("Tech buildup is ");
     if (tech_log_base <= 1.0) {
 	pr("not limited\n");
     }

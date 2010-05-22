@@ -148,7 +148,7 @@ show_tower(int tlev)
 {
     if (tlev < buil_tower_bt)
 	return;
-    pr("Bridge Towers require %g tech, %d hcm, 0 workers,\n",
+    pr("Bridge towers require %g tech, %d hcm, 0 workers,\n",
        buil_tower_bt, buil_tower_bh);
     pr("%d available workforce, and cost $%g\n",
        (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100,

@@ -134,7 +134,7 @@ rese(void)
     (void)time(&now);
     comm.com_markettime = now;
     if (!putcomm(number_set, &comm)) {
-	pr("Problems with the commodities file, Call the Deity\n");
+	pr("Problems with the commodities file, call the Deity\n");
 	return RET_OK;
     }
     return RET_OK;

@@ -186,7 +186,7 @@ orde(void)
 	    sub = sub - 1;;
 
 	    if (ship.shp_autonav & AN_AUTONAV) {
-		dest = getstarg(player->argp[4], "Start or End? ", buf);
+		dest = getstarg(player->argp[4], "Start or end? ", buf);
 		if (!dest)
 		    return RET_FAIL;
 		switch (*dest) {
@@ -211,7 +211,7 @@ orde(void)
 		    }
 		    ship.shp_tstart[sub] = i1->i_uid;
 		    ship.shp_lstart[sub] = level;
-		    pr("Order Set \n");
+		    pr("Order set\n");
 		    break;
 		case 's':
 		case 'S':

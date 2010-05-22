@@ -22,7 +22,7 @@ produced in your various tech centres in a line like this:
 
 (2) Calculate tech delta from technological breakthroughs
 In the output of the "version" command, you will see a line like this:
-  Tech Buildup is limited to logarithmic growth (base 2.00) after 3.00.
+  Tech buildup is limited to logarithmic growth (base 2.00) after 3.00.
 
 In this example, the "tech log base" is 2.00 and the "easy tech" is
 3.00.  To find out what your tech delta for an update will be, subtract

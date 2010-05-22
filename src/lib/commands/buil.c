@@ -390,7 +390,7 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
     lcm = roundavg(lp->l_lcm * eff);
 
     if (sp->sct_type != SCT_HEADQ) {
-	pr("Land Units must be built in headquarters.\n");
+	pr("Land units must be built in headquarters.\n");
 	return 0;
     }
     if (sp->sct_effic < 60 && !player->god) {

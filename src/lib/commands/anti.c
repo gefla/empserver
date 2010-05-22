@@ -143,7 +143,7 @@ anti(void)
 		putsect(&sect);
 		pr("          Partisans take over the sector.  You blew it.\n");
 		wu(0, sect.sct_oldown,
-		   "Sector %s regained from Partisan activity.\n",
+		   "Sector %s regained from partisan activity.\n",
 		   xyas(nstr.x, nstr.y, sect.sct_oldown));
 	    }
 	} else {

@@ -86,7 +86,7 @@ edit(void)
     char ewhat;
 
     what = getstarg(player->argp[1],
-		    "Edit What (country, land, ship, plane, nuke, unit)? ",
+		    "Edit what (country, land, ship, plane, nuke, unit)? ",
 		    buf);
     if (!what)
 	return RET_SYN;
@@ -589,7 +589,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Distribution Location for sector %s changed from %s to %s\n",
+	pr("Distribution location for sector %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
 	   xyas(newx, newy, player->cnum));
@@ -610,7 +610,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	des = sct_typematch(p);
 	if (des < 0)
 	    return RET_SYN;
-	pr("New Designation for sector %s changed from %c to %c\n",
+	pr("New designation for sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_newtype].d_mnem, dchr[des].d_mnem);
 	sect->sct_newtype = des;
@@ -676,10 +676,10 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	break;
     case 'm':
 	benefit(nat, np->nat_reserve < arg);
-	pr("Military Reserves changed from %ld to %d\n",
+	pr("Military reserves changed from %ld to %d\n",
 	   np->nat_reserve, arg);
 	wu(player->cnum, nat,
-	   "Military Reserves changed from %ld to %d by divine intervention.\n",
+	   "Military reserves changed from %ld to %d by divine intervention.\n",
 	   np->nat_reserve, arg);
 	np->nat_reserve = arg;
 	break;
