@@ -342,7 +342,7 @@ play_cmd(void)
     }
     if (!may_play())
 	return RET_FAIL;
-    other = getplayer((natid)player->cnum);
+    other = getplayer(player->cnum);
     if (other) {
 	natp = getnatp(player->cnum);
 	if (natp->nat_stat != STAT_VIS) {

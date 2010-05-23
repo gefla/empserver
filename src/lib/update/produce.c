@@ -114,7 +114,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	actual = ldround(output, 1);
 	if (!player->simulation) {
 	    levels[sp->sct_own][product->p_level] += output;
-	    wu((natid)0, sp->sct_own, "%s (%.2f) produced in %s\n",
+	    wu(0, sp->sct_own, "%s (%.2f) produced in %s\n",
 	       product->p_name, output, ownxy(sp));
 	}
     } else {

@@ -164,7 +164,7 @@ cede_sect(struct nstr_sect *ns, natid to)
 	putsect(&sect);
 	pr("  %s %d%% ceded\n", xyas(sect.sct_x, sect.sct_y, player->cnum),
 	   (int)sect.sct_effic);
-	wu(0, (natid)to, "%s ceded to you by %s\n",
+	wu(0, to, "%s ceded to you by %s\n",
 	   xyas(sect.sct_x, sect.sct_y, to), cname(player->cnum));
     }
     pr("%d sector%s\n", nsect, splur(nsect));

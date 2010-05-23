@@ -152,7 +152,7 @@ prod_nat(int etu)
 	hap = levels[n][NAT_HLEV] * hap_edu * hap_cons /
 	    ((float)pop * etu);
 	edu = levels[n][NAT_ELEV] * edu_cons / ((float)pop * etu);
-	wu((natid)0, n, "%3.0f happiness, %3.0f education produced\n",
+	wu(0, n, "%3.0f happiness, %3.0f education produced\n",
 	   levels[n][NAT_HLEV], levels[n][NAT_ELEV]);
 	hap = limit_level(hap, NAT_HLEV, 1);
 	edu = limit_level(edu, NAT_ELEV, 1);
@@ -174,8 +174,7 @@ prod_nat(int etu)
 	    limit_level(levels[n][NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
 	levels[n][NAT_RLEV] =
 	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
-	wu((natid)0, n,
-	   "total pop was %ld, yielding %4.2f hap, %4.2f edu\n",
+	wu(0, n, "total pop was %ld, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
     if (ally_factor > 0.0)
@@ -190,15 +189,12 @@ prod_nat(int etu)
 	tlev = levels[n][NAT_TLEV];
 	rlev = levels[n][NAT_RLEV];
 	if (tech[n] != 0.0 || res[n] != 0.0) {
-	    wu((natid)0, n,
-	       "%5.4f technology (%5.4f + %5.4f), ",
+	    wu(0, n, "%5.4f technology (%5.4f + %5.4f), ",
 	       tlev + tech[n], tlev, tech[n]);
-	    wu((natid)0, n,
-	       "%5.4f research (%5.4f + %5.4f) produced\n",
+	    wu(0, n, "%5.4f research (%5.4f + %5.4f) produced\n",
 	       rlev + res[n], rlev, res[n]);
 	} else
-	    wu((natid)0, n,
-	       "%5.4f tech, %5.4f research produced\n", tlev, rlev);
+	    wu(0, n, "%5.4f tech, %5.4f research produced\n", tlev, rlev);
 	rlev += res[n];
 	tlev += tech[n];
 	if (rlev != 0.0)
@@ -207,10 +203,10 @@ prod_nat(int etu)
 	    np->nat_level[NAT_TLEV] += tlev;
 	if ((sea_money[n] != 0) || (air_money[n] != 0) ||
 	    (lnd_money[n] != 0))
-	    wu((natid)0, n,
+	    wu(0, n,
 	       "Army delta $%ld, Navy delta $%ld, Air force delta $%ld\n",
 	       lnd_money[n], sea_money[n], air_money[n]);
-	wu((natid)0, n, "money delta was $%ld for this update\n",
+	wu(0, n, "money delta was $%ld for this update\n",
 	   np->nat_money - money[n]);
 	if (opt_LOSE_CONTACT) {
 	    for (cn = 1; cn < MAXNOC; cn++) {
