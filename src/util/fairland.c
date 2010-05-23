@@ -55,7 +55,7 @@ static int quiet = 0;
 #define FERT_MAX   56
 
 /* raise OIL_MAX for more oil */
-#define OIL_MAX    33
+#define OIL_MAX	   33
 
 /* lower IRON_MIN for more iron */
 #define IRON_MIN   22
@@ -103,7 +103,7 @@ static int DISTINCT_ISLANDS = 1;
 static char *program_name;
 
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
-#define INFINITY        999	/* a number which means "BIG" */
+#define INFINITY	999	/* a number which means "BIG" */
 
 /* these defines prevent infinite loops:
 */

@@ -67,9 +67,9 @@ struct trtstr {
 #define NEWSHP	bit(5)		/* no new ships */
 #define NEWNUK	bit(6)		/* no new nuclear weapons */
 #define NEWPLN	bit(7)		/* no new planes */
-#define NEWLND  bit(8)		/* no new land units */
+#define NEWLND	bit(8)		/* no new land units */
 #define TRTENL	bit(9)		/* no enlistment */
-#define SUBFIR  bit(10)		/* no depth-charging submarines */
+#define SUBFIR	bit(10)		/* no depth-charging submarines */
 
 #define gettre(n, p) ef_read(EF_TREATY, (n), (p))
 #define puttre(n, p) ef_write(EF_TREATY, (n), (p))

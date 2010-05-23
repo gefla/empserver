@@ -120,11 +120,11 @@ struct natstr {
 
 	/* nation relation codes */
 #define AT_WAR		0
-#define SITZKRIEG       1
-#define MOBILIZATION    2
+#define SITZKRIEG	1
+#define MOBILIZATION	2
 #define HOSTILE		3
 #define NEUTRAL		4
-#define FRIENDLY        5
+#define FRIENDLY	5
 #define ALLIED		6
 
 	/* nation reject codes */
@@ -192,7 +192,7 @@ extern int grant_btus(struct natstr *, int);
 #define NF_BEEP		bit(2)	/* Make beeping sounds when appropriate */
 #define NF_COASTWATCH	bit(3)	/* Turn auto-coastwatch on */
 #define NF_SONAR	bit(4)	/* Turn auto-sonar on */
-#define NF_TECHLISTS    bit(5)	/* Sort lists by tech not type */
-#define NF_SACKED       bit(6)	/* Capital was sacked, and hasn't been reset yet */
+#define NF_TECHLISTS	bit(5)	/* Sort lists by tech not type */
+#define NF_SACKED	bit(6)	/* Capital was sacked, and hasn't been reset yet */
 
 #endif

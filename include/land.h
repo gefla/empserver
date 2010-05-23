@@ -118,9 +118,9 @@ struct lchrstr {
 #define L_RADAR		bit(7)	/* radar unit */
 #define L_ASSAULT	bit(8)	/* can assault */
 #define L_FLAK		bit(9)	/* flak unit */
-#define L_SPY           bit(10)	/* spy unit - way cool */
-#define L_TRAIN         bit(11)	/* train unit - neato */
-#define L_HEAVY         bit(12)	/* heavy unit - can't go on trains */
+#define L_SPY		bit(10)	/* spy unit - way cool */
+#define L_TRAIN		bit(11)	/* train unit - neato */
+#define L_HEAVY		bit(12)	/* heavy unit - can't go on trains */
 
 /* Work required for building 100% */
 #define LND_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))

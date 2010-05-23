@@ -136,17 +136,17 @@ struct mchrstr {
 #define M_MINE		bit(7)	/* drop mines */
 #define M_SWEEP		bit(8)	/* clean up the mines */
 #define M_SUB		bit(9)	/* a submarine */
-/* unused		bit(10)	*/
+/* unused		bit(10) */
 #define M_LAND		bit(11)	/* allows full landing ability */
 #define M_SUBT		bit(12)	/* allows torping of other subs */
 #define M_TRADE		bit(13)	/* is a trade ship */
 #define M_SEMILAND	bit(14)	/* can land 1/4 */
-/* unused		bit(15)	*/
-/* unused		bit(16)	*/
-/* unused		bit(17)	*/
+/* unused		bit(15) */
+/* unused		bit(16) */
+/* unused		bit(17) */
 #define M_SUPPLY	bit(18)	/* Can supply units/sects/ships */
-#define M_CANAL		bit(19) /* Can navigate a canal (BIG CITY) */
-#define M_ANTIMISSILE   bit(20)	/* Shoot down missile */
+#define M_CANAL		bit(19)	/* Can navigate a canal (BIG CITY) */
+#define M_ANTIMISSILE	bit(20)	/* Shoot down missile */
 
 #define getship(n, p) ef_read(EF_SHIP, (n), (p))
 #define putship(n, p) ef_write(EF_SHIP, (n), (p))

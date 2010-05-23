@@ -156,10 +156,10 @@ struct dchrstr {
 #define SCT_BANK	29	/* financial */
 #define SCT_REFINE	30	/* refinery */
 #define SCT_ENLIST	31	/* enlistment center */
-#define SCT_PLAINS      32	/* plains sector */
-#define SCT_BTOWER      33	/* Bridge tower */
+#define SCT_PLAINS	32	/* plains sector */
+#define SCT_BTOWER	33	/* Bridge tower */
 
-#define SCT_TYPE_MAX    38
+#define SCT_TYPE_MAX	38
 
 #define getsect(x, y, p) ef_read(EF_SECTOR, sctoff((x), (y)), (p))
 #define putsect(p) ef_write(EF_SECTOR, (p)->sct_uid, (p))
@@ -196,13 +196,13 @@ extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 #define SCT_LANDMINES(sp) \
     (SCT_MINES_ARE_SEAMINES((sp)) ? 0 : (sp)->sct_mines)
 
-#define MOB_MOVE    0
-#define MOB_MARCH   1
-#define MOB_RAIL    2
+#define MOB_MOVE	0
+#define MOB_MARCH	1
+#define MOB_RAIL	2
 
-#define INT_ROAD    0
-#define INT_RAIL    1
-#define INT_DEF     2
+#define INT_ROAD	0
+#define INT_RAIL	1
+#define INT_DEF		2
 
 /* Sector flags */
 #define MOVE_IN_PROGRESS	bit(0)	/* move in progress */

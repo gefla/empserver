@@ -44,7 +44,7 @@
 #define TEL_ANNOUNCE	1	/* announcement */
 #define TEL_BULLETIN	2	/* bulletin */
 #define TEL_UPDATE	3	/* update message */
-#define TEL_LAST        3
+#define TEL_LAST	3
 
 #define TEL_SECONDS 5		/* how many seconds before starting a new telegram */
 

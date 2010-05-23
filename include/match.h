@@ -37,7 +37,7 @@
 #include <stddef.h>
 
 /* returned by stmtch() and comtch() */
-#define M_IGNORE        -3
+#define M_IGNORE	-3
 #define M_NOTUNIQUE	-2
 #define M_NOTFOUND	-1
 /*#define M_INDEX [0...N-1] */

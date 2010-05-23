@@ -108,7 +108,7 @@ struct rptstr {
 #define N_AIDS		43
 #define N_HURTS		44
 #define N_TAKE		45
-#define N_NUKE_STOP     46
+#define N_NUKE_STOP	46
 #define N_SCT_MISS	47
 #define N_SHP_MISS	48
 #define N_TRADE		49
@@ -122,19 +122,19 @@ struct rptstr {
 #define N_FIRE_F_ATTACK	57
 #define N_FIRE_L_ATTACK	58
 #define N_FIRE_S_ATTACK	59
-#define N_SACK_CAP      60
-#define N_UP_FRIENDLY   61
-#define N_DOWN_FRIENDLY 62
-#define N_UP_NEUTRAL    63
-#define N_DOWN_NEUTRAL  64
-#define N_UP_HOSTILE    65
-#define N_DOWN_HOSTILE  66
-#define N_SCT_SMISS     67
-#define N_SHP_SMISS     68
-#define N_START_COL     69
-#define N_NUKE_SSTOP    70
-#define N_LND_MISS      71
-#define N_LND_SMISS     72
+#define N_SACK_CAP	60
+#define N_UP_FRIENDLY	61
+#define N_DOWN_FRIENDLY	62
+#define N_UP_NEUTRAL	63
+#define N_DOWN_NEUTRAL	64
+#define N_UP_HOSTILE	65
+#define N_DOWN_HOSTILE	66
+#define N_SCT_SMISS	67
+#define N_SHP_SMISS	68
+#define N_START_COL	69
+#define N_NUKE_SSTOP	70
+#define N_LND_MISS	71
+#define N_LND_SMISS	72
 #define N_AWON_SECT	73
 #define N_PWON_SECT	74
 #define N_PARA_UNOCC	75
@@ -142,23 +142,23 @@ struct rptstr {
 #define N_PLOSE_SCT	77
 /* unused		78 */
 /* unused		79 */
-#define N_WELCH_DEAL    80
-#define N_LND_LOSE      81
-#define N_BOARD_LAND    82
+#define N_WELCH_DEAL	80
+#define N_LND_LOSE	81
+#define N_BOARD_LAND	82
 #define N_MAX_VERB	82
 
-#define N_NOTUSED        0
-#define N_FOR            1
-#define N_FRONT          2
-#define N_SEA            3
-#define N_SKY            4
-#define N_MISS           5
-#define N_ARTY           6
-#define N_ECON           7
-#define N_COLONY         8
-#define N_HOME           9
-#define N_SPY           10
-#define N_TELE          11
+#define N_NOTUSED	 0
+#define N_FOR		 1
+#define N_FRONT		 2
+#define N_SEA		 3
+#define N_SKY		 4
+#define N_MISS		 5
+#define N_ARTY		 6
+#define N_ECON		 7
+#define N_COLONY	 8
+#define N_HOME		 9
+#define N_SPY		10
+#define N_TELE		11
 #define N_MAX_PAGE	11
 
 #define getnews(n, p) ef_read(EF_NEWS, (n), (p))

@@ -57,7 +57,7 @@
 #define C_BADCMD	0xB
 #define C_EXECUTE	0xC
 #define C_FLASH		0xD
-#define C_INFORM        0xE
-#define C_LAST          0xE
+#define C_INFORM	0xE
+#define C_LAST		0xE
 
 #endif
