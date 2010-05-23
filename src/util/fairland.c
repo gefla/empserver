@@ -66,6 +66,7 @@ static int quiet = 0;
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
+#include <assert.h>
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -688,12 +689,8 @@ new_try(int c)
 		return i;
 	    i = (i + 1) % secs;
 	} while (i != starti);
-	if (c < nc) {
-	    printf("fairland: BUG -- couldn't find coast for continent %c, sector %d.\nPlease mail stevens@math.utoronto.ca.\n",
-		   c + 'a', secs);
-	    exit(1);
-	} else
-	    return -1;
+	assert(c >= nc);
+	return -1;
     }
     return -1;
 }
