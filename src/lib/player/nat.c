@@ -54,11 +54,11 @@ natbyname(char *name, natid *result)
 }
 
 int
-natpass(int cn, char *pass)
+natpass(natid cn, char *pass)
 {
     struct natstr *np;
 
-    np = getnatp((natid)cn);
+    np = getnatp(cn);
     if (np->nat_stat == STAT_VIS)
 	return 1;
     if (strcmp(np->nat_pnam, pass) == 0)

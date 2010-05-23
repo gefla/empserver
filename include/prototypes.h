@@ -377,7 +377,7 @@ extern int player_set_nstat(struct player *, struct natstr *);
 extern void player_login(void *);
 /* nat.c */
 extern int natbyname(char *, natid *);
-extern int natpass(int, char *);
+extern int natpass(natid, char *);
 /* player.c */
 extern struct player *player;	/* current player's context */
 extern char *praddr(struct player *);
