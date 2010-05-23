@@ -80,11 +80,6 @@ prepare_sects(int etu, struct bp *bp)
 	bp_set_from_sect(bp, sp);
 	np = getnatp(sp->sct_own);
 
-#ifdef DEBUG
-	if (np->nat_stat == STAT_SANCT)
-	    logerror("Prepare.c: country in sanctuary skipped production");
-#endif /* DEBUG */
-
 	if (np->nat_stat != STAT_SANCT) {
 	    guerrilla(sp);
 	    do_plague(sp, np, etu);

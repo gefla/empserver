@@ -107,9 +107,6 @@ update_main(void)
 	if (!(np = getnatp(i)))
 	    continue;
 	if (np->nat_stat == STAT_SANCT) {
-#ifdef DEBUG
-	    logerror("Country %i is in sanctuary and did not update", i);
-#endif
 	    continue;
 	}
 	np->nat_money += (int)(np->nat_reserve * money_res * etu);

@@ -91,10 +91,6 @@ revolt(struct sctstr *sp)
 	    sp->sct_item[I_CIVIL] = civ;
 	if (che_uw > 0)
 	    sp->sct_item[I_UW] = uw;
-#ifdef DEBUG
-	logerror("(#%d) %d che fired up in %s",
-		 sp->sct_own, che, ownxy(sp));
-#endif
     }
 }
 
