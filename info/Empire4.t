@@ -7,6 +7,33 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.26 - Mon May 24 16:37:40 UTC 2010
+ * Land units loaded on ships or land units can no longer fight che.
+ * When foreign land units were present, a che revolt could damage
+   them instead of the defending land units.  This could let defenders
+   survive the revolt.  They were captured or blown up if che took
+   over the sector.
+ * Fix che revolt to damage only land units that actually fight
+ * Fix loading x-light missiles on ships without capability plane.
+   These ships could only use their x-light slots for x-light planes,
+   not their plane slots.  Broken in 4.3.17.
+ * Update bmap when nuclear detonation makes wasteland.
+ * Fix fly and drop to report discarded cargo items correctly.
+ * New client option -s to specify server host and port.
+ * Hitting landmines could crash the server.  When not, the damage
+   reduction for capability engineer was applied unpredictably.
+   Broken in 4.3.24.
+ * Fix retreat and lretreat condition 'c'.  Broken in 4.3.16.
+ * coastwatch and skywatch could see too far.  Up to one sector for
+   practical radar ranges.
+ * skywatch now reports satellite uids.  The uid is required for
+   launching a-sats since 4.3.23.
+ * Fix client not to send an empty line of input before aborting the
+   command on player interrupt (normally ^C).
+ * Fix sabotage not to kill the spy every time.  Broken in 4.3.17.
+ * Code cleanup.
+ * Info page fixes, manual page improvements.
+
 Changes to Empire 4.3.25 - Sun Mar 21 08:27:37 UTC 2010
  * Hitting seamines could crash the server.  When not, the damage
    reduction for capability sweep was applied unpredictably.  Broken
