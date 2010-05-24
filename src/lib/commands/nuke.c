@@ -62,7 +62,7 @@ nuke(void)
 	if (player->god)
 	    pr("%-3d ", nuk.nuk_own);
 	pr("%4d %-19.19s ", nstr.cur, nchr[(int)nuk.nuk_type].n_name);
-	prxy("%4d,%-4d", nuk.nuk_x, nuk.nuk_y, player->cnum);
+	prxy("%4d,%-4d", nuk.nuk_x, nuk.nuk_y);
 	pr(" %1.1s %c%3d%% %4d",
 	   &nuk.nuk_stockpile, nuk.nuk_off ? '!' : ' ', nuk.nuk_effic,
 	   nuk.nuk_tech);

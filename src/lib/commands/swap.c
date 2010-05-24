@@ -95,7 +95,7 @@ print_res(struct sctstr *sp)
 
     pr("%3d ", sp->sct_own);
 
-    prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
+    prxy("%4d,%-4d", sp->sct_x, sp->sct_y);
     pr(" %c", dchr[sp->sct_type].d_mnem);
     if (sp->sct_newtype != sp->sct_type)
 	pr("%c", dchr[sp->sct_newtype].d_mnem);

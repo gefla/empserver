@@ -67,7 +67,7 @@ comm(void)
 	}
 	if (player->god)
 	    pr("%3d", sect.sct_own);
-	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	prxy("%4d,%-4d", nstr.x, nstr.y);
 	pr(" %c", dchr[sect.sct_type].d_mnem);
 	pr(" %c", dirstr[sect.sct_del[I_SHELL] & 0x7]);
 	pr("%c", dirstr[sect.sct_del[I_GUN] & 0x7]);

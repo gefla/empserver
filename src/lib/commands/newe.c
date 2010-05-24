@@ -130,7 +130,7 @@ newe(void)
 	    pr("EFFICIENCY SIMULATION\n");
 	    pr("   sect  des    projected eff\n");
 	}
-	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	prxy("%4d,%-4d", nstr.x, nstr.y);
 	pr(" %c", dchr[type].d_mnem);
 	pr("    %3d%%\n", eff);
     }

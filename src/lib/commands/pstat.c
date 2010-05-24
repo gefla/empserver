@@ -54,7 +54,7 @@ pstat(void)
 	}
 	pr("%4d %-22.22s ",
 	   plane.pln_uid, plchr[(int)plane.pln_type].pl_name);
-	prxy("%4d,%-4d", plane.pln_x, plane.pln_y, player->cnum);
+	prxy("%4d,%-4d", plane.pln_x, plane.pln_y);
 	pr(" %3d%% %4d %3d %3d %3d %3d %4d %4d",
 	   plane.pln_effic,
 	   plane.pln_tech,

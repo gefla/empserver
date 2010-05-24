@@ -56,7 +56,7 @@ sstat(void)
 	       "ship-type");
 	}
 	pr("%4d %-22.22s ", ship.shp_uid, mchr[(int)ship.shp_type].m_name);
-	prxy("%4d,%-4d", ship.shp_x, ship.shp_y, player->cnum);
+	prxy("%4d,%-4d", ship.shp_x, ship.shp_y);
 	pr(" %3d%% %4d %3d %3d %3d %3d %3d",
 	   ship.shp_effic,
 	   ship.shp_tech,

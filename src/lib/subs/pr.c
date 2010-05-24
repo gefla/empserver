@@ -428,16 +428,16 @@ prdate(void)
 }
 
 /*
- * Print coordinates X, Y for COUNTRY.
+ * Print coordinates X, Y.
  * FORMAT must be a printf-style format string that converts exactly
  * two int values.
  */
 void
-prxy(char *format, coord x, coord y, natid country)
+prxy(char *format, coord x, coord y)
 {
     struct natstr *np;
 
-    np = getnatp(country);
+    np = getnatp(player->cnum);
     pr(format, xrel(np, x), yrel(np, y));
 }
 

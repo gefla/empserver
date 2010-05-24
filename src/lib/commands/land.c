@@ -65,7 +65,7 @@ land(void)
 	    pr("%3d ", land.lnd_own);
 	pr("%4d ", ni.cur);
 	pr("%-15.15s", lchr[(int)land.lnd_type].l_name);
-	prxy(" %4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
+	prxy(" %4d,%-4d", land.lnd_x, land.lnd_y);
 	pr("%1.1s", &land.lnd_army);
 	pr(" %c%3d%%", land.lnd_off ? '!' : ' ', land.lnd_effic);
 	pr("%4d", land.lnd_item[I_MILIT]);

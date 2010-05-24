@@ -57,7 +57,7 @@ show_sail(struct nstr_item *nstr)
 	    pr("%3d ", ship.shp_own);
 	pr("%4d ", ship.shp_uid);
 	pr("%-16.16s ", mchr[(int)ship.shp_type].m_name);
-	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y);
 	pr("%3d  ", ship.shp_mobil);
 	pr("   %3d     ", ship.shp_mobquota);
 	pr("   %3d   ", ship.shp_follow);

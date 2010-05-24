@@ -111,7 +111,7 @@ start_stop_sector(char *arg, int off)
 	    start_stop_hdr(off);
 	if (player->god)
 	    pr("%3d ", sect.sct_own);
-	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	prxy("%4d,%-4d", nstr.x, nstr.y);
 	pr(" %c", dchr[sect.sct_type].d_mnem);
 	if (sect.sct_newtype != sect.sct_type)
 	    pr("%c", dchr[sect.sct_newtype].d_mnem);
@@ -171,7 +171,7 @@ start_stop_unit(int type, char *arg, int off)
 	if (player->god)
 	    pr("%3d ", unit.gen.own);
 	pr("%4d %-4.4s ", nstr.cur, empobj_chr_name(&unit.gen));
-	prxy("%4d,%-4d", unit.gen.x, unit.gen.y, player->cnum);
+	prxy("%4d,%-4d", unit.gen.x, unit.gen.y);
 	pr("%4d%%", unit.gen.effic);
 	proff(off);
 	unit.gen.off = off;

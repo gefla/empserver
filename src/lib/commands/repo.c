@@ -93,7 +93,7 @@ repo_list(struct natstr *plnatp, struct natstr *natp)
 	printdiff(plnatp, natp, NAT_HLEV);
     }
     if (player->god) {
-	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap, player->cnum);
+	prxy("  %4d,%-4d\n", natp->nat_xcap, natp->nat_ycap);
     } else {
 	if (!opt_HIDDEN && influx(natp))
 	    pr("In flux\n");

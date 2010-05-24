@@ -164,7 +164,7 @@ retreat(int type)
 	    pr("%3d ", unit.gen.own);
 	pr("%4d ", ni.cur);
 	pr("%-16.16s ", name);
-	prxy("%4d,%-4d ", unit.gen.x, unit.gen.y, player->cnum);
+	prxy("%4d,%-4d ", unit.gen.x, unit.gen.y);
 	pr("%1.1s", &unit.gen.group);
 	pr(" %-11s", rpath);
 	rflags = *rflagsp;

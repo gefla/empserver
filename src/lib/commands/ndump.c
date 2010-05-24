@@ -65,7 +65,7 @@ ndump(void)
 	if (player->god)
 	    pr("%d ", nuk.nuk_own);
 	pr("%d ", nuk.nuk_uid);
-	prxy("%d %d", nuk.nuk_x, nuk.nuk_y, player->cnum);
+	prxy("%d %d", nuk.nuk_x, nuk.nuk_y);
 	pr(" %d", 1);
 	pr(" %.5s", nchr[(int)nuk.nuk_type].n_name);
 	pr("\n");

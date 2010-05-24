@@ -58,7 +58,7 @@ lsta(void)
 	    pr("lnd# %16.16s    x,y    eff tech att def vul  d  s  y  d  g  c  r  m  f\n", "unit-type");
 	}
 	pr("%4d %-16.16s ", land.lnd_uid, lcp->l_name);
-	prxy("%4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
+	prxy("%4d,%-4d", land.lnd_x, land.lnd_y);
 	pr(" %3d%% %3d %1.1f %1.1f %3d ",
 	   land.lnd_effic, land.lnd_tech, lnd_att(&land), lnd_def(&land),
 	   lnd_vul(&land));

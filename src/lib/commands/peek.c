@@ -56,7 +56,7 @@ peek(void)
 	    pr("own   sect        eff loyal cnum value  stage time mines\n");
 	}
 	pr("%3d ", sect.sct_own);
-	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	prxy("%4d,%-4d", nstr.x, nstr.y);
 	pr(" %c  %3d%%   %3d  %3d  %3d    %3d   %3d  %3d",
 	   dchr[sect.sct_type].d_mnem, sect.sct_effic,
 	   sect.sct_loyal, sect.sct_che_target, sect.sct_che,

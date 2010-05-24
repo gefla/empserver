@@ -73,7 +73,7 @@ anti(void)
 	avail_mil = sect.sct_mobil / 2;
 	if (mil <= avail_mil)
 	    avail_mil = mil;
-	prxy("%4d,%-4d ", sect.sct_x, sect.sct_y, player->cnum);
+	prxy("%4d,%-4d ", sect.sct_x, sect.sct_y);
 	if (avail_mil <= 0) {
 	    pr("No available mil or mob in sector.\n");
 	    continue;

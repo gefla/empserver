@@ -167,7 +167,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		pr("%4d %4d %-16.16s %-25.25s ",
 		   ship.shp_own, ship.shp_uid,
 		   mchr[(int)ship.shp_type].m_name, ship.shp_name);
-		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+		prxy("%4d,%-4d ", ship.shp_x, ship.shp_y);
 		pr("%3d%%\n", ship.shp_effic);
 		++count;
 		if (opt_HIDDEN)
@@ -213,7 +213,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		pr("%4d %4d %-16.16s ",
 		   land.lnd_own, land.lnd_uid,
 		   lchr[(int)land.lnd_type].l_name);
-		prxy("%4d,%-4d", land.lnd_x, land.lnd_y, player->cnum);
+		prxy("%4d,%-4d", land.lnd_x, land.lnd_y);
 		pr("%3d%%\n", land.lnd_effic);
 		++count;
 		if (opt_HIDDEN)
@@ -258,7 +258,7 @@ sathead(void)
 void
 satdisp_sect(struct sctstr *sp, int acc)
 {
-    prxy("%4d,%-4d   ", sp->sct_x, sp->sct_y, player->cnum);
+    prxy("%4d,%-4d   ", sp->sct_x, sp->sct_y);
     pr("%c  %3d  %3d %3d %3d %3d %4d %4d %4d %4d %4d %4d %5d\n",
        dchr[sp->sct_type].d_mnem,
        sp->sct_own, roundintby((int)sp->sct_effic, acc / 2),
@@ -298,7 +298,7 @@ satdisp_units(coord x, coord y)
 	pr("\t%4d %4d %-16.16s %-25.25s ",
 	   ship.shp_own, ship.shp_uid,
 	   mchr[(int)ship.shp_type].m_name, ship.shp_name);
-	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y);
 	pr("%3d%%\n", ship.shp_effic);
     }
 
@@ -325,7 +325,7 @@ satdisp_units(coord x, coord y)
 
 	pr("\t%4d %4d %-16.16s ",
 	   land.lnd_own, land.lnd_uid, lchr[(int)land.lnd_type].l_name);
-	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y, player->cnum);
+	prxy("%4d,%-4d ", land.lnd_x, land.lnd_y);
 	pr("%3d%%\n", land.lnd_effic);
     }
 

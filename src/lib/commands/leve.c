@@ -58,9 +58,9 @@ leve(void)
 	}
 	if (player->god)
 	    pr("%2d ", sect.sct_own);
-	prxy("%3d,%-3d", nstr.x, nstr.y, player->cnum);
+	prxy("%3d,%-3d", nstr.x, nstr.y);
 	pr(" %c ", dchr[sect.sct_type].d_mnem);
-	prxy("%3d,%-3d", sect.sct_dist_x, sect.sct_dist_y, player->cnum);
+	prxy("%3d,%-3d", sect.sct_dist_x, sect.sct_dist_y);
 	pr(" %4d", sect.sct_dist[I_CIVIL]);
 	pr("%4d", sect.sct_dist[I_MILIT]);
 	pr("%4d", sect.sct_dist[I_UW]);

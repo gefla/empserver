@@ -129,7 +129,7 @@ starv_sects(char *range)
 	    sect_hdr();
 	if (player->god)
 	    pr("%3d ", sect.sct_own);
-	prxy("%4d,%-4d", nstr.x, nstr.y, player->cnum);
+	prxy("%4d,%-4d", nstr.x, nstr.y);
 	pr(" %c", dchr[sect.sct_type].d_mnem);
 	pr(" %c", sect.sct_own != sect.sct_oldown ? '*' : ' ');
 	if (sect.sct_newtype != sect.sct_type)

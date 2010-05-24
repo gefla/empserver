@@ -76,12 +76,12 @@ payo(void)
 	if (ship.shp_own != ship.shp_orig_own && !player->god) {
 	    /* Don't disclose construction site to pirates! */
 	    pr("    ?     ");
-	    prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+	    prxy("%4d,%-4d ", ship.shp_x, ship.shp_y);
 	    pr("   ? $  ?\n");
 	    continue;
 	}
-	prxy("%4d,%-4d ", ship.shp_orig_x, ship.shp_orig_y, player->cnum);
-	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y, player->cnum);
+	prxy("%4d,%-4d ", ship.shp_orig_x, ship.shp_orig_y);
+	prxy("%4d,%-4d ", ship.shp_x, ship.shp_y);
 
 	getsect(ship.shp_x, ship.shp_y, &sect);
 

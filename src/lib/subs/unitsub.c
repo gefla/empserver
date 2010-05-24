@@ -75,7 +75,7 @@ unit_list(struct emp_qelem *unit_list)
 	    continue;
 	pr("%4d ", unit->uid);
 	pr("%-16.16s ", empobj_chr_name(unit));
-	prxy("%4d,%-4d ", unit->x, unit->y, player->cnum);
+	prxy("%4d,%-4d ", unit->x, unit->y);
 	pr("%1.1s", &unit->group);
 	pr("%4d%%", unit->effic);
 	if (type == EF_LAND) {

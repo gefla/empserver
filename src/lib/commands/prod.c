@@ -327,7 +327,7 @@ prprod(coord x, coord y, int type, double p_e, double prodeff, int work,
 	pr("   sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
     }
 
-    prxy("%4d,%-4d", x, y, player->cnum);
+    prxy("%4d,%-4d", x, y);
     pr(" %c %3.0f%% %5d", dchr[type].d_mnem, p_e * 100.0, work);
     if (mnem == '.')
 	pr(" %5.2f", make);

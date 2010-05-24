@@ -312,7 +312,7 @@ show_mission(struct nstr_item *np)
 	    first = 0;
 	}
 	pr("%-25s", obj_nameof(gp));
-	prxy(" %3d,%-3d", gp->x, gp->y, player->cnum);
+	prxy(" %3d,%-3d", gp->x, gp->y);
 	switch (gp->mission) {
 	case MI_INTERDICT:
 	case MI_SUPPORT:
@@ -321,7 +321,7 @@ show_mission(struct nstr_item *np)
 	case MI_AIR_DEFENSE:
 	case MI_DSUPPORT:
 	case MI_OSUPPORT:
-	    prxy(" %3d,%-3d", gp->opx, gp->opy, player->cnum);
+	    prxy(" %3d,%-3d", gp->opx, gp->opy);
 	    pr("  %4d", gp->radius);
 	    break;
 	default:

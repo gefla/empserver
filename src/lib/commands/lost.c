@@ -64,7 +64,7 @@ lost(void)
 	if (player->god)
 	    pr("%d ", lost.lost_owner);
 	pr("%d %d ", lost.lost_type, lost.lost_id);
-	prxy("%d %d ", lost.lost_x, lost.lost_y, player->cnum);
+	prxy("%d %d ", lost.lost_x, lost.lost_y);
 	pr("%ld\n", (long)lost.lost_timestamp);
 	nlost++;
     }

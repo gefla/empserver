@@ -182,7 +182,7 @@ spy(void)
 static void
 spy_report(struct sctstr *sp)
 {
-    prxy("%4d,%-4d", sp->sct_x, sp->sct_y, player->cnum);
+    prxy("%4d,%-4d", sp->sct_x, sp->sct_y);
     pr(" %c%c %3d %3d %3d %3d %3d %3d %4d %4d %4d %3d %4d %4d %4d\n",
        dchr[sp->sct_type].d_mnem,
        sp->sct_newtype == sp->sct_type ? ' ' : dchr[sp->sct_newtype].d_mnem,

@@ -412,18 +412,16 @@ sorde(void)
 	    pr("%3d ", ship.shp_own);
 	pr("%4d", nb.cur);
 	pr(" %-16.16s", mchr[(int)ship.shp_type].m_name);
-	prxy(" %3d,%-3d", ship.shp_x, ship.shp_y, player->cnum);
+	prxy(" %3d,%-3d", ship.shp_x, ship.shp_y);
 
 	if (ship.shp_autonav & AN_AUTONAV) {
 	    /* Destination 1 */
-	    prxy(" %3d,%-3d",
-		 ship.shp_destx[1], ship.shp_desty[1], player->cnum);
+	    prxy(" %3d,%-3d", ship.shp_destx[1], ship.shp_desty[1]);
 
 	    /* Destination 2 */
 	    if ((ship.shp_destx[1] != ship.shp_destx[0])
 		|| (ship.shp_desty[1] != ship.shp_desty[0])) {
-		prxy(" %3d,%-3d",
-		     ship.shp_destx[0], ship.shp_desty[0], player->cnum);
+		prxy(" %3d,%-3d", ship.shp_destx[0], ship.shp_desty[0]);
 	    } else
 		pr("        ");
 
