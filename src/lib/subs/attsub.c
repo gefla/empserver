@@ -83,8 +83,7 @@ static void send_reacting_units_home(struct emp_qelem *list);
 static int take_def(int combat_mode, struct emp_qelem *list,
 		    struct combat *off, struct combat *def);
 
-static int get_land(int combat_mode, struct combat *def,
-		    struct ulist *llp, int victim_land);
+static int get_land(int, struct combat *, struct ulist *);
 
 char *att_mode[] = {
     /* must match combat types in combat.h */
@@ -1279,7 +1278,7 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
 	if (check &&
-	    !get_land(combat_mode, NULL, llp, 0))
+	    !get_land(combat_mode, NULL, llp))
 	    continue;
 	if (combat_mode == A_ATTACK) {
 	    w = -1;
@@ -1328,7 +1327,7 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
-	if (check && !get_land(A_DEFEND, def, llp, 1))
+	if (check && !get_land(A_DEFEND, def, llp))
 	    continue;
 	d_unit = defense_val(&llp->unit.land);
 	if (!llp->supplied)
@@ -1342,13 +1341,11 @@ get_dtotal(struct combat *def, struct emp_qelem *list, double dsupport,
 }
 
 /*
- * This is the land unit integrity check.  Note that we don't print
- * warnings about victim land units because the attacker may not have seen them
+ * This is the land unit integrity check.
  */
 
 static int
-get_land(int combat_mode, struct combat *def, struct ulist *llp,
-	 int victim_land)
+get_land(int combat_mode, struct combat *def, struct ulist *llp)
 {
     struct lndstr *lp = &llp->unit.land;
     char buf[512];
@@ -1361,7 +1358,7 @@ get_land(int combat_mode, struct combat *def, struct ulist *llp,
 	lnd_delete(llp, buf);
 	return 0;
     }
-    if (victim_land) {
+    if (combat_mode == A_DEFEND) {
 	if (lp->lnd_x != def->x || lp->lnd_y != def->y) {
 	    lnd_delete(llp,
 		       "left to go fight another battle and is no longer a part of the defense");
@@ -1450,7 +1447,7 @@ put_land(struct emp_qelem *list)
 	    emp_remque((struct emp_qelem *)llp);
 	    free(llp);
 	} else
-	    get_land(A_ATTACK, NULL, llp, 0);
+	    get_land(A_ATTACK, NULL, llp);
     }
 }
 
@@ -2292,7 +2289,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	    *answerp = 'N';
 	if (*answerp == 'Y')
 	    continue;
-	if (!get_land(A_ATTACK, def, llp, 0))
+	if (!get_land(A_ATTACK, def, llp))
 	    continue;
 	if (*answerp != 'N') {
 	    sprintf(prompt, "Move in with %s (%c %d%%) [ynYNq?] ",
@@ -2302,7 +2299,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	    *answerp = att_prompt(prompt, llp->unit.land.lnd_army);
 	    if (player->aborted || att_get_combat(def, 0) < 0)
 		*answerp = 'N';
-	    if (!get_land(A_ATTACK, def, llp, 0))
+	    if (!get_land(A_ATTACK, def, llp))
 		continue;
 	}
 	if (*answerp == 'y' || *answerp == 'Y')
@@ -2318,7 +2315,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	for (qp = olist->q_forw; qp != olist; qp = next) {
 	    next = qp->q_forw;
 	    llp = (struct ulist *)qp;
-	    if (!get_land(A_ATTACK, def, llp, 0))
+	    if (!get_land(A_ATTACK, def, llp))
 		continue;
 	    sprintf(buf, "stays in %s",
 		    xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
@@ -2347,7 +2344,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
-	if (!get_land(combat_mode, def, llp, 0))
+	if (!get_land(combat_mode, def, llp))
 	    continue;
 	take_move_in_mob(combat_mode, llp, off, def);
 	llp->unit.land.lnd_x = def->x;
