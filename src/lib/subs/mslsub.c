@@ -62,7 +62,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
     struct nukstr nuke;
     struct sctstr sect;
     int sublaunch = 0;
-    char *from;
+    char *base, *in_or_at, *from;
     int dam;
 
     mpr(pp->pln_own, "Preparing to launch %s at %s %s %s%s\n",
@@ -71,25 +71,27 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	what,
 	type != EF_SECTOR ? "in " : "",
 	xyas(x, y, pp->pln_own));
-    mpr(pp->pln_own, "\tLaunching from ");
     if (pp->pln_ship >= 0) {
 	getship(pp->pln_ship, &ship);
-	mpr(pp->pln_own, "%s in ", prship(&ship));
+	base = prship(&ship);
+	in_or_at = " in ";
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
 	    sublaunch = 1;
 	    from = "in hatch";
 	} else
 	    from = "on deck";
-	mpr(pp->pln_own, "%s\n",
-	    xyas(ship.shp_x, ship.shp_y, pp->pln_own));
     } else {
 	if (pp->pln_harden > 0) {
-	    mpr(pp->pln_own, "missile silo at ");
+	    base = "missile silo";
+	    in_or_at = " at ";
 	    from = "in silo";
-	} else
+	} else {
+	    base = in_or_at = "";
 	    from = "on launch pad";
-	mpr(pp->pln_own, "%s\n", xyas(pp->pln_x, pp->pln_y, pp->pln_own));
+	}
     }
+    mpr(pp->pln_own, "\tLaunching from %s%s%s\n",
+	base, in_or_at, xyas(pp->pln_x, pp->pln_y, pp->pln_own));
 
     CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
     pp->pln_flags |= PLN_LAUNCHED;
