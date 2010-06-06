@@ -985,12 +985,11 @@ int
 pln_damage(struct plnstr *pp, char type, int noisy)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
-    int load, i;
-    int hitroll;
+    int load, i, hitroll, aim, len;
     int dam = 0;
-    int aim;
     int effective = 1;
     int pinbomber = 0;
+    char buf[80];
 
     if (CANT_HAPPEN(nuk_on_plane(pp) >= 0))
 	return 0;
@@ -1018,27 +1017,34 @@ pln_damage(struct plnstr *pp, char type, int noisy)
 	aim = 100 - aim;
     }
 
+    len = 0;
     while (i--) {
 	dam += roll(6);
 	hitroll = roll(100);
 	if (hitroll >= 90) {
 	    dam += 8;
 	    if (noisy)
-		mpr(pp->pln_own, "BLAM");
+		len += sprintf(buf + len, "BLAM");
 	} else if (hitroll < aim) {
 	    dam += 5;
 	    if (noisy)
-		mpr(pp->pln_own, "Blam");
+		len += sprintf(buf + len, "Blam");
 	} else {
 	    dam += 1;
 	    if (noisy)
-		mpr(pp->pln_own, "blam");
+		len += sprintf(buf + len, "blam");
 	}
-	if (i && noisy)
-	    mpr(pp->pln_own, "-");
+	if (noisy) {
+	    if (len > 75) {
+		mpr(pp->pln_own, "%s\n", buf);
+		len = 0;
+	    }
+	    if (i)
+		len += sprintf(buf + len, "-");
+	}
     }
-    if (noisy)
-	mpr(pp->pln_own, "\n");
+    if (noisy && len)
+	mpr(pp->pln_own, "%s\n", buf);
     if (effective)
 	dam *= 2;
     return dam;
