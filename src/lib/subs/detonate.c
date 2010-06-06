@@ -286,8 +286,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    pr("%s at %s destroyed\n",
 	       prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	} else {
-	    mpr(own, "%s at %s destroyed\n",
-		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
+	    mpr(own, "%s nuclear device destroyed %s at %s\n",
+		cname(player->cnum), prnuke(&nuke),
+		      xyas(nuke.nuk_x, nuke.nuk_y, own));
 	}
 	putnuke(ni.cur, &nuke);
     }
