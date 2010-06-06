@@ -63,9 +63,6 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     struct shpstr ship;
     struct lndstr land;
     struct nukstr nuke;
-    char *bp;
-    char buf[128];
-    char buf2[128];
     natid own;
     int type;
     int damage;
@@ -116,30 +113,38 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    sect.sct_own = 0;
 	    if (type == SCT_WATER || type == SCT_BSPAN ||
 		type == SCT_BTOWER) {
-		bp = "left nothing but water in %s\n";
 		if (type != SCT_WATER) {
+		    pr("left nothing but water in %s\n",
+		       xyas(ns.x, ns.y, player->cnum));
+		    if (own != player->cnum)
+			mpr(own,
+			    "%s nuclear device left nothing but water in %s\n",
+			    cname(player->cnum), xyas(ns.x, ns.y, own));
 		    sect.sct_newtype = SCT_WATER;
 		    sect.sct_type = SCT_WATER;
 		}
 	    } else {
 		sect.sct_newtype = SCT_WASTE;
 		sect.sct_type = SCT_WASTE;
-		bp = "turned %s into a radioactive wasteland\n";
+		pr("turned %s into a radioactive wasteland\n",
+		   xyas(ns.x, ns.y, player->cnum));
+		if (own != player->cnum)
+		    mpr(own,
+			"%s nuclear device turned %s into a radioactive wasteland\n",
+			cname(player->cnum), xyas(ns.x, ns.y, own));
 	    }
 	    changed |= map_set(player->cnum, sect.sct_x, sect.sct_y,
 			       dchr[sect.sct_type].d_mnem, 0);
 	} else {
-	    sprintf(buf, "did %d%%%% damage in %%s\n", damage);
-	    bp = buf;
+	    pr("did %d%% damage in %s\n",
+	       damage, xyas(ns.x, ns.y, player->cnum));
+	    if (own != player->cnum)
+		mpr(own, "%s nuclear device did %d%% damage in %s\n",
+		    cname(player->cnum), damage, xyas(ns.x, ns.y, own));
 	}
 	(void)putsect(&sect);
 	if (type != SCT_WATER)
 	    nreport(player->cnum, N_NUKE, own, 1);
-	pr(bp, xyas(ns.x, ns.y, player->cnum));
-	if (own != player->cnum && own != 0) {
-	    (void)sprintf(buf2, bp, xyas(ns.x, ns.y, own));
-	    mpr(own, "%s nuclear device %s", cname(player->cnum), buf2);
-	}
     }
 
     if (changed)
