@@ -122,7 +122,6 @@ knockdown(struct sctstr *sp)
     struct plnstr plane;
     struct nukstr nuke;
     struct nstr_item ni;
-    struct natstr *np;
 
     mpr(sp->sct_own,
 	"Crumble... SCREEEECH!  Splash! Bridge%s falls at %s!\n",
@@ -144,9 +143,6 @@ knockdown(struct sctstr *sp)
 	    continue;
 	if (land.lnd_ship >= 0)
 	    continue;
-	np = getnatp(land.lnd_own);
-	if (np->nat_flags & NF_BEEP)
-	    mpr(land.lnd_own, "\07");
 	mpr(land.lnd_own, "     AARGH! %s tumbles to its doom!\n",
 	    prland(&land));
 	land.lnd_effic = 0;
@@ -161,9 +157,6 @@ knockdown(struct sctstr *sp)
 	    continue;
 	if (plane.pln_ship >= 0)
 	    continue;
-	np = getnatp(plane.pln_own);
-	if (np->nat_flags & NF_BEEP)
-	    mpr(plane.pln_own, "\07");
 	mpr(plane.pln_own, "     AARGH! %s tumbles to its doom!\n",
 	    prplane(&plane));
 	plane.pln_effic = 0;
@@ -176,9 +169,6 @@ knockdown(struct sctstr *sp)
 	    continue;
 	if (nuke.nuk_plane >= 0)
 	    continue;
-	np = getnatp(nuke.nuk_own);
-	if (np->nat_flags & NF_BEEP)
-	    mpr(nuke.nuk_own, "\07");
 	mpr(nuke.nuk_own, "     %s sinks to the bottom of the sea!\n",
 	    prnuke(&nuke));
 	nuke.nuk_effic = 0;
