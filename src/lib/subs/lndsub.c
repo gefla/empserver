@@ -856,7 +856,7 @@ lnd_hit_mine(struct lndstr *lp)
 {
     int m;
 
-    mpr(lp->lnd_own, "Blammo! Landmines detected in %s! ",
+    mpr(lp->lnd_own, "Blammo! Landmines detected in %s!\n",
 	xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
 
     nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
