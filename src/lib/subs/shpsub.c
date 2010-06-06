@@ -840,7 +840,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 {
     struct nstr_item ni;
     struct shpstr ship;
-    int hitchance;
+    int hitchance, hit;
     double gun, eff, teff;
 
     snxtitem_dist(&ni, EF_SHIP, dx, dy, 1);
@@ -877,23 +877,20 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    hitchance = 0;
 	if (hitchance > 100)
 	    hitchance = 100;
+	hit = roll(100) <= hitchance;
 
-	mpr(bombown, "%s anti-missile system activated...",
-	    cname(ship.shp_own));
+	mpr(bombown, "%s anti-missile system activated...%s\n",
+	    cname(ship.shp_own),
+	    hit ? "KABOOOM!! Missile destroyed\n"
+	    : "SWOOSH!!  anti-missile system failed!!");
 	mpr(ship.shp_own, "Ship #%i anti-missile system activated!\n",
 	    ship.shp_uid);
-	mpr(ship.shp_own, "%d%% hitchance...", hitchance);
+	mpr(ship.shp_own, "%d%% hitchance...%s\n", hitchance,
+	    hit ? "KABOOOM!!  Incoming missile destroyed!\n"
+	    : "SWOOSH!!  Missile evades anti-missile systems\n");
 
-	if (roll(100) <= hitchance) {
-	    mpr(bombown, "KABOOOM!! Missile destroyed\n\n");
-	    mpr(ship.shp_own,
-		"KABOOOM!!  Incoming missile destroyed!\n\n");
+	if (hit)
 	    return 1;
-	} else {
-	    mpr(bombown, "SWOOSH!!  anti-missile system failed!!\n");
-	    mpr(ship.shp_own,
-		"SWOOSH!!  Missile evades anti-missile systems\n\n");
-	}
     }
     return 0;			/* all attempts failed */
 }
