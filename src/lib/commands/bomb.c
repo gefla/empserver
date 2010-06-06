@@ -774,6 +774,8 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	else
 	    dam += pln_damage(&plp->plane, 's', 1);
     }
+    if (dam <= 0)
+	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
     if (target->sct_own)
