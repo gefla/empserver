@@ -51,13 +51,12 @@
 #include "ship.h"
 #include "xy.h"
 
-static void kaboom(int x, int y, int rad, natid cn);
+static void kaboom(int x, int y, int rad);
 
 int
 detonate(struct nukstr *np, coord x, coord y, int airburst)
 {
     int nuketype = np->nuk_type;
-    natid bombown = np->nuk_own;
     struct nchrstr *ncp;
     struct plnstr plane;
     struct sctstr sect;
@@ -76,12 +75,12 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     struct nstr_item ni;
     int changed = 0;
 
-    mpr(bombown, "Releasing RV's for %s detonation...\n",
-	airburst ? "airburst" : "groundburst");
+    pr("Releasing RV's for %s detonation...\n",
+       airburst ? "airburst" : "groundburst");
 
     getsect(x, y, &sect);
     ncp = &nchr[nuketype];
-    kaboom(x, y, ncp->n_blast, bombown);
+    kaboom(x, y, ncp->n_blast);
     rad = ncp->n_blast;
     if (!airburst)
 	rad = rad * 2 / 3;
@@ -97,10 +96,10 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	if ((damage = nukedamage(ncp, ns.curdist, airburst)) <= 0)
 	    continue;
 	if (type == SCT_SANCT) {
-	    mpr(bombown, "bounced off %s\n", xyas(ns.x, ns.y, bombown));
+	    pr("bounced off %s\n", xyas(ns.x, ns.y, player->cnum));
 	    mpr(own, "%s nuclear device bounced off %s\n",
-		cname(bombown), xyas(ns.x, ns.y, own));
-	    nreport(bombown, N_NUKE, own, 1);
+		cname(player->cnum), xyas(ns.x, ns.y, own));
+	    nreport(player->cnum, N_NUKE, own, 1);
 	    continue;
 	}
 	sect_damage(&sect, damage);
@@ -135,11 +134,11 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	}
 	(void)putsect(&sect);
 	if (type != SCT_WATER)
-	    nreport(bombown, N_NUKE, own, 1);
-	mpr(bombown, bp, xyas(ns.x, ns.y, bombown));
-	if (own != bombown && own != 0) {
+	    nreport(player->cnum, N_NUKE, own, 1);
+	pr(bp, xyas(ns.x, ns.y, player->cnum));
+	if (own != player->cnum && own != 0) {
 	    (void)sprintf(buf2, bp, xyas(ns.x, ns.y, own));
-	    mpr(own, "%s nuclear device %s\n", cname(bombown), buf2);
+	    mpr(own, "%s nuclear device %s\n", cname(player->cnum), buf2);
 	}
     }
 
@@ -179,13 +178,13 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    }
 	}
 	planedamage(&plane, damage);
-	if (own == bombown) {
-	    mpr(bombown, "%s at %s reports %d%% damage\n",
-		prplane(&plane),
-		xyas(plane.pln_x, plane.pln_y, own), damage);
+	if (own == player->cnum) {
+	    pr("%s at %s reports %d%% damage\n",
+	       prplane(&plane),
+	       xyas(plane.pln_x, plane.pln_y, own), damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		cname(bombown), damage,
+		cname(player->cnum), damage,
 		prplane(&plane), xyas(plane.pln_x, plane.pln_y, own));
 	}
 	putplane(ni.cur, &plane);
@@ -222,12 +221,12 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    }
 	}
 	land_damage(&land, damage);
-	if (own == bombown) {
-	    mpr(bombown, "%s at %s reports %d%% damage\n",
-		prland(&land), xyas(land.lnd_x, land.lnd_y, own), damage);
+	if (own == player->cnum) {
+	    pr("%s at %s reports %d%% damage\n",
+	       prland(&land), xyas(land.lnd_x, land.lnd_y, own), damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		cname(bombown), damage,
+		cname(player->cnum), damage,
 		prland(&land), xyas(land.lnd_x, land.lnd_y, own));
 	}
 	putland(land.lnd_uid, &land);
@@ -258,12 +257,12 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    }
 	}
 	ship_damage(&ship, damage);
-	if (own == bombown) {
-	    mpr(bombown, "%s at %s reports %d%% damage\n",
-		prship(&ship), xyas(ship.shp_x, ship.shp_y, own), damage);
+	if (own == player->cnum) {
+	    pr("%s at %s reports %d%% damage\n",
+	       prship(&ship), xyas(ship.shp_x, ship.shp_y, own), damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
-		cname(bombown), damage, prship(&ship),
+		cname(player->cnum), damage, prship(&ship),
 		xyas(ship.shp_x, ship.shp_y, own));
 	}
 	putship(ship.shp_uid, &ship);
@@ -278,9 +277,9 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	if (roll(100) >= damage)
 	    continue;
 	nuke.nuk_effic = 0;
-	if (own == bombown) {
-	    mpr(bombown, "%s at %s destroyed\n",
-		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
+	if (own == player->cnum) {
+	    pr("%s at %s destroyed\n",
+	       prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
 	} else {
 	    mpr(own, "%s at %s destroyed\n",
 		prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
@@ -296,10 +295,10 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
  * silly to be sure.
  */
 static void
-kaboom(int x, int y, int rad, natid cn)
+kaboom(int x, int y, int rad)
 {
-    mpr(cn, "\n\nK A B O O ");
+    pr("\n\nK A B O O ");
     while (rad-- > 1)
-	mpr(cn, "O O ");
-    mpr(cn, "M ! in %s\n\n", xyas(x, y, cn));
+	pr("O O ");
+    pr("M ! in %s\n\n", xyas(x, y, player->cnum));
 }
