@@ -138,7 +138,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	pr(bp, xyas(ns.x, ns.y, player->cnum));
 	if (own != player->cnum && own != 0) {
 	    (void)sprintf(buf2, bp, xyas(ns.x, ns.y, own));
-	    mpr(own, "%s nuclear device %s\n", cname(player->cnum), buf2);
+	    mpr(own, "%s nuclear device %s", cname(player->cnum), buf2);
 	}
     }
 
