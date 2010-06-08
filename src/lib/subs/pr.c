@@ -500,8 +500,9 @@ pr_beep(void)
 }
 
 /*
- * Print to country CN similar to printf().
- * Use printf-style FORMAT with the optional arguments.
+ * Print complete lines to country CN similar to printf().
+ * Use printf-style FORMAT with the optional arguments.  FORMAT must
+ * end with '\n'.
  * If CN is zero, don't print anything.
  * Else, if CN is the current player and we're not in the update,
  * print just like pr().  Else print into a bulletin.
@@ -514,6 +515,7 @@ mpr(int cn, char *format, ...)
     char buf[4096];
     va_list ap;
 
+    CANT_HAPPEN(!format[0] || format[strlen(format) - 1] != '\n');
     if (!cn)
 	return;
     va_start(ap, format);
