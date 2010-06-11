@@ -103,7 +103,7 @@ do_look(int type)
 	    getsect(x, y, &sect);
 	    if (sect.sct_type == SCT_WATER)
 		continue;
-	    if (player->owner)
+	    if (sect.sct_own == player->cnum)
 		pr("Your ");
 	    else
 		pr("%s (#%d) ", cname(sect.sct_own), sect.sct_own);
