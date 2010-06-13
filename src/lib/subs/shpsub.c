@@ -65,7 +65,12 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 
     emp_initque(list);
     while (nxtitem(ni, &ship)) {
-	if (!player->owner)
+	/*
+	 * It would be nice to let deities navigate foreign ships, but
+	 * much of the code assumes that only the ship's owner can
+	 * navigate it.
+	 */
+	if (ship.shp_own != player->cnum)
 	    continue;
 	mcp = &mchr[(int)ship.shp_type];
 	if (opt_MARKET) {
