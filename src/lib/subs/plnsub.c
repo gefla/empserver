@@ -541,7 +541,12 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 
     emp_initque(list);
     while (nxtitem(ni, &plane)) {
-	if (!player->owner)
+	/*
+	 * It would be nice to let deities fly foreign planes, but
+	 * much of the code assumes that only the plane's owner can
+	 * fly it.
+	 */
+	if (plane.pln_own != player->cnum)
 	    continue;
 	if (plane.pln_mobil <= 0)
 	    continue;
