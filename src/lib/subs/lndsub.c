@@ -404,7 +404,12 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 
     emp_initque(list);
     while (nxtitem(ni, &land)) {
-	if (!player->owner)
+	/*
+	 * It would be nice to let deities march foreign land units,
+	 * but much of the code assumes that only the land unit's
+	 * owner can march it.
+	 */
+	if (land.lnd_own != player->cnum)
 	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_LAND, &land)) {
