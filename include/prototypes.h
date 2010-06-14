@@ -73,6 +73,7 @@ extern int check_trade(void);
 extern int ontradingblock(int, void *);
 extern void trdswitchown(int, void *, int);
 extern int do_look(int);
+extern void look_at_sect(struct sctstr *, int);
 extern int radar(int);
 extern void update_power(void);
 extern int show_first_tel(char *);

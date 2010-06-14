@@ -83,7 +83,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int overfly[MAXNOC];
     int flags;
     struct emp_qelem ilist[MAXNOC];
-    int civ, mil;
     natid plane_owner;
     struct sctstr sect;
     struct shpstr ship;
@@ -155,34 +154,10 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    } else if (flags & P_S) {
 		satdisp_sect(&sect, flags & P_I ? 10 : 50);
 	    } else {
-		/* This is borrowed from lookout */
-		if (sect.sct_own == player->cnum)
-		    pr("Your ");
-		else
-		    pr("%s (#%d) ",
-		       cname(sect.sct_own), sect.sct_own);
-		pr("%s", dchr[sect.sct_type].d_name);
+		look_at_sect(&sect, 25);
 		changed += map_set(player->cnum,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
-		pr(" %d%% efficient ",
-		   (sect.sct_own == player->cnum) ?
-		   sect.sct_effic : roundintby((int)sect.sct_effic, 25));
-		civ = sect.sct_item[I_CIVIL];
-		mil = sect.sct_item[I_MILIT];
-		if (civ)
-		    pr("with %s%d civ ",
-		       (sect.sct_own == player->cnum) ?
-		       "" : "approx ",
-		       (sect.sct_own == player->cnum) ?
-		       civ : roundintby(civ, 25));
-		if (mil)
-		    pr("with %s%d mil ",
-		       (sect.sct_own == player->cnum) ?
-		       "" : "approx ",
-		       (sect.sct_own == player->cnum) ?
-		       mil : roundintby(mil, 25));
-		pr("@ %s\n", xyas(x, y, player->cnum));
 	    }
 	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);

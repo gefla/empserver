@@ -62,8 +62,6 @@ do_look(int type)
     union empobj_storage unit;
     struct sctstr sect;
     int x, y;
-    int civ;
-    int mil;
     unsigned char *bitmap;
     int changed = 0;
 
@@ -103,26 +101,9 @@ do_look(int type)
 	    getsect(x, y, &sect);
 	    if (sect.sct_type == SCT_WATER)
 		continue;
-	    if (sect.sct_own == player->cnum)
-		pr("Your ");
-	    else
-		pr("%s (#%d) ", cname(sect.sct_own), sect.sct_own);
-	    pr("%s", dchr[sect.sct_type].d_name);
+	    look_at_sect(&sect, 10);
 	    changed += map_set(player->cnum, x, y,
 			       dchr[sect.sct_type].d_mnem, 0);
-	    pr(" %d%% efficient ", player->owner ? sect.sct_effic :
-	       roundintby((int)sect.sct_effic, 10));
-	    civ = sect.sct_item[I_CIVIL];
-	    mil = sect.sct_item[I_MILIT];
-	    if (civ)
-		pr("with %s%d civ ",
-		   player->owner ? "" : "approx ",
-		   player->owner ? civ : roundintby(civ, 10));
-	    if (mil)
-		pr("with %s%d mil ",
-		   player->owner ? "" : "approx ",
-		   player->owner ? mil : roundintby(mil, 10));
-	    pr("@ %s\n", xyas(x, y, player->cnum));
 	    if (opt_HIDDEN) {
 		setcont(player->cnum, sect.sct_own, FOUND_LOOK);
 	    }
@@ -132,6 +113,31 @@ do_look(int type)
 	writemap(player->cnum);
     free(bitmap);
     return RET_OK;
+}
+
+void look_at_sect(struct sctstr *sp, int mult)
+{
+    int civ, mil;
+    int ours = player->god || sp->sct_own == player->cnum;
+
+    if (sp->sct_own == player->cnum)
+	pr("Your ");
+    else
+	pr("%s (#%d) ", cname(sp->sct_own), sp->sct_own);
+    pr("%s", dchr[sp->sct_type].d_name);
+    pr(" %d%% efficient ",
+       ours ? sp->sct_effic : roundintby(sp->sct_effic, mult));
+    civ = sp->sct_item[I_CIVIL];
+    mil = sp->sct_item[I_MILIT];
+    if (civ)
+	pr("with %s%d civ ",
+	   ours ? "" : "approx ",
+	   ours ? civ : roundintby(civ, mult));
+    if (mil)
+	pr("with %s%d mil ",
+	   ours ? "" : "approx ",
+	   ours ? mil : roundintby(mil, mult));
+    pr("@ %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
 }
 
 static void
