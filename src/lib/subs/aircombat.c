@@ -226,7 +226,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     }
     /* If the map changed, update it */
     if (changed)
-	writemap(player->cnum);
+	writemap(plane_owner);
 
     free_shiplist(&head);
     for (cn = 1; cn < MAXNOC; cn++)
