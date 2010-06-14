@@ -272,8 +272,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		continue;
 	    add_shiplist(targ->shp_uid, head);
 	    if (!found) {
-		mpr(pp->pln_own,
-		    "\nSonar contact in %s\n", xyas(x, y, pp->pln_own));
+		pr("\nSonar contact in %s\n", xyas(x, y, player->cnum));
 		found = 1;
 	    }
 	    if (getrel(getnatp(targ->shp_own), pp->pln_own) < FRIENDLY &&
@@ -281,16 +280,14 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 					    EF_SHIP))
 		if (roll(100) > pln_identchance(pp, shp_hardtarget(targ),
 						EF_SHIP))
-		    mpr(pp->pln_own, "sub #%d %s\n", targ->shp_uid,
-			xyas(targ->shp_x, targ->shp_y, pp->pln_own));
+		    pr("sub #%d %s\n", targ->shp_uid,
+		       xyas(targ->shp_x, targ->shp_y, player->cnum));
 		else
-		    mpr(pp->pln_own, "%s %s\n",
-			prship(targ),
-			xyas(targ->shp_x, targ->shp_y, pp->pln_own));
+		    pr("%s %s\n", prship(targ),
+		       xyas(targ->shp_x, targ->shp_y, player->cnum));
 	    else
-		mpr(pp->pln_own, "%s %s @ %s\n",
-		    cname(targ->shp_own), prship(targ),
-		    xyas(targ->shp_x, targ->shp_y, pp->pln_own));
+		pr("%s %s @ %s\n", cname(targ->shp_own), prship(targ),
+		   xyas(targ->shp_x, targ->shp_y, player->cnum));
 	}
     }
 }

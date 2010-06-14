@@ -104,17 +104,20 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     memset(overfly, 0, sizeof(overfly));
     getilists(ilist, rel, plane_owner);
 
+    if (CANT_HAPPEN(mission_flags && plane_owner != player->cnum))
+	mission_flags = 0;
+
     if (mission_flags & PM_R) {
 	flags = pln_caps(bomb_list);
 	if (flags & P_S) {
-	    PR(plane_owner, "\nSPY Plane report\n");
-	    PRdate(plane_owner);
+	    pr("\nSPY Plane report\n");
+	    prdate();
 	    sathead();
 	} else if (flags & P_A) {
-	    PR(plane_owner, "\nAnti-Sub Patrol report\n");
+	    pr("\nAnti-Sub Patrol report\n");
 	} else {
-	    PR(plane_owner, "\nReconnaissance report\n");
-	    PRdate(plane_owner);
+	    pr("\nReconnaissance report\n");
+	    prdate();
 	}
     }
 
@@ -138,61 +141,61 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	if (mission_flags & PM_R) {
 	    flags = pln_caps(bomb_list);
 	    if (opt_HIDDEN)
-		setcont(plane_owner, sect.sct_own, FOUND_FLY);
+		setcont(player->cnum, sect.sct_own, FOUND_FLY);
 	    if (sect.sct_type == SCT_WATER) {
-		PR(plane_owner, "flying over %s at %s\n",
-		   dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
+		pr("flying over %s at %s\n",
+		   dchr[sect.sct_type].d_name, xyas(x, y, player->cnum));
 		if (mission_flags & PM_S)
 		    plane_sweep(bomb_list, x, y);
 		if (flags & P_A)
 		    plane_sona(bomb_list, x, y, &head);
-		changed += map_set(plane_owner,
+		changed += map_set(player->cnum,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
 	    } else if (flags & P_S) {
 		satdisp_sect(&sect, flags & P_I ? 10 : 50);
 	    } else {
 		/* This is borrowed from lookout */
-		if (sect.sct_own == plane_owner)
-		    PR(plane_owner, "Your ");
+		if (sect.sct_own == player->cnum)
+		    pr("Your ");
 		else
-		    PR(plane_owner, "%s (#%d) ",
+		    pr("%s (#%d) ",
 		       cname(sect.sct_own), sect.sct_own);
-		PR(plane_owner, "%s", dchr[sect.sct_type].d_name);
-		changed += map_set(plane_owner,
+		pr("%s", dchr[sect.sct_type].d_name);
+		changed += map_set(player->cnum,
 				   sect.sct_x, sect.sct_y,
 				   dchr[sect.sct_type].d_mnem, 0);
-		PR(plane_owner, " %d%% efficient ",
-		   (sect.sct_own == plane_owner) ?
+		pr(" %d%% efficient ",
+		   (sect.sct_own == player->cnum) ?
 		   sect.sct_effic : roundintby((int)sect.sct_effic, 25));
 		civ = sect.sct_item[I_CIVIL];
 		mil = sect.sct_item[I_MILIT];
 		if (civ)
-		    PR(plane_owner, "with %s%d civ ",
-		       (sect.sct_own == plane_owner) ?
+		    pr("with %s%d civ ",
+		       (sect.sct_own == player->cnum) ?
 		       "" : "approx ",
-		       (sect.sct_own == plane_owner) ?
+		       (sect.sct_own == player->cnum) ?
 		       civ : roundintby(civ, 25));
 		if (mil)
-		    PR(plane_owner, "with %s%d mil ",
-		       (sect.sct_own == plane_owner) ?
+		    pr("with %s%d mil ",
+		       (sect.sct_own == player->cnum) ?
 		       "" : "approx ",
-		       (sect.sct_own == plane_owner) ?
+		       (sect.sct_own == player->cnum) ?
 		       mil : roundintby(mil, 25));
-		PR(plane_owner, "@ %s\n", xyas(x, y, plane_owner));
+		pr("@ %s\n", xyas(x, y, player->cnum));
 	    }
 	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);
 	    else {
 		for (cn = 1; cn < MAXNOC; cn++) {
-		    if (cn == plane_owner)
+		    if (cn == player->cnum)
 			continue;
 		    if (gotships[cn])
-			PR(plane_owner, "Flying over %s ships in %s\n",
-			   cname(cn), xyas(x, y, plane_owner));
+			pr("Flying over %s ships in %s\n",
+			   cname(cn), xyas(x, y, player->cnum));
 		    if (gotlands[cn])
-			PR(plane_owner, "Flying over %s land units in %s\n",
-			   cname(cn), xyas(x, y, plane_owner));
+			pr("Flying over %s land units in %s\n",
+			   cname(cn), xyas(x, y, player->cnum));
 		}
 	    }
 	} else {
