@@ -121,6 +121,8 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    if (flags & P_S) {
 		if (sect.sct_own && sect.sct_own != player->cnum) {
 		    satdisp_sect(&sect, (flags & P_I) ? 5 : 50);
+		    changed += map_set(player->cnum, sect.sct_x, sect.sct_y,
+				       dchr[sect.sct_type].d_mnem, 0);
 		    ++count;
 		    if (opt_HIDDEN)
 			setcont(player->cnum, sect.sct_own, FOUND_FLY);
@@ -272,8 +274,6 @@ satdisp_sect(struct sctstr *sp, int acc)
        roundintby(sp->sct_item[I_IRON], acc),
        roundintby(sp->sct_item[I_PETROL], acc),
        roundintby(sp->sct_item[I_FOOD], acc));
-    map_set(player->cnum, sp->sct_x, sp->sct_y, dchr[sp->sct_type].d_mnem,
-	    0);
 }
 
 void

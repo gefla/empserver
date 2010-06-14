@@ -148,17 +148,12 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		    plane_sweep(bomb_list, x, y);
 		if (flags & P_A)
 		    plane_sona(bomb_list, x, y, &head);
-		changed += map_set(player->cnum,
-				   sect.sct_x, sect.sct_y,
-				   dchr[sect.sct_type].d_mnem, 0);
-	    } else if (flags & P_S) {
+	    } else if (flags & P_S)
 		satdisp_sect(&sect, flags & P_I ? 10 : 50);
-	    } else {
+	    else
 		look_at_sect(&sect, 25);
-		changed += map_set(player->cnum,
-				   sect.sct_x, sect.sct_y,
-				   dchr[sect.sct_type].d_mnem, 0);
-	    }
+	    changed += map_set(player->cnum, sect.sct_x, sect.sct_y,
+			       dchr[sect.sct_type].d_mnem, 0);
 	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);
 	    else {
