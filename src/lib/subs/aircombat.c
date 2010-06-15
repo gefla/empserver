@@ -62,8 +62,7 @@ static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 static void ac_combat_headers(natid, natid);
 static void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 static void ac_dog(struct plist *, struct plist *);
-static void ac_planedamage(struct plist *, natid, int, natid, int,
-			   int, char *);
+static void ac_planedamage(struct plist *, natid, int, int, char *);
 static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
@@ -503,9 +502,9 @@ ac_dog(struct plist *ap, struct plist *dp)
 
     PR(att_own, "%3d/%-3d", adam, ddam);
     PR(def_own, "%3d/%-3d", ddam, adam);
-    ac_planedamage(ap, def_own, adam, def_own, 1, 0, mesg);
+    ac_planedamage(ap, def_own, adam, 0, mesg);
     strncpy(temp, mesg, 14);
-    ac_planedamage(dp, att_own, ddam, att_own, 1, 0, mesg);
+    ac_planedamage(dp, att_own, ddam, 0, mesg);
     PR(att_own, "%-13.13s %-13.13s\n", temp, mesg);
     PR(def_own, "%-13.13s %-13.13s\n", mesg, temp);
 
@@ -528,18 +527,16 @@ ac_dog(struct plist *ap, struct plist *dp)
  * call.  (this has caused bugs in the past)
  */
 static void
-ac_planedamage(struct plist *plp, natid from, int dam, natid other,
-	       int checkabort, int show, char *mesg)
+ac_planedamage(struct plist *plp, natid from, int dam,
+	       int show, char *mesg)
 {
     struct plnstr *pp;
     int disp;
     char dmess[255];
     int eff;
-    natid plane_owner;
 
     disp = 0;
     pp = &plp->plane;
-    plane_owner = pp->pln_own;
     eff = pp->pln_effic;
     sprintf(dmess, " no damage");
     if (dam <= 0) {
@@ -553,7 +550,7 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
     if (eff < PLANE_MINEFF) {
 	sprintf(dmess, " shot down");
 	disp = 1;
-    } else if (eff < 80 && chance((80 - eff) / 100.0) && checkabort) {
+    } else if (eff < 80 && chance((80 - eff) / 100.0)) {
 	sprintf(dmess, " aborted @%2d%%", eff);
 	disp = 2;
     } else if (show == 0) {
@@ -562,17 +559,9 @@ ac_planedamage(struct plist *plp, natid from, int dam, natid other,
 
     if ((plp->pcp->pl_flags & P_M) == 0) {
 	if (show) {
-	    PR(plane_owner, "    %s %s takes %d%s.\n",
+	    PR(pp->pln_own, "    %s %s takes %d%s.\n",
 	       cname(pp->pln_own), prplane(pp), dam, dmess);
-	    if (other)
-		PR(other, "    %s %s takes %d%s.\n",
-		   cname(pp->pln_own), prplane(pp), dam, dmess);
 	}
-    }
-    if (show && checkabort == 1) {
-	PR(plane_owner, "\n");
-	if (other)
-	    PR(other, "\n");
     }
 
     pp->pln_effic = eff;
@@ -724,7 +713,7 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
 	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
-	ac_planedamage(plp, from, n, 0, 2, 1, msg);
+	ac_planedamage(plp, from, n, 1, msg);
     }
 }
 
