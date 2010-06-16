@@ -525,8 +525,8 @@ ac_dog(struct plist *ap, struct plist *dp)
  * call.  (this has caused bugs in the past)
  */
 static void
-ac_planedamage(struct plist *plp, natid from, int dam,
-	       int show, char *mesg)
+ac_planedamage(struct plist *plp, natid from, int dam, int flak,
+	       char *mesg)
 {
     struct plnstr *pp;
     int disp;
@@ -549,7 +549,7 @@ ac_planedamage(struct plist *plp, natid from, int dam,
     } else if (eff < 80 && chance((80 - eff) / 100.0)) {
 	snprintf(mesg, 14, " aborted @%2d%%", eff);
 	disp = 2;
-    } else if (show == 0)
+    } else if (!flak)
 	snprintf(mesg, 14, " cleared");
 
     pp->pln_effic = eff;
