@@ -552,13 +552,6 @@ ac_planedamage(struct plist *plp, natid from, int dam,
     } else if (show == 0)
 	snprintf(mesg, 14, " cleared");
 
-    if ((plp->pcp->pl_flags & P_M) == 0) {
-	if (show) {
-	    PR(pp->pln_own, "    %s %s takes %d%s.\n",
-	       cname(pp->pln_own), prplane(pp), dam, mesg);
-	}
-    }
-
     pp->pln_effic = eff;
     pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
     if (disp) {
@@ -708,6 +701,8 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
 	plp = (struct plist *)qp;
 	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
 	ac_planedamage(plp, from, n, 1, msg);
+	PR(plp->plane.pln_own, "    %s %s takes %d%s.\n",
+	   cname(plp->plane.pln_own), prplane(&plp->plane), n, msg);
     }
 }
 
