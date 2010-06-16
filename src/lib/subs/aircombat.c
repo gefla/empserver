@@ -515,9 +515,6 @@ ac_dog(struct plist *ap, struct plist *dp)
 /*
  * zap plane associated with plp.
  * Damaging country is "from", damage is "dam".
- * def_own is the country on the other side of the conflict from the plane
- * owner. The only time def_own != from is when the interceptor is getting
- * damaged.
  *
  * NOTE: This routine removes the appropriate plane element from the
  * queue if it gets destroyed.  That means that the caller must assume
@@ -529,20 +526,20 @@ ac_planedamage(struct plist *plp, natid from, int dam, int flak,
 	       char *mesg)
 {
     struct plnstr *pp;
-    int disp;
-    int eff;
+    int eff, disp;
 
-    disp = 0;
-    pp = &plp->plane;
-    eff = pp->pln_effic;
     *mesg = 0;
     if (dam <= 0) {
 	snprintf(mesg, 14, " no damage");
 	return;
     }
-    eff -= dam;
+
+    pp = &plp->plane;
+    eff = pp->pln_effic - dam;
     if (eff < 0)
 	eff = 0;
+
+    disp = 0;
     if (eff < PLANE_MINEFF) {
 	snprintf(mesg, 14, " shot down");
 	disp = 1;
