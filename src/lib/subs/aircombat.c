@@ -532,35 +532,32 @@ ac_planedamage(struct plist *plp, natid from, int dam,
 {
     struct plnstr *pp;
     int disp;
-    char dmess[255];
     int eff;
 
     disp = 0;
     pp = &plp->plane;
     eff = pp->pln_effic;
-    sprintf(dmess, " no damage");
+    *mesg = 0;
     if (dam <= 0) {
-	strcpy(mesg, dmess);
+	sprintf(mesg, " no damage");
 	return;
     }
-    memset(dmess, 0, sizeof(dmess));
     eff -= dam;
     if (eff < 0)
 	eff = 0;
     if (eff < PLANE_MINEFF) {
-	sprintf(dmess, " shot down");
+	sprintf(mesg, " shot down");
 	disp = 1;
     } else if (eff < 80 && chance((80 - eff) / 100.0)) {
-	sprintf(dmess, " aborted @%2d%%", eff);
+	sprintf(mesg, " aborted @%2d%%", eff);
 	disp = 2;
-    } else if (show == 0) {
-	sprintf(dmess, " cleared");
-    }
+    } else if (show == 0)
+	sprintf(mesg, " cleared");
 
     if ((plp->pcp->pl_flags & P_M) == 0) {
 	if (show) {
 	    PR(pp->pln_own, "    %s %s takes %d%s.\n",
-	       cname(pp->pln_own), prplane(pp), dam, dmess);
+	       cname(pp->pln_own), prplane(pp), dam, mesg);
 	}
     }
 
@@ -572,7 +569,6 @@ ac_planedamage(struct plist *plp, natid from, int dam,
 	pln_put1(plp);
     } else
 	putplane(pp->pln_uid, pp);
-    strcpy(mesg, dmess);
 }
 
 static void
