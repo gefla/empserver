@@ -438,8 +438,7 @@ ac_dog(struct plist *ap, struct plist *dp)
     int intensity;
     natid att_own, def_own;
     int adam, ddam;
-    char mesg[1024];
-    char temp[14];
+    char adam_mesg[14], ddam_mesg[14];
 
     att_own = ap->plane.pln_own;
     def_own = dp->plane.pln_own;
@@ -502,11 +501,10 @@ ac_dog(struct plist *ap, struct plist *dp)
 
     PR(att_own, "%3d/%-3d", adam, ddam);
     PR(def_own, "%3d/%-3d", ddam, adam);
-    ac_planedamage(ap, def_own, adam, 0, mesg);
-    strncpy(temp, mesg, 14);
-    ac_planedamage(dp, att_own, ddam, 0, mesg);
-    PR(att_own, "%-13.13s %-13.13s\n", temp, mesg);
-    PR(def_own, "%-13.13s %-13.13s\n", mesg, temp);
+    ac_planedamage(ap, def_own, adam, 0, adam_mesg);
+    ac_planedamage(dp, att_own, ddam, 0, ddam_mesg);
+    PR(att_own, "%-13.13s %-13.13s\n", adam_mesg, ddam_mesg);
+    PR(def_own, "%-13.13s %-13.13s\n", ddam_mesg, adam_mesg);
 
     if (opt_HIDDEN) {
 	setcont(att_own, def_own, FOUND_FLY);
@@ -539,20 +537,20 @@ ac_planedamage(struct plist *plp, natid from, int dam,
     eff = pp->pln_effic;
     *mesg = 0;
     if (dam <= 0) {
-	sprintf(mesg, " no damage");
+	snprintf(mesg, 14, " no damage");
 	return;
     }
     eff -= dam;
     if (eff < 0)
 	eff = 0;
     if (eff < PLANE_MINEFF) {
-	sprintf(mesg, " shot down");
+	snprintf(mesg, 14, " shot down");
 	disp = 1;
     } else if (eff < 80 && chance((80 - eff) / 100.0)) {
-	sprintf(mesg, " aborted @%2d%%", eff);
+	snprintf(mesg, 14, " aborted @%2d%%", eff);
 	disp = 2;
     } else if (show == 0)
-	sprintf(mesg, " cleared");
+	snprintf(mesg, 14, " cleared");
 
     if ((plp->pcp->pl_flags & P_M) == 0) {
 	if (show) {
@@ -703,7 +701,7 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
     int n;
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    char msg[255];
+    char msg[14];
 
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
