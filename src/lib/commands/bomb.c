@@ -805,40 +805,16 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
 		    int flak)
 {
     int disp;
-    char dmess[255];
-    int eff;
-    natid plane_owner;
+    char dmess[14];
     int dam;
 
     dam = ac_flak_dam(flak, pln_def(pp), pcp->pl_flags);
-    disp = 0;
-    plane_owner = pp->pln_own;
-    eff = pp->pln_effic;
     if (dam <= 0)
 	return 0;
-    memset(dmess, 0, sizeof(dmess));
-    eff -= dam;
-    if (eff < 0)
-	eff = 0;
-    if (eff < PLANE_MINEFF) {
-	sprintf(dmess, " -- shot down");
-	disp = 1;
-    } else if (eff < 80 && chance((80 - eff) / 100.0)) {
-	sprintf(dmess, " -- aborted @%d%%", eff);
-	disp = 2;
-    }
-    PR(plane_owner, "    Flak! %s %s takes %d%s.\n",
-       cname(pp->pln_own), prplane(pp), dam, dmess);
+    disp = ac_damage_plane(pp, from, dam, 1, dmess);
+    PR(pp->pln_own, "    Flak! %s %s takes %d%s%s.\n",
+       cname(pp->pln_own), prplane(pp), dam, *dmess ? " --" : "", dmess);
 
-    pp->pln_effic = eff;
-    pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
-    if (disp == 1) {
-	if (from != 0)
-	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
-    }
     putplane(pp->pln_uid, pp);
-
-    if (disp > 0)
-	return 1;
-    return 0;
+    return disp > 0;
 }

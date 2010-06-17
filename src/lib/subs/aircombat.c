@@ -525,17 +525,27 @@ static void
 ac_planedamage(struct plist *plp, natid from, int dam, int flak,
 	       char *mesg)
 {
-    struct plnstr *pp;
+    int disp = ac_damage_plane(&plp->plane, from, dam, flak, mesg);
+
+    if (disp) {
+	pln_put1(plp);
+    } else
+	putplane(plp->plane.pln_uid, &plp->plane);
+}
+
+int
+ac_damage_plane(struct plnstr *pp, natid from, int dam, int flak,
+		char *mesg)
+{
     int eff, disp;
 
     *mesg = 0;
     if (dam <= 0) {
 	if (!flak)
 	    snprintf(mesg, 14, " no damage");
-	return;
+	return 0;
     }
 
-    pp = &plp->plane;
     eff = pp->pln_effic - dam;
     if (eff < 0)
 	eff = 0;
@@ -552,12 +562,10 @@ ac_planedamage(struct plist *plp, natid from, int dam, int flak,
 
     pp->pln_effic = eff;
     pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
-    if (disp) {
-	if (disp == 1 && from != 0 && (plp->pcp->pl_flags & P_M) == 0)
-	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
-	pln_put1(plp);
-    } else
-	putplane(pp->pln_uid, pp);
+
+    if (disp == 1 && from != 0 && !(plchr[pp->pln_type].pl_flags & P_M))
+	nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
+    return disp;
 }
 
 static void

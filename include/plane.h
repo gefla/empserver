@@ -165,6 +165,7 @@ extern int pln_next_on_unit(int);
 extern int ac_flak_dam(int, int, int);
 extern void ac_encounter(struct emp_qelem *, struct emp_qelem *, coord,
 			 coord, char *, int);
+extern int ac_damage_plane(struct plnstr *, natid, int, int, char *);
 
 /* src/lib/subs/aswplnsubs.c */
 extern int on_shiplist(int, struct shiplist *);
