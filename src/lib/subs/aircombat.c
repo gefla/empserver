@@ -530,7 +530,8 @@ ac_planedamage(struct plist *plp, natid from, int dam, int flak,
 
     *mesg = 0;
     if (dam <= 0) {
-	snprintf(mesg, 14, " no damage");
+	if (!flak)
+	    snprintf(mesg, 14, " no damage");
 	return;
     }
 
