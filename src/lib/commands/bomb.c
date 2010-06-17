@@ -823,14 +823,15 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     if (eff < PLANE_MINEFF) {
 	sprintf(dmess, " -- shot down");
 	disp = 1;
-    } else if (chance((100 - eff) / 100.0)) {
-	sprintf(dmess, " -- aborted with %d%% damage", 100 - eff);
+    } else if (eff < 80 && chance((80 - eff) / 100.0)) {
+	sprintf(dmess, " -- aborted @%d%%", eff);
 	disp = 2;
     }
     PR(plane_owner, "    Flak! %s %s takes %d%s.\n",
        cname(pp->pln_own), prplane(pp), dam, dmess);
 
     pp->pln_effic = eff;
+    pp->pln_mobil -= MIN(32 + pp->pln_mobil, dam / 2);
     if (disp == 1) {
 	if (from != 0)
 	    nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
