@@ -812,8 +812,8 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     if (dam <= 0)
 	return 0;
     disp = ac_damage_plane(pp, from, dam, 1, dmess);
-    PR(pp->pln_own, "    Flak! %s %s takes %d%s%s.\n",
-       cname(pp->pln_own), prplane(pp), dam, *dmess ? " --" : "", dmess);
+    PR(pp->pln_own, "    Flak! %s takes %d%s%s.\n",
+       prplane(pp), dam, *dmess ? " --" : "", dmess);
 
     putplane(pp->pln_uid, pp);
     return disp > 0;

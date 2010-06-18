@@ -707,8 +707,8 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
 	plp = (struct plist *)qp;
 	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
 	ac_planedamage(plp, from, n, 1, msg);
-	PR(plp->plane.pln_own, "    %s %s takes %d%s.\n",
-	   cname(plp->plane.pln_own), prplane(&plp->plane), n, msg);
+	PR(plp->plane.pln_own, "    %s takes %d%s%s.\n",
+	   prplane(&plp->plane), n, *msg ? " --" : "", msg);
     }
 }
 
