@@ -442,52 +442,6 @@ prxy(char *format, coord x, coord y)
 }
 
 /*
- * Print to country CN similar to printf().
- * Use printf-style FORMAT with the optional arguments.
- * Output is buffered until a newline arrives.
- * If CN is the current player and we're not in the update, print just
- * like pr().  Else print into a bulletin.
- * Because printing like pr() requires normal text, and bulletins
- * require user text, only plain ASCII is allowed.
- */
-void
-PR(int cn, char *format, ...)
-{
-    /* XXX should really do this on a per-nation basis */
-    static char longline[MAXNOC][512];
-    int newline;
-    va_list ap;
-    char buf[1024];
-
-    va_start(ap, format);
-    (void)vsprintf(buf, format, ap);
-    va_end(ap);
-    newline = strrchr(buf, '\n') ? 1 : 0;
-    strcat(longline[cn], buf);
-    if (newline) {
-	if (update_running || (cn && cn != player->cnum))
-	    typed_wu(0, cn, longline[cn], TEL_BULLETIN);
-	else
-	    pr_player(player, C_DATA, longline[cn]);
-	longline[cn][0] = '\0';
-    }
-}
-
-/*
- * Print the current time in ctime() format to country CN.
- * If CN is the current player and we're not in the update, print just
- * like prdate().  Else print into a bulletin.
- */
-void
-PRdate(natid cn)
-{
-    time_t now;
-
-    (void)time(&now);
-    PR(cn, ctime(&now));
-}
-
-/*
  * Sound the current player's bell.
  */
 void

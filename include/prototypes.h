@@ -573,8 +573,6 @@ extern int prmptrd(char *prompt, char *str, int size);
 extern int uprmptrd(char *prompt, char *str, int size);
 extern void prdate(void);
 extern void prxy(char *, coord, coord);
-extern void PR(int, char *, ...) ATTRIBUTE((format (printf, 2, 3)));
-extern void PRdate(natid cn);
 extern void pr_beep(void);
 extern void mpr(int, char *, ...) ATTRIBUTE((format (printf, 2, 3)));
 extern size_t copy_ascii_no_funny(char *, char *);
