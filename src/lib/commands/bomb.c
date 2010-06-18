@@ -510,8 +510,8 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	mcp = &mchr[(int)ship.shp_type];
 	if (gun > 0 && !(mcp->m_flags & M_SUB)) {
 	    flak = (int)(techfact(ship.shp_tech, gun) * 2.0);
-	    PR(ship.shp_own, "Flak! Firing %d guns from ship %s\n",
-	       flak, prship(&ship));
+	    mpr(ship.shp_own, "Flak! Firing %d guns from ship %s\n",
+		flak, prship(&ship));
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, ship.shp_own, flak))
 		continue;
 	}
@@ -718,9 +718,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (aaf) {
 	    flak = roundavg(techfact(land.lnd_tech,
 				     aaf * 3.0 * land.lnd_effic / 100.0));
-	    PR(land.lnd_own,
-	       "Flak! Firing flak guns from unit %s (aa rating %d)\n",
-	       prland(&land), aaf);
+	    mpr(land.lnd_own,
+		"Flak! Firing flak guns from unit %s (aa rating %d)\n",
+		prland(&land), aaf);
 	    if (pinflak_planedamage(&plp->plane, plp->pcp, land.lnd_own, flak))
 		continue;
 	}
@@ -812,8 +812,8 @@ pinflak_planedamage(struct plnstr *pp, struct plchrstr *pcp, natid from,
     if (dam <= 0)
 	return 0;
     disp = ac_damage_plane(pp, from, dam, 1, dmess);
-    PR(pp->pln_own, "    Flak! %s takes %d%s%s.\n",
-       prplane(pp), dam, *dmess ? " --" : "", dmess);
+    mpr(pp->pln_own, "    Flak! %s takes %d%s%s.\n",
+	prplane(pp), dam, *dmess ? " --" : "", dmess);
 
     putplane(pp->pln_uid, pp);
     return disp > 0;

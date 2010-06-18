@@ -168,8 +168,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		}
 	    }
 	} else {
-	    PR(plane_owner, "flying over %s at %s\n",
-	       dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
+	    mpr(plane_owner, "flying over %s at %s\n",
+		dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
 	    changed += map_set(plane_owner, sect.sct_x, sect.sct_y,
 			       dchr[sect.sct_type].d_mnem, 0);
 	}
@@ -182,8 +182,8 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 		    continue;
 		if (cn != sect.sct_own && !gotships[cn] && !gotlands[cn])
 		    continue;
-		PR(cn, "%s planes spotted over %s\n",
-		   cname(plane_owner), xyas(x, y, cn));
+		mpr(cn, "%s planes spotted over %s\n",
+		    cname(plane_owner), xyas(x, y, cn));
 		if (opt_HIDDEN)
 		    setcont(cn, plane_owner, FOUND_FLY);
 	    }
@@ -276,9 +276,9 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	    putplane(pp->pln_uid, pp);
 	    if (first) {
 		first = 0;
-		PR(plane_owner, "%s launches SAMs!\n", cname(def_own));
-		PR(def_own, "Launching SAMs at %s planes over %s!\n",
-		   cname(plane_owner), xyas(x, y, def_own));
+		mpr(plane_owner, "%s launches SAMs!\n", cname(def_own));
+		mpr(def_own, "Launching SAMs at %s planes over %s!\n",
+		    cname(plane_owner), xyas(x, y, def_own));
 		ac_combat_headers(plane_owner, def_own);
 	    }
 	    ac_dog(aplp, dplp);
@@ -287,8 +287,8 @@ sam_intercept(struct emp_qelem *att_list, struct emp_qelem *def_list,
 	}
     }
     if (!first) {
-	PR(plane_owner, "\n");
-	PR(def_own, "\n");
+	mpr(plane_owner, "\n");
+	mpr(def_own, "\n");
     }
 }
 
@@ -358,28 +358,28 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     }
     if (icount == 0)
 	return;
-    PR(plane_owner, "%d %s fighter%s rising to intercept!\n",
-       icount, cname(def_own), icount == 1 ? " is" : "s are");
-    PR(def_own, "%d fighter%s intercepting %s planes over %s!\n",
-       icount, icount == 1 ? " is" : "s are", cname(plane_owner),
-       xyas(x, y, def_own));
+    mpr(plane_owner, "%d %s fighter%s rising to intercept!\n",
+	icount, cname(def_own), icount == 1 ? " is" : "s are");
+    mpr(def_own, "%d fighter%s intercepting %s planes over %s!\n",
+	icount, icount == 1 ? " is" : "s are", cname(plane_owner),
+	xyas(x, y, def_own));
     ac_combat_headers(plane_owner, def_own);
     ac_airtoair(esc_list, &int_list);
     ac_airtoair(bomb_list, &int_list);
-    PR(plane_owner, "\n");
-    PR(def_own, "\n");
+    mpr(plane_owner, "\n");
+    mpr(def_own, "\n");
     pln_put(&int_list);
 }
 
 static void
 ac_combat_headers(natid plane_owner, natid def_own)
 {
-    PR(plane_owner,
-       " %-10.10s %-10.10s  strength int odds  damage           results\n",
-       cname(plane_owner), cname(def_own));
-    PR(def_own,
-       " %-10.10s %-10.10s  strength int odds  damage           results\n",
-       cname(def_own), cname(plane_owner));
+    mpr(plane_owner,
+	" %-10.10s %-10.10s  strength int odds  damage           results\n",
+	cname(plane_owner), cname(def_own));
+    mpr(def_own,
+	" %-10.10s %-10.10s  strength int odds  damage           results\n",
+	cname(def_own), cname(plane_owner));
 }
 
 /*
@@ -585,11 +585,10 @@ ac_doflak(struct emp_qelem *list, struct sctstr *from)
     gun = MIN(FLAK_GUN_MAX, from->sct_item[I_GUN]);
     gun = roundavg(tfact(from->sct_own, 2.0 * gun));
     if (gun > 0) {
-	PR(plane_owner, "firing %d flak guns in %s...\n",
-	   gun, xyas(from->sct_x, from->sct_y, plane_owner));
-	if (from->sct_own != 0)
-	    PR(from->sct_own, "firing %d flak guns in %s...\n",
-	       gun, xyas(from->sct_x, from->sct_y, from->sct_own));
+	mpr(plane_owner, "firing %d flak guns in %s...\n",
+	    gun, xyas(from->sct_x, from->sct_y, plane_owner));
+	mpr(from->sct_own, "firing %d flak guns in %s...\n",
+	    gun, xyas(from->sct_x, from->sct_y, from->sct_own));
 	ac_fireflak(list, from->sct_own, gun);
     }
 }
@@ -628,8 +627,8 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	ngun += flak;
 	total += techfact(ship.shp_tech, flak * 2.0);
 
-	PR(ship.shp_own, "firing %.0f flak guns from %s...\n",
-	   flak, prship(&ship));
+	mpr(ship.shp_own, "firing %.0f flak guns from %s...\n",
+	    flak, prship(&ship));
 	from = ship.shp_own;
     }
 
@@ -639,7 +638,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 
     gun = roundavg(total);
     if (gun > 0) {
-	PR(plane_owner, "Flak!  Ships firing %d flak guns...\n", gun);
+	mpr(plane_owner, "Flak!  Ships firing %d flak guns...\n", gun);
 	ac_fireflak(list, from, gun);
     }
 }
@@ -678,8 +677,8 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	ngun += flak;
 	total += techfact(land.lnd_tech, flak * 2.0);
 
-	PR(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
-	   prland(&land), aaf);
+	mpr(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
+	    prland(&land), aaf);
 	from = land.lnd_own;
     }
 
@@ -689,7 +688,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 
     gun = roundavg(total);
     if (gun > 0) {
-	PR(plane_owner, "Flak!  Land units firing %d flak guns...\n", gun);
+	mpr(plane_owner, "Flak!  Land units firing %d flak guns...\n", gun);
 	ac_fireflak(list, from, gun);
     }
 }
@@ -711,8 +710,8 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
 	plp = (struct plist *)qp;
 	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
 	ac_planedamage(plp, from, n, 1, msg);
-	PR(plp->plane.pln_own, "    %s takes %d%s%s.\n",
-	   prplane(&plp->plane), n, *msg ? " --" : "", msg);
+	mpr(plp->plane.pln_own, "    %s takes %d%s%s.\n",
+	    prplane(&plp->plane), n, *msg ? " --" : "", msg);
     }
 }
 
