@@ -431,11 +431,24 @@ ac_airtoair(struct emp_qelem *att_list, struct emp_qelem *int_list)
 }
 
 static void
+ac_dog_report(natid to, int intensity, double odds,
+	      struct plist *p1, int val1, int dam1, char *dam_mesg1,
+	      struct plist *p2, int val2, int dam2, char *dam_mesg2)
+{
+    mpr(to, " %3.3s #%-4d  %3.3s #%-4d   %3d/%-3d %3d  %3.2f  %3d/%-3d"
+	"%-13.13s %-13.13s\n",
+	p1->pcp->pl_name, p1->plane.pln_uid,
+	p2->pcp->pl_name, p2->plane.pln_uid,
+	val1, val2, intensity, odds, dam1, dam2,
+	dam_mesg1, dam_mesg2);
+}
+
+static void
 ac_dog(struct plist *ap, struct plist *dp)
 {
     int att, def;
     double odds;
-    int intensity;
+    int intensity, i;
     natid att_own, def_own;
     int adam, ddam;
     char adam_mesg[14], ddam_mesg[14];
@@ -443,13 +456,6 @@ ac_dog(struct plist *ap, struct plist *dp)
     att_own = ap->plane.pln_own;
     def_own = dp->plane.pln_own;
 
-    PR(att_own, " %3.3s #%-4d  %3.3s #%-4d",
-       ap->pcp->pl_name,
-       ap->plane.pln_uid, dp->pcp->pl_name, dp->plane.pln_uid);
-    if (def_own)
-	PR(def_own, " %3.3s #%-4d  %3.3s #%-4d",
-	   dp->pcp->pl_name,
-	   dp->plane.pln_uid, ap->pcp->pl_name, ap->plane.pln_uid);
     att = pln_att(&ap->plane);
     if (att == 0)
 	att = pln_def(&ap->plane);
@@ -478,33 +484,31 @@ ac_dog(struct plist *ap, struct plist *dp)
 	odds = 0.05;
     intensity = roll(20) + roll(20) + roll(20) + roll(20) + 1;
 
-    PR(att_own, "   %3d/%-3d %3d  %3.2f  ", att, def, intensity, odds);
-    PR(def_own, "   %3d/%-3d %3d  %3.2f  ", def, att, intensity, odds);
-
     adam = 0;
     ddam = 0;
-    while ((intensity--) > 0) {
-
+    for (i = 0; i < intensity; i++) {
 	if (chance(odds)) {
-	    ddam += 1;
-	    if ((dp->plane.pln_effic - ddam) < PLANE_MINEFF)
-		intensity = 0;
+	    ddam++;
+	    if (dp->plane.pln_effic - ddam < PLANE_MINEFF)
+		break;
 	} else {
-	    adam += 1;
-	    if ((ap->plane.pln_effic - adam) < PLANE_MINEFF)
-		intensity = 0;
+	    adam++;
+	    if (ap->plane.pln_effic - adam < PLANE_MINEFF)
+		break;
 	}
     }
 
     if (dp->pcp->pl_flags & P_M)
 	ddam = 100;
 
-    PR(att_own, "%3d/%-3d", adam, ddam);
-    PR(def_own, "%3d/%-3d", ddam, adam);
     ac_planedamage(ap, def_own, adam, 0, adam_mesg);
     ac_planedamage(dp, att_own, ddam, 0, ddam_mesg);
-    PR(att_own, "%-13.13s %-13.13s\n", adam_mesg, ddam_mesg);
-    PR(def_own, "%-13.13s %-13.13s\n", ddam_mesg, adam_mesg);
+    ac_dog_report(att_own, intensity, odds,
+		  ap, att, adam, adam_mesg,
+		  dp, def, ddam, ddam_mesg);
+    ac_dog_report(def_own, intensity, odds,
+		  dp, def, ddam, ddam_mesg,
+		  ap, att, adam, adam_mesg);
 
     if (opt_HIDDEN) {
 	setcont(att_own, def_own, FOUND_FLY);
