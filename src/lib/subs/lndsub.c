@@ -1196,7 +1196,7 @@ lnd_set_tech(struct lndstr *lp, int tlev)
     struct lchrstr *lcp = lchr + lp->lnd_type;
 
     if (CANT_HAPPEN(tlev < lcp->l_tech))
-	tlev = 0;
+	tlev = lcp->l_tech;
 
     lp->lnd_tech = tlev;
 }
