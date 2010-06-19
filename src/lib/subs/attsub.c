@@ -1390,13 +1390,6 @@ get_land(int combat_mode, struct combat *def, struct ulist *llp)
     return 1;
 }
 
-/*
- * Put the land unit on the disk.  If there was some mobility cost, then
- * subtract it from the units mobility.  Note that this works the same way
- * as sectors & ships in that no mobility is actually taken until the attacker
- * has committed to attacking.
- */
-
 static void
 kill_land(struct emp_qelem *list)
 {
@@ -1428,6 +1421,13 @@ att_infect_units(struct emp_qelem *list, int plague)
 	    llp->unit.land.lnd_pstage = PLG_EXPOSED;
     }
 }
+
+/*
+ * Put the land unit on the disk.  If there was some mobility cost, then
+ * subtract it from the units mobility.  Note that this works the same way
+ * as sectors & ships in that no mobility is actually taken until the attacker
+ * has committed to attacking.
+ */
 
 static void
 put_land(struct emp_qelem *list)
