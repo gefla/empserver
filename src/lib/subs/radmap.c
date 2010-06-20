@@ -55,12 +55,6 @@ radmap(int cx, int cy, int eff, int range, double seesub)
     radmap2(player->cnum, cx, cy, eff, range, seesub, 1);
 }
 
-void
-radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
-{
-    radmap2(own, cx, cy, eff, range, seesub, 0);
-}
-
 /* More dynamic world sized buffers.  We create 'em once, and then
  * never again.  No need to keep creating/tearing apart.  We may
  * want to do this in other places too where it doesn't matter. */
@@ -201,4 +195,36 @@ delty(struct range *r, coord y)
     if (y >= r->ly)
 	return y - r->ly;
     return y + WORLD_Y - r->ly;
+}
+
+/*
+ * Update OWNER's bmap for radar at CX,CY.
+ * EFF is the radar's efficiency, and RANGE its range at 100%
+ * efficiency.
+ */
+void
+rad_map_set(natid owner, int cx, int cy, int eff, int range)
+{
+    struct nstr_sect ns;
+    struct sctstr sect;
+    int changed = 0;
+    char ch;
+
+    range = (int)(range * (eff / 100.0));
+    if (range < 1)
+	range = 1;
+    snxtsct_dist(&ns, cx, cy, range);
+    while (nxtsct(&ns, &sect)) {
+	if (sect.sct_own == owner
+	    || sect.sct_type == SCT_WATER
+	    || sect.sct_type == SCT_MOUNT
+	    || sect.sct_type == SCT_WASTE
+	    || ns.curdist <= range / 3)
+	    ch = dchr[sect.sct_type].d_mnem;
+	else
+	    ch = '?';
+	changed += map_set(owner, ns.x, ns.y, ch, 0);
+    }
+    if (changed)
+	writemap(owner);
 }
