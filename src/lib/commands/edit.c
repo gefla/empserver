@@ -470,7 +470,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	if (newown) {
 	    wu(player->cnum, newown,
 	       "Sector %s gained from deity intervention\n",
-	       xyas(sect->sct_x, sect->sct_y, sect->sct_own));
+	       xyas(sect->sct_x, sect->sct_y, newown));
 	}
 	benefit(newown, 1);
 	break;
