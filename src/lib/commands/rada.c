@@ -74,10 +74,6 @@ radar(int type)
 	if (!snxtsct(&ns, cp))
 	    return RET_SYN;
 	tech = tfact(player->cnum, 8.0);
-	if (tech > WORLD_Y / 4.0)
-	    tech = WORLD_Y / 4.0;
-	if (tech > WORLD_X / 8.0)
-	    tech = WORLD_X / 8.0;
 	while (nxtsct(&ns, &item.sect)) {
 	    if (item.sect.sct_type != SCT_RADAR)
 		continue;
@@ -117,10 +113,6 @@ radar(int type)
 	    }
 
 	    pr("%s at ", obj_nameof(&item.gen));
-	    if (tech > WORLD_Y / 2.0)
-		tech = WORLD_Y / 2.0;
-	    if (tech > WORLD_X / 4.0)
-		tech = WORLD_X / 4.0;
 	    radmap(item.gen.x, item.gen.y, item.gen.effic, (int)tech, tf);
 	}
 	break;
