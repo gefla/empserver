@@ -48,6 +48,7 @@
 #include "xy.h"
 
 static int rad_range(int, double, int);
+static char rad_char(struct sctstr *, int, int, natid);
 
 /* More dynamic world sized buffers.  We create 'em once, and then
  * never again.  No need to keep creating/tearing apart.  We may
@@ -106,14 +107,8 @@ radmap(int cx, int cy, int eff, double tlev, int spy, double seesub)
     snxtsct_dist(&ns, cx, cy, range);
     blankfill(radbuf, &ns.range, 1);
     while (nxtsct(&ns, &sect)) {
-	if (sect.sct_own == player->cnum
-	    || sect.sct_type == SCT_WATER
-	    || sect.sct_type == SCT_MOUNT
-	    || sect.sct_type == SCT_WASTE
-	    || ns.curdist <= range / 3)
-	    rad[ns.dy][ns.dx] = dchr[sect.sct_type].d_mnem;
-	else
-	    rad[ns.dy][ns.dx] = '?';
+	rad[ns.dy][ns.dx] = rad_char(&sect, ns.curdist, range,
+				     player->cnum);
 	changed += map_set(player->cnum, ns.x, ns.y, rad[ns.dy][ns.dx], 0);
     }
     if (changed)
@@ -205,14 +200,7 @@ rad_map_set(natid owner, int cx, int cy, int eff, double tlev, int spy)
 
     snxtsct_dist(&ns, cx, cy, range);
     while (nxtsct(&ns, &sect)) {
-	if (sect.sct_own == owner
-	    || sect.sct_type == SCT_WATER
-	    || sect.sct_type == SCT_MOUNT
-	    || sect.sct_type == SCT_WASTE
-	    || ns.curdist <= range / 3)
-	    ch = dchr[sect.sct_type].d_mnem;
-	else
-	    ch = '?';
+	ch = rad_char(&sect, ns.curdist, range, owner);
 	changed += map_set(owner, ns.x, ns.y, ch, 0);
     }
     if (changed)
@@ -232,4 +220,21 @@ rad_range(int eff, double tlev, int spy)
     if (range < 1)
 	range = 1;
     return range;
+}
+
+/*
+ * Return character to use in radar maps for sector SP.
+ * DIST is the distance from the radar, RANGE its range.
+ * Country CN is using the radar.
+ */
+static char
+rad_char(struct sctstr *sp, int dist, int range, natid cn)
+{
+    if (sp->sct_own == cn
+	|| sp->sct_type == SCT_WATER
+	|| sp->sct_type == SCT_MOUNT
+	|| sp->sct_type == SCT_WASTE
+	|| dist <= range / 3)
+	return dchr[sp->sct_type].d_mnem;
+    return '?';
 }
