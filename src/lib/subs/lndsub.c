@@ -775,12 +775,9 @@ lnd_fort_interdiction(struct emp_qelem *list,
     struct nstr_sect ns;
     struct sctstr fsect;
     int trange, range;
-    double guneff;
-    int shell, gun;
     int dam;
     int stopping = 0;
     int totdam = 0;
-    int i;
 
     snxtsct_dist(&ns, newx, newy, fort_max_interdiction_range);
     while (nxtsct(&ns, &fsect)) {
