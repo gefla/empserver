@@ -1438,7 +1438,7 @@ att_infect_units(struct emp_qelem *list, int plague)
  */
 
 static void
-put_land(struct emp_qelem *list)
+put_oland(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
     struct ulist *llp;
@@ -2008,7 +2008,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     unit_put(dlist, 0);
 
     /* putland the attacking land */
-    put_land(olist);
+    put_oland(olist);
 
     /* put the victim sector/ship/land */
     if (!success || !take_def(combat_mode, olist, off, def))
