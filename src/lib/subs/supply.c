@@ -359,9 +359,11 @@ s_commod(struct empobj *sink, short *vec,
 	    putland(land.lnd_uid, &land);
 	    save.lnd_seqno = land.lnd_seqno;
 
-	    land.lnd_item[type] =
-		save.lnd_item[type] + s_commod(own, land.lnd_x, land.lnd_y,
-					       type, wanted, actually_doit);
+	    s_commod((struct empobj *)&land, land.lnd_item, type, wanted,
+		     lchr[land.lnd_type].l_item[type] - wanted,
+		     actually_doit);
+	    land.lnd_item[type] += save.lnd_item[type];
+
 	    if (actually_doit)
 		putland(land.lnd_uid, &land);
 	    else
